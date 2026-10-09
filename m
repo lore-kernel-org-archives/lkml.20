@@ -1,600 +1,194 @@
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazolkn19010007.outbound.protection.outlook.com [52.103.43.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CE6C344021
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 19:07:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791572875; cv=none; b=eCGhsQQDCWpej1ITP16tcYiC287R/7GBWAHXpTLUFlFiMVNYF7vlzPzKoIjwcxvHySYk432Q1loXI/K+g1CwCjE7kjEWhdNLicar0lGGJvfTjNUK+ckMMfNSNLhR25wlVJif8JDoy+TVDUJZ3aRp1PqWUqpKNz66UusVSYsTM74=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791572875; c=relaxed/simple;
-	bh=OZZ0uXY7w70rIzw6rjXwFH+HHlSGepNSdY6J4Kmc6Zk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=el9FEQ2RGHYwQlUl2NqZlS3ID1fPtpyRh9wxZ5EWkqWk6Q+d+qEwQqlldZVnQfPVQZXQuapHI+NQP2/MVbKmjUHL8BSxoBClt7IrhwqPeW+1WSqQ4L8/avFxz0o2WIDmqDrry50ppLcaNm3L7IYiAXmtlwR9fiLFBHonTVkgcCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PGx1aH+0; arc=none smtp.client-ip=74.125.82.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5747427C162;
+	Fri,  9 Oct 2026 19:08:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.43.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791572929; cv=fail; b=HmNXjzrffO+VXMcZrl8go1oBqXGaF01VKIUlH02W1VYLnqC4f+WukF3plQr8vA7rhfQzOoq5fNqsB/nkeVLaIWdh/NCT4mCzBCNweRdXt1a0d+tqDrfgwkN1iTK0YL5S1OnVsdP8nrhGWIw9NDuXXii9zchhdK2fGNdWcYJRkLg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791572929; c=relaxed/simple;
+	bh=oJbKsGIpvPgHxlSgm/2c3/8Uumc/WhzttxTunnaGkeg=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=IkBY/01o9xqkYfzUzOuRoN5jqUmmHQWHV3hGAJWaNR+/DcwAGBsq3QfKh9ybpaXy7hKQQqoKzr64B3gJL8pNtJVZEc10n7dyxDnneJzCJk54i1H4yUHf4G+stPMXF97fG1AHQYgvLnGAfEn0DQmK6ADJ8t/nz8C5XUupN9l/Jyk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=iuxAU7zq; arc=fail smtp.client-ip=52.103.43.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PGx1aH+0"
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-33fb4680717so34386eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 12:07:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791572872; x=1792177672; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lFPnL7OfTMUeQK3pRClGzPFCMP7OICjteJSXPNsOl40=;
-        b=PGx1aH+0KGmb+WsL7RzqApB91ScEevGd1VZ9T16WFE9xkotZmHXM3xzU4Y6Spc9iut
-         gl0LIhQcRqaknDr6ZoZDD+itQ4TM2/YmFWzrGRXxG5ZjlelvZPVYQCfld1geDN8ANtJ9
-         yFoOtj1NhRO3MRQqOfBS7SnpW4shbs9QOQa+9Cg0FpON5f0oyNRaY08wc0Hlpe7hISBH
-         wgD0KrbiLYl6DEY/nBhPGxyDeG0f1g++PzQnL2/8iu0Iqt4Ip8CN4Yodl6S0yi6owB4+
-         MGZflKdtbnUrEWDjYrq70PYm9xqzsCDUnLBhmwt8j7U1TyQzqa5A9W4caNPJIkIfhpX1
-         8D7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791572872; x=1792177672;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lFPnL7OfTMUeQK3pRClGzPFCMP7OICjteJSXPNsOl40=;
-        b=VSqkjzMid5ih8JUsVAgEwpKDeHlL71dxcp9ELgDCylyu18Ah83D9uHEAnyqgvFbjf8
-         xAvhfhVMIR9uaTNGveaZ0Lyc/jzfK9b8fchlUkNIEqXcNeFBDJCBO46ZZpDxDgjmCCKz
-         r+vcm038kW+yC/NftRRNW6CMNlm1G8+ir9lepxmZETswt7chPJWmX2eCTyqfayauvXER
-         oupW8FNuXUKio8+HCqdqJBB4Mx/2+/tB5jox1YQOxgVeulaZfFB/KiSWPg3bLaTLlapB
-         Vaj1XG3iibHwCjtsfdWkiGvNl/mz0X2URYiT1t79x8rsRJGZrbdZrhAkgGBuH3Mk09m2
-         sh0g==
-X-Forwarded-Encrypted: i=1; AKwUvBz9TNJDYcjHyjpbNs0sUZ0Uw/Y91H9SXae8jyQiaVeiOL2tk3zjei5ZUpCEwRqdq4+mwGEpcIMm1/+tQL8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIPMwc+gRpe2M2wPjqYJFRMHQWRUAeXxLn2gcoa5T0fQzeiLYzj
-	q+AdT0pvoXS+p1vrT3sNtuTEeKFAp5vmulXEDSr4U+9C7u7oTBR3I7Ah
-X-Gm-Gg: AYBFou0Xu+JvKJWoYna8+HHW/Ay3MSo/Sudi2Tz8Fa2LYFHgOgu7GiFLCwqCxa9KVk8
-	7w+lP0Os4Q2xmcmpHoJNUbGp8siLTOtxcP93SAPdmPnvOyYUm8uqoeV+FwmTPch60kioFh+E32B
-	tF+Si7ObiOACqgXPqTSs0+N4EF/rOxGVkp1DL/WqIoCJa+jdNWFwLX/Nd2E0RQzuRT/h/CFgdCl
-	fZs0JPSzE/9R00p86kYSAZS+nXxjXA3m/Nf/O33SbAodNQmS/7M5CP2I3z3M3KaYZLOxg95ooGw
-	HaKioJN/mzyNoQI6+m/JHEVgBz2HC3gU+UOMiOj4tpZWxUihKd0bJ6quD/6RlzV+k+2Kelv54E4
-	1EV/VdH33KQG7GI2Eo2X6f8sLaJ6HcoGHkH9R9kuR7QwD2xD9tQRxZkGUq22nJvOts51ocaEZPX
-	UU7+IoILhyaNBJ6WMZTX6K6e9hTP6ClI4UfwiOsUUUnds2O0HPYPOzn7JuH07bUHbFW0u1CfWtp
-	4oDOx2JAZ0OtreaaxJdEWJ5l/cO9rG0V/wUjVDINd3wycDbM9fMIXAl/CAcR2jHOXzNrFVY
-X-Received: by 2002:a05:7300:6ca1:b0:356:4c53:7928 with SMTP id 5a478bee46e88-3564c5379edmr2258323eec.35.1791572871720;
-        Fri, 09 Oct 2026 12:07:51 -0700 (PDT)
-Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:8725:99de:769c:1fe])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c61eaa0sm10191598eec.0.2026.10.09.12.07.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 12:07:50 -0700 (PDT)
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: linux-input@vger.kernel.org
-Cc: Ping Cheng <ping.cheng@wacom.com>,
-	Jason Gerecke <jason.gerecke@wacom.com>,
-	Peter Hutterer <peter.hutterer@who-t.net>,
-	linux-kernel@vger.kernel.org,
-	sashiko-bot@kernel.org
-Subject: [PATCH 1/3] Input: wacom_w8001 - fix teardown order and device lifetime
-Date: Fri,  9 Oct 2026 12:07:42 -0700
-Message-ID: <20261009190746.803607-1-dmitry.torokhov@gmail.com>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="iuxAU7zq"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vGh4l9pkrnFv20ssEwjE4+Q2wOiQvdleisC4Xg0pJfbedfDy9ZvTmYH4/FHmBvt5tefiAqTRvs7/oYYoe5N7NQRS6+zNy1MOauMieO1qy7am+p+nELfceWWW1VtBy2jYwQk/GxgfEVFGcaMYroTaK2FJdlK/T2VDoYlHFJpuuNijhSuddq6eFo3Dr7d9MYl5vpYEmimIrDsWcC540MN9Idmnbkyj0/YpG1TapvPkyi7mcuoXmskdJmjLtWP/dPS+7iYS+8R0Kqpy5KRTPkN949r6Q6ZmaH3A8+MyawLD66/rNCYxXkPTVfREk1ehT02kpoxwnWUngiHi9uXBVXS2NQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kdvwojrQS/VRbfFitEfuffPZySJSuUdRXsq0Bl5St6w=;
+ b=Y3qUolyxl+Askmc07topKBIX4s/PKJ3toql+OrVkpQfuHJjOTKFFFqITuXB38+cjr6kru/KbS9TTFcV3Qcj8bpJakWWDTwZ2xjWfKMuDCvBtfEH+7+4H438D1uG8CrhsNF11j+qUbedx4lbY0S4FfWpJ9bJse7Dy+n1WyWVaLcwpAQ22m/ZzsBRwOvxIS14U6n96xy83mD6p4egtJivRjiDcphz3T14OHm4clNEuoXvnTm5CE9j/YEgYV1NiV8w4BkKQYpRh5BxJYLenpbwsxyaHhQ6M/KSyLgsoze83a77RGmh9xJ4EYk8JWL6O6w2dNEtP6iRpDwLeuEOG+3Km3g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kdvwojrQS/VRbfFitEfuffPZySJSuUdRXsq0Bl5St6w=;
+ b=iuxAU7zq+gBjHVEEQhVpN1Yw57bFl5LTGFZoGH0NfOluhAjvpGOcsNJDgOcONtaXNNgB0EuVJSn7kv1R+qNXDJDtBANXmaBmgWB2H4twWl2bE5IL+q5MsgsNZjP2XRXlm9c5J5oFUhvcp5spbv0QMaEFdnc0L43bx5cfTf8QdlYFvjJLZUUzZsWugwFBcoNofhDZp8tbyAVtGD6UrvTV32gddnvo09r/pmPhjrW7e2aKKgW/6xQ88hjjbD+vr37VlhAZEND6MAYcEhHyACElHu5KgznWzOfQY5EKvgI1kgOd3iMp4Fttb75SbGixry3ibMjVY5F8ZUi3JHkLRJGsDw==
+Received: from TYWPR01MB10887.jpnprd01.prod.outlook.com
+ (2603:1096:400:2a9::12) by OS9PR01MB18080.jpnprd01.prod.outlook.com
+ (2603:1096:604:4ab::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Fri, 9 Oct
+ 2026 19:08:41 +0000
+Received: from TYWPR01MB10887.jpnprd01.prod.outlook.com
+ ([fe80::2b9:c4db:f079:a034]) by TYWPR01MB10887.jpnprd01.prod.outlook.com
+ ([fe80::2b9:c4db:f079:a034%7]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
+ 19:08:41 +0000
+Message-ID:
+ <TYWPR01MB10887E1A3744FD44000F89E8F98922@TYWPR01MB10887.jpnprd01.prod.outlook.com>
+Date: Sat, 10 Oct 2026 03:08:35 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/4] riscv: dts: spacemit: k3-com260-ifx: Add rfkill nodes
+To: Jennifer Berringer <jberring@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
+ James Morris <jmorris@namei.org>
+References: <20260928231807.1757995-1-jberring@redhat.com>
+ <20260928231807.1757995-5-jberring@redhat.com>
+Content-Language: en-US
+From: Shengyu Qu <wiagn233@outlook.com>
+In-Reply-To: <20260928231807.1757995-5-jberring@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SEWP216CA0154.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2be::7) To TYWPR01MB10887.jpnprd01.prod.outlook.com
+ (2603:1096:400:2a9::12)
+X-Microsoft-Original-Message-ID:
+ <bd1fd769-6102-4081-ad6f-fa05fb99d512@outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYWPR01MB10887:EE_|OS9PR01MB18080:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4ec6a55f-5b43-4c86-3e20-08df2638bae4
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|19110799012|4140399003|25010399006|8060799015|41001999006|24021099003|6090799003|23021999003|15080799012|5072599009|52005399003|40105399003|10035399007|2607281247196008|3412199025|440099028|26104999009;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?bW84MktkM0FVWFo1M0pjMExpRi8xVlRBOVVZZjdYVjM4cmdnVGNPczM1cmVk?=
+ =?utf-8?B?cGI5QVFmQ3k3K0xUL1NVdjN3VWxlUFd5NzBqM3pNeHp1SzhkOUMrSjNGU014?=
+ =?utf-8?B?b0N1Z2N1aGhKaHhHbmFFZmw2c0FqdWc1THJOM1ltc3lxeVZQWlZtOTRtUG1I?=
+ =?utf-8?B?L2p5NDNnVXo5aFd0UVdVOVMrQkY1ejVRaU5ZcHVCVm5FQTVnTWVORjdwS05l?=
+ =?utf-8?B?NS9HYzB2YXNiSVRFUEdXUGtjamttdVd4OXRveGY2akxtME1BMlRESE0xaXJB?=
+ =?utf-8?B?NlBtM2ExOERHYkwwNkRtZmh0czhITWRPY1NsRk15UnBCcGNvcnc5Szh6b214?=
+ =?utf-8?B?THIrM1Jua3ROYytVTXlTWFI5S2s3TkFQT0lhU3hFRGNXTkk2QzN6dnJOdVdk?=
+ =?utf-8?B?ZmM0Q1k1S1FrOXpkTmpnMmpjaGU4aU93VDdhRzdiQWk4aEs1WCtmMk55Z05k?=
+ =?utf-8?B?REJ4cnh4dEZib040US91TFFQUDhoMzhYb3RVL2lXRDFCdFBoWVAyUkEvaDBt?=
+ =?utf-8?B?M3NXMDE1Um1xM2pTZmVGMUtTdSs0N2sxWko4V0IvM09iZEhKR3ZEYjdxQWFp?=
+ =?utf-8?B?dGkyYWU3MlZqSVlmc2hkV2dveVhoZkRYNHVSZFUwcExLeDd5cWFRdllsd0xX?=
+ =?utf-8?B?ZDR4d1RteUIxZGxYdzE0dWFLU29HSStvRC9PTk5IVzVhLzJwV1dIN0tQWTRP?=
+ =?utf-8?B?OFVYa3pqTU5GRXRRRmRFeDZ2V2JacHAvRjduM0tkMnl2TktjSi9yOHVOdVNP?=
+ =?utf-8?B?K1hKb3pFWlBvOFhjbkowTHNVdE9CTUZSZkFtMWU1K2RmdEZoRlF5UXplajRo?=
+ =?utf-8?B?bG5mNWk2cWVndnZ4MUdVV0lCUTJMRkl2cUhwQ1VCbktaUldXU2o4RG5FL3ZP?=
+ =?utf-8?B?NW1lUUtHUzgwRUVYMmZUNmlQdEUyd0loTmpRMTR1c1V4YjlZZkhQd0Ivd1ZZ?=
+ =?utf-8?B?NUo2cXRZRGVOVVhtd2NJNWVhNWovOUFRbVpydy9wRm1GampFdmN3UCtQN2tu?=
+ =?utf-8?B?ajNYc2FpbUNxMVBIN0F2anQxRmJtYjlmVzNRVnc0aGR0WDJmb2tRalQ3Rkpn?=
+ =?utf-8?B?YVViM0Y2SGQ3Y3Z6YkZ0a1NDNVYrbzFjSGMvUjRpWDBvUkdRd1AzanliRTYw?=
+ =?utf-8?B?R21EZGZuZGlqNVlHOHE3ZnpQaHlxT0MyRVBncGFmUzc2eHFjck55cFk1NHlz?=
+ =?utf-8?B?R0JINENmYlRnczY1RVRqUHBQajZSSUZ3Q1dPRzlhNmlNOHZXaXo4aE9XSytY?=
+ =?utf-8?B?bXg4UHIwM0VacVR6bUp6SjlnNDJnbmFWYWw3M3FwNVFHZTZFS1RhU1pDdkZq?=
+ =?utf-8?Q?LzbmmREk2eqek=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RmZwSDZ2ek85TE9PYnFDSUtnalhldTEyUUYxK3Btd3ZwMURxR0xvVHNBWGtq?=
+ =?utf-8?B?SlNKNk5MVmRRWmE4VCtibG9rWjZIL3kvNXJDVXpacWVOeVRneFRzNzdQeDVM?=
+ =?utf-8?B?MTJ0MXZwbGFTbHZXdG9vdFhLcGRxNVUyUU4wS3ljTEhyMEZJVlYwQUY5b1Ry?=
+ =?utf-8?B?R2dVdWtMSXk1Y0ZYSEtWTVdGdjU5MnRocVpXVTJ3M1grVmNBc0JLTytIc29T?=
+ =?utf-8?B?SUVncmlwM29PdDZ1YjR2V1RlMTRzN09QMmdpemp4akR1bE1EL1JmSHNFY0lE?=
+ =?utf-8?B?eEF0c3ptKzRiVVkyV05FaXF2NStvejBzRExYbG9GNk9rQkg5NUJqU2VtYnVF?=
+ =?utf-8?B?TEI4WGF4WTgzd2R3Y1d0aHZ1S0NyVGk4d0pnWEpMTUZEeHlRMnUrL29PditF?=
+ =?utf-8?B?TWo1T0dnckwzdUkwZ3MwWitERm1XNEx6V3k0ZTJkRGh5OWdoeCtRWDhibENR?=
+ =?utf-8?B?bHpJdXpBeVNBM3NIS1FUaEVLT2hjamtjUVVrN0JCUS9pWU9KMmxoL1BKTjNJ?=
+ =?utf-8?B?SFlldnBkdzR3K0dWL2FLWmowRXp4bHRYZDRoL0l3WG5rZ2RGVll6RWlnS3gw?=
+ =?utf-8?B?RjFNYUNTNHhJbDhRUU03MlNuQ1B4Y1QrU091WGFlbU83UkRhdjFGQXFWL2RW?=
+ =?utf-8?B?N0FXWDVTZThpQnl5Z0VxSWxCU1JpVUEvVnloSERhU3FDdkhpUnUwNlVZdi9S?=
+ =?utf-8?B?WWMrWjdzMUl3MW5ZS083WTNSVFJRT3hCYkdqUmZvdUl1WTV4S1dBS09jSjk1?=
+ =?utf-8?B?MTBQUXo3N3J2eTZyeS9QVU1GanVqZ0pUM01vZXYwM21US282bGpaU3RDT29B?=
+ =?utf-8?B?TFRWKzlVYzUvYUpxbWVhMks1bmJCWUpzSUplMWdMMlBUVDFMdGtySmFsSDVh?=
+ =?utf-8?B?TGQ1bzFmQlMyZHJuTTRJMHR6SU5JUWIvSHB4ODJCWGdsdWYwQ3RwZVZlZzVY?=
+ =?utf-8?B?NDQxOG9iQmY2Z004MjNJRk9wbnNGcnA0M3d0SUxLb2dVRXdGOERzZkdnUGcw?=
+ =?utf-8?B?djlSelpkZDR1eWgwRWdSUmZNc2lBSDZJNndGTXYydGtsaUZySURQeHdRT0Zr?=
+ =?utf-8?B?TDFvcURmZUJib2dJaStrYWt2dlZ0Vnd0NDRFTDZzcWphUjlZeE4zTFBmcjEr?=
+ =?utf-8?B?UDBCYUF5QWRqSlhHUXBINDF0UU9WUmlIMGQ5d2xyM1B6TUxlQ3ovQWpEWWxa?=
+ =?utf-8?B?RVBwL2ZWZWVTR2hmZ1NOUHhlUDM4VVd0L0JLZVlLK1J6azdCc0taN0NIYzFI?=
+ =?utf-8?B?MU03cjZnQUxNa1hycjNvc0NLWG5iMzAyNTlTVS9VUUdoQzJZSStYd1dBaTdK?=
+ =?utf-8?B?My9NKzEzcUR3TUpJdWNFOTZlUmZraWJNQzRjeVpWaHJzSFc1Rm1YTVczQnZ4?=
+ =?utf-8?B?SlRzQk1QWElTdEpjeWozVFJJVXN1TjJsSjFiSmhvMVNNSDNwa0hUU01aaFZE?=
+ =?utf-8?B?VW1XaXBUckZTazZLNkc3eWVVdTh1YmhCb0pCQ25ZazMxazZZdWptaWRraXJG?=
+ =?utf-8?B?cEtMWW5uRXJPWnRTZ09IbS9nU0VsNW1kMDh2OTNaaDJaWkRpZjI1dk1NTFVB?=
+ =?utf-8?B?MldzVXllUXYrMmdYOFpxdFpUMWJkWnVLTDdsK1ZoWllWY1NKUjVxNStZbld3?=
+ =?utf-8?B?VmswQldsc3RrY1AyWkQrV2FvcGUwdEJ3RktEaUExZVRYUjh0QzZjKytJUkl0?=
+ =?utf-8?B?WmN1Ymd0Rjh5YUQxdURwUUpQMDBpbDVlRFhtTHRPb054OGxFdmhwTGQ5eWor?=
+ =?utf-8?B?czA1VlBOT3d3KzhUMndLTm1UNERoSld0eVA2cGhHMzA4cjVkeVdzOW04RkxD?=
+ =?utf-8?B?a2xBZEhWSDBXek5pUUlrcVZCNGovZldUY1FEMXFLbFV1VlJYbHBOL1VvM29j?=
+ =?utf-8?Q?4AbVUO+SGj8vs?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ec6a55f-5b43-4c86-3e20-08df2638bae4
+X-MS-Exchange-CrossTenant-AuthSource: TYWPR01MB10887.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 19:08:41.2159
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9PR01MB18080
 
-In w8001_disconnect(), serio_close() was called before unregistering
-the input devices. When input_unregister_device() calls w8001_close()
-to shut down the hardware, w8001_command() fails because the serio
-port is already closed, preventing W8001_CMD_STOP from reaching the
-controller.
+Hi,
 
-Additionally, w8001_connect() pre-allocated both pen_dev and touch_dev
-upfront before serio_open() so w8001_interrupt() could dereference
-them unconditionally, and then freed unused input devices mid-probe
-without synchronizing with w8001_interrupt() when pen or touch was
-absent. That created a race and use-after-free hazard with
-w8001_interrupt(), as well as a double-free on the fail4 error path.
+I don't think doing like this is correct.. We have a dedicated M.2 Ekey
+binding and should use that:
 
-Fix these issues by guarding event reporting in w8001_interrupt()
-against NULL device pointers, allocating and registering input devices
-on demand after querying capabilities, synchronizing device pointer
-publication and teardown with serio_pause_rx, and unregistering input
-devices before closing the serio port in both disconnect and probe
-error unwind paths.
+https://github.com/torvalds/linux/blob/master/Documentation/devicetree/bindings/connector/pcie-m2-e-connector.yaml
 
-Fixes: 66fd9385ee9c ("Input: wacom_w8001 - simplify w8001_remove")
-Fixes: e0361b70175f ("Input: wacom_w8001 - split the touch and pen devices into two devices")
-Reported-by: sashiko-bot@kernel.org
-Assisted-by: LLM
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
----
- drivers/input/touchscreen/wacom_w8001.c | 341 +++++++++++++-----------
- 1 file changed, 186 insertions(+), 155 deletions(-)
+Best regards,
+Shengyu
 
-diff --git a/drivers/input/touchscreen/wacom_w8001.c b/drivers/input/touchscreen/wacom_w8001.c
-index d8d1cdc3f09e..1c48e2775214 100644
---- a/drivers/input/touchscreen/wacom_w8001.c
-+++ b/drivers/input/touchscreen/wacom_w8001.c
-@@ -302,7 +302,8 @@ static irqreturn_t w8001_interrupt(struct serio *serio,
- 
- 		if (w8001->pktlen == w8001->idx) {
- 			w8001->idx = 0;
--			if (w8001->type != BTN_TOOL_PEN &&
-+			if (w8001->touch_dev &&
-+			    w8001->type != BTN_TOOL_PEN &&
- 			    w8001->type != BTN_TOOL_RUBBER) {
- 				parse_single_touch(w8001->data, &coord);
- 				report_single_touch(w8001, &coord);
-@@ -321,8 +322,10 @@ static irqreturn_t w8001_interrupt(struct serio *serio,
- 			break;
- 
- 		w8001->idx = 0;
--		parse_pen_data(w8001->data, &coord);
--		report_pen_events(w8001, &coord);
-+		if (w8001->pen_dev) {
-+			parse_pen_data(w8001->data, &coord);
-+			report_pen_events(w8001, &coord);
-+		}
- 		break;
- 
- 	/* control packet */
-@@ -340,7 +343,8 @@ static irqreturn_t w8001_interrupt(struct serio *serio,
- 	/* 2 finger touch packet */
- 	case W8001_PKTLEN_TOUCH2FG - 1:
- 		w8001->idx = 0;
--		parse_multi_touch(w8001);
-+		if (w8001->touch_dev)
-+			parse_multi_touch(w8001);
- 		break;
- 
- 	default:
-@@ -349,7 +353,9 @@ static irqreturn_t w8001_interrupt(struct serio *serio,
- 		 * sends invalid data packets that are larger than
- 		 * W8001_PKTLEN_TPCPEN. Let's start over again.
- 		 */
--		if (!w8001->touch_dev && w8001->idx > W8001_PKTLEN_TPCPEN - 1)
-+		if (!w8001->touch_dev &&
-+		    (w8001->data[0] & W8001_TAB_MASK) != W8001_TAB_BYTE &&
-+		    w8001->idx > W8001_PKTLEN_TPCPEN - 1)
- 			w8001->idx = 0;
- 	}
- 
-@@ -404,19 +410,6 @@ static void w8001_close(struct input_dev *dev)
- 		w8001_command(w8001, W8001_CMD_STOP, false);
- }
- 
--static int w8001_detect(struct w8001 *w8001)
--{
--	int error;
--
--	error = w8001_command(w8001, W8001_CMD_STOP, false);
--	if (error)
--		return error;
--
--	msleep(250);	/* wait 250ms before querying the device */
--
--	return 0;
--}
--
- static void w8001_append_suffix(char *dest, const char *suffix, size_t dest_sz)
- {
- 	size_t used = strnlen(dest, dest_sz);
-@@ -424,88 +417,54 @@ static void w8001_append_suffix(char *dest, const char *suffix, size_t dest_sz)
- 	strscpy(dest + used, suffix, dest_sz - used);
- }
- 
--static int w8001_setup_pen(struct w8001 *w8001, char *basename,
--			   size_t basename_sz)
-+static bool w8001_detect_pen(struct w8001 *w8001,
-+			     char *basename, size_t basename_sz,
-+			     struct w8001_coord *coord)
- {
--	struct input_dev *dev = w8001->pen_dev;
--	struct w8001_coord coord;
- 	int error;
- 
--	/* penabled? */
- 	error = w8001_command(w8001, W8001_CMD_QUERY, true);
- 	if (error)
--		return error;
--
--	__set_bit(EV_KEY, dev->evbit);
--	__set_bit(EV_ABS, dev->evbit);
--	__set_bit(BTN_TOUCH, dev->keybit);
--	__set_bit(BTN_TOOL_PEN, dev->keybit);
--	__set_bit(BTN_TOOL_RUBBER, dev->keybit);
--	__set_bit(BTN_STYLUS, dev->keybit);
--	__set_bit(BTN_STYLUS2, dev->keybit);
--	__set_bit(INPUT_PROP_DIRECT, dev->propbit);
--
--	parse_pen_data(w8001->response, &coord);
--	w8001->max_pen_x = coord.x;
--	w8001->max_pen_y = coord.y;
--
--	input_set_abs_params(dev, ABS_X, 0, coord.x, 0, 0);
--	input_set_abs_params(dev, ABS_Y, 0, coord.y, 0, 0);
--	input_abs_set_res(dev, ABS_X, W8001_PEN_RESOLUTION);
--	input_abs_set_res(dev, ABS_Y, W8001_PEN_RESOLUTION);
--	input_set_abs_params(dev, ABS_PRESSURE, 0, coord.pen_pressure, 0, 0);
--	if (coord.tilt_x && coord.tilt_y) {
--		input_set_abs_params(dev, ABS_TILT_X, 0, coord.tilt_x, 0, 0);
--		input_set_abs_params(dev, ABS_TILT_Y, 0, coord.tilt_y, 0, 0);
--	}
-+		return false;
- 
-+	parse_pen_data(w8001->response, coord);
-+	w8001->max_pen_x = coord->x;
-+	w8001->max_pen_y = coord->y;
- 	w8001->id = 0x90;
- 	w8001_append_suffix(basename, " Penabled", basename_sz);
- 
--	return 0;
-+	return true;
- }
- 
--static int w8001_setup_touch(struct w8001 *w8001, char *basename,
--			     size_t basename_sz)
-+static bool w8001_detect_touch(struct w8001 *w8001,
-+			       char *basename, size_t basename_sz,
-+			       struct w8001_touch_query *touch)
- {
--	struct input_dev *dev = w8001->touch_dev;
--	struct w8001_touch_query touch;
- 	int error;
- 
--
--	/* Touch enabled? */
- 	error = w8001_command(w8001, W8001_CMD_TOUCHQUERY, true);
- 	if (error)
--		return error;
-+		return false;
-+
- 	/*
- 	 * Some non-touch devices may reply to the touch query. But their
- 	 * second byte is empty, which indicates touch is not supported.
- 	 */
- 	if (!w8001->response[1])
--		return -ENXIO;
-+		return false;
- 
--	__set_bit(EV_KEY, dev->evbit);
--	__set_bit(EV_ABS, dev->evbit);
--	__set_bit(BTN_TOUCH, dev->keybit);
--	__set_bit(INPUT_PROP_DIRECT, dev->propbit);
--
--	parse_touchquery(w8001->response, &touch);
--	w8001->max_touch_x = touch.x;
--	w8001->max_touch_y = touch.y;
-+	parse_touchquery(w8001->response, touch);
-+	w8001->max_touch_x = touch->x;
-+	w8001->max_touch_y = touch->y;
- 
- 	if (w8001->max_pen_x && w8001->max_pen_y) {
- 		/* if pen is supported scale to pen maximum */
--		touch.x = w8001->max_pen_x;
--		touch.y = w8001->max_pen_y;
--		touch.panel_res = W8001_PEN_RESOLUTION;
-+		touch->x = w8001->max_pen_x;
-+		touch->y = w8001->max_pen_y;
-+		touch->panel_res = W8001_PEN_RESOLUTION;
- 	}
- 
--	input_set_abs_params(dev, ABS_X, 0, touch.x, 0, 0);
--	input_set_abs_params(dev, ABS_Y, 0, touch.y, 0, 0);
--	input_abs_set_res(dev, ABS_X, touch.panel_res);
--	input_abs_set_res(dev, ABS_Y, touch.panel_res);
--
--	switch (touch.sensor_id) {
-+	switch (touch->sensor_id) {
- 	case 0:
- 	case 2:
- 		w8001->pktlen = W8001_PKTLEN_TOUCH93;
-@@ -523,24 +482,6 @@ static int w8001_setup_touch(struct w8001 *w8001, char *basename,
- 
- 	case 5:
- 		w8001->pktlen = W8001_PKTLEN_TOUCH2FG;
--
--		__set_bit(BTN_TOOL_DOUBLETAP, dev->keybit);
--		error = input_mt_init_slots(dev, 2, 0);
--		if (error) {
--			dev_err(&w8001->serio->dev,
--				"failed to initialize MT slots: %d\n", error);
--			return error;
--		}
--
--		input_set_abs_params(dev, ABS_MT_POSITION_X,
--					0, touch.x, 0, 0);
--		input_set_abs_params(dev, ABS_MT_POSITION_Y,
--					0, touch.y, 0, 0);
--		input_set_abs_params(dev, ABS_MT_TOOL_TYPE,
--					0, MT_TOOL_MAX, 0, 0);
--		input_abs_set_res(dev, ABS_MT_POSITION_X, touch.panel_res);
--		input_abs_set_res(dev, ABS_MT_POSITION_Y, touch.panel_res);
--
- 		w8001_append_suffix(basename, " 2FG", basename_sz);
- 		if (w8001->max_pen_x && w8001->max_pen_y)
- 			w8001->id = 0xE3;
-@@ -550,13 +491,19 @@ static int w8001_setup_touch(struct w8001 *w8001, char *basename,
- 	}
- 
- 	w8001_append_suffix(basename, " Touchscreen", basename_sz);
--
--	return 0;
-+	return true;
- }
- 
--static void w8001_set_devdata(struct input_dev *dev, struct w8001 *w8001,
--			      struct serio *serio)
-+static struct input_dev *w8001_allocate_device(struct w8001 *w8001,
-+					       const char *name)
- {
-+	struct input_dev *dev;
-+
-+	dev = input_allocate_device();
-+	if (!dev)
-+		return NULL;
-+
-+	dev->name = name;
- 	dev->phys = w8001->phys;
- 	dev->id.bustype = BUS_RS232;
- 	dev->id.product = w8001->id;
-@@ -565,28 +512,139 @@ static void w8001_set_devdata(struct input_dev *dev, struct w8001 *w8001,
- 	dev->open = w8001_open;
- 	dev->close = w8001_close;
- 
--	dev->dev.parent = &serio->dev;
-+	dev->dev.parent = &w8001->serio->dev;
-+
-+	__set_bit(INPUT_PROP_DIRECT, dev->propbit);
-+	input_set_capability(dev, EV_KEY, BTN_TOUCH);
- 
- 	input_set_drvdata(dev, w8001);
-+
-+	return dev;
-+}
-+
-+static int w8001_setup_pen(struct w8001 *w8001, const char *basename,
-+			   const struct w8001_coord *coord)
-+{
-+	struct input_dev *dev;
-+	int error;
-+
-+	snprintf(w8001->pen_name, sizeof(w8001->pen_name), "%s Pen", basename);
-+
-+	dev = w8001_allocate_device(w8001, w8001->pen_name);
-+	if (!dev)
-+		return -ENOMEM;
-+
-+	__set_bit(BTN_TOOL_PEN, dev->keybit);
-+	__set_bit(BTN_TOOL_RUBBER, dev->keybit);
-+	__set_bit(BTN_STYLUS, dev->keybit);
-+	__set_bit(BTN_STYLUS2, dev->keybit);
-+
-+	input_set_abs_params(dev, ABS_X, 0, coord->x, 0, 0);
-+	input_set_abs_params(dev, ABS_Y, 0, coord->y, 0, 0);
-+	input_abs_set_res(dev, ABS_X, W8001_PEN_RESOLUTION);
-+	input_abs_set_res(dev, ABS_Y, W8001_PEN_RESOLUTION);
-+	input_set_abs_params(dev, ABS_PRESSURE, 0, coord->pen_pressure, 0, 0);
-+	if (coord->tilt_x && coord->tilt_y) {
-+		input_set_abs_params(dev, ABS_TILT_X, 0, coord->tilt_x, 0, 0);
-+		input_set_abs_params(dev, ABS_TILT_Y, 0, coord->tilt_y, 0, 0);
-+	}
-+
-+	scoped_guard(serio_pause_rx, w8001->serio)
-+		w8001->pen_dev = dev;
-+
-+	error = input_register_device(dev);
-+	if (error)
-+		goto err_unpublish_dev;
-+
-+	return 0;
-+
-+err_unpublish_dev:
-+	scoped_guard(serio_pause_rx, w8001->serio)
-+		w8001->pen_dev = NULL;
-+	input_free_device(dev);
-+	return error;
-+}
-+
-+static int w8001_setup_touch(struct w8001 *w8001, const char *basename,
-+			     const struct w8001_touch_query *touch)
-+{
-+	struct input_dev *dev;
-+	int error;
-+
-+	snprintf(w8001->touch_name, sizeof(w8001->touch_name), "%s Finger", basename);
-+
-+	dev = w8001_allocate_device(w8001, w8001->touch_name);
-+	if (!dev)
-+		return -ENOMEM;
-+
-+	input_set_abs_params(dev, ABS_X, 0, touch->x, 0, 0);
-+	input_set_abs_params(dev, ABS_Y, 0, touch->y, 0, 0);
-+	input_abs_set_res(dev, ABS_X, touch->panel_res);
-+	input_abs_set_res(dev, ABS_Y, touch->panel_res);
-+
-+	if (touch->sensor_id == 5) {
-+		__set_bit(BTN_TOOL_DOUBLETAP, dev->keybit);
-+		error = input_mt_init_slots(dev, 2, 0);
-+		if (error) {
-+			dev_err(&w8001->serio->dev,
-+				"failed to initialize MT slots: %d\n", error);
-+			goto err_free_dev;
-+		}
-+
-+		input_set_abs_params(dev, ABS_MT_POSITION_X, 0, touch->x, 0, 0);
-+		input_set_abs_params(dev, ABS_MT_POSITION_Y, 0, touch->y, 0, 0);
-+		input_set_abs_params(dev, ABS_MT_TOOL_TYPE, 0, MT_TOOL_MAX, 0, 0);
-+		input_abs_set_res(dev, ABS_MT_POSITION_X, touch->panel_res);
-+		input_abs_set_res(dev, ABS_MT_POSITION_Y, touch->panel_res);
-+	}
-+
-+	scoped_guard(serio_pause_rx, w8001->serio)
-+		w8001->touch_dev = dev;
-+
-+	error = input_register_device(dev);
-+	if (error)
-+		goto err_unpublish_dev;
-+
-+	return 0;
-+
-+err_unpublish_dev:
-+	scoped_guard(serio_pause_rx, w8001->serio)
-+		w8001->touch_dev = NULL;
-+err_free_dev:
-+	input_free_device(dev);
-+	return error;
- }
- 
- /*
-  * w8001_disconnect() is the opposite of w8001_connect()
-  */
- 
-+static void w8001_unregister_devices(struct w8001 *w8001)
-+{
-+	struct input_dev *pen_dev = NULL;
-+	struct input_dev *touch_dev = NULL;
-+
-+	scoped_guard(serio_pause_rx, w8001->serio) {
-+		swap(pen_dev, w8001->pen_dev);
-+		swap(touch_dev, w8001->touch_dev);
-+	}
-+
-+	if (pen_dev)
-+		input_unregister_device(pen_dev);
-+	if (touch_dev)
-+		input_unregister_device(touch_dev);
-+}
-+
- static void w8001_disconnect(struct serio *serio)
- {
- 	struct w8001 *w8001 = serio_get_drvdata(serio);
- 
-+	w8001_unregister_devices(w8001);
-+
- 	serio_close(serio);
-+	serio_set_drvdata(serio, NULL);
- 
--	if (w8001->pen_dev)
--		input_unregister_device(w8001->pen_dev);
--	if (w8001->touch_dev)
--		input_unregister_device(w8001->touch_dev);
- 	kfree(w8001);
--
--	serio_set_drvdata(serio, NULL);
- }
- 
- /*
-@@ -598,22 +656,17 @@ static void w8001_disconnect(struct serio *serio)
- static int w8001_connect(struct serio *serio, struct serio_driver *drv)
- {
- 	struct w8001 *w8001;
--	struct input_dev *input_dev_pen;
--	struct input_dev *input_dev_touch;
-+	struct w8001_coord coord;
-+	struct w8001_touch_query touch;
- 	char basename[64] = "Wacom Serial";
--	int err, err_pen, err_touch;
-+	bool has_pen, has_touch;
-+	int err;
- 
- 	w8001 = kzalloc_obj(*w8001);
--	input_dev_pen = input_allocate_device();
--	input_dev_touch = input_allocate_device();
--	if (!w8001 || !input_dev_pen || !input_dev_touch) {
--		err = -ENOMEM;
--		goto fail1;
--	}
-+	if (!w8001)
-+		return -ENOMEM;
- 
- 	w8001->serio = serio;
--	w8001->pen_dev = input_dev_pen;
--	w8001->touch_dev = input_dev_touch;
- 	mutex_init(&w8001->mutex);
- 	init_completion(&w8001->cmd_done);
- 	snprintf(w8001->phys, sizeof(w8001->phys), "%s/input0", serio->phys);
-@@ -621,66 +674,44 @@ static int w8001_connect(struct serio *serio, struct serio_driver *drv)
- 	serio_set_drvdata(serio, w8001);
- 	err = serio_open(serio, drv);
- 	if (err)
--		goto fail2;
-+		goto err_free_w8001;
- 
--	err = w8001_detect(w8001);
-+	err = w8001_command(w8001, W8001_CMD_STOP, false);
- 	if (err)
--		goto fail3;
-+		goto err_close_serio;
-+
-+	msleep(250);	/* wait 250ms before querying the device */
- 
--	/* For backwards-compatibility we compose the basename based on
-+	/*
-+	 * For backwards-compatibility we compose the basename based on
- 	 * capabilities and then just append the tool type
- 	 */
--	err_pen = w8001_setup_pen(w8001, basename, sizeof(basename));
--	err_touch = w8001_setup_touch(w8001, basename, sizeof(basename));
--	if (err_pen && err_touch) {
-+	has_pen = w8001_detect_pen(w8001, basename, sizeof(basename), &coord);
-+	has_touch = w8001_detect_touch(w8001, basename, sizeof(basename), &touch);
-+	if (!has_pen && !has_touch) {
- 		err = -ENXIO;
--		goto fail3;
-+		goto err_close_serio;
- 	}
- 
--	if (!err_pen) {
--		snprintf(w8001->pen_name, sizeof(w8001->pen_name),
--			 "%s Pen", basename);
--		input_dev_pen->name = w8001->pen_name;
--
--		w8001_set_devdata(input_dev_pen, w8001, serio);
--
--		err = input_register_device(w8001->pen_dev);
-+	if (has_pen) {
-+		err = w8001_setup_pen(w8001, basename, &coord);
- 		if (err)
--			goto fail3;
--	} else {
--		input_free_device(input_dev_pen);
--		input_dev_pen = NULL;
--		w8001->pen_dev = NULL;
-+			goto err_close_serio;
- 	}
- 
--	if (!err_touch) {
--		snprintf(w8001->touch_name, sizeof(w8001->touch_name),
--			 "%s Finger", basename);
--		input_dev_touch->name = w8001->touch_name;
--
--		w8001_set_devdata(input_dev_touch, w8001, serio);
--
--		err = input_register_device(w8001->touch_dev);
-+	if (has_touch) {
-+		err = w8001_setup_touch(w8001, basename, &touch);
- 		if (err)
--			goto fail4;
--	} else {
--		input_free_device(input_dev_touch);
--		input_dev_touch = NULL;
--		w8001->touch_dev = NULL;
-+			goto err_close_serio;
- 	}
- 
- 	return 0;
- 
--fail4:
--	if (w8001->pen_dev)
--		input_unregister_device(w8001->pen_dev);
--fail3:
-+err_close_serio:
-+	w8001_unregister_devices(w8001);
- 	serio_close(serio);
--fail2:
-+err_free_w8001:
- 	serio_set_drvdata(serio, NULL);
--fail1:
--	input_free_device(input_dev_pen);
--	input_free_device(input_dev_touch);
- 	kfree(w8001);
- 	return err;
- }
--- 
-2.56.0.385.gd3acb90ef8-goog
+在 2026/9/29 07:18, Jennifer Berringer 写道:
+> K3 CoM260 IFX has an M.2 E-key slot for wireless. Add rfkill nodes for
+> the GPIOs that control the slot's W_DISABLE1# and W_DISABLE2# pins for
+> WLAN and Bluetooth.
+> 
+> Signed-off-by: Jennifer Berringer <jberring@redhat.com>
+> ---
+>   arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts | 14 ++++++++++++++
+>   1 file changed, 14 insertions(+)
+> 
+> diff --git a/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts b/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
+> index 01e286cb05797..cd878340e5add 100644
+> --- a/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
+> @@ -47,6 +47,20 @@ reg_aux_vcc3v3: regulator-aux-vcc3v3 {
+>   		regulator-max-microvolt = <3300000>;
+>   		regulator-always-on;
+>   	};
+> +
+> +	rfkill-pcie-wlan {
+> +		compatible = "rfkill-gpio";
+> +		label = "rfkill-pcie-wlan";
+> +		radio-type = "wlan";
+> +		shutdown-gpios = <&gpio K3_GPIO(73) GPIO_ACTIVE_LOW>;
+> +	};
+> +
+> +	rfkill-usb-bt {
+> +		compatible = "rfkill-gpio";
+> +		label = "rfkill-usb-bt";
+> +		radio-type = "bluetooth";
+> +		shutdown-gpios = <&gpio K3_GPIO(57) GPIO_ACTIVE_LOW>;
+> +	};
+>   };
+>   
+>   &combophy {
 
