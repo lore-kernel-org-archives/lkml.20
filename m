@@ -1,46 +1,51 @@
-Received: from out28-173.mail.aliyun.com (out28-173.mail.aliyun.com [115.124.28.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-85.mta1.migadu.com [95.215.58.85])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE2F93F12E1;
-	Fri,  9 Oct 2026 12:28:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 838474DD3BD
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 12:28:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.85
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791548947; cv=none; b=H8mF55csy7XcniGbGp83X1BPi1qcJMNhIlg6kn8eL2W2VdeLcZPinq2tIDSsyagXyboMeALNkjsJX4WfLys6FC51CcD/i3SwEE8TCzw5hbWMH1laiv5VI7vWhHL+/UNmBsc0lGCcBSsnx6HOszoy3kVQuaSOKlQVbMmoLH2/ilU=
+	t=1791548947; cv=none; b=cI06DRlQahV86GmTqEqklSI0YTVuIvviBwSKrJCiR9vBYWmOrQOR3AvOW9hjfJBF2JTY0SAx08Oewdqt1m4YRwVTl3nGSTszozQFi6vWJ71lzUsPuB5HGf6Bpi7hLrhteZb1pRDpISn5//SpPvUXuJWh7nrW1vRE+dxUSAs5IBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791548947; c=relaxed/simple;
-	bh=Uiur4GwjGdMo23mLukEmApHRS5d62d9wlCgSy7EHmmA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Id+CwWG502Rm99FkL21nwB71jDKZoVTNVeDnv1HXcKh19R/KEsSUISxDWnsIRkHBnuVgFuAyICNSfWiOE6aZpgao8UkRuBWgnp28sacpmtaXcRgyLQ0IFbbrBPkE1gTHcZ8vZ+IB/VjqEhNClSikzsrrsPE9Gc5emOatCSriFuY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436326|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.0208765-0.00028719-0.978836;FP=13141431404878110224|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037026024;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=16;RT=16;SR=0;TI=SMTPD_---.jXj4a-L_1791548925;
-Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jXj4a-L_1791548925 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 09 Oct 2026 20:28:46 +0800
-From: Kyle Switch <kyle.switch@motor-comm.com>
-To: andrew@lunn.ch,
-	olteanv@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	mmyangfl@gmail.com,
-	horms@kernel.org,
-	linux@armlinux.org.uk,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: ming.xu@motor-comm.com,
-	xiaolin.xu@motor-comm.com,
-	jianmin.wang@motor-comm.com,
-	wei.zhang@gl-inet.com,
-	sijia.huang@gl-inet.com
-Subject: [PATCH net-next v12 4/5] net: dsa: tag_yt922x: add support for Motorcomm YT922x tags
-Date: Fri,  9 Oct 2026 20:28:35 +0800
-Message-Id: <20261009122836.1534400-5-kyle.switch@motor-comm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261009122836.1534400-1-kyle.switch@motor-comm.com>
-References: <20261009122836.1534400-1-kyle.switch@motor-comm.com>
+	bh=oxS5Qk2zyriecvsrMRot4UHBCMch8iWKDSa3Gg61o50=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Zbi70+kKsqTY4BAUoUxjxbYPKCFfnaVwYI3s6fZ0h/sbWnaVcjMV7vz9G7ksGOCxMWC1RCZgVbFCARaDJtpv/A5BaDlCCtF9JVCJqqHmobZDselEo4LcJ7xYGC9rqi2qebPVHfMaAzdHO5v8hQwimK/io6Pu0KgrJzHjk562Qwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gFilPHy+; arc=none smtp.client-ip=95.215.58.85
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gFilPHy+"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=oxS5Qk2zyriecvsrMRot4UHBCMch8iWKDSa3Gg61o50=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791548933; v=1; x=1792153733;
+ b=gFilPHy+rKCn51D4vwjOhM5REeyeU7US9WNCkN+cLhVFqiNz4SCiT6SxrueKORnoyWqok5Td
+ ipVfbJLWAwETUJ+V/coFe8glI6s1bhmX6oNjC1Ggo46pza3vish3bVirn170VhnKhv2qeA7GI14
+ 3rd8I7R+sFqs3Kse2m7W6cLs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c75c356ac7c28dac;
+	Fri, 09 Oct 2026 12:28:53 +0000
+X-Mizu-Trace-ID: c75c356ac7c28dac
+X-Migadu-Flow: FLOW_OUT
+From: Denis Benato <denis.benato@linux.dev>
+To: linux-kernel@vger.kernel.org
+Cc: linux-input@vger.kernel.org,
+	"Benjamin Tissoires" <bentiss@kernel.org>,
+	"Jiri Kosina" <jikos@kernel.org>,
+	"Luke D . Jones" <luke@ljones.dev>,
+	"Mateusz Schyboll" <dragonn@op.pl>,
+	"Denis Benato" <benato.denis96@gmail.com>,
+	Denis Benato <denis.benato@linux.dev>,
+	Khamunetri Clark <khamunetriclark@gmail.com>,
+	Jonathan LoBue <jlobue10@gmail.com>
+Subject: [PATCH v9 11/12] HID: asus: add support for turbo buttons
+Date: Fri,  9 Oct 2026 12:28:19 +0000
+Message-ID: <20261009122820.7603-12-denis.benato@linux.dev>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261009122820.7603-1-denis.benato@linux.dev>
+References: <20261009122820.7603-1-denis.benato@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,218 +54,543 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add DSA tag support for Motorcomm YT922x switches.  YT922x uses the
-same ETH_P_YT921X EtherType and the same 8-byte tag length as YT921x,
-but the tag layout differs, so a separate tag driver is needed instead
-of extending tag_yt921x.c.
+ROG ally devices supports a feature called turbo buttons that allows
+the user to quickly toggle button state by keeping a button pressed,
+therefore allow userspace to configure the feature by exposing
+relevant sysfs attributes.
 
-The new driver documents both the to-CPU and from-CPU tag layouts.
-
-Update the co-maintainer for the Motorcomm DSA driver.
-
-Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
+Assisted-by: opencode:glm-5.2
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Denis Benato <denis.benato@linux.dev>
+Signed-off-by: Khamunetri Clark <khamunetriclark@gmail.com>
+Signed-off-by: Luke Jones <luke@ljones.dev>
+Signed-off-by: Jonathan LoBue <jlobue10@gmail.com>
 ---
- MAINTAINERS          |   2 +
- include/net/dsa.h    |   2 +
- net/dsa/Kconfig      |   6 +++
- net/dsa/Makefile     |   1 +
- net/dsa/tag_yt922x.c | 122 +++++++++++++++++++++++++++++++++++++++++++
- 5 files changed, 133 insertions(+)
- create mode 100644 net/dsa/tag_yt922x.c
+ drivers/hid/hid-asus.c | 463 +++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 463 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 509b35b5a0e7..434cd217011b 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -18434,11 +18434,13 @@ F:	drivers/net/phy/motorcomm.c
+diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+index b38293505327..686c9a2a8ca7 100644
+--- a/drivers/hid/hid-asus.c
++++ b/drivers/hid/hid-asus.c
+@@ -191,6 +191,99 @@ struct ally_joystick_resp_curve {
+ 	struct ally_joystick_resp_curve_param entry_4;
+ } __packed;
  
- MOTORCOMM YT921X ETHERNET SWITCH DRIVER
- M:	David Yang <mmyangfl@gmail.com>
-+M:	Kyle Switch <kyle.switch@motor-comm.com>
- L:	netdev@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/net/dsa/motorcomm,yt921x.yaml
- F:	drivers/net/dsa/motorcomm/
- F:	net/dsa/tag_yt921x.c
-+F:	net/dsa/tag_yt922x.c
- 
- MOXA SMARTIO/INDUSTIO/INTELLIO SERIAL CARD
- M:	Jiri Slaby <jirislaby@kernel.org>
-diff --git a/include/net/dsa.h b/include/net/dsa.h
-index 5d12191b6f6f..5a173fe2bb87 100644
---- a/include/net/dsa.h
-+++ b/include/net/dsa.h
-@@ -62,6 +62,7 @@ struct tc_action;
- #define DSA_TAG_PROTO_KSZ8463_VALUE		34
- #define DSA_TAG_PROTO_MT7628_VALUE		35
- #define DSA_TAG_PROTO_KS8995_VALUE		36
-+#define DSA_TAG_PROTO_YT922X_VALUE		37
- 
- enum dsa_tag_protocol {
- 	DSA_TAG_PROTO_NONE		= DSA_TAG_PROTO_NONE_VALUE,
-@@ -101,6 +102,7 @@ enum dsa_tag_protocol {
- 	DSA_TAG_PROTO_KSZ8463		= DSA_TAG_PROTO_KSZ8463_VALUE,
- 	DSA_TAG_PROTO_MT7628		= DSA_TAG_PROTO_MT7628_VALUE,
- 	DSA_TAG_PROTO_KS8995		= DSA_TAG_PROTO_KS8995_VALUE,
-+	DSA_TAG_PROTO_YT922X		= DSA_TAG_PROTO_YT922X_VALUE,
- };
- 
- struct dsa_switch;
-diff --git a/net/dsa/Kconfig b/net/dsa/Kconfig
-index 4f44bf3ede23..06d8d6526054 100644
---- a/net/dsa/Kconfig
-+++ b/net/dsa/Kconfig
-@@ -233,4 +233,10 @@ config NET_DSA_TAG_YT921X
- 	  Say Y or M if you want to enable support for tagging frames for
- 	  Motorcomm YT921x switches.
- 
-+config NET_DSA_TAG_YT922X
-+	tristate "Tag driver for Motorcomm YT922x switches"
-+	help
-+	  Say Y or M if you want to enable support for tagging frames for
-+	  Motorcomm YT922x switches.
-+
- endif
-diff --git a/net/dsa/Makefile b/net/dsa/Makefile
-index 1f9cc30e9988..0ef6dfce3b92 100644
---- a/net/dsa/Makefile
-+++ b/net/dsa/Makefile
-@@ -45,6 +45,7 @@ obj-$(CONFIG_NET_DSA_TAG_TRAILER) += tag_trailer.o
- obj-$(CONFIG_NET_DSA_TAG_VSC73XX_8021Q) += tag_vsc73xx_8021q.o
- obj-$(CONFIG_NET_DSA_TAG_XRS700X) += tag_xrs700x.o
- obj-$(CONFIG_NET_DSA_TAG_YT921X) += tag_yt921x.o
-+obj-$(CONFIG_NET_DSA_TAG_YT922X) += tag_yt922x.o
- 
- # for tracing framework to find trace.h
- CFLAGS_trace.o := -I$(src)
-diff --git a/net/dsa/tag_yt922x.c b/net/dsa/tag_yt922x.c
-new file mode 100644
-index 000000000000..b6146a9af98b
---- /dev/null
-+++ b/net/dsa/tag_yt922x.c
-@@ -0,0 +1,122 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Motorcomm YT922x Switch Extended CPU Port Tagging
-+ *
-+ * Copyright (c) 2026 Kyle switch <kyle.switch@motor-comm.com>
-+ *
-+ */
-+
-+#include <linux/etherdevice.h>
-+
-+#include "tag.h"
-+
-+#define YT922X_TAG_LEN 8
-+
-+/*
-+ * To define the from cpu tag format 8 bytes.
-+ *
-+ * To-CPU (RX) tag format, 8 bytes:
-+ *
-+ *   tag[0]: TPID (default: 0x9988)
-+ *   tag[1]: VID lookup
-+ *   tag[2]: bit 5:2  - RX source port
-+ *
-+ * From-CPU (TX) tag format, 8 bytes:
-+ *
-+ *   tag[0]: TPID (default: 0x9988)
-+ *   tag[1]: bit 8:0 - Dst port mask
-+ *   tag[2]: bit 15  - Dst port 0
-+ *
-+ */
-+#define YT922X_TAG_NAME		"yt922x"
-+#define YT922X_TAG_PORTMASK_0	BIT(15)
-+#define YT922X_TAG_PORTMASK_M	GENMASK(8, 0)
-+#define  YT922X_TAG_PORTS(x)		FIELD_PREP(YT922X_TAG_PORTMASK_M, (x))
-+#define YT922X_TAG_FORCE_DST	BIT(9)
-+#define YT922X_TAG_PRIO_M	GENMASK(12, 10)
-+#define YT922X_TAG_PRIO_EN	BIT(13)
-+#define  YT922X_TAG_PRIO(x)	(FIELD_PREP(YT922X_TAG_PRIO_M, (x)) | YT922X_TAG_PRIO_EN)
-+#define YT922X_TAG_RX_PORT_M	GENMASK(5, 2)
-+
-+static struct sk_buff *
-+yt922x_tag_xmit(struct sk_buff *skb, struct net_device *netdev)
-+{
-+	unsigned long ports;
-+	__be16 *tag;
-+	u16 ctrl;
-+
-+	skb_push(skb, YT922X_TAG_LEN);
-+	dsa_alloc_etype_header(skb, YT922X_TAG_LEN);
-+	tag = dsa_etype_header_pos_tx(skb);
-+
-+	tag[0] = htons(ETH_P_YT921X);
-+	ports = dsa_xmit_port_mask(skb, netdev);
-+	/*To fill in the case where the port index is not 0 */
-+	ctrl = YT922X_TAG_PRIO(skb->priority) | YT922X_TAG_FORCE_DST |
-+	       YT922X_TAG_PORTS(ports >> 1);
-+	tag[1] = htons(ctrl);
-+	if (ports & BIT(0)) {
-+		/* To fill in the case where the port index is 0 */
-+		ctrl = YT922X_TAG_PORTMASK_0;
-+		tag[2] = htons(ctrl);
-+	} else {
-+		tag[2] = 0;
-+	}
-+	tag[3] = 0;
-+
-+	return skb;
-+}
-+
-+static struct sk_buff *
-+yt922x_tag_rcv(struct sk_buff *skb, struct net_device *netdev)
-+{
-+	unsigned int port;
-+	__be16 *tag;
-+	u16 rx;
-+
-+	if (unlikely(!pskb_may_pull(skb, YT922X_TAG_LEN))) {
-+		kfree_skb(skb);
-+		return NULL;
-+	}
-+
-+	tag = dsa_etype_header_pos_rx(skb);
-+
-+	if (unlikely(tag[0] != htons(ETH_P_YT921X))) {
-+		dev_warn_ratelimited(&netdev->dev,
-+				     "Unexpected EtherType 0x%04x\n",
-+				     ntohs(tag[0]));
-+		kfree_skb(skb);
-+		return NULL;
-+	}
-+
-+	/* Locate which port this is coming from */
-+	rx = ntohs(tag[2]);
-+	port = FIELD_GET(YT922X_TAG_RX_PORT_M, rx);
-+	skb->dev = dsa_conduit_find_user(netdev, 0, port);
-+	if (unlikely(!skb->dev)) {
-+		dev_warn_ratelimited(&netdev->dev,
-+				     "Couldn't decode source port %u\n", port);
-+		kfree_skb(skb);
-+		return NULL;
-+	}
-+
-+	/* Remove tag and update checksum */
-+	skb_pull_rcsum(skb, YT922X_TAG_LEN);
-+	dsa_strip_etype_header(skb, YT922X_TAG_LEN);
-+
-+	return skb;
-+}
-+
-+static const struct dsa_device_ops yt922x_netdev_ops = {
-+	.name = YT922X_TAG_NAME,
-+	.proto = DSA_TAG_PROTO_YT922X,
-+	.xmit = yt922x_tag_xmit,
-+	.rcv = yt922x_tag_rcv,
-+	.needed_headroom = YT922X_TAG_LEN,
++/* Button identifiers for the turbo attribute system */
++enum ally_button_id {
++	ALLY_BTN_A,
++	ALLY_BTN_B,
++	ALLY_BTN_X,
++	ALLY_BTN_Y,
++	ALLY_BTN_LB,
++	ALLY_BTN_RB,
++	ALLY_BTN_DU,
++	ALLY_BTN_DD,
++	ALLY_BTN_DL,
++	ALLY_BTN_DR,
++	ALLY_BTN_J0B,
++	ALLY_BTN_J1B,
++	ALLY_BTN_MENU,
++	ALLY_BTN_VIEW,
++	ALLY_BTN_M1,
++	ALLY_BTN_M2,
++	ALLY_BTN_MAX
 +};
 +
-+MODULE_DESCRIPTION("DSA tag driver for Motorcomm YT922x switches");
-+MODULE_LICENSE("GPL");
-+MODULE_ALIAS_DSA_TAG_DRIVER(DSA_TAG_PROTO_YT922X, YT922X_TAG_NAME);
++/* Names for the button directories in sysfs */
++static const char *const ally_button_names[ALLY_BTN_MAX] = {
++	[ALLY_BTN_A] = "btn_a",
++	[ALLY_BTN_B] = "btn_b",
++	[ALLY_BTN_X] = "btn_x",
++	[ALLY_BTN_Y] = "btn_y",
++	[ALLY_BTN_LB] = "btn_lb",
++	[ALLY_BTN_RB] = "btn_rb",
++	[ALLY_BTN_DU] = "dpad_up",
++	[ALLY_BTN_DD] = "dpad_down",
++	[ALLY_BTN_DL] = "dpad_left",
++	[ALLY_BTN_DR] = "dpad_right",
++	[ALLY_BTN_J0B] = "btn_l3",
++	[ALLY_BTN_J1B] = "btn_r3",
++	[ALLY_BTN_MENU] = "btn_menu",
++	[ALLY_BTN_VIEW] = "btn_view",
++	[ALLY_BTN_M1] = "btn_m1",
++	[ALLY_BTN_M2] = "btn_m2",
++};
 +
-+module_dsa_tag_driver(yt922x_netdev_ops);
++/*
++ * Button turbo parameters structure
++ * Each button can have:
++ * - turbo: Turbo press interval in multiples of 50ms (0 = disabled, 1-20 = 50ms-1000ms)
++ * - toggle: Toggle interval (0 = disabled)
++ */
++struct ally_btn_turbo_params {
++	u8 turbo;
++	u8 toggle;
++} __packed;
++
++#define ALLY_TURBO_PERIOD_MIN 0
++#define ALLY_TURBO_PERIOD_MAX 20
++#define ALLY_TOGGLE_PERIOD_MIN 0
++#define ALLY_TOGGLE_PERIOD_MAX 255
++
++/* Collection of all button turbo settings */
++struct ally_turbo_config {
++	struct ally_btn_turbo_params btn_du;
++	struct ally_btn_turbo_params btn_dd;
++	struct ally_btn_turbo_params btn_dl;
++	struct ally_btn_turbo_params btn_dr;
++	struct ally_btn_turbo_params btn_j0b;
++	struct ally_btn_turbo_params btn_j1b;
++	struct ally_btn_turbo_params btn_lb;
++	struct ally_btn_turbo_params btn_rb;
++	struct ally_btn_turbo_params btn_a;
++	struct ally_btn_turbo_params btn_b;
++	struct ally_btn_turbo_params btn_x;
++	struct ally_btn_turbo_params btn_y;
++	struct ally_btn_turbo_params btn_view;
++	struct ally_btn_turbo_params btn_menu;
++	struct ally_btn_turbo_params btn_m2;
++	struct ally_btn_turbo_params btn_m1;
++};
++
++struct ally_btn_sysfs_entry {
++	struct attribute_group group;
++	struct attribute *attrs[5]; /* turbo_period + toggle_period + ranges + NULL */
++	/*
++	 * The entries are created while hid_asus_ally_probe() is still running,
++	 * before asus_probe() publishes drvdata->rog_ally: carrying the shared
++	 * state pointer here avoids dereferencing that not-yet-assigned field.
++	 */
++	struct ally_handheld *ally;
++	struct ally_config *cfg;
++	struct hid_device *hdev;
++	enum ally_button_id btn;
++	struct device_attribute attr_turbo_period;
++	struct device_attribute attr_toggle_period;
++};
++
+ enum ally_gamepad_mode_index {
+ 	ALLY_GAMEPAD_MODE_GAMEPAD = 0x01,
+ 	ALLY_GAMEPAD_MODE_KEYBOARD = 0x02,
+@@ -229,6 +322,9 @@ struct ally_config {
+ 	u8 vibration_intensity_left;
+ 	u8 vibration_intensity_right;
+ 
++	struct ally_turbo_config turbo;
++	struct ally_btn_sysfs_entry *button_entries;
++
+ 	struct ally_joystick_resp_curve left_curve;
+ 	struct ally_joystick_resp_curve right_curve;
+ };
+@@ -2458,6 +2554,343 @@ static const struct attribute_group *const ally_cal_attr_groups[] = {
+ 	&ally_right_trigger_group,
+ };
+ 
++/**
++ * ally_set_turbo_params() - Set turbo parameters for all buttons
++ * @ally: ally handheld structure
++ * @hdev: HID device
++ * @cfg: ally config structure
++ *
++ * The payload mirrors the whole per-button turbo configuration, so the
++ * caller must hold cfg->config_mutex: building it locklessly could send a
++ * mix of parameters from concurrent sysfs writes to the hardware.
++ *
++ * Return: 0 on success, negative errno on failure
++ */
++static int ally_set_turbo_params(struct ally_handheld *ally,
++				 struct hid_device *hdev,
++				 struct ally_config *cfg)
++{
++	struct ally_turbo_config *turbo = &cfg->turbo;
++	const u8 payload[] = {
++		turbo->btn_du.turbo,
++		turbo->btn_du.toggle,
++		turbo->btn_dd.turbo,
++		turbo->btn_dd.toggle,
++		turbo->btn_dl.turbo,
++		turbo->btn_dl.toggle,
++		turbo->btn_dr.turbo,
++		turbo->btn_dr.toggle,
++		turbo->btn_j0b.turbo,
++		turbo->btn_j0b.toggle,
++		turbo->btn_j1b.turbo,
++		turbo->btn_j1b.toggle,
++		turbo->btn_lb.turbo,
++		turbo->btn_lb.toggle,
++		turbo->btn_rb.turbo,
++		turbo->btn_rb.toggle,
++		turbo->btn_a.turbo,
++		turbo->btn_a.toggle,
++		turbo->btn_b.turbo,
++		turbo->btn_b.toggle,
++		turbo->btn_x.turbo,
++		turbo->btn_x.toggle,
++		turbo->btn_y.turbo,
++		turbo->btn_y.toggle,
++		turbo->btn_view.turbo,
++		turbo->btn_view.toggle,
++		turbo->btn_menu.turbo,
++		turbo->btn_menu.toggle,
++		turbo->btn_m2.turbo,
++		turbo->btn_m2.toggle,
++		turbo->btn_m1.turbo,
++		turbo->btn_m1.toggle,
++	};
++	int ret;
++
++	u8 *buf __free(kfree) = ally_alloc_cmd(CMD_SET_TURBO_PARAMS, payload, sizeof(payload));
++	if (!buf)
++		return -ENOMEM;
++
++	ret = ally_gamepad_send_packet(ally, hdev, buf, ROG_ALLY_REPORT_SIZE);
++	if (ret < 0) {
++		hid_err(hdev, "Failed to set turbo parameters: %d\n", ret);
++		return ret;
++	}
++
++	return 0;
++}
++
++static struct ally_btn_turbo_params *ally_btn_get_turbo_params(struct ally_config *cfg,
++							       enum ally_button_id btn)
++{
++	switch (btn) {
++	case ALLY_BTN_DU: return &cfg->turbo.btn_du;
++	case ALLY_BTN_DD: return &cfg->turbo.btn_dd;
++	case ALLY_BTN_DL: return &cfg->turbo.btn_dl;
++	case ALLY_BTN_DR: return &cfg->turbo.btn_dr;
++	case ALLY_BTN_J0B: return &cfg->turbo.btn_j0b;
++	case ALLY_BTN_J1B: return &cfg->turbo.btn_j1b;
++	case ALLY_BTN_LB: return &cfg->turbo.btn_lb;
++	case ALLY_BTN_RB: return &cfg->turbo.btn_rb;
++	case ALLY_BTN_A: return &cfg->turbo.btn_a;
++	case ALLY_BTN_B: return &cfg->turbo.btn_b;
++	case ALLY_BTN_X: return &cfg->turbo.btn_x;
++	case ALLY_BTN_Y: return &cfg->turbo.btn_y;
++	case ALLY_BTN_VIEW: return &cfg->turbo.btn_view;
++	case ALLY_BTN_MENU: return &cfg->turbo.btn_menu;
++	case ALLY_BTN_M2: return &cfg->turbo.btn_m2;
++	case ALLY_BTN_M1: return &cfg->turbo.btn_m1;
++	default: return NULL;
++	}
++}
++
++static ssize_t btn_turbo_period_show(struct device *dev,
++				     struct device_attribute *attr, char *buf)
++{
++	struct ally_btn_sysfs_entry *entry = container_of(attr, struct ally_btn_sysfs_entry,
++							  attr_turbo_period);
++	struct ally_btn_turbo_params *params;
++
++	if (!entry->cfg->turbo_support)
++		return -EOPNOTSUPP;
++
++	params = ally_btn_get_turbo_params(entry->cfg, entry->btn);
++	if (!params)
++		return -ENODEV;
++
++	guard(mutex)(&entry->cfg->config_mutex);
++
++	return sysfs_emit(buf, "%hhu\n", params->turbo);
++}
++
++static ssize_t btn_turbo_period_store(struct device *dev, struct device_attribute *attr,
++				      const char *buf, size_t count)
++{
++	struct ally_btn_sysfs_entry *entry = container_of(attr, struct ally_btn_sysfs_entry,
++							  attr_turbo_period);
++	struct ally_btn_turbo_params *params;
++	u8 old_value, value;
++	int ret;
++
++	if (!entry->cfg->turbo_support)
++		return -EOPNOTSUPP;
++
++	params = ally_btn_get_turbo_params(entry->cfg, entry->btn);
++	if (!params)
++		return -ENODEV;
++
++	ret = kstrtou8(buf, 10, &value);
++	if (ret)
++		return ret;
++
++	if (value < ALLY_TURBO_PERIOD_MIN || value > ALLY_TURBO_PERIOD_MAX)
++		return -EINVAL;
++
++	guard(mutex)(&entry->cfg->config_mutex);
++
++	old_value = params->turbo;
++	params->turbo = value;
++	ret = ally_set_turbo_params(entry->ally, entry->hdev, entry->cfg);
++	if (ret) {
++		/*
++		 * The hardware rejected the update: restore the old
++		 * value or a later write to another button would
++		 * flush this stale one to the device.
++		 */
++		params->turbo = old_value;
++		return ret;
++	}
++
++		sysfs_notify(&entry->hdev->dev.kobj, entry->group.name, "turbo_period");
++
++	return count;
++}
++
++static ssize_t btn_toggle_period_show(struct device *dev,
++				      struct device_attribute *attr, char *buf)
++{
++	struct ally_btn_sysfs_entry *entry = container_of(attr, struct ally_btn_sysfs_entry,
++							  attr_toggle_period);
++	struct ally_btn_turbo_params *params;
++
++	if (!entry->cfg->turbo_support)
++		return -EOPNOTSUPP;
++
++	params = ally_btn_get_turbo_params(entry->cfg, entry->btn);
++	if (!params)
++		return -ENODEV;
++
++	guard(mutex)(&entry->cfg->config_mutex);
++
++	return sysfs_emit(buf, "%hhu\n", params->toggle);
++}
++
++static ssize_t btn_toggle_period_store(struct device *dev, struct device_attribute *attr,
++				       const char *buf, size_t count)
++{
++	struct ally_btn_sysfs_entry *entry = container_of(attr, struct ally_btn_sysfs_entry,
++							  attr_toggle_period);
++	struct ally_btn_turbo_params *params;
++	u8 old_value, value;
++	int ret;
++
++	if (!entry->cfg->turbo_support)
++		return -EOPNOTSUPP;
++
++	params = ally_btn_get_turbo_params(entry->cfg, entry->btn);
++	if (!params)
++		return -ENODEV;
++
++	ret = kstrtou8(buf, 10, &value);
++	if (ret)
++		return ret;
++
++	if (value < ALLY_TOGGLE_PERIOD_MIN || value > ALLY_TOGGLE_PERIOD_MAX)
++		return -EINVAL;
++
++	guard(mutex)(&entry->cfg->config_mutex);
++
++	old_value = params->toggle;
++	params->toggle = value;
++	ret = ally_set_turbo_params(entry->ally, entry->hdev, entry->cfg);
++	if (ret) {
++		/*
++		 * The hardware rejected the update: restore the old
++		 * value or a later write to another button would
++		 * flush this stale one to the device.
++		 */
++		params->toggle = old_value;
++		return ret;
++	}
++
++		sysfs_notify(&entry->hdev->dev.kobj, entry->group.name, "toggle_period");
++
++	return count;
++}
++
++static ssize_t btn_turbo_period_range_show(struct device *dev,
++					   struct device_attribute *attr, char *buf)
++{
++	return sysfs_emit(buf, "0 20\n");
++}
++
++static ssize_t btn_toggle_period_range_show(struct device *dev,
++					    struct device_attribute *attr, char *buf)
++{
++	return sysfs_emit(buf, "0 255\n");
++}
++
++static struct device_attribute dev_attr_btn_turbo_period_range =
++	__ATTR(turbo_period_range, 0444, btn_turbo_period_range_show, NULL);
++
++static struct device_attribute dev_attr_btn_toggle_period_range =
++	__ATTR(toggle_period_range, 0444, btn_toggle_period_range_show, NULL);
++
++static void ally_btn_turbo_init_attrs(struct ally_btn_sysfs_entry *entry)
++{
++	sysfs_attr_init(&entry->attr_turbo_period.attr);
++	entry->attr_turbo_period.attr.name = "turbo_period";
++	entry->attr_turbo_period.attr.mode = 0644;
++	entry->attr_turbo_period.show = btn_turbo_period_show;
++	entry->attr_turbo_period.store = btn_turbo_period_store;
++
++	sysfs_attr_init(&entry->attr_toggle_period.attr);
++	entry->attr_toggle_period.attr.name = "toggle_period";
++	entry->attr_toggle_period.attr.mode = 0644;
++	entry->attr_toggle_period.show = btn_toggle_period_show;
++	entry->attr_toggle_period.store = btn_toggle_period_store;
++	entry->attrs[0] = &entry->attr_turbo_period.attr;
++	entry->attrs[1] = &entry->attr_toggle_period.attr;
++	entry->attrs[2] = &dev_attr_btn_turbo_period_range.attr;
++	entry->attrs[3] = &dev_attr_btn_toggle_period_range.attr;
++	entry->attrs[4] = NULL;
++}
++
++/**
++ * ally_create_button_attributes() - Create turbo button attributes
++ * @hdev: HID device
++ * @ally: ally handheld structure
++ * @cfg: ally config structure
++ *
++ * Return: 0 on success, negative errno on failure
++ */
++static int ally_create_button_attributes(struct hid_device *hdev,
++					 struct ally_handheld *ally,
++					 struct ally_config *cfg)
++{
++	struct ally_btn_sysfs_entry *entries;
++	int i, ret;
++
++	if (!cfg->turbo_support)
++		return 0;
++
++	entries = kcalloc(ALLY_BTN_MAX, sizeof(*entries), GFP_KERNEL);
++	if (!entries)
++		return -ENOMEM;
++
++	cfg->button_entries = entries;
++
++	for (i = 0; i < ALLY_BTN_MAX; i++) {
++		entries[i].ally = ally;
++		entries[i].cfg = cfg;
++		entries[i].hdev = hdev;
++		entries[i].btn = i;
++
++		if (!ally_btn_get_turbo_params(cfg, i)) {
++			hid_err(hdev, "Invalid button id %d for turbo attributes\n", i);
++			ret = -EINVAL;
++			goto err_cleanup;
++		}
++
++		ally_btn_turbo_init_attrs(&entries[i]);
++
++		entries[i].group.name = ally_button_names[i];
++		entries[i].group.attrs = entries[i].attrs;
++
++		ret = sysfs_create_group(&hdev->dev.kobj, &entries[i].group);
++		if (ret < 0) {
++			hid_err(hdev, "Failed to create sysfs group for %s: %d\n",
++				ally_button_names[i], ret);
++			goto err_cleanup;
++		}
++	}
++
++	return 0;
++
++err_cleanup:
++	while (--i >= 0)
++		sysfs_remove_group(&hdev->dev.kobj, &entries[i].group);
++
++	kfree(entries);
++
++	cfg->button_entries = NULL;
++
++	return ret;
++}
++
++/**
++ * ally_remove_button_attributes() - Remove turbo button attributes
++ * @hdev: HID device
++ * @cfg: ally config structure
++ */
++static void ally_remove_button_attributes(struct hid_device *hdev, struct ally_config *cfg)
++{
++	struct ally_btn_sysfs_entry *entries;
++	int i;
++
++	if (!cfg || !cfg->button_entries)
++		return;
++
++	entries = cfg->button_entries;
++
++	for (i = 0; i < ALLY_BTN_MAX; i++)
++		sysfs_remove_group(&hdev->dev.kobj, &entries[i].group);
++
++	kfree(entries);
++
++	cfg->button_entries = NULL;
++}
++
+ /**
+  * ally_config_create() - Initialize configuration and create sysfs entries
+  * @hdev: HID device
+@@ -2469,6 +2902,7 @@ static struct ally_config *ally_config_create(struct hid_device *hdev, struct al
+ {
+ 	struct ally_config *cfg;
+ 	unsigned long flags;
++	int cal_created = 0;
+ 	int ret, sysfs_i;
+ 
+ 	/*
+@@ -2562,12 +2996,30 @@ static struct ally_config *ally_config_create(struct hid_device *hdev, struct al
+ 				goto ally_config_create_sysfs_err;
+ 			}
+ 		}
++
++		/* All the groups exist now: the error path must remove them. */
++		cal_created = ARRAY_SIZE(ally_cal_attr_groups);
++	}
++
++	if (cfg->turbo_support) {
++		ret = ally_create_button_attributes(hdev, ally, cfg);
++		if (ret < 0) {
++			hid_err(hdev, "Failed to create button attributes: %d\n", ret);
++			goto ally_config_create_sysfs_err;
++		}
+ 	}
+ 
+ 	cfg->initialized = true;
+ 
+ 	return cfg;
+ ally_config_create_sysfs_err:
++	if (cfg->button_entries)
++		ally_remove_button_attributes(hdev, cfg);
++
++	while (cal_created-- > 0)
++		sysfs_remove_group(&hdev->dev.kobj,
++				   ally_cal_attr_groups[cal_created]);
++
+ 	spin_lock_irqsave(&ally_data_lock, flags);
+ 	ally->config = NULL;
+ 	spin_unlock_irqrestore(&ally_data_lock, flags);
+@@ -2592,6 +3044,9 @@ static void ally_config_remove(struct hid_device *hdev, struct ally_config *cfg)
+ 	if (!cfg || !cfg->initialized)
+ 		return;
+ 
++	if (cfg->button_entries)
++		ally_remove_button_attributes(hdev, cfg);
++
+ 	for (i = 0; i < ARRAY_SIZE(ally_attr_groups); i++)
+ 		sysfs_remove_group(&hdev->dev.kobj, &ally_attr_groups[i]);
+ 
+@@ -3138,6 +3593,14 @@ static int hid_asus_ally_init(struct hid_device *hdev, struct ally_handheld *all
+ 				 ret);
+ 	}
+ 
++	if (cfg->turbo_support) {
++		ret = ally_set_turbo_params(ally, hdev, cfg);
++		if (ret < 0)
++			hid_warn(hdev,
++				 "Failed to restore turbo parameters: %d\n",
++				 ret);
++	}
++
+ 	return 0;
+ }
+ 
 -- 
-2.25.1
+2.47.3
 
