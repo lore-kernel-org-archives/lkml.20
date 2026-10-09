@@ -1,164 +1,168 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1A1A54E36E8;
-	Fri,  9 Oct 2026 13:45:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-m12737.qiye.163.com (mail-m12737.qiye.163.com [115.236.127.37])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 901334E4C2B;
+	Fri,  9 Oct 2026 13:45:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.127.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791553546; cv=none; b=kr2QqpSxGPFgGFqqS++/idfkrQHtne7w9KazcSI39FVhhyrh/55ysRuq4EHnJjxPlAVqS7jT+hKM0INT358in9wWNsZnkX/A/woBOaaabO9Fcn4noxPpm6zEpqX5yBLuH8+mZWKjcALV+wqv7ws9PH8jcsi1OpZ+tGvBuICdE5Y=
+	t=1791553560; cv=none; b=JUnER39F0XyOR+vZzdR0SUwBpInW3vzgWiYAZrbtzFs/ze7yOaVFRAa4HEeKmNZosw2KfuNhKUO7HjXxSwR3cnxT/p1gt1hbcJV9VyndgKcE4P/8oWvLyVVh52EOBOsQPA9phuSDc7c4fFQYBXLA2A6vsKXuyKAx7kcFtoHZ818=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791553546; c=relaxed/simple;
-	bh=DD1Dd6zQCZIL1Q8on/NlVlUe2Wldo3fQEOD4meT8UxM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=C64k2CDhnfBnaNPO9FqJilPKaUbyFRXZLVhuSbTIC1n54bLMpvC/W0PC2ygDi2k3Rb8pkagva7WhBGvgigPVtWjNcO+L24BKx+xG8rRA2XZ8rNRvpm9S7ggtunpIz2luNFvG8R7LX9ZfZACRkdZBHPR9y+2l3pBt7moVCpqRmeE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=gnLpuRok; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="gnLpuRok"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1DB151BB2;
-	Fri,  9 Oct 2026 06:45:40 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B52B03F882;
-	Fri,  9 Oct 2026 06:45:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791553543; bh=DD1Dd6zQCZIL1Q8on/NlVlUe2Wldo3fQEOD4meT8UxM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=gnLpuRokbn1clWc8EJwJHhsNy/Pb86hrST53B1KzKMlyIgxZehwb5uWYNwr3oOCJD
-	 dAr7z4W2wZj60KnLrUHoeEsllqOyaRk9qT9U6IS7jDoRB7iX4OANYSmO3jgIVspmBe
-	 UGog5Sc1MD57YnI2+FApvh7BCBCeCXf4k19knFp4=
-Message-ID: <e055558e-7142-4fb3-bf53-19c8c929e51f@arm.com>
-Date: Fri, 9 Oct 2026 14:45:39 +0100
+	s=arc-20240116; t=1791553560; c=relaxed/simple;
+	bh=ejix/GHT5Iy+bkG+fkhiG/LYt+lDYDbsduLb+mrvkek=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=sj/04SFlUJYyp2SfuXth2ULMwLsQfKjgWPesBQv01HQ5eDuNCDJTZjtKjGgTI9A/x36Ye5/NvIy+NaxYS1jIwJFCYfxNFSZ2V4+aD72ulBgkUwLW34W4zCnzWXakESBB56EytKdxpn73N6k3aFU87LuKQKf8lyCE85zEruEUFt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=115.236.127.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
+Received: from localhost.localdomain (unknown [218.94.118.90])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 1fe2901a1;
+	Fri, 9 Oct 2026 19:23:28 +0800 (GMT+08:00)
+From: Zhen Ni <zhen.ni@easystack.cn>
+To: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	akpm@linux-foundation.org,
+	vbabka@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	brendan.jackman@linux.dev,
+	hannes@cmpxchg.org,
+	ziy@nvidia.com,
+	shuah@kernel.org
+Cc: bpf@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zhen Ni <zhen.ni@easystack.cn>
+Subject: [PATCH 3/6] mm/page_owner: add open-coded page_owner iterator
+Date: Fri,  9 Oct 2026 19:23:05 +0800
+Message-Id: <20261009112308.240769-4-zhen.ni@easystack.cn>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20261009112308.240769-1-zhen.ni@easystack.cn>
+References: <20261009112308.240769-1-zhen.ni@easystack.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/2] iommu, drm/rockchip: Map private-domain imports
- from DMA addresses
-To: Karl Mehltretter <kmehltretter@gmail.com>, iommu@lists.linux.dev,
- dri-devel@lists.freedesktop.org
-Cc: Diederik de Haas <diederik@cknow-tech.com>, Joerg Roedel
- <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andyshrk@163.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Jason Gunthorpe <jgg@nvidia.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Jianfeng Liu <liujianfeng1994@gmail.com>, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261009002114.67851-1-kmehltretter@gmail.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20261009002114.67851-1-kmehltretter@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa12067610e0229kunmd33b3e054cb283
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSBhNVh4aSEtKHUIZTUtLHVYVFA
+	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
+	lPT09IVUpLS1VKQktLWQY+
 
-On 09/10/2026 1:21 am, Karl Mehltretter wrote:
-> Diederik reported failed video-buffer imports on RK3588 with
-> DMABUF_DEBUG. The proposed warn-only mode [1] confirmed CPU-side
-> attachment access in rockchip_gem_iommu_map() during Sway video resizing.
-> 
-> This RFC keeps Rockchip's private scanout domain. Patch 1 copies live
-> iommu-dma mappings into another domain. Patch 2 uses it for PRIME
-> imports. Unsupported inputs keep the old page-based path, which remains
-> unfixed under strict DMABUF_DEBUG.
-> 
-> Rob's MSM approach assumes direct DMA [2]. Rockchip's attachment instead
-> provides IOVAs from the VOP's default domain, which cannot be mapped
-> unchanged into the private domain. Each import retains both mappings
-> and adds one reverse lookup per 4 KiB.
-> 
-> Christian rejected reverse translation in the earlier MSM proposal [3].
-> Robin NAKed exporting iommu_get_dma_domain() [4]. Keeping the helper in
-> dma-iommu.c does not resolve the physical-address objection.
+Add an open-coded bpf_iter over the pages eligible for page_owner
+output, reusing page_owner_next_eligible().
 
-And if I'd had the context of the whole series, I would have said what I 
-can see now, that the entire premise is fundamentally wrong, 
-irrespective of abusing the internal helper or not.
+A sleepable BPF program drives it with
+bpf_iter_page_owner_new()/next()/destroy(); each next() returns the
+page_owner_scan. po_snap is copied inside the page_ext RCU window, so
+the program needs no RCU section when it reads it.
 
-> Sharing the first VOP's default DMA domain, as Exynos does, would avoid
-> the translation but also change native-buffer mapping.
-> 
-> Is retaining the private domain and reverse-translating the DMA mappings
-> an acceptable direction? If so, I'll address the remaining limitations
-> before posting a non-RFC version.
+Also add bpf_page_owner_stack_snprint(), which renders the stack trace
+for a stack_depot handle into a caller-provided buffer.
 
-No. If a driver has attached the device to its own unmanaged IOMMU 
-domain then it is using that domain, not the default domain, and thus 
-has even less reason to go poking at the default domain than usual 
-(where the "usual" is tenuous enough in itself). In this situation DMA 
-mapping only needs to take care of non-coherent cache maintenance, and 
-32-bit ARM is actually the better example here.
+Signed-off-by: Zhen Ni <zhen.ni@easystack.cn>
+---
+ kernel/bpf/helpers.c |  6 +++++
+ mm/page_owner_iter.c | 52 ++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 58 insertions(+)
 
-The fact that iommu-dma does a load of unnecessary work and returns a 
-bogus DMA address just to still get the cache maintenance as a 
-side-effect is a hideous inefficiency (which folks have complained about 
-before...) and absolutely should not be relied upon. It needs to go 
-away. There were reasons why in the original iommu_dma_ops design it was 
-rather impractical to do better (in fact iommu_get_dma_domain() itself 
-is largely just a hack around some of those limitations), but since 
-b67483b3c44e ("iommu/dma: Centralise iommu_setup_dma_ops()") and 
-particularly b5c58b2fdc42 ("dma-mapping: direct calls for dma-iommu"), 
-it now really could and should be cleaned up - it just needs something 
-slightly different from the standard dma-direct behaviour, as for this 
-case we need to ignore the DMA mask and any bouncing conditions.
-
-Thanks,
-Robin.
-> Base: mainline 602042bf29f6. The warn-only RFC is not a prerequisite.
-> No stable backport requested. Strict-by-default DMABUF_DEBUG took effect
-> in v7.3-rc4.
-> 
-> Testing (builds and QEMU only):
-> 
-> - W=1 object and stub builds passed on arm64, ARM32 with/without LPAE,
->    x86-64 GCC/Clang, i386, s390, RISC-V and UML, including dynamic SWIOTLB.
-> - Rockchip strict/warn A/B reproduced the control failure and warning.
->    Treatments checked every page and byte in 83 imports each. Primary
->    buffers had 1/127/507 DMA segments under the default 64 KiB limit.
-> - SMMUv3 strict/lazy tests, missing-source, bounds and rollback tests
->    passed. Real bounced attachments exercised alignment and pool
->    rejection with no target mapping or DMA.
-> - Invalid forced-SWIOTLB Rockchip provider runs are excluded. Expected
->    segment-limit and unsupported-fallback diagnostics remain.
-> 
-> The rig uses a custom Rockchip IOMMU model and the real GEM callback in a
-> test module, not VOP2, Sway or a real exporter. RK3588 hardware, two-VOP
-> and 32-bit ARM runtime testing are outstanding.
-> 
-> Hardware testing is welcome, particularly with Diederik's Sway resize
-> workload. Compare control and both patches on the same base/config,
-> first with strict DMABUF_DEBUG, then with the warn-only RFC on both.
-> Please report full dmesg, config, exporter and visible display problems.
-> Keep a known-good boot kernel. DMABUF_DEBUG=n testing is welcome too.
-> 
-> Developed and tested with LLM assistance.
-> 
-> [1] https://lore.kernel.org/r/20261005064133.7305-1-kmehltretter@gmail.com/
-> [2] https://lore.kernel.org/r/20261006131000.81501-1-robin.clark@oss.qualcomm.com/
-> [3] https://lore.kernel.org/r/bd4e5ece-1358-4e0b-bb04-ba9de62d26f6@amd.com/
-> [4] https://lore.kernel.org/r/47bf9a4c-2a47-4e93-bcdf-8d953c9a5ab8@arm.com/
-> 
-> Reports:
-> https://lore.kernel.org/r/DLR74W1U9YPC.375IK0HOYHDIG@cknow-tech.com/
-> https://lore.kernel.org/r/DLYLA3WQNN3X.3FB9MO8ZWBQ5@cknow-tech.com/
-> 
-> Karl Mehltretter (2):
->    iommu: Add iommu_map_sgtable_dma()
->    drm/rockchip: Map imported buffers from DMA addresses
-> 
->   drivers/gpu/drm/rockchip/rockchip_drm_gem.c |  19 ++-
->   drivers/iommu/dma-iommu.c                   | 131 ++++++++++++++++++++
->   include/linux/iommu.h                       |  12 ++
->   3 files changed, 157 insertions(+), 5 deletions(-)
-> 
-> 
-> base-commit: 602042bf29f6efde39cfb5fdd9289bf4854bc0c5
+diff --git a/kernel/bpf/helpers.c b/kernel/bpf/helpers.c
+index 712dca5a2c5b..23a2d2d71f4d 100644
+--- a/kernel/bpf/helpers.c
++++ b/kernel/bpf/helpers.c
+@@ -4946,6 +4946,12 @@ BTF_ID_FLAGS(func, bpf_iter_dmabuf_new, KF_ITER_NEW | KF_SLEEPABLE)
+ BTF_ID_FLAGS(func, bpf_iter_dmabuf_next, KF_ITER_NEXT | KF_RET_NULL | KF_SLEEPABLE)
+ BTF_ID_FLAGS(func, bpf_iter_dmabuf_destroy, KF_ITER_DESTROY | KF_SLEEPABLE)
+ #endif
++#ifdef CONFIG_PAGE_OWNER
++BTF_ID_FLAGS(func, bpf_iter_page_owner_new, KF_ITER_NEW | KF_SLEEPABLE)
++BTF_ID_FLAGS(func, bpf_iter_page_owner_next, KF_ITER_NEXT | KF_RET_NULL | KF_SLEEPABLE)
++BTF_ID_FLAGS(func, bpf_iter_page_owner_destroy, KF_ITER_DESTROY | KF_SLEEPABLE)
++BTF_ID_FLAGS(func, bpf_page_owner_stack_snprint, KF_SLEEPABLE)
++#endif
+ BTF_ID_FLAGS(func, __bpf_trap)
+ BTF_ID_FLAGS(func, bpf_strcmp, KF_PERFMON);
+ BTF_ID_FLAGS(func, bpf_strcasecmp, KF_PERFMON);
+diff --git a/mm/page_owner_iter.c b/mm/page_owner_iter.c
+index 33dc9dcd59de..80693d417407 100644
+--- a/mm/page_owner_iter.c
++++ b/mm/page_owner_iter.c
+@@ -4,6 +4,7 @@
+ #include <linux/memblock.h>
+ #include <linux/mm.h>
+ #include <linux/seq_file.h>
++#include <linux/stackdepot.h>
+ 
+ #include "page_owner.h"
+ 
+@@ -114,3 +115,54 @@ int page_owner_iter_register(void)
+ 
+ 	return bpf_iter_reg_target(&page_owner_iter_reg_info);
+ }
++
++/* opaque to BPF programs */
++struct bpf_iter_page_owner {
++	__u64 __opaque[16];
++} __attribute__((aligned(8)));
++
++struct bpf_iter_page_owner_kern {
++	struct page_owner_scan scan;
++} __attribute__((aligned(8)));
++
++__bpf_kfunc_start_defs();
++
++__bpf_kfunc int bpf_iter_page_owner_new(struct bpf_iter_page_owner *it)
++{
++	struct bpf_iter_page_owner_kern *kit = (void *)it;
++
++	BUILD_BUG_ON(sizeof(*kit) > sizeof(*it));
++	BUILD_BUG_ON(__alignof__(*kit) != __alignof__(*it));
++
++	kit->scan.pfn = min_low_pfn;
++	kit->scan.page = NULL;
++	return 0;
++}
++
++__bpf_kfunc struct page_owner_scan *
++bpf_iter_page_owner_next(struct bpf_iter_page_owner *it)
++{
++	struct bpf_iter_page_owner_kern *kit = (void *)it;
++
++	cond_resched();
++
++	if (kit->scan.page)
++		kit->scan.pfn++;
++
++	if (!page_owner_next_eligible(&kit->scan))
++		return NULL;
++
++	return &kit->scan;
++}
++
++__bpf_kfunc void bpf_iter_page_owner_destroy(struct bpf_iter_page_owner *it)
++{
++}
++
++__bpf_kfunc int bpf_page_owner_stack_snprint(depot_stack_handle_t handle,
++					     char *buf, u32 buf_size)
++{
++	return stack_depot_snprint(handle, buf, buf_size, 0);
++}
++
++__bpf_kfunc_end_defs();
+-- 
+2.20.1
 
