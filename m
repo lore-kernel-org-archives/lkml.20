@@ -1,49 +1,46 @@
-Received: from mta1.migadu.com (out-81.mta1.migadu.com [95.215.58.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out28-1.mail.aliyun.com (out28-1.mail.aliyun.com [115.124.28.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A66E64E0B6F
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 12:28:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BD214D17AF;
+	Fri,  9 Oct 2026 12:28:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791548942; cv=none; b=MPI7VC+xbr9zqTOFtUJjxvlHRMckjUVgvV4WDH3nWupP7A3xuZptRdK97RNXvHPPddHwyVqRY0LE2c2hIIihaX/QrnkDSS4vUFF8LSkE439yr0HRf2qOMbUO3TkiTqiLD4PMb/iMEQrAeXqC5AdOpJpH4IdOQQ51CR10mt2Se4E=
+	t=1791548943; cv=none; b=YV5Ig3P3ttcRvnov58x3rCLhnxVOGHbOhryYanUn5zBNW1aUZhgWbT6QxzR/rqLaj2x91SthfTi3bnMmMYkurACx+Ac7uWLUlHb2BQjVn00/4ECOvtHtBExP6yCFHoGVSRFZzgWj9P5s9cGNgQkRb1+o9jThRSyTDX9gxIYEva8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791548942; c=relaxed/simple;
-	bh=UBjHRwKDWgduSNodrxpK2x1E5Pj/78tPqkXsgf2nRYo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=C0DBmMr+CEbAHtvJis1d5XDeHYDpjXaKDh+8kCyDLa+PBoJJOa2R3jJAxueQPiuYrWG6wIvxpfHE4+Urx98FM7J1kF4Nn/+YoSm/ZFYG5j1ER54h4TcT6r+xJk3Y9wmgMENxG0js9PR4H95JfjMq3JTuWr7ad9CrluhQ9y9P3eo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AOSIfeCg; arc=none smtp.client-ip=95.215.58.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AOSIfeCg"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=UBjHRwKDWgduSNodrxpK2x1E5Pj/78tPqkXsgf2nRYo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791548932; v=1; x=1792153732;
- b=AOSIfeCgpP+B1Aht54wLQK9QtZ5gaee1K+zb7P3hk1YjvnPfvPKEYTYlVXTAzG7U0AK4OxnL
- ZY0ROaHf+u6WeXqpJme4WM+mBTvL3I2rWgOqBmwN7IAVhCJqK/mWPv0XG8mixQ8MPehGobpjDT/
- EgbXSARj2QtR1bE/aR7DQ6k8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7352bb72d8236f56;
-	Fri, 09 Oct 2026 12:28:52 +0000
-X-Mizu-Trace-ID: 7352bb72d8236f56
-X-Migadu-Flow: FLOW_OUT
-From: Denis Benato <denis.benato@linux.dev>
-To: linux-kernel@vger.kernel.org
-Cc: linux-input@vger.kernel.org,
-	"Benjamin Tissoires" <bentiss@kernel.org>,
-	"Jiri Kosina" <jikos@kernel.org>,
-	"Luke D . Jones" <luke@ljones.dev>,
-	"Mateusz Schyboll" <dragonn@op.pl>,
-	"Denis Benato" <benato.denis96@gmail.com>,
-	Denis Benato <denis.benato@linux.dev>
-Subject: [PATCH v9 10/12] HID: asus: add support for gamepad mode
-Date: Fri,  9 Oct 2026 12:28:18 +0000
-Message-ID: <20261009122820.7603-11-denis.benato@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261009122820.7603-1-denis.benato@linux.dev>
-References: <20261009122820.7603-1-denis.benato@linux.dev>
+	s=arc-20240116; t=1791548943; c=relaxed/simple;
+	bh=WPAa1Yl4siaD5+T47wTQREJMeSnD/PeKKT3ve4yaAmY=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=AWlX34F303UYMPL7LCrZ6F5EqS8tKqx478BaEFPRI7xu+7CDgfDYk3AaGVC116riDKSMy7BJSR7J3zd1xngrvYkQj0LJrfjty9G08aGMna5wmNaqfD7BSAORU1lTc8HUM2oLltGKPDNC7vSwlPI/3Z+M19Wfao1pqnCSAwZ7CTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07981329|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00587506-7.46963e-05-0.99405;FP=11562893469595356818|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037025160;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=16;RT=16;SR=0;TI=SMTPD_---.jXj4Zy8_1791548924;
+Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jXj4Zy8_1791548924 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 09 Oct 2026 20:28:44 +0800
+From: Kyle Switch <kyle.switch@motor-comm.com>
+To: andrew@lunn.ch,
+	olteanv@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	mmyangfl@gmail.com,
+	horms@kernel.org,
+	linux@armlinux.org.uk,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: ming.xu@motor-comm.com,
+	xiaolin.xu@motor-comm.com,
+	jianmin.wang@motor-comm.com,
+	wei.zhang@gl-inet.com,
+	sijia.huang@gl-inet.com
+Subject: [PATCH net-next v12 2/5] net: dsa: motorcomm: use max_ports in series for port bounds checking
+Date: Fri,  9 Oct 2026 20:28:33 +0800
+Message-Id: <20261009122836.1534400-3-kyle.switch@motor-comm.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261009122836.1534400-1-kyle.switch@motor-comm.com>
+References: <20261009122836.1534400-1-kyle.switch@motor-comm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,222 +49,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ROG Ally devices can emulate either a mouse+keyboard (desktop mode)
-or an gamepad device (xbox360 controller in ROG ally and a custom
-DInput device on newer models): add support for switching the current
-controller mode.
+Replace the hardcoded YT921X_PORT_NUM macro with the per-series
+max_ports field in port validation. This removes family-specific
+constants from the common code path and simplifies adding new
+switch families with different port counts.
 
-Assisted-by: opencode:glm-5.2
-Signed-off-by: Luke Jones <luke@ljones.dev>
-Signed-off-by: Denis Benato <denis.benato@linux.dev>
+No functional change for existing YT921X devices.
+
+Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
 ---
- drivers/hid/hid-asus.c | 158 ++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 157 insertions(+), 1 deletion(-)
+ drivers/net/dsa/motorcomm/mdio_bus.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
-index d929b6534219..b38293505327 100644
---- a/drivers/hid/hid-asus.c
-+++ b/drivers/hid/hid-asus.c
-@@ -191,6 +191,11 @@ struct ally_joystick_resp_curve {
- 	struct ally_joystick_resp_curve_param entry_4;
- } __packed;
+diff --git a/drivers/net/dsa/motorcomm/mdio_bus.c b/drivers/net/dsa/motorcomm/mdio_bus.c
+index dd6c52f37bbf..83f0212551ff 100644
+--- a/drivers/net/dsa/motorcomm/mdio_bus.c
++++ b/drivers/net/dsa/motorcomm/mdio_bus.c
+@@ -113,7 +113,7 @@ static int yt921x_mbus_int_read(struct mii_bus *mbus, int port, int reg)
+ 	u16 val;
+ 	int res;
  
-+enum ally_gamepad_mode_index {
-+	ALLY_GAMEPAD_MODE_GAMEPAD = 0x01,
-+	ALLY_GAMEPAD_MODE_KEYBOARD = 0x02,
-+};
-+
- struct ally_config {
- 	/* Must be locked if the data is being changed */
- 	struct mutex config_mutex;
-@@ -403,6 +408,15 @@ enum ally_command_codes {
- /* XInput rumble magnitudes use the hardware's 0..100 intensity range. */
- #define ALLY_FF_MAX_INTENSITY 100
+-	if (port >= YT921X_PORT_NUM)
++	if (port >= priv->series->max_ports)
+ 		return U16_MAX;
  
-+static const char *const ally_gamepad_mode_text[] = {
-+	"gamepad", "desktop"
-+};
-+
-+static const u8 ally_gamepad_mode[] = {
-+	ALLY_GAMEPAD_MODE_GAMEPAD,
-+	ALLY_GAMEPAD_MODE_KEYBOARD
-+};
-+
- static const u8 ALLY_FORCE_FEEDBACK_OFF[] = {
- 	0x0D, 0x0F, 0x00, 0x00, 0x00, 0x00, 0xFF, 0x00, 0xEB
- };
-@@ -920,6 +934,137 @@ static ssize_t xbox_controller_store(struct device *dev,
+ 	mutex_lock(&priv->reg_lock);
+@@ -131,7 +131,7 @@ yt921x_mbus_int_write(struct mii_bus *mbus, int port, int reg, u16 data)
+ 	struct yt921x_priv *priv = mbus->priv;
+ 	int res;
  
- static DEVICE_ATTR_RW(xbox_controller);
+-	if (port >= YT921X_PORT_NUM)
++	if (port >= priv->series->max_ports)
+ 		return -ENODEV;
  
-+/**
-+ * ally_set_gamepad_mode() - Set the gamepad operating mode
-+ * @ally: ally handheld structure
-+ * @hdev: HID device
-+ * @mode: gamepad mode to set
-+ *
-+ * Return: 0 on success, negative errno on failure
-+ */
-+static int ally_set_gamepad_mode(struct ally_handheld *ally, struct hid_device *hdev, u8 mode)
-+{
-+	u8 payload[] = { mode };
-+	int ret;
-+
-+	if (mode < ALLY_GAMEPAD_MODE_GAMEPAD ||
-+	    mode > ALLY_GAMEPAD_MODE_KEYBOARD) {
-+		hid_err(hdev, "Invalid gamepad mode: %u\n", mode);
-+		return -EINVAL;
-+	}
-+
-+	u8 *buf __free(kfree) = ally_alloc_cmd(CMD_SET_GAMEPAD_MODE, payload, sizeof(payload));
-+	if (!buf)
-+		return -ENOMEM;
-+
-+	ret = ally_gamepad_send_packet(ally, hdev, buf, ROG_ALLY_REPORT_SIZE);
-+	if (ret < 0) {
-+		hid_err(hdev, "Failed to set gamepad mode: %d\n", ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static ssize_t gamepad_mode_show(struct device *dev, struct device_attribute *attr, char *buf)
-+{
-+	struct hid_device *hdev = to_hid_device(dev);
-+	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
-+	struct ally_handheld *ally = drvdata->rog_ally;
-+	struct ally_config *cfg;
-+	u8 mode_byte;
-+	int i;
-+
-+	if (!ally)
-+		return -ENODEV;
-+
-+	cfg = ally_get_config(ally);
-+	if (!cfg)
-+		return -ENODEV;
-+
-+	guard(mutex)(&cfg->config_mutex);
-+
-+	mode_byte = cfg->gamepad_mode;
-+
-+	for (i = 0; i < ARRAY_SIZE(ally_gamepad_mode); i++) {
-+		if (ally_gamepad_mode[i] == mode_byte)
-+			return sysfs_emit(buf, "%s\n", ally_gamepad_mode_text[i]);
-+	}
-+
-+	/*
-+	 * The recorded mode only comes from the table above: an unknown
-+	 * byte means memory corruption, not a userspace-visible value.
-+	 */
-+	return -EIO;
-+}
-+
-+static ssize_t gamepad_mode_store(struct device *dev, struct device_attribute *attr,
-+				  const char *buf, size_t count)
-+{
-+	struct hid_device *hdev = to_hid_device(dev);
-+	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
-+	struct ally_handheld *ally = drvdata->rog_ally;
-+	struct ally_config *cfg;
-+	u8 mode_byte;
-+	int mode;
-+	int ret;
-+
-+	if (!ally)
-+		return -ENODEV;
-+
-+	cfg = ally_get_config(ally);
-+	if (!cfg)
-+		return -ENODEV;
-+
-+	mode = sysfs_match_string(ally_gamepad_mode_text, buf);
-+	if (mode < 0) {
-+		hid_err(hdev, "Unknown gamepad mode\n");
-+		return mode;
-+	}
-+
-+	/* Convert the index of the text mode array to the byte
-+	 * that will be accepted by the ally MCU.
-+	 */
-+	mode_byte = ally_gamepad_mode[mode];
-+
-+	guard(mutex)(&cfg->config_mutex);
-+
-+	ret = ally_set_gamepad_mode(ally, hdev, mode_byte);
-+	if (ret < 0)
-+		return ret;
-+
-+	cfg->gamepad_mode = mode_byte;
-+
-+	hid_dbg(hdev, "Set gamepad mode to %s\n", ally_gamepad_mode_text[mode]);
-+
-+	sysfs_notify(&dev->kobj, NULL, "gamepad_mode");
-+
-+	return count;
-+}
-+
-+static ssize_t gamepad_mode_index_show(struct device *dev,
-+				       struct device_attribute *attr,
-+				       char *buf)
-+{
-+	int i;
-+	ssize_t len = 0;
-+
-+	for (i = 0; i < ARRAY_SIZE(ally_gamepad_mode_text); i++) {
-+		if (!ally_gamepad_mode_text[i] || ally_gamepad_mode_text[i][0] == '\0')
-+			continue;
-+		len += sysfs_emit_at(buf, len, "%s ", ally_gamepad_mode_text[i]);
-+	}
-+
-+	/* Replace the last space with a newline */
-+	if (len > 0)
-+		buf[len - 1] = '\n';
-+
-+	return len;
-+}
-+
-+static DEVICE_ATTR_RW(gamepad_mode);
-+static DEVICE_ATTR_RO(gamepad_mode_index);
-+
- /**
-  * ally_set_vibration_intensity() - Set vibration intensity values
-  * @ally: ally handheld structure
-@@ -2208,6 +2353,8 @@ static struct device_attribute dev_attr_right_response_curve_index =
+ 	mutex_lock(&priv->reg_lock);
+@@ -145,6 +145,7 @@ int yt921x_mbus_int_init(struct yt921x_priv *priv, struct device_node *mnp)
+ {
+ 	struct device *dev = yt921x_priv_to_device(priv);
+ 	struct mii_bus *mbus;
++	u32 max_ports;
+ 	int res;
  
- static struct attribute *ally_config_attrs[] = {
- 	&dev_attr_xbox_controller.attr,
-+	&dev_attr_gamepad_mode.attr,
-+	&dev_attr_gamepad_mode_index.attr,
- 	NULL
- };
+ 	mbus = devm_mdiobus_alloc(dev);
+@@ -157,7 +158,8 @@ int yt921x_mbus_int_init(struct yt921x_priv *priv, struct device_node *mnp)
+ 	mbus->read = yt921x_mbus_int_read;
+ 	mbus->write = yt921x_mbus_int_write;
+ 	mbus->parent = dev;
+-	mbus->phy_mask = (u32)~GENMASK(YT921X_PORT_NUM - 1, 0);
++	max_ports = priv->series->max_ports;
++	mbus->phy_mask = (u32)~GENMASK(max_ports - 1, 0);
  
-@@ -2347,7 +2494,7 @@ static struct ally_config *ally_config_create(struct hid_device *hdev, struct al
- 	}
- 
- 	if (!cfg->initialized) {
--		cfg->gamepad_mode = 0x01;
-+		cfg->gamepad_mode = ALLY_GAMEPAD_MODE_GAMEPAD;
- 		cfg->xbox_controller_enabled = true;
- 		cfg->left_deadzone = 10;
- 		cfg->left_outer_threshold = 90;
-@@ -2917,6 +3064,15 @@ static int hid_asus_ally_init(struct hid_device *hdev, struct ally_handheld *all
- 				 ret);
- 	}
- 
-+	/*
-+	 * An MCU reset switches the gamepad mode back to its default:
-+	 * send the recorded one first, so that every other setting
-+	 * restored below is applied on top of the expected mode.
-+	 */
-+	ret = ally_set_gamepad_mode(ally, hdev, cfg->gamepad_mode);
-+	if (ret < 0)
-+		hid_warn(hdev, "Failed to restore gamepad mode: %d\n", ret);
-+
- 	/*
- 	 * The MCU does not keep the vibration intensity across a reset:
- 	 * send the recorded values again, whichever interface probed.
+ 	res = devm_of_mdiobus_register(dev, mbus, mnp);
+ 	if (res)
 -- 
-2.47.3
+2.25.1
 
