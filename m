@@ -1,277 +1,239 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBC3C3B3BE6;
-	Fri,  9 Oct 2026 14:58:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791557930; cv=none; b=f20faLjJtQ/ogLYlAvSDVgcRYmCjlHN8IH4VTDkCRQTFmmcNqt6bNlbJi/Zz/Loxwf9tmneitbsALblFMRQUzUPyjrrOVeFel6vk+TIeTVv0PIhRXFDWIaSSzZSskDGSP4qZIly0dO9cY7/m8D7ojg0VfgfcRkeBacco5+Hrk3A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791557930; c=relaxed/simple;
-	bh=cHfQVjGwTWN3mvTSbJ4bmJy0NC2sVCOgxbk5TVTcD4w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SWBq/3tDfyuSBU95fSMPyhxP/dLQMikPRCGJRXbc0lE6L4roJLp4WIDNkpUodgIHJZOpDs/3CyuC8ItlGpt3d/TWAsDJhxrZb3vWgc4cUcA5e6pAMaeiiRgdZKJmy+RluQQ5HIpAOae1O/OdH/OCQVIcfj4EjlquN4KkirO9hMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oB2P4myO; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D75CA367B8F
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:59:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791557951; cv=pass; b=p3VxqJsQYecuDdxIa5Bwk5D6JMWlk6upnSzdD6ykxPnD47sxlZMjSHu7hn1HAs0ilDRTM+Kz7A3mluqkeRykcD4sLJE3O6H90eI6Mff47DoGFiOD+k/QHDJjNjkU7zbdPjEhqVuwSiwWZcv9JLDOhyAJAhb1ERdMglDiN6JPKcg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791557951; c=relaxed/simple;
+	bh=hjyMjRDUj3huXfMRsPcqgEYwlBdJI0RxsrzOfxC0wbo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pMilm5nxLYYm9/v7dJnXgUobmHQrpr1LnHc/dr4C8KmIu36Og2jdebLFza243mPEQUKfaxl1hRt8l6Wx3m400ZR/iJDRogaEH0PDni+NiDS+u9yuz3V/O37gy4mVv9U6kh3BgWzeE+BoWqLuKbKrQufdzsE+XThssOpL52ekAY8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=E7s8kTZF; arc=pass smtp.client-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oB2P4myO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 347611F000FF;
-	Fri,  9 Oct 2026 14:58:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791557928;
-	bh=J/ONsV+WMtPXVXfEYwgkgLrKLerfe5w3ubhZH2PKm7w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oB2P4myO0GpdK6FMZk/oWFksORFCClpCMXEpB++z2aZo0R6mQqhI/nwj10JTfZCLZ
-	 YbARhQzN51Q67l2DyjbKkdA5j3FouF2S/Yv9KQPPOn0ReT7SzcGozEbzuylML/dJrr
-	 8f8skk/VY6PgI6KhOwMQE5LpBr3+uyRta046TWvWO6MolvmNT5PONTMxM1KjmCeyNx
-	 DhJ5Z5XQBzyY+d7gcxO+/3Sr4RFlUVm7l1KUnx8k/R3K2J+rBKZar8g+9w8BPAIDX/
-	 wBcm8GtmETD8aoHYe6hKbqG9n/uWus8XP6U+DnPFNtpr3N06V/uJOQVir5yOtW08b4
-	 EnpSEukL7MluQ==
-Date: Fri, 9 Oct 2026 15:58:40 +0100
-From: Conor Dooley <conor@kernel.org>
-To: zjzhao@edatec.cn
-Cc: gregkh@linuxfoundation.org, jirislaby@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, hugo@hugovil.com,
-	hy@wkmic.com, linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-api@vger.kernel.org
-Subject: Re: [PATCH v5 1/2] dt-bindings: serial: Document WK2xxx SPI UART
-Message-ID: <20261009-0d3ee8f71d04ab70c387db33@squawk>
-References: <cover.20261009.wk2xxx.v5@edatec.cn>
- <20261009082530.248219-1-zjzhao@edatec.cn>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="E7s8kTZF"
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-169be2dfbacso5137c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 07:59:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791557949; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PFGHzcD5LnQLb33svLLNX6DMKpYi449fJWZIPLoWwrxBMe31vR6v7Jl37a0dlxPQrh
+         afw3cmdcqaLBk8hnGdeCoS/C9k82zBrw77COjqI6XIylpGoYh3FH1+1zVEmo9uirVIBT
+         DJwfmkbbBX7yEUbKWjt5NkL69880fHFO4MVKlSehq8lWSiISLNWNl5Y7jDFelY+j5Rri
+         3zlVanwJJK3zE8pv8Mf62qFqJIEvaWMg4Y0K9D3VW4UR+deqm16AuSKH8oRTtLvGWXZ5
+         Y4ok38LYl0Pa0NrLcOyeAwMUrNJ4/2VeeKY8TTiUufjGW4yUU8yN7HmtucBCfv0f6ZoH
+         4L3w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=/deJepVSy1q46FcuWbk27eGOV5yZN7U0qk5r5k6TxfI=;
+        fh=yF86UNm5pBhAsIn0ZjJaGWmpGcGLVRQmVdXxFKJWURk=;
+        b=ogKfVTHJIyL8WFaMYkAqRXYR96yCtgsk4ubUmEMk4gdUa1VmzfrWKhcVZitF0OSWC3
+         rLv1z5IBYyy6vw7L90y2T2z4au3SUXuHKYIAu0XPH5/5IfBuSW/scXd9la/b9eNvPrAd
+         KotuCLs7nh4TyikV/aKGo07OcA+Uq33+drHF6cbBbStq+r79KIt2Fs63wCEcCBokILjN
+         jEJibAs1WTK2H8UI8nUK2tJj3zgOOUEEBIfWzPdroEjVeQjtaEF25qR+FYuUYiCpCenv
+         Lh6UN/+kfHYpkG3OgurEq/LQrjWW3hOc8mkSFWo+UR8HMGjxVUctH0NMVWXY9zhuXSj8
+         uYkw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791557949; x=1792162749; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/deJepVSy1q46FcuWbk27eGOV5yZN7U0qk5r5k6TxfI=;
+        b=E7s8kTZFCzCn0nwPfaFHDDPfj6OAn8lDdKgvL1MAC3/0+y0PKZGTBDTyZqZadSeQXP
+         RxnXPYZjp95+W7cYIw2RAC/j1VEBA9Tdx8ONYhwpc94jGkDXZZEFxcC15lWbzFDSViBt
+         Nyj+qO4eKMlwy2tDTTxa/8YUJPYASGyGAfkquh6rHt9xLkXOA/wMmwcwTpG1b/xhwBQc
+         oNj8kTUWLIRR31ycA1jvD/PZ6ZDHK0BD9h8R0QLFsfk7kdJe5E8v4J5nESNjzTiRdmor
+         BL8N2HBnnduyS37cgnw8NK2bJx2pJxS+aIjnTAzMkvZiKn9i8XgF01xZ4eMoWoKSHzc9
+         SHew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791557949; x=1792162749;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/deJepVSy1q46FcuWbk27eGOV5yZN7U0qk5r5k6TxfI=;
+        b=hwjX3996RScURLNJ82qX1MPSnojl6uTAWhtFRf0PwrIrl37dUiFeJBV6lxcESUBhvb
+         MRjGjUszPlsYLY8jRlh2+YKTehoTJL6X/UmcqMKXZaHjDfdgGX1w7ucm2x1fU5OscnuH
+         j+iGjHaM2uH+yDwJpsNmPEqMNwfs/w75jviHUoIKdZwOnMzxVoLz+9R3r0udwI416lQw
+         sbP9v3fK4ClgUQkH57XYQSdGNiAq60Ldh2kDmJu5cwYrpoga2oyKAqWcSY5FArSJNBN3
+         ffuGDRdMFzM8FmGBred8KdAfFqO9HKu3hiC56z9Lyo7GYcAN2u5h7TwiVc2l6ohC6uKf
+         I0mw==
+X-Forwarded-Encrypted: i=1; AKwUvBwlm4L/to4FVPcF5U98IatXHeBf6eJ1gSXmBszK5EhcEBRZ/hZ4lnVOtMMq0Y5AXT18Gk2aHRKNK7uJKFc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAfWflNjHx1rich7c8M6eAOWQAafYI0cP33isg8e/UEzBg7a9t
+	KIbjcYx2HfGVRR/KaRKhus9NSC4mHLTHQC9AHQiQfDu0/dWq53xVM5+2zpwoBBHOOeLpogxDpcB
+	Pr8dd03M3spXM1wxJQnZbtOamipvxcMENksPEOYBK
+X-Gm-Gg: AYBFou3isgW22z3gHDQI+he9bTUjpcs2Up2rjGoZ9vW4sXJfAJi2yQzLheyMd/wNFLk
+	PrT+Q4VWOrrdUlrrM3z62NwDHd7QNJBtVaKfW5MCApKHCbA9eLSkROY2dwNsnGru4VumAFddlnO
+	LIPD76y5O/rKEtcYlF99My92lutp0jMXcsgue2DIp07fUEVKd4EX9rmf61Omw5VHSVV4Akyr6hk
+	BTLdK2xSkcU6LcTEMRHgw9aKeX1MWmlALwZa/m46bNy8CUuslXxyfivw56MQz4f0zlVHBcmJfij
+	nqoiaXglxYpvUUKX3/gfX3rozlzQQydisUx3geamy9CKwKfMSGvM2TMe
+X-Received: by 2002:a05:7022:40c:b0:151:f5f7:b423 with SMTP id
+ a92af1059eb24-16a4cec574emr313527c88.10.1791557947600; Fri, 09 Oct 2026
+ 07:59:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="GcGhcH9vO+oZF4fF"
-Content-Disposition: inline
-In-Reply-To: <20261009082530.248219-1-zjzhao@edatec.cn>
-
---GcGhcH9vO+oZF4fF
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+References: <20261009050556.2817978-1-namjain@linux.microsoft.com>
+ <MN2PR02MB6863FBC36CE4F1D6419F0E8BD4922@MN2PR02MB6863.namprd02.prod.outlook.com>
+ <04d88297-1732-4761-ae82-d68c441a7156@linux.microsoft.com>
+ <3f4a11ea-bbc0-4dc5-9720-3447346739cf@linux.microsoft.com> <CAMOZA0Ljw-DueDP3WvmtYe4x9Y_fNaptAo+3Hv8xzYHOZi9vbQ@mail.gmail.com>
+In-Reply-To: <CAMOZA0Ljw-DueDP3WvmtYe4x9Y_fNaptAo+3Hv8xzYHOZi9vbQ@mail.gmail.com>
+From: Luigi Rizzo <lrizzo@google.com>
+Date: Fri, 9 Oct 2026 16:58:29 +0200
+X-Gm-Features: AclHuK-m9limdcYUcwxZk2GykJcipkv6UowoA2Ws1KR0RewlWyRADdHddO4VXeo
+Message-ID: <CAMOZA0KJoS4GFrKmaGa7+qMCNktTUg-YpkzX_EoA2KfAW3iN_g@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/3] nvme-pci: yield completions under scheduler pressure
+To: Naman Jain <namjain@linux.microsoft.com>
+Cc: Michael Kelley <mhklinux@outlook.com>, 
+	"linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>, Keith Busch <kbusch@kernel.org>, 
+	Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
+	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, changfengnan@bytedance.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 09, 2026 at 04:24:07PM +0800, zjzhao@edatec.cn wrote:
-> From: Zi Jie Zhao <zjzhao@edatec.cn>
->=20
-> Add a DT binding for the WK2xxx SPI-to-UART bridge ICs (WK2124,
-> WK2132, WK2168, WK2212 and WK2204) from Chengdu Weikai
-> Microelectronics (WKmic).
->=20
-> Describe each UART channel with a serial@N child node carrying its
-> serial and RS-485 properties. Register the wkmic vendor prefix based
-> on the vendor website.
->=20
-> Differentiate compatible strings by channel count and register
-> availability. WK2124 and WK2132 lack hardware flow-control and
-> RS-485 registers. WK2212 is a separate two-channel model that
-> supports both features. Reject serial@2 and serial@3 on the
-> two-channel members.
->=20
-> Correct the WK2202 compatible used in the public v4 series to
-> WK2212. WK2202 in the public reference driver is a typo.
->=20
-> Require the standard clocks property for the single external
-> reference clock used by the chips.
->=20
-> Assisted-by: LLM
-> Signed-off-by: Zi Jie Zhao <zjzhao@edatec.cn>
-> ---
->  .../bindings/serial/wkmic,wk2124.yaml         | 119 ++++++++++++++++++
->  .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
->  MAINTAINERS                                   |   7 ++
->  3 files changed, 128 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/serial/wkmic,wk2124=
-=2Eyaml
->=20
-> diff --git a/Documentation/devicetree/bindings/serial/wkmic,wk2124.yaml b=
-/Documentation/devicetree/bindings/serial/wkmic,wk2124.yaml
-> new file mode 100644
-> index 000000000000..47a0cbdb5ca1
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/serial/wkmic,wk2124.yaml
-> @@ -0,0 +1,119 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/serial/wkmic,wk2124.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: WKmic WK2xxx SPI to UART bridge
-> +
-> +maintainers:
-> +  - Huang Yang <hy@wkmic.com>
-> +
-> +description:
-> +  The WK2xxx family (WK2124, WK2132, WK2168, WK2212 and WK2204) are SPI =
-to
-> +  UART bridge ICs from WKmic (Chengdu Weikai Microelectronics). Each IC
-> +  exposes two or four full-duplex UART channels with 256-byte RX/TX FIFOs
-> +  through a single SPI slave interface and one interrupt line, and is
-> +  clocked from a single external reference clock. Each channel is
-> +  described by a "serial@N" child node that carries its own serial and
-> +  RS-485 properties.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - wkmic,wk2124
-> +      - wkmic,wk2132
-> +      - wkmic,wk2168
-> +      - wkmic,wk2212
-> +      - wkmic,wk2204
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    description:
-> +      When missing, the device driver uses polling instead.
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 0
-> +
-> +patternProperties:
-> +  "^serial@[0-3]$":
-> +    type: object
-> +    description: A single UART channel of the chip.
-> +    allOf:
-> +      - $ref: /schemas/serial/serial.yaml#
-> +      - $ref: /schemas/serial/rs485.yaml#
-> +    properties:
-> +      reg:
-> +        description: UART channel number on the chip.
-> +        maximum: 3
-> +    required:
-> +      - reg
-> +    unevaluatedProperties: false
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - "#address-cells"
-> +  - "#size-cells"
-> +
-> +allOf:
-> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - wkmic,wk2132
-> +              - wkmic,wk2212
-> +    then:
-> +      patternProperties:
-> +        "^serial@[23]$": false
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    xtal: clock-11059200 {
-> +        compatible =3D "fixed-clock";
-> +        clock-frequency =3D <11059200>;
-> +        #clock-cells =3D <0>;
-> +    };
+On Fri, Oct 9, 2026 at 1:27=E2=80=AFPM Luigi Rizzo <lrizzo@google.com> wrot=
+e:
+>
+> On Fri, Oct 9, 2026 at 12:17=E2=80=AFPM Naman Jain <namjain@linux.microso=
+ft.com> wrote:
+> >
+> >
+> >
+> > On 10/9/2026 12:21 PM, Naman Jain wrote:
+> > >
+> > >
+> > > On 10/9/2026 11:24 AM, Michael Kelley wrote:
+> > >> From: Naman Jain <namjain@linux.microsoft.com> Sent: Thursday, Octob=
+er
+> > >> 8, 2026 10:06 PM
+> > >>>
+> > >>> On systems with several fast NVMe controllers, completion interrupt=
+s can
+> > >>> keep returning to the same CPUs faster than scheduled work can run.=
+ Each
+> > >>> handler may drain only a small number of completions, but the combi=
+ned
+> > >>> interrupt stream can still prevent scheduler and watchdog progress.
+> > >>
+> > >> See this recent proposal [1] that sounds like it is addressing the
+> > >> same or a
+> > >> similar issue. And there is this [2] more global approach. It's
+> > >> worthwhile to read
+> > >> through the discussion on both threads. I haven't done a detailed
+> > >> comparison
+> > >> of either vs. your proposal.
+> > >>
+> > >> Michael
+> > >>
+> > >> [1] https://lore.kernel.org/linux-nvme/20260818033846.53790-1-
+> > >> changfengnan@bytedance.com/
+> > >> [2] https://lore.kernel.org/lkml/20260819124341.4185621-1-
+> > >> lrizzo@google.com/
+> > >>
+> > >
+> > >
+> > > Thanks for sharing these Michael. I'll check more on these, and try i=
+t out.
+> > >
+> > > Regards,
+> > > Naman
+> >
+> > ++ authors of these two series, for awareness and if there is some
+> > configuration in their patches I should be trying to fix these lockup
+> > issues.
+>
+> I see your thorough analysis below, thanks for the details.
+> Is there any reason why you used nvme.use_threaded_interrupts=3D0 ?
+>
+> Setting to 1 moves the work to a kernel thread and seems to be the
+> best way to prevent too much work in the hardirq and the soft lockup.
+>
+> I am surprised that GSIM fails to prevent the soft lockup, though:
+> under high load the sequence of events (starting from unmoderated)
+> should be the following:
+>
+> 1. HW sends MSIx interrupt, not blocked by anything
+> 2. SW calls handle_fasteoi_irq() --> handle_irq_event() --> ... -->
+> action->handler() which starts processing
+> 3. HW possibly sends another MSIx interrupt
+> 4. SW handle_irq_event() completes
+> 5. SW irq_start_moderation() starts the timer, __disable_irq() and
+> sets IRQD_IRQ_INPROGRESS | IRQD_MODERATED
+> 6. if #3 happened, or another HW interrupt comes before the timer expires=
+:
+>   SW handle_fasteoi_irq() finds IRQD_IRQ_INPROGRESS | IRQD_MODERATED both=
+ set,
+>   and does not call handle_irq_event(), postponing the call
+> 7. when the timer expires, the pending interrupt is reinjected.
+>
+> The above suggests that we should see some pauses between runs of
+> action->handler(),
+> at least for a single queue per CPU.
+>
+> Do you have any way to look with perf and bpftrace at the CPU
+> processing interrupts,
+> to see what keeps it busy (the pause between 6 and 7 should keep it
+> well below 100%)
+> and try to verify whether the calls to hndle_irq_event() are actually spa=
+ced
+> as the sequence above describes?
+>
+> Having multiple interrupts on the same CPU mean that the gap
+> between interrupts for one can be used by others, and that may
+> definitely make the CPU 100% busy in hardirq.
 
-Drop this node here please, the infra will populate it at runtime to
-make your example work.
+Following up on the multiple interrupt sources on one CPU, you could
+try something like this:
+every time an interrupt source comes while the timer is active,
+increment a counter.
+When the timer expires and the counter is > 0, add as many "gaps" as
+there were sources.
+This should restore the invariant that every interrupt source gets one
+run per moderation interval,
+and the adaptive control loop should adjust the value to hit the target
 
-pw-bot: changes-requested
+--- a/kernel/irq/irq_moderation.h
+    +++ b/kernel/irq/irq_moderation.h
 
-Otherwise, it looks fine.to me..
+    @@  struct irq_mod_state {
+    +    unsigned int        kicked;
+         unsigned int        sleep_ns;
+    --- a/kernel/irq/irq_moderation.c
+    +++ b/kernel/irq/irq_moderation.c
+    @@ bool irq_moderation_do_start(struct irq_desc *desc, struct
+irq_mod_state *m)
+             /* We need moderation, start the timer. */
+             m->timer_set++;
+    +        m->kicked =3D 0;
+             hrtimer_start_range_ns(&m->timer, ns_to_ktime(m->sleep_ns),
+                            slack_ns, HRTIMER_MODE_REL_PINNED_HARD);
+    +    } else if (READ_ONCE(irq_mod_params.timer_push)) {
+    +        /* Timer armed: record the kick, timer_callback() will
+push it forward. */
+    +        m->kicked++;
+         }
+    @@ static enum hrtimer_restart timer_callback(struct hrtimer *timer)
+         lockdep_assert_irqs_disabled();
 
-Thanks,
-Conor.
+    +    /* Push the timer forward by sleep_ns for each kick received
+while armed. */
+    +    if (m->kicked) {
+    +        hrtimer_forward_now(timer, ns_to_ktime((u64)m->kicked *
+m->sleep_ns));
+    +        m->kicked =3D 0;
+    +        return HRTIMER_RESTART;
+    +    }
+    +
 
-
-> +
-> +    spi {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        serial@0 {
-> +            compatible =3D "wkmic,wk2204";
-> +            reg =3D <0>;
-> +            spi-max-frequency =3D <10000000>;
-> +            clocks =3D <&xtal>;
-> +            interrupt-parent =3D <&gpio>;
-> +            interrupts =3D <24 IRQ_TYPE_LEVEL_LOW>;
-> +            #address-cells =3D <1>;
-> +            #size-cells =3D <0>;
-> +
-> +            serial@0 {
-> +                reg =3D <0>;
-> +            };
-> +
-> +            serial@1 {
-> +                reg =3D <1>;
-> +                rs485-rts-active-low;
-> +                linux,rs485-enabled-at-boot-time;
-> +            };
-> +        };
-> +    };
-> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Doc=
-umentation/devicetree/bindings/vendor-prefixes.yaml
-> index ba2002969373..cdc04229d642 100644
-> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> @@ -1907,6 +1907,8 @@ patternProperties:
->      description: Wireless Tag (qiming yunduan)
->    "^wits,.*":
->      description: Shenzhen Merrii Technology Co., Ltd. (WITS)
-> +  "^wkmic,.*":
-> +    description: Chengdu Weikai Microelectronics Co., Ltd. (http://www.w=
-kmic.com/)
->    "^wlf,.*":
->      description: Wolfson Microelectronics
->    "^wm,.*":
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 3b2eb2a7a89a..e4a2443524d4 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -29432,6 +29432,13 @@ M:	Miloslav Trmac <mitr@volny.cz>
->  S:	Maintained
->  F:	drivers/input/misc/wistron_btns.c
-> =20
-> +WK2XXX SPI UART DRIVER
-> +M:	Huang Yang <hy@wkmic.com>
-> +L:	linux-serial@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/serial/wkmic,wk2124.yaml
-> +F:	drivers/tty/serial/wk2xxx.c
-> +
->  WMI BINARY MOF DRIVER
->  M:	Armin Wolf <W_Armin@gmx.de>
->  R:	Thomas Wei=DFschuh <linux@weissschuh.net>
-> --=20
-> 2.43.0
->=20
-
---GcGhcH9vO+oZF4fF
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaskBIAAKCRB4tDGHoIJi
-0gioAQCCXaZVxKgZfqGh8sn8aKKnA4/fEW+1CqDV00+hrVxY3QEAs+zNzGhcF2W8
-HY1y72jE+YymGtDIu1QvxfGFOIl2mwI=
-=eOrH
------END PGP SIGNATURE-----
-
---GcGhcH9vO+oZF4fF--
+cheers
+luigi
