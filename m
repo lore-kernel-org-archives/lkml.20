@@ -1,33 +1,32 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA1374156C6;
-	Fri,  9 Oct 2026 10:15:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 27CED43712D;
+	Fri,  9 Oct 2026 10:17:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791540947; cv=none; b=Ao0/BbMtoVyIYdXQIsGj+yhRJWvY2hn/ijnpPuBnM48k4A8xcQKvUas5GOXEwu0MCCtvNMISQxVbIqqsK9wH+7b0ezMdSYMXWm7joVrAM2aluoBRhSY4cufc8KywGk32pQSCiUeNxo0c/9DmxQUW58OvUizPmgCBDOQSOXDE9Jk=
+	t=1791541024; cv=none; b=bG0Axz9LcJd2GSeULE5neup6iYcQrppvHen8Vh5bWUl+JSkUYy8ERpCcHJ9f39T4/ImyKnd5+uMUt0Oacibjnzdx9/s2wBbrkyA8WglgXc3sTOTB7YgtYkFATugFrRJrVmFAeCSk39tmgcZ5wXNeWsmMLFcUwtkNb1rJk1rB0LI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791540947; c=relaxed/simple;
-	bh=W9YNJO3eljMQBQL7ue5+YRNPjGzFYVCg2stqGwzF9Yw=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=bnoLyBedA1IX1qfXA+IMIgZVZ8sixv72DOdgYNuTFYPTp2hm8qYwTGDrNFb2BpFyK034KiX9CDPChH1/8yc7UF5aDekvs7rZvZIB45miFzZ1vhyVlauP7r0xbWZhtztqxY6hH8qHHpigkYF3YFA1GZmNBukO3a7ajvbdmIZN84w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ERhJyKGR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791541024; c=relaxed/simple;
+	bh=ISto/j656UEgSat7gnPG1nEukC7wgx6ne0uBqf8rbEs=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=XcUAhg4m4zR2rn0XYX0+PR0hciV4YhTBXsjkla2Vjw5n39XERZ7U2pFXHAzDHx8gKt6LLdHg4fAfQpn805JjA1ewu+GCifQBk1ApPs0J/1OldoZVpcTLmgxE8t7l7qWNN/24meg2gPTy5J04pCK/ObjIPExEQycJ9fYr/7/m3+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=J31GRIcG; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ERhJyKGR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76D011F000FF;
-	Fri,  9 Oct 2026 10:15:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791540945;
-	bh=8W9qCexqUVmaVinPYhv9VyvBOcprigHB/jfrVeAlC08=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=ERhJyKGRuMNw9sZJnfpafppp799szSml1Fwgv4JtilN7OQEKquC79zDWu1cy7QO2B
-	 aMpn9omCpcMb1Yl3mQfKFGT1WglkG6YDiKNfFPke5Ci/bDDlDCWK7iPUnpRpBIPh0O
-	 /lbfBvo1dPd/HC7oOqLwItEBx0NqXZvI4O53pB6PjvsBcsa4Cj5uwqeZuWfrC/WlAV
-	 8xp6+FTbLG5fXRFdL1ULU2rIhLo/lAClm2uf+Z6dhXGqFMr9jhdANUU5WOv3QLNpJP
-	 1Gakb8v+uTRhSAMbDkFH7BuXt3KQHavHOke9w05hE+szaKU0sGTZY40SvEq2c/L7dT
-	 m0X6+8bdje/HA==
-Message-ID: <ca27b076-1814-4780-80f1-d022183736cf@kernel.org>
-Date: Fri, 9 Oct 2026 12:15:42 +0200
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="J31GRIcG"
+Received: from [192.168.1.70] (unknown [4.194.122.170])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 9E63620B7168;
+	Fri,  9 Oct 2026 03:16:58 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 9E63620B7168
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1791541021;
+	bh=95KYDsC/jQyaQyl+pchLNxtyaRNhg4WZf9oEozC3kTI=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=J31GRIcGb5XJZct6UdxyxnnbY9Pvd4QGcEtGD5mj6myd1Ld7b3xiKeiGm/vms8AdB
+	 joxsm0K95Idvxa6roehEka+Otg/n6Srg+0ysUXeQojxW9eWXzEhy6Q7m+Ib5FDidnw
+	 QOuKZWe8EcFEmAEAf0sknHCuNMW/5Ug/5vpdQc7k=
+Message-ID: <3f4a11ea-bbc0-4dc5-9720-3447346739cf@linux.microsoft.com>
+Date: Fri, 9 Oct 2026 15:46:55 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,75 +34,277 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: ipq5018-tplink-archer-ax55-v1: use
- 'ipq0518' prefix for dts
-To: Gabor Juhos <j4g8y7@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261007-tplink-ax55-v1-ipq0518-v1-0-0ef058756596@gmail.com>
- <20261007-tplink-ax55-v1-ipq0518-v1-3-0ef058756596@gmail.com>
+Subject: Re: [RFC PATCH 0/3] nvme-pci: yield completions under scheduler
+ pressure
+From: Naman Jain <namjain@linux.microsoft.com>
+To: Michael Kelley <mhklinux@outlook.com>,
+ "linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ changfengnan@bytedance.com, Luigi Rizzo <lrizzo@google.com>
+References: <20261009050556.2817978-1-namjain@linux.microsoft.com>
+ <MN2PR02MB6863FBC36CE4F1D6419F0E8BD4922@MN2PR02MB6863.namprd02.prod.outlook.com>
+ <04d88297-1732-4761-ae82-d68c441a7156@linux.microsoft.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261007-tplink-ax55-v1-ipq0518-v1-3-0ef058756596@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <04d88297-1732-4761-ae82-d68c441a7156@linux.microsoft.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 07/10/2026 18:59, Gabor Juhos wrote:
-> The TP-Link Archer AX55 v1 board is based on the IPQ0518 SoC.
-> Change the prefix of the board dts to reflect that.
+
+
+On 10/9/2026 12:21 PM, Naman Jain wrote:
 > 
-> Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
-> ---
->  arch/arm64/boot/dts/qcom/Makefile                                       | 2 +-
->  ...5018-tplink-archer-ax55-v1.dts => ipq0518-tplink-archer-ax55-v1.dts} | 0
+> 
+> On 10/9/2026 11:24 AM, Michael Kelley wrote:
+>> From: Naman Jain <namjain@linux.microsoft.com> Sent: Thursday, October 
+>> 8, 2026 10:06 PM
+>>>
+>>> On systems with several fast NVMe controllers, completion interrupts can
+>>> keep returning to the same CPUs faster than scheduled work can run. Each
+>>> handler may drain only a small number of completions, but the combined
+>>> interrupt stream can still prevent scheduler and watchdog progress.
+>>
+>> See this recent proposal [1] that sounds like it is addressing the 
+>> same or a
+>> similar issue. And there is this [2] more global approach. It's 
+>> worthwhile to read
+>> through the discussion on both threads. I haven't done a detailed 
+>> comparison
+>> of either vs. your proposal.
+>>
+>> Michael
+>>
+>> [1] https://lore.kernel.org/linux-nvme/20260818033846.53790-1- 
+>> changfengnan@bytedance.com/
+>> [2] https://lore.kernel.org/lkml/20260819124341.4185621-1- 
+>> lrizzo@google.com/
+>>
+> 
+> 
+> Thanks for sharing these Michael. I'll check more on these, and try it out.
+> 
+> Regards,
+> Naman
 
-No, this just breaks whatever scripts people have for no real gain.
-Assuming 0518 exists, then still 5018 is as good prefix.
+++ authors of these two series, for awareness and if there is some 
+configuration in their patches I should be trying to fix these lockup 
+issues.
 
-Best regards,
-Krzysztof
+I tested both GSIM v5 and the NVMe adaptive interrupt polling patch on
+the ARM64 Azure system where the NVMe hardirq soft lockup is reproducible.
+
+Test system
+===========
+
+The VM has:
+
+   - 128 Arm Neoverse-V2 vCPUs
+   - two 64-CPU sockets / NUMA nodes
+   - approximately 862 GiB RAM
+   - four 3.5-TB Microsoft NVMe Direct Disk v2 data devices
+   - one NVMe OS device and one additional accelerator-facing NVMe
+     controller
+   - Hyper-V vPCI with MSI-X
+   - 14 I/O queues per data controller
+
+The four data controllers independently map their I/O vectors to the
+same 14 CPUs:
+
+   0, 10, 19, 28, 37, 46, 55, 64,
+   74, 83, 92, 101, 110, 119
+
+Thus each of these CPUs handles corresponding queues from all four data
+controllers.
+
+The kernel base for both experiments was:
+
+   next-20261006
+   eea3fef32a9cf36abcb5975a5a594e4135a6b026
+   7.3.0-rc6-next-20261006
+
+The main lockup workload was read-only:
+
+   - 4-KiB random reads
+   - libaio
+   - O_DIRECT
+   - four data devices
+   - 128 jobs
+   - iodepth 256
+   - 90-second nominal runtime
+
+NVMe interrupt coalescing was disabled (FID 0x08 = 0), and
+nvme.use_threaded_interrupts was zero.
+
+Without a mitigation, the watchdog reports soft lockups after about
+26 seconds, normally on all 14 CPUs listed above.
+
+Conclusion
+==========
+
+On this VM:
+
+   - GSIM v5 did not prevent the lockup with any tested adaptive or fixed
+     setting, including the documented benchmark settings and the maximum
+     allowed delay.
+   - NVMe adaptive polling can improve throughput for sufficiently dense
+     individual queues, but it did not prevent the production lockup
+     because the aggregate cross-controller load was spread across enough
+     queues that most queues did not meet the fixed 10-us admission
+     threshold.
+
+The production failure is triggered by aggregate scheduler starvation
+from many queues and controllers sharing the same IRQ CPUs. Neither
+generic interrupt-rate moderation nor per-queue throughput-based
+adaptation directly observes that condition.
+
+
+More details:
+
+GSIM v5
+=======
+
+I tested the complete seven-patch v5 series:
+
+https://lore.kernel.org/all/20260819124341.4185621-1-lrizzo@google.com/
+
+The kernel was built with:
+
+   CONFIG_IRQ_SW_MODERATION=y
+   CONFIG_IRQ_TIME_ACCOUNTING=y
+
+GSIM is runtime-disabled and per-IRQ opt-in by default. I identified the
+56 dedicated I/O vectors belonging to the four data controllers. All 56
+were eligible and exposed allow_sw_moderation, and only those vectors
+were enabled.
+
+I first verified the same GSIM-patched kernel with runtime moderation
+disabled. It reproduced the soft lockup, as expected.
+
+I then tested the suggested adaptive configuration from the cover letter:
+
+   delay_us=100
+   target_intr_rate=1000000
+   hardirq_percent=70
+   update_ms=5
+
+I also tested the exact adaptive configuration used in patch 6's
+benchmark section:
+
+   delay_us=200
+   target_intr_rate=1000000
+   hardirq_percent=70
+   update_ms=5
+
+In addition, I tested fixed moderation at:
+
+   10, 25, 50, 75, 100, 200 and 500 us
+
+The 500-us value is the maximum allowed by the implementation.
+
+GSIM was definitely active. For the adaptive 100-us test, on the 14
+affected CPUs it selected delays between about 63 and 100 us, set
+323,811 moderation timers, enqueued 506,557 IRQs, and recorded 24,332
+hardirq-over-threshold events.
+
+However, every full-duration GSIM-only configuration still soft-locked.
+
+A summary is:
+
+                          QD1 IOPS       QD256 outcome
+
+   GSIM off                 24.2K        soft lockup
+   adaptive 100 us           4.0K        soft lockup
+   adaptive 200 us           3.3K        soft lockup / timeout
+   fixed 10 us              22.1K        soft lockup
+   fixed 200 us              3.2K        soft lockup
+   fixed 500 us              1.7K        soft lockup / timeout
+
+My interpretation is that GSIM reduces how often the NVMe interrupt
+handler runs, but it does not bound how much work the handler performs
+once entered. Delaying an interrupt permits more CQEs to accumulate, and
+the NVMe hardirq still drains the CQ until empty. On this topology that
+produces fewer, larger, still-unbounded hardirq executions.
+
+This does not contradict the reported GSIM benefits for systems limited
+by aggregate MSI-X traffic or PCIe/SoC backpressure. It means that on
+this VM the limiting issue is scheduler fairness inside the NVMe
+completion handler rather than interrupt-delivery overhead.
+
+NVMe adaptive interrupt polling
+===============================
+
+I also tested:
+
+https://lore.kernel.org/linux-nvme/20260818033846.53790-1-changfengnan@bytedance.com/
+
+The posted revision also has the irq_poll full-budget bookkeeping issue
+reported in the review thread: it can call irq_poll_complete() and still
+return the full budget. Since the author acknowledged this and said it
+would be fixed in the next revision, I added only the corresponding
+one-line fix before boot testing. I did not boot the known-buggy state.
+
+The tested adaptive algorithm uses fixed constants:
+
+   - 10-us poll period and admission threshold
+   - 8,192 CQEs per sample/trial window
+   - irq_poll budget of 64 CQEs
+   - 64 successful windows per polling episode
+   - two immediate failed trials followed by a 524,288-CQE backoff
+
+I tested the same patched kernel with:
+
+   1. adaptive policy off
+   2. adaptive policy enabled at runtime through
+      /sys/class/nvme/nvmeX/adaptive_irq_polling
+   3. nvme.use_adaptive_irq_polling=1 at boot
+
+The runtime policy was enabled only for the four data controllers.
+
+For the production lockup workload, both runtime-on and boot-default-on
+still soft-locked at about 26 seconds.
+
+IRQ_POLL increased by only about 520 callbacks during the entire
+runtime-on test and by about 539 during the boot-default-on test.
+
+The reason appears to be the fixed per-queue admission threshold. With
+about 5M aggregate IOPS spread across 56 I/O queues:
+
+   5M / 56 ~= 89K CQEs/s per queue
+   average interval ~= 11.2 us
+
+The adaptive patch attempts polling only when the measured per-queue
+completion interval is at most 10 us. The workload is intense in
+aggregate, but the individual queues are just below the polling
+admission threshold.
+
+Boot-time enablement produced the same result, so runtime sysfs
+switching was not the issue.
+
+I then tested workloads intended to match the patch's expected dense
+per-queue case.
+
+With one SSD, one job:
+
+               IRQ mode       adaptive mode
+
+   QD32        328K IOPS      328K IOPS
+   QD64        335K IOPS      443K IOPS
+   QD128       406K IOPS      232K IOPS
+
+At QD64, adaptive polling was clearly active (about 1.83M IRQ_POLL
+callbacks) and improved IOPS by about 32% while reducing latency. This
+matches the direction reported by the author.
+
+The results were not stable across repeats, however. A repeated QD64
+run was approximately neutral. QD128 produced both a regression and an
+improvement depending on run order/device state. This appears consistent
+with the author's comment that some benchmark results were still
+affected by drive-state variability.
+
+I also tested one SSD with 16 deep jobs pinned to one CPU. Adaptive
+polling activated, but averaged about 3% fewer IOPS than IRQ mode.
+
+Thanks,
+Naman
