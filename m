@@ -1,71 +1,71 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73DA42D592D;
-	Fri,  9 Oct 2026 14:22:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C9612D592D;
+	Fri,  9 Oct 2026 14:22:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791555759; cv=none; b=BQoZ+zWcC/e3FUfB0R5bAnX0mUvMDT2aV932Jyg1f9e2CSvZiq4iah8l0QpigUZMnMw1owSWGjpQN9ypfHBeNFKKMrRVX/OFEkVJcwA8Uk+A50eEuUlPsS5DbmKlB0BKXgM6QoBGRq+GCChz6leXGRsUMfI+yQZEAxBx6Mv04lg=
+	t=1791555768; cv=none; b=CRgL83RAUybyueEDvPU85aQcpowNgDA25DegUr8h3N3gFs5OZhujGhHXRo16P0OuPz3Ws1Ew8sxo8kvk4lCk5Fa4mGfs9srcRzAZNiBAPw1nDxBLOXlRz2l8s3zic2oOXv+WIqWU6W4y/CTJEncgPWkalJPrybrBFVfTtQmch9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791555759; c=relaxed/simple;
-	bh=exHWLYXzTM9mtKFd836x2uxs9t7AR1nHynd6k/ACquo=;
+	s=arc-20240116; t=1791555768; c=relaxed/simple;
+	bh=fQbqETrk+6hHLAWxiWRSbCCRBONqw5Hry4DTx6uTvk0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DRH3dfs1RTVsdmxsHtYroWhChFpidmcKI9/S5FSLIIuT443T3d9IgMzsRXChVyF0gL2LGsSK+NK4X7vdFHGHAMj1c47R8Jmw9PLCN0P2WM6Fp+3aJNhWj2jEEMeWqU5BlUF9/Nt+YSGr03PtKUcVkeQq89bwFSWGUDW0uGAFMwE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kC5xPhha; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=MS1wSMAD90vsBx8yqxoIylyLQ9Gmf05PxzXzvNs1Pz8gehfUi5SkqnE6e0Rrg6DqIlkB2u3eTOItcw/nWtC8okyppWomI4lyrlnjwwnupDt7CIdEWPkdMa4JF4aOF0NOJz9oKzdDo11TwUG9Cc07Ua9FCMGpum9b/HLVra1aE6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Qs50c1fv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kC5xPhha"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF7E21F000FF;
-	Fri,  9 Oct 2026 14:22:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791555758;
-	bh=akDjDkPdZ0AvHVYfxU8nsaUfV+VZNeoojr+Xd8f2sYs=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Qs50c1fv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5C951F00893;
+	Fri,  9 Oct 2026 14:22:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791555766;
+	bh=k5u0nEAirOWqi1VCaxdmJQ4JqrSlci3pWXWjeAqH/8A=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kC5xPhhaj1OTL5O02pSXnFbEPOuDTp6eWShL6/0dP6yfCEitz4zgsi1aeMlb0kTMP
-	 SS28+vfsPxEOPQjslZxFzB39S/fHzz5IOtvQceYpkuKzDMx7ZeyaqBob+jgso+OSAg
-	 pb5Dp+4URs7GrHZjoc2s0C9O+Nzn/qBfCc5jAIwEZ0dybZqJ++Rvm2wThwWrnkjGMJ
-	 kJg2FbwVrVfYiqdHi/vWfbpNTNoYjE81eYUFE8aE5tXKQNgLCZ6aGKU8lGx8bqe56e
-	 4iqQLpj/6gm2Sl0ThLdcduOBwNCLzjBoLaddrmq++D4LRCX/gYblL72BPvWHlqS8Jt
-	 srSiNK4DTc7rQ==
-Date: Fri, 9 Oct 2026 15:22:33 +0100
-From: Simon Horman <horms@kernel.org>
-To: khendry@reliablecontrols.com
-Cc: =?utf-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v3 1/2] net: pcs: rzn1-miic: Update port
- numbering for RZ/T2H
-Message-ID: <20261009142233.GD83879@horms.kernel.org>
-References: <20261006-miic-validate-dtb-v3-v3-0-68617b3dca5c@reliablecontrols.com>
- <20261006-miic-validate-dtb-v3-v3-1-68617b3dca5c@reliablecontrols.com>
+	b=Qs50c1fvAAJGbUqZVjnk06seG8+SFM7f/mLMzFePbxQmD6so/orpPKgaMhTjrPUEH
+	 ZqYjQ5CMSb0UNsAg+RnaPsTwAyUxN4a5/zUchKuQkk11K7zsamNpDZj/2E7aD5St/3
+	 FVZXsiqqNzVWF8vzv0sSt3dXwvOvR8C9sUJJhUiU=
+Date: Fri, 9 Oct 2026 10:22:44 -0400
+From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: Leon Romanovsky <leon@kernel.org>, workflows@vger.kernel.org, 
+	ksummit@lists.linux.dev, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
+	broonie@kernel.org, tytso@mit.edu
+Subject: Re: [PATCH 1/2] agents: add infrastructure for agent resources
+Message-ID: <20261009-nebulous-prophetic-caiman-c7842c@lemur>
+References: <cover.1791499378.git.sashal@kernel.org>
+ <5dfafd6f79165526fe17774c55b553b7dfe4b3fe.1791499378.git.sashal@kernel.org>
+ <20261009134025.GA11438@unreal>
+ <asj4FCbBoca8TUK6@laps>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261006-miic-validate-dtb-v3-v3-1-68617b3dca5c@reliablecontrols.com>
+In-Reply-To: <asj4FCbBoca8TUK6@laps>
 
-On Tue, Oct 06, 2026 at 09:48:11AM -0700, Kyle Hendry via B4 Relay wrote:
-> From: Kyle Hendry <khendry@reliablecontrols.com>
+On Fri, Oct 09, 2026 at 10:20:04AM -0400, Sasha Levin wrote:
+> > > +AGENT RESOURCES
+> > > +M:	Sasha Levin <sashal@kernel.org>
+> > > +L:	linux-kernel@vger.kernel.org
+> > > +S:	Maintained
+> > > +F:	agents/
+> > 
+> > If you choose a separate entry instead of adding this to the existing
+> > "Documentation Process" entry, let's update the mailing list to
+> > workflows@vger.kernel.org. This is where all process changes are announced.
 > 
-> The port numbers on the RZ/T2H are documented as 0 to 3. Update the info
-> structure and change the member name to miic_port_last to be more accurate.
+> Hm... What do you think Konstantin?
 > 
-> This value was being used as the number of miic registers when setting
-> default values. Add logic to get the total port count and loop over that.
-> 
-> Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
+> I remember the workflows@ list was originally created to share our
+> secret/magical workflows, and I'm not sure that this one qualifies. We can
+> start a new list too if it's easier.
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+Eh. At this point I'm trying to shove everyone towards "just use dfn: queries
+for your stuff, stop relying on actual 'lists'". I'd just leave it as
+linux-kernel@vger, honestly, since the automated patch churn may annoy those
+people on the workflows list that we actually want to keep there.
 
+-K
