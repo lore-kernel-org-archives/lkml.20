@@ -1,206 +1,102 @@
-Received: from sg-3-44.ptr.tlmpb.com (sg-3-44.ptr.tlmpb.com [101.45.255.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1B9F356771
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 03:13:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D881A344D9B;
+	Fri,  9 Oct 2026 03:13:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791515613; cv=none; b=idcoKFT/YEq5RsaRN/K9ivA50q7iNJY/ToDW9nhy02rgrCxuHww6VyVyM1zreTQx+hMBNSr4VhlBlfaVfRMQahdW8WzLCzzkZSjhtdBG14DBwVWLYp2QBcT0qeeS2S5zXMpXg/tFCcHLeS7pBy7QFCdVzuF7jd27qyoaFcc8Thg=
+	t=1791515616; cv=none; b=EzdnlkcrLMVsvxfkmnjcxNtn9tdeXEYboILAWeyarDP4mRjN8uMVME8jQYFhejnQR5x+0hh6DBtWslLj+u1epU3CIlJDTHVwsAiFNOIMYs52HOIBIz4Gl2oF3VKAVIncOlsJxyUdxfFSJIOvRleO8/wuff5JhxO+fbK57zOcz6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791515613; c=relaxed/simple;
-	bh=/zRbQ4G2JIzgNGW0NdOCTn3fDkacZ/12Bf/PAEdG3J0=;
-	h=Subject:References:To:Cc:Content-Type:Date:Mime-Version:
-	 Message-Id:In-Reply-To:From; b=iFt2Zz5D5ja25EJjfZefNtjbOx5bDBOP1wVxZSsoZEB24Z9t7AnAhQcHPsFrWooG5evboacuzEZFuWnGQ6HwFioOcdE6JTVtPngswhSd1T2z/uUSjsprXMLQSHeppSoW+ZjIqflk4bkL3v8mxvmmwFSs9ff+bwnSnFddaGdPQM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=XbAZQNiq; arc=none smtp.client-ip=101.45.255.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	s=arc-20240116; t=1791515616; c=relaxed/simple;
+	bh=YGJ/YuFtOpApRmIjcAg+eUkIF40aIyFKvEDDOWAlWVs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=szOlXnyVxZxr5CjOB5ljoklOSbZppAI0Y/aXJMYuMpFq3CBDE8hVMmwU6K6j6AaptzH3doABbiYuQgB8jpBO1Th96zkjEcNk80yeqZjZj4016/AjZPe7i9aq+9MGoFReIS/aE/EW+/rb1nTN5x341v3U0QM7e5lWqtcwOWd6YBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=bcSfLQjh; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="XbAZQNiq"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1791515558;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=cnjFrYqnLgXOVQZ2ilR00iyrNd4zwdoaGYzKoAoPYcM=;
- b=XbAZQNiq3/ZPRAU5/m9tVdP8bbEtF7ZA5t03HfIyMCltyV19mNpKRpQrUT+vA3Jala+aRB
- yvhhv+mJEloy+6QLiaz2yCemMuCfh8b4ITQtGodBbEgfQeOd80zio1r6b3eM+/i8avNwe/
- qexy+HkZ/KQ8qV7dUbTQeJF2DWUDy9/7m6qrUtIvg5XlHIG8lLlzDnEz5yL6ULX5z25mhI
- HuplLQHkvXIRQSpMYOXskvdvSRSGfks90GQUGrRis3cXm4u87xCsO7/xxKKGeMdTJ/iYws
- TIezbjSz58zPWxGZo6BYAnlRm9zcN9WXKVz5IyxL/HbUzhVNx4wUAc741u8G4g==
-Subject: Re: [PATCH v2] md/raid5: use dedicated llist for stripe plug
-References: <20260922060928.3486799-1-dayou5941@163.com>
-To: "Li Youhong" <dayou5941@163.com>, <song@kernel.org>, 
-	"yu kuai" <yukuai@fygo.io>
-Cc: <magiclinan@didiglobal.com>, <xiao@kernel.org>, 
-	<linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	"Li Youhong" <liyouhong@kylinos.cn>, <stable@vger.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 9 Oct 2026 11:12:33 +0800
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="bcSfLQjh"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 50622db01;
+	Fri, 9 Oct 2026 11:13:25 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Daniel Mack <daniel@zonque.org>,
+	Haojian Zhuang <haojian.zhuang@gmail.com>,
+	Robert Jarzmik <robert.jarzmik@free.fr>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] usb: gadget: pxa25x: mark the watchdog timer IRQ-safe
+Date: Fri,  9 Oct 2026 11:13:18 +0800
+Message-Id: <20261009031318.1122589-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26ac85ba6+64aba2+vger.kernel.org+yukuai@fygo.io>
-X-Original-From: yu kuai <yukuai@fygo.io>
-Message-Id: <fb8edfb3-ce4c-4b3d-87f8-70552626311f@fygo.io>
-User-Agent: Mozilla Thunderbird
-Received: from [192.168.1.104] ([39.182.0.35]) by smtp.larksuite.com with ESMTPS; Fri, 09 Oct 2026 03:12:37 +0000
-In-Reply-To: <20260922060928.3486799-1-dayou5941@163.com>
-Reply-To: yukuai@fygo.io
-From: "yu kuai" <yukuai@fygo.io>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa11ea6b86503a1kunm2290a5e1430986
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTkkeVkpCGkJCSB1CSx4dQlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=bcSfLQjh4BTRg43Eyh/AtX3mKz0+pVTtRZS6sjLjvU5FF6Tz++1E+48c/SGtaOtYOE33rQg/aawOo26rq60Dj14/HBkrE2cRQZZaeJh6Dv+iuPup0Y5DZYVTVPkAiRHa0wSy76LDIo32f89moZhcvluoejcw8Sd1HjTgFJ8FcoU=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=JSSC87nfxfspDKDrjTT3iXE48aOn32ItDe2Aa1070uI=;
+	h=date:mime-version:subject:message-id:from;
 
-Hi,
+The PXA25x UDC reset path runs from its hard-IRQ handler and calls
+timer_delete_sync() for the watchdog. The timer is currently initialized
+without TIMER_IRQSAFE, so timer_delete_sync() warns and can deadlock when
+the reset races with the watchdog callback.
 
-=E5=9C=A8 2026/9/22 14:09, Li Youhong =E5=86=99=E9=81=93:
-> From: Li Youhong <liyouhong@kylinos.cn>
->
-> release_stripe_plug() and do_release_stripe() share sh->lru.
-> release_stripe_plug() sets STRIPE_ON_UNPLUG_LIST and
-> list_add_tail()s sh->lru onto raid5_plug_cb.list without
-> device_lock. do_release_stripe() holds device_lock and, when the
-> last reference drops, list_add()s the same lru onto a handle or
-> inactive list.
->
-> Two list_add()s on one node corrupt it. sh->lru can be
-> reinitialized into a self-loop while raid5_plug_cb.list still
-> points at that stripe. raid5_unplug() then walks the list under
-> device_lock with IRQs disabled and never finishes. Other CPUs
-> waiting for the same lock hard-lockup.
->
-> Add a dedicated llist_node, unplug_list, to stripe_head, as
-> release_list is used for released_stripes.
->
-> Fixes: 8811b5968f62 ("raid5: make_request use batch stripe release")
-> Suggested-by: Yu Kuai <yukuai@fygo.io>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
-> ---
-> v2:
-> - Drop taking device_lock in release_stripe_plug(). Add a dedicated
->    unplug_list.
-> - v1: link: https://lore.kernel.org/linux-raid/20260902095307.358569-1-da=
-you5941@163.com/
->
-> ---
->   drivers/md/raid5.c | 52 ++++++++++++++++++++++++++---------------------=
------
->   drivers/md/raid5.h |  1 +
->   2 files changed, 27 insertions(+), 26 deletions(-)
->
-> diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
-> index b91545ce090d..9dabbf9743d7 100644
-> --- a/drivers/md/raid5.c
-> +++ b/drivers/md/raid5.c
-> @@ -5710,7 +5710,7 @@ static struct stripe_head *__get_priority_stripe(st=
-ruct r5conf *conf, int group)
->  =20
->   struct raid5_plug_cb {
->   	struct blk_plug_cb	cb;
-> -	struct list_head	list;
-> +	struct llist_head	unplug_list;
->   	struct list_head	temp_inactive_list[NR_STRIPE_HASH_LOCKS];
->   };
->  =20
-> @@ -5718,34 +5718,33 @@ static void raid5_unplug(struct blk_plug_cb *blk_=
-cb, bool from_schedule)
->   {
->   	struct raid5_plug_cb *cb =3D container_of(
->   		blk_cb, struct raid5_plug_cb, cb);
-> -	struct stripe_head *sh;
-> +	struct stripe_head *sh, *tmp;
->   	struct mddev *mddev =3D cb->cb.data;
->   	struct r5conf *conf =3D mddev->private;
-> +	struct llist_node *head;
->   	int cnt =3D 0;
->   	int hash;
->  =20
-> -	if (cb->list.next && !list_empty(&cb->list)) {
-> -		spin_lock_irq(&conf->device_lock);
-> -		while (!list_empty(&cb->list)) {
-> -			sh =3D list_first_entry(&cb->list, struct stripe_head, lru);
-> -			list_del_init(&sh->lru);
-> -			/*
-> -			 * avoid race release_stripe_plug() sees
-> -			 * STRIPE_ON_UNPLUG_LIST clear but the stripe
-> -			 * is still in our list
-> -			 */
-> -			smp_mb__before_atomic();
-> -			clear_bit(STRIPE_ON_UNPLUG_LIST, &sh->state);
-> -			/*
-> -			 * STRIPE_ON_RELEASE_LIST could be set here. In that
-> -			 * case, the count is always > 1 here
-> -			 */
-> -			hash =3D sh->hash_lock_index;
-> -			__release_stripe(conf, sh, &cb->temp_inactive_list[hash]);
-> -			cnt++;
-> -		}
-> -		spin_unlock_irq(&conf->device_lock);
-> +	head =3D llist_del_all(&cb->unplug_list);
+Mark the timer IRQ-safe. Since IRQ-safe callbacks run with interrupts
+disabled and remain so on return, remove the callback's local IRQ disable
+and enable pair; local_irq_enable() would otherwise re-enable interrupts
+before the callback returns.
 
-Is it possible that registered plug from task A can be flushed concurrent b=
-y unplug from
-another task, and later unplug_list is empty for task A's unplug. If so, a =
-NULL check for
-head is needed here.
+Fixes: 8fa7292fee5c ("treewide: Switch/rename to timer_delete[_sync]()")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/usb/gadget/udc/pxa25x_udc.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-> +	head =3D llist_reverse_order(head);
-> +	spin_lock_irq(&conf->device_lock);
-> +	llist_for_each_entry_safe(sh, tmp, head, unplug_list) {
-> +		/*
-> +		 * avoid race release_stripe_plug() sees
-> +		 * STRIPE_ON_UNPLUG_LIST clear but the stripe
-> +		 * is still in our list
-> +		 */
-> +		smp_mb__before_atomic();
-> +		clear_bit(STRIPE_ON_UNPLUG_LIST, &sh->state);
-> +		/*
-> +		 * STRIPE_ON_RELEASE_LIST could be set here. In that
-> +		 * case, the count is always > 1 here
-> +		 */
-> +		hash =3D sh->hash_lock_index;
-> +		__release_stripe(conf, sh, &cb->temp_inactive_list[hash]);
-> +		cnt++;
->   	}
-> +	spin_unlock_irq(&conf->device_lock);
->   	release_inactive_stripe_list(conf, cb->temp_inactive_list,
->   				     NR_STRIPE_HASH_LOCKS);
->   	if (!mddev_is_dm(mddev))
-> @@ -5768,15 +5767,16 @@ static void release_stripe_plug(struct mddev *mdd=
-ev,
->  =20
->   	cb =3D container_of(blk_cb, struct raid5_plug_cb, cb);
->  =20
-> -	if (cb->list.next =3D=3D NULL) {
-> +	if (!cb->temp_inactive_list[0].next) {
->   		int i;
-> -		INIT_LIST_HEAD(&cb->list);
-> +
-> +		init_llist_head(&cb->unplug_list);
->   		for (i =3D 0; i < NR_STRIPE_HASH_LOCKS; i++)
->   			INIT_LIST_HEAD(cb->temp_inactive_list + i);
->   	}
->  =20
->   	if (!test_and_set_bit(STRIPE_ON_UNPLUG_LIST, &sh->state))
-> -		list_add_tail(&sh->lru, &cb->list);
-> +		llist_add(&sh->unplug_list, &cb->unplug_list);
->   	else
->   		raid5_release_stripe(sh);
->   }
-> diff --git a/drivers/md/raid5.h b/drivers/md/raid5.h
-> index cb5feae04db2..e314f17eb949 100644
-> --- a/drivers/md/raid5.h
-> +++ b/drivers/md/raid5.h
-> @@ -201,6 +201,7 @@ struct stripe_head {
->   	struct hlist_node	hash;
->   	struct list_head	lru;	      /* inactive_list or handle_list */
->   	struct llist_node	release_list;
-> +	struct llist_node	unplug_list;
->   	struct r5conf		*raid_conf;
->   	short			generation;	/* increments with every
->   						 * reshape */
-
---=20
-Thanks,
-Kuai
+diff --git a/drivers/usb/gadget/udc/pxa25x_udc.c b/drivers/usb/gadget/udc/pxa25x_udc.c
+index 594d67193..41076ecca 100644
+--- a/drivers/usb/gadget/udc/pxa25x_udc.c
++++ b/drivers/usb/gadget/udc/pxa25x_udc.c
+@@ -1563,7 +1563,6 @@ static void udc_watchdog(struct timer_list *t)
+ {
+ 	struct pxa25x_udc	*dev = timer_container_of(dev, t, timer);
+ 
+-	local_irq_disable();
+ 	if (dev->ep0state == EP0_STALL
+ 			&& (udc_ep0_get_UDCCS(dev) & UDCCS0_FST) == 0
+ 			&& (udc_ep0_get_UDCCS(dev) & UDCCS0_SST) == 0) {
+@@ -1571,7 +1570,6 @@ static void udc_watchdog(struct timer_list *t)
+ 		DBG(DBG_VERBOSE, "ep0 re-stall\n");
+ 		start_watchdog(dev);
+ 	}
+-	local_irq_enable();
+ }
+ 
+ static void handle_ep0 (struct pxa25x_udc *dev)
+@@ -2343,7 +2341,7 @@ static int pxa25x_udc_probe(struct platform_device *pdev)
+ 		goto err;
+ 	}
+ 
+-	timer_setup(&dev->timer, udc_watchdog, 0);
++	timer_setup(&dev->timer, udc_watchdog, TIMER_IRQSAFE);
+ 
+ 	the_controller = dev;
+ 	platform_set_drvdata(pdev, dev);
+-- 
+2.34.1
