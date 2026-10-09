@@ -1,73 +1,163 @@
-Received: from b232-11.smtp-out.ap-southeast-2.amazonses.com (b232-11.smtp-out.ap-southeast-2.amazonses.com [69.169.232.11])
-	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
+Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 425E04E01FA
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 12:50:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=69.169.232.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 644D6451981
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 12:52:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791550222; cv=none; b=sTZ/G5qwANqqZjsP+RM1TowhHw06NZ0+ccBFL+HZk8pFN4CEi3xgSjkdJGYzowUAoN7hngzu1Adc0CZxIhZsK531VK7y8H9T94gGy0AMIw3WHhd4gHkKrtgGwM8uq8zllrlCfmJVgQDgEumthm3eaIus8KnlyWFwkqqIJVRhW5Y=
+	t=1791550330; cv=none; b=PazMLE0nh39cKn0EMVLHSjdTvTQDLFKXOcqLUIRML2NP3BHSWMnTkIHgK+QShGn2drwqbYe/Sd+7mO1EYtccEM9OrqyQli8eNWlAve6t/wAvInPKHgcMHVxpP6ZZ+4i8qNbBlJ6ftDx17/mLOzI/5GdZSSSuOHRJmIzHUuqBAuk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791550222; c=relaxed/simple;
-	bh=Ytf4qpOemrTH+R/z9bym5nZObk125pEKcHnM+dhubaI=;
-	h=Content-Type:MIME-Version:From:To:Subject:Message-ID:Date; b=OqNtexJGbucF8kR9UhbYO5X0kZGoQr5qELuIzyQOw7+quNXx3FhmYwLrIjd/yc70V7/oJdxcc5sipv+yoB9dgP9yvyLiQpxW5vUwuqJuiozJ01iNawzGYp+DYSCJjfuqO2UTKfy+haBrUyOntYB1SRgsRamorAuz/cj/ewNxEL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bogeqi.com; spf=pass smtp.mailfrom=ap-southeast-2.amazonses.com; dkim=pass (2048-bit key) header.d=bogeqi.com header.i=@bogeqi.com header.b=EpMEEGNV; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=bwjW0+Bl; arc=none smtp.client-ip=69.169.232.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bogeqi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ap-southeast-2.amazonses.com
+	s=arc-20240116; t=1791550330; c=relaxed/simple;
+	bh=UwboIcLvo8L2QPyEHASS/xgFWR57jyxEQJ+AMdJMRIA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EHEnkHxxj0FbDNMGwP8I32eQkvF9rDvw5gHUJSo5rIZ22mr7ycdN17ouoY3bmNs+PS/4Lp0KSDSG1EWhAy8e0IjSane/9OIDCkMOXKasW42pLlo+zghddWhLyF9FCetkiULDKxIDpw+SFv77yo71y0crBC7P8rrLJhkS6a+ApGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kAnUfN6n; arc=none smtp.client-ip=209.85.161.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bogeqi.com header.i=@bogeqi.com header.b="EpMEEGNV";
-	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="bwjW0+Bl"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=5ru6pkbu4odenrq6dtsho4o6d6xetluh; d=bogeqi.com; t=1791550214;
-	h=Content-Type:MIME-Version:Content-Transfer-Encoding:From:To:Subject:Message-ID:Date;
-	bh=Ytf4qpOemrTH+R/z9bym5nZObk125pEKcHnM+dhubaI=;
-	b=EpMEEGNVeRqKvTVtBj+mQIE35V22y+PuPiqBUnsPdTQV4hqXHKMuN+JliTWqorVo
-	AC4IqiyYCIs5kiOLvEc580NmwWTVhXZvJwrxq1o0lxJRjRPJPe6Jfa9Gftdto2fEwPy
-	RCm/iozvppTP550KRrtaEfalKFRD3RB5dhpKtIBwKtrw8QFmrt6QRLIk58FYL3qtacH
-	ZZ0uS7PbMZFt7hrpraDt+dC7cG+M86ftXNbSikaPrtsUVZgRvg3EX/SVQ6WwBn2qUUb
-	iJ9T1XXjJf9v5GVqOIrmM/p+I/MyaN7EjaeptgU4JGZLh3GZNhWltQv23DjVy6LtyBk
-	fHZf1o1/Pg==
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=ulrbq2zjesb42hdt6rpnifgor3epinsy; d=amazonses.com; t=1791550214;
-	h=Content-Type:MIME-Version:Content-Transfer-Encoding:From:To:Subject:Message-ID:Date:Feedback-ID;
-	bh=Ytf4qpOemrTH+R/z9bym5nZObk125pEKcHnM+dhubaI=;
-	b=bwjW0+BlFh/6bXZJxsp3jvUL3K0fsFKN5AsA3qQk1tEnFi1r7VcLbDA3+lKCEVlt
-	QZqjMdyasJsihQLY3hUNIIPvowMM2rxo9aGKKRa05r1z1IJrD9oDkIjl9VBq66YdSNY
-	oIfRBTUZEZutomuuF1kEKgbtLfgqB8AOJldZXVGQ=
-Authentication-Results: auth=pass smtp.mailfrom=sales@bogeqi.com; 
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kAnUfN6n"
+Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-6c8f6a53fabso1543713eaf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 05:52:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791550320; x=1792155120; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=r4zoLo6TEGlBfruK7UlHr1Vnlx0k0bueLiUiQyZg9BU=;
+        b=kAnUfN6ndGpJnwLKmLLm+h+QLR6n3vffG8FgKn781p9ZtWChx/W9Vi+lsXRFhACD6A
+         TAa3B6cP+v+vhk4vIEOmpGc9GHpAAm792vFZSdnwBkyBk4MnuSK1LnFZlANcUJ2ipcZA
+         XttPfcWetCXaJBmuckJ4nLtyXErFozsX2qYjq9ApLVxgQ6dMQun9yal7e027r9dQwXKR
+         EH4yBge581Qj7rE4G+62eBhOm459bgI8wNVPDYUvKi0BgYJ6ptGFvUcdOlRO53BrvJms
+         wQxKaElbwsDtlj7zzzY25t9mN9SQ0OO4u/4UpQhZPECFHHGpz0aielHvso7fIo86SrEq
+         t8Rw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791550320; x=1792155120;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=r4zoLo6TEGlBfruK7UlHr1Vnlx0k0bueLiUiQyZg9BU=;
+        b=MXqOzb9hDvy3zxRDWJP6533ykQEHp92Rptvd6VytCK+YUauGR//tg5eljCnjARqjaf
+         +Y57r5I4ngvPs/5+CXl19j9lztPAobMIEPHJq6QWKcgDM1/6/uRL6F1nlOmizHBAsRx1
+         6IoJrQ1jvC+HxUuUFwZ0eBPL6LtMsuWSQ+5opClHmZlj+nPCaUb+8Ppzpsf4hIv3MU/x
+         eCtblUW6Nx+O2aJgrRFz52cIzbnx6WunT4etrH8SrpRupkAnZwA2PNpv8suCGsSvpAw+
+         ylJW0kkBpG2nsKejySy7GqgqAVl4RJUbpjaK+GAR47rzR9h/iZIURZxZhlPs3cuKbEgJ
+         MSjA==
+X-Forwarded-Encrypted: i=1; AKwUvBxOf0pNQfSQacaLZJdB8wQ/ca4U+9ny00y6l1w7VoajW+x2UkRe1df4a6fNt7h806iK/xUis1px3Ev4pOk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kyrWkLY9kMkWeVsth0lYOX1VaIylWkC/UybD4Y1eQVC0zbSrt+
+	s0rCCWSagA0o5bmCbhb0rcOr4nH9YaH/sB5JCYpeWsDRgKqPeczQzX8Z
+X-Gm-Gg: AYBFou1kbdAVaU/UUBFwpHXZER/U3u5MDVR1XM0myky++QaKMKDgNde/CjCZCINof54
+	7J6ehXmGBaqH0M2C39l4vPHtsK/ekpPf9HCAt8P/e62YvQ9TuTTUVnFTZ0UoEoYtdjnU7Zn4Zwf
+	57quctoBYasVtdzgV5/AcwtdJiY13bhCn7+s8tEF0iZ+56Uz1I8YzosyZhhGgC0WvylmPjqdjsE
+	sflbUMNHgqPrOUbcwpo5eC9zk4ry4/lu3ufTzgn33/3lWZ39+FrlM2dGHXZxehHj2L/Ph4HJx2B
+	YwZSoXitOtpQ42j0PqffGYf8RuS0JJV96K0BuajU8g5KTSEeVaqn0MHtrFc+AKVr7oYnAT3yeRA
+	bjOZsdryroHJQuCuIOMHsbt+Vt2aS20GMH7v+3dnUnTVQ1SsAYSlzzj4xjufOes+mLdJpxRzZPT
+	mja+j86Pl3vkZZylItLTZihRfF+EamC2GRpztz2zyRJXUrJRiBAhM19orZ8rKcHhn8JAzu3I5DV
+	LSCZl0DDxMyAxC5dy01TxY0DyAKohhk8+Sif8Vs0lvf+qPm
+X-Received: by 2002:a4a:e84a:0:b0:6d9:c309:6479 with SMTP id 006d021491bc7-6eee48577dbmr1105828eaf.58.1791550320542;
+        Fri, 09 Oct 2026 05:52:00 -0700 (PDT)
+Received: from fabio-X870-EAGLE-WIFI7.. ([2804:1b3:a801:250d:38ba:9672:afcf:65b8])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a2a84a1482sm1514908fac.6.2026.10.09.05.51.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 05:51:59 -0700 (PDT)
+From: Fabio Estevam <festevam@gmail.com>
+To: mathias.nyman@intel.com
+Cc: gregkh@linuxfoundation.org,
+	bhelgaas@google.com,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	Fabio Estevam <festevam@gmail.com>
+Subject: [PATCH v3] usb: xhci-pci: Add TUSB73x0 definitions
+Date: Fri,  9 Oct 2026 09:51:54 -0300
+Message-ID: <20261009125154.266435-1-festevam@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-From: sales@bogeqi.com
-To: linux-kernel@vger.kernel.org
-Subject: =?utf-8?q?Custom_Stainless_Steel_Cabinetry_=26_OEM_Manufacturing_for_Your_Projects?=
-Message-ID: <010801a120b6d097-a9a816d9-d195-49c8-abda-e5220b12f290-000000@ap-southeast-2.amazonses.com>
-Date: Fri, 9 Oct 2026 12:50:14 +0000
-Feedback-ID: ::1.ap-southeast-2.tOZ9FI0g7BPZI76kDbACN8yugNhwLBoAXSfrYjrBs6I=:AmazonSES
-X-SES-Outgoing: 2026.10.09-69.169.232.11
+Content-Transfer-Encoding: 8bit
 
-SGkgW1BBVENIIHY0IDQvOF0gaW92X2l0ZXI6IHVzZSBidmVjIGl0ZXJhdG9yIHRvIGltcGxlbWVu
-dCBpdGVyYXRlX2J2ZWMoKSwKCkknbSByZWFjaGluZyBvdXQgdG8gZXhwbG9yZSBob3cgd2UgY291
-bGQgc3VwcG9ydCBbUEFUQ0ggdjQgNC84XSBpb3ZfaXRlcjogdXNlIGJ2ZWMgaXRlcmF0b3IgdG8g
-aW1wbGVtZW50IGl0ZXJhdGVfYnZlYygpJ3MgcmVub3ZhdGlvbiBhbmQgaW50ZXJpb3IgZGVzaWdu
-IHByb2plY3RzLgoKV2UgYXJlIGEgQ2hpbmEtYmFzZWQgbWFudWZhY3R1cmVyIG9mIHN0YWlubGVz
-cyBzdGVlbCBjYWJpbmV0cnkgYW5kIGhvbWUgZnVybmlzaGluZ3MuIE91ciBwcm9kdWN0IHJhbmdl
-IGluY2x1ZGVzIGluZG9vciBraXRjaGVuIGNhYmluZXRzLCBvdXRkb29yIGNhYmluZXRzIGFuZCBr
-aXRjaGVucywgc3RhaW5sZXNzIHN0ZWVsIHdhcmRyb2Jlcywgd2luZSBjYWJpbmV0cywgZG9vciBh
-bmQgd2FsbCBwYW5lbCBzeXN0ZW1zLCBhbmQgYSB3aWRlIHJhbmdlIG9mIGN1c3RvbSBzdGFpbmxl
-c3Mgc3RlZWwgZnVybml0dXJlLgoKV2Ugb2ZmZXIgY3VzdG9tIG1hbnVmYWN0dXJpbmcgYW5kIE9F
-TSBwcm9kdWN0aW9uIGJhc2VkIG9uIHlvdXIgZHJhd2luZ3MsIGRpbWVuc2lvbnMsIG1hdGVyaWFs
-IHNwZWNpZmljYXRpb25zLCBhbmQgZmluaXNoIHJlcXVpcmVtZW50cywgaGVscGluZyBicmluZyB5
-b3VyIGRlc2lnbnMgdG8gbGlmZSBmb3IgcmVzaWRlbnRpYWwgYW5kIGNvbW1lcmNpYWwgcHJvamVj
-dHMuCgpXZSBhbHNvIHVuZGVydGFrZSBhIHdpZGUgcmFuZ2Ugb2YgY3VzdG9tIHN0YWlubGVzcyBz
-dGVlbCBmYWJyaWNhdGlvbiBhbmQgc3VwcGx5IHByb2plY3RzIGZvciBob3RlbHMgb3ZlcnNlYXMs
-IHdpdGggcHJvZHVjdGlvbiB0YWlsb3JlZCB0byBlYWNoIHByb2plY3QncyBkZXNpZ24gYW5kIHNw
-ZWNpZmljYXRpb25zLgoKRG8geW91IGhhdmUgYW55IHVwY29taW5nIHJlc2lkZW50aWFsLCBjb21t
-ZXJjaWFsLCBvciBob3RlbCBwcm9qZWN0cyB0aGF0IHJlcXVpcmUgc3RhaW5sZXNzIHN0ZWVsIGNh
-YmluZXRyeSBvciBjdXN0b20gZnVybmlzaGluZ3M/IFdlJ2QgYmUgaGFwcHkgdG8gc2hhcmUgb3Vy
-IGNhdGFsb2cgYW5kIHByb3ZpZGUgYSBxdW90YXRpb24gYmFzZWQgb24geW91ciBwcm9qZWN0IHJl
-cXVpcmVtZW50cy4KCkJlc3QgcmVnYXJkcywKU3RvbmUKQm9nZXFp
+Instead of hard-coding the TUSB73X0 PCI ID, USB_CTRL register address
+and the PWRON_POLARITY, introduce definitions for them to make the code
+easier to read.
+
+No functional change.
+
+Signed-off-by: Fabio Estevam <festevam@gmail.com>
+---
+Changes since v2:
+- Move the TUSB73x0 PCI device ID to the shared PCI ID header and use it
+  in pci-quirks.c too, as suggested by Sashiko.
+
+Changes since v1:
+- None. Only sent it as a standalone patch instead of part
+  of a series.
+
+ drivers/usb/host/pci-quirks.c | 3 ++-
+ drivers/usb/host/xhci-pci.c   | 9 +++++++--
+ include/linux/pci_ids.h       | 1 +
+ 3 files changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/usb/host/pci-quirks.c b/drivers/usb/host/pci-quirks.c
+index ba158d63bb8b..f670e7aab984 100644
+--- a/drivers/usb/host/pci-quirks.c
++++ b/drivers/usb/host/pci-quirks.c
+@@ -1189,7 +1189,8 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
+ 	val = readl(base + ext_cap_offset);
+ 
+ 	/* Auto handoff never worked for these devices. Force it and continue */
+-	if ((pdev->vendor == PCI_VENDOR_ID_TI && pdev->device == 0x8241) ||
++	if ((pdev->vendor == PCI_VENDOR_ID_TI &&
++	     pdev->device == PCI_DEVICE_ID_TI_TUSB73X0) ||
+ 			(pdev->vendor == PCI_VENDOR_ID_RENESAS
+ 			 && pdev->device == 0x0014)) {
+ 		val = (val | XHCI_HC_OS_OWNED) & ~XHCI_HC_BIOS_OWNED;
+diff --git a/drivers/usb/host/xhci-pci.c b/drivers/usb/host/xhci-pci.c
+index a8889081ae82..54b76e2bddd2 100644
+--- a/drivers/usb/host/xhci-pci.c
++++ b/drivers/usb/host/xhci-pci.c
+@@ -28,6 +28,9 @@
+ #define SPARSE_DISABLE_BIT	17
+ #define SPARSE_CNTL_ENABLE	0xC12C
+ 
++#define TUSB73X0_USB_CTRL			0xe0
++#define TUSB73X0_PWRON_POLARITY			BIT(22)
++
+ /* Device for a quirk */
+ #define PCI_VENDOR_ID_FRESCO_LOGIC		0x1b73
+ #define PCI_DEVICE_ID_FRESCO_LOGIC_PDK		0x1000
+@@ -479,7 +482,8 @@ static void xhci_pci_quirks(struct device *dev, struct xhci_hcd *xhci)
+ 	    pdev->device == PCI_DEVICE_ID_ASMEDIA_3042_XHCI)
+ 		xhci->quirks |= XHCI_RESET_ON_RESUME;
+ 
+-	if (pdev->vendor == PCI_VENDOR_ID_TI && pdev->device == 0x8241)
++	if (pdev->vendor == PCI_VENDOR_ID_TI &&
++	    pdev->device == PCI_DEVICE_ID_TI_TUSB73X0)
+ 		xhci->quirks |= XHCI_LIMIT_ENDPOINT_INTERVAL_7;
+ 
+ 	if ((pdev->vendor == PCI_VENDOR_ID_BROADCOM ||
+@@ -678,7 +682,8 @@ int xhci_pci_common_probe(struct pci_dev *dev, const struct pci_device_id *id)
+ 	dma_set_max_seg_size(&dev->dev, UINT_MAX);
+ 
+ 	if (device_property_read_bool(&dev->dev, "ti,pwron-active-high"))
+-		pci_clear_and_set_config_dword(dev, 0xE0, 0, 1 << 22);
++		pci_clear_and_set_config_dword(dev, TUSB73X0_USB_CTRL, 0,
++					       TUSB73X0_PWRON_POLARITY);
+ 
+ 	return 0;
+ 
+diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
+index 0693e4532a68..030c86dd6d67 100644
+--- a/include/linux/pci_ids.h
++++ b/include/linux/pci_ids.h
+@@ -889,6 +889,7 @@
+ #define PCI_DEVICE_ID_TI_XX12		0x8039
+ #define PCI_DEVICE_ID_TI_XX12_FM	0x803b
+ #define PCI_DEVICE_ID_TI_XIO2000A	0x8231
++#define PCI_DEVICE_ID_TI_TUSB73X0	0x8241
+ #define PCI_DEVICE_ID_TI_1130		0xac12
+ #define PCI_DEVICE_ID_TI_1031		0xac13
+ #define PCI_DEVICE_ID_TI_1131		0xac15
+-- 
+2.43.0
+
