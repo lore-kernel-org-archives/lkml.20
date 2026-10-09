@@ -1,63 +1,63 @@
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05B524E36C6
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:35:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4D634E36D6
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:35:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791556536; cv=none; b=RKzB9mAoJViO9y4BbR0Sd7eD5GsGM/rNbvxzPnkmBUtcTldA70fkBt07Y00SiDWaRMXHf6pnyInOBN7KYLRWcLI9ZFMUipkFCvpR66k88C7sgC+XEi56HwLKbC794IYSMvzWfi0xefkqrtAS28gWXXWCekq2xQ98VrTla6fEXP8=
+	t=1791556541; cv=none; b=Izlfi6j0zvucZmwMKxVnlgjlleprpGTk3pF/VFUxrQuEcxReeISmJzOU9iduwY/320zpm4AORQg8sQ+tqlm4wfWvHWZor699fmV7z7QmNq70ZE/0Yd4ODYRM2ktggUDM8H/9JLJin0Lw2NXqZWkABiau5+drNIvoOYbXPKOzst0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791556536; c=relaxed/simple;
-	bh=J2f0V/EClIlA2WPD8b6oppOrlSzeIDKH7aeM7FWVeOA=;
+	s=arc-20240116; t=1791556541; c=relaxed/simple;
+	bh=ARJUZomiNWr2Esi35N49l0FhoUlm2R7xfcFwjyL02JA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OIFomIcSNJkhiK9BAwKdP1Q+sav6rh2/MXxPxvpN1b0Efmcu9vXIoJd/5CAOKVmKvChL8rslCnWbe61TvaRyWuxzC4xYXdb/q5cszmfMiIy2ROljXXfqvq4Oq/K7wNBnVmbJXSz3SOdozCf1/0LnGQkWGHBVn0pbrSlO/665pe4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com; spf=pass smtp.mailfrom=jclark.com; dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b=IN/6/uqB; arc=none smtp.client-ip=209.85.160.182
+	 MIME-Version; b=V/vj79yMJ53RI9JjzC0zwo/E0hOiWmY3LoRO4KiRucX9J7U0aMPxVWn/yR9R1kRV4c//76NFwpUh5nIIly8BdLnsoR/m5KmQkn94xWgSwCST1VMSXXt4SHqdDVqIzJORMS8iqYes3VKpXwxYQei/TiO2sttIBgrrYHEuX36zeRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com; spf=pass smtp.mailfrom=jclark.com; dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b=kY3Ipb0B; arc=none smtp.client-ip=209.85.219.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jclark.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b="IN/6/uqB"
-Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-5352a876d5aso48359621cf.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 07:35:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b="kY3Ipb0B"
+Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-917bab38b14so72915096d6.3
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 07:35:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jclark-com.20251104.gappssmtp.com; s=20251104; t=1791556533; x=1792161333; darn=vger.kernel.org;
+        d=jclark-com.20251104.gappssmtp.com; s=20251104; t=1791556539; x=1792161339; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rGO0sAofaphg39YrktW71GdT2lnvXlH+hJNivXpF8AA=;
-        b=IN/6/uqBDZ21rPSNcC0Ix2/4Lm+ee94Y2m/BSeeZnGiAi3YptWzJyrRPuROpBMaMkm
-         QED1KBe+I9I1ub6foKtxtr3XHXM9NqBfQfulfsxXNUX2x8qw90bo9s9YfW81JVMPHwvd
-         joI0PTAwdA2O9KZ0hgCY1bDSm5Tl2hLEajuP6p0lswavgjJwfqSvs9jbCuOvZYSVBTfe
-         YgL5eg4STzYmZvCCj3BEg520VI+qlFTaMYsRSBC8eVSjk7o0Xsj1rqQGjTud+dmLUFk4
-         KOJvAnc5Cl2dYPP7XzSMUU1kjj6LU5HGRalLTtpFpzBa+Dpaao5+4tOkcagL1da9KOrb
-         5u9g==
+        bh=GnICXPRNt7kphCrcnyQTA5McOgtnsdRXgEC40bg24aY=;
+        b=kY3Ipb0Bwk2iKVIPw4yeVy7dmFbIc6WFEbalyseA6R5Ima7CkngmC8/BlbZuYUEtq0
+         AZm9hIRCNSHnwFRqRVwFz5kNbum0Tjw3G1cbdev1YhLaO+RYPpI5pergEDtumOMLrtQB
+         2kyUfeJ/zx7NQTTWitx/B3Ou/aMNl8/8Nzl15xTF9z4o7OOJDLmZ+PFNfgOhPP3C4ZZo
+         xUp28NWVeAJrHKDvdpONoGdKW6w26KfIRw9BPNJy7ZrWYkgOr3oyoc5WKLXvmxnpwghY
+         pEkLoGX/k22Hi1BODJpjieterxvYW+vyHPuboeK136iGKV9Pv1rRrjdW8VjOaq3NP7ny
+         RX/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791556533; x=1792161333;
+        d=1e100.net; s=20260707; t=1791556539; x=1792161339;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rGO0sAofaphg39YrktW71GdT2lnvXlH+hJNivXpF8AA=;
-        b=RVeF+F7I/2N/oy7hJfVVmbPNlhHGvNqP2sNceHAT37Qtyoa6A2/Qn2xFwUIf+ayu4G
-         hHX0thEGmzq+oHL/k9swPyrn3IjBt+kBfavp/GBJjafQK26tRE6CWyjM4TkuHOUTxiNG
-         IKI2PW6Di8tq/grxPLcFXhqWThN3qy7qD6jZlOZno1idvMfu03zae2nE2/yi31li37XF
-         xu8b+CcilRDQXDkidFg6KGN5mNKwl1HR+IMCktqMH0vXgfLoKygrPXFpxiYh2/6Hlt8k
-         eog4+iOHFMoSuU6krnjYVmkSxT6vFyr2zNK9lgxbzA6IbQJkQdkWV6+qYzgX8s6QmMAs
-         6G+A==
-X-Forwarded-Encrypted: i=1; AKwUvBwvJAn0C597X2uu1WzN+OfR4vvPVyui46BPwI7BlRZm06HCUbukxDPnve8goiXZ4soFggjhOe07xPynZtY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJhCzTWr4s8jWJY1mq9bpKJhHsKz8jjDpYJKUAV1F/4ChfMPxCo
-	8OJ1TwOrgS7jT0aLMw/ZIWEEgryOVL/OXsIRwe4mhmApfe7sJfcHvRmZ2uvDQT/SGA==
-X-Gm-Gg: AYBFou16DIT9m2MZ/zVE5fVmDzY6/+wp9BBaDaT0QfFVFHS/ckfevZF1GxqZL+o6cIO
-	WMOSiQ9aHtybs+7SsBASIW3o1fINrN4wo1l/xAXy9dkGPsb2bOfxPBZ8EwtKrUN5x/ecWUFgYhS
-	ivj/yI9tfE/IVO1CTicS08vTBKk5pKMokmP5LujNXT87W54XEJhyhGkrnQZSRoV0uqEBOc67g7K
-	ut9tlGkPUbro5kD0Ea6RmaPutUNG5OrTHn7wJe5/6J+CBi0+RdDLgoXT8SQbQDf/Zg6DHMJjhfE
-	n8DHIaOQt0MVtxfaH8yJ1bJTcJfw8uowBldixYPIj/onCOoOuP925XdD51iCgU4p5whW65Lh1rf
-	pfSKJ8dGi+7UqXxSIdVX3KTrqiY4ql80nWs038rozTKaPDKd6k3Du9ifstbWdRmoon5yfQZCmPC
-	Tk29EOJ6mPQuKh3R9n7cZzrVz168QYhr9U+inTCQlV4dkGuy7JNr26mHGk8tPL
-X-Received: by 2002:ac8:5f85:0:b0:535:80b:9900 with SMTP id d75a77b69052e-5359fb8687emr27949971cf.44.1791556532778;
-        Fri, 09 Oct 2026 07:35:32 -0700 (PDT)
+        bh=GnICXPRNt7kphCrcnyQTA5McOgtnsdRXgEC40bg24aY=;
+        b=pnSYyR1K2jXplpZPaxq6gv/aSV8XaUD4gvrC4OSlZnqftKkYvKSav2E9y8o/GyQSsm
+         Br16NpOfR4sWdeaZtlpNR/acQwVf0wYfR6/ecFg11xVZ+O+DCcUjb8478s/kiSI7wFj7
+         nEkPHpSWV6ieFUidApeNkq6HUIAMnXzZzXVT2diV5BEHeWFXUYQSAgudOojpH/K+s4Ia
+         pJupQXtfNzM+pGJ9LST49Rt9v0ROcFk87kWvleGAD6IJ8CldN5BR4zEi8bd7omq4nWtT
+         Ry0bLQEuTkmBVd1c/GHV5J/WbP+cxibjETNDVGV+v6xe1Evm85RiidZ+cJ2ozwLj7cHX
+         trSg==
+X-Forwarded-Encrypted: i=1; AKwUvBxzbTQcWuUGz6EMYfLMtQOBFbvYXBFkHk8/F3S6V9OWCrViDvNBI+FGx6HqAvIVcoTHYBa7MR8OkGAUPjM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJvLzMWTHb+rAr6ag8LC9x6vpEtYxe0dGDzohAnPzdcY8h5d/XC
+	HAq5ntxhhLsQe5WhRz/nkn2XQ4ySK/ykfsol3VI6RNOOdbNWHliTMk1LOjloQILtlw==
+X-Gm-Gg: AYBFou3KXTP5uvPjJYTS+vSs54Yq+fF05YClbOJ3imWKZRFcY+xZ7xe2dGkaxI+tgwW
+	aad4C6A0O4byJRNc3bKRnYpwDBpB1FZ8Bh+TQgnkDqSszgKhW+LYU7+xzZRQ/6FeantXcoiabxe
+	A56CEoeBZCmew5XtXUH2oEHjtHUgT3NhYmAeU7SqfiQBpefe/5QZNvtHM+9ErmRXtMGaTM5Qw4i
+	OgLzJO7/062Cq6rZAe1picxoJ54K5cuajaxyzz7xesMyUMIYYFmQEv0vqYK0PTcvOmyh8T9lsXv
+	apUgUXNPGUYFbqNZSnZ01XyF1RBq/OStFoJIK31O3rqpxZSX1T134yjFgmnyB+OtO4/pVrJDr8U
+	jRVAT+gLNOmlEjaV2HNP7M34VkKuGv1hOrHx7CbSIKdgL886C8JPphgv1DS4Iah9zqTnbm/nF88
+	BHRnTk1o9Kl7a5K93PKYJ+DSL3lmJJm836JCeRGhYLxRFIle3E4A+gdil6/9TotcmjJ6Fm/sY=
+X-Received: by 2002:a05:6214:411e:b0:914:483b:82ea with SMTP id 6a1803df08f44-91b5555f8b8mr34591656d6.33.1791556538673;
+        Fri, 09 Oct 2026 07:35:38 -0700 (PDT)
 Received: from cantal.lan ([58.136.72.162])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b5501751dsm19769456d6.17.2026.10.09.07.35.26
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b5501751dsm19769456d6.17.2026.10.09.07.35.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 07:35:32 -0700 (PDT)
+        Fri, 09 Oct 2026 07:35:38 -0700 (PDT)
 From: James Clark <jjc@jclark.com>
 To: "David S. Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
@@ -77,9 +77,9 @@ Cc: Russell King <linux@armlinux.org.uk>,
 	Miroslav Lichvar <mlichvar@redhat.com>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next 3/5] ptp: add functions to adjust system timestamps
-Date: Fri,  9 Oct 2026 21:35:04 +0700
-Message-ID: <20261009143506.2507607-4-jjc@jclark.com>
+Subject: [PATCH net-next 4/5] net: macb: implement timestamped MDIO writes
+Date: Fri,  9 Oct 2026 21:35:05 +0700
+Message-ID: <20261009143506.2507607-5-jjc@jclark.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261009143506.2507607-1-jjc@jclark.com>
 References: <20261009143506.2507607-1-jjc@jclark.com>
@@ -91,88 +91,198 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add ptp_adjust_system_prets() and ptp_adjust_system_postts(), which
-shift the pre or post system timestamp by a given duration.
+Implement write_sts to provide system timestamp bounds for completion
+of an MDIO write. This enables tighter system timestamp bounds in PHY
+implementations of gettimex64.
 
-An MDIO bus driver can take system timestamps around the command that
-starts a write, and knows how long after that command the write
-completes, so it can shift the timestamps to bound the completion of
-the write.
+Take system timestamps around the command register write, then add
+the time from the command write until the MDC edge that clocks the
+last data bit, calculated from the peripheral clock rate and the
+configured MDC divider.
+
+On RP1 that edge comes 63.5 MDC periods after the command write. This
+was measured on a Raspberry Pi CM5 with its BCM54210PE PHY. The PHY's
+PHC was read with PTP_SYS_OFFSET_EXTENDED while the MDC divisor was
+switched between 48 and 128 through /dev/mem. Any error in the number
+of periods would make the PHC offset jump at each switch. After
+compensating for drift, the jump with 63.5 periods was under 2 ns.
+The MDC divider does not appear to run freely: the spread of the PHC
+offsets did not change with the divisor.
 
 Signed-off-by: James Clark <jjc@jclark.com>
 Assisted-by: LLM
 ---
-The time of the selected clock is moved by the CLOCK_MONOTONIC_RAW
-duration without scaling it for that clock's frequency correction,
-because timekeeping has no interface for that. While the clock is
-synchronized the error is negligible: under 2 ns for a 50 ppm
-correction over the 30 us MDIO write time in this series. It is larger
-only while the clock is being slewed. An interface along these lines
-would allow it to be done properly:
+The 63.5-period delay has been measured only on RP1, but the code
+assumes it holds for all MACB and GEM variants. I am not sure whether
+that is a reasonable assumption; if not, write_sts could be enabled
+only for RP1.
 
-	/* Scale a CLOCK_MONOTONIC_RAW duration to the rate of @clock_id */
-	u64 ktime_scale_raw_ns(clockid_t clock_id, u64 ns);
+ drivers/net/ethernet/cadence/macb.h      |  1 +
+ drivers/net/ethernet/cadence/macb_main.c | 95 ++++++++++++++++++++++--
+ 2 files changed, 88 insertions(+), 8 deletions(-)
 
- include/linux/ptp_clock_kernel.h | 48 ++++++++++++++++++++++++++++++++
- 1 file changed, 48 insertions(+)
-
-diff --git a/include/linux/ptp_clock_kernel.h b/include/linux/ptp_clock_kernel.h
-index 36a27a91059..b4ac64228f1 100644
---- a/include/linux/ptp_clock_kernel.h
-+++ b/include/linux/ptp_clock_kernel.h
-@@ -520,4 +520,52 @@ static inline void ptp_read_system_postts(struct ptp_system_timestamp *sts)
- 		ktime_get_snapshot_id(sts->clockid, &sts->post_sts);
+diff --git a/drivers/net/ethernet/cadence/macb.h b/drivers/net/ethernet/cadence/macb.h
+index 1cb2778fe49..3670731690f 100644
+--- a/drivers/net/ethernet/cadence/macb.h
++++ b/drivers/net/ethernet/cadence/macb.h
+@@ -1334,6 +1334,7 @@ struct macb {
+ 	struct macb_or_gem_ops	macbgem_ops;
+ 
+ 	struct mii_bus		*mii_bus;
++	unsigned long		mdio_sts_rate;
+ 	struct phylink		*phylink;
+ 	struct phylink_config	phylink_config;
+ 	struct phylink_pcs	phylink_usx_pcs;
+diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+index c4223ca848d..cec6e5a48e9 100644
+--- a/drivers/net/ethernet/cadence/macb_main.c
++++ b/drivers/net/ethernet/cadence/macb_main.c
+@@ -384,11 +384,47 @@ static int macb_mdio_read_c45(struct mii_bus *bus, int mii_id, int devad,
+ 	return status;
  }
  
-+static inline void __ptp_adjust_snapshot(struct system_time_snapshot *snap,
-+					 s64 ns)
+-static int macb_mdio_write_c22(struct mii_bus *bus, int mii_id, int regnum,
+-			       u16 value)
++static u64 macb_mdio_sts_delay(struct macb *bp)
 +{
-+	if (!snap->valid)
-+		return;
-+	snap->systime = ktime_add_ns(snap->systime, ns);
-+	snap->monoraw = ktime_add_ns(snap->monoraw, ns);
-+	/* No counter value corresponds to the adjusted times. */
-+	snap->cycles = 0;
-+	snap->cs_id = CSID_GENERIC;
-+	snap->hw_cycles = 0;
-+	snap->hw_csid = CSID_GENERIC;
++	static const u16 gem_divisors[] = {
++		[GEM_CLK_DIV8] = 8,
++		[GEM_CLK_DIV16] = 16,
++		[GEM_CLK_DIV32] = 32,
++		[GEM_CLK_DIV48] = 48,
++		[GEM_CLK_DIV64] = 64,
++		[GEM_CLK_DIV96] = 96,
++		[GEM_CLK_DIV128] = 128,
++		[GEM_CLK_DIV224] = 224,
++	};
++	static const u16 macb_divisors[] = {
++		[MACB_CLK_DIV8] = 8,
++		[MACB_CLK_DIV16] = 16,
++		[MACB_CLK_DIV32] = 32,
++		[MACB_CLK_DIV64] = 64,
++	};
++	unsigned long rate = READ_ONCE(bp->mdio_sts_rate);
++	u32 config = macb_readl(bp, NCFGR);
++	u32 divisor;
++
++	if (macb_is_gem(bp))
++		divisor = gem_divisors[GEM_BFEXT(CLK, config)];
++	else
++		divisor = macb_divisors[MACB_BFEXT(CLK, config)];
++
++	/* On RP1 the MDC edge that clocks the last bit of a clause 22
++	 * write comes 63.5 periods after the command write.
++	 */
++	return div64_ul(127ULL * divisor * NSEC_PER_SEC, 2 * rate);
 +}
 +
-+/**
-+ * ptp_adjust_system_prets - Shift the lower system timestamp bound
-+ * @sts: system timestamps, or NULL
-+ * @ns: CLOCK_MONOTONIC_RAW nanoseconds to add
-+ *
-+ * Add @ns to the selected clock's time and to the CLOCK_MONOTONIC_RAW
-+ * time of the lower bound, and clear its clocksource counter values.
-+ * @ns is not scaled for the selected clock's frequency correction, so
-+ * the bound is off by @ns times that correction.
-+ */
-+static inline void ptp_adjust_system_prets(struct ptp_system_timestamp *sts,
-+					   s64 ns)
++static int macb_mdio_write_c22_sts(struct mii_bus *bus, int mii_id, int regnum,
++				   u16 value, struct ptp_system_timestamp *sts)
+ {
+ 	struct macb *bp = bus->priv;
++	unsigned long flags;
++	u64 delay_ns;
+ 	int status;
++	u32 cmd;
+ 
+ 	status = pm_runtime_resume_and_get(&bp->pdev->dev);
+ 	if (status < 0)
+@@ -398,12 +434,32 @@ static int macb_mdio_write_c22(struct mii_bus *bus, int mii_id, int regnum,
+ 	if (status < 0)
+ 		goto mdio_write_exit;
+ 
+-	macb_writel(bp, MAN, (MACB_BF(SOF, MACB_MAN_C22_SOF)
+-			      | MACB_BF(RW, MACB_MAN_C22_WRITE)
+-			      | MACB_BF(PHYA, mii_id)
+-			      | MACB_BF(REGA, regnum)
+-			      | MACB_BF(CODE, MACB_MAN_C22_CODE)
+-			      | MACB_BF(DATA, value)));
++	cmd = MACB_BF(SOF, MACB_MAN_C22_SOF)
++	      | MACB_BF(RW, MACB_MAN_C22_WRITE)
++	      | MACB_BF(PHYA, mii_id)
++	      | MACB_BF(REGA, regnum)
++	      | MACB_BF(CODE, MACB_MAN_C22_CODE)
++	      | MACB_BF(DATA, value);
++
++	if (sts) {
++		delay_ns = macb_mdio_sts_delay(bp);
++		local_irq_save(flags);
++		ptp_read_system_prets(sts);
++		/* macb_writel() is relaxed; order it after the timestamp. */
++		mb();
++	}
++	macb_writel(bp, MAN, cmd);
++	if (sts) {
++		/* Flush the posted write before taking the upper bound. */
++		macb_readl(bp, NSR);
++		/* Order the read-back before the system timestamp. */
++		rmb();
++		ptp_read_system_postts(sts);
++		local_irq_restore(flags);
++
++		ptp_adjust_system_prets(sts, delay_ns);
++		ptp_adjust_system_postts(sts, delay_ns);
++	}
+ 
+ 	status = macb_mdio_wait_for_idle(bp);
+ 	if (status < 0)
+@@ -415,6 +471,12 @@ static int macb_mdio_write_c22(struct mii_bus *bus, int mii_id, int regnum,
+ 	return status;
+ }
+ 
++static int macb_mdio_write_c22(struct mii_bus *bus, int mii_id, int regnum,
++			       u16 value)
 +{
-+	if (sts)
-+		__ptp_adjust_snapshot(&sts->pre_sts, ns);
++	return macb_mdio_write_c22_sts(bus, mii_id, regnum, value, NULL);
 +}
 +
-+/**
-+ * ptp_adjust_system_postts - Shift the upper system timestamp bound
-+ * @sts: system timestamps, or NULL
-+ * @ns: CLOCK_MONOTONIC_RAW nanoseconds to add
-+ *
-+ * Add @ns to the selected clock's time and to the CLOCK_MONOTONIC_RAW
-+ * time of the upper bound, and clear its clocksource counter values.
-+ * @ns is not scaled for the selected clock's frequency correction, so
-+ * the bound is off by @ns times that correction.
-+ */
-+static inline void ptp_adjust_system_postts(struct ptp_system_timestamp *sts,
-+					    s64 ns)
+ static int macb_mdio_write_c45(struct mii_bus *bus, int mii_id,
+ 			       int devad, int regnum,
+ 			       u16 value)
+@@ -1141,6 +1203,13 @@ static int macb_mdiobus_register(struct macb *bp, struct device_node *mdio_np)
+ 	return mdiobus_register(bp->mii_bus);
+ }
+ 
++static bool macb_mdio_init_sts(struct macb *bp)
 +{
-+	if (sts)
-+		__ptp_adjust_snapshot(&sts->post_sts, ns);
++	bp->mdio_sts_rate = clk_get_rate(bp->pclk);
++
++	return bp->mdio_sts_rate != 0;
 +}
 +
- #endif
+ static int macb_mii_init(struct macb *bp)
+ {
+ 	struct device_node *mdio_np, *np = bp->pdev->dev.of_node;
+@@ -1166,6 +1235,8 @@ static int macb_mii_init(struct macb *bp)
+ 	bp->mii_bus->name = "MACB_mii_bus";
+ 	bp->mii_bus->read = &macb_mdio_read_c22;
+ 	bp->mii_bus->write = &macb_mdio_write_c22;
++	if (macb_mdio_init_sts(bp))
++		bp->mii_bus->write_sts = &macb_mdio_write_c22_sts;
+ 	bp->mii_bus->read_c45 = &macb_mdio_read_c45;
+ 	bp->mii_bus->write_c45 = &macb_mdio_write_c45;
+ 	snprintf(bp->mii_bus->id, MII_BUS_ID_SIZE, "%s-%x",
+@@ -3095,12 +3166,20 @@ static void macb_configure_dma(struct macb *bp)
+ 
+ static void macb_init_hw(struct macb *bp)
+ {
++	unsigned long rate;
+ 	u32 config;
+ 
+ 	macb_reset_hw(bp);
+ 	macb_set_hwaddr(bp);
+ 
+ 	config = macb_mdc_clk_div(bp);
++	/* Record the pclk rate the MDC divider is chosen from, for
++	 * write_sts, which can't call clk_get_rate() under the MDIO bus
++	 * lock.
++	 */
++	rate = clk_get_rate(bp->pclk);
++	if (rate)
++		WRITE_ONCE(bp->mdio_sts_rate, rate);
+ 	/* Make eth data aligned.
+ 	 * If RSC capable, that offset is ignored by HW.
+ 	 */
 -- 
 2.56.0
 
