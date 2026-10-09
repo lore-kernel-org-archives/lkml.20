@@ -1,307 +1,99 @@
-Received: from mta0.migadu.com (out-105.mta0.migadu.com [91.218.175.105])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FC4F440A21
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 06:26:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C2D0443C15;
+	Fri,  9 Oct 2026 06:27:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791527222; cv=none; b=c82KJ9piogOsDK+9clLDXhWMrV3JKqe5btyYPZC9zhBA4kSoJdKjJkglxxp6QWxjScifQbVhoy3ukXKWdhApK1NjqGAser4RwZGVSFRk3YC+Xex34FRDc3Zz/Y01hWA+ko1eDJ4DXN1sgU++qbAB/n+UpJo8rb6ObGJ25D+hznQ=
+	t=1791527256; cv=none; b=d+ez5jvZK9mKs7T5/Hg8a2p0NFsTSlNVoGKdrl3aURaB5ZbMr1Dy07erpZkukCy+Nak5wYJN48EH1YuQLc8hFqbXqAyHiCBbeD0pH2LxusSNuZ3Xetiyq7GVwacUsqwXEt+4w1J/R+Tye5/gmvvChHjVHA1/ktrCJIN7NELtLvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791527222; c=relaxed/simple;
-	bh=4J2Oujq0h9Tdxh5Fs82Gko1VDMQdbho/Ty/hsMPCfKU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=G36C0qnTuxEzD5mt43w+u8Gn2kN77XT28IZj3yGBUSxIBe9IVs6BSRquHAMrsuyyvanV+Nz7k0eZ6JDLVMRh/qnqI3QKCj43lOFj2RKT6Fa0VmCJtXVcWhco5xFzryp7VCOwsZFwcmB/M9T1WmDgzYOuSMCZudKwmOlan4xqohA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=LMklH/zs; arc=none smtp.client-ip=91.218.175.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791527256; c=relaxed/simple;
+	bh=SVQ4ZAsvPrxbrO9AHLTBF7QeQdPMB3EXJlWgEL6MtqQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qrShZhnboaWcVL4BSkxhwVsf4+HiVTSYyO8nR6gYqyDEHUyxgKRrK4kVAkJ4EWhnuCT6/34w4UyDeIeIObtPxNaatCuakD8h3l/+Iv08o6rpakoNuyOe13PdS04OFeXNpMmX0yIkuBDEciOSByMmKuT5a346pUfgCBWhW1SNVfo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XDjgDuNg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="LMklH/zs"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=4J2Oujq0h9Tdxh5Fs82Gko1VDMQdbho/Ty/hsMPCfKU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791527217; v=1; x=1792132017;
- b=LMklH/zs2AewPti66CHbdlRmVAfSRS9XoIxpBqCNyNjEm0KeJhGzLORrXNop/6mC9xmqkFYD
- WeTydWE+U/YYzx4aMIOVjASDXFg4jX5hYj0ZS+4j3FLwRQ/kOzqjleyuBVewuxxJ0Q+y0wwwyi0
- O1VPy1bn91hpCpuY8buxvy1M=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 04d29327fff06515;
-	Fri, 09 Oct 2026 06:26:57 +0000
-X-Mizu-Trace-ID: 04d29327fff06515
-X-Migadu-Flow: FLOW_OUT
-From: Hui Zhu <hui.zhu@linux.dev>
-To: Roman Gushchin <roman.gushchin@linux.dev>,
-	JP Kobryn <inwardvessel@gmail.com>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Shuah Khan <shuah@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Barry Song <baohua@kernel.org>,
-	Geliang Tang <geliang@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XDjgDuNg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FB8A1F00893;
+	Fri,  9 Oct 2026 06:27:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791527254;
+	bh=j7LL+35X4cqcgpU23OihZTa5KlObZi60c2CzGisdAzk=;
+	h=From:To:Cc:Subject:Date;
+	b=XDjgDuNghb2YbsZ6ctJTYV9kTg5ZvSnIYyJHxZd/qg5rMu2qGTmq1znx+0CmJ68+3
+	 Kd6FfP3kDiv8k8x3xCYdlJ3qjGqIZofYYSwIZAG3rZ50QEuKmmCk+r+1ySvTWksaSe
+	 bJSZG67v+mT6yQynFe9cjvCHj9XB9H7L6C3Qf/BSK39bsEKAFANaLasZatBTJ96IbN
+	 kulNQfZNO1v7HcpAp/+p5Kefrt1WkQht08L8gBd6QTVfdM7M+0aAhWLKFbD3tdumVp
+	 F5ZZDFe2lNRdCUp34pnXY80rD0V4leUA8qnZElDRFeqTRc3N5nqBXY1JEU48orwMhI
+	 7XpUfD/rRfrnQ==
+From: Kees Cook <kees@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Kees Cook <kees@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Manuel Ebner <manuelebnerli@mailbox.org>,
+	"Paul E . McKenney" <paulmck@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	linux-kbuild@vger.kernel.org,
+	llvm@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	netdev@vger.kernel.org
-Cc: Hui Zhu <zhuhui@kylinos.cn>
-Subject: [PATCH bpf-next v4] selftests/bpf: Add bpf_proactive_reclaim test
-Date: Fri,  9 Oct 2026 14:26:37 +0800
-Message-ID: <20261009062637.176005-1-hui.zhu@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	linux-hardening@vger.kernel.org
+Subject: [PATCH v1 0/2] kbuild: Give jobserver-exec recipes the jobserver
+Date: Thu,  8 Oct 2026 23:27:29 -0700
+Message-ID: <20261009062722.i.253-kees@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1807; i=kees@kernel.org; h=from:subject:message-id; bh=SVQ4ZAsvPrxbrO9AHLTBF7QeQdPMB3EXJlWgEL6MtqQ=; b=owGbwMvMwCVmps19z/KJym7G02pJDFknOoO8ZvydcEdKoDFFR7oj7vnxSlvDxd3zVu8vO7WjU HJaLANbRykLgxgXg6yYIkuQnXuci8fb9nD3uYowc1iZQIYwcHEKwET21DMyfN3LuT1xwaNHTns3 TZ1zqbMsm+e0bkSSJsPO3G0OIRMvz2FkeDTrRHS44ewHgUeCjHc1T/rR8fJlgUXfEZk72X3usXI Z3AA=
+X-Developer-Key: i=kees@kernel.org; a=openpgp; fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 Content-Transfer-Encoding: 8bit
 
-From: Hui Zhu <zhuhui@kylinos.cn>
+Hi!
 
-bpf_proactive_reclaim() performs one bounded reclaim pass per call and,
-unlike a write to memory.reclaim, does not retry until the goal is
-reached.
+Paul reported a build failure on CentOS Stream 9 with linux-next[1]: the
+kernel builds, but scripts/jobserver-exec prints
 
-Charge 32 MiB of page cache to a cgroup, ask for all of it in one call,
-and check that the result is positive but well below the request: one
-pass is capped at MEMCG_CHARGE_BATCH pages, far short of 32 MiB on both
-4K and 64K page kernels.
+  WARNING: Unable to reopen jobserver read-side pipe: FileNotFoundError(2, 'No such file or directory')
 
-The test deliberately covers only the kfunc itself. A full example of
-the intended asynchronous use, where a BPF program watches one cgroup's
-workingset refaults and reclaims another one from bpf_wq callbacks, is
-maintained out of tree at [1], released under GPLv2.
+and rcutorture's build check counts the "Error" in that line. CentOS's
+make 4.3 carries a backport of the fix for GNU Make bug 58232, so
+sub-makes, like the top-level make, give the jobserver pipe only to
+recipes marked recursive, while MAKEFLAGS still names it. The new pigz
+step (1/2) and the older Clang LTO initcall ordering step (2/2) run
+jobserver-exec from recipes without "+", so pigz gets one thread and the
+initcall script caps its children at the CPU count instead of the free
+job slots. Mark both recipes recursive, as was done for rustc.
 
-Add CONFIG_MEMCG to the config fragment, without which mm/bpf_memcontrol.c
-is not built at all.
+Thanks!
 
-[1] https://github.com/teawater/memcg-async-reclaim
+-Kees
 
-Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
----
-Changelog:
-v4:
-According to the comment of Barry, test skips instead of failing on a
-read-only mount.
-v3:
-According to the comment of Barry, use write() + fsync() to charge the
-page cache instead of ftruncate() + read().
-According to the comment of AI, skip instead of fail when no regular
-filesystem is available for the workload file.
-v2:
-According to the comment of Alexei, remove the samples/bpf sample patch.
-Ship it out-of-tree as a standalone project.
+[1] https://lore.kernel.org/all/0ddb5e5e-f801-444c-aa98-0cfe814a3026@paulmck-laptop/
 
- tools/testing/selftests/bpf/config            |   1 +
- .../bpf/prog_tests/memcg_proactive_reclaim.c  | 130 ++++++++++++++++++
- .../bpf/progs/memcg_proactive_reclaim.c       |  34 +++++
- 3 files changed, 165 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/prog_tests/memcg_proactive_reclaim.c
- create mode 100644 tools/testing/selftests/bpf/progs/memcg_proactive_reclaim.c
+Kees Cook (2):
+  kbuild: Mark the kernel image gzip recipes as recursive
+  kbuild: Mark the initcall ordering recipe as recursive
 
-diff --git a/tools/testing/selftests/bpf/config b/tools/testing/selftests/bpf/config
-index 2b883b388f90..5621ef94ad7e 100644
---- a/tools/testing/selftests/bpf/config
-+++ b/tools/testing/selftests/bpf/config
-@@ -57,6 +57,7 @@ CONFIG_LIRC=y
- CONFIG_LIVEPATCH=y
- CONFIG_LWTUNNEL=y
- CONFIG_LWTUNNEL_BPF=y
-+CONFIG_MEMCG=y
- CONFIG_MODULE_SIG=y
- CONFIG_MODULE_SRCVERSION_ALL=y
- CONFIG_MODULE_UNLOAD=y
-diff --git a/tools/testing/selftests/bpf/prog_tests/memcg_proactive_reclaim.c b/tools/testing/selftests/bpf/prog_tests/memcg_proactive_reclaim.c
-new file mode 100644
-index 000000000000..c22dcfabe856
---- /dev/null
-+++ b/tools/testing/selftests/bpf/prog_tests/memcg_proactive_reclaim.c
-@@ -0,0 +1,130 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include <test_progs.h>
-+#include <limits.h>
-+#include <linux/magic.h>
-+#include <sys/statfs.h>
-+#include <unistd.h>
-+
-+#include "cgroup_helpers.h"
-+#include "memcg_proactive_reclaim.skel.h"
-+
-+#define CG_PATH "/memcg_proactive_reclaim"
-+
-+/*
-+ * Large enough that a single reclaim pass cannot come close to it, so that
-+ * "reclaimed less than was asked for" is not page-size noise: one pass is
-+ * capped at MEMCG_CHARGE_BATCH pages, which is 256 KiB on 4K pages but 4 MiB
-+ * on 64K pages.
-+ */
-+#define FILE_SIZE (32 * 1024 * 1024UL)
-+#define BUF_SIZE (64 * 1024)
-+
-+struct reclaim_args {
-+	__u64 cgroup_id;
-+	__u64 size;
-+};
-+
-+/*
-+ * The data file has to sit on a writable regular filesystem: tmpfs pages are
-+ * charged as shmem, so whether they can be reclaimed at all depends on swap
-+ * being available, and a read-only mount cannot host the file at all (EROFS
-+ * applies to root too). /tmp is tmpfs on many systems, and test_progs is
-+ * routinely run from a tmpfs working directory, so both candidates need the
-+ * check.
-+ */
-+static const char *workload_dir(void)
-+{
-+	static const char * const dirs[] = { "/tmp", "." };
-+	struct statfs st;
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(dirs); i++)
-+		if (!statfs(dirs[i], &st) && st.f_type != TMPFS_MAGIC &&
-+		    st.f_type != RAMFS_MAGIC && !access(dirs[i], W_OK))
-+			return dirs[i];
-+
-+	return NULL;
-+}
-+
-+void test_memcg_proactive_reclaim(void)
-+{
-+	struct memcg_proactive_reclaim *skel = NULL;
-+	struct reclaim_args args = {};
-+
-+	LIBBPF_OPTS(bpf_test_run_opts, opts,
-+		    .ctx_in = &args,
-+		    .ctx_size_in = sizeof(args));
-+
-+	char data_file[PATH_MAX];
-+	static char buf[BUF_SIZE];
-+	__u64 cgroup_id;
-+	const char *dir;
-+	off_t off;
-+	int cg_fd = -1, data_fd = -1, err;
-+
-+	/*
-+	 * Both candidate directories can be unusable: tmpfs (initramfs-based
-+	 * CI, for instance) or a read-only mount. That is an environment
-+	 * limitation, not a test failure.
-+	 */
-+	dir = workload_dir();
-+	if (!dir) {
-+		test__skip();
-+		return;
-+	}
-+
-+	snprintf(data_file, sizeof(data_file),
-+		 "%s/memcg_proactive_reclaim_XXXXXX", dir);
-+	data_fd = mkstemp(data_file);
-+	if (!ASSERT_GE(data_fd, 0, "mkstemp"))
-+		return;
-+
-+	cg_fd = cgroup_setup_and_join(CG_PATH);
-+	if (!ASSERT_OK_FD(cg_fd, "cgroup_setup_and_join"))
-+		goto out;
-+
-+	cgroup_id = get_cgroup_id(CG_PATH);
-+	if (!ASSERT_GT(cgroup_id, 0, "get_cgroup_id"))
-+		goto out;
-+
-+	skel = memcg_proactive_reclaim__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "open_and_load"))
-+		goto out;
-+
-+	/* Charge FILE_SIZE of clean page cache to the cgroup. */
-+	for (off = 0; off < (off_t)FILE_SIZE; off += sizeof(buf))
-+		if (!ASSERT_EQ(write(data_fd, buf, sizeof(buf)),
-+			       (ssize_t)sizeof(buf), "write"))
-+			goto out;
-+	if (!ASSERT_OK(fsync(data_fd), "fsync"))
-+		goto out;
-+
-+	args.cgroup_id = cgroup_id;
-+	args.size = FILE_SIZE;
-+	skel->bss->reclaimed = 0;
-+	err = bpf_prog_test_run_opts(bpf_program__fd(skel->progs.memcg_proactive_reclaim),
-+				     &opts);
-+	if (!ASSERT_OK(err, "test_run"))
-+		goto out;
-+	if (!ASSERT_EQ(opts.retval, 0, "retval"))
-+		goto out;
-+
-+	/*
-+	 * A single call is a single bounded pass: it reclaims something, but
-+	 * stops well short of the requested size instead of retrying until the
-+	 * goal is reached the way a write to memory.reclaim does.
-+	 */
-+	ASSERT_GT(skel->bss->reclaimed, 0, "reclaimed");
-+	ASSERT_LT(skel->bss->reclaimed, (__s64)FILE_SIZE, "single pass");
-+
-+out:
-+	if (skel)
-+		memcg_proactive_reclaim__destroy(skel);
-+	if (cg_fd >= 0)
-+		close(cg_fd);
-+	if (data_fd >= 0) {
-+		close(data_fd);
-+		unlink(data_file);
-+	}
-+	cleanup_cgroup_environment();
-+}
-diff --git a/tools/testing/selftests/bpf/progs/memcg_proactive_reclaim.c b/tools/testing/selftests/bpf/progs/memcg_proactive_reclaim.c
-new file mode 100644
-index 000000000000..b551192526fc
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/memcg_proactive_reclaim.c
-@@ -0,0 +1,34 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include "vmlinux.h"
-+#include <bpf/bpf_helpers.h>
-+
-+struct reclaim_args {
-+	__u64 cgroup_id;
-+	__u64 size;
-+};
-+
-+/* Signed, because bpf_test_run_opts.retval is a __u32. */
-+__s64 reclaimed;
-+
-+SEC("syscall")
-+int memcg_proactive_reclaim(struct reclaim_args *ctx)
-+{
-+	struct mem_cgroup *memcg;
-+	struct cgroup *cgrp;
-+
-+	cgrp = bpf_cgroup_from_id(ctx->cgroup_id);
-+	if (!cgrp)
-+		return 0;
-+
-+	memcg = bpf_get_mem_cgroup(&cgrp->self);
-+	if (memcg) {
-+		reclaimed = bpf_proactive_reclaim(memcg, ctx->size, -1);
-+		bpf_put_mem_cgroup(memcg);
-+	}
-+	bpf_cgroup_release(cgrp);
-+
-+	return 0;
-+}
-+
-+char _license[] SEC("license") = "GPL";
+ arch/alpha/boot/Makefile             | 4 ++--
+ arch/arc/boot/Makefile               | 2 +-
+ arch/arm64/boot/Makefile             | 2 +-
+ arch/microblaze/boot/Makefile        | 2 +-
+ arch/mips/boot/Makefile              | 2 +-
+ arch/nios2/boot/Makefile             | 2 +-
+ arch/parisc/boot/compressed/Makefile | 2 +-
+ arch/riscv/boot/Makefile             | 2 +-
+ arch/s390/boot/Makefile              | 2 +-
+ arch/sh/boot/Makefile                | 2 +-
+ arch/sh/boot/compressed/Makefile     | 2 +-
+ arch/sparc/boot/Makefile             | 4 ++--
+ arch/x86/boot/compressed/Makefile    | 2 +-
+ arch/xtensa/boot/Makefile            | 2 +-
+ scripts/Makefile.vmlinux_o           | 2 +-
+ 15 files changed, 17 insertions(+), 17 deletions(-)
+
 -- 
-2.43.0
+2.55.0
 
