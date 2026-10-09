@@ -1,69 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F31A549D59E;
-	Fri,  9 Oct 2026 12:44:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5D3CC39EF33;
+	Fri,  9 Oct 2026 12:45:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791549873; cv=none; b=ryf6v4ukXnLFsz0LF/NfTOZ2e6ylesFElhqddi3hK21ZTup/bUuY+H8zFgVgTjNeOSanVAjE+6I3ZBpFAGMaQtePMem3/17FYyA82A3jbBOqirVuxzkxWeXZrwZ9cHchSdStVVpEoTBGhY5N0xIpYULZgnqP5ScNrWwkM/hAisE=
+	t=1791549958; cv=none; b=IOLcAm6ddv1OH8V5y83/XHpOV7S96qt4Fu2AeWmHwNknqcLlFXtgT+auVskcKwDUN7QV6Zowl41d5m5A+BcZ/myWzWvki06WZ0Q28a36+/PYLREund4ii3BEpFI9+ZFS5cRgCn1xanGJcGpeqpUpmUkyoCwXpXTOtszhrFRMBv4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791549873; c=relaxed/simple;
-	bh=T80pmibn7aSi6N9hDzJvCBDoLXDCN4HDH9fhrQVJ60g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=BEbkbD7ZO3uN6T0nql4FTKpNWBtO25uenCIBCBqNXPLQJw3pBRVUq03F9M7CDL/klb0Ce2HOOyfepGlRHnWD/7VuxzW2TeLsSmS09WaoWshC5qLCeLcNOgm9pyozsgjAeyrUzFjN1HHEFSuNrffCFGlRTswQvPebBJRrrtNa8gI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NX40sEng; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791549958; c=relaxed/simple;
+	bh=+XNdH8y169fMKCNtfDLtMucS75fvXgUGZ1gQ6tqsejk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=uT9bRsjN4ctDwwFkr1SPDYAmLe0Lsau33RpwQz6W6j8DOWLJ4FJIG0ad8Di1rfuTjORtIX9gyiVKdY+3nmyfZ1MC5jFTCT4ncipFVnbr/pCAAIeqFmE4RNIRcfXSDWs30ylHb3tFgQV2khGmgYVpM3lfvFYDY4z4W5jrcac4+RE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=BH4BIhGy; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NX40sEng"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF4EA1F000FF;
-	Fri,  9 Oct 2026 12:44:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791549868;
-	bh=ZCAoLYZlSrLohEk+mBrzJi43HvKosm2TxiN/tMhp9/s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NX40sEnguamCzpu3X7PnkhNnpj+Y4FNsstFVWzaYUB2Ems3EmL4Sn7IrmblE1TWFJ
-	 Z0S+SVhmmYiz2SEEZulks9Bz3iEymeNJvcDLT+/2nU6jiwnDqxfFhokzzVvActpCrQ
-	 XNImeUSTYkk62rsbobCzceNGU7XOvnjm06EJnMNJcDJhlzXvux16kXRp7Q8Izzsepe
-	 LDYyNtpkhXV751+NXTaAMkt7a3ZpmmA08S40PX2Mu6y+Vbh6FX3VZWKt6yhN4uqgac
-	 M4q2h3BtggsJ8fx/WTotk7cDib00MU3HS68DSFsJmFA3ZqIb3annZMXN8AeQwJFgJF
-	 ajKrv3GKUUi/g==
-From: netdev-bot+sinfo@kernel.org
-To: Henry Martin <bsdhenrymartin@gmail.com>
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>,
- Phil Sutter <phil@nwl.cc>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- netfilter-devel@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] netfilter: nf_conntrack_h323: fix NULL pointer deref in
- decode_seqof()
-Date: Fri, 09 Oct 2026 12:44:27 +0000
-Message-ID: <179154986722.2527009.9795093960607230185@kernel.org>
-In-Reply-To: <20261009124116.3950469-1-bsdhenrymartin@gmail.com>
-References: <20261009124116.3950469-1-bsdhenrymartin@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="BH4BIhGy"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9E3671D14;
+	Fri,  9 Oct 2026 05:45:40 -0700 (PDT)
+Received: from [10.0.128.17] (e127648.arm.com [10.0.128.17])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 415DA3F66F;
+	Fri,  9 Oct 2026 05:45:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791549943; bh=+XNdH8y169fMKCNtfDLtMucS75fvXgUGZ1gQ6tqsejk=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=BH4BIhGyEm20Emlm18FjBq0CJ1q4Pz9CpuDF1oMsxtsJ24ro58u0yB2mhY73VO1HN
+	 gGhKoIK5ci3xVVKodnZnkC2HnDmSEFP4zSANnr6t4rBpqB9bK9Wg/V95Y/Lf/zCcM2
+	 g+WHGivtoIvOADanipH2s9mKh4PRzL7wVWnPFPbs=
+Message-ID: <2e635fc7-3d5c-4555-b92b-9e6e405f1b23@arm.com>
+Date: Fri, 9 Oct 2026 13:45:40 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cpuidle: Add the shallow governors
+To: Roman Kagan <rkagan@amazon.de>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, linux-pm@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ nh-open-source@amazon.com
+References: <20261008-b4-cpuidle-shallow-v1-1-c19e71127b14@amazon.de>
+ <e18bd763-0d6d-4bfd-b59e-78f952c94aa2@arm.com>
+ <faf34e6e-ecd9-471a-b30e-3aa79e3ee063@arm.com>
+ <asjaR_aPwevvBw_O@ub9ea591b72db54.ant.amazon.com>
+Content-Language: en-US
+From: Christian Loehle <christian.loehle@arm.com>
+In-Reply-To: <asjaR_aPwevvBw_O@ub9ea591b72db54.ant.amazon.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi!
+On 10/9/26 13:12, Roman Kagan wrote:
+> On Thu, Oct 08, 2026 at 07:29:43PM +0100, Christian Loehle wrote:
+>> On 10/8/26 19:17, Christian Loehle wrote:
+>>> On 10/8/26 19:06, Roman Kagan wrote:
+>>>> The idle states offered by a platform trade wakeup latency for energy
+>>>> savings, and there are situations where the trade is not worth making:
+>>>> while a latency-sensitive workload is running, or during a live update
+>>>> via kexec, where everything from the outgoing kernel stopping the
+>>>> workload to the incoming kernel resuming it is downtime, and deep idle
+>>>> states may lengthen it.
+>>>>
+>>>> The mechanisms currently available for that are all one-way.
+>>>> cpuidle.off=1, idle=poll and idle=halt can only be requested in the
+>>>> kernel command line and cannot be undone, and the PM QoS interfaces
+>>>> (/dev/cpu_dma_latency and the per-CPU pm_qos_resume_latency_us
+>>>> attribute) can only be used once user space is up, so they cannot cover
+>>>> the boot of the incoming kernel.
+>>>
+>>> You can also disable all but the shallowest idle state in sysfs:
+>>> echo 1 > /sys/devices/system/cpu/cpuX/cpuidle/stateX/disable
+>>>
+>>
+>> And I'd probably prefer having that exposed via the cmdline rather than
+>> two separate governors...
+> 
+> Doing this cmdline configuration per-cpu per-state is non-realistic.  I
+> guess you mean a single option that would express a policy, like "for
+> all cpus in the system, disable all but the shallowest state" or "...
+> all but the shallowest non-polling".  But policy is exactly what
+> governors are for.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Yes, I had something like
+cpuidle.max_exit_latency_us=<N>
+in mind that then sets the disable attribute for the applicable states.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+> 
+> Why exactly does having two more separate simple, narrow-purpose
+> governors sound wrong to you?
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+Because it's a lot of duplicate code we have to maintain (and the
+documentation).
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
