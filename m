@@ -1,41 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1DA73BA225
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 06:07:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE06C422E3E;
+	Fri,  9 Oct 2026 06:07:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791526029; cv=none; b=ADPdqgspcG+oXzk+mcIziXDlEh+V06JbaUo8Y4rnY/Loo21Zn3uT4pqda/ElH7wICSGD6BzgOxTe6UK9WNkgJghJUQFwbFtngoA5zwAJSPgHYq45TKXn7rqv5kcZYDwZlXFeh7/Lba1BnW5R85Z/7eAv04V6C20QE+a3DVHvqLk=
+	t=1791526033; cv=none; b=NPk0iDEjd08zuv1YXxYBQI8THVk6AUkEFt/PhTKjkOvs5vMw+vwk1RqrQJt6UFnWrRa9tyAMibw4L5+Rvlm66x+LBns8tu7wxysU4+J2TZqouad9EI96ja2GEVY2lDZ1XS0s1mMiJrneVlMI87MBxOq4O3o9U4cRyNSU840worM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791526029; c=relaxed/simple;
-	bh=bs+H3pfeuvduBarR0IofEA87LpsohPYzcS+X9GRkT5s=;
+	s=arc-20240116; t=1791526033; c=relaxed/simple;
+	bh=Xnu0UYBQEXwD/Oh5y8GHkYiKaHr8v0r1LDD8ryNfx5I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pDUMqNDx0vCWprm/g0RwZIxSRYWTTEpnhyBJ6UFqs0Y6p4hKPqFHkC+zJze1DMpBusJv77bGZgALBzCzTNN6VRyMK8GtMsdZG4RrhxNF5qe3x4upeMbSpfL/hH+ssHXVNsW4qamNCC6Ikrm8SFsNpgkKquRBav707s3TUtOi48U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZJn2rdhh; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=A5xRrLF0TN7iLGIqTapOS5+EyXpjN90LqT7LS6/Thp1bK2ABZlLf/yvjZWr8fphnfYwY9pxWGS5Ytawz38Q+ZHEJ3N6bSdARiF4tT1eSQQJr+0hqzyuDhz15ETRPuLkNBxBQSZkZh56XTd1oEfYRMRgo+nWDF230PJg71EbzXD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oe9BXj67; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZJn2rdhh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D9951F000FF;
-	Fri,  9 Oct 2026 06:07:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oe9BXj67"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 490F11F000FF;
+	Fri,  9 Oct 2026 06:07:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791526027;
-	bh=/du9wEuofXf+8NbTewi6KKBVFh5WF8XdhjIfsLZhNPY=;
+	s=k20260515; t=1791526031;
+	bh=xYhYqiOrJa+H4/0FutKq5oFakXHs/Nv/Zsq0AwqkSs8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZJn2rdhhDpXpLRyXCcGSYUFO/xWY5xiZdafVQU1xOzhsoWwUAkE7qApwY0rbkTBQo
-	 7vNmfT4A8ISrIKc7VP5ODQFkITYw2+h61ovVyxopBilrL0H+rbDIvOZoD3jNjoI1t3
-	 AFcNV0RCk81mpQcDL/Mex9farBXuY5MHc7tA/gOZ1v813oGm3pOSTsqduCMD25YPZj
-	 2tEzVXH/3tygzuSFHZnvzo/o1s/VU/EyEKHe7lKokp9hFxK+rFam01Z3rqP6TnyLWK
-	 K+bIYmQ/yyHq7F4oXZuAGpqo4oESvdE6t85AgcEYs+LtPPaQzMwjaMHnYgT5SbGmyV
-	 iAUfzwcY6PAQQ==
-Date: Fri, 9 Oct 2026 08:07:04 +0200
+	b=oe9BXj676TaW+2tMGohe1B68TlLkoHsYl7kb35ws3XDFUNQoHSnlsxX7lonl0cO2y
+	 TGPCkPLw5G0LTwBaqIW3SZ9UdJES3Pe15ikExZdemUVavngxz7r8UEZWfNiLeVAkV2
+	 hieZwyDYoLZbsK8OBuFmekIPmRmy8G1uCxef2Q+m9H1LiXz4YbPc52bKIJIzIohDkx
+	 3OLzbVDEcVLf3hdKKErqvxryFD+Ap+WPEZN52SNcnhmSE/6iD9RE2SyrugSfjZhowS
+	 nPTHkDKloiKEKAhtiPEImAlhE1TDUTkNCHZzUGl+7bhHyhjw0p8cRaVi7Zhqdt9qXW
+	 sjXyW/8LluJrQ==
+Date: Fri, 9 Oct 2026 08:07:08 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Haotian Zhang <vulab@iscas.ac.cn>
-Cc: Mark Brown <broonie@kernel.org>, linuxppc-dev@lists.ozlabs.org, 
-	Qiang Zhao <qiang.zhao@nxp.com>, Herve Codina <herve.codina@bootlin.com>, 
-	linux-kernel@vger.kernel.org, Li Yang <leoyang.li@nxp.com>, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH] soc: fsl: cpm1: tsa: fix wrong clocks released on cleanup
-Message-ID: <20261009-serious-jasmine-bumblebee-10ae3d@quoll>
-References: <20261009053720.3146117-1-vulab@iscas.ac.cn>
+Cc: Thomas Gleixner <tglx@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, Daniel Lezcano <daniel.lezcano@kernel.org>
+Subject: Re: [PATCH] clocksource/drivers/qcom: Fix error propagation in
+ msm_timer_init()
+Message-ID: <20261009-prehistoric-armadillo-of-will-ec6c79@quoll>
+References: <20261009052536.3139407-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,26 +43,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261009053720.3146117-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261009052536.3139407-1-vulab@iscas.ac.cn>
 
 
-On Fri, 09 Oct 2026 13:37:20 +0800, Haotian Zhang wrote:
-> tsa_of_parse_tdms() gets and enables tdm->l1tsync_clk and
-> tdm->l1tclk_clk in addition to l1rsync_clk and l1rclk_clk, but the
-> error cleanup path releases l1rsync_clk/l1rclk_clk again in the
-> l1tsync_clk/l1tclk_clk branches. The tsync/tclk clocks are leaked --
-> never disabled nor clk_put() -- while rsync/rclk are clk_put() twice,
-> underflowing their reference counts. tsa_remove() has the same
-> copy-paste bug.
+On Fri, 09 Oct 2026 13:25:36 +0800, Haotian Zhang wrote:
+> msm_timer_init() reuses the res variable for the clocksource_register_hz()
+> return value in its common exit path. When request_percpu_irq() or
+> cpuhp_setup_state() fails, res holds a negative error code, but it is
+> unconditionally overwritten by clocksource_register_hz() before the
+> function returns. As a successful clocksource registration returns 0, the
+> failure is reported as success: the percpu IRQ is not registered (or the
+> hotplug state is not installed) and yet msm_dt_timer_init() believes the
+> timer is usable. The same happens when alloc_percpu() fails, which also
+> leaves msm_evt NULL for the hotplug callbacks to dereference.
 > 
-> Release the clock actually held in each cleanup branch.
+> Return -ENOMEM when alloc_percpu() fails and bail out through a dedicated
+> error path that frees msm_evt and returns the original error code instead
+> of falling through to the clocksource registration.
 > 
-> Fixes: 1d4ba0b81c1c ("soc: fsl: cpm1: Add support for TSA")
+> Fixes: ab51189ca485 ("clocksource/drivers/qcom: Convert init function to return error")
 > Assisted-by: DeepSeek-V4.1-Flash
 > Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
 > ---
->  drivers/soc/fsl/qe/tsa.c | 16 ++++++++--------
->  1 file changed, 8 insertions(+), 8 deletions(-)
+>  drivers/clocksource/timer-qcom.c | 34 +++++++++++++++++++-------------
+>  1 file changed, 20 insertions(+), 14 deletions(-)
 > 
 
 
