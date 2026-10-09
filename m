@@ -1,66 +1,66 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B770475343
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:27:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2537A476046
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:27:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791530877; cv=none; b=cgyeZSNnEJy0w1rBjIW6lIs1HKeOfU0jFY99fpM1lvTwkcmUtP73tNc4YwRZN0+334fUikRefjzKtYUYr+/d+uJWuFYQGU4+EWhNO+mpmA8KxtXz5m4+5CSdPcrO412kx4SRCoCuqrUGnn8qirWWnvSsmxRq9JPslI/eKUx6s1k=
+	t=1791530880; cv=none; b=mZcvI1EwUg2Ed5g04RiFWAk8l/oFxqR0UOlhGoHY2XNMkdmd1+NnzkufjJRcIRFv+rO9qM/LA3gLAhjkiz6bJTLz2lx0EDYW1c1O6OoVlmCi/1bNC3/V02mN2KEuXwpr4h1VhmffjsNaOTcurObPhvjxqMyWtZd1GKgzajuCv5U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791530877; c=relaxed/simple;
-	bh=s+7nb6AqeCRgF6gcWvS0HgvSFHsLhz1t41JmnU5alWM=;
+	s=arc-20240116; t=1791530880; c=relaxed/simple;
+	bh=yC+WX6W7dPLN9ICDaCxyX+oa/1iS6IPVmxXQ3Q0DMJw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=svy/YQJxdm4OZN7nsuFm2S7Kn3nvMjy9ijzjNibqslrOZ6EgGY7QNXQQWzmWIEUI48uMeI9JGOh4oYEeEFU+kwi/kBthOl5h8hfM1Iiq5OpX2w0lhWo9h510VodB4Cf1oZkjX4bDQyOn8J+l37IfmbCiCr+bLc9wzAxN4b/Id24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fUqgLFwB; arc=none smtp.client-ip=209.85.128.51
+	 MIME-Version; b=RbJph+sOEgTUOO9ou7ck13tXmU7jEe9EGshV29CS7KTaXEHK+Gjw2o8IJsPpqTiA8Xoyen9PQPYU0V/u076GdkeZMPqCN5f4M3cCv4tV+uYbLmhNQa35/Iw8efPF0uHeNUck/Gjaxu0EkvhKi8CponvNsxd+g4ghFJEi/YNr5bY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=athKvafm; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fUqgLFwB"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49d05d51553so42674435e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:27:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="athKvafm"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a02667ccebso29466645e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:27:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791530873; x=1792135673; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791530875; x=1792135675; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+ss38TYl7bbRxbCTyutr4nKbZqlcd4SChFjsZBiuWzc=;
-        b=fUqgLFwBsZwo2/3EtoixBjROOzYpBksdFRP1AzLwJZ+J6zFs2nrvgekaNl4j0Mpnsr
-         dPGA4yB94eFj7iDdmQkE8dp7yOYBQ9BIwNvasHubb8QXiZr13ejBTE2hDmVVOjipWgJF
-         yu+xeoOAW+8VqUsfxcldz5rpG7LBUgXdTa5e3TbgppAJD8dEyBQ/tz6uXB1gWL2Vcdoc
-         Hjfy9iCcddo49H5Gw3vGOM2zliTnKokUhoWRlP8gGOXT4u0NAFqgJAKvmRQTvvGLz8Tb
-         6l+Kb3/abQJ5lWYbHFZ6pyk9VbGMF7B3bIVdyfRPgHfMdZC1FAobO9MwFhY3QNAWSsQS
-         h50A==
+        bh=PBlm9BxjRDT+5ucwrrpILH0Oob/zAyJM+87J37EuG5E=;
+        b=athKvafmqX8snGAPWVxw7f9I8U3rszICieyM3kxcRelRQO2INy4yEwiYPa8PdIX0yc
+         HkPJWa7jN4ZPx036tViE9HnBew/IkZm87K3dUtxqLe90I7QzkvdfOedWBEifkEfjdOA1
+         fARLkYUWS7iRxrIvYUjiQHkrLUcxqqmSoXlSPa3L3tFQqbrE1Ra6oFC02LV80savhj1b
+         H1QVgbulIgw6tkm9RT54AH3TdcjzTjS3sw+FMy0lLcAGn6ThSY7iFtHJEZMgiGJZGCiT
+         Nr+0vtc/WrhFoqUHgMz208oYHQBvDcYvHdMIp/T/9D1F/SRPsDfYs13o9wn9FJcYTvu4
+         tHHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791530873; x=1792135673;
+        d=1e100.net; s=20260707; t=1791530875; x=1792135675;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+ss38TYl7bbRxbCTyutr4nKbZqlcd4SChFjsZBiuWzc=;
-        b=uzWxHwcMJl3agKs6+duQX1PbfX5FvO4ePFdmmmDlM5KR/3DlB1BPrlrEYEuzsUwhWv
-         tiMzb+bWKxj81xndCfwpnMFOvPdnKTVZ+Wm7J6mLfNMEb6opFka+MdrJjM3HxvixOCf1
-         XB1FKDdnTEymNSNE6TuB4FjmYBYri4ZKJL2btNFH6WDHoHwcO6mgzxXPgzTPJ8tpf3yL
-         h5pb6/HhUCMO/rGrgQgZgrL0HsG6XRzZ5rXJfZScGeH/fcyob5kNd/OPN3NglEtZFeoO
-         Rd8tV9KkIc5ljezT+VPIH9+v1/8kkLjB36mk4AzQ/t31YRm3n27MTv3uWdMALtDlcVZ+
-         3NqA==
-X-Forwarded-Encrypted: i=1; AKwUvBxXvzERkeafl64JjuCszHSle/0Qts6nB9DfZd0Oma7Xkv1ifnV0NEVHGfAJViXrs5nw0pY1QyAexPdU4zc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lRvW+yLwjIcjF523m/cT+nRHSQeFP9Q2ljGK4dMZjW0qkVztN3
-	D/VmpJCLEn3eWKJ3LxSmUiDyZqrHrh70Q1H0s+1xB2iiYKit6Qrddc5z
-X-Gm-Gg: AYBFou29Pcub9cxHxW8xoE68WopTwNpwrkvQEcseSVsquHoXHvNmVXjzZkoyj1IG72Y
-	Ggimok0z0B34IAwu906hzXXKtN990zjEG7S2WRPqYcm2tVqVJDE+CyG6kYePiBVliAKUnD5abRY
-	CJ6IWTrsDWdnUmPro8FQwCeH9krEQI/OvQAdIdFGVyvnpBlOkX/IOPDDRDsye6XCKpv3rHZfvlp
-	AhquVqgC3gIBP8ihbDSG0LDyxcnKgv3jg/80SoyuMlttVf1hh1vbMCvBtXckftOYtlbZV7YrOvG
-	Pp/40DKJWierZvn/tCdJ+pt2FkSXw8Eb4uGHjbySdQTWEDlrQApNecuyx6H6zf/iACPG4QMFgBb
-	OEt32LR2ktEfR4Cn23D7bzFTM+wkqzy1sUfFwb/KHyYHz7IXLJz8o/rq5jNGdwpKF6IS8WILblc
-	a6KoWM9kj5FYcZtTmRalipmzO/PtX/hG78HxTudIm6uIO2jL5MsvbEJfBWGpnF9lUw5Z0B/1L5e
-	fQtBbYkQsCZLq+m4jZvw26k9LuxoLJKchngznnahukEwG3zxT0HQARJa5ce2eNPOUavst4WscFS
-	ySKchuLdA4HXe7YnS0yq6QJagTBpHP6E01ffEXPhDSOOoxJ2kOFdWplbmOhBAof0eQho6Myp1cp
-	tvOqwpfgoJQC7ECt3qto44yVQAUO8NtiCoqcP4JHr4B0cynQEMk/5fw==
-X-Received: by 2002:a05:600c:4593:b0:4a1:7ed5:99e8 with SMTP id 5b1f17b1804b1-4a18e49bffbmr16670035e9.22.1791530872716;
-        Fri, 09 Oct 2026 00:27:52 -0700 (PDT)
+        bh=PBlm9BxjRDT+5ucwrrpILH0Oob/zAyJM+87J37EuG5E=;
+        b=PmrSzxmnGx0lvDibLQ99F8cT+l9H/N51/0JOx206XHqwbuqLoQGxD1HtNQcWDFR6NO
+         oqBPVxjilQfjhYQYZxfRFqPkT9ceUPWR+cggDcsGtAE7MyCgV3J4MnqIsQOiYYBmv/0e
+         CWTHPGHdEVQeD8W90ert5NuhRWJniDBJc3PuUf6DDX7OVZKFAS3DMw6D6RWG1RIB3ol+
+         ZdwTPiozXdgEv7w8fjwDHOIdcJS1XVpTFwA0EuQcOhS4vhCClE9R9mSpPAuGyoJnPjy0
+         gpS/PHoRV8fEL5StpdsjrUTG2hwpluW3bT+bDZeBe48CDqEQNPhXr/8iqcOTOB4TJU1J
+         SZ2w==
+X-Forwarded-Encrypted: i=1; AKwUvBwYb2X1LKIkOif/jn+caw6+5CBH0tBXt9X77zBDVKXjqG9dFctqsSts6HQlwYWPIsrPc0L/b3wNUQ9mCpU=@vger.kernel.org
+X-Gm-Message-State: AFuF++l7WFOl04LqZU9U1paTWP1gXZBk8loyO+ex6zmYmZe5NI2eEU3k
+	obmQAzFCCueu5jxGGWA7InxC6NPcHGbF4RPyuZnfSR+sNay3YbtjQpBX
+X-Gm-Gg: AYBFou2etaFn4RElb+B1Gm3dJYYhVX12LbUS4Y96xN/7vFLgBn/1dtUvamBGEOKS461
+	T7jT/R+9drdwUUyEEbfIeIHTkWD8FVQI4ZlmqktRvfnU3BDWUO0hvqcl830ZmXLmSlSqQDRrPxy
+	XTuI3iv50nYElufN/H1lyiThEOJXC/Xt3tr7S62FeuwsaJDHQG6WmGcLrpNUX0jbVVcXOnTlJf/
+	i7arPUGQxCWwAA0ADHhqDbXrxlSmho6jbb7JdjYTWTK0+VxrumG3FXaDpS59RS4RltPVvI9xcYT
+	avIAsdlnWWOTXsvVL3AYfNuvNknK1yYvIu6/UQ1+YnPXZfptPdV9MRAjniJqN2bAhWjpK+n0+ta
+	uFSXwz7IJ1MFkrvsTNj6LJZnWVURqDGHPqVHmwbSv+3nroqajPTTXrF/0zF+orcU+1OgwBRSRh2
+	a/+XN4iUcPTPhER/nwiH+vSOORveSwrZ2qN1ZMnvXWTlONjzpDA12QeAceYj4ogi6mtIyqvJgBY
+	zEcI+jnlp0iSWxwaSoKarFECwNn8qJOE83xg06+P/0POpBMoDpV6ERku7jb4tp1H0yNorGS9SuI
+	IKopM1rfYwsaB8lQpuBYRMVV6bTjDI7+mE0phkskGNsuHh1j3NoYOB68QPbCcWe7aKWHGInPDbi
+	J2CWpA7z/cm6gkro9svxVjpsOr8Hctww+4cbnYRu3BhKTMOqYGQg/F0PMPCAGE/yL
+X-Received: by 2002:a05:600c:1911:b0:49f:faa3:3ca2 with SMTP id 5b1f17b1804b1-4a18e4aae7emr19007075e9.13.1791530874861;
+        Fri, 09 Oct 2026 00:27:54 -0700 (PDT)
 Received: from localhost.localdomain (host-95-239-230-248.retail.telecomitalia.it. [95.239.230.248])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bbbdd75sm32598895e9.1.2026.10.09.00.27.51
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bbbdd75sm32598895e9.1.2026.10.09.00.27.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 00:27:52 -0700 (PDT)
+        Fri, 09 Oct 2026 00:27:54 -0700 (PDT)
 From: Nicola Fiorillo <nicfio@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
@@ -71,9 +71,9 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Hans de Goede <hansg@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	Nicola Fiorillo <nicfio@gmail.com>
-Subject: [PATCH 1/3] media: i2c: Add GC5035 image sensor driver
-Date: Fri,  9 Oct 2026 09:27:31 +0200
-Message-ID: <20261009072733.39877-2-nicfio@gmail.com>
+Subject: [PATCH 2/3] media: i2c: Add GC8034 image sensor driver
+Date: Fri,  9 Oct 2026 09:27:32 +0200
+Message-ID: <20261009072733.39877-3-nicfio@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261009072733.39877-1-nicfio@gmail.com>
 References: <20261009072733.39877-1-nicfio@gmail.com>
@@ -85,13 +85,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a driver for the GalaxyCore GC5035, a 5 Mpixel raw Bayer sensor with
-a two lane MIPI CSI-2 interface. The driver supports a single 2592x1944
-mode, and the exposure, analogue gain, vertical blanking and test pattern
-controls.
+Add a driver for the GalaxyCore GC8034, an 8 Mpixel raw Bayer sensor with
+a four lane MIPI CSI-2 interface. The driver supports a single 3264x2448
+mode, and the exposure, analogue gain and vertical blanking controls.
 
-The register tables come from the Alder Lake-M driver in
-intel/ipu6-drivers, which derives from the ChromeOS driver posted in 2020.
+The register tables come from the Rockchip BSP driver.
 
 Assisted-by: claude-opus-5-5 coccinelle sparse smatch
 Signed-off-by: Nicola Fiorillo <nicfio@gmail.com>
@@ -99,78 +97,75 @@ Signed-off-by: Nicola Fiorillo <nicfio@gmail.com>
  MAINTAINERS                |   6 +
  drivers/media/i2c/Kconfig  |  10 +
  drivers/media/i2c/Makefile |   1 +
- drivers/media/i2c/gc5035.c | 953 +++++++++++++++++++++++++++++++++++++
- 4 files changed, 970 insertions(+)
- create mode 100644 drivers/media/i2c/gc5035.c
+ drivers/media/i2c/gc8034.c | 969 +++++++++++++++++++++++++++++++++++++
+ 4 files changed, 986 insertions(+)
+ create mode 100644 drivers/media/i2c/gc8034.c
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 6bdc32e7c..c4d5f81f4 100644
+index c4d5f81f4..ba60329a2 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -10875,6 +10875,12 @@ T:	git git://linuxtv.org/media.git
- F:	Documentation/devicetree/bindings/media/i2c/galaxycore,gc2145.yaml
- F:	drivers/media/i2c/gc2145.c
+@@ -10881,6 +10881,12 @@ L:	linux-media@vger.kernel.org
+ S:	Maintained
+ F:	drivers/media/i2c/gc5035.c
  
-+GALAXYCORE GC5035 CAMERA SENSOR DRIVER
++GALAXYCORE GC8034 CAMERA SENSOR DRIVER
 +M:	Nicola Fiorillo <nicfio@gmail.com>
 +L:	linux-media@vger.kernel.org
 +S:	Maintained
-+F:	drivers/media/i2c/gc5035.c
++F:	drivers/media/i2c/gc8034.c
 +
  GATEWORKS SYSTEM CONTROLLER (GSC) DRIVER
  M:	Tim Harvey <tharvey@gateworks.com>
  S:	Maintained
 diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index b9961f77f..bde998fca 100644
+index bde998fca..80e0d1428 100644
 --- a/drivers/media/i2c/Kconfig
 +++ b/drivers/media/i2c/Kconfig
-@@ -110,6 +110,16 @@ config VIDEO_GC2145
+@@ -120,6 +120,16 @@ config VIDEO_GC5035
  	  To compile this driver as a module, choose M here: the
- 	  module will be called gc2145.
+ 	  module will be called gc5035.
  
-+config VIDEO_GC5035
-+	tristate "GalaxyCore GC5035 sensor support"
++config VIDEO_GC8034
++	tristate "GalaxyCore GC8034 sensor support"
 +	select V4L2_CCI_I2C
 +	help
-+	  This is a Video4Linux2 sensor driver for the GalaxyCore GC5035
-+	  5 Mpixel camera.
++	  This is a Video4Linux2 sensor driver for the GalaxyCore GC8034
++	  8 Mpixel camera.
 +
 +	  To compile this driver as a module, choose M here: the
-+	  module will be called gc5035.
++	  module will be called gc8034.
 +
  config VIDEO_HI556
  	tristate "Hynix Hi-556 sensor support"
  	help
 diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-index 351c41ef2..c3a7f39bd 100644
+index c3a7f39bd..2c00dc96d 100644
 --- a/drivers/media/i2c/Makefile
 +++ b/drivers/media/i2c/Makefile
-@@ -42,6 +42,7 @@ obj-$(CONFIG_VIDEO_GC0310) += gc0310.o
- obj-$(CONFIG_VIDEO_GC05A2) += gc05a2.o
+@@ -43,6 +43,7 @@ obj-$(CONFIG_VIDEO_GC05A2) += gc05a2.o
  obj-$(CONFIG_VIDEO_GC08A3) += gc08a3.o
  obj-$(CONFIG_VIDEO_GC2145) += gc2145.o
-+obj-$(CONFIG_VIDEO_GC5035) += gc5035.o
+ obj-$(CONFIG_VIDEO_GC5035) += gc5035.o
++obj-$(CONFIG_VIDEO_GC8034) += gc8034.o
  obj-$(CONFIG_VIDEO_HI556) += hi556.o
  obj-$(CONFIG_VIDEO_HI846) += hi846.o
  obj-$(CONFIG_VIDEO_HI847) += hi847.o
-diff --git a/drivers/media/i2c/gc5035.c b/drivers/media/i2c/gc5035.c
+diff --git a/drivers/media/i2c/gc8034.c b/drivers/media/i2c/gc8034.c
 new file mode 100644
-index 000000000..95d83cde8
+index 000000000..a74c190d2
 --- /dev/null
-+++ b/drivers/media/i2c/gc5035.c
-@@ -0,0 +1,953 @@
++++ b/drivers/media/i2c/gc8034.c
+@@ -0,0 +1,969 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
-+ * Driver for GalaxyCore GC5035 image sensor
++ * Driver for GalaxyCore GC8034 image sensor
 + *
-+ * Copyright (c) 2020 Bitland Inc.
-+ * Copyright 2020 Google LLC.
-+ * Copyright (c) 2022 Intel Corporation.
++ * Copyright (C) 2017 Fuzhou Rockchip Electronics Co., Ltd.
 + * Copyright (C) 2026 Nicola Fiorillo <nicfio@gmail.com>
 + *
-+ * The register table comes from the GC5035 driver in intel/ipu6-drivers by
-+ * Liang Wang <liang1.wang@intel.com>, derived from the ChromeOS series by
-+ * Tomasz Figa <tfiga@chromium.org>.
++ * The registers and sequences come from the Rockchip BSP driver,
++ * rockchip-linux/kernel, branch develop-5.10.
 + */
 +#include <linux/array_size.h>
 +#include <linux/clk.h>
@@ -198,147 +193,151 @@ index 000000000..95d83cde8
 +#include <media/v4l2-subdev.h>
 +
 +/*
-+ * The GC5035 uses 8 bit register addresses with banked pages: register
-+ * 0xfe selects the page. Every register below is on page 0 unless noted
-+ * otherwise. The vendor sequence also writes 0x10 to register 0xfe, which is
-+ * not a page number and is not documented, so the pages are not handled with
-+ * regmap ranges.
++ * 8 bit register addresses, with the page selected by register 0xfe. The
++ * vendor sequence also writes 0x10 to register 0xfe, which is not a page
++ * number and is not documented, so the pages are not handled with regmap
++ * ranges.
 + */
-+#define GC5035_REG_PAGE_SELECT		CCI_REG8(0xfe)
-+#define GC5035_PAGE_0			0x00
-+#define GC5035_PAGE_1			0x01
++#define GC8034_REG_PAGE_SELECT		CCI_REG8(0xfe)
++#define GC8034_PAGE_0			0x00
 +
 +/* readable on any page */
-+#define GC5035_REG_CHIP_ID		CCI_REG16(0xf0)
-+#define GC5035_CHIP_ID			0x5035
++#define GC8034_REG_CHIP_ID		CCI_REG16(0xf0)
++#define GC8034_CHIP_ID			0x8044	/* not 0x8034 */
 +
-+#define GC5035_REG_EXPOSURE		CCI_REG16(0x03)
-+#define GC5035_REG_LINE_LENGTH		CCI_REG16(0x05)
-+#define GC5035_REG_WIN_TOP		CCI_REG16(0x09)
-+#define GC5035_REG_WIN_LEFT		CCI_REG16(0x0b)
-+#define GC5035_REG_WIN_HEIGHT		CCI_REG16(0x0d)
-+#define GC5035_REG_WIN_WIDTH		CCI_REG16(0x0f)
-+#define GC5035_REG_STREAM		CCI_REG8(0x3e)
-+#define GC5035_STREAM_ON		0x91
-+#define GC5035_STREAM_OFF		0x01
-+#define GC5035_REG_FRAME_LENGTH		CCI_REG16(0x41)
-+#define GC5035_REG_DIGITAL_GAIN	CCI_REG16(0xb1)
-+#define GC5035_DIGITAL_GAIN_1X	0x100
-+#define GC5035_REG_ANALOGUE_GAIN	CCI_REG8(0xb6)
-+#define GC5035_REG_PLL_MULT		CCI_REG8(0xf8)
-+
-+/* page 1 */
-+#define GC5035_REG_TEST_PATTERN		CCI_REG8(0x8c)
-+#define GC5035_TEST_PATTERN_ON		0x11
-+#define GC5035_TEST_PATTERN_OFF		0x10
-+#define GC5035_REG_CROP_TOP		CCI_REG16(0x91)
-+#define GC5035_REG_CROP_LEFT		CCI_REG16(0x93)
-+#define GC5035_REG_OUT_HEIGHT		CCI_REG16(0x95)
-+#define GC5035_REG_OUT_WIDTH		CCI_REG16(0x97)
++#define GC8034_REG_EXPOSURE		CCI_REG16(0x03)
++#define GC8034_REG_LINE_LENGTH		CCI_REG16(0x05)
++#define GC8034_REG_BLANKING		CCI_REG16(0x07)
++#define GC8034_REG_WIN_TOP		CCI_REG8(0x0a)
++#define GC8034_REG_WIN_LEFT		CCI_REG16(0x0b)
++#define GC8034_REG_WIN_HEIGHT		CCI_REG16(0x0d)
++#define GC8034_REG_WIN_WIDTH		CCI_REG16(0x0f)
++#define GC8034_REG_MIRROR		CCI_REG8(0x17)
++#define GC8034_MIRROR_NONE		0xc0
++#define GC8034_REG_STREAM		CCI_REG8(0x3f)
++#define GC8034_STREAM_ON		0xd0
++#define GC8034_STREAM_OFF		0x00
++#define GC8034_REG_CROP_TOP		CCI_REG8(0x92)
++#define GC8034_REG_CROP_LEFT		CCI_REG8(0x94)
++#define GC8034_REG_OUT_HEIGHT		CCI_REG16(0x95)
++#define GC8034_REG_OUT_WIDTH		CCI_REG16(0x97)
++#define GC8034_REG_DIGITAL_GAIN	CCI_REG16(0xb1)
++#define GC8034_DIGITAL_GAIN_1X	0x100
++#define GC8034_REG_ANALOGUE_GAIN	CCI_REG8(0xb6)
 +
 +/*
-+ * The sensor reads out a 2608x1960 window starting at (3, 4) and crops
-+ * 2592x1944 from it at (8, 8). The size of the full pixel array is not
-+ * documented, so the readout window is reported as the native size.
++ * The sensor reads out a 3284x2464 window starting at (4, 58) and crops
++ * 3264x2448 from it at (9, 8). The odd crop column gives the RGGB order; the
++ * vendor code moves it by one column when mirroring. The size of the full
++ * pixel array is not documented, so the readout window is reported as the
++ * native size.
 + */
-+#define GC5035_WIN_LEFT			3
-+#define GC5035_WIN_TOP			4
-+#define GC5035_NATIVE_WIDTH		2608
-+#define GC5035_NATIVE_HEIGHT		1960
-+#define GC5035_CROP_LEFT		8
-+#define GC5035_CROP_TOP			8
-+#define GC5035_WIDTH			2592
-+#define GC5035_HEIGHT			1944
++#define GC8034_WIN_LEFT			4
++#define GC8034_WIN_TOP			58
++#define GC8034_NATIVE_WIDTH		3284
++#define GC8034_NATIVE_HEIGHT		2464
++#define GC8034_CROP_LEFT		9
++#define GC8034_CROP_TOP			8
++#define GC8034_WIDTH			3264
++#define GC8034_HEIGHT			2448
 +
-+/* The line length register counts units of 4 pixels. */
-+#define GC5035_HTS			2920
-+#define GC5035_VTS_DEF			2008
++/*
++ * The blanking register holds the frame length minus the active height and
++ * 36 lines, as computed by the vendor code.
++ */
++#define GC8034_VTS_OFFSET		(GC8034_HEIGHT + 36)
++#define GC8034_VTS_MAX			0x1fff
 +
-+#define GC5035_EXP_MIN			4
-+#define GC5035_EXP_STEP			1
-+#define GC5035_EXP_MARGIN		16
-+#define GC5035_EXP_DEF			984
-+#define GC5035_VTS_MAX			0x3fff
-+/* The sensor rounds the frame length to a multiple of 4 lines. */
-+#define GC5035_VBLANK_STEP		4
++/* The sensor only takes even exposure values. */
++#define GC8034_EXP_MIN			4
++#define GC8034_EXP_STEP			2
++#define GC8034_EXP_MARGIN		4
++#define GC8034_EXP_DEF			2246
 +
 +/*
 + * The register table has only been tested with a 19.2 MHz external clock. The
-+ * link frequency is the external clock multiplied by the PLL setting and
-+ * divided by 4: 422.4 MHz.
++ * vendor code declares 336 MHz and 30 fps for a 24 MHz clock; at 19.2 MHz
++ * everything runs at 0.8 times that: 268.8 MHz and 24 fps, as measured. The
++ * PLL settings are not documented, so the pixel rate is not computed from
++ * them: it is the one that gives the measured 24 fps with the line and frame
++ * lengths below. The line length register counts units of 8 pixels.
 + */
-+#define GC5035_XCLK_FREQ		(19200 * HZ_PER_KHZ)
-+#define GC5035_PLL_MULT			0x58
-+#define GC5035_LINK_FREQ		(GC5035_XCLK_FREQ * GC5035_PLL_MULT / 4)
-+#define GC5035_DATA_LANES		2
-+#define GC5035_RGB_DEPTH		10
-+#define GC5035_PIXEL_RATE		(GC5035_LINK_FREQ * 2 * \
-+					 GC5035_DATA_LANES / GC5035_RGB_DEPTH)
++#define GC8034_XCLK_FREQ		(19200 * HZ_PER_KHZ)
++#define GC8034_LINK_FREQ		(268800 * HZ_PER_KHZ)
++#define GC8034_DATA_LANES		4
++#define GC8034_HTS			4272
++#define GC8034_VTS_DEF			2496
++#define GC8034_PIXEL_RATE		(GC8034_HTS * GC8034_VTS_DEF * 24)
 +
 +/*
-+ * No datasheet is available. From the GC5035 driver posted by Tomasz Figa in
-+ * 2020: IOVDD at least 50 us before AVDD and DVDD, at least 1200 MCLK cycles
-+ * before the first I2C transaction, and 2000 MCLK cycles after streaming stops
-+ * before the clock is switched off. From the intel/ipu6-drivers driver: the
-+ * clock is enabled before reset is released and disabled after reset is
-+ * asserted, and 5 ms elapse before the first I2C transaction, which also
-+ * covers the 1200 cycles.
++ * No datasheet is available. The power sequence and delays follow the vendor
++ * driver: supplies in the order of gc8034_supply_name, 100 us, clock, 1 ms,
++ * powerdown released, 500 us, reset released, then 6 ms and 8192 clock cycles
++ * before the first I2C access.
 + */
-+#define GC5035_IOVDD_DELAY_US		50
-+#define GC5035_RESET_DELAY_US		(5 * USEC_PER_MSEC)
-+#define GC5035_STOP_DELAY_US		DIV_ROUND_UP(2000 * USEC_PER_MSEC, \
-+					     GC5035_XCLK_FREQ / MSEC_PER_SEC)
++#define GC8034_SUPPLY_DELAY_US		100
++#define GC8034_CLK_DELAY_US		1000
++#define GC8034_PWDN_DELAY_US		500
++#define GC8034_RESET_DELAY_US		(6000 + \
++					 DIV_ROUND_UP(8192 * USEC_PER_MSEC, \
++						      GC8034_XCLK_FREQ / \
++						      MSEC_PER_SEC))
 +
-+#define GC5035_MBUS_CODE		MEDIA_BUS_FMT_SGRBG10_1X10
++#define GC8034_MBUS_CODE		MEDIA_BUS_FMT_SRGGB10_1X10
 +
-+static const s64 gc5035_link_freq_menu[] = {
-+	GC5035_LINK_FREQ,
++static const s64 gc8034_link_freq_menu[] = {
++	GC8034_LINK_FREQ,
 +};
 +
-+static const char * const gc5035_test_pattern_menu[] = {
-+	"No Pattern",
-+	"Test Chart",
-+};
-+
-+/* DOVDD (IOVDD) comes first: it has to be enabled before the others. */
-+static const char * const gc5035_supply_name[] = {
++static const char * const gc8034_supply_name[] = {
 +	"dovdd",
-+	"avdd",
 +	"dvdd",
++	"avdd",
 +};
 +
 +/*
-+ * V4L2_CID_ANALOGUE_GAIN is an index into this table of register 0xb6 values,
-+ * one per analogue gain step. The digital gain is left at the 1.0x the register
-+ * table programs.
++ * V4L2_CID_ANALOGUE_GAIN is the value of register 0xb6, the index of the
++ * analogue gain step. Only the seven steps the vendor code uses are exposed.
++ * Each step also needs a set of analogue bias registers to be rewritten; the
++ * sequence selects its own pages through register 0xfe. The digital gain is
++ * left at the 1.0x the register table programs.
 + */
-+static const u8 gc5035_again_code[] = {
-+	0,	/*  1.000x */
-+	1,	/*  1.180x */
-+	2,	/*  1.398x */
-+	3,	/*  1.660x */
-+	8,	/*  1.961x */
-+	9,	/*  2.340x */
-+	10,	/*  2.801x */
-+	11,	/*  3.301x */
-+	12,	/*  3.898x */
-+	13,	/*  4.699x */
-+	14,	/*  5.602x */
-+	15,	/*  6.680x */
-+	16,	/*  7.801x */
-+	17,	/*  9.199x */
-+	18,	/* 11.000x */
-+	19,	/* 12.961x */
-+	20,	/* 15.602x */
++static const u8 gc8034_agc_bias_reg[] = {
++	0xfe, 0x20, 0x33, 0xfe, 0xdf, 0xe7, 0xe8,
++	0xe9, 0xea, 0xeb, 0xec, 0xed, 0xee, 0xfe,
 +};
 +
-+struct gc5035 {
++static const u8 gc8034_agc_bias[][ARRAY_SIZE(gc8034_agc_bias_reg)] = {
++	/* 1.000x */
++	{ 0x00, 0x55, 0x83, 0x01, 0x06, 0x18, 0x20,
++	  0x16, 0x17, 0x50, 0x6c, 0x9b, 0xd8, 0x00 },
++	/* 1.375x */
++	{ 0x00, 0x55, 0x83, 0x01, 0x06, 0x18, 0x20,
++	  0x16, 0x17, 0x50, 0x6c, 0x9b, 0xd8, 0x00 },
++	/* 1.950x */
++	{ 0x00, 0x4e, 0x84, 0x01, 0x0c, 0x2e, 0x2d,
++	  0x15, 0x19, 0x47, 0x70, 0x9f, 0xd8, 0x00 },
++	/* 2.700x */
++	{ 0x00, 0x51, 0x80, 0x01, 0x07, 0x28, 0x32,
++	  0x22, 0x20, 0x49, 0x70, 0x91, 0xd9, 0x00 },
++	/* 3.800x */
++	{ 0x00, 0x4d, 0x83, 0x01, 0x0f, 0x3b, 0x3b,
++	  0x1c, 0x1f, 0x47, 0x6f, 0x9b, 0xd3, 0x00 },
++	/* 5.400x */
++	{ 0x00, 0x50, 0x83, 0x01, 0x08, 0x35, 0x46,
++	  0x1e, 0x22, 0x4c, 0x70, 0x9a, 0xd2, 0x00 },
++	/* 7.660x */
++	{ 0x00, 0x52, 0x80, 0x01, 0x0c, 0x35, 0x3a,
++	  0x2b, 0x2d, 0x4c, 0x67, 0x8d, 0xc0, 0x00 },
++};
++
++struct gc8034 {
 +	struct device *dev;
 +	struct v4l2_subdev sd;
 +	struct media_pad pad;
 +
 +	struct clk *xclk;
-+	struct regulator_bulk_data supplies[ARRAY_SIZE(gc5035_supply_name)];
++	struct regulator_bulk_data supplies[ARRAY_SIZE(gc8034_supply_name)];
 +	struct gpio_desc *reset_gpio;
 +	struct gpio_desc *powerdown_gpio;
 +
@@ -349,285 +348,310 @@ index 000000000..95d83cde8
 +};
 +
 +/*
-+ * The register sequence is the vendor one for the 2592x1944 mode, without the
-+ * registers written by the controls. No register documentation is available:
-+ * the names of the geometry registers are inferred from their values.
++ * The register sequence is the vendor one for the 3264x2448 mode, without the
++ * registers written by the controls and without the settings of a binned mode
++ * that it programs first and then overwrites. No register documentation is
++ * available: the names of the geometry registers are inferred from their
++ * values.
 + */
-+static const struct cci_reg_sequence gc5035_regs[] = {
-+	/* System */
-+	{ GC5035_REG_PAGE_SELECT, 0x00 },
-+	{ GC5035_REG_STREAM, GC5035_STREAM_OFF },
-+	{ CCI_REG8(0xfc), 0x01 },
-+	{ CCI_REG8(0xf4), 0x40 },
-+	{ CCI_REG8(0xf5), 0xe9 },
-+	{ CCI_REG8(0xf6), 0x14 },
-+	{ GC5035_REG_PLL_MULT, GC5035_PLL_MULT },
-+	{ CCI_REG8(0xf9), 0x82 },
-+	{ CCI_REG8(0xfa), 0x00 },
-+	{ CCI_REG8(0xfc), 0x81 },
-+	{ GC5035_REG_PAGE_SELECT, 0x00 },
-+	{ CCI_REG8(0x36), 0x01 },
-+	{ CCI_REG8(0xd3), 0x87 },
-+	{ CCI_REG8(0x36), 0x00 },
-+	{ CCI_REG8(0x33), 0x00 },
-+	{ GC5035_REG_PAGE_SELECT, 0x03 },
-+	{ CCI_REG8(0x01), 0xe7 },
-+	{ CCI_REG8(0xf7), 0x01 },
-+	{ CCI_REG8(0xfc), 0x8f },
-+	{ CCI_REG8(0xfc), 0x8f },
-+	{ CCI_REG8(0xfc), 0x8e },
-+	{ GC5035_REG_PAGE_SELECT, 0x00 },
-+	{ CCI_REG8(0xee), 0x30 },
-+	{ CCI_REG8(0x87), 0x18 },
-+	{ GC5035_REG_PAGE_SELECT, 0x01 },
-+	{ CCI_REG8(0x8c), 0x90 },
-+	{ GC5035_REG_PAGE_SELECT, 0x00 },
-+	/* Analog & CISCTL */
-+	{ GC5035_REG_LINE_LENGTH, GC5035_HTS / 4 },
-+	{ CCI_REG8(0x9d), 0x18 },
-+	{ GC5035_REG_WIN_TOP, GC5035_WIN_TOP },
-+	{ GC5035_REG_WIN_LEFT, GC5035_WIN_LEFT },
-+	{ GC5035_REG_WIN_HEIGHT, GC5035_NATIVE_HEIGHT },
-+	{ GC5035_REG_WIN_WIDTH, GC5035_NATIVE_WIDTH },
-+	{ CCI_REG8(0x11), 0x02 },
-+	{ CCI_REG8(0x17), 0x80 },
-+	{ CCI_REG8(0x19), 0x05 },
-+	{ GC5035_REG_PAGE_SELECT, 0x02 },
-+	{ CCI_REG8(0x30), 0x03 },
-+	{ CCI_REG8(0x31), 0x03 },
-+	{ GC5035_REG_PAGE_SELECT, 0x00 },
-+	{ CCI_REG8(0xd9), 0xc0 },
-+	{ CCI_REG8(0x1b), 0x20 },
-+	{ CCI_REG8(0x21), 0x40 },
-+	{ CCI_REG8(0x28), 0x22 },
-+	{ CCI_REG8(0x29), 0x56 },
-+	{ CCI_REG8(0x44), 0x20 },
-+	{ CCI_REG8(0x4b), 0x10 },
-+	{ CCI_REG8(0x4e), 0x1a },
-+	{ CCI_REG8(0x50), 0x11 },
-+	{ CCI_REG8(0x52), 0x33 },
-+	{ CCI_REG8(0x53), 0x44 },
-+	{ CCI_REG8(0x55), 0x10 },
-+	{ CCI_REG8(0x5b), 0x11 },
-+	{ CCI_REG8(0xc5), 0x02 },
-+	{ CCI_REG8(0x8c), 0x1a },
-+	{ GC5035_REG_PAGE_SELECT, 0x02 },
-+	{ CCI_REG8(0x33), 0x05 },
-+	{ CCI_REG8(0x32), 0x38 },
-+	{ GC5035_REG_PAGE_SELECT, 0x00 },
-+	{ CCI_REG8(0x91), 0x80 },
-+	{ CCI_REG8(0x92), 0x28 },
-+	{ CCI_REG8(0x93), 0x20 },
-+	{ CCI_REG8(0x95), 0xa0 },
-+	{ CCI_REG8(0x96), 0xe0 },
-+	{ CCI_REG8(0xd5), 0xfc },
-+	{ CCI_REG8(0x97), 0x28 },
-+	{ CCI_REG8(0x16), 0x0c },
-+	{ CCI_REG8(0x1a), 0x1a },
-+	{ CCI_REG8(0x1f), 0x11 },
-+	{ CCI_REG8(0x20), 0x10 },
-+	{ CCI_REG8(0x46), 0x83 },
-+	{ CCI_REG8(0x4a), 0x04 },
-+	{ CCI_REG8(0x54), 0x02 },
-+	{ CCI_REG8(0x62), 0x00 },
-+	{ CCI_REG8(0x72), 0x8f },
-+	{ CCI_REG8(0x73), 0x89 },
-+	{ CCI_REG8(0x7a), 0x05 },
-+	{ CCI_REG8(0x7d), 0xcc },
-+	{ CCI_REG8(0x90), 0x00 },
-+	{ CCI_REG8(0xce), 0x18 },
-+	{ CCI_REG8(0xd0), 0xb2 },
-+	{ CCI_REG8(0xd2), 0x40 },
-+	{ CCI_REG8(0xe6), 0xe0 },
-+	{ GC5035_REG_PAGE_SELECT, 0x02 },
-+	{ CCI_REG8(0x12), 0x01 },
-+	{ CCI_REG8(0x13), 0x01 },
-+	{ CCI_REG8(0x14), 0x01 },
-+	{ CCI_REG8(0x15), 0x02 },
-+	{ CCI_REG8(0x22), 0x7c },
-+	{ CCI_REG8(0x91), 0x00 },
-+	{ CCI_REG8(0x92), 0x00 },
-+	{ CCI_REG8(0x93), 0x00 },
-+	{ CCI_REG8(0x94), 0x00 },
-+	{ GC5035_REG_PAGE_SELECT, 0x00 },
-+	{ CCI_REG8(0xfc), 0x88 },
-+	{ GC5035_REG_PAGE_SELECT, 0x10 },	/* not a page */
-+	{ GC5035_REG_PAGE_SELECT, 0x00 },
-+	{ CCI_REG8(0xfc), 0x8e },
-+	{ GC5035_REG_PAGE_SELECT, 0x00 },
-+	{ GC5035_REG_PAGE_SELECT, 0x00 },
-+	{ GC5035_REG_PAGE_SELECT, 0x00 },
-+	{ CCI_REG8(0xfc), 0x88 },
-+	{ GC5035_REG_PAGE_SELECT, 0x10 },	/* not a page */
-+	{ GC5035_REG_PAGE_SELECT, 0x00 },
-+	{ CCI_REG8(0xfc), 0x8e },
-+	/* GAIN */
-+	{ GC5035_REG_PAGE_SELECT, 0x00 },
-+	{ CCI_REG8(0xb0), 0x6e },
-+	{ GC5035_REG_DIGITAL_GAIN, GC5035_DIGITAL_GAIN_1X },
-+	{ CCI_REG8(0xb3), 0x00 },
-+	{ CCI_REG8(0xb4), 0x00 },
++static const struct cci_reg_sequence gc8034_regs[] = {
++	/* SYS */
++	{ CCI_REG8(0xf2), 0x00 },
++	{ CCI_REG8(0xf4), 0x80 },
++	{ CCI_REG8(0xf5), 0x19 },
++	{ CCI_REG8(0xf6), 0x44 },
++	{ CCI_REG8(0xf8), 0x63 },
++	{ CCI_REG8(0xfa), 0x45 },
++	{ CCI_REG8(0xf9), 0x00 },
++	{ CCI_REG8(0xf7), 0x9d },
++	{ CCI_REG8(0xfc), 0x00 },
++	{ CCI_REG8(0xfc), 0x00 },
++	{ CCI_REG8(0xfc), 0xea },
++	{ GC8034_REG_PAGE_SELECT, 0x03 },
++	{ CCI_REG8(0x03), 0x9a },
++	{ CCI_REG8(0x18), 0x07 },
++	{ CCI_REG8(0x01), 0x07 },
++	{ CCI_REG8(0xfc), 0xee },
++	/* Cisctl&Analog */
++	{ GC8034_REG_PAGE_SELECT, 0x00 },
++	{ GC8034_REG_LINE_LENGTH, GC8034_HTS / 8 },
++	{ GC8034_REG_WIN_TOP, GC8034_WIN_TOP },
++	{ GC8034_REG_WIN_LEFT, GC8034_WIN_LEFT },
++	{ GC8034_REG_WIN_HEIGHT, GC8034_NATIVE_HEIGHT },
++	{ GC8034_REG_WIN_WIDTH, GC8034_NATIVE_WIDTH },
++	{ GC8034_REG_MIRROR, GC8034_MIRROR_NONE },
++	{ CCI_REG8(0x18), 0x02 },
++	{ CCI_REG8(0x19), 0x17 },
++	{ CCI_REG8(0x1e), 0x50 },
++	{ CCI_REG8(0x1f), 0x80 },
++	{ CCI_REG8(0x21), 0x4c },
++	{ CCI_REG8(0x25), 0x00 },
++	{ CCI_REG8(0x28), 0x4a },
++	{ CCI_REG8(0x2d), 0x89 },
++	{ CCI_REG8(0xca), 0x02 },
++	{ CCI_REG8(0xcb), 0x00 },
++	{ CCI_REG8(0xcc), 0x39 },
++	{ CCI_REG8(0xce), 0xd0 },
++	{ CCI_REG8(0xcf), 0x93 },
++	{ CCI_REG8(0xd0), 0x19 },
++	{ CCI_REG8(0xd1), 0xaa },
++	{ CCI_REG8(0xd2), 0xcb },
++	{ CCI_REG8(0xd8), 0x40 },
++	{ CCI_REG8(0xd9), 0xff },
++	{ CCI_REG8(0xda), 0x0e },
++	{ CCI_REG8(0xdb), 0xb0 },
++	{ CCI_REG8(0xdc), 0x0e },
++	{ CCI_REG8(0xde), 0x08 },
++	{ CCI_REG8(0xe4), 0xc6 },
++	{ CCI_REG8(0xe5), 0x08 },
++	{ CCI_REG8(0xe6), 0x10 },
++	{ CCI_REG8(0xed), 0x2a },
++	{ GC8034_REG_PAGE_SELECT, 0x02 },
++	{ CCI_REG8(0x59), 0x02 },
++	{ CCI_REG8(0x5a), 0x04 },
++	{ CCI_REG8(0x5b), 0x08 },
++	{ CCI_REG8(0x5c), 0x20 },
++	{ GC8034_REG_PAGE_SELECT, 0x00 },
++	{ CCI_REG8(0x1a), 0x09 },
++	{ CCI_REG8(0x1d), 0x13 },
++	{ GC8034_REG_PAGE_SELECT, 0x10 },	/* not a page */
++	{ GC8034_REG_PAGE_SELECT, 0x00 },
++	{ GC8034_REG_PAGE_SELECT, 0x10 },	/* not a page */
 +	/* ISP */
-+	{ GC5035_REG_PAGE_SELECT, 0x01 },
-+	{ CCI_REG8(0x53), 0x00 },
++	{ GC8034_REG_PAGE_SELECT, 0x00 },
++	{ CCI_REG8(0x84), 0x01 },
++	{ CCI_REG8(0x88), 0x03 },
 +	{ CCI_REG8(0x89), 0x03 },
-+	{ CCI_REG8(0x60), 0x40 },
++	{ CCI_REG8(0x8d), 0x03 },
++	{ CCI_REG8(0x8f), 0x14 },
++	{ CCI_REG8(0x66), 0x2c },
++	{ CCI_REG8(0xbc), 0x49 },
++	{ CCI_REG8(0xc2), 0x7f },
++	{ CCI_REG8(0xc3), 0xff },
++	/* Gain */
++	{ CCI_REG8(0xb0), 0x90 },
++	{ GC8034_REG_DIGITAL_GAIN, GC8034_DIGITAL_GAIN_1X },
 +	/* BLK */
-+	{ GC5035_REG_PAGE_SELECT, 0x01 },
-+	{ CCI_REG8(0x42), 0x21 },
-+	{ CCI_REG8(0x49), 0x03 },
-+	{ CCI_REG8(0x4a), 0xff },
-+	{ CCI_REG8(0x4b), 0xc0 },
-+	{ CCI_REG8(0x55), 0x00 },
-+	/* anti_blooming */
-+	{ GC5035_REG_PAGE_SELECT, 0x01 },
-+	{ CCI_REG8(0x41), 0x28 },
-+	{ CCI_REG8(0x4c), 0x00 },
-+	{ CCI_REG8(0x4d), 0x00 },
-+	{ CCI_REG8(0x4e), 0x3c },
-+	{ CCI_REG8(0x44), 0x08 },
-+	{ CCI_REG8(0x48), 0x02 },
-+	/* CROP */
-+	{ GC5035_REG_PAGE_SELECT, 0x01 },
-+	{ GC5035_REG_CROP_TOP, GC5035_CROP_TOP },
-+	{ GC5035_REG_CROP_LEFT, GC5035_CROP_LEFT },
-+	{ GC5035_REG_OUT_HEIGHT, GC5035_HEIGHT },
-+	{ GC5035_REG_OUT_WIDTH, GC5035_WIDTH },
-+	{ CCI_REG8(0x99), 0x00 },
++	{ GC8034_REG_PAGE_SELECT, 0x00 },
++	{ CCI_REG8(0x40), 0x22 },
++	{ CCI_REG8(0x41), 0x20 },
++	{ CCI_REG8(0x42), 0x02 },
++	{ CCI_REG8(0x43), 0x08 },
++	{ CCI_REG8(0x4e), 0x0f },
++	{ CCI_REG8(0x4f), 0xf0 },
++	{ CCI_REG8(0x58), 0x80 },
++	{ CCI_REG8(0x59), 0x80 },
++	{ CCI_REG8(0x5a), 0x80 },
++	{ CCI_REG8(0x5b), 0x80 },
++	{ CCI_REG8(0x5c), 0x00 },
++	{ CCI_REG8(0x5d), 0x00 },
++	{ CCI_REG8(0x5e), 0x00 },
++	{ CCI_REG8(0x5f), 0x00 },
++	{ CCI_REG8(0x6b), 0x01 },
++	{ CCI_REG8(0x6c), 0x00 },
++	{ CCI_REG8(0x6d), 0x0c },
++	/* WB offset */
++	{ GC8034_REG_PAGE_SELECT, 0x01 },
++	{ CCI_REG8(0xbf), 0x40 },
++	/* Dark Sun */
++	{ GC8034_REG_PAGE_SELECT, 0x01 },
++	{ CCI_REG8(0x68), 0x77 },
++	/* DPC */
++	{ GC8034_REG_PAGE_SELECT, 0x01 },
++	{ CCI_REG8(0x60), 0x00 },
++	{ CCI_REG8(0x61), 0x10 },
++	{ CCI_REG8(0x64), 0x02 },
++	/* LSC */
++	{ GC8034_REG_PAGE_SELECT, 0x01 },
++	{ CCI_REG8(0xa8), 0x60 },
++	{ CCI_REG8(0xa2), 0xd1 },
++	{ CCI_REG8(0xc8), 0x57 },
++	{ CCI_REG8(0xa1), 0xb8 },
++	{ CCI_REG8(0xa3), 0x91 },
++	{ CCI_REG8(0xc0), 0x50 },
++	{ CCI_REG8(0xd0), 0x05 },
++	{ CCI_REG8(0xd1), 0xb2 },
++	{ CCI_REG8(0xd2), 0x1f },
++	{ CCI_REG8(0xd3), 0x00 },
++	{ CCI_REG8(0xd4), 0x00 },
++	{ CCI_REG8(0xd5), 0x00 },
++	{ CCI_REG8(0xd6), 0x00 },
++	{ CCI_REG8(0xd7), 0x00 },
++	{ CCI_REG8(0xd8), 0x00 },
++	{ CCI_REG8(0xd9), 0x00 },
++	{ CCI_REG8(0xa4), 0x10 },
++	{ CCI_REG8(0xa5), 0x20 },
++	{ CCI_REG8(0xa6), 0x60 },
++	{ CCI_REG8(0xa7), 0x80 },
++	{ CCI_REG8(0xab), 0x18 },
++	{ CCI_REG8(0xc7), 0xc0 },
++	/* ABB */
++	{ GC8034_REG_PAGE_SELECT, 0x01 },
++	{ CCI_REG8(0x20), 0x02 },
++	{ CCI_REG8(0x21), 0x02 },
++	{ CCI_REG8(0x23), 0x42 },
++	{ GC8034_REG_PAGE_SELECT, 0x00 },
++	/* SYS */
++	{ CCI_REG8(0xf2), 0x00 },
++	{ CCI_REG8(0xf4), 0x80 },
++	{ CCI_REG8(0xf5), 0x19 },
++	{ CCI_REG8(0xf6), 0x44 },
++	{ CCI_REG8(0xf8), 0x63 },
++	{ CCI_REG8(0xfa), 0x45 },
++	{ CCI_REG8(0xf9), 0x00 },
++	{ CCI_REG8(0xf7), 0x95 },
++	{ CCI_REG8(0xfc), 0x00 },
++	{ CCI_REG8(0xfc), 0x00 },
++	{ CCI_REG8(0xfc), 0xea },
++	{ GC8034_REG_PAGE_SELECT, 0x03 },
++	{ CCI_REG8(0x03), 0x9a },
++	{ CCI_REG8(0x18), 0x07 },
++	{ CCI_REG8(0x01), 0x07 },
++	{ CCI_REG8(0xfc), 0xee },
++	/* ISP */
++	{ GC8034_REG_PAGE_SELECT, 0x00 },
++	{ CCI_REG8(0x80), 0x13 },
++	{ CCI_REG8(0xad), 0x00 },
++	/* Crop window */
++	{ CCI_REG8(0x90), 0x01 },
++	{ GC8034_REG_CROP_TOP, GC8034_CROP_TOP },
++	{ GC8034_REG_CROP_LEFT, GC8034_CROP_LEFT },
++	{ GC8034_REG_OUT_HEIGHT, GC8034_HEIGHT },
++	{ GC8034_REG_OUT_WIDTH, GC8034_WIDTH },
++	/* DPC */
++	{ GC8034_REG_PAGE_SELECT, 0x01 },
++	{ CCI_REG8(0x62), 0x60 },
++	{ CCI_REG8(0x63), 0x48 },
 +	/* MIPI */
-+	{ GC5035_REG_PAGE_SELECT, 0x03 },
-+	{ CCI_REG8(0x02), 0x57 },
-+	{ CCI_REG8(0x03), 0xb7 },
-+	{ CCI_REG8(0x15), 0x14 },
-+	{ CCI_REG8(0x18), 0x0f },
-+	{ CCI_REG8(0x21), 0x22 },
++	{ GC8034_REG_PAGE_SELECT, 0x03 },
++	{ CCI_REG8(0x02), 0x03 },
++	{ CCI_REG8(0x04), 0x80 },
++	{ CCI_REG8(0x11), 0x2b },
++	{ CCI_REG8(0x12), 0xf0 },
++	{ CCI_REG8(0x13), 0x0f },
++	{ CCI_REG8(0x15), 0x10 },
++	{ CCI_REG8(0x16), 0x29 },
++	{ CCI_REG8(0x17), 0xff },
++	{ CCI_REG8(0x19), 0xaa },
++	{ CCI_REG8(0x1a), 0x02 },
++	{ CCI_REG8(0x21), 0x05 },
 +	{ CCI_REG8(0x22), 0x06 },
-+	{ CCI_REG8(0x23), 0x48 },
-+	{ CCI_REG8(0x24), 0x12 },
-+	{ CCI_REG8(0x25), 0x28 },
-+	{ CCI_REG8(0x26), 0x08 },
-+	{ CCI_REG8(0x29), 0x06 },
-+	{ CCI_REG8(0x2a), 0x58 },
-+	{ CCI_REG8(0x2b), 0x08 },
-+	{ GC5035_REG_PAGE_SELECT, 0x00 },
-+	{ GC5035_REG_STREAM, GC5035_STREAM_OFF },
++	{ CCI_REG8(0x23), 0x2b },
++	{ CCI_REG8(0x24), 0x00 },
++	{ CCI_REG8(0x25), 0x12 },
++	{ CCI_REG8(0x26), 0x07 },
++	{ CCI_REG8(0x29), 0x07 },
++	{ CCI_REG8(0x2a), 0x12 },
++	{ CCI_REG8(0x2b), 0x07 },
++	{ GC8034_REG_PAGE_SELECT, 0x00 },
++	{ GC8034_REG_STREAM, GC8034_STREAM_OFF },
 +};
 +
-+static inline struct gc5035 *to_gc5035(struct v4l2_subdev *sd)
++static inline struct gc8034 *to_gc8034(struct v4l2_subdev *sd)
 +{
-+	return container_of(sd, struct gc5035, sd);
++	return container_of(sd, struct gc8034, sd);
 +}
 +
-+static int gc5035_set_page(struct gc5035 *gc5035, u8 page)
++static void gc8034_disable_supplies(struct gc8034 *gc8034, unsigned int num)
 +{
-+	return cci_write(gc5035->regmap, GC5035_REG_PAGE_SELECT, page, NULL);
++	while (num--)
++		regulator_disable(gc8034->supplies[num].consumer);
 +}
 +
-+static int gc5035_power_on(struct device *dev)
++static int gc8034_power_on(struct device *dev)
 +{
 +	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct gc5035 *gc5035 = to_gc5035(sd);
++	struct gc8034 *gc8034 = to_gc8034(sd);
++	unsigned int i;
 +	int ret;
 +
-+	ret = regulator_enable(gc5035->supplies[0].consumer);
++	/* One by one: regulator_bulk_enable() works in parallel. */
++	for (i = 0; i < ARRAY_SIZE(gc8034_supply_name); i++) {
++		ret = regulator_enable(gc8034->supplies[i].consumer);
++		if (ret) {
++			dev_err(dev, "failed to enable %s: %d\n",
++				gc8034_supply_name[i], ret);
++			gc8034_disable_supplies(gc8034, i);
++			return ret;
++		}
++	}
++
++	fsleep(GC8034_SUPPLY_DELAY_US);
++
++	ret = clk_prepare_enable(gc8034->xclk);
 +	if (ret) {
-+		dev_err(dev, "failed to enable dovdd: %d\n", ret);
++		dev_err(dev, "failed to enable clock: %d\n", ret);
++		gc8034_disable_supplies(gc8034, ARRAY_SIZE(gc8034_supply_name));
 +		return ret;
 +	}
 +
-+	fsleep(GC5035_IOVDD_DELAY_US);
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(gc5035_supply_name) - 1,
-+				    &gc5035->supplies[1]);
-+	if (ret) {
-+		dev_err(dev, "failed to enable regulators: %d\n", ret);
-+		goto err_dovdd;
-+	}
-+
-+	ret = clk_prepare_enable(gc5035->xclk);
-+	if (ret) {
-+		dev_err(dev, "failed to enable clock: %d\n", ret);
-+		goto err_regulators;
-+	}
-+
-+	gpiod_set_value_cansleep(gc5035->powerdown_gpio, 0);
-+	gpiod_set_value_cansleep(gc5035->reset_gpio, 0);
-+
-+	fsleep(GC5035_RESET_DELAY_US);
++	fsleep(GC8034_CLK_DELAY_US);
++	gpiod_set_value_cansleep(gc8034->powerdown_gpio, 0);
++	fsleep(GC8034_PWDN_DELAY_US);
++	gpiod_set_value_cansleep(gc8034->reset_gpio, 0);
++	fsleep(GC8034_RESET_DELAY_US);
 +
 +	return 0;
-+
-+err_regulators:
-+	regulator_bulk_disable(ARRAY_SIZE(gc5035_supply_name) - 1,
-+			       &gc5035->supplies[1]);
-+err_dovdd:
-+	regulator_disable(gc5035->supplies[0].consumer);
-+
-+	return ret;
 +}
 +
-+static int gc5035_power_off(struct device *dev)
++static int gc8034_power_off(struct device *dev)
 +{
 +	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct gc5035 *gc5035 = to_gc5035(sd);
++	struct gc8034 *gc8034 = to_gc8034(sd);
 +
-+	fsleep(GC5035_STOP_DELAY_US);
-+
-+	gpiod_set_value_cansleep(gc5035->powerdown_gpio, 1);
-+	gpiod_set_value_cansleep(gc5035->reset_gpio, 1);
-+	clk_disable_unprepare(gc5035->xclk);
-+	regulator_bulk_disable(ARRAY_SIZE(gc5035_supply_name) - 1,
-+			       &gc5035->supplies[1]);
-+	regulator_disable(gc5035->supplies[0].consumer);
++	gpiod_set_value_cansleep(gc8034->powerdown_gpio, 1);
++	gpiod_set_value_cansleep(gc8034->reset_gpio, 1);
++	clk_disable_unprepare(gc8034->xclk);
++	gc8034_disable_supplies(gc8034, ARRAY_SIZE(gc8034_supply_name));
 +
 +	return 0;
 +}
 +
-+static int gc5035_enum_mbus_code(struct v4l2_subdev *sd,
++static int gc8034_enum_mbus_code(struct v4l2_subdev *sd,
 +				 struct v4l2_subdev_state *sd_state,
 +				 struct v4l2_subdev_mbus_code_enum *code)
 +{
 +	if (code->index > 0)
 +		return -EINVAL;
 +
-+	code->code = GC5035_MBUS_CODE;
++	code->code = GC8034_MBUS_CODE;
 +
 +	return 0;
 +}
 +
-+static int gc5035_enum_frame_size(struct v4l2_subdev *sd,
++static int gc8034_enum_frame_size(struct v4l2_subdev *sd,
 +				  struct v4l2_subdev_state *sd_state,
 +				  struct v4l2_subdev_frame_size_enum *fse)
 +{
-+	if (fse->code != GC5035_MBUS_CODE)
++	if (fse->code != GC8034_MBUS_CODE)
 +		return -EINVAL;
 +
 +	if (fse->index > 0)
 +		return -EINVAL;
 +
-+	fse->min_width = GC5035_WIDTH;
-+	fse->max_width = GC5035_WIDTH;
-+	fse->min_height = GC5035_HEIGHT;
-+	fse->max_height = GC5035_HEIGHT;
++	fse->min_width = GC8034_WIDTH;
++	fse->max_width = GC8034_WIDTH;
++	fse->min_height = GC8034_HEIGHT;
++	fse->max_height = GC8034_HEIGHT;
 +
 +	return 0;
 +}
 +
-+static void gc5035_fill_state(struct v4l2_subdev_state *state)
++static void gc8034_fill_state(struct v4l2_subdev_state *state)
 +{
 +	struct v4l2_mbus_framefmt *fmt;
 +	struct v4l2_rect *crop;
 +
 +	crop = v4l2_subdev_state_get_crop(state, 0);
-+	crop->left = GC5035_CROP_LEFT;
-+	crop->top = GC5035_CROP_TOP;
-+	crop->width = GC5035_WIDTH;
-+	crop->height = GC5035_HEIGHT;
++	crop->left = GC8034_CROP_LEFT;
++	crop->top = GC8034_CROP_TOP;
++	crop->width = GC8034_WIDTH;
++	crop->height = GC8034_HEIGHT;
 +
 +	fmt = v4l2_subdev_state_get_format(state, 0);
-+	fmt->width = GC5035_WIDTH;
-+	fmt->height = GC5035_HEIGHT;
-+	fmt->code = GC5035_MBUS_CODE;
++	fmt->width = GC8034_WIDTH;
++	fmt->height = GC8034_HEIGHT;
++	fmt->code = GC8034_MBUS_CODE;
 +	fmt->field = V4L2_FIELD_NONE;
 +	fmt->colorspace = V4L2_COLORSPACE_RAW;
 +	fmt->ycbcr_enc = V4L2_MAP_YCBCR_ENC_DEFAULT(fmt->colorspace);
@@ -635,7 +659,7 @@ index 000000000..95d83cde8
 +	fmt->xfer_func = V4L2_XFER_FUNC_NONE;
 +}
 +
-+static int gc5035_get_selection(struct v4l2_subdev *sd,
++static int gc8034_get_selection(struct v4l2_subdev *sd,
 +				const struct v4l2_subdev_client_info *ci,
 +				struct v4l2_subdev_state *state,
 +				struct v4l2_subdev_selection *sel)
@@ -645,17 +669,17 @@ index 000000000..95d83cde8
 +		sel->r = *v4l2_subdev_state_get_crop(state, 0);
 +		break;
 +	case V4L2_SEL_TGT_CROP_DEFAULT:
-+		sel->r.top = GC5035_CROP_TOP;
-+		sel->r.left = GC5035_CROP_LEFT;
-+		sel->r.width = GC5035_WIDTH;
-+		sel->r.height = GC5035_HEIGHT;
++		sel->r.top = GC8034_CROP_TOP;
++		sel->r.left = GC8034_CROP_LEFT;
++		sel->r.width = GC8034_WIDTH;
++		sel->r.height = GC8034_HEIGHT;
 +		break;
 +	case V4L2_SEL_TGT_CROP_BOUNDS:
 +	case V4L2_SEL_TGT_NATIVE_SIZE:
 +		sel->r.top = 0;
 +		sel->r.left = 0;
-+		sel->r.width = GC5035_NATIVE_WIDTH;
-+		sel->r.height = GC5035_NATIVE_HEIGHT;
++		sel->r.width = GC8034_NATIVE_WIDTH;
++		sel->r.height = GC8034_NATIVE_HEIGHT;
 +		break;
 +	default:
 +		return -EINVAL;
@@ -664,20 +688,20 @@ index 000000000..95d83cde8
 +	return 0;
 +}
 +
-+static int gc5035_init_state(struct v4l2_subdev *sd,
++static int gc8034_init_state(struct v4l2_subdev *sd,
 +			     struct v4l2_subdev_state *state)
 +{
-+	gc5035_fill_state(state);
++	gc8034_fill_state(state);
 +
 +	return 0;
 +}
 +
-+static int gc5035_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
++static int gc8034_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
 +				 struct v4l2_mbus_frame_desc *fd)
 +{
 +	fd->type = V4L2_MBUS_FRAME_DESC_TYPE_CSI2;
 +	fd->num_entries = 1;
-+	fd->entry[0].pixelcode = GC5035_MBUS_CODE;
++	fd->entry[0].pixelcode = GC8034_MBUS_CODE;
 +	fd->entry[0].stream = 0;
 +	fd->entry[0].bus.csi2.vc = 0;
 +	fd->entry[0].bus.csi2.dt = MIPI_CSI2_DT_RAW10;
@@ -685,66 +709,63 @@ index 000000000..95d83cde8
 +	return 0;
 +}
 +
-+static int gc5035_test_pattern(struct gc5035 *gc5035, u32 pattern)
++static int gc8034_set_analogue_gain(struct gc8034 *gc8034, u32 idx)
 +{
-+	int ret;
++	unsigned int i;
++	int ret = 0;
 +
-+	ret = gc5035_set_page(gc5035, GC5035_PAGE_1);
-+	if (ret)
-+		return ret;
++	cci_write(gc8034->regmap, GC8034_REG_ANALOGUE_GAIN, idx, &ret);
 +
-+	ret = cci_write(gc5035->regmap, GC5035_REG_TEST_PATTERN,
-+			pattern ? GC5035_TEST_PATTERN_ON :
-+				  GC5035_TEST_PATTERN_OFF, NULL);
++	for (i = 0; i < ARRAY_SIZE(gc8034_agc_bias_reg); i++)
++		cci_write(gc8034->regmap, CCI_REG8(gc8034_agc_bias_reg[i]),
++			  gc8034_agc_bias[idx][i], &ret);
 +
-+	/* Back to page 0 even on error, the other controls expect it. */
-+	return gc5035_set_page(gc5035, GC5035_PAGE_0) ?: ret;
++	return ret;
 +}
 +
-+static int gc5035_set_ctrl(struct v4l2_ctrl *ctrl)
++static int gc8034_set_ctrl(struct v4l2_ctrl *ctrl)
 +{
-+	struct gc5035 *gc5035 =
-+		container_of(ctrl->handler, struct gc5035, ctrls);
++	struct gc8034 *gc8034 =
++		container_of(ctrl->handler, struct gc8034, ctrls);
 +	const struct v4l2_mbus_framefmt *format;
 +	struct v4l2_subdev_state *state;
 +	s64 exposure_max;
 +	int ret;
 +
-+	state = v4l2_subdev_get_locked_active_state(&gc5035->sd);
++	state = v4l2_subdev_get_locked_active_state(&gc8034->sd);
 +	format = v4l2_subdev_state_get_format(state, 0);
 +
 +	if (ctrl->id == V4L2_CID_VBLANK) {
-+		exposure_max = format->height + ctrl->val -
-+			       GC5035_EXP_MARGIN;
-+		ret = __v4l2_ctrl_modify_range(gc5035->exposure,
-+					       GC5035_EXP_MIN, exposure_max,
-+					       GC5035_EXP_STEP, GC5035_EXP_DEF);
++		exposure_max = round_down(format->height + ctrl->val -
++					  GC8034_EXP_MARGIN, GC8034_EXP_STEP);
++		ret = __v4l2_ctrl_modify_range(gc8034->exposure,
++					       GC8034_EXP_MIN, exposure_max,
++					       GC8034_EXP_STEP, GC8034_EXP_DEF);
 +		if (ret)
 +			return ret;
 +	}
 +
-+	if (!pm_runtime_get_if_active(gc5035->dev))
++	if (!pm_runtime_get_if_active(gc8034->dev))
 +		return 0;
 +
-+	ret = gc5035_set_page(gc5035, GC5035_PAGE_0);
++	ret = cci_write(gc8034->regmap, GC8034_REG_PAGE_SELECT, GC8034_PAGE_0,
++			NULL);
 +	if (ret)
 +		goto out;
 +
 +	switch (ctrl->id) {
 +	case V4L2_CID_EXPOSURE:
-+		ret = cci_write(gc5035->regmap, GC5035_REG_EXPOSURE,
++		ret = cci_write(gc8034->regmap, GC8034_REG_EXPOSURE,
 +				ctrl->val, NULL);
 +		break;
 +	case V4L2_CID_ANALOGUE_GAIN:
-+		ret = cci_write(gc5035->regmap, GC5035_REG_ANALOGUE_GAIN,
-+				gc5035_again_code[ctrl->val], NULL);
++		ret = gc8034_set_analogue_gain(gc8034, ctrl->val);
 +		break;
 +	case V4L2_CID_VBLANK:
-+		ret = cci_write(gc5035->regmap, GC5035_REG_FRAME_LENGTH,
-+				format->height + ctrl->val, NULL);
-+		break;
-+	case V4L2_CID_TEST_PATTERN:
-+		ret = gc5035_test_pattern(gc5035, ctrl->val);
++		/* The register holds an offset, not the VTS. */
++		ret = cci_write(gc8034->regmap, GC8034_REG_BLANKING,
++				format->height + ctrl->val -
++				GC8034_VTS_OFFSET, NULL);
 +		break;
 +	default:
 +		ret = -EINVAL;
@@ -752,111 +773,111 @@ index 000000000..95d83cde8
 +	}
 +
 +out:
-+	pm_runtime_put_autosuspend(gc5035->dev);
++	pm_runtime_put_autosuspend(gc8034->dev);
 +
 +	return ret;
 +}
 +
-+static const struct v4l2_ctrl_ops gc5035_ctrl_ops = {
-+	.s_ctrl = gc5035_set_ctrl,
++static const struct v4l2_ctrl_ops gc8034_ctrl_ops = {
++	.s_ctrl = gc8034_set_ctrl,
 +};
 +
 +/* Only ever called from probe, with the sensor powered up. */
-+static int gc5035_identify_module(struct gc5035 *gc5035)
++static int gc8034_identify_module(struct gc8034 *gc8034)
 +{
 +	u64 val;
 +	int ret;
 +
-+	ret = cci_read(gc5035->regmap, GC5035_REG_CHIP_ID, &val, NULL);
++	ret = cci_read(gc8034->regmap, GC8034_REG_CHIP_ID, &val, NULL);
 +	if (ret)
 +		return ret;
 +
-+	if (val != GC5035_CHIP_ID)
-+		return dev_err_probe(gc5035->dev, -ENXIO,
++	if (val != GC8034_CHIP_ID)
++		return dev_err_probe(gc8034->dev, -ENXIO,
 +				     "chip id mismatch: %x != %llx\n",
-+				     GC5035_CHIP_ID, val);
++				     GC8034_CHIP_ID, val);
 +
 +	return 0;
 +}
 +
-+static int gc5035_enable_streams(struct v4l2_subdev *sd,
++static int gc8034_enable_streams(struct v4l2_subdev *sd,
 +				 struct v4l2_subdev_state *state,
 +				 u32 pad, u64 streams_mask)
 +{
-+	struct gc5035 *gc5035 = to_gc5035(sd);
++	struct gc8034 *gc8034 = to_gc8034(sd);
 +	int ret;
 +
-+	ret = pm_runtime_resume_and_get(gc5035->dev);
++	ret = pm_runtime_resume_and_get(gc8034->dev);
 +	if (ret < 0)
 +		return ret;
 +
-+	ret = cci_multi_reg_write(gc5035->regmap, gc5035_regs,
-+				  ARRAY_SIZE(gc5035_regs), NULL);
++	ret = cci_multi_reg_write(gc8034->regmap, gc8034_regs,
++				  ARRAY_SIZE(gc8034_regs), NULL);
 +	if (ret)
 +		goto err_rpm_put;
 +
-+	ret = __v4l2_ctrl_handler_setup(&gc5035->ctrls);
++	ret = __v4l2_ctrl_handler_setup(&gc8034->ctrls);
 +	if (ret)
 +		goto err_rpm_put;
 +
-+	ret = cci_write(gc5035->regmap, GC5035_REG_STREAM,
-+			GC5035_STREAM_ON, NULL);
++	ret = cci_write(gc8034->regmap, GC8034_REG_STREAM, GC8034_STREAM_ON,
++			NULL);
 +	if (ret)
 +		goto err_rpm_put;
 +
 +	return 0;
 +
 +err_rpm_put:
-+	pm_runtime_put_autosuspend(gc5035->dev);
++	pm_runtime_put_autosuspend(gc8034->dev);
 +
 +	return ret;
 +}
 +
-+static int gc5035_disable_streams(struct v4l2_subdev *sd,
++static int gc8034_disable_streams(struct v4l2_subdev *sd,
 +				  struct v4l2_subdev_state *state,
 +				  u32 pad, u64 streams_mask)
 +{
-+	struct gc5035 *gc5035 = to_gc5035(sd);
++	struct gc8034 *gc8034 = to_gc8034(sd);
 +	int ret = 0;
 +
 +	/* cci_write() logs errors, nothing else can be done about them. */
-+	cci_write(gc5035->regmap, GC5035_REG_PAGE_SELECT, GC5035_PAGE_0, &ret);
-+	cci_write(gc5035->regmap, GC5035_REG_STREAM, GC5035_STREAM_OFF, &ret);
++	cci_write(gc8034->regmap, GC8034_REG_PAGE_SELECT, GC8034_PAGE_0, &ret);
++	cci_write(gc8034->regmap, GC8034_REG_STREAM, GC8034_STREAM_OFF, &ret);
 +
-+	pm_runtime_put_autosuspend(gc5035->dev);
++	pm_runtime_put_autosuspend(gc8034->dev);
 +
 +	return 0;
 +}
 +
-+static const struct v4l2_subdev_video_ops gc5035_video_ops = {
++static const struct v4l2_subdev_video_ops gc8034_video_ops = {
 +	.s_stream = v4l2_subdev_s_stream_helper,
 +};
 +
-+static const struct v4l2_subdev_pad_ops gc5035_pad_ops = {
-+	.enum_mbus_code = gc5035_enum_mbus_code,
-+	.enum_frame_size = gc5035_enum_frame_size,
++static const struct v4l2_subdev_pad_ops gc8034_pad_ops = {
++	.enum_mbus_code = gc8034_enum_mbus_code,
++	.enum_frame_size = gc8034_enum_frame_size,
 +	.get_fmt = v4l2_subdev_get_fmt,
-+	.get_selection = gc5035_get_selection,
-+	.get_frame_desc = gc5035_get_frame_desc,
-+	.enable_streams = gc5035_enable_streams,
-+	.disable_streams = gc5035_disable_streams,
++	.get_selection = gc8034_get_selection,
++	.get_frame_desc = gc8034_get_frame_desc,
++	.enable_streams = gc8034_enable_streams,
++	.disable_streams = gc8034_disable_streams,
 +};
 +
-+static const struct v4l2_subdev_ops gc5035_subdev_ops = {
-+	.video = &gc5035_video_ops,
-+	.pad = &gc5035_pad_ops,
++static const struct v4l2_subdev_ops gc8034_subdev_ops = {
++	.video = &gc8034_video_ops,
++	.pad = &gc8034_pad_ops,
 +};
 +
-+static const struct v4l2_subdev_internal_ops gc5035_internal_ops = {
-+	.init_state = gc5035_init_state,
++static const struct v4l2_subdev_internal_ops gc8034_internal_ops = {
++	.init_state = gc8034_init_state,
 +};
 +
-+static int gc5035_parse_fwnode(struct gc5035 *gc5035)
++static int gc8034_parse_fwnode(struct gc8034 *gc8034)
 +{
 +	struct v4l2_fwnode_endpoint bus_cfg = {
 +		.bus_type = V4L2_MBUS_CSI2_DPHY,
 +	};
-+	struct device *dev = gc5035->dev;
++	struct device *dev = gc8034->dev;
 +	struct fwnode_handle *endpoint;
 +	unsigned long link_freq_bitmap;
 +	int ret;
@@ -868,8 +889,8 @@ index 000000000..95d83cde8
 +	if (ret)
 +		return dev_err_probe(dev, ret, "failed to parse endpoint\n");
 +
-+	/* The register table configures the CSI-2 transmitter for 2 lanes. */
-+	if (bus_cfg.bus.mipi_csi2.num_data_lanes != GC5035_DATA_LANES) {
++	/* The register table configures the CSI-2 transmitter for 4 lanes. */
++	if (bus_cfg.bus.mipi_csi2.num_data_lanes != GC8034_DATA_LANES) {
 +		ret = dev_err_probe(dev, -EINVAL,
 +				    "unsupported number of data lanes %u\n",
 +				    bus_cfg.bus.mipi_csi2.num_data_lanes);
@@ -878,8 +899,8 @@ index 000000000..95d83cde8
 +
 +	ret = v4l2_link_freq_to_bitmap(dev, bus_cfg.link_frequencies,
 +				       bus_cfg.nr_of_link_frequencies,
-+				       gc5035_link_freq_menu,
-+				       ARRAY_SIZE(gc5035_link_freq_menu),
++				       gc8034_link_freq_menu,
++				       ARRAY_SIZE(gc8034_link_freq_menu),
 +				       &link_freq_bitmap);
 +
 +done:
@@ -888,7 +909,7 @@ index 000000000..95d83cde8
 +	return ret;
 +}
 +
-+static int gc5035_init_controls(struct gc5035 *gc5035)
++static int gc8034_init_controls(struct gc8034 *gc8034)
 +{
 +	struct v4l2_fwnode_device_properties props;
 +	struct v4l2_ctrl_handler *ctrl_hdlr;
@@ -896,48 +917,41 @@ index 000000000..95d83cde8
 +	s64 exposure_max;
 +	int ret;
 +
-+	ret = v4l2_fwnode_device_parse(gc5035->dev, &props);
++	ret = v4l2_fwnode_device_parse(gc8034->dev, &props);
 +	if (ret)
 +		return ret;
 +
-+	ctrl_hdlr = &gc5035->ctrls;
-+	v4l2_ctrl_handler_init(ctrl_hdlr, 9);
++	ctrl_hdlr = &gc8034->ctrls;
++	v4l2_ctrl_handler_init(ctrl_hdlr, 8);
 +
 +	link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, NULL, V4L2_CID_LINK_FREQ,
-+					   ARRAY_SIZE(gc5035_link_freq_menu) -
-+					   1, 0, gc5035_link_freq_menu);
++					   ARRAY_SIZE(gc8034_link_freq_menu) -
++					   1, 0, gc8034_link_freq_menu);
 +
 +	v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_PIXEL_RATE,
-+			  GC5035_PIXEL_RATE, GC5035_PIXEL_RATE, 1,
-+			  GC5035_PIXEL_RATE);
++			  GC8034_PIXEL_RATE, GC8034_PIXEL_RATE, 1,
++			  GC8034_PIXEL_RATE);
 +
-+	v4l2_ctrl_new_std(ctrl_hdlr, &gc5035_ctrl_ops, V4L2_CID_VBLANK,
-+			  GC5035_VTS_DEF - GC5035_HEIGHT,
-+			  GC5035_VTS_DEF - GC5035_HEIGHT +
-+			  round_down(GC5035_VTS_MAX - GC5035_VTS_DEF,
-+				     GC5035_VBLANK_STEP),
-+			  GC5035_VBLANK_STEP, GC5035_VTS_DEF - GC5035_HEIGHT);
++	v4l2_ctrl_new_std(ctrl_hdlr, &gc8034_ctrl_ops, V4L2_CID_VBLANK,
++			  GC8034_VTS_DEF - GC8034_HEIGHT,
++			  GC8034_VTS_MAX - GC8034_HEIGHT, 1,
++			  GC8034_VTS_DEF - GC8034_HEIGHT);
 +
 +	hblank = v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_HBLANK,
-+				   GC5035_HTS - GC5035_WIDTH,
-+				   GC5035_HTS - GC5035_WIDTH, 1,
-+				   GC5035_HTS - GC5035_WIDTH);
++				   GC8034_HTS - GC8034_WIDTH,
++				   GC8034_HTS - GC8034_WIDTH, 1,
++				   GC8034_HTS - GC8034_WIDTH);
 +
-+	exposure_max = GC5035_VTS_DEF - GC5035_EXP_MARGIN;
-+	gc5035->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &gc5035_ctrl_ops,
-+					     V4L2_CID_EXPOSURE, GC5035_EXP_MIN,
-+					     exposure_max, GC5035_EXP_STEP,
-+					     GC5035_EXP_DEF);
++	exposure_max = GC8034_VTS_DEF - GC8034_EXP_MARGIN;
++	gc8034->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &gc8034_ctrl_ops,
++					     V4L2_CID_EXPOSURE, GC8034_EXP_MIN,
++					     exposure_max, GC8034_EXP_STEP,
++					     GC8034_EXP_DEF);
 +
-+	v4l2_ctrl_new_std(ctrl_hdlr, &gc5035_ctrl_ops, V4L2_CID_ANALOGUE_GAIN,
-+			  0, ARRAY_SIZE(gc5035_again_code) - 1, 1, 0);
++	v4l2_ctrl_new_std(ctrl_hdlr, &gc8034_ctrl_ops, V4L2_CID_ANALOGUE_GAIN,
++			  0, ARRAY_SIZE(gc8034_agc_bias) - 1, 1, 0);
 +
-+	v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &gc5035_ctrl_ops,
-+				     V4L2_CID_TEST_PATTERN,
-+				     ARRAY_SIZE(gc5035_test_pattern_menu) - 1,
-+				     0, 0, gc5035_test_pattern_menu);
-+
-+	v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &gc5035_ctrl_ops, &props);
++	v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &gc8034_ctrl_ops, &props);
 +
 +	if (ctrl_hdlr->error)
 +		return v4l2_ctrl_handler_free(ctrl_hdlr);
@@ -945,93 +959,93 @@ index 000000000..95d83cde8
 +	link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
 +	hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
 +
-+	gc5035->sd.ctrl_handler = ctrl_hdlr;
++	gc8034->sd.ctrl_handler = ctrl_hdlr;
 +
 +	return 0;
 +}
 +
-+static int gc5035_probe(struct i2c_client *client)
++static int gc8034_probe(struct i2c_client *client)
 +{
 +	struct device *dev = &client->dev;
-+	struct gc5035 *gc5035;
++	struct gc8034 *gc8034;
 +	unsigned long freq;
 +	int ret;
 +
-+	gc5035 = devm_kzalloc(dev, sizeof(*gc5035), GFP_KERNEL);
-+	if (!gc5035)
++	gc8034 = devm_kzalloc(dev, sizeof(*gc8034), GFP_KERNEL);
++	if (!gc8034)
 +		return -ENOMEM;
 +
-+	gc5035->dev = dev;
++	gc8034->dev = dev;
 +
-+	v4l2_i2c_subdev_init(&gc5035->sd, client, &gc5035_subdev_ops);
-+	gc5035->sd.internal_ops = &gc5035_internal_ops;
++	v4l2_i2c_subdev_init(&gc8034->sd, client, &gc8034_subdev_ops);
++	gc8034->sd.internal_ops = &gc8034_internal_ops;
 +
-+	ret = gc5035_parse_fwnode(gc5035);
++	ret = gc8034_parse_fwnode(gc8034);
 +	if (ret)
 +		return ret;
 +
-+	gc5035->xclk = devm_v4l2_sensor_clk_get(dev, NULL);
-+	if (IS_ERR(gc5035->xclk))
-+		return dev_err_probe(dev, PTR_ERR(gc5035->xclk),
++	gc8034->xclk = devm_v4l2_sensor_clk_get(dev, NULL);
++	if (IS_ERR(gc8034->xclk))
++		return dev_err_probe(dev, PTR_ERR(gc8034->xclk),
 +				     "failed to get clock\n");
 +
-+	freq = clk_get_rate(gc5035->xclk);
-+	if (freq != GC5035_XCLK_FREQ)
++	freq = clk_get_rate(gc8034->xclk);
++	if (freq != GC8034_XCLK_FREQ)
 +		return dev_err_probe(dev, -EINVAL,
 +				     "external clock %lu Hz not supported\n",
 +				     freq);
 +
-+	gc5035->regmap = devm_cci_regmap_init_i2c(client, 8);
-+	if (IS_ERR(gc5035->regmap))
-+		return dev_err_probe(dev, PTR_ERR(gc5035->regmap),
++	gc8034->regmap = devm_cci_regmap_init_i2c(client, 8);
++	if (IS_ERR(gc8034->regmap))
++		return dev_err_probe(dev, PTR_ERR(gc8034->regmap),
 +				     "failed to init CCI\n");
 +
-+	gc5035->reset_gpio = devm_gpiod_get_optional(dev, "reset",
++	gc8034->reset_gpio = devm_gpiod_get_optional(dev, "reset",
 +						     GPIOD_OUT_HIGH);
-+	if (IS_ERR(gc5035->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(gc5035->reset_gpio),
++	if (IS_ERR(gc8034->reset_gpio))
++		return dev_err_probe(dev, PTR_ERR(gc8034->reset_gpio),
 +				     "failed to get reset GPIO\n");
 +
-+	gc5035->powerdown_gpio = devm_gpiod_get_optional(dev, "powerdown",
++	gc8034->powerdown_gpio = devm_gpiod_get_optional(dev, "powerdown",
 +							 GPIOD_OUT_HIGH);
-+	if (IS_ERR(gc5035->powerdown_gpio))
-+		return dev_err_probe(dev, PTR_ERR(gc5035->powerdown_gpio),
++	if (IS_ERR(gc8034->powerdown_gpio))
++		return dev_err_probe(dev, PTR_ERR(gc8034->powerdown_gpio),
 +				     "failed to get powerdown GPIO\n");
 +
-+	for (unsigned int i = 0; i < ARRAY_SIZE(gc5035_supply_name); i++)
-+		gc5035->supplies[i].supply = gc5035_supply_name[i];
++	for (unsigned int i = 0; i < ARRAY_SIZE(gc8034_supply_name); i++)
++		gc8034->supplies[i].supply = gc8034_supply_name[i];
 +
-+	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(gc5035_supply_name),
-+				      gc5035->supplies);
++	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(gc8034_supply_name),
++				      gc8034->supplies);
 +	if (ret)
 +		return dev_err_probe(dev, ret, "failed to get regulators\n");
 +
-+	ret = gc5035_power_on(dev);
++	ret = gc8034_power_on(dev);
 +	if (ret)
 +		return ret;
 +
-+	ret = gc5035_identify_module(gc5035);
++	ret = gc8034_identify_module(gc8034);
 +	if (ret)
 +		goto err_power_off;
 +
-+	ret = gc5035_init_controls(gc5035);
++	ret = gc8034_init_controls(gc8034);
 +	if (ret) {
 +		dev_err_probe(dev, ret, "failed to init controls\n");
 +		goto err_power_off;
 +	}
 +
-+	gc5035->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
-+	gc5035->pad.flags = MEDIA_PAD_FL_SOURCE;
-+	gc5035->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
++	gc8034->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
++	gc8034->pad.flags = MEDIA_PAD_FL_SOURCE;
++	gc8034->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
 +
-+	ret = media_entity_pads_init(&gc5035->sd.entity, 1, &gc5035->pad);
++	ret = media_entity_pads_init(&gc8034->sd.entity, 1, &gc8034->pad);
 +	if (ret < 0) {
 +		dev_err_probe(dev, ret, "failed to init media entity\n");
 +		goto err_ctrl_handler_free;
 +	}
 +
-+	gc5035->sd.state_lock = gc5035->ctrls.lock;
-+	ret = v4l2_subdev_init_finalize(&gc5035->sd);
++	gc8034->sd.state_lock = gc8034->ctrls.lock;
++	ret = v4l2_subdev_init_finalize(&gc8034->sd);
 +	if (ret < 0) {
 +		dev_err_probe(dev, ret, "failed to finalize subdev\n");
 +		goto err_media_entity_cleanup;
@@ -1042,7 +1056,7 @@ index 000000000..95d83cde8
 +	pm_runtime_set_autosuspend_delay(dev, 1000);
 +	pm_runtime_use_autosuspend(dev);
 +
-+	ret = v4l2_async_register_subdev_sensor(&gc5035->sd);
++	ret = v4l2_async_register_subdev_sensor(&gc8034->sd);
 +	if (ret < 0) {
 +		dev_err_probe(dev, ret, "failed to register subdev\n");
 +		goto err_rpm;
@@ -1056,61 +1070,61 @@ index 000000000..95d83cde8
 +	pm_runtime_disable(dev);
 +	pm_runtime_dont_use_autosuspend(dev);
 +	pm_runtime_set_suspended(dev);
-+	v4l2_subdev_cleanup(&gc5035->sd);
++	v4l2_subdev_cleanup(&gc8034->sd);
 +
 +err_media_entity_cleanup:
-+	media_entity_cleanup(&gc5035->sd.entity);
++	media_entity_cleanup(&gc8034->sd.entity);
 +
 +err_ctrl_handler_free:
-+	v4l2_ctrl_handler_free(&gc5035->ctrls);
++	v4l2_ctrl_handler_free(&gc8034->ctrls);
 +
 +err_power_off:
-+	gc5035_power_off(dev);
++	gc8034_power_off(dev);
 +
 +	return ret;
 +}
 +
-+static void gc5035_remove(struct i2c_client *client)
++static void gc8034_remove(struct i2c_client *client)
 +{
 +	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-+	struct gc5035 *gc5035 = to_gc5035(sd);
++	struct gc8034 *gc8034 = to_gc8034(sd);
 +
 +	v4l2_async_unregister_subdev(sd);
 +	v4l2_subdev_cleanup(sd);
 +	media_entity_cleanup(&sd->entity);
-+	v4l2_ctrl_handler_free(&gc5035->ctrls);
++	v4l2_ctrl_handler_free(&gc8034->ctrls);
 +
 +	pm_runtime_disable(&client->dev);
 +	if (!pm_runtime_status_suspended(&client->dev)) {
-+		gc5035_power_off(&client->dev);
++		gc8034_power_off(&client->dev);
 +		pm_runtime_set_suspended(&client->dev);
 +	}
 +	pm_runtime_dont_use_autosuspend(&client->dev);
 +}
 +
-+static const struct dev_pm_ops gc5035_pm_ops = {
-+	RUNTIME_PM_OPS(gc5035_power_off, gc5035_power_on, NULL)
++static const struct dev_pm_ops gc8034_pm_ops = {
++	RUNTIME_PM_OPS(gc8034_power_off, gc8034_power_on, NULL)
 +};
 +
-+static const struct acpi_device_id gc5035_acpi_ids[] = {
-+	{ "GCTI5035" },
++static const struct acpi_device_id gc8034_acpi_ids[] = {
++	{ "GCTI8034" },
 +	{ }
 +};
-+MODULE_DEVICE_TABLE(acpi, gc5035_acpi_ids);
++MODULE_DEVICE_TABLE(acpi, gc8034_acpi_ids);
 +
-+static struct i2c_driver gc5035_i2c_driver = {
++static struct i2c_driver gc8034_i2c_driver = {
 +	.driver = {
-+		.name = "gc5035",
-+		.acpi_match_table = gc5035_acpi_ids,
-+		.pm = pm_ptr(&gc5035_pm_ops),
++		.name = "gc8034",
++		.acpi_match_table = gc8034_acpi_ids,
++		.pm = pm_ptr(&gc8034_pm_ops),
 +	},
-+	.probe = gc5035_probe,
-+	.remove = gc5035_remove,
++	.probe = gc8034_probe,
++	.remove = gc8034_remove,
 +};
-+module_i2c_driver(gc5035_i2c_driver);
++module_i2c_driver(gc8034_i2c_driver);
 +
 +MODULE_AUTHOR("Nicola Fiorillo <nicfio@gmail.com>");
-+MODULE_DESCRIPTION("GalaxyCore GC5035 sensor driver");
++MODULE_DESCRIPTION("GalaxyCore GC8034 sensor driver");
 +MODULE_LICENSE("GPL");
 -- 
 2.47.3
