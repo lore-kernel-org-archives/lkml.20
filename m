@@ -1,144 +1,125 @@
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9FC44CF44
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 17:34:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B892D3D1A82
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 17:34:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791567259; cv=none; b=QWPYE+0U7LoAFFg1+eTpOJ08cNSaX+w4T0iRRAedkGby6IUSg+KwFq5GMF2Erencawghxhqep4dZNv6hDOfRERQBsutnjQlbSLbNLSIPGZCCiQfkJ6IMU3UiEnjRjSBPIXmfp66yKsSOLSDe5jEwyt+yEymVV/utWi4JXJyEI/A=
+	t=1791567273; cv=none; b=WhmSXmHa38IWDHA1lDTvjwfEjFp8VG5VoOvsTU2EfNvc+8tjjRgcOaXJTqs4W7MuTQOCP/1wPa3zA6IpaLxwAQYPqiNVsq/ZTTM9PhzIFwu+Evj5IzwkEeI0PaXXZmeA93BVm0P0Uewr/qPK4jVsv7u795/NaycS4vC/0i0DWlc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791567259; c=relaxed/simple;
-	bh=4QzvFpJrMIBOFL1LClfdnGhTbQVQVWWI+SlIcvg95ZY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jO/M+dQai5FmGBbmlaaeBSO/x5goounO4xGonjgXhnYALFNM6cg286Y66Ve8PB3SMtnQBf0XZq5phCz7iwDmCQjQfl3NuZyGiFI0mYp9re5Us61HtvmXmyGszWX3xMmGi0GWN8m9D+Rb35U8WfbghodWxwEt8GGXEajUQlkA03w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=Yua6chXR; arc=none smtp.client-ip=209.85.222.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	s=arc-20240116; t=1791567273; c=relaxed/simple;
+	bh=UpiJrSWhkErhXPxV3FL2/OySz2v2wxDssZMQIaO18jM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Rpd3w37lX08PZHAqCle+N4H/wy9gKZcbDrGejus1s+p5X2nLmj1adE3MAYRhCdIp1GC0URAnOI3H3yFreKd/3ik4TmCDyzcur7NGrE4ZIfoAu5XeSGIYQ72vERCHgXLo7UMZfFC7y9Sz9BdDQwhEyW8v/nSrWQYwth5AAUPiOdI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KpenERko; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="Yua6chXR"
-Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-93e76469b93so389055085a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 10:34:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KpenERko"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a1698ea378so763225e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 10:34:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1791567256; x=1792172056; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UwD4Whw0BsO3CL4xljsuE9wjdul1Y3ABr5wVzug+v1w=;
-        b=Yua6chXRFeG43IGQ6rz0wJwiS+ZsJikqXnfwVGzxSfvLPCe7rUkCI7RUJnau9bjhl8
-         kgeRz43OUXNSSQphvMOsc8C6fqI+gmaXG9JUniliBBItKjwMSTvubTLoM7MIkcRIaaaf
-         6HW/HdLJrQdmBquzkQdNLkRhr+jhoDRtfAKfLTzgKSqPC949wEXIZUNG5NqPtoKpyckc
-         L14LbKpMBzpa+m3LB0OdqchuYSmxVDqipcyb94C3+otykzdii3LnJJds81LlEgYoTP/N
-         SBjkb0HMcv+71o39WTMUPAvNVkdsm2FewHCkMvJiT4gJW614hOQwcVbBrqFbFpUQQClP
-         pD3g==
+        d=gmail.com; s=20251104; t=1791567270; x=1792172070; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Rk8GIteAzDc4zWM/lV0RC8+n9X75M+8oRwDQaNES2gw=;
+        b=KpenERkoJ1882vHqUzH/VGitmJwBlz5eXpXL69/V/gYEioHyousMh+gSP8LZ29tZAt
+         GSu1UIjgRE6LI5fNrLk419oJOBzFWGGuMg6gsC3+iElD3p+06TJC6fva90UcL5V8IrWY
+         /zMxP4Ceue57QR3URlbyQw3BRGJNsYGHegmzGDIuGrtYvkquFC4swfWZYqHM2LBwjcOP
+         2XDbqgGGhZXQowuAEcnVt1DswjMLN/4HyTkZUDapRXKWbhLZyzfhfTWItIR3thtbgELA
+         yTccsrGD/JXgAoqV0gYRFZYM5Pac78VpvnrXOqM1D0tmniuqQrU2mQyYtmFeTAxdSJ4T
+         AKLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791567256; x=1792172056;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UwD4Whw0BsO3CL4xljsuE9wjdul1Y3ABr5wVzug+v1w=;
-        b=xT7tv+oyMiqaY4BEWf5E1xpDvF+kQ9x8SdTW/IACpFu4LDB7Z98xmjDDANNUM3e3VI
-         TrHsLnpfIfNnZkRXXLjUDKSzgKDQ/oOrS9wHy15w5Yu3h7/8Dkv5kY8ic9O7SOJ/36fv
-         vspDFu5L/IBNaksh/PBG9tOCavSzORyO2s1xt4HiwmyqKhIp888I+Dt1DBIvfK5y+usc
-         fi5G2ILZB1DQw5MMvTHGxmQRqODEtW6aiw9UHHRaC7dTMNn3QIwQn6AR29tZh3VFzATN
-         nmsm4s9Gq1sRo21WdXhkwKqz6O1iG8X6RwteTZklW+cjgAsMpIhQi34cGFyvUEWhpE63
-         F5sg==
-X-Forwarded-Encrypted: i=1; AKwUvBzd5rJlISqUHQU0Y1XFn4MwqNx28oyLtB7w9L0llJlA8xInkb1RJdaZmSfU54pIxF1JsYzl5sjY9S96qRE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kA52y9r1WFNkKHkZayb14n7SLasVV/72e57hRERNcREST8emPL
-	9DeuyssA/geUT48XiXcyMfGBDY8zwqEVIzETAdTJVaJ2VEy4424rUA48atXObd3A9sSkavCCOzC
-	pB0WiyA==
-X-Gm-Gg: AYBFou2G3hnCTR7f5OhAj2KgjQHkQKQK08jNOUEE7tGgSYt1baKYeIgCU3B6Vep36ac
-	vMqahOUiJy1oQsGtCW3s1mGVLsxYy6r+5ajlINscq/sUdfASfd8JrpQBzRdd1ulZddmwGBde2pd
-	XMFvWUAzE4FHMwUTu1alL1tBb5nmgFl/yJXesqE7uwigMxbUd2Pp4gZbEEHRo/w9ZSUOsujty9i
-	8qzbkcWuk3qWFxR2kS5Wxn1uqv9h/oCQL0xLJDHPsWQ7q+m/oJ7iXgHYdZuEKizH6fkyZb2ejJ/
-	iXeAOrHZoGClqMhKbziG8Rxoc9PF0MCIYT0R6K2KDnQI5sojhd/GE1GTTZfLVxtzSp6jBu4O/hz
-	dRknhGU2KkKvydDf8JxavqRapRWNBr2rCXirw18M5l3XJBUcnzl2sUvjAlUGV+kQTf7mOL87Qm0
-	466AZzBqRjyJzFPrVdpXKgVRGzT+r8I/kqJimEW9P043q5W9DtI3kgCGKnQ754QXgJz5Q0Hnnfc
-	ixYQ6x3bCJmi3vYdDfoJUAKMAyV+D35
-X-Received: by 2002:a05:620a:44c8:b0:93a:14c:32ad with SMTP id af79cd13be357-93ebcd339d8mr378214385a.0.1791567255058;
-        Fri, 09 Oct 2026 10:34:15 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb9720f19sm238494785a.4.2026.10.09.10.34.14
+        d=1e100.net; s=20260707; t=1791567270; x=1792172070;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Rk8GIteAzDc4zWM/lV0RC8+n9X75M+8oRwDQaNES2gw=;
+        b=gCEJynZZBPNh8fEpTakrP+tEVMjtt6wLX/dvG0gNN9qeVUpzUCfHKzXPcxmm2yi9+a
+         apRzodxvxUDMPAYOk1RfZ8k15MNz/88BRK70rrUEZRglOleru/P4a+DpEOJNEOgWk2Wj
+         sQxjJIteLco5q3S20cGtFkv5GmfYjjdlwYbWHbAKlLpc4DWiv6R7keOYJ5NM2idHs115
+         bAgr7TD/Kq0nGh6PlhdsKS4j+oLUbQ0BP0MsYRRJzF5dWeeKxGEfgEM5MjCv+1Xdr8AS
+         6TEc9xN6kuyfPPobodppUH66bRVqBq4pDxrsKsqVrbDUlrGmCCE9xWfQ2amg3t+yaVoV
+         gitQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwmXsV6BzctRtABaOof0imgeDquJGMs4agEsyVMjbo3GSmHeBoLLgHSI0WrMu2sgjtoExXZMoVAgt80vU8=@vger.kernel.org
+X-Gm-Message-State: AFuF++meY/ytpQDR78rtvz1Q0kFcCRVXLOZERGJKsJjAKBM4I/UkCcKB
+	yUiOKS9Ekwckz/b+fdUB3ArxWMoMxpHPQph/jsZAVdftGNo0Aa1mxH3f
+X-Gm-Gg: AYBFou3ksFbycyfcS59YoaIjhgEcXuZ8b6Il4mO9D6lKMNlO+6WMYWQ3s1hdiy1fbN7
+	RHjBS9tNJ985THSSXLbcOtt775sdOXJ0zDwFTSAJNstrjDit9g4+uwOwgJsP28l2KO+EvHtMfLq
+	4G0BYgGHfULsEEW3xtBgQCy4ivVcDDKIlYBj/6OjjixO/sY8WnOlB+mnp9kxpNxD5Iji9SJZSW/
+	tl1bQZtpURRnPRZnySg8dOTddeVfn/L2Adae9iew/VPKPXsrBttNekgHilLLFqqx/srK0af1Icz
+	u6zu9d+ri48uhTsP61ezgvJ83JMKgozCjgU1hbxdEBp2hlhiDGz76cvhS8t6wIbYIEN576je/5z
+	05qPpHDucoBqF8cahu3o/ES6ku1jD5E9A8Mkc432jE5gA3swbae51zZQ1HxF+/8TTtqyisy4BTr
+	yjEEMCPcBVZaSVVJ0orJwv8r2byw9zjuo9IlXjiuz+wyxmrynf/tC4BgM/qnh8y3XmedJ/kJjMr
+	MsHOxVBgwhDmpgyJk+an+O1Q6vMjqvncfo=
+X-Received: by 2002:a05:600c:3146:b0:49d:1fd8:b874 with SMTP id 5b1f17b1804b1-4a18e4af3a8mr54413095e9.19.1791567269816;
+        Fri, 09 Oct 2026 10:34:29 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9ac94c6sm5003011f8f.42.2026.10.09.10.34.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 10:34:14 -0700 (PDT)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: David Sterba <dsterba@suse.com>
-Cc: Chris Mason <mason@kernel.org>,
-	Boris Burkov <boris@bur.io>,
-	linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hengyu Liang <hengyul@cs.unc.edu>,
-	stable@vger.kernel.org
-Subject: [PATCH] btrfs: return -ENOTTY for unknown ioctls on the control device
-Date: Fri,  9 Oct 2026 13:33:59 -0400
-Message-ID: <20261009173359.3486877-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
+        Fri, 09 Oct 2026 10:34:29 -0700 (PDT)
+Date: Fri, 9 Oct 2026 18:34:27 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Willy Tarreau <w@1wt.eu>
+Cc: Petr Mladek <pmladek@suse.com>, helpdesk@kernel.org, Steven Rostedt
+ <rostedt@goodmis.org>, John Ogness <john.ogness@linutronix.de>, Sergey
+ Senozhatsky <senozhatsky@chromium.org>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>, Rasmus Villemoes
+ <linux@rasmusvillemoes.dk>, Andrew Morton <akpm@linux-foundation.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>, Geert Uytterhoeven
+ <geert+renesas@glider.be>, Jiri Slaby <jirislaby@kernel.org>,
+ linux-kernel@vger.kernel.org
+Subject: Re: Create printk@lists.linux.dev
+Message-ID: <20261009183427.7a7d71ba@pumpkin>
+In-Reply-To: <askBpT-dk59MzcTP@1wt.eu>
+References: <asjrq9g8EoUGepcH@pathway.suse.cz>
+	<20261009152627.285d814b@pumpkin>
+	<askBpT-dk59MzcTP@1wt.eu>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Commit 5ab2b180884c ("btrfs: factor out validation of
-btrfs_ioctl_vol_args::name") made btrfs_control_ioctl() store the result
-of btrfs_check_ioctl_vol_args_path() in ret before it looks at the
-command.
+On Fri, 9 Oct 2026 17:00:53 +0200
+Willy Tarreau <w@1wt.eu> wrote:
 
-However, ret is initialized to -ENOTTY and the switch has no default
-case, so this initial value was what an unknown command returned. As of
-now, every unknown ioctl on /dev/btrfs-control returns 0. A tool that
-tries a control ioctl which the running kernel does not have is told
-that the ioctl succeeded.
+> On Fri, Oct 09, 2026 at 03:26:27PM +0100, David Laight wrote:
+> > On Fri, 9 Oct 2026 15:27:07 +0200
+> > Petr Mladek <pmladek@suse.com> wrote:
+> >   
+> > > Address    : printk@lists.linux.dev
+> > > Description: Linux printk and kernel string formatting development
+> > > Owners     : pmladek@suse.com, john.ogness@linutronix.de, andriy.shevchenko@linux.intel.com, rostedt@goodmis.org
+> > > Allow HTML : N
+> > > Archives   : Y
+> > > 
+> > > Reasons for the list and additional info:
+> > > 
+> > > Honestly, the main motivation is to allow sending Sashiko review
+> > > for changes in PRINTK and VSPRINTF subsystems as a reply to
+> > > the mailing list.  
+> > 
+> > There is also the smaller/faster printf code in 'nolibc'.
+> > Might be worth mentioning that as well.  
+> 
+> Better not mix the two, nolibc is purely user land code and doesn't
+> have the same constraints.
 
-The issue can be reproduced with a simple C program, run as root:
+The kernel version is actually horrid, rewriting based (loosely) on the nolibc
+version might be an improvement.
+But I'm not sure how I could do it without it mostly being 'one big patch'.
+The nolibc version is much more of an embedded system version and a usual libc one.
+Things like not calling a function to add every character to the output help!
 
-    #include <fcntl.h>
-    #include <stdio.h>
-    #include <sys/ioctl.h>
+David
 
-    int main(void)
-    {
-            static char buf[4096];
-            int fd = open("/dev/btrfs-control", O_RDWR);
-
-            if (ioctl(fd, TCGETS, buf) < 0)
-                    perror("ioctl");
-            else
-                    printf("ioctl succeeded\n");
-            return 0;
-    }
-
-Before commit 5ab2b180884c ("btrfs: factor out validation of
-btrfs_ioctl_vol_args::name"), the result is:
-
-    ioctl: Inappropriate ioctl for device
-
-After that commit, the result is:
-
-    ioctl succeeded
-
-This patch will add a default case that returns -ENOTTY.
-
-Fixes: 5ab2b180884c ("btrfs: factor out validation of btrfs_ioctl_vol_args::name")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
----
- fs/btrfs/super.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/fs/btrfs/super.c b/fs/btrfs/super.c
-index 823a58bd2685..acb704b20c2b 100644
---- a/fs/btrfs/super.c
-+++ b/fs/btrfs/super.c
-@@ -2291,6 +2291,9 @@ static long btrfs_control_ioctl(struct file *file, unsigned int cmd,
- 	case BTRFS_IOC_GET_SUPPORTED_FEATURES:
- 		ret = btrfs_ioctl_get_supported_features((void __user*)arg);
- 		break;
-+	default:
-+		ret = -ENOTTY;
-+		break;
- 	}
- 
- out:
--- 
-2.53.0
+> 
+> Willy
 
