@@ -1,133 +1,105 @@
-Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 586533B38B5;
-	Fri,  9 Oct 2026 16:50:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.35.192.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4667926FA4B;
+	Fri,  9 Oct 2026 16:50:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791564641; cv=none; b=SLRrPWUkmlX4mlw67vcfCm6Iwt86Ze+OWrROyJu3STvXrLLtETlh6BqI4/dLalHEBsLK717fKiYDo/s/O7kjAZeBEw23LOUkyGYOhryZIJpPpw4w+S9fMStV8WXiOhpMlEe3WXdlfJsZ9F1mcQKH0kmUrcxQlBXLRCaTLjTILtM=
+	t=1791564660; cv=none; b=kH92aL9wBmu4btrv8L/Cu5Nf5K818eF9qs5x2C+LxgSkbwX3Sk7mZE4VocLB2OcrHtj/hyI9tP7lQkvd1q7UxviKyAHpGchGcVWsPHNQUFGCBs6yldN2PbrTSoD27Y3OViJJ4EbRskBibjN9+8a7gSAhYByx22Lwvo69EhqchHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791564641; c=relaxed/simple;
-	bh=LIFsaO3fsvEhD6wKg9EfgPe8fhHtTQ9Cyr4ksp9R8xo=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Gp8DjzfzlgiI03eoSvrN2LgnSqZ7JTBGFQMAFHwtEhVjkKVdIsyQ2FuLQrkzVRTFTOKsPvh/JII2jI8H4lBaXu1CS/U8FAxF05qt7uOg9cSC8Czqe007goAD1oojq8E+K51Q3SISoYOQrcndEh/+BTeOkwMHxBzVRsw86OnASRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=fKiuW4Nm; arc=none smtp.client-ip=52.35.192.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	s=arc-20240116; t=1791564660; c=relaxed/simple;
+	bh=PFmLssKDcusJBbxG5usTXRmrFBeqcyLWlgtt/gO1JoQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pD+XAt7JB7M5OnzRKqXOTxtiZnA55q2sIfUyO8eBIoPCgbTdzfjUf9VRfSml1pprKZIWYgVUWVIcP0V0aFLsgazNhRVw3fmV/67TPAw7b5X7KJru7FrIs1UZ5s8nvz4V1hR0DZMoxCURDFSAkA7ezpjU96nsYvM/9n4LzVdWI8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JXkqgPtb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="fKiuW4Nm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1791564640; x=1823100640;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=0kAPpWGj1DC84kxfJatA2C4pxii/3PkUflvl6jcTUWU=;
-  b=fKiuW4Nm58rJxOUYPRZ+PwjouBuQAzXpuzOt2wJkSrSY5b3n/XQJCacQ
-   /IM0aWVWJzKtjYlYzPdxF9d3wrRQAO5idMO2l18kamYTFcbPnUzz22+31
-   7oJMqoPrDuAKMysTpd3fRE2AaxQVdo2plktYhUYHDT+o5NfR48bJoef7o
-   OC1DZmEKdvgbp7tPeXmPiJWdhBiXdC7sO0RRaxl4GDBikUr025ZvtHUip
-   wR52RIg1XwhqQhbHBKVhYuNyrcpUKocyax+W2/JhOWiEhELbDgaNZFxgF
-   5HpytFVEbiysislftvsJ2gr8Ny+YuCoeUdWoKrdjgvARdokF5ZmObmS3q
-   w==;
-X-CSE-ConnectionGUID: f2UJQ553Tn23QdDbD8h91Q==
-X-CSE-MsgGUID: ATqxIQTtRLSTP+W/nH5mfA==
-X-IronPort-AV: E=Sophos;i="6.27,148,1787011200"; 
-   d="scan'208";a="30616529"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 16:50:37 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:25422]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.7.115:2525] with esmtp (Farcaster)
- id 744db98d-fcae-4ba0-bbf3-9974e881881a; Fri, 9 Oct 2026 16:50:37 +0000 (UTC)
-X-Farcaster-Flow-ID: 744db98d-fcae-4ba0-bbf3-9974e881881a
-Received: from EX19D001UWA002.ant.amazon.com (10.13.138.236) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Fri, 9 Oct 2026 16:50:36 +0000
-Received: from localhost (10.106.82.18) by EX19D001UWA002.ant.amazon.com
- (10.13.138.236) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49; Fri, 9 Oct 2026
- 16:50:36 +0000
-Date: Fri, 9 Oct 2026 18:50:33 +0200
-From: Roman Kagan <rkagan@amazon.de>
-To: Christian Loehle <christian.loehle@arm.com>
-CC: "Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano
-	<daniel.lezcano@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
-	<skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
-	<linux-pm@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <nh-open-source@amazon.com>
-Subject: Re: [PATCH] cpuidle: Add the shallow governors
-Message-ID: <askbWVeX1pDtYC60@ub9ea591b72db54.ant.amazon.com>
-Mail-Followup-To: Roman Kagan <rkagan@amazon.de>,
-	Christian Loehle <christian.loehle@arm.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-pm@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	nh-open-source@amazon.com
-References: <20261008-b4-cpuidle-shallow-v1-1-c19e71127b14@amazon.de>
- <e18bd763-0d6d-4bfd-b59e-78f952c94aa2@arm.com>
- <faf34e6e-ecd9-471a-b30e-3aa79e3ee063@arm.com>
- <asjaR_aPwevvBw_O@ub9ea591b72db54.ant.amazon.com>
- <2e635fc7-3d5c-4555-b92b-9e6e405f1b23@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JXkqgPtb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12EA51F000FF;
+	Fri,  9 Oct 2026 16:50:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791564658;
+	bh=O9BMlJTdE9Y9VZdVW9+inED8bkLDwjOaM01fXKv8qfE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JXkqgPtbCDRx3KC6KulxRMR2o64UyhwWCytktuRojvzxt49habrfIPit8XsAS+pvb
+	 kyCtubuzUKHJkCvnOcGvgOl3spNLq8lsQ95pv3IXWMZs8oytvWTldI5vB26Edb05IX
+	 GhxBJSzMJT+AKmtSRjaj7ISBGGQPTl3DGJrGjJnOPTgoyO2QiZl06Mf6/YqMH9HQiz
+	 L/wi6uBJMBX5eJYOOS9D8Yn3h90CdIwHcg8h78nN1i7LUI1fuuPNHTTzZEpR2UV5su
+	 T4XJIFDmOJTXhhj5ZLG7EK1uoctbsVYbpFJpBCtbCXYaRzxx1GC97bJHJYdayk0NCF
+	 Vi/rfD4N0KgJg==
+Date: Fri, 9 Oct 2026 17:50:54 +0100
+From: Simon Horman <horms@kernel.org>
+To: Arnav Kapoor <kapoorarnav43@gmail.com>
+Cc: Edward Cree <ecree.xilinx@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, linux-net-drivers@amd.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v2] sfc: fix stale kernel-doc member names in
+ net_driver.h
+Message-ID: <20261009165054.GH83879@horms.kernel.org>
+References: <20261007175338.28683-1-kapoorarnav43@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <2e635fc7-3d5c-4555-b92b-9e6e405f1b23@arm.com>
-X-ClientProxiedBy: EX19D031UWA004.ant.amazon.com (10.13.139.19) To
- EX19D001UWA002.ant.amazon.com (10.13.138.236)
+In-Reply-To: <20261007175338.28683-1-kapoorarnav43@gmail.com>
 
-On Fri, Oct 09, 2026 at 01:45:40PM +0100, Christian Loehle wrote:
-> On 10/9/26 13:12, Roman Kagan wrote:
-> > On Thu, Oct 08, 2026 at 07:29:43PM +0100, Christian Loehle wrote:
-> >> On 10/8/26 19:17, Christian Loehle wrote:
-> >>> On 10/8/26 19:06, Roman Kagan wrote:
-> >>>> The idle states offered by a platform trade wakeup latency for energy
-> >>>> savings, and there are situations where the trade is not worth making:
-> >>>> while a latency-sensitive workload is running, or during a live update
-> >>>> via kexec, where everything from the outgoing kernel stopping the
-> >>>> workload to the incoming kernel resuming it is downtime, and deep idle
-> >>>> states may lengthen it.
-> >>>>
-> >>>> The mechanisms currently available for that are all one-way.
-> >>>> cpuidle.off=1, idle=poll and idle=halt can only be requested in the
-> >>>> kernel command line and cannot be undone, and the PM QoS interfaces
-> >>>> (/dev/cpu_dma_latency and the per-CPU pm_qos_resume_latency_us
-> >>>> attribute) can only be used once user space is up, so they cannot cover
-> >>>> the boot of the incoming kernel.
-> >>>
-> >>> You can also disable all but the shallowest idle state in sysfs:
-> >>> echo 1 > /sys/devices/system/cpu/cpuX/cpuidle/stateX/disable
-> >>>
-> >>
-> >> And I'd probably prefer having that exposed via the cmdline rather than
-> >> two separate governors...
-> > 
-> > Doing this cmdline configuration per-cpu per-state is non-realistic.  I
-> > guess you mean a single option that would express a policy, like "for
-> > all cpus in the system, disable all but the shallowest state" or "...
-> > all but the shallowest non-polling".  But policy is exactly what
-> > governors are for.
+On Wed, Oct 07, 2026 at 11:23:34PM +0530, Arnav Kapoor wrote:
+> Several kernel-doc comments in net_driver.h describe struct members that
+> have since been renamed or removed, and the EFX_MAX_FRAME_LEN() comment
+> is separated from the macro by the EFX_FRAME_PAD define. kernel-doc
+> reports:
 > 
-> Yes, I had something like
-> cpuidle.max_exit_latency_us=<N>
-> in mind that then sets the disable attribute for the applicable states.
+>   Excess struct member 'state' description in 'efx_channel'
+>   Excess struct member 'state_lock' description in 'efx_channel'
+>   Excess struct member 'indir_table' description in 'efx_rss_context'
+>   Excess struct member 'irq_rx_mod_step_us' description in 'efx_nic'
+>   Excess struct member 'tx_queue' description in 'efx_nic'
+>   Excess struct member 'rx_queue' description in 'efx_nic'
+>   Excess struct member 'extra_channel_types' description in 'efx_nic'
+>   expecting prototype for EFX_MAX_FRAME_LEN(). Prototype was for
+>   EFX_FRAME_PAD() instead
 > 
-> > 
-> > Why exactly does having two more separate simple, narrow-purpose
-> > governors sound wrong to you?
+> along with "not described" warnings for the renamed members.
 > 
-> Because it's a lot of duplicate code we have to maintain (and the
-> documentation).
+> Fix the member names to match the structs, drop the entries for members
+> that no longer exist, and move the EFX_FRAME_PAD define above the
+> EFX_MAX_FRAME_LEN() comment, documenting its @mtu parameter.
+> 
+> kernel-doc -Wall also reports three members that are not described
+> because nothing in the driver uses them any more, so remove them rather
+> than document them:
+> 
+>   - efx_channel::busy_poll_state, left behind when commit e7fe9491261e
+>     ("sfc: get rid of custom busy polling code") removed its users.
+>     @state and @state_lock above were its old kernel-doc entries.
+>   - efx_tx_queue::flush_outstanding, only used by the Falcon/Siena
+>     flush code, which commit 36ff6393292d ("sfc: Move Siena specific
+>     files") moved into siena/ with its own copy of the struct.
+>   - efx_rx_queue::min_overfill, whose kernel-doc entry and only
+>     assignment were removed by commit ecc910f520ba ("sfc: Make the dmaq
+>     size a run-time setting (rather than compile-time)").
+> 
+> The warnings were found with scripts/kernel-doc -Wall. I don't have sfc
+> hardware; this is compile-tested only.
+> 
+> No functional change.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+> ---
+> Changes in v2:
+> - Remove busy_poll_state, flush_outstanding and min_overfill, which are
+>   unused, instead of leaving them undocumented (Simon)
+> - Use the Assisted-by format from coding-assistants.rst
 
-Fair.  But then PM QoS model appears to fit better.  I'll see to
-reconcile it with the need to be able to set at boot and clear later.
+Thanks for the updates.
 
-Thanks,
-Roman.
+Reviewed-by: Simon Horman <horms@kernel.org>
+
