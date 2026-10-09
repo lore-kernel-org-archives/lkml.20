@@ -1,79 +1,203 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6125C36F911
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 17:28:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEAB345D91B
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 17:28:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791566884; cv=none; b=nnhOfhh62WxLRPc63/BX4VBtKvnNVLGUG1OQOXcWS3B0yDh6iv3N0xqcB2F7cDpIk3LC2WzRpsFoRhFnsKeg9eSttEbTp5/NytU4oeEPjRQ88JuxfnHvR8Jf4i5s6usUVu/VGG0D3IT0jbYGCJApoPJ1aSgjGFWIUswsYdSuI5k=
+	t=1791566937; cv=none; b=NYQ89gFdu2c70fV7/pqxJgrvU/lTufEZBgkixS5xpX6f3TB3ftH2PcatB+/OKUmXcgAe/zWbkc/8pFxL3QYA7oGRpkxYI4slj0hTdoiWYr5JLrksIZDucV4a147N7RyYQpOih2tpGPbkBqxltNCeJIgLp+qBgPmbB5jo+dhU+N0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791566884; c=relaxed/simple;
-	bh=lWX+/1RyjNePJnt8pr9EgTlPhArvoVlvf7b5HMomPnY=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=tuQkifTBc4+ieCwv3bgSbAkqr2D1lxw+QT6YgCvgSqKNWcW5N1IMHmVN7tzidcbxoYCZC1qACyp9PdeLyjdekKRhgkZka5NtYyJynCanH+BnIiiiaLVb4OtAwoOjEyxYJB/OZTJLPrviIBBbKhSMkBibWyAFITmbA7KnCml9szQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b2d1eb484aso21441b6e.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 10:28:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791566882; x=1792171682;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=NB7QKtmwUFWZSd8u8+y+zdCE4WNPIGCC42KAhXJZKz0=;
-        b=0jhsXz+2L21isFulFvoddXmdmIbLGkH2E3qTbPM8fYj5cNGr5vi0CDirgKxMku8/X8
-         5HUgoi9aaKKiqxqFbuq9kQZdYU08U3BzrOnGbJRQ7OamqgnP1lpX2BOdbSrmKC9oBvBh
-         1vdlHiqxY7IFq7gHUeJ/oGDYOqP9z6woYD5BoVVQec71uFBe/NFBJqnh8ykxUwl9HQcR
-         Aiq7ipgNtkCQVuVz0u33zFM5AOK++ou8TMvNA7wGKdpRWxGJThuTwzLQm71drIr1eJuK
-         SelEaoy2avuYTyT8nPBEiZEKpLNl3Bo2/CLd5QXsZbfbdWpn0N3O6boNlQqrn4rcTjjM
-         fwAw==
-X-Forwarded-Encrypted: i=1; AKwUvBy8cNKDPILKO0BM2OA/0gvkzK5Rzb2Y/9s4G4GSIn0SATLb46kVG9fI8kJxVDKM4jPZdDy93+2MXwoGXA8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lAw3XTmbdJCZA2DgL52bkwWoxAjfIn+Yt/eFfWTv0WY0bzrlLe
-	pwblskqLbcP48BrUn1z7aF7mzJUBt9hFFmQ6eulDtJ+0Y/b+/VSysAb+Cc1AmxsxbqZIx0dblqi
-	mqKax1SIIsATCAVPqDGld6FlYL91IQzv7wyxwikNpHrYMYap7rYpZZuOqGXw=
+	s=arc-20240116; t=1791566937; c=relaxed/simple;
+	bh=gBE+Icsm3cGqgB+wEyQbROvwFO0BkfmNybQXS+Fyi74=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fhYBaJ+Fyg/i5mRNd7ftaYur/fqTpXeZGY7FkPc68Rfwhn74UXAeWxDzhxVskDDWqacJ5uOI7S5g9bcY5Em4xkWDCN6Myi28xv5RkV/QzV2b+4SCfiHF/0tTdj+yrLf+Ql+KLnSPoCvWCa73OzwRo0Eo4hBLR2LkM0K+PCUromE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AjGzRXCB; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AjGzRXCB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F3361F008A1
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 17:28:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791566934;
+	bh=GQ1+vi+vdsZ99qDKhf+JpCWijkqBaMTbgUW8v/FAGik=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=AjGzRXCBiIJZ0fhtb2/1CNulUjXjnTDvnthvDq1VL2KZuRdN/DX9OG9YewnGQk5po
+	 ByCxdZBfRjeBhg32rFTHM5KRuPhLz66f9FbKfEJ1CiBM/1Aj5jBnsYQ8Au+cJjq0kU
+	 tri1wFANAAV0t72+edO9jthntXUxHT+eyDCsk7eizqRsTf4uoNB8LGpfNOv4syIRbR
+	 OpBfjHLBZwPWS30HMGFH+X8myvR90MyW3aIqboeNgVwC1G23JMPeDaYs4q5h5JAoN6
+	 4VbXUZZWbyCRT+MGL1vfTtdwQ1sGTgAO+PJcP7jFwDTe535vZfLYUvt4C6voLFAHem
+	 /jx7sYVjroO9g==
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-53506b44151so64718661cf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 10:28:54 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBztEmc+NtJOhdkY7bD+HB1vHDHh44kqLaqwNr3nzHQ/rSjL4F1bxmqQwMD8V0c12teSgltWXvRscZAZ9aw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lvFjHlv4Cy0NnKHxR+w4LfLti8h8BH15sAXSAfxfa+KiuiOq2/
+	kvxyCIh8K1y9Tynem/opO01S+do5NwJg5UtNb1ZJGt4MnK9JpDBQFWlmC1TYHCilxp62h7U7ZOr
+	0sIFG4FT4R1tZMeSnuGMCzi03yXY7iI8=
+X-Received: by 2002:a05:620a:a2cf:10b0:93e:c12c:f142 with SMTP id
+ af79cd13be357-93ec12d0865mr231402285a.76.1791566933524; Fri, 09 Oct 2026
+ 10:28:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:508d:b0:4d6:9153:295c with SMTP id
- 5614622812f47-50c57695ff0mr2437078b6e.45.1791566882342; Fri, 09 Oct 2026
- 10:28:02 -0700 (PDT)
-Date: Fri, 09 Oct 2026 10:28:02 -0700
-In-Reply-To: <6a698f41.d9e86bb5.297b12.0051.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac92422.8cdf6287.1eb53.004f.GAE@google.com>
-Subject: Re: [syzbot] [usb?] KASAN: invalid-free in f_uac2_opts_c_srate_store
-From: syzbot <syzbot+a4f65284f1451010b0a8@syzkaller.appspotmail.com>
-To: a0yami@mailbox.org, christophe.jaillet@wanadoo.fr, 
-	gregkh@linuxfoundation.org, julian@jusst.de, kartikey406@gmail.com, 
-	kees@kernel.org, linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
-	pavel.hofman@ivitera.com, syzbot@kernel.org, syzbot@lists.linux.dev, 
-	syzkaller-bugs@googlegroups.com, 
-	syzkaller-upstream-moderation@googlegroups.com
+References: <20261006002307.2669023-1-usama.arif@linux.dev>
+ <20261006002307.2669023-3-usama.arif@linux.dev> <CAO9r8zMFm+JsboodgkG-jdQ9eTk+JHo=d-3Dw8PUcEqjr3+xVg@mail.gmail.com>
+ <b887f721-124c-49ce-8b5b-c1edf0c24e40@linux.dev>
+In-Reply-To: <b887f721-124c-49ce-8b5b-c1edf0c24e40@linux.dev>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Fri, 9 Oct 2026 10:28:40 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zOukk0p1BS=1qSvmi+Sxp+1zLUAxGMEHoyHepEb+tyd4A@mail.gmail.com>
+X-Gm-Features: AclHuK86qX40IDYr0hsGsWtxtfNvpNDkIvmBi0TCgMzngiR8Ajf-TDMhH84pAzE
+Message-ID: <CAO9r8zOukk0p1BS=1qSvmi+Sxp+1zLUAxGMEHoyHepEb+tyd4A@mail.gmail.com>
+Subject: Re: [PATCH 2/2] mm: zswap: use stack requests for synchronous decompression
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, chengming.zhou@linux.dev, dsterba@suse.com, 
+	hannes@cmpxchg.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	nphamcs@gmail.com, terrelln@fb.com, riel@surriel.com, shakeel.butt@linux.dev, 
+	alex@ghiti.fr, senozhatsky@chromium.org, kernel-team@meta.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-syzbot suspects this issue was fixed by commit:
+On Fri, Oct 9, 2026 at 8:27=E2=80=AFAM Usama Arif <usama.arif@linux.dev> wr=
+ote:
+>
+>
+>
+> On 07/10/2026 23:28, Yosry Ahmed wrote:
+> > On Mon, Oct 5, 2026 at 5:23=E2=80=AFPM Usama Arif <usama.arif@linux.dev=
+> wrote:
+> >>
+> >> With separate requests for compression and decompression, loads still
+> >> serialize on the per-CPU decompression mutex. A low-priority load that
+> >> is preempted after the codec drops its stream lock keeps holding the m=
+utex
+> >> and stalls every other load on that CPU, including higher-priority one=
+s.
+> >>
+> >> Synchronous algorithms whose requests need no extra context can use an
+> >> on-stack request, so decompress with one and take no zswap lock. All
+> >> in-tree software compressors qualify. Asynchronous algorithms, and
+> >> synchronous ones with request context, keep the per-CPU request and
+> >> mutex, which is still taken before the zsmalloc read lock.
+> >>
+> >> Reading the per-CPU context without the mutex is safe. Since
+> >> commit ef3c0f6cb798e ("mm: zswap: tie per-CPU acomp_ctx lifetime to th=
+e
+> >> pool"), it is set up before its CPU comes online and is not torn down
+> >> until the pool is destroyed. The codecs keep their own stream locks, a=
+nd
+> >> crypto_acomp_decompress() rejects on-stack requests only for
+> >> asynchronous transforms, which never take this path.
+> >>
+> >> For software compressors this drops the heap request added by the
+> >> previous patch. The on-stack request and wait take 216 bytes, which
+> >> makes the load path about 270 bytes deeper on x86-64. Asynchronous
+> >> algorithms pay this too.
+> >>
+> >> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> >> ---
+> >>  mm/zswap.c | 65 +++++++++++++++++++++++++++++++++++++----------------=
+-
+> >>  1 file changed, 45 insertions(+), 20 deletions(-)
+> >>
+> >> diff --git a/mm/zswap.c b/mm/zswap.c
+> >> index 54187b1ef751d..7e7fb6e7ec24c 100644
+> >> --- a/mm/zswap.c
+> >> +++ b/mm/zswap.c
+> >> @@ -147,7 +147,7 @@ struct zswap_acomp_req {
+> >>  struct crypto_acomp_ctx {
+> >>         struct crypto_acomp *acomp;
+> >>         struct zswap_acomp_req comp;
+> >> -       struct zswap_acomp_req decomp;
+> >> +       struct zswap_acomp_req decomp;  /* unused by synchronous algor=
+ithms */
+> >>         u8 *buffer;
+> >>  };
+> >>
+> >> @@ -851,15 +851,20 @@ static int zswap_cpu_comp_prepare(unsigned int c=
+pu, struct hlist_node *node)
+> >>                 goto fail;
+> >>         }
+> >>
+> >> -       if (zswap_acomp_req_init(&acomp_ctx->comp, acomp_ctx->acomp) |=
+|
+> >> -           zswap_acomp_req_init(&acomp_ctx->decomp, acomp_ctx->acomp)=
+) {
+> >> -               pr_err("could not alloc crypto acomp_request %s\n",
+> >> -                      pool->tfm_name);
+> >> -               goto fail;
+> >> +       if (zswap_acomp_req_init(&acomp_ctx->comp, acomp_ctx->acomp))
+> >> +               goto req_fail;
+> >> +
+> >> +       /* Synchronous algorithms decompress with an on-stack request.=
+ */
+> >> +       if (acomp_is_async(acomp_ctx->acomp) ||
+> >> +           crypto_acomp_reqsize(acomp_ctx->acomp) > MAX_SYNC_COMP_REQ=
+SIZE) {
+> >
+> > Where does the requirement on crypto_acomp_reqsize() come from? I see
+> > crypto_acomp_compress() and crypto_acomp_decompress() only checking
+> > acomp_is_async().
+>
+> ACOMP_REQUEST_ON_STACK() reserves sizeof(struct acomp_req) plus
+> MAX_SYNC_COMP_REQSIZE, which is currently zero. A synchronous acomp
+> algorithm can advertise a larger request context via cra_reqsize. Checkin=
+g
+> only acomp_is_async() would then leave that context outside the reserved
+> stack storage.
+>
+> The core already applies the same size restriction to synchronous fallbac=
+k
+> transforms in crypto_acomp_init_tfm(). The operation functions only rejec=
+t
+> asynchronous stack requests; they do not validate the amount of storage
+> provided.
+>
+> >
+> > Regardless, these are crypto-specific details that shouldn't be
+> > checked directly by zswap. Ideally we'd have something like
+> > acomp_can_use_stack_req() or something.
+> >
+>
+> Done for v2. Added documented acomp_can_use_stack_req() in the public aco=
+mp
+> header. It checks both synchronous completion and request-context size;
+> zswap now uses that helper.
 
-commit 844d83d5964b87919b958ff48405188c6ddae9cc
-Author: Qing Ming <a0yami@mailbox.org>
-Date:   Tue May 19 14:33:19 2026 +0000
+Thanks!
 
-    usb: gadget: uac: validate rate list length before storing
+>
+>
+> > Also, could you please CC Herbert on future iterations? I would like
+> > to get his eyes on any crypto-related changes if possible.
+>
+> Will do! Thanks! get_maintainers.pl didnt add him.
 
-bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=12c8c671580000
-start commit:   f5bbbfec59b4 Merge tag 'probes-fixes-v7.2-rc7' of git://gi..
-git tree:       upstream
-kernel config:  https://syzkaller.appspot.com/x/.config?x=158601bb8cb292dd
-dashboard link: https://syzkaller.appspot.com/bug?extid=a4f65284f1451010b0a8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1504aa9e580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=149f7879580000
+Yeah because it didn't actually change crypto files, but I usually
+prefer someone who actually understands crypto (aka not me) to take a
+look :P
 
-If the result looks correct, please mark the issue as fixed by replying with:
+[..]
+>
+> >
+> >
+> >> +               return __zswap_decompress(entry, pool, req, &wait, fol=
+io);
+> >
+> > Hmm would it be more readable if we create a dummy zswap_acomp_req
+> > object here and have __zswap_decompress() take in __zswap_decompress
+> > instead of taking in the req and wait separately?
+>
+>
+> I would keep req and wait as separate arguments. zswap_acomp_req includes=
+ a
+> mutex that stack decompression never uses, and taking the address of its
+> wait can still reserve the entire wrapper on the stack. Removing the mute=
+x
+> from that type would add more restructuring. The shared callback helper a=
+nd
+> path comment make the setup consistent while keeping the existing stack
+> footprint.
 
-#syz fix: usb: gadget: uac: validate rate list length before storing
-
-For information about bisection process see: https://goo.gl/tpsmEJ#bisection
+I am fine with that.
