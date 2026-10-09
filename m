@@ -1,148 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EBE136CDF2;
-	Fri,  9 Oct 2026 21:40:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED4F36CDF2;
+	Fri,  9 Oct 2026 21:41:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791582058; cv=none; b=o2FTh7VtUhmYuw8M8qiO7FwUHT2yZqGQ16KIq85j85EDnVNnqDwF4kZuB2ddhFV23TTPpWawJHCu33HVvxycoC/Xs9Hap9Pl5+qyAY4RHthAPGpPIC9JYnj7GeSANkw2W+ri9fcvBkdpdulirxqC2Goi0GmkxhCW65rmMR32Abs=
+	t=1791582112; cv=none; b=eP/sRXeEmwr2qrdQPqDrxSZrMAEsOxjc49eSA55aRkbgN4EWXe5k6ehKIp1n0+G0DBuT/0XdyJe9+d5rG44dzSm9RXGCpdiV+cYWB2I/f+HMp1T3a63nob4KHpLm9qUgnvuR7V/k+nq1Jq74JumhzTIWlpD+njBLeRRB/MJx664=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791582058; c=relaxed/simple;
-	bh=AcSglezOrPHR5TzikiR9V903ADKuaFdALR/qMmfPw1M=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=Vxb7z6T5OkrKM1aCecVX/kR6a+Gwg1nWN/3Jddq+m6SpOpOxAQHOOUVOUzgs7lNYpluLM2bcUpbYMm2sPMkwKsHM6aPM+I1XYI1JAqAkiTkp3Ee2rpp5uDLND+oGl/tzQDMV+dmAe1cZt3zJvNNntn5BBg5lkbfQtLiofytNmE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aAAGYAMl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791582112; c=relaxed/simple;
+	bh=0CoMzLSNsM7Wpb1lVhrrPJ4aejvfuP2Q4m/SRfQlmtg=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=D2NZaUkGQ2MEibXTfRRMZKVAsK9h/odcbWWrNjXrm1Gs6u7A/KItvMd/vfnX/J4yjoR43pQfPhz+O6j15sO/57W7XKAUQZKeAglPL94a7eh1doWD6dDFawzEF62Y4Z3jj9+WP3qhkBSpciIB8JDuPUD1TBPdm/1XIbKTDmgyuJI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fERJ0fIE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aAAGYAMl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E852D1F000FF;
-	Fri,  9 Oct 2026 21:40:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fERJ0fIE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A26711F000FF;
+	Fri,  9 Oct 2026 21:41:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791582056;
-	bh=975XJHp6HfBeBQvf/fCx8fkoMxk7dSZ3qT++BuIIxYM=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=aAAGYAMlyxywBeS4ImXPe8+f9iH4wYg1AObXeEJ4wQNbZCpMy96xDOocYMcLC8Osk
-	 q0uGVyNUXeYmehHWbGlNeUAeITnbPoQqcWJ8L0lOCxyqwcIRnGjPsMsPWUqvYkzPC9
-	 Fo6Vu2yIxrTVWDiyA/MK+2ApHCuh62bA7/uDPR8MLjAAUhmp5QvEl1Wfq563A/JRYY
-	 9bF0EPi0Cix1YPRE+qE7OGWWbMtLlYdYH/EFftTwyzYtvxSd3r2QGui92djkEcPM9U
-	 J1BZ/cuvvXaxJFqUYuM7jJGrkXywIEXZw9s2dOvhTK+VvhztGA8mkE3RgrxYBj4ShP
-	 Ao0SeaGll0sNw==
+	s=k20260515; t=1791582111;
+	bh=MBuw0vX1F78VJww/vK9poqOhMOFyKJv51MnsKngioFU=;
+	h=Date:From:To:Cc:Subject;
+	b=fERJ0fIEzOFdGfoyjsrIDhoNTJ7HQq1G7Hfcmgvyvvk9Enlj9kYZfBSm8wUaxdcmZ
+	 wAJ2fGVaGXkDMn2YHNOkNqQwjg1usRG3fz0VwXdb888Wv83+9ozoHCLCYiavdpyH82
+	 tDnd+XK5Z6sLT5VRF8TWCZRVYRu4L2k3eWPKD/c71rqddcHsJyf+mlDoP5wvEKF0DI
+	 Rz07DFbUPW7ppWYc2fa9zbzNQDQaUUrg4Nyv53obxAYhv5x28hNerPHRIA6D/jc3oJ
+	 ABDOSYirnrk69f4uqT/Asoa4nz0fqEBkKkqVLsRdHvr+ysMnQuxOi8851KHZgglp/Q
+	 0aZhUGwYsXddg==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 694891AC57D0; Fri, 09 Oct 2026 22:41:41 +0100 (BST)
+Date: Fri, 9 Oct 2026 23:41:41 +0200
+From: Mark Brown <broonie@kernel.org>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: KBuild Mailing List <linux-kbuild@vger.kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>
+Subject: linux-next: manual merge of the efi tree with the kbuild tree
+Message-ID: <aslflbcgByI1rH2_@sirena.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="9YyDweQGVCwp+fWi"
+Content-Disposition: inline
+
+
+--9YyDweQGVCwp+fWi
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 09 Oct 2026 23:40:52 +0200
-Message-Id: <DM0MU0O43EB9.3EEKZ4C2IUP9J@kernel.org>
-Subject: Re: [PATCH v3] drm/nouveau: Fix memory leaks in debugfs and hwmon
- init error paths
-Cc: "liupeng" <liupeng01@kylinos.cn>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <tzimmermann@suse.de>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <linux@roeck-us.net>, <nouveau@karolherbst.de>,
- <bskeggs@redhat.com>, <dri-devel@lists.freedesktop.org>,
- <nouveau@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-hwmon@vger.kernel.org>, <stable@vger.kernel.org>
-To: <lyude@redhat.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <ea9a1d374cf3127e5047bc73807ce821022e026e.camel@redhat.com>
- <20261009115151.13877-1-liupeng01@kylinos.cn>
- <25778dca265f58185917c5948490e76184c778d3.camel@redhat.com>
-In-Reply-To: <25778dca265f58185917c5948490e76184c778d3.camel@redhat.com>
 
-On Fri Oct 9, 2026 at 11:35 PM CEST, lyude wrote:
-> Reviewed-by: Lyude Paul <lyude@redhat.com>
->
-> Will push to drm-misc-fixes in a moment
+Hi all,
 
-Please wait, those are two unrelated fixes with two different Fixes: tags, =
-so
-those should be two separate patches.
+Today's linux-next merge of the efi tree got a conflict in:
 
-I'm also not sure this is -fixes material. A memory leak in an unwind path =
-for
--rc7 feels wrong.
+  drivers/firmware/efi/libstub/Makefile
 
-Thanks,
-Danilo
+between commit:
 
-> On Fri, 2026-10-09 at 19:51 +0800, liupeng wrote:
->> In nouveau_debugfs_init(), if nvif_object_ctor() fails, the
->> previously
->> allocated drm->debugfs is leaked because the function returns the
->> error code directly.
->>=20
->> In nouveau_hwmon_init(), if hwmon_device_register_with_info() fails,
->> the allocated hwmon structure is leaked because the function returns
->> the error code directly.
->>=20
->> Fix both by freeing the allocated memory and clearing the pointer on
->> the error paths.
->>=20
->> Fixes: b126a200e9db ("drm/nouveau/debugfs: we need a ctrl object for
->> debugfs")
->> Fixes: b9ed919f1c8f ("drm/nouveau/drm/pm: remove everything except
->> the hwmon interfaces to THERM")
->> Cc: stable@vger.kernel.org
->> Reviewed-by: Lyude Paul <lyude@redhat.com>
->> Signed-off-by: liupeng <liupeng01@kylinos.cn>
->> ---
->> Changes in v3:
->> - Drop the extra return in nouveau_debugfs_init() as suggested by
->> Lyude.
->> - Add Reviewed-by tag.
->>=20
->> =C2=A0drivers/gpu/drm/nouveau/nouveau_debugfs.c | 14 +++++++++++---
->> =C2=A0drivers/gpu/drm/nouveau/nouveau_hwmon.c=C2=A0=C2=A0 |=C2=A0 2 ++
->> =C2=A02 files changed, 13 insertions(+), 3 deletions(-)
->>=20
->> diff --git a/drivers/gpu/drm/nouveau/nouveau_debugfs.c
->> b/drivers/gpu/drm/nouveau/nouveau_debugfs.c
->> index 47d5579c568d..338421e52f69 100644
->> --- a/drivers/gpu/drm/nouveau/nouveau_debugfs.c
->> +++ b/drivers/gpu/drm/nouveau/nouveau_debugfs.c
->> @@ -295,13 +295,21 @@ nouveau_drm_debugfs_init(struct drm_minor
->> *minor)
->> =C2=A0int
->> =C2=A0nouveau_debugfs_init(struct nouveau_drm *drm)
->> =C2=A0{
->> +	int ret;
->> +
->> =C2=A0	drm->debugfs =3D kzalloc_obj(*drm->debugfs);
->> =C2=A0	if (!drm->debugfs)
->> =C2=A0		return -ENOMEM;
->> =C2=A0
->> -	return nvif_object_ctor(&drm->client.device.object,
->> "debugfsCtrl", 0,
->> -				NVIF_CLASS_CONTROL, NULL, 0,
->> -				&drm->debugfs->ctrl);
->> +	ret =3D nvif_object_ctor(&drm->client.device.object,
->> "debugfsCtrl", 0,
->> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 NVIF_CLASS_CONTROL, NULL, 0,
->> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &drm->debugfs->ctrl);
->> +	if (ret) {
->> +		kfree(drm->debugfs);
->> +		drm->debugfs =3D NULL;
->> +	}
->> +
->> +	return ret;
->> =C2=A0}
->> =C2=A0
->> =C2=A0void
->> diff --git a/drivers/gpu/drm/nouveau/nouveau_hwmon.c
->> b/drivers/gpu/drm/nouveau/nouveau_hwmon.c
->> index 726397ab035d..ffbe7f542ab0 100644
->> --- a/drivers/gpu/drm/nouveau/nouveau_hwmon.c
->> +++ b/drivers/gpu/drm/nouveau/nouveau_hwmon.c
->> @@ -697,6 +697,8 @@ nouveau_hwmon_init(struct drm_device *dev)
->> =C2=A0	if (IS_ERR(hwmon_dev)) {
->> =C2=A0		ret =3D PTR_ERR(hwmon_dev);
->> =C2=A0		NV_ERROR(drm, "Unable to register hwmon device:
->> %d\n", ret);
->> +		drm->hwmon =3D NULL;
->> +		kfree(hwmon);
->> =C2=A0		return ret;
->> =C2=A0	}
->> =C2=A0
+  454e00cf8ee5a ("kbuild: avoid re-running compiler and linker probes")
 
+=66rom the kbuild tree and commit:
+
+  aa712d73350dc ("efi/libstub: Disable kernel stack erasing in the common f=
+lags")
+
+=66rom the efi tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --cc drivers/firmware/efi/libstub/Makefile
+index 415f63105b481,7bb5e5066c732..0000000000000
+--- a/drivers/firmware/efi/libstub/Makefile
++++ b/drivers/firmware/efi/libstub/Makefile
+@@@ -40,7 -40,8 +40,8 @@@ KBUILD_CFLAGS			:=3D $(subst $(CC_FLAGS_F
+  				   -D__NO_FORTIFY \
+  				   -ffreestanding \
+  				   -fno-stack-protector \
+ +				   $(CONFIG_CC_OPT_NO_ADDRSIG) \
++ 				   $(DISABLE_KSTACK_ERASE) \
+ -				   $(call cc-option,-fno-addrsig) \
+  				   -D__DISABLE_EXPORTS
+ =20
+  #
+
+--9YyDweQGVCwp+fWi
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCaslflQAKCRAv73Ows9A4
+ifHZAPwMMUSFDYAKjZulVxxg5WqZgUFCqYgm4slrrUQmcDvzNgEA9ZKnsPv7hRcH
++MTFMq1sBpPEJN9z1Zg3BRmkvXVm5gw=
+=7XHq
+-----END PGP SIGNATURE-----
+
+--9YyDweQGVCwp+fWi--
