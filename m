@@ -1,165 +1,261 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C86FB29B228;
-	Fri,  9 Oct 2026 15:15:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.21
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791558922; cv=none; b=Xae1oY8GgZmvg2Rbxnwau90pkUEjcVyQPwuKq8AYOuSBd5Kt0TduwmTujJ+/4lfR3xFwEMjArfxaA0dnI7LglyO+eOaxhLJ+41lTbyLI1NqSSOIGL+Fd/0XXtQPlRY8SC4661T67/1/v07OybB+jLMpHvzFvqBRPeI/+LieNoa8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791558922; c=relaxed/simple;
-	bh=SSebE+ST6hsckt7BsoZWaCrfWED87E2Ve65oZGO3YSg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YqTUmsrwqyJVIAYrDGE0SX0R/7o+3I0F2AocMzQDnvyfPOGDBNUMb2cy9XopV60txIroeWrE0ETPTJVYWEElH2EbVFG/A9OnizCxkQKk+dqZkafwPbxBFOQdslxmVXbkY3f141+YG6c4bHYt7wOQYcBUD4BZConwrRIadquykls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.b=Q3/PXgJP; arc=none smtp.client-ip=212.227.17.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6732435C69E
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 15:15:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791558945; cv=pass; b=qpHXMJ66i0c6ukiV2duQ6WbsmL1jtx7L26Txfe4OM5W0jTku77//XS0+8WbPkOwrL7YqfE9I5gUKavpCVPmDl+pzhLrTZh0d4Ja7XZ5/5y3+1OWlM9IgKLfA5A8QtbSniHwb81mmQ33q9OUPXtFdiR75SSoLc6thncdgPFPxp2I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791558945; c=relaxed/simple;
+	bh=xvA8DTirzMNyhS52A8f+1loxVqPpu9nQXkLXOqerews=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PxByDAGN4gi7EIZsPe0RDFg6+21gytd+amvSf/fPDFqKk9PidQdC4IV8wdBBVMSXGcRPW5RfYp9KLO/JfFhtXkjDlVklT+L3BeSBPteO4ytRghl1nkcVM/bjSO3G7NtqJHzHPCppJw+jNnjQ3iG1yxHxTDoYgpznbWpn7AOtq0o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gYVvTc1H; arc=pass smtp.client-ip=209.85.219.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.b="Q3/PXgJP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1791558886; x=1792163686; i=rwarsow@gmx.de;
-	bh=SSebE+ST6hsckt7BsoZWaCrfWED87E2Ve65oZGO3YSg=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=Q3/PXgJP0MB+QhTYERkVndaAltaau9aKw10vlsMNMngqusy2cGVDDPiWlNNFyIMC
-	 tkqFOR4Uw+CAT0g25o/99N8kBLUCtV5gPgVZw+0uRrPrJcC5VOQ1P2oyO+qpBEnZ6
-	 +uoHXuU10yEaGY4Oj+hpE73YA37X4tmxxBbdK2wCjZ0gxuOkWrnakPoD6gXC2LsGz
-	 FT1tDFrqB51pZs2oeXjAbCAgXbsyiWQ2KqpV2YDDshlj2hMCcuZ1kcO/LukHwjBmt
-	 z1lAVaCLFMfcohLh2rZmTXL6SjeTHxUfWAJbVB1AQFeG6xgS43C7lYVe1Y3vxtBud
-	 Id9Xd8GVtpqLeww+OA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1M5QFB-1xG1Fj2qY9-006GUu; Fri, 09
- Oct 2026 17:14:46 +0200
-Message-ID: <cff5bf67-7204-4e1f-a5ef-947e86710ca7@gmx.de>
-Date: Fri, 9 Oct 2026 17:14:44 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gYVvTc1H"
+Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-9199927cb42so23141236d6.2
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 08:15:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791558941; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VERzdQ4BegrYRykE1jU7/RrH74r48s1brYa74TEFU3Lrq4+yhZdC5hwrRW1/oX7wqp
+         Dm3hiTxG4P3JFvASu/ttUGr5vX/JBpgadRIlxEiodnt9yc61+Cw1KpDEltHblNce4NaS
+         vNHpkLx80T3orQi/4JUy0kJpB3V/Lk3Xerr1znyqTKQtZFrfJx2sXRNKmVhDIWEREJFu
+         7wVeXFhKpa4LmeVu8WtRj+15KEata+cM+lxggOKall/ZL+H8BWVGSCQQ/G59z3I02BLh
+         W98tsNiz78LbT9FdrenA9ByfPGVhLbGC1darLSqNwIK1976xEsa+cho8kbl99joHM/aX
+         79fw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=liSfgm3aLspZBk/EvQTw5ZezUOYb7ES99ZZ1K8Pg3bo=;
+        fh=3tTtyorlAxGMfMvbimz0FHcGHnEooLKaBBDggyFmI9Q=;
+        b=I/XTyG6NF9/j6yONL/1ohXRSLCO6IGXouYqyLboMhzHBGmbKqrdf/2+CWq3HZR9gGj
+         j5m5me6mI9ajWkxfxDUX5M7Qn6HJPm0BYC+O1t1KNay/BUG+cpCIRe8owwKLT3VQ/GLo
+         0U/Y1Z2cIBm1Fyy8JVDTsDe3ofS7WbMtWKxyeo++BO7wxqw4bTNvxAI73Pn4DtVJPLDA
+         2ujhO8iwooby6oJKm6J93U/ss4HbyqDIUchjUOEQsvNz4K1nEveEnrd9hhaVy/lnO5yc
+         cvdklf+WTGCpcgStsAwa+HNoYYgph/56R2n2AVxv6Aim3wAGHZsMkmWX9CIvL/NtJaSa
+         j0lw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791558941; x=1792163741; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=liSfgm3aLspZBk/EvQTw5ZezUOYb7ES99ZZ1K8Pg3bo=;
+        b=gYVvTc1HAv1GJYETcIWnG6sJrHeaO2yVkq/jA5JpDnvcmzCDtIxWtzkhE04kuBJMzw
+         oPTITqRxv8L6ZqrGjdtHT2xI4NyMZ/ZS38wh4tZ/KOjrk4EHt8NAYAkhd/3oIkXI88iw
+         mXaGKfMTbwj65C6xD6u6z1+udIAwV8woLg898RiqBFPYFyQfsjKoYlZX04LUfEICd3bM
+         J5b4/rACNEdwtzlwCIFRJN31REabD/cpzOvcORgxL8w4z1WXArRO5dSC1OLCjUXHXHq0
+         SVg8wLFsk4e3k+laNInWMFrl5JVZQU6LUhISMWx3VH28kuS7UIZKyqd5hCJT5KEEQXf7
+         Yi8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791558941; x=1792163741;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=liSfgm3aLspZBk/EvQTw5ZezUOYb7ES99ZZ1K8Pg3bo=;
+        b=SfHmWDeVzwpwQopP/jXJZShmoN+zl4rmvHkCE9QQzdWCJI2acRNEjC2PepPXwXVMY7
+         ZU7HXdJMnew3/Zxz1vJOD8nhUtRUdWpTGzShIoemvInmTbAPOtU7TF7+E5NHf+eOeXfB
+         WR4I9NoldyERKqmFsjLZdvthacVLWIWGecBWRtBgMagULB7gbwUMuh53UMe1Pp5VyRKN
+         WPalLsQdcbOGdF2SIFypFjwrMO2xd7sqIr5okbbEFnaUP4HimnZV0VH1ipK4VOurXWP5
+         AP5M0SEsQTaxnyOYqLL3LfvojDxeqr1caZVnbwg+/8fAKG0ygyciJ0yGOYp9e42hw1R8
+         jFmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzG/SJw787imXaEE2nBgAXtynp/VPjrZNXm2FBG2nqLe+Re588JDyq3C14yH72J2YXfNUlTlLvkjELhYdI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJe1zcLmtul6O6o/LnTK2SPd8zucD5fWGz8EH8XU7AoToh54dqs
+	vJSB1x9XLGXzojSJqzjDjjkdCbDPZDR+bKfMu16p+558OpRqaaTcP5Bob6V46mFoDD2sgq3TLdf
+	jW7LTQPhS7cW3U60cVGzZ37Aq8kTr6gw=
+X-Gm-Gg: AYBFou0wbkt6/b6+v4WaTK2hV0/K9dJ1jRsaFJ9qLYwZm1D7Jw2PRSu4P64bS9HsF+o
+	rT2pbVSe2iSVO3MecXZKv/kS7SWS+D44NxWn2UI7KsR7nZNieiH/8KgTCgpcMbEMVt6L7vW+0XS
+	rOCimTy2T+crdIpgeP+3rBDksc1D06Jr2OEvRhjIdVsB/7N8R9P0L3gO4SHZvayD27EhmXP5Bl+
+	B4CPyeou7Fru3YSI34Y0LTlKMeSvAyFxHq+LxIn+Ln+gKaf8anKJ6KspGr+RYY0PRh5hy4kisss
+	qn4NA1RH4S9BTfI8BCM6nqZEP/yXJBV/AbOZE+srwLVA7d3GMOUU6Pj1fEkA2yaHUnGNjDRWIaD
+	h7I5gA3y13ZztIfQfvWoDRa2GQunWb4jleg==
+X-Received: by 2002:a05:6214:4e82:b0:91b:5d3a:510a with SMTP id
+ 6a1803df08f44-91b5d3a56admr20534886d6.56.1791558941026; Fri, 09 Oct 2026
+ 08:15:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 000/428] 7.2.10-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20261009140946.008206689@linuxfoundation.org>
-From: Ronald Warsow <rwarsow@gmx.de>
-Content-Language: de-DE, en-US
-In-Reply-To: <20261009140946.008206689@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Provags-ID: V03:K1:WQ2JIcfzDXhLVLoSZ67uSsFrATvwJEbpkpdzzXzse3GVh+QdXor
- lJLfcSeBh7zw6rxpVzF902ZpF64HDzduRlXOBJWZOSQJjuNqxr7UxrdYkmyrx9ASB6Hqgp7
- fvzC7NOopT2BwjPmXxB3vKJKJnyoxsUVwX/DGJvL43NIRK10b51j/2AG1FVMObS02GNMYkH
- IRsqvu3cKbcUtML3iUhjw==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:BCyATDKrJGM=;Aig//7OvIAQ1eSfsYgGMdhGdItX
- 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
- uUp0GFqXAFZ2dFXfTxoO/ON7wKc4fHyPe1A==
+References: <20261009073330.18175-1-ansuelsmth@gmail.com> <20261009073330.18175-2-ansuelsmth@gmail.com>
+ <20261009-7326174694c52ccce16615b2@squawk>
+In-Reply-To: <20261009-7326174694c52ccce16615b2@squawk>
+From: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
+Date: Fri, 9 Oct 2026 17:15:27 +0200
+X-Gm-Features: AclHuK_TaWQMRaZGsQ3qxEM8_zEYr5bmwxiSK0Zad2EZWuG4HWavWzZ47j3MGaA
+Message-ID: <CA+_ehUyP35PF6cm17dzeLcREVFEPv=89Do-s5-hm-T3mKveuKQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: devfreq: Document support for Airoha
+ Subsystem Scale
+To: Conor Dooley <conor@kernel.org>
+Cc: MyungJoo Ham <myungjoo.ham@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>, 
+	Chanwoo Choi <cw00.choi@samsung.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi
+Il giorno ven 9 ott 2026 alle ore 17:06 Conor Dooley
+<conor@kernel.org> ha scritto:
+>
+> On Fri, Oct 09, 2026 at 09:33:28AM +0200, Christian Marangi wrote:
+> > Airoha SoC contains multiple subsystems that are scaled to a
+> > specific OPP taking the CPU clock as reference. Such subsystem
+> > can enter idle or performance state based on the system load
+> > and power consumption conditions.
+> >
+> > Example of such subsystems are GSW (Gigabit Switch), NPU (Custom
+> > Risc Co-Processor for Network acceleration), SOE (Crypto Module) BUS...
+>
+> The device you document here does not appear to exist at all, since it
+> just consumes a clock without any registers or anything. Why can't these
+> operating points be added to the actual consumers: the switch, the npu,
+> or event the bus itself in one case. In the bus case, I think that's
+> exactly what simple-pm-bus does?
+>
 
-kernel build / boot test on x86_64 (Intel).
+Can the consumer be registered as a devfreq with all the other thing?
+Isn't that problematic?
 
-No regressions here.
+Also one big problem is that some subsystem are used internally.
+Example SOE and BUS. (and also NPU)
 
-Thanks
+How those can be configured to follow the CPU frequency and
+use the required-opp and opp?
 
-Tested-by: Ronald Warsow <rwarsow@gmx.de>
+> >
+> > Document all the required property and provide examples for the various
+> > subsystem OPP + subsystem scale nodes.
+> >
+> > Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> > ---
+> >  .../devfreq/airoha,subsystem-scale.yaml       | 114 ++++++++++++++++++
+> >  1 file changed, 114 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/devfreq/airoha,subsystem-scale.yaml
+> >
+> > diff --git a/Documentation/devicetree/bindings/devfreq/airoha,subsystem-scale.yaml b/Documentation/devicetree/bindings/devfreq/airoha,subsystem-scale.yaml
+> > new file mode 100644
+> > index 000000000000..2cf7f23a926c
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/devfreq/airoha,subsystem-scale.yaml
+> > @@ -0,0 +1,114 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/devfreq/airoha,subsystem-scale.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Airoha SoC Subsystem Scale Driver
+> > +
+> > +maintainers:
+> > +  - Christian Marangi <ansuelsmth@gmail.com>
+> > +
+> > +description:
+> > +  Airoha SoC contains multiple subsystems that are scaled to a
+> > +  specific OPP taking the CPU clock as reference. Such subsystem
+> > +  can enter idle or performance state based on the system load
+> > +  and power consumption conditions.
+> > +
+> > +  Example of such subsystems are GSW (Gigabit Switch), NPU (Custom
+> > +  Risc Co-Processor for Network acceleration), SOE (Crypto Module) BUS...
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: airoha,an7581-subsystem-scale
+> > +
+> > +  clocks:
+> > +    maxItems: 1
+> > +
+> > +  operating-points-v2:
+> > +    description:
+> > +      OPP table of the related subsystem supported rates that referenced
+> > +      clocks will be scaled to.
+> > +
+> > +required:
+> > +  - compatible
+> > +  - clocks
+> > +  - operating-points-v2
+> > +
+> > +additionalProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    #include <dt-bindings/clock/en7523-clk.h>
+> > +
+> > +    npu_opp_table: opp-table-npu {
+> > +        compatible = "operating-points-v2";
+> > +
+> > +        npu_low: opp-400000000 {
+> > +           opp-hz = /bits/ 64 <400000000>;
+> > +        };
+> > +
+> > +        npu_high: opp-720000000 {
+> > +           opp-hz = /bits/ 64 <720000000>;
+> > +        };
+> > +    };
+> > +
+> > +    emi_opp_table: opp-table-emi {
+> > +        compatible = "operating-points-v2";
+> > +
+> > +        emi_low: opp-400000000 {
+> > +            opp-hz = /bits/ 64 <400000000>;
+> > +        };
+> > +
+> > +        emi_high: opp-540000000 {
+> > +           opp-hz = /bits/ 64 <540000000>;
+> > +        };
+> > +    };
+> > +
+> > +    bus_opp_table: opp-table-bus {
+> > +        compatible = "operating-points-v2";
+> > +
+> > +        bus_low: opp-200000000 {
+> > +           opp-hz = /bits/ 64 <200000000>;
+> > +        };
+> > +
+> > +        bus_high: opp-300000000 {
+> > +           opp-hz = /bits/ 64 <300000000>;
+> > +        };
+> > +    };
+> > +
+> > +    gsw_opp_table: opp-table-gsw {
+> > +        compatible = "operating-points-v2";
+> > +
+> > +        gsw_low: opp-200000000 {
+> > +            opp-hz = /bits/ 64 <200000000>;
+> > +        };
+> > +
+> > +        gsw_high: opp-500000000 {
+> > +           opp-hz = /bits/ 64 <500000000>;
+> > +        };
+> > +    };
+> > +
+> > +    npu-subsystem {
+> > +        compatible = "airoha,an7581-subsystem-scale";
+> > +        operating-points-v2 = <&npu_opp_table>;
+> > +        clocks = <&scuclk EN7523_CLK_NPU>;
+> > +    };
+> > +
+> > +    emi-subsystem {
+> > +        compatible = "airoha,an7581-subsystem-scale";
+> > +        operating-points-v2 = <&emi_opp_table>;
+> > +        clocks = <&scuclk EN7523_CLK_EMI>;
+> > +    };
+> > +
+> > +    bus-subsystem {
+> > +        compatible = "airoha,an7581-subsystem-scale";
+> > +        operating-points-v2 = <&bus_opp_table>;
+> > +        clocks = <&scuclk EN7523_CLK_BUS>;
+> > +    };
+> > +
+> > +    gsw-subsystem {
+> > +        compatible = "airoha,an7581-subsystem-scale";
+> > +        operating-points-v2 = <&gsw_opp_table>;
+> > +        clocks = <&scuclk EN7523_CLK_GSW>;
+> > +    };
+> > --
+> > 2.55.0
+> >
