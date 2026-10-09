@@ -1,691 +1,277 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B6484CDDDC;
-	Fri,  9 Oct 2026 11:42:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A6C64BEE53;
+	Fri,  9 Oct 2026 11:42:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791546180; cv=none; b=Xk+JxmIB84d38cBbaNBwY9WJ1icnuJK2N65GFj9y9/2nqICm17sQWW/Nj6G7Cb1FcFzmViMyXUQKMSE3wTchC17bf8bxg3nKmAl8Hd+VmroN/kfeQvCLdHsnYMfNhluOVe6/RXastOTNh3g7mKKRs2uQebrOkYWBtQtmnUedHKw=
+	t=1791546185; cv=none; b=e9qxwIIFAsKFTL0+szzt56Ivp6UzhI09qHvca8JrxvxiyRcN1OUf8phV1Q9wm6Vx1Q9I0ITbkf2e6nKCpKS903qJINW+Io6kxRN97mU/lwfIbM9icClcfaTlzpBgmYDc2UtapleVuU3lnMygoV7O75Ft0GGW5+fSj1iO4r711AQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791546180; c=relaxed/simple;
-	bh=M1C3PSXSv/foqU2HXHCrMDeDJx2cdps6nbvEAUKSi0s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Rai4e74vjqtpZEHEfWcW/1sywTrJ8vWkpRUNAycLM8SQhLtvc9QPyNrJoN0mzRn3ekseV/OBw/qb1YOlLFCp5odSh2wFg1P16HhcJ0Z8DtmOExQEewF1G7fBSiLR4DAKOvCaOf2iKUmKxUlLSYNpZkI57RgR/THh4nb+2yu9Ki4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FGhtTybw; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791546185; c=relaxed/simple;
+	bh=3p8V/XNcz4UBA0nSuVVCscnSVjVAp1ZSkXhCGsx8pkc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=U+c5SX/+PjTZxGmNUPgkphr3BX/RSTA+qCT03+ooaikA+GZF65M2iMLLaLN+ADWBjKwU3OI++pyvqvTHc5ndtOwIEGu1Pf/kvX+6NnoOOD7LHYCjAmVxjUm89mfVgSp0fQgwtdMUuASPoydG91G4pyGpYrnw4DHzJ0dJgP1vYHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=AcjHC8zB; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FGhtTybw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791546170; x=1823082170;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=M1C3PSXSv/foqU2HXHCrMDeDJx2cdps6nbvEAUKSi0s=;
-  b=FGhtTybwWojHmktxusVz4AG+L7ChVj85aeee8pbq93EESfzVs6VCVeII
-   g//mbfMNLnycQMi35I2cbSD7LHXKS8dufeqqj5c5EMUsWyHdKW5JmbfSe
-   a5GcW1pnftWhoDJ7miOVwzOqNfpqJHeEtN3c2Yah7PetKNOVStrouXasn
-   HnTWdGzByRcOrQK8/q2Y/du4dyKafL3oknkOtt9JYVngXinsWhkB1KJGP
-   HaO38vuWvmI2ymMyFG/wl+4koD48kv9n+PJOtAlPPQkQZdS6HlxapLuPS
-   SCm3k40nerjAHrM5Qxo1806OuxxHZ1ifKrXpf53V9kpZRUoRdE/mNMLz1
-   A==;
-X-CSE-ConnectionGUID: 9JWfT4KxTziFTxPuiwCG2Q==
-X-CSE-MsgGUID: fF4nOlfmQeG+KdvYZglq/w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="359358"
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="359358"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 04:42:50 -0700
-X-CSE-ConnectionGUID: N+7vxZPsSbqMpiBk5CE9SA==
-X-CSE-MsgGUID: uP6ziIRyQ3iauseNJkvNmg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="634527"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa006.fm.intel.com with ESMTP; 09 Oct 2026 04:42:48 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 0E22999; Fri, 09 Oct 2026 13:42:47 +0200 (CEST)
-Date: Fri, 9 Oct 2026 13:42:47 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Amber Kao <ite_pd@ite.com.tw>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Amber Kao <amber.kao@ite.com.tw>,
-	Jeson Yang <jeson.yang@ite.com.tw>,
-	Yaode Fang <Yaode.Fang@ite.com.tw>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] usb: typec: ucsi: itepd: Add DisplayPort alternate mode
- support
-Message-ID: <asjTN18x4btLhXaw@black.igk.intel.com>
-References: <20261001-ucsi-itepd-display-v1-1-f3de9baa2467@ite.com.tw>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="AcjHC8zB"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6998ZUh82596149;
+	Fri, 9 Oct 2026 11:42:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=aauzIxXtBl2bDuudZ
+	bSB3Ge7IrUQGG2lpugijlw/b20=; b=AcjHC8zBh3o/VdP+EsLeRWURA+XmDLxo4
+	p87+ZcV738b27tc4Jvs3DpOmBHL6R4DUBDJd1/nA+WJpPyzgoGnJgyyDhQzn1iGD
+	n812jagUCf53EpZxpPp84l4NDFQn6EG4FjY8rUefsDCdU/kfktA4tGTqVkJqm41/
+	4iFSM4+tIhnmQCPREBZrms1pJv+cxRjKmileIzkjIRIKQofCYxlSQz0VBOSPVy7r
+	lQpkOJlbF4Mr7udALkaBdqrZe+HQL1eTJ7VlE92X9EE0+syb9Ad5tJuorWKwO6Fr
+	mb6453P6h76Nc/RdFFHhvb6MBrhixRX1/wTfyyCqfJAB26Ckn+bIw==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h5xk1hn4k-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 09 Oct 2026 11:42:52 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6998I51Q3538395;
+	Fri, 9 Oct 2026 11:42:51 GMT
+Received: from smtprelay02.dal12v.mail.ibm.com ([172.16.1.4])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h5f3u2ruw-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 09 Oct 2026 11:42:51 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
+	by smtprelay02.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 699Bgoc030868178
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 9 Oct 2026 11:42:51 GMT
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9D51758045;
+	Fri,  9 Oct 2026 11:42:50 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E9DB658052;
+	Fri,  9 Oct 2026 11:42:48 +0000 (GMT)
+Received: from li-4c4c4544-004d-4810-8043-b7c04f423534.ibm.com.com (unknown [9.61.159.45])
+	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Fri,  9 Oct 2026 11:42:48 +0000 (GMT)
+From: Anthony Krowiak <akrowiak@linux.ibm.com>
+To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+        kvm@vger.kernel.org
+Cc: jjherne@linux.ibm.com, borntraeger@de.ibm.com, mjrosato@linux.ibm.com,
+        pasic@linux.ibm.com, alex@shazbot.org, kwankhede@nvidia.com,
+        fiuczy@linux.ibm.com, pbonzini@redhat.com, frankja@linux.ibm.com,
+        imbrenda@linux.ibm.com, agordeev@linux.ibm.com, hca@linux.ibm.com,
+        gor@linux.ibm.com
+Subject: [PATCH v8 02/15] s390/vfio-ap: Data structures for facilitating vfio device migration
+Date: Fri,  9 Oct 2026 07:42:31 -0400
+Message-ID: <20261009114244.1213173-3-akrowiak@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261009114244.1213173-1-akrowiak@linux.ibm.com>
+References: <20261009114244.1213173-1-akrowiak@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001-ucsi-itepd-display-v1-1-f3de9baa2467@ite.com.tw>
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=YtCa1IYX c=1 sm=1 tr=0 ts=6ac8d33c cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8 a=q7H8pZeb9lwjMWFkImUA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA0NiBTYWx0ZWRfX+FLm61yDEvr2
+ h85pG6BSoAD3Fc5PfCYbL6nc9hxjZWDTgJHtKOR7b/ycT6hliGU73Z77/i3o3NQnLku4X7awutl
+ +5kVrV56RnhhwvGMU0In+QipqO4zs8W3X9eVijUu8CAKmvKBoefpQedS35AlidHPmAe/zc2qnY8
+ aO/TKS4XZgGA+6kJh05im5jk0vnbXUeOjMzpD5LxR8twABsAipP5PykbXrGjKGiqSPXLCg/3l11
+ BTn9CMox7bpDV93Fxx1H8vxbxxt7v4Bf28inNLK313U5qFIXMm8NTZCnbthswsJR9jogV3X8n6u
+ H6Hs7xdleRnQDe1+Re4HwvLXyPf4UOSffVn8i9Bv7FjGCk2B3MSd3ZyJ88o6s/v+6RWKChH3rTM
+ TFlhKREu3g0noj8iSw7AsRM+0w1lWyeRqfJ+plwX7Oo/PQLQDxaKMu+cuzKBrPQiZ1JgyXyY5Hj
+ uAAlviqNLENsYB05sYw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA0NiBTYWx0ZWRfXwT6wiIR0q4/l
+ qYLi3n352394srm5rV2EfloXtcQ7wF+CR4XYGbr4/2c3ynoEyzGF82C2496Ucq+38wTx2PXM9/p
+ QlSKi+bBoeqiQwvbUaV6UWURqoyu6r4=
+X-Proofpoint-GUID: rxw0o4NDhL-blZ1jgnkA_I6NzrlDqqRp
+X-Proofpoint-ORIG-GUID: rxw0o4NDhL-blZ1jgnkA_I6NzrlDqqRp
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-09_03,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 bulkscore=0 clxscore=1015 priorityscore=1501
+ lowpriorityscore=0 suspectscore=0 malwarescore=0 adultscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090046
 
-On Thu, Oct 01, 2026 at 06:27:51PM +0800, Amber Kao wrote:
-> Add support for DisplayPort alternate mode on the IT885x and IT527x
-> series controllers.
-> 
-> The connectors are described as child nodes of the controller in the
-> device tree. For each connector, the driver gets the Type-C mux and
-> retimer and allocates a DRM auxiliary HPD bridge.
-> 
-> On a connector status change, the driver reads the current alternate
-> mode from the PPM with GET_CURRENT_CAM and checks that it is
-> DisplayPort with GET_ALTERNATE_MODES. The DisplayPort status and
-> configuration are then read with GET_CAM_CS, and the pin assignment is
-> used to configure the mux and retimer. The HPD state and HPD IRQ are
-> taken from the latest Attention VDO, read with GET_ATTENTION_VDO, and
-> reported through the HPD bridge.
-> 
-> To get notified about Attention messages, enable the Attention
-> notification whenever the UCSI core sends SET_NOTIFICATION_ENABLE.
-> All pending vendor interrupt bits are now acknowledged instead of only
-> the UCSI and VDM events, so that no event is left pending.
-> 
-> PPMs implementing UCSI versions older than 2.0 report the cable
-> orientation at a vendor-specific offset in the connector status, so
-> set the orientation from there.
-> 
-> Signed-off-by: Amber Kao <ite_pd@ite.com.tw>
+Creates the data structures used to facilitate state transitions during
+vfio device migration.
 
-Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
+Reviewed-by: Jason J. Herne <jjherne@linux.ibm.com>
+---
+ drivers/s390/crypto/Makefile            |   2 +-
+ drivers/s390/crypto/vfio_ap_migration.c | 113 ++++++++++++++++++++++++
+ drivers/s390/crypto/vfio_ap_private.h   |   5 ++
+ 3 files changed, 119 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/s390/crypto/vfio_ap_migration.c
 
-> ---
-> This patch adds DisplayPort alternate mode support to the ITE UCSI
-> driver.
-> 
-> It was previously posted as patch 2/2 of the IT527x/IT885x support
-> series [1]. As requested by Heikki, it has been split out, and the
-> Kconfig prompt, help text and MODULE_DESCRIPTION updates for
-> IT885x/IT527x have been moved into that series.
-> 
-> This patch depends on the IT527x/IT885x support series v3 [2], which
-> has been reviewed but not yet applied.
-> 
-> [1] https://lore.kernel.org/r/20260918-ucsi-itepd-it527x-v2-0-7b2d9437cc72@ite.com.tw
-> [2] https://lore.kernel.org/r/20260924-ucsi-itepd-it527x-v3-0-a7392aa087f5@ite.com.tw
-> ---
->  drivers/usb/typec/ucsi/Kconfig      |   5 +-
->  drivers/usb/typec/ucsi/ucsi_itepd.c | 427 +++++++++++++++++++++++++++++++++++-
->  2 files changed, 423 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/usb/typec/ucsi/Kconfig b/drivers/usb/typec/ucsi/Kconfig
-> index 5e32ff20ebb5..c5eaf4967e4e 100644
-> --- a/drivers/usb/typec/ucsi/Kconfig
-> +++ b/drivers/usb/typec/ucsi/Kconfig
-> @@ -107,10 +107,13 @@ config UCSI_HUAWEI_GAOKUN
->  config UCSI_ITEPD
->  	tristate "UCSI Interface Driver for ITE IT885x and IT527x series"
->  	depends on I2C
-> +	depends on DRM || !DRM
-> +	select DRM_AUX_HPD_BRIDGE if DRM_BRIDGE && OF
->  	help
->  	  This driver enables UCSI support on platforms that expose an
->  	  ITE IT885x or IT527x series Type-C Power Delivery controller
-> -	  over an I2C interface.
-> +	  over an I2C interface. It also supports DisplayPort alternate
-> +	  mode, including HPD notification through the DRM bridge.
->  
->  	  To compile the driver as a module, choose M here: the module
->  	  will be called ucsi_itepd.
-> diff --git a/drivers/usb/typec/ucsi/ucsi_itepd.c b/drivers/usb/typec/ucsi/ucsi_itepd.c
-> index 5b39ba286db7..25dbe59ab770 100644
-> --- a/drivers/usb/typec/ucsi/ucsi_itepd.c
-> +++ b/drivers/usb/typec/ucsi/ucsi_itepd.c
-> @@ -3,14 +3,24 @@
->   * Copyright (C) 2025-2026, ITE. All Rights Reserved
->   *
->   */
-> +#include <linux/auxiliary_bus.h>
-> +#include <linux/bitmap.h>
-> +#include <linux/bitops.h>
->  #include <linux/bits.h>
->  #include <linux/err.h>
->  #include <linux/i2c.h>
->  #include <linux/interrupt.h>
->  #include <linux/module.h>
->  #include <linux/mutex.h>
-> +#include <linux/of.h>
-> +#include <linux/property.h>
->  #include <linux/slab.h>
->  #include <linux/unaligned.h>
-> +#include <linux/usb/typec_dp.h>
-> +#include <linux/usb/typec_mux.h>
-> +#include <linux/usb/typec_retimer.h>
-> +
-> +#include <drm/bridge/aux-bridge.h>
->  
->  #include "ucsi.h"
->  
-> @@ -29,6 +39,38 @@
->  #define ITEPD_EVENT_NONE	0
->  #define ITEPD_EVENT_UCSI	1
->  #define ITEPD_EVENT_VDM		2
-> +#define ITEPD_EVENT_OTHER	3
-> +
-> +#define ITEPD_CONSTAT_ORIENTATION_OFFSET	86
-> +
-> +#define ITEPD_CAM_CS_INDEX(_i_)			((u64)(_i_) << 24)
-> +#define ITEPD_CAM_CS_LEN			10
-> +#define ITEPD_CAM_CS_STATUS_OFFSET		1
-> +#define ITEPD_CAM_CS_CONF_OFFSET		6
-> +
-> +#define ITEPD_CAM_NONE				0xff
-> +
-> +#define ITEPD_ATTENTION_VDO_LEN			11
-> +#define ITEPD_ATTENTION_NUM_VDOS_OFFSET		2
-> +#define ITEPD_ATTENTION_NUM_VDOS_MASK		GENMASK(2, 0)
-> +#define ITEPD_ATTENTION_VDO_OFFSET		7
-> +
-> +/* CCI connector number is 7 bits, 1-based */
-> +#define ITEPD_MAX_CONNECTORS			127
-> +
-> +struct itepd;
-> +
-> +struct itepd_port {
-> +	struct itepd *itepd;
-> +	unsigned int index;
-> +	struct typec_mux *typec_mux;
-> +	struct typec_retimer *typec_retimer;
-> +	struct auxiliary_device *bridge;
-> +	struct typec_mux_state state;
-> +	struct typec_altmode dp_alt;
-> +	unsigned long mode;
-> +	bool hpd_state;
-> +};
->  
->  struct itepd {
->  	struct i2c_client *client;
-> @@ -38,6 +80,9 @@ struct itepd {
->  	struct mutex received_lock;	/* Protects cci and msg_in */
->  	u8 msg_in[ITEPD_MSG_IN_MAX_LEN];
->  	u32 cci;
-> +
-> +	struct itepd_port *ports;
-> +	unsigned int num_ports;
->  };
->  
->  static u8 ucsi_itepd_get_len(u32 cci)
-> @@ -115,25 +160,26 @@ static int itepd_process_event(struct itepd *itepd, u32 *cci)
->  {
->  	u8 msg_in[ITEPD_MSG_IN_MAX_LEN] = {};
->  	__le32 le_cci;
-> -	u8 event, ack;
-> +	u8 raw, event, ack;
->  	u8 len = 0;
->  	int err = 0;
->  	int ret;
->  
->  	guard(mutex)(&itepd->event_lock);
->  
-> -	ret = itepd_read_reg(itepd, ITEPD_VENDOR_INT, &event, sizeof(event));
-> +	ret = itepd_read_reg(itepd, ITEPD_VENDOR_INT, &raw, sizeof(raw));
->  	if (ret)
->  		return ret;
->  
-> -	event &= ITEPD_ALERT_VDM_EVENT | ITEPD_ALERT_UCSI_EVENT;
-> -	if (!event) {
-> +	if (!raw) {
->  		mutex_lock(&itepd->received_lock);
->  		*cci = itepd->cci;
->  		mutex_unlock(&itepd->received_lock);
->  		return ITEPD_EVENT_NONE;
->  	}
->  
-> +	event = raw & (ITEPD_ALERT_VDM_EVENT | ITEPD_ALERT_UCSI_EVENT);
-> +
->  	if (event & ITEPD_ALERT_UCSI_EVENT) {
->  		err = itepd_read_reg(itepd, ITEPD_UCSI_CCI_REG, &le_cci,
->  				     sizeof(le_cci));
-> @@ -148,7 +194,7 @@ static int itepd_process_event(struct itepd *itepd, u32 *cci)
->  		}
->  	}
->  
-> -	ack = event;
-> +	ack = raw;
->  	ret = itepd_write_reg(itepd, ITEPD_VENDOR_WC_INT, &ack, sizeof(ack));
->  	if (ret)
->  		return ret;
-> @@ -169,7 +215,8 @@ static int itepd_process_event(struct itepd *itepd, u32 *cci)
->  	*cci = itepd->cci;
->  	mutex_unlock(&itepd->received_lock);
->  
-> -	return ITEPD_EVENT_VDM;
-> +	return event & ITEPD_ALERT_VDM_EVENT ? ITEPD_EVENT_VDM :
-> +					       ITEPD_EVENT_OTHER;
->  }
->  
->  static int ucsi_itepd_read_version(struct ucsi *ucsi, u16 *version)
-> @@ -220,18 +267,248 @@ static int ucsi_itepd_read_message_in(struct ucsi *ucsi, void *val, size_t val_l
->  static int ucsi_itepd_async_control(struct ucsi *ucsi, u64 command)
->  {
->  	struct itepd *itepd = ucsi_get_drvdata(ucsi);
-> -	__le64 le_cmd = cpu_to_le64(command);
-> +	__le64 le_cmd;
->  
-> -	if (UCSI_COMMAND(command) == UCSI_PPM_RESET) {
-> +	switch (UCSI_COMMAND(command)) {
-> +	case UCSI_PPM_RESET:
->  		mutex_lock(&itepd->received_lock);
->  		itepd->cci = 0;
->  		mutex_unlock(&itepd->received_lock);
-> +		break;
-> +	case UCSI_SET_NOTIFICATION_ENABLE:
-> +		command |= UCSI_ENABLE_NTFY_ATTENTION;
-> +		break;
-> +	default:
-> +		break;
->  	}
->  
-> +	le_cmd = cpu_to_le64(command);
-> +
->  	return itepd_write_reg(itepd, ITEPD_UCSI_CONTROL_REG, &le_cmd,
->  			       sizeof(le_cmd));
->  }
->  
-> +static void itepd_port_set_state(struct itepd_port *port, unsigned long mode,
-> +				 struct typec_displayport_data *dp_data)
-> +{
-> +	struct device *dev = &port->itepd->client->dev;
-> +	struct typec_retimer_state retimer_state = {};
-> +	int ret;
-> +
-> +	if (!dp_data && mode == port->mode)
-> +		return;
-> +
-> +	port->dp_alt.active = !!dp_data;
-> +
-> +	port->state.alt = dp_data ? &port->dp_alt : NULL;
-> +	port->state.mode = mode;
-> +	port->state.data = dp_data;
-> +
-> +	retimer_state.alt = port->state.alt;
-> +	retimer_state.mode = mode;
-> +	retimer_state.data = dp_data;
-> +
-> +	ret = typec_retimer_set(port->typec_retimer, &retimer_state);
-> +	if (ret)
-> +		dev_err(dev, "port%u: failed to set retimer to mode %lu: %d\n",
-> +			port->index, mode, ret);
-> +
-> +	ret = typec_mux_set(port->typec_mux, &port->state);
-> +	if (ret)
-> +		dev_err(dev, "port%u: failed to set mux to mode %lu: %d\n",
-> +			port->index, mode, ret);
-> +
-> +	port->mode = mode;
-> +
-> +	port->state.data = NULL;
-> +}
-> +
-> +static void itepd_port_notify_hpd(struct itepd_port *port, bool hpd_state,
-> +				  bool hpd_irq)
-> +{
-> +	if (!port->bridge)
-> +		return;
-> +
-> +	if (hpd_state == port->hpd_state && !hpd_irq)
-> +		return;
-> +
-> +	port->hpd_state = hpd_state;
-> +
-> +	drm_aux_hpd_bridge_notify(&port->bridge->dev,
-> +				  hpd_state ? connector_status_connected :
-> +					      connector_status_disconnected);
-> +}
-> +
-> +static void itepd_set_orientation(struct ucsi_connector *con)
-> +{
-> +	if (con->ucsi->version >= UCSI_VERSION_2_0)
-> +		return;
-> +
-> +	if (!UCSI_CONSTAT(con, CONNECTED)) {
-> +		typec_set_orientation(con->port, TYPEC_ORIENTATION_NONE);
-> +		return;
-> +	}
-> +
-> +	if (bitmap_read(con->status, ITEPD_CONSTAT_ORIENTATION_OFFSET, 1) ==
-> +	    UCSI_CONSTAT_ORIENTATION_REVERSE)
-> +		typec_set_orientation(con->port, TYPEC_ORIENTATION_REVERSE);
-> +	else
-> +		typec_set_orientation(con->port, TYPEC_ORIENTATION_NORMAL);
-> +}
-> +
-> +static int itepd_get_dp_cam(struct itepd *itepd, struct ucsi_connector *con)
-> +{
-> +	struct ucsi_altmode alt[2] = {};
-> +	u64 cmd;
-> +	u8 cam;
-> +	int ret;
-> +
-> +	cmd = UCSI_GET_CURRENT_CAM | UCSI_CONNECTOR_NUMBER(con->num);
-> +	ret = ucsi_send_command(itepd->ucsi, cmd, &cam, sizeof(cam));
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	if (cam == ITEPD_CAM_NONE)
-> +		return -ENODEV;
-> +
-> +	cmd = UCSI_GET_ALTERNATE_MODES;
-> +	cmd |= UCSI_GET_ALTMODE_RECIPIENT(UCSI_RECIPIENT_CON);
-> +	cmd |= UCSI_GET_ALTMODE_CONNECTOR_NUMBER(con->num);
-> +	cmd |= UCSI_GET_ALTMODE_OFFSET(cam);
-> +	ret = ucsi_send_command(itepd->ucsi, cmd, alt, sizeof(alt));
-> +	if (ret < 0) {
-> +		dev_dbg(&itepd->client->dev, "con%d: cannot verify CAM %u: %d\n",
-> +			con->num, cam, ret);
-> +		return cam;
-> +	}
-> +
-> +	if (alt[0].svid != USB_TYPEC_DP_SID)
-> +		return -ENODEV;
-> +
-> +	return cam;
-> +}
-> +
-> +static int itepd_get_attention_status(struct itepd *itepd,
-> +				      struct ucsi_connector *con, u32 *status)
-> +{
-> +	u8 data[ITEPD_ATTENTION_VDO_LEN] = {};
-> +	u64 cmd;
-> +	int ret;
-> +
-> +	cmd = UCSI_GET_ATTENTION_VDO | UCSI_CONNECTOR_NUMBER(con->num);
-> +	ret = ucsi_send_command(itepd->ucsi, cmd, data, sizeof(data));
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	if (!(data[ITEPD_ATTENTION_NUM_VDOS_OFFSET] &
-> +	      ITEPD_ATTENTION_NUM_VDOS_MASK))
-> +		return -ENODATA;
-> +
-> +	*status = get_unaligned_le32(data + ITEPD_ATTENTION_VDO_OFFSET);
-> +
-> +	return 0;
-> +}
-> +
-> +static void itepd_handle_dp_altmode(struct itepd *itepd,
-> +				    struct itepd_port *port,
-> +				    struct ucsi_connector *con)
-> +{
-> +	struct typec_displayport_data dp_data = {};
-> +	u8 data[ITEPD_CAM_CS_LEN] = {};
-> +	unsigned long mode;
-> +	u32 status;
-> +	u8 pin_assign;
-> +	u64 cmd;
-> +	int cam;
-> +	int ret;
-> +
-> +	cam = itepd_get_dp_cam(itepd, con);
-> +	if (cam < 0) {
-> +		/* Partner is in some other alternate mode, keep USB alive */
-> +		itepd_port_set_state(port, TYPEC_STATE_USB, NULL);
-> +		itepd_port_notify_hpd(port, false, false);
-> +		return;
-> +	}
-> +
-> +	cmd = UCSI_GET_CAM_CS | UCSI_CONNECTOR_NUMBER(con->num) |
-> +	      ITEPD_CAM_CS_INDEX(cam);
-> +	ret = ucsi_send_command(itepd->ucsi, cmd, data, sizeof(data));
-> +	if (ret < 0) {
-> +		dev_err(&itepd->client->dev, "con%d: GET_CAM_CS failed: %d\n",
-> +			con->num, ret);
-> +		return;
-> +	}
-> +
-> +	dp_data.status = get_unaligned_le32(data + ITEPD_CAM_CS_STATUS_OFFSET);
-> +	dp_data.conf = get_unaligned_le32(data + ITEPD_CAM_CS_CONF_OFFSET);
-> +
-> +	pin_assign = DP_CONF_GET_PIN_ASSIGN(dp_data.conf);
-> +	if (pin_assign &&
-> +	    __ffs(pin_assign) <= TYPEC_DP_STATE_E - TYPEC_STATE_MODAL)
-> +		mode = TYPEC_MODAL_STATE(__ffs(pin_assign));
-> +	else
-> +		mode = TYPEC_STATE_SAFE;
-> +
-> +	itepd_port_set_state(port, mode, &dp_data);
-> +
-> +	if (!itepd_get_attention_status(itepd, con, &status))
-> +		dp_data.status = status;
-> +
-> +	itepd_port_notify_hpd(port, !!(dp_data.status & DP_STATUS_HPD_STATE),
-> +			      !!(dp_data.status & DP_STATUS_IRQ_HPD));
-> +}
-> +
-> +static struct itepd_port *itepd_get_port(struct ucsi_connector *con)
-> +{
-> +	struct itepd *itepd = ucsi_get_drvdata(con->ucsi);
-> +	struct itepd_port *port;
-> +
-> +	if (con->num < 1 || con->num > itepd->num_ports)
-> +		return NULL;
-> +
-> +	port = &itepd->ports[con->num - 1];
-> +
-> +	/* Not described in DT */
-> +	if (!port->itepd)
-> +		return NULL;
-> +
-> +	return port;
-> +}
-> +
-> +static void ucsi_itepd_update_connector(struct ucsi_connector *con)
-> +{
-> +	if (!itepd_get_port(con))
-> +		return;
-> +
-> +	con->typec_cap.orientation_aware = true;
-> +}
-> +
-> +static void ucsi_itepd_connector_status(struct ucsi_connector *con)
-> +{
-> +	struct itepd *itepd = ucsi_get_drvdata(con->ucsi);
-> +	struct itepd_port *port;
-> +
-> +	port = itepd_get_port(con);
-> +	if (!port)
-> +		return;
-> +
-> +	itepd_set_orientation(con);
-> +
-> +	if (!UCSI_CONSTAT(con, CONNECTED)) {
-> +		itepd_port_set_state(port, TYPEC_STATE_SAFE, NULL);
-> +		itepd_port_notify_hpd(port, false, false);
-> +		return;
-> +	}
-> +
-> +	if (!UCSI_CONSTAT(con, PARTNER_FLAG_ALT_MODE)) {
-> +		itepd_port_set_state(port, TYPEC_STATE_USB, NULL);
-> +		itepd_port_notify_hpd(port, false, false);
-> +		return;
-> +	}
-> +
-> +	itepd_handle_dp_altmode(itepd, port, con);
-> +}
-> +
->  static const struct ucsi_operations ucsi_itepd_ops = {
->  	.read_version		= ucsi_itepd_read_version,
->  	.read_cci		= ucsi_itepd_read_cci,
-> @@ -239,6 +516,8 @@ static const struct ucsi_operations ucsi_itepd_ops = {
->  	.read_message_in	= ucsi_itepd_read_message_in,
->  	.sync_control		= ucsi_sync_control_common,
->  	.async_control		= ucsi_itepd_async_control,
-> +	.update_connector	= ucsi_itepd_update_connector,
-> +	.connector_status	= ucsi_itepd_connector_status,
->  };
->  
->  static irqreturn_t itepd_irq_process(struct itepd *itepd)
-> @@ -256,6 +535,9 @@ static irqreturn_t itepd_irq_process(struct itepd *itepd)
->  	if (ret == ITEPD_EVENT_UCSI)
->  		ucsi_notify_common(itepd->ucsi, cci);
->  
-> +	if (ret == ITEPD_EVENT_VDM)
-> +		dev_dbg(&itepd->client->dev, "VDM event\n");
-> +
->  	return IRQ_HANDLED;
->  }
->  
-> @@ -266,6 +548,127 @@ static irqreturn_t itepd_irq_thread_fn(int irq, void *data)
->  	return itepd_irq_process(itepd);
->  }
->  
-> +static void itepd_put_mux(void *data)
-> +{
-> +	typec_mux_put(data);
-> +}
-> +
-> +static void itepd_put_retimer(void *data)
-> +{
-> +	typec_retimer_put(data);
-> +}
-> +
-> +static int itepd_ports_init(struct itepd *itepd)
-> +{
-> +	struct device *dev = &itepd->client->dev;
-> +	struct itepd_port *port;
-> +	unsigned int num_ports = 0;
-> +	u32 reg;
-> +	int ret;
-> +
-> +	/* Size the port array by the highest connector number in DT */
-> +	device_for_each_child_node_scoped(dev, fwnode) {
-> +		ret = fwnode_property_read_u32(fwnode, "reg", &reg);
-> +		if (ret < 0)
-> +			return dev_err_probe(dev, ret,
-> +					     "%pfwP: missing reg property\n",
-> +					     fwnode);
-> +
-> +		if (reg >= ITEPD_MAX_CONNECTORS)
-> +			return dev_err_probe(dev, -EINVAL,
-> +					     "%pfwP: invalid reg %u\n",
-> +					     fwnode, reg);
-> +
-> +		num_ports = max(num_ports, reg + 1);
-> +	}
-> +
-> +	if (!num_ports)
-> +		return 0;
-> +
-> +	itepd->ports = devm_kcalloc(dev, num_ports, sizeof(*itepd->ports),
-> +				    GFP_KERNEL);
-> +	if (!itepd->ports)
-> +		return -ENOMEM;
-> +
-> +	itepd->num_ports = num_ports;
-> +
-> +	device_for_each_child_node_scoped(dev, fwnode) {
-> +		/* Already validated above */
-> +		fwnode_property_read_u32(fwnode, "reg", &reg);
-> +
-> +		port = &itepd->ports[reg];
-> +		if (port->itepd)
-> +			return dev_err_probe(dev, -EINVAL,
-> +					     "%pfwP: duplicate reg %u\n",
-> +					     fwnode, reg);
-> +
-> +		port->itepd = itepd;
-> +		port->index = reg;
-> +		port->mode = TYPEC_STATE_SAFE;
-> +		port->state.mode = TYPEC_STATE_SAFE;
-> +		port->dp_alt.svid = USB_TYPEC_DP_SID;
-> +		port->dp_alt.mode = USB_TYPEC_DP_MODE;
-> +
-> +		port->typec_mux = fwnode_typec_mux_get(fwnode);
-> +		if (IS_ERR(port->typec_mux))
-> +			return dev_err_probe(dev, PTR_ERR(port->typec_mux),
-> +					     "port%u: failed to get mode-switch\n",
-> +					     reg);
-> +
-> +		if (port->typec_mux) {
-> +			ret = devm_add_action_or_reset(dev, itepd_put_mux,
-> +						       port->typec_mux);
-> +			if (ret)
-> +				return ret;
-> +		}
-> +
-> +		port->typec_retimer = fwnode_typec_retimer_get(fwnode);
-> +		if (IS_ERR(port->typec_retimer))
-> +			return dev_err_probe(dev, PTR_ERR(port->typec_retimer),
-> +					     "port%u: failed to get retimer-switch\n",
-> +					     reg);
-> +
-> +		if (port->typec_retimer) {
-> +			ret = devm_add_action_or_reset(dev, itepd_put_retimer,
-> +						       port->typec_retimer);
-> +			if (ret)
-> +				return ret;
-> +		}
-> +
-> +		if (is_of_node(fwnode)) {
-> +			struct device_node *np = to_of_node(fwnode);
-> +
-> +			port->bridge = devm_drm_dp_hpd_bridge_alloc(dev, np);
-> +			if (IS_ERR(port->bridge))
-> +				return dev_err_probe(dev, PTR_ERR(port->bridge),
-> +						     "port%u: failed to allocate HPD bridge\n",
-> +						     reg);
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int itepd_bridges_add(struct itepd *itepd)
-> +{
-> +	struct device *dev = &itepd->client->dev;
-> +	unsigned int i;
-> +	int ret;
-> +
-> +	for (i = 0; i < itepd->num_ports; i++) {
-> +		if (!itepd->ports[i].bridge)
-> +			continue;
-> +
-> +		ret = devm_drm_dp_hpd_bridge_add(dev, itepd->ports[i].bridge);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "port%u: failed to add HPD bridge\n",
-> +					     i);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->  static int itepd_probe(struct i2c_client *client)
->  {
->  	struct device *dev = &client->dev;
-> @@ -286,6 +689,14 @@ static int itepd_probe(struct i2c_client *client)
->  	mutex_init(&itepd->received_lock);
->  	i2c_set_clientdata(client, itepd);
->  
-> +	ret = itepd_ports_init(itepd);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = itepd_bridges_add(itepd);
-> +	if (ret)
-> +		return ret;
-> +
->  	itepd->ucsi = ucsi_create(dev, &ucsi_itepd_ops);
->  	if (IS_ERR(itepd->ucsi))
->  		return dev_err_probe(dev, PTR_ERR(itepd->ucsi),
-> 
-> ---
-> base-commit: fe40296ebc69252949874d636faf805dfc065acd
-> change-id: 20260930-ucsi-itepd-display-b9770e613dac
-> prerequisite-change-id: 20260911-ucsi-itepd-it527x-5b87a61a71bb:v3
-> prerequisite-patch-id: 988219409db7ac096bc9e81e9bcbd4634f73e9ff
-> prerequisite-patch-id: 20e67d80cb6f04a8d9832850d1220d932432552b
-> 
-> Best regards,
-> --  
-> Amber Kao <ite_pd@ite.com.tw>
-
+diff --git a/drivers/s390/crypto/Makefile b/drivers/s390/crypto/Makefile
+index e83c6603c858..20f29184825a 100644
+--- a/drivers/s390/crypto/Makefile
++++ b/drivers/s390/crypto/Makefile
+@@ -34,5 +34,5 @@ pkey-uv-objs := pkey_uv.o
+ obj-$(CONFIG_PKEY_UV) += pkey-uv.o
+ 
+ # adjunct processor matrix
+-vfio_ap-objs := vfio_ap_drv.o vfio_ap_ops.o
++vfio_ap-objs := vfio_ap_drv.o vfio_ap_ops.o vfio_ap_migration.o
+ obj-$(CONFIG_VFIO_AP) += vfio_ap.o
+diff --git a/drivers/s390/crypto/vfio_ap_migration.c b/drivers/s390/crypto/vfio_ap_migration.c
+new file mode 100644
+index 000000000000..f76d151a5cce
+--- /dev/null
++++ b/drivers/s390/crypto/vfio_ap_migration.c
+@@ -0,0 +1,113 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Drives vfio_ap mdev migration.
++ *
++ * Copyright IBM Corp. 2025
++ */
++#include "vfio_ap_private.h"
++
++/* Magic number and version for the vfio_ap_config migration blob */
++#define VFIO_AP_MIG_MAGIC			0x76666170U  /* "vfap" */
++#define VFIO_AP_MIG_VERSION			1U
++
++/**
++ * struct vfio_ap_migration_file
++ *
++ * This object is used for chunk processing of multiple reads and writes of
++ * AP configuration information.
++ *
++ * @filp:	file stream used to read or write AP configuration data
++ * @ap_config:	object used to store AP configuration data between read or write
++ *		calls
++ * @config_sz:	the size (in bytes) of @ap_config
++ */
++struct vfio_ap_migration_file {
++	struct file		*filp;
++	struct vfio_ap_config	*ap_config;
++	unsigned long		config_sz;
++};
++
++/**
++ * struct vfio_ap_migration_data:
++ *
++ * Manages the migration state for the VFIO device that maintains the AP
++ * configuration of the guest being migrated.
++ *
++ * @mig_state:		the current migration state
++ * @resuming_mig_file:	the object used to restore the state of the vfio-ap
++ *			device on the destination host.
++ * @stop_copy_mig_file:	the object used to store the AP configuration of the
++ *			source guest for transfer to the destination host.
++ */
++struct vfio_ap_migration_data {
++	enum vfio_device_mig_state	mig_state;
++	struct vfio_ap_migration_file	resuming_mig_file;
++	struct vfio_ap_migration_file	stop_copy_mig_file;
++};
++
++/**
++ * struct vfio_ap_queue_info - the information for an AP queue
++ *
++ * @data: contains the queue information returned in GR2 from the PQAP(TAPQ)
++ *	  command
++ * @apqn: the APQN of the queue
++ * @reserved: padding to ensure consistent structure size across platforms
++ */
++struct vfio_ap_queue_info {
++	u64 data;
++	u16 apqn;
++	u8  reserved[6];
++};
++
++/**
++ * struct vfio_ap_config:
++ *
++ * Stores the state of a guest's AP configuration.
++ *
++ * VFIO device migration state transition from STOP to STOP_COPY:
++ * -------------------------------------------------------------
++ * When the migration state transitions from STOP to STOP_COPY, the vfio_ap device
++ * driver will open a file stream in read-only mode and return the fd to userspace.
++ * This fd is used during the STOP_COPY phase to read the current state of the
++ * vfio-ap device on the source host. In response, the driver will store the
++ * source guest's AP configuration data in a vfio_ap_config object and copy it to
++ * userspace.
++ *
++ * VFIO device migration state transition from STOP to RESUMING:
++ * ------------------------------------------------------------
++ * When the VFIO migration state transitions from STOP to RESUMING,
++ * the vfio_ap device driver will open a file stream in write-only mode and
++ * return the fd to userspace. This fd is used during the RESUMING phase to
++ * write the source guest's vfio_ap_config data that was read in during the
++ * STOP_COPY phase to the vfio_ap device driver on the destination host. In
++ * response, the device driver will copy the data sent from userspace to a
++ * vfio_ap_config instance which is then used to update the destination guest's
++ * AP configuration.
++ *
++ * Since the source and destination hosts may be running different versions of
++ * the linux kernel, the vfio_ap_config object provides two fields (@magic and
++ * @version) which must be set by the source device driver and verified by the
++ * destination device driver to ensure the migration ABI of the source and
++ * destination hosts are compatible.
++ *
++ * Note: Since a guest's AP configuration could be comprised of a large number of
++ *	 AP queue devices, a vfio_ap_config object should be allocated using
++ *	 kvzalloc.
++ *
++ * @magic:	identifies this as a valid vfio_ap_config migration blob;
++ *		must equal VFIO_AP_MIG_MAGIC
++ * @version:	layout version; must equal VFIO_AP_MIG_VERSION
++ * @num_queues:	the number of queues passed through to the guest
++ * @reserved:	padding to ensure proper alignment of @adm
++ * @adm:	bitmap specifying the control domains in the AP configuration
++ * @qinfo:	an array of vfio_ap_queue_info objects, each specifying the
++ *		queue information for a queue passed through to the guest
++ */
++struct vfio_ap_config {
++	u32				magic;
++	u32				version;
++	u32				num_queues;
++	u8				reserved[4];
++	u64				adm[DIV_ROUND_UP(AP_DOMAINS, 64)];
++	struct vfio_ap_queue_info	qinfo[] __counted_by(num_queues);
++};
+diff --git a/drivers/s390/crypto/vfio_ap_private.h b/drivers/s390/crypto/vfio_ap_private.h
+index 12d7d240addd..172471793e22 100644
+--- a/drivers/s390/crypto/vfio_ap_private.h
++++ b/drivers/s390/crypto/vfio_ap_private.h
+@@ -91,6 +91,9 @@ struct ap_queue_table {
+ 	DECLARE_HASHTABLE(queues, 8);
+ };
+ 
++/* Forward declaration for migration data structure */
++struct vfio_ap_migration_data;
++
+ /**
+  * struct ap_matrix_mdev - Contains the data associated with a matrix mediated
+  *			   device.
+@@ -110,6 +113,7 @@ struct ap_queue_table {
+  * @aqm_add:	bitmap of APQIs added to the host's AP configuration
+  * @adm_add:	bitmap of control domain numbers added to the host's AP
+  *		configuration
++ * @mig_data:  vfio device migration data
+  */
+ struct ap_matrix_mdev {
+ 	struct vfio_device vdev;
+@@ -125,6 +129,7 @@ struct ap_matrix_mdev {
+ 	DECLARE_BITMAP(apm_add, AP_DEVICES);
+ 	DECLARE_BITMAP(aqm_add, AP_DOMAINS);
+ 	DECLARE_BITMAP(adm_add, AP_DOMAINS);
++	struct vfio_ap_migration_data *mig_data;
+ };
+ 
+ /**
 -- 
-heikki
+2.53.0
+
