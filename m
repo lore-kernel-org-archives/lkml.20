@@ -1,131 +1,86 @@
-Received: from mail-oo2-f0.google.com (mail-oo2-f0.google.com [74.125.231.128])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A773AD51F
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 09:23:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C715849B212;
+	Fri,  9 Oct 2026 09:24:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791537839; cv=none; b=mgxHCcoLbqJCmSH554ngYeMxhRjBwMqrBlhsRswBpUWhIiIDVVQy8Q5pg7TBQPkbq/EGMbZMTJwQ1X7KTZoLI0b5FZZTFEC8P+KRb30jgh/2W+0RLPBZ+0XrI4DUmA83hupmm7VByNwGA54I0hmkqnAAb6cDWXu4UE3mYQWnkEo=
+	t=1791537865; cv=none; b=VtzWzP8O6UkCIMZAo3lJKZr0wdmr1A6zNfEgLqoXOl6cicv+T94UFTYDnBBin1UP7fozx/ZbKNb6qfkfQevd1xkfSsexGabKsCR1XR2ztIC5hCPQeTdgK/GQsFE4LyPphnWytTguMb/2TGtdo7ETiUTaNs55sPwVofYcOmIzdMY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791537839; c=relaxed/simple;
-	bh=spHWg758MMa6cVLRm5D/eai/nTQN8STeDzA3Yqqr8xE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gBF8jbOkVf7F1LgUT0CIPrrKcQ5lgbnqxtJFx6NSYKCtuj1baTdrvS41vH6iw64SJaPNDzaU1/+pGvw04SZxS/XE8OHlQZ5Hx1efULkll1AZjiR0KNrAfSlrXkwGD4uemnTpWragzhwI/iPHpctkK4EYbqg8b5peVnwDeAnyHkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fel5Up0m; arc=none smtp.client-ip=74.125.231.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791537865; c=relaxed/simple;
+	bh=/E+eLzY/FKhLYDJMYvoRUmDBdARTxkXW0xYk7worREQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MTTDBCHBjKLurK62fZTGsiZWUxHyAXDiR4Z4BrCbDqNSTExIPScZKwPaQB73f7dirzfy0GdWX9V0xmauuBQvSzw8xG4YGHsx59Zt+ud3Rb7MARkOLc4C+qFFomPLyGBuilWfbEX5O/oDr1V1j51jJJCXSvksrQspapLulvy5phI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=dFq8DigS; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fel5Up0m"
-Received: by mail-oo2-f0.google.com with SMTP id 46e09a7af769-824040a3379so2472890a34.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 02:23:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791537836; x=1792142636; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9WNJzvugKvA82beZN1tuIwkN3WC4xZ3L9Ut+DKu7+48=;
-        b=fel5Up0mw3itnc8xKzRPSDWgFy7hzIVlyVVg36d514Ix/+f2zi/E3u0t1pXNZ40DEH
-         GoW/GYNmwK3GMMi/ahG+ScaZ18awQGQgNJqPuX6qa4+JlzPxBhfTBo/50KlFD1pYxr4h
-         dcFd7gVbKi4dwoi8s/Osmxof48+lhbsMLPZjOV3YO7hVh3G7v5qGdU336m2p71Wco36h
-         FD/vmWudY/zmh6yAAwaRAj7afrKsIrIlYGhN57KR7fER6MiPjMsd5ThbYkkAdWtAfHCy
-         kXwhbnd3FjjzQVzkb+dc1Zzn5X4ou9vJYr7oR7a4MvnqFxMV2g71EwkC+gUlXPLRpAUU
-         GcNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791537836; x=1792142636;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9WNJzvugKvA82beZN1tuIwkN3WC4xZ3L9Ut+DKu7+48=;
-        b=0m6rzl6s2ZgfZyN9UlTZuVNZsWga3/6KF7bTiITKJnPpF54sesDZQJqdMRzbX5OrT8
-         On6Qov0zudPSdtGf53gjeuiLRGwNb0nDlor6bGq116pmWqc4n05JRCn0/fOLkFKU9jQe
-         6lq7eN+atXvJC7gNBTYhwqyAz6fw2JAN356twaQESJns+j2UWhn0kB9JxZpOcKtHnh64
-         NYCyUr9g9ty2A744pA+tqAqPhuq2ILMGpAxGfe+amDtw/bZrLfp0DbgpWIaXlgrvP+wI
-         GTNUfjasGbfOHf2KQw+tO9OREt2aVfQTKQbDq0F5rW0JPjP3PBi2wAMqI/7CAD6YHKB4
-         o0JQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwPb33prU0tiNbOmc8EW1ykW0/4ozO7xYCqKLjVmAsKMWLPa5U8TG6BKpC3KyPeLEVwpiul3/NoDUTG4jg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mEiQrqD/uBytOV/jetURLii4eXHa7rpuXWSQwe4fF+5up0IDq1
-	V9I1AQu7naNNJDYuF/mijBd/T07r56odfpSGgnfPLdt+1cWbl1p5pl05
-X-Gm-Gg: AYBFou2ytU4yN0rHLfQ7/blsKAGE4PzH1evKFGVmhfAYzY8StRiPY35F3RXCMfrrfw/
-	t6IfmUkI9+PVxdaQFt7N7POVuytDbBDnDvIRK2PDv7vKlFTWON9gVNSzizOIwRpyrQScrqjzNTl
-	Big6Texgg/PaNlpR6PLcld5qCAcUFAsz4XJEP7F7343GMh4LmwkG1GIrRFGvAvWaIeUkgFomt7F
-	NyUp9wdGmyXg1/mbXmaIv+k3iSRvBjBbBjGY2AAC10h4yh9hAcfGOKNru/2F0AdZKsvnwI7R1B0
-	OiykhZVnYqgoLxP71GcdTgkNpjUeiTzxQOyxY501qvpV5gCgZIDof8upG1QdnNuYT+fQoxyteDN
-	W/THgYWElzi1nBbrQTDojUmoXBqQevHVYe8HI8grsUOmro+10q9qC0QeZ4N25Tchmqdath+T/36
-	5LuxRfol9NphwCxwSzpITPX1NyjreN4qyrnhbIky0BvvjKziXhqgMfAUEhGuQjodpIIodgUJ3ko
-	OxhOUIy7XXRVXa92k1DnYd5Yv0GnRmlHHnn
-X-Received: by 2002:a05:6830:4c16:b0:7f4:eaa0:1d14 with SMTP id 46e09a7af769-8309610ba27mr974839a34.9.1791537835773;
-        Fri, 09 Oct 2026 02:23:55 -0700 (PDT)
-Received: from localhost.localdomain ([14.22.11.163])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-83039076dc3sm1446136a34.14.2026.10.09.02.23.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 02:23:53 -0700 (PDT)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: David Heidelberg <david@ixit.cz>,
-	Samuel Ortiz <sameo@linux.intel.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] nfc: llcp: fix socket list self-loop and soft lockup on bound connect
-Date: Fri,  9 Oct 2026 17:23:38 +0800
-Message-ID: <20261009092338.3146149-1-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="dFq8DigS"
+Received: from [192.168.0.43] (chfd-03-b2-v4wan-176392-cust229.vm15.cable.virginm.net [82.19.20.230])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2274A24A;
+	Fri,  9 Oct 2026 11:22:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1791537733;
+	bh=/E+eLzY/FKhLYDJMYvoRUmDBdARTxkXW0xYk7worREQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=dFq8DigSoDKT4Nz2pG7ovcmMG6riPyk5TqgQdx62aWtnjo+p70adyAtc9mCRtCKTt
+	 22ZtO1n8vvwBF8skvTKR2UbmxyTBWQYw3EzIE6nYilOAdb4M9NRxokCVyOkj1GmFdR
+	 eQuohCPliAfZu40oXjGd0tEfSYgEJ7o8Rkd/JET0=
+Message-ID: <06479beb-4f83-40d0-85c7-a4545e963cbf@ideasonboard.com>
+Date: Fri, 9 Oct 2026 10:24:08 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] media: ipu-bridge: Add GalaxyCore GC5035 and GC8034
+To: Nicola Fiorillo <nicfio@gmail.com>, linux-media@vger.kernel.org
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>, Hans de Goede <hansg@kernel.org>,
+ linux-kernel@vger.kernel.org
+References: <20261009072733.39877-1-nicfio@gmail.com>
+ <20261009072733.39877-4-nicfio@gmail.com>
+Content-Language: en-US
+From: Dan Scally <dan.scally@ideasonboard.com>
+In-Reply-To: <20261009072733.39877-4-nicfio@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-llcp_sock_connect() rejects LLCP_CONNECTED and LLCP_CONNECTING but
-not LLCP_BOUND, so a bind() followed by connect() links the same
-sk->sk_node into both local->sockets and local->connecting_sockets.
-When the peer answers with CC, nfc_llcp_recv_cc() removes the node
-from the connecting list and re-adds it to the sockets list, where the
-stale bind-time linkage turns the node into a self-loop; every later
-sk_for_each() over local->sockets then spins forever (soft lockup) and
-the socket refcount leaks.
+Morning Nicola
 
-Reject connect() in LLCP_BOUND state like the CONNECTED/CONNECTING
-cases (a bound socket must be closed or unbound before connecting to
-another service).  Failing fast is also the only honest option: by the
-time the error path could restore the binding, connect() had already
-overwritten the bound service name and the unwind destroys the bound
-session regardless.
+On 09/10/2026 08:27, Nicola Fiorillo wrote:
+> Add the GC5035 and GC8034 ACPI HIDs, with the link frequencies the two
+> sensors use with a 19.2 MHz external clock. Both are found on the CHUWI
+> Hi10 X1.
+> 
+> Assisted-by: claude-opus-5-5
+> Signed-off-by: Nicola Fiorillo <nicfio@gmail.com>
+> ---
+>   drivers/media/pci/intel/ipu-bridge.c | 4 ++++
+>   1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+> index 3739c4a2a..851096d7d 100644
+> --- a/drivers/media/pci/intel/ipu-bridge.c
+> +++ b/drivers/media/pci/intel/ipu-bridge.c
+> @@ -59,6 +59,10 @@ static const u16 ipu6_ov5693_ncont_clk[] = {
+>   };
+>   
+>   static const struct ipu_sensor_config ipu_supported_sensors[] = {
+> +	/* GalaxyCore GC5035 */
+> +	IPU_SENSOR_CONFIG("GCTI5035", 1, 422400000),
+> +	/* GalaxyCore GC8034 */
+> +	IPU_SENSOR_CONFIG("GCTI8034", 1, 268800000),
 
-This vulnerability was discovered by Tencent CodeBuddy Security.
+These entries look ok:
 
-Cc: stable@vger.kernel.org
-Fixes: a69f32af86e3 ("NFC: Socket linked list")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
----
- net/nfc/llcp_sock.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
 
-diff --git a/net/nfc/llcp_sock.c b/net/nfc/llcp_sock.c
-index 1e5ee4bcde684..33afd85f931a1 100644
---- a/net/nfc/llcp_sock.c
-+++ b/net/nfc/llcp_sock.c
-@@ -714,6 +714,15 @@
- 		ret = -EINPROGRESS;
- 		goto error;
- 	}
-+	/* A bound socket is already linked into local->sockets; letting
-+	 * it connect() would link the same sk->sk_node into
-+	 * local->connecting_sockets too, and the CC handler's re-add turns
-+	 * it into a self-loop.  Reject like CONNECTED/CONNECTING.
-+	 */
-+	if (sk->sk_state == LLCP_BOUND) {
-+		ret = -EISCONN;
-+		goto error;
-+	}
+>   	/* Himax HM1092 */
+>   	IPU_SENSOR_CONFIG("HIMX1092", 2, 180000000, 180480000),
+>   	/* Himax HM11B1 */
 
- 	dev = nfc_get_device(addr->dev_idx);
- 	if (dev == NULL) {
---
-2.43.7
