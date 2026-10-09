@@ -1,153 +1,176 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30AA94E2F1B;
-	Fri,  9 Oct 2026 14:29:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C4132BE7CD
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:31:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791556180; cv=none; b=DHyJb9drIrQDe36OpaJlZos0NZQ5VImQ3cm85lqzojKP8IFwYR0+9X/fKPLSIGs6HLm7O4fYo0Xq9XqItRvqMAxd+n698yXCIHMwYtHMiYyc4EOSpk8ZIQHkQOZSZstriNLQ/xfxFOlkeR66Q5xhNGZDCKUJxsppqPf0e9vu4Q4=
+	t=1791556308; cv=none; b=oTBbnMzE4E4gvOojXg0HWcRnZTz5lC3JYhHsHxP1dFJJx/z9BDypapYM8urkPzNMu+7oCUjCNe06gjgNiWja3t4JBB0ys1ai9I/j3ctGX6seqOaz0kgNt6O/hdsDSLpZKPXoPKwERKvzWnN7poUSLydQAsho007Oc9zFM0X3giw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791556180; c=relaxed/simple;
-	bh=CsNEcSseIDsr0m2RL/k2dyWm7uTwoNCldkmTt/+nYn4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ORnjG6mgTfNDYp9jJekwTxlGPAgHl0qSecSN0aSsfPtZzqZGJ/loV37QLeOr2HksD+2LU75nFFaEdEzhgt5Irh7Ra1kFRGfAYtNtnzdS1NoZGDq7FsjAdYfPOP49+C0d7zi1X/hSG0qn9SYD0NA4BjbAtfAVDEzpOzjDf4ZOXfA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 2DE7021B8F;
-	Fri,  9 Oct 2026 14:29:35 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
-	none
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0FE9C1368B;
-	Fri,  9 Oct 2026 14:29:34 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id A+GNNE36yGrMIwAAD6G6ig
-	(envelope-from <fmancera@suse.de>); Fri, 09 Oct 2026 14:29:34 +0000
-Message-ID: <e2beb9bc-7b92-4ae4-8190-c99bee8de1ca@suse.de>
-Date: Fri, 9 Oct 2026 16:28:31 +0200
+	s=arc-20240116; t=1791556308; c=relaxed/simple;
+	bh=qez0UEh6M+IFb72yqVOvMsLU/1AHABWlHDztBFNWu14=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UqRRSE13NHRswpKlc61t+zPF81cmQ/sY20YRzJMsFH69LB00Kjaq1uzoBErW3cRCCeyOGxCIwne0GQR2/Z8HFWs66nsgdLzxAfwhUzTcPyX5QvLEWpGNE9Ia2uCO+zJ9S1lXC3CDUeBhTQeowk6sW6y4s7ssceNlQWRAfDEQ1qU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RGLvdkZP; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RGLvdkZP"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ab60ff4273so385660a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 07:31:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791556306; x=1792161106; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Oa9Plq0/6IqSumf3BKrxs90q5c+V2qXVjg7vmpPOXsI=;
+        b=RGLvdkZP1ngmhqx8LZzn6YBj5zyjBSf1WAXG3H36F6dZxbJW7ZwpbugAKdfMQvol6r
+         y1bgUKq7voF39llUtiaK31vVXuHlIdvwDM/Iizf/EgdLJomJ8a9KUZEVCFW+QTO5KxiU
+         +NJ4+9vJHB5c3E5TGdtsABbgzJN9HqjEWKXwtOcfzBcR3AAYM66ULEf/iC5NS0DYxzvE
+         NrEJet0nN9iQC0mDevH60o7PlvufZYnv4M6lmPn4sodtuLR1CKxJ5jX8QHqSbrzZjjLZ
+         yq/u3v6vPHSjo3m4w2//dt9Rsc+bgLD2mg82uyXac8TFIKzahX/qYZIUt8/ghq+HTiBi
+         MvxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791556306; x=1792161106;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Oa9Plq0/6IqSumf3BKrxs90q5c+V2qXVjg7vmpPOXsI=;
+        b=PK2T/qmHataIM6BbBZhNcL1oHJwTp8BsoAoGXfseXB78kj4kxl+Dba86nH8RwU/FMN
+         SWwUuaHsvZMr6wB0goYE/8R+GhxaNM2823HACVsn2rROk9CDfdSltd9a8GwzvFexcE2P
+         AEU4UbLF+yEeTileRH8JqoxCam+PnmlML1Mp615kI6gK+6pd45AOrBsV1s33GN9wDL0D
+         3pmdYo8JNxzbTqMc/Jdf6uPeeWjOBxDOnTXz3VGaVLg82lh7lWIGRksiFYHEWsvnBzsI
+         H4u/SWpxql9h4efdS0BkCxVR2tNTM4KZqY5Obs8FQ8CMSl57Hzk+xpJPMT8XjPUUIYBv
+         Rhbw==
+X-Forwarded-Encrypted: i=1; AKwUvBxSlKLGQFk1qfZPKRh++C25xD4amYhFQPlJtuYQoXJHMltNAjRIfHJAcRVqUBEEYcHMiS8wycclv044UaY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLN85CcZdcru4Qn7tzmz9Nmws/+IJMmDBTmaJby7963hiTce/Mn
+	eSccAeJs9CTatUad4kphiRj5wMo8eItdl9Q/zO2JXM7wlk1oPjlvjh9c
+X-Gm-Gg: AYBFou3iCx9xUPOn8ETiYesUzyXozaLwsCy4N3b51+b4CMmgI4wV52IvfIHOfDScjdS
+	NEE3BV4Uxq26KvgTsjpbEhwxD2rcH86bT8+bugZwckE25F6nTWmmnFfdWUmoHfEooIiR5mHWG3s
+	cgoQqA2k6weqooMOHer1LOAYH9SW2baKYqsIwnbBvhtr8jLYT9paZpzkTachTwrb5IUz2KO9N6M
+	IC33fK14MteyCRu4uZf7rYAzVyl/dVieTy4heT//OQzwG4Meel006+BDApTYPdDOhDjZcXqk6lT
+	BFFBpOiCcDLLAlpwovJWAWYzOou+1a5xhIdeJ4z4ISzl+PY4DE+5jlUCNxd22lVBqnqSpGPWXe7
+	bUYm0q0QNNwMH0lR9x4/gTj6X8/umVHRWdO3RFId6iSlg8WuICv0offmq2PVFgE1WSLFHbyRjhe
+	0j6RbwE9jsQh57fSXmFUz9AGrH7sbvcZGCPCrLmzahdU1kaxUrbE8kI+eXD46N2Y1wJ3mPjutbW
+	d+R1B9cBfoWD77rgbmatw==
+X-Received: by 2002:a17:90b:3143:b0:3a6:e99b:bbdb with SMTP id 98e67ed59e1d1-3ab3ac718f2mr2195103a91.50.1791556306130;
+        Fri, 09 Oct 2026 07:31:46 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36f4737esm3907735a91.7.2026.10.09.07.31.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 07:31:45 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Cc: ntfs3@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Zhan Xusheng <zhanxusheng@xiaomi.com>
+Subject: [PATCH] fs/ntfs3: widen wnd_bitmap::free_bits to u32
+Date: Fri,  9 Oct 2026 22:31:38 +0800
+Message-ID: <20261009143138.3197828-1-zhanxusheng@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH nf] netfilter: ip6t_SYNPROXY: check TCP header before
- verifying checksum
-To: Palla Raghunath <raghunathpalla.0209@gmail.com>,
- Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Jesper Dangaard Brouer <hawk@kernel.org>, Patrick McHardy <kaber@trash.net>
-Cc: Shuah Khan <shuah@kernel.org>, Brigham Campbell <me@brighamcampbell.com>,
- linux-kernel-mentees@lists.linux.dev, linux-kernel@vger.kernel.org,
- syzbot+5a8667f002726fc59f88@syzkaller.appspotmail.com,
- Phil Sutter <phil@nwl.cc>, Simon Horman <horms@kernel.org>,
- netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
- netdev@vger.kernel.org
-References: <20260926204519.43402-1-raghunathpalla.0209@gmail.com>
-Content-Language: en-US
-From: Fernando Fernandez Mancera <fmancera@suse.de>
-In-Reply-To: <20260926204519.43402-1-raghunathpalla.0209@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Pre-Result: action=no action;
-	module=Unknown lua;
-	unknown reason
-X-Spamd-Bar: /
-X-Rspamd-Queue-Id: 2DE7021B8F
-X-Rspamd-Pre-Result: action=no action;
-	module=Unknown lua;
-	unknown reason
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: 0.00
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [0.00 / 50.00];
-	TAGGED_RCPT(0.00)[5a8667f002726fc59f88]
+Content-Transfer-Encoding: 8bit
 
-On 9/26/26 10:45 PM, Palla Raghunath wrote:
-> synproxy_tg6() passes par->thoff to nf_ip6_checksum() before it has
-> checked that a TCP header is actually present at that offset.
-> 
-> par->thoff comes from ipv6_find_hdr(), called by ip6_packet_match()
-> with target -1. ipv6_find_hdr() only checks that each extension header's
-> first two bytes are in the skb. It then adds that header's declared
-> length to the offset and stops at the first non-extension header, so it
-> can return an offset past the end of the packet. With
-> CHECKSUM_NONE, nf_ip6_checksum() calls skb_checksum(skb, 0, thoff, 0).
-> When thoff is larger than skb->len, the BUG_ON(len) in skb_checksum()
-> fires:
-> 
->    kernel BUG at net/core/skbuff.c:3606!
->    RIP: 0010:skb_checksum+0x8b2/0x8c0
->    Call Trace:
->     nf_ip6_checksum+0x1bd/0x320 net/netfilter/utils.c:89
->     synproxy_tg6+0x1a4/0x6e0 net/ipv6/netfilter/ip6t_SYNPROXY.c:21
->     ip6t_do_table+0xd37/0x15b0 net/ipv6/netfilter/ip6_tables.c:366
->     ...
-> 
-> In the syzbot reproducer, a 60-byte packet carries an AH header, then two
-> hop-by-hop headers. The last hop-by-hop header has nexthdr TCP and
-> hdrlen 167, so thoff is 1400.
-> 
-> Fetch the TCP header with skb_header_pointer() first, as
-> nf_reject_ip6_tcphdr_get() already does. This drops packets that do not
-> contain a full TCP header at thoff before the checksum is computed.
-> 
-> Fixes: 4ad362282cb4 ("netfilter: add IPv6 SYNPROXY target")
-> Reported-by: syzbot+5a8667f002726fc59f88@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=5a8667f002726fc59f88
-> Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
-> ---
+free_bits[] holds, per bitmap window, the number of free bits in that
+window.  A window is one block, so the value ranges over
+[0, 8 * sb->s_blocksize], but the array element type is u16.
 
-Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
+ntfs_init_from_boot() picks the block size as
 
-The nftables synproxy eval path is also affected but I think it would be 
-better to keep it in a separate patch in order to facilitate 
-backporting. The issue were introduced at different times and nftables 
-synproxy expression is "recent" compared to the iptables target.
+	sb_set_blocksize(sb, min_t(u32, sbi->cluster_size, PAGE_SIZE));
 
-I am sending a patch for the nftables expression and will CC you in case 
-you can test it too.
+and ntfs3 accepts cluster sizes up to 2 MB, as true_sectors_per_clst()
+and the comment above it describe.  Nothing rejects a block size above
+4096.  So on a kernel with PAGE_SIZE >= 8192 (arm64 with 16K or 64K
+pages, powerpc with 64K pages) mounting a volume whose cluster size is
+at least 8192, the block size is at least 8192 and a window holds at
+least 65536 bits, one more than u16 can represent.
 
-Thanks!
+A completely free window therefore stores 0, and five sites read 0 as
+"this window has no free bits":
 
->   net/ipv6/netfilter/ip6t_SYNPROXY.c | 9 ++++++---
->   1 file changed, 6 insertions(+), 3 deletions(-)
-> 
-> diff --git a/net/ipv6/netfilter/ip6t_SYNPROXY.c b/net/ipv6/netfilter/ip6t_SYNPROXY.c
-> index d51d0c3e5fe9..04db1f82420b 100644
-> --- a/net/ipv6/netfilter/ip6t_SYNPROXY.c
-> +++ b/net/ipv6/netfilter/ip6t_SYNPROXY.c
-> @@ -18,13 +18,16 @@ synproxy_tg6(struct sk_buff *skb, const struct xt_action_param *par)
->   	struct synproxy_options opts = {};
->   	struct tcphdr *th, _th;
->   
-> -	if (nf_ip6_checksum(skb, xt_hooknum(par), par->thoff, IPPROTO_TCP))
-> -		return NF_DROP;
-> -
-> +	/* par->thoff may point past the end of the packet; make sure a
-> +	 * full TCP header is present before checksumming up to it.
-> +	 */
->   	th = skb_header_pointer(skb, par->thoff, sizeof(_th), &_th);
->   	if (th == NULL)
->   		return NF_DROP;
->   
-> +	if (nf_ip6_checksum(skb, xt_hooknum(par), par->thoff, IPPROTO_TCP))
-> +		return NF_DROP;
-> +
->   	if (!synproxy_parse_options(skb, par->thoff, th, &opts))
->   		return NF_DROP;
->   
+  bitmap.c:533   wnd_rescan()    treats it as all ones and skips it
+  bitmap.c:950   wnd_is_used()   skips the on-disk check, returns true
+  bitmap.c:1155  wnd_find()      skips the window when looking for space
+  bitmap.c:1243  wnd_find()      the "window is empty" path never fires
+  bitmap.c:1450  ntfs_trim_fs()  skips the window when discarding
+
+The free space in such a window is then never allocated and never
+trimmed, while total_zeroes, which is size_t, still counts it, so statfs
+advertises space that cannot be used.  wnd_is_used() reporting a free
+range as used also costs mark_as_free_ex() its per-cluster check and
+ntfs_mark_rec_free() its already-free detection.
+
+bits_last, declared two lines below free_bits, is u32 and holds a value
+from the same domain.  Make free_bits u32 as well.  The array grows from
+2 to 4 bytes per block of bitmap; for a 1 TB volume with 4K clusters
+that is 32 KB instead of 16 KB.
+
+Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Fixes: 4534a70b7056 ("fs/ntfs3: Add headers and misc files")
+---
+ fs/ntfs3/bitmap.c  | 10 +++++-----
+ fs/ntfs3/ntfs_fs.h |  2 +-
+ 2 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/fs/ntfs3/bitmap.c b/fs/ntfs3/bitmap.c
+index 60b362f388d96..41ea3fad99af0 100644
+--- a/fs/ntfs3/bitmap.c
++++ b/fs/ntfs3/bitmap.c
+@@ -677,7 +677,7 @@ int wnd_init(struct wnd_bitmap *wnd, struct super_block *sb, size_t nbits)
+ 		wnd->bits_last = wbits;
+ 
+ 	wnd->free_bits =
+-		kvmalloc_array(wnd->nwnd, sizeof(u16), GFP_KERNEL | __GFP_ZERO);
++		kvmalloc_array(wnd->nwnd, sizeof(u32), GFP_KERNEL | __GFP_ZERO);
+ 
+ 	if (!wnd->free_bits)
+ 		return -ENOMEM;
+@@ -1330,7 +1330,7 @@ int wnd_extend(struct wnd_bitmap *wnd, size_t new_bits)
+ 	u32 b0, new_last;
+ 	size_t bits, iw, new_wnd;
+ 	size_t old_bits = wnd->nbits;
+-	u16 *new_free;
++	u32 *new_free;
+ 
+ 	if (new_bits <= old_bits)
+ 		return -EINVAL;
+@@ -1342,13 +1342,13 @@ int wnd_extend(struct wnd_bitmap *wnd, size_t new_bits)
+ 		new_last = wbits;
+ 
+ 	if (new_wnd != wnd->nwnd) {
+-		new_free = kmalloc_array(new_wnd, sizeof(u16), GFP_NOFS);
++		new_free = kmalloc_array(new_wnd, sizeof(u32), GFP_NOFS);
+ 		if (!new_free)
+ 			return -ENOMEM;
+ 
+-		memcpy(new_free, wnd->free_bits, wnd->nwnd * sizeof(short));
++		memcpy(new_free, wnd->free_bits, wnd->nwnd * sizeof(u32));
+ 		memset(new_free + wnd->nwnd, 0,
+-		       (new_wnd - wnd->nwnd) * sizeof(short));
++		       (new_wnd - wnd->nwnd) * sizeof(u32));
+ 		kvfree(wnd->free_bits);
+ 		wnd->free_bits = new_free;
+ 	}
+diff --git a/fs/ntfs3/ntfs_fs.h b/fs/ntfs3/ntfs_fs.h
+index 5811d89d67b39..6f05b1bbb565a 100644
+--- a/fs/ntfs3/ntfs_fs.h
++++ b/fs/ntfs3/ntfs_fs.h
+@@ -152,7 +152,7 @@ struct wnd_bitmap {
+ 	size_t nbits;
+ 
+ 	size_t total_zeroes; // Total number of free bits.
+-	u16 *free_bits; // Free bits in each window.
++	u32 *free_bits; // Free bits in each window.
+ 	size_t nwnd;
+ 	u32 bits_last; // Bits in last window.
+ 
+
+base-commit: 6c377d19d4a5116d9bec5203aa3c6c11523e7898
+-- 
+2.43.0
 
