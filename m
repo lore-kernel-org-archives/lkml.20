@@ -1,132 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A316C49738E;
-	Fri,  9 Oct 2026 09:15:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71B69499F20
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 09:15:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791537307; cv=none; b=L80NUKe4/Yh5Qvi9oksNvV1Qbf1cacNr+RyTOZrJEZ5mJ8NnwQJeDpd+xudoCyBOzSMIV5g+bFXWdkjLdXsX0DQpr2pKA9T1u/OlCtDQ4ao1CIYAtCzODBtS5F+08UghwR8kgmwrY9/bcwVmioOmJahUAaXunsCf4dBV52zT0Lk=
+	t=1791537345; cv=none; b=EBI5JfrFc76Qhi9Z+x/wDDOLUbRuobgxKlvLqGa4/w1qU3y0Lc3OU9ga2aE1L55VY8AEn1o+oi6vi4ZJUyG1QosW79uBmgdrkgqUWd/nnXDO6aNFK/RUGB1fJYUn+VUZCvazQJoZEaIrBuKOy+RyYGbgu/GZqQ0Z8WOg4c1hers=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791537307; c=relaxed/simple;
-	bh=rkWOojI+ebnA3Fv4IWTizk0VlXUsQPN3hEzpRvmmX8o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZGkQ1VG9UaLaLYqSwZ6ZPz5ZAScrneLhEzPs6DYnRFV0Yvmo65pQm6pzvAnN7sRj7irVrNl2VD7R+ZZTbfYj/QfyQ0qXfX52DKd0qgUhvAxpkDDNdfLIXUseq8R0gEIbGC2L5R7VZvt6St/2pQ0+NjnSr6OmZpZstio1gF9pNX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d1iSR24M; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791537345; c=relaxed/simple;
+	bh=6jy06vBwY/SUVGgvnO6yssV3juVib5+IYyAAHVzm2pA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=W5iNi6tLPuSWleaPOC2puMSpeeGekdoKyx43bVXjJCOq9WfvKH/MwfcEGGC7FsjzEaBswHWS0PDd47XXdHPWs8UokYma1mB94wUisQkfN06PIczXFmI00iBUq8ClpNfmrE8iyI9vUCBCKONKmhchZTdGLWkImDgqWtJqbSTlSKM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=ny7Jj7A7; arc=none smtp.client-ip=115.124.30.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d1iSR24M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48A801F00893;
-	Fri,  9 Oct 2026 09:15:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791537304;
-	bh=3NN/hoihGlgYOQ3g+HiDIFNp0hvlK2XY1wVVhjZreZc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=d1iSR24MZdZWLG3gs/fGUx1COZO0uDBytxmc7byfdGwfxukLFU1e7EbY2cNKo7da9
-	 wJV/BYTBVVqPrNK1dqQtr1aMOkEfw+0EXwnbCUht7gHZfOzKGGdvcujEsZ5wzeT1FO
-	 hMkI0NSd3ktIUnGjTbD4HS1Uua/oS52qIxUy5U3Dx9I7NVAvFOonQ1BC8vwyucZmr5
-	 TPIszck4cljr0ATfW6EYHdNQmEl6iHJOOTRFJfGpObmA4aevizSLnjzW//xNXnnBE+
-	 oGa21Vz071e6QkRUnWX9iWa1v3xnR5qTFgN5OBBGLIPKaqi3fIsGYN4pCorq7+szF9
-	 kUKFO6ON9BRag==
-Date: Fri, 9 Oct 2026 11:15:00 +0200
-From: Vinod Koul <vkoul@kernel.org>
-To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
-Cc: Frank Li <Frank.li@oss.nxp.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <noname.nuno@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
-	linux-sound@vger.kernel.org, linux-spi@vger.kernel.org,
-	Frank Li <Frank.Li@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-	=?iso-8859-1?Q?Am=E9lie?= Delaunay <amelie.delaunay@foss.st.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v4 01/10] dmaengine: Move enum dma_slave_buswidth to a
- new header
-Message-ID: <asiwlNB2GMhmBlk8@parshuram>
-References: <aq18_TMNs4EJzgZO@parshuram>
- <arDtEB0na9DxDWAS@nsa>
- <arFXc0LqEpgWSS6m@SMW015318>
- <ar-Il2qP_Qms3Qw1@nsa>
- <ar-13p3a7ENGfMOF@SMW015318>
- <asEWwIfO0LB27wj9@ashevche-desk.local>
- <asGk4fj_HQ5HupB4@SMW015318>
- <6f5dd1c1622adbaf0174a949ca91cb11872087ff.camel@gmail.com>
- <asSqVEHe8EjkbcwW@SMW015318>
- <asTDTxneqrpFlZi-@nsa>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="ny7Jj7A7"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1791537332; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=GpVp6KFbLfTY1qHfx9ShcR45B4/eI143ESKm+3UNOkU=;
+	b=ny7Jj7A7DgtNc6LzzhfDTWnLQpcJymDHpUAJuunTc+90V31ZVM6Deb2tpVbTwo8Lu3AUAF92n5FLvdDVcMIH7HCPNAUSNxPZCDWweAubIHPRVZprbaUzDTCmGulSnKrMoR0L+z1K/G9liBZJWiXOf+vsq88pWkk+N4d60LKJxUk=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0XCT-3T7_1791537331;
+Received: from 30.221.148.47(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XCT-3T7_1791537331 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 09 Oct 2026 17:15:31 +0800
+Message-ID: <df6242cb-9bf4-4387-8558-bc5c6a6e042e@linux.alibaba.com>
+Date: Fri, 9 Oct 2026 17:15:29 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <asTDTxneqrpFlZi-@nsa>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ocfs2/heartbeat: Unlink live slots when their node is
+ missing
+To: Cen Zhang <zzzccc427@gmail.com>, akpm@linux-foundation.org
+Cc: mark@fasheh.com, jlbec@evilplan.org, ericterminal@gmail.com,
+ kees@kernel.org, ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ baijiaju1990@gmail.com, jjzuming@gmail.com
+References: <pm-ocfs2-objects-candidate-0058-v2-9446113c2b16c817c538@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <pm-ocfs2-objects-candidate-0058-v2-9446113c2b16c817c538@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 06-10-26, 10:47, Nuno Sá wrote:
-> On Tue, Oct 06, 2026 at 02:59:16AM -0500, Frank Li wrote:
-> > On Tue, Oct 06, 2026 at 07:36:06AM +0100, Nuno Sá wrote:
-> > > On Sat, 2026-10-03 at 19:59 -0500, Frank Li wrote:
-> > ...
-> > > >
-> > > > There are already include bitmap.h, and use
-> > > >
-> > > > typedef struct { DECLARE_BITMAP(bits, DMA_TX_TYPE_END); } dma_cap_mask_t;
-> > > >
-> > > > Suppose all DMA Engine consumer will use it to do some check. So I think
-> > > > needn't split it as indivial version.
-> > >
-> > > Are we sure all consumers are making use of dma_cap_mask?
-> > 
-> > Some legacy user check it. Supposed needn't check it after get channel.
-> > I am working new API to check it to avoid direct access it.
-> > 
-> > > In fact the only function
-> > > depending on bitmap.h is the one clearing the cap_mask. But stepping a bit back,
-> > > bitmap.h was the original proposal from Andy so the idea was to have the new
-> > > widthmask (this one indeed heavily uses bitmaps) already as a split. And with it,
-> > > came types.h given that the DMA enum needs to be used from both consumers and
-> > > providers.
-> > 
-> > Supposed provider is super set, which can include consume part.
+
+
+On 10/9/26 1:21 PM, Cen Zhang wrote:
+> o2hb_shutdown_slot() returns immediately when its node is no longer
+> in the configfs registry. A slot can still be linked in o2hb_live_slots
+> when that lookup fails. Region teardown or startup-error cleanup then
+> frees the slot array without removing its embedded list member.
 > 
-> Yes but also look the below note on the consumers.
+> With the same peer live in another region, the next list update can
+> follow a predecessor into the freed array. Reusing the node number can
+> also make a later insertion encounter that stale member.
 > 
-> > 
-> > > And note that consumers might want the header without actually needing the
-> > > bus width API so the separation kind of made sense to me.
-> > > Then, as a follow up the idea was to also split the cap_mask API into it's own header
-> > > with a backing include in the main consumer header.
-> > >
-> > > So if we all agree with the above, I guess the current series does not really has to
-> > > change. I see 3 ways:
-> > >
-> > > * Just go back some versions before and have all of it in dmaengine.h
-> > > * The current form
-> > > * s/engine/consumer on the current proposal include/linux/dma/engine/*
-> > 
-> > I think we can put include/linux/dmaengine.h now. The split/move need more
-> > work. I already sent some patches.
-> > 
+> Always remove the slot under o2hb_live_lock, even when node lookup
+> fails. Preserve aggregate membership accounting and the last-region
+> DOWN callback: the existing callback interface explicitly permits a
+> NULL node for DOWN events. Only drop the node reference when lookup
+> returned one. This closes both normal release and startup-abort paths
+> without changing the publication or callback locking protocol.
 > 
-> Ok, to be sure we're 100% on the same side, plan for now is to add the
-> bus width API directly in include/linux/dmaengine.h?
+> Also require a configured node before admitting a new live slot in
+> o2hb_check_slot(). The early live-bitmap check is not held through
+> admission: the last live slot in another region can be removed in
+> between. Without a node, admission can then queue an UP event with
+> a NULL argument and hit the event helper's BUG_ON. Existing live
+> slots can still leave and generate NULL-node DOWN events.
+> 
+> A controlled probe-instrumented test reproduced this while stopping
+> one of two regions after removing the peer from configfs. Its KASAN
+> report includes:
+> 
+>   BUG: KASAN: slab-use-after-free in __list_del_entry_valid_or_report+0x1e0/0x210
+>   Read of size 8 at addr ffff888106a4ac60 by task o2hb-pmbd0058_b/497
+>   Call Trace:
+>    <TASK>
+>    dump_stack_lvl+0x93/0xd0
+>    print_report+0xce/0x630
+>    kasan_report+0xe0/0x110
+>    __list_del_entry_valid_or_report+0x1e0/0x210
+>    o2hb_do_disk_heartbeat+0x1591/0x2c50
+>    o2hb_thread+0x1ed/0xe70
+>    kthread+0x351/0x460
+>    ret_from_fork+0x659/0x940
+>    ret_from_fork_asm+0x1a/0x30
+>    </TASK>
+>   Allocated by task 491:
+>    kasan_save_stack+0x33/0x60
+>    kasan_save_track+0x14/0x30
+>    __kasan_kmalloc+0xaa/0xb0
+>    __kmalloc_noprof+0x2de/0x780
+>    o2hb_region_dev_store+0x7c2/0x1b60
+>    configfs_write_iter+0x2f9/0x4f0
+>    vfs_write+0x639/0x1010
+>    ksys_write+0x111/0x200
+>    do_syscall_64+0x114/0x620
+>    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>   Freed by task 491:
+>    kasan_save_stack+0x33/0x60
+>    kasan_save_track+0x14/0x30
+>    kasan_save_free_info+0x3b/0x60
+>    __kasan_slab_free+0x5f/0x80
+>    kfree+0x308/0x580
+>    o2hb_unmap_slot_data+0x1db/0x330
+>    o2hb_region_release+0x14b/0x4f0
+>    config_item_cleanup+0x14b/0x230
+>    config_item_put+0x79/0x90
+>    configfs_rmdir+0x58a/0x910
+>    vfs_rmdir+0x2e8/0x820
+>    filename_rmdir+0x3b1/0x520
+>    __x64_sys_rmdir+0x4b/0x70
+>    do_syscall_64+0x114/0x620
+>    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+> Fixes: a7f6a5fb4bde ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+> Assisted-by: LLM
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 
-Agreed, we have two headers one global: include/linux/dmaengine.h which
-will be moved as a consumer API Header and local header
-drivers/dma/dmaengine.h which will be provider header (i am okay to
-rename as such as well).
+Looks fine.
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-So this one is used by both so lets keep in global header.
+> ---
+> Changes in v2:
+> - Require a configured node before admitting a live slot in
+>   o2hb_check_slot().
+> 
+> Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0058-v1-177573785904d0ea43c7@gmail.com
+> 
+>  fs/ocfs2/cluster/heartbeat.c | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
+> 
+> diff --git a/fs/ocfs2/cluster/heartbeat.c b/fs/ocfs2/cluster/heartbeat.c
+> index 1c3def99bb0765deb828ad6415fde31ed9316002..3f3f6fc6b1316e7c996681fc50fde84d183d117d 100644
+> --- a/fs/ocfs2/cluster/heartbeat.c
+> +++ b/fs/ocfs2/cluster/heartbeat.c
+> @@ -880,8 +880,11 @@ static void o2hb_shutdown_slot(struct o2hb_disk_slot *slot)
+>  	int queued = 0;
+>  
+>  	node = o2nm_get_node_by_num(slot->ds_node_num);
+> -	if (!node)
+> -		return;
+> +	/*
+> +	 * The node may have been removed from the node table while this
+> +	 * region's slot is still linked.  The list member must still be
+> +	 * removed before the region releases its slot array.
+> +	 */
+>  
+>  	spin_lock(&o2hb_live_lock);
+>  	if (!list_empty(&slot->ds_live_item)) {
+> @@ -903,7 +906,8 @@ static void o2hb_shutdown_slot(struct o2hb_disk_slot *slot)
+>  	if (queued)
+>  		o2hb_run_event_list(&event);
+>  
+> -	o2nm_node_put(node);
+> +	if (node)
+> +		o2nm_node_put(node);
+>  }
+>  
+>  static void o2hb_set_quorum_device(struct o2hb_region *reg)
+> @@ -1038,7 +1042,7 @@ static int o2hb_check_slot(struct o2hb_region *reg,
+>  fire_callbacks:
+>  	/* dead nodes only come to life after some number of
+>  	 * changes at any time during their dead time */
+> -	if (list_empty(&slot->ds_live_item) &&
+> +	if (node && list_empty(&slot->ds_live_item) &&
+>  	    slot->ds_changed_samples >= O2HB_LIVE_THRESHOLD) {
+>  		mlog(ML_HEARTBEAT, "Node %d (id 0x%llx) joined my region\n",
+>  		     slot->ds_node_num, (long long)slot->ds_last_generation);
 
-Thanks
--- 
-~Vinod
