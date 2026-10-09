@@ -1,90 +1,94 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F77D2E738B;
-	Fri,  9 Oct 2026 01:13:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBE18233946;
+	Fri,  9 Oct 2026 01:13:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791508403; cv=none; b=W2LfpjzrRu3aEZriKRSd85oMRSOp0kOP6K5ArCb/oKEALfNayh2Phi+IiCGrXJIHNyauXlxvp8gLbeagoClg5o3/0L1tlqQCeuXNpzMYLL5JWuPqsJv3TF6IagLipgeIkfPrXBLthP158Wz5HoHr8CFPqUnr0hcFNgAZGH46IxQ=
+	t=1791508437; cv=none; b=E8yDWn4geTsB+ozQf72jnXbVt6+LlIP5KCLXy1asgvDHJITFfZQ7qGXQL0n8Z8mzFxx0mcqkQGqIX2gFla0jcK2fGGYgrwLombGd61I9h7KLqKGAdLHaWfdzKXc+O5goYcCbh0X5wMbafrJOzmrOsE+O/LkHc56SyTDjRFA8nYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791508403; c=relaxed/simple;
-	bh=r9anZZ9RVSXqBbTuq+fpzVX2SmzUPjuecPmKS9s7dWo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uygEDQOjuMZUVJ2hdYxe1FRqUObOTvsUiOmg537z4AP3ObS4wILdSRv9Lhu/22+JXSraItrW30BnYw7uVFXim1CYTEt/4bIHCBhAhwndoHHUILbYWzhtc3+/pcieVQ6EXAr74nUB1LfKXOwOhfAyUNq9zLX4fWmW9uTK0I7wrqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=oChc2+sH; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1791508437; c=relaxed/simple;
+	bh=PKxNHmo3b9AmapEP9pe8XgasIUrq/xzacG/+7RgQ86Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EdQa/ukhqvxlQRVksHR4BoAE7TX3uEKo0IDynrXrAmeqDhWmU2vDpi1wDQXnIQozRKGntPXtDDo5bEBC2/X9hVRSlxF88I54UVbvF6eWPjBltBrrxmu9IeWIl77hgHbA9xYn2d2VAMlGGqwLS2OsHOTfmfwneqSkPFU8KR1gRxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=PdPlUoWI; arc=none smtp.client-ip=80.86.107.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="oChc2+sH"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=/FGRBMXMbhN2koUceaUJ7F1sDiwsDaXu8C6c3BEK1xk=; b=oChc2+sHr4SjEX6L+QNaUyi/sB
-	exrUl3UdyvAIDx0wvrn7SUqVwFfe/R1X6dMdFbDrvrRP+zvgpgobLIzwIpjcH/rvkvjDdU2T3kr2N
-	gTFXSTMyo7qSiCmcm7ao8l2J5n7aPvIV8VpTLQkmh+EupQx9TEfOZ8C71xBBcSJL4W78=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xEzAe-009i9m-BC; Fri, 09 Oct 2026 03:13:12 +0200
-Date: Fri, 9 Oct 2026 03:13:12 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Magnus Lindholm <linmag7@gmail.com>
-Cc: pavan.chebbi@broadcom.com, mchan@broadcom.com, andrew+netdev@lunn.ch,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	netdev@vger.kernel.org, sparclinux@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="PdPlUoWI"
+Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
+	by mail.mindbit.ro (Postfix) with ESMTPSA id E169CD19EA;
+	Fri,  9 Oct 2026 04:13:44 +0300 (EEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro E169CD19EA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
+	s=default; t=1791508425;
+	bh=QhWTydXEXnoezSmu80r2yjYE4XuPsJ9Dk+TOati+pgo=;
+	h=From:To:Cc:Subject:Date:From;
+	b=PdPlUoWI8KfPABzUx4qf8ZfpvXapwQvVslywrtosDwg8X3ipNOagKzb7L1TU1yFY8
+	 9cXJd2JW15f5JGPjgebgHlL3LDnVCde9TLcUacZZvDVZTkUvzaP7x16L59OAaIiqh6
+	 8S1wf4JDyBO74YWLkZEjTzSmLM1GFNtDnPo+ecL8gwAV9HMJfIIp5zzsM12fYgUXGZ
+	 uGsbrBWLNKweQ/t2wFa0S27NisfAYUVT7F3H28mbd+oRnBUmN+vgjnkW0wSvdf2+0N
+	 hdbtFbFeh1h7RT4xpVw5KM0blkzWIxrSroH73iJL0mZDic7oI64KlD7gOHFJsmMKnG
+	 MhucvZVxfwKDw==
+From: Radu Rendec <radu@rendec.net>
+To: Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>
+Cc: Eliav Farber <farbere@amazon.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] tg3: normalize inherited M3000 register byte
- order
-Message-ID: <038bffb2-e40d-44bb-b7ce-53e9de32e50d@lunn.ch>
-References: <20261008220433.965791-1-linmag7@gmail.com>
+Subject: [PATCH] of/irq: Document of_irq_init() device node refcount contract
+Date: Thu,  8 Oct 2026 21:13:24 -0400
+Message-ID: <20261009011324.1503697-1-radu@rendec.net>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261008220433.965791-1-linmag7@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 09, 2026 at 12:04:03AM +0200, Magnus Lindholm wrote:
-> M3000 firmware can leave BCM5718 vendor registers byte-swapped while
-> standard PCI fields retain normal byte order. Match the Fujitsu 10cf:165a
-> subsystem, IKKAKU model and swapped revision/product signature before
-> restoring host control; reject failed PCI accesses or register readbacks.
-> 
-> Keep this in probe so failures can abort initialization; SPARC firmware
-> enumeration skips PCI_FIXUP_EARLY. Normal rebinds and other platforms
-> retain their existing path.
-> 
-> Use tg3.h's MISC_HOST_CTRL_BYTE_SWAP and TG3PCI_GEN2_PRODID_ASICREV;
-> the inherited state was observed on M3000 hardware.
-> 
-> Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+When a driver initialization function is successful, of_irq_init() keeps
+a refcount on the device node it has passed, which makes it safe for the
+driver to store a pointer to the device node and use it after the
+initialization function returns.
 
-> +/* M3000 firmware can leave the on-board BCM5718 registers byte-swapped. */
-> +static bool tg3_is_m3000(struct pci_dev *pdev)
-> +{
-> +	struct device_node *root;
-> +	const char *model;
-> +	bool match;
-> +
-> +	if (pdev->vendor != PCI_VENDOR_ID_BROADCOM ||
-> +	    pdev->device != TG3PCI_DEVICE_TIGON3_5718 ||
-> +	    pdev->subsystem_vendor != 0x10cf ||
-> +	    pdev->subsystem_device != 0x165a)
-> +		return false;
-> +
-> +	root = of_find_node_by_path("/");
-> +	match = !of_property_read_string(root, "model", &model) &&
-> +		!strcmp(model, "IKKAKU");
+This behavior is currently not documented anywhere, and only assumed.
+Add a paragraph to the comment block preceding of_irq_init() to document
+the behavior and turn it into a contract.
 
-The DT Maintainers generally don't like this.
+It is worth noting that of_irq_init() did leak device node refcounts in
+the past, and this was addressed in multiple commits; most recently in
+commit 708124d9e6e7 ("of/irq: Fix device node refcount leakages in
+of_irq_init()"), which fixed the refcount leaks for the initialization
+failure path only. That is an indirect confirmation that keeping the
+refcount on the successful path is intentional.
 
-Is there a legitimate reason you would want the bytes are swapped?
+Signed-off-by: Radu Rendec <radu@rendec.net>
+---
+ drivers/of/irq.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-Can you not just probe the registers, and if they are swapped undo it?
-Does it really need to be conditional on the machine?
+diff --git a/drivers/of/irq.c b/drivers/of/irq.c
+index ef1ed9743907..bf277781cdb6 100644
+--- a/drivers/of/irq.c
++++ b/drivers/of/irq.c
+@@ -647,6 +647,15 @@ struct of_intc_desc {
+  *
+  * This function scans the device tree for matching interrupt controller nodes,
+  * and calls their initialization functions in order with parents first.
++ *
++ * The initialization functions are called while holding a refcount on the
++ * device node corresponding to the device that is being initialized (passed
++ * as the first parameter). If an initialization function is successful, the
++ * device node refcount is *not* dropped (ever); this is intentional and
++ * guarantees that the pointer passed to the initialization function is valid
++ * not only while the function runs, but also for the rest of the kernel
++ * lifetime (i.e. it is safe for a driver to store the device node pointer
++ * and use it *after* the initialization function returns).
+  */
+ void __init of_irq_init(const struct of_device_id *matches)
+ {
+-- 
+2.55.0
 
-	Andrew
