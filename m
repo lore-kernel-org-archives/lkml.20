@@ -1,70 +1,93 @@
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-41.mta0.migadu.com [91.218.175.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AD1D4D4867;
-	Fri,  9 Oct 2026 15:20:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19C774AA3E9
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 15:21:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791559244; cv=none; b=Ay71/tfhAf3hxnZsl6k0/RyMjSOKZokwejPW/X8lOslFaxpa9cTXINUR2Ysto8eCaJHM90PGgOQARR3H091x/V733Bbd2hu2HJKfO73Bs59D2asfGYTq7oK449vlqFBvKgu7tC0NnI6s+JDgwhBeV/1r7HBV6OpO6OwZPEUk9Xg=
+	t=1791559274; cv=none; b=HXHyF1R7Q6BAoRqhbNV8yDidjvfERfd0A4YqR78gQPfLxl5qhVGpPjAnsE3DpjZfB5iVnEDVFI4aH0aQvYNVT5W/8KEs+GcqL5xFds5wzPgN+f5vplOndwLH9iijv1SV9Rx1O+Ujg9HPsKiTKGmvhvcC37NajoxI6vogWxSou6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791559244; c=relaxed/simple;
-	bh=igkR6oZaJNB119k4ar5BBv3eWH4uV3qXpqYUvh2iXvE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=S9oT5tOdYurtj2aZgbaOIjHW1SAA41MXgzYlwQQJH5YgZJNdutthkEEZ01qaTlTbE05exZEpHq6s0b+4a/j0m3Oa0n5OhPkYmn/O8VIm0bQuqysk0XVsdDBTtLMhOTPlNc08bp95cTa3Z5gokq8trdsvn9nC8njSZOQ8bpQFgwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=tYCpnGPL; arc=none smtp.client-ip=45.79.88.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+	s=arc-20240116; t=1791559274; c=relaxed/simple;
+	bh=NmnpOP1SxRpFZY2ewOg8mOw6Z6ZjNT5THsFXjfhCZuI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=S26cxNa0IZDd7SDwflecGFoS/6PyMiwzc213zwSWBa0hHkVZUNOUYOBTgIToVjPapGYisj9QLj+/hv2vdPaCJ4tbZoKPdiizBrIUx0OGvAjjNuZcX/ZjCw9L7PG5WNsGeyu/1JxS2qU4GJD019fR1yHSM3ndU5F8PPIrLBIgbnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org; spf=pass smtp.mailfrom=wyuan.org; dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b=Jq56kX8W; arc=none smtp.client-ip=91.218.175.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="tYCpnGPL"
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 01B50408FF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1791559236; bh=igkR6oZaJNB119k4ar5BBv3eWH4uV3qXpqYUvh2iXvE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=tYCpnGPLttPQ+2Ny9k/bxAop5yDy0XuOyr990hr5l+qDWTiK8VlgXaaKX5ZPCCk30
-	 Fym10Tzr1YtkbQ3EVvTcSOhqGue6/a+KFMXUsUZtGnJpioT+rtUp/zGrlxwQSQ5AYZ
-	 9IrGnmPDEdH1kQTlHbPLG8GHQk6qtGbahN0pZBV3k2IRu2CmKkzsCzxJpLAO9wyV5x
-	 siyoDT7FtegEDLqdwOgTaN1vx772qbSdve8xIgtFYwH+WgkDX0Xi7q4S5UYpi1AtmS
-	 sCr+/MNh1Ik0BSEnWYrpR39rwY0/8m6K2RCEM3X//syFvt8M37CsjGqZEgG1QclHPn
-	 x0qAVIAEAcqMw==
-Received: from localhost (unknown [205.220.129.27])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id 01B50408FF;
-	Fri,  9 Oct 2026 15:20:34 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Krzysztof Kozlowski <krzk@kernel.org>, Sasha Levin <sashal@kernel.org>
-Cc: skhan@linuxfoundation.org, rdunlap@infradead.org,
- federico.vaga@vaga.pv.it, apw@canonical.com, joe@perches.com,
- workflows@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] docs: remove Assisted-by references
-In-Reply-To: <0914a106-bacf-4d95-854a-bfeefbff62a4@kernel.org>
-References: <20261009083137.3-1-sashal@kernel.org>
- <0914a106-bacf-4d95-854a-bfeefbff62a4@kernel.org>
-Date: Fri, 09 Oct 2026 09:20:18 -0600
-Message-ID: <87h5iuc34d.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b="Jq56kX8W"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=NmnpOP1SxRpFZY2ewOg8mOw6Z6ZjNT5THsFXjfhCZuI=;
+ c=simple/simple; d=wyuan.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791559267; v=1; x=1792164067;
+ b=Jq56kX8WZEVJk3z8Si85OcLhVpuTmga/D/suRTVZCpoZjRACkc4Tm6K3qzuKqUelpPs3cVVo
+ 2OQ1urU8iLR/BtNgu+ega/OjNCxGNyplA0S9O32E59hyypLn2HRX9oiFjnkRAFYGawc9pf3VmAT
+ ubthMMZdiAElzKuajFWrvm0kpw+SKOfw8ZHAWcMchnjELgl9MIurO2Wyo0gI2KzfbEOIyICZjdl
+ NzYVQT8G3D/CBDxC9zPurIH8q/CO5pEDMXUCgIlpIJro0QXrwYzo2LvGmhlZis9rwtWS8FCoz78
+ ApDftRdufa5s5SI86zIzTTna3ehle9gQJe1eRGWGYSCGA==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1c97bb5a46cd3416;
+	Fri, 09 Oct 2026 15:21:07 +0000
+X-Mizu-Trace-ID: 1c97bb5a46cd3416
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 9 Oct 2026 23:21:02 +0800
+From: Weijie Yuan <wy@wyuan.org>
+To: =?utf-8?B?6JGJ5a645L2R?= <chenyou910331@gmail.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Alex Shi <alexs@kernel.org>,
+	Dongliang Mu <dzm91@hust.edu.cn>, Yanteng Si <si.yanteng@linux.dev>,
+	linux-doc@vger.kernel.org, open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 0/7] docs/zh_TW: remove duplicated maintainer contact
+ information
+Message-ID: <askGXjrwjiK8MFKd@wyuan.org>
+References: <20260929115956.229610-1-chenyou910331@gmail.com>
+ <asPWQ2ysbTgW9Uib@wyuan.org>
+ <CAKspUh+hw3oqigFkHkwUiB_7ZmRrpECA2OstRS_jNF0f1uC9ng@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAKspUh+hw3oqigFkHkwUiB_7ZmRrpECA2OstRS_jNF0f1uC9ng@mail.gmail.com>
 
-Krzysztof Kozlowski <krzk@kernel.org> writes:
+On 2026-10-09 01:40:02 +0800, 葉宸佑 <chenyou910331@gmail.com> wrote:
 
-> On 09/10/2026 10:31, Sasha Levin wrote:
->> The Maintainers Summit reached consensus to deprecate the Assisted-by
->> tag. Remove the documentation requiring it.
->
-> Please provide here some sort of arguments used in that summit
-> consensus/discussion. This basically reverts/changes previous consensus
-> [1], which is fine itself, but it lacks reasoning.
->
-> [1] https://lore.kernel.org/workflows/2026070224-unholy-commode-cf45@gregkh/
+> On Tue, Oct 06, 2026 at 12:54:27AM +0800, Weijie Yuan wrote:
+> > So for the whole v2 series:
+> >
+> > Acked-by: Weijie Yuan <wy@wyuan.org>
+> 
+> Thanks.
+> 
+> > Offtopic & micronit: What's the point of rephrasing this paragraph?
+> 
+> No change in substance. In v1 all seven patches shared those
+> paragraphs word for word; when I gave each patch its own message, as
+> you suggested, 1/7 kept the shared reasoning because it comes first,
+> and I tightened it on the way. Nothing more to it.
 
-I'm working on a report on the discussion, don't worry...Monday or
-Tuesday probably.
+Thanks for the explanation!
 
-jon
+> 
+> > Oh, forget to meantion. Now "Aissisted-by: LLM" is preferred. But if
+> > it's not necessary, then that's fine too.
+> 
+> Thanks, I had missed that change. I will use it from now on.
+
+Oh (again), things have taken on new developments again..
+
+  https://lore.kernel.org/linux-doc/20261009083137.3-1-sashal@kernel.org/
+
+Let's wait and see the final conclusion that follows.
+
+> > OK, you prefer no space between CJK and ascii. ;-)
+> 
+> Ha -- that is the glossary as it reads today, which still says no
+> space, because I still owe you the change we agreed on. I will send
+> it, and new text will follow it from then on.
+
+;-) No rush, thanks!
