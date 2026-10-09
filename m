@@ -1,175 +1,151 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70E0A3D6461
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 08:29:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B25E3D567F;
+	Fri,  9 Oct 2026 08:29:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791534564; cv=none; b=AlabDYrIjGr7/p2C2lS4A/wew0H1rUZ3h4EP2j5FxPFrGwOrct90dsEu5RLezFQmFC9PHK51L6UHeNpt0Nmox0TDWTaJ1vTRuHXmd7BX44bTEe/at4PVFrEiyt5DsKvXQY3/x62dXhqacZ6p3GbhVFPGEAL83uVG9yQVq5gycpc=
+	t=1791534594; cv=none; b=eAo+kfTNqz79Um2iSJX7+LhYelJfH8Bp6dLumAwXqVMOYnypvc1tD0BZ/SSkTRAYf9pTtlwRBewByXo3xlGQIIDmOVbmR/F7SAkWiIIwDTQLhYgxUoHE+3xI5ICutjeUWyD2q9YN2WmoqJ5CLoV8O3fZWzc6aIEXeBq6UODf9QQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791534564; c=relaxed/simple;
-	bh=JwCvDd5YzyK7COQjFOilO+tgzZeBuXPZW2kTiC91m14=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=nQg0l52prXm+0p+yQgXFJ75iLOO7fRRCLKuuIPEmoZE+AuUxMLvGtQPxJHakx2Ip3uD78HgbGNgOY60C/F086Bqwjh3wNOMzPQVh34vANiwYVyaNzcufPDqB8Xjdk0CMMlwe0F7rA5+Z03jLfR0lBd6TjNLeFuUPBmO58pdMcRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hvDTc0BZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PexE9nYK; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hvDTc0BZ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PexE9nYK"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6998KFvs906793
-	for <linux-kernel@vger.kernel.org>; Fri, 9 Oct 2026 08:29:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	7Lfj6oSCKPER8z+P3DkIH58XgLvSuXtrBMTqgQC09sw=; b=hvDTc0BZhw3sQkyr
-	kLrYI23ohlUDBErsLIm4Af6CvSE/HSU6Ze/XKZtwOFHdtozaz07r4vOQEGgSpLSM
-	fM3UxiWrzFOzhvtFi4USRX4T5juE3F5TUm1lLWcW7+mTVOGEryu8DTbB0rPycUox
-	fBvVu6pw3x2ngMbQVyTINZAgAB8LXoiyObkKrR60JchD4F5+uhN2EjIPaRKB7r45
-	99qRoPVpNWMxxg/A2r9x8XBMU8lnna90ekEihJHWRNg8OzO6ypfoIqOqeP2AGqQh
-	MuUgB62Mck2892KtG0Xk9W6Qr+828c6clEvBBimRvJ8AUyCl2Fxau0ksjPoaqDBn
-	szWIww==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6fmqtseb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 08:29:22 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-914321eb48eso96292946d6.3
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 01:29:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791534562; x=1792139362; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7Lfj6oSCKPER8z+P3DkIH58XgLvSuXtrBMTqgQC09sw=;
-        b=PexE9nYKFlqrUr90a1+bqh5ZRfideJCGxqXv7qn4Hob3irfhjLgcGld2ps4+hHra4F
-         7qAshmc8+voiwooKzqpPKfiE3pKATWozVs3YowoiUjUnFjv/rWS07Lb3/lxrb6CPItky
-         eMJC2a8MI8sZdNW61A6g3nsVHAPGCegnYQkKP9eppcY6qeby6oqgeDOtpdbfB+lRb2fI
-         00H7HNYxqz6kXdznvtuqy3pnm/HXVraKysadt7/dncOTZ1KkbqhzQ0wwcAjsp2rFzhF/
-         4sxjhBGmlG/8+ejGvNdkCqWveV0Z2sJYRn/JOHF3XgHdk/igpyaO4x/PyFXyUx7ZzSbE
-         hLNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791534562; x=1792139362;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7Lfj6oSCKPER8z+P3DkIH58XgLvSuXtrBMTqgQC09sw=;
-        b=nDFhty5rtsK77g4MxuroP9REB3hqyeIykzgQjaQcfd5UD+o6wvM7rzNIlxIWExLxY0
-         r3RxPTnzr0m6kt6hVZ7eEOQqtA+tff99cGaNECumHfLCmK0PfSQM2Q57kFtvslMXAKHR
-         CVwQf8iQJXU0x3wDM8ziWWZRdDtQA5x1PlvXgTRTKc1xRqY19cBXOyf1NVEO863P4GPi
-         CZAjZGm7qi1ImsufE9/0RPtq2nTVpBTlWsUZRSGxH0PaypFSMnRtrKxF6kEk9k9TR8di
-         aKNmsCly7QcOBddWH0KreXg8788llrgTmlgKesmEWbTTeEJjmCHtr1PqkY04mpPopAal
-         4yUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwQoYd875ZvbHYn/9Wjyhd0FLph/er4DfaIAhge0iRctlZtyzJRUbZN2rncmByC1GsprNUybW1Jkj93Aqg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nECdLb/sTN/WxLw43Nz8Z8i6Xu7mnhJLlc3t4sNupq0qJWyTTb
-	9jVQGkkZuCq4fCujiVR07TI/kg3q7U032mPSjPFlACttDdJ0Cdh3ym0iX+oIw+6JASmjEm5W2+1
-	rL1y8I6pJlizwpuF7V0p+Sqeo/i0cDU9cb1A1cZZnb1NStq108AkrmkA0iE23OlE6DYc=
-X-Gm-Gg: AYBFou11voI/aIB0T1rYz/tN5og5Oc7KnKdvKiPBaRdwnx7k9k3PVbEV766RGrzan0k
-	Bwjb6kaxxSv+uAx7IEYz4syJ6/j+PUu1RGE1jVA7L0GWxYyaUBr8ZfvDcNhNdkyJLTQ2zsrCvRj
-	et38GH5W22YXSlCG+AxL78l1Wf+1mnkpqUVYoM83WoYUHXz55BA4anzTWjAxUvngqihiKTTwO1m
-	qD5Ge28CR/0z/anqfFuTmH/p5vwKaAIsB/XA80KnrrtYefMtSNgEzxNE3kGTvf1nO2KEcp75cE7
-	VYUzyCfzgU7dItwtF+4w66AqAPIpKZZJ2h3IBr3u9pvf/oqTH5pLVlIgtt/pHv6QLvY6R1leZ6A
-	sx1iHD3FpNhqD9fsEIF3jhoTTjpYVUDeniASNyJ+VlfCy47hk912OgkvZiXFu1io5A3lPy7Toe5
-	ABaOsWAlwC/CFu
-X-Received: by 2002:a05:620a:8088:b0:93e:c12c:f11a with SMTP id af79cd13be357-93ec12d0581mr47266085a.70.1791534561595;
-        Fri, 09 Oct 2026 01:29:21 -0700 (PDT)
-X-Received: by 2002:a05:620a:8088:b0:93e:c12c:f11a with SMTP id af79cd13be357-93ec12d0581mr47264385a.70.1791534561145;
-        Fri, 09 Oct 2026 01:29:21 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9c3caab0asm4295171fa.18.2026.10.09.01.29.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 01:29:19 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-        Andrzej Hajda <andrzej.hajda@intel.com>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Robert Foss <rfoss@kernel.org>,
-        Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-        Jonas Karlman <jonas@kwiboo.se>,
-        Jernej Skrabec <jernej.skrabec@gmail.com>,
-        Luca Ceresoli <luca.ceresoli@bootlin.com>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Xilin Wu <sophon@radxa.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
-        Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>,
-        dragon@radxa.com,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Daniele Briguglio <hello@superkali.me>
-In-Reply-To: <20261009-q8b-dts-v2-0-eda11e5dea8b@radxa.com>
-References: <20261009-q8b-dts-v2-0-eda11e5dea8b@radxa.com>
-Subject: Re: (subset) [PATCH v2 0/4] arm64: dts: qcom: Add support for
- Radxa Dragon Q8B
-Message-Id: <179153455955.2970577.14103639336377928226.b4-ty@b4>
-Date: Fri, 09 Oct 2026 11:29:19 +0300
+	s=arc-20240116; t=1791534594; c=relaxed/simple;
+	bh=J91+lpe3p8vIaZNTRS0qt7fvQOznS3JG+eN2p7pKkR0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k2HhW5uGZVY8XttShX6V62aJepsYE7qPlwHDcoENFB9a/JeMi+Lr9yBhp3R5gqnDA05OOdO6+Je/7mKLIhWyostrfldHQtCxYnfOURVr3PEhn9cPiiwm8ysBSc2tCs0R2Br4b0wsOG+SrJtKJd7Q9GYfCFwhKDpjbOC2S+kipf4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 5BB981F790;
+	Fri,  9 Oct 2026 08:29:51 +0000 (UTC)
+Authentication-Results: smtp-out2.suse.de;
+	none
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C8B701326D;
+	Fri,  9 Oct 2026 08:29:50 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 1nvmIP6lyGoJGwAAD6G6ig
+	(envelope-from <ggherdovich@suse.cz>); Fri, 09 Oct 2026 08:29:50 +0000
+From: Giovanni Gherdovich <ggherdovich@suse.cz>
+To: "Rafael J . Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>
+Cc: Huang Rui <ray.huang@amd.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Pierre Gondois <pierre.gondois@arm.com>,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Giovanni Gherdovich <ggherdovich@suse.cz>
+Subject: [PATCH] cpufreq: Don't track pressure if policy->max equals top of freq_table
+Date: Fri,  9 Oct 2026 10:29:28 +0200
+Message-ID: <20261009082928.21847-1-ggherdovich@suse.cz>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDAzMiBTYWx0ZWRfXxNGzoHPo8X+P
- fBZMXYRJVeiwRatsGcuCjOwOgiUHKV5KDkx/JhI4ZEMIIyU8NoOnJBCWzksLEtzl5AC+Dx9OA60
- RFLRaFpw7qAkFbdtSn0IvOlETxY00Bc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDAzMiBTYWx0ZWRfX6huQaGh2e1DU
- JJYENTgbrgcHBLCWsOXv+jUkuBOd0RhckziQW4bmVaKeOfQKBxa+vpBnzLYNtGgXOgJU72veJ66
- drw7hiF/E12pCDkq3pXhPkP/KH5r/ZYh/wY51Svffa8ZCjayfJY6zeTCrcbEDCdxiaFRVhFmavN
- ycFRvFnBdZ7p6uoSqreuMy7cAw4RjwkceWvtSX3GZewsrPBUcqSfKSm2VHTczt7fuZv4WBOn7Gn
- X0gix64CQ+2b/+WeNGIeMa4FN33dX6q5e2PnIxOag0Rj5+C9/LVMOkUuAWHXVXHXYRZ2LzB3dyp
- DWzjc+B/gqO0Bxl9IWT7d+v3J+W/LKVZZ/I0VdNKnLpdyp3EkuAHW0ATI+OIUApphb40c1pepc8
- JJNgCaz3ObWiHJ3WzjA7UOPuHlLtD06B3NrdGuTPXGc9rwoKGo/ndqaDrmg125feJE6T9V4hnyb
- 0bNRDM2oDfYxWtE2QPQ==
-X-Proofpoint-GUID: y3EjVPoZFIL-zw4L4aqcrM4HhDLVApVr
-X-Proofpoint-ORIG-GUID: y3EjVPoZFIL-zw4L4aqcrM4HhDLVApVr
-X-Authority-Analysis: v=2.4 cv=IqCL47/g c=1 sm=1 tr=0 ts=6ac8a5e2 cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=qk-nXHHSopyJew9tVzIA:9
- a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-09_03,2026-10-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 bulkscore=0 clxscore=1015 suspectscore=0
- adultscore=0 impostorscore=0 priorityscore=1501 lowpriorityscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610020000
- definitions=main-2610090032
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Pre-Result: action=no action;
+	module=Unknown lua;
+	unknown reason
+X-Spam-Flag: NO
+X-Spam-Score: 0.00
+X-Spam-Level: 
+X-Rspamd-Pre-Result: action=no action;
+	module=Unknown lua;
+	unknown reason
+X-Spamd-Result: default: False [0.00 / 50.00]
 
-On Fri, 09 Oct 2026 15:55:05 +0800, Xilin Wu wrote:
-> The Radxa Dragon Q8B is a single-board computer based on the Qualcomm
-> Snapdragon 8cx Gen 3 (SC8280XP) platform.
-> 
-> The board provides UFS and microSD storage, two M.2 M-key slots, an M.2
-> E-key slot, a QPS615/TC9563 PCIe switch, USB Type-C ports with DisplayPort
-> alternate mode, USB Type-A ports, HDMI 2.1 output, headset audio and
-> a 40-pin expansion header.
-> 
-> [...]
+The acpi-cpufreq driver stores non-boost frequencies in
+policy->freq_table, but policy->cpuinfo.max_freq contains the max
+boost frequency.
 
-Applied to drm-misc-next, thanks!
+policy->max is constrained to be, at most, the largest value in
+freq_table. This means that under nominal conditions, policy->max is
+substantially lower than policy->cpuinfo.max_freq, resulting in large
+values of cpufreq_pressure, on all CPUs, for no reason.
+The result is large performance regressions on compute/memory intensive
+benchmarks that use a limited number of CPUs; tasks migrate more and
+lose locality. My tests are with the "NAS Parallel Benchmarks" suite,
+limiting to 1/4 of available CPUs.
 
-[1/4] dt-bindings: display: bridge: simple: document Chrontel CH7218A
-      commit: 377682cf917027396211426c509cae5785305ba8
-[2/4] drm/bridge: simple: add Chrontel CH7218A
-      commit: f146c6086b792cb2c6b3ce5106f0cce62e408df8
+This change sets cpufreq_pressure to zero if policy->max is equal
+(or above) the maximum frequency in freq_table.
 
-Best regards,
+Here a concrete example from a 1st generation AMD EPYC (Naples) using
+acpi-cpufreq. Under nominal conditions (no capping, no throttling):
+
+freq_table               : 1200 MHz, 1700 MHz, 2200 MHz
+policy->max              : 2200 MHz (maximum from freq_table)
+policy->cpuinfo.max_freq : 3200 MHz (max boost)
+
+Before this change, in the example above we'd get a cpufreq_pressure
+value of 320 (32% pressure); with the change, the pressure is zero as
+it's expected to be.
+
+Signed-off-by: Giovanni Gherdovich <ggherdovich@suse.cz>
+---
+Clarifying the recipients list, beyond the cpufreq maintainers:
+
+Mario Limonciello, Huang Rui: the patch isn't for amd-pstate, but
+   AMD EPYC up to Genoa (Zen4) defaults to acpi-cpufreq, so they may come
+   across this if they haven't already.
+Vincent Guittot: for the cpufreq_pressure and scheduler load balancer
+   implications.
+Ricardo Neri: he's been looking at cpufreq_pressure on x86, albeit
+   this patch isn't for intel_pstate.
+Pierre Gondois: he looked at policy->max in freq_table.c earlier this year.
+
+ drivers/cpufreq/cpufreq.c    | 3 +++
+ drivers/cpufreq/freq_table.c | 1 +
+ include/linux/cpufreq.h      | 1 +
+ 3 files changed, 5 insertions(+)
+
+diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
+index 54dde8419bdc..aa652750f711 100644
+--- a/drivers/cpufreq/cpufreq.c
++++ b/drivers/cpufreq/cpufreq.c
+@@ -2601,6 +2601,9 @@ static void cpufreq_update_pressure(struct cpufreq_policy *policy)
+ 	 */
+ 	if (max_freq <= capped_freq) {
+ 		pressure = 0;
++	} else if (policy->freq_table && policy->max_table_freq &&
++		   policy->max_table_freq <= capped_freq) {
++		pressure = 0;
+ 	} else {
+ 		max_capacity = arch_scale_cpu_capacity(cpu);
+ 		pressure = max_capacity -
+diff --git a/drivers/cpufreq/freq_table.c b/drivers/cpufreq/freq_table.c
+index ea994647abc8..55c3293685c2 100644
+--- a/drivers/cpufreq/freq_table.c
++++ b/drivers/cpufreq/freq_table.c
+@@ -50,6 +50,7 @@ int cpufreq_frequency_table_cpuinfo(struct cpufreq_policy *policy)
+ 	}
+ 
+ 	policy->cpuinfo.min_freq = min_freq;
++	policy->max_table_freq = max_freq;
+ 	/*
+ 	 * If the driver has set its own cpuinfo.max_freq above max_freq, leave
+ 	 * it as is.
+diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
+index d3d0d9d02aa4..4a3316e47f4e 100644
+--- a/include/linux/cpufreq.h
++++ b/include/linux/cpufreq.h
+@@ -67,6 +67,7 @@ struct cpufreq_policy {
+ 	unsigned int		max;    /* in kHz */
+ 	unsigned int		cur;    /* in kHz, only needed if cpufreq
+ 					 * governors are used */
++	unsigned int		max_table_freq; /* max freq in the table */
+ 	unsigned int		suspend_freq; /* freq to set during suspend */
+ 
+ 	unsigned int		policy; /* see above */
 -- 
-With best wishes
-Dmitry
-
+2.43.0
 
