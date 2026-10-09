@@ -1,174 +1,120 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011056.outbound.protection.outlook.com [52.101.57.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 948EA3B14C8;
-	Fri,  9 Oct 2026 04:01:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.56
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791518470; cv=fail; b=HZBcJeZxlC7emj1KdXTOqOOfEPscWPGXXsjnS4RC/wtsMpFriqaoJnL+wjCkk6gQ3ageCIJldE3i0kh0LnalXwbzlGMYfScn/W1F17bi6yV1nqkSBcayNAq4mKNamv975gUnf6mHlK02eRDZiQbQM49Xc8DwOfWPEdoULsoVOpI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791518470; c=relaxed/simple;
-	bh=fGHce2equmyTiavwxAeVjmHKngXlT4F1hhSsbpK6S9Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=sSVE77P/mF4YNEZgPnlSgJX2oDMfUO4GejNJzfMQDz3tocXkmyeQ/Lp+ThJZw6kk8P5bjqRxEbcO4pirM/Nt2b8bbOEEcHUE1o7yUuz6goh7NCcy3Ydepc7diApdGbKiekhTpTWrH3TVBlS4JWIrt84cLl8Y6FR6JoGmlYTKVzE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=3OPB62aF; arc=fail smtp.client-ip=52.101.57.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="3OPB62aF"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tmgW1F5Sjvu7xvTU/XVSuCnx61+mM64e8zb+7Wv1DAWN6MRYoSWCcsS0LjsngAM9OF+1R0kj8yjKDecHUs+YGzFaEG6CX4P8M4wboXlcO/fORU4mit0Kh1Lpckpa8IreXti39nqHSQIrXjOJR0xQo0L/3OUfsDdwLjEb8t8dsjTBhXdeNqUY+o7nT+dCi+iQYXxfPE16O2z58dq7hfVWIK0/fv7obhZj+xQhlFzYMStoaRAa3ZkZ7sOsaYwbz/1xUvCvlX/gfgjatzoNTd+zep4ZoX8Pkt0ptgz+mKZeQoao9WET1201ClMLTTLWIye3YROPJUWNUgGEoQzGp3Gytw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H4Gt4bUZ/e41D6IqAnJw+W7nc2PcV/oaW0DYCpbUiPE=;
- b=rq53P5Q1MDWxspVb/8JcXQkEawQKmw4FCRydBkV7SOsnyzBwq2balPdznVW7NUiUoYZsVGH0lNiR3ys9RsBOtH+RmS9jbEeVr++bNR+GllQljq/jaspd5kPUDilKSknWBUO8b6hYIKB+ZcwWjSUR3bshnfc+OaHjJrmbLcgqoNKXup7Hh8WtycKZUVLSqiX4ZPgNOovWcAgv61+u+r7ALIXiZdmtrT3NA6d5QepZWQLuRo/tpj832YYTKB4wswV6BaVfFgE1szot/deOuKK2GCbDTCM8X+bVXodzXDnUpj3RN7VDCkevPqvgCs9kllaMzzrvkrhwzuxc2bohrspU3A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H4Gt4bUZ/e41D6IqAnJw+W7nc2PcV/oaW0DYCpbUiPE=;
- b=3OPB62aF5RZwupC+l+HlIXF48J8CnC5U6mkktGyVxgEq4M1V3quWqe9QLKB5Et5OXW6gy2lWezWz5WqIWHn8KyhD5R3MoBxsXpJoXtySRVFTUwAWwuhEXjzYejc9p4HQXtljJHArc5X3QkP1UCq7E/cbYcAj90jFPkbQ9LnvFGw=
-Received: from SJ0PR03CA0020.namprd03.prod.outlook.com (2603:10b6:a03:33a::25)
- by DM4PR12MB5938.namprd12.prod.outlook.com (2603:10b6:8:69::9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.17; Fri, 9 Oct 2026 04:00:54 +0000
-Received: from SJ1PEPF00001CE6.namprd03.prod.outlook.com
- (2603:10b6:a03:33a:cafe::26) by SJ0PR03CA0020.outlook.office365.com
- (2603:10b6:a03:33a::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Fri, 9
- Oct 2026 04:00:54 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF00001CE6.mail.protection.outlook.com (10.167.242.22) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Fri, 9 Oct 2026 04:00:54 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 8 Oct
- 2026 23:00:44 -0500
-Received: from xhdnaggolla50x.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Thu, 8 Oct 2026 23:00:40 -0500
-From: Golla Nagendra <nagendra.golla@amd.com>
-Date: Fri, 9 Oct 2026 09:30:15 +0530
-Subject: [PATCH v4 6/6] dmaengine: zynqmp_dma: Add per-channel reset
- support
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91CA23955C9;
+	Fri,  9 Oct 2026 04:03:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791518589; cv=none; b=JibzgYhcIOYQLNnPgZkVYo+/z0EXDpiGLftzTNvd9yW1E4jn1qYLV7/BieVVKUUJLZFuUIgwVYpr4rFuj2DWEy7nDZyOwY9DO6hlkqyptiS0FStGI5atyJkh/v3vi72FRRIh7G6//1zXXV7ivreU7NicI68zl+x8UVY4TffCk/g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791518589; c=relaxed/simple;
+	bh=bt+j5oOUx9wDTb+5qlSVDSKdo/Ckz750QTVjjbM7enY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ov5NaXHG741+LNremlxq6F/AEljMRZ5Q6RLQzaqHKipVz3CHQN31iwWxdPv39Yab49uce39+G9zDyk/8R3eEkoT7waErBDSoRvEqpZZt2ym68dmGdIwD6wrs11t6B5GQL1DjxO05ZaX25onMWs3Q/hk2sErbvxRATFCJHTuj7Rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from fc87d0ffb700.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAD3_jxzZ8hqQFwbCg--.2398S2;
+	Fri, 09 Oct 2026 12:03:00 +0800 (CST)
+From: Haotian Zhang <vulab@iscas.ac.cn>
+To: Ville Syrjala <syrjala@sci.fi>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] Input: ati_remote2 - fix type confusion in device attribute handlers
+Date: Fri,  9 Oct 2026 12:03:02 +0800
+Message-Id: <20261009040302.3087205-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261009-adma-pm-fix-and-per-channel-reset-v4-6-55f5fe409c55@amd.com>
-References: <20261009-adma-pm-fix-and-per-channel-reset-v4-0-55f5fe409c55@amd.com>
-In-Reply-To: <20261009-adma-pm-fix-and-per-channel-reset-v4-0-55f5fe409c55@amd.com>
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, "Michal
- Simek" <michal.simek@amd.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
-	Kedareswara rao Appana <appana.durga.rao@xilinx.com>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Michael Tretter <m.tretter@pengutronix.de>, "Harini
- Katakam" <harini.katakam@amd.com>, Shyam Pandey <radhey.shyam.pandey@amd.com>
-CC: <dmaengine@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <linux-pm@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <git@amd.com>, Golla Nagendra
-	<nagendra.golla@amd.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791518416; l=1920;
- i=nagendra.golla@amd.com; s=20261008; h=from:subject:message-id;
- bh=fGHce2equmyTiavwxAeVjmHKngXlT4F1hhSsbpK6S9Q=;
- b=q3F5l/IzaDYu+I6HYlk91216oLJqAF2VsyywHOItELftqcEoAOdrNpqu28Tp+0Zhf8zNgH4d3
- u27SLc5l2pdD3UWli9yW1YKyMyAYITsWVZFC2mzN23LJqaSNiJCgTiv
-X-Developer-Key: i=nagendra.golla@amd.com; a=ed25519;
- pk=pCRGj/0mb0C3aDMpVVZeyBqOIQZUKGJjCKL4QZTu7nQ=
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE6:EE_|DM4PR12MB5938:EE_
-X-MS-Office365-Filtering-Correlation-Id: e16224b7-4ff5-4200-a375-08df25b9ea95
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|376014|23010399003|7416014|18002099003|22082099003|921020|56012099006|6133799003|10067099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	TFSMmt2xRoqa+c4fyC4iRl10w/raW1oWufCBYlDrto7gNh5LdK0GqxaF4WHkLBFYdrFaYIFLDWAcG4kwRd6Aln+K6Umr6kT9mpRpqMeEw6trd5sc0CFyD5/VHlfKqZypGXLAGR/ZyJzdnePCkIH+JSV/G459QzFVkbjh3AB1o5iuPCP2kTRJxBj2hu7jZlVZKl9duF0e5GK2Jbrka2PPyZC9hUcyAvRv144sb2BLd5tB6FVNgm9tk2MPaQqgcuPXIkJDEXT7EO503j+fOyibDMChB/Nr7pHVSduWOUrJHbCLAboo2c3JGA1EchsAxqawy57wHIY6ulD9KpiLU5d0hxWPcr40UklsHEV8oGAxMET9nA2fuTCccPWb0DOGUfhHX6FIUEYcEq9brP8DFKAMKltLV7ndGV3SB6aoZRpbSvYcRXyEWTMZSjvR7qqBudQ489Pyt1UOReURKCFz7EqGeEdYn7RvuyEeneJXTgxjidt+vvWAFtSQZj2uHwpo7FyUeACxQhsEJe0imVE4/DZ80RQZC9iDGJdVVOgJyOUJ9p6Q9bvJRu6C245sX9/XO0nyEOzXuPhBmReZl9AtT/3ZYwMDaIDb0WZQ3tsqJj3JmgXW1u2cnRwS40K/EbA1fq81Ts0Nz2BScZpnK9+tE9K+WoBJX59CM3uqn5DTGzO2PSywT+56P9re/+22ttBr3wI5rDRyOh8torhrp1cwg+FUibtPp1dAFyLmnRdHU24+2QZAXf5ZcenAL5b1jOJ5kVSw
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(23010399003)(7416014)(18002099003)(22082099003)(921020)(56012099006)(6133799003)(10067099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	ruwotea7M5Oyr81domeIVPxc3tWYx7GpYb616u99v5fiednApHQAIxwWStXyr076NUKQ+UJdXIIS6F/uTOapqZqxUSN0WYdzBVunvDtH0uzSylBRXK81GneSQ66gM1SwoHS/398ZhFzBGoYf+ZaZxTHa8ko18ZDHVSWLH5KeuZRk4Ijs7P9znLvZksoNSeg76uWjqH/wfK9K4Me/mywh4VJW2ZXtx14vvzmlFnZ9MTSIHRncK9NNKB+vgwUH5T4CYFAywpNexQZoj5jbrIMq6ZH1IOok7QhM0QDqKhgbHIddPqXiRTRH3U9HeM7OWPf5AykmiLiARpPEPZS9UDokGKTubqEC2fyMi7c/KLykx9lhatgaBUVVshQwgxIfE4ZFRVhDIEsh1yjFsb+VuKDqt8FlEguv/ss0IRx/2PpEiFCtLk7iEwdKAOUIVyxc2gyq
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 04:00:54.4065
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e16224b7-4ff5-4200-a375-08df25b9ea95
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00001CE6.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5938
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAD3_jxzZ8hqQFwbCg--.2398S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxAw1xGr4rGw13tw15GF15urg_yoW5AFy7pF
+	4DGayUKr4UJFn7WanFyr48Za4S9w18Ca4FkF1Iyw4S9rn7Ga4fXFy0yry3A3yrCrWFkr15
+	J3Z8Kw1UWayrGFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkmb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwV
+	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Cr0_Gr
+	1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWU
+	twCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r
+	1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij
+	64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr
+	0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF
+	0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxUgeHgUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQPA2rIJHz+tgAAs2
 
-Versal Gen2 and Versal Net expose a dedicated reset line per ZDMA
-channel. Use device_reset() to trigger a mandatory reset pulse on the
-channel during probe when match data indicates reset is supported.
+The channel_mask and mode_mask attributes are instantiated by the driver
+core through struct usb_driver::dev_groups, so they are attached to the
+usb_interface bound to the driver, not to the usb_device.  The four
+show/store handlers still call to_usb_device(dev), which applies the
+struct usb_device container_of() to a struct usb_interface::dev and thus
+produces a bogus usb_device pointer.  usb_ifnum_to_if() reads that
+pointer as udev->actconfig and dereferences it, and its result is passed
+to usb_get_intfdata() without any NULL check, so reading or writing the
+world-readable attributes can crash the kernel.
 
-The has_reset field in zynqmp_dma_config controls whether reset is
-performed for a given compatible. For Versal Net and Versal Gen2,
-has_reset is set to true, so device_reset() is called and probe fails
-if the resets property is missing in the device tree. For legacy SoCs,
-match_data is NULL and has_reset defaults to false,so the reset path
-is skipped entirely.
+Use to_usb_interface(dev) so the handlers recover the interface that the
+attributes belong to, matching the other drivers converted to dev_groups.
 
-Signed-off-by: Golla Nagendra <nagendra.golla@amd.com>
+Fixes: b20d6bf8014b ("Input: ati-remote2 - use driver core to instantiate device attributes")
+Assisted-by: DeepSeek-V4.1-Flash
+Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
 ---
- drivers/dma/xilinx/zynqmp_dma.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/input/misc/ati_remote2.c | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/dma/xilinx/zynqmp_dma.c b/drivers/dma/xilinx/zynqmp_dma.c
-index 6881dc19435c..047a85342824 100644
---- a/drivers/dma/xilinx/zynqmp_dma.c
-+++ b/drivers/dma/xilinx/zynqmp_dma.c
-@@ -20,6 +20,7 @@
- #include <linux/io-64-nonatomic-lo-hi.h>
- #include <linux/cleanup.h>
- #include <linux/pm_runtime.h>
-+#include <linux/reset.h>
+diff --git a/drivers/input/misc/ati_remote2.c b/drivers/input/misc/ati_remote2.c
+index 8db2dca84975..3e0f874e9b16 100644
+--- a/drivers/input/misc/ati_remote2.c
++++ b/drivers/input/misc/ati_remote2.c
+@@ -672,8 +672,7 @@ static ssize_t ati_remote2_show_channel_mask(struct device *dev,
+ 					     struct device_attribute *attr,
+ 					     char *buf)
+ {
+-	struct usb_device *udev = to_usb_device(dev);
+-	struct usb_interface *intf = usb_ifnum_to_if(udev, 0);
++	struct usb_interface *intf = to_usb_interface(dev);
+ 	struct ati_remote2 *ar2 = usb_get_intfdata(intf);
  
- #include "../dmaengine.h"
+ 	return sprintf(buf, "0x%04x\n", ar2->channel_mask);
+@@ -683,8 +682,7 @@ static ssize_t ati_remote2_store_channel_mask(struct device *dev,
+ 					      struct device_attribute *attr,
+ 					      const char *buf, size_t count)
+ {
+-	struct usb_device *udev = to_usb_device(dev);
+-	struct usb_interface *intf = usb_ifnum_to_if(udev, 0);
++	struct usb_interface *intf = to_usb_interface(dev);
+ 	struct ati_remote2 *ar2 = usb_get_intfdata(intf);
+ 	unsigned int mask;
+ 	int r;
+@@ -720,8 +718,7 @@ static ssize_t ati_remote2_show_mode_mask(struct device *dev,
+ 					  struct device_attribute *attr,
+ 					  char *buf)
+ {
+-	struct usb_device *udev = to_usb_device(dev);
+-	struct usb_interface *intf = usb_ifnum_to_if(udev, 0);
++	struct usb_interface *intf = to_usb_interface(dev);
+ 	struct ati_remote2 *ar2 = usb_get_intfdata(intf);
  
-@@ -942,6 +943,14 @@ static int zynqmp_dma_chan_probe(struct zynqmp_dma_device *zdev,
- 	if (IS_ERR(chan->regs))
- 		return PTR_ERR(chan->regs);
- 
-+	match_data = of_device_get_match_data(&pdev->dev);
-+	if (match_data && match_data->has_reset) {
-+		err = device_reset(&pdev->dev);
-+		if (err)
-+			return dev_err_probe(&pdev->dev, err,
-+					     "failed to reset channel\n");
-+	}
-+
- 	chan->bus_width = ZYNQMP_DMA_BUS_WIDTH_64;
- 	chan->dst_burst_len = ZYNQMP_DMA_MAX_DST_BURST_LEN;
- 	chan->src_burst_len = ZYNQMP_DMA_MAX_SRC_BURST_LEN;
-@@ -957,7 +966,6 @@ static int zynqmp_dma_chan_probe(struct zynqmp_dma_device *zdev,
- 		return -EINVAL;
- 	}
- 
--	match_data = of_device_get_match_data(&pdev->dev);
- 	if (match_data)
- 		chan->irq_offset = match_data->offset;
- 
-
+ 	return sprintf(buf, "0x%02x\n", ar2->mode_mask);
+@@ -731,8 +728,7 @@ static ssize_t ati_remote2_store_mode_mask(struct device *dev,
+ 					   struct device_attribute *attr,
+ 					   const char *buf, size_t count)
+ {
+-	struct usb_device *udev = to_usb_device(dev);
+-	struct usb_interface *intf = usb_ifnum_to_if(udev, 0);
++	struct usb_interface *intf = to_usb_interface(dev);
+ 	struct ati_remote2 *ar2 = usb_get_intfdata(intf);
+ 	unsigned int mask;
+ 	int err;
 -- 
-2.43.7
+2.25.1
 
