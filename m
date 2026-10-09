@@ -1,62 +1,62 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D3EF43C069;
-	Fri,  9 Oct 2026 06:17:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7306B440642;
+	Fri,  9 Oct 2026 06:17:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791526661; cv=none; b=uJsikXmoeI7Qnx/cGBULt3MWdt/6We2xBakwxbGtQHh8Yod6M0aYtQ45iWtnyYDBbElghdxEHN+/1UvLKW0Gm1D8HRabKStDWkaCxHRQ5ESPMaCo2hCZZ75J77Ub1A/gyOwWi2+NIDgAztCGXmBqShhwkFIAYCBv6+gQdywKiFE=
+	t=1791526662; cv=none; b=DhO1KOhuxeEQWxPmXEzp6oVSNZa4C2EYKHLm9WiJr9zspLV23xm85Xdcqs7kW8+mPnGohJvCEypsnVrQkWAtGOvBnT+FPTSlvUrGEXw7HEG6ZS1gOc9UNfr6LDLTZFyEiyeexxWWqbfyyGFrzDYzny24vVZzZ0rKJWXsPRkIGBI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791526661; c=relaxed/simple;
-	bh=BJBNFBS9lvcusXLnec9W26QY/BdJxGtMfrAEfzULX4U=;
+	s=arc-20240116; t=1791526662; c=relaxed/simple;
+	bh=wMvSlDJ8ixIFy6vCY2q1s0WdG8SysHeHX0h3B+Qhiw8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=D3fDcM1mCRaCbFrTU84rG3hnRanlzsxGw7M6IGQQHnQT1XcNZvRLEokdSXdNECxOz5DB3u0w/XPiQcOGaKr1rUJlh7X/g4q6H09Gq4L+CvBi3M1Qquwd9HqYDN0hnbBoF6lsmcTJJunV2Uq1Fl3P3LFt3R8+AxjM9qwaK2FHgjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=JvJHOeLO; arc=none smtp.client-ip=148.163.156.1
+	 In-Reply-To:To:Cc; b=MDYCgXal0Vqe34jSXhFRe4KDwonsmd3Kdv+LfqShjo5gBtSGTegoJqDcddbsvsgCRnHr0TGJK1bfT6/CcpjCGtamazKeA66JObiESnn8J+1JNJkDZQulWHSMVypaZ4p/Fgoh7qzg44YoETRkR6ToO+1OOTkc2qzO+eQAhM26W20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=sk6Psn/7; arc=none smtp.client-ip=148.163.158.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="JvJHOeLO"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6993ZXDP1403074;
-	Fri, 9 Oct 2026 06:17:38 GMT
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="sk6Psn/7"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6993a7Xo3209943;
+	Fri, 9 Oct 2026 06:17:40 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=YZX2ly
-	13Iob3AvZ5ATG4eV6AAbFHC+BgcUxaV8Ij7FI=; b=JvJHOeLO/IIIoGmrg3kLkS
-	vNOi7X4JesSqrLLR6okwGvePuTHQC5pnEFc9YGat8vfT3ph0OyvWN33dGlZIT59b
-	T34MRMQAI05OUj8vcNk3Bumvlt95LkzaaalZqRe0Epe628bTP6WBy8jIsZFkRPKN
-	1YSCPk542lf6SgVgMBJkVdCfveEZuv9a/2taWHJHpBXC4kBqvoSdVDj2jfQPOMtz
-	n0AcQ5xZmrgEKowaT9tRerImwxugbtnLqrrDhcdBUvibYtdlvDC5G8twwEX8uLTJ
-	iHoEc9UJVepWHetYu6wolUvA3Z8InhV1RtHBNYmb3LVsYY2BRBLSHwLd03DrXDKQ
+	:message-id:mime-version:references:subject:to; s=pp1; bh=FAecKX
+	FZYIYzcrIlmHnerdxpa7BEl4OZte093UrLtS0=; b=sk6Psn/7qx8IGunmQDsLaL
+	hKmt5bodfUV9qGeGD4nvM8DEbL0kizs/2yeTF4eVF80+mB38mubeCBU+tah2+HyP
+	sMJ8uMgV9OQEVFpDP/KkHOEErnS5PWkhA8TBgpTc6CSPr91kA4zAQr+qptAYGpP7
+	eKp/5/3BwVWTS6RCFM/WkugT50SVcQrYihauDQQ9efuTJXptyuwM0/Qubl0ap7nw
+	CzT8/qDfeerEIFLLy07BaSHMyIgxkjDf//1MuNvD7kn9i9F+czdzO0vYxiJqwVII
+	+Etsta6n7di++JehxFCfW9/4gz2qsB0a2re+zkDHfZ4bQ9jrEm2Q1oiOWwskrHxg
 	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h5xjw8uta-1
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h5xjvr6g1-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 09 Oct 2026 06:17:38 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6993HeTe290551;
-	Fri, 9 Oct 2026 06:17:37 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h5a6dtn3h-1
+	Fri, 09 Oct 2026 06:17:40 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6993HkSH290369;
+	Fri, 9 Oct 2026 06:17:39 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h6hsnhs7v-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 09 Oct 2026 06:17:37 +0000 (GMT)
+	Fri, 09 Oct 2026 06:17:39 +0000 (GMT)
 Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6996HYqB50004308
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6996HZld28574008
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 9 Oct 2026 06:17:34 GMT
+	Fri, 9 Oct 2026 06:17:36 GMT
 Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 40F4B20040;
-	Fri,  9 Oct 2026 06:17:34 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id CD7A220040;
+	Fri,  9 Oct 2026 06:17:35 +0000 (GMT)
 Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id DED1A20049;
-	Fri,  9 Oct 2026 06:17:33 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id 775F320049;
+	Fri,  9 Oct 2026 06:17:35 +0000 (GMT)
 Received: from [127.0.1.1] (unknown [9.87.85.9])
 	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri,  9 Oct 2026 06:17:33 +0000 (GMT)
+	Fri,  9 Oct 2026 06:17:35 +0000 (GMT)
 From: Tobias Schumacher <ts@linux.ibm.com>
-Date: Fri, 09 Oct 2026 08:15:51 +0200
-Subject: [PATCH v3 4/8] s390/pci: Fix use-after-free race in zpci floating
- interrupt cleanup
+Date: Fri, 09 Oct 2026 08:15:55 +0200
+Subject: [PATCH v3 8/8] s390/pci: Unregister the adapter interrupt first in
+ zpci_irq_exit()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,7 +65,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-s390_irq_domain_fixes-v3-4-ced19028da3c@linux.ibm.com>
+Message-Id: <20261009-s390_irq_domain_fixes-v3-8-ced19028da3c@linux.ibm.com>
 References: <20261009-s390_irq_domain_fixes-v3-0-ced19028da3c@linux.ibm.com>
 In-Reply-To: <20261009-s390_irq_domain_fixes-v3-0-ced19028da3c@linux.ibm.com>
 To: Niklas Schnelle <schnelle@linux.ibm.com>,
@@ -80,213 +80,62 @@ Cc: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
         linux-kernel@vger.kernel.org, Tobias Schumacher <ts@linux.ibm.com>
 X-Mailer: b4 0.14.3
 X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: DK4tMNF_Cvo2aAlfPYqz-5oPTCOozKpT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDAyNCBTYWx0ZWRfX5Asf1o56obIr
- K1xo3qG3SFte/zoig5ZNoTKFBP+Qg7HakdIzB0CVMVC0GPnoP7BMnVh4mmLLaB/EOGaaDS3907w
- BC3WqaxY4nBYPdzGYpj606TMrN8mfU1kSPm3y8A0kB1lwlYaeE8S8LZWj3cNeYfEfJ010103Mhs
- k3svYfrQrXie/PdZwDlFHyEcQbaBK5TXeZbVg3t5V5tL0qxZ++tF1Ifsm0fawvNyjiNU1n+0EJH
- fJg87VgPzUPTfK2fuAm03VRRQGUG4X2928wOwiHQ/hOIP8ChUD7ut3ot1AYWOdPD6ozaVp5F4De
- WcXxwGohtn8Wp4SGZwTQionxLG+Y2v42WTbsUXVx5NeafPE/TkSOjCxPCfiglMcUumXG4f6jUn9
- MDIRNoenzGTz4cy/d49T/LvaRz1aXBSqbr/JgorBrRDg9HbHrrMlKg7MdL1OeOBZtVfCbDjGX5x
- WTOIWnYDPh3AP6RISiA==
-X-Authority-Analysis: v=2.4 cv=cIt1IVeN c=1 sm=1 tr=0 ts=6ac88702 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+X-Proofpoint-GUID: bQavVcDxs9y6_ZK9hstN9Xf81PErpZfI
+X-Proofpoint-ORIG-GUID: bQavVcDxs9y6_ZK9hstN9Xf81PErpZfI
+X-Authority-Analysis: v=2.4 cv=FoOQbGrq c=1 sm=1 tr=0 ts=6ac88704 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=APtM44dArK3XA30jmSkA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDAyNCBTYWx0ZWRfX60+8QK8o7GCT
- vu1e8pLXkMhloY61bUMbdU/3fkj43r27reiSnFKN37AJnZm4TTO0yCcQf57RGihFu8yElwXQXC4
- TduBn80X/OMaNEln1W89DTxKZ+cO5eA=
-X-Proofpoint-ORIG-GUID: DK4tMNF_Cvo2aAlfPYqz-5oPTCOozKpT
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8
+ a=hZ4bbspKaRqrB7aK3PIA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDAyNCBTYWx0ZWRfX/D21rX3MwyYe
+ /o7AsGuvJ/gfyVqsho42uMuCfJXcC1J+7HZIqv0nELr8lns0QNvcuFjnZ/nPmtSAFIwlLP529HR
+ WL+i9GPNZtG4TXYrqwM5aNxkXCj6C7Y=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDAyNCBTYWx0ZWRfX5WDlm6FJcXIW
+ iDOr0UrGsiHOstD/O+HS5gt1EGCuXOfNMm7HdPWe/2dFsO696V8Zdu0wVmiWMnwmIBQ5NIq6nEK
+ hybN9L8UySd5bZUOTMpXEKYB56v9jFmH+lEx8kwP9obu8Tb2tt89HtlbH2P99hrNt5X2q3N1WSK
+ iJxq/kO35vdMZP9STm3U01D7p/Uks+O2hLV1Yfz4u4+P2ZFTOqVIItS8bnCa8HKO/Ug8rSaCQMA
+ Qq2Gt3WDzEnGng10FE2tARqPHILKOjW39c/ju43DizzadrP5lN8/RNxFRvMIhLOiKN9pmMHdQ9G
+ X+vn8I0J56ocdQZIAsczxsmisxEVZXq6iy6P4ep5YHzcagRoERnq4aHxJ8+PsdtxTxqrx7S+NC+
+ L2relCNpe1Fo5qu951Cg/1eE6tYgDn6qnvvX7QevWcn67RsRTw16Dn9eOsrpqEWpnrWO9OOjS5e
+ R3njWhsdAyv83yRBHLw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-09_02,2026-10-08_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 priorityscore=1501 adultscore=0 impostorscore=0
- lowpriorityscore=0 suspectscore=0 spamscore=0 phishscore=0 bulkscore=0
+ impostorscore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0 bulkscore=0
+ adultscore=0 priorityscore=1501 spamscore=0 phishscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090024
 
-zpci_clear_irq() stops the adapter from raising new interrupts for the
-function, but a zpci_floating_irq_handler() already running on another CPU
-can still be scanning zdev->aibv when zpci_msi_teardown_floating() releases
-it.
+zpci_irq_exit() frees the interrupt bit vectors before unregistering the
+adapter interrupt whose handler uses them. This is only called from the
+pci_base_init() error path, where no handler is expected to run, but
+unregister first anyway so the vectors are never freed under a live
+handler.
 
-Clear the zpci_ibv[] entry so no further handler picks the vector up, then
-wait for a grace period before releasing it. The handler runs inside the
-rcu_read_lock() section that do_airq_interrupt() holds across
-airq->handler(), so synchronize_rcu() drains any handler still in flight.
-Release the vector and free the summary bit only after the grace period, so
-neither can be reused while a reader still holds the old pointer.
-
-zpci_ibv served both delivery modes, indexed by function under
-FLOATING and by cpu under DIRECTED. Only the floating vectors are
-published to and torn down under the interrupt handler, so split the
-directed vectors out into zpci_dibv and annotate zpci_ibv __rcu, which
-lets sparse check the accessors above.
-
-Fixes: f770950a4709 ("s390/pci: Migrate s390 IRQ logic to IRQ domain API")
-Cc: stable@vger.kernel.org
 Signed-off-by: Tobias Schumacher <ts@linux.ibm.com>
 ---
- arch/s390/pci/pci_irq.c | 58 +++++++++++++++++++++++++++----------------------
- 1 file changed, 32 insertions(+), 26 deletions(-)
+ arch/s390/pci/pci_irq.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/arch/s390/pci/pci_irq.c b/arch/s390/pci/pci_irq.c
-index d5763c5feb09..c5fabad38139 100644
+index 4b8ebb987580..16ae80ed2d13 100644
 --- a/arch/s390/pci/pci_irq.c
 +++ b/arch/s390/pci/pci_irq.c
-@@ -22,12 +22,11 @@ static enum {FLOATING, DIRECTED} irq_delivery;
-  */
- static struct airq_iv *zpci_sbv;
- 
--/*
-- * interrupt bit vectors
-- * FLOATING - interrupt bit vector per function
-- * DIRECTED - interrupt bit vector per cpu
-- */
--static struct airq_iv **zpci_ibv;
-+/* FLOATING - interrupt bit vector per function */
-+static struct airq_iv __rcu **zpci_ibv;
-+
-+/* DIRECTED - interrupt bit vector per cpu */
-+static struct airq_iv **zpci_dibv;
- 
- /* Modify PCI: Register floating adapter interruptions */
- static int zpci_set_airq(struct zpci_dev *zdev)
-@@ -169,7 +168,7 @@ static struct irq_chip zpci_irq_chip = {
- 
- static void zpci_handle_cpu_local_irq(bool rescan)
+@@ -674,6 +674,7 @@ void __init zpci_irq_exit(void)
  {
--	struct airq_iv *dibv = zpci_ibv[smp_processor_id()];
-+	struct airq_iv *dibv = zpci_dibv[smp_processor_id()];
- 	union zpci_sic_iib iib = {{0}};
- 	struct irq_domain *msi_domain;
- 	irq_hw_number_t hwirq;
-@@ -279,7 +278,9 @@ static void zpci_floating_irq_handler(struct airq_struct *airq,
- 		}
+ 	unsigned int cpu;
  
- 		/* Scan the adapter interrupt vector for this device. */
--		aibv = zpci_ibv[si];
-+		aibv = rcu_dereference(zpci_ibv[si]);
-+		if (!aibv)
-+			continue;
- 		for (ai = 0;;) {
- 			ai = airq_iv_scan(aibv, ai, airq_iv_end(aibv));
- 			if (ai == -1UL)
-@@ -299,7 +300,7 @@ static int __alloc_airq(struct zpci_dev *zdev, int msi_vecs,
- {
- 	if (irq_delivery == DIRECTED) {
- 		/* Allocate cpu vector bits */
--		*bit = airq_iv_alloc(zpci_ibv[0], msi_vecs);
-+		*bit = airq_iv_alloc(zpci_dibv[0], msi_vecs);
- 		if (*bit == -1UL)
- 			return -EIO;
- 	} else {
-@@ -320,7 +321,7 @@ static int __alloc_airq(struct zpci_dev *zdev, int msi_vecs,
- 		}
- 
- 		/* Wire up shortcut pointer */
--		zpci_ibv[*bit] = zdev->aibv;
-+		rcu_assign_pointer(zpci_ibv[*bit], zdev->aibv);
- 		/* Each function has its own interrupt vector */
- 		*bit = 0;
- 	}
-@@ -342,13 +343,16 @@ static struct airq_struct zpci_airq = {
- 
- static void zpci_msi_teardown_directed(struct zpci_dev *zdev)
- {
--	airq_iv_free(zpci_ibv[0], zdev->msi_first_bit, zdev->msi_nr_irqs);
-+	airq_iv_free(zpci_dibv[0], zdev->msi_first_bit, zdev->msi_nr_irqs);
- 	zdev->msi_first_bit = -1U;
- 	zdev->msi_nr_irqs = 0;
- }
- 
- static void zpci_msi_teardown_floating(struct zpci_dev *zdev)
- {
-+	rcu_assign_pointer(zpci_ibv[zdev->aisb], NULL);
-+	synchronize_rcu();
-+
- 	airq_iv_release(zdev->aibv);
- 	zdev->aibv = NULL;
- 	airq_iv_free_bit(zpci_sbv, zdev->aisb);
-@@ -428,9 +432,9 @@ static int zpci_msi_domain_alloc(struct irq_domain *domain, unsigned int virq,
- 
- 		if (irq_delivery == DIRECTED) {
- 			for_each_possible_cpu(cpu) {
--				airq_iv_set_ptr(zpci_ibv[cpu], bit + i,
-+				airq_iv_set_ptr(zpci_dibv[cpu], bit + i,
- 						(unsigned long)zbus->msi_parent_domain);
--				airq_iv_set_data(zpci_ibv[cpu], bit + i, hwirq + i);
-+				airq_iv_set_data(zpci_dibv[cpu], bit + i, hwirq + i);
- 			}
- 		} else {
- 			airq_iv_set_ptr(zdev->aibv, bit + i,
-@@ -455,8 +459,8 @@ static void zpci_msi_clear_airq(struct irq_data *d, int i)
- 
++	unregister_adapter_interrupt(&zpci_airq);
  	if (irq_delivery == DIRECTED) {
  		for_each_possible_cpu(cpu) {
--			airq_iv_set_ptr(zpci_ibv[cpu], bit + i, 0);
--			airq_iv_set_data(zpci_ibv[cpu], bit + i, 0);
-+			airq_iv_set_ptr(zpci_dibv[cpu], bit + i, 0);
-+			airq_iv_set_data(zpci_dibv[cpu], bit + i, 0);
- 		}
- 	} else {
- 		airq_iv_set_ptr(zdev->aibv, bit + i, 0);
-@@ -550,7 +554,7 @@ static void __init cpu_enable_directed_irq(void *unused)
- 	union zpci_sic_iib iib = {{0}};
- 	union zpci_sic_iib ziib = {{0}};
- 
--	iib.cdiib.dibv_addr = virt_to_phys(zpci_ibv[smp_processor_id()]->vector);
-+	iib.cdiib.dibv_addr = virt_to_phys(zpci_dibv[smp_processor_id()]->vector);
- 
- 	zpci_set_irq_ctrl(SIC_IRQ_MODE_SET_CPU, 0, &iib);
- 	zpci_set_irq_ctrl(SIC_IRQ_MODE_D_SINGLE, PCI_ISC, &ziib);
-@@ -570,8 +574,8 @@ static int __init zpci_directed_irq_init(void)
- 	iib.diib.disb_addr = virt_to_phys(zpci_sbv->vector);
- 	zpci_set_irq_ctrl(SIC_IRQ_MODE_DIRECT, 0, &iib);
- 
--	zpci_ibv = kzalloc_objs(*zpci_ibv, num_possible_cpus());
--	if (!zpci_ibv)
-+	zpci_dibv = kzalloc_objs(*zpci_dibv, num_possible_cpus());
-+	if (!zpci_dibv)
- 		return -ENOMEM;
- 
- 	for_each_possible_cpu(cpu) {
-@@ -579,12 +583,12 @@ static int __init zpci_directed_irq_init(void)
- 		 * Per CPU IRQ vectors look the same but bit-allocation
- 		 * is only done on the first vector.
- 		 */
--		zpci_ibv[cpu] = airq_iv_create(cache_line_size() * BITS_PER_BYTE,
--					       AIRQ_IV_PTR |
--					       AIRQ_IV_DATA |
--					       AIRQ_IV_CACHELINE |
--					       (!cpu ? AIRQ_IV_ALLOC : 0), NULL);
--		if (!zpci_ibv[cpu])
-+		zpci_dibv[cpu] = airq_iv_create(cache_line_size() * BITS_PER_BYTE,
-+						AIRQ_IV_PTR |
-+						AIRQ_IV_DATA |
-+						AIRQ_IV_CACHELINE |
-+						(!cpu ? AIRQ_IV_ALLOC : 0), NULL);
-+		if (!zpci_dibv[cpu])
- 			return -ENOMEM;
+ 			airq_iv_release(zpci_dibv[cpu]);
+@@ -684,5 +685,4 @@ void __init zpci_irq_exit(void)
  	}
- 	on_each_cpu(cpu_enable_directed_irq, NULL, 1);
-@@ -660,10 +664,12 @@ void __init zpci_irq_exit(void)
- 
- 	if (irq_delivery == DIRECTED) {
- 		for_each_possible_cpu(cpu) {
--			airq_iv_release(zpci_ibv[cpu]);
-+			airq_iv_release(zpci_dibv[cpu]);
- 		}
-+		kfree(zpci_dibv);
-+	} else {
-+		kfree(zpci_ibv);
- 	}
--	kfree(zpci_ibv);
  	if (zpci_sbv)
  		airq_iv_release(zpci_sbv);
- 	unregister_adapter_interrupt(&zpci_airq);
+-	unregister_adapter_interrupt(&zpci_airq);
+ }
 
 -- 
 2.53.0
