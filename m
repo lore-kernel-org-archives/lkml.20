@@ -1,36 +1,49 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-242.mta0.migadu.com [91.218.175.242])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AFE529ACC6;
-	Fri,  9 Oct 2026 04:02:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 009723A48ED
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 04:04:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.242
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791518593; cv=none; b=Bgd0ChMHo+7pWlVqVLlhAu4mHtghQCA/H8/3Z9/xTTtg7uvyJ2sv0kdwUk6tKoznm/+iFIKbd5Esm3D+sBq3tbfdtvSN60ahF1DoSVsPXJny3SMYr3L1C1zVaz5XuWBtse8RN1EQYnmkMsJKViRiKUeJvXIE6aSzOvO7cE/e0AA=
+	t=1791518680; cv=none; b=fLVWIYOTYPSTY3TjmXGXU0dZOwhXuuGZwZoqnV5MaMZggt+tFmEcZokg8gX/0HKMcBhoYUGDE6iB3eMtnUGP7u7fd9DR+GuYyDeYp04jGLx534LidrNMPQh2vyOnwX3BUVlZSs2QNKLlRHgxxjyKDxQ6xNwjuDfODvByqvSn6cI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791518593; c=relaxed/simple;
-	bh=mMzqXnnIPwpI8ey5uExH7ZECiKvTm7kVwv+TuUAo54I=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=KzAiTP6ND2ApP/X0O2JkP4N7cVnLS6zvD5xCvIk00g72qK3XT9fXgv/a5L9zcO9/ebd3medVi17dsD6KzxmdP8zB+7lK1OqA5J/c6HrnEi8Uxi8p0tcXR9XWIPFae+r5GCxl3TE85pxHAkJC7phRcs99clxC2OYoPaPAx4sEe1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=lhorW8/u; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1791518680; c=relaxed/simple;
+	bh=Z7RiTtE42xGkm5ICBWHZS4V6+TbhG48J/FLHp2qlIkU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BUbkH6pTJiQRoVShclqEJQba6BiTG/eFj4Jh13csrbTZTVcv7hst+qpR3nS9IdDM9DaYrZoSSrpWKAAhKMwrRChQWcDJbxHHTWNwaUmWIKZBM21T0NX5k14EKQjC19Wv+NNKfPGoNJ81G50uMScbRLXj2aYMCzc1H3QGJMcLrlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=EEO8+Ht+; arc=none smtp.client-ip=91.218.175.242
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="lhorW8/u"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 506341043;
-	Fri, 9 Oct 2026 12:02:53 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Yoshinori Sato <ysato@users.sourceforge.jp>
-Cc: Rich Felker <dalias@libc.org>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	linux-sh@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] sh: maple: use the matching IRQ cookie
-Date: Fri,  9 Oct 2026 12:02:48 +0800
-Message-Id: <20261009040248.1136356-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="EEO8+Ht+"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Z7RiTtE42xGkm5ICBWHZS4V6+TbhG48J/FLHp2qlIkU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791518665; v=1; x=1792123465;
+ b=EEO8+Ht+zCMNvw4eQaOCAWi0dAv7kSLM/pXCBxL3kUaxm5lc+c1JuYYxIiWbhKZr7ExEe7IO
+ HKyrlviL+SCkljkFF12R8YlB+tG12KjQ+d0ZzMZ2NRk4K6mjQ00Cbl01sK3UvSAnlyLetyiRu5N
+ XcyWIIKKpaciV1uNWjotTWhU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id bcc70195f2016f7a;
+	Fri, 09 Oct 2026 04:04:25 +0000
+X-Mizu-Trace-ID: bcc70195f2016f7a
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: netdev@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Toshiaki Makita <toshiaki.makita1@gmail.com>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next] veth: clear rx queue hint in veth_xmit
+Date: Fri,  9 Oct 2026 12:04:11 +0800
+Message-ID: <20261009040412.14571-1-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,48 +51,101 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa11ed4030903a1kunm92fc2cac43371f
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGUIaVklIT0tJTU4fQ0oeHVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=lhorW8/uhNKWp0ScGNxPS1+dSpd94mtQpFW0YSOaQJMmU+/5e7NrMO/DbSY/3mhweiZfTQM5/zpKBm2DxxbVDv/d2c7MYJD4IgLwWZ4dqnnlDOQVgK04Ek2vPuEY/tuAXHiCiG8LFHHg5bLOrN0ncSZN5rvJFm4hofPUUXQKutk=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=YOFlvx96QodutWTmr4/2mAXobVJqLQc8o6ofGk997gw=;
-	h=date:mime-version:subject:message-id:from;
 
-The Maple DMA and VBLANK handlers are registered with
-&maple_unsupported_device as their dev_id. Passing NULL to free_irq()
-cannot find either action, so the handlers remain registered and the
-IRQ core warns.
+With more tx queues on one end of a veth pair than rx queues on the
+other, and RPS or generic XDP enabled on the receiving end, we get:
 
-Use the same cookie when freeing both handlers on the error paths.
+    veth1 received packet on queue 2, but number of RX queues is 2
+    WARNING: net/core/dev.c:5212 at get_rps_cpu+0x560/0x1360
+    Call Trace:
+     <TASK>
+     netif_rx_internal+0x1af/0x4c0
+     __netif_rx+0x99/0x350
+     veth_xmit+0x713/0xca0
+     dev_hard_start_xmit+0x166/0x5f0
+     __dev_queue_xmit+0x1797/0x42d0
+     ip_finish_output2+0xa34/0x1f40
+     __ip_finish_output+0x510/0x7e0
+     ip_finish_output+0x2f/0x320
+     ip_output+0x17a/0x3f0
+     ip_send_skb+0x1bc/0x220
+     ......
 
-Fixes: 17be2d2b1c33 ("sh: Add maple bus support for the SEGA Dreamcast.")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Easy to hit with "ethtool -L veth0 tx 4", "ethtool -L veth1 rx 2",
+rps_cpus set on veth1 and a few flows sent over the pair [1].
+
+veth_xmit() uses skb->queue_mapping to pick the peer rq, but never
+clears it before veth_forward_skb(), so the rx side still sees the tx
+queue index. Everything on the rx side that goes through
+skb_get_rx_queue(), like get_rps_cpu() and netif_get_rxqueue() for
+generic XDP, takes it as a recorded rx queue and warns once it is out
+of range.
+
+Clear it before handing the skb to the peer:
+
+- It is the tx queue index of this device, it says nothing about the
+  rx queue of the peer.
+
+- The two sides don't even agree on the encoding. The tx side stores
+  the index as is, the rx side stores index + 1 so that 0 can mean
+  "not recorded". So tx queue k is read back as rx queue k - 1, and
+  tx queue 0 as "not recorded".
+
+- Commit 710ad98c363a ("veth: Do not record rx queue hint in
+  veth_xmit") already decided that veth should not pass any queue
+  hint to the peer. There is no tx->rx queue mapping to preserve, so
+  nothing is lost by clearing it.
+
+On NETDEV_TX_BUSY the skb goes back to the qdisc, which looks up the
+txq from skb->queue_mapping to decide when to retry, so restore it
+there, next to the existing __skb_push().
+
+[1]: https://lore.kernel.org/netdev/156834bb-8e40-496e-9443-9d515fa18eab@linux.dev/
+
+Fixes: 710ad98c363a ("veth: Do not record rx queue hint in veth_xmit")
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 ---
- drivers/sh/maple/maple.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Target net-next since it is moderate.
+Full reproducer, veth1 lives in netns ns1:
 
-diff --git a/drivers/sh/maple/maple.c b/drivers/sh/maple/maple.c
-index 5585f220e..7df88e00c 100644
---- a/drivers/sh/maple/maple.c
-+++ b/drivers/sh/maple/maple.c
-@@ -863,10 +863,10 @@ static int __init maple_bus_init(void)
- 	kmem_cache_destroy(maple_queue_cache);
+  ip netns add ns1
+  ip link add veth0 type veth peer name veth1
+  ip link set veth1 netns ns1
+  ethtool -L veth0  tx 4
+  ip netns exec ns1 ethtool -L veth1 rx 2
+  ip netns exec ns1 sh -c  'echo f > /sys/class/net/veth1/queues/rx-0/rps_cpus'
+  ip addr add 10.9.9.1/24 dev veth0
+  ip link set veth0 up
+  ip netns exec ns1 ip addr add 10.9.9.2/24 dev veth1
+  ip netns exec ns1 ip link set veth1 up
+  for i in $(seq 200); do echo hi > /dev/udp/10.9.9.2/9999; done
+---
+ drivers/net/veth.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/net/veth.c b/drivers/net/veth.c
+index 71227d0389aa..7d181c5e387b 100644
+--- a/drivers/net/veth.c
++++ b/drivers/net/veth.c
+@@ -377,6 +377,9 @@ static netdev_tx_t veth_xmit(struct sk_buff *skb, struct net_device *dev)
  
- cleanup_bothirqs:
--	free_irq(HW_EVENT_VSYNC, 0);
-+	free_irq(HW_EVENT_VSYNC, &maple_unsupported_device);
+ 	skb_tx_timestamp(skb);
  
- cleanup_irq:
--	free_irq(HW_EVENT_MAPLE_DMA, 0);
-+	free_irq(HW_EVENT_MAPLE_DMA, &maple_unsupported_device);
- 
- cleanup_dma:
- 	free_pages((unsigned long) maple_sendbuf, MAPLE_DMA_PAGES);
++	/* tx queue index of this device, meaningless as rx queue of the peer */
++	skb_set_queue_mapping(skb, 0);
++
+ 	ret = veth_forward_skb(rcv, skb, rq, use_napi);
+ 	switch (ret) {
+ 	case NET_RX_SUCCESS: /* same as NETDEV_TX_OK */
+@@ -397,6 +400,8 @@ static netdev_tx_t veth_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		}
+ 		/* Restore Eth hdr pulled by dev_forward_skb/eth_type_trans */
+ 		__skb_push(skb, ETH_HLEN);
++		/* qdisc requeues the skb on the txq it points to */
++		skb_set_queue_mapping(skb, rxq);
+ 		netif_tx_stop_queue(txq);
+ 		/* Makes sure NAPI peer consumer runs. Consumer is responsible
+ 		 * for starting txq again, until then ndo_start_xmit (this
 -- 
-2.34.1
+2.43.0
+
