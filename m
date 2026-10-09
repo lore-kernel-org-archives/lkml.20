@@ -1,129 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE77E3BB689
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 06:54:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13BBA3EEAF4
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 06:54:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791528875; cv=none; b=KGxPztkanp5vnu1qC1h+Q90g9PkLemLlhfJ/9SlCrVBtf/+F6Mg+3+DoUTTpsfX6AlZDbX1HoQM81PU2l5vewpKBKWLf3BYLgSZIULpQ3PsZJ3Qz+aU8sWNZXkQqqQZb1onjuAg9bG7iQjp4XRNJyC2eQ6EQYTIYayw6W9mWRzE=
+	t=1791528881; cv=none; b=rQKgqcT7aqvuosCQJi4b6bxvYLg8dF4nS5XFhHik8pnUg7n+aHPUZw2YmQvSZ7jCTGwNO8pLBZ5Q20QUCjjeoFu6WGYH+VOVlPUkUIY5/CJxkHLcqLakyLsL4uMltVN92rrce8HJxyBqrT1ShArhTGrz/rL2thbCsExIxOU7fDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791528875; c=relaxed/simple;
-	bh=T6CW6eIIjDRuMCeNkO+47KQJAuDB8lChFB7dh7ew3tc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nT5Dl/pQWgF1Yt7cQL2d7xcArzGbxnaIEMoxkvDWtJ3uoQ9R63ChHZ68ED08cgfmPACC+3zaSJvAUEf5QAwqRoCkeq/gDbXTICISirdnBSfRcTHy6lU2SimwGcauLt4FiVhwkZaevdSoufMjZSkTNW+ZBne1qwICEAZ7Eb69qZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YiE6B6Je; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791528881; c=relaxed/simple;
+	bh=wu+uBrjlvRD2ITE4XBNGOFu01cCzqEw5y8dP/zxWqpM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VAEzalfVr1peO4nRS1W4+dQtlhTO/8hlWOmmIafP46JXFZOFgjhFn0WVsELlk9hxQ0CFssqb5Ch2sCHlw5UjXi5BC/oQmNWkBC3t+kUNv/XSsq/ADrsDT2v3B+gc3dtPxq0/ZWa/VVcKMJrfPoxByYMba4fsmgiwkN537qGMBiE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gKQp4R72; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YiE6B6Je"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 933EE1F008A2
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 06:54:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791528874;
-	bh=06QBzCXNVWA52XqK4TOlg6a6r68c0bAK18RCVlbai3E=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=YiE6B6Je3umtVXzq3Mr+gELqjv3GxQE7GXN7wwK0TExP/3MbmJsoDIRnju8Nz8+ps
-	 e0edxCcemk8F7VGCZ5lyC5nc1jtcwu+vZjO9+pWzWJUW+xYRztYGmu7mFOd9umi+bH
-	 cTaQ0P0cAqp+0dNQXtUe83kWmV8Os5YN9BmbScbQ2dJ2Oph+3F9Shzim5sMRS383Tv
-	 0kzs6j4BoH+YKOvnzd7Z/0zHdC2zCSiNMBIGFQOmKtV3UiRWEfyRpUSa4BQN0bJcJ+
-	 3yH/ZIuFI1S5V+Ebr4ZnTs4PkRXNN7zAwyttTCYSrlhI0bJ8LCSvUXlI5RC2sUPA6U
-	 NkvF4Lf+i5Cyg==
-Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-6c8f6a53fabso1327436eaf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 23:54:34 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwhymrOvz9jD66gbVadW7wzy4vL/xaXtWMwFoAmG6I1Rd1hHQ1m/qVJysFXMaC6ATflfaLW1cCGCyMxETk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lxHYceczuWbyN521TeQnH8U2QBKKASOhcey2Rp/q/H287Z/Xkd
-	df/xD9OPe/2ciDYd5dYjy7G/pSmO7YnWtNShndsWYUfRvATWATF5THwFUMhDdLIxb9gV1Fae5hs
-	LfEhcYsP7k3xnEzR9q0haV/xbyO2XXOk=
-X-Received: by 2002:a05:6820:c98:b0:6d7:294:ef93 with SMTP id
- 006d021491bc7-6eee58f58cbmr865984eaf.68.1791528873851; Thu, 08 Oct 2026
- 23:54:33 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gKQp4R72"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791528876;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=S3+4R+QpyK4HOxxP6qoWhYfhHc4hscg5LMjpnbpjS08=;
+	b=gKQp4R72WJu7wI1MvOyTMUaC6FaFG2wrGMiAvEdzDgw0uWl80adgK+ASZ3nZnPFcYNJvog
+	6cqutpOrsyfSeQNHPHKcE+BFnPXjfkhkHW6v6m5nEb4jmYwJbazOqbMyvCzzlErTkJjqdL
+	/LmHxUmOHDRqWHQMyGQ1OdSKWUoUxsE=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-628-OxYrb-qoOie7b1HofEXdiA-1; Fri,
+ 09 Oct 2026 02:54:33 -0400
+X-MC-Unique: OxYrb-qoOie7b1HofEXdiA-1
+X-Mimecast-MFC-AGG-ID: OxYrb-qoOie7b1HofEXdiA_1791528872
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 0E40419560A7;
+	Fri,  9 Oct 2026 06:54:32 +0000 (UTC)
+Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 943031956095;
+	Fri,  9 Oct 2026 06:54:29 +0000 (UTC)
+From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+To: herbert@gondor.apana.org.au,
+	davem@davemloft.net,
+	johannes@sipsolutions.net,
+	miriam.rachel.korenblit@intel.com
+Cc: ilan.peer@intel.com,
+	emmanuel.grumbach@intel.com,
+	linux-crypto@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+Subject: [PATCH v3 2/4] wifi: iwlwifi: enable MFP_CAPABLE in FIPS mode
+Date: Fri,  9 Oct 2026 08:54:11 +0200
+Message-ID: <20261009065413.53403-3-jtornosm@redhat.com>
+In-Reply-To: <20261009065413.53403-1-jtornosm@redhat.com>
+References: <20261009065413.53403-1-jtornosm@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <pm-ip-core-objects-candidate-0002-v9-1404514d79dd4560c571@gmail.com>
-In-Reply-To: <pm-ip-core-objects-candidate-0002-v9-1404514d79dd4560c571@gmail.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Fri, 9 Oct 2026 08:54:21 +0200
-X-Gmail-Original-Message-ID: <CAL4WiirhPWmWCnPLHJVp8vXUvPGo6CQ6HC0ZmaEzYXmP8uZtzA@mail.gmail.com>
-X-Gm-Features: AclHuK_4rc-K38AyJ0dtzz7KoSpe9qNAcpD0zjCYRCssCVISK54w2IqH9Ba6080
-Message-ID: <CAL4WiirhPWmWCnPLHJVp8vXUvPGo6CQ6HC0ZmaEzYXmP8uZtzA@mail.gmail.com>
-Subject: Re: [PATCH net v2] ipv4: prevent in_dev_get() from returning a dead in_device
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net, 
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, jiri@resnulli.us, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, baul.lee@xbow.com, 
-	baijiaju1990@gmail.com, jjzuming@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-Le ven. 9 oct. 2026 =C3=A0 08:21, Cen Zhang <zzzccc427@gmail.com> a =C3=A9c=
-rit :
->
-> in_dev_get() samples dev->ip_ptr under RCU and unconditionally
-> increments the in_device reference count. Device teardown can clear
-> the pointer and drop the last reference after the sample but before
-> the increment. RCU keeps the allocation accessible during the lookup,
-> but does not guarantee that a reference can still be acquired.
->
-> Commit 9d40c84cf5bc ("net: devinet: Reduce refcount before grace period")
-> moved the final put before the grace period. A zero-count increment now
-> warns and saturates the count, but cannot cancel the RCU free that has
-> already been queued. Returning that pointer lets callers access the
-> allocation after leaving RCU, when it can have been freed.
->
-> Use refcount_inc_not_zero() and return NULL if the reference cannot be
-> acquired, following the in6_dev_get() fix in commit 0e243671bc7b ("ipv6:
-> prevent in6_dev_get() from resurrecting inet6_dev"). A successful
-> increment retains the object for the caller. Under RTNL, a published
-> in_device still has a live reference, so reference acquisition is
-> unchanged. Callers already account for a NULL dev->ip_ptr result.
->
-> The RTM_GETNETCONF handler already checks for NULL and can keep
-> RTNL_FLAG_DOIT_UNLOCKED. This fixes reference acquisition in the helper
-> rather than serializing that one reader with teardown.
->
-> KASAN report as below:
->
->   BUG: KASAN: slab-use-after-free in inet_netconf_fill_devconf+0x748/0x79=
-0
->   Read of size 4 at addr ffff88811d70b958 by task ip_core_fixture/498
->
->   Call Trace:
->     [...]
->     inet_netconf_fill_devconf+0x748/0x790
->     inet_netconf_get_devconf+0x41c/0xe40
->     rtnetlink_rcv_msg+0x7b9/0xce0
->     netlink_rcv_skb+0x133/0x390
->     [...]
->
->   Allocated by task 496:
->     [...]
->     inetdev_init+0x60/0x550
->     inetdev_event+0x71e/0x1780
->     [...]
->
->   Freed by task 0:
->     [...]
->     kfree+0x12b/0x530
->     in_dev_free_rcu+0x51/0x90
->     rcu_core+0x661/0x1d10
->     [...]
->
->   Last potentially related work creation:
->     [...]
->     __call_rcu_common.constprop.0+0x76/0xbd0
->     in_dev_finish_destroy+0x12e/0x190
->     inetdev_event+0xa37/0x1780
->     [...]
+Re-enable MFP_CAPABLE flag in FIPS mode for iwlwifi to allow Management
+Frame Protection (802.11w) to work with mac80211 software crypto.
 
-This is very confusing.
-The changelog shows only the KASAN splat, which is really not that
-interesting here.
-The refcount_t: addition on 0 warning that must precede it would be
-stronger evidence, as in the IPv6 commit.
+Commit 0636800c8ee1f ("wifi: iwlwifi: disable certain features for
+fips_enabled") disabled MFP_CAPABLE when fips_enabled=1.
+The original concern about "some frames need to be handled in
+firmware" applies to firmware-offloaded features like WoWLAN and beacon
+protection, which remain correctly disabled by the commented commit.
+For normal STA mode operation, management frames are processed in
+software. And MFP can function in FIPS mode for normal STA operation
+when mac80211 software crypto handles IGTK encryption/decryption using
+FIPS-approved AES-CMAC/GMAC algorithms.
 
-So this looks like a modified kernel or something like AI hallucination ?
-Please elaborate
+Other major WiFi drivers (ath11k, rtlwifi, mt76, ...) set MFP_CAPABLE
+unconditionally, suggesting this approach is viable for FIPS mode
+operation with software crypto.
 
-pw-bot: cr
+When FIPS_EXCEPTION_WIFI_MFP is set via the fips_exception boot
+parameter, use fips_allows_exception() to restore MFP_CAPABLE.
+Without fips_exception set, the behavior remains exactly as commit
+0636800c8ee1 implemented.
+
+Testing on Intel WiFi 6E AX210 with fips=1 fips_exception=1 shows:
+- IGTK ciphers (CMAC, GMAC-128, GMAC-256) are properly advertised
+- WPA3-SAE connections with MFP required succeed
+- iw station dump confirms "MFP: yes"
+
+Firmware logs "Unhandled alg: 0x707" (SEC_ENC_ERR) during operation,
+confirming that firmware does not have the keys and frames are being
+handled by software crypto as expected.
+
+Fixes: 0636800c8ee1f ("wifi: iwlwifi: disable certain features for fips_enabled")
+Signed-off-by: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+---
+v3: reuse v1 1/2 idea plus fips_allows_exception() helper from patch 1/4
+v2: https://lore.kernel.org/all/20260930120829.383408-1-jtornosm@redhat.com/
+v1: https://lore.kernel.org/all/20260629121213.597038-2-jtornosm@redhat.com/
+
+ drivers/net/wireless/intel/iwlwifi/mvm/mac80211.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/mac80211.c b/drivers/net/wireless/intel/iwlwifi/mvm/mac80211.c
+index 5bd246e37943..144a19a4015c 100644
+--- a/drivers/net/wireless/intel/iwlwifi/mvm/mac80211.c
++++ b/drivers/net/wireless/intel/iwlwifi/mvm/mac80211.c
+@@ -462,7 +462,7 @@ int iwl_mvm_mac_setup_register(struct iwl_mvm *mvm)
+ 		IWL_ERR(mvm,
+ 			"iwlmvm doesn't allow to disable BT Coex, check bt_coex_active module parameter\n");
+
+-	if (!fips_enabled)
++	if (!fips_enabled || fips_allows_exception(FIPS_EXCEPTION_WIFI_MFP))
+ 		ieee80211_hw_set(hw, MFP_CAPABLE);
+
+ 	mvm->ciphers[hw->wiphy->n_cipher_suites] = WLAN_CIPHER_SUITE_AES_CMAC;
+--
+2.49.0
+
