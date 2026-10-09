@@ -1,143 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D70894CE69E;
-	Fri,  9 Oct 2026 17:43:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791567787; cv=none; b=L/f3YYSRDFjNdXMITwPtSQJ5VtKbvudNduxd3qj08Gq3FyVGxrt2hQpO/EDHwCc9JG2WBvGpS3EDfo72kybUtgvPgzF95FmtaLN7V7nxQ3mzf9g3Ra1H9GkGcTVHSut2HQOAr5llK7kVu78rRpafYVFtz9mvAh56o3t8Rd4aaaI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791567787; c=relaxed/simple;
-	bh=mLiQqzGLzW31eYbHCnl2GntdGqvBueCmcEVKVxHtV3o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kj4QlkqSQobDbIAFOvqthedtZfy5TzVlg97S1DCdyMpTso7TzZl9Y8A064OoV8OjxEOJoJIC9cLbSPHAsACdCVIWspA5WnaKVYGd5+uB2YuQT1yX1slEXdxDTrsji1eS/ss86ZoN8mxscN8sHyR9tycCK/xpqjyTLryQyqhRk8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dCpHTy2k; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE4CC3CFF51;
+	Fri,  9 Oct 2026 17:43:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791567834; cv=pass; b=XVEr8taQoQfPOjG4ymoCKpTQno0rot/8ukb7ZnQHl3FSUU+Wg6QBHlDfshPCYzc1+LKDpJ85BzlPv5ULL06evliKlk9+O4HFwUiVUBAMvsJjYlbfcbcQ319gpTLwUJ6sc6Bps8AqNF4gT7ojl5X3DQGRmlk+2zuYg54aUaiWWoE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791567834; c=relaxed/simple;
+	bh=2USrELN0j9xjAwY+/mGGtPdliAWR0A+x4t3JgPpnkkc=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=gT8MbKZCsOF53sjD0P8N1/9rxyT7aiIQE3rIGRt3/Sz8h8KMlX9xnAzIPSb4DE31n60iOPM8wtKi8v03ZhgavpK1kaGHCgzPsqc8BzVAvYP7LnKGA+cR2YDpJ15RiJWNfs3IYRGd93daOIZHK6td/WysmJRA8cxIHCPBAm43Mcc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=IcWKAHyk; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dCpHTy2k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB21D1F000FF;
-	Fri,  9 Oct 2026 17:43:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791567786;
-	bh=U0s03iNrq790So+pbxwkgjCu207XK/E0NIw4uR3r3S4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dCpHTy2kRayrBM7jKK+ewjW+/1nlHlYFvCNzUWHvIu4BhDEB40Ckb1z6CuG6HTcHP
-	 k0R5edj57wikOJaKKbUpz/U6Uj2TkOq3otUC/mhhMHhIX1qtO+Abkqvj1HGZ1Suwsb
-	 9gv70Q5NfRUrjEy02QyerM0P1NLHA9bxKt0wf6Gwfz+6DPhCjog6Gzf+m6XKDFMWVz
-	 4V63bvdWNQqHPqcGFyl3Cja06HwpnTIU2Ppi+uVZvAm12V1aM7HOlI1P/OJDDrZFuK
-	 vza8KWGlZrphMiubCqZL0OEZzyaXsLrJGdfDm4YSvNuV+YQn7ap18HyVVtuVFDiDku
-	 ptjFns74hSqpw==
-Date: Fri, 9 Oct 2026 20:43:01 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: Re: [PATCH v9 02/18] PCI/P2PDMA: Derive routing from directional ACS
- controls
-Message-ID: <20261009174301.GC11438@unreal>
-References: <20261007063227.GC7822@unreal>
- <20261007204045.GA783967@bhelgaas>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="IcWKAHyk"
+ARC-Seal: i=1; a=rsa-sha256; t=1791567799; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=g3lMuIJlU5myjBeFh5StRCLz5OuShmhh2kujR0XJxKpacLwXUfjuTNkd/cw3J9t97El+u97tMfwSPmOHV3JzDowzCbWseNOlaZeI1QyTKNLu3zPkHkL9lVa9iI3cPpP0lQvVQeOs1f/qds/FoukeV9kaXwOmkltaGO8O6ZJ07s4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791567799; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=2USrELN0j9xjAwY+/mGGtPdliAWR0A+x4t3JgPpnkkc=; 
+	b=T2SqrsCVVbzz0caauPWDtySNc788Z7nLCbAaPagojusYfSU1vZtTgppqhRmqlNOb8WqAtA6NJit30HDyhZ3enS9RHPl4pRFWiTHs07GfCBS3EycV5BTc2i63PkvxzVzrOBj2Sp18XEJtY9/pECb/YsI5V8PVi+QBxZWpFtLTFMM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+	dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791567799;
+	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+	bh=2USrELN0j9xjAwY+/mGGtPdliAWR0A+x4t3JgPpnkkc=;
+	b=IcWKAHykQ90adxjIX4R8u1h3dhdvXqpxsc7KWIaOIA9o6v8qjlvqTnAJEyosBRfT
+	NMFlgtITRsQwZVQyLRPRJfFhzPm/HM2kVT3Rn0lBaZr4gIGvrNG6FLYLd81sqjyC6uG
+	Oa865Z1qL+ug4uohLwJm/jVxA4jDbGWcB6NqDtXY=
+Received: by smtp.zohomail.com with SMTPS id 1791567797840227.23013293258816;
+	Fri, 9 Oct 2026 10:43:17 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261007204045.GA783967@bhelgaas>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
+Subject: Re: [PATCH 4/7] rust: fs: add iminor() helper
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260814230923.1292966-5-dakr@kernel.org>
+Date: Fri, 9 Oct 2026 14:43:01 -0300
+Cc: aliceryhl@google.com,
+ acourbot@nvidia.com,
+ ojeda@kernel.org,
+ boqun@kernel.org,
+ gary@garyguo.net,
+ bjorn3_gh@protonmail.com,
+ lossin@kernel.org,
+ a.hindborg@kernel.org,
+ tmgross@umich.edu,
+ tamird@kernel.org,
+ work@onurozkan.dev,
+ brauner@kernel.org,
+ lyude@redhat.com,
+ j@jananu.net,
+ alvin.sun@linux.dev,
+ deborah.brouwer@collabora.com,
+ laura.nao@collabora.com,
+ beata.michalska@arm.com,
+ nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <6395D58C-F3CC-4B2E-8B20-6EEEB92070DC@collabora.com>
+References: <20260814230923.1292966-1-dakr@kernel.org>
+ <20260814230923.1292966-5-dakr@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.11)
+X-ZohoMailClient: External
 
-On Wed, Oct 07, 2026 at 03:40:45PM -0500, Bjorn Helgaas wrote:
-> On Wed, Oct 07, 2026 at 09:32:27AM +0300, Leon Romanovsky wrote:
-> > On Tue, Oct 06, 2026 at 03:49:47PM -0500, Bjorn Helgaas wrote:
-> > > On Thu, Oct 01, 2026 at 02:55:10PM +0300, Leon Romanovsky wrote:
-> > > > From: Leon Romanovsky <leonro@nvidia.com>
-> > > > 
-> > > > pci_bridge_has_acs_redir() treats Request and Completion Redirect as
-> > > > interchangeable. On asymmetric fabrics, a control for only the reverse TLP
-> > > > direction can unnecessarily force P2PDMA through the host bridge.
-> > > 
-> > > Does "the reverse TLP direction" refer to Completions?
-> > 
-> > In general, the P2P code treats TLPs flowing from device A to device B the
-> > same as TLPs flowing from device B to device A.
-> > 
-> > However, in the context of this commit message, yes: completions flow in the
-> > opposite direction from the device's perspective.
-> 
-> And I guess asymmetric fabrics must mean fabrics where Request
-> Redirect and Completion Redirect are not set the same way?
 
-Yes, in some of our systems, deviceA to deviceB is going through
-different route than deviceB to deviceA.
 
-> 
-> > > > Evaluate Request Redirect for client Requests and Completion Redirect for
-> > > > provider read Completions. Continue treating enabled Egress Control
-> > > > conservatively as a Request redirect.
-> > > 
-> > > Completion Redirect is intended to avoid ordering rule violations
-> > > between Completions and Requests when Requests are redirected (PCIe
-> > > r7.0, sec 6.12.1.1).  I assume this patch preserves the ordering rule,
-> > > but does the commit log need to say something about that?  I don't
-> > > know enough about P2P DMA for it to be obvious to me.
-> > 
-> > I don't think so, i didn't change anything related to ordering.
-> 
-> I don't think there's anything in this whole series that changes any
-> ACS settings, so I shouldn't have wondered about *preserving* the
-> ordering rule.
-> 
-> But I asked about ordering because it sounds like this patch expects
-> to encounter asymmetric fabrics where Request Redirect and Completion
-> Redirect may not be set the same way, and the spec implies that
-> asymmetry may result in ordering violations.
+> On 14 Aug 2026, at 20:09, Danilo Krummrich <dakr@kernel.org> wrote:
+>=20
+> Add a Rust helper for iminor(), which extracts the minor number from a
+> struct inode. This is a static inline function in the C headers, so
+> bindgen does not generate a binding for it.
+>=20
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> ---
+> rust/helpers/fs.c | 5 +++++
+> 1 file changed, 5 insertions(+)
+>=20
+> diff --git a/rust/helpers/fs.c b/rust/helpers/fs.c
+> index 789d60fb8908..d6f9782db178 100644
+> --- a/rust/helpers/fs.c
+> +++ b/rust/helpers/fs.c
+> @@ -10,3 +10,8 @@ __rust_helper struct file =
+*rust_helper_get_file(struct file *f)
+> {
+> return get_file(f);
+> }
+> +
+> +__rust_helper unsigned int rust_helper_iminor(const struct inode =
+*inode)
+> +{
+> + return iminor(inode);
+> +}
+> --=20
+> 2.55.0
+>=20
+>=20
 
-My guess is that the hardware and system architects have ensured this
-doesn't happen. At least, I haven't received any complaints about this
-series during internal testing.
 
-> 
-> > > Not really a question for this series, but p2pdma.c and p2pdma.rst
-> > > refer to "clients" and "providers", neither of which are mentioned in
-> > > the PCIe spec.  In this case it sounds like a client is a Requester
-> > > and a provider is a Completer in spec terms.  Is that always the case?
-> > > If so, "client" and "provider" in this paragraph are not adding any
-> > > information.
-> > > 
-> > > If "client" is not the same concept as "Requester" and "provider" not
-> > > the same as "Completer", maybe p2pdma.rst could explain the
-> > > difference?
-> > 
-> > Client vs. provider are actual target vs. initiator. They express the
-> > device role in the flow.
-> 
-> I'd rather use "Requester" and "Completer" when possible because they
-> have specific meanings in the PCI spec and they correspond to the ACS
-> control bits.  Client, provider, target, initiator are all from the
-> outer world that makes use of PCIe constructs, but they don't mean
-> anything inside the PCIe world.
-
-These names come from p2p users such as dma-buf and NVMe. I didn't want
-to rename them as they already exists and is in use inside p2p code.
-
-Thanks
-
-> 
-> Bjorn
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>=
