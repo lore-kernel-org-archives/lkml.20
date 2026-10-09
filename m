@@ -1,418 +1,196 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D66143712D;
-	Fri,  9 Oct 2026 09:09:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791536967; cv=none; b=u4K4CkWgJpTbaV4N3E3jFt4DthrFUQjOdHwerN7koya8ryXAZs+F94CMsKSiPT8dlM3awMLGeb+ao1qT4HBELzuNWZZfyuS8u5VrLgD3/KDlKqKeo8XfkFgsyDgQepXbSrtIbAsdAtadkmCrbvRctv1pvWHTXcQVqdxtF+loFRg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791536967; c=relaxed/simple;
-	bh=UMwSDMRdbRRnRnsTo/Rf8t95iomelsOPhDec7zyrabk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MQWQ0CF0N7dVSHTIyuqrA/NZxCZG67QAJrNLrSWPXGitcZU1p7s+0EPMi/BoeANUBxWpEQjLwqsG4eX/V1BCuBEsXQPCSN3He1DwDrX93+xrNsVJO/jNcgbahkgj5KuHo6mQZLVevxO61E5KRuHJ/e551MYwkELwcu975YXAjqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=X3Cpx6lD; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47DAE49DB9F;
+	Fri,  9 Oct 2026 09:09:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791536974; cv=fail; b=FAkKXv4bsaLxhSM+xYt3XaeK++iCUONWDyrKm4+8w1aU5mh8IkRFRvblKWhX15kGLCsgr4BQxUO7Gy2cR/ov48CCrIZrJFBvmMqPawimxJvonui2KjxqsPuSHdneYzGMCR002QOJc8voWuyCBHVsxy7uUhTBCxt5O4mAxJlD878=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791536974; c=relaxed/simple;
+	bh=/cNk/YNqeurJiQRhdE5FkqW6vEtqoMLt7p+Zvxt/OIM=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=I3zqbYYU/aSUEL/LuSyrrSkPC3qKmH5kdCBbSk6++58xUiMbyfa4+zR+80D0qDmKnvZl0HUDSuMHX16wwJ4eFekKVFPtcIX154iPDILYXvZ80APCzVIwdni8sHlFU9q1PBFdq4wpq5zbcdRqpnG553RmLr75qEuEO6Ha8x42qX0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dOlLsZOE; arc=fail smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="X3Cpx6lD"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
-	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
-	From:Reply-To:Content-ID:Content-Description;
-	bh=CxRbskOPFV9N9M2WxPpokPejPVvG6/b4AeYIdZPmjTY=; b=X3Cpx6lDtyqkaAK/frMjPIs97t
-	F1iQNlUUyGKrstaprMfeFD6IESr9iWpTqEIWUQ0Mfa8qMDKkGlMTu3LxSQIqpmi0h52VWzrL7t0zZ
-	yYW69y/A0tvqhQGE8P4x6ljKLtRMUOFC7TiR07agWzRr7FcbXvhiUtt45p7eoapE5WfiX0B1FsTWW
-	t9ZXeSBkIB8yf/Qq1OkDeHgIVN+oGM9u3xeYDWYyQaAkjqlpiETibca4AyUon6+MBzR+fp+Iy0mqp
-	ygldbtNy8Pb2GbvwvYlmYM6wEgY+EqZpwxBOr5XCd/YG8dlO4vcm6BsJrR8D2EbvtAClmgrn6/6Fb
-	gevVhZgA==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xF6bE-000QKM-2X;
-	Fri, 09 Oct 2026 09:09:09 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Fri, 09 Oct 2026 01:53:39 -0700
-Subject: [PATCH net-next v2 5/7] ipv4: convert do_ip_getsockopt() to
- sockopt_t
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dOlLsZOE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791536971; x=1823072971;
+  h=date:from:to:cc:subject:message-id:reply-to:references:
+   in-reply-to:mime-version;
+  bh=/cNk/YNqeurJiQRhdE5FkqW6vEtqoMLt7p+Zvxt/OIM=;
+  b=dOlLsZOEaHeUIaqSYYbJ0yQ6Q4jinF6X8RI88iN6aPwiBlwZXQmFeB0v
+   6N59m+1YS+I+r7GSIF/Y80ADB1EigRafB1X2nwTfbdgCjbmk2jLCd4qwj
+   5NMGKWi/npIUqt5t5o1PSOB0O76s2KUYJ8UcNOMqZTO/FIVplZmClJ/x4
+   9gNhF33bpcL+f6biStSZibxfEfYpfMvI1fgWVg8twDrawJKWhRX/Vy7l5
+   wOBeTQCbL7jdreAly6MlaIZBbQOBe6cvugL4JMhZRKXsM1qsJJVdL7pnM
+   lk3kOEKrjMNKL7rL/eQV0kER0CwDTzMLf/w4dUYeHcd9L4l92/Rsilk35
+   w==;
+X-CSE-ConnectionGUID: s4Z0MpuwS6GualytacojQQ==
+X-CSE-MsgGUID: TgUekUWKS7eP/QgY4IPkWA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="226106"
+X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
+   d="scan'208";a="226106"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 02:09:29 -0700
+X-CSE-ConnectionGUID: 7r+Rl1CbSEqJRZQjrYaDTQ==
+X-CSE-MsgGUID: IH/48Zk2Riagcnmdk+PMqw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
+   d="scan'208";a="224045"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 02:09:28 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Fri, 9 Oct 2026 02:09:27 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Fri, 9 Oct 2026 02:09:27 -0700
+Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.37) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Fri, 9 Oct 2026 02:09:27 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fOiQtLL723uB7E4TwmZWdO/Pz8yWQVwcUP/Cz1iI1lCcMR1SFKyoBRzghwgj1jzYKmnF3M7Y7qYmJJRfFSxDwQgJ/FlK1vbJG9siBiPgaASzmTYdY5SPyd2JOJByafef4pduFQuxBFPKeaUhg8uLi/Sn8MA4+rFkOTsSYoU9DNZ40KFlVOwN/2j/E3equE6KUUh9WUBT7VnK077mX4spdVumhgUvr9uh7grxs6BrGcZEunkHu+6MahqMx/cWAA+8RsI2znGZ9d7HtUB+imypC4WB5g88s7r4gIDMDRVqQJ1VyOa+j8ydM5sbJ21H0mX8imV0GLYjfeyONQ68WZY1uA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dC229W/X180IVnNLntIlx3gfxVThl6bRKyBR/TQBGl8=;
+ b=AJL2drtNbnVUOJlLrrjPac3Dxqml5Qc6y3trg5rH81D1LrMbYiwzCMZkx76+z/vgBPgGqr5uiHNqrH9svXfOBY2Qx6M9zbFsaLAHoI6yXQuiAuz2heFSDS26Lpm353qg2+gQG/orA/xSon1hSfB+rWCV1f166FGdwVN0YoogsDCCqlsx/yWBOI4z0/QCWZhexEu/ZTTs4rNJx+f7NmHQ+Gnh4YoeODij3efkpXl9xDHHUvJJno21SX2kXUkcwKO/Ig+vNMtxx8pOrNWpyrO6nfrDfe49zYKZrQrWaGauRu7ePqa6jrSDlsn027G5EJ+lce4R4xSLCRfrRYV65hkAjA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from BL0PR11MB3236.namprd11.prod.outlook.com (2603:10b6:208:60::18)
+ by DS4PR11MB653178.namprd11.prod.outlook.com (2603:10b6:8:4bf::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
+ 2026 09:09:25 +0000
+Received: from BL0PR11MB3236.namprd11.prod.outlook.com
+ ([fe80::b026:a3ba:5162:beb2]) by BL0PR11MB3236.namprd11.prod.outlook.com
+ ([fe80::b026:a3ba:5162:beb2%5]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
+ 09:09:25 +0000
+Date: Fri, 9 Oct 2026 17:08:36 +0800
+From: Yan Zhao <yan.y.zhao@intel.com>
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+CC: "pbonzini@redhat.com" <pbonzini@redhat.com>, "Hansen, Dave"
+	<dave.hansen@intel.com>, "seanjc@google.com" <seanjc@google.com>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "Du, Fan" <fan.du@intel.com>,
+	"Li, Xiaoyao" <xiaoyao.li@intel.com>, "Huang, Kai" <kai.huang@intel.com>,
+	"thomas.lendacky@amd.com" <thomas.lendacky@amd.com>, "tabba@google.com"
+	<tabba@google.com>, "vbabka@suse.cz" <vbabka@suse.cz>, "david@kernel.org"
+	<david@kernel.org>, "kas@kernel.org" <kas@kernel.org>, "michael.roth@amd.com"
+	<michael.roth@amd.com>, "binbin.wu@linux.intel.com"
+	<binbin.wu@linux.intel.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "Peng, Chao P" <chao.p.peng@intel.com>,
+	"ackerleytng@google.com" <ackerleytng@google.com>, "nik.borisov@suse.com"
+	<nik.borisov@suse.com>, "francescolavra.fl@gmail.com"
+	<francescolavra.fl@gmail.com>, "sagis@google.com" <sagis@google.com>,
+	"Annapurve, Vishal" <vannapurve@google.com>, "Chen, Farrah"
+	<farrah.chen@intel.com>, "Gao, Chao" <chao.gao@intel.com>, "Miao, Jun"
+	<jun.miao@intel.com>, "jgross@suse.com" <jgross@suse.com>,
+	"pgonda@google.com" <pgonda@google.com>, "x86@kernel.org" <x86@kernel.org>
+Subject: Re: [PATCH v4 08/17] KVM: TDX: Adjust the topup count of DPAMT page
+ pairs for splitting S-EPT
+Message-ID: <asivFAotV10NIZQL@yzhao56-desk.sh.intel.com>
+Reply-To: Yan Zhao <yan.y.zhao@intel.com>
+References: <20260928090729.15468-1-yan.y.zhao@intel.com>
+ <20260928091035.15599-1-yan.y.zhao@intel.com>
+ <6ac2a1ffc4a860e71e63c068b33dc7644e65401b.camel@intel.com>
+ <e126bda86263fc4d6af53112eec01a95da48570f.camel@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <e126bda86263fc4d6af53112eec01a95da48570f.camel@intel.com>
+X-ClientProxiedBy: TPYP295CA0033.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:7d0:7::17) To BL0PR11MB3236.namprd11.prod.outlook.com
+ (2603:10b6:208:60::18)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-sockopt_expand_out_v2-v2-5-8ac08c469ecb@debian.org>
-References: <20261009-sockopt_expand_out_v2-v2-0-8ac08c469ecb@debian.org>
-In-Reply-To: <20261009-sockopt_expand_out_v2-v2-0-8ac08c469ecb@debian.org>
-To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Stanislav Fomichev <sdf@fomichev.me>, Shuah Khan <shuah@kernel.org>, 
- Eric Dumazet <edumazet@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- david.laight.linux@gmail.com, Breno Leitao <leitao@debian.org>, 
- kernel-team@meta.com
-X-Mailer: b4 0.16-dev-f8e9d
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10912; i=leitao@debian.org;
- h=from:subject:message-id; bh=UMwSDMRdbRRnRnsTo/Rf8t95iomelsOPhDec7zyrabk=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqyK8OFIbdB/FkR3CtDUtVK7zlkyXLnmq7dlrwx
- wfMcTmE572JAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCasivDgAKCRA1o5Of/Hh3
- baAhD/9iUwdhcMiVZzr2QYxP5P1rioapt/f5VyZGLW7y9xnsfbhv9uTkjPtO+dWf0C7s4rfUPJe
- T70bD4v/NL7eKltnQbEgtq+LDc71kfK+9lqhU2Van43Dz10Pb+GfUtoosWkVWUd7g+OcBC1ev0I
- mLraZW5iMANflfadvBYL/YuNAK7bvx1rQkXDnnteBXNQJ0GkeJOdiw5rASCr1Pe8ajCE5GBdyHA
- Q47q8gvUgzqOQS/IhVvgtFl4I7UlYWjeyVx+JlrjJvVVg0wB9dWDMcdyIS6n7KlsQB4woyHjxTX
- l0UnMPnIMz4dDj1m/jZk+oBs9f/5rfpjL4TLN8XrYnl2YRmnGvW/+NBEi08pGsj7HOjRlhAjs0k
- i1ihQW4/qcYlg6pPaZtFdc1OYNc+6VUIDtmPgCJSf2AKPtu4hAlEOni4p4FNZPiMt+B6c7LU3nr
- deVGGBRYwjF3F8zJ1WQwY+q6cavMlRTab2dzr/zFaQ2ziqJ1a+yzdU3qg2vHODD2AtwdJ8gspxg
- x5JjY49WIg9ecWkRgajMKFw8nZsmyWjIxaSRxvIK4hYEdcu0mcwPOiWR1eSdhvUv8j4Ttg3al4c
- Zp6QUOOwJEd2mFyVkOA34OHShcA8t/ag9k40mJ86EsMh/whd8Lh2vTr4HwIzCiFBwI4yRxQwC10
- IPkfbhA8Bisa1Nw==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR11MB3236:EE_|DS4PR11MB653178:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8c3d059b-33a2-4b3f-cfda-08df25e503df
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|4143699003|11063799006|56012099006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: yJTdqpop2bp1buUXSD3WimWnRPCuyNTaZ/e5VUA11G5OWGVemFL94RZ+FhYnI1B9mGWzBLcNrMy3uWOiT7urFM3vfykH4j6cJ0sHGIqnPG+1rZ0um9foOBKiePtlY8UTgxq0qL0MOpmshSbqcws3H9jlw3/PTXWSB323XvMqo1UlTJwG83P0oTJi/D8GwoUIiVUE/oHk3WibIw80xWUR2CVUenbqEGw158RfBicHYNOkSX64qO0KEymwzr1FjGgEs0nTU1XTrF8EAPQIz0VRljWgq74RVEJzuohRS2Uymtg1QHVxLaYay453xk8nUYn/0UES1xRcHikhqMJQok5H8m2mz6plTyl0gLRumBX0HUDXIKZwpJRDBgWCiakK9UPIrE1QIK6s4ajvwv0y7kyl//oXeT7vY+DULc/zm8/5HXSHRc7MMjE7eI6nfGZBrWxWbtOF1rhwKrisox5KhFMrAX10idgIjXyfd3orrlrbx/8VTcjvE6KPzlPYo1uiCl6VsOoxAigXAXXjTTWDsQJeOcFxFCcm12eThd85edPgiXRn7Ab7fp1B6R50mArksiuY51KXPmHTqMLsw6PStoow6N+aXAKfvhJx1IFW3JTKZBD6LpP6m+8Jc6mkJGA1KAAgGCZgUqPrAe3zSIcta7rXNoBHZ8lSufYDAK53epXGCwk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR11MB3236.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(4143699003)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?tYW1yCHn46AI0VK49PFIBbRMis8koRp2Sp7RRBoJSG9Z7ILFZ+Uh+vYmIEf/?=
+ =?us-ascii?Q?AaVduOsnFoPSdZSimjcxhnXeB9/ycaiY9zpyeh/eKoT744CkyIbuF1Q9SKze?=
+ =?us-ascii?Q?mtZh3L9nvZtVn30Ugoo4H3iJFOqnUXYtVOghkkqEpxVmbTani9UDM9WiRnJk?=
+ =?us-ascii?Q?8wDobB6oo5qUjYvo8rvgCTtEWwNoE/wtxVaokeqGoi66+A7K7yEdqkkRD6/G?=
+ =?us-ascii?Q?e0EI569jMyTl2OH/xBbeRo5vE6O+9psgJpWJYSnsR9dtCDhjgpaVENAfawnR?=
+ =?us-ascii?Q?dl2CYQF52YTW34VspPEhB3lZhcZx8DeUA472qyg6MJMEy+vSB96+Evj9GAp+?=
+ =?us-ascii?Q?qj0fuNWiLmM5kUu4xqHUZKykJ1a7TvnhJ4koamNLzkpNT84D2LpxL3l9vXWA?=
+ =?us-ascii?Q?/eHbdt/4w25iIgd0WMSSwiLF/IEU9QhgONjWGjXC+3xXWveHpDxu6QqOqu5E?=
+ =?us-ascii?Q?2I6IjmcfveUd03+BTk252fBsz8IPqN37aXbdwLp5qpcheD7Z5Hmxx03TfATk?=
+ =?us-ascii?Q?o8BhoIzXPheXCAINcv3GfiaXdB8h9ASM2rPWTZDNc9FyW6cSPFPSqk2czT2Q?=
+ =?us-ascii?Q?jc33PvQFaxUwIMWoyDXGo1qa53VFLLFYfWRqxiz9sPZRvEdc0gNbBDsnB+Jf?=
+ =?us-ascii?Q?7GjENTiqhAmpTZy5Nj2F+VKCZA/p7J7fuee/JS7yIBiO+8StbwtCusxnV1SV?=
+ =?us-ascii?Q?DofAhMVvQP8yL7s9c9aGGUJKJBKtktX8i36tTBkv5p7aVWFcA/qqiCFlDtTE?=
+ =?us-ascii?Q?P9DnvjKCITuPK/SfVG+csg93W05wx+5DNUUP2jxHwVa+CPJUscVDkkF6aPmj?=
+ =?us-ascii?Q?yjOSYLJhi/j639p6ZuRhuiaLDPcKEr1BhV5Il2+0ZkmJOCquiGeHgX8kfvt2?=
+ =?us-ascii?Q?05gyAxi94BaTAcRimK+vGhh2lGTCzaSTaepKmy6yrOypNTudcDJGPPxVuYeJ?=
+ =?us-ascii?Q?HcYlvq8VqY/B7Yu3R16VzBQjZdyFyfP5BzMu0eqSrr75Mp4ZBPiNOL1oFt0/?=
+ =?us-ascii?Q?HEvcwtfusTkrw0gJ4vZWAE9docUm82M8ydZ/264NfFDGaAQz/UQT70mTG1bt?=
+ =?us-ascii?Q?sBDuzvafAQk90IkweQf8Y/eSMkxmtXeTcQ7Wpy4BIkqZcjlZ6TybKU94jtJU?=
+ =?us-ascii?Q?UkuRtQBSpC3uC62kvbs4H0X51YcgY09TIi4dF1SESNyVolCE6aZZ9i+pc7Xx?=
+ =?us-ascii?Q?5x4hKLCmRgJos2PGAzMJkt3ehVn4A9o6OlfUtquqHsXzHYr4zfIrZ05jQNti?=
+ =?us-ascii?Q?iWfzaJkFRmKy7r4Mdo0TbtplnVmkseZ6vRkSw7rBbOKD79ma7NKRV9eZn9VW?=
+ =?us-ascii?Q?zQhEp6MUGI7Ev822LrMPEU61YXSLzbvuKTV5tT6cV5OFCWGm6Caps+h/HsRG?=
+ =?us-ascii?Q?zTDE+fv6A4JNda38SvwRUDvCsOt4cIVQIrqJ60mG8uTNE2klAAXX7Nfn+1O/?=
+ =?us-ascii?Q?a0UAWiWdbsT6Edl1fz+5B/39YqbJYnDdrk9rOVNUr1nfGvmWCJgvZQ9LATrG?=
+ =?us-ascii?Q?ZjkmJK/R6SYz05J5rCKGflKz4NADarS5Ki0dBY4f6YKSK3vN3P2yCSgFFAVn?=
+ =?us-ascii?Q?3WpacUvdTLgChNsgWZKl8imhwUiZjdyZtFFmld6POtMSFdRHzG0e4V14n3fO?=
+ =?us-ascii?Q?saA4H4hBwh17y1smBba4BjmgCrnyBBsvmYpe4iWBHnbGH22sMcFm3/JcUX69?=
+ =?us-ascii?Q?6Eo/l2b96eawt6dRx5cGnG4Q9znjSYpF9px9QLHao0uquIkg9wFVsyPrUCgv?=
+ =?us-ascii?Q?qSgOcwlubg=3D=3D?=
+X-Exchange-RoutingPolicyChecked: LwbIuM6oDxJgNmeONI8ITBefdcIVSJ2PyVjWBzY+CQAoWLLeEbL1BaclAlZDvYJpo0XoIi+k9XUmTdpXdjJyxQ6SYu25ObVvo7/BvU6z6LQOSF/xdpYxhAkm6qgfrgml+i9vtisMIF1e9aa33cXJ/IfLTH4TCEEqUNZCBK5Lja7WmSmtXknTWLoDTdSnt/T9KVZovmB+tx8WQnDXBJQvJyTZ17vMQr1Bri+ujDKLMCgYV6KaWOSxlj8whpyIsQYbNSsYJHvtz71yV+c671TaMu8xG4tRl/LIDysS0bv3BX5cJ7IBtn9ldVw/EmHgpR/JsWtOSuQOx2PHT9sMaAlhNQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c3d059b-33a2-4b3f-cfda-08df25e503df
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR11MB3236.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 09:09:25.4381
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 728kQ8m/HD56sumdQeN4/9t1iYQREZbmU+QG3ZGxQitaRJhfnhi1UTmkfcVc1m+doF0yzLrifWmXbLjPzzxVng==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR11MB653178
+X-OriginatorOrg: intel.com
 
-Convert the SOL_IP switch and ip_mroute_getsockopt() to sockopt_t, its
-last leaf on a sockptr_t pair. The IP_MSFILTER and MCAST_MSFILTER
-bridges go away.
+On Thu, Oct 08, 2026 at 09:16:12AM +0800, Edgecombe, Rick P wrote:
+> On Wed, 2026-10-07 at 15:47 -0700, Rick Edgecombe wrote:
+> > Another idea, change the op to be:
+> > int topup_external_cache(struct kvm_vcpu *vcpu, bool root, bool private_page,
+> > int min_nr_spts);
+> > 
+> > Normal topup can set:
+> > root=true
+> > private_page=true
+> > min_nr_spts = PT64_ROOT_MAX_LEVEL - 1
+> > 
+> > Then we can calculate exactly what we need. And even better, the existing code
+> > won't nee a comment to explain the weirdness.
+> 
+> Actually since this gets a struct kvm arg later in the series, maybe we could
+> just have two ops. One for topping up from a fault and another for a split.
+Hmm, no? That would make the min_nr_spts arg meaningless.
+Reusing the topping up op for the fault also scales better, e.g., it could
+support splitting under the fault path in the future.
 
-ip_getsockopt() builds the sockopt_t with sockopt_init_user() and
-writes optlen back unconditionally
-
-The write-back also happens before the netfilter fallback, so an
-unwritable optlen turns any error into -EFAULT and skips the fallback.
-
-This extra code in sol_ip_sockopt() will go away when we convert
-sol_ip_sockopt() to talk sockopt as well, but for now we are converting
-the leaves.
-
-Signed-off-by: Breno Leitao <leitao@debian.org>
----
- include/linux/mroute.h |  4 +--
- include/net/ip.h       |  3 +-
- net/core/filter.c      | 18 ++++++++---
- net/ipv4/igmp.c        |  3 +-
- net/ipv4/ip_sockglue.c | 87 +++++++++++++++++++-------------------------------
- net/ipv4/ipmr.c        | 11 +++----
- 6 files changed, 56 insertions(+), 70 deletions(-)
-
-diff --git a/include/linux/mroute.h b/include/linux/mroute.h
-index 4c5003afee6c51..c1c21e61c81c37 100644
---- a/include/linux/mroute.h
-+++ b/include/linux/mroute.h
-@@ -17,7 +17,7 @@ static inline int ip_mroute_opt(int opt)
- }
- 
- int ip_mroute_setsockopt(struct sock *, int, sockptr_t, unsigned int);
--int ip_mroute_getsockopt(struct sock *, int, sockptr_t, sockptr_t);
-+int ip_mroute_getsockopt(struct sock *sk, int optname, sockopt_t *opt);
- int ipmr_ioctl(struct sock *sk, int cmd, void *arg);
- int ipmr_compat_ioctl(struct sock *sk, unsigned int cmd, void __user *arg);
- int ip_mr_init(void);
-@@ -31,7 +31,7 @@ static inline int ip_mroute_setsockopt(struct sock *sock, int optname,
- }
- 
- static inline int ip_mroute_getsockopt(struct sock *sk, int optname,
--				       sockptr_t optval, sockptr_t optlen)
-+				       sockopt_t *opt)
- {
- 	return -ENOPROTOOPT;
- }
-diff --git a/include/net/ip.h b/include/net/ip.h
-index 604018cbf0f417..ac6dc64d4ac177 100644
---- a/include/net/ip.h
-+++ b/include/net/ip.h
-@@ -826,8 +826,7 @@ int do_ip_setsockopt(struct sock *sk, int level, int optname, sockptr_t optval,
- 		     unsigned int optlen);
- int ip_setsockopt(struct sock *sk, int level, int optname, sockptr_t optval,
- 		  unsigned int optlen);
--int do_ip_getsockopt(struct sock *sk, int level, int optname,
--		     sockptr_t optval, sockptr_t optlen);
-+int do_ip_getsockopt(struct sock *sk, int level, int optname, sockopt_t *sopt);
- int ip_getsockopt(struct sock *sk, int level, int optname, char __user *optval,
- 		  int __user *optlen);
- int ip_ra_control(struct sock *sk, unsigned char on,
-diff --git a/net/core/filter.c b/net/core/filter.c
-index ba536be2915fb9..1bc194a32337ac 100644
---- a/net/core/filter.c
-+++ b/net/core/filter.c
-@@ -5737,10 +5737,20 @@ static int sol_ip_sockopt(struct sock *sk, int optname,
- 		return -EINVAL;
- 	}
- 
--	if (getopt)
--		return do_ip_getsockopt(sk, SOL_IP, optname,
--					KERNEL_SOCKPTR(optval),
--					KERNEL_SOCKPTR(optlen));
-+	if (getopt) {
-+		struct kvec kvec;
-+		sockopt_t opt;
-+		int err;
-+
-+		err = sockptr_to_sockopt(&opt, KERNEL_SOCKPTR(optval),
-+					 KERNEL_SOCKPTR(optlen), &kvec);
-+		if (err)
-+			return err;
-+
-+		err = do_ip_getsockopt(sk, SOL_IP, optname, &opt);
-+		*optlen = opt.optlen;
-+		return err;
-+	}
- 
- 	return do_ip_setsockopt(sk, SOL_IP, optname,
- 				KERNEL_SOCKPTR(optval), *optlen);
-diff --git a/net/ipv4/igmp.c b/net/ipv4/igmp.c
-index d573c5bf8f038b..bf00810cdd7a13 100644
---- a/net/ipv4/igmp.c
-+++ b/net/ipv4/igmp.c
-@@ -2763,12 +2763,13 @@ int ip_mc_msfget(struct sock *sk, struct ip_msfilter *msf, sockopt_t *opt)
- 	if (err)
- 		return err;
- 
--	opt->optlen = msf_size;
- 	if (copy_to_iter(msf, IP_MSFILTER_SIZE(0), &opt->iter_out) !=
- 	    IP_MSFILTER_SIZE(0))
- 		return -EFAULT;
- 	if (len && copy_to_iter(psl->sl_addr, len, &opt->iter_out) != len)
- 		return -EFAULT;
-+
-+	opt->optlen = msf_size;
- 	return 0;
- done:
- 	return err;
-diff --git a/net/ipv4/ip_sockglue.c b/net/ipv4/ip_sockglue.c
-index 1b7461f1569c32..90d0b5bee68b59 100644
---- a/net/ipv4/ip_sockglue.c
-+++ b/net/ipv4/ip_sockglue.c
-@@ -1509,8 +1509,7 @@ static int compat_ip_get_mcast_msfilter(struct sock *sk, sockopt_t *opt)
- 	return 0;
- }
- 
--int do_ip_getsockopt(struct sock *sk, int level, int optname,
--		     sockptr_t optval, sockptr_t optlen)
-+int do_ip_getsockopt(struct sock *sk, int level, int optname, sockopt_t *sopt)
- {
- 	struct inet_sock *inet = inet_sk(sk);
- 	bool needs_rtnl = getsockopt_needs_rtnl(optname);
-@@ -1521,10 +1520,9 @@ int do_ip_getsockopt(struct sock *sk, int level, int optname,
- 		return -EOPNOTSUPP;
- 
- 	if (ip_mroute_opt(optname))
--		return ip_mroute_getsockopt(sk, optname, optval, optlen);
-+		return ip_mroute_getsockopt(sk, optname, sopt);
- 
--	if (copy_from_sockptr(&len, optlen, sizeof(int)))
--		return -EFAULT;
-+	len = sopt->optlen;
- 	if (len < 0)
- 		return -EINVAL;
- 
-@@ -1620,16 +1618,15 @@ int do_ip_getsockopt(struct sock *sk, int level, int optname,
- 		rcu_read_unlock();
- 
- 		if (opt->optlen == 0) {
--			len = 0;
--			return copy_to_sockptr(optlen, &len, sizeof(int));
-+			sopt->optlen = 0;
-+			return 0;
- 		}
- 
- 		ip_options_undo(opt);
- 
- 		len = min_t(unsigned int, len, opt->optlen);
--		if (copy_to_sockptr(optlen, &len, sizeof(int)))
--			return -EFAULT;
--		if (copy_to_sockptr(optval, opt->__data, len))
-+		sopt->optlen = len;
-+		if (copy_to_iter(opt->__data, len, &sopt->iter_out) != len)
- 			return -EFAULT;
- 		return 0;
- 	}
-@@ -1653,12 +1650,12 @@ int do_ip_getsockopt(struct sock *sk, int level, int optname,
- 		if (sk->sk_type != SOCK_STREAM)
- 			return -ENOPROTOOPT;
- 
--		if (optval.is_kernel) {
-+		if (iov_iter_is_kvec(&sopt->iter_out)) {
- 			msg.msg_control_is_user = false;
--			msg.msg_control = optval.kernel;
-+			msg.msg_control = sopt->iter_out.kvec->iov_base;
- 		} else {
- 			msg.msg_control_is_user = true;
--			msg.msg_control_user = optval.user;
-+			msg.msg_control_user = sopt->iter_out.ubuf;
- 		}
- 		msg.msg_controllen = len;
- 		msg.msg_flags = in_compat_syscall() ? MSG_CMSG_COMPAT : 0;
-@@ -1680,8 +1677,8 @@ int do_ip_getsockopt(struct sock *sk, int level, int optname,
- 			int tos = READ_ONCE(inet->rcv_tos);
- 			put_cmsg(&msg, SOL_IP, IP_TOS, sizeof(tos), &tos);
- 		}
--		len -= msg.msg_controllen;
--		return copy_to_sockptr(optlen, &len, sizeof(int));
-+		sopt->optlen = len - msg.msg_controllen;
-+		return 0;
- 	}
- 	case IP_UNICAST_IF:
- 		val = (__force int)htonl((__u32) READ_ONCE(inet->uc_index));
-@@ -1692,9 +1689,8 @@ int do_ip_getsockopt(struct sock *sk, int level, int optname,
- 		len = min_t(unsigned int, len, sizeof(struct in_addr));
- 		addr.s_addr = READ_ONCE(inet->mc_addr);
- 
--		if (copy_to_sockptr(optlen, &len, sizeof(int)))
--			return -EFAULT;
--		if (copy_to_sockptr(optval, &addr, len))
-+		sopt->optlen = len;
-+		if (copy_to_iter(&addr, len, &sopt->iter_out) != len)
- 			return -EFAULT;
- 		return 0;
- 	}
-@@ -1711,43 +1707,25 @@ int do_ip_getsockopt(struct sock *sk, int level, int optname,
- 	case IP_MSFILTER:
- 	{
- 		struct ip_msfilter msf;
--		struct kvec kvec;
--		sockopt_t opt;
- 
- 		if (len < IP_MSFILTER_SIZE(0)) {
- 			err = -EINVAL;
- 			goto out;
- 		}
--		if (copy_from_sockptr(&msf, optval, IP_MSFILTER_SIZE(0))) {
-+		if (copy_from_iter(&msf, IP_MSFILTER_SIZE(0), &sopt->iter_in) !=
-+		    IP_MSFILTER_SIZE(0)) {
- 			err = -EFAULT;
- 			goto out;
- 		}
--		err = sockptr_to_sockopt(&opt, optval, optlen, &kvec);
--		if (err)
--			goto out;
--
--		err = ip_mc_msfget(sk, &msf, &opt);
--		if (!err && copy_to_sockptr(optlen, &opt.optlen, sizeof(int)))
--			err = -EFAULT;
-+		err = ip_mc_msfget(sk, &msf, sopt);
- 		goto out;
- 	}
- 	case MCAST_MSFILTER:
--	{
--		struct kvec kvec;
--		sockopt_t opt;
--
--		err = sockptr_to_sockopt(&opt, optval, optlen, &kvec);
--		if (err)
--			goto out;
--
- 		if (in_compat_syscall())
--			err = compat_ip_get_mcast_msfilter(sk, &opt);
-+			err = compat_ip_get_mcast_msfilter(sk, sopt);
- 		else
--			err = ip_get_mcast_msfilter(sk, &opt);
--		if (!err && copy_to_sockptr(optlen, &opt.optlen, sizeof(int)))
--			err = -EFAULT;
-+			err = ip_get_mcast_msfilter(sk, sopt);
- 		goto out;
--	}
- 	case IP_PROTOCOL:
- 		val = inet_sk(sk)->inet_num;
- 		break;
-@@ -1759,16 +1737,14 @@ int do_ip_getsockopt(struct sock *sk, int level, int optname,
- copyval:
- 	if (len < sizeof(int) && len > 0 && val >= 0 && val <= 255) {
- 		unsigned char ucval = (unsigned char)val;
--		len = 1;
--		if (copy_to_sockptr(optlen, &len, sizeof(int)))
--			return -EFAULT;
--		if (copy_to_sockptr(optval, &ucval, 1))
-+
-+		sopt->optlen = 1;
-+		if (copy_to_iter(&ucval, 1, &sopt->iter_out) != 1)
- 			return -EFAULT;
- 	} else {
- 		len = min_t(unsigned int, sizeof(int), len);
--		if (copy_to_sockptr(optlen, &len, sizeof(int)))
--			return -EFAULT;
--		if (copy_to_sockptr(optval, &val, len))
-+		sopt->optlen = len;
-+		if (copy_to_iter(&val, len, &sopt->iter_out) != len)
- 			return -EFAULT;
- 	}
- 	return 0;
-@@ -1783,19 +1759,22 @@ int do_ip_getsockopt(struct sock *sk, int level, int optname,
- int ip_getsockopt(struct sock *sk, int level,
- 		  int optname, char __user *optval, int __user *optlen)
- {
-+	sockopt_t opt;
- 	int err;
- 
--	err = do_ip_getsockopt(sk, level, optname,
--			       USER_SOCKPTR(optval), USER_SOCKPTR(optlen));
-+	err = sockopt_init_user(&opt, optval, optlen);
-+	if (err)
-+		return err;
-+
-+	err = do_ip_getsockopt(sk, level, optname, &opt);
-+	if (put_user(opt.optlen, optlen))
-+		return -EFAULT;
- 
- #ifdef CONFIG_NETFILTER
- 	/* we need to exclude all possible ENOPROTOOPTs except default case */
- 	if (err == -ENOPROTOOPT && optname != IP_PKTOPTIONS &&
- 			!ip_mroute_opt(optname)) {
--		int len;
--
--		if (get_user(len, optlen))
--			return -EFAULT;
-+		int len = opt.optlen;
- 
- 		err = nf_getsockopt(sk, PF_INET, optname, optval, &len);
- 		if (err >= 0)
-diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-index e4c51ca473019c..f249569b4bf8b9 100644
---- a/net/ipv4/ipmr.c
-+++ b/net/ipv4/ipmr.c
-@@ -1638,8 +1638,7 @@ int ipmr_sk_ioctl(struct sock *sk, unsigned int cmd, void __user *arg)
- }
- 
- /* Getsock opt support for the multicast routing system. */
--int ip_mroute_getsockopt(struct sock *sk, int optname, sockptr_t optval,
--			 sockptr_t optlen)
-+int ip_mroute_getsockopt(struct sock *sk, int optname, sockopt_t *opt)
- {
- 	int olr;
- 	int val;
-@@ -1670,16 +1669,14 @@ int ip_mroute_getsockopt(struct sock *sk, int optname, sockptr_t optval,
- 		return -ENOPROTOOPT;
- 	}
- 
--	if (copy_from_sockptr(&olr, optlen, sizeof(int)))
--		return -EFAULT;
-+	olr = opt->optlen;
- 	if (olr < 0)
- 		return -EINVAL;
- 
- 	olr = min_t(unsigned int, olr, sizeof(int));
- 
--	if (copy_to_sockptr(optlen, &olr, sizeof(int)))
--		return -EFAULT;
--	if (copy_to_sockptr(optval, &val, olr))
-+	opt->optlen = olr;
-+	if (copy_to_iter(&val, olr, &opt->iter_out) != olr)
- 		return -EFAULT;
- 	return 0;
- }
-
--- 
-2.53.0-Meta
+Besides, I actually introduced a separate cache and op for split in v3,
+https://lore.kernel.org/all/20260106102345.25261-1-yan.y.zhao@intel.com.
+Sean merged the cache/op for split with the cache/op for fault in
+DPAMT+Hugepage v5.
 
