@@ -1,37 +1,37 @@
 Received: from nick.sneptech.io (nick.sneptech.io [178.62.38.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DEC94F3903;
-	Fri,  9 Oct 2026 16:27:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E7EC4E73D0;
+	Fri,  9 Oct 2026 16:27:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.62.38.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791563237; cv=none; b=Tg5IRgtzTGT0HQo0MAoZM6Sykgd6OlxRXdsnifbEEwnb0T24OBFC9inEnuxze2eRu4GlP7Qnfe4ddKf5+tcTWf+NmJK+rQYifqyYUplA8xB/+Gy8OR1DDTyZWndmi61gB8DawiERirTzB3hw9l4FQLoFR5HtXX1GWr8c9jekGVE=
+	t=1791563234; cv=none; b=G8r9kHl00HjF8D+PClTkTZCgT1ee4dm173Q1w1f6iJ5hG2JMdCXAb5UfFZAxWla6eh8D+CnrQOf1GBv2FUFHMo4dNhKhX9a6e00Yqy8znU2nqJWCqkR0ejIWZri0EqRgeju3hG6P9WUK8644+ym0trJ4x/l9yKORguWmtmM6OGI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791563237; c=relaxed/simple;
-	bh=8vCwYpM7mHZ8pQLA8yEiOGC+aoc4j1G0NNf0u5m+GIs=;
+	s=arc-20240116; t=1791563234; c=relaxed/simple;
+	bh=vMiatPndlhkBqXmcAakZkSekw3fuO9QHkXCPrUi5SuE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XiHpjDp8CnIs9Ym4RNJ4unDZHT1Twe9mFOeEMyx2UO0kZJHBeb7ztXfSFJzLm4sah9hifHHCYdpmkQn41KeRXgBI7/CBEtEiXgNjTZ5pIZyrfYIssuCriztga+XAv2UGbXxJbnZsW8tzDbQCvNXJRwE9pCbvLLrmohUWwJu8SnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=philpem.me.uk; spf=pass smtp.mailfrom=philpem.me.uk; dkim=pass (1024-bit key) header.d=philpem.me.uk header.i=@philpem.me.uk header.b=W99NL2Yi; arc=none smtp.client-ip=178.62.38.78
+	 MIME-Version; b=VORbVjeDpBpdTbubPvQEOU2KtzIWfRW3ZpLX9nUS3yFCgzSU+AJnPVn5lQcu2sDK/bJYKF3UBLdchsldSvDJov7Nsv9Iw8QuPFVr9F/ovu4kzB0xqHTuwFd9mwYkFNa19Y8tLgV8nWQ4bMw973BGQJ0Srw7DeUiQuf57q2umjlA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=philpem.me.uk; spf=pass smtp.mailfrom=philpem.me.uk; dkim=pass (1024-bit key) header.d=philpem.me.uk header.i=@philpem.me.uk header.b=Wa/YyHLU; arc=none smtp.client-ip=178.62.38.78
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=philpem.me.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=philpem.me.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=philpem.me.uk header.i=@philpem.me.uk header.b="W99NL2Yi"
+	dkim=pass (1024-bit key) header.d=philpem.me.uk header.i=@philpem.me.uk header.b="Wa/YyHLU"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=philpem.me.uk;
 	s=mail; t=1791563215;
-	bh=8vCwYpM7mHZ8pQLA8yEiOGC+aoc4j1G0NNf0u5m+GIs=;
+	bh=vMiatPndlhkBqXmcAakZkSekw3fuO9QHkXCPrUi5SuE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=W99NL2YiH5YJ62jPxtPvA+veHg291xu/a+0pE6ijnoLRE9sVp2kRsbb+Vp8zhcghL
-	 LAScVf9RDigr8K3UfPGK70dRm5UHUXV8/Vbw0VmHhLOC4ARzTZ88AXtUGG++U0KH4w
-	 gh/KNXLmhnjfjI7Z1sROnMyg7lp6FMh9dlWt13Vc=
+	b=Wa/YyHLU2wWSTTl4Pf5LHoc8VjtFyKf7qZmpnPjn/LPGuk4pYC4mU8QP0HloIjCvz
+	 iD6Y581RaXictlNBwZ60owwRDoL5k/uVoHw3unzQ9Xn5vdXifARTz64wFDMQxfHaWM
+	 LJ3EsuFz28bhbx1KMbYfcFCtLU9pvjlzLVS31frI=
 Received: from wolf.philpem.me.uk (unknown [81.187.163.148])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
 	(Authenticated sender: mailrelay_wolf@philpem.me.uk)
-	by nick.sneptech.io (Postfix) with ESMTPSA id C75E5BE77C;
+	by nick.sneptech.io (Postfix) with ESMTPSA id 85329BE777;
 	Fri,  9 Oct 2026 16:26:55 +0000 (UTC)
 Received: from cheetah.homenet.philpem.me.uk (cheetah.homenet.philpem.me.uk [10.0.0.32])
-	by wolf.philpem.me.uk (Postfix) with ESMTPSA id 8A88B5FB4D;
+	by wolf.philpem.me.uk (Postfix) with ESMTPSA id 4441F5FC4B;
 	Fri,  9 Oct 2026 17:26:55 +0100 (BST)
 From: Phil Pemberton <philpem@philpem.me.uk>
 To: linux-ide@vger.kernel.org,
@@ -43,9 +43,9 @@ Cc: linux-kernel@vger.kernel.org,
 	"Martin K . Petersen" <mkp@kernel.org>,
 	Hannes Reinecke <hare@kernel.org>,
 	Phil Pemberton <philpem@philpem.me.uk>
-Subject: [PATCH v10 13/15] scsi: add BLIST_NO_LUN_1F blacklist flag
-Date: Fri,  9 Oct 2026 16:55:20 +0100
-Message-ID: <20261009155522.593045-14-philpem@philpem.me.uk>
+Subject: [PATCH v10 09/15] scsi: sr: retry unfinished media revalidation on the next open
+Date: Fri,  9 Oct 2026 16:55:16 +0100
+Message-ID: <20261009155522.593045-10-philpem@philpem.me.uk>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261009155522.593045-1-philpem@philpem.me.uk>
 References: <20261009155522.593045-1-philpem@philpem.me.uk>
@@ -57,83 +57,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Some multi-LUN devices report unpopulated LUNs with PQ=0/PDT=0x1f.
-SCSI scanning adds these as spurious "No Device" entries.
+A media-change event can arrive while a new disc is spinning up.
+Revalidation then returns before updating capacity and queue limits. If
+there is no further event, later opens keep the old disc's capacity.
+This occurs on a COMPAQ PD-1 LF-1195C after a CD to PD to CD swap.
 
-Add BLIST_NO_LUN_1F to set pdt_1f_for_no_lun from scsi_devinfo before
-scsi_probe_and_add_lun() checks PDT=0x1f. Setting it here also covers
-LUN 0.
+Keep revalidation pending until it completes, including the queue-limits
+update, and retry on the next open. This also covers a CD LUN that is
+unready at probe. Access the flag during probe and serialized block opens.
 
-Give pdt_1f_for_no_lun its own bool. Sharing bitfield storage with
-expecting_lun_change allows scan-time writes and concurrent I/O updates
-to overwrite each other.
+For blocking opens, return -ENOMEDIUM if revalidation reports NOT READY
+with ASC/ASCQ 04/01 (becoming ready), leaving the flag set. The drive can
+become ready before cdrom_open() checks it again; failing this open
+prevents access with stale capacity. sr_drive_status() already maps this
+sense code to -ENOMEDIUM for CD-ROM data opens. Probe, nonblocking opens
+and other sense results retain their existing behavior.
+
+Initialize the sense header and only classify sense after a positive
+SCSI command result. Host-side failures can return without filling the
+header; preserve their existing retry behavior instead of interpreting
+undefined or stale sense bytes as a becoming-ready response.
+
+READ CAPACITY errors still use the existing fallback for audio CDs and
+older drives. That fallback can retain stale capacity and clear the flag.
 
 Assisted-by: LLM
 Signed-off-by: Phil Pemberton <philpem@philpem.me.uk>
 ---
- drivers/scsi/scsi_scan.c    | 3 +++
- include/scsi/scsi_device.h  | 4 ++--
- include/scsi/scsi_devinfo.h | 6 +++---
- 3 files changed, 8 insertions(+), 5 deletions(-)
+ drivers/scsi/sr.c | 29 ++++++++++++++++++++---------
+ drivers/scsi/sr.h |  2 ++
+ 2 files changed, 22 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/scsi/scsi_scan.c b/drivers/scsi/scsi_scan.c
-index 0f0f243c2561..e34824623294 100644
---- a/drivers/scsi/scsi_scan.c
-+++ b/drivers/scsi/scsi_scan.c
-@@ -1298,6 +1298,9 @@ static int scsi_probe_and_add_lun(struct Scsi_Host *shost,
- 	 * PDT=00h Direct-access device (floppy)
- 	 * PDT=1Fh none (no FDD connected to the requested logical unit)
- 	 */
-+	if (bflags & BLIST_NO_LUN_1F)
-+		starget->pdt_1f_for_no_lun = 1;
-+
- 	if (((result[0] >> 5) == 1 || starget->pdt_1f_for_no_lun) &&
- 	    (result[0] & 0x1f) == 0x1f &&
- 	    !scsi_is_wlun(lun)) {
-diff --git a/include/scsi/scsi_device.h b/include/scsi/scsi_device.h
-index 8694eeadd753..a81a7c8cce18 100644
---- a/include/scsi/scsi_device.h
-+++ b/include/scsi/scsi_device.h
-@@ -360,13 +360,13 @@ struct scsi_target {
- 	unsigned int		single_lun:1;	/* Indicates we should only
- 						 * allow I/O to one of the luns
- 						 * for the device at a time. */
--	unsigned int		pdt_1f_for_no_lun:1;	/* PDT = 0x1f
--						 * means no lun present. */
- 	unsigned int		no_report_luns:1;	/* Don't use
- 						 * REPORT LUNS for scanning. */
- 	unsigned int		expecting_lun_change:1;	/* A device has reported
- 						 * a 3F/0E UA, other devices on
- 						 * the same target will also. */
-+	/* Keep scan-time writes separate from I/O-updated bitfields. */
-+	bool			pdt_1f_for_no_lun; /* PDT = 0x1f means no LUN. */
- 	/* commands actually active on LLD. */
- 	atomic_t		target_busy;
- 	atomic_t		target_blocked;
-diff --git a/include/scsi/scsi_devinfo.h b/include/scsi/scsi_devinfo.h
-index 1d79a3b536ce..6957b0705510 100644
---- a/include/scsi/scsi_devinfo.h
-+++ b/include/scsi/scsi_devinfo.h
-@@ -34,7 +34,8 @@
- #define BLIST_NOSTARTONADD	((__force blist_flags_t)(1ULL << 12))
- /* do not ask for VPD page size first on some broken targets */
- #define BLIST_NO_VPD_SIZE	((__force blist_flags_t)(1ULL << 13))
--#define __BLIST_UNUSED_14	((__force blist_flags_t)(1ULL << 14))
-+/* PDT 0x1f with PQ 0 means no LUN present (e.g. some ATAPI multi-LUN) */
-+#define BLIST_NO_LUN_1F		((__force blist_flags_t)(1ULL << 14))
- #define __BLIST_UNUSED_15	((__force blist_flags_t)(1ULL << 15))
- #define __BLIST_UNUSED_16	((__force blist_flags_t)(1ULL << 16))
- /* try REPORT_LUNS even for SCSI-2 devs (if HBA supports more than 8 LUNs) */
-@@ -77,8 +78,7 @@
- #define __BLIST_HIGH_UNUSED (~(__BLIST_LAST_USED | \
- 			       (__force blist_flags_t) \
- 			       ((__force __u64)__BLIST_LAST_USED - 1ULL)))
--#define __BLIST_UNUSED_MASK (__BLIST_UNUSED_14 | \
--			     __BLIST_UNUSED_15 | \
-+#define __BLIST_UNUSED_MASK (__BLIST_UNUSED_15 | \
- 			     __BLIST_UNUSED_16 | \
- 			     __BLIST_UNUSED_24 | \
- 			     __BLIST_UNUSED_27 | \
+diff --git a/drivers/scsi/sr.c b/drivers/scsi/sr.c
+index 28523b0eb659..044f4c250d88 100644
+--- a/drivers/scsi/sr.c
++++ b/drivers/scsi/sr.c
+@@ -473,16 +473,24 @@ static blk_status_t sr_init_command(struct scsi_cmnd *SCpnt)
+ 	return BLK_STS_IOERR;
+ }
+ 
+-static int sr_revalidate_disk(struct scsi_cd *cd)
++static int sr_revalidate_disk(struct scsi_cd *cd, bool fail_if_becoming_ready)
+ {
+ 	struct request_queue *q = cd->device->request_queue;
+-	struct scsi_sense_hdr sshdr;
++	struct scsi_sense_hdr sshdr = {};
+ 	struct queue_limits lim;
+-	int sector_size;
++	int sector_size, ret;
+ 
+-	/* if the unit is not ready, nothing more to do */
+-	if (scsi_test_unit_ready(cd->device, SR_TIMEOUT, MAX_RETRIES, &sshdr))
++	/* Keep revalidation pending if the medium is not ready yet. */
++	cd->needs_revalidate = true;
++	ret = scsi_test_unit_ready(cd->device, SR_TIMEOUT, MAX_RETRIES, &sshdr);
++	if (ret) {
++		/* Do not let a later readiness check admit stale geometry. */
++		if (ret > 0 && fail_if_becoming_ready && scsi_sense_valid(&sshdr) &&
++		    sshdr.sense_key == NOT_READY &&
++		    sshdr.asc == 0x04 && sshdr.ascq == 0x01)
++			return -ENOMEDIUM;
+ 		return 0;
++	}
+ 	sr_cd_check(&cd->cdi);
+ 	sector_size = get_sectorsize(cd);
+ 
+@@ -491,7 +499,10 @@ static int sr_revalidate_disk(struct scsi_cd *cd)
+ 	lim.physical_block_size = sector_size;
+ 	lim.io_min = sector_size;
+ 	lim.features |= BLK_FEAT_ROTATIONAL;
+-	return queue_limits_commit_update_frozen(q, &lim);
++	ret = queue_limits_commit_update_frozen(q, &lim);
++	if (!ret)
++		cd->needs_revalidate = false;
++	return ret;
+ }
+ 
+ static int sr_block_open(struct gendisk *disk, blk_mode_t mode)
+@@ -504,8 +515,8 @@ static int sr_block_open(struct gendisk *disk, blk_mode_t mode)
+ 		return -ENXIO;
+ 
+ 	scsi_autopm_get_device(sdev);
+-	if (disk_check_media_change(disk)) {
+-		ret = sr_revalidate_disk(cd);
++	if (disk_check_media_change(disk) || cd->needs_revalidate) {
++		ret = sr_revalidate_disk(cd, !(mode & BLK_OPEN_NDELAY));
+ 		if (ret)
+ 			goto out;
+ 	}
+@@ -700,7 +711,7 @@ static int sr_probe(struct scsi_device *sdev)
+ 	blk_pm_runtime_init(sdev->request_queue, dev);
+ 
+ 	dev_set_drvdata(dev, cd);
+-	error = sr_revalidate_disk(cd);
++	error = sr_revalidate_disk(cd, false);
+ 	if (error)
+ 		goto unregister_cdrom;
+ 
+diff --git a/drivers/scsi/sr.h b/drivers/scsi/sr.h
+index 2d92f9cb6fec..b718ac87e82d 100644
+--- a/drivers/scsi/sr.h
++++ b/drivers/scsi/sr.h
+@@ -48,6 +48,8 @@ typedef struct scsi_cd {
+ 	bool ignore_get_event:1;	/* GET_EVENT is unreliable, use TUR */
+ 
+ 	struct cdrom_device_info cdi;
++	/* Protected by disk->open_mutex after probe. */
++	bool needs_revalidate;
+ 	struct mutex lock;
+ 	struct gendisk *disk;
+ } Scsi_CD;
 -- 
 2.43.0
 
