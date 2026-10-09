@@ -1,264 +1,122 @@
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D2D83E49F9
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 21:25:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 889943ACA79;
+	Fri,  9 Oct 2026 21:25:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791581120; cv=none; b=sD1WuH7Bo8xm6HUmasYahFott1j/VfDfsWlNYY5j5o2UJknB+Q0GUj4XuJpRtSqia4jGhhQIyH4EeWpUNhV0wP7lEwj3G2MVTtxeAeYA2vPaL/tnYXe1OVmDeHBCN2WH1GyI8R0szlsRKh0gccbBBUWACKAiMX9WqTu8DDBL0Rw=
+	t=1791581132; cv=none; b=JMt14c9LOU4YYACaKR4KncdZ9Citmm8qXWBvxcyZx/e8czxCYxRQAVVuzxg0tMMQPS08QlvufUJRwaD/j81RcQN0TFwINFlaPBrwejpUAkYilJza7078qwusz42T1ZLf70kQBIlQlOw5jY9pIyacTAouq99r0f1RVk55YJmEmL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791581120; c=relaxed/simple;
-	bh=kWJhYDl3jetLmITi55DG/GvSenKYpJfWpILC/vdyQBk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jEJ34tn7XBYQF1B7H2kwTD5yzv3MHpWL7Wn6Ewa1nDWfXz66kmxu0HHCBNUz/wdPoO/hWOLgrD1cD3Z/s9aHEjVMMcetV5uG+AVPxmFEBOOG3qJx8gUaRLekc4wruiQ0n5bTC95q86DTCzCtsVVRZMR5SaCGmE+rKxxTNWUYYKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JXg/vA/o; arc=none smtp.client-ip=209.85.218.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791581132; c=relaxed/simple;
+	bh=GF/hRzdkM9oax0sZXclZWhkf4iXukA8CEAEnC9FsvDk=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=eAtzM1i6K74vhsFGD8N87tvUi5CRroGRjSuWmyC2gN6coxxkD5wZz9k0AbXLSMiCByeqiuAI39V6+1sCDixehNlPnKXE05O2n+AZO3P7JNBkl2aJuMotenkaueoFrSU7uOjQP9iC8A+LF/yh4GdUSNpG7UxUTKLz5pO2xx9xVFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WcemQ2uf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JXg/vA/o"
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c31a34de844so41065666b.3
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 14:25:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791581117; x=1792185917; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=goRPK8xuz85F03Irn6Df02hbC5JG5Cr/Su8Nqvv+Oxc=;
-        b=JXg/vA/ot0d7B6sRJ5P6Vt8OGDIIyPCgRFh5PlOnT4Md4wm+5FON9vN0gMZc+KHx28
-         BZsBk61FZm6SKnPrmiC0WA2TWp2avPUv4SNSpW+m7VpeVJGJ+XUhLnsAGT0V3EdoGenx
-         yOhysHA6qiUs+ZT4YKtSweCy1CI0CjnW35WnVMnVsm46tA5HZiP/+N3nKm1zDe8ciZlL
-         m30IK37INUBMkrGHb/vs3bn3kYsz5aReUOGAB2vY9zPp5T747dGc89u4U7TSvl4BeOlm
-         j8MqUSlI/fS/v3zC+e41Kn0YLOg43sFcWdCtfCblHJ93EUJs9jtZDOV625M+XRXYqjxO
-         edEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791581117; x=1792185917;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=goRPK8xuz85F03Irn6Df02hbC5JG5Cr/Su8Nqvv+Oxc=;
-        b=Md7Nu35IP2jsSQNGqyJ47KaCiXJGPr5or1vt3ULiKcqvN98Dc8M4kEHJVBK5TzS2ZF
-         yK4s50TM3zy6lOrsKh4eeAgFPVYAcSqMMIx/fH4XN9DQNDONskVQho7HeYXvMUF97slT
-         GD0W4j9R1/WOytlSo85p00FT8HFgrJnnseZ+020h+OhGcK9DdQptvY4MXOABX/zWoaRn
-         dPtOMUmRKS+itF3pzVVUTtQOuWe+nOxVdtkcMRIca0mJLIpJ3I9fGhET0ue2lTCCBxkk
-         CJwqHA2ectLdv2FD/aw+Ft4v+KzRI/pu6TWpyZXeZNtBhOk8UkFkTppbWm1p50ZF6GSV
-         KmGA==
-X-Forwarded-Encrypted: i=1; AKwUvBzuUE9Bo/kURT5EKKiRYpOnLXYnClq+yDIz1LpLNrhTNJZpN3j2AXhiFGorwws8H21sWFqc37q/JnxmIjA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIAgUiaFaI+/Rzhb2jVpxUwkRineZn6J+23MwPoz572w9yi853a
-	izSxPm8oeT8/D+rf7fhX5b4zXUG42efu/3FqINEZDpAQvwC34ngNA20L
-X-Gm-Gg: AYBFou0vcU6ammKFP2Nvpyn2Vpl1/juDZqNbDGhRAReahKFuIeMk7SmLbLbiGm+DUKp
-	1I7+mlxugha716K2tNzrwZWo5SSdjV/Z2Yxk8leUACW3v4t14/yzGdsdi8EMVYjAZomNeogteXv
-	EQ4nts4RcEqK4V+X1btlCNpr4aKWBoF+HyJhNOZdTZ4Iqqcmje6A489cC86jc2jNyoNCqWOe6H5
-	/HOyGzAWCwtZGHtZT7LBmcnzN/Vl4R5v0nkOEQxVgxzOnYxkgSxgTndDFedzgUub2D5XXOPyzka
-	Lm0wf2PP4tDZapvbvaMdq5tZHTNSEotsgE3TNBiDKRfo/uHw7rizFtpT5CuhYTh2q9f8aoBSsy/
-	5okRx9Nfl4usIBxQs09y6q2r1snpU1NCKmT9hBzGVMcbTQ/7WWcr4EN3arXLVXm47aysGWSxWlX
-	uSBGzIsk0ide5+fDxtBY5VsI/ryqJ4ji1OQuberggj5rz/wrlbfkeHFj1abLNHYZM5j8VQ1eW15
-	nzcWoV6PhJ0AwdfMBf+TgvnBjp9JMoqH7fRJ87S
-X-Received: by 2002:a05:6938:e084:10b0:c31:c767:ae08 with SMTP id a640c23a62f3a-c31c767b038mr166831166b.0.1791581116707;
-        Fri, 09 Oct 2026 14:25:16 -0700 (PDT)
-Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9a3ae42sm149079966b.15.2026.10.09.14.25.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 14:25:16 -0700 (PDT)
-From: Magnus Lindholm <linmag7@gmail.com>
-To: richard.henderson@linaro.org,
-	mattst88@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-alpha@vger.kernel.org
-Cc: linmag7@gmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH v3 2/2] alpha: do not skip TLB shootdown IPIs for kthread-borrowed mms
-Date: Fri,  9 Oct 2026 23:19:36 +0200
-Message-ID: <20261009212501.971158-3-linmag7@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261009212501.971158-1-linmag7@gmail.com>
-References: <20261009212501.971158-1-linmag7@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WcemQ2uf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDE131F000FF;
+	Fri,  9 Oct 2026 21:25:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791581131;
+	bh=Eujz6jCIPcMtVIbI/r2x9LxmPOalmVXRMT3jQiwiujM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=WcemQ2uf8ZGV3AkLlRVZbS0E1GNbGivMKVOJND5MaLSxczqCk4S0v1vr1tKo7uLX3
+	 X/cJ6wq9H/jVTMl32jw6Cj8wRaL551Vg0nVo4OsrSgGwz0roZJo7mSdjNf4rOmsaGo
+	 sNJj7+cCOfZdFb371B9JYg5TzZcnTkR6gzBvmQWIuBni5zPtOQHuW640QAInYCYCsC
+	 dMhHWiz9fVnI1YqEjo5Bm/A19lj4p6dJsQd++HlcD3Cv5Vx7jJkkl4cb7XZTR8HqCI
+	 U3WDzBUUqY9xyraIbghVQVKNQspifHsDCIeoFL3b0/NDIULtnR9A9d6CZmPYSFg+QB
+	 qnoCgjBxq7Mmw==
+Date: Fri, 9 Oct 2026 16:25:29 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v9 07/18] PCI/P2PDMA: Answer routing per TLP class
+Message-ID: <20261009212529.GA1086940@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261001-fix-p2p-acs-v4-0-v9-7-1a8e0f50ddd9@nvidia.com>
 
-flush_tlb_mm(), flush_tlb_page() and flush_icache_user_page() skip the
-shootdown IPI when mm_users <= 1, on the assumption that no other CPU can
-be running the mm. A task that borrows an mm through kthread_use_mm()
-takes mmgrab() rather than mmget(), so it never appears in mm_users, and
-kthread_use_mm() may be handed an mm that is already the caller's
-active_mm and loaded on that CPU. Such a CPU was not only left without
-an IPI, its mm->context[cpu] was cleared from under it.
+On Thu, Oct 01, 2026 at 02:55:15PM +0300, Leon Romanovsky wrote:
+> From: Leon Romanovsky <leonro@nvidia.com>
+> 
+> calc_map_type_and_dist() returns one mapping type per provider and client,
+> valid only for strictly ordered Requests carrying an Untranslated address.
+> Clients that use Relaxed Ordering or ATS cannot ask what the fabric would
+> do with their traffic.
+> 
+> Add enum pci_p2pdma_tlp_flags to name a class and pci_p2pdma_map_type_tlp()
+> to ask about one. The topology walk and the ACS Control reads do not depend
+> on the class, so decide all of them from the one walk and cache them
+> together, four bits each. Every class still answers alike; the controls
+> that tell them apart come next.
+> 
+> Tested-by: Tushar Dave <tdave@nvidia.com>
+> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> ---
+>  drivers/pci/p2pdma.c | 159 +++++++++++++++++++++++++++++++++++++++++----------
+>  1 file changed, 128 insertions(+), 31 deletions(-)
+> 
+> diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
+> index 841c86be31bb..43e225cc5735 100644
+> --- a/drivers/pci/p2pdma.c
+> +++ b/drivers/pci/p2pdma.c
+> @@ -492,6 +492,33 @@ static struct pci_dev *find_parent_pci_dev(struct device *dev)
+>  	return NULL;
+>  }
+>  
+> +/**
+> + * enum pci_p2pdma_tlp_flags - Properties of the TLPs a client will issue
+> + *
+> + * These describe the traffic rather than the topology, and select which ACS
+> + * controls apply along the peer-to-peer path. A value of 0 means strictly
+> + * ordered Requests carrying an Untranslated address.
+> + *
+> + * @PCI_P2PDMA_TLP_TRANSLATED: Requests carry an ATS Translated address. PCIe
+> + *	r7.0 sec 6.12.3 routes those to the peer regardless of ACS P2P Request
+> + *	Redirect and ACS P2P Egress Control wherever ACS Direct Translated P2P
+> + *	is enabled.
+> + * @PCI_P2PDMA_TLP_RELAXED_CPL: The provider returns Completions with the
+> + *	Relaxed Ordering attribute set. PCIe r7.0 sec 6.12.1.1 never redirects
+> + *	those, so ACS P2P Completion Redirect does not gate the path. The
+> + *	Completer chooses this attribute and the specification does not require
+> + *	it to copy Relaxed Ordering from the Request into the Completion, so a
+> + *	caller passing this flag asserts that its provider does.
 
-mm->context[cpu] is already the record of which CPUs hold an ASN for the
-mm. Test it rather than clearing it: take the shortcut only when no
-other CPU has one, and otherwise fall through to the IPI, which
-invalidates those CPUs properly. A CPU that merely ran the mm in the
-past also holds a context and now costs an IPI, which errs in the safe
-direction.
+It doesn't sound right to me that Completers choose the attribute.  I
+thought *Requesters* chose the RO attribute based on their design
+(knowledge about which transactions require strong ordering) and their
+Enable Relaxed Ordering bit.  Sec 2.2.9.1 says:
 
-Change ipi_flush_tlb_mm() and ipi_flush_icache_page() to test current->mm,
-like ipi_flush_tlb_page(). A CPU that only retains the mm lazily then
-clears its own slot through flush_tlb_other(), rather than publishing a
-new ASN on every IPI. Once these historical slots are gone, the shortcut
-is available again if mm_users remains at most one and no other CPU has
-taken or kept a context. An explicit kthread_use_mm() borrower has
-current->mm set and still receives the invalidate it needs.
+  - Completion headers must supply the same values for the Attribute
+    as were supplied in the header of the corresponding Request,
+    except as explicitly allowed:
 
-Together with the preceding patch, dropping these clearing loops leaves
-every runtime write to mm->context[] targeting the writing CPU's own slot,
-so the array becomes a lockless publication of which CPUs may be using the
-mm, with a single writer per slot. Mark the two stores that are now
-observed from other CPUs; flush_tlb_other() already uses WRITE_ONCE().
-The uniprocessor flush_icache_user_page() is left alone, as nothing reads
-another CPU's slot there, and init_new_context() runs before the mm is
-shared.
+    - when IDO is used (see § Section 2.2.6.4)
 
-Order the slot reads after the page-table changes with smp_mb(). On the
-publishing CPU, the store in ev5_switch_mm() precedes the scheduler's
-post-switch barrier in finish_lock_switch(). Also issue smp_mb() after
-publishing in __load_new_mm_context(), before loading and using the mm.
-This covers every caller, including check_mmu_context(), which can
-publish a replacement after finish_lock_switch() has already run.
-
-This requires the preceding removal of remote slot clearing from
-migrate_flush_tlb_page(). It also requires the stale-TLB series to set
-need_new_asn on both the reused and newly allocated ASN paths. Otherwise
-an IPI between finish_lock_switch() and check_mmu_context() can zero a
-new slot while asn_lock is set, and the task can return to user space
-with a live ASN that the shortcut cannot see.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
----
- arch/alpha/include/asm/mmu_context.h |  2 +-
- arch/alpha/kernel/smp.c              | 52 ++++++++++++++--------------
- arch/alpha/mm/fault.c                |  4 ++-
- 3 files changed, 30 insertions(+), 28 deletions(-)
-
-diff --git a/arch/alpha/include/asm/mmu_context.h b/arch/alpha/include/asm/mmu_context.h
-index e5a5737506db..f8a42f42a5dc 100644
---- a/arch/alpha/include/asm/mmu_context.h
-+++ b/arch/alpha/include/asm/mmu_context.h
-@@ -158,7 +158,7 @@ ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
- 	mmc = next_mm->context[cpu];
- 	if ((mmc ^ asn) & ~HARDWARE_ASN_MASK) {
- 		mmc = __get_new_mm_context(next_mm, cpu);
--		next_mm->context[cpu] = mmc;
-+		WRITE_ONCE(next_mm->context[cpu], mmc);
- 	}
- #ifdef CONFIG_SMP
- 	/* A deferred shootdown can also invalidate a newly allocated ASN. */
-diff --git a/arch/alpha/kernel/smp.c b/arch/alpha/kernel/smp.c
-index e21bc3920bec..11768aa292a4 100644
---- a/arch/alpha/kernel/smp.c
-+++ b/arch/alpha/kernel/smp.c
-@@ -625,12 +625,30 @@ static void
- ipi_flush_tlb_mm(void *x)
- {
- 	struct mm_struct *mm = x;
--	if (mm == current->active_mm && !asn_locked())
-+	if (mm == current->mm && !asn_locked())
- 		flush_tlb_current(mm);
- 	else
- 		flush_tlb_other(mm);
- }
- 
-+/* True if a CPU other than this one holds an ASN for MM.  */
-+static bool
-+mm_context_elsewhere(struct mm_struct *mm)
-+{
-+	int cpu, this_cpu = smp_processor_id();
-+
-+	/* Pairs with the barrier the publishing CPU issues before using MM.  */
-+	smp_mb();
-+
-+	for_each_online_cpu(cpu) {
-+		if (cpu == this_cpu)
-+			continue;
-+		if (READ_ONCE(mm->context[cpu]))
-+			return true;
-+	}
-+	return false;
-+}
-+
- void
- flush_tlb_mm(struct mm_struct *mm)
- {
-@@ -638,14 +656,8 @@ flush_tlb_mm(struct mm_struct *mm)
- 
- 	if (mm == current->active_mm) {
- 		flush_tlb_current(mm);
--		if (atomic_read(&mm->mm_users) <= 1) {
--			int cpu, this_cpu = smp_processor_id();
--			for (cpu = 0; cpu < NR_CPUS; cpu++) {
--				if (!cpu_online(cpu) || cpu == this_cpu)
--					continue;
--				if (mm->context[cpu])
--					mm->context[cpu] = 0;
--			}
-+		if (atomic_read(&mm->mm_users) <= 1 &&
-+		    !mm_context_elsewhere(mm)) {
- 			preempt_enable();
- 			return;
- 		}
-@@ -690,14 +702,8 @@ flush_tlb_page(struct vm_area_struct *vma, unsigned long addr)
- 	/* As in ipi_flush_tlb_page(): a targeted tbi() needs MM current.  */
- 	if (mm == current->mm) {
- 		flush_tlb_current_page(mm, vma, addr);
--		if (atomic_read(&mm->mm_users) <= 1) {
--			int cpu, this_cpu = smp_processor_id();
--			for (cpu = 0; cpu < NR_CPUS; cpu++) {
--				if (!cpu_online(cpu) || cpu == this_cpu)
--					continue;
--				if (mm->context[cpu])
--					mm->context[cpu] = 0;
--			}
-+		if (atomic_read(&mm->mm_users) <= 1 &&
-+		    !mm_context_elsewhere(mm)) {
- 			preempt_enable();
- 			return;
- 		}
-@@ -728,7 +734,7 @@ static void
- ipi_flush_icache_page(void *x)
- {
- 	struct mm_struct *mm = (struct mm_struct *) x;
--	if (mm == current->active_mm && !asn_locked())
-+	if (mm == current->mm && !asn_locked())
- 		__load_new_mm_context(mm);
- 	else
- 		flush_tlb_other(mm);
-@@ -747,14 +753,8 @@ flush_icache_user_page(struct vm_area_struct *vma, struct page *page,
- 
- 	if (mm == current->active_mm) {
- 		__load_new_mm_context(mm);
--		if (atomic_read(&mm->mm_users) <= 1) {
--			int cpu, this_cpu = smp_processor_id();
--			for (cpu = 0; cpu < NR_CPUS; cpu++) {
--				if (!cpu_online(cpu) || cpu == this_cpu)
--					continue;
--				if (mm->context[cpu])
--					mm->context[cpu] = 0;
--			}
-+		if (atomic_read(&mm->mm_users) <= 1 &&
-+		    !mm_context_elsewhere(mm)) {
- 			preempt_enable();
- 			return;
- 		}
-diff --git a/arch/alpha/mm/fault.c b/arch/alpha/mm/fault.c
-index dfe427d93072..5b62bdeabe2a 100644
---- a/arch/alpha/mm/fault.c
-+++ b/arch/alpha/mm/fault.c
-@@ -69,7 +69,9 @@ __load_new_mm_context(struct mm_struct *next_mm)
- 	struct pcb_struct *pcb;
- 
- 	mmc = __get_new_mm_context(next_mm, smp_processor_id());
--	next_mm->context[smp_processor_id()] = mmc;
-+	WRITE_ONCE(next_mm->context[smp_processor_id()], mmc);
-+	/* Publish the context before this CPU can access the mm. */
-+	smp_mb();
- 
- 	pcb = &current_thread_info()->pcb;
- 	pcb->asn = mmc & HARDWARE_ASN_MASK;
--- 
-2.43.0
-
+    - when RO is used in a Translation Completion (see § Section
+      10.2.3)
