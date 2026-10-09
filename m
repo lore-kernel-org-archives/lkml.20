@@ -1,77 +1,85 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1893446C5
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 02:01:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4793A310784
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 02:01:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791511274; cv=none; b=Pa+yZV1tJFhNv824vTPknHuVepel5uRF2kdXgFBVLDncDSTRWB259MRq2LQiC3rH5zfKOtq47PUgnrvVqaTuukRTMv1mcXeYqASJa99uNF58jcohAQhIHpzyyip5mbqYKRGmVWdPIP2a5dNdqWGQ5kjxnJtE428DRNEzdjrS+pk=
+	t=1791511319; cv=none; b=aPzWLP85yWWcOfJ/M3PZASwgyD8sZAdWNkKuEzq/0ynrUe+rdk7bP6rIfKHUg88tVWSkmqXv7mETx44LyXsYpX6KbfHLC+LBtD91FOBdvkRxV+6w/B8qX1qI8DWofyDHiTx00pytMDEP36+MW5bKv3DL9MH9yoGMjnmKzeOjy84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791511274; c=relaxed/simple;
-	bh=BF39Imc0aPpJB6sjFuVtuEzAu8i/MJ+OvJYj+kpDXRw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ktpmL6gZpNqE/bNpkRBhu6FKcI9ASUnfWV026hELA7YEbQZ+IqPeVaIRA2UvC01YzDlVB5+HLasuqGypHv8qo1q6EAArgUH3nHnEtFKIWE4gPu8qz5yDzftsoWBQ2tsYBmY/29s6K7CUAlIEixupR/PXSjA7Q7lh9fxJxas7Uuc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VijgIgw9; arc=none smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791511319; c=relaxed/simple;
+	bh=hneMsRg+nwySOFK2xbkIaYui9f6H8KGYNCEeXXDtTnE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UZ9jHbh85F5XiUWV3iqoLQ2/jq+Wv7xbaoirYIhVVDTMXYNF0XwTuOsjjJPPi0JGVJiygsTpC/Ns2i+0VgRa9SLEhC66ppgz39nNdsYKAylmh1SNM8aTVdBHLY5Z6zi97SP1Ww7flDe6j1nNj+eTWrycaYvyqMdt92vel/3WJsU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai; spf=pass smtp.mailfrom=crusoe.ai; dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b=BmCdgPdY; arc=none smtp.client-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crusoe.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VijgIgw9"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc4ca696de6so2196558a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 19:01:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b="BmCdgPdY"
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-34bb8b31647so9164497eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 19:01:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791511271; x=1792116071; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2fDuH5AqlzghdgOw85VEEM3nScrcIHTb70P6L+D1SRk=;
-        b=VijgIgw99PNAoM+VIWgJDLrm8xwBJ4zYVDz3+JjLF62ebs8jVIqNx15Mnyv13FqKok
-         zXdQdO7ve7Bvho5/9YFqpK5NQ1N4+EMs0JrJwIYnL4pS/4kfw/Ugze9KVpH9BvGojYQ7
-         x2nPe5eiBOYv6lM6PdMBTys/SmdPaUCRoxW34yfhsQqCuV1smWrrPdblMoecRw9LUUjo
-         yWSHFdX5YWa7U1/EIgQHJ3Yx3ufZdTbmLKaMPRquHkTzLXtAg9F8zaQ0zNaO8NZEIhG6
-         4E7TG73rV+kr/DMDA4h6neYwCi8NsDFqofhrkFSX9DTCRDgeTelm3rwRNgtDtwpuqnXv
-         tk3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791511271; x=1792116071;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=crusoe.ai; s=google; t=1791511317; x=1792116117; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2fDuH5AqlzghdgOw85VEEM3nScrcIHTb70P6L+D1SRk=;
-        b=LQT+GA8Vyr/8JcQqYI0nPTIml+VOxw2O7ohr6ilErylKRGmUfHH4SJSCaBjTl2/XwN
-         7AyBrEoHWXdu/od/XzX6X03N2nfcSvhv4nOFOX/pRAD0WWqM5STxJ2JqV+S1qNxIIPNp
-         DUQzqo0rOejXXXMVG7eglV+4qRXqiQ//Fbor0wGH2Z+QVLpXLBg3UBam0Wr5wURWXIqB
-         m4BMxE1R7nQhAP78oM0DjPAsZqgGgTyQBqSeZMV1v4bPoN1/PolQeiEpDfujf2X1RuBX
-         0j3AEeSRYzO0nB6KspSsxz6FGCk9qkdilg3CPuvg4UtSpNU522LMOyNorrWdabiVjxtb
-         sgfg==
-X-Forwarded-Encrypted: i=1; AKwUvBzaCHNsDbbb/6PiMQseWt6AE6mMjlctwEhMucBXN93sPyaK7ca0AuU9wu5SflCOGc5kIlHM3n/jM9QrvKE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYImBp9hJE+wfnGKsChgDhy6jTG4l47r0r1PD+PGQlQUdRki55y+
-	DOI6z0g98eRQxGHT6c0O/VnC9sSbr7y8pOvX4NSXGoCaRokShTbuEn8O
-X-Gm-Gg: AYBFou2o0mCHl3WH9pS5IJk9ET2+WNduZEiBT1Jczeq6GugXKjd2mSThfFsYYd9CPn1
-	DeQk7fZP+84szZHvKkyOKm4CFYGczE2g78wrO+gBpQl/TyBy+n3nwYXLmOBQevnsYpRUVfKBmOh
-	j9QSd1/t3o39ymSMLpM8+DtcGUx/fAqifpW+BVBgAFWSrVZ9EdxhpCcdp/6OXJC2cKcj7WpouZj
-	TCtWPgkStImegBsqX+sHWHAb/7K6LK8qYuJe/HU3ClXxjC0zK8rMncHbCJVTZ3ycIPEk6yKVXjG
-	yZUhLuGkJZYKUqVnByTjXeLa4c/p0YiPxAlxHqnwnC3X0AxiHj2mdVlg0Cq9HgZHUnkDTVTw3Rt
-	FnSTlSDwvrm0GOJPHiWczyMKKfxN5EW/ZTHv6AW1NkgN4gZjBoPqgZA3CJvlwkNV+uIN6PPQD1x
-	IzsMBWuPR6E585va2An1bjzRMzh5mlbh9Wgy7D/BCXsh4q5ekpsggNkmXbsmUskG+olWJBRaHe1
-	tdXLgo=
-X-Received: by 2002:a17:90a:e707:b0:3a8:796e:ca18 with SMTP id 98e67ed59e1d1-3ab3ace27f1mr572130a91.59.1791511271485;
-        Thu, 08 Oct 2026 19:01:11 -0700 (PDT)
-Received: from arch.localdomain ([161.33.202.10])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38fc9e52sm1095770a91.13.2026.10.08.19.01.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 19:01:11 -0700 (PDT)
-From: Jun Yan <jerrysteve1101@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Liang Chen <cl@rock-chips.com>
-Cc: Jun Yan <jerrysteve1101@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] arm64: dts: rockchip: Add dma-names to RK356x UART nodes
-Date: Fri,  9 Oct 2026 10:01:02 +0800
-Message-ID: <20261009020103.364498-1-jerrysteve1101@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        bh=FK9q3mI/smjlpXK27adCfd32tCuGO0ujIRGbl2MfJLU=;
+        b=BmCdgPdYXBimIVtROG6cC+/1z1A2dNp9AX9j0mnKJUN6yRldICkkmrlb1xpp+dYBRm
+         CV9B2LVGDIKB55dxi1pPFttKAVOdqxhClHiCv8gaYWUu7Ate8g8RNH3AkNcHK9Kgr4u7
+         g8O3IyO7DpGS00b2VTmjEZDtiX7nTNyBIrvrxWeKMLw+yEama/vpUlM3X7jvMDPy/nnW
+         mHS9XPGedPBByQV8MjxV4aGf4l2TpfkrJqEMHEEqpNXy51uOlCpm5b/yLwOA5V3VAo3u
+         JX9MzbvXleKjVMJEfbKdk+ERfBxuoRdZo9Pfj+L0EiGnOhUPJdf0unfHpHvlCzdTTSKp
+         tgZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791511317; x=1792116117;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FK9q3mI/smjlpXK27adCfd32tCuGO0ujIRGbl2MfJLU=;
+        b=R7QXBVLxTEgSUy4u9TxCkDfOOogfyR/nF1g8l9X/R0S9V/Nejt6kgbg4JmUuiCe041
+         k+HIpI7upvl84b9pD1RnkmSOJprF6lkCli43f+g9YFvEIUVSkFpK0VQWNZ9VuZrL/czr
+         r43dQBn77nQGONILavaNMO56/t9GmSlg28HdQiLLZxiptTSJnkCUZf2f3frw8UaDs231
+         uhR3ZnT34RmQZheCFXViQPLvnF776zxs97p1t+mfmkIv89miPmlz3HnmJGbwl9Dn4Dbq
+         GxlyMQth/6CjnObFMJ1pM3uD981VBodiogU3LELmx0MLykV/IV1bh2Bzgy+53ScQr0fZ
+         rhwA==
+X-Forwarded-Encrypted: i=1; AKwUvBwLemr+hfoZ+i+x/3i8auI05F+yHzuOd8ZGfPkfHGShA8XxKwMMyU7claO907iZdypE9sthhw7xF9X59Vg=@vger.kernel.org
+X-Gm-Message-State: AFuF++khmRhIuq1jPMR1EvgfSdA/hxbk1WlZCxavY3iwIXw22PDMN8b+
+	Bavj28uq6A6zhfLSr8Yu3YnITJmdHNctQ+M4strdACLrjzXpRkR/7MvtOrmn27jadtcXT9D09+s
+	QIPp7SSo=
+X-Gm-Gg: AYBFou0vbHKOB0yvGRGGHFvnxbbBxOrpPFhqZUcYiqCoK1wyG/mnQFzdGRaVKcQEoA5
+	yPBnjIC6jlyfm2WguxG+OsSiO9A1f7wV1xMIdQpzZMqqxlGyNuu+oFUsVItk1ssR2SsVzA5fpL2
+	yFqRk8wEeyGIVozpsVEJRspbZRrdyuUP3bMywCCoi/oZWHt/nx7JjNk4fKSaqAN90wZPd8venBo
+	rfW0tRdFS49F4L1D+9bHxOrhvfii5+d8h6jN6cSkh0K4+LOYt53gL7R4/Q/+fWwqZY4Jqk+I9/s
+	IOwyHqawTQq+0LwLZcoo0SU4NQ/OPbC5qpiFi8STjN7ImrsBRWgzlUqtQSPJhY6rCLt2iecyZ70
+	09Qk1ty+6gzC8aTi7s6TCJcbGBDJF2FDTi4mjzXPNBVBVlqyZPeCYhgFOz7yJVP/pCc28J2gUqA
+	OSefUDx4NBWejJc9udwIZLQMcvW+L780+pNjN8F126jMCglpKpTCAj2DT4WvenjUOAB9GsiNRcQ
+	8kkZIkjCJEQ2mSj0IGnZn4V7Hs/8uzCJ6/z9vpeO5qj
+X-Received: by 2002:a05:7301:152f:b0:351:7dc1:7aba with SMTP id 5a478bee46e88-3537e12becbmr729997eec.32.1791511316923;
+        Thu, 08 Oct 2026 19:01:56 -0700 (PDT)
+Received: from MBP-Saravanan-D.civet-hops.ts.net ([67.208.231.220])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca329d9sm2120931eec.5.2026.10.08.19.01.54
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 08 Oct 2026 19:01:56 -0700 (PDT)
+From: Saravanan D <saravanand@crusoe.ai>
+To: Nilay Shroff <nilay@linux.ibm.com>
+Cc: Saravanan D <saravanand@crusoe.ai>,
+	linux-nvme@lists.infradead.org,
+	kbusch@kernel.org,
+	hch@lst.de,
+	sagi@grimberg.me,
+	axboe@kernel.dk,
+	dwagner@suse.de,
+	linux-kernel@vger.kernel.org,
+	iyamahata@crusoe.ai,
+	kiyer@crusoe.ai,
+	ganbalagane@crusoe.ai,
+	sjpark@crusoe.ai
+Subject: Re: [PATCH v4 2/2] nvme-tcp: allow setting per-queue io_cpu through sysfs
+Date: Thu,  8 Oct 2026 19:01:42 -0700
+Message-ID: <20261009020145.64651-1-saravanand@crusoe.ai>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <51a451fe-fdf6-4e8f-afbd-c595f3c6de2c@linux.ibm.com>
+References: <20260927070925.47209-1-saravanand@crusoe.ai> <20260927070925.47209-3-saravanand@crusoe.ai> <51a451fe-fdf6-4e8f-afbd-c595f3c6de2c@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,111 +88,168 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The RK356x UART nodes define a dmas property but omit the matching
-dma-names property, so the 8250 driver fails to request a DMA channel
-and falls back to PIO, logging:
+On 10/8/26 2:45 AM, Nilay Shroff wrote:
+[...]
+>> The queue directories register on the first connect and persist while
+>> the queues cycle across reconnects, so a write can arrive while a
+>> queue is torn down. The io_cpu changes and their accounting therefore
+>> serialize under a controller level lock rather than the queue lock,
+>> which is destroyed with the queue, and the controller teardown waits
+>> for the last kobject release before the queue array is freed.
+>>
+> I understand based on your requirement you may want to persist io_cpu
+> changes (when managed by user) during controller reconnect. However
+> in case num of queues changes after reconnect (assume it's 32 at first
+> connect but after controller reconnects it's reduced to 16) keeping
+> those 32 queues entries under queues/<qid>/ looks bit odd and not
+> correct. I'd expect queues entries under queue/<qid>/ to be also
+> adjusted based on the controller queue count.
 
-  of_dma_request_slave_channel: dma-names property of node
-  '/serial@fe650000' missing or empty
+Agreed. In v5 the queue directory follows the queue's connected
+lifetime. nvme_tcp_alloc_queue() adds it and nvme_tcp_free_queue()
+removes it, so queues/<qid>/ matches the queue count after every
+reconnect, as blk-mq does for mq/<n> when nr_hw_queues changes. A user
+assigned io_cpu is kept in the nvme_tcp_queue, which persists across
+reconnects, so it applies again when the queue comes back. A write
+while the controller is reconnecting fails with ENOENT.
 
-Add the missing dma-names = "tx", "rx" to uart0 through uart9,
-matching other Rockchip SoCs such as the RK3588.
+[...]
+>> @@ -171,6 +173,11 @@ struct nvme_tcp_ctrl {
+>>   	struct delayed_work	connect_work;
+>>   	struct nvme_tcp_request async_req;
+>>   	u32			io_queues[HCTX_MAX_TYPES];
+>> +	/* serializes io_cpu changes and their nvme_tcp_cpu_queues accounting */
+>> +	struct mutex		io_cpu_lock;
+>
+> The io_cpu_lock protect updates to queue->io_cpu and as we now support clang
+> context annotations for NVMe host driver, I'd suggest you annotate the
+> queue->io_cpu with __guarded_by(...) so that clang context analyzer can
+> validate each access to queue->io_cpu. Furthermore, I see that queue->io_cpu
+> could be concurrently accessed from both control path and I/O hotpath. So how
+> would we protect it while it's being accessed from I/O path and concurrently
+> updated from sysfs path?
 
-Fixes: a3adc0b9071d ("arm64: dts: rockchip: add core dtsi for RK3568 SoC")
-Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
----
-Changes in v2:
-  - Add Fixes tag for the commit that introduced the dmas property.
+The I/O path reads io_cpu without the lock by design, and a stale read
+is benign. Each queue_work_on() call reads io_cpu once, so a call that
+races with the store queues io_work on the old cpu one last time and
+later calls use the new one. io_work is a single work item, so it
+never runs on both cpus at once. The inline send in
+nvme_tcp_queue_request() only compares io_cpu with the current cpu and
+is serialized by send_mutex. v5 marks the lockless reads with
+READ_ONCE() and the writes with WRITE_ONCE().
 
-v1: https://lore.kernel.org/all/20261008153620.238580-1-jerrysteve1101@gmail.com/
+Annotating io_cpu with __guarded_by(&ctrl->io_cpu_lock) would need
+context_unsafe() around each of those hot path reads, so I'd rather
+document the lockless readers next to the field. Happy to add the
+annotation if you prefer it.
 
- arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+>> +	unsigned int		nr_queue_infos;
+>> +	atomic_t		qinfo_refs;
+>> +	struct completion	qinfo_release;
+>>   };
+>
+> I think the qinfo_refs and qinfo_release are added for tracking the
+> lifecycle of nvme_queue_info object. But do we really need to do
+> that ?
+> When a nvme_queue_info->kobj is initialized/added, its parent kobject
+> is referenced by the kobject infrastructure. Therefore, as long as a
+> queue-info kobject exists, its parent queues_kobj remains alive, which
+> in turn keeps ctrl->device->kobj alive. This should already prevent the
+> controller object from being released while a queue-info kobject still
+> exists. Could we therefore avoid maintaining a second qinfo_refs
+> reference count and completion? It seems that entire kobject parent
+> chain already provides the lifetime dependency that qinfo_refs is
+> trying to enforce.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-index a5832895bd39..098493c04ecc 100644
---- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-@@ -443,6 +443,7 @@ uart0: serial@fdd50000 {
- 		clocks = <&pmucru SCLK_UART0>, <&pmucru PCLK_UART0>;
- 		clock-names = "baudclk", "apb_pclk";
- 		dmas = <&dmac0 0>, <&dmac0 1>;
-+		dma-names = "tx", "rx";
- 		pinctrl-0 = <&uart0_xfer>;
- 		pinctrl-names = "default";
- 		reg-io-width = <4>;
-@@ -1449,6 +1450,7 @@ uart1: serial@fe650000 {
- 		clocks = <&cru SCLK_UART1>, <&cru PCLK_UART1>;
- 		clock-names = "baudclk", "apb_pclk";
- 		dmas = <&dmac0 2>, <&dmac0 3>;
-+		dma-names = "tx", "rx";
- 		pinctrl-0 = <&uart1m0_xfer>;
- 		pinctrl-names = "default";
- 		reg-io-width = <4>;
-@@ -1463,6 +1465,7 @@ uart2: serial@fe660000 {
- 		clocks = <&cru SCLK_UART2>, <&cru PCLK_UART2>;
- 		clock-names = "baudclk", "apb_pclk";
- 		dmas = <&dmac0 4>, <&dmac0 5>;
-+		dma-names = "tx", "rx";
- 		pinctrl-0 = <&uart2m0_xfer>;
- 		pinctrl-names = "default";
- 		reg-io-width = <4>;
-@@ -1477,6 +1480,7 @@ uart3: serial@fe670000 {
- 		clocks = <&cru SCLK_UART3>, <&cru PCLK_UART3>;
- 		clock-names = "baudclk", "apb_pclk";
- 		dmas = <&dmac0 6>, <&dmac0 7>;
-+		dma-names = "tx", "rx";
- 		pinctrl-0 = <&uart3m0_xfer>;
- 		pinctrl-names = "default";
- 		reg-io-width = <4>;
-@@ -1491,6 +1495,7 @@ uart4: serial@fe680000 {
- 		clocks = <&cru SCLK_UART4>, <&cru PCLK_UART4>;
- 		clock-names = "baudclk", "apb_pclk";
- 		dmas = <&dmac0 8>, <&dmac0 9>;
-+		dma-names = "tx", "rx";
- 		pinctrl-0 = <&uart4m0_xfer>;
- 		pinctrl-names = "default";
- 		reg-io-width = <4>;
-@@ -1505,6 +1510,7 @@ uart5: serial@fe690000 {
- 		clocks = <&cru SCLK_UART5>, <&cru PCLK_UART5>;
- 		clock-names = "baudclk", "apb_pclk";
- 		dmas = <&dmac0 10>, <&dmac0 11>;
-+		dma-names = "tx", "rx";
- 		pinctrl-0 = <&uart5m0_xfer>;
- 		pinctrl-names = "default";
- 		reg-io-width = <4>;
-@@ -1519,6 +1525,7 @@ uart6: serial@fe6a0000 {
- 		clocks = <&cru SCLK_UART6>, <&cru PCLK_UART6>;
- 		clock-names = "baudclk", "apb_pclk";
- 		dmas = <&dmac0 12>, <&dmac0 13>;
-+		dma-names = "tx", "rx";
- 		pinctrl-0 = <&uart6m0_xfer>;
- 		pinctrl-names = "default";
- 		reg-io-width = <4>;
-@@ -1533,6 +1540,7 @@ uart7: serial@fe6b0000 {
- 		clocks = <&cru SCLK_UART7>, <&cru PCLK_UART7>;
- 		clock-names = "baudclk", "apb_pclk";
- 		dmas = <&dmac0 14>, <&dmac0 15>;
-+		dma-names = "tx", "rx";
- 		pinctrl-0 = <&uart7m0_xfer>;
- 		pinctrl-names = "default";
- 		reg-io-width = <4>;
-@@ -1547,6 +1555,7 @@ uart8: serial@fe6c0000 {
- 		clocks = <&cru SCLK_UART8>, <&cru PCLK_UART8>;
- 		clock-names = "baudclk", "apb_pclk";
- 		dmas = <&dmac0 16>, <&dmac0 17>;
-+		dma-names = "tx", "rx";
- 		pinctrl-0 = <&uart8m0_xfer>;
- 		pinctrl-names = "default";
- 		reg-io-width = <4>;
-@@ -1561,6 +1570,7 @@ uart9: serial@fe6d0000 {
- 		clocks = <&cru SCLK_UART9>, <&cru PCLK_UART9>;
- 		clock-names = "baudclk", "apb_pclk";
- 		dmas = <&dmac0 18>, <&dmac0 19>;
-+		dma-names = "tx", "rx";
- 		pinctrl-0 = <&uart9m0_xfer>;
- 		pinctrl-names = "default";
- 		reg-io-width = <4>;
--- 
-2.56.0
+Agreed. With the directory removed in nvme_tcp_free_queue(), no queue
+directory outlives its queue, and the kobject release only frees its
+own allocation, so the parent chain is enough. v5 drops qinfo_refs,
+the completion and nr_queue_infos. Each connection allocates its own
+kobject, so a reconnect never reuses one.
 
+[...]
+> This look overly complicated. In a simple scheme can't we get rid off
+> NVME_QUEUE_INFO_IO_CPU_USER and instead use NVME_TCP_Q_IO_CPU_SET as an
+> indicator for differentiating between io_cpu is managed by user or driver?
+> For instance,
+>
+> NVME_TCP_Q_IO_CPU_SET = 1
+>      - driver has selected a specific io_cpu
+>
+> NVME_TCP_Q_IO_CPU_SET = 0 && io_cpu != WORK_CPU_UNBOUND
+>      - user has selected a specific io_cpu
+>
+> NVME_TCP_Q_IO_CPU_SET = 0 && io_cpu == WORK_CPU_UNBOUND
+>      - unbound; workqueue chooses the execution CPU and so it's driver managed
+
+I drew your scheme as a state diagram to compare it with v4.
+
+              DRIVER MANAGED          |         USER MANAGED
+   (SET=1, or SET=0 && UNBOUND)       |     (SET=0 && io_cpu=c)
+                                      |
+ connect +--------------------+ store(c)  +--------------------+
+ ------->| A  driver chosen   |-------+-->| C  user pin        |
+         |    io_cpu=c, SET=1 |       |   |    io_cpu=c, SET=0 |
+         |    counted         |       |   |    not counted (1) |
+         +--------------------+       |   +--------------------+
+           | stop, SET=0 and          |     |
+           | io_cpu must be reset (2) |     | store(-1)
+           v                          |     |
+         +--------------------+       |     |
+         | B  unbound         |<------+-----+
+         |    io_cpu=UNBOUND  |       |
+         |    SET=0           |       |   +- - - - - - - - - - +
+         |    also where a    |       |   : D  user unbound    :
+         |    user -1 lands(3)|       |   :    not reachable,  :
+         |                    |       |   :    see (3)         :
+         +--------------------+       |   +- - - - - - - - - - +
+           | next connect, reselect   |
+           +--> A                     |
+
+(1) A user pin has SET=0, so it drops out of nvme_tcp_cpu_queues.
+    When the driver selects io_cpu for other queues and other
+    controllers in nvme_tcp_set_queue_io_cpu(), it sees that cpu as
+    idle and keeps placing queues on it. v4 counts every bound queue
+    regardless of who assigned it.
+
+(2) SET clears at stop. Unless the stop path also resets io_cpu to
+    WORK_CPU_UNBOUND once io_work is cancelled, a driver chosen io_cpu
+    reads as a user pin after the reconnect and the driver never
+    selects a cpu for that queue again. In v4 only the sysfs store
+    sets the USER bit, so connect and stop never touch ownership.
+
+(3) The user managed side has no unbound state. A -1 written by the
+    user is the same state as a queue the driver has not bound yet,
+    so managed reads 1 and the next connect binds it again. Also,
+    nvme_tcp_wq is a per-cpu workqueue, so an unbound io_work runs
+    on the cpu that queued it rather than on a cpu chosen by the
+    workqueue.
+
+The USER bit records who owns io_cpu and survives reconnects, while
+SET records whether io_cpu is in the ledger and follows connect and
+stop. I'd like to keep both, with USER moved into nvme_tcp_queue flags
+as you asked on patch 1. The complexity you point at is the extra
+branch in the store, which collapses to a single path with the same
+behavior in v5.
+
+	mutex_lock(&ctrl->io_cpu_lock);
+	old = xchg(&queue->io_cpu, cpu);
+	set_bit(NVME_TCP_Q_IO_CPU_USER, &queue->flags);
+	if (test_and_clear_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags))
+		atomic_dec(&nvme_tcp_cpu_queues[old]);
+	if (cpu != WORK_CPU_UNBOUND &&
+	    test_bit(NVME_TCP_Q_ALLOCATED, &queue->flags)) {
+		atomic_inc(&nvme_tcp_cpu_queues[cpu]);
+		set_bit(NVME_TCP_Q_IO_CPU_SET, &queue->flags);
+	}
+	mutex_unlock(&ctrl->io_cpu_lock);
+
+Does that work for you?
+
+> Other that what sashiko provided in the review feedback, above are my
+> few additional comments.
+
+Thanks for the review. v5 also fixes the Sashiko findings.
+
+Thanks,
+Saravanan D.
