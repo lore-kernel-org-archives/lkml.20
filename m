@@ -1,64 +1,64 @@
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F30AC4D7D55
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 12:24:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5731C4D9562
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 12:24:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791548697; cv=none; b=MMoOrKihYmMI4JxCB+0vQ2QgAN3mNR5WqkWnEljzVlHiGRIXz7i/efai6ClTILv5WRpwKxR9qDvP5HUjbmeOWOUkWuJKW151Rxu09CitzYA2C8tclf4vafzleCGMdfKFCIsw3GG94rb1IwsfXlpu5xNu0dKdpmxlSXQLIGtxl9w=
+	t=1791548703; cv=none; b=Cp9sTT8Q0jo/kP8K+w/MSZcs5FvQr+Rwe2ptOvppq6M5oKO53dPD+fnHRQYlyGfyPt7YAPqStdxr/MjFle8/fBIgLtAFP6oq/8RWVXLXPYtUsg/EPa7GMBl0TiU+tcfXabKAqMNlLBtGyqQER5nJ6zMu8C7XAEZtUbA0dE+lEe4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791548697; c=relaxed/simple;
-	bh=Ikfc8UphbC26eLOdnp8j33kEmSlFX/Q/7JbIVl9Trbs=;
+	s=arc-20240116; t=1791548703; c=relaxed/simple;
+	bh=8RWnBIY88AM13j6DvqP1Xg+77UY/JVZIRlFkQYtyW5o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gr7vpiquXo3kzoEfa2vk3ZKqaVcucjdSi2aYelo3AdEulFN02pXp9See/DmX6gjdZBwpT9wDO6Y5Qt9zp5zaLKM5z49a2ySKhUBo7vNHORSNVYYW3dvEJG5E6YVT9YR/wDxg3N+lRpVMzk/fMKgXqW84ByEs0v/+h7vN5mRTfLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net; spf=pass smtp.mailfrom=blockcast.net; dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b=hl6LeNN+; arc=none smtp.client-ip=209.85.215.177
+	 MIME-Version; b=tX7yhk7UBNOjRLugYCe0sB12BPHKLc3E9nJ7dVrov6hySAN9fgB9Z6BgaUvQqDDrFhsOCSUiQl05iRKUUJhkkbfe/Gm3yRsrKfngCrTgarGNsbVkgKK3rOFLAqUEKm+BITV8Rc5EuDGKfQztlfj1fQfgGoGLrRQXPN5GQooUpL4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net; spf=pass smtp.mailfrom=blockcast.net; dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b=oBzBwAai; arc=none smtp.client-ip=209.85.216.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blockcast.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b="hl6LeNN+"
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cc4c02ddd62so2619903a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 05:24:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b="oBzBwAai"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3a4c47bb6e3so2134499a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 05:24:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blockcast.net; s=google; t=1791548687; x=1792153487; darn=vger.kernel.org;
+        d=blockcast.net; s=google; t=1791548692; x=1792153492; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=uKHgcClD/fkwCwovL55MW0NrAZXZO7y3jE5NJgA+WEk=;
-        b=hl6LeNN+USEgH4TjCTVlwt7hOELppisCEJjWUcHg0n2QZlMhDMMGQfdT7EKJtJ9YIt
-         4PzvWqxDDeReCv8g6SNr8n6z3SMj7SxK0dggdk8jcvjHeeC3rqvnsRlE0WtF88Vdrh8k
-         D+c3r8XuhHLn0Mf24GUNV96SRUdSir3bJIBgx0hP4f2HYQcLTeSCVaEPMujBUK3NcIxc
-         5hcBCW5Lhkb5XkAFBOYGJXySDgZHg+gRHj+7cD2skJd0KkBh8Q/pDcjzo2wZOzTuEG9z
-         l/iAZcys+/z14v8mSyIplzS90qLkmJAMme8KH5N3+I6PE2scAwV9i1khxljzqySse6Ne
-         YP1Q==
+        bh=yjXf3zywhfYnG5TRw5ezXLQRr19gQLXq9BEDfkjxJeY=;
+        b=oBzBwAaiMSdwpE29e9S84nELrAAWn1z4l6GooekDtuQX3y1Uu6La1fzvYwqvZ5HY2O
+         DTbCLbqg2nZuKb50vwaOXAUlkqTdvITK61yd1eUEtcYc2VuGLjRnqG1ocObE+U1gXNCT
+         OpN4AfCf+B3mkegCgunA0ZTrI3CXR9GcL2w3ESxWvnr7iR6P6LbSjncuwwrELWt8zb83
+         fm/ZafD77x5SP931vPvGZXRV0wb3q+7cW679/3AWIIp+otbARYEIjlrGnXJeUYHLxTk5
+         H00nkel/ufRN/8do9KVjYOAsDJJZj+1tqlBIPdP8gnhdfGq7QZVq2+41xrzfq7QdAjfr
+         7yqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791548687; x=1792153487;
+        d=1e100.net; s=20260707; t=1791548692; x=1792153492;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uKHgcClD/fkwCwovL55MW0NrAZXZO7y3jE5NJgA+WEk=;
-        b=pgZOTuPAql0IIwh3VCUavWbsZnTZcbEvo/Docd5/gvfDDNqvLE2j7kAbRk5pZWD4mQ
-         O4ibwnRcm0zLkvci8BO3yVllUvsrE9A8vVgJtRO65LHRxEV652us8RqTD9Ook93ce6dC
-         w7AaTVpJ9erxtJW7PTxn5UATaSo65VvycfoDZWB6TRvHeRa5qIO4MSR4mbiLdxU3Rs4x
-         OFD9ZrLKcaKICS55G5ohN6YsRk0DLe7z33WdtI/PbiYMA2CTbhWviFAzvswKcwdZu0Dh
-         4sPrHk1Ui5Iq92fMu01KLdfkqW3cRbyrVxWkOjfJdrxWfE/E6F2Q5Ps7W7Q7SLKxyAqG
-         rVmg==
-X-Forwarded-Encrypted: i=1; AKwUvBxoW2CAhEhup2B0o5yuzjUB1Rt1jJ0XoZg/GqMuW6Rwg/VIoSRuDXZPx/ZbTpoyGwk4fKN9RwqdD4+AJDM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIbo/UHeD7E7JSdcW3ywL65bahyrCjDKGZI785coGoQU2df7BOv
-	tXxbqBZShuVORVVlv4GYugr+ylrjiGhhS+v+3cGLhFMBX0UvLg2ZLMZebk3JULaX67A=
-X-Gm-Gg: AYBFou3liRsNGetR8iRfDHNiLqcqqNNi2dIZQWv10aV/OcZ5dNUXzLXxSCwVWSFA0kR
-	kAox/rJ0BoRzhSCHpPfFpCbFNwKRfP5fdrOzjlJQcPzSe6LvL2JRqBaHG5KxZE43FLVCG+hIbTT
-	77KSclw4q91eyj0sxUz9DoDAY5S1ALlgnFMng+/gcS4/td6UZJT8MMhEJ4H8VJAMI/91+TihY3b
-	RGk2aTTrkLULXOIs1VLjFh9gSLvnezlUBYZMCRUm0S+afrcQD/mOpeTARH/PqFXW5HoeY6UCRVK
-	dczlgf9o/kgwboCZWWvwnsegOcgZgEqwqLlxtD8qAnvv4vfunZw5KRdbdUfs2R6XSKJPQDqBcPS
-	wGoaUPPXHZ17rTRrModqLlyNXPfjMiRmxg8rBZTSNBfQYVXXjh1SXqPuwK4mBBCivGve+G3Py+o
-	hexesp22pgHZHk1C9sedZnsYnMOhgXnHcHY4gKdx2k/H8c74SuDHJxoe4EuXWXhV5SKrjxDOFoh
-	GXbpwskrwS28LiZszNAPlXqvkhZddpMFsFbbLDb
-X-Received: by 2002:a17:90b:5444:b0:3aa:fc22:8aa7 with SMTP id 98e67ed59e1d1-3ab3ac72e81mr1665611a91.53.1791548686944;
-        Fri, 09 Oct 2026 05:24:46 -0700 (PDT)
+        bh=yjXf3zywhfYnG5TRw5ezXLQRr19gQLXq9BEDfkjxJeY=;
+        b=kAQbkvWnqLEuFp2fbjbfLuyMbmPejzWlrEXQNzlEQdnBLdjVxm4EiJH46lBs9aNuao
+         ctTjupoyjnn3HFDnT4S0P+Efe573T66Q4s3lXSvU6cS15yJ19l3HaKBepNiMA8m2Fjgq
+         Vcz4uCxT4/NMql8TZHWlSBHfj2DHV6Go07nFsgERXOJWcEkEmL/2+sOffzjdzUjBiezH
+         +XY4IH3Q72aV86qb4UeI+XoWLNWnPBE/aFfgRRBxeyRo+YF+XHz1drU5qte5xW0IazJX
+         JKaXCtMPxtfBBzAPlx0oax1lkYV9U+CwloPGqwtbK5kbZA2nzqcYeTCXZ5MOG6x/n3b6
+         1mwg==
+X-Forwarded-Encrypted: i=1; AKwUvBzM2PoxLOdZSF3tKXnfy92bYr2KdbxpEN+61tFlcFfasGESfQfznXp001ZhHbOdEp1QC0/S3E99lXcubMg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKe9K7jjhBnCrFV1XJi0ai+YtLD7eTaFWlA8jiLrsgjGwi1K7UG
+	TH7hSKDUVJdmcVRSUmpdfyL10j+4ARScKq3noU4iV/IH92ERP7IUfj8cLmUld6MS1io=
+X-Gm-Gg: AYBFou2C7X6Qoz6QIqNXZF7IGLpaMW6awKAYTIH04PjcA/EfzJ/bsYTl3VR/YEhQY2u
+	I1etpTGbbl1OYzZ2aPaNjqf7ghJtjogtKl9WRN67FtEQUs1BtlQB1IuWTKhlfqs4JKW4xy2Kc03
+	21JkA24EkgQnSmivSNGw8n/pm/i4zdjbyLk2IHAqwEJMhJ1ESZZhHdx5MJKV3NM1R4JChtpQNgN
+	lD/Pir9m10MJtY3qXfdxOvtIy3/64ICsg1SLxZPmK56E2CP0Li65WAH6tw2THU/8U7DZZd6KiWm
+	9TFsz+uKjpRRfxnaJcTqWSahUrrJ6MeZt+RRVun6zUUMrB1Lw9dNdX1c342QvQpRJ+nGRPz9VvJ
+	VqRKuDs6dwGFffiCWEb6qf+3lqDkwndRbsUvneMS5jGwqpgIvuzO9E3LPQoihg3ZdWmGUEHbi9f
+	gkpCPeJ9ZNcVFpA5Lzi6XnWMJNAIsBkduc+cX6otVz4btxqqGyGH0MTd4wn1h2R0ZcjnsPXheRJ
+	A201RXoc9VUMQrRgM9+/Gk6sKWaJ4GAWS1H65Xa
+X-Received: by 2002:a17:90b:2687:b0:3ab:22fe:b13a with SMTP id 98e67ed59e1d1-3ab3a79a2efmr1620761a91.40.1791548692476;
+        Fri, 09 Oct 2026 05:24:52 -0700 (PDT)
 Received: from devbox.ts.blockcast.net ([2602:f74d:1::32])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab55e41eefsm1660502a91.10.2026.10.09.05.24.45
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab55e41eefsm1660502a91.10.2026.10.09.05.24.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 05:24:46 -0700 (PDT)
+        Fri, 09 Oct 2026 05:24:51 -0700 (PDT)
 From: Omar Ramadan <omar@blockcast.net>
 To: Taehee Yoo <ap420073@gmail.com>,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -71,9 +71,9 @@ Cc: Simon Horman <horms@kernel.org>,
 	netdev@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next 08/13] amt: send the AMT gateway control plane over IPv6
-Date: Fri,  9 Oct 2026 12:24:21 +0000
-Message-ID: <20261009122426.551178-9-omar@blockcast.net>
+Subject: [PATCH net-next 11/13] MAINTAINERS: amt: cover the amt headers and selftests
+Date: Fri,  9 Oct 2026 12:24:24 +0000
+Message-ID: <20261009122426.551178-12-omar@blockcast.net>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261009122426.551178-1-omar@blockcast.net>
 References: <20261009122426.551178-1-omar@blockcast.net>
@@ -85,202 +85,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A gateway sends three control messages: the Relay Discovery to its
-discovery address, then the Request and the Membership Updates to the
-relay it learned. All three are built for an IPv4 outer header only, so
-a gateway on an IPv6-only access network cannot reach any relay.
-
-Send the Discovery and the Request of a gateway with an IPv6 local
-address from amt_send_discovery_v6() and amt_send_request_v6(). Both
-messages are a few bytes with no payload, so they are built on the stack
-and sent with amt_send_ctrl_v6(), the helper that already sends the
-relay's IPv6 Advertisement, rather than with a copy of the IPv4 skb
-construction. The Membership Update carries the gateway's IGMP or MLD
-report, so amt_send_membership_update() keeps building on that skb: it
-sizes the headroom for the outer family and sends through
-amt_udp_xmit(), like the relay's Membership Query and Multicast Data,
-which avoids an IPv6 copy of the function.
-
-struct amt_dev gains the gateway's IPv6 discovery address and the IPv6
-relay address it learns and sends to. The next patch writes the relay
-address in process context while the transmit and receive paths read it,
-and a struct in6_addr is not read in one access, so it comes with a
-seqlock, remote_ipv6_lock: the senders take a snapshot with
-amt_get_remote_ipv6(), which retries until the copy is consistent.
+The AMT entry lists only drivers/net/amt.c, so get_maintainer.pl does
+not find the AMT maintainer for changes to include/net/amt.h,
+include/uapi/linux/amt.h or tools/testing/selftests/net/amt.sh, and this
+series touches the first two and adds selftests next to the third. Add
+the two headers, and a glob that covers amt.sh and the new amt_*.sh
+scripts.
 
 Assisted-by: LLM
 Signed-off-by: Omar Ramadan <omar@blockcast.net>
 ---
- drivers/net/amt.c | 91 +++++++++++++++++++++++++++++++++--------------
- include/net/amt.h |  5 +++
- 2 files changed, 69 insertions(+), 27 deletions(-)
+ MAINTAINERS | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/net/amt.c b/drivers/net/amt.c
-index 969ecfe..148d1fb 100644
---- a/drivers/net/amt.c
-+++ b/drivers/net/amt.c
-@@ -715,6 +715,50 @@ out:
- 	return err;
- }
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 509b35b..51799f5 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -1461,6 +1461,9 @@ S:	Maintained
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git
+ F:	drivers/net/amt.c
++F:	include/net/amt.h
++F:	include/uapi/linux/amt.h
++F:	tools/testing/selftests/net/amt*.sh
  
-+/* The learned IPv6 relay address is written in process context and read
-+ * on transmit and receive. A struct in6_addr is not read in one access, so
-+ * readers take a snapshot under the seqlock.
-+ */
-+static struct in6_addr amt_get_remote_ipv6(const struct amt_dev *amt)
-+{
-+	struct in6_addr addr;
-+	unsigned int seq;
-+
-+	do {
-+		seq = read_seqbegin(&amt->remote_ipv6_lock);
-+		addr = amt->remote_ipv6;
-+	} while (read_seqretry(&amt->remote_ipv6_lock, seq));
-+	return addr;
-+}
-+
-+/* IPv6-outer variant of amt_send_discovery(). */
-+static void amt_send_discovery_v6(struct amt_dev *amt)
-+{
-+	struct amt_header_discovery amtd = {
-+		.type	= AMT_MSG_DISCOVERY,
-+		.nonce	= amt->nonce,
-+	};
-+
-+	if (!amt_send_ctrl_v6(amt, &amt->local_ipv6, &amt->discovery_ipv6,
-+			      amt->gw_port, amt->relay_port,
-+			      &amtd, sizeof(amtd)))
-+		amt_update_gw_status(amt, AMT_STATUS_SENT_DISCOVERY, true);
-+}
-+
-+/* IPv6-outer variant of amt_send_request(); @v6 is the inner family. */
-+static void amt_send_request_v6(struct amt_dev *amt, bool v6)
-+{
-+	const struct in6_addr remote = amt_get_remote_ipv6(amt);
-+	struct amt_header_request amtrh = {
-+		.type	= AMT_MSG_REQUEST,
-+		.p	= v6,
-+		.nonce	= amt->nonce,
-+	};
-+
-+	amt_send_ctrl_v6(amt, &amt->local_ipv6, &remote, amt->gw_port,
-+			 amt->relay_port, &amtrh, sizeof(amtrh));
-+}
-+
- static void amt_send_discovery(struct amt_dev *amt)
- {
- 	struct amt_header_discovery *amtd;
-@@ -728,6 +772,11 @@ static void amt_send_discovery(struct amt_dev *amt)
- 	u32 len;
- 	int err;
- 
-+	if (amt_v6(amt)) {
-+		amt_send_discovery_v6(amt);
-+		return;
-+	}
-+
- 	rcu_read_lock();
- 	sk = rcu_dereference(amt->sk);
- 	if (!sk)
-@@ -818,6 +867,11 @@ static void amt_send_request(struct amt_dev *amt, bool v6)
- 	u32 len;
- 	int err;
- 
-+	if (amt_v6(amt)) {
-+		amt_send_request_v6(amt, v6);
-+		return;
-+	}
-+
- 	rcu_read_lock();
- 	remote_ip = READ_ONCE(amt->remote_ip);
- 	sk = rcu_dereference(amt->sk);
-@@ -1220,9 +1274,7 @@ static bool amt_send_membership_update(struct amt_dev *amt,
- {
- 	__be32 remote_ip = READ_ONCE(amt->remote_ip);
- 	struct amt_header_membership_update *amtmu;
--	struct iphdr *iph;
--	struct flowi4 fl4;
--	struct rtable *rt;
-+	union amt_addr remote = {};
- 	struct sock *sk;
- 	int err;
- 
-@@ -1231,23 +1283,11 @@ static bool amt_send_membership_update(struct amt_dev *amt,
- 		return true;
- 
- 	err = skb_cow_head(skb, LL_RESERVED_SPACE(amt->dev) + sizeof(*amtmu) +
--			   sizeof(*iph) + sizeof(struct udphdr));
-+			   amt_ip_hlen(amt) + sizeof(struct udphdr));
- 	if (err)
- 		return true;
- 
- 	skb_reset_inner_headers(skb);
--	memset(&fl4, 0, sizeof(struct flowi4));
--	fl4.flowi4_oif         = amt->stream_dev->ifindex;
--	fl4.daddr              = remote_ip;
--	fl4.saddr              = amt->local_ip;
--	fl4.flowi4_dscp        = inet_dsfield_to_dscp(AMT_TOS);
--	fl4.flowi4_proto       = IPPROTO_UDP;
--	rt = ip_route_output_key(amt->net, &fl4);
--	if (IS_ERR(rt)) {
--		netdev_dbg(amt->dev, "no route to %pI4\n", &remote_ip);
--		return true;
--	}
--
- 	amtmu			= skb_push(skb, sizeof(*amtmu));
- 	amtmu->version		= 0;
- 	amtmu->type		= AMT_MSG_MEMBERSHIP_UPDATE;
-@@ -1259,17 +1299,13 @@ static bool amt_send_membership_update(struct amt_dev *amt,
- 		skb_set_inner_protocol(skb, htons(ETH_P_IP));
- 	else
- 		skb_set_inner_protocol(skb, htons(ETH_P_IPV6));
--	udp_tunnel_xmit_skb(rt, sk, skb,
--			    fl4.saddr,
--			    fl4.daddr,
--			    AMT_TOS,
--			    ip4_dst_hoplimit(&rt->dst),
--			    0,
--			    amt->gw_port,
--			    amt->relay_port,
--			    false,
--			    false,
--			    0);
-+	if (amt_v6(amt))
-+		remote.ip6 = amt_get_remote_ipv6(amt);
-+	else
-+		remote.ip4 = remote_ip;
-+	if (amt_udp_xmit(amt, sk, skb, &remote, amt->gw_port,
-+			 amt->relay_port, false))
-+		return true;
- 	amt_update_gw_status(amt, AMT_STATUS_SENT_UPDATE, true);
- 	return false;
- }
-@@ -3481,6 +3517,7 @@ static int amt_newlink(struct net_device *dev,
- 		amt->max_tunnels = AMT_MAX_TUNNELS;
- 
- 	spin_lock_init(&amt->lock);
-+	seqlock_init(&amt->remote_ipv6_lock);
- 	amt->max_groups = AMT_MAX_GROUP;
- 	amt->max_sources = AMT_MAX_SOURCE;
- 	amt->hash_buckets = AMT_HSIZE;
-diff --git a/include/net/amt.h b/include/net/amt.h
-index d8798a9..02c1c33 100644
---- a/include/net/amt.h
-+++ b/include/net/amt.h
-@@ -360,8 +360,13 @@ struct amt_dev {
- 	struct in6_addr		local_ipv6;
- 	/* Outer remote ip */
- 	__be32			remote_ip;
-+	/* Outer remote IPv6 address, published under remote_ipv6_lock */
-+	struct in6_addr		remote_ipv6;
-+	seqlock_t		remote_ipv6_lock;
- 	/* Outer discovery ip */
- 	__be32			discovery_ip;
-+	/* Outer discovery IPv6 address, :: unless an IPv6 gateway */
-+	struct in6_addr		discovery_ipv6;
- 	/* Only used in gateway mode */
- 	__be32			nonce;
- 	/* Gateway sent request and received query */
+ ANALOG DEVICES INC AD3530R DRIVER
+ M:	Kim Seer Paller <kimseer.paller@analog.com>
 -- 
 2.43.0
 
