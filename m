@@ -1,328 +1,375 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012039.outbound.protection.outlook.com [40.93.195.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8982C2DB7BE;
-	Fri,  9 Oct 2026 09:00:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.39
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791536409; cv=fail; b=Xh1MyNLRl+gtoRSF2NAhuqnKgv04zsKP9f4P1xz38NoRo9X5kn93bOdurjAR4Yxrmnx6LRwbTtfXX3UCQ1fRR3toOvnqOVPoi3CTXbppE1zH6lH9FzxrHlA0z0PzYgAtCO8Y6+3eVZTR7M8xnyKkVpHnkiJJv+FnI/iopGqdX+A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791536409; c=relaxed/simple;
-	bh=69Y2GHWkLNMkr8BBnMImVo0FHvb0yT3KdVNxuu3xTzg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jdraZlO5AgRfO9uS1S/oQUDpe1HPQw632YNnXvl/8VpeAGeYsZK6zaZ4IYh0aA8ckc+DYLUb5cdykTMPSt7/l5B8aJuIjdNf18izUkkXgk1YCcbzypKdxbpQ9y/TE5e9FNxTqKwAgLmsiZQnnBl/hVVvWgJxAvm3fjMoAgSR/f4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=bJKFCwf4; arc=fail smtp.client-ip=40.93.195.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB53346D2B3
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 09:00:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791536433; cv=none; b=lBQfZztn9a8JTCVtGaRMj18X7DecaMLHVjNjEdpnLm7KnXTE2VOAq35Du+qBknogycQcIy7DpCh5vDt1EiM+1O/5U5thZ/gBo8htPW7Q+Bgcr+/ds+Dyiu7W3KNTYeztQ3xocf2TH4kd5wkv4pJyWo9wHBUxozdMMJScPMHioLI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791536433; c=relaxed/simple;
+	bh=dVqIXO/9c7iSDHVJkYbnjKppuyWuIM2GIVXBblovHYo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=OnuziP9McWly4gtyNBWNyGlPkZaDEoGy39fnmo6isNg7//+WApe0hb+qIM5TRA9UFvBqZWm5yaZZOBkgtQqIYLqtHy283a/goNWkQcMuqPUuM5wYeJMROc6Q7ayU5uPrLSyY+njYAl2w3lJeDj7sSuAh3rnJwDlFgMEfWo7sG08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=aaKatAm+; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="bJKFCwf4"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V1AJHVPSN0jTeW9R9FrLhsiOB1yll0EwCsaxHANuveqxuZLiJWeIgVe4aITXbCKg2yJ6DchhwzjRn7YJk91q8FxU9+ilLuJpYPd5vjiiwbyM4eS1YovucOiMLwAyI785xxgkFOEsae6MpdstvW2qHbNpRZ5rqochlfDe0dKpW5kmoq6g5f73BlLOMdvkq6AXNB6mNdyUMZnxmgaIgbgb19Ivs3lUOJs/Jx8HxYulLway6Zu/Q7t4chqFZulL61PbW0yUD1EAEzA5N9EWlpYZ+o4p1Kvp6k33tErRbT1pwyPJFmPPEUS+6N3uAiHTkieIOotTlcI8pi0j1SYL8LYFrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WKP6hWqvA1ANPoR9JseBjZcYnhWNVlAhZ2KmcjEPjZc=;
- b=S/9mbA0G4yCi2NZBtpz9PIdwDVX72IZRrb+TyIo17MtvylX7kSZGrCOtZOogiNyOL/NLg6MuzZvz4riUTAIyLj+mn/thZjuIW3zervvSelxk+JcNeOJgCHoCdOjC2bYm5Nsfn3b6cD/7UIjcxVYJHtxs4Gd1n613qltjuYdRfs168Rff1Jah7jOYMJbmvUulqJY8/11/Bwrp+v0Cpav44RNKRmzFUVWkBoIgH/hPHj8S39H++f6hgWCVf536YwdJgikH5ZkrWvA0S5BS/tLzufPcufhBmrG2iF3yh9egZjH0BzTAGUw/So+8lJu6My4QtzC+Gcxh40vIdAa395O1wg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WKP6hWqvA1ANPoR9JseBjZcYnhWNVlAhZ2KmcjEPjZc=;
- b=bJKFCwf4wcbcl58lFSU8YBO6FwQgYmpxyuCRLKD0HIfa+lymWKBZNj32nbJhOisEVk+fwQLo7FCUy4EOfvIXbcGkqk6FvLdhAAGZKMeoX+dfmn7DW81cnON9BLyR0Nzwy/2KoV89Uk5/YuCaK+333koJvYC1VTeFtsbW+Umn06P3XnLDV9Om/G9o2YO28uZxCNjAV9uJg4G87LMJ6jH4S9SqUI/YF6sZJ5Yrzw9L4JubCkhGQSLQoV/gov7wV7rtyvG9DaBmPcOy8mNdzzMGlOZkWkflccTLtk1CakEsNEKg8wbqdM+et+knazdFdUS2BfZ1NqVdKAhi11Rs8F9hbw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by DM4PR12MB5841.namprd12.prod.outlook.com (2603:10b6:8:64::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
- 2026 09:00:03 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
- 09:00:02 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-To: Thierry Reding <thierry.reding@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Hunter <jonathanh@nvidia.com>, webgeek1234@gmail.com
-Cc: dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>
-Subject: Re: [PATCH 1/2] drm/tegra: Support swapping chroma planes
-Date: Fri, 09 Oct 2026 17:59:32 +0900
-Message-ID: <qEporZZOT_abKwO4JObFpQ@nvidia.com>
-In-Reply-To: <20261008-tegra-drm-yvu420-v1-1-dc1c443c00f3@gmail.com>
-References:
- <20261008-tegra-drm-yvu420-v1-0-dc1c443c00f3@gmail.com>
- <20261008-tegra-drm-yvu420-v1-1-dc1c443c00f3@gmail.com>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-ClientProxiedBy: TY6PR01CA0016.jpnprd01.prod.outlook.com
- (2603:1096:405:3bb::7) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="aaKatAm+"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso55416815e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 02:00:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1791536425; x=1792141225; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9cU6FQ2Ny19xqbH7FtIbST4Npto/KKrlVjyPkUdH56U=;
+        b=aaKatAm+kbhwsK3GTz320Grqqtco+pb/A6sxu3n9kAfzNk61nySQEBEAfoF+eJwFqk
+         iMXVs4sCHi2YgFjLZtLaxOpya6Y3rolCoatJGrYzAFRwsE0YZHFt3UgFejMUWwPkd9yh
+         mXRvedspeE0x3W6+4qjmBMOGWGp2cFIw5DDo+7RoniWDUl2qqK89w1oFiqz752j7SfEV
+         7w3v/lxEcMLtFjVKAX7/CgU5+MdNv6P6zz9YHdXifkzaKlv7XOFxE+gn6Ei5floaXB2B
+         EGeHJadoH26Z8JtiV7AvN78Ke4C+j5G7hJTKJu/mSO8dBf23PLJwsXtCQ3q9ANOLKfda
+         9q8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791536425; x=1792141225;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9cU6FQ2Ny19xqbH7FtIbST4Npto/KKrlVjyPkUdH56U=;
+        b=ohs7mInC9Rdi3qoohRyAyAqqLOipVFwIcBfUq1SDcPefzl4wODbBPngDnYNo6KoG21
+         Y4K1VB9ynvdnD9SuTNZXYF982o4Y5AhsXfh4fpUVX3PHcY2EIQcqQ2QbMNUuVaebFsio
+         otwrHKQSJrs3HZoXcfdaPb/MEBn33wXsVxkMp8ifKaQU8IkDFJXLdZyxgodd+mYkfw7o
+         rcGQtDzTxIJVlSxfX+OIvdF1Pzs8L4HJE+OF0RTF8B/qmBAhPJRfhZaEuAyVYbBsTV3w
+         QwmhrHSVOxAMzsNre0lHeK74V9xFOJMyTJ1o/nsuaKRehsvXqSz11AST1jKH1FGcLXfG
+         SOZg==
+X-Forwarded-Encrypted: i=1; AKwUvBz4vF/cqI9XZezA0n7aur59VAfTeNt3jBWicuCWOIPvbI5NmxoOG+PJhpWogHL7DMKd3bsTOGNSAca0xPg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kml9X/S+tPPZWzNfzcihRd8XWxFsWie3pnuahR4kaQstO9Ndw2
+	hcxUDzuuG08gVZEVgBOwsiW7WCQJLqH6XjUqr610vFGf5gC4bQ1uPbITU41HdMxwnag=
+X-Gm-Gg: AYBFou02W13bU6Mn7feu1sciRJeeO/SsbktH59My1IWUCE8mAlg5E9yKAAiQnW8P89+
+	1zptJzAvIANLdaDPz+mEOQgFNbSU7Nl0epfOjR/cBeFgDR4QnC6gmprlRbXq113ZJXFtq8cEVUx
+	IqcykUTe4cj+MV0TG0DwuwwviTuR7l8bihxXahTC+eebVW1HGTKEj3rzr/4Ij88Cekr987DW+B0
+	ZGFqf+A8s/S0oI4seoaWyiTgccscdD/9tnxgqwYOq8EPheQUn1DZIBejCg6q5jysu04PD6+cJSz
+	m1SJBQLL6HLnEJHIhUvBQnolvcuvxWSip7Yhv7uxhJAdXA1tbSCGxXRrGPO8hQe/RH+AngvzV+S
+	ARvj58m3fz9gFVsiiatVi87yBtoKNqlyHJOmo6ggzNtOanQZdEx3w0zVswUnmxoBxKe+Vc84Njq
+	U3BGs4Mxr5GzMbog4xLdvPUaoWn/ow7ctN6xxX1AjM5x3ax7XttgUEl12itxkQPt4/xGMrhInHl
+	VvRhfTDJrqa92Z9AQ==
+X-Received: by 2002:a05:600c:620b:b0:49c:fc6c:be19 with SMTP id 5b1f17b1804b1-4a18e4d12e7mr19730845e9.31.1791536423436;
+        Fri, 09 Oct 2026 02:00:23 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf2caf4sm49180425e9.10.2026.10.09.02.00.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 02:00:22 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Jian Hu <jian.hu@amlogic.com>, Jian Hu via B4 Relay
+ <devnull+jian.hu.amlogic.com@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Stephen Boyd <sboyd@kernel.org>, Brian Masney
+ <bmasney+clk@redhat.com>, Kevin Hilman <khilman@baylibre.com>, Martin
+ Blumenstingl <martin.blumenstingl@googlemail.com>, Jerome Brunet
+ <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH RFC 0/3] clk: meson: Refactor PLL pre-divider as a
+ divider clock
+In-Reply-To: <7bd6015c-3b93-4ce9-bde9-506a727525d8@amlogic.com>
+References: <20260923-meson_refactor_n-v1-0-3a8ce27121a2@amlogic.com>
+ <1j1paj9elx.fsf@starbuckisacylon.baylibre.com>
+ <7bd6015c-3b93-4ce9-bde9-506a727525d8@amlogic.com>
+Date: Fri, 09 Oct 2026 11:00:21 +0200
+Message-ID: <1jik3bp7tm.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|DM4PR12MB5841:EE_
-X-MS-Office365-Filtering-Correlation-Id: d0cba699-e372-427b-e6c9-08df25e3b470
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|10070799003|366016|1800799024|11063799006|56012099006|4143699003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	M1c2t2pTppNXhEW0cAu/X+i7a3tLS/EPo2jxgmBrI4QXgroViVuxmrZGnPEf6YCT+BmmCj0do3dIP101+vjDQDpbfBSUFMceLvZfmATbStX7od3h+lcUF4sWUDjqXt1vMD5IrSF06H3ReqAhhEQ/uyeJZl2Dz0ryA8KTRYuUAZV77ax9bbFZICn2MUrWwoqJioWKM4ZW958D4ZCvDpaPDwI6iPAfF66ksaiGd9eX7YRAHpxT0c9Mr39WCr8/sL9G/hrNRL2XFDVl4Q/cj4h9zQozDRu4UP4ckeefE42QAl/cv0qw6/PqZYVlLmL/R/nPSRqqmSsSZ+RQ4MurIyyzGtAkFxFRKtI37zhjNqOzZKYRnYYEPZklj6qTKVIhw1pKBK9FysaSXqslsn0gFVB5qO5/EmhisoWj1nUNp+sEDv/FNaUsGzObCNprN5zoxGknDbLzRey//psUgSQNac6uWZnIybEhhvYmDBOp1OM7iLQZvM+CqIhvwMhumGUDl37ekoTBA/KbvAFS18s/qQx9fkhZtwHj4yt5GP59rvU1GzEn0LfWmCVsWJb91daMHFiLb2octu16dCy8JMxVDXKFTZfnGITou/pHmK9a7XNKym6uu8H6uqJbzpYWsrrIeOeaqxKrQVUTOBrZcUtBuHjKVD28rX8EqONEMQLVOEBEACw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(10070799003)(366016)(1800799024)(11063799006)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UTU2aGVLUHZOZHR1WGZYV0NGNEdpTFlTUUN0MkI4Y2cvUlpyUlRzaFpGNXBq?=
- =?utf-8?B?cmVHU2VjK3ZQdHkxLzV4OFlwcWNJMUxJMWszWlhYQzdkZnR5dDl5d3VGZVhS?=
- =?utf-8?B?SEtOams2a2dxYjBMUzZrU2MxdTJzSzBZQmNWbEpFT1Q5eEpzQjJpKzVRenNY?=
- =?utf-8?B?U0M4Tm14ZW9QeklPTXFQUnJRN2c0YUNuOWRmMHVhNlNlaWNZZHZiVmZ6dUFS?=
- =?utf-8?B?cmNyUjRkMk5pMk1kRTEvdUE1WEpNamlWcXBvTDNTRGlQdnNFdk9oWmU0TnFs?=
- =?utf-8?B?a0twcUdtVjY1Vy9Mekx3MjBkRVp4eUI2d3ZOc2pjQ2NGaEJJdjRYaGEwWGNG?=
- =?utf-8?B?ZjQzZlRIcE5URG9OK1ZmWjlCY0pGTXdhWkt3ckI1WHZ0T2NoNlJ1dUFFdGsv?=
- =?utf-8?B?TGRBQ3ByalBrS0Z6R3VodzdJd2p0TnpqQUo1RmNWT1czWE9waW5FaE9STmNC?=
- =?utf-8?B?Ry9rRXk4VzFYNU9ZOWg3TGFRbDByMXdSOTRoUU9VcHBqMis4Y1RFdzVlVWRK?=
- =?utf-8?B?RXdPWjNWWXZtblJGSE1uK2o3TEpZVWRlTUlndWJhZjA1OHB5R1kvMktpZVJ5?=
- =?utf-8?B?MXE4SElVcXpSblRHM241RUdMWlorU1BBNk9CODhNWUlVY1lJdHprS1BhUkRl?=
- =?utf-8?B?NThLRk1oUDR1WCtzK0ZzSUVWNS9BWkJwMjVuakRQVVhhRUlFQm9FeFBRS3FZ?=
- =?utf-8?B?ZGovMjduUW5VQ0E2VkVmT3hmcjZNbW84MmE2N3g2cGJXRzV3c2g3bEFsSmxG?=
- =?utf-8?B?cjhiTUxvSk05eXRQeFlXTmVLZWlqcjE3cVR3eWZQaG5mcVNkWkJRaEZTSUlJ?=
- =?utf-8?B?bTFXaDNabVo0bzRnMlVoYzF3bHRFQ1ZLNlEzSElKY016c2lRY0Q5VWtsUmUy?=
- =?utf-8?B?eWxyU3dTZjN6c2JtcEZoOHBJa2x3Z3J3a3ZRbEFjaVQrTTBON3UxUXluV1dZ?=
- =?utf-8?B?WGY4a2huZEg1WHNsSm12Zm11YktvaHdTV2hETzNsSGdHbGNmRHFhOHZ5TzBv?=
- =?utf-8?B?MHBWUmZhSTVET1QrZXhJKzQvWGM5NHMyZVYvR01ud1V4UUtiS000cEoyYmtp?=
- =?utf-8?B?MzZ0MHFuQ1p2aENncTdjdmpVbWJaUEJmMHpRUmRJZnUwOFM5S2pJTjhZSHJL?=
- =?utf-8?B?N1poajFVUnlxeDVjcGtuSTV4dTUreWNCYVFYTkVOQkJSUlNJYXYyb2RHNEN0?=
- =?utf-8?B?MTc1cjZlNUl0M0JiTTIxVnJWaEpCN3ZmTTRvMnBXSjJKN09JZTdqU3BXdEhp?=
- =?utf-8?B?R1ovSlFlMStTQy9uU20rUjFubS9teHB0QWpqZTExKzJEbFQ1QWlYb2Z0SGh0?=
- =?utf-8?B?TW1taUREamxZWWpWdDVRRkVNQm1uaVAyL1pJNmlrRm1Ka1FMaHlPNUg1Vmh3?=
- =?utf-8?B?L1l4RWh5TW5tQUtRYzladS96Z05sLzZvVzFzaXEwa3lDU2E5TWljblhNdzVa?=
- =?utf-8?B?bkJWVUEybVR2aGtWUStuNTNka3hYV2VpZ3IzalBvTWJ3Y3JYM01HV3YwUnlR?=
- =?utf-8?B?Mm1EcnlDb0htaFZYQkZ1M2RNaU9TR3dlNitPaFJDazBYY3pKRXF1UHQxQW02?=
- =?utf-8?B?SEo4K2liRnRialllUitLTTdEbFRER1FMb1hraURVSW9RS2tDVHc2TDRJbUpB?=
- =?utf-8?B?TXRMM29QT3N3Q0M4Vko2UXQrQytSbzBVSU1TN0Rud3Nqc1dMS0g5bG13OTR0?=
- =?utf-8?B?M1hqRGlsQ2RSRWNRRHM2NXYzc0g3RFlVQUttdXZOb1puNmE3VzlCcWh0NUFM?=
- =?utf-8?B?VnVGU1dScGlQVXQweDhjUFMxU203ZEVWdHpVczRHTnJBOTF5TGdVZFZBWjc5?=
- =?utf-8?B?VkNONnJQb0tnNHgvaFNaSTdERmdtNjJMK1d1TXF0YUFDaW9pZDhnTU4xQTY5?=
- =?utf-8?B?cm9FeE10Znc3VUFnU1Nabk5jUTQxeFBFeUdMN1VucUhaRlNNRS85Mm0wUzVO?=
- =?utf-8?B?YU90dk5tcWJEd3VVQitRSnEvNXQveWp6V2tuUVRMVGRsNVN6MW8xdDVkM3VU?=
- =?utf-8?B?Yy9ENjNIZWFwYVBkR3ZvV1hZQlBia09qVkZPK042aG1JMDhOY09oa3pNQ1Z5?=
- =?utf-8?B?MGNyRWl6T0swcTM1WXVjV3VBaHdjYnJCbEdyWDFRaFhWQmJlckV6OHl2alFi?=
- =?utf-8?B?R3RxREhEYk15TVRENXVRUUE5TDVwYTNGUmNBd0pldUNSM2RybDZuWFRQSC9r?=
- =?utf-8?B?VjRBZTZiMzREUnZJYXo0SllVaE1ZTjNMU0pIWjdIVkl6QkU2V2VjTjNWSFFN?=
- =?utf-8?B?U2FkMituNTdvVXVuTzE0SXNKSDhBU05kR3MrcG9CNVk2UEFCUjBQdHp1ektM?=
- =?utf-8?B?dk9pb0hYOG1DRm9hSVU5WHJ2S0xRTDJzVGJZR1ZrTlBpZXdJS2IyZENMdXBZ?=
- =?utf-8?Q?zpUYsmGor3FxYWWYoBQ0vtOZzR2cVYuXCs8yuB83pNnH8?=
-X-MS-Exchange-AntiSpam-MessageData-1: Nd1lJ1HupYF0eQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d0cba699-e372-427b-e6c9-08df25e3b470
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 09:00:02.7153
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fU3f6OjjTpFqAhFCagWuxtm9Aq1nhiAQYSv1ySfPkZbQ7YQzirTjXt2KMJDY+07esy/TmXrZliZBh8gmW595EA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5841
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Friday, October 9, 2026 5:57=E2=80=AFAM Aaron Kling via B4 Relay wrote:
-> From: Aaron Kling <webgeek1234@gmail.com>
->=20
-> The Tegra display controller supports some yuv types, but not their
-> chroma swapped variants. For example, yuv420 is supported but yvu420 is
-> not. This can be efficiently worked around by just passing the hardware
-> said chroma planes backwards. Add a flag to the plane state struct and
-> handling to both tegradc and nvdisplay paths.
->=20
-> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> ---
->  drivers/gpu/drm/tegra/dc.c    | 17 ++++++++++++-----
->  drivers/gpu/drm/tegra/hub.c   | 14 +++++++++-----
->  drivers/gpu/drm/tegra/plane.c |  4 +++-
->  drivers/gpu/drm/tegra/plane.h |  3 ++-
->  4 files changed, 26 insertions(+), 12 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
-> index b0bfa946e6979..76d3841a17b8b 100644
-> --- a/drivers/gpu/drm/tegra/dc.c
-> +++ b/drivers/gpu/drm/tegra/dc.c
-> @@ -444,7 +444,8 @@ tegra_plane_use_vertical_filtering(struct tegra_plane=
- *plane,
->  }
-> =20
->  static void tegra_dc_setup_window(struct tegra_plane *plane,
-> -				  const struct tegra_dc_window *window)
-> +				  const struct tegra_dc_window *window,
-> +				  struct tegra_plane_state *tegra_plane_state)
->  {
->  	unsigned h_offset, v_offset, h_size, v_size, h_dda, v_dda, bpp;
->  	struct tegra_dc *dc =3D plane->dc;
-> @@ -510,10 +511,13 @@ static void tegra_dc_setup_window(struct tegra_plan=
-e *plane,
->  	tegra_plane_writel(plane, window->base[0], DC_WINBUF_START_ADDR);
-> =20
->  	if (yuv && planes > 1) {
-> -		tegra_plane_writel(plane, window->base[1], DC_WINBUF_START_ADDR_U);
-> +		uint8_t u =3D tegra_plane_state->swap_uv ? 2 : 1;
-> +		uint8_t v =3D tegra_plane_state->swap_uv ? 1 : 2;
+On ven. 09 oct. 2026 at 14:35, Jian Hu <jian.hu@amlogic.com> wrote:
+
+> Hi Jerome,
+>
+>
+> Thanks for your review.
+>
+>
+> On 9/24/2026 5:35 PM, Jerome Brunet wrote:
+>> [ EXTERNAL EMAIL ]
+>>
+>> On mer. 23 sept. 2026 at 19:14, Jian Hu via B4 Relay <devnull+jian.hu.am=
+logic.com@kernel.org> wrote:
+>>
+>>> This series refactors the Meson PLL framework to remove the dedicated
+>>> PLL pre-divider (N) parameter from the PLL implementation and model it
+>>> as a separate divider clock.
+>>>
+>>> Currently, the Meson PLL framework models the PLL pre-divider using a
+>>> dedicated n field in struct meson_clk_pll_data. This makes the
+>>> pre-divider part of the PLL-specific implementation, although the
+>>> Common Clock Framework already provides a generic divider clock.
+>>>
+>>> This series separates the pre-divider from the PLL and makes the PLL
+>>> DCO take the pre-divider clock as its parent. This allows the
+>>> pre-divider to be modeled using the standard CCF divider implementation
+>>> and simplifies the PLL framework.
+>>>
+>>> The series currently covers T7 as an RFC to get feedback on the
+>>> framework design before applying the same approach to other SoCs.
+>>>
+>>> Series:
+>>> clk: meson: pll: Remove the dedicated n parameter
+>>> dt-bindings: clock: amlogic: Add T7 pre-divider clock IDs
+>>> clk: meson: t7: Model PLL pre-divider as a divider clock
+>>>
+>>> The other Meson SoCs will be converted separately after the T7 PLL
+>>> framework refactoring has been reviewed and the overall approach is
+>>> agreed upon.
+>>>
+>>> Any feedback on the proposed clock hierarchy and the separation of the
+>>> PLL pre-divider from the PLL itself would be appreciated.
+>> So if I summarize this RFC, you have simply taken the divider out of the
+>> PLL, no futher addaptation. right ?
+>>
+>> I'm happy with it on the general principle and fine with the change as
+>> long as you test it on as much platform as you can, clearly flagging
+>> those you have just compiled tested.
+>>
+>> A change like this would likely need to land early in the cycle give as
+>> much time as possible for testing.
+>>
+>> However there a couple of thing I'm concerned about:
+>>
+>> * You've drop the table support: are you sure this is not needed anymore
+>>    ? don't you want to be able to restrict mutlipliers to specific values
+>>    sometimes ? If not, then OK.
+>>
+>> * the determine_rate() make no call to round the parent rate: Since the
+>>    parent will be the divier, how do you progate the rate change so N
+>>    moves and the best parent rate is found ? For sure this fractional
+>>    multiplier clock will need CLK_SET_RATE_PARENT to adjust the
+>>    pre-divider.
+>>
+>> * Goes with the point above, but I'm not seeing anything that favors
+>>    lower N for lower jitter, Or mention of a minimum input rate (which
+>>    could be a property) ?
+>>    Those are constraints I think I have understood from your explanation
+>>    here [1] but maybe you've got new information to share ?
+>>
+>> This is overall going in the right direction but determine_rate() and
+>> constraints need work.
+>>
+>> Note: you are more likely to get test feedback if you add g12 (sm1) as an
+>> example. Those are still the most widely used amlogic platforms with
+>> mainline.
+>>
+>> [1]: https://lore.kernel.org/linux-clk/c9c4945f-cdfc-4382-b8ca-71b69d91d=
+eb4@amlogic.com/
+>
+>
+> Yes, your summary is correct: the RFC simply takes the pre-divider out=20
+> of the PLL.
+>
+>
+> 1) Keeping the table support
+>
+> Agreed, removing it was premature. Some tables cannot be expressed as
+> a multiplier range:
+>
+> - pinned (m, n) pairs, e.g. axg PCIe GP0 (m=3D200, n=3D3) and meson8m2
+>  =C2=A0 GP0 (m=3D182, n=3D3)
+> - a pinned m, e.g. g12a PCIe PLL (m=3D150)
+> - sparse tables, e.g. meson8b HDMI PLL
+>
+> The per-platform conversions will turn the tables with contiguous m
+> and n =3D 1 into range, and keep the tables for the rest, so
+> the framework will support both.
+>
+>
+> 2) N is fixed per PLL
+>
+> The main new information: the pre-divider is not meant to be selected
+> dynamically. Per the hardware design, each PLL has a single fixed N
+> value, defined together with the rest of the PLL: N =3D 1 for most PLLs,
+> and N =3D 3 for a few special cases on older SoCs (the axg PCIe PLL and
+> the meson8m2 GP0 PLL). The PLL input frequency constraints are
+> respected by this fixed value.
+
+Ok, but this is not we have done so far. I don't think fixing the
+predivier would break any use case, but if it does we may have to
+re-visit this.
+
+>
+> Keeping N at 1 minimizes PLL jitter and yields the best performance.
+>
+> So this is less about dropping the constraints than about the fact
+> that there is nothing to choose at runtime: no N search in
+> determine_rate(), and no PFD input frequency constraint to enforce,
+> since the PLL input frequency is a constant for each PLL.
+>
+> 3) No CLK_SET_RATE_PARENT on the DCO
+>
+> With N fixed, the pre-divider rate never changes, so the DCO does not
+> set CLK_SET_RATE_PARENT on purpose: the flag would claim that the
+> parent rate may change to satisfy the child, which is not the case
+> here. determine_rate() never touches best_parent_rate so the flag
+> would be a no operation today.
+>
+>
+> 4) Implementation methods for pre-divider clock
+>
+> While testing the RFC I found that with the single-entry pre-divider
+> table ({val =3D 1, div =3D 1}), the pre-divider register can never actual=
+ly
+> be programmed.
+>
+> The pre-divider field resets to 0, which is not a valid setting.
+>
+> During registration, recalc_rate() reports the parent rate for the
+> zero register value. With N =3D 1 the reported rate is the parent rate,
+> and the single-entry table also rounds every rate request back to the
+> parent rate, so clk_set_rate() always bails out early (rounded rate =3D=3D
+> current rate) and clk_regmap_div_set_rate() is never called. The
+> register keeps its invalid reset value.
+
+I see, you should have had a warning like that then ?
+
+''' Zero divisor and CLK_DIVIDER_ALLOW_ZERO not set  '''
+
+But from what I understand, your divider may have zero written in its
+register but it will not output the parent rate unmodified, correct ?
+In such case CLK_DIVIDER_ALLOW_ZERO is not correct.
+
+Can you clarify the meaning of invalid ? If the just no oscillation I
+guess we could add a 'CLK_DIVIDER_INVALID_ZERO' that returns 0 from
+recalc_rate().
+
+If your multiplier you'll probably have to handle this is
+determine_rate() with something like
+
+if (req->best_parend_rate =3D=3D 0 ||
+    (req->rate / req->best_parent_rate) > YOUR_MAX_MULT) {
+    clk_hw_round_rate(parent, req->rate / YOUR_MAX_MULT)
+}
+
+Then you update req->best_parent_rate with the value you get and CCF
+will update the divider when the rate is applied.
+
+If you then add your single entry table and CLK_SET_RATE_PARENT, it
+should work as you expect AFAIU.
+
+>
+> v2 programs the fixed N at registration time, with a new
+> init_val field in clk_regmap_div_data, applied from .init() once the
+> regmap is available.
+
+I don't like driver setting regs without a clear instruction from the
+consumer or the framework, it is a splipery slope where people just tend
+shove their use cases..
+
+>
+> Or do you have any other good ideas?
+>
+> The patch is available[1], Please help to review it.
+>
+>
+> 5) Testing and rollout
+>
+> So far this has been boot tested on T7. For v2 I will
+> convert the SoCs one by one, starting with g12a and sm1 which
+> have the most mainline users, then the remaining platforms.
+>
+
+Please add the RFT tag. Please test GXL as well, you should have no
+problem getting your hands on one, those are still easily available.
+
+For Meson8, maybe Martin will be able to help us out ?
+
+>
+> [1]
+>
+> --- a/drivers/clk/meson/clk-regmap.c
+> +++ b/drivers/clk/meson/clk-regmap.c
+> @@ -163,10 +163,28 @@ static int clk_regmap_div_set_rate(struct clk_hw=20
+> *hw, unsigned long rate,
+>  =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 clk_div_mask(div->width) <=
+<=20
+> div->shift, val);
+>  =C2=A0};
+>
+> +static int clk_regmap_div_init(struct clk_hw *hw)
+> +{
+> +=C2=A0 =C2=A0 =C2=A0 =C2=A0int ret;
+> +=C2=A0 =C2=A0 =C2=A0 =C2=A0struct clk_regmap *clk =3D to_clk_regmap(hw);
+> +=C2=A0 =C2=A0 =C2=A0 =C2=A0struct clk_regmap_div_data *div =3D clk_get_r=
+egmap_div_data(clk);
 > +
-> +		tegra_plane_writel(plane, window->base[u], DC_WINBUF_START_ADDR_U);
-> =20
->  		if (planes > 2)
-> -			tegra_plane_writel(plane, window->base[2], DC_WINBUF_START_ADDR_V);
-> +			tegra_plane_writel(plane, window->base[v], DC_WINBUF_START_ADDR_V);
-> =20
->  		value =3D window->stride[1] << 16 | window->stride[0];
->  		tegra_plane_writel(plane, value, DC_WIN_LINE_STRIDE);
-> @@ -740,7 +744,8 @@ static int tegra_plane_atomic_check(struct drm_plane =
-*plane,
-> =20
->  	err =3D tegra_plane_format(new_plane_state->fb->format->format,
->  				 &plane_state->format,
-> -				 &plane_state->swap);
-> +				 &plane_state->swap,
-> +				 &plane_state->swap_uv);
->  	if (err < 0)
->  		return err;
-> =20
-> @@ -871,8 +876,10 @@ static void tegra_plane_atomic_update(struct drm_pla=
-ne *plane,
->  		if (i < 2)
->  			window.stride[i] =3D fb->pitches[i];
->  	}
-> +	if (tegra_plane_state->swap_uv)
-> +		window.stride[1] =3D fb->pitches[2];
-
-Based on the comment above, U and V have the same stride, so this
-isn't required.
-
-> =20
-> -	tegra_dc_setup_window(p, &window);
-> +	tegra_dc_setup_window(p, &window, tegra_plane_state);
-
-Instead of passing the plane state, I'd just add a
-
-  swap(window.base[1], window.base[2]);
-
-here.
-
-Otherwise looks good to me! I also tested on AGX Xavier.
-
-Mikko
-
->  }
-> =20
->  static const struct drm_plane_helper_funcs tegra_plane_helper_funcs =3D =
-{
-> diff --git a/drivers/gpu/drm/tegra/hub.c b/drivers/gpu/drm/tegra/hub.c
-> index 448f49f3a7d7e..6427155ac4fdf 100644
-> --- a/drivers/gpu/drm/tegra/hub.c
-> +++ b/drivers/gpu/drm/tegra/hub.c
-> @@ -440,7 +440,8 @@ static int tegra_shared_plane_atomic_check(struct drm=
-_plane *plane,
-> =20
->  	err =3D tegra_plane_format(new_plane_state->fb->format->format,
->  				 &plane_state->format,
-> -				 &plane_state->swap);
-> +				 &plane_state->swap,
-> +				 &plane_state->swap_uv);
->  	if (err < 0)
->  		return err;
-> =20
-> @@ -664,24 +665,27 @@ static void tegra_shared_plane_atomic_update(struct=
- drm_plane *plane,
->  	tegra_plane_writel(p, value, DC_WIN_PLANAR_STORAGE);
-> =20
->  	if (yuv && planes > 1) {
-> -		base =3D tegra_plane_state->iova[1] + fb->offsets[1];
-> +		uint8_t u =3D tegra_plane_state->swap_uv ? 2 : 1;
-> +		uint8_t v =3D tegra_plane_state->swap_uv ? 1 : 2;
+> +=C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D clk_regmap_init(hw);
+> +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (ret)
+> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return ret;
 > +
-> +		base =3D tegra_plane_state->iova[u] + fb->offsets[u];
->  		base |=3D addr_flag;
-> =20
->  		tegra_plane_writel(p, upper_32_bits(base), DC_WINBUF_START_ADDR_HI_U);
->  		tegra_plane_writel(p, lower_32_bits(base), DC_WINBUF_START_ADDR_U);
-> =20
->  		if (planes > 2) {
-> -			base =3D tegra_plane_state->iova[2] + fb->offsets[2];
-> +			base =3D tegra_plane_state->iova[v] + fb->offsets[v];
->  			base |=3D addr_flag;
-> =20
->  			tegra_plane_writel(p, upper_32_bits(base), DC_WINBUF_START_ADDR_HI_V)=
-;
->  			tegra_plane_writel(p, lower_32_bits(base), DC_WINBUF_START_ADDR_V);
->  		}
-> =20
-> -		value =3D PITCH_U(fb->pitches[1]);
-> +		value =3D PITCH_U(fb->pitches[u]);
-> =20
->  		if (planes > 2)
-> -			value |=3D PITCH_V(fb->pitches[2]);
-> +			value |=3D PITCH_V(fb->pitches[v]);
-> =20
->  		tegra_plane_writel(p, value, DC_WIN_PLANAR_STORAGE_UV);
->  	} else {
-> diff --git a/drivers/gpu/drm/tegra/plane.c b/drivers/gpu/drm/tegra/plane.=
-c
-> index 2148b0c59815c..f4feec62ac023 100644
-> --- a/drivers/gpu/drm/tegra/plane.c
-> +++ b/drivers/gpu/drm/tegra/plane.c
-> @@ -319,11 +319,13 @@ int tegra_plane_state_add(struct tegra_plane *plane=
-,
->  	return 0;
->  }
-> =20
-> -int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap)
-> +int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap, bool *swap_uv=
-)
->  {
->  	/* assume no swapping of fetched data */
->  	if (swap)
->  		*swap =3D BYTE_SWAP_NOSWAP;
-> +	if (swap_uv)
-> +		*swap_uv =3D false;
-> =20
->  	switch (fourcc) {
->  	case DRM_FORMAT_ARGB4444:
-> diff --git a/drivers/gpu/drm/tegra/plane.h b/drivers/gpu/drm/tegra/plane.=
-h
-> index e33a581e6490e..dba5f1b254e98 100644
-> --- a/drivers/gpu/drm/tegra/plane.h
-> +++ b/drivers/gpu/drm/tegra/plane.h
-> @@ -49,6 +49,7 @@ struct tegra_plane_state {
->  	struct tegra_bo_tiling tiling;
->  	u32 format;
->  	u32 swap;
-> +	bool swap_uv;
-> =20
->  	bool reflect_x;
->  	bool reflect_y;
-> @@ -88,7 +89,7 @@ void tegra_plane_cleanup_fb(struct drm_plane *plane,
->  int tegra_plane_state_add(struct tegra_plane *plane,
->  			  struct drm_plane_state *state);
-> =20
-> -int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap);
-> +int tegra_plane_format(u32 fourcc, u32 *format, u32 *swap, bool *swap_uv=
-);
->  bool tegra_plane_format_is_indexed(unsigned int format);
->  bool tegra_plane_format_is_yuv(unsigned int format, unsigned int *planes=
-, unsigned int *bpc);
->  int tegra_plane_setup_legacy_state(struct tegra_plane *tegra,
->=20
-> --=20
-> 2.54.0
->=20
->=20
->=20
+> +=C2=A0 =C2=A0 =C2=A0 =C2=A0if (div->init_val)
+> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0regmap_update_bit=
+s(clk->map, div->offset,
+> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 clk_div_mask(div->width) <=
+< div->shift,
+> +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 div->init_val << div->shif=
+t);
+> +
+> +=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;
+> +}
+> +
+>  =C2=A0/* Would prefer clk_regmap_div_ro_ops but clashes with qcom */
+>
+>  =C2=A0const struct clk_ops clk_regmap_divider_ops =3D {
+> -=C2=A0 =C2=A0 =C2=A0 =C2=A0.init =3D clk_regmap_init,
+> +=C2=A0 =C2=A0 =C2=A0 =C2=A0.init =3D clk_regmap_div_init,
+>
+>>> Signed-off-by: Jian Hu <jian.hu@amlogic.com>
+>>> ---
+>>> Jian Hu (3):
+>>>        clk: meson: pll: Remove the dedicated n parameter
+>>>        dt-bindings: clock: amlogic: Add T7 pre-divider clock IDs
+>>>        clk: meson: t7: Model PLL pre-divider as a divider clock
+>>>
+>>>   drivers/clk/meson/clk-pll.c                     | 178 +++++----------=
+--------
+>>>   drivers/clk/meson/clk-pll.h                     |  13 --
+>>>   drivers/clk/meson/t7-pll.c                      | 183 +++++++++++++++=
++++------
+>>>   include/dt-bindings/clock/amlogic,t7-pll-clkc.h |   6 +
+>>>   4 files changed, 181 insertions(+), 199 deletions(-)
+>>> ---
+>>> base-commit: 43e1705ecab981c66baee89041e6f728c0436f19
+>>> change-id: 20260923-meson_refactor_n-e7f25904e536
+>>>
+>>> Best regards,
+>>> --
+>>> Jian Hu <jian.hu@amlogic.com>
+>>>
+>>>
+>>>
+>>> _______________________________________________
+>>> linux-amlogic mailing list
+>>> linux-amlogic@lists.infradead.org
+>>> http://lists.infradead.org/mailman/listinfo/linux-amlogic
+>> --
+>> Jerome
+>
+> --
+>
+> Jian
+>
+>
+> _______________________________________________
+> linux-amlogic mailing list
+> linux-amlogic@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-amlogic
 
-
-
-
+--=20
+Jerome
