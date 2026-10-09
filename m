@@ -1,38 +1,38 @@
 Received: from nick.sneptech.io (nick.sneptech.io [178.62.38.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD3DD4F0526;
-	Fri,  9 Oct 2026 16:27:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C514F30D7;
+	Fri,  9 Oct 2026 16:27:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.62.38.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791563232; cv=none; b=WcfZ+lN9PuBxwJ+JInHv4HRnEkM/mVjPvXeXNo2i3CcJ89ysyHThqWhdnkoOz7NN7VowYgLCh2JryajRRF+Y0h6kOBzVmkG7pWiuGgpshssK3xswlr/Y3+vDaDqahA4eCJooBWGUCdUGGElIQZ+w3oKmU1u5/QZYKBWdwjuVTcg=
+	t=1791563234; cv=none; b=K+lqNsxrxggg5dJD0YXPaUVgimSg9BTcyQ7Uv7jBBqh0P4HVUn6s2xq1ineQMiIpUoFIFat/WkJ0C7MRoz5qAQGbZL37sRII4WsJEitzdDTuTBbFgyLJjjDLmuNEOefYitenEqPzEDbhikVAskxbQDRI7az2G35b9kB46VFQmXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791563232; c=relaxed/simple;
-	bh=DBwdr5NIFgGVx5dF12yJGVFfJQiLChKTWtqChxaj640=;
+	s=arc-20240116; t=1791563234; c=relaxed/simple;
+	bh=7oTcspw+Wal0IAOa7y/6zQYzzZWBNH+9Jefo+99ZC7s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=abhMVHFdCkur8HHy01jKC/Sc8NOgdv+/1JadiTA8fSTql4pb622oLtStSbGDzEqA1UfuiVFxHX17IjyFtGpGZCtK+Rxn494NCwIBPzDw8PagesTcLmDTDi55SbQ29eS/hgY6B7txykrh7TDZNhv8pF0ZTtw0hrq8SImp/8IieP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=philpem.me.uk; spf=pass smtp.mailfrom=philpem.me.uk; dkim=pass (1024-bit key) header.d=philpem.me.uk header.i=@philpem.me.uk header.b=Xy93fKUn; arc=none smtp.client-ip=178.62.38.78
+	 MIME-Version; b=LRLMeZoDTRgPNpWRj/BBglUxwazhPy1+NmW4Ijb895s1k3ozWGXPz3i7ROP/z/4QXa2zcjpjkHVfhE7UqIYKtDz2hdWuHrn+Nx18EFXvNU4cK9KdUF0yORLC5rx18Cr6OekojZViowGPjxIK0o0MPm2QNcL2UkN3IiKE2i3Bv04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=philpem.me.uk; spf=pass smtp.mailfrom=philpem.me.uk; dkim=pass (1024-bit key) header.d=philpem.me.uk header.i=@philpem.me.uk header.b=pHmJvT9Q; arc=none smtp.client-ip=178.62.38.78
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=philpem.me.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=philpem.me.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=philpem.me.uk header.i=@philpem.me.uk header.b="Xy93fKUn"
+	dkim=pass (1024-bit key) header.d=philpem.me.uk header.i=@philpem.me.uk header.b="pHmJvT9Q"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=philpem.me.uk;
 	s=mail; t=1791563215;
-	bh=DBwdr5NIFgGVx5dF12yJGVFfJQiLChKTWtqChxaj640=;
+	bh=7oTcspw+Wal0IAOa7y/6zQYzzZWBNH+9Jefo+99ZC7s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Xy93fKUnG1n7qMUXjyiULc9dYLHTP2Gbl03i1cp1H5+aWw4SyxJ1jeTOK2THDXyDG
-	 qg7pI94XQ7tcCG1R1MtB7g+I1cxUNggEr5R+ldIGRXq24LgAHwxU5ak7pK3rLVJwt1
-	 Tt/kG1sTkd1JYYEFS4GjqN+McqS7X26J9mfMkU+k=
+	b=pHmJvT9QKcEZ7UCSTlQ1+P7ePfnVBZvHzX+q5HAwXxPQ6A2JgosgU5IP2BHiXfK1R
+	 CErwEv4JLVzCEOPn1mjSeMaWURGNacEQMzeLSfRTqUaRlfJlgGdsFPDHaxpAjIsN6z
+	 lZMoe0BBECK0hBXwmiVtnHkeTpvzHK2NecG1g08E=
 Received: from wolf.philpem.me.uk (unknown [81.187.163.148])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits))
 	(No client certificate requested)
 	(Authenticated sender: mailrelay_wolf@philpem.me.uk)
-	by nick.sneptech.io (Postfix) with ESMTPSA id 498A7BE771;
+	by nick.sneptech.io (Postfix) with ESMTPSA id 6DE71BE776;
 	Fri,  9 Oct 2026 16:26:55 +0000 (UTC)
 Received: from cheetah.homenet.philpem.me.uk (cheetah.homenet.philpem.me.uk [10.0.0.32])
-	by wolf.philpem.me.uk (Postfix) with ESMTPSA id E14FD5FC52;
-	Fri,  9 Oct 2026 17:26:54 +0100 (BST)
+	by wolf.philpem.me.uk (Postfix) with ESMTPSA id 32E615FC53;
+	Fri,  9 Oct 2026 17:26:55 +0100 (BST)
 From: Phil Pemberton <philpem@philpem.me.uk>
 To: linux-ide@vger.kernel.org,
 	linux-scsi@vger.kernel.org
@@ -42,11 +42,10 @@ Cc: linux-kernel@vger.kernel.org,
 	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
 	"Martin K . Petersen" <mkp@kernel.org>,
 	Hannes Reinecke <hare@kernel.org>,
-	Phil Pemberton <philpem@philpem.me.uk>,
-	stable@vger.kernel.org
-Subject: [PATCH v10 05/15] ata: libata-zpodd: serialize wake attribution with physical power-on
-Date: Fri,  9 Oct 2026 16:55:12 +0100
-Message-ID: <20261009155522.593045-6-philpem@philpem.me.uk>
+	Phil Pemberton <philpem@philpem.me.uk>
+Subject: [PATCH v10 08/15] scsi: sr: keep queue block sizes in sync with the medium
+Date: Fri,  9 Oct 2026 16:55:15 +0100
+Message-ID: <20261009155522.593045-9-philpem@philpem.me.uk>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261009155522.593045-1-philpem@philpem.me.uk>
 References: <20261009155522.593045-1-philpem@philpem.me.uk>
@@ -58,165 +57,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The notification handler checks runtime suspension before setting
-from_notify, while EH reads and clears that flag during physical power-on.
-A concurrent resume can finish after the check but before the assignment,
-leaving attribution behind for an unrelated later power cycle. Taking a
-SCSI device reference does not serialize those state changes.
+sr_probe() sets sdev->sector_size to 2048, but the request queue keeps its
+512-byte default until revalidation finds ready media. Booting a COMPAQ
+PD-1 LF-1195C with a PD inserted leaves the empty CD LUN with mismatched
+block sizes. Later CD reads can fail with "unaligned transfer".
 
-Protect powered_off and from_notify with ap->lock. Attribute a notification
-only to the current powered-off physical device, and consume that
-attribution atomically when EH completes power-on. Reset attribution when
-a new power-off cycle starts. Keep PM calls and tray commands outside the
-spinlock.
+After initial revalidation, set the queue's block sizes to
+sdev->sector_size if the logical size differs. Do this before registering
+the disk, and unwind the probe if the update fails. Revalidate first so
+ready media can supply the actual block size instead of the 2048-byte
+guess.
 
-Let the PM core handle active or already-resuming SCSI devices instead of
-using a lockless suspended-state check to gate notification attribution.
-Track wake callbacks in progress, so an overlapping callback with no SCSI
-device cannot clear attribution still needed by another callback. Clear
-unconsumed attribution when the last synchronous wake callback returns,
-including failed wakes.
+Also set the physical block size and minimum I/O size when revalidating
+media. The block layer raises these to the logical block size, but does
+not lower them when a later medium has smaller sectors. Updating only
+the logical size can therefore leave stale 2048-byte physical and minimum
+I/O sizes after inserting 512-byte media or switching between media types.
 
-Fixes: f064a20dded8 ("libata: move acpi notification code to zpodd")
-Cc: stable@vger.kernel.org
+sr does not discover separate physical or minimum I/O sizes, so keep both
+in sync with the medium's reported sector size.
+
 Assisted-by: LLM
 Signed-off-by: Phil Pemberton <philpem@philpem.me.uk>
 ---
- drivers/ata/libata-zpodd.c | 65 ++++++++++++++++++++++++++++----------
- 1 file changed, 48 insertions(+), 17 deletions(-)
+ drivers/scsi/sr.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/drivers/ata/libata-zpodd.c b/drivers/ata/libata-zpodd.c
-index c57c49316fbd..309b3769ae01 100644
---- a/drivers/ata/libata-zpodd.c
-+++ b/drivers/ata/libata-zpodd.c
-@@ -22,14 +22,15 @@ struct zpodd {
- 	enum odd_mech_type	mech_type; /* init during probe, RO afterwards */
- 	struct ata_device	*dev;
+diff --git a/drivers/scsi/sr.c b/drivers/scsi/sr.c
+index c36c54ecd354..28523b0eb659 100644
+--- a/drivers/scsi/sr.c
++++ b/drivers/scsi/sr.c
+@@ -488,6 +488,8 @@ static int sr_revalidate_disk(struct scsi_cd *cd)
  
-+	/* The following fields are protected by the ATA port lock. */
-+	unsigned int		notify_count; /* wake callbacks in progress */
-+	bool			from_notify; /* power-on requested by notification */
-+	bool			powered_off; /* powered off during suspend */
-+
- 	/* The following fields are synchronized by PM core. */
--	bool			from_notify; /* resumed as a result of
--					      * acpi wake notification */
- 	bool			zp_ready; /* ZP ready state */
- 	unsigned long		last_ready; /* last ZP ready timestamp */
- 	bool			zp_sampled; /* ZP ready state sampled */
--	bool			powered_off; /* ODD is powered off
--					      *	during suspend */
- };
- 
- static int eject_tray(struct ata_device *dev)
-@@ -199,7 +200,9 @@ static struct scsi_device *zpodd_get_sdev(struct ata_device *dev)
-  */
- void zpodd_enable_run_wake(struct ata_device *dev)
- {
-+	struct ata_port *ap = dev->link->ap;
- 	struct zpodd *zpodd = dev->zpodd;
-+	unsigned long flags;
- 	struct scsi_device *sdev = zpodd_get_sdev(dev);
- 
- 	if (sdev) {
-@@ -207,16 +210,25 @@ void zpodd_enable_run_wake(struct ata_device *dev)
- 		scsi_device_put(sdev);
- 	}
- 
-+	spin_lock_irqsave(ap->lock, flags);
- 	zpodd->powered_off = true;
-+	zpodd->from_notify = false;
-+	spin_unlock_irqrestore(ap->lock, flags);
- 	acpi_pm_set_device_wakeup(&dev->tdev, true);
+ 	lim = queue_limits_start_update(q);
+ 	lim.logical_block_size = sector_size;
++	lim.physical_block_size = sector_size;
++	lim.io_min = sector_size;
+ 	lim.features |= BLK_FEAT_ROTATIONAL;
+ 	return queue_limits_commit_update_frozen(q, &lim);
  }
- 
- /* Disable runtime wake capability if it is enabled */
- void zpodd_disable_run_wake(struct ata_device *dev)
+@@ -619,6 +621,7 @@ static void sr_release(struct cdrom_device_info *cdi)
+ static int sr_probe(struct scsi_device *sdev)
  {
-+	struct ata_port *ap = dev->link->ap;
- 	struct zpodd *zpodd = dev->zpodd;
-+	unsigned long flags;
-+	bool powered_off;
+ 	struct device *dev = &sdev->sdev_gendev;
++	struct queue_limits lim;
+ 	struct gendisk *disk;
+ 	struct scsi_cd *cd;
+ 	int minor, error;
+@@ -701,6 +704,18 @@ static int sr_probe(struct scsi_device *sdev)
+ 	if (error)
+ 		goto unregister_cdrom;
  
--	if (zpodd->powered_off)
-+	spin_lock_irqsave(ap->lock, flags);
-+	powered_off = zpodd->powered_off;
-+	spin_unlock_irqrestore(ap->lock, flags);
-+	if (powered_off)
- 		acpi_pm_set_device_wakeup(&dev->tdev, false);
- }
- 
-@@ -237,19 +249,24 @@ void zpodd_disable_run_wake(struct ata_device *dev)
-  */
- void zpodd_post_poweron(struct ata_device *dev)
- {
-+	struct ata_port *ap = dev->link->ap;
- 	struct zpodd *zpodd = dev->zpodd;
-+	unsigned long flags;
-+	bool from_notify;
- 	struct scsi_device *sdev;
- 
--	if (!zpodd->powered_off)
-+	spin_lock_irqsave(ap->lock, flags);
-+	if (!zpodd->powered_off) {
-+		spin_unlock_irqrestore(ap->lock, flags);
- 		return;
--
++	/* If no medium was ready, match the queue to the driver's guess. */
++	if (queue_logical_block_size(sdev->request_queue) != sdev->sector_size) {
++		lim = queue_limits_start_update(sdev->request_queue);
++		lim.logical_block_size = sdev->sector_size;
++		lim.physical_block_size = sdev->sector_size;
++		lim.io_min = sdev->sector_size;
++		error = queue_limits_commit_update_frozen(sdev->request_queue,
++							  &lim);
++		if (error)
++			goto unregister_cdrom;
 +	}
- 	zpodd->powered_off = false;
-+	from_notify = zpodd->from_notify;
-+	zpodd->from_notify = false;
-+	spin_unlock_irqrestore(ap->lock, flags);
- 
--	if (zpodd->from_notify) {
--		zpodd->from_notify = false;
--		if (zpodd->mech_type == ODD_MECH_TYPE_DRAWER)
--			eject_tray(dev);
--	}
-+	if (from_notify && zpodd->mech_type == ODD_MECH_TYPE_DRAWER)
-+		eject_tray(dev);
- 
- 	zpodd->zp_sampled = false;
- 	zpodd->zp_ready = false;
-@@ -264,19 +281,33 @@ void zpodd_post_poweron(struct ata_device *dev)
- static void zpodd_wake_dev(acpi_handle handle, u32 event, void *context)
- {
- 	struct ata_device *ata_dev = context;
-+	struct ata_port *ap = ata_dev->link->ap;
- 	struct zpodd *zpodd = ata_dev->zpodd;
- 	struct scsi_device *sdev;
-+	unsigned long flags;
- 
- 	if (event != ACPI_NOTIFY_DEVICE_WAKE)
- 		return;
--	sdev = zpodd_get_sdev(ata_dev);
--	if (!sdev)
--		return;
--	if (pm_runtime_suspended(&sdev->sdev_gendev)) {
 +
-+	/* Attribute the notification to the current physical power cycle. */
-+	spin_lock_irqsave(ap->lock, flags);
-+	zpodd->notify_count++;
-+	if (zpodd->powered_off)
- 		zpodd->from_notify = true;
-+	spin_unlock_irqrestore(ap->lock, flags);
-+
-+	sdev = zpodd_get_sdev(ata_dev);
-+	if (sdev) {
-+		/* The PM core handles an already active or resuming device. */
- 		pm_runtime_resume(&sdev->sdev_gendev);
-+		scsi_device_put(sdev);
- 	}
--	scsi_device_put(sdev);
-+
-+	/* Do not discard attribution while another wake callback is active. */
-+	spin_lock_irqsave(ap->lock, flags);
-+	if (!--zpodd->notify_count)
-+		zpodd->from_notify = false;
-+	spin_unlock_irqrestore(ap->lock, flags);
- }
- 
- static void ata_acpi_add_pm_notifier(struct ata_device *dev)
+ 	error = device_add_disk(&sdev->sdev_gendev, disk, NULL);
+ 	if (error)
+ 		goto unregister_cdrom;
 -- 
 2.43.0
 
