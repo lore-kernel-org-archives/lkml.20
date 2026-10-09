@@ -1,195 +1,169 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A322471275
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 15:09:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791558560; cv=none; b=EWB8HsnL1XENqqezYEY4h2/J/bhjnOSBZlqBAcgGoCUVEhaEW+SYWhZAjvs2PNWzMXbmCLFDJcD37jfQ/tz5ysYGLLGHeIEshafKct4FRhU8bz6VWi3gHAwcsD201+TOgsj1rs5DqVJsW4twvU7qksVqcm7ovIjPystsQVS9880=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791558560; c=relaxed/simple;
-	bh=5622vFjjrUQ8N4J/FirkFRj5hIIji0qwNLtjg3ohHK8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sFkLs13k7vs4FSmsW5K16Z8/4M5VBtAeJ9XORz1NnU+eT5VacuFLe4NcBIlGfCCJmbWD0LySSz3rk5rsN8/fgo14vcz1yKXzgG9zPHHM+j8ZOrMZxyFSYZ3qKvH0LNBEDK2X7q/ke2KO29TPhTE35kvo+453RPp1pX+oREAbD24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=dPHHvJrH; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 660DD35E1B0
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 15:09:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791558564; cv=pass; b=YIAc0XxaSS1rxDCtYY17wlHLQVzpVX7qqNRRHhjv1muA8Io/R7G54bjVGgSHI6jWZQpCJXOZKRRy0rgMEOy3k0igirZsfnbljn1WYliB5PCMGRx0h96UrBnIQUSNnhi28aLW1XUS4Hufp7o9DTjl32gpzz8a9zfxclVop9b/3tI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791558564; c=relaxed/simple;
+	bh=YZbKpJCBFS61X4flLoy7/qmLVhvZ751onacMoLVN1KM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=C4uue/j9Cp/EhL70kpntPC7gkEsh0CJqJar3bO5BeMtgPrVVgdtcwO7tKdSl4efjvn9GE6ZBc21XmzVqy2DLdQUH8jBAqDQzd1jgCeXrtOv/2raR8AiG7sV6ui8l/ZwsuYex9xHTjZXVmBJ+ZbRsmECuVOVyeVKRMh5b3QDu6fI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m2wq+wH3; arc=pass smtp.client-ip=209.85.167.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="dPHHvJrH"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a005aa0838so2539475e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 08:09:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m2wq+wH3"
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5ba3ac592faso2858978e87.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 08:09:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791558560; cv=none;
+        d=google.com; s=arc-20260327;
+        b=S6ib29zKy/sr99QxUdjt7HGzOi80EKdAnb+LXJ6OG7vkWFRfwlryFivO28G1FUdwNl
+         xYCzDcqSb5h3ixVvpM/9J+byqLMzWAY9/WU6kfxjyMWrZhf1QYSZ4WTYzKfSZSsy8k80
+         kFnGGUXBNuK315s2afdmI1NV+4DNmVt8qn6itgQ1nVL7hNGLU391Dda/h2fEGeDZWsYU
+         tisPPHpypttwoUCemDLIHNcV6QUv1h0cMtGcU8IP6D5Xles4hNZ6RrcGD1FtgMZPUd7u
+         oQi3Oa59+g2dr8RJVOaGiQ5WM8UqQprITf+8/5xiAdZlm4Tj/+IpJ2XOmdAy26b3HKin
+         ZDtA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=A/HDEM6SAMd1TqfEczfv3U/biPTo6BFTefjmZrIo9H4=;
+        fh=sPilOYAT4QfMgYxGH2LjRrcqbLUzvrQqMQUicHZMufQ=;
+        b=iaRjkIx2zmjhisroaTBV2ObN7uY8qHGZJc17TWI9JyYzr0d9ZTLuoHXJWk/TkyEWzp
+         uMSl2Uw9i3TyZvm97ISU7XDn0WCd7i8TRcT80jhc74iNnFadKXrVwJCUX4FCpzmoN6Ot
+         MWNbAbakZsqypcO+upFy8EWA5JDs4J9FFwdsKqcNYnkjhwlnlfld7VAHO+Ri+zpnRH0X
+         +iKdIiNlWHMrwBm6hsTqVqDCCYTXUI1chD5DZbQDs/WEtoL7xPHhgCoHAV8lqel1HBXi
+         ycvsRkyzi0jP2Iyu0IzKjc8xVx6dWyDp8OSoejTdJnBuYtZJMGketrUjp1aRqFioSH2S
+         1o9A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1791558557; x=1792163357; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791558560; x=1792163360; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=l7FAggyg1PuXiF2goI0uppUUtryZ3eugWEM0zzhFv98=;
-        b=dPHHvJrHIQW/9h5sevPsQtIiyA6SymAuoDtExdpqXe/j18OZtPyT16JIrmcXqY37yV
-         p4OWO1ju15+rwNMGGeRTDiN5ZJhSY+tor4D0RM7fk0sZp63CthNFqKxLjpz6dOLNuSRj
-         cQDBTFZ85NG+q3nCf0RIw03x2xCxuBK71AZUOugl60p7EUhuzjdRfu/W0uQbYOSlNaxC
-         vUcVI3932fXYqzYwNsCcpr4ZvPDLWSw5Eobcf+D0BoLEj8S7tvh43AHxoc6JidBM1L47
-         E823pcAPrZBrZH+PFphKCP2ks0Ojjlk2Qw0WuZCmp8ICeAX03RHN/nHbzMTrUsL1O7yN
-         LxpQ==
+        bh=A/HDEM6SAMd1TqfEczfv3U/biPTo6BFTefjmZrIo9H4=;
+        b=m2wq+wH3x9e5ctREVvlcvSDSA/0U9fDg3+X/xGhfLChkRVY6j0gz3qLL2tT2Ysst7n
+         ks04It0/zXlHVt28Vu29nWGsLWd8usVED94gokoA3WeYtsyo+sN64hBaVK1WOmwuPOVG
+         vEtcnJNeKang3clhH2xZp2bQRl6YN2DnSnbixsBcOzGfD0b8h5PI62o4tnvswvd0g4q3
+         NjP2PsLSxWvofZqBYuWrB5TuOLCHR/ik09VBB/ARhpu3vSizxiYIvKSZE74eq3wQgDqR
+         SWLzIEOEf2BZLglNH8pHWqkFH9dKDZ9zgX6qeUbrwr8YPSLAruqy+2r+b3jTcaWvbFXg
+         XSMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791558557; x=1792163357;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1791558560; x=1792163360;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=l7FAggyg1PuXiF2goI0uppUUtryZ3eugWEM0zzhFv98=;
-        b=K52hCbWF/C+dIhz33S3tJaRZ970UUD2pcLauWAoelmoGqkfdoLi7yQnu+d6CEPY7X1
-         TVrtyDpSqDt+ydcdGd09BsdjIs/e/cQflU30HLabeV+7p7l1d2edDJrnWRMBbh2gX2LQ
-         xA6imKiCE4hcNK3wH4IDUsJ9N59916fsr8Zj7LuheJVJIGTrEg+Qsvl6oQTPhoCg22Cp
-         RzuetpLU88/1o61//RplfN5b/VuyaZqGUSme4b8EXwf/OI29MAHlI0AR3cAFqAV2iBq4
-         MFrE5ujayTuzWNf+IVGUCeFe+54x2WcA4A3la+ZkA19v3eAxp4FTMcobClTlsBrkYggU
-         PNFw==
-X-Forwarded-Encrypted: i=1; AKwUvBw2HJzYBPrijCUEfUYGQHHF6QilOjqq71LF5LTZTH75eudae7ipmrBbt/XXWLbubumQxdtV20uILUohXZ4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lDxvepnkqzBEqEKssA33ya3TvdHE1FfSvTHWoUfnPtHaf7tdBR
-	l2j57wXuVBdiMg16Z7aa2UuGjqCRCbis/eeQAEzgdAbfceXoM8a7groD72/Juk6Vqxg=
-X-Gm-Gg: AYBFou1nB1UCzMjngTpgTo+RO8+R/khudOgWUJaxgIiTFGnw7WifohBseiyINMaKMGl
-	qpLRBy/lTp59lxfidVsTpv0HxH4q5YVbwTcO10VxziP5U9PztM52JkQ4SweVMlQY1H72+5i3XFi
-	ciqcuOHiNo2pOajq6splbEw8/H3B5Ou0tjiMuMsfVN9+kTvocskELr9v9s+4+KZo+UGN+I4SFNc
-	KSxliNv19OnmmSqIFbj1k3CWFg9dGpdTfDUa5S0Mwj6GGPp5KW88xKt0osPkXK8SgOwgJwGLFc8
-	DZlf8s2u1lo0czDzA/inYJwZj3Gfx8QXfr0AhLf7J8Vyiq1SMnUAGvJLmCa47+1bXU8+RhUk2su
-	/afskLxHTQNS1C1Fvc3WKrcdSuEVnZfSEGsofKrhgXm2MlCvDwkba2O4SJOnbP818VFoMvvdNj3
-	mHSZpGSna14kITzVvSn2ypwgflybo0lvazA6KG7cgV1//GQwsE7Tln1VDItjbplkvPFsDcBg==
-X-Received: by 2002:a05:600c:1e0f:b0:4a1:8469:e6c8 with SMTP id 5b1f17b1804b1-4a18e46f48fmr42865885e9.1.1791558556633;
-        Fri, 09 Oct 2026 08:09:16 -0700 (PDT)
-Received: from localhost ([202.127.77.110])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38ff0d34sm4261482a91.14.2026.10.09.08.09.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 08:09:15 -0700 (PDT)
-Date: Fri, 9 Oct 2026 23:08:07 +0800
-From: Heming Zhao <heming.zhao@suse.com>
-To: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Anderson Ferneda <anderson.ferneda@braza.com.br>, Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, 
-	ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] ocfs2: use the stored hash when checking xattr
- bucket collision
-Message-ID: <askDOj3-b_20RTu-@p15>
-References: <20261009083002.2621201-1-joseph.qi@linux.alibaba.com>
- <20261009083002.2621201-3-joseph.qi@linux.alibaba.com>
+        bh=A/HDEM6SAMd1TqfEczfv3U/biPTo6BFTefjmZrIo9H4=;
+        b=IDjBkf8l5rFx3x3vkrmAOb7yRi6xKA/WEv5YsI9QwljZOuNR91d8nuwRt5aRtoCxhx
+         3feAeGATzCN9hgjrvWExXB+J7S0Jx+3u6pnWCxVQrhWmZ0QIaFBgg6w1yicDYXI8txBt
+         g1Zf2Yw4LUWYDWUKu1rnQfuQQlqL6a2KM347kO4ol0gihLHNDr2M5iEEOqhhYujSN+2H
+         eRsHE9Up/VByy8zunBwUCaRoFtI3OoxJQmDzKFXVNlWpM/308cjq1pFcFIWlvZ4Pc9zj
+         oLqeDi0hwUyDtaETK1wcc5xMZETbBuxZK9be/glR5XOixZ7HsOQzo1qAnwM0pND4Cpne
+         k4sA==
+X-Gm-Message-State: AFq9FYKcRUAiYgM0rQUGFhDIm/xRqNfr5y3KZnIACKRqjufGBXcGp1yF
+	Ltd9JuKoGuW4UK8EeyCMbMHBKWfDdnRwbIfacU73/aO+MKSvt9waUycN/A39p8F+BjPLa2HOE2M
+	jeJ8PBlFlUwq+q9ZJdFLg+eab6t8YVgY=
+X-Gm-Gg: AYBFou3okKf3u4R2I/SvzGsWYIvlWfkvmwo9HFeaTsuQGTw30NoXnWOd/QaFO+FTZmV
+	l3DVET54Wk/3t96Ag946ZzcvqOxXzg6ZzQ/3uBmlv+7bGZNXrq+REJsn4tu+DZO7b7m2h0Kwxle
+	X7u0vmGtotZeHEIbCkVBsrCuKSWnK4YdOz84iWRnKm1DLk/HqqtoppxKibAZEAf0S1Pg0trDJ5y
+	V2Qmo/EU5yT8ghJcnESqqUp9kxzKQBdffBnY9gmzC8Mw0UFIMdXDHgz/F/OlIDlIBcGAKaeg7OM
+	jut+D6GJORfRT5HjK4ESoQqj1dwX/NPjWxvmfFTy9koUQ7yrSZFax3HuwEyJLxiPiIG5UXcbiJl
+	VxW3zkhLaQuI/3W7tlCXw7WB4BzJkv9xotoSIow6ZUUw=
+X-Received: by 2002:a05:6512:a83:b0:5bb:42a2:31fa with SMTP id
+ 2adb3069b0e04-5bcde8d79ecmr856633e87.60.1791558560095; Fri, 09 Oct 2026
+ 08:09:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009083002.2621201-3-joseph.qi@linux.alibaba.com>
+References: <20261007223608.2158904-1-daeho43@gmail.com> <411bd479-f3ba-48cd-9b96-ec017c685b1c@kernel.org>
+In-Reply-To: <411bd479-f3ba-48cd-9b96-ec017c685b1c@kernel.org>
+From: Daeho Jeong <daeho43@gmail.com>
+Date: Fri, 9 Oct 2026 08:09:07 -0700
+X-Gm-Features: AclHuK-b0iOAUVp3Gb3M3uy87PAKMjg-PM45YloYZBWvj1PWu9YXwALNhrlHGRc
+Message-ID: <CACOAw_x0ahtE3bdD0TG3FjzbkFzyQYTah-trPVrkmH62AGCAqg@mail.gmail.com>
+Subject: Re: [f2fs-dev] [PATCH] f2fs: write the directory inode in fsync
+ before checkpoint
+To: Chao Yu <chao@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net, 
+	kernel-team@android.com, Daeho Jeong <daehojeong@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 09, 2026 at 04:30:01PM +0800, Joseph Qi wrote:
-> ocfs2_check_xattr_bucket_collision() decides whether splitting a full
-> bucket can make room for the entry being set by recomputing the hash of
-> the name:
-> 
-> 	u32 name_hash = ocfs2_xattr_name_hash(inode, name, strlen(name));
-> 
-> 	if (name_hash != le32_to_cpu(xh->xh_entries[0].xe_name_hash))
-> 		return 0;
-> 
-> For a new entry that is the hash it will be stored under, so comparing it
-> is correct.  An existing entry keeps the hash it already has: an update
-> never rewrites xe_name_hash, since ocfs2_xa_add_entry() is the only
-> writer of that field for a real entry and ocfs2_xa_prepare_entry() calls
-> it only when loc->xl_entry is NULL.
-> 
-> An entry stored by a kernel that sign-extended the name bytes when
-> hashing can still be updated, because ocfs2_xattr_find_entry() searches
-> a non-indexed xattr block by memcmp on the name and never looks at
-> xe_name_hash.  Growing it past the space left in the block converts the
-> block into a tree, ocfs2_cp_xattr_block_to_bucket() fills the bucket in
-> stored hash order, and the update runs out of room in the bucket too.
-> The collision check then compares the unsigned hash against the legacy
-> hashes in the bucket and reports no collision.
-> 
-> ocfs2_xattr_set_entry_index_block() goes on to allocate a bucket that
-> ocfs2_divide_xattr_bucket() cannot fill: a bucket whose entries all share
-> one hash has no divide position, so all it does is append an empty bucket
-> with a sentinel hash one above the last entry's.
-> 
-> The re-search that follows depends on where the unsigned hash sorts.
-> Below the legacy ones, it comes back to the full bucket and the set fails
-> with -ENOSPC, having grown the tree for nothing.  Above them, it lands on
-> the new empty bucket, which ocfs2_xattr_bucket_find() handles explicitly
-> and ocfs2_find_xe_in_bucket() scans zero times, so the set stores a second
-> copy of the entry under the unsigned hash and returns success.  The
-> original stays in the full bucket, listxattr reports the name twice and
-> getxattr returns the new copy.
-> 
-> Pass the hash the entry is stored under instead: the stored one for an
-> existing entry, the unsigned one for a new entry.  A tree whose entries
-> are all stored under the unsigned hash sees no change, since there the
-> two are the same value.
-> 
-> Exposed-by: 3bc753c06dd0 ("kbuild: treat char as always unsigned")
-> Cc: <stable@vger.kernel.org> # 6.2+
-> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+On Fri, Oct 9, 2026 at 2:03=E2=80=AFAM Chao Yu <chao@kernel.org> wrote:
+>
+> On 10/8/26 06:36, Daeho Jeong wrote:
+> > From: Daeho Jeong <daehojeong@google.com>
+> >
+> > fsync() on a directory is done by a checkpoint, but the checkpoint
+> > does not write timestamp-only inode updates. Since commit 7c45729a4d6d
+> > ("f2fs: keep dirty inodes selectively for checkpoint"), such updates
+> > are marked with sync=3Dfalse and left to inode writeback on purpose.
+> >
+> > fsync() on a regular file calls f2fs_write_inode() first when the
+> > inode is dirty, but fsync() on a directory goes to the checkpoint
+> > directly and misses it. So if the last change to a directory only
+> > updated its timestamps, e.g. unlinking a file in it, the new mtime is
+> > lost after a sudden power off even though fsync() returned. generic/547
+> > fails sometimes because of this.
+>
+> Has 9ec09d5f4b31 ("f2fs: dirty directory inodes on mtime/ctime update") f=
+ixed
+> this issue?
+>
+> Thanks,
 
-LGTM.
-Reviewed-by: Heming Zhao <heming.zhao@suse.com>
-> ---
->  fs/ocfs2/xattr.c | 27 +++++++++++++++++----------
->  1 file changed, 17 insertions(+), 10 deletions(-)
-> 
-> diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
-> index a428fe908116..c5a39a7d43d0 100644
-> --- a/fs/ocfs2/xattr.c
-> +++ b/fs/ocfs2/xattr.c
-> @@ -5896,16 +5896,14 @@ static int ocfs2_rm_xattr_cluster(struct inode *inode,
->  
->  /*
->   * check whether the xattr bucket is filled up with the same hash value.
-> - * If we want to insert the xattr with the same hash, return -ENOSPC.
-> - * If we want to insert a xattr with different hash value, go ahead
-> - * and ocfs2_divide_xattr_bucket will handle this.
-> + * If the entry being set carries that same hash, return -ENOSPC, since
-> + * ocfs2_divide_xattr_bucket() has no divide position to work with.
-> + * Otherwise go ahead and ocfs2_divide_xattr_bucket() will handle this.
->   */
-> -static int ocfs2_check_xattr_bucket_collision(struct inode *inode,
-> -					      struct ocfs2_xattr_bucket *bucket,
-> -					      const char *name)
-> +static int ocfs2_check_xattr_bucket_collision(struct ocfs2_xattr_bucket *bucket,
-> +					      u32 name_hash)
->  {
->  	struct ocfs2_xattr_header *xh = bucket_xh(bucket);
-> -	u32 name_hash = ocfs2_xattr_name_hash(inode, name, strlen(name));
->  
->  	if (name_hash != le32_to_cpu(xh->xh_entries[0].xe_name_hash))
->  		return 0;
-> @@ -5974,6 +5972,7 @@ static int ocfs2_xattr_set_entry_index_block(struct inode *inode,
->  					     struct ocfs2_xattr_search *xs,
->  					     struct ocfs2_xattr_set_ctxt *ctxt)
->  {
-> +	u32 name_hash;
->  	int ret;
->  
->  	trace_ocfs2_xattr_set_entry_index_block(xi->xi_name);
-> @@ -5993,10 +5992,18 @@ static int ocfs2_xattr_set_entry_index_block(struct inode *inode,
->  	 * the maximum number of collisions we will allow for then is
->  	 * one bucket's worth, so check it here whether we need to
->  	 * add a new bucket for the insert.
-> +	 *
-> +	 * An existing entry keeps the hash it was stored under, and that is
-> +	 * the hash a split has to work with.  A new entry is stored under the
-> +	 * unsigned one, which is what ocfs2_xa_add_entry() will write.
->  	 */
-> -	ret = ocfs2_check_xattr_bucket_collision(inode,
-> -						 xs->bucket,
-> -						 xi->xi_name);
-> +	if (xs->not_found)
-> +		name_hash = ocfs2_xattr_name_hash(inode, xi->xi_name,
-> +						  xi->xi_name_len);
-> +	else
-> +		name_hash = le32_to_cpu(xs->here->xe_name_hash);
-> +
-> +	ret = ocfs2_check_xattr_bucket_collision(xs->bucket, name_hash);
->  	if (ret) {
->  		mlog_errno(ret);
->  		goto out;
-> -- 
-> 2.39.3
-> 
+Oh, yes, it does. I missed that commit since I tested on a tree
+without it. Please drop this patch.
+
+Thanks,
+
+Thanks,
+
+>
+> >
+> > Call f2fs_write_inode() for a directory before the checkpoint, as the
+> > regular file path does. The inode block becomes dirty and is written by
+> > the same checkpoint, so no extra checkpoint or flush is added.
+> > Timestamp-only updates without fsync() are still not written by the
+> > checkpoint.
+> >
+> > Fixes: 7c45729a4d6d ("f2fs: keep dirty inodes selectively for checkpoin=
+t")
+> > Signed-off-by: Daeho Jeong <daehojeong@google.com>
+> > ---
+> >  fs/f2fs/file.c | 9 ++++++++-
+> >  1 file changed, 8 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+> > index 56c686b8580..b012cc22307 100644
+> > --- a/fs/f2fs/file.c
+> > +++ b/fs/f2fs/file.c
+> > @@ -351,8 +351,15 @@ static int f2fs_do_sync_file(struct file *file, lo=
+ff_t start, loff_t end,
+> >
+> >       trace_f2fs_sync_file_enter(inode);
+> >
+> > -     if (S_ISDIR(inode->i_mode))
+> > +     if (S_ISDIR(inode->i_mode)) {
+> > +             /*
+> > +              * Checkpoint writes only the inodes on the dirty meta li=
+st.
+> > +              * Timestamp updates of a directory, e.g. by unlinking a =
+file
+> > +              * in it, do not put it on the list, so write it here.
+> > +              */
+> > +             f2fs_write_inode(inode, NULL);
+> >               goto go_write;
+> > +     }
+> >
+> >       /* if fdatasync is triggered, let's do in-place-update */
+> >       if (datasync || get_dirty_pages(inode) <=3D SM_I(sbi)->min_fsync_=
+blocks)
+>
