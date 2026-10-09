@@ -1,102 +1,114 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E401A2545;
-	Fri,  9 Oct 2026 04:24:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424633AFCE1
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 04:24:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.121
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791519853; cv=none; b=Dxe17hrFZPSndx9quU6x5e3QzTUZcQleOzfSk0E9z4YKjiH7Iz0epVMcDJkVOwfIgwkSIxctJcaC4RhkiW4W9S5yhbQFH2qcPuz/YHegLGAkBeWKpL38JGKG94Oi92/kDsk3/15eA/IsP4BdRxyNNoxh8Nw8ur42+2bzaJou7C4=
+	t=1791519905; cv=none; b=JHos6vvuzvKjAt1c5oIHzF7X3TxGczCrshcstldEpTvdws/EW1BbJd9Lq1CNywXNT2XeyTPWLZ4S24n5eq8nRMdG7AlFwCWW6IlWxUFkJcwJZfdZHG9ltF5EU7er+q/8cPTrmAuEzJ44JM80faDGydrjbnboU76uWsfYHBuRAXM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791519853; c=relaxed/simple;
-	bh=slH+7KphGlORTAIIlm+CtnnqQBraivYEO4K+LAX0IT0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uI8v04mGJ8WhLx2m6Y0P4ITPr/cv76BssphVLpyQZ1KETcu4lIPUPb0mMSD9d0uG54IbE0yjSvPS5+BVJBYOXW1wYKLpI4ehzvE1J++bPZVPJmGrdP55b7R8Hc0ap0ACoaRyYLcISB+lji4MEnn8kK9DQFDH+01K05v6OAUZQio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from fc87d0ffb700.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowADXo0FbbMhqibUbCg--.10115S2;
-	Fri, 09 Oct 2026 12:23:56 +0800 (CST)
-From: Haotian Zhang <vulab@iscas.ac.cn>
-To: Paul Walmsley <pjw@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Green Wan <green.wan@sifive.com>
-Cc: linux-riscv@lists.infradead.org,
-	dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dmaengine: sf-pdma: fix double-free of the in-flight descriptor
-Date: Fri,  9 Oct 2026 12:23:58 +0800
-Message-Id: <20261009042358.3102885-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1791519905; c=relaxed/simple;
+	bh=ZN0/3j0YsAj0Y8viv8Jles0O5wSCfHZM6LwrlcKzO74=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TzHze6bk+Kt2SKQpa1g5v5y3GouA+pkvT9oq6j/M6RQlcjluFq7mzO0wYkWuAmbSSyFvy6UU530BiGIbok4oI2jXqqsz0Q2CNQRoYsgvM/SAmp4HA9BUUHa6jGBoEEdPYhKqU5UxzuC+YoFmzWWngaRBtFk13/QLH7h8VFtapa8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=n0y//80q; arc=none smtp.client-ip=109.224.244.121
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="n0y//80q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1791519894; x=1791779094;
+	bh=ZFzpCVRKrDbZKNOmVJlrvnCmDPVToCRnaBbdKV8U/Z8=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=n0y//80qaXKwtDFXOVYj17xAW5codTjiWEW14vXhufShPwnViWSR47ryGsitGQ7C5
+	 60Vv3k9vFpUgb9laCjthdl7WFc5992TQIl10GH4E6T3TS4c6rYVzeI5aoQGp7ZC0Hd
+	 tgZI5Zcl/2uX4zrZxtJ78g0AYKoGF/SyKEcH8QV44gsJ0g2IdA4GXSKTJ05MQohzPH
+	 Nlaq5pSTWvcYfKKXB1K49G2gwNSNd1d0bD4hq79hrrlcsLW0+jrRvBXW3L7FvPh6k1
+	 MM7k6no+4Jr/XU5z2MdzWnFbVFdXV/dljKOAyIKVVxVxEJqqXfKZ7IFFIxWJx/u8x8
+	 zoGi0WQE43bOQ==
+Date: Fri, 09 Oct 2026 04:24:50 +0000
+To: Joe Damato <joe@dama.to>
+From: anmory <anmory@protonmail.com>
+Cc: netdev@vger.kernel.org, michael.chan@broadcom.com, pavan.chebbi@broadcom.com, linux-kernel@vger.kernel.org, edumazet@kernel.org
+Subject: Re: [RFC net v4 0/4] bnxt_en: Make RING FREE more robust
+Message-ID: <jKB4a_PCX3Ixd7mGEqi6YJ9d5K3q0UXAc54Xef0cVVtApXJkDI3W26RxepvlHUqliubo_F6SA2FYQpJ6L5_Yb-ZbDjAXcxBAngIrSdqAQYQ=@protonmail.com>
+In-Reply-To: <asV4D3J7K8FzQO4I@devvm20253.cco0.facebook.com>
+References: <VyyrJwrwBZEIGezDRJP8QPxbcsGROaxnmohLCnzNQY6sX5CEt0BK3AEC_0MGBx6OxGf4H5UG_xQcqgtAonwmXLdZ5Bd3INWMsof8Oj6ruqg=@protonmail.com> <asVYjdbZGMAEck2t@devvm20253.cco0.facebook.com> <eXJey19uF3K9zJxeuqly_VAGq8y6AiyexdzLKxv22b7m1Av025Dp-w9cGWDelfFwBqcD-wtUIjtz7p1ZYKwlKeyzd3vHHpdY7U6FGPIrK7M=@protonmail.com> <asV4D3J7K8FzQO4I@devvm20253.cco0.facebook.com>
+Feedback-ID: 107053670:user:proton
+X-Pm-Message-ID: 4ad72c9caab3956c75b0b43ee29396255fb61ed0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowADXo0FbbMhqibUbCg--.10115S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7ZF4UJFyDJFW3Cw13Ww1rWFg_yoW8Cw4fp3
-	y3Ja13KFW3tr15XF98Gr4rt3Wjya1Sy3y29rWqkwnxCr43Jrs2k3WxA34YgFyDArs7AFn0
-	kws8J34fuFWrCrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
-	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWxJVW8Jr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1D
-	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
-	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
-	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
-	WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAI
-	cVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07b8nQbUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQPA2rIJHz+tgACs0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-The descriptors handed to sf_pdma_issue_pending() and
-sf_pdma_donebh_tasklet() come from the virt-dma desc_issued list
-(sf_pdma_get_first_pending_desc() returns list_first_entry() of that
-list), so chan->desc always refers to a descriptor that is still linked
-on a virt-dma list while a transfer is in flight.
 
-sf_pdma_free_chan_resources() and sf_pdma_terminate_all() free that
-descriptor with kfree(chan->desc) and then call
-vchan_get_all_descriptors(), which splices desc_issued into the local
-head list, so vchan_dma_desc_free_list() frees the very same object
-again through sf_pdma_free_desc(), causing a double-free (and a
-use-after-free for the pending tasklets).
+Hi Joe, Eric, Michael, Pavan,
+quick update from my testing.
+I backported Eric's patch bnxt_en: fix DMA mapping length for padded small =
+packets onto the exact Debian 6.12.111-1 source and built a Debian test ker=
+nel from it.
+The affected host has now been running the patched kernel under the same no=
+rmal workload and network configuration that reproduced the problem with st=
+ock 6.12.111-1.
+The relevant setup is:
+Broadcom BCM57504 / bnxt_en
+affected interface is an 802.1Q trunk with multiple VLAN subinterfaces
+Keepalived VRRP with use_vmac
+forwarding/conntrack/SNAT traffic through the host
+25 Gbit/s link
+So far the patched kernel has been stable. It ran for the entire day yester=
+day and is still running without reproducing the failure.
+With stock 6.12.111-1 we had repeatedly seen the following sequence:
+AMD-Vi IO_PAGE_FAULT
+NETDEV WATCHDOG / TX timeout
+hwrm_ring_free / hwrm_ring_alloc failures
+bnxt_init_nic failure
+On the patched kernel, the capture has so far only recorded the normal bnxt=
+_en initialization and link-up messages. No IOMMU fault, TX timeout, or HWR=
+M recovery failure has occurred.
+For comparison:
+6.12.107-1                     stable
+6.12.111-1 stock               reproduces the issue
+6.12.111-1 + Eric's patch      stable so far
+On this particular host, stock 6.12.111-1 reproduced once after roughly 20 =
+minutes, although we have also seen occurrences take several hours. Given t=
+hat the patched kernel has now survived the full day yesterday under normal=
+ traffic, this is looking increasingly consistent with Eric's DMA padding f=
+ix addressing the issue.
+I will keep the patched kernel running and continue monitoring it. If the p=
+roblem does reproduce, I also have the kernel capture running and will coll=
+ect the NIC coredump as requested.
+Thanks, R.
 
-Drop the direct kfree(chan->desc) calls so the in-flight descriptor is
-freed only once by vchan_dma_desc_free_list().
 
-Fixes: 6973886ad58e ("dmaengine: sf-pdma: add platform DMA support for HiFive Unleashed A00")
-Assisted-by: DeepSeek-V4.1-Flash
-Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
----
- drivers/dma/sf-pdma/sf-pdma.c | 2 --
- 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/dma/sf-pdma/sf-pdma.c b/drivers/dma/sf-pdma/sf-pdma.c
-index 6f79cc28703e..40f556e198b4 100644
---- a/drivers/dma/sf-pdma/sf-pdma.c
-+++ b/drivers/dma/sf-pdma/sf-pdma.c
-@@ -144,7 +144,6 @@ static void sf_pdma_free_chan_resources(struct dma_chan *dchan)
- 
- 	spin_lock_irqsave(&chan->vchan.lock, flags);
- 	sf_pdma_disable_request(chan);
--	kfree(chan->desc);
- 	chan->desc = NULL;
- 	vchan_get_all_descriptors(&chan->vchan, &head);
- 	sf_pdma_disclaim_chan(chan);
-@@ -214,7 +213,6 @@ static int sf_pdma_terminate_all(struct dma_chan *dchan)
- 
- 	spin_lock_irqsave(&chan->vchan.lock, flags);
- 	sf_pdma_disable_request(chan);
--	kfree(chan->desc);
- 	chan->desc = NULL;
- 	chan->xfer_err = false;
- 	vchan_get_all_descriptors(&chan->vchan, &head);
--- 
-2.25.1
+-------- Original Message --------
+On Wednesday, 10/07/26 at 00:37 Joe Damato <joe@dama.to> wrote:
+On Tue, Oct 06, 2026 at 10:22:51PM +0000, anmory wrote:
+>
+> Hi Joe,
+> one important detail I omitted from my previous mail: the affected eth1 i=
+nterface is an 802.1Q trunk with multiple VLAN subinterfaces.
+> We also use Keepalived VRRP with use_vmac, so virtual MAC interfaces are =
+layered on the VLAN interfaces. Traffic is routed/forwarded through the hos=
+t and uses conntrack/SNAT before leaving through another physical interface=
+.
+> We are not deliberately toggling VLAN offload during the test. The reprod=
+uction so far is simply to boot Debian 6.12.111-1 with this normal network =
+configuration and workload. On one host it reproduced after about 20 minute=
+s; on another it reproduced almost immediately. We have also seen a previou=
+s occurrence after several hours, so we do not yet have a deterministic pac=
+ket-level trigger.
+> Given the VLAN configuration, Eric's patch looks especially relevant. I'l=
+l test 6.12.111 with that patch first as you suggested and report whether t=
+he failure still reproduces.
+
+Seems likely you are hitting the bug Eric just fixed, IMHO. If his patch
+resolves your issue, please let me know.
 
