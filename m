@@ -1,152 +1,138 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1C483C060E
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 08:16:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791533773; cv=none; b=Rjs8IldtKUQet+LbHWM4zBvLfAy82gs6m7HshPGC56whz/HTckC+MY9knWpSy65+3Ydm9ga6Vun+zCvHHcN+2zraH/fGJH6TS9p2hZiAzGyYWCwN/GVk0dSF3nQdkjkrYjNBWVgnKCvWJPDOteep6M4NC6JK3RqgkUY2fcn3xbk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791533773; c=relaxed/simple;
-	bh=t7qRmqHdMAl1qk4MJVpTg0mh8/vY1dTo8qJcR8916Yk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VPmrvI9JnIVq333Y6WMDEtNaWUWjNqeje9E7ut9fpy++SnPc97CdrmPpcoDsleJeoLhDZ4QfKUIsqclpwxanY5i0/eRMD+FclZRCqr2Qz/oYTdtGc9aGrCrNxhg9SLEz2UHPYATSZGMkQ3sCkmi3RWCplGpJMDaVYwgiXiADjZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Fp/K5liQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BGDC2rIQ; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D02E23D88FA
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 08:16:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.179
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791533801; cv=pass; b=Rgd9igfx6irHUigAm51rHEOyCV91qYiQSrTsE/4iOFu53Ny7Dm+IM3AbnZgMFqAws0XtDsILyZgvJQzMCV1zIMAYYESCkEZogwdnP/gCeekAU1ljcl9gmw8Md6f+uE293+7M816SKY9+eG/eNErtkN50pDOwM0ZGgMDEJbiZplE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791533801; c=relaxed/simple;
+	bh=NpIcuZOQQpzUnJT19iUeQsJOL/msQ/TH2ZDF8RC1IVE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nWEiqrmi3l74SUSJb4FGwN/3cifCw6Bxz2jayxNpkYZInSskIEgSJ2XRptabszQBakefTyaLXEopHxbjq8R6+ycPViZBnySfCl17CbUsKNbZlE3GNRMZhJATPrQYOiB43eH/iUHrgIAzbSzEHcS8SNQsyKgd4x0bBmQMjHxGpOM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dd5XMitf; arc=pass smtp.client-ip=209.85.128.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Fp/K5liQ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BGDC2rIQ"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6993HIF4564672
-	for <linux-kernel@vger.kernel.org>; Fri, 9 Oct 2026 08:16:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	T4fGb7Hz2boMwAT6WGpk0OCK8tzz+FcRa4JXQhQJpJk=; b=Fp/K5liQZd0BPbPo
-	6C8FYm6+sKesgHm5jfJqOTCdAVQ8fmBZiCmOHKbt03g5iWpY6jVRjMGpdqczBh+x
-	EGi2/VnvoVuAjx/e+EdGKmMrhrUXLhCWh1fBCfGwqEplnnDBMZOD/vqL0ygyM7t4
-	/C3vlTRsN7F80iAT8QoXSGCAgRST5zWa/l9xaNGwMReTiEXTnUOeLwUAcmID9nBF
-	paC6xLZuPglh9Q+A9Vj+u8j7Xs2S7f3uNrV6bl5SUl6d82UJC/Dw11vBM3ojVPfz
-	izx6rMQo5dVHZSBLnz6tpMNHDavOr+cbzcgpDuaGXMja/Fn4EMSZ9A1jpnCeRhJr
-	4XIAog==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6fxkahx5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 08:16:08 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93a082c014aso460359185a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 01:16:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dd5XMitf"
+Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8b06c0794cfso22237867b3.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 01:16:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791533797; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FtWgXVCf+XLo/kiV/TMjs+mSccohRccLgCItL5t52FD2B0WtZ3y7P311ZhpJsJwUkb
+         06F8Vo/nIehcMB7cbC4GhI7zAPEhOBvHY+tV5FURqaWhwV9nYVRtjGakQsK+L60ndULj
+         f5DhzJitpzVTZZqBHQxLZuJvFN+98WFGh0iiHp5YvAVw+2cmfWyIoR5NSUU5N618hdo/
+         1x9Lwvhmj7vsI8aJIZvnTJflOjbcUMRmXa/3VV1E3ICcz2Lo6JtuYpnzPbzRo0Gi3IQf
+         SbbUAOXZx3hYZl6MfabOrQkAK+RTpR3ePK5u2qR2TbjOq+vsK3EqunpTcuOo4Aj3qNlg
+         +d3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=t8vA3N8qc2Td5LxcOddOJwMiY2+zXYj7uffeRIVEV5Q=;
+        fh=h1Fz75zRjKg4EQrimkrHc3tKq1RY51uRGlG7JOQ5hzk=;
+        b=SD38umIvbxBBno2ofJfvaOmRZFK9EnIgWq/79J4+uXBH2SzCjNj1T9KUU39fIKsyvp
+         DAIE13BMSAnRkjSt06jF/ZBR0OQFHb6TnQxZ6cWsRNi+35LhGuBtPMt00Tt4o6gh44/w
+         93ZWphRPANlcSc1xK0FBOfvGEV+cKBvG0lAmv2PvKqUPz/MI9CxFDhR9//FIpO82PyhY
+         kipQecK5AfnybI0lDLEhYlut40+qtgfN/mPfoC0MsyDp7raUWh0cO++pPbqTYtFqTH9M
+         CfDjkeBgp9KkzCZcCo0w4sUQ+e80pWVIOTjyCCJ/ZLcqI3tai9VZY1ty+a9ogttFczRQ
+         MxwA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791533768; x=1792138568; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791533797; x=1792138597; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=T4fGb7Hz2boMwAT6WGpk0OCK8tzz+FcRa4JXQhQJpJk=;
-        b=BGDC2rIQY/3AZvToa+mnV+I3zJgzXJx9cd8RKeWu2ChGnrq4ksFJ50cKLhIfbY7Ksm
-         JkiUQgSAq3Olk4i2ooXg1YtLbSXLwq8v4kgrxzTcNiI0z7goPIhHx2hOXsGSTTL5/3zC
-         FBaeetlF7noGbKsRKOfh8CR+ofkFV3DkKFzJzkJ6B43hRLfLuMZjmNIa7N0SG9HmdVB7
-         DNJx+e6gyYxN5LAjxBtlKPW3sz//VrLJYn+w2L4sZguLXxNO/e7WkFv0zlW8r3NQHIaB
-         +QNuwKLaDVhOYQmh1RhztSLwB3yG7+i0EgEP2E1Fsj7k8y1TfDMUvyM4ySnYzZXf1cCg
-         Coaw==
+        bh=t8vA3N8qc2Td5LxcOddOJwMiY2+zXYj7uffeRIVEV5Q=;
+        b=dd5XMitftoxnZKWlAP9VuovuMevKr8qRHbZ7iFr0MiIjKmlqTvGyTRPlr07yjIBNDb
+         q4fd6qijxVD1U3OxrwJljCv+YvGccOfJsyviZWFyyhE5q1HU98y6oa6DehFXLLIKrLk8
+         9tctwGakXjiaFpopcNidgOQeVRboHQMgA2Gxu4Jl4pql/pbKEGEfBHc5+HvyKlizsz/B
+         eA8X6lQvWrxC4b2k/P+l3NI7f27TmX+gkBV1DFjIJsfHRpuiBNqpjtKA3B6iMCs02LIa
+         HD8pVUjn3TpbipPCJHbK+wbOE01mW/vj8tY/wVtxs44ioMb8UVZBpzTLkUUrwwHMhXBo
+         XxIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791533768; x=1792138568;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1791533797; x=1792138597;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=T4fGb7Hz2boMwAT6WGpk0OCK8tzz+FcRa4JXQhQJpJk=;
-        b=zzUOhJLw6UlUMfDuDxgzwgchzaHjekUf65KmU+qPf+Hqv7Bnx7GqIsjQY0p46xSJZB
-         q3ZrhWVSwqFc3NMmMO8/NKyOQo0THEWpMcXIx2rmgRJZitSibdixVS8PT3L68GHZb+KW
-         nZzt8GtcVBCD5G9a9J/mOqeGzKgXiSktP7sYekgld6jW0UhalR5p+UXZ3cTcl9VqDx4n
-         1eMcLIgta2CKwJVlodu8GmJ44/HYYFp/gco9nYZIKxIm9qSmxyvV8R30K9Abz3oeYtBc
-         iAYgIOjYx8/PV6WpQ/aNQPkmSMXKA6OMlOmQOoVUe24Kj/FexQXkFc1463YhT00dG2BG
-         1b1g==
-X-Forwarded-Encrypted: i=1; AKwUvBwvD2/enWPzM4jjfokfKgHceWnI0uVkd4eYsWZzg3nYPtgg1bhfxaDo/FpOAUyysUA0UvddcpY2MV+WHEI=@vger.kernel.org
-X-Gm-Message-State: AFuF++k3b+oclUvzOOOEM3rNSrbTsoUlf7b4a4V+r/LdXIQ6bvgU619x
-	7/Sv/JXSTeskzxuah/dziNi/WGEtEIv+BPDeK+dySbVKzw8zNPCaYXvxLyjMN0gf5+eM5Zm20TM
-	Ltp/MIkLvygQ4vMdzM29VttDGIwIoQulEn9LN6Mx+K7paINAU6Nii+jgQUkSEpFQ22xk=
-X-Gm-Gg: AYBFou1eLQrqUeKW4fEP1ZtHKBwGDPcmNtqjHmYVxyOmeDyZnXZWjpeCtzeQQmTcUj+
-	XKKYk7WBrye7Tml76nCOOo2Jpq5hSkfXmUo9exAPmQQHA/qz9s4QFpESg+RS/kaqjahAZ90d6o4
-	EEEWZkqyUbbXGDNCnzvpBbyC+MCeSAZUgKFGLTpQ0bz0E8opMkWt3luWbo9HsrdCEZQKs6KTevD
-	my58jLMmAgF8ahVALkJPe0yyym98u8GayHQYJrn/cDafT2FDLcMbt3Xek1gjBmEFy5F2yQSL7N3
-	0RWeA5TA1LAS0doQjc89qpZstodwMYLT8eArfe/o7ggREbi3iapikiPlc0JLY5AC8aStUiC3THs
-	mQkFLoTiqUftTJjz3ugOLkPkRFcI=
-X-Received: by 2002:a05:620a:2b88:b0:93e:4f45:6fc with SMTP id af79cd13be357-93eb965e53amr213374485a.27.1791533767687;
-        Fri, 09 Oct 2026 01:16:07 -0700 (PDT)
-X-Received: by 2002:a05:620a:2b88:b0:93e:4f45:6fc with SMTP id af79cd13be357-93eb965e53amr213371585a.27.1791533767082;
-        Fri, 09 Oct 2026 01:16:07 -0700 (PDT)
-Received: from hackbox.tail37bb1b.ts.net ([188.27.161.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf21276sm69068565e9.8.2026.10.09.01.16.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 01:16:06 -0700 (PDT)
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Abel Vesa <abelvesa@kernel.org>, Peng Fan <peng.fan@nxp.com>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Frieder Schrempf <frieder@fris.de>
-Cc: linux-clk@vger.kernel.org, imx@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org,
-        Frieder Schrempf <frieder.schrempf@kontron.de>,
-        Mikhail Vaniulin <mikhail.vaniulin@axians.rs>
-Subject: Re: [PATCH 1/2] clk: imx: fracn-gppll: Add 350 MHz support
-Date: Fri,  9 Oct 2026 11:15:59 +0300
-Message-ID: <179153373231.1996373.14178239298073465630.b4-ty@b4>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260910-upstreaming-v7-3-imx93-displayline-v1-1-bb9446e6ed6e@kontron.de>
-References: <20260910-upstreaming-v7-3-imx93-displayline-v1-1-bb9446e6ed6e@kontron.de>
+        bh=t8vA3N8qc2Td5LxcOddOJwMiY2+zXYj7uffeRIVEV5Q=;
+        b=Y9vQf1bBKz7SGHmrkvUc9rf9KNoSsfRsQzz+dzAM2DZQHUlEmpgc+pzij6vSW+4Vc+
+         mE30mnhh8FqsH+AIHcESUJTnzByDOJlW9M4Qscr8W3639VF5eafnkDnHLy44N+B7jZLX
+         EY3WxmkWsIhK9X0EnG4TTSvCJCZFrahsQ/HOldSOTzEyE4y4l9i8dsKb9YCJLpiRDDB0
+         jnDt/HLuiMfCJKciS/VkNMfh9kbTBFGrpONLy/6vnG4oQ8g76f4x17V6I8RXAhHCr7uO
+         nLx3kVdY8yrUXRIS2rQZQLDlW3adT2rWMog1XndGCY+zSqHiKqJ7rmysdFlJiJNx1i3j
+         LwRw==
+X-Forwarded-Encrypted: i=1; AKwUvByxp04ClQkQUmAr1dc3IfTcdwYOLn8VXzISLePZkyUAPCYQXc5G+jQL4dcmYNiZiu2nrJjR9NA+jPGeRew=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLz3EBmocrPG0y56FUFfSiWkEBvnk9P/3mE9J0hdaO/0V6M++8p
+	d47WAmpydgC12wHLXR0eY9UTvChc4dg+acKXV8cXfr5joqFkciXJDRG2Ci5bddUGZ1IY8HTYrHr
+	yaDNc/FB/EK/JeffRPIED/MDjM+Jy/OM=
+X-Gm-Gg: AYBFou2GPJdyAb5aooR0MrIPVhU3MCoQAMPZsuEnaqGPth1cxqTttYDGOQasODjmf4g
+	Z6rxwaLS6CNGq4FQdKY0CKQmgfWf2xGGaOu9oUtXpyvCdpupF+2Vm4+Df9oTIizi9eB93J+Oysq
+	OsfbZMN94HzlUDHDv2QqE0XloBzQ7igm1raXLd1jueIszR+8IkVB45KlQn4eYVUQ9oB/Ujx5VZO
+	3WnNqEjwx1tVf4Hmzol93uooIRQhphnFQNxUi/tulOd8MTHq9uh/7FxH7augbbkvfg3tePzTrPu
+	iQhf5FTS5JgAsSZ03AqBeb+3ps0cWr1Q6lthnqNt1We0IUIwlYvkFAgF0w==
+X-Received: by 2002:a05:690c:6b04:b0:8a5:af04:fb1d with SMTP id
+ 00721157ae682-8b07eeb39efmr4856347b3.55.1791533797388; Fri, 09 Oct 2026
+ 01:16:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 86Df41Vt9KsUKH9gvBspMYHW3NI7xDLp
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDAzMiBTYWx0ZWRfXxnxfXsMHgHzh
- V95/AysGvXpZfmuqrgCL5D7PTElZnh0mRch38cjMVv6mIeDRdd/h1hdV69tBceIWHVTQl+1PWBr
- 11lxOV1TwdT1G6NSi5hWh1noOh+jLLk=
-X-Authority-Analysis: v=2.4 cv=Cs0q4X4D c=1 sm=1 tr=0 ts=6ac8a2c8 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=EiYrS7xXfcF7w+nkr41hpQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=SBSG_3fblaHcu9w4dFsA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDAzMiBTYWx0ZWRfX3FiEbU6Y1+Ir
- s3ygP0cX3ZBaTkCuHW3qFka6oSKvAEeB4+6swVL0ocVQCGH7omI4gWIxG9RvIr+qvgNtoQEhEyp
- xZzQUtLYQwD+IR2HOCMwOWZsLp7B04LTKMLHovWIpF0A+9LmlqV4rAc25qSfF8XDWW/VH+Y7Jr4
- rTVygDaSzoXJpH04F8eCh7QObdY9NyqkQfC3a7GrupS8vnnzJEnU0tF/46WnWQY9tQESvVnMk+C
- HW/6fPPrSYg1yq4yHRjwirPcIlF/MP8Hl4dCCuGTZIR8RrS1dKyBqZ/lmWX1Jfosq6rcNFUv+vJ
- rgFCxgUvsYhl6vngjYdjb/vIugu4wBWCusLcsS5j+XEw4vu0yER3ZqWiPZ++x7KX+JR6QaAQ0Tq
- rdyj1wJdy2JCHd3ayiQ2F7anpaExSnDIH53QEq9k7EgHFfA33GASChPFL/frBOgiZi4Ssyb2L0t
- USXbsKVCIozoABSDHBg==
-X-Proofpoint-ORIG-GUID: 86Df41Vt9KsUKH9gvBspMYHW3NI7xDLp
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-09_02,2026-10-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 bulkscore=0 clxscore=1015 adultscore=0
- priorityscore=1501 lowpriorityscore=0 impostorscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610020000
- definitions=main-2610090032
+References: <pm-ip-core-objects-candidate-0002-v9-1404514d79dd4560c571@gmail.com>
+ <CAL4WiirhPWmWCnPLHJVp8vXUvPGo6CQ6HC0ZmaEzYXmP8uZtzA@mail.gmail.com>
+In-Reply-To: <CAL4WiirhPWmWCnPLHJVp8vXUvPGo6CQ6HC0ZmaEzYXmP8uZtzA@mail.gmail.com>
+From: Cen Zhang <zzzccc427@gmail.com>
+Date: Fri, 9 Oct 2026 16:16:23 +0800
+X-Gm-Features: AclHuK_t-b9OH289lEm9prObkL3pHfGUf9zGubc5FVuGfk9n831yycBW3bIqDD0
+Message-ID: <CAFRLqsWNWhVA4k0Ox6yJ284iVAot_E29qr3cb-fNwCug4T=jLg@mail.gmail.com>
+Subject: Re: [PATCH net v2] ipv4: prevent in_dev_get() from returning a dead in_device
+To: Eric Dumazet <edumazet@kernel.org>
+Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, jiri@resnulli.us, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, baul.lee@xbow.com, 
+	baijiaju1990@gmail.com, jjzuming@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi Eric,
 
-On Thu, 10 Sep 2026 17:19:06 +0200, Frieder Schrempf wrote:
-> Add the 350 MHz frequency support that can be used for display with
-> pixelclk of 50 MHz. The divider of 7 is important for LVDS output on
-> i.MX93. It is also usable for parallel output.
+Eric Dumazet <edumazet@kernel.org> =E4=BA=8E2026=E5=B9=B410=E6=9C=889=E6=97=
+=A5=E5=91=A8=E4=BA=94 14:54=E5=86=99=E9=81=93=EF=BC=9A
+>
+> This is very confusing.
+> The changelog shows only the KASAN splat, which is really not that
+> interesting here.
+> The refcount_t: addition on 0 warning that must precede it would be
+> stronger evidence, as in the IPv6 commit.
+>
+> So this looks like a modified kernel or something like AI hallucination ?
+> Please elaborate
+>
+> pw-bot: cr
 
-Applied, thanks!
+To Answer the robot's questions. I found this issue through
+AI-assisted code analysis,
+then built a test case to actually triggered it. I were not aware
+of Baul's earlier submission at that point. The triggering run first report=
+ed:
 
-[1/2] clk: imx: fracn-gppll: Add 350 MHz support
-      commit: f85b551c519ee8f92be601ccf4f7d440582ac476
+  ------------[ cut here ]------------
+  refcount_t: addition on 0; use-after-free.
+  WARNING: lib/refcount.c:25 at refcount_warn_saturate+0xea/0x110,
+CPU#1: ip_core_fixture/498
+  CPU: 1 UID: 0 PID: 498 Comm: ip_core_fixture Not tainted
+7.2.0-rc5-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
+  RIP: 0010:refcount_warn_saturate+0xea/0x110
+  Call Trace:
+   <TASK>
+   inet_netconf_get_devconf+0xcbc/0xe40
+   ? __pfx_inet_netconf_get_devconf+0x10/0x10
+   rtnetlink_rcv_msg+0x7b9/0xce0
+   [...]
 
 Best regards,
--- 
-Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cen Zhang
