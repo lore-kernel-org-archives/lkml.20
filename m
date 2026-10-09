@@ -1,127 +1,113 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D35744F54F;
-	Fri,  9 Oct 2026 13:33:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8AC43CE489;
+	Fri,  9 Oct 2026 13:34:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791552827; cv=none; b=ZXUpx/07ZVv0DSwcEBDFq5obJkehZntaHGyjUi35vqxYrRogn7hRZQfINZZi5OWCYTrED1zB0mdPv0omcc/praWjwMFh2YTjWm1ZFIgI80B2jxz9LZARur8YuNojAVKZ6V2sRSJZR8fiMKSHvR0qKCjcQ+zVu3d37RdylXzpiNQ=
+	t=1791552888; cv=none; b=a4V+doTlJDqHaAMm2W78QcSN5YeNYTLEzmMY2iiTYk+7B+fXN1HRp0Ybmt9W6/piA8d5GKIud4qU5BGTvrssChqafK+srxLHuOQiOUng0Y6NVaIw11ccMsR7fZnK9HGizJxqcjpQwillOHpoKJxEmONClasI6UDE/lgU2ASa5aw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791552827; c=relaxed/simple;
-	bh=KGYEgNdDJamK3A8xevsHxpIVGl0Qt2S3tI7yZW1A92U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=onFjUq2X4zHBB6/LDwrPmp+gNxIZmNPjtVaPM1tN8yTf9fVebzcypsr1LvieUKH3/1cZcf73zmQCafMVRoKIsHxEKQ/84QElSN/pI3b1lCjvW60EhuEticjTLIhL+KntdCIjhjp9ytxutfprTsdozWf2gukYBgx4bNogE2/JHOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id C007B21BD4;
-	Fri,  9 Oct 2026 13:33:43 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
-	none
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8AC8D1326D;
-	Fri,  9 Oct 2026 13:33:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id oxVDIjbtyGr4ZgAAD6G6ig:T5
-	(envelope-from <tiwai@suse.de>); Fri, 09 Oct 2026 13:33:43 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: linux-sound@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH v2 4/5] ALSA: hda: Stop unsol event and jack polling at hda-ext device removal, too
-Date: Fri,  9 Oct 2026 15:33:38 +0200
-Message-ID: <20261009133341.440917-5-tiwai@suse.de>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261009133341.440917-1-tiwai@suse.de>
-References: <20261009133341.440917-1-tiwai@suse.de>
+	s=arc-20240116; t=1791552888; c=relaxed/simple;
+	bh=LxKg62PlmNx0MlHe1txpm2hxz+NCk7C1AJusvi2WtXQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=By8I2GwPi8ueBsY1BqDeIMczGqXRdWJBUgIIpJfJGuo87PZlbV4Q5s7KobuAaamKORPUKr9LlumuFGdVZyq1U54VmgxYeXfV8CFGyguc5bDEPb9s8xAcRTejDox94FgnjrNYg5gA7Dr3LEpBilDk7oREbpgepzmKGon+YotKkN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RIDAvzPQ; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RIDAvzPQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 852891F00893;
+	Fri,  9 Oct 2026 13:34:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791552886;
+	bh=TtF3DxvUhanuYnXt1YXLAj9lwWZRC5yyEKdizcebdSY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RIDAvzPQUtTEZoD28PiqD0bSNS1a5fzKGcBTYJ3JhB5VOKR4UvzXr5cRsiX+O9Rft
+	 v6njrea3Q9DlBrAwnGtbc5K2EC0yJ9olaq+9SDbP/r5VThLmubMUPwKfOIBwM7LPVY
+	 arLDpTYS9H0dE+PBUaUPrxBVtGbicRNGX2l1CFZLJvvjCyoHeo2FTI8X44qVpCBN/o
+	 LrcWXCcZrB++mzj5sUxTkah6CInb1tASHyFWvL3WcaK5pFZtqPpECmtU7M25LwhePC
+	 3gKW4ROfZU15+poeAdh4W4Jct1PAqWno9Uk/TtaSQVSJLVMc+fUKKuemniST0YnQGA
+	 LupsDS4Greg6w==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfauth.ams.internal (Postfix) with ESMTP id EDF13198003A;
+	Fri,  9 Oct 2026 09:34:40 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Fri, 09 Oct 2026 09:34:44 -0400
+X-ME-Sender: <xms:cO3IatkjrceH2Dfvd612El9oBRB_OmDZDWX8wUoNY84ehDv_AHjpGw>
+    <xme:cO3IalDlna-WLPFXdToT6HUyyyo6idcgY-x-Zw-ERqVsATMIPIrgvUX0FpHNenY6u
+    NYLhP3ayhZNctUecnSNBBfz8az7h1XLSdReJdiEFPTzjwLiu_tspQ>
+X-ME-Received: <xmr:cO3Iaqzp0GyhmLBWxlSmoc5FEHGRNTzpoKqwLp76ZDC_7jqaFCkPzZkH7ic>
+X-ME-Proxy-Cause: dmFkZTFZKR9ZI/CjT/olIIhYNnBN/AlfFyEQ1++yoCcEcTeUFS2I0EHbFo/1rsNiYswRBJ
+    nSG6QvgUhQASsuG1w6uheR+aViCkE4kIXigJXlIkba7/rbkrsS8K/K/xP7pIdR51u6MfKy
+    pjtTqnScid/gHM1kgJJNt3m4hXPtExGyb285G1jrYEXsbfQPDA5waONmqNtyJnwN1VmXx1
+    O2Md23mRCmTgOvJPS5CWRl6jlJ9i8Cmh/f/rMUXj+5pDIbggrn97MTjy0Lo0sDpkONUuxX
+    xzv8AO6dSO+veYf9kUaLdAxs0X1XGCMrQMasjXsb+RqicYAZ4mKUjYZOx6Wz42/YEK+PSG
+    GPIGFT669z3tCl8zJ5aa8M0lRsD36xWtG11UIxpZqZJXy+pWq7JwTOKyTa4sejJNnGvGGg
+    TUhXJtLOOaCGvj1kUZxz91b+b32TPrSQv4/H02Fo1PwQuvrPNYggOQpQ1b+Y5QktxSAa4r
+    qWYLUNZEMk32LA36q9WkZaxTeVdsulsifpl14x06XfyPJA9ojyUjf+BTfVnNHTCtaiHj0Y
+    OeFAjP3pOZ+67XWofs/s/GcwvUF+JWB084IiOrJIXucOyPBXcU35nwjYAtU5YYFitHws1G
+    5AjyK7EU4eViMXpoeW+5boxl+71n4C8dH2+1Byl0ySID7ayJXAPIHBAdfciQ
+X-ME-Proxy: <xmx:cO3IapJo_4ezpAdPK-fkhby-BNDMzX-XoWrGrGvdkMEmIQpMGzZ6zQ>
+    <xmx:cO3IatJRvkPseABvDmUMQ8kZPsdmGrXUqsm_tZzb7OLhopHOSe2nGw>
+    <xmx:cO3IaiVY4JCebb5JjGJOQUi2jaPkmb-12hRRoERsND-8K2AKZkct5A>
+    <xmx:cO3Iap_4vzMXxr_SoYmeBla_3_9Q_W1j5iSEOTgIw4p8w3Acz4bqIA>
+    <xmx:cO3IakK4F6Zj8e1EEjN9oMYLmJ9hyD8AFDWy84FZuk5ZqgidyoXaPsdz>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 9 Oct 2026 09:34:39 -0400 (EDT)
+Date: Fri, 9 Oct 2026 14:34:38 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Xu Yilun <yilun.xu@linux.intel.com>
+Cc: x86@kernel.org, linux-coco@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, dave.hansen@intel.com, kvm@vger.kernel.org, yilun.xu@intel.com, 
+	xiaoyao.li@intel.com, sohil.mehta@intel.com, adrian.hunter@intel.com, 
+	kishen.maloor@intel.com, tony.lindgren@linux.intel.com, peter.fang@intel.com, 
+	baolu.lu@linux.intel.com, zhenzhong.duan@intel.com, chao.gao@intel.com, 
+	artem.bityutskiy@linux.intel.com, nik.borisov@suse.com
+Subject: Re: [PATCH v3 5/6] x86/virt/tdx: Re-initialize the extensions on
+ runtime TDX module update
+Message-ID: <asjtU41QEND7lcTu@thinkstation>
+References: <20261006-tdx-module-ext-v3-0-db52cb05b918@linux.intel.com>
+ <20261006-tdx-module-ext-v3-5-db52cb05b918@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Pre-Result: action=no action;
-	module=Unknown lua;
-	unknown reason
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Rspamd-Pre-Result: action=no action;
-	module=Unknown lua;
-	unknown reason
-X-Spamd-Result: default: False [0.00 / 50.00]
-X-Spam-Score: 0.00
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261006-tdx-module-ext-v3-5-db52cb05b918@linux.intel.com>
 
-In the recent commit f3607b6952ca ("ALSA: hda: Stop unsol events and
-jack polling before codec unbind"), we applied the workaround to stop
-pending works at the hda codec driver removal, but it was applied
-after the bypass for hda-ext ops hdev_detach.  Basically the same
-issue is seen for hda-ext stuff, so it's safer to apply the workaround
-at the beginning of hda_codec_driver_remove().
+On Tue, Oct 06, 2026 at 01:41:49AM +0800, Xu Yilun wrote:
+> Runtime TDX module update introduces a mechanism to update the module
+> firmware while preserving and restoring TDX operations. The extensions
+> functionalities should also be re-initialized as part of the restoration
+> process.
+> 
+> The TDX architecture supports an update flow which allows updated
+> extensions to consume more memory than their original boot-time
+> requirement. So the arch defines the extensions re-initialization flow
+> the same as boot-up initialization: the host queries TDX module how much
+> additional memory needed, allocates it, adds it to the module via
+> TDH.EXT.MEM.ADD, then re-initializes the extensions via TDH.EXT.INIT.
+> 
+> Linux runs the updates in stop_machine() context, which prevents memory
+> allocation. So for Linux, a compatible update must not install updated
+> extensions that require additional memory.
+> 
+> Given that the memory for the extensions must not increase, the
+> re-initialization skips the memory adding steps. It is simplified as:
+> 
+>   - Check if the extensions are supported via TDX_FEATURES0_EXT. If not,
+>     skip the extensions re-initialization.
+> 
+>   - Re-initialize the extensions via TDH.EXT.INIT. The SEAMCALL leaf
+>     will fail if the updated extensions require more memory, which
+>     indicates the update image is not compatible.
+> 
+> Signed-off-by: Xu Yilun <yilun.xu@linux.intel.com>
 
-Along with it, the clearance of unsol_disabled flag is moved to the
-beginning of hda_codec_driver_probe(), too; otherwise hda-ext
-hdev_attach() might miss the unsol event handling when the code gets
-re-bound.
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-Fixes: f3607b6952ca ("ALSA: hda: Stop unsol events and jack polling before codec unbind")
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/hda/common/bind.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
-
-diff --git a/sound/hda/common/bind.c b/sound/hda/common/bind.c
-index d12359970e74..957feace0f58 100644
---- a/sound/hda/common/bind.c
-+++ b/sound/hda/common/bind.c
-@@ -92,6 +92,9 @@ static int hda_codec_driver_probe(struct device *dev)
- 	bool probed = false;
- 	int err;
- 
-+	/* unsol events are still blocked until registered */
-+	codec->core.unsol_disabled = false;
-+
- 	if (codec->bus->core.ext_ops) {
- 		if (WARN_ON(!codec->bus->core.ext_ops->hdev_attach))
- 			return -EINVAL;
-@@ -101,9 +104,6 @@ static int hda_codec_driver_probe(struct device *dev)
- 	if (WARN_ON(!codec->preset))
- 		return -EINVAL;
- 
--	/* unsol events are still blocked until registered */
--	codec->core.unsol_disabled = false;
--
- 	err = snd_hda_codec_set_name(codec, codec->preset->name);
- 	if (err < 0)
- 		goto error;
-@@ -161,16 +161,16 @@ static int hda_codec_driver_remove(struct device *dev)
- 	struct hda_codec *codec = dev_to_hda_codec(dev);
- 	struct hda_codec_driver *driver = hda_codec_to_driver(codec);
- 
-+	/* stop asynchronous jack handling before freeing driver resources */
-+	snd_hdac_device_disable_unsol(&codec->core);
-+	cancel_delayed_work_sync(&codec->jackpoll_work);
-+
- 	if (codec->bus->core.ext_ops) {
- 		if (WARN_ON(!codec->bus->core.ext_ops->hdev_detach))
- 			return -EINVAL;
- 		return codec->bus->core.ext_ops->hdev_detach(&codec->core);
- 	}
- 
--	/* stop asynchronous jack handling before freeing driver resources */
--	snd_hdac_device_disable_unsol(&codec->core);
--	cancel_delayed_work_sync(&codec->jackpoll_work);
--
- 	snd_hda_codec_disconnect_pcms(codec);
- 	snd_hda_jack_tbl_disconnect(codec);
- 	snd_refcount_sync(&codec->pcm_ref);
 -- 
-2.55.0
-
+  Kiryl Shutsemau / Kirill A. Shutemov
