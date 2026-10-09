@@ -1,439 +1,149 @@
-Received: from sonic314-22.consmr.mail.ne1.yahoo.com (sonic314-22.consmr.mail.ne1.yahoo.com [66.163.189.148])
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51E343B3C1D
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 05:10:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.189.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9ADA3B52FF
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 05:11:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791522659; cv=none; b=e54/ooXsDDtw+fyv+r3ayqf+JKSHlJrIdmtkMuOf/dh87+oPkOUTf6/o6uJitwowE7d1mb1Xu8DEoyw6Lh7juW5kngNg/eQs3BC7EVG29IM3cWBxnUHKkiWxPjslTVYD0yQSchqyAK/vbDrhphYTaXkrckIru4XHU4FKMV6DnSM=
+	t=1791522673; cv=none; b=mAd5bSpb8yEazo+m6WBKK44tRxJTtPaxUwSQ7hUt5FIFRS3dez/yFHd90z/g8HG2Yiq4ZoEyFg90CnYw09E5rTcC+X90aFG7TqUsQQjWdqB3yIfcalWRcF+FM+PMhKlwqWBEc0t9nhzeV94NETO8vbzQZv2l8COvK8zZ0pXpHKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791522659; c=relaxed/simple;
-	bh=liQ1yxbkNFQsNC1fJVWxY0YVKzkyEwh/kMzNMtOTfqE=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
-	 In-Reply-To:Content-Type; b=t1DN6vuiMjSmTHqfwYxaja2kDzcR59LDgqesE8wr5UHoguxSVe8ykcHXRJaDlv0geKV49xU/7YMl6AeEg1dSnDfL5dKxfclizx5nmlpql1omCIU0MFbHfFlj8vFDg1JfEV/el5BLvcWKssf4bl1bmJcJp4ZQq5CJXnUtUR4cwnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=mwXuleJj; arc=none smtp.client-ip=66.163.189.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1791522673; c=relaxed/simple;
+	bh=fIG6kNVbSBDcIDJq3p3pVkq328vRxzchYU1SH8Kzvhw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=MhvQCqSb5o3/QTWWRiCZkfGOaa0ri8KI/Oaou1DFs7Z5M+9Wr9JeiUWZzHRv/1U76xO2ngk3AV4Wxm5Zxj8YANOdGhYg8vxT64ALoXp996ry/VCveRM+QqLw9BneDKhXCvOVLqtr3Nn0EOHz0FYiUL293ZAOfOExsOOznY4phEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rthjuziN; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="mwXuleJj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791522657; bh=56Nx5p5RuPwWuVbJECBEiyNrkSuVNCSISaaE05CLNg4=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=mwXuleJjv3CSMFgiqXG96YsdD213X3/Gxr0pHs7vrIgYRAzCAnbjQWTPGn5dstyNM7tl8pjcd/UJJ7Fu+vrAamNp36vLr2p92MLPhjdoI4un1VIPRuAnZyipIvmoQgWrwLNwuItPIshQJ15lcTnfVz9csP90QSx+uqf5B0vWKktOOyLhrMByyEBUHGUyJdy59ooHaeMrRQyuGHs5oXBECtoMZ8bYh0aIO+voNEx8xSaR2YLBGk8+IXkULDrLOwI7RgkwY06bH9LcS8bHUDjJQb2nIImreZGTPhPDIGj+GBLzNPzJP4UexuJN9xzEckH1RpBVJuviTF/yEGZm2l8/gg==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791522657; bh=9nXTvVdwE6lrpyWqsIanUugCnWEPV7Ji1VTOozPCA5P=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=ttMPNpH5ypcSQI257dVtZCAt2zIjL2KY2iemx8eBhVrlT9kvPBElGwZZtSxe7kBj6R2yVaNliPBbk1jCaOd7FgapLKacGk3OKZ4+izE8ihARFWmkAbhKaqK6JMnTr4H1LoxDG7YQnNGU02p7V+PbkVRopD7vBxyneQCFhj+u98j9hGUSYGFsYppkmUmhlMj3JTjkj0YezX7FCCFq6WLMi9FUIcA/Yz5YBieUNKrnt+TDKImUH4OzI+0Fr4CUnT0xoO5kdWXY+gAYVYEdx11W+E1rR+3SOzVpLK19/8idPpEE5FdLMo1O9kp97GXG4D2rSEhZi69ARsb0RJE/xYHnqA==
-X-YMail-OSG: HDAH9HMVM1m7huEA4VOJvyflucKwuLkoTH2f55mEuQ0vHOfBmxStC3QiBt9foCv
- MptAK707wEwl2FWpyuxJqNQpvwe3qw1dMSmOKNL.WBuMxxpoyU01Wfz.3sjvH2bgYWb.Rd2vCBcP
- Z2Si.wxjrQV_nllSmJJQXJz3..eOakAXSfbXYWTuyuG1olPT795mRPhQjXQEI64gqV_iY.YwnJEA
- 2GsyDXG8znR9fFuGLXk1is6J6hyFuQVZvJi2M9H6slJp1whK7feZtYSgMP8X6xXShDKjk._0qEXV
- y2oFvsKk8DPoX0hHsuzZwf_VVqhB._.rN5P70i.u6NYjwrNaNryZYlthg435AsaQtdkRSKBFP.XA
- K.E37z5dwo69lg7VkekS98cMVMqp4CyV4UhddbBk0erWdGLbiqS5MvTLrU78QDtT1U8fp3cJmzew
- lgzhlmdBaJ11nwN1mgm6_bEFxB_uVK63EkRXoSggyyVs2oB5ZVJfqxBb3s4ApaWB9JiJ.xynz38N
- P98LvxTTSDnm7jEBzEDUrFfSz4nSAZJ1GxUVot8U59yHQlVbW3zU3YeBopG43tjlaCoP8124o0zq
- 75HDFc69PreF1ANUkbYHsYCUAQ44ADF7KPbcZZKpLlx7XZDgqcrn8wLMwb2rLJcBN2YOmyOmmVqb
- RYwlN8uSp1vKehTIN9Nb416WK.Dm96lEcK5HkCdyaLPNBwS9UQmezqCGE52CqY.tdAkKMe6EjezW
- 7fekGb3p9bhOALnWqPqytJ62gsvG1Z60d0M2Aix9q8jUdX0vocasb9lEr7uwpBcrMWOINgMOpClE
- N2vWrwLofb.tRFcfiW_r6_NpBDv4M1bGhsJOHlszL3MAoMlG7Tn6WwOeTQzdOIEQJ9KwzOpE1Ouz
- RcO.DB6IYafRJVgwjlk5CwHnRJXEsDnmNIg3XbDP8wJbVOepxxIrS5BcE4iJtqbNMrU6t_jZPjUv
- AzzRlehR9Py.qAvi.oghbAvugkpoeGzACp8PYlYNmfrBFm9_LlezsyNhZ8yTIUFoOIQaXIX28hIs
- YrmkdgOh7OWI2QuIhIDu5Q5gtOYy49OiM4sm4G5QnuYIXvxMwGJ.mE46LF6dNuyJRQjJq.fOiv0z
- Eqw8UUS.Rd5bzBcLIrCKg6Mc0FMrklAMQYHrQ1KPY4TzTgUE7_M8ZW7s0x_IPHsuIcBPh62Tt55L
- bs6e8N5n_KBygY7Kwc75PQ19wHtHJ81Rw8p3x6YUgoItjPDFNDrvlH.D4QrkJ3JuvKjID_hE.n2a
- UCUk2YHZ2jDHsOd78u9uxEJOWCB5ODTeDDZ.wjpa1jRmJMdKpkNuXdFGX5OnQteRcspQ1Kz0ZtcJ
- 6gC0me7tS1AZ9hE.PZ.LcBRwBjdQPM27FqYkZcKvrfyVOI.lVuP8uL.c3PXq5DfTY5rkuSTAJjks
- .W5ywcA9ytZOkxolGXBBNHkAxHAkUWzij5pQnldJrFjQAimSWnWZQIlKgKk.IXMV2Mg7PiT0_F74
- r9I30rc04su_djacLQ_JLxmkLQ6M3BFUENKl.ndQs0ponREucOj4K6D_cYVbHzvZUWLnYa_fqkSf
- GUHqiBuQXj6Nd5drMsmaZlssvS_WZtzZEvTAiGwmiZGPetufBYeizc80ok38FIl28hZoWbXA4hwg
- D7lcUJjUpmwpu.u5FM6Q9AYarAQtWATOlZOb0EJmfjQkmXnpWAwlnoXU6I2Nf6YPUYROpFADvy0j
- wEzkJlitW0LM.o9a7AWIoDV1oz4TzdhGf.YOEn_BhTs0HyY61hYEwursFRrVmgiE33YVfUeni.jB
- N7D4905MkBXTvJojtRsyNrkeWLlQwsqn40wzzGcnOkmcNIEcfkE89Dc8UxiatFevezSmXYNRmr_U
- 7XKMomx55RWOnGawd9USHd0ccxaX5noJz0mFVTLziKcC2wwQMaIUA_uPXCAcxpvfAFsTiFWQ0Bdx
- _YjX2BSL7iyNhkJzXCBqcP0ckwbiA3aKwPFjHIeQhJ3w8s1txVW3hAORA1JTECH2D7GICPZCGBeB
- 8vtHx2_ZgzdU0MbP3JZvEvCx_p2bpVC1DVTH1EdZ_pmr2pgNshM3OWnIE1vd1_cfJSWDdZtCWUil
- Oy_mXgwJ58akmcHrOrG94QygbZcT87ZsfXy6kaP3KSIw.sjTvyV89VfhcJk_ZIR6xTwlbJg5O6MK
- MuO5ARXG.YI6PAJWrQBthYl36iAy8di1BXuZo0a3J._8FnNYMNrlfo3zkLjoYiNxvfyslKftZLQF
- C.D4nsjyRjz1GhJmceukpjoyZKwkvm5uT_ThdM56t8bcWGqIGGm46V7KE08FEoyTRHuobuDudxpW
- ok6G7p8ynD_IonPzaHv6IXF1G0QzesDjf2dEovKo-
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: 3e4a362a-0e37-470c-ae8d-db1d32371c9a
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic314.consmr.mail.ne1.yahoo.com with HTTP; Fri, 9 Oct 2026 05:10:57 +0000
-Received: by hermes--production-ir2-5dd9bf4598-ztwl7 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID bdf7bea4b2dfe1c386d043e78a785697;
-          Fri, 09 Oct 2026 05:00:40 +0000 (UTC)
-Message-ID: <a45bbcfe-9436-4800-bf23-553d1d566716@yahoo.com>
-Date: Fri, 9 Oct 2026 07:00:34 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rthjuziN"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-398a5aad413so4269555a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 22:11:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791522671; x=1792127471; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lE3/kQE3CWaeZ8e1J8lpY+d3lLDFtCRTYFUR1YExG5s=;
+        b=rthjuziNL9aQraViHXIBDfRDuuhmkSGKHCDOWWqBy3zIDTVNFKO0DX5orM7oystYm4
+         oTdAmuiZtZG6QTOt+9UVMx5lwI/dM9qMF8l+HBCP0n7WGrXr76wlGPiOM4V1RUsVoNyD
+         GPKnlgqool1h9J3015snqngIBzK0nXoVeNoNP8+cruMee54v//GqUcDdatv/GZquTFNM
+         C1M0+xn8yr6xihflBlhbszh/4nyWgScvOd1wXSnNXjs9iI0tcwTcI+2mo7SLt4Zt2QjZ
+         oM8QBoPItFuQNocyM+VFZPhNXn4vnB1/0zMKvB/ArmO9TO4H7PATCZFAdJ+I65lPoBJI
+         ciCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791522671; x=1792127471;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lE3/kQE3CWaeZ8e1J8lpY+d3lLDFtCRTYFUR1YExG5s=;
+        b=itYg2zq7LZX9NZZypFpvx0gSHqNABp/8Tme0bYTvSmbtvmLE97kzctIGLLT7kfslPt
+         QtDCTR1uCQwHjAMBswLNuayuYjlfiJvPEq+mdky8sj05n3K8rL8nD3ph0J3X9gnQFIpS
+         dkgBFok+XT+HNTY7ZUtCGvexuQk8BAaY+0TDdfwOwfY58nVMcaujH+2umUhr3lyltJ/m
+         kH06CuEfnPHKFCqOmvGn/CaMpJ84tdh6fYyzWF+yUz0Z8hZbllznnlWdHIBKC9Rb7Hyu
+         WKVPxyljs4mEWVeyBOqEBdVOFDRt4iwMZ87epdqJ0d+MqJs8E8V2lWpXEtIITaWcxQhE
+         Xdpg==
+X-Forwarded-Encrypted: i=1; AKwUvBwgBYS+WOLT9504FKRe3jEOsNf3IR90sXmRZW2O7/XLSDxNZTBrbpeVqjFj8cYYh/FOMUvuBWfu6cPhQGs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKnBUYSSfdvi3CQJj7EPtaEaDP3jtxHR+nVwA5aggxTjTA2yC4H
+	SvXZODL/dBjmxZkiyy+pyWqn7gc297VUo9WS1YatRDEbsoClg2mI+1QG
+X-Gm-Gg: AYBFou04PGH9nCQxVDfez9v5HeJHaA/AQ/mHoiBS91hTUH8vONkJ9uhOZSRnZBBBzW5
+	0g3/9k4CF5xZQhqZ4q4tmDGXzSqUCUSG5ZFfmUslpolswndu3tIayO8vrsYIH2bspOmhpe8hp5R
+	ByWLlkJ15rvO5fLRKUTlPA5a9XVz22fxIGDFjbDJCntcf4OcIrr1CiuQDwea3ZmBulz71wwtMlC
+	sr3mA4Xr+iuQmcAMXj2Xde9PLfDVCUl9e7WhqJBC4WRgf15xmDGai2cH/XufSZ/3fJ1rMysc7OP
+	kYp/f3fdJK2rr7hy1Dquf6WbVbEN+zUmD9H2rC9QlU2EGl+IvK9c2J/6XUdGwj7iRc4fZQPDbV+
+	TOEdybPwT14nVOJBBSvpTwXbauukFUOOwfO4fFzjGbXkGm7Hih4nFMAmxTuz02uD+RTDANNARgN
+	6I+7PMvimc81DhKyF05ZlkvicEEmOa+71j+KlRlfRLETnigqT1Mhs1h1qmbPBhIF1bsA==
+X-Received: by 2002:a17:90b:1e41:b0:3ab:de4:7fa5 with SMTP id 98e67ed59e1d1-3ab3a9726admr840824a91.56.1791522671042;
+        Thu, 08 Oct 2026 22:11:11 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36f73e7fsm1925492a91.0.2026.10.08.22.11.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 22:11:10 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: dhowells@redhat.com,
+	jarkko@kernel.org,
+	paul@paul-moore.com,
+	jmorris@namei.org,
+	serge@hallyn.com
+Cc: keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH v2] keys: Protect the type name while describing a key
+Date: Fri,  9 Oct 2026 13:11:03 +0800
+Message-Id: <pm-key-management-objects-candidate-0009-v4-6b537c5732fd957c33fa@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH net-next v2 7/8] net: dsa: realtek: rtl8365mb: add family D
- SDS13 PCS support
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-To: linusw@kernel.org, alsi@bang-olufsen.dk, andrew@lunn.ch,
- olteanv@gmail.com, kuba@kernel.org, davem@davemloft.net,
- edumazet@google.com, pabeni@redhat.com, linux@armlinux.org.uk,
- luizluca@gmail.com, maxime.chevallier@bootlin.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <28382f3f-03c1-4606-9b11-86f118abeafe@yahoo.com>
-Content-Language: pl
-In-Reply-To: <28382f3f-03c1-4606-9b11-86f118abeafe@yahoo.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Transfer-Encoding: 8bit
 
-Extend the existing RTL8367S SGMII/HSGMII PCS implementation in this
-driver for family D switches, whose CPU SerDes is reached through the
-indexed SDS13 window and whose SDS_MISC fields differ from family C.
+keyctl_describe_key() must keep the key type's name alive until
+kasprintf() has consumed it. The retained key reference keeps the key
+and its description alive, but does not pin the module providing its
+type. The name is passed to kasprintf() without holding key->sem.
 
-The register sequence and tuning tables are derived from the GPL-licensed
-Realtek RTL8367D port API distributed in the Mercusys MR80X GPL release.
-Keep the existing family C path unchanged and select the new behavior from
-the driver's chip-family metadata, making the implementation reusable by
-other family D boards.
+kvasprintf() uses the saved name pointer in two formatting passes, with
+a GFP_KERNEL allocation between them. With AF_RXRPC=m, a task that
+passes View permission before type retirement can overlap a privileged
+module unload in this order:
 
-Co-developed-by: Fabiano Tassotti <fabianotassotti@gmail.com>
-Signed-off-by: Fabiano Tassotti <fabianotassotti@gmail.com>
-Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+1. KEYCTL_DESCRIBE looks up the key, saves key->type->name in the
+   kasprintf() arguments and completes the first formatting pass.
+2. While the formatter is delayed before its second pass,
+   af_rxrpc_exit() calls unregister_key_type(), which removes the type
+   from the registry and waits for key_gc_keytype().
+3. The collector takes key->sem for writing, retypes the retained key
+   to key_type_dead and completes retirement. Unregistration and module
+   exit return, allowing free_module() to release the type and name.
+4. The formatter resumes its second pass and reads the saved name from
+   released module storage, which can fault in string().
+
+Hold key->sem for reading across kasprintf(). The collector then cannot
+retype the key or complete retirement until both formatting passes have
+finished. If retirement wins the lock first, formatting uses the core
+key_type_dead name instead. Release the semaphore immediately after
+kasprintf(), including on allocation failure, before copying to
+userspace.
+
+Oops report as below:
+
+    BUG: unable to handle page fault for address: fffffbfff8054794
+    #PF: supervisor read access in kernel mode
+    #PF: error_code(0x0000) - not-present page
+    RIP: 0010:string+0x23f/0x470
+    Call Trace:
+     vsnprintf+0x330/0x1110
+
+Fixes: aa9d4437893f ("KEYS: Fix the size of the key description passed to/from userspace")
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 ---
- drivers/net/dsa/realtek/rtl8365mb_main.c | 181 ++++++++++++++++++-----
- 1 file changed, 145 insertions(+), 36 deletions(-)
+Changes in v2:
+- Trim the Oops report to the fault location and vsnprintf frame.
 
-diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
-index 3819a48..4cad90f 100644
---- a/drivers/net/dsa/realtek/rtl8365mb_main.c
-+++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
-@@ -286,6 +286,7 @@
- #define   RTL8365MB_SDS_INDACS_CMD_BUSY_MASK	BIT(8)
- #define   RTL8365MB_SDS_INDACS_CMD_RUN_MASK	BIT(7)
- #define   RTL8365MB_SDS_INDACS_CMD_WR_MASK	BIT(6)
-+#define   RTL8365MB_SDS_INDACS_CMD_INDEX_MASK	GENMASK(5, 0)
- #define RTL8365MB_SDS_INDACS_ADR_REG		0x6601
- #define RTL8365MB_SDS_INDACS_DATA_REG		0x6602
- 
-@@ -334,7 +335,22 @@
- #define   RTL8365MB_SDS_OPTION_ARM_KEY		0x0249
- #define RTL8365MB_SDS_OPTION_REG		0x13C1
- 
-+/* Family D uses the SDS13 indirect window for its MAC6 SerDes. */
-+#define RTL8365MB_D_SDS_EXT0_INDEX			13
-+#define RTL8365MB_D_FIBER_CFG2_REG			0x13E8
-+#define   RTL8365MB_D_FIBER_CFG2_RX_DISABLE_MASK	GENMASK(7, 6)
-+#define   RTL8365MB_D_FIBER_CFG2_RX_DISABLE_SDS0	BIT(6)
-+#define RTL8365MB_D_SDS_MISC_PA33PC_EN			BIT(11)
-+#define RTL8365MB_D_SDS_MISC_PA12PC_EN			BIT(10)
-+#define RTL8365MB_D_SDS_MISC_MAC6_SEL_SDS0		BIT(9)
- #define RTL8365MB_D_SDS_MISC_MODE_FIELD_MASK		GENMASK(4, 0)
-+#define RTL8365MB_D_SDS_MISC_MODE_SGMII			0x02
-+#define RTL8365MB_D_SDS_MISC_MODE_HSGMII		0x12
-+#define RTL8365MB_D_SDS_MISC_CFG_MASK			\
-+	(RTL8365MB_D_SDS_MISC_PA33PC_EN |		\
-+	 RTL8365MB_D_SDS_MISC_PA12PC_EN |		\
-+	 RTL8365MB_D_SDS_MISC_MAC6_SEL_SDS0 |		\
-+	 RTL8365MB_D_SDS_MISC_MODE_FIELD_MASK)
- /* Shared "disable" encoding for both SDS_MISC's and SDS1_MISC0's
-  * 5-bit mode fields.
-  */
-@@ -714,6 +730,21 @@ static const struct rtl8365mb_jam_tbl_entry rtl8365mb_sds_jam_hsgmii[] = {
- 	{ 0x0424, 0xD810 }, { 0x0001, 0x0F80 }, { 0x002E, 0x83F2 },
- };
- 
-+/* Family D tuning tables from the Realtek vendor port API. */
-+static const struct rtl8365mb_jam_tbl_entry rtl8365mb_d_sds_jam_sgmii[] = {
-+	{ 0x0427, 0x4E0C }, { 0x0428, 0xAA00 }, { 0x0425, 0x5189 },
-+	{ 0x0424, 0x8414 }, { 0x0423, 0x1020 }, { 0x0410, 0x0002 },
-+	{ 0x0484, 0x011B }, { 0x0421, 0x8E13 }, { 0x0422, 0x1140 },
-+	{ 0x0004, 0x074F },
-+};
-+
-+static const struct rtl8365mb_jam_tbl_entry rtl8365mb_d_sds_jam_hsgmii[] = {
-+	{ 0x0427, 0x4E0C }, { 0x0428, 0xAA00 }, { 0x0425, 0x5189 },
-+	{ 0x0424, 0x8414 }, { 0x0423, 0x1020 }, { 0x0410, 0x0002 },
-+	{ 0x0504, 0x051B }, { 0x0421, 0x8E13 }, { 0x0422, 0x1140 },
-+	{ 0x0004, 0x074F },
-+};
-+
- enum rtl8365mb_phy_interface_mode {
- 	RTL8365MB_PHY_INTERFACE_MODE_INVAL = 0,
- 	RTL8365MB_PHY_INTERFACE_MODE_INTERNAL = BIT(0),
-@@ -1327,7 +1358,8 @@ static int rtl8365mb_ext_config_rgmii(struct realtek_priv *priv, int port,
- 	return 0;
- }
- 
--static int rtl8365mb_sds_write(struct realtek_priv *priv, u16 addr, u16 data)
-+static int rtl8365mb_sds_write(struct realtek_priv *priv, u8 index,
-+			       u16 addr, u16 data)
- {
- 	int ret;
- 
-@@ -1345,10 +1377,13 @@ static int rtl8365mb_sds_write(struct realtek_priv *priv, u16 addr, u16 data)
- 	 */
- 	return regmap_write(priv->map, RTL8365MB_SDS_INDACS_CMD_REG,
- 			    RTL8365MB_SDS_INDACS_CMD_RUN_MASK |
--			    RTL8365MB_SDS_INDACS_CMD_WR_MASK);
-+			    RTL8365MB_SDS_INDACS_CMD_WR_MASK |
-+			    FIELD_PREP(RTL8365MB_SDS_INDACS_CMD_INDEX_MASK,
-+				       index));
- }
- 
--static int rtl8365mb_sds_read(struct realtek_priv *priv, u16 addr, u16 *data)
-+static int rtl8365mb_sds_read(struct realtek_priv *priv, u8 index,
-+			      u16 addr, u16 *data)
- {
- 	u32 val;
- 	int ret;
-@@ -1358,7 +1393,9 @@ static int rtl8365mb_sds_read(struct realtek_priv *priv, u16 addr, u16 *data)
- 		return ret;
- 
- 	ret = regmap_write(priv->map, RTL8365MB_SDS_INDACS_CMD_REG,
--			   RTL8365MB_SDS_INDACS_CMD_RUN_MASK);
-+			   RTL8365MB_SDS_INDACS_CMD_RUN_MASK |
-+			   FIELD_PREP(RTL8365MB_SDS_INDACS_CMD_INDEX_MASK,
-+				      index));
- 	if (ret)
- 		return ret;
- 
-@@ -1398,6 +1435,14 @@ static int rtl8365mb_sds_probe_option(struct realtek_priv *priv)
- 	int ret;
- 	int i;
- 
-+	/* Family D has a fixed SDS13 programming model and does not use the
-+	 * family C option register to select its tuning table.
-+	 */
-+	if (rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D) {
-+		mb->sds_supported = true;
-+		return 0;
-+	}
-+
- 	/* Nothing to probe if no external interface is wired to the SerDes */
- 	for (i = 0; i < RTL8365MB_MAX_NUM_EXTINTS; i++) {
- 		extint = &mb->chip_info->extints[i];
-@@ -1476,28 +1521,47 @@ static int rtl8365mb_pcs_config(struct phylink_pcs *pcs, unsigned int neg_mode,
- 				const unsigned long *advertising,
- 				bool permit_pause_to_mac)
- {
--	const struct rtl8365mb_jam_tbl_entry *sds_jam;
- 	const int id = RTL8365MB_SDS_EXT_INTERFACE_ID;
-+	const struct rtl8365mb_jam_tbl_entry *sds_jam;
- 	struct rtl8365mb *mb = pcs_to_rtl8365mb(pcs);
--	struct realtek_priv *priv;
-+	struct realtek_priv *priv = mb->priv;
- 	size_t sds_jam_size;
--	u32 mode;
-+	u32 misc_mask;
-+	u32 misc_val;
-+	u32 sds_mode;
-+	u8 sds_index;
-+	bool is_d;
- 	u16 val;
- 	int ret;
- 	int i;
- 
--	priv = mb->priv;
-+	is_d = rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D;
- 
-+	/* Select the appropriate tuning table and SDS mode */
- 	if (interface == PHY_INTERFACE_MODE_2500BASEX) {
--		sds_jam = rtl8365mb_sds_jam_hsgmii;
--		sds_jam_size = ARRAY_SIZE(rtl8365mb_sds_jam_hsgmii);
--		mode = RTL8365MB_EXT_PORT_MODE_HSGMII;
-+		if (is_d) {
-+			sds_jam = rtl8365mb_d_sds_jam_hsgmii;
-+			sds_jam_size = ARRAY_SIZE(rtl8365mb_d_sds_jam_hsgmii);
-+			sds_mode = RTL8365MB_D_SDS_MISC_MODE_HSGMII;
-+		} else {
-+			sds_jam = rtl8365mb_sds_jam_hsgmii;
-+			sds_jam_size = ARRAY_SIZE(rtl8365mb_sds_jam_hsgmii);
-+			sds_mode = RTL8365MB_EXT_PORT_MODE_HSGMII;
-+		}
- 	} else {
--		sds_jam = rtl8365mb_sds_jam_sgmii;
--		sds_jam_size = ARRAY_SIZE(rtl8365mb_sds_jam_sgmii);
--		mode = RTL8365MB_EXT_PORT_MODE_SGMII;
-+		if (is_d) {
-+			sds_jam = rtl8365mb_d_sds_jam_sgmii;
-+			sds_jam_size = ARRAY_SIZE(rtl8365mb_d_sds_jam_sgmii);
-+			sds_mode = RTL8365MB_D_SDS_MISC_MODE_SGMII;
-+		} else {
-+			sds_jam = rtl8365mb_sds_jam_sgmii;
-+			sds_jam_size = ARRAY_SIZE(rtl8365mb_sds_jam_sgmii);
-+			sds_mode = RTL8365MB_EXT_PORT_MODE_SGMII;
-+		}
- 	}
- 
-+	sds_index = is_d ? RTL8365MB_D_SDS_EXT0_INDEX : 0;
-+
- 	/* Hold the embedded DW8051 microcontroller in reset and keep it
- 	 * disabled. The vendor driver loads firmware into it to manage the
- 	 * SerDes link, but the firmware only duplicates work that phylink
-@@ -1526,34 +1590,53 @@ static int rtl8365mb_pcs_config(struct phylink_pcs *pcs, unsigned int neg_mode,
- 
- 	/* Tune the SerDes with vendor-prescribed parameters */
- 	for (i = 0; i < sds_jam_size; i++) {
--		ret = rtl8365mb_sds_write(priv, sds_jam[i].reg,
--					  sds_jam[i].val);
-+		ret = rtl8365mb_sds_write(priv, sds_index,
-+					  sds_jam[i].reg, sds_jam[i].val);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	/* Family-specific post-tuning configuration */
-+	if (is_d) {
-+		ret = regmap_update_bits(priv->map, RTL8365MB_D_FIBER_CFG2_REG,
-+					 RTL8365MB_D_FIBER_CFG2_RX_DISABLE_MASK,
-+					 RTL8365MB_D_FIBER_CFG2_RX_DISABLE_SDS0);
- 		if (ret)
- 			return ret;
-+
-+		misc_mask = RTL8365MB_D_SDS_MISC_CFG_MASK;
-+		misc_val  = RTL8365MB_D_SDS_MISC_PA33PC_EN |
-+			    RTL8365MB_D_SDS_MISC_PA12PC_EN |
-+			    RTL8365MB_D_SDS_MISC_MAC6_SEL_SDS0 | sds_mode;
-+	} else {
-+		/* Mux the SerDes to MAC8 in the requested mode */
-+		misc_mask = RTL8365MB_SDS_MISC_MAC8_SEL_SGMII_MASK |
-+			    RTL8365MB_SDS_MISC_MAC8_SEL_HSGMII_MASK;
-+		misc_val  = (sds_mode == RTL8365MB_EXT_PORT_MODE_SGMII) ?
-+			    RTL8365MB_SDS_MISC_MAC8_SEL_SGMII_MASK :
-+			    RTL8365MB_SDS_MISC_MAC8_SEL_HSGMII_MASK;
- 	}
- 
--	/* Mux the SerDes to MAC8 in the requested mode */
- 	ret = regmap_update_bits(priv->map, RTL8365MB_SDS_MISC_REG,
--				 RTL8365MB_SDS_MISC_MAC8_SEL_SGMII_MASK |
--					 RTL8365MB_SDS_MISC_MAC8_SEL_HSGMII_MASK,
--				 mode == RTL8365MB_EXT_PORT_MODE_SGMII ?
--					 RTL8365MB_SDS_MISC_MAC8_SEL_SGMII_MASK :
--					 RTL8365MB_SDS_MISC_MAC8_SEL_HSGMII_MASK);
-+				 misc_mask, misc_val);
- 	if (ret)
- 		return ret;
- 
--	val = mode << RTL8365MB_DIGITAL_INTERFACE_SELECT_MODE_OFFSET(id);
--	ret = regmap_update_bits(priv->map,
--				 RTL8365MB_DIGITAL_INTERFACE_SELECT_REG(id),
--				 RTL8365MB_DIGITAL_INTERFACE_SELECT_MODE_MASK(id),
--				 val);
--	if (ret)
--		return ret;
-+	if (!is_d) {
-+		val = sds_mode << RTL8365MB_DIGITAL_INTERFACE_SELECT_MODE_OFFSET(id);
-+		ret = regmap_update_bits(priv->map,
-+					 RTL8365MB_DIGITAL_INTERFACE_SELECT_REG(id),
-+					 RTL8365MB_DIGITAL_INTERFACE_SELECT_MODE_MASK(id),
-+					 val);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	/* Take the SerDes out of reset. The vendor driver does this only
- 	 * after the SerDes mux and the interface mode are configured.
- 	 */
--	ret = rtl8365mb_sds_write(priv, RTL8365MB_SDS_REG_RESET,
-+	ret = rtl8365mb_sds_write(priv, sds_index,
-+				  RTL8365MB_SDS_REG_RESET,
- 				  RTL8365MB_SDS_RESET_DEASSERT);
- 	if (ret)
- 		return ret;
-@@ -1563,12 +1646,14 @@ static int rtl8365mb_pcs_config(struct phylink_pcs *pcs, unsigned int neg_mode,
- 	 * This flushes the FIFOs and ensures a clean state for the link,
- 	 * preventing silent drops and CRC errors.
- 	 */
--	ret = rtl8365mb_sds_write(priv, RTL8365MB_SDS_REG_BMCR,
-+	ret = rtl8365mb_sds_write(priv, sds_index,
-+				  RTL8365MB_SDS_REG_BMCR,
- 				  RTL8365MB_SDS_BMCR_DPRST_PHASE1);
- 	if (ret)
- 		return ret;
- 
--	ret = rtl8365mb_sds_write(priv, RTL8365MB_SDS_REG_BMCR,
-+	ret = rtl8365mb_sds_write(priv, sds_index,
-+				  RTL8365MB_SDS_REG_BMCR,
- 				  RTL8365MB_SDS_BMCR_DPRST_PHASE2);
- 	if (ret)
- 		return ret;
-@@ -1576,14 +1661,16 @@ static int rtl8365mb_pcs_config(struct phylink_pcs *pcs, unsigned int neg_mode,
- 	/* Keep SGMII in-band autonegotiation disabled: the link parameters are
- 	 * forced from rtl8365mb_pcs_link_up() instead.
- 	 */
--	ret = rtl8365mb_sds_read(priv, RTL8365MB_SDS_REG_NWAY, &val);
-+	ret = rtl8365mb_sds_read(priv, sds_index,
-+				 RTL8365MB_SDS_REG_NWAY, &val);
- 	if (ret)
- 		return ret;
- 
- 	val &= ~RTL8365MB_SDS_NWAY_EN_MASK;
- 	val |= RTL8365MB_SDS_NWAY_RESTART_MASK;
- 
--	return rtl8365mb_sds_write(priv, RTL8365MB_SDS_REG_NWAY, val);
-+	return rtl8365mb_sds_write(priv, sds_index,
-+				   RTL8365MB_SDS_REG_NWAY, val);
- }
- 
- static bool rtl8365mb_interface_is_serdes(phy_interface_t interface)
-@@ -1608,10 +1695,14 @@ static void rtl8365mb_pcs_get_state(struct phylink_pcs *pcs,
- {
- 	struct rtl8365mb *mb = pcs_to_rtl8365mb(pcs);
- 	struct realtek_priv *priv = mb->priv;
-+	u8 sds_index = 0;
- 	u16 status;
-+	bool is_d;
- 	u32 val;
- 	int ret;
- 
-+	is_d = rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D;
-+
- 	/* In-band autonegotiation is not implemented, so the link parameters are
- 	 * forced from rtl8365mb_pcs_link_up(). The real link state must still be
- 	 * read from the SerDes itself: the embedded DW8051 microcontroller that
-@@ -1619,7 +1710,11 @@ static void rtl8365mb_pcs_get_state(struct phylink_pcs *pcs,
- 	 * rtl8365mb_pcs_config()), so the link status register can be read
- 	 * directly through the SDS_INDACS window without racing the auto-poll.
- 	 */
--	ret = rtl8365mb_sds_read(priv, RTL8365MB_SDS_REG_LINK_STATUS, &status);
-+	if (is_d)
-+		sds_index = RTL8365MB_D_SDS_EXT0_INDEX;
-+
-+	ret = rtl8365mb_sds_read(priv, sds_index,
-+				 RTL8365MB_SDS_REG_LINK_STATUS, &status);
- 	if (ret) {
- 		state->link = false;
- 		return;
-@@ -1630,6 +1725,13 @@ static void rtl8365mb_pcs_get_state(struct phylink_pcs *pcs,
- 	if (!state->link)
- 		return;
- 
-+	if (is_d) {
-+		state->duplex = DUPLEX_FULL;
-+		state->speed = state->interface == PHY_INTERFACE_MODE_2500BASEX ?
-+				SPEED_2500 : SPEED_1000;
-+		return;
-+	}
-+
- 	/* The speed and duplex are forced; read them back from the values
- 	 * programmed into the SerDes MISC register.
- 	 */
-@@ -1671,6 +1773,12 @@ static void rtl8365mb_pcs_link_up(struct phylink_pcs *pcs,
- 	u32 r_speed;
- 	int ret;
- 
-+	/* Family D forces the external MAC ability from mac_link_up(); its
-+	 * SDS_MISC fields do not share the family C link-force layout.
-+	 */
-+	if (rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D)
-+		return;
-+
- 	/* The speed field has no value for 2.5 Gbps: the rate is determined by
- 	 * the HSGMII SerDes configuration, and the vendor driver programs the
- 	 * 1 Gbps value here.
-@@ -1997,7 +2105,8 @@ static void rtl8365mb_phylink_mac_link_up(struct phylink_config *config,
- 		 * rtl8365mb_pcs_link_up() because pcs_link_up() carries no
- 		 * pause information.
- 		 */
--		if (rtl8365mb_interface_is_serdes(interface)) {
-+		if (rtl8365mb_interface_is_serdes(interface) &&
-+		    rtl8365mb_get_family(priv) != RTL8365MB_FAMILY_D) {
- 			u32 val = 0;
- 
- 			if (tx_pause)
--- 
-2.53.0
+Link to v1: https://lore.kernel.org/r/pm-key-management-objects-candidate-0009-v3-43bbf21d1c452f23d829@gmail.com
 
+diff --git a/security/keys/keyctl.c b/security/keys/keyctl.c
+index d14ace88e529cb77de5386f1f3a99905d4b7688c..5a5efa26ed0ece3a5ab22e37ad7bda7a5a744b83 100644
+--- a/security/keys/keyctl.c
++++ b/security/keys/keyctl.c
+@@ -677,12 +677,14 @@ long keyctl_describe_key(key_serial_t keyid,
+ 
+ 	/* calculate how much information we're going to return */
+ 	ret = -ENOMEM;
++	down_read(&key->sem);
+ 	infobuf = kasprintf(GFP_KERNEL,
+ 			    "%s;%d;%d;%08x;",
+ 			    key->type->name,
+ 			    from_kuid_munged(current_user_ns(), key->uid),
+ 			    from_kgid_munged(current_user_ns(), key->gid),
+ 			    key->perm);
++	up_read(&key->sem);
+ 	if (!infobuf)
+ 		goto error2;
+ 	infolen = strlen(infobuf);
