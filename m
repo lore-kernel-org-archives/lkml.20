@@ -1,155 +1,146 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 930674F30F2;
-	Fri,  9 Oct 2026 16:43:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B12E328610
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 16:45:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791564187; cv=none; b=QevLFAbxzj+LLZRz3GO5aFrzrsuwlhmjSRZpgNLd+Fv/hzm+SjQVFN1duCljLFjjkXZGwqASTtE1ekVaybjD7iWxNkEMEGKZLDP3rRp0aKmhi+IjLNDNp1pMkwSddn9m+mM+3dqHDSaQadEHSWGNPSrsgxri94NtrjvN8toBUdo=
+	t=1791564334; cv=none; b=mseDT/SxrGdpHeeWwhG9P+s12/tyx3Vp7YH34rqZjFQbf8Cg/eWnRgOml6HED47lnNBfzZptdAPJu3PYhzDGp/XReJp3/QCjNpxtkLxtlCsBIFg24WvBiASuyOQDUAtwW65mgagFDKif/eFP6Q2xzZnXghrLJAWvOr4nCV583tQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791564187; c=relaxed/simple;
-	bh=HL4dLnQazmu9eond2oaF2ZCcsFOHB8BI0FASnIbUEk8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p87vLqrF6fEDIwpjGZ3EWKX3pjStpmQza6z864I//w1/UmQTLggwMaJGD2kqYJdOnRkyOh9Inxp3RbJsdHzVIPz4sLLObjyuoG6/VSt6ubu5HDCRTLfvtOi14jNYhYEOgxeDCyoRo4wIqJed0sK3fjEd+d2MNQM++ha33PxdwQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=drO0Mp0r; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791564334; c=relaxed/simple;
+	bh=J5Dvn4BHs6an25pLjc5SYIxuz5I29ejiVTeArkYD+8U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TX/HbjFNlOg3D8uJRTPhEaSsTDbyaWDMKONoF8od8/lK7Dfu0LTkXJgEyZaL8oVOdRsFXVjLvwNutPGeozIIIWHvPjoI6tWawOh7jtxgneS1HcB4y18+gUfs9yF12VL0lGk0AvnHTHtKP8/cfc9HCBeDcrm69pgpp1hMGfoGUPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TWveqVRi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kcMUFSMB; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="drO0Mp0r"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791564186; x=1823100186;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=HL4dLnQazmu9eond2oaF2ZCcsFOHB8BI0FASnIbUEk8=;
-  b=drO0Mp0rpBtNc6uIThJsJKdGp5RjJ0VNoigfdMonSUgCwFa1UblGbR1k
-   G7m3MrFx4sF4Jyf9TMgztRkHUNb9xPFyl+fXrSdxiBVU1cPki0rcqDy3q
-   AyQYN3tmpNci8o++Eh0HCkmr5VQzemhw65K5fQq0hrSd3F5tf51GHJX44
-   z5t+62BoC7+s9lWimZ3RXyWOXtqchimQiuBA8j/p7nnnB4nj09SMxfhpB
-   509s2hldYDR9S/i6dL9i/Dy+0u+kLKDp3ijD2OdUf4yGtz93dKFlkY0rT
-   hfQtkSOqRSmlu/zYbTrBBKpLgPwd1RKzysEqWMy0vfqH63t73PgFZVJ5A
-   Q==;
-X-CSE-ConnectionGUID: fGSHYMugQVWW54xonw4j4A==
-X-CSE-MsgGUID: rFo4QJB6TaOeToerM+pcyg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="259597"
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="259597"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 09:43:05 -0700
-X-CSE-ConnectionGUID: tUi5YPRHSZWPTE6paRwA/Q==
-X-CSE-MsgGUID: QM0uw6PORcuqyvHNUpy+Pg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="2094648"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa013.fm.intel.com with ESMTP; 09 Oct 2026 09:43:02 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xFDgR-0000000061U-0JFK;
-	Fri, 09 Oct 2026 16:42:59 +0000
-Date: Sat, 10 Oct 2026 00:42:14 +0800
-From: kernel test robot <lkp@intel.com>
-To: Haotian Zhang <vulab@iscas.ac.cn>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Joerg Roedel <jroedel@suse.de>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iommu/exynos: fix NULL pointer dereference on
- device_link_add() failure
-Message-ID: <202610100049.FvaUUeCb-lkp@intel.com>
-References: <20261009034539.3073100-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TWveqVRi";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kcMUFSMB"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 699GbGH2888571
+	for <linux-kernel@vger.kernel.org>; Fri, 9 Oct 2026 16:45:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	6SQK/COtAtg9hMbyJCE+mvI9lDv2+zJwCTOnpgFqrKw=; b=TWveqVRiPYWOPO3H
+	gX8qKGU+aqGjRW4uS1Sbs970xqeX4iMi+KLfGxpVPsytVXEsGKnx0ntNZJpJtar5
+	AnKNloCWcA6t/knsB9Il2KNrhoGkryqLiDs8zR/K7nIhlVPqyPBa6QsSmTKZR8Vg
+	8wSsgjqVPg6oXbupWk8DqGphE5PWAI6kRbFC6vIEgn75nSoN+wBCeIdeWaYbHgFU
+	HcrT/u7FLhw/xs6imWaUIZawUv8X+/rrO/A9O59+LtxnXk3VWPR/z8BpzRxOcCzi
+	UDdskgYPp/gtl85+TKzC3UOiPSqCNBJMzFQ3iohZJ3zVoPqjelWqv8CC4vRKvVKd
+	aQZcDA==
+Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com [209.85.128.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h71f28qsq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 16:45:31 +0000 (GMT)
+Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-8ab3dc2a7adso27496777b3.2
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 09:45:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791564330; x=1792169130; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6SQK/COtAtg9hMbyJCE+mvI9lDv2+zJwCTOnpgFqrKw=;
+        b=kcMUFSMBR15NZ4jzJRlUKd6TgEeec0lqP48/S74IvEasX/GGapopGirIRGAUwp2dER
+         SMqyg+QvhDFoXHjBUzMuxNe8OH28NT/rooUuSpH9o3p2lZDOnp04XNLak03Q1qGzG9kN
+         7wM8dcRLctFvqxWVw7IRqsBv22rqCH3G6A0MsDGWfcarLJfaLAur8Zyrja5fkBgPnreP
+         7vUjb8GshXlCX92z9yuxKrPhiVz3hj/k3gpyOIoSexIH5rRtQStS/jwPT0D+Mvas8gzM
+         o07wplNM0m8e4PJbYDoi0LUqRooOJbXa2tV4sr/43j+gKDmCVpwghBuD3wBlAnGEicGf
+         zmAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791564330; x=1792169130;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6SQK/COtAtg9hMbyJCE+mvI9lDv2+zJwCTOnpgFqrKw=;
+        b=Ge+gWhVIyzhpUwGTGyzdKpVD8g7Am+wh2vMBn4S+mTxzt82L6BfdrBRu5OpCZDzB5z
+         rv3saaEX1soGnbb+dRlgNJe74OyGXrj3YewJR1XZjudWTZ4hBkSnA/el/254nfDHBk+C
+         L63sNh2RvexYXLniZEmCiBRWuvwm8+sf0ef+nJW9U9UyY5j5V8rahVvXdoEH1rWdvtSL
+         3+Vg9sn0Hl+k+w8ORVwIYU/fPMCzs09+gG0AUgiKXiIt1l0vJXHYpCObUPOcIUGSlSCW
+         aEv4x72K5Si24K0X8dBEHtybdLZ09owydEhi12a/svqryGFtGnS2q2LKsjykLisFwpfI
+         caFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzD37GFNbO3fIqSSt+9jDRtMNTTslrLmHXfMYzadNK5e/0L9ChWNnKdou5rFKlo7e8ePXkpcClG6oVakPs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKRpFUo4J6ADCHB9Hx0IEDYRJJYiYZB+YJm3kG2LbQ0cDf/PLit
+	nEvoQ7DGLU9BOxdwIE6ox0LyKF6mKGesuxIH8ihCoPjVxP0LWN52VjZh3QJHnw/EShn+laBT6Y8
+	1tLaJQLeyKFaaf0VVOd/+UVn4Wtc37FyCvBQnDy1xQxHWJWbFTQllMRTPQvCuOuw1FyQ=
+X-Gm-Gg: AYBFou3XzZzeqUUKjjSLraB9HWLgR4x/132Z0svSl6dklu+xmll/iEqB7TlAR5JrVWS
+	AC9e/7v4l/t2lq3irmoxA5XcThBf6gP39qCowg+d/4dlZwOcgVi20Z2t6wIxyBucbUeA1YRWm9s
+	pb9C/SAPLrljO4nUJxxSRDDudpmYXufCUjTuibK6N9r+TDj33P5HkMPRUYBUEFPj31q5ymsc95N
+	ObvLCAEccGY+TF7MWzACLMbdXrw51vBELRjj2rlcrVxD/mOKooDXDV7zVX4Z3k16GU5loQyKf0U
+	Br2Lm5ugv8b+9HJsnHmqZmkiayJnO5/yiLXBtUO/2fuqVgiuh3r/Ewq1cVe3YYzB32bwmgmCqJJ
+	tRg2X/LgkvEuCvfJTnSCSCCATKHiq8ltIj2aj5zexINfBD3rbgQ==
+X-Received: by 2002:a05:690c:c593:b0:8a8:a8a6:1c4 with SMTP id 00721157ae682-8b07ec98ebdmr5633277b3.14.1791564330457;
+        Fri, 09 Oct 2026 09:45:30 -0700 (PDT)
+X-Received: by 2002:a05:690c:c593:b0:8a8:a8a6:1c4 with SMTP id 00721157ae682-8b07ec98ebdmr5633217b3.14.1791564329903;
+        Fri, 09 Oct 2026 09:45:29 -0700 (PDT)
+Received: from [10.226.59.182] (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b07f1b7d11sm9864857b3.13.2026.10.09.09.45.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 09 Oct 2026 09:45:29 -0700 (PDT)
+Message-ID: <30176266-b153-4576-8cdc-a1dd71a5e654@oss.qualcomm.com>
+Date: Fri, 9 Oct 2026 10:45:27 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009034539.3073100-1-vulab@iscas.ac.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] accel/rocket: Don't tear down the scheduler when
+ drm_sched_init() fails
+To: Sidong Yang <sidong.yang@furiosa.ai>, Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Cc: Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+References: <20261004164727.466164-1-sidong.yang@furiosa.ai>
+ <20261004164727.466164-2-sidong.yang@furiosa.ai>
+Content-Language: en-US
+From: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+In-Reply-To: <20261004164727.466164-2-sidong.yang@furiosa.ai>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: 0ZfelTaxPzznsfR9zLk2ZopE5Ok1QN61
+X-Authority-Analysis: v=2.4 cv=Nf5zRGD4 c=1 sm=1 tr=0 ts=6ac91a2b cx=c_pps
+ a=NMvoxGxYzVyQPkMeJjVPKg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=q3Tk2iPKN766HrrW7T8A:9 a=QEXdDO2ut3YA:10
+ a=kLokIza1BN8a-hAJ3hfR:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA2NiBTYWx0ZWRfX6d8w0/FS6/qp
+ I0oShZQttg4lhFqjhc3sqL4Z1aEz6U2pzVZ8Ly/8TT7zWZ4O9q90QbcC4lV3v+S+q7deUSt8YSx
+ WCoZNjOvqDfhou48JjzdkPR+h1G01oA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA2NiBTYWx0ZWRfXzGueijMF6TIi
+ EkWOHlIP1QqmBlDxCULkZXWEliewyUHgUgeoreLSZhcympxbdhO2ArMdtOGYze/Cn5oDXrTfS9G
+ FSM7wagUcuuuV3nmvQ2qZ0aSqBM2qE1PblXrtbK16nPjQ0Jas9IAKghtWXRs52JTbHF6L5XWX0M
+ mytOfgWpfTCTr0cVm4M2xFpM8UfkUNBcfb1Qrs0AUwwTryBSkfJaV1s2fhs/bCxZBHxIAPkkiOK
+ M1cdrGv7GsO/zXA87g0e0fg8R3YB9iFfG1pWo1tGW8HuWPoTCjGNaALkj9cl9vvPXblihq/qnwi
+ +Em1jYci0HZ6/odgok+J+5LD8HSIE8QpyZ2XnEPRwrWcQISZlpXxoPXpuV5i36NgtJNieoetGub
+ EHzZGyz9oecD4gmiYNMndsQbbVZ+CiwwbeOEyQ1NR2VbFBL5mlYY5mGFaNBrgIoeP90pRD72MhJ
+ ekWqJo4tAFFLDW8ffvA==
+X-Proofpoint-GUID: 0ZfelTaxPzznsfR9zLk2ZopE5Ok1QN61
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-09_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 priorityscore=1501 clxscore=1015 suspectscore=0
+ phishscore=0 malwarescore=0 bulkscore=0 impostorscore=0 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610020000
+ definitions=main-2610090066
 
-Hi Haotian,
+On 10/4/2026 10:47 AM, Sidong Yang wrote:
+> drm_sched_init() cleans up after itself when it fails, but
+> rocket_job_init() then calls drm_sched_fini() on the same scheduler.
+> That wakes a wait queue that was never initialised, dereferencing a
+> NULL pointer, and can destroy the submit workqueue a second time.
+> 
+> Only destroy the reset workqueue on this path.
+> 
+> Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/all/20260912114524.7A6131F00893@smtp.kernel.org/
+> Signed-off-by: Sidong Yang <sidong.yang@furiosa.ai>
 
-kernel test robot noticed the following build warnings:
-
-[auto build test WARNING on krzk/for-next]
-[also build test WARNING on arm-perf/for-next/perf pinctrl-samsung/for-next linus/master v7.3-rc6 next-20261008]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Haotian-Zhang/iommu-exynos-fix-NULL-pointer-dereference-on-device_link_add-failure/20261009-114539
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/krzk/linux.git for-next
-patch link:    https://lore.kernel.org/r/20261009034539.3073100-1-vulab%40iscas.ac.cn
-patch subject: [PATCH] iommu/exynos: fix NULL pointer dereference on device_link_add() failure
-config: arm-defconfig (https://download.01.org/0day-ci/archive/20261010/202610100049.FvaUUeCb-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 242243a5814307de825db3428662d67b064e2cbc)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261010/202610100049.FvaUUeCb-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610100049.FvaUUeCb-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> drivers/iommu/exynos-iommu.c:1434:39: warning: variable 'tmp' is uninitialized when used here [-Wuninitialized]
-    1434 |         list_for_each_entry_continue_reverse(tmp, &owner->controllers,
-         |                                              ^~~
-   drivers/iommu/exynos-iommu.c:1406:35: note: initialize the variable 'tmp' to silence this warning
-    1406 |         struct sysmmu_drvdata *data, *tmp;
-         |                                          ^
-         |                                           = NULL
-   1 warning generated.
-
-
-vim +/tmp +1434 drivers/iommu/exynos-iommu.c
-
-  1402	
-  1403	static struct iommu_device *exynos_iommu_probe_device(struct device *dev)
-  1404	{
-  1405		struct exynos_iommu_owner *owner = dev_iommu_priv_get(dev);
-  1406		struct sysmmu_drvdata *data, *tmp;
-  1407	
-  1408		if (!has_sysmmu(dev))
-  1409			return ERR_PTR(-ENODEV);
-  1410	
-  1411		list_for_each_entry(data, &owner->controllers, owner_node) {
-  1412			/*
-  1413			 * SYSMMU will be runtime activated via device link
-  1414			 * (dependency) to its master device, so there are no
-  1415			 * direct calls to pm_runtime_get/put in this driver.
-  1416			 */
-  1417			data->link = device_link_add(dev, data->sysmmu,
-  1418						     DL_FLAG_STATELESS |
-  1419						     DL_FLAG_PM_RUNTIME);
-  1420			if (!data->link) {
-  1421				dev_err(dev, "Unable to link %s\n",
-  1422					dev_name(data->sysmmu));
-  1423				goto err_unlink;
-  1424			}
-  1425		}
-  1426	
-  1427		/* There is always at least one entry, see exynos_iommu_of_xlate() */
-  1428		data = list_first_entry(&owner->controllers,
-  1429					struct sysmmu_drvdata, owner_node);
-  1430	
-  1431		return &data->iommu;
-  1432	
-  1433	err_unlink:
-> 1434		list_for_each_entry_continue_reverse(tmp, &owner->controllers,
-  1435						     owner_node)
-  1436			device_link_del(tmp->link);
-  1437	
-  1438		return ERR_PTR(-ENODEV);
-  1439	}
-  1440	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Reviewed-by: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
