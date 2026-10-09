@@ -1,45 +1,45 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 588D145198D
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 12:34:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D29F044B693
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 12:34:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791549284; cv=pass; b=IMKODRf+rlDmqPYq9zovSrUz9Oo97UPKrNGMG11ReQEfYIY/J8xQBnW/O8h9NSLwu7o5ty759SK8zBlHTz+bZdCAdDONf2a2AnyAGUm1wkq92Rx4fKe0pUkRE8f1+CP6M6Eb42hiG/rNBAs/atxZ7jhyaPTyiu4M6zSvAp0dt6Y=
+	t=1791549289; cv=pass; b=geaa1oud0oKHUfTi+B5rUqLaefRW2h/DDoFitTDNKmoQIvvIpBFS1BL4SvxLgDM3Ybb+zTFEz4NT+H4xoZ8tpKzB4+MaVs6sjCErzvU3/o5eXyFN9xGIl080L8lBHko8EvtTsCe/AiS7R5TgOWb7N+njUawOT2OUVjrEr/4cWZA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791549284; c=relaxed/simple;
-	bh=XNAh13vyuw2jjqwCoFu5OW0dyg4fLXMFdgnrRXP3ZJ0=;
+	s=arc-20240116; t=1791549289; c=relaxed/simple;
+	bh=GIvA9WayrOXGihJK7uJciMuJo7/qCdTVFMejb2BOlJw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kYHO/jE376WYI3oEVFFLFSo0QcdZyMfNJBlkuqwaZhpmc5ktmGPtmcZcjppGJmrx+p5T4VsCZmKvXEAdQ0ZHe7TC7jfTGrqGJqrpeUU/7Zm5fTRhLWF7GNKNWbk3zHXCKJteN1QN7mnX75YWXZJnXFq5+tBN7L3RfNPXnE3QIbA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=dA9AXwQD; arc=pass smtp.client-ip=165.173.182.11
+	 In-Reply-To:To:Cc; b=bzWIM+tntacSBGSP74CmRU3jwwLVYAvHZIEe5Bvc3xiryxVqBYn55FKS7ZZdwFDeMy8zC/SLtwCABECmMRU7HBCPjuAYaSVTgRt2vh71l5tzdgfeGlAHP1DDifzcFEzi7u5z9ebiJXR9U3iMgI0hppAQeioz7nhh9Mb66L2NlRc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=ZTnN+Gno; arc=pass smtp.client-ip=165.173.180.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="dA9AXwQD"
-ARC-Seal: i=1; a=rsa-sha256; t=1791549245; cv=none; 
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="ZTnN+Gno"
+ARC-Seal: i=1; a=rsa-sha256; t=1791549257; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=ZgKsSgwhuyP5ggviG1YyUzTcCztrEm97PYdROW9QCxS9QTGaWC9JyehMyfhO9zcxmx8zKpnjcnQeCjUo/MfSGp27i0WaCmy2WdMD4ID+ey3OQaLZe8EetDhMaXCTHkGUijEdWxG7p0sE2Z4DVV1WLjfVAZ4YLgi5oJ+zzIVlrSU=
+	b=WH2qc9bisLZTIp1Q5hkwJN7/O45JnWf1+9GW3JdGEfpHIj15yM35FqZYalZ6d1hvrSBOl3VZkT8xGTIiJrajQgJISvs6paNAF5o7xGFgbzAt3DS0knpoIg1fclgX0lEmOrVUx2YP/5XbSexokpMQBvyhkxE1P/1RoZxfF6MbyRM=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791549245; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=dqN/pYykf+lB/t3JyfMN50vNu+ngM7Cnk9pHJMVTkWo=; 
-	b=MeLnQIYpvyuss+Z3Gp6Y99QjrHuYxoxEbJIdryI36NyCaYPXl1H2ecbqHaXWa420h7vbr8uKrzDXQvj74E/8y4fh6rCXJJETP2To/fIwySjSMGEsSJ+mzM3sZNccjmFrjs3BhYwrTSRzCq1n7m1NM+Z6FU7ZWr/lV5CBzpWOMLc=
+	t=1791549257; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=rvG08YzbRpdVTyt9ZtRnX0HFchjVHZbegZTVey06qBc=; 
+	b=bd6jGT+M8P6GLEGHTAkelYTDoQQOC9FyjYNUisNSWIx6mHVbFZ4l7dj6pG1I0ODZKEpXclBbkH+yXaWeSJ0U3wlrvmKFbTMIHGtLr5cCkgn2cYMC6um5w94ZRRT7sqHGi57ShOfKYU4F0kjW0QNH/7p2xrcCKHHpa1HSmWX3300=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=collabora.com;
 	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
 	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791549245;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791549257;
 	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
 	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=dqN/pYykf+lB/t3JyfMN50vNu+ngM7Cnk9pHJMVTkWo=;
-	b=dA9AXwQDADdxvYAt5QBF/jbe0p9GQRZSQ0h8mJ+hXr/1TPHBvQ7L80hsl5BcPiAK
-	VZoCtPm79C9ZQlyQwikYBM2FClAFzReR5aYuXXm9bmQeO79COuxxWPTGsPM1laXeOM6
-	/5eCGbXACPN8n0IORuELy5N77ENIWra/UZ7io+VI=
-Received: by smtp.zohomail.com with SMTPS id 1791549244000307.28506389869324;
-	Fri, 9 Oct 2026 05:34:04 -0700 (PDT)
+	bh=rvG08YzbRpdVTyt9ZtRnX0HFchjVHZbegZTVey06qBc=;
+	b=ZTnN+GnoQG7znmFHCJvFp1QCzE83qMiltp86B2T8CQdi5LGmKraIfP0MgVFU9cDe
+	008zuHijDxWrpYWc9y129NeKusX4DLtCdRxAkAPThgu3+4hhdB4Btt8TzFIGJ6MqiqB
+	E0IhQxFFv0GSOIaHdyXiap8EYr/kFQiLERbeOdiY=
+Received: by smtp.zohomail.com with SMTPS id 1791549255617985.3249966271289;
+	Fri, 9 Oct 2026 05:34:15 -0700 (PDT)
 From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Fri, 09 Oct 2026 13:33:48 +0100
-Subject: [PATCH v14 01/15] drm/panfrost: Move shrinker initialization and
- unplug one level down
+Date: Fri, 09 Oct 2026 13:33:50 +0100
+Subject: [PATCH v14 03/15] drm/panfrost: Move debugfs initialisation to
+ relevant subsystems
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,7 +48,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261009-claude-fixes-v14-1-cb743b3b973b@collabora.com>
+Message-Id: <20261009-claude-fixes-v14-3-cb743b3b973b@collabora.com>
 References: <20261009-claude-fixes-v14-0-cb743b3b973b@collabora.com>
 In-Reply-To: <20261009-claude-fixes-v14-0-cb743b3b973b@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -65,189 +65,407 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6439;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=12734;
  i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=XNAh13vyuw2jjqwCoFu5OW0dyg4fLXMFdgnrRXP3ZJ0=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqyN8uA5bfWhFuDXlYbeW44mxARMKcGPQ6l43J8
- 0HSWPLr5cqJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCasjfLgAKCRAOJn5M7lND
- PfZ7C/9mXNXyUl2fBVC+Cl9wKPmnERQGc65ccyPOprGZ/AS/qoueeSdtdGWkvmGVVY1F2J/25Mr
- VO87gSY9MvnltXnFo6v7q7/rQH3rcBiQbC6V88SfLtPUyUpWwhaVMjlk50C3T9EmfJDZAUwJxK1
- v3BS3Z1wKrWLHovwnJx57Us1hnHvihy4a98+4G6Yi5g67U35NWJqWaKNvfRLMThvZsWjQwX15Yu
- HTCpLHUzmWPO9oSrlnd4topw0IvB5lK65OTasJ2r1Klw5W3ly4ReXW+o141Rh3/MikkwMXnO7QP
- 7xCatIgKlyXyb7mXjxXQGA1yafLjgEYT3RFu7kwTRHAvtUEvIlmq8/q4nBhx8AbygbRS1CjgFhN
- 4ZSakasIehsLtJjgAPOV8MOIysPsemjmXWFUL/FPDFeGGFdgrFvVGBwcr44u7Jr9JxSI5c54PUX
- 25uW+2F5AIYCgtOLbH/8szAHypE/XW4mvSx2qR1Nm6hf9O+wLED4FdS1JUBSfu2z5ERWI=
+ bh=GIvA9WayrOXGihJK7uJciMuJo7/qCdTVFMejb2BOlJw=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqyN8uMldmv+dG4DILRrapQAqxyNLoCnyhImeWc
+ uABPWT1zxKJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCasjfLgAKCRAOJn5M7lND
+ PV4XC/9j4JjMTgyO99b6B0SD20rtnEaeNdfKyPD3qnqOMgJ8A1IeCNs9Ft2fzC9C2hg3btLnwJY
+ R+1F+5f3SNLHHhVi0/Au8uarPRsWMktR03LiSgGEbKMNM2kziLnxp08r9zkqq8aKbcnq2wJXLTU
+ mdnUa3AHPidozve5T/gSpfKNhDzhVKOBknxA3p7XR4xLt4dvFmSAOlmiRtXIO0hfUnUStPr7QWq
+ 6ra2ggiGZ+R4HVX7PVFlJb5fuO2PPFIsDbF/BYUrIepa56m/qQMMhOkzAMtpMA9+RaQXqrtoW6n
+ pahd6ACleXgHxKMybxwkobM5n1ErQ0Gd6wD9hMXJZlhjT5w+cySyNc0XmZneK+7+OP+S3njYDKD
+ EOL9TXQpkXwD1YmSnlLNMS5pGUiKGVujeGHetqFd4YlmeYchYVjhYoV6Ki2+Wku2VMAYCjCD/x8
+ QZnG1hwB2kuCKZH9/R87dVWHTw7ynrqsD+RG7X/tjhtJ+ledRrvwZKCgecGBP5TbEPCt0=
 X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
  fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-Since the moment we call drm_dev_register() the device should be in a
-position to accept jobs, so it's best if the shrinker is already
-initialized by then.
-
-On top of that, make shrinker functions take an panfrost_device pointer
-like other functions in the same sequence and rename them accordingly.
-
-Essentially mimic the init/fini behaviour in Panthor.
+Because debugfs knobs are a device interface, and also the different knobs
+deal with specific subsystems, it's best to move their initialisations away
+from panfrost_drv.c and into the subsystem they provide information about.
 
 Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 Reviewed-by: Steven Price <steven.price@arm.com>
 Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_device.c       |  8 +++++++-
- drivers/gpu/drm/panfrost/panfrost_drv.c          |  6 ------
- drivers/gpu/drm/panfrost/panfrost_gem.c          | 26 ++++++++++++++----------
- drivers/gpu/drm/panfrost/panfrost_gem.h          |  7 ++++---
- drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |  8 ++------
- 5 files changed, 28 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/panfrost/panfrost_device.c |   8 ++
+ drivers/gpu/drm/panfrost/panfrost_device.h |   4 +
+ drivers/gpu/drm/panfrost/panfrost_drv.c    | 129 +----------------------------
+ drivers/gpu/drm/panfrost/panfrost_gem.c    |  29 ++++++-
+ drivers/gpu/drm/panfrost/panfrost_gem.h    |   3 +-
+ drivers/gpu/drm/panfrost/panfrost_job.c    |  99 ++++++++++++++++++++++
+ drivers/gpu/drm/panfrost/panfrost_job.h    |   4 +
+ 7 files changed, 144 insertions(+), 132 deletions(-)
 
 diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-index 485349faf251..05c40d5a20b5 100644
+index c1a2e93a2b9b..5bf528f41278 100644
 --- a/drivers/gpu/drm/panfrost/panfrost_device.c
 +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-@@ -280,9 +280,14 @@ int panfrost_device_init(struct panfrost_device *pfdev)
- 	if (err)
- 		goto out_job;
- 
--	panfrost_gem_init(pfdev);
-+	err = panfrost_gem_init(pfdev);
-+	if (err)
-+		goto out_perfcnt;
- 
- 	return 0;
+@@ -561,3 +561,11 @@ EXPORT_GPL_DEV_PM_OPS(panfrost_pm_ops) = {
+ 	RUNTIME_PM_OPS(panfrost_device_runtime_suspend, panfrost_device_runtime_resume, NULL)
+ 	SYSTEM_SLEEP_PM_OPS(panfrost_device_suspend, panfrost_device_resume)
+ };
 +
-+out_perfcnt:
-+	panfrost_perfcnt_fini(pfdev);
- out_job:
- 	panfrost_jm_fini(pfdev);
- out_mmu:
-@@ -304,6 +309,7 @@ int panfrost_device_init(struct panfrost_device *pfdev)
++#ifdef CONFIG_DEBUG_FS
++void panfrost_device_debugfs_init(struct drm_minor *minor)
++{
++	panfrost_gem_debugfs_init(minor);
++	panfrost_sched_debugfs_init(minor);
++}
++#endif // CONFIG_DEBUG_FS
+diff --git a/drivers/gpu/drm/panfrost/panfrost_device.h b/drivers/gpu/drm/panfrost/panfrost_device.h
+index 1fe1554f2652..a0b9a2145fc9 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_device.h
++++ b/drivers/gpu/drm/panfrost/panfrost_device.h
+@@ -341,4 +341,8 @@ panfrost_device_schedule_reset(struct panfrost_device *pfdev)
+ 	queue_work(pfdev->reset.wq, &pfdev->reset.work);
+ }
  
- void panfrost_device_fini(struct panfrost_device *pfdev)
- {
-+	panfrost_gem_fini(pfdev);
- 	panfrost_perfcnt_fini(pfdev);
- 	panfrost_jm_fini(pfdev);
- 	panfrost_mmu_fini(pfdev);
++#ifdef CONFIG_DEBUG_FS
++void panfrost_device_debugfs_init(struct drm_minor *minor);
++#endif // CONFIG_DEBUG_FS
++
+ #endif
 diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-index 96a66d673ba6..9882a3ede75f 100644
+index 59af79a534fa..55fc22e8d4d4 100644
 --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
 +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-@@ -1003,14 +1003,9 @@ static int panfrost_probe(struct platform_device *pdev)
- 	if (err < 0)
- 		goto err_out1;
+@@ -792,133 +792,6 @@ static const struct file_operations panfrost_drm_driver_fops = {
+ 	.show_fdinfo = drm_show_fdinfo,
+ };
  
--	err = panfrost_gem_shrinker_init(&pfdev->base);
--	if (err)
--		goto err_out2;
+-#ifdef CONFIG_DEBUG_FS
+-static int panthor_gems_show(struct seq_file *m, void *data)
+-{
+-	struct drm_info_node *node = m->private;
+-	struct panfrost_device *pfdev = to_panfrost_device(node->minor->dev);
+-
+-	panfrost_gem_debugfs_print_bos(pfdev, m);
+-
+-	return 0;
+-}
+-
+-static void show_panfrost_jm_ctx(struct panfrost_jm_ctx *jm_ctx, u32 handle,
+-				 struct seq_file *m)
+-{
+-	struct drm_device *ddev = ((struct drm_info_node *)m->private)->minor->dev;
+-	const char *prio = "UNKNOWN";
+-
+-	static const char * const prios[] = {
+-		[DRM_SCHED_PRIORITY_HIGH] = "HIGH",
+-		[DRM_SCHED_PRIORITY_NORMAL] = "NORMAL",
+-		[DRM_SCHED_PRIORITY_LOW] = "LOW",
+-	};
+-
+-	if (jm_ctx->slot_entity[0].priority !=
+-	    jm_ctx->slot_entity[1].priority)
+-		drm_warn(ddev, "Slot priorities should be the same in a single context");
+-
+-	if (jm_ctx->slot_entity[0].priority < ARRAY_SIZE(prios))
+-		prio = prios[jm_ctx->slot_entity[0].priority];
+-
+-	seq_printf(m, " JM context %u: priority %s\n", handle, prio);
+-}
+-
+-static int show_file_jm_ctxs(struct panfrost_file_priv *pfile,
+-			     struct seq_file *m)
+-{
+-	struct panfrost_jm_ctx *jm_ctx;
+-	unsigned long i;
+-
+-	xa_lock(&pfile->jm_ctxs);
+-	xa_for_each(&pfile->jm_ctxs, i, jm_ctx) {
+-		jm_ctx = panfrost_jm_ctx_get(jm_ctx);
+-		xa_unlock(&pfile->jm_ctxs);
+-		show_panfrost_jm_ctx(jm_ctx, i, m);
+-		panfrost_jm_ctx_put(jm_ctx);
+-		xa_lock(&pfile->jm_ctxs);
+-	}
+-	xa_unlock(&pfile->jm_ctxs);
+-
+-	return 0;
+-}
+-
+-static struct drm_info_list panthor_debugfs_list[] = {
+-	{"gems",
+-	 panthor_gems_show, 0, NULL},
+-};
+-
+-static int panthor_gems_debugfs_init(struct drm_minor *minor)
+-{
+-	drm_debugfs_create_files(panthor_debugfs_list,
+-				 ARRAY_SIZE(panthor_debugfs_list),
+-				 minor->debugfs_root, minor);
+-
+-	return 0;
+-}
+-
+-static int show_each_file(struct seq_file *m, void *arg)
+-{
+-	struct drm_info_node *node = (struct drm_info_node *)m->private;
+-	struct drm_device *ddev = node->minor->dev;
+-	int (*show)(struct panfrost_file_priv *, struct seq_file *) =
+-		node->info_ent->data;
+-	struct drm_file *file;
+-	int ret;
+-
+-	ret = mutex_lock_interruptible(&ddev->filelist_mutex);
+-	if (ret)
+-		return ret;
+-
+-	list_for_each_entry(file, &ddev->filelist, lhead) {
+-		struct task_struct *task;
+-		struct panfrost_file_priv *pfile = file->driver_priv;
+-		struct pid *pid;
+-
+-		/*
+-		 * Although we have a valid reference on file->pid, that does
+-		 * not guarantee that the task_struct who called get_pid() is
+-		 * still alive (e.g. get_pid(current) => fork() => exit()).
+-		 * Therefore, we need to protect this ->comm access using RCU.
+-		 */
+-		rcu_read_lock();
+-		pid = rcu_dereference(file->pid);
+-		task = pid_task(pid, PIDTYPE_TGID);
+-		seq_printf(m, "client_id %8llu pid %8d command %s:\n",
+-			   file->client_id, pid_nr(pid),
+-			   task ? task->comm : "<unknown>");
+-		rcu_read_unlock();
+-
+-		ret = show(pfile, m);
+-		if (ret < 0)
+-			break;
+-
+-		seq_puts(m, "\n");
+-	}
+-
+-	mutex_unlock(&ddev->filelist_mutex);
+-	return ret;
+-}
+-
+-static struct drm_info_list panfrost_sched_debugfs_list[] = {
+-	{ "sched_ctxs", show_each_file, 0, show_file_jm_ctxs },
+-};
+-
+-static void panfrost_sched_debugfs_init(struct drm_minor *minor)
+-{
+-	drm_debugfs_create_files(panfrost_sched_debugfs_list,
+-				 ARRAY_SIZE(panfrost_sched_debugfs_list),
+-				 minor->debugfs_root, minor);
+-}
+-
+-static void panfrost_debugfs_init(struct drm_minor *minor)
+-{
+-	panthor_gems_debugfs_init(minor);
+-	panfrost_sched_debugfs_init(minor);
+-}
+-#endif
+-
+ /*
+  * Panfrost driver version:
+  * - 1.0 - initial interface
+@@ -950,7 +823,7 @@ static const struct drm_driver panfrost_drm_driver = {
+ 	.gem_prime_import	= panfrost_gem_prime_import,
+ 	.gem_prime_import_sg_table = panfrost_gem_prime_import_sg_table,
+ #ifdef CONFIG_DEBUG_FS
+-	.debugfs_init = panfrost_debugfs_init,
++	.debugfs_init = panfrost_device_debugfs_init,
+ #endif
+ };
  
- 	return 0;
- 
--err_out2:
--	drm_dev_unregister(&pfdev->base);
- err_out1:
- 	pm_runtime_disable(pfdev->base.dev);
- 	panfrost_device_fini(pfdev);
-@@ -1024,7 +1019,6 @@ static void panfrost_remove(struct platform_device *pdev)
- 	struct panfrost_device *pfdev = platform_get_drvdata(pdev);
- 
- 	drm_dev_unregister(&pfdev->base);
--	panfrost_gem_shrinker_cleanup(&pfdev->base);
- 
- 	pm_runtime_get_sync(pfdev->base.dev);
- 	pm_runtime_disable(pfdev->base.dev);
 diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
-index 3a7fce428898..f39c0f50ed4f 100644
+index 383ac8cd5645..518f24549b9d 100644
 --- a/drivers/gpu/drm/panfrost/panfrost_gem.c
 +++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
-@@ -15,20 +15,24 @@
+@@ -9,6 +9,7 @@
+ #include <linux/dma-mapping.h>
+ 
+ #include <drm/panfrost_drm.h>
++#include <drm/drm_debugfs.h>
+ #include <drm/drm_print.h>
+ #include "panfrost_device.h"
  #include "panfrost_gem.h"
- #include "panfrost_mmu.h"
- 
--void panfrost_gem_init(struct panfrost_device *pfdev)
-+int panfrost_gem_init(struct panfrost_device *pfdev)
- {
--	int err;
-+	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) && panfrost_transparent_hugepage) {
-+		int err = drm_gem_huge_mnt_create(&pfdev->base, "within_size");
-+
-+		if (drm_gem_get_huge_mnt(&pfdev->base))
-+			drm_info(&pfdev->base, "Using Transparent Hugepage\n");
-+		else if (err)
-+			drm_warn(&pfdev->base, "Can't use Transparent Hugepage (%d)\n",
-+				 err);
-+	}
- 
--	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) &&
--	    !panfrost_transparent_hugepage)
--		return;
-+	return panfrost_gem_shrinker_init(pfdev);
-+}
- 
--	err = drm_gem_huge_mnt_create(&pfdev->base, "within_size");
--	if (drm_gem_get_huge_mnt(&pfdev->base))
--		drm_info(&pfdev->base, "Using Transparent Hugepage\n");
--	else if (err)
--		drm_warn(&pfdev->base, "Can't use Transparent Hugepage (%d)\n",
--			 err);
-+void panfrost_gem_fini(struct panfrost_device *pfdev)
-+{
-+	panfrost_gem_shrinker_fini(pfdev);
+@@ -735,8 +736,8 @@ static void panfrost_gem_debugfs_bo_print(struct panfrost_gem_object *bo,
+ 		totals->reclaimable += resident_size;
  }
  
- #ifdef CONFIG_DEBUG_FS
+-void panfrost_gem_debugfs_print_bos(struct panfrost_device *pfdev,
+-				    struct seq_file *m)
++static void panfrost_gem_debugfs_print_bos(struct panfrost_device *pfdev,
++					   struct seq_file *m)
+ {
+ 	struct gem_size_totals totals = {0};
+ 	struct panfrost_gem_object *bo;
+@@ -756,4 +757,28 @@ void panfrost_gem_debugfs_print_bos(struct panfrost_device *pfdev,
+ 	seq_printf(m, "Total size: %zd, Total resident: %zd, Total reclaimable: %zd\n",
+ 		   totals.size, totals.resident, totals.reclaimable);
+ }
++
++static int panfrost_gems_show(struct seq_file *m, void *data)
++{
++	struct drm_info_node *node = m->private;
++	struct panfrost_device *pfdev = to_panfrost_device(node->minor->dev);
++
++	panfrost_gem_debugfs_print_bos(pfdev, m);
++
++	return 0;
++}
++
++static struct drm_info_list panfrost_debugfs_list[] = {
++	{"gems",
++	 panfrost_gems_show, 0, NULL},
++};
++
++int panfrost_gem_debugfs_init(struct drm_minor *minor)
++{
++	drm_debugfs_create_files(panfrost_debugfs_list,
++				 ARRAY_SIZE(panfrost_debugfs_list),
++				 minor->debugfs_root, minor);
++
++	return 0;
++}
+ #endif
 diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.h b/drivers/gpu/drm/panfrost/panfrost_gem.h
-index 79d4377019e9..5c823cdbd980 100644
+index 5c823cdbd980..3008afcf4bff 100644
 --- a/drivers/gpu/drm/panfrost/panfrost_gem.h
 +++ b/drivers/gpu/drm/panfrost/panfrost_gem.h
-@@ -129,7 +129,8 @@ drm_mm_node_to_panfrost_mapping(struct drm_mm_node *node)
- 	return container_of(node, struct panfrost_gem_mapping, mmnode);
+@@ -164,8 +164,7 @@ int panfrost_gem_sync(struct drm_gem_object *obj, u32 type,
+ void panfrost_gem_internal_set_label(struct drm_gem_object *obj, const char *label);
+ 
+ #ifdef CONFIG_DEBUG_FS
+-void panfrost_gem_debugfs_print_bos(struct panfrost_device *pfdev,
+-				    struct seq_file *m);
++int panfrost_gem_debugfs_init(struct drm_minor *minor);
+ #endif
+ 
+ #endif /* __PANFROST_GEM_H__ */
+diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+index 476c936b54e6..00fb36c577df 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_job.c
++++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+@@ -8,6 +8,8 @@
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/dma-resv.h>
++#include <drm/drm_debugfs.h>
++#include <drm/drm_print.h>
+ #include <drm/gpu_scheduler.h>
+ #include <drm/panfrost_drm.h>
+ 
+@@ -1138,3 +1140,100 @@ int panfrost_jm_ctx_destroy(struct drm_file *file, u32 handle)
+ 	panfrost_jm_ctx_put(jm_ctx);
+ 	return 0;
  }
++
++#ifdef CONFIG_DEBUG_FS
++static void show_panfrost_jm_ctx(struct panfrost_jm_ctx *jm_ctx, u32 handle,
++				 struct seq_file *m)
++{
++	struct drm_device *ddev = ((struct drm_info_node *)m->private)->minor->dev;
++	const char *prio = "UNKNOWN";
++
++	static const char * const prios[] = {
++		[DRM_SCHED_PRIORITY_HIGH] = "HIGH",
++		[DRM_SCHED_PRIORITY_NORMAL] = "NORMAL",
++		[DRM_SCHED_PRIORITY_LOW] = "LOW",
++	};
++
++	if (jm_ctx->slot_entity[0].priority !=
++	    jm_ctx->slot_entity[1].priority)
++		drm_warn(ddev, "Slot priorities should be the same in a single context");
++
++	if (jm_ctx->slot_entity[0].priority < ARRAY_SIZE(prios))
++		prio = prios[jm_ctx->slot_entity[0].priority];
++
++	seq_printf(m, " JM context %u: priority %s\n", handle, prio);
++}
++
++static int show_file_jm_ctxs(struct panfrost_file_priv *pfile,
++			     struct seq_file *m)
++{
++	struct panfrost_jm_ctx *jm_ctx;
++	unsigned long i;
++
++	xa_lock(&pfile->jm_ctxs);
++	xa_for_each(&pfile->jm_ctxs, i, jm_ctx) {
++		jm_ctx = panfrost_jm_ctx_get(jm_ctx);
++		xa_unlock(&pfile->jm_ctxs);
++		show_panfrost_jm_ctx(jm_ctx, i, m);
++		panfrost_jm_ctx_put(jm_ctx);
++		xa_lock(&pfile->jm_ctxs);
++	}
++	xa_unlock(&pfile->jm_ctxs);
++
++	return 0;
++}
++
++static int show_each_file(struct seq_file *m, void *arg)
++{
++	struct drm_info_node *node = (struct drm_info_node *)m->private;
++	struct drm_device *ddev = node->minor->dev;
++	int (*show)(struct panfrost_file_priv *, struct seq_file *) =
++		node->info_ent->data;
++	struct drm_file *file;
++	int ret;
++
++	ret = mutex_lock_interruptible(&ddev->filelist_mutex);
++	if (ret)
++		return ret;
++
++	list_for_each_entry(file, &ddev->filelist, lhead) {
++		struct task_struct *task;
++		struct panfrost_file_priv *pfile = file->driver_priv;
++		struct pid *pid;
++
++		/*
++		 * Although we have a valid reference on file->pid, that does
++		 * not guarantee that the task_struct who called get_pid() is
++		 * still alive (e.g. get_pid(current) => fork() => exit()).
++		 * Therefore, we need to protect this ->comm access using RCU.
++		 */
++		rcu_read_lock();
++		pid = rcu_dereference(file->pid);
++		task = pid_task(pid, PIDTYPE_TGID);
++		seq_printf(m, "client_id %8llu pid %8d command %s:\n",
++			   file->client_id, pid_nr(pid),
++			   task ? task->comm : "<unknown>");
++		rcu_read_unlock();
++
++		ret = show(pfile, m);
++		if (ret < 0)
++			break;
++
++		seq_puts(m, "\n");
++	}
++
++	mutex_unlock(&ddev->filelist_mutex);
++	return ret;
++}
++
++static struct drm_info_list panfrost_sched_debugfs_list[] = {
++	{ "sched_ctxs", show_each_file, 0, show_file_jm_ctxs },
++};
++
++void panfrost_sched_debugfs_init(struct drm_minor *minor)
++{
++	drm_debugfs_create_files(panfrost_sched_debugfs_list,
++				 ARRAY_SIZE(panfrost_sched_debugfs_list),
++				 minor->debugfs_root, minor);
++}
++#endif
+diff --git a/drivers/gpu/drm/panfrost/panfrost_job.h b/drivers/gpu/drm/panfrost/panfrost_job.h
+index c3f57e41a571..3e3b9717838f 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_job.h
++++ b/drivers/gpu/drm/panfrost/panfrost_job.h
+@@ -74,4 +74,8 @@ int panfrost_job_get_slot(struct panfrost_job *job);
+ int panfrost_job_push(struct panfrost_job *job);
+ void panfrost_job_put(struct panfrost_job *job);
  
--void panfrost_gem_init(struct panfrost_device *pfdev);
-+int panfrost_gem_init(struct panfrost_device *pfdev);
-+void panfrost_gem_fini(struct panfrost_device *pfdev);
- 
- struct drm_gem_object *panfrost_gem_create_object(struct drm_device *dev, size_t size);
- 
-@@ -154,8 +155,8 @@ panfrost_gem_mapping_get(struct panfrost_gem_object *bo,
- void panfrost_gem_mapping_put(struct panfrost_gem_mapping *mapping);
- void panfrost_gem_teardown_mappings_locked(struct panfrost_gem_object *bo);
- 
--int panfrost_gem_shrinker_init(struct drm_device *dev);
--void panfrost_gem_shrinker_cleanup(struct drm_device *dev);
-+int panfrost_gem_shrinker_init(struct panfrost_device *pfdev);
-+void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev);
- 
- void panfrost_gem_set_label(struct drm_gem_object *obj, const char *label);
- int panfrost_gem_sync(struct drm_gem_object *obj, u32 type,
-diff --git a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-index 2fe967a90bcb..fefae87535d6 100644
---- a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-@@ -95,10 +95,8 @@ panfrost_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
-  *
-  * This function registers and sets up the panfrost shrinker.
-  */
--int panfrost_gem_shrinker_init(struct drm_device *dev)
-+int panfrost_gem_shrinker_init(struct panfrost_device *pfdev)
- {
--	struct panfrost_device *pfdev = to_panfrost_device(dev);
--
- 	pfdev->shrinker = shrinker_alloc(0, "drm-panfrost");
- 	if (!pfdev->shrinker)
- 		return -ENOMEM;
-@@ -118,10 +116,8 @@ int panfrost_gem_shrinker_init(struct drm_device *dev)
-  *
-  * This function unregisters the panfrost shrinker.
-  */
--void panfrost_gem_shrinker_cleanup(struct drm_device *dev)
-+void panfrost_gem_shrinker_fini(struct panfrost_device *pfdev)
- {
--	struct panfrost_device *pfdev = to_panfrost_device(dev);
--
- 	if (pfdev->shrinker)
- 		shrinker_free(pfdev->shrinker);
- }
++#ifdef CONFIG_DEBUG_FS
++void panfrost_sched_debugfs_init(struct drm_minor *minor);
++#endif
++
+ #endif
 
 -- 
 2.55.0
