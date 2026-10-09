@@ -1,188 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51B81371876;
-	Fri,  9 Oct 2026 20:55:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B723395ACD
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 20:58:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791579313; cv=none; b=Yht2xDNm2Y4CVhqouiGlA773JCVua5Go70jeUrSqO8qjQHcQuFkyncipcfGiMDIxMqKUj9fR17AEKlAgqDC0dLPG4oVrRf+7nDhstriGmQtaIocHUcDwk6M5OI4v7iHK6F2XjAGgW0jYZhDxqIL0+40Yh3kc+NWTwo7zVyUoaxM=
+	t=1791579487; cv=none; b=DnL2LL7X4Gy4OQHJB0o9FH2Zy7uvP6yk+49r3xPajj6Uq1/RfS54YpmV3pcnBMv/Arlo200bhXXcOHH5qFcNT8eMKVJNtAYJICK3NrpA9+jxmUCOQ5DeyAHbTUDxhhc4PYQEy4CNNl/QNzkmQeCh07eiexoSx+0Uy+gY7eQEEXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791579313; c=relaxed/simple;
-	bh=p51NQjUwX1nA/+Pp2hS3WMcCbWiZklc67T2vUrFIhPE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QohFOMhQC7d4bsAZqUk3xioQFaxLlwftAqU5/uQF/c1Mjs/bMtL7hp06+Q+M/y8yH8w6aUuA9lrk/YnQbUhp1Yj+F714NrX/Z+9m6e0ivyabpV5Ve5PNIeKJjiE5r6n3pAU2PdDUmwYgK7pzwE1GNENOckALiMSWmitIvWlLp7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MyI9u/to; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791579487; c=relaxed/simple;
+	bh=V+RY7E/8ADFShFuMjLzmRHdN9yccpKO1Gep1q5N/n94=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=pnaBUPkSM6zcqGl8B6P9PJtEVrkG0d4q0Xtox9PwNGtuoFaZ6Dk8sQqYE0MHmD+RO2bOe8L1IqCu5j0cp5ppv1P/WingS55uUFoLxNjEmyeO78bbxd7u0SstIO33jH/GMk7sAi8i0vkHYH43gTGu8fZoOr1wMTwQxOYKvsY1QT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZPtY7fLz; arc=none smtp.client-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MyI9u/to"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 893391F000FF;
-	Fri,  9 Oct 2026 20:55:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791579311;
-	bh=9Bvt+Xsa7sXVl1fng5tFEayRF5yMEOd/Tzvn8BVb9qI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MyI9u/to/xTOcMPWlUQbiGOT3v8o/iNOpYRWNH4gz7+sgcbhLJ947FpiF8oINFqwH
-	 p/9Nd7nkxASalFk2NWrnH17gHaF/A+JVAAXBThFQZQDMbzRMqEVk3AfYq67TfSa2vV
-	 WVPtLY+fDREnfFuJQsAiQBGXf4tWaQu5z7y6bcJTNg/nGjjlVv7f3LMDAFXuaOlvTD
-	 l0J4iLDoFFE1Ar50jDUljIkEjZ3EOLkOjaV21XNDQwWenew+l5CtZs4xeV+ZgH3UJ/
-	 3CEbRx9e87dzk0y/W4a7lua24GyPC/5+EMLiohjsazE0f53jKThEPmVAnKmV3agU+I
-	 9SDkknHP/+QyA==
-Message-ID: <df588805-6f97-4ef6-a64f-39222669bf3a@kernel.org>
-Date: Fri, 9 Oct 2026 22:55:05 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZPtY7fLz"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-398dcfabbf8so202708a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 13:58:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791579486; x=1792184286; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LMjGbLW9lc1R7yfLy7ZOR+jBeeIII4unV9kdR2KwDOE=;
+        b=ZPtY7fLzHm25PkXlNqdvO18EIPRxsFzPESBkTDGB7UJ7Z9o2i8SVh6i/QD2o6lOxYz
+         QTNarvJBHTgx+gfyqfxoCS9Bxde8/lptggpwgJGRRUIIjHZkJfox2rwiaa4JZhODzqju
+         LV+Qw9IC2V8Y/VCcWLkPz6ULg3HIonaDM00f1qX1i0ESWF7pyOs8A7ns3yceGeMTQhcj
+         t9B0c02fmxK6nfJbzHKYQSz5+2Vl/KI3HlKGY20Z0bezCzxwq6sKnmQMlLpZNCsnD4zy
+         pvWKs23+RBKt3bYpUcw1q8JQfWTIb7/pFFHFwTvevswG3qMij35Zl/TUaHU0LrfKp3Oz
+         RMEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791579486; x=1792184286;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LMjGbLW9lc1R7yfLy7ZOR+jBeeIII4unV9kdR2KwDOE=;
+        b=lmmE2eEraOb3OmaC9exfccVdDHPev/8m7AF4hPdk4yLA0qOGWole4RjM9j/MYxSNt+
+         ro8TfZ1jvklIRe9tW9eFrzq58KC0miyUe0Rla3v4pMsRK0lYpN7lvIpD6pVuVUFZnW+V
+         NUEMrdHsHuOoqxZe6wTAEOKTyOD6ho/SuWS51wWQGz4O72hOFHSdibwM/yB4ugyWtUyi
+         30e4o6p0oM/BLldtbrg8szspyXsYsiIIbPAj1FX5clNqzMmVZNuc6yw77oNW/l2H2531
+         NibTEjx6MrRSFcBmTcBN8iCS7tuo9sWU5KZcWgqP2OIlUhIpSy8PN7cJj6LWHe8xjFxC
+         33Xw==
+X-Forwarded-Encrypted: i=1; AKwUvByx7NuiHbRiYELbwsP377yGys00nzqDotzxh+lDAzRWJ7uNvbWWRBTCbRrHthKFXQsD+VLxFQL8F21D7sY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKfN2TdXKw1K6mJHzVoxWGEpWzHWZjJClcWU4/ZYdl2Ty1Sp/pv
+	neaHMeca5BfibcEYNDBa7PO7RC55cajqjjnFFILHNpp8skAws9vdmPZdb1H0zO8gf1L4XNqct4A
+	GvUDf3Q==
+X-Received: from pjbch18.prod.google.com ([2002:a17:90a:f412:b0:3ab:147a:52a])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:e7ce:b0:3ab:9cb:b5a4
+ with SMTP id 98e67ed59e1d1-3ab3ac7eecemr2968909a91.40.1791579485511; Fri, 09
+ Oct 2026 13:58:05 -0700 (PDT)
+Date: Fri, 9 Oct 2026 13:58:04 -0700
+In-Reply-To: <asdOF41hqDpycXKU@yzhao56-desk.sh.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/6] mm: pass alloc_flags through folio, filemap, and
- bulk allocators
-To: Gregory Price <gourry@gourry.net>, linux-mm@kvack.org,
- willy@infradead.org, vbabka@kernel.org, brendan.jackman@linux.dev
-Cc: linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- kernel-team@meta.com, jack@suse.cz, akpm@linux-foundation.org,
- ziy@nvidia.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
- ying.huang@linux.alibaba.com, surenb@google.com, mhocko@suse.com,
- hannes@cmpxchg.org
-References: <20260923211041.3127588-1-gourry@gourry.net>
- <asdTptfeLkuypU8t@gourry-fedora-PF4VCD3F>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <asdTptfeLkuypU8t@gourry-fedora-PF4VCD3F>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20260930001127.3170009-1-seanjc@google.com> <3c0ee89f560b0235f293b32019327186785aa795.camel@intel.com>
+ <arxd78Pn6WWL6TGq@google.com> <asdOF41hqDpycXKU@yzhao56-desk.sh.intel.com>
+Message-ID: <aslVXBSovWuAsNtN@google.com>
+Subject: Re: [PATCH v2 0/3] KVM: TDX: Syntehsize SHUTDOWN on unhandled EPT Violation
+From: Sean Christopherson <seanjc@google.com>
+To: Yan Zhao <yan.y.zhao@intel.com>
+Cc: Rick P Edgecombe <rick.p.edgecombe@intel.com>, "pbonzini@redhat.com" <pbonzini@redhat.com>, 
+	"kas@kernel.org" <kas@kernel.org>, "jthoughton@google.com" <jthoughton@google.com>, 
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, "x86@kernel.org" <x86@kernel.org>, 
+	"binbin.wu@linux.intel.com" <binbin.wu@linux.intel.com>, Xiaoyao Li <xiaoyao.li@intel.com>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"sashiko-bot@kernel.org" <sashiko-bot@kernel.org>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>, 
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>, 
+	"ackerleytng@google.com" <ackerleytng@google.com>, Vishal Annapurve <vannapurve@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/8/26 11:10, Gregory Price wrote:
-> On Wed, Sep 23, 2026 at 05:10:34PM -0400, Gregory Price wrote:
->> This six-patch series first separates allocator behavior flags from
->> the bulk allocator fast-path flags and shares their validation and
->> preparation. It then passes alloc_flags through the MM-internal folio,
->> NUMA policy, filemap, and bulk helpers.
-> 
-> I had various discussions this week regarding ALLOC_ZONELIST_PRIVATE and
-> ALLOC_UNMAPPED, and whether adding alloc_flags to the APIs is a good/bad
-> idea and what the alternatives are.  I'd like to summarize the notes
-> here and try to find a way forward.
-> 
-> recommendations that were made:
-> 
-> 1) re-use unused GFP flags
->    #define __GFP_X  __GFP_DMA
->    or simply delete/replace __GFP_DMA
+On Thu, Oct 08, 2026, Yan Zhao wrote:
+> On Tue, Sep 29, 2026 at 05:55:11PM -0700, Sean Christopherson wrote:
+> > On Wed, Sep 30, 2026, Rick P Edgecombe wrote:
+> > > On Tue, 2026-09-29 at 17:11 -0700, Sean Christopherson wrote:
+> > > > Signal SHUTDOWN instead of -EIO if the guest accesses an unaccepted=
+ page and
+> > > > has disabled EPT Violation #VEs on such accesses.=C2=A0 Returning -=
+EIO is all but
+> > > > guaranteed to mislead the VMM into thinking KVM (or the VMM) messed=
+ up, and
+> > > > will likely result in the VM being terminated instead of rebooted.
+> Hmm, it's by design in my previous implementation to terminate a VM when =
+the
+> guest accesses an unaccepted page and has disabled EPT Violation #VEs on =
+such
+> accesses, according to the TDX module spec:
+>=20
+> "This happens if the TD is configured to TD-exit (instead of a #VE) on an=
+ EPT
+>  violation due to accessing a PENDING page. It normally indicates an erro=
+r
+>  condition; the host VMM may decide to tear the TD down."
+>=20
+> So, for the initial implementation, we chose to invoke kvm_vm_dead() and =
+print
+> out the exact reason as a hint to the system admin.
 
-If so, I think the latter,
+kvm_vm_dead() should only be used when KVM *needs* to prevent userspace fro=
+m
+running the VM.
 
-> 
->    There presently are no truly unused GFP flags, though there may be
->    some users who can be shuffled around if we are willing to add
->    functions.
+> (Previously, reboot was also not supported for a TDX guest).
 
-I once had patches to convert __GFP_SKIP_ZERO and __GFP_SKIP_KASAN to alloc
-flags instead. Nobody outside core-mm should be setting these, ever.
+But QEMU isn't KVM.  While QEMU is the de facto reference VMM, it's importa=
+nt to
+keep in mind that it's not the only VMM (and that's not just about Google's=
+ VMM,
+there are plenty of other non-QEMU VMMs that are used in production environ=
+ments).
 
-> 
-> 2) alias 2+ incompatible GFP flags to make a new one
->    #define GFP_A (__GFP_NORETRY | __GFP_RETRY_MAYFAIL)
->    #define GFP_B (__GFP_NORETRY | __GFP_NOFAIL)
->    #define GFP_C (__GFP_NOFAIL | __GFP_RETRY_MAYFAIL)
->    #define GFP_X (__GFP_DMA | __GFP_DMA32)
->    #define GFP_Y (__GFP_DMA | __GFP_HIGHMEM)
->    #define GFP_Z (__GFP_DMA32 | __GFP_HIGHMEM)
-> 
->    These are all nonsensical combinations.
-> 
->    Downside: We should probably just forbid these, otherwise the function
->    contract just ends up being confusing - i.e. (__GFP_DMA | __GFP_DMA32)
->    should just warn / return NULL.
-> 
+> Returning -EIO was based on the following considerations:
+> - vcpu_enter_guest() returns -EIO when kvm_test_request(KVM_REQ_VM_DEAD, =
+vcpu)
+>   is true.
+> - A request to handle a specific EPT violation is rejected by the firmwar=
+e (the
+>   TDX module).
+>=20
+> > > I'm pretty sure Yan had a test for this path, and I'd love to see it =
+actually
+> > > exercised. What is the urgency on getting this fix upstream? Can we w=
+ait a week?
+> I triggered the EPT violation in the kexec path, and successfully had the=
+ TD
+> - killed with error msg: "qemu-system-x86_64: cpus are not resettable,
+>   terminating" on an old QEMU, or
+> - rebooted on a new QEMU with the msg printed:
+>   "qemu-system-x86_64: info: virtual machine state has been rebuilt with =
+new
+>    guest file handle".
+>=20
+> The TDX selftests we are using do not handle KVM_EXIT_SHUTDOWN, so if suc=
+h
+> an error occurs, it's silently ignored by the TDX selftests even with msg
+> "kvm_intel: Guest access before accepting 0x8000c000 on vCPU 1" printed i=
+n dmesg.
 
-Not a fan of this.
+If TDX selftests don't fail due to an unexpected KVM_EXIT_SHUTDOWN, then th=
+at needs
+to be fixed irrespective of this change.
 
-> 
-> 3) expose alloc_flags as mm-internal only flags (this series)
->    in addition - convert some GFP flags to ALLOC flags
-> 
->    In 99% of callers they would simply add ALLOC_DEFAULT (0).
-> 
->    The upside - it seems like there are 2-3 GFP flags that may be
->    good candidates for conversion to alloc flags:
->      __GFP_WRITE
->      __GFP_ZEROTAGS
->      __GFP_SKIP_ZERO
+> > Absolutely.  It can probably wait a month and no one would care.  IIRC,=
+ this got
+> > hit by someone (internal to Google) deliberately crashing a guest kerne=
+l and doing
+> > funky things with kexec.  It showed up on my radar purely because our a=
+utomated
+> > madness alerted on the resulting assertion (on -EIO) in the VMM.
+> Though I didn't realize that returning -EIO would mislead the VMM into th=
+inking
+> KVM (or the VMM) messed up, such an error could also be introduced by a V=
+MM bug?
 
-Yes, as mentioned above that was my plan.
+Yes, but that holds true for literally every guest failure.  It's like sayi=
+ng that
+all observed errors could be due to a CPU bug, e.g. because the CPU corrupt=
+ed state
+or because a bit flipped in DRAM.  It's technically true, but in practice t=
+he vast
+majority of failures (outside of pre-production hardware) are software erro=
+rs, and
+so absent evidence that a hardware/VMM/KVM bug is at play, KVM shouldn't as=
+sume
+anything.  I.e. as above, unless KVM needs to protect itself, KVM should aw=
+ays try
+to provide semantics that are rooted in the CPU architecture.
 
-> 
->    And the zone/zonelist selectors seem like candidates to free up GFP
->    flags by turning them into internal-only flags and giving drivers
->    some kind of explicit API, e.g.:
->      __GFP_DMA/__GFP_DMA32 -> dma_alloc(...) -> intenal ALLOC_DMA|32
-> 
->    I considered whether __GFP_THISNODE should actually be broken up,
->    as it actually means two things (don't oom, use thisnode zonelist)
->    Something like:
->      ALLOC_NO_OOM
->      ALLOC_THISNODE_ZONELIST  (or keep __GFP_THISNODE)
-> 
->    The downside is yet another flag interface in the page allocator.
->    Note: This is basically 1/2 way done, this series finishes it.
+E.g. an analogous failure would for non-TDX guests would be if the host zer=
+oed a
+page that happened to be necessary to handle exceptions in the guest, and a=
+s a
+result the guest hit a triple fault shutdown.  KVM doesn't return -EIO inst=
+ead of
+KVM_EXIT_SHUTDOWN just because the failure could have been introduced by a =
+kernel
+or VMM bug.
 
-I do agree that two sets of flags is suboptimal, but likely more flexible. I
-guess an alloc_flags only interface is not easily possible ...
-
-I do wonder whether it should be:
-
-	typedef int __bitwise alloc_flags_t;
-
-instead of "unsigned int alloc_flags".
-
-... while at it
-
--- 
-Cheers,
-
-David
+> e.g., VMM removes an accepted page without any notification to the TD con=
+figured
+> with TDX_TD_ATTRIBUTES_SEPT_VE_DISABLE bit.
