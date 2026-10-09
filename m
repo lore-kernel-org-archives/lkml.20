@@ -1,126 +1,67 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1CA17547054;
-	Fri,  9 Oct 2026 08:19:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.187.6.220
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D999381B01;
+	Fri,  9 Oct 2026 08:21:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791533986; cv=none; b=aHzk1CaS/igisrjT39J23O/rklt9C3OLQDDjnUAwhT7VFT+W5sPZv/Jzr8WKOKkT/2c5zqxBfs6E4pGS212r5/C1lWoavsAUxEp46qxNz9hOOXB/OwtaToELVqs9lfiE490bGFCP76Y8gaifmIgSoiFBLameQrTH7UOzYIkF0ic=
+	t=1791534120; cv=none; b=tngV7zLHiXJO8kLhiyYIwTFyfFqS5kKjFqZV3KBRaorh/ktWEZytreA/m5TsWQ8OnAd37OajP5veazTkgGzly+DlqPkw486cF3w2ncPVs4plxRjSSXbwB6reHJILwb622W3r9YDQTbR930Ney3jAjW2+NnjMFRHVWftw7ErPQ7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791533986; c=relaxed/simple;
-	bh=Ty6dU7hyRWZl10aEAh88eaJc+XufIer2nPbswCBp5Js=;
-	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=AfL6Rd1ANe4t5IGNQvVPjvGErEJ+dpTdbYJgm3vrV9xLizrZKyYzFAFGhW8TIDNgHeAvoYPp/yF5bAczpBqcAtjSIwbYI7iqV8QMTNa3AJP0NXh9ioyIgnj0JvFmGi5XgwuwlXFsaPcOiOmC12mT8uTank1iFB4Hg2qcmboK+X0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=buaa.edu.cn; spf=pass smtp.mailfrom=buaa.edu.cn; dkim=fail (0-bit key) header.d=buaa.edu.cn header.i=@buaa.edu.cn header.b=ukzTsd+S reason="key not found in DNS"; arc=none smtp.client-ip=52.187.6.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=buaa.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=buaa.edu.cn
+	s=arc-20240116; t=1791534120; c=relaxed/simple;
+	bh=szB/SBGNW9kFWhyrEQYion3EEDliHRsDezvmNfK0rVI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=O7zL97VG7g3bgUrXhoobyF7oGA4mStSgpcx6e1pUBkTwh2pJKm0hSPJyRuM1u91KoyVsuYRFJ2hfN0z6/TbLdDwx06VvmtQO6XsRvEj/LK5x0y+52t4zuQXis75rLavxZim7C+3D7JtWY/7KXbV+A+Iev62wZvwWk06UjlCLeyw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OeLhcx33; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=buaa.edu.cn header.i=@buaa.edu.cn header.b="ukzTsd+S"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=buaa.edu.cn; s=buaa; h=Received:Date:From:To:Cc:Subject:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID;
-	bh=fj/+WuIGqcXlf41ackM3dUMpHdKPgLt5cdcvOzIuWqI=; b=ukzTsd+SU6HfF
-	ykiBJlW5woKIFhEYpyNnW8ZPMM0NMQc8EjYAfq4xe+8pRvsjAoN9X+NUf3b6psND
-	UuS8+b3BnXzV+3Hq0sbECWtehtsBq2l6d9mIbLBLyjlwnXy10/aNYCAyNUM7sCB5
-	rR5fTCwHzlhhO8bBBqVVugmUxb/XQ8=
-Received: from yunlong_ma$buaa.edu.cn ( [60.190.253.98] ) by
- ajax-webmail-coremail-app2 (Coremail) ; Fri, 9 Oct 2026 16:19:19 +0800
- (GMT+08:00)
-Date: Fri, 9 Oct 2026 16:19:19 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?6ams5LqR6b6Z?= <yunlong_ma@buaa.edu.cn>
-To: miklos@szeredi.hu
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: PROBLEM: fuse: NULL pointer dereference in fuse_dev_do_write()
- racing device install
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT5 build
- 20240305(0ac2fdd1) Copyright (c) 2002-2026 www.mailtech.cn
- mispb-63b7ebb9-fa87-40c1-9aec-818ec5a006d9-buaa.edu.cn
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OeLhcx33"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32C921F000FF;
+	Fri,  9 Oct 2026 08:21:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791534119;
+	bh=XR909C3Pjd+KOHrf5jL2WUTMt/jvGOVLkbFPbLw6Xoc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OeLhcx33IW8mAy3QVGFv1zIRvGO0PRTJw79Sho141cXlFv4eOc5XRS2BpsQ98vgch
+	 Tuwvp//eA2nS+vyzXnKO713iSPJBxx9behcXXYwaBia4Z0XT5ucnDIqiYs3NP9J4DM
+	 769mLUjlyk8vgVnquToil1r3INpFAimFlw1haA7TgVRW0ffIgxrBaNsDeGxeeC3heJ
+	 2DOBo5/jgfRxZhf54Cm21T4uoDgj0zoZc9H9nOvcgz3uPux5BhYtKgHvYTj5bKzcyh
+	 KN/JKYUr0V0RsIQcQsIdIFCgZtmyUN7PtvU4/MWeUwSD5RKN9+WTQ0Jzk1U+4zFlin
+	 0uufXWcHcfSdA==
+From: SJ Park <sj@kernel.org>
+To: kernel test robot <lkp@intel.com>
+Cc: SJ Park <sj@kernel.org>,
+	Suhaas Joshi <suhaas@s-joshi.in>,
+	akpm@linux-foundation.org,
+	aethernet65535@gmail.com,
+	oe-kbuild-all@lists.linux.dev,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] mm/damon/core: Copy only installed probe in damon_split_region_at()
+Date: Fri,  9 Oct 2026 01:21:54 -0700
+Message-ID: <20261009082154.42336-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <202610091039.fhMXCn7d-lkp@intel.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <5ddc8efe.1e6d2.1a11fbec860.Coremail.yunlong_ma@buaa.edu.cn>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:Nyz+CgCH1RqHo8hqCLYKAQ--.20183W
-X-CM-SenderInfo: l2esjjirrqmqpexdthxhgxhubq/1tbiAQIPDmdDD7ZQ-wAAsw
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWkKw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
+Content-Transfer-Encoding: 8bit
 
-SGkgTWlrbG9zLAoKZnVzZV9kZXZfaW5zdGFsbF93aXRoX3BxKCkgcHVibGlzaGVzIGZ1ZC0+Y2hh
-biBiZWZvcmUgaXQgc3RvcmVzCmZ1ZC0+cHEucHJvY2Vzc2luZy4gVGhlIHdyaXRlL3NwbGljZV93
-cml0ZSBhbmQgcmVhZCBwYXRocyB0cmVhdCBhCm5vbi1OVUxMIGZ1ZC0+Y2hhbiBhcyAiaW5zdGFs
-bGVkIiBhbmQgdGhlbiB3YWxrIGZwcS0+cHJvY2Vzc2luZ1tdCndpdGhvdXQgdGFraW5nIGZjaC0+
-bG9jaywgc28gdGhleSBjYW4gc2VlIHRoZSBuZXcgY2hhbiB3aGlsZSBwcm9jZXNzaW5nCmlzIHN0
-aWxsIE5VTEwgYW5kIG9vcHMgaW4gZnVzZV9yZXF1ZXN0X2ZpbmQoKS4KCkludHJvZHVjZWQgYnk6
-CgogIDQ4NjQ5YzA2MDNiZCAoImZ1c2U6IGFsbG9jIHBxdWV1ZSBiZWZvcmUgaW5zdGFsbGluZyBm
-Y2ggaW4gZnVzZV9kZXYiKQoKVGhlIG9yZGVyaW5nIGlzIHVuY2hhbmdlZCBpbiBjdXJyZW50IG1h
-aW5saW5lLgoKRGV0YWlscwotLS0tLS0tCgpBIGZkIGZyb20gb3BlbigiL2Rldi9mdXNlIikgaXMg
-YWxsb2NhdGVkIHdpdGggZnVzZV9kZXZfYWxsb2Nfbm9fcHEoKSwgc28KcHEucHJvY2Vzc2luZyA9
-PSBOVUxMIHdoaWxlIHBxLmNvbm5lY3RlZCA9PSAxLiBJbgpmdXNlX2Rldl9pbnN0YWxsX3dpdGhf
-cHEoKSAodW5kZXIgZmNoLT5sb2NrKToKCiAgICBvbGRfZmNoID0gY21weGNoZygmZnVkLT5jaGFu
-LCBOVUxMLCBmY2gpOyAgIC8qIGNoYW4gcHVibGlzaGVkICovCiAgICAuLi4KICAgIGZ1ZC0+cHEu
-cHJvY2Vzc2luZyA9IHBxOyAgICAgICAgICAgICAgICAgICAgIC8qIHN0b3JlZCBhZnRlcndhcmRz
-ICovCgpmdXNlX2Rldl93cml0ZSgpIG9ubHkgZG9lcyBzbXBfbG9hZF9hY3F1aXJlKCZmdWQtPmNo
-YW4pIHZpYQpfX2Z1c2VfZ2V0X2RldigpIGFuZCBuZXZlciB0YWtlcyBmY2gtPmxvY2s6CgogIENQ
-VSBBOiBGVVNFX0RFVl9JT0NfQ0xPTkUgICAgICAgICAgIENQVSBCOiB3cml0ZShmZDIpCiAgLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLSAgICAgICAgICAgLS0tLS0tLS0tLS0tLS0tLS0KICBjbXB4
-Y2hnKCZmdWQtPmNoYW4sIE5VTEwsIGZjaCkKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBfX2Z1c2VfZ2V0X2RldigpIHNlZXMgY2hhbgogICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIGZ1c2VfZGV2X2RvX3dyaXRlKCkKICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIHNwaW5fbG9jaygmZnBxLT5sb2NrKQogICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgZnVzZV9yZXF1ZXN0X2ZpbmQoKQogICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICB3YWxrcyBmcHEtPnByb2Nlc3NpbmdbaGFzaF0K
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLT4gTlVMTCBkZXJlZgog
-IGZ1ZC0+cHEucHJvY2Vzc2luZyA9IHBxCgpmdXNlX2Rldl9yZWxlYXNlKCkgYWxyZWFkeSB0YWtl
-cyBmY2gtPmxvY2sgdG8gd2FpdCBmb3IKZnVzZV9kZXZfaW5zdGFsbF93aXRoX3BxKCkgdG8gZmlu
-aXNoOyB0aGUgcmVhZC93cml0ZSBwYXRocyBoYXZlIG5vCmVxdWl2YWxlbnQuIGZ1c2VfZGV2X2Rv
-X3JlYWQoKSBtb3ZpbmcgYSByZXF1ZXN0IG9udG8KZnBxLT5wcm9jZXNzaW5nW2hhc2hdIGhhcyB0
-aGUgc2FtZSBleHBvc3VyZS4KClRoaXMgbG9va3MgZGlmZmVyZW50IGZyb20gdGhlIENVU0UgZG91
-YmxlIHBxdWV1ZSBhbGxvY2F0aW9uIGZpeAooImZ1c2U6IGF2b2lkIGRvdWJsZSBwcXVldWUgYWxs
-b2NhdGlvbiBpbiBmdXNlX2Rldl9hbGxvY19pbnN0YWxsIiksCndoaWNoIGRvZXMgbm90IGNoYW5n
-ZSB0aGUgY2hhbiB2cy4gcHJvY2Vzc2luZyBvcmRlcmluZy4KClJlcHJvZHVjZXIKLS0tLS0tLS0t
-LQoKTWluaW1hbCBpbi1ndWVzdCBGVVNFIHNlcnZlciwgbm8gbGliZnVzZToKCiAgMS4gZmQxID0g
-b3BlbigiL2Rldi9mdXNlIik7IG1vdW50KCJmdXNlIiwgLi4uLCAiZmQ9PGZkMT4sLi4uIikuCiAg
-ICAgTm8gc3luYyBpbml0LCBzbyBtb3VudCByZXR1cm5zIHdpdGhvdXQgYW5zd2VyaW5nIEZVU0Vf
-SU5JVC4KICAyLiBXcml0ZXIgdGhyZWFkcyBvbiBvdGhlciBDUFVzIGxvb3Agb24KICAgICB3cml0
-ZShmZDIsIGZ1c2Vfb3V0X2hlYWRlcntsZW49MTYsIGVycm9yPTAsIHVuaXF1ZT0xfSkuCiAgMy4g
-TWFpbiB0aHJlYWQgbG9vcHM6IG9wZW4gYSBmcmVzaCBmZDIsIHB1Ymxpc2ggaXQgdG8gdGhlIHdy
-aXRlcnMsCiAgICAgaW9jdGwoZmQyLCBGVVNFX0RFVl9JT0NfQ0xPTkUsICZmZDEpLCB3YWl0IGZv
-ciBpbi1mbGlnaHQgd3JpdGVzLAogICAgIGNsb3NlKGZkMikuCgpUaGUgd2luZG93IGlzIGEgZmV3
-IGluc3RydWN0aW9ucyBpbnNpZGUgZmNoLT5sb2NrLiBJIGhpdCBpdCBvbiB2Ny4yLjkKKHJ1biBh
-cyByb290KSB3aXRoIHVkZWxheSgyMDApIGluc2VydGVkIGJldHdlZW4gdGhlIGNtcHhjaGcoKSBh
-bmQgdGhlCnBxLnByb2Nlc3Npbmcgc3RvcmUuIFRoYXQgb25seSB3aWRlbnMgdGhlIGV4aXN0aW5n
-IHdpbmRvdzsgbG9ja2luZyBhbmQKdGhlIG9yZGVyIG9mIHRoZSB0d28gc3RvcmVzIGFyZSB1bmNo
-YW5nZWQuIEkgaGF2ZSBub3QgaGl0IGl0IG9uIGFuCnVubW9kaWZpZWQga2VybmVsLiBSZXByb2R1
-Y2VyIHNvdXJjZSBhdmFpbGFibGUgb24gcmVxdWVzdC4KCk9vcHMgZXhjZXJwdCAodjcuMi45ICsg
-dGhlIHVkZWxheSwgNCB2Q1BVcywgS0NTQU4gb24pOgoKICBCVUc6IGtlcm5lbCBOVUxMIHBvaW50
-ZXIgZGVyZWZlcmVuY2UsIGFkZHJlc3M6IDAwMDAwMDAwMDAwMDAwMDAKICBSSVA6IDAwMTA6ZnVz
-ZV9kZXZfZG9fd3JpdGUrMHgyMDIvMHg3YzAKICBDYWxsIFRyYWNlOgogICBmdXNlX2Rldl93cml0
-ZSsweDEwOQogICB2ZnNfd3JpdGUKICAga3N5c193cml0ZQogICBfX3g2NF9zeXNfd3JpdGUKCmZh
-ZGRyMmxpbmUgcHV0cyArMHgyMDIgYXQgdGhlIGxpc3RfZm9yX2VhY2hfZW50cnkoKSBpbgpmdXNl
-X3JlcXVlc3RfZmluZCgpIChpbmxpbmVkKSwgYW5kICsweDE4ZSBhdCB0aGUgcHJlY2VkaW5nCnNw
-aW5fbG9jaygmZnBxLT5sb2NrKS4gVGhlIG9vcHNpbmcgdGFzayBleGl0cyB3aXRoIHByZWVtcHRf
-Y291bnQgMSwKc3RpbGwgaG9sZGluZyBmcHEtPmxvY2ssIGFuZCBhbm90aGVyIHdyaXRlciB0aGVu
-IHNvZnQtbG9ja3MgaW4KcXVldWVkX3NwaW5fbG9ja19zbG93cGF0aCBmcm9tIGZ1c2VfZGV2X2Rv
-X3dyaXRlKzB4MThlLgoKSW1wYWN0OiBrZXJuZWwgb29wcyBwbHVzIGEgc3R1Y2sgZmQgKERvUyku
-IFRoZSB0cmlnZ2VyIG5lZWRzIGEgbW91bnRlZApGVVNFIGNvbm5lY3Rpb24gcGx1cyBGVVNFX0RF
-Vl9JT0NfQ0xPTkUgb3IgYSByYWNpbmcgd3JpdGU7IEkgZXhwZWN0IGl0CmlzIHJlYWNoYWJsZSBi
-eSB1c2VycyB3aG8gY2FuIG1vdW50IEZVU0UgKGZ1c2VybW91bnQgLyB1c2VybnMpLCBidXQgSQpv
-bmx5IHRlc3RlZCBhcyByb290LgoKRml4IGRpcmVjdGlvbgotLS0tLS0tLS0tLS0tCgpJIGRvbid0
-IGhhdmUgYSB0ZXN0ZWQgcGF0Y2guIFRoZSBvYnZpb3VzIGRpcmVjdGlvbiBpcyB0byBtYWtlCnBx
-LnByb2Nlc3NpbmcgdmlzaWJsZSBiZWZvcmUgY2hhbiBpcyBwdWJsaXNoZWQuIE9uZSBjYXZlYXQ6
-IHR3bwppbnN0YWxscyBvbiB0aGUgc2FtZSBmdWQgY2FuIGNvbWUgZnJvbSBkaWZmZXJlbnQgY29u
-bmVjdGlvbnMgKGUuZy4gdHdvCkZVU0VfREVWX0lPQ19DTE9ORSBjYWxscyBvbiB0aGUgc2FtZSBm
-cmVzaCBmZCB3aXRoIGRpZmZlcmVudCBzb3VyY2UKZmRzKS4gVGhleSBob2xkIGRpZmZlcmVudCBm
-Y2gtPmxvY2ssIHNvIG9ubHkgdGhlIGNtcHhjaGcoKSBvcmRlcnMgdGhlbQp0b2RheS4gU2ltcGx5
-IHN0b3JpbmcgcHJvY2Vzc2luZyBmaXJzdCBhbmQgcm9sbGluZyBiYWNrIHdoZW4gdGhlCmNtcHhj
-aGcoKSBmYWlscyBsZXRzIHRoZSBsb3NlciBjbGVhciBhbmQgZnJlZSB0aGUgcXVldWUgdGhlIHdp
-bm5lcgplbmRlZCB1cCB3aXRoLiBTZXJpYWxpemluZyBpbnN0YWxscyBwZXIgZnVkLCBvciBrZWVw
-aW5nIHBxLmNvbm5lY3RlZCBhdAowIHVudGlsIHByb2Nlc3NpbmcgaXMgc2V0ICh1bmRlciBmcHEt
-PmxvY2spIHNvIHRoZSBleGlzdGluZyBjb25uZWN0ZWQKY2hlY2tzIHJlamVjdCB0aGUgaGFsZi1p
-bnN0YWxsZWQgZGV2aWNlLCBtaWdodCBiZSBzaW1wbGVyLiBJJ20gaGFwcHkgdG8KdGVzdCB3aGF0
-ZXZlciB5b3UgcHJlZmVyLgoKVGhhbmtzLApZdW5sb25nIE1h
+Hi Suhaas,
+
+On Fri, 9 Oct 2026 10:40:07 +0800 kernel test robot <lkp@intel.com> wrote:
+
+> Hi Suhaas,
+> 
+> kernel test robot noticed the following build errors:
+
+Could you please check if this is a real problem of your patch?
+
+
+Thanks,
+SJ
+
+[...]
