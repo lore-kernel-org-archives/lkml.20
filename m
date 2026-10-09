@@ -1,208 +1,130 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8DF7395DBF
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 16:26:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39C394D0CE7;
+	Fri,  9 Oct 2026 16:26:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791563200; cv=none; b=i5MACr/OaYp13fLlO+u7UCN/SNhn5MxB1SJJhzf4oBWOhGyHgSTmdxanEFn5c6nxYwGsZOAQrOZO8KsZTF1saLz30hqizTbXcm1jA8vkGkfAsBixLA4rdo3Yzng2G0Occ2LU6NaWRLkid93XDpyb1oBNCsIA0Az1S7QZVucj+HI=
+	t=1791563214; cv=none; b=Zp7e1GfOj6x/ebxjTPp/x/O8QhIitEdzqub/XgNFcWds6lHC7zGeGn6TETp5RQ+rKO3JE/C3xPjnRXsQSZIopg/dXA0mff3E4MpRl/KG6ZB4iFfWHCAnpFWETq0IptNoPcn0RdPVY02rnHlnRndoJ8a1xh3dZm9aITZpI82whrM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791563200; c=relaxed/simple;
-	bh=z8LVxDwXNisEDg9XRjD9l5cNR4q4YDySjviXXc/lnQE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ot2K4Cyw/BubrKfP8IwWZmpWluH6XiBh/F3AEfrZx9wXhCT8oMEVR8VCsx+yDgHXTVA3ORCHz5nSxrxemKfjHliWUwGXecHGphIzsXp5ktBZdgrIqr7pamXCl4x3q+cQU47fCQalpp+jpPRXZmfO4I2HNywVQQiKEr7kK98BNtM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bxiKyY09; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791563214; c=relaxed/simple;
+	bh=+z9TStifVr8hyP3XMi7kVDq01S8gsy+/HxmSA1n0WxY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jF5cXKZrzoeTe91QOEqSUGNO94wb7HCRcO1jAd5Q694UBUlGgrz+GPoOyMeFMpLgUkWZNGGOwBO9QvDFMMdabLoJWgfcIkZurU6Wkmy/PfHoHyFWPS+np9RD+4AExudUiD/VZzQt95XYg3pc7km6BR7GFhxwvGEzMIYjRIw+IUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=exb8hAae; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bxiKyY09"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48af27fe287so614f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 09:26:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791563189; x=1792167989; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ckizy139Yx68MapGfbyuMco76+jqL/TiZ1vLBTM9150=;
-        b=bxiKyY09W2A5BA9exft9roeyERw+dW5dIIhz81IwB+W3asI0+rhE80y37a4gw3SpcQ
-         ENdSmJ4aM6PA9AwXtxvBE+FoBn+vayBhGDg1J8XKNMt7meK3sogD3RbQf2pVPH3bkHcq
-         qoVl3vzsoYgwXRnBgC1sB3eiyqfwd6qlWo6g5WdwnniZt+jW6qGqj66zJS1OA7pi8Ove
-         nE5HR/eqwh7U+6lkHjWddTvWDumdoOOsRlH7Ozmch87f+T2/tBAzRRm0jB54zRm02jwE
-         j5c1Tnt04BHiDOdQJRSrjXL84+Mtu+/4/fmh2jZdU26Gbnc3DCA3VDp2J/WOj9FrLxNT
-         /tPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791563189; x=1792167989;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ckizy139Yx68MapGfbyuMco76+jqL/TiZ1vLBTM9150=;
-        b=HkneedLZ0a77RmwIElbQTRKrzZ8YQCkeFviVQ0OG4/DmZUb/unQR74Y41z5Gd6b67x
-         VgY/MLIkGC5oSsyP8BfU6xdismAZoM5jxrWsTu6OJfoCSFlTZGv3XZfyDCzRATxg3+Ah
-         IJiSRbgmfzMkyJ2kFx+I36Ed5LnFi3wVeq6lgXC0iyYStOZFUe2ZUXoVBwQkN22LXWST
-         d2mpqVocUNV/GfwTVK020Rfz60aRa3KNYEpBxxvyA7q0WGamQEROVqFmX60H9fxubLnw
-         lTbhJVIy8QQBvZmKSXThpQ1ax5xNvPN3i1IYcViqEZqVzaldjVfUnRbEJYjg0UmprTm4
-         0Vng==
-X-Forwarded-Encrypted: i=1; AKwUvBxUdYylqOS877X6UePlr67tBUYFg2fHsZJTrSygQXik51WMKekMoka+p23g4pIQ1Ghpz8HhZ+WYl3TYEx8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLGDBfKjs+GnFfQKJbUV6wUQ8qRDhYa6j0IzhiDxfLWAGlK1Ch9
-	8EGYBMegx2/DmZPuBdZeoFbcpVtnaennM/PTUnivbZlZFUE1q2oSOK+S
-X-Gm-Gg: AYBFou3CXX2tiv1ToAAJ4mSB4qvQz+91zLMOnemURqm2sqctikf8P5jupUkQ+vBDNu5
-	FSLvPC+oGqVfEPkQjyQC5thWWf6u9/KAh/WwTZ1MbMoD55rcurd9sO4uY0AhsPgqqOtTdWu5XE+
-	X+rDTT82Nt+DhN9Pm+L1Zi6bxXdt+h0SYwY/QZ8JyITOlcq2s3hwMbpogTnDG363FkduSry/gT3
-	UHP/jYG8aFA3o/auxcY3ST5Pof0k+Ep0zGJOznHqM7/f9VWwb/3dZqDBLUJmUojbgVytSp9ha9C
-	aQpTsSqChikZtwneHvFZ0p005mg8xNnxLeS60cxK49K+fgP6yXY3woT83aAqTobZVQmYxR2qGTD
-	O03mslzHct0yvVfgH98wEvcnJuWR3bD5gmeEuUZQDrd5GObKzFtT4uvgGnsTqudyTzHSwj/XMup
-	DM+hIgm1UhNdTQgy8f/drwH+ww9uxjI8JOuQjrkQ58MGAvHAKJMJMZrOZcq/4xiXDxbR8c+bAOX
-	R1SvTu+5xnHuXYSehG86XySX3sTUe1UCcKkLB+t6jbuLgeV59CBIAYxqOo0be5I63M=
-X-Received: by 2002:a05:6000:46db:b0:48b:e50:7152 with SMTP id ffacd0b85a97d-48dbaae21dcmr3251605f8f.28.1791563188334;
-        Fri, 09 Oct 2026 09:26:28 -0700 (PDT)
-Received: from Raghu007.. (sgyl-44-b2-v4wan-174108-cust110.vm6.cable.virginm.net. [80.1.81.111])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9abdaa5sm4745750f8f.35.2026.10.09.09.26.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 09:26:27 -0700 (PDT)
-From: Palla Raghunath <raghunathpalla.0209@gmail.com>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>
-Cc: Fernando Fernandez Mancera <fmancera@suse.de>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	Shuah Khan <shuah@kernel.org>,
-	Brigham Campbell <me@brighamcampbell.com>,
-	linux-kernel@vger.kernel.org,
-	linux-kernel-mentees@lists.linux.dev,
-	raghunathpalla.0209@gmail.com,
-	syzbot+5a8667f002726fc59f88@syzkaller.appspotmail.com
-Subject: [PATCH nf v2] netfilter: synproxy: check TCP header before verifying checksum
-Date: Fri,  9 Oct 2026 17:26:24 +0100
-Message-Id: <20261009162624.16294-1-raghunathpalla.0209@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="exb8hAae"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A93D1F000FF;
+	Fri,  9 Oct 2026 16:26:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791563207;
+	bh=P1NQHWvgiocrQrohPdZ3lILWGC/DaP8S52W3+7hraoY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=exb8hAaeBUkFUrpnnUkhqLQ5zgFgMWnN/rYINMuBzDs1GNM4i9JO2MPVFhuXRhFo0
+	 bqz3igmYBv7ZBuRWS/kvuYQ5ffUaHTPuDsrkHE/UxTZ8gJOgIGsoInf5FsQ/UB7y3A
+	 g6CVRHuOO5bxRC/opNlTJ4l+8W+7F8avwelRbJO07mkTvjpRefiI3V10A1GVbXs3Go
+	 XiKBGRBT0rS5eYl1YAt1D6JtcC8KFP/8pAvYu+y+q/bNxjXRUhITPA1EQMMGGJt/eI
+	 lisapvQarlC5G9y4IP9ryxp+vI8vfLGLmBHwRi5eyGkWEwhSa/zfu2VmAVl2fAr/CB
+	 DWas7S1aHp1/A==
+Date: Fri, 9 Oct 2026 18:26:36 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Wandun <chenwandun1@gmail.com>
+Cc: robh@kernel.org, baoquan.he@linux.dev, m.szyprowski@samsung.com,
+	catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com,
+	chenhuacai@kernel.org, kernel@xen0n.name, pjw@kernel.org,
+	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
+	tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+	saravanak@kernel.org, akpm@linux-foundation.org,
+	pasha.tatashin@soleen.com, pratyush@kernel.org,
+	ruirui.yang@linux.dev, robin.murphy@arm.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org, kexec@lists.infradead.org,
+	linux-mm@kvack.org, iommu@lists.linux.dev
+Subject: Re: [PATCH v7 0/9] kdump: reduce vmcore size and capture time
+Message-ID: <askVvEPHyrhpF8aw@kernel.org>
+References: <20260922084256.1515554-1-chenwandun1@gmail.com>
+ <ar9ogXc12cLjziHS@kernel.org>
+ <80af60db-8c39-461c-a488-3dfee990bce8@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <80af60db-8c39-461c-a488-3dfee990bce8@gmail.com>
 
-synproxy_tg6() calls nf_ip6_checksum() with par->thoff before it checks
-that there is actually a TCP header at that offset.
+On Fri, Oct 09, 2026 at 11:04:47AM +0800, Wandun wrote:
+> On 10/2/26 16:17, Mike Rapoport wrote:
+> > Hi Wandun,
+> > 
+> > On Tue, Sep 22, 2026 at 04:42:47PM +0800, Wandun Chen wrote:
+> >> From: Wandun Chen <chenwandun@lixiang.com>
+> >>
+> >> On SoCs that carve out large firmware-owned reserved memory (GPU,
+> >> camera ISP, ...), kdump currently dumps those carveouts as part of
+> >> system RAM even though their contents are firmware state that is not
+> >> useful for kernel crash analysis.
+> >>
+> >> This series introduces a MEMBLOCK_NODUMP flag in memblock to filter
+> >> reserved memory on DT-based architectures (arm64, riscv, loongarch).
+> >> Reserved regions are marked MEMBLOCK_NODUMP by default so kdump omits
+> >> them; reusable CMA regions are different because their pages are handed
+> >> back to the buddy allocator and may carry crash-relevant data.
+> >>
+> >> ACPI systems already filter reserved memory out of the vmcore through
+> >> their existing path; only DT-based systems currently fail to filter these
+> >> regions, which is what this series addresses. The flag lives in memblock
+> >> itself rather than in a DT-only structure, so both ACPI and DT systems
+> >> can benefit from it (suggested by Rob, thanks).
+> > 
+> Hi Mike,
+> 
+> Thanks for the review.
+> 
+> > Can you elaborate how ACPI systems filter their reserved memory?
+> 
+> In the EFI memory map, firmware carveouts are reported with the type
+> EFI_RESERVED_TYPE. This type of memory gets the nomap flag set in
+> memblock.memory (is_usable_memory() returns false in reserve_regions()
+> and mark these regions with nomap flag), during prepare_elf_headers(),
+> for_each_mem_range() filters out these nomap regions. Therefore, the
+> memory reserved on ACPI based systems will not be dumped into the vmcore.
+> 
+> I will add these description in next version.
+> 
+> > With your patches, the memblock flag becomes a part of DT-only
+> > infrastructure, so that claim that both ACPI and DT benefit from it does
+> > not hold, doesn't it?
+> 
+> You are right, the wording was misleading. Let me clarify what I meant.
+> 
+> In this series only DT marks regions as MEMBLOCK_NODUMP:
+> /reserved-memory and /memreserve/ entries are tagged in the OF
+> paths (of_reserved_mem.c, fdt.c). ACPI does not set the flag and
+> keeps filtering its reserved memory through the existing path, as
+> described above.
+> 
+> 
+> What I intended to convey is that the flag itself lives in memblock
+> rather than on the DT-only struct reserved_mem, so it is available
+> for reuse. If an ACPI system ever needed to exclude a firmware-owned
+> region from the vmcore, it could mark that region with MEMBLOCK_NODUMP
+> the same way DT does, instead of having to invent a parallel mechanism.
+> That is a future option, not something this series enables for ACPI
+> today.
 
-par->thoff comes from ipv6_find_hdr(), which ip6_packet_match() calls
-with target -1. ipv6_find_hdr() only makes sure the first two bytes of
-each extension header are in the skb. It then adds the header's declared
-length to the offset and stops at the first non-extension header, so the
-offset it returns can be past the end of the packet. For a CHECKSUM_NONE
-skb, nf_ip6_checksum() then calls skb_checksum(skb, 0, thoff, 0), and if
-thoff is bigger than skb->len we hit the BUG_ON(len) in skb_checksum():
-
-  kernel BUG at net/core/skbuff.c:3606!
-  RIP: 0010:skb_checksum+0x8b2/0x8c0
-  Call Trace:
-   nf_ip6_checksum+0x1bd/0x320 net/netfilter/utils.c:89
-   synproxy_tg6+0x1a4/0x6e0 net/ipv6/netfilter/ip6t_SYNPROXY.c:21
-   ip6t_do_table+0xd37/0x15b0 net/ipv6/netfilter/ip6_tables.c:366
-   ...
-
-syzbot's reproducer sends a 60-byte packet with an AH header followed by
-two hop-by-hop headers. The second hop-by-hop header says the next header
-is TCP and has hdrlen 167, which gives a thoff of 1400.
-
-nft_synproxy_do_eval() has the same ordering: it calls nf_checksum()
-before it fetches the TCP header.
-
-In both places, get the TCP header with skb_header_pointer() first and
-only then verify the checksum, the same way nf_reject_ip6_tcphdr_get()
-does it. Packets that don't have a full TCP header at thoff are now
-dropped before we try to checksum them.
-
-Fixes: 4ad362282cb4 ("netfilter: add IPv6 SYNPROXY target")
-Fixes: a311a8981727 ("netfilter: nft_synproxy: use the family-aware checksum helper")
-Reported-by: syzbot+5a8667f002726fc59f88@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=5a8667f002726fc59f88
-Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
-Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
----
-Thanks Fernando for the review, and for spotting the nft_synproxy case
-and giving me the chance to fix it in this patch as well.
-
-v2:
-- Also fix nft_synproxy_do_eval() and add its Fixes: tag, as Fernando
-  suggested
-- Drop the comment in synproxy_tg6()
-- Add Fernando's Reviewed-by
-- Rebase on v7.3-rc7
-
-Testing: I ran syzbot's reproducer on v7.3-rc7 with this patch applied
-and ee319bd3a0e9 ("ipv6: do not let ipv6_find_hdr() return an offset
-past the packet end") reverted, since that commit already stops the bad
-offset from reaching the target on current trees. The BUG doesn't fire
-any more. The nft_synproxy change is only build-tested so far; I haven't
-managed to get a packet through an nft synproxy rule with the bad offset
-yet.
-
-v1: https://lore.kernel.org/all/20260926204519.43402-1-raghunathpalla.0209@gmail.com/
-
- net/ipv6/netfilter/ip6t_SYNPROXY.c |  6 +++---
- net/netfilter/nft_synproxy.c       | 12 ++++++------
- 2 files changed, 9 insertions(+), 9 deletions(-)
-
-diff --git a/net/ipv6/netfilter/ip6t_SYNPROXY.c b/net/ipv6/netfilter/ip6t_SYNPROXY.c
-index d51d0c3e5fe9..b3aa4fe67589 100644
---- a/net/ipv6/netfilter/ip6t_SYNPROXY.c
-+++ b/net/ipv6/netfilter/ip6t_SYNPROXY.c
-@@ -18,13 +18,13 @@ synproxy_tg6(struct sk_buff *skb, const struct xt_action_param *par)
- 	struct synproxy_options opts = {};
- 	struct tcphdr *th, _th;
+So, EFI uses NOMAP for the same purpose, right?
+Why when we need a new memblock flag then?
  
--	if (nf_ip6_checksum(skb, xt_hooknum(par), par->thoff, IPPROTO_TCP))
--		return NF_DROP;
--
- 	th = skb_header_pointer(skb, par->thoff, sizeof(_th), &_th);
- 	if (th == NULL)
- 		return NF_DROP;
- 
-+	if (nf_ip6_checksum(skb, xt_hooknum(par), par->thoff, IPPROTO_TCP))
-+		return NF_DROP;
-+
- 	if (!synproxy_parse_options(skb, par->thoff, th, &opts))
- 		return NF_DROP;
- 
-diff --git a/net/netfilter/nft_synproxy.c b/net/netfilter/nft_synproxy.c
-index 554a96a000f4..6b290a89886d 100644
---- a/net/netfilter/nft_synproxy.c
-+++ b/net/netfilter/nft_synproxy.c
-@@ -118,12 +118,6 @@ static void nft_synproxy_do_eval(const struct nft_synproxy *priv,
- 		return;
- 	}
- 
--	if (nf_checksum(skb, nft_hook(pkt), thoff, IPPROTO_TCP,
--			nft_pf(pkt))) {
--		regs->verdict.code = NF_DROP;
--		return;
--	}
--
- 	tcp = skb_header_pointer(skb, thoff,
- 				 sizeof(struct tcphdr),
- 				 &_tcph);
-@@ -132,6 +126,12 @@ static void nft_synproxy_do_eval(const struct nft_synproxy *priv,
- 		return;
- 	}
- 
-+	if (nf_checksum(skb, nft_hook(pkt), thoff, IPPROTO_TCP,
-+			nft_pf(pkt))) {
-+		regs->verdict.code = NF_DROP;
-+		return;
-+	}
-+
- 	if (!synproxy_parse_options(skb, thoff, tcp, &opts)) {
- 		regs->verdict.code = NF_DROP;
- 		return;
+> Also will update these description in next verison.
+> 
+> Best regards,
+> Wandun
+
 -- 
-2.34.1
-
+Sincerely yours,
+Mike.
