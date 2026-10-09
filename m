@@ -1,98 +1,142 @@
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4831446EC80
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 12:24:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791548653; cv=none; b=LRHbGQfeiAchnzHbIqZSI+gnfZRhqrNmjQV+ZfJTgqc57XNxhNbqqfb4MmSnimpO8fyp6BJpJh+6dhYAZg+4Vp6jeBvnbTRLVRAwegNd2dYUWhdlmMAqooCYxQr7QeRiK1/dxbfVGNcj343iC95IEu0BgECqBA+5/RdyfmmVxTc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791548653; c=relaxed/simple;
-	bh=ygzy2tiWw+zyB+8zPESgoW3Kc6ZtzDU0sZJXdO2V3L8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JoJFQZdTjrFEvBOT2AWhiQMwwlrRY7gySyFHTQXRitHkG81A3o5i+X8r9I96PNTk7/mD5aqueVeP26PDVEvBPLPoONg/EOYeIwkuKhj9gm3+2qsc1Nt7dvQGBv0pgdcrBwr5/f1WEIgucH4kCOf1KYsRLjJC0qxIbk44hd/Mae8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=VdqXgbr1; arc=none smtp.client-ip=209.85.222.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FFCA4C4F6C
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 12:24:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.179
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791548655; cv=pass; b=obhXMM6elLgygXncAS0mnBPHaXTa9jlViajUuCeDAu4oGt9vKDbeJO+qvKqeEJj5A2UmMpW6nXA1nn0CYLVPQiibpSlik0o2RZ5wC2urrXYiK7PoP8Vvxxa2BIBpKAFn19Ua/pbgGGRsccgu/3AweBf4AoX+cYUQklYlr6IzjtA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791548655; c=relaxed/simple;
+	bh=W+GVodrUTNH4Yy1nDEnsPN+ql8MzERFY3f4gbOktc0Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=k88d7Ap1fAZPK4gRictUS1tYT6splOicPIIe/F0C9jfCxX3lOZP1vqJ+D70Jip48PAc6YtTz4a5xqaLMU26HFVtMUPtKb/tB5VQSVIYopnudqrDmtjTIKLMFbPadbaMvMB1vP2M3YrhOUhC4TNUDwuqZqtIlIO65WVncazk04to=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sQNlduzi; arc=pass smtp.client-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="VdqXgbr1"
-Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93e706a6ba9so494322085a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 05:24:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sQNlduzi"
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-33fb4680717so1193473eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 05:24:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791548651; cv=none;
+        d=google.com; s=arc-20260327;
+        b=EGF9zsRrBRp3YY8oM1Tv77ilcXEpbS/nvFAkM1EIbP6sxPmnJ1BEBZFU5tNlSNfSx4
+         HfK2j6SD08PVU5yWah8GQWYdCoCGrcn3oPuAsrZOJULMtvW+FpY/0W6dHPUy0jRUkEKX
+         /d99GqhDySeTDmftu3jwTcZMA+PIYDQw8givk31v1WA4q8fBhOyImbfbJqciZG4+X8ly
+         6UktbrjrwcA6DF1Uqt9/igpvfHWOJCct+gBh5IOlngFhuIrkqfP9OfCHBWlnqHbXMcsA
+         fU6lW1TkbeGFNNUntB/6ion5NPgHQPgEe4vbXJe0+faR7y77fftD+q16MAh6RbwrcHoI
+         tXaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=6w7iXC+S7wuM/jPa5o9UtD+49O2Q2UL2gZUFw1fUahM=;
+        fh=6AFExKOHvOWEtLV1EMGWsrAlJJCsjQ5V2wu5vOqz9vo=;
+        b=Jyuj1e7zv+83Emt26ja52VPIBfXiQYDtsnJNivWT+VO3LTy/dyjnCAIR5kG8iWMrn0
+         KslnS1KqyRzh7NXV5ZuIj74r+xmyHy9qGrm0Ly2MNunYdfRMp1ASUKzqZY5Jc371QV+I
+         ABtMs/ARj6Zg43RUcnRQnWxNhYICg+T/B+ZEPRqffZDJVi5K8gsRCO9jDmJPOzbZFdLk
+         mZAf9jX/TwuVxsMUvgUbJjpGYafdSyEV7OwLkjW7S17XJnsT8SgNFZ2/q2zBFzh3G1rM
+         bxOZf/Bw/YhCgcrN8AW+tA+A0ujWJophDmgP9SLUSFYbyOtw3q2Zg4vPiWQhyEfLalC3
+         HubQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1791548648; x=1792153448; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7xVrLTdPBO/x7mZ2QJE4nRUIXu18ExDFNt/NWIXXmg8=;
-        b=VdqXgbr1KgwSy/vK8WKrpPv6SUjEtbkhdHZ19ORmy9VFp/5/Ck0UNYVvpJAUZDEeAz
-         NqyvzuDm3SA17xyrJFeN86MZkTeyIn4fOUemTPjha++nFj2nUKNu/3qoK2GGsHCbu2J7
-         NmkY2rlLrNVn0Cy0VKXglEOf/BD4Q2vnJsgngGm8ZB3/Vb8YV7Ptv3mx8iu+uMAHvpCA
-         S+hzXIyCHFMZC2bx8PLJHKuHbkcl0zu/daQrGmv+ETTlZcfmBez3ZX5qDhpOOW1K4b8s
-         4WUt+b/ufDr3iZnBEQt3VGmafMI6x6l7i/0VuZube/WDHN52jeYjXXeV9wQ1Wk6CRBKi
-         MvEw==
+        d=gmail.com; s=20251104; t=1791548651; x=1792153451; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6w7iXC+S7wuM/jPa5o9UtD+49O2Q2UL2gZUFw1fUahM=;
+        b=sQNlduzi/63ZkkDCnIriT6G1Yo+AA3Y+4+9LPmjw/rerzugD3/SD+i/77xtHkd+qyx
+         bY+lOjX0+YI7iKJxXPVNq89retWljHuBJJGbtaNmppRl/ucggm8qIZJEi6GUTLVnCWBQ
+         WF4F+upwRL011bRU17x5wixbPPTqTfjHsDjBgeq1ELQeL96ZUrKCASVv6/3U4TZpby2U
+         uJcqNgHjbLBNXdLN7cT17Sh6S8K82rrguw3XFZhUVcHXey2On6hP1BG/aNRwISvLIT03
+         f/KTTp0ZspPJPnsdvofWi8P0mq1oR675EFAjpj2d5HqVvE7nCtIFx9h5Jxq5/bWE+LFO
+         jdvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791548648; x=1792153448;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=7xVrLTdPBO/x7mZ2QJE4nRUIXu18ExDFNt/NWIXXmg8=;
-        b=d6cUdr2dm8fbWt9TEskH50gpgctG+lHG/z7Iyv0nxu52pzkOg3+7XBxAkg/OKRJf/Z
-         uD1pKOi+AJH9w0M/a9LsMOfPFHa1vE8Ee2sE60tcHdjc+z4tENbDpI9bU4/HQVNDewVM
-         SKEMqFwlwAWL3gCFu4bvo4VlQtrwIC50BWC2kjkqxpI/qMXhqDHq183MBoztXNMKnpWz
-         B1v+xSF+Pi45ljDNZTD9MtKk2/qyite4N4JkaFlw9CSxXiwTFuF4bwKYWxslahcan5L4
-         BR8QZAFaSt8O7NtHrqmFjo+EyfQDDcapIl2h4yzhE+rIx/2TMn9x1eNmgXV1qwzAaIdT
-         KnfA==
-X-Forwarded-Encrypted: i=1; AKwUvBxKapVhFofGWtHcHO23QN0j8+IonY1bEk6A+UQuQIBiGCtN0pfwxzE1IZk+3J+9KJh501YV+BqCad7u1wU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLd6qb9pw5YMrMJMCgusVH5hca7eEj2Q2wcf/QBuNQzvuJSy0sN
-	r46V7LoC9kZCP44vjSO6qUnlaqvsuOqOs8SH3icW0E35FgoYJhkDTQ6DkmxcOaw0+eY=
-X-Gm-Gg: AYBFou3zbDEmWstLLqardx2G2pF9wUJ3ZqgPfTycvbtBjY6jWUk0EfOhrq1Nj1bjaAn
-	hQuGS7E2b9xz9iV25uQ1W93QMLgc9WjgB4dOV4+f4Sjb20aBc7P9sNu59aMQHwOFuEQlC/gmN1R
-	IvqON8ylOO3ErKjjEA4Rgrw+8zD8DZ4TXXMEGM+enqNp+oYQIqBnJibqT2RW/P39XX4Fy+gmQSL
-	NoFezedEmRaBqM9dwSfaI5wRu3aIXGqbZPEankU9TBkZaC15L/steg5sI3gtk29Ne1vYzvBrJWO
-	Fa8z4FRz29pi41u6uyxRB/PHAefjZZKpmNaGJm2fS6vRUkcU/1a5Orc8blGus4HIv61WxWD8ybg
-	sWLAQitcPRkb18uZtJX9j6RhemL5iBPhpZd2VQb0NQJ02mTMbwLbMrA3Kuq+dsUcCg8/kL2nuOb
-	uKMsWoBNhlBv+/UZ9yedXH3jero1hveyH/1gexkj9c28bqojUP7tBbfTux2QqYoiqHpyogcygD7
-	HHF04tDXYwJcxZ1B7cE7uFprckT6TLhYDJlGEghIvhl8RHmbnahphBA
-X-Received: by 2002:a05:620a:1d03:b0:93e:53fd:4139 with SMTP id af79cd13be357-93ebd0c015fmr239646085a.9.1791548647899;
-        Fri, 09 Oct 2026 05:24:07 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb99074f7sm169721285a.46.2026.10.09.05.24.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 05:24:05 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xF9ds-000000003qG-2YfR;
-	Fri, 09 Oct 2026 09:24:04 -0300
-Date: Fri, 9 Oct 2026 09:24:04 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
-	Joe Perches <joe@perches.com>, linux-kernel@vger.kernel.org,
-	users@kernel.org
-Subject: Re: [PATCH] get_maintainer: only use THE REST as a fallback
-Message-ID: <20261009122404.GA14213@ziepe.ca>
-References: <20261008-get-maintainer-the-rest-fallback-v1-1-7d26d0b7aa34@linuxfoundation.org>
- <8e194f64-6add-4fb3-a1bb-9b27719b409e@suse.com>
+        d=1e100.net; s=20260707; t=1791548651; x=1792153451;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=6w7iXC+S7wuM/jPa5o9UtD+49O2Q2UL2gZUFw1fUahM=;
+        b=stlIk053Q7zbbc1mhRWIlGDDoNSvrtpCp/V4ZL2hD6O1MFYtuZvb2GYprDJGW8zcRm
+         FV0vL1NE79tEsaoJzhvPiqqEvy0QhdOZmN0fqCEnLJqL2sxIUMjok/P2Oim20uMgliy9
+         wdYPSkJ0RAF+9GqDhlsSS21VhjDHBjL03oEt6eaxAfFCgmKlPrPAS4XmXhKAj0izMiQr
+         4qMz8hTB7wovlFG1Lgmf/1o0SeK2fbsAOrEqWTHPjkAoKS50eUVNVRy16OIJKkO9vxb/
+         bjVbOQk75II9lHOIHjT9H28FVjI6m35zuMGeEdSeLtl3hrqGPZ6+DfVHjSgiSJhAbwdI
+         AmgA==
+X-Forwarded-Encrypted: i=1; AKwUvBwLbmOf6Tr9YOtPdaIbpCPTzoG0KDzzyy+NZXlbzbYk1CZloKvRNH7bQBp+AsMZcV2qWLtSHQrxf/pd28c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKxloaAvk1vtAcdDeYd/uSDskJX2hV74tgA5C3Mxsjyr72VmGUG
+	c+sjTwG7w51LE9sjLiWKR4fUVVJ6YoeWyl1hVGd6fz+OXsDu7u2+L+Ufk2YUUd5UX71HlnjYqFf
+	QcQLwSUmEhJA/E5OpuRY7I7/SQK9/mD4uHywVOw==
+X-Gm-Gg: AYBFou1GNhYIozyygPOVOFXCxlBmVYov67JMlghZlJlm2YJrI65fyK4DRv3B6wihUkw
+	6915Oj7R/g7fCnpbmuw/HnXkzx5zI43i4BDrF7B18rBch7vHDq6DPa1HzpX1LYUYHJDjBGm2MYb
+	cynrzNEN/qGM9/zF3iFfTWbLLxWf8XXDWNl81nvJkPOSt7pDWHb40pA7vTz/6uUIfqrX+tjrHpI
+	hfXIg1hL7I9qvD8941Oj/HSCpMhlNhpCTRpOL7yny58Z6QIYBzjNRma7Ads88vFEw7WQeMcNgdP
+	1Cj2p7uKoPW0OHTzvPhzhPbOWRrNQzHmTEZwQo6OEoCTRcVv+dFZFrUnbaz+eAeRyUV7tVhz+qR
+	+mkvcnKNNUEXXIUd/5bZozsAym59V3G78MPhr5dzy
+X-Received: by 2002:a05:7300:cd8f:b0:351:75b5:885d with SMTP id
+ 5a478bee46e88-3537dfd8470mr3507309eec.17.1791548651179; Fri, 09 Oct 2026
+ 05:24:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <8e194f64-6add-4fb3-a1bb-9b27719b409e@suse.com>
+References: <CAM6_QD_PoTdwdM7DvzzgHRs-G5EvQu-c5oNGve=GuKV4wFYAvQ@mail.gmail.com>
+ <CAM6_QD_xAyTFVvYKvCrrZmS+fV5DBBje9V=VdkDMMSpt2ussRg@mail.gmail.com>
+ <20260928120343.49e02c07.michal.pecio@gmail.com> <CAM6_QD-CbYSsmic5LhpMi-aMXuC_VaniELBzaBeWO8SWm4UONA@mail.gmail.com>
+ <20261002104355.698eaf00.michal.pecio@gmail.com>
+In-Reply-To: <20261002104355.698eaf00.michal.pecio@gmail.com>
+From: Dane Linssen <linssendane@gmail.com>
+Date: Fri, 9 Oct 2026 14:23:57 +0200
+X-Gm-Features: AclHuK99jZT_xKU3QNXdrk-r0fVYuUviUqc5tIgyboVM9TB_HTssMakAr2jlGvc
+Message-ID: <CAM6_QD_z7eT+N6HieHyZhPmXqPxKqeSYKX8OK--M+rN2VAsO_Q@mail.gmail.com>
+Subject: Re: r8152: RX stops until rebind after -EPROTO on the bulk-in endpoint
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: linux-usb@vger.kernel.org, netdev@vger.kernel.org, 
+	Mathias Nyman <mathias.nyman@intel.com>, Alan Stern <stern@rowland.harvard.edu>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Oct 08, 2026 at 03:15:03PM +0200, Jürgen Groß wrote:
+> You could try it. We may consider increasing retries in mainline if
+> this turns out to solve real world problems. Though so far, in the only
+> reported case of 3 retries not working, 10 retries over a span of 100ms
+> weren't helping either...
 
-> As the Xen code maintainer I have stumbled over problematic patches which
-> were NOT sent to x86 or xen ML several times, which made it possible to catch
-> potential regressions early.
+Thanks, I'd like to try it. It needs some setup here first (signed
+modules), so it may take a while before I can report back.
 
-FWIW I use lei with a File match pattern to have a 'virtual mailing list'
-of areas I want to pay attention to. It catches everything no matter
-where it is sent. 
+> Any results yet?
 
-Jason
+Yes: three more stalls on the same host in 11 days (09-30, 10-04,
+10-06), all with virt_state 0x40, each recovered by the watchdog's
+rebind in about 30 s. Dynamic debug was on for the last two. Both
+start with a single burst, and in the 11 days there wasn't one
+"Transfer error" on ep 2 outside the stalls. 10-04:
+
+  22:36:09.251 Transfer error for slot 4 ep 2 on endpoint
+  22:36:09.252 Soft-reset ep 2, slot 4
+  22:36:09.255 Transfer error for slot 4 ep 2 on endpoint
+  22:36:09.255 Soft-reset ep 2, slot 4
+  22:36:09.258 Transfer error for slot 4 ep 2 on endpoint
+  22:36:09.259 Soft-reset ep 2, slot 4
+  22:36:09.262 Transfer error for slot 4 ep 2 on endpoint
+  22:36:09.262 Soft-reset ep 2, slot 4
+  22:36:09.265 Transfer error for slot 4 ep 2 on endpoint
+  22:36:09.266 Hard-reset ep 2, slot 4
+
+From there it's Transfer error + Hard-reset pairs at about 275/s
+until the rebind 40 s later. 10-06 is the same: four soft retries
+about 3.5 ms apart, the hard reset at +15 ms, then the same loop. So
+here all the retries are spent within 15 ms.
+
+usbmon, 2 s from each of the three stalls: every bulk-in (0x81)
+completion is -71 (571, 553 and 551 of them), none succeed, and
+bulk-out and the interrupt endpoint complete normally.
+
+The other host with the same adapter logged no transfer errors at all
+in the same 11 days.
+
+Dane
