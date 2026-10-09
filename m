@@ -1,561 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A6F13C343F;
-	Fri,  9 Oct 2026 18:05:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4928F4F3903
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 18:05:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791569142; cv=none; b=XCYyeoYngyjuqlGXS1KcPmV251GDnlXbzVToGE1yJlMBntn1imydHrXO/LWB/ETHbXuA9zBd2NIwRT3wHmBCKU0pFYSUedsxgdW/xqCVd0VyGzHkT42mW0KoUtp3BlZZySkNS5LWBhQpNMTk2HarSKv6tyIljQF3jCr6Yh5Femk=
+	t=1791569160; cv=none; b=PLq1aIGgvEy8fWa4C9a3ZZVJxci4TzjxyJSFz0D+O4M/Z/9/L9tHEBD9sEDQcfHFcvXN0RXJOhDuxhdDYseD03fF64FyAHRwFVv2/H5na6st5/npjeaB9vw2wMFWL3Tg7n/BSmCvh0SYme7JDFgz6ip1TVC66Hb+JROO4lnTHOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791569142; c=relaxed/simple;
-	bh=O4LeOMp0JmloXP6dYxpxjgMqSJkeWfRNP+c31xJtCHY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZqT89XY4A/NyevZokjuk9OBs1bcOFCojCvSd1DobU9SjaxWPtu+3wqSM19ptekVYQO+tfkZMhl6uoqaTFd3b5ziGyyl6AKC1VoMtuSKufq+vNjjkC3ihJr9ndPZs8eTluPwUtdiuzW+ENFVSzcFD8DCWF1tne1O4ILSlJpqUDf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RbyMEc8P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791569160; c=relaxed/simple;
+	bh=nOWwepnFpJwCtUcsjoUK8SKMYT5w2CkQU2SfUQ0Q67g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gyJDUwO9PSxuLj+r3Q5NlKTiLPY150/atzW/adFDB7801fyNWJdZoF3Ivcxr614Nk62TfuvJ0yxdpXLa3gw6JsQc1lcx1gty/ErQLlz5is+MWVkLB1Xnkrs62ttcDmliY8fgM+9HF7xEEJ8VFUpTuQE9AK5LHNgGlehqwP/ImaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=bLtE1ogU; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RbyMEc8P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 413EA1F00893;
-	Fri,  9 Oct 2026 18:05:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791569139;
-	bh=oOHuuwnsMbHTA9q3JEw9/BiBEzfrt0DoQ4gWVubuCD0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=RbyMEc8PLZ5owQ5rDV7Noki16ZvBLbcNK9LSpcJvRg8g/yDJtiCiPNAdnDZyGBNIE
-	 4/dre0kKfaGgadbKQAWqy7+oizGJqFE5zikyvgi3Z4lVg5tFNpzKVUrpA0FWjobwrE
-	 vXMTWpRhLOeZumcz5A6Xfs5oA0sDVLGjf/M5qhCRHA1RP/K/zR4Q9aKymcSWBogZq4
-	 kTNhW8TkoXpPKWqppTXmYlZMUldsiZH0W9MeydwTSnL2UPvGoaIUr3XJ489sYglMrN
-	 ut0t8d/Ux4SxpXkkSSjsxny8hOoTOnpjFaEj2Aub7lK1DPvJ5NhUZzSJ/Hwx8lF3JD
-	 Af19w/zGd34bQ==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Fri, 09 Oct 2026 19:03:57 +0100
-Subject: [PATCH v5 03/38] mm: consistently validate VMA state after
- mmap[_prepare] hooks
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="bLtE1ogU"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a166199820so816125e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 11:05:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=lex.la; s=google; t=1791569156; x=1792173956; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=th258UQlwl6rTU5PwiT+S9xpjAkBo5K5mvMgL5n3qn4=;
+        b=bLtE1ogUWdDLGi+/52DqNF8murf4O1UYCmcZrzU1J7ZuP5tyJNSkQXk3NSX3FMmVHV
+         XWLe6CHt5sstSxl7Zd4f9u8k0vszDRLcuO5hkN3bHHGvfGgdL8f3LqiYmr3oiOy+G8EY
+         lwC/OaUuW5vGwdlDOTvtcHiKcAoI6Sj6A+cttjolBaTPyQTKmbmln+yvsum5UI5aIR20
+         SNJYiyzInNeqzOgpAMruVy0VDy1vBXW2BNROjq3/iQei7+okjqFsleSh+66a4apZ+XPP
+         vZ6/aRVS0JC+gI5q9EyfYZenFUyF3kgTMluPMAUa4UdMHbl3m933Ce9YcgNaWn119Fy7
+         o3iA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791569156; x=1792173956;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=th258UQlwl6rTU5PwiT+S9xpjAkBo5K5mvMgL5n3qn4=;
+        b=K9hWC7lI4PS+xfQVg+zKmsdjeDEnZuQ7K/L6Ltt34nSzJbAwvSCUi43rsmSBUeAG3z
+         zBZTEVndd00LSKLQwtaUnBEX5Om1BsbhVpOHz0uoXWSZfcHJCfRJ9s+udvH3mGovtaRZ
+         mUNd0Cr+bXmxujtXZAEQsx6CFwALBXBEXTMsL3H1qZHA/siHpTZ/TXBAlO2CjvrQC8R7
+         IqPlut0ndTF3NoDhZCVeBuCER+XGWaruiOZsHc15U6xuR+TZexCPvx5G726bp5xQn07F
+         FR6Z98MKxOot392xdZv+RZQtkInRNVHIOT5h1uZZXa+94ZynutFobNNiUnMq8X1B6tlz
+         u1Pw==
+X-Forwarded-Encrypted: i=1; AKwUvBwyS+20G6DwwEZuAyRFr3P5reSZz9LgdywlUFjcIg7VYpQgWN5Mj+dszfTX3XdCjYWbU+s3UPZsPPOhguw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lRiRhAGEhoeBSPkBQgw1yx5nz2oyME1zoSX8zC5rkl77AtmknI
+	RuVLbC9GfIsrx+BAEEbfVl8/bEkOSFQxnTE9nwqighEd9zbn6CI560bu/kkxd3/9QAE=
+X-Gm-Gg: AYBFou29YbjdqVFSCHZXWQKHt7pzRtBTDjq+JqS8rIosJRYisc4uCmVKijDwBNBEPFL
+	kABfBHKJ5+KwYAOCiLlD/HVGYk+m8iovea1V6l7g2Nx09/23kzC+3lwNuP1m0hfA/HcFAO3rRpX
+	wgAp6HJgLz8mpkp1enq77px/l4O0BMt0I8VOba97O1t4hYywS9dJyAyjt4aF9MYOntAIsq/tkDh
+	ayFon5cLflaRYGtWERLSBGAXPMIZsrKYKwjbGZL9PX4/W07VWR6/wQhtjKlyEH9mM/frxYfVN5V
+	djOK2xR/Slc2CHTYooNJ7MhBueWkmF67JECGuD95+VQzvugOSrZpq7PBDkockNXYcxH6dAnpcY2
+	hPga20N7H1l/IeALwWrP5nRwvLtH3kyeEXIkdWibH16ne+5Bpgxbv6cPe4nER3QVReGqvtFT7iD
+	JHBFcEWxDDOFffI96qGDzfeCyGkJkCLer/8ZMKqjMKREpBRwSBlA==
+X-Received: by 2002:a05:600c:4708:b0:4a1:88df:8a2a with SMTP id 5b1f17b1804b1-4a18e4a6ea5mr53023535e9.13.1791569156312;
+        Fri, 09 Oct 2026 11:05:56 -0700 (PDT)
+Received: from remote-01 ([84.17.55.225])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf21276sm118184915e9.8.2026.10.09.11.05.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 11:05:55 -0700 (PDT)
+From: Aleksei Sviridkin <f@lex.la>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	netdev@vger.kernel.org
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	Woojung Huh <woojung.huh@microchip.com>,
+	Vladimir Oltean <vladimir.oltean@nxp.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>
+Subject: [PATCH net-next v5 0/4] net: phy: make PHY driver unbind safe against attach and use
+Date: Fri,  9 Oct 2026 21:05:46 +0300
+Message-ID: <20261009180551.1234107-1-f@lex.la>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-3-923b70125b1e@kernel.org>
-References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
-In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
- Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
- Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=14131; i=ljs@kernel.org;
- h=from:subject:message-id; bh=O4LeOMp0JmloXP6dYxpxjgMqSJkeWfRNP+c31xJtCHY=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6sz0CNWcYfu4xG/GzcwrBx29ArgO5uySVLepdp/8L
- zDnw3r5jlIWBjEuBlkxRZbnX8T3B4mEzeu84O8GM4eVCWQIAxenAEzk0T+Gf7risetd9J99LVp4
- fZn1TmnmbVMPZsdteZJvcDDUeJ3YtoUM/5TeBb0pMtRcnprS2mSiu3zR0hXtTw8Y37yuPT/TM9Z
- DiAsA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
 
-When the f_op->mmap_prepare or deprecated f_op->mmap hooks are invoked, the
-driver might have done something crazy that is not permitted by the kernel.
+Unbinding a PHY driver through sysfs while its MAC brings the port up
+can oops. On a Keenetic KN-1012 (MT7981, mtk_eth_soc), an unbind of the
+wan PHY driver racing "ip link set wan up" faulted on the first attempt,
+with no delay added anywhere. The PHY driver's config_init read
+phydev->drv after phy_remove() had cleared it. Patch 3 has the trace.
 
-Currently we check for three such cases in __mmap_new_file_vma(), but only
-if the legacy f_op->mmap hook is used:
+Serialising attach against unbind is not enough on its own. The unbind
+that loses the race then removes the driver from a PHY that is now
+attached, and the consumer faults one step later. A DSA port gets there
+without any race, because DSA keeps its PHYs attached from switch setup
+to teardown. Patch 4 has both cases.
 
-* Did sparc ADI result in invalid flags?
+1: refuse a second attach of an attached PHY up front.
+2: put the module reference phy_attach_direct() took, not whatever
+   driver is bound at detach time.
+3: a per-PHY mutex and a "bound" flag. An attach either is done with the
+   driver before phy_remove() starts tearing it down, or is refused with
+   -EAGAIN.
+4: phy_remove() waits for phy_detach() when the PHY is attached, except
+   when the PHY device itself is being deleted.
 
-* Did the driver alter vma->vm_start?
+1 to 3 do not need 4, but without it the winner of the race still
+ends up with a PHY whose driver is gone.
 
-* Did the driver make a file-backed mapping on a read-only file writable?
+On the lock inversion (Paolo): phy_probe() and phy_remove() take rtnl
+under the device lock (SFP bus, netdev LED trigger), and attach may run
+under rtnl, so attach cannot take the device lock. Nothing under the
+new mutex takes rtnl.
 
-Generalise these checks for both mmap_prepare and mmap and apply to all
-invocations of mmap_file(), the f_op->mmap and f_op->mmap_prepare handling
-in the core VMA code and the mmap_prepare compatibility layer.
+Vladimir, patch 4 falls short of what you asked for in [1]: that
+unbinding a PHY driver should not "explode ... even in uncontrolled
+situations where the netdev isn't carefully disconnected from the PHY
+first". It makes phy_remove() wait for the detach, so the unbind blocks
+until the consumer lets go. For DSA that is switch teardown. Other
+options, and why not:
+- stop at patch 3: the oops moves one frame up;
+- the caller holds the lock across bringup: widens into phylink,
+  leaves every later use;
+- a killable wait: ->remove cannot fail, so a kill ends in the oops;
+- suppress_bind_attrs: removes the unbind your use case relies on;
+- a managed device link MAC -> PHY: takes the MAC or switch down too.
 
-Also extend the vm_start check to vm_end also - drivers must not change the
-VMA range at all.
+The wait has costs. The hung-task detector reports the blocked unbind.
+Suspend waits behind it and reboot hangs, because both take the PHY's
+device lock. Patch 4 names a device-link case where the wait never ends.
 
-We also WARN_ON_ONCE() on these conditions as they are things that should
-simply not occur in the kernel and it's important to call it out when it
-does.
+Attach still binds the generic driver without the device lock, so a
+real driver binding at the same moment can collide with it. Two
+consumers attaching and detaching one PHY at once are unsupported: the
+end of a detach can still reset the other's PHY, and with patch 4 its
+generic driver release waits for it (a deadlock if both hold rtnl).
 
-We invoke mmap_prepare_validate() after mmap_action_prepare(), as mmap
-actions often manipulate state in the descriptor thus providing the final
-state the VMA will be derived from.
+Tested on a KN-1012 (OpenWrt 6.18 backport, PROVE_LOCKING, hung-task
+panic) with lan4 holding its EN8811H. The image carried 03101a02b2fa,
+which differs from this posting only in the patch 4 message, one
+comment and the WRITE_ONCE() on removing.
+- second attach of lan4's PHY, with or without a netdev: -EBUSY
+- air_en8811h unbind under lan4: waits, returns on switch unbind
+- free PHY: attach 0, again -EBUSY, refcount 0/1/1/0; on genphy too
+- irq back to the bus number after each generic-driver detach
+- two attaches racing without rtnl, 200 rounds: one winner each time
+- unbind of an attached PHY waits for detach, with both drivers
+- phy_device_remove() releases a waiting unbind
+Lockdep stayed quiet. The one splat was a known kernfs warning from the
+DSA teardown order.
 
-Also call mmap_validate_vma_flags() in insert_vm_struct() to ensure that
-special regions which are inserted (such as a VDSO or VVAR) also satisfy
-the sanity checks.
+[1] https://lore.kernel.org/netdev/20260311203410.rio7m6nuf72hs5p6@skbuf/
 
-This way every VMA established through an mmap hook, whether via mmap() or
-the compatibility layer, or inserted via insert_vm_struct(), has been
-validated. brk() VMAs never pass through a driver hook and so need no such
-check.
+Changes in v5 (since v4):
+https://lore.kernel.org/netdev/20261001130120.104628-1-f@lex.la/
+- Rebased on the applied phylib interrupt series. Patch 4 moves its
+  detach-side restore ahead of the point where a new attach can start.
+- Patches 1 and 3: the "already attached" test runs under bind_lock.
+- Patches 3 and 4: detach clears phy_link_change, the recorded module
+  and the attached flag in one bind_lock section.
+- Patch 2: the driver module is read once.
+- Patch 4: READ_ONCE()/WRITE_ONCE() on attached, WRITE_ONCE() on
+  removing.
+- Messages: patch 1 on the generic driver, patch 3 on its exception
+  and -EAGAIN at probe time, patch 4 on the reboot hang and the
+  device-link case.
+- The bind_lock kernel-doc names phy_probe() and phy_remove().
 
-While we're here, also fixup a couple disjoint blocks of #ifdef CONFIG_MMU.
+Changes in v4 (since v3):
+https://lore.kernel.org/netdev/20260924215951.2127682-1-f@lex.la/
+- Retargeted to net-next, as asked.
+- Patch 1: the test also catches a PHY attached without a netdev.
+- Patch 3: a Return: section for __phy_probe(). The forward declaration
+  stays, see the v4 notes of patch 3.
+- Patch 4: a line over 80 columns wrapped.
 
-Finally, update the VMA userland tests to reflect the change.
+Changes in v3 (since v2):
+https://lore.kernel.org/netdev/20260919015340.499675-1-f@lex.la/
+- Retargeted to net. The race is closed with locking instead of a NULL
+  test, as asked in review.
+- Patch 2 split out. New patch 1 (no detach of the first consumer on a
+  second attach) and patch 4 (the unbind waits).
 
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- mm/internal.h                     |  50 +++++++++++-------
- mm/util.c                         |  19 +++++--
- mm/vma.c                          | 106 ++++++++++++++++++++++++++++++++------
- mm/vma.h                          |  25 +++++++--
- tools/testing/vma/include/dup.h   |  10 ++++
- tools/testing/vma/include/stubs.h |   4 ++
- 6 files changed, 172 insertions(+), 42 deletions(-)
+Aleksei Sviridkin (4):
+  net: phy: refuse a second attach before touching the PHY
+  net: phy: put the driver module the attach took
+  net: phy: serialise attach and detach with PHY driver bind and unbind
+  net: phy: make an unbind wait for the attached consumer to detach
 
-diff --git a/mm/internal.h b/mm/internal.h
-index fe576d468af4..061a87f9c3fb 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -213,6 +213,24 @@ static inline void *folio_raw_mapping(const struct folio *folio)
- 	return (void *)(mapping & ~FOLIO_MAPPING_FLAGS);
- }
- 
-+/*
-+ * If the VMA has a close hook then close it, and since closing it might leave
-+ * it in an inconsistent state which makes the use of any hooks suspect, clear
-+ * them down by installing dummy empty hooks.
-+ */
-+static inline void vma_close(struct vm_area_struct *vma)
-+{
-+	if (vma->vm_ops && vma->vm_ops->close) {
-+		vma->vm_ops->close(vma);
-+
-+		/*
-+		 * The mapping is in an inconsistent state, and no further hooks
-+		 * may be invoked upon it.
-+		 */
-+		vma->vm_ops = &vma_dummy_vm_ops;
-+	}
-+}
-+
- /*
-  * This is a file-backed mapping, and is about to be memory mapped - invoke its
-  * mmap hook and safely handle error conditions. On error, VMA hooks will be
-@@ -225,8 +243,12 @@ static inline void *folio_raw_mapping(const struct folio *folio)
-  */
- static inline int mmap_file(struct file *file, struct vm_area_struct *vma)
- {
--	int err = vfs_mmap(file, vma);
-+	const unsigned long orig_start = vma->vm_start;
-+	const unsigned long orig_end = vma->vm_end;
-+	const vma_flags_t orig_flags = vma->flags;
-+	int err;
- 
-+	err = vfs_mmap(file, vma);
- 	/*
- 	 * Either we tried to call the file hook for mmap() and an error arose
- 	 * or a driver set vma->vm_ops = NULL intending there to be no VMA
-@@ -239,26 +261,16 @@ static inline int mmap_file(struct file *file, struct vm_area_struct *vma)
- 	 */
- 	if (unlikely(err || !vma->vm_ops))
- 		vma->vm_ops = &vma_dummy_vm_ops;
-+	if (unlikely(err))
-+		return err;
- 
--	return err;
--}
--
--/*
-- * If the VMA has a close hook then close it, and since closing it might leave
-- * it in an inconsistent state which makes the use of any hooks suspect, clear
-- * them down by installing dummy empty hooks.
-- */
--static inline void vma_close(struct vm_area_struct *vma)
--{
--	if (vma->vm_ops && vma->vm_ops->close) {
--		vma->vm_ops->close(vma);
--
--		/*
--		 * The mapping is in an inconsistent state, and no further hooks
--		 * may be invoked upon it.
--		 */
--		vma->vm_ops = &vma_dummy_vm_ops;
-+	err = mmap_hook_validate(orig_start, orig_end, &orig_flags, vma);
-+	if (unlikely(err)) {
-+		vma->vm_start = orig_start;
-+		vma->vm_end = orig_end;
- 	}
-+
-+	return err;
- }
- 
- /* unmap_vmas is in mm/memory.c */
-diff --git a/mm/util.c b/mm/util.c
-index 016932780925..d809e08c7b4d 100644
---- a/mm/util.c
-+++ b/mm/util.c
-@@ -1224,19 +1224,28 @@ EXPORT_SYMBOL(compat_set_desc_from_vma);
- int __compat_vma_mmap(struct vm_area_desc *desc,
- 		      struct vm_area_struct *vma)
- {
-+	struct vm_area_desc orig_desc;
- 	int err;
- 
-+	/* Derive state prior to mmap_prepare hook. */
-+	compat_set_desc_from_vma(&orig_desc, desc->file, vma);
- 	/* Perform any preparatory tasks for mmap action. */
- 	err = mmap_action_prepare(desc);
--	if (err) {
--		if (desc->vm_file != vma->vm_file)
--			fput(desc->vm_file);
--		return err;
--	}
-+	if (err)
-+		goto err_put;
-+	/* Check the caller did nothing crazy. */
-+	err = mmap_prepare_validate(&orig_desc, desc);
-+	if (err)
-+		goto err_put;
- 	/* Update the VMA from the descriptor. */
- 	compat_set_vma_from_desc(vma, desc);
- 	/* Complete any specified mmap actions. */
- 	return mmap_action_complete(vma, &desc->action, /*is_compat=*/true);
-+
-+err_put:
-+	if (desc->vm_file != vma->vm_file)
-+		fput(desc->vm_file);
-+	return err;
- }
- EXPORT_SYMBOL(__compat_vma_mmap);
- 
-diff --git a/mm/vma.c b/mm/vma.c
-index 8f8c554d5c07..cedc24dcdf3c 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -2613,6 +2613,12 @@ static int __mmap_new_file_vma(struct mmap_state *map,
- 	if (error) {
- 		UNMAP_STATE(unmap, vmi, vma, vma->vm_start, vma->vm_end,
- 			    map->prev, map->next);
-+
-+		if (vma->vm_ops->close) {
-+			zap_vma(vma);
-+			/* Safe, because VMA zapped. */
-+			vma_close(vma);
-+		}
- 		if (map_same_file(map))
- 			fput(map->vm_file);
- 
-@@ -2623,16 +2629,6 @@ static int __mmap_new_file_vma(struct mmap_state *map,
- 		return error;
- 	}
- 
--	/* Drivers cannot alter the address of the VMA. */
--	WARN_ON_ONCE(map->addr != vma->vm_start);
--	/*
--	 * Drivers should not permit writability when previously it was
--	 * disallowed.
--	 */
--	VM_WARN_ON_ONCE(!vma_flags_same_pair(&map->vma_flags, &vma->flags) &&
--			!vma_flags_test(&map->vma_flags, VMA_MAYWRITE_BIT) &&
--			vma_test(vma, VMA_MAYWRITE_BIT));
--
- 	map->vma_flags = vma->flags;
- 
- 	return 0;
-@@ -2710,11 +2706,6 @@ static int __mmap_new_vma(struct mmap_state *map, struct vm_area_struct **vmap,
- 		vma->flags = map->vma_flags;
- 	}
- 
--#ifdef CONFIG_SPARC64
--	/* TODO: Fix SPARC ADI! */
--	WARN_ON_ONCE(!arch_validate_flags(map->vm_flags));
--#endif
--
- 	/* Lock the VMA since it is modified after insertion into VMA tree */
- 	vma_start_write(vma);
- 	vma_iter_store_new(vmi, vma);
-@@ -2777,6 +2768,80 @@ static void __mmap_complete(struct mmap_state *map, struct vm_area_struct *vma)
- 	vma_set_page_prot(vma);
- }
- 
-+/* Check to ensure that the VMA flags of a newly mapped VMA are sane. */
-+static int mmap_validate_vma_flags(const vma_flags_t *flags)
-+{
-+#ifdef CONFIG_SPARC64
-+	const vm_flags_t legacy_flags = vma_flags_to_legacy(*flags);
-+
-+	/* TODO: Fix SPARC ADI! */
-+	if (WARN_ON_ONCE(!arch_validate_flags(legacy_flags)))
-+		return -EINVAL;
-+#endif
-+
-+	return 0;
-+}
-+
-+/* Check to ensure a driver hasn't done something crazy. */
-+static int mmap_validate(unsigned long orig_start, unsigned long orig_end,
-+			 unsigned long curr_start, unsigned long curr_end,
-+			 const vma_flags_t *orig_flags,
-+			 const vma_flags_t *curr_flags)
-+{
-+	bool was_maywrite, is_maywrite;
-+
-+	/* Drivers cannot alter the range of the VMA. */
-+	if (WARN_ON_ONCE(orig_start != curr_start || orig_end != curr_end))
-+		return -EINVAL;
-+
-+	was_maywrite = vma_flags_test(orig_flags, VMA_MAYWRITE_BIT);
-+	is_maywrite = vma_flags_test(curr_flags, VMA_MAYWRITE_BIT);
-+
-+	/* A driver may not make a previously unwritable mapping writable. */
-+	if (WARN_ON_ONCE(!was_maywrite && is_maywrite))
-+		return -EINVAL;
-+
-+	return mmap_validate_vma_flags(curr_flags);
-+}
-+
-+/**
-+ * mmap_prepare_validate() - Ensure the driver hasn't violated invariants in its
-+ * f_op->mmap_prepare hook.
-+ * @orig_desc: The VMA descriptor prior to the mmap_prepare hook being called.
-+ * @desc: The VMA descriptor after the mmap_prepare hook has been called.
-+ *
-+ * Returns: 0 on success, otherwise an error.
-+ */
-+int mmap_prepare_validate(const struct vm_area_desc *orig_desc,
-+			  const struct vm_area_desc *desc)
-+{
-+	return mmap_validate(orig_desc->start, orig_desc->end,
-+			     desc->start, desc->end,
-+			     &orig_desc->vma_flags, &desc->vma_flags);
-+}
-+
-+/**
-+ * mmap_hook_validate() - Ensure the driver hasn't violated invariants in
-+ * its f_op->mmap hook.
-+ * @orig_start: The start of the mapping prior to the mmap hook.
-+ * @orig_end: The end of the mapping prior to the mmap hook.
-+ * @orig_flags: The VMA flags set for the VMA prior to the mmap hook.
-+ * @vma: The VMA after the hook has been applied.
-+ *
-+ * Returns: 0 on success, otherwise an error.
-+ */
-+int mmap_hook_validate(unsigned long orig_start, unsigned long orig_end,
-+		       const vma_flags_t *orig_flags,
-+		       const struct vm_area_struct *vma)
-+{
-+	const unsigned long start = vma->vm_start;
-+	const unsigned long end = vma->vm_end;
-+	const vma_flags_t *flags = &vma->flags;
-+
-+	return mmap_validate(orig_start, orig_end, start, end, orig_flags,
-+			     flags);
-+}
-+
- static int call_action_prepare(struct mmap_state *map,
- 			       struct vm_area_desc *desc)
- {
-@@ -2803,6 +2868,7 @@ static int call_action_prepare(struct mmap_state *map,
- static int call_mmap_prepare(struct mmap_state *map,
- 		struct vm_area_desc *desc)
- {
-+	const struct vm_area_desc orig_desc = *desc;
- 	int err;
- 
- 	/* Invoke the hook. */
-@@ -2822,6 +2888,11 @@ static int call_mmap_prepare(struct mmap_state *map,
- 	if (err)
- 		return err;
- 
-+	/* Check the caller did nothing crazy. */
-+	err = mmap_prepare_validate(&orig_desc, desc);
-+	if (err)
-+		return err;
-+
- 	/* Update fields permitted to be changed. */
- 	map->pgoff = desc->pgoff;
- 	map->vma_flags = desc->vma_flags;
-@@ -3457,10 +3528,15 @@ int __vm_munmap(unsigned long start, size_t len, bool unlock)
- int insert_vm_struct(struct mm_struct *mm, struct vm_area_struct *vma)
- {
- 	unsigned long charged = vma_pages(vma);
-+	int err;
- 
- 	if (find_vma_intersection(mm, vma->vm_start, vma->vm_end))
- 		return -ENOMEM;
- 
-+	err = mmap_validate_vma_flags(&vma->flags);
-+	if (err)
-+		return err;
-+
- 	if (vma_test(vma, VMA_ACCOUNT_BIT) &&
- 	     security_vm_enough_memory_mm(mm, charged))
- 		return -ENOMEM;
-diff --git a/mm/vma.h b/mm/vma.h
-index f15faa83f3d6..89f831080bd7 100644
---- a/mm/vma.h
-+++ b/mm/vma.h
-@@ -782,14 +782,19 @@ struct vm_area_struct *vm_area_alloc(struct mm_struct *mm);
- struct vm_area_struct *vm_area_dup(struct vm_area_struct *orig);
- void vm_area_free(struct vm_area_struct *vma);
- 
--/* vma_exec.c */
- #ifdef CONFIG_MMU
-+int mmap_prepare_validate(const struct vm_area_desc *orig_desc,
-+			  const struct vm_area_desc *desc);
-+
-+int mmap_hook_validate(unsigned long orig_start, unsigned long orig_end,
-+		       const vma_flags_t *orig_flags,
-+		       const struct vm_area_struct *vma);
-+
-+/* vma_exec.c */
- int create_init_stack_vma(struct mm_struct *mm, struct vm_area_struct **vmap,
- 			  unsigned long *top_mem_p);
- int relocate_vma_down(struct vm_area_struct *vma, unsigned long shift);
--#endif
- 
--#ifdef CONFIG_MMU
- /*
-  * Denies creating a writable executable mapping or gaining executable permissions.
-  *
-@@ -838,6 +843,20 @@ static inline bool map_deny_write_exec(const vma_flags_t *old,
- 
- 	return false;
- }
-+#else
-+static inline int mmap_prepare_validate(const struct vm_area_desc *orig_desc,
-+					const struct vm_area_desc *desc)
-+{
-+	return 0;
-+}
-+
-+static inline int mmap_hook_validate(unsigned long orig_start,
-+				     unsigned long orig_end,
-+				     const vma_flags_t *orig_flags,
-+				     const struct vm_area_struct *vma)
-+{
-+	return 0;
-+}
- #endif
- 
- struct vm_area_struct *__install_special_mapping(struct mm_struct *mm,
-diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-index 2fd422789717..077df510a311 100644
---- a/tools/testing/vma/include/dup.h
-+++ b/tools/testing/vma/include/dup.h
-@@ -1359,13 +1359,23 @@ static inline int vfs_mmap_prepare(struct file *file, struct vm_area_desc *desc)
- 	return file->f_op->mmap_prepare(desc);
- }
- 
-+int mmap_prepare_validate(const struct vm_area_desc *orig_desc,
-+			  const struct vm_area_desc *desc);
-+
- static inline int __compat_vma_mmap(struct vm_area_desc *desc,
- 		struct vm_area_struct *vma)
- {
-+	struct vm_area_desc orig_desc;
- 	int err;
- 
-+	/* Derive state prior to mmap_prepare hook. */
-+	compat_set_desc_from_vma(&orig_desc, desc->file, vma);
- 	/* Perform any preparatory tasks for mmap action. */
- 	err = mmap_action_prepare(desc);
-+	if (err)
-+		return err;
-+	/* Check the caller did nothing crazy. */
-+	err = mmap_prepare_validate(&orig_desc, desc);
- 	if (err)
- 		return err;
- 	/* Update the VMA from the descriptor. */
-diff --git a/tools/testing/vma/include/stubs.h b/tools/testing/vma/include/stubs.h
-index d6136e19a8af..b35279a0ec78 100644
---- a/tools/testing/vma/include/stubs.h
-+++ b/tools/testing/vma/include/stubs.h
-@@ -329,6 +329,10 @@ static inline void vma_close(struct vm_area_struct *vma)
- {
- }
- 
-+static inline void zap_vma(struct vm_area_struct *vma)
-+{
-+}
-+
- static inline int mmap_file(struct file *file, struct vm_area_struct *vma)
- {
- 	return 0;
+ drivers/net/phy/phy_device.c | 123 +++++++++++++++++++++++++++++------
+ include/linux/phy.h          |  12 ++++
+ 2 files changed, 116 insertions(+), 19 deletions(-)
 
 -- 
-2.55.0
+2.53.0
 
