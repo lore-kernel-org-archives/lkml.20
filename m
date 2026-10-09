@@ -1,61 +1,61 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D42747206A
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:12:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89CEE472558
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:12:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791529934; cv=none; b=eDIR0c1tmh43DkVQzg8wSkAmRLlKudGJDbw+SOvhkALsUJ6+9Rr9b/mNPOcM7eYO3inyZGyEkFFy5JYeAYmshOmFaSiTpQV/ST1otPVGs1LiuodxLYpO3RuFjn3+ODjnpa9GG7ydOoDPVNdUPQiggvJIRtc/HNEpZ7okh+HFRXU=
+	t=1791529937; cv=none; b=kMjpwTfkdazf52oz9oM54xNP9v6SRzYkAiOBn3aIwqiRhUnA5uSJ6Ty0TFOyjeVeZEIW+d1sGEJjBhz+QQk0pJRevn86yAgwEeSMRorYCc+Enh+1VzjqQmV4+VZE9DpxQBQhGj9HlLha8uDopjpHurpkxe2Y4A93ZRsbkr6/l8U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791529934; c=relaxed/simple;
-	bh=MGFLSsLo3xsoerC6Zf86t0zASzZ5YuusEsUKxqRBo5Y=;
+	s=arc-20240116; t=1791529937; c=relaxed/simple;
+	bh=lD0rQFPAO7Y56mf4/YQEUulve5+eskAq+kCcCbGhzts=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MI5rYHw1fQ7XbVlVjRz2l4g5RGZunvgKD0PBA5CX1sJJy4WcmaABOX3mSbAOycKxzg7/DJp6ZIgjYY6y2OgsTPPN3Hpo5NnuI8ec6fQ1S7iIO0OY0qNVRtWR8f3b+ad1vmVluB2WrVCOcali1tEmea4xeCPLhnfrUjuepo8VsfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=U1fHDIWS; arc=none smtp.client-ip=209.85.214.173
+	 MIME-Version; b=nV66il6Orf/NBqWgopa1o96/DIfXwPZjzHh5wWKW6/WHw+UBZ7D2l9MGQMgNIvWhmcKZdw6LPCW5+oOCbe+N6hpK3FCIGu7UQrFWMih5QIJ3gO4HxrN9RxBn/biVbUUmneMBAtkNLJtvJhM3oGsmA5bOsFnNoxaevC/NTsEQi7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=LRwLPrph; arc=none smtp.client-ip=209.85.214.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="U1fHDIWS"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2cfbbdfa60bso37638015ad.3
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:12:13 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="LRwLPrph"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2dd9ec41bc4so23866325ad.2
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:12:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1791529933; x=1792134733; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1791529936; x=1792134736; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YQcIZ2/VwpQTz4ABr7ZY83hVTh19wqfR20fZu++knFU=;
-        b=U1fHDIWS3L6llzz2UM1ga8YOIx/CIR6ET0nmKqHCIv2dcg+HjcIxhxh10U+7Svt1Un
-         euU6lCK0vKz7vbcDLzc2WHEptqwR4UoDK4JtwBF1riZrjhmtIpOxlx8Z0aDcq2fiuzmw
-         1lq9r5F3HgzJrZSrjffUNMsIFDaKCGVDsFC68=
+        bh=8qqaDqlHOxiclNmLEKxsRSXPU6/mDau3uowC+V/RF6g=;
+        b=LRwLPrphmHcQOBkW8uiqIa3YWsJbcw9y+sYMlj2HR16jLQsMu5DWyytlToC1rfdfeJ
+         L7TuFfz/WLXaKi2PCf916b1rFFR3zenW4PiaaySTsHHz2eqmyEdoNmLMAMYwI/oD3/Wf
+         oSzdWjob3dcmku5/CyL3hhBMrQ5BsV/qlqPrw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791529933; x=1792134733;
+        d=1e100.net; s=20260707; t=1791529936; x=1792134736;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YQcIZ2/VwpQTz4ABr7ZY83hVTh19wqfR20fZu++knFU=;
-        b=viNS1kgzo41wtGuwiKB7fLDqEA+aLZEOnl99Zw9AJm308SS9yl+MDG1Vi/5X+4fMF6
-         LRk8IulTU5N+VIYGrKKyzWxXG0qllusKqNjVAyJyCbv6Etz4CrT3qFu3QTRgpQGdWxyP
-         SQxRbyLUIuu03sC4NLS01EPiq5U8jCXdTVC1TELyYKYeG2ZenXEjSEIxkMzwWRi4VcMs
-         Ndg6CzKb2ZXQCn5HNgqMBcHtJB7mlLVHNPkzxa59KzJoGw/02q/9UrPWkf3PjR8UpwKW
-         +b7e7RMjRJ6yR7HmMEiQKKpj3xswo8SghFbzaLSrGzRvVFPqWMYC4IQM9siXr/OTAhhg
-         8p3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwrZncJDZilyyPyzg7vcnPDWkBM1HCA67d+ZWob1jTLGohQyZ+mN3fHRXF6ciczPrKt76B8QlPmY4w33nY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLVko/U56Sd48s2yzQszR8tzeV5UFLro4CZKRqVr+h4WwNvos9n
-	LzSBQS0ReLTbCP7L8cJ48JordbVnybIEAIT84Gitb9s9IPCRCPOgLczRxWQqNqI43w==
-X-Gm-Gg: AYBFou3seOdJcx4BrPKv7dgNqKtHATZ3x6ctZKkyWE13IyMA/ou/0GE8reN/llG5pZn
-	YpBqTp1QOieTAfVfaFaFrgs2ZV/mirnqTvVgVmORM09ZbAYUn0toC0HcbHi89ga1YrYN4Pavfdq
-	0XZkKEJHtv+wlBH82pdjNUlb3klmn4woIr1mOG6CjtHqBhD0g+WOZVGq79BDQW+ZHFKCIePx/2h
-	/51hEFTjJ8OhvBajRTjii72fIidxdVvamleqz5GiwT/x3SqDgsbwXI/Nmm/fz2yv4tfmVwRiC1C
-	1HdUlfqdnfoyqWkIgHyJgAs4r4LwXsqcSF0bGf08fnZ3xHeZTmfBjcWgH/BpfQn/8tDv62ylUXR
-	XiW1xkv8Q/f0pRzRd6txcpJzYyhOVG93X7U14+rGtJd+X3YFZ3hF7gvVb0S4kINbtJhkGY/yArw
-	pRAr22sC5TCxLP/FP9Dk5ZBKq0hhql/IZH/5EL19ShOXVCFGD4msLJCOV8JiNrhk+pemKU4BrNH
-	R3mn16UgPE6NhLDb42CBd0q3MSNGC3sKvssMKsKwWatiGEP0m6rW6umoixwqtA=
-X-Received: by 2002:a17:903:2f8b:b0:2e6:943:39de with SMTP id d9443c01a7336-2e842bcdb8amr9044785ad.30.1791529932758;
-        Fri, 09 Oct 2026 00:12:12 -0700 (PDT)
+        bh=8qqaDqlHOxiclNmLEKxsRSXPU6/mDau3uowC+V/RF6g=;
+        b=kn0g0zJ06X8jEcSKs8umlt+5Gpbf797589e/da4e1Fpp46Pjm3pMwFSPH/aTTXU8zs
+         pp8nzz1l+EBk4EGeo3ke4w4VKRsuuCou3lbIPnmuP3hzEr2SL+jlB9wW0UDxUSY/MMuF
+         Vo1hpY8xH4DMN/zVYnhNyafodgVNkQGgpgA9KtOW3kM/3ffg0fk2Ng+bEMCPaTiVStkZ
+         hP6LIFmfnCZ7kVV05zGQou7CeONN+S25m7q9FHPRVfmRQZsRVRmXZTJwdltPlcukKzLQ
+         Ll7x0qBVl5/SSzgTCRweT0Q9e81UmdQ9xBFPRpq4wAoClPRT6aFtbwBEKGxAwX3OC2Z9
+         zZ5w==
+X-Forwarded-Encrypted: i=1; AKwUvBygZQQy5cVPao4NFvZiJSz0yS8XBcWtEZGT97pJfDvgpea4Gb5kzTcI5N2VNmRuE3P9KTM5UDkZSzeoZSQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKXortyjWBlIg7oau6u+uOOzYWgSVwuOTtA8QnxGXK89Hgou0Dc
+	Yijxnmb1aShz6PbsYsYEsPNPOo6Rrtm5q2lBvj3SS8IFNJSAVqrg7XGun7Gyq0j0WQ==
+X-Gm-Gg: AYBFou1jyjDLigBlLEMMXxdYyA6C7VBM2tZWGFRGXOk4SWwglziiJEtpya4fUzawSyo
+	b1w437sObBb3PiD66VBdC88HPmIzY5usQOY7Op8QLOMkJyS5GehqihXPCMiqRghd37XiQCZdlET
+	ZcRaaJ73yU38IstJqTwyMpexZdc1FMwio7l6m9eo3tlDu3QasQQct7JH22jf2waviennlVhQio/
+	azk6KP8xWhxeh9XD6dmlQWn87kXBYnDBUQeWoF3Xt8tU/qIiSekrbvA4JbUsbMvt01jiI7MZcc9
+	XzSacogCiwVGs0Jf4djs8g0/DkaSu54IjKp0R6VtGj10Sdwoo8JtNiogpu4xcgequRf5tikCHDg
+	29kSvfi7SPYKT/X8blZF6QBwyGsivvMoYxDJlioLAzv+Nyxn7fkUMfXxyYCitTl0LvFFnOvOQAY
+	7GHBCeF/MNKX0xKnJ9A15Wj8kBNqd8Z99IpuVQR1RgC0tQlzS+eLmcbMeVpMmYsVDFoJz7XFXD9
+	1tPlT+5312cSUtDSEdT8PiQ37LJr4zAog8yqqyJB/kDHeYo5e4h2DNZE6VpEIQ=
+X-Received: by 2002:a17:903:1ac5:b0:2dd:c100:b2cc with SMTP id d9443c01a7336-2e842dfb1f8mr9009035ad.55.1791529935962;
+        Fri, 09 Oct 2026 00:12:15 -0700 (PDT)
 Received: from tigeriii.tok.corp.google.com ([2a00:79e0:2031:6:383b:5817:8167:5051])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8421b19a2sm4483535ad.46.2026.10.09.00.12.08
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8421b19a2sm4483535ad.46.2026.10.09.00.12.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 00:12:11 -0700 (PDT)
+        Fri, 09 Oct 2026 00:12:15 -0700 (PDT)
 From: Sergey Senozhatsky <senozhatsky@chromium.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Brian Geffon <bgeffon@google.com>,
@@ -65,9 +65,9 @@ Cc: Brian Geffon <bgeffon@google.com>,
 	linux-block@vger.kernel.org,
 	linux-mm@kvack.org,
 	Sergey Senozhatsky <senozhatsky@chromium.org>
-Subject: [PATCH v2 01/11] zram: prefix backends printk-s
-Date: Fri,  9 Oct 2026 16:11:24 +0900
-Message-ID: <20261009071157.3730698-2-senozhatsky@chromium.org>
+Subject: [PATCH v2 02/11] zram: remove debugfs entry on init failure
+Date: Fri,  9 Oct 2026 16:11:25 +0900
+Message-ID: <20261009071157.3730698-3-senozhatsky@chromium.org>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
 In-Reply-To: <20261009071157.3730698-1-senozhatsky@chromium.org>
 References: <20261009071157.3730698-1-senozhatsky@chromium.org>
@@ -79,109 +79,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Currently, zram backends prefix printk-s with their names,
-which may look a little confusing, e.g.
+Do not leak the debugfs entry when zram_init() fails to register
+the block device.
 
-	[   30.859567] zstd: alloc size 408128
-
-In addition, prefix backend names with "zram:" so it's
-clear that the message is coming from a zram backend.
-
+Fixes: c0265342bff4 ("zram: introduce zram memory tracking")
 Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
 ---
- drivers/block/zram/backend_842.c     | 2 +-
- drivers/block/zram/backend_deflate.c | 2 +-
- drivers/block/zram/backend_lz4.c     | 2 +-
- drivers/block/zram/backend_lz4hc.c   | 2 +-
- drivers/block/zram/backend_lzo.c     | 2 +-
- drivers/block/zram/backend_lzorle.c  | 2 +-
- drivers/block/zram/backend_zstd.c    | 2 +-
- 7 files changed, 7 insertions(+), 7 deletions(-)
+ drivers/block/zram/zram_drv.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/block/zram/backend_842.c b/drivers/block/zram/backend_842.c
-index 3846a04c69d7..56ffda201727 100644
---- a/drivers/block/zram/backend_842.c
-+++ b/drivers/block/zram/backend_842.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- 
--#define pr_fmt(fmt) "842: " fmt
-+#define pr_fmt(fmt) "zram: 842: " fmt
- 
- #include <linux/kernel.h>
- #include <linux/slab.h>
-diff --git a/drivers/block/zram/backend_deflate.c b/drivers/block/zram/backend_deflate.c
-index f71b11bcac78..20685aca9bdc 100644
---- a/drivers/block/zram/backend_deflate.c
-+++ b/drivers/block/zram/backend_deflate.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- 
--#define pr_fmt(fmt) "deflate: " fmt
-+#define pr_fmt(fmt) "zram: deflate: " fmt
- 
- #include <linux/kernel.h>
- #include <linux/slab.h>
-diff --git a/drivers/block/zram/backend_lz4.c b/drivers/block/zram/backend_lz4.c
-index 1e4ad31d39a6..158fd8b5e8a9 100644
---- a/drivers/block/zram/backend_lz4.c
-+++ b/drivers/block/zram/backend_lz4.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- 
--#define pr_fmt(fmt) "lz4: " fmt
-+#define pr_fmt(fmt) "zram: lz4: " fmt
- 
- #include <linux/kernel.h>
- #include <linux/lz4.h>
-diff --git a/drivers/block/zram/backend_lz4hc.c b/drivers/block/zram/backend_lz4hc.c
-index d8aa01bb258f..5c009835a684 100644
---- a/drivers/block/zram/backend_lz4hc.c
-+++ b/drivers/block/zram/backend_lz4hc.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- 
--#define pr_fmt(fmt) "lz4hc: " fmt
-+#define pr_fmt(fmt) "zram: lz4hc: " fmt
- 
- #include <linux/kernel.h>
- #include <linux/lz4.h>
-diff --git a/drivers/block/zram/backend_lzo.c b/drivers/block/zram/backend_lzo.c
-index d83f92cf757c..78538479c511 100644
---- a/drivers/block/zram/backend_lzo.c
-+++ b/drivers/block/zram/backend_lzo.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- 
--#define pr_fmt(fmt) "lzo: " fmt
-+#define pr_fmt(fmt) "zram: lzo: " fmt
- 
- #include <linux/kernel.h>
- #include <linux/slab.h>
-diff --git a/drivers/block/zram/backend_lzorle.c b/drivers/block/zram/backend_lzorle.c
-index 1b120d062c92..011787f1430b 100644
---- a/drivers/block/zram/backend_lzorle.c
-+++ b/drivers/block/zram/backend_lzorle.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- 
--#define pr_fmt(fmt) "lzo-rle: " fmt
-+#define pr_fmt(fmt) "zram: lzo-rle: " fmt
- 
- #include <linux/kernel.h>
- #include <linux/slab.h>
-diff --git a/drivers/block/zram/backend_zstd.c b/drivers/block/zram/backend_zstd.c
-index 08da3810cffd..127976b5455b 100644
---- a/drivers/block/zram/backend_zstd.c
-+++ b/drivers/block/zram/backend_zstd.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- 
--#define pr_fmt(fmt) "zstd: " fmt
-+#define pr_fmt(fmt) "zram: zstd: " fmt
- 
- #include <linux/kernel.h>
- #include <linux/slab.h>
+diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
+index ab064c84b092..593fa4ae47c4 100644
+--- a/drivers/block/zram/zram_drv.c
++++ b/drivers/block/zram/zram_drv.c
+@@ -3297,6 +3297,7 @@ static int __init zram_init(void)
+ 	if (zram_major <= 0) {
+ 		pr_err("Unable to get major number\n");
+ 		class_unregister(&zram_control_class);
++		zram_debugfs_destroy();
+ 		cpuhp_remove_multi_state(CPUHP_ZCOMP_PREPARE);
+ 		return -EBUSY;
+ 	}
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
