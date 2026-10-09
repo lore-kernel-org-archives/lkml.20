@@ -1,133 +1,100 @@
-Received: from mta0.migadu.com (out-65.mta0.migadu.com [91.218.175.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CA682F361B
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 02:24:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E55AE33F8BC
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 02:24:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791512643; cv=none; b=Q+tk+wzbzOgU4cNo83yb/ilAwMVfTISUFfaU6lt0F3VPhzjdHG2JI6LAKESrEt68Z67S8PJJJa+xiPKkZcupzNIyQKuHl4o6MqxBNThSD0oaiAljLbd14lmg0AkqsoxXCfxmTEcCfexu6S/lftpko7SI4KhWM3EwJRx2gL7O5s0=
+	t=1791512658; cv=none; b=mwngym6VVhtrlrE6Cj3Tq1r3znaZOEnUNFpAQKTkM4n6faEYC8fHsv68pjC2uduvwj2G9oYPoP4BRuowFFc46cY7gCv/9B1DfWcBR7qhhCx0lsR3S5LfuwyYsOD8XHQZ+Ltw7H9J9RdMekOwIEE2+1aVG193vXFAgb0FvqdFTw0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791512643; c=relaxed/simple;
-	bh=2WXVJwmklAa4u7ERRVuvBgEqH+ocivdiloH46r0DQqc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B8MVoNBBdaJSKEWbUk0CfYo0MgCcq5sMP2gxlhs9p97BqYXHNEME9N/2TKQDe6rK7J6dnIXigCDRptRGse3v0TCkHUYRTI4+uHpa+Q9CzpRb//slHdchprZi2Y2PYy2ySu2p2yjIiM8hUFGAsjqs44AHCP7o1RgLvyLAJ69/+2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Qe2P+Yf2; arc=none smtp.client-ip=91.218.175.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791512658; c=relaxed/simple;
+	bh=vGAV29szzckW/hyg0o2BDffmBQtu0HvENqyxwpnY7II=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jIW2qcwyBDTQo5HrOCJ/df79Jqrc7NDmjj76WinmWnOwso4chZkMGvKz6lT0AeIEPm+2L0rsIpr2IfdIRKYqsZ8Cru+3TE+w6WVuYjXEterpIO0iame7q2cN0fOuCLWkPpNpJY3flZt8emU5lfw3BmmQal34B9UREEb1KJBNypA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ax5aOx9e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Qe2P+Yf2"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=2WXVJwmklAa4u7ERRVuvBgEqH+ocivdiloH46r0DQqc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791512639; v=1; x=1792117439;
- b=Qe2P+Yf2icGy4aZ9s+Lpnh3vY+SOEpZsJZGR3LC0pankUuRGfiiypdKtsoMx1t2aZjCzNcQb
- 3l7xcm3C9YJTJO/Z8cqmyc+P2wGHztSeOMGtukRxQaTJXGqxZAfKUtuHRD0oajFGf4ShlG4PQff
- JJtI7IYgcLhA65HXnhgd1wB4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8a2f425c20a86b80;
-	Fri, 09 Oct 2026 02:23:59 +0000
-X-Mizu-Trace-ID: 8a2f425c20a86b80
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <9bed4cb1-7b56-4580-89ad-d8a5b427aae8@linux.dev>
-Date: Fri, 9 Oct 2026 10:23:53 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ax5aOx9e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D1041F00893
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 02:24:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791512657;
+	bh=XfuBNTwXruuIHKUhXBz1GWV2bxPNXXHvv7tD1L3oZPs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Ax5aOx9eg3H3M9MRO3/5+HgPfJZtkExjY0N6TTLc86DTQbQO+0UDbX2vcwTuXz4Qe
+	 DGjrVQPlZjqqIN6a/7+xTvPy5Vi8qx4ZB1Nr4P36hEFsdBFPLunuucL91RUgnoucyY
+	 HF6evotXoWVHPGsPDUYQnnnypekQ3xFh/efXF116gSSu3Gg8NwKO0rkgQ5Q1uMCL19
+	 oTWP/Q6cwJDU+oPrQuliPNPDPPASANbPpgIOpfKOnDHNNg/E7kM6ds7WEjUBYkHE8H
+	 SMc50aCYhB2qdNeNC2NZo/JhHTv/j8Nzm8QSQt/suZSRqIckuPn8uTJhZLcd8fXOgX
+	 35aqdaTZ6YQlg==
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c2e62319cfaso607883666b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 19:24:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzSwo6PIV/5wgWdDNMYM7VKahys23ot2usidjyPFUZTCm9lD+hy4fQ6Q2C4lC2lrrfG840+0BMA2c67f7s=@vger.kernel.org
+X-Gm-Message-State: AFuF++kwVOTOzYaDexdPHINHGf0ocy0bDeC86GqhhjjWwLWHmmd1yZJY
+	NRjPvc9mo3fnXk23CLHqImHPYU4YgqajK/7HT9qf3kvTqU0Tk3DFmAuQGUNoqhM2LNPtSxEDqoN
+	o8+nIsL1oW67HWBsEuKoeI+seqPPxeX8=
+X-Received: by 2002:a17:907:c07:b0:c2e:3d17:5259 with SMTP id
+ a640c23a62f3a-c31aa0bf51amr41841966b.41.1791512656108; Thu, 08 Oct 2026
+ 19:24:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] tcp: do not send a SYNACK to a broadcast or
- multicast address
-To: Theodor Arsenij Larionov Trichkine <theodorlarionov@gmail.com>,
- edumazet@kernel.org, ncardwell@google.com, kuniyu@google.com,
- davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com
-Cc: horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261008114942.1376889-1-theodorlarionov@gmail.com>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <20261008114942.1376889-1-theodorlarionov@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261008152537.4147299-1-charsyam@gmail.com>
+In-Reply-To: <20261008152537.4147299-1-charsyam@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Fri, 9 Oct 2026 11:24:03 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-ky26A0hyHgYVu7KoF4Ri1FVd2neiNPbFKMP7fY7neMw@mail.gmail.com>
+X-Gm-Features: AclHuK85t5TTELxqqXVT-v7Ayqf4Dr8wg7uTfwmQVmjxxPDockNBvPPPVCGKLOY
+Message-ID: <CAKYAXd-ky26A0hyHgYVu7KoF4Ri1FVd2neiNPbFKMP7fY7neMw@mail.gmail.com>
+Subject: Re: [PATCH 0/3] ksmbd: fix three named stream bugs
+To: DaeMyung Kang <charsyam@gmail.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, linux-cifs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-On 10/8/26 7:49 PM, Theodor Arsenij Larionov Trichkine wrote:
-> tcp_v4_conn_request() drops a SYN sent to a broadcast or multicast
-> address. The SYNACK route has no such check. A SYN with a multicast
-> source address can reach a listener when it is looped back with its
-> dst attached: ip_rcv_finish_core() then skips ip_route_input_noref()
-> and its martian source check. A raw IP_HDRINCL socket sending to a
-> local address does this, as does re-injection by nft dup or the
-> iptables TEE target.
+On Fri, Oct 9, 2026 at 12:25=E2=80=AFAM DaeMyung Kang <charsyam@gmail.com> =
+wrote:
 >
-> If the SYN destination is an address on a non-loopback device and the
-> source is a group joined there (such as 224.0.0.1), the SYNACK route
-> has RTCF_MULTICAST and RTCF_LOCAL set, and ip_build_and_send_pkt()
-> sends it through ip_mc_output(). skb->sk of a SYNACK is the request
-> socket, so sk_mc_loop() reads inet_flags past the end of it:
+> Hi Namjae,
 >
-> BUG: KASAN: slab-out-of-bounds in sk_mc_loop+0x111/0x170
-> Read of size 8 at addr ffff88800f2b7f10 by task repro-raw/470
-> Call Trace:
->   <IRQ>
->   sk_mc_loop+0x111/0x170
->   ip_mc_output+0x355/0x930
->   ip_build_and_send_pkt+0xb87/0xc50
->   tcp_v4_send_synack+0x500/0x6f0
->   tcp_conn_request+0x2135/0x2d90
->   tcp_v4_conn_request+0xa5/0x210
->   tcp_rcv_state_process+0x136e/0x6920
->   tcp_v4_do_rcv+0x339/0xb10
->   tcp_v4_rcv+0x34ab/0x3ab0
->   ip_protocol_deliver_rcu+0x6e/0x3e0
->   ip_local_deliver_finish+0x34d/0x510
->   ip_local_deliver+0x1bc/0x310
->   ip_rcv+0x390/0x410
->   __netif_receive_skb_one_core+0x199/0x1e0
->   process_backlog+0x239/0x680
->   __napi_poll+0xb5/0x650
->   net_rx_action+0x980/0xd60
->   handle_softirqs+0x17f/0x590
->   do_softirq+0x3f/0x60
->   </IRQ>
->   <TASK>
->   __local_bh_enable_ip+0x66/0x80
->   __dev_queue_xmit+0xa65/0x3520
->   ip_finish_output2+0xb00/0x16f0
->   ip_output+0x2ad/0x4a0
->   raw_sendmsg+0x245b/0x28e0
->   inet_sendmsg+0x121/0x150
->   __sys_sendto+0x450/0x4e0
->   do_syscall_64+0xf6/0x500
->   </TASK>
+> This series fixes three independent named stream bugs:
 >
-> Allocated by task 470:
->   inet_reqsk_alloc+0x97/0x6f0
->   tcp_conn_request+0x4c6/0x2d90
->   tcp_v4_conn_request+0xa5/0x210
+>   1. A read at or beyond the end of a non-empty stream returns
+>      STATUS_INVALID_PARAMETER instead of STATUS_END_OF_FILE.
+>   2. Opening an existing stream with different letter case keeps the
+>      client's spelling in the handle. Later writes and removal can
+>      target a different xattr from the one that was opened.
+>   3. A write-only FILE_OPEN_IF on an existing stream can replace its
+>      value with an empty xattr when the value-length lookup fails with
+>      -EACCES.
 >
-> The buggy address belongs to the object at ffff88800f2b7d60
->   which belongs to the cache request_sock_TCP of size 312
-> The buggy address is located 120 bytes to the right of
->   allocated 312-byte region [ffff88800f2b7d60, ffff88800f2b7e98)
+> The series applies to ksmbd-for-next at 5d2b1ab54e9a ("ksmbd: fix
+> named stream write and EOF handling"). Each fix is in a separate
+> patch, with its own Fixes tag and stable Cc.
 >
-> Apply the same check to the SYNACK route in inet_csk_route_req().
+> I built the resulting kernel with CONFIG_SMB_SERVER=3Dy and tested it
+> through SMB2.1 in a QEMU guest. Reads at and past stream EOF returned
+> STATUS_END_OF_FILE. A stream created as Foo was read, modified and
+> removed through foo, with one named stream in the listing. On a 0222
+> file, a write-only user opening an existing stream with FILE_OPEN_IF
+> received STATUS_ACCESS_DENIED and the original value remained intact;
+> without patch 3, the same sequence emptied the stream. The same user
+> could still create a new stream.
 >
-> Fixes: ca6fb0651883 ("tcp: attach SYNACK messages to request sockets instead of listener")
-> Suggested-by: Eric Dumazet <edumazet@kernel.org>
-> Signed-off-by: Theodor Arsenij Larionov Trichkine <theodorlarionov@gmail.com>
-
-
-Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-
-
-> ---
-> v2:
-> - Reject broadcast/multicast SYNACK routes in inet_csk_route_req() (Eric Dumazet).
-> - Describe how the SYN reaches the listener; add KASAN splat and repro.
-> v1: https://lore.kernel.org/netdev/20261008100423.1256884-1-theodorlarionov@gmail.com/
-
-
-I think SYN with 192.x.x.255 as source can also tirgger this warning 
-when rp_filter is disabled.
-
+> Patch 2 has a minor textual conflict in linux-next with the VFS tree's
+> const mnt_idmap conversion. The resolution keeps both the const
+> qualifier and the new actual_name argument.
+>
+> Concurrent creation of case-variant stream names remains a separate
+> issue.
+>
+> DaeMyung Kang (3):
+>   ksmbd: return end of file for reads past a named stream's data
+>   ksmbd: use the existing xattr name for a named stream
+>   ksmbd: preserve unreadable named streams on open
+Applied them to #ksmbd-for-next.
+Thanks!
