@@ -1,266 +1,378 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B491B1E7C2E;
-	Fri,  9 Oct 2026 08:41:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791535287; cv=none; b=SMBF7oymRZl05r0jxlM/xZrEJX6Qk8qjqcbDuGzt5zAWO/j6qeoec0XKVVgQ1xWZTuLwvc76N+uBp3+/YChjGfXqkW3R61xRVogPu9/SfV0Stwu4+YLep3pr0KhQ0MS5NO5sz40TBCFn4jCyRNMVONyIAxSMV10sckkp1rC813M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791535287; c=relaxed/simple;
-	bh=n7ontxDBPqKBWS7fqMC63th/CLCnkD0ijIa6Ry3jkZE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NGbyhlwJnljVxwri1JyRfanc6dMi0NvNMTzdnmZe+Nl6byKDcuD1JavFGktsyuNS2NQdX1L7Yxx3l90vAY10Qn7fpv9BoybWYDAwIUSahzBxk2MHtMpAnqNKPL4FUVKkCNIjdWGvBTOveUW4CjsxOrY7g5TMham9E8KpmK23Fog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id DDF9C21BB2;
-	Fri,  9 Oct 2026 08:41:23 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
-	none
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 010E11326D;
-	Fri,  9 Oct 2026 08:41:22 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id C4YwMLKoyGpkJgAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Fri, 09 Oct 2026 08:41:22 +0000
-Date: Fri, 9 Oct 2026 09:41:21 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, 
-	Ayush Ranjan <ayushr@modal.com>, Hugh Dickins <hughd@google.com>, 
-	Matthew Wilcox <willy@infradead.org>, David Hildenbrand <david@kernel.org>, 
-	Gregory Price <gourry@gourry.net>, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [BUG] shmem: FALLOC_FL_PUNCH_HOLE vs fault-around race corrupts
- page cache / rss counters
-Message-ID: <asigKktcrSY80A_2@pedro-suse.tail5790ac.ts.net>
-References: <20260924061708.1645968-1-ayushr@modal.com>
- <arTdLsBENhrpOyk-@pedro-suse.tail5790ac.ts.net>
- <20260925053027.1998394-1-ayushr@modal.com>
- <20260925065013.3682431-1-ayushr@modal.com>
- <20261003033107.1488699-1-ayushr@modal.com>
- <20261004222831.bdd648a2b406f02747dd9e40@linux-foundation.org>
- <fyswoh7wpxzlbnjjanggjd2jz6yispmeirhwjl3wzi57nacddb@bjkb6kxyfcal>
- <fbb046b9-be48-42d8-96b3-7e554484b625@linux.alibaba.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44E333164BA;
+	Fri,  9 Oct 2026 08:41:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791535288; cv=fail; b=h8UlwBLYyVLja8gy+XLxWTmyWTepjF2fXWtci3TlVxKGqr1QCiCEHkajiNAV4+MITvwhNwSie4x8ydURzGz30oHGw9XENZ6iZtT9IKccHhw219EOOYC15Er9R5HWiEysQr0HOk/vUONRXP7QVwtbOA1AxLPNSezJGLggoVt9iC4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791535288; c=relaxed/simple;
+	bh=nja8UWkS+HUxuDWMl7ySOnMS1XMO4ss/3RQMYAy5ci0=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=td6Bu4n9Cm/vWlMBpyd0PLgIXFjqospQsAok1KyVQ5vKFKT685c7vkVCVUyxoUZXb9PPvoOWG/eak1bZjgjwZXv2Y9tURgcMCJHbaQ4BgftTeigUyiLHZQ9dPNnMENofZEa1aMqCWVmnAZnhI5iQGue5ahl5iScY5RJQRBOKld0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JuLswnxx; arc=fail smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JuLswnxx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791535287; x=1823071287;
+  h=date:from:to:cc:subject:message-id:reply-to:references:
+   in-reply-to:mime-version;
+  bh=nja8UWkS+HUxuDWMl7ySOnMS1XMO4ss/3RQMYAy5ci0=;
+  b=JuLswnxxjmoaxUpKCxqiF+gBOMIKgWwC/RbtKRcJCcOwmKuA/QFd4bOC
+   bILtmRIcwoe4lgKXNGmRSMj1BNDIfVz8NMKAbYy1YMNzOz559UuRKhGNI
+   vQyPARNuY7GGbx7ydmaw7zok05NrGNwF4AITk02841EzM5wE7LIN7r+sl
+   v9HPu524VX4nqcQDsEhFroT62nEnvU/y3490kbCw0o3ideHmbekfgBVgV
+   oTWaYYuLy7+n6A6r7ow+6j5t7f/wlN8ix0Q/oxYjv7+vTFkkpe8nCLVu7
+   8Raa86LPKdOyutH5ZDdxWqWfB0m6j8CO1yiX9I2xiwOL1TEDxgrzgXF8e
+   w==;
+X-CSE-ConnectionGUID: 2GmvNHclReirw/SELj010g==
+X-CSE-MsgGUID: PudkI6UNQWa1oxiZkEmwbQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="214963"
+X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
+   d="scan'208";a="214963"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 01:41:26 -0700
+X-CSE-ConnectionGUID: OMspFKGoTCaZfAy5xeRDlw==
+X-CSE-MsgGUID: KcoFR+wbR4S3NLlWda0iGg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
+   d="scan'208";a="713617"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 01:41:26 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Fri, 9 Oct 2026 01:41:25 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Fri, 9 Oct 2026 01:41:25 -0700
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.41) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Fri, 9 Oct 2026 01:41:25 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AjQhbwYiO8gWqdm5hJZxWMtFB6bcHbflFy1qde23TzHxMQnBnHyFbeKjc3P4Wh0fmeTYb8hEkVX3wZ25bc01O018+gUmO93EaU0+2QKGsf5S2y+FUHOnrUFbaOlXsu+sIvVFVIdBz5ifO/eiPqmfIfCx3D/K98S5ky+xlk3Z+lBW/0pJSmYGP+cMjwAq3j+psrt9yLqvmJQ+/zExqk5LUoxk0LV1KRVqkOENmaoQXm4E+xMcXCPHoMju0Uw6S1WXWFB/m1aY4yJTzEVJNLpm3kefqbolffCyBHxAaNy8Qwv22ocbaEIY8t4ipCWFCwmu7uARiFlR98R1wcIZUpK7gg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JMvL/PmfNq9WgcuetwRLwwNANFFkW2UZbF52jNEF/kE=;
+ b=LVoHsSoEnvJIayBFXbbOkohELNRgA0x1xaHvoa7SCOFr94ryaa1iIZJjZHl3PU2s8e4ry/3XgcaAKoEi8j0K9sEue54xONX/hYB2A3pa5SlCJEyX7Fv+9ZnIGTy4eCX4Zf/fpEFc0sguFTi0zqWX3vQAxlfoGSUXAezy39QjRa387dY1nuJuJ7bwLPnJGAWbR25epfDPWLHa6oSrga2rNuluLGyzRDma+mhizUYTNpIQwCGWbanncyhic7PUJXdSdFDReorGlnfTBLXoYDRjWo18XckYGwmG+djAVqCB+KD02AltCRfmwOPFBuE6fxyPFYhQgBU08BfqKrvS2CxwcA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from BL0PR11MB3236.namprd11.prod.outlook.com (2603:10b6:208:60::18)
+ by LV2PR11MB121525.namprd11.prod.outlook.com (2603:10b6:408:423::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
+ 2026 08:40:51 +0000
+Received: from BL0PR11MB3236.namprd11.prod.outlook.com
+ ([fe80::b026:a3ba:5162:beb2]) by BL0PR11MB3236.namprd11.prod.outlook.com
+ ([fe80::b026:a3ba:5162:beb2%5]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
+ 08:40:51 +0000
+Date: Fri, 9 Oct 2026 16:39:59 +0800
+From: Yan Zhao <yan.y.zhao@intel.com>
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+CC: "pbonzini@redhat.com" <pbonzini@redhat.com>, "Hansen, Dave"
+	<dave.hansen@intel.com>, "seanjc@google.com" <seanjc@google.com>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "Du, Fan" <fan.du@intel.com>,
+	"Li, Xiaoyao" <xiaoyao.li@intel.com>, "Huang, Kai" <kai.huang@intel.com>,
+	"thomas.lendacky@amd.com" <thomas.lendacky@amd.com>, "tabba@google.com"
+	<tabba@google.com>, "vbabka@suse.cz" <vbabka@suse.cz>, "david@kernel.org"
+	<david@kernel.org>, "kas@kernel.org" <kas@kernel.org>, "michael.roth@amd.com"
+	<michael.roth@amd.com>, "binbin.wu@linux.intel.com"
+	<binbin.wu@linux.intel.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "Peng, Chao P" <chao.p.peng@intel.com>,
+	"ackerleytng@google.com" <ackerleytng@google.com>, "nik.borisov@suse.com"
+	<nik.borisov@suse.com>, "francescolavra.fl@gmail.com"
+	<francescolavra.fl@gmail.com>, "sagis@google.com" <sagis@google.com>,
+	"Annapurve, Vishal" <vannapurve@google.com>, "Chen, Farrah"
+	<farrah.chen@intel.com>, "Gao, Chao" <chao.gao@intel.com>, "Miao, Jun"
+	<jun.miao@intel.com>, "jgross@suse.com" <jgross@suse.com>,
+	"pgonda@google.com" <pgonda@google.com>, "x86@kernel.org" <x86@kernel.org>
+Subject: Re: [PATCH v4 08/17] KVM: TDX: Adjust the topup count of DPAMT page
+ pairs for splitting S-EPT
+Message-ID: <asioX9gKIZBe0NF6@yzhao56-desk.sh.intel.com>
+Reply-To: Yan Zhao <yan.y.zhao@intel.com>
+References: <20260928090729.15468-1-yan.y.zhao@intel.com>
+ <20260928091035.15599-1-yan.y.zhao@intel.com>
+ <6ac2a1ffc4a860e71e63c068b33dc7644e65401b.camel@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <6ac2a1ffc4a860e71e63c068b33dc7644e65401b.camel@intel.com>
+X-ClientProxiedBy: TP0P295CA0053.TWNP295.PROD.OUTLOOK.COM (2603:1096:910:3::8)
+ To BL0PR11MB3236.namprd11.prod.outlook.com (2603:10b6:208:60::18)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <fbb046b9-be48-42d8-96b3-7e554484b625@linux.alibaba.com>
-X-Rspamd-Pre-Result: action=no action;
-	module=Unknown lua;
-	unknown reason
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Rspamd-Pre-Result: action=no action;
-	module=Unknown lua;
-	unknown reason
-X-Spamd-Result: default: False [0.00 / 50.00]
-X-Spam-Score: 0.00
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR11MB3236:EE_|LV2PR11MB121525:EE_
+X-MS-Office365-Filtering-Correlation-Id: 36d5f2f5-0eb4-434c-c03a-08df25e10614
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|1800799024|366016|376014|23010399003|4143699003|56012099006|11063799006|5023799004|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info: B+bD8HmjN3KbRzg+QYNO7d5zicYaqonN/apTJwei3PJCMG+EAOYoDESGJnFlMvRZKUnj9128nhISvGcTvC6Bz0wpA/CBVMnySyTCw+Kl3v1jsqupCHC9tFxePFjqiixkDnbToyH6YHuKbK2LVXz/QNdYGNkalDYN2G383naCTpOcfYJVg9Q2m/84zlCF93CMqCEX+73tM0mn7xH6GcgVKifC46ibAePunanbC3DHxrXV5asBbdIGar2W1CHE1pPH9fNMrZdprjsVFcqlJLRw7Sso3TfNLl1Kr0rwiLIIsIJ+NHuUMG995cSJsLBbxA7NnVJLqoLZNaA5CEem6CAkawTIVza5fvLK+GQfe0fktTCYzK8RcxUUpANdGBhLsYSDnaT8VYsw1C6L6ZC31G3aVJgmimUs0ZOAAA7zWF3zrzszboyPdlm7uJFeSzg4bzqi46CS8D17x6ZaGTz1GELVUwx1llzhI1LTUnVYzfDFEyXv9F3tj2EzopyfUYNGcvzJ/Z9j0ev3P50Abgo+eShbpoIBhSfagBX4SX6Vh/B1WSKurnzEQ9MgPVVyK/LLgfoRmwVWAHp+uCNO5Q88iUQwWQTKPDMKAYRwv3514znvgJc9O4/Rr6dxp+uEIHrOzvd1li62me/aorkVOs4Rpaho7s+yEfEFw9SxdDLzgPUGn3A=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR11MB3236.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(366016)(376014)(23010399003)(4143699003)(56012099006)(11063799006)(5023799004)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Xcc8UYIskJaPIUU2NN5O4AcxoIunK7x6nbuesGmJ0O6q0ULpLJqphMt7yTCe?=
+ =?us-ascii?Q?yXBvmW32tOvuJgqyedZdW99r0U/G7cULTPDymAvahOOtk8Eh/cJe7giSAC3O?=
+ =?us-ascii?Q?ujhkryYkBsO11Bx8ODQqnlJ5ysDVH3zXcDWT/844+1WaQMB2LaxZ5c8ZhhSs?=
+ =?us-ascii?Q?LLpYHeJZXHLg1ebOg65i5CA3tKc1pOhA4tI0R5coc0rTHjBfalpdVLJ5IotP?=
+ =?us-ascii?Q?3zKkYnJ0DXpN9tuF+0mZlBqPr+DWNTUriif6WsO20e02IgJmx9vJViQ/QZ9S?=
+ =?us-ascii?Q?QhTACxeR3ynXAudyT+kpTtwkyzfx+onLuGBscCJPIkw7N7LpBclvgqjWeCEn?=
+ =?us-ascii?Q?1Z+EXyRna/MhQWjfHjm0h9oaiWpTamcb326Y8SFY9KCCndQ2eVepxI36sbKJ?=
+ =?us-ascii?Q?5uTJaCRLnjZBlnBwBqKrhmWHOcarKV9toMAL6ZfCLvlVLkdI3c1gw4fB+Iju?=
+ =?us-ascii?Q?gCDOe8uoyemjEgHJjWnLSoPR2K/jAanPokNjTc6srPTkhWBtemNct/obsZ9E?=
+ =?us-ascii?Q?KCx5t976V6/L+wpVoKTblgTzkQ6nQ1AJJp0jkj/B22t/Q99/u9KuUf48ZYKu?=
+ =?us-ascii?Q?rpzC2qMgfrk1/A2nMLkoaEy8hDt/SQJ52vfCFt0mz5JWYlD+9qO5cF/6eE2N?=
+ =?us-ascii?Q?8bSoFR0hMuw5e8Mab7P3PC1RgXJ5MZzn+rWx8AzVdHlmyqHFyDTH9ZW2hpIu?=
+ =?us-ascii?Q?0EAhbCrxO1quC29sffTszlgrLbeRjLpErjF66Wb4FboLi40JE5aN+mS0WlOS?=
+ =?us-ascii?Q?zH1VO8Fc0hUfybjP58xTip3TQHfnO59SPU20w8FEMXj3Cd7Nufy9EG2+ucUq?=
+ =?us-ascii?Q?7SZTRtNZr9/RH29bQ43NGE13g9TQd3GjsSP8zTf7ZrW0gty6SnVBiGKsEk2D?=
+ =?us-ascii?Q?ezTJAOYsDiiM9qUWNnDC2qlXF13a6XBBvZwnlkv+VOYWdK7gEhsaPqPTW3E2?=
+ =?us-ascii?Q?rSgm2FMq6iM+X3FP0Rrtw8b69Bv3+fDYqw2Ko+L2nJb4Kk0U8HQkFFMlUNnW?=
+ =?us-ascii?Q?/v19MpyHAWnEwfXblxjMGWUL7NVxr2PMmjyxxf+oFYjbfrKIxst6y+zbs79o?=
+ =?us-ascii?Q?UMDKu0tRgsMw0nJCr6xqz8gML9YtZCC3P9Hbwy5wE0shFlDwgbX+1V+rxKAI?=
+ =?us-ascii?Q?cCwH1EO04U+v9xvq0LavFIGatGJxgox//PAJbZZ+Nd5xM1FOdSfjLRHSpMnX?=
+ =?us-ascii?Q?TekvG1kkCuzi/B9vYvnqJ9YrbO83uutO/O1d1Pk/MouCZZ7wBTd5TYIJAbF5?=
+ =?us-ascii?Q?dLegYs6imeDuw8noIX3SF418V5ZCL/NzJNpNdrOZeOri+yGsYyjRmJ5tIDgf?=
+ =?us-ascii?Q?jlykOn+uG4iKVwfkrgN8OrrWJThHlev5mIAV3uAjrJ+0rgmKLoshmilf3Pjg?=
+ =?us-ascii?Q?GrrsUqpq7/v6g9Ba3tkjH0RfY549186T8CXb3I8tIRfQ4SZNzD99Ai+DYXef?=
+ =?us-ascii?Q?vIkIvFHU1GY7RkQtiDw6b1/UKZmZ/AukPUfRm7+Ts3o/o1d9yiKjOTSr5RSR?=
+ =?us-ascii?Q?OohQVf7th4jNi/gB1qQxsy0ynaB0NZ8oHFsiFK9I+q6qhGxgM8eBrFLHyZ99?=
+ =?us-ascii?Q?m1pqLqEzOVQyay3bTjTa4NuPOC5k38HuVlAhdTH1W6zwi3sc8Y3jRM5x7uhg?=
+ =?us-ascii?Q?tnbPS65uFjRMxa1iL/Z9gf689pZmsp5nx3vjKyh0HXW+7QnIWFJ5NUzWeSig?=
+ =?us-ascii?Q?+m9gmjyT8cI6+poVd0W2YoRC2Qn9pTcetDVjflYMbGFuaHr17K7w8v+NjNBB?=
+ =?us-ascii?Q?kENq+1kClA=3D=3D?=
+X-Exchange-RoutingPolicyChecked: XFtyfT73NyU2jwjeKQnV5JO9ky9sr5PfkouG4mZs+mJMbl5A3BFlB5i7QaD2sPUCwcytPUruFf3ngcJ7imx1gFcNcG9uZjSVqcotkXLjmcSVeVJ6SYem6rHZACmqG/obqBGyqjmfmFmV9QRqZfrf1n2P8wsLWMzWj8PZGpzkRj7yHyFBp6mecoxG61z1TfaRcpBHrVotCrGduAeh0xMtQLfnS/fCmZy1fONSyrBzlzvgRWlvKjHQcJJTfanYeXMRdLGebgaQnCEZ/93GFoPBg7QeNNN+c41OOpAiNoEtIfqvvYJwyngDcHQTryFaMxoFrikkcBGvBfpq4zvgbbXSyQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 36d5f2f5-0eb4-434c-c03a-08df25e10614
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR11MB3236.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 08:40:51.1756
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mmbjInIJw1/OofNU83YtX5paUI6n6460V1813uZ0dIWDpnhabmVkyXN287Br4+gv45riSP/EKLR2lmnwAcP96A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR11MB121525
+X-OriginatorOrg: intel.com
 
-On Fri, Oct 09, 2026 at 02:46:18PM +0800, Baolin Wang wrote:
-> 
-> 
-> On 10/8/26 5:24 PM, Jan Kara wrote:
-> > On Sun 04-10-26 22:28:31, Andrew Morton wrote:
-> > > On Sat,  3 Oct 2026 03:31:03 +0000 Ayush Ranjan <ayushr@modal.com> wrote:
-> > > > Gentle ping on this. The reproducer in my previous mail [1] triggers
-> > > > "Bad page cache ... still mapped when deleted" on 6.18.46 within a
-> > > > couple of minutes on a 128-CPU bare-metal box, with no fork() and no
-> > > > gVisor involved.
-> > > > 
-> > > > We continue to hit this in production at low frequency, so I am happy
-> > > > to test patches or collect more data if that would help.
-> > > > 
-> > > 
-> > > fwiw I made gpt and gemini argue about this for a while and ended up
-> > > with the below.
+On Thu, Oct 08, 2026 at 06:48:00AM +0800, Edgecombe, Rick P wrote:
+> On Mon, 2026-09-28 at 17:10 +0800, Yan Zhao wrote:
+> > KVM needs to allocate enough DPAMT page pairs in the pamt_cache for
+> > consumption by both page table pages and guest pages. Since the DPAMT page
+> > pair for the S-EPT root page is already allocated during TD initialization,
+> > there is no need to allocate the DPAMT page pair for the S-EPT root page.
+> > Therefore, previously the DPAMT page pairs required equals
+> > "min_nr_spts - 1 + 1".
 > > 
-> > Worth a try I guess. Let's see :)
+> > When splitting S-EPT, min_nr_spts does not include the root SPT. So, limit
+> > the -1 calculation to when min_nr_spts equals root_level, though this will
+> > cause one pair over-allocation in the normal page fault path because
+> > PT64_ROOT_MAX_LEVEL is always passed even when launching a 4-level TD.
 > > 
-> > > From: Andrew Morton <akpm@linux-foundation.org>
-> > > Subject: mm: shmem: serialize fault-around against hole punching
-> > > Date: Sun Oct 4 09:05:31 PM PDT 2026
-> > > 
-> > > shmem uses filemap_map_pages() for fault-around.  Unlike shmem_fault(),
-> > > filemap_map_pages() does not participate in shmem's fallocate exclusion
-> > > protocol.
-> > > 
-> > > During a partial hole punch of a large shmem folio, the folio can be split
-> > > and the resulting smaller folios can remain temporarily visible in the page
-> > > cache while shmem_undo_range() restarts its walk.  Fault-around can then map
-> > > one of those folios again before the hole-punch path removes it.
-> > > 
-> > > shmem_undo_range() may subsequently delete that folio from the page cache
-> > > despite the new userspace mapping.  This can trigger "still mapped when
-> > > deleted" warnings and leave stale mappings or inconsistent RSS/page-table
-> > > accounting behind.
+> > Additionally, KVM may need to retry tdh_mem_page_demote() a second time,
+> > causing the DPAMT page pair for the guest private pages to be drawn from
+> > the pamt_cache twice in the worst case. Therefore, add an extra +1 to cover
+> > this worst-case scenario.
 > > 
-> > So this part of explanation is either incomplete or wrong in my opinion.
-> > Yes, shmem_undo_range() calls truncate_inode_partial_folio() which can
-> > split a large folio. Yes, filemap_map_pages() can map those pages back into
-> > page tables. But how "shmem_undo_range() may subsequently delete that folio
-> > from the page cache despite the new userspace mapping" happens is unclear
-> > to me. After splitting a folio, shmem_undo_range() will restart and find the
-> > newly split (and mapped) folios and calls truncate_inode_folio() to get rid
-> > of them. Now truncate_inode_folio() calls truncate_cleanup_folio() which
-> > does:
+> > The slight over-allocation is acceptable since KVM already pre-allocates
+> > more pages than needed (e.g., when mapping huge pages) in case of the
+> > worst-case scenario.
+> 
+> This is assumes way too much about the callers and way too convoluted. The
+> existing code already did but, now this is just too far. We need another
+> solution.
+> 
+> Questions below on what that might be.
+Thanks for the review!
+
+
 > > 
-> >          if (folio_mapped(folio))
-> >                  unmap_mapping_folio(folio);
+> > Signed-off-by: Yan Zhao <yan.y.zhao@intel.com>
+> > ---
+> >  arch/x86/kvm/vmx/tdx.c | 26 ++++++++++++++++++++++----
+> >  1 file changed, 22 insertions(+), 4 deletions(-)
 > > 
-> > so the mapping is reliably removed under folio lock. Can you perhaps push
-> > your agents further to explain in more detail how this "still mapped when
-> > deleted" happens in their opinion?
+> > diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+> > index 3186c4808cae..397a308b834c 100644
+> > --- a/arch/x86/kvm/vmx/tdx.c
+> > +++ b/arch/x86/kvm/vmx/tdx.c
+> > @@ -1630,16 +1630,34 @@ void tdx_load_mmu_pgd(struct kvm_vcpu *vcpu, hpa_t root_hpa, int pgd_level)
+> >  
+> >  static int tdx_topup_external_pamt_cache(struct kvm_vcpu *vcpu, int min_nr_spts)
+> >  {
+> > +	int dpamt_pairs;
+> > +
+> >  	if (WARN_ON_ONCE(!vcpu))
+> >  		return -EIO;
+> >  
+> > +	/* Exclude the root SPT, as its DPAMT page pair is already installed */
+> > +	if (min_nr_spts == vcpu->kvm->arch.mirror_root_level)
+> > +		min_nr_spts -= 1;
 > 
-> Good point and I think you are right.
-> 
-> Yesterday I quickly reproduced the issue with Ayush's reproducer, and I got
-> the following crash info. From the dump message, we can see that
-> truncate_inode_folio() is really trying to remove mapped folios, which is
-> incorrect.
-> 
-> I also quickly tried Andrew's patch, and the issue no longer reproduces, so
-> I initially thought that was the root cause. But after your reminder, I now
-> believe Andrew's patch merely workaround the issue rather than fixing the
-> actual root cause.
-> 
-> Today I'm going to re-analyze the race with the reproducer (thanks Ayush).
-> 
-> After analysis, I believe the race exists between truncation and
-> MADV_DONTNEED, and shmem's fault_around() merely makes the issue easier to
-> reproduce. Since MADV_DONTNEED synchronously releases the pagetable page
-> before calling tlb_flush_rmaps(), this could cause another thread's
-> truncation to skip zap_pte_range() but still observe the folio's mapcount as
-> non-zero. A possible race scenario is as follows:
-> 
-> CPU 0				CPU 1
-> 				madvise_dontneed_single_vma
-> shmem_fallocate			......
->   ......			  zap_pte_range
->   truncate_inode_folio		    zap_empty_pte_table(pmd clear)		
->     unmap_mapping_folio		
->     ......
->       zap_pmd_range(saw pmd none)
->     filemap_remove_folio
->        BUG_ON(folio_mapped)
-> 				    tlb_flush_rmaps
+> Over allocating a bit is not the end of the world...
+Before this patch, dpamt_pairs = min_nr_spts - 1 + 1.
+However, when min_nr_spts is 1, the correct dpamt_pairs should be 2 instead of 1
+(in the case when DEMOTE does not fail).
+i.e., without this change, we would allocate 1 less page, which is a bug.
 
-Thanks for the investigation!
-
-So, I think I understand the problem (rmap walks race PTE zapping, which no
-longer serializes on the PTE lock), but I don't understand your solution at
-all.
+> > +
+> > +	/*
+> > +	 * Each S-EPT page table page + 4KB guest private page needs a pair of
+> > +	 * DPAMT pages.
+> > +	 */
+> > +	dpamt_pairs = min_nr_spts + 1;
+> > +
+> >  	/*
+> > -	 * Minus one page to exclude the root SPT, but plus one page for a
+> > -	 * possible 4KB private mapping.
+> > +	 * After each topup, KVM may invoke DEMOTE at most twice.
+> > 
 > 
-> Based on the above race analysis, I made the following fix that uses the PMD
-> lock synchronously to prevent this race, and the issue no longer reproduces.
-> I will clean it up and send out a formal patch.
-> 
-> diff --git a/mm/memory.c b/mm/memory.c
-> index 6a8e7772b8d6..2039ada99b64 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -2036,6 +2036,15 @@ static unsigned long zap_pte_range(struct mmu_gather
-> *tlb,
->                 }
->         } while (pte += nr, addr += PAGE_SIZE * nr, addr != end);
-> 
-> +       add_mm_rss_vec(mm, rss);
-> +       lazy_mmu_mode_disable();
-> +
-> +       /* Do the actual TLB flush before dropping ptl */
-> +       if (force_flush) {
-> +               tlb_flush_mmu_tlbonly(tlb);
-> +               tlb_flush_rmaps(tlb, vma);
-> +       }
-> +
->         /*
->          * Fast path: try to hold the pmd lock and unmap the PTE page.
->          *
-> @@ -2046,15 +2055,6 @@ static unsigned long zap_pte_range(struct mmu_gather
-> *tlb,
->          */
->         if (can_reclaim_pt && direct_reclaim && addr == end)
->                 direct_reclaim = zap_empty_pte_table(mm, pmd, ptl, &pmdval);
-> -
-> -       add_mm_rss_vec(mm, rss);
-> -       lazy_mmu_mode_disable();
-> -
-> -       /* Do the actual TLB flush before dropping ptl */
-> -       if (force_flush) {
-> -               tlb_flush_mmu_tlbonly(tlb);
-> -               tlb_flush_rmaps(tlb, vma);
-> -       }
->         pte_unmap_unlock(start_pte, ptl);
+> Why twice? You mean the BUSY retry attempt, right? If you do, couldn't we fix
+> this problem within tdh_mem_page_demote()?
+In tdh_mem_page_demote(), dpamt_pages are allocated from pamt_cache before
+invoking the SEAMCALL, and freed after the SEAMCALL fails.
+So, if KVM retries on the BUSY error for at most twice, an extra pair of
+dpamt_pages are allocated from the pamt_cache.
 
-Namely, why moving this hunk of code up there makes any difference.
-I suppose it's subtly changing memory order, but it's not immediate
-in any way why this is correct.
+If we want to fix this problem within tdh_mem_page_demote(), one possible
+solution is to re-insert the dpamt_pages back to the pamt_cache list.
 
-What you really need (I think) is a happens-before relationship between
-the rmap changes and the PMD zapping. Something like:
+e.g., add the following diff to patch 2.
 
-diff --git a/mm/memory.c b/mm/memory.c
-index 330cde31bf8b..17cdd48fff27 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -2108,6 +2108,13 @@ static inline unsigned long zap_pmd_range(struct mmu_gather *tlb,
-                        sync_with_folio_pmd_zap(tlb->mm, pmd);
-                }
-                if (pmd_none(*pmd)) {
-+                       /*
-+                        * Pairs with tlb_flush_rmaps() in PTE zapping.
-+                        * Possibly skipping a page table (due to PTE zapping)
-+                        * needs to enforce ordering between the rmap changes
-+                        * and the PMD getting cleared.
-+                        */
-+                       smp_rmb();
-                        addr = next;
-                        continue;
-                }
-diff --git a/mm/mmu_gather.c b/mm/mmu_gather.c
-index 9f353f0e2ef4..47b25c42bf77 100644
---- a/mm/mmu_gather.c
-+++ b/mm/mmu_gather.c
-@@ -89,6 +89,10 @@ void tlb_flush_rmaps(struct mmu_gather *tlb, struct vm_area_struct *vma)
-        tlb_flush_rmap_batch(&tlb->local, vma);
-        if (tlb->active != &tlb->local)
-                tlb_flush_rmap_batch(tlb->active, vma);
-+       /*
-+        * rmap changes need to be observed before e.g PTEs get zapped.
-+        */
-+       smp_wmb();
-        tlb->delayed_rmap = 0;
+diff --git a/arch/x86/virt/vmx/tdx/tdx.c b/arch/x86/virt/vmx/tdx/tdx.c
+index 964739c5687b..e945885d5898 100644
+--- a/arch/x86/virt/vmx/tdx/tdx.c
++++ b/arch/x86/virt/vmx/tdx/tdx.c
+@@ -87,6 +87,7 @@ static DEFINE_RAW_SPINLOCK(sysinit_lock);
+
+ static int alloc_pamt_array(struct page **pamt_pages, struct tdx_pamt_cache *cache);
+ static void free_pamt_array(struct page **pamt_pages);
++static void reinsert_pamt_array(struct tdx_pamt_cache *cache, struct page **pamt_pages);
+
+ /*
+  * Do the module global initialization once and return its result.
+@@ -1904,7 +1905,7 @@ u64 tdh_mem_page_demote(struct tdx_td *td, u64 gpa, enum pg_level level, kvm_pfn
+
+ out_free:
+        spin_unlock(&dpamt_lock);
+-       free_pamt_array(dpamt_pages);
++       reinsert_pamt_array(pamt_cache, dpamt_pages);
+        return ret;
  }
- #endif
+ EXPORT_SYMBOL_FOR_KVM(tdh_mem_page_demote);
+@@ -2146,6 +2147,24 @@ static void free_pamt_array(struct page **pamt_pages)
+        }
+ }
 
-On top of your diff. Where the smp_wmb() is perhaps not required: I suppose TLB flushing
-works as a sort of memory barrier itself on most/all architectures.
-Either way, we have to document and fix expectations around this code.
++static void reinsert_pamt_array(struct tdx_pamt_cache *cache, struct page **pamt_pages)
++{
++       int i;
++
++       if (!cache)
++               return;
++
++       for (i = 0; i < TDX_DPAMT_ENTRY_PAGE_CNT; i++) {
++               /*
++                * Reset pages unconditionally to cover cases
++                * where they were passed to the TDX module.
++                */
++               tdx_quirk_reset_paddr(page_to_phys(pamt_pages[i]), PAGE_SIZE);
++
++               list_add(&pamt_pages[i]->lru, &cache->page_list);
++               cache->cnt++;
++       }
++}
+ /* Helper for building DPAMT seamcall() arguments. */
+ static u64 pamt_2mb_arg(kvm_pfn_t pfn)
+ {
 
+Reinsertion should be locklessly safe since the pamt_cache is either per-vCPU or
+protected by the caller when it's per-VM.
+
+> >  The first
+> > +	 * DEMOTE invocation draws two pairs of pages from the cache: one for
+> > +	 * the S-EPT page table page and one for the guest private memory.
+> > +	 * Since these pages are not returned to the cache, the second DEMOTE
+> > +	 * invocation still needs to consume one additional pair for the guest
+> > +	 * private memory (the pair for the S-EPT page table page is reused for
+> > +	 * the 2nd invocation).
+> > 
+> > 
+> > 
 > 
->         /*
-> @@ -2103,7 +2103,6 @@ static inline unsigned long zap_pmd_range(struct
-> mmu_gather *tlb,
->                         }
->                         /* fall through */
->                 } else if (details && details->single_folio &&
-> -                          folio_test_pmd_mappable(details->single_folio) &&
+> Another idea, change the op to be:
+> int topup_external_cache(struct kvm_vcpu *vcpu, bool root, bool private_page,
+> int min_nr_spts);
+> 
+> Normal topup can set:
+> root=true
+> private_page=true
+> min_nr_spts = PT64_ROOT_MAX_LEVEL - 1
+> 
+> Then we can calculate exactly what we need. And even better, the existing code
+> won't nee a comment to explain the weirdness.
+The existing code looks like this:
+static int tdx_topup_external_pamt_cache(struct kvm_vcpu *vcpu, int min_nr_spts)
+{
+        /*
+         * Minus one page to exclude the root SPT, but plus one page for a
+         * possible 4KB private mapping.
+         */
+        min_nr_spts += -1 + 1;
 
-Why?
+        return tdx_topup_pamt_cache(&to_tdx(vcpu)->pamt_cache, min_nr_spts);
+}
 
--- 
-Pedro
+If we agree on the reinserting solution for DEMOTE, then
+tdx_topup_external_pamt_cache() could look like this:
+
+static int tdx_topup_external_pamt_cache(struct kvm *kvm, struct kvm_vcpu *vcpu,
+                                         int min_nr_spts)
+{
+        struct tdx_pamt_cache *pamt_cache;
+        int dpamt_pairs;
+
+        pamt_cache = tdx_get_pamt_cache(kvm, vcpu);
+        if (!pamt_cache)
+                return -EIO;
+
+        /* Exclude the root SPT, as its DPAMT page pair is already installed */
+        if (min_nr_spts == kvm->arch.mirror_root_level)
+                min_nr_spts -= 1;
+
+        /*
+         * Each S-EPT page table page + 4KB guest private page needs a pair of
+         * DPAMT pages.
+         */
+        dpamt_pairs = min_nr_spts + 1;
+
+        return tdx_topup_pamt_cache(pamt_cache, dpamt_pairs);
+}
+
+IMHO, it's clearer than having the caller indicate whether it's root or not.
+
+> >  Increase the topup count to account for this
+> > +	 * worst-case scenario.
+> >  	 */
+> > -	min_nr_spts += -1 + 1;
+> > +	dpamt_pairs += 1;
+> >  
+> > -	return tdx_topup_pamt_cache(&to_tdx(vcpu)->pamt_cache, min_nr_spts);
+> > +	return tdx_topup_pamt_cache(&to_tdx(vcpu)->pamt_cache, dpamt_pairs);
+> >  }
+> >  
+> >  static int tdx_mem_page_add(struct kvm *kvm, gfn_t gfn, enum pg_level level,
+> 
