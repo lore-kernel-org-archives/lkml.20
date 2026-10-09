@@ -1,122 +1,136 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2550A35E1C0
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:03:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194663C1D7A
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:04:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.47
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791529405; cv=pass; b=U+DSIor0NRw3NNOpIYOGZWc+pfnPa5tH93KWIWmFxoEgo/E9bWST/WcFTrhiiwrcDI7fXDQbr+y+HtyWw1k8O0xUw2QgIEQhKUepuAKi4HwJe2cn7qtXaEzQPX2ytKrG3K8e+8NhHyIwFw7eCc+hZexXhX+nRNwqsdoEnavzmJI=
+	t=1791529457; cv=pass; b=JbNFUblgZquM1D+Fk6hMJ/C6mYWDdk+4n49QNlmYAVGRyF8L5dpAkr0Vv3gZLEsFOqcJiukm9ofPOoGopUmM1pzWFuXB5vELUEBVG4clGAbfluWMFjptEIfxSpEJ7+cAbPjyH79NEbhMaS7GozpchlpojGxrfaovOirV4Axb0+M=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791529405; c=relaxed/simple;
-	bh=u/66UyK1G/RrLnhVcSi5x21gKzF8iMZFM8iJW73420s=;
+	s=arc-20240116; t=1791529457; c=relaxed/simple;
+	bh=Kvzcb/uO/lUt85F1J+DlqpO0vT6ehTwyBqMNoP6aUIo=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=icPv+/GCjf7AMH54ZWeiYMfVJfBf5ALI/bUAxFFX3DaSKOPz/HWmIyj1Kviv4pcg2m6nPhKXuuFtHvJp1sG1/6ATvXWnywhX4Zi+IWLkyUDvM4PH0cAlU59Pi8RhBRZVefhFeQ35XmJ8UlXU5uzlDESnwRuvR/sYdvN9VlmWa4Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vbcw7HNk; arc=pass smtp.client-ip=209.85.210.181
+	 To:Cc:Content-Type; b=G3nVibyRfNn+hC/VnPAwxPmkWyThUi1FtPZ08nH5OiaWPbBUjhGZrWUQ8Pog2iXhjOT1MQ4uPVe8uKDKAghtngGUkBcvTuM5bJ3VSib5yCgKEMU4yTehNJ7QSa/YYf9iW54KrcdQ2vn/9sIKZoVl2N+XqUS2ASB8O/txaybiZhQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n4RaGTtI; arc=pass smtp.client-ip=209.85.161.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vbcw7HNk"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8520161fdb9so3957070b3a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:03:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791529403; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n4RaGTtI"
+Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6b1afdf5196so1388239eaf.2
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:04:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791529455; cv=none;
         d=google.com; s=arc-20260327;
-        b=n8WbtM3g+5oZkqS9E7OOr8OuJoIhJvTgYwts1pvd8+P2TSRqR5ZTNiqXTvoQdyhAot
-         y8u1ZAF5K5Se5J4hcvfiIp/CGjhPsfp2T7AG6VyNy54OamJEIV981e7aglkdWcB/vMAl
-         CbtKJoFBz4H2sCfrnQ0IkY+jbAA2mQVxMDkYop+U5nVNG2mBa7MVg31/qGNOWjdAZNx8
-         oiF3Q0oNXqmD6DQjN3UY8kyNy4tq3v8TBz5r8yPrTJM0QbuX3TRXdZ6s9HDXQ8aMB81k
-         sipAk8G6TQRL72JKsUWUBPogjjyS2CCiishWHJlguL2fcgWrCFJaRriNWurZsQEwllng
-         E+Dw==
+        b=JNoTt2rzsKOKLcX66kxUjbvkBmFyWhx1BBYSb1GXFQ4ixLHwu3O32924gU/we6Arpf
+         jDeOcnrg3HAWErNI/WfLMQXy8p/CSJPVbcYF8UlSV/0uiE0Q5q4jYovYm3G5LKBY9axU
+         pgoGXrPlvg2eahvEvz4mmyBd+LYmdH26RdJoa2b3N46q7xIou4LgFMcO/pGcoBJAORKS
+         2ZOfGR1icEbFKECk1wHk71SAQbssWAWgajmQ7i75ZCxLlAFYLiKYqjxKnHCHL654O/YG
+         /+IxmuhoXvv1bLcqZdhflLwYe0aP/+45pSnJ+HuQuxTKIEW2L6aSdJlHxldn6bJFYqRz
+         KrKQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=u/66UyK1G/RrLnhVcSi5x21gKzF8iMZFM8iJW73420s=;
-        fh=qz13iIcj5w9AM6so0u6FmikeBWb9iGpjHYd42KdGd4Y=;
-        b=hcYvYUdZL9X5jImGv1sjPzig7JJ7eRwhSUz09l/v0P2x6L1bafF2xIzqap3hT5mylK
-         TJ8cu/GTmj0qmDdaZ2ZY1Qo5hMR3bFzVNo6dkkOBhWbYeZHhhqWU9ZXcmM8aFGKYJ6ht
-         +sKLCyv/u+wrzrGvkQR7Q3WWOH7DUasADBkQp4tFGMeiFUHPK38S24jDzzaqROcCMzmU
-         qajhs2ICvuhIuKOSqZwrXK65x72iv2Hkad+UQjagG/PGcu+xgAfVygUvVKcbf0qhyRJR
-         E0mEok40Nzsml5iwgexMlUVJ5JDWGyDE8LaktNLV2suEzevxVE+EAwfGFyRHRHkh+jqh
-         vtLA==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=EwBvxaKSezPcmRHXV7EoTDUsrgLVXKX7pSoghw0IZJM=;
+        fh=ys1A4Tb/22nkbutvN8Mg7Kd99o1n/WQEH0aNQk44wRM=;
+        b=SdWR7aeLPZfh2pbxfINANCM3cW4Tcvv/aFmgPmRFCjEIGSHrEONcY1wnHrqEQ2d2XX
+         BSt9bFfPCXcMbopgrF8DMNL49kFoHYo9+LK5JVwCZ8Aaj3XdhgT1+7GjnYkBzBw0+5bI
+         AneVIF3YFdJcRGgJW3TFDAQknxkigpdNsg86TZP404OTCggDZzhN+Uh8O5yOoO0as7lw
+         u6CB1taQEPIdn/kYzMIuQWElsX0skuzglBFr3ds/H+lcz68Rq/wRjO37GOeDTp1Y8fQL
+         Jjyi2NAKLK5JGncUuZytp6TsCrw8pupKymx8nPBek5bbLVnzNVUILifrCFXNjDafW8Z5
+         HrJw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791529403; x=1792134203; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=u/66UyK1G/RrLnhVcSi5x21gKzF8iMZFM8iJW73420s=;
-        b=Vbcw7HNkUG9V3/2OGa1oAh7N5o2VWD9fCmIsYs/S6pGcEy4OrN6gJF5LwQo6GElKIj
-         pTxELvnWC/3GF6CeVwS8S+kgBffAO9pSrve6/4WAYerMBbIISCLeWpzJFrDk5xM3JQz2
-         vlPr9MhJRx3BWRhe+DDnuwkpjHfgs3+pqAjDzodMGXtNQYHYQTNhBVupojd9QrA+O8KI
-         AtGNqHMQn1WdI9RxWCO1Qycmhy3QgPfe2N/nNaYJPu5nwReu5ZEAH6xQMxaYUJylF/AO
-         4fKj3bEJU0hyhQ24HoIsjQcl7uct0w0qEdtHVjzSFA5OVBgucL6v6oBN9n9LWT+DQ8pn
-         tcWQ==
+        d=gmail.com; s=20251104; t=1791529455; x=1792134255; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EwBvxaKSezPcmRHXV7EoTDUsrgLVXKX7pSoghw0IZJM=;
+        b=n4RaGTtI334DWwsAC1ibc0bpkwcftTewB8tB/qPcBJZ9h9PXr8i/7oll3NnO/MBPhE
+         p6WklmDG9tI5KvlA9sQ3uA4g2StTnU9C3qGCPpnRbd/J00zjfjQWc4lrRy//U/moYwoz
+         FcxYfic/rwQ8wepDhOnttUJl3I49/9vQPI0qyLwfm0/bLGsc2MD7osGl4Qu+hjRiwRRk
+         EQSu9uyEtYqngm3zhiomRV3TkBcdkIVMBmLMsd8TZjnRJkT7BVIL2Pm4b6x+CKKf2ign
+         Uvd3p2EuKGCini/F3VfFhIFjMFqPg32ryBxHYxmak8ODiHre85jLd2rc6MsCUbDdejNY
+         gdXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791529403; x=1792134203;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=u/66UyK1G/RrLnhVcSi5x21gKzF8iMZFM8iJW73420s=;
-        b=Jn1DbRoLqzZxhuHUWHNN0V+ilka2sRUPSmtS4wtQjNwVUA/ciKwE7++GdGRALDHmWP
-         GgEsWo8QRVvLoznf9AciFDYGC++KIUGx7P/2nQMnsR7krR8JsB3dpk1brIzCp+lz27dp
-         Vz4gKUtETde9K7x5EM473GoMjvI0+rhegTup6glGs9g5QstnTNR+MB3skxapVUX0jDQ/
-         Bu0G+ppCLEfkFo+suiO3aCs5sWbZ3kvT7pq/YSVMD9t3kL7aw3MAysI/Tex0iyAAm04P
-         ffIBQceH9MPu4aYUKHCx70CvOB8FWHnLaer2Ubu8DQSQq6+NLz2X1Em0z/SWNUid8SM6
-         2QcQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzdVCYO9meWGqAs1t4r0EQSK1Vi6GIj/6RnKt/ifeIK0yn3LUnDeB/EOtMreqPB29IkeGlQguGciiQNOPc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKT/BBk012kuJIbcLg25PMrgH8HEtu6yibN6YsNTTBza3d4Wok5
-	j1l6VS/7b6LudSjSzOXt4Q4krOHQ+UZXCzwz5pdCN9JW1kG7K9aFYB6Gc/bMazk46ERp+sdoRdm
-	NgX6pj+fQ4p2RlbJLE+TV9LF47KusN64=
-X-Gm-Gg: AYBFou2wjdkyA6gj+r3h5uJqQICZYvu1eIdux4NqA8PEJd6NJMjmWGaX1ygcG1JEgv7
-	PnNGk7REXMKZNTG/aMZc9lBnJ8gHlGGlcalJCzM2bXlp7D13OU4ep4MpfCMFVD33hB2udy1CeKG
-	Gq0Tdwv78x1BYB+N4rR3vskeWPOlCv4AibsRG37tb7uFue3k/KhuV6NHGDsGpxIB0ra924Ihi0K
-	Dz4rb6LE1eqboxIEfLppGJAx8gxaC551E5kLTM0A2653dh2GHBXypaTJUCoZbsTMvQl6NOkjtRb
-	v8s2Qm4H84b8F4kV0VchXM976qmweD7zT5kX1VnxMnCwAuTRoVr0kdafaYcSi2QSw6nXyiVR9NQ
-	Y4Z3M0FAw3tRiAOEi3DYXw+ZJBib3GowLebO8yVotRXJWhBI2BWranj/0bmasJmIZ18DmAXDIqZ
-	SVrQ==
-X-Received: by 2002:a05:6a00:aa04:b0:885:fcc1:d55c with SMTP id
- d2e1a72fcca58-897c7ec5a0amr846999b3a.43.1791529403528; Fri, 09 Oct 2026
- 00:03:23 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791529455; x=1792134255;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EwBvxaKSezPcmRHXV7EoTDUsrgLVXKX7pSoghw0IZJM=;
+        b=lGnuZfTLHZ4pkeWEbwTPbmyVuPaR+FU5HD+uk3WIS84UdBU8OushsiD92N8z1utcvS
+         dvH1sVJHCTTyeVJSg+cYZWQiZn2Tjsry0Ui3/u4jtdbPYwFU3V9ujQ6xq4V4geisUEFr
+         rL5/okpmTf/1VROZBdv1cJ+XAXosjNATZN8pUC8MMWjtnNQ8p6ey0Q8BOLkozFpk0v3I
+         Vo1y9FPYbm1zWlRawOZtQ6gmnC881LOIxaaZSvzfS82r4sVDIH6vA/nSvOLE/8L4p+gy
+         Q6Nf0w1V0fV98eYpi0SGVtKJHbuX4gFwN5chwkdcRKE04kwrCkcAe0/mG93Ld2GaWy1g
+         ryww==
+X-Forwarded-Encrypted: i=1; AKwUvBxx/4YYAi1vf82x82CdI27WxJkYlTSQ+MMlzNQyUGy3sEmDht/w2ZRJGwUL+3Bgi2YTQffGdyRL12mPaHM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lSryYusfTDQ3enDc3IoMfXrnQWZQWE/k1T37vyZwrPlG1/DuxR
+	VYxvGiE7EXSn95W2IG8gvXOHizX1SA2OiT8npLlfekAZmvu27UQMQBCcqt1GB8Ex3eMwKIFiJc1
+	Dhax2DmdOpjrYU0djdZAOCt78OOZNb9M=
+X-Gm-Gg: AYBFou0ztQmt0lUXN9KnQbHzr+Ok/W3r3a3DJ0ZnPAbUC6TcakmXfFEzbNfwmZuB19r
+	1nZw5YSqsk+Um7V95ot7RiLnfQhS8R5a0oJzCIrc7+MjbE3YenpKVM+vKHTAuWg3WLCq+aGgTMq
+	zSR8+jTll7+syaGNcozj2fybm1ws4GK/F1rb3A6RxEk/5vEa2WcejcRXmrbJ7mRKzpE3M8B2zSY
+	psAy47/uBiAiG2YdotZmMxmR/HHU4e1qP8qExdp0KmjRDysxS+CB5EdPdDbPLzDcsDI3XGBuXOB
+	EcFXfQtsHTF1WjdQeVwqfKUPdYe7lyRfanoOATlgMeXQhnUfNnwLLEzU
+X-Received: by 2002:a05:6820:618:b0:6e1:817e:e348 with SMTP id
+ 006d021491bc7-6ef0ead8a70mr755983eaf.36.1791529454847; Fri, 09 Oct 2026
+ 00:04:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261005110257.50145-1-phucduc.bui@gmail.com> <20261005110257.50145-2-phucduc.bui@gmail.com>
- <56ca274e-5b56-413a-9fcd-9ccf1631d8b9@oss.qualcomm.com>
-In-Reply-To: <56ca274e-5b56-413a-9fcd-9ccf1631d8b9@oss.qualcomm.com>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Fri, 9 Oct 2026 14:03:11 +0700
-X-Gm-Features: AclHuK9K_mTmShroHQ2NxfLYvmjGvCBUVZdlzaaqulcpuz6FtNuEKnD6JjCP8qA
-Message-ID: <CAABR9nG6RyjjmGhYKgMJrjbO+E5+UxBq5JBfeoG1qj1VxOZn1Q@mail.gmail.com>
-Subject: Re: [PATCH v2 01/14] ASoC: mediatek: mt8195: Fix tuner clock error handling
-To: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-Cc: Mark Brown <broonie@kernel.org>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Trevor Wu <trevor.wu@mediatek.com>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, cassiogabrielcontato@gmail.com, 
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
-	Haotian Zhang <vulab@iscas.ac.cn>, HariKrishna Sagala <hariconscious@gmail.com>, linux-sound@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+References: <20261003093837.545278-1-yaojiale02@163.com>
+In-Reply-To: <20261003093837.545278-1-yaojiale02@163.com>
+From: Qiang Yu <yuq825@gmail.com>
+Date: Fri, 9 Oct 2026 15:04:03 +0800
+X-Gm-Features: AclHuK89n94QP4eXCNQI20RI3FhQZ5iF1cD68FNJB3GcRZKG4SgaqZ70DtaTsAM
+Message-ID: <CAKGbVbsK-mxJskJGYG5b2B7NOcAw3fRyJqAjX6Zf+AdH__1f5g@mail.gmail.com>
+Subject: Re: [PATCH] drm/lima: Drain fence callbacks before destroying slab
+To: Jiale Yao <yaojiale02@163.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Eric Anholt <eric@anholt.net>, Heiko Stuebner <heiko@sntech.de>, Andreas Baierl <ichgeh@imkreisrum.de>, 
+	Simon Shields <simon@lineageos.org>, Erico Nunes <nunes.erico@gmail.com>, 
+	dri-devel@lists.freedesktop.org, lima@lists.freedesktop.org, 
 	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Ajay,
+Reviewed-by: Qiang Yu <yuq825@gmail.com>
 
-Thank you for your review.
-
+On Sat, Oct 3, 2026 at 5:39=E2=80=AFPM Jiale Yao <yaojiale02@163.com> wrote=
+:
 >
-> Should mt8195_afe_enable_main_clock() also check these return values,
-> and unwind APLL1 if enabling the APLL2 tuner fails?
+> lima_fence_release() defers freeing fences from lima_fence_slab to an
+> RCU callback. The last lima_sched_slab_fini() can destroy the slab and
+> clear its pointer while a release callback is still queued. Module remova=
+l
+> can also free lima_fence_release_rcu() before that callback runs.
 >
-
-Yes, I think it should.
-
-However, since I don't have MT8195 hardware to test with, I'd like
-to wait for feedback from the MediaTek side before sending the next
-version of this patch series.
-
-Best regards,
-Phuc
+> Drain outstanding callbacks before destroying the last fence slab.
+>
+> Fixes: a1d2a6339961 ("drm/lima: driver for ARM Mali4xx GPUs")
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+> ---
+>  drivers/gpu/drm/lima/lima_sched.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/lima/lima_sched.c b/drivers/gpu/drm/lima/lim=
+a_sched.c
+> index 9a1e6b9ecbe5..9c5ff1929d3e 100644
+> --- a/drivers/gpu/drm/lima/lima_sched.c
+> +++ b/drivers/gpu/drm/lima/lima_sched.c
+> @@ -44,6 +44,7 @@ int lima_sched_slab_init(void)
+>  void lima_sched_slab_fini(void)
+>  {
+>         if (!--lima_fence_slab_refcnt) {
+> +               rcu_barrier();
+>                 kmem_cache_destroy(lima_fence_slab);
+>                 lima_fence_slab =3D NULL;
+>         }
+> --
+> 2.34.1
+>
