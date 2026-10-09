@@ -1,112 +1,123 @@
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4AFE3C76BB
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 23:56:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43A553CF698;
+	Fri,  9 Oct 2026 23:59:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791590191; cv=none; b=nbZF8zMcEFYXkY2oXHl+J5GInILwBKZQxj7WNTcSBJyPzVM4PjghF+xmY2qHj4LOlOLz79MK7zgibXvrsoCFKGcyIEV0C8zVky9DY9FvX9+Vuht31SJE3uoJ47Ug6M+AJQzQ9UDdDJ6wuxrw+ELdsVPXyrCMgXccSzJv5YXQfBg=
+	t=1791590377; cv=none; b=FS2tWpznAezF/7UEM2dvtKQ9P7GJdScByvo1acnZY8e4mdAbhkJSX8wk+z43ROiPSmfuUih2nA3UcDoBUSIm636rS0CD0VEw/l5Pw02+ykmZnfTfWH/fyg7pLRLkGn7DxSMNnBrXYRjlLEBctCrmFgpKuzB8tNy5LSF3JBadfj4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791590191; c=relaxed/simple;
-	bh=c2p/8s/u1+M4DT4S4RPozf9b1gNSNBk+bGyW0+gQ3Rw=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=LxfRKaSzJXkpcpP9kNA3/VX/T/udAcdn2nVD51fxZOtMhsteMr7ZbWB8gBVXRHUysMZ5BJU7tA8Pmr7plJMBl7A8ei7+iu6HXsVX2PbqzQDVRD+VpPTU50l5sZ9nxyjD5U8V0s8IFvsc476R4jdIRJcEFlYj2UXgJ1L0WORKlvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=txZgsE8r; arc=none smtp.client-ip=74.125.82.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
+	s=arc-20240116; t=1791590377; c=relaxed/simple;
+	bh=WNPatVzzuvKZdUZ4R5i/vvoawReUsH1sEinBqSXpmB8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ts/5Ukxg3zNHIgrm9iIVNFwvutep+Ng2ktarCk+vhbdLh++EJc5lBwqAHBqmU5EbLcfT/aodPuAmDugy9Gx92oij+PerIGbQHWvgWidZCaYWxkGXMFopIcP++LvsaW6qfYN3/PQjDtdwNe9iB+FCiZuBWldwO0PKpJCukQAISas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MHnGbHyJ; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="txZgsE8r"
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-313d1015161so697554eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 16:56:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791590190; x=1792194990; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PJTxzhnYs9hhRpF1VB7va1Wtd9L8csRH9tcezUL8KaI=;
-        b=txZgsE8rF6lBUsJm+MtwyrwqvLN4vJGr8PvjdzagwSGPpt+MKy5drOxOm9WFq410RY
-         lW3yDhL0XczD0V/TbD2IZEoNYOM16bjTSh2+gCXLnYdwT0EPubFWEoXOBBds8jhmBffF
-         jz8AQA4NRgrSPHe9cvNS2xtv5WEoyk8ghhT5YJD9fW9A+bedBBru9d0s6I+cBI/F4EW2
-         tdQLkEbdCywOgWiCJInL6VHOFxa+xoAI/J/vs1QFI0yphsG1gkRQ8qLA/NfvNiqXiOLs
-         4ydnLQOtEM5rnTUBZ+R+FvgCDjNH+Wszn3UoZS3JSQytX/7Kemcx6MegkYXIkAhNh8xy
-         MeRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791590190; x=1792194990;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PJTxzhnYs9hhRpF1VB7va1Wtd9L8csRH9tcezUL8KaI=;
-        b=eDLOY1yFzLKVi2lJ4+hIz3nNe6IhlVpGvX8bAh32/iVo7Zk9Hv8mUa47hgpaUGuNEd
-         ut3Yak/cc5hK39wc2xRRpvUlPABAAMzFQenxWrhGKaBQilOgFbIs6TeJyG6Dy0Mq+lWg
-         6BmaSC4mS2aKqq6/pRjYY0T+YHfaAyLK9/I/p/s8AulSfwOq9WxREBTxtbI+kzszbqmW
-         muoDR/BJjP/LZEXRAE04XuNGI6zX0q/+qhgrK/XishwY1mFPcOkbSBxGwwa2/9F/QPHc
-         6UYkEXfB35A2UdAo4nVM6gx5fxFMtTAkVEKQiRCcX7rfBECoxBr/eN1AahfTNJ8f6SAm
-         OZ5w==
-X-Forwarded-Encrypted: i=1; AKwUvBxHZU+1zXzt8OIOKYscl1PxfZMDBM1GQbKGhHZ9hTFZaiyLCkysLOMxUGSsr7NjqeC0651CPTwgRs3lOa0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ1wnM5a71qi1Hd0gsHIoSaTMmudtEuLCagHZgHxjnuTUb99gib
-	jT+457/knS2Ate7v3QAPP5Ru4u6OEUUChhS/uVfVzHhAwfMnbn88DEcwl6g2guXWFJ9PhBtXo/g
-	xqbt2nclc3CGKj8WDRr0YI9hSTg==
-X-Received: from dyclv4-n2.prod.google.com ([2002:a05:7301:6184:20b0:339:7118:d1b6])
- (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:693c:26c3:b0:34a:cb0e:f4e5 with SMTP id 5a478bee46e88-3537e24a01cmr4661674eec.40.1791590189372;
- Fri, 09 Oct 2026 16:56:29 -0700 (PDT)
-Date: Fri,  9 Oct 2026 23:56:28 +0000
-In-Reply-To: <20261008132815.654147-11-tariqt@nvidia.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MHnGbHyJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791590377; x=1823126377;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=WNPatVzzuvKZdUZ4R5i/vvoawReUsH1sEinBqSXpmB8=;
+  b=MHnGbHyJ2q2lp22IB6zElJ5yO2fmnQu8Fo0zZkqceKPXcU+ClBCKOrs5
+   w6KMLlRLGqg+a5mAWPfsS9KS8cu+c960NjZ0yQK/h6l7abYtHVyUt5m7e
+   0sMFj4ANGm1yhUGIuKmh0+y6LFi/SbRSSGD4AUrtZ/XiTT6kZYre7iADq
+   6MMIYxCZBYyfBfU5ch67GOQQu9H32YUUjyJXrKacgPXbZkjRmwN5XSXJ1
+   R5Q6iwWU+ZGxPBbgoWXPKE5WTu1jdH3hnC4V9kCDggvlPzhSm40rBSvFD
+   Y5I8aqTICTeISObdR2gATiOcg/uBM72C43+1jruNU52pZeNoXcvFggwAa
+   Q==;
+X-CSE-ConnectionGUID: 6Y/TODuGR9atc76EJvkIDA==
+X-CSE-MsgGUID: lhL5UY0bRw2eKZEjl3poKw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="403366"
+X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
+   d="scan'208";a="403366"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 16:59:36 -0700
+X-CSE-ConnectionGUID: IshxscfPSGS2BR/5Wq9dCQ==
+X-CSE-MsgGUID: of6C+tFjRISwct4T+GAwvw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
+   d="scan'208";a="2177749"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa013.fm.intel.com with ESMTP; 09 Oct 2026 16:59:34 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xFKUu-000000006Iy-09s6;
+	Fri, 09 Oct 2026 23:59:32 +0000
+Date: Sat, 10 Oct 2026 07:58:54 +0800
+From: kernel test robot <lkp@intel.com>
+To: Muralidhara M K <muralidhara.mk@amd.com>, ilpo.jarvinen@linux.intel.com
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Muralidhara M K <muralidhara.mk@amd.com>
+Subject: Re: [PATCH v8 1/4] platform/x86/amd/hsmp: Recognize Family 1Ah
+ client platforms and hide server-only paths
+Message-ID: <202610101031.PjgWVMZh-lkp@intel.com>
+References: <20261009061356.3234513-2-muralidhara.mk@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261008132815.654147-1-tariqt@nvidia.com> <20261008132815.654147-11-tariqt@nvidia.com>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261009235628.3827386-1-almasrymina@google.com>
-Subject: Re: [PATCH net-next 10/10] net/mlx5e: Enable the data direct netdev feature
-From: Mina Almasry <almasrymina@google.com>
-To: Tariq Toukan <tariqt@nvidia.com>
-Cc: Mina Almasry <almasrymina@google.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, 
-	Bobby Eshleman <bobbyeshleman@meta.com>, Byungchul Park <byungchul@sk.com>, 
-	Carolina Jubran <cjubran@nvidia.com>, Cosmin Ratiu <cratiu@nvidia.com>, 
-	Dragos Tatulea <dtatulea@nvidia.com>, Gal Pressman <gal@nvidia.com>, 
-	Jacob Keller <Jacob.e.keller@intel.com>, Kees Cook <kees@kernel.org>, 
-	Leon Romanovsky <leon@kernel.org>, open list <linux-kernel@vger.kernel.org>, 
-	linux-rdma@vger.kernel.org, Mark Bloch <mbloch@nvidia.com>, 
-	Matt Fleming <mfleming@cloudflare.com>, Nikolay Aleksandrov <razor@blackwall.org>, 
-	Saeed Mahameed <saeedm@nvidia.com>, Shivaji Kant <shivajikant@google.com>, 
-	Simon Horman <horms@kernel.org>, Stanislav Fomichev <sdf@fomichev.me>, 
-	Stanislav Fomichev <sdf.kernel@gmail.com>, William Tu <witu@nvidia.com>, 
-	Yue Haibing <yuehaibing@huawei.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009061356.3234513-2-muralidhara.mk@amd.com>
 
-On Thu, Oct 8, 2026 at 6:28 AM Tariq Toukan <tariqt@nvidia.com> wrote:
-> From: Dragos Tatulea <dtatulea@nvidia.com>
->
-> +	/* Changing the flag reopens the channels with a different DMA device,
-> +	 * which would break any dmabuf currently bound to this netdev.
-> +	 */
-> +	if (netdev_has_dmabuf_binding(netdev, NULL)) {
-> +		netdev_err(netdev, "Can't change data_direct while dmabufs are bound\n");
-> +		return -EBUSY;
-> +	}
-> +
-> +	new_params = priv->channels.params;
-> +	MLX5E_SET_PFLAG(&new_params, MLX5E_PFLAG_DATA_DIRECT, enable);
-> +
-> +	return mlx5e_safe_switch_params(priv, &new_params, NULL, NULL, true);
+Hi Muralidhara,
 
-(Note: LLM-assisted review comment below.)
+kernel test robot noticed the following build errors:
 
-set_pflag_data_direct() is called under rtnl_lock() only, whereas
-netdev_nl_bind_rx_doit() and netdev_nl_bind_tx_doit() serialize bindings under
-netdev_lock(netdev) without holding rtnl_lock().
+[auto build test ERROR on 6c377d19d4a5116d9bec5203aa3c6c11523e7898]
 
-Should set_pflag_data_direct() hold netdev_lock(netdev) across both
-netdev_has_dmabuf_binding() and mlx5e_safe_switch_params() (just as
-mlx5e_data_direct_event() does in patch 08/10) so a concurrent bind-rx/bind-tx
-cannot race past the -EBUSY check while channels are switching DMA devices?
+url:    https://github.com/intel-lab-lkp/linux/commits/Muralidhara-M-K/platform-x86-amd-hsmp-Recognize-Family-1Ah-client-platforms-and-hide-server-only-paths/20261009-114353
+base:   6c377d19d4a5116d9bec5203aa3c6c11523e7898
+patch link:    https://lore.kernel.org/r/20261009061356.3234513-2-muralidhara.mk%40amd.com
+patch subject: [PATCH v8 1/4] platform/x86/amd/hsmp: Recognize Family 1Ah client platforms and hide server-only paths
+config: i386-buildonly-randconfig-1004-20261010 (https://download.01.org/0day-ci/archive/20261010/202610101031.PjgWVMZh-lkp@intel.com/config)
+compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261010/202610101031.PjgWVMZh-lkp@intel.com/reproduce)
 
--- 
-Thanks,
-Mina
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610101031.PjgWVMZh-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   In file included from drivers/platform/x86/amd/hsmp/hsmp.c:25:
+>> drivers/platform/x86/amd/hsmp/hsmp.h:48:10: error: use of undeclared identifier 'acpi_gbl_FADT'
+      48 |         switch (acpi_gbl_FADT.preferred_profile) {
+         |                 ^~~~~~~~~~~~~
+   1 error generated.
+
+
+vim +/acpi_gbl_FADT +48 drivers/platform/x86/amd/hsmp/hsmp.h
+
+    38	
+    39	/* True when the ACPI-reported PM profile indicates a client platform */
+    40	static inline bool is_client_platform(void)
+    41	{
+    42		if (!IS_ENABLED(CONFIG_ACPI))
+    43			return false;
+    44	
+    45		if (boot_cpu_data.x86_vendor != X86_VENDOR_AMD)
+    46			return false;
+    47	
+  > 48		switch (acpi_gbl_FADT.preferred_profile) {
+    49		case PM_DESKTOP:
+    50		case PM_MOBILE:
+    51		case PM_TABLET:
+    52			return true;
+    53		default:
+    54			return false;
+    55		}
+    56	}
+    57	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
