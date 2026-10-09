@@ -1,43 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58DCF442138;
-	Fri,  9 Oct 2026 06:11:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B3D4302F8
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 06:11:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791526266; cv=none; b=W4843UklOEK5QdOFT2hU04OK0s81wWfnApZyMAgD41WYX3OL20Y6mOY5gk6hGerbReuyBfkzNXf1WRVhcCrN2Vskz5bxKE3TFlRigUgoNCOMWKHvSGtCoP2mF/ZXnAV20+aAECT9eqwQ6AJlUMpzbT9BGBmG7y6Dw5006Q+VK4M=
+	t=1791526269; cv=none; b=bXTrIt1ljbYVAW6knPSOfhY5D8zxHBaZoPP/5htUAiuGwqWWX8q2GEr0MHX3lX+j8cQu0soPGv8KG7uGxfIK7g//AHx1BA96pQhCG3yX2mkT7HwGJseQSZ+am33rS2DpLhHOSc9OQ2kOG6xpKjzm7EQDmLBP+Qt/rQSe2ni5g6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791526266; c=relaxed/simple;
-	bh=kNjC6FwstwBb0HZFRPvHGiWDSmN9lqpoTvjU96l8ouU=;
+	s=arc-20240116; t=1791526269; c=relaxed/simple;
+	bh=WtZ2lfU8NN4Y/WmbC47b0BWvEVEUByJHbvvgz9LCKyg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b3A4a4c0CommMnQTrvvJp/53e3QkPO2SSk9w2KwHc/gAFQkke4/E7pUXGQkWUCYLC3PzTMQRzK8KP21Ra1IsOR7H1PrxIC81KCButPV4Y3eVFY981zAK8M+4B4qfJyUcMHzL8RyiazB6n2ChgP5/zAd8gv3VPvAtodKlryAHPRk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cMKBbQm5; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=jU43vVtBxTW73WAEtxbHyAZWT2zU6Vv2YfaEWcSDOqx4qVeAkTcbl6m9MDxfew6z6PGY+MicF08PhLg6rlpgC7NG8rJqHe2yMXyqQGB5XKQzzBwG5tKLBe7EI0auiPwLVXQmMpXfHF3VKLcdVlSCIMydFWDoHtfX+UIrvZaY5Kw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BCMdwMox; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cMKBbQm5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22E211F00898;
-	Fri,  9 Oct 2026 06:11:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BCMdwMox"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 708421F000FF;
+	Fri,  9 Oct 2026 06:11:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791526264;
-	bh=QspHgvhexBo/96gD+93/ZvCQ+ECziB5aSNYOJ4PzkgI=;
+	s=k20260515; t=1791526268;
+	bh=Iz5p9hNQGBjR6SpC7ZMKpGlkazr9m8xKfxfqARCLf9A=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cMKBbQm5T0RW9UEpxoochiCoroChcortLtbVt6zfW/367irjuWv54gbHg4Pmla2NY
-	 +ofSFj1KD636ThX1Si8snSQkKKmDQ2CnXNAyi8S+2rmZL72JBmfY+DqDYqpmEVlaQb
-	 Lrl+Agw5U1PqQ7ZTzuLZVkB9WlfOB7gCRvE1dhccjC2CEJAKLXpdiR6hx4SSpZByK+
-	 AZAhkRjrOZ5ieFhVWsJShx3zQaqTGFG9SDpKGLS3OuCJYtLnXezZ6lBZd6yWR0GN+x
-	 dRke3sbO16lv6ycm7IVvpYqG7pEm9LqRabOqYNb8rFbwwUejoRFH8NlgcWkQhLosvl
-	 ACU/yPIDMYKNw==
-Date: Fri, 9 Oct 2026 08:11:02 +0200
+	b=BCMdwMox7DLsHQJT6d7ModGZ6svUZxjhLIEFINDEp1FuWWy99u15cJX707UA/qsFJ
+	 /+ck8L10oq/Dq5pBm3vN7mdPXkEHx1xkJyMk/kPw1b1CCEqorUZecfrCfq3O1PM3D2
+	 72vXWJVBq28EnCAlbyFzyFo105jGhYX/SSeYmQMRcudqfzqnUr5YA2OGGGwtivfytg
+	 GGbwPfadHHlEIjTgzs+xz3wTQ+uip2gPf5Nb7m29JZdKba04mAxOL/i2oHvlqo42ha
+	 TzZvHW2xZoV4TyLM2OaV/xpBcIVzBqb6sUmnTtzMg6P8/9CBWVGu5AUqoFjEPj04YR
+	 m7rXY6xK6iD9g==
+Date: Fri, 9 Oct 2026 08:11:05 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Haotian Zhang <vulab@iscas.ac.cn>
-Cc: Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>, linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Nicolas Ferre <nicolas.ferre@microchip.com>, 
-	Brian Masney <bmasney+clk@redhat.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>
-Subject: Re: [PATCH] clk: at91: fix device node reference leak in
- at91sam9x5_sckc_register()
-Message-ID: <20261009-graceful-visionary-capybara-efbcc0@quoll>
-References: <20261008163052.2685401-1-vulab@iscas.ac.cn>
+Cc: Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Govindraj Raja <govindraj.raja@imgtec.com>, linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>, 
+	Ezequiel Garcia <ezequiel.garcia@imgtec.com>
+Subject: Re: [PATCH] clocksource/drivers/pistachio: fix leaked iomap on error
+ paths
+Message-ID: <20261009-hound-of-satisfying-whirlwind-5b0bf4@quoll>
+References: <20261008160243.2664167-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,28 +44,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261008163052.2685401-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261008160243.2664167-1-vulab@iscas.ac.cn>
 
 
-On Fri, 09 Oct 2026 00:30:52 +0800, Haotian Zhang wrote:
-> at91sam9x5_sckc_register() calls of_get_compatible_child() to look up the
-> "atmel,at91sam9x5-clk-slow-osc" and "atmel,at91sam9x5-clk-slow" legacy
-> child nodes during DT backward compatibility handling. Both calls return a
-> device node with its reference count incremented, but neither reference is
-> ever dropped: the first is simply overwritten when the second lookup
-> reassigns child, and the second is leaked on every return path, including
-> the unregister_slow_* cleanup labels. of_clk_add_hw_provider() takes its
-> own reference and does not consume the caller's.
+On Fri, 09 Oct 2026 00:02:43 +0800, Haotian Zhang wrote:
+> pistachio_clksrc_of_init() maps the timer registers with of_iomap() and
+> stores the result in the static global pcs_gpt.base, but every error path
+> after the mapping (syscon lookup, regmap_update_bits, the two
+> of_clk_get_by_name() calls and both clk_prepare_enable() calls) returns
+> without calling iounmap(), leaking the mapping.
 > 
-> Drop the slow-osc reference once it has been used and release the remaining
-> child reference on both the success and error paths.
+> Route all these error paths through a common err_unmap label that calls
+> iounmap() and clears pcs_gpt.base.
 > 
-> Fixes: 45b5ec8498ff ("clk: at91: modernize sckc binding")
+> Fixes: 84583983c319 ("CLOCKSOURCE: Add Pistachio clocksource-only driver")
 > Assisted-by: DeepSeek-V4.1-Flash
 > Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
 > ---
->  drivers/clk/at91/sckc.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
+>  drivers/clocksource/timer-pistachio.c | 20 ++++++++++++++------
+>  1 file changed, 14 insertions(+), 6 deletions(-)
 > 
 
 
