@@ -1,108 +1,74 @@
-Received: from mta1.migadu.com (out-91.mta1.migadu.com [95.215.58.91])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.avm.de (mail.avm.de [212.42.244.120])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84E393CC7CC
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 15:33:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.91
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C37547ACDD;
+	Fri,  9 Oct 2026 15:33:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.120
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791560041; cv=none; b=ldRMxpfynb6ejTEznNvtFXpIgCopUilnJi5lkkC4PnykN4k8uYMzg/JjabXZCf+z/44WPJyxjAKbPaqK/6zTLJghX5il4T9kePV+OdwLpr8AOZicvMDuS5KFHHeRuWKFJiTnp6VNddl3SzdiJg3SPHViwaF42oAqioms0Q2Pitc=
+	t=1791560043; cv=none; b=pQt1yQglwI6a5BaB3feYy2zhi0/tS1kzdFitPt6SnqcK0Z6kYNsO36gt1ZX+S65YRP/BK+JwzbAI4G5CDogtzwKhy7ijMajQlNwqwmFYYfudcRRbNAtBAw1UbXycw5V4DHW4z5zUDy/Rr1JZUHuFWXam33zveM+qH5iMZThq9/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791560041; c=relaxed/simple;
-	bh=n/NzbpOSR98LD7NIhdW6/HMkUVUpaovwUvRlXeZLHbo=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=OZeKWdjyAzIihvLH8WCsrEzTzV5lqOFcvp3qeWG1xXkJprXA99vOHzNFcb1cwmoL7rCWeHeAQVxrFyZYX0UWfVRcKy+RGXpkVgR21l2SvK9SoMWj7hw2m5Yg54/66iF9bQvyGBD8+wLo5T2V/v2b51ZUSQIrXWB34IqLovffPbA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ch0n9HhP; arc=none smtp.client-ip=95.215.58.91
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791560043; c=relaxed/simple;
+	bh=8/hs+uxmnb1AlvzVgTn3+rKx10N6yAlb+/hmxxKdN6g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Lf5sfuGS48EMRLqdtbDsqqTTJSU4YiLgttzX+HfG1siUbm5drbxHpZA7rbH30Y6XoZkH5NLV+aTTYVEr6pX9lIXGqDkJ7d/Z1o2mSXF+y7gJ0/bgjsdFiqrra7HX1PR4bfHAdObIVgKUH2U4ppYGBE4RGLYYuPfi1mmcmdq/ueI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com; spf=pass smtp.mailfrom=fritz.com; dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b=JzdWsx8q; arc=none smtp.client-ip=212.42.244.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fritz.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ch0n9HhP"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=n/NzbpOSR98LD7NIhdW6/HMkUVUpaovwUvRlXeZLHbo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791560036; v=1; x=1792164836;
- b=ch0n9HhPNpKYpRuYvMF4LH9gmQo8+3L5ZlGYJ9ZlkixW1d3pw8Ff0uKmDc9u2HbPnOFvym4c
- GDLk8eYdeOfIHwT1oRXZwWHqPkGC7Xl1VRSXC3KQbP2+3yS7SBUQHXKg61/c18L1r8aSdUqaLM1
- noxg6/k7TIYa/XXBHc7okLBc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1de585663ba371b8;
-	Fri, 09 Oct 2026 15:33:56 +0000
-X-Mizu-Trace-ID: 1de585663ba371b8
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b="JzdWsx8q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fritz.com; s=mail;
+	t=1791560029; bh=8/hs+uxmnb1AlvzVgTn3+rKx10N6yAlb+/hmxxKdN6g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=JzdWsx8qlwTSuS9MCqt3PZODAgFuKelwKoCORLKWp2H5E29Dg9Orboiw+bJ3T8RRD
+	 7J7FSFXxBqoggbofBqlF0nsV/RrSM8Xtzi+r6xkgDpGmyFepZmZB9anKL+nuWLe5At
+	 XFYuYJvaxOXfsYRTgZ7dIOdmaPGA3DZ+Kbz7Ka5Zo0KFV8kGo3eNvIkebfxLID6X+T
+	 lmGsbF3x6BXZBfj59bJR668IqNHiqbtQ7/v58/KTRr7dOiHZ404bFkgID3Y5R9Drdd
+	 lig7WSMD/JmACr9TgwVLVcfAL+H2oliGv92Aiia3g9fSSlAyEH9WLdplo7j+SqDDIj
+	 X0CB5XshNw0Eg==
+Received: from [2001:bf0:244:244::78] (helo=mail.avm.de)
+	by mail.avm.de with ESMTP (eXpurgate 4.57.1)
+	(envelope-from <n.schier@fritz.com>)
+	id 6ac9095d-0462-7f0000032729-7f000001e130-1
+	for <multiple-recipients>; Fri, 09 Oct 2026 17:33:49 +0200
+Received: from mail-auth.fritz.com (unknown [IPv6:2001:bf0:244:244::78])
+	by mail.avm.de (Postfix) with ESMTPS;
+	Fri,  9 Oct 2026 17:33:49 +0200 (CEST)
+Date: Fri, 9 Oct 2026 17:33:49 +0200
+From: Nicolas Schier <n.schier@fritz.com>
+To: Julian Braha <julianbraha@gmail.com>
+Cc: nathan@kernel.org, linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: kconfig: cleanup stale comment about 'keys' array
+Message-ID: <20261009-military-tangible-wolverine-dfa93f@l-nschier-aarch64>
+References: <20261009094617.17322-1-julianbraha@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 09 Oct 2026 17:33:50 +0200
-Message-Id: <DM0F103PEZKZ.3BTGPMVOEZAUC@linux.dev>
-From: "Luka Gejak" <luka.gejak@linux.dev>
-To: "Bitterblue Smith" <rtl8821cerfe2@gmail.com>, "Luka Gejak"
- <luka.gejak@linux.dev>, "Ping-Ke Shih" <pkshih@realtek.com>
-Cc: <linux-wireless@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- "Michael Straube" <straube.linux@gmail.com>, "Peter Robinson"
- <pbrobinson@gmail.com>
-Subject: Re: [PATCH rtw-next v8 5/7] wifi: rtw88: 8723b: add the RTL8723B
- chip driver
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20261006130701.120460-1-luka.gejak@linux.dev>
- <20261006130701.120460-6-luka.gejak@linux.dev>
- <d95aacb8-0032-4d6c-b847-3103afbc3124@gmail.com>
-In-Reply-To: <d95aacb8-0032-4d6c-b847-3103afbc3124@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261009094617.17322-1-julianbraha@gmail.com>
+Organization: FRITZ! Technology GmbH
+x-ms-reactions: disallow
+X-purgate-ID: 149429::1791560029-E3FFD94E-6CA29C63/0/0
+X-purgate-type: clean
+X-purgate-size: 488
+X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
+X-purgate: clean
+X-pfmilter: host: postfix-mx-01  mail-id: C3E9BA048C  external: no
 
-On Fri Oct 9, 2026 at 2:40 PM CEST, Bitterblue Smith wrote:
-> On 06/10/2026 16:06, Luka Gejak wrote:
->> Add the Realtek RTL8723B 802.11n chip driver: the chip operations, the
->> power sequences, the efuse layout, the RF and IQ calibration, and the
->> chip specific coexistence handling.
-[...]
->> +{
->> +	/*
->> +	 * The 8723B PHY status does not report the channel, so we must
->> +	 * mark it invalid to allow mac80211/rtw88 to parse it from the IE
->> +	 * during scanning.
->> +	 */
->> +	pkt_stat->channel_invalid =3D true;
->
-> After testing RTL8723BU for a bit, I think this is wrong.
->
-> mac80211 thinks there is massive beacon loss when connected to a network
-> with 40 MHz channel width, but phy_info in debugfs shows that beacons are
-> being received. The beacons are handed over to mac80211 with a wrong
-> frequency in struct ieee80211_rx_status. In my case, the correct frequenc=
-y
-> is 2472 MHz, but after rtw_update_rx_freq_from_ie() the frequency is set
-> to 2462 MHz. mac80211 is probably discarding the beacons because of this.
-> Removing this line fixes the problem.
->
-> I think channel_invalid is only for chips which do hardware scan offload
-> (RTL8822C). With the chips that only do software scanning the driver
-> should always know what channel it's on and rtw_update_rx_freq_from_ie()
-> is not needed.
->
+On Fri, Oct 09, 2026 at 10:46:17AM +0100, Julian Braha wrote:
+> 'keys' was removed from 'dialog_textbox' in:
+> commit e14f1242a8be ("kconfig: menuconfig: simplify global jump key assignment")
+> but the comment referencing it was never removed.
+> 
+> Let's cleanup this stale comment.
+> 
+> Signed-off-by: Julian Braha <julianbraha@gmail.com>
+> ---
+>  scripts/kconfig/lxdialog/textbox.c | 2 --
+>  1 file changed, 2 deletions(-)
 
-You are right, and thanks for chasing this down.
-
-The assignment causes it. With channel_invalid set, the frequency handed
-to mac80211 comes from rtwdev->hal.current_channel, which
-rtw_update_channel() sets to the center channel rather than the primary.
-At 40 MHz those differ, so mac80211 drops the beacon in
-ieee80211_rx_beacon_freq_valid(). Data frames are not checked, so
-traffic keeps flowing and only beacon loss builds up.
-
-On the RTL8723BS I could not reproduce it, because there the update is a
-no-op. rtw_sdio_rx_skb() copies the status into skb->cb before it calls
-rtw_update_rx_freq_for_invalid() and never copies it back, so the change
-is discarded. usb.c and pci.c call it before their memcpy into skb->cb,
-which is why you see it on the RTL8723BU. With the SDIO path made to
-apply it I got your symptom exactly (2452 instead of 2462, beacon rx 0,
-beacon loss 26, while rtw88 still counted the beacons), and removing
-channel_invalid put it back to 2462 with no beacon loss.
-
-I will send a patch removing the assignment and the comment above it.
-
-Best regards,
-Luka Gejak
+Reviewed-by: Nicolas Schier <n.schier@fritz.com>
