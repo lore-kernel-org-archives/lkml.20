@@ -1,145 +1,144 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E02324E432E
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:24:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4E8931A045;
+	Fri,  9 Oct 2026 14:25:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791555895; cv=none; b=H1Jtken2wuHsQAioLkoIOgbZOnCVFzUeasrFUAzBAYpTTH3GwYJJhxNe35iUwwD98X7hjtiAM80iABewzF4dfYUtrjkiViLWveMi3WaLYgR0zs54ZQOd65mfO4V9Iy/rOZugvks+lCAl6eEAyr6ogKPqpcdN6Ru38FThHcbLeGM=
+	t=1791555920; cv=none; b=B9Ehdg4+5ozG5cWdqb4TnPtym40ntphwZLifSKOTg7hGBd7XJXMx9Kd3bzGD+0XiGiK7czZgZM4qOJ4XKhWVi2N1WrRS4yN/b94PUTv9J5xQpFs2V+4vSqTrCCo7DuoNTEFsVuderAaqz7KRZD1cwa++bruYhBAg7qwee5F+TY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791555895; c=relaxed/simple;
-	bh=BTM1SaIu5cG3yTWrz2K2vWlOLmwrSJXM5K8HXP2AqSI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=qWC0tubmx5dz4AFZFgg9Ij8iufFEwteebWwS7BqwM9EcUbVbmgjbOgdvZoQ2cCBtz1BZONX090ixgiYFm2mzS8Ur3Kbr2yzAJkvb7UvIWoPUaJ/K+R3rgSa8ltmYQst/rqzkql4cmwycXbI0Iy7FCDmdaBQNwVy7idLmZQ3ZRqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=aiqEJSWO; arc=none smtp.client-ip=210.118.77.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1791555920; c=relaxed/simple;
+	bh=aNRTNYpGfo4uHEBNRnktsZ6z26AOTtU29zqpNIgIEgU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Tk3kgmA5oiNB3+mbWpu3WKfsUCs0REj4pmYTLw2swG0uK3lh6nKht5Ccen5sQy+OvIhPbDqEJwkN8nK+7IPNLz56bVjcWGV9t+auyRKHCW+baFwIobG0xA+/vbuzSFmvMD9sW4Xa0ScGI+6RHYKEaFAnYLdBMImdaGyedx3JF2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=karaolidis.com; spf=pass smtp.mailfrom=karaolidis.com; dkim=pass (2048-bit key) header.d=karaolidis.com header.i=@karaolidis.com header.b=fi35R3+t; arc=none smtp.client-ip=79.135.106.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=karaolidis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=karaolidis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="aiqEJSWO"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261009142450euoutp02d9c91f77ddcb78c44df9ae4d19c27b19~c4pc4X4NR2876628766euoutp02U
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:24:50 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261009142450euoutp02d9c91f77ddcb78c44df9ae4d19c27b19~c4pc4X4NR2876628766euoutp02U
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791555890;
-	bh=i0RSIhug9e9ydgjudmmhXvwA5s3usVBKmgWxJQR/YPg=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=aiqEJSWOpDfUL1AKnBKqTlwcfxTrq/0miLWX+Wzd1JbYG3hVbE9drv9eNOifHgEql
-	 emZ8+9HPeiodQIG7JntklpErISRudBQfgtd3p/eahry/SnuvXYkbKxhpz59KMOb5mG
-	 M+q0tsnIp/g6YDhqptVYzJndtyaOadY4kv31Cj78=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261009142450eucas1p22aec6df61384870aa07eecf8ca4f269c~c4pcwGLoI2048820488eucas1p2r;
-	Fri,  9 Oct 2026 14:24:50 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261009142449eusmtip113f1886f9735f58850eaf51a840c30dd~c4pb_Pa1X1436814368eusmtip1V;
-	Fri,  9 Oct 2026 14:24:49 +0000 (GMT)
-Message-ID: <a4e7873b-f5eb-47cf-91f6-ad3e70f7b0cd@samsung.com>
-Date: Fri, 9 Oct 2026 16:24:49 +0200
+	dkim=pass (2048-bit key) header.d=karaolidis.com header.i=@karaolidis.com header.b="fi35R3+t"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=karaolidis.com;
+	s=protonmail3; t=1791555909; x=1791815109;
+	bh=0ry/qEt4RcAqTFIzYK3t8eJQNo0m/0+YmGFQ1p2ujng=;
+	h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=fi35R3+teJ1yCUX4Dbv3ad1OWvzyqTT73ihrUmXQewn40TRhfezIhW1OhzCpipLj3
+	 5KtC6dNbbLpoiTLtPCehZp09NBIPvhoRPAaL+tpOEL9W0IEsD6Vjqjes/Mv/CrWkAh
+	 znMUR1iSjqwKCJxzreVY75b9DXAZqXbrWwHNLF8ztgVG7hyhExCIwsMQszmePZ3J5h
+	 eiWdwa1xtDc6yIJGVmLn3w0N8hXewm/qLKjU9JSjY/JvseZtzYX+q2rT3lJb7ZtEES
+	 vhfwlxJqcwKZmPDP3akkWGilZW2ketrY7frK+Sr3+8pWn6fwAl6y76LGWJquW26wB+
+	 FSoyhUpCStcBg==
+X-Pm-Submission-Id: 4j1Tf961fLz2SdVd
+From: Nikolaos Karaolidis <nick@karaolidis.com>
+To: Christian Brauner <brauner@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: Jan Kara <jack@suse.cz>,
+	Zhihao Cheng <chengzhihao1@huawei.com>,
+	Mateusz Guzik <mjguzik@gmail.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Nikolaos Karaolidis <nick@karaolidis.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] fs: don't lose inodes that another LRU walker is isolating
+Date: Fri,  9 Oct 2026 14:24:31 +0000
+Message-ID: <20261009142431.713875-1-nick@karaolidis.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH] dma-direct: Restore arch_dma_alloc() for the
- DMA_ATTR_NO_KERNEL_MAPPING case
-To: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Cc: Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>,
-	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>, Russell King
-	<linux@armlinux.org.uk>, "Claude Opus 5 . 5" <noreply@anthropic.com>
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20260930135734.1013905-1-m.szyprowski@samsung.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261009142450eucas1p22aec6df61384870aa07eecf8ca4f269c
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260930135751eucas1p1c3b8b79ed87c3bf6f473d26e4663e7e4
-X-EPHeader: CA
-X-CMS-RootMailID: 20260930135751eucas1p1c3b8b79ed87c3bf6f473d26e4663e7e4
-References: <CGME20260930135751eucas1p1c3b8b79ed87c3bf6f473d26e4663e7e4@eucas1p1.samsung.com>
-	<20260930135734.1013905-1-m.szyprowski@samsung.com>
+Content-Transfer-Encoding: 8bit
 
-On 30.09.2026 15:57, Marek Szyprowski wrote:
-> Commit 849facea92fa ("dma-direct: simplify the DMA_ATTR_NO_KERNEL_MAPPING
-> handling") moved the DMA_ATTR_NO_KERNEL_MAPPING shortcut in
-> dma_direct_alloc() in front of the arch_dma_alloc() call. Architectures
-> providing their own DMA coherent allocator (CONFIG_ARCH_HAS_DMA_ALLOC)
-> therefore no longer see such requests. ARM 32bit is one of such. Lack of
-> the call to arch_dma_alloc() results in the lack of proper cache
-> management on HighMem pages.
->
-> Take the dma-direct shortcut only for coherent devices or when the
-> architecture doesn't provide arch_dma_alloc(). While touching this,
-> move that check into separate function to avoid duplication in alloc
-> and free paths.
->
-> Fixes: 849facea92fa ("dma-direct: simplify the DMA_ATTR_NO_KERNEL_MAPPING handling")
-> Reported-by: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-> Closes: https://lore.kernel.org/all/yq5ams2akznl.fsf@kernel.org/
-> Assisted-by: Claude Opus 5.5 <noreply@anthropic.com>
-> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Applied to dma-mapping-for-next, because it looks that this case has no
-active users, so it is not the urgent fix.
+When inode_lru_isolate() finds an unused inode that still has page
+cache, it sets I_LRU_ISOLATING, drops i_lock and the list_lru lock,
+invalidates the page cache, clears the flag again and returns
+LRU_RETRY so that the restarted walk can free the inode.
 
-> ---
->  kernel/dma/direct.c | 22 ++++++++++++++++++----
->  1 file changed, 18 insertions(+), 4 deletions(-)
->
-> diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
-> index da665ca22d5c..a31bd3129f3f 100644
-> --- a/kernel/dma/direct.c
-> +++ b/kernel/dma/direct.c
-> @@ -179,6 +179,22 @@ static struct page *dma_direct_alloc_from_pool(struct device *dev, size_t size,
->  	return page;
->  }
->  
-> +/*
-> + * Check if the allocation can skip the kernel mapping and return the page
-> + * pointer as the cookie.
-> + */
-> +static bool dma_direct_use_no_mapping(struct device *dev, unsigned long attrs)
-> +{
-> +	if ((attrs & (DMA_ATTR_NO_KERNEL_MAPPING | __DMA_ATTR_ALLOC_CC_SHARED)) !=
-> +	    DMA_ATTR_NO_KERNEL_MAPPING)
-> +		return false;
-> +	if (is_swiotlb_for_alloc(dev))
-> +		return false;
-> +	if (IS_ENABLED(CONFIG_ARCH_HAS_DMA_ALLOC) && !dev_is_dma_coherent(dev))
-> +		return false;
-> +	return true;
-> +}
-> +
->  static void *dma_direct_alloc_no_mapping(struct device *dev, size_t size,
->  		dma_addr_t *dma_handle, gfp_t gfp)
->  {
-> @@ -226,8 +242,7 @@ void *dma_direct_alloc(struct device *dev, size_t size,
->  	if (attrs & DMA_ATTR_NO_WARN)
->  		gfp |= __GFP_NOWARN;
->  
-> -	if (((attrs & (DMA_ATTR_NO_KERNEL_MAPPING | __DMA_ATTR_ALLOC_CC_SHARED)) ==
-> -	     DMA_ATTR_NO_KERNEL_MAPPING) && !is_swiotlb_for_alloc(dev))
-> +	if (dma_direct_use_no_mapping(dev, attrs))
->  		return dma_direct_alloc_no_mapping(dev, size, dma_handle, gfp);
->  
->  	if (!dev_is_dma_coherent(dev)) {
-> @@ -374,8 +389,7 @@ void dma_direct_free(struct device *dev, size_t size,
->  	if (attrs & __DMA_ATTR_ALLOC_CC_SHARED)
->  		mark_mem_encrypted = true;
->  
-> -	if (((attrs & (DMA_ATTR_NO_KERNEL_MAPPING | __DMA_ATTR_ALLOC_CC_SHARED)) ==
-> -	     DMA_ATTR_NO_KERNEL_MAPPING) && !is_swiotlb_for_alloc(dev)) {
-> +	if (dma_direct_use_no_mapping(dev, attrs)) {
->  		/* cpu_addr is a struct page cookie, not a kernel address */
->  		dma_free_contiguous(dev, cpu_addr, size);
->  		return;
+Another walker of the same list can reach the inode in that window.
+It sees a non-zero i_state and takes the inode off the LRU, as it
+would an inode that is in use. Page cache deletion requeues the inode
+once the mapping is shrinkable, so this is harmless if it happens
+before the last deletion. If it happens after, nothing puts the inode
+back: it stays in memory, unused, clean and without page cache, out
+of reach of the shrinker and of drop_caches, until it is looked up
+again or the filesystem is unmounted.
 
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+Before commit 2a0629834cd8 ("vfs: Don't evict inode under the inode
+lru traversing context") the pin was an i_count reference, and the
+final iput() put the inode back on the LRU.
 
+Skip inodes that are being isolated and leave them to the walker that
+pinned them, which restarts its walk once it has unpinned them.
+
+The window is reached by any unused inode with page cache on
+CONFIG_HIGHMEM kernels, and otherwise by inodes whose page cache is a
+single shadow entry at index 0. On an i386 HIGHMEM guest, eight
+concurrent "echo 2 > /proc/sys/vm/drop_caches" over 2000 freshly read
+one-page ext4 files leave roughly 400 of the inodes off the LRU per
+round; on x86_64, with the files' pages first evicted through
+memory.reclaim, 3 to 4 per round. With this patch, none in either case.
+
+Fixes: 2a0629834cd8 ("vfs: Don't evict inode under the inode lru traversing context")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
+---
+
+Found while working on reclaim of inodes pinned by page cache in
+ZONE_MOVABLE.
+
+Tested on master af32da41b032 (v7.3-rc6-232) in QEMU/KVM with a small
+stress program: mount an ext4 image, read 2000 one-page files, run 8
+concurrent "echo 2 > /proc/sys/vm/drop_caches", drop caches again
+single-threaded (2, then 1, then 2), and count the filesystem's inodes
+still in memory via how many the umount frees:
+
+  i386 HIGHMEM:      ~390 of 2000 lost per round without the patch
+                     (3 runs x 20 rounds), 0 with it
+  x86_64, pages evicted through memory.reclaim first (single shadow
+  entry left):       ~4 per round without, 0 with
+  x86_64 with KASAN, PROVE_LOCKING, DEBUG_VM, DEBUG_LIST:
+                     6109 lost in 50 rounds without, 0 with, no splats
+
+The reproducer is a single C file run as init; I can post it if useful.
+
+I went with skipping the inode rather than requeueing it on unpin
+(which would be closer to what the final iput() did before
+2a0629834cd8) because it avoids the remove/re-add and leaves the inode
+where the pinning walker finds it again. Happy to switch if preferred.
+
+Jan, this applies cleanly before or after "fs: Basic infrastructure for
+offloading inode reclaim" (v2 3/5); happy to rebase onto that series if
+you'd rather take it there.
+
+For stable: 6.18 and older need inode->i_state instead of
+inode_state_read(). I have only tested master.
+
+An LLM was used to check the analysis against the code, write the
+reproducer and draft the changelog; I have reviewed all of it.
+
+ fs/inode.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/fs/inode.c b/fs/inode.c
+index a9d37be390a1..74dfc379b377 100644
+--- a/fs/inode.c
++++ b/fs/inode.c
+@@ -942,6 +942,12 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
+ 	if (!spin_trylock(&inode->i_lock))
+ 		return LRU_SKIP;
+
++	/* Another walker is dropping its page cache, leave it to that one */
++	if (inode_state_read(inode) & I_LRU_ISOLATING) {
++		spin_unlock(&inode->i_lock);
++		return LRU_SKIP;
++	}
++
+ 	/*
+ 	 * Inodes can get referenced, redirtied, or repopulated while
+ 	 * they're already on the LRU, and this can make them
+
+base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
+--
+2.55.0
