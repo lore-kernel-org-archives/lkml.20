@@ -1,167 +1,153 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8440B4E2F22;
-	Fri,  9 Oct 2026 14:28:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30AA94E2F1B;
+	Fri,  9 Oct 2026 14:29:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791556117; cv=none; b=h6qs1twYJeW35Y22elbdmRVeOReRiAbk6kGYLecIlrd00Eng30sENx2vAfnIMRjxrzFp/5MFKIgzj4SW4f5MsquRcIG/96RtthYCKtqoMXlqY7ENXDVvlV5ZhHV0PubwQ8X97oYLzk2tQEodalcAcQWXRul+XGQC2ssa3ss+acQ=
+	t=1791556180; cv=none; b=DHyJb9drIrQDe36OpaJlZos0NZQ5VImQ3cm85lqzojKP8IFwYR0+9X/fKPLSIGs6HLm7O4fYo0Xq9XqItRvqMAxd+n698yXCIHMwYtHMiYyc4EOSpk8ZIQHkQOZSZstriNLQ/xfxFOlkeR66Q5xhNGZDCKUJxsppqPf0e9vu4Q4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791556117; c=relaxed/simple;
-	bh=2BCwNilnUPxaHJDyA8OUHbPBAUUGCGdwfcLb8A4wKeM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T7vqE/lbGZSdwoumUqeHPFs17tRrr6lZPHUszIL9kKhkcD7j9biRgYZADgt8cJbvhmib7hW6XGR+ivpRb8ThBmyfw5AL8gD6hP4DTvpncqvpkLIbhOGt6NYzeYZKG+GpmXNS4VZCAW+ZDTBHES+oFBlRNtWYq69MrTAoiQkZ5RE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=rV+BL+aA; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="rV+BL+aA"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 699DaD4X305968;
-	Fri, 9 Oct 2026 14:28:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=Dr17km7Ua7uU2h+Rg
-	SjGT6foDYIm72jifghNlwmI7hg=; b=rV+BL+aAu5NEJbFKHDTe44VUJc2zW7yI9
-	u4gHp444ZtLhMLTgqDrc/A9aIEOInyjJO6+rvkyi/ZJtgXfegYMzG4gizCA2Yjg+
-	3bH8QiZO6KYuINSGinNxJDfM2UifDHO2BISZ6n8UWUlDNW3Kl5nU5LxWMcgcMwoZ
-	+PbIz+cqt4vAgn0BknXqDYR7BnSocFdIKkHpmSzjdRVqnebznpdFq565U3jtSox6
-	MxysDZq/oBs57p9uEpT3QfVRUoRt12SUQrhwrLavQoalnQ+Qaa+NA0puH4uFEZ9B
-	ODoNDUPgZmLiPOnh/vUbxwMl+5DzpJziwwFfKhM0lgQ6RjhNwPAsQ==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h5xjw380p-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 09 Oct 2026 14:28:25 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 699DWVWx968168;
-	Fri, 9 Oct 2026 14:28:24 GMT
-Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h6hsnkbun-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 09 Oct 2026 14:28:24 +0000 (GMT)
-Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com [10.241.53.100])
-	by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 699ESNeh44761582
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 9 Oct 2026 14:28:23 GMT
-Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0FFAB5805D;
-	Fri,  9 Oct 2026 14:28:23 +0000 (GMT)
-Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9E50658057;
-	Fri,  9 Oct 2026 14:28:18 +0000 (GMT)
-Received: from b35lp69.lnxne.boe (unknown [9.87.84.240])
-	by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Fri,  9 Oct 2026 14:28:18 +0000 (GMT)
-From: Christian Borntraeger <borntraeger@linux.ibm.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: KVM <kvm@vger.kernel.org>, Janosch Frank <frankja@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        David Hildenbrand <david@kernel.org>,
-        linux-s390 <linux-s390@vger.kernel.org>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Christoph Schlameuss <schlameuss@linux.ibm.com>,
-        Eric Farman <farman@linux.ibm.com>,
-        Sean Christopherson <seanjc@google.com>,
-        Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-        Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-        "H . Peter Anvin" <hpa@zytor.com>,
-        Matthew Rosato <mjrosato@linux.ibm.com>,
-        Farhan Ali <alifm@linux.ibm.com>,
-        Tony Krowiak <akrowiak@linux.ibm.com>,
-        Halil Pasic <pasic@linux.ibm.com>, Jason Herne <jjherne@linux.ibm.com>,
-        Harald Freudenberger <freude@linux.ibm.com>,
-        Holger Dengler <dengler@linux.ibm.com>,
-        Alex Williamson <alex@shazbot.org>, linux-kernel@vger.kernel.org,
-        Steffen Eiden <seiden@linux.ibm.com>, Jason Gunthorpe <jgg@ziepe.ca>
-Subject: [GIT PULL 6/6] KVM: Remove unused file_is_kvm
-Date: Fri,  9 Oct 2026 16:27:49 +0200
-Message-ID: <20261009142749.186650-7-borntraeger@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261009142749.186650-1-borntraeger@linux.ibm.com>
-References: <20261009142749.186650-1-borntraeger@linux.ibm.com>
+	s=arc-20240116; t=1791556180; c=relaxed/simple;
+	bh=CsNEcSseIDsr0m2RL/k2dyWm7uTwoNCldkmTt/+nYn4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ORnjG6mgTfNDYp9jJekwTxlGPAgHl0qSecSN0aSsfPtZzqZGJ/loV37QLeOr2HksD+2LU75nFFaEdEzhgt5Irh7Ra1kFRGfAYtNtnzdS1NoZGDq7FsjAdYfPOP49+C0d7zi1X/hSG0qn9SYD0NA4BjbAtfAVDEzpOzjDf4ZOXfA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 2DE7021B8F;
+	Fri,  9 Oct 2026 14:29:35 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
+	none
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0FE9C1368B;
+	Fri,  9 Oct 2026 14:29:34 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id A+GNNE36yGrMIwAAD6G6ig
+	(envelope-from <fmancera@suse.de>); Fri, 09 Oct 2026 14:29:34 +0000
+Message-ID: <e2beb9bc-7b92-4ae4-8190-c99bee8de1ca@suse.de>
+Date: Fri, 9 Oct 2026 16:28:31 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: Emx9jl8ROIBobsIkEtaq-esDNMZNzhZ7
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA1NiBTYWx0ZWRfX5LARkAmztVLi
- ZHMpvqp1r+FRbo1nQHJBchExd3hhAD+0hvGgrJuoc3i+7EGXOmNZ3ztK9bTis16G/VD/oAEVN5W
- 6fs3gOr5q+WrDLsZjGgCBkQuJfnX9OfTOMNxPWaqoUeQEl7GX9jbutfz7ntHVa/zmjShNUQnArl
- rl6rkY8y0zVjnHcUXe3WAQE76HjFT3rqayAU2vjiAD+6M36etvx48vwSm9eRZq3MznO7B/iKrlr
- HQbC1bBW0FVo+rV8mIm8Xla77OeRB/Vb/JnuKS+N2lR6KazvA6I/zvG/lEFlJdpk6moedMFu2nh
- enTkrt9yqaY3CaIRAEDs7j3jUOQP/EqbvNdy5WMz+O+GpxuYK4Dv7crW5+Kr17ZzsEyi/ot2MNY
- zdODTdYq6iD+0OT8pDxlqYRZLa8vreBmhgV7xug5CgoenfQ5EXd/8okJiIKVp8WlpTa0pQaGmBW
- iXER3Bh89JgrY3dBM4w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA1NiBTYWx0ZWRfX3rYTCKbExea0
- x1Z454/3uf2yvrIO/JmTAaLfmVFjfc0IBEOVkExrqjIwlmCu47vTZPS7obOQoHezDBwvVCTSmQj
- kpYYvUokGZejX29eDetQgDEnsw1oVBY=
-X-Proofpoint-GUID: RZIm7xOSLHYlr4kU1pNQPFG78ZxXGI4g
-X-Authority-Analysis: v=2.4 cv=FLCOVOos c=1 sm=1 tr=0 ts=6ac8fa09 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8 a=1XWaLZrsAAAA:8
- a=68v37qRHxcCaehiO-JIA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-09_04,2026-10-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 adultscore=0 priorityscore=1501 suspectscore=0
- clxscore=1015 bulkscore=0 spamscore=0 phishscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090056
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH nf] netfilter: ip6t_SYNPROXY: check TCP header before
+ verifying checksum
+To: Palla Raghunath <raghunathpalla.0209@gmail.com>,
+ Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Jesper Dangaard Brouer <hawk@kernel.org>, Patrick McHardy <kaber@trash.net>
+Cc: Shuah Khan <shuah@kernel.org>, Brigham Campbell <me@brighamcampbell.com>,
+ linux-kernel-mentees@lists.linux.dev, linux-kernel@vger.kernel.org,
+ syzbot+5a8667f002726fc59f88@syzkaller.appspotmail.com,
+ Phil Sutter <phil@nwl.cc>, Simon Horman <horms@kernel.org>,
+ netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+ netdev@vger.kernel.org
+References: <20260926204519.43402-1-raghunathpalla.0209@gmail.com>
+Content-Language: en-US
+From: Fernando Fernandez Mancera <fmancera@suse.de>
+In-Reply-To: <20260926204519.43402-1-raghunathpalla.0209@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Pre-Result: action=no action;
+	module=Unknown lua;
+	unknown reason
+X-Spamd-Bar: /
+X-Rspamd-Queue-Id: 2DE7021B8F
+X-Rspamd-Pre-Result: action=no action;
+	module=Unknown lua;
+	unknown reason
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: 0.00
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [0.00 / 50.00];
+	TAGGED_RCPT(0.00)[5a8667f002726fc59f88]
 
-From: Steffen Eiden <seiden@linux.ibm.com>
+On 9/26/26 10:45 PM, Palla Raghunath wrote:
+> synproxy_tg6() passes par->thoff to nf_ip6_checksum() before it has
+> checked that a TCP header is actually present at that offset.
+> 
+> par->thoff comes from ipv6_find_hdr(), called by ip6_packet_match()
+> with target -1. ipv6_find_hdr() only checks that each extension header's
+> first two bytes are in the skb. It then adds that header's declared
+> length to the offset and stops at the first non-extension header, so it
+> can return an offset past the end of the packet. With
+> CHECKSUM_NONE, nf_ip6_checksum() calls skb_checksum(skb, 0, thoff, 0).
+> When thoff is larger than skb->len, the BUG_ON(len) in skb_checksum()
+> fires:
+> 
+>    kernel BUG at net/core/skbuff.c:3606!
+>    RIP: 0010:skb_checksum+0x8b2/0x8c0
+>    Call Trace:
+>     nf_ip6_checksum+0x1bd/0x320 net/netfilter/utils.c:89
+>     synproxy_tg6+0x1a4/0x6e0 net/ipv6/netfilter/ip6t_SYNPROXY.c:21
+>     ip6t_do_table+0xd37/0x15b0 net/ipv6/netfilter/ip6_tables.c:366
+>     ...
+> 
+> In the syzbot reproducer, a 60-byte packet carries an AH header, then two
+> hop-by-hop headers. The last hop-by-hop header has nexthdr TCP and
+> hdrlen 167, so thoff is 1400.
+> 
+> Fetch the TCP header with skb_header_pointer() first, as
+> nf_reject_ip6_tcphdr_get() already does. This drops packets that do not
+> contain a full TCP header at thoff before the checksum is computed.
+> 
+> Fixes: 4ad362282cb4 ("netfilter: add IPv6 SYNPROXY target")
+> Reported-by: syzbot+5a8667f002726fc59f88@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=5a8667f002726fc59f88
+> Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
+> ---
 
-Remove the now unused file_is_kvm function.
+Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
 
-Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
-Reviewed-by: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Acked-by: Janosch Frank <frankja@linux.ibm.com>
-Acked-by: Sean Christopherson <seanjc@google.com>
-Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
----
- include/linux/kvm_host.h | 1 -
- virt/kvm/kvm_main.c      | 6 ------
- 2 files changed, 7 deletions(-)
+The nftables synproxy eval path is also affected but I think it would be 
+better to keep it in a separate patch in order to facilitate 
+backporting. The issue were introduced at different times and nftables 
+synproxy expression is "recent" compared to the iptables target.
 
-diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
-index 943b108f01cd..b6a1f4312a73 100644
---- a/include/linux/kvm_host.h
-+++ b/include/linux/kvm_host.h
-@@ -1087,7 +1087,6 @@ void kvm_exit(void);
- void kvm_get_kvm(struct kvm *kvm);
- bool kvm_get_kvm_safe(struct kvm *kvm);
- void kvm_put_kvm(struct kvm *kvm);
--bool file_is_kvm(struct file *file);
- 
- /*
-  * Architectures define kvm_file_to_kvm_arch to <arch>
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index 891a67cb365a..563e7b0becc3 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -5492,12 +5492,6 @@ static struct file_operations kvm_vm_fops = {
- 	KVM_COMPAT(kvm_vm_compat_ioctl),
- };
- 
--bool file_is_kvm(struct file *file)
--{
--	return file && file->f_op == &kvm_vm_fops;
--}
--EXPORT_SYMBOL_FOR_KVM_INTERNAL(file_is_kvm);
--
- #ifdef kvm_file_to_kvm_arch
- struct kvm *kvm_file_to_kvm_fn(struct file *file)
- {
--- 
-2.53.0
+I am sending a patch for the nftables expression and will CC you in case 
+you can test it too.
+
+Thanks!
+
+>   net/ipv6/netfilter/ip6t_SYNPROXY.c | 9 ++++++---
+>   1 file changed, 6 insertions(+), 3 deletions(-)
+> 
+> diff --git a/net/ipv6/netfilter/ip6t_SYNPROXY.c b/net/ipv6/netfilter/ip6t_SYNPROXY.c
+> index d51d0c3e5fe9..04db1f82420b 100644
+> --- a/net/ipv6/netfilter/ip6t_SYNPROXY.c
+> +++ b/net/ipv6/netfilter/ip6t_SYNPROXY.c
+> @@ -18,13 +18,16 @@ synproxy_tg6(struct sk_buff *skb, const struct xt_action_param *par)
+>   	struct synproxy_options opts = {};
+>   	struct tcphdr *th, _th;
+>   
+> -	if (nf_ip6_checksum(skb, xt_hooknum(par), par->thoff, IPPROTO_TCP))
+> -		return NF_DROP;
+> -
+> +	/* par->thoff may point past the end of the packet; make sure a
+> +	 * full TCP header is present before checksumming up to it.
+> +	 */
+>   	th = skb_header_pointer(skb, par->thoff, sizeof(_th), &_th);
+>   	if (th == NULL)
+>   		return NF_DROP;
+>   
+> +	if (nf_ip6_checksum(skb, xt_hooknum(par), par->thoff, IPPROTO_TCP))
+> +		return NF_DROP;
+> +
+>   	if (!synproxy_parse_options(skb, par->thoff, th, &opts))
+>   		return NF_DROP;
+>   
 
