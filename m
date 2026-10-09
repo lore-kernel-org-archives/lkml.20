@@ -1,44 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 928944252A0;
-	Fri,  9 Oct 2026 06:10:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30470421239;
+	Fri,  9 Oct 2026 06:10:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791526209; cv=none; b=NYsblugduhTINGdVwbdopOIRK7aWmQVQqm0GFYTr4Ha7XH5zdvH6W4+d4tl1pKcMSmr4DuHELd1TLjW1Ernd5mVNbNLttl5hR2ZkloaMzwMAJJ4k4otXkT6GWKuOfoyAxYlL1cjiXlfGwg6LduFjcItES0G39b1FjavZ0YdjUyk=
+	t=1791526213; cv=none; b=Hhbsk+vFv2c12wZNUlti0YEekUqV4EwfNOTDbf5gKVl145LUhZQbrgxu9ObApfnRxPI2/uZtCupv8Kuoiu8aORBvjiT1hhv7Zko81AxmuEHRheazHq4D3v+UFSpr7A2d/UB4KQXc9Vwk3VKQcpwYuXoEqJYFW28sZyVQjPhN3Ek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791526209; c=relaxed/simple;
-	bh=eUmpRoTCt+2QLRgUkxx48SRPgHQaJ2nlhPBN+4rB0X8=;
+	s=arc-20240116; t=1791526213; c=relaxed/simple;
+	bh=qPZUI5AERDbsMwVw1xRusZQKPYUc/YAJLop+eInFbRI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NazFY+Hd6KgIveNm3Dv35t8Mfp4c/jvVKxjVf/Ia9yJ7316jGwGUJfFFnaqnzA5CaMtRmnV812z1x0NML4yKe9kZXK9bsvmZKpUX24grkIQXQ6YoLOCCjauj2FHRMoeyxKNoQHRp/Otxcyc9UERbR+WDMjNVo4+TMvW0DYzuUdc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D1+U/T1D; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=R8UAi1Ero4aF8e1e4Dsi1Q2Bisr55H++ZT9wG/mDEZPiM8rvCqTP+eqfqul3AovdG2XOuHM4PcoQ9pvx3WL9IbMlzcelrHolA6IxE0fd2W+RV4IWlcto+19d/OYFZDuL4AOLuK277oMVK10TDZvMGZefUfa//iTI5HKlySsO61s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eisZVZI7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D1+U/T1D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CA501F000FF;
-	Fri,  9 Oct 2026 06:10:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eisZVZI7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7B991F000FF;
+	Fri,  9 Oct 2026 06:10:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791526208;
-	bh=cpB4oW+VzOYkr7heF4ZAZX4wxYt/dyntVxClV6LD6MA=;
+	s=k20260515; t=1791526211;
+	bh=BC3rl7y513ctwp4yg4sDTNp9NBnOhsJNy1rfcB5SVoU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=D1+U/T1DTXrKOdz8Lv6py/jO8w8IHJBD8IPmHKS0E1Y8KxayrpNP93hBJoSFgfSPV
-	 /hFFwtE9RsEYzqPbhs7yhLo8/6lkM9Bjp5autcvT5leBDIChFixFTFlbSGDXnWpkxx
-	 /pTSOAXNetSTkdVNPSCMinflG3TKFFJelcPyPyp4Hpm+GZGBogw9k0JTSNhHdFHwQ/
-	 JjQxCB0VsSVQq0J8BqxdMSsL/2LaAVfOY6POPlb+YWaldn7Cspw6fs6qIufLRsKsul
-	 Y5mb/3mUFgH6wo1ZSBQ8bJAbyVTqxVDIWixETHkd6GJqsb/SBGKHlbdlkxQtRy1+h4
-	 IWjOkCneuMW2g==
-Date: Fri, 9 Oct 2026 08:10:05 +0200
+	b=eisZVZI7kFhRfMyPIll4w1FF+8Wd4ddNwiwigIb84oSBeNDerOiDFMkEnUjSOVN+e
+	 UHJCU+ScV6Y4vMxAKsLOD+X9lU2KZs5615fHGaikAEuWDhWK/UVgafdcsucmYihf3H
+	 wFU/LHKV3CrjOsnw8xzg25kBAroEBUvWlgYzYw6XNWOtZ8fbz+YK5zyv5ufs0J0G52
+	 9OO+K6DEaIopXI4+CdLkFbCAclKRk4qXhGPsFmE3KkSwQzcmMPPhMRZlhoHFIfZqoM
+	 R+JCjGHdzt+GtUd0vHBSjUFmDKIIIcysYr6dDAn5W3QDnW357jWT9He75BPAWd2yU6
+	 /bEKuh7FRQZBA==
+Date: Fri, 9 Oct 2026 08:10:08 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Haotian Zhang <vulab@iscas.ac.cn>
-Cc: Billy Tsai <billy_tsai@aspeedtech.com>, linux-aspeed@lists.ozlabs.org, 
-	Linus Walleij <linusw@kernel.org>, openbmc@lists.ozlabs.org, 
-	Andrew Jeffery <andrew@codeconstruct.com.au>, "Chia-Wei, Wang" <chiawei_wang@aspeedtech.com>, 
-	linux-gpio@vger.kernel.org, Ryan Chen <ryan_chen@aspeedtech.com>, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	Joel Stanley <joel@jms.id.au>
-Subject: Re: [PATCH] pinctrl: aspeed-g5: fix device node leak on LPC
- compatible mismatch
-Message-ID: <20261009-practical-malachite-scorpion-0be0c5@quoll>
-References: <20261009041435.3096107-1-vulab@iscas.ac.cn>
+Cc: linux-kernel@vger.kernel.org, linux-input@vger.kernel.org, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Ville Syrjala <syrjala@sci.fi>
+Subject: Re: [PATCH] Input: ati_remote2 - fix type confusion in device
+ attribute handlers
+Message-ID: <20261009-shapeless-silky-deer-acd3bc@quoll>
+References: <20261009040302.3087205-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,24 +44,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261009041435.3096107-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261009040302.3087205-1-vulab@iscas.ac.cn>
 
 
-On Fri, 09 Oct 2026 12:14:35 +0800, Haotian Zhang wrote:
-> aspeed_g5_acquire_regmap() takes a reference to the LPC device node with
-> of_parse_phandle() and then returns -ENODEV if the node's parent is not
-> compatible with "aspeed,ast2500-lpc-v2", without dropping that
-> reference. The function is called for every pin configuration, so the
-> leaked device_node reference accumulates on such systems.
+On Fri, 09 Oct 2026 12:03:02 +0800, Haotian Zhang wrote:
+> The channel_mask and mode_mask attributes are instantiated by the driver
+> core through struct usb_driver::dev_groups, so they are attached to the
+> usb_interface bound to the driver, not to the usb_device.  The four
+> show/store handlers still call to_usb_device(dev), which applies the
+> struct usb_device container_of() to a struct usb_interface::dev and thus
+> produces a bogus usb_device pointer.  usb_ifnum_to_if() reads that
+> pointer as udev->actconfig and dereferences it, and its result is passed
+> to usb_get_intfdata() without any NULL check, so reading or writing the
+> world-readable attributes can crash the kernel.
 > 
-> Release the node with of_node_put() before returning from the error path.
+> Use to_usb_interface(dev) so the handlers recover the interface that the
+> attributes belong to, matching the other drivers converted to dev_groups.
 > 
-> Fixes: eaffd32bea0c ("pinctrl: aspeed-g5: Adapt to new LPC device tree layout")
+> Fixes: b20d6bf8014b ("Input: ati-remote2 - use driver core to instantiate device attributes")
 > Assisted-by: DeepSeek-V4.1-Flash
 > Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
 > ---
->  drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
+>  drivers/input/misc/ati_remote2.c | 12 ++++--------
+>  1 file changed, 4 insertions(+), 8 deletions(-)
 > 
 
 
