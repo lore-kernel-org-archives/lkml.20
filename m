@@ -1,173 +1,185 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 394723BBFCB
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 16:58:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D09493BE15F
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 16:59:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791565138; cv=none; b=cxz/VsmTkKPDIhCjJf19tkP6knapqw+H+IDgEeVD/KQjZFZpiC1F6DvFNgf+5mucBgoi1WKlUWiaOLXB8jrST8QdCTdHWslPRpB9N9pvfV2u2IIzG4yvNTkJ+6N3Y0LXFqLaQFdn89yC9WJQ8/1bmWGzqIkBB1erCrAEWFLNJeo=
+	t=1791565148; cv=none; b=O9sJ7XohuzqZIPbUIed4AYwFqM0WqV1ZE/g5Dnb5iwTCzCGxGHdS9Ou92v9rnnFHZ0tQj/76OIOwAUZ98zqM842O5YVWR6N0vfoXt/Hrgk3ZeJsb52FHPdggdHZm5itjUegcMyAOsYoO7mHEXtteHBtNtg17094ZZiRMBrUJ3as=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791565138; c=relaxed/simple;
-	bh=V8cThIRNCnyo9xKKWRG1mucBjPJoc5uJWaiptO5+CE8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oKJs2MSV/13b3Hw94RG1LmpoCAieXCR8+V6zuliAUjkv3Q0wKGmc9s3978y2JuMZhwraXnJBMLrPI1mZ1fPKyKXGnV/Vdo3Hj8rwLjc+NdZdpyR8nhC1CDoZtXLbnxyvdMFEgfOPjqxwKORlJwLerI1kHq4tfXt2NUe8acZFL9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L0hTFdR5; arc=none smtp.client-ip=209.85.210.169
+	s=arc-20240116; t=1791565148; c=relaxed/simple;
+	bh=VsmwVWOVpvaJ+Q3nzqPlKtsId4STg45BTDnclVHfZ5A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s9xN9pHOBAhdZC6pkjUE92wK06LPKmrixizFzJsxU/n7g57VsrDeH9eKjIfoYgVKAK2Kuuc0qFTWCiqpbDe6GxEFf/7H8HRAFR9FgcZYHvHux+Wivo0fMu9W/s6WGrISbkK3tG1iLRbWuuwg3p0WsGmt1aL7PPt7C2PlwaqPTvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H/PxoVih; arc=none smtp.client-ip=209.85.214.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L0hTFdR5"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-892734ce7e6so1621560b3a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 09:58:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H/PxoVih"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e61f017091so17120695ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 09:59:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791565135; x=1792169935; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=j8HVGg1UwL+foMzId5fbWtScAv0iyZ12Lp0YwhWR+Iw=;
-        b=L0hTFdR5coto+rY30vOtrg3PEJ91MD/Xf7PBSKT7ztifTOH2ILTeUE6yNZaP3ZrvPr
-         /t4GemLYOpEe8KbPqoOGyhylh3Gp6XIb8I8nv4hSAgfBBN/iWHzo51ZnesfLmX4IZK5d
-         2xvF57U+DoyrmB99RK2bxTEp88i6giAVGjDscTzLb1WuL2fVFsQLCao5a1wjmZAvJpe3
-         d20OUQiAdVgkPlyjuOBYj0a2DVM4WuOkscy/4jl5nMV9kxF8eYqftFnVxqNJ5S6sCrwh
-         3Ms0ef9brYYXZMERS2WXwhwEZysbmVCI8ubGW8fdKMqgXGDV7vJGP4XHFUgduryp422T
-         6SsQ==
+        d=gmail.com; s=20251104; t=1791565146; x=1792169946; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8x+7zuv7UzMaKL/3w5sC9AGLBUyDe21tWW+wJXFpe54=;
+        b=H/PxoVihOdwF6MpTCjjRHDBKvMh+Wd1+CO48Rt58rN5hn9emLGLf42Rr4nDDr4Pbj0
+         U/PYoe4eZeqY/aEOjRvtd6zEEUBZEMKalcSfIVVvgPABGDkGxsA0C1JUhYyI0jOaQRr8
+         ARB29IMY5F6BbGeQ4YmvmXjNUg6oenUmGlt+jqydkXgE70ohKo8kAZRpzXQhppeSzbKa
+         dqqOu2ICfnQFdaQmS2bfawRSE7Ftg9TKgRS6HGjU2SgLbkNzLWOs0epfgFHqUJES2usG
+         jvQMolvQKfG7AEm4JYgQZjXtiuyuv+2sMC5EFP2UY+Z8zeOeZA8PU8bf8RnJT02vdtNt
+         ikKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791565135; x=1792169935;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=j8HVGg1UwL+foMzId5fbWtScAv0iyZ12Lp0YwhWR+Iw=;
-        b=a2lMzD664kZDMWioBrbopkky1ocd/9zzvfLDpGLj509vIDk05E1TpXs4YPsBhNvNm8
-         y/1R/EVRKz3ADSXrsDvQ0mi+yfFWvqtwCAIiu9hjJr8aK0b/m/0j7lcGMJPb/zwBFBXr
-         7y/xnCv8T9qFBPCPBOkxPqz70eKsBFFpdSOh4Kz33Du2T2HaCLNNl4gLUruc4rQnTacv
-         9YYE1/NWIwnY9HdzQJU3d7tS073ZmyqAFSBMyLGvq/BJ5gQPRcJiNjL5/t+24SrnGRx6
-         +HLtx2HObdcmJagvN9MMtPB2kvRiJKmM1BmhiNu/JR9Czbyejqo1eKeDkiI202GZO0fJ
-         sJYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwJC3Y/PTnjSgF8EAxqsTibQK36NMer1OGC6q7OlSwboQ0xkbbWgkx/R8uS57gLVVExUsMyK6uyakEgS8I=@vger.kernel.org
-X-Gm-Message-State: AFuF++m33cfoyIV0PMyC6B2LT90WpF4+GtV6g/KUfeiFlKE3Ul5DOYfr
-	7L0ca6LirLXTPWjRC/YtlpHN4Zw5jkskX2+iP7Mr6eG/x7f3dZU2/RFh
-X-Gm-Gg: AYBFou1LaCYgt+TbEtAk6RxsfUZTHLmpdoluLA4ZLAinmUedOu6qiitfugbvp9ulWsP
-	Lrc+7mlGm31yztxiAF08mvNwStx9ll4cqQGoGmrMv3lOEMzNdyMn+fVQkMbvihK8vgBDFYrVOtS
-	RitzO4nBUhYbsNqodOqzc4+IHA3ooymVrmiFFk19WJA70XuKU12yhm7BrU0jWnTwVibitpwFbQd
-	FhrmHey+kZESDKhmVW/xXzCUeDg/26Pt2dmsI0Us8A0iavc1AqxJ1htbsCg6EfuZ3SrrDdGetHi
-	Z20hvx83InBbZHW3cB9w8hqeDC24ssNzFgJiDZ9dwmWJ5EiC7WoqjcFvLtO0y+7itonpaWzcU/W
-	tvOZwKsdqyV0fGSk4lbSlvdU/W9yc0Jq3z7EzJNB2/40kD+m+GDt/UbAcAcSN69n6Lv0nbXcdPt
-	xD91FT1kkzIcwytx9FryPjwOWj9Yrkttzq5Ug8LI6ThZ+GAZhW/s6qtFNMX/SJpBcvkeGLePAZF
-	ig4k8K9guAh9+DUJMmUDT39Cg==
-X-Received: by 2002:a05:6a20:431e:b0:3de:3f4d:f2ed with SMTP id adf61e73a8af0-3e16bfcea5bmr2254422637.36.1791565135388;
-        Fri, 09 Oct 2026 09:58:55 -0700 (PDT)
-Received: from d.home.yangfl.dn42 ([2a09:bac5:661c:1246::1d2:d1])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c37de994sm1494437b3a.26.2026.10.09.09.58.52
+        d=1e100.net; s=20260707; t=1791565146; x=1792169946;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8x+7zuv7UzMaKL/3w5sC9AGLBUyDe21tWW+wJXFpe54=;
+        b=1FC5jc8bW1yuplrdKBVjPKaJNuLW4smqE4czW/T3QsLV+UBTsvW8LVeKdn/IzfV4gp
+         yRwzoUuHPfT0P62sGXwjDrPEAsYPRXD/BOLgaVNVLymhugewTELnZ5KuVkSraSqSCwgt
+         uSSnpHpPQHWfvhlQ3DU+1hkCYKiebas8XhjHKbOTd37yyRlMUVenYPsD5WsFQmkC5+4j
+         4I28GzVehAT4GIoBelZU+IKhGT1NWWp8t7yix0nB8VViOc7/jVYhBMDjBktp04ZHF0wA
+         NdxzjQ1CY+7JW6b0WW4zpmJmdAb1qZPJWvf6crgKAkQm7z/cG2Xo1lmbHNLdMPm6TF7+
+         5snA==
+X-Forwarded-Encrypted: i=1; AKwUvBxuWkIs3TQSvkzmvYjGkMK9lLJIhV7qOvEAdwYqZv6fitF7Q7crWujbjrSxDruO5vjcVlTuTtbj5NYLPf4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKQE78wp1XLgIlDPF03PTljBXYakmSs6xVUZesdual9ARkSXhRI
+	mS3Ub41HG29HIiktt+Y1G3qsgjzof+3wHP8ZUWbKO5rWP++Qwz8lq2WB
+X-Gm-Gg: AYBFou1LEJJ58oLGrs4uQfY3blfjZCztINCkTLWv6VyVIT/WFEn3Zz6w/UCTaqMuNnW
+	ZetbI8mkxaaBHLfM0e50Ts0oFB/lqtirbJwxayx344FCFHJ4L4TJ6TGy99oJaXJqtY/SMPcSmMZ
+	q5wSUZupYH+Y87jfagkj1WwN3Kh5GHVwkHWFW9lZFtWjYugfVZaa7uwIUc+YhLN3uKMA1DlXic0
+	4LrcQzt+0AV2lKIEyrPzEOJX/HpOPmxlr7Rs8fJXfoRvUJaZKiX+GKJLvR5jXJGa8OfqK3tT+vz
+	alOAAB8eFpv7diLdcdwbLWe7aH3RoARcPlYbP1TlKiJHFr4XBGd4HOgvuLP4msuosHhE7/zkcIX
+	wNOzZQvhOoyKcTB6ApZJWSb79XJb12uQbS64/DdYH2f1FXqS6Nvrndc/V9rLJup7h61ZEbqNeA4
+	j7s4AEx+jNt3kIBhtnnNvC97Ntdlos8h3JUrZ7DgLwPOvs67Npa2F0gfqIyn5d0ENNh2MuwGWa2
+	3AV7uOWdKrp7UfymTic7rJNRMvx4GrCqw==
+X-Received: by 2002:a17:903:160c:b0:2e2:d9fe:51fb with SMTP id d9443c01a7336-2e84280aeecmr22910215ad.4.1791565146067;
+        Fri, 09 Oct 2026 09:59:06 -0700 (PDT)
+Received: from google.com (61-230-52-229.dynamic-ip.hinet.net. [61.230.52.229])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422e2570sm14453055ad.79.2026.10.09.09.59.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 09:58:54 -0700 (PDT)
-From: David Yang <mmyangfl@gmail.com>
-To: netdev@vger.kernel.org
-Cc: David Yang <mmyangfl@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v3 4/4] net: dsa: motorcomm: Add TC prio support
-Date: Sat, 10 Oct 2026 00:58:22 +0800
-Message-ID: <20261009165825.359259-5-mmyangfl@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261009165825.359259-1-mmyangfl@gmail.com>
-References: <20261009165825.359259-1-mmyangfl@gmail.com>
+        Fri, 09 Oct 2026 09:59:05 -0700 (PDT)
+Date: Sat, 10 Oct 2026 00:59:01 +0800
+From: Kuan-Wei Chiu <visitorckw@gmail.com>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Guan-Chun Wu <409411716@gms.tku.edu.tw>,
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] lib/base64: Silence clang-24 -Wconstant-conversion with
+ diag pragmas
+Message-ID: <askdVfevxztHMyGN@google.com>
+References: <20261008-base64-silence-clang-24-constant-conversion-v1-1-0858b60b23c8@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008-base64-silence-clang-24-constant-conversion-v1-1-0858b60b23c8@kernel.org>
 
-The HW orders ACL rules by the 9-bit ORD field (512 values, larger
-matching first), while TC priorities span 1..U16_MAX with the smallest
-meaning the highest. Map them as evenly as possible, and reject others
-which do not map onto a hardware order instead of silently colliding
-with a neighbouring one.
+On Thu, Oct 08, 2026 at 01:08:49PM +0200, Nathan Chancellor wrote:
+> After a recent change in clang to warn on signed char conversions within
+> array initializers [1], there are several instances of this warning from
+> base64_rev_maps in lib/base64.c, which can break the build with W=e or
+> CONFIG_WERROR=y:
+> 
+>   lib/base64.c:58:18: error: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 131 to -125 [-Werror,-Wconstant-conversion]
+>      58 |         [BASE64_IMAP] = BASE64_REV_INIT('+', ',')
+>         |                         ^~~~~~~~~~~~~~~~~~~~~~~~~
+>   lib/base64.c:52:2: note: expanded from macro 'BASE64_REV_INIT'
+>      48 | #define BASE64_REV_INIT(ch_62, ch_63) { \
+>         |                                       ~
+>      49 |         [0 ... 0x1f] = -1, \
+>      50 |         INIT_32(0x20, ch_62, ch_63), \
+>      51 |         INIT_32(0x40, ch_62, ch_63), \
+>      52 |         INIT_32(0x60, ch_62, ch_63), \
+>         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+>   ...
+>   lib/base64.c:34:42: note: expanded from macro 'INIT_1'
+>      34 |                 : (v) >= '0' && (v) <= '9' ? (v) - '0' + 52 \
+>         |                                              ~~~~~~~~~~^~~~
+>   lib/base64.c:58:18: error: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 130 to -126 [-Werror,-Wconstant-conversion]
+>      58 |         [BASE64_IMAP] = BASE64_REV_INIT('+', ',')
+>         |                         ^~~~~~~~~~~~~~~~~~~~~~~~~
+>   lib/base64.c:52:2: note: expanded from macro 'BASE64_REV_INIT'
+>      48 | #define BASE64_REV_INIT(ch_62, ch_63) { \
+>         |                                       ~
+>      49 |         [0 ... 0x1f] = -1, \
+>      50 |         INIT_32(0x20, ch_62, ch_63), \
+>      51 |         INIT_32(0x40, ch_62, ch_63), \
+>      52 |         INIT_32(0x60, ch_62, ch_63), \
+>         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+>   ...
+>   lib/base64.c:34:42: note: expanded from macro 'INIT_1'
+>      34 |                 : (v) >= '0' && (v) <= '9' ? (v) - '0' + 52 \
+>         |                                              ~~~~~~~~~~^~~~
+>   ...
+> 
+> These are false positives, as the branch where the wraparound could
+> happen is unreachable with the values that clang reports. This is not
+> considered a bug by some clang folks [2][3], so silence the warnings
+> using the __diag macros the kernel has to workaround compiler warnings
+> when necessary.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: c4eb7ad32eab ("lib/base64: optimize base64_decode() with reverse lookup tables")
+> Closes: https://github.com/ClangBuiltLinux/linux/issues/2181
+> Link: https://github.com/llvm/llvm-project/commit/a5ef934a8d295dc03be3960f2b3744ec2e53238e [1]
+> Link: https://github.com/llvm/llvm-project/issues/223923#issuecomment-6056856245 [2]
+> Link: https://github.com/llvm/llvm-project/pull/226775#pullrequestreview-5454407389 [3]
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 
-Signed-off-by: David Yang <mmyangfl@gmail.com>
----
- drivers/net/dsa/motorcomm/tc.c | 35 +++++++++++++++++++++++++++++++++-
- drivers/net/dsa/motorcomm/tc.h |  1 +
- 2 files changed, 35 insertions(+), 1 deletion(-)
+Acked-by: Kuan-Wei Chiu <visitorckw@gmail.com>
 
-diff --git a/drivers/net/dsa/motorcomm/tc.c b/drivers/net/dsa/motorcomm/tc.c
-index a302016912b5..3e0f80500f41 100644
---- a/drivers/net/dsa/motorcomm/tc.c
-+++ b/drivers/net/dsa/motorcomm/tc.c
-@@ -1029,7 +1029,10 @@ yt921x_acl_rule_ext_parse_flow(struct yt921x_acl_rule_ext *ruleext, int port,
- 			       const struct flow_cls_offload *cls, bool ingress,
- 			       struct yt921x_priv *priv)
- {
-+	const unsigned int scale = (U16_MAX + 1) / YT921X_ACL_ORD_NUM;
- 	struct netlink_ext_ack *extack = cls->common.extack;
-+	u32 prio = cls->common.prio;
-+	u32 ord;
- 	int res;
- 
- 	if (!ingress) {
-@@ -1042,6 +1045,36 @@ yt921x_acl_rule_ext_parse_flow(struct yt921x_acl_rule_ext *ruleext, int port,
- 		return -EOPNOTSUPP;
- 	}
- 
-+	/* Lower TC priorities take precedence, while larger orders win in
-+	 * hardware. Spread the 512 hardware orders over the TC priority range
-+	 * as evenly as possible, retaining the relative order:
-+	 *
-+	 *   prio 65535 -> ORD 0    catchall filter
-+	 *   prio 65408 -> ORD 1    highest mappable TC priority
-+	 *   ...
-+	 *   prio 49152 -> ORD 128  default value for the first tc flower rule
-+	 *   ...
-+	 *   prio   128 -> ORD 511
-+	 *   prio     0             (invalid TC priority)
-+	 *
-+	 * The catchall filter always comes with priority 65535; pin it to ORD
-+	 * 0, the lowest hardware order, instead of rejecting it.
-+	 *
-+	 * Prefer explicit rejects over implicit behaviour changes: reject
-+	 * the priorities which do not map onto a hardware order instead of
-+	 * silently colliding with a neighbouring one.
-+	 */
-+	if (prio == U16_MAX) {
-+		ord = 0;
-+	} else if (!(prio % scale)) {
-+		ord = YT921X_ACL_ORD_NUM - prio / scale;
-+	} else {
-+		NL_SET_ERR_MSG_FMT_MOD(extack,
-+				       "Invalid priority %u, must be a multiple of %u or 65535",
-+				       prio, scale);
-+		return -EOPNOTSUPP;
-+	}
-+
- 	res = yt921x_acl_rule_ext_parse_flow_action(ruleext, cls, priv, port);
- 	if (res)
- 		return res;
-@@ -1049,7 +1082,7 @@ yt921x_acl_rule_ext_parse_flow(struct yt921x_acl_rule_ext *ruleext, int port,
- 	if (res)
- 		return res;
- 
--	yt921x_acl_rule_set_ports(&ruleext->r, 0, BIT(port));
-+	yt921x_acl_rule_set_ports(&ruleext->r, ord, BIT(port));
- 	ruleext->r.tag = cls->cookie;
- 	ruleext->r.type = TC_SETUP_CLSFLOWER;
- 	return 0;
-diff --git a/drivers/net/dsa/motorcomm/tc.h b/drivers/net/dsa/motorcomm/tc.h
-index 32b53f1f3825..f11136a1c5e2 100644
---- a/drivers/net/dsa/motorcomm/tc.h
-+++ b/drivers/net/dsa/motorcomm/tc.h
-@@ -331,6 +331,7 @@ enum yt921x_l4_type {
- 
- #define YT921X_ACL_ENT_PER_BLK	8
- #define YT921X_ACL_NUM		384
-+#define YT921X_ACL_ORD_NUM	512
- 
- struct yt921x_acl_entry {
- 	u32 key[2];
--- 
-2.53.0
+Reading the issue comment in the link, it seems somewhat subjective and
+controversial whether the compiler should emit a warning in this
+scenario. I'm not a compiler expert, but from a user's perspective,
+it's a bit disappointing when we have to deal with this. When we are
+confident that the code is correct and have provided the compiler with
+enough context to determine that there is no runtime issue, suddenly
+getting a new warning after an upgrade is a bit frustrating. But
+anyway, let's go with this workaround to keep the compiler happy.
 
+Regards,
+Kuan-Wei
+
+> ---
+>  lib/base64.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/lib/base64.c b/lib/base64.c
+> index 325c7332b049..e46be3a55585 100644
+> --- a/lib/base64.c
+> +++ b/lib/base64.c
+> @@ -52,11 +52,14 @@ static const char base64_tables[][65] = {
+>  	INIT_32(0x60, ch_62, ch_63), \
+>  	[0x80 ... 0xff] = -1 }
+>  
+> +__diag_push();
+> +__diag_ignore(clang, all, "-Wconstant-conversion", "https://github.com/llvm/llvm-project/issues/223923");
+>  static const s8 base64_rev_maps[][256] = {
+>  	[BASE64_STD] = BASE64_REV_INIT('+', '/'),
+>  	[BASE64_URLSAFE] = BASE64_REV_INIT('-', '_'),
+>  	[BASE64_IMAP] = BASE64_REV_INIT('+', ',')
+>  };
+> +__diag_pop();
+>  
+>  #undef BASE64_REV_INIT
+>  #undef INIT_32
+> 
+> ---
+> base-commit: 0c2669a9f4a1d607e7591ae50ccf3c432a0aff08
+> change-id: 20261008-base64-silence-clang-24-constant-conversion-b682c6bbf563
+> 
+> Best regards,
+> --  
+> Cheers,
+> Nathan
+> 
