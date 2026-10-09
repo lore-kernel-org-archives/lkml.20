@@ -1,95 +1,41 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C321A429004
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 06:31:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 403B4434998;
+	Fri,  9 Oct 2026 06:32:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791527508; cv=none; b=Qoqc1avBQ2WOD/xAXW78ZrwywM8LKiDQFdr+PZ5zgpjdYmF83etsIJ/2KNN53HlKfsnROS2wd4ytM+3xkigx496YKYL5ypZTvzqQB7PfCql+EWY35H1MHpF1q4gbUz6mcgwg6UsBQlSEh4KPihq4uYWoOrKORsYxIJdEed+00PU=
+	t=1791527535; cv=none; b=kNMnQqRduNrvJhztEDmjZKHteaegDquhSqQ7WGc5G6ZHnwrTTwaQINljOVqV5Owx2LcL0LWFoU8O9x5Oguzaqhvf0c7LqvNSWefOehc/KnxOPqwBh7mwAkW/LC7oKAAk7m8WQLbRXnMeNA6kewkE8sj/ZCT0PxpKNqDKOGlmE7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791527508; c=relaxed/simple;
-	bh=G8p969TSPt4pRVkrqnzxS3mmH3ELFFspsjEpF+ZfLvU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WZipEzYgDal9mfM6WCFZ5DbElbT7dbwNAEy5y391gbolYdmSnt68qiJ152aHZ49NbUyuTWl3aVn5vMJ92IHRVA/aNvVGXv61mSJiKHxezcr37HX+l/HGBfeIfbeZCGXhc0RRWBm9lejbVVKTN01BPYZfM7wZGWPxqk9Zbre5x/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vi7w+Jv+; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791527535; c=relaxed/simple;
+	bh=SJmJvPjq95kXXZNsTkAOwWaIVlCToDkLwuE8XLWV6n4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=clhqfLLDAOFFDv/DE0enPhee8je7G39OpKGpAqX4yo+mCVUV3go7mZmviegySwfKeiKzSUh8zL9Vu2z4LDySWqDfguRXsaObcG7HkVSN8MsSBKGyS/zdf2Ue4XW+PFk1nzKJJkbRvjEH1DqrIHAthWKVgjNJtvC0VlocczK/glI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=CoJGFaet; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vi7w+Jv+"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49ff639372eso1365025e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 23:31:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791527505; x=1792132305; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/prsEyltlekkl/5pKA40pBQXK0nwU4kVOsJT37viE/Y=;
-        b=Vi7w+Jv+kTuWpR2zqD04rBbY+7txxW51rM9IshH9lE7fgUzp4+T56d8m5wYQ6coNoW
-         fHljJAaZNSf7Z2Nr58vw29jH5sG8ehtwOxqduznxl7AbS6qFNuvCFCQLRkIcPt43FKWM
-         Jjy16DohP+I97Pz7ieNfHjBKmLXkMLaqbJUjMsfVr7j8r4vj6Dy5iIJDGLtO4IdciCNr
-         5s6Ab9/KZ7PcmnFrM9Ar7l8kmTLhUx3pEZmNBb4KH3WTO267cPhKPowhCFYTnhKkXkWl
-         9jVzGgZ0X9SCDYeo2dlH2a9y9YyktCwAHFqRL8TNWyneh6UGf5K68WHOmj2cViakN/3S
-         2upg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791527505; x=1792132305;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/prsEyltlekkl/5pKA40pBQXK0nwU4kVOsJT37viE/Y=;
-        b=aWvi90P7PqfeR6POupybf4R9kMLFzhEuHxsBDElRDvEAafwCsDIMF0cCmn78t1vC19
-         kx1CoX9PjaT4DyBtGrwxLUJa87VyWQg6vTDACq7VA1ycUKvIoIMhKS4oE1yHXueDEQGH
-         nTZOxCVWCxZ12qZO6MSscLlDzkTAXUgCc0/Ndq8IuKWsITpwR0kcP2a13MrTWAeYj211
-         ewa9WnCTIcc1Z9hxE+XgtaKDshO8sTTc89W12jmwZKr4ROGsgy00PJk0IZ6V0eFRjfTD
-         rS71aRMDanpBgSBtGhkCDuqulSsBbwgRHnt1HpmVAXmYb8J3bzS4hMzYEFR2wNyGwjsY
-         q0lQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxAxJF2DHwRtWn+0gvvyoHKuZhNBUgx75l8dFCZAlOg4llXJA91Paj0s2+GXHSK3DLF56kpCXpexx7oN3c=@vger.kernel.org
-X-Gm-Message-State: AFuF++klqpvdkRIbmGabXIPrJxDgTWIvj42nmJyHnX7jxtTXWMTlE+2w
-	URbFycf3dhJESpqcmZToScvYY/H1AuPW/Xx1cmKK+nux6wdkd1vZzrsG
-X-Gm-Gg: AYBFou2NhzuPEfsoPulOGpxoa2za9KiA5w0znrUPLn1Jh8fmPzIGAwzI7f4VHdYZ3pw
-	k5G2U834rwDxQIw3ym360uIBt2LsmNnzFeRd79vQtwZKK4eD0ZEY8YD2zA77DxC8XXvVsfvisgy
-	2vR8grQMl+u5+HDipntldCXaA7DSuijX2p2mBJ42BCaagKz0R6vjNL3p/hfHiEYRVotXHHRjHhZ
-	xw4tmOMdAFZsUZ1Jni2nV9m5jXI3IP31b7GaPylkgKtorggO0NvtG2eT0uRj+nLBF0q6+wmqrqm
-	6NvzrpAhloTIjIvqyTqHdoXNiV49tYaJwFvrbs2EU/lR7UGlKi0UxiDwimVy97mvYwC873oNIo6
-	45vzfvgFv78lYFCMyWgQXyxt5gVc72ejvIMbiiot8uCcNmKR15AWsS6TMFqn7bwdTmYtu4B//uG
-	Umb8cu+EPw2JuotbAAMwzoJlDNv93Y1Htg6twJxmvlRnl8luY/3tA2uoo8z4kfDlD7SWNkZ6AG4
-	56PbgSE3myhRwswbSZ7
-X-Received: by 2002:a05:600c:a086:b0:4a0:1f9e:5f78 with SMTP id 5b1f17b1804b1-4a18e3ea887mr14032945e9.0.1791527504788;
-        Thu, 08 Oct 2026 23:31:44 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf0abcesm39170955e9.1.2026.10.08.23.31.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 23:31:44 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: tim.c.chen@linux.intel.com
-Cc: arighi@nvidia.com,
-	bsegall@google.com,
-	changwoo@igalia.com,
-	christian.loehle@arm.com,
-	dietmar.eggemann@arm.com,
-	juri.lelli@redhat.com,
-	kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	lukasz.luba@arm.com,
-	mgorman@suse.de,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	pierre.gondois@arm.com,
-	qyousef@layalina.io,
-	rafael@kernel.org,
-	rostedt@goodmis.org,
-	sched-ext@lists.linux.dev,
-	sshegde@linux.ibm.com,
-	tj@kernel.org,
-	vincent.guittot@linaro.org,
-	void@manifault.com,
-	vschneid@redhat.com
-Subject: Re: [PATCH 18/18 v2] sched/fair: Take into account slice in EAS
-Date: Fri,  9 Oct 2026 09:31:40 +0300
-Message-ID: <20261009063140.30016-1-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <179bcb50be21f834423f9b5c068b5fce4cb65871.camel@linux.intel.com>
-References: <179bcb50be21f834423f9b5c068b5fce4cb65871.camel@linux.intel.com>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="CoJGFaet"
+Received: from mac.lan (unknown [4.194.122.162])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 706CC20B7167;
+	Thu,  8 Oct 2026 23:32:07 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 706CC20B7167
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1791527532;
+	bh=qD62pXmGKVATyqrDADZTyaMvYvoa09vK1Gim1YBZHO8=;
+	h=From:To:Cc:Subject:Date:From;
+	b=CoJGFaet4DDGAbOueEskwrOs0Wir2eiw+rknTCgaQGK4wDpB6sqCgmzGZz/S0gwUd
+	 HjSzsbYEkkNxW811t9tabkNp8WDzy5o/mMjS4pdiKOUKO4NW5zlH55NG833VccxAgs
+	 xICBtmiNLR+nVmjilTSNy5SOd2g3+mRRfB4+zG2E=
+From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
+To: Marc Dietrich <marvin24@gmx.de>,
+	Greg KH <gregkh@linuxfoundation.org>
+Cc: Cen Zhang <cenzhang@linux.microsoft.com>,
+	ac100@lists.launchpad.net,
+	linux-tegra@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] staging: nvec: fix GPIO descriptor documentation
+Date: Fri,  9 Oct 2026 02:31:56 -0400
+Message-ID: <20261009063156.28306-1-cenzhang@linux.microsoft.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -98,54 +44,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Tim,
+The kernel-doc for struct nvec_chip still refers to the old gpio member
+and to struct nvec_platform_data, which no longer exists.
 
->                             struct task_struct *p)
->  {
->         unsigned long task_slice = p->se.slice;
-> +       bool target_first = task_slice < get_rq_min_slice(cpu_rq(target->cpu));
-> +       bool min_first = task_slice < get_rq_min_slice(cpu_rq(min->cpu));
->
-> -       /*  Select the one where you can run first */
-> -        if (task_slice < get_rq_min_slice(cpu_rq(target->cpu)) &&
-> -           task_slice >= get_rq_min_slice(cpu_rq(min->cpu)))
-> -               return true;
-> +       /*
-> +        * Select the one where you can run first. Check both ways, or the
-> +        * result depends on the order of the CPUs in the PD.
-> +        */
-> +       if (target_first != min_first)
-> +               return target_first;
->
->        /* Favor previous CPU */
->        if (target->cpu == prev)
+Rename the documented member to gpiod and describe its role as the GPIO
+descriptor for the embedded controller request line.
 
-> Take an idle CPU X and a busy prev_cpu. Any task can
-> run first on X, because an empty rq has min_slice == ULONG_MAX:
+Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
+---
+ drivers/staging/nvec/nvec.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> - prev_cpu scanned first: when X is the target, the slice check
->   selects X.
-> - X scanned first: when prev_cpu is the target, the slice check fails,
->   and "Favor previous CPU" then selects prev_cpu.
+diff --git a/drivers/staging/nvec/nvec.h b/drivers/staging/nvec/nvec.h
+index 80c0353f141c..5ef959352338 100644
+--- a/drivers/staging/nvec/nvec.h
++++ b/drivers/staging/nvec/nvec.h
+@@ -102,7 +102,7 @@ struct nvec_msg {
+ /**
+  * struct nvec_chip - A single connection to an NVIDIA Embedded controller
+  * @dev: The device
+- * @gpio: The same as for &struct nvec_platform_data
++ * @gpiod: GPIO descriptor for the embedded controller request line
+  * @irq: The IRQ of the I2C device
+  * @i2c_addr: The address of the I2C slave
+  * @base: The base of the memory mapped region of the I2C device
+-- 
+2.55.0
 
-> In the second case the task is stacked on the busy prev_cpu even though
-> it may not run first there.
-
-Agreed. 
-
-But ULONG_MAX doesn't always means that the rq is empty.
-(See my 18/4 review, maybe I'm getting something wrong)
-
-Also, I assume prev == min-cpu.
-
-Scene:
-
-target is X, min is prev, prev has a 5 ms sliced task while X is empty and task_slice = 4
-target_first comes true and min_first comes true they're equal and min is chosen.
-
-If however, the task_slice was bigger or equal to 5, as correctly target would be chosen.
-
-LGTM atleast. Eh. (ULONG_MAX could be a problem tho.)
-
-Thanks, 
-Kayra
