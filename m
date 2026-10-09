@@ -1,182 +1,119 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3BA54DA9D6
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 12:24:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 303893ACEEC
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 12:26:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791548714; cv=none; b=lK17lQGhZ832A8Oundnz1Kw9O3kdNc118i4UkKRxKSao5yJ6/zLKfwehYlvjahBW34yTBTuajl5eqCxJy6yAIzVJmr7nRktCBcKaL8fOKD49bTAXiVQ1sCJPw8uxbYucOz+p6BIcegPH0lZMZArIyppRSs87V19Anah2z3l3EiA=
+	t=1791548828; cv=none; b=oqIFBdOrImZHqQhHvgm2Nww8uMuD0J0VLM2xpXh94F9GDuZCa8yI9f8pMi/9g2N57opeeJktNQvB5nVuYebv2KlQN2lzAUPEiu8vt0ta5V92DZnxq5p/SPTJkdX2dAftLzTMByXOJg1MRtxAUr0kbNZjB6ylEgnve1CYIWBnfLA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791548714; c=relaxed/simple;
-	bh=hIx/JZ8ZXCx17f3OrIeJ7eJQdRS7F04oOVjlMosIUV8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=h5W/zupE4g5JbggxV+QaAAq+QMJUJdjV6h+2Qrp0pfjtXykVs+Gp1P0Ean7qH62m/xIL/lSKwwWRPH0Qe/vjES2hgnZzIhfF4ZKJ++xdc0bm7HrqOcbUfmBzwnV8ZXf5VCtiTRabuRDepIRPn4eQzUZI9rOypdZTL+yXQVlGj8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R5i22PC1; arc=none smtp.client-ip=209.85.128.53
+	s=arc-20240116; t=1791548828; c=relaxed/simple;
+	bh=zcj1UP/uWaZlOap6IYuctN6jhC5vXlt+4pbftX/pN+Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=losLWd/GFUWA8xu7yKf8Qada+CirBiI1OM20X1jawxhgbVKVJuHMO/rxWrm5azOlzl0l1YCvnXkcoXTgcIn3fEgQp6D2+a+0BGk3Nj8qt73HdVPuMO3PN7HEmLHHeh9jnPik65mAusnXAZUTAVpWnG8QVPKlpXhbx/C5OPrdzK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YdlNDRiR; arc=none smtp.client-ip=209.85.216.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R5i22PC1"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a16af2a232so34317575e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 05:24:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YdlNDRiR"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso3628560a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 05:26:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791548693; x=1792153493; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GJ2EntfC5k3oRjFV7IUX8CiLH1W3oXSVY1zFXmllLxA=;
-        b=R5i22PC11AoAr3E9s8K3T6E4Sh3oCUOmblGiX87gXcEpunhYlVVO51wC7CkeSjXV1L
-         2bacCfpuC98uueEjZ47qF4pqrHfle8NTwYPCUPPf2iiORgFJwAWDZbVm4kbVhG+HGNnY
-         /OTPY7NYVDyE/9UBoRIObnNUTkP35FrBv+rUt9iZFEMHLeR0gOjnHTRzwl8CVafyNIPA
-         OXzkB2EAtGk8vBG3F5RBi3olFSFPYofzbPh4aH0djGz0nggiPzL419jutvq6LKE1IT3M
-         MdccBgKHkRvhsm59fjyMWNwGntiGeLUxsstiL39ORZgGoUjdu9E2gioMos0jSKqMHjyX
-         Uxlw==
+        d=gmail.com; s=20251104; t=1791548818; x=1792153618; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=omRS45+vQBa/52QRk3tpqdOThEMPi8HnWucvIlnVNIU=;
+        b=YdlNDRiR6I3yGEmGqO+bP90VwwvMF88o2n8k4Wca2Oo0PagSwivURFI8tdLJVHl2lQ
+         cwUyg33yrVq4/sCyD4irARhutbsQuCcuCSySww+FyBgTIbgYCKjqvZJaU+h9itHsMnCw
+         FqY5RwpBLMZje5XtDwyztyAoBQbToQhemdU9mvXXNL5R4gCuHV6r+agbedYxI4aHR/jR
+         y9Y0sgqFN9PycJtWyRPO8Ddzb1KE0jEsWTkd+Y4ilY4K6oT5Cmq8bipN2rIpdnZ6bQ2U
+         EYAlJ8RxhtXE6hTCs2rm+RXjCjTIA5gdl/A/NIUmPiBLx7TYuq16yx35HU3by/8+IEC9
+         umVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791548693; x=1792153493;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=GJ2EntfC5k3oRjFV7IUX8CiLH1W3oXSVY1zFXmllLxA=;
-        b=wOa3wf6VDbnh/qPO9hkCE2UvBsLSQlXQ3BqvZPbqcpVMsrXoW8ce/Ba3rBRUEAOKCO
-         CKdtHMWTYTjWj+wSTy8gw2OASQz3RXSNAUjAGiHvLKjk6mi2A8B96OZ2Jbkqj5unt2j5
-         GunGdSp0LXBjcEughEioU3y7Y7/GGLBNy7+6hKeH4Q+P74FmdfPCSwGq7zzjJ1ygyc1D
-         +3w7jZLHWpWgSii6vzMiyicP7N6z2p4c7/6qpJnBGTLdgrZf/tFiwHGK1UQcT0IFXBPa
-         vdvulafkL8PV+MYVIQ6x3rsQ3vLIKPmuTMUOsQ58s6l6THNVp8oDl7ksyMK4Rfjo9GSE
-         fQOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxMhtSVzkrWbqU8BVgCeaWoCuNBFELCoBBQte9GynZ5I2XZS8qwQlGg/CcDZ+apHoVLT0YQOgxA1rtJ8Mw=@vger.kernel.org
-X-Gm-Message-State: AFuF++m9bUcyukU6/AfWhWyRbACkd5MJ3RteIO6eLOgT97Iv/ibpHz+w
-	SfygyRI9AvZdK8EiTq5nYwI1Ik0PqKOwmm7xO4yxE+ZXo7WPUx8Wv5qR
-X-Gm-Gg: AYBFou174rrBuJ7LxAg+JwmneTF5HfxSJbnsEMEKI+oQk1Ky7dT3Y2Ay+2BASxRMpvp
-	0Ho2eA6t1BfoTKCh6+heLqLNXmLaUmWQw5xawol5CBUymPXiepXcP62Xu9T0c3Gu93uQPmHlU6Y
-	HM+dgUjZZhSPzn1kSbm+REHdoPdxYN6HwCprYLTLuDqbm0M+3hKydZo8ZDLDZ2bCdpALmcsAmYB
-	Tn0zIJRv58FJl6x5BFYUIn75lk8ys8GkpvLHaRMmw9bTEAfVn4ShQxGZgUmsaIvyq0+tl7oS+cR
-	IhF36Ia9Wvqi0jCaQJmI8fXJdcvS3J3BObqLu9KnGTJR1EEHL17vjvoL1tdlTacOcLcai+MEUR/
-	r4y28lVylRuQrPPs/2W0/PUMG9HhA4X2PMCZdZrZCfPrTWKA+WLS6aZBtZAOEelU2oU83UgDYtI
-	1vYFARb/G28ST5hd1xeSqdaLJsTPtAv1KtL+8/d/znuwN242+S0l04hnmjWO/nW8eBA/XVcEMtv
-	ZGLOX+bL5zAYtUnNxW4ibMZoYMiHanya4JI485/6QDOgI7uIWXUs0Ggp21L5ppa3XVRaQ==
-X-Received: by 2002:a05:600c:548d:b0:4a1:71e5:9420 with SMTP id 5b1f17b1804b1-4a18e49c128mr32347995e9.13.1791548692391;
-        Fri, 09 Oct 2026 05:24:52 -0700 (PDT)
-Received: from [192.168.151.120] (90-182-211-1.rcp.o2.cz. [90.182.211.1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18beacd2csm61164875e9.14.2026.10.09.05.24.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 09 Oct 2026 05:24:51 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <34f98a75-1050-4116-a2f7-2f118b77cd4c@gmail.com>
-Date: Fri, 9 Oct 2026 13:24:50 +0100
+        d=1e100.net; s=20260707; t=1791548818; x=1792153618;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=omRS45+vQBa/52QRk3tpqdOThEMPi8HnWucvIlnVNIU=;
+        b=Wb7lFCsf1kHWx5NjH8H1w8kBZKg8O1U2l7arykRFkKrYjt567Pba1HE+J4IL1BUtAL
+         mn7UbsXZiJd3Y7pG37+6kn1VDL+HEATlOYAe9ju9Su1oQuaOta7HIFGJrk64j7YfEtyp
+         LUljsgojhUHvRggK6W0I3CoBcs7zb8YTjGs1QBPtawjYU3NmIfe460Qdbeqa7DlxIcXs
+         gJnmKNf/OxIioT/YNUmdwVBYuDlLMiMqnh0sN12S1xgKUKWuHxUix+4qIlu53GIVbRmH
+         71ozk3WWgRns2J+cCQ26/k9T9uypIhlzq9wgAHzpChHLbkvkesRcGTVhgQF1jMviw2Ak
+         llJw==
+X-Forwarded-Encrypted: i=1; AKwUvBw69qz9qgs/wh0FqrQssg+8G8GBqIL3dT7e0myHwx/bq74ik+WQQ0JrAZ9P7LoXBvjSiKascAMC9jDltSM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIn+g9aS+YI+vThf9CB7bJLAztvGSR4Ka0EcKWQ0sf13p9xys3i
+	jME/xDhxmnUYzNcjaKKmELA6FrXBTkgf5od2BJnNOBUTy6adbpgxoTPv
+X-Gm-Gg: AYBFou0N7IPtY84l9K1SLnXzgSm946G319e0CFJ/ZfVjpHlx3H52L+IqUu9AQvI0tfA
+	rWyxH5FFb85PmBmNLkLkP/eBfFSG8Rku98oLmKdCsB7yb2TYsix1i/QUmJbiUUQZZf5GOnHXmoA
+	vY24iHeDRBeraaXsSIbWjKrSv9/HwXW8cbAjyLY7WuLFlUUiGfMsqVoDSsWhDjFulCmPvQxY3FL
+	+0yqAy+UHcsvBOdQLC8Tw8QIGRhCzPSjzJsW2UrZxIqBgiA94G8nXg/3VeefGwKaTg1RIBtSz1B
+	DoZkYr/dH1DzRzPWgLN+dqumUdFUO1TQo2ZIqh30UvfZU2pzJSe/6vfEP7z4toaquM4WcewTpCo
+	qbuQyl3vhhtpCxZ8eFUdDaEnHe14AbrWiCY0AaV5qHhXh/r/hJByBVl9FSv13RcWgFwaxDR1VYK
+	QV1rKr1aPwU6qiK1GJ1OihjfG34EuuzT6hosP7Z3L+FON8C13No7DIJkWSodgvTgENDBeGnc+Ez
+	eYi00ykneKpMiteSJ7rlx9D0jY=
+X-Received: by 2002:a17:90b:390a:b0:3ab:413:49a9 with SMTP id 98e67ed59e1d1-3ab3a932609mr1852738a91.50.1791548818302;
+        Fri, 09 Oct 2026 05:26:58 -0700 (PDT)
+Received: from chitransh.. ([2401:4900:9397:bb62:5cb7:971b:ead7:8dc5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36f4737esm3426729a91.7.2026.10.09.05.26.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 05:26:57 -0700 (PDT)
+From: chitranshmandhaniya@gmail.com
+To: hansg@kernel.org
+Cc: ilpo.jarvinen@linux.intel.com,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chitransh_Mandhaniya@dell.com
+Subject: [PATCH v3 0/2] platform/x86: dell-uart-backlight: fall back to PCH PWM on UART timeout
+Date: Fri,  9 Oct 2026 17:56:00 +0530
+Message-ID: <20261009122602.56624-1-chitranshmandhaniya@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261009072401.52509-1-chitranshmandhaniya@gmail.com>
+References: <20261009072401.52509-1-chitranshmandhaniya@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] kconfig: use the value argument in
- sym_get_near_range_bound()
-To: Leizhen Zhang <lzsx618@gmail.com>, nathan@kernel.org, nsc@kernel.org
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261008164540.3686383-1-lzsx618@gmail.com>
-Content-Language: en-US
-From: Julian Braha <julianbraha@gmail.com>
-In-Reply-To: <20261008164540.3686383-1-lzsx618@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Leizhen,
+From: Chitransh Mandhaniya <Chitransh_Mandhaniya@dell.com>
 
-On 10/8/26 17:45, Leizhen Zhang wrote:
-> sym_get_near_range_bound() is meant to check whether the given value is
-> outside of the active range of an int/hex symbol, and is called with the
-> symbol's current value from sym_calc_value() and with the default value
-> from sym_get_string_default().
-> 
-> Since commit 9b8719973ee2 ("kconfig: use unsigned integers for hex range
-> checks") it ignores its value argument and uses the current value of the
-> symbol (via sym_get_range_val()) instead. As a result, an out-of-range
-> default is no longer clamped in sym_get_string_default(), and
-> savedefconfig writes out values that are equal to the effective default
-> again, for example CONFIG_A=4 for:
-> 
->   config A
->   	int "a"
->   	range 1 4
->   	default 8
-> 
-> The existing savedefconfig_range test did not catch this because it only
-> covers symbols without a prompt.
-> 
-> Parse the value argument again, and add a test case for a symbol with a
-> prompt.
-> 
-> Found while fuzzing Kconfig input with ASan/UBSan.
-> 
-> Fixes: 9b8719973ee2 ("kconfig: use unsigned integers for hex range checks")
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Leizhen Zhang <lzsx618@gmail.com>
-> ---
-> v2:
->  - Use my real name in the From and Signed-off-by lines. No code
->    changes.
-> 
-> v1: https://lore.kernel.org/r/20261005202524.3461824-1-lzsx618@gmail.com
-> 
->  scripts/kconfig/symbol.c                          | 5 ++++-
->  scripts/kconfig/tests/savedefconfig_range/Kconfig | 7 +++++++
->  scripts/kconfig/tests/savedefconfig_range/config  | 1 +
->  3 files changed, 12 insertions(+), 1 deletion(-)
-> 
-> diff --git a/scripts/kconfig/symbol.c b/scripts/kconfig/symbol.c
-> index 2e87af0985..11302faa28 100644
-> --- a/scripts/kconfig/symbol.c
-> +++ b/scripts/kconfig/symbol.c
-> @@ -195,7 +195,10 @@ static struct symbol *sym_get_near_range_bound(struct symbol *sym,
->  	prop = sym_get_range_prop(sym);
->  	if (!prop)
->  		return NULL;
-> -	val = sym_get_range_val(sym, base);
-> +	if (base == 10)
-> +		val.s = strtoll(value, NULL, base);
-> +	else
-> +		val.u = strtoull(value, NULL, base);
+Some Dell OptiPlex AIO 7410 (35W) ship with DELL0501 in ACPI but no
+physical UART scalar board, leaving the machine with zero backlight
+control after the UART probe times out.
 
-Minor style nitpick: I'd prefer a comment clarifying that the 'else'
-branch is for the 'hex' type.
+Patch 1 is a preparatory refactor that extracts the UART initialization
+sequence into dell_uart_bl_init() so the probe function can inspect its
+return value.
 
-But... since I'm planning on a refactoring of this int / hex parsing
-soon, this is fine for now.
+Patch 2 adds a PCH PWM fallback path: when dell_uart_bl_init() returns
+-ETIMEDOUT, the driver reads the Intel PCH BLC_PWM registers and
+registers a BACKLIGHT_PLATFORM device.
 
->  	range_sym = prop->expr->left.sym;
->  	val2 = sym_get_range_val(range_sym, base);
->  
-> diff --git a/scripts/kconfig/tests/savedefconfig_range/Kconfig b/scripts/kconfig/tests/savedefconfig_range/Kconfig
-> index fd59d9082e..d879870a52 100644
-> --- a/scripts/kconfig/tests/savedefconfig_range/Kconfig
-> +++ b/scripts/kconfig/tests/savedefconfig_range/Kconfig
-> @@ -58,3 +58,10 @@ config INT_CONDITIONAL_DEFAULT
->  	int
->  	range 1 2
->  	default 3 if USE_DEFAULT
-> +
-> +# Default outside of the range of a symbol with a prompt
-> +
-> +config INT_PROMPT_DEFAULT_ABOVE_RANGE
-> +	int "int with prompt"
-> +	range 1 4
-> +	default 8
-> diff --git a/scripts/kconfig/tests/savedefconfig_range/config b/scripts/kconfig/tests/savedefconfig_range/config
-> index d939cfe5fd..079a3107a0 100644
-> --- a/scripts/kconfig/tests/savedefconfig_range/config
-> +++ b/scripts/kconfig/tests/savedefconfig_range/config
-> @@ -5,3 +5,4 @@ CONFIG_HEX_DEFAULT_ABOVE_RANGE=0x20
->  CONFIG_INT_IMPLICIT_DEFAULT_ZERO=1
->  CONFIG_INT_CONDITIONAL_RANGE=2
->  CONFIG_INT_CONDITIONAL_DEFAULT=2
-> +CONFIG_INT_PROMPT_DEFAULT_ABOVE_RANGE=4
-> -- 2.34.1
-> 
+v2 -> v3:
+  - Split into two patches: preparatory refactor + fallback (Ilpo)
 
-Thanks!
+v1 -> v2:
+  - Use __free(pci_dev_put) for automatic PCI device cleanup (Ilpo)
+  - Replace 0x10 with SZ_16, add linux/sizes.h (Ilpo)
+  - Name BIT(31) as PCH_BLC_PWM_ENABLE (Ilpo)
+  - Fix double-space in block comment (Ilpo)
+  - Reduce devm_backlight_device_register() to fewer lines (Ilpo)
+  - Extract dell_uart_bl_init() for the normal UART backlight path
+    so the probe function reads more clearly (Ilpo)
 
-Tested-by: Julian Braha <julianbraha@gmail.com>
-Reviewed-by: Julian Braha <julianbraha@gmail.com>
+Chitransh Mandhaniya (2):
+  platform/x86: dell-uart-backlight: extract dell_uart_bl_init() from
+    probe
+  platform/x86: dell-uart-backlight: fall back to PCH PWM on UART
+    timeout
+
+ .../platform/x86/dell/dell-uart-backlight.c   | 156 +++++++++++++++---
+ 1 file changed, 133 insertions(+), 23 deletions(-)
+
+-- 
+2.43.0
 
