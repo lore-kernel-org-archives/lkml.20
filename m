@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30B2D43DEB5;
-	Fri,  9 Oct 2026 07:10:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EA34471D1F;
+	Fri,  9 Oct 2026 07:10:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791529805; cv=none; b=Q8/YKRwGgDQLFiG9/Db1hOXXZwMQx4BTq6L9lgHoqxjXZXhtK+Lt9WdccBKrgUuxphOOxJkeZbkSeOp3AQnb2kNhwc7jzq6bEGki+9HZMq5ZdkrG0gpBtjFLm2eOkklcJN11SuuDkoKOvPX1BYwLzMDqOeq0M1tu0gY3LFzSNGg=
+	t=1791529849; cv=none; b=MJ1AVXWA5gvK9NXEaqziG8CYheg3/Qp2bBCPtKmaKQsyr0wks8dG94kaGdGmXp0ymWPI1oGwzeiUDPrmYrHdGzxYEqQAVfsN/C0xG1uYR3VJJajy4oF6yNwf/utP99u53/QDl+QPWpC0o5htP9zfwA8zuq7ib49Uh67GFdpnmiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791529805; c=relaxed/simple;
-	bh=ApwHXccA13tThdbmTcUjBBn+h4UCN92jWt1cppruupc=;
+	s=arc-20240116; t=1791529849; c=relaxed/simple;
+	bh=g/t80+NYDa33JyTxb5dIwlWtKYDHVwp0G4jN79NA0sc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OhMtdw0+Pnoalj8/JGlGJ0P8FxDoSafAzv+mkb54LiB9WZQtRX8mlXa9rncJCLpWkn/pvnb+wwSzO/2IowZ4TqKEfWfvb8uSCTlP8NJhHuz9l8fiIAbWV8gE5setZwgYjtS9OOba2S5jwho6tJL3Uqc3bV1JIZQpjct//+gVxs4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GfTAhvol; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=t5tKTvYCDD+EdpC/sZvh3lp2TZCGbhROHu0ekFe0X1NQJiBsbDMVoCU7CjRg6iMpNmmoJhxwv15QpsWMoPxioVLg4UlOggE7wPlDF/YBk7XJuI+fmCWmP/EsTpBlutjhR24jSeIoYJkxeHPqmWIlIXBWEHUxTCZeSaSzLTNt2/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KpmbKJJ3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GfTAhvol"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 497431F000FF;
-	Fri,  9 Oct 2026 07:10:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KpmbKJJ3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 665D61F000FF;
+	Fri,  9 Oct 2026 07:10:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791529803;
-	bh=ApwHXccA13tThdbmTcUjBBn+h4UCN92jWt1cppruupc=;
+	s=k20260515; t=1791529848;
+	bh=Cbqcw/ZcJpAS2N0wcQ+lROnRhzGRuCryFX/mxseCRCo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GfTAhvolL0PePaww07ARO+VPbW2vNtdQ3Hc19seTkOtHisl3eCbEI5fohaRcN13eU
-	 go2VESSFrPNFQ8KH/fervuaphvHBw6j5ozwDt5kiZn3tCzZR6SyXTj06avbvQrS02j
-	 8RbDxHI6Ylw8otTr45RTgp0ObZDqYtLFIjYEvwWt6gvi6KraZU6p431CiYSyiN0nU6
-	 wqZ+rMHzNHz+uiUtGcVsS1gbbOOIOn/GjH1NcVNK/0WQvnJ8WGLRX3Ju7f1rBA85QL
-	 p/qhIjR+i+nEHiDrwcEspuSCx6lAHfrIeVnYoI89yBeMJNQYMLPvd9ZmAThS+U9rks
-	 sXQwyP/2AncNQ==
-Date: Fri, 9 Oct 2026 09:10:01 +0200
+	b=KpmbKJJ3kS+Y4PM3xApljYc4t4pcQ2/wqbIzf0sWre1HvkdbkCqmep6MNmZYSxNph
+	 aB9hRUL7q01A0DMzkD+Bo8lZi6ImwTQhKJLlLkdmrnQ6kdyWO683Ya9Rl0+YSv7YgI
+	 BFBO/Jhh188Ty66vLgC4SS87vdG7IzMCLYubwyvGJ4TLC1nPwytaPh2liXYESYypFJ
+	 lh7QK6dao5n9RDwk9/Z6EyzBDsA9BSSSxWsW9rCBqUqeGtU5oXt3Ztxw73kcl2hX8S
+	 msGxSCdsYFZjOjxCifUC/IXQIQCRLRdWsdpAQhPLb+3g4BKE9UYgGMIYtKmennE+II
+	 VYTV59atDvz3A==
+Date: Fri, 9 Oct 2026 09:10:44 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: James Calligeros <jcalligeros99@gmail.com>
 Cc: David Rhodes <david.rhodes@cirrus.com>, 
@@ -41,11 +41,11 @@ Cc: David Rhodes <david.rhodes@cirrus.com>,
 	linux-sound@vger.kernel.org, patches@opensource.cirrus.com, devicetree@vger.kernel.org, 
 	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
 	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH v2 02/21] ASoC: dt-bindings: cs42l42: Do not require chip
- power supplies
-Message-ID: <20261009-memorable-acoustic-dalmatian-03e22a@quoll>
+Subject: Re: [PATCH v2 03/21] ASoC: dt-bindings: cs42l42: Document
+ #sound-dai-cells property
+Message-ID: <20261009-daft-raspberry-woodpecker-a88efd@quoll>
 References: <20261004-macaudio-v2-0-7b47ed6335a8@gmail.com>
- <20261004-macaudio-v2-2-7b47ed6335a8@gmail.com>
+ <20261004-macaudio-v2-3-7b47ed6335a8@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,15 +54,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261004-macaudio-v2-2-7b47ed6335a8@gmail.com>
+In-Reply-To: <20261004-macaudio-v2-3-7b47ed6335a8@gmail.com>
 
-On Sun, Oct 04, 2026 at 04:03:29PM +1000, James Calligeros wrote:
-> Some integrators do not expose the power rails connected to the codec
-> in a way that can be expressed in the Devicetree. Do not require them
-> to be specified on such platforms.
+On Sun, Oct 04, 2026 at 04:03:30PM +1000, James Calligeros wrote:
+> We may need to define #sound-dai-cells on some machines where this
+> codec is part of a simple DAI. Document this property to keep the style
+> checker happy.
+> 
+> Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
+> ---
+>  .../bindings/sound/cirrus,cs42l42.yaml   | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml b/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml
+> index 6c100cb36699..bc759eaadeca 100644
+> --- a/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml
+> +++ b/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml
+> @@ -26,6 +26,9 @@ properties:
+>        The I2C address of the CS42L42.
+>      maxItems: 1
+>  
+> +  '#sound-dai-cells':
+> +    const: 0
 
-I don't understand how these cannot be expressed in Devicetree. What are
-we missing?
+So a DAI? Then just like for every codec you need dai-common.yaml.
 
 Best regards,
 Krzysztof
