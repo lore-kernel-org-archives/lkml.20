@@ -1,271 +1,630 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012052.outbound.protection.outlook.com [52.101.43.52])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31EF83546D3;
-	Fri,  9 Oct 2026 20:51:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791579087; cv=fail; b=DVXeZ1tsTUzdplILYUwDnERBGbEkaWYB4z8s/1KQLn56LYvwRVGVM0DwrzSDn+OybVPExKPCX318AQ0Hi7wZPur2oHpDfxb/Xssvd48v3hq9VvxybERNeoydN7zqY0hP/rkToPUeU1Nq5pybK5r0GeNHQ1ZpCBKlBEx5WH8+XCk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C00B1B808;
+	Fri,  9 Oct 2026 20:51:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791579087; cv=none; b=ElNFMVBI2c8qvMHx95ln2fwNCT008gb9zIzzf/aecW/xpPDbtoMGiKBGSTUyKil4paQdR9A6WEQe+crW4WKyvJeyPAAPNvLy8VsC+ihhQ60Mig9IVMUakLZh5bUXiVbmlwiQeOHONPMgdN07odlfYKpS6Qyi0Ed46d8AQxwXW/4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791579087; c=relaxed/simple;
-	bh=ASNjIN/xSJz3VzZG65y12Ej+A6/lzkIEE/j7QwOOmF8=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=LtT7l9ltXXAe/Z7QA+6Q4mvNV3FiBJYZ7Wbemn3eM06fjrc5zIzEPtw2CZkx9Yw5/CYHWLnVtnf8kYU0mEZnN7fIHCzTSNbEdw6tYLDVc3rEO52KNC1vOeDG7IQ/VPqRXBziqc+EZO7OJvjo6CcGDi6lDN1tnRZDrlJ1sbd4bKs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=zo53zRqy; arc=fail smtp.client-ip=52.101.43.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	bh=mO4JRlde3fyBWnbVIcOK3lxvQZkqW1Kcnw2zhKxOLXE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fxLfhlJfEGGsC96L7KOwVsdq7SH1PFt4K+dYbRQJ3F7qVeqhZI/gjvZ4P+lYLC94p1oKqiLh8ZMiirmaadE07Jb6/B4cyl3xdyDbmWQq2kUqsMRavsmsOgcxsHI1rhhSOOliahykAabScCDlZ37zx26lF1n4nfSn8XRnQ9HqKyQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=henZWXe2; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="zo53zRqy"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rsVSsi6txkgCfRln6PQduORyhW47t3ov2uDUrrYhq55NQi3oteGlyO1TuC4/1cYhzKwy4Qdk3+FgDepbLefsFTYO4I9QGYh/Nt+w1rYssR+BRVkPq8+XqpE0NHGkA42mbQxLH62vGtGsihNGSQ1gZRGj793WTJvzseedeS4unTPKtRUpQoItvtKhlPabp9ExJ4sBycC91+oKSNMGumDSwvTCqWc9+/58bfnlCwmVEyNCEYcTQ+19sAeN6GC/H9Hjn3H05rNocVzqF1nQ98M+2uGg2xsXOedqybuzyxKc7xlJhV5TagnFZBHgq7YZt0fnK1H/5DOKYtgYWfgUNzhpKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qelfgp7joX40/kCGoHulfErJzhD7bsgwxWpDUvbWyTs=;
- b=MQ7UYowWWrB0m/pMUROR3FKoS7coAKQVI9YY13DlpWfgzXaeh8Uu8NxefVjkzwshL+j3q+BU9nuKG3gfSgwQotQ6QvxUiooH0D0A50kMmerTxKijx7p5BT5I3vSO61ZgxSTBFpZmObIOHVSXLOqylV0pG0vs7f/m5qCKxXnXtbCZohZXJh2ErLaOXW3a557lfhYvup+i1fe/faRzhUDpY0SGm1BywaCRzdsJjGABVAFUeHWNxpxuXkTMJQ+U2u4m22g4am6jm2hb/aKsXVKQQ1hGBi4ZZ/mXEfH8RadtTC0cuiA35b9xvaA70bG4Yk2m3ylN22E5wUo4mQV9pIu+Nw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qelfgp7joX40/kCGoHulfErJzhD7bsgwxWpDUvbWyTs=;
- b=zo53zRqyKXX1xGk8iU7l6q+1u0A9c4A4ACmgFBubO8dNrtvaD3jX5F5yUYPBpLECbZVknwTD142O+wKZOMR5Mn6sw93VmHF/oeGl493iaAAdPHU5/QBPq6zd213yUGBSm0sLuD73+0WjNeQgvBprvREnuzbyyBkse49YaUdfYyM=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB9066.namprd12.prod.outlook.com (2603:10b6:510:1f6::5)
- by DS8PR12MB333896.namprd12.prod.outlook.com (2603:10b6:8:447::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
- 2026 20:51:23 +0000
-Received: from PH7PR12MB9066.namprd12.prod.outlook.com
- ([fe80::f71e:4264:146c:b356]) by PH7PR12MB9066.namprd12.prod.outlook.com
- ([fe80::f71e:4264:146c:b356%6]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
- 20:51:23 +0000
-Message-ID: <28d92715-0977-4d6f-a5e1-aaad140f7fc7@amd.com>
-Date: Fri, 9 Oct 2026 15:51:16 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] iommu/amd: Don't allocate kdump device table from
- DMA32
-To: Matt Fleming <matt@readmodwrite.com>, Joerg Roedel <joro@8bytes.org>
-Cc: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- Vasant Hegde <vasant.hegde@amd.com>, Sairaj Kodilkar <sarunkod@amd.com>,
- Baoquan He <bhe@redhat.com>, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- kernel-team@cloudflare.com, Matt Fleming <mfleming@cloudflare.com>
-References: <20261002133143.3628181-1-matt@readmodwrite.com>
- <20261002133143.3628181-3-matt@readmodwrite.com>
-Content-Language: en-US
-From: "Kalra, Ashish" <ashish.kalra@amd.com>
-Autocrypt: addr=ashish.kalra@amd.com; keydata=
- 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
-In-Reply-To: <20261002133143.3628181-3-matt@readmodwrite.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SA1PR02CA0022.namprd02.prod.outlook.com
- (2603:10b6:806:2cf::29) To PH7PR12MB9066.namprd12.prod.outlook.com
- (2603:10b6:510:1f6::5)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="henZWXe2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791579084; x=1823115084;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=mO4JRlde3fyBWnbVIcOK3lxvQZkqW1Kcnw2zhKxOLXE=;
+  b=henZWXe26GWWqp988a0Y8CPSpxMefS3nnXIckmuscRxVL/yllXMA1nVR
+   y6tN6ic6UefOpk+Tv6bd1w3v7aNiXbJwP0ZqnV7HA/AunP0VhI2GOahtc
+   OQmCo9Zl6/hNOMuP4rXouE8IY0iNJrIEmoZZNswHH7hHK9rib4k9k5Thw
+   jM4tXmH4+P0Q6tJbUWL4g/oNcG34REFmwA++2YsBU2jfSspi5hhl6VIPG
+   WIgFEaKD7ZPiLMP1O65Oa76elESUDc2YNts8gcjUpVZ1WrWqWoFARaCmT
+   /oWlPJOsYz32In+iIkne4G5IH/BRNWKPDvOCpw+6uQy0FnQwJhvj+oGQE
+   A==;
+X-CSE-ConnectionGUID: JmAyqJOhRX2qJMAfx0z7qw==
+X-CSE-MsgGUID: pOINpP7jS9OQ8nTznP9NTA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="278170"
+X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
+   d="scan'208";a="278170"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 13:51:23 -0700
+X-CSE-ConnectionGUID: LoEIyudnSVGZNcfAIi7YIA==
+X-CSE-MsgGUID: EzDvV8EbSYWC2P/rtAjbdQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
+   d="scan'208";a="722734"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa008.fm.intel.com with ESMTP; 09 Oct 2026 13:51:21 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xFHYk-000000006BE-1lBG;
+	Fri, 09 Oct 2026 20:51:18 +0000
+Date: Sat, 10 Oct 2026 04:51:02 +0800
+From: kernel test robot <lkp@intel.com>
+To: Konstantin Meshkov <skyline@mail.ru>, netdev@vger.kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Aleksander Jan Bajkowski <olek2@wp.pl>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next] net: phy: marvell: add LED support for 88E1116R
+ PHY
+Message-ID: <202610100452.oJWOdesg-lkp@intel.com>
+References: <179152610952.2918676.6625057760354797023@mail.ru>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB9066:EE_|DS8PR12MB333896:EE_
-X-MS-Office365-Filtering-Correlation-Id: 74a8d67b-73ec-4232-18fc-08df264713e9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|4143699003|56012099006|11063799006|18002099003|10067099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	ImmF335cyg6SWy1b9HDP2YANOvhEIztkI0y//omcmHa1iNkuZutvQQtw6FkJBAWt0kCK4+6vRCeVtT3aWDQQMyQAn30RNXelwCM2p2fzyzokvo+IbCylTs3gf+Nt5MSuLU4IOR/WgcgayZ0KI/uGAfXcCY6XzpvfqXm7VAPpwff8NekJh38smNPmUC+oSre8r5eT5PDSaMa572iM8vNUwQdV4H/aRACw8FOWyq3TW7INjFLejYTG4iFVEnYmk5fE2yAj8Jn1du0ih0JNEem3s/aoMA/psOrUO0zbf2ZPIjsjHT/LRbbCdodiu3XRWtQHqlDyEZyWMdu8MaeNSYFadZ6XwKBsZ0ik6aTSsuipDpabq4uMZ6BdjKLhOZmU69XYTLxI0VsPXsoLjYMqIvs7YwEO8uSY727Qi9cOwwSIGzJP/lH6HNAUFIZbg3jGo5LSchVWv5nuAP4nL9HD/tP4BJKMdG7I/mpi+rE/bbK8JNlDNYb9JzAPbPRI0BnVV8yJME3BqAjt8TBSlzDs+tsDot30rWkvgMYb8eBmd58furqW2s6PIyfKc0RDXUxx2nHq6c6YBuNsMX+vmoT5Sp2VLK0fau0SBgzpv+8IoZe6CPtw/HHLfUA1j3pCr+ZCFtdUuXLGfIqy2ol7+TgR2kNMFdfIzh9IlHPDi6o/gXF3khM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB9066.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(4143699003)(56012099006)(11063799006)(18002099003)(10067099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?R3NWdlJ3OXdtN0gvRkpSa0p4NjRDWmd3TTFDek9OdTJ0bEdIb1FET0VvMWYv?=
- =?utf-8?B?bG0vSi81aGFoVElkalNPMm1UUlYrcUJvVHMrbm9yUHFXaXk2UUFGQUo3U2w4?=
- =?utf-8?B?WFgyU0NFdmNrU1VqRVVTdlJ3bHpKOGVHaUNnZldaUHU4WjZXT2F6djRlTDZF?=
- =?utf-8?B?QWVRRko2UVlWTEVWeE1rdlJCQTZjNjBIdEhxUGdMbE5MYjhlNUIySlQxWkwz?=
- =?utf-8?B?ci8zMnNZVStwWC95eWtpNU5ZL1BDaWpJL1YwRTFWUURCUXJmZUtKNENsdXl2?=
- =?utf-8?B?NHdtdFJNbEQvNEJqaGlmWGFHcXBnQlVTTjd1YUJ1dDlWWTk0U1F3WDZJLy9D?=
- =?utf-8?B?Q3hzYWI0RURZditJZnF2ajZZb1V4anhzSVdCYXlsLzR4alVQMmFZdWtTZ0dp?=
- =?utf-8?B?Y3ZRMzM2SGQ5a0VHcTY2YWx1REtNZ1dpNUIrcTFYS1JwdUNwMFM1UkhpYW1w?=
- =?utf-8?B?c3RWVktRRkNmbnB5eEU3aGZuSm1XQmVXSEF2SUR1YkJMUzVBVjU0WXBrWm1q?=
- =?utf-8?B?bGVKNmUvaTEwTEpiTWN0WGdleC9wNlVUTWdaZTJQOUN2dU15OFNMTHl4enpa?=
- =?utf-8?B?QTFDb0FuaERsTXlUOFBZbDhuOEJhVVAxaktpNHZUR25zcUlhbjZ2VXFWVE9q?=
- =?utf-8?B?OHlDSzRmY2RXVDkvOVFLbWE0NWxpMmsrRzlCNnorUFF1aU4xaytqbXAyV2lB?=
- =?utf-8?B?eXB0R1NrK1hBT2UzdGRTZGZ1Nmp3Nkk1SFp0YVpXbVVYd1dSTnFjWGxENUpx?=
- =?utf-8?B?SzB3YktxNkpIVWlWdUc2RUFUWVFDWDNVeWh3bFQxSU1kdWU2S2VmNGZMd05K?=
- =?utf-8?B?SmhDT3Yyc2FJbm40RXR0d2lndjRJckdDa0VkUHRMUWdBMEE0cC8xbEprZGw3?=
- =?utf-8?B?ZDVCZVVORXpiLzVnbnZyWmkvMGJxVXhDaFBoMmx3U1BtQUJYYktMdlFHMDlQ?=
- =?utf-8?B?aHZHcEdHZVNoRnA0VndtWUpOQjRPd0RBa3lucElFK0JPaW45djFlZjM4K1pm?=
- =?utf-8?B?ZFplVjhuVVhlZ29KZndPNkswayt0ZTNPb0FZb1JtcmNsRTg1MTg5NHo3YWh5?=
- =?utf-8?B?bGgvc1Jva2tiS0tjR1RBaXNmZXBOeTF4WjVTaHpuSGJVV3F6QXhyVDlFdS92?=
- =?utf-8?B?YmpmbUR6RFdhQUE0ZTRCTkc3VHFGUjRYQ05NT1hmUGVTTlp5NzJYaXBpN3lu?=
- =?utf-8?B?MUxZai9pd1VXQUk0ZGJsdHg3TlcreTlZVmgwMTlxeStFQjNSdlQ1d3NwNG5k?=
- =?utf-8?B?TVN2bE1iUmFsekxWL0E0UUVrV2hESmxQZWtIdDVjZWgwZHlKVkh0ZER1VkNZ?=
- =?utf-8?B?NWJaQVNSd0xaZC8yTXZvNjVSSm5zTEZIcXhTSmIzbWJPWlM5RlhGdmhrb3Zl?=
- =?utf-8?B?VzRFRXBSSGVWUVNabG5la0Q2d0cybklLUG0veG5DR01NVm9DeG9XNnREVzR2?=
- =?utf-8?B?dHFWdXBqak5HTkVkOWhaMkRVTUczRzVxRjFUaVJTaHNFVDJtTWRTdWxpV0FL?=
- =?utf-8?B?cXVpTVpoMkRoV2NWMVdrVjF5M2c4U0FsK3ZRV29sOFM3UWM3RGF3a29BUFFq?=
- =?utf-8?B?cWpHdDhoTlJNekswR0ZHTU80d1BvMXY4QitJL2JNRStOTStxbmdHakpJZTcz?=
- =?utf-8?B?K0RTNVFxUE8xZjJaaVpJQmhrN2NvVVltNHBPdS93U0NCVjhuS2o5NlY0dHBT?=
- =?utf-8?B?TzBQYmFiMXM5ZWVTZks2Rnp1a2tVSWZIdGlMZ3VtTWpMUDFsNm1wL0RvbDln?=
- =?utf-8?B?V0RXMUg1UUZiVmRmVURlZWloYmMzWnFWbldmSUdVck1nbW9pdFFmM1VMTmp0?=
- =?utf-8?B?OGNEZnRONjJWaFppeTRYUDdFVzVNcU1JRFpPK2hKNGF6cHVOME4xcmJLcmtS?=
- =?utf-8?B?YW5BK2UwcEN5bzh1S0VWcGNrNzZzMlUwOEo2bGxXVDlvOWlJM3d0UjJPL1FS?=
- =?utf-8?B?eTB5eU5qdndHeENPK3VacVRDYXlZdElmMW02dWszdUt2bUlITjFHTVBic2RJ?=
- =?utf-8?B?R0lpTnIzR2p3SWZFdWpOaXZYV3czMm44eUVyZ0owbFhFYXlHWVJjVWhGMmFw?=
- =?utf-8?B?UU1ZMWVDU1lmWDlMWGNLRFFMWmxZVDdvMGQwRFhsYkdiT1AvMVQrZTQxc1lo?=
- =?utf-8?B?bll5OFhGekxKR3hzRDlrUmdBc01Jb3YyQTRrN2h1bzEvZjQ0R0pDU3lTZUl1?=
- =?utf-8?B?RjlGM09SOFJQVERKRXNPQStUa3Vaam9wVjhpclQxY2k4Zk92SHZTWjNtaUhL?=
- =?utf-8?B?RUpHMmFudDFKQUhzQXI1VVdSUk5OS2IrYmFyOHBBZFp4QUQ3TThKWnowcjlE?=
- =?utf-8?B?eUwyd3hzWmN5YklxZ3VhaGNLcUkyZDBVaGRaTjdxL3BwdlZBeGJLQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 74a8d67b-73ec-4232-18fc-08df264713e9
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB9066.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 20:51:23.0365
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: B8w3ZmXOs4UwvE3LlN2HTS1+Ho9rgYTFjH+XyWFpUGmXlOIOJ8Uea3FfXYYo/ZGyGwySlWnnXLAx1bUxqB4YOg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS8PR12MB333896
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179152610952.2918676.6625057760354797023@mail.ru>
+
+Hi Konstantin,
+
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on net-next/main]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Konstantin-Meshkov/net-phy-marvell-add-LED-support-for-88E1116R-PHY/20261009-090829
+base:   net-next/main
+patch link:    https://lore.kernel.org/r/179152610952.2918676.6625057760354797023%40mail.ru
+patch subject: [PATCH net-next] net: phy: marvell: add LED support for 88E1116R PHY
+config: arm-defconfig (https://download.01.org/0day-ci/archive/20261010/202610100452.oJWOdesg-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 242243a5814307de825db3428662d67b064e2cbc)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261010/202610100452.oJWOdesg-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610100452.oJWOdesg-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/net/phy/marvell.c:3916:23: error: use of undeclared identifier 'm88e1318_led_polarity_set'; did you mean 'm88e1318_led_blink_set'?
+    3916 |                 .led_polarity_set = m88e1318_led_polarity_set,
+         |                                     ^~~~~~~~~~~~~~~~~~~~~~~~~
+         |                                     m88e1318_led_blink_set
+   drivers/net/phy/marvell.c:3293:12: note: 'm88e1318_led_blink_set' declared here
+    3293 | static int m88e1318_led_blink_set(struct phy_device *phydev, u8 index,
+         |            ^
+>> drivers/net/phy/marvell.c:3916:23: error: incompatible function pointer types initializing 'int (*)(struct phy_device *, int, unsigned long)' with an expression of type 'int (struct phy_device *, u8, unsigned long *, unsigned long *)' (aka 'int (struct phy_device *, unsigned char, unsigned long *, unsigned long *)') [-Wincompatible-function-pointer-types]
+    3916 |                 .led_polarity_set = m88e1318_led_polarity_set,
+         |                                     ^~~~~~~~~~~~~~~~~~~~~~~~~
+   2 errors generated.
 
 
-On 10/2/2026 8:31 AM, Matt Fleming wrote:
-> [You don't often get email from matt@readmodwrite.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> From: Matt Fleming <mfleming@cloudflare.com>
-> 
-> Booting a kdump kernel with crashkernel=X,high crashkernel=0,low on an
-> AMD system fails the per-segment device table allocation because there
-> is no memory below 4G:
-> 
->   swapper/0: page allocation failure: order:9, mode:0x40104(GFP_DMA32|__GFP_ZERO|__GFP_COMP)
->   iommu_alloc_pages_node_sz+0x7f/0x150
->   alloc_pci_segment+0x4bd/0x650
->   iommu_go_to_state+0x213d/0x34e0
->   amd_iommu_prepare+0x39/0xa0
->   irq_remapping_prepare+0x83/0xd0
->   enable_IR_x2apic+0x61/0x370
-> 
-> On our E810 systems, the kdump kernel booted but ice MSI-X interrupts
-> never fired and the TX queues timed out.
-> 
-> Commit b336781b82cc ("iommu/amd: Allocate memory below 4G for dev table
-> if translation pre-enabled") allocated device tables below 4G. At the
-> time, the kdump kernel programmed a copy of the old table into the base
-> register with the IOMMU still enabled. Keeping the table below 4G means
-> it doesn't matter that the hardware splits that write into two 32-bit
-> halves.
+vim +3916 drivers/net/phy/marvell.c
 
-Probably, expand/explain this a bit:
+  3666	
+  3667	static struct phy_driver marvell_drivers[] = {
+  3668		{
+  3669			.phy_id = MARVELL_PHY_ID_88E1101,
+  3670			.phy_id_mask = MARVELL_PHY_ID_MASK,
+  3671			.name = "Marvell 88E1101",
+  3672			/* PHY_GBIT_FEATURES */
+  3673			.probe = marvell_probe,
+  3674			.config_init = marvell_config_init,
+  3675			.config_aneg = m88e1101_config_aneg,
+  3676			.config_intr = marvell_config_intr,
+  3677			.handle_interrupt = marvell_handle_interrupt,
+  3678			.resume = genphy_resume,
+  3679			.suspend = genphy_suspend,
+  3680			.read_page = marvell_read_page,
+  3681			.write_page = marvell_write_page,
+  3682			.get_sset_count = marvell_get_sset_count,
+  3683			.get_strings = marvell_get_strings,
+  3684			.get_stats = marvell_get_stats,
+  3685		},
+  3686		{
+  3687			.phy_id = MARVELL_PHY_ID_88E3082,
+  3688			.phy_id_mask = MARVELL_PHY_ID_MASK,
+  3689			.name = "Marvell 88E308X/88E609X Family",
+  3690			/* PHY_BASIC_FEATURES */
+  3691			.probe = marvell_probe,
+  3692			.config_init = marvell_config_init,
+  3693			.aneg_done = marvell_aneg_done,
+  3694			.read_status = marvell_read_status,
+  3695			.resume = genphy_resume,
+  3696			.suspend = genphy_suspend,
+  3697			.cable_test_start = m88e3082_vct_cable_test_start,
+  3698			.cable_test_get_status = m88e3082_vct_cable_test_get_status,
+  3699		},
+  3700		{
+  3701			.phy_id = MARVELL_PHY_ID_88E1112,
+  3702			.phy_id_mask = MARVELL_PHY_ID_MASK,
+  3703			.name = "Marvell 88E1112",
+  3704			/* PHY_GBIT_FEATURES */
+  3705			.probe = marvell_probe,
+  3706			.inband_caps = m88e1111_inband_caps,
+  3707			.config_inband = m88e1111_config_inband,
+  3708			.config_init = m88e1112_config_init,
+  3709			.config_aneg = marvell_config_aneg,
+  3710			.config_intr = marvell_config_intr,
+  3711			.handle_interrupt = marvell_handle_interrupt,
+  3712			.resume = genphy_resume,
+  3713			.suspend = genphy_suspend,
+  3714			.read_page = marvell_read_page,
+  3715			.write_page = marvell_write_page,
+  3716			.get_sset_count = marvell_get_sset_count,
+  3717			.get_strings = marvell_get_strings,
+  3718			.get_stats = marvell_get_stats,
+  3719			.get_tunable = m88e1011_get_tunable,
+  3720			.set_tunable = m88e1011_set_tunable,
+  3721		},
+  3722		{
+  3723			.phy_id = MARVELL_PHY_ID_88E1111,
+  3724			.phy_id_mask = MARVELL_PHY_ID_MASK,
+  3725			.name = "Marvell 88E1111",
+  3726			/* PHY_GBIT_FEATURES */
+  3727			.flags = PHY_POLL_CABLE_TEST,
+  3728			.probe = marvell_probe,
+  3729			.inband_caps = m88e1111_inband_caps,
+  3730			.config_inband = m88e1111_config_inband,
+  3731			.config_init = m88e1111gbe_config_init,
+  3732			.config_aneg = m88e1111_config_aneg,
+  3733			.read_status = marvell_read_status,
+  3734			.config_intr = marvell_config_intr,
+  3735			.handle_interrupt = marvell_handle_interrupt,
+  3736			.resume = genphy_resume,
+  3737			.suspend = genphy_suspend,
+  3738			.read_page = marvell_read_page,
+  3739			.write_page = marvell_write_page,
+  3740			.get_sset_count = marvell_get_sset_count,
+  3741			.get_strings = marvell_get_strings,
+  3742			.get_stats = marvell_get_stats,
+  3743			.get_tunable = m88e1111_get_tunable,
+  3744			.set_tunable = m88e1111_set_tunable,
+  3745			.cable_test_start = m88e1111_vct_cable_test_start,
+  3746			.cable_test_get_status = m88e1111_vct_cable_test_get_status,
+  3747		},
+  3748		{
+  3749			.phy_id = MARVELL_PHY_ID_88E1111_FINISAR,
+  3750			.phy_id_mask = MARVELL_PHY_ID_MASK,
+  3751			.name = "Marvell 88E1111 (Finisar)",
+  3752			/* PHY_GBIT_FEATURES */
+  3753			.probe = marvell_probe,
+  3754			.inband_caps = m88e1111_inband_caps,
+  3755			.config_inband = m88e1111_config_inband,
+  3756			.config_init = m88e1111gbe_config_init,
+  3757			.config_aneg = m88e1111_config_aneg,
+  3758			.read_status = marvell_read_status,
+  3759			.config_intr = marvell_config_intr,
+  3760			.handle_interrupt = marvell_handle_interrupt,
+  3761			.resume = genphy_resume,
+  3762			.suspend = genphy_suspend,
+  3763			.read_page = marvell_read_page,
+  3764			.write_page = marvell_write_page,
+  3765			.get_sset_count = marvell_get_sset_count,
+  3766			.get_strings = marvell_get_strings,
+  3767			.get_stats = marvell_get_stats,
+  3768			.get_tunable = m88e1111_get_tunable,
+  3769			.set_tunable = m88e1111_set_tunable,
+  3770		},
+  3771		{
+  3772			.phy_id = MARVELL_PHY_ID_88E1118,
+  3773			.phy_id_mask = MARVELL_PHY_ID_MASK,
+  3774			.name = "Marvell 88E1118",
+  3775			/* PHY_GBIT_FEATURES */
+  3776			.probe = marvell_probe,
+  3777			.config_init = m88e1118_config_init,
+  3778			.config_aneg = m88e1118_config_aneg,
+  3779			.config_intr = marvell_config_intr,
+  3780			.handle_interrupt = marvell_handle_interrupt,
+  3781			.resume = genphy_resume,
+  3782			.suspend = genphy_suspend,
+  3783			.read_page = marvell_read_page,
+  3784			.write_page = marvell_write_page,
+  3785			.get_sset_count = marvell_get_sset_count,
+  3786			.get_strings = marvell_get_strings,
+  3787			.get_stats = marvell_get_stats,
+  3788		},
+  3789		{
+  3790			.phy_id = MARVELL_PHY_ID_88E1121R,
+  3791			.phy_id_mask = MARVELL_PHY_ID_MASK,
+  3792			.name = "Marvell 88E1121R",
+  3793			.driver_data = DEF_MARVELL_HWMON_OPS(m88e1121_hwmon_ops),
+  3794			/* PHY_GBIT_FEATURES */
+  3795			.probe = marvell_probe,
+  3796			.config_init = marvell_1011gbe_config_init,
+  3797			.config_aneg = m88e1121_config_aneg,
+  3798			.read_status = marvell_read_status,
+  3799			.config_intr = marvell_config_intr,
+  3800			.handle_interrupt = marvell_handle_interrupt,
+  3801			.resume = genphy_resume,
+  3802			.suspend = genphy_suspend,
+  3803			.read_page = marvell_read_page,
+  3804			.write_page = marvell_write_page,
+  3805			.get_sset_count = marvell_get_sset_count,
+  3806			.get_strings = marvell_get_strings,
+  3807			.get_stats = marvell_get_stats,
+  3808			.get_tunable = m88e1011_get_tunable,
+  3809			.set_tunable = m88e1011_set_tunable,
+  3810		},
+  3811		{
+  3812			.phy_id = MARVELL_PHY_ID_88E1318S,
+  3813			.phy_id_mask = MARVELL_PHY_ID_MASK,
+  3814			.name = "Marvell 88E1318S",
+  3815			/* PHY_GBIT_FEATURES */
+  3816			.probe = marvell_probe,
+  3817			.config_init = m88e1318_config_init,
+  3818			.config_aneg = m88e1318_config_aneg,
+  3819			.read_status = marvell_read_status,
+  3820			.config_intr = marvell_config_intr,
+  3821			.handle_interrupt = marvell_handle_interrupt,
+  3822			.get_wol = m88e1318_get_wol,
+  3823			.set_wol = m88e1318_set_wol,
+  3824			.resume = genphy_resume,
+  3825			.suspend = genphy_suspend,
+  3826			.read_page = marvell_read_page,
+  3827			.write_page = marvell_write_page,
+  3828			.get_sset_count = marvell_get_sset_count,
+  3829			.get_strings = marvell_get_strings,
+  3830			.get_stats = marvell_get_stats,
+  3831			.led_brightness_set = m88e1318_led_brightness_set,
+  3832			.led_blink_set = m88e1318_led_blink_set,
+  3833			.led_hw_is_supported = m88e1318_led_hw_is_supported,
+  3834			.led_hw_control_set = m88e1318_led_hw_control_set,
+  3835			.led_hw_control_get = m88e1318_led_hw_control_get,
+  3836		},
+  3837		{
+  3838			.phy_id = MARVELL_PHY_ID_88E1145,
+  3839			.phy_id_mask = MARVELL_PHY_ID_MASK,
+  3840			.name = "Marvell 88E1145",
+  3841			/* PHY_GBIT_FEATURES */
+  3842			.flags = PHY_POLL_CABLE_TEST,
+  3843			.probe = marvell_probe,
+  3844			.config_init = m88e1145_config_init,
+  3845			.config_aneg = m88e1101_config_aneg,
+  3846			.config_intr = marvell_config_intr,
+  3847			.handle_interrupt = marvell_handle_interrupt,
+  3848			.resume = genphy_resume,
+  3849			.suspend = genphy_suspend,
+  3850			.read_page = marvell_read_page,
+  3851			.write_page = marvell_write_page,
+  3852			.get_sset_count = marvell_get_sset_count,
+  3853			.get_strings = marvell_get_strings,
+  3854			.get_stats = marvell_get_stats,
+  3855			.get_tunable = m88e1111_get_tunable,
+  3856			.set_tunable = m88e1111_set_tunable,
+  3857			.cable_test_start = m88e1111_vct_cable_test_start,
+  3858			.cable_test_get_status = m88e1111_vct_cable_test_get_status,
+  3859		},
+  3860		{
+  3861			.phy_id = MARVELL_PHY_ID_88E1149R,
+  3862			.phy_id_mask = MARVELL_PHY_ID_MASK,
+  3863			.name = "Marvell 88E1149R",
+  3864			/* PHY_GBIT_FEATURES */
+  3865			.probe = marvell_probe,
+  3866			.config_init = m88e1149_config_init,
+  3867			.config_aneg = m88e1118_config_aneg,
+  3868			.config_intr = marvell_config_intr,
+  3869			.handle_interrupt = marvell_handle_interrupt,
+  3870			.resume = genphy_resume,
+  3871			.suspend = genphy_suspend,
+  3872			.read_page = marvell_read_page,
+  3873			.write_page = marvell_write_page,
+  3874			.get_sset_count = marvell_get_sset_count,
+  3875			.get_strings = marvell_get_strings,
+  3876			.get_stats = marvell_get_stats,
+  3877		},
+  3878		{
+  3879			.phy_id = MARVELL_PHY_ID_88E1240,
+  3880			.phy_id_mask = MARVELL_PHY_ID_MASK,
+  3881			.name = "Marvell 88E1240",
+  3882			/* PHY_GBIT_FEATURES */
+  3883			.probe = marvell_probe,
+  3884			.config_init = m88e1112_config_init,
+  3885			.config_aneg = marvell_config_aneg,
+  3886			.config_intr = marvell_config_intr,
+  3887			.handle_interrupt = marvell_handle_interrupt,
+  3888			.resume = genphy_resume,
+  3889			.suspend = genphy_suspend,
+  3890			.read_page = marvell_read_page,
+  3891			.write_page = marvell_write_page,
+  3892			.get_sset_count = marvell_get_sset_count,
+  3893			.get_strings = marvell_get_strings,
+  3894			.get_stats = marvell_get_stats,
+  3895			.get_tunable = m88e1011_get_tunable,
+  3896			.set_tunable = m88e1011_set_tunable,
+  3897		},
+  3898		{
+  3899			.phy_id = MARVELL_PHY_ID_88E1116R,
+  3900			.phy_id_mask = MARVELL_PHY_ID_MASK,
+  3901			.name = "Marvell 88E1116R",
+  3902			/* PHY_GBIT_FEATURES */
+  3903			.probe = marvell_probe,
+  3904			.config_init = m88e1116r_config_init,
+  3905			.config_intr = marvell_config_intr,
+  3906			.handle_interrupt = marvell_handle_interrupt,
+  3907			.resume = genphy_resume,
+  3908			.suspend = genphy_suspend,
+  3909			.read_page = marvell_read_page,
+  3910			.write_page = marvell_write_page,
+  3911			.get_sset_count = marvell_get_sset_count,
+  3912			.get_strings = marvell_get_strings,
+  3913			.get_stats = marvell_get_stats,
+  3914			.get_tunable = m88e1011_get_tunable,
+  3915			.set_tunable = m88e1011_set_tunable,
+> 3916			.led_polarity_set = m88e1318_led_polarity_set,
+  3917			.led_brightness_set = m88e1318_led_brightness_set,
+  3918			.led_blink_set = m88e1318_led_blink_set,
+  3919			.led_hw_is_supported = m88e1318_led_hw_is_supported,
+  3920			.led_hw_control_set = m88e1318_led_hw_control_set,
+  3921			.led_hw_control_get = m88e1318_led_hw_control_get,
+  3922		},
+  3923		{
+  3924			.phy_id = MARVELL_PHY_ID_88E1510,
+  3925			.phy_id_mask = MARVELL_PHY_ID_MASK,
+  3926			.name = "Marvell 88E1510",
+  3927			.driver_data = DEF_MARVELL_HWMON_OPS(m88e1510_hwmon_ops),
+  3928			.features = PHY_GBIT_FIBRE_FEATURES,
+  3929			.flags = PHY_POLL_CABLE_TEST,
+  3930			.probe = marvell_probe,
+  3931			.config_init = m88e1510_config_init,
+  3932			.config_aneg = m88e1510_config_aneg,
+  3933			.read_status = marvell_read_status,
+  3934			.config_intr = marvell_config_intr,
+  3935			.handle_interrupt = marvell_handle_interrupt,
+  3936			.get_wol = m88e1318_get_wol,
+  3937			.set_wol = m88e1318_set_wol,
+  3938			.resume = m88e1510_resume,
+  3939			.suspend = marvell_suspend,
+  3940			.read_page = marvell_read_page,
+  3941			.write_page = marvell_write_page,
+  3942			.get_sset_count = marvell_get_sset_count,
+  3943			.get_strings = marvell_get_strings,
+  3944			.get_stats = marvell_get_stats,
+  3945			.set_loopback = m88e1510_loopback,
+  3946			.get_tunable = m88e1011_get_tunable,
+  3947			.set_tunable = m88e1011_set_tunable,
+  3948			.cable_test_start = marvell_vct7_cable_test_start,
+  3949			.cable_test_tdr_start = marvell_vct5_cable_test_tdr_start,
+  3950			.cable_test_get_status = marvell_vct7_cable_test_get_status,
+  3951			.led_brightness_set = m88e1318_led_brightness_set,
+  3952			.led_blink_set = m88e1318_led_blink_set,
+  3953			.led_hw_is_supported = m88e1318_led_hw_is_supported,
+  3954			.led_hw_control_set = m88e1318_led_hw_control_set,
+  3955			.led_hw_control_get = m88e1318_led_hw_control_get,
+  3956			.attach_mii_port = m88e1510_attach_mii_port,
+  3957		},
+  3958		{
+  3959			.phy_id = MARVELL_PHY_ID_88E1540,
+  3960			.phy_id_mask = MARVELL_PHY_ID_MASK,
+  3961			.name = "Marvell 88E1540",
+  3962			.driver_data = DEF_MARVELL_HWMON_OPS(m88e1510_hwmon_ops),
+  3963			/* PHY_GBIT_FEATURES */
+  3964			.flags = PHY_POLL_CABLE_TEST,
+  3965			.probe = marvell_probe,
+  3966			.config_init = marvell_1011gbe_config_init,
+  3967			.config_aneg = m88e1510_config_aneg,
+  3968			.read_status = marvell_read_status,
+  3969			.config_intr = marvell_config_intr,
+  3970			.handle_interrupt = marvell_handle_interrupt,
+  3971			.resume = genphy_resume,
+  3972			.suspend = genphy_suspend,
+  3973			.read_page = marvell_read_page,
+  3974			.write_page = marvell_write_page,
+  3975			.get_sset_count = marvell_get_sset_count,
+  3976			.get_strings = marvell_get_strings,
+  3977			.get_stats = marvell_get_stats,
+  3978			.get_tunable = m88e1540_get_tunable,
+  3979			.set_tunable = m88e1540_set_tunable,
+  3980			.cable_test_start = marvell_vct7_cable_test_start,
+  3981			.cable_test_tdr_start = marvell_vct5_cable_test_tdr_start,
+  3982			.cable_test_get_status = marvell_vct7_cable_test_get_status,
+  3983			.led_brightness_set = m88e1318_led_brightness_set,
+  3984			.led_blink_set = m88e1318_led_blink_set,
+  3985			.led_hw_is_supported = m88e1318_led_hw_is_supported,
+  3986			.led_hw_control_set = m88e1318_led_hw_control_set,
+  3987			.led_hw_control_get = m88e1318_led_hw_control_get,
+  3988		},
+  3989		{
+  3990			.phy_id = MARVELL_PHY_ID_88E1545,
+  3991			.phy_id_mask = MARVELL_PHY_ID_MASK,
+  3992			.name = "Marvell 88E1545",
+  3993			.driver_data = DEF_MARVELL_HWMON_OPS(m88e1510_hwmon_ops),
+  3994			.probe = marvell_probe,
+  3995			/* PHY_GBIT_FEATURES */
+  3996			.flags = PHY_POLL_CABLE_TEST,
+  3997			.config_init = marvell_1011gbe_config_init,
+  3998			.config_aneg = m88e1510_config_aneg,
+  3999			.read_status = marvell_read_status,
+  4000			.config_intr = marvell_config_intr,
+  4001			.handle_interrupt = marvell_handle_interrupt,
+  4002			.resume = genphy_resume,
+  4003			.suspend = genphy_suspend,
+  4004			.read_page = marvell_read_page,
+  4005			.write_page = marvell_write_page,
+  4006			.get_sset_count = marvell_get_sset_count,
+  4007			.get_strings = marvell_get_strings,
+  4008			.get_stats = marvell_get_stats,
+  4009			.get_tunable = m88e1540_get_tunable,
+  4010			.set_tunable = m88e1540_set_tunable,
+  4011			.cable_test_start = marvell_vct7_cable_test_start,
+  4012			.cable_test_tdr_start = marvell_vct5_cable_test_tdr_start,
+  4013			.cable_test_get_status = marvell_vct7_cable_test_get_status,
+  4014			.led_brightness_set = m88e1318_led_brightness_set,
+  4015			.led_blink_set = m88e1318_led_blink_set,
+  4016			.led_hw_is_supported = m88e1318_led_hw_is_supported,
+  4017			.led_hw_control_set = m88e1318_led_hw_control_set,
+  4018			.led_hw_control_get = m88e1318_led_hw_control_get,
+  4019		},
+  4020		{
+  4021			.phy_id = MARVELL_PHY_ID_88E3016,
+  4022			.phy_id_mask = MARVELL_PHY_ID_MASK,
+  4023			.name = "Marvell 88E3016",
+  4024			/* PHY_BASIC_FEATURES */
+  4025			.probe = marvell_probe,
+  4026			.config_init = m88e3016_config_init,
+  4027			.aneg_done = marvell_aneg_done,
+  4028			.read_status = marvell_read_status,
+  4029			.config_intr = marvell_config_intr,
+  4030			.handle_interrupt = marvell_handle_interrupt,
+  4031			.resume = genphy_resume,
+  4032			.suspend = genphy_suspend,
+  4033			.read_page = marvell_read_page,
+  4034			.write_page = marvell_write_page,
+  4035			.get_sset_count = marvell_get_sset_count,
+  4036			.get_strings = marvell_get_strings,
+  4037			.get_stats = marvell_get_stats,
+  4038		},
+  4039		{
+  4040			.phy_id = MARVELL_PHY_ID_88E6250_FAMILY,
+  4041			.phy_id_mask = MARVELL_PHY_ID_MASK,
+  4042			.name = "Marvell 88E6250 Family",
+  4043			/* PHY_BASIC_FEATURES */
+  4044			.probe = marvell_probe,
+  4045			.aneg_done = marvell_aneg_done,
+  4046			.config_intr = marvell_config_intr,
+  4047			.handle_interrupt = marvell_handle_interrupt,
+  4048			.resume = genphy_resume,
+  4049			.suspend = genphy_suspend,
+  4050			.get_sset_count = marvell_get_sset_count_simple,
+  4051			.get_strings = marvell_get_strings_simple,
+  4052			.get_stats = marvell_get_stats_simple,
+  4053		},
+  4054		{
+  4055			.phy_id = MARVELL_PHY_ID_88E6341_FAMILY,
+  4056			.phy_id_mask = MARVELL_PHY_ID_MASK,
+  4057			.name = "Marvell 88E6341 Family",
+  4058			.driver_data = DEF_MARVELL_HWMON_OPS(m88e1510_hwmon_ops),
+  4059			/* PHY_GBIT_FEATURES */
+  4060			.flags = PHY_POLL_CABLE_TEST,
+  4061			.probe = marvell_probe,
+  4062			.config_init = marvell_1011gbe_config_init,
+  4063			.config_aneg = m88e6390_config_aneg,
+  4064			.read_status = marvell_read_status,
+  4065			.config_intr = marvell_config_intr,
+  4066			.handle_interrupt = marvell_handle_interrupt,
+  4067			.resume = genphy_resume,
+  4068			.suspend = genphy_suspend,
+  4069			.read_page = marvell_read_page,
+  4070			.write_page = marvell_write_page,
+  4071			.get_sset_count = marvell_get_sset_count,
+  4072			.get_strings = marvell_get_strings,
+  4073			.get_stats = marvell_get_stats,
+  4074			.get_tunable = m88e1540_get_tunable,
+  4075			.set_tunable = m88e1540_set_tunable,
+  4076			.cable_test_start = marvell_vct7_cable_test_start,
+  4077			.cable_test_tdr_start = marvell_vct5_cable_test_tdr_start,
+  4078			.cable_test_get_status = marvell_vct7_cable_test_get_status,
+  4079		},
+  4080		{
+  4081			.phy_id = MARVELL_PHY_ID_88E6390_FAMILY,
+  4082			.phy_id_mask = MARVELL_PHY_ID_MASK,
+  4083			.name = "Marvell 88E6390 Family",
+  4084			.driver_data = DEF_MARVELL_HWMON_OPS(m88e6390_hwmon_ops),
+  4085			/* PHY_GBIT_FEATURES */
+  4086			.flags = PHY_POLL_CABLE_TEST,
+  4087			.probe = marvell_probe,
+  4088			.config_init = marvell_1011gbe_config_init,
+  4089			.config_aneg = m88e6390_config_aneg,
+  4090			.read_status = marvell_read_status,
+  4091			.config_intr = marvell_config_intr,
+  4092			.handle_interrupt = marvell_handle_interrupt,
+  4093			.resume = genphy_resume,
+  4094			.suspend = genphy_suspend,
+  4095			.read_page = marvell_read_page,
+  4096			.write_page = marvell_write_page,
+  4097			.get_sset_count = marvell_get_sset_count,
+  4098			.get_strings = marvell_get_strings,
+  4099			.get_stats = marvell_get_stats,
+  4100			.get_tunable = m88e1540_get_tunable,
+  4101			.set_tunable = m88e1540_set_tunable,
+  4102			.cable_test_start = marvell_vct7_cable_test_start,
+  4103			.cable_test_tdr_start = marvell_vct5_cable_test_tdr_start,
+  4104			.cable_test_get_status = marvell_vct7_cable_test_get_status,
+  4105		},
+  4106		{
+  4107			.phy_id = MARVELL_PHY_ID_88E6393_FAMILY,
+  4108			.phy_id_mask = MARVELL_PHY_ID_MASK,
+  4109			.name = "Marvell 88E6393 Family",
+  4110			.driver_data = DEF_MARVELL_HWMON_OPS(m88e6393_hwmon_ops),
+  4111			/* PHY_GBIT_FEATURES */
+  4112			.flags = PHY_POLL_CABLE_TEST,
+  4113			.probe = marvell_probe,
+  4114			.config_init = marvell_1011gbe_config_init,
+  4115			.config_aneg = m88e1510_config_aneg,
+  4116			.read_status = marvell_read_status,
+  4117			.config_intr = marvell_config_intr,
+  4118			.handle_interrupt = marvell_handle_interrupt,
+  4119			.resume = genphy_resume,
+  4120			.suspend = genphy_suspend,
+  4121			.read_page = marvell_read_page,
+  4122			.write_page = marvell_write_page,
+  4123			.get_sset_count = marvell_get_sset_count,
+  4124			.get_strings = marvell_get_strings,
+  4125			.get_stats = marvell_get_stats,
+  4126			.get_tunable = m88e1540_get_tunable,
+  4127			.set_tunable = m88e1540_set_tunable,
+  4128			.cable_test_start = marvell_vct7_cable_test_start,
+  4129			.cable_test_tdr_start = marvell_vct5_cable_test_tdr_start,
+  4130			.cable_test_get_status = marvell_vct7_cable_test_get_status,
+  4131		},
+  4132		{
+  4133			.phy_id = MARVELL_PHY_ID_88E1340S,
+  4134			.phy_id_mask = MARVELL_PHY_ID_MASK,
+  4135			.name = "Marvell 88E1340S",
+  4136			.driver_data = DEF_MARVELL_HWMON_OPS(m88e1510_hwmon_ops),
+  4137			.probe = marvell_probe,
+  4138			/* PHY_GBIT_FEATURES */
+  4139			.config_init = marvell_1011gbe_config_init,
+  4140			.config_aneg = m88e1510_config_aneg,
+  4141			.read_status = marvell_read_status,
+  4142			.config_intr = marvell_config_intr,
+  4143			.handle_interrupt = marvell_handle_interrupt,
+  4144			.resume = genphy_resume,
+  4145			.suspend = genphy_suspend,
+  4146			.read_page = marvell_read_page,
+  4147			.write_page = marvell_write_page,
+  4148			.get_sset_count = marvell_get_sset_count,
+  4149			.get_strings = marvell_get_strings,
+  4150			.get_stats = marvell_get_stats,
+  4151			.get_tunable = m88e1540_get_tunable,
+  4152			.set_tunable = m88e1540_set_tunable,
+  4153		},
+  4154		{
+  4155			.phy_id = MARVELL_PHY_ID_88E1548P,
+  4156			.phy_id_mask = MARVELL_PHY_ID_MASK,
+  4157			.name = "Marvell 88E1548P",
+  4158			.driver_data = DEF_MARVELL_HWMON_OPS(m88e1510_hwmon_ops),
+  4159			.probe = marvell_probe,
+  4160			.features = PHY_GBIT_FIBRE_FEATURES,
+  4161			.config_init = marvell_1011gbe_config_init,
+  4162			.config_aneg = m88e1510_config_aneg,
+  4163			.read_status = marvell_read_status,
+  4164			.config_intr = marvell_config_intr,
+  4165			.handle_interrupt = marvell_handle_interrupt,
+  4166			.resume = genphy_resume,
+  4167			.suspend = genphy_suspend,
+  4168			.read_page = marvell_read_page,
+  4169			.write_page = marvell_write_page,
+  4170			.get_sset_count = marvell_get_sset_count,
+  4171			.get_strings = marvell_get_strings,
+  4172			.get_stats = marvell_get_stats,
+  4173			.get_tunable = m88e1540_get_tunable,
+  4174			.set_tunable = m88e1540_set_tunable,
+  4175			.led_brightness_set = m88e1318_led_brightness_set,
+  4176			.led_blink_set = m88e1318_led_blink_set,
+  4177			.led_hw_is_supported = m88e1318_led_hw_is_supported,
+  4178			.led_hw_control_set = m88e1318_led_hw_control_set,
+  4179			.led_hw_control_get = m88e1318_led_hw_control_get,
+  4180		},
+  4181	};
+  4182	
 
-The 64-bit base register is not updated atomically - the
-write lands as two 32-bit halves - so mid-update the live IOMMU can
-briefly latch a half-written, invalid table pointer. Allocating the
-table below 4G keeps the upper 32 bits zero, so the register stays valid
-throughout the update and the running IOMMU never sees a bad pointer.
-
-> 
-> Since commit 38e5f33ee359 ("iommu/amd: Reuse device table for kdump")
-> the kdump kernel reuses the previous kernel's table without writing the
-> base register, so its newly allocated table is discarded when reuse
-> succeeds. If reuse fails, the previous patch programs the new table only
-> after disabling the IOMMU. Either way, the kdump kernel's table doesn't
-> need to be below 4G.
-
-Since dropping GFP_DMA32 is only safe on top of the reuse conversion, i.e.,
-on top of 38e5f33ee359, so it should not be backported without it.
-
-Probably, consider added a Cc:stable tag without Fixes: tag, so it doesn't
-read as if 38e5f33 was buggy
-
-Cc: stable@vger.kernel.org # depends on 38e5f33ee359
-Signed-off-by: Matt Fleming mfleming@cloudflare.com
-
-Reviewed-by: Ashish Kalra ashish.kalra@amd.com
-
-> 
-> The previous kernel still allocates its table from DMA32, so the kdump
-> kernel's check that the old table is below 4G still works. Drop
-> GFP_DMA32 for kdump kernels only.
-> 
-> Signed-off-by: Matt Fleming <mfleming@cloudflare.com>
-> ---
->  drivers/iommu/amd/init.c | 15 +++++++++++++--
->  1 file changed, 13 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
-> index 0572e1a674f0..16c26d75f46f 100644
-> --- a/drivers/iommu/amd/init.c
-> +++ b/drivers/iommu/amd/init.c
-> @@ -648,8 +648,19 @@ static int __init find_last_devid_acpi(struct acpi_table_header *table, u16 pci_
->  /* Allocate per PCI segment device table */
->  static inline int __init alloc_dev_table(struct amd_iommu_pci_seg *pci_seg)
->  {
-> -       pci_seg->dev_table = iommu_alloc_pages_sz(GFP_KERNEL | GFP_DMA32,
-> -                                                 pci_seg->dev_table_size);
-> +       gfp_t gfp = GFP_KERNEL;
-> +
-> +       /*
-> +        * Keep normal kernel device tables below 4G because a later kdump
-> +        * kernel only trusts and reuses old tables below that limit. A kdump
-> +        * kernel's new table is either discarded when reuse succeeds or
-> +        * programmed after the IOMMU is disabled, so the table does not
-> +        * need DMA32 memory (which the crashkernel may not have).
-> +        */
-> +       if (!is_kdump_kernel())
-> +               gfp |= GFP_DMA32;
-> +
-> +       pci_seg->dev_table = iommu_alloc_pages_sz(gfp, pci_seg->dev_table_size);
->         if (!pci_seg->dev_table)
->                 return -ENOMEM;
-> 
-> --
-> 2.43.0
-> 
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
