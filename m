@@ -1,150 +1,110 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F35B4E1C60;
-	Fri,  9 Oct 2026 12:01:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 082763E6392;
+	Fri,  9 Oct 2026 12:04:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791547310; cv=none; b=BgKbXW+rgOSI4t1f/pCEzcEMvNDaWoHAL6cHWuekHmoj05xOgPQZss/WWH3us+JvcJ/gllTbEqpWpOqpb+tynERjMc8rdrTA+t0UXFAiwwOP6VfjbiuzW0b1UH6+wLZUApLd6VcGygU/gH1Mk55NQLi90cZ3/TX3vRbrv7jABRo=
+	t=1791547457; cv=none; b=gMFLxTMlyKonA1Oxy0KkjxcgX5gtNMB1uo8tPyjkbJ4/D3uoUSuKqFXgjOAeOvdsTiI2uHG0+cYw1g7vtqoss8/mh4CtQBikzeLUHfX7OdRXy+zU4ddHKXkOLhlfOFWBvA4Vd6auNp3ZbOyNO4KeBiU5uYhJenQznUaXqWMKh48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791547310; c=relaxed/simple;
-	bh=qmfY4qX6AqQUEI5YpwWh4TpNNyCv4is+uyS6k/CPcxg=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=cqO0xypWRQ35jfSlgw0MzhVBqhfLvlj24qrMg891u82FsOkzY6nnURzx0+aQOD5jJPSm3tmIxKdqmgcOr3JfhYwNfa7X4VbyJcvCv9ZqnQs+O/J2ye/gpZUjpCaWJKaURIRWq19yl24W8/3HEqI2TLIeENjU5a4ySspLTG4K4ws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=B7M0PkTy; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791547457; c=relaxed/simple;
+	bh=lORZY4Mhn05+lNoB0gKe3EAnys6S7IQwNP3y7S0GEUg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EtVgDxgD2Z+AyqYagaB8iKpN8jsiQgHoBzmCC03wnmzBcmLZsXHSmdIydA9MoPmGDWsnIPo0TuhTt6LsAzVoo0sL3ZSiRW2bzq/B1gb7ehMHlERoXZMlaBacPvlT9H2QbUXJqQBc38fBW1pLhMHRPItcZtY/O0RsQAy21Fb7rjg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iMAfsArL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="B7M0PkTy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791547306; x=1823083306;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version:content-id;
-  bh=qmfY4qX6AqQUEI5YpwWh4TpNNyCv4is+uyS6k/CPcxg=;
-  b=B7M0PkTy8JaKaB565dUCvCHs5YOf2Of7J+ftop+N2v4Sf5elkoVZXCCS
-   Hh5ijK4Tz5rqyjBApgw35gc7J3I20MJdtN8y9gvkC1ON75Xq01K129b9H
-   8ql1P+wgqX3Mbx72HWJ7scRHWSaFykEnJPUkm8W5zoRMlLeoifYFd5c4I
-   EwSsiPNKfqX1PzqtG8U0QqNnDJHqgBV6MELWTgC22Rf7OauC5zwGkvpf0
-   K3+ZaKGITRsratmdc8Y/8rTwjHGu1AVTuKkVo1g/Lg5ByGnyqy9Va7l6W
-   jZLRCtfDA6ptIyBW1qQzrI/whENfic1NYcS9Xi6Go+MbxN1/ZpDhYJejc
-   w==;
-X-CSE-ConnectionGUID: 34U4oMRNRmSQUnl7KskWCQ==
-X-CSE-MsgGUID: coNHuXC1QK+FsV65fRB7Yg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="229421"
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="229421"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 05:01:45 -0700
-X-CSE-ConnectionGUID: Teap6Jq7Ss6bF5Ba5IcMHw==
-X-CSE-MsgGUID: JkkCKXQPTeqxywp4VTTYXA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="2123354"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.39])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 05:01:41 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Fri, 9 Oct 2026 15:01:37 +0300 (EEST)
-To: Borislav Petkov <bp@alien8.de>
-cc: Maciej Grochowski <Maciej.Grochowski@sony.com>, 
-    Nikolas Joshua Britton <nbritton@exabit.io>, 
-    Geramy Loveless <gloveless@jqluv.com>, Eric Auger <eauger@redhat.com>, 
-    Alexey Fomenko <alexey.fomenko@intel.com>, 
-    Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, 
-    Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, 
-    Rob Herring <robh@kernel.org>, 
-    =?ISO-8859-2?Q?Krzysztof_Wilczy=F1ski?= <kw@linux.com>, 
-    LKML <linux-kernel@vger.kernel.org>, Bradley Morgan <brads@mainlining.org>, 
-    Mario Limonciello <mario.limonciello@amd.com>
-Subject: Re: [PATCH v2 7/7] PCI/quirks: Avoid certain address on Genoa
- systems
-In-Reply-To: <20261004154428.GAasJ0XCWdso81YdwH@fat_crate.local>
-Message-ID: <2b4985b1-064f-552d-0803-f285779b5dba@linux.intel.com>
-References: <20261002113319.6652-1-ilpo.jarvinen@linux.intel.com> <20261002113319.6652-8-ilpo.jarvinen@linux.intel.com> <20261004154428.GAasJ0XCWdso81YdwH@fat_crate.local>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iMAfsArL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00DF21F000FF;
+	Fri,  9 Oct 2026 12:04:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791547447;
+	bh=BljgmLXwIPPpLea6jl82aMNQWz9xy5hCV7ufsBKzDQQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iMAfsArLtoXA43Y62BuMkMte0qrPprWzB+tZ9TgKC1rx9tbHiGZQ6wMxx8QEYCPVf
+	 +pfe50pSmcsqCthSB6Si7cKbBiyQbSIdT4iEWLX4vnKdQwHT6TgxwnD4bRDr+ihHtp
+	 LDwSstov2B6NYr7CZhgmaKP4M1t1gOxmb5CcsE5qQMSM3Sne59NzGTMzbL2yLim62l
+	 opQPuufEI8p6R0hNwt/clKNjj6fkIRfyy4tpUrUYWHbZcudkYy7u6wnvAW/1o0N4AH
+	 uF+o0NRBkz446bnd/NwJgLIXm9jC/3NkCpyQ/m5eICspM4ZTcTVex2pONUUe02SiAs
+	 F8RcNqQW22cuA==
+Date: Fri, 9 Oct 2026 14:04:00 +0200
+From: Carlos Maiolino <cem@kernel.org>
+To: Henry Martin <bsdhenrymartin@gmail.com>
+Cc: "Darrick J . Wong" <djwong@kernel.org>, linux-xfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] xfs: fix out-of-bounds cursor access from rtrmap level
+ off-by-one
+Message-ID: <asjVgZJijA4r1MlV@cronus.toxiclabs.cc>
+References: <20261009114503.3669142-1-bsdhenrymartin@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323328-363935522-1791289612=:3116"
-Content-ID: <e6241b11-6da0-c274-ef17-a1f71b937c92@linux.intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009114503.3669142-1-bsdhenrymartin@gmail.com>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Fri, Oct 09, 2026 at 07:45:03PM +0800, Henry Martin wrote:
+> m_rtrmap_maxlevels includes the inode root level, so a valid on-disk
+> bb_level is strictly less than m_rtrmap_maxlevels.  Both
+> xfs_rtrmapbt_verify() and xfs_iformat_rtrmap() compare with ">"
+> instead of ">=", letting a forged block with level == maxlevels pass
+> validation.
 
---8323328-363935522-1791289612=:3116
-Content-Type: text/plain; CHARSET=ISO-8859-15
-Content-Transfer-Encoding: QUOTED-PRINTABLE
-Content-ID: <2ed94c43-ec6e-14e6-0d57-88009ffbba85@linux.intel.com>
+So you need a maliciously crafted filesystem image and enough privileges
+to be able to mount it.
 
-On Sun, 4 Oct 2026, Borislav Petkov wrote:
+> The cursor is then sized for maxlevels entries while
+> bc_nlevels is set to level + 1, so the generic btree code indexes one
+> element past bc_levels[] - an out-of-bounds read/write on the cursor
+> allocation.
+> 
+> xfs_rtrmapbt_mem_verify() in the same file (from commit
+> 4a61f12eb1195 "xfs: create a shadow rmap btree during realtime rmap
+> repair") already uses ">=".
+> 
+> This vulnerability was discovered by Tencent CodeBuddy Security.
 
-> On Fri, Oct 02, 2026 at 02:33:15PM +0300, Ilpo J=E4rvinen wrote:
-> > While testing the resource placement changes, tests hit a case where
-> > igb fails to probe when BAR 0 is placed at 0x9c000000:
-> >=20
-> >    90000000-9cffffff : PCI Bus 0000:a0
-> >   -  90000000-902fffff : PCI Bus 0000:a1
-> >   -    90000000-900fffff : 0000:a1:00.0
-> >   -      90000000-900fffff : igb
-> >   -    90100000-901fffff : 0000:a1:00.0
-> >   -    90200000-90203fff : 0000:a1:00.0
-> >   -      90200000-90203fff : igb
-> >   +  9be00000-9c0fffff : PCI Bus 0000:a1
-> >   +    9be00000-9befffff : 0000:a1:00.0
-> >   +    9bf00000-9bf03fff : 0000:a1:00.0
-> >   +    9c000000-9c0fffff : 0000:a1:00.0
-> >      9c100000-9c17ffff : amd_iommu
-> >      9c180000-9c1803ff : IOAPIC 8
-> >=20
-> >   -       Region 0: Memory at 90000000 (32-bit, non-prefetchable) [size=
-=3D1M]
-> >   -       Region 3: Memory at 90200000 (32-bit, non-prefetchable) [size=
-=3D16K]
-> >   -       Expansion ROM at 90100000 [disabled] [size=3D1M]
-> >   +       Region 0: Memory at 9c000000 (32-bit, non-prefetchable) [size=
-=3D1M]
-> >   +       Region 3: Memory at 9bf00000 (32-bit, non-prefetchable) [size=
-=3D16K]
-> >   +       Expansion ROM at 9be00000 [disabled] [size=3D1M]
-> >=20
-> > igb 0000:a1:00.0 0000:a1:00.0 (uninitialized): PCIe link lost
-> > ------------[ cut here ]------------
-> > igb: Failed to read reg 0x18!
-> > WARNING: drivers/net/ethernet/intel/igb/igb_main.c:724 at igb_rd32.cold=
-+0x3c/0x4f [igb], CPU#32: kworker/32:1/706
-> > ...
-> >  igb_get_invariants_82575+0xff/0xf00 [igb]
-> >  igb_probe+0x3c8/0x1190 [igb]
-> >  local_pci_probe+0x3b/0x80
-> >=20
-> > It turns out there is a 64kB iomem black hole at 9c000000 that returns
->=20
-> Can we please debug that "It turns out" thing and try to find out what re=
-ally
-> is going on here.
->=20
-> Can you pls explain what your machine looks like so that we can try to
-> reproduce it and see what's going on?
+What is the "vulnerability" you are claiming here? How can this be
+exploited? For what you described, it requires a crafted filesystem
+image, which should require a privileged user to mount, so while this is
+a bug, calling it a vulnerability is a big stretch.
+So, giving you claimed it to be a vulnerability, how can it be
+exploited by a non-privileged user? Where is the reproducer? You can
+even share it off-list if you prefer.
 
-It's Poweredge R6625. AFAIK, there's nothing fancy on it, just the I210=20
-added. (I don't admin it but can just run large-scale validation tests on=
-=20
-it so I could have gaps in my knowledge).
-
-> Does it have latest BIOS, microcode, etc etc? If it doesn't, can you upgr=
-ade
-> and try again?
-
-BIOS was updated to the latest and the problem persists.
-
-> I guess dmesg, hwinfo, kernel .config would be good starters, privately i=
-s
-> fine too.
-
-dmesg is in the ticket, I added config there.
-
---=20
- i.
---8323328-363935522-1791289612=:3116--
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: fc6856c6ff086 ("xfs: introduce realtime rmap btree ondisk definitions")
+> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+> ---
+>  fs/xfs/libxfs/xfs_rtrmap_btree.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/xfs/libxfs/xfs_rtrmap_btree.c b/fs/xfs/libxfs/xfs_rtrmap_btree.c
+> index a15e460a1ec7..6833c924a383 100644
+> --- a/fs/xfs/libxfs/xfs_rtrmap_btree.c
+> +++ b/fs/xfs/libxfs/xfs_rtrmap_btree.c
+> @@ -256,7 +256,7 @@ xfs_rtrmapbt_verify(
+>  	if (fa)
+>  		return fa;
+>  	level = be16_to_cpu(block->bb_level);
+> -	if (level > mp->m_rtrmap_maxlevels)
+> +	if (level >= mp->m_rtrmap_maxlevels)
+>  		return __this_address;
+> 
+>  	return xfs_btree_fsblock_verify(bp, mp->m_rtrmap_mxr[level != 0]);
+> @@ -888,7 +888,7 @@ xfs_iformat_rtrmap(
+>  	numrecs = be16_to_cpu(dfp->bb_numrecs);
+>  	level = be16_to_cpu(dfp->bb_level);
+> 
+> -	if (level > mp->m_rtrmap_maxlevels ||
+> +	if (level >= mp->m_rtrmap_maxlevels ||
+>  	    xfs_rtrmap_droot_space_calc(level, numrecs) > dsize) {
+>  		xfs_inode_mark_sick(ip, XFS_SICK_INO_CORE);
+>  		return -EFSCORRUPTED;
+> --
+> 2.43.7
+> 
+> 
