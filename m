@@ -1,102 +1,183 @@
-Received: from mta1.migadu.com (out-52.mta1.migadu.com [95.215.58.52])
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFAC34E0B62
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 11:51:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B33884D98EB
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 11:51:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791546680; cv=none; b=Bxmdbayc6bZbj/jlYiJIXTRTrBoNSz2IAumAPl6x9afZwUHKMYzQ3N5MPR+pDDoFNFa1W3KbzHdLQJU/2ifg+J0/bRECp6MZzrEJJ9VvBV9DKwSRHWQWi2YiZ9EB0m4+OhjRlZHT5Js6YVpSOIEzcRcJSlfba/BnJKDn0Q1rFLo=
+	t=1791546720; cv=none; b=hNLSKb1mjPV54WVYlHLbKN5YkabPFILFpPjK/UvUHoMyrM079UBWVc3QOo2ueCM+AkIQueydVeRBf9dOeI7ZNNe0bWDq+kxjlytH7dJ0oi1Onb96d0KWVc3omp7ynxBP+vEuAuyKQyMaj/lh3sx+L4lwfqRljVN9QW2uYyzqLd8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791546680; c=relaxed/simple;
-	bh=+9VzHvUO+JK+X+9EZspf1HzY5BaMn/HduNK7JOTMGiM=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=ASEqAOJqdZtCnrwkCmugwwVC4OdQBOE3jpCT/Re24EoXTRI51HrRjNUyvG0OtTT8umjnDA5Ln7cjpmBJG8uE2OQMwF18vlNtoRJnDXrpImTTU3+KSVCi2qwGk8lPNkn4d+iI4mmNkZmW1WqsWnzLFTNE5ndPWKviIfJUkhW0mVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=thNEf7kX; arc=none smtp.client-ip=95.215.58.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791546720; c=relaxed/simple;
+	bh=9c10fv+8RlbffEaqllSZarWYu0IWQKMv/n0/uRyLBSA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uWdKZxRFJORM15YwFUpohbl0IofXpW9va+AzBuhQ4heLYu0prvUwDeedNK82C356OAfMuT/xi7k2hhK2Z28o+x4gBpch63iugEKdhh/NcBEFw4RX6LQLF3oFPASrftNeNUISgh0B//YRFk8FMbME4a/ag8ThTvEBNC0cOPWX+d4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jO6Eh2ZQ; arc=none smtp.client-ip=209.85.219.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="thNEf7kX"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=+9VzHvUO+JK+X+9EZspf1HzY5BaMn/HduNK7JOTMGiM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791546659; v=1; x=1792151459;
- b=thNEf7kX3HJ1BvL0ELc3vdPL743dqD0O6vbegFIvPDHOha2tn8+Z7JAfXw3/rVY1Yg8r9mK8
- zfZUizxsZKIzDbX21I4dYNA2ijEAGv6ADDt48j+zwe/OlN/xQ8j8Tzp4V+xp93OE3sj+Q1OtJcM
- IGNpbtSGS7FKiYMpNABKjzzQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ab5c969723dbd39a;
-	Fri, 09 Oct 2026 11:50:41 +0000
-X-Mizu-Trace-ID: ab5c969723dbd39a
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jO6Eh2ZQ"
+Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-9178aabd30dso40231416d6.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 04:51:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791546707; x=1792151507; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hrr3HiCUZJnv9aA8BpT1SjaAKZ8xaCXAbRRl/khQOqQ=;
+        b=jO6Eh2ZQJWUVs1XkFGOQ2/kkXQqsVbEPVNN3maclXC/GNS0mhJEB4C+Na3oyNMh0bf
+         PgjtmOtYu0AIhLiy4JraPjedasoRm1RjN/ef250aNI/zA4Tmuq4WiT2QBxVMi9brA68N
+         pQEG5tisvimfiiQdObaZSmoTEKX6i6BQI9BA/sfuiuPKQ2s6lztZX0Kx/UbLZwJCel+L
+         Vx2w6J1rjFe1wu8BuV63kPPRyOQ+rPyprI9DV2GjUHSJOErdaO7WIzJMwEtO2RsIi0fJ
+         KKQeGiMBETj2Cxff+ro1B0X8Qc2tXZ/3b5P9Ydyta0sahvmbnNitAo1KvmVYD54toqxW
+         ynVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791546707; x=1792151507;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hrr3HiCUZJnv9aA8BpT1SjaAKZ8xaCXAbRRl/khQOqQ=;
+        b=DkWJj4UKMU+hK2o5q2Y+IKLvTZyv3ClP2A/H08Fv/dXrcLo9YG8iE0coeAgWtLB1vl
+         Ca5kuWQRBLTV86XR0NVzsCCV7chf8ZY+l78ZwVRzpo+OYJbeRiHNLh3PWmL2fPxnDPxx
+         WYCkNXRav3BFTTriz6OIBTARWe2IpntyG7vPDm7EFOWnmN9L6jR8VezNVDpPcL6h4R/S
+         7j+7gzkc/+kPIjkIe1WuSP4tGTi9Rt8ffvv1mDjqPA/Gdtt729QGuEI5pOHxwGOXmza8
+         6HES43OvOS6n7KsVrD+aT7fI4Iqd01bSGUmaeJb/cGlPUXh9ozRH6Mz/wpe0h1PlUtKD
+         oyKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxmKY0WBjyu84e1I4FiiBGdetI/rRgNqmWKl5XTiGJORXdkCicM51WJ3mlLcef+42ca/oKT1SmsWmS3TuM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIwBiPUWTpQrVW57CBndOdxkrnS8EXG+O4tIawsdPrgVShjBe7Q
+	cPVBHmm5t4cE/tDIKEt/7byBkdvCFapo0ayDkiCONtLimQdpPfb7w4wK
+X-Gm-Gg: AYBFou2G/MJQwPZWiIHxwNRmqE9c1pSVCEv9P/TrUrMgHTVj4gZt31NaM6EtouOyY20
+	2HfbsWRK1cSde9hQH8EtuU3VCNbotCvn+UeRZ4PxXP3iM6klNE9rcSzpqozG8yvCsP0fjUH4XFn
+	T20xtUuS2pVmvL18ZewoaAlak7uuj+MWZ4o20mGFiUFFbC101SBLuCUzFHM9+oKwKPJzFGh8I3+
+	VmtUxKd4UTI9PnymA/qjm26sdJ9Cxi6Bj9PalFf3tTVxWFmViL5r3pCwQr7tjxkbeB1ucCOhinT
+	WsjdyB8bOB/sw4Xc+yuRwkLwtSZVzatnS5XDwamOGBZPealf2144qqXnmJpEfSvgG1cwEuKFR7f
+	/nK4KwLRWux0qSd+0PP189soZCuh/M8kDWN6ja5BWfWnztwyguMYuc0LY1myNbHZZ1mM5C4t7Bg
+	5a/aNJRxF3J7KA6OjbQqmjDLQe61mxAY5ZnJccsODMipcNsfmDXG+G1PpaMDIlcK5Fvq2wLQbwE
+	lNOHZDDW5yz/35yfXeqyBGvZl+Vr4kw/9B8T9cPL7B2YTyKjp64Qzh7AGLYJdsbB01aOwQ7Bd6v
+	L2ueyFH7Ax9IuQg=
+X-Received: by 2002:a05:6214:2f05:b0:918:c4b8:fc57 with SMTP id 6a1803df08f44-91b554f1bbcmr27272116d6.9.1791546707414;
+        Fri, 09 Oct 2026 04:51:47 -0700 (PDT)
+Received: from mobile5.tail6e7dd.ts.net (c-68-48-65-54.hsd1.mi.comcast.net. [68.48.65.54])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b54e7f6aesm16537346d6.2.2026.10.09.04.51.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 04:51:46 -0700 (PDT)
+From: Mike Bommarito <michael.bommarito@gmail.com>
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E . Hallyn" <serge@hallyn.com>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Tingmao Wang <m@maowtm.org>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: Re: [PATCH] landlock: Move the domain layer counter out of the anonymous union
+Date: Fri,  9 Oct 2026 07:51:08 -0400
+Message-ID: <20261009115108.17819-1-michael.bommarito@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261007-b4-landlock-fix-domain-fortify-panic-v1-1-042e9108f5f8@oss.qualcomm.com>
+References: <20261007-b4-landlock-fix-domain-fortify-panic-v1-1-042e9108f5f8@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 09 Oct 2026 13:50:36 +0200
-Message-Id: <DM0AA2YBXFI2.HD7B6PLDQ8FU@linux.dev>
-To: "Hungyu Lin" <dennylin0707@gmail.com>, <pkshih@realtek.com>
-Cc: <linux-wireless@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <pchelkin@ispras.ru>, <mihaildimoski@gmail.com>,
- <tristan@talencesecurity.com>, <rtl8821cerfe2@gmail.com>,
- <dawei.feng@seu.edu.cn>, <learn.rahul.rai@gmail.com>,
- <branislav.klocok@orava.sk>, <timlee@realtek.com>, <kvalo@kernel.org>,
- <briannorris@chromium.org>, <yhchuang@realtek.com>, <sgruszka@redhat.com>
-Subject: Re: [PATCH] wifi: rtw88: pci: preserve the RX ring DMA address on
- cleanup
-From: "Luka Gejak" <luka.gejak@linux.dev>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20261009032339.31786-1-dennylin0707@gmail.com>
-In-Reply-To: <20261009032339.31786-1-dennylin0707@gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri Oct 9, 2026 at 5:23 AM CEST, Hungyu Lin wrote:
-> rtw_pci_init_rx_ring() stores the coherent ring DMA address in dma, but
-> reuses it for RX buffer DMA addresses during error cleanup. If
-> initialization fails after at least one buffer has been mapped,
-> dma_free_coherent() receives the last buffer's DMA address instead of
-> the ring's.
->
-> Use a separate variable for the buffer DMA addresses so the ring is
-> freed with the address returned by dma_alloc_coherent().
->
-> Fixes: e3037485c68e ("rtw88: new Realtek 802.11ac driver")
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-> ---
->  drivers/net/wireless/realtek/rtw88/pci.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/net/wireless/realtek/rtw88/pci.c b/drivers/net/wirel=
-ess/realtek/rtw88/pci.c
-> index 66d2e5f51444..10147375f3b2 100644
-> --- a/drivers/net/wireless/realtek/rtw88/pci.c
-> +++ b/drivers/net/wireless/realtek/rtw88/pci.c
-> @@ -298,11 +298,13 @@ static int rtw_pci_init_rx_ring(struct rtw_dev *rtw=
-dev,
-> =20
->  err_out:
->  	for (i =3D 0; i < allocated; i++) {
-> +		dma_addr_t buf_dma;
-> +
->  		skb =3D rx_ring->buf[i];
->  		if (!skb)
->  			continue;
-> -		dma =3D *((dma_addr_t *)skb->cb);
-> -		dma_unmap_single(&pdev->dev, dma, buf_sz, DMA_FROM_DEVICE);
-> +		buf_dma =3D *((dma_addr_t *)skb->cb);
-> +		dma_unmap_single(&pdev->dev, buf_dma, buf_sz, DMA_FROM_DEVICE);
->  		dev_kfree_skb_any(skb);
->  		rx_ring->buf[i] =3D NULL;
->  	}
+On Wed, Oct 07, 2026 at 07:28:30PM +0300, Abel Vesa wrote:
+> With Clang 20 and CONFIG_FORTIFY_SOURCE, stacking Landlock domains can
+> trigger a fortify panic in the handled_masks copy in inherit_ruleset():
+[...]
+> Based on next-20260930. Validated arm64 Landlock object builds with
+> Clang 20 and GCC 14, with CONFIG_FORTIFY_SOURCE enabled, and checked the
+> counter load in Clang-generated code. Not boot-tested.
 
-This patch should cc stable so it gets backported. Besides that it
-looks good to me. Ping-Ke maybe you can add Cc: stable@vger.kernel.org
-when applying to your tree?
+Hi all, hit this issue yesterday on x86_64 (Framework 13, Meteor Lake),
+v7.3-rc5 built with clang 21.1.8 and CONFIG_FORTIFY_SOURCE=y.  I triggered
+it simply by opening the printer settings on 26.04 (through xz, see below).
 
-Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+My build tree was recent v7.3-rc5, so I applied the patch, which was clean,
+and then went through the repro steps after rebuilding.  Everything works
+as expected after 10-15 minutes of use - no crash, no other dmesg/journal
+issues.
 
-Best regards,
-Luka Gejak
+I hope you don't mind, but given how irritating it was to track down
+the issue, I am including some of the Claude output below to help others
+find the root cause more quickly if they hit it.  I checked the
+disassembly and ran the tests below myself on this machine.
+
+<CLAUDE>
+This is easy to hit on a stock desktop.  xz 5.8 sandboxes itself with
+nested landlock_restrict_self() calls, so on an unpatched clang build every
+`xz -d` oopses:
+
+  memcpy: detected buffer overflow: 4 byte write of buffer size 0
+  WARNING: lib/string_helpers.c:1037 at __fortify_report+0x1f/0x60, CPU#6: xz/9888
+  kernel BUG at lib/string_helpers.c:1044!
+  Oops: invalid opcode: 0000 [#1] SMP NOPTI
+  RIP: 0010:__fortify_panic+0x9/0x10
+  Call Trace:
+   landlock_merge_ruleset+0x353/0x360
+   __se_sys_landlock_restrict_self+0x1bf/0x470
+   __x64_sys_landlock_restrict_self+0x16/0x30
+
+On Ubuntu, simply opening GNOME Settings -> Printers runs the CUPS driver
+helpers, which run xz.  With kdump-tools installed (panic_on_oops=1), that
+panics the machine.  Nothing more than an unprivileged process is needed;
+the reproducer below triggers it as a normal user:
+
+  prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0);
+  for (i = 0; i < 2; i++) {
+          struct landlock_ruleset_attr a = {
+                  .handled_access_fs = LANDLOCK_ACCESS_FS_MAKE_REG };
+          int fd = syscall(SYS_landlock_create_ruleset, &a, sizeof(a), 0);
+          syscall(SYS_landlock_restrict_self, fd, 0);  /* i == 1 oopses */
+          close(fd);
+  }
+
+The x86_64 codegen matches your arm64 analysis.  Unpatched, with
+num_layers at 0x24 and handled_masks at 0x28:
+
+  mov    0x28(%rbx),%esi      # "count" read from child->handled_masks[0]
+  shl    $0x2,%rsi
+  cmp    %rdx,%rsi
+  jb     <__fortify_panic>
+
+With the patch, num_layers is at 0x40 and handled_masks at 0x44.  The
+count is loaded from the right field, and clang folds away the fortify
+checks after the WARN_ON_ONCE(child->num_layers <= parent->num_layers):
+
+  mov    0x40(%r12),%edx
+  cmp    %edx,0x40(%rbx)
+  ...
+  call   memcpy
+
+Results after booting the patched kernel, with panic_on_oops=1 and
+kdump loaded (the configuration that used to panic):
+
+  nested restrict reproducer:  both layers succeed
+  echo hello | xz | xz -d:     ok
+  lpinfo -m (CUPS -> xz):      ok
+  fortify reports in dmesg:    none; kernel not tainted
+
+The layout change grows struct landlock_domain from 64 to 72 bytes.  A
+one-layer domain is still a kmalloc-96 allocation (68 bytes before, 76
+after); only stacks of 7 or 8 layers move up to kmalloc-128.  That seems
+fine.
+</CLAUDE>
+
+Since this is reachable from unprivileged userspace on any clang +
+FORTIFY_SOURCE build of 7.3-rc, it would be good to get this in before
+v7.3 final.
+
+Tested-by: Mike Bommarito <michael.bommarito@gmail.com>
+
