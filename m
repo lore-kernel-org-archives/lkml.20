@@ -1,215 +1,198 @@
-Received: from sonic310-14.consmr.mail.bf2.yahoo.com (sonic310-14.consmr.mail.bf2.yahoo.com [74.6.135.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 275893CB576
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 21:25:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.6.135.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F4703EFFD2
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 21:26:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791581149; cv=none; b=r4CQETbkJF98GEj4Qt+kNL7QtHxQVGA9RV39RK7qTRmQ+oQmuogQhGwO6TjGrC8fj16kalJ4RlFGVGo9OyK5WEJKWD8EFEDyIufed3UvfjsMu6isHrikSGKf8HNW6GWbMMKtCl6U5X0sBluxN9KAKP918ElNB5TikzUHDlMgVM8=
+	t=1791581221; cv=none; b=Xwsg0SMDo2QWKYORK9QG14X3jz4c/6WrIP9EDdxZvg3s3V+LNBOp+JuDEjisnUTpb9MiQFDikD7RD6f+tvPsaDkijrSy7Y8S7utzJTlwWVRXzGVoyPD0mDZCKiw4cwiw2OsnTec2hHyrnAiKv0eWNxFEkJJIfup7xcAt7acuiWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791581149; c=relaxed/simple;
-	bh=0ex8Sz5fobxXflXiE26sr9k+PG9iBqZjzi6hZN8XHg0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:References; b=AIctd1N71JgXbZGp9yEvanvl0l4CPbKCxonTKiRb6MuzSNWwFRnd1gz834yrcOhEZ4HEOk72Jvyz318jVloKNw8VEfEUU5T5XE8mMklY612G33Hqy0CGntD/AwfVIaAfTQlr1+aPZT6XoJi/dBadNXH4P69A8A9PLHHYU7am2x8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=Li1vekXM; arc=none smtp.client-ip=74.6.135.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1791581221; c=relaxed/simple;
+	bh=TyxSOYU5PioABjr8EJeQo8NGMnez3v+D+t81pCkh7J4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=KGyAXtfDlllR2394s2saY+Mx6BRSWcRjlLuLOfEJ+B2tJs/UmJv0d0Y139JZJtC/ovANRvnhTnR10ACP5LoD+669+FbNTg+JdP40EUqa9QM4aCvoGQFm9rpmMY2SSj9gpD2H7CqifPpxpGH76DqOVSIQQQJPCGsWrZCOJ8gFutg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DHcvcGuz; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=B5+xXeBg; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="Li1vekXM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791581146; bh=qHgSxkdnVQlY19v7EQbRAz+8I29njKHZVqqI/RHgg1I=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=Li1vekXM6z4HFi4T7+iXVh+JfYOgVhxDDGA13VssaIOJwqywufPHbfGl7wko5X2oT+9SzihRagnyeUKohs2lhejQi8pH7X0JgVcaze8R+KufagiCrEHP5Jgc8sB8Db+M/rvJnIxTG/9z6ZYeE+MBirJYUCnSJoIw7G8WEjA51nQYh+YwLj3F8j/KF9pcdj/y6gBaz/G14Rh1hfZjFl2gvCbURZ+SSECWUeyf7tX5xvwGq+7lKt0N2UE+E3dQXiZOkWN/rO9bF+cPVyp/C/uzGdauL6lrhYk33W56NYgxa/lf+Xt6D7NyHCU+tvNurHOsst8egyH8V+2cr8hk23hNRQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791581146; bh=QjwHDuG7EvLIxV9IsDMehLgmW9jAmuUnjwenQMDuytA=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=WAfK3a/A2bfXALreoryEyAv56BQP0TLb8W4WuoqrGitgJ/4T9yiwfIH5Ojh67BL7WBD6owRRTz1UHgPcJkVh2+Ckv4zQHsxDjR9Rihzr05FJoiSKJ++LbxuBL383bIESlt1WjYJ0CrOn+j8vbNA3cBQd2iy4wBX4VZDQj4NuP3bQOkknlfCx8oLYckUqURcJVClzqHrpOJwdC7mdtd+x4fvBjyDLB/uhffOMgd/YGGYnk1LTwdsKIlzbB9OOWU/QPq1iZXoZ5aE/PR7D5HKCsh7mbhoE5uVObzVtBFLtMVvdpwBzzAXOz9ke94T4D1MQ/FgpSwxNSAskZelWATM9xw==
-X-YMail-OSG: HdACYQoVM1lJLtcHSfLxnpElQvH_U9.e7Fx71SDV2HcUDJtfyoDap3nvDDtQd5b
- n7.0MosL7f0peZblJeHSgMDZvUh5wRU7c5J15pkCCPtpB8CTewp8rPx8Wq4YuMOCiKSNrA0fyWyL
- G60338NwM5cDdC6J.xGPROT7fBNBTQrei8WwMtLvcbSDHhqcUwHj6ab1hXVVUsora8H.CuRCMSUf
- FbF1WglpAR5M2i5SOzz3TKW2a9YMw38QETWBK6yXz4H8NvjavQHFKEs5puH_DO1Ro_URKTyDlrnv
- BrnBtwh_88DPknNhOLbVSSCQOsv14MR3oN2I9LWJOZb8BpqWZHPuDbSrBaBMYC2LCCjgYxi8SJyH
- VbQuI15nJ0Vq4g5ef0VuZ9YBXH302XN2gGUajBnXHL90vFR86tRVQve2_4EdEzxEUL0EH0Svqict
- r_aeiHzRzv8_HIBXX8yelUeOotVzW1wt0HW6_I5M5eE8boOULbMqmwlXqEjia2aVPinWva05x9sE
- bCn6uC3KaVMQSP4HFTtqCIyA6vPeb_pVvl_VZSMXKzzF9xNZ.2tFGEfueD0KAy_E3NaquUQXyDI9
- 3Om8Rfdap4.qC1GkhTWXMAskO56W9WczImH1T.y1at3GwNzVZlqb4WHsQudIzgg8PScIFOodF8DB
- pv1WB9K_2jNcO1VrkKjNV3J0B5mLP9XJ5FtmJyT9R_aJdpzOV0yH8MjqP4tkLAM8oGHxkNQye4RC
- UbJr442fg_6kdFq_XGH1tTeJltmpHvaz9bZnEtl5CGhjPgH9J7stVIe9gX1jbMkPiE4KrdoJVDxs
- iTuZm8QO20ranTHwT1t1RfLvAFVaSq2sN39aYX2qaLxWzjXH8JdmEPp5QUNNRaxhpHjsl5Bjsbpv
- NO1QDBJkztZtGtgjCJTbRLQ8i04qzpKW3Wugx2.cTi9ySlGBTQfA1NB5C.PjiZcmgUmqtI0fPSGH
- T0SpF4_eUKK6Gk8HIK5a_95OQeRf75Ra7aBkq7sDL1hMIB.GDKo.vTh1SDU13GFsiJCmgOAxhxQP
- zweGvVuy_33PGEzUShUBUjz_zJj.yB_2TT2vLsLO5kv.l5ytOBXxtTDBHIpA4ZCZp1GpqGgHnZyH
- yC9U9Q_2k5oq2f2Lmk_PGnrR5fPbbSbrLjpB2N.037XTHh0zsOynBuV_p929ISBrsEy9mcWDMrLJ
- s9Jph6Epzj.6CAmoUKev3btCGemyDSBVpMISRDI1zABXZ1cZf8KYF_HFpSvssL6cqsYLFmP2hIY2
- jsbjSLtvBdFSDKobpfaFd0G7SmpS5PmbRJExJtxL0I4VGRfQ5MfBaXfwBBBkuTOz9brMNc_Z6BT.
- _EWtNXacZ3L.LxzSIPmIaXwQPUURg.2BQQd8vTWDd.fDGFL2jnwh2rdFxF.IO1PigVj46d7wV7_z
- zdbhg12x3p3xnEz4ySCTR8RSKPfHBc5K_NufC1ykWZD4vi9fKuEevQ4Di7ntTmqpTFVBj8g.fyIG
- GC7_LgMo9gaatkdDhqmRocSGEsJ4chPH0r59b.pwZrGnMW77eXuUuWsjc3TFWYqQjj3_4puZRWau
- q9JQ.JWL5rDvf5D3YllL8I3Qfp2ezT3T2szBf3xjDmGybExCP2gHnKSIwEdw0REE68SQrSrtlc2i
- Z1Wp7LGwEmbk2YnK.JEAEfbwiwxmF8CKIf2dh.Yowu21jzDA0aW0LN1OTblf4XwX.bSXBVujp5AD
- G6VuXyjO24YOqnr00UucKuc.OTzPWobkpdXwlx7JBvLdMd7qUawCmMfyDPospbfImGAeQTi4RRLe
- cFaZ_3zrMa3GWKpE58VAhKw5A.R7jrroHfasK0pL5ynw6T3kNXhtaf.Cdi9QXO3.ZQs0mJCmUe3J
- Wm_UrqIRWzZMrPFNjh4qdplE1CVbdSEixi67REVvO2a6Wpy_Q3WQeFxaZ2js9DQN5CQmmMrmpj0x
- kevBTH7w8YIneLFrpU6V1O72OIIHoP2ssXWULPTJkTm91h3q8s.cvICXPqPxANbLyolTA4koOtf7
- 7EOx5mWjBgIJoOUc6lfd7JCNcJHLNYeN.IzV23nZsLTIdeGGvIKgHVDbOImNfLPz6cJZ4HJPWrf7
- .CE70l.WNmZ7hbxqwihIwx1lztdmoV1L7qDncC_3Zg5w2Nsa3xsEnP4Aluav89YK7RYKOmEL3mQ2
- 2ku.9J47HTqqkGHpvvQRKRpovVesNnq3RwddcLGWw.2UwN2ukCH43LP9Rgd1kQpdOoTDCpDGV3jS
- wzQ5_JudibCABHq86P4hgA_Hjmew5C0DS.Tf4xQ--
-X-Sonic-MF: <deaner92@yahoo.com>
-X-Sonic-ID: 47e50a12-97c2-4c6c-bcb9-ab6b9499186a
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic310.consmr.mail.bf2.yahoo.com with HTTP; Fri, 9 Oct 2026 21:25:46 +0000
-Received: by hermes--production-bf1-6d6877594b-r7rdv (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 89dc1a489e21d216279610b62058c333;
-          Fri, 09 Oct 2026 21:15:31 +0000 (UTC)
-From: Jeremy Dean <deaner92@yahoo.com>
-To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pwm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jeremy Dean <deaner92@yahoo.com>
-Subject: [PATCH v2] dt-bindings: pwm: Convert NXP PCA9685 PWM controller to DT schema
-Date: Fri,  9 Oct 2026 21:15:23 +0000
-Message-ID: <20261009211523.56122-1-deaner92@yahoo.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DHcvcGuz";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="B5+xXeBg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791581216;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZxvkTxUcJf7CaZriMxWB3wlk03saYsRAfT3CN9F3Ggk=;
+	b=DHcvcGuzMAxIPT0KFFqHBTuQMEZZ3GOvfEn6TB4y8f0SCV7ev/QVdppzrDkFGWZW0wpueA
+	30jJYbc9PCSUfg0J5qke5GfLAqGJoezNNFHWQPHvvYt0Ca6c59W1BqgovMqdRylfHnhzth
+	SWxmjaDhiXaY5mbFZh17Bm6BkgpYLFw=
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-584-geCr45PGPwqjpZDimZ7LZQ-1; Fri, 9 Oct 2026 21:26:55 +0000
+X-MC-Unique: geCr45PGPwqjpZDimZ7LZQ-1
+X-Mimecast-MFC-AGG-ID: geCr45PGPwqjpZDimZ7LZQ_1791581214
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5345ded3f6dso3403991cf.3
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 14:26:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1791581214; x=1792186014; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=ZxvkTxUcJf7CaZriMxWB3wlk03saYsRAfT3CN9F3Ggk=;
+        b=B5+xXeBgYtNcjTT1Nr7kDEV0T40IhHn7aXqUo2X4xNKJIkS81ESwog6Gt7BVokifZs
+         sS765scpDTFvKaosT5z6cCjcte3HC2pMAr6eQ0IuYssYHBouJEaGkFDdkU96xDd3KlsJ
+         2kGgykZ+7/Yic9XZQYP61ByUZDla4mWjLOEjxfF/24/vDwegZ8E3A3IbASroJ7cEJQZq
+         Kivg/bSe0mLWRtoIprZ5LaT40ZzuuPah1QtF2COCxhrHmCDfM/FlhAWCBJIRVqWphi2D
+         +eE731iPELdRFw5PXN+9GCmoVLMspOaGIFvSpvjAQAfNsYg8mubGV17TA9IjIbzZKjAQ
+         liCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791581214; x=1792186014;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZxvkTxUcJf7CaZriMxWB3wlk03saYsRAfT3CN9F3Ggk=;
+        b=vU8pdhOSWK080Qw49E9rbgRH1Yg2MSnw8Io6NLZPZJZZdKkuCr3uRKCV7Kx8/5LCyP
+         zoTZwSFX3SuZshbOTxjbmFrpScgHM2amyhB/0WD9KGkNDpchDH2SZyHJRwb+O5OlZ0n1
+         Z1/2nIZMpbDKQFgZLOjaK1xjEs0VJ8S1OuNPLpmjExNN0lYs38Yuaa+917XjiM3kzbuF
+         4yNdKWEpgDBZpjwvC7uEzYjqQnutn+EhQmDIKUIRy4FzifrRtOy5LEvNfesN9WYeGzop
+         wF/1sLFDmZGRxJ8iBz4GTtP3qSlSDcL/U/YVAYyXvauKNPqFZ0h0x+e4GtcmoQKYfciR
+         s7Qg==
+X-Forwarded-Encrypted: i=1; AKwUvBz5JnH8+c+FZEyOYxwQ2P19ikCTBkaLhMZKz5IQnVuQXDsRayaspNLZgFsOssHMJIBqKYc5hPpIx1LCXYc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK+6nGS8YgVRsYruel7ODNFNpiv3S81QKuNT7tAVCjEr/w4ikqt
+	Pb19Wj3d+USnkpTKxjU4NzveM+R604/PYHYUJarrKsw9wwPiPCvS6xiR5VkkyG1mUhLZB25ZvvI
+	A2dDWpqO80wkGbKOLwvzoJvbmxDN2odSxCU7gKPbNVCwMu9tUZMtfVxbTlumUoOAWCg==
+X-Gm-Gg: AYBFou3FB2jwHkqd24FPtYTirRaj6kXRfma6JVkhamk93vrrSAITCim7KEm/hQ1BYn9
+	GA+Sc1p/CdO5t/M4sm588UUBzpA/3KhhtnyBmiGVoPty1Ggz3kO5V8HzcdVTY8heVlSyalrFvBA
+	61TcMuB7AgRp7ljCUaz5HcuuJ/QUXQns9WQ6R6fn6kH9FQ22kFuJWxamvJe5PiVoGSpunUCNREY
+	7b3BY8TXwXudcRVgIZ+c1+eddZfqXs3o/ZaZTsO13p9Y17t0U7UtexRy723IxFc2pTWQWc6ZgRZ
+	OPquqo7+9JnJYn2wCu9qrV5DAVq+F6kli2etiI3LqSDxxYGggBlBR4g/sbIDWBbaXjkoGIM=
+X-Received: by 2002:a05:622a:343:b0:535:209a:2789 with SMTP id d75a77b69052e-5359fae42c4mr54673831cf.27.1791581214258;
+        Fri, 09 Oct 2026 14:26:54 -0700 (PDT)
+X-Received: by 2002:a05:622a:343:b0:535:209a:2789 with SMTP id d75a77b69052e-5359fae42c4mr54673491cf.27.1791581213810;
+        Fri, 09 Oct 2026 14:26:53 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b7c0214sm27166781cf.25.2026.10.09.14.26.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 14:26:53 -0700 (PDT)
+Message-ID: <fa0cc152304b5a387b1a074454ded7f9c540cc57.camel@redhat.com>
+Subject: Re: [PATCH v2 3/3] nouveau: Fix NULL dereference in
+ nvkm_gsp_gcx_ready()
+From: lyude@redhat.com
+To: jim.cromie@gmail.com, Danilo Krummrich <dakr@kernel.org>, Maarten
+ Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Dave Airlie	
+ <airlied@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, Daniel Campos Ramos <Capitain_Jack@yahoo.com>
+Date: Fri, 09 Oct 2026 17:26:52 -0400
+In-Reply-To: <20261009-my-fixups-v2-3-839e2bbe514d@gmail.com>
+References: <20261009-my-fixups-v2-0-839e2bbe514d@gmail.com>
+	 <20261009-my-fixups-v2-3-839e2bbe514d@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-References: <20261009211523.56122-1-deaner92.ref@yahoo.com>
 
-Convert the NXP PCA9685 PWM controller binding to DT schema format.
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 
-Changes from the text binding:
-
-Document the 'reg' property and make it required. It was missing
-from the text binding, although the example used it and the device
-cannot work without the I2C address.
-
-Rename the example node to the generic 'pwm', as required by
-pwm.yaml.
-
-Describe both cells of the PWM specifier, and state that 'invert'
-and 'open-drain' apply to all outputs, as per the datasheet (INVRT
-and OUTDRV bits in MODE2).
-
-Assisted-by: LLM
-Signed-off-by: Jeremy Dean <deaner92@yahoo.com>
----
-Changes in v2:
-- Use the same name in 'maintainers' as in the Signed-off-by. 
-
-v1: https://lore.kernel.org/all/20261006033518.34332-1-deaner92@yahoo.com/
-
-The schema and commit message were drafted with AI assistant.
-I verified each property against the driver source, the
-PCA9685 datasheet and the binding. Passes make dt_binding_check.
- .../bindings/pwm/nxp,pca9685-pwm.txt          | 27 --------
- .../bindings/pwm/nxp,pca9685-pwm.yaml         | 62 +++++++++++++++++++
- 2 files changed, 62 insertions(+), 27 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt
- create mode 100644 Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml
-
-diff --git a/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt b/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt
-deleted file mode 100644
-index f21b55c95738..000000000000
---- a/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt
-+++ /dev/null
-@@ -1,27 +0,0 @@
--NXP PCA9685 16-channel 12-bit PWM LED controller
--================================================
--
--Required properties:
--  - compatible: "nxp,pca9685-pwm"
--  - #pwm-cells: Should be 2. See pwm.yaml in this directory for a description of
--    the cells format.
--    The index 16 is the ALLCALL channel, that sets all PWM channels at the same
--    time.
--
--Optional properties:
--  - invert (bool): boolean to enable inverted logic
--  - open-drain (bool): boolean to configure outputs with open-drain structure;
--		       if omitted use totem-pole structure
--
--Example:
--
--For LEDs that are directly connected to the PCA, the following setting is
--applicable:
--
--pca: pca@41 {
--	compatible = "nxp,pca9685-pwm";
--	#pwm-cells = <2>;
--	reg = <0x41>;
--	invert;
--	open-drain;
--};
-diff --git a/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml b/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml
-new file mode 100644
-index 000000000000..40d82a2437b4
---- /dev/null
-+++ b/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml
-@@ -0,0 +1,62 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/pwm/nxp,pca9685-pwm.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: NXP PCA9685 16-channel 12-bit PWM LED controller
-+
-+maintainers:
-+  - Jeremy Dean <deaner92@yahoo.com>
-+
-+allOf:
-+  - $ref: pwm.yaml#
-+
-+properties:
-+  compatible:
-+    const: nxp,pca9685-pwm
-+
-+  reg:
-+    maxItems: 1
-+
-+  "#pwm-cells":
-+    const: 2
-+    description:
-+      The first cell is the PWM channel index, from 0 to 15, or 16 for the
-+      ALLCALL channel, which sets all PWM channels at the same time. The
-+      second cell is the PWM period in nanoseconds.
-+
-+  invert:
-+    type: boolean
-+    description:
-+      Invert the logic state of all outputs (INVRT bit in the MODE2
-+      register). The setting applies to the whole chip, not to individual
-+      channels, and is typically used when the outputs drive an external
-+      driver stage.
-+
-+  open-drain:
-+    type: boolean
-+    description:
-+      Configure all outputs with an open-drain structure (OUTDRV bit in the
-+      MODE2 register). If omitted, the outputs use a totem-pole structure.
-+
-+required:
-+  - compatible
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        pwm@41 {
-+            compatible = "nxp,pca9685-pwm";
-+            reg = <0x41>;
-+            #pwm-cells = <2>;
-+            invert;
-+            open-drain;
-+        };
-+    };
-
-base-commit: aac26bee2287c88af5be5a5ff96d783b19a28790
--- 
-2.43.0
+On Fri, 2026-10-09 at 11:44 -0600, Jim Cromie via B4 Relay wrote:
+> From: Jim Cromie <jim.cromie@gmail.com>
+>=20
+> Commit cb4c7603678c ("drm/nouveau/gsp/r570: Add support for
+> INTERNAL_GCX_ENTRY_PREREQUISITE") hooked nvif_device_gcx_ready() into
+> nouveau_pmops_runtime_suspend() to consult GSP before runtime
+> suspend.
+>=20
+> On GPUs running without GSP-RM (e.g. Volta GV100, NvGspRm=3D0, or
+> missing
+> GSP firmware blobs), device->gsp is instantiated but gsp->rm remains
+> NULL. nvkm_udevice_gcx_ready() checked "!gsp" instead of verifying
+> nvkm_gsp_rm(gsp), allowing non-RM instances to invoke
+> nvkm_gsp_gcx_ready(). nvkm_gsp_gcx_ready() then unconditionally
+> dereferenced gsp->rm->api, causing a kernel oops:
+>=20
+> =C2=A0 RIP: 0010:nvkm_gsp_gcx_ready+0x10/0x30 [nouveau]
+> =C2=A0 Code: ... 48 8b 87 70 0e 00 00 <48> 8b 40 18 ...
+> =C2=A0 RAX: 0000000000000000 RDI: ffff8c9555fca000
+> =C2=A0 Call Trace:
+> =C2=A0=C2=A0 nvkm_udevice_mthd+0xa5/0x150 [nouveau]
+> =C2=A0=C2=A0 nvkm_ioctl+0xcc/0x1d0 [nouveau]
+> =C2=A0=C2=A0 nvif_object_mthd+0x110/0x1e0 [nouveau]
+> =C2=A0=C2=A0 nvif_device_gcx_ready+0x36/0x60 [nouveau]
+> =C2=A0=C2=A0 nouveau_pmops_runtime_suspend+0x39/0x140 [nouveau]
+>=20
+> Instruction decode shows `mov rax, [rdi+0xe70]` loads gsp->rm (0x0),
+> and `<48> 8b 40 18` (`mov rax, [rax+0x18]`) faults accessing rm->api.
+>=20
+> Fix by:
+> 0. Checking !nvkm_gsp_rm(gsp) in nvkm_udevice_gcx_ready() so non-RM
+> =C2=A0=C2=A0 devices report GC6/GcOff ready and bypass the GSP call entir=
+ely.
+> 1. Guarding gsp and gsp->rm in nvkm_gsp_gcx_ready() before inspecting
+> =C2=A0=C2=A0 gsp->rm->api->gsp->gcx_ready.
+>=20
+> Fixes: cb4c7603678c ("drm/nouveau/gsp/r570: Add support for
+> INTERNAL_GCX_ENTRY_PREREQUISITE")
+> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+> ---
+> =C2=A0drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h | 2 +-
+> =C2=A0drivers/gpu/drm/nouveau/nvkm/engine/device/user.c | 2 +-
+> =C2=A0drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c=C2=A0=C2=A0=C2=A0 | =
+2 +-
+> =C2=A03 files changed, 3 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
+> b/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
+> index ed5c6e0e68d3..933f13ed2a50 100644
+> --- a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
+> +++ b/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
+> @@ -274,7 +274,7 @@ struct nvkm_gsp {
+> =C2=A0static inline bool
+> =C2=A0nvkm_gsp_rm(struct nvkm_gsp *gsp)
+> =C2=A0{
+> -	return gsp && (gsp->fws.rm || gsp->fw.img);
+> +	return gsp && gsp->rm && (gsp->fws.rm || gsp->fw.img);
+> =C2=A0}
+> =C2=A0
+> =C2=A0#include <rm/rm.h>
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
+> b/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
+> index f78e6b9b4292..d469437eb991 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/user.c
+> @@ -201,7 +201,7 @@ nvkm_udevice_gcx_ready(struct nvkm_udevice *udev,
+> void *data, u32 size)
+> =C2=A0	} *args =3D data;
+> =C2=A0	int ret =3D -ENOSYS;
+> =C2=A0
+> -	if (!gsp) {
+> +	if (!nvkm_gsp_rm(gsp)) {
+> =C2=A0		args->v0.ready =3D NV_DEVICE_GC6_READY |
+> NV_DEVICE_GCOFF_READY;
+> =C2=A0		return 0;
+> =C2=A0	}
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c
+> b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c
+> index e475d0e8fa7b..ea895f04293a 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/base.c
+> @@ -51,7 +51,7 @@ nvkm_gsp_intr_stall(struct nvkm_gsp *gsp, enum
+> nvkm_subdev_type type, int inst)
+> =C2=A0int
+> =C2=A0nvkm_gsp_gcx_ready(struct nvkm_gsp *gsp)
+> =C2=A0{
+> -	if (!gsp->rm->api->gsp->gcx_ready)
+> +	if (!nvkm_gsp_rm(gsp) || !gsp->rm->api->gsp->gcx_ready)
+> =C2=A0		return NV_DEVICE_GC6_READY | NV_DEVICE_GCOFF_READY;
+> =C2=A0
+> =C2=A0	return gsp->rm->api->gsp->gcx_ready(gsp);
 
