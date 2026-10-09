@@ -1,237 +1,178 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D04502579
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 18:48:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791571724; cv=none; b=hlV8kJdBoTrrBUnAsGbt7X5rAkq9KZbpWhon/GSHzPKVzFi7ic3D8T3+EvTgOPmJc/Jvk861Z2/ZCw1UQ6AobdvKjqU1d6dPW+zhVtJBoJWp+XeiY7HFpZpgku5M32NNP1NoKK01OzUjP2ovN6mgzHGDTgkExfauLw1w17wspEI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791571724; c=relaxed/simple;
-	bh=s4jjt2BBHxaI2aAA5bwHo+SKjtGAz2YWOkmoQFSMOV8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=W8qfYxnquIyZGN4BOeqEJfo6U77JJQAc10HhjSQz0oqLfJJcw15zePc1eCMBYnXo+uJ11CED07MRtDeuizYuM0k8Fi5c8bmBN5ovJLs+Ib2zg0AytUm709gj3cOlGyAFZ+3+AzjNvclWESHXdoyq2nvjvDqAkKyLsvbtF1lZiV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PIW4KsE7; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B24C51AEDD
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 18:48:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.173
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791571726; cv=pass; b=DtMx6hU2t3jg5SVjXh15FC/j7cfxzlqFKi2VJ9u8s2YR0PlTSOITQiuKuUEAkNfwwIZsqCUU//RQrHDWP7/m6XXpUhrvIp0iPEeDnsanRC4V8cPxChxQAUxfpGU1y9c3AC0NC0O7ZWWrHfzMj1cf+YdUwseimrQWg+ZXHWOYNvA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791571726; c=relaxed/simple;
+	bh=0l4CaaLZ9zgaLsOego2cb1kl3aoONQoA1AOZZaKe/2Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nHy6KR/PDUAlNM+Z8gnIhDw9+HU7zRCOS5NXanQMet+P77l+XKViD+Uyurs2SGADnWDJRpPAl6IPJCANjGwiyDt3C7ehYNTj/4C7Vb1i3WKpnlnZNlEUeWXK3ydjoOBx80ekBgUNVcX8koBSKtq7uL/SyWG8SqQUuzsn1ccwM34=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VYIyd12E; arc=pass smtp.client-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PIW4KsE7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791571722;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QLJL/mFUdKlXJidqQcf7VxgZvQrWlq/QP59klTXlG88=;
-	b=PIW4KsE7JTeVy5MCurw30VuMT7AKzH6v/xu24pjfWMSDG9i0xLj0eu61mmKz8j3ntt2TpP
-	huSEIZu9+CWjHip8nVy3gggq0dfUl8SiJ/mZv+svP8aUpTKE5ZrFlzLte1Vk/gLCRX9Vn5
-	Jl85sKgi1agkr63Ushq3AkFcYm6er6w=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-679-nO6vJIOeNFeYaImqYpLOQA-1; Fri,
- 9 Oct 2026 18:48:38 +0000
-X-MC-Unique: nO6vJIOeNFeYaImqYpLOQA-1
-X-Mimecast-MFC-AGG-ID: nO6vJIOeNFeYaImqYpLOQA_1791571717
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 04F0F195E917;
-	Fri,  9 Oct 2026 18:48:37 +0000 (UTC)
-Received: from [100.91.101.41] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 798D8472;
-	Fri,  9 Oct 2026 18:48:34 +0000 (UTC)
-Message-ID: <5f3ed318-db89-4c52-91b7-46b49e99f216@redhat.com>
-Date: Fri, 9 Oct 2026 20:48:33 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VYIyd12E"
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-3515f9a5d25so30477eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 11:48:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791571724; cv=none;
+        d=google.com; s=arc-20260327;
+        b=op6FtXuYfzGMKPY7PymQskqapydK1TQIVCRAM7/mjHYRe9p67dvwVs70tYESGiEzyj
+         ayPvG6ltRpdjIJ+YiK0BUCLTn7Q2P7g0MUH3sn6abgFomyvLcYSLA71MlcmWECFMfQK7
+         gqydT7hNy9tysYbW0d0JrBsHYYg3Hn/2u/MrnrnQ/3H9CUuMKnKTRU6borz18Ux2SwlT
+         +FxFCCoq6KMdo+3ZE8UGIVKXO7riENUOwRiPAPwiel2EU3b6b0ZSFO8JwcdkyvwaNKed
+         EXnfOBIw5ILOpAZuTdsffIXzVbN5RjXAuscZvPDHewlnfur9diJ44Yv5BW16Qm396WQc
+         0lsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0l4CaaLZ9zgaLsOego2cb1kl3aoONQoA1AOZZaKe/2Y=;
+        fh=pjuhx4QxBo5fS5GvDkinwRt46168ZjpvgG+HNqqOiqg=;
+        b=Z5AQHUYg0AO+JkB2F/XSA10ZgdCqm/amHeAZkb83lUa2+tfGAb2lmBbFFVL3mpVBlY
+         JfWhX65Kid2dy7Z0VCZ1hOW80OjLgWZ3YEnqwBVic7TvHZ6Cr7r15wpxFaV2aaTuYPpG
+         blsbTFVhJwJKGjv+omMsIdPgyAAND0V1XRw2t6Dpo0CLyGe283okHE9PW0YZERc1+Xep
+         y2YCOuxGMERuk0p3b8Omh7ce0DonVRBeKYAhWfrnngT/QceLhfqgQxbTOMPDEdWZZX5h
+         VXdR0t6CHOBWiXNQxL/mfjDKjnGcDx+1guLTfcMWwfGe/HrGDeA3EoMrxcphg8OmmkJA
+         xrYw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791571724; x=1792176524; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0l4CaaLZ9zgaLsOego2cb1kl3aoONQoA1AOZZaKe/2Y=;
+        b=VYIyd12EnUDdnT8Z1l/1WPnqE7Yb+8klPqGIIwI4kuh6EPw3QcIIJRFvazsgALnMkd
+         yJvbatXkT3wu7SUFr7gYQRqB7fbeRl2tYDuTGVWCG+NyDA65AX4GVx0GTMLO1RCvjPzh
+         Rw5l1kfI8QnOdHFVmlQEF1a0bsSltITJdOQ90G1Cv+sKhDaGPbj7H0a3UAqTqYTfdTYE
+         nB5sMaXOU0BIkT+z4+hYzboyHnBRV4Vv4UgiJewaNqKcTNG1hTNuG2XxrkShNwYNsaDr
+         hQBOP5k3ZkZj4S0WADuxQTGqcppmki6jcqdDy0E552ja1K4Ei87e8+Yhx0+g7o6kZmkh
+         +R/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791571724; x=1792176524;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0l4CaaLZ9zgaLsOego2cb1kl3aoONQoA1AOZZaKe/2Y=;
+        b=Wtg7rXrTVLD1jRqHeE2Ob4nKtYDQxZ1tda7t0fdIdtHDHsT/hLsJS8DZKWCXk+JwI/
+         ZJ3YfoA0TuVo2zTkB9+CAt/ZIPMo0dOZ8HjhxQkDEHqfHYRjaU6kNdPO2j6J68+5ScBi
+         kzC+meYk4Ujm/AN+08ZrEXNAiYLsHCij7+KkfPIztLM4xi+/6qcbDRRZ0NyzMbKgEe7Z
+         qR97nOXn3xjr7EPrwFF1KaA+EXYJN/FU+kYrppZkmBD9wBqp5CsHXW9PLAGBUsKr9mOJ
+         oe0XSxDURjJZsAiXQGW66IlwE2DSxiL5+1NJyZCxmvA9guq3S6BvEJjAsNg4Shi6KkBB
+         T77Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxeUa+0b8Ai4/dt498LEOGKUJhNLqUVvPJzWTCZrGxE76wmbNvYX1yDP14jjz0ptba0//ETrHRvR8cLsHI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKo/HPs7KeTLmAYD/dHGnLX/j70+R9n20VIRnDtt/EcyiMf9wBo
+	57OCWwC9POshyvL2tlZK8e8DmqFMmNknf12xFeNepcIIiqIcP3Kz3IkVNGW1qU+xm32Dk2kjq4z
+	43fCRhkji3Vsy2h2he/gP2BDjKwrj6mc=
+X-Gm-Gg: AYBFou00IPaFGL+xDBUmgXgySGblWfdp82JU6oTm1Px88iqKoBxSSUxjwDTMx9GZa16
+	3SrJ21mHVKJv+2dklFEFTAWZoh5YuTkPaXN516ElvB1sX9BkB4ltdIJ4q84LghosyIe00a1njWb
+	oRxKJN9bQ6ob/3vwwSv5/a+bujpUGY3Cu+e32DmyQbd7XzHqYU1p4i/UlgV52yeZEt8HvOM5YDO
+	sJ5L40LSryVMTYUpB9TxiehSTy7VHSg5UGNrBujD6y3YgolR5jKfpQgce+V7HTP3DVAada71nHy
+	vPOWCqdHkuAZx8eq27pz5IYoRK/DkWTLWd3kt4tzgNLEWqFnwrn1cvEcA59Fh8Uld9YKO7/Y4nn
+	/iosOL+742D2k3SxxA+aQZkOrBa9xXVs4t3sv3tfl7Q==
+X-Received: by 2002:a05:7301:77cb:b0:356:b370:a0ee with SMTP id
+ 5a478bee46e88-356b370a395mr1072744eec.20.1791571724058; Fri, 09 Oct 2026
+ 11:48:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v3 3/4] dpll: zl3073x: reject inexact frequencies for
- N-divided outputs
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, min.li@microchip.com, vadim.fedorenko@linux.dev,
- arkadiusz.kubalewski@intel.com, jiri@resnulli.us, kuba@kernel.org,
- Prathosh.Satish@microchip.com, pabeni@redhat.com,
- linux-kernel@vger.kernel.org
-References: <20261006153116.347497-4-ivecera@redhat.com>
- <179147350412.434549.10496013315426964523@kernel.org>
-Content-Language: en-US
-From: Ivan Vecera <ivecera@redhat.com>
-In-Reply-To: <179147350412.434549.10496013315426964523@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+References: <20260930-chid-v9-0-0d6cca376cff@nvidia.com> <20260930-chid-v9-8-0d6cca376cff@nvidia.com>
+ <aryYkkB9j14xnWo3@yury> <DLTA93JE6VF2.37UGB3SWU6ID6@nvidia.com>
+ <ase7IBtZjQsPVWSN@yury> <DM0D75ZTTQXJ.2XADVI38UGH7C@nvidia.com>
+In-Reply-To: <DM0D75ZTTQXJ.2XADVI38UGH7C@nvidia.com>
+From: Burak Emir <burak.emir@gmail.com>
+Date: Fri, 9 Oct 2026 20:48:30 +0200
+X-Gm-Features: AclHuK8Xj8QHFk5-TbzyPwVsH20KRa9KXwlVq0lwopsd7qnglTdkhqow-XI0c1A
+Message-ID: <CABwQupMVzUOsqP_fTZQdwUU+xEO1k2Q4=RQQuq2qd5HCYY0ZUg@mail.gmail.com>
+Subject: Re: [PATCH v9 8/9] rust: id_pool: do not round capacity up to BitmapVec::MAX_INLINE_LEN
+To: Alexandre Courbot <acourbot@nvidia.com>
+Cc: Yury Norov <ynorov@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>, 
+	Alice Ryhl <aliceryhl@google.com>, Yury Norov <yury.norov@gmail.com>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, John Hubbard <jhubbard@nvidia.com>, 
+	Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/8/26 17:31, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 (1) · Medium: 1 · Low: 0 (1)
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Medium] In the P-pin branch of zl3073x_dpll_output_pin_frequency_set()
->    (drivers/dpll/zl3073x/dpll.c:1016-1031), the patch widens the product…
-> 
-> Pre-existing issues:
-> - [High] A privileged netlink request for frequency 0 can reach the
->    unchecked division `new_div = synth_freq / (u32)frequency;` in…
-> - [Low] The four NL_SET_ERR_MSG_FMT() calls this patch adds to
->    zl3073x_dpll_output_pin_frequency_set() (drivers/dpll/zl3073x/dpll.c,…
-> 
-> --
-> 
-> dpll: zl3073x: reject inexact frequencies for N-divided outputs
-> 
-> This patch changes zl3073x_dpll_output_pin_frequency_set() to check the
-> division remainder when it computes esync_n_period for N-divided outputs.
-> A request is rejected if it does not divide evenly or if the N-pin
-> frequency would not stay below the P-pin frequency. Both failure cases
-> get new extack messages.
-> 
->> diff --git a/drivers/dpll/zl3073x/dpll.c b/drivers/dpll/zl3073x/dpll.c
->> index 7c997966c3c33..65107b4cc4f82 100644
->> --- a/drivers/dpll/zl3073x/dpll.c
->> +++ b/drivers/dpll/zl3073x/dpll.c
->> @@ -1007,15 +1007,28 @@ zl3073x_dpll_output_pin_frequency_set(const struct dpll_pin *dpll_pin,
-> 
-> [Severity: High]
-> This is a pre-existing issue, but can a frequency of 0 reach the division
-> at the top of zl3073x_dpll_output_pin_frequency_set()?
+On Fri, Oct 9, 2026 at 4:07=E2=80=AFPM Alexandre Courbot <acourbot@nvidia.c=
+om> wrote:
+>
+> On Fri Oct 9, 2026 at 12:47 AM JST, Yury Norov wrote:
 
-Yes. In V4 I will add a separate patch that will stops offering a 0 Hz current
-frequency as supported, so the DPLL core rejects a 0 Hz request before it
-reaches the driver.
+> > If you still think that you need 0-length bitmaps in Rust, can you plea=
+se
+> > give the clear and thorough explanation why rust needs those 0-length
+> > bitmaps. Are there any in-kernel examples? Any language concepts requir=
+ing
+> > it? If not, it's still a NAK.
+>
+> I don't know of an in-kernel example, but please look at the
+> `bitmap_vec_new` test which has been here since the API was initially
+> merged last year: the first thing it does is create a zero-sized bitmap.
 
-> 	new_div = synth_freq / (u32)frequency;
-> 
-> zl3073x_dev_output_pin_freq_get() uses integer division, so a sub-Hz
-> output reads back as 0 Hz. For example, with a 600 MHz synth, an N-divided
-> output, div=60 and esync_n_period=20000000, N is 0.5 Hz and is reported
-> as 0. zl3073x_out_state_fetch() only rejects zero divisors.
-> 
-> zl3073x_pin_props_get() in drivers/dpll/zl3073x/prop.c then always
-> registers the current frequency as supported. This bypasses the !freq
-> check in zl3073x_pin_check_freq():
-> 
-> 	ranges[0] = (struct dpll_pin_frequency)DPLL_PIN_FREQUENCY(curr_freq);
-> 
-> Suppose firmware also lists 1 Hz for that N-pin. A CAP_NET_ADMIN user can
-> set the N-pin to 1 Hz and then request 0 Hz:
-> 
-> dpll_pin_freq_set()
->    dpll_pin_is_freq_supported(0)   -> true, ranges[0] is {0, 0}
->    freq != old_freq (1)
->    ops->frequency_set(..., 0, ...)
->      zl3073x_dpll_output_pin_frequency_set()
->        synth_freq / (u32)0
-> 
-> The division happens before any of the new remainder checks run.
-> 
-> There may be a similar path through a non N-divided output with
-> div > synth_freq, where P reads as 0 Hz. The DPLL_A_PIN_FREQUENCY policy
-> is a plain NLA_U64 with no range. This code is unchanged at the end of
-> the series.
-> 
-> Would rejecting a zero frequency here, or in dpll_pin_freq_set(), make
-> sense?
-> 
->>   
->>   	if (zl3073x_dpll_is_p_pin(pin)) {
-> 
-> [ ... ]
-> 
->> -		out.esync_n_period = (out.esync_n_period * out.div) / new_div;
->> -		if (!out.esync_n_period)
->> +		u64 prod = mul_u32_u32(out.esync_n_period, out.div);
->> +		u32 rem;
->> +
->> +		out.esync_n_period = div_u64_rem(prod, new_div, &rem);
-> 
-> [Severity: Medium]
-> Is the 64-bit quotient silently truncated when it is stored in the u32
-> out.esync_n_period?
+Well, yeah: I wanted the behavior that the implementation rounds up
+documented so it can be recognized as intentional.
+Later, the `new_inline` method was added, which is a clearer way to
+get the largest non-allocating BitmapVec.
 
-Right. Will fix this in v4 so the quotient will be kept in u64 and the request
-is rejected if it does not fit into u32.
-> mul_u32_u32() widens prod, but the result of div_u64_rem() is narrowed
-> before the rem and < 2 checks run. Those checks never see the upper bits.
-> 
-> For example, take a 600 MHz synth with div=12 and
-> esync_n_period=0x80000001 read from hardware (P=50 MHz, N about 0.023 Hz).
-> Requesting P=100 MHz gives new_div=6:
-> 
->      prod     = 0x80000001 * 12 = 0x60000000C
->      quotient = 0x60000000C / 6 = 0x100000002, rem = 0
->      (u32)    = 2
-> 
-> Both checks pass, and zl3073x_out_state_set() commits div=6 and
-> esync_n_period=2. The N-pin then jumps from about 0.023 Hz to 50 MHz.
-> The commit message says this patch prevents that kind of N-pin shift.
-> 
-> zl3073x_out_state_fetch() only rejects a zero esync_n_period, so it
-> accepts this state from hardware. The driver's own N-pin path cannot
-> create it, but EEPROM or firmware can.
-> 
-> Could the quotient be kept in a u64 temporary, with values above U32_MAX
-> rejected before the assignment? This code is unchanged at the end of the
-> series.
-> 
->> +		if (rem != 0) {
->> +			NL_SET_ERR_MSG_FMT(extack,
->> +					   "OUT%uN freq must divide OUT%uP freq",
->> +					   out_id, out_id);
->>   			return -EINVAL;
->> +		}
-> 
-> [Severity: Low]
-> This isn't a bug introduced by this patch, but do the new extack messages
-> (here and in the N-pin branch) ever reach userspace?
+I think the problem in this discussion is that we want to treat
+capacity like length, which is maybe suggested by the BitmapVec name
+and its len method.
 
-No, dpll_pin_freq_set() overwrites them. That is a DPLL core issue and
-out of scope for this series.
+With the minimum capacity behavior documented, it is as if we have a
+specification right now that no IdPool instances can ever have less
+capacity than BitmapVec::MAX_INLINE_LEN bits. This patch here proposes
+to change that.
 
-^^^
-Jiri, Arek, Vadim? There are many places that simply overwrite extack messages
-from a driver's callbacks.
+It is not clear though why client code would be happy about *less capacity*=
+?
 
-> The only caller, dpll_pin_freq_set(), sets its own message whenever
-> frequency_set() fails:
-> 
-> drivers/dpll/dpll_netlink.c:dpll_pin_freq_set() {
->      ...
-> 	if (ret) {
-> 		NL_SET_ERR_MSG_FMT(extack,
-> 				   "frequency set failed for dpll_id:%u",
-> 				   dpll->id);
-> 		return ret;
-> 	}
->      ...
-> }
-> 
-> NL_SET_ERR_MSG_FMT() writes into the same extack->_msg_buf and points
-> extack->_msg at it again. Userspace therefore gets only the generic
-> message. The driver text shows up only in the netlink_extack tracepoint.
-> The core still overwrites the message at the end of the series.
-> 
-> A smaller point: in the P-pin branch the remainder check runs before the
-> < 2 check. If the requested P frequency is below the current N frequency
-> (new_div > esync_n_period * div), the quotient is 0 and rem equals prod.
-> That case gets "must divide" instead of "must be less than". Would
-> checking esync_n_period < 2 first give the more accurate message?
-Yes, will fix in v4.
+In other words, why should the client of the IdPool have the right to
+control the *exact* initial capacity, even if it is below documented,
+free-of-charge minimum capacity?
 
-Thanks,
-Ivan
+The IdPool, despite being backed by a BitmapVec, is not meant to be
+used like a vector: it does not grow by itself but client code calls
+grow and shrink explicitly, and client code has no control over how
+much that growing and shrinking happens.
 
-pw-bot: cr
+Like, you cannot grow to 65 and expect to get a capacity 65. So why
+insist on exact small sizes?
 
+> It is also easy to imagine a user starting with an empty pool and
+> growing it on-demand. Having the ability to create a zero-sized pool is
+> convenient to avoid special-casing user code, and in this case I'd say
+> expected, just like you can create a zero-sized vector. Again a size of
+> zero does not trigger anything that a larger capacity cannot trigger, so
+> I don't see a reason to forbid it.
+
+With an initial capacity of minimum MAX_INLINE_LEN capacity, it is not
+about forbidding, it is that the added capacity already comes for
+free.
+You could say "not enabling" instead of "forbidding", but pretending
+that the capacity is somehow not there does not seem to buy us
+anything.
+
+Do the other patches in this series need this, or can we just drop this pat=
+ch?
+If they do, maybe a demonstration of how significant the special-case
+handling is that can be avoided with the exact small capacity could be
+part of the commit message?
+
+Cheers,
+Burak
