@@ -1,191 +1,132 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-124.mta0.migadu.com [91.218.175.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DD804D2EC6
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 12:27:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 899964D6C46
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 12:28:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791548884; cv=none; b=A9cnnlgez+FiY2Ip2uSPiCylswDBvmastDQWZpaG3j5YVR9DGeldixWQjcaS0wF76l6IiOd22O+jVK2IqpjybdYFdwOCiPELXvL2h5ZCUjtOgxpL33zPL48OkS/Gkyge38apcWfcD+7IjHDOxN2kHT7ZFDJRvqQ0+ZWae4ogIvE=
+	t=1791548913; cv=none; b=Ceeq/bidgYGJtH6/R4TjeAvUzw/5+Oy0TF+a2PaHnTnGRaBiI9dhlIlBfpJdOmU0XmNCA/f+uwc5NNRxyLb/c+2cmxEX0bSX8B6GVfV7gkBAAzZ66leU+9jNLOpywnFV57nYdTyDJdEO0LK6NXGw4LzA8mbKh0iV9UU/qha/1lk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791548884; c=relaxed/simple;
-	bh=6zXT/mNtIqTiOKRUcmo9bYKRehgXBjTqywsbso1n6eo=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=VJoOwx0l3MInNII6KroBFYVRnPAe6aY/YpWhIn87D8MZW5QTjb5odgZj2tICqw/XJtjn+B4aGKfmG3UxOR9z0Y9fDZFd4vasl4XchuPTswF23rR4zqZB67xDs/TzGZL3UsW6duQEkmDrvJLJj55mEAZpX3vTdordUcJfV0qFS+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=URjhoLnA; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791548913; c=relaxed/simple;
+	bh=s1tCujWEhQUGKDrIj/SWc90xs4vo11d1o+0/tXUXAv4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OzKvSzhtoPHKZPU0V17534n51O1im1pRqdja5YRii4LD05aPR6nrK/BlL4JnMdqt+au/xKNV9EIv9WPqKA0YsNguLofGwbNHN+1HsN+mhjrWC67rh7M5bE72YF7Z5iCM+lQ8e3aUN2lvfAvEgoHowRQiEMzEBCL9pe1dxAOsUYA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=VCZFL/B8; arc=none smtp.client-ip=91.218.175.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="URjhoLnA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791548878; x=1823084878;
-  h=date:from:to:cc:subject:message-id:mime-version:
-   content-transfer-encoding;
-  bh=6zXT/mNtIqTiOKRUcmo9bYKRehgXBjTqywsbso1n6eo=;
-  b=URjhoLnAnpbtRshcBN1WSxTiGUJu8cyW6whcAY1zujM5JmEhRq5VfGGm
-   Q4jRIN/ZUPftRAFR8O0kVj8oloekCV3jL09W1f2h0kL0TFzbi0hJNsh7e
-   gDwxneg5pXGslhIuzz7ojjELvg/YuAh6Jg5NWfTUO3qolRxbts3JQMi3v
-   AodsJOlC4X4XsP9YNbrSFE4fbSQ9oRIscZZTYeoZT06O8ak72pY93TgDt
-   +i9zc0zwWl7uePvyNWH13oaKziit0XUIOohRlQtVzzN1ieXO/bMxdxFFL
-   R9XTexID6aQBZY5T+Ahq2g2HN8nV44ExUrgiTUgyo+VwxdvYBTOw+tq7n
-   Q==;
-X-CSE-ConnectionGUID: e6UA1S7hQ6Sf3IW6t1xngA==
-X-CSE-MsgGUID: Oli7zB90SE6Hrx3FNkwZ0Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="346017"
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="346017"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 05:27:57 -0700
-X-CSE-ConnectionGUID: fmdXjdxbSk6hyyovJrKmyg==
-X-CSE-MsgGUID: x8ZSZOTvSlmvSx/YMCgq6w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="290637"
-Received: from igk-lkp-server01.igk.intel.com (HELO d0de6c2a75a7) ([10.211.93.152])
-  by orviesa005.jf.intel.com with ESMTP; 09 Oct 2026 05:27:54 -0700
-Received: from kbuild by d0de6c2a75a7 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xF9hY-0000000071r-30q6;
-	Fri, 09 Oct 2026 12:27:52 +0000
-Date: Fri, 09 Oct 2026 14:27:32 +0200
-From: kernel test robot <lkp@intel.com>
-To: Andy Chiu <andybnac@gmail.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Paul Walmsley <pjw@kernel.org>
-Subject: arch/riscv/kernel/signal.c:133:15: sparse: sparse: incorrect
- type in assignment (different address spaces)
-Message-ID: <202610091444.LHHlny4D-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="VCZFL/B8"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=s1tCujWEhQUGKDrIj/SWc90xs4vo11d1o+0/tXUXAv4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791548903; v=1; x=1792153703;
+ b=VCZFL/B8hu/9drFjlhXiuQQqsUJyff1kknZRFZxPsHIyPq/Rsb7K5QaBduCFmQ29XdZmBb2H
+ wkVeIyQSXDW7UvJfhxzeIiKLhSxgFiHicE0j1jJi1X4eNRtrD4RCxI3B9GcrUTK13SksiSqYowm
+ Ae1OEVOWXY3Sa8Y+qgEH95Q4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 05e125f8c65bd546;
+	Fri, 09 Oct 2026 12:28:23 +0000
+X-Mizu-Trace-ID: 05e125f8c65bd546
+X-Migadu-Flow: FLOW_OUT
+From: Denis Benato <denis.benato@linux.dev>
+To: linux-kernel@vger.kernel.org
+Cc: linux-input@vger.kernel.org,
+	"Benjamin Tissoires" <bentiss@kernel.org>,
+	"Jiri Kosina" <jikos@kernel.org>,
+	"Luke D . Jones" <luke@ljones.dev>,
+	"Mateusz Schyboll" <dragonn@op.pl>,
+	"Denis Benato" <benato.denis96@gmail.com>,
+	Denis Benato <denis.benato@linux.dev>
+Subject: [PATCH v9 01/12] HID: asus: reinitialize the device after exiting a sleep state
+Date: Fri,  9 Oct 2026 12:28:09 +0000
+Message-ID: <20261009122820.7603-2-denis.benato@linux.dev>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261009122820.7603-1-denis.benato@linux.dev>
+References: <20261009122820.7603-1-denis.benato@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git =
-master
-head:   af32da41b0327b9c6a37856ba82b6760d6c8d10e
-commit: 818d78ba1b3f88d2bfee249f25020211488a26c3 riscv: signal: abstract he=
-ader saving for setup_sigcontext
-date:   10 months ago
-config: riscv-randconfig-r2306-20261009 (https://download.01.org/0day-ci/ar=
-chive/20261009/202610091444.LHHlny4D-lkp@intel.com/config)
-compiler: riscv64-linux-gcc (GCC) 9.5.0
-sparse: v0.6.5-rc1
-reproduce (this is a W=3D1 build): (https://download.01.org/0day-ci/archive=
-/20261009/202610091444.LHHlny4D-lkp@intel.com/reproduce)
+The ROG ally needs to have the EC string sent back after resuming from
+s2idle since the USB device can be turned completely off by the firmware
+when mcu_powersave firmware-attribute is set to 1.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new versio=
-n of
-the same patch/commit), kindly add following tags
-| Fixes: 818d78ba1b3f ("riscv: signal: abstract header saving for setup_sig=
-context")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610091444.LHHlny4D-lkp@i=
-ntel.com/
+This may also be true for other laptops and certain features might stop
+working after the device exit from sleep.
 
-sparse warnings: (new ones prefixed by >>)
->> arch/riscv/kernel/signal.c:133:15: sparse: sparse: incorrect type in ass=
-ignment (different address spaces) @@     expected void [noderef] __user *d=
-atap @@     got void * @@
-   arch/riscv/kernel/signal.c:133:15: sparse:     expected void [noderef] _=
-_user *datap
-   arch/riscv/kernel/signal.c:133:15: sparse:     got void *
->> arch/riscv/kernel/signal.c:133:15: sparse: sparse: incorrect type in ass=
-ignment (different address spaces) @@     expected void [noderef] __user *d=
-atap @@     got void * @@
-   arch/riscv/kernel/signal.c:133:15: sparse:     expected void [noderef] _=
-_user *datap
-   arch/riscv/kernel/signal.c:133:15: sparse:     got void *
->> arch/riscv/kernel/signal.c:133:15: sparse: sparse: incorrect type in ass=
-ignment (different address spaces) @@     expected void [noderef] __user *d=
-atap @@     got void * @@
-   arch/riscv/kernel/signal.c:133:15: sparse:     expected void [noderef] _=
-_user *datap
-   arch/riscv/kernel/signal.c:133:15: sparse:     got void *
->> arch/riscv/kernel/signal.c:133:15: sparse: sparse: incorrect type in ass=
-ignment (different address spaces) @@     expected void [noderef] __user *d=
-atap @@     got void * @@
-   arch/riscv/kernel/signal.c:133:15: sparse:     expected void [noderef] _=
-_user *datap
-   arch/riscv/kernel/signal.c:133:15: sparse:     got void *
-   arch/riscv/kernel/signal.c:148:22: sparse: sparse: symbol 'arch_ext_list=
-' was not declared. Should it be static?
-   arch/riscv/kernel/signal.c:155:14: sparse: sparse: symbol 'nr_arch_exts'=
- was not declared. Should it be static?
-   arch/riscv/kernel/signal.c:300:39: sparse: sparse: cast removes address =
-space '__user' of expression
-   arch/riscv/kernel/signal.c:300:36: sparse: sparse: incorrect type in ass=
-ignment (different address spaces) @@     expected struct __riscv_ctx_hdr [=
-noderef] __user *sc_ext_ptr @@     got void * @@
-   arch/riscv/kernel/signal.c:300:36: sparse:     expected struct __riscv_c=
-tx_hdr [noderef] __user *sc_ext_ptr
-   arch/riscv/kernel/signal.c:300:36: sparse:     got void *
+Assisted-by: opencode:glm-5.2
+Signed-off-by: Denis Benato <denis.benato@linux.dev>
+---
+ drivers/hid/hid-asus.c | 37 +++++++++++++++++++++++++++----------
+ 1 file changed, 27 insertions(+), 10 deletions(-)
 
-vim +133 arch/riscv/kernel/signal.c
+diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+index bd46aba6622a..2125680c7eff 100644
+--- a/drivers/hid/hid-asus.c
++++ b/drivers/hid/hid-asus.c
+@@ -1360,6 +1360,28 @@ static int asus_start_multitouch(struct hid_device *hdev)
+ 	return 0;
+ }
+ 
++/*
++ * Initialize the reports of the device.
++ *
++ * Failures are intentionally not fatal: asus_kbd_init() tolerates a wrong
++ * handshake until this is verified to work for all devices, so a failure
++ * is only reported and the initialization of the remaining reports is
++ * still attempted.
++ */
++static void asus_initialize_reports(struct hid_device *hdev)
++{
++	int ret;
++
++	for (int r = 0; r < ARRAY_SIZE(asus_report_id_init); r++) {
++		if (asus_has_report_id(hdev, asus_report_id_init[r])) {
++			ret = asus_kbd_init(hdev, asus_report_id_init[r]);
++			if (ret < 0)
++				hid_warn(hdev, "Failed to initialize 0x%x: %d.\n",
++					 asus_report_id_init[r], ret);
++		}
++	}
++}
++
+ static int __maybe_unused asus_resume(struct hid_device *hdev)
+ {
+ 	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
+@@ -1379,6 +1401,9 @@ static int __maybe_unused asus_reset_resume(struct hid_device *hdev)
+ {
+ 	struct asus_drvdata *drvdata = hid_get_drvdata(hdev);
+ 
++	if (!drvdata->tp)
++		asus_initialize_reports(hdev);
++
+ 	if (drvdata->tp)
+ 		return asus_start_multitouch(hdev);
+ 
+@@ -1493,16 +1518,8 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		return ret;
+ 	}
+ 
+-	if (!drvdata->tp) {
+-		for (int r = 0; r < ARRAY_SIZE(asus_report_id_init); r++) {
+-			if (asus_has_report_id(hdev, asus_report_id_init[r])) {
+-				ret = asus_kbd_init(hdev, asus_report_id_init[r]);
+-				if (ret < 0)
+-					hid_warn(hdev, "Failed to initialize 0x%x: %d.\n",
+-						 asus_report_id_init[r], ret);
+-			}
+-		}
+-	}
++	if (!drvdata->tp)
++		asus_initialize_reports(hdev);
+ 
+ 	/* Laptops keyboard backlight is always at 0x5a */
+ 	if (is_vendor && (drvdata->quirks & QUIRK_USE_KBD_BACKLIGHT) &&
+-- 
+2.47.3
 
-8ee0b41898fa26f Greentime Hu 2023-06-05  107 =20
-8ee0b41898fa26f Greentime Hu 2023-06-05  108  /*
-8ee0b41898fa26f Greentime Hu 2023-06-05  109   * Restore Vector extension c=
-ontext from the user's signal frame. This function
-8ee0b41898fa26f Greentime Hu 2023-06-05  110   * assumes a valid extension =
-header. So magic and size checking must be done by
-8ee0b41898fa26f Greentime Hu 2023-06-05  111   * the caller.
-8ee0b41898fa26f Greentime Hu 2023-06-05  112   */
-8ee0b41898fa26f Greentime Hu 2023-06-05  113  static long __restore_v_state=
-(struct pt_regs *regs, void __user *sc_vec)
-8ee0b41898fa26f Greentime Hu 2023-06-05  114  {
-8ee0b41898fa26f Greentime Hu 2023-06-05  115  	long err;
-8ee0b41898fa26f Greentime Hu 2023-06-05  116  	struct __sc_riscv_v_state __=
-user *state =3D sc_vec;
-8ee0b41898fa26f Greentime Hu 2023-06-05  117  	void __user *datap;
-8ee0b41898fa26f Greentime Hu 2023-06-05  118 =20
-c27fa53b858b4ee Bj=C3=B6rn T=C3=B6pel  2024-04-03  119  	/*
-c27fa53b858b4ee Bj=C3=B6rn T=C3=B6pel  2024-04-03  120  	 * Mark the vstate=
- as clean prior performing the actual copy,
-c27fa53b858b4ee Bj=C3=B6rn T=C3=B6pel  2024-04-03  121  	 * to avoid gettin=
-g the vstate incorrectly clobbered by the
-c27fa53b858b4ee Bj=C3=B6rn T=C3=B6pel  2024-04-03  122  	 *  discarded vect=
-or state.
-c27fa53b858b4ee Bj=C3=B6rn T=C3=B6pel  2024-04-03  123  	 */
-c27fa53b858b4ee Bj=C3=B6rn T=C3=B6pel  2024-04-03  124  	riscv_v_vstate_set=
-_restore(current, regs);
-c27fa53b858b4ee Bj=C3=B6rn T=C3=B6pel  2024-04-03  125 =20
-8ee0b41898fa26f Greentime Hu 2023-06-05  126  	/* Copy everything of __sc_r=
-iscv_v_state except datap. */
-8ee0b41898fa26f Greentime Hu 2023-06-05  127  	err =3D __copy_from_user(&cu=
-rrent->thread.vstate, &state->v_state,
-8ee0b41898fa26f Greentime Hu 2023-06-05  128  			       offsetof(struct __r=
-iscv_v_ext_state, datap));
-8ee0b41898fa26f Greentime Hu 2023-06-05  129  	if (unlikely(err))
-8ee0b41898fa26f Greentime Hu 2023-06-05  130  		return err;
-8ee0b41898fa26f Greentime Hu 2023-06-05  131 =20
-8ee0b41898fa26f Greentime Hu 2023-06-05  132  	/* Copy the pointer datap it=
-self. */
-8ee0b41898fa26f Greentime Hu 2023-06-05 @133  	err =3D __get_user(datap, &s=
-tate->v_state.datap);
-8ee0b41898fa26f Greentime Hu 2023-06-05  134  	if (unlikely(err))
-8ee0b41898fa26f Greentime Hu 2023-06-05  135  		return err;
-8ee0b41898fa26f Greentime Hu 2023-06-05  136  	/*
-8ee0b41898fa26f Greentime Hu 2023-06-05  137  	 * Copy the whole vector con=
-tent from user space datap. Use
-8ee0b41898fa26f Greentime Hu 2023-06-05  138  	 * copy_from_user to prevent=
- information leak.
-8ee0b41898fa26f Greentime Hu 2023-06-05  139  	 */
-c27fa53b858b4ee Bj=C3=B6rn T=C3=B6pel  2024-04-03  140  	return copy_from_u=
-ser(current->thread.vstate.datap, datap, riscv_v_vsize);
-8ee0b41898fa26f Greentime Hu 2023-06-05  141  }
-818d78ba1b3f88d Andy Chiu    2025-11-12  142 =20
-
-:::::: The code at line 133 was first introduced by commit
-:::::: 8ee0b41898fa26f66e32237f179b6989c65600d6 riscv: signal: Add sigconte=
-xt save/restore for vector
-
-:::::: TO: Greentime Hu <greentime.hu@sifive.com>
-:::::: CC: Palmer Dabbelt <palmer@rivosinc.com>
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
