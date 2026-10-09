@@ -1,44 +1,44 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECF3B18C332;
-	Fri,  9 Oct 2026 00:30:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB8C1CAA6C
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 00:30:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791505839; cv=none; b=b5swAX7B/u08Fyzdx0gNry4xLzA0CDuyebOEyuDoZHdiZ2EWIQiuBTS3HN9Bon61bXEwDNbLlf96xEBFzu3NGFjNTbi6SjMVlYvJ7mQaz/6Kxq9Vn/RUajBa6m3xlYbY6cihKcbKPBCS/fHXyQXh0SXSWWT8/s3haDjmtus+mJQ=
+	t=1791505849; cv=none; b=oRNg/RiIz+x06sH87MreaSkGFC5aQj5C3ATh+E6W0gOBhtbHWPRyB2hLAPefrUgSUAWS+DRlp2+q6rKJiPX2HNLNkny7esVO4oI6q/B9IS8x0doNRONuL4TJRbfsGz4+oURs0u2kn7x8+tSn58IMOjQ7XN821kjptCGUeGVZTiU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791505839; c=relaxed/simple;
-	bh=URRvgDBplzN3sqMnTx/dAfUQXrmvhIRimPvbRCKl7OM=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=FcehiaXr74YGVGshh+zWjiuHK5yx0SYQ7+hJo+PQxZ2wbSHE7VX+xTp27cSkYDvL/1HhzvgzetdEbvmQmXTQ9foBf9njXo4b6QRH0gWpGcr+BJEKMyG1RTJwVeNKK2g+rko/J+Rsh1R6DIO+0rN9c9r1LJF7Wu7RN1PQWLS4AQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bKYzVVEu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791505849; c=relaxed/simple;
+	bh=5doB1BE1XPWENnR7lFHz2tgV1MGaGm+wbaE1Da8t4cI=;
+	h=Message-ID:Subject:From:To:Cc:Date:Content-Type:MIME-Version; b=V1Zsn8+WUkzG9ReK1RjeeBsitnvh1UoIgFU3+diWt9n8S/Lt7LCHt5WovIkfdqdpCeb05bt2s0iCfQjRalzFcjQp8YUV0ABV16r0vlB3qnXVQKg+ugujWFkFr4R+nsn4VegbAVSGGqI5vxt27l5Ep2JXElt0KETYVfe/JI2np10=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=Q3YhmVQw; arc=none smtp.client-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bKYzVVEu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22E6E1F000FF;
-	Fri,  9 Oct 2026 00:30:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791505837;
-	bh=JZzHSdvSKNduzkcGnAy9HI6B6lQJhJSfLNRHSEEf5xw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=bKYzVVEum/tR+9LUkIaUzH02HwQWekm5Ui6L1sstxMdCxRtM5b9XnfH/KiKX5WxNH
-	 T+viX3nDAzKs/mRXxGw2O8jaH6+U75Rz/0nqSzdeb2fzvabiWi0yaY55hOAbAI8m8g
-	 HWa67thfQBjPIjX4OFC+uwQ2d94eXXdgQL1pzMmhjrLNQqhisbHy1NEedVXJSkPJId
-	 dfhV0k1uYN4fnslbErKm/SGfN8SSaln+UyTtHK+dQC16Kitu2+5wAfaXLUmhwMkiAf
-	 bJeQsM+HlkDsTiVznQmo5KR/PQgdQOt8n1RV8LPPLGGlDhSyKACJmhP4rlP4Ul+zVO
-	 yNZ4pu8z8j2RQ==
-Subject: Re: [PATCH] can: vcan: use per-CPU device stats
-From: netdev-bot+sashiko@kernel.org
-To: yogeshgaur.83@gmail.com
-Cc: mkl@pengutronix.de, mailhol@kernel.org, linux-can@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- syzbot+937a3a1fbfbc99d6fcaf@syzkaller.appspotmail.com, kuba@kernel.org
-Date: Fri, 09 Oct 2026 00:30:36 +0000
-Message-ID: <179150583668.1406898.16297101260619649490@kernel.org>
-In-Reply-To: <20261007113611.2082-1-yogeshgaur.83@gmail.com>
-References: <20261007113611.2082-1-yogeshgaur.83@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="Q3YhmVQw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1791505837;
+	bh=waRfuVZmS/2NjhSFY0tBe8TyRqDp7UrLfXWJQxU09HU=;
+	h=Subject:From:To:Cc:Date;
+	b=Q3YhmVQwB9+RIreU54jWKPRuoPrE6/uvQFVIUI651pGL/jGOMTXh9GG3IErHcAyBH
+	 7Y9/RhA49V7KdzAVyk6rotpaLUqyUeZdGZCQkzg8pnz5wkJSnVOHY/sy5nabTCX63r
+	 A+/4bOC9Pn+WaqW/f77hOCnbT4H15d7WvwuPTa4x5oBCHzHifMZoDr4H+Gk+fgfqF1
+	 6LVHodLQGEbw3EPxT7oydKAq66+LwK5C2KxtEV5ltFnw7RAPY0mvbWuosvIoojvF6M
+	 wtfZejvKe8e4qjIxB+mdp22nNpclx/tuaNAfwx4r6OvvSg5rLL8MxrBmEOfleGY6zk
+	 baaDhldkLzkVw==
+Received: from [192.168.68.117] (unknown [180.150.113.112])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 7CA046F499;
+	Fri,  9 Oct 2026 08:30:36 +0800 (AWST)
+Message-ID: <1a070f5c87b1e4e765a7e481b53f66242a9753ec.camel@codeconstruct.com.au>
+Subject: [GIT PULL] nuvoton: First batch of arm64 devicetree changes for v7.4
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: soc <soc@lists.linux.dev>
+Cc: linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org, 
+	linux-kernel@vger.kernel.org, Joel Stanley <joel@jms.id.au>, Tomer Maimon
+	 <tmaimon77@gmail.com>
+Date: Fri, 09 Oct 2026 11:00:35 +1030
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,157 +46,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+Hello SoC maintainers,
 
-Critical: 0 · High: 1 · Medium: 0 (1) · Low: 2
+I've been absorbed with efforts outside of the kernel recently so
+there's not much activity in the BMC tree this time around. This is the
+only PR I plan to send for v7.4. That said, there are are many patches
+on the list that need attention. I will get to them.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Various revisions of series I've applied from Tomer have been on the
+lists for a while. I've worked through some tidying with him in recent
+days so we can get them applied. There are still some process
+improvements necessary on his part with regard to sending patches for
+the BMC tree, which I've discussed with him. I've had to lightly rework
+v10 of his series in order to get it applied as noted in the relevant
+commit messages.
 
-- [High] The fix is incomplete.
-- [Low] The commit message gets the cause wrong: 'vcan does not implement
-  get_num_tx_queues(), so rtnl_create_link() honours IFLA_NUM_TX_QUEUES'.
-- [Low] The patch fixes a syzbot-reported data race (it has Reported-by:
-  syzbot+937a3a1fbfbc99d6fcaf and a Closes: link) that loses tx/rx…
+The work in the tag is currently in linux-next and I am yet to receive
+any negative automated feedback on it.
 
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but the sibling
-  driver vxcan (drivers/net/can/vxcan.c) has the same multi-queue stats…
+I'll be travelling for the next week for the OCP Global conference but
+will keep watch for any concerns that arise.
 
---
+Please merge.
 
-can: vcan: use per-CPU device stats
+Thanks,
 
-The patch moves the vcan tx/rx packet and byte counters off dev->stats,
-where they were plain increments, and onto the core per-CPU dstats. It
-sets pcpu_stat_type to NETDEV_PCPU_STAT_DSTATS and uses
-dev_dstats_rx_add() and dev_dstats_tx_add(). This addresses a KCSAN data
-race that syzbot reported on vcan devices with several tx queues.
+Andrew
 
-Closes: https://syzkaller.appspot.com/bug?extid=937a3a1fbfbc99d6fcaf
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935=
+:
 
-> single tx queue.  vcan does not implement get_num_tx_queues(), so
-> rtnl_create_link() honours IFLA_NUM_TX_QUEUES and a vcan device can be
-> created with several queues, each with its own xmit lock.
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
 
-[Severity: Low]
-Is this cause and effect accurate? rtnl_create_link() uses
-IFLA_NUM_TX_QUEUES whenever the attribute is present. It only falls back
-to ops->get_num_tx_queues() when the attribute is absent:
+are available in the Git repository at:
 
-net/core/rtnetlink.c:rtnl_create_link() {
-    ...
-	if (tb[IFLA_NUM_TX_QUEUES])
-		num_tx_queues = nla_get_u32(tb[IFLA_NUM_TX_QUEUES]);
-	else if (ops->get_num_tx_queues)
-		num_tx_queues = ops->get_num_tx_queues();
-    ...
-}
+  https://git.kernel.org/pub/scm/linux/kernel/git/bmc/linux.git tags/nuvoto=
+n-arm64-7.4-devicetree-0
 
-So adding get_num_tx_queues() to vcan would not prevent a multi-queue
-device.
+for you to fetch changes up to c895734d0ec6c3e94f1fb3a0575b9a7076201d9e:
 
-Could the wording be changed so it does not suggest that?
+  arm64: dts: nuvoton: npcm845-evb: Add peripheral nodes (2026-10-08 10:23:=
+24 +1030)
 
-> Reported-by: syzbot+937a3a1fbfbc99d6fcaf@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=937a3a1fbfbc99d6fcaf
-> Assisted-by: LLM
-> Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
+----------------------------------------------------------------
+nuvoton: First batch of arm64 devicetree changes for v7.4
 
-[Severity: Low]
-This isn't a bug, but this patch fixes a data race reported by syzbot.
-Should it carry a Fixes: tag naming the commit that introduced the
-problem? That would let stable and backport tooling tell which trees need
-the fix.
+A short series of enhancements for the NPCM845 SoC and its evaluation board=
+.
 
-> diff --git a/drivers/net/can/vcan.c b/drivers/net/can/vcan.c
-> index 76e6b7b5c6a11..2ff90cb7eee9e 100644
-> --- a/drivers/net/can/vcan.c
-> +++ b/drivers/net/can/vcan.c
+----------------------------------------------------------------
+Tomer Maimon (4):
+      arm64: dts: nuvoton: npcm845: Split APB address ranges
+      arm64: dts: nuvoton: npcm845: Add peripheral nodes
+      arm64: dts: nuvoton: npcm845-evb: Fix DTS coding style
+      arm64: dts: nuvoton: npcm845-evb: Add peripheral nodes
 
-[ ... ]
-
-> @@ -93,8 +89,7 @@ static netdev_tx_t vcan_tx(struct sk_buff *skb, struct net_device *dev)
->  		return NETDEV_TX_OK;
->  
->  	len = can_skb_get_data_len(skb);
-> -	stats->tx_packets++;
-> -	stats->tx_bytes += len;
-> +	dev_dstats_tx_add(dev, len);
-
-[Severity: High]
-Does this fully close the race described in the commit message?
-
-vcan_tx() still calls can_dropped_invalid_skb() first. That helper's drop
-path does a plain increment on the shared dev->stats:
-
-drivers/net/can/dev/skb.c:can_dropped_invalid_skb() {
-    ...
-inval_skb:
-	kfree_skb(skb);
-	dev->stats.tx_dropped++;
-	return true;
-}
-
-Take a vcan created with IFLA_NUM_TX_QUEUES > 1. Two CPUs send invalid
-frames on different tx queues, for example via AF_PACKET with a non-CAN
-skb->protocol. Each CPU holds only its own queue's xmit lock:
-
-__dev_direct_xmit()
-    HARD_TX_LOCK(dev, txq, smp_processor_id());
-    netdev_start_xmit()
-        vcan_tx()
-            can_dropped_invalid_skb()
-                dev->stats.tx_dropped++;
-
-Can these tx_dropped increments still be lost? Could KCSAN still report a
-data-race in vcan_tx / vcan_tx on this path?
-
-The commit message says tx_dropped "is still reported" because
-dev_get_dstats64() folds in dev->stats. The field itself is still updated
-without any shared lock, though.
-
-Would it make sense to use DEV_STATS_INC(dev, tx_dropped) in
-can_dropped_invalid_skb(), which would cover every CAN driver? Another
-option is for vcan to count drops with dev_dstats_tx_dropped().
-
-[ ... ]
-
-> @@ -185,6 +179,7 @@ static void vcan_setup(struct net_device *dev)
->  	dev->netdev_ops		= &vcan_netdev_ops;
->  	dev->ethtool_ops	= &vcan_ethtool_ops;
->  	dev->needs_free_netdev	= true;
-> +	dev->pcpu_stat_type	= NETDEV_PCPU_STAT_DSTATS;
->  }
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but the sibling driver vxcan
-seems to have the same multi-queue stats race. vxcan_xmit() in
-drivers/net/can/vxcan.c does plain increments on both the local and the
-peer device stats:
-
-drivers/net/can/vxcan.c:vxcan_xmit() {
-    ...
-		srcstats->tx_packets++;
-		srcstats->tx_bytes += len;
-		peerstats = &peer->stats;
-		peerstats->rx_packets++;
-		peerstats->rx_bytes += len;
-    ...
-}
-
-It also does dev->stats.tx_dropped++ when the peer is gone.
-
-rtnl_create_link() also honours IFLA_NUM_TX_QUEUES for a vxcan pair, and
-vxcan does not set pcpu_stat_type. Concurrent xmits on different tx
-queues can lose these increments, including the updates to the peer's rx
-counters.
-
-Should vxcan get the same conversion?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261007113611.2082-1-yogeshgaur.83%40gmail.com
+ .../boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi   | 700 +++++++++++++++++=
++++-
+ .../arm64/boot/dts/nuvoton/nuvoton-npcm845-evb.dts | 439 ++++++++++++-
+ arch/arm64/boot/dts/nuvoton/nuvoton-npcm845.dtsi   |   7 +
+ 3 files changed, 1141 insertions(+), 5 deletions(-)
