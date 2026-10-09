@@ -1,115 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-108-mta193.mxroute.com (mail-108-mta193.mxroute.com [136.175.108.193])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9AF24E4323;
-	Fri,  9 Oct 2026 15:04:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 036434E3220
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 15:04:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=136.175.108.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791558257; cv=none; b=JlFTTl/zHxSqZsITrragA55U/NR9LWrj7cOlGN9mFijBB2IYCDuLb3ypAd4w5AFewkzjKGpbgKX5RUArNmMcOFwQYnPgJr3QCrfeMNntIj+IxJa8e84AH1knxOUSuu4QW1k7zzcvx58v4HYuG+afJx7wMLI7UtvDTndgbsHMAM0=
+	t=1791558258; cv=none; b=D5miYOuoC76N5kRPXBSlG2VzmERdXK99gmvSSyy0tHectbMV29unD9+huZY4m/Czb3rMziC1Hnf+WtapbkTHVmpEzic5kwS4/3jTnMoa+HlozguNJwU2ncUBUiZm2LgsiMzUZUP93ih151sBlwJDPquPxNZryNoQkahG6uaYw5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791558257; c=relaxed/simple;
-	bh=CWDf+4/5YxHaAt9cHoijFqJXNuN0eb5DdzWTqJTxlNU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gMhVdjiF2R5nCnYglyPKNPmEKaq5AYcTJbU9Tt0D7T053B5XFp/gN9J0PFVVl4WOcGIF2bAP/lEI3qbY8t7aR9PQlmO28nNWyFDGyyWhSJxYC0S4b9yRvznhLyej0cuycZvK2P3ltkIBlZuN3sqOspis/qLzfQZf3qaWmcHMz/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aAd4pUCC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791558258; c=relaxed/simple;
+	bh=cT9nU4/wHb7oRtTsNt6qdE4TpIJIG3Dvu7SoCNGUmdA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Y6rDG6WV1UATDqzzejHq8vBWrFdo6KznBpEK1dBVxqXX1X/qO5CNExzSJi27G1KegSJhuxv7XKCNQOAhCjencFDKUnjBhOWfL7uF5kIcpCmGOkNqFjrvpzvUVgWvtBa1XTtolpeb8DCzrZQVFDtAXz1aMATVgXUcSdigCjgToPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=wii.dev; spf=pass smtp.mailfrom=wii.dev; dkim=pass (2048-bit key) header.d=wii.dev header.i=@wii.dev header.b=Z1Z0Jjq+; arc=none smtp.client-ip=136.175.108.193
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=wii.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wii.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aAd4pUCC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06E301F00893;
-	Fri,  9 Oct 2026 15:04:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791558255;
-	bh=S5dCcc6sEnDParSMcBNX+g8x/2XGsg88AsvK7InyEuc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aAd4pUCCnjo+FaIjpip+1t2CJ6iCbVAgDkW4OqMFBLBgAQ62bDJuzIIUCSrO3jJmg
-	 Gb31c6DQC1rRC9nJzjtGtCcd8jAnK53n7MXfq/pD+vpW32pgyD5W/BG4jm5kvxjfw2
-	 9RSHY7cvOi+9E2Y0IesHVR1VPVoymzDLPVsM2xwFtKZnZLY+iN9bkx4feJrX30RWDA
-	 3ISr6qjM7OJKVopHjPfu4k8PvXOOrxu5uK9HqGuBxY/W/PMygF5Gn2AEhfUkfwsZSv
-	 tSHyCs7CvzwblrgMJ33BqSmFF3ZTKfG/lUI9gYj22VXBUnZC3P6K6AhnLu+n71IoHm
-	 jr9nxsP3U26jw==
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfauth.ams.internal (Postfix) with ESMTP id BE992198003A;
-	Fri,  9 Oct 2026 11:04:11 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Fri, 09 Oct 2026 11:04:13 -0400
-X-ME-Sender: <xms:awLJanXsM2I1sGZYMZ8zV8EEZXb5oEUwg8HTGRJY-9rndphFvAN2HQ>
-    <xme:awLJajgTk7aahNxNQlvISKrlE8AIwk80egDwcjhfN0ltVQLlpm1HSHn2TF-DPG71X
-    hBwghO7RNpXu-78A0b8hRhvc6-ZEL7DRp3GhDuh9KCI_uFPpu6G81A>
-X-ME-Received: <xmr:awLJar6-QHAf0vkpyCrvrdz7uFwvhRRrMVn6b-FoIlOrxFWnYMFqTpcDHYk>
-X-ME-Proxy-Cause: dmFkZTGJ/XhBGpPi97MqhD44hU74yMhsQKwQwC/aPUyQ4MaG5oZsznyJvNE4EXcwdzzEyF
-    87tbKrDAR0JtsUQRErGMu+n7kX+YErfUeqecd8yDc4Sx369XclRlObM+DUSB2SyFrJ7hYa
-    gxAsijn36xI/Tr0CoGEx17adMC65DyT4MPcGQUEWxNEqcw4ihMq6UtaAkWxspz2eWmvpo+
-    v4GHKLGyLNkdXcT03bQxlHN2RlesiSH+HycRKl2FswXNTX87OEheEfJTv09IdmzkHpvLcc
-    NB45yZVEGfeUeUPJIzQGFuCh5IUX/oNYngnlv0gJPdZvCbRyhqDH22107TUszX6cFXSfpK
-    q3XbfGfWDdQ56g1Jn/JG1rRk1wvkJwMoUaHyPeGgJWteP9+AgpoRmqi22oEI4p36ZQ+nYb
-    24Q8VA6W601FQsgJPgn9Ar2Ajay/kWCqM5bJ7XR8ldZhsyubcQbZIo3479SckVl8YXfZQm
-    LPLY4z1WVlTttFCeHY/4DCkx+hghBT2alBz3ArIZEWA+3w+/cESqvcppYyeQbH+flhBlk6
-    bZQlMouvgh0BkpFeZmpeN50bF79Xuuvp/pKNU1DY74WZmqHAfdzamhdgesfTWftEnY+jc1
-    SnOy168OU/dmS7QCZdoaCjth9vp+ADs7Ww8xl3iUeSyGQADyXDVWmnztMi3g
-X-ME-Proxy: <xmx:awLJar778wOrEkl1jgfwbaz-4QeMMVVc5RaSA2Seu5yTxJG-FXh6iw>
-    <xmx:awLJapE2_4iwH9Zoa2yMDOMAzvVY_Q4oBfAoqja04cSxi64O-S25iw>
-    <xmx:awLJapyTparEaJgs6lLI_2zPbLVjP2VLkE41sE--LCXn6FUDQ95y1w>
-    <xmx:awLJap0n3xboDZachFfyifzXYHqbv3i_mOxSGT5vwNaSXEtd7LHJqQ>
-    <xmx:awLJasMa-T1M3CZVKEMUN6B3YHNQUESr44WcLS2oZiBut3feTNNaOAIV>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 9 Oct 2026 11:04:10 -0400 (EDT)
-Date: Fri, 9 Oct 2026 16:04:09 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Vishal Verma <vishal.l.verma@intel.com>
-Cc: x86@kernel.org, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev, kvm@vger.kernel.org, 
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] x86/early_printk: Add earlyprintk=tdx to drive
- the UART with TDVMCALLs
-Message-ID: <askBV7fBxg9Wfdqz@thinkstation>
-References: <20261005-b4-tdx_earlyprintk_tdcalls-v4-0-3f7c56dd568a@intel.com>
- <20261005-b4-tdx_earlyprintk_tdcalls-v4-2-3f7c56dd568a@intel.com>
+	dkim=pass (2048-bit key) header.d=wii.dev header.i=@wii.dev header.b="Z1Z0Jjq+"
+Received: from filter006.mxroute.com ([136.175.111.3] filter006.mxroute.com)
+ (Authenticated sender: mN4UYu2MZsgR)
+ by mail-108-mta193.mxroute.com (ZoneMTA) with ESMTPSA id 1a1212cc06f00028b2.009
+ for <linux-kernel@vger.kernel.org>
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Fri, 09 Oct 2026 14:59:03 +0000
+X-Zone-Loop: e08846709ec02807c7dd4b425e73d6fc8b605cfb3982
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=wii.dev;
+	s=x; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=dPvGUU74ClVgziN3/mRJwORr8OkZqlxW2eWGnAwVWNQ=; b=Z1Z0Jjq+LSVr63DMCsdzUkCTMd
+	I2KJCUIbbwZg+15FWRMgnwcpS2j6XQxJdgQPCwKoIGdDH+L8vtDlJMewCVL1GT0MYBkPjcK8d+Gd1
+	mr0JWDe317GXBegOoMUJfvJYHtH4Uo2cwPOSfainWMHmENwDAdSJxAoZY4FJ57Jc9GBdrbnlQmVAW
+	euYnFk8D4fLU7h3hSpj+6jhX0DWbyJUu6PceKcNgKqIhdrtlCbR6Z0+1+HgRbQ6OcHONL/D3UNZ0s
+	HrWy0cyAYh/WJDpnQXv4faEDpZPyMj88WI05MDRp4DhUOMf+FSpChcIuBeNPIeRTAti5TQNvIFo65
+	J9yaRYNg==;
+From: Richard Patel <ripatel@wii.dev>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	Marc Zyngier <maz@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Ingo Molnar <mingo@kernel.org>,
+	Andy Lutomirski <luto@kernel.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	David Rubin <david@vortan.dev>,
+	PJ Waskiewicz <pwaskiewicz@jumptrading.com>
+Subject: [PATCH 1/2] genirq: defer kfree(irqaction) until irq_thread_dtor() finishes
+Date: Fri,  9 Oct 2026 14:58:41 +0000
+Message-ID: <20261009145842.1616117-2-ripatel@wii.dev>
+In-Reply-To: <20261009145842.1616117-1-ripatel@wii.dev>
+References: <20261009145842.1616117-1-ripatel@wii.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261005-b4-tdx_earlyprintk_tdcalls-v4-2-3f7c56dd568a@intel.com>
+Content-Transfer-Encoding: 8bit
+X-Authenticated-Id: ripatel@wii.dev
 
-On Mon, Oct 05, 2026 at 04:50:07PM -0600, Vishal Verma wrote:
-> A TDX guest cannot execute port I/O instructions directly, but
-> earlyprintk's serial console still issues plain inb()/outb() and lets
-> each one fault into the #VE handler to be emulated as a TDVMCALL.
-> 
-> While that works, it is a roundabout way to get a character out.
-> early_serial_putc() polls the LSR, and then writes a byte, but since the
-> TDX guest can't directly do port I/O, a #VE exception is raised. The #VE
-> handler must call TDG.VP.VEINFO.GET to find out what faulted, and then
-> it can issue the TDVMCALL that does the actual work.
-> 
-> This makes #VE a functional mechanism for doing I/O, which is not
-> desirable, is unnecessarily complicated and fragile, and results in
-> twice the number of calls into the TDX module.
-> 
-> Instead, add an earlyprintk=tdx option, which can issue the TDVMCALLs
-> directly. Add a pair of tdx_serial_in() and tdx_serial_out() accessors
-> and set them up in this case.
-> 
-> Note that the output does not appear any earlier - "earlyprintk=" is an
-> early_param(), so the console is still registered from
-> parse_early_param(). This only changes how the bytes leave the guest
-> once it is up.
-> 
-> LLMs were used under supervision to create this patch, to help
-> understand the scope and mechanisms, create testing instrumentation
-> (throwaway) to count #VEs in the serial vs tdx earlyprintk setups,
-> and to drive lab machines to do this testing.
+When an IRQ thread exits abnormally via do_exit() (e.g. the IRQ
+handler oopses) without returning from irq_thread(), a concurrent
+call to free_irq() could free the irqaction before the
+irq_thread_dtor() exit task work runs.
 
-Sounds like you are missing "Assisted-by: LLM" tag.
+  irq thread (oopsed)                 free_irq()
+  -------------------                 ----------
+  do_exit()
+    exit_mm()
+      complete_vfork_done()  -------> kthread_stop() returns
+    exit_files() ...                  kfree(action)
+    exit_task_work()
+      irq_thread_dtor()
+        action->...                   <- use-after-free
 
-> Signed-off-by: Vishal Verma <vishal.l.verma@intel.com>
+Track the pending exit work with the IRQTF_EXIT_WORK thread flag,
+and have __free_irq() wait for the bit to clear before kfree().
 
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+irq_thread_dtor() only runs on irq_thread abnormal exit. If that
+dtor also faults, free_irq() will hang indefinitely, but double
+IRQ thread faults require a reboot anyways.
 
+Fixes: ed3e694d78cc ("move exit_task_work() past exit_files() et.al.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Richard Patel <ripatel@wii.dev>
+---
+ kernel/irq/internals.h |  2 ++
+ kernel/irq/manage.c    | 25 +++++++++++++++++++------
+ 2 files changed, 21 insertions(+), 6 deletions(-)
+
+diff --git a/kernel/irq/internals.h b/kernel/irq/internals.h
+index 0ce21dd45404..2c30e7537987 100644
+--- a/kernel/irq/internals.h
++++ b/kernel/irq/internals.h
+@@ -36,6 +36,7 @@ extern struct irqaction chained_action;
+  * IRQTF_AFFINITY  - irq thread is requested to adjust affinity
+  * IRQTF_FORCED_THREAD  - irq action is force threaded
+  * IRQTF_READY     - signals that irq thread is ready
++ * IRQTF_EXIT_WORK - irq thread exit task_work is pending
+  */
+ enum {
+ 	IRQTF_RUNTHREAD,
+@@ -43,6 +44,7 @@ enum {
+ 	IRQTF_AFFINITY,
+ 	IRQTF_FORCED_THREAD,
+ 	IRQTF_READY,
++	IRQTF_EXIT_WORK,
+ };
+ 
+ /*
+diff --git a/kernel/irq/manage.c b/kernel/irq/manage.c
+index 57eff26fa646..e882a0693a39 100644
+--- a/kernel/irq/manage.c
++++ b/kernel/irq/manage.c
+@@ -1176,17 +1176,14 @@ void wake_threads_waitq(struct irq_desc *desc)
+ 		wake_up(&desc->wait_for_threads);
+ }
+ 
+-static void irq_thread_dtor(struct callback_head *unused)
++static void __irq_thread_dtor(struct irqaction *action)
+ {
+ 	struct task_struct *tsk = current;
+ 	struct irq_desc *desc;
+-	struct irqaction *action;
+ 
+ 	if (WARN_ON_ONCE(!(current->flags & PF_EXITING)))
+ 		return;
+ 
+-	action = kthread_data(tsk);
+-
+ 	pr_err("exiting task \"%s\" (%d) is an active IRQ thread (irq %d)\n",
+ 	       tsk->comm, tsk->pid, action->irq);
+ 
+@@ -1203,6 +1200,14 @@ static void irq_thread_dtor(struct callback_head *unused)
+ 	irq_finalize_oneshot(desc, action);
+ }
+ 
++static void irq_thread_dtor(struct callback_head *unused)
++{
++	struct irqaction *action = kthread_data(current);
++
++	__irq_thread_dtor(action);
++	clear_and_wake_up_bit(IRQTF_EXIT_WORK, &action->thread_flags);
++}
++
+ static void irq_wake_secondary(struct irq_desc *desc, struct irqaction *action)
+ {
+ 	struct irqaction *secondary = action->secondary;
+@@ -1263,6 +1268,7 @@ static int irq_thread(void *data)
+ 	else
+ 		handler_fn = irq_thread_fn;
+ 
++	set_bit(IRQTF_EXIT_WORK, &action->thread_flags);
+ 	init_task_work(&on_exit_work, irq_thread_dtor);
+ 	task_work_add(current, &on_exit_work, TWA_NONE);
+ 
+@@ -1283,6 +1289,7 @@ static int irq_thread(void *data)
+ 	 * oneshot mask bit can be set.
+ 	 */
+ 	task_work_cancel_func(current, irq_thread_dtor);
++	clear_and_wake_up_bit(IRQTF_EXIT_WORK, &action->thread_flags);
+ 	return 0;
+ }
+ 
+@@ -1853,6 +1860,12 @@ __setup_irq(unsigned int irq, struct irq_desc *desc, struct irqaction *new)
+ 	return ret;
+ }
+ 
++static void irq_stop_thread(struct irqaction *action)
++{
++	kthread_stop_put(action->thread);
++	wait_on_bit(&action->thread_flags, IRQTF_EXIT_WORK, TASK_UNINTERRUPTIBLE);
++}
++
+ /*
+  * Internal function to unregister an irqaction - used to free
+  * regular and special interrupts that are part of the architecture.
+@@ -1958,9 +1971,9 @@ static struct irqaction *__free_irq(struct irq_desc *desc, void *dev_id)
+ 	 * the same bit to a newly requested action.
+ 	 */
+ 	if (action->thread) {
+-		kthread_stop_put(action->thread);
++		irq_stop_thread(action);
+ 		if (action->secondary && action->secondary->thread)
+-			kthread_stop_put(action->secondary->thread);
++			irq_stop_thread(action->secondary);
+ 	}
+ 
+ 	/* Last action releases resources */
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+2.52.0
+
