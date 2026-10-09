@@ -1,521 +1,151 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012006.outbound.protection.outlook.com [52.101.48.6])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4002B3451D6;
-	Fri,  9 Oct 2026 19:05:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.6
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791572728; cv=fail; b=ESXJaFYz1a+MC6eFuJKq0PNYVpL0NL71TXwgRGppBy29v/KU9y/V3qGK8k1SZs3Txq1eXhLjsltPp8CD7/olTdxWQBs3tEbGs7Fvhvy/2bhIXWQYqtXKZnuxq4g0v5H0j87VRI3MjJ6b8gplat/BRWRDw7zypJ6yG9Ydv6+t/LM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791572728; c=relaxed/simple;
-	bh=gZw1qXoow33leEoAfYmzXPYSOZIbj0YWQtFbGCgNxVQ=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=u4YCctjope/MFBltl+4LQFo3/HfrELi86x5di0PK8iFPM1NhFXQM/5ZHlZhijDRbxSLt627MqzFYjlNM4EIP4Ey9F5Vkna+WgIMcyCTiZMsw5mAjWXHTXMlCkr7SZIatIMWz/H90V0QP1HJd1c4Ui7T+QnqjeCjTKbyfC4khrYQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Z8gL/E4d; arc=fail smtp.client-ip=52.101.48.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8469B374E5A
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 19:06:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791572780; cv=none; b=hBFzFg95ucdda1VlU6Hn0DSgiOV3fjTzBXFilgQotRog1jxLVVpVIN70AIQIbajlWcDQwBOVALiqJR0BMxHhiT57yt3CIMuiaFTPDc1LypEixfhBe6EOvf2lT9TBxbH12/VDLmEj2Jh8qDRUne+pfcmcDGi0bA/DXJMifXvNBKM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791572780; c=relaxed/simple;
+	bh=u7EeM4iy2Z5Nrj4nm0q1gLTNL9MkAai50pDR+JD6SlA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=POZMvT3DnI9IFKbieWUU+o28A+nn5TREdzuH+m2p5V0BCVOYWCYSG1fRoiYHUOpKD2KwHz/iMagfYBEikZ7wihBs6jUpl1ErcGnVO6IsCkF3dQzSnZkToSlU1+hGtkq6vAncsMkr7hVQnlYnVbKDoYygOB4+xVauZZxlM4GJ+zk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VYYpycrm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UIaxp1yG; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Z8gL/E4d"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e1Hn1BFll9USjmGbs4R0r1gRP9soplwJ7jyi19lrY1x5Tm8l/Vuz0y12iQGMrTZbiq1VpLbqMpjLB/EhZyPgZfUQlbves0W2KRqXdd9DuH0Ej8gGdU7HdLlcfKU9hrhlV1lfUblvoiEFOiYnGEdDvImG7nQAHCg8h9vwo9FgiBKKVG29SgA5PIPpAmWtSpnUU6yWKZ9b+NzN6srHv59SEzpfpcmhUYBQmvO6Arai6lr2ZSRTGrQqJ7Qu6IlTnJA/etrKqyU+NXqqdWq0fPDsJjleHLUqCX8aesH+naG2XAgs2UchHYwKCMYhqprp5R/uK/AghgHB8b0p4CdXkrilCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YTg5Gh3wVwRrDuZdotxmhVHU1k3495p8L1grbXwzPbg=;
- b=FxeDcTMvCC3Voi6QlXOlNinXh/xvbcc6wzLc6vc5uZZzsxJB7TrS51zM/EKTgjEzHndeIPzAFN1kPASZE7YMrWKM8WeThod3v1H4Oq6hscOTSThm+gA5XAabAu5fy7f5ZkAlhpQzY+mBbkWoucEiHcqeCv0A1B5VOAs3iMqVIxSHB+pOSaBoReYD3ZTRSL1fOallMeFyyJN1jmYCa/ROFP2qsiGEgGayEi31MkG2bngZb+ZELsVmYSiijLB852TKpTaD9YeVSwJj7ygIyaZDNbpLZVOilRxnOfhocHXUpYpU36x420YBbdKQuB5EQSCeSbvGXBGn2Yj7+6Zz/7ZD5g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YTg5Gh3wVwRrDuZdotxmhVHU1k3495p8L1grbXwzPbg=;
- b=Z8gL/E4dWdfbdRtz4KutB0Q+vd93U9yZ2E3wZRYwZivUrI9wJdUfuBohs9Nctw//j8eSNFXKZ8u8dFnuVTKUYYPL6OQY/i4XR0arxlFcIJeAgJd6C+Qg38L2H9SJT2+14N1cJPau8SN1lIFU245CWCrTKlu7XXaA7JKKc1DAciI=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ2PR12MB8136.namprd12.prod.outlook.com (2603:10b6:a03:4f8::6)
- by MN2PR12MB4286.namprd12.prod.outlook.com (2603:10b6:208:199::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
- 2026 19:05:22 +0000
-Received: from SJ2PR12MB8136.namprd12.prod.outlook.com
- ([fe80::e5a6:6049:4f4c:afe2]) by SJ2PR12MB8136.namprd12.prod.outlook.com
- ([fe80::e5a6:6049:4f4c:afe2%6]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
- 19:05:21 +0000
-Message-ID: <961ba3a4-3fe2-45de-af56-92efa43ca2b2@amd.com>
-Date: Fri, 9 Oct 2026 14:05:18 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [Patch v2 2/4] KVM: SVM: Add host support for Enhanced SMT
- Protection
-To: "Pratik R. Sampat" <prsampat@amd.com>, kvm@vger.kernel.org,
- x86@kernel.org, linux-kernel@vger.kernel.org
-Cc: tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, seanjc@google.com, pbonzini@redhat.com,
- kim.phillips@amd.com, nikunj@amd.com, michael.roth@amd.com,
- ashish.kalra@amd.com
-References: <cover.1791302373.git.prsampat@amd.com>
- <64ea6ba62315d33b7bfb48ec6cab29ac4ee2fa06.1791302373.git.prsampat@amd.com>
-Content-Language: en-US
-From: Tom Lendacky <thomas.lendacky@amd.com>
-Autocrypt: addr=thomas.lendacky@amd.com; keydata=
- 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
- WiyqywZI5g==
-In-Reply-To: <64ea6ba62315d33b7bfb48ec6cab29ac4ee2fa06.1791302373.git.prsampat@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH2PR14CA0030.namprd14.prod.outlook.com
- (2603:10b6:610:60::40) To SJ2PR12MB8136.namprd12.prod.outlook.com
- (2603:10b6:a03:4f8::6)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VYYpycrm";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UIaxp1yG"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 699HbHEt2970885
+	for <linux-kernel@vger.kernel.org>; Fri, 9 Oct 2026 19:06:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=vGuT4Rp0x4+w1/XEiKwtXsxu
+	5Fnh/mGVWvn2UqQBCmI=; b=VYYpycrmTs8m2WP76oyq/+Oabg9bWdqWM4BzDFk8
+	WI4Jcm3RF2WJYa76oSW4cnCk62doNlRvW9vDZL00geTgxQjndcRAmbk9Tqe9Pt0L
+	mEU/wsD2bqwT0pnZpKvE/RkmNshfaA82owSyCYW0PGbkC/cpOfMyy3PeTFs9R2IC
+	carj2j8hURXES2XfOiiJ9AbRgYLBEoMURKEugNpI9oltdeSKXFKqSMyhCqDo25JN
+	+xCcwdX2hYFD8/WZ+sgrbYN4OPE0PWP0dmRg9Pe0PnOUQEOhOmxhiPQAh/gudoTb
+	cPVZH+1Hd9a2NZRtzQt+G2pX4NSzMZjEfvH1AoMCl4Ttgg==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h74t8gcb9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 19:06:18 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5352436cd78so476521cf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 12:06:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791572778; x=1792177578; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vGuT4Rp0x4+w1/XEiKwtXsxu5Fnh/mGVWvn2UqQBCmI=;
+        b=UIaxp1yGTbLa8fIt3+rvxB/3cEwDjLOsQEvwKmKlwwGI52Xk1MHRRH0xwSBgRP1vv3
+         BK5OLGslOkSu+iN8horZz4ZufKQ1Jxhl7eSW/eis8zkjEHLV3SjON+Mrxbsz3uDuSP5F
+         3zgM9/G+mnk/DEJbOtHsnkdEaFn6lu3lGtNoZLOI4PxXdlBcQz1KB9fWMTSG3M/JPz5d
+         goZhUJ88r+NIkuUyNGehPxSUnEPTmIfneY9ooZlNeWB+NX3bUJTypPYGdOwx9VCP9y9C
+         RxoAG3VGJ6DcfAWbbKbNjcslfl/p3pFany35VM/1HbKKyj7Xi0qTZpE4gdKNZJnHnoAB
+         cj3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791572778; x=1792177578;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vGuT4Rp0x4+w1/XEiKwtXsxu5Fnh/mGVWvn2UqQBCmI=;
+        b=z7Saac+DlJhg0lOdBftAy6xqVt9FIqPxocXlNlv3e7QCTV5CMDmkEqsAeyBmwR/PdG
+         PAaxBE+sO77gGYZRyS/G6QTm9EJP8qHm45ZL2dPJDcswQgvjCkDT3UVestkTlHgZkJj6
+         OROw+K3Fw2D+IOULN+KHwNn3tXPFKjcC4zfzujGmIzgy/cNeCUzoh/Io3Njx8w9UWA5i
+         1Irlxich/YAnPVId3YmW9T2BFciCDjMulravKAqPE93mMvHktRkN2EuyGi7FtrKAQIjP
+         CbGl4scAW7n38T5pOnR1xXNMBdr5pGPk+jYrAe1iwKNRZuFN1JwHj7x8GPAoLnMuFaRT
+         yaaw==
+X-Forwarded-Encrypted: i=1; AKwUvBy2SpMl82p50PJ2EzwqSyNV8dSRBe5QPkj5xMLLPFpI+2ZQJ87/GO9k08Tf4ZqHttjg65HGcnXmCgw2yb0=@vger.kernel.org
+X-Gm-Message-State: AFuF++l8NFzPZuA5mu4brQOUVOekr/OBhE4QeJxlp/y9tyG/FlEwl1ho
+	NU7oBATXMRrfn9gfRPwYW/qDNYrNYVX5F6p2+U2UgDLMEPTo3xkCeWTAabtzvtBFLkPM1RFeqI5
+	tHyVo13Ui5L9cv1ADsN5lu8MJkVBk+LQEuOJrhzA9FzR72Ii6mUnEmZ20uR49pPJD2zg=
+X-Gm-Gg: AYBFou3+9y/nGylyQSGEJPFw4zzcSC9JCJR7p0vgFN7oZQ5ApUPTN37C1gwPSmx4wS1
+	ziy2YVxQJFy6bRO5bymUNQ3XGOsFj6A73RlQUtQZKNdn/+RPXTeJBB9jDTshtkwPcjw0vpAwgWc
+	O9ayqFJBIXedHFcUULAKgeCFPde6nyrCBa/pplibdEIsGFP7snHPo/fO6EHhJwqMA315x553BUG
+	D+eLKHd8tOqvA81iPdnKY3UtibQdnwXJo0hmQZnuYguq1sGxdXeksjiFSWsqXeJDOiYjAC+KpkR
+	yYbQaU5iwrg6TYTbzoQvtowwidQj0yLguZH9lr+QIUX7zuyYNwbMjjRPpnPSLtIR68fbcFyBpSX
+	bPKJ9KLxPq7HQLSo=
+X-Received: by 2002:a05:620a:3947:b0:93c:b33a:5ee0 with SMTP id af79cd13be357-93ebd24b46cmr491198685a.41.1791572777451;
+        Fri, 09 Oct 2026 12:06:17 -0700 (PDT)
+X-Received: by 2002:a05:620a:3947:b0:93c:b33a:5ee0 with SMTP id af79cd13be357-93ebd24b46cmr491189585a.41.1791572776801;
+        Fri, 09 Oct 2026 12:06:16 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.27.161.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18be8c5e7sm106746965e9.4.2026.10.09.12.06.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 12:06:16 -0700 (PDT)
+Date: Fri, 9 Oct 2026 22:06:13 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>,
+        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Subject: Re: [PATCH] arm64: dts: qcom: glymur-crd: Mark L4C regulator as
+ boot-on to save power
+Message-ID: <qp5brxy4zjla3jru4owvnnsp653mwlkh7u4p37pzg3ooagznyl@zltxjsqf3anx>
+References: <20261009-b4-regulator-boot-on-l4c-v1-1-7b76c2b2ea76@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB8136:EE_|MN2PR12MB4286:EE_
-X-MS-Office365-Filtering-Correlation-Id: e26c1e5d-b91e-4e23-1921-08df26384453
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|4143699003|56012099006|11063799006|10067099003|18002099003|22082099003|6133799003|20046099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	tB0z3umHdAbw7pkTeg0iecDGANb8T6fTdCWZcc606FS58ppOkM+kRiNlrTcoXfSdkvtI3cy5vUerYP4ExrSLI62yQqFrfSfAx8KEunB8j8Cf0mpMFgAIpio4zgWtNQxP7Mp/aLu6ue8sHcxAD8lFrleuert1w2/9L5bg/F91QuvzowwK6CeWOcMC0gFuyZ7LYBTYoOcnJ73tM/kXp0TWcAFt0YbO+Hn1fqcOIf+b0dJ6dIzqZs82sUqagG2USr9WUg/xHShS+KskGcIEUgbqVU6ldRvC8cK72U/1jDfnNYRtcnHzpKX56ETT8OsvE3PWhXkr1a4IXlqQwhcH69wtP6QvVzAQkXUCJ3zSoxb+hDKSVqzkcMtJdH2nxHtjC2FeLi0+KNPwTSz21LiYujCb9S9NlEwoDHTgn9Emfr8sRGZyRkp7Jqm7fKYz3POuwwytwEdtpzx97Vx0msS+0jNLgTp2kO0YX2RRU29aNtjpW1g8dGwy4AraMdhdzkILNF1bMNysxC2cdHI6nqfFp0OM6fQ9vJg129jRp9fuOh+ldlTlZHVji2VrUqtLBTbMVRA3ej8Ojfr+p6DMYCFGpYBN+zXY3Q+N+hs3TnSnMdGIV30YKdXwZn0S58H01E1Q0CzFTdgWQX79uSPWNWrKNsnBAOUQV0/FB9pAgRvheVpFiHI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB8136.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(4143699003)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003)(6133799003)(20046099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cDBISjVwcEt6RmZnbVlubnNZbE1KQkRwWFp4TzlvZk0zUGtZTk5CSm9yeWpL?=
- =?utf-8?B?Q0Vaclp2OVl6bXhTWkpseWdzUmQweWExaWlKQmg4eEQvOUwwR1R3U1d4SVht?=
- =?utf-8?B?UTAwUVRZaW0wNFpSTkF2TVJ0UGpiS0dUSmkzN0dscUFidTdBaEpuN1J5S09I?=
- =?utf-8?B?b2Jac0RYUERkazUxcytaaVJDc292ejliUWt1SUNKZzJrZjJUOFJNSFhSWmJ2?=
- =?utf-8?B?TkZhaDk2b1JDTlZoWHBmZmJBc0ZyUmF6bUkrYURZQ1V3ajYzY3hsRlFRRURz?=
- =?utf-8?B?a2htTVU1aGU0N2R1eVhmaG0yWFZYbVc3UkRGVjNrYWtaWWp1aFhIUmRJRFF5?=
- =?utf-8?B?N1JuaEhTSjRWb2d0Q0IwaDdPQ3UxbitiTU9KMjJQWnFZdmlWeEZpTDZVTHBB?=
- =?utf-8?B?OWMzYzJaYnozb3U0V3ZYMlorOEdnQ1kwUUhmS0lxOTN4Z1NSZ1FqQkQ0R3BW?=
- =?utf-8?B?NlRQOWtyZGhHS2tXaHFSUURRZmUvZ2txZlNFVlJhdlJUL2g1QVBabW1qUkg2?=
- =?utf-8?B?NVNyMTVIS3NSSm0ybzdoZTZaUWdUTnlGL0xxQnJEcnBsQ2k5SlVCbG5XR3JM?=
- =?utf-8?B?NXpQcGdOR3FuYmpBRURNN1F3Z3BTR1hxY1VRNHBkcEkxRGVUN1R6Mk42eVc4?=
- =?utf-8?B?d2lWNEk0S2dNN1dKQXVqU3pBZVR6aDVNRUhjaTMwTGpGZGRiYjc0Z2xlOVI3?=
- =?utf-8?B?ZWppRTdHUkI4bCtkMzdpdWloaUxqV2VJMXMzcTNlNkdGUGt3V0Y2SVpKWVBX?=
- =?utf-8?B?cCt5NFhQYnpoMDJNUWRDU1FiRkcwOEw4VndFOWIxNG9nSHphV3VJUkg4M0Ja?=
- =?utf-8?B?aFEzT1FGRVUrZHNaa3ErL25XSnlsWDZVdlEzZURZR2pJL0U4Y0FUa1F5RSto?=
- =?utf-8?B?WG9XL1BwNERGcS9MUE5QcklsaGZvWllseFBmZjlNaVhUREQxaDNyaVdXUGI2?=
- =?utf-8?B?RVBXdnZpbzlXN0s2bEJwa1FOUzJtTUxMZ0xTTGlJQVVocHJhR3dSQi9zN1lV?=
- =?utf-8?B?SFBmVXdYakdHQStYMFFLOXMwS2pVc25ISUl3ZlllTXNVMjM2SFl6cFRhMDNh?=
- =?utf-8?B?Q2ErTmdvSWFJYWN6UVZoTTNnZ3A0U3ZvN2tGY25LS09jdTlJTU5RNzFvK3R3?=
- =?utf-8?B?YXdsbFBmWW9HUXhXWE1BS2FYU29BZ2J0V1NpMWsxSGE5VUpOMU9KQ1JxMWF4?=
- =?utf-8?B?NGRIcTRVUnd5YzZGUC95TkM4ZW94N05wWWwxeFdzN1lwZ3IvTjVRaERTQUlM?=
- =?utf-8?B?Nkx0ZHcvUXhIeHRPM0Rrb1JVb0tiSnFUS2ZKanBvbW9OMnFWL1JIL2tHcXVz?=
- =?utf-8?B?RjhjK3VUOWMxQ3A3c3FKZ3ZUcGZSNHVSYXd3bkZjbWdrc0wyaWJydDBCSFJi?=
- =?utf-8?B?aFE0N3YvdTFtM3NtaGZvc0RnU3BzeG0ra25aTEhQWStuKzlEekdQTkpTRkFZ?=
- =?utf-8?B?eEI1Z24yYTZDcmRRdENITHVxNWFNb29YYkpkajJvRXdHU2p6ZWVUQnRBTHN5?=
- =?utf-8?B?YjJHWFZDZnZYMjBCYzVhdXk1eEoydUI4WjhYVEVzU3dUVzZBVjk3eG95TE5Z?=
- =?utf-8?B?ZmFvRjcrN2VXTVM5REp5UlprRnZUK0I1MlYzMTFyVmI0elpsS1Bzc2dXdkda?=
- =?utf-8?B?b1pBc2tMTDg0UUJwYi9OWjZJTU5FdXdhRkRBK2p4MmE3aGFXbGpvTXVnbGti?=
- =?utf-8?B?dlZjK2dsbW82UWorSm9LVzE4MHJlbloyVFdlRFh5YjlkWmE0UzNlWjdRb3Rj?=
- =?utf-8?B?ZVZaZ1BqSWtJOHNudEJ5cHFSemp6NGMyWFdLR3VCQmVjeW42MDFFNXNHdFdE?=
- =?utf-8?B?aDk2UkpLQlJXUjFQUEhYNTNYK2k2UlZJdFlLVXVkdFpSTU56eEVEb3FuZDlY?=
- =?utf-8?B?UFRUaFRmYTVRZTJ5OGFMd3hDVHJUTFlSVEFQeEliVk14QlRhdlIwNDkzNnNa?=
- =?utf-8?B?RjZacWRkc3l6WUd5OGdzc2xXbmVDNXlkampwenlFR1dKTStPY0l3M2JaMVU3?=
- =?utf-8?B?d1NDK2JLeVlHQmtUMTNhOVRXUDRRVDVXZFg5L1NjTDlSOGxNTWZCZ1cwUWJi?=
- =?utf-8?B?SHBydERhdHJxT0w3Rlg2YlJoZW5TTVVDa2IyOERLTThiNWI2dTlwVDVvTkxQ?=
- =?utf-8?B?QzhNSHc4VzBYOXFNK042cU5oci9KaWFjak9KbmRXSWFQR3Rkay8wdm5LV0Mr?=
- =?utf-8?B?UzRRd2srcGtGMXpxUDNyZ0xxVkFaNlM4UGJBOXF1TndOUlpuckVmK3FPYkdX?=
- =?utf-8?B?Mi9jQlZqQ0ZEdG1RdDVaN0czVHJoQTdhdG53TUtyM3g5cFNtaXoyUVdqK0xr?=
- =?utf-8?Q?Hnamo8Sn7y1FRldsCc?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e26c1e5d-b91e-4e23-1921-08df26384453
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB8136.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 19:05:21.7830
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jU7Z5QizfewEvl1BzQ1YS0GNnlpRpXXB+Uc1K5UiCQCD94uWwn960qD9aAtKXsdwbYzFXVx9BwQMQ6FZ7LoT0A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4286
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009-b4-regulator-boot-on-l4c-v1-1-7b76c2b2ea76@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA3NiBTYWx0ZWRfX2urQg7tlqu1p
+ 6huDoPOVON2JIdqHuoz4iS0sy9LgynOlRajcz56OySFAtmvI8CAS5TMwuj01M9HZjEvTsu3I7dv
+ m7YoRWBlYczf9IWQ4Wqvw4GQNREkpds=
+X-Proofpoint-GUID: On8Kk8ElgceuHbF2KvxB9aOnfN9s2Rvk
+X-Proofpoint-ORIG-GUID: On8Kk8ElgceuHbF2KvxB9aOnfN9s2Rvk
+X-Authority-Analysis: v=2.4 cv=AMIlxa6n c=1 sm=1 tr=0 ts=6ac93b2a cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=EiYrS7xXfcF7w+nkr41hpQ==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=R8p6_zuOKWCWefC-0toA:9 a=CjuIK1q_8ugA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA3NiBTYWx0ZWRfX/ukxtNEbh9KI
+ QX4TfIHKeboR7u1gcRGTqghI8XXwnUSZKDk63pmormLb7VVMpafsjnAwvTFcOqMzKGASMfj+GTx
+ EWz6snfxaS1Du6nNPTZdmV72jNtR8X3h6bvLvP+PaW3AgLasOwDb//2GOMaTziDOnq7alBaSe8y
+ ZvjVcLiqslkPbL12i1uKgXZ6xnMnpqup8pxXAoO6LX0tRT1tNOQOFwdiOzcG91A+VoTaU1+nT3R
+ r4m+K6vI1usQnwlY6fqjOI7mJWfo6w2Db4RwSRYTU49HEQGpjqXst8+XPLHh7vOIkMSF2uVzybx
+ 93E36kK1r7sKWhlI65UZq3802fivBsWonV1lg3YQ9SrXADA5NLpOBGowFWAkafy7aMrfjNqN1P4
+ KNLj5iAosunTtQFUMZfQBMs3GDtCWF9YGN8v5UhMOdkmFTat3Ebs4YHtWvzxZyMri8kDPp/VJrn
+ hAzrDfTFbTYAh0cPCZQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-09_05,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 phishscore=0 malwarescore=0 spamscore=0
+ adultscore=0 bulkscore=0 suspectscore=0 lowpriorityscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610090076
 
-On 10/6/26 11:54, Pratik R. Sampat wrote:
-> Enhanced SMT Protection (ESMTP) protects an SEV-SNP guest from SMT side
-> channels by requiring that, while a vCPU is in guest mode, its SMT sibling
-> thread is either idle in host mode or executing a vCPU the guest has
-> declared to be a legal sibling. A legal sibling is another ESMTP vCPU of
-> the same guest that carries the same VCPU_SIBLING_MASK and agrees on
-> VCPU_ID outside that mask.
+On 26-10-09 17:36:05, Kamal Wadhwa wrote:
+> On current Glymur Rev-1 boards, the third USB controller and PHY are
+> not enabled, so the L4C regulator has no active consumers. The
+> regulator node cannot be removed, however, since Rev-2 boards will
+> enable the corresponding USB hardware.
 > 
-> Hardware enforces this at VMRUN, which no longer enters guest mode right
-> away but stalls until the condition holds. Three new exits report that it
-> could not be met, all of them non-fatal:
+> This rail may have been left enabled by the bootloader. The RPMH
+> regulator driver cannot query real hardware state, so without
+> regulator-boot-on the core assumes the rail is already off and never
+> issues an explicit disable during late cleanup, leaving it enabled
+> indefinitely while unused.
 > 
-> ESMTP_ILLSIB: a sibling thread is running a vCPU that is not a legal
-> sibling of this one.
+> Add regulator-boot-on so the core knows to explicitly disable the
+> rail during late cleanup when no consumers are present.
 > 
-> ESMTP_TIMEOUT: the stall exceeded the timeout programmed in the VMCB. The
-> timer bounds how long VMRUN waits for the core to settle. A module
-> parameter exposes an interface to program this timer.
-> 
-> ESMTP_RETRY: If DBREQ is detected, VMRUN exits. ESMTP_RETRY indicates an
-> internal event and the hypervisor should execute a VMRUN.
-> 
-> Refer to the AMD64 APM Vol 2, section "AMD64 Enhanced SMT Protection".
-> 
-> Acked-by: Borislav Petkov (AMD) <bp@alien8.de> # non-virtualization changes
-> Signed-off-by: Pratik R. Sampat <prsampat@amd.com>
-> ---
-> v1..v2
-> * Move idle wakeup ICR programming to svm_enable_virtualization_cpu()
->   instead of sev_hardware_setup()
-> * Remove cond_sched() in ESMTP exit paths
-> * Program the IDLE_WAKEUP_ICR for all present CPU siblings
-> * Add documentation for ESMTP timeout
-> ---
->  .../admin-guide/kernel-parameters.txt         | 19 ++++++++
->  arch/x86/include/asm/cpufeatures.h            |  1 +
->  arch/x86/include/asm/msr-index.h              |  1 +
->  arch/x86/include/asm/svm.h                    | 12 ++++-
->  arch/x86/include/uapi/asm/svm.h               |  9 +++-
->  arch/x86/kernel/cpu/scattered.c               |  1 +
->  arch/x86/kvm/svm/sev.c                        | 48 ++++++++++++++++++-
->  arch/x86/kvm/svm/svm.c                        |  8 ++++
->  arch/x86/kvm/svm/svm.h                        |  2 +
->  9 files changed, 97 insertions(+), 4 deletions(-)
-> 
-> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-> index 68647ff4bdd2..e09f18c0de34 100644
-> --- a/Documentation/admin-guide/kernel-parameters.txt
-> +++ b/Documentation/admin-guide/kernel-parameters.txt
-> @@ -3240,6 +3240,25 @@ Kernel parameters
->  			max_snp_asid == min_sev_asid-1, will effectively make
->  			SEV-ES unusable.
->  
-> +	kvm-amd.esmtp_timeout_ns=
-> +			[KVM,AMD] Enhanced SMT Protection (ESMTP) VMRUN
-> +			timeout, in nanoseconds, for SEV-SNP guests that enable
-> +			ESMTP.  When an ESMTP vCPU executes VMRUN, hardware
-> +			waits for every sibling thread to either be idle or
-> +			run a legal sibling vCPU of the same guest before
-> +			entering guest mode.  If the wait exceeds this timeout,
-> +			VMRUN exits with VMEXIT_ESMTP_TIMEOUT and KVM retries
-> +			the VMRUN.
-> +
-> +			The value is converted to TSC cycles and programmed
-> +			into the VMCB when a vCPU is initialized, so changing
-> +			it at runtime only affects vCPUs that are created or
-> +			reset afterwards.
-> +
-> +			Default is 0, which disables the timeout, i.e. VMRUN
-> +			waits until the sibling condition is met or a physical
-> +			interrupt arrives.
-> +
->  	kvm-arm.mode=
->  			[KVM,ARM,EARLY] Select one of KVM/arm64's modes of
->  			operation.
-> diff --git a/arch/x86/include/asm/cpufeatures.h b/arch/x86/include/asm/cpufeatures.h
-> index f70ee74b5f92..4cf477e95c58 100644
-> --- a/arch/x86/include/asm/cpufeatures.h
-> +++ b/arch/x86/include/asm/cpufeatures.h
-> @@ -529,6 +529,7 @@
->  						      * and purposes if CLEAR_CPU_BUF_VM is set).
->  						      */
->  #define X86_FEATURE_X2AVIC_EXT		(21*32+20) /* AMD SVM x2AVIC support for 4k vCPUs */
-> +#define X86_FEATURE_AMD_ESMTP		(21*32+21) /* AMD Enhanced SMT Protection */
->  
->  /*
->   * BUG word(s)
-> diff --git a/arch/x86/include/asm/msr-index.h b/arch/x86/include/asm/msr-index.h
-> index 3a8e51a0c9e8..fbcb3313e946 100644
-> --- a/arch/x86/include/asm/msr-index.h
-> +++ b/arch/x86/include/asm/msr-index.h
-> @@ -761,6 +761,7 @@
->  #define MSR_AMD64_SEG_RMP_ENABLED_BIT	0
->  #define MSR_AMD64_SEG_RMP_ENABLED	BIT_ULL(MSR_AMD64_SEG_RMP_ENABLED_BIT)
->  #define MSR_AMD64_RMP_SEGMENT_SHIFT(x)	(((x) & GENMASK_ULL(13, 8)) >> 8)
-> +#define MSR_AMD64_IDLE_WAKEUP_ICR	0xc0010137
->  
->  #define MSR_SVSM_CAA			0xc001f000
->  
-> diff --git a/arch/x86/include/asm/svm.h b/arch/x86/include/asm/svm.h
-> index aa63431ba92c..323ab7089302 100644
-> --- a/arch/x86/include/asm/svm.h
-> +++ b/arch/x86/include/asm/svm.h
-> @@ -165,7 +165,8 @@ struct __attribute__ ((__packed__)) vmcb_control_area {
->  	u8 reserved_9[22];
->  	u64 allowed_sev_features;	/* Offset 0x138 */
->  	u64 guest_sev_features;		/* Offset 0x140 */
-> -	u8 reserved_10[664];
-> +	u64 esmtp_timeout;		/* Offset 0x148 */
-> +	u8 reserved_10[656];
->  	/*
->  	 * Offset 0x3e0, 32 bytes reserved
->  	 * for use by hypervisor/software.
-> @@ -310,6 +311,7 @@ static_assert((X2AVIC_4K_MAX_PHYSICAL_ID & AVIC_PHYSICAL_MAX_INDEX_MASK) == X2AV
->  #define SVM_SEV_FEAT_ALTERNATE_INJECTION		BIT(4)
->  #define SVM_SEV_FEAT_DEBUG_SWAP				BIT(5)
->  #define SVM_SEV_FEAT_SECURE_TSC				BIT(9)
-> +#define SVM_SEV_FEAT_ESMTP				BIT(17)
->  
->  #define VMCB_ALLOWED_SEV_FEATURES_VALID			BIT_ULL(63)
->  
-> @@ -482,6 +484,11 @@ struct sev_es_save_area {
->  	u8 fpreg_x87[80];
->  	u8 fpreg_xmm[256];
->  	u8 fpreg_ymm[256];
-> +	u8 reserved_0x670[560];
-> +
-> +	/* Enhanced SMT Protection */
-> +	u32 vcpu_id;
-> +	u32 vcpu_sibling_mask;
->  } __packed;
->  
->  struct ghcb_save_area {
-> @@ -554,7 +561,7 @@ struct vmcb {
->  
->  #define EXPECTED_VMCB_SAVE_AREA_SIZE		744
->  #define EXPECTED_GHCB_SAVE_AREA_SIZE		1032
-> -#define EXPECTED_SEV_ES_SAVE_AREA_SIZE		1648
-> +#define EXPECTED_SEV_ES_SAVE_AREA_SIZE		2216
->  #define EXPECTED_VMCB_CONTROL_AREA_SIZE		1024
->  #define EXPECTED_GHCB_SIZE			PAGE_SIZE
->  
-> @@ -589,6 +596,7 @@ static inline void __unused_size_checks(void)
->  	BUILD_BUG_RESERVED_OFFSET(sev_es_save_area, 0x320);
->  	BUILD_BUG_RESERVED_OFFSET(sev_es_save_area, 0x380);
->  	BUILD_BUG_RESERVED_OFFSET(sev_es_save_area, 0x3f0);
-> +	BUILD_BUG_RESERVED_OFFSET(sev_es_save_area, 0x670);
->  
->  	BUILD_BUG_RESERVED_OFFSET(ghcb_save_area, 0x0);
->  	BUILD_BUG_RESERVED_OFFSET(ghcb_save_area, 0xcc);
-> diff --git a/arch/x86/include/uapi/asm/svm.h b/arch/x86/include/uapi/asm/svm.h
-> index 010a45c9f614..e59baf4b3c3f 100644
-> --- a/arch/x86/include/uapi/asm/svm.h
-> +++ b/arch/x86/include/uapi/asm/svm.h
-> @@ -135,6 +135,10 @@
->  #define SVM_EXIT_SW				0xf0000000ull
->  
->  #define SVM_EXIT_ERR           -1ull
-> +/* Enhanced SMT Protection VM exits taken during VMRUN sibling sync */
-> +#define SVM_EXIT_ESMTP_ILLSIB  -5ull	/* Illegal ESMTP sibling */
-> +#define SVM_EXIT_ESMTP_TIMEOUT -6ull	/* ESMTP_TIMEOUT expired */
-> +#define SVM_EXIT_ESMTP_RETRY   -7ull	/* Internal event; retry VMRUN */
->  
->  #define SVM_EXIT_REASONS \
->  	{ SVM_EXIT_READ_CR0,    "read_cr0" }, \
-> @@ -246,7 +250,10 @@
->  	{ SVM_VMGEXIT_EXT_GUEST_REQUEST, "vmgexit_ext_guest_request" }, \
->  	{ SVM_VMGEXIT_AP_CREATION,	"vmgexit_ap_creation" }, \
->  	{ SVM_VMGEXIT_HV_FEATURES,	"vmgexit_hypervisor_feature" }, \
-> -	{ SVM_EXIT_ERR,         "invalid_guest_state" }
-> +	{ SVM_EXIT_ERR,         "invalid_guest_state" }, \
-> +	{ SVM_EXIT_ESMTP_ILLSIB,	"esmtp_illsib" }, \
-> +	{ SVM_EXIT_ESMTP_TIMEOUT,	"esmtp_timeout" }, \
-> +	{ SVM_EXIT_ESMTP_RETRY,		"esmtp_retry" }
->  
->  
->  #endif /* _UAPI__SVM_H */
-> diff --git a/arch/x86/kernel/cpu/scattered.c b/arch/x86/kernel/cpu/scattered.c
-> index 8665a6474806..16620fa0e290 100644
-> --- a/arch/x86/kernel/cpu/scattered.c
-> +++ b/arch/x86/kernel/cpu/scattered.c
-> @@ -67,6 +67,7 @@ static const struct cpuid_bit cpuid_bits[] = {
->  	{ X86_FEATURE_PERFMON_V2,		CPUID_EAX,  0, 0x80000022, 0 },
->  	{ X86_FEATURE_AMD_LBR_V2,		CPUID_EAX,  1, 0x80000022, 0 },
->  	{ X86_FEATURE_AMD_LBR_PMC_FREEZE,	CPUID_EAX,  2, 0x80000022, 0 },
-> +	{ X86_FEATURE_AMD_ESMTP,		CPUID_EDX,  1, 0x80000025, 0 },
->  	{ X86_FEATURE_AMD_HTR_CORES,		CPUID_EAX, 30, 0x80000026, 0 },
->  	{ 0, 0, 0, 0, 0 }
->  };
-> diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-> index 5705723f1f41..df836dfe3e55 100644
-> --- a/arch/x86/kvm/svm/sev.c
-> +++ b/arch/x86/kvm/svm/sev.c
-> @@ -67,6 +67,11 @@ module_param_named(sev_snp, sev_snp_enabled, bool, 0444);
->  static unsigned int __ro_after_init nr_ciphertext_hiding_asids;
->  module_param_named(ciphertext_hiding_asids, nr_ciphertext_hiding_asids, uint, 0444);
->  
-> +static unsigned long esmtp_timeout_ns;
-> +module_param(esmtp_timeout_ns, ulong, 0644);
-> +MODULE_PARM_DESC(esmtp_timeout_ns,
-> +		 "ESMTP VMRUN sibling-wait timeout in nanoseconds (0 disables the timer)");
+> Signed-off-by: Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
 
-"ESMTP VMRUN sibling-wait timeout, in nanoseconds. 0 (default) disables
-the timer."
-
-Not sure if that reads any better, main point is just to highlight the
-default is 0, timer disabled.
-
-> +
->  #define AP_RESET_HOLD_NONE		0
->  #define AP_RESET_HOLD_NAE_EVENT		1
->  #define AP_RESET_HOLD_MSR_PROTO		2
-> @@ -506,7 +511,7 @@ static int __sev_guest_init(struct kvm *kvm, struct kvm_sev_cmd *argp,
->  		return -EINVAL;
->  
->  	if (!snp_active)
-> -		valid_vmsa_features &= ~SVM_SEV_FEAT_SECURE_TSC;
-> +		valid_vmsa_features &= ~(SVM_SEV_FEAT_SECURE_TSC | SVM_SEV_FEAT_ESMTP);
->  
->  	if (data->vmsa_features & ~valid_vmsa_features)
->  		return -EINVAL;
-> @@ -1021,6 +1026,15 @@ static int sev_es_sync_vmsa(struct vcpu_svm *svm)
->  
->  	save->sev_features = sev->vmsa_features;
->  
-> +	if (sev->vmsa_features & SVM_SEV_FEAT_ESMTP) {
-> +		save->vcpu_id = vcpu->vcpu_id;
-> +		/*
-> +		 * All vCPUs of a guest are put into one group and can be run
-> +		 * co-resident on the sibling thread of the same core.
-> +		 */
-> +		save->vcpu_sibling_mask = U32_MAX;
-> +	}
-> +
->  	/*
->  	 * Skip FPU and AVX setup with KVM_SEV_ES_INIT to avoid
->  	 * breaking older measurements.
-> @@ -3259,6 +3273,9 @@ void __init sev_hardware_setup(void)
->  
->  	if (sev_snp_enabled && tsc_khz && cpu_feature_enabled(X86_FEATURE_SNP_SECURE_TSC))
->  		sev_supported_vmsa_features |= SVM_SEV_FEAT_SECURE_TSC;
-> +
-> +	if (sev_snp_enabled && cpu_feature_enabled(X86_FEATURE_AMD_ESMTP))
-> +		sev_supported_vmsa_features |= SVM_SEV_FEAT_ESMTP;
->  }
->  
->  void sev_hardware_unsetup(void)
-> @@ -3290,6 +3307,31 @@ int sev_cpu_init(struct svm_cpu_data *sd)
->  	return 0;
->  }
->  
-> +void sev_esmtp_enable_wakeup_icr(void)
-> +{
-> +	unsigned int cpu, sibling, shift;
-> +	u32 core;
-> +
-> +	if (!(sev_supported_vmsa_features & SVM_SEV_FEAT_ESMTP))
-> +		return;
-> +
-> +	cpu = raw_smp_processor_id();
-> +	shift = topology_get_domain_shift(TOPO_CORE_DOMAIN);
-> +	core = per_cpu(x86_cpu_to_apicid, cpu) >> shift;
-> +
-> +	for_each_present_cpu(sibling) {
-> +		u32 apicid = per_cpu(x86_cpu_to_apicid, sibling);
-> +		u64 icr;
-> +
-> +		if (sibling == cpu || (apicid >> shift) != core)
-> +			continue;
-> +
-> +		icr = (u64)apicid << 32;
-> +		icr |= LOCAL_TIMER_VECTOR;
-> +		WARN_ON_ONCE(wrmsrq_safe(MSR_AMD64_IDLE_WAKEUP_ICR, icr));
-> +	}
-
-Can you use cpu_sibling_map here instead of going through every present cpu?
-
-Thanks,
-Tom
-
-> +}
-> +
->  /*
->   * Pages used by hardware to hold guest encrypted state must be flushed before
->   * returning them to the system.
-> @@ -4792,6 +4834,10 @@ static void sev_es_init_vmcb(struct vcpu_svm *svm, bool init_event)
->  		svm->vmcb->control.allowed_sev_features = sev->vmsa_features |
->  							  VMCB_ALLOWED_SEV_FEATURES_VALID;
->  
-> +	if (sev->vmsa_features & SVM_SEV_FEAT_ESMTP)
-> +		svm->vmcb->control.esmtp_timeout = mul_u64_u32_div(esmtp_timeout_ns,
-> +								   tsc_khz, 1000000);
-> +
->  	/* Can't intercept CR register access, HV can't modify CR registers */
->  	svm_clr_intercept(svm, INTERCEPT_CR0_READ);
->  	svm_clr_intercept(svm, INTERCEPT_CR4_READ);
-> diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-> index 5d15c706e43b..624675a12d51 100644
-> --- a/arch/x86/kvm/svm/svm.c
-> +++ b/arch/x86/kvm/svm/svm.c
-> @@ -591,6 +591,8 @@ static int svm_enable_virtualization_cpu(void)
->  		__svm_write_tsc_multiplier(SVM_TSC_RATIO_DEFAULT);
->  	}
->  
-> +	sev_esmtp_enable_wakeup_icr();
-> +
->  	svm_init_os_visible_workarounds();
->  
->  	svm_init_erratum_383();
-> @@ -3743,6 +3745,12 @@ static int svm_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
->  		return 0;
->  	}
->  
-> +	if (svm->vmcb->control.exit_code == SVM_EXIT_ESMTP_RETRY ||
-> +	    svm->vmcb->control.exit_code == SVM_EXIT_ESMTP_ILLSIB ||
-> +	    svm->vmcb->control.exit_code == SVM_EXIT_ESMTP_TIMEOUT) {
-> +		return 1;
-> +	}
-> +
->  	if (exit_fastpath != EXIT_FASTPATH_NONE)
->  		return 1;
->  
-> diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
-> index e958943b8162..8cd8b825c9a0 100644
-> --- a/arch/x86/kvm/svm/svm.h
-> +++ b/arch/x86/kvm/svm/svm.h
-> @@ -1008,6 +1008,7 @@ void __init sev_set_cpu_caps(void);
->  void __init sev_hardware_setup(void);
->  void sev_hardware_unsetup(void);
->  int sev_cpu_init(struct svm_cpu_data *sd);
-> +void sev_esmtp_enable_wakeup_icr(void);
->  int sev_dev_get_attr(u32 group, u64 attr, u64 *val);
->  extern unsigned int max_sev_asid;
->  void sev_handle_rmp_fault(struct kvm_vcpu *vcpu, gpa_t gpa, u64 error_code);
-> @@ -1036,6 +1037,7 @@ static inline void __init sev_set_cpu_caps(void) {}
->  static inline void __init sev_hardware_setup(void) {}
->  static inline void sev_hardware_unsetup(void) {}
->  static inline int sev_cpu_init(struct svm_cpu_data *sd) { return 0; }
-> +static inline void sev_esmtp_enable_wakeup_icr(void) {}
->  static inline int sev_dev_get_attr(u32 group, u64 attr, u64 *val) { return -ENXIO; }
->  #define max_sev_asid 0
->  static inline void sev_handle_rmp_fault(struct kvm_vcpu *vcpu, gpa_t gpa, u64 error_code) {}
-
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
