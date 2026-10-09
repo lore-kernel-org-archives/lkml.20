@@ -1,263 +1,349 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 047F24A7CA0;
-	Fri,  9 Oct 2026 13:56:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791554175; cv=none; b=MeanliDoWe8FOpUmUpmrks3cNZuB6viVVFsZ38V8kTAhBZ8G3cHqlqmnCqfp1ZRNdRPjphAn3PebeJKcr2FcD8t4ROgzvcghdFWP/ylR8KVYhwB9CfmB605E4tKCrYesjkbr/NRt//ujMKIhqlo/DAjSjvGX7Rf6aiIyES05Spc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791554175; c=relaxed/simple;
-	bh=MPjbQE/OEp3RfABQDN3aEJoRDPy5FBYbL6yuafzhE08=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LUb0CkLYyjIJbJgRKIl+VMJ6g3mrYNSrY+bXbAmUGlgI5bAj/UlHN0hYDQUNp0TC8KYrzX0QkNgVdYdQekKXMiTWioWkwWnQwiHvfg/HbdvSx2nxQGcSFwuMRKqW6B9mkS8tQHa9zx0SXKfIc48EOqO9Nifq6MB7UsJ7/96E6WA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m5jbHCM0; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE964DE731
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 13:57:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791554264; cv=pass; b=gjDQxENkwH7TJv407/le2NuVL2f8dzm+uhJriaUW3dgFUxXNhUuttCn8v5DKA99f1sZJbye0TpaeWUFuzxacDUi3bFb/c+kh0qtFHb7C7IQMvy1R+UOTMmFNUCeICji/BvmdJz8I8u9righz2pzKXJrVPoLp6xDjQ1+yofJLyoo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791554264; c=relaxed/simple;
+	bh=Pei62bNjdvw4HKZzmHQP+6GuJOUXx2pql0sJslh4TQo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CRt/12dWjBPliKBxPz3YGgfAJ6NmpDEVJjjg0Zj5f0B1PrbBKDks95o3Czmg0cu/gPA8ACMYWysA3Kk+o25d7nmJwptqbev6s0heQ/RaQO0TeuBiuizYQ2go+ji5TC3BKljksp9tg1BqSmLUdkZ0pNvAPEVMGLBT3tpxtB1Njus=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Go8uduqB; arc=pass smtp.client-ip=209.85.128.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m5jbHCM0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1EDB1F000FF;
-	Fri,  9 Oct 2026 13:56:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791554173;
-	bh=DtJF/GweLIbUbR7hLO3F/tfaCi8SaxiyqPsE9UseAwA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=m5jbHCM0WZali60BtOLW4t5nKpQACD91YWLUvfKX82tf0ZA/JpTI+ED+gSe6T9SOl
-	 Cd4iwdr6AlsO3AegonNOeZtWHfCFiRM3M88Moa0DVG1HuYKHkXIn5k9yzlAlHeM4a8
-	 0u5GGNwWUJVp003BSxHbZgoMYjkcKuC+6K5HxcQtLuP8ovV4XcrRalv5PN2aKEg43u
-	 dhSR+TiGQsRZv4ezqNcfg5/MDRpc1/Rf8E3/y3GpNaozOD874KkhTgKmdh8fTlaGqV
-	 2ha0idH9F657czAEi4TJ3bljkh+iAmTSGayuyN8qkv6i+HvfTpl/AziNZWr7TWShUh
-	 LoCFWyzXH4Dtw==
-Message-ID: <aafe2703-bfb8-43da-8472-b1dfa36fa8f9@kernel.org>
-Date: Fri, 9 Oct 2026 15:56:03 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Go8uduqB"
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8565d77c277so43130357b3.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 06:57:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791554261; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iYi85JkXWXS+NQblJI12ZiuqOG1QmoZcNKS5FAbtADZ4usH2XzZ8s/tIwjEibbll5H
+         0z0MaBdlrEsTWHW+MnaXa1o3i6B4vSMuJaRRoI1eLWjb3zW2J900H6MZbpi5fzHgMPTp
+         yo94tr8xRWarzFsykKGw44l2apbdCOF3vYZNfE6zEVmes5fxu4EqxDiekAwz3aKjYN2n
+         CTfoos2lw+zF8GsViyYnYXclf0OCMtx1XVXVeWCzkQL4DkdTaBuGv63rR9lhJKl78rsT
+         pPBnAPMCGBMkIggNSxsxV8N1aOoEwGXV4tzUMdtOd6WsNJyvANthYILo05YOdf6Mj1Vq
+         91PA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bDCLz7WW3bEB9Nx65aqIBlmoYiNA1aEKD6eje2D3UuI=;
+        fh=UFZ6LqyaBTNm57MrXqpu6Q6MJ7DTvUFoYUml66CLccI=;
+        b=IMEtTyjq4gZyxICiu2XXk1JKK9r6ftPsE4BSpHHgxolqY7GF4TsW0EYSeOzSvj/rl6
+         YLzcrLIfrKfh9GIfVyi1R7L2UaDsISzpU31WJVaky1/r3KYDONYsolecXM9FiBcCsry4
+         EFK9iUkvl7Fjj3cKcsEj2P9wrtEgHlnHkU/AR68W+cn4FxiH2/oq8Az1ibMxgGgNSZJd
+         h3pUpUInpj7lgKiWCvVagBe4GW+DI42NZ7Sud7XL61pI/tLTOcQQSB/c/l456G+egtZB
+         GF9cwIa3NmA8C+tlEzCFRwpOPSE4Isomm654iI6FRBiRTvAQTgdCNicx8TcaUCxKI2G+
+         Si0A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791554261; x=1792159061; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bDCLz7WW3bEB9Nx65aqIBlmoYiNA1aEKD6eje2D3UuI=;
+        b=Go8uduqBQrGsW4Ez6C7qmkJ4VYhHqtNcZrhKZwB71+2Db9IrqNTzWLvtl/QlNM739I
+         1HgODJAWQDBJNikd5HZWLfE/cOmrfCeKnpDNuQTI5rgUOq9SDCRAjkrdsPHZFewg6mLj
+         rf8A259IJuFKZP7kfMyxr7j4UlOeNbETyeEIWpbkz/B/4qqpGLShHUsQyL0bjnbkwils
+         ZKxm7E7ANpuiV8kHjsF8BY89SH2+32OqLcWAGkKfS1aJ2MWR9ounWI7Uh+mL+fthm+J7
+         L7jYgrdhJrM/ApfZAEcPH2fsOsk1myNefxLFIFRgWnhpVxHTUFljMC0oQ5tEyQofybaL
+         Ru/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791554261; x=1792159061;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bDCLz7WW3bEB9Nx65aqIBlmoYiNA1aEKD6eje2D3UuI=;
+        b=IhdsxGR+iB5bJqSFDF1MpCvgs4g3atg4ZQxIVAN5RwULzsI1Ai2xwGtQ86mRGTpys3
+         qXC/jAQ6KDNnJO17XXtiy6l//3EBJbMJ9zD2P0kq5xlubG4GGNBIafzpZnm0Mmke7gPk
+         2QZh2//Zjs2VXXG3CMoqn1OnlluQSNp+mvdEWhmDymw9cG5Hm59uMZ83wam9ahvjf5NN
+         Qz18Tk7M6axMRI5tbCkRbVrAWYelBPngd3T4JlhxGcXR+/8Cgxzu8RSuyTEs8aMTLZ2o
+         cuFFC1fDNpexXQgfRu85Y/mlVw8F2qrtkx3uNTz/nAyEHARlk5OEoso8iOtkgx8yNRQi
+         ZCHA==
+X-Forwarded-Encrypted: i=1; AKwUvByxv86/D2ATQrIXUlrpP+SdYkuIAkYuT5qrcjvSa21/blEmWieYcgPJSpcsMGvN+oNSvfSpiFs5hPewI7M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYINOdbAbMFVrADmNXHRU68+UFpWUHXELxY0ibsyvOPdRojJqWOF
+	lg0kovSYuQDvTH+l/UM/5z/bxsrs/lmI4dCS28JoK2xkbCvgyVF1bwXY9FBhcEt+ZheZzxlQnES
+	bJvp5OAkZpV4hyOi3wJT95GObDZKbxpif0tuM
+X-Gm-Gg: AYBFou0R4zod24lZXAoX0EcfcV9R7rKHzhkzonkXz2SHVqRbyxUHhzlpEI5AlUR7dRQ
+	YRjrxazNmTrqf+F2cIRaoyggkucWb0UeM9Yrs0QW5BLLhSJqzYhOuho0bcEyVtus2vj7zhsc5IC
+	U+zzaIBSsxVB6wcPGDjtWHKqeOvPSmoztZsJoLBcYLM+sggBmhq6EtHZq2LA4x5o+c3OCvXM7n9
+	iyP1qnHXkE7j6YOoKVdrz0A9htVNG8pVoexWnnichEFsAx8PBYBlS3RdFGM+7aEQ5TRT4goAFag
+	aeW1KtLxaiwk+uvt1yTQIaBPpFsEXwUMrS9ZDHV3iqrHs3fWHMsBBG0oFVQqYn39sTPSdbKa34l
+	JcNd7+AGGCw0Koi6Im/pb3y3KrJF0CGPjnb2vTDw=
+X-Received: by 2002:a05:690c:854:b0:8ab:44a4:6362 with SMTP id
+ 00721157ae682-8b07ebf6791mr4491947b3.4.1791554261155; Fri, 09 Oct 2026
+ 06:57:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dt-bindings: clock: introduce
- toshiba,tc9564-clock.yaml
-To: Alex Elder <elder@riscstar.com>
-Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
- kees@kernel.org, gustavoars@kernel.org, mohd.anwar@oss.qualcomm.com,
- lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
- linux-kernel@vger.kernel.org, Daniel Thompson <daniel@riscstar.com>
-References: <20261005230927.2000398-1-elder@riscstar.com>
- <20261005230927.2000398-2-elder@riscstar.com>
- <20261009-gifted-stylish-tortoise-95b14d@quoll>
- <b190fe58-364b-4b94-9cab-c5f81f874289@riscstar.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <b190fe58-364b-4b94-9cab-c5f81f874289@riscstar.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261008222616.2780570-1-enghitalo@gmail.com>
+In-Reply-To: <20261008222616.2780570-1-enghitalo@gmail.com>
+From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Date: Fri, 9 Oct 2026 09:57:29 -0400
+X-Gm-Features: AclHuK8l-gTzaBEBEX9qzqj4KNq6hOQ0ygnu7f7zfbESRsHZScu4nSFZaFyrz74
+Message-ID: <CABBYNZJTK_baoJc35vf4gjcWaODF6AQ8M755oqJBCaeRgM9XZw@mail.gmail.com>
+Subject: Re: [PATCH v3 0/6] Bluetooth: Fix SCO setup failures after an
+ abandoned setup
+To: Hitalo Souza <enghitalo@gmail.com>
+Cc: linux-bluetooth@vger.kernel.org, marcel@holtmann.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 09/10/2026 15:44, Alex Elder wrote:
-> On 10/9/26 4:31 AM, Krzysztof Kozlowski wrote:
->> On Mon, Oct 05, 2026 at 06:09:24PM -0500, Alex Elder wrote:
->>> Define the binding for the clock controller functionality present in
->>> the Toshiba TC9564 SoC.
->>>
->>> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
->>> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
->>> Signed-off-by: Alex Elder <elder@riscstar.com>
-> 
-> I'm just about to send version 3 of this series (and
-> then a new reset series derived from the code that was
-> previously combined with the clock code).  Some things
-> related to what you mention have changed.  I show that
-> below, but also respond to your other comments, and try
-> to advocate for the approach used.
->>> ---
->>> v2: - Only define clock information, not reset information
->>>      - Reworded description to avoid talking about software
->>>      - Clock IDs are now consecutive (no more commented-out values)
->>>
->>>   .../bindings/clock/toshiba,tc9564-clock.yaml  | 54 +++++++++++++++++++
->>>   MAINTAINERS                                   |  7 +++
->>>   include/dt-bindings/clock/toshiba,tc9564.h    | 34 ++++++++++++
->>>   3 files changed, 95 insertions(+)
->>>   create mode 100644 Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml
->>>   create mode 100644 include/dt-bindings/clock/toshiba,tc9564.h
->>>
->>> diff --git a/Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml b/Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml
->>> new file mode 100644
->>> index 0000000000000..329b8f002cf2d
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml
->>> @@ -0,0 +1,54 @@
->>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>> +%YAML 1.2
->>> +---
->>> +$id: http://devicetree.org/schemas/clock/toshiba,tc9564-clock.yaml#
->>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>> +
->>> +title: Toshiba TC9564 Clock Controller
->>> +
->>> +maintainers:
->>> +  - Alex Elder <elder@riscstar.com>
->>> +  - Daniel Thompson <daniel@riscstar.com>
->>> +
->>> +description:
->>> +  The Toshiba TC9564 is an SoC accessed by a host system through the
->>> +  upstream PCIe port on the PCIe switch it implements.  The switch
->>> +  includes an embedded PCIe endpoint that provides access to various
->>> +  SoC peripherals (including a clock controller) via its BARs.
->>> +
->>> +  A total of 21 clocks are implemented, though two of these are not
->>> +  controllable.  Access to the clock controller relies on PCIe being
->>> +  functional, so the PCIe clock is assumed to be always on.  Similarly,
->>> +  the PCIe controller relies on I2C, so the I2C clock is also assumed
->>> +  to be always on.
->>> +
->>> +  Clock ids are defined in <dt-bindings/clock/toshiba,tc9564.h>.
->>> +
->>> +properties:
->>> +  compatible:
->>> +    const: toshiba,tc9564-clock
->>> +
->>> +  toshiba,config-syscon:
->>> +    $ref: /schemas/types.yaml#/definitions/phandle
->>> +    description:
->>> +      Phandle for the configuration space system controller.
->>
->> I do not see my previous comment addressed - you have no resources here,
->> so this belongs to the parent. You responded something about pci-ep, but
->> the parent is not pci-ep. Open your code:
->> https://lore.kernel.org/lkml/20260918165234.687224-5-elder@riscstar.com/
->>
->> I clearly see code like:
->>    syscon {
->>      clock@ {
->>      };
->>    };
->>
->> so I do not understand what pci-ep has anything to do here.
-> 
-> What I have now (about to send) looks like this:
-> 
->      syscon@0 {
->          compatible = "syscon", "simple-mfd";
->          reg = <0x0 0x2000>;
-> 
->          clock {
->              compatible = "toshiba,tc9564-clock";
->              #clock-cells = <1>;
->          };
->      };
-> 
-> A reset node will also go inside the syscon, so there is another
-> function for that MFD.
-> 
-> The regmap belongs to the parent, and is looked up this way:
-> 
->      regmap = syscon_node_to_regmap(dev_of_node(dev->parent));
+Hi Hitalo,
 
-That's driver code, so irrelevant. So how does this solve my comment
-from v1?
+On Thu, Oct 8, 2026 at 6:26=E2=80=AFPM Hitalo Souza <enghitalo@gmail.com> w=
+rote:
+>
+> Since commit a13f316e90fd ("Bluetooth: hci_conn: Consolidate code for
+> aborting connections"), closing a SCO socket while its setup is pending
+> deletes the hci_conn, after a Create Connection Cancel that cannot
+> cancel a synchronous connection. When a new socket connects right away,
+> e.g. PipeWire recreating the HFP transport after a codec negotiation as
+> in bluez/bluez#2562, the abandoned setup can still complete, and:
+>
+>  1. It is matched to the new connection by address, the controller then
+>     rejects the new connection's own setup, and the rejection handler
+>     fails the first link on the ACL, which is now the connected one,
+>     without disconnecting it (patch 1).
+>
+>  2. It is matched to the new connection before that connection's own
+>     setup was sent: Enhanced Setup Synchronous Connection goes through
+>     the cmd_sync queue, and any setup waits for the ACL to leave sniff
+>     mode. The setup is then sent anyway and rejected. This is the order
+>     of events in the report (patch 2).
+>
+>  3. Nothing takes it over, or it is a second link for a connection
+>     that is already up: the link stays up in the controller with no
+>     connection for it, and the controller rejects every further setup
+>     for the device until the ACL drops (patch 4).
+>
+> Patches 3 and 5 make links that complete for an aborted connection be
+> disconnected in general, as Luiz suggested, not only SCO ones. Patch 3:
+> a link (ACL, SCO/eSCO or LE) that completes while its connection is
+> being aborted, which then refuses the handle since 16e3b6429159
+> ("Bluetooth: hci_conn: Fix modifying handle while aborting") and, for
+> LE, 181a42edddf5 ("Bluetooth: Make handle of hci_conn be unique").
+> Patch 5: an incoming ACL connection aborted after it was accepted,
+> which is deleted before its link completes. Patch 6 stops notifying
+> the driver of the air mode of a SCO link that did not come up: with
+> btusb, that notification and the one for the connection's deletion
+> right after could stop the audio of another SCO connection. btusb can
+> still do that when a SCO link that was up goes down while another one
+> stays up; that is not changed here.
+>
+> In 1 and 2 the new connection keeps the link of the abandoned setup,
+> with the parameters of that setup: the completion event does not say
+> which setup it belongs to. Its Air_Mode would show a change between
+> CVSD and transparent data, but the series does not act on it. An
+> abandoned setup that fails after a new connection was made, in Command
+> Status or in its completion event, is likewise applied to that
+> connection. Before a13f316e90fd both happened in another way, as the
+> next socket reused the pending hci_conn.
+>
+> If a controller answers the setup of a SCO_LINK connection (only SCO
+> packet types allowed, e.g. with the disable_esco parameter of sco.c)
+> with an eSCO link, that link was ignored, so the connect timed out and
+> the link stayed up. Patch 4 now lets the connection take it, as an
+> eSCO connection already takes a SCO link.
+>
+> Changes in v3:
+> - Patch 4: a SCO_LINK connection takes an eSCO link that answers its
+>   setup, instead of the link being ignored and left up (Sashiko). T6
+>   now checks that the connection gets the link.
+> - Patch 1: the commit message notes that a Command Status does not
+>   tell which setup failed, which the patch does not change (Sashiko).
+> - Rebased on bluetooth-next 97a128698d9d, without conflicts.
+> - Tests for BlueZ's sco-tester and l2cap-tester that abort a connection
+>   while its connection complete event is pending, as Luiz asked:
+>   https://lore.kernel.org/linux-bluetooth/20261008215756.2710812-1-enghit=
+alo@gmail.com/
+> - v2: https://lore.kernel.org/linux-bluetooth/20261008151238.2138665-1-en=
+ghitalo@gmail.com/
+>
+> Changes in v2:
+> - New patch 3, following Luiz's review: disconnect any link that
+>   completes while its connection is being aborted, on Connection
+>   Complete, Synchronous Connection Complete and LE Connection Complete.
+>   It replaces the SCO-only handling of that case in v1's patch 3, and
+>   covers the ACL and LE cases Sashiko pointed out.
+> - Patch 4 (v1's patch 3) uses the helper of patch 3, and also
+>   disconnects a second SCO link that completes with Connection Complete
+>   for a connection that is already up (Sashiko).
+> - New patch 5: disconnect an ACL link that completes after its
+>   connection was aborted and deleted (an incoming connection).
+> - New patch 6: notify the driver of the air mode only of a SCO link
+>   that came up (Sashiko).
+> - The disable_esco case is described as what it is: a controller
+>   answering a SCO-only setup with an eSCO link.
+> - New tests T5b, T7, T8 and T9.
+> - v1: https://lore.kernel.org/linux-bluetooth/20261007154353.148223-1-eng=
+hitalo@gmail.com/
+>
+> Patch 2 relies on hci_enhanced_setup_sync() taking hdev->lock, since
+> 024e05f73a4c ("Bluetooth: hci_conn: Lock parent access during enhanced
+> SCO setup"); a backport to a kernel without that commit needs the lock
+> taken around the new checks.
+>
+> Testing:
+>
+> - QEMU/KVM, bluetooth-next at 97a128698d9d and with each patch applied
+>   in turn, x86_64 defconfig + kvm_guest.config + BT=3Dy, BT_HCIVHCI=3Dy. =
+A
+>   userspace program emulates the controller and the headset over
+>   hci_vhci; the controller allows one eSCO link per ACL and rejects
+>   further setups with 0x0a (0x12 in T1, as in the report), except in
+>   T5, where it allows a second one. Each case was run over Setup
+>   Synchronous Connection (L), Enhanced Setup Synchronous Connection (E)
+>   and Add SCO Connection (A, controller without eSCO):
+>
+>   T0  connect, receive SCO data, close
+>   T1  close a socket with its setup pending, connect a new one; the
+>       first setup completes, then the new one is rejected
+>   T1b like T1, but the first setup completes before the new one is
+>       sent, which waits for the ACL to leave sniff mode
+>   T1c like T1b, but the new setup waits in the cmd_sync queue (E only)
+>   T2  close a socket with its setup pending, the setup completes
+>       afterwards, connect a new socket (cancel answered 0x0b and 0x02)
+>   T2b like T2, but the setup completes while the abort still waits in
+>       the cmd_sync queue
+>   T3  a setup rejected with 0x0d in Command Status
+>   T4  like T2, but the abandoned setup completes with 0x22
+>   T5  like T1, but the new setup completes too, with a second link
+>   T5b an incoming SCO connection is up, and a second SCO link to the
+>       device completes with Connection Complete (A only)
+>   T6  disable_esco set, and the emulated controller answers the
+>       SCO-only setup with an eSCO link (L and E): the connection gets
+>       the link, receives SCO data and disconnects it when closed
+>   T7  an ACL connect to another device is aborted while paging, and
+>       the page succeeds as Create Connection Cancel arrives (cancel
+>       answered 0x0b)
+>   T8  with an emulated LE-only controller: an L2CAP LE connect is
+>       aborted while LE Create Connection is pending, and the connection
+>       completes as LE Create Connection Cancel arrives (cancel answered
+>       0x0c); also with the cancel succeeding in time, where nothing may
+>       be disconnected
+>   T9  an incoming ACL connection is aborted with MGMT_OP_DISCONNECT
+>       after it was accepted; Create Connection Cancel fails with 0x02,
+>       then the link completes
+>
+>   In T1c the cmd_sync queue waits for a Read RSSI (from mgmt Get
+>   Connection Information) that the emulator leaves unanswered; in T2b
+>   it waits for an ACL connection to another device, whose Connection
+>   Complete the emulator holds as during a page.
+>
+>                   T1   T1b  T1c  T2   T2b  T5   T5b  T6   T7   T8   T9
+>   bluetooth-next  FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL
+>   + patch 1       pass FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL
+>   + patches 1-2   pass (*)  pass FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL
+>   + patches 1-3   pass (*)  pass FAIL pass FAIL FAIL FAIL pass pass FAIL
+>   + patches 1-4   pass pass pass pass pass pass pass pass pass pass FAIL
+>   + patches 1-5   pass pass pass pass pass pass pass pass pass pass pass
+>   + patches 1-6   pass pass pass pass pass pass pass pass pass pass pass
+>
+>   T0, T3, T4 and the LE connect cancelled in time pass on every row.
+>
+>   The results are the same on L, E and A, except (*): pass on L and E,
+>   FAIL on A, where the abandoned link is not taken over by a connection
+>   that has not started its setup, and stays up until patch 4.
+>
+>   Without the series, the new socket gets EINVAL in T1 (the emulator
+>   rejects with 0x12) and EMLINK in T1b and T1c (its duplicate setup is
+>   rejected with 0x0a), the next connect gets EMLINK in T2 and T2b, and
+>   the second links in T5 and T5b and the ACL and LE links in T7, T8 and
+>   T9 are not disconnected (they stay up until the ACL drops, or for
+>   good); in T6 the connect times out and the link stays up. With it,
+>   the new sockets and the connection in T6 receive SCO data and no
+>   Create Connection Cancel is sent for SCO; the links that nothing
+>   takes over (T1b on A, T2, T2b, T7, T8, T9) and the second links in T5
+>   and T5b are disconnected as soon as they complete, and T4 and the LE
+>   connect cancelled in time send no Disconnect. No kernel warnings.
+>   Patch 6 is not covered here, as hci_vhci has no notify callback.
+>
+> - BlueZ testers (master 866b0b8 with the new tests) in the same VM, on
+>   the debug kernel below plus CRYPTO_USER_API_{HASH,SKCIPHER}, run
+>   twice: with the series sco-tester (31), l2cap-tester (113) and
+>   iso-tester (141) pass, and without it only the three new tests fail.
+>   mgmt-tester has 8 to 10 LL Privacy failures of 506 per run, with and
+>   without the series.
+>
+> - Real hardware, with v2 (v3 only changes what happens when a SCO_LINK
+>   connection gets an eSCO link, which does not occur there): a MediaTek
+>   MT7921 (USB 04ca:3802, legacy Setup Synchronous Connection because of
+>   HCI_QUIRK_BROKEN_ENHANCED_SETUP_SYNC_CONN) with a Sony WF-1000XM6, on
+>   v7.1.13 with the series built as the bluetooth module (patch 2 needs
+>   one change there, as hci_enhanced_setup_sync() does not take
+>   hdev->lock in that version; the other functions touched are the same
+>   as in bluetooth-next). With PipeWire 1.6.8 the abandoned setups were
+>   first seen there: Create Connection Cancel was answered with Unknown
+>   Connection Identifier, and the setup still completed afterwards.
+>
+>   A SCO socket was closed 150 ms into its setup and a new one connected
+>   0.3 s or 2.5 s later, five times; each abandoned setup completed about
+>   0.2 s after it started, before the new connect. Without the series the
+>   first abandoned link after each ACL connect (two in the run) was left
+>   up, and from then on the controller rejected every setup, plain
+>   connects included, with Unsupported LMP Parameter Value (0x20) until
+>   the ACL was dropped. With the series no Create Connection Cancel was
+>   sent, each abandoned link was disconnected as soon as it completed,
+>   and every new socket and the plain connects after them received SCO
+>   data. An abandoned setup that failed (the headset rejects CVSD with
+>   0x20) caused no Disconnect. Between the groups PipeWire switched the
+>   headset from A2DP to HFP (mSBC) for a recording while I counted
+>   aloud: speech was recorded all three times, with and without the
+>   series. The cases of patches 1 and 2 did not occur there.
+>
+> - W=3D1 builds of net/bluetooth/ and drivers/bluetooth/, no warnings:
+>   GCC 16.2.1 x86_64 allmodconfig and i386 defconfig, LLVM 22.1.8 arm64
+>   defconfig, arm multi_v7_defconfig, riscv defconfig and powerpc
+>   ppc64_defconfig (big-endian), with BT, BT_HCIBTUSB{,_MTK,_QCOM} and
+>   BT_VIRTIO.
+>
+> - sparse v0.6.5-rc1 on the same directories: the same 16 reports with
+>   and without the series, none on the lines touched here.
+>
+> - With the series, the same tests on a kernel with PROVE_LOCKING,
+>   PROVE_RCU, KASAN, DEBUG_ATOMIC_SLEEP, DEBUG_LIST and
+>   DEBUG_OBJECTS{,_WORK,_TIMERS} enabled: all pass on the three paths
+>   and with the LE-only controller, with no lockdep, KASAN or
+>   debugobjects reports, also while the BlueZ testers ran.
+>
+> The patches, the commit messages, this letter and the test programs
+> were prepared with an AI assistant (see the Assisted-by tags), which
+> reproduced the report in the emulator and wrote and tested the fixes;
+> the real-hardware runs were done on my laptop with my headset.
+>
+> Hitalo Souza (6):
+>   Bluetooth: hci_event: Don't fail a connected SCO link on setup errors
+>   Bluetooth: hci_conn: Don't set up a SCO link that is already up
+>   Bluetooth: hci_event: Disconnect links that complete while being
+>     aborted
+>   Bluetooth: Don't leave abandoned SCO links up in the controller
+>   Bluetooth: hci_event: Disconnect an ACL link that completes after its
+>     abort
+>   Bluetooth: hci_event: Notify the driver only of SCO links that came up
+>
+>  net/bluetooth/hci_conn.c  |  24 +++++++-
+>  net/bluetooth/hci_event.c | 124 ++++++++++++++++++++++++++++++++------
+>  net/bluetooth/hci_sync.c  |   8 +++
+>  3 files changed, 135 insertions(+), 21 deletions(-)
+>
+>
+> base-commit: 97a128698d9dcacb9a15cdc5080718a644b12637
+> --
+> 2.55.0
 
-> 
->> What's more, I still do not see any usage of these clocks outside. And I
->> still did not receive actual answers (or I missed them) how these clocks
->> are routed OUTSIDE of the connector. You said for example:
->> "Ultimately the TC9564 SoC has a single 25 MHz input clock,"
->>
->> but that is input. I did not ask how this device receives clocks. I
->> asked how the host receives the clocks from this device.
-> 
-> I was explaining that the clock input gets split into a number
-> of "output" clocks derived from that one input.  However you're
-> right, almost all of these clocks are connected to blocks
-> internal to the SoC.  There is only one 25 MHz clock that is
-> exposed externally (CLOCK_REFCLKO).
-> 
-> I think your point (or one of them) is that, even if pci-ep-bus
-> is used, the only things that warrant being described with
-> devicetree are those that can affect things outside the chip.
-> Everything else is not really variable from the perspective of
-> the platform, and inner details can be determined (and controlled)
-> by software.
-> 
-> 
-> Our original version of this code incorporated clock and reset
-> control inside the networking driver.  Rob commented that the
-> DWMAC driver should bind to the PCI functions and "everything
-> else...should be under the PCIe switch upstream node in a
-> pci-ep.bus".
-> 
-> The only driver associated with the switch inside the TC9564
-> is the special power control driver, accessed via I2C.  The
-> PCI switch functionality is otherwise provided without any
-> special handling, or is handled by generic code.
-> 
-> What *is* available is the PCI endpoint functions and their
-> BARs, so the endpoint buses use those.
-> 
-> PCI endpoint bus makes available things that devicetree
-> does that are very useful (including a standard way of
-> describing connections between blocks in the SoC).
-> 
-> 
-> I know that doesn't address the "exposed clocks" issue,
-> but it provides some background on why things were done
-> the way they were.
-> 
-> 
-> The single exposed clock *might* justify presenting the
-> clock controller device in devicetree.  There are also
-> resets exposed externally via GPIOs, and these control
-> external entities (PHYs).
+Sashiko is flagging a few more problems:
 
-I cannot find any of these exposed. Please point me to DTS code showing
-this.
+https://sashiko.dev/#/patchset/20261008222616.2780570-1-enghitalo%40gmail.c=
+om
 
-
-Best regards,
-Krzysztof
+--=20
+Luiz Augusto von Dentz
