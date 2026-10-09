@@ -1,43 +1,45 @@
-Received: from out28-50.mail.aliyun.com (out28-50.mail.aliyun.com [115.124.28.50])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E23464DDB5A;
-	Fri,  9 Oct 2026 12:34:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1E3A4DE732;
+	Fri,  9 Oct 2026 12:34:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791549251; cv=none; b=UrSKrHY9NTk1ir06WsmBQxNg1zXughk6DzZt1SC2DX5HX+fHUhqFDa2Iyean0IMC6SJPFoQSHdh8zGIDbooNyC/Vo+bMIy93vM+Jcmf8YHZ9VTQJzW57mO701iTVCmnRtGnkOkmUa6DtVtItCXRHUCwLk7QDHU3m28znplab5kM=
+	t=1791549255; cv=none; b=clROX5HFAHVbLRo4CRIFw3VHostw+EoGOWudh2tR35ge+tEP43oTXuJeyC937OzpNSFk8aTMWAb1W0KkFUBnyaFvbWY11NCBLhINYFqRdV9DL30UQxC6UcKUyiBAxt8e2ko56xLj2w6NCnp+Ty5D9NmoLdC0aMs/LVrCRHM2OHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791549251; c=relaxed/simple;
-	bh=FlTzGrphUCQfF/zZnqulyG+/1pZfwUwEPphlwMOowr8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fmoBDzT3bkpyniV0sroPZXJRrQ66bdTWy6jufDtCcm/3s92us/lQcKmx4gNIZ+307VpZPwjOV669LOdDkWeO9/9WtVQEIJGygDV521k1tI5SSXZOET3selIQRvUGomwlxAOqtMmWTIb6EkQcOhW6Npi3V80Pa+lqX7KzbAaKCB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07692005|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0633371-0.00146452-0.935198;FP=16713159743436786832|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037022039;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=16;RT=16;SR=0;TI=SMTPD_---.jXj4Zrj_1791548916;
-Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jXj4Zrj_1791548916 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 09 Oct 2026 20:28:42 +0800
-From: Kyle Switch <kyle.switch@motor-comm.com>
-To: andrew@lunn.ch,
-	olteanv@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	mmyangfl@gmail.com,
-	horms@kernel.org,
-	linux@armlinux.org.uk,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: ming.xu@motor-comm.com,
-	xiaolin.xu@motor-comm.com,
-	jianmin.wang@motor-comm.com,
-	wei.zhang@gl-inet.com,
-	sijia.huang@gl-inet.com
-Subject: [PATCH net-next v12 0/5] net: dsa: motorcomm: add support yt922x driver
-Date: Fri,  9 Oct 2026 20:28:31 +0800
-Message-Id: <20261009122836.1534400-1-kyle.switch@motor-comm.com>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1791549255; c=relaxed/simple;
+	bh=f4A0lM8jFg7mEUGM5hNXUYT7e2wOXndrALIGBoHvbgs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=azQKK4UZouThHo+/ya+rdfa0ATea8H/pSfQtk4JwlbduVZB6ygwzgp7LSAYwVd2HV6QV1EhvC4R9EUiiMxY9LjVHRKcvp1IvnYCjX9ayOyRt4UOxkfbD/HBuC4T+oRaxLErajB46Dle97tNCm2vDbHnk3PK90QHJTpitB6IROj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BF3ODmiX; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BF3ODmiX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D9551F000FF;
+	Fri,  9 Oct 2026 12:34:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791549249;
+	bh=F3N4AREHVW72/gOFd3n7FAXhLVCZ7MZgfWmss94xEbs=;
+	h=From:To:Cc:Subject:Date;
+	b=BF3ODmiXV98TtGz96HQO/R/2UgoCwVGx23wEjWFG+1qlxYZch5ULE2EmEdjUbaHdk
+	 7yEMai2NEHvVMlfQYyxzm8H5CIns6qq8kfZ3g20t8brRqnUPmwFhb8xIC7VSPA4Pbt
+	 JmH1xHyEnQewVaJ5Gh87ohyUyyPdDPq81bJ5m7yTurYT4XvkivZRjtGKKuvdKVaMZV
+	 G3CpCiI/QQ4KZRDFF6O09oKmvqEHoT0sxu96hnhOTH/jCtMMqwonXegiFBCFYqDcfg
+	 uvjusJEqw1i9uADDv6CH/giQsLQKiPHWvdANAhl9ce7pFfrn78QapGTZMRPoZpYQ6d
+	 u0PayJNb80TLg==
+Received: from johan by xi.lan with local (Exim 4.99.5)
+	(envelope-from <johan@kernel.org>)
+	id 1xF9nb-00000001wzR-2lhc;
+	Fri, 09 Oct 2026 14:34:07 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Johan Hovold <johan@kernel.org>
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org,
+	Oliver Neukum <oliver@neukum.org>
+Subject: [PATCH] USB: serial: sierra: fix urb leak on write completion
+Date: Fri,  9 Oct 2026 14:33:59 +0200
+Message-ID: <20261009123359.465071-1-johan@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,79 +48,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This patchset mainly adds support for the yt922x series to the dsa driver.
-Currently, only the yt9224 in the yt922x series is supported, and the
-corresponding tag handling for yt922x is added.
+Make sure to drop the reference taken by usb_anchor_urb() also on
+successful submission of delayed write URBs during runtime resume to
+prevent them from leaking on completion.
 
-At the same time, it optimizes the max ports boundary check in the
-existing code, and initializes the dsa switch based on the chipid.
+Fixes: e6929a9020ac ("USB: support for autosuspend in sierra while online")
+Reported-by: Wentao Liang <vulab@iscas.ac.cn>
+Link: https://lore.kernel.org/20260916165352.2085480-1-vulab@iscas.ac.cn
+Cc: stable@vger.kernel.org	# 2.6.32
+Cc: Oliver Neukum <oliver@neukum.org>
+Signed-off-by: Johan Hovold <johan@kernel.org>
+---
+ drivers/usb/serial/sierra.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-changes in v12:
-1) Rebase the code.
-2) Delete origin patch4 and patch5 about MIB init and remove operation.
-3) Optimize error message logging.
-4) Add documents about yt922x tag.
-
-changes in v11:
-1) Initialize ctrl variable inside yt922x_port_up().
-2) Update maitainer for new file.
-
-changes in v10:
-1) Rebase the code.
-
-changes in v9:
-patch 1: 1) Add a dev_err() when chipid mismatch.
-patch 3: 1) Using GENMASK_U* to replace GENMASK
-
-changes in v8:
-patch 1: 1) Add a lock operation to acquire the chip ID during the probe()
-         stage.
-         2) Remove meaningless changes.
-patch 3: Modify the changelog description.
-patch 6: 1) Remove sds_init() in this patch.
-         2) Code refactoring, including yt922x_sds_phyaddr_get() and
-            yt921x_needs_extmode_check()
-         3) In yt921x_intif_ext_write() and yt921x_intif_ext_read(),
-            add a boundary check for phyaddr. The reason is that the
-            phyaddr of the top ext register is 9, so max_ports should
-            be used for the check to include it.
-         4) In the yt922x driver, added initialization of yt921x_port
-            for exporting priv.
-
-changes in v7:
-patch 1: Fix the series_lookup() redundancy issue.
-         Fix the dsa->priv initialization and the code style issue.
-patch 6: Move psc definition to yt921x_port
-         Fix psc_get_state() and an_restart().
-         Use the existing yt921x driver interface for the duplicated
-         logic for chip_reset().
-         Move the yt922x_cpu_port_set() to chip_setup_dsa() to align
-         with yt921x function.
-
-Kyle Switch (5):
-  net: dsa: motorcomm: initialize dsa_switch based on chipid
-  net: dsa: motorcomm: use max_ports in series for port bounds checking
-  net: dsa: motorcomm: use fixed-width GENMASK_U*() helpers
-  net: dsa: tag_yt922x: add support for Motorcomm YT922x tags
-  net: dsa: motorcomm: Add support for Motorcomm YT922x
-
- MAINTAINERS                          |   2 +
- drivers/net/dsa/motorcomm/Kconfig    |   7 +-
- drivers/net/dsa/motorcomm/Makefile   |   1 +
- drivers/net/dsa/motorcomm/chip.c     | 529 ++++++++++++++++++++++++++-
- drivers/net/dsa/motorcomm/chip.h     | 113 ++++++
- drivers/net/dsa/motorcomm/mdio_bus.c |  47 ++-
- drivers/net/dsa/motorcomm/mdio_bus.h |   2 +
- drivers/net/dsa/motorcomm/pcs-922x.c | 173 +++++++++
- drivers/net/dsa/motorcomm/pcs.h      |   1 +
- include/net/dsa.h                    |   2 +
- net/dsa/Kconfig                      |   6 +
- net/dsa/Makefile                     |   1 +
- net/dsa/tag_yt922x.c                 | 122 ++++++
- 13 files changed, 984 insertions(+), 22 deletions(-)
- create mode 100644 drivers/net/dsa/motorcomm/pcs-922x.c
- create mode 100644 net/dsa/tag_yt922x.c
-
+diff --git a/drivers/usb/serial/sierra.c b/drivers/usb/serial/sierra.c
+index 6e443aacae07..f2cc7f364d20 100644
+--- a/drivers/usb/serial/sierra.c
++++ b/drivers/usb/serial/sierra.c
+@@ -972,12 +972,13 @@ static int sierra_submit_delayed_urbs(struct usb_serial_port *port)
+ 			intfdata->in_flight--;
+ 			usb_unanchor_urb(urb);
+ 			kfree(urb->transfer_buffer);
+-			usb_free_urb(urb);
+ 
+ 			spin_lock(&portdata->lock);
+ 			portdata->outstanding_urbs--;
+ 			spin_unlock(&portdata->lock);
+ 		}
++
++		usb_put_urb(urb);
+ 	}
+ 
+ 	if (ec)
 -- 
-2.25.1
+2.55.0
 
