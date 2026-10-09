@@ -1,109 +1,115 @@
 Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A14471D05
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFF6F37E5DF
 	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 19:27:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791574060; cv=none; b=rE51uZh9CgJvwGsGuWdsvsXbP5jy1aX+rovSUP3xMcX0LVdOgQAkuEZnYibnouMv4MNQyZUgdm8SQBbtzNIZPwrSgXLvvCLIDLYPKoATpC6tRmtiWSQMaUrjpdInqdPrqDYzYlFzZQXymKvUyv+NKWZnttk/Wp4g90pQ+DHBZjo=
+	t=1791574061; cv=none; b=om/nKEMyZEBhRJKuS1HBd6eZayeyRuDOrGHP5JIm14Rid31Ykd20UXikXFjaCF2tixKOK0wsQupd4iCKBP+BeudNvHtMwnTXui11VW90NpZhYpHE0AAl4BV/tzInFB9e8TXbjdoYXec5mADQIChfOdjbkAqR/3n6iwm6e85VhMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791574060; c=relaxed/simple;
-	bh=RmuQWBMnPy6zxFGaVHKgzoeqd0qeTN2hgHvOWm1Lbno=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Sy5hLNEeX5/6CkLvl2vHAk75HXkEhHI4WZw90Tc/VgTX8zZwfnnHzL5lUvixLpBZgYvUlWJMUxJ8u8w8Z/fg+bqNZxqte6SYYwld+eo0e+VQymllA+AYbtYGbPSfiMPyYDvUNaJrx7eiMaKJyEwWqEG+94K+cGHSr5y1b01vMiQ=
+	s=arc-20240116; t=1791574061; c=relaxed/simple;
+	bh=L8gg4Kq6W+Ym35JCXkVX26+OXcaYYuFc4zMgWgsCAEc=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=L/4ew6GnnOPsJgcsAqtEM7poXH5B1qYyRJf5CpSrJQsj20OWGGhEUA0PPyXDrVpDdUMit0lIhxvqsCI3lHTzIw4vtZG8G4/blDbznvLb1i3PyTARDEYzxCM8NpxSbfRt7bBQ7CJ3s41/o6SQqiIj1GO7C6Upi8zc35Bo3ujAQdE=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4a7de733fa9so189674b6e.3
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4a41f46d629so251963b6e.3
         for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 12:27:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1791574055; x=1792178855;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QgvqW7P3hvQ2A+fFBXR7HoHy5at4znoy1fWG5506N4Y=;
-        b=xVnk/AMvuSELx6SbK4tuLmrujSxNBiihko/kBYLc5cGZuUTGys7FEF79J6fuxYjXP6
-         lv9nIi2DMkxnd5MMiavWwm8hM8mFAE0PtSEG/AGGtrlfkWCIGiL8FJKCMEpwkQqhmDB9
-         yI2EoZb5gjUQp0Ahx36n9H74pxzwHofsGfwy4C1TwK4ss/R5o/sBQFDao8Cjvxr7b6WV
-         ykA07K1u6SQMPpL0gA64vXP4JU+CafX7zICyqeoyP9p7tQygRpVC4kNp0MNAW8O+HMFi
-         0vc3ZbncV3ceXtrJJL/xU7hJSN+nMn2iqY2wUQvkHy+b5MWTEvCTtmfUBqifibod3RA8
-         bPQw==
-X-Forwarded-Encrypted: i=1; AKwUvBx1lVHfc1x1Ofiz6yfpdoqvZVGfV21mZue7D6tu5DRDwRV5a+QEY1ZmBQRvupYGMowe7i76k5vL4WDOq0Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++l8geqc4eLKdp7abZVyOU9VxlsTf/DGLzRfewv8rZo8utk/ILKh
-	pcXFUoeWyxVflSmOLrtyvRUeZy0oTZitnxMFQohgN8Kj72PjGr+UPsfSWR5LuMNpLXbgzl43v9w
-	Z1bI0Chu1cem2bQaV2BCT0t/8tT4JsKczyZSubZYX7SGWEX2qdOqKxrh748Q=
+        bh=AEDJMcpb2PLOS4ggAtHpAOc7GocOBl+0xfRC3Z6ZkJI=;
+        b=23Bf0J9M9AVO81hHNOqaNLZQsiIrAYJ+k3TG4BUa67VWbY4b4OzRrjNP0cqabBFwS5
+         KB7IiaWC4r3DTJc0w9zlEgZaXtKXfzd3dBPl9sB3Oj+s9pu8wu6dKmIv9cCBzCioV/gu
+         YImWsS9ZAgnFvLHeDbKvuPJ/p9Z4QoCo0GiVgVlt+cDUQR5WWMWiyFuF5kbOK3iftFno
+         /IZKXddNtwarAi2QeOSpaO4YCYm9hn9kjsISmt3IDs0pMDlMEKoafJ2No/USJJGMc3gK
+         bwiUWodDwTROWKBLDFQcQt4K2q678uBo9ohZgvY0MXRdFwaYWHlolpzYSVYwRXWo7dYv
+         jnCA==
+X-Forwarded-Encrypted: i=1; AKwUvBwPzW40+s86Og2ZKzN0AC4sHvhwEeRUKLMC+hmg2d+VQ88yqPE3XShPl6wSWG6Y7iuESH5MOlOFyTJ71V8=@vger.kernel.org
+X-Gm-Message-State: AFuF++k56HDD/2N6Y6Br6oj+j6xwg+aLIz2KO6LJ4kZcABCoCjrTPD2I
+	RiOWKXjuaemNAu37oY7OZFfC+cNxk9Jt38GuBFBWxp9jmY14cMYW26rUoK5DyL5QJyqlJOppDSj
+	9t6qWRUFfaQHx6nWu7jcOTqw1hykX/xyyL5g+S+vp2/1EGb3DZbwj1K863/I=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6f8f:b0:4ea:686e:fe86 with SMTP id
- 5614622812f47-50c5b464a7emr2535716b6e.63.1791574054953; Fri, 09 Oct 2026
- 12:27:34 -0700 (PDT)
-Date: Fri, 09 Oct 2026 12:27:34 -0700
+X-Received: by 2002:a05:6808:19a9:b0:4b9:e65b:8c33 with SMTP id
+ 5614622812f47-50c54177b94mr2989175b6e.33.1791574055178; Fri, 09 Oct 2026
+ 12:27:35 -0700 (PDT)
+Date: Fri, 09 Oct 2026 12:27:35 -0700
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac94026.70ed5d86.2ac85.0077.GAE@google.com>
-Subject: [syzbot] [media?] memory leak in vidtv_psi_pmt_create_sec_for_each_pat_entry
-From: syzbot <syzbot+3bb39e30be6cca84a865@syzkaller.appspotmail.com>
-To: dwlsalmeida@gmail.com, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, mchehab@kernel.org, 
-	syzkaller-bugs@googlegroups.com
+Message-ID: <6ac94027.70ed5d86.2ac85.0078.GAE@google.com>
+Subject: [syzbot] [sctp?] kernel panic: corrupted stack end in sctp_setsockopt
+From: syzbot <syzbot+107afda010b4507a5c80@syzkaller.appspotmail.com>
+To: davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, 
+	kuba@kernel.org, linux-kernel@vger.kernel.org, linux-sctp@vger.kernel.org, 
+	lucien.xin@gmail.com, marcelo.leitner@gmail.com, netdev@vger.kernel.org, 
+	pabeni@redhat.com, syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
 Hello,
 
 syzbot found the following issue on:
 
-HEAD commit:    7b63ef2d55f2 Merge tag 'for-7.3-rc6-tag' of git://git.kern..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=169860a5580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=12c87ae0d043bfa0
-dashboard link: https://syzkaller.appspot.com/bug?extid=3bb39e30be6cca84a865
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1277249c580000
+HEAD commit:    71c3e5409eef Merge remote-tracking branch 'will/for-next/p..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
+console output: https://syzkaller.appspot.com/x/log.txt?x=11a360a5580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=42bd821301b42742
+dashboard link: https://syzkaller.appspot.com/bug?extid=107afda010b4507a5c80
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+userspace arch: arm64
+
+Unfortunately, I don't have any reproducer for this issue yet.
 
 Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/797a41c61706/disk-7b63ef2d.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/734af738f380/vmlinux-7b63ef2d.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/bcfa942944b7/bzImage-7b63ef2d.xz
+disk image: https://storage.googleapis.com/syzbot-assets/7596ece97a32/disk-71c3e540.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/4d2c36351098/vmlinux-71c3e540.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/396ce0b85b3c/Image-71c3e540.gz.xz
 
 IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+3bb39e30be6cca84a865@syzkaller.appspotmail.com
+Reported-by: syzbot+107afda010b4507a5c80@syzkaller.appspotmail.com
 
-BUG: memory leak
-unreferenced object 0xffff88812cf24108 (size 8):
-  comm "syz.3.32", pid 6127, jiffies 4294946999
-  hex dump (first 8 bytes):
-    00 00 00 00 00 00 00 00                          ........
-  backtrace (crc 0):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4696 [inline]
-    slab_alloc_node mm/slub.c:4996 [inline]
-    __do_kmalloc_node mm/slub.c:5413 [inline]
-    __kmalloc_noprof+0x3fb/0x540 mm/slub.c:5439
-    _kmalloc_noprof include/linux/slab.h:995 [inline]
-    _kzalloc_noprof include/linux/slab.h:1312 [inline]
-    vidtv_psi_pmt_create_sec_for_each_pat_entry+0x7d/0x1b0 drivers/media/test-drivers/vidtv/vidtv_psi.c:1471
-    vidtv_channel_si_init+0x544/0x770 drivers/media/test-drivers/vidtv/vidtv_channel.c:478
-    vidtv_mux_init+0x115/0x390 drivers/media/test-drivers/vidtv/vidtv_mux.c:525
-    vidtv_start_streaming drivers/media/test-drivers/vidtv/vidtv_bridge.c:194 [inline]
-    vidtv_start_feed+0x1d4/0x260 drivers/media/test-drivers/vidtv/vidtv_bridge.c:239
-    dmx_ts_feed_start_filtering+0x8e/0x130 drivers/media/dvb-core/dvb_demux.c:747
-    dvb_dmxdev_start_feed+0x11c/0x170 drivers/media/dvb-core/dmxdev.c:658
-    dvb_dmxdev_filter_start+0xd8/0x440 drivers/media/dvb-core/dmxdev.c:769
-    dvb_demux_do_ioctl+0x297/0x7d0 drivers/media/dvb-core/dmxdev.c:1072
-    dvb_usercopy+0x116/0x2d0 drivers/media/dvb-core/dvbdev.c:996
-    dvb_demux_ioctl+0x29/0x40 drivers/media/dvb-core/dmxdev.c:1208
-    vfs_ioctl fs/ioctl.c:51 [inline]
-    __do_sys_ioctl fs/ioctl.c:597 [inline]
-    __se_sys_ioctl fs/ioctl.c:583 [inline]
-    __x64_sys_ioctl+0xf4/0x140 fs/ioctl.c:583
-    do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-    do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
-    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-connection error: failed to recv *flatrpc.ExecutorMessageRawT: EOF
+Kernel panic - not syncing: corrupted stack end detected inside scheduler
+CPU: 0 UID: 0 PID: 10678 Comm: syz.6.1395 Tainted: G   M         L      syzkaller #0 PREEMPT 
+Tainted: [M]=MACHINE_CHECK, [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/23/2026
+Call trace:
+ show_stack+0x2c/0x3c arch/arm64/kernel/stacktrace.c:499 (C)
+ __dump_stack+0x30/0x40 lib/dump_stack.c:94
+ dump_stack_lvl+0x30/0x12c lib/dump_stack.c:120
+ dump_stack+0x1c/0x28 lib/dump_stack.c:129
+ vpanic+0x594/0xaf8 kernel/panic.c:651
+ vpanic+0x0/0xaf8 kernel/panic.c:788
+ schedule_debug kernel/sched/core.c:6103 [inline]
+ __schedule+0x18a0/0x2b00 kernel/sched/core.c:7133
+ __schedule_loop kernel/sched/core.c:7361 [inline]
+ schedule+0x13c/0x20c kernel/sched/core.c:7376
+ __lock_sock+0x124/0x260 net/core/sock.c:3245
+ lock_sock_nested+0xd4/0x110 net/core/sock.c:3858
+ lock_sock include/net/sock.h:1713 [inline]
+ sctp_setsockopt+0x1d4/0xe70 net/sctp/socket.c:4609
+ sock_common_setsockopt+0xb0/0xcc net/core/sock.c:4050
+ do_sock_setsockopt+0x1f0/0x330 net/socket.c:2397
+ __sys_setsockopt+0x104/0x170 net/socket.c:2422
+ __do_sys_setsockopt net/socket.c:2428 [inline]
+ __se_sys_setsockopt net/socket.c:2425 [inline]
+ __arm64_sys_setsockopt+0xc8/0xe4 net/socket.c:2425
+ __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+ invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
+ el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
+ do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
+ el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:796
+ el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:815
+ el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
+Kernel Offset: disabled
+CPU features: 0x0,50000000,00f00020,9c080a02,a84ff6a7
+Memory Limit: none
+Rebooting in 86400 seconds..
 
 
 ---
@@ -116,10 +122,6 @@ https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
 If the report is already addressed, let syzbot know by replying with:
 #syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
 
 If you want to overwrite report's subsystems, reply with:
 #syz set subsystems: new-subsystem
