@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA63C2D2381
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 10:08:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 911232D2381
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 10:08:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791540483; cv=none; b=m1NjZHzT2pG5V4zfkmptn4j05QTqeENwkPOzbBZcdoo+83defYnSZSXq/a9xB+8IpGStlI08q+wcW2F4bRZO3ueNSS16UoeyiTQpzzwpR/NeRfSDhqidfZOh/PLIRBSiVcw/7vxpq+XSRvZsU6k7i5QhV9/2QJGi2MQJ/Sibdsk=
+	t=1791540487; cv=none; b=L8LviEr/Y3U2a6MvlMxWefdTGIdnj7EX4aujWdf4d8Z5VrY6sd8Rzd3CagWIzWUk5UmZU/AdAlqrfs6girinhHuidJzvWjU7GGc9ADBi0KhJEO4l+oMZHd+U3d4Xj8xLS265jvyLqBhseV6USb4j6/DmPBroTJW4BEAPfhuc7no=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791540483; c=relaxed/simple;
-	bh=x/koTEaahp2+oZ61Wc15VupQNxG6+GubDZ4vcBkisBs=;
+	s=arc-20240116; t=1791540487; c=relaxed/simple;
+	bh=xJZeP+cSw0x/bHsTbCyO+bIoqeGEZpP9e+KxN8yaKzc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uo1HyzdPtOeBvTxKG9FWgwst4HsBf3v3UNQGTOZLyiwKntm9/SyLZFE+IVNOkvvMW4U/FqophswQL103lD+kKXJ+jRx3cudSaZh7x38MNBnKmFKfpk4OpDtUmRP5OnTg2nRH/pN6lz3YKJyzGo3EVEMV0aTTUFqajNUuzl6gsX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JiqaNfIl; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=lweLwLU1ggzQ9OQ6ZjMb5mwUAgH/bPgvtNIR5sor8pBRQCkCYQA5H0+EIPPUv7jsWwiM4gLqJQ5rKRB9nnJIo+9qfJLptXleez6IfqY9MBXwijfnVXrNwoJPqjlKvB8js7v7piSY5B6WHPjWeWGnr9Ab4gz37Zhj7+4j8bOK3GM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jxtK2YNO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JiqaNfIl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 199201F00893;
-	Fri,  9 Oct 2026 10:07:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jxtK2YNO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2BBA1F00899;
+	Fri,  9 Oct 2026 10:08:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791540482;
-	bh=dyEq6AztHdIBBOkiupS58UYnEU85W9CUNoQa+4uF6NE=;
+	s=k20260515; t=1791540486;
+	bh=pciEKS25dpug/ced4mPNEBtrY+PumTiiJQEVLgyrixs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JiqaNfIlAXBd+I/uQl+5h9SL0X/vdMYNY3SHk6oixZSSEhep02CsotnCUmJdMjy+I
-	 YzhCLpzLWKp9EvP+byIh4Uipe5ley7QIgPNVRVIYTZe9k7siLQw5KtCuwDKu0O/rqO
-	 8+avGMGVRDIEjG66uMKvVuUVFDqR10g+o+U6/P8Df3ls2Ku2JyeKVdWU7c3VQHX6lT
-	 xgdo/rQ/2X+7DylQIwskhHyom9R2nN41507UJEbmJfdkcDZk3IJ7DB/ojg3EcmD5mK
-	 q+EQ/9/3qDBMrEcgBDA1kezUpZpBtbV+qYZvkV4LZtwR2wJpsJd/pwXwQjKEYaxWwx
-	 4kepyE+SLYUHw==
+	b=jxtK2YNOYNF4/hdw/e5V1EzKrOZXefqN+Po/UfvZEj9/Bj42YX8PqHYhPAv2n2SAq
+	 RK2i77Os0W058P6t5x40DOVbgbRhM4extfOxyZD5Uoe+xYyW2MUZho7YUthi82eciE
+	 EfGUOHE6Pa5MTm0iCNoZNbIIi6o/MyPxtzckL7g8dj+Vt0kuA8RF2yOItAr5H92qNU
+	 PAHeMh9WaOoVj1hKNLs4epu/S/V1QpsLjupr3GFNGK6az5vHMFK4HjIKB7dbiShkOh
+	 4xsn7a3ZJnj/3GBsy9mf+qoTqiB3FLRS/l3Q6lLUIkCCBWZC+EpQCQ9yYOY8lrb7kF
+	 wXNB/Lyspnr7Q==
 From: Will Deacon <will@kernel.org>
 To: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org,
@@ -44,9 +44,9 @@ Cc: linux-kernel@vger.kernel.org,
 	David Woodhouse <dwmw@amazon.co.uk>,
 	Peter Zijlstra <peterz@infradead.org>,
 	Marc Zyngier <maz@kernel.org>
-Subject: [PATCH v2 04/23] cpu/hotplug: Propagate bring-up status to arch_cpuhp_cleanup_kick_cpu()
-Date: Fri,  9 Oct 2026 11:07:15 +0100
-Message-ID: <20261009100738.31288-5-will@kernel.org>
+Subject: [PATCH v2 05/23] arm64: cpufeature: Check arm64_ftr_regs[] before the first store
+Date: Fri,  9 Oct 2026 11:07:16 +0100
+Message-ID: <20261009100738.31288-6-will@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261009100738.31288-1-will@kernel.org>
 References: <20261009100738.31288-1-will@kernel.org>
@@ -58,76 +58,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In preparation for enabling the generic CPU hotplug machinery on arm64,
-which has architecture-specific handling of early bringup failures,
-extend arch_cpuhp_cleanup_kick_cpu() to take an additional argument
-indicating whether or not the target AP reached the alive state.
+From: Fuad Tabba <fuad.tabba@linux.dev>
 
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+sort_ftr_regs() sorts nothing. It checks that arm64_ftr_regs[] is in
+sys_id order, which the binary search in get_arm64_ftr_reg() relies on,
+and that no register's fields overlap. It runs at the top of
+init_cpu_features(), after the boot CPU's __cpuinfo_store_cpu(). A
+subsequent patch makes __cpuinfo_store_cpu() look registers up in the
+table.
+
+Rename it validate_ftr_regs() and call it from smp_prepare_boot_cpu(),
+ahead of cpuinfo_store_boot_cpu().
+
+Suggested-by: Will Deacon <will@kernel.org>
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 Signed-off-by: Will Deacon <will@kernel.org>
 ---
- arch/x86/kernel/smpboot.c  | 4 ++--
- include/linux/cpuhotplug.h | 2 +-
- kernel/cpu.c               | 4 ++--
- 3 files changed, 5 insertions(+), 5 deletions(-)
+ arch/arm64/include/asm/cpu.h   | 1 +
+ arch/arm64/kernel/cpufeature.c | 5 +----
+ arch/arm64/kernel/smp.c        | 2 ++
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/arch/x86/kernel/smpboot.c b/arch/x86/kernel/smpboot.c
-index ba01a9e919b7..f10c64504244 100644
---- a/arch/x86/kernel/smpboot.c
-+++ b/arch/x86/kernel/smpboot.c
-@@ -1074,7 +1074,7 @@ static int do_boot_cpu(u32 apicid, unsigned int cpu, struct task_struct *idle)
+diff --git a/arch/arm64/include/asm/cpu.h b/arch/arm64/include/asm/cpu.h
+index 3c008821219c..f332fbd8e46d 100644
+--- a/arch/arm64/include/asm/cpu.h
++++ b/arch/arm64/include/asm/cpu.h
+@@ -75,6 +75,7 @@ DECLARE_PER_CPU(struct cpuinfo_arm64, cpu_data);
+ void cpuinfo_store_cpu(void);
+ void __init cpuinfo_store_boot_cpu(void);
  
- 	/* If the wakeup mechanism failed, cleanup the warm reset vector */
- 	if (ret)
--		arch_cpuhp_cleanup_kick_cpu(cpu);
-+		arch_cpuhp_cleanup_kick_cpu(cpu, false);
++void __init validate_ftr_regs(void);
+ void __init init_cpu_features(struct cpuinfo_arm64 *info);
+ void update_cpu_features(int cpu, struct cpuinfo_arm64 *info,
+ 				 struct cpuinfo_arm64 *boot);
+diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
+index 32102c3912fa..727e1665c987 100644
+--- a/arch/arm64/kernel/cpufeature.c
++++ b/arch/arm64/kernel/cpufeature.c
+@@ -962,7 +962,7 @@ s64 arm64_ftr_safe_value(const struct arm64_ftr_bits *ftrp, s64 new,
  	return ret;
  }
  
-@@ -1122,7 +1122,7 @@ int arch_cpuhp_kick_ap_alive(unsigned int cpu, struct task_struct *tidle)
- 	return smp_ops.kick_ap_alive(cpu, tidle);
- }
- 
--void arch_cpuhp_cleanup_kick_cpu(unsigned int cpu)
-+void arch_cpuhp_cleanup_kick_cpu(unsigned int cpu, bool is_alive)
+-static void __init sort_ftr_regs(void)
++void __init validate_ftr_regs(void)
  {
- 	/* Cleanup possible dangling ends... */
- 	if (smp_ops.kick_ap_alive == native_kick_ap && x86_platform.legacy.warm_reset)
-diff --git a/include/linux/cpuhotplug.h b/include/linux/cpuhotplug.h
-index feb32949aeea..cbdcf1659d90 100644
---- a/include/linux/cpuhotplug.h
-+++ b/include/linux/cpuhotplug.h
-@@ -510,7 +510,7 @@ struct task_struct;
+ 	unsigned int i;
  
- void cpuhp_ap_sync_alive(void);
- void arch_cpuhp_sync_state_poll(void);
--void arch_cpuhp_cleanup_kick_cpu(unsigned int cpu);
-+void arch_cpuhp_cleanup_kick_cpu(unsigned int cpu, bool is_alive);
- int arch_cpuhp_kick_ap_alive(unsigned int cpu, struct task_struct *tidle);
- bool arch_cpuhp_init_parallel_bringup(void);
+@@ -1207,9 +1207,6 @@ bool gmid_el1_accessible(const struct cpuinfo_arm64 *info)
  
-diff --git a/kernel/cpu.c b/kernel/cpu.c
-index 786c3191431c..df3b6bc4c86b 100644
---- a/kernel/cpu.c
-+++ b/kernel/cpu.c
-@@ -426,7 +426,7 @@ static bool cpuhp_can_boot_ap(unsigned int cpu)
- 	return true;
- }
+ void __init init_cpu_features(struct cpuinfo_arm64 *info)
+ {
+-	/* Before we start using the tables, make sure it is sorted */
+-	sort_ftr_regs();
+-
+ 	init_cpu_ftr_reg(SYS_CTR_EL0, info->reg_ctr);
+ 	init_cpu_ftr_reg(SYS_DCZID_EL0, info->reg_dczid);
+ 	init_cpu_ftr_reg(SYS_CNTFRQ_EL0, info->reg_cntfrq);
+diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
+index a61dc3016a11..eac217b9ebf1 100644
+--- a/arch/arm64/kernel/smp.c
++++ b/arch/arm64/kernel/smp.c
+@@ -455,6 +455,8 @@ void __init smp_prepare_boot_cpu(void)
+ 	 */
+ 	set_my_cpu_offset(per_cpu_offset(smp_processor_id()));
  
--void __weak arch_cpuhp_cleanup_kick_cpu(unsigned int cpu) { }
-+void __weak arch_cpuhp_cleanup_kick_cpu(unsigned int cpu, bool is_alive) { }
++	/* Check arm64_ftr_regs[] before anything looks registers up in it. */
++	validate_ftr_regs();
+ 	cpuinfo_store_boot_cpu();
+ 	setup_boot_cpu_features();
  
- /*
-  * Early CPU bringup synchronization point. Cannot use cpuhp_state::done_up
-@@ -445,7 +445,7 @@ static int cpuhp_bp_sync_alive(unsigned int cpu)
- 	}
- 
- 	/* Let the architecture cleanup the kick alive mechanics. */
--	arch_cpuhp_cleanup_kick_cpu(cpu);
-+	arch_cpuhp_cleanup_kick_cpu(cpu, !ret);
- 	return ret;
- }
- #else /* CONFIG_HOTPLUG_CORE_SYNC_FULL */
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
