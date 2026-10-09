@@ -1,94 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 694FE3CB8F0;
-	Fri,  9 Oct 2026 23:01:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD9A35E1AA;
+	Fri,  9 Oct 2026 23:02:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791586917; cv=none; b=fBGy2STPO/bcJ6YuEqTEuqRFkli3fRRX+vgLc3pZhTnFVsgpL4D23Cb7Cv9LBEYhEqBVdLaG5W/DnciKHMiadG44MV7u3J/FDLiNvfeGRXSdK565CSoitqmXeuTN68/SD8EfZS59MiQN3MT4vPqWOuqRDszwkBze+yX9fS9S/Iw=
+	t=1791586941; cv=none; b=c9FcLltGfWrpOC9mksGpfWdYrJf5xVaZoLn3EXsk92s0oZJs+FH0b4MXNL5iKLP75SAP/xG3BF2+YNX7s3oQF7zMRpkBMLDCKy6u38QqCo729I811094vdDdEbNHkR3/bkqZLOBlecV4brQA6HrdFg1ZY/xG6tZCMBZNjO5Q0z4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791586917; c=relaxed/simple;
-	bh=53aA3Jr/Sxw2MD/5w8mjzQtGuXFC4yZv9swUbcXDEwA=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=tMyXnhtmUFFd8YsEzEmDr8iQZ3FppHhYEB862iBj0S378KyDYzMQXZV4rjsgGrFTumKgDqn8orO6lAu8aJhJST1yBOlSFolHYmtiUlFuNiSMiSZmaga19kncySV09fp4h04EOMMr6Vr7WxtfNJdbS098HqK2IAGJIGCZXLrRSSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DGUG7dp6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791586941; c=relaxed/simple;
+	bh=WFbgsXq9x5wQl6fZmgFSgE0d1Fm4i8XPFbd7Mig7AU4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SjwgAQl7WrQROlAHNuM4M25SG01uoV2LazyopUuq+HBNzzms0GG5GK7I2wNLy9Uzob+cfCxLPMaPIx2F6P4n8cZpQUcrlWb+DDG+ZLe3uki1/jJupAYhFCwNvPlrhzeSg/zy7VfE++kKgm84v9b3laUCcR1PG5Jo7zkyTmqRXCk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=M/M2RrrN; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DGUG7dp6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 252CF1F000FF;
-	Fri,  9 Oct 2026 23:01:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791586916;
-	bh=BPwfZ+pMHA/jXjXFHij6wg8LC56jGiwqEjBKLFTM55A=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=DGUG7dp69yTfYiB+on5IzedBwpQR9ha8Yg9kO6CJsbyvj9to5pyBSn6SsJtsuDHv5
-	 MCqxAECKtICcg+Fer/j2C5NtKXjOifAnmTn/p8zXuoEmIJA6e19MYUHdQn1yVaiLi7
-	 PmJX3bzYCCtXEcsInX7kezR0kWmRlzUZERae2INlutGI0MvKZ77UEDyQqxBxZyroB1
-	 IKqJTT3WQgw9hAZVSrR0n7yTWLkT3AdpTzR/O8FoxNRxyBBaelYfbic66KuwE9jFVY
-	 7DRHyS94jUErAJyndy8AispHXMzfPIi8hzxw9n1eixxi2I+QRKt83KYQ+OSs0jsycI
-	 zKlnhB3jqr+JQ==
-Date: Fri, 09 Oct 2026 13:01:55 -1000
-Message-ID: <61e309273c68312c1c68e3da2ea45394@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: David Vernet <void@manifault.com>, Changwoo Min <changwoo@igalia.com>, John Stultz <jstultz@google.com>, sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 sched_ext/for-7.4] sched_ext: Keep proxy donors with slice left on the local DSQ
-In-Reply-To: <20261009200827.4026499-1-arighi@nvidia.com>
-References: <20261009200827.4026499-1-arighi@nvidia.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="M/M2RrrN"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=1ZIyz1/OPj/Af2dLzTUaE10fWPUAL1OAIW2ByRolxEU=; b=M/M2RrrNvH1etedYXYR9wGmAtn
+	Pf6JPKhphvDIpBfHJuR33YHRYFvMkwuotmu7rZ9EJFsZ0bLYZyXvKBZ+hAgsNeWr0T1cNnDussnKU
+	SrL81owTsYR9jAKxCHemaooWhBmlptqpAu9LMzT9S90o18mUTNvmpPB9XROJJSeLhdRic9I7HZNVp
+	0Ty2oK1U087XXykX49ThZY9Z9Wz6Z+QLSTfI0qIA9jQojaQbfv537O+mdoq7GDNJzIOOuD+bfUu1o
+	WT88UBUgEedvFOBorL1Iyx/K5T5Dwly/CvJjGZugfP4nPLgajVWJR+FxsbqqROZcDLKEd8b5XWRD6
+	3bqy1pAw==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xFJbP-00000007JyH-2CFW;
+	Fri, 09 Oct 2026 23:02:11 +0000
+Message-ID: <d6e094cd-3341-498e-9591-3544908db069@infradead.org>
+Date: Fri, 9 Oct 2026 16:02:09 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v9 08/11] onsemi: s2500: Add driver support for
+ S2500 MAC-PHY
+To: Selvamani.Rajagopal@onsemi.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>,
+ Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+ Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Richard Cochran <richardcochran@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Russell King
+ <linux@armlinux.org.uk>, Eric Dumazet <edumazet@kernel.org>,
+ Piergiorgio Beruto <piergiorgio.beruto@gmail.com>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ Jerry Ray <jerry.ray@microchip.com>, Ciprian Regus <ciprian.regus@analog.com>
+References: <20261009-s2500-mac-phy-support-v9-0-dcefe1d0bf0d@onsemi.com>
+ <20261009-s2500-mac-phy-support-v9-8-dcefe1d0bf0d@onsemi.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20261009-s2500-mac-phy-support-v9-8-dcefe1d0bf0d@onsemi.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hello, Andrea.
 
-On Fri, Oct 09, 2026 at 10:08:26PM +0200, Andrea Righi wrote:
-> 		if ((p->scx.slice || unlikely(p == scx_rescuee(rq))) &&
-> 		    !scx_bypassing(sch, cpu_of(rq))) {
-> -			if (p->scx.flags & SCX_TASK_IMMED) {
-> +			if ((p->scx.flags & SCX_TASK_IMMED) && !proxy_put) {
 
-The bypassing test skips the keep for a proxy_put as well, so under bypass
-the put falls through to the ENQ_LAST branch with idle as @next, and the
-WARN there fires for an ENQ_BLOCKED scheduler without ENQ_LAST. Every
-blocked donor picked during enable or disable and put back by
-proxy_resched_idle() takes that path; the base tree's blocked-donor block
-never reached it. Reproduced on a 16-CPU VM with pipe mutex contention
-while cycling scx_qmap -X, the first disable trips it on three CPUs:
+On 10/9/26 10:12 AM, Selvamani Rajagopal via B4 Relay wrote:
+> diff --git a/drivers/net/ethernet/onsemi/s2500/Kconfig b/drivers/net/ethernet/onsemi/s2500/Kconfig
+> new file mode 100644
+> index 000000000000..abd967448af0
+> --- /dev/null
+> +++ b/drivers/net/ethernet/onsemi/s2500/Kconfig
+> @@ -0,0 +1,21 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +#
+> +# onsemi S2500 Driver Support
+> +#
+> +
+> +config S2500_MACPHY
+> +	tristate "S2500 support"
+> +	depends on SPI
+> +	depends on PTP_1588_CLOCK_OPTIONAL
+> +	imply NET_SELFTESTS
+> +	select BITREVERSE
+> +	select NCN26000_PHY
+> +	select OA_TC6
+> +	help
+> +	  Support for the onsemi S2500 MACPHY Ethernet chip.
+> +	  It works under the framework that conform to OPEN Alliance
 
-  WARNING: kernel/sched/ext/ext.c:3607 at put_prev_task_scx+0x743/0x870, CPU#5: pipe-contend/2042
-  Sched_ext: qmap (disabling), task: runnable_at=+0ms
-  Call Trace:
-   proxy_resched_idle+0x51/0x120
-   __schedule+0x3f1/0x1900
-   schedule+0xae/0x100
-   schedule_preempt_disabled+0x12/0x20
-   __mutex_lock+0x4d6/0xc20
-   anon_pipe_write+0xa0/0x650
+	                                    conforms
 
-The same branch is also reachable without bypass if an out-of-band slice
-write zeroes a non-running donor's slice before the bookkeeping put.
-
-> +					/* SCX_ENQ_IMMED uses SCX_CAP_ENQ_IMMED, the base cap. */
-> +					if (proxy_put && (p->scx.flags & SCX_TASK_IMMED))
-> +						enq_flags |= SCX_ENQ_IMMED;
-
-Not from this patch, but noticed while going through it: this insert runs
-with rq->next_class still ext, and proxy_resched_idle() then lowers it to
-idle with the IMMED donor on the local DSQ. A higher class waking on the
-CPU before the re-pick hits the idle class's wakeup_preempt() rather than
-wakeup_preempt_scx(), so nothing reenqueues the donor and it sits behind
-the new task. The scan dsq_inc_nr() queued only helps if it runs after that
-wakeup. proxy_resched_idle() never looked at the local DSQ, but with this
-patch that's the regular state after every IMMED donor's bookkeeping put.
-
-The SCX_ENQ_IMMED comment in internal.h describes v2: in v3 an IMMED donor
-stays local only for the bookkeeping put and is reenqueued on preemption or
-by the deferred scan like any other IMMED task. The dispatch_one() addition
-about a blocked IMMED donor making the scan a no-op comes from v2's
-exemption in local_task_should_reenq() too, and the dsq_inc_nr() and
-local_task_should_reenq() comment changes don't go with anything in v3.
-
-Thanks.
+> +	  10BASE-T1x Serial Interface specification.
+> +
+> +	  To compile this driver as a module, choose M here. The module will be
+> +	  called s2500.
 
 -- 
-tejun
+~Randy
+
