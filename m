@@ -1,404 +1,258 @@
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022073.outbound.protection.outlook.com [52.101.126.73])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF3E4E8DE4;
-	Fri,  9 Oct 2026 14:47:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA032EBBAF
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:48:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.41
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791557272; cv=fail; b=abloEH8xSn8mWw42qXi8G/WYndkSHN248oXXV4QTWKLWgoqew4Gpg/Wgzo9wkAzAbFKvgwDdNHiAPfBKo1IT6Z2SifaDwtNZyCMnI5yMtvg9vQiBvNhEm85KWMH/Rrc0R+xnry3XeM0R/+CZM56W7v6v61r8nbfqSC/h0YMiDrw=
+	t=1791557298; cv=pass; b=O+PSkABWG/Jv2FYvacIaQ1wurkFvmRpbNDwvUYvrFt3aURC6cdqlfl7B5e2Rf4xN/u921xwMjpZbCZAhxYhGpDuuhNzQavHWpJPYjKFHYlN7H3bOxkj5UxvYCxjDV0kNxgSdoNpqbS4fWvXJepu5D7Mnp/N+7V+9k6lUqOkSbag=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791557272; c=relaxed/simple;
-	bh=eIHLBAO3f5C3GXMhVtvoaXlr0BzwLbp2wNuulpEuT0c=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=oVDkWkwAuxJdr05MvMlsyYm52mtav4hiawqlr10iZc/a5Y9hu1y2EHLfmV6d0hQMZTYGymJBrm65tvKCZUHofkK2TgPHKrqJXquS6QvMcLCecHS9aLv1K0KTyX2bhtqrNo1qhoc9kCdV9rc3kNwQhyTEVJIkVgep3dlvcKZDxYw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=crepuse.com; spf=pass smtp.mailfrom=crepuse.com; dkim=pass (2048-bit key) header.d=crepuse.com header.i=@crepuse.com header.b=dEQcorTV; arc=fail smtp.client-ip=52.101.126.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=crepuse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crepuse.com
+	s=arc-20240116; t=1791557298; c=relaxed/simple;
+	bh=LVp1QAdQ2YqvwwGtYjaMP/0Ze3KRBFBEet88ie1SGkM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tdS4vMTkvoFtujQajOyPmG1BXZcplrKZKFnPDsTNeNwopynGJEV3bgQV1c2hxLR/9hPzE+9EaMAd5i9+6H3TJyklFItuegkIB8sLtUcQfTUZsyGKvRqR8G484aqaJdyIgAEuIeoC/5iU3gG0f+t9RCV7/hEOBEMqs2L/e+K5hRI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b5tSvdNe; arc=pass smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=crepuse.com header.i=@crepuse.com header.b="dEQcorTV"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GlzOWWDQeJrVO9mUONBgMVpXdP0LG7G6j+OdbOK9pS//HI7O13FDw3EJKQAFIaCY5id+GcPmoooNyoVLgNKlcV+LHtwpbrT7xuk3fENxeM8MErojSjx6KKUFgJKkWXZjajiv/34annHqESKV/5XzP9Kswj3AGyLZGHYrr3zSj/ih5G+SKjoQJrk4OocYubpQ86lXZvbOYcmkJ1JFNYXqS/LYBF7kawq3Yn6y7l4HHGp19qT9q/7vbLaV+yScIl/lytcId5zvK4m9EwCYOfIEtSk9Tb4OCJlU9znYEfwB1xk9aPkDq0h+7SyS9Ljn50lUidf262B98HZOW9mpj6xC4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jgbFjKnPGXiTpjbxWH4n8CdjVICWW7hn21ggd7sjg9Q=;
- b=j2TQOYWYR4rrQPopqO5pwuMYwMUrHJuaIVzwjfJsHpTGVUQig2B5e6JpgDFfEtZD4yQA/5ZDcob8JVmdqm+bGsV5oINECOtgIoFiEyKZu4nk0eYIYkKmOZHhp2eybwMgKjBV8qEIoAKs0bLYEbX1clzg5veWoH82F2JxlppZpkzU7SPotDiwq1CDFOSYPvF9TlomXJG3frzdVip46GwM1+SXkSEJlglR4A5rEt/qgITtsH/pDBaYexmURKD86OKaBFuAF05e9NQhPpp6uvRrMmKIiu1FV/RWuOgQfVz/vEIw7YydewK5tibwZ7Dn3HJEnKr5MwoqcNvJngmlRuaiew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=crepuse.com; dmarc=pass action=none header.from=crepuse.com;
- dkim=pass header.d=crepuse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crepuse.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jgbFjKnPGXiTpjbxWH4n8CdjVICWW7hn21ggd7sjg9Q=;
- b=dEQcorTVXD/1TLKRdbE8NaHFTFTgGQWMBxAUuMedUCeo8Od4vMuSFN9jz3/WCyNjkTYMkvLwJcIbD8syMPRWHq+QgWoubOm9mAq/+E2KZLs9dMXAHNoOh3w6iHPLS+MjcTDu9T2koMdnKtZflenhiDLmnbFTl1TCgAN5IoeTYmhEgznO3Q6cKUMrOsOUlr4l24ngSddzWLjHgviJuzyQbY2boILyB2KosaJfb1BVcpkxz4sSaOnAywX9MeSQI2OKb/BvclA54fuxtD6hrQOsOxRjP2rsJ1Ye/UPmBeHlrbabnghOzbihJvqBo2bTqdpGZkl/hHt72TX93L/hdDg4rA==
-Received: from KUYPR01MB8186.apcprd01.prod.exchangelabs.com
- (2603:1096:d10:8d::16) by KUXPR01MB8095.apcprd01.prod.exchangelabs.com
- (2603:1096:d10:9d::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
- 2026 14:47:44 +0000
-Received: from KUYPR01MB8186.apcprd01.prod.exchangelabs.com
- ([fe80::fe2d:77d4:b78a:358a]) by KUYPR01MB8186.apcprd01.prod.exchangelabs.com
- ([fe80::fe2d:77d4:b78a:358a%4]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
- 14:47:44 +0000
-From: Miotsuki Mizuno <founder@crepuse.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Icenowy Zheng <icenowy@aosc.io>,
-	"linux-input@vger.kernel.org" <linux-input@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: [PATCH 3/3] Input: add Nsiway NS2009 resistive touchscreen driver
-Thread-Topic: [PATCH 3/3] Input: add Nsiway NS2009 resistive touchscreen
- driver
-Thread-Index: AQHdV/0kzKz23qjRWEymikiGYCLGrQ==
-Date: Fri, 9 Oct 2026 14:47:44 +0000
-Message-ID: <20261009144729.85832-4-founder@crepuse.com>
-References: <20261009144729.85832-1-founder@crepuse.com>
-In-Reply-To: <20261009144729.85832-1-founder@crepuse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=crepuse.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: KUYPR01MB8186:EE_|KUXPR01MB8095:EE_
-x-ms-office365-filtering-correlation-id: 890eea87-49f0-47ea-c2d4-08df2614472c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|38070700021|10067099003|56012099006|22082099003|18002099003|3023799007;
-x-microsoft-antispam-message-info:
- no1BmjoGVDrBtjfU6K4s/MiNytqG4Y30NoAqY7L/nOP+ij184iPQGoXKAwrymiqQ1SR6DB9cW0Un6vhoIhr8yu3UKT9iTjWaaITGMoE1TW5/CxvWSpNqRTqOVn5ewTEThst47XIaxpX0ptqGS4xPnFLSTFpU+8ce05dU7q8oYBKe+rDAZ1wJKPRlflYfNyOknhRaYChNl+0qQCe4wYgg89bAuX/O9u18HFJqDuPY5WRHaaFWv7mmWY373nxzdrO0xQlrggr8O0KMWpJmn2ZaIFhqwH4SZbEGEWfCZIOHb9dvkfxepNR1u1HNjw87C8YPhyEDDJghac2xS0m9GbZBX8/ULbRVB8P7RNn9WMCw9J+V/PGe5U0iTUfGp3i0zejp5YCcjR4qbppY5uq/+GsXxEO7riU512xomFRKgkwpYf7oPznkW5jUwGTs/X0GcTqPm9B8slua69lEXIvw3a757J0TKCHY6D2UxfqSFIVu0pHnwHxZgBvmYFIjjZgg+FwF/NMh4DTC5DV4MpZYkDKw6Q3jkg209FkXggoP647EchWeONvKcohulXqyYfchVCJ4N7DvPzcOgrorWePrH0gnK6E9pdrfbU9dnboFKCyMqia0VTmc/JFkAi9OKkEYt/+8Qc150/77pq7utjoYlr05FyafJ+3ZzJd4BwtvONI9Y5DwhJ5KviqHbi/g2ad9QHG2BEgbwMZIFRsQxqtcIzX7uayUD5MXc8LYwaU7HSDKGFM=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KUYPR01MB8186.apcprd01.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(38070700021)(10067099003)(56012099006)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?kM1NSuI2XP/KuWqfKdfodsjo2aS+BJurQsqH7QRPTtTEJkB6WhCuL0AxYH?=
- =?iso-8859-1?Q?jjY8xmz7ZuLXQNPosDmzlLBnRpTMHtZ30xLWJw4NPr1+VZOSojE9jP95TX?=
- =?iso-8859-1?Q?n6l0/Yj3ZwkVFFmnO3IGfXALcdSDlFYz82gxrs5C9/wXliGpFni/KQmO0W?=
- =?iso-8859-1?Q?0h1fHSXiurhROU8S6TWgj/FgTNOtoGxQ5m38X5dsKlvb7gnw804CWVghkg?=
- =?iso-8859-1?Q?JaW3/PS474aCuf6o/ZAtI3rgeMDxBtyMmtV9Ae6umhWnsRgc09hrQ5dsNx?=
- =?iso-8859-1?Q?wi2WvamDc3t3+GK/xCpojhZNPvFFrUuES5GDw10XpmcR6nDzm4NWl5V4zu?=
- =?iso-8859-1?Q?3su3N0SBddjNGfJiqlPIkSO+qGPM0GPQkuQs0aA8e4XoHOY6OofeDBVOIN?=
- =?iso-8859-1?Q?pjtfjkeC4VU+YymLQznQ0BKnxFUB2Rd50+FcSLS2kwenCZ9LiiDbTz2vwN?=
- =?iso-8859-1?Q?26s68XLBGgXhwPityqIJ9jRGctMwGw3LUBjiVeTXX1elWQszjiuK/Jti77?=
- =?iso-8859-1?Q?J5UK2zVr/zkXEEZwvvmJ9fkjboaoT2fcgXfGSQw11oCHaL9rIseX9qQs1e?=
- =?iso-8859-1?Q?unT3cQvTeZK3aRimduKUp0jdxaY4H47nBEtydDwTnCV8pIs6MzJziGiQG+?=
- =?iso-8859-1?Q?cCV4xT8pkcHpBI9L3MUnyAPxlzKy+kVLtroZtxFJ+YbWBbjHb1DxCMR+3O?=
- =?iso-8859-1?Q?8CAPlwel0b6Z6QwEmiirZ4NgWzAXC0a9r17LIwk9hlkgaFWGnpov8bXRwb?=
- =?iso-8859-1?Q?GHvNOmToy8UQSV8TGJZjDQ9xP5ksc2o1V8wiKHT02emVuZ58CDKpyUiu+X?=
- =?iso-8859-1?Q?DcXGA3XrcR3zJDRqRy3OjBuGUFP67vWQMju+6/6i2YzmjVXiUlT5mY+UTL?=
- =?iso-8859-1?Q?O0gxqueoQAX4slmSawW4GUUugGEscPVOr+5ac3QlCqPR5QMmyJNtE2y8VV?=
- =?iso-8859-1?Q?pCdds8WZLhC8ptxu/zxiHKc+7IffwaFCiauBn1uzzT4PfxJCFSqftaSqyu?=
- =?iso-8859-1?Q?HVfimJrnxN0WYXckkMhev5qeZpft/8SaXUojYI6nZQMWFLOpqLVrdGZiS1?=
- =?iso-8859-1?Q?AakVH+YYDFN0kiA/pcpgiF8GeARv5bn1cyS4Lc4EFhJm7RHB/FELfvpz3w?=
- =?iso-8859-1?Q?v+63agAkozPUxEgrY7DrSJjnLQMLHfmaEJK0hJeGXu0QyS+Ej9m5NnCqjO?=
- =?iso-8859-1?Q?pEQF40ChTNSBqzaODRRpJGWwFqult2plT4H/osiwFzH9sy2F0jC1zJdmDu?=
- =?iso-8859-1?Q?EISCYM9VWEyhtURD9ma/PrYcd8QhcNsnyF+qepTIQDr/kV6ns1cRoYQde2?=
- =?iso-8859-1?Q?wvWeVSYeJz1xMIbzF5w+lPWptvpidqeS7Xf+aO/nV8g7WowHdKBkzA5TOu?=
- =?iso-8859-1?Q?UJcu9vCA4uIo/v3+dWIUOuKtGcEec7MYwsALN4IL33FxXroPOLYJRRHj6d?=
- =?iso-8859-1?Q?56FADYRRmGaYPgWSewMSvQHEas4RsWUFM2HiuHImyOXYUEZhyG79Byb7O4?=
- =?iso-8859-1?Q?kiOUDWbjScMlxpMFpWQQkb7S1vYWZVtIHES/tIdlZhS7WawV6WQwOLf1OO?=
- =?iso-8859-1?Q?qbA2KpJAAicpnhjbUMHSorVflbkMp1UkRoZRPt2LB9hQlniS01mvlQtiPS?=
- =?iso-8859-1?Q?3NEKkjTcUwPl7rodgyycCtky+p6u1di2sQKjbrxOYGbVB+Tb6JUv1RRed9?=
- =?iso-8859-1?Q?l2Wzi2d+hHT4fFTvUaDJTfLKNrXde4SfWshvgopG2jm6OG3slMW2FdStW6?=
- =?iso-8859-1?Q?XwjLBIczbLvJqadkZpA5pTSDsQ63tjvid6fk721e0Oixxg?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b5tSvdNe"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-487048857f6so3787711f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 07:48:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791557295; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Aiz8mJkAep2P3Vv2n80CLnE7sodoSLIXHlww2UekEXtmNLVT/b8U6K32mas5WiS5X5
+         8SS1UWtEOzB5Q9Clq7rRmyiVUiyCn7MBn8DqQY6OhJG65phK09mvP90M4BvLrsem5K6A
+         n/n3CTM8C7Zn17nAfGJl2FD+QylAMYUEeFecQZJ+K6oDl/54YMx3qfIFLeUjwkp6C97T
+         VLEfSNNNkTUSDc89IYyyr6Nq0t4ctlLnbzu9SLNybNtCmGroVCFr/wK3RyfxQNRW3LkM
+         5kUreAD9/wz7XuCM8UNgpfmJyIBzBcEvOy3xuo0MR8yu/KsWO3AHDIa5pxIbSP4F1+AN
+         sAMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=DcHGczPgZRvJBLX6otp4fWgB9WOm7KJjLDKmnGx+ZXM=;
+        fh=g30WbgxsgfX4UesMqz3z/77p3F259V9+YZdvgmg2Ywk=;
+        b=Tmmk0eu9sONwSPjNE5SWPpeXOSZvG3vFyFAPmNkcxlOxyWrUz9Odcyk8GduqnyrsE5
+         BYD9KzHFHssMVpX2g0U7SGadfe/uFcLsq0G+7RQVJL0EOMWQQ6pAqfqZgp8TGdDyJc2N
+         hxgtIGq6aBuJ/4Lm1DU9IpvlCotZNiZcx+Y/LU9IUnwMl/MgfUdD97Cs3Q1LEa6vs5jL
+         LoqFufCAURcoqMrmARRCZ2fe7B9sh58LlDQbzlw+3+M/Wn1/KGAofuPhnTRmFTjLCFp8
+         PdX5u6m8lg1+KCorNKDWSOSAUigcZtjp9BfM4XpT4XFFepYFhY9Ngu//ZRNiFZqWGM5C
+         MIiA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791557295; x=1792162095; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DcHGczPgZRvJBLX6otp4fWgB9WOm7KJjLDKmnGx+ZXM=;
+        b=b5tSvdNeg0/KyXxGEA0eNiHLm3v5pD7YhCfACEljzl0lAVKeh0oa7AUYVbAW4+SUkm
+         dSmhRoS25mhTSeCcDY8NiT1SKi9XjAwyGHxzgyfM4CZ7IWoS0PFOevDUcNQu837dk7/6
+         x3RRMXknkiVS1NE5mvDYbfDQGMEtPj1+HUC+HtkicS7W6Jd9WBvRdRJzbUsdIhh+Ezlb
+         /xJcuzkGkPrViXAa2HRuPMiNRB/TepsfuUqPjvROC1uuJqWyUYfnJPJi6HJ2IjnUb6AF
+         hmIXhf/xMtvx6aWFHE5WRyENegVEv0CQnuQV0nE6xGlqC8P2wMNlbsfMIJl8ogwmJByW
+         eYAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791557295; x=1792162095;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DcHGczPgZRvJBLX6otp4fWgB9WOm7KJjLDKmnGx+ZXM=;
+        b=hzXAO0+vcyLVftHUIoXOw1vCJdtgeZOPAgUgOTucs7i3fc8vZ/7jbrJmBXXX5fCxHD
+         wUSPPzRy49mGT5vXm40e3UZpMab2dkEOJ04zL1E8ePwx5Zc89MkW8BrXuhDIEw2EzPD3
+         umbMAr9zgYw0osc3ZgYx/EtHB0hXJ6NVAfcjN7+LJilppoRbrBAAmlaqS/P4DDPhaBMH
+         cIduLW8IyzvZ+iZ8FxKVIpGjO/uNl5x/BJ+gCobKR75+ZYmCULEbW8ibMVC32CVbGVKR
+         bAWZJbg0YIuEe4SUgP5Xa+RVFXN8HqPj5ZKYYkYy7JjDQpfbqLRRoew1MXpIA8tptWpk
+         RQNg==
+X-Forwarded-Encrypted: i=1; AKwUvBxIrOdImtWUoQJztssxFV/lm2CcGDV/gsEH6/3aDCuaVDLZdn+W/sXxRKzqDlDfvvtiSx1FOoDaToul4wY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKmWez/uSPCHnkxxsphKbcnX+dqdo4jPkOYgltajcJ0tmfZ5ii8
+	7ipCcI54bU4FUu4V1HKuBP2lAe/GTLB/QVZmPlDGOVmqY+lZwHc2O62Rsp0rbo1dopNI44SLGkT
+	pFXeQ7QJQGzVKfM5H4/kfzI6byoQkTXk=
+X-Gm-Gg: AYBFou1v1ICGLvLitJz+am2CiiNyubavihaNNsT07JvVItejpqRh/TrUoecCJ9Hkt9x
+	uqeuHNBiMHIN3KPPJWL4E5p6fOOA3vDbKzcGPhV0HM9j0CQ6Q82CEsD0aYcqwC1zJm4CAqANd7Z
+	SNSbIqDGYBV0C9S6+iNLcUlDFgO4eFrKLRR3esb7djdGNFUn0QYlX4eJlljxWGFdiWCK1uJuaEm
+	2RkXX42iMHTnpbAqsOeE/rmyzK0ZsXjQKYF3SwuhqnuTWM64ltSvxcw1fdN8ZdaFfkorOBiNr4n
+	Mfq4G3+bNRNu/yCbAkEwawOzZdyVb4NWOucLv7aQN3gjdhWVVo60QNT3
+X-Received: by 2002:a05:6000:4287:b0:48b:68:592e with SMTP id
+ ffacd0b85a97d-48dba77cf6dmr5471601f8f.4.1791557294915; Fri, 09 Oct 2026
+ 07:48:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: crepuse.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: KUYPR01MB8186.apcprd01.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 890eea87-49f0-47ea-c2d4-08df2614472c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2026 14:47:44.4702
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 9e189589-0b8b-4283-80ca-b0157c0a04fa
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 1WIM3rYcjYrrk7e4JGZ29TlXRWTiHi+d0rRjMw45mu+rn7Ub6+bUDKLJnVBQ9c9qniBmVHZN+J0PdmsYkal3Wg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUXPR01MB8095
+References: <47d7da4a-5029-4c56-a5ac-3e4c526cc569@gmail.com>
+In-Reply-To: <47d7da4a-5029-4c56-a5ac-3e4c526cc569@gmail.com>
+From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Date: Fri, 9 Oct 2026 23:47:57 +0900
+X-Gm-Features: AclHuK9EJLFEf7xaSOmpA2lH2mwwgWwZsDy43bq0zbth0WsulONkQKj8XuO57X8
+Message-ID: <CAKFNMomfwzD52Kpjo1ZvSF=n92=tOY=3XcLxPBY-=_-7J3JChQ@mail.gmail.com>
+Subject: Re: System writes out modified portions of the last memory mapped
+ page beyond file end if file is resized
+To: Vyacheslav Kovalevsky <slava.kovalevskiy.2014@gmail.com>
+Cc: slava@dubeyko.com, linux-nilfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add polling support for the Nsiway NS2009 I2C touchscreen controller using=
-=0A=
-the input polling API and managed input allocation. Read 12-bit X/Y ADC=0A=
-values and report BTN_TOUCH from the raw Z1 contact threshold. Apply=0A=
-coordinate transforms through the common touchscreen helpers.=0A=
-=0A=
-This implementation derives from Icenowy Zheng's 2017 polling driver.=0A=
-Keep its historical threshold default while allowing a firmware override,=
-=0A=
-and retain the original copyright and author attribution.=0A=
-=0A=
-Report the touch key on every successful sample and let the input core=0A=
-filter repeated values. A private pen-down flag would become stale when=0A=
-the core clears key state during inhibit or reset. On a failed, short or=0A=
-malformed I2C read, discard the coordinates and release the contact so a=0A=
-failed bus cannot leave it stuck down. A later valid sample reports a new=
-=0A=
-contact.=0A=
-=0A=
-Validate the zero padding in the low nibble of the second byte as specified=
-=0A=
-by the 12-bit read-command format. Reject malformed responses before=0A=
-assigning the decoded value, and rate-limit the diagnostic output.=0A=
-=0A=
-Tested on UNIHIKER M10 V1.2 with a Linux 6.18 validation module: clicks,=0A=
-long presses, drags, release, axis orientation and three held-contact=0A=
-inhibit/uninhibit cycles. The validation module only changes the driver=0A=
-registration name to replace the existing built-in driver. Physical=0A=
-NACK/short-read fault injection and system suspend/resume have not been=0A=
-exercised.=0A=
-=0A=
-Link: https://lore.kernel.org/all/20170315155140.54518-4-icenowy@aosc.xyz/=
-=0A=
-=0A=
-Signed-off-by: Mizuno Miotsuki <founder@crepuse.com>=0A=
----=0A=
- MAINTAINERS                        |   1 +=0A=
- drivers/input/touchscreen/Kconfig  |  10 ++=0A=
- drivers/input/touchscreen/Makefile |   1 +=0A=
- drivers/input/touchscreen/ns2009.c | 175 +++++++++++++++++++++++++++++=0A=
- 4 files changed, 187 insertions(+)=0A=
- create mode 100644 drivers/input/touchscreen/ns2009.c=0A=
-=0A=
-diff --git a/MAINTAINERS b/MAINTAINERS=0A=
-index 696f2badc49c..e282c02ec13f 100644=0A=
---- a/MAINTAINERS=0A=
-+++ b/MAINTAINERS=0A=
-@@ -19472,6 +19472,7 @@ M:	Mizuno Miotsuki <founder@crepuse.com>=0A=
- L:	linux-input@vger.kernel.org=0A=
- S:	Maintained=0A=
- F:	Documentation/devicetree/bindings/input/touchscreen/nsiway,ns2009.yaml=
-=0A=
-+F:	drivers/input/touchscreen/ns2009.c=0A=
- =0A=
- NTB AMD DRIVER=0A=
- M:	Basavaraj Natikar <Basavaraj.Natikar@amd.com>=0A=
-diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/=
-Kconfig=0A=
-index 9b9ae8ac3f7f..d4cdf1a7e057 100644=0A=
---- a/drivers/input/touchscreen/Kconfig=0A=
-+++ b/drivers/input/touchscreen/Kconfig=0A=
-@@ -691,6 +691,16 @@ config TOUCHSCREEN_MTOUCH=0A=
- 	  To compile this driver as a module, choose M here: the=0A=
- 	  module will be called mtouch.=0A=
- =0A=
-+config TOUCHSCREEN_NS2009=0A=
-+	tristate "Nsiway NS2009 touchscreen controller"=0A=
-+	depends on I2C=0A=
-+	help=0A=
-+	  Say Y here if you have a resistive touchscreen using the Nsiway=0A=
-+	  NS2009 controller connected over I2C.=0A=
-+=0A=
-+	  To compile this driver as a module, choose M here: the module will be=
-=0A=
-+	  called ns2009.=0A=
-+=0A=
- config TOUCHSCREEN_NOVATEK_NVT_TS=0A=
- 	tristate "Novatek NT11205 touchscreen support"=0A=
- 	depends on I2C=0A=
-diff --git a/drivers/input/touchscreen/Makefile b/drivers/input/touchscreen=
-/Makefile=0A=
-index bfd9de83389d..c5fc2062d7cf 100644=0A=
---- a/drivers/input/touchscreen/Makefile=0A=
-+++ b/drivers/input/touchscreen/Makefile=0A=
-@@ -68,6 +68,7 @@ obj-$(CONFIG_TOUCHSCREEN_MIGOR)		+=3D migor_ts.o=0A=
- obj-$(CONFIG_TOUCHSCREEN_MMS114)	+=3D mms114.o=0A=
- obj-$(CONFIG_TOUCHSCREEN_MSG2638)	+=3D msg2638.o=0A=
- obj-$(CONFIG_TOUCHSCREEN_MTOUCH)	+=3D mtouch.o=0A=
-+obj-$(CONFIG_TOUCHSCREEN_NS2009)	+=3D ns2009.o=0A=
- obj-$(CONFIG_TOUCHSCREEN_NOVATEK_NVT_TS)	+=3D novatek-nvt-ts.o=0A=
- obj-$(CONFIG_TOUCHSCREEN_HP600)		+=3D hp680_ts_input.o=0A=
- obj-$(CONFIG_TOUCHSCREEN_HP7XX)		+=3D jornada720_ts.o=0A=
-diff --git a/drivers/input/touchscreen/ns2009.c b/drivers/input/touchscreen=
-/ns2009.c=0A=
-new file mode 100644=0A=
-index 000000000000..d5c1f9f96bb6=0A=
---- /dev/null=0A=
-+++ b/drivers/input/touchscreen/ns2009.c=0A=
-@@ -0,0 +1,175 @@=0A=
-+// SPDX-License-Identifier: GPL-2.0-or-later=0A=
-+/*=0A=
-+ * Nsiway NS2009 resistive touchscreen controller=0A=
-+ *=0A=
-+ * Copyright (C) 2017 Icenowy Zheng <icenowy@aosc.xyz>=0A=
-+ * Portions derived from silead.c:=0A=
-+ * Copyright (C) 2014-2015 Intel Corporation=0A=
-+ */=0A=
-+=0A=
-+#include <linux/i2c.h>=0A=
-+#include <linux/input.h>=0A=
-+#include <linux/input/touchscreen.h>=0A=
-+#include <linux/module.h>=0A=
-+#include <linux/property.h>=0A=
-+=0A=
-+#define NS2009_POLL_INTERVAL_MS		30=0A=
-+#define NS2009_MAX_12BIT		0xfff=0A=
-+=0A=
-+#define NS2009_READ_X_LOW_POWER_12BIT	0xc0=0A=
-+#define NS2009_READ_Y_LOW_POWER_12BIT	0xd0=0A=
-+#define NS2009_READ_Z1_LOW_POWER_12BIT	0xe0=0A=
-+=0A=
-+/* Historical driver default; boards may override via firmware properties.=
- */=0A=
-+#define NS2009_DEFAULT_PEN_DOWN_Z1	80=0A=
-+=0A=
-+struct ns2009_data {=0A=
-+	struct i2c_client *client;=0A=
-+	struct touchscreen_properties prop;=0A=
-+	u16 pen_down_z1;=0A=
-+};=0A=
-+=0A=
-+static int ns2009_read_data(struct ns2009_data *data, u8 command, u16 *val=
-ue)=0A=
-+{=0A=
-+	u8 raw[2];=0A=
-+	int error;=0A=
-+=0A=
-+	error =3D i2c_smbus_read_i2c_block_data(data->client, command,=0A=
-+					      sizeof(raw), raw);=0A=
-+	if (error < 0)=0A=
-+		return error;=0A=
-+	if (error !=3D sizeof(raw))=0A=
-+		return -EIO;=0A=
-+	/* The 12-bit result is left-aligned; the remaining bits must be zero. */=
-=0A=
-+	if (raw[1] & 0x0f) {=0A=
-+		dev_err_ratelimited(&data->client->dev,=0A=
-+				    "invalid sample for command %#02x: %02x %02x\n",=0A=
-+				    command, raw[0], raw[1]);=0A=
-+		return -EIO;=0A=
-+	}=0A=
-+=0A=
-+	*value =3D (raw[0] << 4) | (raw[1] >> 4);=0A=
-+	return 0;=0A=
-+}=0A=
-+=0A=
-+static void ns2009_poll(struct input_dev *input)=0A=
-+{=0A=
-+	struct ns2009_data *data =3D input_get_drvdata(input);=0A=
-+	u16 x, y, z1;=0A=
-+	int error;=0A=
-+=0A=
-+	error =3D ns2009_read_data(data, NS2009_READ_Z1_LOW_POWER_12BIT, &z1);=0A=
-+	if (error)=0A=
-+		goto read_error;=0A=
-+=0A=
-+	if (z1 < data->pen_down_z1)=0A=
-+		goto release;=0A=
-+=0A=
-+	error =3D ns2009_read_data(data, NS2009_READ_X_LOW_POWER_12BIT, &x);=0A=
-+	if (error)=0A=
-+		goto read_error;=0A=
-+=0A=
-+	error =3D ns2009_read_data(data, NS2009_READ_Y_LOW_POWER_12BIT, &y);=0A=
-+	if (error)=0A=
-+		goto read_error;=0A=
-+=0A=
-+	/* The input core filters repeats and may independently clear key state. =
-*/=0A=
-+	input_report_key(input, BTN_TOUCH, 1);=0A=
-+	touchscreen_report_pos(input, &data->prop, x, y, false);=0A=
-+	input_sync(input);=0A=
-+	return;=0A=
-+=0A=
-+read_error:=0A=
-+	dev_err_ratelimited(&data->client->dev,=0A=
-+			    "failed to poll touch data: %d\n", error);=0A=
-+	/* An unreadable sample must not leave an active touch stuck down. */=0A=
-+release:=0A=
-+	input_report_key(input, BTN_TOUCH, 0);=0A=
-+	input_sync(input);=0A=
-+}=0A=
-+=0A=
-+static int ns2009_probe(struct i2c_client *client)=0A=
-+{=0A=
-+	struct device *dev =3D &client->dev;=0A=
-+	struct ns2009_data *data;=0A=
-+	struct input_dev *input;=0A=
-+	u32 value;=0A=
-+	int error;=0A=
-+=0A=
-+	if (!i2c_check_functionality(client->adapter,=0A=
-+				     I2C_FUNC_SMBUS_READ_I2C_BLOCK))=0A=
-+		return dev_err_probe(dev, -EOPNOTSUPP,=0A=
-+				     "required SMBus block read is unavailable\n");=0A=
-+=0A=
-+	data =3D devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);=0A=
-+	if (!data)=0A=
-+		return -ENOMEM;=0A=
-+=0A=
-+	input =3D devm_input_allocate_device(dev);=0A=
-+	if (!input)=0A=
-+		return -ENOMEM;=0A=
-+=0A=
-+	data->client =3D client;=0A=
-+	data->pen_down_z1 =3D NS2009_DEFAULT_PEN_DOWN_Z1;=0A=
-+	if (device_property_present(dev, "touchscreen-min-pressure")) {=0A=
-+		error =3D device_property_read_u32(dev, "touchscreen-min-pressure",=0A=
-+						 &value);=0A=
-+		if (error)=0A=
-+			return dev_err_probe(dev, error,=0A=
-+					     "failed to read touchscreen-min-pressure\n");=0A=
-+		if (!value || value > NS2009_MAX_12BIT)=0A=
-+			return dev_err_probe(dev, -EINVAL,=0A=
-+					     "touchscreen-min-pressure must be 1..4095\n");=0A=
-+		data->pen_down_z1 =3D value;=0A=
-+	}=0A=
-+	input_set_drvdata(input, data);=0A=
-+=0A=
-+	input->name =3D "ns2009_ts";=0A=
-+	input->phys =3D "input/ts";=0A=
-+	input->id.bustype =3D BUS_I2C;=0A=
-+=0A=
-+	__set_bit(INPUT_PROP_DIRECT, input->propbit);=0A=
-+	input_set_capability(input, EV_KEY, BTN_TOUCH);=0A=
-+	input_set_abs_params(input, ABS_X, 0, NS2009_MAX_12BIT, 32, 0);=0A=
-+	input_set_abs_params(input, ABS_Y, 0, NS2009_MAX_12BIT, 16, 0);=0A=
-+	touchscreen_parse_properties(input, false, &data->prop);=0A=
-+=0A=
-+	error =3D input_setup_polling(input, ns2009_poll);=0A=
-+	if (error)=0A=
-+		return dev_err_probe(dev, error, "failed to set up polling\n");=0A=
-+=0A=
-+	input_set_poll_interval(input, NS2009_POLL_INTERVAL_MS);=0A=
-+=0A=
-+	error =3D input_register_device(input);=0A=
-+	if (error)=0A=
-+		return dev_err_probe(dev, error,=0A=
-+				     "failed to register input device\n");=0A=
-+=0A=
-+	return 0;=0A=
-+}=0A=
-+=0A=
-+static const struct i2c_device_id ns2009_id[] =3D {=0A=
-+	{ "ns2009" },=0A=
-+	{ }=0A=
-+};=0A=
-+MODULE_DEVICE_TABLE(i2c, ns2009_id);=0A=
-+=0A=
-+static const struct of_device_id ns2009_of_match[] =3D {=0A=
-+	{ .compatible =3D "nsiway,ns2009" },=0A=
-+	{ }=0A=
-+};=0A=
-+MODULE_DEVICE_TABLE(of, ns2009_of_match);=0A=
-+=0A=
-+static struct i2c_driver ns2009_driver =3D {=0A=
-+	.driver =3D {=0A=
-+		.name =3D "ns2009",=0A=
-+		.of_match_table =3D ns2009_of_match,=0A=
-+	},=0A=
-+	.probe =3D ns2009_probe,=0A=
-+	.id_table =3D ns2009_id,=0A=
-+};=0A=
-+module_i2c_driver(ns2009_driver);=0A=
-+=0A=
-+MODULE_AUTHOR("Icenowy Zheng <icenowy@aosc.xyz>");=0A=
-+MODULE_DESCRIPTION("Nsiway NS2009 resistive touchscreen controller");=0A=
-+MODULE_LICENSE("GPL");=0A=
+On Fri, Oct 9, 2026 at 11:09=E2=80=AFPM Vyacheslav Kovalevsky wrote:
+>
+> Detailed description
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>
+> Hello, there seems to be an issue with NILFS2:
+>
+> 1. Create a file, truncate it to some size that is not multiple of OS
+> page size (which is usually 4096).
+> 2. Open the file.
+> 3. Create a new shared mapping (MAP_SHARED) using `mmap` from 0 to some
+> point beyond file end (but still on the same OS page as the file end,
+> otherwise next steps will fail).
+> 4. Write some data beyond file end using the mapping.
+> 5. Resize file (e.g. using `truncate`) so the file end is now after the
+> mapping range.
+> 6. Observe that bytes written beyond file end (using the mapping) were
+> also written to backing file after resizing.
+>
+> The last bit violates the POSIX specification, extract from `mmap`
+> documentation at
+> <https://pubs.opengroup.org/onlinepubs/9799919799/functions/mmap.html>:
+>
+>  > The system shall always zero-fill any partial page at the end of an
+> object. Further, __the system shall never write out any modified
+> portions of the last page of an object which are beyond its end__.
+>
+> Linux manual <https://man7.org/linux/man-pages/man2/mmap.2.html>:
+>
+>  > For a file that is not a multiple of the page size, the remaining
+> bytes in the partial page at the end of the mapping are zeroed when
+> mapped, and __modifications to that region are not written out to the
+> file__.
+>
+> For reference: `ext4` / `btrfs` / `xfs` do not write the data to file
+> after resizing, as
+>
+> The exact same issue was recently reported for ZFS:
+> <https://github.com/openzfs/zfs/issues/19220>
+>
+>
+> System info
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>
+> Linux version 7.0.0-34-generic (Ubuntu 26.04.1 LTS)
+> nilfs-tools version 2.2.11
+>
+>
+> How to reproduce
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>
+> ```
+> #include <err.h>
+> #include <fcntl.h>
+> #include <stdio.h>
+> #include <stdlib.h>
+> #include <string.h>
+> #include <sys/mman.h>
+> #include <sys/stat.h>
+> #include <sys/types.h>
+> #include <unistd.h>
+>
+> #define WRITE_OFF 10
+> #define WRITE_SIZE 10
+> #define WRITE_DATA "Test data!"
+> #define MMAP_SIZE WRITE_SIZE + WRITE_OFF
+> #define FILE_SIZE_INI 10
+> #define FILE_SIZE_END 32
+>
+> int main() {
+>    char buffer[FILE_SIZE_END + 1] =3D {};
+>    int status;
+>    int fd;
+>    void *addr;
+>
+>    status =3D creat("file", S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+>    printf("CREAT: %d\n", status);
+>    close(status);
+>
+>    status =3D truncate("file", FILE_SIZE_INI);
+>    printf("TRUNCATE: %d\n", status);
+>
+>    status =3D open("file", O_RDWR);
+>    printf("OPEN: %d\n", status);
+>    fd =3D status;
+>
+>    addr =3D mmap(NULL, MMAP_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fd,=
+ 0);
+>    if (addr =3D=3D MAP_FAILED) {
+>      printf("MMAP: FAILED\n");
+>      return EXIT_FAILURE;
+>    }
+>    printf("MMAP: OK\n");
+>    close(fd);
+>
+>    memcpy(((char *)addr) + WRITE_OFF, WRITE_DATA, WRITE_SIZE);
+>
+>    status =3D munmap(addr, MMAP_SIZE);
+>    printf("MUNMAP: %d\n", status);
+>
+>    status =3D truncate("file", FILE_SIZE_END);
+>    printf("TRUNCATE: %d\n", status);
+>
+>    status =3D open("file", O_RDONLY);
+>    printf("OPEN: %d\n", status);
+>    fd =3D status;
+>
+>    status =3D read(fd, buffer, FILE_SIZE_END);
+>    printf("READ: %d\n", status);
+>    printf("BYTES: ");
+>    for (int i =3D 0; i < status; i++) {
+>      printf("%02x ", buffer[i]);
+>    }
+>    printf("\n");
+> }
+>
+> // ::Expected::
+> // CREAT: 3
+> // TRUNCATE: 0
+> // OPEN: 3
+> // MMAP: OK
+> // MUNMAP: 0
+> // TRUNCATE: 0
+> // OPEN: 3
+> // READ: 32
+> // BYTES: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00
+>
+> // ::Actual::
+> // CREAT: 3
+> // TRUNCATE: 0
+> // OPEN: 3
+> // MMAP: OK
+> // MUNMAP: 0
+> // TRUNCATE: 0
+> // OPEN: 3
+> // READ: 32
+> // BYTES: 00 00 00 00 00 00 00 00 00 00 54 65 73 74 20 64 61 74 61 21 00
+> 00 00 00 00 00 00 00 00 00 00 00
+> ```
+>
+> Steps:
+>
+> 1. Create and mount new NILFS2 filesystem in default configuration.
+> 2. Change directory to root of the filesystem and run the compiled test.
+> 3. Observe that last operation returns unexpected value.
+
+Hi Vyacheslav Kovalevsky,
+
+Thank you for your report.  I have registered it as issue #179:
+
+ https://github.com/nilfs-dev/nilfs2/issues/179
+
+Having the reproduction steps clearly outlined is extremely helpful.
+This appears to be an unaddressed bug, but I'd like to begin the
+investigation by verifying whether the issue can be reproduced with
+the latest code.
+
+Thanks,
+Ryusuke Konishi
