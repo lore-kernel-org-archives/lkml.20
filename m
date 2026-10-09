@@ -1,80 +1,32 @@
-Received: from mail-oa2-f10.google.com (mail-oa2-f10.google.com [74.125.231.74])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E2093F54CB
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 05:56:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 235B9402B99;
+	Fri,  9 Oct 2026 05:57:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791525375; cv=none; b=e1ALBZ24eEZIutGCD/ffnVvJ4zOyHR++5rstuyxI/HBuKU0IJQxpDagC871ad7+J80ULQJY2xdMwRFna509ljsxU8sq/uPT5DK5AzIwfVHnK5gd5LyZzt1kItsOlV6NZZ59Z2NhW9FF600KniV24QpUrYBZLQdtnkZ5bEF6ysDQ=
+	t=1791525431; cv=none; b=acdrIgZ/JIhuYaJNp/GoiMY5eRBTVvfFqpliX77pkVPPXm58xjaX00L6zZSPGtQG80oIvy6GQ/8ovuxhVnGeAkOiWeEYz9pBJ0IIrXCQ9gXLrKoDe6RkBEGxQ+zECovelLUDphdYtl95wLfeYJCTVpMI8kmUX1g1IKg49cVPa8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791525375; c=relaxed/simple;
-	bh=0Cd7BRJTOwMBwlto6I1RgpvE5V4HZw5T6GNxqVD2h10=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=G8zhwmcOE4tLtiHkF0z8wfZ4mdaOOrrxMRvh/Ir2zF0suFfJPVrg1AhQUnjqc+6YFquXmvXjvjkHfu7MKGH9P77W7cWqPjmAZawwk+j7SHU43DBLKGAG1CO8PkQuXaFz+5RDjFPKQOShu8mu0z0GazQWHW3D8MloYMkDHVVimy0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y9kld79g; arc=none smtp.client-ip=74.125.231.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y9kld79g"
-Received: by mail-oa2-f10.google.com with SMTP id 586e51a60fabf-4753ef5108aso2556804fac.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 22:56:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791525373; x=1792130173; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YBM96Z0acKI7hIHci4HfMZ4VWwlNJJJw6ZcLXrahmw0=;
-        b=Y9kld79gHMe/lWTLg9dwyKVSjp3aIjP93TFwhRhltmOLMKUwSVFrbHKxxJiCOn36PU
-         Gcpfr9fDOY0UuOr+o3pPAsAcAdv93FtFOz3NPcCPND8h8To8WTkQACV12nP5Rf+3qglj
-         iuK/k7mtpt136yuPg07ccZJ4k7bsX3cPbuHvkzyBfG8hj4+NZw6EP8SDWHf7oGlXLjcK
-         hw/rsxdaAVc+kZpZ8Alr3cwYegrmBUNiEjaS9ydSksnV3TNTwB+7wtGobshlf7fjPb8o
-         S/+8gDdwh4h/W6pQsN9Go4o80v+KxC6sljZ/nZ7Nr/mIRkzZPtmSdsm3NGnWxhDggZOP
-         Yl5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791525373; x=1792130173;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YBM96Z0acKI7hIHci4HfMZ4VWwlNJJJw6ZcLXrahmw0=;
-        b=sbcP0Bm29G5quQiNgc74ceETiV+ZsoOSvtv75O0YBiwxwPydUUMIOqUcroEnokmTFW
-         ONfRcLNG0Qngt73uMshrgAnKISyHkq5HrnajUravEtnyfBRUqLCrkcRwXj528w42ELtX
-         OwzxAeWR6vpFLOvrqTb2hz9WUck48andKIAF92Y6afbkq++E4BxC1vVRB4I0/8mhijgt
-         wmfkoqt5Pe/hSp+b8sRe6cWRhZNzDYdfrESw9GcrLsgj6Q6zWDozAv0sb4pep634i0kU
-         tUGu6WR9urOxvOiNzeyau2EczIL58JP0QFbTVy3frGAHNUXjLJAAlqLJFyyCaiP7YLJ9
-         85Ag==
-X-Forwarded-Encrypted: i=1; AKwUvBzPgAzB8kQPgjg39Yan5VGQDYuFVSwlNZbYoK/LGS6yQ6QvfSX+wQS7m+cKcRMPtUblxtft261L0pfLsPw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ0NeOzMtASVzRCX3xtXdLGfnqLKPyHF+T9/WAti8tP6i7XyBX4
-	2xda5hilHWRrgjnHM0FiOL8ryRPDaTXZJ8skJLyW48bo9SemSzvrsaB+
-X-Gm-Gg: AYBFou3nm1CrJIM+JX7ppymZssPJTEYbiAiq68Mv3thPVigHwW6db1nL+grNpm/sG28
-	QxdscDqAxewkhjbX3ZS0c62K9+e75skRK7OQCkFIWAGlPh4EMnDhXwAXe2q4Lc/jhglsOecuYd0
-	jh1+ajVQWPeQIp9RUjtg13iEP2z82SJtOXY36pxIlXskLM3HzqX35NVqgo99g4a9329OTvA6N7+
-	bQ+eg4mm9pCirF43P2IS3EisEZVTSFU3BBwRdaHl/RPznpaelAdVTuRJB8gDdDy3DWKGKXtAFHk
-	3BBaLeaDvAFHJxMjjsOM5hpVgoPz1D6nSGBg+bvVMBy9w1B1Sj4FTRM483L1Yex1wjdbM0BUNFh
-	2rEgdFhy9G64UmovcxEaBcrVyGzoUaD97hwwoXM3Pt1DFMuzhe47kknPdACHDE4K298cweGu2Cl
-	YavjyjQMpbhgylPbdy2F0Xt+HuCfJEMw9iZG+1OQuRrS3hSwvnq+MuA27t/2T5xmCHZy+yXrkcb
-	tZwxk5g5dXGflYHQWzMpJT8feILTe/z+AXcKw==
-X-Received: by 2002:a05:6870:3329:b0:49e:6d1c:a569 with SMTP id 586e51a60fabf-4a2a88e66a0mr909544fac.38.1791525373223;
-        Thu, 08 Oct 2026 22:56:13 -0700 (PDT)
-Received: from localhost.localdomain ([14.116.239.36])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a2a84a14c0sm1079723fac.3.2026.10.08.22.56.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 22:56:11 -0700 (PDT)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: Jon Maloy <jmaloy@redhat.com>,
-	Tung Quang Nguyen <tung.quang.nguyen@est.tech>,
-	Ying Xue <ying.xue@windriver.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org,
-	tipc-discussion@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] tipc: fix broadcast sender hang and leak on last acker departure
-Date: Fri,  9 Oct 2026 13:56:00 +0800
-Message-ID: <20261009055601.2304158-1-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.43.7
+	s=arc-20240116; t=1791525431; c=relaxed/simple;
+	bh=P7fIb6IeUIFi2Mu/SxY2H7Sx8eDkDt0NsYG9UE40QeA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XiG9EnTzYGgmbMz44i3avjPHJhc23XrxjX3eAMCHMjMuqMPUkBhObzsVD3IpKeYJLiQeEReZn0aLTlGvrazvZIccVgwuDYkTHJgNYdq3xO7HI6NC4BmCjSCfm71Omxf2mMoRMKXsgJcLsYn2P+bKFaR2ZX8D4aOj/vmjy/fmap8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from fc87d0ffb700.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowABHTjwvgshq_H0dCg--.3328S2;
+	Fri, 09 Oct 2026 13:57:04 +0800 (CST)
+From: Haotian Zhang <vulab@iscas.ac.cn>
+To: Kamel Bouhara <kamel.bouhara@bootlin.com>,
+	William Breathitt Gray <wbg@kernel.org>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] counter: microchip-tcb-capture: fix clk reference leak
+Date: Fri,  9 Oct 2026 13:57:06 +0800
+Message-Id: <20261009055706.3157552-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,74 +34,70 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowABHTjwvgshq_H0dCg--.3328S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zr1DCFW7Wr43Aw4kKry8Krg_yoW8Ary7pF
+	W0q390kF48XFWqga1DJw4DZF98tr42ya4FgFyfKasrWas5J3s3XayqkF10van5ArykJa1a
+	qw1UWr1kuFyDZFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r4UJVWxJr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1D
+	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
+	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0E
+	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJV
+	W8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAI
+	cVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07bO5rxUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwgPA2rIaDU-ZAACsl
 
-TIPC group broadcast senders are blocked in poll()/write() until all
-members have acked the replicast.  When a departing member held the
-last outstanding ack, tipc_group_delete_member() decrements
-grp->bc_ackers to zero but never restores *grp->open nor wakes the
-blocked senders; write() then sleeps until the send timeout and
-poll() is never woken at all.  Commit 99cc2a62e07a ("tipc: reject
-invalid and unexpected GRP_ACK_MSG to prevent bc_ackers underflow")
-noted this as a pre-existing issue.
+mchp_tc_probe() obtains a reference to each channel clock with
+of_clk_get_by_name(), but that reference is never released: the only
+teardown path, mchp_tc_clk_remove(), just calls clk_disable_unprepare().
+The clk pointers are kept in a local array, so the reference obtained on
+every successful probe is leaked, and when clk_prepare_enable() fails the
+reference is leaked on that error path as well.
 
-Restore the open state exactly on the 1->0 acker transition in the
-delete path, mirroring the GRP_ACK_MSG completion path, and invoke
-sk->sk_write_space() from tipc_sk_filter_rcv() when the group just
-became writable again.
+Release the reference with clk_put() in mchp_tc_clk_remove() after the
+clock has been disabled and unprepared, and also call clk_put() when
+clk_prepare_enable() fails.
 
-This vulnerability was discovered by Tencent CodeBuddy Security.
-
-Cc: stable@vger.kernel.org
-Fixes: 2f487712b893 ("tipc: guarantee that group broadcast doesn't bypass group unicast")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+Fixes: 106b104137fd ("counter: Add microchip TCB capture counter")
+Assisted-by: DeepSeek-V4.1-Flash
+Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
 ---
- net/tipc/group.c  |  9 ++++++---
- net/tipc/socket.c | 12 +++++++++++-
- 2 files changed, 17 insertions(+), 4 deletions(-)
+ drivers/counter/microchip-tcb-capture.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/net/tipc/group.c b/net/tipc/group.c
-index 74f6d3dac0784..e20eb612f82ce 100644
---- a/net/tipc/group.c
-+++ b/net/tipc/group.c
-@@ -340,9 +340,12 @@ static void tipc_group_delete_member(struct tipc_group *grp,
- 	rb_erase(&m->tree_node, &grp->members);
- 	grp->member_cnt--;
-
--	/* Check if we were waiting for replicast ack from this member */
--	if (grp->bc_ackers && less(m->bc_acked, grp->bc_snd_nxt - 1))
--		grp->bc_ackers--;
-+	/* If this member held the last outstanding replicast ack,
-+	 * restore the open state so blocked broadcast senders can proceed.
-+	 */
-+	if (grp->bc_ackers && less(m->bc_acked, grp->bc_snd_nxt - 1) &&
-+	    !--grp->bc_ackers)
-+		*grp->open = true;
-
- 	list_del_init(&m->list);
- 	list_del_init(&m->small_win);
-diff --git a/net/tipc/socket.c b/net/tipc/socket.c
-index d5d70eb230b56..65cc0c4964b31 100644
---- a/net/tipc/socket.c
-+++ b/net/tipc/socket.c
-@@ -2356,8 +2356,18 @@ static void tipc_sk_filter_rcv(struct sock *sk, struct sk_buff *skb,
- 	if (unlikely(!msg_isdata(hdr)))
- 		tipc_sk_proto_rcv(sk, &inputq, xmitq);
-
--	if (unlikely(grp))
-+	if (unlikely(grp)) {
-+		bool was_open = tsk->group_is_open;
+diff --git a/drivers/counter/microchip-tcb-capture.c b/drivers/counter/microchip-tcb-capture.c
+index e53a8390756b..f1c900efd2d9 100644
+--- a/drivers/counter/microchip-tcb-capture.c
++++ b/drivers/counter/microchip-tcb-capture.c
+@@ -470,7 +470,10 @@ static int mchp_tc_irq_enable(struct counter_device *const counter, int irq)
+ 
+ static void mchp_tc_clk_remove(void *ptr)
+ {
+-	clk_disable_unprepare((struct clk *)ptr);
++	struct clk *clk = ptr;
 +
- 		tipc_group_filter_msg(grp, &inputq, xmitq);
-+		/* A departing member may have held the last outstanding
-+		 * replicast ack, which can restore the open state inside
-+		 * tipc_group_filter_msg(); wake up senders blocked in
-+		 * poll()/write() if the group just became writable.
-+		 */
-+		if (!was_open && tsk->group_is_open)
-+			sk->sk_write_space(sk);
-+	}
++	clk_disable_unprepare(clk);
++	clk_put(clk);
+ }
+ 
+ static int mchp_tc_probe(struct platform_device *pdev)
+@@ -528,8 +531,10 @@ static int mchp_tc_probe(struct platform_device *pdev)
+ 		}
+ 
+ 		ret = clk_prepare_enable(clk[i]);
+-		if (ret)
++		if (ret) {
++			clk_put(clk[i]);
+ 			return ret;
++		}
+ 
+ 		ret = devm_add_action_or_reset(&pdev->dev,
+ 					       mchp_tc_clk_remove,
+-- 
+2.25.1
 
- 	if (unlikely(!grp) && mtyp == TIPC_MCAST_MSG)
- 		tipc_mcast_filter_msg(net, &tsk->mc_method.deferredq, &inputq);
---
-2.43.7
