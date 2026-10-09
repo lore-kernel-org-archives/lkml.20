@@ -1,49 +1,49 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86FA84E06C0
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 13:36:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D134E0216
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 13:36:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791553006; cv=none; b=Ra1hQVm9MKmTW5NuWWa3M5/YTad4sT09tiJn8FcftVzTPNFRImazyxx11SznK8LMFXyednwllbLoohswkWxFV11BjRYfAG6kp5I7X/q6/p/KfYRPqUy3ugiRvsxVmxoSia0cVPHKplUfxTMnHbMcfRsxEnuZVCHzIF16/Tqar0s=
+	t=1791553010; cv=none; b=qdiEqfQLodusi0J+8ABiVn4xwXR+eNYa3hv04ieb0UA0LfaHt98WmeTEAuYJtZZbyVy+Ux96t7JM+l3bcECVhdfd6Nv4b5yizzQnp08VSG8l8DHtkwBzv7pQKfvN/CwFLzGpS0qvrLDkSA90MfCCpSTjaSjVD5LBVeRt80OaHlc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791553006; c=relaxed/simple;
-	bh=eY2CrKExfBVzr2gLJRsnKuiIPRNIod5nXcIPeWWekEE=;
+	s=arc-20240116; t=1791553010; c=relaxed/simple;
+	bh=C7/YgkaQNK/zcq0qIsUTnbAeXOmVfs5H3Xn4Tb3ZKts=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qkOHHkIxvK0E+H/DCBfbh53P0/rR3qb3A2jyKCo9Fguu7UAWJbgPIXvEXupFsuNWaYh/PS3a5VIcJr0C0mPsiyQ2t6eIwk45WzqWnVnShdCcPbjZerzIIs6/E63LD8PRPIlzSpoi/2GpivGdzVXLtOIFwkncj/X6OuTcR97p9YE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=aayushk.dev; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.214.174
+	 MIME-Version; b=AbJyEQCTZCOpTsnWr54T2sF0wAsCqt7bly+DItwLa+KlruN78GP8hR9853E6B53vjkDFIYmkdYFKmAORXHVDW9u4RfglPjObjEGKA5a+wSVSGh0JgG9zwy6ziFGLM2LrVpLPMkyM9fN8X76ui7OI7qqoNQ3bhUJbdhq1LfqZ+t8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=aayushk.dev; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.214.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=aayushk.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d560775ca2so20827315ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 06:36:43 -0700 (PDT)
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2dd76b1361dso41334995ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 06:36:46 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791553002; x=1792157802;
+        d=1e100.net; s=20260707; t=1791553006; x=1792157806;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TfDTHpkHQvdcJwwHuBnkpdP8BzhFOOL5NGXiKFdpigM=;
-        b=P+zO00zAqLpVm8eJZS4TZNKVGyDA0cAPc8eBxgSb5pNBLiNBJZKQOVYpbtADrX6+ih
-         dM7mziV/0DlWqbOnmlw93zH9NvanJGV4ef12I1/Cyfi5v21ea13729NrYpXT1uPnRO58
-         tUr4YzNTPvEsSB9EdjeV2dm1UsoFjBKTl7dIB1Kn3s5BOvCrqH2nzcKvAYXz0+TIlszy
-         EIZc5YbHYZ8ASW/XEzDCplm0BF4idrCdIEnmoHK5u2EXaZCP/7nHQQnGlpYlfQUTWx7r
-         TMcEFnAtFGWUjzRhdbxtAD2wrzP0dqwJcrNY1s9iaTqAm4VkKohBnohvTdYznrf34Dnd
-         YkQw==
-X-Forwarded-Encrypted: i=1; AKwUvBxZpIcLXHHRWqY77Czhr8wM8y+oGedrDESGiCu65cQbfuuZ03SGPij/iD9IaFZDO+h5lYKxD2cGgggDobA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL9PRN3xAoSO9USmltE4Hj9LNiUQYkY3q+5EgHLsPlUss1Ea9Py
-	jEj8E2kN+8jQk8qoBE0hpVHQuRtbpayI8igFj5cMVWk0DJbLuc90VoGX
-X-Gm-Gg: AYBFou0F2tjOjIHGS5A9VNHHaFSoalcni1eRIp0MIOnuKbKsCDTtQ2yg3T3CzZ72z6F
-	dioZrB8G709s8VuL3PV3GNqwuazRRjWKi+uo/TV5zpJN99t+VydLMOJRxXZfHEFZDGXEzbELBRw
-	fKZzhDaUvQUweC4GJ7HaWe8wMzhsXebrKMkJBj98MptW+cmMl7PDGlr1aU5/X45eNjVejQISVC2
-	942YeVYtFCu09VUxyhZmbH6oNTrWwA4Zgn7QCdcgF02d1lviPmw9Ycw5LC7LX/asIidtMwIVxaJ
-	tXx0n0nR8+fybHUBCeztXw//OuxGsaDxzBN8oJvIJMi+4dgsJzrnvQ/i5fbENnDJ0VvxD/enr0q
-	slh7O3YFPj+2Ua1LnsiAlhubpACmX5fh3DlfLAizNEkctCD6CMnUJxXPajaOBaqk2Un4HGYLiuR
-	EJPrSbESTPkT2NRQWEodSOSFxTSa6IY2YvZ9OA1VhDfW4tppxVeCqqkF0pw3Q=
-X-Received: by 2002:a17:902:fc84:b0:2df:8909:f72e with SMTP id d9443c01a7336-2e8427effecmr17322405ad.3.1791553002460;
-        Fri, 09 Oct 2026 06:36:42 -0700 (PDT)
+        bh=Xu9qlzISdqBsfG/KDIT6cAt4DBaAq+fPmh/ka5nGnIg=;
+        b=A4+Dz0b0NCRpDhkazIDWAWGMFAFXmexcvGDGEUX6oEXGepU1URQfvgSy/bV5RYuPrh
+         aNvpzLBDgp/hdMcZJNRCqjDZYvppkT7PZFLtm5xHxbq0037Mj/SAa8UWXMW37MFIpcVU
+         UEbYQbxDtgfMGftFkjlRJKrJVGyWr3N9BW7jOnRLkwvHKumsIwjS6JkZxzv8XsGFYZcv
+         3bmw5aAeAvpxJBD/wHNEXOojo/5zb5zZ11Adi+nPTif+jpTrHWkQTHBpvJLZzZRj37si
+         LGix+LSGgZRTnt8evs1ykyuKRK8M3J855bUm0GTiSuMj450L9LSGrXVR+/OXXPQT7rzD
+         9fvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxwLV5vCVH8JNk9YdKtuWxEi0WCW77HeJCVO6ZWfwd6InUlJ5vLP90mkApvDuaVbnLWaqcT70+WxCLKros=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKeN++GxskMSyScLCEGq4GswfUCcOIJ8oAf4n30JL+RbeFWINs2
+	5GYBFzGOo04qjeAODFqBIYmAV0tGJH7ACQDMEC/B60UOyRuAEFW405Z4
+X-Gm-Gg: AYBFou22OQiNEvtyErDZ0ULqGvT0kel/s74SvOwm64by90j0tRgpxU9D46KLL/4KCJb
+	aznFiqvn/ygxi0EKUXtOakmd1/McY5qinJQu+mCGudt7zwvh3j0sOPISqcFe9j9v8mF0sbSUOU2
+	m2H+UQ83Pd0r5TXMqChdvAhJsS9WP1pzeVLY5ZniclvHrbkFU7bR6P8x8Tm+cUrHWc1RDenRkhW
+	P+iaCPtd6NtxZvPcP6ilSE/KVssjmPUpz5IKZsyoMlgto6k1Z67vM9ONsVyE2pJdqefqpf9E84k
+	KweOKMHBfSu/oI4fRnTCyeaELDhNPG3p1vMAA/DRqPXL+p5v56XQPogcU08fGEF3nrYe8xcMtsD
+	xHlGw41GV/P/4RmwsC6PjDLhF1LRCsy5oIBsh+4bKph2Ubs+mk/3pZbKwMp7/nWNfvwVdVo1xZQ
+	LlnUb7ZdYCqOimq9HFF0maBk1JB/yGz41rCTVComeARLAo+t11UOwjbrXISIQ=
+X-Received: by 2002:a17:902:d54f:b0:2e6:1a6c:abd3 with SMTP id d9443c01a7336-2e8427f0cb1mr17510535ad.6.1791553006254;
+        Fri, 09 Oct 2026 06:36:46 -0700 (PDT)
 Received: from linmach ([182.156.30.23])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e841a05f70sm9260455ad.7.2026.10.09.06.36.39
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e841a05f70sm9260455ad.7.2026.10.09.06.36.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 06:36:42 -0700 (PDT)
+        Fri, 09 Oct 2026 06:36:45 -0700 (PDT)
 From: Aayush Kumar <code@aayushk.dev>
 To: broonie@kernel.org
 Cc: william.zhang@broadcom.com,
@@ -53,9 +53,9 @@ Cc: william.zhang@broadcom.com,
 	linux-spi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Aayush Kumar <code@aayushk.dev>
-Subject: [PATCH 1/2] spi: bcm63xx-hsspi: Use sysfs_emit() instead of sprintf()
-Date: Fri,  9 Oct 2026 19:06:30 +0530
-Message-ID: <20261009133631.579644-2-code@aayushk.dev>
+Subject: [PATCH 2/2] spi: bcmbca-hsspi: Use sysfs_emit() instead of sprintf()
+Date: Fri,  9 Oct 2026 19:06:31 +0530
+Message-ID: <20261009133631.579644-3-code@aayushk.dev>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261009133631.579644-1-code@aayushk.dev>
 References: <20261009133631.579644-1-code@aayushk.dev>
@@ -72,31 +72,22 @@ the value to be returned to user space.
 
 Signed-off-by: Aayush Kumar <code@aayushk.dev>
 ---
- drivers/spi/spi-bcm63xx-hsspi.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/spi/spi-bcmbca-hsspi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/spi/spi-bcm63xx-hsspi.c b/drivers/spi/spi-bcm63xx-hsspi.c
-index 25f169a2a..824e36bed 100644
---- a/drivers/spi/spi-bcm63xx-hsspi.c
-+++ b/drivers/spi/spi-bcm63xx-hsspi.c
-@@ -152,7 +152,7 @@ static ssize_t wait_mode_show(struct device *dev, struct device_attribute *attr,
+diff --git a/drivers/spi/spi-bcmbca-hsspi.c b/drivers/spi/spi-bcmbca-hsspi.c
+index 5dc9e0f21..8c0147588 100644
+--- a/drivers/spi/spi-bcmbca-hsspi.c
++++ b/drivers/spi/spi-bcmbca-hsspi.c
+@@ -129,7 +129,7 @@ static ssize_t wait_mode_show(struct device *dev, struct device_attribute *attr,
  	struct spi_controller *ctrl = dev_get_drvdata(dev);
- 	struct bcm63xx_hsspi *bs = spi_controller_get_devdata(ctrl);
+ 	struct bcmbca_hsspi *bs = spi_controller_get_devdata(ctrl);
  
 -	return sprintf(buf, "%d\n", bs->wait_mode);
 +	return sysfs_emit(buf, "%d\n", bs->wait_mode);
  }
  
  static ssize_t wait_mode_store(struct device *dev, struct device_attribute *attr,
-@@ -188,7 +188,7 @@ static ssize_t xfer_mode_show(struct device *dev, struct device_attribute *attr,
- 	struct spi_controller *ctrl = dev_get_drvdata(dev);
- 	struct bcm63xx_hsspi *bs = spi_controller_get_devdata(ctrl);
- 
--	return sprintf(buf, "%d\n", bs->xfer_mode);
-+	return sysfs_emit(buf, "%d\n", bs->xfer_mode);
- }
- 
- static ssize_t xfer_mode_store(struct device *dev, struct device_attribute *attr,
 -- 
 2.56.0
 
