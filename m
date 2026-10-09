@@ -1,197 +1,184 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEECB3D1A98
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 21:24:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C723B42C6
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 21:25:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791581100; cv=none; b=sGCtsmAoeMOBCym3WsLz79s/JuNYBdXIiX9n6863xz+E2kEI/0lih7gHfg3DpZw3It1RHLl7BXZu2npOz83XYbrZgJSa9/S09pgzGZQgrgRXR3C1tX5N2zE5WChlPWiAuoif7MTHMIonJyeQ/WtxbTwUiH8RH+rwHJXMoUJDtac=
+	t=1791581118; cv=none; b=NquA+p/jou8EI6I8jqdgvQpY+zcl3FZF5udP4OOgkIgiYhTAqnbxnk+Jh44q3WyDFrqX0z74SzTvvcpSbPPJibSGTIGljXBifg9tMFIJoJRViQ6WtzzcvhmF2XB7zMbpUyrngyo0EEXnUhZt56YjclNaFctfis6+ASN+foJcuEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791581100; c=relaxed/simple;
-	bh=VH7Q4BHSwOV8LwHll8ho9fCXv9kewEHEKQEkXb4WE2o=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=SDpTnbqN73nObn/t/3dRZjUBr2sTb8bgtMIZ6IlOtlIOMCGoMeX3FfudTR7ttU/qtNdlYQAERI9Cf4QpSYR+IjurgEOZvtK48G/ksIkgE6YzpqBMYsv9cqpGmebjbs8LqJ8O/Xw3Ytm+5uizQv45bNZ9fjTYB8O8u16l/CD0FKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WBb/B/ud; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Zf8xhz94; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791581118; c=relaxed/simple;
+	bh=mHTKMt/1Mmu8IZrp83hDF0LKpklBxUcJJ7lOZG5GtyU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JZu+Han0i8BwniLKCfaI/scgVyTeXbkx4yHtIr1nLtCI9gswcvtXi0bEe3tZiGWWwEZkVHLy3B/GXE0LtiGP7WMuFEMsuHD2lpKS96VNsJSH74fYBusQ8dMU2dZfSjHal0OjHMdCyuq+S4XsnY5lzkavZ6w/NwJjwp2mZKXu5Wg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jYQhgx2V; arc=none smtp.client-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WBb/B/ud";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Zf8xhz94"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791581097;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=z1Eu7EYQ+rpvHDotJhitil0lY6JFZjt2dgRaITNxGdo=;
-	b=WBb/B/udfLRQfVPBiw0EE2f5yw11JCpRUaFCZNtDNbDAmKrGEVRytWlTgOAP+NkkK54xcV
-	+vkVRYiNZWNfyeQMDmHv12Fs/kx6fN1gKwXNfnaT0HPEhC7iOpYEDlDbDc5LS/LuwzfOBU
-	hZm/m5+YsOtXS1z2nueGS+AQt0VtDjg=
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-434-DrTWL5FOOIefO6pDUQAqpw-1; Fri, 9 Oct 2026 21:24:50 +0000
-X-MC-Unique: DrTWL5FOOIefO6pDUQAqpw-1
-X-Mimecast-MFC-AGG-ID: DrTWL5FOOIefO6pDUQAqpw_1791581090
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-535066512b0so3746421cf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 14:24:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jYQhgx2V"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c2acc1e170cso44524266b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 14:25:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791581090; x=1792185890; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=z1Eu7EYQ+rpvHDotJhitil0lY6JFZjt2dgRaITNxGdo=;
-        b=Zf8xhz94pB42+G7QoyszI2A2TrBKRWbyN5sh7unvlrXJIXk2eQ+QPO1JZrP5J5g1Vh
-         91No9Wwp4HP3Q1bmONBY9gh/y8L8pJKkC52AkzW58ifErm/TBi+jP7wX7Hur4lygEDSa
-         CgpCA5DVER8j4tKElqMsUPPZMUceK+cuoXLRbJgV/6ebtggFdq7VH8ujJCCIdQvSXCM+
-         NET1hsK/SB83OayzkPwCEhXf7NTtuUOtOoXxVfGyBzKrWPyGUm5cPxvsUC60qP3w+GND
-         HhH/u5VZqjpiQ1hkY/9S4jbebSsda4m4TrO3dvnACTbsz5YH84YEOYlzxUWvZ7vDhumI
-         cL4w==
+        d=gmail.com; s=20251104; t=1791581115; x=1792185915; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=f1mpJQM9gWSMwGnYSvks3+zVF3LVj9ix84KoZRLZII8=;
+        b=jYQhgx2VEXzL1W7iDup92PfUh0q9SxvPh4FXzBbAdnr7aqt0yXv0xGsmlx5Dr2mJ9X
+         xSTUd37axemlVp4tH52n3N928prWJFeFlM4HGfsX5d9J5wCLvbdE3JU/9xFLj71eytrf
+         e9atQhR85SH7tWjRGpKm0pwhDQ6VI5bLRLc4awjGRZcGCrpG3H6D8b+ZkxqQagtTjsHx
+         lQUmoZokp9EGZZauHdeK8uzpzjCtBD2JdpDDI8Hw7wfr+hqMZwkZmNrzrfZ6XWwa5g9c
+         jPIgJpRo3e/zxjwUovwzNoL4XUUX3atybiZ5TZDyMLvoDWFmoSMTWfCmmbXXPcyr3fwK
+         RA2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791581090; x=1792185890;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z1Eu7EYQ+rpvHDotJhitil0lY6JFZjt2dgRaITNxGdo=;
-        b=NIS0n7pmvYRgGii4hci+4CgyKTpUaD7dqYXVq750F+1MQTXHuKyQWi3XUX/kbTb/id
-         W9zKR05vzXRmEKX7JLnwsIOQlfIQyTL0AioWEeaq8zKoewi48BygKr1GTzBGk8MWzIGF
-         yGjukyU+RC4Lj+ChN10Do5PVhYexk9KWpp+LWlTxRSWeFSh+ZRLrMWfVl6kjmfdc52Qe
-         CtLyd7O07NdlMVwNqBMnCvZquVC7tvy2iGl0/NqOxV2nUSL6LuWtlAoVxB1B6RG7/SsF
-         g9MA/hLtU4/k9XZchykK0oJG0mMschyrK2crHR3ymowwNK8Mgl/fPAyVYtrdI1UmoFfZ
-         vICw==
-X-Forwarded-Encrypted: i=1; AKwUvByu77tNFd/ZOLGDKCCSxiYfzxCjR4eKIQ54a0S1lYJf15krLKfmHGCwyxpAgM3NtP8RCDoFWNKRhQuAGpc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI8H6f5CFtTPm9IIw7WA6GaS6v1NOlCxpAM1O5mH78XGZGLLI1+
-	Jj5pOEGajbCQS+cB421Uf6Z/0WiaMVKfw2vPxvLIKMD/rxpnWVOFgDNgajCcbJU+Gpui48tk1S5
-	WXPN01d8KETCF2Rs40MI78TBgWRhM3cmRVdQc/hCVWwN6e+WZAoWpPcx/+lml7UC1kQ==
-X-Gm-Gg: AYBFou2By+1u4JafXcjeCqPnv1JwifZCxX+Ql0Yoj+w2ByE3EEQ0Zq3m4tLaPoDt5hf
-	dLA1iFN0cfDv6SLFT0oS6oTfJ2evcmzHIus4v5sET3QKdukMwkSsZ2HTlzeaAiyFd/gabKPpz1h
-	87v7gIXOsQy18NDcvwhdXUCkXgPQOD/qw0R/ts+CCGV9LNMk1A/QeVXIqn01h39BLzB7W35HlI3
-	0iO73MLrBPdvaO3E1uhpF/QJ0KE7M+K33dWiv+oVT80dZt7V3HTcMpU1j/OcCPDfVgCdYCgvIQ4
-	mS+FWdzEKKivro7kF9SQhzjOb2EB5Uni4TMFTzpDIE+YZX/FlNAQzrLLlTvQ2/lq5FrlPn0=
-X-Received: by 2002:a05:622b:97:20b0:535:a5f8:a5c9 with SMTP id d75a77b69052e-535a5f8b5bemr28651031cf.73.1791581089907;
-        Fri, 09 Oct 2026 14:24:49 -0700 (PDT)
-X-Received: by 2002:a05:622b:97:20b0:535:a5f8:a5c9 with SMTP id d75a77b69052e-535a5f8b5bemr28650791cf.73.1791581089326;
-        Fri, 09 Oct 2026 14:24:49 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b7324c9sm27569011cf.12.2026.10.09.14.24.48
+        d=1e100.net; s=20260707; t=1791581115; x=1792185915;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=f1mpJQM9gWSMwGnYSvks3+zVF3LVj9ix84KoZRLZII8=;
+        b=K6RNSwyFdDJlmETMLF6oXfR0fZlBXyvWWzsGXkQLlRkVsDhQAXOK6PfW2kZ+qSGrIx
+         mUcKmQD61dR5en5smmxEmjCvcCiKO61I6ydLQyJVrSu94qQg/1SyYi/Ef1aUpqVNhKWN
+         /O5lwxVMtmbauU3eBW2/ECxqxsHVVcu/ezN2Caz67eEhc3DkXAlih+PuEM8+lPkTEOmL
+         udGzeyvgFgr808r6QUwOju3RrK2LLg4kGSR6WJdxnOsjdgo+4Gq1CVy1LDLhvus9LVGT
+         uvYO8Pz4c7to+LWuYGqcpfP5wFzrHxINIbrGTGbiXN6HED1/+W+IWR17vw7lsU1K8X4P
+         3vAA==
+X-Forwarded-Encrypted: i=1; AKwUvBy0DfbtSaoc6V2fTzRhT1kmCiXQQ/iMGBwGQXCHA5ohKDdmgtMN6MvwXdHCbHHziTDAClagiSIuGYEGgdw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIaluVQ1XA/PUQlC4tRBiNWwhp5tdBDuM8t5LuK/+9lymGZA7xk
+	6HoFI3D/pNqm5uQ+H/aEmpxz+HjjyjH5XrNzEXN1iHPySu0rgLT105yjc/NY0h7S
+X-Gm-Gg: AYBFou3YsNmCAJKGP3CXhrR82w4jStFOjfi4fZtS5IAQi2TFYw63iJMQOZhCpULolH5
+	BcSeMHLta+xm8zHde25o22gb+dJKI7HcpS251GGztVJfvLjpp7DITo0upj8ssInS0j8WzZnHIZw
+	WQrRP4ZdWLLjrgz4N3KPQTWfRI/V10WbWlAfYDnh7VcINSHwARGb4dmlpqJjSCY6t2VRVGSMiai
+	ibJ6+zJykDO0Ye6M4uy0rCTcuSgn6rPpsbQ0q+ojCw75Fr/89j4CT1BiV7of/BNp/cLUy7yxE7D
+	wbAnIHvVrZYE0U9cLNqV0xODtpwpUhCo2pn5KjJVZqqymyhaFkYU304Or3POYuQwfSIFZsqLCWK
+	4dvU4rEvNENmO0ufgfyDsC12YzRV8M4OLuc0dbIUh1fVCyQ1CyRPVZp7v6tIKkXEPcgd8CYs5OX
+	IeMJiK7YoOIyZKCN/2ztb71sVBXu4Ahg/ubSP/ID3KTgiWpqhCC0ONnJu7S4MAoyKpg59voF/2m
+	UB0XrOA3P1Mwf3VrqH58fwe1G/gfuHB4YvW7/GgHIq5/iF/ruY=
+X-Received: by 2002:a17:906:f586:b0:c2e:4742:4c91 with SMTP id a640c23a62f3a-c31aa08e8a5mr280006366b.35.1791581114893;
+        Fri, 09 Oct 2026 14:25:14 -0700 (PDT)
+Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9a3ae42sm149079966b.15.2026.10.09.14.25.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 14:24:48 -0700 (PDT)
-Message-ID: <7b1398c5deadc0225332b6259a278d4436973d8f.camel@redhat.com>
-Subject: Re: [PATCH v2 1/3] nouveau: Fix NULL pointer dereferences in
- GETPARAM ioctl
-From: lyude@redhat.com
-To: jim.cromie@gmail.com, Danilo Krummrich <dakr@kernel.org>, Maarten
- Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Dave Airlie	
- <airlied@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, Daniel Campos Ramos <Capitain_Jack@yahoo.com>
-Date: Fri, 09 Oct 2026 17:24:47 -0400
-In-Reply-To: <20261009-my-fixups-v2-1-839e2bbe514d@gmail.com>
-References: <20261009-my-fixups-v2-0-839e2bbe514d@gmail.com>
-	 <20261009-my-fixups-v2-1-839e2bbe514d@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+        Fri, 09 Oct 2026 14:25:14 -0700 (PDT)
+From: Magnus Lindholm <linmag7@gmail.com>
+To: richard.henderson@linaro.org,
+	mattst88@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-alpha@vger.kernel.org
+Cc: linmag7@gmail.com
+Subject: [PATCH v3 0/2] alpha: complete the direct-mm shootdown fixes
+Date: Fri,  9 Oct 2026 23:19:34 +0200
+Message-ID: <20261009212501.971158-1-linmag7@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, 2026-10-09 at 11:44 -0600, Jim Cromie via B4 Relay wrote:
-> From: Jim Cromie <jim.cromie@gmail.com>
->=20
-> When hardware or firmware initialization fails, the graphics engine
-> (gr) or device functions may remain NULL. Attempting to access these
-> during the GETPARAM ioctl (e.g., NOUVEAU_GETPARAM_GRAPH_UNITS)
-> results
-> in a kernel NULL pointer dereference, causing a crash when userspace
-> (GNOME/Mesa) attempts to probe the device.
->=20
-> Add safety checks for 'gr', 'gr->func', and 'nvkm_device->func' in
-> the
-> ioctl handler. Return -ENODEV to signal the missing hardware state to
-> userspace, and use NV_ERROR_ONCE to provide diagnostic proof in the
-> kernel log without risking a console flood.
->=20
-> NOTE:
->=20
-> I encountered these crashes while booting unrelated code (in
-> dynamic-debug) on real HW.=C2=A0 There was also some fwupd updates around
-> this time, so it could all be transient/unreproducible.=C2=A0 But it did
-> happen, and could happen again in unforseen circumstances.
->=20
-> @Capitain_Jack tested the error path in v1 by deleting the FW
+This is the second of two series. Apply all eight patches of "alpha: fix
+stale TLB translations breaking copy-on-write and writeback" v4 first,
+then these two patches. The base-commit and prerequisite-patch-id lines
+below describe that complete ordering from for-next at 33465f6ab697.
 
-I can just fix this up before pushing but JFYI - if you put comments
-below the --- that's down below, they will show up in the email but not
-the commit message.
+The direct context-load fix formerly numbered v2 1/3 has moved to the
+front of the stale-TLB series, where it is needed before the post-switch
+hook can clear asn_lock. It is not duplicated here. This replaces the old
+interleaved dependency with two series that can be applied in sequence.
 
-Either way -
+Patch 1 removes the remote context-clearing loop after the migration
+shootdown rendezvous. The callbacks have already updated their own slots;
+clearing them remotely can hide a CPU still running the mm.
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+Patch 2 fixes the mm_users <= 1 shootdown shortcut. An explicit
+kthread_use_mm() borrower takes mmgrab(), not mmget(), so mm_users does
+not count it. Inspect remote context slots instead of clearing them, and
+skip the IPIs only when no other CPU has a context. Together the two
+patches remove runtime remote writes to the slots.
 
->=20
-> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-> Tested-by: Daniel Campos Ramos <Capitain_Jack@yahoo.com>
-> ---
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_abi16.c | 22 ++++++++++++++++++++--
-> =C2=A01 file changed, 20 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_abi16.c
-> b/drivers/gpu/drm/nouveau/nouveau_abi16.c
-> index 4542d5f4ded8..3f130cd4fbcd 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_abi16.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_abi16.c
-> @@ -306,6 +306,11 @@ nouveau_abi16_ioctl_getparam(ABI16_IOCTL_ARGS)
-> =C2=A0		getparam->value =3D 1;
-> =C2=A0		break;
-> =C2=A0	case NOUVEAU_GETPARAM_GRAPH_UNITS:
-> +		if (!gr || !gr->func) {
-> +			NV_ERROR_ONCE(drm, "GETPARAM_GRAPH_UNITS: no
-> gr engine or func\n");
-> +			return -ENODEV;
-> +		}
-> +
-> =C2=A0		getparam->value =3D nvkm_gr_units(gr);
-> =C2=A0		break;
-> =C2=A0	case NOUVEAU_GETPARAM_EXEC_PUSH_MAX: {
-> @@ -315,10 +320,23 @@ nouveau_abi16_ioctl_getparam(ABI16_IOCTL_ARGS)
-> =C2=A0		break;
-> =C2=A0	}
-> =C2=A0	case NOUVEAU_GETPARAM_VRAM_BAR_SIZE:
-> -		getparam->value =3D nvkm_device->func-
-> >resource_size(nvkm_device, NVKM_BAR1_FB);
-> +		if (!nvkm_device || !nvkm_device->func ||
-> !nvkm_device->func->resource_size) {
-> +			NV_ERROR_ONCE(drm, "GETPARAM_VRAM_BAR_SIZE:
-> no device func\n");
-> +			return -ENODEV;
-> +		}
-> +
-> +		getparam->value =3D
-> +			nvkm_device->func-
-> >resource_size(nvkm_device, NVKM_BAR1_FB);
-> =C2=A0		break;
-> =C2=A0	case NOUVEAU_GETPARAM_VRAM_USED: {
-> -		struct ttm_resource_manager *vram_mgr =3D
-> ttm_manager_type(&drm->ttm.bdev, TTM_PL_VRAM);
-> +		struct ttm_resource_manager *vram_mgr =3D
-> +			ttm_manager_type(&drm->ttm.bdev,
-> TTM_PL_VRAM);
-> +
-> +		if (!vram_mgr) {
-> +			NV_ERROR_ONCE(drm, "GETPARAM_VRAM_USED: no
-> vram mgr\n");
-> +			return -ENODEV;
-> +		}
-> +
-> =C2=A0		getparam->value =3D
-> (u64)ttm_resource_manager_usage(vram_mgr);
-> =C2=A0		break;
-> =C2=A0	}
+This revision addresses Matt Turner's review of v2:
+
+  - Add smp_mb() after context publication in __load_new_mm_context().
+    check_mmu_context() can publish after finish_lock_switch() has already
+    issued its barrier, so relying only on the scheduler and direct-switch
+    callers' barriers left that publisher unordered.
+  - Test current->mm in ipi_flush_tlb_mm() and ipi_flush_icache_page(),
+    matching the page-flush handler. A CPU holding only a lazy active_mm
+    then clears its slot rather than repeatedly publishing a new ASN.
+    An explicit borrower still has current->mm set and is flushed.
+  - Require the first series' need_new_asn change for newly allocated ASNs.
+    An IPI after finish_lock_switch() can zero such a slot while asn_lock
+    is set. Completing that handshake before returning to user space
+    prevents the shortcut from mistaking a live ASN for an inactive CPU.
+  - Move the direct-load patch to the first series and update the base,
+    prerequisite patch IDs, numbering and ordering explanations.
+
+The scheduler publication remains ordered by finish_lock_switch(); the
+new barrier in __load_new_mm_context() covers every caller of that helper.
+The checking CPU orders its slot reads after its page-table changes with
+smp_mb(). Stale slots may conservatively cause an extra round of IPIs,
+after which a CPU not running the mm clears its own slot. The effect of
+the new lazy-CPU handling on throughput has not been measured.
+
+Testing
+
+Cross-build validation for this revision covers arch/alpha/kernel/,
+arch/alpha/mm/, kernel/sched/core.o and kernel/kthread.o with GCC 15.0.1:
+ALPHA_GENERIC SMP and UP with COMPACTION=n, and SMP with COMPACTION=y,
+RCU_STRICT_GRACE_PERIOD=y, PREEMPT_COUNT=y and NR_CPUS=4. These are compile
+checks; all three passed. All ten patches pass checkpatch without warnings,
+and sequential application reproduces the committed trees at both series
+boundaries. No new boot or hardware runtime results are claimed.
+
+The following are historical results reported for the previous versions,
+not hardware results for this revision's barrier or handler changes.
+
+On an ES40, EV68AL Tsunami, three CPUs and v7.2-rc6, the direct-load KUnit
+test changed from 0/2 to 2/2 passing. Single-threaded fork throughput was
+1360 forks/s with the old shortcut, 1050 with it removed, and 1360 with the
+context-slot shortcut. Earlier regression runs passed glibc malloc-check
+25/25 and four related tests 10/10 each, plus COW and writeback tests,
+including continuous compaction with 359768 migrated folios.
+
+Matt tested the direct-load change on an ES47 (EV7), v7.3-rc1, one CPU
+online. His KUnit test passed 3/3, usercopy_kunit 4/4 and kunit_iov_iter
+17/17, with a fork/COW check clean under compaction. Those runs did not
+exercise remote-slot clearing or the shortcut's remote-CPU test. The
+reviewed and tested direct-load patch now carries those tags in the first
+series. Patch 1 here retains Matt's Reviewed-by; patch 2 needs review.
+
+The callers are not limited to KUnit: vhost's kthread mode, USB gadget AIO
+paths (including dummy_hcd setups) and vdpa_sim can borrow an mm too. Both
+remaining patches retain Cc: stable, including the migration cleanup as
+the shortcut's prerequisite.
+
+The adjacent enter_lazy_tlb() page-table/ASN mismatch remains outside this
+work. This series does not claim to fix every aspect of lazy TLB handling.
+
+Thanks to Matt Turner for the review and EV7 testing.
+
+v2: https://lore.kernel.org/linux-alpha/20261008195608.965266-1-linmag7@gmail.com/
+v1: https://lore.kernel.org/linux-alpha/20260904162424.376504-1-linmag7@gmail.com/
+
+Magnus Lindholm (2):
+  alpha: do not clear remote MMU contexts in migrate_flush_tlb_page()
+  alpha: do not skip TLB shootdown IPIs for kthread-borrowed mms
+
+ arch/alpha/include/asm/mmu_context.h |  2 +-
+ arch/alpha/kernel/smp.c              | 52 ++++++++++++++--------------
+ arch/alpha/mm/fault.c                |  4 ++-
+ arch/alpha/mm/tlbflush.c             | 16 ---------
+ 4 files changed, 30 insertions(+), 44 deletions(-)
+
+
+base-commit: 33465f6ab697abceafd9a340067a544d551c4412
+prerequisite-patch-id: d194ee1170a45793fa8533400dbc5599fc0e59ae
+prerequisite-patch-id: 17df30a2da268e1bd07c7b44de4ef061cb744c50
+prerequisite-patch-id: 94856bd5734d96521ef19e59cdb77af1d577fefa
+prerequisite-patch-id: 7326de756f1a933cd3c44e4f7669c5a7c4519678
+prerequisite-patch-id: 9e39c93f5b7267d1e8ffd176988803681ba03eeb
+prerequisite-patch-id: c3f48cfa74e60b966610f88f73f7a393b5adf0b2
+prerequisite-patch-id: 73a4faf81a8a0929ba8ba03a6d9a3286e0d9bd2b
+prerequisite-patch-id: 55fb49cef84ea661b5340f14c56d73c04556f565
+-- 
+2.43.0
 
