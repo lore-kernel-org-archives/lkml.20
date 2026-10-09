@@ -1,114 +1,104 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 712A54F4D17
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 19:39:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ED724F55BF;
+	Fri,  9 Oct 2026 19:39:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791574781; cv=none; b=YlZ963Zd9YH14/kfRnGDbmnH6fkog9xpZWEU+siLognzJLxpI6xha7FywdzOe85PQEP1vGgC+oTFRKj9oVXuslhLNm3wNAs6VG/I4HfDrqxVKkwCmYxCoJVWi9ZxxDlH8l/Vnwy08cbkeWBpcaMdabcblLAgS+TnVT+QrJgiftc=
+	t=1791574802; cv=none; b=o75kpSaYuU5wncBdwoGfUNKD7U9lkgpwkQZTFsknVdAa8+chw0bfp58AWwCQT2bbuwCwJjfLb0qpnwX0NQVmlqlaC3jfP4QUJYgGxQn6UmNnnxQDfsyISIMujRMb0WFhjGseysETPs2Jd+lBvHibA9MyaXf8Ma7eGpVdCIIrtwk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791574781; c=relaxed/simple;
-	bh=JRsxD9lKLX8xRzhQtNVgSrQcg1f5Qit7EiZoZr6fZOk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uQj1u6h69g5s9fIL15HPMCFoLX54x/XwfTiZNSilm9MGvAZYTi+DBf90RXqn2XH1pzUTBZHvxNyZlliygak/ge5xCyTioFh16U+9QDUfMUaNeW0qrc34EvY+V+mlRx9D9mSIl+GYomd2Yvj+zbJNhaCQxRC6kpHsxwJbPHNHeX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aiJQbj4o; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791574802; c=relaxed/simple;
+	bh=A1afFb/uLK5QLrZzYFQc61hLyu5KFVxEsuF7yOPAjUk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jCmQYQIQbpL8zwk3LkgVxOjFdzKHv9UJl4goIpaeNPEpmTXMaatF1KhgR5k/qUQCrt5W3PBC6eVsqqQxfR+nynIxj62pgC+OYzm5e5R0Ct0xXrgeNzPHR5hbXXbZrcglXgZhen3GyM5sZptcvWxQfn2YmVcKP+zruie4GID/Mu0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z8e8DRo/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aiJQbj4o"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791574771; x=1823110771;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=JRsxD9lKLX8xRzhQtNVgSrQcg1f5Qit7EiZoZr6fZOk=;
-  b=aiJQbj4oo1nM0hcCmT7zNfCXl2Y7AoRJCRuLfC0HEC407PAtZw0S6W6R
-   cMpdo36AAqprhvHJbjSkJitHki2WpI2hylYfTHMnuIAxq33r/rcPTl2Ou
-   VBmpNuagqcujt9QsycfCT1F/1DE3vEsKrgiIpBADyCjAOqtTlqoovRBrs
-   4PQfb0Gt2sphmyJv3ypLmWgeHBQChPeuyPmjLBqzKbHH4g48YW7OMzu3r
-   u88sY3tcx0Dp96+LM/FnV4sit6R57Dl1X5La6rulDmiST5Fb6IbnOfPaT
-   dsWXFWTLqn6Jp3HeFU4FkQFhA2sZX62orMnPMCF04/B5hxJyTUo1uZ02Y
-   w==;
-X-CSE-ConnectionGUID: 5LRemnA9Sc64Kmdd2Tpa0A==
-X-CSE-MsgGUID: sUHY6E0fRsaV0t6B8R7lGQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="279133"
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="279133"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 12:39:29 -0700
-X-CSE-ConnectionGUID: BO2mVxf3STSMvWLzFyJFYQ==
-X-CSE-MsgGUID: IZHR1V0/Sk2jOvEvXRJFpA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
-   d="scan'208";a="2183742"
-Received: from iherna2-mobl4.amr.corp.intel.com (HELO agluck-desk3.intel.com) ([10.124.221.192])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 12:39:29 -0700
-From: Tony Luck <tony.luck@intel.com>
-To: Fenghua Yu <fenghuay@nvidia.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
-	Peter Newman <peternewman@google.com>,
-	James Morse <james.morse@arm.com>,
-	Babu Moger <babu.moger@amd.com>,
-	Drew Fustini <dfustini@baylibre.com>,
-	Dave Martin <Dave.Martin@arm.com>,
-	Chen Yu <yu.c.chen@intel.com>
-Cc: x86@kernel.org,
-	linux-kernel@vger.kernel.org,
-	patches@lists.linux.dev,
-	Tony Luck <tony.luck@intel.com>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v2] fs/resctrl: Ensure default group reports tasks on monitor-only systems
-Date: Fri,  9 Oct 2026 12:39:23 -0700
-Message-ID: <20261009193923.15498-1-tony.luck@intel.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z8e8DRo/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 026761F000FF;
+	Fri,  9 Oct 2026 19:39:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791574791;
+	bh=i1X2Q68ZmYsPWobrAu7yZxvAEcunRnI0QLmJSHkQTsw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Z8e8DRo/AVA9dOkXV7/WAaZmDrCtuRLJu70W9RqRnnftfwEJwAggklQbJlzDjomCd
+	 NcHAvYULKuYrlqcHTP/2dAMwl0XqXyUaa6ZerBn90d3OY9P2HOV1Dns7S9gUcKPRWt
+	 HqeiVb4t7i6RFj+5LKvCj+utjJrsZxcthA5QPKEEFd7/adEixO8ONBnyFVZg/8/vTe
+	 UNyW1qR75zam1ahjU+AIr1Xk7PGei6iSHn46USHvDHsroYic5ZgokBtFw2lRdfp/dv
+	 4DMyQDex+LEiF+I6GU5CFrF/C1yL2LUmemOIqlM4IQ1FSL0EAhAWt3u/zds14kWPay
+	 uSYH8xBv2i/HA==
+Date: Fri, 9 Oct 2026 21:39:48 +0200
+From: Harry Yoo <harry@kernel.org>
+To: Kees Cook <kees@kernel.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Andrew Morton <akpm@linux-foundation.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, cgroups@vger.kernel.org, 
+	linux-mm@kvack.org, Pedro Falcato <pfalcato@suse.de>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v6 2/8] ipc, msg: Account msg_msg allocations
+ with GFP_KERNEL_ACCOUNT again
+Message-ID: <ask5kpMS4mpI8Api@thinkpad>
+References: <20261006092030.got.500-kees@kernel.org>
+ <20261006092035.166776-2-kees@kernel.org>
+ <asjhg2e4-WSeKuXd@thinkpad>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <asjhg2e4-WSeKuXd@thinkpad>
 
-resctrl can be mounted on a system that supports monitoring but not allocation.
+On Fri, Oct 09, 2026 at 04:22:03PM +0200, Harry Yoo wrote:
+> And now I see the initial kmem_buckets design did not sufficiently
+> tackle the question "How this should work when kmem_buckets falls back
+> to kmalloc?"
+> 
+> I suppose the kmem_buckets' abstraction should not be too tightly
+> coupled with kmalloc caches. Creating a kmem_buckets should be
+> conceptually equivalent to creating a set of caches with speicifc
+> slab flags, size, align, useroffset/size. (for variable size allocation).
 
-On such a system reading the "tasks" file in the default group reports no
-tasks, even when there are tasks assigned to the default group. This problem
-occurs because the check for whether a task belongs to a CTRL_MON group is
-gated by a check for whether the system supports allocation.
+Just to clarify... I have a few concerns on this area.
 
-The resctrl_arch_alloc_capable() check in is_closid_match() breaks task
-reporting for the default group on monitor-only systems so remove this
-check. On systems that support allocation the check is redundant.
+1. Complexity.
 
-Fixes: e6b2fac36fcc ("x86/resctrl: Use is_closid_match() in more places")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260831174421.13921-1-tony.luck%40intel.com?part=9
-Signed-off-by: Tony Luck <tony.luck@intel.com>
----
-Changes since https://lore.kernel.org/all/20261008234311.17702-1-tony.luck@intel.com/
+It's very counter-intuitive to understand how it works when
+SLAB_BUCKETS is not compiled. My brain cannot easily process two
+different implementations w/ and w/o SLAB_BUCKETS.
 
-        Dropped Assisted-by: tag. The LLM was only used for commit wordsmithing
-        and I've now discarded everything it wrote.
+A "compatibility layer" allows us to assume certain expectations
+and ignore all implementation details when SLAB_BUCKETS is not compiled.
 
-        Rewrote commit in 3-paragraph (context, problem, solution)
-        format per Documentation/process/maintainer-tip.rst guidelines.
----
- fs/resctrl/rdtgroup.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+2. Making kmem_buckets tightly coupled with kmalloc's implementation
+   details is not reasonable.
 
-diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-index 68be9b903ac6..57ab090072c2 100644
---- a/fs/resctrl/rdtgroup.c
-+++ b/fs/resctrl/rdtgroup.c
-@@ -685,7 +685,7 @@ static int __rdtgroup_move_task(struct task_struct *tsk,
- 
- static bool is_closid_match(struct task_struct *t, struct rdtgroup *r)
- {
--	return (resctrl_arch_alloc_capable() && (r->type == RDTCTRL_GROUP) &&
-+	return (r->type == RDTCTRL_GROUP &&
- 		resctrl_arch_match_closid(t, r->closid));
- }
- 
+Let's say, at some point we make SLAB_BUCKETS always enabled and drop
+the config option. Then all kmem_buckets users will now have certain
+assumptions inherted from kmalloc (e.g. alignment), which is not
+reasonable.
+
+3. __GFP_ACCOUNT and __GFP_DMA should be applied to all allocations
+in the slab cache. For kmalloc, these flags are only used to select
+the kmalloc cache (which has equivalent SLAB_* flags for __GFP_ACCOUNT
+or __GFP_DMA) to serve the allocation.
+
+Specifying it on individual allocations (rather than as SLAB_ flags)
+makes it easy to break the assumption.
+
+> When it falls back to kmalloc, kmem_buckets itself should provide a
+> compatibility layer when falling back to kmalloc.
+
+For example, calculate_sizes() converts certain SLAB_* flags into
+GFP flags (s->allocflags) for allocation. We can have a similar
+logic when falling back to kmalloc.
+
+Though current implementation does not allow this and requires
+some rework.
+
 -- 
-2.56.0
-
+Cheers,
+Harry / Hyeonggon
