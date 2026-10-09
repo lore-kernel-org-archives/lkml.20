@@ -1,89 +1,79 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63FBB4A4407
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 10:04:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC7E34A3D45
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 10:04:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791540281; cv=none; b=hiM1V3ZYW24H0yv5q7rNhFyq5pOns9riX3F/YYpnSXZpbOR9rK9Cg0kDOZZgFLhLQqjR5Ka+LixgFVXPzyhzyebmEQ8Xh8IEvWD9X0W36Y4E7MQNSqiuurU2eg2K/HCfhk9idBD1VvPgSpVPnJXEL2QyI9Usjjfg0KO3Qea4c2M=
+	t=1791540301; cv=none; b=RW+DS81WG0wEnNfT9Su2miaNgMv0YnWN0K8QJ/+ZPvOFkjsgCp6x8rEZ8xFEjS0IcqL8KyR8EQzrHVSAj1xoQcHtjGuQHOIw4hSMiGW7iNGs/uNF2VxN5uWiNpaOpRAiNyiIGR2qBZcRH8YjdzBJxX3u7aOMlK7IVcIDdNAWDYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791540281; c=relaxed/simple;
-	bh=5yLkz2OZBQ4ipEjXEN7/lCEXtkQpCiwl45030Q1M6lA=;
+	s=arc-20240116; t=1791540301; c=relaxed/simple;
+	bh=0Rrxta9UVHSSE/3yRLAldyCXS7ideiZji7mkmoVQqlo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=K21634kKaJZyZiQOoGd25UMC6Xq+7XIrsNnp87y0YfmfGi/W+3/Lr1kMgHWIkVYMnxJeBBTEEiyMVvBwGWlZiGks15f5OqJmuSw6HmLlFcvCiRPaEkLi0j/7+pxkHkRQQcNA+oij9MRO+/bGG/XIjyECs31IbWv6kCIiuem1ZDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mv0bXuY/; arc=none smtp.client-ip=209.85.128.54
+	 Content-Type:Content-Disposition:In-Reply-To; b=LSe8PiK1Clcac/k4XlSGsmtvB8om/G9qqt6CGsLBI+Z7Zp7FrocqBmQzl/revHK0JFzFmPhAMnqFhy4CBCOHIhCcx7VEqMBTSMNxfSD8cl4YEsuj+pEF1MFaljC0uvjbH48g0bhCgX56y+Iaxy21dYFzs6F6pg1agcr/UlL2sNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H2nskZQq; arc=none smtp.client-ip=209.85.216.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mv0bXuY/"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso64271245e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 03:04:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H2nskZQq"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3a49623b865so3875285a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 03:04:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791540276; x=1792145076; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791540293; x=1792145093; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=WCfrYFQWaB6ljrpcA5mB+GvPCr6ztXX1INv06kJj6BA=;
-        b=Mv0bXuY/dbslJrVlIeMtcxPdMhLIu3/yZLmI50/So5GHoEeQlXlcQKfT0SUHwVk5Kx
-         R+6aWsPXaKh/7fFnAtl0/YG7zxU8j2j3kckVubW399a9rtWIpvskoUxAs+X9xngQygCx
-         a87s25iG26dO4mAjyHuF+kQ5cJQzgxTIO5J10VcL44URFMev9rQ5ejJNZmdKtmIVQS79
-         ueEOTvGWtd0OeaYefX23YBmg4pzUxHliPw8wAeyYfjXk9OmTmGyJvy41qBBG1HPkACTt
-         q1rc+IgaRF5GB88OVPs2YFDDbyW2l/GfwVAgW5E6rPwMieA0a+R+g2K8thOHn0su1y/G
-         YWOg==
+        bh=UhXPZh37/T25UvqWQ+VVpQbzKVyhpE9L3wLTHEJqeQg=;
+        b=H2nskZQqS6GDYJMIvEA+UJ3m0cAj4QuS5UUmh0uUtejvwuXpG/bb4TeIajbsS5IpSU
+         /a8Dp3FjeF5C0GXRD/IdFjIh1O8YuoR7sC3WqMrfEyoZUvQwK9oVtpxNJOup8UZQBQUS
+         JXL3CxqtH3ZUx5kvNzDhN1DETI92jX048q605Oxy2tPLlr9LNf+atglRbba0XFoYxbVB
+         Y5PpWQbZUDrs65OuhimZ3oOWVCOQZ7UA8y4Lpcg/2fBsTxCA9n8j3Yz4AjogpZSFkoTX
+         AbMYWZRNvpSRy1gu+r5z0SiwKkyf90fNY8Dt6xTclqsKsOose4qkbrEc/mMuqeHsReMu
+         GBJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791540276; x=1792145076;
+        d=1e100.net; s=20260707; t=1791540293; x=1792145093;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=WCfrYFQWaB6ljrpcA5mB+GvPCr6ztXX1INv06kJj6BA=;
-        b=hZ3MacE3wYutjCVNWhwFolSubxfZFmQv+uYlk5W300YPRZ1mm+dtrIEAUzYWkg7oD4
-         6NawNcYM6avHzUkA1465oFjYqpHfu5wRwveQLvNcgWlnjOr2CxYqM7XFukCE9oI5jbJd
-         GIt6kR2yMAhOTVJFSRaGrqIqUf1RoX7ZWou07Zmdi6B9csw03ZmYCgRbhg/3QMyXF8zA
-         ycVY9oOqaa/1m/PlBWBM8z2TwUsSud4JAjIlVVHZ3W+IYAozreKN6uQsb960a87bUQvC
-         wcE8+qj6GY/t4E0YBkEvpWVvJZDufJUDbf/9+94JE/2AkOKv82MEY5uv+Qkg97ht8TTm
-         3KkQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwG3hEx9tKqPfUYI1HHrHXlSmjtIMEXswMhUX6+FGoZiHAi61mWrZ4VRGM8DTtehLnxTpqiPABehow1CLo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nZgpc4GXBctCA73UBUuhc59h5LqqkBr7xM2qVElXnWmCo96l9z
-	2v0Hv1TyE20/v96EboVaEQHJtulxPfImjwgcRH1Prr2VhFebOYQ7dEqv
-X-Gm-Gg: AYBFou2p1yk6hVgmu8dk9SPe7EBOc6SC2YvaFQfTFcJhEFD1jEIrcoB4GQnKUJGfVdD
-	LvImydZWyGK50xUmgM66F2heH58VC+Zt2ci0wlli14dMr5om8aJoZ1qOhsVBMOlQXJnwuE4hKJo
-	VOSkBLTmpgR5cmlt3YJUxbzxUN+fJgKxlCf5h4p2xZOTFaQ+hdysYSzxUmE9pPmJqR8ABU60iwj
-	RS+hTiwfwOMtFCJOPns6NHKvexwoxdyWtB3knmaTSmG0OJH64bNXn9dphveFMI3EeUjkN493a08
-	FJTcjhO8EiCIZ+9ymsuaH/Sh4fR9PCKFQM0pO/6SlUlKZfxsQrPAgvZzpdGTtfoaw5r4pAZlOlZ
-	OP1BydFP1akTV2+JPuDRJcWb0tP8lpE+UXXor5sI59UENIB0PTRNyDQslQ3VpoKEoJn1k0QzwWN
-	OOEuDfaFhcIB7CDKTo96YHdldyfaygdrXBqy2Xo7+bYuwywmYSTW6iZIrFmU8WFsvn0cQpO3xc6
-	UNrJqNnlICYmWZf1oR7+e3pSD9X+6WJjsDkN6xcCjo96465wiOQYTR0Ou0M00V/cR4YbG/5LoCj
-	3WqHw95nZiHEZK1g9pEzbSlrsPnxA2VKk/qGjpbnBvOOjrLAPVGg5eQAUB1mMPj/IxwbZKop8w2
-	0XtMR65b2+lsAvUU=
-X-Received: by 2002:a05:600c:3f16:b0:4a0:2150:55fb with SMTP id 5b1f17b1804b1-4a18e44395bmr24842945e9.4.1791540276044;
-        Fri, 09 Oct 2026 03:04:36 -0700 (PDT)
-Received: from unknown748F3CBA5068 (dynamic-2a02-3100-a128-aa01-297a-7094-853e-a20c.310.pool.telefonica.de. [2a02:3100:a128:aa01:297a:7094:853e:a20c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf2caf4sm53382635e9.10.2026.10.09.03.04.34
+        bh=UhXPZh37/T25UvqWQ+VVpQbzKVyhpE9L3wLTHEJqeQg=;
+        b=hILbJEROj3XpUV+J1EFPclD8J/KGrcJ42hCilEvsfw3FlKYHJ8GlpKfW0E+CPNm423
+         mqpbCIVijKSMRIdtwvsNaWc4UXGp0sWERTBsljg+J4lr+evGbnQDlIxDBXq43g3q5mD6
+         9NatCzUAIDXZYe35jUN8pV8TIBmsqg3bb7i0VP0Vuo3eF4sTgjQ9MIiZylhVNcdl1ZK0
+         AuLr43LC4n6p+8TaLz8N6vqbsClz1xaMRtY0m9lSI1Ye7t2Auy4GfYagyuylFzMPPv10
+         8mNQHS4U2thE+YaTl5TY0+NnC0pmPKHPBqthLJ6OOkWlaGmuPiIlltnumNt+o54wl1b6
+         QzZg==
+X-Forwarded-Encrypted: i=1; AKwUvBzEZmDM2nnVFdiM/4KQ+KhuWOeY84k8RSFxLIArUCAIq0LP/N0Ppm0N4vup5OSuGBiZXJIghVHzpHH+Vys=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKmIeU9nYIQwRog4jpViP0pvGanY+67Q0EtWLwr/RdTaJk6yag8
+	jevS3lC+Z5/HoHoilVwzk+AbcGNtjEGDPcS1fNvteLJWp3Gr5JGTmsBB
+X-Gm-Gg: AYBFou1eEqS108GNu1hiA6IalBn5z7kbgO+2aKrjLJ7UD2tiMJZSpUtpa83qnlcumT9
+	HBsZURF1DUCs4wlmRE3B8ZN79A0Abs3bVX7W2MplcMwXFLQ+j2NBBFT9XzY8PzfUmoZcRupEzxT
+	KTGJJS+XxoYk4yUo4VHk2c62RRUe721o03GSxep+u5Ac29cefOsN4i/JO8PWCU28hW5dGRtgvcW
+	HN8V33wKyVlFg+ZVVYmVfTdWn60meghXpRCK8dOTnOfM51paBqeNNqSc3jTkoTFOBBz6jp1HrTo
+	MnkKXovGNg3qdAqw3tk4p3VROXOdp8ft2CSRmceId3xZENvPtopCwW9YThqlOzkGOfqNIpGhkUr
+	B9OAFHdLEjU8bBcT1hEPTNCvSnurRt9rMfgRB45QyM/mPrs7JdxIz8RHNXP1ugyUuhn0LUnuTvr
+	lOQQX86/VUn5ck56toKTSKBRGMwNVPZYqj58Wy5m/q6LH4mAbw5rAhy0fsHGZszeCJfONFS979W
+	w==
+X-Received: by 2002:a17:90b:384a:b0:3a8:1320:38ae with SMTP id 98e67ed59e1d1-3ab3a291871mr1254972a91.9.1791540292682;
+        Fri, 09 Oct 2026 03:04:52 -0700 (PDT)
+Received: from mail.google.com ([5.34.221.10])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d9e0816csm714779a12.7.2026.10.09.03.04.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 03:04:35 -0700 (PDT)
-Date: Fri, 9 Oct 2026 12:04:33 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Harry Yoo <harry@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, 
-	Thomas Gleixner <tglx@linutronix.de>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-	Andrew Morton <akpm@linux-foundation.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Alexei Starovoitov <ast@kernel.org>, Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>, 
-	Jonathan Corbet <corbet@lwn.net>, David Hildenbrand <david@kernel.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	David Stevens <stevensd@google.com>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>, 
-	Shuah Khan <shuah@kernel.org>, Amery Hung <ameryhung@gmail.com>, 
-	Swaraj Gaikwad <swarajgaikwad1925@gmail.com>, Clark Williams <clrkwllms@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-mm@kvack.org, linux-rt-devel@lists.linux.dev, bpf@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, cgroups@vger.kernel.org
-Subject: Re: [RFC PATCH v2 0/3] locking, mm: Add atomic allocator trylocks on
- RT
-Message-ID: <asi6Kj3TcCd6HAM5@gmail.com>
-References: <20261005070625.8871-1-kmehltretter@gmail.com>
- <asZ8jmWNoGk5tYce@thinkpad>
+        Fri, 09 Oct 2026 03:04:50 -0700 (PDT)
+Date: Fri, 9 Oct 2026 18:04:39 +0800
+From: Changbin Du <changbin.du@gmail.com>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Changbin Du <changbin.du@gmail.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
+Subject: Re: [PATCH] perf bench: Add atomic CAS benchmark
+Message-ID: <asi72sgQ2YF3qKFm@mail.google.com>
+References: <20260930091617.4189736-1-changbin.du@gmail.com>
+ <20261008084449.5d9971ad@pumpkin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -92,58 +82,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <asZ8jmWNoGk5tYce@thinkpad>
+In-Reply-To: <20261008084449.5d9971ad@pumpkin>
 
-On Wed, Oct 07, 2026 at 07:15:29PM +0100, Harry Yoo wrote:
-> > This RFC instead adds an atomic owner state for bounded PREEMPT_RT spinlock
-> > trylocks. Atomic acquisition succeeds only from the completely free state.
+On Thu, Oct 08, 2026 at 08:44:49AM +0100, David Laight wrote:
+> On Wed, 30 Sep 2026 17:16:17 +0800
+> Changbin Du <changbin.du@gmail.com> wrote:
 > 
-> Please don't skip discussion stage and jump into submitting a very
-> intrusive change across locking and mm, assisted by LLM? :/
+> > Add a new 'atomic' collection to perf bench for benchmarking
+> > compare-and-swap (CAS) atomic operations with multi-threaded
+> > contention testing.
+> > 
+> > The benchmark tests __atomic_compare_exchange_n operations
+> > with configurable thread count and iteration count to measure
+> > atomic contention effects.
+> > 
+> > Why this benchmark is needed:
+> > - CAS operations are fundamental to lock-free algorithms and data
+> >   structures. Understanding their performance characteristics under
+> >   contention is critical for designing high-performance concurrent
+> >   applications.
+> > - The benchmark helps identify atomic operation latency and
+> >   scalability issues across different thread counts, revealing
+> >   contention patterns that are not visible in single-threaded tests.
+> > - Useful for evaluating atomic implementation quality on different
+> >   architectures and for regression testing after changes to atomic
+> >   primitives or memory ordering.
+> > 
+> > Measurement methodology:
+> > - Each thread starts a private timer (clock_gettime CLOCK_MONOTONIC)
+> >   after synchronizing on a pthread_barrier, ensuring all threads
+> >   begin simultaneously.
+> > - Each thread performs a hot loop of atomic compare-and-swap on a
+> >   shared u64 counter, incrementing from 0 to iterations.
+> > - The shared counter is cache-line aligned (64 bytes) to isolate
+> >   contention to the target cache line and avoid false sharing.
+> > - The wall-clock time is measured as the max of all per-thread
+> >   runtimes (the time for the slowest thread to finish).
+> > - The first repeat is excluded from statistics as a warmup phase
+> >   to avoid cache-cold effects.
+> > Example usage:
+> >   $ perf bench atomic cas --threads 2
+> >   # Running 'atomic/cas' benchmark:
+> > 
+> >     Threads: 2, iterations/thread: 100000000, repeats: 10 (warmup: 1)
+> >     Avg wall-clock time: 7365.480 msec  (stddev 66.014 msec)
+> >     Total ops: 200,000,000
+> >     Throughput total: 27,153,697 ops/sec
+> >     Per-thread times and throughput (last repeat):
+> >       fastest:  7510.031 msec  (13315525 ops/sec)
+> >       slowest:  7581.678 msec  (13189692 ops/sec)
+> >       avg:      7545.854 msec  (13252310 ops/sec)
+> > 
+> > Output fields explained:
+> > - Threads: number of contending threads
+> > - iterations/thread: CAS operations each thread performs
+> > - repeats: number of test runs (first is warmup)
+> > - Avg wall-clock time: mean time for all threads to complete
+> > - stddev: standard deviation across repeats
+> > - Total ops: threads x iterations/thread
+> > - Throughput total: aggregate ops/sec across all threads
+> > - Per-thread times: fastest/slowest/avg thread completion time
+> > - Per-thread throughput: per-thread ops/sec (shows scheduling imbalance)
+> > 
 > 
-> I don't think attempts to tackle this problem will make progress without
-> discussing and getting buy-in from (PREEMPT_RT) locking folks.
+> I think you need to default to one thread per cpu.
+> Also try to run the test for a fixed time period rather than a very
+> large count.
+> You should be able to see that some systems completely fail to make
+> progress under very heavy contention.
+> (This isn't one thread getting starved, none of them make progress.)
 > 
+> David
+Thanks for the suggestions.
 
-Sorry, I should have followed up on the additional v1 replies before
-posting this v2.
+I'll default the thread count to one per online CPU. The benchmark
+contends a single shared cache line, so the threads need to run
+simultaneously for the result to reflect real cache-coherence
+contention; more threads than CPUs get time-sliced, fewer do not
+exercise the machine.
 
-On the alternatives in [1], Alexei [2] preferred detecting
-scheduler-lock contexts and returning NULL. He confirmed that NULL
-returns are allowed, rejected restoring the local-storage allocator, and
-raised the RT unlock/wakeup objection.
+For the fixed-time run I'll replace the iteration count with a
+runtime in seconds (like the futex benchmarks). Threads synchronize
+on a pthread_barrier, spin on the atomic operation while counting
+their own completed operations, and stop when the main thread sets a
+shared done flag after the runtime; workers poll it every 1024
+operations so the check does not perturb the hot loop. Throughput is
+the total operation count over the measured wall time, and the
+per-thread counts show whether any thread failed to make progress.
 
-I initially tried that detection, tracking pi_lock, rtmutex wait_lock
-and rq locks. With RT, lockdep and slab_debug enabled, task-storage
-allocation under an independently held hrtimer base lock reported this
-cycle:
-
-  hrtimer_bases.lock -> rtmutex wait_lock -> pi_lock -> rq->__lock
-    -> hrtimer_bases.lock
-
-I don't know whether my changes introduced or exposed the dependency.
-The timer lock was not covered by that guard. This was a lockdep warning
-and the workload completed.
-
-I then tried atomic ownership in v2 to avoid that unlock path, at
-the cost of IRQ-disabled spinning without PI boosting of the owner.
-
-One possible interpretation of "raw_local_trylock_t" would be preserving
-the non-RT local_trylock semantics on RT for short per-CPU cache
-operations, with allocation failing when it needs an rtmutex-backed
-fallback.
-
-Would that be worth exploring? Sebastian suggested
-consolidating the existing local-lock variants first. What should that
-cover?
-
-For arena user faults, backing-page allocation failure returns
-VM_FAULT_SIGSEGV on the RFC base. next-20261007 preallocates outside the
-raw lock. Failed fallback allocation returns VM_FAULT_SIGBUS. If
-restricting that fallback increases fault failures, is that acceptable?
-
-Thanks,
-Karl
-
-[1] https://lore.kernel.org/r/arIY0wMQjCCsqidI@gmail.com
-[2] https://lore.kernel.org/r/DLO3RV3IQUOV.21BNLF4QS9T4W@gmail.com
+-- 
+Cheers,
+Changbin Du
