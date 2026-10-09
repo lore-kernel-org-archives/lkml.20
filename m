@@ -1,118 +1,88 @@
-Received: from mx01.omp.ru (mx01.omp.ru [90.154.21.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-190.mta0.migadu.com [91.218.175.190])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6205B3955C7;
-	Fri,  9 Oct 2026 15:58:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.154.21.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD75D3749F2
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 15:59:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.190
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791561517; cv=none; b=RQJPTAYUm3uZGVtjSl+YM585Uo6/2/lqxkCMz0FeIhP4OBqpqglwXP/VZz2ArXzDhWJmEkpffOP65eo63WMNwdv6jIvkbu7Qv+9ZWjAwQVAlWKw9IzQV/wdsyodmcYzkhG5rcjiW4dycV4DFOD4ReB/Ol5MW2O/HDOM37mYka8E=
+	t=1791561550; cv=none; b=J/gBgIljy2yY8IgisHKenenEaammHsQ3uU2zw6pashusLhbH2wXuglJVVW5epQW8qiNYtdgn5f1MBNXp/QBckgIeg2mScV6s2n7vfWLdw+Ib4lLD3b6yT8R73evC3cTFshMPFf/A6lF0JkgTYEhrr9vDDXx0YNwULhIzeO3BsoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791561517; c=relaxed/simple;
-	bh=CiPNIPKWWOYU918dLTsOETBW0Z4xb8GjgmL/uqFlFmQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=RFMcFttQYJ5nVrx/G0K5ZhSRq0zpmCjCZhAOSbUa/i3r2cL26oB9p2PbQbZg++nRoktm7VJAqI4Xe9oVHYy+MdCYqm0xMm4WYaMI/KWJf4NUxJFfn3FcuYQkbu1SIS1zgFN1DZ/lWbfbXW1cIQnF7oWlRufF5nqv8j4l2AVhVP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=omp.ru; spf=pass smtp.mailfrom=omp.ru; arc=none smtp.client-ip=90.154.21.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=omp.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=omp.ru
-Received: from [192.168.2.104] (91.78.20.251) by msexch01.omp.ru (10.188.4.12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.1258.12; Fri, 9 Oct
- 2026 18:58:22 +0300
-Message-ID: <65555593-0e68-4769-bb7e-2737ba7050d1@omp.ru>
-Date: Fri, 9 Oct 2026 18:58:21 +0300
+	s=arc-20240116; t=1791561550; c=relaxed/simple;
+	bh=QstwVMvvN2Sr9J+5bjADIAjk9mfPBAQCxBPM+7Yh5UY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Wu6pWWF5zeDNKtHsTNSLMoWWjXHgInlVYl6By+x9HbogXsYaNA3oeFPuVaS7Vp6uYnEKcOGSrAOX6dPUT75dTRuJGDNuP8khtSBZn5J5J5gbUG7g7l65yqgQW/VAT5tSlu3E3ydZLwwvnqRyMHw5UIEKZi9OFhxW4HNj7ZIqSh4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Lbl6Gzi+; arc=none smtp.client-ip=91.218.175.190
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Lbl6Gzi+"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=QstwVMvvN2Sr9J+5bjADIAjk9mfPBAQCxBPM+7Yh5UY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791561546; v=1; x=1792166346;
+ b=Lbl6Gzi+5gP+Ux1+UZXttHiRmhFHlcyFkeINS2/8U/JcAArdDFgi2AjZIKNzri/MgEBiz5mo
+ ZpnLMeNddjqETA3DUCtr6h/qpnEo4fovqvb/B8kZ4c/PhXqY8Mlow9db785fmjciZSbD+nfkgqX
+ TLrKoBXFWCXivgsrphodU5MA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b30625e831a10d4c;
+	Fri, 09 Oct 2026 15:59:06 +0000
+X-Mizu-Trace-ID: b30625e831a10d4c
+X-Migadu-Flow: FLOW_OUT
+From: Luka Gejak <luka.gejak@linux.dev>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+	Luka Gejak <luka.gejak@linux.dev>
+Subject: [PATCH rtw-next] wifi: rtw88: 8723b: don't set channel_invalid in query_phy_status()
+Date: Fri,  9 Oct 2026 17:58:38 +0200
+Message-ID: <20261009155838.169058-1-luka.gejak@linux.dev>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] pinctrl: core: fix pin name leak on radix_tree_insert()
- error path
-To: Haotian Zhang <vulab@iscas.ac.cn>, Linus Walleij <linusw@kernel.org>
-CC: <linux-gpio@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-References: <20261009054556.3151123-1-vulab@iscas.ac.cn>
-Content-Language: en-US
-From: Sergey Shtylyov <s.shtylyov@omp.ru>
-Organization: Open Mobile Platform
-In-Reply-To: <20261009054556.3151123-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: msexch01.omp.ru (10.188.4.12) To msexch01.omp.ru
- (10.188.4.12)
-X-KSE-ServerInfo: msexch01.omp.ru, 9
-X-KSE-AntiSpam-Interceptor-Info: scan successful
-X-KSE-AntiSpam-Version: 6.1.1, Database issued on: 10/09/2026 15:30:13
-X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
-X-KSE-AntiSpam-Method: none
-X-KSE-AntiSpam-Rate: 0
-X-KSE-AntiSpam-Info: Lua profiles 206574 [Oct 09 2026]
-X-KSE-AntiSpam-Info: Version: 6.1.1.27
-X-KSE-AntiSpam-Info: Envelope from: s.shtylyov@omp.ru
-X-KSE-AntiSpam-Info: LuaCore: 127 0.3.127
- 0884f7b061fa529b810563f359267cd65d2ec05c
-X-KSE-AntiSpam-Info: {rep_avail}
-X-KSE-AntiSpam-Info: {diag_burst_silent}
-X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
-X-KSE-AntiSpam-Info:
-	omp.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2
-X-KSE-AntiSpam-Info: {Tracking_ip_hunter}
-X-KSE-AntiSpam-Info: FromAlignment: s
-X-KSE-AntiSpam-Info: ApMailHostAddress: 91.78.20.251
-X-KSE-AntiSpam-Info: Rate: 0
-X-KSE-AntiSpam-Info: Status: not_detected
-X-KSE-AntiSpam-Info: Method: none
-X-KSE-AntiSpam-Info: Auth:dmarc=temperror header.from=omp.ru;spf=temperror
- smtp.mailfrom=omp.ru;dkim=none
-X-KSE-Antiphishing-Info: Clean
-X-KSE-Antiphishing-ScanningType: Heuristic
-X-KSE-Antiphishing-Method: None
-X-KSE-Antiphishing-Bases: 10/09/2026 15:38:00
-X-KSE-Antivirus-Interceptor-Info: scan successful
-X-KSE-Antivirus-Info: Clean, bases: 10/9/2026 1:04:00 PM
-X-KSE-Attachment-Filter-Triggered-Rules: Clean
-X-KSE-Attachment-Filter-Triggered-Filters: Clean
-X-KSE-BulkMessagesFiltering-Scan-Result: InTheLimit
+Content-Transfer-Encoding: 8bit
 
-On 10/9/26 8:45 AM, Haotian Zhang wrote:
+rtw8723b_query_phy_status() sets pkt_stat->channel_invalid, which makes
+rtw_update_rx_freq_for_invalid() call rtw_update_rx_freq_from_ie() and
+overwrite rx_status->freq with rtwdev->hal.current_channel.
+rtw_update_channel() keeps the center channel in that field, not the
+primary one, so on a 40 MHz connection mac80211 is handed a frequency it
+rejects in ieee80211_rx_beacon_freq_valid() and reports beacon loss for
+beacons the driver did receive. Only beacons go through that check, so
+data traffic is unaffected.
 
-> pinctrl_register_one_pin() allocates pindesc->name with kasprintf() when
-> the pin has no static name, and marks it with pindesc->dynamic_name.  If
-> the subsequent radix_tree_insert() fails, the function jumps to the
-> failed label, which only calls kfree(pindesc) and never frees the
-> dynamically allocated name, leaking it.
-> 
-> Since the insertion failed, the pin is not in the radix tree, so the
-> caller's pinctrl_free_pindescs() cleanup cannot find it and cannot
-> release the name either.
-> 
-> Release pindesc->name on the failed path when it was dynamically
-> allocated.
-> 
-> Fixes: ecfe9a015d3e ("pinctrl: core: handle radix_tree_insert() errors in pinctrl_register_one_pin()")
-> Assisted-by: DeepSeek-V4.1-Flash
-> Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
-   Oops, my fault indeed! :-(   If you want, you can add my:
-Reviewed-by: Sergey Shtylyov <s.shtylyov@omp.ru>
+Remove it now, so that the non-SDIO members of the 8723B family do not
+report beacon loss once they are supported. SDIO is unaffected, because
+rtw_sdio_rx_skb() copies the status into the skb before the update runs.
 
-[...]
+Reported-by: Bitterblue Smith <rtl8821cerfe2@gmail.com>
+Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
+---
+ drivers/net/wireless/realtek/rtw88/rtw8723b.c | 7 -------
+ 1 file changed, 7 deletions(-)
 
-> diff --git a/drivers/pinctrl/core.c b/drivers/pinctrl/core.c
-> index 1675dd36bd5c..3a1d1ff871ef 100644
-> --- a/drivers/pinctrl/core.c
-> +++ b/drivers/pinctrl/core.c
-> @@ -249,6 +249,8 @@ static int pinctrl_register_one_pin(struct pinctrl_dev *pctldev,
->         return 0;
-> 
->  failed:
-> +       if (pindesc->dynamic_name)
-> +               kfree(pindesc->name);
-
-   You may as well add another label here -- for the 1st *goto*...
-
->         kfree(pindesc);
->         return error;
->  }
-[...]
-MBR, Sergey
+diff --git a/drivers/net/wireless/realtek/rtw88/rtw8723b.c b/drivers/net/wireless/realtek/rtw88/rtw8723b.c
+index 8bb9c03d769c..0c37e981ec84 100644
+--- a/drivers/net/wireless/realtek/rtw88/rtw8723b.c
++++ b/drivers/net/wireless/realtek/rtw88/rtw8723b.c
+@@ -1303,13 +1303,6 @@ static void rtw8723b_query_phy_status_ofdm(struct rtw_dev *rtwdev, void *phy_raw
+ static void rtw8723b_query_phy_status(struct rtw_dev *rtwdev, u8 *phy_status,
+ 				      struct rtw_rx_pkt_stat *pkt_stat)
+ {
+-	/*
+-	 * The 8723B PHY status does not report the channel, so we must
+-	 * mark it invalid to allow mac80211/rtw88 to parse it from the IE
+-	 * during scanning.
+-	 */
+-	pkt_stat->channel_invalid = true;
+-
+ 	if (pkt_stat->rate <= DESC_RATE11M)
+ 		rtw8723b_query_phy_status_cck(rtwdev, phy_status, pkt_stat);
+ 	else
+-- 
+2.55.0
 
