@@ -1,40 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 184734078E5;
-	Fri,  9 Oct 2026 06:10:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEA6542A165;
+	Fri,  9 Oct 2026 06:10:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791526247; cv=none; b=k8shpWEaRNGzB47m2KUWrn1su1dz7sS3F3g6YcscGUlaFCUIFmtyGXLEH2KDK7rf8GEC7tUMgJW3gv7+EWkHOVY2IPAKWQUO9Vhqw46k6OjSDcTsMF/NXFMxrCk+aOg2miFx6idd2L9OQcG9KMdZgIju9zjEcxVqgohVaabGPF0=
+	t=1791526250; cv=none; b=BQtkiOgK/w24afC5H949yFMuaXp5BHwSOEHuVd3lzB5tnWGHxYMeZ5A+gDdt/Sjn2paS1EDuyQuVLum8jnnmEzDgWvecsp+pOi9bYVF6sMJA7QzrwTDje0wLI8sSumt2F5bag8ps8AKk52XLyKATLNtsrbTRBnc6ZLt2QeeWois=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791526247; c=relaxed/simple;
-	bh=tpSWAIBE2NZmENU1+lRjNUka/ldTZzirYybVoDkRLTY=;
+	s=arc-20240116; t=1791526250; c=relaxed/simple;
+	bh=uZZSYAOjuJMOd9IMpZoWRtC11rV4plwn/pRAjV9rM/g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CdiixzTadxVQ79MPpmULi9w26w0beFCqjLPoscm7neIKGnSm+CYf1QgzNh7Cxk7YOPPp+h35j1o6l5oRyIc1H39h+DsXpe2Fb8pY4YjFFK8c0kNC8t44kx72FiTuX7jZUlNP3rWVjYYC2caYEXhs+5zcq/KeIBWlZrSF9RAaUbY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DW78Z9Du; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=OFOZTw0jCwuTowz8W755eGGEzGHV3+WDlbFPEjcKQigFNgBeTTtj4yapwEK/7Ti6d4xcMxYGnCEo6jqgurRLXWUfoOPxySeo76PJiA8l2sQUFDRfrXg4vwmh6XsfH726dDBZGN6PbzUEUx4WM0UpU3fw/MAl/RrIqkNiscUoXa8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Th2wQWgL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DW78Z9Du"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA5BC1F00898;
-	Fri,  9 Oct 2026 06:10:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Th2wQWgL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08E2D1F000FF;
+	Fri,  9 Oct 2026 06:10:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791526245;
-	bh=/zMC9Wvp0WqRqn5KkYbehx24bkhR7OpxAAkMSSa5KFo=;
+	s=k20260515; t=1791526248;
+	bh=iSvppU/VIwgUjLgHLY+2yfkmaTPGx2jQBRc2qY3PfdY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DW78Z9Du79e9xO14UOQ75C9YX6ZAZd5Zyw+Vpsjr0u792QlFyDZvNZ88ZxwKYIJJp
-	 vqCXbyQnNtXhGPrlRcoS9C/I1UYDPvIo9mSe3CQ+Aav36+5XdK5d04FqhnAtEwpvcL
-	 RYfeb4m/ThkmxUBYA+0+QamokZ7L/LSB3EOYCMkTkM7YVEKrNkKwVe1kbbtwL3gTgz
-	 Q3T3vY9b+6BHlyBZVGjMxZXTyGkUKgQQAN8Y2Q90LRAGYAY3ymruZVv7BbGDL++t8L
-	 rIhsSD8GQg3BKeV1EdPhGQTP0hO1HnG3p075AoU08MTlzSa/gPS250Mg41PRCbRyVB
-	 tCSNbVtU6pI+g==
-Date: Fri, 9 Oct 2026 08:10:42 +0200
+	b=Th2wQWgLkUIUbUa9P7OdQoa+4jOz/4lruJgGs8eKOTUwAeX7Q9+hbqCzQSvLztDDJ
+	 958bwpn1zjnZQl3RZiLRve68iqMIuohYfMaCj+N9XHF4KT/jGrCi/3A8PH8MWAzHaB
+	 0Y7ljKhBHznW/ueF+DDrvJe+lJ1Fi/vlh+4/937ypk0egOiy9yWWuhSXW7F+f3bjKa
+	 mTLyQ8yzTOJ5Xw7xUmH73s35FgaspvHsmD/hucDSrVVrv2EoUBv6QcPZmVcPsMLQRN
+	 FdrOkdL8/K7MnrsR7/nEaoXiOPrGpzI02QO8+QswkCBovCYp7eFx3enG3qKTg2GBVW
+	 rfXgho+3vjqFg==
+Date: Fri, 9 Oct 2026 08:10:46 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Haotian Zhang <vulab@iscas.ac.cn>
-Cc: "John W. Linville" <linville@tuxdriver.com>, 
-	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, Hauke Mehrtens <hauke@hauke-m.de>, 
-	=?utf-8?B?UmFmYcOFwoIgTWnDhcKCZWNraQ==?= <zajec5@gmail.com>
-Subject: Re: [PATCH] bcma: fix device node refcount leak in bcma_of_get_irq()
-Message-ID: <20261009-magnetic-beneficial-butterfly-54c52c@quoll>
-References: <20261008183446.2777503-1-vulab@iscas.ac.cn>
+Cc: Vignesh Raghavendra <vigneshr@ti.com>, 
+	Richard Weinberger <richard@nod.at>, linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Miquel Raynal <miquel.raynal@bootlin.com>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	linux-tegra@vger.kernel.org, Boris Brezillon <bbrezillon@kernel.org>, 
+	Dmitry Osipenko <digetx@gmail.com>, Lucas Stach <dev@lynxeye.de>, 
+	Thierry Reding <thierry.reding@kernel.org>, Stefan Agner <stefan@agner.ch>
+Subject: Re: [PATCH] mtd: rawnand: tegra: fix OF node leak in
+ tegra_nand_chips_init()
+Message-ID: <20261009-zippy-prompt-ringtail-e8fc6c@quoll>
+References: <20261008182442.2770036-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -43,26 +47,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261008183446.2777503-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261008182442.2770036-1-vulab@iscas.ac.cn>
 
 
-On Fri, 09 Oct 2026 02:34:46 +0800, Haotian Zhang wrote:
-> bcma_of_get_irq() parses the interrupt specifier with
-> bcma_of_irq_parse(), which on success returns with the refcount of
-> out_irq.np increased by one, owned by the caller. The function then
-> passes out_irq to irq_create_of_mapping(), which does not consume that
-> reference, and returns without ever calling of_node_put(), leaking one
-> reference to the interrupt parent node on every successful call.
+On Fri, 09 Oct 2026 02:24:42 +0800, Haotian Zhang wrote:
+> tegra_nand_chips_init() takes an extra reference on the child NAND node
+> with of_get_next_child() and passes it to nand_set_flash_node(), which
+> only stores the pointer in mtd->dev.of_node. None of the return paths,
+> including the successful one, drop that reference, so the device node is
+> leaked. The get/put pair performed by the MTD core in add_mtd_device()
+> and mtd_release() is balanced and cannot compensate for it.
 > 
-> Release the out_irq.np reference after irq_create_of_mapping(), matching
-> irq_of_parse_and_map().
+> Release the reference with of_node_put() right after the node has been
+> stored, and route the earlier error paths through an err_put_node label
+> so that they release it as well.
 > 
-> Fixes: 71783576b534 ("bcma: get IRQ numbers from dt")
+> Fixes: d7d9f8ec77fe ("mtd: rawnand: add NVIDIA Tegra NAND Flash controller driver")
 > Assisted-by: DeepSeek-V4.1-Flash
 > Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
 > ---
->  drivers/bcma/main.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+>  drivers/mtd/nand/raw/tegra_nand.c | 19 ++++++++++++++-----
+>  1 file changed, 14 insertions(+), 5 deletions(-)
 > 
 
 
