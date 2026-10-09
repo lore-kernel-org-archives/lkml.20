@@ -1,193 +1,148 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87E941D5160
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 01:47:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E8FF30F7FA
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 01:48:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791510438; cv=none; b=DZ4s2LiRHQIzevTKXiIVO0I6f2uptMGZGfkq2n63jEk6B0NmmUb753uHcU8VsWE+X/uPBRiiV+oFUTMnlcxvDPhrD1CNICpKqcKhOs2znzkA3ag11UyTmRAchv51akiLYk48UzxeRMSBXJAvaBWEHaFz5Nmsd6Jb1j98eprrIOU=
+	t=1791510531; cv=none; b=ONjYw0zfnlIasrMDujOnbkyttklQ4AtBudSUlYWYsOiX8cunTJl8l0oI8J7YzTtFyMMR/NnlV6ezqlRdU5uhSA9PamsS2qwzANojeVnBa02LC/5e7Y1vD/9K604fgbi3wJDk3xZkW2eZ8fKmn7XChPwQnqRTLn0Zg0mFKoZo3Mo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791510438; c=relaxed/simple;
-	bh=wy/W3rCE08BEGOkA4MW9C4wcclBkJIOvah841ys3JAA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=I4sps52DiWHTbdAO6wQSGKN2y462JPo+m1fsGI+hdqAQ4C4Mb31bDDqPW4wp7cKzNBeTbDlBzvuACEKFrbQIDKBEvYjCAfn7Za2e5WnbA5uv/J+WYYBk6T2X3TTy3WIwH0BHXKkzwkkhMdMnRZ6M71Kswp+/7l20iehA5M+pZ94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Av3xJaO8; arc=none smtp.client-ip=209.85.210.182
+	s=arc-20240116; t=1791510531; c=relaxed/simple;
+	bh=4zQauuLYgJxsEKUHN3tTR9O77uoUU+rw59u++kdpCYo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Wzkaowmgk4sF+EMM0HaA3kgA4qgIDrYeKFcPHPnfUUdW9W8pJwdUh7+2t9ht1+Ga+9VwFcvW07T7NuXaAYXCE5te6WC2DNFENaB3fst7TXm6hd40u3QW5l5ffPedb1QEOesMNjlA2pIto1WxIfuh3r8dCYXtzFgn5Uuaruhks3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h00h1Y1p; arc=none smtp.client-ip=74.125.82.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Av3xJaO8"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-887beafb714so2047426b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 18:47:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h00h1Y1p"
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-351767ef18cso2052680eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 18:48:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791510436; x=1792115236; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=y5hYJjC9f5xrA2SeP8FzQjM1WwMyehhp0Rue0U/eEM4=;
-        b=Av3xJaO8vYEvfenhvsUyxdA9tHAY3lUzCe6V0oJjsqNYeVAy07QaGVYLMrJiBjjywq
-         MMvFSqiYHwXnzx3zIJwMqmFgGLuNpVuxiGJ5KN8RkS+6YDtJY4J1e2iUyACLHMnAs5lp
-         DCgdxYZvONkRKQT+gnEqtVf7a2DXPa+ZtfwYJrdR20fCtjxBFaaoKgAWMz6iMBTzLrnc
-         nbW9VA4yWdvVoiiUB5okfJCZbL37wIUmZ8/QIs02p/Vqef+sWfD423g8TfjVZ0wmLQdq
-         6btccWa2ddRYzyh7wjOfT/hhdnriusxNab1xMblqsPts/anC5kTvW7bhNm8oad6ItsTe
-         kHLg==
+        d=gmail.com; s=20251104; t=1791510529; x=1792115329; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=RK4flvPJYAEK9lSesneRcUolXiSZW1erKx163yiShyo=;
+        b=h00h1Y1p+NYY99+JyvYJlEPJel2UuhWgsf/NlkhWcJGuY/QjjNsTr2oCBmfGDS8ix7
+         ZCM+HH6BnOV8cR6ldjt7MrxxVisDLcVbN0dL0pr2NbhlpHgkrPWvQlnP24NYX2aUMR30
+         Nr7LKaYIO+HNd6tqcSozdYcM0pHQX1K2SvsfUYePX5mgy1K0gGW3WMnG/BM2VCYkESrf
+         PwroNQVygUAeNIKGoeDEYrXd3m3TLbIYSx5dvoxfvDgjkSe6fj2Xm9sj+C7jARrYOb9y
+         vK8zwsms9IFjDUGSu39hPgxbEoHTVr7DJs7oPKNiQShqRRN5nGBT1UW64ovSfaRAf1jV
+         JNcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791510436; x=1792115236;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=y5hYJjC9f5xrA2SeP8FzQjM1WwMyehhp0Rue0U/eEM4=;
-        b=w9wxtgvOZ6J5E1j/3YxSE/whTmRWax19kVslisPsooYxmSZhlHtcoaBnn7+1rc4PxP
-         U/twni5uhxEumxR3YyKcRA5xOLGQjGk+E9YZeV/x2cPpoJDT80Za//rNZE8lj2hKbCcr
-         hdj+ETJGF5pbjJY4De7AWlRydfZer0pCNQYsC7gMD5pBXy5ziCmEDu/xvw5D0NDPNTKB
-         jeM9HGNtBwsG6EvfKTgsJUONQWqf2JW/ot5d2P8mR/mnoPgInz5mz402LGz2wN5Zi6Wd
-         ZjJJfq0PYcnmmHBcJs2+KSuChTzkQ39/O7A0BqeOVpkfjspR7fYgE/2JVpEiORDQEMPq
-         /jGw==
-X-Forwarded-Encrypted: i=1; AKwUvBwWSKPoPvjyCcqK0AZA/IBYtsKz6bM1t4JtZEiPOqRFJ5zv1EMQzHcx7MgSxjKb1eT1+vyx8XvEhy5bdnU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJeA02LajyETw/G5I1w5p4np0ujf9nnPrdbKREDREtcVvDCGV8l
-	hRCs9hC82Q4V8YCXSXoon/8mBQlWLiuYy+QyyRasNsPt3plHAnLAcKxF
-X-Gm-Gg: AYBFou33vNrNh4mAXcJSYRY96QO277YYIUO/kQ8rJptgSwM9LM4Q2US5dvp4iZeSHk5
-	qXxHuORXHxc9B0pzm/v/NTVK0a7cNh31WZg3z4nr98e/vyWnuykPxHsLb85DogxE/YUIqcKXAlv
-	HKkGzVv7qC6Lkes7dNXBMrAuSYcaOj2qkJxK7/j98qXvrg4ZHRKBfYbuAnclh3IO3uElDweAWa2
-	VfCFB8i9/1kHhk6CJts/8u+iUWO/QKLphb0suOB70dn/F+oVWl5b2bSoqjJkt71DoHYUJsj3qYf
-	b6jXgAkDU7tDRWtn4ecJ/GbiaXKuFwhVQh6KDtSyZp2Q55fVodVlARWeCHfaYs2cZPIqruwN06w
-	IE6qv4OAbZivBe+ZglBtHEaVUutdhp5fC2PRYQSfT0mRM0dNvu1CmMy6jI6ou/3IkOUAFXRsdRD
-	7i9C2udGWuaS0FmXbNnKqF6jOQZWM97S0rBN2WJ8me51lmZNJAbQyPI3rxPjxv+h9rdnsvfDscE
-	rd5pz8=
-X-Received: by 2002:a05:6a00:1f06:b0:881:d48e:7138 with SMTP id d2e1a72fcca58-897c43df755mr329124b3a.4.1791510435663;
-        Thu, 08 Oct 2026 18:47:15 -0700 (PDT)
-Received: from arch.localdomain ([161.33.202.10])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c3dc6bf8sm260611b3a.34.2026.10.08.18.47.11
+        d=1e100.net; s=20260707; t=1791510529; x=1792115329;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=RK4flvPJYAEK9lSesneRcUolXiSZW1erKx163yiShyo=;
+        b=WH4OZXw6loha0ScUDSakI6Tp97Giz7cvP14f1nYTHPeUZfbl9vNRCLArYDcCddLZuV
+         E6tRuuhNlFMuOuqOECtVm99P7dpSK0NQJ//C3TwhhRlme7jtUX6YIvrSScMk6UJi8n4K
+         IOBIzlP7p/gM3PoD/7BNGNU0OqbQcBCwMVq4xHmJkQXygUoPkOVW190qVJBZQO99Ocez
+         wdv/JJF1So+RSArGCLkT3QR4kUCWjl47cNAeBdVBu+Lf7sAHuiDIIVo0ghziB+ZbSKOq
+         sm4wAatm6MI5ZurlJtzw8yqP89yM1sLYtpjvFyJpLP4MCn3Ri3vyu3aPOWn9qsGz70NN
+         q8xQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxraTYIDv+W+dhkNChr6pFCd0f5ubwkiGKeDkoO1JhVEKtiUngnjIAN6nQmUwDex2BA7driTJ6YVZsKtSs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mfrVkMA+iDvSbFrXToRr9J7aCdzERKN7Jpx3SnHWHS8CJm/ckK
+	SWbIn2Ut1I+xTro+HAXp1V1KUjGA6zWA7knmieVzk4icaistYDRHRCuV
+X-Gm-Gg: AYBFou2m92dfiRIrF4GdbFYvV6HHszSiC7rm3O+UasPHxNItiFO3R8UYk+dHf2BBoOV
+	w4gNdercXha3qxWw+3cK6vnIrNBsEVGZp5kNBsWscOxnmZFwwhQT16tXZGGkW15LLz7MlLSTyeh
+	A8yIO9U6zck6Twy8faLxcRJzmd4dTf1BdcYeLF13CTZ6ouBOst6+RgPmNNN3RWGZX3c9PhGTiwK
+	N9zu/PSjcGz9kbrwGbwPA5kwvp7zRgAYWuVtAa+g4ei0L4qcV2Q47oJgsEnO8abAXuwmFCJKRNj
+	S0DCuOBKtvFEx0HrcTc2YRjLNTj6KGbPogkqHm1+ml/WPX+MViVccytvnZeAhj92V2Oq1i6O4F3
+	tDKrynvobcA3+MD+e+WhvxL7FZzHl4OnyOovowSuDVdMeNk3hgWVjJPTjsJ3JLlkRRjrtsUrn0F
+	zOQtJDYvDkVycb1KCOmm483rYGy1GhNpsDFqVyTHU3yjtrCMAQ3TP5FZM75pp2chBAZQ==
+X-Received: by 2002:a05:7300:d089:b0:351:55c3:6896 with SMTP id 5a478bee46e88-3537dfd8a93mr802366eec.16.1791510529366;
+        Thu, 08 Oct 2026 18:48:49 -0700 (PDT)
+Received: from [127.0.1.1] ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca1cc25sm2189280eec.8.2026.10.08.18.48.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 18:47:15 -0700 (PDT)
-From: Jun Yan <jerrysteve1101@gmail.com>
-To: jerrysteve1101@gmail.com
-Cc: conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	heiko@sntech.de,
-	krzk+dt@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	robh@kernel.org
-Subject: Re: [PATCH] arm64: dts: rockchip: Add dma-names to RK356x UART nodes
-Date: Fri,  9 Oct 2026 09:47:08 +0800
-Message-ID: <20261009014709.362001-1-jerrysteve1101@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261008153620.238580-1-jerrysteve1101@gmail.com>
-References: <20261008153620.238580-1-jerrysteve1101@gmail.com>
+        Thu, 08 Oct 2026 18:48:49 -0700 (PDT)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Date: Fri, 09 Oct 2026 09:48:44 +0800
+Subject: [PATCH bpf-next] selftests/bpf: Create the vxlan devices of
+ test_tunnel with their MAC
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261009-selftests-bpf-tunnel-vxlan-mac-v1-1-624dd769c334@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAPtHyGoC/x2NQQrCMBAAv1L27EISbFC/Ih6SdqMLcS3ZtARK/
+ 270OIeZ2UGpMCnchh0Kbaz8kQ72NMD0CvIk5LkzOOO8NeaKSjlV0qoYl4R1FaGMW8tB8B0m9JH
+ iJZ29s6OHHlkKJW7/wR1+hlCr8DiOL7I4gKh6AAAA
+To: Andrii Nakryiko <andrii@kernel.org>, 
+ Eduard Zingerman <eddyz87@gmail.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>, 
+ Kaixi Fan <fankaixi.li@bytedance.com>
+Cc: bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
+X-Mailer: b4 0.13.0
 
-> The RK356x UART nodes define a dmas property but omit the matching
-> dma-names property, so the 8250 driver fails to request a DMA channel
-> and falls back to PIO, logging:
-> 
->   of_dma_request_slave_channel: dma-names property of node
->   '/serial@fe650000' missing or empty
-> 
-> Add the missing dma-names = "tx", "rx" to uart0 through uart9,
-> matching other Rockchip SoCs such as the RK3308.
-> 
+The vxlan tests of test_tunnel create a tunnel device in the initial
+netns with "ip link add", and then give it the MAC address that the
+static neighbor entry at the other end points to with "ip link set".
 
-I realize that Fixes: tags should have been added for the dtsi-related fixes. 
-Apologies for the omission — I will include them in a v2.
+systemd-udevd assigns new devices of the initial netns a MAC address of
+its own, following its MACAddressPolicy, when it handles their uevent.
+When it gets to that after the test set the address, the replies sent
+to the configured MAC are dropped as meant for another host, and the
+ping of vxlan_tunnel fails after 10 seconds.
 
-> Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
-> ---
->  arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-> index a5832895bd39..098493c04ecc 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-> @@ -443,6 +443,7 @@ uart0: serial@fdd50000 {
->  		clocks = <&pmucru SCLK_UART0>, <&pmucru PCLK_UART0>;
->  		clock-names = "baudclk", "apb_pclk";
->  		dmas = <&dmac0 0>, <&dmac0 1>;
-> +		dma-names = "tx", "rx";
->  		pinctrl-0 = <&uart0_xfer>;
->  		pinctrl-names = "default";
->  		reg-io-width = <4>;
-> @@ -1449,6 +1450,7 @@ uart1: serial@fe650000 {
->  		clocks = <&cru SCLK_UART1>, <&cru PCLK_UART1>;
->  		clock-names = "baudclk", "apb_pclk";
->  		dmas = <&dmac0 2>, <&dmac0 3>;
-> +		dma-names = "tx", "rx";
->  		pinctrl-0 = <&uart1m0_xfer>;
->  		pinctrl-names = "default";
->  		reg-io-width = <4>;
-> @@ -1463,6 +1465,7 @@ uart2: serial@fe660000 {
->  		clocks = <&cru SCLK_UART2>, <&cru PCLK_UART2>;
->  		clock-names = "baudclk", "apb_pclk";
->  		dmas = <&dmac0 4>, <&dmac0 5>;
-> +		dma-names = "tx", "rx";
->  		pinctrl-0 = <&uart2m0_xfer>;
->  		pinctrl-names = "default";
->  		reg-io-width = <4>;
-> @@ -1477,6 +1480,7 @@ uart3: serial@fe670000 {
->  		clocks = <&cru SCLK_UART3>, <&cru PCLK_UART3>;
->  		clock-names = "baudclk", "apb_pclk";
->  		dmas = <&dmac0 6>, <&dmac0 7>;
-> +		dma-names = "tx", "rx";
->  		pinctrl-0 = <&uart3m0_xfer>;
->  		pinctrl-names = "default";
->  		reg-io-width = <4>;
-> @@ -1491,6 +1495,7 @@ uart4: serial@fe680000 {
->  		clocks = <&cru SCLK_UART4>, <&cru PCLK_UART4>;
->  		clock-names = "baudclk", "apb_pclk";
->  		dmas = <&dmac0 8>, <&dmac0 9>;
-> +		dma-names = "tx", "rx";
->  		pinctrl-0 = <&uart4m0_xfer>;
->  		pinctrl-names = "default";
->  		reg-io-width = <4>;
-> @@ -1505,6 +1510,7 @@ uart5: serial@fe690000 {
->  		clocks = <&cru SCLK_UART5>, <&cru PCLK_UART5>;
->  		clock-names = "baudclk", "apb_pclk";
->  		dmas = <&dmac0 10>, <&dmac0 11>;
-> +		dma-names = "tx", "rx";
->  		pinctrl-0 = <&uart5m0_xfer>;
->  		pinctrl-names = "default";
->  		reg-io-width = <4>;
-> @@ -1519,6 +1525,7 @@ uart6: serial@fe6a0000 {
->  		clocks = <&cru SCLK_UART6>, <&cru PCLK_UART6>;
->  		clock-names = "baudclk", "apb_pclk";
->  		dmas = <&dmac0 12>, <&dmac0 13>;
-> +		dma-names = "tx", "rx";
->  		pinctrl-0 = <&uart6m0_xfer>;
->  		pinctrl-names = "default";
->  		reg-io-width = <4>;
-> @@ -1533,6 +1540,7 @@ uart7: serial@fe6b0000 {
->  		clocks = <&cru SCLK_UART7>, <&cru PCLK_UART7>;
->  		clock-names = "baudclk", "apb_pclk";
->  		dmas = <&dmac0 14>, <&dmac0 15>;
-> +		dma-names = "tx", "rx";
->  		pinctrl-0 = <&uart7m0_xfer>;
->  		pinctrl-names = "default";
->  		reg-io-width = <4>;
-> @@ -1547,6 +1555,7 @@ uart8: serial@fe6c0000 {
->  		clocks = <&cru SCLK_UART8>, <&cru PCLK_UART8>;
->  		clock-names = "baudclk", "apb_pclk";
->  		dmas = <&dmac0 16>, <&dmac0 17>;
-> +		dma-names = "tx", "rx";
->  		pinctrl-0 = <&uart8m0_xfer>;
->  		pinctrl-names = "default";
->  		reg-io-width = <4>;
-> @@ -1561,6 +1570,7 @@ uart9: serial@fe6d0000 {
->  		clocks = <&cru SCLK_UART9>, <&cru PCLK_UART9>;
->  		clock-names = "baudclk", "apb_pclk";
->  		dmas = <&dmac0 18>, <&dmac0 19>;
-> +		dma-names = "tx", "rx";
->  		pinctrl-0 = <&uart9m0_xfer>;
->  		pinctrl-names = "default";
->  		reg-io-width = <4>;
-> -- 
-> 2.56.0
+Pass the address to "ip link add". udevd leaves alone the address of a
+device that was created with one.
+
+Fixes: 1ee7efd40abf ("selftests/bpf: Move vxlan tunnel testcases to test_progs")
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+---
+ tools/testing/selftests/bpf/prog_tests/test_tunnel.c | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
+
+diff --git a/tools/testing/selftests/bpf/prog_tests/test_tunnel.c b/tools/testing/selftests/bpf/prog_tests/test_tunnel.c
+index eb93099312720..7b35bf9498056 100644
+--- a/tools/testing/selftests/bpf/prog_tests/test_tunnel.c
++++ b/tools/testing/selftests/bpf/prog_tests/test_tunnel.c
+@@ -161,9 +161,9 @@ static int add_vxlan_tunnel(void)
+ 	    IP4_ADDR2_VETH1, MAC_VETH1);
+ 
+ 	/* root namespace */
+-	SYS(fail, "ip link add dev %s type vxlan external gbp dstport 4789",
+-	    VXLAN_TUNL_DEV1);
+-	SYS(fail, "ip link set dev %s address %s up", VXLAN_TUNL_DEV1, MAC_TUNL_DEV1);
++	SYS(fail, "ip link add dev %s address %s type vxlan external gbp dstport 4789",
++	    VXLAN_TUNL_DEV1, MAC_TUNL_DEV1);
++	SYS(fail, "ip link set dev %s up", VXLAN_TUNL_DEV1);
+ 	SYS(fail, "ip addr add dev %s %s/24", VXLAN_TUNL_DEV1, IP4_ADDR_TUNL_DEV1);
+ 	SYS(fail, "ip neigh add %s lladdr %s dev %s",
+ 	    IP4_ADDR_TUNL_DEV0, MAC_TUNL_DEV0, VXLAN_TUNL_DEV1);
+@@ -198,11 +198,10 @@ static int add_ip6vxlan_tunnel(void)
+ 	    IP6VXLAN_TUNL_DEV0, MAC_TUNL_DEV0);
+ 
+ 	/* root namespace */
+-	SYS(fail, "ip link add dev %s type vxlan external dstport 4789",
+-	    IP6VXLAN_TUNL_DEV1);
+-	SYS(fail, "ip addr add dev %s %s/24", IP6VXLAN_TUNL_DEV1, IP4_ADDR_TUNL_DEV1);
+-	SYS(fail, "ip link set dev %s address %s up",
++	SYS(fail, "ip link add dev %s address %s type vxlan external dstport 4789",
+ 	    IP6VXLAN_TUNL_DEV1, MAC_TUNL_DEV1);
++	SYS(fail, "ip addr add dev %s %s/24", IP6VXLAN_TUNL_DEV1, IP4_ADDR_TUNL_DEV1);
++	SYS(fail, "ip link set dev %s up", IP6VXLAN_TUNL_DEV1);
+ 
+ 	return 0;
+ fail:
+
+---
+base-commit: e1d84a37cba984388988d2f1ddc84561413f0db2
+change-id: 20261009-selftests-bpf-tunnel-vxlan-mac-6beb8f462156
+
+Best regards,
+-- 
+Qiliang Yuan <odys.yuan@gmail.com>
 
