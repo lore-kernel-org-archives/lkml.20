@@ -1,117 +1,238 @@
-Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A55D13E9C3C;
-	Fri,  9 Oct 2026 07:17:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.22.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC21346D084;
+	Fri,  9 Oct 2026 07:17:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791530252; cv=none; b=JmZ+hNE+eUkIx6+puxEs81b0Og7Yi2mQgzAQrTG5raQqhSWHrpK6ASwIvUfzOLEWGaMuNd8HV/x5nOcG6q2wz2KVQOJ7AWgEKgmGco+SXd1SyXwdsRmOc+kyBnfj7dW6MQvwFvjAlPnc5E9eJRR+z8JFhW6cjd4DPP4+iQrD2pY=
+	t=1791530278; cv=none; b=Rjfr702XifQPrGFzyb29rhM1kjBF3/NYRD8c6Q6D3cYcWQMhUgBTZutnhKnQJyrS85ouezBKN8BmC4W4XMFHElmv9Zxjlu+boZKGZnTkwIHiUg6NSfZDTQ77V5HRFx8Pgy1qBto2Hp3q0C0Rcz7X9H43b2i0d+RDDBVWDYtOrz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791530252; c=relaxed/simple;
-	bh=fPAvCvMkvS82SGNBTuLFU7mtu1DS+RQRnEno1GUhy7c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sa3i+EoNL7Z5h7o/2PNiGEwdVSxgHgnhDkEgROjXV7pu4VNRTHf7jS37YatgcJnY1zcZLx+p8nDWmVRwuonwO4f9UmWT3s+iLLbEcl12gR+buLrcPf8sYj3j5bzX4kKzcXDI2bXJaYibF23t2xdlKowLqIUSTlxzg8MbWEgCsgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=RmRSh7ek; arc=none smtp.client-ip=54.207.22.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1791530278; c=relaxed/simple;
+	bh=mkC+CZh33GdrgCFqi9PE7/5lTTrQAIz9LHPzrs5e8C0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KWmwQZ0osewWC759Q1+1zDvPhhVB88J7oVHFeUdxTc6bQlj+5faLDH3fUtHQny5uKWEcPFF6agX2ZKRxoEp4z2W10166JW2Kgi2eTKbNInw4YzJtKpnPw6+VVXAPkFt0ePmk6CC1iq8cZAOXIiluXkY2amV2Mh6dpQ9IFvoOoCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h9FEAAmJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="RmRSh7ek"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1791530177;
-	bh=5Sbve23T2nM2tzDYXLYF+bZA1hmEj/GkRMM29V+yUkw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:From;
-	b=RmRSh7ekPOFjWlX2RINgtOeSmKPPwK9OAZHKDZFB4MbrvVH4YltgdrSHbnrh/OAqO
-	 aeyaallJqYEfEfnz95LyVrHUQE1VMTG8dKTj2jSrG56vPLzxvUPSDLkdZtFGefg1zw
-	 FJKlm4Do6gl1pgwmscVgiAAa5itJcPqIseJH8V98=
-X-QQ-mid: esmtpgz13t1791530168t2d291361
-X-QQ-Originating-IP: khSeAFlHEEgU33IJubM1BqqYTdCyduUbyBl99wc8zk4=
-Received: from [192.168.1.100] ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 09 Oct 2026 15:16:06 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 10654036301431491844
-Message-ID: <FDA9F931EC8B8D5F+e3ce2a41-637e-45a6-b46e-6bfdeab5076e@linux.spacemit.com>
-Date: Fri, 9 Oct 2026 15:16:05 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h9FEAAmJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A37961F000FF;
+	Fri,  9 Oct 2026 07:17:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791530276;
+	bh=qI+415q4E5u/K30Ei0He1md1f8jr5YcEgEriT1ap3tw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=h9FEAAmJC9FwS+gXSVDcQG2rNWk/F0ybQyI6n7qzSoip58Nl9ThMoyvqF+6WcgQL5
+	 kqUeOASwzAl9jrF09PpglkvIK82uu4OUH2tliTQ+1GYS/Q3VM+oBRCJ94qgdYpvAe6
+	 8WyWXY6EAJE3vbPHBeE3eS5G2jx4jE/VZmm0UKoXOzU0dAbvFPzItfZKlfmG0n+8jq
+	 FIOI8qu07S2kMlItCyKzr/DotJp2tYgIWKs4Kf7a+nd/bIv4aYaQ7YFxK2ZX8o+Ssj
+	 5ePs4YSReTuDQnwi9wFotP7OKwOAA2xepcLR59pgzbsv4pVQrJ0So9NW4U2cw0lVNe
+	 j65j+vgpPjjTA==
+Date: Fri, 9 Oct 2026 09:17:53 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: James Calligeros <jcalligeros99@gmail.com>
+Cc: David Rhodes <david.rhodes@cirrus.com>, 
+	Richard Fitzgerald <rf@opensource.cirrus.com>, Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
+	Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, Sven Peter <sven@kernel.org>, 
+	Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>, asahi@lists.linux.dev, 
+	linux-sound@vger.kernel.org, patches@opensource.cirrus.com, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH v2 05/21] ASoC: dt-bindings: Add binding for Apple
+ Silicon Mac audio
+Message-ID: <20261009-daring-objective-flounder-c0b66d@quoll>
+References: <20261004-macaudio-v2-0-7b47ed6335a8@gmail.com>
+ <20261004-macaudio-v2-5-7b47ed6335a8@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/8] dt-bindings: usb: ci-hdrc-usb2: add
- spacemit,k1-usb2 compatible
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
- Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>,
- Peter Chen <peter.chen@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- spacemit@lists.linux.dev, Conor Dooley <conor.dooley@microchip.com>,
- Ze Huang <huang.ze@linux.dev>
-References: <20260927-b4-spacemit-k1-usb2-v3-0-ce7095896039@linux.spacemit.com>
- <20260927-b4-spacemit-k1-usb2-v3-1-ce7095896039@linux.spacemit.com>
- <bcd2df4f-9ff6-4d30-8735-573d661bf367@kernel.org>
-Content-Language: en-US
-From: Junzhong Pan <panjunzhong@linux.spacemit.com>
-In-Reply-To: <bcd2df4f-9ff6-4d30-8735-573d661bf367@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
-X-QQ-XMAILINFO: OYpbVsTx4C81x+0HRdbi89wx4qhoAHOO6w97HrJHdmkcROTTICuY/N1O
-	wnhDoZ6+v17TZDsWNxB2pEDDzCDrjRw5N3LOXYTT3suUUs/iqOKrUYx5pglp31vEuWXYvd1
-	Qhg/WesjiwUClvMGcA87CXmXQDNmLlCivz+jE1C1JCzeudZMBMJLXkvDbKZR6Ang0IfTxPk
-	G2VGI63Cc7lcM893men3ifDrpEDjBolpMMnM00v02WGLZeTuJtgWWTEczTwQ8Y5Drx3Z22L
-	wYM/tl6rSz4PeyVgRJ6mKq3TP7gluMYL+AxcNcbqwiEYC8gPvjOsnh69hyxyiTxDT3gE5hG
-	gVLaRPhZMbByotyk+ZIH2tbAUsvO00lQnXNMWDf2OTCu/9qxuUazpcVimLIu0PK0bGM/quX
-	IdiRaHQ6NkAqUn3A8vYWxxZfA+HP0qjwrzCm4zz2aQXkv3xZCcfSi6+bXX6Ti/NZX3k0p6j
-	NVZl99EWuwTX7/0f0sz4UrJWPw5g9l/JM44Qa8Qj3Tibl3/ZrKPaMvV7swp59u/fGJEVQpr
-	zRW2j3dJzxX1/z0+zu/mkE0JblTy/ggJhNYj4bga4xv75ALyxk4hwAL9CSKYYrcKZss6VaW
-	jzjxAzpiHUBT5j02ER0iExyJughcW5clbtfeF8lsfYJZI0YjzROs8NaygK6KJPK2iiqWpoM
-	1H6OTMNdM1OlABfrowAdxeZdIctMNHelbR/CeIf88rMnzF094S6wDMaNY7oJWhL9JBzW/Jo
-	dKqRIgJg3pnF6edn8GFSQDlSaasoI06Qfnzs9xc35nMh4vRvo/aMzmCsYlVFeC0Gve+xCFm
-	42YU+umniKPV8myBKKtIu2QFgUOaq38PeKHD8XKpxfJMeN+ef5EFAhZD4AGEW3XHmlkYHvd
-	cSp+w8gRhF6ld9kRJKs/VW8cGLXZsI2Eu7rU2/3k7XCZym3B7vIv8uBX0gh8UCsyYajoDFv
-	G2h+DGtTxttnxujWj3wcR+IeK0wJM/BdB8EkkAIP9/MdL1S6bYBcVFZzsjugHnkN+e+P6YF
-	CTFL8BfrB1YBVekhZD/3uA8F0DJvci8TeDi/rmMYzsk7lhaQ1F
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261004-macaudio-v2-5-7b47ed6335a8@gmail.com>
 
+On Sun, Oct 04, 2026 at 04:03:32PM +1000, James Calligeros wrote:
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - items:
+> +          - enum:
+> +              - apple,j180-macaudio
+> +              - apple,j274-macaudio
+> +              - apple,j293-macaudio
+> +              - apple,j313-macaudio
+> +              - apple,j314-macaudio
+> +              - apple,j316-macaudio
+> +              - apple,j375-macaudio
+> +              - apple,j413-macaudio
+> +              - apple,j415-macaudio
+> +              - apple,j473-macaudio
+> +              - apple,j456-macaudio
+> +              - apple,j457-macaudio
 
+Keep this list sorted.
 
-On 10/6/2026 11:09 PM, Krzysztof Kozlowski wrote:
-> On 27/09/2026 13:40, Junzhong Pan wrote:
->> The USB2.0 controller on the SpacemiT K1 SoC is dual-role capable but
->> has no internal OTG registers, this requires flags which disable
->> related features set in platform data. Add a compatible string to match
->> the platform data.
->>
->> Chipidea USB2 Controller on SpacemiT K1 requires 1 clock and 1 reset to
->> work, add constraints for it.
->>
->> Acked-by: Conor Dooley <conor.dooley@microchip.com>
->> Tested-by: Ze Huang <huang.ze@linux.dev>
+> +      - items:
+> +          - enum:
+> +              - apple,j493-macaudio
+> +          - const: apple,j293-macaudio
+
+...
+
+> +  model:
+> +    description:
+> +      Model name for presentation to users
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +
+> +patternProperties:
+> +  "^dai-link(@[0-9a-f]+)?$":
+> +    description: |
+> +      Node for each sound peripheral such as the speaker array, headphones jack,
+> +      or microphone.
+> +    type: object
+> +    $ref: tdm-slot.yaml#
+> +
+
+Drop blank line
+
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      reg:
+> +        maxItems: 1
+> +
+> +      link-name:
+> +        description: Name for the peripheral
+> +        enum: [ Headphone Jack, Speaker, Speakers ]
+> +        $ref: /schemas/types.yaml#/definitions/string
+> +
+> +      codec:
+> +        type: object
+> +
+
+Drop blank line
+
+> +        additionalProperties: false
+> +
+> +        properties:
+> +          sound-dai:
+> +            minItems: 1
+> +            maxItems: 8
+> +            description: |
+> +              DAI list with the CODEC-side DAIs connected to the above CPU-side
+> +              DAIs and involved in this sound peripheral.
+> +
+> +              The list is in left/right order if applicable. If there are more
+> +              than one CPU-side DAIs (there can be two), the CODECs must be
+> +              listed first those connected to the first CPU, then those
+> +              connected to the second.
+> +
+> +              In addition, on some machines with many speaker codecs, the CODECs
+> +              are listed in this fixed order:
+> +
+> +              Four speakers: Left Front, Left Rear, Right Front, Right Rear
+> +              Six speakers: Left Woofer 1, Left Tweeter, Left Woofer 2,
+> +                            Right Woofer 1, Right Tweeter, Right Woofer 2
+> +
+> +        required:
+> +          - sound-dai
+> +
+> +      cpu:
+> +        type: object
+> +
+
+Drop blank line
+
+> +        additionalProperties: false
+> +
+> +        properties:
+> +          sound-dai:
+> +            minItems: 1
+> +            maxItems: 2
+> +            description: |
+> +              DAI list with CPU-side I2S ports involved in this peripheral.
+> +
+> +        required:
+> +          - sound-dai
+> +
+> +    patternProperties:
+> +      "^dai-tdm-idle-mode-[0-9]$":
+> +        $ref: tdm-slot.yaml#/properties/dai-tdm-idle-mode
+
+This looks like you put several slots into one. TDM slot is for one
+slot, no?
+
+> +
+> +      "^dai-tdm-slot-tx-idle-mask-[0-9]$":
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        description: Idle slot mask. A bit being set to 1 indicates
+> +          that the corresponding TDM slot is inactive/idle.
+> +
+> +    required:
+> +      - reg
+> +      - codec
+> +      - cpu
+> +
+> +required:
+> +  - compatible
+> +  - model
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    sound {
+> +      compatible = "apple,j416-macaudio", "apple,j316-macaudio";
+> +      model = "MacBook Pro J416";
+> +
+> +      #address-cells = <1>;
+> +      #size-cells = <0>;
+> +
+> +      dai-link@0 {
+> +        reg = <0>;
+> +        link-name = "Speakers";
+> +
+> +        dai-tdm-idle-mode-0 = "zero";
+> +        dai-tdm-idle-mode-3 = "zero";
+> +        dai-tdm-slot-tx-idle-mask-0 = <0xf0f0f0>;
+> +        dai-tdm-slot-tx-idle-mask-3 = <0x0f0f0f>;
+> +
+> +        codec {
+> +          sound-dai = <&speaker_left_woof1>,
+> +                      <&speaker_left_tweet>,
+> +                      <&speaker_left_woof2>,
+> +                      <&speaker_right_woof1>,
+> +                      <&speaker_right_tweet>,
+> +                      <&speaker_right_woof2>;
+> +        };
+> +
+> +        cpu {
+> +          sound-dai = <&mca 0>, <&mca 1>;
+> +        };
+> +      };
+> +
+> +      dai-link@1 {
+> +        reg = <1>;
+> +        link-name = "Headphone Jack";
+> +
+> +        codec {
+> +          sound-dai = <&jack_codec>;
+> +        };
+> +
+> +        cpu {
+> +          sound-dai = <&mca 2>;
+
+Example looks incomplete, you miss TDM slot properties.
+
+> +        };
+> +      };
+> +    };
 > 
-> This is a fake test, you cannot test bindings how we understand Linux
-> kernel testing. Please drop such blanket-fake test tags from all patches
-> where this is not relevant.
+> -- 
+> 2.55.0
 > 
-
-Okay, I used b4 before and I thought it should be collected in whole series.
-
-I will drop irrelevant ones, only keep those in patches truely tested by Ze's
-setup and send v4.
-
-Thanks!
-> 
-> Best regards,
-> Krzysztof
-> 
-> 
-
