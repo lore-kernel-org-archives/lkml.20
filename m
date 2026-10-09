@@ -1,157 +1,147 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C870C1F09AD
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 16:51:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791564678; cv=pass; b=jp443fDPZtb3K9MSjS3pL7/QwFIt4X23PJ+Pfz9xDcG7x94043l4x7eEh7EsWDHEr1wugyVF3u/V2x0W/3oCkJDTJrP/vxSyWvusI0Lg2/15I6XPEYVkTncqGGPF/SCjvOuzA2ojDGI5ch2AHhILKZjS8lGdEnBhS0JU2jxWqy0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791564678; c=relaxed/simple;
-	bh=78cHai7ihd4+p39lusAWTnI9XfTfcoKEciRQ26SEZkk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CUiDUwUcVvm5OyRpwfRb+V19BxuFMJeu8lIkkX6cSOwnKQvImfeqSKZUV7K4aAPYSIWpBPPKnznLfNNC0A/1jROSERYo7bwsHRjh+rEpySON9RMvbwmpqCAHqbvRxx9vrCqXNYErNwpbpU172ThYTu+LL+vFbCj8dE3T0puQ/Yo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hYwv56ZJ; arc=pass smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DCD732B130
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 16:52:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791564745; cv=none; b=XpkAh//Y/r9GCdDzcsETA/i/JyVucnFClTH//svrVo6J3a+hznVJA+b+ZpbkbroPskFsTCaJ7QumKq0h3XMH7Ab7LNksEiW0U7+wb8BLhuo7uu/JMEq+eUaEnrHCpxzGl3tgaNpS1oXCK8WcHesbEt88DzRKpQVE9ZmRB3HMceo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791564745; c=relaxed/simple;
+	bh=l0Lx0vO2XZUqVpwxh3mL0aU/Q7piqHu9xI9FCKJk/rk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VhGE0oOvHY3SGKnaG2iEz1Q0AHnH6xJ/INANy3vbVrFSnY7s/Sz2IyGMquWS7QmbqT7nyr+DFboypd1RcLWBQoFq6P2e35VwCj0HrO6lfTgtn9qyAav2QP939JTrpJckLqXw1PSjtQjSPRlWKamrwzPlD7cerRum1njIJf07sS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=ZBpckcLt; arc=none smtp.client-ip=209.85.210.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hYwv56ZJ"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c2dcbcc546fso4843666b.3
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 09:51:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791564675; cv=none;
-        d=google.com; s=arc-20260327;
-        b=T26KXpGet32kHUt4rcXJdF5Sx8v8YAq5esVyG5WQjVqP5cPPm9L1yGbaEWsx/vPTjz
-         I5srbrWd+LcRwlhIK4HBs58Djvv44s1Td6raS2AG4LXZyA6eC1jtG8f/02AICNXkq9ia
-         2/D4TfqJ0fodbuW01n9f7PrYYyoB2aFy7hLnc0mKJWGzrGqzjsn7vtu2LbXKnZJQgIyP
-         QbFKV2B1bT/eZmB8KgO41pU/7snTE+u54pfW2ewON6lkkLwV3/6jGFKdZbvxhkm1xdEB
-         AOS6W8ebStrAqWoOHUMSWmKsZ7V4U8S78OoRzTXKa2Z0s0ONxH2tDdK+9mMTTJGEK37i
-         3GKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=n+8Tekpu+Ng6nSgWyCgi0KryBmJKh+vqeWpWiW1vi4I=;
-        fh=3jB2fYi38FPuM2RGb4emAMJrC9VGWMKZKqfi1qFXJwc=;
-        b=JeqPTuXG5VvGLoGwJsDO3vQ+E8pWPCHhwMEVT+FdUjm0NsGeFyFOQIsVn5O7caitbu
-         FVqAQ+xOz+jYLs5GkHGUjIY6FHFiKLN29v7CIfqO/3kCF16CfpKm3vfzxSUHzka8MHeU
-         uoHs4n72CHysbtAJthQ8ugZuDPSCQIqkDU7YxmCmGHpt4J5hSO3Vq+wb8gh6OnvgGlvC
-         V1Ka7GnyPtUwFUaLTXJV7ciZoeu/KQwJJsWE0fSVZG5ws5ginwzLWOazwTBqgC4DIxLU
-         2iM2zo47dLHxgGJqUZ7eBg/5IulhckDcHDjsqyzzDVEi6/H1JZlFOMJPTcB4mHxN8QVl
-         5XJA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="ZBpckcLt"
+Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-8253bc5a613so18294a34.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 09:52:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791564675; x=1792169475; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=n+8Tekpu+Ng6nSgWyCgi0KryBmJKh+vqeWpWiW1vi4I=;
-        b=hYwv56ZJ9juZsW/WSLDaZdDAofbl8HpKcttt+YDG9jcJt87us6XqS7YsC/pwQQsKfX
-         dfWpv+LmKFRr1qC1KJRvfCH2apjh5X9FdGKuu+YRtFHy6/WpjkMcWUVaz/ZJkMG2kgHy
-         aqTDFzvOBou6HmD98fJXN4FCyyxqkPJ9dgOjtPypRv5UFR7H4LkyWWoKKAqldX3mmgZw
-         n/K6/jCNIf9IFJjeUfnJnO2NhMLdUOT4FYCrcy8DRW3SV1pgs9nmzr3FNSMTfYb8iHck
-         mbKmXO7Ve+zI5vNq1+omvDmkHRYRELMKDWLsQ97XgXFPCtohEdVWM5Mk0Hkj0zSBdKYm
-         yc7A==
+        d=openai.com; s=google; t=1791564743; x=1792169543; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wxK6siBxaUgXXbS1nQNHxY8dGyGEnMxba3O+XHHDkK4=;
+        b=ZBpckcLt/LSkM2QsCPNRfUyKnehU9OxV6CuSM6LNHtp5EMZCpMMPJHUqbY3FTiYMGC
+         ilQe24Q78OFUfpv+gtw7cL1ZQGiG3C0+tCZjuNaMLMiqgxjOqac5O+/ClxylPHLhhEK4
+         LZbXtt17HC/LXqreS7hyedpVSAqiKK6XaHLZM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791564675; x=1792169475;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=n+8Tekpu+Ng6nSgWyCgi0KryBmJKh+vqeWpWiW1vi4I=;
-        b=EYl2rq2YgGH7Yql5CPjT7W9lZrn68UddJXmLFyTAQ/kV1U2GJxIp1c6IxGSxhe7q27
-         /FId4XZnUwZquwZPgNQGh+To0QUK+lvDO1aWz13Q1njm+SLSwYwjGVdVMkyfABzuDQyD
-         zAVA4xkohFNHoqslI/IUl96vVf7+ci36V0/nVvD9KnMI47ep3v2OVrIbRAnBhJtH1rzO
-         XePbrbVnFWyKq1fpqQ4XAwmgT3jAsivG4jthMxbJRXQXFzKlRljbX8RFBSissDXzgLpm
-         9DzG11JuzSX9fqRUrU1OmeHVhvGETXpMHbn1fFkt55b9N4xhQH6S4w/L/QLTM5MsGmEI
-         W9tA==
-X-Forwarded-Encrypted: i=1; AKwUvBwLWnTuZFIVsBCB4M7ex5ICaIWVKZUJMLJl+v1dIkwBfnuRxNsAbnAF8TK5oQbikZ95RtRVSVTpRgHhHuI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIvfNwYmpM9JPmC9q6FJ3U4c/faYxb7JZb8VM684kHCPiRhaNBw
-	1SDywhNft2co1uiPRWIzT2kwZncSp0QhrqlXdkngsTfdnMHYuTD1irIxhejjH9rd9B0/PhPjH29
-	AD7xdmOb0NcB+NZxiI/PxccrqZdYpjcU=
-X-Gm-Gg: AYBFou34LDEl8rhoT8R5LA63STO7QIM4PGWsp+mUXMI5H9HyWx2UlGow6xc45wKFyvs
-	wgQ2RRxVcbppQjlfHSze4zGRu4qByF9UVLtX3EUAt/1e7QdakhmqloK/QteC9fbslfIac3nMQhF
-	9f9hXy7ugthyVVt4XmX/6IPdbdi9e5zRPH/IYj58bQgaKTjEabpMUqzicJ/LENZsIjclJkcao56
-	Xx9sku1qrerWJPIj+p1kpYcrb37BHwb/FIBuxpJLnmtWpyD4DBNtz1fqXDejheoGMN0QqMnCDgA
-	rFZ/roG6zMigHucmEbNr+QZEVW7DvAmbmp6aKDC01dQlpK5I2JPwwIOxDBBt5R7DhiL0JJKJSMZ
-	XGQNDFK4ceXANnmjTovbhOkU26JBpxKbLbL5t5e29MK3DenzkgF/1jVIzdpkA4k9z+Wx72b6bFs
-	OpUTUbNU5DofjBFMZPk/Ky
-X-Received: by 2002:a17:907:7b8a:b0:c2e:855:3375 with SMTP id
- a640c23a62f3a-c31aa05d48dmr267328266b.30.1791564674847; Fri, 09 Oct 2026
- 09:51:14 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791564743; x=1792169543;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wxK6siBxaUgXXbS1nQNHxY8dGyGEnMxba3O+XHHDkK4=;
+        b=xkJawj//UYTZSPtvZPNz2ESnRUi2gWQ8u7jV14mUiPxkCUV6Ll0SZ3iXoegq1nh8lq
+         GP1ryean1IC+SfOUvZ++HV9hFv8snoaAQRFISOxTTc+oibwnBYpLmNUBp4GyA/5Qa/fN
+         zzrI3ujpOWymDYfk2h13QROndHVvOdTWq5JYc7UNNbyhhrPGA4BjZy5eZ0FssqdBt3TK
+         Iclk0RBdSjaK8nPgj9TzM9RIwEQcLcyvjx5gPrnPgm4sOa88tSe5fbHTwgv8Qnflvcnx
+         B5StiM9jXPMG6gN3I6fgduUe2mvstGAoV0PkGx4mlk1vL9rfgWy0k/lpX/+AkDMBspyf
+         5tuw==
+X-Gm-Message-State: AFuF++l7dhgjf+73r6Cze9/P9412JrTMOQwBz09IqIOuaGPUDRsJ5kAz
+	7C/5EJlPc+FkTTxtwXsoAhq4U1VMK6zUsxcFfIa0WXgvkJBDi/DSUN+8Aeu7LRy8zkU=
+X-Gm-Gg: AYBFou1GbMaLW2nUO+2rd5PcvmmpTIOaOWfbsn5JstmikXxkDpf4nBSPfvTM1e6ZSiP
+	ikc6mXIBEngxO4bsNi+kd9PqqiewEVG6UWLRU7US7uYkUGfs/lllt7levhuPWaoAzLL6RAbEjZa
+	5efI28l1NVG6WDa3wte8uFg3SxLNCT7tQDosvJ+EeeE5mye099NsjoxwRKDtKLC7zpE/pWeZ53/
+	Yx+E+uDdOiyxcgjR854Pgn0j6HuK0VCpA45LWK12afUtqncdivYbg5iRkcNTDT6X7JguJJ/FSxs
+	4yLgyvDlSWo3VogUmbOWck9pDl3rlmAElYKgXtx8rq02Di76fcTmpP4fu67crYS4J8IEIbS22vy
+	ZaFJWL++3ATJEG2hbQKBStqePaRoKw1WDGXheFY+Z2rJkKAmejuArBwBvFv+9Kcy2oL4UtTCOhq
+	e7MMqHE6ZO/h7jvY+E4qNA4wyhuoysjY3Bdw7+2HbqlZSaYTHi/r0jtWQ9IoXZ5tY38wrV2UFar
+	d2o7l/w7jqspAeEfhOSYG4OutLy3Q8AMpyvyIQDjZHgcejOnyZNuxuAa+1WArlSCZRBGsQSkJI=
+X-Received: by 2002:a05:6830:6d29:b0:805:9b38:6f7c with SMTP id 46e09a7af769-8309797cc66mr1926179a34.29.1791564743382;
+        Fri, 09 Oct 2026 09:52:23 -0700 (PDT)
+Received: from com-75606.corp.openai.org ([199.47.143.7])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-83039a3e016sm2174263a34.17.2026.10.09.09.52.21
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 09 Oct 2026 09:52:23 -0700 (PDT)
+From: Kyle Zeng <kylebot@openai.com>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Kyle Zeng <kylebot@openai.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] mm/huge_memory: avoid transient none PMDs during lazyfree reclaim
+Date: Fri,  9 Oct 2026 09:52:15 -0700
+Message-ID: <20261009165214.40212-2-kylebot@openai.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009161832.GA980777@bhelgaas>
-In-Reply-To: <20261009161832.GA980777@bhelgaas>
-From: "Perlow, Jason" <jperlow@gmail.com>
-Date: Fri, 9 Oct 2026 12:51:03 -0400
-X-Gm-Features: AclHuK-7AfAFQYv2cTll8HDVHIrz5FK0KVf6exm9S66osr63JbCL-_swxrWvd6k
-Message-ID: <CABZrw2EnZzKCdJc2oCtm14YuDndpj=uAV+MRCmYEfimy_Zv5jg@mail.gmail.com>
-Subject: Re: [GIT PULL] PCI fixes for v7.3
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, 
-	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Lukas Wunner <lukas@wunner.de>, 
-	Alex Deucher <alexander.deucher@amd.com>, Mahesh J Salgaonkar <mahesh@linux.ibm.com>, 
-	Oliver OHalloran <oohall@gmail.com>, Christian Koenig <christian.koenig@amd.com>, 
-	Vitaly Prosyak <vitaly.prosyak@amd.com>, amd-gfx@lists.freedesktop.org, 
-	Aditya Garg <aditya.garg@linux.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-I am now producing a draft quirk that uses the known device IDs and
-models for you. Will post shortly.
+__discard_anon_folio_pmd_locked() clears and flushes a huge PMD before
+checking whether the folio can be discarded. If the folio was redirtied
+or has unexpected references, it restores the original PMD. Reclaim holds
+the PMD lock and the anon_vma read lock, but not the owning mmap_lock.
 
+Both zap_pmd_range() and mremap's get_old_pmd() can skip a none PMD
+without taking its lock. A concurrent munmap() or whole-VMA
+MREMAP_DONTUNMAP can therefore miss the PMD and later unlink the source
+VMA from its anon_vma, leaving a restored mapping behind. The anon_vma
+write lock taken by unlink_anon_vmas() waits for reclaim to finish, but
+does not repeat the skipped page-table walk. Once the remaining VMA
+links are removed, the folio's positive mapcount no longer guarantees a
+live anon_vma. Racing lazyfree reclaim against MREMAP_DONTUNMAP as an
+unprivileged user reproduces a KASAN use-after-free in
+folio_lock_anon_vma_read().
 
-On Fri, Oct 9, 2026 at 12:18=E2=80=AFPM Bjorn Helgaas <helgaas@kernel.org> =
-wrote:
->
-> The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b9=
-35:
->
->   Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
->
-> are available in the Git repository at:
->
->   git://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git tags/pci-v7.3=
--fixes-4
->
-> for you to fetch changes up to 79c168e2aa957ed0054c93db17caba653b95e377:
->
->   PCI/AER: Skip error recovery on false alarms (2026-10-08 14:33:04 -0500=
-)
->
-> This fixes some GPU initialization regressions caused by eddba19b8b5f
-> ("PCI/AER: Support Advisory Non-Fatal Errors"), which appeared in v7.3-rc=
-1.
-> That commit also caused a MacBookPro16,1 spontaneous power-off regression=
-;
-> I expect a fix for that next week.
->
-> ----------------------------------------------------------------
->
->   - Skip error recovery if no unmasked errors were signaled, which fixes
->     GPU initialization regressions caused by new Advisory Non-Fatal Error
->     support (Lukas Wunner)
->
-> ----------------------------------------------------------------
-> Lukas Wunner (1):
->       PCI/AER: Skip error recovery on false alarms
->
->  drivers/pci/pcie/aer.c | 22 ++++++++++++++++------
->  1 file changed, 16 insertions(+), 6 deletions(-)
+Use pmdp_invalidate() to keep a recognizable, non-none huge PMD while
+the discard can still fail. Concurrent unmap and move operations then
+have to synchronize on the PMD lock instead of skipping the mapping.
+Clear the invalidated PMD only after the dirty and reference checks have
+succeeded, before removing the rmap and withdrawing the deposited page
+table. The full invalidation retains the TLB flush required for the
+dirty and GUP-fast checks.
 
+Fixes: 735ecdfaf4e8 ("mm/vmscan: avoid split lazyfree THP during shrink_folio_list()")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+---
+ mm/huge_memory.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-
---=20
-Jason Perlow | Argonaut Media Communications
-
-Voice/Text  (954) 242-3484 | jperlow@gmail.com | Blog: techbroiler.net
-Read my Tech and Food Industry articles: https://linktr.ee/jperlow
-Bluesky: https://bsky.app/profile/jperlow.bsky.social
-
-Need to schedule a meeting with me? https://bit.ly/3y8P3Gp
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 1e5d68acf62a..20262195385a 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -3569,11 +3569,17 @@ static bool __discard_anon_folio_pmd_locked(struct vm_area_struct *vma,
+ 		return false;
+ 	}
+ 
+-	orig_pmd = pmdp_huge_clear_flush(vma, addr, pmdp);
++	/*
++	 * The discard may fail, so keep the PMD non-none until we're
++	 * committed to discarding it. Otherwise, concurrent munmap() or
++	 * mremap() can skip the PMD without taking the PTL and later unlink
++	 * the VMA from its anon_vma despite a restored mapping.
++	 */
++	orig_pmd = pmdp_invalidate(vma, addr, pmdp);
+ 
+ 	/*
+ 	 * Syncing against concurrent GUP-fast:
+-	 * - clear PMD; barrier; read refcount
++	 * - invalidate PMD; barrier; read refcount
+ 	 * - inc refcount; barrier; read PMD
+ 	 */
+ 	smp_mb();
+@@ -3607,6 +3613,7 @@ static bool __discard_anon_folio_pmd_locked(struct vm_area_struct *vma,
+ 		return false;
+ 	}
+ 
++	pmdp_huge_get_and_clear(mm, addr, pmdp);
+ 	folio_remove_rmap_pmd(folio, pmd_page(orig_pmd), vma);
+ 	zap_deposited_table(mm, pmdp);
+ 	add_mm_counter(mm, MM_ANONPAGES, -HPAGE_PMD_NR);
