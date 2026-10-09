@@ -1,145 +1,274 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DECD53CF02E;
-	Fri,  9 Oct 2026 09:40:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mta1.migadu.com (out-154.mta1.migadu.com [95.215.58.154])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0342F49E141
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 09:40:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791538839; cv=none; b=bDAkEWU8vksJWvkoYTWfTaPfOeb8r962OVQ8Ni8gr4PR4+9NGXAI8ZvMMaLm78eLzzhTIOn2etu7FMhwEXB9GNta5A2fJMhRNJZGEaXKnzv4f5WEAF1Ysvz1GHJSkA88b5GjxSpKJ4EPO0ite6ewTsQrR8y/j3yHxGOCM3tq7pE=
+	t=1791538850; cv=none; b=Ora3e7DeOR4ItRgl1B1ZBGYOKp5mdEIuXDeVhA9mm1Xooqd7FWZYYfwRMkcnWHrcKHlF3ItPerjaE0IOP/JDfR+uOY65fN/5zc7YNDIxp5uVQmr4JstNr98bru11+fitOSY8ni5yRH0VM3ZdWVFjQAmlO7pYFIJiw6VuVURjF3s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791538839; c=relaxed/simple;
-	bh=9t2R2/V/GTyQMOc6PpXwcjM4hPBP1sboGSjSJYoDiu8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CM1wR3Ax7lo1hA+peShXwv8YNZhXj3zsPTo4eTZ5e95mEFlmXULZB4nIx79yLiuAzRZqi719APDlNVsEcXZ2j93OeP5NmO7ysdwTB+2iueaWF2vmGN9RtwSF4Yq2YOrjG3CdxHe38BAOJsy0y6gosuGSdPyHA++FO3p3PJU220Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Mnq7i3HY; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791538850; c=relaxed/simple;
+	bh=xVrnhRmotXNnJn/Ot+2DF2PbMo6NgLhFJQaiiZmxOfo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H4xJO4SNPeP5GYWJlOJzSMa16bhHSXhKcV3qySA52tgZ8Jr+piJHiTxQc2OqAWL/LdJKUZieUf24xMpM3pPrjIFLtazhvyKk0BqP2/skNdS/OqCSHTQvgWPYnjU5F9BOtIa2uRiJLERxSc6Y19wo2AKUXhEybXOEjO31VBaV3gk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TDyQVfFG; arc=none smtp.client-ip=95.215.58.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Mnq7i3HY"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5E5061570;
-	Fri,  9 Oct 2026 02:40:21 -0700 (PDT)
-Received: from [10.57.87.202] (unknown [10.57.87.202])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 009153F8C6;
-	Fri,  9 Oct 2026 02:40:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791538824; bh=9t2R2/V/GTyQMOc6PpXwcjM4hPBP1sboGSjSJYoDiu8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Mnq7i3HYVNV2Kdu2uWFP/n9Heb6knlRmXTK42lahgc4MVuCji8dQ2PNJGsDg7psrJ
-	 yjlI2HcrPujK7RtI7VIoIe88f99WmQEUXhzO01+Ao+RLIpi/EKK84UE3QrHekPyjVv
-	 hrcBQzpOjCQtLYEzu3GtyFP947i+lgpVfo+CmLJs=
-Message-ID: <32a250e5-0c56-43ce-ab80-8c4375542b59@arm.com>
-Date: Fri, 9 Oct 2026 10:40:21 +0100
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TDyQVfFG"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=xVrnhRmotXNnJn/Ot+2DF2PbMo6NgLhFJQaiiZmxOfo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791538840; v=1; x=1792143640;
+ b=TDyQVfFGaIP1LjsAXdzexZspOMyXtLYh0qJmN+uOphvzPuZURGpoCnqCEzLXjADqOEhGyT4h
+ bikxxFvWf5nUW3JGxI8aSNE1pQPcaR/7MyNgzddLvkC2mZMr2r4Z5rXxGDmDG1qV52kq1F4b3Tp
+ jYMFtyUqgtiBgPBx6g1JYGas=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id fc0f941f014be6ba;
+	Fri, 09 Oct 2026 09:40:36 +0000
+X-Mizu-Trace-ID: fc0f941f014be6ba
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 9 Oct 2026 17:40:23 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: netdev-bot+sashiko@kernel.org
+Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+	donald.hunter@gmail.com, edumazet@kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org, liuhangbin@kylinos.cn
+Subject: Re: [PATCH net-next v4 2/6] tools: ynl: convert enum selector to
+ string for sub-message parsing
+Message-ID: <asi2h4Rd7f4FXo1s@fedora>
+References: <20261008-ynl_rt_encap-v4-2-4ed2ccf7f949@kylinos.cn>
+ <179153681840.434549.374414508868008982@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cpufreq: Don't track pressure if policy->max equals top
- of freq_table
-To: Giovanni Gherdovich <ggherdovich@suse.cz>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>
-Cc: Huang Rui <ray.huang@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Pierre Gondois <pierre.gondois@arm.com>, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261009082928.21847-1-ggherdovich@suse.cz>
-Content-Language: en-US
-From: Christian Loehle <christian.loehle@arm.com>
-In-Reply-To: <20261009082928.21847-1-ggherdovich@suse.cz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <179153681840.434549.374414508868008982@kernel.org>
 
-On 10/9/26 09:29, Giovanni Gherdovich wrote:
-> The acpi-cpufreq driver stores non-boost frequencies in
-> policy->freq_table, but policy->cpuinfo.max_freq contains the max
-> boost frequency.
+On Fri, Oct 09, 2026 at 09:06:58AM +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 4 potential
+> issue(s) to consider.
 > 
-> policy->max is constrained to be, at most, the largest value in
-> freq_table. This means that under nominal conditions, policy->max is
-> substantially lower than policy->cpuinfo.max_freq, resulting in large
-> values of cpufreq_pressure, on all CPUs, for no reason.
-> The result is large performance regressions on compute/memory intensive
-> benchmarks that use a limited number of CPUs; tasks migrate more and
-> lose locality. My tests are with the "NAS Parallel Benchmarks" suite,
-> limiting to 1/4 of available CPUs.
+> Critical: 0 � High: 0 � Medium: 2 � Low: 2
 > 
-> This change sets cpufreq_pressure to zero if policy->max is equal
-> (or above) the maximum frequency in freq_table.
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
 > 
-> Here a concrete example from a 1st generation AMD EPYC (Naples) using
-> acpi-cpufreq. Under nominal conditions (no capping, no throttling):
+> - [Medium] An unknown enum selector value now aborts the whole message or
+>   dump.
+> - [Medium] The new enum-to-string conversion ignores byte order.
+> - [Low] When the enum lookup fails, the error message is misleading.
+> - [Low] The generator now produces working response parsing for enum-
+>   keyed sub-messages.
 > 
-> freq_table               : 1200 MHz, 1700 MHz, 2200 MHz
-> policy->max              : 2200 MHz (maximum from freq_table)
-> policy->cpuinfo.max_freq : 3200 MHz (max boost)
+> --
 > 
-> Before this change, in the example above we'd get a cpufreq_pressure
-> value of 320 (32% pressure); with the change, the pressure is zero as
-> it's expected to be.
+> tools: ynl: convert enum selector to string for sub-message parsing
 > 
-> Signed-off-by: Giovanni Gherdovich <ggherdovich@suse.cz>
-> ---
-> Clarifying the recipients list, beyond the cpufreq maintainers:
+> This patch changes the YNL C code generator for sub-messages keyed by a
+> non-external enum selector. The integer selector value is converted to a
+> string with the family's {enum}_str() helper before the sub-message parse
+> function is called. A missing selector or a failed enum lookup is
+> reported through ynl_submsg_failed().
 > 
-> Mario Limonciello, Huang Rui: the patch isn't for amd-pstate, but
->    AMD EPYC up to Genoa (Zen4) defaults to acpi-cpufreq, so they may come
->    across this if they haven't already.
-> Vincent Guittot: for the cpufreq_pressure and scheduler load balancer
->    implications.
-> Ricardo Neri: he's been looking at cpufreq_pressure on x86, albeit
->    this patch isn't for intel_pstate.
-> Pierre Gondois: he looked at policy->max in freq_table.c earlier this year.
+> > diff --git a/tools/net/ynl/pyynl/ynl_gen_c.py b/tools/net/ynl/pyynl/ynl_gen_c.py
+> > index 15c79849c6096..4aca51396a9e2 100755
+> > --- a/tools/net/ynl/pyynl/ynl_gen_c.py
+> > +++ b/tools/net/ynl/pyynl/ynl_gen_c.py
+> > @@ -951,13 +951,31 @@ class TypeSubMessage(TypeNest):
+> 
+> [ ... ]
+> 
+> > +        if self.selector.is_enum_val() and not self.selector.is_external():
+> > +            enum = self.family.consts[self.selector.get_enum_name()]
+> > +            pres_var = f"{var}->_present.{sel}"
+> > +            parse_sel = f"{sel}_str"
+> > +            local_vars = [f'const char *{parse_sel};']
+> > +
+> > +            get_lines = [
+> > +                f'if (!{pres_var})',
+> > +                f'return ynl_submsg_failed(yarg, "{self.name}", "{selector}");',
+> > +                f'{parse_sel} = {enum.render_name}_str({sel_var});',
+> 
+> [Severity: Medium]
+> Does this handle selectors declared with byte-order: big-endian?
 
-
-I'm assuming this isn't on top of
-f341dc4d934a ("cpufreq: intel_pstate: Fix max_freq fallback in cpufreq_update_pressure()")
-Care to retry?
+This doesn't affect the current series. The encap-type selector is
+type: u16 with no byte-order specified (native order), so the raw value
+passed to _str() is already host-order. nftables is in GENS_UNSUP today,
+so no in-tree generated family hits this yet. We address this as a follow-up.
 
 > 
->  drivers/cpufreq/cpufreq.c    | 3 +++
->  drivers/cpufreq/freq_table.c | 1 +
->  include/linux/cpufreq.h      | 1 +
->  3 files changed, 5 insertions(+)
+> TypeScalar._attr_get() loads the value in {sel_var} with a plain
+> ynl_attr_get_u32() or ynl_attr_get_u16(), which is a native load. In
+> TypeScalar.__init__(), byte-order only becomes a C comment through
+> byte_order_comment. The struct member therefore holds the value in wire
+> order.
 > 
-> diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-> index 54dde8419bdc..aa652750f711 100644
-> --- a/drivers/cpufreq/cpufreq.c
-> +++ b/drivers/cpufreq/cpufreq.c
-> @@ -2601,6 +2601,9 @@ static void cpufreq_update_pressure(struct cpufreq_policy *policy)
->  	 */
->  	if (max_freq <= capped_freq) {
->  		pressure = 0;
-> +	} else if (policy->freq_table && policy->max_table_freq &&
-> +		   policy->max_table_freq <= capped_freq) {
-> +		pressure = 0;
->  	} else {
->  		max_capacity = arch_scale_cpu_capacity(cpu);
->  		pressure = max_capacity -
-> diff --git a/drivers/cpufreq/freq_table.c b/drivers/cpufreq/freq_table.c
-> index ea994647abc8..55c3293685c2 100644
-> --- a/drivers/cpufreq/freq_table.c
-> +++ b/drivers/cpufreq/freq_table.c
-> @@ -50,6 +50,7 @@ int cpufreq_frequency_table_cpuinfo(struct cpufreq_policy *policy)
->  	}
->  
->  	policy->cpuinfo.min_freq = min_freq;
-> +	policy->max_table_freq = max_freq;
->  	/*
->  	 * If the driver has set its own cpuinfo.max_freq above max_freq, leave
->  	 * it as is.
-> diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
-> index d3d0d9d02aa4..4a3316e47f4e 100644
-> --- a/include/linux/cpufreq.h
-> +++ b/include/linux/cpufreq.h
-> @@ -67,6 +67,7 @@ struct cpufreq_policy {
->  	unsigned int		max;    /* in kHz */
->  	unsigned int		cur;    /* in kHz, only needed if cpufreq
->  					 * governors are used */
-> +	unsigned int		max_table_freq; /* max freq in the table */
->  	unsigned int		suspend_freq; /* freq to set during suspend */
->  
->  	unsigned int		policy; /* see above */
+> On a little-endian host, a big-endian selector value of 1 arrives as
+> 0x01000000. That fails the range check in the generated {enum}_str():
+> 
+>     if (value < 0 || value >= (int)YNL_ARRAY_SIZE(map))
+>         return NULL;
+> 
+> So every sub-message would fail with "enum-lookup-failed".
+> 
+> This combination already exists in-tree. obj-attrs in
+> Documentation/netlink/specs/nftables.yaml has:
+> 
+>     name: type
+>     type: u32
+>     enum: object-type
+>     byte-order: big-endian
+>     ...
+>     name: data
+>     type: sub-message
+>     sub-message: obj-data
+>     selector: type
+> 
+> nftables is listed in GENS_UNSUP in tools/net/ynl/generated/Makefile, so
+> the default build does not generate it.
+> 
+> Before this patch, though, the generator passed the u32 as the
+> const char *sel argument, which failed at compile time. Now it silently
+> emits code that cannot decode these sub-messages.
+> 
+> Should the conversion normalize the byte order first, or should the
+> generator reject such specs?
+> 
+> Because of obj-attrs, the note below the commit message saying rt-route
+> encap is "the first enum-keyed sub-message in the YNL specs" also does
+> not seem accurate.
+> 
+> > +                f'if (!{parse_sel})',
+> > +                f'return ynl_submsg_failed(yarg, "{self.name}", "enum-lookup-failed");']
+> 
+> [Severity: Medium]
+> Is it intended that an unknown enum value aborts the whole message or
+> dump?
 
+Yes, this is intended. The same with string lookup fails.
+
+> 
+> ynl_submsg_failed() always returns YNL_PARSE_CB_ERROR.
+> ynl_dump_trampoline() passes that up, and __ynl_sock_read_msgs() stops
+> processing.
+> 
+> The string selector path behaves differently. parse_rsp_submsg() emits a
+> strcmp() chain that ends in return 0. An unknown string key, such as a
+> new rt-link kind, is skipped and parsing continues.
+> 
+> The enum path is also inconsistent within itself. A value that is in the
+> enum but has no formats entry falls through the strcmp() chain and
+> returns 0. A value outside the enum is a hard error.
+> 
+> Take the rt-route spec from this series. If a future kernel adds a new
+> LWTUNNEL_ENCAP_* type, wouldn't the generated client fail the entire
+> route dump as soon as one route uses that encap? Leaving the encap
+> undecoded would match the rest of YNL.
+> 
+> The commit message says:
+> 
+>     or a new encap_type is missing from the spec file in future kernel,
+>     the code will report "Sub-message key not set", the same with string
+>     lookup fails.
+> 
+> This doesn't match the string path, which skips unknown keys silently.
+
+The string patch used to failed like
+
+	if (!{sel_var})
+		return ynl_submsg_failed(yarg, "{self.name}", "{selector}");
+
+> 
+> Could this skip the sub-message instead, leaving it unset and returning
+> success, when the enum lookup misses?
+
+Jakub has suggested to use the current way other than *continue* to skip.
+
+Thanks
+Hangbin
+
+> 
+> [Severity: Low]
+> Is "enum-lookup-failed" the right value for the selector name argument?
+> ynl_submsg_failed() always uses this format with YNL_ERROR_SUBMSG_KEY:
+> 
+>     "Parsing error: Sub-message key not set (msg %s, key %s)"
+> 
+> The user would see "Sub-message key not set (msg encap, key
+> enum-lookup-failed)". In this case the key was present but held an
+> unknown value.
+> 
+> The message also loses the real selector name (encap-type) and does not
+> report the numeric value that failed. To the caller, this looks the same
+> as a missing selector.
+> 
+> > +        else:
+> > +            parse_sel = sel_var
+> 
+> [ ... ]
+> 
+> > @@ -979,6 +997,12 @@ class Selector:
+> >      def is_external(self):
+> >          return self._external
+> >  
+> > +    def is_enum_val(self):
+> > +        return self.get_enum_name() is not None
+> > +
+> > +    def get_enum_name(self):
+> > +        return self.attr and self.attr.attr.get("enum")
+> > +
+> 
+> [Severity: Low]
+> Response parsing now supports enum selectors. Should the policy side be
+> addressed, or at least documented? TypeSubMessage._attr_typol() still
+> says:
+> 
+>     # Reverse-parsing of the policy (ynl_err_walk() in ynl.c) does not
+>     # support external selectors. No family uses sub-messages with external
+>     # selector for requests so this is fine for now.
+> 
+> Only TypeString._attr_typol() emits .is_selector = 1.
+> TypeScalar._attr_typol() emits only .type = YNL_PT_U<N>, so the u16
+> encap-type selector never gets the flag.
+> 
+> As a result, ynl_err_walk_is_sel() never records the selector. For any
+> extack offset inside RTA_ENCAP, ynl_err_walk_report_one() then reaches
+> this code and the attribute path is cut off at .encap:
+> 
+>     if (!selector) {
+>         if (*n < str_sz)
+>             *n += snprintf(str, str_sz, "(!selector)");
+>         return 1;
+>     }
+> 
+> For NLMSGERR_ATTR_MISS_NEST inside the encap nest, ynl_ext_ack_check()
+> leaves nest_pol at the outer route-attrs policy. The missing attribute
+> would then be named from the wrong policy.
+> 
+> newroute and delroute requests carry encap. The kernel does return
+> extack offsets inside RTA_ENCAP, for example NL_SET_ERR_MSG_ATTR on
+> tb[IOAM6_IPTUNNEL_*] in net/ipv6/ioam6_iptunnel.c.
+> 
+> ynl_err_walk_sel_policy() also assumes a string selector
+> (ynl_attr_get_str() plus strcmp()). It would need enum-to-string support
+> before is_selector could be set for scalar selectors.
+> 
+> The note below the commit message says this will be a follow-up. Could
+> the comment in _attr_typol() be updated to mention the enum/integer
+> selector limitation too?
+> 
+> -- 
+> Sashiko AI review � https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261008-ynl_rt_encap-v4-0-4ed2ccf7f949%40kylinos.cn
