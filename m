@@ -1,67 +1,67 @@
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5AE833A6E2
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 01:49:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D38543368B6
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 01:49:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791510590; cv=none; b=SpykUpsGOmsBXa9C0AK9U9WBN4iTwvq37kOuuNtjQt34Py0dpPvEqK3Osvpq02RxKWmv2E8tKlP5wD1PFq4tQbpIw7uOroOXY5lg3wNBnihBetpNb4jXjEQzYWJ/zVrDJOwj92nYqc8Rl0PX8VPDDYMeNl+pBl+BsOEjQcA399s=
+	t=1791510598; cv=none; b=gmCw3jP4cmrKQG1QeVNYOM6N7xvW5j0fupGzjjjuG7LVAVjQgE46MySOjqMRp6Zxuzf/2xL1GR+m12sfKn8ZDaCFhx9bT3UfrdF56yAWjZb+4hh/IBxlaBzec+ROEkJ4kjGpcew/GQGHxueFIbZphrL8Y/kw1sWrTYixth2BAtg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791510590; c=relaxed/simple;
-	bh=nQq+HEMZexwqK4AVqLsP5f2+9FIgFcdP1vKBz/B2peI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=GaFKj+wyYjcZdAnkXZU9VbhVKam7WXBrpvv3FF8TrClSqYOdDGe1tswDVU1SiOpR0fn8Fgs68PwFLzRsl4TWUP57hlmOHW0C4xtk+GgkN/JcrZYE3pX0pNCGJYLgDHLvV1OnturRCJ8IJygdT1FllDz+Rl3IqvgUaKbA7LYMWC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=clyIYt7v; arc=none smtp.client-ip=74.125.82.180
+	s=arc-20240116; t=1791510598; c=relaxed/simple;
+	bh=HtIl/nwx6bOv1iqWUYSobRqCIqsM0aPvGMZVuqqehNY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=cWieqg84PdVsX/MnxCj1ctQhG3IXWRcusjipRDR1eS45Rpjm6cB5A1529lIVjhBn4KMWGjOEruCTOQBlV2uDdVFw4dAhQHRLiOzieMqUIbO7S7+m4aI0E4XE9On6z/sNIK8LDfeb2Y6GrSAr9FKGJtJB/bLSmnBJ4RVVfKkdDf4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aXsv4S4N; arc=none smtp.client-ip=74.125.82.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="clyIYt7v"
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3515f9a5d25so1916857eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 18:49:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aXsv4S4N"
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3518cbe59b0so870822eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 18:49:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791510588; x=1792115388; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+        d=gmail.com; s=20251104; t=1791510596; x=1792115396; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=Xt0KEx+KWuct6HZMJ5fLOI4SrpBFDKOZgqwYPJCF3o0=;
-        b=clyIYt7vbOf/gEgieWsC4LfbeCN2QLwjwqnME/ttI0NbtnRLiH3wStUrFI3E6on5Ty
-         5mQnaQ32QQIOM0zN8KOowB4OqNB3Mwsn0aOl3TBsSlAiKfajX5WWXo8NMBuPX3oWxMDq
-         zO7mMCoLax2FrbPO80cqNOOWjcX3BpwCfGoZxpWNVPnH65QnPaebmGaxd9HlfHA+NCh1
-         qVtqAZewJIOYpgQPhovo8E59VWRmT4+MQ7vJoHyTPiilVJbtN0zRzAJy9pGFstT9WDjB
-         Q7I3hNH0NzmorJctmdJ9Y4lTZJSyGIFxpP8jFXbhfmBDkBBnyhHOrUvqkx5kxIpB8Oj5
-         +9GA==
+        bh=GMDytykDqwmOSKHEI4lP8Wfae7lF8nVLH1/sChzwqGw=;
+        b=aXsv4S4Ni1U6ydBnnaNzMaBhZE0cHz7aRSYhF099qUT6Gazmo1A87ASfwOuSWQP6oY
+         ArBwTkku09IlyzEInP5RwHLg5i9OvdQKsRAypjCKjzywMVFEPN00fkP0gKj2g6v0d0j/
+         bi3LzX0eXPDYM1Mnr7HrsUyz+ydTmix/V7+CG1ueE8U9LvYDVJnyofmaY1HgEzjPBgxD
+         Xj3R1fd7nB4bsoqlXp1g2/46unZrxr9lKODi8cghrjooT0j8lt3PZpK01SjJn+EpGz8e
+         Ql/gE0QVZz64lvwsrl2HJGxS3dFalbNMfF81YJ+lIV4U+slymtuHr2vA8E8o9j3KkArX
+         /RKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791510588; x=1792115388;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Xt0KEx+KWuct6HZMJ5fLOI4SrpBFDKOZgqwYPJCF3o0=;
-        b=U6gM6/87XK2y2zlvoI0PA+eL1ViNb4bu7u4mZVm077MvLpq7rB2p3VHa+pDogSBaFF
-         c+7/YZN0VugcfxV2x8n4+9PbSCVyGnrilZNrYeeUX8CLumOe5m8A8AFu99z3frThCc6D
-         5naByiEE4Uu1twtYynJl9DWQg6usLjYYP92UdHRRMYveuS6xbiZIFGBj1HMq5L3/oVVT
-         HjfVD3yh//i4sWy7Zgi1qzMjIbcjjtpNj1csO3JGjyVAlNZprRmZv2+tkkwfdGBHWkpi
-         SX4pOf538yWOJlGsyHYl1B3w9Np/hvqwwmIJApdWHL5xylG5lvxUbWoZL4M1GulK/wgg
-         QRuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwPcaPdZNUYY0LQJ2PTumTRO/a5pSV4rEN40fc1rTf+Dfa+ZjygnGvD/Wx42el+NmcJkD32iGKJutzDno8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mT1Zq7WM55aNHM1heJFNY0MVaSCyoOqPm6gF4L/iJRRYiPhGC2
-	lHysVdX/zRtFwz0HaAscLLx2Bzhk1DJ69a+YIRlglO/bvIyX9sJ6Sy1O
-X-Gm-Gg: AYBFou0JjJbz+ioeSUjzCiO/1IrpbTsfWdCA7E2H1xf7pGJqJzEql7zm0dFEI1V8Gcn
-	mu1w0eHCIaLqyCY7DvF/Zq7vajOcjARMfpOOlqxHGqY5IJ88wYSZYhP7D+DfZiDeUE+urpNiZHh
-	EatuKKdnaic87RDmcevhq6BwmYZa2KIjYW+/hVH0PpbjeNTNgWeMQj6VQWFUqZFrN2eAUZYxM/i
-	JXENILDgOUHHwQBhXnwHIRC4lGjtxfIrfcuYj2KGZrSAaqx1sxB99DhybKhnzZH+tPDEPVDVgOJ
-	8XjDxiQ7aD44GjmPCDXG8x6ft7SBlhKNx2znWXs2QzeQ6okXd8CvRC6CiYKad5q8VMoXE2HjDIa
-	hHnLGZ3VtOZ82pvfacNbTlOSDhI3ikmSu7r6LTVwcHmoFSrB06g3ol55DU0P0jsnC2k9Rb+zhl3
-	TETiApZFpvA42Wocs9Qfi/XrVKQvMMzbD/KEq3YXPwhOj4m9GwRn4scWoSxZSbsfweEX6lmHhQJ
-	iVV
-X-Received: by 2002:a05:7301:221b:b0:342:645a:5cf with SMTP id 5a478bee46e88-3537dde8888mr908135eec.1.1791510587871;
-        Thu, 08 Oct 2026 18:49:47 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791510596; x=1792115396;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=GMDytykDqwmOSKHEI4lP8Wfae7lF8nVLH1/sChzwqGw=;
+        b=A3yMhvNSVKq2PnIA9+4PRFPvhTw0Gt9rm5J9wF+Wja+2WOsvzwUjZkroE2CouSzxXa
+         UHSNxyNj0psEKaqAZFmR+hCH7U4fjLaDth4VC7Cezu9fP1pxKhKLXEJhspEhKQs0KbSF
+         Tf1ofl9PRaU31GYn6ypnKdUj7HEJCUPujeiOgY8JXpa06i8yDtx1HCV9mxJF9zg+awsF
+         gqWoFhviJwYCqFeuKUDWFrARLmjTtmVuMLa7hjTD4oma1CQk8imOFXhW2et17IkdsynC
+         HXCCYO9t/ZFjBXp92T2LLF1FscoLeWjLA60J+7jQ86b7ps6TuXvK0R4hgZN5kkScBvMa
+         VRrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBywEdFG1E1WYkuIf35BOIRzJnFPapji6y/FykW9DPBAoht3PWPTWW6AdPxNA6sa4nZiI8FehdAqd04wHu0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mhE6A1YUneYvJ+vXb3z6NUiaZjw6/L0KPG564Mq2PgLKKYIb12
+	cCxXCbyVzeecevbIP+E+AnWT2XEMsg9Q3LD+vAlmF7R1XCbo9PGWq4iT
+X-Gm-Gg: AYBFou16M0qn/tXZbYbS9rfsIReR2UGUE10UpkCIMGK+DDOeGYItmjVCy342sI+mcMq
+	WF7WMb5gwZKu1NWtvfzE/QI9NxDC1NJwiE8ea7j/l2+r3GCY26XX3B2QbUDQwbJNEiDpnzbE405
+	jrBi6ftBj15JJokQSlHhPvS+7/4ddgNU2Sbj9pWaCiDlrT4Ws1d5tcLvN5ERWzjWNYK8CIm35vW
+	/wSjI7QB63BDKBD3ZdD8Yn41Ebi0jA20DDmoHfTAsKGNk/uwAOcOafz3afOF5AhoFlIxzOT9SrD
+	T5Qs6RgdqXZ2nxL8vnp9eHz1vLg0spHGy+0Cny8TkvbZswDNrDCVkk5EsZUnAthzM6l4FPRmTSU
+	nV+K1RKyMSZVxgr+fvkJGJmzHqMOqQ4QTZOqF2RKB8cqy2y0h7WWtzdWdKX0cuNUu/auC1Vlu1/
+	iNrRsAj9gK5VAPezLbVuhSWbLCZK2+w9rvjSvJWzmdI+sxYf3LiHlN7ebyip73yVvb0A==
+X-Received: by 2002:a05:7300:c87:b0:33e:61ab:8309 with SMTP id 5a478bee46e88-3537b291a93mr1987985eec.23.1791510595779;
+        Thu, 08 Oct 2026 18:49:55 -0700 (PDT)
 Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb1e05esm2026085eec.25.2026.10.08.18.49.43
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb1d6e6sm1984845eec.24.2026.10.08.18.49.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 18:49:47 -0700 (PDT)
+        Thu, 08 Oct 2026 18:49:55 -0700 (PDT)
 From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Fri, 09 Oct 2026 09:49:42 +0800
-Subject: [PATCH bpf-next] selftests/bpf: Accept unnamed dma-bufs in the
- dmabuf_iter default test
+Subject: [PATCH bpf-next 0/2] selftests/bpf: Skip libarena when arena spin
+ locks are unsupported
+Date: Fri, 09 Oct 2026 09:49:50 +0800
+Message-Id: <20261009-selftests-bpf-libarena-nr-cpus-v1-0-e726ccc66fc6@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,62 +70,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-selftests-bpf-dmabuf-iter-unnamed-v1-1-962ee94f7a5e@gmail.com>
-X-B4-Tracking: v=1; b=H4sIADVIyGoC/x2NzQrCMBAGX6Xs2YUkaP15FfGQmi+6YNeSTaVQ+
- u5Gj3OYmZUMRWB06VYq+IjJWxv4XUf3Z9QHWFJjCi703rkzG165wqrxMGVOYxzmzFJReFaNIxI
- Hfzz0HsGl055aZyrIsvwfV/pJiqXSbdu+QEPiO30AAAA=
-To: Andrii Nakryiko <andrii@kernel.org>, 
+X-B4-Tracking: v=1; b=H4sIAD5IyGoC/x2N0QrCMAwAf2Xk2UBWmKC/Ij50bbIFRi1JlcHYv
+ 1t9vIe7O8DZlB3uwwHGH3V9lQ7jZYC0xrIwau4MgcJ1JLqh8yaNvTnOVXDTORqXiMUw1bfjRJK
+ mnImEA/RINRbd/4MH/IzCe4PneX4Bx3hJinoAAAA=
+To: Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
  Eduard Zingerman <eddyz87@gmail.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
  Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
  Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
  Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- "T.J. Mercier" <tjmercier@google.com>
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>
 Cc: bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
 X-Mailer: b4 0.13.0
 
-The dmabuf_collector iterator prints the inode, size, name and exporter
-of every dma-buf in the system on separate lines, with an empty name for
-the buffers that have none. The default_iter subtest parses that output
-and looks for the two buffers it created.
+serial_test_libarena runs the test programs of libarena, whose buddy
+allocator serializes its operations with an arena spin lock.
 
-It requires a name for every buffer, and sscanf() finds none on the
-empty line of an unnamed one. On a system that has such a buffer, like
-one exported by udmabuf without a name, the subtest fails before it gets
-to its own buffers.
+arena_spin_lock() fails with -EOPNOTSUPP on kernels built with more
+than 1024 possible CPUs, as distributions commonly configure them.
+buddy_init() reports that as -EINVAL, and every test then fails at
+arena_buddy_reset.
 
-Take an empty name for a buffer without one.
+Patch 1 makes buddy_init() return the error of the lock, patch 2 skips
+the tests when resetting the allocator fails with -EOPNOTSUPP.
 
-Fixes: ae5d2c59ecd7 ("selftests/bpf: Add test for dmabuf_iter")
 Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
 ---
- tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Qiliang Yuan (2):
+      selftests/bpf: Return the lock error from buddy_init() of libarena
+      selftests/bpf: Skip libarena on kernels with too many possible CPUs
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c b/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c
-index fb2cea710db3e..1a5dc1adae735 100644
---- a/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c
-+++ b/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c
-@@ -188,8 +188,9 @@ static void subtest_dmabuf_iter_check_default_iter(struct dmabuf_iter *skel)
- 			ASSERT_EQ(sscanf(line, "%ld", &bufinfo.size), 1,
- 				  "read size");
- 		} else if (f % FIELD_COUNT == NAME) {
--			ASSERT_EQ(sscanf(line, "%s", bufinfo.name), 1,
--				  "read name");
-+			/* Keep an empty name for a buffer without one */
-+			if (sscanf(line, "%s", bufinfo.name) != 1)
-+				bufinfo.name[0] = '\0';
- 		} else if (f % FIELD_COUNT == EXPORTER) {
- 			ASSERT_EQ(sscanf(line, "%31s", bufinfo.exporter), 1,
- 				  "read exporter");
-
+ tools/testing/selftests/bpf/libarena/src/buddy.bpf.c | 5 +++--
+ tools/testing/selftests/bpf/prog_tests/libarena.c    | 9 +++++++++
+ 2 files changed, 12 insertions(+), 2 deletions(-)
 ---
 base-commit: e1d84a37cba984388988d2f1ddc84561413f0db2
-change-id: 20261009-selftests-bpf-dmabuf-iter-unnamed-217561e20d84
+change-id: 20261009-selftests-bpf-libarena-nr-cpus-50fc5dd00fe2
 
 Best regards,
 -- 
