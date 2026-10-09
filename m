@@ -1,208 +1,151 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 400C1414A1E
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 08:11:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BA2D493646
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 08:11:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791533500; cv=none; b=NaRLUntPhMghBMFK8eFlQO0wWdQg1qtxMBYA1FOzDUsRzVFcFxrQ/Skv/Jp2nR3efxOl9FJ+7Y38QbKkU5sWNHN9YfkR6U/UE5nJjmo8Emey9GZjpoUVjVsOl2D4v7UDP+5yxGbOfbr53VI5go79go4fRLn/sYqYITBbHc2df20=
+	t=1791533511; cv=none; b=jSSWbX824AiCUS6uWNPAxQXhK3L8k4nIkCb9XriFfRTGGbhb0ZL22wUD1Z8zPC12ZgXnJDwXYRWqPlYTlMPRevxwPpeg/GjIHy/+Wg5dXXccAAj0hj5BXrW4XpV+CeZ5D8b50jtWcrqzOhb8DKH8LXc34iUPwI5iiOpwhlqEs3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791533500; c=relaxed/simple;
-	bh=HeDRxBrOSXPmm7ASKJRIpyryU/fNruS/AGxremEwaOY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=ZFGvW8kye1pO2QKZkGNjqXYdKea8wztlzwuXs9oDJvnlD2yqlI7ofC0TDiFRQPgZzGT5Bc0oRUjtH7GS/SLG51Qs7h5k7Din0Fs/m6bHpirZnjyaCKvfW02yTXjp+onOqCK0ldZEu9H9G15zTyYdo0XTHFTQvtWlLQOBW9VZ5+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dIdzoRW8; arc=none smtp.client-ip=209.85.210.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791533511; c=relaxed/simple;
+	bh=gRbbps69VA7y6AulrLwCFY/nwePzdK2qYrbO3Y+LK9M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UrO1O+787NsAhPU7y+UnF6SzyzzG2iyncvl+MHlDgPI48piXpftc8qpP3w1yPCXWU9NZhvWR0nmYKSkpxsOHzM76KzLPkEZOE0OxO42C9IF9Tqk0tdHwJ3g6xewWf8VnhdVY2+1bjanNz3j1rLIBEZlIgZdjENUySkxRD6wkSMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fzcMbtO/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LWTyU4ps; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dIdzoRW8"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-873a4edb243so4461743b3a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 01:11:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fzcMbtO/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LWTyU4ps"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6993HOV11089441
+	for <linux-kernel@vger.kernel.org>; Fri, 9 Oct 2026 08:11:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	laHJsYnI/7xvkYGI4cOJBcsCLbJtIbGPxkDhu0frTK4=; b=fzcMbtO/4jaXDsL7
+	gyiTrLMv+dryBtFCkSLJXLL6xRC3loCmHoBxikesbtcI2n59pEfjAbFFqVlys9cK
+	wgzZbkBfOCDuOdR728Q0enWZ9JbdarRUaf/Y5t8zWkQ/1Ad+A2Kw6W73cf/sGLo+
+	TH2ZrS7MF7HIwVJAirB8J48huJvqMPKmpX2IIIxaD6Iqfoxi4p1nQSfvtbm+Kb+X
+	IEGXn9VvZ6c8KC4cvcFOER6dWWmzUmAHOX7uIaIsBDeu2F2vtH5KcogCsxd0iW4N
+	8eJ/PG2jfE6q4ywIf0IenZsF0/s5ls/d09K0zripZ/U5DgTAYz12jurE/vDxZCiq
+	aUgBvw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6ekvawts-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 08:11:45 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cc359d9easo1032592685a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 01:11:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791533490; x=1792138290; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jorHnXCyWEhW+lCsEocQ36hL6FicutQ3r2BseWpNOZY=;
-        b=dIdzoRW8h8uLimMoeMdBJAIFve+xvzY8S1SW/ZQvuzwXmTU4cCCIHWhFbLnjkIafnP
-         7m67OU67cyi13w7vxXp5lyZhH/hney9Em+7y29MQj4Q+NfQceWqZiBeTMmYDeHAMqFD1
-         AXTSuMNQpwjq3/L65N6IKEMHxuCYxQb/jbyjDtFNysR/3GTEhGQOyHs9PHWc6EvnPcru
-         B+0bF2b6Mk/2FnODWpSRZdgdjRzUkjf9HowN1Dv8V3Z/A4gdVSgqZeMUEd6xjhqWuuuD
-         Vp21ff+cFc2QPjQS5zosZE3vLtoXAGccPKXNrb6+unbZlTt3sLz9Vq24nnQyfwbeG7m8
-         d12Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791533490; x=1792138290;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1791533505; x=1792138305; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=jorHnXCyWEhW+lCsEocQ36hL6FicutQ3r2BseWpNOZY=;
-        b=U0hrREmgf9XkBlRlrW+V99eMiFBTnPNpw5+BGqwOAkhUUS3MTe3SClIeuDjc3Rj2SG
-         p58O2PIeo9sPtZKNnUs55d9wYzubea6WhY7UYlfaQrymB3Kxo+4VkwfC5iq5oz6Z3Gz0
-         w8UZWIhWFOFBxDv7sjqD7/IPIcBeEnNom9qfXiPKpvOZ6Gw1qy+xDAVXIsd991tvhoVa
-         SxafW7bNuPfzuZ3YGcVBboUuwTMVW9zD3B+uGs1my235jCW9TDvFMkG37DwCOaBtnBqV
-         hAMTJE+G5suiVyeF1iQcEw4oJ8BPhhuAv2kVRhOzA38deJqAuosxIVJGka89JQlCjgI1
-         rrng==
-X-Forwarded-Encrypted: i=1; AKwUvByOPfOYt7dZHqVh0+XidJ3QUFrkKyX3ycPPFprUoKDsa8WXiUtx4OdsvrkmSMy+6sdO4TsXVZaJ+E8dfVo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nxWDF1iH8/1SBt38toQLIQEWE/BuaA+WmQSl3msbvRAIBzIebv
-	QHKg6enEvK7TGE5LQRQJ+Oq3VFpFIsdzfJdl521nu/t4r+2aJB9Ox75E
-X-Gm-Gg: AYBFou3Ez9tq4graGpRmA4Y70kc63ZNO61+yjW5Y3YYRWhxjqDHpgZniI9oa0NR6ElH
-	ZzODtybRg//NEkIsZDaqQiKDFW+nsZA6C3doyoS0earr/MdwYwXF6S7OOUqN8qXFAf6YDRPO2YN
-	N8kx5kmJ+3qTOEeZMzBgvS4eqeQ0msRLNoTdiTsJL5F08FYqVZ0AgMYIHXkYu0Asrq7rRMbSnaW
-	dAcCJhNFu8trPEylJvRozsvrBgAmTWJnCLKBtfgRF1VWKSBor2/4mFE37a9veIRMrNLKMefau9K
-	5ow1V0fWi0x+kzuhm14QbQP3vwscyoLcjT0AF1eOY4FHQ7TIju9gocW/ZMQLilPBmU8DoGQkI5+
-	WKJlmtVh8Jm0fM9DdNXd2iBuE9p7RFExvD6m1WxTwr6ye7Ln0pEDXzE9g9iTY2lW9Pm9MDp1+A9
-	WrpQwHrnsbEcpz4goHl4Zlw/efWr6vCGYsASemDPaDDzs7CmVsRn/0/qqNGSH0zziOJg==
-X-Received: by 2002:a05:6a21:600f:b0:3dd:85aa:4533 with SMTP id adf61e73a8af0-3e16be72365mr883547637.37.1791533490194;
-        Fri, 09 Oct 2026 01:11:30 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d9e53f8bsm552895a12.24.2026.10.09.01.11.25
+        bh=laHJsYnI/7xvkYGI4cOJBcsCLbJtIbGPxkDhu0frTK4=;
+        b=LWTyU4ps7R1nnh3W2ZLte7OPxr0Cn9kCJoGYhRJAsbJcr2Z+QbXNIdCATJVpPl9hCx
+         cN5SCfK/JReW/5Ruw46AYztuTqKZisaSVDyomfgN02mQAm9pZDwqlJt4BjMMdJTpy9Cx
+         Pmv8YtSrWyjoWUq190x4dUxmyaymhAtOFbChD1ZG2hxtV8pTq6VKK7YX7V7Ds8DOwv7G
+         02H6AMnAqQyg5BeDf7iv3fQ0o3sdZXqAr8U/8iAJ5mdCdnRgwnDU5h2i59tX9/4Z4/ij
+         NKrfN7nd6mEMTiAUlbzVB2a/gCEpvN06w+lMGaYy0+YBmOllfCHQMMY6mkvOggezpeek
+         Nang==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791533505; x=1792138305;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=laHJsYnI/7xvkYGI4cOJBcsCLbJtIbGPxkDhu0frTK4=;
+        b=n45Jk+1QxFlSuniW81FoPKkJOfdUKM7usUNRRax45dlqF7Bi4kvfpX8If6eL+B+x9W
+         JlJSzDuLdzzTyV8/H8YEr2qcfcvRFHEsCPyUoVkxEZr6N6dtuVU3CMcaYMBYvuKOZ8bf
+         hRCl+6QQkMiRwfizafxz1gfM4BaxvnwWWCARXL/7/q4EV/hurWMtX9G2XOCB2YVzDxdc
+         lGdndn2jQj1SmQ8DErkhemAz7tKHMjW1I80dakmXBOIDeR+jip3d9bjOAg4TafK3L9wY
+         kTeh6I/MsOf/JNDBWleU/2SQJfteMJ/dUpWPcdfnOW9Q7N5uH+SUJl8AmE1agCGEFapi
+         wQzg==
+X-Forwarded-Encrypted: i=1; AKwUvBzPlkC9a0OrAEplqN3PMLGeQAkBK3ULKsqPwJ6aWXk/VlbPdx0I3dM+IAGQDF1FLhFZr+2vACxDLpVybZE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mz4g3Je+SZ55+OQBoCxoc5FlQrD8cLzsIunQq3YXsf0dn/BKK2
+	Kippetz7E5XXXiFQjf1M9aU0+DxwZ0i0O3MATIFoXfZd0YrtZk0Io7K1nmSzF+jJ/NUG82gNEOD
+	VSKUPx66R2hvF0fDzgtelAxV/jmMpu5a+b6+w9nOZqgmpSTNXQpYanDUxMjsER02R+F8=
+X-Gm-Gg: AYBFou0FbnkvQaomTbyHa0pNu944Py1zjYLyQCR1VUzmQLpwOFVHot57ImxGKHzx7DQ
+	Tvc9Yy+3PrdolbjojTKKpas1l/yhtx5XWIo7NFSIsi+wiaQLQ8J83kL3ugJJqcn0OkkdsjxNHIw
+	nOduSppf5zLs96rWpm1knUW9aK0PiilvLWmtSmjMvX4ufqMWDJM0P4VWShls515h9MmJ6D/MDjA
+	yE1zgwlvfKgIvqt/I4wC0sgSILoSg4KLeD7OV3vTjrMUiEz2mUgNrz3wQF98l5tcQxGh7dOH0HC
+	+8RnzvYpv4yi0a/Qc/z8tpHCKpDtxw08+LRpC02UHKNUJJMrpYGKgahATgkV6XnJkVK5QvFs0Ec
+	mrnf3UdOfc+EGmHvKulwXk4ZPGsI=
+X-Received: by 2002:a05:620a:270d:b0:93e:976b:5c44 with SMTP id af79cd13be357-93ebd2960d8mr145640585a.65.1791533505204;
+        Fri, 09 Oct 2026 01:11:45 -0700 (PDT)
+X-Received: by 2002:a05:620a:270d:b0:93e:976b:5c44 with SMTP id af79cd13be357-93ebd2960d8mr145636485a.65.1791533504545;
+        Fri, 09 Oct 2026 01:11:44 -0700 (PDT)
+Received: from hackbox.tail37bb1b.ts.net ([188.27.161.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18be97d1esm65404655e9.8.2026.10.09.01.11.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 01:11:29 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: mark@fasheh.com,
-	jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com,
-	akpm@linux-foundation.org,
-	moonafterrain@outlook.com,
-	brauner@kernel.org,
-	rppt@kernel.org,
-	kees@kernel.org,
-	julia.lawall@inria.fr,
-	kurt.hackel@oracle.com
-Cc: ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] ocfs2: drain domain handlers before destroying the DLM worker
-Date: Fri,  9 Oct 2026 16:11:23 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0056-v2-57239c657ac017b50fa1@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        Fri, 09 Oct 2026 01:11:43 -0700 (PDT)
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Frank.Li@nxp.com, Wentao Liang <vulab@iscas.ac.cn>
+Cc: abelvesa@kernel.org, aisheng.dong@nxp.com, bmasney@redhat.com,
+        festevam@gmail.com, imx@lists.linux.dev, kernel@pengutronix.de,
+        linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, mturquette@baylibre.com,
+        peng.fan@nxp.com, s.hauer@pengutronix.de, sboyd@kernel.org,
+        stable@vger.kernel.org
+Subject: Re: [PATCH] clk: imx: Fix clock reference leak in imx_get_clk_hw_by_name()
+Date: Fri,  9 Oct 2026 11:11:34 +0300
+Message-ID: <179153345647.1914323.1489876411002078599.b4-ty@b4>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260915055515.1730145-1-vulab@iscas.ac.cn>
+References: <20260915055515.1730145-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: m7tyaMEenKp5d2QnvorKfoTiqU35TfaM
+X-Authority-Analysis: v=2.4 cv=csYOAF4i c=1 sm=1 tr=0 ts=6ac8a1c2 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=EiYrS7xXfcF7w+nkr41hpQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=DNK6b7R2SRMYshW6mIMA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDAzMiBTYWx0ZWRfX/PTSBW4UPuzG
+ Crco21lDwnwtH0cVh+IXjtWJK5M9vk9tkfkIsPmC6N9iFri/IUgse7MBWx11lNlBiO/S8qGZvLr
+ NDBBIMjzVnpKXwkCnmj9owF66wHOpp2fQ1VnUcdByRYHvQuhPvO3jsAlxLiCPBCvMKp5vHshFnp
+ d/ECxMz1q4ybCm6xu0wVBc3WSd5bU8COi4/Ry7yA/pO3H4xmNqBqsG+ujY0FFGMW0poDs+uoAzi
+ AEg2V9plZ7y2G7kJLQpF4MuB5RVLHmr4ctWyJb4wdU6nWODYgE9TPR1OHXDVlDWrdZ/+3Uomheo
+ +6YGmb4MEpldQdnSB3CakM727CGY8JvnMFO8S+xC8nYDleU8WK3XDVR54vrQ4FqeiCjDgersgRP
+ C3NBdlqB0s52e0d/NGT9EjVenV0/IRPiOwp7g/P0Gpkd9evWN+RKdYeOjqsCYNJKU65X3hYz8Gw
+ Hc/K6C3fBMr+gzoBBgA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDAzMiBTYWx0ZWRfXw44yUfeR+kub
+ DjHrTt9AAQQ/97BkuSyT5gdbdwVtgFPP2DmS7y0OgKyU4is4TKkMEDD8kLepRfkdZoPKdHTKto8
+ sKTqazOJffw58n8NvkAV5+pDmEyVLog=
+X-Proofpoint-GUID: m7tyaMEenKp5d2QnvorKfoTiqU35TfaM
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-09_02,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 clxscore=1015 priorityscore=1501 suspectscore=0
+ lowpriorityscore=0 adultscore=0 phishscore=0 bulkscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090032
 
-The domain workqueue must remain usable until every network handler that
-can submit work has finished. dlm_unregister_domain_handlers() removes
-handlers from the o2net lookup tree, but an already referenced handler can
-still run. Its dlm_grab() reference pins the context, not dlm_worker.
 
-On the final local domain disconnect, a migration receive callback can
-have passed dlm_joined() before shutdown changes the domain state, yet
-still be preparing its work item when teardown destroys the queue:
+On Tue, 15 Sep 2026 05:55:15 +0000, Wentao Liang wrote:
+> imx_get_clk_hw_by_name() obtains a consumer clock with
+> of_clk_get_by_name(), extracts the hardware pointer with __clk_get_hw()
+> and returns it without ever calling clk_put(), leaking the consumer
+> reference on both return paths.
+> 
+> Extract the hardware pointer first and drop the clock reference with
+> clk_put() before returning.
+> 
+> [...]
 
-  o2net receive worker             Final domain teardown
-  --------------------             ---------------------
-  Get the handler reference
-  dlm_grab(); pass dlm_joined()
-                                   Unregister domain handlers
-                                   Stop the DLM threads
-                                   destroy_workqueue(dlm_worker)
-                                   dlm_worker = NULL
-  Publish the migration work item
-  queue_work(dlm_worker, ...)
+Applied, thanks!
 
-The handler lookup reference lets the callback continue after unregister.
-The work-list lock does not protect the queue lifetime, and destroying the
-queue drains submitted work without waiting for this producer. The late
-queue_work() therefore passes NULL to __queue_work() and crashes.
+[1/1] clk: imx: Fix clock reference leak in imx_get_clk_hw_by_name()
+      commit: 8e177ca735761a1f03e1dedffd7ab00d6d0540ae
 
-Use o2net_unregister_and_flush_handler_list() at the existing domain
-handler unregister point. Removing the handlers prevents new lookups,
-and flushing o2net receive work waits for already referenced callbacks
-and their post handlers. They can finish submitting while dlm_worker is
-still live; the subsequent destroy_workqueue() drains those submissions.
-The same unregister helper covers failed registration and join cleanup,
-without changing the DLM thread or workqueue teardown order.
-
-KASAN report as below:
-
-    Oops: general protection fault, probably for non-canonical address 0xdffffc0000000038: 0000 [#1] SMP KASAN NOPTI
-    KASAN: null-ptr-deref in range [0x00000000000001c0-0x00000000000001c7]
-    CPU: 0 UID: 0 PID: 14 Comm: kworker/u8:1 Not tainted 7.3.0-rc4-next-20260921-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
-
-[Hardware details omitted.]
-
-    Workqueue: o2net o2net_rx_until_empty
-    RIP: 0010:__queue_work+0x9b/0x1600
-
-[Instruction and register dump omitted.]
-
-    Call Trace:
-     <TASK>
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx___queue_work+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? clear_pending_if_disabled+0x83/0x1c0
-     ? __pfx_clear_pending_if_disabled+0x10/0x10
-     ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
-     ? dlm_mig_lockres_handler+0x984/0x1500
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_release+0xc8/0x290
-     queue_work_on+0xda/0xf0
-     dlm_mig_lockres_handler+0x9d5/0x1500
-     ? percpu_rwsem_wake_function+0x10/0x480
-     ? __pfx_dlm_mig_lockres_handler+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? trace_hardirqs_on+0x18/0x160
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? kvm_clock_get_cycles+0x31/0x60
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     o2net_rx_until_empty+0x1a55/0x32f0
-     ? reacquire_held_locks+0xdd/0x200
-     ? __pfx_o2net_rx_until_empty+0x10/0x10
-     ? lock_acquire+0x190/0x300
-     ? process_one_work+0x935/0x1b40
-     ? process_one_work+0x834/0x1b40
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_release+0xc8/0x290
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     process_one_work+0x9a8/0x1b40
-     ? __pfx_process_one_work+0x10/0x10
-     ? lock_acquire+0x190/0x300
-     ? lock_is_held_type+0x8f/0x100
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     worker_thread+0x65c/0xe40
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __kthread_parkme+0x177/0x220
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_worker_thread+0x10/0x10
-     kthread+0x351/0x460
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf70
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
-
-[Empty module list omitted.]
-
-    ---[ end trace 0000000000000000 ]---
-
-Fixes: 3156d2670166 ("ocfs2: move dlm work to a private work queue")
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
-
-diff --git a/fs/ocfs2/dlm/dlmdomain.c b/fs/ocfs2/dlm/dlmdomain.c
-index 97bb9400e24bbf6badea1339dd8de1623fe5bac5..b69baf99a4a6e4d5a5c51664625bafa905dc3bf5 100644
---- a/fs/ocfs2/dlm/dlmdomain.c
-+++ b/fs/ocfs2/dlm/dlmdomain.c
-@@ -1708,7 +1708,7 @@ static void dlm_unregister_domain_handlers(struct dlm_ctxt *dlm)
- {
- 	o2hb_unregister_callback(dlm->name, &dlm->dlm_hb_up);
- 	o2hb_unregister_callback(dlm->name, &dlm->dlm_hb_down);
--	o2net_unregister_handler_list(&dlm->dlm_domain_handlers);
-+	o2net_unregister_and_flush_handler_list(&dlm->dlm_domain_handlers);
- }
- 
- static int dlm_register_domain_handlers(struct dlm_ctxt *dlm)
+Best regards,
+-- 
+Abel Vesa <abel.vesa@oss.qualcomm.com>
