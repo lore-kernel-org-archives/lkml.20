@@ -1,260 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f8.google.com (mail-dy2-f8.google.com [74.125.229.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D25C5384CE5;
-	Fri,  9 Oct 2026 03:21:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B9438A71E
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 03:23:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791516076; cv=none; b=uGajJw8NrZvZklQgenhso31hf4dKhkWJfujvjIWISTI02HTtwwqGkf0zqCnIbAUbRwep0m3ZfUx9Xvbyjs4VHd2meU4GVdQAMoBGiAj4fbcYB071gYn4y/sAPdm5kZTKnhZy3ecziT8yZLx8+Lk64AZzocb7MmLlXC2Dx9jqklk=
+	t=1791516253; cv=none; b=QTnieeYdrHAjcp7nimGaWUBli6dAca2OZbZshT875JS7TuCaUHR0/3usDP8Fzp/tcFEBGgIuiBbJuD2KtoqEpEuw+eCf8PutZkFI2aAi0jKknoZtRgkpqVfxXA0ZQrdn4GG/W7nZvAtXxVeezIHh0s1btfXPffDKIAd5e9Aj7no=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791516076; c=relaxed/simple;
-	bh=wcqHV2Wg3FXBYYmg1vUHmOb3Xq5jc8STEKB0J+8XZ5A=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=OKKn60g5OjS80oyoGJeM5ZFTJZRy04Hz13wLm3iNdcFz48MXUWum+sst9hOI99YsA+6CvYZMiwPu4LViaL/KeABmeLtHtmdBInW2qrSsdvcexu+r2iXd/RpyCLXCvnx7vY83ayuNm7+M6IeuJRseTcZc1dKAVdWMAhg8TqoFxyM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SZiCeaWy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791516253; c=relaxed/simple;
+	bh=HfQYL1ospi0oIvaNO9H+9UdWuav+d2TWanvWl6r/Q8s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rbpDhUuigV05tn4mrM+Nr2ILIuVQGGgWFwB8AunmvJvbtSqhzUkoIVubwXJNR870UTDF6lhqnTyOTd9y86li62qeZwD5ziKCkSAPL7Z6A4I/b9wVoziTavYigG1yFF23m4DIUe9yxp8fyt5BhKEuUzRJqbj7EopRVzhEB9Ofn6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A3/u3JFP; arc=none smtp.client-ip=74.125.229.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SZiCeaWy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7982D1F00899;
-	Fri,  9 Oct 2026 03:21:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791516063;
-	bh=JXfCHG31Bc/gSZjaK8k9wksl9IuXvNCzPnYy9hoGaWo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=SZiCeaWykiCNamdBlxa2XXBIE7gHvyKIOn3LN9Z24cQoLXU1mgA+E4KHeFYXnfA8w
-	 nqIAdtQM2bUAlDeqLfi8ov47ZQsL1z0gyDQt3j3saygu6WtBAm21eNfuexjr/pGN6Q
-	 t4AkxHMvpWPEBN9PJKOmuxrBsKYq4/i0GcvolU+G3xbJk9ht9dV2KmZ3bYResU1deR
-	 TYj7BjSjB0vD6D/mfDOYA5RtgrHYodZ8MQY7Yim4b73YyIKDn7KIylPvIPh9Ahiigy
-	 XG4dPmJibsR6eKsD54zdUO7qufshIQBGq1l9gQ7j4D6bG8QIlhllADGadEtXMFF4QG
-	 Qpvto6oN0so+g==
-Subject: Re: [PATCH v3] netfilter: nf_nat: Fix stale outer UDP checksum on
- VXLAN encapsulated packets
-From: netdev-bot+sashiko@kernel.org
-To: lvjunyu@cmss.chinamobile.com
-Cc: pablo@netfilter.org, fw@strlen.de, phil@nwl.cc,
- netfilter-devel@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
-Date: Fri, 09 Oct 2026 03:21:03 +0000
-Message-ID: <179151606303.434549.9146029208323443792@kernel.org>
-In-Reply-To: <20260922062305.752147-1-lvjunyu@cmss.chinamobile.com>
-References: <20260922062305.752147-1-lvjunyu@cmss.chinamobile.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A3/u3JFP"
+Received: by mail-dy2-f8.google.com with SMTP id 5a478bee46e88-350783faf89so2347757eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 20:23:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791516238; x=1792121038; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=s4oOC1G3sbuDXwdYGrNRIiEKGDq7EtgjRVsujSOv4+4=;
+        b=A3/u3JFPMjd5Sp/tikxJksHbvtyKiUcRu3rv4Wc0qlzkFsLJjCeNZaDVWu1GHkBn5d
+         aMshgY/l80nvheTwpEaGJFA5g2dv16nRvjAuW6qsYSEKKjKIPRVcGqSr8hUblvcPsl8R
+         6gI/0+BSHCI/+hrLI595e1aQ59Io5Zaqub5dgoIn3uhWV/E9nSxDjybldZHbIJdVsxVo
+         39nB26zm0O4zKmZTbfwXYMUlYdQrNHLcFQsGLK4SJOB+GuSg3A2VnyVDoK0KDLpwUfzN
+         7B+3VBewpzBKO4S6sP4nXl3kYU45mKnomWNUgZqKR/CWRK97gdK7Z81UMIzXYLXDhCoW
+         XP1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791516238; x=1792121038;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=s4oOC1G3sbuDXwdYGrNRIiEKGDq7EtgjRVsujSOv4+4=;
+        b=xx3fEw+zJyIEsdMeL8zQfsUPnh8NV2v6fV2QZHteD1+GCjIpOF2CrgbYkKboR4Lsho
+         rfPkSou/238m1OeP6eL0pWwRL08tNB2t7HPo4ej4Fv8BlsF+/a8w4G793gbYOWapZUZt
+         ueblUdTPZovIXBENCSojT1bPgNe5XoGTh21dUrnedIDaWRtdnM8o/QrzZzxTMy3V5FP2
+         YEM+Ztur4AT28Rynxmx7ilL24AuLkNymq8LFdjfKrFXLK52ZfKK0TE4r24xISXN4TPYq
+         xxh/KSeifutiIoAy8misVFWZWon9MOTjagCIp+vcNw+xkfEzbDMzto7QaKyooemklssY
+         VjAw==
+X-Forwarded-Encrypted: i=1; AKwUvBxrTDBI4WQzqUnLp919zw60EACsPgCJlOKooSCYLtuXv6ovlxd6XIyNAZS/lQu2wfbav1YtAsEa60FGFNs=@vger.kernel.org
+X-Gm-Message-State: AFuF++n1YUk1eR0QcRtoGZj1RgTCu6gBUfxF4z5whkvx3775Ju867glO
+	4SU2VGqeqHtl9bRRdjvUVKETxnlWde2Sjb0r0XOYLFtUJQYDitsgDGCo
+X-Gm-Gg: AYBFou3KSEv+hgs0z0LNbSxRlCQyplCE63UGMf6S2x9zk9ta6yR1LJO6m7okcng6Hfz
+	87hKVBZBXvl/rD8wHjlcQzjGzo6YOs/AVJrem5GzkUceSLcGvuyj137uauaPkvmj/oXC9zR4/uT
+	0sEwZ+73ocNkwYGetm6DIhKW/qrW9LXd88wl5HVrGlFQ1aobTH46oEo6MMRIQohesQ0N8HGniPD
+	hU5oNyG5D+/ID+8+ghaTVc1GD/j8Y2+7dGdBceB6qBjiJcn8sFoJZ/5QBVK6N9ErWXi78FOOxDc
+	J0pmM9W5Ot1osNy6bAnOMLdp9DK59ZhjBPaO49tGVThSZQhFxL/9dUDalEjrqj3hcFWLrzPOQlu
+	rbTLPJE2A13TpwG4ZzHyxlTyqG333nG7rRMRA0jSta2yEAIauob7uyvudEPHdF5iuu+8i/kepd/
+	1dmEV3VUXGxqHqkBO33/Y20+bRNHR13lE+Zm7BoOGY4Nt3gyyl+iwQek8KQPhuWLLUm5w2tx+V1
+	yp8NWWybahuGti34UHk4z7eQKY=
+X-Received: by 2002:a05:7022:7f0b:b0:13e:5b2a:e65c with SMTP id a92af1059eb24-16a57b13034mr854781c88.3.1791516237602;
+        Thu, 08 Oct 2026 20:23:57 -0700 (PDT)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a442956asm3304742c88.16.2026.10.08.20.23.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 20:23:56 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: pkshih@realtek.com
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	pchelkin@ispras.ru,
+	mihaildimoski@gmail.com,
+	tristan@talencesecurity.com,
+	rtl8821cerfe2@gmail.com,
+	dawei.feng@seu.edu.cn,
+	learn.rahul.rai@gmail.com,
+	branislav.klocok@orava.sk,
+	timlee@realtek.com,
+	kvalo@kernel.org,
+	briannorris@chromium.org,
+	yhchuang@realtek.com,
+	sgruszka@redhat.com,
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH] wifi: rtw88: pci: preserve the RX ring DMA address on cleanup
+Date: Fri,  9 Oct 2026 03:23:39 +0000
+Message-ID: <20261009032339.31786-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+rtw_pci_init_rx_ring() stores the coherent ring DMA address in dma, but
+reuses it for RX buffer DMA addresses during error cleanup. If
+initialization fails after at least one buffer has been mapped,
+dma_free_coherent() receives the last buffer's DMA address instead of
+the ring's.
 
-Critical: 0 · High: 1 · Medium: 0 (1) · Low: 2
+Use a separate variable for the buffer DMA addresses so the ring is
+freed with the address returned by dma_alloc_coherent().
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Fixes: e3037485c68e ("rtw88: new Realtek 802.11ac driver")
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+ drivers/net/wireless/realtek/rtw88/pci.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-- [High] The fix is incomplete.
-- [Low] The commit message describes the trigger more narrowly than the
-  code shows.
-- [Low] The new comment in __udp_manip_pkt() presents the offload-target
-  test as a way to tell apart only the two states that udp_set_csum()…
-
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but the IPVS UDP
-  NAT handlers have the same bug.
-
---
-
-netfilter: nf_nat: Fix stale outer UDP checksum on VXLAN encapsulated packets
-
-This patch changes __udp_manip_pkt() to detect the local checksum offload
-(LCO) state. In that state the outer UDP header holds a complete checksum
-while csum_start points at the inner transport header. When it sees this
-state, it sets ip_summed to CHECKSUM_NONE for the duration of the update,
-so the address and port deltas are applied through csum_replace*().
-
-> When MASQUERADE --random-fully rewrites the outer UDP source port and
-> address of a VXLAN-encapsulated packet whose inner header has
-> CHECKSUM_PARTIAL, the outer UDP checksum is not updated correctly.
-
-[Severity: Low]
-Is the trigger described here narrower than the real one?
-
-Any SNAT, DNAT or MASQUERADE that changes the address of an LCO-state
-outer UDP header hits the wrong-sign delta in
-nf_csum_update()->inet_proto_csum_replace4/16(pseudohdr=true), even if no
-port changes. Any port rewrite hits the no-op inet_proto_csum_replace2().
-
-The LCO branch lives in udp_set_csum(). Its callers are
-udp_tunnel_xmit_skb() (VXLAN, GENEVE, bareudp and others),
-l2tp_xmit_core(), fou_build_udp() and ip_vs_tunnel_xmit().
-udp6_set_csum() has the same branch for IPv6, and the patch also changes
-IPv6 behaviour through nf_nat_ipv6_csum_update().
-
-The reproducer may have needed --random-fully only because MASQUERADE in a
-single netns keeps the same source address. That leaves the port as the
-only field that changes.
-
-Could the changelog state the general trigger, so stable triage can judge
-the impact correctly?
-
-> diff --git a/net/netfilter/nf_nat_proto.c b/net/netfilter/nf_nat_proto.c
-> index 64b9bac228eae..6779e9f2812d9 100644
-> --- a/net/netfilter/nf_nat_proto.c
-> +++ b/net/netfilter/nf_nat_proto.c
-> @@ -54,9 +54,39 @@ __udp_manip_pkt(struct sk_buff *skb,
->  		portptr = &hdr->dest;
->  	}
->  	if (do_csum) {
-> +		/* When udp_set_csum() takes the LCO branch (encapsulated
-
-[ ... ]
-
-> +		 * The seed/offload branch of udp_set_csum() sets csum_start
-> +		 * to the outer UDP header, so the offload-target test
-> +		 * below distinguishes the two states.
-> +		 */
-
-[Severity: Low]
-This isn't a bug, but is this comment complete? It describes the test as
-telling apart only the two states that udp_set_csum() creates. The
-predicate below is true for any CHECKSUM_PARTIAL non-GSO skb whose
-csum_start + csum_offset is not &hdr->check.
-
-One such case is the UDP header embedded in an ICMP or ICMPv6 error. In
-nf_nat_icmp_reply_translation() and nf_nat_icmpv6_reply_translation(), it
-is rewritten through:
-
-  nf_nat_ipv{4,6}_manip_pkt()
-    udp_manip_pkt()
-      __udp_manip_pkt()
-
-On that path the offload target is the outer ICMP checksum.
-
-The embedded UDP checksum there is a complete checksum, so switching to
-csum_replace*() gives the right result. The only gap is that neither the
-comment nor the lco name covers this case.
-
-The comment also names only the IPv4 helpers. This code covers
-udp6_set_csum() and inet_proto_csum_replace16() too.
-
-> +		bool lco = skb->ip_summed == CHECKSUM_PARTIAL &&
-> +			   !skb_is_gso(skb) &&
-> +			   (skb->head + skb->csum_start + skb->csum_offset) !=
-> +			   (unsigned char *)&hdr->check;
-
-[Severity: High]
-Is this fix complete for flows that are offloaded to an nft flowtable?
-
-The flowtable fast path applies the same conntrack NAT with the old
-helpers:
-
-net/netfilter/nf_flow_table_ip.c:nf_flow_nat_ip_udp() {
-    ...
-	if (udph->check || skb->ip_summed == CHECKSUM_PARTIAL) {
-		inet_proto_csum_replace4(&udph->check, skb, addr,
-					 new_addr, true);
-    ...
-}
-
-net/netfilter/nf_flow_table_core.c:nf_flow_nat_port_udp() {
-    ...
-	if (udph->check || skb->ip_summed == CHECKSUM_PARTIAL) {
-		inet_proto_csum_replace2(&udph->check, skb, port,
-					 new_port, false);
-    ...
-}
-
-nf_flow_nat_ipv6_udp() follows the same pattern with
-inet_proto_csum_replace16().
-
-For an LCO-state outer UDP header, these functions hit the same two
-failures this patch fixes in __udp_manip_pkt(): the address delta gets the
-wrong sign, and the port update does nothing. Nothing in the flowtable
-path filters out CHECKSUM_PARTIAL or encapsulated skbs.
-
-Take a MASQUERADE or SNAT rule plus a flowtable. The first packets of a
-UDP tunnel flow get correct checksums through nf_nat. Once the conntrack
-is offloaded, the rest of the flow goes through:
-
-  nf_flow_offload_ip_hook()
-    nf_flow_offload_forward()
-      nf_flow_snat_ip() / nf_flow_dnat_ip()
-        nf_flow_nat_ip_l4proto()
-          nf_flow_nat_ip_udp()
-      nf_flow_snat_port() / nf_flow_dnat_port()
-        nf_flow_nat_port_udp()
-
-Would the receiver then drop those packets with UdpInCsumErrors?
-
-tcf_nat_act() in net/sched/act_nat.c uses the same pattern on outer UDP
-headers.
-
-All of these callers rely on one assumption in inet_proto_csum_replace*():
-under CHECKSUM_PARTIAL, the field being patched is taken to be the
-offload target.
-
-net/core/utils.c:inet_proto_csum_replace4() {
-    ...
-	} else if (pseudohdr)
-		*sum = ~csum_fold(csum_add(csum_sub(csum_unfold(*sum),
-						    (__force __wsum)from),
-					   (__force __wsum)to));
-}
-
-Would it work better to compare sum against skb->head + csum_start +
-csum_offset inside those shared helpers? That would cover nf_nat, the
-flowtable and act_nat in one place, instead of a local workaround in
-__udp_manip_pkt().
-
-> +
-> +		if (lco)
-> +			skb->ip_summed = CHECKSUM_NONE;
-> +
->  		nf_csum_update(skb, iphdroff, &hdr->check, tuple, maniptype);
->  		inet_proto_csum_replace2(&hdr->check, skb, *portptr, newport,
->  					 false);
-> +
-> +		if (lco)
-> +			skb->ip_summed = CHECKSUM_PARTIAL;
-> +
-
-[Severity: Medium]
-This is a pre-existing issue and was not introduced by this patch, but the
-IPVS UDP NAT handlers look like they have the same problem.
-
-udp_snat_handler() and udp_dnat_handler() in
-net/netfilter/ipvs/ip_vs_proto_udp.c check only ip_summed:
-
-	if (skb->ip_summed == CHECKSUM_PARTIAL) {
-		udp_partial_csum_update(cp->af, udph, &cp->daddr, &cp->vaddr,
-					htons(oldlen),
-					htons(skb->len - udphoff));
-
-udp_partial_csum_update() always treats the field as a seed:
-
-	uhdr->check =
-		~csum_fold(ip_vs_check_diff4(oldip->ip, newip->ip,
-				ip_vs_check_diff2(oldlen, newlen,
-						csum_unfold(uhdr->check))));
-
-It never applies the port change.
-
-For an LCO outer UDP header built by udp_set_csum() or udp6_set_csum(),
-won't IPVS also apply the address delta with the wrong sign and skip the
-port delta?
-
-After this patch, nf_nat and IPVS would also handle the same skb state
-differently.
-
->  		if (!hdr->check)
->  			hdr->check = CSUM_MANGLED_0;
->  	}
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922062305.752147-1-lvjunyu%40cmss.chinamobile.com
+diff --git a/drivers/net/wireless/realtek/rtw88/pci.c b/drivers/net/wireless/realtek/rtw88/pci.c
+index 66d2e5f51444..10147375f3b2 100644
+--- a/drivers/net/wireless/realtek/rtw88/pci.c
++++ b/drivers/net/wireless/realtek/rtw88/pci.c
+@@ -298,11 +298,13 @@ static int rtw_pci_init_rx_ring(struct rtw_dev *rtwdev,
+ 
+ err_out:
+ 	for (i = 0; i < allocated; i++) {
++		dma_addr_t buf_dma;
++
+ 		skb = rx_ring->buf[i];
+ 		if (!skb)
+ 			continue;
+-		dma = *((dma_addr_t *)skb->cb);
+-		dma_unmap_single(&pdev->dev, dma, buf_sz, DMA_FROM_DEVICE);
++		buf_dma = *((dma_addr_t *)skb->cb);
++		dma_unmap_single(&pdev->dev, buf_dma, buf_sz, DMA_FROM_DEVICE);
+ 		dev_kfree_skb_any(skb);
+ 		rx_ring->buf[i] = NULL;
+ 	}
