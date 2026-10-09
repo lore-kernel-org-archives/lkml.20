@@ -1,77 +1,189 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C470A4A498A;
-	Fri,  9 Oct 2026 10:15:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E363D75D3
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 10:15:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791540906; cv=none; b=WgRQzNPNuuIiV+cjxKQ3Q7k/KN6azMMm5q8Xi/YJupJ0420VBXARvdbA5J5KR/Czeet26JbWv2OFb83Tm1j11T+68LTe0gqxnZ/XW9jsx0jmxf4tO5ipQGSDpGPtyVxZAFGZz+iGvmSoN1is4RtnXc47ShnVB3dV+xaMCPJf918=
+	t=1791540928; cv=none; b=g+D4XZNW3q6vlKUak5eGsKD10EwKB0hBao0WgaGM3mAVzdTcFZDQcLrqdAzc0QaB9mgcwLLPc9YSBd5FvTXO3Q9k6VmhDcfkP4eGn7v1mgtP7EsQdfW7RszN9FrUZGN5IzQPZSjVGZjNtMobBJBm8NwXbxfjEitB/xRQBQicocY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791540906; c=relaxed/simple;
-	bh=pZGtCO/cbsffyJ/+hIx9AEnMLhSQ6qT/18jEy7/+afo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=hCVINnvlKYfyC4l09UImyIkXCHn5NQNbJg6WBKesZSAa1wHjTS4Gf7W7xPC26XrUr+sK2r2VdOKTX7NY9EKP6MwmvIPUt0Mt9u8Rhr0FJE/EQtguogO1GjBanroBtsne0L5nINumhSglFCzbJorsnLZyr8zvyyMuojnNC78QUwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MIHhR5TW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791540928; c=relaxed/simple;
+	bh=jyDEhNWEktcDeVA66O0x0HheikRt8+3NMW3l44bD31Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=G90VKOuhQQGu3ZuidjFwDGV97QQErfKHyPegpeRTI4RMOEs3e4M/WQOz20Eeao70IelrlsCcHXTjzJO5NkRggjRAYc7Q/Qj1RTgqrSH3pR8zvuC1qJCyHiJJV/X8qoOjeBmLEuSX+lWQnoiybqxmvxUPsw8XzK3nrcMssusq+0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YR9lUCsA; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=L1AHSraY; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MIHhR5TW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89BF51F000FF;
-	Fri,  9 Oct 2026 10:15:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791540905;
-	bh=XhJS/ohRboRHwsxazN32zeL8y321YhT0c4CBpKxSKUM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=MIHhR5TWduPKD0RfhfaJxNdg60KHcNd31SnDfswZXG8Rb0tAXwMwCcTbO+Oqh0kom
-	 B9SEugXQhNvUTi0dZrnTbyTbMv5GkR8fWLJHgNZqVaBEPTbWI6jFYBMUf5KJ5TRi+i
-	 YNDzf7kX2PYSJqknTGOHx83Mna86qUw4/UCAn4vGQ5DXf+SVG/aesImBDhKeJ/d5zb
-	 dmxpemMFZKiI+kNC1e3LDBEWxLK5Yp+JKm6qM4Eom8I7If/V8TYLtFPCDJma7d/JWR
-	 GjHeAqPjTsUHJVaCHm3RDArQ1NsidmPXBOhCs9TSB7VuJCmIvY9M/nZa1afWPOm7sE
-	 KDR+HDE72YzLw==
-From: Vinod Koul <vkoul@kernel.org>
-To: Frank Li <Frank.Li@kernel.org>, Viresh Kumar <vireshk@kernel.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Frank.Li@oss.nxp.com
-Cc: imx@lists.linux.dev, Frank Li <Frank.Li@nxp.com>
-In-Reply-To: <20261001143955.2195063-1-Frank.Li@oss.nxp.com>
-References: <20261001143955.2195063-1-Frank.Li@oss.nxp.com>
-Subject: Re: [PATCH 1/1] dmaengine: move driver-private helpers out of
- include/linux/dmaengine.h
-Message-Id: <179154090329.553139.2859535657192516068.b4-ty@kernel.org>
-Date: Fri, 09 Oct 2026 12:15:03 +0200
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YR9lUCsA";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="L1AHSraY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791540923;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8qjpcfD3LG1eZs8VSpA9jEQmEOMfOU2B/T9s4mzaz2E=;
+	b=YR9lUCsAExcPNjoNYfo2P79M1+v6Q6fA40V3z5ir7T6I5ynYnrKTqloRtWlyy6HosSqV1n
+	syvhZ8qCNUpv9ObcG3YMd2xYxzjq8MOwpvPXYPgsiuMlaYCgzaKdF2GaOJ3maDwAuQthb5
+	ey5W3LjJ5MAp9g80RxGm5U+pKF/v8nQ=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-692-ZkQT6n_ZPL60ac63rHzfMA-1; Fri, 09 Oct 2026 06:15:22 -0400
+X-MC-Unique: ZkQT6n_ZPL60ac63rHzfMA-1
+X-Mimecast-MFC-AGG-ID: ZkQT6n_ZPL60ac63rHzfMA_1791540921
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a166a9ea21so50084805e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 03:15:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1791540921; x=1792145721; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8qjpcfD3LG1eZs8VSpA9jEQmEOMfOU2B/T9s4mzaz2E=;
+        b=L1AHSraYh9niilCYyPHgdz+agimXgXdkuvF+nfeJvFTY9Vwc+LkRnH//WkHPbN3Rfc
+         8XRLW4ifCjHzYObphmzK9dbpTstUmIa6qD/MktdetcLknEYgcqrYXRvdN3ccPPmzRtVE
+         0fV8omREyNef3RBHyuzupt6kbl1/Z234uQVST7OXva2uAKWJe7V8u6v8mSzyLFe6ouBy
+         RiooAEswAN6o44N/j/9a8yhvk01D/Jg0Lpsp8GR7h7b8bXaZaq2J3zPDLwdVZHqPmX+e
+         XhcdkXAYaIiyqSMSdG3Dc5gklxFRdbw1ApPMg9OKLj/7nGhygi4D/JZLJGJsfKz+QUN4
+         IBkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791540921; x=1792145721;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8qjpcfD3LG1eZs8VSpA9jEQmEOMfOU2B/T9s4mzaz2E=;
+        b=gmaz55DHpcjcjogmQ2NhHcDeWOqq03gOJvuLAGtS+naXfh1BRd2SLlmru2fzg0brFl
+         IwztzAENaoLdbq5nGXusb0mqnXjp5HHdqiqpwjADZONN0p9yFbwsuhRLYGsoN7rP+7Fn
+         wSK4Vkh+Jt7CMK4xRq7qXa8tha7UY+ldDuyf5THPkHZ3Aa6JRURVJFAR/T2kfzcyGaF+
+         UBZbrnqOpOKZiN3a8lkY9KZ9amOYd3rtIOZiL2Mpf7ZSxSvt3qHaU7ZyGZfOQqmMaBb8
+         l1ZshHzOMXPvGCNxZFdlYZSabW65fjbmplOvjh9N3b+aBmB28G1/nrsw2Ls83d/hGE8s
+         x3BA==
+X-Forwarded-Encrypted: i=1; AKwUvBz9bMp8Bc9Jx5dWQy/1vhxMUZBTFGIe/66W/2e4c2XdiMxyDVW3ZQmlIon4xbACbs0Rw0XrXEZ3pbke12k=@vger.kernel.org
+X-Gm-Message-State: AFuF++nJYa65HruQ+RKIDCL4O04L4VKfy950++eBuHElnLVrV0RBvDxI
+	Mu9WkfWPBwMqMM+bIuOGrOTu8M8Fl7dAVNLIPfaCdwMT4B5cPoibXd6cIB4S2/iyKqhxG8V7eqX
+	lmdaW27x3Yb52yBIKFLQYgR8RR7gxtT1ff2flUlYEO3kGxb8I8RlRSDDiOonAYYObdA==
+X-Gm-Gg: AYBFou2qM5uN681zH4RiXkyfWo7ma4P8Sdgl5gWmj0DSeEkbKIzsg0i8s5zGD2cTICI
+	iRe3H5wxWd/oVfx+e87FdeZgbAF3rEZbqS0i5xQbGbzxdwDRrWotgggxD5dTVaAX9zsu95BThY5
+	UOKkw+Xm2qqGdLZBniSnxfx/8R0xsUPw5AQyTz1e37/bKNimmzHJO2iHDR2/6PZS+3EONBp7geu
+	Ej8p+cEYYHmWixO8RcYloInkJuZNEJTMaSkjSReCIeRDe64nDTxwE0RkkEz0+ijw5vJLzomb5td
+	eb3N3EZv8fBsVaq4GtarE8hh0BOGXjkKBZYUwiPp3IZ4Nr83TKXKQl/BBiOHUjmcgO21xBnly/L
+	I
+X-Received: by 2002:a05:600c:6989:b0:4a0:1f9e:5f7d with SMTP id 5b1f17b1804b1-4a18e4a0030mr24138505e9.7.1791540921041;
+        Fri, 09 Oct 2026 03:15:21 -0700 (PDT)
+X-Received: by 2002:a05:600c:6989:b0:4a0:1f9e:5f7d with SMTP id 5b1f17b1804b1-4a18e4a0030mr24137885e9.7.1791540920563;
+        Fri, 09 Oct 2026 03:15:20 -0700 (PDT)
+Received: from sgarzare-redhat ([5.11.115.77])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bea0f1csm80901885e9.9.2026.10.09.03.15.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 03:15:19 -0700 (PDT)
+Date: Fri, 9 Oct 2026 12:15:16 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: Michal Luczaj <mhal@rbox.co>
+Cc: Stefan Hajnoczi <stefanha@redhat.com>, 
+	"Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>, 
+	Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>, "David S. Miller" <davem@davemloft.net>, 
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Eric Dumazet <edumazet@kernel.org>, kvm@vger.kernel.org, virtualization@lists.linux.dev, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, Hyunwoo Kim <imv4bel@gmail.com>
+Subject: Re: [PATCH net v4] vsock: treat TCP_CLOSING as once-established
+Message-ID: <asi-oV3fF1erjxVs@sgarzare-redhat>
+References: <20261005-vsock-connect-reset-closing-v4-0-15d41cfda3ed@rbox.co>
+ <20261005-vsock-connect-reset-closing-v4-1-15d41cfda3ed@rbox.co>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20261005-vsock-connect-reset-closing-v4-1-15d41cfda3ed@rbox.co>
+
+On Mon, Oct 05, 2026 at 02:26:22AM +0200, Michal Luczaj wrote:
+>Handle the TCP_ESTABLISHED -> TCP_CLOSING transition on OP_RST, which can
+>race with the connect loop. Immediately break and return 0 on
+>ESTABLISHED/CLOSING. The return value of connect() should reflect what
+>happened up to the point the connection was established or failed. Events
+>that occur afterwards must not affect it. E.g. even if OP_RW has already
+>set sk_err, connect() should still return 0, not ENOBUFS because of it.
+>Adapt the inaccurate comment above signal_pending().
+>
+>Resetting a socket that is still present in connected_table can lead to
+>memory corruption. The reporter noted lost transports for in-flight skbs,
+>and I have reproduced crashes caused by re-insertion into connected_table.
+>
+>  list_add double add: new=, prev=, next=.
+>  kernel BUG at lib/list_debug.c:35!
+>  Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+>  Workqueue: vsock-loopback vsock_loopback_work
+>  RIP: 0010:__list_add_valid_or_report+0x11f/0x130
+>  Call Trace:
+>   vsock_insert_connected.cold+0xe/0x13
+>   virtio_transport_recv_pkt+0x10e9/0x1460
+>   vsock_loopback_work+0x305/0x480
+>   process_one_work+0xe4c/0x1560
+>   worker_thread+0x4f1/0xd60
+>   kthread+0x36e/0x470
+>   ret_from_fork+0x47b/0x6b0
+>   ret_from_fork_asm+0x1a/0x30
+>
+>This fix is supplementary to commit 002541ef650b ("vsock: Ignore
+>signal/timeout on connect() if already established"). Details under Link.
+>
+>Fixes: d021c344051a ("VSOCK: Introduce VM Sockets")
+>Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
+>Link: https://lore.kernel.org/netdev/anzT1fREOSyHT99k@v4bel/
+>Signed-off-by: Michal Luczaj <mhal@rbox.co>
+>---
+> net/vmw_vsock/af_vsock.c | 17 ++++++++---------
+> 1 file changed, 8 insertions(+), 9 deletions(-)
 
 
-On Thu, 01 Oct 2026 10:39:53 -0400, Frank.Li@oss.nxp.com wrote:
-> Move the following functions and declarations from the public header
-> include/linux/dmaengine.h into the driver-private header
-> drivers/dma/dmaengine.h, since they are only used by DMA engine drivers
-> and not by DMA engine consumers:
-> 
->   - dma_async_device_register()
->   - dmaenginem_async_device_register()
->   - dma_async_device_unregister()
->   - dma_async_device_channel_register()
->   - dma_async_device_channel_unregister()
->   - is_slave_direction()
->   - dmaengine_get_direction_text()
-> 
-> [...]
+LGTM! Thanks!
 
-Applied, thanks!
+Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
 
-[1/1] dmaengine: move driver-private helpers out of include/linux/dmaengine.h
-      commit: 511afae96d89847f753fcab6b3a597f0281be9d5
-
-Best regards,
--- 
-~Vinod
-
+>
+>diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
+>index 9b71479a2b29..14fe24b05f9c 100644
+>--- a/net/vmw_vsock/af_vsock.c
+>+++ b/net/vmw_vsock/af_vsock.c
+>@@ -1834,23 +1834,22 @@ static int vsock_connect(struct socket *sock, struct sockaddr_unsized *addr,
+> 		timeout = schedule_timeout(timeout);
+> 		lock_sock(sk);
+>
+>-		/* Connection established. Whatever happens to socket once we
+>-		 * release it, that's not connect()'s concern. No need to go
+>+		/* Connection was established. Whatever happens to socket once
+>+		 * we release it, that's not connect()'s concern. No need to go
+> 		 * into signal and timeout handling. Call it a day.
+> 		 *
+> 		 * Note that allowing to "reset" an already established socket
+> 		 * here is racy and insecure.
+> 		 */
+>-		if (sk->sk_state == TCP_ESTABLISHED)
+>-			break;
+>+		if (sk->sk_state == TCP_ESTABLISHED ||
+>+		    sk->sk_state == TCP_CLOSING) {
+>+			err = 0;
+>+			goto out_wait;
+>+		}
+>
+> 		/* If connection was _not_ established and a signal/timeout came
+> 		 * to be, we want the socket's state reset. User space may want
+>-		 * to retry.
+>-		 *
+>-		 * sk_state != TCP_ESTABLISHED implies that socket is not on
+>-		 * vsock_connected_table. We keep the binding and the transport
+>-		 * assigned.
+>+		 * to retry, so we keep the binding and the transport assigned.
+> 		 */
+> 		if (signal_pending(current) || timeout == 0) {
+> 			err = timeout == 0 ? -ETIMEDOUT : sock_intr_errno(timeout);
+>
+>-- 
+>2.56.0
+>
 
