@@ -1,342 +1,235 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11012070.outbound.protection.outlook.com [52.101.126.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F20424BD79F
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 11:29:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791545377; cv=none; b=Xp9FvwqfFtOoW+xlWuG3RUBz5Zch1r6SY2vCanaBCg0RST8wWMtDZWWeFwBfqelUWxj6d1pDzhukDOFtbCk4Bs0EaV2kWquLtFuNqtPAtwKphwGSLXwjmMfSqx19jalovmE58ISnL/mjmv/4GVHHDjWla1LAk0YHBIEmCL4udxQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791545377; c=relaxed/simple;
-	bh=EdixUANFHy2W/LiaSAuiS/Tx+42OwOUTMhGj/CqPQx0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ChtfKEngoVsf2wVYmv1biIHQXyv0M4007vmtgT4SbLOz5hYHleIezGppRVHgJZbVpI15R+4H3yJN5E+pz/H1oGr2Ezqa4ifisv+xeg9pruEE06JJlHDLqs2yqNidPAogmcQdjiIhIDV/q0HnyjTZJcWfWEhaY+M/Xzk2oEC8mRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SUSg7DTW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=irZlwIX+; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C17D74D179E;
+	Fri,  9 Oct 2026 11:29:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.70
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791545393; cv=fail; b=LWgvfjNp9abJuweNLqwcXpByFhI24CIU3Fbf2/5JuLIVhl35eWJWXTJSkKTpUA9DpXGP+A7Mwd04eA2IdkjxNf/w/ftrC9OusEJ1SkCM78SER9pgW7iM83JCxHHJsrZ0fVRB/55G38xEK+ifVmzHH8+a9gg4qu7R529M3+Cij8s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791545393; c=relaxed/simple;
+	bh=gV3tZzd0ULnidBD8XjP2jbWPWNkv5yX1BYnJYCGoIYw=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=ojrntZDaYMje1g2dzST0EhtDQcFiZ3cj4awMtfr/XOAyfJ3d92Bnt9PXfBzVuiB69fKC0XKAmu2bzMEZkORvTpNfHDHrn9fIvDMxru4CoLCLny71u8nZgTdpEu4MSf0hfm5ScguYBnow+F3lBhbzgBdeLuRCQJGQmH1b6yoZqrg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vivo.com; spf=pass smtp.mailfrom=vivo.com; dkim=pass (2048-bit key) header.d=vivo.com header.i=@vivo.com header.b=lOeqUdfN; arc=fail smtp.client-ip=52.101.126.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vivo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vivo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SUSg7DTW";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="irZlwIX+"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6998KOTw3977832
-	for <linux-kernel@vger.kernel.org>; Fri, 9 Oct 2026 11:29:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	haBBSODWucHm3mmfANsuSegkfg8lAA0orynM/G8N+1k=; b=SUSg7DTWdbMS5wrU
-	TY0KL30fXocj8trQ5oSlOSkx3Sze/QVQEUmFZG0yzUFKJ8H7nlJmGFHjEwoY0g02
-	X7BD3wjAMya4H202Xa09mDai+GN4NSJOcSZ1BKtQlvCjCmQT6gZC4vxQsA9uTcNv
-	j3kuu2kKW9Dc8YSGcMqLPm44Ye2hElOV5gu/uk1tdW+3WSvylWUI2bIOvnGPnbFY
-	LXs48Mr4Pq/yriK8w9dVrk5IH4TJFe6qbgCnp26TT1q0+LMWPN7WV7J86N1VU+uT
-	ueMZEAHmj09DQoEd8Z2XWfxkqNZEyYO/y9dULU+2DuyvLL+Ia36DwETh6vM7Kn3Z
-	zmSkLQ==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6ev5bk09-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 11:29:22 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-34d49d8dee1so7470243eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 04:29:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791545362; x=1792150162; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=haBBSODWucHm3mmfANsuSegkfg8lAA0orynM/G8N+1k=;
-        b=irZlwIX+VSPOrfDOu5BRox8EMuZ6tpfa8eF1nOt1qy/ymZ1oMXBMeabnUWBgbU5ftB
-         8NAYWED/HTkU4d3aJ0KemgmsvyOyZ5Lr1A5eMw4S5RRkzz18kpBB5HutU3IHy5fwCMs9
-         mPpuapg5w5TqJP755THlKnRoeq4KfZjK2UqfVD7G8zuupiqKSSG8/WCCToz8Oq0Ymhiz
-         GzqoPWLRkMH9JHK00cHhW68TXTzfQ3a55FLws683/nelVo5ucM0l5U7HNo8MytSGtsty
-         qxoQdEfvop0H0w0HHpGHewXuh+0B27yKuGmG+bwyLedPJ3SobAh9qWlTc0DoLL8d5Ji4
-         pAsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791545362; x=1792150162;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=haBBSODWucHm3mmfANsuSegkfg8lAA0orynM/G8N+1k=;
-        b=HmJvR10Rqyfst582avAmL9Gv1JnBjLNCe4QObhkHvBoXGNcHeqjQJwejq1yz0QBMzL
-         Q2VH+zVeEBxFHimQdGrbbkXFvSjHUb+5G2n+wAMsUmc7kEaC3cSZiGdXztcPOmDCrTMI
-         C7DDvicMK9OxYzrurFuCF6LU90BhA5B+c39PQ1cn4O8nRG0yGAjnPSPo6VUf+1KPiM24
-         o1FbDWNvHuxX2JiFk4qVwtqLHM2RrUjC48sN8/X1ZCIPIucsgiTsNitaHRZfDr0iQBQ4
-         VroCf71oOsmtkX7QbyXWwMtHSyQf84/Ay97zdwJs4PHCVlxiOHEPmXxtqO0XwI4WSmxB
-         iaPw==
-X-Forwarded-Encrypted: i=1; AKwUvBwqVlFKkNIelZetjaizf6y3n1plpbeD2LUE315L16Vewv+1PQwBoTEgtihaFg4voefXsyTuuSJuCl1g5c0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJMIYJiVTNw9i8s0HWlqw2QCoSiIwkkctSLvD3nHjsqNCGnzkY/
-	7ncPotwaJW/ncbjvcWTjeh5FCkFI/e6D+HCYOhaPgeEgulxE7ZQPC7PCxrc76k9DYuSIKvBxQDD
-	Qz0AuGSlJB7RGTqCT61+ohdWJi3N574ig1KzMxPsLxtJNLtTwD8jWG3xKezYXljMfTsw=
-X-Gm-Gg: AYBFou2bZaTvgJ7YIc0bIFI6cH6TO5/W+BZsxBwoBu/gO9RdS2mh84Ssea/5GsirzSB
-	s4EypHxqg3BG8OfXpCClHongbgRFoavwmybBDI/cw9Wn6uwPkI4HClqUj4fyuBBjuO6S5pvMwIl
-	g3RnZmKDetA5Gk29ll+PQ8OrnNa9IJL/sx/y/a1Ilocjirpu/2tNhdEzgfNh/GZD1suFX8RyQAh
-	2YVHoxRL6I2DmGXJ1F0phlDh9se2oBLhsmECtkLOPqua02B+AuBAq8eGRPYUIDX+eqMv9mhwl7U
-	4AEeHNwTLu5I2qBF7XDi844wsNV7nIms78bxnguoW1quOOod0XHbDTVa5utzrMMmowuMmWIvrl5
-	RLjK7ly2gjSRiZHo1gZUCvecv/4fplIb4
-X-Received: by 2002:a05:7301:db14:b0:351:757d:71bd with SMTP id 5a478bee46e88-3537e05b78dmr2342394eec.24.1791545362008;
-        Fri, 09 Oct 2026 04:29:22 -0700 (PDT)
-X-Received: by 2002:a05:7301:db14:b0:351:757d:71bd with SMTP id 5a478bee46e88-3537e05b78dmr2342354eec.24.1791545361310;
-        Fri, 09 Oct 2026 04:29:21 -0700 (PDT)
-Received: from [10.217.218.111] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca1cc25sm8169040eec.8.2026.10.09.04.29.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 09 Oct 2026 04:29:20 -0700 (PDT)
-Message-ID: <c8d61771-1eb5-435f-a4df-9b585e4ef620@oss.qualcomm.com>
-Date: Fri, 9 Oct 2026 16:59:16 +0530
+	dkim=pass (2048-bit key) header.d=vivo.com header.i=@vivo.com header.b="lOeqUdfN"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pTaVVbeTarE6tGrzhKaVLfnBL+pVK9ncjOK8ZPyHjmJKUzVZzV4GWdB/0xIRVI9VxRaat0W78RcC54ODac2yyBINZbWTnV527/M1Dq5c5dnREqdNzfQPM0qGFjHFauSOfRfXrApPxbbrHulOCSWRqHCklUftyztjSEj82kynk/3J1BJMHlDRXd9FS2wD3Ubljtma+2yGjZWoNjo9OMVsJUBRbzlvby7CTw8P8pQML2qS8Q9d68L/zf8KxYXNUb4+DGlvvKgJnGdamtlipofh4ECgxTgxUhmJGs8pBUJlNCUeiJbbFnvgYqbOasKgnqSOmGjllJGA0FTpMwmg/RJQfQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gV3tZzd0ULnidBD8XjP2jbWPWNkv5yX1BYnJYCGoIYw=;
+ b=mUDLhCKTZPvQV0tW/vhI9KPBkZn+p933qvyiV7StxnSrGeR0obff562GvfBPyN8nGBY+A0iBaI8w3Gs8x5I8Yb0N6WatHtExJFiW+3jxZLjFt1ur9qpIiW1G+NBfIG2oMMEJt4wEFWCHSdD61PQZrRgrkYfVWzR05IzG3bCeCvosVlDJwnxdtUguNcPfo2yTfNH0Y4lVTs9IGLmGYxQqL0No2K50CL47mVVyME4gCytIMf5l8jBEvgLnAiq81d+biHDeXTc0WpMSz41mBnSmXHuyHc4IAnJCd47gJXuc/fN2wGdmHN3jDNFgmG3bwA60ISaUt2guuLPemizKY7+Pcg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
+ dkim=pass header.d=vivo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gV3tZzd0ULnidBD8XjP2jbWPWNkv5yX1BYnJYCGoIYw=;
+ b=lOeqUdfNSkUWumDjvFPIWLcsys65Dh6KE59eroQLBlJ470no6JTOXsHtK5j+W9jJHV8zox+9oe0ZAo+/uJuHORUmmugFAjWnOOPRs2PSZ9PaTIDoPbWctHe8ORMIbeVhqFJoITzC0LvMjfKFYYXd1Ab1tohcjKDCDTqXW7npCqpXsXHD8PdOGhM9o0vAufNcmNfNs8t7NUMRSyVWjKRpNIkOfRFydler0iLW/CVETKvcxsDNwUxCr7H2vYmt5NYKLrUEYLqo2H8XdI0hdG8AYvZSyn2Gl2qtGR7n8rgsUx8YoDX0qvC5qu+lZS+JP7pH42MODtemeY3S6AHfKNnG3Q==
+Received: from TYUPR06MB6217.apcprd06.prod.outlook.com (2603:1096:400:358::7)
+ by SI4PR06MB8970.apcprd06.prod.outlook.com (2603:1096:4:2b0::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
+ 2026 11:29:36 +0000
+Received: from TYUPR06MB6217.apcprd06.prod.outlook.com
+ ([fe80::8d51:58c7:42f3:ecc]) by TYUPR06MB6217.apcprd06.prod.outlook.com
+ ([fe80::8d51:58c7:42f3:ecc%4]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
+ 11:29:36 +0000
+From: =?gb2312?B?uvrBrMfa?= <hulianqin@vivo.com>
+To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, "Martin K.
+ Petersen" <mkp@kernel.org>, Bart Van Assche <bvanassche@acm.org>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Alan Stern
+	<stern@rowland.harvard.edu>
+CC: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>, Hannes
+ Reinecke <hare@suse.de>, Mike Christie <michael.christie@oracle.com>, Damien
+ Le Moal <dlemoal@kernel.org>, John Garry <john.g.garry@oracle.com>,
+	Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
+	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"usb-storage@lists.one-eyed-alien.net"
+	<usb-storage@lists.one-eyed-alien.net>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Subject: [PATCH v5 1/2] scsi: sd: mark disk dead on surprise host removal to
+ avoid I/O hang
+Thread-Topic: [PATCH v5 1/2] scsi: sd: mark disk dead on surprise host removal
+ to avoid I/O hang
+Thread-Index: Ad1X4Nn5DvzfrXBnSoCZVyBu705+6g==
+Date: Fri, 9 Oct 2026 11:29:36 +0000
+Message-ID:
+ <TYUPR06MB6217DD31B1B3CD09E431CC12D2922@TYUPR06MB6217.apcprd06.prod.outlook.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYUPR06MB6217:EE_|SI4PR06MB8970:EE_
+x-ms-office365-filtering-correlation-id: c98117e6-f778-4e63-74d8-08df25f8992d
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|7416014|23010399003|376014|42112799006|366016|1800799024|56012099006|38070700021|5023799004|11063799006|18002099003|6133799003|10067099003;
+x-microsoft-antispam-message-info:
+ Rhn7glS3tQ1cDqNry5G4pEdV9UHBFq8GbkBF7yJb/89MfFzw3jnebSpjS5rs1XaMH0fQPkasi6FaPqoX/SwPJGoahUttS+SeVkG6NaqeoHpy8au5R1ayJFV5MAkdz1mQnJVX/+YJAYyXY7um1RrCaR5AxJqG7e41UGQ3PsGXTvSqTnWkinYwuc/3O9c7HD27HRPyGkZXtsuKxsoQYM/QPNqu0qOeVQW1VUpXI6FSMPb6j0HPzTyIow4hViia57hgNZv0jlOkEcw3s23O9SSLcYC+QYNr3oN5R7ko1w94McyiVUl8w9liQUnCGf3D8XoZkRwQhc6osyjko2hifGJAPMgeHMlK+mXbtdEfNkWxZ0UORJ5bXztkTxq+66JFzaMFJEHhGYsLn4212Ys6Z7sLrSUaN5cn0MiNiEQWPjPDvcfFq6RurShO1h6DfCqUOcUNPIUbNeK0kQ31rMh0opohc7rSliKu9cYw/hML4i0XgkEtTVc7Oj5QE0peHFm4t7eebMTecJqXhtnT13qBFb2gnxONoca0VXo69RMOmhhlNH2QPZ6IYHDgAzimcUPqJ1fZa0/89G4wbfY3IhrrDuN3n49ZU3r7HlihWJkgaM3lysUkIxgrQ6NKD2fLq+gY/koWCnaGzsQ55rJe1QXN2ZGGfyTzUw4FFsZL2c0gf0TtaKU=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYUPR06MB6217.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(42112799006)(366016)(1800799024)(56012099006)(38070700021)(5023799004)(11063799006)(18002099003)(6133799003)(10067099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?gb2312?B?eE1hVmNXakNSNm9mQTNja3RBR3Y4YXZTN0h3TTRSZEUzdS9GbTVubGNsSm5P?=
+ =?gb2312?B?RzBDYnpsUjdhb1pQSEdXME5JUWtkc243LzFTekJ6UENvSHdJVzJ0Y1FwYlVh?=
+ =?gb2312?B?TXErUE81OTNwdGpkejE3VU9NZHo3Smh3VmpNUnpVZlgwSUI4Tk5zdFJ1L2hJ?=
+ =?gb2312?B?dy9zMEVGbFVndmhNbGFDRlhLNmZqS0s4RGtCRGNwVjZwZlNzckFpWTlhWW1s?=
+ =?gb2312?B?MGFxK0o3cVFlRXNpTzM4ZmQrWjN0K0huQ2cvN3lUV2k4KzAxVGhZZ1g2VXov?=
+ =?gb2312?B?aWlQd1lTQTdlaGZQbFhWbmVTdDZDUUZ6NVN0WEp2cGpqbzlNbkdPMlZoOFRU?=
+ =?gb2312?B?L1BSUzlzYUQyWmY2MW5ib2NvTThmMXVWT2hJaHBZSFNjVG02QkhkUE90MWdz?=
+ =?gb2312?B?VnphSk1zMUFIbHVUdnR6S3hzcEx5bjhXRXRKams3T3k4NjVGeXF6L2ZoOGJL?=
+ =?gb2312?B?bUE5V1FINUc0R1JYdHdSaDdXTDlYd1ZNRm1ITHZObHJ3Zmc4OTRQcE41K3Uv?=
+ =?gb2312?B?RWVHc2R5RnE0d01VL1RNdUNXa2llT3RQRnV0c1ZKQUVUK2pHNTU2MGxld1Rz?=
+ =?gb2312?B?RWhySEc0R01MclVCTUpwNTdEVkszRGMvUHJuSXZNSUx2MG43KzR1STczNitD?=
+ =?gb2312?B?UWVQTEE2elJvYXRvWmd0UG5mQW5wRHRsZWtkanAwRUxRcExZdlVST09rRDh0?=
+ =?gb2312?B?NjNBQWNNSnR6dlRJbTU3QWNNTWxPVVU0RC9TdnlEbGJDMG9jc3hxUUVkZFVQ?=
+ =?gb2312?B?R010OHJ2YTJNVFVpVG1lYW9kRnNtYzc3SjhPL1hla29RY1hsT2laUUE3ZkhQ?=
+ =?gb2312?B?bXVXK0lNTHlMenVaK0owOVhydTFTUU9tOHVxeHVHL1dYa3ZLbGNLYnlwdkx5?=
+ =?gb2312?B?WmY3N2dBY2ZhSFByQUhoRTMzVW5tOVJpdUV6eVhIZ0ZuSXFlN01FMHJrSXpk?=
+ =?gb2312?B?SkN1N01KbWpnTDZuR3JrdVltVWNXQVZwcndudEdwZVFRVFRiUlBBRW1vTVNO?=
+ =?gb2312?B?Zzc2MGcxcWFLbVVwKzhhZ0FUK2t6UXkvdnZJVlpnM085cEhIalRJWThxS2Rt?=
+ =?gb2312?B?alAzTnp3UEhmZTd0Mis4RFg1M1dHS0xsSzUyQ1FlWTFvbk5yaE1EUWhuWXJu?=
+ =?gb2312?B?TlFzUzBYWXVnY2xrRzlXK3ZReTB0UDhSVVc3RFMzQzZKU0xieGNWWGYrTDl0?=
+ =?gb2312?B?UmFLamNRUXVvWGxmUUlGczc1NDk1QWlvcElQaUQ3UkpJbkx5azVLZzhtNUlu?=
+ =?gb2312?B?M3J2WlI5QVhjMmZVTEtwSTBOM2dzVExPUXlaQyt4aXVEbnRrNGhLQ0taSU9o?=
+ =?gb2312?B?R2RPbGhIeU9xVUxESmUxMjJDNk9rcHBGOEgxZS9QMm4wRFNTVGZpL2tkNVVl?=
+ =?gb2312?B?ZTVkbG14a1A5UmpKc09xdGNwNVI0WWV4UzlPRzZtUnM0c1Ardkp4ZHZIRU1K?=
+ =?gb2312?B?a0wzUHVnbVBJeDFNeDlkM3FXSGVTd3EvdEtzR1hiVVpuYXg0blBrQzM2TE5J?=
+ =?gb2312?B?bUxpT3JMQm9nMDZ4cGFMUTM3Z25uelVsM2hVSTN2VWZ3aHVHNno0TW9kWWNq?=
+ =?gb2312?B?eWtFY0RXQlk1L0YyV1kyN3p6OHM0aU02aWhlZmIwOW5jYnZkR1VTTGtPNWxR?=
+ =?gb2312?B?Sk9CY2xFVmo5RmV2TkZKMkE0ZW5XTVBtdURPUzB2TWZPOHI2QzkwN1lIN3B6?=
+ =?gb2312?B?T2c0dGJPSkdML05EZGhGV0dSNm04eWQvTkk5YXdhbGxJYlNWQkJvVUtObUFq?=
+ =?gb2312?B?UWIyRlpYQXpoK0hGK0RyWUQxcFpUWWU0RGpWb3p3RUFqR3czaUh2YmtBbjV2?=
+ =?gb2312?B?OVg2TDFKVzZwck13TVluWWZuVW9mQzJPN2xmV3diUjYzVDdjVXBTMms3OUpu?=
+ =?gb2312?B?aTJTNVRRRmJNYm55TU5VY0l4aUdoN0VhTnRGNEpIQXJoY0xXeFRoKzNMVHlT?=
+ =?gb2312?B?MU1GMG5SSHpESjFQeEVIN2dNTlltSnk0cFVWZmh4V0dNNVkyTTRFZXY2Rm9w?=
+ =?gb2312?B?aC9TMk5Zbk5RTDVka1R6U0pCb2ZhL1ZNUGRjR2JuWVY0LzdlMXRjb1JrUFl4?=
+ =?gb2312?B?ZDg3MHdtS3hxMHFTVUJKODIyTTA4d1JSb0pMYUlFL1JEaW16Y3pNeFpQd0or?=
+ =?gb2312?B?ekNVUlVlOGNZR2c0aEZXam1VUDBCQ0hScHhsL3llSzlyMDVrODdOeGgrd3Fo?=
+ =?gb2312?B?dVU5a0tJRTRWM1pSQUVvMExPMjMzZXFxdmdFeEczVFlncGZJcVFwVzRIRnJj?=
+ =?gb2312?B?WHpCQ1lHTnY3RmpxSFFiTUxpWkp1ZDZ6emxuKzc0NEhGdEZjbFdKbktxU2hY?=
+ =?gb2312?Q?GqL+z0VZIdgqNALaFo?=
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/3] i2c: qcom-geni: Add bus recovery support for GPI
- DMA mode
-To: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>,
-        Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-        Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-        Andi Shyti <andi.shyti@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org
-References: <20260826-i2c_bus_recovery-v1-0-203f0ec76f84@oss.qualcomm.com>
- <20260826-i2c_bus_recovery-v1-3-203f0ec76f84@oss.qualcomm.com>
- <7cc05c51-811f-4949-9fe6-10580ff90eea@oss.qualcomm.com>
-Content-Language: en-US
-From: Aniket RANDIVE <aniket.randive@oss.qualcomm.com>
-In-Reply-To: <7cc05c51-811f-4949-9fe6-10580ff90eea@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA0NSBTYWx0ZWRfX9QQOKtQSGoIC
- 4cbdscHMIZKu/bUHPKypVXpbEYbbhc7Y+XWrxitiHWzx6VDLPSJ8DTQ2AiyI4ynMAWIQupqjq9u
- uja/KKE3bWSWnr1UpXfOi3NbP5Pp/Pk=
-X-Authority-Analysis: v=2.4 cv=MMT1C8Zl c=1 sm=1 tr=0 ts=6ac8d012 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=RhFRd_MFMwiQnDz1XkEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-GUID: UApZk-YWqyeVpLX-XL44IDi63fZqcNfb
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA0NSBTYWx0ZWRfX8GBd6rIH+cB3
- nXdL3U8Wvm+MZrTaXVQUXu7gjPZv6a1Xv9SLRxDmVxBOhOam3vRwQReY5ZCKYjBFK1PfRSShRjo
- OovUKy5l8Guc9+0HIOO9dRh4a3C+awU1+nZ/Mwk+EK84Ix1MUdz4w2e+Mz/B/pj+xT33Ql0bbHz
- jorxU6I4YLNCNE48lb+cAaO8JBBE522sFtF6AM4wBI1ty+e/cBPq7VI8qirev8QOD52l4RHb+4L
- bLRVQi/GncS1ObgUsSJyOh7AdSVEXsAioIlnU2H1KRoqSyvjEHQSgpTUvEklsoBivpLc29dt48W
- LXG+uOCoG0qB+fKZGGLTJjITOmkTG4FDynbLAIEF5pnqzXBmgYcjDKI1MCK/XySX/wFaGK6dVCP
- tH1HBhzxG0L2TZnsMJcC+1SEaztk8zbmbj3kmsMpq1Xr/nuhJaAriGVDhCwlAbZV/TalJgUzGyV
- E4Yli7DOclNA4SS8xxQ==
-X-Proofpoint-ORIG-GUID: UApZk-YWqyeVpLX-XL44IDi63fZqcNfb
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-09_03,2026-10-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 phishscore=0 clxscore=1015 spamscore=0
- lowpriorityscore=0 adultscore=0 suspectscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090045
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYUPR06MB6217.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c98117e6-f778-4e63-74d8-08df25f8992d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2026 11:29:36.1462
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: GK4HcGsKAaetwfHLHabH7XSW+Y2kGJvQYhV24b6PmANnWTrd628F+mOAJaEbfM5uhsCrMBJpvH3yAy44vdGlDw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SI4PR06MB8970
 
-
-
-On 9/3/2026 9:44 PM, Jyothi Kumar Seerapu wrote:
-> 
-> 
-> On 8/26/2026 3:21 PM, Aniket Randive wrote:
->> I2C transfers in GPI DMA mode can fail with -EIO when a target holds
->> SDA low, leaving the bus stuck and preventing subsequent transactions.
->> The GPI completion callback reports a NACK and a genuine bus error
->> alike as -EIO, and the existing recovery path switches the SE to FIFO
->> mode which is not valid in GPI DMA mode.
->>
->> Add bus recovery support using the I2C_BUS_CLEAR and I2C_STOP_ON_BUS
->> opcodes issued via the GPI TX DMA channel. Guard the -EIO recovery
->> trigger with a SE_GENI_IOS RX_DATA_IN check to skip recovery when SDA
->> is already released. Extend the recovery callback to dispatch through
->> the GPI DMA path when gi2c->gpi_mode is set.
->>
->> Signed-off-by: Aniket Randive <aniket.randive@oss.qualcomm.com>
->> ---
->>   drivers/i2c/busses/i2c-qcom-geni.c | 104 +++++++++++++++++++++++++++ 
->> ++++------
->>   1 file changed, 88 insertions(+), 16 deletions(-)
->>
->> diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/ 
->> i2c-qcom-geni.c
->> index 9fa1a8ac400c..85cb1367958c 100644
->> --- a/drivers/i2c/busses/i2c-qcom-geni.c
->> +++ b/drivers/i2c/busses/i2c-qcom-geni.c
->> @@ -34,8 +34,6 @@
->>   #define I2C_READ        0x2
->>   #define I2C_WRITE_READ        0x3
->>   #define I2C_ADDR_ONLY        0x4
->> -#define I2C_BUS_CLEAR        0x6
->> -#define I2C_STOP_ON_BUS        0x7
->>   /* M_CMD params for I2C */
->>   #define PRE_CMD_DELAY        BIT(0)
->>   #define TIMESTAMP_BEFORE    BIT(1)
->> @@ -1003,6 +1001,70 @@ static int geni_i2c_fifo_bus_cmd(struct 
->> geni_i2c_dev *gi2c, u32 cmd)
->>       return gi2c->err;
->>   }
->> +static int geni_i2c_gpi_bus_cmd(struct geni_i2c_dev *gi2c, enum 
->> i2c_op cmd)
->> +{
->> +    const struct geni_i2c_clk_fld *itr = gi2c->clk_fld;
->> +    struct dma_async_tx_descriptor *desc;
->> +    struct gpi_i2c_config peripheral = {};
->> +    struct dma_slave_config config = {};
->> +    unsigned long time_left;
->> +    unsigned long flags;
->> +    dma_cookie_t cookie;
->> +
->> +    config.peripheral_config = &peripheral;
->> +    config.peripheral_size = sizeof(peripheral);
->> +
->> +    peripheral.set_config  = 1;
->> +    peripheral.pack_enable = I2C_PACK_TX | I2C_PACK_RX;
->> +    peripheral.cycle_count = itr->t_cycle_cnt;
->> +    peripheral.high_count  = itr->t_high_cnt;
->> +    peripheral.low_count   = itr->t_low_cnt;
->> +    peripheral.clk_div     = itr->clk_div;
->> +    peripheral.op          = cmd;
->> +
->> +    if (dmaengine_slave_config(gi2c->tx_c, &config)) {
->> +        dev_err(gi2c->se.dev, "dma config error for bus cmd %u\n", cmd);
->> +        return -EIO;
->> +    }
->> +
->> +    desc = dmaengine_prep_slave_single(gi2c->tx_c, 0, 0, DMA_MEM_TO_DEV,
->> +                       DMA_PREP_INTERRUPT | DMA_CTRL_ACK);
->> +    if (!desc)
->> +        return -EIO;
->> +
->> +    desc->callback_result = i2c_gpi_cb_result;
->> +    desc->callback_param = gi2c;
->> +
->> +    cookie = dmaengine_submit(desc);
->> +    if (dma_submit_error(cookie))
->> +        return -EIO;
->> +
->> +    /*
->> +     * cur and err are shared with geni_i2c_irq() and the GPI callback
->> +     * i2c_gpi_cb_result(); both write err (the IRQ handler under
->> +     * gi2c->lock). Reset them under the lock before issuing the 
->> transfer.
->> +     */
->> +    spin_lock_irqsave(&gi2c->lock, flags);
->> +    gi2c->cur = NULL;
->> +    gi2c->err = 0;
->> +    spin_unlock_irqrestore(&gi2c->lock, flags);
->> +    reinit_completion(&gi2c->done);
->> +    dma_async_issue_pending(gi2c->tx_c);
->> +
->> +    time_left = wait_for_completion_timeout(&gi2c->done, XFER_TIMEOUT);
->> +    if (!time_left) {
->> +        dev_err(gi2c->se.dev, "timeout waiting for GPI bus cmd %u\n", 
->> cmd);
->> +        dmaengine_terminate_sync(gi2c->tx_c);
->> +        return -ETIMEDOUT;
->> +    }
->> +
->> +    /* ARB_LOST and BUS_PROTO may be expected during recovery; treat 
->> as success */
->> +    if (gi2c->err == -EAGAIN || gi2c->err == -EPROTO)
->> +        return 0;
->> +
->> +    return gi2c->err;
->> +}
->> +
->>   static int geni_i2c_recover_bus(struct i2c_adapter *adap)
->>   {
->>       struct geni_i2c_dev *gi2c = i2c_get_adapdata(adap);
->> @@ -1021,15 +1083,23 @@ static int geni_i2c_recover_bus(struct 
->> i2c_adapter *adap)
->>           return 0;
->>       }
->> -    ret = geni_i2c_fifo_bus_cmd(gi2c, I2C_BUS_CLEAR);
->> -    if (!ret)
->> -        ret = geni_i2c_fifo_bus_cmd(gi2c, I2C_STOP_ON_BUS);
->> +    if (gi2c->gpi_mode) {
->> +        ret = geni_i2c_gpi_bus_cmd(gi2c, I2C_BUS_CLEAR);
->> +        if (ret)
->> +            dev_dbg(gi2c->se.dev, "GPI bus clear returned %d, issuing 
->> stop anyway\n",
->> +                ret);
->> +
->> +        ret = geni_i2c_gpi_bus_cmd(gi2c, I2C_STOP_ON_BUS);
->> +    } else {
->> +        ret = geni_i2c_fifo_bus_cmd(gi2c, I2C_BUS_CLEAR);
->> +        if (!ret)
->> +            ret = geni_i2c_fifo_bus_cmd(gi2c, I2C_STOP_ON_BUS);
->> +    }
->>       /*
->> -     * Recovery succeeds only once the slave releases SDA, so the bus
->> -     * state is the authority: RX_DATA_IN high means the bus is free,
->> -     * while a clean opcode status with SDA still low is a failed
->> -     * recovery.
->> +     * Recovery succeeds when SDA is released. RX_DATA_IN high means the
->> +     * bus is free; trust this over the opcode return path, which cannot
->> +     * flag a benign recovery event in GPI mode.
->>        */
->>       if (readl_relaxed(gi2c->se.base + SE_GENI_IOS) & RX_DATA_IN)
->>           ret = 0;
->> @@ -1066,14 +1136,18 @@ static int geni_i2c_xfer(struct i2c_adapter 
->> *adap,
->>       else
->>           ret = geni_i2c_fifo_xfer(gi2c, msgs, num);
->> -    if (!gi2c->gpi_mode &&
->> -        (ret == -EPROTO || ret == -ETIMEDOUT || ret == -EAGAIN)) {
->> +    if (ret == -EPROTO || ret == -ETIMEDOUT || ret == -EAGAIN ||
->> +        (gi2c->gpi_mode && ret == -EIO)) {
->>           /*
->>            * Only attempt recovery if SDA is stuck low. -EPROTO and
->>            * -ETIMEDOUT indicate bus errors where the target may be
->>            * holding SDA low. ARB_LOST (-EAGAIN) on a single-controller
->>            * bus indicates a stuck target, not a real arbitration loss.
->> -         * GPI DMA mode extends this trigger separately.
->> +         * In GPI DMA mode the completion callback reports NACK,
->> +         * BUS_PROTO and ARB_LOST alike as -EIO, so the SE_GENI_IOS
->> +         * RX_DATA_IN check below is what distinguishes a genuinely
->> +         * stuck bus from a benign NACK: a NACK leaves SDA released
->> +         * (high) after the STOP, so recovery is skipped.
->>            */
->>           if (!(readl_relaxed(gi2c->se.base + SE_GENI_IOS) & 
->> RX_DATA_IN)) {
->>               int recovery_ret = i2c_recover_bus(adap);
-> This does not appear to handle scenarios such as an I2C multi-message 
-> transfer where the stretch bit is set during the first message, but an 
-> error occurs while preparing the second message (for example, during 
-> memory allocation or DMA descriptor preparation). In such cases, the SCL 
-> line may remain asserted low and impact subsequent transfers.
->   > @@ -1292,10 +1366,8 @@ static int geni_i2c_probe(struct 
-> platform_device *pdev)
-
-Thank you for pointing this out.
-The GPI completion callback reports transfer failures as -EIO, but 
-failures while preparing a later descriptor may return other errors such 
-as -ENOMEM or -EINVAL. If a preceding stretched transfer has left SCL 
-low, this requires separate consideration.
-However, the bus-clear sequence is only applicable when SCL is high and 
-SDA is held low, since it recovers the bus by generating SCL pulses. It 
-cannot recover a bus where SCL itself is held low. The recovery callback 
-therefore detects SCL-low and returns -EBUSY without issuing 
-I2C_BUS_CLEAR or I2C_STOP_ON_BUS.
-The GPI error path already calls dmaengine_terminate_sync() for both 
-channels. I will verify whether this releases a controller-owned stretch 
-before extending the recovery trigger to descriptor-preparation 
-failures. If termination does not release SCL, the appropriate fix is a 
-GPI/GENI abort or reset path, rather than invoking bus-clear.
-
-- Aniket
-
->>       if (ret < 0)
->>           return ret;
->> -    if (!gi2c->gpi_mode) {
->> -        gi2c->rinfo.recover_bus = geni_i2c_recover_bus;
->> -        gi2c->adap.bus_recovery_info = &gi2c->rinfo;
->> -    }
->> +    gi2c->rinfo.recover_bus = geni_i2c_recover_bus;
->> +    gi2c->adap.bus_recovery_info = &gi2c->rinfo;
->>       ret = i2c_add_adapter(&gi2c->adap);
->>       if (ret)
->>
-> 
-
+V2hlbiBhIFVTQiBtYXNzIHN0b3JhZ2UgZGV2aWNlIHdpdGggYSBtb3VudGVkIGZpbGVzeXN0ZW0g
+KGUuZy4gZXhGQVQpDQplbnRlcnMgcnVudGltZSBzdXNwZW5kIChhdXRvc3VzcGVuZCksIHBoeXNp
+Y2FsIHJlbW92YWwgdHJpZ2dlcnMNCnNjc2lfcmVtb3ZlX2hvc3QoKSB3aGljaCBpbnZva2VzIHNk
+X3JlbW92ZSgpIC0+IGRlbF9nZW5kaXNrKCkgLT4NCmJsa19yZXBvcnRfZGlza19kZWFkKCkuICBU
+aGlzIHRyaWdnZXJzIHN5bmNfZmlsZXN5c3RlbSgpIHRvIHdyaXRlDQpiYWNrIGRpcnR5IGRhdGEs
+IHN1Ym1pdHMgYmlvIGFuZCBibG9ja3MgaW4gX19iaW9fcXVldWVfZW50ZXIoKQ0Kd2FpdGluZyBm
+b3IgSS9PIGNvbXBsZXRpb24gdGhhdCBjYW4gbmV2ZXIgaGFwcGVuIHNpbmNlIHRoZSBkZXZpY2UN
+CmlzIGFscmVhZHkgZ29uZSwgbGVhZGluZyB0byBhIGh1bmcgdGFzay4NCg0KZGVsX2dlbmRpc2so
+KSB1bmNvbmRpdGlvbmFsbHkgY2FsbHMgYmxrX3JlcG9ydF9kaXNrX2RlYWQoZGlzaywgZmFsc2Up
+DQp3aGVuIEdEX0RFQUQgaXMgbm90IHlldCBzZXQsIHdoaWNoIGFsd2F5cyBhdHRlbXB0cyB0byBz
+eW5jIHRoZQ0KZmlsZXN5c3RlbS4gIEZvciBzdXJwcmlzZSByZW1vdmFsIHdoZXJlIHRoZSBkZXZp
+Y2UgY2Fubm90IGhhbmRsZSBJL08sDQp0aGlzIHN5bmMgaXMgZnV0aWxlIGFuZCBoYW5ncyBmb3Jl
+dmVyLg0KDQpBZGQgYSBzdXJwcmlzZV9yZW1vdmFsIGZsYWcgdG8gc3RydWN0IFNjc2lfSG9zdCB0
+aGF0IExMRERzIGNhbiBzZXQNCmJlZm9yZSBjYWxsaW5nIHNjc2lfcmVtb3ZlX2hvc3QoKSB0byBp
+bmRpY2F0ZSB0aGF0IHRoZSBkZXZpY2UgaXMNCmFscmVhZHkgZ29uZSBhbmQgY2Fubm90IGhhbmRs
+ZSBJL08uICBJbiBzZF9yZW1vdmUoKSwgY2hlY2sgdGhpcyBmbGFnDQphbmQgY2FsbCBibGtfbWFy
+a19kaXNrX2RlYWQoKSB0byBzZXQgR0RfREVBRCwgc28gdGhhdCBkZWxfZ2VuZGlzaygpDQpzZWVz
+IEdEX0RFQUQgYWxyZWFkeSBzZXQgYW5kIHNraXBzIHRoZSBzeW5jLiAgRm9yIG9yZGVybHkgcmVt
+b3ZhbA0Kd2hlcmUgdGhlIGZsYWcgaXMgbm90IHNldCwgc3luYyBwcm9jZWVkcyBub3JtYWxseS4N
+Cg0KVGhlIGFjdHVhbCBzZXR0aW5nIG9mIHRoaXMgZmxhZyBieSB0aGUgVVNCIHN0b3JhZ2UgZHJp
+dmVyIGlzIGRvbmUNCmluIGEgZm9sbG93LXVwIHBhdGNoLg0KDQpDYWxsIHRyYWNlIG9uIFVTQiBz
+dG9yYWdlIHN1cnByaXNlIHJlbW92YWw6DQpJTkZPOiB0YXNrIGt3b3JrZXIvMTowOjMxIGJsb2Nr
+ZWQgZm9yIG1vcmUgdGhhbiAxNDcgc2Vjb25kcy4NCkNhbGwgdHJhY2U6DQogX19zd2l0Y2hfdG8r
+MHgxOTgvMHgzODANCiBfX3NjaGVkdWxlKzB4NTQ4LzB4ZmJjDQogc2NoZWR1bGUrMHg0Yy8weDEx
+OA0KIF9fYmlvX3F1ZXVlX2VudGVyKzB4YjgvMHgxNzQNCiBibGtfbXFfc3VibWl0X2JpbysweDY0
+MC8weDdlNA0KIF9fc3VibWl0X2JpbysweDFhNC8weDMxNA0KIF9fc3VibWl0X2Jpb19ub2FjY3Rf
+bXErMHgzOC8weDhjDQogc3VibWl0X2Jpb19ub2FjY3QrMHg2NzgvMHg3NTANCiBzdWJtaXRfYmlv
+KzB4YTgvMHgxYzgNCiBzdWJtaXRfYmhfd2JjKzB4MTQ4LzB4MWI0DQogX19zeW5jX2RpcnR5X2J1
+ZmZlcisweDEyMC8weDFmOA0KIGV4ZmF0X3N5bmNfZnMrMHhhNC8weGUwDQogc3luY19maWxlc3lz
+dGVtKzB4YTgvMHhkYw0KIGZzX2JkZXZfbWFya19kZWFkKzB4MzAvMHg4OA0KIGJkZXZfbWFya19k
+ZWFkKzB4NTQvMHhjNA0KIGJsa19yZXBvcnRfZGlza19kZWFkKzB4OGMvMHhkNA0KIGRlbF9nZW5k
+aXNrKzB4YTAvMHgyZjgNCiBzZF9yZW1vdmUrMHgzMC8weDYwDQogZGV2aWNlX3JlbGVhc2VfZHJp
+dmVyX2ludGVybmFsKzB4MWM0LzB4MmJjDQogZGV2aWNlX3JlbGVhc2VfZHJpdmVyKzB4MTgvMHgy
+OA0KIGJ1c19yZW1vdmVfZGV2aWNlKzB4MTU4LzB4MTcwDQogZGV2aWNlX2RlbCsweDFjOC8weDMy
+MA0KIF9fc2NzaV9yZW1vdmVfZGV2aWNlKzB4OWMvMHgxODQNCiBzY3NpX2ZvcmdldF9ob3N0KzB4
+NTAvMHg3MA0KIHNjc2lfcmVtb3ZlX2hvc3QrMHg4OC8weDE4Yw0KIHVzYl9zdG9yX2Rpc2Nvbm5l
+Y3QrMHg2OC8weGY0DQogdXNiX3VuYmluZF9pbnRlcmZhY2UrMHgxM2MvMHgzNDANCiBkZXZpY2Vf
+cmVsZWFzZV9kcml2ZXJfaW50ZXJuYWwrMHgxYzQvMHgyYmMNCiBkZXZpY2VfcmVsZWFzZV9kcml2
+ZXIrMHgxOC8weDI4DQogYnVzX3JlbW92ZV9kZXZpY2UrMHgxNTgvMHgxNzANCiBkZXZpY2VfZGVs
+KzB4MWM4LzB4MzIwDQogdXNiX2Rpc2FibGVfZGV2aWNlKzB4ODQvMHgxOTANCiB1c2JfZGlzY29u
+bmVjdCsweGU4LzB4MzM4DQogaHViX2V2ZW50KzB4YmQ4LzB4MTlhYw0KIHByb2Nlc3Nfc2NoZWR1
+bGVkX3dvcmtzKzB4MjAwLzB4OWQ4DQogd29ya2VyX3RocmVhZCsweDE1NC8weDNiMA0KDQpGaXhl
+czogNmY4MTkxZmRmNDFkICgiYmxvY2s6IHNpbXBsaWZ5IGRpc2sgc2h1dGRvd24iKQ0KQ2M6IHN0
+YWJsZUB2Z2VyLmtlcm5lbC5vcmcNClNpZ25lZC1vZmYtYnk6IExpYW5xaW4gSHUgPGh1bGlhbnFp
+bkB2aXZvLmNvbT4NCi0tLQ0KDQpDaGFuZ2VzIGluIHY1Og0KICAtIEZpeCB2NCBkYXRhIGxvc3Mg
+cmlzazogc2NzaV9ob3N0X2luX2NhbmNlbCgpIGNhbm5vdCBkaXN0aW5ndWlzaA0KICAgIHN1cnBy
+aXNlIHJlbW92YWwgZnJvbSBvcmRlcmx5IHJlbW92YWwsIGNhdXNpbmcgc3luY19maWxlc3lzdGVt
+KCkNCiAgICB0byBiZSBza2lwcGVkIGZvciBhbGwgaG9zdCByZW1vdmFscy4NCiAgLSBSZXBsYWNl
+IHdpdGggYW4gZXhwbGljaXQgc3VycHJpc2VfcmVtb3ZhbCBmbGFnIGluIHN0cnVjdCBTY3NpX0hv
+c3QNCiAgICB0aGF0IExMRERzIHNldCBvbmx5IHdoZW4gdGhlIGRldmljZSBpcyBwaHlzaWNhbGx5
+IGdvbmUuDQogIC0gU3BsaXQgaW50byBhIDItcGF0Y2ggc2VyaWVzOyBwYXRjaCAyLzIgc2V0cyB0
+aGUgZmxhZyBpbiBVU0Igc3RvcmFnZS4NCiAgLSBMaW5rIHRvIHY0OiBodHRwczovL2xvcmUua2Vy
+bmVsLm9yZy9hbGwvVFlVUFIwNk1CNjIxNzU3MEI5QUZBNEI1OTgwRkNDRUQwRDI5MzJAVFlVUFIw
+Nk1CNjIxNy5hcGNwcmQwNi5wcm9kLm91dGxvb2suY29tLw0KDQpDaGFuZ2VzIGluIHY0Og0KICAt
+IFJlcG9zdDogdjMgZGlkIG5vdCByZWNlaXZlIGFueSByZXZpZXcgZmVlZGJhY2suDQogIC0gVGhl
+IGJsb2NrIGxheWVyIGNvdW50ZXJwYXJ0ICg3ZTlhNDYwMDRiNDcgJ2Jsb2NrOiBzZXQgUVVFVUVf
+RkxBR19EWUlORw0KICAgdW5jb25kaXRpb25hbGx5IGluIGJsa19tYXJrX2Rpc2tfZGVhZCgpJykg
+aGFzIGJlZW4gbWVyZ2VkLCBidXQgaXQgYWxvbmUNCiAgIGlzIG5vdCBzdWZmaWNpZW50IGFzIHRo
+ZSBxdWV1ZSBpcyBub3QgZnJvemVuIGR1cmluZyBhdXRvc3VzcGVuZC4gIFRoaXMNCiAgIFNDU0kg
+cGF0Y2ggaXMgc3RpbGwgbmVlZGVkIHRvIG1hcmsgdGhlIGRpc2sgZGVhZCBiZWZvcmUgZGVsX2dl
+bmRpc2soKS4NCiAgLSBMaW5rIHRvIHYzOiBodHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwvVFlV
+UFIwNk1CNjIxNzcxNzhGOTMwNURGNUMxQTdEMDQ2RDJBOTJAVFlVUFIwNk1CNjIxNy5hcGNwcmQw
+Ni5wcm9kLm91dGxvb2suY29tLw0KDQpDaGFuZ2VzIGluIHYzOg0KIC0gUmVwb3N0IGFmdGVyIG1l
+cmdlIHdpbmRvdyBjbG9zdXJlIGFzIHJlcXVlc3RlZCBieSBtYWludGFpbmVyLg0KIC0gVXNlIHNj
+c2lfZ2V0X2hvc3Rfc3RhdGUoKSB0byBtYXRjaCBzY3NpX2hvc3RfaW5fcmVjb3ZlcnkoKSBwYXR0
+ZXJuLg0KIC0gRml4IExpbmsgdG8gdjEgVVJMLg0KIC0gTGluayB0byB2MjogaHR0cHM6Ly9sb3Jl
+Lmtlcm5lbC5vcmcvYWxsL1BVWlBSMDZNQjYyMjQ1M0MzN0QyQkFCQzVFNzFCMTk1REQyREMyQFBV
+WlBSMDZNQjYyMjQuYXBjcHJkMDYucHJvZC5vdXRsb29rLmNvbS8NCg0KQ2hhbmdlcyBpbiB2MjoN
+CiAtIFNwbGl0IGludG8gYSB0d28tcGF0Y2ggc2VyaWVzIGZvciBpbmRlcGVuZGVudCByZXZpZXcg
+YnkgYmxvY2sgYW5kIFNDU0kgbWFpbnRhaW5lcnMuDQogLSBUaGlzIGlzIHRoZSBTQ1NJIHBhcnQg
+ZXh0cmFjdGVkIGZyb20gdjEuDQogLSBMaW5rIHRvIHYxOiBodHRwczovL2xvcmUua2VybmVsLm9y
+Zy9hbGwvVFlVUFIwNk1CNjIxNzJFNDEyMDU0MTQwNzUzRDVFNzgyRDJDODJAVFlVUFIwNk1CNjIx
+Ny5hcGNwcmQwNi5wcm9kLm91dGxvb2suY29tLw0KDQogZHJpdmVycy9zY3NpL3NkLmMgICAgICAg
+IHwgNCArKysrDQogaW5jbHVkZS9zY3NpL3Njc2lfaG9zdC5oIHwgMyArKysNCiAyIGZpbGVzIGNo
+YW5nZWQsIDcgaW5zZXJ0aW9ucygrKQ0KDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9zY3NpL3NkLmMg
+Yi9kcml2ZXJzL3Njc2kvc2QuYw0KaW5kZXggYTFiMjFlYTE0ZTU0Li45OGY4NjFmYjdlODAgMTAw
+NjQ0DQotLS0gYS9kcml2ZXJzL3Njc2kvc2QuYw0KKysrIGIvZHJpdmVycy9zY3NpL3NkLmMNCkBA
+IC00MjcyLDYgKzQyNzIsMTAgQEAgc3RhdGljIHZvaWQgc2RfcmVtb3ZlKHN0cnVjdCBzY3NpX2Rl
+dmljZSAqc2RwKQ0KIA0KIAlzY3NpX2F1dG9wbV9nZXRfZGV2aWNlKHNka3AtPmRldmljZSk7DQog
+DQorCS8qIERldmljZSBpcyBnb25lOyBhdm9pZCBzeW5jX2ZpbGVzeXN0ZW0oKSBoYW5nIGluIGRl
+bF9nZW5kaXNrKCkuICovDQorCWlmIChzZGtwLT5kZXZpY2UtPmhvc3QtPnN1cnByaXNlX3JlbW92
+YWwpDQorCQlibGtfbWFya19kaXNrX2RlYWQoc2RrcC0+ZGlzayk7DQorDQogCWRldmljZV9kZWwo
+JnNka3AtPmRpc2tfZGV2KTsNCiAJZGVsX2dlbmRpc2soc2RrcC0+ZGlzayk7DQogCWlmICghc2Rr
+cC0+c3VzcGVuZGVkKQ0KZGlmZiAtLWdpdCBhL2luY2x1ZGUvc2NzaS9zY3NpX2hvc3QuaCBiL2lu
+Y2x1ZGUvc2NzaS9zY3NpX2hvc3QuaA0KaW5kZXggMTYyNDNlYzM3NmNkLi42Nzg4ZTI4NDg3N2Ig
+MTAwNjQ0DQotLS0gYS9pbmNsdWRlL3Njc2kvc2NzaV9ob3N0LmgNCisrKyBiL2luY2x1ZGUvc2Nz
+aS9zY3NpX2hvc3QuaA0KQEAgLTY5OCw2ICs2OTgsOSBAQCBzdHJ1Y3QgU2NzaV9Ib3N0IHsNCiAJ
+LyogSG9zdCByZXNwb25kZWQgd2l0aCBzaG9ydCAoPDM2IGJ5dGVzKSBJTlFVSVJZIHJlc3VsdCAq
+Lw0KIAl1bnNpZ25lZCBzaG9ydF9pbnF1aXJ5OjE7DQogDQorCS8qIERldmljZSBpcyBwaHlzaWNh
+bGx5IGdvbmU7IHNraXAgc3luYyBpbiBzZF9yZW1vdmUoKSAqLw0KKwl1bnNpZ25lZCBzdXJwcmlz
+ZV9yZW1vdmFsOjE7DQorDQogCS8qIFRoZSB0cmFuc3BvcnQgcmVxdWlyZXMgdGhlIExVTiBiaXRz
+IE5PVCB0byBiZSBzdG9yZWQgaW4gQ0RCWzFdICovDQogCXVuc2lnbmVkIG5vX3Njc2kyX2x1bl9p
+bl9jZGI6MTsNCiANCi0tIA0KMi40OC4xDQoNCg==
