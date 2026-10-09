@@ -1,95 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55E6B347FC0;
-	Fri,  9 Oct 2026 10:35:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27ED149EC5D;
+	Fri,  9 Oct 2026 10:35:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791542115; cv=none; b=hXyCtpEUOq4JU11KzoFDCqoYprxpjtWbHDMsoe37fdBDG4FjnzlIArAa3T5rSZreZXWxCfTD76ySm+0gbsrUvGo0Rj+Mzn46DUcl1YmSOCV3CEVYC50Rec3zQjcaqVcSgK3+JpNSoC25RL9AxPNt/QW5faSFTtHb9RAzSQGbGac=
+	t=1791542122; cv=none; b=HRHmTLs121HUymaUBa3iS9nPtRDr2YoBgtOWubIW+taIlAvHL8YQxzvjxq7JMDFxaxn5CJ3AoSKiYlOjqM7TgEIVQDStmxMDtT19zN72pN9l6hA/EQ9c3mLXgg2+PE7+qoJBAgg2JcfSRKqmJU9aTUPRDduGO++hcWNfvwX8mSY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791542115; c=relaxed/simple;
-	bh=Eb8/KNN8EfLJ7R3Abs+8Pt3d74ukyPzW4D4nNuT7GmQ=;
+	s=arc-20240116; t=1791542122; c=relaxed/simple;
+	bh=MdDd40xdrLHiIdxTsGMSfQgOcKsmowKhQAg2xWrd3YE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JaOeFtvFnKJKyXsZkg+/JSqOh5HO2XcRn8aaBtVq2piBEes9qCYOV9WS/g4g54GlhiMqQVIXyMZ8AO9virqITvrckCcsiaqJ2w+9vOJu13tSgOBfp6KmVcLw3LSQ5+9wvoer5DZx1LsTcEtU6c+4naYjFYPH2fI7Y/mnWcwu3V0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lk1MuDMr; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=d/HQepdyLld547FoWND7ZALMGKK+z3UuCo9O5mcfvuF6ZN0p+C7gr4QikOYT5ud2DjR9Ya3gaD8CcVO6xrKXOlk5XkIZDoY7ODaFyjYpAfeKBBslDIKOizKMj9WJPz3NDkf9UFXRD4uOccirOnTxf6QvSmRiB74kGVe6o/XaV4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gtaMZMIi; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lk1MuDMr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 341CB1F000FF;
-	Fri,  9 Oct 2026 10:35:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791542113;
-	bh=DXf9yi1dSguNLEcV5pJRx2gwlhKsWloD62GcFwg+xzw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lk1MuDMrDsiMRFX9FVcn6UX0P92CEmUnbgvnScjEKf+Q8vGtEVDqqg28tfZerQ2mK
-	 lB62T9HFcngi5h9ZE5JWhc9RWxM03sIXY6QPITcB0Ti0Ed0FPCyqyvV2KMsAyFqnbL
-	 O4rq7g3T7qOW4y0+zjeYKqjhVl6EpYFg3+Lo4a04gQQDe30AON6qKReIK6FSM3hagN
-	 ktJOGI1TUQmBdnE9IbQhjgc+MIi8aFenvLTvHOTT3UOA5+t+A6mS+KI55mCbkUtVsv
-	 Dr71X+ruSClTnQUkuBZJTSSBoeURHlnXKEQWUCJG8WLhFiyYYIeFhIXjIy39mHNiTP
-	 5f7bQuCHX4cwA==
-Date: Fri, 9 Oct 2026 06:35:10 -0400
-From: Sasha Levin <sashal@kernel.org>
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: workflows@vger.kernel.org, ksummit@lists.linux.dev,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
-	broonie@kernel.org, tytso@mit.edu
-Subject: Re: [PATCH 1/2] agents: add infrastructure for agent resources
-Message-ID: <asjDXvZI1J2KIqgj@laps>
-References: <cover.1791499378.git.sashal@kernel.org>
- <5dfafd6f79165526fe17774c55b553b7dfe4b3fe.1791499378.git.sashal@kernel.org>
- <2026100955-enchanted-magnetize-0d26@gregkh>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gtaMZMIi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791542119; x=1823078119;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=MdDd40xdrLHiIdxTsGMSfQgOcKsmowKhQAg2xWrd3YE=;
+  b=gtaMZMIi3we3JbpQQdyOY5kDWPAftT/FnhfLp6212nj6pV/gJcx74ckL
+   fgrFbI0QMem0oUj5OCldMjzFAkb3P+LyVvBdkJn84MkxGZPQWoK1VU9LM
+   VYgITGrYEkqkVnpejev0uXHGApXnkKcQwMh0PtuOSwD8YgcuWwFbuMKHy
+   WLDQRDDUqrTj9AcjMM6ZF2mcJgbjEmCy1GSNKQSp6ggGUcdtbcgoAc6sJ
+   CiaA/k6eaMibX/nBaetIOr/2dDmdu3U2JaM3mzoCmTfqkj5Rj9xMJvHrP
+   Ze6xyl1r60Dt9/xkBKRUXYJ5CHw+4/Yo8MHX3JBmErX1s+rQl0idZ55W6
+   w==;
+X-CSE-ConnectionGUID: jR5e6h61RTiTYR13C42K/Q==
+X-CSE-MsgGUID: 3I8MS9RtT+G71OnXMLkK/w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="226350"
+X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
+   d="scan'208";a="226350"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 03:35:18 -0700
+X-CSE-ConnectionGUID: Foae2iWPT5KceI19Zc9wqQ==
+X-CSE-MsgGUID: F6X5ZtNWRK6CM62SdzeM9A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
+   d="scan'208";a="605296"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa009.fm.intel.com with ESMTP; 09 Oct 2026 03:35:11 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xF7wR-000000005dY-2o3F;
+	Fri, 09 Oct 2026 10:35:07 +0000
+Date: Fri, 9 Oct 2026 18:35:01 +0800
+From: kernel test robot <lkp@intel.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	linux-input@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Florian Echtler <floe@butterbrot.org>,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org, linux-usb@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFT PATCH] Input: sur40 - fix DMA handling in video capture
+Message-ID: <202610091847.RMZt5Cy1-lkp@intel.com>
+References: <20261007054430.40155-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <2026100955-enchanted-magnetize-0d26@gregkh>
+In-Reply-To: <20261007054430.40155-1-kmehltretter@gmail.com>
 
-On Fri, Oct 09, 2026 at 12:27:33PM +0200, Greg KH wrote:
->On Thu, Oct 08, 2026 at 06:54:52PM -0400, Sasha Levin wrote:
->> Add agents/ as a home for skills, prompts, and other resources for coding
->> assistants. Describe the skill layout and how to read the procedures in
->> coding-assistants.rst, and add a MAINTAINERS entry covering agents/.
->>
->> Assisted-by: LLM
->> Signed-off-by: Sasha Levin <sashal@kernel.org>
->> ---
->>  Documentation/process/coding-assistants.rst | 12 ++++++++++++
->>  MAINTAINERS                                 |  6 ++++++
->>  2 files changed, 18 insertions(+)
->>
->> diff --git a/Documentation/process/coding-assistants.rst b/Documentation/process/coding-assistants.rst
->> index 051f0d819f68e..3288b32e993f5 100644
->> --- a/Documentation/process/coding-assistants.rst
->> +++ b/Documentation/process/coding-assistants.rst
->> @@ -19,6 +19,18 @@ For guidelines on content generated by AI coding assistants see:
->>
->>  * Documentation/process/generated-content.rst
->>
->> +Agent resources
->> +===============
->> +
->> +The ``agents/`` directory holds skills, prompts, and other resources for
->> +coding assistants.
->> +
->> +Skills live under ``agents/skills/<name>/``, with a ``SKILL.md`` entry point
->> +in the `Agent Skills format
->> +<https://agentskills.io/specification>`_. Read the relevant resource
->> +directly from its repository path. Links within a skill are relative to
->> +that skill's directory.
->
->Will this "solve" the issue where AGENTS.md is not present and so some
->do not actually read this file?  Or is that a separate issue that will
->be resolved with the symlink patch?
+Hi Karl,
 
-It's a separate issue that will be resolved with the symlink patch.
+kernel test robot noticed the following build errors:
 
-This patch will only allow us to add agent skills in-tree ("how do I add the
-correct Fixes: tag?" , "Do I need to tag this for stable@?" , ...).
+[auto build test ERROR on 2c3418fffa9d037b2038a6db48be63f9e2291806]
 
--- 
-Thanks,
-Sasha
+url:    https://github.com/intel-lab-lkp/linux/commits/Karl-Mehltretter/Input-sur40-fix-DMA-handling-in-video-capture/20261007-074430
+base:   2c3418fffa9d037b2038a6db48be63f9e2291806
+patch link:    https://lore.kernel.org/r/20261007054430.40155-1-kmehltretter%40gmail.com
+patch subject: [RFT PATCH] Input: sur40 - fix DMA handling in video capture
+config: arm-randconfig-1003-20261009 (https://download.01.org/0day-ci/archive/20261009/202610091847.RMZt5Cy1-lkp@intel.com/config)
+compiler: arm-linux-gnueabi-gcc (GCC) 15.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261009/202610091847.RMZt5Cy1-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610091847.RMZt5Cy1-lkp@intel.com/
+
+All errors (new ones prefixed by >>, old ones prefixed by <<):
+
+>> ERROR: modpost: drivers/input/touchscreen/sur40.ko: module uses symbol 'dma_buf_begin_cpu_access' from namespace 'DMA_BUF', but does not import it.
+>> ERROR: modpost: drivers/input/touchscreen/sur40.ko: module uses symbol 'dma_buf_end_cpu_access' from namespace 'DMA_BUF', but does not import it.
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
