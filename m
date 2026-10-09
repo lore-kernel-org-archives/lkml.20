@@ -1,121 +1,140 @@
-Received: from mail-m118113.qiye.163.com (mail-m118113.qiye.163.com [115.236.118.113])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03E0317B418;
-	Fri,  9 Oct 2026 07:04:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.118.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84D1746C4BF
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:07:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791529468; cv=none; b=YyskU9yXHgMJ8ycJ84ADIyZWhKTusJK9rekrQOZoFX64U6Lraf9k/DK5LQNI/7C45ixRSbhscZpxPyKa8FC4WDCQY/z7uoG5aCt4BXkQChLXOJVUNurDpjViHWQWP9dOk9BCZzWwEMvnicfId5qH2nQ5lTwKcwf38kpz6oTOIt8=
+	t=1791529660; cv=none; b=L+xIIf+AcDOy7/F+akv4ac7uRsCOIY/+4Xu+frQ0sZkOTskUI2BQBt4TGxpfKLB8yCAXKCldTGNziYcpDsxzxYM51Uz9IEQXCwLa+lHQveqXazuZ4Tz7ApViTvC6eUH6CblmnMMUudVL6DjAtz5yZwYBN8RF50t8ohn30rK1JhQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791529468; c=relaxed/simple;
-	bh=YcwNrrY6M6KbcCLhKkfiVImmTdwP6VlcYA49Gn17QJE=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=GDxNREEudR9L08LyMO0156Ism03vT7V2NL/bdI3uSn1l4tpE9mzCu9W5TSqgvG9uM8Gg1ID6+UNtp6dhuTe257SymA7igoUba02u1Krwm7/D53/59qbMiJhGeTI5cR9Z8+uKDN3sTa+wReR2k1AesAqwD+BsfiP/qG7Z5vi/mbA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=cDLPDS8A; arc=none smtp.client-ip=115.236.118.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1791529660; c=relaxed/simple;
+	bh=rzRC9qMt8Wu9IVnepc7Mt/HIZ9DPyWfBZb+4RZC7lNo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OhLWRNJD7SsLyKQKhJxbU9YL2cP0wb1Vr9NBAo9UxUy428ABN5TLNeDf2nZqShY4hP8OqXBvZiQ8sPutsqMoj+Ji9MoqO1IY+vX9dvoauGOlGQfIlFT6RhuOMNhZUIrkTiG6+q6agk2pAwWHETvaY1tuS91kNHUAjTpA7SboGhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rutxWqza; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="cDLPDS8A"
-Received: from [172.16.12.48] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5069e789a;
-	Fri, 9 Oct 2026 14:59:05 +0800 (GMT+08:00)
-Message-ID: <3bd9f6e1-c670-42f5-b2ea-2b4848e37468@rock-chips.com>
-Date: Fri, 9 Oct 2026 14:59:04 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rutxWqza"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a16bc2278aso26738725e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:07:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791529658; x=1792134458; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wwnmDHh3/boOKCuN1k/oK+tDoPsn5xW+z4VKugONJe0=;
+        b=rutxWqza7Jh+XtqfgmENzZTAi0DG0TfQdNoDNJCOHXbVCG69fJo+DvVtzfL9a9J11A
+         iuTgpDVC8kJnHLZI8A/87j69my3evr4BtkFpPB5lyu6h1Pof8xLSUFwhHK4qo1OI0jn2
+         pchxl1LahI9VzDoVqibe+focdhaLhYdZG9D+CXdMkloGGYAk2U9IxjHyFT3ErdOG/OWQ
+         NsMRR7zt/86KaHy1D4rxmhcZ8TNkbcZ97MNWvkbUXZBohVlRRK+mZap47pf33WpaCrrX
+         knBouu6qJDgnUy0+8TYe1R0wmz0XNWBe6O5PC2r3IWST4n6idu431a4piToQ4otBNNFW
+         +XwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791529658; x=1792134458;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wwnmDHh3/boOKCuN1k/oK+tDoPsn5xW+z4VKugONJe0=;
+        b=FISnmHiyWQybDEQTRo8wiqo5GhZB7fDqLbTGth93wFfqhHhCWVI7LXrURaIQBCrC7o
+         FyxR1Ua4qKhhwuqwDc8g8R+6GjMfYrbN24pQMq2MjroJWFuFr8PpzKeUSJzEUG4ZbUQ/
+         bs4uF6Q0AX5ylCAoz+q5b0EF2DuW9RAq+tkM80TE06cDbah93PCNU4MZDE+9u/WDPquJ
+         sKJoX1IXt/nqXaqJgwYoWEQ4CH6zSc0kcorLjtAIne1+PlOHs/fuciLHo4mxNF2nZj84
+         JPy9xKzbySFf2887byIEobFLH3hJTciCrHn1iPCC+lzgiShrROaOcZKYfYB0HyMjwQ39
+         8eBw==
+X-Forwarded-Encrypted: i=1; AKwUvBwAhfG2aQBweOfNwvG8RU1Ey5O2OAqjw62JeZmV4gFb5Igh+N75K2clzsx0ns/XmbB2+xrZ2XmsJULITUA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVhDSSecdgaQpX7uz8c1m5rjY59aCbj5xgS6fCDQ9LkbRm9Mdo
+	Y4jZmFc1L9PiRCpuEPHAi9UGbklggsn0h4YQcNB/B4QjJxlRW8AEcm4X
+X-Gm-Gg: AYBFou2lgGriPBtOdHTYQG3L4pvjzOv9rlnB174ap1DyfLOVqyEER6u/5GOihr7kvjA
+	wGHbsvHe+ce04X46JIVEjQjG1OQi3+cO3w9kVsl2L7FAwsu9gcbp+w1IMo+1Faip1Ej/PvDCxlW
+	jK5FUJ/gVdR6iiDXxJApzRRgYlFBWpr3R64WzVK4Z8PXXaVVmL7f7UXQs1ewcdP+uRGtACf6PNE
+	f2hmTqh3MqS/AcXUZQ5My0NESRXSI+Vaue+KS7zCwLmdNJMgemWX2PthOUnORx8ood2kt6gz85h
+	mOhruTWDjt7hwPWI8WGcBPwfy5ydWGczyDSLSkUkOUZdQTb/7ofdDAhameK0aWlfovT/sAYCPOr
+	jmOYTi79bgd2tQtqdAybu7liten2of/BY6ncVleDz4Rwkb9VCZ74YPqHlCdv59hZNyv+u4e/UV6
+	y+EAq+a6+2Q1knTaLHDqcMKGoy1XUVx8WwgXO9O5RcWLRO6Ps3gg7hdX61dywtqS0xXa4wOYMMf
+	WK9oY1NOtPLcPZK1BQeteGNd0xiesfVvS/7LYxM48d+VjT2SHjliCatu5Z7ZwA0VjE/Bxfm7n8A
+	pD5jpJgMCIQf7+br/Fy31n6d
+X-Received: by 2002:a05:600d:82c7:b0:4a0:1a18:b742 with SMTP id 5b1f17b1804b1-4a18e4463f8mr16457595e9.2.1791529657487;
+        Fri, 09 Oct 2026 00:07:37 -0700 (PDT)
+Received: from Ansuel-XPS24.localdomain (host-95-233-52-5.retail.telecomitalia.it. [95.233.52.5])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a18ca4621fsm26176815e9.3.2026.10.09.00.07.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 00:07:33 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Felix Fietkau <nbd@nbd.name>,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Christian Marangi <ansuelsmth@gmail.com>
+Subject: [PATCH v7 0/3] clk: add support for Airoha AN7583 clock
+Date: Fri,  9 Oct 2026 09:07:20 +0200
+Message-ID: <20261009070725.13196-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@rock-chips.com, linux-rockchip@lists.infradead.org,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 0/3] PCI: rockchip: 5.0 GT/s speed discouraged by
- Rockchip
-To: Geraldo Nascimento <geraldogabriel@gmail.com>,
- Dragan Simic <dsimic@manjaro.org>
-References: <cover.1781622998.git.geraldogabriel@gmail.com>
-From: Shawn Lin <shawn.lin@rock-chips.com>
-In-Reply-To: <cover.1781622998.git.geraldogabriel@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa11f75548d03a4kunm5c17223adff550
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSRoZVhlOTx5KTxoZHUsdGFYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQkxVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=cDLPDS8AfQJiV6enNljTDbaVs83pRqqyPjzVSyPDn0THv9O+K0X69w04Y6ECaYO9MGQ6Dn1RSvFwIjN1Ls1H3KCbz6HHT6NoaSI+8cSso45CIxF/uzDASquN9AJHY2Ja50uAj9Bp/vWNLysrNFLhAVhLvtzMFEoHcxGxEFD4MzI=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=C7hpZuYgfofdrhjchTCVySwUHHelguJs02x7Rdk3AgE=;
-	h=date:mime-version:subject:message-id:from;
 
-Hi Geraldo
+This small series introduce some cleanup and support for
+clock and reset of Airoha AN7583.
 
-在 2026/06/16 星期二 23:24, Geraldo Nascimento 写道:
-> Dragan Simic already had warned me of potential issues with 5.0 GT/s
-> speed operation in Rockchip PCIe. However, in recent interactions
-> with Shawn Lin from Rockchip it came to my attention there's grave
-> danger in the unknown errata regarding 5.0 GT/s operational speed
-> of their PCIe core, including data loss.
-> 
-> Drop all code related to 5.0 GT/s operational speed from this driver.
-> 
+The implementation is similar to EN7581 but AN7583 introduce
+new reset and more clock divisor support.
 
-Apologies for the very late notice that this series is still pending.
-FWIW,
-Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
+Changes v7:
+- Add further info for DT patch
+- Add serdes selection support
+- Rebase on top of linux-next
 
-> Endpoint Mode driver was not tested.
-> 
-> Changes in v7:
-> - In pcie-rockchip.c (PATCH 3) drop unreachable code
-> - Link to v6: https://lore.kernel.org/all/cover.1781207474.git.geraldogabriel@gmail.com/T/
-> 
-> Changes in v6:
-> - Squashed patches 3 & 4 together as suggested by Mani
-> - More formal warning message as suggested by Dragan
-> - Set the 2.5 GT/s bit regardless of if link-speed is set to 2
-> - Link to v5: https://lore.kernel.org/all/cover.1772239598.git.geraldogabriel@gmail.com/T/
-> 
-> Changes in v5:
-> - Changed commit order to not break builds and adjusted copy pasted
->    commit message. (thanks Charalampos!)
-> - Reintroduced behavior to force 2.5 GT/s in case there's something
->    non-default in the DT. (thanks Dragan!)
-> - Link to v4: https://lore.kernel.org/linux-rockchip/cover.1772169998.git.geraldogabriel@gmail.com/T/
-> 
-> Changes in v4:
-> - Incorporate suggestion by Bjorn and refined by Dragan to drop the
->    "catastrophic" code
-> - Link to v3: https://lore.kernel.org/linux-rockchip/cover.1772057799.git.geraldogabriel@gmail.com/T/
-> 
-> Changes in v3:
-> - Clarify warning message even though Rockchip won't disclose details
-> - Drop DT changes as they were applied as subset by Heiko
-> - Link to v2: https://lore.kernel.org/all/cover.1763415705.git.geraldogabriel@gmail.com/T/
-> 
-> Changes in v2:
-> - hard limit to 2.5 GT/s, not just warn
-> - add Reported-by: and Reviewed-by: Dragan Simic
-> - remove redundant declaration of max-link-speed from helios64 dts
-> - fix Link: of helios64 patch
-> - simplify RC mode comment
-> - Link to v1: https://lore.kernel.org/all/aRhR79u5BPtRRFw3@geday/T/
-> 
-> Geraldo Nascimento (3):
->    PCI: rockchip-ep: do not attempt 5.0 GT/s retraining
->    PCI: rockchip-host: do not attempt 5.0 GT/s retraining
->    PCI: rockchip: drive at 2.5 GT/s, error other speeds
-> 
->   drivers/pci/controller/pcie-rockchip-ep.c   | 13 -------------
->   drivers/pci/controller/pcie-rockchip-host.c | 20 --------------------
->   drivers/pci/controller/pcie-rockchip.c      | 14 ++++++--------
->   drivers/pci/controller/pcie-rockchip.h      |  3 ---
->   4 files changed, 6 insertions(+), 44 deletions(-)
-> 
+Changes v6:
+- Address bot suggestion for DT patch
+- Add further information on chip-scu phandle
+- Add dedicated PERSTOUT reset and PCIE_HB reset
+  Link: https://lore.kernel.org/all/20260819221458.30040-1-ansuelsmth@gmail.com/
+
+Changes v5:
+- Rebase on top of linux-next
+- Drop even more patch to reduce patch delta
+- Make chip-scu specific to AN7583
+  Link: https://lore.kernel.org/all/20260528190000.9164-1-ansuelsmth@gmail.com
+
+Changes v4:
+- Add review tag for DT patch
+- Fix clock patch to use en7581-chip-scu compatible
+- Drop PCIE SCU SSR write
+
+Changes v3:
+- Drop .set_rate patch (will be proposed later)
+- Drop chip-scu binding and related patch
+  Link: https://lore.kernel.org/all/20251106195935.1767696-1-ansuelsmth@gmail.com
+
+Changes v2:
+- Add .set_rate support
+- Rework DT to EN7581 implementation (clock driver is parent)
+- Add additional cleanup patch
+- Merge binding with schema patch
+- Add chip_scu phandle
+
+Christian Marangi (3):
+  dt-bindings: clock: airoha: Document support for AN7583 clock
+  clk: en7523: generalize register clocks function
+  clk: en7523: add support for Airoha AN7583 clock
+
+ .../bindings/clock/airoha,en7523-scu.yaml     |  23 ++
+ drivers/clk/clk-en7523.c                      | 255 +++++++++++++++++-
+ include/dt-bindings/clock/en7523-clk.h        |   3 +
+ .../dt-bindings/reset/airoha,an7583-reset.h   |  65 +++++
+ 4 files changed, 344 insertions(+), 2 deletions(-)
+ create mode 100644 include/dt-bindings/reset/airoha,an7583-reset.h
+
+-- 
+2.55.0
 
