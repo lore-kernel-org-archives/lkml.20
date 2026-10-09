@@ -1,73 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx4.wp.pl (mx4.wp.pl [212.77.101.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B388041E6C0
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 20:40:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D4F24F647B
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 20:40:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.77.101.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791578408; cv=none; b=etTozlyRqw4soiL8Jw2YhQa7Y39wUGWoD5LsQvjnazZveXrmYuT64tG99p9KPrClQ4D9BVtl63SipmNBXCTGDP0YhkV2UZudhoVWeaMiWpQlcSbBYYUhy1BoXGweD6kaw2mgZMRw1RHbfKBCmHv4rxJzhkudmeQ2ToybpPdLmDc=
+	t=1791578420; cv=none; b=EGAaMKhoGlU47GrncjDTV+7WzWksv2+XzMuiYf/zDTfxskJfDMQzqYf3kZeeiWiIoxaqo7koRZMkyhmQ/eiboQyc5eyp2be9yJaBhgatHbB/EyXgv/rc1y4LL/sVbVjniN97kv9K6cIcrDwCJiuoo+tKgYOwvtphQ+kTSkR1Q44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791578408; c=relaxed/simple;
-	bh=/wtgYPMXZXp6zUY4OHNPQsnexKANsg38h6IetxV4HVw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u6j23wzHMerwOG53wDcuVbauglljMBRWB0BS314utRxzgUBRQwlzYgf/gt1U5udIUBgs05PCrHJKZWQSfvcKCPd68DD5qLYzyC4h24BdFucrY2tPNt+Gdgf6rzadzfPzvKNvwZWRy0RX9CsSMz8vlKFnxND2ytdoWBA9hc9UugY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dgcmS4l/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791578420; c=relaxed/simple;
+	bh=zKUwciwhQ83G4tAeptftzEwAkMXN+6+XBxt889N0S2M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ceimh4Rf2A9dhFqp1sGuy4PiI/z4h6/GjmtJa29nrvK50HqecoAjJ3wy65VBH5d9mCObTCTYGtLgHsKTxtFmw5Ct85p8PBlWvt0+v8kSzkNDEzt7vyPMmNHZ5Dc+M0Z5YfH9/QpxIDueNEVBDR4562q9i43WG1ZAe2V0S0b0HTI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl; spf=pass smtp.mailfrom=wp.pl; dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b=inr3Uboq; arc=none smtp.client-ip=212.77.101.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wp.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dgcmS4l/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 453CC1F000FF;
-	Fri,  9 Oct 2026 20:40:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791578407;
-	bh=/wtgYPMXZXp6zUY4OHNPQsnexKANsg38h6IetxV4HVw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dgcmS4l/QB2CnJfDYDb17vKsMvHwe53V+g4Ny5HGZLcV5gOUveA1mlME5m2xvJll0
-	 qlUS4Ga5e759qUed1A4v2aR0S040B5PrEEqq3TelDuazgMw35RQPpICF+RqgZRjh2Z
-	 ln7mczbcOy+zB98SiBFCN1gRr7qUvvBpH6YAz+xVXjNMUdXRX0HsAuzn2l9+wnAiMA
-	 /DpP3vUwTSBelISkmNevY4ChfGIF1LmPKX+R7lMKcfwXQkh1fvGMISs17uVB8y9dz/
-	 NTPjG32jgpViqdMZ+BFrxJKXy+inzS9lARKZ/Q+FEbeNymNsYXSG9DAQNLYkt5vu3e
-	 25Tn0gCA06Xsw==
-Date: Fri, 9 Oct 2026 21:40:00 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Ehab Ababneh <ehab.ababneh@intel.com>
-Cc: ziy@nvidia.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	buddy.lumpkin@oracle.com, akpm@linux-foundation.org, kasong@tencent.com, 
-	qi.zheng@linux.dev, shakeel.butt@linux.dev, baohua@kernel.org, 
-	axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com, david@kernel.org, 
-	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
-	mhocko@suse.com, jackmanb@google.com, hannes@cmpxchg.org, baoquan.he@linux.dev, 
-	baolin.wang@linux.alibaba.com
-Subject: Re: [RFC PATCH v2 0/5] mm/vmscan: adaptive multi-threaded kswapd for
- NUMA-aware reclaim
-Message-ID: <aslREDvk7gsfkHDl@gremlin>
-References: <SJ1PR11MB6105E073723CFEEE8C8EDBF48C832@SJ1PR11MB6105.namprd11.prod.outlook.com>
- <cover.1791577417.git.ehab.ababneh@intel.com>
+	dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b="inr3Uboq"
+Received: (wp-smtpd smtp.wp.pl 32686 invoked from network); 9 Oct 2026 22:40:08 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=20241105;
+          t=1791578408; bh=zKUwciwhQ83G4tAeptftzEwAkMXN+6+XBxt889N0S2M=;
+          h=Subject:To:Cc:From;
+          b=inr3Uboq1a5sDG5PtFrP9qLUH8h6zug0tMKSJnHNHDPwn7Fjg58lf3RDA8W6uc5+4
+           SVeX3Q2genPHC9ktJz03hP3sCe3hKBzuJuvZWK/uAh6tqshRslcMrAPMEs4MjG5unP
+           embykIzWhkJqY6MAvYl+h6qKNllxRAO3iohnaN+HhIgCXy6UamfTYUlCPs35lp19QD
+           VuOKgN0FGUCUhAdxLvgRkN2kKu+MUAn5ezwlTByKyzA+E4QkihfW3tdJlPCwBaeQ2i
+           /XKgKRiMlLsHZ13d1AfU+T1tp0h+R43tm9EQIA/n1Now2Sw013aic++gXJBFPk10HX
+           M5J+MATC8f4Pw==
+Received: from [192.168.3.224] (83.5.180.159.ipv4.supernova.orange.pl [83.5.180.159])
+          (envelope-sender <olek2@wp.pl>)
+          by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
+          for <andrew@lunn.ch>; 9 Oct 2026 22:40:08 +0200
+Message-ID: <f3d2f5e0-f9a8-42a5-ad83-07be215ca690@wp.pl>
+Date: Fri, 9 Oct 2026 22:40:12 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1791577417.git.ehab.ababneh@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next] net: phy: marvell: add LED support for 88E1116R
+ PHY
+To: Andrew Lunn <andrew@lunn.ch>, Konstantin Meshkov <skyline@mail.ru>
+Cc: netdev@vger.kernel.org, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Christian Marangi <ansuelsmth@gmail.com>, linux-kernel@vger.kernel.org
+References: <179152610952.2918676.6625057760354797023@mail.ru>
+ <1bef1633-8213-476f-a019-f29a71553e09@lunn.ch>
+Content-Language: pl
+From: Aleksander Jan Bajkowski <olek2@wp.pl>
+In-Reply-To: <1bef1633-8213-476f-a019-f29a71553e09@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-WP-MailID: f1432442553b9cbb8beb52948a4aeb53
+X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
+X-WP-SPAM: NO 0000000 [keNc]                               
 
-Hi,
+Hi Andrew,
 
-Please always send new revisions of series individually, not in-reply-to
-any other email.
+On 09/10/2026 14:15, Andrew Lunn wrote:
+> On Fri, Oct 09, 2026 at 09:08:29AM +0300, Konstantin Meshkov wrote:
+>> The Marvell 88E1116R PHY (used on the D-Link DNS-325) exposes its LEDs
+>> through the same page 3 register 0x10 LED control layout as the 88E1318S.
+>> Wire up the existing 88E1318S LED handlers in the 88E1116R driver entry
+>> so the PHY LEDs can be described in the device tree and driven through
+>> the LED trigger API with hardware offload.
+>>
+>> The LED polarity is configured through the led_polarity_set() callback
+>> shared with the 88E1318S family.
+>>
+>> Signed-off-by: Konstantin Meshkov <skyline@mail.ru>
+>> ---
+>> This patch depends on:
+>> [PATCH net-next v2] net: phy: marvell: add support for PHY LEDs polarity modes
+> I've not be tracking. Is this merged already? If not, please resubmit
+> once it has been.
 
-The easiest way of accomplishing this is to use b4 [0] (the recommended
-way of sending patches to mm), otherwise format patches like this:
+I was expecting that Konstantin will send a patch that only adds support
+for LED triggers. This patch should be simple and I expect it to be quickly
+merged. Then I'm planning to include LED polarity settings for the 88e1116r
+in the next iteration of my patch.
 
-For a patch series, e.g. at v2:
-
-$ git format-patch -v2 --cover-letter --thread ...
-
-For an individual patch, e.g. at v2:
-
-$ git format-patch -v2 HEAD~1
-
-[0]: https://b4.docs.kernel.org/en/latest/contributor/send.html
-
---
-Cheers, Lorenzo
+Best regards,
+Aleksander
