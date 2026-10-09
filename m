@@ -1,262 +1,233 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012043.outbound.protection.outlook.com [40.107.209.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71DC6451981;
-	Fri,  9 Oct 2026 12:55:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4C563AF677;
+	Fri,  9 Oct 2026 12:55:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.43
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791550553; cv=pass; b=NlaNAwCWSplUTg70+uZX96OCbO/Sp072V/TioJaXOe7DHrR7lZ+BFz4Ygh0DLajBxHvRJi1htDiJrF+rQOesGEsSyYhtO8MBKkLFtryW+8ovEEPtY+yv1ZB129ME4xWLWpVOoijIwNy2OAVZidI+LdXN9UAAdSo8Z6EpXm6LjjM=
+	t=1791550557; cv=fail; b=S27RO2zmvKc116gN7nlRQWMGnzz1nZJC5tpE7xDVeVazucZup2OiE1ruLcgedycGb1cySci7AXJ5X8icELjwad3TbX/nyylSIo9Qbp5Jk7kTXGLneF/VRlsGXC5ppmRwsfAanQRyr0/pawXdEO7cxzyxoBKQX0mrZmBySLnN+HQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791550553; c=relaxed/simple;
-	bh=ve5H2EmozNVLkVdsdpFps9xzNIlq1W8HJIkAz1jA6Rc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dAvvcurIqUeqt4JlY407VLHb7G2AgLtc7EUnl7x/Z96Wn9bq4U6myUJxkB1JCJyyShrxNWKGCJhJyxT+q8B2R5+uf9RY4iQqwP60cJ50hn21opF2wKf5DZd0/WJetJRFZbsgfZxHxqsVO+8BA51tl/YU+CO3AaPkUhzLEFL7PSY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=eMBsAWb4; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	s=arc-20240116; t=1791550557; c=relaxed/simple;
+	bh=RULxs33bSWeNptQRZP8ZvomacjKuzbHus1+y68ob6S4=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=WKD7P0Ey1czH44gV4SLnNBPB1xZiW32Xs4UKNXNz6g2EDNrLVHvojRTvAlR2dIJtHYOmQh3NBspXXUczDrNVIMqol0WhZRBSuNvJ0w1kh9svI+7WUd3vkN/guGekDQuYQbrK1nEmI3f2KmXSDYemvlBZZVVykhMUYJ0xf73g7g4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=sYvuE4+i; arc=fail smtp.client-ip=40.107.209.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="eMBsAWb4"
-ARC-Seal: i=1; a=rsa-sha256; t=1791550483; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=dC644sB4Hwnh1Oi21miLjaq/2r35CYsE+LZ9iU8iR3UCDo7c5AZ9rvC4fGQgGCWSg/bAVfNahwcEGJ7JKym1Fl1eTh6A2kPkQjgS/mrj+xisZaUyhOZg6UEkkTP6yfOei+yAp2RJtFYlkKz6/fVsetMrNFhNXx+bhd1klwJa25k=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791550483; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=zI5NZjSB8gHiifGAUfZL+LnJul2r+30CWVvGe7L92F8=; 
-	b=R0byV3J8qHHt+7qb14yVnBsJrvYAK92KgnvYLrgKqBA9Bnl2wQIVn6CfJkxtbI4OUJbi0dSbYm25DTyDPThEMc05pbUbjbDCxmVXXAn4FCmwJEsWHXtOko/hrlITkTCxrUaJVJaxqszdrIm4ti4YCLHEIb9P2f+julF3w7Y++JM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791550483;
-	s=zmail2048; d=rong.moe; i=i@rong.moe;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=zI5NZjSB8gHiifGAUfZL+LnJul2r+30CWVvGe7L92F8=;
-	b=eMBsAWb4TlOcEpMCtFqaU4xU84ipevI6zjbK5iGxY9ZVJpqoWNn2KNp/9On7kGGW
-	Oec5gh7uGwD6cNtbu4nPbasosKEUJTnuYiKsx74okVHEKIg8X2G5hqxR7r5j9/UcXgw
-	m2XtRMDVtmMwleYhPtHTCoof1kMeNyt7nBNd7rdaogNRAfDnrW4VeJrWTF5WeEQOBMc
-	mMkPlOva19nw7N6WKOl+9Y2Q1/EVY8EV8jH6iCze/+8AwFosJo+MGzShVuB9i4bF6//
-	4QpRXtxNx7NGj7QhzpWDPG9YNRlrwLDjvratLNJmMjz6FQVaT7TsAXDktbpUNKEJ3gw
-	GvR8AnekSA==
-Received: by smtp.zohomail.com with SMTPS id 1791550482075812.9821415920994;
-	Fri, 9 Oct 2026 05:54:42 -0700 (PDT)
-From: Rong Zhang <i@rong.moe>
-Date: Fri, 09 Oct 2026 20:53:50 +0800
-Subject: [PATCH v2 08/12] platform/x86: lenovo-wmi-capdata: Register
- component even on WMI error
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="sYvuE4+i"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PBTznZD5izy8uy0oAX4JVBb5/vOTY4Utus21q0exd7/uWst17BKPMCV2pB1mha0JLGdc0Glg/fnZn4yY22tIh6Mr7N3BxwEl0HP1xfuVCgUylu+bvEsWy1yt2qom4e8TKCbrpsEQIZskvxWQYAaWAnpafPFmq3zff3HwReMTYDZ5g+3n+ZdaCNHkHk4wYcId6aZ7ENZ4xJjI/WI/k2ZQOZkAICFcme3bxpaJdaP7JZUx6LaJjsbne6M4PcyroA0f2xTE7J0zCR7zzisSPWNOV7ii8/Eb7i1wtVVRm/IKI+6umoztG3tS7ppst1XT/NZ1eiDeK5iFNeNsIC6Hcy7JoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HX7ALfI8gxSmjEl4HlZ3eE+XRvQ+3wtKk7KNgg7ttWA=;
+ b=ohHsE+t7D/7DC/+NY+kztaxBG7xc5DrF0xq277pkq8aZ3B6RVZ60mxYe1EA/L/qJ/KkVVRprNK/quJhRW2nhrADhKWYhbFmBGlSt7IIDNz2+gZfFZUM4rujQIa9XZAYPjHJtk3NKpXs3Ky1J55gxYthVUWmJzMX/i31N2Gyu0aUgKGrJUxttkh6Y7DdWIJEif7QUq5k3uhJQrYxxQn9gpEE05mUA2hG80zWzQbS4pmyo3I7QeHxcKhoyxRsi50ZO1ZerAw48ecXNWptYkssHnuyI7MLQkrvAn5Yz0B9rBUWj42fdVIsWtvJrcFCbt+VS6vLLZvHT7rdr/b/KHWbVBw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HX7ALfI8gxSmjEl4HlZ3eE+XRvQ+3wtKk7KNgg7ttWA=;
+ b=sYvuE4+i9k9JFxAHRW9/6Z5NSviYKHIc3o73lJJQPlvL0oSAZpMDhPzMMH1KXJnKpcQffX1pKyQd5NzcF6mBcrsfTl+TdmLhclpd2+wx7yLwNsvMOq3BfFc07u0jYt0at8wxMVIcXNXjXYPepo0BEOh2993dC8jj6a56dkCtlb8=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SJ2PR12MB7894.namprd12.prod.outlook.com (2603:10b6:a03:4c6::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Fri, 9 Oct
+ 2026 12:55:48 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0496.010; Fri, 9 Oct 2026
+ 12:55:48 +0000
+Message-ID: <843499c2-20d0-4c1d-9d8c-eb82c2bb186a@amd.com>
+Date: Fri, 9 Oct 2026 14:55:42 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] dma-buf: Annul dmabuf->file on file release
+To: Matt Evans <matt@ozlabs.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Zack Rusin <zack.rusin@broadcom.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ Alex Mastro <amastro@fb.com>, Alex Williamson <alex@shazbot.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, stable@vger.kernel.org
+References: <20261009123601.94079-1-matt@ozlabs.org>
+ <20261009123601.94079-3-matt@ozlabs.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261009123601.94079-3-matt@ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MN2PR01CA0041.prod.exchangelabs.com (2603:10b6:208:23f::10)
+ To PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261009-lwmi-wmi-new-api-v2-8-402828382679@rong.moe>
-References: <20261009-lwmi-wmi-new-api-v2-0-402828382679@rong.moe>
-In-Reply-To: <20261009-lwmi-wmi-new-api-v2-0-402828382679@rong.moe>
-To: Mark Pearson <mpearson-lenovo@squebb.ca>, 
- "Derek J. Clark" <derekjohn.clark@gmail.com>, 
- Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Armin Wolf <W_Armin@gmx.de>
-Cc: Charles <hanker007@gmail.com>, 
- Navon John Lukose <navonjohnlukose@gmail.com>, 
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Rong Zhang <i@rong.moe>
-X-Mailer: b4 0.17-dev-73bef
-X-ZohoMailClient: External
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ2PR12MB7894:EE_
+X-MS-Office365-Filtering-Correlation-Id: 67291a9c-d028-4cf9-104b-08df2604a3b8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|7416014|376014|6133799003|22082099003|18002099003|10067099003|4143699003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	jGMlvWxhv1yYzeI5UpEaj1tAye9dW+3c6nErSnGrcN4Jlow0y6N1WkMvrBaawyy0UzvmDfhL+Hg61k/0JbtRDZB00NPUkipYcLDSeaJWURFWs+6kQyGqEDVb7lkN/CycP1c19AKuysK0XG8aRQC0cZPa0ck+Uhte3wnubkeFrxZ6Il7XjB6Xid8FHLLSbTcuykNKE9BEtmP+DPMhVKikd7/nmvlp8f7KsNRgwshD1cgsLhak9ObS+OTZDYUO0a1ksIlge5cePrmJb+F2KIG5v5RIf8KCYYtKdhlf30xnyXHKxAac1V24SlcDf+u2V6P/ag6dCvdgIUHM/i/wpFAc5foTgqocbh2k9tk8KZgCte2Gbru8uobJ2agkucIzh5nu3w3TmiooQcx5s+MbYM4zJ6rCQM3rs4YHx4n6gaMGyqGwP5NX07PJxF6FMXMYas6ut9kwxjkMBGO+hcI4p0E4hUHWrxq0WYKHhfNaS283TtCsLRNWsn42ZIbvgnXN8WbolhEe+0F6HCwOGFPh7r+vQcOLPxlppjrXhRIZfvhxnai36ZpkngLgL69qr7XTfCYJRDxdlUkGB1gSWxq8vOo2TNgNQnc5lryDexhoWg8M/gJFtmPum0TyOjyOhDPu+3zIuvQtbnoEuWmfp9JmvXCpYQizBD1CJcNr7U801lwKabI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(6133799003)(22082099003)(18002099003)(10067099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?enI5K2NOTU9JRkZUb0dob04zOW5QZDZ1OFI1YUVvV3pmTkd5eU5LNjhNMXQz?=
+ =?utf-8?B?TElvdFVCaStTZFFWQkpURWZmR2xWVllDTW9xRFlEaHlHVVh2OE5CYnJGVHFD?=
+ =?utf-8?B?d0tLMFVPaTRLTExCZ1kxclhmUzVwak9SbC83N2ZLV0pmMUZCSzR4a0JQbTNu?=
+ =?utf-8?B?MEpVOCs2QlVyWk5tYzhhYjhLbXRYZkRIcFkyWkxIejNidUNwL1doaHY3bVVI?=
+ =?utf-8?B?Q2J1eWNhQlRhNEt5dW11bkZsM2tuU09YM2dOVnRqQmVQMXZPcm9HRVYvVTl5?=
+ =?utf-8?B?Z3NUSkRiVE5MN1NNNVdidFFmKzNkOFgyNmtYOVdVTnd3djYxQlNkVGxzaFJD?=
+ =?utf-8?B?VGJoT3czbXBJN3hQdTBaNWZva0x5THFxMXh2TWJtUU94OC9qTWlUaHZ4dFV2?=
+ =?utf-8?B?Z010T0wxVHZTUDdQRFBDUlhMbEVkOVBGRVpPKzExQ04za0ZhcnFGMUtUN3pi?=
+ =?utf-8?B?OHFUTWkvOXF4clExWnZnOHRDb2pWbmN2bTk2WHlLM3ZGbzlpeHJVZkZiRVZn?=
+ =?utf-8?B?NVZFcGVieEF4LzR6S09XbnJteExSUVhjekpzMWpTMVNrVit6b2FJYmN0NTZq?=
+ =?utf-8?B?d3k3TDdWRDZxWEtRRk9BUTZUQU5CbXR1L0p5bkZ1UkFmeDliZDdCTks5M0Y1?=
+ =?utf-8?B?UFdaSTdBSXUzZXZ2TDIrVENzWTArQ1EvTUVMaDJBY1hMMm52VUVmTzIvZkJ3?=
+ =?utf-8?B?RUZ4aXpIajFBMkxZSTZHdmx0T25DU1p5bkZWN0dnV2pPUkdXV0tpNTIwV3Nj?=
+ =?utf-8?B?WmVodno5YVBvNEhJS0lWZnlkbnN1M0VJMk1tRXM1ZnNuMzdiMmhFd2JZYVZm?=
+ =?utf-8?B?SDlmeVJORU9hUEhZd3B3WHpJdUQ2NTJEbElZSEJmSDhDWDFxci9ZQjRyQm4z?=
+ =?utf-8?B?OXpaVlVIMkFIV1lJUUhSV1d4RG1NL1lmY0tRSldaQVRibUllZTRnV2V4YTc4?=
+ =?utf-8?B?dXFHV0JDbkMwQXhSZjg5OUh2VE5lSCtFOVYwbElQSVNFTDR6cTFZRzUzRVdC?=
+ =?utf-8?B?U0dXbFlXSzhtTGtsQWVjZW9SRlpENjh5Qm9SQnJBV2JwQlg4V3NKVjF1eEJH?=
+ =?utf-8?B?c3krM3V6Q0ZzK2hlN2NpMGttSjZheU9QL3lMTWFMRzJxVkVzK0RjV3lYVUc4?=
+ =?utf-8?B?ZkVNSFpvbEptNHRXdjVvZzZNSWw1NStqQWRaUkNSeXU0YUxBdGI2SlF4b2Mw?=
+ =?utf-8?B?K0huekhEcWNOc29EMG4vcEZGT0lMVDg5bUVnOEc3Myt0UkRMZHFZeU5xRnRi?=
+ =?utf-8?B?ZXhMdFdSVXAxakdJbVZCbmMrWVF3R05YVFBzYTlRdXhKRUhzN3czUDVZOFBW?=
+ =?utf-8?B?N2E0cTc3bnhxY25mb21hdXpVc3diZGVFOXRZMTJ5TWppVW5tYitUSk41Y1pz?=
+ =?utf-8?B?Q3Y1dWZ4QTdGaWZKb0kwY3BXOERnS3cwQzMyY3JBZGZkL1kycUI3a05kM1JR?=
+ =?utf-8?B?N1lhenhlUFBtRXBjQVJPRXJ0djliUStEUi9rYUllSDZuWkV0azVjanpoOTlL?=
+ =?utf-8?B?L0VjU2dVVWpKazJ5V3ViMjhCbDF6QnlFbG80RGdJUUxnNVluTWtGY3hXSm1O?=
+ =?utf-8?B?RFZPRW5FdTZuUElqakMyYTQ3cmFsR0c5Z2U1RU8zZ1ZJaVNRbkxnaFFVZ29L?=
+ =?utf-8?B?ZHltUWpPZ21XU3M3WmhTcjEvK3lJNnFFMHkvZkRSVlVIbDRrd0R0WEZOK0ly?=
+ =?utf-8?B?eGYvNHhmeHNxeHNzOTBFT2tCQ3NHTUF1aHBqN2oyZXdPanNFTzhuZHBZL3BU?=
+ =?utf-8?B?WHUzVFNMZG1yZ1lBWGpLQzB3MHpSMFkrNEFFZWVYYlJ2WUs1djVIM0EyYWpY?=
+ =?utf-8?B?OU9reWVsalc5K09JbThmSm5nVXhmY3RuWGlVT0M5ME5aZ3JPOU9IR3cwbkR0?=
+ =?utf-8?B?STNqWUVXMURFOXR4WEF4b25KbUczenVSbDdqSXFDeE1wb2xTWC93Y2N4QzBV?=
+ =?utf-8?B?ZzRoUDVrcklhMVFYQ3RiZWd2OTZuSDUvUmorbFBFeUVrTUZMejJ3RDMzekll?=
+ =?utf-8?B?SnZiRUw4QWc2S3JOeFJ6aDYrNzZuQTVDaWpYcmZpa25nSWtHRzhiQTlCM2Qv?=
+ =?utf-8?B?Q29ZWXI3bEV0UndCZGtzKzFDMDRBbStKTGVOMElBcG50YXRnbDNWSjQrZzJD?=
+ =?utf-8?B?L3d4U0Y0QytRMkdZUXVaa1k4cmM4YUV1cU5SdVBkMUtHclZ5bGZoeW1XUGlO?=
+ =?utf-8?B?SjN0cWg5bjdNR1dhS2s2bXlHdXlwOUdXQ1VGTFFvM3pnTmJmV044c0kwbVRV?=
+ =?utf-8?B?azVZcnVudDF4Yk1KR2lDQUFjOFpUcHZ3RlBrVGxRY1NHbDJRQllhMW9SRi9B?=
+ =?utf-8?Q?zgsohNnrJHzfyVzQR2?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67291a9c-d028-4cf9-104b-08df2604a3b8
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 12:55:48.0043
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LgGiSKidzVRlkaJdzZUsJBBR2+oLutKev7SwaBD9cZkpAehcWC7SsFgjM7R0S6zY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7894
 
-Some devices do not support LENOVO_CAPABILITY_DATA_01 and define the
-query method as a stub that returns zero buffer. Unfortunately, some
-devices do not implement the stub properly, causing WMI errors
-(including ACPI errors).
+On 10/9/26 14:35, Matt Evans wrote:
+> The dmabuf release path is split between file and dentry release:
+> dma_buf_file_release() is called shortly before the file is freed, and
+> dma_buf_release() calls an exporter's dmabuf->ops->release when the
+> dentry is freed.  However, the dentry can outlive the file (for
+> example, if opened with O_PATH), meaning .release might be called some
+> time after the file is freed.
+> 
+> This presents a window, when closing a DMABUF file, in which
+> dmabuf->file points to freed memory yet .release op has not yet been
+> called.
+> 
+> For VFIO, if a buffer's .release has not been called it's considered
+> still active and subject to move/cleanup.  If so, it attempts to
+> get_file_active() on dmabuf->file: a file close with dentry held open
+> will call this function with a stale pointer, a UAF.
+> 
+> To make this pattern safe, set dmabuf->file to NULL in
+> dma_buf_file_release() to reflect that the associated file is now dead
+> even if the DMABUF is not yet gone.  A get_file_active() ... fput()
+> sequence concurrent with a file close then only executes as one of:
+> 
+>  - Gets the file before file_ref_put() (dmabuf->file valid)
+>  - Observes dmabuf->file pointing to a file, but it's DEAD (no file)
+>  - Observes dmabuf->file = NULL (no file)
+> 
+> Originally, drivers could assume dmabuf->file was valid until .release
+> was called from fops->release.  This assumption was no longer valid
+> after 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
+> dentry_ops"), which moved the callback to the dentry release (by which
+> point the file might have been freed).  With this commit, drivers must
+> still consider that dmabuf->file could be NULL before .release.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to dentry_ops")
+> Signed-off-by: Matt Evans <matt@ozlabs.org>
+> ---
+>  drivers/dma-buf/dma-buf.c | 21 ++++++++++++++++++---
+>  include/linux/dma-buf.h   |  4 +++-
+>  2 files changed, 21 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> index 4c9add51f9ef..61485fc28b8b 100644
+> --- a/drivers/dma-buf/dma-buf.c
+> +++ b/drivers/dma-buf/dma-buf.c
+> @@ -193,11 +193,26 @@ static void dma_buf_release(struct dentry *dentry)
+>  
+>  static int dma_buf_file_release(struct inode *inode, struct file *file)
+>  {
+> -	if (!is_dma_buf_file(file))
+> -		return -EINVAL;
+> +	struct dma_buf *dmabuf = file->private_data;
+> +
+> +	if (!dmabuf)
+> +		return 0;
+>  
+> -	__dma_buf_list_del(file->private_data);
+> +	__dma_buf_list_del(dmabuf);
+>  
+> +	/*
+> +	 * As the file is being closed, dmabuf->file is no longer
+> +	 * valid and NULL replaces an otherwise stale pointer.  If a
+> +	 * reference to the file isn't already held, the file can be
+> +	 * closed at any time, including before dmabuf->ops->release()
+> +	 * happens: dmabuf->file _must not_ be accessed directly.  An
+> +	 * exporter should use get_file_active(&dmabuf->file) which
+> +	 * atomically tests and acquires a reference to the file (or
+> +	 * returns NULL if the file has closed).  The barrier ensures
+> +	 * get_file_active() observes the store before file_free()
+> +	 * frees the memory.
+> +	 */
+> +	smp_store_mb(dmabuf->file, NULL);
+>  	return 0;
+>  }
+>  
+> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+> index d15b2b31d3c9..9f3c92c71c29 100644
+> --- a/include/linux/dma-buf.h
+> +++ b/include/linux/dma-buf.h
+> @@ -303,7 +303,9 @@ struct dma_buf {
+>  	 * @file:
+>  	 *
+>  	 * File pointer used for sharing buffers across, and for refcounting.
+> -	 * See dma_buf_get() and dma_buf_put().
+> +	 * See dma_buf_get() and dma_buf_put().  Exporters can use
+> +	 * get_file_active(&dma_buf->file) to safely acquire a reference;
 
-The current lenovo-wmi-* implementation enforces the binding between
-LENOVO_CAPABILITY_DATA_00+01 and LENOVO_OTHER_MODE because of a
-limitation of the device component framework. When the capdata device
-bailing out due to a WMI error, lenovo-wmi-other becomes unbound and
-unable to provide firmware-attributes or hwmon device for the other
-functional capdata device.
+Please add something like "* when the exporter holds a common lock with the ->release() callback".
 
-Therefore, errors must be non-fatal in order not to break the
-assumptions made by the device component framework.
+Apart from that looks good to me.
 
-Stub the capdata device by releasing the capability data list in this
-case. After that, NULL list will be passed to lenovo-wmi-other on bind.
-The latter will provide whatever is available, or unbind the components
-if nothing is available.
+Regards,
+Christian.
 
-A stubbed capdata device releases or skips allocating most resources,
-e.g., the capability data list and the debugfs directory. The device
-itself is only used to satisfy the component dependency of lenovo-wmi-
-other and coordinate with the latter about the absence of the capability
-data.
-
-Reported-by: Charles <hanker007@gmail.com>
-Closes: https://msgid.link/CAKtz0s8UYRQYW_0bh=0TMx47Axm-W-muEay-r3rqUBS1NHMPVw@mail.gmail.com/
-Signed-off-by: Rong Zhang <i@rong.moe>
----
-Changes in v2:
-- Replace the term "poison" with "stub" (thanks Ilpo Järvinen)
----
- drivers/platform/x86/lenovo/wmi-capdata.c | 94 +++++++++++++++++++++++++++++--
- 1 file changed, 90 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/platform/x86/lenovo/wmi-capdata.c b/drivers/platform/x86/lenovo/wmi-capdata.c
-index d70fe4504fc5..d913176d2061 100644
---- a/drivers/platform/x86/lenovo/wmi-capdata.c
-+++ b/drivers/platform/x86/lenovo/wmi-capdata.c
-@@ -29,6 +29,7 @@
- #include <linux/acpi.h>
- #include <linux/bug.h>
- #include <linux/cleanup.h>
-+#include <linux/compiler.h>
- #include <linux/component.h>
- #include <linux/container_of.h>
- #include <linux/debugfs.h>
-@@ -38,6 +39,7 @@
- #include <linux/export.h>
- #include <linux/gfp_types.h>
- #include <linux/limits.h>
-+#include <linux/lockdep.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/mutex_types.h>
-@@ -45,6 +47,7 @@
- #include <linux/overflow.h>
- #include <linux/seq_file.h>
- #include <linux/stddef.h>
-+#include <linux/string.h>
- #include <linux/types.h>
- #include <linux/wmi.h>
- 
-@@ -449,7 +452,7 @@ static const struct component_ops lwmi_cd_sub_component_ops = {
- /*
-  * lwmi_cd*_get_data - Get the data of the specified attribute
-  * @list: The lenovo-wmi-capdata pointer to its cd_list struct.
-- * @attribute_id: The capdata attribute ID to be found.
-+ * @attribute_id: The capdata attribute ID (non-zero) to be found.
-  * @output: Pointer to a capdata* struct to return the data.
-  *
-  * Retrieves the capability data struct pointer for the given
-@@ -462,7 +465,7 @@ static const struct component_ops lwmi_cd_sub_component_ops = {
- 	{											\
- 		u8 idx;										\
- 												\
--		if (WARN_ON(!list))								\
-+		if (WARN_ON(!list || !attribute_id))						\
- 			return -EINVAL;								\
- 												\
- 		guard(mutex)(&list->list_mutex);						\
-@@ -597,6 +600,89 @@ static void lwmi_cd_debugfs_remove(struct lwmi_cd_priv *priv)
- 
- /* ======== WMI interface ======== */
- 
-+/**
-+ * lwmi_cd_stub() - Stub the device by not providing any capability data
-+ * @priv: lenovo-wmi-capdata driver data.
-+ * @err: The occurred error.
-+ *
-+ * The Other Mode driver binds to both Capability Data 00 and 01. If either 00
-+ * or 01 fails to probe, the Other Mode device will fail to provide fw-attr or
-+ * hwmon/power_supply_ext devices for the other functional capdata device.
-+ *
-+ * Therefore, errors must be non-fatal in order not to break the assumptions
-+ * made by the device component framework, so that the Other Mode device can
-+ * provide whatever is functional.
-+ *
-+ * After stubbing the device, a NULL list will be passed to the Other Mode
-+ * device on bind.
-+ *
-+ * Return: 0 if the @err is suppressed, otherwise its propagated as is.
-+ */
-+static int lwmi_cd_stub(struct lwmi_cd_priv *priv, int err)
-+{
-+	/*
-+	 * No barrier is required in any possible code paths:
-+	 * - called from lwmi_cd_cache(): a proper barrier has been employed
-+	 * - called from lwmi_cd_fan_list_alloc_cache(): early setup does not
-+	 *   require synchronization, and priv->initialized must be false
-+	 */
-+	bool initialized = READ_ONCE(priv->initialized);
-+
-+	dev_warn(&priv->wdev->dev, "%s %s (%u items) due to error: %d\n",
-+		 initialized ? "clearing" : "stubbing", priv->info->name,
-+		 priv->list ? priv->list->count : 0, err);
-+
-+	/* Simply print the warning message. */
-+	if (!priv->list)
-+		return initialized ? err : 0;
-+
-+	/*
-+	 * Stub the device on initialization errors.
-+	 *
-+	 * Note that if a transient error occurs during initialization, there is
-+	 * nothing we can do to re-enable the functionalities of the Other Mode
-+	 * driver even if a successful runtime notifier call making the relevant
-+	 * capdata emerge, as registering functionalities without the protection
-+	 * of the component framework is unsafe. Therefore, registering the
-+	 * notifier for a stubbed device is meaningless, and we don't need to
-+	 * distinguish transient and pernament errors during initialization.
-+	 *
-+	 * For runtime errors (see below), the registered functionalities
-+	 * (fw-attr) become temporarily unavailable due to the unavailablilty of
-+	 * the relevant capdata, and will recover after a successful runtime
-+	 * notifier call.
-+	 */
-+	if (!initialized) {
-+		devm_kfree(&priv->wdev->dev, priv->list);
-+		priv->list = NULL;
-+
-+		return 0;
-+	}
-+
-+	/*
-+	 * Runtime errors are transient. Simply clear all cached data and
-+	 * propagate the error.
-+	 *
-+	 * Since a valid attribute id is never 0 (the firmware also untilize the
-+	 * fact to stub some capabilities according to platform metadata),
-+	 * clearing the cached data effectively makes all attributes temporarily
-+	 * unavailable until the next notifier call.
-+	 */
-+
-+	lockdep_assert_held(&priv->list->list_mutex);
-+
-+	switch (priv->info->type) {
-+	case LENOVO_CAPABILITY_DATA_01:
-+		memset(priv->list->cd01, 0,
-+		       flex_array_size(priv->list, cd01, priv->list->count));
-+		break;
-+	default:
-+		unreachable();
-+	}
-+
-+	return err;
-+}
-+
- /**
-  * __lwmi_cd_cache() - Cache all WMI data block information locklessly
-  * @priv: lenovo-wmi-capdata driver data.
-@@ -635,7 +721,7 @@ static int __lwmi_cd_cache(struct lwmi_cd_priv *priv)
- 		if (ret == -ENODATA) /* The block is too short, probably stubbed. */
- 			continue;
- 		if (ret)
--			return ret;
-+			return lwmi_cd_stub(priv, ret);
- 
- 		/* Capdata 01 is an extension to capdata 00. */
- 		struct capdata00 *capdata __free(kfree) = wbuf.data;
-@@ -696,7 +782,7 @@ static int lwmi_cd_fan_list_alloc_cache(struct lwmi_cd_priv *priv)
- 	if (ret == -ENODATA) /* The block is too short, probably stubbed. */
- 		return 0;
- 	if (ret)
--		return ret;
-+		return lwmi_cd_stub(priv, ret); /* Print the warning message. */
- 
- 	struct cd_fan_block *block __free(kfree) = wbuf.data;
- 
-
--- 
-2.55.0
+> +	 * the file could otherwise be closed at any time.
+>  	 */
+>  	struct file *file;
+>  
 
