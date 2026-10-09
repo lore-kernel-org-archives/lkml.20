@@ -1,74 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9742481ACD;
-	Fri,  9 Oct 2026 14:54:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9F7D38F94F;
+	Fri,  9 Oct 2026 14:54:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791557656; cv=none; b=pkMeNc7zZZS9EzkLrNZ0RIK8Y8ULOkV6qkeilQV5VIbMEKNCsvvewVnR52tHk4vb+xHu/rhRL9IAZO9Lo0VX9utlHnbKl4Wdms7LacDn0PY0+fjAxexZRD6gXdsnrf+mRDORP9WdhKvtmjds1SgHMflZmoW3PyrLwlwrDESJuFk=
+	t=1791557665; cv=none; b=Rtyo+65lwBUD6V4J1ZnfzGFiG14DQr9sawMv+AFAEPsWdovGK8AiNa1uVk5+C1ux0FunFcv114OcYSm1OAYhTw+5BwPbItKzlJyov12MKaeEKZZLhXtkZ6ozUuVm83lUDCRnxJ6CTrlMcxIg/sTJ8Ok9WIfND9cj1gkxvu4pXzw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791557656; c=relaxed/simple;
-	bh=pKnr66K5LkeHYaqIKoZ5+IB0TdHqx8L3nfB3f83cFqA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DtUp95H6ZQmTdRX3pbUqeuHEtbTwA8CIWr+WPUTr8pIJAj8be79NU3XaKY/rU+B3/kKKpUfbB5hI5lMxnhOqgm4gIB8ZlOjHMoy6yrCWGZ+lWDC7rvxEy4hPNnRyNkM+Hfb2lbUozRO1xFv+877D6JphZBlwUEZoDF/bWVk+QB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RZbZizl7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791557665; c=relaxed/simple;
+	bh=mjLRswS6bYNfNkqCUU3C/HEsiq7eO6CnV8GdKO2vuFs=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=UkTd9sdMVEN572eX7nqVwTeKgJCw8B720gSixBu719Qs0J9TYSeWh0HezwPqk/MYT91tHTrm9IsUv3t0f2wU8MOtW1FdS2FPdiKTatv43g1v32JzR04XcOd4kG4r3405JuAjumO/eHbNbngQ3vM1/5HHV7BTboKzwKk2CVUjzIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N453kPhc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RZbZizl7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B653E1F000FF;
-	Fri,  9 Oct 2026 14:54:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N453kPhc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D700B1F00893;
+	Fri,  9 Oct 2026 14:54:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791557655;
-	bh=K8fYdYBN96GvkG2/zkMD0kHG+t7VNzh9golPxEFheh8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RZbZizl7zY+GxNqpQQLALtHGPwzlG7soJlwQVGcVXxevvTgEFLKR774AJ1BFEDoQ+
-	 fyrSQohcMHqkQjKISaB4esbX6HXIX5bPgQ4/gA2gUCzoGkCeK3tuLJKZNn4XORqHvS
-	 yr5qUa+52bFKMutHIC5sbRww1HTiREUEVUiSfjqJxEad5egbodoJb24lWbYUgKH3O2
-	 XFprSy9dP9Jj1uPIzkL5o2gEz38W1JPX5ecGTlUNGiOYHB2ALuvAlbX1p/TDVB6aYp
-	 3fiuNRcwylnt8c13Co5onvCMi56lvE2GQBGhfDP9j6QRniRmRcXleSrskOuuFKD89j
-	 lTCzfVAWvdchA==
-Date: Fri, 9 Oct 2026 16:54:11 +0200
-From: Niklas Cassel <cassel@kernel.org>
-To: Phil Pemberton <philpem@philpem.me.uk>
-Cc: linux-ide@vger.kernel.org, linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Damien Le Moal <dlemoal@kernel.org>,
-	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	Hannes Reinecke <hare@suse.de>
-Subject: Re: [PATCH v8 0/6] libata-scsi: multi-LUN ATAPI device support
-Message-ID: <askAE1FcZJ3jFiWl@ryzen>
-References: <20260731213503.2379771-1-philpem@philpem.me.uk>
- <apVF22SjDzqkzEkm@ryzen>
- <0a7bba64-c0fb-43c7-bcaa-d806f2377afd@philpem.me.uk>
+	s=k20260515; t=1791557664;
+	bh=mjLRswS6bYNfNkqCUU3C/HEsiq7eO6CnV8GdKO2vuFs=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=N453kPhcceyGWefpyyMkh8h9XNCBS2zyx62fLFCZRLojtnDUsuAvNuscHX53gFm3s
+	 IM1CCByH5Tjo8ZftWEx2BWhhWgfCQiJf6R/N1J5CNQtEIkPYX0fuTCQEY+96lpkm/V
+	 LysX3sYmqrMmYl/WoitGXFB9HBGQ2JhmyBkQAyMgkgNIKvli4t6LSjnGOxcqPBlLeK
+	 yoa4+nK87WviVIJbuBSYG/hc7yw83vA0zitOFAt8XRHSasbv0q9CqQSBVesQ57fRXi
+	 5dGc/vpGcRPbgap7ZChLUq9K+QwoakuIsoGHYItI0pyBE0OP/LM6BygspXkHlvq//v
+	 0ACTE6QqbckhA==
+From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+To: Mina Almasry <almasrymina@google.com>, Luigi Rizzo <lrizzo@google.com>
+Cc: Magnus Karlsson <magnus.karlsson@intel.com>, Maciej Fijalkowski
+ <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Alexander Duyck <alexanderduyck@fb.com>,
+ kernel-team@meta.com, Andrew Lunn <andrew+netdev@lunn.ch>, Jesper Dangaard
+ Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
+ <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, Pavel
+ Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>, Andrii
+ Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar
+ Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau
+ <martin.lau@linux.dev>, Song Liu <song@kernel.org>, Yonghong Song
+ <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis
+ <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, io-uring@vger.kernel.org,
+ "Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>, Weiming Shi
+ <bestswngs@gmail.com>, Nikolay Aleksandrov <razor@blackwall.org>, David
+ Wei <dw@davidwei.uk>, Alexander Lobakin <aleksander.lobakin@intel.com>,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC net-next 03/15] net: Add memory provider capabilities
+In-Reply-To: <CAHS8izP1vXB9ro7coamL7MUvTJu0kWzej71T2o5y_GYpJzFB+w@mail.gmail.com>
+References: <20261002190018.696925-1-bjorn@kernel.org>
+ <20261002190018.696925-4-bjorn@kernel.org>
+ <CAHS8izP1vXB9ro7coamL7MUvTJu0kWzej71T2o5y_GYpJzFB+w@mail.gmail.com>
+Date: Fri, 09 Oct 2026 16:54:21 +0200
+Message-ID: <87zewmq602.fsf@all.your.base.are.belong.to.us>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0a7bba64-c0fb-43c7-bcaa-d806f2377afd@philpem.me.uk>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hello Phil,
+Mina Almasry <almasrymina@google.com> writes:
 
-On Tue, Oct 06, 2026 at 05:12:38PM +0100, Phil Pemberton wrote:
-> On 31/08/2026 10:14, Niklas Cassel wrote:
-> 
-> Thanks for the comments - sorry for the delay on my part. I saw the
-> automated Sashiko reviews but was pulled away onto something else.
-> 
-> Would it help if I responded to the Sashiko emails individually, or is
-> responding on the next patch covering note enough?
+[...]
 
-Simply sending a new series is fine, like you already did.
+> Thanks,
+> Mina
 
-It will unfortunately most likely miss 7.4, since we will need acks
-from the SCSI maintainers on the SCSI parts, and I saw that you got
-some additional (non-preexisting issue) from Sashiko.
+Mina (back from LPC, sorry about the delay...)!
 
-But my recommendation is still to respin sooner rather than later,
-such that we can get it merged any not miss (another) release cycle.
+Thanks for spending time on the series! I'll try to address all your
+comments! Need to think about the napi kicking a bit more...
 
 
-Kind regards,
-Niklas
+Bj=C3=B6rn
