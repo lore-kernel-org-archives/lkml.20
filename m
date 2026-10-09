@@ -1,105 +1,98 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3158F3E9C3C;
-	Fri,  9 Oct 2026 07:23:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F2173C5523;
+	Fri,  9 Oct 2026 07:23:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791530584; cv=none; b=k6plCuZv+gePhNzoRVAIpdsv+ymCQcEZ5/BgZARFQUk3FV7v4l5GOdmCUOFXqKrt/z30/GF8Rsev7K9peIQGGY+w2D7uG2xmZBhOgMtUXyJ0XuNMyLmawP8eKB9/d+sOOQVDYBg1Gh1tSFhuoAbexl6baEQIWTeoh+rZ8vUbPEg=
+	t=1791530608; cv=none; b=iuEgzNhrtkZ0XTpHS6ZklIupqKeP0R3inEgM+9R2H1v5oRnv8lbpEHtHhb+oQS9Rw4pPcD5+3LO+49WXPGNeN/OiN5fSqKJxwNEfzI1D79N5WucXw6++g/8glurZfaRinEux78AbRgGZnkHuI9qO6N+e2/8JUu5n2m03351UaTs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791530584; c=relaxed/simple;
-	bh=WsYk4mwXHGtEeA9/sqqtPLloNXN/PsNfk1fSu7KICtk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QXefCkkFe5FKSOTbUuVCLLEMQCo/4me2aywLsk/KgVdt8IY7FwPdKfoz/gXeCz8E3yTr7c3YjAtQiomVvFFkvJMqpdXHQw/ZLPiRWSS0UaWcsCwb67oZSLDP97qsz7cPT6vL8zttXNzXAJJaYQXXn4/CDA7O8hGiOyZAepk6+QA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=t8CehVv4; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791530608; c=relaxed/simple;
+	bh=AMFp/Ebr159vLz/n0Yb3+LfWedR4hlt4rlDlqUnbufk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JpL3GVFpoa87vKJ4eD3YT/6yU1C7dS176332P/C7fxOQxgy6ZY065RIz7/UFQbZijxUAXEoOwcYBvrYAvFKbTDBk7afs/UVX8LlVssyzgEVCNHdFYmRa1mX5NO6HZfRpl8DW/txjIArJ5w+hMYDmU1ZcAts0WtTvpFBxB7yv/Bk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=VrkQVqDx; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="t8CehVv4"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DE6991692;
-	Fri,  9 Oct 2026 00:22:57 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 29DE03F8C6;
-	Fri,  9 Oct 2026 00:22:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791530581; bh=WsYk4mwXHGtEeA9/sqqtPLloNXN/PsNfk1fSu7KICtk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=t8CehVv4+Lz8Ugsv96BmQeZ1twjOPHaeTSryLFZ8XK8XZigz5W+IYmOHxXvNgxCos
-	 N7BdEXolPVcgXabranRPAkc3TgIpNDG7vL7on5JnWLSDBD8O+6Xi8OgL/yfdqoaAGW
-	 FrYeFAl55KJTNtuwLj3854pSMLI1wyh9ufDn1hq0=
-Date: Fri, 9 Oct 2026 08:22:55 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Peng Fan <peng.fan@oss.nxp.com>
-Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	"Ivan T. Ivanov" <iivanov@suse.de>,
-	Francesco Dolcini <francesco@dolcini.it>,
-	Frank Li <frank.li@nxp.com>, linux-arm-kernel@lists.infradead.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kvmarm@lists.linux.dev, imx@lists.linux.dev,
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH v4] arm64: errata: Add NXP iMX8QM workaround for A53
- cache coherency issue
-Message-ID: <asiWTxgGxJ5JIFcl@arm.com>
-References: <20260824-imx8qm-cache-coherency-v4-v4-1-b2e528c7d05e@nxp.com>
- <asTZEhzMDs869r_n@arm.com>
- <aseZUwi0CYTXuE/I@shlinux89>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="VrkQVqDx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=zM
+	/zoDgiq86hQBEum2co31KfW0tzv70MXIWrE2UrOKk=; b=VrkQVqDx4ImuP4ba+s
+	Gws1qQJx9h+laURQV4W1sWgjNCv5urOS7qRYMkjqvYsesK9BKLCs+ppUToKpn5Ys
+	fKW85o3AJbjAnvG5SDpQMOSKJTKbhbfnY2XADCH2MIhFE+33TBmx0Hb4n/hOJK8s
+	h/QUZv9RXkMN15uNGsLGIPqRw=
+Received: from WIN-TOG0NDEIICD.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wDX_zk4lshqdCt9DQ--.25180S2;
+	Fri, 09 Oct 2026 15:22:33 +0800 (CST)
+From: Shirong Zhao <shxzhaosr@163.com>
+To: Arend van Spriel <arend.vanspriel@broadcom.com>
+Cc: linux-wireless@vger.kernel.org,
+	brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] wifi: brcmfmac: drop glom superframe on header parse failure
+Date: Fri,  9 Oct 2026 15:22:32 +0800
+Message-ID: <20261009072232.18-1-shxzhaosr@163.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261008103312.20-1-shxzhaosr@163.com>
+References: <20261008103312.20-1-shxzhaosr@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aseZUwi0CYTXuE/I@shlinux89>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDX_zk4lshqdCt9DQ--.25180S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tF43ur4ftw17uryUurWfXwb_yoW8Zr47pr
+	WIgFyj9r4DJrZYkrZ7AF1xAF1Fqa1Uta4UKay8u3WfuF4rAr1ftr4v9Fyjgr1YyrsYk3sF
+	qFWFvrsxJr9FgFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j4c_-UUUUU=
+X-CM-SenderInfo: hvk06xhdrv2qqrwthudrp/xtbCxRmAvmrIljmKUwAA32
 
-On Thu, Oct 08, 2026 at 09:23:31PM +0800, Peng Fan wrote:
-> On Tue, Oct 06, 2026 at 12:18:42PM +0100, Catalin Marinas wrote:
-> >On Mon, Aug 24, 2026 at 12:02:04PM +0800, Peng Fan (OSS) wrote:
-> >>   - Disabling KVM since correct TLB maintenance cannot be guaranteed
-> >>     for guests.
-> >
-> >Do you need virtualisation on such platform? An alternative would be for
-> 
-> We not have KVM support in our software release for i.MX8QM.
-> 
-> >the guests to be aware of the erratum as well and use the right TLBI/IC
-> >ops. But you'd also need to upgrade the VMID-aware ops in KVM (unless
-> >the hardware can't work around stage 2 TLBI at all).
-> 
-> We not have test cases for this since KVM is not in our release scope. 
-> Could we take this as a future enablement to avoid uneccessary churn
+brcmf_sdio_rxglom() uses rd_new.len_nxtfrm and rd_new.dat_offset
+right after the superframe brcmf_sdio_hdparse() without checking
+errcode.  On parse failure those fields are either uninitialized
+(the early -ENODATA/-EIO/-EPROTO returns) or hold a rejected value
+(the -ENXIO bad-offset return), so bus->cur_read.len gets garbage
+and skb_pull() runs with a garbage length.
 
-Yes, you can leave it out if you don't care about the KVM use-cases.
+Check errcode first and drop the superframe with the same cleanup
+used for a bad subframe below.
 
-> >There's a precedent with 4311569 to wire up a SoC erratum into the CPU
-> >errata framework. That one is a system wide feature, so only probed once
-> >for the CPUs coming up at boot (though still probed for each late CPUs).
-> >For iMX, you need this turned on early, hence the boot probing. But
-> >calling it a strict boot CPU feature is a bit of a stretch. It also gets
-> >probed on every CPU, unnecessarily.
-> >
-> >I think we could do with something like below (maybe as a preparatory
-> >patch). We could also add it to 4311569 even if it changes its scope
-> >from system to boot CPU (the early param is available).
-> >
-> >Only compile-tested and haven't tried wiring up your workaround:
-> 
-> With type set to ARM64_CPUCAP_SOC_ERRATUM for i.MX8QM and your patch
-> applied, I not see issues in my test.
-> 
-> Would you post it as a formal patch or need me to include your patch
-> with i.MX8QM errata patch in a patchset?
+Verified against wireless.git main (fd4e7f1137291), the current
+wireless fixes tree.
 
-Please post it with your patchset. Feel free to add a co-developed-by or
-suggested-by me on the new cpucap proposal.
+Signed-off-by: Shirong Zhao <shxzhaosr@163.com>
+---
+Changes in v2: check errcode before sdio_release_host() so the
+cleanup runs under the already-claimed host, avoiding the extra
+release/claim cycle (suggested by Arend van Spriel).
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
--- 
-Catalin
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
+index 381801af3..abe8d44ec 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
+@@ -1648,6 +1648,17 @@ static u8 brcmf_sdio_rxglom(struct brcmf_sdio *bus, u8 rxseq)
+ 		sdio_claim_host(bus->sdiodev->func1);
+ 		errcode = brcmf_sdio_hdparse(bus, pfirst->data, &rd_new,
+ 					     BRCMF_SDIO_FT_SUPER);
++		if (errcode) {
++			/* Superframe header is bad; rd_new fields are not
++			 * valid here. Drop it like a bad subframe below.
++			 */
++			brcmf_sdio_rxfail(bus, true, false);
++			bus->sdcnt.rxglomfail++;
++			brcmf_sdio_free_glom(bus);
++			sdio_release_host(bus->sdiodev->func1);
++			bus->cur_read.len = 0;
++			return 0;
++		}
+ 		sdio_release_host(bus->sdiodev->func1);
+ 		bus->cur_read.len = rd_new.len_nxtfrm << 4;
+ 
+ 		/* Remove superframe header, remember offset */
+
