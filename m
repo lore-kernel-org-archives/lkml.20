@@ -1,116 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8BDE4C6507;
-	Fri,  9 Oct 2026 14:47:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791557243; cv=none; b=iDoy/kp9LuR06dyLWZx6N5qr6z8fsnwriugQQWFUiu2Lg5WA26x+le9JmggZdCkfHj/Dwqnn5V5Q/slwTVhUSf8I9PRBpyfrDDEbT4B/QjBdxzJA+L6L9sVISK5MffeKZKPF3FYXbHuSEgVN4WBVF5OGQcba+QZIMZ3swdY5ImI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791557243; c=relaxed/simple;
-	bh=Nd1UQuWIPVoZCN1JAxsjjYrIHel7MXAsOmh7A1+b3zs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=b0UVM4M6khewIngIZ8PINIwNTtfLEdJDsh14jcJDje9erAY6xXD188W1LbztmTGAn2obQTcXE3vzJb0dBaVIkJYCKEqdZ+nem9kmXU31e2owLu8QS2Uqi2gWu0PxEJhrKK6gApMeLeMq7Ly6+58jI/4gTfPM3hKVPiCvpeidFzQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jALUDBK/; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E12EC4E73D5
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:47:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791557258; cv=pass; b=RDzc4SvZpvhzdMohky9u6Sqnj5uVcg5q8+WJTjVlhW+If15xs4aIXa16BCF08wcjgi70ie/aba1TbY1oTqXrORidPk4k8JdOkL2F+vVC78Nj1Ie4wYLZlqN1oiUBBSDpuwwM/1iSHY8OXSPnwBq6jPLps2sXBdPpR0O0OidgN9E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791557258; c=relaxed/simple;
+	bh=Blo9bZJVD6llKnlgZ8v9dI0/4WMj577+qqF42yQZww8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gZ/tx7ux/OeJrHQ4f2N1oXwtt7vZW12GtCCixR/RKMSRyF1Hub2xNF8O2vMmuZra5NmocEdD/kpRLuifhGeEQbq7PXb8S+dXBRq0YEr4pLaSLaqk6mj7HmQfsfe+Vq50YVpcorrq5CEOAk7ihgSRxU77WJiIHI3dGbgNlQpHaMc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=gUERJ0kg; arc=pass smtp.client-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jALUDBK/"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 36F14C2BCF7;
-	Fri,  9 Oct 2026 14:47:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791557243;
-	bh=Nd1UQuWIPVoZCN1JAxsjjYrIHel7MXAsOmh7A1+b3zs=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=jALUDBK/M29d/RAFgkazOUpBDF4WawjR1Tg+8Wqh5fqGx2zzGQjB0iRzWFzJO5ity
-	 M377cEURzuTbaZptiKEaD7JOjGTwT/X3fD6Y4NL14sAnQwlsjIux7n45szZ2OWYASN
-	 mZm4GFWPQE/AeLVM3uE1ty+YV2AMKvLBBqIlx4z+e8GNLoVEfKbPlVSDibCmVHPrLX
-	 LZLHtCsDd7EgSAsRm2v0hUVFay3PfOoDQ6Blf9wO8HngM4YBgS6p2RtJL5kyY2nUM4
-	 dW0SEzsaHzileI7S+/swWd8Gcxzfh//HFuNshWI3XLT6oEtbzR78JljpAggLJoTBkg
-	 gLTseTPj2Ngsw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F176CA601D;
-	Fri,  9 Oct 2026 14:47:23 +0000 (UTC)
-From: Krzysztof Furman via B4 Relay <devnull+krisfur.proton.me@kernel.org>
-Date: Fri, 09 Oct 2026 15:47:10 +0100
-Subject: [PATCH] Input: xpad - add support for Corsair Novablade Pro
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="gUERJ0kg"
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6ae27f06c2fso10415181a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 07:47:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791557255; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cP5e5zsy99w/mGVopfPzgcgjDTnxNniYWBSqLbQKniPn9e2ShMZXHHj9WpHBX9d6xK
+         TT2Gm2sZsfvDard9fNT0Rjw0TrZZYc6lyIuW4BzGm0l+VDnLi5vWxK8RVnjw7tMs2f6B
+         UqeLrye26J7+KH0XxleZ01+VrMnEvSvmjYC3MTO7qneMtTy1YuOZEPcxFQg5Vg/xEQaW
+         vykMgBrvBNoOFzqy/rIO9rEETh81euSMs808D6zb4ifrH+rHX5aMl3HLAwFJxiDROqYi
+         5Igr/9CmbPFszdz9adOh5/1GX/IyxebLD/ajRiShVUbBIAF3jznPaBEcE0ZPR62myozY
+         Ahvw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=fYrhqlvlDqZyhpHYosM1z+TE4xAbOSyFmrTsse4+jk4=;
+        fh=Fpnr5VkD6xLW7STy/MnTxrIqbJHCXo5biXg1n9Uhp7A=;
+        b=B8mfTMZaArxpYP74mSEsSXEA9AT5vOXC6XIEIW5n822UfBpIj/tPF4q/4pyN+3mleA
+         3W5IloHN0X5cDhWp16MH43hiq/yiKl96uOgXU2jfD8nPkzOLIz1OxYFbR/zWHv4qQVzk
+         +BiIrNSPTVGlbC9lNJAmXhC5s0z7yXQ8hjeTzGVBNMRFcM8z7kM2F5QnFdjh6yIlqY5f
+         Zwdpx57fsUW1VAuEs66KJBihfdnKmjPHGEx37kaKWPwVcNOzYcJiXhoAS8TYzgtqXEYj
+         74PwiyRAL8uEyHjlOIqS2mvhE+CZwRxKgDutifSQFYvVLM1oUQnjkv3+2sRSneE/5Wj6
+         q02g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791557255; x=1792162055; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fYrhqlvlDqZyhpHYosM1z+TE4xAbOSyFmrTsse4+jk4=;
+        b=gUERJ0kgym684iLhcbTDTPx/5podNuSRG4d27JEmB1T7OKDPO7oj2MmzfX9gDQBTMm
+         ui8JzOM9Tg681FB8uNUtNm7k9ZKHaHlnfwML3F1Tke7JfRXFWm1nKrI1EwHWLT+FBHwy
+         vPAXRZwPRpU+bn1UF5lEfdypNcHkl4BySGrxr9jjT1ni6yCGQ4dJY6+inpUX4uQxP968
+         fTrR5j9K2v2sOr44LZ0xxUFKFI3y2sBpwKeTfEQIAq0BVmJHCRxZx8KYGmZyUGMx1/d3
+         wmzwW4R6HO1ptknETnvxg5CEocB2LQY0ofMwb8o1deca69nGSefNK7DUDBqdycWcW5Q1
+         /CTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791557255; x=1792162055;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=fYrhqlvlDqZyhpHYosM1z+TE4xAbOSyFmrTsse4+jk4=;
+        b=f6HrqgeVUULGoWQbyoHMsnQCIur5y7ys3o1vQG1ajwt+PfA7i16k12XmLDi+8+EJUg
+         4aZT/ZWVhj1SdW3Ek9U285t+sUq6MplAsQdnlVL1uVyDGVdXiqDvENaJKOM8pgmMl9Lg
+         5wqJIqYHLFCtpZTEJJ2nHUygiIGRHcfkhWW5Z5JJ+PE2R70djvkVleN7rMNtI8v5mSQL
+         DOoyGOF+MFL6RFIztH5rbpB/uGaU2i/ubunuoNk97uLOSf52wRwQu7Czq8Wuh8g6Z+5C
+         L/Gb/AtLocVENG1u1d6k+qRaLsbtJpI7GP8en9JZSoWuRvh/2waynl/riUrVf2gk6Y9j
+         SgkQ==
+X-Forwarded-Encrypted: i=1; AKwUvByfgXMuAKhD7hedG308giCBesiTaniRqoL5hsxARPIikotWlxjcWzZoQygeMXyakp92GxxZABqg+AEI+ao=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJt0FKzcTqSQwZsJy5OU/W0ZnzcTbc3hFxofTRpnGBgx2X+YqpZ
+	2JSC5ofFYuR7rBlTLYdTRqk1JpWdB5v/qwLRTArpH4HsQGfXiWXaN4fmCqkxbOCgMamB7RwBgil
+	zLG5ECh3U6moD9iEZWwj8aLcmYoArGZPvWWsEthzFXw==
+X-Gm-Gg: AYBFou3A2E9CdD9cnPJSMyBSI8FIuNWxDwlKY2e9fQqHBrRTq2QIn2CUmTcJZ/T4E5v
+	KHwrCfx9AEyVAsG78ZCPS/5EBCOqC+TBCuI6m3sz2pHEQ3oFcM/cxngjU0WS7soxiBPtyIp/LG/
+	iBzkwwEQNA6ejE/ULazKLpJ0vjZLigny40UsPAB7KHi/m1r+zKaQAxZ/KyahekgtPa4444BW/01
+	FxPL2S1YsBIfXTnfhSSvJF1/HftX61nuKdRXBVpGX+hHUz+LPEiSrd2CwwZ8Z/aCIi2jxcnM4a4
+	zSr0ZmDZFzLvW0+e8y1vpBwqXZrVTqu9LYVgrRk58mYbRBaaPCppBb9IHuE3+NZhWyilobdOEj/
+	Na59w8xFPf5U=
+X-Received: by 2002:a05:6402:2489:b0:6ac:8dce:5a8a with SMTP id
+ 4fb4d7f45d1cf-6b17c25d1dbmr1911978a12.9.1791557255037; Fri, 09 Oct 2026
+ 07:47:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-xpad-corsair-novablade-v1-1-e58746bef99f@proton.me>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQrCMAyA4VcZORtoK6zMVxEPWRs1Iu1IdAzG3
- n2dHr/D/69grMIGl24F5VlMamnwpw7Sk8qDUXIzBBd679yAy0QZU1UjUSx1pvFNmfEcKEQfAw1
- 9hBZPyndZfuPr7W/7ji9On+MG27YDCXq0b3oAAAA=
-X-Change-ID: 20261009-xpad-corsair-novablade-32a27172a967
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Furman <krisfur@proton.me>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791557242; l=2357;
- i=krisfur@proton.me; s=20261009; h=from:subject:message-id;
- bh=ajmN4wE5ck5/WbQMqQHqcLzqggS+I8lqcfuBpb4LQN4=;
- b=wzJJIbfQiRN5ky9nCpFii1qs1PySNhBwCcTc84sMUoo2+khwff3rbZTzDbC52zM6Y8jB/LR/s
- Cl0Mscxp8TuDiiuhS482ab8w28WJcxQ1TCOB0A1qd17f/NJb+Y1S5Kj
-X-Developer-Key: i=krisfur@proton.me; a=ed25519;
- pk=qWf2loGTQN6F4MMZofmcek16QZYEtENBLRL0vg4m0F0=
-X-Endpoint-Received: by B4 Relay for krisfur@proton.me/20261009 with
- auth_id=1142
-X-Original-From: Krzysztof Furman <krisfur@proton.me>
-Reply-To: krisfur@proton.me
+References: <20261002154415.2270586-11-vincent.guittot@linaro.org>
+ <20261009055318.29609-1-kayracizmeci@gmail.com> <CAKfTPtBvGYp2S4P-k_SsFAXMVSSQ6j4F4LO44uUoDo5ZaUe1Bg@mail.gmail.com>
+In-Reply-To: <CAKfTPtBvGYp2S4P-k_SsFAXMVSSQ6j4F4LO44uUoDo5ZaUe1Bg@mail.gmail.com>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Fri, 9 Oct 2026 16:47:23 +0200
+X-Gm-Features: AclHuK9iGeFj7ZuSh47IJz473HQO92ge7LwBJsa7yRJFssp2W5pUDwwA41CDc9g
+Message-ID: <CAKfTPtCAbreGDhesDmFNvXEzjj+anmOH1=jqT-1B6Lfj0FfPqw@mail.gmail.com>
+Subject: Re: [PATCH 10/18 v2] sched/fair: Add force push task mechanism for fair
+To: Kayra Cizmeci <kayracizmeci@gmail.com>
+Cc: arighi@nvidia.com, bsegall@google.com, changwoo@igalia.com, 
+	christian.loehle@arm.com, dietmar.eggemann@arm.com, juri.lelli@redhat.com, 
+	kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, 
+	linux-pm@vger.kernel.org, lukasz.luba@arm.com, mgorman@suse.de, 
+	mingo@redhat.com, peterz@infradead.org, pierre.gondois@arm.com, 
+	qyousef@layalina.io, rafael@kernel.org, rostedt@goodmis.org, 
+	sched-ext@lists.linux.dev, sshegde@linux.ibm.com, tj@kernel.org, 
+	void@manifault.com, vschneid@redhat.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Krzysztof Furman <krisfur@proton.me>
+On Fri, 9 Oct 2026 at 16:04, Vincent Guittot <vincent.guittot@linaro.org> wrote:
+>
+> On Fri, 9 Oct 2026 at 07:53, Kayra Cizmeci <kayracizmeci@gmail.com> wrote:
+> >
+> > >       task_tick_cache(rq, curr);
+> > >
+> > > -     update_misfit_status(curr, rq);
+> > > -     check_update_overutilized_status(task_rq(curr));
+> > > +     if (!tick_pushable_task(curr, rq, rf)) {
+> > > +             update_misfit_status(curr, rq);
+> > > +             check_update_overutilized_status(task_rq(curr));
+> > > +     }
+> > >
+> > >       task_tick_core(rq, curr);
+> > >  }
+> >
+> > Hm.
+> >
+> > I think this mechanism added on here does not works.
+>
+> Ah yes, while factorizing the code, I removed this main diff between
+> tick and put events
 
-Add device IDs for the Corsair Novablade Pro leverless fight controller
-in both wired (0x2b1f) and 2.4 GHz receiver (0x2b2b) modes, and add
-Corsair's vendor ID to the Xbox 360 vendor match list.
+In fact this is on purpose.
+fair_check_pushable_task() is the function that is called to decide
+wether we try to push or not a task. In the case of short task, we
+will not push a task that is already alone on the rq
 
-Outside of its PS4/PS5 modes the controller uses the Xbox 360 protocol
-(vendor-specific class, subclass 93, protocol 1) on interface 0, which
-xpad does not currently bind, so no gamepad device is created. The
-PS4/PS5 modes present a standard HID gamepad and already work with
-hid-generic.
-
-Tested on 7.2.5 with the 2.4 GHz receiver and wired.
-
-Assisted-by: Claude Opus 5.5
-Signed-off-by: Krzysztof Furman <krisfur@proton.me>
----
-The PS5 mode (0x2b27) presents a plain HID gamepad and needs no xpad
-change, so it is not included.
----
- drivers/input/joystick/xpad.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/input/joystick/xpad.c b/drivers/input/joystick/xpad.c
-index feb8f368f..51f889389 100644
---- a/drivers/input/joystick/xpad.c
-+++ b/drivers/input/joystick/xpad.c
-@@ -295,6 +295,8 @@ static const struct xpad_device {
- 	{ 0x17ef, 0x6182, "Lenovo Legion Controller for Windows", 0, XTYPE_XBOX360 },
- 	{ 0x1949, 0x041a, "Amazon Game Controller", 0, XTYPE_XBOX360 },
- 	{ 0x1a86, 0xe310, "Legion Go S", 0, XTYPE_XBOX360 },
-+	{ 0x1b1c, 0x2b1f, "Corsair Novablade Pro (Wired)", 0, XTYPE_XBOX360 },
-+	{ 0x1b1c, 0x2b2b, "Corsair Novablade Pro (2.4 GHz Receiver)", 0, XTYPE_XBOX360 },
- 	{ 0x1bad, 0x0002, "Harmonix Rock Band Guitar", 0, XTYPE_XBOX360 },
- 	{ 0x1bad, 0x0003, "Harmonix Rock Band Drumkit", MAP_DPAD_TO_BUTTONS, XTYPE_XBOX360 },
- 	{ 0x1bad, 0x0130, "Ion Drum Rocker", MAP_DPAD_TO_BUTTONS, XTYPE_XBOX360 },
-@@ -536,6 +538,7 @@ static const struct usb_device_id xpad_table[] = {
- 	XPAD_XBOX360_VENDOR(0x17ef),		/* Lenovo */
- 	XPAD_XBOX360_VENDOR(0x1949),		/* Amazon controllers */
- 	XPAD_XBOX360_VENDOR(0x1a86),		/* Nanjing Qinheng Microelectronics (WCH) */
-+	XPAD_XBOX360_VENDOR(0x1b1c),		/* Corsair controllers */
- 	XPAD_XBOX360_VENDOR(0x1bad),		/* Harmonix Rock Band guitar and drums */
- 	XPAD_XBOX360_VENDOR(0x1ee9),		/* ZOTAC Technology Limited */
- 	XPAD_XBOX360_VENDOR(0x20bc),		/* BETOP wireless dongles */
-
----
-base-commit: 1a3ba2dc2b91d50201a9d4721f166e68f4903eb6
-change-id: 20261009-xpad-corsair-novablade-32a27172a967
-
-Best regards,
---  
-Krzysztof Furman <krisfur@proton.me>
-
-
+>
+> >
+> > Before fair_check_pushable_task() is called, we check
+> > if nr_running is bigger than 1. If it is we return false.
+> > So when we enter fair_check_pushable_task(), nr_running is
+> > equal or smaller than 1. We first run __check_pushable_fair_task()
+> > but it doesn't really matters, since it's output
+> > can only return false. Next block is skipped to since
+> > next == NULL. When we're at the check_pushable_short_task(),
+> > the h_nr_runnable check is always true on this path,
+> > so we return false.
+> >
+> > It this intentional? Or am I missing something?
+> >
+> > Thanks,
+> > Kayra
+> >
