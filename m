@@ -1,199 +1,315 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CFCA38F649;
-	Fri,  9 Oct 2026 19:03:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791572595; cv=fail; b=SLDbOFzLB7rTZIbuMRp6EWcPip+rWCnu/rRYtuz9355c3QueXE+1JQrRyXZ9MACf8Jhs0x5D7xEjGmzLaxWlElNiMaKhtrZFaq/iMBIQYgeHvldR0cCS25TulLLPkfSFLZ2NnpAJ3LucyNnB9oA1UC8peDFq+5jTXigrO/tl0Lk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791572595; c=relaxed/simple;
-	bh=ltiJ24Xy/sKol5S8KrE2dnbIOrb7xLSZD9q3PGP50cU=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=d8wfLjh3ZTRs/tdgwvl8YAaBWD1jkj0XGPf+us46llw5ytRA+rXOMZKH8jExatsJT85Zre5+DxMOH2zURbFaa8adx4OVj7xD5FZaB2+jdck7QvVe70N7fQPFqfX4NY60jflItjcmiD/4PDEGTLEgbki5pnsBrxmr9KnEepuXDa0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MB72IMRm; arc=fail smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A51835FF6C;
+	Fri,  9 Oct 2026 19:03:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791572596; cv=none; b=ZVVkuqPJ4Ve9xnF5NBae0+kwEG8LHjE3Mh4XxFJkyRPPTnbA6Z3K4sjBGv9g3Wrd3gzDEWLDKnVTqMjLFrXMAlYf0SDvCApNS2LCHZ8czJoH7dEsIxl3SfI7vOHfK7rXEo+XK5+1IyL6PqBC8KjVusAUXCR6sLfazy9nzaHao0M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791572596; c=relaxed/simple;
+	bh=miGuP0P2RpS2il8lVGOuOHXG1eLSz6RCzg09nOBAtvg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CBGmEbhTlJHkP52fvWSZMPovGvufiLtRDypeX4ne6iShj5OmsIrg3X0PtGvB4yL+OuZ1ToowyvvzawK/NIFXzo3gCiTZd7oqgNw9DdPJeyST831cX1GU4M/xBwTxPuNJITegIkCuQsnNVZeUs7Cs+SM3bCwiCil3N23zNRK6D9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XFr88NQ+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MB72IMRm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791572593; x=1823108593;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=ltiJ24Xy/sKol5S8KrE2dnbIOrb7xLSZD9q3PGP50cU=;
-  b=MB72IMRmeuKqSIMXTxOnHr/HGjD/XmLue0ft6wVllVggJnOlG6c6US7p
-   mhzi55mTIr9ftkXRzD1+yjnBDKY6X0OKVQujek1mtbpYjOX/ldexJOQbv
-   WLGDzRiB0AFXLsQONkY8b7jYSqi+B8ZYynHxFzf13ko/kXNJ7CScBF/c6
-   gVg8kyuyHEFdJCAmw3WUJeI1HJLS2vyyx8i5BCY6qOnwTA8fqoY6wWEto
-   cHLnN8Or31yNFpfmOHX0ttUT/wglYN5OzuSYn7hCNuzgfpCtxTtCyl+KS
-   jEaP7VhNUnNPLBsv5xeQP6wE+ikC/VjEodokpu9cG0spPzxJzHx6AQakB
-   Q==;
-X-CSE-ConnectionGUID: oFnemtnsSbGneIGDlX3ZeA==
-X-CSE-MsgGUID: 6gsi3SptSxebakHZ5LG/WQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="380416"
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="380416"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 12:03:13 -0700
-X-CSE-ConnectionGUID: aLRd9me2QrOud/kT3dDuFQ==
-X-CSE-MsgGUID: 3vuvXX56SO2TkQyBuRyWww==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="704964"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 12:03:12 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 9 Oct 2026 12:03:12 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Fri, 9 Oct 2026 12:03:12 -0700
-Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.68) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 9 Oct 2026 12:03:10 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=D2CIjXJPDsbp1O+ciwiqWfk4fLwpmch1/MwGhms/sTq+n6CqLmerCWaS9PJYb55E43s1/2NRMcO0O1lu77xf0qSzhMWUP2TzvxAnKmObLgUALdtkVxbD06DYIq8JKgW/cXlsXM7H8PccE+ZsFk9KbgUTpfzvwNc089nhqpPSULZRjFfj9zAPmLNb9XnQPPseNPbgqhY5IypAdk2BqxU8W89DVQQY+MQtl4L/GtKMhDjAOP5JjSBoNUHbWVCEl+BLFIniWska2undfwUYKZ8fOzKmgPnh0IUrIaHvH2CKBKUSaOsSyYUNv2Y0pAttWHJngIGfBpibuTlNThowrlgrzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ltiJ24Xy/sKol5S8KrE2dnbIOrb7xLSZD9q3PGP50cU=;
- b=saR8J3++10yNbY40kkkLvvjZg+hJS8f49bfnJwRE+klDZs58ZvQrotx8KSh4D20ISp93Nt8bT86z+EvfO4errHfhbRDt4b0sqqQ3vMJB8VBl5e8ADxhkgZrKBiRuNzLx/YO4FoPdmGsZt0dCGoorePUkwcwjt96+3dK7vHeL1yyOzZTrSagKDm5z5qVV57efD7m9Zb5mhDfUBCt7eUcdIzq2A94U9ak7a3UauLRBRN+LFxm5WWBrvv/b7+8PQ7ZZRK18qgmBezVxghQ98W046QdXeVpnFzKzZ22NIZANVJgyke0EcySBjNrkT92nIK4SZaM7+/2JKGBbAr2DiEu4ow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from PH7PR11MB6771.namprd11.prod.outlook.com (2603:10b6:510:1b5::20)
- by PH7PR11MB7124.namprd11.prod.outlook.com (2603:10b6:510:20f::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Fri, 9 Oct
- 2026 19:03:08 +0000
-Received: from PH7PR11MB6771.namprd11.prod.outlook.com
- ([fe80::effa:162e:c9c9:a1b4]) by PH7PR11MB6771.namprd11.prod.outlook.com
- ([fe80::effa:162e:c9c9:a1b4%4]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
- 19:03:08 +0000
-From: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-To: "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>, "x86@kernel.org"
-	<x86@kernel.org>
-CC: "kvm@vger.kernel.org" <kvm@vger.kernel.org>, "Li, Xiaoyao"
-	<xiaoyao.li@intel.com>, "Hansen, Dave" <dave.hansen@intel.com>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"baolu.lu@linux.intel.com" <baolu.lu@linux.intel.com>, "Hunter, Adrian"
-	<adrian.hunter@intel.com>, "tony.lindgren@linux.intel.com"
-	<tony.lindgren@linux.intel.com>, "kas@kernel.org" <kas@kernel.org>, "Xu,
- Yilun" <yilun.xu@intel.com>, "artem.bityutskiy@linux.intel.com"
-	<artem.bityutskiy@linux.intel.com>, "nik.borisov@suse.com"
-	<nik.borisov@suse.com>, "Mehta, Sohil" <sohil.mehta@intel.com>, "Duan,
- Zhenzhong" <zhenzhong.duan@intel.com>, "Gao, Chao" <chao.gao@intel.com>,
-	"Fang, Peter" <peter.fang@intel.com>, "Maloor, Kishen"
-	<kishen.maloor@intel.com>
-Subject: Re: [PATCH v3 4/6] x86/virt/tdx: Make TDX module initialize the
- extensions
-Thread-Topic: [PATCH v3 4/6] x86/virt/tdx: Make TDX module initialize the
- extensions
-Thread-Index: AQHdVPFs70AHzD0N+E2vRzbscozWBbb1l8CA
-Date: Fri, 9 Oct 2026 19:03:08 +0000
-Message-ID: <1b142a6d4f4714796027876e765c0c27ae770eab.camel@intel.com>
-References: <20261006-tdx-module-ext-v3-0-db52cb05b918@linux.intel.com>
-	 <20261006-tdx-module-ext-v3-4-db52cb05b918@linux.intel.com>
-In-Reply-To: <20261006-tdx-module-ext-v3-4-db52cb05b918@linux.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.44.4-0ubuntu2.1 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR11MB6771:EE_|PH7PR11MB7124:EE_
-x-ms-office365-filtering-correlation-id: 673d3d70-58c2-4c50-e6fd-08df2637f4f5
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|7416014|366016|23010399003|376014|10067099003|56012099006|11063799006|5023799004|6133799003|4143699003|22082099003|18002099003|38070700021;
-x-microsoft-antispam-message-info: gdjlkn12CwhXUP4sqHrJVrhwTp/7W42jadVt23pUBiu5G0rxhX3EgSe3DlyoFt9pFxnphPXRBAtx+gDD5zTz7OQRqm/6rKyInOcUMWWxg2j1W9l6BOom7ocbAzzH9j6O9dnCSBQfOQ1u0/extjI/y+HylZsKhuwp7W552iobs4hvksC2HEtxrRiFZNCqLhz5C5rx/jzhdVkbgTDKfWn11ZbZBTPNCFsZx1MMg7+5ajrJWFsyy77hiPt+2+7s8FMG43NKOLWVgLhhEGPe5YlL37nw5+wAPnapREpNxA4oOq85Sl2ybfDnvPNTwy48iKGKnMDv4wxt2jLA8gNN59OZ1C5B8Mo9uEPqoX1Dk6bDEUMjoz/sJ631ymgUdOQ55lcc9wFve+IJSIBJ1v9ZIc5iD8XD+TPL+xEc2bgLAqla8FT/c1s93LUKI5iSG2xOZMDnwk+pD2cx5Xrkz6d0823lQ4CcTSxL9sbSMETtm5d6Ju2sFfuuzQhDD3FSeQnW7GzdqXx1PgmkiyrAGcTmVD+oF7mE91aTvBEmafrNgJUyVdhVkesAA0q1TxoD7oz7JXAApVUjFU84louHsg8e6Rm1gmsqJ56aKuO1qG9WdNoSCKX1VZ/Mlbcxx6QQeGlyLEcSo6t6YpNqHB8aNPEIhrj68GAeEFK2A+9GxtXAZxniDcushpNBBixnnwP8CdXsHgKN5VeIvcxFUtlccE6AB+6BqJfc9Xk6i63MQFBYEaehaOQ=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6771.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(366016)(23010399003)(376014)(10067099003)(56012099006)(11063799006)(5023799004)(6133799003)(4143699003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ZXhNczYrZktIRUJWYjdTSzNjK2FWTUZ6ay9LcjJPY081MEFMM1cvU1ZRTG4v?=
- =?utf-8?B?R3NuTldmQjB2SUprUWZMWjVxbm5PdE5wdUpNNUhwbWVxQlU4bzNBbHMwd050?=
- =?utf-8?B?c3plcmp2TkR2UE1acDFkbEh4K3VTQmw4aitmbHRSdW9Nbms2N2NId1lmUUJU?=
- =?utf-8?B?cDBnb2VGV0N5TjZNY25XT0NBSm13RHdlbThhbXV2eUNobFZYZVlrSTNZNmZL?=
- =?utf-8?B?THFwUlgyWllzTXR3K3g1V3RrOU9STzdvK09UdFZoVTJPVE5MQm51SGVPSVQv?=
- =?utf-8?B?VU9UVUo5eW9jSWhJbUkvemk4SkMyYklMQXpzNTRkRHYzdEh5YjlEaE1PTmtW?=
- =?utf-8?B?WHN4emsxdWRVUkNxYi9wQzVlanZaVGlGU2tINWZhOUlwdUZGRlozOHZidXdp?=
- =?utf-8?B?YktQaEE0NlRaMEwxbTAvZWVnK3ZRTEhxOXhLTnYzZVp4YnMxWGhROG5hQUtJ?=
- =?utf-8?B?NVBDZU9ZK1hLMmhtQzB6bldFaXJuRmxrTnZCVk5KNDV0dE5qa1hkY3FySHk0?=
- =?utf-8?B?WUZnMmZkb1dVSVpoY3BKVUt2M21Rbm4yT2oyT0xGd3ovQ3E0emNPRVZFWHkx?=
- =?utf-8?B?MFF0WXpmWVMyQXBML1RVUVg0cGFJMDVlYTFkc0RzWERUekJsdVhSOW9CVDlS?=
- =?utf-8?B?R0xtcG9sRThVbDNmbjV5alVtRTNnSG11L0cxeXZpYXpoa29jQUV5Y1lRanZY?=
- =?utf-8?B?Z0VyQnNNTC9WeVBwTEI5QjNpeXNWYy84cU00a3F5TDl2MUhOcnl5bmFhc3FU?=
- =?utf-8?B?TC9PcXlGMnExZzNubXhhc0pscFE2ZjJQaTV6eWlSdjBxZEIyU0tVZ0YyejFX?=
- =?utf-8?B?ZDU1VmR2Y1VLS2VIcU54bDdYUnIyNWJBeDV0UmRaNkJNNDJPVnBGNTExZTAr?=
- =?utf-8?B?YjBOdGt5aURVL0lWVlU1c0dKTmZjeWZIenFrbHR1N1dvVjVFcmVJZUVxUVVu?=
- =?utf-8?B?UFhrMFlDY09CczlnWWx6UWpnZWcxRlRsK2piMjMvNS9pUjhDbWlKaTUyTU5M?=
- =?utf-8?B?eDdzTjNSYkZVbVB5aUpMMFlOVkNlVmt6RE9VQWZPVEgwOEFMNWJmOFUzL1Bs?=
- =?utf-8?B?UTFkbVRjdVgrVnlNT203UE9Jb005YWVTRWlBVUNBbk9LbXdwNHJrM1dPbEl1?=
- =?utf-8?B?TVJsL2ZSTDNYNnFkMnFFbVpFUmFRZW8vZVBKZlBGc2Z5bGl5ZmVVZC9NK1J0?=
- =?utf-8?B?V3FmV21WaUxNQzAyNUEyckVteEVPbDBTZ3pzV3RvanZ5NldXVUVZdEpFM2gy?=
- =?utf-8?B?RjJ4L0dadFJMV2ZCRktlZEM3dHdjSE1MNXdlM1hPM2g0cnpkelpkQWxJMS9G?=
- =?utf-8?B?Nm10NGlkbndIRzY4NGpNc0JtNEptWjNuRUdjbFFvczBuL3FRMU1mNW1jTVFI?=
- =?utf-8?B?eThwVEhUK2pNSEhqd254S05OVkJSUTlDcjV6aEJzdFlvNkttYXFpMFZCZjcv?=
- =?utf-8?B?VGxNTTN4akFSWGxxRVA4bHNQcXpVbnFIV3lhbFVFUk9JNnRMUEtHWVRaZE5R?=
- =?utf-8?B?SmVUYXBMbytnZU80ditZdUQ1NURKSVIzTFdiZklmTmg4ZWtxdm1UR3pEcDc1?=
- =?utf-8?B?ZTNhRG9GY2Z1MnV5b0pYT0VOVDRjWjgzRE9uSXJzSVY2M01OWTY2OFp2Q0dU?=
- =?utf-8?B?Z0RHdUk4T3BuSk1jMHpEbjlFMHdMYm5aaVNMamRVa2ErT0FhUHBaNnJrSjlM?=
- =?utf-8?B?YUptQ2VDTUlWeFBkNnB1bkpTMmY3Z0FWRllSSmIyYW9kL1YvRGIwWU9GUnhJ?=
- =?utf-8?B?Tk9WUy9kczN1WlZrRTlhQzBDUmFaOElZRisyaXBWcTdIQU1JS0pOZ2xYVTJk?=
- =?utf-8?B?VXcvc3lpejhlZmdaRnlzSVR5c2oyTjBXdy9GaHo0ZURyMkhEakpoYld6NTVO?=
- =?utf-8?B?OUh4aHRsUUgvK0grTlBLZnhnQk54MFlSVUNCbzQwQlIrV3FOYTFHMkxzUE1C?=
- =?utf-8?B?dmtBLzlsS1hCWDZGdmRCTVJoWXJKSThFekIxM05IWDh1amZsdXY0NU15SW0y?=
- =?utf-8?B?UURaNUltbS9KQXVzVjVNM0hDZGJ5SFM1QzNmYjd6bzlDMDVWdWx1eWhPS1V5?=
- =?utf-8?B?Sy9jK0RCb09HUGF3Vnd4Wm5EWGljUkpHMVI3RWZ6SzlFV1dwM0VLaDRJZFdm?=
- =?utf-8?B?YkNjNHJRQXhDTmp1a2Y2MEhEWFhLejIzUUdxK1V3bkd0T2ZrWEN1MGNRblBq?=
- =?utf-8?B?RGZJMzF4NnR3NG56UUU3TXFlWEp4YWt5eXhFbHdReEZtcWM1S2xpNmdFejJv?=
- =?utf-8?B?bENKa3JybGxOa0luNWZXQ0o5cnJDMmEwUXlxTzZQcDExMkhqL3E1RC9hM2tC?=
- =?utf-8?B?MTY2ZHBWQTZCZjFWWjdkc2ZiL2ZIckx2dkdJc09pbldaWnBNa09JV0VSdENC?=
- =?utf-8?Q?0kLo7sJu+mUX0ZE0=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <5EAC3FCD21A6B445A395444B0C55D4D5@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XFr88NQ+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E81BA1F00898;
+	Fri,  9 Oct 2026 19:03:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791572594;
+	bh=TirdlCwzZ2cMnBXETSVn2wNFY8bO/3AuUeLLqbi+80w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XFr88NQ+TOXU9e4jM3Sku3N23cc2Z0FlIf41klvBBxFfn7opUfl6mqM7XTfAe7t66
+	 Bwm+HBpWHvhoEAg9ztR3w5rRCOuPzlNbIRIzgw4oYZXmxm1pjIjtTuPBV7oOuqQcO+
+	 zXK48eT943s784+SkktVSzgJyu3t4TiSOsl33stMQ+DrQr0hRyDJC178X0h/ih4QvY
+	 dCgbQl1oYdrA38feZKWPMlhj2/Wm+zeyRG3FAktp6DpXCyfadsQfC4dysoym3htxro
+	 0PN3h65Zw8aqxuyadA8XmmfAZXNKGiRV8rY+NliN9owq2ALNty8bWTXhTGy30EI3wr
+	 4ntoMJ+EFymgA==
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 26201F40066;
+	Fri,  9 Oct 2026 15:03:12 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-09.internal (MEProxy); Fri, 09 Oct 2026 15:03:12 -0400
+X-ME-Sender: <xms:cDrJapSTF-4TR9lYnSeST-jN7FAICdGSH2CxnXozt5nP-9ueQAwcqQ>
+    <xme:cDrJanCaOMUT4cjefNwFm2iobY9vNYdZLJU3Ai0yGTvABdvkW_M8Gf712Uw0s2joD
+    j8P9UXImlt6cFQZ0v9A0I026aYpPFgB1y9avi_L4AxengiiBQMVxnHZ>
+X-ME-Received: <xmr:cDrJarwZAl0DOZByWwHgnfVG4IDAIemmYhfzkvdYBPnJH9p93IM6KuMaL9AfxtxRdkU9FcVZ6kCXHN6EGgHKAyiEFLGx379K>
+X-ME-Proxy-Cause: dmFkZTGtq7JcenuwH9YCrRuUTTxkXWfMKXOv9XLn5AIx7CUcTLanJrTmpLXaH7tXe29Thu
+    4+EUJ0wq5iP3vYpD9dYfrqbBxeFyum1AHUKkNwellh8jXZyMFNUn2klB0HX8kimMTo+jCm
+    orPPwBk7KiiZY3aSSc7xYRDc4junoAPOnmYMSLf7DQDHZr9TcNr2sh9+CyU8GFRY844FCf
+    u9Acoo2q0GGZ4sI56HUOSyhyX7ItBVOZ3AlRYVVT/bFfOEynP3wwrCKEwYL1dzy07J4bKw
+    tQX1exdPDTa2fjNkSiGSGlkXbHVDf2/f7FPNBSmWvIGPIGmV0Z8PRN8ClzazP6Wfe2TwlS
+    aDo6MzGql/jk+Oha8Jymb5DSa/R2gx9s5EnNeC6U9crZ2kw4IqGZKLaO5ELmZWfPGmZy2H
+    qNYwLnZstHYOf4nuJsyrajMKOKozOuPZrtcDeGmXzmBnRReaYe3oqb1xd7XLCQ9LXHPmtq
+    ZWRalxK2C1eZy4tmXsAZCONcDyxk6q1wnq2EdpG9WmIv0/JcOgOreDx24hKOhZ3rttZEN9
+    QfLZhGmE6FTHMO9wZjN47up4l76o/u/5ALRX7gmQ+iUYuyREBhEWhmKXCd+enUvx0A7nxF
+    mP64lTmwb8z+5VypLLfJDeDdWXFX+6NMmPQo2LnIj82OboLukcomSNJ3pxHQ
+X-ME-Proxy: <xmx:cDrJavtd4yEj3SzhaEH1T6vN5GVQO5emvPE8L8PnrGqcw0xpqxJkrQ>
+    <xmx:cDrJasnQgAy0HJgjiAxBmQjQKnlWm3j1nkByuKD1mo6leZ431Xq-xg>
+    <xmx:cDrJasCXDpN17d_YTAJWSi3bR8MlAS6CZLJCnKYMltqt5PrWxgXdUw>
+    <xmx:cDrJatSBcHIKLTMyCIuQQkLK2MjSPJGTZrOMNnecbpuQX9zjD9IxzQ>
+    <xmx:cDrJakK2e6wG_-6YN4ax-P-FRJ0EU7qjzMZzWKfbgovAQNST13ZA8qqF>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 9 Oct 2026 15:03:11 -0400 (EDT)
+Date: Fri, 9 Oct 2026 12:03:10 -0700
+From: Boqun Feng <boqun@kernel.org>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: "Paul E . McKenney" <paulmck@kernel.org>, linux-kernel@vger.kernel.org,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Boqun Feng <boqun.feng@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Will Deacon <will@kernel.org>,	Peter Zijlstra <peterz@infradead.org>,
+	Alan Stern <stern@rowland.harvard.edu>,	John Stultz <jstultz@google.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Joel Fernandes <joel@joelfernandes.org>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang1211@gmail.com>, Ingo Molnar <mingo@redhat.com>,
+	Waiman Long <longman@redhat.com>,	Mark Rutland <mark.rutland@arm.com>,
+	Thomas Gleixner <tglx@linutronix.de>,	Vlastimil Babka <vbabka@suse.cz>,
+ maged.michael@gmail.com,	Mateusz Guzik <mjguzik@gmail.com>,
+ Gary Guo <gary@garyguo.net>,	rcu@vger.kernel.org, linux-mm@kvack.org,
+ lkmm@lists.linux.dev,	Nikita Popov <github@npopov.com>,
+ llvm@lists.linux.dev,	Lian Wang <lianux.mm@gmail.com>,
+ Kunwu Chan <kunwu.chan@gmail.com>
+Subject: Re: [PATCH hazptr v2 2/4] ptreq.h: Introduce ptr_eq() to preserve
+ address dependency
+Message-ID: <ask6bmsDCCacOkKb@tardis.local>
+References: <20261009182142.6311-1-mathieu.desnoyers@efficios.com>
+ <20261009182142.6311-3-mathieu.desnoyers@efficios.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: UShrAFhqE8uQgrBJEFojBL3wDZCZ1NzvvipeMp6r0eT6jbjHkZV7g/F6QfW9aP2Y9C92J/jm49IEF+81Z8BincrAi8hW2ZUf8NxCbPVBNNsn+CQ12JNtOf4YxefoBNjnxh7ibfgneR2HAICIJl/Jkc0hZWfWYRyoF5hQgcx8TV6plU+QPD2vxlS0R4JoizCiFaTLry6+6VtrZgnLfovKHXJoZIyqK3kxJNcVqNAEkHFKIw2xH3qB+K1q9IL40j+6suwQL8VuYAzfsFI/QVJQrxXlh849NYv2yJM5WVi7XbXAKBc8zncXl2r0MLOtckqmmuKD3MODixjuD9K4dmmYqQ==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6771.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 673d3d70-58c2-4c50-e6fd-08df2637f4f5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2026 19:03:08.4436
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: sZ1qlhLb9yGDKWR5FWXVvIuXgaAQP8FjYLlwnHk+jrCMEEPMvEuh8Y2LCgWJBwDs0ioqAGHMX5sP2UfTgMm5pbi+eJpUUKZ+Yq8rPzdFFgM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB7124
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009182142.6311-3-mathieu.desnoyers@efficios.com>
 
-T24gVHVlLCAyMDI2LTEwLTA2IGF0IDAxOjQxICswODAwLCBYdSBZaWx1biB3cm90ZToNCj4gVERY
-IG1vZHVsZSBleHRlbnNpb25zIG5lZWQgbWVtb3J5IGZvciB0aGVpciBleGVjdXRpb24gZW52aXJv
-bm1lbnQNCj4gdG8gc2VydmUgU0VBTUNBTEwgbGVhZnMuIFNldmVyYWwgYWRkLW9uIGZlYXR1cmVz
-IGRlcGVuZCBvbiB0aGUNCj4gZXh0ZW5zaW9ucyB0byBleGVjdXRlIHRoZWlyIFNFQU1DQUxMIGxl
-YWZzLg0KDQpDYW4gd2UgZ2V0IGEgbGl0dGxlIG1vcmUgYWJvdXQgd2hhdCB0aGlzIFNFQU1DQUxM
-IGlzIGFjdHVhbGx5IGRvaW5nPyBUbyBiZSBhYmxlDQp0byByZWFzb24gYWJvdXQgaG93IGxvbmcg
-aXQgd2lsbCB0YWtlLiBPYnZpb3VzbHkgaXQgZG9lcyBub3RoaW5nIG5vdywgYnV0IHdoZW4NCndl
-IGVuYWJsZSB0aGUgZmlzdCBleHRlbnNpb24uDQoNCj4gDQo+IEFmdGVyIHByb3ZpZGluZyBhbGwg
-cmVxdWlyZWQgbWVtb3J5IHRvIHRoZSBURFggbW9kdWxlLCBpbml0aWFsaXplIFREWA0KPiBtb2R1
-bGUgZXh0ZW5zaW9ucyB2aWEgVERILkVYVC5JTklULCB0aGVuIHRob3NlIGFkZC1vbiBmZWF0dXJl
-cyBjYW4gdXNlDQo+IHRoZWlyIFNFQU1DQUxMIGxlYWZzIG5vcm1hbGx5Lg0KPiANCj4gU2lnbmVk
-LW9mZi1ieTogWHUgWWlsdW4gPHlpbHVuLnh1QGxpbnV4LmludGVsLmNvbT4NCj4gUmV2aWV3ZWQt
-Ynk6IFhpYW95YW8gTGkgPHhpYW95YW8ubGlAaW50ZWwuY29tPg0KPiBSZXZpZXdlZC1ieTogVG9u
-eSBMaW5kZ3JlbiA8dG9ueS5saW5kZ3JlbkBsaW51eC5pbnRlbC5jb20+DQo+IFJldmlld2VkLWJ5
-OiBBZHJpYW4gSHVudGVyIDxhZHJpYW4uaHVudGVyQGludGVsLmNvbT4NCj4gDQoNCldpdGggdGhh
-dCBhZGRyZXNzZWQ6DQoNClJldmlld2VkLWJ5OiBSaWNrIEVkZ2Vjb21iZSA8cmljay5wLmVkZ2Vj
-b21lQGludGVsLmNvbT4NCg0K
+On Fri, Oct 09, 2026 at 02:21:33PM -0400, Mathieu Desnoyers wrote:
+> Compiler CSE and SSA GVN optimizations can cause the address dependency
+> of addresses returned by rcu_dereference to be lost when comparing those
+> pointers with either constants or previously loaded pointers.
+> 
+> Introduce ptr_eq() to compare two addresses while preserving the address
+> dependencies for later use of the address. It should be used when
+> comparing an address returned by rcu_dereference().
+> 
+> This is needed to prevent the compiler CSE and SSA GVN optimizations
+> from using @a (or @b) in places where the source refers to @b (or @a)
+> based on the fact that after the comparison, the two are known to be
+> equal, which does not preserve address dependencies and allows the
+> following misordering speculations:
+> 
+> - If @b is a constant, the compiler can issue the loads which depend
+>   on @a before loading @a.
+> - If @b is a register populated by a prior load, weakly-ordered
+>   CPUs can speculate loads which depend on @a before loading @a.
+> 
+> The same logic applies with @a and @b swapped.
+> 
+> The header "linux/ptreq.h" is the expected include target. It
+> contains the documentation of the ptr_eq() API.
+> 
+> An architecture specific implementation of the pointer comparison
+> can be implemented by each architecture as asm/ptreq.h. The x86
+> implementation is provided initially. If no implementation header is
+> present for the architecture, an arch-agnostic fallback based on
+> OPTIMIZER_HIDE_VAR is included from asm-generic.
+> 
+> Suggested-by: Linus Torvalds <torvalds@linux-foundation.org>
+> Suggested-by: Boqun Feng <boqun.feng@gmail.com>
+> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+> Cc: "Paul E. McKenney" <paulmck@kernel.org>
+> Cc: Will Deacon <will@kernel.org>
+> Cc: Peter Zijlstra <peterz@infradead.org>
+> Cc: Boqun Feng <boqun.feng@gmail.com>
+> Cc: Alan Stern <stern@rowland.harvard.edu>
+> Cc: John Stultz <jstultz@google.com>
+> Cc: Linus Torvalds <torvalds@linux-foundation.org>
+> Cc: Boqun Feng <boqun.feng@gmail.com>
+> Cc: Frederic Weisbecker <frederic@kernel.org>
+> Cc: Joel Fernandes <joel@joelfernandes.org>
+> Cc: Josh Triplett <josh@joshtriplett.org>
+> Cc: Uladzislau Rezki <urezki@gmail.com>
+> Cc: Steven Rostedt <rostedt@goodmis.org>
+> Cc: Lai Jiangshan <jiangshanlai@gmail.com>
+> Cc: Zqiang <qiang.zhang1211@gmail.com>
+> Cc: Ingo Molnar <mingo@redhat.com>
+> Cc: Waiman Long <longman@redhat.com>
+> Cc: Mark Rutland <mark.rutland@arm.com>
+> Cc: Thomas Gleixner <tglx@linutronix.de>
+> Cc: Vlastimil Babka <vbabka@suse.cz>
+> Cc: maged.michael@gmail.com
+> Cc: Mateusz Guzik <mjguzik@gmail.com>
+> Cc: Gary Guo <gary@garyguo.net>
+> Cc: rcu@vger.kernel.org
+> Cc: linux-mm@kvack.org
+> Cc: lkmm@lists.linux.dev
+> Cc: Nikita Popov <github@npopov.com>
+> Cc: llvm@lists.linux.dev
+> Cc: Lian Wang <lianux.mm@gmail.com>
+> Cc: Kunwu Chan <kunwu.chan@gmail.com>
+> ---
+> Changes since v1:
+> - Move to linux/ptreq.h, implement x86-specific comparison
+
+I prefer the name ptr_eq.h over ptreq.h :)
+
+With that name fix or there is a strong reason of ptreq.h:
+
+Reviewed-by: Boqun Feng <boqun@kernel.org>
+
+Regards,
+Boqun
+
+>   and asm-generic header (fallback).
+> 
+> Changes since v0:
+> - Include feedback from Alan Stern.
+> ---
+>  arch/x86/include/asm/ptreq.h | 16 +++++++++
+>  include/asm-generic/Kbuild   |  1 +
+>  include/asm-generic/ptreq.h  | 16 +++++++++
+>  include/linux/ptreq.h        | 63 ++++++++++++++++++++++++++++++++++++
+>  4 files changed, 96 insertions(+)
+>  create mode 100644 arch/x86/include/asm/ptreq.h
+>  create mode 100644 include/asm-generic/ptreq.h
+>  create mode 100644 include/linux/ptreq.h
+> 
+> diff --git a/arch/x86/include/asm/ptreq.h b/arch/x86/include/asm/ptreq.h
+> new file mode 100644
+> index 000000000000..593b45f80451
+> --- /dev/null
+> +++ b/arch/x86/include/asm/ptreq.h
+> @@ -0,0 +1,16 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +#ifndef _ASM_X86_PTREQ_H
+> +#define _ASM_X86_PTREQ_H
+> +
+> +#include <linux/types.h>
+> +#include <asm/asm.h>
+> +
+> +static __always_inline
+> +bool ptr_eq(const volatile void *a, const volatile void *b)
+> +{
+> +	bool ret;
+> +	asm(__ASM_SIZE(cmp) " %1,%2" : "=@ccz" (ret) : "r" (a), "r" (b));
+> +	return ret;
+> +}
+> +
+> +#endif	/* _ASM_X86_PTREQ_H */
+> diff --git a/include/asm-generic/Kbuild b/include/asm-generic/Kbuild
+> index 2bc00c67dc54..e1d95dea09d5 100644
+> --- a/include/asm-generic/Kbuild
+> +++ b/include/asm-generic/Kbuild
+> @@ -47,6 +47,7 @@ mandatory-y += percpu.h
+>  mandatory-y += percpu_types.h
+>  mandatory-y += pgalloc.h
+>  mandatory-y += preempt.h
+> +mandatory-y += ptreq.h
+>  mandatory-y += rqspinlock.h
+>  mandatory-y += runtime-const.h
+>  mandatory-y += rwonce.h
+> diff --git a/include/asm-generic/ptreq.h b/include/asm-generic/ptreq.h
+> new file mode 100644
+> index 000000000000..db5a88628b1e
+> --- /dev/null
+> +++ b/include/asm-generic/ptreq.h
+> @@ -0,0 +1,16 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +#ifndef __ASM_GENERIC_PTREQ_H
+> +#define __ASM_GENERIC_PTREQ_H
+> +
+> +#include <linux/types.h>
+> +#include <linux/compiler.h>
+> +
+> +static __always_inline
+> +bool ptr_eq(const volatile void *a, const volatile void *b)
+> +{
+> +	OPTIMIZER_HIDE_VAR(a);
+> +	OPTIMIZER_HIDE_VAR(b);
+> +	return a == b;
+> +}
+> +
+> +#endif	/* __ASM_GENERIC_PTREQ_H */
+> diff --git a/include/linux/ptreq.h b/include/linux/ptreq.h
+> new file mode 100644
+> index 000000000000..5499f65da30a
+> --- /dev/null
+> +++ b/include/linux/ptreq.h
+> @@ -0,0 +1,63 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +#ifndef _LINUX_PTREQ_H
+> +#define _LINUX_PTREQ_H
+> +
+> +/*
+> + * Compare two addresses while preserving the address dependencies for
+> + * later use of the address. It should be used when comparing an address
+> + * returned by rcu_dereference().
+> + *
+> + * This is needed to prevent the compiler CSE and SSA GVN optimizations
+> + * from using @a (or @b) in places where the source refers to @b (or @a)
+> + * based on the fact that after the comparison, the two are known to be
+> + * equal, which does not preserve address dependencies and allows the
+> + * following misordering speculations:
+> + *
+> + * - If @b is a constant, the compiler can issue the loads which depend
+> + *   on @a before loading @a.
+> + * - If @b is a register populated by a prior load, weakly-ordered
+> + *   CPUs can speculate loads which depend on @a before loading @a.
+> + *
+> + * The same logic applies with @a and @b swapped.
+> + *
+> + * Return value: true if pointers are equal, false otherwise.
+> + *
+> + * The compiler barrier() is ineffective at fixing this issue. It does
+> + * not prevent the compiler CSE from losing the address dependency:
+> + *
+> + * int fct_2_volatile_barriers(void)
+> + * {
+> + *     int *a, *b;
+> + *
+> + *     do {
+> + *         a = READ_ONCE(p);
+> + *         asm volatile ("" : : : "memory");
+> + *         b = READ_ONCE(p);
+> + *     } while (a != b);
+> + *     asm volatile ("" : : : "memory");  <-- barrier()
+> + *     return *b;
+> + * }
+> + *
+> + * With gcc 14.2 (arm64):
+> + *
+> + * fct_2_volatile_barriers:
+> + *         adrp    x0, .LANCHOR0
+> + *         add     x0, x0, :lo12:.LANCHOR0
+> + * .L2:
+> + *         ldr     x1, [x0]  <-- x1 populated by first load.
+> + *         ldr     x2, [x0]
+> + *         cmp     x1, x2
+> + *         bne     .L2
+> + *         ldr     w0, [x1]  <-- x1 is used for access which should depend on b.
+> + *         ret
+> + *
+> + * On weakly-ordered architectures, this lets CPU speculation use the
+> + * result from the first load to speculate "ldr w0, [x1]" before
+> + * "ldr x2, [x0]".
+> + * Based on the RCU documentation, the control dependency does not
+> + * prevent the CPU from speculating loads.
+> + */
+> +
+> +#include <asm/ptreq.h>
+> +
+> +#endif	/* _LINUX_PTREQ_H */
+> -- 
+> 2.43.0
+> 
