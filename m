@@ -1,75 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCC75388899;
-	Fri,  9 Oct 2026 17:42:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791567757; cv=none; b=DTi0pP8DOAxP8qI8iW5e2N8RHBplg1F2fn3OGbvLkYZ4ZmjagJw6G6FYIkzDzJUp3PHAFGs30x/9PjiPaXa2jLHdTg2Y6EbnGUDsoFFUREkQf2kyi/T2sskcB0AiYQlBZZZGxv9Zuu1QQmrzHgCdi3ft590cekYwgIBqHV1BvY8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791567757; c=relaxed/simple;
-	bh=MYZCFcnGVwravfQJoAJhoTJQ5YLQriFGFELEWuNGOxw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Qax6/a6qq1py4kkVAfozHIzY1kF3w3RJH7Cpx/APTaNpf31UjdPOJTCVU8hwx0gnN3ICQbKpsK99fWxiMTZHngwh38I31tJeKTje68TmJLKqREkxsW+JcPMxLVFOVrKa1msDaZICJ68e9l2oDWU9sgJYFtkAbUSQccEuda5gv/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=efXsdIoW; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABFE04CE69E;
+	Fri,  9 Oct 2026 17:43:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791567783; cv=pass; b=ibxvYo/5ACo07XpyKCZDdR5YaZ2E9YUQ9qkZzmrxF3h3yeBkSAybVNaB0nxXscgSDbmXn5FsYL31dL6xHqVfQRVv/0JaBi53dMFbO8/dNPBL/GkD0Ycp/kEYPuVWvAVCYBcNzbWm7Um9QTGEtyJYvcs32cXVeL/W3wOIEK9vnkg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791567783; c=relaxed/simple;
+	bh=aTrG2U3nnsahZNHEmxNMi33V9p9IP53O5HAC6ElbmRA=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=izoY3Z01vIDZrhWW0c7jIru103AXtYiqweyY4dulXkAiAB61IzHxJ2PGTov8iLmY7lfs362iJSn+RPyfW14KWTRidnlHTBs+C7xs13DEXNB+jMfH1aZn2PxfnSMk7xkVA6H5alVOMtrNL6xac3YE6fe6SrBAm5HXe9hSxumLE5Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=VNw7noiM; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="efXsdIoW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EFE71F000FF;
-	Fri,  9 Oct 2026 17:42:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791567756;
-	bh=gR9DG1fEHiN2p3/i4oj6eVX6qR2LIOcWYTyiypTAGH4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=efXsdIoWwWqF4ntQor9o80SrU0oukoxl3br5/YUxzxL7ZYcB8kbRNKdthrT5gYshv
-	 goU6Z+2TCoNResQwR5z8+wGLS6jt1WxFNob5uvozEBqmkqorlNKY+vzs4EG9ggRAnD
-	 JOXHxndYjc3NDXybA+qGgV+TPLNabNB48qEmRpPlIvEX3HUC0wwxeRF7/3P7XDlaxO
-	 RbidzmVdo3TTSLIms2n62RcS/LkhfSxrBFK9BZegveEeajldCKKpgQxt0vf0+gzvcH
-	 LRqcF85Z8SERJTMcCPe1TEP3W+hsYsM/xm0KWmtKcabvxj85l8R7U8m9PJSc/vOF1Y
-	 gZbj+KnxOkLig==
-Date: Fri, 9 Oct 2026 19:42:28 +0200
-From: Brian Masney <masneyb@kernel.org>
-To: Alex Elder <elder@riscstar.com>
-Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
-	kees@kernel.org, gustavoars@kernel.org, mohd.anwar@oss.qualcomm.com,
-	lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Daniel Thompson <daniel@riscstar.com>
-Subject: Re: [PATCH v2 2/3] clk: toshiba: introduce a TC9564 SoC clock driver
-Message-ID: <asknhPZLx1lbvam2@x1g10>
-References: <20261005230927.2000398-1-elder@riscstar.com>
- <20261005230927.2000398-3-elder@riscstar.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="VNw7noiM"
+ARC-Seal: i=1; a=rsa-sha256; t=1791567751; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=B/wtDLc7L9wDD4bAL2wM1fhRSNITgDWzB16hHkuf/L+1xcDkI2Mb/McoV54LhimZYQV1GbSq5WaysHsggz2c/gDyqjmieZILyTxdSPfmDg9EtdgJmQUrUjJw+l4A3PXsMSCvyjGDtI3G0PBn8crHOBrvN3qCikatUv8nIty4kl0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791567751; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=aTrG2U3nnsahZNHEmxNMi33V9p9IP53O5HAC6ElbmRA=; 
+	b=Bi1Y0RGUX74/diesBFY3NeLWlftGJYPS5OSVFvJoP2wxUmVS/a4RT2veWQSQQgWqAUsXU1i+CEaErAJmCCUQp8dR0XjumUbydnMSK5JBalvObyLnIVu5iWEJCPpdB7BDqsdGIAD/T2sk4mvA4f5sCBNsC78NA8T5MnJET0pkCMM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+	dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791567751;
+	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+	bh=aTrG2U3nnsahZNHEmxNMi33V9p9IP53O5HAC6ElbmRA=;
+	b=VNw7noiMU90uF1OjPtYydX4WQk1Z0oXG8slcjFc7SIw+AUKxNiDLYVmgU5Gc7T+p
+	z18XYHB83QoXPhAViW29HG0lEgMQFqDpzTcDzL2/Xfd2vHCV5GOLElBOdddZApsDZM5
+	XLLQQLNZzBld2Kb9MH39Hi/Suv1zeP+K0ufhSuC4=
+Received: by smtp.zohomail.com with SMTPS id 1791567749830396.08748854537646;
+	Fri, 9 Oct 2026 10:42:29 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261005230927.2000398-3-elder@riscstar.com>
-User-Agent: Mutt/2.4.2 (2026-08-30)
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
+Subject: Re: [PATCH 3/7] rust: drm: move file_operations from gem to device
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260814230923.1292966-4-dakr@kernel.org>
+Date: Fri, 9 Oct 2026 14:42:11 -0300
+Cc: aliceryhl@google.com,
+ acourbot@nvidia.com,
+ ojeda@kernel.org,
+ boqun@kernel.org,
+ gary@garyguo.net,
+ bjorn3_gh@protonmail.com,
+ lossin@kernel.org,
+ a.hindborg@kernel.org,
+ tmgross@umich.edu,
+ tamird@kernel.org,
+ work@onurozkan.dev,
+ brauner@kernel.org,
+ lyude@redhat.com,
+ j@jananu.net,
+ alvin.sun@linux.dev,
+ deborah.brouwer@collabora.com,
+ laura.nao@collabora.com,
+ beata.michalska@arm.com,
+ nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 7bit
+Message-Id: <E225E644-0C7E-4D17-B221-88C31577EDDC@collabora.com>
+References: <20260814230923.1292966-1-dakr@kernel.org>
+ <20260814230923.1292966-4-dakr@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.11)
+X-ZohoMailClient: External
 
-On Mon, Oct 05, 2026 at 06:09:25PM -0500, Alex Elder wrote:
-> Define a new platform driver that manages clocks implemented by the
-> Toshiba TC9564 SoC.  There are 21 clocks that can be enabled and
-> disabled.  Two of these are reserved, so only 19 can be managed.
-> 
-> Two registers manage the state of the clocks.  The registers are
-> accessed via a regmap supplied by a system controller, because the
-> region of memory accessed is shared with other drivers.
-> 
-> Access to the memory region is provided via a BAR on a PCIe endpoint
-> function embedded in the TC9564 SoC.  For that reason the PCIe clock
-> cannot be manipulated by this driver (it is assumed to be enabled).
-> Similarly, control is not available for the I2C clock, because the
-> PCIe subsystem on the TC9564 relies on I2C.
-> 
-> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Alex Elder <elder@riscstar.com>
-
-Reviewed-by: Brian Masney <masneyb@kernel.org>
-
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
