@@ -1,118 +1,88 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 928E64E533B
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:12:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 741CF4E4323
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:12:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791555167; cv=none; b=kX82DnqXRy557ZJpVyRjR2q4btKbeAX+eHmOlBu5LkhNLQGWUWZP/0RmmVc6w+W5eWqaz6MTEjZdUhIHZ+wJpgNAARr+Ch5GWZR0AjFlyF2sCWSA5aDk3XYO0yD3RrhiTrNW1jP0XQicO4aaoWH1Wa9cXUC5zo3m+iTkWv6UBE8=
+	t=1791555178; cv=none; b=cp6J6BMUXRgw4i6Zhbq3Os6HInsIxLj5Wq/9yj7+1zoaHktwvHW31k464fj4YXqwYKDbcGXpW6Jzg8e2UFwCOlclmr9uY1RX3bVE8DECNsePPzPyMALWDe0tu/8wP0JH7rn9TAxilH90OztvIKHD6arii7QqJgrp0vzabDy60J0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791555167; c=relaxed/simple;
-	bh=Iefc8O/hCPlJLKpCcWKCN81Nsndcf53dvYYy4RmSGQc=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=Lp5F2qR98WJU95jtpU/GFgKiX85tf+7E+kLi1bns5CYGosKEfUZHHGeR9klHFilxKWBlv8qiE9wdLatgm4O/E4d3SkfBygng4Xl4mMvfNZm6sJi94Q6zXIKcFbrGpAKiabs5nXXXOE04x/HLF4QC3f4twKxsrqlC0zWdIqjO2Gg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=YjntZ4HY; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791555178; c=relaxed/simple;
+	bh=wocjecccdY/ci/ZVU26HIKMQ9QjdMuvBoMdEk+FEx9o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pZAR04uKzuex+WMzi6KD/2vW1Ne6/3oXXKMRshdsFtm40xjGYivN6Vj4NMzOVDtm7yZOqL7U+X62dYN0SrZmKRcrYc8TRSm7aR4ox/Ql8OvsxyxiVlp+050KJB3G7sguLWkPjLCDf+F/4xL8nabbAyXHQGPzbamN8Nl2j0BWE5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XXINKFm+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="YjntZ4HY"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 5C64F1A11B6;
-	Fri,  9 Oct 2026 14:12:38 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2B36760754;
-	Fri,  9 Oct 2026 14:12:38 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7997B11D706C9;
-	Fri,  9 Oct 2026 16:12:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791555153; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=+QkGdOb5hJYuLsoiL1Xhm+UhbtxAbiflSBnzitxyMXQ=;
-	b=YjntZ4HYocHyqZjcGfpSMQRiRZrq6H0FHK1WY6QvEjjRk++vo9o9ooLpuobjge0n7GduG9
-	/xwbGozcjS8v6BkEQVCmoKBH3Xavl5ID4XgBdqQzi0zHw61ayu85y/v5e9qL60RF9pz8LT
-	b1QkBsDPbgXR1+aLcP048r6i6XXPbrIWsZi5svraQp1AyqfxpXDxaV+l1K0n2aAiAA+b1e
-	atn4aRMxTtayMIolnXXyASTsc8z3PRFbjpQ2vRCNKPilWGf/ZVguWL7+IAQ1wQjPPx8SMb
-	VqOIKdQrObdNEbIE0Drm5YFnZW3bOonjfit7pz1O5+5JHOGtg2qLB7VGiZBJgA==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XXINKFm+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FB701F0089B
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:12:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791555177;
+	bh=wocjecccdY/ci/ZVU26HIKMQ9QjdMuvBoMdEk+FEx9o=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=XXINKFm+cV59eB8Os1UfKas37rSnpk6v8WvhHmAVSmp+hRDwBsiuqLL0r8kJiAJP6
+	 gPkUJuqV1lU6d753L6CWUGfMfFzUCE7jzs+Caxobl7R5muOM1K5pl4dhbJLCGYpBpv
+	 6o+aJ2bjvSf9KVOjD6/NLDosnNr+s2NvmkeqRFEOD2kSNJtuNbAmY58RTft515PxKb
+	 8w+3/Kp8poKjMYNBNFVbM/nvH/maX8oPPcHyPx6zNo5m9JUQAkD8AH7ohLf6etz32k
+	 /fHgTwEpffo1kqTF6C2Mvxj7gsssxgII/4pXLrhUs/3LSZWa1DQIiS9q2wBA6YbKO4
+	 KO9B9LWWyK8mw==
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c3156e7705cso792452166b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 07:12:57 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxxYynKSn5cU02N2B70Qo8SWP82Gvjlnstqxunub3jCU/5CD9WWndA30FcS7mki6ah6jQxJ3ZKH8Q5nZoM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI+C0B4y7VzJj1W/IVI5ptNlIH8C+i3ucHQwdLXh03azwOXWMvE
+	BlleV+34imWRtuaeAooJ3b7jD/Kh0kZIc40qRb34YjmujHNguGbldIeWuR3zqJnF4NB6xEfqNkc
+	oq8QIJ9VhhQOv/E9BuZnGIGq0Ih9pAXQ=
+X-Received: by 2002:a17:907:3e1d:b0:c2e:640f:f9f0 with SMTP id
+ a640c23a62f3a-c31a9a28fdamr243069466b.5.1791555175695; Fri, 09 Oct 2026
+ 07:12:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20261009093020.1018892-3-Yuezhang.Mo@sony.com>
+In-Reply-To: <20261009093020.1018892-3-Yuezhang.Mo@sony.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Fri, 9 Oct 2026 23:12:41 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd_5PztOY2wAmGzZQpafQobyjziD0NSyphdZ-mzSmmDrkg@mail.gmail.com>
+X-Gm-Features: AclHuK8AK4rUzNI4EFKtplGabIcKRhxh6pDH_Tp1LSS953WdhmJjFp5PxI51LEc
+Message-ID: <CAKYAXd_5PztOY2wAmGzZQpafQobyjziD0NSyphdZ-mzSmmDrkg@mail.gmail.com>
+Subject: Re: [PATCH v2] exfat: mark straddling folio RO and zero the post-EOF range
+To: Yuezhang Mo <Yuezhang.Mo@sony.com>
+Cc: exfat@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	sj1557.seo@samsung.com, chizhiling@163.com, dxdt@dev.snart.me
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 09 Oct 2026 16:12:31 +0200
-Message-Id: <DM0DAQJ2I8F2.2W84OCQRVD0RE@bootlin.com>
-Cc: "Wim Van Sebroeck" <wim@linux-watchdog.org>, "Guenter Roeck"
- <linux@roeck-us.net>, <linux-watchdog@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v3 3/6] watchdog: w83627hf_wdt: Move register offsets
- into driver data
-From: "Paul Louvel" <paul.louvel@bootlin.com>
-To: "Tzung-Bi Shih" <tzungbi@kernel.org>, "Paul Louvel"
- <paul.louvel@bootlin.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20261004-w83627hf_wdt-improvements-v3-0-8e27b518595e@bootlin.com> <20261004-w83627hf_wdt-improvements-v3-3-8e27b518595e@bootlin.com> <asUExcRccUEkam6l@google.com>
-In-Reply-To: <asUExcRccUEkam6l@google.com>
-X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue Oct 6, 2026 at 4:25 PM CEST, Tzung-Bi Shih wrote:
-> On Sun, Oct 04, 2026 at 02:12:51PM +0200, Paul Louvel wrote:
->> @@ -491,6 +481,21 @@ static int wdt_probe(struct platform_device *pdev)
->>  	wdd->min_timeout =3D 1;
->>  	wdd->max_timeout =3D 255;
->> =20
->> +	data->reg.timeout =3D W83627HF_WDT_TIMEOUT;
->> +	data->reg.control =3D W83627HF_WDT_CONTROL;
->> +	data->reg.csr =3D W836X7HF_WDT_CSR;
->> +
->> +	if (chip =3D=3D nct6102 || chip =3D=3D nct6116 || chip =3D=3D nct6126)=
- {
->> +		data->reg.timeout =3D NCT6102D_WDT_TIMEOUT;
->> +		data->reg.control =3D NCT6102D_WDT_CONTROL;
->> +		data->reg.csr =3D NCT6102D_WDT_CSR;
->> +	}
->> +
->> +	if (chip =3D=3D w83697hf || chip =3D=3D w83697ug) {
->> +		data->reg.timeout =3D W83697HF_WDT_TIMEOUT;
->> +		data->reg.control =3D W83697HF_WDT_CONTROL;
->> +	}
->> +
+On Fri, Oct 9, 2026 at 6:31=E2=80=AFPM Yuezhang Mo <Yuezhang.Mo@sony.com> w=
+rote:
 >
-> A switch statement would be cleaner here.
+> When extending a file across a non-page-aligned EOF, the folio
+> containing the old EOF must be marked RO so that subsequent mmap
+> writes trigger ->page_mkwrite() and update valid_size.
 >
-> Also, there are only 3 distinct register configurations: default, nct61xx=
-,
-> and w83697xx.  Rather than storing and copying mutable integer fields in
-> every driver data instance, consider defining static const register table=
-s
-> and holding a pointer to them, e.g.:
+> The straddling folio remains mapped to the same filesystem block
+> after the file is extended. As a result, the existing writable PTE
+> may remain in place, allowing mmap writes to bypass ->page_mkwrite()
+> and leave valid_size unchanged.
 >
->     struct w83627hf_regs {
-> 	u8 timeout;
-> 	u8 control;
-> 	u8 csr;
->     };
+> Furthermore, writes to the post-EOF range may occur between
+> truncate_pagecache() and locking the folio, so the post-EOF range
+> should be zeroed after marking the straddling folio RO.
 >
->     static const struct w83627hf_regs w83627hf_default_regs =3D {
-> 	.timeout =3D W83627HF_WDT_TIMEOUT,
-> 	.control =3D W83627HF_WDT_CONTROL,
-> 	.csr =3D W836X7HF_WDT_CSR,
->     };
+> Introduce exfat_pagecache_isize_extended() to mark the straddling
+> folio RO and zero the post-EOF range after clearing writable mapping.
+> This ensures that data written beyond the old EOF before the extension
+> is not exposed as valid file data, and that subsequent mmap writes
+> trigger ->page_mkwrite() to update valid_size.
 >
->     ...
->
->     struct w83627hf_data {
-> 	...
-> 	const struct w83627hf_regs *regs;
->     };
+> Fixes: 82a81a7352bc ("exfat: add iomap buffered I/O support")
+> Signed-off-by: Yuezhang Mo <Yuezhang.Mo@sony.com>
 
-Agreed.
+There are still review comments on sashiko. Please check them.
 
-Thanks,
---=20
-Paul Louvel, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+https://sashiko.dev/#/patchset/20261009093020.1018892-3-Yuezhang.Mo%40sony.=
+com
 
+Thanks.
