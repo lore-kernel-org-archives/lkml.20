@@ -1,81 +1,62 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40B6C470EA1
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:23:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01846475343
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:23:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.114
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791530609; cv=none; b=HI+TaMoqPoUcTWsGKffkHiDvrn+NGqI6Y878iX+mNfrd2u3zsTfQeUBqmgFl055Osd/lgbVPOB0DsGIYchDU4HizrDoQ+wwkRk8LLjd0QXYUnwaFcz2fONx5VbLE5FQ0Gq3IOx7/2jenTn+tZ5wrumQc/5A5C9yvRP0UfDSeL10=
+	t=1791530614; cv=none; b=puVSeIUBiIjGqWPiYPOKk30dpjVI5vPj88EXGWxiVpic1pXvOvL4qok/Qjfw8dKl9j9F+twSYSAojTadXfca8ZpyrKNAk6xKY1jWXbf0BrsBeNt4pBJVX94oyle7M7jUw9BeXvKVPfYkUovsT/OhjaD64vJFsirwPeI0w/LHMc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791530609; c=relaxed/simple;
-	bh=ufj8Y2p1ocOHc1po6Wa3kmTRP9jaECo7NTDNTmL+ZJc=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=I33WcgnF6X1iji8JC/Slpm+PL6apjMB1OpkbhSdpHm6nJIQpauJv+uqD7CQhES4E+qUrOt7VoJ0rb1wZZLSwLVG5ijwGLtFNH67jSfOQKeizAOIxMyiy3AIJJlSBeHftihqyCLjCqsyHKlQWm0/Ft86+oKFP4WddRtonMp4nqxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QIufdaMz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791530614; c=relaxed/simple;
+	bh=PqYGu07d2BCiRv1ksbG2AIQgXBphnYNq5DVmbY0f+fI=;
+	h=Date:Message-Id:References:From:In-Reply-To:Mime-Version:
+	 Content-Type:Cc:Subject:To; b=JK6GsIt5igYgyqCvoH3i245K9o2/4wEXYeL/I6fvjz0iAixE/XTWH/amvYWF13RtUkuEvgMCMkrvpeOLwfLD4xgtIKpK5hIyTCNugZI7K+IumezrOnZ524YKl2QkLJz1cNdzAV4g9HrvNl/qKAlUq4kK5OYwRez9VrCRFo6UoZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=aqrBXgtH; arc=none smtp.client-ip=209.127.230.114
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QIufdaMz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA4C11F000FF;
-	Fri,  9 Oct 2026 07:23:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791530607;
-	bh=k5xr3lKilJrL0OQxQ9rOoAvwtUG141XK3q72654Keoo=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=QIufdaMzeAzhyxlIk8JdZCVjZZmdSERIKV6YeNN8tjL1+qLUEXXIqSJWwrDfsBYld
-	 x+i96azDNwt4dnKnRjG/ZuGxraox0TDMR/Z4rk4s8RvntsH4dMdeZKCQnMsXfs6KW+
-	 d77R7V8ZNv+NEeifxTL0NJRsAkwPcHFVXPFnONlIKJJWU8+c1u08TrYG3F25uger70
-	 BQCNYHlEibf6m7fk/lQcxxksSRABMh8h3ZJNEoDyVd2fIDeI9ToQXdiTgizZxU4K18
-	 r9Xk+zebgAzq7N6tqxNnea21690kj/SNGiKPYslnji+5Bw4/l1XE5Wdu6W7uX3cf6d
-	 DOC/AQ+zylM+A==
-Message-ID: <b55e3d43-589f-4d04-a7d3-4cc52aa66fc9@kernel.org>
-Date: Fri, 9 Oct 2026 15:23:25 +0800
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="aqrBXgtH"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1791530597; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=/doUctIfkSGS90lIdJrmo07RoArVdYQ8CzTh6bmXhO0=;
+ b=aqrBXgtHu7DfO7vMaYTKzS4T83cAdkbODyDTrOqA6VYN2PmV06psMr+NeDojSSn3/OKzcu
+ vmsJRIYRRm7UP22Quny8z63NX/f7i5zqVClbqKZaKXD8MgsrUjYnW+Psmbmx7m5DUPeNKy
+ Amp971PYSCpibQ9GV7so91xsQa7d89keGopTajp2bYhuj3s5jOWac56qJv+etjnvvRaL2c
+ WDZkedA9830MXIG8EISHJCqJIa/kSEC6uHz/wHYsGSZInA7YTJmD7P8zwKgrbtREKV133M
+ 7O1MoG5i6dEOFb/YMXZGXXd57LQsTuyyohFhhfsxjqHGmxIvpukrW+r5Aujlrg==
+Date: Fri,  9 Oct 2026 15:23:02 +0800
+Message-Id: <179153056321.2.12008170766154560402.ping@bytedance.com>
+References: <20260626100740.52455-1-zhujia.zj@bytedance.com>
+From: "Jia Zhu" <zhujia.zj@bytedance.com>
+X-Original-From: Jia Zhu <zhujia.zj@bytedance.com>
+In-Reply-To: <20260626100740.52455-1-zhujia.zj@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, Daeho Jeong <daehojeong@google.com>
-Subject: Re: [f2fs-dev] [PATCH] f2fs: cache: count the temporary pins apart
- from the regular references
-To: Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, kernel-team@android.com
-References: <20261005192114.1511660-1-daeho43@gmail.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20261005192114.1511660-1-daeho43@gmail.com>
+Mime-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
+Cc: "Jia Zhu" <zhujia.zj@bytedance.com>, 
+	"Andreas Dilger" <adilger.kernel@dilger.ca>, "Jan Kara" <jack@suse.cz>, 
+	"Zhang Yi" <yizhang089@gmail.com>, <linux-ext4@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: Re: [PATCH v2] ext4: cancel dirty accounting for folios without buffers
+X-Lms-Return-Path: <lba+26ac89663+3a2298+vger.kernel.org+zhujia.zj@bytedance.com>
 Content-Transfer-Encoding: 7bit
+To: "Theodore Ts'o" <tytso@mit.edu>
 
-On 10/6/26 03:21, Daeho Jeong wrote:
-> From: Daeho Jeong <daehojeong@google.com>
-> 
-> f2fs_unlock_cache() and f2fs_end_cache_writeback() take a temporary
-> reference on the entry around clear_and_wake_up_bit(), so that the entry
-> is not freed before wake_up_bit() returns. f2fs_destroy_cache() waits
-> for the LOCKED and WRITEBACK bits and then expects the refcount to be 1,
-> but the bit waits can return as soon as the bit is cleared, before the
-> I/O completion drops the temporary reference. When the completion runs
-> in process context and is preempted there (e.g. dm-flakey in
-> generic/311), umount hits:
-> 
->   kernel BUG at fs/f2fs/cache.c:567!
->   f2fs_destroy_cache+0x260/0x268
->   f2fs_put_super+0x1fc/0x428
-> 
-> Count the temporary references in units of F2FS_CACHE_PIN_BIAS, like
-> GUP_PIN_COUNTING_BIAS for folios, and check only the regular references
-> in f2fs_destroy_cache(). A leaked regular reference is still caught
-> there, without waiting for the completion.
-> 
-> The pinned entry is freed by whichever of f2fs_cache_put() and
-> f2fs_cache_unpin() drops the refcount to zero, as before. The shrinker
-> still skips an entry while it is pinned, since the refcount is then
-> neither 1 nor below 3.
-> 
-> Fixes: 6e392158cf54 ("f2fs: cache: pin cached block in f2fs_end_cache_writeback()")
-> Fixes: 61ba87b33e87 ("f2fs: cache: pin cached block in f2fs_unlock_cache()")
-> Signed-off-by: Daeho Jeong <daehojeong@google.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
+Hi Ted,
+
+Gentle ping again on this ext4 fix:
+
+  https://lore.kernel.org/all/20260626100740.52455-1-zhujia.zj@bytedance.com/
+
+It has Reviewed-by tags from Jan Kara and Zhang Yi. Could you please
+consider picking it up for the ext4 tree, or let me know if anything
+else is needed?
 
 Thanks,
+Jia
