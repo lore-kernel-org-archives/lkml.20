@@ -1,68 +1,66 @@
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECCAB3451CE
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 02:04:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FBE3BA45
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 02:05:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791511493; cv=none; b=DgU+26K1zj68GL/JA1/wVT2bppSYEGvf4P0OvVW6F4ttYaSb+CLWTWoNgWJGFjSx8HZEUH7BBLjTDhWdOcXiTWGFZtbSX+StQQDaN+GNClA5i7u0ayAWF/RGA86NyD3Sxcl5TYszS26RePTyossqUSZjjQmz/WefK8M87S03aes=
+	t=1791511502; cv=none; b=GoNlZKbmGIkWhYMI/pnnY9F6DAG3wLSc6mLivJQ38tm/yvta3cS4+GjPm3yM+0VYX/mJfxnkbdwK7g4ahcoQ88WFWA+BkE+sb3hCWUAY54rRVJiEgqThqIYm58J7k2kf+U88Un7+tC5cazjqCudrhsDFYKZpSrDLIEhzppz2f3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791511493; c=relaxed/simple;
-	bh=eJZETsRJ0Hh20z27qQJ53/aUqbdLLvxPKcw15Y8Xiu0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JNqEXpqHLIc//bEDncRbzFVS+c907MZDwXipmiTK8tfstqXkJrl9IMYdoPJyRSKtGrkiqHLmQf4fXTiwX58o3VeEaWnsC2tFScZJCbhMYWYkJqBRJzGiVFFJkEEFRxKpxeHx47U+C56ZtmUesYirkUueQXCTfvxYStNnsW3yZsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tOoD7Bmj; arc=none smtp.client-ip=74.125.82.41
+	s=arc-20240116; t=1791511502; c=relaxed/simple;
+	bh=3PzxtR+1mBAdyRx4eV1Dnd14mhtH+QhtatlKw0yvMyw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=UjeyOGMpA5R83GE3KuwlZ8MDSgpc7ZZJEWDE6A19YmJOCWBwGLD+sJcMIDd0If3Zbe43hAfuDPSEsCUkUW/ejMvsTEbvbj5RWbS3KT8JWSRYQTZCcsLdLsiULKVtRVWLAxGrLYJluZTEQZQ5I2+s6teNsC9gFh+kHnKsa5aYaHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Am25ouR6; arc=none smtp.client-ip=74.125.82.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tOoD7Bmj"
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-15354aa70e8so8599c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 19:04:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Am25ouR6"
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-144f79153f5so2615918c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 19:05:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791511491; x=1792116291; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=J54/gYCI95envFrHsdO+xt+CtFLWckC3t7mEJfXoeZU=;
-        b=tOoD7BmjF/mNuz87C+YFpm0oMR63G1pH+KuaNu+QM8FIrPhYJ+TCB0ThVZzFAI9WnD
-         KzDJQh2TWWSrqrg9nqUl1MWQ39Olp1udqg/UpfEkFSb/Uzuo3SiDG3llfsIsgvcCK89N
-         c4/yfIOe2T3+A+yuSzhfXumtwMPQroBvtdJFcGGqiL2cKJDYyZ+BrTG/XgzW8G0IyUPV
-         /lRa8jiUPBFY5gCruZ+ImMUVSl97WVCRUQOSjhxkJ1aqnNERCq53vKPnv+gjgXB2qLLP
-         L9rB+lwa+/Og9MhXV0KgjbqdKSbfoZ4iUuk5RegNLnqXHSJz1O42xNo/3KvlPo1Tss9t
-         QLOA==
+        d=gmail.com; s=20251104; t=1791511500; x=1792116300; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=QVVHBgvK6OKW53OVYnJLSJofdOQSOkfgS/m6Zeijg8o=;
+        b=Am25ouR6zcE01ixQy9ZJkl9jx274CIOw1FwoDqXGvDxoEp3ZVxjyg9A6mdlG+4xtdc
+         JsLef885thzm7oWDKjK991CgsFL5hZxyzqpYW9FiYEEMidyUX3QOXGjHnXicINph7LbX
+         RliNBaFESkzTIjbwY1pbnV2j4H25iUqHghSO6VpHdN96qPb1jlps1Jok+bc2bbnKImw1
+         oKUx+Gg7m+Dw624XsjJGtM93pnqTo8GQu8GFHv00SxLiHEyHD9prdjHNAfarXFwkjvOj
+         fPMp67oO6gsbdSq9pdtt7vwjYInCYuMlHS4fNNQjAn2re3a06v88eA/TSpsJ5w8+VFuI
+         EWxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791511491; x=1792116291;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=J54/gYCI95envFrHsdO+xt+CtFLWckC3t7mEJfXoeZU=;
-        b=B6ACyGMbh+lTAi2VY7hhmTgO2Pw7rHwDtElKFFa+oBaEsk3/t7J6I+1d1byAafX7H/
-         Ffn1ga6yxCMP5nFnqnwq6B/Ow6IamD0lbLTCzYdty1euscb89xO/c0FAoWjg1Bkks8c3
-         mPVYDECHn7VI77NfAtdASOBN1Ldmu9fcN8a6h53+MfwQ54Pw8jJN+Eqdlb2pPPWJHe0V
-         B0Niwq1zNnax8h1o0zDXTkSN0ELvvmrdkGyFyNkREB86EzxUyTtOvQzBJ0/KZChD6fDQ
-         lFCkBugRmD88ipomLIRGeqdQoZVsUngoV8LwMXICKELUg6aouFpQ2/4/pVNxsDd8G7Cz
-         uXbw==
-X-Forwarded-Encrypted: i=1; AKwUvBy3eqJduOOUSR/70ai/OY/3dV40CO2B1bQz3q9Q3s2i67p6wrtCTmkk06GtHtfoVrqH6brlLPMcOvwrSSU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lHw5Gzt931KNK8coXi57kRqZ2wecaI6+l9vHmhpMvu+EPu8/kv
-	+78llWEjBTvNU8IFhVoAHVP5IsmSj0jBbau9/y71peNJVxSqKtdDjjOI
-X-Gm-Gg: AYBFou0hAvSOEOC3najyA4wWQrHaUeBKNSLp3enTrWB2F3ccNOQaxJwIiUCpxD3k/wi
-	OHSGT2jZXKVzhDqzo0W6Iku0YGIDFurFvgIa/bx//PifYbwYrtkv+1DaSUCr5prMboHvTVPPIbj
-	1y+UnZarAIbN0Th1StLG6kVQ4d218rKwI+qr937mB4Q3+X9w78xwzZQ9qyFM6Y3FH+fFFRnB7MR
-	3M+wz+KO5i8OynXGeABRM2ii+F+Iuy54xQhm8LATU6Lg636SLSYHoG68Axg5f5+wZn1k6kzBIMZ
-	XgnpFWLV5RczU5IwnfdPyqnydgK2tczIdvtMLXh5dCZZYFFrtJCw2qJMkw7YoGaPt0/TLGCHZU2
-	lbkmsxxv3RBtL44zFO9fCrdQ65kMeEmvs+wf6LfMwyNwl3FhR/PXBHAvdDrgS3eZ8dWjrbBLIJ7
-	M4g/2sYNXBkEb/8TnBD0d7mwbk93Ja6PyGsus4KBix7QYDahZPgjGz1T7pijYnPwKsRg==
-X-Received: by 2002:a05:7022:7f05:b0:149:49c:22b with SMTP id a92af1059eb24-16a57733270mr571517c88.1.1791511490964;
-        Thu, 08 Oct 2026 19:04:50 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791511500; x=1792116300;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=QVVHBgvK6OKW53OVYnJLSJofdOQSOkfgS/m6Zeijg8o=;
+        b=vpoU8I8QCDB4Ig92JiZyguuMQzynjtXpb7ncluWKUMjYoO4ZFHR/AuXTEKM0r77SNu
+         eRxUtEzeLPVbqwiElv4U2NKkiCH/+sXBfTeOsTC4xnRocpJoTWfgMaeAK+crZzzhpsnv
+         lpNP2MgpYZmrKM4g27kYRbe2oIrxpjfkTi6NhRco1/+ZS5uFJYHDHtRSeXQJPsZk2ttv
+         /XXVPIKG5/T07jCq9NAcA+SbAECTxz9RAXpTV3Nj6RoAgZ8YIwlMUXANpdSvskNdKif5
+         vbc7l8PfXcmX20cklJZ84D3ol20LXF7AmdfS4nsoorFjYqEgyfSDRhuP8Fc/7b/V5CBX
+         AdDw==
+X-Forwarded-Encrypted: i=1; AKwUvBwU8rgsULFTUK1h7VKcE+b+E17U8zv4kv5Wdv8BF8X+Um6uacOBeKgh2H7heO7k2OQnecixNbY04AKuQtg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kIgosVdFuKFolVh5v0Ky8lp6iBV8Qf2mDH0X4saG3lOvodeV5X
+	DrPj5TCLdBZrVSjxXISOGyiPuitnV8GOvCuNvEc3IZ+HR9gYMbnlCz8Z
+X-Gm-Gg: AYBFou05FVlOuJGogKHDHXSOSQV6XdGF+9gXe/WOblkw9XVss79EBgYRRprTRfxLU0n
+	qrHQfpOHKalbDpTw1fLxqIy9uBVbM8eJUJAdRP+3IReH1/cJNzfZckhKTKY6XJHn0QfxEUQL+6p
+	kX15wJtEtAZhMf/K3qACKanEusjlRxUzS1ON4pyowJI1eitbPcuB5aiS4iDKTrJKGvAauonYw4p
+	IE9s2aZp1AORpr3Q8E+/ri6Smcny2vmUgJW/wkNrWllMuMFr1ZDCjohOCDAxns6pI+fZ2IeS07H
+	IMf9YzfuhjdlM/jnxEfCVS8OJnJhLgmgzFir83PMaS//UCTMyzwmdQ0NsyQ+ml7p06yWrOlyGvp
+	+vbTvQWn1kN6gEluwSLEywbAhlX/Fy4ud0egUxv9VSPnFtx83I8Nch0f646mqVw571uDPEbBNs4
+	Ao0nr3gDuTPfg7jEpyQrn/xRD3EcR6nYOpNchXOLB0nWE3CzUsFuv83g3vzQPVpIjODQ==
+X-Received: by 2002:a05:7022:e881:b0:14b:1ef8:698d with SMTP id a92af1059eb24-16a5d174c3bmr630165c88.15.1791511500470;
+        Thu, 08 Oct 2026 19:05:00 -0700 (PDT)
 Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-16996eac537sm1970743c88.1.2026.10.08.19.04.47
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a31f6f5csm1979850c88.11.2026.10.08.19.04.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 19:04:50 -0700 (PDT)
+        Thu, 08 Oct 2026 19:05:00 -0700 (PDT)
 From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Fri, 09 Oct 2026 10:04:38 +0800
-Subject: [PATCH bpf-next v2 2/2] selftests/bpf: Unmount the bpffs that
- cgroup_hierarchical_stats mounted
+Date: Fri, 09 Oct 2026 10:04:55 +0800
+Subject: [PATCH bpf-next v2] selftests/bpf: Run the enable_stats program
+ with BPF_PROG_TEST_RUN
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,9 +69,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-selftests-bpf-cgroup-stats-bpffs-v2-2-f93a111da992@gmail.com>
-References: <20261009-selftests-bpf-cgroup-stats-bpffs-v2-0-f93a111da992@gmail.com>
-In-Reply-To: <20261009-selftests-bpf-cgroup-stats-bpffs-v2-0-f93a111da992@gmail.com>
+Message-Id: <20261009-selftests-bpf-enable-stats-inflight-v2-1-691ee379e511@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAMZLyGoC/5WNQQqDMBBFryKz7pQkgtiueo/iIokTHYhRnCAW8
+ e5NvUGX73/+fwcIrUwCz+qAlTYWnlMBc6vAjzYNhNwXBqNMo5VqUSiGTJIF3RKQknWRULItAac
+ QeRgzUh9c3VjTqlBDeVpWCrxfljf8Zon2DF1pRpY8r59Lv+mr/8u0adSovHsYIuObvn4Nk+V49
+ /ME3XmeX+9fkt/gAAAA
 To: Andrii Nakryiko <andrii@kernel.org>, 
  Eduard Zingerman <eddyz87@gmail.com>, 
  Ihor Solodrai <ihor.solodrai@linux.dev>, 
@@ -81,45 +81,105 @@ To: Andrii Nakryiko <andrii@kernel.org>,
  Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
  Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
  Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>, 
- Yosry Ahmed <yosry@kernel.org>, Hao Luo <haoluo@google.com>
+ Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>
 Cc: bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Qiliang Yuan <odys.yuan@gmail.com>
 X-Mailer: b4 0.13.0
 
-setup_bpffs() mounts a bpffs on /sys/fs/bpf and records in mounted_bpffs
-whether it did, so that cleanup_bpffs() unmounts only a bpffs that the
-test mounted itself.
+enable_stats attaches its program to sys_enter, so every syscall of the
+system runs it. Once the program is detached, the test compares its
+run_cnt to the number of runs the program counted itself.
 
-cleanup_bpffs() checks the flag the other way around. As mounting on
-/sys/fs/bpf succeeds even when a bpffs is already there, the test never
-unmounts the bpffs it mounted, and every run leaves another one stacked
-on /sys/fs/bpf of the mount namespace that the test_progs worker keeps
-running later tests in.
+Detaching doesn't wait for the runs already started on other CPUs, and
+each of them increments count before run_cnt. With other tests making
+syscalls in parallel, the test reads run_cnt one run behind count now
+and then:
 
-Unmount the bpffs only when setup_bpffs() mounted it.
+  test_enable_stats:FAIL:check_run_cnt_valid invalid run_cnt stats
 
-Fixes: 88886309d2e8 ("selftests/bpf: add a selftest for cgroup hierarchical stats collection")
+Run the program with BPF_PROG_TEST_RUN instead of attaching it, so that
+nothing else runs it and both counts are final when the test reads
+them. As a single run can be shorter than the resolution of the clock,
+run it until its run time shows, unless its runs aren't counted at all.
+
+Fixes: 31a9f7fe9337 ("bpf: Add selftest for BPF_ENABLE_STATS")
 Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
-Reviewed-by: Yosry Ahmed <yosry@kernel.org>
 ---
- tools/testing/selftests/bpf/prog_tests/cgroup_hierarchical_stats.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+V1 -> V2:
+- Run the program until its run time shows, as a single run can be
+  shorter than the resolution of the clock (Sashiko)
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/cgroup_hierarchical_stats.c b/tools/testing/selftests/bpf/prog_tests/cgroup_hierarchical_stats.c
-index ad19d6d41918a..cc6ab2c263da1 100644
---- a/tools/testing/selftests/bpf/prog_tests/cgroup_hierarchical_stats.c
-+++ b/tools/testing/selftests/bpf/prog_tests/cgroup_hierarchical_stats.c
-@@ -110,7 +110,7 @@ static void cleanup_bpffs(void)
- 	ASSERT_OK(rmdir(BPFFS_ATTACH_COUNTERS), "rmdir "BPFFS_ATTACH_COUNTERS);
+v1: https://lore.kernel.org/r/20261008-selftests-bpf-enable-stats-inflight-v1-1-0cb92ee2c6d3@gmail.com
+---
+ .../selftests/bpf/prog_tests/enable_stats.c        | 26 +++++++++++++---------
+ .../selftests/bpf/progs/test_enable_stats.c        |  2 +-
+ 2 files changed, 17 insertions(+), 11 deletions(-)
+
+diff --git a/tools/testing/selftests/bpf/prog_tests/enable_stats.c b/tools/testing/selftests/bpf/prog_tests/enable_stats.c
+index 75f85d0fe74a4..691a82a4d6d20 100644
+--- a/tools/testing/selftests/bpf/prog_tests/enable_stats.c
++++ b/tools/testing/selftests/bpf/prog_tests/enable_stats.c
+@@ -9,6 +9,7 @@ void test_enable_stats(void)
+ 	struct bpf_prog_info info;
+ 	__u32 info_len = sizeof(info);
+ 	int duration = 0;
++	LIBBPF_OPTS(bpf_test_run_opts, topts);
  
- 	/* Unmount bpffs, if it wasn't already mounted when we started */
--	if (mounted_bpffs)
-+	if (!mounted_bpffs)
+ 	skel = test_enable_stats__open_and_load();
+ 	if (CHECK(!skel, "skel_open_and_load", "skeleton open/load failed\n"))
+@@ -20,18 +21,23 @@ void test_enable_stats(void)
  		return;
+ 	}
  
- 	ASSERT_OK(umount(BPFFS_ROOT), "unmount bpffs");
+-	err = test_enable_stats__attach(skel);
+-	if (CHECK(err, "attach_raw_tp", "err %d\n", err))
+-		goto cleanup;
+-
+-	test_enable_stats__detach(skel);
+-
+ 	prog_fd = bpf_program__fd(skel->progs.test_enable_stats);
+-	memset(&info, 0, info_len);
+-	err = bpf_prog_get_info_by_fd(prog_fd, &info, &info_len);
+-	if (CHECK(err, "get_prog_info",
+-		  "failed to get bpf_prog_info for fd %d\n", prog_fd))
++
++	/*
++	 * A single run can be too short for the clock to tell. Run the program
++	 * until its run time shows, unless its runs aren't counted at all.
++	 */
++	do {
++		err = bpf_prog_test_run_opts(prog_fd, &topts);
++		if (err)
++			break;
++
++		memset(&info, 0, info_len);
++		err = bpf_prog_get_info_by_fd(prog_fd, &info, &info_len);
++	} while (!err && info.run_cnt && !info.run_time_ns);
++	if (CHECK(err, "run_and_get_prog_info", "err %d\n", err))
+ 		goto cleanup;
++
+ 	if (CHECK(info.run_time_ns == 0, "check_stats_enabled",
+ 		  "failed to enable run_time_ns stats\n"))
+ 		goto cleanup;
+diff --git a/tools/testing/selftests/bpf/progs/test_enable_stats.c b/tools/testing/selftests/bpf/progs/test_enable_stats.c
+index 1705097d01d7b..e28d674fc77ac 100644
+--- a/tools/testing/selftests/bpf/progs/test_enable_stats.c
++++ b/tools/testing/selftests/bpf/progs/test_enable_stats.c
+@@ -10,7 +10,7 @@ char _license[] SEC("license") = "GPL";
+ 
+ __u64 count = 0;
+ 
+-SEC("raw_tracepoint/sys_enter")
++SEC("raw_tp")
+ int test_enable_stats(void *ctx)
+ {
+ 	__sync_fetch_and_add(&count, 1);
 
+---
+base-commit: e1d84a37cba984388988d2f1ddc84561413f0db2
+change-id: 20261008-selftests-bpf-enable-stats-inflight-edfb36a280f3
+
+Best regards,
 -- 
-2.43.0
+Qiliang Yuan <odys.yuan@gmail.com>
 
