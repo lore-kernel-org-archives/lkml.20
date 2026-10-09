@@ -1,47 +1,39 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 029024CE68A;
-	Fri,  9 Oct 2026 10:54:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 829C84C9E1C;
+	Fri,  9 Oct 2026 10:56:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791543283; cv=none; b=ofBysJ4UlzdR5/TakOFZ7D7G/5iypDeVsmEin4BY0f96dh/oXWdY5Lo9L3SXqG9+RZKyzW3JwjpUuSYs5SssjQGczDh5ILOPmVYc1n2c2jig7oK2moEO7DlhwU9yX/I1LTiAtSDBUOd2rGxjuE1t0fWRNWwMvwdUPsfUtbpYE5A=
+	t=1791543381; cv=none; b=n8imeNMtg3trXrxqChPBrkD3zDQA6CJRUTsGR/j3ipxygUDjFjMjOvDw62pAm9vW8Ia59zg4rZAqsIBrTQIrOR0e2rEgesiYYfi4ABxCVTRKL44Jeighh5pvOzlzy5/vsf4uz8FU2J0vvoFfwUlGw1r5SDjhmT0lGIao6jl/QQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791543283; c=relaxed/simple;
-	bh=2hPqeInkmw8dt5AYJTT6rr65iGpV6pnYu621nd+a2Kw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=u1fpTRovYcfwDMgLyeuVsBH3L607KWEGzUv1KcxETOAM57lMt4X6XP/KYXOHKHgnzM0Jn8cQ+UqwNi8Jfuol3yb5rafGcNxDUsjNNIdP00CWcDa/X/HaSQVhpp5ts7ydpmLO35guDMbaiqJyG4WuhRrHCZoQLHl/vPuyI6Z9Mps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=nHgVfZhO; arc=none smtp.client-ip=117.135.210.3
+	s=arc-20240116; t=1791543381; c=relaxed/simple;
+	bh=lC5CNDCAtvnBvgtzLLWiyRoXgynJuQPr2CxC7+SokhA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tmOgrRDOfzeF9q00y+JqJCIXjiBxl4Fl2PYI/EoEGAlJR2NtTNQEjs+V4J6Q4LaHYClyMjTPJLXhNQbK2KPV5myJelMuu+DouujcUatvGYGKD6bRNJMdaiWYvJoqPRIzWYuMNgFqEcleJ5sCnpbuehpbj28zrlZRuOVhVb3FU/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=kGnEXfMc; arc=none smtp.client-ip=220.197.31.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="nHgVfZhO"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="kGnEXfMc"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=SU
-	2hOrP3XkxbQgBianI5yCRcm1GVQm++rhoG9WeYkXY=; b=nHgVfZhOjeIx/PWWkK
-	vNM7E2m3qCDjooBWbYQqG2WnDr5kDDGylgxZTZuhL/0hUQNP/ufUhK4E27M/kuv6
-	E9yk5HhcP4ozepd7uVSqnoFDADTiEe2rS12+xbhxcR8WoXF3T09A6p0bntJ46iQM
-	QOMoc02NGIUr0fuXjtJEf7MLI=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=7d
+	+xLTYOcPTxp6MgpMPZ+pdq/SMHGlsB2ace6TTUrs0=; b=kGnEXfMcG0Arw404vw
+	UAxuQFNKr2iT09g+z2zdospsDYr+m8+UgaQvRMoHq9PSePO1tw5mya97DRMMBzwp
+	CiLt0pEfVabMnN/wa1LPbGGWmbF5OPOulrRU5VSYOkKvc7WH8rYr9Mh9Lnvk4Ada
+	a0XB/pI2UA1Skt1jdnAcg3tKY=
 Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgB3vmvUx8hqvTiFDg--.2548S5;
-	Fri, 09 Oct 2026 18:54:14 +0800 (CST)
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3v608yMhqQuaPDg--.39909S2;
+	Fri, 09 Oct 2026 18:55:57 +0800 (CST)
 From: Quchaosheng <quchaosheng000406@163.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-omap@vger.kernel.org,
+To: Marc Kleine-Budde <mkl@pengutronix.de>,
+	Vincent Mailhol <mailhol@kernel.org>
+Cc: linux-can@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Chaosheng Qu <quchaosheng000406@163.com>
-Subject: [PATCH 3/3] ARM: dts: ti/omap: drop unit-address from tpd12s015 endpoints
-Date: Fri,  9 Oct 2026 18:54:12 +0800
-Message-ID: <20261009105412.300338-4-quchaosheng000406@163.com>
+Subject: [PATCH] net: can: cc770: don't discard the IRQ lookup error in probe
+Date: Fri,  9 Oct 2026 18:55:56 +0800
+Message-ID: <20261009105556.301821-1-quchaosheng000406@163.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261009105412.300338-1-quchaosheng000406@163.com>
-References: <20261009105412.300338-1-quchaosheng000406@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,74 +41,60 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgB3vmvUx8hqvTiFDg--.2548S5
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Zw1rXry7try7XrWDtw43ZFb_yoW8CF4kp3
-	s29Fs7tws7GF10kF4DZw1qgFyDKFWDuF1akF4UWryUCa13Xw1rJr1xt3sakr1UCayfZw4j
-	9rs5WasFqw1DWF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zEBHq3UUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbDABfzaWrIx9e6MQAA30
+X-CM-TRANSID:_____wD3v608yMhqQuaPDg--.39909S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Zw18ZFyrJr45AFyrXF4fZrb_yoW8Ww13pF
+	4kKFWxur4kuw4jk3WkWw1UZFW3ZFna9rW7KFy2kw1DZ3s5Xr9xJr1UJa4jqFsrA397C3WY
+	9F4jyF4xAan0vw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEmLvPUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5B0Og2rIyD1S2wAA3q
 
 From: Chaosheng Qu <quchaosheng000406@163.com>
 
-The endpoint nodes of the tpd12s015 encoder on the am5729-beagleboneai
-and the am57xx-idk carry a unit-address without a matching reg property,
-which the device tree specification does not allow.
+cc770_platform_probe() collapses every failure of platform_get_irq()
+into -ENODEV:
 
-Drop the unit-address so the nodes are named "endpoint".
+	irq = platform_get_irq(pdev, 0);
+	if (!mem || irq <= 0)
+		return -ENODEV;
 
-No functional change.
+That discards -EPROBE_DEFER, so a probe that has to wait for its
+interrupt controller is never retried and the device stays unbound.
+
+Return the lookup error unchanged, which is what the neighbouring CAN
+platform drivers already do (c_can_platform.c, flexcan-core.c,
+sja1000_platform.c). A device tree without an interrupt now reports
+-ENXIO rather than -ENODEV; the driver core treats those two the same
+way, so the outcome does not change.
+
+The memory resource is checked first and on its own, so a missing
+region no longer triggers an IRQ lookup that cannot succeed.
 
 Assisted-by: LLM
 Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
 ---
- arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts | 4 ++--
- arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi  | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/net/can/cc770/cc770_platform.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts b/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts
-index 76bfb364777e..f40017a0e414 100644
---- a/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts
-+++ b/arch/arm/boot/dts/ti/omap/am5729-beagleboneai.dts
-@@ -168,7 +168,7 @@ ports {
- 			port@0 {
- 				reg = <0x0>;
+diff --git a/drivers/net/can/cc770/cc770_platform.c b/drivers/net/can/cc770/cc770_platform.c
+index b6c4f02ffb97..64fbdf14e8ab 100644
+--- a/drivers/net/can/cc770/cc770_platform.c
++++ b/drivers/net/can/cc770/cc770_platform.c
+@@ -156,10 +156,13 @@ static int cc770_platform_probe(struct platform_device *pdev)
+ 	int err, irq;
  
--				hdmi_encoder_in: endpoint@0 {
-+				hdmi_encoder_in: endpoint {
- 					remote-endpoint = <&hdmi_out>;
- 				};
- 			};
-@@ -176,7 +176,7 @@ hdmi_encoder_in: endpoint@0 {
- 			port@1 {
- 				reg = <0x1>;
+ 	mem = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-	irq = platform_get_irq(pdev, 0);
+-	if (!mem || irq <= 0)
++	if (!mem)
+ 		return -ENODEV;
  
--				hdmi_encoder_out: endpoint@0 {
-+				hdmi_encoder_out: endpoint {
- 					remote-endpoint = <&hdmi_connector_in>;
- 				};
- 			};
-diff --git a/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi b/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
-index 5eccff3bb4b6..4e8a5820b05c 100644
---- a/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
-@@ -135,7 +135,7 @@ ports {
- 			port@0 {
- 				reg = <0>;
- 
--				tpd12s015_in: endpoint@0 {
-+				tpd12s015_in: endpoint {
- 					remote-endpoint = <&hdmi_out>;
- 				};
- 			};
-@@ -143,7 +143,7 @@ tpd12s015_in: endpoint@0 {
- 			port@1 {
- 				reg = <1>;
- 
--				tpd12s015_out: endpoint@0 {
-+				tpd12s015_out: endpoint {
- 					remote-endpoint = <&hdmi_connector_in>;
- 				};
- 			};
++	irq = platform_get_irq(pdev, 0);
++	if (irq < 0)
++		return irq;
++
+ 	mem_size = resource_size(mem);
+ 	if (!request_mem_region(mem->start, mem_size, pdev->name))
+ 		return -EBUSY;
 -- 
 2.43.0
 
