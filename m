@@ -1,69 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E8DE3537D2;
-	Fri,  9 Oct 2026 06:53:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12DF43B38AD
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 06:54:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791528811; cv=none; b=mBjEg1ez9IK6g4Iey5emLd7B8Wwwsh4Rt/H/3gYdbkNdYie8wTGG7ZS/wqYT5+5InL+FXdl9UQ5CGRQS5IFt9cimyxjH90fqKkur6+l8j+1vKpvllwA+MFtzFN0qSURGiFtEAhTC4u5wb1xJ9jZEoIAbQ5vAcVrx7VSBSifDGlk=
+	t=1791528866; cv=none; b=ZrsT8fz8IBlRWuFXyZnavJHvkkM2u16L+OSxzMOMpAB79c4BNE92i5SAeVNzXJCLWavTKeifi56neUSaqw5t+BsUAX0igrcpBKnKYyzUoxlm9LJWd2GXkioHIJMjiIth8dQnEq0ZCNTxLycKlNqJDop4upUuGvTOMKbR5TboKhw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791528811; c=relaxed/simple;
-	bh=TF6GnToXoLBBTFqHdB7OCEka4zG8vEPbEoc8ux2XlD0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iC3VXTTFL8ttxBLDCdyU9igFjWAaUpjIVq1GWUE2jQqSCuHaji7uHtVjQ051YYgdDnCqK0pgL/9CpoLnwrbF3WV6QOG/+YsnLlngDeLgOC/PwXniR5kuLbU3pXL01K/Q54HjffjqrbFjJEcpI0xN5CWUU48PwDZ1V/AJ/UCE1eI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UsA7nHtl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791528866; c=relaxed/simple;
+	bh=m2zQVkcbcbSAMrYr2LYxACrbU+VgKN2r9zn0rSs0pnI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rVOvuV/HtIOElQfGYnLfxEBeNBRGmjx6KtygQl8VZnx1yDhb2EoA2bYE2sAmFNWh+CZx35+vW7kr4XEO+iL1Ew5eeGgfYMSI70tztx4Wg+6wk0ll9LoIFTzZ83jEUcvd1HbZvKdAynGXnpwQ2V5ErlZv2ED2QCfE0q0t/Yqp7Qs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WkEoLwA/; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UsA7nHtl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E34B1F000FF;
-	Fri,  9 Oct 2026 06:53:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791528810;
-	bh=8ZW60/51gHl6R6BZEMKR+YXq98dMzpk40zWpuDqBsxg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UsA7nHtlHG63JM4b5FeBNBamuArLilgiweCQ08kXKkMO1qVFhIMJGsh8rU4Vnei00
-	 SSPHEwX+MNClEt7P+4zBobmQcWaBfbnK7OkwxH6ath2b4IJLz9MMURHfW0Qf0+q5oC
-	 BXWfmwgfzSmKhw8mtqwu99teEdz9q1mb6z8PeT/Xz547d+16BUcJgjU3nZ7b/qspQQ
-	 +6qaUbJ2xh2uWYkQjTSchmvO+5y6aSqv1BkLkzQRsxQ6WyUUr8pVt5JeqS0Ucrf1PI
-	 Ju3JoUGipOJuNrXs4hhmdZqfKNMGirwin5ktWCFboPf74StIatuP8I81VLgpGqs4ea
-	 FO8nf88bCjPmw==
-Date: Fri, 9 Oct 2026 08:53:26 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Fabricio Akio <fabricioakio@gmail.com>
-Cc: Casey Connolly <casey.connolly@linaro.org>, 
-	Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Robin Snyders <robin@snyders.xyz>, 
-	David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org, 
-	Richard Acayan <mailingradian@gmail.com>, linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Sebastian Reichel <sebastian.reichel@collabora.com>
-Subject: Re: [PATCH 1/4] dt-bindings: power: supply: qcom,pmi8998-charger:
- add chg-state-change
-Message-ID: <20261009-winged-lion-from-asgard-acd5ce@quoll>
-References: <20261003-qcom-smbx-chg-state-change-v1-0-fffaef446932@gmail.com>
- <20261003-qcom-smbx-chg-state-change-v1-1-fffaef446932@gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WkEoLwA/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791528864;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=MYSDTGTi24omrQKQQ1wJaO1ftwe6RCJQ1+775Gx5ePY=;
+	b=WkEoLwA/ZWxkH2Eh2ved5UlVyrVvCiboR3Q0UOtB4HwYArPV7z89ITTkMAKHpCiZXPVLGT
+	poCPDgdWt9/2ZPXGRU7SgXjNSKwL3Fq0U0c8ypv7uLXb1zdSz4CVJC+Nyk6eyZi1xQX0kN
+	Faziel1ec1QpNxoOyfL3z3gHJj3/6q4=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-218-Ycci_0HhP92L0o9xHKUPOA-1; Fri,
+ 9 Oct 2026 06:54:19 +0000
+X-MC-Unique: Ycci_0HhP92L0o9xHKUPOA-1
+X-Mimecast-MFC-AGG-ID: Ycci_0HhP92L0o9xHKUPOA_1791528858
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 752201955F6D;
+	Fri,  9 Oct 2026 06:54:17 +0000 (UTC)
+Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id CAF941956095;
+	Fri,  9 Oct 2026 06:54:14 +0000 (UTC)
+From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+To: herbert@gondor.apana.org.au,
+	davem@davemloft.net,
+	johannes@sipsolutions.net,
+	miriam.rachel.korenblit@intel.com
+Cc: ilan.peer@intel.com,
+	emmanuel.grumbach@intel.com,
+	linux-crypto@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/4] wifi: add opt-in FIPS exception for iwlwifi
+Date: Fri,  9 Oct 2026 08:54:09 +0200
+Message-ID: <20261009065413.53403-1-jtornosm@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261003-qcom-smbx-chg-state-change-v1-1-fffaef446932@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-On Sat, Oct 03, 2026 at 04:45:21PM -0300, Fabricio Akio wrote:
-> The charger raises an interrupt when its charging state changes. Allow
-> it as an optional fifth interrupt.
-> 
-> Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
-> ---
->  .../devicetree/bindings/power/supply/qcom,pmi8998-charger.yaml       | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
+Commits 5241526dede9 ("wifi: mac80211: don't send keys
+to driver when fips_enabled") and 0636800c8ee1 ("wifi:
+iwlwifi: disable certain features for fips_enabled")
+disabled WiFi functionality under FIPS mode because
+Intel firmware autonomously sends some management
+frames without FIPS-validated integrity protection.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+While this is technically correct, it leaves
+FIPS-required environments with no WiFi connectivity
+at all, since WPA3-SAE mandates MFP and without
+MFP_CAPABLE the client cannot even associate.
 
-Best regards,
-Krzysztof
+This series introduces an opt-in fips_exception=<bitmap>
+kernel boot parameter that allows administrators who
+understand the firmware limitation to explicitly choose
+connectivity over strict compliance. No keys are
+installed in firmware; mac80211 handles all data
+encryption/decryption in software using FIPS-approved
+algorithms. The default behavior remains exactly as the
+original commits implemented.
+
+This is a provisional v3 to show the current working
+state and continue the conversation from [1]. Changes
+and pending items are based on Johannes's very helpful
+guidance.
+
+With fips=1 fips_exception=1 on Intel AX211, this
+series enables:
+- MFP (802.11w) with software crypto in mac80211
+- RX AMPDU aggregation
+- Bidirectional data with no keys in firmware
+
+Known limitation:
+- No TX A-MPDU aggregation. Firmware sends ADDBA
+  unprotected, AP drops it (MFP). Host-driven ADDBA
+  from mac80211 can work at the protocol level but
+  TLC does not aggregate. Details in [1].
+
+Pending for later versions:
+- IGTK/BIGTK offload to firmware
+- 6 GHz / EHT dependencies
+- TX aggregation (if possible)
+
+Test setup:
+  AP: WPA2-PSK ieee80211w=2, channel 52 80MHz HE
+  STA: Intel AX211, fips=1 fips_exception=1
+  RX: ~450 Mbps (iperf3)
+  TX: ~26 Mbps (iperf3, no A-MPDU)
+
+[1] https://lore.kernel.org/all/20261009064326.43891-1-jtornosm@redhat.com/
+
+v3: Address comments from Johannes:
+    - Drop PTK/GTK offload to firmware, software-only
+      crypto
+    - Drop A-MSDU size restoration
+    - Drop set_rekey_offload
+    Per patch:
+    - 1/4: same as v2 1/5 but fips_allows() renamed to
+      fips_allows_exception() with more suitable semantics
+    - 2/4: v2 2/5 (key gate), v2 3/5 (feature restore)
+      and v2 4/5 (SW_MGMT_TX) dropped, replaced by only
+      enabling MFP_CAPABLE
+    - 3/4: new, RX AMPDU and A-MSDU fixes for SW crypto
+      path
+    - 4/4: same as v2 5/5
+v2: https://lore.kernel.org/all/20260930120829.383408-1-jtornosm@redhat.com/
+
+Jose Ignacio Tornos Martinez (4):
+  crypto: fips: add fips_exception kernel boot parameter
+    and fips_allows_exception() helper
+  wifi: iwlwifi: enable MFP_CAPABLE in FIPS mode
+  wifi: iwlwifi: fix RX AMPDU and A-MSDU in FIPS mode
+  wifi: iwlwifi: reduce encryption error message to
+    debug level in FIPS mode
 
