@@ -1,110 +1,79 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C373E3264EA
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 06:54:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C97C3B6BFF;
+	Fri,  9 Oct 2026 06:54:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791528890; cv=none; b=Bm8ChZzOgNv2Yo4D12T1c2s2MZ76ACLvcGYIpIwQN1dqL4Y+Cv3kJw/wOs5lyYPmohy1qlsFiOhMzjMx1hVsXl1iOspL9aFO4f4UkDtyh2kdPvvzjRClxX4I2zd6JnkLyhWq23igEQyY+gJurgNsqUUc/4WkdmVn5NsZ1IPIurY=
+	t=1791528900; cv=none; b=Pse8Asnvq6v/EedgJMZVqGht1KCiODdmRf5iAKeuJ21hsIRmoJjWYtHZcNxI/xheHCUIcYEj7ImQZSfceLYslcJ0mF7o0pSUezJhYHQVkf8mJjDc5etyWp68DesH5Yuyz+QeLfm2meTDBAGLBzblU9ZYX4I4LtFtWf+MkoLMYlw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791528890; c=relaxed/simple;
-	bh=TJlsYDnFC8zISOZyBmJoUdPTLU20R4ymlqE0MW5+eVk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=f+Qw2MyjT/wErZuHg6rZEFMTF4dFQcjnj9rtrK3i6w7jZQWOrv2NGH9P92pxIlVqXnNNxY0QXhqNNXHQuj8G+RYjgiegOVs61GMZ/Blulb/L2td3qiqoKI9C+sLOaD0VFUXLtHjtTL8qgIOOfv82OCyLpIlCDAMuUaW7tHIFP3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IxnuTL34; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791528900; c=relaxed/simple;
+	bh=ILuCokIxhjgFEGLYPM/TeMEksKee1lLkjsO0oQ//a9o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lDlldudg040nPz/G9K/z/DcCUuFWOvvtZhlISWqG+lbF7POM+T5oFI7HkZlKsw//Yfr5p5wCMFJbtp4rugVQBuwgBCRQyTk7CTSwwjBoZbKu6ZT/qq+Wv3VFr6u+x1TDZpPEi8oCqfexiqufH0vzOMA1YrRVIHpiGpVz50wwWgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I5YwAWU1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IxnuTL34"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791528887;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mGtogbUw0+ydyvkT1lLcqH/0z21aOLmaGzw5Bo0Tx8E=;
-	b=IxnuTL34fST3xDTYboW9wKveXtNq0UqT9nvc3lKK5BNcuaJ5Vr9yH6aBejiEioCei40WSk
-	kzQnyQ/HHwoSHx3rh2ER52fREnZhAUBC34ap8R8zcXLc73Cw9sZ57+GAUK/17jK1PjVQRa
-	Ydehs9HHXfrlVOxQjW280p0gBIFs3bo=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-173-WjyuIJHYNqyTNhaxkGxXrw-1; Fri,
- 9 Oct 2026 06:54:44 +0000
-X-MC-Unique: WjyuIJHYNqyTNhaxkGxXrw-1
-X-Mimecast-MFC-AGG-ID: WjyuIJHYNqyTNhaxkGxXrw_1791528883
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 966FD18000A2;
-	Fri,  9 Oct 2026 06:54:42 +0000 (UTC)
-Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id DF56F1956095;
-	Fri,  9 Oct 2026 06:54:39 +0000 (UTC)
-From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-To: herbert@gondor.apana.org.au,
-	davem@davemloft.net,
-	johannes@sipsolutions.net,
-	miriam.rachel.korenblit@intel.com
-Cc: ilan.peer@intel.com,
-	emmanuel.grumbach@intel.com,
-	linux-crypto@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-Subject: [PATCH v3 4/4] wifi: iwlwifi: reduce encryption error message to debug level in FIPS mode
-Date: Fri,  9 Oct 2026 08:54:13 +0200
-Message-ID: <20261009065413.53403-5-jtornosm@redhat.com>
-In-Reply-To: <20261009065413.53403-1-jtornosm@redhat.com>
-References: <20261009065413.53403-1-jtornosm@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I5YwAWU1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3320B1F000FF;
+	Fri,  9 Oct 2026 06:54:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791528899;
+	bh=AR398fhy9TjnjNZ1NMF50jru828P2UiK8ey/AdhygWU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=I5YwAWU17wxJmRy42kBK/SGhCznn5XhY+MNvw9aYucegmKdWQr6FMcn5b5oVS0IHi
+	 7EMWhXIaMhh0kOa9l4rgt+ca2B8iU2eP6w50PCy3u7GS3nlR7gXknwjlb/635Tu3q4
+	 SKGGodtCUkpmoUJvoZ3yRRO/lUSTyCStKLY7ZPVBfKOPMHXBMinXdPAy0LeA5a58Ak
+	 /Zl8sqKmr7So8YxwB7cGo92MWP3fI2hYL+/HwRowQUXBCk7MMgf8u8N67TKSu2CT1G
+	 TIZa8p8fdPfQzMZQe+57QuV+D0B/hud09Zxl1A2v00QTRblfSCXMseEJdw+pyjfYsm
+	 OWRUaARdgamkQ==
+Date: Thu, 8 Oct 2026 23:54:58 -0700
+From: Kees Cook <kees@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Nicolas Schier <nsc@kernel.org>, Julian Braha <julianbraha@gmail.com>,
+	Lorenzo Stoakes <ljs@kernel.org>, linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] kconfig: Improve ergonomics around disabling
+ warnings with cc-option
+Message-ID: <202610082354.46E0A9A41@keescook>
+References: <20261007-scripts-kconfig-toolchain-improvements-v1-0-1e524178da11@kernel.org>
+ <20261007-scripts-kconfig-toolchain-improvements-v1-2-1e524178da11@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007-scripts-kconfig-toolchain-improvements-v1-2-1e524178da11@kernel.org>
 
-In FIPS mode, the firmware may report
-RX_MPDU_RES_STATUS_SEC_ENC_ERR (0x707) for frames received
-before keys are installed. This triggers the warning:
-  "iwlwifi: Unhandled alg: 0x707"
+On Wed, Oct 07, 2026 at 05:22:22PM +0200, Nathan Chancellor wrote:
+> This is essentially a port of commit 550ccb178de2 ("Make 'cc-option'
+> work correctly for the -Wno-xyzzy pattern") to scripts/Kconfig.include,
+> which simplifies the definition of many of the newly added CC_OPT_WNO_
+> symbols in scripts/Kconfig.toolchain and matches cc-option's behavior in
+> Kbuild.
+> 
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+> ---
+>  scripts/Kconfig.include   |  2 +-
+>  scripts/Kconfig.toolchain | 18 +++++++++---------
+>  2 files changed, 10 insertions(+), 10 deletions(-)
+> 
+> diff --git a/scripts/Kconfig.include b/scripts/Kconfig.include
+> index 622d21e6953f..a7d9201acfcc 100644
+> --- a/scripts/Kconfig.include
+> +++ b/scripts/Kconfig.include
+> @@ -26,7 +26,7 @@ failure = $(if-success,$(1),n,y)
+>  # $(cc-probe,<flag>)
+>  # The command $(cc-option) and $(cc-option-str) test <flag> with. Not meant
+>  # to be called directly; use one of those two instead.
+> -cc-probe = trap "rm -rf .tmp_$$" EXIT; mkdir .tmp_$$; $(CC) -Werror $(CLANG_FLAGS) $(1) -c -x c /dev/null -o .tmp_$$/tmp.o
+> +cc-probe = trap "rm -rf .tmp_$$" EXIT; mkdir .tmp_$$; $(CC) -Werror $(CLANG_FLAGS) $(shell,echo $(1) | sed "s;^-Wno-;-W;") -c -x c /dev/null -o .tmp_$$/tmp.o
 
-This is expected behavior -- mac80211 software crypto handles
-decryption on the host CPU. Reduce the message from IWL_WARN to
-IWL_DEBUG_RX in FIPS mode to avoid false-positive warnings
-during normal operation, while preserving warnings for actual
-unexpected conditions.
+Nice! Yeah, good cleanup.
 
-Signed-off-by: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
----
-v3: No modification
-v2: https://lore.kernel.org/all/20260930120829.383408-6-jtornosm@redhat.com/
+Reviewed-by: Kees Cook <kees@kernel.org>
 
- drivers/net/wireless/intel/iwlwifi/mvm/rxmq.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/rxmq.c b/drivers/net/wireless/intel/iwlwifi/mvm/rxmq.c
-index 1ebca0323a89..e59876b7a1fa 100644
---- a/drivers/net/wireless/intel/iwlwifi/mvm/rxmq.c
-+++ b/drivers/net/wireless/intel/iwlwifi/mvm/rxmq.c
-@@ -496,6 +496,14 @@ static int iwl_mvm_rx_crypto(struct iwl_mvm *mvm, struct ieee80211_sta *sta,
- 		return 0;
- 	case RX_MPDU_RES_STATUS_SEC_CMAC_GMAC_ENC:
- 		break;
-+	case RX_MPDU_RES_STATUS_SEC_ENC_ERR:
-+		if (fips_enabled) {
-+			IWL_DEBUG_RX(mvm,
-+				     "FIPS mode: firmware cannot decrypt, status: 0x%x\n",
-+				     status);
-+			break;
-+		}
-+		fallthrough;
- 	default:
- 		/*
- 		 * Sometimes we can get frames that were not decrypted
 -- 
-2.55.0
-
+Kees Cook
