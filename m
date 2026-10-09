@@ -1,110 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-68.mta0.migadu.com [91.218.175.68])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BB4044CF2F;
-	Fri,  9 Oct 2026 06:36:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB54A44CF29
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 06:36:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.68
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791527771; cv=none; b=h/bOPwVE+3duCY9S0wZwr5mZmLpzu+BKC29HkbwxCwsdscYLzgXn6RTafHuvFWPO4RCJB/69MoPFIvOilFtKlu4Dsvd4dPvn7pyZIUzHAp1fe1ChHbPmQYIE60GCBEGIYhyNuV/Ytt8I5EBX8+FizHhczaWKi6jSjBCX7S6gSR4=
+	t=1791527777; cv=none; b=k54NTDv8TYhsL13uSCMjs+R6ymSMhdos1Bn64TL7D83YLp5F0nQY2v4MSqFlX9diRwxtQ82Djs8udUy+fpewo7RkSGIH6qX6B5jfXLXE97m0jEjP8HKl6YIjbuOwZBEaumlkN9U7cUkjNbmGtDFFHQFsfBDkOF72V0ylqoIRczM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791527771; c=relaxed/simple;
-	bh=T/J4o4hDhA5TsOsEhsAJsZ6CJlOmR8oD1UmQSr37A/g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=L/XXsbZsaszgg/5u7axotxZ9XbXsy+fD2FZw8v24ijls2u+xyqthEH2anY5jIlPWkD3yChNu0vg9NQnjiZEMTv00ABjhYsxZupXbk1k6iS4eQzI39HvaRZW2FcbZXtrYD4CkRjCO9ALnxg/1rEJkmuIOQiqbEcGyvdzPqTKwUNk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=adm/PXte; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791527777; c=relaxed/simple;
+	bh=Uktr6zhQvbp9EzuGh+m96ZQeOR2JVBFEMc1HzncifB8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=FvzMxv+1f+c31SZ9BZzUEEeRQyj/HfS07zw7GUrRTGIgXBKm5nqgkBrfFdk1SSu4SO4fHDpcytN6/2gZO42zqS/x6hBxoetNzt7TJvnRIVhfn+gLfVXuootJDOXnYKw/HPzXqse0+HxRUw8FHVHbHgdlE4itmuzNRJ1dEGNwY9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wUF7oPFp; arc=none smtp.client-ip=91.218.175.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="adm/PXte"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E7D51F000FF;
-	Fri,  9 Oct 2026 06:36:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791527770;
-	bh=gDpTPyFrfxPK/Uf/lFR6lzmG1KtMFb1k0z6iyA57/Qk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=adm/PXteCoY9Ji6saNhj4L6Dqguia+KG2/3Nr+/ar0UHgfEYUz2BGq6wjJLDGi6F3
-	 liU8vicxy2gTOqC4yZ0W5OeGkkJJC0uPn5qOX1/HqutbBsxs3TigwAPxmIwOJzmQ6t
-	 nJ9Sn5WzLPXhkmfTQBgZ7He7WVdlb0idBiQIE27jcKbGTZ9QE5yYOtgsUds+hBZGoK
-	 bGoPuCSWqujD6cXwPoHslFO++VzLMCWxK29x5mF0jrnvRXkWgGGVihOsEr+E4lhcXg
-	 76j+4XTX5LIPQ0B539LHeDrjQVMAD9e+yoPSzyE0uAxVqGBjuhgxQ2a9XcsGNk7BLn
-	 iGbpxQ869yG5w==
-Date: Thu, 8 Oct 2026 23:36:09 -0700
-From: Kees Cook <kees@kernel.org>
-To: Harry Yoo <harry@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wUF7oPFp"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Uktr6zhQvbp9EzuGh+m96ZQeOR2JVBFEMc1HzncifB8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791527772; v=1; x=1792132572;
+ b=wUF7oPFpMxyb4WpP6gRGR2ODKxA4RCeg9jwOTOi6WMPnkH9gp2nR2OHzxf9yxdUUVabYWj8T
+ PChLgYuIGSQchfZkTY2JDVX9K9fuaNFisFm791z5P7daE186kchH8FQWO/v5ojfRpcdcXl4knpn
+ YqmqF3/ASrow1ab8I4TUVW9A=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 540e04d12dbe99da;
+	Fri, 09 Oct 2026 06:36:12 +0000
+X-Mizu-Trace-ID: 540e04d12dbe99da
+X-Migadu-Flow: FLOW_OUT
+From: Hao Ge <hao.ge@linux.dev>
+To: Suren Baghdasaryan <surenb@google.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexander Potapenko <glider@google.com>,
+	Marco Elver <elver@google.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
-	David Rientjes <rientjes@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Willem de Bruijn <willemb@google.com>,
-	Jason Xing <kerneljasonxing@gmail.com>, cgroups@vger.kernel.org,
-	netdev@vger.kernel.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH net-next v6 0/8] net: skb: isolate skb data area
- allocations into a separate bucket
-Message-ID: <202610082331.853F0CBBA@keescook>
-References: <20261006092030.got.500-kees@kernel.org>
- <asgAh4mrr_yd622U@thinkpad>
+	Dennis Zhou <dennis@kernel.org>,
+	Tejun Heo <tj@kernel.org>,
+	Christoph Lameter <cl@gentwo.org>,
+	Uladzislau Rezki <urezki@gmail.com>
+Cc: Hao Ge <hao.ge@linux.dev>,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	kasan-dev@googlegroups.com,
+	linux-mm@kvack.org
+Subject: [RFC PATCH 3/4] powerpc: drop redundant unmaps of failed vmap mappings
+Date: Fri,  9 Oct 2026 14:36:18 +0800
+Message-Id: <20261009063619.112313-4-hao.ge@linux.dev>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261009063619.112313-1-hao.ge@linux.dev>
+References: <20261009063619.112313-1-hao.ge@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asgAh4mrr_yd622U@thinkpad>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 08, 2026 at 11:25:13PM +0200, Harry Yoo wrote:
-> On Tue, Oct 06, 2026 at 02:20:26AM -0700, Kees Cook wrote:
-> > Hi!
-> 
-> Hi Kees!
-> 
-> Was hoping to say hi to you at LPC but I missed the chance ;)
-> Maybe next time. Safe travels!
+vmap_page_range() and ioremap_page_range() clear the PTEs they
+installed when they fail, so the vunmap_range() in remap_isa_base()
+and ioremap_phb() has nothing left to remove.
 
-Hi! Yes, I kept trying to find you and Vlastimil but it never worked out.
-LPC is a non-stop hallway track usually. :) I will try again next year!
+Signed-off-by: Hao Ge <hao.ge@linux.dev>
+---
+ arch/powerpc/kernel/isa-bridge.c | 5 ++---
+ arch/powerpc/kernel/pci_64.c     | 4 +---
+ 2 files changed, 3 insertions(+), 6 deletions(-)
 
-> > So v6 goes back to mirroring the kmalloc cache's alignment,
-> 
-> I might be missing something, but why is that a problem?
-> 
-> For kmem_buckets users, the reason* to specify alignment is because
-> they might need less strict alignment than kmalloc.
-> 
-> (*Perhaps it's nice to document that in the comment)
-> 
-> However, because kmem_buckets can fall back to kmalloc on e.g. kernels
-> w/o CONFIG_SLAB_BUCKETS, it should be fine to fall back. No?
-> 
-> Creating kmem_buckets with more strict alignment than
-> kmalloc doesn't make sense. 
-> 
-> > and drops the ctor and flags arguments for the same reason.
-> 
-> Uh, for ctor and flags, yes. We can't have them in kmem_buckets.
-
-Yeah, and given that these two, I'd just prefer to keep it a direct
-mirror for alignment too and not allow for any configurability here:
-they are supposed to be direct stand-ins for the general cache.
-
-> Going thorough slab/for-next sounds reasonable to me once it gets
-> some reviews.
-
-Thanks!
-
--Kees
-
+diff --git a/arch/powerpc/kernel/isa-bridge.c b/arch/powerpc/kernel/isa-bridge.c
+index 5c064485197a..93029d85e6ea 100644
+--- a/arch/powerpc/kernel/isa-bridge.c
++++ b/arch/powerpc/kernel/isa-bridge.c
+@@ -46,9 +46,8 @@ static void remap_isa_base(phys_addr_t pa, unsigned long size)
+ 	WARN_ON_ONCE(size & ~PAGE_MASK);
+ 
+ 	if (slab_is_available()) {
+-		if (vmap_page_range(ISA_IO_BASE, ISA_IO_BASE + size, pa,
+-				    pgprot_noncached(PAGE_KERNEL)))
+-			vunmap_range(ISA_IO_BASE, ISA_IO_BASE + size);
++		vmap_page_range(ISA_IO_BASE, ISA_IO_BASE + size, pa,
++				pgprot_noncached(PAGE_KERNEL));
+ 	} else {
+ 		early_ioremap_range(ISA_IO_BASE, pa, size,
+ 				pgprot_noncached(PAGE_KERNEL));
+diff --git a/arch/powerpc/kernel/pci_64.c b/arch/powerpc/kernel/pci_64.c
+index e27342ef128b..f74269636d5e 100644
+--- a/arch/powerpc/kernel/pci_64.c
++++ b/arch/powerpc/kernel/pci_64.c
+@@ -139,10 +139,8 @@ void __iomem *ioremap_phb(phys_addr_t paddr, unsigned long size)
+ 
+ 	addr = (unsigned long)area->addr;
+ 	if (ioremap_page_range(addr, addr + size, paddr,
+-			pgprot_noncached(PAGE_KERNEL))) {
+-		vunmap_range(addr, addr + size);
++			pgprot_noncached(PAGE_KERNEL)))
+ 		return NULL;
+-	}
+ 
+ 	return (void __iomem *)addr;
+ }
 -- 
-Kees Cook
+2.25.1
+
