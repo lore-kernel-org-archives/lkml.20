@@ -1,125 +1,115 @@
-Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFDF254704F
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 00:02:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791590537; cv=pass; b=bcpXHpDjdOZ2AV6bAUVQyk8ZV9RYIIZIP5Pg3tD1n56hc54D1rjc5rkk9lm1GRN8fU0JELB9EEKh6tXmk3iTxm7MQpqH6lRAdAZa2jEIaNQh3C6tGb2Olyg56K8csfksQjDIgybKHO6xYFBDIgmoCPUa0+oUgkoS6t41ud3CB00=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791590537; c=relaxed/simple;
-	bh=hXTeWRoHLQjJuetkdFQnlbxkl4pZIcomCQcGCLyZ9N8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZypEw6anwZGlf+3bz43M53S+lJHn1vvO7myJvLwX/x6tCs08BPV5ub4eRU4rzm09hsYO+OIybEgo4bEy4bKWkxyyrM4Oo8RRKBHbY8E9b3WUIvnpHhlK9WiuoBtew2oaZEbaK+zWiFXuALK47BSN7KpFyGLE/bjcRDl0BBjf0Z0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XQ2IcHlC; arc=pass smtp.client-ip=74.125.224.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A0AF182D6
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 00:04:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791590660; cv=none; b=lGENT16Bw0nXaDG8MNs4O6Si0B4k/jg6JWErf35yiygPI+jxj9630vf5uAkXuyIUTTLhofb1Kmp5vg6yHajz7383BzWLhZn8Q10zlRtuGI/20l0hU4ieg16zJpTZzCYLJySsLKSx1GPqss4tkruFcUDbhUFK+PA5+PEhP5Xxpio=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791590660; c=relaxed/simple;
+	bh=f/CIerXHKQFTESvVloEKwCY8lnOfc/62FyY96B44uHo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IQsZGDPle9XsZVyNf3D1XSzRoinGFmM7qdReKA4L8me83e/WDbEH79ig+Uv68qZs+Gdsr2PO8JjR+p2WLdRZr5u1653ya81uuDyD+gAfGLpbnc350CCyNFt4hSPvTOIqMuOKcNoNrZtQ3O71l54Zz3HkoyYML+zMfpxtyEGhME4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Snrx+lw3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XQ2IcHlC"
-Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-6711f05fb14so174462d50.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 17:02:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791590535; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gkfj6qjbOuzQx4arBuN4jqUKj939jQ5C/ZpYW7L3TofxiFf2l1ZvfmzBfakpXrSpk2
-         I+wjPFQ9VbWtLsVLc0p8OlsQAU4XN+GpnCcItNqP1yO6mHxhYa1yLeHhwUhx8rDG5WBK
-         f4y1NBnB2nwkxaFBrGGNZ/fC7qgONM3kswgkfGzlDzgLca9zyHFd9l4n3ch/6Xg8w1zG
-         Qmq0Fr/PLW/9BFiODJMc96UssgGVcZRwFNw01xrcT0KYwUBk/d5PG5wBbvrmj7DU73Un
-         nhmi1E7+C/uo+10OTw/ZcvjmeS408pDNJO3nnfrmNJZquyDUmxsXAc/9NfMtg/MWDjl9
-         Nqjw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=I99AZGsC3feH3Hx+ZXc5ABTbclG1gdclkr+/K7Qjuzk=;
-        fh=GLAi+POHxD6UVIhS7nX07cZ4CsD+uqb/IxQwhhXCRls=;
-        b=k2QaftL2ZEzU7nGf7jNeTchtMoiXX79OWt1au1Njc1+XlTDBFsf0wgLGQmosVaL36f
-         lz5URJjwvc80SzhPrKeEmAZ7rFemaOcyXvHc9mSaWdFHKrAvc2rXgaIfT2u/7catmVyP
-         TtvzykWQ5d3hmU2OR+1crsY/2bLEc6MYKAM6Ayy+EzDV5/+CpXHf8ZGjpNvplsynEpi/
-         iCwbh0ayPKdmiUAO5HGK7U6xriWw1XqRFTWdlrSgCeA7FrM7j7ciZNebeMxADn/Adz50
-         dOzFeZ7C/ZGVCqyGf9ZWjflDhzGVvOqrkiVIiAp0Fo+qptbADuqIQZLCpA0eVEEEpXs4
-         1NVg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791590535; x=1792195335; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=I99AZGsC3feH3Hx+ZXc5ABTbclG1gdclkr+/K7Qjuzk=;
-        b=XQ2IcHlCzUGoI+aHVwATlYqWC22g/E16vEgE9jVggPlosc1/WaKPU3aBwcaInbIyLe
-         oEH+JXWYHoV75gE0ebBQIqTLKM1dd9H0Lm3eHuJS9OREGh2WOFarYHFqhvJemf9+12/a
-         EOxXe++WPW6R8R1kttzjJoIYLYUOoFCLYgwEqxW0y7CBuPaL74tO87GtNkEjNOvFTrpr
-         KmqpO2pwarlXyh14MC+6ptPvBfbEI4GI85ccVRkemDszgqyUhVoz6tlicEUVOx44xH/L
-         N2e9UhUSep6ru55kk8F8LQs7LZLL6qbuUmr/2bSRWzlIek53QzgihMji/Oi/no+8o1TF
-         zPbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791590535; x=1792195335;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=I99AZGsC3feH3Hx+ZXc5ABTbclG1gdclkr+/K7Qjuzk=;
-        b=m0ZMlpfecZHYoOn6tC/dm8Jy6uCV+27kifjheObcKid0JRN4JqHYtQMg6XhphC9piw
-         OEwCIh2uGfUe7CVw5Drhx/YsGqxWRQjmVLOQ7/uhw5DsnxgoehobLZ+77SCA9YwKOA9Z
-         jEW3e/3nO/GK7TI6IbaYLkasm+RdrlzB1hL2RHoE3O4/GuUyjIfkNVcoWsYlnJdUr0qY
-         iAZUuHeNyaClQPfcyQX4VyrdoFzrh241N62N1ua5a+iWmDTg7QYBDq8Yb+0bYOsiAP1m
-         z1o13pVwKwhwc5OPzk6TCUM/q1/6Igbgs6RDutMeHL0XOrtu7VlrySK52OfIhp86cfQ7
-         PVVA==
-X-Forwarded-Encrypted: i=1; AKwUvBxTkOcuHIBGBfD9vuuM4F1xJGlrvqeEvOhUd/S4NXH6IY7rt6mWzSksogBZKOmcDz8op0eZzOPa9Ff5u5o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ1ru/snA9vHjZeB1LaASWhDeDuTRbKB6g64tH6Oljbe0Sjsa+w
-	R8F/rXxBVuuNoLo91XDDVdQSrNzUxxZJvULbcK10Trg7xR1QvXhOJbmRKjK6JMoDY1AeajZXzGo
-	G6ouZK5RpcgwrL4rdEBr76c4yc3s7QT0=
-X-Gm-Gg: AYBFou2QV9S3BVn1fkBEr60SCAF203E38Yo9I/DeZRhfFu0cOwrzUt92s0tTWtlEWG/
-	uOUGNgbGqWrgPAJ/SUJmFb9WWQzxJ0Er5WqZorSY0cCQODPArhWlenGHOL4a5rv8bG+sY8Zyen0
-	hZt+wi2pwf2LkKw0fTxYs0jvweBCzcM/k1UQXcjszB+ZRVEhZKpLnrtYQPRHz1SHfAiLa8W9xae
-	0bEsgqTgyHTWkAQsCavX0nCM9sxZozyIkz+jNLNSPq4h9rpK+zqJMNgaOLvFEwB17EZzBoHjoOp
-	Wmg5VbqRQ4lIRQPEHLQZCoHYFbph0fr8wihPdoOKtgJiZ+twrBitE5QqiDKuRySyA8OMKl0IoGL
-	qFdHPw7Iq
-X-Received: by 2002:a05:690e:bc9:b0:677:c43e:c81b with SMTP id
- 956f58d0204a3-67936059eeamr1294555d50.59.1791590534633; Fri, 09 Oct 2026
- 17:02:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Snrx+lw3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E9421F000FF;
+	Sat, 10 Oct 2026 00:04:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791590658;
+	bh=NFvj71R+I3vUUj1f/B2usaeSFh/yQzsOo/5M2fDlCjM=;
+	h=From:To:Cc:Subject:Date;
+	b=Snrx+lw3mk8ALrVcHbk095e3kJ2a5vI0eBAI5Em7TH5cJN092h8reP89wnij3dU3K
+	 Lz1ikSFhjjTLr/XHZSsxiMZkadI4tP2OMJjRzwN2qXxUiNcgpl6drKwFoiTk9z/pRz
+	 kX4HwTNYX+7dBGLH6NYgwSsVACPhkEKIZRqKXBuU5N4mt88LEtUhoJhFjbI3mREa8+
+	 koFqGGWDX4DoOFV4S8jdQC0zADsg4AS62Od2lDNR4TAurhP+Za4gYL6l5FY+Bc8A6U
+	 Z+aU82jUBVjnRqiOdRMviO5OPayglWkwtnRd1BmA9KlmcFn2LpXj7OlCC2jgcUIRHt
+	 2frbv5b6emnGw==
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5 0/3] riscv: word-at-a-time: improve find_zero()
+Date: Sat, 10 Oct 2026 07:44:17 +0800
+Message-ID: <20261009234420.29425-1-jszhang@kernel.org>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261007-b4-landlock-fix-domain-fortify-panic-v1-1-042e9108f5f8@oss.qualcomm.com>
- <CAKwvOd=nPgEm=AZbEu12Eb90GtRUThY6YAjSiHHuNVHP8TZHwg@mail.gmail.com>
- <66usntltyie7ii2rrqajy3izxrvwubwf2vqnery552v3akhwo2@xwb4t76d37wx>
- <CAKwvOd=E7wgGPf+kgOY8sGi0xO-cFMAJK4PMBFknoEupJi1CXw@mail.gmail.com>
- <20261009204554.GA778522@ax162> <EF8E7F67-39BF-4382-AB18-98E9D6111CA5@kernel.org>
-In-Reply-To: <EF8E7F67-39BF-4382-AB18-98E9D6111CA5@kernel.org>
-From: Michael Bommarito <michael.bommarito@gmail.com>
-Date: Fri, 9 Oct 2026 20:02:02 -0400
-X-Gm-Features: AclHuK8tNFqb0iNpuhNaBpJsUFdnB_vd8X2cSDcjR__CA8pNTmkEAbFNAUmPMiA
-Message-ID: <CAJJ9bXzLgzZG+836_2+pUVOWzndSFNoOh8Xu8Pw++_i1RMJzOg@mail.gmail.com>
-Subject: Re: [PATCH] landlock: Move the domain layer counter out of the
- anonymous union
-To: Kees Cook <kees@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Abel Vesa <abel.vesa@oss.qualcomm.com>, Bill Wendling <morbo@google.com>, 
-	Tingmao Wang <m@maowtm.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
-	Justin Stitt <justinstitt@google.com>, linux-security-module@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	llvm@lists.linux.dev, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 9, 2026 at 7:52=E2=80=AFPM Kees Cook <kees@kernel.org> wrote:
-> I'm still catching up from travel, so apologies if this already got check=
-ed, but has this been verified against GCC as well? Is it only a Clang prob=
-lem?
->
-> Regardless, if counted_by is not working for a given compiler version we'=
-ll need to exclude its use by version. :(
+Currently, there are two problems with riscv find_zero():
 
-It is only clang, not gcc.  See my comparison between gcc 15 and clang
-21.1.8 output in [1].  I didn't test clang
- 20 or 23 like Abel did, but it seems like we can't gate on any
-available clang version.
+1. When !RISCV_ISA_ZBB, the generic fls64() bring non-optimal code.
 
-[1] https://github.com/llvm/llvm-project/pull/228309#issuecomment-608047508=
-6
+But in word-at-a-time case, we don't have to go with fls64() code path,
+instead, we can fallback to the generic word-at-a-time implementaion.
 
-Thanks,
-Mike
+What's more, the fls64() brings non-necessary zero bits couting for
+RV32. In fact, fls() is enough.
+
+2. Similar as 1, the generic fls64() also brings non-optimal code when
+RISCV_ISA_ZBB=y but HW doesn't support Zbb.
+
+So this series tries to improve find_zero() by falling back to generic
+word-at-a-time implementaion where necessary. We dramatically reduce
+the instructions of find_zero() from 33 to 8! Also testing with the
+micro-benchamrk in patch1 shows that the performance is improved by
+about 1150%!
+
+After that, we improve find_zero() for Zbb further by applying similar
+optimization as Linus did in commit f915a3e5b018 ("arm64:
+word-at-a-time: improve byte count calculations for LE"), so that
+we share the similar improvements:
+
+"The difference between the old and the new implementation is that
+"count_zero()" ends up scheduling better because it is being done on a
+value that is available earlier (before the final mask).
+
+But more importantly, it can be implemented without the insane semantics
+of the standard bit finding helpers that have the off-by-one issue and
+have to special-case the zero mask situation."
+
+On RV64 w/ Zbb, the new "find_zero()" ends up just "ctz" plus the shift
+right that then ends up being subsumed by the "add to final length".
+Reduce the total instructions from 7 to 3!
+
+But I have no HW platform which supports Zbb, so I can't get the
+performance improvement numbers by the last patch, only built and
+tested the patch on QEMU.
+
+Since v4:
+  - fix commit msg of patch1
+  - collect Reviewed-by tag
+
+Since v3:
+  - fold part of patch2 into patch1 and make the RV32 improvement
+    as patch2.
+
+Since v2:
+  - fix wrong version(PATCH vs "PATCH v2" in cover letter)
+
+Since v1:
+  - rebase on the latest rc1
+  - Use if (IS_ENABLED(CONFIG_RISCV_ISA_ZBB) && IS_ENABLED(CONFIG_TOOLCHAIN_HAS_ZBB) &&
+	    riscv_has_extension_likely(RISCV_ISA_EXT_ZBB))
+
+
+Jisheng Zhang (3):
+  riscv: word-at-a-time: improve find_zero() for !RISCV_ISA_ZBB or no
+    Zbb
+  riscv: word-at-a-time: improve find_zero() for RV32
+  riscv: word-at-a-time: improve find_zero() for Zbb
+
+ arch/riscv/include/asm/word-at-a-time.h | 46 +++++++++++++++++++++++--
+ 1 file changed, 43 insertions(+), 3 deletions(-)
+
+-- 
+2.51.0
+
