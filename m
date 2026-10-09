@@ -1,208 +1,141 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C4FC43F4AD;
-	Fri,  9 Oct 2026 12:59:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 328D22931F7;
+	Fri,  9 Oct 2026 13:01:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791550754; cv=none; b=MZPxA+2MwEcTLkeyi9f9Lj5OzP/IiZE+SY7xq2/9wYmlrCXGT+Nh//cLTkKzlEaIU3/lnmmyJzF7V1i8+bg81HpR5rtQVCw1gv1xyAR+DvA7hfrvshSKrtg5FdZImw63/Ok0Qt3WJkU5OuKFMt9k8/nk2IZXR4CavV39gHPLMHQ=
+	t=1791550900; cv=none; b=EGAmE4Rv/fm32t/d0AEnoDztic+9bhknDGg8YXOcWi8sv2qbsmdAsz+Tk2b+ClUEMU7SeAkINLZJvZd/cz4ff82ZzmK3vSR4T7G8AF+8aVVjh3x+eUeglnE4mSMex4NiWo/ywyWSiL0LevIWpteenJYR+bTmiT8i60KZcV3sn1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791550754; c=relaxed/simple;
-	bh=O3HPNiC/H6q/R/UqjxAM9mOq/yQeP0MwgcnJdZbOPAM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KDQ28bKEPE2nHS8tBkQLVNBYn6WtIwG8eCut24dPPGn4fHxnSGwN3PmxfhRG1uO7LFOdhTAo5MkR3Qoff9n3UrR5NpJ5DjNYQmXFkg5D0va+xU7tIhj8jWGrqa8RRjy7afyruoO/v7nef9025ktODGYrHM/v+XDaRV+TK/sekL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=oSNwUpTQ; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=hcfEm8Bl; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1791550900; c=relaxed/simple;
+	bh=Yr0csg8n11gSHouKR25AWi4XRz98sjteLRNEiNNgFHE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NXCiY11Z196ZD382ymYLh1qL2ufTBehh+RVB0Kr3DoXbskiEdx8zRa0NfE7CgpmNdbpvGl+mMfZoCw1Vkl15t+DCn+beu0TFcZMdE9qrTvKqLiRFrRdDFX6ZfSXG26HA5axEEEBl0ZaWKamXKvAIROos1sxaslKTY7wIPvBUAqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=QiaEZSoU; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="oSNwUpTQ";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="hcfEm8Bl"
-Date: Fri, 9 Oct 2026 14:59:07 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1791550749;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YA/AaboNi3kj/HKsO3IF65GjFnmZrdFwxRX2y8NDDDE=;
-	b=oSNwUpTQCVH7lrBBlsXlbo6wu8uh5vxiFD0ugQxgpbcjgI4MHMFcg0nfz5D3WfwnXSfl8U
-	iFRwZRUqBa+zo3Xgr8frX7CwmM/r+/8BXC/Ly254lRkGTDgkAXGReAclormUmKKc0bmm+B
-	s0M3Uh4RWxtSCH/fKUBCc2uyMxWqdQXcjYroWvpOr8K520KICkbMfoUlw3IMYKvQdDPbrY
-	pYuKyzrn6Wits7gKs+XyI7LlVWGReOIEpYVN/bqL/zz1x8oVcKaTx41WJonaWOCnZxY/qe
-	iL0i8DO9qiU9EFZ/+i8dx9LEN9RqX3VW3ZSuS48tfQaYsI5HJ+FibTugxoZIIA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1791550749;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YA/AaboNi3kj/HKsO3IF65GjFnmZrdFwxRX2y8NDDDE=;
-	b=hcfEm8Bl+gLQPrLfwcEeghv7JRQ93mE/jxF6KBkPb1T7jwOfc66S3dNdIV1f9gz1VySvkq
-	9oEiFCCQczkVaEDg==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Petr Mladek <pmladek@suse.com>
-Cc: John Ogness <john.ogness@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Christian Brauner <brauner@kernel.org>, oe-lkp@lists.linux.dev,
-	lkp@intel.com, linux-serial@vger.kernel.org, oliver.sang@intel.com,
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="QiaEZSoU"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D2DBB1D14;
+	Fri,  9 Oct 2026 06:01:32 -0700 (PDT)
+Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 16E293F66F;
+	Fri,  9 Oct 2026 06:01:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791550896; bh=Yr0csg8n11gSHouKR25AWi4XRz98sjteLRNEiNNgFHE=;
+	h=From:To:Cc:Subject:Date:From;
+	b=QiaEZSoUY3bacjAXWE8bvvHJR1nA7UlDRrWbL1smyctutQkasEHvSwcS63RvYiaxm
+	 2ktEh2CIGkVHlTOX5NJZnySVUDB3Ty5lORy7x9K3QAp8H5x5f9gc6Ni+mzurGr8D6K
+	 /P5q8L3qAQ0G6rfA2jVNoUqGD9BW/grWDcSGbzk4=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Shuah Khan <shuah@kernel.org>,
+	David Matlack <dmatlack@google.com>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Oliver Upton <oupton@kernel.org>,
+	Leonardo Bras <leo.bras@arm.com>,
+	Ackerley Tng <ackerleytng@google.com>,
+	Josh Hilke <jrhilke@google.com>,
+	Wu Fei <wu.fei9@sanechips.com.cn>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>
+Cc: kvm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] nbcon/reboot: Flush nbcon consoles synchronously on
- reboot
-Message-ID: <20261009125907.SvaRdfv6@linutronix.de>
-References: <20261008150852.8286-1-pmladek@suse.com>
- <20261009065152.udyfFRHx@linutronix.de>
- <asiu8orjDvRJMKuX@pathway.suse.cz>
+Subject: [PATCH v2 0/5] KVM: selftests: Add support for dirty-ring on dirty_log_perf_test
+Date: Fri,  9 Oct 2026 14:00:45 +0100
+Message-ID: <20261009130054.3312154-2-leo.bras@arm.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <asiu8orjDvRJMKuX@pathway.suse.cz>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3485; i=leo.bras@arm.com; h=from:subject; bh=Yr0csg8n11gSHouKR25AWi4XRz98sjteLRNEiNNgFHE=; b=owGbwMvMwCX2pizjszvTwvWMp9WSGLJOPC28c+XfDqWD71OYOnUk1ne2ley9ob3tvsjxC9O/t 8gV/N/b0FHKwiDGxSArpsgi+2j+Kp7vUzKOXPmxAGYOKxPIEAYuTgGYSPUcRobN3Sbi3Nt3lS2U Pr+k40oZkz/7QftbDiWm51Ze8vX58/IxI8P/xSGinPftNjSy90Qlr5mnNsXkTnHaShH5szueb3N UOM8MAA==
+X-Developer-Key: i=leo.bras@arm.com; a=openpgp; fpr=36E6C95AE0F111CC5B6F4D2E688C33F8A0C5B0C5
+Content-Transfer-Encoding: 8bit
 
-On 2026-10-09 11:08:02 [+0200], Petr Mladek wrote:
-> On Fri 2026-10-09 08:51:52, Sebastian Andrzej Siewior wrote:
-> > On 2026-10-08 17:08:52 [+0200], Petr Mladek wrote:
-> > > NBCON consoles emit messages in a dedicated kthreads when the system
-> > > is working properly. printk() tries to flush them synchronously in
-> > > explicitly marked emergency context and in panic().
-> > > 
-> > > Another situation where printk() could not rely on kthreads are the various
-> > > reboot and halt code paths. They can be detected by the `system_state`
-> > > variable.
-> > > 
-> > > Let's default to NBCON_PRIO_EMERGENCY for the post-running states.
-> > > printk() will automatically try flushing the consoles synchronously.
-> > > Also do not rely on printk() and explicitly flush the consoles
-> > > after these states are set.
-> > 
-> > while this seems okay, didn't we have pr_flush() to flush the output on
-> > shutdown/ reboot?
-> 
-> Good point! We should clean this up.
-> 
-> Anyway, IMHO, we should switch to NBCON_PRIO_EMERGENCY for the post-running
-> states and flush the pending messages immediately. It is more
-> reliable. It is easy to find the locations when system_state() is set.
-> And all follow-up printk() calls will try the direct flush so that
-> they won't rely on an explicit flush.
-> 
-> An ideal solution would be to add an wrapper, e.g.
-> 
-> 	void set_syste_state(enum system_states state)
-> 	{
-> 		system_state = state;
-> 
-> 		if (system_state > SYSTEM_RUNNING)
-> 			pr_flush(0, true);
-> 	}
-> 
-> 
-> Another thing is that printk_trigger_flush() is an overkill.
-> It tries to wake kthreads even via irq_work but we are
-> interested only in the direct flush.
-> 
-> I am not sure why neither me nor John used pr_flush().
-> It might be because it originally did not flush atomic consoles
-> directly. At least I had an outdated mental map.
+Add support to dirty-ring on dirty_log_perf_test, so we can measure
+performance differences when we change / improve the mechanism.
 
-The nbcon should be awake because there is outstanding printing to be
-done as far as I understand. It is just not running or behind. So you
-would need just wait until the thread is done before you continue.
+One big change in this set is that dirty-ring needs to be enabled
+after the VM was created, but before any cpu is created, so for that,
+I made a few changes on memstress so it can actually take dirty-ring
+size as a parameter for VM creation. (Patches #1 & #2)
 
-This pops up now because the 8250 does it via the thread now. If you
-don't have an atomic console implementation but use the thread anyway
-(say the PREEMPT_RT case) then you would end up with the same problem,
-right?
+Also added some checks in dirty-ring enable, so an error message on
+ring size is more informative.
 
-Recently I did play with CPU shutdown and noticed that PREEMPT_RT misses
-an irq_work sync which explained missing printk output. You probably
-recall the printk part of this :)
+Please provide feedback :)
 
-Now that I look more into it, the above with pr_flush() does not work
-because by the time SYSTEM_SUSPEND is assigned it expects interrupts to
-be disabled (or disables them a few lines earlier).
+Thanks!
+Leo
 
-emergency_restart() looks like a bad candidate for a flush.
-kernel_restart_prepare() on the other hand would be good. And there is a
-flush in kernel_power_off().
+Changes since v1: 
+- Converted memstress to take a memstress_params struct instead of a lot of 
+  parameters, so it could be more easily extended in the future (Sean)
+- Moved dirty-ring cap detection to a helper, so it could be used instead 
+  of open-coded options (Sean)
+- Improved the error messages in case the dirty-ring fails to setup, with
+  a more specific message on what went wrong (Sean)
+Link: https://lore.kernel.org/all/20260929113711.2064390-1-leo.bras@arm.com/
 
-In general I would expect sysrq-b to reboot immediately without the
-flush but an ordinary reboot should flush.
+Changes since RFCv4:
+- Series title 
+- Rebase on v7.3-rc5
+Link: https://lore.kernel.org/all/20260729161519.3778839-2-leo.bras@arm.com/
 
-> Also the timeout should not be needed because all consoles should
-> be flushed directly. But it can be solved by using zero timeout.
-> 
-> In fact, we should block the kthreads to prevent seeing more
-> incomplete/interrupted messages, see the commit c41c0ebfa1e0eb
-> ("printk/nbcon: Block printk kthreads when any CPU is in an emergency
-> context"). Something like:
+- Using acquire/release barriers to make sure there is no reorder between
+  incrementing iteration and summing the time spent on cleaning.
+- Improved ring-size checks, although not perfect due to reserved entries
+  affecting minimum size.
+- Do not allocate bitmaps for dirty-ring tests, as they are unused.
+- Improve help text
+- Make sure ret==0 before going back to vcpu_run in dirty-ring case
+Link: https://lore.kernel.org/all/20260708152232.2568907-1-leo.bras@arm.com/
 
-But if we have more than one console and more than one CPU we could let
-them flush in parallel and just wait for them do be done?
+Changes since RFCv2:
+- Added mutex to make sure only a single vcpu is 
+  collecting/cleaning at a time. This gets us the ability to
+  test return values, and not account for kvm.slot_lock waiting time.
+- Stuff reported by Sashiko
+  - Return value always positive, so assert was pointless
+  - Concurrency inflating the time for dirty-ring cleaning
+Link: https://lore.kernel.org/all/20260629105950.1790259-1-leo.bras@arm.com/
 
-> diff --git a/kernel/printk/nbcon.c b/kernel/printk/nbcon.c
-> index d8f8ec836eea..1c21c1e65b00 100644
-> --- a/kernel/printk/nbcon.c
-> +++ b/kernel/printk/nbcon.c
-> @@ -1187,13 +1187,14 @@ static bool nbcon_kthread_should_wakeup(struct console *con, struct nbcon_contex
->  		return true;
->  
->  	/*
-> -	 * Block the kthread when the system is in an emergency or panic mode.
-> -	 * It increases the chance that these contexts would be able to show
-> -	 * the messages directly. And it reduces the risk of interrupted writes
-> -	 * where the context with a higher priority takes over the nbcon console
-> -	 * ownership in the middle of a message.
-> +	 * Block the kthread when the system is in an emergency, going down,
-> +	 * or panic mode. It increases the chance that these contexts would
-> +	 * be able to show the messages directly. And it reduces the risk of
-> +	 * interrupted writes where the context with a higher priority takes
-> +	 * over the nbcon console ownership in the middle of a message.
->  	 */
->  	if (unlikely(atomic_read(&nbcon_cpu_emergency_cnt)) ||
-> +	    unlikely(system_state > SYSTEM_RUNNING) ||
->  	    unlikely(panic_in_progress()))
->  		return false;
->  
-> @@ -1249,10 +1250,12 @@ static int nbcon_kthread_func(void *__console)
->  			return 0;
->  
->  		/*
-> -		 * Block the kthread when the system is in an emergency or panic
-> -		 * mode. See nbcon_kthread_should_wakeup() for more details.
-> +		 * Block the kthread when the system is in an emergency, going
-> +		 * down, or panic mode. See nbcon_kthread_should_wakeup() for
-> +		 * more details.
->  		 */
->  		if (unlikely(atomic_read(&nbcon_cpu_emergency_cnt)) ||
-> +		    unlikely(system_state > SYSTEM_RUNNING) ||
->  		    unlikely(panic_in_progress()))
->  			goto wait_for_event;
->  
-> 
-> But wait, this might cause regression on netconsole which sets
-> CON_NBCON_ATOMIC_UNSAFE and is not able to flush the messages
-> directly a safe way.
+Changes since RFCv1:
+- Stuff reported by Sashiko
+  - Fixed elements / byte size wrapping issue
+  - Removed element count due to concurrency
+  - Testing exit_reason instead of ioctl return value
+  - Some nits
+Link: https://lore.kernel.org/all/20260624171656.1737580-1-leo.bras@arm.com/
 
-same as PREEMPT_RT.
+Leonardo Bras (5):
+  KVM: selftests: memstress: Add struct memstress_params, make
+    memstress_create_vm() use it
+  KVM: selftests: memstress: Add option to enable dirty-ring on VM
+    creation
+  KVM: selftests: Introduce kvm_get_dirty_ring_cap()
+  KVM: selftests: Check dirty-ring size before enabling
+  KVM: selftests: dirty_log_perf_test: Add dirty-ring support
 
-> A possibility would be to use con->write_thread() when pr_flush()
-> is called in task context. It should be safe in most shutdown
-> code paths except for the emergency_restart().
-> 
-> And we need an explicit pr_flush() even later in the halt
-> and maybe even some unsafe flush later in emergency_restart()
-> code path.
-> 
-> Sigh, this is getting complicated.
+ .../testing/selftests/kvm/include/kvm_util.h  |  11 ++
+ .../testing/selftests/kvm/include/memstress.h |  15 +-
+ .../selftests/kvm/access_tracking_perf_test.c |  12 +-
+ .../selftests/kvm/demand_paging_test.c        |  12 +-
+ .../selftests/kvm/dirty_log_perf_test.c       | 140 ++++++++++++++++--
+ tools/testing/selftests/kvm/dirty_log_test.c  |   3 +-
+ tools/testing/selftests/kvm/lib/kvm_util.c    |  20 ++-
+ tools/testing/selftests/kvm/lib/memstress.c   |  68 +++++----
+ .../kvm/memslot_modification_stress_test.c    |  14 +-
+ .../kvm/x86/dirty_log_page_splitting_test.c   |  12 +-
+ 10 files changed, 247 insertions(+), 60 deletions(-)
 
-So maybe just identify the few spots in the reboot case.
 
-> Best Regards,
-> Petr
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+-- 
+2.55.0
 
-Sebastian
