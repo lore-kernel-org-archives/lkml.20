@@ -1,140 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C29B47F797;
-	Fri,  9 Oct 2026 09:08:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AB4A2DF719;
+	Fri,  9 Oct 2026 09:08:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791536910; cv=none; b=e1EXJehjbSKKopEy51/OQLKY9KIA/YHVDJD8Ao34SNL8aAK2rXwbpexZ2dChSmfgBXsCnYHkK2mE6kIFlHDRXzExS4x3ftcbLbX4yWRNO0XJSQEtLdvYLwJYVnlJ1kSb/C8YVdqmdhwLHP45wTnA6v0fh+3z14xdM6S1n71KD0A=
+	t=1791536936; cv=none; b=OSENmdWGvZTZMP6nhas5GNv9Ip6CaKTBUgrIIg9DZJxJs0Kdmhhm8nvJV+bnsJu27nXtfRzmBJbF6ovSc4TVKK9nJas0dZJvIftF8cp/YFJ9BiwfBbdNg8A6OBk4/RXnlEDnAzbgczpbptq5bOsPjfB6x4WXM/ZZlM5IsmrH8No=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791536910; c=relaxed/simple;
-	bh=fnscWvrcAZlzdhwB+Ig824lWGG3qVF7OpaC0fCP4Tks=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=V7q8SkNW9xSF4tfw4WdY6j70CPDbyfyqJ4bTHJorAhZrkT+PcMiAOJs2rZdlepAsTVDjjzrGze6te354AUKcTuG1cyTHTk/nvEXygvQxia+yrvZCvopApZuvzbVYEciOr7IYOYIbup9/yloLyF/8XkyAiGWdvfQC0ByPXW6AFhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IQaq2RW1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791536936; c=relaxed/simple;
+	bh=vQdys6JN84qg0vz5KWOJgWvBl7/qJN+mWAbDcm8siIk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=gb2ubE1tbk3jQLXq9IRkHWy9kVGjEfBugOVwfAiY0wr+kD3IT5hUQF8TcO2YeA9mUgeG9ZfZHoKwsdKTKKA38lvLy8ph4EDKk/x0IidzS6JUCCVnTZPX1K3xJt3+rszrf6cs6FZtRJLO/Lif936CgZOjUdARvRU8rdpiHPazNwY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=h-partners.com; dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b=dfoshPIm; arc=none smtp.client-ip=113.46.200.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=h-partners.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IQaq2RW1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A24F1F000FF;
-	Fri,  9 Oct 2026 09:08:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791536908;
-	bh=lfXpsKS9uzWoEofxIKT6Rircy9hnzSKGV+lLHjdsjRg=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=IQaq2RW1qKYYtY9VevG9B698NIuKq/vjzpqqLujFAmcJpgwikxpruycLT3RwoC93M
-	 0JSrFCnAdszgGyitl677OOOEjpWAERPkagBvoRQArnz3DmQdqnNomAS48xiLvI3V39
-	 esdVsRZklliAemDKCXPGg4HSFQF3XJB7i8LmON5XFS/utgkg2EqtMyo9l5Gk06VQzQ
-	 Hf+qV8/3XENaB45w5AVDjDY/68SF4HOrVKqfuC+kEqInBxJropL5Fbb8qAri7+OPRE
-	 EX2wN5UXqITtoTKHdF6dzJzCV2zngs5o1Dfkz+cFeU8vP1Jq+Ol5UW7AD8Htc+/uTn
-	 rygKooeyrOEVg==
+	dkim=pass (1024-bit key) header.d=h-partners.com header.i=@h-partners.com header.b="dfoshPIm"
+dkim-signature: v=1; a=rsa-sha256; d=h-partners.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=spanpOD4ZJ9QlA2oL7DcTdTt5EE5NuZI/P6v2qXOSew=;
+	b=dfoshPImi0g9u9saXtSWtqZqWbh9XPf/vqWyoUF1U4HP0OyBag8RXs+op8hmHY9On1T7pDjvf
+	LzkC9WeGskN9xUAv4ZzkOnUfRf5G2bF5gnNtyauq326x+MCC6Gh2VosdR6IG82xW6ggmyYJpXxv
+	959YujpuO5llEPyBX+T49To=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4j1LM100GVzmV8H;
+	Fri,  9 Oct 2026 16:56:28 +0800 (CST)
+Received: from kwepemp500007.china.huawei.com (unknown [7.202.195.151])
+	by mail.maildlp.com (Postfix) with ESMTPS id 6B12240561;
+	Fri,  9 Oct 2026 17:08:43 +0800 (CST)
+Received: from kwepemp500015.china.huawei.com (7.202.195.9) by
+ kwepemp500007.china.huawei.com (7.202.195.151) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 9 Oct 2026 17:08:43 +0800
+Received: from [10.67.120.108] (10.67.120.108) by
+ kwepemp500015.china.huawei.com (7.202.195.9) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 9 Oct 2026 17:08:33 +0800
+Message-ID: <51d44015-cbbf-ab69-47ed-0c9b397da203@huawei.com>
+Date: Fri, 9 Oct 2026 17:08:33 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.1
+Subject: Re: [PATCH v3 0/4] scsi: hisi_sas: Some misc fixes
+Content-Language: en-CA
+To: <mkp@kernel.org>, <jejb@linux.ibm.com>, <john.garry@linux.dev>,
+	<yanaijie@huawei.com>
+CC: <linux-scsi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linuxarm@huawei.com>, <liuyonglong@huawei.com>, <kangfenglong@huawei.com>
+References: <20261009033238.1076098-1-yangxingui@huawei.com>
+From: yangxingui <yangxingui@huawei.com>
+In-Reply-To: <20261009033238.1076098-1-yangxingui@huawei.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v1 1/2] kbuild: Mark the kernel image gzip recipes as
- recursive
-From: Nicolas Schier <nsc@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Lorenzo Stoakes <ljs@kernel.org>, Manuel Ebner <manuelebnerli@mailbox.org>, 
- linux-kbuild@vger.kernel.org, "Paul E. McKenney" <paulmck@kernel.org>, 
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-In-Reply-To: <20261009062733.3119731-1-kees@kernel.org>
-References: <20261009062722.i.253-kees@kernel.org>
- <20261009062733.3119731-1-kees@kernel.org>
-Date: Fri, 09 Oct 2026 11:08:14 +0200
-Message-Id: <179153689449.290498.7901907548551466768.b4-review@b4>
-X-Mailer: b4 0.17-dev-fde28
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3111; i=nsc@kernel.org;
- s=20250924; h=from:subject:message-id;
- bh=fnscWvrcAZlzdhwB+Ig824lWGG3qVF7OpaC0fCP4Tks=;
- b=owEBbQKS/ZANAwAKAQdSCnAWJhJpAcsmYgBqyK8BV8SjyVMgQNOjZzXnnYT1FuXeJNlsZSuYq
- 1pZ8OUZI5yJAjMEAAEKAB0WIQSHQTenhzckp4G+wsYHUgpwFiYSaQUCasivAQAKCRAHUgpwFiYS
- acmZD/9cTo1J4ou4BJpYyqZKe/LSFarwwKRq3lzsa7lQQN/+1s/jPyauCNrIR1MhTF3lpSCFmF9
- j2TPSFh9XY5b5+XwTnIDIaJvXTb8Yo25HCBgdhMDqJ6xQbuDrun//SuARfZOLsnvo7TtND0m+Sg
- H2PfT+Dd2EBfNwdJMYj/zjgtTA3sZjrVHv4du1EeHVMWkQsmNmVllRYpG6pCYWVDAkzcqcuf1BB
- vbEuqMoHbcFvakoZSUdy7FUlq/sGMY/P5qtTkTtYqpKEsFtLqVw3+KF4p+LF0Sb0gZY6FJKLzTG
- 0ZCwj94xhkTYNES/baPZj4hSCeXlbexfRW4OnRRAC9DgG7U5zYZaIrhYkdIDIqgQq2dymdvmTkN
- yreGdaggUyoDs+v826zDE+POVHo/hFPhEwAJQuoUpewfCQgQpTvYGJVmje/uT+75EqY87yq+IJj
- CDZlm5qjGEd5inlNLeTqOPqlVD6Caov7PVViRHg/fI7dvci//9M+MyECQftONlHihV9g+WOc3t5
- EiWd1FaBoKYEdcoRA4nfy6pzVNyX8UDkEgfLU8zFGuJZE00GN50rpmZwy7+/oZ72ZmDOihF2/8l
- bdul5Vdlm0RYqNp4yPcWd+JvKzuw9RVAeDAMfhXWa45eb4LVz13PX2WdFdVgF4ctlGsa5+V/erT
- T8mj25nF45PmzqA==
-X-Developer-Key: i=nsc@kernel.org; a=openpgp;
- fpr=18ED52DBE34F860EE9FBC82B7D97093255A0CE7F
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemp500015.china.huawei.com (7.202.195.9)
 
-> Since commit 48ebe1cbbeb51 ("kbuild: compress the kernel with pigz if
-> available"), cmd_gzip runs pigz through scripts/jobserver-exec, which
-> takes the job slots make has free. GNU Make passes the jobserver pipe
-> only to recipes it treats as recursive, but leaves --jobserver-auth in
-> MAKEFLAGS for all of them. The make 4.3 in CentOS Stream 9 also hides
-> the pipe in sub-makes (a backport of the fix for GNU Make bug 58232), so
-> jobserver-exec cannot open it, runs pigz on one thread, and prints:
+Hi Martin, James,
+
+We have gone through all of the Sashiko review comments on v2 and v3
+one by one.  Of the six v2 findings, two were fixed in v3 (clearing
+all five error counters and taking the runtime PM reference with
+pm_runtime_get_if_active()), and one was answered in the v3 commit
+message (the software counters are cumulative statistics and are not
+reset by design).  The rest are pre-existing issues, summarized below
+by trigger condition and impact:
+
+- The delays in the phy disable and host shutdown paths predate this
+   series.  The 50 ms wait for the PHY to go down is a hardware
+   requirement, and a poll-based rework is planned.
+- The pm8001 and mvsas response-IU findings are pre-existing issues
+   in those drivers.  The libsas patch leaves these cases unchanged
+   and strictly narrows the worst case, and fixing them is outside the
+   scope of this series.
+- The suspend flush-ordering window from the v2 review also predates
+   this series.
+- The suggested CHL_INT2 clear order would trade delayed reporting of
+   error counters for actual data loss.
+- The negative-return concern of pm_runtime_get_if_active() cannot be
+   triggered on this driver, and the suggested check would disable the
+   fix on !CONFIG_PM builds.
+
+In short, none of the remaining findings is a regression introduced
+by this series.
+
+One concern to raise: Sashiko reviews every posting from scratch, and
+its findings change from round to round.  Of the six v2 findings, one
+was re-raised in v3 and three were not raised again, while six new
+ones appeared (7 findings on all 4 patches for v3).  Iterating on its
+comments alone will not converge.
+
+Could you let us know whether this series is fine to be merged as is,
+and how you would prefer the pre-existing findings to be handled: in
+a follow-up series, or folded into this one?
+
+Thanks,
+Xingui
+
+On 2026/10/9 11:32, Xingui Yang wrote:
+> This series contains three independent fixes for the hisi_sas driver,
+> plus a libsas fix found during review.
 > 
->   WARNING: Unable to reopen jobserver read-side pipe: FileNotFoundError(2, 'No such file or directory')
+> Patch 1 fixes an out-of-bounds memcpy in sas_ssp_task_response(): a
+> device-provided sense_data_len >= 0x80000000 turns negative in the
+> min_t(int, ...) clamp and becomes a huge memcpy length.
 > 
-> Mark the gzip recipes as recursive with "+", as commit ecab4115c44cc
-> ("kbuild: mark `rustc` (and others) invocations as recursive") did for
-> rustc. As with those, "make -n" now runs them.
+> Patch 2 fixes incorrect delay values introduced by a previous
+> magic-number cleanup commit. Three delay sites were changed to use
+> a single macro (value 100) which did not match their original values,
+> causing increased boot and shutdown time.
 > 
-> Tested ARCH=x86_64 and ARCH=arm64 defconfig with GNU Make 4.3 plus
-> CentOS Stream 9's make-4.3-cloexec.patch, GCC 16.2.0, and -j64: without
-> this change the warning appears and pigz runs with "-p 1"; with it there
-> is no warning, and pigz runs with "-p 54" and "-p 64".
+> Patch 3 clears stale PHY error counts on phyup so that error detection
+> is not misled by intermediate errors generated during link
+> establishment.
 > 
-> Reported-by: Paul E. McKenney <paulmck@kernel.org>
-> Closes: https://lore.kernel.org/all/0ddb5e5e-f801-444c-aa98-0cfe814a3026@paulmck-laptop/
-> Fixes: 48ebe1cbbeb51 ("kbuild: compress the kernel with pigz if available")
-> Assisted-by: LLM
-> Signed-off-by: Kees Cook <kees@kernel.org>
-> ---
->  arch/alpha/boot/Makefile             | 4 ++--
->  arch/arc/boot/Makefile               | 2 +-
->  arch/arm64/boot/Makefile             | 2 +-
->  arch/microblaze/boot/Makefile        | 2 +-
->  arch/mips/boot/Makefile              | 2 +-
->  arch/nios2/boot/Makefile             | 2 +-
->  arch/parisc/boot/compressed/Makefile | 2 +-
->  arch/riscv/boot/Makefile             | 2 +-
->  arch/s390/boot/Makefile              | 2 +-
->  arch/sh/boot/Makefile                | 2 +-
->  arch/sh/boot/compressed/Makefile     | 2 +-
->  arch/sparc/boot/Makefile             | 4 ++--
->  arch/x86/boot/compressed/Makefile    | 2 +-
->  arch/xtensa/boot/Makefile            | 2 +-
->  14 files changed, 16 insertions(+), 16 deletions(-)
-
-Reviewed-by: Nicolas Schier <n.schier@fritz.com>
-
-
-Before it gets lost, we should also update the documentation bit that
-references $(if_changed,gzip):
-
-diff --git a/Documentation/kbuild/makefiles.rst b/Documentation/kbuild/makefiles.rst
-index 7521cae7d56f..2760717ab7b7 100644
---- a/Documentation/kbuild/makefiles.rst
-+++ b/Documentation/kbuild/makefiles.rst
-@@ -1452,13 +1452,14 @@ objcopy
-   OBJCOPYFLAGS_$@ may be used to set additional options.
- 
- gzip
--  Compress target. Use maximum compression to compress target.
-+  Compress target. Use maximum compression to compress target. Add '+' prefix
-+  to allow parallel gzip compression via pigz (if available).
- 
-   Example::
- 
-     #arch/x86/boot/compressed/Makefile
-     $(obj)/vmlinux.bin.gz: $(vmlinux.bin.all-y) FORCE
--            $(call if_changed,gzip)
-+            +$(call if_changed,gzip)
- 
- dtc
-   Create flattened device tree blob object suitable for linking
-
-
--- 
-Nicolas
+> Patch 4 fixes spinup failures of directly-attached SAS HDDs that power
+> up in the Active_Wait state and wait for a NOTIFY(ENABLE SPINUP)
+> primitive before becoming ready: parse the sense data in the slot
+> completion path and send the primitive from deferred work.
+> 
+> Changes from v2:
+> Addresses the Sashiko AI review of v2.
+> - Clear all five error counter registers.
+> - Use pm_runtime_get_if_active().
+> 
+> Changes from v1:
+> Addresses the Sashiko AI review of v1.
+> - Add Patch 1, found in review of the sense parsing of patch 4.
+> - Clear the counters under phy->lock.
+> - Take a runtime PM reference for the deferred work
+> 
+> The remaining review findings are pre-existing issues, left for
+> separate fixes in the future.
+> 
+> Xingui Yang (4):
+>    scsi: libsas: Fix out-of-bounds memcpy in sas_ssp_task_response()
+>    scsi: hisi_sas: Fix incorrect delay values from magic-number cleanup
+>    scsi: hisi_sas: Clear PHY error counts on phyup
+>    scsi: hisi_sas: Fix spinup failure for SAS SSP devices in Active_Wait
+>      state
+> 
+>   drivers/scsi/hisi_sas/hisi_sas.h       |  3 ++
+>   drivers/scsi/hisi_sas/hisi_sas_main.c  | 43 ++++++++++++++++++++++
+>   drivers/scsi/hisi_sas/hisi_sas_v1_hw.c |  4 ++
+>   drivers/scsi/hisi_sas/hisi_sas_v2_hw.c |  4 ++
+>   drivers/scsi/hisi_sas/hisi_sas_v3_hw.c | 51 ++++++++++++++++++--------
+>   drivers/scsi/libsas/sas_task.c         |  2 +-
+>   6 files changed, 90 insertions(+), 17 deletions(-)
+> 
