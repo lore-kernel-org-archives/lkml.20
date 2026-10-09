@@ -1,31 +1,32 @@
 Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCEF237E300;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C39137E5F5;
 	Fri,  9 Oct 2026 03:18:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791515908; cv=none; b=j1uHV/9ZobROr9wSoqhECUG78SrXsyZ7gTgJLk/UWykTXdla0CRL+5cn5UXEaDZSun0AwxSk3nIw11JZX6AY+SMJCehF4jam1goJcVhw/GOrg/U1mSomd6Toq8/XKwPlSyAz4JesXalhsSr1PVTtFAHaFKGp/FrFADUs1Aiq90k=
+	t=1791515909; cv=none; b=DkfgYw33AxDTyV5BCGi5wUpbmdEJW7ckwp5rNZAU77JE9HMJ6uQYilkMBY4PuBU8E+BtvU5y/pFXKQ4l4muIf7jr0NPruNhAW61qWylgg2SdkcLJ0sPaYo4Dcx+ns5J8mAooYyjMpJPdm70fOYleOwLbFc8cZiVWjNOplQwN7Ow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791515908; c=relaxed/simple;
-	bh=zp9J/I3KL2ekRKRZ8uv9r2FRGz6DzqPhr0mZSqbj3oI=;
+	s=arc-20240116; t=1791515909; c=relaxed/simple;
+	bh=o0Le8wc2L6kpMkxWzI0bIlS/W7PHaYO3TrOedahZL74=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=e6byizmAOwgJ3DUDCdqS7+7Mxv/j6aRriloR8VGp9fxqZEuj2LAcY7OfqYS6bSFw7eJoNpVCmjnWD4YqCSNuo+otlamkfE5bJb9umQ7u3NZ5QQ9gzOiMpjhrjtGG83OLfa+NMdAGaV0xckkFlfO6Uka0Ejl+5HotUhvvcAuUJbo=
+	 In-Reply-To:To:Cc; b=KNONkdWsN8ixdOxi0eAisbifI5ITiYS++ocYTMxo1Q94Q5f/Gt5i+fB/FM6c36FeJNfrS/e9xjdv4b2Y108cBQvQbk3kNmoVhGAMFj752lq56auN2FRJk2xIGGswcGVv93rCnBoXxviV48DS2F7xTdqT/Rng7kgu1pMGHdEw25Y=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.254.200.128
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpip2t1791515842t5bf99465
-X-QQ-Originating-IP: EPo9yvjcUKSxfds5pH10PS+8bETia1Xjr/JTyOz/FM8=
+X-QQ-mid: zesmtpip2t1791515830tbb33f0fc
+X-QQ-Originating-IP: 1yXzRkYE3qH1UuMYru7LuPsRRvS2YXzC1KUR3SgFG/c=
 Received: from [192.168.30.32] ( [localhost])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 09 Oct 2026 11:17:19 +0800 (CST)
+	id ; Fri, 09 Oct 2026 11:17:07 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 1232975757929523936
-EX-QQ-RecipientCnt: 30
+X-BIZMAIL-ID: 8012898157940025237
+EX-QQ-RecipientCnt: 29
 From: Xilin Wu <sophon@radxa.com>
-Date: Fri, 09 Oct 2026 11:15:57 +0800
-Subject: [PATCH v2 05/20] drm/msm/dp: Support multiple generic SDP slots
+Date: Fri, 09 Oct 2026 11:15:54 +0800
+Subject: [PATCH v2 02/20] drm/connector: Drop early state allocation for
+ max bpc registration
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -34,7 +35,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-msm-dp-hdr10-v2-5-1835d4966da3@radxa.com>
+Message-Id: <20261009-msm-dp-hdr10-v2-2-1835d4966da3@radxa.com>
 References: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
 In-Reply-To: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -55,136 +56,154 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
  dragon@radxa.com, Xilin Wu <sophon@radxa.com>, 
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3697; i=sophon@radxa.com;
- h=from:subject:message-id; bh=zp9J/I3KL2ekRKRZ8uv9r2FRGz6DzqPhr0mZSqbj3oI=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFknYlaUy17ccsbAemrHk8quDZmxgcmqxgUGifWiH5n5U
- npr6zg7SlkYxLgYZMUUWRTiGeayV+ZeeypWqgczh5UJZAgDF6cATCTQieGf9Z2fvZMTV6QYZqeY
- /Zq5b2t2t484/6WsjY57l7PdbmYyYGT40DnzKPOMH7vyVOX3uR+sWjfrsf6yWzX65TofD67zZc1
- lAwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4736; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=o0Le8wc2L6kpMkxWzI0bIlS/W7PHaYO3TrOedahZL74=;
+ b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFknYlYsixe8Y+WokNMp4dagJs8aHzijp/e9a8eDPH/nC
+ f/jfs7qKGVhEONikBVTZFGIZ5jLXpl77alYqR7MHFYmkCEMXJwCMBGBNYwME9ZoiBo0c2eWexr8
+ m3V7RtAic+bb/Ft+zxTa8Ukk4lnWNob/JdLs53RXbvD1tun/Er28fk0jY7jhpoRN2zfd23XCaeY
+ RHgA=
 X-Developer-Key: i=sophon@radxa.com; a=openpgp;
  fpr=205F009D07796DD6E516752E32C31567AD9E324E
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: NMDsnXof05FG0W9l1NoTqTZ1r92JkcZomcgWpXeUzMRWBra7D23xcqAW
-	Jq2n05lnc2cW5rSU5oMC+GzbpScXF72bGtXTVV4QExUqG+NmU8e0H3Ba5MEudsmlRer0KIi
-	tBWKFWEX30c/5ZL8m2SA7Nixbg8JRPpwD9JP5BdQCYsY40ZICWO2okr6C9uIHSP/SQcyU/L
-	XkVQ1YOazwuX44b7Ni6+HhoWkshjClKqY4NAH8nrWyKb1yxm74rGd6BbCPN5fRp5KrTqOk3
-	Cxq3RwSGvX/SORO3967M3DOlSWNyyUBgLWlpuufDSkfPyvusgFdqKSF1veRev5F7fJI6bfi
-	j0wv3v8MvvMnvlMDbxUKnVXzwKlCP56NUMPtgPbyAtChh6mczxeMiBnFt5yk8AzYcFknKcq
-	+BBr35JFNSkDmucKtgsI7j5NKXO7CtcY0kMyRiN0zJjfnDtXP+OSoxfqZERaqWwo7uS9s0m
-	0oAIuVGhYNtPQJ/DFWa2xirR6m7RP4CAClpboptK1vhcW3u2n1xUskzdIujPGpeHOvRYZvl
-	x97Brnw7MNyh5yeG3Anq79rmQmcxIjGgtU7pRICvl3TZbGvs9HwT6U44hTNIk5dlxpRtt5C
-	gPG2Kh6ppRogaUAl9Z9GDh5/pIFFyZEX+52YFti0rXc/pYVgDx0AAF2YyNLk3QiyqQ0hhDc
-	jsjv30bjqKtYo4KDWXHu9cM/b691hwg4/E60XAY/3QgwmpDbCAvd7Fc6413X2cLGE4sUq2Q
-	JU9mwduJ7PLwOC9ImfuiHfzSWr4LrRmmFoIF3HOK97+rzFoj8CVV1gnVI2ELsjnNDvABvtm
-	L+RsXm8XZLpNhINKzx4FYh9ajmeRiDBj3XV9alTQ9qfsXpBcodecFXoZWJsDGuz7jGLy6aU
-	QO+N0u9DrIvmIkAF+2ecxO1DuL50ny54uheVyLqnzMSMdlwS1YkAgNQ2XwDKcgo5pIldQbJ
-	7u99oPTr8AaABxADYWxyHcYt8CDXTUfVRYgr1kd7LMMQfB+gezPJBcXXPa/SGS+bdrOGN1m
-	GkPlwqbROAhveidBa0j0JCmMS9ypp5IOWxq6JtVRsg9q5ciFNG1rxyg0zdM/HG3/9ZfFARh
-	Q==
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-XMAILINFO: NFzQ23lyTybaiK9hZ0WYaq+UKfyls87ehAOP2r+4ljpNYyWzvNGHpD3D
+	kHtxIY1MdEjK/+YFFt7Px+KRlhupznXb7DbsUYphtpAwwVU0lkCe9uk5lgtudT2W2qbVcqu
+	iIFnULX8Zd9sI17oWkGkWUx4fQUX3xgyjWNDUorFe0mRn2NhKisCB1Ql3WfR/LnVB4Z53jC
+	BPi23+3mZ9u7pYlr4pOxQTPpDXiGXrLj3sMUxh1lE1Z/NKgtlMsuhMpToFhux6dq7iz+Eut
+	fhbFbSmwr8SS/0TcLLQV/k5fRNElBnSij4qO2EjK41Dd/20t4ATdGBw2RG8dRHToJqm7zc7
+	WhKQ0/NXVuTXx7m7+5NpdouoTs4Kaa371POZTe/uMHZ76E0xNlW0egfghTkz+N4bSlcg4bM
+	NaxtUc3LX+nMTh79XNRCPKGnmDRXZ8HeP0Mp0/JU5T9wMRAzgAawu2aOwlE8GgJTe8Hom1Q
+	Y6ChziUHPl4rqlwO7G7w9Y0jSUJgtOz9q/j6kjlQQL4gWc4w8YaNTiiHaODrwAF1bn27k4o
+	03jMsCH7y1RQiD3htrRnkv6IMdoyV0KwTMGw6+mbtGkHlbraXwwHChgC6OrIn2YXFiOskZE
+	rbML7/MWs3j7guAgyqhq0fbtpRr5zql+pCL3gTclJG+l5lhk5GpVoi+2dqG1PYYbwlLoSXn
+	ilhZ8lJXRJkiWeKoTuCU3Y8GIZ38aQZEaCjuaaStvkNIC9RfL1iG73UIYePhCdrxtXcuhjN
+	xFuS6Gkl2NkRAqYzTzR0ioOIxLHhgitwX/d1S7c+XqYX9LKxYHp4qY96OSgzgkw7+nCKhck
+	boYWZnE+p6745UT66/NnrR0z6MMhaRDFhJYmMn0OKbdIaButWcIYegTg0ISlibtBFVPvIfw
+	gp8DvwJ1FBMZNMrVAqFE2E/NBHRsDixVBT4QcJL8WQYw0oLEYZImMiYPY7Tk/6/9iexK95B
+	AGcGAW0o2Oz8TGn8YZF5E//7RnTw8QZudhl1KuAaUYRBZo9pAMdsAcTlYLEBYdZO8puubzl
+	1dpBB4IzJAvzbpvRwFJxvUN8UWSq0EoBs+zTK6Fg==
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
 X-QQ-RECHKSPAM: 0
 
-The SDP writer currently targets Generic0 for VSC packets. Static HDR
-metadata needs a separate slot so that both packets can be sent on the
-same stream.
+The max bpc property can now be attached before connector state exists,
+and the atomic state helper restores its default when creating state.
+Remove the early state allocation that was only needed to satisfy the
+old property attachment requirement in the HDMI connector helper, Meson
+and DW HDMI.
 
-Allow the SDP writer to address a generic packet slot, and define the
-Generic2 registers needed for static HDR metadata. Use unaligned
-little-endian loads for the payload words.
-
-The existing VSC packet continues to use Generic0 without changing its
-layout or enable sequence.
+Update the HDMI connector tests to check bit-depth defaults after the
+normal mode configuration reset, and check that property registration
+itself no longer allocates state.
 
 Assisted-by: LLM
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Xilin Wu <sophon@radxa.com>
 ---
- drivers/gpu/drm/msm/dp/dp_panel.c | 22 ++++++++++------------
- drivers/gpu/drm/msm/dp/dp_reg.h   |  4 ++++
- 2 files changed, 14 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c  |  6 ------
+ drivers/gpu/drm/drm_connector.c            | 16 ----------------
+ drivers/gpu/drm/meson/meson_encoder_hdmi.c |  6 ------
+ drivers/gpu/drm/tests/drm_connector_test.c |  9 +++++++++
+ 4 files changed, 9 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-index e76dad0f6663..fdf1a3f437ba 100644
---- a/drivers/gpu/drm/msm/dp/dp_panel.c
-+++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-@@ -14,6 +14,7 @@
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+index 34c5f583e910..a061a3a23ee5 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+@@ -2601,12 +2601,6 @@ static int dw_hdmi_connector_create(struct dw_hdmi *hdmi)
+ 				    DRM_MODE_CONNECTOR_HDMIA,
+ 				    hdmi->ddc);
  
- #include <linux/io.h>
- #include <linux/types.h>
-+#include <linux/unaligned.h>
- #include <asm/byteorder.h>
- 
- #define DP_INTF_CONFIG_DATABUS_WIDEN     BIT(4)
-@@ -442,22 +443,19 @@ void msm_dp_panel_clear_dsc_dto(struct msm_dp_panel *msm_dp_panel)
- 	msm_dp_write_p0(panel, MMSS_DP_DSC_DTO, 0x0);
- }
- 
--static void msm_dp_panel_send_vsc_sdp(struct msm_dp_panel_private *panel, struct dp_sdp *vsc_sdp)
-+static void msm_dp_panel_send_sdp(struct msm_dp_panel_private *panel,
-+				  const struct dp_sdp *sdp, u32 base)
- {
- 	u32 header[2];
--	u32 val;
- 	int i;
- 
--	msm_dp_utils_pack_sdp_header(&vsc_sdp->sdp_header, header);
-+	msm_dp_utils_pack_sdp_header(&sdp->sdp_header, header);
-+	msm_dp_write_link(panel, base, header[0]);
-+	msm_dp_write_link(panel, base + 4, header[1]);
- 
--	msm_dp_write_link(panel, MMSS_DP_GENERIC0_0, header[0]);
--	msm_dp_write_link(panel, MMSS_DP_GENERIC0_1, header[1]);
+-	/*
+-	 * drm_connector_attach_max_bpc_property() requires the
+-	 * connector to have a state.
+-	 */
+-	drm_atomic_helper_connector_reset(connector);
 -
--	for (i = 0; i < sizeof(vsc_sdp->db); i += 4) {
--		val = ((vsc_sdp->db[i]) | (vsc_sdp->db[i + 1] << 8) | (vsc_sdp->db[i + 2] << 16) |
--		       (vsc_sdp->db[i + 3] << 24));
--		msm_dp_write_link(panel, MMSS_DP_GENERIC0_2 + i, val);
+ 	drm_connector_attach_max_bpc_property(connector, 8, 16);
+ 
+ 	if (hdmi->version >= 0x200a && hdmi->plat_data->use_drm_infoframe)
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index 34c30469f405..2e0dbc58c13b 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -614,22 +614,6 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
+ 	strtomem_pad(connector->hdmi.vendor, vendor, 0);
+ 	strtomem_pad(connector->hdmi.product, product, 0);
+ 
+-	/*
+-	 * drm_connector_attach_max_bpc_property() requires the
+-	 * connector to have a state.
+-	 */
+-	if (connector->funcs->atomic_create_state) {
+-		struct drm_connector_state *state;
+-
+-		state = connector->funcs->atomic_create_state(connector);
+-		if (IS_ERR(state))
+-			return PTR_ERR(state);
+-
+-		connector->state = state;
+-	} else if (connector->funcs->reset) {
+-		connector->funcs->reset(connector);
 -	}
-+	for (i = 0; i < sizeof(sdp->db); i += 4)
-+		msm_dp_write_link(panel, base + 8 + i,
-+				  get_unaligned_le32(&sdp->db[i]));
- }
+-
+ 	drm_connector_attach_max_bpc_property(connector, 8, max_bpc);
+ 	connector->max_bpc = max_bpc;
  
- static void msm_dp_panel_update_sdp(struct msm_dp_panel_private *panel)
-@@ -487,7 +485,7 @@ void msm_dp_panel_enable_vsc_sdp(struct msm_dp_panel *msm_dp_panel, struct dp_sd
- 	cfg2 |= GENERIC0_SDPSIZE_VALID;
- 	msm_dp_write_link(panel, MMSS_DP_SDP_CFG2, cfg2);
+diff --git a/drivers/gpu/drm/meson/meson_encoder_hdmi.c b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
+index 0c7a72cb514a..3bfb4f8bec2c 100644
+--- a/drivers/gpu/drm/meson/meson_encoder_hdmi.c
++++ b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
+@@ -439,12 +439,6 @@ int meson_encoder_hdmi_probe(struct meson_drm *priv)
+ 	 * encoder->[hdmi encoder bridge]->[dw-hdmi bridge]->[display connector bridge]->[display connector]
+ 	 */
  
--	msm_dp_panel_send_vsc_sdp(panel, vsc_sdp);
-+	msm_dp_panel_send_sdp(panel, vsc_sdp, MMSS_DP_GENERIC0_0);
+-	/*
+-	 * drm_connector_attach_max_bpc_property() requires the
+-	 * connector to have a state.
+-	 */
+-	drm_atomic_helper_connector_reset(meson_encoder_hdmi->connector);
+-
+ 	if (meson_vpu_is_compatible(priv, VPU_COMPATIBLE_GXL) ||
+ 	    meson_vpu_is_compatible(priv, VPU_COMPATIBLE_GXM) ||
+ 	    meson_vpu_is_compatible(priv, VPU_COMPATIBLE_G12A))
+diff --git a/drivers/gpu/drm/tests/drm_connector_test.c b/drivers/gpu/drm/tests/drm_connector_test.c
+index 1174607441b9..af5dda3701cf 100644
+--- a/drivers/gpu/drm/tests/drm_connector_test.c
++++ b/drivers/gpu/drm/tests/drm_connector_test.c
+@@ -1036,7 +1036,10 @@ static void drm_test_connector_hdmi_init_bpc_8(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, ret, 0);
+ 	KUNIT_EXPECT_EQ(test, val, 8);
  
- 	/* indicates presence of VSC (BIT(6) of MISC1) */
- 	misc |= DP_MISC1_VSC_SDP;
-diff --git a/drivers/gpu/drm/msm/dp/dp_reg.h b/drivers/gpu/drm/msm/dp/dp_reg.h
-index dda4b642c81b..6767a215b662 100644
---- a/drivers/gpu/drm/msm/dp/dp_reg.h
-+++ b/drivers/gpu/drm/msm/dp/dp_reg.h
-@@ -232,10 +232,12 @@
- #define MMSS_DP_AUDIO_CTRL_RESET		(0x00000214)
++	KUNIT_EXPECT_NULL(test, connector->state);
++	drm_mode_config_reset(&priv->drm);
+ 	state = connector->state;
++	KUNIT_ASSERT_NOT_NULL(test, state);
+ 	KUNIT_EXPECT_EQ(test, state->max_bpc, 8);
+ 	KUNIT_EXPECT_EQ(test, state->max_requested_bpc, 8);
  
- #define MMSS_DP_SDP_CFG				(0x00000228)
-+#define GEN2_SDP_EN				BIT(19)
- #define GEN0_SDP_EN				(0x00020000)
- #define MMSS_DP_SDP_CFG2			(0x0000022C)
- #define MMSS_DP_AUDIO_TIMESTAMP_0		(0x00000230)
- #define MMSS_DP_AUDIO_TIMESTAMP_1		(0x00000234)
-+#define GENERIC2_SDPSIZE_VALID			BIT(20)
- #define GENERIC0_SDPSIZE_VALID			(0x00010000)
+@@ -1077,7 +1080,10 @@ static void drm_test_connector_hdmi_init_bpc_10(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, ret, 0);
+ 	KUNIT_EXPECT_EQ(test, val, 10);
  
- #define MMSS_DP_AUDIO_STREAM_0			(0x00000240)
-@@ -291,6 +293,8 @@
- #define MMSS_DP_GENERIC1_8			(0x00000348)
- #define MMSS_DP_GENERIC1_9			(0x0000034C)
++	KUNIT_EXPECT_NULL(test, connector->state);
++	drm_mode_config_reset(&priv->drm);
+ 	state = connector->state;
++	KUNIT_ASSERT_NOT_NULL(test, state);
+ 	KUNIT_EXPECT_EQ(test, state->max_bpc, 10);
+ 	KUNIT_EXPECT_EQ(test, state->max_requested_bpc, 10);
  
-+#define MMSS_DP_GENERIC2_0			(0x000003D8)
-+
- #define MMSS_DP_VSCEXT_0			(0x000002D0)
- #define MMSS_DP_VSCEXT_1			(0x000002D4)
- #define MMSS_DP_VSCEXT_2			(0x000002D8)
+@@ -1118,7 +1124,10 @@ static void drm_test_connector_hdmi_init_bpc_12(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, ret, 0);
+ 	KUNIT_EXPECT_EQ(test, val, 12);
+ 
++	KUNIT_EXPECT_NULL(test, connector->state);
++	drm_mode_config_reset(&priv->drm);
+ 	state = connector->state;
++	KUNIT_ASSERT_NOT_NULL(test, state);
+ 	KUNIT_EXPECT_EQ(test, state->max_bpc, 12);
+ 	KUNIT_EXPECT_EQ(test, state->max_requested_bpc, 12);
+ 
 
 -- 
 2.56.0
