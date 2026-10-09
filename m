@@ -1,159 +1,155 @@
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65F8745D19F
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 06:52:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791528756; cv=pass; b=fddkum1aGLtCGTvNryL/BUoyxY+dBwWV5V8jTzkoRA/QrqHoarizg/tBNGY7thqPPsanN3OrV5caPfM2/T0jt1OhtHHgJgU/mQwVDGAHseeMt9DxD9BFOpkrfVxVs+Hu8UN9hxR5FrWowZKYVbEKfrOwqK0WcN4WBAWrLdQoHs8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791528756; c=relaxed/simple;
-	bh=4NY3b/9uFqqbJNZv2e54a4GGP4HJaG4h9wCOURl2pcs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IDAv4IihPR47RSdqMvWYN+h+h0iLLOsuWlY8cA1B9xKDyCMKKyjBPcnfycD+wAaAkPD73pFtieg7xNRLVmvnZfKqDzVJe9R17TFVJ1ZmAv4bm1HDovKhgRHpGFQFaFmSW07JacpDk/pNQDToKEBccUFqrtdYQKwpZMW4jDLUXac=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JdAMV4Ni; arc=pass smtp.client-ip=209.85.208.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7230832E141;
+	Fri,  9 Oct 2026 06:52:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791528768; cv=none; b=M47wMg+NDqarAkDYNibpz79m5SerWaZX9412rM+2AupgyvO4pafVuJhaPEGTZq99J3v4yRinY8znM3zenc18y2AjzD0KhUTEJWqZ1b6rMEDjmeUD7Q+/fmLo+KHLpOue9AlB2t4RIQ7VQLOIiKRPPdFtgIA0nS/FHTRFBtZsyoc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791528768; c=relaxed/simple;
+	bh=H1+FpJ79sK0uwFTJ3AfplsqD0q6SPMdFpNjloq56mGU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=k4oUqKq0eOdD+BeMa6nOl1KYNKu3/Lo7klbSWr1co1IYg/9wJJJSFN9A84CCo+vCsGuOfz1XrzYbuKNfirKecwcs57oManngIdoA7I4g448qmRWeuIc2xiV3654T0/qGLcw9rJmY+9h67yb6zmYbablqspfYorfvyuaq/rS6CSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EzYFVJwE; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JdAMV4Ni"
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6afe8d3980aso4598836a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 23:52:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791528748; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OVc+b5fE6XdYYo3I7X4ZokqAOUT1ASCsi75DBMtAQazyRW6SnAdGw8FF7rZEA5V/Dh
-         aBqx9X+Pn74VeYuMPf7DFE6nTXCQmv4v9yPBFA+fvtJnC2Oi0B1FA28A7bZVo4Rle9I1
-         pgdGqH+kM/lZQ2TvqPWaEUbvqsZd/mjDfzfSJryfi9RJoqrhxMqXiG8L/hyqGyC5P85M
-         pzB8IbEm6nq+jSBBQj4TzSVlMIFDyJthNX193VG7Jf6YV9BPVIhyRAPl/QGAiFKJJIpB
-         1DmU0MH0gZ9VxtX7TK6I6wBpGvyeaGb6ncRoOjdm7dRCQvypGIy5lSXh+cEvd5lQOfm9
-         2Ijg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+dS3K8yuawIJTpHR5tebZaf9aB405AvauMGqVL4l6U0=;
-        fh=5k6Owoyhd/473Sg0f66zaJqb/R0TggeruX8fvDfET30=;
-        b=jpSiPXY2r+h9m/iV2w/RL6fOyADzdG3Ac8RR6hAwhK/8HpJGu8tVe/3vV8+MRTxqPa
-         Wuge+3FHw9hRMq3W2oJEDRHZUMbnyjkXMg4PxiGymePP0GPk85U9YniJ//4xmdfNgMUQ
-         KxDpzP1xfMXzpicRu60BjNpbb8DEzfVbw9RjvECvN5gMgcnr/ICmx0irbbOkCm+FOk9O
-         yUbrG00KVGJCmBM1/aNRwBc19jO4LKu/RxMPvosw46sKiBRAC+sY2ujBjjV70reRapnU
-         +uP0myD0te/7WQRDVCO4iQ2dg+4pqrR2zqZMPddAggi4PlRhwy5G6wxxP/cNVQGvJE/R
-         ooUQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791528748; x=1792133548; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+dS3K8yuawIJTpHR5tebZaf9aB405AvauMGqVL4l6U0=;
-        b=JdAMV4NiOsNnKzodZ1REyjHh9rZxhax/u/cAmbUKdeMyaIR1WVQqMK33pFmHUGKWWT
-         w4CEDkbEG6hiL+/e3UBo2iR65oNMPZsAOB2f8jGB4KEyQJduOVe94SuDO74cK6ZNbJh6
-         XQMPcVq7tNvG5KZqLov5JgUtSx5+OYkh3UA6ePd+Y4ec7M3sFMCs2Ktw17qA9QbeiHKw
-         epCwfJskhgIKdvANnwtSmb1t4TvjvaOfO9DXT1RdC54oQ43n6PKnkTQxR1kAc2E+dBWZ
-         69EIHWDrKqZqb/7/q2WQVkY3UDPYX1pzoI62PVaqmpP0CXR1MFDXzGt+VRcereBHzpcU
-         Ouhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791528748; x=1792133548;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+dS3K8yuawIJTpHR5tebZaf9aB405AvauMGqVL4l6U0=;
-        b=DKbKGEjVBJ2xxY5NSBE+jLrAzPww2tMZo/BTL8KvsxVceKiQa7DOcSFAam64y3qiu5
-         phUcK1W2tmnRRVhipSIMbN3rK1oepnt4UTHUhDI+nlGeOcLAxpWpAQT0r6xNYiyTc77Y
-         l/80IPh/ueN0Mv7nSNofMuR+QQkd/rVgcrdZaZArhAL2QIr9XbzJxjlElkzJY3Z/6ov7
-         nD5MxTBL8QT75pwd5mQ+Qwg49LwT5OZjMd9P6QBmgVBwywoGM0ykl5IhxuG4p+wLvHPy
-         aky38pi+U/+iQQe9sdVGyaJ3QKjmPO6TK9bZaU9x8FciQ7Flc9mn7K2swlKHa6K7MZaK
-         Vjow==
-X-Forwarded-Encrypted: i=1; AKwUvBzCV8CbGm/wfqP4jqZAb06S/TF9G4DghERm8BLs+SsW7oqIQ6iKhFNJngRDLQbLL7hC5T4BVQMMbpJE3So=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJGyWL1cp1EGHkrxAmSEAHpZ8iOu6BbC3pvzsN6nTchijJ1qc+
-	vaqoJCYoU7uM4Dy/hrzeyTlj8KQr89mVIhuO27i0UanK/c6k4EqBApO9AAXfCld3QMPt5QWvzm+
-	+aWqsP/RMrE/bEHNMjzBOt8RpfjR4cCI=
-X-Gm-Gg: AYBFou1Zl6qgBgaal5P9V4efSeWMwIGs7Og5Ib8zz88DVJj8uoqLAEZPBjPUzSQmwm/
-	X7uWRfxecmBrFIy1Sew4dnSYdCNef3VM9nazNALgKE/NYvjeznkHyXAdOUBtp0sfjwNN6u/Cgw7
-	09OmDUMwcoOomeEQj0Q+G68I9kLyt/kkhQKvt+3OjQyPg8+yud3nLMKTh7T1TpSKOXCbQUBhQr/
-	VSGWLxoHONTy13LyiWl8ufhbNk8JMABYv6zmJ0tIRf7BF9LGMwDa+txlyrtmgdyHoFXQE8agDlg
-	5tTpm8Tid+LpxvWFc2taVk6Oec7eFGfwwWFfZeFcZGJNYc7J98EJVwNgI7b+iaERmtM5+7rxvVi
-	m2cmzdJx7JdgD58mNl6iYTqFyFZF5E/mAWqq3Tc8Z3Q==
-X-Received: by 2002:a17:907:a089:b0:c2d:cbc9:3529 with SMTP id
- a640c23a62f3a-c31a9ffd78amr101019566b.20.1791528748116; Thu, 08 Oct 2026
- 23:52:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EzYFVJwE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791528767; x=1823064767;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=H1+FpJ79sK0uwFTJ3AfplsqD0q6SPMdFpNjloq56mGU=;
+  b=EzYFVJwEY6sTeZaLQ4yU1dzdThH3NfAiA0lVUP/zCXRJTCd7gb8GqHk3
+   2xQlSXt0VqgfwoS1yJgGHpMTnAZvIFk9QvJwJxPSeL91RgovHUhn974PB
+   zmKe0qITnuDHU26umLMGPCMJ7HfWTSq20cTr8oiQerwcMjCBAgsHHaTIi
+   MgdCcI2eIIkVyviP8ER0F+c9qbJ+0LeqHqjZJdqwbDJVn93KH3jPskW3p
+   0XexxFk8navlQSKXyhWFiqha8BtoJBIfTXZ4+s87bihD9p/h+RycvbX6L
+   eEJo5/FYPe199xb3qCsESjCs/PEYfZgGwJUKvJfbgO0L+eXyIZ+U0gEc2
+   A==;
+X-CSE-ConnectionGUID: Sr9hBGsdTvW0XxU7lGh54g==
+X-CSE-MsgGUID: enWYmt3FQOK9NMpxrNRPnw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="326704"
+X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
+   d="scan'208";a="326704"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 23:52:46 -0700
+X-CSE-ConnectionGUID: VX1XhK7RTrmDhvfTgjEN9Q==
+X-CSE-MsgGUID: wSiI1/5YQqWBUWtYpU0ucQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
+   d="scan'208";a="1977362"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa013.fm.intel.com with ESMTP; 08 Oct 2026 23:52:42 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xF4T8-000000005QG-17al;
+	Fri, 09 Oct 2026 06:52:38 +0000
+Date: Fri, 9 Oct 2026 14:52:04 +0800
+From: kernel test robot <lkp@intel.com>
+To: Bryan O'Donoghue <bod@kernel.org>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	Keke Li <keke.li@amlogic.com>,
+	Richard Acayan <mailingradian@gmail.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Gjorgji Rosikopulos <quic_grosikop@quicinc.com>,
+	Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>,
+	Robert Foss <rfoss@kernel.org>,
+	Milen Mitkov <quic_mmitkov@quicinc.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 19/74] media: qcom: camss: vfe: Represent output as an
+ array instead of a singleton
+Message-ID: <202610091417.UPY6v8H3-lkp@intel.com>
+References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-19-ed985aefd611@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260905-arch-kconfig-options-v2-v2-0-83e8245761a2@gmail.com> <20260905-arch-kconfig-options-v2-v2-8-83e8245761a2@gmail.com>
-In-Reply-To: <20260905-arch-kconfig-options-v2-v2-8-83e8245761a2@gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Fri, 9 Oct 2026 08:52:16 +0200
-X-Gm-Features: AclHuK9oTCyjIBQo-KDpBuWM_JxhK4IiThl5vFb7lnINqfE-VDcwwfdZ-Pom2sQ
-Message-ID: <CA+=Fv5RJpeusA2W4rRHOJMPRn8iF=OngRy05X22Myurs0wA-sQ@mail.gmail.com>
-Subject: Re: [PATCH v2 08/22] alpha: select ARCH_SUPPORTS_INT128
-To: Matt Turner <mattst88@gmail.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>, Kees Cook <kees@kernel.org>, 
-	Marco Elver <elver@google.com>, Andrey Konovalov <andreyknvl@gmail.com>, 
-	Andrey Ryabinin <ryabinin.a.a@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	kasan-dev@googlegroups.com, linux-hardening@vger.kernel.org, 
-	linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-19-ed985aefd611@kernel.org>
 
-Hi Matt,
+Hi Bryan,
 
-On Sat, Sep 5, 2026 at 9:29=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
-te:
->
-> gcc supports __int128 on Alpha, and the 64x64 to 128-bit multiply that
-> the users in the scheduler and in lib/ care about maps onto mulq/umulh
-> rather than an out-of-line libgcc helper.
->
-> Gate the select on CC_HAS_INT128 as the other 64-bit architectures do.
->
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Matt Turner <mattst88@gmail.com>
-> Tested-by: Magnus Lindholm <linmag7@gmail.com>
-> Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
-> ---
->  arch/alpha/Kconfig | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/arch/alpha/Kconfig b/arch/alpha/Kconfig
-> index 2672971b83f3..bed3f1c8d9d2 100644
-> --- a/arch/alpha/Kconfig
-> +++ b/arch/alpha/Kconfig
-> @@ -16,6 +16,7 @@ config ALPHA
->         select ARCH_NO_PREEMPT
->         select ARCH_NO_SG_CHAIN
->         select ARCH_SUPPORTS_ATOMIC_RMW
-> +       select ARCH_SUPPORTS_INT128 if CC_HAS_INT128
->         select ARCH_USE_CMPXCHG_LOCKREF
->         select FORCE_PCI
->         select PCI_DOMAINS if PCI
->
-> --
-> 2.54.0
->
+kernel test robot noticed the following build errors:
 
-The kernel test robot reported undefined references to __ashlti3,
-__ashrti3 and __lshrti3 with CONFIG_CC_OPTIMIZE_FOR_SIZE=3Dy.
+[auto build test ERROR on 8d3ae59288f1e7d58d76558a6ee96d533bc5019f]
 
-Alpha doesn't currently provide these helpers. CC_HAS_INT128 confirms
-support for the type, but doesn't guarantee that the generated code
-can link without libgcc.
+url:    https://github.com/intel-lab-lkp/linux/commits/Bryan-O-Donoghue/media-qcom-camss-vfe-Rename-gen3-back-to-vfe780/20261005-191331
+base:   8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+patch link:    https://lore.kernel.org/r/20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-19-ed985aefd611%40kernel.org
+patch subject: [PATCH 19/74] media: qcom: camss: vfe: Represent output as an array instead of a singleton
+config: hexagon-allmodconfig (https://download.01.org/0day-ci/archive/20261009/202610091417.UPY6v8H3-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 242243a5814307de825db3428662d67b064e2cbc)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261009/202610091417.UPY6v8H3-lkp@intel.com/reproduce)
 
-I suggest dropping "alpha: select ARCH_SUPPORTS_INT128" for now and
-bringing it back once the required helpers are implemented and tested
-with size-optimized builds, including UBSAN. Removing the select
-eliminates the missing references in the affected objects.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610091417.UPY6v8H3-lkp@intel.com/
 
-There are no functional dependencies on this patch in the rest of
-for-next. I tested rebasing without it: the page-table-check and
-hugetlb patches each needed a small Kconfig context conflict resolved,
-keeping their own selects and omitting ARCH_SUPPORTS_INT128. The
-remaining commits replayed cleanly, and the resulting tree differs
-only by that one-line removal.
+All errors (new ones prefixed by >>):
 
-Magnus
+>> drivers/media/platform/qcom/camss/camss-vfe-17x.c:395:9: error: incompatible pointer types assigning to 'struct vfe_output *' from 'struct vfe_output (*)[1]' [-Wincompatible-pointer-types]
+     395 |         output = &line->output;
+         |                ^ ~~~~~~~~~~~~~
+   1 error generated.
+
+
+vim +395 drivers/media/platform/qcom/camss/camss-vfe-17x.c
+
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  385  
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  386  static int vfe_get_output(struct vfe_line *line)
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  387  {
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  388  	struct vfe_device *vfe = to_vfe(line);
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  389  	struct vfe_output *output;
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  390  	unsigned long flags;
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  391  	int wm_idx;
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  392  
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  393  	spin_lock_irqsave(&vfe->output_lock, flags);
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  394  
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16 @395  	output = &line->output;
+8ce158c1be981bf drivers/media/platform/qcom/camss/camss-vfe-170.c Milen Mitkov 2022-12-09  396  	if (output->state > VFE_OUTPUT_RESERVED) {
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  397  		dev_err(vfe->camss->dev, "Output is running\n");
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  398  		goto error;
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  399  	}
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  400  
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  401  	output->wm_num = 1;
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  402  
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  403  	wm_idx = vfe_reserve_wm(vfe, line->id);
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  404  	if (wm_idx < 0) {
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  405  		dev_err(vfe->camss->dev, "Can not reserve wm\n");
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  406  		goto error_get_wm;
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  407  	}
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  408  	output->wm_idx[0] = wm_idx;
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  409  
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  410  	output->drop_update_idx = 0;
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  411  
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  412  	spin_unlock_irqrestore(&vfe->output_lock, flags);
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  413  
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  414  	return 0;
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  415  
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  416  error_get_wm:
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  417  	vfe_release_wm(vfe, output->wm_idx[0]);
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  418  	output->state = VFE_OUTPUT_OFF;
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  419  error:
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  420  	spin_unlock_irqrestore(&vfe->output_lock, flags);
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  421  
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  422  	return -EINVAL;
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  423  }
+7319cdf189bb643 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  424  
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
