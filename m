@@ -1,133 +1,151 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 361A33E3DB8;
-	Fri,  9 Oct 2026 06:30:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C321A429004
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 06:31:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791527424; cv=none; b=A4qEX6dwq5hpAa/DfCsAGky96bX3PYdJzqsra0U0dbOrmt+J5Os/qP1eKmWsITsBi3/QFvfjgzvRdAUWISDuJLznPKuDLGYO5K3KBrIxQW2+l0g0BkviuxkS0U48+UI5dWR8jvIVNgqOsivT4vKhH+LcBDYKLQ5gn/kP6nZ76xQ=
+	t=1791527508; cv=none; b=Qoqc1avBQ2WOD/xAXW78ZrwywM8LKiDQFdr+PZ5zgpjdYmF83etsIJ/2KNN53HlKfsnROS2wd4ytM+3xkigx496YKYL5ypZTvzqQB7PfCql+EWY35H1MHpF1q4gbUz6mcgwg6UsBQlSEh4KPihq4uYWoOrKORsYxIJdEed+00PU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791527424; c=relaxed/simple;
-	bh=cgoc2FrSAYbnr4rnvAc23RyQ/dBvtmdyziMouGr86ls=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=aMUTTJEDVkmxALpLXcKduvepVZ0NLOdyy9Cf9irTfT6Q0wMbIPYsWZRcJIVNazaQyJGwbX+7UBLezifnXlfk4aygOjBYEcyb26OphfpL9srO9QfoeItMvwy0uJTZaq0GmdQDmOBoUb55jgfFOJyNKu3N7Yk5Uew4p0KWmUM99Og=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=O9ZXj4Z0; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791527508; c=relaxed/simple;
+	bh=G8p969TSPt4pRVkrqnzxS3mmH3ELFFspsjEpF+ZfLvU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WZipEzYgDal9mfM6WCFZ5DbElbT7dbwNAEy5y391gbolYdmSnt68qiJ152aHZ49NbUyuTWl3aVn5vMJ92IHRVA/aNvVGXv61mSJiKHxezcr37HX+l/HGBfeIfbeZCGXhc0RRWBm9lejbVVKTN01BPYZfM7wZGWPxqk9Zbre5x/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vi7w+Jv+; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="O9ZXj4Z0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791527423; x=1823063423;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=cgoc2FrSAYbnr4rnvAc23RyQ/dBvtmdyziMouGr86ls=;
-  b=O9ZXj4Z0MdQSDbj5fn4AJXhSNUcHHlMr4rktFNr4C2uYAi3qfMjkZFcY
-   2LwJrKYHg6c2OQp+00fwBRGQJCyAcXmu/cJxPCnKw5qGlaJYiMsSCgKvV
-   GK0nBF5KippxT7v+9+gBNIxlR5lrZudUNdn8cRS6x4wSpeyAeQJTUGtZs
-   phpVX+kK0SFR/5DTMRlLVep8/lCwWHegg0CVF6bOrOWv8zGU2CjgKB30P
-   yJjw2LpzqKWavR7m0dclJhJikZH2V/SLMMAIRqHb3yk1g+9pgiB2KfyBf
-   HTgzenjanzex7lJRK90TQxlzmtzDY3BGX7RBhWqORUrI2u3bAQEbftMUN
-   w==;
-X-CSE-ConnectionGUID: CLalu2x7TcmSo6wkoXTztw==
-X-CSE-MsgGUID: /GNSV1l2SSOLy06JsKjHRA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="430274"
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="430274"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 23:30:22 -0700
-X-CSE-ConnectionGUID: SG090tPKRZyURlelV9+U1Q==
-X-CSE-MsgGUID: EgAVcAF2SvCNlVXSHHQmnA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="604612"
-Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 23:30:21 -0700
-Date: Fri, 9 Oct 2026 14:30:17 +0800
-From: kernel test robot <yi1.lai@intel.com>
-To: Ian Rogers <irogers@google.com>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	yi1.lai@intel.com
-Subject: [perf-tools-next:tmp.perf-tools-next] [perf vendor events intel]
- 31efbec216: perf-stat-tests.UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU.fail
-Message-ID: <202610091437.bf2c2d3c-lkp@intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vi7w+Jv+"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49ff639372eso1365025e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 23:31:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791527505; x=1792132305; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/prsEyltlekkl/5pKA40pBQXK0nwU4kVOsJT37viE/Y=;
+        b=Vi7w+Jv+kTuWpR2zqD04rBbY+7txxW51rM9IshH9lE7fgUzp4+T56d8m5wYQ6coNoW
+         fHljJAaZNSf7Z2Nr58vw29jH5sG8ehtwOxqduznxl7AbS6qFNuvCFCQLRkIcPt43FKWM
+         Jjy16DohP+I97Pz7ieNfHjBKmLXkMLaqbJUjMsfVr7j8r4vj6Dy5iIJDGLtO4IdciCNr
+         5s6Ab9/KZ7PcmnFrM9Ar7l8kmTLhUx3pEZmNBb4KH3WTO267cPhKPowhCFYTnhKkXkWl
+         9jVzGgZ0X9SCDYeo2dlH2a9y9YyktCwAHFqRL8TNWyneh6UGf5K68WHOmj2cViakN/3S
+         2upg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791527505; x=1792132305;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/prsEyltlekkl/5pKA40pBQXK0nwU4kVOsJT37viE/Y=;
+        b=aWvi90P7PqfeR6POupybf4R9kMLFzhEuHxsBDElRDvEAafwCsDIMF0cCmn78t1vC19
+         kx1CoX9PjaT4DyBtGrwxLUJa87VyWQg6vTDACq7VA1ycUKvIoIMhKS4oE1yHXueDEQGH
+         nTZOxCVWCxZ12qZO6MSscLlDzkTAXUgCc0/Ndq8IuKWsITpwR0kcP2a13MrTWAeYj211
+         ewa9WnCTIcc1Z9hxE+XgtaKDshO8sTTc89W12jmwZKr4ROGsgy00PJk0IZ6V0eFRjfTD
+         rS71aRMDanpBgSBtGhkCDuqulSsBbwgRHnt1HpmVAXmYb8J3bzS4hMzYEFR2wNyGwjsY
+         q0lQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxAxJF2DHwRtWn+0gvvyoHKuZhNBUgx75l8dFCZAlOg4llXJA91Paj0s2+GXHSK3DLF56kpCXpexx7oN3c=@vger.kernel.org
+X-Gm-Message-State: AFuF++klqpvdkRIbmGabXIPrJxDgTWIvj42nmJyHnX7jxtTXWMTlE+2w
+	URbFycf3dhJESpqcmZToScvYY/H1AuPW/Xx1cmKK+nux6wdkd1vZzrsG
+X-Gm-Gg: AYBFou2NhzuPEfsoPulOGpxoa2za9KiA5w0znrUPLn1Jh8fmPzIGAwzI7f4VHdYZ3pw
+	k5G2U834rwDxQIw3ym360uIBt2LsmNnzFeRd79vQtwZKK4eD0ZEY8YD2zA77DxC8XXvVsfvisgy
+	2vR8grQMl+u5+HDipntldCXaA7DSuijX2p2mBJ42BCaagKz0R6vjNL3p/hfHiEYRVotXHHRjHhZ
+	xw4tmOMdAFZsUZ1Jni2nV9m5jXI3IP31b7GaPylkgKtorggO0NvtG2eT0uRj+nLBF0q6+wmqrqm
+	6NvzrpAhloTIjIvqyTqHdoXNiV49tYaJwFvrbs2EU/lR7UGlKi0UxiDwimVy97mvYwC873oNIo6
+	45vzfvgFv78lYFCMyWgQXyxt5gVc72ejvIMbiiot8uCcNmKR15AWsS6TMFqn7bwdTmYtu4B//uG
+	Umb8cu+EPw2JuotbAAMwzoJlDNv93Y1Htg6twJxmvlRnl8luY/3tA2uoo8z4kfDlD7SWNkZ6AG4
+	56PbgSE3myhRwswbSZ7
+X-Received: by 2002:a05:600c:a086:b0:4a0:1f9e:5f78 with SMTP id 5b1f17b1804b1-4a18e3ea887mr14032945e9.0.1791527504788;
+        Thu, 08 Oct 2026 23:31:44 -0700 (PDT)
+Received: from lima-kdev.local ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf0abcesm39170955e9.1.2026.10.08.23.31.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 23:31:44 -0700 (PDT)
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: tim.c.chen@linux.intel.com
+Cc: arighi@nvidia.com,
+	bsegall@google.com,
+	changwoo@igalia.com,
+	christian.loehle@arm.com,
+	dietmar.eggemann@arm.com,
+	juri.lelli@redhat.com,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	lukasz.luba@arm.com,
+	mgorman@suse.de,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	pierre.gondois@arm.com,
+	qyousef@layalina.io,
+	rafael@kernel.org,
+	rostedt@goodmis.org,
+	sched-ext@lists.linux.dev,
+	sshegde@linux.ibm.com,
+	tj@kernel.org,
+	vincent.guittot@linaro.org,
+	void@manifault.com,
+	vschneid@redhat.com
+Subject: Re: [PATCH 18/18 v2] sched/fair: Take into account slice in EAS
+Date: Fri,  9 Oct 2026 09:31:40 +0300
+Message-ID: <20261009063140.30016-1-kayracizmeci@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <179bcb50be21f834423f9b5c068b5fce4cb65871.camel@linux.intel.com>
+References: <179bcb50be21f834423f9b5c068b5fce4cb65871.camel@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
+Hi Tim,
 
-Hello,
+>                             struct task_struct *p)
+>  {
+>         unsigned long task_slice = p->se.slice;
+> +       bool target_first = task_slice < get_rq_min_slice(cpu_rq(target->cpu));
+> +       bool min_first = task_slice < get_rq_min_slice(cpu_rq(min->cpu));
+>
+> -       /*  Select the one where you can run first */
+> -        if (task_slice < get_rq_min_slice(cpu_rq(target->cpu)) &&
+> -           task_slice >= get_rq_min_slice(cpu_rq(min->cpu)))
+> -               return true;
+> +       /*
+> +        * Select the one where you can run first. Check both ways, or the
+> +        * result depends on the order of the CPUs in the PD.
+> +        */
+> +       if (target_first != min_first)
+> +               return target_first;
+>
+>        /* Favor previous CPU */
+>        if (target->cpu == prev)
 
-kernel test robot noticed "perf-stat-tests.UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU.fail" on:
+> Take an idle CPU X and a busy prev_cpu. Any task can
+> run first on X, because an empty rq has min_slice == ULONG_MAX:
 
-commit: 31efbec2161d2d31b020b086958e41f35f070a38 ("perf vendor events intel: Update sapphirerapids events from 1.39 to 1.40") https://git.kernel.org/cgit/linux/kernel/git/perf/perf-tools-next.git tmp.perf-tools-next
+> - prev_cpu scanned first: when X is the target, the slice check
+>   selects X.
+> - X scanned first: when prev_cpu is the target, the slice check fails,
+>   and "Favor previous CPU" then selects prev_cpu.
 
-[test failed on linux-next/master eea3fef32a9cf36abcb5975a5a594e4135a6b026]
+> In the second case the task is stacked on the busy prev_cpu even though
+> it may not run first there.
 
-in testcase: perf-stat-tests
-config: x86_64-rhel-9.4-bpf
-compiler: gcc-14
-test machine: 224 threads 2 sockets Intel(R) Xeon(R) Platinum 8480CTDX (Sapphire Rapids) with 256G memory
+Agreed. 
 
-(please refer to attached dmesg/kmsg for entire log/backtrace)
+But ULONG_MAX doesn't always means that the rq is empty.
+(See my 18/4 review, maybe I'm getting something wrong)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <yi1.lai@intel.com>
-| Closes: https://lore.kernel.org/oe-lkp/202610091437.bf2c2d3c-lkp@intel.com
+Also, I assume prev == min-cpu.
 
-EventName: UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU
-2026-10-05 17:15:24 perf stat -e UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU -a sleep 0.1
-event syntax error: 'UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU'
-                     \___ Bad event name
+Scene:
 
-Unable to find event on a PMU of 'UNC_IIO_NUM_TGT_MATCHED_REQ_OF_CPU'
+target is X, min is prev, prev has a 5 ms sliced task while X is empty and task_slice = 4
+target_first comes true and min_first comes true they're equal and min is chosen.
 
-event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
-                                  \___ value too big for format (umask), maximum is 255
+If however, the task_slice was bigger or equal to 5, as correctly target would be chosen.
 
-event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
-                                  \___ value too big for format (umask), maximum is 255
+LGTM atleast. Eh. (ULONG_MAX could be a problem tho.)
 
-event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
-                                  \___ value too big for format (umask), maximum is 255
-
-event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
-                                  \___ value too big for format (umask), maximum is 255
-
-event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
-                                  \___ value too big for format (umask), maximum is 255
-
-event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
-                                  \___ value too big for format (umask), maximum is 255
-
-event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
-                                  \___ value too big for format (umask), maximum is 255
-
-event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
-                                  \___ value too big for format (umask), maximum is 255
-
-event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
-                                  \___ value too big for format (umask), maximum is 255
-
-event syntax error: '..O_NUM_TGT_MATCHED_REQ_OF_CPU'
-                                  \___ value too big for format (umask), maximum is 255
-Run 'perf list' for a list of valid events
-
- Usage: perf stat [<options>] [<command>]
-
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20261009/202610091437.bf2c2d3c-lkp@intel.com
-
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-
-
+Thanks, 
+Kayra
