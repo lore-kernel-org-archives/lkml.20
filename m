@@ -1,98 +1,166 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26FE043DEC7
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 11:04:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791543858; cv=none; b=S5cmwZcP/tky4SBiJbuxhTklytOletjRNEZjTmLFGonZ0V5tX73qq3DKJH+NIEC341uVXpqEvMYmGjOkvaC/uOKGPmPWSitsKkFykmZ0XtzrUBJYjKb50htFCeMVFuAi/ofmZEe1Cm/vMWFXLgt+YOItirBLTDjTfxs8SsMDMIQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791543858; c=relaxed/simple;
-	bh=PyGpHovG2GVwa9YAK09Xz2EUqL/+PMGU2xO2YXv5xH0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
-	 References; b=mjZnKQ5vaozZrUNshU9zbvz4Zl8blp5r96/G5hrll8ekHhteF6n0Tl7KD0HKDz31mN2dgij0lFxsUyUBp1CRWL6dD6MJADEQXcI1LpZL9mgXNH9SWSv0jU1xOAumKrGHP6xf7/XxuPEyMmg9rz9MhFpfuR1k6CzPefgO8NoJrXM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=gzYWUVlx; arc=none smtp.client-ip=210.118.77.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19DEA4CC261
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 11:04:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791543870; cv=pass; b=ONL9RPNfxAWNFK2alEfx1BlKEbJf4ekvx/MU0rnR+k4xcWvYIUU3rJ5CJivAui9GPyArxDfXm1zcyWOZhbQOMWdixqeEMZXjURzNrfWa6SXAajCZIx6TKD/vlVszdP3p/7geFQYNuKW5w6qRjjOK1ZR9q7LpRS1WHbQ2MUy/v5I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791543870; c=relaxed/simple;
+	bh=HU/x38tNo8wZ0AuOIsi19+HVuQxNr0X2ubpha5PHPiY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VuaPbbbpY2EEO4jmOUKLNOdRtIOOIqqoB3koXCfBg4c0LtawAI7XMaE5EIOkD5Pux+G/vXENpdAwY/T/JThGMRs8J9fJ/fz6a/hNsjaIa2DYVSJn/7swOz/d5Ofebt/i4+gP/mQF4i6/FLXt2jw8m2/lw5ouhwFSZGnkbsVB8ic=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=BLuUpfUa; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="gzYWUVlx"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261009110401euoutp02d9585a53a007968b1b96ebac3cb56c8d~c16HOU0Yb2799527995euoutp02b
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 11:04:01 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261009110401euoutp02d9585a53a007968b1b96ebac3cb56c8d~c16HOU0Yb2799527995euoutp02b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791543841;
-	bh=IOJmWjKAq0AWIt2/KFdzBAY525uiSoVkQwuNEs5hc2Q=;
-	h=From:To:Cc:Subject:Date:References:From;
-	b=gzYWUVlxxBsbNbEGUQeRAl2vmrecXtOc39gyKfvPQdDy2axEbyhw/TFRSuE+b5j7i
-	 3fbZsobAy8rHG8EakjvEaZjNn4G0zFFB2VchEjW5UAc7Mg5zTgIUrMsbyJBeiP9Ek+
-	 owdJeXl8DKdZDQO/MHnivwOE92FWKqJXvaX8t4Nw=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261009110401eucas1p18f48109c4922503c4a371dee94aac268~c16G35TCe2428424284eucas1p1-;
-	Fri,  9 Oct 2026 11:04:01 +0000 (GMT)
-Received: from AMDC4653.digital.local (unknown [106.120.51.32]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261009110401eusmtip2dd49c0c16c77c93239428917d8e7a295~c16GkDdSe0698206982eusmtip2d;
-	Fri,  9 Oct 2026 11:04:00 +0000 (GMT)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, iommu@lists.linux.dev, Marek Szyprowski
-	<m.szyprowski@samsung.com>, Robin Murphy <robin.murphy@arm.com>, Peng Fan
-	<peng.fan@nxp.com>
-Subject: [GIT PULL] 2nd dma-mapping fixes for Linux 7.3
-Date: Fri,  9 Oct 2026 13:03:46 +0200
-Message-ID: <20261009110348.43841-1-m.szyprowski@samsung.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="BLuUpfUa"
+ARC-Seal: i=1; a=rsa-sha256; t=1791543825; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Lbu7mK3foQG91+/R97L5K3gl0S+EiTPMKu86RBiU0Erh8Tv0ql4kROEDY8JyOxTIILTM8kFcEeZyoqU0zpi1RPy3X5jc7vVbdZGAakDi9vAGEp0UaDC1QpPLxfCTR9pu383VjGB+H+LJxVYhI6o8QuSUwhymLLHMfLaZ3/R+HhY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791543825; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=6VeP7OZP4fl2d+SeH1xW2SsZlw8sptiCYA73mXgU3+4=; 
+	b=ltMAs8NoqJEdBg3T7a0XNhKkosbScEDNPOwv1Mw7jXibNkhyTAtDIG42XieJPHqdkScN3w6mBEBxVPqtvfQzPomUM2oUh1to8dKXhCzi6HfjPDzWKGs822rf1b0wRESu/dcJnBChtn8ZL51ETey9ABO/BGabRvXSm4p3SlhDacQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791543825;
+	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=6VeP7OZP4fl2d+SeH1xW2SsZlw8sptiCYA73mXgU3+4=;
+	b=BLuUpfUa9jBAe949z8Z72+OF92L43TUHquroQh8Oo3SB2jPrRId9pMF9RI6AQM42
+	zmY6UcREMFw9j0gTkjt/IEbMggXDyo6hqIdXEC/JBkkch9sZP2cDy+xBYUT6ugturCJ
+	s9UXcjlAqMkifngnvB+67Jhr8dXkS8Obz5TAP+es=
+Received: by smtp.zohomail.com with SMTPS id 1791543824599306.9382623529217;
+	Fri, 9 Oct 2026 04:03:44 -0700 (PDT)
+Message-ID: <8c0920fc-2f3f-425a-84d8-2aa701cb2388@collabora.com>
+Date: Fri, 9 Oct 2026 14:03:39 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/virtio: do not enforce blob_alignment in
+ cross-domain contexts
+To: Val Packett <val@invisiblethingslab.com>,
+ David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Simona Vetter <simona@ffwll.ch>, Sergio Lopez <slp@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20261006154913.2689067-2-val@invisiblethingslab.com>
+ <8b0fbe1a-1410-42d7-8031-611795ae39d9@collabora.com>
+ <4d86ec37-ce27-4556-966e-4b4e80ec0718@invisiblethingslab.com>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <4d86ec37-ce27-4556-966e-4b4e80ec0718@invisiblethingslab.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261009110401eucas1p18f48109c4922503c4a371dee94aac268
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261009110401eucas1p18f48109c4922503c4a371dee94aac268
-X-EPHeader: CA
-X-CMS-RootMailID: 20261009110401eucas1p18f48109c4922503c4a371dee94aac268
-References: <CGME20261009110401eucas1p18f48109c4922503c4a371dee94aac268@eucas1p1.samsung.com>
+X-ZohoMailClient: External
 
-The following changes since commit 55a8e1451869233db837a97e8f3cbf9983bc8678:
+On 10/8/26 23:59, Val Packett wrote:
+> 
+> On 10/8/26 4:33 AM, Dmitry Osipenko wrote:
+>> On 10/6/26 18:42, Val Packett wrote:
+>>> VIRTIO_GPU_F_BLOB_ALIGNMENT is designed for GPU rendering context types,
+>>> however VIRTIO_GPU_CAPSET_CROSS_DOMAIN is not one of those. Resources
+>>> created under cross-domain contexts are arbitrary shared system memory
+>>> files, which includes unusual things like Wayland keymaps received
+>>> from the host compositor. Do not enforce alignment requirements there.
+>>>
+>>> Fixes: 47248e0d8264 ("drm/virtio: honor blob_alignment requirements")
+>>> Signed-off-by: Val Packett <val@invisiblethingslab.com>
+>>> ---
+>>>
+>>> v2: also check has_virgl_3d to prevent dereferencing NULL vfpriv
+>>> v1: https://lore.kernel.org/all/20261006004044.2242154-1-
+>>> val@invisiblethingslab.com/
+>>>
+>>> ~val
+>>>
+>>> ---
+>>>   drivers/gpu/drm/virtio/virtgpu_ioctl.c | 4 +++-
+>>>   1 file changed, 3 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/
+>>> drm/virtio/virtgpu_ioctl.c
+>>> index 3ddd5481d6bc..4d5ae062834d 100644
+>>> --- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+>>> +++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
+>>> @@ -551,7 +551,9 @@ static int verify_blob(struct virtio_gpu_device
+>>> *vgdev,
+>>>       params->blob_flags = rc_blob->blob_flags;
+>>>       params->blob_hints = rc_blob->blob_hints;
+>>>   -    if (vgdev->has_blob_alignment &&
+>>> +    if (vgdev->has_blob_alignment && vgdev->has_virgl_3d &&
+>>> +        (vfpriv->context_init &
+>>> VIRTIO_GPU_CONTEXT_INIT_CAPSET_ID_MASK) !=
+>>> +        VIRTIO_GPU_CAPSET_CROSS_DOMAIN &&
+>>>           !IS_ALIGNED(params->size, vgdev->blob_alignment))
+>>>           return -EINVAL;
+>>>   
+>> What userspace has this problem and why it re-purposes virtio-gpu to act
+>> as udmabuf for arbitrary data that never reaches host?
+> 
+> Sorry, what do you mean by that?
+> 
+> This is not related to data that "never reaches host" at all! The error
+> I referred to in the patch message literally says "received *from* the
+> host"…??
+> 
+> Guest userspace is any of the cross-domain proxies:
+> 
+> * https://codeberg.org/drakulix/wl-cross-domain-proxy
+> * https://github.com/talex5/wayland-proxy-virtwl
+> * https://github.com/google/sommelier-rs (or old C++ version)
+> 
+> VIRTIO_GPU_CAPSET_CROSS_DOMAIN "repurposes virtio-gpu" to act as a
+> cross-VM UNIX socket transport that supports fd passing. By referring to
+> virtio-gpu resources in the send command the guest can make the device
+> send the resources' corresponding host fds to the host Wayland
+> compositor. It can refer to resources from other contexts, in order to
+> present drm/venus/etc rendered buffers on Wayland surfaces. (i.e. the
+> host would send the actual dma-buf from virglrenderer) But the resources
+> created on the cross-domain context itself are system memory buffers,
+> generally used for software rendering and miscellaneous Wayland "stuff"
+> like keymaps which are sent *from* the host, and exposed to Wayland
+> clients in the guest. Socket receive handling in rutabaga-gfx stores
+> incoming fds and returns their IDs to the guest, then the guest does a
+> CREATE_BLOB with matching blob_id, which creates a virtio-gpu resource
+> from the incoming buffer, so the guest can just MAP_BLOB it. These are
+> the blobs that are not aligned to anything because they're just
+> arbitrary memfds on the host.
 
-  x86/mm: Don't force unencrypted DMA for IOMMU-backed devices (2026-09-11 10:30:50 +0200)
+Blob is a chunk of memory intended to be shared between host and guest.
 
-are available in the Git repository at:
+The shared mappable buffer size must be aligned to a page size
+granularity that satisfies both host and guest requirement.
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/mszyprowski/linux.git tags/dma-mapping-7.3-2026-10-09
+If I'm now reading correctly, you're saying that here blob size is
+arbitrary payload data size, even not the the aligned size of memory
+blob that contains payload. And userspace code implicitly relies on
+kernel to round-up payload size to a guest's page size.
 
-for you to fetch changes up to 911655ab1dfb9d526978a75df3b210132620d30a:
+We now have blob_alignment and verifying the unaligned params->size.
+Given the userspace dependency on the kernel's implicit round-up, we
+should be checking blob_alignment of the rounded-up params->size:
 
-  swiotlb: fix default_swiotlb_limit() for non-growable default pool (2026-10-08 12:13:28 +0200)
++	if (*guest_blob)
++		params->size = roundup(params->size, PAGE_SIZE);
 
-----------------------------------------------------------------
-dma-mapping fixes for Linux 7.3
+	if (vgdev->has_blob_alignment &&
+	    !IS_ALIGNED(params->size, vgdev->blob_alignment))
+		return -EINVAL;
 
-Two more fixes for the corner cases in the DMA-mapping SWIOTLB code
-(Peng Fan and Marek Szyprowski).
+Does it work for you?
 
-----------------------------------------------------------------
-Marek Szyprowski (1):
-      swiotlb: fix default_swiotlb_limit() for non-growable default pool
-
-Peng Fan (1):
-      iommu/dma: skip swiotlb bounce for DMA_ATTR_MMIO in iommu_dma_map_phys
-
- drivers/iommu/dma-iommu.c | 4 ++--
- kernel/dma/swiotlb.c      | 6 +++---
- 2 files changed, 5 insertions(+), 5 deletions(-)
-
-----------------------------------------------------------------
-
-Thanks!
-
-Best regards
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
-
+-- 
+Best regards,
+Dmitry
