@@ -1,130 +1,157 @@
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FFD5397343
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 20:52:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 614BC3D6461;
+	Fri,  9 Oct 2026 20:54:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791579179; cv=none; b=fmwg8CN8JcfnU2g26DBV1nfIYnv69fJmMcCwci747cX/tjHrwz1ETgue2UWX3YF50fuBjcDGNNe0YAe/WgjFqar+0QPsyNMMMUHWlRsEbzJ85KOsMrZQGcALU3KrOcS3pl/M1+IjMnuM9rScg4ZwNBfMNRchyc4q77Dk9qWuaS0=
+	t=1791579247; cv=none; b=jnS9TBTFZl8UTibVZ11t8pYnm3t5OmGcK5be250jF0QrdofJ0qxZ5Cvcnp4i4iiqv2OTK4hOEILmUbbNivFFhDdZyFteJplD8pETxeo2RGehOn2YKN3fXenzzjjh2rmz/wE3/8h49vkIRd2pWYX8E2SOMKMO7AxwuLIQzcPK/P0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791579179; c=relaxed/simple;
-	bh=3le5P+h/KiA8eq2M8tVprosyJ+rYeh5W5GrP/Ck16/4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KXeBkNsHrIdFvNZYG67QbG56SpvSZJerLiT/6KxJTHENHLO7vUgLXgiLsXebGCtxlctImo0FimtxlpsN1K1v1oegUS16IgQqOiDWtG/LmQV1uH2v7RICH5sWY3NHr20U4xdGkbXLqpTJqYlbzW/B6KWcfb/U22BK7NuIo5rgs+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.224.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-677af43eed4so106090d50.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 13:52:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791579176; x=1792183976;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CRIIxOajP0yzIY23BtbyoAhj2PBRdU9IpmRdYvRMNJ4=;
-        b=laVFigot655f+Li6KJi6yNqnxCHxg5W7+RKfFdX4rXP+ucxPg2Qvf46wfvICLF81bJ
-         snGbtAxUhaEWTmfhIQ51WTctc1LLCvkX7E2oS8msAcREaJ54s5ZW8v7XyUof7jL2aSXZ
-         +jzzbLg5lFewBpt2hK8GVD6c7SgIwrWdlV+k5+TuI+lbgSmbiOUV/beabzXrZ+63PSk/
-         P8rHPxKv+rQ3+BQk71PQ4fR1d+fllcPTRop3YJ1gb08MWydgvxM1uuH5jwa3ib1cJCH+
-         8nktlm8voFH+xh/4+4ZDchaVAJ0OYyTnLa8TXEAsSaC+spCd8K5KCbNiu9Eq6/mMV+aA
-         fpUw==
-X-Forwarded-Encrypted: i=1; AKwUvBz7QCnvjvGpK9CaBDM9JCLseaaC+7fWLfj0n+sV6SUdZxizQU2/dio/4q1elssOfHlEqu4y7LfR3qrJnyo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJO6w+D2xLBv8MuvXVp8dr1v1jwwsSAxaz1yMrG4BCirWnZykkJ
-	XCf7Zoncu3r4InWjIjmD6juxT0r4nFbY9Dszub+O+dTanrL6Wuqbc8zylAjfHeN7JR4=
-X-Gm-Gg: AYBFou0L25XjXoeLxAhSwwVuqZDJJD+LaKtufGXMOYRHzPS/dAqw1VvQSxVfojq+1bn
-	ic/SBtl1+LTTeQMR7e//6FxSJ6BcQliqRC54Rxh5FD5lYs0nz20fa3g+q0A+BKMgOjKVg2mgCqQ
-	HNZRPu6Ya41LAOVOhEgiahMDG6C6ZquUKFh1YmaYUrHcu9132LX1Oz3f0TYVfun3QqQTIiaXI5j
-	hz0QWArqkLfbCYdWetSkoxQQhqiaXWPjUkk66xajMoxO6qhD7fKYzYFw77Hbd8b0KhtiolbYW5R
-	fXTbn1XfYTc7iwKAfwgpINFjTG/vCLa9VzXSFXuADcLz4w5yPWFom4TUQN1olb48+io99Xi2TZN
-	z2Od1umJjr5+od3jDlIWFTfys+C8eR45Bxyuh6ku1JJFDdOO3szHkpNGz1Y+6QOjBG8XW5SP0Un
-	2z6FY3vhqedK7QEnUIAv0HOtO5Wv7FgsBS+jgLbO5UnCdmLXC3Ts5zxPfM3yppZywHwwsoQoz5k
-	ezTcVwgLQqwJ+Rm2eMAgtZ7L2U6yJvHiZFNExJ2JMuzBa2qNK7n/huUSwTUZn9YAcLmaI00cOeh
-	/w==
-X-Received: by 2002:a05:690e:4190:b0:677:c369:ff5b with SMTP id 956f58d0204a3-67936a42e7emr1001688d50.63.1791579176283;
-        Fri, 09 Oct 2026 13:52:56 -0700 (PDT)
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com. [209.85.128.176])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-679356deec5sm1255464d50.20.2026.10.09.13.52.53
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 09 Oct 2026 13:52:53 -0700 (PDT)
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8ab432273c5so714597b3.3
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 13:52:53 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxOIMr0Z550qvpRiJRRVMjcFvS9N8fhRVyQku6x3J/ELjeoUfOEWSF60G9y0wMPrxeg4zYhzHqlouKx0Vc=@vger.kernel.org
-X-Received: by 2002:a05:690e:440f:b0:677:d3d8:990 with SMTP id
- 956f58d0204a3-67936768725mr589216d50.6.1791579173056; Fri, 09 Oct 2026
- 13:52:53 -0700 (PDT)
+	s=arc-20240116; t=1791579247; c=relaxed/simple;
+	bh=fgRH35rAuwoizyE2+gu+S5LdhmVsIiCJBTDh5HoaPno=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=t8NjYl0tF/mBklEjpeuY/WpQZsmYEgdH2qY+4p6cqznMDC0v/oIoASDFEeDjHtgrR3JekPCHGjPTS0w5eINiciDSK4Z5png8SnL1a+2UK4K83gHv6zxByYC33jlBIoiybaXaFpBqlmv/QxNvR0JLEnAf3afxOgFgOpxqjQrAojE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Bq5o/Re0; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Bq5o/Re0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791579247; x=1823115247;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=fgRH35rAuwoizyE2+gu+S5LdhmVsIiCJBTDh5HoaPno=;
+  b=Bq5o/Re0dHET/rClEY+sRDEm631x1uqM+gLgROEdKDy/UVTRLF+/Nlx3
+   nIJCCF0gVqNHhGSLhrM8ku51Ysg5TLHPf7rMyzv4VflQF1ThCRqvYJKz9
+   iOnYeEDadkdjMX0aMCUJZ9bNaGLFJ4mwI5pPe6rtpIBS1on0HFhkWFhbv
+   trDjhQu9vPLEDqUVGBOWwJWmk4dyUBEeu75Q7XowX3nWTbPYJqkVBeca+
+   M2My/3FiKTyvGeC8wOKsTJtIXj9Fyt6gXf7+2oOKpbd8N3rQnI3xRMt0c
+   rQ0e8y5t8f1f7kIc8XNyYxZYAUFJOGc6XfLQDtWsFhuZZwhaT7brzJBCC
+   A==;
+X-CSE-ConnectionGUID: Q3gR5CmTSrKo76U/sa7vrQ==
+X-CSE-MsgGUID: 87Nrq8FdSwG74jPKzxLUZQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="394179"
+X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
+   d="scan'208";a="394179"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 13:54:05 -0700
+X-CSE-ConnectionGUID: ODAsJhCnT+6lgKOO/0TUvg==
+X-CSE-MsgGUID: Eg6tPTM3Qn6fnZyd6dbigw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
+   d="scan'208";a="752675"
+Received: from ssimmeri-mobl2.amr.corp.intel.com (HELO [10.125.109.84]) ([10.125.109.84])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 13:54:02 -0700
+Message-ID: <bd47fc12-f1cf-4994-8b42-45fc68944072@intel.com>
+Date: Fri, 9 Oct 2026 13:54:02 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261007082627.63807-1-tanure@linux.com> <d23dfdf3-5837-459f-afd6-6c198a05c13c@lunn.ch>
- <CAJX_Q+2au4x99kj=UBqn4joQCM3-D2kbaJ0zro9Y4RXka7ePvQ@mail.gmail.com> <3a037c87-e4c5-4a4e-9522-cf505e1c6399@lunn.ch>
-In-Reply-To: <3a037c87-e4c5-4a4e-9522-cf505e1c6399@lunn.ch>
-Reply-To: tanure@linux.com
-From: Lucas Tanure <tanure@linux.com>
-Date: Fri, 9 Oct 2026 21:52:41 +0100
-X-Gmail-Original-Message-ID: <CAJX_Q+22tckoRKsEt9_oakAsN=+cwHdX+WPcaGWR9_3EMqM5ow@mail.gmail.com>
-X-Gm-Features: AclHuK_m9bgs2ZxoWfD-m6qDBIuQp5RI_xHW6gmLTuflU7vtLwdOlVbkLA0qUf0
-Message-ID: <CAJX_Q+22tckoRKsEt9_oakAsN=+cwHdX+WPcaGWR9_3EMqM5ow@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 0/7] Add ethernet support for the Amlogic T7
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Jerome Brunet <jbrunet@baylibre.com>, 
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
-	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] x86/mm: fix missing pgtable destructor for vmemmap
+ tables
+To: Muchun Song <songmuchun@bytedance.com>, akpm@linux-foundation.org
+Cc: linux-mm@kvack.org, stable@vger.kernel.org, david@kernel.org,
+ osalvador@suse.de, dave.hansen@linux.intel.com, luto@kernel.org,
+ peterz@infradead.org, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ x86@kernel.org, hpa@zytor.com, catalin.marinas@arm.com, will@kernel.org,
+ mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org, pjw@kernel.org,
+ palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
+ linux-riscv@lists.infradead.org, agordeev@linux.ibm.com,
+ kevin.brodsky@arm.com, bjorn@rivosinc.com, apopple@nvidia.com,
+ linux-kernel@vger.kernel.org, muchun.song@linux.dev
+References: <20261008073021.2512665-1-songmuchun@bytedance.com>
+ <20261008073021.2512665-2-songmuchun@bytedance.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <20261008073021.2512665-2-songmuchun@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 9, 2026 at 1:13=E2=80=AFPM Andrew Lunn <andrew@lunn.ch> wrote:
->
-> On Fri, Oct 09, 2026 at 06:59:49AM +0100, Lucas Tanure wrote:
-> > On Wed, Oct 7, 2026 at 2:01=E2=80=AFPM Andrew Lunn <andrew@lunn.ch> wro=
-te:
-> > >
-> > > On Wed, Oct 07, 2026 at 09:26:20AM +0100, Lucas Tanure wrote:
-> > > > The T7 pairs a Synopsys gigabit MAC with the same glue registers th=
-e
-> > > > G12A has, but nothing described it. This adds the binding, the driv=
-er
-> > > > support and the device tree nodes, and enables the port on the Khad=
-as
-> > > > VIM4.
-> > > >
-> > > > Unlike the G12A, the controller reaches DRAM through a pipeline sta=
-ge
-> > > > with a gate of its own, sys_ampipe_eth. Nothing else claims it, so
-> > > > clk_disable_unused switches it off and transfers stop.
-> > > >
-> > > > v2 changes the RGMII delays, after review. phy-mode describes the
-> > > > board, not which chip adds the delay, so this board is rgmii-id.
-> > > > dwmac-meson8b did the opposite, and ignored the *-internal-delay-ps
-> > > > properties. Patch 1 fixes that. The VIM4 needs it because the RTL82=
-11F
-> > > > transmit delay does not work here.
-> > >
-> > > What is special about the RTL8211F?
-> > Maybe nothing, it may be this board. I cannot tell from here.
->
-> Yes, look at my other reply. The RTL8211F is very likely correct. It
-> is the MAC drivers handling of delays which is broken. You get to fix
-> it for this new device.
->
->    Andrew
+On 10/8/26 00:30, Muchun Song wrote:
+> Since commit 49f599666420 ("mm: call ctor/dtor for kernel PTEs"),
+> pte_alloc_one_kernel() runs the page-table constructor for kernel PTE
+> tables.
+> 
+> HugeTLB vmemmap optimization uses pte_alloc_one_kernel() when splitting
+> a PMD. Restoring the vmemmap backing pages does not collapse the PTE
+> table, so a later memory hot-remove eventually frees that table through
+> free_pagetable(). That path currently calls pagetable_free() directly
+> without decrementing NR_PAGETABLE.
+> 
+> Use PageTable() to identify constructor-backed tables and run the
+> matching destructor before freeing them. Keep reserved and
+> constructor-free tables on their existing paths. This also prepares
+> vmemmap teardown for generic runtime allocations through the normal
+> pgalloc helpers.
 
-Doing exactly that. v3 leaves the existing delay code alone and adds a
-path used only by the T7 compatible, built on Maxime's
-phy_fix_phy_mode_for_mac_delays(). Testing it now, then I will send
-it.
+Could you please take some time and trim the bits out of this changelog
+that the LLM inserted but that are not super relevant? For instance, I'm
+not sure what the first paragraph is trying to say. It is apparently
+missing some context.
 
-Thanks,
-Lucas
+FWIW, I really don't like the LLM changelogs on their own. They almost
+inevitably need human editing to make them usable. I really, really
+expect humans that are sending x86 patches to spend some human
+brainpower on them. In fact, I expect folks with:
+
+	Assisted-by: LLM
+
+to be sending _impeccable_ changelogs in v1 because their LLM saved them
+so much time that they can spend gobs on their changelogs. More than
+ever. ;)
+
+Oh, and it's an x86 crime that we have:
+
+	free_pagetable()
+and
+	pagetable_free()
+
+Any work that makes that coherent would be much appreciated.
