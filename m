@@ -1,190 +1,208 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 127FD3D9526
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 12:58:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C4FC43F4AD;
+	Fri,  9 Oct 2026 12:59:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791550693; cv=none; b=p+jhQpLsBmgC7C9GDZwTJJKzpSNWXOvvQCp0vz6MyhEHuUFsu3Tp5BoWASi6DCzPbGSj6j8BE61IA+Y53FuADvxLaprjcHmRuEIXIZJyBwGIK9ctX1LY9Zb3fi+u6pyywcYGZ0omUb+yjUIwzG9VK5rGRRlweBMIIhf/TaudI1w=
+	t=1791550754; cv=none; b=MZPxA+2MwEcTLkeyi9f9Lj5OzP/IiZE+SY7xq2/9wYmlrCXGT+Nh//cLTkKzlEaIU3/lnmmyJzF7V1i8+bg81HpR5rtQVCw1gv1xyAR+DvA7hfrvshSKrtg5FdZImw63/Ok0Qt3WJkU5OuKFMt9k8/nk2IZXR4CavV39gHPLMHQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791550693; c=relaxed/simple;
-	bh=DTfyjQQ9QaZhOHLOFw2CFdJ3L2v5f+YHPDHs4G0YlSo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=JbliVPPZtzrBff6ZHUJ0eVWkZ3NLbQXW61oA9szwQxkxsLw8tmNmnhGm+r7caPYf7/yNX2y1gi0n4AVF0C3ZBbbdUGT6q3lp3sY77iU7yIsHgEo2Xpx3TK70/bI04zm2ZNzWZGmKrKEgT2Bp9+G7bfKAivz0xNelFDE/D3d0y6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TxMoB1QN; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791550754; c=relaxed/simple;
+	bh=O3HPNiC/H6q/R/UqjxAM9mOq/yQeP0MwgcnJdZbOPAM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KDQ28bKEPE2nHS8tBkQLVNBYn6WtIwG8eCut24dPPGn4fHxnSGwN3PmxfhRG1uO7LFOdhTAo5MkR3Qoff9n3UrR5NpJ5DjNYQmXFkg5D0va+xU7tIhj8jWGrqa8RRjy7afyruoO/v7nef9025ktODGYrHM/v+XDaRV+TK/sekL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=oSNwUpTQ; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=hcfEm8Bl; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TxMoB1QN"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49d05d51553so45430185e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 05:58:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791550690; x=1792155490; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z8lzbZmWc3hYBJ722sfbQgqeG/5EFg1Z6AcAAII8xsM=;
-        b=TxMoB1QNTXXw5hJb/lAWvxm3q39GdwOPlvzxLi+FvYagc5VIGVTTy1xlR93JqyorBS
-         Alpx8Evk0ys5DOPTmo4rT0Zgg6fiMueDO2mumXWu3hpNgPUxnniwUHy4xdEFXz1GySvV
-         Ola6LLSMuffCbmO5k59zzJN13Aau/rEnvC2MoGou+JmsC9RJCiOiCbBYPwqTCPdRlQl2
-         i1suAmuvhnOJu3ouFmsdzoM3q9yLI1VPXN3bzC+oTaYhTlHoiWUc1MSeV4ULmkgiaOUf
-         bhWaOGXNKu/3XDNe8AuWxOl5dz0PEiQBES9N+2ycFHjgaP6UxnXLZZ7iVncQ7vT9MwHN
-         z9AA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791550690; x=1792155490;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Z8lzbZmWc3hYBJ722sfbQgqeG/5EFg1Z6AcAAII8xsM=;
-        b=EAaMVluxSOqWRiLDwariLLHryDMiHlsbFZKbNpVtP5s8oKzq/B/jI8Sv1PLWy5s+kA
-         t5u3cx3WxMdfS3flb6gswy/vA7RvJURY04FIPaC2dR6ZGpgwEh79q3he15R66j0Q/nM+
-         ELruBUrdlJaJHNM0zzuOuthAC9CDDjPrjGIVw2DRwH5+5Zgy/OdvqK4+Xvm9YWS7M2tZ
-         Zxjbc/w7Tvr7UOwDbi7fcayf9XkHOky2MzrN2J12WKe5aQJnlIoAd6oA7s87gl103vPJ
-         tiaY3fI2Y9J7oM3OCc18JH12eEiVESkoPKvH0d0i9sU+fee55WD/97ooY66uQ8/Ri48B
-         LOCA==
-X-Forwarded-Encrypted: i=1; AKwUvBya9csriweV+PRUx9XxjL6kcqS9YPRra31qCCectz4+2AejWK1IGzFAH2+XnYVFpLUt/jIHs9Mos3VDYf0=@vger.kernel.org
-X-Gm-Message-State: AFuF++m5vCGCuVELL9lYnDz7APmCtUz2FfJMoeLiQX4nuOwL0fbZ5oR1
-	GciunSgE8B42tomRNgSUJMLyRtt1lLEC5+OISiMi7dDchdSsHTrZiN6H
-X-Gm-Gg: AYBFou3hnfZ5/Q++I7uZ6Fh15PA2PNg65/8FmObjAE9j5v7cMN+2K6ANTzJvVGlsWon
-	kPzHxCD6v/SJNJD8XPL04VxfGIBKqHiS9uU4cML4yDYGn9CErtTL9JNH3L97p8DuwIKkxnsxX+E
-	aU5jGDeac9uHDOHY3Rvr8YTdiuWxrvnXaNUY/VJSn2aYcHa6fCpxFK/+Jbwfwdr3VBWYHi7GAc/
-	SGxsv3SqcQtLfdQ8kNYIDOwMRfH7Un14n0XuqxBWjJ7OE8dcY1+GorinVnr5ZnCI8U0jVnfoSxS
-	i/YnwCu6MsP1wqhXy1QUD0kaYe8db0azy8h74sHduJV9iNgNGu1Ln27YsaSoOBBlecyjPSHzNp/
-	vPakt1pNPGB+UfnAr/LvJJbkgqqK3TdKA8Ltw+PMfLVOueM384zvHykn2vu1LuUGXIT6aaRyHOP
-	OgcEt4KrIcqiIjegXExjC9CVvoe4qjdHghJvp3Jf2fivtLpUmXlgZW1ZuGlsIb70pZElTGyM+yh
-	xB/fg==
-X-Received: by 2002:a05:600c:4e02:b0:4a1:7428:8195 with SMTP id 5b1f17b1804b1-4a18e4aa2c2mr37465875e9.29.1791550690117;
-        Fri, 09 Oct 2026 05:58:10 -0700 (PDT)
-Received: from [192.168.1.50] ([81.196.40.70])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18e4a3b4asm87903985e9.5.2026.10.09.05.58.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 09 Oct 2026 05:58:09 -0700 (PDT)
-Message-ID: <5af02fd9-1657-45dc-97ee-2d88ee858fa8@gmail.com>
-Date: Fri, 9 Oct 2026 15:58:07 +0300
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="oSNwUpTQ";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="hcfEm8Bl"
+Date: Fri, 9 Oct 2026 14:59:07 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1791550749;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YA/AaboNi3kj/HKsO3IF65GjFnmZrdFwxRX2y8NDDDE=;
+	b=oSNwUpTQCVH7lrBBlsXlbo6wu8uh5vxiFD0ugQxgpbcjgI4MHMFcg0nfz5D3WfwnXSfl8U
+	iFRwZRUqBa+zo3Xgr8frX7CwmM/r+/8BXC/Ly254lRkGTDgkAXGReAclormUmKKc0bmm+B
+	s0M3Uh4RWxtSCH/fKUBCc2uyMxWqdQXcjYroWvpOr8K520KICkbMfoUlw3IMYKvQdDPbrY
+	pYuKyzrn6Wits7gKs+XyI7LlVWGReOIEpYVN/bqL/zz1x8oVcKaTx41WJonaWOCnZxY/qe
+	iL0i8DO9qiU9EFZ/+i8dx9LEN9RqX3VW3ZSuS48tfQaYsI5HJ+FibTugxoZIIA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1791550749;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YA/AaboNi3kj/HKsO3IF65GjFnmZrdFwxRX2y8NDDDE=;
+	b=hcfEm8Bl+gLQPrLfwcEeghv7JRQ93mE/jxF6KBkPb1T7jwOfc66S3dNdIV1f9gz1VySvkq
+	9oEiFCCQczkVaEDg==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Petr Mladek <pmladek@suse.com>
+Cc: John Ogness <john.ogness@linutronix.de>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Christian Brauner <brauner@kernel.org>, oe-lkp@lists.linux.dev,
+	lkp@intel.com, linux-serial@vger.kernel.org, oliver.sang@intel.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] nbcon/reboot: Flush nbcon consoles synchronously on
+ reboot
+Message-ID: <20261009125907.SvaRdfv6@linutronix.de>
+References: <20261008150852.8286-1-pmladek@suse.com>
+ <20261009065152.udyfFRHx@linutronix.de>
+ <asiu8orjDvRJMKuX@pathway.suse.cz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND FIX PATCH wireless-next] wifi: mt7601u: add vnd_reset
- parameter to fix probe failure on Tenda U2
-To: Herman Semenoff <germanaizek0@gmail.com>, kuba@kernel.org,
- kvalo@kernel.org, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <CAMnMt5aD83-6x8oRBo56kEwkrjPibZZ5SNR8MkwU9DSpM8HRqQ@mail.gmail.com>
-Content-Language: en-US
-From: Bitterblue Smith <rtl8821cerfe2@gmail.com>
-In-Reply-To: <CAMnMt5aD83-6x8oRBo56kEwkrjPibZZ5SNR8MkwU9DSpM8HRqQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <asiu8orjDvRJMKuX@pathway.suse.cz>
 
-On 16/09/2026 04:33, Herman Semenoff wrote:
-> On certain MT7601U adapters, such as Tenda U2 (USB ID 148f:7601) and
-> other newer hardware revisions, driver initialization consistently fails
-> during probe with vendor request timeouts (-110 / -ETIMEDOUT):
+On 2026-10-09 11:08:02 [+0200], Petr Mladek wrote:
+> On Fri 2026-10-09 08:51:52, Sebastian Andrzej Siewior wrote:
+> > On 2026-10-08 17:08:52 [+0200], Petr Mladek wrote:
+> > > NBCON consoles emit messages in a dedicated kthreads when the system
+> > > is working properly. printk() tries to flush them synchronously in
+> > > explicitly marked emergency context and in panic().
+> > > 
+> > > Another situation where printk() could not rely on kthreads are the various
+> > > reboot and halt code paths. They can be detected by the `system_state`
+> > > variable.
+> > > 
+> > > Let's default to NBCON_PRIO_EMERGENCY for the post-running states.
+> > > printk() will automatically try flushing the consoles synchronously.
+> > > Also do not rely on printk() and explicitly flush the consoles
+> > > after these states are set.
+> > 
+> > while this seems okay, didn't we have pr_flush() to flush the output on
+> > shutdown/ reboot?
 > 
->     mt7601u 3-14:1.0: ASIC revision: 76010001 MAC revision: 76010500
->     mt7601u 3-14:1.0: Firmware Version: 0.1.00 Build: 7640
->     mt7601u 3-14:1.0: Vendor request req:07 off:09a8 failed:-110
->     mt7601u 3-14:1.0: Vendor request req:02 off:09a8 failed:-110
->     mt7601u 3-14:1.0: Vendor request req:07 off:0734 failed:-110
->     mt7601u 3-14:1.0: Vendor request req:42 off:0230 failed:-110
->     mt7601u 3-14:1.0: probe with driver mt7601u failed with error -110
+> Good point! We should clean this up.
 > 
-> The failure occurs because mt7601u_load_firmware() unconditionally calls
-> mt7601u_vendor_reset() (MT_VEND_DEV_MODE_RESET) before uploading firmware
-> chunks. On these devices, issuing this vendor reset leaves the internal
-> MCU / FCE DMA engine in an unresponsive state after the first firmware
-> URB is submitted. As a result, reading MT_TX_CPU_FROM_FCE_CPU_DESC_IDX
-> (0x09a8) immediately times out.
+> Anyway, IMHO, we should switch to NBCON_PRIO_EMERGENCY for the post-running
+> states and flush the pending messages immediately. It is more
+> reliable. It is easy to find the locations when system_state() is set.
+> And all follow-up printk() calls will try the direct flush so that
+> they won't rely on an explicit flush.
 > 
-> The USB device is already reset during mt7601u_probe() via
-> usb_reset_device(), making this additional vendor-specific reset
-> redundant. The vendor driver never used it, and devices that work with
-> vendor reset also work properly without it.
+> An ideal solution would be to add an wrapper, e.g.
 > 
-> Drop mt7601u_vendor_reset() and its definition to allow firmware upload
-> and probe to succeed on all MT7601U adapters.
+> 	void set_syste_state(enum system_states state)
+> 	{
+> 		system_state = state;
 > 
+> 		if (system_state > SYSTEM_RUNNING)
+> 			pr_flush(0, true);
+> 	}
+> 
+> 
+> Another thing is that printk_trigger_flush() is an overkill.
+> It tries to wake kthreads even via irq_work but we are
+> interested only in the direct flush.
+> 
+> I am not sure why neither me nor John used pr_flush().
+> It might be because it originally did not flush atomic consoles
+> directly. At least I had an outdated mental map.
 
-The subject ("add vnd_reset parameter...") doesn't match anymore what
-the patch is doing.
+The nbcon should be awake because there is outstanding printing to be
+done as far as I understand. It is just not running or behind. So you
+would need just wait until the thread is done before you continue.
 
-When you send a new version of a patch please add "v2", "v3", etc next to
-"PATCH".
+This pops up now because the 8250 does it via the thread now. If you
+don't have an atomic console implementation but use the thread anyway
+(say the PREEMPT_RT case) then you would end up with the same problem,
+right?
 
-"RESEND" is only for a patch that you send again completely unchanged for
-whatever reason.
+Recently I did play with CPU shutdown and noticed that PREEMPT_RT misses
+an irq_work sync which explained missing printk output. You probably
+recall the printk part of this :)
 
-> Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1716301
-> Link: https://www.opena.tv/viewtopic.php?t=63919
-> Link: https://askubuntu.com/questions/1418850/the-problem-with-wi-fi-u2
-> Link: https://bbs.archlinux.org/viewtopic.php?id=224859
-> Link: https://reddit.com/r/archlinux/comments/1d6dfv5/mt7601u_usb_wifi_not_working/
-> Signed-off-by: Herman Semenoff <GermanAizek@aizekgroup.ru>
-> ---
->  drivers/net/wireless/mediatek/mt7601u/mcu.c | 3 ---
->  drivers/net/wireless/mediatek/mt7601u/usb.c | 6 ------
->  drivers/net/wireless/mediatek/mt7601u/usb.h | 3 ---
->  3 files changed, 12 deletions(-)
-> 
-> diff --git a/drivers/net/wireless/mediatek/mt7601u/mcu.c
-> b/drivers/net/wireless/mediatek/mt7601u/mcu.c
-> index bad6ca821400..979bc506d4ed 100644
-> --- a/drivers/net/wireless/mediatek/mt7601u/mcu.c
-> +++ b/drivers/net/wireless/mediatek/mt7601u/mcu.c
-> @@ -459,9 +459,6 @@ static int mt7601u_load_firmware(struct mt7601u_dev *dev)
->   mt7601u_wr(dev, 0x94c, 0);
->   mt7601u_wr(dev, MT_FCE_PSE_CTRL, 0);
-> 
-> - mt7601u_vendor_reset(dev);
-> - msleep(5);
-> -
->   mt7601u_wr(dev, 0xa44, 0);
->   mt7601u_wr(dev, 0x230, 0x84210);
->   mt7601u_wr(dev, 0x400, 0x80c00);
-> diff --git a/drivers/net/wireless/mediatek/mt7601u/usb.c
-> b/drivers/net/wireless/mediatek/mt7601u/usb.c
-> index 9306870cbc91..0d38644c491e 100644
-> --- a/drivers/net/wireless/mediatek/mt7601u/usb.c
-> +++ b/drivers/net/wireless/mediatek/mt7601u/usb.c
-> @@ -116,12 +116,6 @@ int mt7601u_vendor_request(struct mt7601u_dev
-> *dev, const u8 req,
->   return ret;
->  }
-> 
-> -void mt7601u_vendor_reset(struct mt7601u_dev *dev)
-> -{
-> - mt7601u_vendor_request(dev, MT_VEND_DEV_MODE, USB_DIR_OUT,
-> -       MT_VEND_DEV_MODE_RESET, 0, NULL, 0);
-> -}
-> -
->  /* should be called with vendor_req_mutex held */
->  static u32 __mt7601u_rr(struct mt7601u_dev *dev, u32 offset)
->  {
-> diff --git a/drivers/net/wireless/mediatek/mt7601u/usb.h
-> b/drivers/net/wireless/mediatek/mt7601u/usb.h
-> index 723025f84483..49fede310c3b 100644
-> --- a/drivers/net/wireless/mediatek/mt7601u/usb.h
-> +++ b/drivers/net/wireless/mediatek/mt7601u/usb.h
-> @@ -14,8 +14,6 @@
->  #define MT_VEND_REQ_MAX_RETRY 10
->  #define MT_VEND_REQ_TOUT_MS 300
-> 
-> -#define MT_VEND_DEV_MODE_RESET 1
-> -
->  #define MT_VEND_BUF sizeof(__le32)
-> 
->  enum mt_vendor_req {
-> @@ -65,7 +63,6 @@ void mt7601u_complete_urb(struct urb *urb);
->  int mt7601u_vendor_request(struct mt7601u_dev *dev, const u8 req,
->     const u8 direction, const u16 val, const u16 offset,
->     void *buf, const size_t buflen);
-> -void mt7601u_vendor_reset(struct mt7601u_dev *dev);
->  int mt7601u_vendor_single_wr(struct mt7601u_dev *dev, const u8 req,
->       const u16 offset, const u32 val);
-> 
+Now that I look more into it, the above with pr_flush() does not work
+because by the time SYSTEM_SUSPEND is assigned it expects interrupts to
+be disabled (or disables them a few lines earlier).
 
+emergency_restart() looks like a bad candidate for a flush.
+kernel_restart_prepare() on the other hand would be good. And there is a
+flush in kernel_power_off().
+
+In general I would expect sysrq-b to reboot immediately without the
+flush but an ordinary reboot should flush.
+
+> Also the timeout should not be needed because all consoles should
+> be flushed directly. But it can be solved by using zero timeout.
+> 
+> In fact, we should block the kthreads to prevent seeing more
+> incomplete/interrupted messages, see the commit c41c0ebfa1e0eb
+> ("printk/nbcon: Block printk kthreads when any CPU is in an emergency
+> context"). Something like:
+
+But if we have more than one console and more than one CPU we could let
+them flush in parallel and just wait for them do be done?
+
+> diff --git a/kernel/printk/nbcon.c b/kernel/printk/nbcon.c
+> index d8f8ec836eea..1c21c1e65b00 100644
+> --- a/kernel/printk/nbcon.c
+> +++ b/kernel/printk/nbcon.c
+> @@ -1187,13 +1187,14 @@ static bool nbcon_kthread_should_wakeup(struct console *con, struct nbcon_contex
+>  		return true;
+>  
+>  	/*
+> -	 * Block the kthread when the system is in an emergency or panic mode.
+> -	 * It increases the chance that these contexts would be able to show
+> -	 * the messages directly. And it reduces the risk of interrupted writes
+> -	 * where the context with a higher priority takes over the nbcon console
+> -	 * ownership in the middle of a message.
+> +	 * Block the kthread when the system is in an emergency, going down,
+> +	 * or panic mode. It increases the chance that these contexts would
+> +	 * be able to show the messages directly. And it reduces the risk of
+> +	 * interrupted writes where the context with a higher priority takes
+> +	 * over the nbcon console ownership in the middle of a message.
+>  	 */
+>  	if (unlikely(atomic_read(&nbcon_cpu_emergency_cnt)) ||
+> +	    unlikely(system_state > SYSTEM_RUNNING) ||
+>  	    unlikely(panic_in_progress()))
+>  		return false;
+>  
+> @@ -1249,10 +1250,12 @@ static int nbcon_kthread_func(void *__console)
+>  			return 0;
+>  
+>  		/*
+> -		 * Block the kthread when the system is in an emergency or panic
+> -		 * mode. See nbcon_kthread_should_wakeup() for more details.
+> +		 * Block the kthread when the system is in an emergency, going
+> +		 * down, or panic mode. See nbcon_kthread_should_wakeup() for
+> +		 * more details.
+>  		 */
+>  		if (unlikely(atomic_read(&nbcon_cpu_emergency_cnt)) ||
+> +		    unlikely(system_state > SYSTEM_RUNNING) ||
+>  		    unlikely(panic_in_progress()))
+>  			goto wait_for_event;
+>  
+> 
+> But wait, this might cause regression on netconsole which sets
+> CON_NBCON_ATOMIC_UNSAFE and is not able to flush the messages
+> directly a safe way.
+
+same as PREEMPT_RT.
+
+> A possibility would be to use con->write_thread() when pr_flush()
+> is called in task context. It should be safe in most shutdown
+> code paths except for the emergency_restart().
+> 
+> And we need an explicit pr_flush() even later in the halt
+> and maybe even some unsafe flush later in emergency_restart()
+> code path.
+> 
+> Sigh, this is getting complicated.
+
+So maybe just identify the few spots in the reboot case.
+
+> Best Regards,
+> Petr
+
+Sebastian
