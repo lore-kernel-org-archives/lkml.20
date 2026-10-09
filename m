@@ -1,103 +1,154 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1267B3EDE6C
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 05:39:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A819437E2EC;
+	Fri,  9 Oct 2026 05:40:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791524399; cv=none; b=FfxAJK/6+p8UUP7E58VN11rvCRr0Om3JDLRSYM5XfNcEjbn1AJRUth/AzSza8HoMK5m+fIBFygAWkzJd9roSPju5jt2opnIltoavcpb5BwnQgB2fh3xbCEU/28unYf7buDi/JGakuvA+O0/kmZ4gebr71TG2B4MV11HNbQFW/y0=
+	t=1791524406; cv=none; b=IP7FoS71808TRkQmn5EIaCeBuGjL/ouSM4t3ZAaVAC/vwujHXAki5GGe/Gne1dmRKp1/kW21CBgsDkJPzHlqvjF+5ljXjtZPbXwveE5FQX0s9uqOHwH6WWihcqVThvGEQKkMqun2nSiB1HC6MXD3PW6uirZyG51qnzvFs1FRI58=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791524399; c=relaxed/simple;
-	bh=+C3cHbNsomd6RYHV2leUz9PmRIt9GWQW8XPR1zddbC0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=m1tYH86miKUqqHPnl5+ujyHu+oBT7FkYz2uy34UQfFXPtPB5g5C/F1jJZB25UcHhzOjncw8IVNkJtRRKMf366w8OYSOYJIZofqqASZFJhdLLKegpDYGEoBahzu/GD1oMwee2JC7aEO0UJqXwmGdGPUdcWPsMAM58svn7YwrRsZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=peq0V2s5; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="peq0V2s5"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e812e2b31bso8655105ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 22:39:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791524397; x=1792129197; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=eV75knIz8MqpcmByph/prlZc4FrjYSgYZQ1PpGGXuRs=;
-        b=peq0V2s5mW0i5AIdFX64cviFI9moKVD5n+FFn3+2a47asYsuKaOn76waN6jcWC6sB0
-         xWtRdzlqIj568L5drK7QYxd9sbITgpUByTV9MzSlYFTHH3G98amne1i/sfuMnnSrIVDf
-         liXYjgurC5pQvrcvf+D5ZEmWAvcNCkqOnbwYHaZULsdU6dYruwdmU6jt007r8Vpt5bkM
-         NcWqKG+OEO5JJW/r+g5WGiIS3x9FZoSEvNwU78zwhvWS6aWlpftXLQoEH+pjVEcozUwR
-         f6VKFLf4r1tnxHb2S193uPBF2iIue2y5p+L8fcAHaInjkEbBHsDESVoCvbZbv5JkdfyG
-         HknQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791524397; x=1792129197;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eV75knIz8MqpcmByph/prlZc4FrjYSgYZQ1PpGGXuRs=;
-        b=o1GI55BoUPNvNo0Ue8X3+lZDK1EZBQ1CB/ZwtBs7/+lhQFUT5STV//KfYusKxpdtZP
-         xpAGFD+RY44jc7uUci2nNexRzWktHk/eAuXbZ3HEMr38GFUQRJNkwsySWX7IkeXDtu4r
-         srihop3/VXE7ig+w023NNSN0P6aniUQF9z1A+nvH4qzufpS8N5ZPqpBKotFhy4F0oIc2
-         /d601GlV4QA0Dcax7CkOu+FMRqJQARk1BTNX/sG2ADJDp8LIeirvzSCz/efvLNjApicI
-         kz4xe0qRIa0FM9w+XBKHa1UbwWSFPC7M2ISi25XBc/2/kbU6es5ucNzI8tKASSJ8DxCJ
-         bwbw==
-X-Forwarded-Encrypted: i=1; AKwUvBysGoYyn5boOH7RVoeBp/QTaoGdIq0bm8v1lTARwXs5YafkxZkmB3fZ3EUeDye+KB84c8dQaCiwVQRLuLg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKxV12OZFhJF1MSdnbz+Puxbfj1uihtOjzxrFZEouX0+WE0xRp5
-	SGAuNGj8NczUxqeXF0VRRTjRC/a0rAmLqNGJAQ5f1ESA2V40AjQxOWKV
-X-Gm-Gg: AYBFou0nSXKOsvUrTfgPknOUN5EiuRSAZO4EE6y4HAcnMeDQn4ankKME07Ahd7w9V42
-	56vRm9FnoyxPwjr5v7+cwF01gz57zfUXCrF0lneFZ16QXYvUWMoLuQqg7ubOC8Sb6BBJJXhHlbF
-	TuP0fkAaZFGy/DW8I5mBLd17nRJN4pHcVKwutqACJnKjeNEPvF+ZAvJtQEUZ4zSNx7T7rUznZiy
-	jkttML3wUEZ0C7MwQSXloBZoeporrySnIRsRywLpybdeIyiWsjtffwTZkaUgbtcahTHPHwFPfSw
-	DJYzYWDWccOmdJSZ4iJY44d+aaMuulHS88YXd8CTh5BngjbP//eaR66fHW9XZYGXAG1EpEKIrpb
-	Ex5aKtqloCWvShYZn03R1saPHz+2OOt5Pi0v9OmZRxK62DEDX1o1kYKoO3xH3KAO3QpQHogquuI
-	4LIQZKMwo9va5YqcSQc4v0Lxf0nYs7Wp+pCv4PROpxpicQm2Kpr+vRAWseAY2IJO0=
-X-Received: by 2002:a17:903:32ca:b0:2e8:480:2bac with SMTP id d9443c01a7336-2e842bc1398mr6838005ad.25.1791524397317;
-        Thu, 08 Oct 2026 22:39:57 -0700 (PDT)
-Received: from dev ([163.43.243.221])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422b8e11sm3741575ad.57.2026.10.08.22.39.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 22:39:54 -0700 (PDT)
-From: Yuya Kusakabe <yuya.kusakabe@gmail.com>
-To: Andrea Mayer <andrea.mayer@uniroma2.it>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
+	s=arc-20240116; t=1791524406; c=relaxed/simple;
+	bh=Vo/z7Nb6ubKZoh5o/V8jSNmYKJETfCtL8FttVYl1Uco=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RxKQTZysM9pM1knv65/2A7KXMvBHzPEtYTDBjvrAOiNWduCdwvOeTJ5NqUt/TyEDf54THQ4faNxc6P95As/LPAKnHAmrbNK1juH11i7CsYaudGV0lVDZHRAUrHcVwkaUEgti6n+m+4bdmijBJhsjr5bezrPBDGRTzy0pFB6QtNk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+Received: from escalante.csail.mit.edu ([128.52.128.198])
+	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xF30U-0001uh-5a;
+	Fri, 09 Oct 2026 01:18:58 -0400
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Nickolai Zeldovich <nickolai@csail.mit.edu>,
 	linux-kernel@vger.kernel.org,
-	stefano.salsano@uniroma2.it
-Subject: Re: [PATCH net-next 1/2] seg6: skip the route refcount in seg6_lookup_any_nexthop()
-Date: Fri,  9 Oct 2026 14:39:49 +0900
-Message-ID: <20261009053832.seg6-lookup-noref-v1-reply-dac23740@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261009024341.687e7226cd6abca80e779fda@uniroma2.it>
-References: <20261005-seg6-lookup-noref-v1-0-092e84774e80@gmail.com> <20261005-seg6-lookup-noref-v1-1-092e84774e80@gmail.com> <20261009024341.687e7226cd6abca80e779fda@uniroma2.it>
+	linux-mm@kvack.org,
+	I Hsin Cheng <richard120310@gmail.com>,
+	Ching-Chun Huang <jserv@ccns.ncku.edu.tw>,
+	Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] lib/plist: fix plist_requeue() shortcut inserting the node at the list head
+Date: Fri,  9 Oct 2026 01:18:47 -0400
+Message-ID: <20261009051857.758182-1-nickolai@csail.mit.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 09, 2026 at 02:43:41AM +0200, Andrea Mayer wrote:
-> One possibility would be to split it into two functions, conceptually
-> similar to ip6_route_output_flags() and ip6_route_output_flags_noref(): a
-> noref primitive for the callers in the seg6local input path, and a
-> refcounted wrapper around the primitive, which bpf_push_seg6_encap() would
-> call. The split would put the contract in the name and fix the
-> use-after-free above.
+plist_requeue() moves a node to the end of its priority run.  Since commit
+95d4b3450ebe ("lib/plist.c: add shortcut for plist_requeue()"), when the
+node was the head of its run it skips the scan of the remaining nodes of
+that run and takes node_next from the prio_list of the node's successor,
+which replaced it as the run head in plist_del():
 
-Thanks for reproducing it with KASAN.  I agree, and v2 will do that
-split: seg6_lookup_nexthop() will still attach a refcounted dst to the
-skb for filter.c, and only the seg6local input actions will use the
-noref variant.  The lifetime of the dst from the exported helper then
-does not change, so its declarations need no update.  The commit
-message of patch 1/2 will also drop the claim that every caller runs
-in the receive path.
+	iter = list_entry(iter->prio_list.next, struct plist_node, prio_list);
+	node_next = &iter->node_list;
 
-pw-bot: cr
+prio_list is a ring of the first nodes of each priority run, without a
+sentinel.  For every run but the last one, iter->prio_list.next is the
+head of the next run and the shortcut is correct.  For the last run it
+wraps around to the head of the FIRST run, and list_add_tail() then
+inserts the node in front of the whole list, ahead of nodes with a lower
+prio value.  The list is no longer sorted:
+
+	before requeue(B):  A(1) B(2) C(2)
+	after  requeue(B):  B(2) A(1) C(2)
+
+The condition is: at least two priority runs, the node is the first node
+of the last run, and it has a successor with the same priority.  A single
+run is unaffected, because a one-element prio_list ring is list_empty()
+and the slow path runs.
+
+The only caller is swap_alloc_slow() in mm/swapfile.c, which requeues a
+swap device within its priority group.  With several swap devices on more
+than one priority level, where the lowest priority level has two or more
+devices, rotating the first device of that level moves it ahead of all
+higher-priority devices, so subsequent swap allocations go to a
+low-priority device first.
+
+Only take the shortcut's node_next when the next ring entry really is a
+higher-priority run; otherwise append the node at the end of the list.
+
+The CONFIG_DEBUG_PLIST self-test did not catch this because it only
+requeues nodes it has just added, which are always the last of their run,
+so plist_requeue() returns early every time.  Add a deterministic test
+case for the failing shape; plist_test_check() verifies the ordering and
+the prio_list ring after it.
+
+The bug was found while attempting to prove plist_requeue() against a
+specification stating that the list stays sorted, in the MachCSL
+verification of the Linux kernel on RISC-V; the proof failed at this
+arm and the prover produced the counterexample above.  The fix and the
+test case were drafted with Claude Code (Claude Fable 5.1) and reviewed
+and tested by hand: the three functions were transcribed to a userspace
+harness that reproduces the misordering before the fix and the expected
+order after it, and lib/plist.o builds with CONFIG_DEBUG_PLIST=y.
+
+Fixes: 95d4b3450ebe ("lib/plist.c: add shortcut for plist_requeue()")
+Cc: stable@vger.kernel.org
+Cc: I Hsin Cheng <richard120310@gmail.com>
+Cc: Ching-Chun (Jim) Huang <jserv@ccns.ncku.edu.tw>
+Assisted-by: LLM
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+---
+ lib/plist.c | 27 ++++++++++++++++++++++++++-
+ 1 file changed, 26 insertions(+), 1 deletion(-)
+
+diff --git a/lib/plist.c b/lib/plist.c
+index a5bef38add43..20291872923a 100644
+--- a/lib/plist.c
++++ b/lib/plist.c
+@@ -174,11 +174,17 @@ void plist_requeue(struct plist_node *node, struct plist_head *head)
+ 	/*
+ 	 * After plist_del(), iter is the replacement of the node.  If the node
+ 	 * was on prio_list, take shortcut to find node_next instead of looping.
++	 *
++	 * prio_list is a ring of the first nodes of each priority run, without
++	 * a sentinel: if node's run is the last one, iter->prio_list.next wraps
++	 * around to the first run, and node must be appended at the end of the
++	 * list instead of being inserted in front of it.
+ 	 */
+ 	if (!list_empty(&iter->prio_list)) {
+ 		iter = list_entry(iter->prio_list.next, struct plist_node,
+ 				  prio_list);
+-		node_next = &iter->node_list;
++		if (iter->prio > node->prio)
++			node_next = &iter->node_list;
+ 		goto queue;
+ 	}
+ 
+@@ -276,6 +282,25 @@ static int  __init plist_test(void)
+ 		plist_test_check(nr_expect);
+ 	}
+ 
++	/*
++	 * Requeue a node which is the first of the last priority run and has
++	 * a successor of the same priority, with an earlier run present: the
++	 * shortcut in plist_requeue() must append it at the end of the list,
++	 * not in front of the first run.  The random test above never
++	 * exercises this, since it only requeues nodes it has just added,
++	 * which are always the last of their run.
++	 */
++	plist_head_init(&test_head);
++	for (i = 0; i < 3; i++) {
++		plist_node_init(test_node + i, i ? 2 : 1);
++		plist_add(test_node + i, &test_head);
++	}
++	plist_test_requeue(test_node + 1);
++	plist_test_check(3);
++	BUG_ON(plist_last(&test_head) != test_node + 1);
++	for (i = 0; i < 3; i++)
++		plist_del(test_node + i, &test_head);
++
+ 	printk(KERN_DEBUG "end plist test\n");
+ 
+ 	/* Worst case test for plist_add() */
+-- 
+2.56.0
+
