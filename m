@@ -1,196 +1,140 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DBBE483814
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 09:08:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C29B47F797;
+	Fri,  9 Oct 2026 09:08:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791536889; cv=none; b=n20ak2Vs2UF2v/pdZkUQgdLFLN4HxJHbgOIx9rziTOIZo9lzukemyZfgEplbxRNT+SEjlpEI28HoxPdkemvnle3XtRmWSlQimKPPQxfPZRs1pPpwzRsE3AfyXwmf70To8cspCv/eQJJctMCxWtFFRxNWUZX48ofGrie1OuRwr1I=
+	t=1791536910; cv=none; b=e1EXJehjbSKKopEy51/OQLKY9KIA/YHVDJD8Ao34SNL8aAK2rXwbpexZ2dChSmfgBXsCnYHkK2mE6kIFlHDRXzExS4x3ftcbLbX4yWRNO0XJSQEtLdvYLwJYVnlJ1kSb/C8YVdqmdhwLHP45wTnA6v0fh+3z14xdM6S1n71KD0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791536889; c=relaxed/simple;
-	bh=uk0elzQS6aEHDqwpozLvtile1CgZAFMOdGyMhqru6p4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Nw+WSrgvMxXrqBXY/DzdHqZ/cKWx1ELVOBfudTPL5+RKcmKhLNKialeXPdOfvGuEpWGXI4sNj5u7J9RrQ5xu3RNgwpfZnnQSwI55ZhCASWVxli2tIUGh8+gHDQ3hIfV37hfw5Q0TYU3VsMwp02LMndnB9mP9vj7InDGPn/CAJsg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=LILy1ZRg; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1791536910; c=relaxed/simple;
+	bh=fnscWvrcAZlzdhwB+Ig824lWGG3qVF7OpaC0fCP4Tks=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=V7q8SkNW9xSF4tfw4WdY6j70CPDbyfyqJ4bTHJorAhZrkT+PcMiAOJs2rZdlepAsTVDjjzrGze6te354AUKcTuG1cyTHTk/nvEXygvQxia+yrvZCvopApZuvzbVYEciOr7IYOYIbup9/yloLyF/8XkyAiGWdvfQC0ByPXW6AFhA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IQaq2RW1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="LILy1ZRg"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48b0d19cf7eso1154825f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 02:08:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1791536885; x=1792141685; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bl2cLmiuxOzi+05coo7dR8aiO+wStMo8Oq/b6vZtrGQ=;
-        b=LILy1ZRgQXCA0AKwtPcSGG3LpYakaGkq3OUp5BWiEfCH5GcY9N6oB/OdWuPfUZnz45
-         QTUJL/f33DBCdC3KwdYQ5aN2XPqTmYboSvJePoIZuMN8Hyl3iiy/NwG1imlB9yhs1KcV
-         ZmgxMKPwBeWsE4eiBCfNZ3yxzQUK+Oj/V80P+a/Kxo31feJs8JWdrmXJtvIMwyJa1+QL
-         btkhKy/Km9OYGfHRln4TDn7YF8wjZYSEIyfvmZ7lZkZVZ1A0stBset+rvAJ/RdK3oDsY
-         qPeR96j7xwnLcacGXC6dmTlrJ80M67bLf1hZlYxWViEpgnZRt12vTV9D+sZwvN6HVML+
-         mo3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791536885; x=1792141685;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bl2cLmiuxOzi+05coo7dR8aiO+wStMo8Oq/b6vZtrGQ=;
-        b=ilhTj0kYIilZsIL5kq6c6Xz83wYKSJlllGXlvRqC5Ua6Faf3Znt8kr4qncU54v27AG
-         Zqtj+uQTCYy0JOu098U5IDdtXosnMZBJvBFgp7J2twSRb7Quxo5xIZTwgVmgvhj0s9Bs
-         1xTj7Oah+bha8PskW0odw2UalxY6x3Iigf82IpdtvzESp7CAvPqcNgAHCEpKSyyifteM
-         6Iom0Gh3xdKuBONGucyKhZwDRx+Qpu/NPZVjkV2RpfiAVRZE4UIzJKV8yY8mBOWIdW6M
-         kKPLDBVCSGUAu8Lzlsm7eusS0OJVl/uCNyPy9uLtY8UxJ5wFZxkIKTwtRsbV/yZ9uoRR
-         TGnA==
-X-Forwarded-Encrypted: i=1; AKwUvBzlTwA2pdl2bUxt7yHdovTcny8TUM80SXVgOZI1qHjCNhvSB3i/nsWqK56ANL+cqWYebCBVZdV11Oyh3RI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kTvrFh8XiTozieBjmhEurGc+9qLtJd6uIeclU03VO9up5W00ih
-	i3OBiSd4d86VsPSOVKurILP14A4sz8xg29yJvd8vrDvXVev1GgDCwHsI562Qzb4KsiM=
-X-Gm-Gg: AYBFou2F4o+aSBpqv1FOtuWOFTL3CNzWIPdTv6IDLWVlyAkDQTJM7Rkh0fwwRPPPugm
-	Lke8PeF2GXUgku9Kdh1CXJXeYySbvFnrLT6GTLFo6sfguLXykRZw6GZ8TTH6jXim7gRmSS3RJBq
-	xY4n1SzxbCUUMBf16AWakt7VEhKsPqwoOuav1q2HaQZ08RoMMRebkj0aSDTf4F5JABRM/VNKfJQ
-	bjZRBcmrMYxCCbWtOLFWprdxXHw7YlrmW3MJtPxSXCK+PJOm0lZCGTqiuUWK6MD3opHDt+AxlwS
-	TPyVT4FVEY/qBpIgiT747vobXBrGZqC8fxsAQrz9XMbnAEc4e+9BZ2+mRGZd4CgbPSoooFYQDE5
-	qg5uxF0ggixlUrxEY0tn/VKuQbn51BXxXWg18iLhPcZhc27vKKTSBv26B7PxdagfOlHpOC0ZNJN
-	l4jdatXdRznHxwUNkfxkt0n5q2bpWZvkP4TMT8r87qj8Nu3FwCxaknvAYBqBv9Fp5H2WLMGX1r
-X-Received: by 2002:a05:600c:3c89:b0:49f:fc4f:9efb with SMTP id 5b1f17b1804b1-4a18e49105cmr18363015e9.7.1791536884998;
-        Fri, 09 Oct 2026 02:08:04 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18e4a3b4asm66087725e9.5.2026.10.09.02.08.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 02:08:04 -0700 (PDT)
-Date: Fri, 9 Oct 2026 11:08:02 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: John Ogness <john.ogness@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Christian Brauner <brauner@kernel.org>, oe-lkp@lists.linux.dev,
-	lkp@intel.com, linux-serial@vger.kernel.org, oliver.sang@intel.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] nbcon/reboot: Flush nbcon consoles synchronously on
- reboot
-Message-ID: <asiu8orjDvRJMKuX@pathway.suse.cz>
-References: <20261008150852.8286-1-pmladek@suse.com>
- <20261009065152.udyfFRHx@linutronix.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IQaq2RW1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A24F1F000FF;
+	Fri,  9 Oct 2026 09:08:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791536908;
+	bh=lfXpsKS9uzWoEofxIKT6Rircy9hnzSKGV+lLHjdsjRg=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=IQaq2RW1qKYYtY9VevG9B698NIuKq/vjzpqqLujFAmcJpgwikxpruycLT3RwoC93M
+	 0JSrFCnAdszgGyitl677OOOEjpWAERPkagBvoRQArnz3DmQdqnNomAS48xiLvI3V39
+	 esdVsRZklliAemDKCXPGg4HSFQF3XJB7i8LmON5XFS/utgkg2EqtMyo9l5Gk06VQzQ
+	 Hf+qV8/3XENaB45w5AVDjDY/68SF4HOrVKqfuC+kEqInBxJropL5Fbb8qAri7+OPRE
+	 EX2wN5UXqITtoTKHdF6dzJzCV2zngs5o1Dfkz+cFeU8vP1Jq+Ol5UW7AD8Htc+/uTn
+	 rygKooeyrOEVg==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009065152.udyfFRHx@linutronix.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v1 1/2] kbuild: Mark the kernel image gzip recipes as
+ recursive
+From: Nicolas Schier <nsc@kernel.org>
+To: Kees Cook <kees@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Manuel Ebner <manuelebnerli@mailbox.org>, 
+ linux-kbuild@vger.kernel.org, "Paul E. McKenney" <paulmck@kernel.org>, 
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+In-Reply-To: <20261009062733.3119731-1-kees@kernel.org>
+References: <20261009062722.i.253-kees@kernel.org>
+ <20261009062733.3119731-1-kees@kernel.org>
+Date: Fri, 09 Oct 2026 11:08:14 +0200
+Message-Id: <179153689449.290498.7901907548551466768.b4-review@b4>
+X-Mailer: b4 0.17-dev-fde28
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3111; i=nsc@kernel.org;
+ s=20250924; h=from:subject:message-id;
+ bh=fnscWvrcAZlzdhwB+Ig824lWGG3qVF7OpaC0fCP4Tks=;
+ b=owEBbQKS/ZANAwAKAQdSCnAWJhJpAcsmYgBqyK8BV8SjyVMgQNOjZzXnnYT1FuXeJNlsZSuYq
+ 1pZ8OUZI5yJAjMEAAEKAB0WIQSHQTenhzckp4G+wsYHUgpwFiYSaQUCasivAQAKCRAHUgpwFiYS
+ acmZD/9cTo1J4ou4BJpYyqZKe/LSFarwwKRq3lzsa7lQQN/+1s/jPyauCNrIR1MhTF3lpSCFmF9
+ j2TPSFh9XY5b5+XwTnIDIaJvXTb8Yo25HCBgdhMDqJ6xQbuDrun//SuARfZOLsnvo7TtND0m+Sg
+ H2PfT+Dd2EBfNwdJMYj/zjgtTA3sZjrVHv4du1EeHVMWkQsmNmVllRYpG6pCYWVDAkzcqcuf1BB
+ vbEuqMoHbcFvakoZSUdy7FUlq/sGMY/P5qtTkTtYqpKEsFtLqVw3+KF4p+LF0Sb0gZY6FJKLzTG
+ 0ZCwj94xhkTYNES/baPZj4hSCeXlbexfRW4OnRRAC9DgG7U5zYZaIrhYkdIDIqgQq2dymdvmTkN
+ yreGdaggUyoDs+v826zDE+POVHo/hFPhEwAJQuoUpewfCQgQpTvYGJVmje/uT+75EqY87yq+IJj
+ CDZlm5qjGEd5inlNLeTqOPqlVD6Caov7PVViRHg/fI7dvci//9M+MyECQftONlHihV9g+WOc3t5
+ EiWd1FaBoKYEdcoRA4nfy6pzVNyX8UDkEgfLU8zFGuJZE00GN50rpmZwy7+/oZ72ZmDOihF2/8l
+ bdul5Vdlm0RYqNp4yPcWd+JvKzuw9RVAeDAMfhXWa45eb4LVz13PX2WdFdVgF4ctlGsa5+V/erT
+ T8mj25nF45PmzqA==
+X-Developer-Key: i=nsc@kernel.org; a=openpgp;
+ fpr=18ED52DBE34F860EE9FBC82B7D97093255A0CE7F
 
-On Fri 2026-10-09 08:51:52, Sebastian Andrzej Siewior wrote:
-> On 2026-10-08 17:08:52 [+0200], Petr Mladek wrote:
-> > NBCON consoles emit messages in a dedicated kthreads when the system
-> > is working properly. printk() tries to flush them synchronously in
-> > explicitly marked emergency context and in panic().
-> > 
-> > Another situation where printk() could not rely on kthreads are the various
-> > reboot and halt code paths. They can be detected by the `system_state`
-> > variable.
-> > 
-> > Let's default to NBCON_PRIO_EMERGENCY for the post-running states.
-> > printk() will automatically try flushing the consoles synchronously.
-> > Also do not rely on printk() and explicitly flush the consoles
-> > after these states are set.
+> Since commit 48ebe1cbbeb51 ("kbuild: compress the kernel with pigz if
+> available"), cmd_gzip runs pigz through scripts/jobserver-exec, which
+> takes the job slots make has free. GNU Make passes the jobserver pipe
+> only to recipes it treats as recursive, but leaves --jobserver-auth in
+> MAKEFLAGS for all of them. The make 4.3 in CentOS Stream 9 also hides
+> the pipe in sub-makes (a backport of the fix for GNU Make bug 58232), so
+> jobserver-exec cannot open it, runs pigz on one thread, and prints:
 > 
-> while this seems okay, didn't we have pr_flush() to flush the output on
-> shutdown/ reboot?
+>   WARNING: Unable to reopen jobserver read-side pipe: FileNotFoundError(2, 'No such file or directory')
+> 
+> Mark the gzip recipes as recursive with "+", as commit ecab4115c44cc
+> ("kbuild: mark `rustc` (and others) invocations as recursive") did for
+> rustc. As with those, "make -n" now runs them.
+> 
+> Tested ARCH=x86_64 and ARCH=arm64 defconfig with GNU Make 4.3 plus
+> CentOS Stream 9's make-4.3-cloexec.patch, GCC 16.2.0, and -j64: without
+> this change the warning appears and pigz runs with "-p 1"; with it there
+> is no warning, and pigz runs with "-p 54" and "-p 64".
+> 
+> Reported-by: Paul E. McKenney <paulmck@kernel.org>
+> Closes: https://lore.kernel.org/all/0ddb5e5e-f801-444c-aa98-0cfe814a3026@paulmck-laptop/
+> Fixes: 48ebe1cbbeb51 ("kbuild: compress the kernel with pigz if available")
+> Assisted-by: LLM
+> Signed-off-by: Kees Cook <kees@kernel.org>
+> ---
+>  arch/alpha/boot/Makefile             | 4 ++--
+>  arch/arc/boot/Makefile               | 2 +-
+>  arch/arm64/boot/Makefile             | 2 +-
+>  arch/microblaze/boot/Makefile        | 2 +-
+>  arch/mips/boot/Makefile              | 2 +-
+>  arch/nios2/boot/Makefile             | 2 +-
+>  arch/parisc/boot/compressed/Makefile | 2 +-
+>  arch/riscv/boot/Makefile             | 2 +-
+>  arch/s390/boot/Makefile              | 2 +-
+>  arch/sh/boot/Makefile                | 2 +-
+>  arch/sh/boot/compressed/Makefile     | 2 +-
+>  arch/sparc/boot/Makefile             | 4 ++--
+>  arch/x86/boot/compressed/Makefile    | 2 +-
+>  arch/xtensa/boot/Makefile            | 2 +-
+>  14 files changed, 16 insertions(+), 16 deletions(-)
 
-Good point! We should clean this up.
-
-Anyway, IMHO, we should switch to NBCON_PRIO_EMERGENCY for the post-running
-states and flush the pending messages immediately. It is more
-reliable. It is easy to find the locations when system_state() is set.
-And all follow-up printk() calls will try the direct flush so that
-they won't rely on an explicit flush.
-
-An ideal solution would be to add an wrapper, e.g.
-
-	void set_syste_state(enum system_states state)
-	{
-		system_state = state;
-
-		if (system_state > SYSTEM_RUNNING)
-			pr_flush(0, true);
-	}
+Reviewed-by: Nicolas Schier <n.schier@fritz.com>
 
 
-Another thing is that printk_trigger_flush() is an overkill.
-It tries to wake kthreads even via irq_work but we are
-interested only in the direct flush.
+Before it gets lost, we should also update the documentation bit that
+references $(if_changed,gzip):
 
-I am not sure why neither me nor John used pr_flush().
-It might be because it originally did not flush atomic consoles
-directly. At least I had an outdated mental map.
-
-Also the timeout should not be needed because all consoles should
-be flushed directly. But it can be solved by using zero timeout.
-
-In fact, we should block the kthreads to prevent seeing more
-incomplete/interrupted messages, see the commit c41c0ebfa1e0eb
-("printk/nbcon: Block printk kthreads when any CPU is in an emergency
-context"). Something like:
-
-diff --git a/kernel/printk/nbcon.c b/kernel/printk/nbcon.c
-index d8f8ec836eea..1c21c1e65b00 100644
---- a/kernel/printk/nbcon.c
-+++ b/kernel/printk/nbcon.c
-@@ -1187,13 +1187,14 @@ static bool nbcon_kthread_should_wakeup(struct console *con, struct nbcon_contex
- 		return true;
+diff --git a/Documentation/kbuild/makefiles.rst b/Documentation/kbuild/makefiles.rst
+index 7521cae7d56f..2760717ab7b7 100644
+--- a/Documentation/kbuild/makefiles.rst
++++ b/Documentation/kbuild/makefiles.rst
+@@ -1452,13 +1452,14 @@ objcopy
+   OBJCOPYFLAGS_$@ may be used to set additional options.
  
- 	/*
--	 * Block the kthread when the system is in an emergency or panic mode.
--	 * It increases the chance that these contexts would be able to show
--	 * the messages directly. And it reduces the risk of interrupted writes
--	 * where the context with a higher priority takes over the nbcon console
--	 * ownership in the middle of a message.
-+	 * Block the kthread when the system is in an emergency, going down,
-+	 * or panic mode. It increases the chance that these contexts would
-+	 * be able to show the messages directly. And it reduces the risk of
-+	 * interrupted writes where the context with a higher priority takes
-+	 * over the nbcon console ownership in the middle of a message.
- 	 */
- 	if (unlikely(atomic_read(&nbcon_cpu_emergency_cnt)) ||
-+	    unlikely(system_state > SYSTEM_RUNNING) ||
- 	    unlikely(panic_in_progress()))
- 		return false;
+ gzip
+-  Compress target. Use maximum compression to compress target.
++  Compress target. Use maximum compression to compress target. Add '+' prefix
++  to allow parallel gzip compression via pigz (if available).
  
-@@ -1249,10 +1250,12 @@ static int nbcon_kthread_func(void *__console)
- 			return 0;
+   Example::
  
- 		/*
--		 * Block the kthread when the system is in an emergency or panic
--		 * mode. See nbcon_kthread_should_wakeup() for more details.
-+		 * Block the kthread when the system is in an emergency, going
-+		 * down, or panic mode. See nbcon_kthread_should_wakeup() for
-+		 * more details.
- 		 */
- 		if (unlikely(atomic_read(&nbcon_cpu_emergency_cnt)) ||
-+		    unlikely(system_state > SYSTEM_RUNNING) ||
- 		    unlikely(panic_in_progress()))
- 			goto wait_for_event;
+     #arch/x86/boot/compressed/Makefile
+     $(obj)/vmlinux.bin.gz: $(vmlinux.bin.all-y) FORCE
+-            $(call if_changed,gzip)
++            +$(call if_changed,gzip)
  
+ dtc
+   Create flattened device tree blob object suitable for linking
 
-But wait, this might cause regression on netconsole which sets
-CON_NBCON_ATOMIC_UNSAFE and is not able to flush the messages
-directly a safe way.
 
-A possibility would be to use con->write_thread() when pr_flush()
-is called in task context. It should be safe in most shutdown
-code paths except for the emergency_restart().
-
-And we need an explicit pr_flush() even later in the halt
-and maybe even some unsafe flush later in emergency_restart()
-code path.
-
-Sigh, this is getting complicated.
-
-Best Regards,
-Petr
+-- 
+Nicolas
