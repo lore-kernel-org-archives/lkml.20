@@ -1,150 +1,99 @@
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 763183F3289
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 14:01:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791554514; cv=pass; b=VoTYMNjlAx2vZpug/UdZVTSxXSfzuz4s3OkjL4XrLeeSe7+zFA4FWIDh7MYt7n/LcZL261u/azCyt6A4vp046uO/orlrOfLfI5VmtYomIMcY1Zht8/wA87f+Xy7lkK2gVr5Qcb4QoKUeY0XKY0uLlDacmVqe1+H44itCjOaCidw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791554514; c=relaxed/simple;
-	bh=ITqMKvjpOuO0AQUkP3fW5wgzA4k30wtF5NYHyj6W6LM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FNjOfHgKKBHO8BBFHQAKrLsTyyU3LYUGwyfAj+PevF6urZo1CuCXBoPbNNRvdTvq7j3+Haf96yX/2ZU+9zZu9+fw4rLL7IRk3ZXj/IKaNbCgQw5+QpHoqxfaZ+9htYQ7ieTVDZdaJEBSubNBhIi38OyBpHHSldVWaRlVgxz55m8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=JP/Ju+Ju; arc=pass smtp.client-ip=209.85.208.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1798F4A7CA0;
+	Fri,  9 Oct 2026 14:02:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791554559; cv=none; b=uzRxFivOZmjPoCsJ/+4VabTvh7W7afmZSDCWoGRr8WzMCHqj3lb3323xqi/W0/4qF3slfPtWBEVyOGn2rOz0lAmY7ldeGu2uuq9ckKmS5i4fKmPESbcAjB920VVRFK4JZnNDjxNbthO9hy417wJauEGbooWOZP2FS0IYUBg0MmM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791554559; c=relaxed/simple;
+	bh=mCkVLQfZtkzK5qWr9x++mYNAOI6TCbMF0LdzlPs+BzA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dyGL9YVITZrfggiVJivzExBnpgDYRptj00SQks4mr9xiPXZhUxiVsHZn0a0FkyRcEAhBCSR4XmmWDt/hLG0wHHV+dXKbfUQ6/UuPDhvBkQBGFFmfH8D8ZxUyQCpAygu4bzr0XwMybmjPCXm42c6t57N/NpmixyRNzK+UijH0Ukk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=Ow+rR17V; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="JP/Ju+Ju"
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6af9a9451daso7519162a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 07:01:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791554512; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JK7Ysf0GQxY3IZXXoQO5I/3SHiWHOdZcplv/K8tWOtNRPlsV3RC60183/iKpbMnai8
-         kVVzBuWddXvcnDKpRukJk3VFd0NBhODiK9OQ5wWvOkz3YuTCaK08/DeSH2Dl/Jv62kkT
-         5XSydKAyanP1JL3ZaM6vtwYlFxq/TRlzA+2TNyobyy5OO4UOtYnVcqFd+mfiKET9LO9c
-         oAobDiX44vrUtUlSiNXym8Kw2DEGJ50YMQxCnHeDun4USf+4IErIYHrf2M0tPeL/Y1AH
-         Eqm/b6w6znusyiLpXxSKDHtqaNc6AjqrTJw4cI89EIGSN25/IwXge5+uao/4/wdbAF3O
-         10bQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=VCymc19pFg1e7iTVrFtMCVn58qnf/FH0ex401YjyIug=;
-        fh=9/Rqt10S+nh7FWry5NmjvoUGK8F6da71A7W+zkufDdY=;
-        b=nzCOXQGv+XRy1UWk4iHRK0OxgAnbabtqovLC/VM9ez56C6cJaPfY4LiBFz19O68UqP
-         cHyxj6KgSU7Tg+NVL9vK+XPkAhuXh/vXUA4pny5TnB5hTF/bcNftl+c1/LlCxgKdOU4o
-         Q5veoImNnUQwIWXaJcDtXB2MrAz1CVQWfu9C6wF8E2t1oUthueOBTp3XX3rfSMHCPdnq
-         2K/mhUXDCLTzQ+oeQFb65Ga5Juuu9+NQ+RWMdvnemXGPKwAGOAEyemLVuMFbFQwerZsW
-         wVZIxLXcu/bAJSsBEnhKAuKerUG0l59v9fQzQr5yp2Av+SgqPXlWmgKuna2nd55n5l5i
-         GM8Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791554512; x=1792159312; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VCymc19pFg1e7iTVrFtMCVn58qnf/FH0ex401YjyIug=;
-        b=JP/Ju+JucxyZCap1ahAmJmSKZgIFPDG5IOIhVREm+s7HkmXheWaz/b1ShFBzGAo5yk
-         S8iNUUQsDc1lsgO4Kjobwzud+3xA+MT76NpGP/cN261v3MWt6pgEQTRPQXjgGqtnxJZz
-         MjWbJeUWOxjrKF1EGrRlTDfwIdiAAJa/i54iyvHD7hdhp8dbYMJ826CITzrLWWTQgnJF
-         MlIbaHZRKJJqqFB/mGBNDV3Cczhnhd/ujhNX65sMNT41CVGUs9sWCc8feCBDyINSDtRk
-         E4nLjKQ1OP1uHu0wMemWlDfDHtbaS58orlXKvly1Zg2g4OR0vxU+TakVxFdd63TDUlJr
-         b6Kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791554512; x=1792159312;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=VCymc19pFg1e7iTVrFtMCVn58qnf/FH0ex401YjyIug=;
-        b=slOrZSaQ3BafYy9picvAsia7ocR+GzWkn3R78L7/Hu0yshE0sbobOlnfDEjkrVr+7T
-         UgmogC1W3ox7LxESPWhBwLqq4roeyn+gs5oL9733j/w/gWYAV7ziyB9iwxL2ZoNcLoX4
-         f7rtYTpZsXzn29IapLyklwxoS/0GwkY3hOv2MFthB/JI6S0+YG8v7kbBDkyz2sqC/kcu
-         U1+e3vf8n6VpEOo778It/oCtEIu7mWXww8LmcW+ErSxmcMzeFAciyDsWqUKDZpPoAbPm
-         aNzh7QwbpcydBr/r/q1HZoaGOyDopCQ7BXzp0FtzMdQ78dQnPoH5aC17uS80iT2CQBns
-         CcTA==
-X-Forwarded-Encrypted: i=1; AKwUvBzOWHByW3AnKxe7hnOyPv7HFT7ORkCPQdLfxaSMxoaY6/VHtLDj51G/3cXmgjsaWRCpdxspdJnpwNExdoA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJc4ZR85+1cRLPyP5RdWndMrAKv+mB8fynj21Yt6rck41IAs/E8
-	SNI5LQ2pHXIP/t4GPAdXC4UANGcVnl44brnK7K5V01/ImPpGy//lA2SzPcCkfBWwQjyTyMKYRpK
-	gKaNDOq7d8NeDuNmWJ5wpSCaam5UquC0OWSly5DsZQA==
-X-Gm-Gg: AYBFou23tdmkUCk4vwJ/Kp4JjWhXaddsx//jn6wjcaODXAYYic/4lh4E/I4Bvl7pasB
-	q4rSEHTj2h8w+510ADc0qjkKm0WU0/Qyc2y2FtiO8LlrhpTQBKiPcODvp6CZlPGv+VLsT7Vk78w
-	39rJQ5YTRZ1hiXkBntliQv2JfewEW8JK7i2S5LAll/II4sC3WTajL4kSN/CXiAcDSP6/IWapMfw
-	DGLCzD6UoTdouu7V2Xr0hJ6nfeq0S4BFs26rHrIgKkyIVhLt5Pa0CrA2MvOrwGUKS/1ZbP1rwxO
-	jwj7G+W+T14ciN9uaE7191MjWIb7CC71UZEt3vTaKCbOvCa4248sZuW7bRMgDD9ihfXzBg1Arv5
-	PBl+ufHQToXA=
-X-Received: by 2002:a17:907:97c2:b0:c2e:2b9b:f16a with SMTP id
- a640c23a62f3a-c31aa0db298mr219331566b.39.1791554511699; Fri, 09 Oct 2026
- 07:01:51 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="Ow+rR17V"
+Received: from [10.26.7.43] (unknown [4.213.232.23])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 5669520B7168;
+	Fri,  9 Oct 2026 07:02:25 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 5669520B7168
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1791554549;
+	bh=o9/j7BPe/uob7m93Mq91i/EDR+z+f/2g2cs0hIlqrfc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Ow+rR17VHN66CP5vqGHPQQoCf/Oeb/NQtkum7i0SYvROjHBqwp1JFIORapqfV663h
+	 h4MWr3uJNcwVvrLdPeiubFErYneVsVGO9ebbXQjffLCGMhz42W3N6xpCQV7MWvMxqn
+	 hrATrpbOPAp1KpSzaGup+NMauQsio3zXN8OavxMk=
+Message-ID: <bdf19a74-d4b3-4fad-946b-4911546d1a70@linux.microsoft.com>
+Date: Fri, 9 Oct 2026 19:32:23 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261002154415.2270586-11-vincent.guittot@linaro.org> <20261006192414.7308-1-kayracizmeci@gmail.com>
-In-Reply-To: <20261006192414.7308-1-kayracizmeci@gmail.com>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Fri, 9 Oct 2026 16:01:39 +0200
-X-Gm-Features: AclHuK9YZ_WP4WP9H5H0CuoIx36QiVr2v73i8ApazR67nIerBidlId3PkJRLutQ
-Message-ID: <CAKfTPtCqz8AVqzo5gEfidftPj2Uebd+QDZs8RKmY4mvi01QRDw@mail.gmail.com>
-Subject: Re: [PATCH 10/18 v2] sched/fair: Add force push task mechanism for fair
-To: Kayra Cizmeci <kayracizmeci@gmail.com>
-Cc: arighi@nvidia.com, bsegall@google.com, changwoo@igalia.com, 
-	christian.loehle@arm.com, dietmar.eggemann@arm.com, juri.lelli@redhat.com, 
-	kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, 
-	linux-pm@vger.kernel.org, lukasz.luba@arm.com, mgorman@suse.de, 
-	mingo@redhat.com, peterz@infradead.org, pierre.gondois@arm.com, 
-	qyousef@layalina.io, rafael@kernel.org, rostedt@goodmis.org, 
-	sched-ext@lists.linux.dev, sshegde@linux.ibm.com, tj@kernel.org, 
-	void@manifault.com, vschneid@redhat.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next] net: mana: Add support to process throttled EQEs
+To: netdev-bot+sinfo@kernel.org
+Cc: haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, kotaranov@microsoft.com,
+ horms@kernel.org, ernis@linux.microsoft.com, gargaditya@linux.microsoft.com,
+ mawasthi@linux.microsoft.com, leitao@debian.org,
+ linux-hyperv@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org
+References: <20261008083315.306076-1-sahilchandna@linux.microsoft.com>
+ <179144878753.2527009.17917144229253595701@kernel.org>
+Content-Language: en-US
+From: Sahil Chandna <sahilchandna@linux.microsoft.com>
+In-Reply-To: <179144878753.2527009.17917144229253595701@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, 6 Oct 2026 at 21:24, Kayra Cizmeci <kayracizmeci@gmail.com> wrote:
->
-> > When the task is alone on the CPU, it's never put back in the enqueued
-> > list; In this special case, we use the tick to run the check used to push
-> > runnable task on a btter CPU.
->
-> I love typos. Like, in here. 'btter'. I think it should be bitter. Like:
-> "In this special case, we use the tick to run the check used to push runnable task on a bitter
-> CPU."
-> (Or maybe by a really low chance, it could be 'better' too. Maybe tho... :>)
->
-> > +static int active_load_balance_cpu_stop(void *data);
-> > +
-> > +/*
-> > + * See if the alone task running on the CPU should migrate on a better than
-> > + * the local one.
-> > + */
-> > +static inline bool tick_pushable_task(struct task_struct *p, struct rq *rq, struct rq_flags *rf)
-> > +{
-> > +     int new_cpu, cpu = cpu_of(rq);
-> > +
-> > +     if (!sched_push_task_enabled())
-> > +             return false;
-> > +
-> > +     if (!rf)
-> > +             return false;
-> > +
-> > +     if (WARN_ON(!p))
-> > +             return false;
-> > +
-> > +     if (WARN_ON(!task_current(rq, p)))
-> > +             return false;
-> > +
->
-> OK. So, this is called from task_tick_fair() and task_tick_fair() is
-> called from sched_tick() with rq->donor. So on Proxy bla bla
-> this could get true. Or maybe I'm missing something. Dunno.
-
-good point
-
-
->
-> NOTE: Some more places could have the same case. Again, dunno.
->
-> I need more tea. And sleep for not having to drink that much tea.
->
-> Thanks,
-> Kayra :>
+On 08-10-2026 14:09, netdev-bot+sinfo@kernel.org wrote:
+> Hi!
+> 
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+> 
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
+> 
+This issue was discovered internally>  - Whether the issue was actually
+triggered, or is only theoretical
+>    (e.g. found by code inspection). If it was triggered please include
+>    the symptoms, like the stack trace or error messages.
+> 
+Logs:
+2026-10-03T05:29:01 hv_netvsc eth0: VF slot 0 removed
+2026-10-03T05:29:23 mana 7870:00:00.0 ens1: NETDEV WATCHDOG: CPU: 45:
+                    transmit queue 1 timed out 15133 ms
+2026-10-03T05:31:05 mana 7870:00:00.0: HWC: Request timed out: 60000 ms
+2026-10-03T05:31:05 mana 7870:00:00.0: Gf stats wk handler: gf stats
+query timed out.
+2026-10-03T05:31:21 ens1: NETDEV WATCHDOG: CPU: 20: transmit queue 0
+timed out 15859 ms
+2026-10-03T05:31:37 ens1: NETDEV WATCHDOG: CPU: 15: transmit queue 0
+timed out 31731 ms
+2026-10-03T05:31:53 ens1: NETDEV WATCHDOG: CPU: 21: transmit queue 0
+timed out 47603 ms
+2026-10-03T05:32:08 ens1: NETDEV WATCHDOG: CPU: 42: transmit queue 0
+timed out 62451 ms
+>  - What hardware the change was tested on. For driver fixes please
+>    mention the device (and if relevant firmware version) used for
+>    testing, or say that the change was not tested on real hardware.
+> 
+This was tested on azure arm64 VMs while running Virtual Client
+(https://github.com/microsoft/VirtualClient) with busy poll enabled.>
+Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+> 
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
+This is a feature being enabled to handle a new EQE type 4 hence chose
+to send it to net-next
