@@ -1,102 +1,157 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A9044C64C;
-	Fri,  9 Oct 2026 12:22:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E047283FE5
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 12:22:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791548544; cv=none; b=TDONh2g//bUPBiE/t5swaafQkQyaRI0sOcTaJm7O6+qDK4aFMQKSZYMx9S7EUf805fWslliNk80bvVcTgw2WmWnbF2Iu9zLgKleiLDn+Wytfgqh6UOCvKmhbpMdyMZ69KuBnD4niLQ/OBqm4/gChSB8ThrrK0RdQyiV14nRE91k=
+	t=1791548545; cv=none; b=PEBfT0KnTVcfBourgHoNzINNvReJH41isiTaDB+S7G3omj96I/EEOl+H+WJdnYWNILG4EZ0WBKrsgr+u09iRHvMqz9KrYG0kR3yAgOXzgsa1siqcuvzKzRq2TSGz1t4UlBLjQ1Wh1bK8U7FiH6/mgXufwS4jqTYexmNI8TYnXIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791548544; c=relaxed/simple;
-	bh=464YzXGaDQUbdH+7KNEdxBgo56LjFG1riLV/FeW9DEw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KYsmH33M7MqOokNOkU8VyzQCC1aEnq8lEeF5PYZAD6QhiIhlDMMg1uQfQ92howg/CF2uw7yaTgZEojnK1kq97RW6mQBs+qAEY/appwFSL7ZWlH9MlZPe/TWzanYHo0mvPn0b3YlwW9WfZQOk7Nwy+IKV68XoXX03JtF+T61z/Ew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=4QMpZlUr; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1791548545; c=relaxed/simple;
+	bh=W8aDCU57pyg1sEIwBUYJfR2HCl+j9IoeiNI3saqRcDI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=U4Wh6pmZu412KIWFMPxTSWn7u/+6MMjgm10l2ovwMcu0nSs8eHcRRWxd61QXkShG41f9J65NS44dmTVbmx6qlLPW2TMBT3ta2/eULZQabRActtjiFJLdFjdxV2Zs2x/5Viwl20DWjRb2Y1qsIvZSe0kv94eraZxzYOg2wo+dmnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=Qs0GQ97a; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="4QMpZlUr"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=ZqrK1Qsencsi1WEjQh8Yxu5eRbvhSvpLF3WsCRZH2UE=; b=4Q
-	MpZlUrJY9LL0t1S1d5NYqm7eHgNjlOo1QjEUl2H173SfCZbQ5j5NCEHDUUVpORB+mpuJQS0DJizzh
-	tt6UpvKz+wTcCzv0cHf3RmaAQD9nc8fzCQLQ9z5jxwzl/ZV6kHYE5MBHOnjl8IMbsH7cusZfz2vvP
-	q1rTazV+qlU4LJM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xF9bw-009mlP-0G; Fri, 09 Oct 2026 14:22:04 +0200
-Date: Fri, 9 Oct 2026 14:22:03 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Linmao Li <lilinmao@kylinos.cn>
-Cc: Hayes Wang <hayeswang@realtek.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Chih Kai Hsu <hsu.chih.kai@realtek.com>,
-	nic_swsd <nic_swsd@realtek.com>,
-	Birger Koblitz <mail@birger-koblitz.de>,
-	Xiangqian Zhang <zhangxiangqian@kylinos.cn>,
-	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH net v2] r8152: Use BMSR to detect the link state
-Message-ID: <591ca604-b296-4469-94b5-957d9ba45ae4@lunn.ch>
-References: <20261005105249.1281648-1-lilinmao@kylinos.cn>
- <fd3bff0e63304681b9e5f35f2f57e50e@realtek.com>
- <7a8d21bd-3484-4120-abd6-f7290f919b7d@lunn.ch>
- <2bd3886a-da6e-4703-bd7a-9baa32bfd2f4@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="Qs0GQ97a"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:Message-Id:Date:Subject:From:Reply-To:Content-ID:
+	Content-Description:In-Reply-To:References;
+	bh=gaeTMLlbey2LMiX1Gv3nVSAkM2Vcm//pXrSZZzdDCDA=; b=Qs0GQ97aFEqt1R9PeOibxMZDaA
+	VyTl07SvUpqF+4B94kPWdjLnDGHE1LmOZFDSwDeyOwGfCoJ7aDTVxtGTaiuXvGrBrdOj1EhhrJvDZ
+	vJF3yOlTXlHELyYFrQcuI6MvIx5bOnXLyVe8RVogGsUaTpfq+9dAnZJeZLUlITY9CorO122EO6M/E
+	aZnR1CTS23EA/7hfDBKm2P7za+1JOFImU0dwCrkMF7m0J/By0R4GkT4yrz4+T/4Z11XhfAA/Y+OCn
+	rbvrl0ZBGMINivX5jzLmuygeAkEIR0XojA+fCFV95mXTZ6hx3RtmQUWKc0m+5QfTwhpGt35wF1mYX
+	xsRcKmQg==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xF9c6-000WjX-1M;
+	Fri, 09 Oct 2026 12:22:15 +0000
+From: Breno Leitao <leitao@debian.org>
+Subject: [PATCH wq/for-7.4 v3 0/3] workqueue: Keep max_active and
+ percpu_max_active in sync
+Date: Fri, 09 Oct 2026 05:18:33 -0700
+Message-Id: <20261009-wq_final-v3-0-eb0b095b9de3@debian.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <2bd3886a-da6e-4703-bd7a-9baa32bfd2f4@kylinos.cn>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJrbyGoC/1XNywqDMBCF4VcJszY2iXdXfY9SiokTHSixJiW2i
+ O9ekELt/vzfWSGgJwzQshU8Rgo0OWhZljAwY+cG5NRDy0AJVYpG5nyZb5Zcd+faWG36TAtbNZA
+ weHi09NqpCyzzyU6eV2kO14TBSOE5+ff+EuW++IL1D4ySC16YPDOi7lSpzblHTZ1LJz/sSlSHU
+ hWHUnHB61IgikLJssG/ctu2D7QnrnznAAAA
+X-Change-ID: 20260914-wq_final-bcfbcd3b0f79
+To: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>
+Cc: linux-kernel@vger.kernel.org, marco.crivellari@suse.com, 
+ Breno Leitao <leitao@debian.org>, kernel-team@meta.com
+X-Mailer: b4 0.16-dev-f8e9d
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3244; i=leitao@debian.org;
+ h=from:subject:message-id; bh=W8aDCU57pyg1sEIwBUYJfR2HCl+j9IoeiNI3saqRcDI=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBqyNxz5ulh1v/vN2JuQ2uFiZHz6GstnOD23LgyE
+ 8cEZRRgl2aJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCasjccwAKCRA1o5Of/Hh3
+ bfYID/oCs4Yuol9zk8VEbojl0PLC3ROAdm5x8y/Qr1NZv9Y+gSCooB41J2gHuEKN31tk06a4Med
+ tCQYu9Nt80k8sM4NApM5PVbq/pm8+Xf9o4EllgEyiuWm8FgQ5n5HFPnYVwKl3HqLBeHKaTX7Nco
+ Ktcg6MACMt8dxmcTbkGZTjQvWjre/NAzSMBG6a0kf92WLkciUCF28IldZxWNMmPhRZN7GyRhbaS
+ W1XRdHDgOi+XdrhDFFSae4ZxyHo4sboU1KHtnMlX+C5i20r7y96p3TlpAO3nNMddfLss8FCHQiY
+ s3hGsoG6aarwU90ZCXf2g5/LIPRH7J6IKIuAIxi2JKprK6Yy6EQvpB2O9V4lHqrFIATk5MBvrMg
+ bobgbS/0KjpfKkY29VuaoRSWm63Q50Ft5VQiS3W3IteOmL0P8NCqq1c58GsFHqscUq1Jwh5pFCI
+ uJBClFcjIoV+3R4fSLq53OZz8DDXaGirAue9a4djAXUWQlMCw+gQRkgwx3h+tYj/0Xnl238eOaP
+ 5LEAQpjIxg3e6SnbfNassFB6VPHseL1lckKqRgiLbVehM6CaBFd1GyWMefufZ+bo4+4kzJr1Niu
+ 7PetNwlE8NU0u/cJtZjLersvBb5Ep1e4gpZ79AjW+8o4GtG+ShywdpBqpr0tl+QJ769oinFKRL6
+ +tbOxtCpU2zoj5w==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-> Hi Hayes, Andrew,
-> 
-> Thanks. Since the newer ICs notify only when the link status changes,
-> the driver cannot rely on another link up notification after the link
-> has settled, so v2 can leave the carrier off when the first read
-> returns the latched link down.
-> 
-> Before sending v3, which approach would you prefer? Both fixed the
-> problem in my tests on an RTL8153B with v7.3-rc6:
-> 
-> a) Keep carrier detection on PLA_PHYSTATUS and read BMSR once before
->    carrier on, only to clear the latch. This is the option I asked
->    about on v1.
-> 
-> b) Detect carrier from BMSR and read it again when the first read
->    returns link down, as genphy_update_link() does in interrupt mode.
-> 
-> Neither depends on another notification. Neither reports a short link
-> drop that recovers before the link work runs: with a) a later speed
-> query still sees the latched link down, with b) the latch is cleared.
-> 
-> Hayes, for b): is BMSR_LSTATUS reliable as the carrier source on all
-> chips supported by r8152?
+Commit 27db9dd7f84f3a ("workqueue: Give percpu workqueues their own
+max_active") gave the percpu backend a limit of its own, so a workqueue
+now carries both percpu_max_active and max_active.
 
-Ideally we want a list of devices which correctly do notification on
-every change of link state, and which are broken.
+__alloc_workqueue() only ever sets the pair matching the backend the
+workqueue is created on, so the other stays at zero for its lifetime.
 
-For those that work, read the BMSR once and report the down, and then
-later on the second event, report the up.
+Nothing reads "the other scope" max_active today, so this is groundwork
+rather than a fix.
 
-For those devices which are broken, double read the BMSR.  The danger
-is, somebody who quickly unplugs and replugs the cable is not going to
-get the down notification. The dhcp client will not restart, so the
-old IP address will be used, for the next hour to day, and the network
-is broken.
+Three patches. The first moves the initial limit setup out of
+__alloc_workqueue() into wq_init_max_active().
 
-    Andrew
+The second sets both domains rather than one, according to tejun's
+recommendation:
 
+  U = unbound max_active, the system-wide target
+  L = unbound min_active, the floor on each node
+  P = percpu_max_active, the limit on each CPU
+  N = online CPUs in the effective unbound mask, at least 1
 
+  Setting P:
+    U = min(P * N, WQ_MAX_ACTIVE)
+    L = P
+
+  Setting U:
+    L = min(L, U)
+    P = max(DIV_ROUND_UP(U, N), L)
+
+  Setting L:
+    L = clamp(L, 0, U)
+    P = max(DIV_ROUND_UP(U, N), L)
+
+The third rederives both domains once CPU topology is known. Workqueues
+created before smp_init() brings up the secondary CPUs compute N as 1,
+and nothing revisits that afterwards.
+
+This shouldn't change the behaviour of workqueue for now, but keeps the
+groundwork correct for the PERCPU affinity scope work it's meant to
+enable.
+
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+Changes in v3:
+- Dropped the silly percpu_concurrency_managed attribute patch.
+- Fixed N to come from the workqueue's own unbound_effective_cpumask()
+- Added a patch rederiving both domains once workqueue_init_topology()
+  knows the real CPU count.
+- Handled BH in one place: wq_init_max_active() sets the limits of a BH
+  workqueue through wq_init_bh_max_active() and returns, instead of
+  giving BH its own branch further down (Tejun)
+- Set min_active to percpu_max_active when deriving from a percpu limit
+  instead of min(percpu_max_active, max_active), as max_active can never
+  be lower (Tejun)
+- Changelog of patch 2 now refers to the new PERCPU affinity scope
+  rather than WQ_AFFN_CPU (Tejun)
+- Link to v2: https://patch.msgid.link/20260925-wq_final-v2-0-860ee052169e@debian.org
+
+Changes in v2:
+- Cut the series down to the three patches that change nothing
+  observable. The runtime scaling, the affinity scopes, the backend
+  rework, the concurrency management attribute and the sysfs files are
+  all held back.
+- Set both max_active domains instead of holding them equal, deriving
+  one from the other rather than duplicating the value (Tejun)
+- Link to v1:
+  https://patch.msgid.link/20260918-wq_final-v1-0-5c43c08a26bc@debian.org
+
+---
+Breno Leitao (3):
+      workqueue: Move the initial max_active setup into a helper
+      workqueue: Keep the limits of both max_active domains current
+      workqueue: Rescale max_active domains once CPU topology is known
+
+ kernel/workqueue.c | 168 ++++++++++++++++++++++++++++++++++++++++-------------
+ 1 file changed, 129 insertions(+), 39 deletions(-)
+---
+base-commit: 9d4815c14f7faf789aeaa63515024168daf0390c
+change-id: 20260914-wq_final-bcfbcd3b0f79
+
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
 
