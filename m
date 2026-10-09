@@ -1,189 +1,246 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BCC039EF2E
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 03:42:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F1F33ACA79;
+	Fri,  9 Oct 2026 03:42:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791517371; cv=none; b=u5i4yf0sB4bjmUaJZrwhp+MM5V2D6uR7eSkbD/MbzjzkJ73iBxpGZDmLMPhMN43GB3qR6oQhe6i47dtd9IUiTopFpdiKSo7rgxozZoBq/dE3CgEyW+xFNRqqCim2v9RNTb5eGmw2ytAD2XtqRBVuh16/EnjK3nODaefy4S8LxIE=
+	t=1791517385; cv=none; b=HjvrH/O7aBP+d3FsdLGG9B/eXxr1FAWeVjwiTlCc9Pxe8QMTuZoFytKNorBRt+1nuSclZ8oL6lNErdenNWoDnfA7QCU01KqkTFrqthgdM5/ONQz3vNdXjgmN0V0TsF8tTk+joD6UPk2ahHpREb0UbtvW9s8zMlNo2mtwHH+9heU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791517371; c=relaxed/simple;
-	bh=oMmbNnz932x0fDcbEC3ogsWJcritc4/OIAiDDCwdyVo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pqAtUja+O8bkfXgioUBAJIOUh+gdgOEKtmJCt6oeSeH3GQyTM83Q/mB1OVo/1sinoMgI41Ns8hhUEZ8rc+FXg798jQOZMfEjC6YdPrsjN9JFf+nXJqz8h+fUaCHpnyyLB8Roy6OzoHCc0FTXbkmL1o69irN/ih1RTJVlaoNxCWI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=E5KBbTJR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=h0y8PikE; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791517385; c=relaxed/simple;
+	bh=qqXrHjSr3SV10hSYX/XfKD3J3xtKcsSQtOI9PFtAhiw=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=np2sUGtGsxhhLbNfPF0fpIoPAbKgsHXWJx4XAuRGNizeFTLQGv8GSqn31dt36EvtNi/HAcHu7KnoA8/fRLjIKw/DLAmH1uToRrvitgl6DUTQRszwlunhS2TYc8WZKKDT3sx+vUsyp4VllPBytwsgts03Mtd2noxwWeXg+7dVLv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d7Q8tDJm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="E5KBbTJR";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="h0y8PikE"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6993HLis966514
-	for <linux-kernel@vger.kernel.org>; Fri, 9 Oct 2026 03:42:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	t1z7NeV5zzw+Qh/Xy7bTSMaYqP4hRm0zEwpbgCNxVr4=; b=E5KBbTJRdB/IPv5L
-	HPEJG1sGFDtiA8Ok8DX7DysczMA7y/EvzCmu9GobIIJShNphngiMCcgHBCMvSxCQ
-	zI8UET9o3q9qLtpnwJvBrP30Oa5eE7zZIDmOtPYUM30HMOvCZ87eWWkAzfnm/H1p
-	Pta8NHDJFoVR51mIbqn1fl2e2FN6dRoRO0CENgkTqyJwSw2Qlt+E+GsYAHoMT7RC
-	O+9n/DzRb1Pp0bEJVwdgbaFQLeYoWp2jWpfN6ltAVQH+TN4rfoHv4gcuWHzsqb0n
-	5EcWPKSwqV1TwdxcmAGuMws4LLoQ4PQmUjeAkogsMkOBz843AqH6qPsQh1iS4UOM
-	KTtcWA==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6fyj1pc2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 03:42:41 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3a46f0f158dso1295735a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 20:42:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791517361; x=1792122161; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t1z7NeV5zzw+Qh/Xy7bTSMaYqP4hRm0zEwpbgCNxVr4=;
-        b=h0y8PikEJRfd/tlSt9uvx8MRehvGxtY5XzIJMeP60YR5sipv6P1aGvgwSPVclo4Rh2
-         AmfsB3gsUmDsCgN3yP1QnlF5WMaUcZ4wke0qdMfcm2k/+NWlEweGKnzR61bfWX4ZPiRC
-         PJqRdBIOXAs7h4TE9LGpt8IvnxIXix0XOY9jUgB1agLfG28Xx3tr2TUulm3Z86oJ2qbl
-         3Wx/Fjto1ipK49161pfr4lrJEDz1KAHMKaVCwYhYMeM36Y2lffIRGReRfxzSQpvP/Lae
-         mv0wOOmry0Cg4Be0teiOu1a0ib/yB7txZ0x5dlaYCJN6Xiez2rFeYwjmhcqTevX9bLJx
-         0dNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791517361; x=1792122161;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=t1z7NeV5zzw+Qh/Xy7bTSMaYqP4hRm0zEwpbgCNxVr4=;
-        b=WCP23TJPnKj3BIGcqTs8iP3dxL4x9uIBo8AvgW6tF5NwVGePfTLLaa/e7/gvoVy2Pq
-         VhYLfVbkJ/wABtO8y/dt0a/dgWP1yRYBrvMBXlGx9BrfLZ0tSx6Tch9uhx58dsDiazR3
-         SqJ3GMfH4loFh96kVyQkNwrMVUD0d4NaaI2qmOaw0QfZt+HqY1AuYSwCYh5GICLD47zp
-         N7FmYrW7uO24TMleHs6Wfhe2xdoO9b9MZucpzU5ehu867BgIFGFqw5ePZ6GVym4h6bdf
-         GKw3f7QdtUo8oQdpOXhokz9rVR1XYLGdwq55l+wSOBHc0uGx6GAdDXljAGr7lIqfA4x4
-         HtQQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxrO31WhSr3NmawXlwtAJ9LT7siEHs4LUEt2jYiTbtOq3Qqx3t2GWKgR77+dt+9TdHJtgWhybT5wtBkEoc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ3IFe3k3PJ5QyBVpmM127wjd9LD0Q/WNRm96m9+1b4kqROcKNE
-	iT0g2AXoL79UVnT5o4fck9INPCCIBS07IQ+ryX9oSEdALbV0vIIY2YdDnYHGDS7Kzxa023NjX3A
-	1F5s2F5OSC2Z2fSyRnT+8UQTHY5wCSseL+iF69LOlqKyWx43RaS1L9JUdv9bS+puTCAM=
-X-Gm-Gg: AYBFou22dUcY956l9NdVMQcUdWx8IhpLMRBJqwDOJSzLMyknLtnNjzezWKWpvtQMLO4
-	6CG1Ag8ftq3XJ1zUCUCkJ4JEC2/V3OSvezi/37L7DXarpPcAjFBr+0SJxWp/ryVNdNmJIbW+afe
-	3ubzHGCpa9R09DvS805OUb5QzGgLYQIWTltjyKiHrpC0P469bH+3IfZ2pzNawOEIW+1ha6zAhO/
-	AWelSOPJjE45brur3iQuh+dXwQFqQM8+2TdVgQ2C6vHZ7dSXERoiQEsywkVsNrWmCCXr58zoPvO
-	la9aqMjBmYUNvN7AaP9hvPPMdlM4hUphYtzmZj5C+gbFYaX8TJH4V66LaJzXZV7NP86WL8O6VBU
-	ar0XzsBfIXtHzPNY2btl1
-X-Received: by 2002:a17:90b:2d82:b0:39e:6c68:fd91 with SMTP id 98e67ed59e1d1-3ab3acdc391mr403446a91.38.1791517361045;
-        Thu, 08 Oct 2026 20:42:41 -0700 (PDT)
-X-Received: by 2002:a17:90b:2d82:b0:39e:6c68:fd91 with SMTP id 98e67ed59e1d1-3ab3acdc391mr403427a91.38.1791517360547;
-        Thu, 08 Oct 2026 20:42:40 -0700 (PDT)
-Received: from [10.92.18.229] ([114.94.8.36])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38ddac6dsm1351959a91.7.2026.10.08.20.42.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 20:42:40 -0700 (PDT)
-Message-ID: <4272947d-a9df-4cf2-b890-c2b2392800e5@oss.qualcomm.com>
-Date: Fri, 9 Oct 2026 11:42:33 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d7Q8tDJm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 813671F00893;
+	Fri,  9 Oct 2026 03:42:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791517376;
+	bh=5aPCcAVsmpt4qOE8bDTbND9um3Ewz95XmGL8O0GlbpY=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=d7Q8tDJmtw6Wpy3ArP0D0rMayjgR83Kr3mDu3It6xDIDcqnZZYo03plR77fylF7Fh
+	 Gi6zsNoCfZx3P0bnQflEbS6vC2zmNbtQkONdSa7XeVxLVPj7YD9/k1k6uOb3XQ5Cao
+	 862lG7dKWctZhUa0XlHwExqoSIhIqiHKMXPzhJV7MpNKnLrnxJgxAiL8QzTJ0RnZob
+	 +7rqURBt4VIylTqePg95LLUHUtVXd/NQ7KWzL4WlsIvEQW8VJOIsTwHBCP9puuhd5v
+	 jSbfwup0Tc8b2wK30opFKjAq3ZIuVAVRz10aOcfBDvH6v51R3WoibUlj0LuqACrl52
+	 Z0fR+6I8sMHlQ==
+Content-Type: multipart/mixed; boundary="===============0305360540098415603=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 00/11] net: ethernet: qualcomm: ppe: Add support
- for IPQ5424 SoC
-To: netdev-bot+sinfo@kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller"
- <davem@davemloft.net>,
-        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Lei Wei <quic_leiwei@quicinc.com>,
-        Suruchi Agarwal <quic_suruchia@quicinc.com>,
-        Pavithra R <quic_pavir@quicinc.com>, Simon Horman <horms@kernel.org>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap <rdunlap@infradead.org>, netdev@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-        quic_kkumarcs@quicinc.com, quic_linchen@quicinc.com
-References: <20261008-qcom_ipq5424_ppe-v1-0-16caf43e44ee@oss.qualcomm.com>
- <179147126645.2527009.13829110581548714861@kernel.org>
-Content-Language: en-US
-From: Jie Luo <jie.luo@oss.qualcomm.com>
-In-Reply-To: <179147126645.2527009.13829110581548714861@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Message-Id: <de66b04d75933a3f4a2a86ff4f660d7832b2b9dcc383d8207aecdf2befedbc35@mail.kernel.org>
+In-Reply-To: <20261009024925.3169077-3-memxor@gmail.com>
+References: <20261009024925.3169077-3-memxor@gmail.com>
+Subject: Re: [PATCH bpf-next v1 2/3] bpf, x86: Skip the PROBE_MEM address range check under SMAP
+From: bot+bpf-ci@kernel.org
+To: memxor@gmail.com,bpf@vger.kernel.org
+Cc: ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,eddyz87@gmail.com,emil@etsalapatis.com,ihor.solodrai@linux.dev,dave.hansen@linux.intel.com,luto@kernel.org,peterz@infradead.org,tglx@kernel.org,mingo@redhat.com,bp@alien8.de,puranjay@kernel.org,kkd@meta.com,kernel-team@meta.com,x86@kernel.org,linux-kernel@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Fri,  9 Oct 2026 03:42:54 +0000 (UTC)
+
+--===============0305360540098415603==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=BfpNQbt2 c=1 sm=1 tr=0 ts=6ac862b2 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=+dQloWKbpC4JZN4npCJT8A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=VwQbUJbxAAAA:8 a=wfrYX8O7EWgUh0Dss7UA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-ORIG-GUID: lTg_fjWOd2BxDWJw15y_QyiS47s8q8I9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDAxNCBTYWx0ZWRfX0cR4wLuor+vW
- O4mKaZvPql9BYIvMFFkkISLnd1qWNjVMhCsUkQCMmNSgVnEeXn2Lq7dZMd8xUbmTXUiPI9iQS4m
- KHlU4TgS4+woaN72Z13LXrVJ+nXIfQaMHdcJbZSB/0IvyYhjgGMyfMHz+vUL5ZTqLk/0ve1bHpy
- U4WMoYJ3sHPTNYs44UYzzrEt5MctTLK6VCqBke5CONpnBxrKomtmHwlq0d90UApTjbD/BYcmSvP
- nSfu39yfLjS5X7oflUlkDKjug0oEMHEewPkwZs1RPg+WlTd2Rsb5yabwOeI/QkQnJiMvvgNr9Qb
- w8Efw+TDXUsn6BquhlwwzYvYuhaYJiPCKWyj5/ukWL94mQqBdmqm3mPL32UR36bqcfOJp+njDNu
- PoFU1nfFRFmoe3Iej3Xq8XI12yhk53Tqm167fxGW0HMbfBYWGNZXaySplQifPuNtod+lv2L39tS
- W+xVFetIiuG6xM3VHpQ==
-X-Proofpoint-GUID: lTg_fjWOd2BxDWJw15y_QyiS47s8q8I9
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDAxNCBTYWx0ZWRfX3Gd6SaPlh5UX
- AZpfc9+F7CsfgxrpwVX5pxJCzHCKEQ314on4l0kmcZfe0mHryNP1d9KBAOXvRn3/gx54RzobsBI
- IPnKyvQNQotzpiIa0WtPfAd7skk7qUU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-09_02,2026-10-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 impostorscore=0 phishscore=0
- lowpriorityscore=0 spamscore=0 bulkscore=0 adultscore=0 clxscore=1015
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610020000
- definitions=main-2610090014
+
+> bpf, x86: Skip the PROBE_MEM address range check under SMAP
+
+TL;DR:
+- Possible kernel oops: unprivileged (CAP_PERFMON, no CAP_BPF) programs aren't
+  in kallsyms, so a NULL PROBE_MEM load under SMAP may not be fixed up
+- Commit message wrongly credits arm64/riscv/loongarch; runtime cost
+  unmentioned
+- Stale comments (LASS, uaddress_limit)
+
+>     bpf, x86: Skip the PROBE_MEM address range check under SMAP
+>
+>     The x86 JIT guards every PROBE_MEM load with a range check that keeps user
+>     addresses, the guard page above TASK_SIZE_MAX and the vsyscall page away
+>     from the load, because a kernel-mode fault on those addresses would oops
+>     under SMAP instead of reaching the load's exception table entry. The check
+>     is nine instructions and 39 bytes (32 when the offset is zero) in front of
+>     a load of a few bytes. For "r7 = *(u64 *)(r0 + 2200)" on a 5-level paging
+>     kernel, with VSYSCALL_ADDR and TASK_SIZE_MAX + PAGE_SIZE - VSYSCALL_ADDR as
+>     the two constants:
+>
+>       movq    $-10485760, %r10
+>       movq    %rax, %r11
+>       addq    $2200, %r11
+>       subq    %r10, %r11
+>       movabsq $72057594048413696, %r10
+>       cmpq    %r10, %r11
+>       ja      load
+>       xorl    %edi, %edi
+>       jmp     done
+>     load:
+>       movq    2200(%rax), %rdi
+>     done:
+>
+>     The previous patch made do_user_addr_fault() resolve the exception table
+>     entries of BPF programs for faults on user addresses when SMAP is enabled.
+>     On such kernels, emit the bare load with its exception table entry, as the
+>     arm64, riscv, s390 and loongarch JITs already do. All BPF programs run with
+>     SMAP active once the CPU feature is enabled, and the feature cannot change
+>     after boot, so checking it at JIT time is sufficient. Kernels without SMAP,
+>     including those booted with nosmap, keep the range check.
+>
+>     Measured with veristat over every object of the BPF selftests and over 466
+>     production objects from Meta's fleet, on an x86-64 guest with SMAP, with
+>     and without this series on top of bpf-next:
+>
+>                             programs  with PROBE_MEM  reduction per program
+>                                                       mean  median    max
+>       BPF selftests             3324              91  35.0%  37.5%  74.4%
+>       Meta production programs  1710             228   7.0%   1.8%  69.2%
+>
+>     No program grows. The socket and task iterators of the selftests lose about
+>     half of their code, dump_tcp6 goes from 4386 to 2124 bytes, and the
+>     smallest production programs lose 60% to 69%. Loads through trusted
+>     pointers and the probe_read helpers do not use PROBE_MEM, which is why most
+>     programs are unaffected.
+>
+>     Signed-off-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+
+The commit message says the JIT emits the bare load "as the arm64, riscv,
+s390 and loongarch JITs already do".  Is that accurate for arm64, riscv and
+loongarch?
+
+Those three select ARCH_HAS_NON_OVERLAPPING_ADDRESS_SPACE and use the weak
+bpf_arch_uaddress_limit(), which returns TASK_SIZE.  For them
+bpf_do_misc_fixups() rewrites every PROBE_MEM and PROBE_MEMSX load into a
+guarded sequence before the JIT sees it:
+
+    *patch++ = BPF_MOV64_REG(BPF_REG_AX, insn->src_reg);
+    if (insn->off)
+            *patch++ = BPF_ALU64_IMM(BPF_ADD, BPF_REG_AX, insn->off);
+    *patch++ = BPF_ALU64_IMM(BPF_RSH, BPF_REG_AX, 32);
+    *patch++ = BPF_JMP_IMM(BPF_JLE, BPF_REG_AX, uaddress_limit >> 32, 2);
+    *patch++ = *insn;
+    *patch++ = BPF_JMP_IMM(BPF_JA, 0, 0, 1);
+    *patch++ = BPF_MOV64_IMM(insn->dst_reg, 0);
+
+So those JITs never emit a bare PROBE_MEM load for a user address.  Only
+s390, which has separate address spaces, relies on the fault path in the way
+the changelog describes.
+
+With this patch, x86 with X86_FEATURE_SMAP set takes a full page fault,
+is_bpf_text_address() and the exception table search for a load of NULL plus
+an offset, where it used to execute a compare and a branch.  The veristat
+numbers only measure code size.
+
+Could the changelog correct the arm64/riscv/loongarch statement and say
+something about the runtime cost of loads that now fault where they used to
+branch?
+
+> diff --git a/arch/x86/net/bpf_jit_comp.c b/arch/x86/net/bpf_jit_comp.c
+> index 083fcd6cf15b..793e7cd5a5c4 100644
+> --- a/arch/x86/net/bpf_jit_comp.c
+> +++ b/arch/x86/net/bpf_jit_comp.c
+
+[ ... ]
+
+> @@ -2709,6 +2710,15 @@ static int do_jit(struct bpf_verifier_env *env, struct bpf_prog *bpf_prog, int *
+>  		case BPF_LDX | BPF_PROBE_MEMSX | BPF_B:
+>  		case BPF_LDX | BPF_PROBE_MEMSX | BPF_H:
+>  		case BPF_LDX | BPF_PROBE_MEMSX | BPF_W:
+> +			probe_mem = BPF_MODE(insn->code) == BPF_PROBE_MEM ||
+> +				    BPF_MODE(insn->code) == BPF_PROBE_MEMSX;
+> +			/*
+> +			 * With SMAP enabled, a load from a user address faults and
+> +			 * do_user_addr_fault() resolves the exception table entry of the
+> +			 * program, as for an unmapped kernel address, so the address range
+> +			 * check is only needed without SMAP.
+> +			 */
+
+this isn't a bug, but is this comment accurate when X86_FEATURE_LASS is
+enabled?  With LASS, a supervisor load from the user half of the address
+space raises a general protection fault rather than a page fault, and that is
+handled on a different path:
+
+    exc_general_protection() -> gp_try_fixup_and_notify() -> fixup_exception()
+
+The outcome is the same, but the comment names do_user_addr_fault() as the
+place where the entry is resolved.
+
+> +			bounds_check = probe_mem && !cpu_feature_enabled(X86_FEATURE_SMAP);
+>  			insn_off = insn->off;
+
+Can this oops for a program that is not in kallsyms?  With bounds_check
+false, a PROBE_MEM load of a user address such as NULL plus a field offset
+depends only on the new branch in do_user_addr_fault():
+
+    if (is_bpf_text_address(regs->ip) &&
+        fixup_exception(regs, X86_TRAP_PF, error_code, address))
+            return;
+    ...
+    page_fault_oops(regs, error_code, address);
+
+Both is_bpf_text_address() and search_bpf_extables() only find programs that
+are registered in bpf_tree, and bpf_prog_kallsyms_add() skips programs whose
+loader lacks CAP_BPF:
+
+    void bpf_prog_kallsyms_add(struct bpf_prog *fp)
+    {
+            if (!bpf_prog_kallsyms_candidate(fp) ||
+                !bpf_token_capable(fp->aux->token, CAP_BPF))
+                    return;
+
+Such programs can still contain PROBE_MEM loads.  With
+kernel.unprivileged_bpf_disabled=0, bpf_prog_load() accepts
+BPF_PROG_TYPE_SOCKET_FILTER and BPF_PROG_TYPE_CGROUP_SKB without CAP_BPF.
+With CAP_PERFMON, env->allow_ptr_leaks is true and bpf_sk_base_func_proto()
+exposes bpf_skc_to_tcp_sock() and the other skc_to_* helpers.
+
+skb->sk is readable as PTR_TO_SOCK_COMMON_OR_NULL, and sk_filter_trim_cap()
+sets skb->sk while the filter runs.  The helper returns a plain
+PTR_TO_BTF_ID, and walking a pointer field from it, for example
+tp->inet_conn.icsk_ulp_ops->..., or sk_socket on an orphaned socket, gets
+rewritten to BPF_PROBE_MEM by bpf_convert_ctx_accesses().  The x86 JIT then
+emits an extable entry for it.
+
+Before this patch, a NULL plus offset load in such a program was caught by
+the JIT range check and dst was set to 0.  After it, on a CPU with
+X86_FEATURE_SMAP the sequence would be:
+
+    handle_page_fault() -> do_user_addr_fault() -> is_bpf_text_address()
+    returns false -> page_fault_oops()
+
+That would be an oops in softirq context (sk_filter on the receive path)
+triggered by a user with CAP_PERFMON but without CAP_BPF.
+
+arm64, riscv and loongarch are not exposed to this, because
+bpf_do_misc_fixups() inserts the generic user address guard for them.
+
+Should the range check be kept when the program will not be in kallsyms
+(!bpf_token_capable(prog->aux->token, CAP_BPF)), or should every JITed
+program with exception entries be registered in bpf_tree?
+
+[ ... ]
+
+Separately, the comment above bpf_arch_uaddress_limit() in this file:
+
+arch/x86/net/bpf_jit_comp.c:
+    /* x86-64 JIT emits its own code to filter user addresses so return 0 here */
+    u64 bpf_arch_uaddress_limit(void)
+    {
+            return 0;
+    }
+
+is the stated reason x86 opts out of the generic verifier user address guard
+in bpf_do_misc_fixups().  Is it still correct?  After this patch do_jit()
+emits no filter at all when cpu_feature_enabled(X86_FEATURE_SMAP), and user
+addresses are rejected only by the hardware check plus the fault handler
+fixup.  Should the comment be updated, or should bpf_arch_uaddress_limit() be
+made consistent with the new JIT behavior?
 
 
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-On 10/8/2026 10:54 PM, netdev-bot+sinfo@kernel.org wrote:
-> Hi!
-> 
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
-> 
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
-> 
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by code inspection). If it was triggered please include
->    the symptoms, like the stack trace or error messages.
-> 
->  - What hardware the change was tested on. For driver fixes please
->    mention the device (and if relevant firmware version) used for
->    testing, or say that the change was not tested on real hardware.
-> 
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
-> 
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
-
-Both issues are theoretical. Neither was hit in production or reported
-by users.
-
-Patch 1 (dt-bindings: Split EDMA reset into sys and apb): [found by
-manual code inspection while developing the IPQ524 PPE driver]. EDMA
-driver is not upstream yet, and no in-tree device tree uses the
-ethernet-dma node, so the issue cannot be triggered today.
-
-Patch 2 (ppe: Fix multicast queue config table index): found by the code
-inspection. It was not seen as a crash or an error message; [the
-multicast queue thresholds are left unconfigured without any visible
-failure].
-
-The series was tested on the Qualcomm IPQ9574 RDP433 and IPQ5424 RDP466
-boards.
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/37877475188
+--===============0305360540098415603==--
