@@ -1,284 +1,109 @@
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 485B63F3296
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 06:06:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B4F42AF9B;
+	Fri,  9 Oct 2026 06:07:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791526020; cv=none; b=ZclVmf387e0eKVwRlwAJO3EElmsaQ3N1E2AmyGXby49+vfBQKD15K7PCwKkRiS7M4xC6YL3LK5tMBWu9jAHW9Ih2KV2l/cyW04yfDjYYlAYNd9Cm7Wxgsu/L2jnr6XNrFrvYL4kVKV33rUgjMMeCSFt/ubrjsoAxYbXvwByBwRI=
+	t=1791526025; cv=none; b=tSNMNi854KoU1+RLTCUEvNVmBmQ9K9naeofeGM2Gi7X6eHJB7y06fpsfVxR8uokaeJchJMWZrYC6PwK9oMMr6MuEEjoCmpBN57urN17mN6NaRKCSemQ1rFWqltsv63aIkkPKFuK7K01GPmXYmytD39OPJzYx/wYMWt7Ol1Z25BI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791526020; c=relaxed/simple;
-	bh=GnOnI8itiHFTc/AF4CXuTEtHAqBbGfRR4lLxX2VMwqE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=mcqKQCdljFW99Go5AjpXLOeDRveaplf38njK3t0lWipn2H5/yANobF4WpQQeUgoiAobSY4SQrtec+0UHmjjGPiH+ddkaEIRFBS71slwsn5BQ+CWNfq5tK/iJ/Nca3KBpAgmDGdCNcUeQKwrObL6IDzL6hJ6Jv3PDKvPv04nwf4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=guPVBrOd; arc=none smtp.client-ip=74.125.82.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791526025; c=relaxed/simple;
+	bh=Phb4dHibtKdbOqzaPc1gD95N0uipgl57XLq6/ofO/c0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ArzdhMiOrL7LqSmDlhJdK4jgIWvlrQjJ8hP3wJ9gB1dXIwAPirMn2BfItYtJqQUPe/LKs5s3jhxi94dRKn2IBrC6t9Jr6LB8mV1wbwwWK3GRoEH6f8SHWDeVFiBabKSTNtGVfsFe9JfE8ayieqoCeIuQ0xcU2D9LQFT1al6b6mI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YSErbQ8l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="guPVBrOd"
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-353804b591eso466647eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 23:06:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791526017; x=1792130817; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hrREWdiBwmodcHO5OMb9pfY4Vnn/1b6zElBdvtWj87U=;
-        b=guPVBrOdMb6fd8hhT8lB8MXpDaNmrxodHcqawCSK406quGKteSKbdXWIbLx8/7B22v
-         u9JgvWxn/iuoz5dKda6bLadXJKoEAf6Df/ha98gCgl+olU4SqZ3o/CGvt8tXrOKmNlgZ
-         atFJzwtUqflgyyT4v/6rysg77E3sSyPptuIfBDqrom6/cwuN/MOjeLJuQlaYPOLRAgui
-         3DOWeofO89qalIxi0KWYwQ0f7OpV6OnvNEF3Fd/JGkDl5fdGk1f2DD43Jo9JCmsUQvhj
-         buTN9u7ZdnmEOgKmR9ZiUch3VhYCbh6i6hA6kV6Kx7xWlMWaC8R6RqyKfuhDRBfGwbEy
-         BlKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791526017; x=1792130817;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hrREWdiBwmodcHO5OMb9pfY4Vnn/1b6zElBdvtWj87U=;
-        b=eZvATbQq3dAWnbk4O1Rwsea+eD/AlaQ0x42aFbapzYGuB2d5Q11J1gj9Np/7qMcR/W
-         Zj6dYeTYIqS7GwsHO2hfY51PZJTS4ggea3WJdy8waITILoM8FX5H5VhpD2NaowZGolkp
-         CF00aFzp9c1V/8k2+qaUyF04Ib4YaOArDfsg+m+P/4R7S6hMmRetIMBu9pWclQk+X1/6
-         LbRMszVTxXsvSd7GA128whsOAzai4L7hWBpRigcgX71Tanioy27jr4gwJ1u2g/mKefHr
-         bxetpNRVjRMOIbDF3gR3kBaVnZNRp2yyZsNCrYh8w/W7N6Yw9vUYADAPTHWieyREFoCI
-         1u5A==
-X-Forwarded-Encrypted: i=1; AKwUvBzD/O/sEZgUsmhUFUhlH1b77EHkNYduSB3k2n65meExo+yLBkTHE2JuC5fWAZM4YY6ZbRuuns92dFohOgc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ9lAnf4mOXk1ZucYQHTUmx2mSnaC03U5Q9W3h+0xiElLxg+zPN
-	1VzloZ4VxYAYyZmVXzF1AYpZNDKPODY+1u/xe4B2nEVQLKNPFTweLvys
-X-Gm-Gg: AYBFou2gVcK+2QBGNNAH88DNYr2jFZkk05EToIkbAJc/a4IpLEESW/3FW7Ac/UnEyzO
-	QWQ56qyeeZfA3p1jVCc9qDWO+mtcGg3j9VHYHJPc03ng/kZTVIOlPbFH9tTUnd1UCQp1xsuraL9
-	dn1JzeoZSsdUIbsfHnoJpNq1+y8KI/AekcljED21OF4HvTcwVq2h/1tKGMpXIv5bRYB1sRazLmS
-	BZJYeDJcyU1li6X4d8GqYz7vnUuofUAySxYe8A+zvelgCIvqUFF34JTWDPwmldDaUXHhDB80PTr
-	5Y6yecUsCGPHECEgMNbzedL1Z7sxZViYMRsrRxjECLYcadA7i9xxMhRGyaGHS2qLqOGWE9qXPD8
-	ot/6Nl5I8kazyWMHg9HOPGuQRV7yT7ZFBAbCcF5jQ5OKdCg1UZSruromDU6yInPzEfIae0vly6n
-	jm7ZxGGxEJA8++aOCF5anDE4yLXNYGVLAEJVnkE+rZ35Cr2WSJ6C4+8HjSNBag6lVSF3HMSU5HG
-	1Qq8o9/UDanbcir8AFCDIZw9VbRkpcARK68bny+Y/WS6INLcsEE96gljEb0hbLVRzvmjuUqQx1q
-	ir2m4gYwpYNbdJJfFsa/c8AUopB5Z4ZFtBIllZxoGAk=
-X-Received: by 2002:a05:7300:8246:b0:351:36e1:8a14 with SMTP id 5a478bee46e88-3537e2412bemr1448137eec.30.1791526017043;
-        Thu, 08 Oct 2026 23:06:57 -0700 (PDT)
-Received: from ramen-dev-security-2.asia-south1-c.c.ramen-dev-345017.internal (90.156.200.35.bc.googleusercontent.com. [35.200.156.90])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb6a2afsm4185544eec.31.2026.10.08.23.06.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 23:06:56 -0700 (PDT)
-From: Anil Kaushik <anilkaushikwireless@gmail.com>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Harald Welte <laforge@gnumonks.org>,
-	Donald Hunter <donald.hunter@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Shuah Khan <shuah@kernel.org>
-Cc: osmocom-net-gprs@lists.osmocom.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH net-next v3 3/3] selftests: net: add a test for the gtp netlink family
-Date: Fri,  9 Oct 2026 06:06:15 +0000
-Message-Id: <20261009060615.4177402-4-anilkaushikwireless@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261009060615.4177402-1-anilkaushikwireless@gmail.com>
-References: <20261009060615.4177402-1-anilkaushikwireless@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YSErbQ8l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E1141F000FF;
+	Fri,  9 Oct 2026 06:07:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791526023;
+	bh=OctUAXDPvUUqnQ5ahpqmNhSfJYP5MUZ5+RP5C0uhZuw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YSErbQ8lf7gyDxCkWPCasNcpKZTiv8JY7s3eOp2RZweBQrVTlFQbPjLzhI25Kmf8m
+	 57hOYxXLyeF+oJ1TyogoN7EAtVMG0pRM5fljRUOW8DyKrjl2zbpOXyGe7EHwkhHAH4
+	 TvneSL9XUjegH6UOevIMa9bZXt2ngYSKnmJaxfYJtNEwjLLhrhTTUhGNKoS/jBUGKn
+	 6ZXc9QY9tnxNgY5EOPkwK9Edwm53smbACv99eIkkaHSG+T3ot9yaSRtyiESI+E64Qy
+	 kAZXTjZEEWuzGL/DnlKDFW64VlttbmTeunrRNFmG4lTZUHzaykNoj+OkOn3BTsAMcP
+	 QcISnRWEElEyA==
+Date: Fri, 9 Oct 2026 08:06:59 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Haotian Zhang <vulab@iscas.ac.cn>
+Cc: linux-kernel@vger.kernel.org, Sergey Shtylyov <s.shtylyov@omp.ru>, 
+	Linus Walleij <linusw@kernel.org>, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH] pinctrl: core: fix pin name leak on radix_tree_insert()
+ error path
+Message-ID: <20261009-lucky-lively-binturong-57ebe3@quoll>
+References: <20261009054556.3151123-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261009054556.3151123-1-vulab@iscas.ac.cn>
 
-Exercise the gtp generic netlink family through its ynl spec: create a
-gtp device, add a PDP context with newpdp, check getpdp lists it and
-delpdp removes it. Two more cases check that two contexts are dumped and
-that deleting an unknown context fails.
 
-Add a GtpFamily ynl wrapper and register the test.
+On Fri, 09 Oct 2026 13:45:56 +0800, Haotian Zhang wrote:
+> pinctrl_register_one_pin() allocates pindesc->name with kasprintf() when
+> the pin has no static name, and marks it with pindesc->dynamic_name.  If
+> the subsequent radix_tree_insert() fails, the function jumps to the
+> failed label, which only calls kfree(pindesc) and never frees the
+> dynamically allocated name, leaking it.
+> 
+> Since the insertion failed, the pin is not in the radix tree, so the
+> caller's pinctrl_free_pindescs() cleanup cannot find it and cannot
+> release the name either.
+> 
+> Release pindesc->name on the failed path when it was dynamically
+> allocated.
+> 
+> Fixes: ecfe9a015d3e ("pinctrl: core: handle radix_tree_insert() errors in pinctrl_register_one_pin()")
+> Assisted-by: DeepSeek-V4.1-Flash
+> Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
+> ---
+>  drivers/pinctrl/core.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
 
-Signed-off-by: Anil Kaushik <anilkaushikwireless@gmail.com>
----
- MAINTAINERS                                   |  1 +
- tools/testing/selftests/net/Makefile          |  1 +
- tools/testing/selftests/net/config            |  1 +
- tools/testing/selftests/net/gtp.py            | 85 +++++++++++++++++++
- .../testing/selftests/net/lib/py/__init__.py  |  5 +-
- tools/testing/selftests/net/lib/py/ynl.py     |  8 +-
- 6 files changed, 98 insertions(+), 3 deletions(-)
- create mode 100755 tools/testing/selftests/net/gtp.py
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index a6e43995ea58..8ac817a78bb0 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -11423,6 +11423,7 @@ S:	Maintained
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/pablo/gtp.git
- F:	Documentation/netlink/specs/gtp.yaml
- F:	drivers/net/gtp.c
-+F:	tools/testing/selftests/net/gtp.py
- 
- GUID PARTITION TABLE (GPT)
- M:	Davidlohr Bueso <dave@stgolabs.net>
-diff --git a/tools/testing/selftests/net/Makefile b/tools/testing/selftests/net/Makefile
-index d4ca82fec0b4..6b54e04a6430 100644
---- a/tools/testing/selftests/net/Makefile
-+++ b/tools/testing/selftests/net/Makefile
-@@ -46,6 +46,7 @@ TEST_PROGS := \
- 	fq_band_pktlimit.sh \
- 	gre_gso.sh \
- 	gre_ipv6_lladdr.sh \
-+	gtp.py \
- 	icmp.sh \
- 	icmp_redirect.sh \
- 	io_uring_zerocopy_tx.sh \
-diff --git a/tools/testing/selftests/net/config b/tools/testing/selftests/net/config
-index 737e7e6327b3..c4534e15fb7a 100644
---- a/tools/testing/selftests/net/config
-+++ b/tools/testing/selftests/net/config
-@@ -15,6 +15,7 @@ CONFIG_DEBUG_INFO_BTF=y
- CONFIG_DEBUG_INFO_BTF_MODULES=n
- CONFIG_DUMMY=y
- CONFIG_GENEVE=m
-+CONFIG_GTP=m
- CONFIG_IFB=y
- CONFIG_INET_DIAG=y
- CONFIG_INET_ESP=y
-diff --git a/tools/testing/selftests/net/gtp.py b/tools/testing/selftests/net/gtp.py
-new file mode 100755
-index 000000000000..fcc9bf57a663
---- /dev/null
-+++ b/tools/testing/selftests/net/gtp.py
-@@ -0,0 +1,85 @@
-+#!/usr/bin/env python3
-+# SPDX-License-Identifier: GPL-2.0
-+
-+"""Tests for the gtp netlink family."""
-+
-+from lib.py import ksft_run, ksft_exit
-+from lib.py import ksft_eq, ksft_in, ksft_not_in, ksft_raises
-+from lib.py import KsftSkipEx
-+from lib.py import NetNS, NetNSEnter
-+from lib.py import GtpFamily, NlError
-+from lib.py import CmdExitFailure
-+from lib.py import ip, defer
-+
-+
-+def _add_gtp_dev(ns):
-+    try:
-+        ip("link add gtp0 type gtp role ggsn", ns=str(ns))
-+    except CmdExitFailure:
-+        raise KsftSkipEx("no gtp support (CONFIG_GTP, iproute2)")
-+    defer(ip, "link del gtp0", ns=str(ns))
-+    ip("link set gtp0 up", ns=str(ns))
-+    return ip("-d link show gtp0", ns=str(ns), json=True)[0]["ifindex"]
-+
-+
-+def _iteis(contexts):
-+    return [c.get("i-tei") for c in contexts]
-+
-+
-+def add_del_pdp(gtp, ns) -> None:
-+    """Add a PDP context, query it, then delete it.
-+
-+    The query must return the context with the TEIDs and addresses
-+    it was created with, and it must be gone after the delete.
-+    """
-+    link = _add_gtp_dev(ns)
-+
-+    gtp.newpdp({"link": link, "version": 1,
-+                "i-tei": 0x100, "o-tei": 0x200,
-+                "ms-address": "10.0.0.1", "peer-address": "192.0.2.1"})
-+
-+    pdp = [c for c in gtp.getpdp({}, dump=True) if c.get("i-tei") == 0x100]
-+    ksft_eq(len(pdp), 1)
-+    ksft_eq(pdp[0]["o-tei"], 0x200)
-+    ksft_eq(pdp[0]["ms-address"], "10.0.0.1")
-+    ksft_eq(pdp[0]["peer-address"], "192.0.2.1")
-+
-+    gtp.delpdp({"link": link, "version": 1,
-+                "i-tei": 0x100, "ms-address": "10.0.0.1"})
-+    ksft_not_in(0x100, _iteis(gtp.getpdp({}, dump=True)))
-+
-+
-+def add_two_pdp(gtp, ns) -> None:
-+    """Add two PDP contexts and check both are returned."""
-+    link = _add_gtp_dev(ns)
-+
-+    for i_tei, o_tei, ms in ((0x111, 0x211, "10.0.1.1"),
-+                             (0x112, 0x212, "10.0.1.2")):
-+        gtp.newpdp({"link": link, "version": 1,
-+                    "i-tei": i_tei, "o-tei": o_tei,
-+                    "ms-address": ms, "peer-address": "192.0.2.5"})
-+
-+    iteis = _iteis(gtp.getpdp({}, dump=True))
-+    ksft_in(0x111, iteis)
-+    ksft_in(0x112, iteis)
-+
-+
-+def del_unknown_pdp(gtp, ns) -> None:
-+    """Deleting a context that was never added must fail."""
-+    link = _add_gtp_dev(ns)
-+    with ksft_raises(NlError):
-+        gtp.delpdp({"link": link, "version": 1,
-+                    "i-tei": 0x999, "ms-address": "10.9.9.9"})
-+
-+
-+def main() -> None:
-+    """Run the PDP context tests in a temporary netns."""
-+    with NetNS() as ns:
-+        with NetNSEnter(str(ns)):
-+            gtp = GtpFamily()
-+        ksft_run([add_del_pdp, add_two_pdp, del_unknown_pdp], args=(gtp, ns))
-+    ksft_exit()
-+
-+
-+if __name__ == "__main__":
-+    main()
-diff --git a/tools/testing/selftests/net/lib/py/__init__.py b/tools/testing/selftests/net/lib/py/__init__.py
-index 71df5880b356..e269a260d58e 100644
---- a/tools/testing/selftests/net/lib/py/__init__.py
-+++ b/tools/testing/selftests/net/lib/py/__init__.py
-@@ -18,7 +18,7 @@ from .utils import CmdExitFailure, fd_read_timeout, cmd, bkg, defer, \
- from .bpf import bpf_map_set, bpf_map_dump, bpf_prog_map_ids
- from .ynl import NlError, NlctrlFamily, YnlFamily, \
-     EthtoolFamily, NetdevFamily, RtnlFamily, RtnlAddrFamily, RtnlRouteFamily
--from .ynl import NetshaperFamily, DevlinkFamily, PSPFamily, Netlink
-+from .ynl import NetshaperFamily, DevlinkFamily, GtpFamily, PSPFamily, Netlink
- 
- __all__ = ["KSRC",
-            "KsftFailEx", "KsftSkipEx", "KsftXfailEx", "ksft_pr", "ksft_eq",
-@@ -32,6 +32,7 @@ __all__ = ["KSRC",
-            "wait_port_listen", "ctl_file_write", "wait_file", "tool", "tc",
-            "bpf_map_set", "bpf_map_dump", "bpf_prog_map_ids",
-            "NetdevSim", "NetdevSimDev",
--           "NetshaperFamily", "DevlinkFamily", "PSPFamily", "NlError",
-+           "NetshaperFamily", "DevlinkFamily", "GtpFamily", "PSPFamily",
-+           "NlError",
-            "YnlFamily", "EthtoolFamily", "NetdevFamily", "RtnlFamily",
-            "NlctrlFamily", "RtnlAddrFamily", "RtnlRouteFamily", "Netlink"]
-diff --git a/tools/testing/selftests/net/lib/py/ynl.py b/tools/testing/selftests/net/lib/py/ynl.py
-index 08deff756f29..7edb74971023 100644
---- a/tools/testing/selftests/net/lib/py/ynl.py
-+++ b/tools/testing/selftests/net/lib/py/ynl.py
-@@ -31,7 +31,7 @@ __all__ = [
-     "NlError", "NlPolicy", "Netlink", "YnlFamily", "SPEC_PATH",
-     "EthtoolFamily", "RtnlFamily", "RtnlAddrFamily", "RtnlRouteFamily",
-     "NetdevFamily", "NetshaperFamily", "NlctrlFamily", "DevlinkFamily",
--    "PSPFamily",
-+    "GtpFamily", "PSPFamily",
- ]
- 
- #
-@@ -85,3 +85,9 @@ class PSPFamily(YnlFamily):
-     def __init__(self, recv_size=0):
-         super().__init__((SPEC_PATH / Path('psp.yaml')).as_posix(),
-                          schema='', recv_size=recv_size)
-+
-+
-+class GtpFamily(YnlFamily):
-+    def __init__(self, recv_size=0):
-+        super().__init__((SPEC_PATH / Path('gtp.yaml')).as_posix(),
-+                         schema='', recv_size=recv_size)
--- 
-2.25.1
+
+Multiple things here:
+1. Your team ignored completely previous feedback.
+
+2. You use multiple identities with this email, thus I actually doubt we speak
+   with actual person.
+
+3. Finally, same feedback:
+You sent multiple independent patches, to multiple independent
+subsystems. The amount of these patches clearly suggest this was
+AI generated and most likely not tested.
+
+More importantly, you sent all this work without properly organizing
+relevant patches into patchsets. This makes reviewing difficult
+and might cause multiple reviewers to address the same issue.
+Replying to the entire set is impossible and requires handling each
+patch independently, instead of applying or discarding the set.
+Maintainers also won't see the bigger picture of your work. Quite
+worrying.
+
+This is on the verge of hostile patch: bomb us with so many
+contributions, we won't be able to handle them in efficient manner,
+like responding ONCE to ask you to slow down.  Considering all this
+is untested and LLM generated, I have even more doubts whether this
+should be considered for review.
+
+Please read kernel documentation BEFORE posting more work. It will
+explain you how to identify subsystems, how to organize your work per
+subsystem (so a patchset grouping multiple patches with a short cover
+letter), how to document usage of LLM and how what you should not do
+if this was posted in a good faith.
+
+Best regards,
+Krzysztof
+
+
+
 
