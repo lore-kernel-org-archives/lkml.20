@@ -1,159 +1,159 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF9E49BD7C
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 09:30:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0256449A3D2;
+	Fri,  9 Oct 2026 09:31:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791538236; cv=none; b=ei9T+nhmGoGttIxXE7VpYYzxSb71bZSsjIyMJ1P58U+CQqMCXBZDEVzOzLmR9UXWGwyNUiIfF1klc7zbInRzh/y4wLEkqTGY++LQqECuLv2+O2E6O0dv0a7OGpcL+FZiBvXDs1ou5gdiT/p8N6epsjzkyjAYuUjs08+zSk9hJ1k=
+	t=1791538312; cv=none; b=ATwJykR4paCfBmow9aqvwVWz6mCNPxdqHHHwBkbX96DtZvNTHfclpnUbR51Tzt9zSG9ONkE+4bfwxOBolVnxY3YJBOmXlavzmZDg+axHa7dbp+vO1GJ9BGRuwlaMrORu3zmBCdHdyP9cqxrDzL9QdrdpGdv23z75zC1VgYcu5co=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791538236; c=relaxed/simple;
-	bh=0fZcDdjzml995T9oZE7SVaCVuqTaThJLBP842zH3xww=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=IbyIuHd7RQnB+Co56LS7pSOLqRHtrT2lXcPYHC0bJPaMIZPnrCJHHt82bEpZhA3SHLw8faJ9tpv6u9LWIA/JzD6dvaru69StZOBTn9QwMdFbhcyZJgU/KjzK7T5LyKIIcdf8IEXKJfoO3+1locdRUDGmkTcO2QfAROCmBfp/+zg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=WT5YmW+C; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791538312; c=relaxed/simple;
+	bh=j3BjLAvA3Bq5JnSG/zolAG4cMSh78NzeXeYs2MYU6P0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=apBPDQJ9NlL9INYbACJzl4s97ME71OX6goN4Fa1x7qhI1NGjjE2z4TfWmJpT5CmXOO20gRV83nS0p6EC3vwz4RI4HfxDGfdueNkmO7bQZuwSWC+nRg9JCZiMT3F6OJ3LpkHGaj6ycPQj0Mwy74w2WPOx3oBgsMq1ule4P4n/tOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YwB1Q/iZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="WT5YmW+C"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4956869750eso23196865e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 02:30:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791538233; x=1792143033; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ySxG2l0k4bpp/Tb+8P52vg4ThV1MvpjerUMZY+o89W4=;
-        b=WT5YmW+CZri0kY3T6LyvGNKYhdk4kRw0luCH+HrEDUL3TcZPuM34HBrW6iX0I+Oide
-         JRys8xQCqUPdQJwT0w998GuJFLJHAX+WTEG4aNjjVxeFXJwwHb9ozoc5fRvTHpdQ/9Mk
-         91EM40r0e3ShZy4FAiV32Ihl9k7aHOTZhOG08vmb4Tx9uU/5esQnBpBBf+2dFxeOGnLd
-         gkkbuO7BfBLE0FOUP96+n7IrLT/Q7M7HlJdeHZ+z73M2ExX5ZPXjHSK0KUEnDO4+3TXZ
-         A79XEpizubWC3sm0n4EkJcITztUww0ZWNBNIp2ytYLAQLSj4WGk+tVTcc9RAYT8IXiYp
-         gIyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791538233; x=1792143033;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ySxG2l0k4bpp/Tb+8P52vg4ThV1MvpjerUMZY+o89W4=;
-        b=wHD0FRTomQgylUJHCjCUMmrWnbs5lj11XTKBQhS5LaPyVwS505Qej6UtCXsjorqSSs
-         IwyUGktmEEuuVrNdAJT+QjJ7bXwbPoGxWatikA5uZxhmUybpUvYFSsevJw1tD+twviVP
-         aVd6EztnbiH+fyGzVRpXBx0spYkYC0tuMELl6125bXSkS3YTozjx6RsdWY8HuNIZL0/D
-         ldewCJYpD+gSELAqdE/6wrt1M/mEtKxRrv3yiKp+ZDRQ8CL8LCLlTYkzSM/kK7pSCaoY
-         WpBAz8ek7Zhkyz+PeorcTomp9YIn1DGRTq+vqZqYy1kZ9OsqlOmMlmBtpkE2geJLx1LW
-         wtpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBywGNcV3vgTjFnPsDEQb/4S5UTFYYPtJ357G3l7Y7+z6/Y2NLlq6qjdagDBHmMEXMYT4GZiGwBjPaNHIpQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mWwwcTdiDm4xdNl1jLC8TZ8hxnAMLGzdgDC0r6TIIxEujzlUX2
-	UYwZGfimNdsCbdry19pAQlHHBdR2Gf4hJuXhXVazj77x2K+3yfH6s++5zKuNDOfPlKE=
-X-Gm-Gg: AYBFou2c3BLLPqrkCbPKx3PlY17bNR4POD3IJjZrxwQ1M5pKAFGvwbHmfMkgAHaPy6c
-	arm10B55WhhiQ8ptjim0f0n/8fsrVqfL7BDHpITmKl/zVK7pavVpuX7LNpEChvoZzHDj2jEDtpu
-	K5fC0FmWS2kh5n0FdWwVTC25XjN89Ayqq796atqTaFXmh2NA6hNf/Yz+p/5eGyrULZ867fugw6A
-	GLHv/tyc7AS0Y6/iLo0/dEwb6kb8mpd7Yo6rcUnF5dz0mCLZc+RfEPFlcKYoMDYzQqA4FSOgE0v
-	DFL06K5ERJaO55IIRA6ZhW+RVfxNsMw5nxlTgi2t0t9yKLmgzx3Cy6YsSHguYclflFTQnN1G2cq
-	donzHPd6sMmYaQ2uZ2jTMDQ0OVPTdqIAaTNz0OZhhpiv3iERQn7cEUrL6yBaOYEbBq1QD12gUHi
-	62/PwyBH6xldUSK6oL4fxzjwPgXmONP5UgC2nuImqyGxYcvKt6tuYnHxsPXnk+RvDw0PpNW3GHz
-	pgYeAqibHlUutXttZz+lGZrFGKbcWA=
-X-Received: by 2002:a05:600c:46cf:b0:4a1:7e1f:21bc with SMTP id 5b1f17b1804b1-4a18e4d6636mr23240285e9.29.1791538233076;
-        Fri, 09 Oct 2026 02:30:33 -0700 (PDT)
-Received: from [192.168.151.76] (90-182-211-1.rcp.o2.cz. [90.182.211.1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf35930sm43922135e9.13.2026.10.09.02.30.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 09 Oct 2026 02:30:32 -0700 (PDT)
-Message-ID: <6b9cdfd7-9f01-4ed9-a4d7-6b2949452b6c@linaro.org>
-Date: Fri, 9 Oct 2026 11:30:31 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YwB1Q/iZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C58601F000FF;
+	Fri,  9 Oct 2026 09:31:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791538310;
+	bh=s8xH1F/JaR1AxQIsxpZSOc+O+rct9Lu7coFrpOF8Daw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YwB1Q/iZ3QJTtD9mlHQtZiKNCTC5E1HewCNOMKPP3epLLGfgCdzvPo0gJQ8zTehw5
+	 0WcwYH4tZryXGVIeCfYPZhTA5aa+6UPwOs4DQbPLiiQeTw9uCQpY+KnHf2y3VDWmrw
+	 2j9cCxe1xNbiPipGXaEZI5oOYtNw2NU+ioV40lRQU5o90TF2PP+bLTRE4CDBWyORT+
+	 5j45IGKhLjaSA0wKIpsY7MPMLloxxmkXCl3QPac1GfRI2M7IH4EN5FVnTSrZhIboXZ
+	 +Wgj5Zdq9upDxBwEf87SDwYQ1+J7ijGuwxtSAiMxGTGWer0EYjRmyl6Kn0AIB2XRJX
+	 IVNjkaue4cJHg==
+Date: Fri, 9 Oct 2026 11:31:47 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Alex Elder <elder@riscstar.com>
+Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org, 
+	konradybcio@kernel.org, abelvesa@kernel.org, kees@kernel.org, gustavoars@kernel.org, 
+	mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Daniel Thompson <daniel@riscstar.com>
+Subject: Re: [PATCH v2 1/3] dt-bindings: clock: introduce
+ toshiba,tc9564-clock.yaml
+Message-ID: <20261009-gifted-stylish-tortoise-95b14d@quoll>
+References: <20261005230927.2000398-1-elder@riscstar.com>
+ <20261005230927.2000398-2-elder@riscstar.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 2/4] drm/bridge: simple: add Chrontel CH7218A
-To: Xilin Wu <sophon@radxa.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Bartosz Golaszewski
- <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
- Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>,
- dragon@radxa.com, Daniele Briguglio <hello@superkali.me>
-References: <20261009-q8b-dts-v2-0-eda11e5dea8b@radxa.com>
- <20261009-q8b-dts-v2-2-eda11e5dea8b@radxa.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261009-q8b-dts-v2-2-eda11e5dea8b@radxa.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261005230927.2000398-2-elder@riscstar.com>
 
-On 10/9/26 09:55, Xilin Wu wrote:
-> The Chrontel CH7218A automatically boots its embedded firmware and
-> operates without host-side configuration.
+On Mon, Oct 05, 2026 at 06:09:24PM -0500, Alex Elder wrote:
+> Define the binding for the clock controller functionality present in
+> the Toshiba TC9564 SoC.
 > 
-> Add the CH7218A to the simple bridge driver and expose its output as an
-> HDMI Type-A connector.
-> 
-> Tested-by: Daniele Briguglio <hello@superkali.me>
-> Signed-off-by: Xilin Wu <sophon@radxa.com>
+> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+> Signed-off-by: Alex Elder <elder@riscstar.com>
 > ---
->   drivers/gpu/drm/bridge/simple-bridge.c | 5 +++++
->   1 file changed, 5 insertions(+)
+> v2: - Only define clock information, not reset information
+>     - Reworded description to avoid talking about software
+>     - Clock IDs are now consecutive (no more commented-out values)
 > 
-> diff --git a/drivers/gpu/drm/bridge/simple-bridge.c b/drivers/gpu/drm/bridge/simple-bridge.c
-> index 3fba7002322e..fab793fb12b5 100644
-> --- a/drivers/gpu/drm/bridge/simple-bridge.c
-> +++ b/drivers/gpu/drm/bridge/simple-bridge.c
-> @@ -275,6 +275,11 @@ static const struct of_device_id simple_bridge_match[] = {
->   		.data = &(const struct simple_bridge_info) {
->   			.connector_type = DRM_MODE_CONNECTOR_HDMIA,
->   		},
-> +	}, {
-> +		.compatible = "chrontel,ch7218a",
-> +		.data = &(const struct simple_bridge_info) {
-> +			.connector_type = DRM_MODE_CONNECTOR_HDMIA,
-> +		},
->   	}, {
->   		.compatible = "mstar,tsumu88adt3-lf-1",
->   		.data = &(const struct simple_bridge_info) {
+>  .../bindings/clock/toshiba,tc9564-clock.yaml  | 54 +++++++++++++++++++
+>  MAINTAINERS                                   |  7 +++
+>  include/dt-bindings/clock/toshiba,tc9564.h    | 34 ++++++++++++
+>  3 files changed, 95 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml
+>  create mode 100644 include/dt-bindings/clock/toshiba,tc9564.h
 > 
+> diff --git a/Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml b/Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml
+> new file mode 100644
+> index 0000000000000..329b8f002cf2d
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml
+> @@ -0,0 +1,54 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/clock/toshiba,tc9564-clock.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Toshiba TC9564 Clock Controller
+> +
+> +maintainers:
+> +  - Alex Elder <elder@riscstar.com>
+> +  - Daniel Thompson <daniel@riscstar.com>
+> +
+> +description:
+> +  The Toshiba TC9564 is an SoC accessed by a host system through the
+> +  upstream PCIe port on the PCIe switch it implements.  The switch
+> +  includes an embedded PCIe endpoint that provides access to various
+> +  SoC peripherals (including a clock controller) via its BARs.
+> +
+> +  A total of 21 clocks are implemented, though two of these are not
+> +  controllable.  Access to the clock controller relies on PCIe being
+> +  functional, so the PCIe clock is assumed to be always on.  Similarly,
+> +  the PCIe controller relies on I2C, so the I2C clock is also assumed
+> +  to be always on.
+> +
+> +  Clock ids are defined in <dt-bindings/clock/toshiba,tc9564.h>.
+> +
+> +properties:
+> +  compatible:
+> +    const: toshiba,tc9564-clock
+> +
+> +  toshiba,config-syscon:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description:
+> +      Phandle for the configuration space system controller.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+I do not see my previous comment addressed - you have no resources here,
+so this belongs to the parent. You responded something about pci-ep, but
+the parent is not pci-ep. Open your code:
+https://lore.kernel.org/lkml/20260918165234.687224-5-elder@riscstar.com/
 
-Thanks,
-Neil
+I clearly see code like:
+  syscon {
+    clock@ {
+    };
+  };
+
+so I do not understand what pci-ep has anything to do here.
+
+What's more, I still do not see any usage of these clocks outside. And I
+still did not receive actual answers (or I missed them) how these clocks
+are routed OUTSIDE of the connector. You said for example:
+"Ultimately the TC9564 SoC has a single 25 MHz input clock,"
+
+but that is input. I did not ask how this device receives clocks. I
+asked how the host receives the clocks from this device.
+
+> +
+> +  "#clock-cells":
+> +    const: 1
+> +
+> +required:
+> +  - compatible
+> +  - toshiba,config-syscon
+> +  - "#clock-cells"
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/toshiba,tc9564.h>
+
+Looks unused.
+
+> +
+> +    clock {
+
+Anyway, if this stays, that's a clock-controller.
+
+Best regards,
+Krzysztof
+
