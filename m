@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9892F45D1A5;
-	Fri,  9 Oct 2026 19:27:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D410444C51C;
+	Fri,  9 Oct 2026 19:27:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791574040; cv=none; b=GUqBKsd58VlrH5ocyL4ffEHOnsN3J7ojPXKdU3spobUaJfbs3gi2zf2iZCPJFmNAuiKtGsGiv52wBwRQIAYVBHwl4StyAnfhCormkrFrBzRQJsbw7gRkZsQrapG7/bEy9kgQMo2rAd28SpaW3c/jpD/zsFqLcgnEAQI1daIQD5I=
+	t=1791574043; cv=none; b=IjnZvlQE2kXEZrVsCS8yY5AHmbFQKK4YgGY3Av20Mchor6AhAFzlmXKtR+OcEQ3+MXq9cqVX/8vnfsv7cS6ryRrSz7zj7co7zqo9MyU3sPq/AVQP158UWgy/wiCUr4fBuqzI74XoFb9HAs8PuLWUm3TL6FJbf6baWaZDwqRcEO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791574040; c=relaxed/simple;
-	bh=IIJt4GhnfKUZ5ZMrdUlvqukXGauHWCP7Z0q6PeQG2A8=;
+	s=arc-20240116; t=1791574043; c=relaxed/simple;
+	bh=D7SD21DoMvVyV7YSdZe1MUn1giqdD95rIHlF8jqXGFw=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=pAEBbm4y03fz2Ath9JGsK8wxoEtb3yJSMDX3U6Y7cYmP9w9k0+0d0x6d28eSf56BE1b4vL700vFAjcnnmt9YS/Pg+MpfyWH1ChmANSV+bxhi+gLh1Uy0ryxX6f/HEQrpLGvHqUhUt6r/Pnsuru+KK+uRt9/aByhAzYRLH/gho+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gTvx0eJ6; arc=none smtp.client-ip=100.103.45.18
+	 Content-Disposition; b=anXXd7/hFd1yocS+AcEDacVjV7UXV7b6yGLi43rzqrU5s2YeCNAXDxmIno812WD7A/aSbWwGg3kG0DotGCjP009BuMacdgTrxnV2bXWvPIXQDqYejfmsJ0rPHQDlM2xL7UWpZIaxWVv1rWCENBYTbzv6GoivVMOtVkXfzxvomGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f17/1qy/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gTvx0eJ6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E24C31F000FF;
-	Fri,  9 Oct 2026 19:27:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f17/1qy/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 016A61F00893;
+	Fri,  9 Oct 2026 19:27:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791574034;
-	bh=svaNQnV25Kh9KTrjtDpU1B43XeKF+ZRj6anUbIjpMYc=;
+	s=k20260515; t=1791574037;
+	bh=js4MQwhe0J98ovKD7yCqc27kGlqgykJcML1tKy1sLwQ=;
 	h=Date:From:To:Cc:Subject;
-	b=gTvx0eJ6NAyBlsMTfbLVZ6Whr0Lc6fvey35uYQQ+SCDe0Ha8eCCAFKJqVXLgOtKBc
-	 B54V20b2fS0SNt1eFehRtk40kGUI5IEk739zq9qzyS+h5T1NwLC2hNUVbyiHyvGmVI
-	 q7lVV5Jt5w+hrPL84Vui8hJ2xdUtJ/KJliWuHgHs2d9OjWY5p46I2/YkOWipmQsivd
-	 8fh49ETjKdQ5vGfq49pc0lUsfXlkl/cRog52pBwTC4Gv19KHHZSuJwTfusKR1LNAFj
-	 PEHro3TTPDDi7xpTvOH46KqBzvR04g0sNFTmf6vv8bTBD52ozN/ra578aDC5Zm95Mh
-	 7G7cVkvDQRN/Q==
+	b=f17/1qy/cYV+gnaeyXQ9DSesbG/YLh3jqKHyUHNi4WRp0Jr/1TyEb+UeQXumvsOSc
+	 U9N50bU1M+n0GJEsW0oURgkvMeD7XPU7NEaVLbltyAtEKlUFRLySZqb2GlvN9e5XWw
+	 LtzrQq0GdsPV0NQ8cNYLkYFc5I92O8CFG0uv3/nc2fDxbeHfc2LjI5BZ8JDT99FEIm
+	 fHi0zima6z5eI8/6+DmZ0S2oCAMDEnNBKgXPrwgl9ScaEsLXkrQS/EEoauQZSdFFTI
+	 NuOvOD67Yyi7pYdikMMDRzlUk2+xmS5in19lrTknBpyy2j00oRDz19n0eJq3/znBVF
+	 7lnDwklsN4ugg==
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 56F691AC57D0; Fri, 09 Oct 2026 20:27:11 +0100 (BST)
-Date: Fri, 9 Oct 2026 21:27:11 +0200
+	id B49A51AC57D0; Fri, 09 Oct 2026 20:27:14 +0100 (BST)
+Date: Fri, 9 Oct 2026 21:27:14 +0200
 From: Mark Brown <broonie@kernel.org>
-To: Christian Brauner <brauner@kernel.org>
-Cc: CIFS <linux-cifs@vger.kernel.org>, Enzo Matsumiya <ematsumiya@suse.de>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+To: Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
 	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Paulo Alcantara <pc@manguebit.org>
-Subject: linux-next: manual merge of the vfs-brauner tree with the cifs tree
-Message-ID: <aslAD9CbIfMrpKsE@sirena.co.uk>
+	Lukas Wunner <lukas@wunner.de>,
+	Priyank Rathod <rathodpriyank@google.com>
+Subject: linux-next: manual merge of the pci tree with the pci-current tree
+Message-ID: <aslAEm5Qsgp-9xD9@sirena.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,30 +47,31 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4y3Ow8CUVbJPpJv2"
+	protocol="application/pgp-signature"; boundary="KaCU7AGt8SUjp5u7"
 Content-Disposition: inline
 
 
---4y3Ow8CUVbJPpJv2
+--KaCU7AGt8SUjp5u7
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 Hi all,
 
-Today's linux-next merge of the vfs-brauner tree got a conflict in:
+Today's linux-next merge of the pci tree got a conflict in:
 
-  fs/smb/client/transport.c
+  drivers/pci/pcie/aer.c
 
 between commit:
 
-  fae67a14b8d25 ("smb: client: fast fail sends if need to reconnect")
+  79c168e2aa957 ("PCI/AER: Skip error recovery on false alarms")
 
-=66rom the cifs tree and commit:
+=66rom the pci-current tree and commit:
 
-  d0ae35565f5d5 ("smb: prevent TIF_NOTIFY_SIGNAL from interrupting")
+  d4c842c3af5bc ("PCI/AER: Fix memory leak in aer_recover_work_func() when =
+pci_dev is missing")
 
-=66rom the vfs-brauner tree.
+=66rom the pci tree.
 
 I fixed it up (see below) and can carry the fix as necessary. This
 is now fixed as far as linux-next is concerned, but any non trivial
@@ -77,52 +80,75 @@ is submitted for merging.  You may also want to consider cooperating
 with the maintainer of the conflicting tree to minimise any particularly
 complex conflicts.
 
-diff --cc fs/smb/client/transport.c
-index cf11af490b0d8,93ff6a4dbb350..0000000000000
---- a/fs/smb/client/transport.c
-+++ b/fs/smb/client/transport.c
-@@@ -171,26 -170,11 +170,22 @@@ smb_send_kvec(struct TCP_Server_Info *s
-  		 * after the retries we will kill the socket and
-  		 * reconnect which may clear the network problem.
-  		 *
-- 		 * Even if regular signals are masked, EINTR might be
-- 		 * propagated from sk_stream_wait_memory() to here when
-- 		 * TIF_NOTIFY_SIGNAL is used for task work. For example,
-- 		 * certain io_uring completions will use that. Treat
-- 		 * having EINTR with pending task work the same as EAGAIN
-- 		 * to avoid unnecessary reconnects.
-+ 		 * Task work must not abort the send, see signal_pending().
-  		 */
-- 		rc =3D sock_sendmsg(ssocket, smb_msg);
-+ 		scoped_guard(no_notify_signal)
-+ 			rc =3D sock_sendmsg(ssocket, smb_msg);
+diff --cc drivers/pci/pcie/aer.c
+index 922a726a52a50,c376c3adbefd2..0000000000000
+--- a/drivers/pci/pcie/aer.c
++++ b/drivers/pci/pcie/aer.c
+@@@ -1373,16 -1370,9 +1372,15 @@@ static void aer_recover_work_func(struc
+  					   entry.domain, entry.bus,
+  					   PCI_SLOT(entry.devfn),
+  					   PCI_FUNC(entry.devfn));
+- 			continue;
+- 		}
+- 		pci_print_aer(pdev, entry.severity, entry.regs);
++ 		else
++ 			pci_print_aer(pdev, entry.severity, entry.regs);
+ =20
+ +		regs =3D entry.regs;
+ +		if (entry.severity =3D=3D AER_CORRECTABLE)
+ +			err =3D regs->cor_status & ~regs->cor_mask;
+ +		else
+ +			err =3D regs->uncor_status & ~regs->uncor_mask;
  +
- +		/*
- +		 * If need to reconnect, blame it for any non-interrupt error
- +		 * and bail out early, even if -EAGAIN;  reconnect will never
- +		 * happen in parallel as cifs_reconnect() needs server mutex
- +		 * (which we're already holding), so it's pointless to retry.
- +		 */
- +		if (unlikely(rc <=3D 0 && !is_interrupt_error(rc) &&
- +			     READ_ONCE(server->tcpStatus) =3D=3D CifsNeedReconnect))
- +			return -ECONNRESET;
- +
-- 		if (rc =3D=3D -EAGAIN || unlikely(rc =3D=3D -EINTR && task_work_pending=
-(current))) {
-+ 		if (rc =3D=3D -EAGAIN) {
-  			retries++;
-  			if (retries >=3D 14 ||
-  			    (!server->noblocksnd && (retries > 2))) {
+  		/*
+  		 * Memory for aer_capability_regs(entry.regs) is being
+  		 * allocated from the ghes_estatus_pool to protect it from
+@@@ -1393,15 -1383,15 +1391,21 @@@
+  		ghes_estatus_pool_region_free((unsigned long)entry.regs,
+  					    sizeof(struct aer_capability_regs));
+ =20
+- 		if (err) {
+- 			if (entry.severity =3D=3D AER_NONFATAL)
+- 				pcie_do_recovery(pdev, pci_channel_io_normal,
+- 						 aer_root_reset);
+- 			else if (entry.severity =3D=3D AER_FATAL)
+- 				pcie_do_recovery(pdev, pci_channel_io_frozen,
+- 						 aer_root_reset);
++ 		if (pdev) {
+ -			if (entry.severity =3D=3D AER_NONFATAL)
+ -				pcie_do_recovery(pdev, pci_channel_io_normal,
+ -						 aer_root_reset);
+ -			else if (entry.severity =3D=3D AER_FATAL)
+ -				pcie_do_recovery(pdev, pci_channel_io_frozen,
+ -						 aer_root_reset);
+++			if (err) {
+++				if (entry.severity =3D=3D AER_NONFATAL)
+++					pcie_do_recovery(pdev,
+++							 pci_channel_io_normal,
+++							 aer_root_reset);
+++				else if (entry.severity =3D=3D AER_FATAL)
+++					pcie_do_recovery(pdev,
+++							 pci_channel_io_frozen,
+++							 aer_root_reset);
+++				}
+++			}
+++
++ 			pci_dev_put(pdev);
+  		}
+- 		pci_dev_put(pdev);
+  	}
+  }
+ =20
 
---4y3Ow8CUVbJPpJv2
+--KaCU7AGt8SUjp5u7
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCaslACwAKCRAv73Ows9A4
-iaMzAP9a+P7RdUoznGKPzU1e3Og6ddjgB3xC0+5m+R+Vt1k6WwEAhk4zwXM+QC4F
-JGdEKBi/j7vmW6ksy+rNVi+kJviC4AA=
-=PczA
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCaslAEgAKCRAv73Ows9A4
+iUZiAP42/faa30/nshFc5UL2EUUCHO8+SlPH+I2r6UIS0GsQZgEAvPrEvLRrLL7r
+WLOPgSkjN+xCqJSVamuWNJD5wcDF2QY=
+=ER1R
 -----END PGP SIGNATURE-----
 
---4y3Ow8CUVbJPpJv2--
+--KaCU7AGt8SUjp5u7--
