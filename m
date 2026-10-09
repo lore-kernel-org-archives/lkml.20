@@ -1,102 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5052B3D9DD4
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 06:00:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADA703F1055;
+	Fri,  9 Oct 2026 06:00:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791525640; cv=none; b=j0UO3xVDQb7N3C4udHTyuFWZp0X7DOBOxac0qhDwlegTAH+BH0/m34Y4GPtV0OJb06ZiQ6286UkW5X/bXACBNpwJqElnifCLlOOcXhCdRTB5DmNttxXc9yEmpdPLTeGEk0NyT5PD8p8gPyUOL3L4i7CuiKZ9a1H19e9gmjxL60U=
+	t=1791525654; cv=none; b=cETqSiI3nDz/sQP9b4zOnrWbTgB88QQii1J755ANftJRW3XleUk0q5dPcGAC1FBe4r0Hf79xT5Uh8pzzX0KgvT8EsYZRpEP+k5HpUoRLmyJFvEFU7Ae3ycCCbzNO3RJhwYcqEoSvZ0f+wISBnTrlZLLJ9w1n7VERylADk90JGAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791525640; c=relaxed/simple;
-	bh=8gjORCUNGj6RMlZVZV30Q5fAOsiQ7M7FBCqKfr5cIB4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=h04LeA6UHDLB8ieH7O72RcnEzUovTelI5UVr4qhpZxSeVaAUlugc7hMTgTFukWpXW2v/wkX8huRqfTQKP5R+KIv443csVv/zU6Qc/3M7gfbe7DsLl1vjFPf2v/mDD+MQLzhT441NaBHJJKtS+K05xoBsTcvOBAHz5NUvyHOKM1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fuibOJiZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791525654; c=relaxed/simple;
+	bh=AktVquTxQWQlF2kZ7qqbaa5h3+h8P2oAsmr1aAwhhAQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=azBQnql6VbgAC631SwPaUhgjtdjnza+ax6sIvsiQa1p3K+B0ShIRT/hAdVoX7Gx7aaJsgyY4baPxfJRsrSUMR28elvfdlSPchNNo/NdpCBiwdHflwK3KzSmufoq1dGnrLAJr2sYNQocnV21Wi3ewSojR14vuzi33y2bQIF8KRLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JPDHGDhN; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fuibOJiZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78D181F000FF;
-	Fri,  9 Oct 2026 06:00:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791525638;
-	bh=Uetyr08EbPxb1/vTxBz/oHKvTpwSsGRtAmxHx+DBRGk=;
-	h=From:To:Cc:Subject:Date;
-	b=fuibOJiZponbSA6UcUYzC37umoqq9FWCLbdQ9pKce5+bgxjG0z1mKlHwaCoCdLeRc
-	 MQsxZMxHhJeiAhlhPawV1bc3aY5gaG5ZRv+doc/ru0MN3pegiYaj1mGyuKiygCkRGd
-	 YEo6GMY7ohJObQOUlju3yteSWUrCKNCH9wxBZfmPWGUMbaQ6H/ROt4Ea6DQBCaYjMO
-	 vCO1v6C5xnp0n5vw9Ur7t+ST2PSUDWS9G9v7FWMP6zmGOqrcV1nOEMZs9zCiBRDABH
-	 FF77WnQ9MZLDVTFKgq90oRED6NvBJUw3CVeocPZPght8Fc/qB9aC/rVWGFS5kXOYQ3
-	 EI2keko7HnIeg==
-From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
-To: linux-kernel@vger.kernel.org
-Cc: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
-	bcm-kernel-feedback-list@broadcom.com,
-	linux-arm-kernel@lists.infradead.org,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Scott Branden <scott.branden@broadcom.com>
-Subject: [PATCH] MAINTAINERS: remove {sbranden,rjui}@broadcom.com
-Date: Fri,  9 Oct 2026 08:00:35 +0200
-Message-ID: <20261009060035.544789-1-jirislaby@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JPDHGDhN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791525653; x=1823061653;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=AktVquTxQWQlF2kZ7qqbaa5h3+h8P2oAsmr1aAwhhAQ=;
+  b=JPDHGDhN8bihjLWWBNFtGE4rSVL52FrXU680Dpbt5bX8hsP/d9OlmfWP
+   ZYCrF4dmceJDHX5vWUN7oytplgzg8qNfcPyJlZ4IVj/jFceJC/Prd/EWc
+   Z7t2sf8Er/j3f0xDfT3Qqj9OKC/xn13B34SRwOWgUddLPW/H5PncOWAZn
+   X0lBLczBrnvORDhTxkcxpGGQH8xCDp0vsmUwTtMJ4Cp8y02S6cJNJEfXf
+   GD25ebDvV6HVDncK1Ty80TZ2ky6U+REugkwS0Z+g2G8sCJHlr7DEARgP4
+   WTwsOoys9OrJRJ7GpjS4ooTUofKhHPDcdv6YRhmMZ8NNYEJyatRAQ215f
+   Q==;
+X-CSE-ConnectionGUID: DUKd5PTyT++Y/5j7QNrHSg==
+X-CSE-MsgGUID: pHMn5sUZQ1WBA9LMm3WPog==
+X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="223474"
+X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
+   d="scan'208";a="223474"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 23:00:53 -0700
+X-CSE-ConnectionGUID: 1ONRRhUoSwu7bky7twv/TQ==
+X-CSE-MsgGUID: sgynZKE6Q9W5kby2AgXruw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
+   d="scan'208";a="2050635"
+Received: from yizheliu-ivm.ccr.corp.intel.com (HELO [10.238.208.114]) ([10.238.208.114])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 23:00:47 -0700
+Message-ID: <43382fac-f6c4-47dd-8030-ef07b6073988@intel.com>
+Date: Fri, 9 Oct 2026 14:00:43 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v15 03/23] KVM: selftests: Initialize the TDX VM
+To: Lisa Wang <wyihan@google.com>, Andrew Jones <ajones@ventanamicro.com>,
+ Ackerley Tng <ackerleytng@google.com>, Binbin Wu
+ <binbin.wu@linux.intel.com>, Chao Gao <chao.gao@intel.com>,
+ Chenyi Qiang <chenyi.qiang@intel.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Erdem Aktas <erdemaktas@google.com>, Ira Weiny <iweiny@kernel.org>,
+ Isaku Yamahata <isaku.yamahata@intel.com>, Kiryl Shutsemau <kas@kernel.org>,
+ linux-kselftest@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
+ "Pratik R. Sampat" <pratikrajesh.sampat@amd.com>,
+ Reinette Chatre <reinette.chatre@intel.com>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ Roger Wang <runanwang@google.com>, Ryan Afranji <afranji@google.com>,
+ Sagi Shahar <sagis@google.com>, Sean Christopherson <seanjc@google.com>,
+ Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>
+Cc: Jeremiah McReynolds <jmcrey@google.com>, kvm@vger.kernel.org,
+ linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, x86@kernel.org
+References: <20261001-tdx-selftests-v15-0-7c62a5d8a992@google.com>
+ <20261001-tdx-selftests-v15-3-7c62a5d8a992@google.com>
+Content-Language: en-US
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <20261001-tdx-selftests-v15-3-7c62a5d8a992@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Both are bouncing:
-  Final-Recipient: rfc822; rjui@broadcom.com
-  Action: failed
-  Status: 5.1.3
-  Diagnostic-Code: smtp; The email account that you tried to reach does
-    not exist. Please try double-checking the recipient's email address
-    for typos or unnecessary spaces.
+On 10/2/2026 3:37 AM, Lisa Wang wrote:
+> +#define tdx_vm_ioctl(vm, cmd, flags, arg)				\
+> +({									\
+> +	u64 hw_error;							\
+> +	int ret = __tdx_vm_ioctl(vm, cmd, flags, arg, &hw_error);	\
+> +									\
+> +	TEST_ASSERT(!ret,						\
+> +		    "%s failed, rc: %d errno: %i (%s) hw_error: 0x%llx",\
+> +		    #cmd, ret, errno, strerror(errno),			\
+> +		    (unsigned long long)hw_error);			\
+> +})
 
-Anyone knows if they care about the entries/what's their new e-mail
-address?
+The cast to (unsigned long long) catches me eye. Can we use
 
-Ccing scott.branden@broadcom.com in a hope that one works. If not, v2
-will follow to remove that too.
+  "hw_error: 0x%" PRIx64
 
-Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
-Cc: bcm-kernel-feedback-list@broadcom.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: Scott Branden <scott.branden@broadcom.com>
----
- MAINTAINERS | 5 -----
- 1 file changed, 5 deletions(-)
+instead?
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index ff3bfd42d3f3..d3b4271ca722 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -5240,8 +5240,6 @@ F:	drivers/iommu/generic_pt/fmt/*bcm2712*
- 
- BROADCOM BCM281XX/BCM11XXX/BCM216XX ARM ARCHITECTURE
- M:	Florian Fainelli <florian.fainelli@broadcom.com>
--M:	Ray Jui <rjui@broadcom.com>
--M:	Scott Branden <sbranden@broadcom.com>
- R:	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
- S:	Maintained
- T:	git https://github.com/broadcom/mach-bcm
-@@ -5538,8 +5536,6 @@ F:	drivers/net/mdio/mdio-bcm-unimac.c
- F:	include/linux/platform_data/mdio-bcm-unimac.h
- 
- BROADCOM IPROC ARM ARCHITECTURE
--M:	Ray Jui <rjui@broadcom.com>
--M:	Scott Branden <sbranden@broadcom.com>
- R:	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
- L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
- S:	Maintained
-@@ -5576,7 +5572,6 @@ F:	drivers/net/ethernet/broadcom/bgmac*
- F:	drivers/net/ethernet/broadcom/unimac.h
- 
- BROADCOM KONA GPIO DRIVER
--M:	Ray Jui <rjui@broadcom.com>
- R:	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
- S:	Supported
- F:	Documentation/devicetree/bindings/gpio/brcm,kona-gpio.yaml
--- 
-2.56.0
 
