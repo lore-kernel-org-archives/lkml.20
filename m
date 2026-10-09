@@ -1,44 +1,39 @@
-Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
+Received: from out28-100.mail.aliyun.com (out28-100.mail.aliyun.com [115.124.28.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B96493DD84C
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 08:30:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA8713E4107;
+	Fri,  9 Oct 2026 08:31:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791534616; cv=none; b=iayMeqXB+SgM05m38k/pIjaylY7BmFjhjjpJqkE6WfDOmmUnDqyE+0R/G28fCfPOH/jyPhZ4Gq6+lAtokXtyl5MdhxOQHmHVVXyl/M3HnkxZYul7w5Xibu4m3Bftd0nxRxiQOULtbfh7fvPkcAqkELFN+rnDj5f3yyln7mf9Jrs=
+	t=1791534667; cv=none; b=aktcQ1iF7ByUQVosOIXtTP7GK0+dFFQm3uS/9WVcZVFnck10qb5FztVHR0geO2R5GbyQ984ZiBP97ZbhiYthqtRNNScVRxC3jPBZPy97zP9L7L+UDBtF0atB+fl9+rPNrZNyqoQfCtviEVJeGzPuU83cMB3j++C1CTHD9VKbSe8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791534616; c=relaxed/simple;
-	bh=30YOVCnDGRqrA/ZLZsklI+Owzqo9CFMsX0FkpocexEk=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=rY2lZCmfOIVAJsMaYlXgWPIsyOaKAlbLMWrL962DLYc+NACKBuV+BsND4t/ZYzm9l4WvCu4IO5aKvHm7noKUGQvb24IE9JE7FJmzgh16NAPciGee3NRLRDKAjVqcXTqXPdFdwzqPdKw7ek3Gl+IIJPQlv8ioIUcbFx6XQUCsKEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=KfqujQj4; arc=none smtp.client-ip=115.124.30.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="KfqujQj4"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791534604; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=MAz7BXRPp/gmRVh1x/LPNL4/MYRX4agD3aYlLNECoPw=;
-	b=KfqujQj4CWXvAGrWnjmzxVMrziCHWhhaaxxsU2PH8FDrIbIgauvl7Ya3d7hMZN6RF762QDr5cdguZKbAhR1KOPTjeAs32CR/Ku/XfMGD0FOPZXrwBfdtEnrJyCUK6DUMrEc5dI5qUM7uI0NhJN6gu0mGqjcazBOaPte3ehp7K28=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R211e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XCSp61D_1791534603;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XCSp61D_1791534603 cluster:ay36)
+	s=arc-20240116; t=1791534667; c=relaxed/simple;
+	bh=NREzAvOybk82jmak5nyZ+tRqSbWlfKIasOaN+dQMwfo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=p9mxnEBM3Ibkv3s8zB7wsYRfYdk1+7QUK28tHA+8jOB2aw+dA2j/6KvuaJyoZNZ/alXf6seNdeIK+rtHod2+BUJmJ+7uWeOp0v5GQ2op/UrOYritzPuhUj5qr5VTj537frAVkCfDPcXEp0AhXN0r0jf+713jv7aGOr+OOzgwR1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=edatec.cn; spf=pass smtp.mailfrom=edatec.cn; arc=none smtp.client-ip=115.124.28.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=edatec.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=edatec.cn
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07437662|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0254022-4.13009e-05-0.974557;FP=2698362186331905460|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032062159;MF=zjzhao@edatec.cn;NM=1;PH=DS;RN=12;RT=12;SR=0;TI=SMTPD_---.jXaSeit_1791534329;
+Received: from LAPTOP-VQRD5F43.hs.edatec.cn(mailfrom:zjzhao@edatec.cn fp:SMTPD_---.jXaSeit_1791534329 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Fri, 09 Oct 2026 16:30:04 +0800
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Heming Zhao <heming.zhao@suse.com>,
-	Anderson Ferneda <anderson.ferneda@braza.com.br>
-Cc: Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/3] ocfs2: deal with legacy signed dir index name hash values
-Date: Fri,  9 Oct 2026 16:30:00 +0800
-Message-Id: <20261009083002.2621201-2-joseph.qi@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3
-In-Reply-To: <20261009083002.2621201-1-joseph.qi@linux.alibaba.com>
-References: <20261009083002.2621201-1-joseph.qi@linux.alibaba.com>
+          Fri, 09 Oct 2026 16:25:30 +0800
+From: zjzhao@edatec.cn
+To: gregkh@linuxfoundation.org,
+	jirislaby@kernel.org
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	hugo@hugovil.com,
+	hy@wkmic.com,
+	linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-api@vger.kernel.org,
+	Zi Jie Zhao <zjzhao@edatec.cn>
+Subject: [PATCH v5 0/2] WK2xxx SPI to UART bridge driver
+Date: Fri,  9 Oct 2026 16:24:06 +0800
+Message-ID: <cover.20261009.wk2xxx.v5@edatec.cn>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,187 +42,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 3bc753c06dd0 ("kbuild: treat char as always unsigned") set
--funsigned-char globally, which changed the result of the naked 'char'
-load in str2hashbuf():
+From: Zi Jie Zhao <zjzhao@edatec.cn>
 
-	val = msg[i] + (val << 8);
+Add support for the WK2xxx SPI to UART bridge ICs from Chengdu Weikai
+Microelectronics (WKmic): WK2124, WK2132, WK2168, WK2212 and WK2204.
 
-A name byte >= 0x80 used to sign-extend and now zero-extends, so
-ocfs2_dx_dir_name_hash() computes a different hash pair for every name
-containing one.  The pair is written into the dx leaf when the entry is
-created, so an index built by an older kernel no longer matches and
-ocfs2_dx_dir_search() returns -ENOENT for a name that readdir still
-lists.
+The public v4 series used WK2202 by mistake. The WK2202 name in the public
+reference driver is a typo; the correct model is WK2212. The v5 binding and
+driver use WK2212 consistently. It is a two-channel model with hardware
+flow control and RS-485 support.
 
-Search with the current unsigned hash and, on a miss, retry with the
-legacy signed one, as ext4 does in commit f3bbac32475b2 ("ext4: deal
-with legacy signed xattr name hash values").  New entries are always
-indexed under the unsigned hash.  Skip the retry when the two hashes
-are equal, so that a miss on an ASCII name does not walk the index
-twice.
+Huang Yang <hy@wkmic.com> is listed as the primary maintainer of the driver
+and binding from v5 onward. He will lead follow-up code changes and
+reviewer replies, with Zi Jie Zhao providing transition support.
 
-The retry costs a second walk of the dx tree, so a negative lookup of a
-name containing a byte >= 0x80 does twice the work.  That is bounded and
-worth it, and directories whose dx root is still inline pay nothing
-extra, since there the retry only rescans the root block that is already
-loaded.  Nothing retires it at runtime: a legacy entry keeps its legacy
-hash, because neither deleting nor updating an entry rewrites the dx
-hash, and the only code that rehashes existing dirents is
-ocfs2_expand_inline_dir() on the inline to extent conversion.
-Rebuilding the index offline is what removes the cost for good.
+Changes in v5:
 
-Also spell out the signedness in str2hashbuf() instead of leaving the
-current hash to -funsigned-char, as commit 854f0912f813 ("ext4: make
-xattr char unsignedness in hash explicit") did, so that both variants
-stay correct if this is backported to a kernel without the flag.
+- Rebase onto 9b87fdc9af2f (Linux 7.3-rc3 based master);
+- correct WK2202 to WK2212 in compatible data and documentation;
+- list Huang Yang as the binding and driver maintainer;
+- align per-compatible flow-control and RS-485 flags with the product data;
+- size DMA-safe SPI buffers independently of cacheline size;
+- synchronize TX snapshots with flush without doing SPI under the
+  port lock;
+- make tx_empty() non-sleeping and maintain its state asynchronously;
+- report each FIFO-level RX overrun once;
+- clear queued IER configuration during shutdown after cancelling work;
+- complete shutdown cleanup on SPI errors and synchronize IRQ/work
+  teardown;
+- release all serial child-node references;
+- remove the arbitrary 200-byte TX cap and replace the 200-iteration poll;
+- apply Hugo Villeneuve's naming, comment, whitespace and line-width
+  feedback;
+- explain why direct SPI and explicit IRQ ownership are retained;
+- use WK2204 in the binding example because it enables RS-485.
 
-Reported-by: Anderson Ferneda <anderson.ferneda@braza.com.br>
-Link: https://lore.kernel.org/ocfs2-devel/CP5P284MB2780AC2C3C2AB2CF2B6CB7AFBE942@CP5P284MB2780.BRAP284.PROD.OUTLOOK.COM/
-Exposed-by: 3bc753c06dd0 ("kbuild: treat char as always unsigned")
-Cc: <stable@vger.kernel.org> # 6.2+
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Reviewed-by: Heming Zhao <heming.zhao@suse.com>
----
- fs/ocfs2/dir.c | 76 ++++++++++++++++++++++++++++++++++++++++++--------
- 1 file changed, 65 insertions(+), 11 deletions(-)
+Conor Dooley's v4 Reviewed-by tag is not carried forward: v5 changes the
+compatible and binding maintainer. Please review the updated binding.
 
-diff --git a/fs/ocfs2/dir.c b/fs/ocfs2/dir.c
-index 55c4a305a282..3f159a20a248 100644
---- a/fs/ocfs2/dir.c
-+++ b/fs/ocfs2/dir.c
-@@ -221,7 +221,8 @@ static void TEA_transform(__u32 buf[4], __u32 const in[])
- 	buf[1] += b1;
- }
- 
--static void str2hashbuf(const char *msg, int len, __u32 *buf, int num)
-+static void str2hashbuf(const char *msg, int len, __u32 *buf, int num,
-+			bool legacy_signed)
- {
- 	__u32	pad, val;
- 	int	i;
-@@ -235,7 +236,10 @@ static void str2hashbuf(const char *msg, int len, __u32 *buf, int num)
- 	for (i = 0; i < len; i++) {
- 		if ((i % 4) == 0)
- 			val = pad;
--		val = msg[i] + (val << 8);
-+		if (legacy_signed)
-+			val = (signed char)msg[i] + (val << 8);
-+		else
-+			val = (unsigned char)msg[i] + (val << 8);
- 		if ((i % 4) == 3) {
- 			*buf++ = val;
- 			val = pad;
-@@ -248,8 +252,9 @@ static void str2hashbuf(const char *msg, int len, __u32 *buf, int num)
- 		*buf++ = pad;
- }
- 
--static void ocfs2_dx_dir_name_hash(struct inode *dir, const char *name, int len,
--				   struct ocfs2_dx_hinfo *hinfo)
-+static void __ocfs2_dx_dir_name_hash(struct inode *dir, const char *name,
-+				     int len, struct ocfs2_dx_hinfo *hinfo,
-+				     bool legacy_signed)
- {
- 	struct ocfs2_super *osb = OCFS2_SB(dir->i_sb);
- 	const char	*p;
-@@ -279,7 +284,7 @@ static void ocfs2_dx_dir_name_hash(struct inode *dir, const char *name, int len,
- 
- 	p = name;
- 	while (len > 0) {
--		str2hashbuf(p, len, in, 4);
-+		str2hashbuf(p, len, in, 4, legacy_signed);
- 		TEA_transform(buf, in);
- 		len -= 16;
- 		p += 16;
-@@ -290,6 +295,19 @@ static void ocfs2_dx_dir_name_hash(struct inode *dir, const char *name, int len,
- 	hinfo->minor_hash = buf[1];
- }
- 
-+static void ocfs2_dx_dir_name_hash(struct inode *dir, const char *name, int len,
-+				   struct ocfs2_dx_hinfo *hinfo)
-+{
-+	__ocfs2_dx_dir_name_hash(dir, name, len, hinfo, false);
-+}
-+
-+static void ocfs2_dx_dir_name_hash_signed(struct inode *dir, const char *name,
-+					  int len,
-+					  struct ocfs2_dx_hinfo *hinfo)
-+{
-+	__ocfs2_dx_dir_name_hash(dir, name, len, hinfo, true);
-+}
-+
- /*
-  * bh passed here can be an inode block or a dir data block, depending
-  * on the inode inline data flag.
-@@ -1021,10 +1039,10 @@ static int ocfs2_dx_dir_lookup(struct inode *inode,
- 	return ret;
- }
- 
--static int ocfs2_dx_dir_search(const char *name, int namelen,
--			       struct inode *dir,
--			       struct ocfs2_dx_root_block *dx_root,
--			       struct ocfs2_dir_lookup_result *res)
-+static int __ocfs2_dx_dir_search(const char *name, int namelen,
-+				 struct inode *dir,
-+				 struct ocfs2_dx_root_block *dx_root,
-+				 struct ocfs2_dir_lookup_result *res)
- {
- 	int ret, i, found;
- 	u64 phys;
-@@ -1037,8 +1055,6 @@ static int ocfs2_dx_dir_search(const char *name, int namelen,
- 	struct ocfs2_extent_list *dr_el;
- 	struct ocfs2_dx_entry_list *entry_list;
- 
--	ocfs2_dx_dir_name_hash(dir, name, namelen, &res->dl_hinfo);
--
- 	if (ocfs2_dx_root_inline(dx_root)) {
- 		entry_list = &dx_root->dr_entries;
- 		goto search;
-@@ -1135,6 +1151,44 @@ static int ocfs2_dx_dir_search(const char *name, int namelen,
- 	return ret;
- }
- 
-+static int ocfs2_dx_dir_search(const char *name, int namelen,
-+			       struct inode *dir,
-+			       struct ocfs2_dx_root_block *dx_root,
-+			       struct ocfs2_dir_lookup_result *res)
-+{
-+	struct ocfs2_dx_hinfo legacy;
-+	int ret;
-+
-+	ocfs2_dx_dir_name_hash(dir, name, namelen, &res->dl_hinfo);
-+
-+	ret = __ocfs2_dx_dir_search(name, namelen, dir, dx_root, res);
-+	if (ret != -ENOENT)
-+		return ret;
-+
-+	/*
-+	 * Nothing under the current hash.  The entry may have been indexed by
-+	 * an older kernel, which sign-extended the name bytes when hashing.
-+	 * New entries are always indexed under the unsigned hash, so only fall
-+	 * back to the legacy signed one when it can actually differ: an ASCII
-+	 * name hashes the same either way, and a genuine miss on one should
-+	 * not have to walk the index twice.
-+	 */
-+	ocfs2_dx_dir_name_hash_signed(dir, name, namelen, &legacy);
-+	if (legacy.major_hash == res->dl_hinfo.major_hash &&
-+	    legacy.minor_hash == res->dl_hinfo.minor_hash)
-+		return ret;
-+
-+	res->dl_hinfo = legacy;
-+
-+	ret = __ocfs2_dx_dir_search(name, namelen, dir, dx_root, res);
-+	if (ret)
-+		return ret;
-+
-+	pr_warn_once("ocfs2: directory index with signed name hash\n");
-+
-+	return 0;
-+}
-+
- static int ocfs2_find_entry_dx(const char *name, int namelen,
- 			       struct inode *dir,
- 			       struct ocfs2_dir_lookup_result *lookup)
+Validation performed for the candidate:
+
+- ARM (multi_v7_defconfig, module), ARM64 (defconfig, module and built-in),
+  and m68k (multi_defconfig, module) driver builds pass;
+- dt_binding_check passes and compiles the binding example; optional
+  yamllint was skipped because it is not installed;
+- checkpatch reports no errors or checks; patch 2 has one generic warning
+  that MAINTAINERS may need updating, and patch 1 adds Huang Yang;
+- sparse was not completed because the available sparse 0.6.4 does not support
+  the __typeof_unqual__ probe required by this kernel version;
+- on the SBC2300/WK2204 CM4 profile, all four ports registered and pairwise
+  loopback passed byte-for-byte at 9600, 115200 and 230400 baud;
+- the shutdown cleanup passed a four-port 512-byte bidirectional smoke test
+  in 10/10 runs on a matched overlay and 3/3 runs after reboot with
+  the formal v5 overlay;
+- on the v5 candidate, three closed-port module unload/reload cycles and
+  post-reload loopback passed;
+- on the IPC1200/WK2132 CM4 profile, boot and TX smoke tests passed.
+
+The hardware checks above were performed on Raspberry Pi CM4 systems
+running 6.18.34 and 6.18.39 downstream kernels. RS-485 electrical behavior
+was not tested.
+
+Zi Jie Zhao (2):
+  dt-bindings: serial: Document WK2xxx SPI UART
+  serial: wk2xxx: Add WK2xxx SPI UART driver
+
+ .../bindings/serial/wkmic,wk2124.yaml         |  119 ++
+ .../devicetree/bindings/vendor-prefixes.yaml  |    2 +
+ MAINTAINERS                                   |    7 +
+ drivers/tty/serial/Kconfig                    |   17 +
+ drivers/tty/serial/Makefile                   |    1 +
+ drivers/tty/serial/wk2xxx.c                   | 1527 +++++++++++++++++
+ include/uapi/linux/serial_core.h              |    3 +
+ 7 files changed, 1676 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/serial/wkmic,wk2124.yaml
+ create mode 100644 drivers/tty/serial/wk2xxx.c
+
+base-commit: 9b87fdc9af2fbfcdb5c24a64139685ef80f6573f
+
 -- 
-2.39.3
+2.43.0
 
