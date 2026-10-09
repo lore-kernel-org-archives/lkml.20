@@ -1,70 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84C004A2A76;
-	Fri,  9 Oct 2026 10:14:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 789DF49A3C1;
+	Fri,  9 Oct 2026 10:14:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791540865; cv=none; b=bOZlJgE4gXY4eoM0Xm2gbysJNvagXgrFun0Iwgnso+bkUYWiyKY2/dNlAc0LEITTWqfebnWbD8iWKebuaCW68YtYv07s6AUJT6cVuFGXSKPuRDzfNwCo0f6U0f10jibJClZ+UjzxkPAB742WBJ3Vhll/E591Fupwe67afpdu6x8=
+	t=1791540896; cv=none; b=YFtmvOUBbyrG7AxPzpcLooCAo8UZXOVY/fioblYljKuka3xhim0X/dvNHkZut2eLz2M2WVYbUhqh4y2YcFO+VmZFH1aNZwaTZKN6Iomo8tOcNpDsSBzvJQmXntibslEOgHTJ2DCGA+BVIfjuC/5rSHzliq8DzbGfy0nDUtkMo4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791540865; c=relaxed/simple;
-	bh=Frc+ADQTxRwKDWaoqMQMlUJQ/gCXB8qyIs31/48aD70=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=AjKYInyiO1C1KKHuiTMr0ggDHk+uOaLHkujSPDiV3ZDzLIMaHSH4Nj9tCm0d4gEkDk7WeBMQBF8iL0bHOIfxK0kj6pfhXv0YzDggIvU8slTJ0jSbsmenExMQKY0DNXATFsQ1m/SY4Y8Znpr+WAk9JXMpR39Utxm8jzLtC/HnoFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LOaL5y8n; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791540896; c=relaxed/simple;
+	bh=pVD16InXnmHTxghomgegEpy8lwjBvfKGO2XkDFxZk98=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=JKhDqaWxOHUgQBTkocNCGGpbsrO3i1+w3+v7edv5Hfs0Bh9oRlQSOv21fvDYHMnqyXDtyfdFlBvGJEeFLa39l+Wyv5jfbTax9mMnTHUBHamGJRMObzips64wiE09RzjSwldrn+ZhNs4wH0I8nVRTipRFh1/+nBXHSye7hHR670I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PTgAnpyW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LOaL5y8n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 968571F000FF;
-	Fri,  9 Oct 2026 10:14:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PTgAnpyW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EE471F000FF;
+	Fri,  9 Oct 2026 10:14:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791540864;
-	bh=80POjU5WP6ctS0DqN7hA/63JAQ8Agh1hTny2C1kJcvk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LOaL5y8niMi0HX0MfKOV5z0uMtEmQE8xP5udsirpoxARoQ27VLyyHnD7oWsf0lDkf
-	 lk3F6rRAVb4Ar5PGr7rSa/aA2KHMOV+J8N4QPZTnEw7uZIxKfV98tY6Fhs/8mz5ukb
-	 VPeHISzwUIHYrtlbjr7FA4fy7srTD8N0jTsaJsq5DZHe1qs1/4XaSintiP1CQ9Bsxl
-	 LnExh3dfj23cXJFQtP7YWHALZsG/XywU6aP+vW4Nvzv6yAl9uKdU7TO5JWa25pr58u
-	 RccFtZ99bTbpN0TC7j9Oag9kiXE8A6huGZPc5mSPHIjZXseiN78BCqjQzAXWTUj0QW
-	 RRzL2i2gm2qDQ==
-From: netdev-bot+sinfo@kernel.org
-To: Nicolai Buchwitz <nb@tipi-net.de>
-Cc: Doug Berger <opendmb@gmail.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: bcmgenet: unshare the skb before writing the
- control block
-Date: Fri, 09 Oct 2026 10:14:23 +0000
-Message-ID: <179154086308.2527009.8212996211776873499@kernel.org>
-In-Reply-To: <20261009-nb-genet-shared-skb-net-v1-1-c6d0a841977d@tipi-net.de>
-References: <20261009-nb-genet-shared-skb-net-v1-1-c6d0a841977d@tipi-net.de>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=k20260515; t=1791540895;
+	bh=1OUnjufhFAj5bKUwflUsjQV0tB1mzkN+KwvUPmOroek=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=PTgAnpyWMds/u1S4c6JQhjrNirRvKddlrWKO6/K01rqjCNIL29p6iWzbXEhlubrb2
+	 xlnFTj2n0dFg5zrOf1sY/vlDl4JKGmS4sDtW7MOnRChkpleCDiuGahGjlFwSoRX4sz
+	 xaDLgmypWvnMSG0eY7cShdEDR3mciqwLZgFdD/90cTw0gFy8W/fbvIsbV2CceMcHPF
+	 TcJA5q3jnp9F0HJWUN8rlsOeVJ2DI4kVGEMJCO1P2+4c9Q/NEmfUj85/A64m9uUURw
+	 fPL0XUiIwvrV+VjlcT5AQ9OGHmPlTdaF5PleulUNW+Puv8JjBGNCXsIoTg6JYh+FaR
+	 qJhEZTJlB1kyg==
+From: Vinod Koul <vkoul@kernel.org>
+To: Frank Li <Frank.Li@kernel.org>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, 
+ "David S. Miller" <davem@davemloft.net>, Frank.Li@oss.nxp.com
+Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-crypto@vger.kernel.org, imx@lists.linux.dev, 
+ Frank Li <Frank.Li@nxp.com>
+In-Reply-To: <20261005-dmaengine_prep_dma_pq-v3-0-a4a241f26fa7@nxp.com>
+References: <20261005-dmaengine_prep_dma_pq-v3-0-a4a241f26fa7@nxp.com>
+Subject: Re: [PATCH v3 0/5] dmaengine: Add dmaengine API to avoid call DMA
+ Engine callback directly
+Message-Id: <179154089287.553139.1067496680834545620.b4-ty@kernel.org>
+Date: Fri, 09 Oct 2026 12:14:52 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
 
-Hi!
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+On Mon, 05 Oct 2026 05:37:13 -0400, Frank.Li@oss.nxp.com wrote:
+> Add dmaengine APIs to avoid call DMA Engine callback directly. Prepare to
+> make dmaengine provider private.
+> 
+> 
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+Applied, thanks!
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+[1/5] dmaengine: add dmaengine_prep_dma_(pq|pq_val|interrupt|xor)() API
+      commit: 4bdb88eb5496cb09902b9778ca7f4628c43b0d77
+[2/5] dmaengine: add dmaengine_is_*_aligned() helpers for DMA consumers
+      commit: 11e801ccaca78c9d92b1f3a9733772bf9d2c079c
+[3/5] dmaengine: add dmaengine_get_copy_align() and related alignment getter helpers
+      commit: 072975a8a578a62ea68ec1ceb8d2d7dcfb5dfefa
+[4/5] dmaengine: add dmaengine_get_cap_mask() and dmaengine_has_cap() helpers
+      commit: bbc109e0e686266d784483df108af206bc52e120
+[5/5] dmaengine: add dmaengine_get_max_xor() helper
+      commit: bff69558d64a98bc8d03f373d1331223c3428a2c
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Best regards,
+-- 
+~Vinod
+
+
