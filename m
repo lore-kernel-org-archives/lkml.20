@@ -1,114 +1,140 @@
 Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 217334718E7
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:07:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8FB14718E4
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:07:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791529666; cv=none; b=j82v5ztp7iC0OnZs83v4xcvC5IUJ4P1c6kRardTO0gympQLl90BwtPuG0UVQSBoQsonZo+nTH6z00XDVqDiNzFHIxDnBvo/EeKKiWlDp6dXWf+tV+QEWCIoCVZCqyefRmXVIr2B6iss01YZhSG+uQ747E3TgTiS6HNhlzv/lixc=
+	t=1791529670; cv=none; b=NFSZYu0pQ8as+J3Oj8F+fy1MyDi18hx31n+zebDL5UhlsAbAv+1MxmGXb8Sag62KTKhpMGiF9AF/5aG+Ue/1/OjH+p4O47m8HStdl3RNZ2+v1IGEqBLTpCJpXYyqlMl01AQmZOkzLJes3z5Hubzpkv3UJ481qcXyNezMmUI3e2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791529666; c=relaxed/simple;
-	bh=AOBfyMObxsPKe5555MA7X0XhuhbKoT8tcSGCgf4g340=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jj4bNZkS6kplieStn1vq53ZmDSBgXqcFD/uKoEj7BMGPPvOrZUSLKHqS4pGbwwCyS6pjdgdx7C5ZaKXxR1rQdpGJFoOvrS8tCEjed/zO3dLc5lA9POdj2rHKmJKqdGbx4j5+GVXPFAhI/vrxnVD/QshMU2N+WhytZYeMxTy4qhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B0FazBUM; arc=none smtp.client-ip=209.85.128.46
+	s=arc-20240116; t=1791529670; c=relaxed/simple;
+	bh=bfo/wMXS8Sq9s+eS6QMWg+YQ7MUmVwvDGopoTJGqgOs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=d1Y9uKbWs26pLFeVlx2vZlkIG/fQm8iJk/BAoFv7/sIc8Oten+ZACoe5x1DU+kqMrc6/9t2bW8QwM+t2cF5QPhdXGUNntzGFMZPz+pX4lje8acLkLmAl82gIhfItsq2rw/sGvYXOYOfaXQdoEciHi2GTr7elLqN0rdwvEH5jGUA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qkVEnC/i; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B0FazBUM"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso54364165e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:07:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qkVEnC/i"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a16bc2278aso26739605e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:07:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791529663; x=1792134463; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sKKm9SmEIl/bnNoeHMWb5gysBaP9kkRYpBJirexaJDo=;
-        b=B0FazBUMi25Nrrx2P3zFQv2Ew0+HrurV02ZxT0ILniaokSjQwT9spny6pLPlp1arCQ
-         1nAdmH3V1brYpLPo7/AztGbTYqYoJJgWo98R3F97yxJ4sq8ZBEGYHgri/atjcF2d6pkI
-         jbLcBH9o3tVEXeAtKs1O/scczwwJxtXZS/4/mls0BYyO8yOsEFwj5Kijs9eJehnAmisA
-         iA+GKPcr1x1HpVpwtgwfz5NeI+GgRU+dMy9ucDUovhkXoMK+uXY4w6cFkRYrzzAzLSUg
-         ca2YmFMruULHowX/r57yL5GemGkCyKceU0f55382ZLGYbx2V3I9+xMDTRJCZAJjnrGlp
-         Q0QQ==
+        d=gmail.com; s=20251104; t=1791529666; x=1792134466; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NHR1jDnXcixHLFQi9FmQqLQBMNLNa+/soRRZWs2b6JE=;
+        b=qkVEnC/iKQkO9oyK7vDlM/eSBUvp35+IMa8FAdLBgsARaquTA4PiiA9H3Pq+6dbkwW
+         XARfxlMNWolHMvDlA68VktVPUCogFMF9/xmaVkrRLH3+IRUZGFpPBfhI5gWDEbzOiH/h
+         mj+FYyyrSv36K2a1jTastCqrC1zkwoEQvD9gs7AfXLAnhesIxeoYebSs3zJTHehic+lF
+         qKPEs6lUowtJ45gIelYOzqj2cOhF9strUDaF27dUzhBm+7Ph2DJq+PqppoeYCCdQ+Ept
+         T9l3SiSTO1o9sXAr/eN7UkI7Uv773Zdf+lvxj2BVVvPm+uCQIJc0ni6tfnkvLpn8qF21
+         0yAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791529663; x=1792134463;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sKKm9SmEIl/bnNoeHMWb5gysBaP9kkRYpBJirexaJDo=;
-        b=ICuMR68C1ussFYrwm61Jig+y+lwT8QDFD24FsHVbWCWKq+1KfRYuoCgkP8nTZ4R/G8
-         u+r+4AjRvU0PSgyrsOje2IedUqQa/tm3N4hcC60lg4fqMOFxCOsZx+oabkHjtTGbsnlj
-         AE06HKSKbCUdiptfvEFv5gKCqZwiLBqyBBaotpU21wGWulzEjsHBdJs2yMdiue4X2H1C
-         DnW2g7tfImWR4QCXgrS5sJTwP9NLRQVRu+Pgt7FdgDnKAeANcKub/JYODfTR41EIZFvK
-         XghYpCzL5S8hAsXZkjA9SefNVHrOEbx4yUw5+pbKsrRryYURUSIHl73MXXLrA2CWpKRe
-         7Yag==
-X-Forwarded-Encrypted: i=1; AKwUvBxeDKXCpf4SZSsPLeiPtUFQrA136qXr8r1xKAw2lj64GPqfCMo8mnyx7xPGLIGJ8gfiyndyyARZHquc8uE=@vger.kernel.org
-X-Gm-Message-State: AFuF++l4dlJx7EZMfAJLag+fXqhTvVnACsUH6gBlZj3FK1s2lGeUcwT5
-	jO10rIk0zgclUZHoPSRkSHswoZ+Ao4mTTVVr+P/1fiL3jKpvTUBjq1x0
-X-Gm-Gg: AYBFou3Vnmse5pPnWyr4msvjnYakZNTPq9xDZFAnV19Ha0MRLBlzFae6/JmEFir8FX0
-	Z9thByV/Jl5V6m6WK+5VUQwYp0XuZfJwuCiibC8MeyrdAUyit/9ON9lCu/GqIi+hAypN/f9+9CL
-	bnR2/t8cZFC2YtlIe0n5kgtOuY0rT4X0VR/sLt6F2hvI9zeh7Do005iDtF0EhIgFqX5qOn19C51
-	mFZFzKVKK2xJV31f7kwRdwwDLc4p0HIEZmWmIR60HZ88ilFx3iatnkxD/AOZtF+HmaLRaS++hiD
-	YfRgMETo7ufXlKYSDH0kRHI75PMF6SD9p7j8j6ivUS2JIOQfj5x5eJ0ADXh7XWNOl/k/nsTNsRc
-	fjPw7qE0s5wgBr18GMiMvl5Xufo7BF/NI1/r6LWZCalHxHr4+qoW5azMtHAOlInKjELjc4nu7Zh
-	n9qt5cU+irFRVkO34ER5+fzahAZOmQ2QgvGPLtJNaJ8TfoebtogsLFUiKCChXdRIPP5P0LTd2db
-	Yt7JFGIURgWsvkao9OEJzJzpZEoOKK8X87iHVrU9VKWU/OqQP+ll7mUXws/20frS6p3Fk29B9C2
-	Xh7DmhIdVD3nIWcQOQcM/sIawaCI0+YCa2bKfIQ+ODaRf0lgW6jL8yOBk29ET5olynAQyTYPSTa
-	ZrMIeRS3fwQ==
-X-Received: by 2002:a05:600c:8708:b0:4a1:7b05:3a6d with SMTP id 5b1f17b1804b1-4a18e49881amr14849175e9.8.1791529663117;
-        Fri, 09 Oct 2026 00:07:43 -0700 (PDT)
-Received: from unknown748F3CBA5068 (dynamic-2a02-3100-a128-aa01-297a-7094-853e-a20c.310.pool.telefonica.de. [2a02:3100:a128:aa01:297a:7094:853e:a20c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf2caf4sm41656205e9.10.2026.10.09.00.07.41
+        d=1e100.net; s=20260707; t=1791529666; x=1792134466;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NHR1jDnXcixHLFQi9FmQqLQBMNLNa+/soRRZWs2b6JE=;
+        b=fYVHDJnKYurEyBcDX9uLKaeOmV7TZteI/k8nSUU1KqzluRQ9jT9lRIhpZStsDG1p4D
+         i5ESVuhRu+1liH42ZEvPRGkVWHPkdZW9f1Kb8E6AD9nsxsPpLSL2rAQEJhT/+fJXjuQ6
+         JNXObyylKuhlgFAeh6BoitccbCxknsoZJblNK2fzzA6lPBhizlW5zbWVZmkudElLJv9z
+         0LwSkzn5hIOmkGWvyIqM7vDmJNrJvuAq2yl0tu8P98G5CgoV71x3JN9wCtcmgcvgyDrN
+         E2Ry2Z3YdeDNyOjjXjWCFr1iBuoQ2NrWfwQf28t5plmjX/O2jLsWZ5T8tahWDY9OF1xL
+         bU2g==
+X-Forwarded-Encrypted: i=1; AKwUvBxy81SQEWpXoDGBHK1vCbRElrTS+djRFicdcEInrvByOFuC3hl83wDB5mTCaeia6NLvF8sMgAGg/a7llVE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lk1rcEImoCQdt8ZwpHe19sCLNbK+4GndX09LuPMv3NQqDM877J
+	w7TRld4ECNvXzpY42+Qvi7eUgvJkP3Pq+0REeC/KJWiQvDWxj4mVvYoU
+X-Gm-Gg: AYBFou0cGAtCpGYUVlfzh+OYl/ktyBrjpNOMDn0Rbdi18Snn/EyEzfLSSFQSs9jjIaq
+	ORDeygXWICAhDxgbuFfE+pS0tClmNuanYE9GSjqrNiCPnWXajQZCmXRF79ANgKRF/5VW32mw1IE
+	W81clgOTUSotoeVkd6AOZ1aLzSFDUyNmDKdLFMuR6EsdL5RjPUOK7YnzxiJaioqnP76u+RPvOe3
+	6aEwt5lEZRa9gEZpTS3aNc+7TI4zCD2smvJyYG/MftjKN4A7gcRD8RRV0DHIJLC2fBNBJY87/+M
+	JluNRS7ZDD9lAnyafPS+Es40Oiv7ltuByuBicCIx0A6xAqA9rWrWne6VoIiCYfMb+1d5GfluQrI
+	QWXZa9fK6XHsyq2LrhJUsna+hrErNOvw7VP7upBoA5KhVXYv0xenD2gZjXPi174H2CoN2jptKBF
+	edyFpfNyhB0pVYaBEVRAyHNKHd9SOoz94QqaTYhSd9AkPJ3TSk27jCwPCVwWUztPiOKcklmnd4c
+	aBtVXBUJoHU2NNJV1qmP1nw2bTmnV7mAXAc2hffnzAgBNp97wLBMkTMi88rdmodbYLqxCm81l/L
+	cBYEQqhhrs8FdA==
+X-Received: by 2002:a05:600c:4e45:b0:49f:c199:e1e2 with SMTP id 5b1f17b1804b1-4a18e4d8c30mr16589385e9.28.1791529665690;
+        Fri, 09 Oct 2026 00:07:45 -0700 (PDT)
+Received: from Ansuel-XPS24.localdomain (host-95-233-52-5.retail.telecomitalia.it. [95.233.52.5])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a18ca4621fsm26176815e9.3.2026.10.09.00.07.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 00:07:42 -0700 (PDT)
-Date: Fri, 9 Oct 2026 09:07:41 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Harry Yoo <harry@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
-	David Rientjes <rientjes@google.com>, Muchun Song <muchun.song@linux.dev>, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Alexei Starovoitov <ast@kernel.org>, cgroups@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
-Subject: Re: [PATCH 1/2] mm/slub: preserve no-lock freeing after memcg charge
- failure
-Message-ID: <asiSUpAYYU8Od4HM@gmail.com>
-References: <20261001044056.75079-1-kmehltretter@gmail.com>
- <20261001044056.75079-2-kmehltretter@gmail.com>
- <asaAwg1KeZoEYd4K@thinkpad>
+        Fri, 09 Oct 2026 00:07:43 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Felix Fietkau <nbd@nbd.name>,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Christian Marangi <ansuelsmth@gmail.com>
+Subject: [PATCH v7 2/3] clk: en7523: generalize register clocks function
+Date: Fri,  9 Oct 2026 09:07:22 +0200
+Message-ID: <20261009070725.13196-3-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261009070725.13196-1-ansuelsmth@gmail.com>
+References: <20261009070725.13196-1-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asaAwg1KeZoEYd4K@thinkpad>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 07, 2026 at 07:40:17PM +0100, Harry Yoo wrote:
-> > 
-> > Use kfree_nolock() when the allocation flags disallow spinning.  This
-> > keeps the SLUB object rollback on the no-lock free path.  The failed
-> > allocation continues to return NULL.
-> 
-> When this happens, the object is not charged by memcg.
-> 
-> The kernel should not invoke memcg_slab_free_hook() (called by
-> kfree_nolock()) for a slab object that is not charged by memcg.
-> 
+Airoha AN7583 SoC will use the same logic used by Airoha EN7581 SoC to
+register clocks. Generalize it to register clocks defined in soc_data.
 
-Agreed. I'll avoid the memcg free hook on charge abort.
+Add the clocks definition in EN7581 SoC to support this new implementation.
 
-One question: kfree_nolock() currently skips init_on_free, while the
-existing charge-abort path honors it. Was that intentional? I couldn't
-find it discussed in the introduction threads.
+Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+---
+ drivers/clk/clk-en7523.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-If kfree_nolock() should honor init_on_free, I'll include that fix as
-the first patch in the revised series. The charge-abort fix will then
-reuse the shared initialization helper.
+diff --git a/drivers/clk/clk-en7523.c b/drivers/clk/clk-en7523.c
+index 24fdec2e6198..ec66a504d4c5 100644
+--- a/drivers/clk/clk-en7523.c
++++ b/drivers/clk/clk-en7523.c
+@@ -147,6 +147,7 @@ struct en_clk_priv {
+ 
+ struct en_clk_soc_data {
+ 	u32 num_clocks;
++	const struct en_clk_desc *base_clks;
+ 	const struct clk_ops pcie_ops;
+ 	int (*hw_init)(struct platform_device *pdev,
+ 		       struct clk_hw_onecell_data *clk_data);
+@@ -745,12 +746,15 @@ static int en7523_clk_hw_init(struct platform_device *pdev,
+ static void en7581_register_clocks(struct device *dev, struct clk_hw_onecell_data *clk_data,
+ 				   struct regmap *map, void __iomem *base)
+ {
++	const struct en_clk_soc_data *soc_data;
+ 	struct clk_hw *hw;
+ 	u32 rate;
+ 	int i;
+ 
+-	for (i = 0; i < ARRAY_SIZE(en7581_base_clks); i++) {
+-		const struct en_clk_desc *desc = &en7581_base_clks[i];
++	soc_data = device_get_match_data(dev);
++
++	for (i = 0; i < soc_data->num_clocks - 1; i++) {
++		const struct en_clk_desc *desc = &soc_data->base_clks[i];
+ 		u32 val, reg = desc->div_reg ? desc->div_reg : desc->base_reg;
+ 		int err;
+ 
+@@ -1226,6 +1230,7 @@ static const struct en_clk_soc_data en7523_data = {
+ };
+ 
+ static const struct en_clk_soc_data en7581_data = {
++	.base_clks = en7581_base_clks,
+ 	/* We increment num_clocks by 1 to account for additional PCIe clock */
+ 	.num_clocks = ARRAY_SIZE(en7581_base_clks) + 1,
+ 	.pcie_ops = {
+-- 
+2.55.0
 
-Karl
