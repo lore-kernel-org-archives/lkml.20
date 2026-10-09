@@ -1,142 +1,185 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f227.google.com (mail-pl1-f227.google.com [209.85.214.227])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC65145198F;
-	Fri,  9 Oct 2026 16:02:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A544A45519D
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 16:04:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791561763; cv=none; b=mhU6qFd+HLO89/VOWUj2jLUVQvJjYbFjBLR01dfnAXXCDQ9+tbZccO179rtMJz/06edcxzRqYJq9P1hx+EYabhXOHWQxooA60TkU7EnGW+Qq2iXvWA+A+XCyi7/PkvauhrCr/kGoqbVw1n4e54DoJSJVPe/JknQHi+uho8x3a5I=
+	t=1791561863; cv=none; b=deS32LKWTyE29ElO5IKY/m0teGRtAkQ+2Z+oP++JcLBO81iLUWVD26fsFMVyZaGlXC5He2alQ5W+EkAT9eBLu5xzf3zE6LBTuTyq8L+zszXAlthHdceen++8tYffryGv+Rm4h7TX6BzMUCGoq5664UDQibiHBgrna0im8nSseqo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791561763; c=relaxed/simple;
-	bh=igvWJAO2V9my2ZAZZqpzUDGCdqeiTQTYoXNRaEcbuKs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=r1DbdZx5aC8/DVYbLMDU9Ho9hjb6VgRkkrZQh2NA1BgGT2a6jb4CD/X+QbLTH39R7DFnWQo6H9mmpz5F5jhynxxKpNVBZyha4qna/J1xJ2y5M4HBvYFEyaUJ4nc4ksUCg8zW49TwgpQ59IT7SF7aOQKsAEPIqakIc33LFiRkrhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BPQP5oKb; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791561863; c=relaxed/simple;
+	bh=Q6FtNDFFjNWaEF9EAMWjEDiH7/9CRptsgplPUDRoCz8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rxMwUwA3d9Dn54IeB0rwaYMFyw6/GKm5Qcra7F08HgJLbRDccBHeKq5O7ip0/97A8oigLlngOo60OJ5WEpu6yamwEcs72g2ZbzQZMG3WqmWEkWJhsJs9mNWpPKUEeYvOqjpRms3pA2Eo5NixhZX6CWrhOs3cDtU6NIEzaHl2JWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=TgEKNZy3; arc=none smtp.client-ip=209.85.214.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BPQP5oKb"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 534EAC2BCF4;
-	Fri,  9 Oct 2026 16:02:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791561762;
-	bh=igvWJAO2V9my2ZAZZqpzUDGCdqeiTQTYoXNRaEcbuKs=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=BPQP5oKbg+kIRjrSl677fGxvJEkjLBNcINp28uaoHu5jYR7QYd1CtROQAZUCQXCKC
-	 3DdEgLrbQDO4ghYwbhI7K3fhPyrI7x8ch7V4ZFMNSYuYXc0YVBsCU1dvLo4hxBTa3L
-	 CQLsXgdmzlXggcMLu3tqCxA4w2ZFEWzELeUD4S53QAehW1xvXmK0cUYGnJJYG45At0
-	 cYkYwwDaDVyMDXKKGr8ti4CsBUQt8zhjyK3HK6JsfjsD5jzh1pQDA5N3vKX+BCtvG4
-	 shF+lEcgwKpUTCwxJmyyuFF0E/W6Kz00X6gKBqPzJiDNquv0yfebn69A/DHeUnQE7G
-	 esEInDC5YXZqA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 29FB2CA6015;
-	Fri,  9 Oct 2026 16:02:42 +0000 (UTC)
-From: Evgeny Akhtimirov via B4 Relay <devnull+evgeny.devduty.com@kernel.org>
-Date: Fri, 09 Oct 2026 20:02:37 +0400
-Subject: [PATCH] ALSA: hda/realtek: Enable all four speaker amps on Lenovo
- ThinkBook X G2 IAH
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="TgEKNZy3"
+Received: by mail-pl1-f227.google.com with SMTP id d9443c01a7336-2db80fcdf8bso32174175ad.2
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 09:04:22 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791561862; x=1792166662;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=QPvsAsFKROVd2IVDjuabUUWH8AsyeJTOH9zIP0FhFmQ=;
+        b=zqEceyl1fv2CP8FM/DNeqWa3p6DEx8vDTQpUVDkTnQjo/Kv0vH4FsdqwWOsP1KIzQ+
+         3dE6kKyfCOmkxoYBd2EJqVp13sPRW92uIU8lhWzN/xCxjhHJb7IdnQX5B8IEDFNi4KdM
+         TKErIxrEm0/QXU3dtGuqCo7tVIy3ZnhMzi3LHJwT7PT976x/JVml3JkM1KvawUxVO5Vp
+         J8ymI4AVd7NheDZb+TDAhjj9FAd8TLtD9bwjCSZIy+Hmq77O6yO8ueZH7RS09bzxtry8
+         HXXJRKLVl26da+mtMEZdBzOhTSzqSicNNVXxJUrhS2ZKl/Z5xO590l5iUGOYQUlDzOiu
+         g7NA==
+X-Forwarded-Encrypted: i=1; AKwUvByf4jIKnbq+YC8mRlFo+lZNcge2EA7VqB0UcN1ms7uqZoLTyOkgUCnZs5uGvd9p0I7XpwMUNWLAhYiVMEU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLjhMJyJmmr+Kx58ByApDPQZoF6la1hLa9iNR3Qj5PxUbIu93Pp
+	13aN8ysOr2WKDXxXYQmyrobWdNajTLyjk9oxa9h04wZ3trDILVjnsRdbVTcsEg2bSnvSOpFRCfk
+	Kfpn2V6AgnCB8rouWGzQK7TlhKZmf1p4jFsBG4D/kN1koIYKjafZzcfN2JSQ0P8WrNN1i9FQFa+
+	CoUtKruN9k62Qw31QwzMQ2sYcR1EbBZiQbkZ3HLDXbiFOv++ngESNomN3idIwx31fKrICufda41
+	wk8Gqg3NwJ3KRSNO4WVpzas
+X-Gm-Gg: AYBFou1D7OqK0bEhqPqw2NwiR1zQP2Om4Fp3dlmtT2teoe2aTIlK81gcg7cUHv07g77
+	5xqvusgnalCktmg/DMCxaa+N4/h2pN/ZScF2ZAqpOWVSetBYJztN7O+R3Dd2mYsZt9roZvX2Ck2
+	Up6ZK0Kfqi41jeswOxDQCspMrHA8EXzsNhBHGEApe5e7FkNT4xSVBC+wrRTKv8L7OaFX4R6bGkV
+	1sCc0zK6a9lwdQBsDFuJktQkSZ1gJLNIGZ4dZ/uEILo8tFsBZR4FOTbtXNVUcRShrwDPby4lBhe
+	7KdBpe0sINuawBPzyugFK1MVo/ZmeMvNBBLps/UJMhGF4Wqldt+eakv/tedKBHq86h6TELmhjUT
+	ola5QCGyS0gYh1PI7RmzGfCxgNbKAnpdoQCfSClx+acUNmDaHHZdOaf6wAj9gqmK+Bh7NO9ru/s
+	m2u1wm8QfhjCc7ajR8vSCaOXttNh1xCYNRceAB2zS8
+X-Received: by 2002:a17:903:22ce:b0:2e5:6e45:ef83 with SMTP id d9443c01a7336-2e8428a1a4fmr20378285ad.17.1791561861743;
+        Fri, 09 Oct 2026 09:04:21 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-24.dlp.protect.broadcom.com. [144.49.247.24])
+        by smtp-relay.gmail.com with ESMTPS id d9443c01a7336-2e8421a5814sm1069325ad.49.2026.10.09.09.04.21
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 09 Oct 2026 09:04:21 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc4ac5feaa4so5148315a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 09:04:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1791561860; x=1792166660; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QPvsAsFKROVd2IVDjuabUUWH8AsyeJTOH9zIP0FhFmQ=;
+        b=TgEKNZy3DPhCiQ8UCJyTzCPtlwdvITlK6CDZsWcUtmtu+20RmL837M+/Qzy5DQTTU+
+         NXWhs9C9+7olvE+hTBpWxyGaaRQUZ/uQpXyCyjo8QaQEcv4sGwAhHfqs0tuAcVUHLnRz
+         ECe1pJoYVa3UtmB/qv9zU0bVcFC9H4pSZrAbg=
+X-Forwarded-Encrypted: i=1; AKwUvBwe9W2Ft5an12qoGLQAZt43hr11cUjSIrw5C2zfMhV39lZZJiBcz1f+LDni5NCewsohAYuD8JgIHx4iDEM=@vger.kernel.org
+X-Received: by 2002:a17:903:2283:b0:2e8:3d48:4d80 with SMTP id d9443c01a7336-2e842ab6dd1mr20887205ad.45.1791561859722;
+        Fri, 09 Oct 2026 09:04:19 -0700 (PDT)
+X-Received: by 2002:a17:903:2283:b0:2e8:3d48:4d80 with SMTP id d9443c01a7336-2e842ab6dd1mr20886935ad.45.1791561859255;
+        Fri, 09 Oct 2026 09:04:19 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e84219e6aasm12197475ad.18.2026.10.09.09.04.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 09 Oct 2026 09:04:17 -0700 (PDT)
+Message-ID: <3b1a2994-5251-4800-8c61-b63d7a435b21@broadcom.com>
+Date: Fri, 9 Oct 2026 09:04:15 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 5/5] net: mdio: bcm-unimac: implement timestamped
+ MDIO writes
+To: James Clark <jjc@jclark.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>,
+ Richard Cochran <richardcochran@gmail.com>, Doug Berger <opendmb@gmail.com>,
+ Nicolai Buchwitz <nb@tipi-net.de>, =?UTF-8?Q?Th=C3=A9o_Lebrun?=
+ <theo.lebrun@bootlin.com>
+Cc: Russell King <linux@armlinux.org.uk>,
+ Conor Dooley <conor.dooley@microchip.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Thomas Gleixner <tglx@kernel.org>,
+ Miroslav Lichvar <mlichvar@redhat.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261009143506.2507607-1-jjc@jclark.com>
+ <20261009143506.2507607-6-jjc@jclark.com>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <20261009143506.2507607-6-jjc@jclark.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-thinkbook-x-g2-iah-v1-1-56012188aee0@devduty.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MTQqAIBBA4avErBtQo9+rRAvLKQdBQyOC8O5Jy
- 2/x3guJIlOCqXoh0s2Jgy+QdQWb1f4gZFMMSqhOCjHiZdm7NQSHDx4KWVsUrRxbQ7o3zQAlPCP
- t/PzTecn5AxysbhZkAAAA
-X-Change-ID: 20261009-thinkbook-x-g2-iah-05195dea7d38
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- David Rhodes <david.rhodes@cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- patches@opensource.cirrus.com, stable@vger.kernel.org, 
- Evgeny Akhtimirov <evgeny@devduty.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791561760; l=3156;
- i=evgeny@devduty.com; s=20261009; h=from:subject:message-id;
- bh=BfsbIsaH+xcSaOBuE7I5ho9CDvOnUQL+4DzaitSAqVw=;
- b=c26iBhGWKwg0niARse87EuFaqvUHE1BwImtaSdsGOlGVPdvcFHiGpeddIxAsZI7aAJX9QmdIi
- tGbJjYlNBx0CHaYQL8ThCED8rRBc+JBgvhf3gCDjwnzyzR14lOcCRye
-X-Developer-Key: i=evgeny@devduty.com; a=ed25519;
- pk=3FZbefc8yeIZmuo/7ejP2EM5b4z3JPRLeOgOvhXNloM=
-X-Endpoint-Received: by B4 Relay for evgeny@devduty.com/20261009 with
- auth_id=1143
-X-Original-From: Evgeny Akhtimirov <evgeny@devduty.com>
-Reply-To: evgeny@devduty.com
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-From: Evgeny Akhtimirov <evgeny@devduty.com>
+On 10/9/26 07:35, James Clark wrote:
+> Implement write_sts to provide system timestamp bounds for completion
+> of an MDIO write. This enables tighter system timestamp bounds in PHY
+> implementations of gettimex64.
+> 
+> Take system timestamps around the command start, then add the time
+> from the command start until the MDC edge that clocks the last data
+> bit, calculated from the reference clock rate and the configured MDC
+> divider.
+> 
+> On BCM2711 that edge comes 64 MDC periods after the command start, on
+> average. This was measured on a Raspberry Pi CM4 with its BCM54210PE
+> PHY. The PHY's PHC was read with PTP_SYS_OFFSET_EXTENDED while the MDC
+> divider was switched between 9 and 39 through /dev/mem. Any error in
+> the number of periods would make the PHC offset jump at each switch.
+> After compensating for drift, the jump with 64 periods was under 10 ns.
+> The MDC divider appears to run freely: the PHC offsets spread evenly
+> over one MDC period at each divider. So use 63.5 and 64.5 periods as
+> the lower and upper bounds of the delay.
+> 
+> Use a 200 MHz reference rate for BCM2711 GENET, whose clock is not
+> described in DT.
+> 
+> Signed-off-by: James Clark <jjc@jclark.com>
+> Assisted-by: LLM
+> ---
+> When there is no clock, unimac_mdio_clk_set() assumes a 250 MHz
+> reference rate, and no in-tree DT gives GENET or UniMAC a clock. For
+> BCM2711 I have no documentation of the reference rate or of the clock
+> that supplies it, but MDIO busy times measured at several MDC dividers
+> fit a rate of 200 MHz. This patch checks the parent's compatible string,
+> which is unsatisfactory. I would prefer to get the rate from DT, and
+> would welcome suggestions for the right DT description.
 
-The Lenovo ThinkBook X G2 IAH (MTM 21TU) has an ALC287 codec with four
-CS35L41 amplifiers on I2C (CSC3551). It reports codec SSID 17aa:3929,
-which it shares with the ThinkBook 13x Gen 5, and PCI SSID 17aa:3842.
+You can, and should define a chip-specific compatible string for the 
+MDIO contorller node. We have one for 2711 already for GENET 
+(brcm,bcm2711-genet-v5), so you could define brcm,bcm2711-genet-mdio-v5
 
-Since PCI SSID 17aa:3842 has no quirk entry, the codec SSID matches
-ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD. That fixup binds only
-two amps (cs35l41-hda.0 and .1), while the CS35L41 configuration table
-describes four for 17AA3929. Amps .2 and .3 probe and load firmware,
-but they are never bound to the codec, so half of the speakers stay
-silent.
-
-Add a ThinkPad-style fixup chain that binds four I2C amps, and match the
-laptop by its PCI SSID so the ThinkBook 13x Gen 5 is not affected.
-
-Tested with hda_model=1028:0c4d (alias to ALC287_FIXUP_CS35L41_I2C_4):
-all four amps bind, apply their calibration and are runtime-active
-during playback.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Evgeny Akhtimirov <evgeny@devduty.com>
----
- sound/hda/codecs/realtek/alc269.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
-
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index a68b6a9b7..217df4301 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -4427,6 +4427,8 @@ enum {
- 	ALC245_FIXUP_HP_X360_MUTE_LEDS,
- 	ALC287_FIXUP_THINKPAD_I2S_SPK,
- 	ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD,
-+	ALC287_FIXUP_CS35L41_I2C_4_THINKPAD_ACPI,
-+	ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_4_THINKPAD,
- 	ALC2XX_FIXUP_HEADSET_MIC,
- 	ALC289_FIXUP_DELL_CS35L41_SPI_2,
- 	ALC256_FIXUP_ACER_SFG16_MICMUTE_LED,
-@@ -7017,6 +7019,18 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC287_FIXUP_CS35L41_I2C_2_THINKPAD_ACPI,
- 	},
-+	[ALC287_FIXUP_CS35L41_I2C_4_THINKPAD_ACPI] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = cs35l41_fixup_i2c_four,
-+		.chained = true,
-+		.chain_id = ALC285_FIXUP_THINKPAD_NO_BASS_SPK_HEADSET_JACK,
-+	},
-+	[ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_4_THINKPAD] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc287_fixup_tb_vmaster_led,
-+		.chained = true,
-+		.chain_id = ALC287_FIXUP_CS35L41_I2C_4_THINKPAD_ACPI,
-+	},
- 	[ALC2XX_FIXUP_HEADSET_MIC] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc2xx_fixup_headset_mic,
-@@ -8378,6 +8392,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x17aa, 0x3827, "Ideapad S740", ALC285_FIXUP_IDEAPAD_S740_COEF),
- 	SND_PCI_QUIRK(0x17aa, 0x3834, "Lenovo IdeaPad Slim 9i 14ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
- 	SND_PCI_QUIRK(0x17aa, 0x383d, "Legion Y9000X 2019", ALC285_FIXUP_LEGION_Y9000X_SPEAKERS),
-+	SND_PCI_QUIRK(0x17aa, 0x3842, "ThinkBook X G2 IAH", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_4_THINKPAD),
- 	SND_PCI_QUIRK(0x17aa, 0x3843, "Lenovo Yoga 9i / Yoga Book 9i", ALC287_FIXUP_LENOVO_YOGA_BOOK_9I),
- 	/* Yoga Pro 7 14IMH9 shares PCI SSID 17aa:3847 with Legion 7 16ACHG6;
- 	 * use codec SSID to distinguish them
-
----
-base-commit: f5e1a9a3fddab8421416b68bb132ae9626d07156
-change-id: 20261009-thinkbook-x-g2-iah-05195dea7d38
-
-Best regards,
+The clock frequency is fixed, so you could also provide a fixed clock to 
+ensure that the clock frequency is derived correctly. I will check the 
+actual clocking because 200MHz sounds odd to me, since the RGMII 
+interface does require 125MHz and therefore a 250MHz source makes that easy.
 -- 
-Evgeny Akhtimirov <evgeny@devduty.com>
-
-
+Florian
