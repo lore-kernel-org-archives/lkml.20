@@ -1,356 +1,168 @@
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11021117.outbound.protection.outlook.com [40.107.208.117])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE61045562C
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 13:39:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 030F949B5C3;
+	Fri,  9 Oct 2026 13:40:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.117
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791553147; cv=pass; b=s2Ch4nojc9fOVqdSXAnX8dbdNiYJVwT/YZzBfPt0OpBSp0Ccuv9s573W/FnH+yfpcgbX9pRdY0QHHfpRRU2gRKOpDYhxA1oX/RZRIz180OuWI4Q9jZoz3bXBsVG80EbV0zO5SEqQgiuLMgU4V+heiekCLfPRHeBp5twvRquDYTQ=
+	t=1791553203; cv=fail; b=qFTzzlxZf+iIqB4e17788BPISZcL79n1TUMITGkOSwENYa4yr7y0aDspeM6nxbP4RRue5JmdlTstaFGnID0I9IFgG0AIKDBYAmSDypNTQsJ0EWMhsl2l98IjQJ1PLYv+HBxLZlpesFVrjPP4Tq60Lrtgsl+ThclbQ6Y1CnUD5Zc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791553147; c=relaxed/simple;
-	bh=eszsKsyKpb9lT+hzleu80ByvkFfGr5QN8UFWzwVlJw4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gw2KiY3WBkA0aYBpu5AII5Fl2xx8FlN5g4ikx19ss2nqeZ0LUmW0n3qrAmp752xiU0Ndi6tlr2KuWEpgGRyQTEs3etIq7Nml6a9rPbdj3ESHi8VkDIm8jGS89nTA7qjprMBII+ANmhO6xtYRRUi4Vg5pfk5rGEO4EQWSZeEbAI8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=wVE/KR97; arc=pass smtp.client-ip=209.85.218.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791553203; c=relaxed/simple;
+	bh=DZ3tCfBsOA0Wys/cTcSMCqvOPkvBqoLeLvpIZAWpGJ4=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=nbOIat181QB9ndEH6ACl1z5FrfkGaIlF2i7reDIBiG+k6lnpi9fahB4pTYMs2VLVrwDlXev+8FUgrLikZcc44YTcnHuDefqwHrSTpYndCOGFg5RgK3LaWtVOq1ZuGXc2nvshvYZ+jnjbYwH7T04O6xAhCs3KNCxh0dR4PysrUpQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=maxlinear.com; spf=pass smtp.mailfrom=maxlinear.com; dkim=pass (2048-bit key) header.d=maxlinear.com header.i=@maxlinear.com header.b=K9pH7Ny3; arc=fail smtp.client-ip=40.107.208.117
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=maxlinear.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=maxlinear.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="wVE/KR97"
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c2e5e801487so666094766b.3
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 06:39:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791553143; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GXfedBiTzpl6oTVud3t3cXa5h1joXgyrTVECDk2C5AuisY8VSXVLuWaMKTTFmt/Kwq
-         9b34EDitUpVDvPBdNQyn37Gt89rkbMkwYfvsneQhcDTfAQIZGpJie8hmzMMFWOIwsAsc
-         3W5YOoZEHnzC8/fwe9RwGiVKFRFfxPgWPihREqIpRLFdM44s3yHsCP0YIJY0zRq9fx/G
-         ha+RzCfBa9xtM/vgoD9dq+wj4qviFEj4q4vDnnMps2sftkcjCd4PAyCZWMbeyVX5BViu
-         uly6duCEvhNFfrS+gNEuNfDxft49TPZ6Mv8Z1aU39zLJS3Jmy71yB86vR+4anTM5Y5nK
-         6kOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=uzADCC8NPSRlhSrBRERpfxRJX72nbK8pgUsrCulq8pU=;
-        fh=ZF7kd/VyBSzryIywCfOaLt+f+l/xGzwHoAUCj3agAIM=;
-        b=rwwGOwVcTnqGVqAdnNqlzuoOYqVVlR0lys3dO5QrGJclFIaHbbxJwCwMnVYjgBG7wy
-         cGCTDgZEoLMEyv5uZzP64d4OEk/qfBHa5eYMswaHk5pWCAG4CsMMeA9Qbf6zgzYOqT2e
-         xiXNJvfulOshFfpO2DWQsxjDg2qOZ9/1RS3bSQNbDsreaapyshqyPlHLsml8vVNgP7iv
-         bVQogMvbASkpH+nk8TpdONtCTm/OaEAxdWt7B1T1dmmu80XMPZE/ViWdWkoiIETWgckX
-         RMRHUP10CCA1TSgTd7JjY4yS//RS2UHha0T+Dmmyk+/s3bfGFuij7Rchg4X+20Pttdju
-         qj6Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791553143; x=1792157943; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uzADCC8NPSRlhSrBRERpfxRJX72nbK8pgUsrCulq8pU=;
-        b=wVE/KR97slL9x/8tCufNujV+raysGKFCqZpbrcb2cMQZXCg+Bt9dpaHm11bhj8C5Gq
-         B/AKlewjFkMgznSUz7rx0EWh2pGUapG4IB3lfHOHcZgV/YdKhcYbsy+O3hCrr4Gp1f2F
-         NLaLxp4ZhkxcBuSeEpe9w+VprBZIEwwNLHPm6yB5EKuZhPF+C8jhKemXZpx/mmop48Zh
-         m248UKoeBGjiBDX5KxDho5AsQYTvnMwWhsufwKVTFZQzt6Vg4pLrUZeG7qzCb6M+7vcL
-         OIEgMnh5Y4OcoG8+je/ST/4cB7qnBIhtlAipclAafjMOPuezBW5G2v+V4cCypyJIhemp
-         kYfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791553143; x=1792157943;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=uzADCC8NPSRlhSrBRERpfxRJX72nbK8pgUsrCulq8pU=;
-        b=tKPXxjIVPK0lnFcDiHmVKeMesXrZZ8OQrRakqHJlpeOBadWRr+BSgcQ8Fyw/jGp3JX
-         +aaZpoCI+AEX8dELNv+v5Hw1hfgkOeEFWEroU0xqx9wXtq4174e/90wz6ZQFsxTWEIo2
-         mqz3DETxYt1c5v+8OTFmtACfWNmbumebR4Lys9Run1Ksy7btKOLzepZeWiZOU+YpbV5T
-         cPiq34m2PPI2geA7g55w8/LsXtBIQecDpMelLcVgdCocmj2STVPtY/6gIOZhYYaDyCXU
-         MaIvCG8hl0Un8THpYrgIAz4GVuG7uSjfnXJFgUX6RW6NSyCPF+O/L52OVIvKPkdLxvdv
-         LQFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy66rNXCKkWybyPu5yWw9OcrpJmtJBoHuYVBaLoR3NNzmk3cU9hEyZDKSJVzA51wqX8hOfh0asUA0DcLAg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLBPqHHZLi0zgCpRizLHriRxqeEW7H7N+uGK6h3L86NXO7qnxYb
-	1//LEvq+Dk9ijVSgYh3qBsCgPNhvwE0eAltqyzm4utruro1KsWpfG6/HO62dmB3ZGqKqA6/1LC6
-	iTqciMLDy49lrOfCeWhdaLloohM2tg4W/dZ5Z5stGsw==
-X-Gm-Gg: AYBFou30ap3dB3FcobXyVY/dbo6etcl2xqwyrUiZyYWzX65CkjpIKCBGy/uvCx1i/Sf
-	XpY8xCh8qCPwqssuYlEpt2e78Q7rMTLPbwV76qYRzJ1x9dvMpz3pocKTwVJ25cIkR+LpW3N1MXO
-	3v4RB+t9qARmwJZ5vyAo7ZjnDq2PdYpe0GB0j4Ix86u1O4jGui5ydSYC8MYRVmQi6t8vqjKhE8y
-	OhFnr351RSJn+ya6b0gqm3YnnlSKjdvZbbSmQDgMmFFStktnQXRqs2yKOXhZkjNksyBWR/KDvSG
-	jz1kCOgszWvqCWxbjcUk5SbYiQhCrtSWexIotEMfnEU49fWhhxFYwJ6Kqi4wS27fcuKJJoVZuos
-	RsF2A200qh1k=
-X-Received: by 2002:a17:907:9485:b0:c2d:c98f:482d with SMTP id
- a640c23a62f3a-c31aa05e1d6mr220762466b.31.1791553142780; Fri, 09 Oct 2026
- 06:39:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=maxlinear.com header.i=@maxlinear.com header.b="K9pH7Ny3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LlpFFwIBL7SpV+f3wnp5TRT6LdJ/M4ED9MCM/csGCO/i4SCfPujbkqRNixlFj6gd4KekgASVaNGNLK66CgrB/41TqCNUH2FS3WTI0XQg7MexUgL8Q/7cXx5PywjYgHpMCx1k+zsBGzc8NFGvhtOqber9o6gU7+sKcrlp/bwX9FLNzIylCNHGYoSUjKSWBnBF78+OkamhC5qN72GNAirYVDQlEsnWud66+dYKaZs6f8F8Tv9kWN1Lp52c5EGZogDiYiBAwyHrhYBelY/6qyXkfL0RerGKmem92ZQOjJEF2OrglIU2pfomtCPPWLWdq+Eze5zIQ1X+0CpzEm8aQJO+bg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DZ3tCfBsOA0Wys/cTcSMCqvOPkvBqoLeLvpIZAWpGJ4=;
+ b=PxT/nzykT80V6brDh0zfUh80g3bkgK8Y8q7umNYKMAif3AJW42//BO335KDPhdkw2wC+d18SLf7EtelnEWg9yHhZFQ0w+/zGSDbkB0WdTKqlULdV4Hr6KDwpEV/6eN5zd/SNI51wJX36BGKYiC23xaXvFOziKNyuX/14BvWDNY1YNJIlmLfOFCD1MoojwHRCgqTYUMSAILfKjYQzor4mGtAdxsCYbEhMGCaVI0ru8W12cYfZjKu2hvCUTAk07t/arpzTJayPWgmRyWIPPLmHZ2c2eC8qn2O1g8LwR2P5UqB+Hxy4WNj+ALAryC8U34yeNn1wfqRrmihSpmiIPzJSdQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=maxlinear.com; dmarc=pass action=none
+ header.from=maxlinear.com; dkim=pass header.d=maxlinear.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=maxlinear.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DZ3tCfBsOA0Wys/cTcSMCqvOPkvBqoLeLvpIZAWpGJ4=;
+ b=K9pH7Ny3ObVkA/80VAbjHQ+8VNRm2qmFM688kp365k0Wf2V/lhCmBcXNccBgD4GSbE9MRo+usKR/Pj2xen5gq1Ge3/uLDwYUBjVMCESj4TQqqZP1iEaO2ysFIMKNMeKhUJBCOQtOVQt9K9swy+m6PdYVFkElNpUb+X/Uk+r8GtHMd/txJngyxFBm/7ep2C9nybRxJErtuCQtSVZGM9pik837pffhU3gHsHlkXVdCfWWQw0ZHIbICzlq81nXWiaU6o4DrgK8Dz7vnQ8Tvy6LoL+EYnR1JlYrSOhBiq4TYq99nnr0RCvt8iwzQf9G2nirwWQg0uSxFr1uby/KuND5CHw==
+Received: from DS7PR19MB6279.namprd19.prod.outlook.com (2603:10b6:8:98::17) by
+ DS6PR19MB418238.namprd19.prod.outlook.com (2603:10b6:8:4c4::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
+ 2026 13:39:55 +0000
+Received: from DS7PR19MB6279.namprd19.prod.outlook.com
+ ([fe80::e6d6:e133:f499:2714]) by DS7PR19MB6279.namprd19.prod.outlook.com
+ ([fe80::e6d6:e133:f499:2714%5]) with mapi id 15.21.0451.014; Fri, 9 Oct 2026
+ 13:39:55 +0000
+From: Stephan Pruecklmayer <spruecklmayer@maxlinear.com>
+To: John Crispin <john@phrozen.org>, "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, "20261008143249.3439762-1-john@phrozen.org"
+	<20261008143249.3439762-1-john@phrozen.org>
+CC: Donald Hunter <donald.hunter@gmail.com>, Simon Horman <horms@kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Andrew Lunn
+	<andrew+netdev@lunn.ch>, Christian Marangi <ansuelsmth@gmail.com>, Jonathan
+ Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+	<rdunlap@infradead.org>, "linux-doc@vger.kernel.org"
+	<linux-doc@vger.kernel.org>, Gaoyang Wei <yhyxwgy@gmail.com>, Ziyou Xu
+	<xuziyougm@gmail.com>
+Subject: [RFC net-next 00/12] net: add the PON subsystem
+Thread-Topic: [RFC net-next 00/12] net: add the PON subsystem
+Thread-Index: Ad1X8EthmWAz+HGNQSS5xOo0goehDg==
+Date: Fri, 9 Oct 2026 13:39:55 +0000
+Message-ID:
+ <DS7PR19MB627981E05E5FF93C7B8AC078BB922@DS7PR19MB6279.namprd19.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=maxlinear.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS7PR19MB6279:EE_|DS6PR19MB418238:EE_
+x-ms-office365-filtering-correlation-id: b5d82173-6c42-4221-0cbc-08df260acda4
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|23010399003|376014|7416014|1800799024|38070700021|56012099006|11063799006|10067099003|18002099003|6133799003;
+x-microsoft-antispam-message-info:
+ gyNV6G9lvHsSoLVOkLzS74rkGR43n3JXQp4ertF5gqRIX7lFeaHcp58wF4Et6W48YEa5S9701y+icmUKsZePZH+sszxetp/1u4Ta15ACPScad/qHO1KnG6awH4dflgqV3JMY/5KLKQbCGGOsIvaVGggEmz4FJbg3gBdI0C02eHy0ErjAEohcZtWwOSZ2/IQ7A9zTWQujBaH2auOl0xULdQDa7W/0OrKtjjWvdzIQl+bvAFA/upVP0ZaCmWy+YQfClpPn8GzoiOJxI+4cn6uyLtYMops45yDw9635UdRufmwRr4DKpZy7CkLLrCTWlbparaNt74bcX7xHziLUedh+AgkeAh68SiN0CTssKTut7iO9faEIzQQsCllzumyz0atO1CnuwE6IuEbz+4eGfDPID7WFI9k7lGl/f33PUyMWkT1AZmy7/VbBEvlbh1IIvnyzoPjdb9zmyXSu/KDAnm6XAixSxRvAAuCKGkS9PH3Vw6yrEF4npLwgOC2/TBCBF4ESDmWQElWmA9TtsMUzmEC3UIOjXz5kt7aK0uaBzpQjHuOXREsICvhwiZ0cw1K1eSEeeGap7HGfQ32oY3SrHoNGkDQcrcGBSAl4PEcG1X9X+lTHSKCt21rk8TDHbIGppk0fgKF6nlIWvZcVtWGc6RNEyJu+w6eJ8N1y6Xr4eplDa80=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR19MB6279.namprd19.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(38070700021)(56012099006)(11063799006)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?SG8yUmc5V0orbmJjdE96UGREZU1zUE02ZEorc0d5QTNJOURrNVZHcTNPMWM0?=
+ =?utf-8?B?TzNHdy9KYlVjL1VCQ1o4bzdUV1FLdGV6cmJmQW5BR012M29QS2E1OEtxdzNE?=
+ =?utf-8?B?ZG8zdklxZUlIdWlMNUh5eDdMWnhUQUJVVVVMYldHcXhTYTZJem5EYVBHMkFG?=
+ =?utf-8?B?azNacWV6VU5RQjZRR1JONnJlTS9YaEFCTDE3czlIMGNpMFlZb3VHUVlkWldH?=
+ =?utf-8?B?SXhWOTBndGVaRU9WSUVvWnVsdm9Zc05rM2YvelUzaDFRME9NZVpOeUl6MytJ?=
+ =?utf-8?B?OWE3blcybUpqWWZSWW5TNjBzL3FTNjI1TFZmUWp2ZlZ6MzVQeVl4K2hmdjh4?=
+ =?utf-8?B?dUNCc2ZvQ1p4WWJ1dWpFM24xNmtOcjc0SnBJa3hWVXNYYXlwbVprcWNBUnBR?=
+ =?utf-8?B?VlpWWTNmV3VyRXFlSXZPMFJMOFlmcEVPcVVyUi83NWVNYS95YjVqTU0wYnk3?=
+ =?utf-8?B?SDNIZUlJT05oSFlKL2hMZXRnMVhyYUJuTEJzZmFBR2twalJPcXhHUnhib3hY?=
+ =?utf-8?B?UjNjTWlDUFM1ZWtoWUtmLzBHNmsydVQwdE5VNEhYd1Bxb3YyUWdYUTBtTWhj?=
+ =?utf-8?B?Uy9iRGlONFlmbzZFc3hGaEozZ0pmV3hIQXBaWUZZd3V5Ykt1VEFqMy9NdzFL?=
+ =?utf-8?B?aHB0RVBBbFpYdUlsM0NxdEVWMkVaRVRZTFZzbkMxZTk3cE0yZkdTUDZBNHFC?=
+ =?utf-8?B?WEtiL0MxTm9XM25wTG91NHFKanRsajVoRmttUEp0Mk5RNVI4UDRRWUUzbXk0?=
+ =?utf-8?B?UzJJSnhnR1JzOFlPakkvVXhGd3pDc3U0YmFDaWZVWjlOMXFtRTgrV01CTlRo?=
+ =?utf-8?B?SU8rS3MydkJ4eUtORGxWN0poOTVZL1FIOWZCdU05VjJ3NGFVOVZkTjZLNW9l?=
+ =?utf-8?B?QjFyd0w5cWw1cGFIc3V3alVjcUE0OE1TOHZ1UVFNQ1NjYmo5djJScmhHQUx3?=
+ =?utf-8?B?YWZRUFBUZHBDaGl2ZmsxQjZnQkdOV2NhNEdxQUtiMXl2eHFwdENmbVllMUt4?=
+ =?utf-8?B?bzlRLzJvSUVCRlp3clRqWkZzYVQ3U3RSUDB6VERYTlRTSWIxR2YzR3lBL0Er?=
+ =?utf-8?B?M014UzhPTjQ4Rm1jNHAveGcrblJSbzQ0dDlXZU9MRERqdzVuWWY4TzRnWWpl?=
+ =?utf-8?B?bXFCbGxhSms5TE5yTVBrbmJPKzNXSEpETWpBZW1rWnE2dkZDVTJwV0x3WVRt?=
+ =?utf-8?B?VS9iTFhvM1paV3hUMXBXRGIwRUd0cUIvK1E1aVhOQVEyY0p0YTdRN28xUWxz?=
+ =?utf-8?B?bit3d21MdjdkZzkxTnloRlBOdnd2QXE3c1JPOVdUNUhxOVNNZ096UXc3NHpI?=
+ =?utf-8?B?TG9KYnBkKzErUkFpaVgwd0JrR2M2LzExZlFNclpsQXZlQmkvRDd3dHBRY0Rk?=
+ =?utf-8?B?Q2lpdnM1bjBXNytKSTFUd1ZYVGQ4NDFVazNZTmUxTk5SN1BDRmlraVVKL0lL?=
+ =?utf-8?B?NVZwV0lRTnVlOG56bTA4TWNZVzltb0d1SG5EaVo4WXZ4ak5mdkg2WE51aE92?=
+ =?utf-8?B?UzRhbVRHYzE0VDhvc1EvMkY3ckovZjQ3bFFFMnZ6Q2RlOWMzMEJxZUZiT2Ny?=
+ =?utf-8?B?Y25yZHJ4U3VuOTlBUGdza1EvOXg1MXdBR2NYNzRGQmx3YlJNSDQ0eHZ5VE13?=
+ =?utf-8?B?eWEwNGtZaEVXNHVHM3M0L1VhM2xnWm10YkZ1T2pWOGRuQ1EveDBKOEg2eHQw?=
+ =?utf-8?B?dWFjRjl0a3RDOHZ0RVp5V2N3SVF0RThEdkJkOXNsVEJhdFRPcjJjMjdHWkxF?=
+ =?utf-8?B?VndWbWdIM3JOcSthNkdWSkNIbVJpdG4rR2RmRlhVYURlYmhKamhQZmQxcDZj?=
+ =?utf-8?B?SWMvUko4Y2NqSW5HZ1cya0kwODBURDRuOUwyT2tUa2thZkk0cWF5N0NMNitS?=
+ =?utf-8?B?L1BZV0hpWFNQWXNDT3psb2V4R3UzdWFsdHhkWjBuSzJrMzJoVis5cU12MTRS?=
+ =?utf-8?B?OU1hZ2xXVFZJaUFGcWF3V2NUTlJuRTc4bzg2YXkxYmFRZkhsNGRoMnB3M2FC?=
+ =?utf-8?B?OWlLeDF3eEZ3MkpPa0tZbm1LNkhMZTNxMzdoY01PSmZ0cTB4NFZFQ1ROa1l1?=
+ =?utf-8?B?RjgrNW1HcWg0SWx4cmJrbzM5STA5R2NQQVJzSEpBeW0wMHA2ZzR2dEppV3Nl?=
+ =?utf-8?B?QmhMSTRTaXE3b2NQajFSLzJPRko5VXdOZTMxOFg2VmVOMm4vVExWbGZ6ZWh5?=
+ =?utf-8?B?c1d0TEcxb0VSYTY4Y285SGYwY0Jtd2VzYW0wUlB3ODhGNUNjUEtlUm9xQlIz?=
+ =?utf-8?B?MWVMd3hjUTNXRmtvcVNGNlVmMVhaeXlxVmFMOGlHZWtlOGJLTmhsM0haMjRW?=
+ =?utf-8?B?UFd5YVNCdUNOSmhkYnZ6ajZlVzlNRThvdHBaS3ZGTEZjZ3ZWM3NMU2J1YUc3?=
+ =?utf-8?Q?5XmZwC+pK5sWYSVw=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261002154415.2270586-1-vincent.guittot@linaro.org>
- <20261002154415.2270586-8-vincent.guittot@linaro.org> <asWyZtW7zPVo3k-A@chenyu-dev>
-In-Reply-To: <asWyZtW7zPVo3k-A@chenyu-dev>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Fri, 9 Oct 2026 15:38:51 +0200
-X-Gm-Features: AclHuK9ZEGHudOxQMUBCGqwsW1_88xYs0fNp7hJNPkNbdurNtelmMUpyv9uGoTw
-Message-ID: <CAKfTPtBv27s+BroNcGV+VDavZD-piYUbFpcQ5WoWsYvo=d+PRw@mail.gmail.com>
-Subject: Re: [PATCH 07/18] sched/fair: Add push task mechanism for fair
-To: Chen Yu <yu.c.chen@intel.com>
-Cc: mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, 
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, 
-	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
-	linux-kernel@vger.kernel.org, lukasz.luba@arm.com, rafael@kernel.org, 
-	linux-pm@vger.kernel.org, tj@kernel.org, void@manifault.com, 
-	arighi@nvidia.com, changwoo@igalia.com, sched-ext@lists.linux.dev, 
-	qyousef@layalina.io, christian.loehle@arm.com, pierre.gondois@arm.com, 
-	sshegde@linux.ibm.com, chen.yu@linux.dev
-Content-Type: text/plain; charset="UTF-8"
+X-OriginatorOrg: maxlinear.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR19MB6279.namprd19.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b5d82173-6c42-4221-0cbc-08df260acda4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2026 13:39:55.0992
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: dac28005-13e0-41b8-8280-7663835f2b1d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 8Ttt6sZ2iJVgsikbc+8tZxu+ia65u6gQN3cLpzul0T6aS/Pec+XFrY5o/dqboHzq9sP/vlt9bp6Q9bkvOAAWHLe0fHTCDENaWqoUtLXqfM8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR19MB418238
 
-On Wed, 7 Oct 2026 at 04:59, Chen Yu <yu.c.chen@intel.com> wrote:
->
-> On Fri, Oct 02, 2026 at 05:44:04PM +0200, Vincent Guittot wrote:
-> > EAS is based on wakeup events to efficiently place tasks on the system, but
-> > there are cases where a task doesn't have wakeup events anymore or at a far
-> > too low pace. For such situation, we can take advantage of the task being
-> > put back in the enqueued list to check if it should be pushed on another
-> > CPU.
-> >
-> > Add a push task mechanism that enables fair scheduler to push runnable
-> > tasks. EAS will be one user but other feature like filling idle CPUs or
-> > short slice tasks can also take advantage of it.
-> >
->
-> A hackbench was launched on a Xeon server with 192 cores, using the default
-> settings to see if there was any regression. According to the test results,
-> there is no obvious difference, so I think it is good now. Later, I'll also
-> test with a mix of different time slice workloads:
->
-> =========================================
-> Hackbench comparison
-> BASE: baseline
-> TEST: push
-> =========================================
-> MODE     G  FD |         BASE(s) |         TEST(s) |   DIFF% | RESULT
-> ------- -- ----+-----------------+-----------------+---------+----------
-> process 16  20 |     76.438/0.2% |     76.310/0.1% |   0.17% | IMPROVED
-> process  1  20 |     52.532/2.3% |     51.217/1.1% |   2.50% | IMPROVED
-> process  4  20 |     61.754/0.6% |     61.758/1.8% |  -0.01% | REGRESSED
-> process  8  20 |     76.817/0.5% |     79.049/0.2% |  -2.91% | REGRESSED
-> threads 16  20 |     66.290/1.5% |     67.120/3.5% |  -1.25% | REGRESSED
-> threads  1  20 |     62.311/2.3% |     61.518/1.7% |   1.27% | IMPROVED
-> threads  4  20 |     56.376/0.8% |     57.455/0.8% |  -1.91% | REGRESSED
-> threads  8  20 |     63.871/3.8% |     68.611/0.3% |  -7.42% | REGRESSED
->
-> Besides, as suggested by Qais, cache-aware scheduling could also be a user
-> of the push mechanism. This is an evaluation patch that uses task push for
-> cache-aware scheduling by allowing the cache-aware sensitive task to leverage
-> the push path to be pushed to its preferred LLC.
-
-Thanks for testing.
-
-Yes, the short task case is the only one using it right now but the
-goal is to extend its usage, and the cache-aware scheduler is one that
-could also take advantage
-
-
->
-> In my opinion, task pushing is triggered less frequently than task wakeup,
-> because it has a high bar to be launched(preempted runnable task)
-> This could reduce the risk of contention between the task pushing and the
-> cache-aware load balancer, and achieve faster task aggregation on its
-> preferred LLC.
->
-> We have launched a simple migration test based on the following change, and
-> will update later to see what the result is.
->
-> ---
->  kernel/sched/fair.c  | 88 ++++++++++++++++++++++++++++++++++++++++----
->  kernel/sched/sched.h |  1 +
->  2 files changed, 82 insertions(+), 7 deletions(-)
->
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 7eea0414fd46..d5c6bbf04b47 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -1391,7 +1391,8 @@ static bool update_deadline(struct cfs_rq *cfs_rq, struct sched_entity *se)
->
->  #include "pelt.h"
->
-> -static int select_idle_sibling(struct task_struct *p, int prev_cpu, int cpu);
-> +static int select_idle_sibling(struct task_struct *p, int prev_cpu, int cpu,
-> +                              int push_cpu);
->  static unsigned long task_h_load(struct task_struct *p);
->  static unsigned long capacity_of(int cpu);
->
-> @@ -9325,7 +9326,8 @@ static inline bool asym_fits_cpu(unsigned long util,
->  /*
->   * Try and locate an idle core/thread in the LLC cache domain.
->   */
-> -static int select_idle_sibling(struct task_struct *p, int prev, int target)
-> +static int select_idle_sibling(struct task_struct *p, int prev, int target,
-> +                              int push_cpu)
->  {
->         bool has_idle_core = false;
->         struct sched_domain *sd;
-> @@ -9348,6 +9350,19 @@ static int select_idle_sibling(struct task_struct *p, int prev, int target)
->          */
->         lockdep_assert_irqs_disabled();
->
-> +       /*
-> +        * push_cpu must be checked before the target: when
-> +        * a task is pushed from the tick, it is rq->curr, so
-> +        * idle_cpu_without() would consider the target as
-> +        * idle and keep the task on its current (non-preferred) LLC.
-> +        */
-> +       if (push_cpu != -1 && push_cpu != target && !cpus_share_cache(push_cpu, target)) {
-> +               target = push_cpu;
-> +               if (choose_idle_cpu(push_cpu, p) &&
-> +                   asym_fits_cpu(task_util, util_min, util_max, push_cpu))
-> +                       goto select_smt_priority;
-> +       }
-> +
->         if (choose_idle_cpu(target, p) &&
->             asym_fits_cpu(task_util, util_min, util_max, target))
->                 goto select_smt_priority;
-> @@ -10156,6 +10171,15 @@ static bool check_pushable_short_task(struct rq *rq, struct task_struct *p)
->         return false;
->  }
->
-> +#ifdef CONFIG_SCHED_CACHE
-> +static int check_pushable_cache_task(int this_cpu, struct task_struct *p);
-> +#else
-> +static inline int check_pushable_cache_task(int this_cpu, struct task_struct *p)
-> +{
-> +       return -1;
-> +}
-> +#endif
-> +
->  static bool fair_check_pushable_task(struct rq *rq, struct task_struct *p, struct task_struct *next)
->  {
->         if (!__check_pushable_fair_task(rq, p))
-> @@ -10167,6 +10191,9 @@ static bool fair_check_pushable_task(struct rq *rq, struct task_struct *p, struc
->         if (check_pushable_short_task(rq, p))
->                 return true;
->
-> +       if (check_pushable_cache_task(rq->cpu, p) != -1)
-> +               return true;
-> +
->         return false;
->  }
->
-> @@ -10231,7 +10258,7 @@ static bool fair_push_task(struct rq *rq)
->         if (!raw_spin_trylock(&next_task->pi_lock))
->                 return true;
->
-> -       new_cpu = select_task_rq_fair(next_task, prev_cpu, 0);
-> +       new_cpu = select_task_rq_fair(next_task, prev_cpu, WF_RQ_PUSH);
->
->         /* Task doesn't need to migrate */
->         if (new_cpu == prev_cpu)
-> @@ -10335,7 +10362,7 @@ static inline bool tick_pushable_task(struct task_struct *p, struct rq *rq, stru
->         if (!raw_spin_trylock(&p->pi_lock))
->                 return false;
->
-> -       new_cpu = select_task_rq_fair(p, cpu, 0);
-> +       new_cpu = select_task_rq_fair(p, cpu, WF_RQ_PUSH);
->
->         raw_spin_unlock(&p->pi_lock);
->
-> @@ -10382,7 +10409,7 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int select_flags)
->  {
->         int sync = (select_flags & WF_SYNC) && !(current->flags & PF_EXITING);
->         int want_sibling = !(select_flags & (WF_EXEC | WF_FORK));
-> -       int new_cpu, cpu = smp_processor_id();
-> +       int new_cpu, cpu = smp_processor_id(), push_cpu;
->         struct sched_domain *tmp, *sd = NULL;
->         /* SD_flags and WF_flags share the first nibble */
->         int sd_flag = select_flags & 0xF;
-> @@ -10414,6 +10441,15 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int select_flags)
->         if (select_flags & WF_TTWU)
->                 want_affine = !wake_wide(p) && cpumask_test_cpu(cpu, p->cpus_ptr);
->
-> +       /*
-> +        * Only a push triggered by cache aware scheduling will push the
-> +        * task towards its preferred LLC. Pushes for other reasons, like short
-> +        * slice task, uses the default push strategy.
-> +        */
-> +       push_cpu = -1;
-> +       if (select_flags & WF_RQ_PUSH)
-> +               push_cpu = check_pushable_cache_task(prev_cpu, p);
-> +
->         new_cpu = prev_cpu;
->
->         for_each_domain(cpu, tmp) {
-> @@ -10441,7 +10477,7 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int select_flags)
->                         break;
->         }
->
-> -       /* Slow path */
-> +       /* Slow path,  push task will not go inside due to flags = 0 */
->         if (unlikely(sd)) {
->                 new_cpu = sched_balance_find_dst_cpu(sd, p, cpu, prev_cpu, sd_flag);
->                 return select_idle_smt_cpu(p, new_cpu);
-> @@ -10449,7 +10485,7 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int select_flags)
->
->         /* Fast path */
->         if (want_sibling)
-> -               new_cpu = select_idle_sibling(p, prev_cpu, new_cpu);
-> +               new_cpu = select_idle_sibling(p, prev_cpu, new_cpu, push_cpu);
->
->         return new_cpu;
->  }
-> @@ -11572,6 +11608,44 @@ static bool migrate_degrades_llc(struct task_struct *p, struct lb_env *env)
->         return true;
->  }
->
-> +/*
-> + * Return the preferred CPU that task p running on this_cpu should be
-> + * pushed to for better LLC locality, or -1 if no such push is wanted.
-> + */
-> +static int check_pushable_cache_task(int this_cpu, struct task_struct *p)
-> +{
-> +       struct sched_cache_group *grp;
-> +       int pref_cpu;
-> +
-> +       if (!sched_cache_enabled())
-> +               return -1;
-> +
-> +       /* preemption already disabled */
-> +       grp = rcu_dereference_all(p->sched_cache_grp);
-> +       if (!grp)
-> +               return -1;
-> +
-> +       pref_cpu = READ_ONCE(grp->cpu);
-> +       /* If the task's pref_cpu is on the wrong(non-preferred) LLC, move it there */
-> +       if (pref_cpu == -1 || cpus_share_cache(pref_cpu, this_cpu))
-> +               return -1;
-> +
-> +       if (!cpumask_test_cpu(pref_cpu, p->cpus_ptr) ||
-> +           !cpumask_test_cpu(pref_cpu, cpu_active_mask))
-> +               return -1;
-> +
-> +#ifdef CONFIG_NUMA_BALANCING
-> +       if (static_branch_likely(&sched_numa_balancing) &&
-> +           p->numa_preferred_nid != NUMA_NO_NODE &&
-> +           p->numa_preferred_nid != cpu_to_node(pref_cpu))
-> +               return -1;
-> +#endif
-> +       if (can_migrate_llc(this_cpu, pref_cpu, task_util(p), true) == mig_forbid)
-> +               return -1;
-> +
-> +       return pref_cpu;
-> +}
-> +
->  #else
->  static inline bool get_llc_stats(int cpu, unsigned long *util,
->                                  unsigned long *cap)
-> diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-> index 95a18c0d21c6..85527034572d 100644
-> --- a/kernel/sched/sched.h
-> +++ b/kernel/sched/sched.h
-> @@ -2559,6 +2559,7 @@ static inline int task_on_rq_migrating(struct task_struct *p)
->  #define WF_CURRENT_CPU         0x40 /* Prefer to move the wakee to the current CPU. */
->  #define WF_RQ_SELECTED         0x80 /* ->select_task_rq() was called */
->  #define WF_TTWU_RQ             0x100 /* Wakeup completed through ttwu_runnable() */
-> +#define WF_RQ_PUSH             0x200 /* Push the task  */
->
->  static_assert(WF_EXEC == SD_BALANCE_EXEC);
->  static_assert(WF_FORK == SD_BALANCE_FORK);
-> --
-> 2.43.0
->
+SGkgYWxsLA0KDQpJIGFwcHJlY2lhdGUgdG8gZ2V0IGEgY29tbW9uIHN0cnVjdHVyZSBmb3IgUE9O
+IGdhdGV3YXlzLCANCkhHVXMgYW5kIFNGVXMgaW4gcGxhY2UuIA0KQXMgbWVudGlvbmVkIGluIHRo
+ZSBvdGhlciB0aHJlYWQgb24gdGhpcyB0b3BpYyANCihbUkZDXSBuZXQ6IHRvd2FyZHMgYSBnZW5l
+cmljIFBPTiBmcmFtZXdvcmspDQpodHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwvNzg1YmZmYmMt
+YjAyOC00NmRkLWIzZGUtYjk1YTI4MTIyMjU4QGdtYWlsLmNvbS8NCg0Kd2UgZnJvbSBNYXhMaW5l
+YXIgaGF2ZSBhbHNvIGRpc2N1c3NlZCBhbmQgaW1wbGVtZW50ZWQgYW4gYWJzdHJhY3Rpb24gYXQg
+DQp0aGUgTGludXgga2VybmVsIGJvdW5kYXJ5IGxheWVyIHRvIGFic3RyYWN0IGhhcmR3YXJlIGRl
+dmljZXMgYW5kIHRoZSBPTUNJIHN0YWNrIA0KYWNjb3JkaW5nbHkuIEZvciB0aGF0IHJlYXNvbiB3
+ZSBkZWZpbml0ZWx5IGVuZG9yc2Ugc3VjaCBlbmRldm9yIGluIHByaW5jaXBsZQ0KYW5kIHdlIHdp
+bGwgZnVydGhlciBjb21tZW50IGFuZCByZXBseSBvbiB0aGlzIG1haWxpbmcgbGlzdC4NCg0KSGF2
+aW5nIHNhaWQgdGhhdCwgc3VjaCBpbXBsZW1lbnRhdGlvbiBzaGFsbCBiZSBhbiBpbXBsZW1lbnRh
+dGlvbiBmb3IgYWxsIA0KcGVvcGxlIHVzaW5nIExpbnV4IGFuZCBQT04gYW5kIG5vdCBvbmx5IG9u
+ZSBzcGVjaWZpYyBjb21wYW55IGltcGxlbWVudGF0aW9uDQp0aGF0IGlzIGJlaW5nIHB1c2hlZCBo
+ZXJlLiBUaGUgcmVxdWlyZWQgYWJzdHJhY3Rpb24gbmVlZHMgdG8gc3VwcG9ydCBtdWx0aXBsZQ0K
+Y2hpcHNldHMgYW5kIHRoZWlyIHVuZGVybHlpbmcgYXJjaGl0ZWN0dXJlcy4gRGlmZmVyZW50IGNo
+aXBzIG1heSBkbyBjZXJ0YWluIHRoaW5ncw0KYWxyZWFkeSBpbiBoYXJkd2FyZSAoZXhhbXBsZSBQ
+TE9BTSkgd2hpbGUgb3RoZXJzIGRvIGl0IGluIHNvZnR3YXJlLg0KT3IgaG93IHRoZSBkYXRhIGlz
+IGJlaW5nIHRyYW5zZmVycmVkIGJldHdlZW4gZHJpdmVyIGFuZCBPTUNJIChFdGhlcm5ldCBvciAN
+CnNvbWV0aGluZyBlbHNlKS4NCg0KQmVmb3JlIG5haWxpbmcgZG93biBzdWNoIGludGVyZmFjZSwg
+dGhpcyBob21ld29yayBuZWVkcyB0byBiZSBkb25lLiANCkZyb20gTWF4TGluZWFyIHNpZGUgd2Ug
+d2lsbCBsb29rIGludG8gdGhpcyBhbmQgY29tcGFyZSB0byB3aGF0ZXZlciBwdWJsaWMNCmluZm9y
+bWF0aW9uIG9uIHRoZSBpbnRlcmZhY2UgZm9yIHRoZSBwcm9wb3NlZCBBaXJvaGEgY2hpcCBpcyBh
+dmFpbGFibGUsIGJ1dCBmcm9tDQphIHZlcnkgZmlyc3QgZ2xhbmNlIGl0IGNhbm5vdCAgYW5kIHdp
+bGwgbm90IHdvcmsgYXMgaXMsIGJ1dCBuZWVkcyBhYnN0cmFjdGlvbnMgZm9yIA0Kc2V2ZXJhbCBi
+dWlsZGluZyBibG9ja3MuIA0KT3VyIGV4cGVydHMgd2lsbCByZWFjaCBvdXQgaW4gdGhpcyBtYWls
+aW5nIGxpc3QgY29uY2VybmluZyBzcGVjaWZpYyBpbXBsZW1lbnRhdGlvbnMgDQphbmQgcXVlc3Rp
+b25zIG9uIHRoaXMgY3VycmVudCBwcm9wb3NhbC4NCg0KDQpTdGVwaGFuIFBydWVja2xtYXllcg0K
+TWF4TGluZWFyDQpTZW5pb3IgVGVjaG5pY2FsIERpcmVjdG9yIFN0cmF0ZWdpYyBNYXJrZXRpbmcg
+YW5kIFN0YW5kYXJkcw0KDQoNCg0K
