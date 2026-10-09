@@ -1,157 +1,220 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424714D8D8F;
-	Fri,  9 Oct 2026 11:45:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791546330; cv=none; b=j8171LCX1tVShVfHdrZwdjIWUPoDpi0vFMsCFhmKrr4rrpybfMFIIW6c/X1ePc+/k2LBW13u2n+4HhxIPMJ2TpsbiTYsvE7OAvPlnJG6dl8UCENedKya4wxsCyKbcncJjgVPyWwY4NKWKHGi9JWLwVCqswNrO7v+g01rTIeoYmw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791546330; c=relaxed/simple;
-	bh=sIzdR0t9y2qlqVpEweAz4cnHZdRw3nzerekhqmlZbB0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=EuU3pOymKcAAL7muYGttUQxJgKM64YoeoxFJ3xV83UiSzEwQAYQ/6P2zdVcZBJGtpI5/0/VYS+ZgLTF6tD0hwcC0eCRNeS5yijCQidXvnuKibNs8a4OYhbTZEVJ3/MJ/KSO87BuLfcZa7AtKCjtlNgjSBUYH70vUb76uv7dQ/TY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=s4+a30qz; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76A114BE43B
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 11:45:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791546347; cv=pass; b=tGAkOugQVlrBSaLoakHVl1fcEoAs2GMvc3YGa392n+nTOjHd8iutSbDHAOWoOHswcDCUG0RNgdkjGBaPdsZ4gvuyIWwgyXaZgb6ejx6PZpMnISvPnRUpFyb44hWNeq/6eQ3ao8nRE+X6hoM4V7ryD7bZYWidvbU+dqNFGWcJtpw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791546347; c=relaxed/simple;
+	bh=TOfNGwFqaSy91Kspj+7ZYb7uFuFlJpfQkRhy9CLGxCQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fCmf7YsM43AvF/r5f1ajPX8fjx37NeEZOCuO+hp7Qz1l2w47J9+RHvxaZbvSCyJZaOZy0Fhmwf6q8LybTCpRnBU3Wn6uQTx2MYJdXNT1sxS84Ij33UB0xTpzmZE2m1SutwScdgqMtztAKjG2nykLYez7QumVPo/wXflEix6ZMKk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=u8gSMaDd; arc=pass smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="s4+a30qz"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id ADFEDC2BCF5;
-	Fri,  9 Oct 2026 11:45:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791546329;
-	bh=sIzdR0t9y2qlqVpEweAz4cnHZdRw3nzerekhqmlZbB0=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=s4+a30qzqYI34uigxBZtDtmK4mUtbsG6L340rgPDBAJEGiFALeBrZaN1UJF2WuOA3
-	 rosYBH9uHbfL33W1DW8KOjjIXKdx+6g9xLfz2TaT8YoEvLfsiqC9Cfh8S6KqjAKiGo
-	 FfdcW6VOncXlUfX8QNz6bD0KyxVsSATvCBhuy4UGSqTnHhpZYmr/DIbw0lQbusiSjv
-	 v17IgOnsA5oi+gRWImBnscw6sH8xebhvf7J/vScCh8jjK390Td5c5JZk37IC/cBv3N
-	 VzYpB7TPNslgrrCvWjf2dqON5dxjHbStyXyr5JefW3qsvGfgAlOIMnQ20Uin/mDlxs
-	 Z0gDO3iqJCs5w==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A32CCA601E;
-	Fri,  9 Oct 2026 11:45:29 +0000 (UTC)
-From: Dimitri Wegner via B4 Relay <devnull+d.zerovolt.org@kernel.org>
-Date: Fri, 09 Oct 2026 13:44:53 +0200
-Subject: [PATCH] ALSA: usb-audio: Add feedback snap quirk for Mayflower ARC
- AMP
+	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="u8gSMaDd"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48afe0081a6so2021993f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 04:45:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791546333; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aO/mElhwGHt9sym2uNIcNwv25Gclt7CXN2oNY6C/fU4tCWMu17HPhlC6vIqZZD93S9
+         yB7Fg5zS6W0+oMH6IaYVt4jaEdEuHbgqInNwFaKs4MyAC5Bwezt5WRrfFfwdGwazMzXf
+         hKT/sdaYxa73VhJDp1+cpivKG/kcEZ7uYArKiII0IMjJmnOAQi1Pp0lpim9LdIRDt9Xp
+         6zWaMuNOKeVg87f5XxkZeS4+FQpxDjugVA6qDKe22NlMHaTyW3w02NOCFWqWa/1KlgYk
+         AqAkmwuJYiajOVTUBIOlZWu2a/vuTNbz72vb+PcmGf7rZcltPiqZHDCGXuhj7kfONWif
+         9y8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7MO9vjywSNkYUu5MtJSespV1dEQA8yEju3SiQ+MpGec=;
+        fh=gVC30guzYgJ5DmboudA6tjcpYEeIFEiomgfsaaJxRAY=;
+        b=cb0oo00A1bPVT0IKTXgsZBUeJDUuMhVmlKVP3hETVRwIXLK+HwgsZ8H2SS5NOE3uBY
+         T3h6JUih3Dq6loeClmglq1KYy1hjPG2MD3ihtnm7xuIgtAbPxeVtfdDrEDit2Ddbh4Ha
+         rTEBNwYXrbY++7Jx0WI1fERgglzbBhtx5+W5IAI7xIbRB6UEx03ADGZRlvBgJ2m5FRQn
+         jaGAIlNrY+DtmCukhU3XESmJ5f9R2vFUT4JOQgcNFYB+1v1P2g+xvn6vBwjeti0P9RjB
+         kpf/MID1pUa0o6pvydslsG5UhZDzBabcjOK8WycvkfPuuTM6oSSsz5CZyZEPue9pZqsm
+         P4Ew==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=brainfault.org; s=google; t=1791546333; x=1792151133; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7MO9vjywSNkYUu5MtJSespV1dEQA8yEju3SiQ+MpGec=;
+        b=u8gSMaDd5aX5pz6DW9qlPcfr0QnwLzwg0OBgc5+IP9MlvhEALLTcqNZDy9ijtLZi8n
+         R07Hu2DgU2NadN8sXlN0yM8c7EpvpyXpYwPvcBLqdoIYV+hZa/xCtg0xpmCEJItUOFJi
+         uORpCiayRtEUWcPHhSjbmur4tgW84iDGGek+KZ8DB2p+jNTaPdqEOoNrsI6OwTThVwb1
+         5wHW1CbxCJNVD39r7s2tmX4V2Tc7jcrRC6LbJ/spMC4j1XxyF50/B7zO5JVg6iylEHpW
+         M6wWcXpuJ7FtOo9l0njcCKNokMdvpatk57ts9FIxMWhRLKesHcQ4OXJJmwSZsORVBbua
+         Z4fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791546333; x=1792151133;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7MO9vjywSNkYUu5MtJSespV1dEQA8yEju3SiQ+MpGec=;
+        b=j134oP1lrttZQJAgmeEp5yZgsr705wwGmL17AMZSzKxN/qpXeUcmM+DVtNZd0Z7OjV
+         wpzR+gxW0n2EsySD+4KtSmLO9EViwJniipN9f5yloBCrSOV1+8DdNrtR29Jve0gjtA4q
+         SkOQX16/9irogh5SxhJkkhoeTScmhqAcwUikz3jiYjk8CFeOSJ9eMzCir9fMkPK5YeyS
+         yfq47X2SEzfT9rEzoNQskq2I13oSZTeh+gOliy2wKdFppgg1QTa1sPALlFzX972CxGdt
+         LE4TBrUIr/zVdZHIiO+090V6z2g58/bW9zO9Slq2EIcy5Jqp9BFzgs77ukeKM1+ML0D+
+         6b+w==
+X-Forwarded-Encrypted: i=1; AKwUvBwxHNYASwKyb/e9yWqYMJCAZ0ibGvged4kgdw6zDJ740fOnijVF3yuOWsw79AysUrngqnb15akKwN1adnI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI1jEXs7DzRnBtR/s1o6y5koHajyVXMn1zLuVvqZutT+pD6fg2P
+	hjN8nN+fQYutq5dJFOiI0/SuB2hjrtH4YDOlm+qVDXn17OD0d76BSpGGra+G/sC7NLVI4f5xRl6
+	rq9VYf2kl7r3aoTmzs6aSBSAXE7ILJ7iz/V8Bc5Sz3Q==
+X-Gm-Gg: AYBFou0tIuKn6lIsbpNzqgegB4vuW05++DMZYaaYar3DHXfSuZ/ylVl6WD0c6XXtZEh
+	gr07Apiu7N1qui4V9fJPqfwhuh0SRVF97nxJ4s+j8AEUAUbgod4hk5aiS2uuOkwl/Kyo38haI3q
+	eB4hkDEyJ/6BXKT3A9vCSKef4ycNctBjUs9X/ZMSLJnMuiZW8dOeEyXF74DULnSZ60PDANkoRk3
+	vnRi4o4eiaIZ3xZ8GLV/Nhf8kYjvIEgmvS5pLbP7Qz7Vfcudx8w6c6d/XqdBLCuSBwBdjTFKv3w
+	2mczDCJxvDOyx4EzwdS4B8YZK2tXkVISiv3ic1CQ/mc3f9ns3v9Flh3rvJ5TemDDwIGG7I+XqcV
+	jP877ti1V7DApZTQAl5xPZvNMYKs8kgp8sxTjH2lSQ59n1CV2DpzjwJRyCYDXvZGbQ0ZIvJkejg
+	==
+X-Received: by 2002:a05:6000:4687:b0:487:36b:1816 with SMTP id
+ ffacd0b85a97d-48dba7877f0mr2127579f8f.7.1791546333358; Fri, 09 Oct 2026
+ 04:45:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-mayflower-fb-v1-1-a84e82e05ac9@zerovolt.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDAwNL3dzEyrSc/PLUIt20JN1EU0tj48RUS8NUC2MloJaCotS0zAqwcdG
- xtbUAm7JbC14AAAA=
-X-Change-ID: 20261009-mayflower-fb-a5933ae91e83
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Dimitri Wegner <d@zerovolt.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791546328; l=3572;
- i=d@zerovolt.org; s=20261009; h=from:subject:message-id;
- bh=CXyZ3NBP8s2rl6b2wgACCQszHWo9Z1js6VRgKjg/Rak=;
- b=AERUawIR4ry5e2wJ0eQNl58+jXIqDwcHd6XiY56WtLxqTSvCv2Roab1Dqv+0jgWcivEUrMlMq
- wMk07YKjcPnCk+n8y97AP5qn/yF96oGX18VHgaeaSRRSQ7uvFE/NxhU
-X-Developer-Key: i=d@zerovolt.org; a=ed25519;
- pk=LvZetug4Pi01dwobr2q7O7RRa6xhnjAzWYqm6yuQZDI=
-X-Endpoint-Received: by B4 Relay for d@zerovolt.org/20261009 with
- auth_id=1141
-X-Original-From: Dimitri Wegner <d@zerovolt.org>
-Reply-To: d@zerovolt.org
+References: <20260925155116.465203-1-andrew.jones@oss.qualcomm.com>
+In-Reply-To: <20260925155116.465203-1-andrew.jones@oss.qualcomm.com>
+From: Anup Patel <anup@brainfault.org>
+Date: Fri, 9 Oct 2026 13:45:20 +0200
+X-Gm-Features: AclHuK8rgBU1gbsBmEn-K4KM8bdu2PbHz2NOesu5k9NjQJGHum_Uocj_Q34IYFc
+Message-ID: <CAAhSdy0Y8kQ=gsiX0QX6Ntq=fL89METhA0s7G3niBBJrHpue7A@mail.gmail.com>
+Subject: Re: [PATCH] RISC-V: KVM: Use a raw lock for IMSIC wakeup state
+To: Andrew Jones <andrew.jones@oss.qualcomm.com>
+Cc: kvm-riscv@lists.infradead.org, atish.patra@linux.dev, pjw@kernel.org, 
+	palmer@dabbelt.com, kvm@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Dimitri Wegner <d@zerovolt.org>
+On Fri, Sep 25, 2026 at 5:51=E2=80=AFPM Andrew Jones
+<andrew.jones@oss.qualcomm.com> wrote:
+>
+> kvm_riscv_vcpu_aia_imsic_put() can run from the scheduler preemption
+> notifier while the raw runqueue lock is held. Taking vsfile_lock, an
+> rwlock_t, there violates the lockdep wait-context rules.
+>
+> Protect the CPU/HGEI pair with a separate raw spinlock. All updates to
+> that pair retain vsfile_lock and take the new lock, while scheduler-out
+> uses only the new lock around the HGEIE update. This keeps the wakeup
+> setup serialized with VS-file publication and release without bringing
+> wider IMSIC operations into a raw critical section.
 
-The Mayflower ARC AMP DAC (USB ID 0493:4170, MAG Technology front-end)
-at times gets stuck reporting feedback of nominal+1 sample/frame (97
-instead of 96 at 96 kHz) and does not recover. The driver follows this
-feedback, and audible pops occur every 1-2s until the stream is
-restarted.
+Instead of introducing another lock, why not replace
+read_lock_irqsave(&imsic->vsfile_lock, flags) with
+write_lock_irqsave(&imsic->vsfile_lock, flags) in
+kvm_riscv_vcpu_aia_imsic_put() ??
 
-Add a quirk for this device that ignores feedback values more than
-1/128 (~0.8%) away from nominal and uses the nominal rate instead.
-Normal feedback corrections are far smaller than that and pass
-through unchanged. Other devices are not affected.
+Regards,
+Anup
 
-Signed-off-by: Dimitri Wegner <d@zerovolt.org>
----
-Tested on this DAC at 96 kHz for ~10 weeks on kernels 7.1 and 7.2.
-The pops no longer occur. The quirk triggered ~680 times over that
-period, always with feedback 0x61.0000 against nominal 0x60.0000.
----
- sound/usb/card.h     |  1 +
- sound/usb/endpoint.c | 16 ++++++++++++++++
- sound/usb/quirks.c   | 10 ++++++++++
- 3 files changed, 27 insertions(+)
-
-diff --git a/sound/usb/card.h b/sound/usb/card.h
-index 8299ac241c60..f956bcf00f77 100644
---- a/sound/usb/card.h
-+++ b/sound/usb/card.h
-@@ -123,6 +123,7 @@ struct snd_usb_endpoint {
- 	unsigned int syncmaxsize;	/* sync endpoint packet size */
- 	unsigned int fill_max:1;	/* fill max packet size always */
- 	unsigned int tenor_fb_quirk:1;	/* corrupted feedback data */
-+	unsigned int snap_fb_quirk:1;	/* ignore implausible feedback */
- 	unsigned int datainterval;      /* log_2 of data packet interval */
- 	unsigned int syncinterval;	/* P for adaptive mode, 0 otherwise */
- 	unsigned char silence_value;
-diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
-index 879d0451536e..9c844c55ad3f 100644
---- a/sound/usb/endpoint.c
-+++ b/sound/usb/endpoint.c
-@@ -1908,6 +1908,22 @@ static void snd_usb_handle_sync_urb(struct snd_usb_endpoint *ep,
- 	else
- 		f >>= -ep->freqshift;
- 
-+	if (unlikely(sender->snap_fb_quirk) &&
-+	    (f < ep->freqn - ep->freqn / 128 ||
-+	     f > ep->freqn + ep->freqn / 128)) {
-+		/*
-+		 * Feedback deviates from nominal far beyond what real
-+		 * clock differences can explain.  This firmware can get
-+		 * stuck at nominal+1 sample per frame, causing audible
-+		 * pops.  Trust the nominal rate instead.
-+		 */
-+		dev_warn_ratelimited(&ep->chip->dev->dev,
-+				     "EP 0x%x: ignoring implausible feedback 0x%x.%04x (nominal 0x%x.%04x)\n",
-+				     ep->ep_num, f >> 16, f & 0xffff,
-+				     ep->freqn >> 16, ep->freqn & 0xffff);
-+		f = ep->freqn;
-+	}
-+
- 	if (likely(f >= ep->freqn - ep->freqn / 8 && f <= ep->freqmax)) {
- 		/*
- 		 * If the frequency looks valid, set it.
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index 170f68db74fa..fc377b7306f2 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -2198,6 +2198,16 @@ void snd_usb_endpoint_start_quirk(struct snd_usb_endpoint *ep)
- 	     ep->chip->usb_id == USB_ID(0x1852, 0x5034)) && /* T+A Dac8 */
- 	    ep->syncmaxsize == 4)
- 		ep->tenor_fb_quirk = 1;
-+
-+	/*
-+	 * Mayflower ARC AMP DAC (MAG Technology USB front-end): the
-+	 * feedback can get stuck at nominal+1 sample per frame, causing
-+	 * pops every 1-2 sec until stream restart.  Snap implausible
-+	 * feedback to nominal.
-+	 */
-+	if (ep->chip->usb_id == USB_ID(0x0493, 0x4170) &&
-+	    ep->type == SND_USB_ENDPOINT_TYPE_SYNC)
-+		ep->snap_fb_quirk = 1;
- }
- 
- /* quirk applied after snd_usb_ctl_msg(); not applied during boot quirks */
-
----
-base-commit: f5e1a9a3fddab8421416b68bb132ae9626d07156
-change-id: 20261009-mayflower-fb-a5933ae91e83
-
-Best regards,
--- 
-Dimitri Wegner <d@zerovolt.org>
-
-
+>
+> Fixes: 4cec89db80ba ("RISC-V: KVM: Move HGEI[E|P] CSR access to IMSIC vir=
+tualization")
+> Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
+> ---
+>  arch/riscv/kvm/aia_imsic.c | 25 +++++++++++++++++++------
+>  1 file changed, 19 insertions(+), 6 deletions(-)
+>
+> diff --git a/arch/riscv/kvm/aia_imsic.c b/arch/riscv/kvm/aia_imsic.c
+> index c1af23e79ae0..1ccb7eac9f45 100644
+> --- a/arch/riscv/kvm/aia_imsic.c
+> +++ b/arch/riscv/kvm/aia_imsic.c
+> @@ -48,6 +48,8 @@ struct imsic {
+>
+>         /* IMSIC VS-file */
+>         rwlock_t vsfile_lock;
+> +       /* Writers hold both locks; scheduler-out only takes hgei_lock. *=
+/
+> +       raw_spinlock_t hgei_lock;
+>         int vsfile_cpu;
+>         int vsfile_hgei;
+>         void __iomem *vsfile_va;
+> @@ -582,6 +584,17 @@ static void imsic_vsfile_local_update(int vsfile_hge=
+i, u32 nr_eix,
+>         csr_write(CSR_VSISELECT, old_vsiselect);
+>  }
+>
+> +static void imsic_vsfile_set_hgei(struct imsic *imsic, int cpu, int hgei=
+)
+> +{
+> +       unsigned long flags;
+> +
+> +       /* Serialize the CPU/HGEI pair with scheduler-out's wakeup setup.=
+ */
+> +       raw_spin_lock_irqsave(&imsic->hgei_lock, flags);
+> +       imsic->vsfile_cpu =3D cpu;
+> +       imsic->vsfile_hgei =3D hgei;
+> +       raw_spin_unlock_irqrestore(&imsic->hgei_lock, flags);
+> +}
+> +
+>  static void imsic_vsfile_cleanup(struct imsic *imsic)
+>  {
+>         int old_vsfile_hgei, old_vsfile_cpu;
+> @@ -596,7 +609,7 @@ static void imsic_vsfile_cleanup(struct imsic *imsic)
+>         write_lock_irqsave(&imsic->vsfile_lock, flags);
+>         old_vsfile_hgei =3D imsic->vsfile_hgei;
+>         old_vsfile_cpu =3D imsic->vsfile_cpu;
+> -       imsic->vsfile_cpu =3D imsic->vsfile_hgei =3D -1;
+> +       imsic_vsfile_set_hgei(imsic, -1, -1);
+>         imsic->vsfile_va =3D NULL;
+>         imsic->vsfile_pa =3D 0;
+>         write_unlock_irqrestore(&imsic->vsfile_lock, flags);
+> @@ -727,10 +740,10 @@ void kvm_riscv_vcpu_aia_imsic_put(struct kvm_vcpu *=
+vcpu)
+>         if (!kvm_vcpu_is_blocking(vcpu))
+>                 return;
+>
+> -       read_lock_irqsave(&imsic->vsfile_lock, flags);
+> +       raw_spin_lock_irqsave(&imsic->hgei_lock, flags);
+>         if (imsic->vsfile_cpu > -1)
+>                 csr_set(CSR_HGEIE, BIT(imsic->vsfile_hgei));
+> -       read_unlock_irqrestore(&imsic->vsfile_lock, flags);
+> +       raw_spin_unlock_irqrestore(&imsic->hgei_lock, flags);
+>  }
+>
+>  void kvm_riscv_vcpu_aia_imsic_release(struct kvm_vcpu *vcpu)
+> @@ -747,7 +760,7 @@ void kvm_riscv_vcpu_aia_imsic_release(struct kvm_vcpu=
+ *vcpu)
+>         write_lock_irqsave(&imsic->vsfile_lock, flags);
+>         old_vsfile_hgei =3D imsic->vsfile_hgei;
+>         old_vsfile_cpu =3D imsic->vsfile_cpu;
+> -       imsic->vsfile_cpu =3D imsic->vsfile_hgei =3D -1;
+> +       imsic_vsfile_set_hgei(imsic, -1, -1);
+>         imsic->vsfile_va =3D NULL;
+>         imsic->vsfile_pa =3D 0;
+>         write_unlock_irqrestore(&imsic->vsfile_lock, flags);
+> @@ -861,8 +874,7 @@ int kvm_riscv_vcpu_aia_imsic_update(struct kvm_vcpu *=
+vcpu)
+>
+>         /* Update new IMSIC VS-file details in IMSIC context */
+>         write_lock_irqsave(&imsic->vsfile_lock, flags);
+> -       imsic->vsfile_hgei =3D new_vsfile_hgei;
+> -       imsic->vsfile_cpu =3D vcpu->cpu;
+> +       imsic_vsfile_set_hgei(imsic, vcpu->cpu, new_vsfile_hgei);
+>         imsic->vsfile_va =3D new_vsfile_va;
+>         imsic->vsfile_pa =3D new_vsfile_pa;
+>         write_unlock_irqrestore(&imsic->vsfile_lock, flags);
+> @@ -1112,6 +1124,7 @@ int kvm_riscv_vcpu_aia_imsic_init(struct kvm_vcpu *=
+vcpu)
+>         /* Setup IMSIC context  */
+>         imsic->nr_msis =3D kvm->arch.aia.nr_ids + 1;
+>         rwlock_init(&imsic->vsfile_lock);
+> +       raw_spin_lock_init(&imsic->hgei_lock);
+>         imsic->nr_eix =3D BITS_TO_U64(imsic->nr_msis);
+>         imsic->nr_hw_eix =3D BITS_TO_U64(kvm_riscv_aia_max_ids);
+>         imsic->vsfile_hgei =3D imsic->vsfile_cpu =3D -1;
+> --
+> 2.43.0
+>
