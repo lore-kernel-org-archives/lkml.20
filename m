@@ -1,146 +1,126 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDA1535C68C
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 16:13:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B92ED37C92D
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 16:13:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791562408; cv=none; b=RsS0Bw4V2GEm3Lln49hddGW4VM8dMhvhUGelwl6bawsfDZAbmcWQupYg3v7BfatbHEcKMCxWNqLJ/SgLAXpo6iVPmYyHz4cdRoMAQpPnQ/QAuWGc0H1O57cjm/K302x765nhyPm4C3wSvRmmm3ad4EERVQI+hWvF7jp6b3paIfY=
+	t=1791562422; cv=none; b=QANmAMhPwm7y5AYN3x7xzwpzSBQgY110J2h0Q9ZZW1eoMwQEfaZD5IvLd8p1t9FKCIXN4YtMz80Ck+adBAE30MgzPXjnzxxEMszbTQViDkOU4Gvq5a93wInPgS3pIp0nE766O70Jjk32fE50G+NYNS/wv83Tugj1IJSUCutJ0sQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791562408; c=relaxed/simple;
-	bh=aI0lI99K99g4OWiIyyU9iimqIuo4+tttB2dJpAzwIqM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PzTIzn9NStYa2ZPKZze/y+IXp1lS7QgHtXm+yliHO8cA7E6IO7qzp3TCBVHMMSyvVdFzG6yAkLQpwW0UuhDoUenpJD8fNhAvBZLxZC9MQk0/AGqBfC3qjj71Pc0A6GBzMjVG6ptfyyC1eNjv/yqBPMwQbT4REDKtcjRtWBfp4wI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=egicon.com; spf=pass smtp.mailfrom=egicon.com; dkim=pass (2048-bit key) header.d=egicon.com header.i=@egicon.com header.b=Zp9xr/Zw; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=egicon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=egicon.com
+	s=arc-20240116; t=1791562422; c=relaxed/simple;
+	bh=tGcd431wzZ2M0TrsJhabjysTWVanXC/NKgfAjPAgEYk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lvwF02u9orJxmDhEDXlLFOCNmK2ytqVVs0oFE2mMFNtk6aeIjwKmNjClYgEx5jVq1cGbVITgoPB7aap9Ga1WxxNRv7behiN10/El0CJ/la+v9fHraR9ZtJ04XhDe7+hrlQdp7pzS2TMNGbhiyHERYAjwHmF/QHlx5loYxdCi01g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=Oeydw+lD; arc=none smtp.client-ip=220.197.31.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=egicon.com header.i=@egicon.com header.b="Zp9xr/Zw"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a020e65269so49855e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 09:13:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=egicon.com; s=google; t=1791562404; x=1792167204; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2d9W8EXh/CNMo1CLxiIw/sZcjDyWO51mng42uYG4xNE=;
-        b=Zp9xr/ZwoyOfhoqlgbs9YoKAaE0lSG99pS1uIAkzBrkkMi9d91kdfkH9L3bu/rxi6y
-         XJuqJc+F0pIG5TScjFnpETdWFqD5HmsszzeA4XJVsssWwPICJfg8dqqnaS7cZ1YuPBqo
-         mPsXkBsoCkpZ2bIM6e2u1wSbJWFTDZO5deDMjqpRqNlXPLBYaDWvJd2KJ6XqeuuyzBOy
-         f6hRxZcQTjuhF5gErEUEWifnzSDe2i2z3i+8ssRJepGcDJhtAoz55ijzN40cgQmnxE0A
-         plU0PkqsLiY1NbchTV/M9XN0II1/5TxllJup+D00s6cgQ44QpLbhIUMC8eZOK93cSPug
-         scUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791562404; x=1792167204;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2d9W8EXh/CNMo1CLxiIw/sZcjDyWO51mng42uYG4xNE=;
-        b=yTRvMnPheIGr7MLxU2GYHhWRhC0Z1iu2sU/85SkkQNCyVoXowWFGEF1ZV4JaDSSorI
-         J0kD69/yWJ9kh8OtALkMkTvXd0QQ+MycEGbjlzUpQ9AVhqaKtkLJDfk9wG9y4JnJq/D6
-         yispwAJn8mrTx2PqwEeoCaorfWM7+iL4HMUXnBjute99HVwVRwI7pquuOwU98mAuCP1g
-         /CaaMhAWxjtJJpM8NkUrtM+olYHYDwbxLzd/vWorfmIxgXidwZkglCIJzUMVqdckaxTj
-         9VnzBNwO0/G+7zDkR6BfdLFN+wMHWBBjzsVSn3IwZyNntnPkMJFQtu7PtveDqTIxiFf4
-         qrFA==
-X-Forwarded-Encrypted: i=1; AKwUvBw6z2hSlhSk7slM2xslIN4yLA944Pcj7SvxKhpMym4m/vYsaCxl4dea8ae+R2+xJR5P6QYJ3vJHLw9ZBh4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kGVbBa97w8hK8TnI17zMBFF1WRtbWdZz7m+9q10ETYxnyOeNF0
-	HOgOZHrjplpELeCnqXeLECeStqXMraR2caxUAP5l5OPU1pizwb178cVughWEO8P4pA==
-X-Gm-Gg: AYBFou3SzBmSLsHTtveSJ7FSyefXqTvys1sIQiI7kSq7Bi1xj20IVr6Fadwb5sMtkA9
-	g81TAhIo0+lg3QU1YtWZP2xlxc2uMSszGrm+s8dbKysJ6LRUWUi6B4aaBJab8m+iwJMsQFhWxyc
-	UXSfoHPk9c+kaRflRCBcebI/114wY2lpPHyFoeLJYW6YDp0w9lpyrabMpeaRsaglHXU1c/pUCIN
-	wRhph9YoB+iprUpFNsjsdCTQ3e3tuB4gkV+v2wmKYqmEuPEfCqqaz62Xy3/hHdclYvMKmGdlB8S
-	e8GULDqBRAEYX3jds7mnPfQJHqX94XQWgbYM/uw6A36k7TBfFT1C1MyFtzsOmicmW6/fY6Lmgsm
-	W/ArhPxJG62U/woHxUDhS5UWf+470lccqUNy0jynySDntD8MTrtX02t7ozOjdpXMIbhRCexz1Jk
-	4nd+G5SOvYFKpPsv82XjzmRSZKsuqFR51sHNumMiCAdSfAFZi5Xvj+ydevx3IfHCzv2LaSldHl4
-	SP/jWrVd0OUViiS7J+GHClIj4ERJoH3W+rd4kb11eNv21FQXIJ8Nes=
-X-Received: by 2002:a05:600d:82c7:b0:4a0:17a:8844 with SMTP id 5b1f17b1804b1-4a18e446454mr51163965e9.1.1791562404063;
-        Fri, 09 Oct 2026 09:13:24 -0700 (PDT)
-Received: from egicon.com ([37.179.95.159])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf0abcesm76509375e9.1.2026.10.09.09.13.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 09:13:23 -0700 (PDT)
-Date: Fri, 9 Oct 2026 18:13:22 +0200
-From: Massimiliano Marretta <massimiliano.marretta@egicon.com>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: David Howells <dhowells@redhat.com>, 
-	David Woodhouse <dwmw2@infradead.org>, Nathan Chancellor <nathan@kernel.org>, 
-	Nicolas Schier <nsc@kernel.org>, keyrings@vger.kernel.org, linux-kbuild@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] Add bulk signing support for PKCS#11 keys
-Message-ID: <hhgoxv37uegtx3memo7spxlesoywbsnavzoezdg7rdrfwog3ml@tx73cw2yhu6n>
-References: <20261009101915.495734-1-massimiliano.marretta@egicon.com>
- <20261009135228.GA321175@quark>
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="Oeydw+lD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=ob
+	tqnRZ2XT3fd0RMFoXHVLYidnghgsTYsU6R43rdvKw=; b=Oeydw+lDJ7WU6Fv0xI
+	wmMo5NRjyOdPzI9Y7XlzcmDqlGcByoUiXf4L0J2w03rA64oeFdDVC1xjHjTaqL1e
+	KEpzMCg4huju+RZ0Jod1AZ9UZuawRSDYRyI9UUDSytyeAfvCqRcEq98CJ1hyOjzW
+	PlLZCLizbACIGoKeAKMxI5bCY=
+Received: from nzzhao-ThinkCentre-M760t.mioffice.cn (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3V46AEslqHAsZBA--.38226S2;
+	Sat, 10 Oct 2026 00:12:49 +0800 (CST)
+From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+To: linux-f2fs-devel@lists.sourceforge.net,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
+	Chao Yu <chao@kernel.org>
+Cc: Daeho Jeong <daehojeong@google.com>,
+	Barry Song <baohua@kernel.org>,
+	Juan Yescas <jyescas@google.com>,
+	Dev Jain <Dev.Jain@arm.com>,
+	linux-kernel@vger.kernel.org,
+	David Hildenbrand <David.Hildenbrand@arm.com>,
+	Bo Zhang <zhangbo56@xiaomi.com>,
+	Kalesh Singh <kaleshsingh@google.com>,
+	Nanzhe Zhao <nzzhao@126.com>,
+	Pengfei Li <lipengfei28@xiaomi.com>,
+	Ryan Roberts <Ryan.Roberts@arm.com>,
+	Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+Subject: [PATCH v3 00/17] f2fs: support & optimize large folios for writable files
+Date: Sat, 10 Oct 2026 00:12:07 +0800
+Message-ID: <20261009161224.4163796-1-zhaonanzhe@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009135228.GA321175@quark>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3V46AEslqHAsZBA--.38226S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXw4DZFWDXryrCw4Dur1kuFg_yoW5Xr1xpF
+	WYkrZ5GryfGr47ZrsrA3WFqrnYq3yrG347ua4xXryIqFn8WF1ruF1kK3Z5XFyxJryxJw4f
+	ta1UAry8WF1rJFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UCsjbUUUUU=
+Sender: nzzhao@126.com
+X-CM-SenderInfo: xq22xtbr6rjloofrz/xtbBsAGxgWrJEoE9CQAA3F
 
-On Fri, Oct 09, 2026 at 03:52:28PM +0200, Eric Biggers wrote:
-> On Fri, Oct 09, 2026 at 12:19:13PM +0200, Massimiliano Marretta wrote:
-> > Add support for signing kernel modules in bulk when the signing
-> > key is stored on a PKCS#11 token.
-> > 
-> > Currently scripts/sign-file signs one module per invocation. When
-> > the key lives on a PKCS#11 token (e.g. a Nitrokey HSM or a
-> > SmartCard-HSM), every invocation pays a fixed initialization cost
-> > of 25-36 seconds, which dominates the actual signing time. For a
-> > typical build with hundreds of modules this is impractical.
-> 
-> Can you elaborate on what problem you're trying to solve by using not
-> only asymmetric signatures, but also an HSM to hold the private key?
+This series supports large folios for most readable/writable files
+in buffered I/O paths, including normal files, block-layer encrypted
+files, and atomic files except for inline-data files, compressed files,
+and quota files.
 
-Sure, and thanks for asking. The HSM is not a choice made by this
-patch; it is a deployment requirement we have to meet.
+It also extends f2fs_folio_state to coexist with f2fs page-private
+flags and to handle large folio write path and partial truncate of
+large folios correctly.
 
-We are implementing the cybersecurity requirements for the EU Radio
-Equipment Directive (RED), specifically EN 18031, on a device based
-on an NXP i.MX8MM. To satisfy those requirements, all production
-keys -- including the module signing key -- must be held on an HSM
-with controlled access. Keeping the private key on a file would not
-meet the compliance requirements, and the same token is used for
-other artifacts in the secure-boot chain.
+Benchmark details can be found in the RFC v2 cover letter [1].
 
-PKCS#11 support for the signing key already exists in
-scripts/sign-file and in the kbuild Makefiles; this series does not
-introduce the HSM. What it addresses is the fact that, under that
-constraint, signing hundreds of modules with one invocation each is
-impractical. Measured on a real product build with 802 modules and
-the key stored on a SmartCard-HSM:
+Changes in v3:
+- Addressed the remaining review comments from Chao and Daeho; the
+  fixes are folded into the corresponding patches.
+- Added "f2fs: account large folio dirty data at block granularity" to
+  fix the f2fs/006 and generic/363 regressions.
+- Added "f2fs: wait for folio writeback before ffs_detach_free", fixing
+  a use-after-free in the full-range invalidation path reported by the
+  kernel test robot [2].
+- "f2fs: remove mappedtodisk flag usage in mmap write path" is now
+  included in the series as a prerequisite.
+- Link to v2: [3]
 
-  - individual invocations: ~6 h 28 min
-  - bulk mode:              ~42 min
+Many thanks to Chao and Daeho for your extensive reviews and valuable
+suggestions!
 
-> 
-> Have you considered hash-based integrity checking
-> (https://lore.kernel.org/linux-modules/20260505-module-hashes-v5-0-e174a5a49fce@weissschuh.net/)?
+[1] https://lore.kernel.org/r/20260622160830.324455-1-zhaonanzhe@xiaomi.com
+[2] https://lore.kernel.org/linux-f2fs-devel/202610081027.b13dcf10-lkp@intel.com/
+[3] https://lore.kernel.org/r/20260915041909.2903887-1-zhaonanzhe@xiaomi.com
 
-Yes, I have been following that series. It is a useful approach for
-its stated goal, and I am not arguing against it.
+Nanzhe Zhao (17):
+  f2fs: extend folio state for large folio write path
+  f2fs: carry subpage offset and count in write IO
+  f2fs: support regular file buffered writes on large folios
+  f2fs: support atomic file large folios buffered write
+  f2fs: support large folio writeback
+  f2fs: account large folio dirty data at block granularity
+  f2fs: remove mappedtodisk flag usage in mmap write path
+  f2fs: prepare mmap write faults for large folios
+  f2fs: make GC migration large-folio aware
+  f2fs: optimize small block size large folio read
+  f2fs: support partial uptodate large folio read
+  f2fs: handle partial truncate of large folio dirty subpages
+  f2fs: wait for folio writeback before ffs_detach_free
+  f2fs: fix zeroing paths for large folios
+  f2fs: handle block cloning within the same large folio
+  f2fs: allow large folio support to writeable files
+  f2fs: make compressed files compatible with large folio
 
-However, in our case it is not applicable. Our product depends on
-Wi-Fi modules from Ezurio that are built out-of-tree against the
-Engicam/NXP kernel. In this case the module hash is not known at
-vmlinux link time, so a Merkle tree computed during the kernel build
-cannot cover them. Asymmetric signatures remain the only supported
-verification path for those modules, which means the signing key has
-to stay on the HSM and the per-invocation token initialization cost
-remains a real problem.
+ Documentation/filesystems/f2fs.rst |   10 +
+ fs/f2fs/checkpoint.c               |   40 +-
+ fs/f2fs/compress.c                 |    3 +
+ fs/f2fs/data.c                     | 1333 +++++++++++++++++++++++++---
+ fs/f2fs/f2fs.h                     |  170 +++-
+ fs/f2fs/file.c                     |  230 +++--
+ fs/f2fs/gc.c                       |   38 +-
+ fs/f2fs/inline.c                   |    7 +
+ fs/f2fs/inode.c                    |    4 +-
+ fs/f2fs/namei.c                    |    1 +
+ fs/f2fs/segment.c                  |    5 +-
+ 11 files changed, 1588 insertions(+), 253 deletions(-)
 
-So the two mechanisms address different scenarios and are not in
-competition. This patch is a local optimization of the signing path
-that exists today: it is a no-op when the signing key is a PEM file,
-and it can be dropped if asymmetric module signatures ever go away
-entirely.
+-- 
+2.43.0
 
-Thanks,
-Massimiliano
-
-
-> 
-> - Eric
