@@ -1,121 +1,214 @@
-Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com [209.85.222.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D161323392A
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 00:35:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 397C118859B;
+	Fri,  9 Oct 2026 00:40:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791506151; cv=none; b=k0+Y4Qlo9YRUmTFy08HmRrlLku4d6aSSB7v/bHowDdPoVv9SBMErFXsmtrQB4lJP2l7eF6PYREWfbpLhvZtmj0NcdooDOe6jjpbj8V6E1lzkUoGRaC2teim2bN1fd4R379II37HdoVFMQ0R3TcZiIM3O0Tj3+2nJ4lyW8SsJq+w=
+	t=1791506451; cv=none; b=P1qtc+VFlwIGSrWflxX5a+5mcae9nTeDek6NE9XzgPokQODXSl0jt4NNcDOHNHdlMCD3gntzRhgefqDdmhFSDQOaQywxcI7fs6GbS42tjCck7orteMyQhqi3IZb4T9/2ehyOwa5Quf/v2Lj3PsSw/EM/ZbPousTuf89FyaBjoMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791506151; c=relaxed/simple;
-	bh=3pzmoegqDuSliAkTdeqycBq5aa62YqQO38QkmiiEiTA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lDsNG5URzwaimSWhcAw0ggDfvss9VA+jXnRWxAeCZzIaLNqnJTpFBv9uyKv7d4F12N2Mx/TdXDC7cMptKciPY6WCdQyImxnnB8HY0fqfZzB92OUhNhU8y8oFscq91d5k+qLfbcO5NSpt07RAtceG1CZf5PgbQKPO9byjr6PGeAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HgvBlffs; arc=none smtp.client-ip=209.85.222.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791506451; c=relaxed/simple;
+	bh=VnrNQ9zGJkyaVBWNIw32C16safpgXzhhXh0aiiukAk8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=MpLcyf7YlP6aMfUk1sBE4K3zVO+4TXY4nTDomp34QysY/JAdTCcqhuJ4pGWPW1JS22rG7XlykB18EL2zT91QZQLZ3WkSBHFJLmjyyg6d5C4RgyjOdVsum9reFBjWgLxDGd/fNcAhGsBx/j1XQ56Bvz/U/cfeIIVWsYnylX/qnxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LN71k/Nl; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HgvBlffs"
-Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-988d8aea5dcso31794241.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 17:35:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791506147; x=1792110947; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uDiCydjZ9y2SRlO9gdJts9J1fvejuYVS4OsVz5QeIVg=;
-        b=HgvBlffsiavrVkl2PlcLpjXVZcuTdi02bX6PwF6uEG8mqC4+8FN2b0J1XisV+EyjNn
-         8XGsf6z46VAfvFFTg35NvhhmwWLQIf8uiGPcZ5k73JcwMk2A84+ermOEDkyy+GwPfbSU
-         pzddC/q71vaWOP3KEOd5uy8ZqDptiKSpTYcY+iayopZiakFgP6CDTr+JgLQXIVckx9w/
-         9+f90XB5lz/Ol8FlbUddz/v7OlqgRrxQDBzijxT3WMv2irYce+Rn6pT04R/OWEdFuviK
-         wV13SLQEzvtEFkKsy7YFLOwb5Ls3EUtabhiu8EJ4vKi2msKmXZuQm5Mn8JZyjqYF0H+c
-         QWjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791506147; x=1792110947;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uDiCydjZ9y2SRlO9gdJts9J1fvejuYVS4OsVz5QeIVg=;
-        b=FibUsa6qdpzop25fAljnLYQYeBT3wGnVCmdVyvMi47NmbqbeAPCJrZPBh4X5BNjYPB
-         b4f0tfHi6kq39rvcH04rsStyTKLlvDIuczETvWTzIfpGVmDCH9J9MoDk/Q+kM7NhNT/V
-         2371DUDUyr5WkEd0jRLbQSOTfU6Ir0iX4TaEO0uY1AfLSO/9UsHyzFfVBaMIKRnsoiAL
-         osmlythpY1x3yAKeQiK2o+aat3kf8/jb4BzLLJcMQkVB+cbetf7UsdSNAKQiZKhFrmte
-         /zjSEs246hD0WouifvVxMGRKTV1K7vT6PmzMVimiERzrCzE9mLgEVVOTveF5htHBhDJU
-         rFqg==
-X-Forwarded-Encrypted: i=1; AKwUvBwA9dmdISsFaFpKs5M8YDbJyhRruzXkXeV6vBh0U0YcnLDXYng+0GQUAqhd9mWx74Y8k5EUewX+bQbaIfs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK3eqMxvelzHwbn1SgEbBW1YzM00UUbAsD6ThPYecn84V/BVm0n
-	rvFwNV3Y9Yufs4CMCx8LPcBf/QYckjDjoAKEEiybPmAHcXMv2H2F3pm7
-X-Gm-Gg: AYBFou0kKF+rK7O4WUHZXBD20M3xNDEc1XmqfGcXQ0Bd4ATkqqu7mkBuWk0V+XRHnfX
-	p0OhTPBNpwZdMHfQ3aLlDzfCfBSa8SXghlRs2ofs+ol5rCaLkeuRZ9i4yMl4t0F3ciDdhcGcjeQ
-	pcWiLAP/xUDTVaIGI8dxwLJeHsAs4LXSw6Vy9Rh60nYN01CGa4z6uHolWm+geTiGVwY0k8dP1oN
-	Aoy+G7HKYhw936CbIubtkt6+DM38iKa5QBYbRhIZRPlsXuQ4iyfsbSZ1ZaOmnlajl9BbXU/84YF
-	bM8fzCfuAosr0ckgYcZCWG0Ab+Qnr4YBrVswgqWEUhXh1e23dLkQXBKA64hJi4Gk1AnLgLPhMcG
-	Wl4fIceV4FS7ISYjp/OFtI7xn6z+8CGHW1OHVYonWKP4i/FEQ9pNe9EnmG7UOP8oNqMOO/vIZHk
-	PZQa43aRdf0dMxqkvv60nLphkigrLKagCIRDEiN8DjfkCo59fYNwoc6EkhjMK9neKriInivXhJ3
-	vvSrnCDenGFQBnZhjBwxC+56tPDbUYa9jzk2sJbZRkq2lAlmq4jbtme4jyYU2qjGka5kFYJelMP
-	VHpxKerViJDlJumABC4=
-X-Received: by 2002:a05:6102:a4f:b0:7c3:83a9:edb2 with SMTP id ada2fe7eead31-7cb367883bdmr130748137.1.1791506146842;
-        Thu, 08 Oct 2026 17:35:46 -0700 (PDT)
-Received: from localhost.localdomain ([132.170.205.109])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cb3539092esm488922137.3.2026.10.08.17.35.46
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 08 Oct 2026 17:35:46 -0700 (PDT)
-From: Sanan Hasanov <sanan.hasanou@gmail.com>
-To: "Martin K. Petersen" <mkp@kernel.org>
-Cc: Sanan Hasanov <sanan.hasanov@ucf.edu>,
-	linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+fa495e1497c48a6ed885@syzkaller.appspotmail.com
-Subject: [PATCH v4 4/4] scsi: target: rd: Avoid 32-bit overflow in protection space size
-Date: Thu,  8 Oct 2026 20:35:34 -0400
-Message-ID: <20261009003537.62265-5-sanan.hasanou@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20261009003537.62265-1-sanan.hasanou@gmail.com>
-References: <20261009003537.62265-1-sanan.hasanou@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LN71k/Nl"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A32D8C2BCF5;
+	Fri,  9 Oct 2026 00:40:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791506450;
+	bh=VnrNQ9zGJkyaVBWNIw32C16safpgXzhhXh0aiiukAk8=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=LN71k/NlerXB2ztqXtHqNP3cb/xNPuOkSE8VTjtoBHaajWkbBLdnJFSnEkTw4shwc
+	 T4Zh5TZN1CZRutAIWvZe33lKHhqgW/+pq6k3G3uqvtYBsuzHOaDwkRk6cocF+mKW7n
+	 4GVo1Jae7LGDCppbqPtCrE/vyuRV9N8mA7Zh4atHNQRcNHgT+OcZ2yymcfCFn2C/xk
+	 YVSgCDBzW4e6rclvzI/ofyev0GIrsOmcEQswyjIxsAo3rf1WkAQnq8ioanSjtNZtM9
+	 TN52TVEyfB9NZjunDwdQWR80OQNBxBDI3UZEk0g60iKhDuMMkqB0lFc9rASxrOgpSX
+	 0hYdvEW17HSYA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8E309CA6018;
+	Fri,  9 Oct 2026 00:40:50 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Fri, 09 Oct 2026 03:40:48 +0300
+Subject: [PATCH] arm64: dts: rockchip: Add the front panel LEDs to Kobol
+ Helios64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261009-helios64-leds-v1-1-6c58a66bf0c6@iav.lv>
+X-B4-Tracking: v=1; b=H4sIAA84yGoC/x3MQQqAIBBA0avErBNUUqqrRAvJKQdEw4EIxLsnL
+ d/i/wqMhZBhHSoUfIgppw41DnAEly4U5LtBS22VlIsIGCmznUREz8JqMxvnDEqroTd3wZPe/7f
+ trX1dI/j4XwAAAA==
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4250; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=llv6HX0uCXXdfUD/WPDPaPRAv2BcF+iTEvDdVmnTS6Q=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFknLASb34RJzE5PU/V3Ob7jnGXD7KyG4+tuCU9I14/yX
+ afoPm9XRykLgxgXg6yYIsuEQxq3MpZc/evvYf4AZg4rE8gQBi5OAZhIihcjw/cYHUsmx6CEKTcr
+ T+m4qRd2bGryqU9L+mxZuCnKue5ZBsN/9z//Htzb8z9z0yLv+7kzReoeuV76x/DQpY9TUfWD7J1
+ WHgA=
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
 
-From: Sanan Hasanov <sanan.hasanov@ucf.edu>
+From: Igor Velkov <iav@iav.lv>
 
-rd_build_prot_space() computes the number of protection pages as
-rd_page_count * prot_length / block_size. rd_page_count is a u32 and
-prot_length an int, so the multiplication is done in 32 bits and wraps
-once rd_page_count reaches 2^29 with 8-byte protection information,
-that is for a 2 TiB ramdisk. The protection sg tables are then
-allocated much smaller than the device needs. A command whose
-protection data starts inside the allocated range but extends past its
-end makes sbc_dif_copy_prot() walk off the last scatterlist and
-dereference the NULL returned by sg_next().
+Besides the system LEDs, the front panel of Helios64 has a network, a
+USB and five SATA error LEDs. Each is switched by a MOSFET from a GPIO,
+active high: NETW_ACT_LED_ON on GPIO0_A4, USB3_ACT_LED_ON on GPIO0_B3
+and SATA_ERR0 to SATA_ERR4 on GPIO2_A2 to GPIO2_A6. The Kobol wiki
+gives the colours: activity LEDs are blue, error LEDs are red.
 
-Do the multiplication in 64 bits. The quotient still fits in a u32
-because prot_length is smaller than block_size.
+Describe them next to the system LEDs. The panel labels the disks
+HDD 1 to HDD 5, so the error LEDs are numbered from 1.
 
-Fixes: d7e8eb5d9216 ("target/rd: Add support for protection SGL setup + release")
-Signed-off-by: Sanan Hasanov <sanan.hasanov@ucf.edu>
+Assisted-by: LLM
+Signed-off-by: Igor Velkov <iav@iav.lv>
 ---
- drivers/target/target_core_rd.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Schematic, sheets 29, 30 and 35:
+https://wiki.kobol.io/helios64/files/schematics/Helios64_Schematics_Rev1.2.pdf
+Front panel LED colours:
+https://wiki.kobol.io/helios64/front-panel/
+---
+ .../boot/dts/rockchip/rk3399-kobol-helios64.dts    | 78 +++++++++++++++++++++-
+ 1 file changed, 77 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/target/target_core_rd.c b/drivers/target/target_core_rd.c
-index 2613342be..d7752fd34 100644
---- a/drivers/target/target_core_rd.c
-+++ b/drivers/target/target_core_rd.c
-@@ -253,7 +253,8 @@ static int rd_build_prot_space(struct rd_dev *rd_dev, int prot_length, int block
- 	 * 		   (prot_length/block_size) + pad
- 	 * PGSZ canceled each other.
- 	 */
--	total_sg_needed = (rd_dev->rd_page_count * prot_length / block_size) + 1;
-+	total_sg_needed = div_u64((u64)rd_dev->rd_page_count * prot_length,
-+				  block_size) + 1;
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
+index d146e5075b4f..25f0ba5a47ac 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
+@@ -12,6 +12,7 @@
  
- 	sg_tables = (total_sg_needed / max_sg_per_table) + 1;
- 	sg_table = kvzalloc_objs(*sg_table, sg_tables);
+ /dts-v1/;
+ #include <dt-bindings/input/input.h>
++#include <dt-bindings/leds/common.h>
+ #include "rk3399.dtsi"
+ 
+ / {
+@@ -107,7 +108,8 @@ button-user1 {
+ 	leds {
+ 		compatible = "gpio-leds";
+ 		pinctrl-names = "default";
+-		pinctrl-0 = <&sys_grn_led_on &sys_red_led_on>;
++		pinctrl-0 = <&sys_grn_led_on &sys_red_led_on &netw_act_led_on
++			     &usb3_act_led_on &sata_err_led_on &sata_act_led>;
+ 
+ 		led-0 {
+ 			label = "helios64:green:status";
+@@ -120,6 +122,60 @@ led-1 {
+ 			gpios = <&gpio0 RK_PB5 GPIO_ACTIVE_HIGH>;
+ 			default-state = "keep";
+ 		};
++
++		led-2 {
++			color = <LED_COLOR_ID_BLUE>;
++			function = LED_FUNCTION_LAN;
++			gpios = <&gpio0 RK_PA4 GPIO_ACTIVE_HIGH>;
++		};
++
++		led-3 {
++			color = <LED_COLOR_ID_BLUE>;
++			function = LED_FUNCTION_USB;
++			gpios = <&gpio0 RK_PB3 GPIO_ACTIVE_HIGH>;
++		};
++
++		led-4 {
++			color = <LED_COLOR_ID_RED>;
++			function = LED_FUNCTION_DISK_ERR;
++			function-enumerator = <1>;
++			gpios = <&gpio2 RK_PA2 GPIO_ACTIVE_HIGH>;
++		};
++
++		led-5 {
++			color = <LED_COLOR_ID_RED>;
++			function = LED_FUNCTION_DISK_ERR;
++			function-enumerator = <2>;
++			gpios = <&gpio2 RK_PA3 GPIO_ACTIVE_HIGH>;
++		};
++
++		led-6 {
++			color = <LED_COLOR_ID_RED>;
++			function = LED_FUNCTION_DISK_ERR;
++			function-enumerator = <3>;
++			gpios = <&gpio2 RK_PA4 GPIO_ACTIVE_HIGH>;
++		};
++
++		led-7 {
++			color = <LED_COLOR_ID_RED>;
++			function = LED_FUNCTION_DISK_ERR;
++			function-enumerator = <4>;
++			gpios = <&gpio2 RK_PA5 GPIO_ACTIVE_HIGH>;
++		};
++
++		led-8 {
++			color = <LED_COLOR_ID_RED>;
++			function = LED_FUNCTION_DISK_ERR;
++			function-enumerator = <5>;
++			gpios = <&gpio2 RK_PA6 GPIO_ACTIVE_HIGH>;
++		};
++
++		led-9 {
++			color = <LED_COLOR_ID_BLUE>;
++			function = LED_FUNCTION_DISK_ACTIVITY;
++			gpios = <&gpio4 RK_PD4 GPIO_ACTIVE_HIGH>;
++			default-state = "on";
++		};
+ 	};
+ 
+ 	hdd_a_power: regulator-hdd-a-power {
+@@ -500,6 +556,22 @@ gphy_reset: gphy-reset {
+ 	};
+ 
+ 	leds {
++		netw_act_led_on: netw-act-led-on {
++			rockchip,pins = <0 RK_PA4 RK_FUNC_GPIO &pcfg_pull_down>;
++		};
++
++		sata_act_led: sata-act-led {
++			rockchip,pins = <4 RK_PD4 RK_FUNC_GPIO &pcfg_pull_down>;
++		};
++
++		sata_err_led_on: sata-err-led-on {
++			rockchip,pins = <2 RK_PA2 RK_FUNC_GPIO &pcfg_pull_down>,
++					<2 RK_PA3 RK_FUNC_GPIO &pcfg_pull_down>,
++					<2 RK_PA4 RK_FUNC_GPIO &pcfg_pull_down>,
++					<2 RK_PA5 RK_FUNC_GPIO &pcfg_pull_down>,
++					<2 RK_PA6 RK_FUNC_GPIO &pcfg_pull_down>;
++		};
++
+ 		sys_grn_led_on: sys-grn-led-on {
+ 			rockchip,pins = <0 RK_PB4 RK_FUNC_GPIO &pcfg_pull_down>;
+ 		};
+@@ -507,6 +579,10 @@ sys_grn_led_on: sys-grn-led-on {
+ 		sys_red_led_on: sys-red-led-on {
+ 			rockchip,pins = <0 RK_PB5 RK_FUNC_GPIO &pcfg_pull_down>;
+ 		};
++
++		usb3_act_led_on: usb3-act-led-on {
++			rockchip,pins = <0 RK_PB3 RK_FUNC_GPIO &pcfg_pull_down>;
++		};
+ 	};
+ 
+ 	pcie {
+
+---
+base-commit: 36b190eca882ecd39b5354f7ee995f939dc6d885
+change-id: 20261009-helios64-leds-62585aa5e062
+
+Best regards,
 -- 
-2.48.1
+Igor Velkov <iav@iav.lv>
+
 
