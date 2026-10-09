@@ -1,115 +1,164 @@
-Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
+Received: from va-2-20.ptr.blmpb.com (va-2-20.ptr.blmpb.com [209.127.231.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A29483A168B
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 05:06:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791522371; cv=pass; b=G4WzC6w5WRKkoIhe0c9FbQGUyMLLskd75putUoMm6R6/7vfbp+aDJqu3Z9ysKAtMF3AGf6gzK7HA4anONgYDqjw5Nv1FN8ETJPKXFdmaQIx3kGY14px7SFUZAPvY0bStifKuiACVI/NHu2IXZl/HaSuguYlzvj8uw46H+SqEXl4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 136D23DCD85
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 05:06:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.20
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791522371; cv=none; b=cgCxjLMxiDx3fCOUP/WeKYDeWaUbXzhhiU9cK3s6szk248m6SP7E7rvBYgsWbidfunksN8DYKdeR0uNMm5PPLP4x1JOe2NZxMnZjTgcUgALGWIIayYRxbhcIhbcv9OrxOVNXFa8vbJSosEZZY0Ren7SlVcYsUaWN/7ZIvCHc+30=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791522371; c=relaxed/simple;
-	bh=CLEH35XDmiCTcy4TwWz+bK3Tk5dXuZwQrYMswqmAf0Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=K+VaTJipgIRYnQ/VOg05uwgV2N2U+Mw7+vpP4t5Au/g4w3HUCYegf0glKiCXGxdXevzWf7acewU7souquKWqZEJWL2+sNI/UNFgp522vkFWYq/MMc9SQnKxw18nDwgTzwfm8xNYqMEN028JgChhuiCU++bs5YerHgjwodu3X/uk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X68XKz3G; arc=pass smtp.client-ip=74.125.224.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=wtQ6f26B9YBjtTSlKhisR0GW7IeKtM74Pebp6OmpaIw=;
+	h=References:Cc:From:Content-Type:To:Subject:In-Reply-To:Date:
+	 Message-Id:Mime-Version; b=cfjLr8PCStmWv4Xw+q1on3/pBBujUlSqjaOBSIwSgajlHOQqlM5G2VI61wn0uLELq0T1XK6xZCQ1dMbGqzDj1I4kxeZNVO3ssfUoltp5Ro5CDWqJKxY9IIOq2I+/ZKBa96iz8eQqSmer5mG0hweIfA8GjJvo43wQyLQtcFgvJSk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=Yqv47QIl; arc=none smtp.client-ip=209.127.231.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X68XKz3G"
-Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-67694513f2fso3667314d50.1
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 22:06:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791522368; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Y2B8KYkx5NSFjU/RAdlEkDoHQjoBHwD42hdDF7SuslceIUN7F2bHqpAr2U/lOXaBaS
-         hAFg3+vjdoAi5I8+pkvYs8SQ/BaGbsYZJR7JgiW2bH00BQzmI+eRc5Hr2A+oQSRU1Jzs
-         IocnRJIxcEvG5HJD5Kr1P5juU4+MGqCFIvX4bu5qPrrfgZuAbH9mJty8IdvDtkq8Qm6h
-         EKNAOSAf+YHgXDjJmFban7fFZ0yKV3izMvL7rSIKg4njWG/f8/hNNuN4rR8Pjt+3RmL6
-         HuzbEQnCBftSZihLBI2CFBXbPsMr0SA00DpzkelbjdZdJtddcLAHiTE5LCzjd8iZlU3I
-         I3yA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=CLEH35XDmiCTcy4TwWz+bK3Tk5dXuZwQrYMswqmAf0Q=;
-        fh=905fnJOafbXd0gmfOz+xv1p8qRD5ppBpnIei826V5ZY=;
-        b=oJ2tjJenOpl25FaZc+htmG9eOP3sycYV5TSj3woJVpkW5KnNfoVRdmPGR1HL9nEksk
-         KoLZQwAnN42xShDcnvqNadz0n/wT1ECLps4zwPABjlzdvwTsVOw2mnnWJXUCo49xbO58
-         iHJPBNOQvkHtJgmvq80p13WTCAGnh7HmcEaOMX/XzWDwa6YanL0tlayRseMSwJrF4LEI
-         jf38F3QeHHtUPRVFmIpf1zbzKSmMQjq5AjVumPxwiPbrn/DcBSEaL1KwoMLYhovBMT+f
-         t4A0n0T4IjzvlCZaRIEt+R3qI19ZEeTtVuc9oOzOV3hQ14MtvJDCBklX0WCPk5iIaT1h
-         M5wA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791522368; x=1792127168; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CLEH35XDmiCTcy4TwWz+bK3Tk5dXuZwQrYMswqmAf0Q=;
-        b=X68XKz3GK/g1wVOTb+wV0jy/KUia5G9SXxhqc4OITBUK6CooVak0aOnYFqKVu65zeU
-         6JbTSoBA9TQmKfVJGOGi3pdSj+U9+HhkGl0/7KUZD0Znefy9hIQkdiWSeMQ1HUSOhZkF
-         cSlC/hYALPmWAH6mjQQ8KpO29CfbxWJU6uHzNN/QvlzVTbA9IPJUQoRFk8SulgyDa+Er
-         1tc0iy3Wh01uG5aIACIqQKwNjeqr6D9o4jmKPbQfsFk+wef5DJsnXl2JWK+e2zaTqFHl
-         SqEfNjXPsdC2KGS2vMQj2ajTnvnpiECiRwQ6Y7kn42MBU2aN1avmhrzTuxl/cPAIgrt/
-         ixYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791522368; x=1792127168;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CLEH35XDmiCTcy4TwWz+bK3Tk5dXuZwQrYMswqmAf0Q=;
-        b=hf1eM+vB5KnnabZ2J8I97YA53Z5EpFUjvwqTdgen2oEl40kH4F061iNggWadTy8zTL
-         0X4PkkFeFB5j7tkXbGXSYpXg9f5vuHAzionIVm6lP1RhfbQYPj9Og9xB3trp6TxPK9L8
-         DxX+uZKFjGmhRN6rXdtFOgfXV/UnU0x36bXZb0Z7igQ/AuWcdVt8f+X4lkvKivcBIi7A
-         EzR+5qh9lxKKgMMOcSYC/xmq8okhpXJ6TxbSukjGen6lPAda8PO4o/Va/ULlQmyqJxUs
-         ZniXwuUpouveQy+jh1OjJwWeREHSTocUpAO5AUAtUYN4sT/SiwyJE3NmQAs/N3QLHAvd
-         fBdg==
-X-Forwarded-Encrypted: i=1; AKwUvByOi2aMB9Lb+ngyGHFU5KdTPcyOKllTyi6tJdXSm5uqedGdo+on2Qjfb3462oPE2ufPUvEOU6nfCd5YLkA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLpmzaEpEBcmsnbDj+S1fF0yFlrCPf3fLeep+G3XD8yYevxK5AI
-	HxhhKYKiMvZtZgNVTrOUTBx/f3m2LOb52CN988ZADxEwQP2UmCAx31u1RXs+5G2B9+ziLlgWr8n
-	e3SYuRFHwVfKyC+XUuiEedRf+dbU58BI=
-X-Gm-Gg: AYBFou1gVUnIBKZGHDfyO6n8qzKCLBE7RHb5rxKsW0RVqtZQNRTguVyjnAysI+P7c9z
-	byLmlvM6M/bKC70QQJa6tMQCwmQjmEEygMEoo+A7jJ7ataS1wXrlbE0EEzi0sDI+kwMnwufu47Y
-	lSnAjJgfqX2g0oZdAs1lgu/yf64rSPrPeeVGBNu/0xsCgy22E4G6P+r+mg58RdZtJdo7SRFGOPF
-	xJLwc/xCXOhXJ74+lBmd9ev9KtRJmq2mzSlgq5v2aB6PTIJfqVJnzAQsBPRAoAm7EqpQ9QAcipT
-	/2z0d3QGMKmPJa01g7sr+eaL9xi28AFySxuEo12zhtqOgdOdvy20dpmDNA==
-X-Received: by 2002:a05:690e:4403:b0:66e:5d40:6dab with SMTP id
- 956f58d0204a3-679362825damr160377d50.23.1791522368308; Thu, 08 Oct 2026
- 22:06:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="Yqv47QIl"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1791522362;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=gK0Jex4XNDbar3unxpIBIy8PPLLlyDNdQQhFWDGVP3g=;
+ b=Yqv47QIlTZQE+zX7D+kniI1h+zQ5oX2RA7CyKi70xOhkbA+776aP0dLA1RP8EmWzzV3ZZ1
+ OOqiFlXzQEKm7i5z/bbe5gjuAY58JLDCN2C+nYjld6X1ADpEtzsHX3mi0alOPGgl66nWj2
+ v7vRbmEr90SDvELPR6SH2Rd2WKyQrlV+uSWDS145JshIW58hFUb6dQop2VZMvWMtn9akCB
+ 1Wwcf6xDOMFKXjCZjHBCm8gaR2WmwZK2FORra1oONRVUvxKkfY+fWPHPHw1yNGlN2dx5R3
+ 0iM6SK+gA0ONf86qZz28IOjJgReAvZrKOJNGZuz8P82UgwQXHEztE4yrj5yTLw==
+References: <20260923112159.94175-1-chengzhihao1@huawei.com> <20260923112159.94175-3-chengzhihao1@huawei.com>
+Received: from [192.168.1.104] ([39.182.0.35]) by smtp.larksuite.com with ESMTPS; Fri, 09 Oct 2026 05:06:00 +0000
+X-Original-From: yu kuai <yukuai@fygo.io>
+Reply-To: yukuai@fygo.io
+Cc: <linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<yangerkun@huawei.com>, <yi.zhang@huawei.com>
+From: "yu kuai" <yukuai@fygo.io>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Lms-Return-Path: <lba+26ac87639+0ca007+vger.kernel.org+yukuai@fygo.io>
+To: "Zhihao Cheng" <chengzhihao1@huawei.com>, <song@kernel.org>, 
+	<shli@kernel.org>, <neil@brown.name>, "yu kuai" <yukuai@fygo.io>
+Subject: Re: [PATCH v3 2/4] md: Handle pers->run failure in level_store
+In-Reply-To: <20260923112159.94175-3-chengzhihao1@huawei.com>
+Date: Fri, 9 Oct 2026 13:05:57 +0800
+Message-Id: <c7cc46af-708c-42fe-a82c-f6b2b5d145ea@fygo.io>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <pm-key-management-objects-candidate-0002-v2-dd6c20a1d92928b33ab7@gmail.com>
- <asfZfZcusHMRiUYY@kernel.org>
-In-Reply-To: <asfZfZcusHMRiUYY@kernel.org>
-From: Cen Zhang <zzzccc427@gmail.com>
-Date: Fri, 9 Oct 2026 13:05:55 +0800
-X-Gm-Features: AclHuK92MCPHMkbThkXyJZrzV_KAbzt10KrIGn0E5G2gyILDquLox3Gbjywre7Y
-Message-ID: <CAFRLqsVwB3s4OQRkBzZb3O7ZmvPuiOYti8xjK72pL4HqnvGKHQ@mail.gmail.com>
-Subject: Re: [PATCH] keys: Avoid the owner account dereference in named
- keyring lookup
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: dhowells@redhat.com, paul@paul-moore.com, jmorris@namei.org, 
-	serge@hallyn.com, sergeh@kernel.org, keyrings@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	baijiaju1990@gmail.com, jjzuming@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+User-Agent: Mozilla Thunderbird
 
-Hi Jarkko,
+Hi,
 
-Jarkko Sakkinen <jarkko@kernel.org> =E4=BA=8E2026=E5=B9=B410=E6=9C=889=E6=
-=97=A5=E5=91=A8=E4=BA=94 01:57=E5=86=99=E9=81=93=EF=BC=9A
+=E5=9C=A8 2026/9/23 19:21, Zhihao Cheng =E5=86=99=E9=81=93:
+> Set 'raid_disks' after raid5_run() failure will trigger an
+> null-ptr-deref problem:
+>   BUG: kernel NULL pointer dereference, address: 0000000000000038
+>   RIP: 0010:raid5_check_reshape+0xad
+>   Call Trace:
+>    update_raid_disks+0x124
+>    raid_disks_store+0x145
+>    md_attr_store+0xd7
+>    sysfs_kf_write+0x7c
 >
-> Similar nit. Not sure but I think even just having these two lines would
-> be sufficient or is there something that follows that would be
-> meaningful?
+> The trigger process is simple:
+>   mdadm --create /dev/md0 --level=3D1 --raid-devices=3D2 /dev/sda /dev/sd=
+b
+>   --force --assume-clean # create raid1
+>   echo 5 > /sys/block/md0/md/level
+>    level_store
+>     mddev->pers =3D pers
+>     mddev->private =3D priv
+>     raid5_run
+>      fail to abort (eg. raid5_create_ctx_pool fails)
+>      mddev->private =3D NULL
+>   echo 10 > /sys/block/md0/md/raid_disks
+>    raid_disks_store
+>     if (mddev->pers) // true
+>      update_raid_disks
+>       raid5_check_reshape
+>        conf =3D mddev->private
+>         conf->algorithm =3D mddev->new_layout // null-ptr-deref !
 >
+> Similar process exists in do_md_stop->__md_stop_writes->raid5_quiesce.
+> Similar process exists in raid10 too.
+>
+> Fix it by handling the error from pers->run, next active-type order will
+> restart the mddev.
+>
+> Fixes: 245f46c2c221e ("md: add ->takeover method to support changing the =
+personality managing an array")
+> Signed-off-by: Zhihao Cheng <chengzhihao1@huawei.com>
+> ---
+>   drivers/md/md.c | 29 ++++++++++++++++++++++++++++-
+>   1 file changed, 28 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/md/md.c b/drivers/md/md.c
+> index 02798f2dbf0e..ff78bf8656ff 100644
+> --- a/drivers/md/md.c
+> +++ b/drivers/md/md.c
+> @@ -97,6 +97,7 @@ static struct workqueue_struct *md_misc_wq;
+>   static int remove_and_add_spares(struct mddev *mddev,
+>   				 struct md_rdev *this);
+>   static void mddev_detach(struct mddev *mddev);
+> +static void __md_stop(struct mddev *mddev);
+>   static void export_rdev(struct md_rdev *rdev);
+>   static void md_wakeup_thread_directly(struct md_thread __rcu **thread);
+>  =20
+> @@ -4243,7 +4244,33 @@ level_store(struct mddev *mddev, const char *buf, =
+size_t len)
+>   		mddev->in_sync =3D 1;
+>   		timer_delete_sync(&mddev->safemode_timer);
+>   	}
+> -	pers->run(mddev);
+> +	rv =3D pers->run(mddev);
+> +	if (rv) {
+> +		/*
+> +		 * ->run() has released the private data of the new personality,
+> +		 * while the old one has already been released as well. There is
+> +		 * nothing to fall back to, so stop the array to avoid leaving
+> +		 * 'mddev->pers' pointing to a personality which has no private
+> +		 * data, and reminds user to try to active the mddev again.
+> +		 */
+> +		pr_warn("md: %s: failed to run %s after takeover, please try to active=
+\n",
+> +			mdname(mddev), pers->head.name);
 
-Thanks for the review. I've shortened the Oops report for v2.
+Usually takeover can be performed on a live array, and with a live fs mount=
+ed, so
+I don't think it's acceptable for the array to be in this state in the case
+pers->run failed.
 
-Best regards,
-Cen Zhang
+Is it possible to split pers->run into two parts? One for static checking a=
+nd
+memory allocation, so the next pers->run that will never fail. Which means =
+we can
+keep the old pers active until we can make sure the new pers activation cal=
+lback will
+not fail.
+
+> +		if (mddev->pers->sync_request && mddev->to_remove =3D=3D NULL)
+> +			mddev->to_remove =3D &md_redundancy_group;
+> +		if (md_bitmap_enabled(mddev, true))
+> +			mddev->bitmap_ops->flush(mddev);
+> +		clear_bit(MD_SERIALIZE_POLICY, &mddev->flags);
+> +		mddev_destroy_serial_pool(mddev, NULL);
+> +		__md_stop(mddev);
+> +		rdev_for_each(rdev, mddev)
+> +			if (rdev->raid_disk >=3D 0)
+> +				sysfs_unlink_rdev(mddev, rdev);
+> +		set_capacity_and_notify(mddev->gendisk, 0);
+> +		mddev->changed =3D 1;
+> +		md_new_event();
+> +		sysfs_notify_dirent_safe(mddev->sysfs_state);
+> +		goto out_unlock;
+> +	}
+>   	set_bit(MD_SB_CHANGE_DEVS, &mddev->sb_flags);
+>   	if (!mddev->thread)
+>   		md_update_sb(mddev, 1);
+
+--=20
+Thanks,
+Kuai
