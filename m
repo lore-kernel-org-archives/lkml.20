@@ -1,27 +1,26 @@
 Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCFB0339847
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCF2833556D
 	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 02:56:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791514613; cv=none; b=b3X1n5ojjPLnxKvns0TzKHYf/1kgnx3QIda95BF+W43OdbSwYUqnFxnJpiWEBVDoDrdOs1yUkzVgA3qh1kd4immrX/nX8I/okWrRJGm4N+z5sH65l1mIHDYdaHn32YI9qPLax81bvzPeaWCEsNd9DIj++j8EoBOv+LYSHsQi4/M=
+	t=1791514614; cv=none; b=H9Gg7ogr+ktLrdYUb4Q78gdSZtj2AwR2hkpGBGw5eahRZVXWdiJkDmxluRGl0pVTT2J1WxvLqb677YugbeT8JVoQXfT+zxqzpuaKNC9oGczIU1nNsBti27N74x2v8UhAgh8tr4gNRRGQ/WTty7UCdzpbjX/Q+Vzn4GP+Uucc/pM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791514613; c=relaxed/simple;
-	bh=FglHHNLfPUCVe/yvE6YBCklzyMxf4f89fVLtZVHegqY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=TKWt1FoZJjOkiKS2t7CCX13PVQSC7bZ5larB7LFpLR09VctK5BNsnAlmWlyuPnPcLKmtEYW014WxgIYdx58bUEGXVFyKZHRNg3OQAI7e1rEuf/h8MNMkiQ+Otm7IaPWMrfrYc+HI5Ui72OcpnBGlxD598ZoTRo0fCH78XxpKMhc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
+	s=arc-20240116; t=1791514614; c=relaxed/simple;
+	bh=j7u+eKcitjmaovaqb5Qu/b/dzZ7RuXRof7fVz/XP4kc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QnJNXdN0VHh/vzy3gbArsFb41g6ET8cyyFbqOp9oIHQClxWBMcvnM+sb3JzPO0CeuayuHpYSi36ng2Fo+rHvGq1GZbDJvQ0uMc2UjEeqs184aWWni08Fv6P/YzUYPJ2ALa0wdyq0VFIykLlPBfDdrWDFXaAuWE3FkbJOGylB1K4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=none smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.198])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4j1BLv0mWjzKHMSp
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 10:55:51 +0800 (CST)
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.177])
+	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4j1BLt6xsgzKHMSd
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 10:55:50 +0800 (CST)
 Received: from mail02.huawei.com (unknown [10.116.40.252])
-	by mail.maildlp.com (Postfix) with ESMTP id 8138040561
+	by mail.maildlp.com (Postfix) with ESMTP id 619FB4070A
 	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 10:56:42 +0800 (CST)
 Received: from huawei.com (unknown [10.67.174.193])
-	by APP3 (Coremail) with UTF8SMTPA id _Ch0CgCnaG3gV8hqWun2DA--.47568S3;
+	by APP3 (Coremail) with UTF8SMTPA id _Ch0CgCnaG3gV8hqWun2DA--.47568S2;
 	Fri, 09 Oct 2026 10:56:42 +0800 (CST)
 From: Luo Gengkun <luogengkun@huaweicloud.com>
 To: peterz@infradead.org,
@@ -37,12 +36,10 @@ Cc: dietmar.eggemann@arm.com,
 	vschneid@redhat.com,
 	kprateek.nayak@amd.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v10 1/2] sched/cache: Reduce the overhead of task_cache_work by only scan the visisted cpus
-Date: Fri,  9 Oct 2026 03:29:42 +0000
-Message-Id: <20261009032943.95091-2-luogengkun@huaweicloud.com>
+Subject: [PATCH v10 0/2] Cache aware scheduling: Reduce the overhead of task_cache_work
+Date: Fri,  9 Oct 2026 03:29:41 +0000
+Message-Id: <20261009032943.95091-1-luogengkun@huaweicloud.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261009032943.95091-1-luogengkun@huaweicloud.com>
-References: <20261009032943.95091-1-luogengkun@huaweicloud.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,267 +47,223 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_Ch0CgCnaG3gV8hqWun2DA--.47568S3
-X-Coremail-Antispam: 1UD129KBjvJXoW3Wr1rXFWUZF4ruw4UGr1DGFg_yoW3Ar1Dpa
-	yq9rWUtF4kJr40g3yDA3ykXr15K3s7ta47K3y3Gr1rZF13Kw18tryjy3WavrWYkrna9a4a
-	vrWDKF12gF1jvF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPIb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUGw
-	A2048vs2IY020Ec7CjxVAFwI0_Gr0_Xr1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
-	w2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
-	W8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAF
-	wI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2
-	WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkE
-	bVWUJVW8JwACjcxG0xvY0x0EwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7
-	AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
-	F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GF
-	ylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7Cj
-	xVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r
-	1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jn
-	pnQUUUUU=
+X-CM-TRANSID:_Ch0CgCnaG3gV8hqWun2DA--.47568S2
+X-Coremail-Antispam: 1UD129KBjvJXoWfGw1xur13Xr1UXw45CF13CFg_yoWDWw1xp3
+	9agrZ3JF4UXry7Aw17A3W8CFyrtF17JF17Xr1rt348AF1UCr4UJr18Ka1fJryUCryjyr17
+	Zr1Dtry7WF10yr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvab4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6x
+	kF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02
+	F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4I
+	kC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7Cj
+	xVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2
+	IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v2
+	6r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2
+	IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv
+	67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyT
+	uYvjxUF1v3UUUUU
 X-CM-SenderInfo: 5oxrwvpqjn3046kxt4xhlfz01xgou0bp/
 
-The overhead of task_cache_work() is high, especially in multi-NUMA systems.
-Currently, task_cache_work() tries to find the pref_llc by scanning all CPUs
-in the system. However, most of these scans are meaningless, such as those
-for CPUs that have never been visited or were accessed a long time ago.
+Hi everyone,
+The goal of this patch is to reduce the overhead of task_cache_work() by
+minimizing the number of scanned CPUs, which yields significant
+performance gains in multi-instance scenarios like Redis. To facilitate
+testing, a debug patch is appended.
 
-To address this problem, introduce visited_cpus to track the visited CPUs
-and evict them once they have not been accessed for a duration exceeding
-llc_epoch_affinity_timeout.
+Below are the Redis test results conducted on AMD server.
 
-Now that we know exactly which CPUs to scan from visited_cpus, we can remove
-get_scan_cpumasks().
+When NUMA balancing is disabled:
 
-Signed-off-by: Luo Gengkun <luogengkun@huaweicloud.com>
+valkey-benchmark rps  |      baseline       |         schedcache              |     schedcache_visit
+                      |  (no cache aware)   |    (without this series)        |     (with this series)
+----------------------+---------------------+---------------------+-----------+-------------------+--------
+                      |   p99 latency(ms)   |    p99 latency(ms)  |   DIFF(%) |   p99 latency(ms) |  DIFF(%)
+400000                |      0.436          |        0.554        |   -25.68% |         0.441     |   -1.14% 
+
+Additionally, the output of perf top -e cycles:k highlights the overhead
+incurred by task_cache_work():
+
+valkey-benchmark rps  |         schedcache                        |     schedcache_visit
+                      |    (without this series)                  |     (with this series)
+----------------------+-------------------------------------------+---------------------------------------
+400000                |  0.81%  [kernel]  [k] task_cache_work     |  0.02%  [kernel]  [k] task_cache_work
+
+The trace data is shown below:
+
+echo SC_NODE > /sys/kernel/debug/sched/features
+echo NO_SC_VISIT > /sys/kernel/debug/sched/features
+    redis-server-24660   [195] .....  2916.005989: sched_cache_scan: comm=redis-server pid=24660 scan=384
+ valkey-benchmar-48836   [317] .....  2916.005993: sched_cache_scan: comm=valkey-benchmar pid=48836 scan=384
+ valkey-benchmar-48487   [310] .....  2916.006002: sched_cache_scan: comm=valkey-benchmar pid=48487 scan=384
+
+echo NO_SC_NODE > /sys/kernel/debug/sched/features
+echo SC_VISIT > /sys/kernel/debug/sched/features
+    redis-server-29080   [225] .....  2876.257909: sched_cache_scan: comm=redis-server pid=29080 scan=14    
+    redis-server-26694   [018] .....  2876.257909: sched_cache_scan: comm=redis-server pid=26694 scan=13    
+ valkey-benchmar-48198   [103] .....  2876.257909: sched_cache_scan: comm=valkey-benchmar pid=48198 scan=16 
+
+The above results show that this series significantly reduces the overhead
+of task_cache_work() by decreasing the number of CPUs that need to be
+scanned, from 384 to 16, when NUMA balancing is disabled.
+
+Even with NUMA balancing enabled, this patch provides better performance
+benefits. The following tests were conducted with NUMA balancing enabled:
+
+valkey-benchmark rps  |      baseline       |         schedcache              |     schedcache_visit
+                      |  (no cache aware)   |    (without this series)        |     (with this series)
+----------------------+---------------------+---------------------+-----------+-------------------+--------
+                      |   p99 latency(ms)   |    p99 latency(ms)  |   DIFF(%) |   p99 latency(ms) |  DIFF(%)
+400000                |      0.437          |        0.454        |   -3.89%  |         0.442     |   -1.14%
+
+The overhead of task_cache_work() is as follows:
+
+valkey-benchmark rps  |         schedcache                        |     schedcache_visit
+                      |    (without this series)                  |     (with this series)
+----------------------+-------------------------------------------+---------------------------------------
+400000                |  0.13%  [kernel]  [k] task_cache_work     |  0.03%  [kernel]  [k] task_cache_work 
+
+
+Hackbench testing was also conducted. The results below show that this
+series does not affect the accuracy of cache-aware scheduling.
+
+=========================================
+Hackbench Comparison: baseline vs schedcache
+=========================================
+MODE       GROUPS  FDS |     baseline(std)  |  schedcache(std)   |    DIFF(%) | VERDICT
+---------- ------ -----+--------------------+--------------------+------------+-----------
+threads         1   10 |    113.200 (4.22%) |     67.300 (1.32%) |     40.55% | IMPROVED
+threads         1    2 |     16.555 (4.11%) |     11.020 (1.66%) |     33.43% | IMPROVED
+threads         1   20 |    250.774 (1.26%) |    265.026 (5.44%) |     -5.68% | REGRESSED
+threads         1    4 |     42.117 (1.44%) |     27.758 (1.64%) |     34.09% | IMPROVED
+threads         1    6 |     65.140 (4.31%) |     39.182 (1.38%) |     39.85% | IMPROVED
+threads         1    8 |     84.286 (1.29%) |     53.721 (1.58%) |     36.26% | IMPROVED
+threads         2   10 |    122.592 (0.44%) |    113.365 (4.93%) |      7.53% | IMPROVED
+threads         2    2 |     17.702 (4.09%) |     10.473 (0.42%) |     40.84% | IMPROVED
+threads         2   20 |    336.457 (1.77%) |    314.108 (1.51%) |      6.64% | IMPROVED
+threads         2    4 |     43.989 (0.88%) |     27.067 (3.38%) |     38.47% | IMPROVED
+threads         2    6 |     69.322 (0.85%) |     41.707 (4.19%) |     39.84% | IMPROVED
+threads         2    8 |    103.767 (1.81%) |     58.518 (3.00%) |     43.61% | IMPROVED
+threads         4   10 |    148.882 (3.56%) |    149.449 (1.06%) |     -0.38% | REGRESSED
+threads         4    2 |     18.909 (2.96%) |     11.063 (2.08%) |     41.49% | IMPROVED
+threads         4   20 |    724.943 (2.14%) |    631.222 (3.92%) |     12.93% | IMPROVED
+threads         4    4 |     48.191 (1.91%) |     27.352 (5.35%) |     43.24% | IMPROVED
+threads         4    6 |     79.725 (3.84%) |     78.732 (4.10%) |      1.25% | IMPROVED
+threads         4    8 |    108.768 (1.36%) |    105.928 (1.65%) |      2.61% | IMPROVED
+     
+Hackbench Comparison: schedcache vs schedcache_visit
+=========================================
+MODE       GROUPS  FDS |    schedcache(std) |schedcache_visit(std) | DIFF(%) | VERDICT
+---------- ------ -----+--------------------+----------------------+---------+-----------
+threads         1   10 |     67.300 (1.32%) |     67.014 (0.96%)   |   0.42% | IMPROVED
+threads         1    2 |     11.020 (1.66%) |     10.557 (1.46%)   |   4.20% | IMPROVED
+threads         1   20 |    265.026 (5.44%) |   212.366 (16.32%)   |  19.87% | IMPROVED
+threads         1    4 |     27.758 (1.64%) |     25.711 (1.32%)   |   7.37% | IMPROVED
+threads         1    6 |     39.182 (1.38%) |     38.914 (0.34%)   |   0.68% | IMPROVED
+threads         1    8 |     53.721 (1.58%) |     52.889 (0.27%)   |   1.55% | IMPROVED
+threads         2   10 |    121.203 (6.99%) |    124.254 (1.38%)   |  -2.52% | REGRESSED
+threads         2    2 |     10.473 (0.42%) |     11.206 (5.91%)   |  -7.00% | REGRESSED
+threads         2   20 |    314.108 (1.51%) |    301.754 (1.95%)   |   3.93% | IMPROVED
+threads         2    4 |     27.067 (3.38%) |     28.028 (2.01%)   |  -3.55% | REGRESSED
+threads         2    6 |     41.707 (4.19%) |     42.149 (3.35%)   |  -1.06% | REGRESSED
+threads         2    8 |     58.518 (3.00%) |     57.133 (4.39%)   |   2.37% | IMPROVED
+threads         4   10 |    149.449 (1.06%) |    141.407 (0.08%)   |   5.38% | IMPROVED
+threads         4    2 |     11.063 (2.08%) |     11.360 (5.85%)   |  -2.68% | REGRESSED
+threads         4   20 |    631.222 (3.92%) |    622.780 (2.49%)   |   1.34% | IMPROVED
+threads         4    4 |     27.352 (5.35%) |     27.947 (5.37%)   |  -2.18% | REGRESSED
+threads         4    6 |     78.732 (4.10%) |     73.911 (0.70%)   |   6.12% | IMPROVED
+threads         4    8 |    105.928 (1.65%) |    107.535 (3.29%)   |  -1.52% | REGRESSED 
+
 ---
- include/linux/sched.h |   2 +
- kernel/sched/fair.c   | 117 +++++++++++++++++++-----------------------
- 2 files changed, 55 insertions(+), 64 deletions(-)
+Changes history
+**v10 Changes:**
+1. Rebase onto the latest mainline.
+2. Dropped Reviewed-by and Tested-by tags due to the rebase.
 
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index d35ae49a991f..09bd18c7a667 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -2404,6 +2404,7 @@ static __always_inline int task_mm_cid(struct task_struct *t)
- struct sched_cache_time {
- 	u64 runtime;
- 	unsigned long epoch;
-+	unsigned long epoch_last_visit;
- };
- 
- struct sched_cache_group {
-@@ -2416,6 +2417,7 @@ struct sched_cache_group {
- 	int cpu;
- 	refcount_t refcnt;
- 	struct rcu_head rcu;
-+	cpumask_var_t visited_cpus;
- } ____cacheline_aligned_in_smp;
- 
- struct sched_cache_group *sched_cache_group_get(struct sched_cache_group *grp);
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 57360f5cdde4..691b4ecdb2e7 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -1656,11 +1656,11 @@ int mm_init_sched(struct mm_struct *mm,
- 	int i;
- 
- 	grp = kzalloc_obj(*grp);
--	if (!grp) {
--		free_percpu(_pcpu_sched);
--		mm->sched_cache_grp = NULL;
--		return -ENOMEM;
--	}
-+	if (!grp)
-+		goto err_free_pcpu;
-+
-+	if (!zalloc_cpumask_var(&grp->visited_cpus, GFP_KERNEL))
-+		goto err_free_grp;
- 
- 	for_each_possible_cpu(i) {
- 		struct sched_cache_time *pcpu_sched = per_cpu_ptr(_pcpu_sched, i);
-@@ -1669,6 +1669,7 @@ int mm_init_sched(struct mm_struct *mm,
- 		pcpu_sched->runtime = 0;
- 		/* a slightly stale cpu epoch is acceptible */
- 		pcpu_sched->epoch = rq->cpu_epoch;
-+		pcpu_sched->epoch_last_visit = rq->cpu_epoch;
- 		epoch = rq->cpu_epoch;
- 	}
- 
-@@ -1694,6 +1695,14 @@ int mm_init_sched(struct mm_struct *mm,
- 	 */
- 	smp_store_release(&mm->sched_cache_grp, grp);
- 	return 0;
-+
-+err_free_grp:
-+	kfree(grp);
-+
-+err_free_pcpu:
-+	free_percpu(_pcpu_sched);
-+	mm->sched_cache_grp = NULL;
-+	return -ENOMEM;
- }
- 
- static void sched_cache_group_free_rcu(struct rcu_head *rcu)
-@@ -1702,6 +1711,7 @@ static void sched_cache_group_free_rcu(struct rcu_head *rcu)
- 		container_of(rcu, struct sched_cache_group, rcu);
- 
- 	free_percpu(grp->pcpu_sched);
-+	free_cpumask_var(grp->visited_cpus);
- 	kfree(grp);
- }
- 
-@@ -1842,13 +1852,23 @@ static inline void __update_mm_sched(struct rq *rq,
- 	}
- }
- 
--static unsigned long fraction_mm_sched(struct rq *rq,
--				       struct sched_cache_time *pcpu_sched)
-+static unsigned long fraction_mm_sched(int cpu,
-+				       struct sched_cache_group *grp)
- {
-+	struct sched_cache_time *pcpu_sched =
-+		per_cpu_ptr(grp->pcpu_sched, cpu);
-+	struct rq *rq = cpu_rq(cpu);
-+
- 	guard(raw_spinlock_irqsave)(&rq->cpu_epoch_lock);
- 
- 	__update_mm_sched(rq, pcpu_sched);
- 
-+	/* Skip the rq that has not been hit for a long time */
-+	if ((rq->cpu_epoch - pcpu_sched->epoch_last_visit) > llc_epoch_affinity_timeout) {
-+		cpumask_clear_cpu(cpu, grp->visited_cpus);
-+		return 0;
-+	}
-+
- 	/*
- 	 * Runtime is a geometric series (r=0.5) and as such will sum to twice
- 	 * the accumulation period, this means the multiplcation here should
-@@ -1924,6 +1944,9 @@ void account_mm_sched(struct rq *rq, struct task_struct *p, s64 delta_exec)
- 		pcpu_sched->runtime += delta_exec;
- 		rq->cpu_runtime += delta_exec;
- 		epoch = rq->cpu_epoch;
-+		pcpu_sched->epoch_last_visit = epoch;
-+		if (!cpumask_test_cpu(cpu_of(rq), grp->visited_cpus))
-+			cpumask_set_cpu(cpu_of(rq), grp->visited_cpus);
- 	}
- 
- 	/*
-@@ -1974,52 +1997,6 @@ static void task_tick_cache(struct rq *rq, struct task_struct *p)
- 	}
- }
- 
--static void get_scan_cpumasks(cpumask_var_t cpus, struct task_struct *p,
--			      struct sched_cache_group *grp)
--{
--#ifdef CONFIG_NUMA_BALANCING
--	int cpu, curr_cpu, nid, pref_nid;
--
--	if (!static_branch_likely(&sched_numa_balancing))
--		goto out;
--
--	cpu = READ_ONCE(grp->cpu);
--	if (cpu != -1)
--		nid = cpu_to_node(cpu);
--	curr_cpu = task_cpu(p);
--
--	/*
--	 * Scanning in the preferred NUMA node is ideal. However, the NUMA
--	 * preferred node is per-task rather than per-process. It is possible
--	 * for different threads of the process to have distinct preferred
--	 * nodes; consequently, the process-wide preferred LLC may bounce
--	 * between different nodes. As a workaround, maintain the scan
--	 * CPU mask to also cover the process's current preferred LLC and the
--	 * current running node to mitigate the bouncing risk.
--	 * TBD: numa_group should be considered during task aggregation.
--	 */
--	pref_nid = p->numa_preferred_nid;
--	/* honor the task's preferred node */
--	if (pref_nid == NUMA_NO_NODE)
--		goto out;
--
--	cpumask_or(cpus, cpus, cpumask_of_node(pref_nid));
--
--	/* honor the task's preferred LLC CPU */
--	if (cpu != -1 && !cpumask_test_cpu(cpu, cpus) && nid != NUMA_NO_NODE)
--		cpumask_or(cpus, cpus, cpumask_of_node(nid));
--
--	/* make sure the task's current running node is included */
--	if (!cpumask_test_cpu(curr_cpu, cpus))
--		cpumask_or(cpus, cpus, cpumask_of_node(cpu_to_node(curr_cpu)));
--
--	return;
--
--out:
--#endif
--	cpumask_copy(cpus, cpu_online_mask);
--}
--
- static inline void update_avg_scale(u64 *avg, u64 sample)
- {
- 	int factor = per_cpu(sd_llc_size, raw_smp_processor_id());
-@@ -2068,7 +2045,7 @@ static void task_cache_work(struct callback_head *work)
- 	if (time_before(now, next_scan))
- 		return;
- 
--	/* only 1 thread is allowed to scan */
-+	/* elect a single scanner per epoch */
- 	if (!try_cmpxchg(&grp->next_scan, &next_scan,
- 			 now + max_t(unsigned long,
- 				     READ_ONCE(llc_epoch_period), 1)))
-@@ -2089,7 +2066,18 @@ static void task_cache_work(struct callback_head *work)
- 	scoped_guard (cpus_read_lock) {
- 		guard(rcu)();
- 
--		get_scan_cpumasks(cpus, p, grp);
-+		/*
-+		 * Data race: While evaluating the visited_cpus without
-+		 * a lock, a CPU could be concurrently set by
-+		 * account_mm_sched(), meaning the scan might skip the newly
-+		 * visited CPU if the bit changes during the scan. This is
-+		 * a deliberate trade-off between accuracy and efficiency:
-+		 * locking would prevent this race but incur extra overhead.
-+		 * The missed runtime contribution is negligible because it
-+		 * implies this process hasn't run on that CPU for a long
-+		 * time, and will be captured in the next cycle.
-+		 */
-+		cpumask_and(cpus, cpu_online_mask, grp->visited_cpus);
- 
- 		for_each_cpu(cpu, cpus) {
- 			/* XXX sched_cluster_active */
-@@ -2100,15 +2088,7 @@ static void task_cache_work(struct callback_head *work)
- 			if (!sd)
- 				continue;
- 
--			for_each_cpu(i, sched_domain_span(sd)) {
--				occ = fraction_mm_sched(cpu_rq(i),
--							per_cpu_ptr(grp->pcpu_sched, i));
--				a_occ += occ;
--				if (occ > m_occ) {
--					m_occ = occ;
--					m_cpu = i;
--				}
--
-+			for_each_cpu_and(i, sched_domain_span(sd), cpus) {
- 				/*
- 				 * rcu_access_pointer() is used because the
- 				 * pointer is only compared, never dereferenced.
-@@ -2117,6 +2097,15 @@ static void task_cache_work(struct callback_head *work)
- 				if (cur && !(cur->flags & (PF_EXITING | PF_KTHREAD)) &&
- 				    rcu_access_pointer(cur->sched_cache_grp) == grp)
- 					nr_running++;
-+
-+				occ = fraction_mm_sched(i, grp);
-+				if (occ == 0)
-+					continue;
-+				a_occ += occ;
-+				if (occ > m_occ) {
-+					m_occ = occ;
-+					m_cpu = i;
-+				}
- 			}
- 
- 			/*
+Link to v9: https://lore.kernel.org/all/20260731024417.1106503-1-luogengkun2@huawei.com/
+
+**v9 Changes:**
+1. Using for_each_cpu_and(i, sched_domain_span(sd), cpus) instead of
+for_each_cpu_and(i, sched_domain_span(sd), mm->sc_stat.visited_cpus) in
+the inner loop to reduce the race window to  read mm->sc_stat.pcpu_sched.
+2. Update the comment to reflect that a single scanner is elected per epoch
+in task_cache_work().
+
+Link to v8: https://lore.kernel.org/all/20260723040429.630176-1-luogengkun2@huawei.com/
+
+**v8 Changes:**
+1. Remove get_scan_cpumasks() since visited_cpus provides the exact CPUs to
+scan.
+
+Link to v7: https://lore.kernel.org/all/20260720122214.3977092-1-luogengkun2@huawei.com/
+
+**v7 Changes:**
+1. Add code comments in task_cache_work() to clarify the race condition
+between setting and reading visited_cpus.
+
+Link to v6: https://lore.kernel.org/all/20260717041231.3324851-1-luogengkun2@huawei.com/
+
+**v6 Changes:**
+1. Switched to cpumask_var_t to dynamically allocate visited_cpus inside
+mm_struct, preventing per-process memory bloat when NR_CPUS is configured
+large.
+2. Intersected the LLC scheduling domain span directly with visited_cpus
+to prevent skipping CPU is cross-node LLC topolgies.
+3. Renamed epoch_timeout to epoch_last_visit to better reflect its purpose.
+4. Moved __update_mm_sched to execute before the timeout check in
+fraction_mm_sched()
+
+Link to v5: https://lore.kernel.org/all/20260709130053.2749834-1-luogengkun2@huawei.com/
+
+**v5 Changes:**
+1. Restore get_scan_cpumasks() to avoid violating NUMA_BALANCING constraints.
+2. Use for_each_cpu_and() to filter CPUs within the LLC domain.
+
+Link to v4: https://lore.kernel.org/all/20260618064300.80072-1-luogengkun2@huawei.com/
+
+**v4 Changes:**
+1. Rebase to the master.
+2. epoch_timeout is introduced to evict expired CPUs instead of relying on
+epoch, because epoch is refreshed periodically due to invocations of
+fraction_mm_sched().
+3. Move the increasement of nr_running before fraction_mm_sched().
+4. Remove the redundant 'work->next' reset at the end of task_cache_work().
+5. Add a debug patch to show the number of CPUs scanned to show the
+benefit of this optimization.
+
+Link to v3: https://lore.kernel.org/all/20260423085414.1389749-1-luogengkun2@huawei.com/
+
+**v3 Changes:**
+1. Remove the static key and enable this feature by default.
+2. Reuse llc_epoch_affinity_timeout instead of introducing
+llc_epoch_visited_timeout.
+3. Move the calculation of rq->cpu_epoch - pcpu_sched->epoch into
+fraction_mm_sched() to avoid race between task_cache_work() and
+__update_mm_sched(). 
+4. Reset work->next at the end of task_cache_work() to prevent concurrent
+executions by multiple threads within the same process.
+
+Link to v2: https://lore.kernel.org/all/20260414150745.225416-1-luogengkun2@huawei.com/
+
+**v2 Changes:**
+1. Added a pre-check before set/clear visited_cpus to avoid C2C overhead.
+2. Optimized llc_epoch_visited_timeout by using a static key to minimize overhead.
+
+Link to v1: https://lore.kernel.org/all/f2488085-4b52-491d-84be-d30d43954381@huawei.com/
+
+Luo Gengkun (2):
+  sched/cache: Reduce the overhead of task_cache_work by only scan the
+    visisted cpus
+  -- DO NOT APPLY!!! -- sched/cache/debug: Add trace event and sched
+    feature to track scan cost
+
+ include/linux/sched.h        |  2 +
+ include/trace/events/sched.h | 21 +++++++++
+ kernel/sched/fair.c          | 85 ++++++++++++++++++++++++++++--------
+ kernel/sched/features.h      |  2 +
+ 4 files changed, 93 insertions(+), 17 deletions(-)
+
 -- 
 2.34.1
 
