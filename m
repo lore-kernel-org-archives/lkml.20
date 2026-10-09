@@ -1,146 +1,122 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4B6C649D587;
-	Fri,  9 Oct 2026 09:37:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C379249E138
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 09:37:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791538661; cv=none; b=Ye7kLCwcYuqfCXlmGGWXtkHYtpdh2XL3FEchGGkRtzGi0MeNZvXugNmA8FKW+TMYY/22bosaa0AV2zX/A4Buwi7uHQThVGuLNDbqNvTP3BAJ2YuWaAhm5PRelXlUN2GoKcq/37ENnkvzqObKRitOmC6+ogW530JIqP6+fGyb6aA=
+	t=1791538664; cv=none; b=EUzvdhVJJPwlwBEqokRa9szkcqtx+aoEpge82GxND3GCbv9gVAaye1kz6F32J2dzW21r+LpUh7dep8MA4Qfa1FNAt95/HFkAc1SzFM7OadV3sbVLW1QyUGlGuzbR6TzxTuTZ9ytb4Vs+zu40KJBziCa8lKVdI2rL6XKBoU6cT4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791538661; c=relaxed/simple;
-	bh=6UzabKbW7/W4ItnNK/pguJFy0TBdcBXWtlkqalkBenU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=V/LIIdy5NjvaomKziTBk0G6cdhwXRn8pfu4w+gX/dxLlwUj67Rf0gmKqIl8gwYE72WGkI01TfjETTqmu6FWNVxXoVHtd52kwavVj52UUlbMS9ANBgEpoc3H7rbaDepQ/CU3bC02vB/hC7PbqmVjCAJP9F70EB1I33FzrhD9PdWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.172])
-	by gateway (Coremail) with SMTP id _____8BxhvDTtchq0BYUAA--.58299S3;
-	Fri, 09 Oct 2026 17:37:23 +0800 (CST)
-Received: from [10.20.42.172] (unknown [10.20.42.172])
-	by front1 (Coremail) with SMTP id qMiowJDxg8zTtchqAWkqAA--.61825S2;
-	Fri, 09 Oct 2026 17:37:23 +0800 (CST)
-Message-ID: <be30e2f2-e126-4be5-910f-75d068526c87@loongson.cn>
-Date: Fri, 9 Oct 2026 17:37:28 +0800
+	s=arc-20240116; t=1791538664; c=relaxed/simple;
+	bh=dRb+wHKU6Odz7DI5Yc43zePOzCwqX+mTCaStqapO7sI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fIFgxSh4OXB1JYrmF0PtRYHw9DK8tfGLFwW7FdJG/apOQ88UU8pZVmS4xRYC1UjDmdasB9UXxCvifNJxvGeK+LSE9Oj3p+7GKlRVcSQxQgqXfsHZWjnc4UsKC/j+xtfUF9+yMDVgmpk5JGRiGj+I2e9JPK0s+whHeN6GON1/OdY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net; spf=pass smtp.mailfrom=posteo.net; dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b=j+35i+9g; arc=none smtp.client-ip=185.67.36.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b="j+35i+9g"
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout02.posteo.de (Postfix) with ESMTPS id 305BB24010B
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 11:37:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.net;
+	s=1984.8680eb; t=1791538639;
+	bh=ZJ4Upg1kLDpt6VtqbRdlMoDn76OY0lfMTsNgv+VL3nw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:
+	 Content-Transfer-Encoding:From;
+	b=j+35i+9g+vIo8mtvMkFjgssgQweIQ4rbKev6iZUT/IbdetWJjamLpD5AB8F3z/xBM
+	 0U9Juam73h2l3wkDKQyQwWySBPT2NC3Y//VuDMI1L3Q0PXE8YBY+FTkuLCcnEQD8rB
+	 ZGvBhZBKmaeua7bpAM+z7alb5E0ylu5M0xznr9dem2DGcaIZRl/OMIejSkMPdJIwJj
+	 d/UUqo7Yf82JlAZuqLgX1JJxEl7/YguIVTnbymMkNmCZR/jChv7BoRz3IRd4fsBH+u
+	 Wk1qIawtYlemKqwElR5Gn7no5I4TZ6xzz5wyGsd7MAufFKeNGL+PWQVWFbfwGolKLh
+	 3tTbCbP4lrMlg==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4j1MG45kllz9rxD;
+	Fri,  9 Oct 2026 11:37:16 +0200 (CEST)
+From: Mateusz Nowicki <mateusz.nowicki@posteo.net>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Patrick Delaunay <patrick.delaunay@foss.st.com>,
+	Valentin Caron <valentin.caron@foss.st.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Mateusz Nowicki <mateusz.nowicki@posteo.net>
+Subject: [PATCH v2] arm64: dts: st: add thermal zones on stm32mp251
+Date: Fri, 09 Oct 2026 09:37:18 +0000
+Message-ID: <20261009093709.19907-1-mateusz.nowicki@posteo.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/loongson: Fix double free on BO initialization
- failure
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>, Evanshenf <archwse@gmail.com>,
- dri-devel@lists.freedesktop.org
-Cc: Jianmin Lv <lvjianmin@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>,
- Mingcong Bai <jeffbai@aosc.io>, Xi Ruoyao <xry111@xry111.site>,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261003093415.e64386de1e64-1-archwse@gmail.com>
- <dce8506787ff72b5a9fac15571d4c59624348430.camel@iscas.ac.cn>
-Content-Language: en-US
-From: wuqianhai <wuqianhai@loongson.cn>
-In-Reply-To: <dce8506787ff72b5a9fac15571d4c59624348430.camel@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJDxg8zTtchqAWkqAA--.61825S2
-X-CM-SenderInfo: 5zxtxtpqkdxqxorr0wxvrqhubq/
-X-Coremail-Antispam: 1Uk129KBj93XoW7ZFWUXw4rGr13JF47Zr1xtFc_yoW5JrW3pa
-	n3Ga4jyrWDJFs2kr9Fy3WrAa40kayxWrWkWF45G3Wfur1jyw1kJFy3u3s0gFnrXFy7Cr12
-	qanxG3ZxXF1qv3XCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUvEb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
-	xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
-	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
-	XVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI4
-	8JMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v26r1Y
-	6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7
-	AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE
-	2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcV
-	C2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73
-	UjIFyTuYvjxU2MKZDUUUU
 
+Add a CPU and a SoC thermal zone for the two DTS sensors. The sensors
+have no interrupt, so both zones are polled.
 
-Reviewed-by: Qianhai Wu <wuqianhai@loongson.cn>
+Each zone has a critical trip point at 122 C (Tj max 125 C minus
+3 C sensor tolerance).
 
-The fix looks correct and the TTM ownership analysis is accurate.
+Signed-off-by: Mateusz Nowicki <mateusz.nowicki@posteo.net>
+---
+Changes in v2:
+- Set critical trip to 122 C with 1 C hysteresis (Tj max minus sensor
+  tolerance), as suggested by Patrick
+- Add polling-delay-passive, the sensors have no interrupt
 
-Thanks,
-Qianhai Wu
+Link to v1: https://lore.kernel.org/r/20261004121200.64034-1-mateusz.nowicki@posteo.net/
 
-在 2026/10/9 16:42, Icenowy Zheng 写道:
-> 在 2026-10-03六的 09:34 +0000，Evanshenf写道：
->> If ttm_bo_init_validate() fails, it drops the buffer object's
->> reference
->> and cleans it up through the supplied destroy callback.
->> lsdc_bo_destroy()
->> releases the GEM object and frees the enclosing lsdc_bo, so freeing
->> it
->> again in lsdc_bo_create() causes a double free on a synchronous
->> failure
->> path.
->>
->> Let TTM own the cleanup after initialization has started and return
->> the
->> error directly. Keep the explicit free on drm_gem_object_init()
->> failure,
->> which occurs before ownership is passed to TTM.
->>
->> Tested on LS7A2000 by making drm_vma_offset_add() return -ENOSPC for
->> one
->> selected dumb-buffer creation. The error reached userspace, the
->> destroy
->> callback ran once, and no handle was published or tracked BO
->> retained.
->> Normal buffer creation, zeroing, mapping, readback and release
->> passed.
->>
->> AI assistance was used for the ownership analysis, fix, fault-
->> injection
->> tools, build and test execution.
->>
->> Fixes: f39db26c5428 ("drm: Add kms driver for loongson display
->> controller")
->> Cc: stable@vger.kernel.org
->> Assisted-by: LLM
->> Signed-off-by: Evanshenf <archwse@gmail.com>
->> ---
->>   drivers/gpu/drm/loongson/lsdc_ttm.c | 4 +---
->>   1 file changed, 1 insertion(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.c
->> b/drivers/gpu/drm/loongson/lsdc_ttm.c
->> index d7441d9..88536e2 100644
->> --- a/drivers/gpu/drm/loongson/lsdc_ttm.c
->> +++ b/drivers/gpu/drm/loongson/lsdc_ttm.c
->> @@ -475,10 +475,8 @@ struct lsdc_bo *lsdc_bo_create(struct drm_device
->> *ddev,
->>   
->>   	ret = ttm_bo_init_validate(bdev, tbo, bo_type, &lbo-
->>> placement, 0,
->>   				   false, sg, resv,
->> lsdc_bo_destroy);
->> -	if (ret) {
->> -		kfree(lbo);
->> +	if (ret)
->>   		return ERR_PTR(ret);
-> 
-> It looks like this fix is valid, ttm_bo_init_reserved() (called by
-> ttm_bo_init_validate() ) will do a ttm_bo_put() operation when failure,
-> which leads to calling the destroy callback.
-> 
-> ```
-> Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> ```
-> 
-> Thanks,
-> Icenowy
-> 
->> -	}
->>   
->>   	return lbo;
->>   }
->>
->> base-commit: bca45af5998a05f34b13a2ef11e639bac9c62643
+ arch/arm64/boot/dts/st/stm32mp251.dtsi | 30 ++++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+index b624f998b87c..da75e02f7c8f 100644
+--- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+@@ -158,6 +158,36 @@ RET_PD: power-domain-retention {
+ 		};
+ 	};
+ 
++	thermal-zones {
++		cpu-thermal {
++			polling-delay-passive = <250>;
++			polling-delay = <1000>;
++			thermal-sensors = <&dts 1>;
++
++			trips {
++				cpu-crit {
++					temperature = <122000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++
++		soc-thermal {
++			polling-delay-passive = <250>;
++			polling-delay = <1000>;
++			thermal-sensors = <&dts 0>;
++
++			trips {
++				soc-crit {
++					temperature = <122000>;
++					hysteresis = <1000>;
++					type = "critical";
++				};
++			};
++		};
++	};
++
+ 	timer {
+ 		compatible = "arm,armv8-timer";
+ 		interrupt-parent = <&intc>;
+
+base-commit: f831584128ac2a36fb4fa62fe106793d08c2dbf1
+-- 
+2.56.0
 
