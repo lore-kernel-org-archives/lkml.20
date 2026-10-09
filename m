@@ -1,92 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6152D0C8F;
-	Fri,  9 Oct 2026 09:16:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F6A8491591
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 09:16:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791537382; cv=none; b=oeEqfxCkt07DfaT+aQq8lx2Ru15z7UrgVdL6zsI7PjHUcizVQooILcyZD2Dkyp/YjgyfE9BoRz2mggPY4sp5e8Z/2+W1XceEjvf5+ruH9s+ukhlE8H7KrdcK4FOyt3inNzef1xq2JOQ0arJ6Cb7/sz+Fn6iwbCOS69OLPeTUjCQ=
+	t=1791537421; cv=none; b=L1j6VeleABB8oKGx1Jymbah3XWXIPtWHPig421E49bl/PmUuNqom6fnywWWi5Esj5gOs51M3z2zk0tjU9Bcx/jQox302NS4ECy9QAr5pBz9JJxdqjBhkQir6xvpnAmCqyJVkLDTSoSSvPYer9vLaJ4VKjMa1hHPNLQU8qClDDAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791537382; c=relaxed/simple;
-	bh=0B+1pOJWk5K5lH3NiBp1RyPADVEdbT8v/z8mxhQWGWQ=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=EYJFf0eTdfI3k6oY0VluTe2z9HUiImNIs25ghyS6kwhK/NLICkk9XEvhWOw7XsqmfKH6OVZJLE+WPHSfa4FVp1xVaJQm/hcUVVC8WaFVmEdZ48qZd5vmZ7PaeqJ4QKCZBQqLWLcE92Otljwm+a9Yh0QPYH5jOaQWH9qFUZg9Hoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ypkrenua; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791537421; c=relaxed/simple;
+	bh=hjUeeF84zGQeCguNxWT1DSh/V288K62/667n4VCMYNc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=vGrzrFNgpegcY3ZziH4XDiSaH6fast7BuyrTtFN3ka8l9QZJeNOMExDSPu1vKwM2/Z3EU2Zpr9UbQk3v7khAIvopMjFrSS5SyiD9hDYJqUvUPw2j2iJsWaAv0pq4qE8+KcD3piWWlavzjDdZLpmdEUyO28QrtcWCxXtC+2dZNgo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=M8gtNqgh; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ypkrenua"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED3D81F000FF;
-	Fri,  9 Oct 2026 09:16:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791537378;
-	bh=uIm23wQEM0Mw/ycgg/93BT/fPLY7+Nb56cELdkjjML8=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=YpkrenuaWecO/eZ8sFBJ2NHH+dIaRWs522jztqa7hWC50/eBfpatqntcEBqgZPvlb
-	 7k155/3q+4JKppn4E2DdatOVgadv2okvKdfQeO7sox2PrXAoZlEFaewX4SF85qhS7v
-	 iK509mv+w50Ohleq0yyK1EPr1LoYknv6/rZ+ItfZr1cHjL+gLdJD1KwRiioskUXNSU
-	 L46L+rSleC4ixNm4NfxTYm3QTPN51Fc6omc7qIPVN4DEw2ZZo87+JaxLHZy7RMW6Jq
-	 tdhrdTUOC4qJ1fz2JEMCKrUXVAh/Vw69SHDoAmewiVuy5bGGbPqWTh4bNND3VZgL2x
-	 SO845U6y59lcg==
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="M8gtNqgh"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48c4207ac26so2996932f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 02:16:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1791537415; x=1792142215; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YtSEU7OloYM/ik260iA76jMOjTaXd/5ywnlmhTJRsTM=;
+        b=M8gtNqghg13xJu/Cjxo5cFqD4V+WuiPvFAx9Dch4zp6MC6yg6TYexR3fWOhyas7jt3
+         n6cHMGLjgVxcfZUl8MsEOqWvx0CW0IdOMaExWoJwuNA20VAvZU1S8iUJ3MxNGTZqnpA+
+         PkpTI/Rss07wuVZFwvuJpetbw92hzUuqcGeX5oy8qaJSEVdEBY2jEppt8jtEaQ/8//yJ
+         9E09UR0tbLrTYLfToB5yTLpleWRU9Ft1By6dGyJeihHnIy+cLZg7Ary9wq11NXG2Rz1b
+         B6W4olC0E+lVhoILqIZ5LEXCDfGomp3A+t30BfHW4s4kQimxKwXoh+vb86zkB7x7Igix
+         o+bQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791537415; x=1792142215;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YtSEU7OloYM/ik260iA76jMOjTaXd/5ywnlmhTJRsTM=;
+        b=e81Hcr+iYKWa/I/jZVHFug8HTCwyW9urz6BeQ+/7GjpnpjPKhMDliuh7wfwEQ6uMMi
+         1pvPikq+FYNsu1E+ylJg5RC76njrHWhjhKpSGhQwn7VEItHaQyZIor7KbwWo/uQO8Xs0
+         pcu9AIRoRjMKiKjLDvQ7E6qudAEO+RuzhTw2z+r+pieXncHqPnWIJPVvdIj8nTedh1uS
+         ze+mFjfRqV0xj0he/yKQxS9XGBnA1rMjCV/SbGg9PmWcVtD/FMc5Zbf/uknAZJxB77g5
+         hEG8kzehOXNinI4X/U7Gwr23wNUuRJpN3lRGReB3dYeamuXNxgA7J+q9ZfBticwFRZZr
+         8qCQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxUf6AcXZbXtP26wD1+tCkp0iamxYz4YwZ8reRL2VugtgzbG/soW8g19sYH9I8DlNmS8hAC2Shz0qkklFk=@vger.kernel.org
+X-Gm-Message-State: AFuF++n2uNsoypaiBkc8DXdOOlW0szazWi/xwfPOU/cQ4OyZuXXwSoO9
+	4V8nkxFwlC6138YJTceQDA2r7UWUbASR/E2B8V7vKMUEBkqm+Cr9UlSUiyFhcHXeps0=
+X-Gm-Gg: AYBFou1GzIsCMNec7y/AL3twhkcmMGl4B9uY0LzMplQxlK87PxzGGxnT6ybxuHNSkAw
+	vwYkvKnRhx7Rml8VdTpywSG8jcIjCwgY1eaorybWycIYJNiziI+VrwkQBkineeOgU/W1a+C9DLv
+	gfCzN5nzkT7M/zF3kWQeEgctvwMoPkrj7JgR1R3dYUgxhO7i3jbpi7Wftt5vTEkunFQw+rXcNuX
+	rdljE8szk/vdd/9w3Lp4SJYOiZyhGfX7EdhXptyt1EYzlwKc4nzRyiAHXm/YjBkZf3AAzrukJND
+	xIr/paiSxTQ/K08+6RxfBYm8MJJfrWJ70IzqznzlTELQVPvfQ8LkwheP8nqE4npLecvF2Q+mHR7
+	heIvar7svVvypgoEqp/VN9Jwa789TzFTDMq82Iy0K//bfBnYBkCe3QINWjXDY+aD8I3vo21bnfU
+	HZ/RpTTu7/T9nnzOYQjxP/y6EZjtoL232wP7oZdzLQTETytz0LO2WQrIQZIsTHXMjrmsgs8AXHQ
+	A==
+X-Received: by 2002:a05:600c:a00f:b0:4a1:6c0c:ab93 with SMTP id 5b1f17b1804b1-4a18e4e24c7mr24231075e9.28.1791537415265;
+        Fri, 09 Oct 2026 02:16:55 -0700 (PDT)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bea1021sm42237545e9.10.2026.10.09.02.16.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 02:16:54 -0700 (PDT)
+Date: Fri, 9 Oct 2026 11:16:51 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: bigeasy@linutronix.de, brauner@kernel.org, john.ogness@linutronix.de,
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+	lkp@intel.com, oe-lkp@lists.linux.dev, oleg@redhat.com,
+	oliver.sang@intel.com, ptikhomirov@virtuozzo.com,
+	rostedt@goodmis.org, senozhatsky@chromium.org
+Subject: Re: [PATCH] nbcon/reboot: Flush nbcon consoles synchronously on
+ reboot
+Message-ID: <asixA20sG8QHH7hf@pathway.suse.cz>
+References: <20261008150852.8286-1-pmladek@suse.com>
+ <CD188453-7954-45B3-8501-FE9574D5FF1A@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 2/2] media: venus: vdec: Start capture after a seek
- that streams CAPTURE first
-From: bod@kernel.org
-To: David Heidelberg <david@ixit.cz>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
- Bryan O'Donoghue <bod@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Stanimir Varbanov <stanimir.varbanov@linaro.org>, 
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, 
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260928-venus-vdec-eos-v1-2-6e9eb3ce9849@ixit.cz>
-References: <20260928-venus-vdec-eos-v1-0-6e9eb3ce9849@ixit.cz>
- <20260928-venus-vdec-eos-v1-2-6e9eb3ce9849@ixit.cz>
-Date: Fri, 09 Oct 2026 10:16:14 +0100
-Message-Id: <179153737482.2596899.8050983650709172841.b4-reply@b4>
-X-Mailer: b4 0.17-dev-e5aa4
-X-Developer-Signature: v=1; a=openpgp-sha256; l=940; i=bod@kernel.org;
- h=from:subject:message-id; bh=0B+1pOJWk5K5lH3NiBp1RyPADVEdbT8v/z8mxhQWGWQ=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqyLDfiD/YOCe70sudhavDGP1TtXyrXJMYXp2H0
- NA6MwK9SZWJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasiw3wAKCRAicTuzoY3I
- OrnlD/9hE1OZd1KKvlYK0W3UqTYWuaRB5ez6hcFZTYWomyNuV4/bkCXqiP1VcH9fYQj23QvaqgX
- NKjsw7xTCQopeq5z3a6lxdaLDZ4PENi9u5uR7MAzQ/eBqkR7UY7Hr8HFg2wvpjqIUtinYZVZlA7
- H2xiWMQIgZrvrMyJ7tk/dBCbXNDvn3FMH2VfcKommzN4/8ClqI0L3B3a9NIPUgX3Yymqe3XHnFi
- a5bK4J6TJ6soOKdKgAgiA05JhqeK/MmPbxwZRiUiylYpllhegY5fF5quhaxamkAat2NKe190TMh
- B+t1vqNv3lBcAmKQIZb1L/qVAROZX5BXy8TGuGrqd9Z0jzYgtG2IHkojpqP2haxNVWmt4uojmde
- owPypNX3O8H2rG2Q2BeKRhzZuoh5MZX7uqRxnz7V3bi6ZPOkOY8PNnYfF3+UbiR9wbyWTpNdaDN
- WVwr5jRbV6E4EWStsEaya7/+2fVqI32xcPjYuMq9xuktygzo5k+ykwcZnVxRClGEsIbksYqITDB
- RoSK5T+PSfmHnPC7cNROnAVmbT4emSdtVNP3ROc/z9cm52C3+9JTMa4WfTvjHJe+NqAAmE9cM7k
- DsUfHR+ROmkYUW1I8KE7+yRvukP0g0JG1GDi6XtIXmBacb4RH4jIx23cPAOMeuHh2zCz93Ax0z2
- kljWHpa9OUxY9tA==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CD188453-7954-45B3-8501-FE9574D5FF1A@mainlining.org>
 
-On 2026-09-28 23:40 +0200, David Heidelberg wrote:
-> After both queues are streamed off, the decoder sits in
-> VENUS_DEC_STATE_SEEK. vdec_start_capture() does nothing while OUTPUT is
-> not streaming, and when OUTPUT is streamed on again, the SEEK path only
-> queues the DPB buffers if the capture side was already started. So an
-> application that streams on CAPTURE before OUTPUT gets a decoder that
-> never receives DPB or capture buffers: the firmware consumes the
-> bitstream and no frame is ever returned.
+On Thu 2026-10-08 16:19:03, Bradley Morgan wrote:
+> On 8 October 2026 16:08:52 BST, Petr Mladek <pmladek@suse.com> wrote:
+> >NBCON consoles emit messages in a dedicated kthreads when the system
+> >is working properly. printk() tries to flush them synchronously in
+> >explicitly marked emergency context and in panic().
+> >
+> >Another situation where printk() could not rely on kthreads are the
+> >various
+> >reboot and halt code paths. They can be detected by the `system_state`
+> >variable.
+> >
+> >Let's default to NBCON_PRIO_EMERGENCY for the post-running states.
+> >printk() will automatically try flushing the consoles synchronously.
+> >Also do not rely on printk() and explicitly flush the consoles
+> >after these states are set.
+> >
+> >Note that suspend code paths have already been handled, see
+> >console_suspend_all() and console_suspend().
+> >
+> >Reported-by: kernel test robot <lkp@intel.com>
+> >Closes: https://lore.kernel.org/all/202608061008.48a1e76e-lkp@intel.com/
+> >Suggested-by: John Ogness <john.ogness@linutronix.de>
 > 
-> The stateful decoder interface does not require either order, and
-> GStreamer restarts with CAPTURE first. Finish the capture start from the
-> OUTPUT SEEK path when the CAPTURE queue is already streaming, the same
-> way vdec_start_capture() does in VENUS_DEC_STATE_DECODING.
+> Hi, this looks good to me reboot.c ended! :)
 > 
-> Assisted-by: LLM
-> Signed-off-by: David Heidelberg <david@ixit.cz>
+> Reviewed-by: Bradley Morgan <brads@mainlining.org>
 
-This one is certainly missing at least a Fixes:
----
-bod
+Honestly, I am more or less ignoring Reviewed-by: Bradley Morgan.
+I can't recall any problem reported by this person. And the excited,
+AI-generated, acks do not add much value.
 
+> >Signed-off-by: Petr Mladek <pmladek@suse.com>
+> >---
+> >Hi,
+> >
+> >ah, this somehow fallen through cracks.
+> >I am sending it as a proper patch finally.
+> >
+> >I am sorry I have been somehow too busy before
+> >the Plumbers conference.
+> 
+> That's ok :) I'm too unlucky as to not go to any conferences :c
+
+I am not sure if there will be any conferences when robots will
+be ready to attend them.
+
+Best Regards,
+Petr
