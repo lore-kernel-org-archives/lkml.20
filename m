@@ -1,145 +1,91 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D17941A914
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 19:45:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77ACB4FDA75;
+	Fri,  9 Oct 2026 19:48:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791575126; cv=none; b=SC6wwg0vKsZpgVzbqT5st4HRcbWTr4gPt5qCxEfm8LXhzazaaQL8C+vNU3uOqNNCqsG/NSOb8yy69sVm5k03S/elEimo60y47HhaYJ4yNJgHc2wysoch5PuEX16bAkt6YUGueDVORlkToV/aG/UbqhIPHr18t3IfbpEUs78E8kM=
+	t=1791575308; cv=none; b=ShvMA0V6z+d4vyhQgiO8PolOdT3yUNYosVOSQJKRG5A6RA8HDvYfrCNOTvORrFnCmLj9RGcBJiKX3cDHtCoQAzH1o3i2220Ne6kBgcf6AsSnzEDZSZWkPE81MjFzvieDXF4uBJmBkiJfIT3NTXUYVxdJcCBqiwQdWz08HGcEb6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791575126; c=relaxed/simple;
-	bh=EloxsBTAFGMBBEvrMxew3OZ84oY2809c07/0bEzcf38=;
+	s=arc-20240116; t=1791575308; c=relaxed/simple;
+	bh=rA9AQqgTsrdh01nCDFqVXnf0H69OychNNxObvVIdRM0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IOEP24hqZwV4oUNVy5vrBUQbE+XX6mO58/JX7IVJdwFzahFKV3ZnbOJhJS5RyAWl9pI3ICiFvFzSgQLf/aBkmSetRGIfCpVPwS7lGJr37ETv3fXpnZVrMdkKPyoL4+7Lk2WWXNZM1Q0rUI3NeweYIYyqIJ7gFjVd8i4tSxEPbCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=ejfygQK2; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	 Content-Type:Content-Disposition:In-Reply-To; b=TVKa+4OswggpjSVWBcC5n6jBzLSBQ+VU4LH2zZ1s+e0q7BqNDXSWE3OIz7whuE3niu8pmnXy8cMWyQkAcA+1Vx4i5ei83fjmfG3TrgVij7pfUN1aXQiLCu9WgPmH5Ocm/l+OLWwdEfjmVpsf5G9WqlBva3GT05IYipNUnCwkR98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kydGAvjG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="ejfygQK2"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2dd9ec41bc4so420455ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 12:45:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1791575115; x=1792179915; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:mail-followup-to:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zRktNQAINep5jabUt0Um43RJIzgR/yjHPucefqAmOec=;
-        b=ejfygQK2nn5qCHhMJwV7MsO/8AtAu0S8FcCGpKndwEWBgMn1+77n4FVrFfrIM5i62V
-         1CbLz05BBF7qrvOLFqzhPvEpY6GcvZA2tINAtdbzyeDy6JCUc+1Zoxqa3+LBGJx+jMQ8
-         GY3zlV2EQnoHZNtE9EiE3UPLcvtMShKZSi3DoBo6dyjZHtIS+qXfnWmZohJzQpINjG3L
-         hKABRUnVypZvLSzxHMvhFeCJW9FFfoGrFwDB0HEfquWzg5zMzvv18RRj36lO32JjDJ6C
-         lu8WqyYIP4zLSM3tWb/Ggb9tnDV0i4GTqKHvrb24pHzpwZEseysJYOqT9yswKW+b39rj
-         pSQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791575115; x=1792179915;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:mail-followup-to:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=zRktNQAINep5jabUt0Um43RJIzgR/yjHPucefqAmOec=;
-        b=NNSoVhJQ3iuxnb1ogaeom54w9CfM/kHLDIhy0Cha7Fa7Ar2ZIfoXHeQIkLWtGs8jUf
-         GKPsjErmeu8j6Hlyva2AshRRj+UPDrdOc9m8i/7blceFnv8M1ZkaqnA6uZE1EteQL55z
-         1ZoDivicZLS1MHk3vUOZl4JXMY6kt7Wh4KkH+wjEiblyAZsi+EjDzNmKWIeLrsfv5Lxz
-         BvLQQoBV2XDBpHn4huBj2JDgQFk+Gtu6gpVkfyRQNCZMiil3jyMXXcK9Nq9LlVO9cKkD
-         CSkky5HBsv7NZqbisi1/6uhjIJj4sfHLs+LhZXJISFhjJfyXFXkEhhFMvdCv60SHXCQ7
-         ZQ9w==
-X-Forwarded-Encrypted: i=1; AKwUvBzmIokNSlBQ6AluMOWz9AxezYXFhSYUSOchuOMQcsXgob0pd+ikoc+611slHau6qlWTE3daUudVhZjokxI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIkZ7cCc2rCuvjVzcehiOeTPi6nQy6cArL9FJepwquIFyHEbW34
-	AX8BZx4/M89Tz8gH7z4Qzt0xYAXJ07HRZfak/jd7meaKH19nJZaZsw8hZfwTKOFUx2o=
-X-Gm-Gg: AYBFou3mkG2e/1LWNYoOzOmFTtVQZ83jV3lHNav7bDidZ/ZsTU0CpBnABu1ddzcYdJt
-	4yO+kZrIAwQ5DfiL0EPSyiy3jK9pfeAyWHxkG+u4ocrsuwRPPryCj3LFWWlaq75chGwHX8a7O30
-	KL/ZsZ65gqMOHl6zTvYiVSviCQWcXbnWczkA6k7iwcjzTDgw5/3K4VG9oPOEg/3QjPz4NoNI+yj
-	Ms5+9QG4HUdXzZAqiR13JxrsDKfbAL6f1UxUqI6Qt2zpOMP3X8miPUZe2QYyKj0CYQAl8QquuQq
-	JpB1Uju7ryDFEwJ8PzEej4rApvrS5flQ9tnIRSSq3YLzBYogdgZ2zJovbE/C1p0T20ZFTpIuA5l
-	vcGLN23aV+z2BkfXkwtMkITpHpMV2fq+TDiQnkX9ukS5uHx1KPw4Dw5Jln8Mb9PeIfbsxR3MWmO
-	Pi7sk9RedHNVux9aYXKqfAfNfKWRxbR5qWAgfDpfAlX22VbscuuwP0mSe2lbFP4sCwq9UBDkJTB
-	sWSvNIZ9VY=
-X-Received: by 2002:a17:90b:1e4a:b0:3a7:933a:3195 with SMTP id 98e67ed59e1d1-3ab3a236a1bmr2644773a91.7.1791575115460;
-        Fri, 09 Oct 2026 12:45:15 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:7::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36ed0332sm5135080a91.3.2026.10.09.12.45.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 12:45:14 -0700 (PDT)
-Date: Fri, 9 Oct 2026 12:45:14 -0700
-From: Joe Damato <joe@dama.to>
-To: Michael Chan <michael.chan@broadcom.com>
-Cc: netdev@vger.kernel.org, Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	edumazet@google.com, horms@kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net 2/2] bnxt_en: Pad short SW USO segments to
- BNXT_MIN_PKT_SIZE
-Message-ID: <aslESokQPvYCWarH@devvm20253.cco0.facebook.com>
-Mail-Followup-To: Joe Damato <joe@dama.to>,
-	Michael Chan <michael.chan@broadcom.com>, netdev@vger.kernel.org,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	edumazet@google.com, horms@kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-References: <20261008191114.3736826-1-joe@dama.to>
- <20261008191114.3736826-3-joe@dama.to>
- <CACKFLikWkH6QaOG=EO_zu8cqCFRxGqtA2-+R-btp0TwUbJjVBg@mail.gmail.com>
- <asklVFvUJx8P/k1d@devvm20253.cco0.facebook.com>
- <CACKFLiksRwZm+Zy74G_u59yEpY5BK+xRv=r6f9Wpo6WgT_TwDQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kydGAvjG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FC5C1F000FF;
+	Fri,  9 Oct 2026 19:48:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791575300;
+	bh=5n3tJfvIFUw+oLz3qfG9wdwLNhgMy4Fp6eZnCWrqV8o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kydGAvjGnkrp+Nc3rvwYr9i6yJymE1lPrVURDrMoASvsRfkdTswtICfqPjdAoDDO2
+	 4thzdMw16E8KyfQvRlsBk5xwuuPdYB6Dexfo6jujvfDrxODcP8IR53u3uysNwmRh2S
+	 4+Wu139UQ+j58eRbSVylz/y0MEX9MffAgL1fY53KlvjUzNrzWnOrBj9JzDKTm0QIwA
+	 4594y+rT0rkmSb8LXvHDYmubG5DYgTo1CxQZV/8nnSruFXd6GcdfH2nMg69a6lQTvW
+	 nBY6Hhwu5yAg1dpc6eF8qFfnr7g71XFmrv/31T8EujpvUsc42Frk8yPk6dBeOEY119
+	 /tcja6xolm7ug==
+Date: Fri, 9 Oct 2026 21:43:07 +0200
+From: Nicolas Schier <nsc@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Kees Cook <kees@kernel.org>, Julian Braha <julianbraha@gmail.com>,
+	Lorenzo Stoakes <ljs@kernel.org>, linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] Initial ergonomic improvements to
+ scripts/Kconfig.toolchain
+Message-ID: <aslDy2HkYdLytkDR@derry.ads.avm.de>
+Mail-Followup-To: Nicolas Schier <nsc@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>, Kees Cook <kees@kernel.org>,
+	Julian Braha <julianbraha@gmail.com>,
+	Lorenzo Stoakes <ljs@kernel.org>, linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+References: <20261007-scripts-kconfig-toolchain-improvements-v1-0-1e524178da11@kernel.org>
+ <179139172076.154975.7876331914722818497.b4-review@b4>
+ <202610082355.D904DA02@keescook>
+ <20261009191402.GB757048@ax162>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CACKFLiksRwZm+Zy74G_u59yEpY5BK+xRv=r6f9Wpo6WgT_TwDQ@mail.gmail.com>
+In-Reply-To: <20261009191402.GB757048@ax162>
 
-On Fri, Oct 09, 2026 at 11:33:07AM -0700, Michael Chan wrote:
-> On Fri, Oct 9, 2026 at 10:33 AM Joe Damato <joe@dama.to> wrote:
-> >
-> > On Thu, Oct 08, 2026 at 10:26:06PM -0700, Michael Chan wrote:
-> > > On Thu, Oct 8, 2026 at 12:11 PM Joe Damato <joe@dama.to> wrote:
-> > >
-> > > > diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c
-> > > > index ef04c9d08066..f87e02ef3033 100644
-> > > > --- a/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c
-> > > > +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c
-> > > > @@ -82,11 +82,14 @@ int bnxt_sw_udp_gso_xmit(struct bnxt *bp, struct bnxt_tx_ring_info *txr,
-> > > >         if (unlikely(num_segs <= 1))
-> > > >                 goto drop;
-> > > >
-> > > > +       if (unlikely(bnxt_sw_gso_pad_len(hdr_len, mss)))
-> > > > +               goto drop;
-> > > > +
-> > >
-> > > This looks redundant since you already have the same check in
-> > > bnxt_features_check().
-> >
-> > It's redundant for skbs that go through validate_xmit_skb(), but generic XDP
-> > doesn't AFAIU. Not sure how else to handle this case, but open to suggestions.
-> >
+On Fri, Oct 09, 2026 at 09:14:02PM +0200, Nathan Chancellor wrote:
+> On Thu, Oct 08, 2026 at 11:56:13PM -0700, Kees Cook wrote:
+> > On Wed, Oct 07, 2026 at 06:48:40PM +0200, Nicolas Schier wrote:
+> > > When I look into the resulting .config, I'd wish, these empty string
+> > > kconfig symbols could be unset, e.g.
+> > > 
+> > >     # CONFIG_CC_OPT_WNO_FORMAT_TRUNCATION_NON_KPRINTF is not set
+> > >     # CONFIG_CC_OPT_WNO_DEFAULT_CONST_INIT_UNSAFE is not set
+> > >     CONFIG_CC_OPT_WNO_DANGLING_POINTER="-Wno-dangling-pointer"
+> > >     CONFIG_CC_OPT_WVLA_LARGER_THAN="-Wvla-larger-than=1"
+> > >     CONFIG_CC_HAS_WSTRINGOP_OVERFLOW=y
+> > > 
+> > > instead of the current:
+> > > 
+> > >     CONFIG_CC_OPT_WNO_FORMAT_TRUNCATION_NON_KPRINTF=""
+> > >     CONFIG_CC_OPT_WNO_DEFAULT_CONST_INIT_UNSAFE=""
+> > >     CONFIG_CC_OPT_WNO_DANGLING_POINTER="-Wno-dangling-pointer"
+> > >     CONFIG_CC_OPT_WVLA_LARGER_THAN="-Wvla-larger-than=1"
+> > >     CONFIG_CC_HAS_WSTRINGOP_OVERFLOW=y
+> > > 
+> > > but that would make things unneccessary more complicated, right now.
+> > 
+> > Yeah, it may be worth documenting somewhere that "CONFIG_CC_OPT_..."
+> > will have empty strings, and if someone wants to test _availability_ of
+> > a feature, they need to still create and use CONFIG_CC_HAS_... ?
 > 
-> Did you mean generic XDP turning around incoming packets with XDP_TX
-> actions and transmitting them through the software stack?  This path
-> cannot generate USO packets, right?
+> I don't mind writing something up but where would be the best place to
+> stick that? In scripts/Kconfig.toolchain or somewhere else?
 
-Hm, I'm probably missing something, but the case I'm describing is generic XDP
-bouncing received packets back out with XDP_TX.
+Yes, I think scripts/Kconfig.toolchain is a good location (at least for
+a pointer); but Documentation/kbuild/kconfig-language.rst should
+probably also mention the new default way for compiler flag probing.
 
-I could be wrong (and if so I am happy to drop this if statement from the
-code), but IIUC generic XDP runs from __netif_receive_skb_core() after
-software GRO, so the packet it sees can be a GRO'd UDP packet with
-SKB_GSO_UDP_L4 set (because maybe the socket had UDP_GRO set?).
-
-The generic XDP path seems to keep all of the gso fields. Later generic
-XDP TX calls netdev_start_xmit without validate_xmit_skb being called
-and so gso_size could potentially be some tiny value.
-
-LMK if that makes sense? I think that's what happens and if so, it is a weird
-corner case that is probably pretty unlikely to happen so it felt like drop
-might be the most appropriate thing to do.
+-- 
+Nicolas
