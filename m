@@ -1,315 +1,521 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012006.outbound.protection.outlook.com [52.101.48.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A51835FF6C;
-	Fri,  9 Oct 2026 19:03:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791572596; cv=none; b=ZVVkuqPJ4Ve9xnF5NBae0+kwEG8LHjE3Mh4XxFJkyRPPTnbA6Z3K4sjBGv9g3Wrd3gzDEWLDKnVTqMjLFrXMAlYf0SDvCApNS2LCHZ8czJoH7dEsIxl3SfI7vOHfK7rXEo+XK5+1IyL6PqBC8KjVusAUXCR6sLfazy9nzaHao0M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791572596; c=relaxed/simple;
-	bh=miGuP0P2RpS2il8lVGOuOHXG1eLSz6RCzg09nOBAtvg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CBGmEbhTlJHkP52fvWSZMPovGvufiLtRDypeX4ne6iShj5OmsIrg3X0PtGvB4yL+OuZ1ToowyvvzawK/NIFXzo3gCiTZd7oqgNw9DdPJeyST831cX1GU4M/xBwTxPuNJITegIkCuQsnNVZeUs7Cs+SM3bCwiCil3N23zNRK6D9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XFr88NQ+; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4002B3451D6;
+	Fri,  9 Oct 2026 19:05:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.6
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791572728; cv=fail; b=ESXJaFYz1a+MC6eFuJKq0PNYVpL0NL71TXwgRGppBy29v/KU9y/V3qGK8k1SZs3Txq1eXhLjsltPp8CD7/olTdxWQBs3tEbGs7Fvhvy/2bhIXWQYqtXKZnuxq4g0v5H0j87VRI3MjJ6b8gplat/BRWRDw7zypJ6yG9Ydv6+t/LM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791572728; c=relaxed/simple;
+	bh=gZw1qXoow33leEoAfYmzXPYSOZIbj0YWQtFbGCgNxVQ=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=u4YCctjope/MFBltl+4LQFo3/HfrELi86x5di0PK8iFPM1NhFXQM/5ZHlZhijDRbxSLt627MqzFYjlNM4EIP4Ey9F5Vkna+WgIMcyCTiZMsw5mAjWXHTXMlCkr7SZIatIMWz/H90V0QP1HJd1c4Ui7T+QnqjeCjTKbyfC4khrYQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Z8gL/E4d; arc=fail smtp.client-ip=52.101.48.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XFr88NQ+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E81BA1F00898;
-	Fri,  9 Oct 2026 19:03:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791572594;
-	bh=TirdlCwzZ2cMnBXETSVn2wNFY8bO/3AuUeLLqbi+80w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XFr88NQ+TOXU9e4jM3Sku3N23cc2Z0FlIf41klvBBxFfn7opUfl6mqM7XTfAe7t66
-	 Bwm+HBpWHvhoEAg9ztR3w5rRCOuPzlNbIRIzgw4oYZXmxm1pjIjtTuPBV7oOuqQcO+
-	 zXK48eT943s784+SkktVSzgJyu3t4TiSOsl33stMQ+DrQr0hRyDJC178X0h/ih4QvY
-	 dCgbQl1oYdrA38feZKWPMlhj2/Wm+zeyRG3FAktp6DpXCyfadsQfC4dysoym3htxro
-	 0PN3h65Zw8aqxuyadA8XmmfAZXNKGiRV8rY+NliN9owq2ALNty8bWTXhTGy30EI3wr
-	 4ntoMJ+EFymgA==
-Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 26201F40066;
-	Fri,  9 Oct 2026 15:03:12 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-09.internal (MEProxy); Fri, 09 Oct 2026 15:03:12 -0400
-X-ME-Sender: <xms:cDrJapSTF-4TR9lYnSeST-jN7FAICdGSH2CxnXozt5nP-9ueQAwcqQ>
-    <xme:cDrJanCaOMUT4cjefNwFm2iobY9vNYdZLJU3Ai0yGTvABdvkW_M8Gf712Uw0s2joD
-    j8P9UXImlt6cFQZ0v9A0I026aYpPFgB1y9avi_L4AxengiiBQMVxnHZ>
-X-ME-Received: <xmr:cDrJarwZAl0DOZByWwHgnfVG4IDAIemmYhfzkvdYBPnJH9p93IM6KuMaL9AfxtxRdkU9FcVZ6kCXHN6EGgHKAyiEFLGx379K>
-X-ME-Proxy-Cause: dmFkZTGtq7JcenuwH9YCrRuUTTxkXWfMKXOv9XLn5AIx7CUcTLanJrTmpLXaH7tXe29Thu
-    4+EUJ0wq5iP3vYpD9dYfrqbBxeFyum1AHUKkNwellh8jXZyMFNUn2klB0HX8kimMTo+jCm
-    orPPwBk7KiiZY3aSSc7xYRDc4junoAPOnmYMSLf7DQDHZr9TcNr2sh9+CyU8GFRY844FCf
-    u9Acoo2q0GGZ4sI56HUOSyhyX7ItBVOZ3AlRYVVT/bFfOEynP3wwrCKEwYL1dzy07J4bKw
-    tQX1exdPDTa2fjNkSiGSGlkXbHVDf2/f7FPNBSmWvIGPIGmV0Z8PRN8ClzazP6Wfe2TwlS
-    aDo6MzGql/jk+Oha8Jymb5DSa/R2gx9s5EnNeC6U9crZ2kw4IqGZKLaO5ELmZWfPGmZy2H
-    qNYwLnZstHYOf4nuJsyrajMKOKozOuPZrtcDeGmXzmBnRReaYe3oqb1xd7XLCQ9LXHPmtq
-    ZWRalxK2C1eZy4tmXsAZCONcDyxk6q1wnq2EdpG9WmIv0/JcOgOreDx24hKOhZ3rttZEN9
-    QfLZhGmE6FTHMO9wZjN47up4l76o/u/5ALRX7gmQ+iUYuyREBhEWhmKXCd+enUvx0A7nxF
-    mP64lTmwb8z+5VypLLfJDeDdWXFX+6NMmPQo2LnIj82OboLukcomSNJ3pxHQ
-X-ME-Proxy: <xmx:cDrJavtd4yEj3SzhaEH1T6vN5GVQO5emvPE8L8PnrGqcw0xpqxJkrQ>
-    <xmx:cDrJasnQgAy0HJgjiAxBmQjQKnlWm3j1nkByuKD1mo6leZ431Xq-xg>
-    <xmx:cDrJasCXDpN17d_YTAJWSi3bR8MlAS6CZLJCnKYMltqt5PrWxgXdUw>
-    <xmx:cDrJatSBcHIKLTMyCIuQQkLK2MjSPJGTZrOMNnecbpuQX9zjD9IxzQ>
-    <xmx:cDrJakK2e6wG_-6YN4ax-P-FRJ0EU7qjzMZzWKfbgovAQNST13ZA8qqF>
-Feedback-ID: i8dbe485b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 9 Oct 2026 15:03:11 -0400 (EDT)
-Date: Fri, 9 Oct 2026 12:03:10 -0700
-From: Boqun Feng <boqun@kernel.org>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: "Paul E . McKenney" <paulmck@kernel.org>, linux-kernel@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Boqun Feng <boqun.feng@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Will Deacon <will@kernel.org>,	Peter Zijlstra <peterz@infradead.org>,
-	Alan Stern <stern@rowland.harvard.edu>,	John Stultz <jstultz@google.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Joel Fernandes <joel@joelfernandes.org>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang1211@gmail.com>, Ingo Molnar <mingo@redhat.com>,
-	Waiman Long <longman@redhat.com>,	Mark Rutland <mark.rutland@arm.com>,
-	Thomas Gleixner <tglx@linutronix.de>,	Vlastimil Babka <vbabka@suse.cz>,
- maged.michael@gmail.com,	Mateusz Guzik <mjguzik@gmail.com>,
- Gary Guo <gary@garyguo.net>,	rcu@vger.kernel.org, linux-mm@kvack.org,
- lkmm@lists.linux.dev,	Nikita Popov <github@npopov.com>,
- llvm@lists.linux.dev,	Lian Wang <lianux.mm@gmail.com>,
- Kunwu Chan <kunwu.chan@gmail.com>
-Subject: Re: [PATCH hazptr v2 2/4] ptreq.h: Introduce ptr_eq() to preserve
- address dependency
-Message-ID: <ask6bmsDCCacOkKb@tardis.local>
-References: <20261009182142.6311-1-mathieu.desnoyers@efficios.com>
- <20261009182142.6311-3-mathieu.desnoyers@efficios.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Z8gL/E4d"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=e1Hn1BFll9USjmGbs4R0r1gRP9soplwJ7jyi19lrY1x5Tm8l/Vuz0y12iQGMrTZbiq1VpLbqMpjLB/EhZyPgZfUQlbves0W2KRqXdd9DuH0Ej8gGdU7HdLlcfKU9hrhlV1lfUblvoiEFOiYnGEdDvImG7nQAHCg8h9vwo9FgiBKKVG29SgA5PIPpAmWtSpnUU6yWKZ9b+NzN6srHv59SEzpfpcmhUYBQmvO6Arai6lr2ZSRTGrQqJ7Qu6IlTnJA/etrKqyU+NXqqdWq0fPDsJjleHLUqCX8aesH+naG2XAgs2UchHYwKCMYhqprp5R/uK/AghgHB8b0p4CdXkrilCw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YTg5Gh3wVwRrDuZdotxmhVHU1k3495p8L1grbXwzPbg=;
+ b=FxeDcTMvCC3Voi6QlXOlNinXh/xvbcc6wzLc6vc5uZZzsxJB7TrS51zM/EKTgjEzHndeIPzAFN1kPASZE7YMrWKM8WeThod3v1H4Oq6hscOTSThm+gA5XAabAu5fy7f5ZkAlhpQzY+mBbkWoucEiHcqeCv0A1B5VOAs3iMqVIxSHB+pOSaBoReYD3ZTRSL1fOallMeFyyJN1jmYCa/ROFP2qsiGEgGayEi31MkG2bngZb+ZELsVmYSiijLB852TKpTaD9YeVSwJj7ygIyaZDNbpLZVOilRxnOfhocHXUpYpU36x420YBbdKQuB5EQSCeSbvGXBGn2Yj7+6Zz/7ZD5g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YTg5Gh3wVwRrDuZdotxmhVHU1k3495p8L1grbXwzPbg=;
+ b=Z8gL/E4dWdfbdRtz4KutB0Q+vd93U9yZ2E3wZRYwZivUrI9wJdUfuBohs9Nctw//j8eSNFXKZ8u8dFnuVTKUYYPL6OQY/i4XR0arxlFcIJeAgJd6C+Qg38L2H9SJT2+14N1cJPau8SN1lIFU245CWCrTKlu7XXaA7JKKc1DAciI=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ2PR12MB8136.namprd12.prod.outlook.com (2603:10b6:a03:4f8::6)
+ by MN2PR12MB4286.namprd12.prod.outlook.com (2603:10b6:208:199::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
+ 2026 19:05:22 +0000
+Received: from SJ2PR12MB8136.namprd12.prod.outlook.com
+ ([fe80::e5a6:6049:4f4c:afe2]) by SJ2PR12MB8136.namprd12.prod.outlook.com
+ ([fe80::e5a6:6049:4f4c:afe2%6]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
+ 19:05:21 +0000
+Message-ID: <961ba3a4-3fe2-45de-af56-92efa43ca2b2@amd.com>
+Date: Fri, 9 Oct 2026 14:05:18 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [Patch v2 2/4] KVM: SVM: Add host support for Enhanced SMT
+ Protection
+To: "Pratik R. Sampat" <prsampat@amd.com>, kvm@vger.kernel.org,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+Cc: tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, seanjc@google.com, pbonzini@redhat.com,
+ kim.phillips@amd.com, nikunj@amd.com, michael.roth@amd.com,
+ ashish.kalra@amd.com
+References: <cover.1791302373.git.prsampat@amd.com>
+ <64ea6ba62315d33b7bfb48ec6cab29ac4ee2fa06.1791302373.git.prsampat@amd.com>
+Content-Language: en-US
+From: Tom Lendacky <thomas.lendacky@amd.com>
+Autocrypt: addr=thomas.lendacky@amd.com; keydata=
+ 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
+ WiyqywZI5g==
+In-Reply-To: <64ea6ba62315d33b7bfb48ec6cab29ac4ee2fa06.1791302373.git.prsampat@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: CH2PR14CA0030.namprd14.prod.outlook.com
+ (2603:10b6:610:60::40) To SJ2PR12MB8136.namprd12.prod.outlook.com
+ (2603:10b6:a03:4f8::6)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009182142.6311-3-mathieu.desnoyers@efficios.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB8136:EE_|MN2PR12MB4286:EE_
+X-MS-Office365-Filtering-Correlation-Id: e26c1e5d-b91e-4e23-1921-08df26384453
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|4143699003|56012099006|11063799006|10067099003|18002099003|22082099003|6133799003|20046099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	tB0z3umHdAbw7pkTeg0iecDGANb8T6fTdCWZcc606FS58ppOkM+kRiNlrTcoXfSdkvtI3cy5vUerYP4ExrSLI62yQqFrfSfAx8KEunB8j8Cf0mpMFgAIpio4zgWtNQxP7Mp/aLu6ue8sHcxAD8lFrleuert1w2/9L5bg/F91QuvzowwK6CeWOcMC0gFuyZ7LYBTYoOcnJ73tM/kXp0TWcAFt0YbO+Hn1fqcOIf+b0dJ6dIzqZs82sUqagG2USr9WUg/xHShS+KskGcIEUgbqVU6ldRvC8cK72U/1jDfnNYRtcnHzpKX56ETT8OsvE3PWhXkr1a4IXlqQwhcH69wtP6QvVzAQkXUCJ3zSoxb+hDKSVqzkcMtJdH2nxHtjC2FeLi0+KNPwTSz21LiYujCb9S9NlEwoDHTgn9Emfr8sRGZyRkp7Jqm7fKYz3POuwwytwEdtpzx97Vx0msS+0jNLgTp2kO0YX2RRU29aNtjpW1g8dGwy4AraMdhdzkILNF1bMNysxC2cdHI6nqfFp0OM6fQ9vJg129jRp9fuOh+ldlTlZHVji2VrUqtLBTbMVRA3ej8Ojfr+p6DMYCFGpYBN+zXY3Q+N+hs3TnSnMdGIV30YKdXwZn0S58H01E1Q0CzFTdgWQX79uSPWNWrKNsnBAOUQV0/FB9pAgRvheVpFiHI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB8136.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(4143699003)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003)(6133799003)(20046099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cDBISjVwcEt6RmZnbVlubnNZbE1KQkRwWFp4TzlvZk0zUGtZTk5CSm9yeWpL?=
+ =?utf-8?B?Q0Vaclp2OVl6bXhTWkpseWdzUmQweWExaWlKQmg4eEQvOUwwR1R3U1d4SVht?=
+ =?utf-8?B?UTAwUVRZaW0wNFpSTkF2TVJ0UGpiS0dUSmkzN0dscUFidTdBaEpuN1J5S09I?=
+ =?utf-8?B?b2Jac0RYUERkazUxcytaaVJDc292ejliUWt1SUNKZzJrZjJUOFJNSFhSWmJ2?=
+ =?utf-8?B?TkZhaDk2b1JDTlZoWHBmZmJBc0ZyUmF6bUkrYURZQ1V3ajYzY3hsRlFRRURz?=
+ =?utf-8?B?a2htTVU1aGU0N2R1eVhmaG0yWFZYbVc3UkRGVjNrYWtaWWp1aFhIUmRJRFF5?=
+ =?utf-8?B?N1JuaEhTSjRWb2d0Q0IwaDdPQ3UxbitiTU9KMjJQWnFZdmlWeEZpTDZVTHBB?=
+ =?utf-8?B?OWMzYzJaYnozb3U0V3ZYMlorOEdnQ1kwUUhmS0lxOTN4Z1NSZ1FqQkQ0R3BW?=
+ =?utf-8?B?NlRQOWtyZGhHS2tXaHFSUURRZmUvZ2txZlNFVlJhdlJUL2g1QVBabW1qUkg2?=
+ =?utf-8?B?NVNyMTVIS3NSSm0ybzdoZTZaUWdUTnlGL0xxQnJEcnBsQ2k5SlVCbG5XR3JM?=
+ =?utf-8?B?NXpQcGdOR3FuYmpBRURNN1F3Z3BTR1hxY1VRNHBkcEkxRGVUN1R6Mk42eVc4?=
+ =?utf-8?B?d2lWNEk0S2dNN1dKQXVqU3pBZVR6aDVNRUhjaTMwTGpGZGRiYjc0Z2xlOVI3?=
+ =?utf-8?B?ZWppRTdHUkI4bCtkMzdpdWloaUxqV2VJMXMzcTNlNkdGUGt3V0Y2SVpKWVBX?=
+ =?utf-8?B?cCt5NFhQYnpoMDJNUWRDU1FiRkcwOEw4VndFOWIxNG9nSHphV3VJUkg4M0Ja?=
+ =?utf-8?B?aFEzT1FGRVUrZHNaa3ErL25XSnlsWDZVdlEzZURZR2pJL0U4Y0FUa1F5RSto?=
+ =?utf-8?B?WG9XL1BwNERGcS9MUE5QcklsaGZvWllseFBmZjlNaVhUREQxaDNyaVdXUGI2?=
+ =?utf-8?B?RVBXdnZpbzlXN0s2bEJwa1FOUzJtTUxMZ0xTTGlJQVVocHJhR3dSQi9zN1lV?=
+ =?utf-8?B?SFBmVXdYakdHQStYMFFLOXMwS2pVc25ISUl3ZlllTXNVMjM2SFl6cFRhMDNh?=
+ =?utf-8?B?Q2ErTmdvSWFJYWN6UVZoTTNnZ3A0U3ZvN2tGY25LS09jdTlJTU5RNzFvK3R3?=
+ =?utf-8?B?YXdsbFBmWW9HUXhXWE1BS2FYU29BZ2J0V1NpMWsxSGE5VUpOMU9KQ1JxMWF4?=
+ =?utf-8?B?NGRIcTRVUnd5YzZGUC95TkM4ZW94N05wWWwxeFdzN1lwZ3IvTjVRaERTQUlM?=
+ =?utf-8?B?Nkx0ZHcvUXhIeHRPM0Rrb1JVb0tiSnFUS2ZKanBvbW9OMnFWL1JIL2tHcXVz?=
+ =?utf-8?B?RjhjK3VUOWMxQ3A3c3FKZ3ZUcGZSNHVSYXd3bkZjbWdrc0wyaWJydDBCSFJi?=
+ =?utf-8?B?aFE0N3YvdTFtM3NtaGZvc0RnU3BzeG0ra25aTEhQWStuKzlEekdQTkpTRkFZ?=
+ =?utf-8?B?eEI1Z24yYTZDcmRRdENITHVxNWFNb29YYkpkajJvRXdHU2p6ZWVUQnRBTHN5?=
+ =?utf-8?B?YjJHWFZDZnZYMjBCYzVhdXk1eEoydUI4WjhYVEVzU3dUVzZBVjk3eG95TE5Z?=
+ =?utf-8?B?ZmFvRjcrN2VXTVM5REp5UlprRnZUK0I1MlYzMTFyVmI0elpsS1Bzc2dXdkda?=
+ =?utf-8?B?b1pBc2tMTDg0UUJwYi9OWjZJTU5FdXdhRkRBK2p4MmE3aGFXbGpvTXVnbGti?=
+ =?utf-8?B?dlZjK2dsbW82UWorSm9LVzE4MHJlbloyVFdlRFh5YjlkWmE0UzNlWjdRb3Rj?=
+ =?utf-8?B?ZVZaZ1BqSWtJOHNudEJ5cHFSemp6NGMyWFdLR3VCQmVjeW42MDFFNXNHdFdE?=
+ =?utf-8?B?aDk2UkpLQlJXUjFQUEhYNTNYK2k2UlZJdFlLVXVkdFpSTU56eEVEb3FuZDlY?=
+ =?utf-8?B?UFRUaFRmYTVRZTJ5OGFMd3hDVHJUTFlSVEFQeEliVk14QlRhdlIwNDkzNnNa?=
+ =?utf-8?B?RjZacWRkc3l6WUd5OGdzc2xXbmVDNXlkampwenlFR1dKTStPY0l3M2JaMVU3?=
+ =?utf-8?B?d1NDK2JLeVlHQmtUMTNhOVRXUDRRVDVXZFg5L1NjTDlSOGxNTWZCZ1cwUWJi?=
+ =?utf-8?B?SHBydERhdHJxT0w3Rlg2YlJoZW5TTVVDa2IyOERLTThiNWI2dTlwVDVvTkxQ?=
+ =?utf-8?B?QzhNSHc4VzBYOXFNK042cU5oci9KaWFjak9KbmRXSWFQR3Rkay8wdm5LV0Mr?=
+ =?utf-8?B?UzRRd2srcGtGMXpxUDNyZ0xxVkFaNlM4UGJBOXF1TndOUlpuckVmK3FPYkdX?=
+ =?utf-8?B?Mi9jQlZqQ0ZEdG1RdDVaN0czVHJoQTdhdG53TUtyM3g5cFNtaXoyUVdqK0xr?=
+ =?utf-8?Q?Hnamo8Sn7y1FRldsCc?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e26c1e5d-b91e-4e23-1921-08df26384453
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB8136.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 19:05:21.7830
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jU7Z5QizfewEvl1BzQ1YS0GNnlpRpXXB+Uc1K5UiCQCD94uWwn960qD9aAtKXsdwbYzFXVx9BwQMQ6FZ7LoT0A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4286
 
-On Fri, Oct 09, 2026 at 02:21:33PM -0400, Mathieu Desnoyers wrote:
-> Compiler CSE and SSA GVN optimizations can cause the address dependency
-> of addresses returned by rcu_dereference to be lost when comparing those
-> pointers with either constants or previously loaded pointers.
+On 10/6/26 11:54, Pratik R. Sampat wrote:
+> Enhanced SMT Protection (ESMTP) protects an SEV-SNP guest from SMT side
+> channels by requiring that, while a vCPU is in guest mode, its SMT sibling
+> thread is either idle in host mode or executing a vCPU the guest has
+> declared to be a legal sibling. A legal sibling is another ESMTP vCPU of
+> the same guest that carries the same VCPU_SIBLING_MASK and agrees on
+> VCPU_ID outside that mask.
 > 
-> Introduce ptr_eq() to compare two addresses while preserving the address
-> dependencies for later use of the address. It should be used when
-> comparing an address returned by rcu_dereference().
+> Hardware enforces this at VMRUN, which no longer enters guest mode right
+> away but stalls until the condition holds. Three new exits report that it
+> could not be met, all of them non-fatal:
 > 
-> This is needed to prevent the compiler CSE and SSA GVN optimizations
-> from using @a (or @b) in places where the source refers to @b (or @a)
-> based on the fact that after the comparison, the two are known to be
-> equal, which does not preserve address dependencies and allows the
-> following misordering speculations:
+> ESMTP_ILLSIB: a sibling thread is running a vCPU that is not a legal
+> sibling of this one.
 > 
-> - If @b is a constant, the compiler can issue the loads which depend
->   on @a before loading @a.
-> - If @b is a register populated by a prior load, weakly-ordered
->   CPUs can speculate loads which depend on @a before loading @a.
+> ESMTP_TIMEOUT: the stall exceeded the timeout programmed in the VMCB. The
+> timer bounds how long VMRUN waits for the core to settle. A module
+> parameter exposes an interface to program this timer.
 > 
-> The same logic applies with @a and @b swapped.
+> ESMTP_RETRY: If DBREQ is detected, VMRUN exits. ESMTP_RETRY indicates an
+> internal event and the hypervisor should execute a VMRUN.
 > 
-> The header "linux/ptreq.h" is the expected include target. It
-> contains the documentation of the ptr_eq() API.
+> Refer to the AMD64 APM Vol 2, section "AMD64 Enhanced SMT Protection".
 > 
-> An architecture specific implementation of the pointer comparison
-> can be implemented by each architecture as asm/ptreq.h. The x86
-> implementation is provided initially. If no implementation header is
-> present for the architecture, an arch-agnostic fallback based on
-> OPTIMIZER_HIDE_VAR is included from asm-generic.
-> 
-> Suggested-by: Linus Torvalds <torvalds@linux-foundation.org>
-> Suggested-by: Boqun Feng <boqun.feng@gmail.com>
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-> Cc: "Paul E. McKenney" <paulmck@kernel.org>
-> Cc: Will Deacon <will@kernel.org>
-> Cc: Peter Zijlstra <peterz@infradead.org>
-> Cc: Boqun Feng <boqun.feng@gmail.com>
-> Cc: Alan Stern <stern@rowland.harvard.edu>
-> Cc: John Stultz <jstultz@google.com>
-> Cc: Linus Torvalds <torvalds@linux-foundation.org>
-> Cc: Boqun Feng <boqun.feng@gmail.com>
-> Cc: Frederic Weisbecker <frederic@kernel.org>
-> Cc: Joel Fernandes <joel@joelfernandes.org>
-> Cc: Josh Triplett <josh@joshtriplett.org>
-> Cc: Uladzislau Rezki <urezki@gmail.com>
-> Cc: Steven Rostedt <rostedt@goodmis.org>
-> Cc: Lai Jiangshan <jiangshanlai@gmail.com>
-> Cc: Zqiang <qiang.zhang1211@gmail.com>
-> Cc: Ingo Molnar <mingo@redhat.com>
-> Cc: Waiman Long <longman@redhat.com>
-> Cc: Mark Rutland <mark.rutland@arm.com>
-> Cc: Thomas Gleixner <tglx@linutronix.de>
-> Cc: Vlastimil Babka <vbabka@suse.cz>
-> Cc: maged.michael@gmail.com
-> Cc: Mateusz Guzik <mjguzik@gmail.com>
-> Cc: Gary Guo <gary@garyguo.net>
-> Cc: rcu@vger.kernel.org
-> Cc: linux-mm@kvack.org
-> Cc: lkmm@lists.linux.dev
-> Cc: Nikita Popov <github@npopov.com>
-> Cc: llvm@lists.linux.dev
-> Cc: Lian Wang <lianux.mm@gmail.com>
-> Cc: Kunwu Chan <kunwu.chan@gmail.com>
+> Acked-by: Borislav Petkov (AMD) <bp@alien8.de> # non-virtualization changes
+> Signed-off-by: Pratik R. Sampat <prsampat@amd.com>
 > ---
-> Changes since v1:
-> - Move to linux/ptreq.h, implement x86-specific comparison
-
-I prefer the name ptr_eq.h over ptreq.h :)
-
-With that name fix or there is a strong reason of ptreq.h:
-
-Reviewed-by: Boqun Feng <boqun@kernel.org>
-
-Regards,
-Boqun
-
->   and asm-generic header (fallback).
-> 
-> Changes since v0:
-> - Include feedback from Alan Stern.
+> v1..v2
+> * Move idle wakeup ICR programming to svm_enable_virtualization_cpu()
+>   instead of sev_hardware_setup()
+> * Remove cond_sched() in ESMTP exit paths
+> * Program the IDLE_WAKEUP_ICR for all present CPU siblings
+> * Add documentation for ESMTP timeout
 > ---
->  arch/x86/include/asm/ptreq.h | 16 +++++++++
->  include/asm-generic/Kbuild   |  1 +
->  include/asm-generic/ptreq.h  | 16 +++++++++
->  include/linux/ptreq.h        | 63 ++++++++++++++++++++++++++++++++++++
->  4 files changed, 96 insertions(+)
->  create mode 100644 arch/x86/include/asm/ptreq.h
->  create mode 100644 include/asm-generic/ptreq.h
->  create mode 100644 include/linux/ptreq.h
+>  .../admin-guide/kernel-parameters.txt         | 19 ++++++++
+>  arch/x86/include/asm/cpufeatures.h            |  1 +
+>  arch/x86/include/asm/msr-index.h              |  1 +
+>  arch/x86/include/asm/svm.h                    | 12 ++++-
+>  arch/x86/include/uapi/asm/svm.h               |  9 +++-
+>  arch/x86/kernel/cpu/scattered.c               |  1 +
+>  arch/x86/kvm/svm/sev.c                        | 48 ++++++++++++++++++-
+>  arch/x86/kvm/svm/svm.c                        |  8 ++++
+>  arch/x86/kvm/svm/svm.h                        |  2 +
+>  9 files changed, 97 insertions(+), 4 deletions(-)
 > 
-> diff --git a/arch/x86/include/asm/ptreq.h b/arch/x86/include/asm/ptreq.h
-> new file mode 100644
-> index 000000000000..593b45f80451
-> --- /dev/null
-> +++ b/arch/x86/include/asm/ptreq.h
-> @@ -0,0 +1,16 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +#ifndef _ASM_X86_PTREQ_H
-> +#define _ASM_X86_PTREQ_H
+> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+> index 68647ff4bdd2..e09f18c0de34 100644
+> --- a/Documentation/admin-guide/kernel-parameters.txt
+> +++ b/Documentation/admin-guide/kernel-parameters.txt
+> @@ -3240,6 +3240,25 @@ Kernel parameters
+>  			max_snp_asid == min_sev_asid-1, will effectively make
+>  			SEV-ES unusable.
+>  
+> +	kvm-amd.esmtp_timeout_ns=
+> +			[KVM,AMD] Enhanced SMT Protection (ESMTP) VMRUN
+> +			timeout, in nanoseconds, for SEV-SNP guests that enable
+> +			ESMTP.  When an ESMTP vCPU executes VMRUN, hardware
+> +			waits for every sibling thread to either be idle or
+> +			run a legal sibling vCPU of the same guest before
+> +			entering guest mode.  If the wait exceeds this timeout,
+> +			VMRUN exits with VMEXIT_ESMTP_TIMEOUT and KVM retries
+> +			the VMRUN.
 > +
-> +#include <linux/types.h>
-> +#include <asm/asm.h>
+> +			The value is converted to TSC cycles and programmed
+> +			into the VMCB when a vCPU is initialized, so changing
+> +			it at runtime only affects vCPUs that are created or
+> +			reset afterwards.
 > +
-> +static __always_inline
-> +bool ptr_eq(const volatile void *a, const volatile void *b)
+> +			Default is 0, which disables the timeout, i.e. VMRUN
+> +			waits until the sibling condition is met or a physical
+> +			interrupt arrives.
+> +
+>  	kvm-arm.mode=
+>  			[KVM,ARM,EARLY] Select one of KVM/arm64's modes of
+>  			operation.
+> diff --git a/arch/x86/include/asm/cpufeatures.h b/arch/x86/include/asm/cpufeatures.h
+> index f70ee74b5f92..4cf477e95c58 100644
+> --- a/arch/x86/include/asm/cpufeatures.h
+> +++ b/arch/x86/include/asm/cpufeatures.h
+> @@ -529,6 +529,7 @@
+>  						      * and purposes if CLEAR_CPU_BUF_VM is set).
+>  						      */
+>  #define X86_FEATURE_X2AVIC_EXT		(21*32+20) /* AMD SVM x2AVIC support for 4k vCPUs */
+> +#define X86_FEATURE_AMD_ESMTP		(21*32+21) /* AMD Enhanced SMT Protection */
+>  
+>  /*
+>   * BUG word(s)
+> diff --git a/arch/x86/include/asm/msr-index.h b/arch/x86/include/asm/msr-index.h
+> index 3a8e51a0c9e8..fbcb3313e946 100644
+> --- a/arch/x86/include/asm/msr-index.h
+> +++ b/arch/x86/include/asm/msr-index.h
+> @@ -761,6 +761,7 @@
+>  #define MSR_AMD64_SEG_RMP_ENABLED_BIT	0
+>  #define MSR_AMD64_SEG_RMP_ENABLED	BIT_ULL(MSR_AMD64_SEG_RMP_ENABLED_BIT)
+>  #define MSR_AMD64_RMP_SEGMENT_SHIFT(x)	(((x) & GENMASK_ULL(13, 8)) >> 8)
+> +#define MSR_AMD64_IDLE_WAKEUP_ICR	0xc0010137
+>  
+>  #define MSR_SVSM_CAA			0xc001f000
+>  
+> diff --git a/arch/x86/include/asm/svm.h b/arch/x86/include/asm/svm.h
+> index aa63431ba92c..323ab7089302 100644
+> --- a/arch/x86/include/asm/svm.h
+> +++ b/arch/x86/include/asm/svm.h
+> @@ -165,7 +165,8 @@ struct __attribute__ ((__packed__)) vmcb_control_area {
+>  	u8 reserved_9[22];
+>  	u64 allowed_sev_features;	/* Offset 0x138 */
+>  	u64 guest_sev_features;		/* Offset 0x140 */
+> -	u8 reserved_10[664];
+> +	u64 esmtp_timeout;		/* Offset 0x148 */
+> +	u8 reserved_10[656];
+>  	/*
+>  	 * Offset 0x3e0, 32 bytes reserved
+>  	 * for use by hypervisor/software.
+> @@ -310,6 +311,7 @@ static_assert((X2AVIC_4K_MAX_PHYSICAL_ID & AVIC_PHYSICAL_MAX_INDEX_MASK) == X2AV
+>  #define SVM_SEV_FEAT_ALTERNATE_INJECTION		BIT(4)
+>  #define SVM_SEV_FEAT_DEBUG_SWAP				BIT(5)
+>  #define SVM_SEV_FEAT_SECURE_TSC				BIT(9)
+> +#define SVM_SEV_FEAT_ESMTP				BIT(17)
+>  
+>  #define VMCB_ALLOWED_SEV_FEATURES_VALID			BIT_ULL(63)
+>  
+> @@ -482,6 +484,11 @@ struct sev_es_save_area {
+>  	u8 fpreg_x87[80];
+>  	u8 fpreg_xmm[256];
+>  	u8 fpreg_ymm[256];
+> +	u8 reserved_0x670[560];
+> +
+> +	/* Enhanced SMT Protection */
+> +	u32 vcpu_id;
+> +	u32 vcpu_sibling_mask;
+>  } __packed;
+>  
+>  struct ghcb_save_area {
+> @@ -554,7 +561,7 @@ struct vmcb {
+>  
+>  #define EXPECTED_VMCB_SAVE_AREA_SIZE		744
+>  #define EXPECTED_GHCB_SAVE_AREA_SIZE		1032
+> -#define EXPECTED_SEV_ES_SAVE_AREA_SIZE		1648
+> +#define EXPECTED_SEV_ES_SAVE_AREA_SIZE		2216
+>  #define EXPECTED_VMCB_CONTROL_AREA_SIZE		1024
+>  #define EXPECTED_GHCB_SIZE			PAGE_SIZE
+>  
+> @@ -589,6 +596,7 @@ static inline void __unused_size_checks(void)
+>  	BUILD_BUG_RESERVED_OFFSET(sev_es_save_area, 0x320);
+>  	BUILD_BUG_RESERVED_OFFSET(sev_es_save_area, 0x380);
+>  	BUILD_BUG_RESERVED_OFFSET(sev_es_save_area, 0x3f0);
+> +	BUILD_BUG_RESERVED_OFFSET(sev_es_save_area, 0x670);
+>  
+>  	BUILD_BUG_RESERVED_OFFSET(ghcb_save_area, 0x0);
+>  	BUILD_BUG_RESERVED_OFFSET(ghcb_save_area, 0xcc);
+> diff --git a/arch/x86/include/uapi/asm/svm.h b/arch/x86/include/uapi/asm/svm.h
+> index 010a45c9f614..e59baf4b3c3f 100644
+> --- a/arch/x86/include/uapi/asm/svm.h
+> +++ b/arch/x86/include/uapi/asm/svm.h
+> @@ -135,6 +135,10 @@
+>  #define SVM_EXIT_SW				0xf0000000ull
+>  
+>  #define SVM_EXIT_ERR           -1ull
+> +/* Enhanced SMT Protection VM exits taken during VMRUN sibling sync */
+> +#define SVM_EXIT_ESMTP_ILLSIB  -5ull	/* Illegal ESMTP sibling */
+> +#define SVM_EXIT_ESMTP_TIMEOUT -6ull	/* ESMTP_TIMEOUT expired */
+> +#define SVM_EXIT_ESMTP_RETRY   -7ull	/* Internal event; retry VMRUN */
+>  
+>  #define SVM_EXIT_REASONS \
+>  	{ SVM_EXIT_READ_CR0,    "read_cr0" }, \
+> @@ -246,7 +250,10 @@
+>  	{ SVM_VMGEXIT_EXT_GUEST_REQUEST, "vmgexit_ext_guest_request" }, \
+>  	{ SVM_VMGEXIT_AP_CREATION,	"vmgexit_ap_creation" }, \
+>  	{ SVM_VMGEXIT_HV_FEATURES,	"vmgexit_hypervisor_feature" }, \
+> -	{ SVM_EXIT_ERR,         "invalid_guest_state" }
+> +	{ SVM_EXIT_ERR,         "invalid_guest_state" }, \
+> +	{ SVM_EXIT_ESMTP_ILLSIB,	"esmtp_illsib" }, \
+> +	{ SVM_EXIT_ESMTP_TIMEOUT,	"esmtp_timeout" }, \
+> +	{ SVM_EXIT_ESMTP_RETRY,		"esmtp_retry" }
+>  
+>  
+>  #endif /* _UAPI__SVM_H */
+> diff --git a/arch/x86/kernel/cpu/scattered.c b/arch/x86/kernel/cpu/scattered.c
+> index 8665a6474806..16620fa0e290 100644
+> --- a/arch/x86/kernel/cpu/scattered.c
+> +++ b/arch/x86/kernel/cpu/scattered.c
+> @@ -67,6 +67,7 @@ static const struct cpuid_bit cpuid_bits[] = {
+>  	{ X86_FEATURE_PERFMON_V2,		CPUID_EAX,  0, 0x80000022, 0 },
+>  	{ X86_FEATURE_AMD_LBR_V2,		CPUID_EAX,  1, 0x80000022, 0 },
+>  	{ X86_FEATURE_AMD_LBR_PMC_FREEZE,	CPUID_EAX,  2, 0x80000022, 0 },
+> +	{ X86_FEATURE_AMD_ESMTP,		CPUID_EDX,  1, 0x80000025, 0 },
+>  	{ X86_FEATURE_AMD_HTR_CORES,		CPUID_EAX, 30, 0x80000026, 0 },
+>  	{ 0, 0, 0, 0, 0 }
+>  };
+> diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
+> index 5705723f1f41..df836dfe3e55 100644
+> --- a/arch/x86/kvm/svm/sev.c
+> +++ b/arch/x86/kvm/svm/sev.c
+> @@ -67,6 +67,11 @@ module_param_named(sev_snp, sev_snp_enabled, bool, 0444);
+>  static unsigned int __ro_after_init nr_ciphertext_hiding_asids;
+>  module_param_named(ciphertext_hiding_asids, nr_ciphertext_hiding_asids, uint, 0444);
+>  
+> +static unsigned long esmtp_timeout_ns;
+> +module_param(esmtp_timeout_ns, ulong, 0644);
+> +MODULE_PARM_DESC(esmtp_timeout_ns,
+> +		 "ESMTP VMRUN sibling-wait timeout in nanoseconds (0 disables the timer)");
+
+"ESMTP VMRUN sibling-wait timeout, in nanoseconds. 0 (default) disables
+the timer."
+
+Not sure if that reads any better, main point is just to highlight the
+default is 0, timer disabled.
+
+> +
+>  #define AP_RESET_HOLD_NONE		0
+>  #define AP_RESET_HOLD_NAE_EVENT		1
+>  #define AP_RESET_HOLD_MSR_PROTO		2
+> @@ -506,7 +511,7 @@ static int __sev_guest_init(struct kvm *kvm, struct kvm_sev_cmd *argp,
+>  		return -EINVAL;
+>  
+>  	if (!snp_active)
+> -		valid_vmsa_features &= ~SVM_SEV_FEAT_SECURE_TSC;
+> +		valid_vmsa_features &= ~(SVM_SEV_FEAT_SECURE_TSC | SVM_SEV_FEAT_ESMTP);
+>  
+>  	if (data->vmsa_features & ~valid_vmsa_features)
+>  		return -EINVAL;
+> @@ -1021,6 +1026,15 @@ static int sev_es_sync_vmsa(struct vcpu_svm *svm)
+>  
+>  	save->sev_features = sev->vmsa_features;
+>  
+> +	if (sev->vmsa_features & SVM_SEV_FEAT_ESMTP) {
+> +		save->vcpu_id = vcpu->vcpu_id;
+> +		/*
+> +		 * All vCPUs of a guest are put into one group and can be run
+> +		 * co-resident on the sibling thread of the same core.
+> +		 */
+> +		save->vcpu_sibling_mask = U32_MAX;
+> +	}
+> +
+>  	/*
+>  	 * Skip FPU and AVX setup with KVM_SEV_ES_INIT to avoid
+>  	 * breaking older measurements.
+> @@ -3259,6 +3273,9 @@ void __init sev_hardware_setup(void)
+>  
+>  	if (sev_snp_enabled && tsc_khz && cpu_feature_enabled(X86_FEATURE_SNP_SECURE_TSC))
+>  		sev_supported_vmsa_features |= SVM_SEV_FEAT_SECURE_TSC;
+> +
+> +	if (sev_snp_enabled && cpu_feature_enabled(X86_FEATURE_AMD_ESMTP))
+> +		sev_supported_vmsa_features |= SVM_SEV_FEAT_ESMTP;
+>  }
+>  
+>  void sev_hardware_unsetup(void)
+> @@ -3290,6 +3307,31 @@ int sev_cpu_init(struct svm_cpu_data *sd)
+>  	return 0;
+>  }
+>  
+> +void sev_esmtp_enable_wakeup_icr(void)
 > +{
-> +	bool ret;
-> +	asm(__ASM_SIZE(cmp) " %1,%2" : "=@ccz" (ret) : "r" (a), "r" (b));
-> +	return ret;
+> +	unsigned int cpu, sibling, shift;
+> +	u32 core;
+> +
+> +	if (!(sev_supported_vmsa_features & SVM_SEV_FEAT_ESMTP))
+> +		return;
+> +
+> +	cpu = raw_smp_processor_id();
+> +	shift = topology_get_domain_shift(TOPO_CORE_DOMAIN);
+> +	core = per_cpu(x86_cpu_to_apicid, cpu) >> shift;
+> +
+> +	for_each_present_cpu(sibling) {
+> +		u32 apicid = per_cpu(x86_cpu_to_apicid, sibling);
+> +		u64 icr;
+> +
+> +		if (sibling == cpu || (apicid >> shift) != core)
+> +			continue;
+> +
+> +		icr = (u64)apicid << 32;
+> +		icr |= LOCAL_TIMER_VECTOR;
+> +		WARN_ON_ONCE(wrmsrq_safe(MSR_AMD64_IDLE_WAKEUP_ICR, icr));
+> +	}
+
+Can you use cpu_sibling_map here instead of going through every present cpu?
+
+Thanks,
+Tom
+
 > +}
 > +
-> +#endif	/* _ASM_X86_PTREQ_H */
-> diff --git a/include/asm-generic/Kbuild b/include/asm-generic/Kbuild
-> index 2bc00c67dc54..e1d95dea09d5 100644
-> --- a/include/asm-generic/Kbuild
-> +++ b/include/asm-generic/Kbuild
-> @@ -47,6 +47,7 @@ mandatory-y += percpu.h
->  mandatory-y += percpu_types.h
->  mandatory-y += pgalloc.h
->  mandatory-y += preempt.h
-> +mandatory-y += ptreq.h
->  mandatory-y += rqspinlock.h
->  mandatory-y += runtime-const.h
->  mandatory-y += rwonce.h
-> diff --git a/include/asm-generic/ptreq.h b/include/asm-generic/ptreq.h
-> new file mode 100644
-> index 000000000000..db5a88628b1e
-> --- /dev/null
-> +++ b/include/asm-generic/ptreq.h
-> @@ -0,0 +1,16 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +#ifndef __ASM_GENERIC_PTREQ_H
-> +#define __ASM_GENERIC_PTREQ_H
+>  /*
+>   * Pages used by hardware to hold guest encrypted state must be flushed before
+>   * returning them to the system.
+> @@ -4792,6 +4834,10 @@ static void sev_es_init_vmcb(struct vcpu_svm *svm, bool init_event)
+>  		svm->vmcb->control.allowed_sev_features = sev->vmsa_features |
+>  							  VMCB_ALLOWED_SEV_FEATURES_VALID;
+>  
+> +	if (sev->vmsa_features & SVM_SEV_FEAT_ESMTP)
+> +		svm->vmcb->control.esmtp_timeout = mul_u64_u32_div(esmtp_timeout_ns,
+> +								   tsc_khz, 1000000);
 > +
-> +#include <linux/types.h>
-> +#include <linux/compiler.h>
+>  	/* Can't intercept CR register access, HV can't modify CR registers */
+>  	svm_clr_intercept(svm, INTERCEPT_CR0_READ);
+>  	svm_clr_intercept(svm, INTERCEPT_CR4_READ);
+> diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+> index 5d15c706e43b..624675a12d51 100644
+> --- a/arch/x86/kvm/svm/svm.c
+> +++ b/arch/x86/kvm/svm/svm.c
+> @@ -591,6 +591,8 @@ static int svm_enable_virtualization_cpu(void)
+>  		__svm_write_tsc_multiplier(SVM_TSC_RATIO_DEFAULT);
+>  	}
+>  
+> +	sev_esmtp_enable_wakeup_icr();
 > +
-> +static __always_inline
-> +bool ptr_eq(const volatile void *a, const volatile void *b)
-> +{
-> +	OPTIMIZER_HIDE_VAR(a);
-> +	OPTIMIZER_HIDE_VAR(b);
-> +	return a == b;
-> +}
+>  	svm_init_os_visible_workarounds();
+>  
+>  	svm_init_erratum_383();
+> @@ -3743,6 +3745,12 @@ static int svm_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
+>  		return 0;
+>  	}
+>  
+> +	if (svm->vmcb->control.exit_code == SVM_EXIT_ESMTP_RETRY ||
+> +	    svm->vmcb->control.exit_code == SVM_EXIT_ESMTP_ILLSIB ||
+> +	    svm->vmcb->control.exit_code == SVM_EXIT_ESMTP_TIMEOUT) {
+> +		return 1;
+> +	}
 > +
-> +#endif	/* __ASM_GENERIC_PTREQ_H */
-> diff --git a/include/linux/ptreq.h b/include/linux/ptreq.h
-> new file mode 100644
-> index 000000000000..5499f65da30a
-> --- /dev/null
-> +++ b/include/linux/ptreq.h
-> @@ -0,0 +1,63 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +#ifndef _LINUX_PTREQ_H
-> +#define _LINUX_PTREQ_H
-> +
-> +/*
-> + * Compare two addresses while preserving the address dependencies for
-> + * later use of the address. It should be used when comparing an address
-> + * returned by rcu_dereference().
-> + *
-> + * This is needed to prevent the compiler CSE and SSA GVN optimizations
-> + * from using @a (or @b) in places where the source refers to @b (or @a)
-> + * based on the fact that after the comparison, the two are known to be
-> + * equal, which does not preserve address dependencies and allows the
-> + * following misordering speculations:
-> + *
-> + * - If @b is a constant, the compiler can issue the loads which depend
-> + *   on @a before loading @a.
-> + * - If @b is a register populated by a prior load, weakly-ordered
-> + *   CPUs can speculate loads which depend on @a before loading @a.
-> + *
-> + * The same logic applies with @a and @b swapped.
-> + *
-> + * Return value: true if pointers are equal, false otherwise.
-> + *
-> + * The compiler barrier() is ineffective at fixing this issue. It does
-> + * not prevent the compiler CSE from losing the address dependency:
-> + *
-> + * int fct_2_volatile_barriers(void)
-> + * {
-> + *     int *a, *b;
-> + *
-> + *     do {
-> + *         a = READ_ONCE(p);
-> + *         asm volatile ("" : : : "memory");
-> + *         b = READ_ONCE(p);
-> + *     } while (a != b);
-> + *     asm volatile ("" : : : "memory");  <-- barrier()
-> + *     return *b;
-> + * }
-> + *
-> + * With gcc 14.2 (arm64):
-> + *
-> + * fct_2_volatile_barriers:
-> + *         adrp    x0, .LANCHOR0
-> + *         add     x0, x0, :lo12:.LANCHOR0
-> + * .L2:
-> + *         ldr     x1, [x0]  <-- x1 populated by first load.
-> + *         ldr     x2, [x0]
-> + *         cmp     x1, x2
-> + *         bne     .L2
-> + *         ldr     w0, [x1]  <-- x1 is used for access which should depend on b.
-> + *         ret
-> + *
-> + * On weakly-ordered architectures, this lets CPU speculation use the
-> + * result from the first load to speculate "ldr w0, [x1]" before
-> + * "ldr x2, [x0]".
-> + * Based on the RCU documentation, the control dependency does not
-> + * prevent the CPU from speculating loads.
-> + */
-> +
-> +#include <asm/ptreq.h>
-> +
-> +#endif	/* _LINUX_PTREQ_H */
-> -- 
-> 2.43.0
-> 
+>  	if (exit_fastpath != EXIT_FASTPATH_NONE)
+>  		return 1;
+>  
+> diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
+> index e958943b8162..8cd8b825c9a0 100644
+> --- a/arch/x86/kvm/svm/svm.h
+> +++ b/arch/x86/kvm/svm/svm.h
+> @@ -1008,6 +1008,7 @@ void __init sev_set_cpu_caps(void);
+>  void __init sev_hardware_setup(void);
+>  void sev_hardware_unsetup(void);
+>  int sev_cpu_init(struct svm_cpu_data *sd);
+> +void sev_esmtp_enable_wakeup_icr(void);
+>  int sev_dev_get_attr(u32 group, u64 attr, u64 *val);
+>  extern unsigned int max_sev_asid;
+>  void sev_handle_rmp_fault(struct kvm_vcpu *vcpu, gpa_t gpa, u64 error_code);
+> @@ -1036,6 +1037,7 @@ static inline void __init sev_set_cpu_caps(void) {}
+>  static inline void __init sev_hardware_setup(void) {}
+>  static inline void sev_hardware_unsetup(void) {}
+>  static inline int sev_cpu_init(struct svm_cpu_data *sd) { return 0; }
+> +static inline void sev_esmtp_enable_wakeup_icr(void) {}
+>  static inline int sev_dev_get_attr(u32 group, u64 attr, u64 *val) { return -ENXIO; }
+>  #define max_sev_asid 0
+>  static inline void sev_handle_rmp_fault(struct kvm_vcpu *vcpu, gpa_t gpa, u64 error_code) {}
+
