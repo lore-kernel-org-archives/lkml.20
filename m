@@ -1,154 +1,469 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCC8B3EA967
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 23:24:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D15693B05B0
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 23:25:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791588291; cv=none; b=Ib221iL/2eEFu+7n/2I9tMAJkvTWVgDgt8SK/+vrPuLe4eg/ni/Krhy0lBWo2s8OMPOb9jXt1C+w+5s9K40AmIRvE7t4Vb6dJR8yyj/YT+JuP8jAfSXtHoWBsnEuu+QqzoCDemu2lQ28TuwTWVl3StdTaZR4wkU20YHnojNNYXc=
+	t=1791588362; cv=none; b=BQtJpjSxRwW6HrCNe2MvpK5s7afntItOwuaoX/2+eb9O/hCyxLTFDuSKXG2ZfW77Hmcg2iQx4gzfCNnNkVlz55HS0RUD+uA4A9bwrpDhPkKQpYo0+PLLdVLedBnVUCgA7VOv039Y3EhfhI8RhziiGZA8HhE+lFydTg6zgaeg8Ho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791588291; c=relaxed/simple;
-	bh=gCPRAyhwbGy3U0SZyNA6UYREvhetTlsvLl1xaWQ4Ano=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=W29TIT8phZovxuqUYhbU2TrKW6h4Z1WP51PGLIXXJWg9t5miEiKr1h7vD6rPtpcTUGuMAgVBA8WCKLH5dN2Qm3AahdwCGwmqA2hY/LLwsAvEY//7yiK9jQYpVIlPTIb3v8F+fOUEn82/WlwcZSXcCmeblA60TVyg0PvGW9vrh3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FWccBhSW; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=tAFwygCw; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791588362; c=relaxed/simple;
+	bh=uYt60oee/In9t1c2qabunzcdRHKHgSXLng16ByJ1kII=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PeCjis2SfIpIAagPx2DCTm8Qc/BWbAgiIbuUAaic1ML12VzX9fU2qS8YeaGMySpv8RpYUsaTmRZtMgI4+gIz+fr8iBWYVlus6XXTAzN024g3/tJMclHP/2q5M2ye2uZ/Cau83OzebmYXU9omjcv/m42YvSgNq0k4V4zSoPlvSF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IV0pGk5p; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FWccBhSW";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="tAFwygCw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791588289;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=T5sL1IN+vEe3uRvA6b5GRf1/o9Y8z+Hb4XnuY1HXzNs=;
-	b=FWccBhSW1RgIBT7+QuKXP1/5124IMdqrpThtkL8RnjZvn+V2UO4nNFv5Bb5h8xRQO2G2X+
-	561v38IwbffbHbkZKgX71vseLuBfhxeN6A6TF9V0pBSKEu+do+EO0tEr9FY0TOXd/ulBcq
-	KyWHT70u+eIiwM95Z0552jCPxMA6lGw=
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-448-xY2s8QFbMtSsJSpQqN4W9A-1; Fri, 9 Oct 2026 23:24:45 +0000
-X-MC-Unique: xY2s8QFbMtSsJSpQqN4W9A-1
-X-Mimecast-MFC-AGG-ID: xY2s8QFbMtSsJSpQqN4W9A_1791588285
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cc7a6e4e1so56598985a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 16:24:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IV0pGk5p"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ab67ff8f16so93478a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 16:25:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791588285; x=1792193085; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=T5sL1IN+vEe3uRvA6b5GRf1/o9Y8z+Hb4XnuY1HXzNs=;
-        b=tAFwygCwm1o8VOyj2DBJ4+hkK7QErQUavkGAYwJ4c7n+MpASaM/V9HbCXrk6RWeDgl
-         LkQfnitKe5AfX6KX2H3FOyrv3sSBSjkgguFSj8oNJJSN8pBGSl/7a2vZ/jO9WPiEEX/N
-         AVZlEob3S9pE6aKcJ9/EHvoRzLSknipG/uLQAHpE5vlQ81NUrM5xkqKrdhSNTlAq74TI
-         3TTIZkaEwqp4WxHNRNE96qFPsQJPRXig/xdaRhX7HduF8A2Y0rvuO7S2vgTW4Kij8dzH
-         DFHn3JmaBatbMJZ2KHvAVBatSiC8LPqUlRMljfxPwWrllygtTUggnZ9NlWWXs3ptfJOb
-         5TIQ==
+        d=gmail.com; s=20251104; t=1791588359; x=1792193159; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=26JRsfgM9VyJ6ZcFNAllh5rsj4q2lBsZqcBIlrvxCeA=;
+        b=IV0pGk5puZnFscVvsm/6+mpGoNRYTmg+HZ7T2dMjtq3lFVQ61eU0tc+AZ7v0nF1/0O
+         7jX7j3hklqrDp5daIQncD3qhfeUDKXKqi6TeuLLssgc4+UhoXSG3htj6EhoL3UoQ9y3L
+         CznvCiy27E+zp5T1V9OMaYR9yldftPJpu2SG778kNZhROGG5ESFrtOYTbSd8HUIkSrLx
+         8n2B9iPUeYv10usK79zBSRaUvSfMhw7Va0g+EIQPtEyKCgst8ruKW3iyg7jF/oQGrwkK
+         zCz20j4mVY//PflIK9bZDjqvpinxJN4rfK0JKlmc+gq7Yqi230nRPwv3mCDqSBT+7LRA
+         Nr1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791588285; x=1792193085;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+        d=1e100.net; s=20260707; t=1791588359; x=1792193159;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=T5sL1IN+vEe3uRvA6b5GRf1/o9Y8z+Hb4XnuY1HXzNs=;
-        b=gXpX28vM5yapmKpdvMN6J2Zfhbx62Q2NR3WAJNCLYWA1Vu3ADyer3rV0g3Y5V6vgyT
-         np6zFaoSb3AFAd50oEwhz/bZgL7sq2PuX9anB9AH14aap69RggXIIOFif9TM2WeB0mI5
-         XfWbKrmgiWmGTZmJJlZ1npNf3FkSoKMsCgY1/Z+D+XTSmvSrF7Nj6UL0OsaTOgJJmk23
-         I7rmpSkPnoYV3lM8JZWFSmDQh+VqvnNKGCXmGl7h+ENLvOdJLmaoXBCyic6sunTIXW5j
-         nurodU0GddM8KxIOgzMfP2ZBker+xShVvKnDNq8wdk2qvh2B4rr5123J8Ke/1G6pYNth
-         jzmQ==
-X-Forwarded-Encrypted: i=1; AKwUvByV20MTj0lfx5+Tu4zBZ4NglpAVH0nCw5+vOHvgWoU3zKU2oZ/E92q9++fZ98XGZCdKfY4gr6rL2Xbhbv8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIbJUxiBZL1VN9S1crGPw2G3NJCvz/v34IJZzMxtG/Rkr2iUu9T
-	qFirU9x97WvXHI5mOW/Soy4/crB34BK3sSh19BF495oVdtC+Afka6N8KfrRqs5k7dS+s+RX6oUJ
-	5IEjuXHfJaAcgxMti3D2c4S0nFsp5JNrfaJ6uAhDKWjhdA7kvPxCEBFLG+nf2VWiBhA==
-X-Gm-Gg: AYBFou1LQim/LAJs8b0Hu9Je3VgRRIcTcSxuB9e/xzQ4Z/p8vsOIZLz3x7ydKW+QtKp
-	oXekvtrljdjMmtR3jTCZtCjJ1sGpKSHWOmKxnH/3ygJKSYadwJwNcg7DK0QyzPRt5xKDq0aA86+
-	rigqd537t2MlX0JruBoZ0MboI84PsUgP5E6OINnKjKQo8yjwM6oEEL8mYZLd4R4wk3dy0uCG/3A
-	XDCcsjr9bYYwo9Kk7zygl69GYE+xT8MRHj8h/sRCezQvEhpOaWT3YR2Kw/bhDX6u1QWvHMSBE/u
-	9Xvbg6EF1RYyZdknGMH2dHKxx7Nkpcx4qSzM5KLmtzN1haL+ZshswO9YKJ1ZYv4eHXXjcSw=
-X-Received: by 2002:a05:620a:a419:20b0:93e:c12c:f145 with SMTP id af79cd13be357-93ec12d06ddmr330167885a.79.1791588285258;
-        Fri, 09 Oct 2026 16:24:45 -0700 (PDT)
-X-Received: by 2002:a05:620a:a419:20b0:93e:c12c:f145 with SMTP id af79cd13be357-93ec12d06ddmr330165185a.79.1791588284801;
-        Fri, 09 Oct 2026 16:24:44 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb98e3a33sm297469885a.40.2026.10.09.16.24.43
+        bh=26JRsfgM9VyJ6ZcFNAllh5rsj4q2lBsZqcBIlrvxCeA=;
+        b=NDbOv/u4Q1ef9xhHAnrn7aIxTXZ4kKhzLI29645sHXbRzggFOEzht12ACG7GnfsvcC
+         pQUUfxZ340ffww3pOEokRjOc55251+8fV+j9HAEMgwNsa/X8gx7anm4S1Ix9YNH4ggYr
+         ZM86RKNlOVAp13ZDVsWQUCdI46s2ZXfY6K9XSeA8AN2IqqCO0zXQ1GC8V3yHOMIfVRkO
+         ixiW+rwRiN/0SRJiUlfGHohtzZmcT2v+jeHTGrYvli2CJNMwj5aR95XlhVJEKbHtHSHi
+         m6CaiVACJ2tY7ehLiUF01iDzjzQImctPbahwLox7/yxj7m99TOSRvBnNZTXSNwLjJO66
+         YKmg==
+X-Forwarded-Encrypted: i=1; AKwUvBwaavHwrrGzUQQuXRMkeXXUTFGEAw2k2ytHs/KslHUOjGlpqsMpozvtx9r74/OaUhCY+BiSj+Gx9GDfzYk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK7C88trYd54coCFgx3ahJ5mB7BlJFTuTiCHfzFv1UUm7uIYCXu
+	9GG0oeXN760L+pqR0YqO4xLpAYTnpq6YxmntW4CnuuNL4uVQU38A4vH3
+X-Gm-Gg: AYBFou3I/sEKmvEL4qy4xbL9Yh/WTiN0S6mzLqgq7x7Cb7OgzLGMu3ZFpkyzm4P2Te/
+	IQzhcMZW+gu28Amy3tZxO6Cjh+VvbjHp2cwoKNG2lSvd6lXf8eG+kxvravWRWNhs1DXCO7KN+NK
+	OX0kdSUxyo1weepmmGDeL/7tthH0SljcIZFA+kLXMVD58eVcJ0ZXGuwfrMNp9Rd/pNyp4eWn4HA
+	ItUJOsm+2r44+D3bhzbZLao9qntETaz7rrb5bVCGZ7RlQ03Ll8l8qTpNYZqG00Q2cjizcJTuy+j
+	rvz88oIiVEH9e6xVQFkgiiP8yGlKE5XlCPEtNSJXTysZ2yz9kOXWtZGh4xP8DCf8kg0jAVj1ebi
+	rvWJyGJ4X/8EUqNOpAGWWWKBhxOzG18BBN521SYVVuNz4w6xgDPososGpWWdkB66I24u611ce8V
+	GaRx+PFFFFuQlFf1a/0yUJQfVglQ/1QSbjRpQ+XKcFknsa1b3umn7ViIrHWbKxt3zOjlZ2ZO9d3
+	X4=
+X-Received: by 2002:a17:90b:2886:b0:3a6:fec5:c186 with SMTP id 98e67ed59e1d1-3ab3acf7535mr2978454a91.46.1791588358923;
+        Fri, 09 Oct 2026 16:25:58 -0700 (PDT)
+Received: from skinsburskii ([76.135.114.51])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38b9638fsm5273139a91.3.2026.10.09.16.25.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 16:24:44 -0700 (PDT)
-Message-ID: <a6f23983895d0d09b9c2c6a02160c5e3949a6a81.camel@redhat.com>
-Subject: Re: [PATCH 2/2] drm/nouveau: prevent NULL deref of gr in
- GETPARAM_GRAPH_UNITS
-From: lyude@redhat.com
-To: Zhenhao Wan <whi4ed0g@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
-	stable@vger.kernel.org
-Date: Fri, 09 Oct 2026 19:24:43 -0400
-In-Reply-To: <20260812-nouveau-nvkm-absent-subdev-null-deref-v1-2-7e057f6aeba0@gmail.com>
-References: 
-	<20260812-nouveau-nvkm-absent-subdev-null-deref-v1-0-7e057f6aeba0@gmail.com>
-	 <20260812-nouveau-nvkm-absent-subdev-null-deref-v1-2-7e057f6aeba0@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+        Fri, 09 Oct 2026 16:25:58 -0700 (PDT)
+Date: Fri, 9 Oct 2026 16:25:56 -0700
+From: Stanislav Kinsburskii <skinsburskii@gmail.com>
+To: Bernd Schubert <bernd@bsbernd.com>
+Cc: Miklos Szeredi <miklos@szeredi.hu>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, Shuah Khan <shuah@kernel.org>,
+	Robert Byrnes <byrnes@wildpumpkin.net>, fuse-devel@lists.linux.dev,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] fuse: add negotiated per-inode open and release
+ suppression
+Message-ID: <asl4BJhIO6aIZnIm@skinsburskii>
+References: <20261008-fuse-per-inode-no-open-v3-0-99cfd3dbc06b@gmail.com>
+ <20261008-fuse-per-inode-no-open-v3-1-99cfd3dbc06b@gmail.com>
+ <5d69dce1-ba9b-4eca-8949-94f4a29cea57@bsbernd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5d69dce1-ba9b-4eca-8949-94f4a29cea57@bsbernd.com>
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+On Fri, Oct 09, 2026 at 08:34:30PM +0200, Bernd Schubert wrote:
+> 
+> 
+> On 10/8/26 21:20, Stanislav Kinsburskii wrote:
+> > Filesystems serving cached content may not need per-open state for most
+> > inodes, while still relying on OPEN for control files. The connection-wide
+> > no-open behavior selected by ENOSYS cannot express this distinction.
+> > 
+> > Add FUSE_PER_INODE_NO_OPEN to INIT negotiation and FUSE_ATTR_NO_OPEN to
+> > inode attributes. For marked inodes, use the existing zero-handle defaults
+> > and normally omit OPEN/OPENDIR and the corresponding RELEASE/RELEASEDIR.
+> > Remember whether each handle was opened locally, so later attribute updates
+> > do not determine the release behavior of existing handles.
+> > 
+> > Retain RELEASE after a successful remote flock operation, even when OPEN
+> > was skipped, so FUSE_RELEASE_FLOCK_UNLOCK can clean up server-side locks.
+> > Servers negotiating remote flock must accept this RELEASE with a zero file
+> > handle and no preceding OPEN, including after an explicit unlock.
+> 
+> fuse_file_put() would get a lot easier if FUSE_PER_INODE_NO_OPEN is ignored 
+> when FUSE_PER_INODE_NO_OPEN gets ignore if FUSE_FLOCK_LOCKS is set. 
+> I personally don't like the idea of release without an open.
+> 
+> Do you really need flock and this per-inode no-open feature?
+> 
 
-Since this kind of relies on driver initialization having already
-failed (which I'm sure breaks many other things we haven't found yet)
-I'm going to push this to drm-misc-next
+I'm fine with making remote flock and per-inode open suppression mutually
+exclusive for a given handle. However, FUSE_FLOCK_LOCKS is negotiated per
+connection, while FUSE_ATTR_NO_OPEN applies per inode. Disabling the new
+capability at INIT would also prevent suppressing opens on cached content
+files when remote flock is needed only for unmarked control files.
 
-On Wed, 2026-08-12 at 23:00 +0800, Zhenhao Wan wrote:
-> nouveau_abi16_ioctl_getparam() fetches the graphics engine with
-> gr =3D nvxx_gr(drm) (i.e. drm->nvkm->gr) and, for the
-> NOUVEAU_GETPARAM_GRAPH_UNITS parameter, passes it straight to
-> nvkm_gr_units(), which dereferences gr->func with no NULL check.
->=20
-> When graphics-engine construction returns -ENODEV, NVKM treats it as
-> an
-> optional absent engine: the NVKM_LAYOUT_ONCE device constructor
-> deletes
-> the subdevice, leaves device->gr =3D=3D NULL and continues probing, and
-> Nouveau still registers a render node. An unprivileged client holding
-> a
-> /dev/dri/renderD* fd can then issue DRM_IOCTL_NOUVEAU_GETPARAM with
-> NOUVEAU_GETPARAM_GRAPH_UNITS and oops the kernel on the NULL gr.
->=20
-> Report 0 units when gr is absent. This matches nvkm_gr_units()
-> itself,
-> which already returns 0 when the engine exposes no units callback.
->=20
-> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-> Assisted-by: Claude:claude-opus-5
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
-> ---
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_abi16.c | 2 +-
-> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_abi16.c
-> b/drivers/gpu/drm/nouveau/nouveau_abi16.c
-> index 291203121f0c..dd3f8d386377 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_abi16.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_abi16.c
-> @@ -306,7 +306,7 @@ nouveau_abi16_ioctl_getparam(ABI16_IOCTL_ARGS)
-> =C2=A0		getparam->value =3D 1;
-> =C2=A0		break;
-> =C2=A0	case NOUVEAU_GETPARAM_GRAPH_UNITS:
-> -		getparam->value =3D nvkm_gr_units(gr);
-> +		getparam->value =3D gr ? nvkm_gr_units(gr) : 0;
-> =C2=A0		break;
-> =C2=A0	case NOUVEAU_GETPARAM_EXEC_PUSH_MAX: {
-> =C2=A0		int ib_max =3D getparam_dma_ib_max(device);
+Would keeping both capabilities, but rejecting remote flock on handles
+opened locally through FUSE_ATTR_NO_OPEN, be acceptable?
+That would avoid RELEASE without OPEN while preserving remote flock for
+other files.
 
+> > 
+> > Keep the release argument allocation for regular files, which pins the
+> > inode while asynchronous I/O completes. Honor the hint for internal opens
+> > used by file-attribute ioctls as well. The capability check excludes CUSE
+> > before accessing its non-FUSE inode as a fuse_inode.
+> > 
+> > The per-inode hint does not suppress OPEN for atomic O_TRUNC, since the
+> > server must perform the truncation. CREATE retains its existing handle
+> > lifecycle. Connection-wide no-open/no-opendir behavior selected by ENOSYS
+> > continues to take precedence.
+> > 
+> > Update the cached hint from LOOKUP, GETATTR, SETATTR and READDIRPLUS
+> > attributes. Preserve it across STATX replies, which do not carry
+> > fuse_attr.flags.
+> > 
+> > Document negotiation, cache and handle semantics, and the server's
+> > responsibilities. No additional access-time or open-reference accounting
+> > is introduced.
+> > 
+> > Signed-off-by: Stanislav Kinsburskii <skinsburskii@gmail.com>
+> > ---
+> >  Documentation/filesystems/fuse/fuse-no-open.rst | 49 +++++++++++++++++++++++++
+> >  Documentation/filesystems/fuse/index.rst        |  1 +
+> >  fs/fuse/file.c                                  | 26 ++++++++++---
+> >  fs/fuse/fuse_i.h                                | 17 ++++++++-
+> >  fs/fuse/inode.c                                 |  9 +++++
+> >  fs/fuse/ioctl.c                                 |  3 +-
+> >  include/uapi/linux/fuse.h                       | 13 ++++++-
+> >  7 files changed, 110 insertions(+), 8 deletions(-)
+> > 
+> > diff --git a/Documentation/filesystems/fuse/fuse-no-open.rst b/Documentation/filesystems/fuse/fuse-no-open.rst
+> > new file mode 100644
+> > index 000000000000..2e0cf43f9ef7
+> > --- /dev/null
+> > +++ b/Documentation/filesystems/fuse/fuse-no-open.rst
+> > @@ -0,0 +1,49 @@
+> > +.. SPDX-License-Identifier: GPL-2.0
+> > +
+> > +Per-inode open suppression
+> > +==========================
+> > +
+> > +A filesystem can avoid OPEN and RELEASE requests for individual inodes by
+> > +negotiating FUSE_PER_INODE_NO_OPEN in INIT and setting FUSE_ATTR_NO_OPEN in
+> > +``fuse_attr.flags``.  For directories, the flag suppresses OPENDIR and
+> > +RELEASEDIR instead.  This allows, for example, cached content files to avoid
+> > +open round trips while control files on the same connection retain their
+> > +open handlers.  Without the negotiated capability the attribute is ignored.
+> > +
+> > +The kernel updates the hint when it accepts attributes in replies such as
+> > +LOOKUP, GETATTR, SETATTR and READDIRPLUS.  STATX replies do not carry
+> > +``fuse_attr.flags`` and leave the hint unchanged.  The hint is cached inode
+> > +state; it is not independently revalidated on every open.  A server changing
+> > +the hint must arrange for fresh attributes to reach the kernel and tolerate
+> > +concurrent opens using the previous value.
+> > +
+> > +For an open served locally, the file handle is zero, FOPEN_KEEP_CACHE is
+> > +set, and directories also have FOPEN_CACHE_DIR set.  Subsequent requests
+> > +identify the object by the node ID and may carry a zero file handle.  The
+> > +server must support these requests without per-open state.  Whether OPEN was
+> > +sent is recorded for each handle and is not changed by later attribute
+> > +updates.  An existing server-opened handle still receives its matching
+> > +RELEASE if the inode hint subsequently becomes set.
+> > +
+> > +Remote flock locking is an exception to RELEASE suppression.  When
+> > +FUSE_FLOCK_LOCKS is negotiated and a handle has successfully performed a
+> > +server-side flock operation, its final close sends RELEASE with
+> > +FUSE_RELEASE_FLOCK_UNLOCK and the lock owner, even if OPEN was suppressed.
+> > +The server must accept this RELEASE with a zero file handle and no preceding
+> > +OPEN, and use the node ID and lock owner to remove any remaining flock locks.
+> > +This also applies after an explicit unlock, since the kernel records whether
+> > +a flock operation succeeded rather than tracking the server's current locks.
+> > +
+> > +When FUSE_ATOMIC_O_TRUNC is negotiated, an open with O_TRUNC still sends
+> > +OPEN and receives a matching RELEASE, so the server can perform truncation.
+> > +CREATE also retains its usual open and release semantics.  Connection-wide
+> > +no-open behavior selected by an ENOSYS response continues to take precedence.
+> > +
+> > +The hint does not make an inode immutable, grant permissions, or suppress
+> > +other operations such as FLUSH, FSYNC, locking or data I/O.  Servers supporting
+> > +remote flock must implement the RELEASE cleanup described above.  A server must
+> > +only set it when its access policy and file semantics permit the default
+> > +open behavior described above.  Servers needing per-open authorization,
+> > +nonzero handles, direct I/O, passthrough or other OPEN reply flags must keep
+> > +handling OPEN for those inodes.  No additional access-time or open-reference
+> > +accounting is performed by this feature.
+> > diff --git a/Documentation/filesystems/fuse/index.rst b/Documentation/filesystems/fuse/index.rst
+> > index 3dada6c4057a..6dd9192f74fe 100644
+> > --- a/Documentation/filesystems/fuse/index.rst
+> > +++ b/Documentation/filesystems/fuse/index.rst
+> > @@ -12,4 +12,5 @@ FUSE (Filesystem in Userspace) Technical Documentation
+> >     fuse-io
+> >     fuse-io-uring
+> >     fuse-passthrough
+> > +   fuse-no-open
+> >     uapi/fuse-uapi-io-uring
+> > diff --git a/fs/fuse/file.c b/fs/fuse/file.c
+> > index 3d209e2b71ba..31c22ff5c8c1 100644
+> > --- a/fs/fuse/file.c
+> > +++ b/fs/fuse/file.c
+> > @@ -108,8 +108,9 @@ static void fuse_file_put(struct fuse_file *ff, bool sync)
+> >  			fuse_file_io_release(ff, ra->inode);
+> >  
+> >  		if (!args) {
+> > -			/* Do nothing when server does not implement 'opendir' */
+> > -		} else if (args->opcode == FUSE_RELEASE && ff->fm->fc->no_open) {
+> > +			/* No release needed when OPENDIR was skipped. */
+> > +		} else if (args->opcode == FUSE_RELEASE &&
+> > +			   (ff->fm->fc->no_open || (ff->no_open && !ff->flock))) {
+> >  			fuse_release_end(args, 0);
+> 
+> I think this could be become
+> 
+> if (!args) {
+>         /* No release needed when OPENDIR was skipped. */
+> } else if (ff->no_open) {
+>         fuse_release_end(args, 0);
+> } else if (sync) {
+> 
+> just in fuse_file_open() you could set ff->no_open for the -ENOSYS condition and
+> if FUSE_PER_INODE_NO_OPEN gets ignored when FUSE_RELEASE_FLOCK_UNLOCK is set.
+> 
+> 
+> What do you think?
+> 
+
+I agree.
+
+Thanks,
+Stanislav
+
+> 
+> Thanks,
+> Bernd
+> 
+> 
+> >  		} else if (sync) {
+> >  			fuse_simple_request(ff->fm, args);
+> > @@ -130,13 +131,26 @@ static void fuse_file_put(struct fuse_file *ff, bool sync)
+> >  	}
+> >  }
+> >  
+> > +static bool fuse_open_needed(struct fuse_conn *fc, unsigned int open_flags,
+> > +			     bool isdir, bool no_open)
+> > +{
+> > +	if (isdir ? fc->no_opendir : fc->no_open)
+> > +		return false;
+> > +
+> > +	/* Atomic truncation must still be performed by the server's OPEN. */
+> > +	if ((open_flags & O_TRUNC) && fc->atomic_o_trunc)
+> > +		return true;
+> > +
+> > +	return !no_open;
+> > +}
+> > +
+> >  struct fuse_file *fuse_file_open(struct fuse_mount *fm, u64 nodeid,
+> > -				 unsigned int open_flags, bool isdir)
+> > +				 unsigned int open_flags, bool isdir, bool no_open)
+> >  {
+> >  	struct fuse_conn *fc = fm->fc;
+> >  	struct fuse_file *ff;
+> >  	int opcode = isdir ? FUSE_OPENDIR : FUSE_OPEN;
+> > -	bool open = isdir ? !fc->no_opendir : !fc->no_open;
+> > +	bool open = fuse_open_needed(fc, open_flags, isdir, no_open);
+> >  	bool release = !isdir || open;
+> >  
+> >  	/*
+> > @@ -152,6 +166,7 @@ struct fuse_file *fuse_file_open(struct fuse_mount *fm, u64 nodeid,
+> >  		return ERR_PTR(-ENOMEM);
+> >  
+> >  	ff->fh = 0;
+> > +	ff->no_open = !open;
+> >  	/* Default for no-open */
+> >  	ff->open_flags = FOPEN_KEEP_CACHE | (isdir ? FOPEN_CACHE_DIR : 0);
+> >  	if (open) {
+> > @@ -189,7 +204,8 @@ struct fuse_file *fuse_file_open(struct fuse_mount *fm, u64 nodeid,
+> >  int fuse_do_open(struct fuse_mount *fm, u64 nodeid, struct file *file,
+> >  		 bool isdir)
+> >  {
+> > -	struct fuse_file *ff = fuse_file_open(fm, nodeid, file->f_flags, isdir);
+> > +	struct fuse_file *ff = fuse_file_open(fm, nodeid, file->f_flags, isdir,
+> > +					    fuse_inode_no_open(fm->fc, file_inode(file)));
+> >  
+> >  	if (!IS_ERR(ff))
+> >  		file->private_data = ff;
+> > diff --git a/fs/fuse/fuse_i.h b/fs/fuse/fuse_i.h
+> > index 87e2bd9d4bb1..76157a84db22 100644
+> > --- a/fs/fuse/fuse_i.h
+> > +++ b/fs/fuse/fuse_i.h
+> > @@ -257,6 +257,8 @@ enum {
+> >  	 * or the fuse server has an exclusive "lease" on distributed fs
+> >  	 */
+> >  	FUSE_I_EXCLUSIVE,
+> > +	/* Server does not need OPEN/OPENDIR for this inode */
+> > +	FUSE_I_NO_OPEN,
+> >  };
+> >  
+> >  struct fuse_conn;
+> > @@ -322,6 +324,9 @@ struct fuse_file {
+> >  
+> >  	/** @flock: Has flock been performed on this file? */
+> >  	bool flock:1;
+> > +
+> > +	/** @no_open: Open was served locally without an OPEN/OPENDIR request */
+> > +	bool no_open:1;
+> >  };
+> >  
+> >  struct fuse_release_args {
+> > @@ -556,6 +561,9 @@ struct fuse_conn {
+> >  	/** @no_opendir: Is opendir/releasedir not implemented by fs? */
+> >  	unsigned no_opendir:1;
+> >  
+> > +	/** @per_inode_no_open: Honor FUSE_ATTR_NO_OPEN */
+> > +	unsigned per_inode_no_open:1;
+> > +
+> >  	/** @no_fsync: Is fsync not implemented by fs? */
+> >  	unsigned no_fsync:1;
+> >  
+> > @@ -833,6 +841,13 @@ static inline struct fuse_inode *get_fuse_inode(const struct inode *inode)
+> >  	return container_of(inode, struct fuse_inode, inode);
+> >  }
+> >  
+> > +static inline bool fuse_inode_no_open(struct fuse_conn *fc, struct inode *inode)
+> > +{
+> > +	/* CUSE uses a non-FUSE inode and cannot negotiate this capability. */
+> > +	return fc->per_inode_no_open &&
+> > +		test_bit(FUSE_I_NO_OPEN, &get_fuse_inode(inode)->state);
+> > +}
+> > +
+> >  static inline u64 get_node_id(struct inode *inode)
+> >  {
+> >  	return get_fuse_inode(inode)->nodeid;
+> > @@ -1261,7 +1276,7 @@ void fuse_file_io_release(struct fuse_file *ff, struct inode *inode);
+> >  
+> >  /* file.c */
+> >  struct fuse_file *fuse_file_open(struct fuse_mount *fm, u64 nodeid,
+> > -				 unsigned int open_flags, bool isdir);
+> > +				 unsigned int open_flags, bool isdir, bool no_open);
+> >  void fuse_file_release(struct inode *inode, struct fuse_file *ff,
+> >  		       unsigned int open_flags, fl_owner_t id, bool isdir);
+> >  
+> > diff --git a/fs/fuse/inode.c b/fs/fuse/inode.c
+> > index cbb10e19e7e8..63924d95caa3 100644
+> > --- a/fs/fuse/inode.c
+> > +++ b/fs/fuse/inode.c
+> > @@ -299,6 +299,11 @@ void fuse_change_attributes_common(struct inode *inode, struct fuse_attr *attr,
+> >  	 * anyway. Its less efficient but should be safe.
+> >  	 */
+> >  	inode->i_flags &= ~S_NOSEC;
+> > +
+> > +	/* STATX replies do not carry fuse_attr.flags. */
+> > +	if (fc->per_inode_no_open && !sx)
+> > +		assign_bit(FUSE_I_NO_OPEN, &fi->state,
+> > +			   attr->flags & FUSE_ATTR_NO_OPEN);
+> >  }
+> >  
+> >  u32 fuse_get_cache_mask(struct inode *inode)
+> > @@ -1432,6 +1437,8 @@ static void process_init_reply(struct fuse_args *args, int error)
+> >  
+> >  			if (fuse_syncfs_enable(fc, flags))
+> >  				fc->sync_fs = 1;
+> > +			if (flags & FUSE_PER_INODE_NO_OPEN)
+> > +				fc->per_inode_no_open = 1;
+> >  		} else {
+> >  			ra_pages = fc->max_read / PAGE_SIZE;
+> >  			fc->no_lock = 1;
+> > @@ -1510,6 +1517,8 @@ static struct fuse_init_args *fuse_new_init(struct fuse_mount *fm)
+> >  	if (fuse_uring_enabled())
+> >  		flags |= FUSE_OVER_IO_URING | FUSE_HAS_IO_URING_BUFPOOL;
+> >  
+> > +	flags |= FUSE_PER_INODE_NO_OPEN;
+> > +
+> >  	ia->in.flags = flags;
+> >  	ia->in.flags2 = flags >> 32;
+> >  
+> > diff --git a/fs/fuse/ioctl.c b/fs/fuse/ioctl.c
+> > index ce1807704da6..7fc11bb3eee9 100644
+> > --- a/fs/fuse/ioctl.c
+> > +++ b/fs/fuse/ioctl.c
+> > @@ -492,7 +492,8 @@ static struct fuse_file *fuse_priv_ioctl_prepare(struct inode *inode)
+> >  	if (!S_ISREG(inode->i_mode) && !isdir)
+> >  		return ERR_PTR(-ENOTTY);
+> >  
+> > -	return fuse_file_open(fm, get_node_id(inode), O_RDONLY, isdir);
+> > +	return fuse_file_open(fm, get_node_id(inode), O_RDONLY, isdir,
+> > +			      fuse_inode_no_open(fm->fc, inode));
+> >  }
+> >  
+> >  static void fuse_priv_ioctl_cleanup(struct inode *inode, struct fuse_file *ff)
+> > diff --git a/include/uapi/linux/fuse.h b/include/uapi/linux/fuse.h
+> > index 10a7f31c4bdf..1b5699407e11 100644
+> > --- a/include/uapi/linux/fuse.h
+> > +++ b/include/uapi/linux/fuse.h
+> > @@ -251,6 +251,9 @@
+> >   *
+> >   *  7.47
+> >   *  - add FUSE_HAS_SYNCFS opt-in flag for privileged userspace servers
+> > + *
+> > + *  7.48
+> > + *  - add FUSE_PER_INODE_NO_OPEN and FUSE_ATTR_NO_OPEN
+> >   */
+> >  
+> >  #ifndef _LINUX_FUSE_H
+> > @@ -286,7 +289,7 @@
+> >  #define FUSE_KERNEL_VERSION 7
+> >  
+> >  /** Minor version number of this interface */
+> > -#define FUSE_KERNEL_MINOR_VERSION 47
+> > +#define FUSE_KERNEL_MINOR_VERSION 48
+> >  
+> >  /** The node ID of the root inode */
+> >  #define FUSE_ROOT_ID 1
+> > @@ -473,6 +476,7 @@ struct fuse_file_lock {
+> >   *		with CAP_SYS_ADMIN in the initial user namespace (the same
+> >   *		privilege that mounting virtiofs or fuseblk requires).
+> >   *		Insufficiently privileged servers ignore it.
+> > + * FUSE_PER_INODE_NO_OPEN: honor FUSE_ATTR_NO_OPEN in inode attributes
+> >   */
+> >  #define FUSE_ASYNC_READ		(1 << 0)
+> >  #define FUSE_POSIX_LOCKS	(1 << 1)
+> > @@ -522,6 +526,7 @@ struct fuse_file_lock {
+> >  #define FUSE_REQUEST_TIMEOUT	(1ULL << 42)
+> >  #define FUSE_HAS_IO_URING_BUFPOOL (1ULL << 43)
+> >  #define FUSE_HAS_SYNCFS		(1ULL << 44)
+> > +#define FUSE_PER_INODE_NO_OPEN	(1ULL << 45)
+> >  
+> >  /**
+> >   * CUSE INIT request/reply flags
+> > @@ -605,9 +610,15 @@ struct fuse_file_lock {
+> >   *
+> >   * FUSE_ATTR_SUBMOUNT: Object is a submount root
+> >   * FUSE_ATTR_DAX: Enable DAX for this file in per inode DAX mode
+> > + * FUSE_ATTR_NO_OPEN: Skip OPEN/OPENDIR and matching RELEASE/RELEASEDIR;
+> > + *                   requires FUSE_PER_INODE_NO_OPEN. Atomic O_TRUNC opens
+> > + *                   still go to the server. RELEASE is also sent after a
+> > + *                   successful remote flock operation to clean up locks,
+> > + *                   even when OPEN was skipped and the file handle is zero.
+> >   */
+> >  #define FUSE_ATTR_SUBMOUNT      (1 << 0)
+> >  #define FUSE_ATTR_DAX		(1 << 1)
+> > +#define FUSE_ATTR_NO_OPEN	(1 << 2)
+> >  
+> >  /**
+> >   * Open flags
+> > 
+> 
