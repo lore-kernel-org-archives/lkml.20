@@ -1,274 +1,185 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013066.outbound.protection.outlook.com [40.107.201.66])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8D033CAA54
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 08:45:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.66
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791535545; cv=fail; b=tvKIuP2M96ScV9O2X+mqluJJxAxAs99s9mSWuPwU29nkCSuTyy1GYCedKy3mgihFTRdNSZshMnzMzxQ5hBEoTgOqhmJiYxXnNjuOSMjrCXpuu12H26ICnL/IapoNP7lMhxL3gardczzSF/UwCbCBV86NygB+F7YdTzOybvFI7iI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791535545; c=relaxed/simple;
-	bh=nHNta5e9VpZOiGivzC01lAZnEMeuLrrc84vbJ9RpC/o=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JRRN798q6GA5Xs273fMgy/OsuiW7A7e6GrsN09datJMI9/EXWTZWL4aq12WurIz3o+/YRNJq0VvrGo0M59AYlINkCweDorxyFPn7DgI5BevRZPgYZ87ve77NrBV7SvxtGznZauahy9rITSjzT+zLqGAvf44OnoLDybwjjbmPHoI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=fail (1024-bit key) header.d=amd.com header.i=@amd.com header.b=yJAp0iYy reason="signature verification failed"; arc=fail smtp.client-ip=40.107.201.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E1523F9F30
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 08:45:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791535549; cv=none; b=qiovvqFPvutfxFEF1JqF2gJf8mV2JbmAkzIbNQAQUKrPrbvgU/9da3g6HAzgvIK6DC2UJjdAZ/7leSiPU1P0hUIChICSsKO7LkFQolQuycfOQg7AOBk792NIU8gjTK6E3wLI2xyJZsfkme75IUHeT2E9SPCm5mn5vBxtlVHX4mU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791535549; c=relaxed/simple;
+	bh=BFt+HHVErsZcnh/Y/wIax4idNUB4yL3NbnaeoV7ZDOU=;
+	h=Message-ID:Date:MIME-Version:From:To:Subject:References:
+	 In-Reply-To:Content-Type; b=aZ0Yri0x2eEunZ2H37LXHp0sA6YK8LLXchrC0knASxHH4vqK1uayw3qN1VMoEPX5cGyp8uLzoJqi81d7w4BY2QmmjuzFWDeXsNDaKVRY7SOZo1X4IX2Trw/2r1XUEakxSddx1+39oQrER6EULmZ//xI2tBCRyQ2VuPlWvGlCts0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Bpcetjdy; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MeG8K/Qh; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amd.com header.i=@amd.com header.b="yJAp0iYy"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zIpy4kNx1Q+Qb1/BlR4cdSKFSR9RapNONnu4Ro9ZxtYVM5zFRoDpeotKtbjmZuD/u07cTDHKJB6VBPggp+bOqUR/rOzuJkBWovCkqQ4t1+masG3gGUITs4OpzY+GTlFLUoAPSbz+AggH4XK4L9U2GgTVQrJZuoRbHjttKRUXeM6OV8gbbIWpqw9XffYa/NMSNhXAPmzOfPTlJp6C4MnGRx6PWP0J5rrpdMjcsIf0u4J4oJ+LWk6K5wuJUan93mX/VXWudnoxpAxbyL+9t/+oM36OK9WDja9bvL8lHldVkB+LglJfGlxGjM2l52G6EhyGRHxDsSkrezUvLJ9lk4SyjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QEDZZmGEAkrUqIMkP/5M35srJzyIy2g+lh9zMllMYb8=;
- b=FwSrEKc+E5QXzVJuobw+68cjnMwTjKvShXsCDgSfTr4J35wo5S3NRso77r6RvJGtj8fFXTPy1NpKQ94qj/u+3CGk9Xv3lkQm/agsi5x2SNUlSfWiFslGhOcpxrn6HIWfF4sJfzveqkHGQ+hFB+/q9g6ztbNLzgpNX9uRbqCcpYF2CPL4IwFNfA2VF4maVJDGoXNcgFtvfHWRyK3rlxMLs4UYpBJo40BUAiHulTdP+hCGulbVTBeYPVZHEM48vsGmX/Lto61X9ZfA5Mm6bLuNfAWmWWUzD1AsClIkOSNhog5oQfKaJFDfageHVh2GsVylrYuoojikE4YFmz5GAQ0FSQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=8bytes.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QEDZZmGEAkrUqIMkP/5M35srJzyIy2g+lh9zMllMYb8=;
- b=yJAp0iYy1XzfjuSxtl8wBrsea9DPKP9ZW7Z2rZaMlSSe2HSbRRBy6grvt5EYCqaoabr6LBGZ1VJ7gTRnVcOGZNA6LdlyRwX2w7sLyt2lX2y9uOVcRpmNut+VG4q6YWOpBtN325pTPagHap+WI12rc62Vs/CcknyjRan3mH3hpMM=
-Received: from CH2PR10CA0016.namprd10.prod.outlook.com (2603:10b6:610:4c::26)
- by CYYPR12MB8869.namprd12.prod.outlook.com (2603:10b6:930:bf::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 9 Oct
- 2026 08:45:38 +0000
-Received: from LV8PEPF0000005A.namprd02.prod.outlook.com
- (2603:10b6:610:4c:cafe::74) by CH2PR10CA0016.outlook.office365.com
- (2603:10b6:610:4c::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Fri, 9
- Oct 2026 08:45:38 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- LV8PEPF0000005A.mail.protection.outlook.com (10.167.245.135) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Fri, 9 Oct 2026 08:45:38 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 9 Oct
- 2026 03:45:33 -0500
-Received: from amd.com (10.180.168.240) by satlexmb08.amd.com (10.181.42.217)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Fri, 9 Oct 2026 03:45:29 -0500
-Date: Fri, 9 Oct 2026 08:45:29 +0000
-From: Ankit Soni <Ankit.Soni@amd.com>
-To: =?utf-8?B?SsO2cmcgUsO2ZGVs?= <joro@8bytes.org>, Rik van Riel
-	<riel@surriel.com>
-CC: <linux-kernel@vger.kernel.org>, <kernel-team@meta.com>, <will@kernel.org>,
-	<robin.murphy@arm.com>, <iommu@lists.linux.dev>, <liam@infradead.org>,
-	<maple-tree@lists.infradead.org>, <linux-mm@kvack.org>,
-	<ashok.raj@oss.qualcomm.com>, <jgg@ziepe.ca>, <kyle@mcmartin.ca>
-Subject: Re: [PATCH v5 0/3] iommu/iova: convert from rbtree to maple tree
-Message-ID: <mcki6p5d6u7ofhiucoz6vi3jdldzmc7yv7n3ppoiwdjbwuriji@e2ezt37ga6i7>
-References: <20260818152505.1057922-1-riel@surriel.com>
- <arUZwesREX05SZ0J@8bytes.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Bpcetjdy";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MeG8K/Qh"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6998KkPS1253043
+	for <linux-kernel@vger.kernel.org>; Fri, 9 Oct 2026 08:45:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	mvRGWpHB0XMx2h6qPEzRJjxPlxemxdFmjLqq0RenMUg=; b=BpcetjdysSKzyQ1Q
+	N65NXKdsDRcU3J346n7NV392I1xmA+ZfUF/Bq5zKnyV6Y3UGWlOXAHO4oTcWexNm
+	JjMzfrUU4WJzr3FXdYahPYsfLQIc6FCqXlL+ihLUQgffGqo14Q9XGQgfdjZaCslr
+	fIs6KUZoTmSQTDDCOPpjLBmrfxX+a58fkgctvzChxLzAMmiLj7zVVo7hZo7alrrJ
+	EzWsAxDM8mVeHsERCTIqXJE3NtQo/Q16H/HIBFGfIu7t4epHU532QApzht/njoY7
+	RuIoy5MWZwRKVKwXnW3YTFZgLolF/Zh8XkJi8TlDtuQS8j5GfM16cM5MIQSD7lA6
+	EGw3HA==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6baj3x51-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 08:45:46 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc4ac5feaa4so4888146a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 01:45:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791535546; x=1792140346; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:references
+         :subject:to:from:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=mvRGWpHB0XMx2h6qPEzRJjxPlxemxdFmjLqq0RenMUg=;
+        b=MeG8K/Qhisn1kh9+jzT+bjgqfddz4SwTksc4j6Mh8SWny7UaP8eRop8FdJitOpcLbp
+         fpO9yLzXsdPmrFiIMF3+SlyIqyRemRbnTfqJ2Did/FqjUTADTOO30/K4ufIQLSGmXgZh
+         VD3LkgKMN2lGMI4MJYBEnZEIQ9cL31kuDtXI7TO41oUlxGPT7puwXP8l92AV/7tGqHkj
+         QaoHqAdPWvruAC8Cj7ScCeMAREnLqLTh+1px7iewSxf0KAzQ0RidIILFcO3Zenfhn4tx
+         2ZhiVnXVw+WFhBlDhzu/JHZ0wdai0HcSzCAc6GtIYgK2ndwgGLgg+Iifut+MPOq+Ss6m
+         jKoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791535546; x=1792140346;
+        h=content-transfer-encoding:content-type:in-reply-to:references
+         :subject:to:from:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mvRGWpHB0XMx2h6qPEzRJjxPlxemxdFmjLqq0RenMUg=;
+        b=zLeFDKIwHjBz0S6dBiosEvjMMQQeKAATknXMPg4KIvOZR3Ozv9NJt5vjTdYkwEGHcm
+         NqoWQsJ+BpOJt0Upb9sxUAu35mtDYgwbYzb6CYF7YKjmJOoG0ruccSsZuPiRyqqYk/oX
+         LVcuApgN2fvgpOg0knKFfixncv7Xj8R55fWoEesGQ0L2d8bu6LZUCY9FPMmxTNNAS/Bs
+         wF0TR6YCO+Gz50SNwkzXYtNUhk6GHkbAEeV58t8xhSkHSRUbwtZnnhRvq4f7Cmv3220v
+         ct3iZpQzz7HZOBgk6N840NOQQbaLEj3UHsIkK/gET11RYHbKknuoX0b5UbSRkdFtR0EF
+         EIyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxMaN1PigYi5aAo4O481/uiN/Yqk30GpZ8KiGszJlv9HJJKshT7iADwfM2Ewl5hmEVJpMtEOceJhBgS15c=@vger.kernel.org
+X-Gm-Message-State: AFuF++l60Xe2SaPiMw0K/Mw5IMKWbUBR1HxOquycRUb0RoKuo2kDLK6g
+	74M9Ylk2N+40puHmRpbApSQdowLdYY67ZebjH4sU9a5QNCOnrQDqGut3jxHSaLXtU7PzQFXCgvS
+	5nSOIQHzdpjTu7P6Us1BFbQXGl4wZdj6BATLeIJlNmIEg7WAJCdlZPN172gJr47lVrXc=
+X-Gm-Gg: AYBFou3XO/0YgR1GrAQaK3vH22FKSjdTHSqD1+DeI6GOXL9MoiKBoqwaNQ6rjcJ/B85
+	w/IAyPpn/0IhcAkspZdw7KzePxV4e88YMmMSZxa51bsTH+WG71JmWK2dmuuRXNPqIwYBCAvsT+w
+	a5MAb4LomOQ7AzbbN1vh8HzQFadxnIO1+KC2ilS74Xvk9yXptLpw4wGTf+68eleISFpTPXk5osK
+	/Z/SZVxImEvq2VHJdRd0Scz3GQX1GfHPyityNuaRqmAImCBt74AOOvqnUufnM6d3LS6OePFYbze
+	5NYs6fK8FJP/xLz1r/33JSrrRKYpJDbHMhmQvIY6XsTQ2UeGF4hStPNcmDGvj4t5Z2SsRWLTC6C
+	NHXiAuoGznV4i50GFUlckTdRYy3bbzOVFz72ZQIBAMw1mK2TQuaBS5WLIkog8mrk=
+X-Received: by 2002:a05:6a21:9190:b0:3dd:85a8:4c67 with SMTP id adf61e73a8af0-3e16be5fa00mr1023342637.46.1791535545435;
+        Fri, 09 Oct 2026 01:45:45 -0700 (PDT)
+X-Received: by 2002:a05:6a21:9190:b0:3dd:85a8:4c67 with SMTP id adf61e73a8af0-3e16be5fa00mr1023320637.46.1791535545012;
+        Fri, 09 Oct 2026 01:45:45 -0700 (PDT)
+Received: from [192.168.1.6] ([117.143.161.217])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d9d492d7sm599567a12.4.2026.10.09.01.45.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 09 Oct 2026 01:45:44 -0700 (PDT)
+Message-ID: <78ef7040-0284-4199-8468-8d7cca7eb4c2@oss.qualcomm.com>
+Date: Fri, 9 Oct 2026 16:45:38 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+From: hangxiang.ma@oss.qualcomm.com
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, linux-phy@lists.infradead.org,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        jeyaprakash.soundrapandian@oss.qualcomm.com,
+        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
+Subject: Re: [PATCH v19 10/12] arm64: dts: qcom: kaanapali: Add CAMSS and
+ CSIPHY block definitions
+References: <20261008-kaanapali-camss-v19-0-b2c583ef50e0@oss.qualcomm.com>
+ <20261008-kaanapali-camss-v19-10-b2c583ef50e0@oss.qualcomm.com>
+ <82d48200-f13d-4b14-8cc4-4b1b2dd2bb37@linaro.org>
+In-Reply-To: <82d48200-f13d-4b14-8cc4-4b1b2dd2bb37@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <arUZwesREX05SZ0J@8bytes.org>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PEPF0000005A:EE_|CYYPR12MB8869:EE_
-X-MS-Office365-Filtering-Correlation-Id: 34581e92-94de-4ef0-81fd-08df25e1b17a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|1800799024|376014|82310400026|7416014|18002099003|22082099003|56012099006|4143699003|10067099003|11063799006|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	m8I8gh1igZVoR9Cr4T2fqwG6D76WUii+rE7+b1667WRI8POnHaMUfja86J+s0/ld63rNUdriIapR6+HTGsEy5j3/CwQTfSIqG1KysHQWVJzaoiJkFwo/9GuQMAwiig2VXuJZLgqnLtDnwHSrc9/sSRxb4EzWogihFCRzS32NlgpiNYcSDk2izjJlaknOYrWbzyXITmsxJg/rzm3IlBQZRkAwdGmepl9f+3PdJNyf6mpCYE5RT/HtRioAxq9gBCrt+zh1wiiU8Isms6KNbjuCQo+/cUGDx35dBXzjdaU2WvO4XVU8YUY6OUpT9cVswDJf31oGzlbOi1XxWVGOVkwh24gZEl/fsrQzpQhesKqFLEkHcMM9m6LyPM2tvpq+Wr9z2YPUfa/k00YWodsNLw7bibx1/1UsynZXjjtBShermgw5FQwADRzriirGv9tyJJ4tvVNaMkwfqjPD2Lnl6UYkMeFjTUjSv7+vo/93+EYqTZX7sloNU48vwWMrwlO2/UX4zbEI8kRdwUMxoBPPy9EhewpzduLgvprRHbw49GNhx/fr+XP/kqmcRGrJ46kZXpyHNSC7Fj9zl7IL4pVG4oz8aDfAOJYQ+ela9/huWbR4TPinSssVSohxg5KJ6m7nDQk+pE6CoB275hoRsocIO0Len+U5aS4HrHTvQ27nomiJHOGg3tEIhdobQENLXnQsGFMic4a6stPXTrkR963d6E8JCg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(1800799024)(376014)(82310400026)(7416014)(18002099003)(22082099003)(56012099006)(4143699003)(10067099003)(11063799006)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	trPC7N5tb80dn6n7hNF4degu86iyb3+mA9+YeOFZeUWgJ6R85tfTcxDq7IOdlfH6qHbY0esppLMTuDE8X5tPXAmYJHCfRpXzRSkOOycjDboTKoFibQe6pNeA6RcG2/q8qX0Y4eAZDkccn3FIHIvYIfn1gum0ER0DCUR4s+1J7rI4P1+1SMG/Eii4i5FmsB9X++m5nI0R4+a1odA9B5IyriGY8tBNfxiFd2Oe+jCNZMsUO0EIGyWrPN4U7RBMUI4iWy8UKRD+ilylBOHYBBpcqMyXALp6qpAV51l/9kfwRmgKht8I9niqYA8p8zCtiOsCltAMHGD8PLGX89c5KP9ce4RI9c0aRoqFVKAzrzMHdAmduBH2j0eDNWZjL95HOdLGSjtcjNq1x4VmzaHxdps8ddLGnQEMoQB9G0zggxvtb/aQ1GrglKXI8h5jjSv5t5vT
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 08:45:38.4933
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 34581e92-94de-4ef0-81fd-08df25e1b17a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	LV8PEPF0000005A.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8869
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDAzNCBTYWx0ZWRfX0/yeR24+MpvW
+ drConmolaDg9qmyaoMFy2IVAB0puyyLQTbKx01R//wTJbqU+eoJJQbjlZUP1yrWf3L9FOCBq1rG
+ rnAH/NQUAJclztEzJ6PDEPMXLt2rYMFKKmceWbU2kGysOfnU9CNpw3nH6kjjdDgRLWObboa836+
+ zm9aI6ZhN5KGuIF4biN9UL/ycM5AOd177dFXZbeZLx+Vbns+NLE/v9pxFMgBUWeazHndWFBZLhe
+ MXFqXjMOUaiJcRPcZJcg6b1DO2PwQhe3e1oDmHf+oqdsfViDG+6Nt/RBWu6rLlPdIxuuU+L9EgO
+ J4rT8aFfTMrArrtKITGMEKGflhzbyACscBQ8XrqqfSK/3LGygAOmkcri2BiM5oRWNcvKgCJ92yO
+ KuXaCOoSGnaL1RG4TLQrFcnX+M6ULrAsy21FtG1cNQBcaqF15bAmKoNWN3bhnk84Cy6VbFAICXX
+ gt7Nb/ebbxrbJ9A5c+g==
+X-Proofpoint-GUID: 53PQQpSR2BwwmupmpyqopuJjXYzsLg48
+X-Authority-Analysis: v=2.4 cv=H/dOUOYi c=1 sm=1 tr=0 ts=6ac8a9ba cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=K/RrOd38U9TixX+j9hIN8g==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=N5TnpenYHa_lGfR9nhQA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=_Vgx9l1VpLgwpw_dHYaR:22
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: 53PQQpSR2BwwmupmpyqopuJjXYzsLg48
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDAzNCBTYWx0ZWRfX73xQNi1aWjVf
+ M6rJ74p22YToKNp+5ic2dazLXndPKkn7PO7afFMPteq0VabU3cdaV0Kftd6F36DKqCKSmIu/DKR
+ G8IO7hxK0Dxsb3Cf2YM1mT0mKYk4vlY=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-09_03,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 phishscore=0 bulkscore=0 suspectscore=0
+ lowpriorityscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610020000
+ definitions=main-2610090034
 
-On Thu, Sep 24, 2026 at 02:52:45PM +0200, J�rg R�del wrote:
-> Hi Rik,
+On 10/9/26 4:40 PM, Bryan O'Donoghue <bryan.odonoghue@linaro.org> wrote:
+> On 08/10/2026 08:14, Hangxiang Ma wrote:
+> > +        csiphy0: phy@9523000 {
+> > +            compatible = "qcom,kaanapali-csi2-phy";
+> > +            reg = <0x0 0x09523000 0x0 0x2000>;
+> > +
+> > +            clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
+> > +                 <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
+> > +                 <&camcc CAM_CC_CORE_AHB_CLK>;
+> > +            clock-names = "core",
+> > +                      "timer",
+> > +                      "ahb";
+> > +
+> > +            interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
+> > +
+> > +            operating-points-v2 = <&csiphy_mxc_opp_table>;
+> > +
+> > +            power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>,
+> > +                    <&rpmhpd RPMHPD_MMCX>,
+> > +                    <&rpmhpd RPMHPD_MXC>;
+> > +            power-domain-names = "top",
+> > +                         "mmcx",
+> > +                         "mx";
+> > +
+> > +            status = "disabled";
+> > +        };
 > 
-> On Tue, Aug 18, 2026 at 11:25:00AM -0400, Rik van Riel wrote:
-> > Occasionally production workloads at Meta run into the linear search in
-> > alloc_iova() in ways that cause real issues. For example, when enough
-> > CPUs at a time fall into the linear search trap, systems have been known
-> > to get stuck for so long that it causes soft lockups.
-> > 
-> > This series indexes the iova ranges in a maple tree instead. Its gap
-> > search makes alloc_iova() O(log n).
+> These PHYs should have their ports defined.
 > 
-> Thanks for working on this, I really love the idea and more efficient
-> allocation complexity. For long-term maintainability a few things need to be
-> sorted out, though.
+> ---
+> bod
 > 
-> First, I will ask AMDs IOMMU driver team to do some performance and regression
-> tests with this series.
-> 
-> > struct iova loses its rb_node and shrinks from 40 to 16 bytes.
-> > The maple tree keeps its nodes outside the entries, so total memory
-> > use ends up about the same as before.
-> > 
-> > Patch 2 handles the one thing the maple tree does that an rbtree does
-> > not: erasing an entry can result in the need to rebalance a tree, and
-> > allocation of maple tree nodes.
-> > 
-> > iovas are freed from atomic context, and GFP_ATOMIC allocations mean
-> > the erase can fail. When it does, the entry is marked IOVA_DEFERRED
-> > in place and the struct iova is freed. The marker keeps the range
-> > reserved until iova_drain_deferred() retries the erase.
-> > 
-> > Ashok Raj asked on v4 whether the marker store can fail in turn, since
-> > the WARN_ON_ONCE there reads like error handling for a case the comment
-> > claims cannot happen.
-> > 
-> > Code examination shows that, with the current maple tree code, the
-> > IOVA_DEFERRED maple tree store will never result in an allocation,
-> > and cannot fail. This series adds a test case which allows us to verify
-> > that maple tree property continues to be true.
-> > 
-> > Only a corrupted tree, one no longer holding the iova at its own range,
-> > can reach a store type that allocates. The WARN_ON_ONCE is more of an
-> > assertion than a recovery path.
-> 
-> This is a lot for the interface contract between the IOVA code and the Maple
-> tree. We need a way to test and enforce that the maple tree implementation
-> adheres to the requirements of the IOMMU code going forward. You mention that
-> there is a test included, not sure if it covers all expectations this code has
-> (especially when the expectations are different from the ones in core MM code).
-> 
-> The last thing we want is regressions in one of the IOMMU-layers core
-> componentents because of changes to core MM code.
-> 
-> 
-> -Joerg
 
-Hi Rik and Joerg,
+Ack. Will follow the Hawi/Maili tempalte in next revision.
+<https://lore.kernel.org/all/20260923-hawi-maili-camss-v1-7-cbbb42e534ef@oss.qualcomm.com/>
 
-I tested this series on two AMD EPYC systems with real NVMe devices
-through the AMD IOMMU driver. Base is v7.2-rc7-104 (ad8d485e6658),
-patched is base plus your three patches. I booted base twice on each
-system to get a noise floor. The first table pools both boots; the later
-two show the first boot, and I only call a difference real where the
-second boot agreed.
-
-  system 1: EPYC 9996, 2 sockets, 1024 CPUs, 4 NUMA nodes,  1 NVMe
-  system 2: EPYC 9965, 2 sockets,  512 CPUs, 2 NUMA nodes, 12 NVMe
-
-Tests
-
-  1. dma_map_benchmark, the upstream selftest, varying thread count
-  2. a depth sweep, varying tree depth on its own at 16 threads
-  3. memory at scale, 12 NVMes holding 12.58M live IOVAs
-  4. fio across the 12 NVMes
-  
-1. dma_map_benchmark
-
-It reaches alloc_iova() as long as the granule is above the 128 KiB that
-the per-CPU IOVA cache serves. At granule 64 pages the live set is one
-mapping per thread, so the thread count is also the tree depth. Strict
-mode, min-max over all runs, EPYC 9996:
-
-  threads    base             patched
-  1          0.2 us           0.4-0.5 us
-  16         0.8-2.0 us       1.4-3.4 us
-  128        1.8-226 us       1.7-18.6 us
-  512        1,772-2,926 us   4-1,387 us
-  1,024      5,532-7,431 us   2,480-2,954 us
-
-At one thread the maple tree costs about 2x, and the ranges do not
-overlap, so that cost is real. At 512 and 1,024 threads they do not
-overlap the other way and the series is 2-3x faster. In between they
-overlap and I would not call either kernel ahead.
-
-2. Depth sweep
-
-dma_map_benchmark unmaps immediately, so the only way it grows the tree
-is by adding threads, which also adds lock contention. To vary depth on
-its own I used a small driver: real dma_map_single() on an NVMe, N live
-mappings per thread, replacing one at random each iteration so the tree
-stays N deep and fragmented. Fixed at 16 threads, strict mode:
-
-  live IOVAs      EPYC 9996            EPYC 9965
-  in the tree     base     patched     base      patched
-  16              1.39 us  1.13 us       930 ns   777 ns
-  1,024           94.5 us  19.1 us      58.6 us   14.8 us
-  8,192            206 us  31.1 us       132 us   20.7 us
-  65,536          1.95 ms  34.8 us      1.25 ms   26.5 us
-  524,288         17.6 ms  42.0 us      15.6 ms   28.7 us
-  1,048,576       66.9 ms  47.7 us      99.8 ms   33.7 us
-
-The live set grows 65,536x down that table; base grows 48,000x with it,
-the series 40x. Tearing the full set back down takes the same time on
-both kernels, 3.42 s against 3.42 s on system 2 and 5.4 s against 5.2 s
-on system 1. That phase is hardware invalidation, so the gap above is
-tree time and not device time.
-
-In lazy mode the series is slower to build a tree from empty, on both
-systems: at 16 live IOVAs 26 us against 54 us on system 1, and 15 us
-against 27 us on system 2. It is still slower at 1,024 live on both, and
-at 8,192 live on system 1. Base itself varies a lot in lazy mode, so I
-cannot give a clean size where the cost ends.
-
-3. Memory at scale
-
-One device cannot hold enough live IOVAs to clear the noise, so this is
-the 12-NVMe system: twelve independent trees of 1,048,576 entries,
-12,582,912 live in total, no allocation failures. Peak slab, three runs:
-
-  live IOVAs    base          patched
-  98,304        1007-1011 MB   982-1082 MB
-  786,432       1053-1055 MB  1045-1070 MB
-  12,582,912    1861-1864 MB  1610-1622 MB
-
-On the first two rows the run-to-run spread is as large as any gap
-between the kernels, so I draw no conclusion there, which matches what
-your cover letter says. The last is clear of it: patched is 239-254 MB
-lower, 72 bytes per live IOVA against 48. The gain is capped by the
-maple nodes, 1.47M of 256 bytes at 12.58M live.
-
-4. fio
-
-No change in IOPS, bandwidth or any latency percentile, in either mode.
-Block I/O cannot reach this allocator: NVMe clamps its transfer size to
-dma_opt_mapping_size(), 128 KiB here, which is exactly the largest size
-the per-CPU IOVA cache serves. A kprobe counted 805 of 12,367,841 maps
-getting as far as alloc_iova().
-
-Summary:
-
-alloc_iova() is O(log n) in practice, on two CPUs and by two independent
-tools. The series costs about 2x on a near-empty tree and wins by orders
-of magnitude on a deep one, which is the trade you describe. Memory is
-the same within noise below 786k live IOVAs and a third less at 12.58M. 
-The costs are confined to microbenchmarks on near-empty trees, No regression
-in any real workload.
-
-Tested-by: Ankit Soni <Ankit.Soni@amd.com>
-
-Thanks,
-Ankit
-
-
+---
+Best Regards,
+Hangxiang
