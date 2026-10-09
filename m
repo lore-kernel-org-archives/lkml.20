@@ -1,630 +1,254 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012029.outbound.protection.outlook.com [40.93.195.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5FB03ADBAC;
-	Fri,  9 Oct 2026 11:54:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791546863; cv=none; b=RILo5JIG18l/SX8OpRJYhgWikaKfug//Y0SPJHX+7kQ9n6GACuwgMWFaL/gLN1usrHQ19sts8PAeb7gftyQrMMhBTRYbPregJFgBLtpEehQ+8UFTpV2FQK/yBcv92ndXOPoa66N0K8+WlXBI/TXJSga2Yu1kln0DZ/EnXjCwEpE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791546863; c=relaxed/simple;
-	bh=WauVG7im8f2HZzCH9kjVPBD4IOJbVz6VOpAVda6I5bA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=fq+mn2Y4tCTCRbvPg3rQ8ewkoF0MeyYc79BlB3jfqInrORSQrcCBFhRqYeFbg0IIiqYJgooilI8+jxh8xT+gcXUJu0wTVNpGzv2L7oFSzjjKb470qcnEWrj/K/706d8YDwmBFI531KZ7ButosiMesil08y0k4IaxvkVbH/Z+lsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=lNf5qO1d; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E8F34E3EED;
+	Fri,  9 Oct 2026 11:54:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.29
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791546866; cv=fail; b=eMfoeB7Z9Uef6qHuFtNbxgph1w+l+E3NOKZJiQCgAznFsrSQfkCvxU66sGTvuQNNX4GKCWtLl7TMqtXu44JZaAzqV2xEBduTJcv7zNf2PcgtI/EnoVK3ftRWey/9VGo3z0yaBOqHj6uyZBuf0oFNc8toc7kaEo4WQT0s0XaTMqY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791546866; c=relaxed/simple;
+	bh=saJ0Z3jjnUlbKjfVTvFgpLgx2ZjRhTwf+WXs7fOXTTg=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=dhXrTOjqpRnDQt4QBtxkYPh6PTK3PnRmhZKUhtQn961LjJenPa6o+D0NRUDGrntbi572Ag3Bnw7j2j5+ZOJvxGiUrCxVGXEo4i+N3eqOka1RyMgnHpfEbOmyTyqKnr61faR9IMAHuwJiKvjhNdP7HI0vZ9IvRmqFyevIBomgcCU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=KdLeuU7q; arc=fail smtp.client-ip=40.93.195.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="lNf5qO1d"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1791546849; x=1823082849;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=WauVG7im8f2HZzCH9kjVPBD4IOJbVz6VOpAVda6I5bA=;
-  b=lNf5qO1dasrueci0YHS18hE1hgCPWixWMO21KBTogHqFVUjQJ5mVHv2z
-   wB4ldMF/joOnOv2gMk7EIMClm82ajxVQYs86mhqvisM033czaxL5+7xNe
-   wCRAq3TYDznD0fdtG9KFrL0n70EXMR+3LMfQrgdyeZVQxJx7zjD4sPOU7
-   +dJTv7vZGQPb24s0+L2WP9wUQ+qeDpPmmDMPa87j1ApbDkq10eEMhw5NR
-   PEpj0z2XiTYOW2l08nI1CaqvBN8ULICB1wyAtaNMP75+ZNuda4d+oHjKW
-   F6RotW7UVKi6/E+I/DVs/B/CBc/RJGo5LI8iW7P9pz4NETBUh6yFqJ5sK
-   A==;
-X-CSE-ConnectionGUID: cOrGLAHtT/WumNjcyZNKFw==
-X-CSE-MsgGUID: nfTR5NRCRWCVI+FMFD9kqA==
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="63861551"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 09 Oct 2026 04:54:08 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Fri, 9 Oct 2026 04:54:08 -0700
-Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Fri, 9 Oct 2026 04:54:06 -0700
-From: Daniel Machon <daniel.machon@microchip.com>
-Date: Fri, 9 Oct 2026 13:52:04 +0200
-Subject: [PATCH net-next 4/5] net: sparx5: Add hardware programming for the
- port policer
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="KdLeuU7q"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=F18rSKdRfbsMo851n7To3rGMZUhD70tRx7L+NQbHVX14Aq+8E1VA8YAc7qanjl+j6UWI/9R2vOgS5lsyNJihTcgwTfkONFN8WTyMaxrZBWpl/LvHEObEWtzTIG5+rjI79+BMwSOuovaMaNZP9BIT35CTnQYaqlJKMgcGZohV5c7+GMUOtAVSDzgd7tizVOuz2HKtQYI/9ccA1nsQEPj8AKoRGWTvpnFLs8NRcMkVo3DxVegOLRcKCgFaS7lsh9W5tAANh+weEptgS9c+yQm10fjmv+GSbbCNwYIwK73SiNIbumhlqvT6w0WzxrPEsUjEgmFQAZQmFIDwcf8YVCKZTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2BxAWKjrJbfRZeBhrTUrnu0K2K5MCfMU/qgGsC/pcCA=;
+ b=BvSmwxqe75dPJMtZq6X9hho6kpHVPUWEo15SQvL4hwXyjRMLSiWcmYFqOOB7hCSpmUrpB0sgGEYGPX1ggQ5mcFFbvsZt5o0mCV3dhClaKBtKrBWjKc0PHq+UUWEU1rpCMl5/BRNW49iPAHWNoXCpSKcshWyQAmLhGH/GL+QiMgTALoiSN7HLqJOOk6N/LyahBYRk1slDEn2Sw9AekEvlyxUxT/73/U9349rtTYg7eTAMe11O3KH4rCWnUOVkTnW2Lpe/HwtPS8m6KulCddqgcRwJof38qwTf+SbSiIPf8e2QUKBrQ777QrUa3A3bUnuJTxkF+C8TCdYrmVtMzWKT2w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2BxAWKjrJbfRZeBhrTUrnu0K2K5MCfMU/qgGsC/pcCA=;
+ b=KdLeuU7qgfaNqW0ov7fcOyTK9SowP6nu62H9g6oF6DM2K1ymESGB9Y5gGKyIJi+7gr2tor0lFP9mBVA4EQNNg5ZIGP70uuDK+GCKzMt8fWPxzAUwQnGdeCRcHogbWGw9DDzKx2/yqMEroS8dII8URUajXy0/pOK1pMCWT34JW23cwfONEnuKxbLULbDgzEqta9HEzd89neLlhF3eiE0UukN1VFVN9uZ9V7ybNlkAwysqmlfDcyi4p4TiPB1MWt9jYj3AC/A95JZe+SpEyy8ls0D8lw1KDOFvugRahIiY3dpEYdQIM7SI8OcynhnpdACKpBmrBuDg00h71PRt1KOtIw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by DS2PR12MB473522.namprd12.prod.outlook.com (2603:10b6:8:400::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
+ 2026 11:54:13 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0472.016; Fri, 9 Oct 2026
+ 11:54:13 +0000
+From: Alexandre Courbot <acourbot@nvidia.com>
+Subject: [PATCH v4 00/10] gpu: nova-core: gsp: prepare the command queue
+ for r000 dual-message types
+Date: Fri, 09 Oct 2026 20:53:56 +0900
+Message-Id: <20261009-cmdq-rpc-v4-0-c9ab8de1d3f2@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNzQ7CIBAE4FdpOItZFkutJ9/DeCiwKCb9ESrRm
+ L67VC8a9TjJfDN3Fil4imxT3Fmg5KPvuxxWi4KZY9MdiHubM0NABTVW3LT2zMNgONnSrUvQCBW
+ xXB8COX99Tu32rxwv+kRmnP3cOPo49uH2/Epi7v2YTYIDXyNaXTauFkDbLnnrm6XpWzbvJvwnM
+ UsjnVINVVLT6kvKNynhTcosa6GEdKBKBP0hp2l6ANc4wfonAQAA
+X-Change-ID: 20260927-cmdq-rpc-ed5f850b207e
+To: John Hubbard <jhubbard@nvidia.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Benno Lossin <lossin@kernel.org>, 
+ Gary Guo <gary@garyguo.net>
+Cc: Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+ Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ Alexandre Courbot <acourbot@nvidia.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: TY6PR01CA0002.jpnprd01.prod.outlook.com
+ (2603:1096:405:3bc::9) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261009-b4-lan966x-pci-fdma-sparx5-lan969x-port-policers-v1-4-4916708a7ea2@microchip.com>
-References: <20261009-b4-lan966x-pci-fdma-sparx5-lan969x-port-policers-v1-0-4916708a7ea2@microchip.com>
-In-Reply-To: <20261009-b4-lan966x-pci-fdma-sparx5-lan969x-port-policers-v1-0-4916708a7ea2@microchip.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Steen Hegelund
-	<Steen.Hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>
-CC: <netdev@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, Daniel Machon <daniel.machon@microchip.com>
-X-Mailer: b4 0.14.3
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DS2PR12MB473522:EE_
+X-MS-Office365-Filtering-Correlation-Id: 23ba2d9d-30f1-4db6-4d1d-08df25fc0974
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|10070799003|366016|376014|7416014|23010399003|56012099006|11063799006|10067099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	DXS0pveyWrMtpYyyF5Gs+pR38Lio9FGNfILlIN3kMAlE46Jmffr8pd9NmgCM0vkSFbBBlXolG/v/vCJRhNwgP4pzuLka8M/jF9bKCy3muCBe4IS/rHNpZoVzlPq2hoa3HEqZ4gPFqB8czmXUqWmbpos8ano8YZIttgNBT1CB5aqA2Ju0572qtpt6OcRGqHsMpj3h/U+oCrPjNVabHqqa5aqfp9mr5iuO3wKaX12OR6HKXWeJKzAmirXj9e2Mgx6a6aorCeL3OqBWUbVJPKeRYp6ZOWFoxuNDFEERc+AddPu6ONU4try6dWMM6iNXabkDrKMbusa1javN8VtiJKU1c4og1q2QmrpZhTX1xJDVA1MyBRme2O8fn2fEgUZ01TQYnEgvowNASr8w0+JANQ/axU9SX78ABygWoKC7V97W8WhuhsGMYUucQFuFWYkDgJil/0wYkLYutx3Uhna7IC3tWP6SgRP2j8wKEL/7ctExeYiqha+U7R+sAlepKIyEfvYTDHD+aD8LzT7WkX/pJCDEWdn25mpTry5KfR80RC/b54qdOGPZcceLDntexPrC+4XELBYgWMYjwDwbtKR1QDbllp7rViyzx3H5rnI5hKnl+yJRChHAmH/uej4xqK77AiRWDs+f8CzRx7TQI0bzSADHdQx9prC08zkLj6p9sTDdrsY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(10070799003)(366016)(376014)(7416014)(23010399003)(56012099006)(11063799006)(10067099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?d1AraTRDTEU3MlVla2ZmcndmNDhFUGdRTlVuM0NtQ0FCdmJZK2c5aVZrejVs?=
+ =?utf-8?B?R1hIclo1dHhSRkpPOGV5Zkp0dkYrNkdod2cvdUsycEtLY09oZncxTkU1Mlo5?=
+ =?utf-8?B?aVFHQ3BrSjBUUFo2V28rbXZ0MlJoaFZOQnEwY2JjbG12NkluN0hZa2drNlJl?=
+ =?utf-8?B?WVgzNlpNVlQrKzlmdTBTdDc1TWFiU1daUW56QUFSRVZraEN0Zi9RV3FZU3Ur?=
+ =?utf-8?B?NWY4ekdTWmp1a2FXT3NxUmltZmF6V2o1NlJCRHlyT1VJKzE4Zko3WTNpbmhE?=
+ =?utf-8?B?QVY2clFGbE55R3A0VDVXZEFUaUVzZ1V2dHY2QWlWSVRNaGR6bi9rR3l3NU1H?=
+ =?utf-8?B?QVpaNytIQUtMY1VLdEhOUnZLa2RlS1JjeExkYmRHbjlVOUZSOGNGK1ZSQnp2?=
+ =?utf-8?B?UWg3Q09XOFB5TzMzYXg5UTdhNXF0Q2xXQ2kxc1FSY00zbHNoQXhIK3R4d0VV?=
+ =?utf-8?B?Nnl1YklNdjNyREp6RXRoYkZKT0NCck9jOW9YbUIxVUc4dHRlSzNaWSs2VzB3?=
+ =?utf-8?B?bmtCKy93ZFZ5c0NoWkRyTWN0RGZBQjduS282bzF4a1hOMklwUFB2QkZhS2t2?=
+ =?utf-8?B?VittOHVLNUdyWkxBNExZUUJ5RC9mQjNnbktERkYrN2tKR3RVQ2NwcUVZMUdY?=
+ =?utf-8?B?b2ZQOEU0TDNaVXJGakVJZjV0QWFUTGRTckdGcUkvVk52ekl4Wkw2Nkk1K0tv?=
+ =?utf-8?B?QWFrVkRIcFVTd0VHd0FMYmhDU2ZMSUdJODAwdTFnbDV6NEFUZGE3TEdlWXI3?=
+ =?utf-8?B?L1NzVmdDMVVzVjFXMm5kT0ErY0FiaW5TSzgzeExxZzZkU1BiWG11a1hEbThp?=
+ =?utf-8?B?cndtRFFZbFVvQVYvaXBrMGYzWThQa3lEV2J6aXpZZllld0h3OEN5c0UxRnM4?=
+ =?utf-8?B?ODFSWmxDdFd0U0t2YjJoR3RqMXBiNlU0WHYzQzBlRXFxUHNlbDdLTDdSNW5X?=
+ =?utf-8?B?dXN1ZUNITHNCc0JrUjBMWWVDVXBCT1lscmYwL2Y4dmNoTkVwMDRyem1Qd0pZ?=
+ =?utf-8?B?MmI2Q2lrV0FoWDRSOGhJVDdRMXRjdm1ON1E0b1E3bXcvTW9JVzlab05SNlM0?=
+ =?utf-8?B?QXNtUS9TN2xKNlJXWXBpQXFnY3NEWWZ6S0NBWmFIenRKMm9RbHlKSkVnUEFU?=
+ =?utf-8?B?ajJFd08xSW43dzB3azFWMFdrZnV6MnY1UHBBbjVJekp2Vy9SMnZGY3IzVVVR?=
+ =?utf-8?B?S1ZTSHA4azFwQmRvVXRrZmJidjJiVEdqcUdlckNJUm9FYmllcVRUWFBEcWxG?=
+ =?utf-8?B?ZzNLSmNYU05FVjV4NThUNjFJWUhLQnpUMnlnbks1M0o3dm5sZkY1REN6eHB3?=
+ =?utf-8?B?eVYrSS9hbVluWW9JQW81dVF5cEw1UVNKMzdvR1E5Q1ZXbUJxWE81OUtpQW5q?=
+ =?utf-8?B?MVVMK0VFN2tGQ1NZL1Q2Z2F2cjBmZmNRUW15QXA2SkE3M21yaWV2Qmw1czdM?=
+ =?utf-8?B?clN5eUlSbWdDUytsY0FnL1UwcS84TWZVWmM0Qk9WOGgwV25jTGRObmpDb0Nt?=
+ =?utf-8?B?U3U0S1d4bUpmKzFCTkMwU1AvYW0yVUlsTDhhRkNHMjZIRjdnYjlLUHBaU0F1?=
+ =?utf-8?B?NjQ2elRuL2wzYnIxWWYxQkEzWnhXRUZMUVZFUFNodVRSTU00aVhJdzlCdnhu?=
+ =?utf-8?B?aWxHZnhNTDZxWHlvYzYvUXc1czJRMU11ZUJ5Nk5DK1ZnL3ZYOGdtMldUY2hK?=
+ =?utf-8?B?MmQzZHpOMjNnQ3poK0JKQkM3M2xESk9IWUJxRWtCVDFMNG1jMVhaMnErKzgx?=
+ =?utf-8?B?QUNOZVlSZkhaRnpIeXgwNk9DRlFDUWoyV2MxdGZMaTVqNU9jK0U3TzZJNnNH?=
+ =?utf-8?B?QXBSY3h5b2tyVmpqSitxclFVYWZKdHZvUGVRdzhZSkhqR21KajJoYzd1anZx?=
+ =?utf-8?B?cENQY3VFZDhHaUo2bDJ0aU5XbXlLV01pK1Z3VktUVmxIUGdLQXVNd2xrMXlL?=
+ =?utf-8?B?THFxWUhobFdYQ2VtbG9PSWJTeFVwTzV5Y3BOUDVyMEczLzdVQlkyR0M5RkJ0?=
+ =?utf-8?B?ODJ5ZTNIUTNqMW1uOHZuWWlBU2xUQkZ1YWlKenA3MlFmZW1NTmdXcHJ1UjZF?=
+ =?utf-8?B?YWFhUUtYZktSWndHbnBVOGltYk5FcE1LTTArS051ZUdzWXJhemgzM25PR1pH?=
+ =?utf-8?B?eUtVQkZuTFU5UEFRdzhXL0x6WjE1SGRINXYxeFVHVHk3SWQ4bFR4VDNYOUNY?=
+ =?utf-8?B?RGNyRnZkWERmLzlOdnNkUm9Lc0VKVzdaOWlyTy9QUWoraVV1RFNmWEFaT0Zr?=
+ =?utf-8?B?aXVLNVUrVnZpblJtdXUvRGkxSEtQV3MvV00rS1UyT0tzSXp2WTZMWWFYRnBz?=
+ =?utf-8?B?VEhNZml0WHlJcWlPVm54ZnRWRldKYVZacXUzSzFDQ1NxcmZVVXlndmNVbzh0?=
+ =?utf-8?Q?S97gJ/vBrxYq/DzBJJZJEC2PlY4IrSK9BtnG5iGBmk2vu?=
+X-MS-Exchange-AntiSpam-MessageData-1: BwnypqELDIyj0g==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 23ba2d9d-30f1-4db6-4d1d-08df25fc0974
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 11:54:13.1887
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 06HFYaBWhm05tGMo0V7QZQvicZUGytN/UUTZUm+BP6gm/+I02Cn4sWtbt0eWWcM9tfDn5NHd5AyLeEOqnwfXzw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB473522
 
-Each ingress port has four single-rate leaky bucket policers in
-ANA_AC_POL. A policer is configured with a rate, in units of
-25040 bit/s, and a burst, in units of 8192 bytes, and drops the frames
-that exceed it. The four policers of a port share the pass and drop
-statistics counters of the port, which are 40 bits wide. Before use,
-all policers must be initialized through the force-init bits in
-POL_ALL_CFG.
+The upcoming r000 firmware support [1] introduces a new type of command
+named GMC alongside the existing and already supported RPC command type.
 
-Add support for programming a port policer, and for reading back its
-pass and drop counts. Include 20 bytes of preamble and inter-frame gap
-in the metered frame size, so that the configured rate is a line rate,
-as on lan966x and ocelot. Since the statistics counters are shared,
-use only one policer per port. Initialize the policers and select the
-events counted by the shared counters at probe.
+Since RPC was the only command type supported so far, it was embedded
+into the lowest command queue level: the message header actually
+includes the RPC header and the code considers them as one.
 
-Read the counters from the periodic stats worker as well, and
-accumulate them into 64-bit totals, so that a wrap of the 40-bit
-counters is not lost between two reads of the tc stats.
+This makes the r000/GMC support difficult to land without a refactor,
+with the result of transport layer code being duplicated between the two
+message types, and no clear separation between the RPC and GMC code
+which are mixed together in the command queue. Merging the code that way
+would introduce quite some technical debt.
 
-The port policer is not reachable from tc yet; the next patch adds
-that.
+Thus, this series prepares a proper landing ground for a new message
+type by extracting all the RPC layer code and moving it into its own
+sub-modules, making the `cmdq` module completely agnostic of the type of
+message it transports. By the end of the series, the only mention of RPC
+in `cmdq.rs` is for the `rpc` sub-module.
 
-Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
+With the transport and message layers properly separated, support for
+GMC can be added into sibling modules of `rpc`, and the transport layer
+can be converted once when doing the switch to r000.
+
+This moves quite a bit of code around, but most of it is moved verbatim.
+No significant functional change is intended.
+
+For the r000 series, this essentially means the following:
+
+- Its patch 7 making `allocate_command` generic can be dropped as the
+  transport layer makes no assumption about the message type.
+- Patches adding GMC support will do it in dedicated `gmc` sub-modules,
+  following the model set by RPC. These `gmc` sub-modules will start as
+  `dead_code` as they are being built.
+- The "switch to r000" patch will essentially operate on the transport
+  layer level, i.e. `cmdq.rs`.
+- There should be no need for extra post-switch RPC fixing, as the
+  transport layer code will already be shared with GMC.
+
+Overall, this should make the r000 series much easier to review and
+eventually land, while not creating new technical debt.
+
+This series is based on `drm-rust-next`.
+
+[1] https://lore.kernel.org/all/20260918010719.1176945-1-jhubbard@nvidia.com/
+
+Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 ---
- .../net/ethernet/microchip/sparx5/sparx5_ethtool.c |   1 +
- .../net/ethernet/microchip/sparx5/sparx5_main.h    |  22 +-
- .../net/ethernet/microchip/sparx5/sparx5_police.c  | 404 ++++++++++++++++++++-
- drivers/net/ethernet/microchip/sparx5/sparx5_qos.c |   4 +
- 4 files changed, 427 insertions(+), 4 deletions(-)
+Changes in v4:
+- Rebase on top of latest drm-rust-next, including the interrupt series.
+- Move RPC parsing code to `RpcMessage`. (Eliot)
+- Do not mention the command queue slots in the public documentation. (Eliot)
+- Use different names for the length methods of the message and RPC
+  headers. (Eliot)
+- Fix bug where the RPC header length was used instead of the message
+  one to compute the number of pages to advance by. (Eliot)
+- Add a patch moving the message logging code to `RpcMessage`.
+- Make the `rpc` module only visible from `gsp`. (Eliot)
+- Link to v3: https://patch.msgid.link/20260930-cmdq-rpc-v3-0-91613f06520b@nvidia.com
 
-diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_ethtool.c b/drivers/net/ethernet/microchip/sparx5/sparx5_ethtool.c
-index d42c57bead89..32327a726a4d 100644
---- a/drivers/net/ethernet/microchip/sparx5/sparx5_ethtool.c
-+++ b/drivers/net/ethernet/microchip/sparx5/sparx5_ethtool.c
-@@ -1116,6 +1116,7 @@ static void sparx5_update_port_stats(struct sparx5 *sparx5, int portno)
- 		sparx5_get_asm_stats(sparx5, portno);
- 	sparx5_get_ana_ac_stats_stats(sparx5, portno);
- 	sparx5_get_queue_sys_stats(sparx5, portno);
-+	sparx5_port_policer_stats_poll(sparx5->ports[portno]);
- }
- 
- static void sparx5_update_stats(struct sparx5 *sparx5)
-diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_main.h b/drivers/net/ethernet/microchip/sparx5/sparx5_main.h
-index 021ac7a52034..ab8d1232bc6c 100644
---- a/drivers/net/ethernet/microchip/sparx5/sparx5_main.h
-+++ b/drivers/net/ethernet/microchip/sparx5/sparx5_main.h
-@@ -19,6 +19,7 @@
- #include <linux/hrtimer.h>
- #include <linux/debugfs.h>
- #include <net/flow_offload.h>
-+#include <net/pkt_cls.h>
- 
- #include <fdma_api.h>
- 
-@@ -209,8 +210,11 @@ struct sparx5_port_config {
- #define SPX5_POLICERS_PER_PORT 4 /* Number of ingress port policers */
- 
- struct sparx5_port_policer {
--	struct flow_stats prev;
-+	/* Last raw values of the 40-bit hardware counters */
-+	struct flow_stats raw;
-+	/* 64-bit totals, and the totals last reported to tc */
- 	struct flow_stats stats;
-+	struct flow_stats prev;
- 	/* Port policers hold the client reference (cookie) */
- 	unsigned long policer;
- };
-@@ -292,6 +296,10 @@ struct sparx5_mall_mirror_entry {
- 	struct sparx5_port *port;
- };
- 
-+struct sparx5_mall_port_policer_entry {
-+	struct flow_action_police police;
-+};
-+
- struct sparx5_mall_entry {
- 	struct list_head list;
- 	struct sparx5_port *port;
-@@ -300,6 +308,7 @@ struct sparx5_mall_entry {
- 	bool ingress;
- 	union {
- 		struct sparx5_mall_mirror_entry mirror;
-+		struct sparx5_mall_port_policer_entry port_policer;
- 	};
- };
- 
-@@ -645,8 +654,8 @@ void sparx5_sdlb_group_init(struct sparx5 *sparx5, u64 max_rate, u32 min_burst,
- 
- /* sparx5_police.c */
- enum {
--	/* More policer types will be added later */
--	SPX5_POL_SERVICE
-+	SPX5_POL_SERVICE,
-+	SPX5_POL_PORT,
- };
- 
- struct sparx5_policer {
-@@ -659,6 +668,13 @@ struct sparx5_policer {
- };
- 
- int sparx5_policer_conf_set(struct sparx5 *sparx5, struct sparx5_policer *pol);
-+int sparx5_port_policer_init(struct sparx5 *sparx5);
-+int sparx5_add_port_policer(struct sparx5_mall_entry *entry,
-+			    struct netlink_ext_ack *extack);
-+int sparx5_delete_port_policer(struct sparx5_mall_entry *entry);
-+int sparx5_update_port_policer_stats(struct net_device *ndev,
-+				     struct tc_cls_matchall_offload *tmo);
-+void sparx5_port_policer_stats_poll(struct sparx5_port *port);
- 
- /* sparx5_psfp.c */
- #define SPX5_PSFP_GCE_CNT 4
-diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_police.c b/drivers/net/ethernet/microchip/sparx5/sparx5_police.c
-index c88820e83812..48d51246699f 100644
---- a/drivers/net/ethernet/microchip/sparx5/sparx5_police.c
-+++ b/drivers/net/ethernet/microchip/sparx5/sparx5_police.c
-@@ -4,9 +4,47 @@
-  * Copyright (c) 2023 Microchip Technology Inc. and its subsidiaries.
-  */
- 
-+#include <linux/iopoll.h>
-+
- #include "sparx5_main_regs.h"
- #include "sparx5_main.h"
- 
-+#define SPX5_PORT_POLICER_FILTER_COUNTER 1
-+#define SPX5_PORT_POLICER_PASS_COUNTER 2
-+
-+/* The port policer statistics counters are 40 bits wide (32-bit LSB + 8-bit
-+ * MSB register pair).
-+ */
-+#define SPX5_PORT_STAT_CNT_MASK GENMASK_ULL(39, 0)
-+
-+#define SPX5_PORT_POLICER_0_FILTER_EVENT BIT(4)
-+#define SPX5_PORT_POLICER_1_FILTER_EVENT BIT(5)
-+#define SPX5_PORT_POLICER_2_FILTER_EVENT BIT(6)
-+#define SPX5_PORT_POLICER_3_FILTER_EVENT BIT(7)
-+#define SPX5_PORT_POLICER_0_PASS_EVENT BIT(8)
-+#define SPX5_PORT_POLICER_1_PASS_EVENT BIT(9)
-+#define SPX5_PORT_POLICER_2_PASS_EVENT BIT(10)
-+#define SPX5_PORT_POLICER_3_PASS_EVENT BIT(11)
-+
-+/* Set GAP to 20 bytes (12 bytes of IFG and 8 bytes of preamble) to measure
-+ * line rate.
-+ */
-+#define SPX5_POLICER_LINE_RATE_GAP 20
-+
-+/* Bit rate unit for the port policer (bits/sec) */
-+#define SPX5_POLICER_RATE_UNIT 25040
-+/* Burst size unit for the port policer (bytes) */
-+#define SPX5_POLICER_BYTE_BURST_UNIT 8192
-+
-+enum sparx5_port_policer_stat_event_mask {
-+	SPX5_PPEM_NONE,
-+	SPX5_PPEM_EVENT_NO_ERROR,
-+	SPX5_PPEM_EVENT_AND_ERROR,
-+	SPX5_PPEM_EVENT,
-+	SPX5_PPEM_ERROR_NO_EVENT,
-+	SPX5_PPEM_ERROR,
-+};
-+
- static int sparx5_policer_service_conf_set(struct sparx5 *sparx5,
- 					   struct sparx5_policer *pol)
- {
-@@ -40,10 +78,65 @@ static int sparx5_policer_service_conf_set(struct sparx5 *sparx5,
- 	return 0;
- }
- 
-+static int sparx5_port_policer_conf_set(struct sparx5 *sparx5,
-+					struct sparx5_policer *pol)
-+{
-+	u32 portno = pol->idx / SPX5_POLICERS_PER_PORT;
-+	u32 polidx = pol->idx % SPX5_POLICERS_PER_PORT;
-+	u32 rate, burst, mask, cfg;
-+	int cnt;
-+
-+	rate = DIV_ROUND_UP_ULL(pol->rate, SPX5_POLICER_RATE_UNIT);
-+	burst = DIV_ROUND_UP(pol->burst, SPX5_POLICER_BYTE_BURST_UNIT);
-+
-+	/* Disable the policer when rate and burst are both zero, otherwise
-+	 * apply it to known/unknown BUM traffic, CPU queues and learn frames.
-+	 */
-+	mask = (rate == 0 && burst == 0) ? 0 : 0x7f;
-+	if (mask) {
-+		/* Program the bucket before enabling the policer */
-+		spx5_wr(rate, sparx5, ANA_AC_POL_PORT_RATE_CFG(pol->idx));
-+		spx5_wr(burst, sparx5, ANA_AC_POL_PORT_THRES_CFG_0(pol->idx));
-+		spx5_rmw(ANA_AC_POL_PORT_CFG_TRAFFIC_TYPE_MASK_SET(mask),
-+			 ANA_AC_POL_PORT_CFG_TRAFFIC_TYPE_MASK,
-+			 sparx5, ANA_AC_POL_PORT_CFG(portno, polidx));
-+	} else {
-+		/* Disable the policer before zeroing the bucket */
-+		spx5_rmw(ANA_AC_POL_PORT_CFG_TRAFFIC_TYPE_MASK_SET(0),
-+			 ANA_AC_POL_PORT_CFG_TRAFFIC_TYPE_MASK,
-+			 sparx5, ANA_AC_POL_PORT_CFG(portno, polidx));
-+		spx5_wr(rate, sparx5, ANA_AC_POL_PORT_RATE_CFG(pol->idx));
-+		spx5_wr(burst, sparx5, ANA_AC_POL_PORT_THRES_CFG_0(pol->idx));
-+	}
-+
-+	/* Count policer events, not bytes, for all eight priorities on the
-+	 * port's filter and pass counters, which are shared by all of the
-+	 * port's policer instances.
-+	 */
-+	cfg = ANA_AC_PORT_STAT_CFG_CFG_PRIO_MASK_SET(0xff) |
-+	      ANA_AC_PORT_STAT_CFG_CFG_CNT_FRM_TYPE_SET(SPX5_PPEM_EVENT) |
-+	      ANA_AC_PORT_STAT_CFG_CFG_CNT_BYTE_SET(0);
-+
-+	for (cnt = SPX5_PORT_POLICER_FILTER_COUNTER;
-+	     cnt <= SPX5_PORT_POLICER_PASS_COUNTER; cnt++)
-+		spx5_rmw(cfg,
-+			 ANA_AC_PORT_STAT_CFG_CFG_PRIO_MASK |
-+			 ANA_AC_PORT_STAT_CFG_CFG_CNT_FRM_TYPE |
-+			 ANA_AC_PORT_STAT_CFG_CFG_CNT_BYTE,
-+			 sparx5, ANA_AC_PORT_STAT_CFG(portno, cnt));
-+
-+	spx5_rmw(ANA_AC_POL_PORT_GAP_GAP_VALUE_SET(SPX5_POLICER_LINE_RATE_GAP),
-+		 ANA_AC_POL_PORT_GAP_GAP_VALUE,
-+		 sparx5, ANA_AC_POL_PORT_GAP(portno));
-+
-+	return 0;
-+}
-+
- int sparx5_policer_conf_set(struct sparx5 *sparx5, struct sparx5_policer *pol)
- {
--	/* More policer types will be added later */
- 	switch (pol->type) {
-+	case SPX5_POL_PORT:
-+		return sparx5_port_policer_conf_set(sparx5, pol);
- 	case SPX5_POL_SERVICE:
- 		return sparx5_policer_service_conf_set(sparx5, pol);
- 	default:
-@@ -52,3 +145,312 @@ int sparx5_policer_conf_set(struct sparx5 *sparx5, struct sparx5_policer *pol)
- 
- 	return 0;
- }
-+
-+static u64 sparx5_port_policer_cnt_get(struct sparx5_port *port, u32 cnt)
-+{
-+	struct sparx5 *sparx5 = port->sparx5;
-+	u32 lsb, msb;
-+
-+	/* The MSB is latched when the LSB is read, so read the LSB first */
-+	lsb = spx5_rd(sparx5, ANA_AC_PORT_STAT_LSB_CNT(port->portno, cnt));
-+	msb = spx5_rd(sparx5, ANA_AC_PORT_STAT_MSB_CNT(port->portno, cnt));
-+
-+	return (u64)msb << 32 | lsb;
-+}
-+
-+static void sparx5_port_policer_cnt_accum(struct sparx5_port *port, u32 cnt,
-+					  u64 *raw, u64 *total)
-+{
-+	u64 cur = sparx5_port_policer_cnt_get(port, cnt);
-+
-+	*total += (cur - *raw) & SPX5_PORT_STAT_CNT_MASK;
-+	*raw = cur;
-+}
-+
-+static void sparx5_port_policer_stats_update(struct sparx5_port *port,
-+					     int polidx)
-+{
-+	struct sparx5_port_policer *pp = &port->tc.port_policer[polidx];
-+
-+	lockdep_assert_held(&port->sparx5->queue_stats_lock);
-+
-+	sparx5_port_policer_cnt_accum(port, SPX5_PORT_POLICER_FILTER_COUNTER,
-+				      &pp->raw.drops, &pp->stats.drops);
-+	sparx5_port_policer_cnt_accum(port, SPX5_PORT_POLICER_PASS_COUNTER,
-+				      &pp->raw.pkts, &pp->stats.pkts);
-+}
-+
-+static void sparx5_policer_stats_update(struct sparx5 *sparx5,
-+					struct sparx5_policer *pol)
-+{
-+	u32 portno, polidx;
-+
-+	switch (pol->type) {
-+	case SPX5_POL_PORT:
-+		portno = pol->idx / SPX5_POLICERS_PER_PORT;
-+		polidx = pol->idx % SPX5_POLICERS_PER_PORT;
-+
-+		sparx5_port_policer_stats_update(sparx5->ports[portno], polidx);
-+		break;
-+	default:
-+		break;
-+	}
-+}
-+
-+static int sparx5_get_port_policer_idx(struct sparx5_port *port,
-+				       unsigned long cookie)
-+{
-+	if (port->tc.port_policer[0].policer == cookie)
-+		return 0;
-+
-+	return -ENOENT;
-+}
-+
-+static int sparx5_alloc_port_policer_idx(struct sparx5_port *port,
-+					 unsigned long cookie)
-+{
-+	/* Only one port policer per port is supported: the port's filter
-+	 * and pass statistics counters are shared by all four hardware
-+	 * policer instances, so stats can only be attributed correctly to
-+	 * a single active policer.
-+	 */
-+	if (!port->tc.port_policer[0].policer ||
-+	    port->tc.port_policer[0].policer == cookie)
-+		return 0;
-+
-+	return -EEXIST;
-+}
-+
-+static void sparx5_get_port_policer_stats(struct sparx5_port *port,
-+					  int polidx)
-+{
-+	struct sparx5_policer pol = { 0 };
-+
-+	pol.type = SPX5_POL_PORT;
-+	pol.idx = port->portno * SPX5_POLICERS_PER_PORT + polidx;
-+
-+	sparx5_policer_stats_update(port->sparx5, &pol);
-+}
-+
-+static void sparx5_init_port_policer_stats(struct sparx5_port *port,
-+					   int polidx)
-+{
-+	struct sparx5_port_policer *pp = &port->tc.port_policer[polidx];
-+
-+	mutex_lock(&port->sparx5->queue_stats_lock);
-+
-+	pp->raw.drops = sparx5_port_policer_cnt_get(port,
-+						    SPX5_PORT_POLICER_FILTER_COUNTER);
-+	pp->raw.pkts = sparx5_port_policer_cnt_get(port,
-+						   SPX5_PORT_POLICER_PASS_COUNTER);
-+
-+	memset(&pp->stats, 0, sizeof(pp->stats));
-+	memset(&pp->prev, 0, sizeof(pp->prev));
-+
-+	mutex_unlock(&port->sparx5->queue_stats_lock);
-+}
-+
-+/* Called once a second from the stats worker, so that a wrap of the 40-bit
-+ * counters is never missed. Only one port policer per port is used.
-+ */
-+void sparx5_port_policer_stats_poll(struct sparx5_port *port)
-+{
-+	mutex_lock(&port->sparx5->queue_stats_lock);
-+	sparx5_get_port_policer_stats(port, 0);
-+	mutex_unlock(&port->sparx5->queue_stats_lock);
-+}
-+
-+int sparx5_update_port_policer_stats(struct net_device *ndev,
-+				     struct tc_cls_matchall_offload *tmo)
-+{
-+	struct sparx5_port *port = netdev_priv(ndev);
-+	struct flow_stats *prev_stats;
-+	struct flow_stats *stats;
-+	u64 pkts, drops;
-+	int polidx;
-+
-+	polidx = sparx5_get_port_policer_idx(port, tmo->cookie);
-+	if (polidx < 0)
-+		return polidx;
-+
-+	stats = &port->tc.port_policer[polidx].stats;
-+	prev_stats = &port->tc.port_policer[polidx].prev;
-+
-+	mutex_lock(&port->sparx5->queue_stats_lock);
-+
-+	sparx5_get_port_policer_stats(port, polidx);
-+
-+	pkts = stats->pkts - prev_stats->pkts;
-+	drops = stats->drops - prev_stats->drops;
-+
-+	prev_stats->pkts = stats->pkts;
-+	prev_stats->drops = stats->drops;
-+
-+	mutex_unlock(&port->sparx5->queue_stats_lock);
-+
-+	if (!pkts && !drops)
-+		return 0;
-+
-+	flow_stats_update(&tmo->stats,
-+			  0,
-+			  pkts + drops,
-+			  drops,
-+			  jiffies,
-+			  FLOW_ACTION_HW_STATS_IMMEDIATE);
-+
-+	return 0;
-+}
-+
-+int sparx5_add_port_policer(struct sparx5_mall_entry *entry,
-+			    struct netlink_ext_ack *extack)
-+{
-+	struct flow_action_police *police = &entry->port_policer.police;
-+	struct sparx5_port *port = entry->port;
-+	struct sparx5 *sparx5 = port->sparx5;
-+	struct sparx5_policer pol = { 0 };
-+	int idx, err;
-+
-+	if (!entry->ingress) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "Policer is not supported on egress");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	if (entry->port->tc.ingress_block_shared) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "Policer is not supported on shared ingress blocks");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	if (police->exceed.act_id != FLOW_ACTION_DROP) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "Policer parameters are not supported");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	if (police->notexceed.act_id != FLOW_ACTION_PIPE &&
-+	    police->notexceed.act_id != FLOW_ACTION_ACCEPT) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "Policer parameters are not supported");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	if (police->peakrate_bytes_ps || police->avrate ||
-+	    police->overhead) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "Policer parameters are not supported");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	if (!police->rate_bytes_ps) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "Policer requires a rate");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	if (police->rate_pkt_ps) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "Policer parameters are not supported");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	if (police->burst > ANA_AC_POL_PORT_THRES_CFG_0_PORT_THRES0 *
-+			    SPX5_POLICER_BYTE_BURST_UNIT) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "Policer parameters are not supported");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	if (police->rate_bytes_ps >
-+	    div_u64((u64)ANA_AC_POL_PORT_RATE_CFG_PORT_RATE *
-+		    SPX5_POLICER_RATE_UNIT, BITS_PER_BYTE)) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "Policer parameters are not supported");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	idx = sparx5_alloc_port_policer_idx(port, entry->cookie);
-+	if (idx < 0) {
-+		NL_SET_ERR_MSG_MOD(extack,
-+				   "Only one port policer per port is supported");
-+		return idx;
-+	}
-+
-+	pol.type = SPX5_POL_PORT;
-+	pol.rate = police->rate_bytes_ps * BITS_PER_BYTE;
-+	pol.burst = police->burst;
-+	pol.idx = port->portno * SPX5_POLICERS_PER_PORT + idx;
-+
-+	sparx5_init_port_policer_stats(port, idx);
-+
-+	err = sparx5_policer_conf_set(sparx5, &pol);
-+	if (err)
-+		return err;
-+
-+	port->tc.port_policer[idx].policer = entry->cookie;
-+
-+	return 0;
-+}
-+
-+int sparx5_delete_port_policer(struct sparx5_mall_entry *entry)
-+{
-+	struct sparx5_port *port = entry->port;
-+	struct sparx5 *sparx5 = port->sparx5;
-+	struct sparx5_policer pol = { 0 };
-+	int idx, err;
-+
-+	if (!entry->ingress)
-+		return -EINVAL;
-+
-+	idx = sparx5_get_port_policer_idx(port, entry->cookie);
-+	if (idx < 0)
-+		return idx;
-+
-+	pol.type = SPX5_POL_PORT;
-+	pol.idx = port->portno * SPX5_POLICERS_PER_PORT + idx;
-+
-+	err = sparx5_policer_conf_set(sparx5, &pol);
-+	if (err)
-+		return err;
-+
-+	port->tc.port_policer[idx].policer = 0;
-+
-+	return 0;
-+}
-+
-+int sparx5_port_policer_init(struct sparx5 *sparx5)
-+{
-+	u32 value;
-+	int err;
-+
-+	/* Initialize all port policers before usage */
-+	spx5_rmw(ANA_AC_POL_ALL_CFG_ACL_FORCE_INIT_SET(1) |
-+		 ANA_AC_POL_ALL_CFG_FORCE_INIT_SET(1),
-+		 ANA_AC_POL_ALL_CFG_ACL_FORCE_INIT |
-+		 ANA_AC_POL_ALL_CFG_FORCE_INIT,
-+		 sparx5, ANA_AC_POL_ALL_CFG);
-+
-+	err = read_poll_timeout(spx5_rd, value,
-+				 !(ANA_AC_POL_ALL_CFG_ACL_FORCE_INIT_GET(value) |
-+				   ANA_AC_POL_ALL_CFG_FORCE_INIT_GET(value)),
-+				 500, 10000, false, sparx5, ANA_AC_POL_ALL_CFG);
-+	if (err)
-+		return err;
-+
-+	/* Configure the port policer filter and pass statistics counters.
-+	 * Counter 0 is owned by sparx5_ethtool.c (SPX5_PORT_POLICER_DROPS).
-+	 */
-+	spx5_wr(SPX5_PORT_POLICER_0_FILTER_EVENT |
-+		SPX5_PORT_POLICER_1_FILTER_EVENT |
-+		SPX5_PORT_POLICER_2_FILTER_EVENT |
-+		SPX5_PORT_POLICER_3_FILTER_EVENT,
-+		sparx5, ANA_AC_PORT_SGE_CFG(SPX5_PORT_POLICER_FILTER_COUNTER));
-+
-+	spx5_wr(SPX5_PORT_POLICER_0_PASS_EVENT |
-+		SPX5_PORT_POLICER_1_PASS_EVENT |
-+		SPX5_PORT_POLICER_2_PASS_EVENT |
-+		SPX5_PORT_POLICER_3_PASS_EVENT,
-+		sparx5, ANA_AC_PORT_SGE_CFG(SPX5_PORT_POLICER_PASS_COUNTER));
-+
-+	return 0;
-+}
-diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_qos.c b/drivers/net/ethernet/microchip/sparx5/sparx5_qos.c
-index 972da8a71f5a..c7b6af8a6a64 100644
---- a/drivers/net/ethernet/microchip/sparx5/sparx5_qos.c
-+++ b/drivers/net/ethernet/microchip/sparx5/sparx5_qos.c
-@@ -460,6 +460,10 @@ int sparx5_qos_init(struct sparx5 *sparx5)
- {
- 	int ret;
- 
-+	ret = sparx5_port_policer_init(sparx5);
-+	if (ret)
-+		return ret;
-+
- 	ret = sparx5_leak_groups_init(sparx5);
- 	if (ret < 0)
- 		return ret;
+Changes in v3:
+- Use dedicated `RpcMessage` type to distinguish parsed RPC message from
+  the transport-level `GspMessage`.
+- Introduce traits for sending and receiving elements on the command
+  queue (thanks Eliot!).
+- Split unsafe blocks, drop unused impls, and other fixes on patch 2.
+  (thanks Eliot!)
+- Squash the two move commits into a single one.
+- Link to v2: https://patch.msgid.link/20260927-cmdq-rpc-v2-0-c3f66ae73be4@nvidia.com
 
--- 
-2.34.1
+Changes in v2:
+- Fix checksum on receive incorrectly using the whole slots allocated
+  to the message instead of its actual length. (Sashiko)
+- Drop patch 1 to avoid having to validate the `elemCount` header
+  member against edge cases. (Sashiko)
+- Fix incorrect layer separation in receive path, where the CPU read
+  pointer was advanced in the message layer.
+- Move `log_event` into a method of `RpcMessage`.
+- Make the `rpc` module only visible to `gsp` and its submodules.
+- Fix doclinks pointing to old function names. (Sashiko)
+- Link to v1: https://patch.msgid.link/20260927-cmdq-rpc-v1-0-822db5af910e@nvidia.com
+
+---
+Alexandre Courbot (10):
+      gpu: nova-core: gsp: cmdq: validate checksum earlier on receive
+      gpu: nova-core: gsp: introduce and use proper RpcMessageHeader type
+      gpu: nova-core: gsp: cmdq: group the RPC-specific part of send_single_command
+      gpu: nova-core: gsp: cmdq: split the transport part of the send path
+      gpu: nova-core: gsp: cmdq: split RPC parsing part of the receive path
+      gpu: nova-core: gsp: cmdq: move RPC message logging to RpcMessage
+      gpu: nova-core: gsp: cmdq: split the transport part of the receive path
+      gpu: nova-core: gsp: cmdq: move the RPC code into a sub-module
+      gpu: nova-core: gsp: move the RPC commands into a sub-module
+      gpu: nova-core: gsp: add `rpc` to RPC message send/receive methods
+
+ drivers/gpu/nova-core/api.rs                       |   2 +-
+ drivers/gpu/nova-core/gpu.rs                       |   2 +-
+ drivers/gpu/nova-core/gsp.rs                       |   4 +-
+ drivers/gpu/nova-core/gsp/boot.rs                  |  12 +-
+ drivers/gpu/nova-core/gsp/cmdq.rs                  | 429 +++-----------------
+ drivers/gpu/nova-core/gsp/cmdq/rpc.rs              | 443 +++++++++++++++++++++
+ .../nova-core/gsp/cmdq/{ => rpc}/continuation.rs   |   0
+ drivers/gpu/nova-core/gsp/commands.rs              | 329 +--------------
+ drivers/gpu/nova-core/gsp/commands/rpc.rs          | 333 ++++++++++++++++
+ drivers/gpu/nova-core/gsp/fw.rs                    | 123 +++---
+ drivers/gpu/nova-core/gsp/sequencer.rs             |   4 +-
+ 11 files changed, 913 insertions(+), 768 deletions(-)
+---
+base-commit: 3e3404c52370595e37eb5b942df169884f38a124
+change-id: 20260927-cmdq-rpc-ed5f850b207e
+
+Best regards,
+--  
+Alexandre Courbot <acourbot@nvidia.com>
 
