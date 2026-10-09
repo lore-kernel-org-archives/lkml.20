@@ -1,109 +1,179 @@
-Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com [209.85.160.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4A123DAAAF
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 23:14:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F48B37FF76
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 23:22:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791587646; cv=none; b=W0mXYKKWeIOvVM8YuPG+USt9STnv4ddqI5YLnP43L+RjFM+nuQROPGJItgY4stGwZwmfEpHVgQzgd0l+3+x6ol7Q0RFVINDjbY6j/1vSf5LM+iXesNGGKsK2bUv6NPoF7XC6XzxRIjWMCHirnZwVH6Wzob5FVe0ihk2YsYCMT2c=
+	t=1791588138; cv=none; b=KkHcongo6/2mPilblYFLixV8xXrxCTbiWkyYrWFLm1bKJzkx28GpjW8yT+NKmi6IrvZf4s/xSOxhy+gVFhGl0gbP7sCUa8LPoWC22Egamz4Qaw5vacGHBBrohB9biUpzrbgQzrEjak6FlALyp8DfWq5NjQvUXZBgAMOk5VVGbhg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791587646; c=relaxed/simple;
-	bh=3ZSLLTasKr76GEJrzVSyl+Bcz5oJzIQqfkWykCzS+oI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ddLV9R89eZUkwxUZYLFLXECFz4RU+HysD4mNRzvlEumE7HAt0NVR1PBctWzae2X4QMA5mmuWESsSTxguRCRBp1HvCTJvMFHFXE1gMvvVKmvI9KE/fvUmd5BaLKe4gCSVuTvrqWXpzlIIy78BvoSzNU5hBNNb2kJTgHMQ5WPk97c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=KW2B4n4B; arc=none smtp.client-ip=209.85.160.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1791588138; c=relaxed/simple;
+	bh=Mk6ry6v2KD/wkuaGvrTV43kFARxZWmChZfj474Sudrc=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=dz+KU4kL0yvRMnsSd+x/gSH10FjmqbXdGJWBKUftoAA9+4ZtnOz71svH4tHLEEXpWcKS2T0g0YfCiM8nW9M1pLjk1dqZlISezSFP0OsVjdHPKkTTXgEqcXUeC0loKzYsYiSh3O354vLE6GNSMGpj6VGxXRk6I2v3ciuADyFag0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fxkYxhZB; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=grF+81wC; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="KW2B4n4B"
-Received: by mail-oa1-f48.google.com with SMTP id 586e51a60fabf-455ca262ccbso216095fac.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 16:14:04 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fxkYxhZB";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="grF+81wC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791588135;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MOkSafKPWfgergQn1PH0zCTo27W7O5llrWCsPU5yGRE=;
+	b=fxkYxhZBken87NPdZo97Tc+MAtTtrSBFNONJmr/J28BTyJiI5saibAGtsztu+F2REoG3Gn
+	dQ/dNRNU1Qta+b/jorQDOhaCqJ8TVe9Bca2XTsk3Z6slVFx8S9f2j83OFi1Gfy72rZ5sw/
+	zxc0BbsYdxaMKwxLTGE3ndxgb4htFow=
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-631-wV6R30ghM9WYkw6vrCq27w-1; Fri, 9 Oct 2026 23:22:14 +0000
+X-MC-Unique: wV6R30ghM9WYkw6vrCq27w-1
+X-Mimecast-MFC-AGG-ID: wV6R30ghM9WYkw6vrCq27w_1791588134
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93ea8067974so41551985a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 16:22:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1791587643; x=1792192443; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JEvNFYjzpJm+hMocPX+GyMaf5UQXS7PHxcnAyw39Bg4=;
-        b=KW2B4n4BDcBYuF1mXpP0ncaOy9a8vjalps7Gm52gK1XwhuSSqRn2K/dHZzTOogsNTW
-         8wY9tsSBNKpM4/PyH3nGXJD1uxHWjQbN6VjwgbX8D3CntW+S+u+rdseAz9dV1FEhErHi
-         MYgTa0/cBBPIT7FtAmZkoHKJM0LdooJTT/shmanq93u378fXytodA0MIaXkD6zmElZNB
-         f6QN7e5HTIk2R3F+sVljUTyYY7O+ac2BB2O/ePpiKPv7QsDyh1IGXB7rVgY7lpJRlv4C
-         FtKmvOBhtwhzVzIbjobxi7KnGr5NTOSuELsvJK+6tfzBxT2qzoI9rbVntnW4xtbgEGI7
-         N8Rg==
+        d=redhat.com; s=google; t=1791588134; x=1792192934; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=MOkSafKPWfgergQn1PH0zCTo27W7O5llrWCsPU5yGRE=;
+        b=grF+81wCH6TEk/iyeLIu69JfmsQbVQlObP1aGPp5iUehgaDPnIPdfz8tblvzFi4Zrd
+         Oyj1ZDtw45ck0kHPd0K/V8UMXqulfiB6OUJRY9aE2ZJq/TKSZdjnfnVkS+xCtGPsfdcK
+         5xxa4RPnmwtjxc7bRYbgz4+xN9xC/AHUFAoMc3N8gPcX8/Sh/gwzJeP/c0urduwfnAJ/
+         9mQl65mJ1a8C4hwl6kQhbvlg5D6IEdOkBcpfy2T+EuaB4qRW/TlQCNEdCeD122t/kTxN
+         Virot0+HrwR2QGOhn4PrVfqdtf3mQTtyvXyfhijiBjO4rkdSyWqs/8ajmaVIoo7mFear
+         oBFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791587643; x=1792192443;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JEvNFYjzpJm+hMocPX+GyMaf5UQXS7PHxcnAyw39Bg4=;
-        b=1InXDbpnZFOhKzxY9has/GblhLz2ZSPb7vUjzi4GaIZEn3lDgbHZgJRWiw01yKMPbK
-         2nXhAKwfY6piQ9DI3MRnKmF6F41kYec+TeTF8qBEFYOUJePFZZV4cWB1dM/Zft4pmLwT
-         rsa1HqxwIWWFiI9WW8v86JMPJJbJnC3Hmc9KnO1MxpGYC68hWgStvvs0IGRiDcC3/3Z6
-         50ETxZjAXZ/D1QxIzzIG1vyMAT5Lbpu3JYXCibjjAvbsKFCNWhonHhwc3JWl1cAdNed8
-         JuxKb1KSgxfA107vfl+NQwQRD2z2NFXYmUO2kEyHjQMmuZOkksokvHH0oM+f9J7SfsgP
-         QCYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxTMHqrO+EA6V+nrfTZeg7Ag7emycQ9mV2OVHLsjcd3WlSxIzzdWtFoWxfL4GYyevnkKdl0SNYznzIRzs8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJpPcPNJacoQFFGzu4C9emZ27b7jMIIuPxy/w7VJCl27yBJi0G5
-	eL80ZFgd1AN2ibW93RMv3hb5RQ/8gCQY9UDyOy+fd4+8LFPZbwHWMctVMphQpT5Xk/w=
-X-Gm-Gg: AYBFou3lSwmhY47h26ntz3AtSpwhRNwtZog9u+LIvc7BLJL6fFKKz7mY/kh/YiOsCjA
-	Fl7XHQte0ITxhzfJ9ouEvJUUlQTnzN1VkpmikB0SKAh+IHsDqYrWq0filu6JrquPxYYQ+1+Yx3S
-	VWnZg8OPa7+1lBzUtSh2Jx4aLdEa0xhXN5MBfs+V2t3j1AjDAUZIQ76NiymN5iRbQmMHh00SK4w
-	Ecm6zPJ8ykqBDhFEzQdCxz4cV5D14RP3AgVMZxXEGH82oGd6XYN6r09K9VumKToCbSwGYvMKzEA
-	YXADlbnx7E6r5NH1llnfW3RkH7cbxnccxfyFNxixRci6mD31acNo+TpsoA1UJEAvtQLOHsNwEe4
-	b9x2a+P3R83sPUIVkjVsCnQuMRrNBxBBP408+jPq4LQBwcsLUQQUgaIfMRIvzTi+Oa1oqNnSQyh
-	+1RZz8ShWuxHixoVxiauZ6lNEbOR8fIe2Az9WVq8wmXWQJ+3gLO+Z8s+u72I/gDkJSMPy/EbWSv
-	1mNIFmEAyBOr1Ji3DGFcGJ3jQ06Nv7Pkh03OiA2FRKm86rn
-X-Received: by 2002:a05:6870:6586:b0:49e:16bf:1f87 with SMTP id 586e51a60fabf-4a2a8a7ad2cmr2643174fac.38.1791587643522;
-        Fri, 09 Oct 2026 16:14:03 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:29bd:56f6:5ae7:35d2? ([2600:8803:e7e4:500:29bd:56f6:5ae7:35d2])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a2a8592e2dsm2982529fac.13.2026.10.09.16.14.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 09 Oct 2026 16:14:02 -0700 (PDT)
-Message-ID: <7d542de9-0c87-4a1f-9d9a-48af8431cba1@baylibre.com>
-Date: Fri, 9 Oct 2026 18:14:00 -0500
+        d=1e100.net; s=20260707; t=1791588134; x=1792192934;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MOkSafKPWfgergQn1PH0zCTo27W7O5llrWCsPU5yGRE=;
+        b=J0k1PtfG2ox/qdLgxePjcwl5PVlw0Onh9QEjnIQrPex9QgeN8sgeyohgBULSD0sZo6
+         hn0CewFL+LPeBZ8W+O6EqZqpKfwk+wl+kb9GpuHEQHbR8j9rt/CEy2pcszu1S/KVIPLc
+         UMqyxJzCgRKMU3Lmcxv3jKyyqmMqoRWWf/X2dqIZ7KhCvOa8J25oMuEM3l/SqowzKQf3
+         F35NpKIVLDtzzTmdbIpUmV6GPSyC8wVyW7rSafN5jOfTo3YW+ZXn4idZN5EbIDTPvRZu
+         CgcIptR39P+WKNgB1n8esjwPoMQCYROveajZeTenfYhJA7tdh6dYblzf0LTGfUgu4rOi
+         VpBA==
+X-Forwarded-Encrypted: i=1; AKwUvBy7K2n4zdwWyCy2eXuSQLcaBEFzrurtNPrZGNy81DaYRtLeImn/OBKaX8D+f3Y02n4DYzr+HqbjOdbD0Pg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLx4mT5V/k37ja2H+V9KBiDf3EgUs9oj5iioza8hTdyEU9KZoyz
+	Ew5NB2lCArUwwkShqRll3B2hMJEXo+caX3N7/j/oOt4eFfXtbQRfPIS/XshAxxW+jze4BTsiNzV
+	dWHmQKHYTBQKwzRsZvVlBm/gawlxrUoQQkZpKNJFySKkqrxN5A+t0hykwaON3ALn4QQ==
+X-Gm-Gg: AYBFou2Y/EyGzYPG5OWYIxXY1ehx45w/xNBxiy4K4FvSzRXniboQYZEahWkinIgeC4i
+	SZkwFNFeyZ+vQ0SMnb4G4lbJzRy0GMg5ptpoJWa2RQVumbxFAluXS/Dbl0S2t4bp5pJLQtWKwKD
+	x0HdMcD2fWhsj4DFCdFzqANBrLJtezJApLlXYFPZENJoOthQqMciNMJBiA7OgzrskMv+YObM/96
+	xijKj+Mmrlu+6Ag/qvNBNTw5v6Z2MOiIF98ruPxKWYcjx3QFGGrqpXeAE/7l78irYOHUEDw10AY
+	5k1ZCSDq0xoa99bPvWZHIXzPMRQ8kJ1UGon2jNvG5TccaXbu5M8d8oll1Vq1lO8fJdGzKXM=
+X-Received: by 2002:a05:620a:178e:b0:93c:57da:4ef0 with SMTP id af79cd13be357-93ebd2916eamr545877185a.56.1791588133658;
+        Fri, 09 Oct 2026 16:22:13 -0700 (PDT)
+X-Received: by 2002:a05:620a:178e:b0:93c:57da:4ef0 with SMTP id af79cd13be357-93ebd2916eamr545873585a.56.1791588133188;
+        Fri, 09 Oct 2026 16:22:13 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb984889fsm300130785a.13.2026.10.09.16.22.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 16:22:12 -0700 (PDT)
+Message-ID: <929077046827f363bc32f6f59e760de27a48b5ff.camel@redhat.com>
+Subject: Re: [PATCH 1/2] drm/nouveau/sw: prevent NULL deref of disp in
+ vblank methods
+From: lyude@redhat.com
+To: Zhenhao Wan <whi4ed0g@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
+	stable@vger.kernel.org
+Date: Fri, 09 Oct 2026 19:22:11 -0400
+In-Reply-To: <20260812-nouveau-nvkm-absent-subdev-null-deref-v1-1-7e057f6aeba0@gmail.com>
+References: 
+	<20260812-nouveau-nvkm-absent-subdev-null-deref-v1-0-7e057f6aeba0@gmail.com>
+	 <20260812-nouveau-nvkm-absent-subdev-null-deref-v1-1-7e057f6aeba0@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] iio: adc: ti-ads112c14: add gpio support
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- Chris Hall <c-hall@ti.com>, Patrick Edwards <pedwards@ti.com>,
- Kurt Borja <kuurtb@gmail.com>
-References: <20260925-iio-adc-ti-ads112c14-gpio-v1-1-2a2b218ebf3a@baylibre.com>
- <20260926014620.3b07660f@jic23-hlaptop>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260926014620.3b07660f@jic23-hlaptop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 9/25/26 7:46 PM, Jonathan Cameron wrote:
-> On Fri, 25 Sep 2026 16:50:47 -0500
-> "David Lechner (TI)" <dlechner@baylibre.com> wrote:
-> 
->> Add support for using the AIN4/GPIO0 to AIN7/GPIO3 pins as GPIOs when
->> the gpio-controller property is present.
->>
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 
+Will push to drm-misc-next in a moment
 
-> Even better if we give that helper and the mask shorter names.  resv probably enough for
-> reserve for instance.
-> 
-> 
->> +				ads112c14_reserve_gpio_for_ain(gpio_reserved_mask, pair[1]);
->> +
-> 
-
-I tried the shorter name, but didn't like the way it looked (abbreviations
-didn't seem immediately clear what they meant to me). It only saved two line
-wraps anyway, so I kept reserve(d) spelled out everywhere.
+On Wed, 2026-08-12 at 23:00 +0800, Zhenhao Wan wrote:
+> The NV50 and GF100 software-class vblank methods nv50_sw_chan_mthd()
+> and gf100_sw_chan_mthd() evaluate "data < device->disp-
+> >vblank.index_nr"
+> to validate the requested vblank head before allowing its notifier.
+>=20
+> On a headless card the display subdevice is absent:
+> nvkm_subdev_disable()
+> (strap-driven from devinit) and the -ENODEV path of the
+> NVKM_LAYOUT_ONCE
+> device constructor both leave device->disp =3D=3D NULL while the device
+> continues to probe and still registers a render node (DRIVER_RENDER).
+> An
+> unprivileged client holding a /dev/dri/renderD* fd can then create a
+> software channel and push method 0x0408 (NV50) / 0x040c (GF100),
+> which
+> dereferences the NULL device->disp and oopses the kernel.
+>=20
+> The channel constructors nv50_sw_chan_new() and gf100_sw_chan_new()
+> already tolerate an absent display ("for (i =3D 0; disp && ...)"), so
+> no
+> vblank notifier is ever registered on such a card and the method
+> handlers
+> are the only path that assumes disp is present. Guard the dereference
+> with the same disp NULL test the constructors already use.
+>=20
+> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+> Assisted-by: Claude:claude-opus-5
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
+> ---
+> =C2=A0drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c | 2 +-
+> =C2=A0drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c=C2=A0 | 2 +-
+> =C2=A02 files changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c
+> b/drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c
+> index 0171cdf6f639..4cf8cd120c76 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/sw/gf100.c
+> @@ -72,7 +72,7 @@ gf100_sw_chan_mthd(struct nvkm_sw_chan *base, int
+> subc, u32 mthd, u32 data)
+> =C2=A0		chan->vblank.value =3D data;
+> =C2=A0		return true;
+> =C2=A0	case 0x040c:
+> -		if (data < device->disp->vblank.index_nr) {
+> +		if (device->disp && data < device->disp-
+> >vblank.index_nr) {
+> =C2=A0			nvkm_event_ntfy_allow(&chan-
+> >vblank.notify[data]);
+> =C2=A0			return true;
+> =C2=A0		}
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c
+> b/drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c
+> index 0cfb1eaae6de..b202e11238a5 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/sw/nv50.c
+> @@ -69,7 +69,7 @@ nv50_sw_chan_mthd(struct nvkm_sw_chan *base, int
+> subc, u32 mthd, u32 data)
+> =C2=A0	case 0x0400: chan->vblank.offset =3D data; return true;
+> =C2=A0	case 0x0404: chan->vblank.value=C2=A0 =3D data; return true;
+> =C2=A0	case 0x0408:
+> -		if (data < device->disp->vblank.index_nr) {
+> +		if (device->disp && data < device->disp-
+> >vblank.index_nr) {
+> =C2=A0			nvkm_event_ntfy_allow(&chan-
+> >vblank.notify[data]);
+> =C2=A0			return true;
+> =C2=A0		}
 
