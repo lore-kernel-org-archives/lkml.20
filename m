@@ -1,161 +1,218 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76C79367B8F;
-	Fri,  9 Oct 2026 14:45:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5192E4E4C43;
+	Fri,  9 Oct 2026 14:46:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791557156; cv=none; b=N6zta6Gwsp+6MuUpTI2wcoO0nKU67lyc8OOgkgqNZ/4J8XbpqbQAXhAdMVXibxlJsI4qPK0vkSsviG32SoG8AoRSGnZ28JDJIHwNKOZJEAAjsSAvpVk1IMCq9vSKl2qKhsuS+wpmyZFVSvrNwM6fcPIAuddmrKYUxPrd47cdbcE=
+	t=1791557174; cv=none; b=Bn/o9+HehhyFHL7GE2UfheA2QAYgt1dxKmSztU2QsVDF8Io0yloDirND1HKFQ/O3B/jQFdbaWOG0BQa6/oKyFLNZpQWWHG5XWK4ydxkVacn4E6MY7lj+KiKYf5tZeJqGf+QDCGHn0oWg9XhrhzAsLjNUpnPV5xqqCwu/FECnYxU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791557156; c=relaxed/simple;
-	bh=rZ5ywZaCEw6+1RM/+8VAilaE7Y/LV1fZVknlMB9PGFg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=bTRh8PxxdYNPVOevHKN78JNeSon3DWb/GkpaE7kZSePtw2J4JUz9gwLA1TPSuanvPSlKHvyZU41LcnZrGINqLmmvkp0s99WB5Fo6ZroW545DcLQnkO4zSas7WXEXQyZgsvHjiRQnUWR6n/lW3m3hTuM+cqi1UP8jRvmzcjZbZ+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=BuVvntKJ; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791557174; c=relaxed/simple;
+	bh=93kjYLOQu7rxs6t6unplP70FqIIK48qGdTWUIJuE3Hw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=h1woLoNKpc1NQqodgDyFSCo5axeFrhQmcqNQLIAgWi18XOUCU4gFzhTTLAVoIgCbTHJHxXoKqhyeNDWouN5GZHLza+214HgsqHJX0XVj/oXo+YOVYuxDxJlYrbdl+xJfuBOxrA5sTEM7R9zC4YpB5oVKJsXFfooa06ECr60FcZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DK1ZSfrs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="BuVvntKJ"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 699DZtsN3214290;
-	Fri, 9 Oct 2026 14:45:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=ZJ2P/ehtfYR76otRuiUkFjUlIWNYpL
-	z4lj6YtBrjrkw=; b=BuVvntKJVZl/2049mEym7N/04BXIsgOfmLyS24ttCdERm6
-	c3XeV/gTZ3i4ua7+ivf1N0lHsf7YsPS8jeMilBpkIVd99LVAjQKRLMEl7p0fDnnR
-	J8Jg0sHo7i+a+JpsyNWNuDWu/VnvTlZV4iRTggWwuXRVKQrBPQy58ZWWkrPEfLGL
-	eHOEt8hsLZdsaTE++nMnKQkR0LkNJgMvSTFxSFXsQC9JJ5x7NhFzD3r8om7fXYwX
-	Vym4cTf9jspNL6Y6ci0yvIffMvjqW6BpHO99LP3mcyZ+sTNd8jrcthJTblLUrb4l
-	tUrqKOQllcDD8ZAf7N6jHSOBoEokMpXVWCd/LO7Q==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h5xk1jh0d-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 09 Oct 2026 14:45:36 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 699DWVQD965690;
-	Fri, 9 Oct 2026 14:45:35 GMT
-Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h6x1y8xtj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 09 Oct 2026 14:45:35 +0000 (GMT)
-Received: from smtpav03.dal12v.mail.ibm.com (smtpav03.dal12v.mail.ibm.com [10.241.53.102])
-	by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 699EjX8v61473268
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 9 Oct 2026 14:45:34 GMT
-Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D12AB5805A;
-	Fri,  9 Oct 2026 14:45:33 +0000 (GMT)
-Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8F47D58056;
-	Fri,  9 Oct 2026 14:45:33 +0000 (GMT)
-Received: from d (unknown [9.61.186.115])
-	by smtpav03.dal12v.mail.ibm.com (Postfix) with ESMTPS;
-	Fri,  9 Oct 2026 14:45:33 +0000 (GMT)
-From: Dave Marquardt <davemarq@linux.ibm.com>
-To: kernel test robot <lkp@intel.com>
-Cc: Dave Marquardt via B4 Relay <devnull+davemarq.linux.ibm.com@kernel.org>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman
- <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        "Christophe
- Leroy (CS GROUP)" <chleroy@kernel.org>,
-        "James E.J. Bottomley"
- <James.Bottomley@hansenpartnership.com>,
-        "Martin K. Petersen"
- <mkp@kernel.org>,
-        Tyrel Datwyler <tyreld@linux.ibm.com>, oe-kbuild-all@lists.linux.dev,
-        linux-scsi@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v13 04/11] scsi: ibmvfc: add basic FPIN support
-In-Reply-To: <202610091350.pfimX8kZ-lkp@intel.com> (kernel test robot's
-	message of "Fri, 9 Oct 2026 13:20:05 +0800")
-References: <20261007-ibmvfc-fpin-support-v13-4-b816abfa4fcc@linux.ibm.com>
-	<202610091350.pfimX8kZ-lkp@intel.com>
-Date: Fri, 09 Oct 2026 09:45:33 -0500
-Message-ID: <87a4onlype.fsf@linux.ibm.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DK1ZSfrs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EFC01F00893;
+	Fri,  9 Oct 2026 14:46:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791557172;
+	bh=6cUenmNTYC7qMAewCrSEbIVswliLQpgsX0IJlOlJnFw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=DK1ZSfrsh/ZGAauXJLhHvNsUJJkK5iaO2GWkqIbGqkkx9YmuCgBLwKRb28NPDRZq6
+	 7Slfs8gc1Xa9ldXqga8Eao4IBiiYK4BZA0U3K/1ump+w5Pq9AdayLS3v2U6KR2jX5K
+	 Bm1cNI6v7KDCgfKmSWxalw5M5YdBcQ539lzd92Lg9zdvD3YB5XbSlq5TZfgxZk34Ur
+	 jNLGkWXVeinT8oy3xLfEsvQaHsQKdTTj0/YdbIcAFmgWes9m3KD1s29JQYbL+hFT/D
+	 MSCKiCO2tiGF8CKYZkYx9hjgyjx9+YVuteMoXBw1lVRzVtrzVZT0P5+HGbx30chCQY
+	 HfPv0CiLc2kSw==
+Message-ID: <ad511ae7-755d-42bc-a55d-12b93d49ddaf@kernel.org>
+Date: Fri, 9 Oct 2026 16:46:02 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=YtCa1IYX c=1 sm=1 tr=0 ts=6ac8fe10 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=V8glGbnc2Ofi9Qvn3v5h:22 a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=i3X5FwGiAAAA:8 a=QyXUC8HyAAAA:8 a=DpkWlw5QTZI3BuQtO8gA:9
- a=mmqRlSCDY2ywfjPLJ4af:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA1OCBTYWx0ZWRfX1DMBQvZ1oV9B
- 7K4kf2thLqLcsmX+xF+cju3DKnw+pPMd6SzJR/c6iHHvV/Kwozu0vx328Lnljp2Pg5MLc7eCNmk
- 7oV24YBYVA+qGuSYnkFKy0C+tgI9kjM3alEsNefBQlaD3nsSEMjzfGuSwegDBjCgddZGTMTEd06
- E9/QOO+nr4HZz8d8neudpyfZ+x4chUNn2UKDdojI0ayqz8XWrFhE0qkbhWZpvGbAsGCjv1ku+oH
- +JDrxVv91VIiO3vvLzN7O1SC94zi08PAVcgN5KTGhrSSfGr5JhobT7xNkmYE1fSOdap6f6KzxmJ
- IMqW1jiQS2Aap5AKtDcPEZv76LkK/ad3GzHpNyk8UxqKYNXJ6TKUKj2+6ld3U9AXZ2Zv/fAp62t
- My+MfXVoAmsBHvshu7+tXQ8SwoGL1WbSfGs10RW0aXIy4qUa7CRcb2ehR/fL/A0/1Cjc3rJnRf5
- cFrijtfoc7dFQcbNRng==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA1OCBTYWx0ZWRfXyaK1dWi2ofc9
- k1X8YhHuZbTXhbAlWTqAvWSp0tWPHIG3af7B8ObMZp6gQXNqGDV0yhJcP8KNug+6zBTopO+monS
- DhxGCp+FWomo7oilnatHeaW2q7BOxnY=
-X-Proofpoint-GUID: 4fX-i6NOi1__0d4TrwOlYkjldxZcFa75
-X-Proofpoint-ORIG-GUID: OT9yZWI9hT2Xar28hNGoK32M5rS05EoP
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-09_04,2026-10-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 bulkscore=0 clxscore=1011 priorityscore=1501
- lowpriorityscore=0 suspectscore=0 malwarescore=0 adultscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090058
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] dt-bindings: clock: introduce
+ toshiba,tc9564-clock.yaml
+To: Alex Elder <elder@riscstar.com>
+Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
+ kees@kernel.org, gustavoars@kernel.org, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Daniel Thompson <daniel@riscstar.com>
+References: <20261005230927.2000398-1-elder@riscstar.com>
+ <20261005230927.2000398-2-elder@riscstar.com>
+ <20261009-gifted-stylish-tortoise-95b14d@quoll>
+ <b190fe58-364b-4b94-9cab-c5f81f874289@riscstar.com>
+ <aafe2703-bfb8-43da-8472-b1dfa36fa8f9@kernel.org>
+ <77dacc46-7294-47c8-899a-fd56b6a2af55@riscstar.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <77dacc46-7294-47c8-899a-fd56b6a2af55@riscstar.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-kernel test robot <lkp@intel.com> writes:
+On 09/10/2026 16:23, Alex Elder wrote:
+> On 10/9/26 8:56 AM, Krzysztof Kozlowski wrote:
+>> On 09/10/2026 15:44, Alex Elder wrote:
+>>> On 10/9/26 4:31 AM, Krzysztof Kozlowski wrote:
+>>>> On Mon, Oct 05, 2026 at 06:09:24PM -0500, Alex Elder wrote:
+>>>>> Define the binding for the clock controller functionality present in
+>>>>> the Toshiba TC9564 SoC.
+>>>>>
+>>>>> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+>>>>> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+>>>>> Signed-off-by: Alex Elder <elder@riscstar.com>
+> 
+> . . .
+> 
+>>>>> +properties:
+>>>>> +  compatible:
+>>>>> +    const: toshiba,tc9564-clock
+>>>>> +
+>>>>> +  toshiba,config-syscon:
+>>>>> +    $ref: /schemas/types.yaml#/definitions/phandle
+>>>>> +    description:
+>>>>> +      Phandle for the configuration space system controller.
+>>>>
+>>>> I do not see my previous comment addressed - you have no resources here,
+>>>> so this belongs to the parent. You responded something about pci-ep, but
+>>>> the parent is not pci-ep. Open your code:
+>>>> https://lore.kernel.org/lkml/20260918165234.687224-5-elder@riscstar.com/
+>>>>
+>>>> I clearly see code like:
+>>>>     syscon {
+>>>>       clock@ {
+>>>>       };
+>>>>     };
+>>>>
+>>>> so I do not understand what pci-ep has anything to do here.
+>>>
+>>> What I have now (about to send) looks like this:
+>>>
+>>>       syscon@0 {
+>>>           compatible = "syscon", "simple-mfd";
+>>>           reg = <0x0 0x2000>;
+>>>
+>>>           clock {
+>>>               compatible = "toshiba,tc9564-clock";
+>>>               #clock-cells = <1>;
+>>>           };
+>>>       };
+>>>
+>>> A reset node will also go inside the syscon, so there is another
+>>> function for that MFD.
+>>>
+>>> The regmap belongs to the parent, and is looked up this way:
+>>>
+>>>       regmap = syscon_node_to_regmap(dev_of_node(dev->parent));
+>>
+>> That's driver code, so irrelevant. So how does this solve my comment
+>> from v1?
+> 
+> I'm trying Krzysztof.
 
-> kernel test robot noticed the following build warnings:
->
-> [auto build test WARNING on c3cff7fac01638ab58e85fe7df41a04fa25c5bae]
->
-> url:    https://github.com/intel-lab-lkp/linux/commits/Dave-Marquardt-via-B4-Relay/scsi-ibmvfc-fix-IRQ-leak-and-guard-deregister-on-channel-reg-failure/20261007-142545
-> base:   c3cff7fac01638ab58e85fe7df41a04fa25c5bae
-> patch link:    https://lore.kernel.org/r/20261007-ibmvfc-fpin-support-v13-4-b816abfa4fcc%40linux.ibm.com
-> patch subject: [PATCH v13 04/11] scsi: ibmvfc: add basic FPIN support
-> config: powerpc-allmodconfig (https://download.01.org/0day-ci/archive/20261009/202610091350.pfimX8kZ-lkp@intel.com/config)
-> compiler: powerpc64-linux-gcc (GCC) 16.1.0
-> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261009/202610091350.pfimX8kZ-lkp@intel.com/reproduce)
->
-> If you fix the issue in a separate patch/commit (i.e. not just a new version of
-> the same patch/commit), kindly add following tags
-> | Reported-by: kernel test robot <lkp@intel.com>
-> | Closes: https://lore.kernel.org/oe-kbuild-all/202610091350.pfimX8kZ-lkp@intel.com/
->
-> All warnings (new ones prefixed by >>):
->
->    Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:1905 expecting prototype for ibmvfc_relogin(). Prototype was for ibmvfc_scsi_relogin() instead
->>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3319 function parameter 'fpin_status' not described in 'ibmvfc_common_fpin_to_desc'
->>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3319 function parameter 'wwpn' not described in 'ibmvfc_common_fpin_to_desc'
->>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3319 function parameter 'type' not described in 'ibmvfc_common_fpin_to_desc'
->>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3319 function parameter 'modifier' not described in 'ibmvfc_common_fpin_to_desc'
->>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3319 function parameter 'threshold' not described in 'ibmvfc_common_fpin_to_desc'
->>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3319 function parameter 'event_count' not described in 'ibmvfc_common_fpin_to_desc'
->>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3401 function parameter 'crq' not described in 'ibmvfc_basic_fpin_to_desc'
->>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3401 function parameter 'wwpn' not described in 'ibmvfc_basic_fpin_to_desc'
->>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3401 Excess function parameter 'ibmvfc_fpin' description in 'ibmvfc_basic_fpin_to_desc'
->    Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:5258 function parameter 'protocol' not described in 'ibmvfc_alloc_target'
->>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3319 function parameter 'fpin_status' not described in 'ibmvfc_common_fpin_to_desc'
->>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3319 function parameter 'wwpn' not described in 'ibmvfc_common_fpin_to_desc'
->>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3319 function parameter 'type' not described in 'ibmvfc_common_fpin_to_desc'
->>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3319 function parameter 'modifier' not described in 'ibmvfc_common_fpin_to_desc'
->>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3319 function parameter 'threshold' not described in 'ibmvfc_common_fpin_to_desc'
->>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3319 function parameter 'event_count' not described in 'ibmvfc_common_fpin_to_desc'
->>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3401 function parameter 'crq' not described in 'ibmvfc_basic_fpin_to_desc'
->>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3401 function parameter 'wwpn' not described in 'ibmvfc_basic_fpin_to_desc'
->>> Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:3401 Excess function parameter 'ibmvfc_fpin' description in 'ibmvfc_basic_fpin_to_desc'
->    Warning: drivers/scsi/ibmvscsi/ibmvfc-core.c:5258 function parameter 'protocol' not described in 'ibmvfc_alloc_target'
+In v1 I asked to fold the node into the parent. v2 did not have it. v3,
+which you are preparing, still has no node folded, because they are
+separate.
 
-Thanks. I will fix in the next patch series revision.
+> 
+> The clock controller uses two registers, 0x1004 and 0x100c,
+> to manage whether a set of clock signals are enabled or not.
+> (The reset controller uses two adjacent registers, 0x1008
+> and 0x1010, to manage whether a set of reset signals are
+> asserted or not.)
+> 
+> You said "no resources except a small address space" and I
+> guess it's not clear to me what size is "big enough" to
+> warrant representing something as a separate device.
+> 
+> *One* of the managed clocks is a 25 MHz clock, exposed
+> through a pin on the SoC.  That one clock signal is
+> therefore usable by the platform (although on the RB3gen2
+> it's not used).
+> 
+> Rather than expose the register addresses in the clock
+> node, a syscon is defined, covering 8 KB, and the actual
+> offsets used are just defined in the clock and reset
+> driver source code.
+> 
+> If that's not the right thing to do, please say that.
 
--Dave
+Nodes should be squashed.
+
+> 
+>>>> What's more, I still do not see any usage of these clocks outside. And I
+>>>> still did not receive actual answers (or I missed them) how these clocks
+>>>> are routed OUTSIDE of the connector. You said for example:
+>>>> "Ultimately the TC9564 SoC has a single 25 MHz input clock,"
+> . . .
+> 
+>>> The single exposed clock *might* justify presenting the
+>>> clock controller device in devicetree.  There are also
+>>> resets exposed externally via GPIOs, and these control
+>>> external entities (PHYs).
+>>
+>> I cannot find any of these exposed. Please point me to DTS code showing
+>> this.
+> 
+> It is not used by this platform, but is available for other
+> platforms to use.  Its name is "REFCLKO" and is exposed on
+> ball C17 of the SoC, if a platform designer decided to use it.
+
+Yeah, but you do not describe the SoC but PCI EP device, thus my claim
+is that clocks cannot be used by the host. The SoC itself for different
+hardware uses would have different binding, so that's not an argument to
+have anything here, unless these different uses are also documented here.
+
+Best regards,
+Krzysztof
