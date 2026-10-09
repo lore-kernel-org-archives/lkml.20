@@ -1,229 +1,418 @@
-Received: from mail-yx1-f99.google.com (mail-yx1-f99.google.com [74.125.224.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013068.outbound.protection.outlook.com [40.107.201.68])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADAFB44CF2F
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 20:08:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.99
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791576497; cv=none; b=r/og48gw5ucfARP4VwjTUYOAOxbcU45T3jN+Up8uUX7ktm3p9FJsy1pXZnTUKfkJ0uFQGpnIEANxbr5Q1hT3MrQHkS6FsB8l6a792FtC1Gi/xKC0uY0WkTq3jCxDYI422bkoCgifGGjx/NH/40qKM6beADQtdu6gc4EyLUpTolU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791576497; c=relaxed/simple;
-	bh=3klATJvPYcmPp9CMSL4OY84jRvBuWwyXXqrwILdlECM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Content-Type; b=pwHfdTpu+aESSbysba+ollmiuW5ETOuTY9fx/ll56rPccyuCVJu/CU0E3qXngTAh3a3J7CThuYLD2vFGW+i255pcVMAIN7Uo9hCK7fE7f6TzHCoWUErc+W5O4QIGWSjz9psTr6aKOgmG1PYt6vJAut6BUt5h7bMsrt5tEg8u6DY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=WmYq7+mg; arc=none smtp.client-ip=74.125.224.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4499C4772BE
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 20:08:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.68
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791576522; cv=fail; b=lhStXbjHbR2/PdCOfJbkpoCzngrGeDtAaixQYPMSC4YS2px7pWv9VTToB7j0j166giiRaDPaPsBqybTLU5by9a3RK3Cbgdjvv6FfbvEtFA3mXJtN0Ic9wWqZsEJ2GFDbXpoKcEdFralcHG9ZkbLdoseISjnjGPIf9Wo3nENbWvA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791576522; c=relaxed/simple;
+	bh=sZwdkJkYI31FqFdGaF31CpNiARiPJilsV1XeJyDA+wA=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=TF7I/258SRycHlNT2peGfFb+4u+FcubKLpLvHXWgTUwofR81tmZlbrOgrcygUVIyCVvBYCpijMYOPsOsJ169Qb6JoYOV6XeK8Bd5c/CFRtGkg+W6Y/s8IxG2kqloRi2OhqsZLpkysOfAydRdmw4+tcSrs0VCOvRQuUufo+uN28c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=gWlZozbl; arc=fail smtp.client-ip=40.107.201.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="WmYq7+mg"
-Received: by mail-yx1-f99.google.com with SMTP id 956f58d0204a3-6774639a8a4so70285d50.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 13:08:15 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791576494; x=1792181294;
-        h=content-type:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=DS57gEOe0aw8Iz8HvMhgEPozkozepJwmhPdlmUCmRks=;
-        b=vP91W4f13PoYIlDhnZmWrMiq2O7kC6ikH4NOJYrUR3p5tojQF0JixJmw3k8TxC0xC1
-         DlQcaluL9Ck54LNoiQp3drbwv6lpnqsnsSpOZ3Wx0o8bUqPOg+M1f2LXtdb4u3fpH2le
-         sLoNtlCMfIFdRL3EYjHEn3+wJHSdTh87FUfbSxcg1Q6vnMNrl76qF1Pf3rx8EkUspON5
-         LFcnwOxMlybU7u8JdNg8hzJdI5S1+6aDSxFYMDz+s/0VLeoAYYv8TiWMvGAXA9BR3cDl
-         t5bjzpKjl973uaFZ7YirGlGoG0WCEW/Qy6iCueMkZvpEWYYnUAGVa08gH8MImByX+wwS
-         t6ig==
-X-Forwarded-Encrypted: i=1; AKwUvBxq9v4W1Sr7x/r8r7psH0Quuj2aD31O3m97el57c7sfW8JTwSuMuNwCRHZVK73jIzS3ucHNRnmBZocody4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL50EzpOhdC0v/kI1e7gjbDQtMkpOvThQteyYML0LXiIhI2GWJV
-	ouBstjz3XRCtBOEK1oLt1tDTiZz23Nxo/X6ybhEqERvP19gFnFjvw9yLOUYwisArdy3PbkD9r3t
-	Tjbxd7whTBpcTDQAd46+OMVV0XIF/+pgxQoWH8jIvEt9a/t77aN1df0WKfSYfqViXOBpNeQdTpn
-	Lmu9Y0T1SJ0mgrVYeDtOHOwDOYbBapm6/9aQl3/E8KhSTSB8uPDubZmHxe2r64CFz4Gp7hM0pQx
-	z4YWJnh4bJ5QwIZlbY=
-X-Gm-Gg: AYBFou0WR0KQBL3vkE19NYvGzDkAm3SaRuOceVST2BnMNHf8pzDHQkkGHhslWbZLXzF
-	uoLe/5ZDCIXUv1f7AJ8MuP8tAF9ipNPoBDqhrX6CWZ3sc+KSBIB3AFGJDhSSLjHVVpF9jrcIUpy
-	A7BnZ41R2SExQ6/r951LdtxUnke4Xoocvh6KtrpfaA1sgXNRiUFMOJSuJo1vISbb7M7a2PY6Wgz
-	5snGqUyhhqW0ruZca9sYy56ZRVzI47xehks8xVOMVl8pwE/AwrWbNhdMIkzp3OgwPC7RrTHuPRP
-	2tXzLwgP2B45uwWuuPNNYXPNupuwq0je+B8DhQso+EMvp2EEE2WHePJN1hpQyAGl37Yv/QLHqXS
-	r9VinYb2KhuhAbd+XYau+R1hzxu9b2SwHE+wZXqIj2qv5rLYnPJhJncun9P7xjSZDhV0p/HnP35
-	nK3wggB0jnIcML60A4ceDECgchLUeuHVhw0N1iag==
-X-Received: by 2002:a05:690e:11c2:b0:66f:c1be:3186 with SMTP id 956f58d0204a3-679362989ddmr803573d50.93.1791576494469;
-        Fri, 09 Oct 2026 13:08:14 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
-        by smtp-relay.gmail.com with ESMTPS id 956f58d0204a3-679356adb6asm147588d50.33.2026.10.09.13.08.13
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 09 Oct 2026 13:08:14 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6a5d57a8d51so104319a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 13:08:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1791576492; x=1792181292; darn=vger.kernel.org;
-        h=content-type:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DS57gEOe0aw8Iz8HvMhgEPozkozepJwmhPdlmUCmRks=;
-        b=WmYq7+mgCRc3siTLT/4ew91NqfiV3AOg+t8URxJ1eQNpJ0Zrm5eEvs1A3WTnx+4WBn
-         q+ueHNTI7wj0GEv9/Haf8GDhR7fv7bnqj06kKnx3f3SibA8Uqua6eTCnjGGfXFqsj5j1
-         dm0+F1Pb9Qh1K3bNT0xh+SE5sS/En15P96cF4=
-X-Forwarded-Encrypted: i=1; AKwUvByApgp/eq6h8NSiwlPS7LgSKG4Ph08Y+pDe6RZGl37LlhoxPyyA1vK6+eemtwjAz3fi6g9lLarGrhNJmvw=@vger.kernel.org
-X-Received: by 2002:a17:906:f586:b0:c29:6de8:d143 with SMTP id a640c23a62f3a-c31aa00dd05mr320655866b.19.1791576492497;
-        Fri, 09 Oct 2026 13:08:12 -0700 (PDT)
-X-Received: by 2002:a17:906:f586:b0:c29:6de8:d143 with SMTP id
- a640c23a62f3a-c31aa00dd05mr320654166b.19.1791576492065; Fri, 09 Oct 2026
- 13:08:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="gWlZozbl"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qSbkt6zYLiykJiz5eTION7gur0Hk/22henJ/slvJ7mDc1BH27mq/xqcL3RRJtNKZ78ErW1rVvOel0nT8kgv/ACQI70PKalXJT91d7cHszERz8za6S/EDmIqunCg0zk4+z4snHxTEjarRV1x6mr/V16CDMUSEcwYdOmBdfcpGHi6+vLmx9j14JrIS6FWSLZ+QDVevI6DDLAF5h8c4/4j0EsIIWeNiJQdDHEohCQtjtPzj8vuCuQ0j/i2QauYlnAEAGaB/++hnCDkcT3DaTQjxbiBE75ts+kNhqc2nQrFSUP7G3PnjWAhEAojUpBhux518UeOtzu4znhz9DrP9o8gIyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vYRJDhtyEIdm0qFQrM3rNIARUvl4dcbvOE7PcSaUFVI=;
+ b=UnMxxM0YTsTo/eeeHM6+P3ShHTMyvrGQ9Rbhy4z4Y0ONveDn2Jnv0QMrFG2xV0btENQ5GSlqVzZ7Kz7BJh+ZXOhMkaLpK0XkRLo9kT5DC8rdp3j83FtuzXVaw7P7wRl+prfV34PHm4tnsCOyCIi3Wezf33D2L/hrA+Vy7RKRAf07JCa2+yvVniN79XOk5Gt3juhNb+zUWgx7A+JhJvaFrhw0eGBjAwv4RBUVmSEcyumTdXULDGIEDakNaykFKPb8Zy+lRZ9QXTBEsEnIqZ+TvEGYsHOuF9mhdGdvKO9mRxJ5dOQux89cB9P285sv0iYxBvavEZ6epVqFr6BwXTY7pA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vYRJDhtyEIdm0qFQrM3rNIARUvl4dcbvOE7PcSaUFVI=;
+ b=gWlZozblayFCfkzCNmoD9I/k0C+vwpADH5c2ziPgixhuwdEZmJXLPzMyLhTiFB4cqNTJ+sUymr/SV0SsCPbEngEX+iSYfUfVwbc064VCOfGn2n17BGtfP6IvaW/dPetbF37tVocS9G+uT5BiyQqoOVbsCR0nL7TYkP3oK2YRmfqwJfwya4lV/6JCOabGFt5OiltZcNSgyE03K4GcDK4jriRZeEmXa6YY7PEkKQ6L50ssRPIVYYjGR69fSFQGVN/4TXv7w+uyDKPLjMfHs8Zf1d45rkVuJ4WAFfdDUTNoIpPnWyPFWeizfpzPLTmTQ8ezbps3BMSNuV8vwKlJfdVpjA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
+ by CY5PR12MB6346.namprd12.prod.outlook.com (2603:10b6:930:21::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Fri, 9 Oct
+ 2026 20:08:36 +0000
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
+ 20:08:36 +0000
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>,
+	David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>
+Cc: John Stultz <jstultz@google.com>,
+	sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 sched_ext/for-7.4] sched_ext: Keep proxy donors with slice left on the local DSQ
+Date: Fri,  9 Oct 2026 22:08:26 +0200
+Message-ID: <20261009200827.4026499-1-arighi@nvidia.com>
+X-Mailer: git-send-email 2.56.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MI1P293CA0016.ITAP293.PROD.OUTLOOK.COM (2603:10a6:290:3::8)
+ To BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008191114.3736826-1-joe@dama.to> <20261008191114.3736826-3-joe@dama.to>
- <CACKFLikWkH6QaOG=EO_zu8cqCFRxGqtA2-+R-btp0TwUbJjVBg@mail.gmail.com>
- <asklVFvUJx8P/k1d@devvm20253.cco0.facebook.com> <CACKFLiksRwZm+Zy74G_u59yEpY5BK+xRv=r6f9Wpo6WgT_TwDQ@mail.gmail.com>
- <aslESokQPvYCWarH@devvm20253.cco0.facebook.com>
-In-Reply-To: <aslESokQPvYCWarH@devvm20253.cco0.facebook.com>
-From: Michael Chan <michael.chan@broadcom.com>
-Date: Fri, 9 Oct 2026 13:07:59 -0700
-X-Gm-Features: AclHuK8p8UVhVKv-kHOvjNgJajY-GtpjS4FA3Go4bX8piCxVrG6EMWsNdVO7SDA
-Message-ID: <CACKFLi=0uuY36A+pnHVDqRYACfC5WVXx357cgD5BDMiTfW9sRA@mail.gmail.com>
-Subject: Re: [PATCH net 2/2] bnxt_en: Pad short SW USO segments to BNXT_MIN_PKT_SIZE
-To: Joe Damato <joe@dama.to>, Michael Chan <michael.chan@broadcom.com>, netdev@vger.kernel.org, 
-	Pavan Chebbi <pavan.chebbi@broadcom.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, edumazet@google.com, 
-	horms@kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="00000000000070789f065d6de81f"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|CY5PR12MB6346:EE_
+X-MS-Office365-Filtering-Correlation-Id: e176116a-6043-4d6e-bbae-08df264119e7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|56012099006|10067099003|11063799006|18002099003|10063799003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	2Kh0H//DxmQ1mdGxPMtRcYq6v/KqQ5/vOyIoRv1ZwDnrdBxEqLEuRe8mnb8XNqMLgJR9xNFaf8VNN+JQMNjM1jwkthcwm9O/1xyq8Uio/WhPeWQC38LILBbqlJrUiQ6tVJ60e42bvIXz9ObJzSG4FGQZO+bD1s3gOlkMZ3TntcmH89+grodL53EUVGGyvFFX6i2055oNCdAWE51CwyhzAG9un7/tTvCRg6tHCv8zgP1PpJC6L/qxcYQ8D05/EP5HH479rMH0HMcQHvEGQOTUn04q+QsFhBCRQRMbvoEyMNwyIYQ49tx5LJ+fNlkl3V51Tb5xanPL6RX9zutnUKZa/DWZSrzQyd18Bp2O8OdFOCVxcNbK4nsJWxjEvQY4oBKUAf1DcXLEHF84xTqFM6F7ooUMTGVm+Df8vO+TK3urxqHWnedGCM8MxPA/rOKtmZ/1R9VyWQBSt/EFjDuXZ2PuaL9xEF9PTe7xqjVA3yzE+25JYr2tIrLJeSvT+r+PQR2sBeWr4fnmIswtQMQA18i+GmVytpKKUsNPZ1v+OddPREOOyGVmI3VxhonIURfs0LROo/AX26kZRdcISme7MMWm6UBP3n++Dr8akvBHGVs97WjN1KXPd7Cjm5/nXacBemU79FjpOn/ecQZ/jltH2udWHhGt3cyFJUFGGcUeqY/bpJg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(56012099006)(10067099003)(11063799006)(18002099003)(10063799003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SHRUa1ZHVEV5bEtwancvQjRvRjBRdGhwNUpCNkJBbUVIVHV5bnlHVmRxa0lx?=
+ =?utf-8?B?MHJFZWJ2eEthOFp4TzhoUTBTMWt0N01LSUFWUmU4eDNjUE84aTljYThBMkFJ?=
+ =?utf-8?B?YmlRU1pHckY1YUMxa1lmcDVMc3JhZ2pBQmVmL28xZ0VEdzhlRnU3VG1tZHIv?=
+ =?utf-8?B?S3NmTitQMHcrRlRHMEZhdzgybWNvb0hmSldqcmtYcTlRRVRIeHJxTlFqa3Nv?=
+ =?utf-8?B?Q3dZVnJoUVJXZGJISXh4RWp2R1ZmeUF0WklNaTB5VGtGL0NCK0grNExva2hC?=
+ =?utf-8?B?RVZEYld5UlhZcWE1WVAvVStwRnNlUE1GUzk4WTdFeVNiL2FrTytkQUFqZmhq?=
+ =?utf-8?B?aDNQdkFIM1NkTjJ5ZTRQRGUvSjRqZGpXWmxEcmxwblpHczI1REk5RVBITlkx?=
+ =?utf-8?B?bVhRTTVnVTI1eDFWdk1DUGpuT1h4YmlKVXJld05jWktEamhoWkF1REZvVFEv?=
+ =?utf-8?B?U2p0dzBqZi9hbDB4dE9CbkxPNGJZWC9YWkNTNUtaYmEvbEJFckxnYzlHT0xz?=
+ =?utf-8?B?YVFSbnZlUHlrVGZHODMyY1FKRWVCenVScFpOYmNCMkJBaURBNi9LblY0NVhn?=
+ =?utf-8?B?aks5Qjd2Z0d0cCszcjVjZ2p2VjJ6TkVJYnJGRi9GU281TjFzQzFmYUlQOWE0?=
+ =?utf-8?B?Zkx6UzZSRkVYSzFvV3RKMUNBZ1JGTFliWTcrY0hKT3Q1N0x4MVFIL1dUY3JW?=
+ =?utf-8?B?bExBQ0FNc2NPZklQNUtyOEFkT1NvR2FaWjZJeTl0bFlqclA0aGNaV1J6QXBL?=
+ =?utf-8?B?Q2ZKNWFnejJoYUhvZ1BBUEEzZXgzWFVpT2JBOC9hTi9IWXpnNG1oZUFJZzNL?=
+ =?utf-8?B?SVR6MFRaNDVjRDFxZTVvSzAwckxtVGVqZVpBcUlXaFVwVEsxNndNKzJmV3Fq?=
+ =?utf-8?B?N3lhNTViRU44SWpXSmw3b1RQSlpLNWdLSUpRT0xxRW9rcmk2elhzWE16NDVn?=
+ =?utf-8?B?MEhlenZlRjZRcTd0TWY4dGJpdm51NU5TTCtPTWtlRGhNN3ZwcTgwalFrbFpy?=
+ =?utf-8?B?dUc1SGdKRmtLMUs5YWV4QVZaYzkyOXdYNzNuQURHWEdzM3hHMVY2VkhoTzFR?=
+ =?utf-8?B?NWpKNklhZ2YveVc5V3c1a3dDbE1oRDZ3L3I2N29yQTViUEYrZVdETFlrbzg2?=
+ =?utf-8?B?a2kwN2szak1KSnZjMS9ZbmdHSkN3UDZJRUtnQzZma2RuVVphbFRqTno4a2Uy?=
+ =?utf-8?B?VW5TcCtGbnVzR3ZFa2ZmSWtQdW1WZE5WWmRuaHN2WVNpaTFVOFVQR2ZVYThG?=
+ =?utf-8?B?Y0ZCQmF3MWV0VjhYeVZHK25ZVEZhZFdlVHA0NnpxcXUreUpkUjU0SmZkNEVt?=
+ =?utf-8?B?Z3h6SGNIbFN1SExlczBXaGhQWFU3V3FQR0NTWExPYjcvOGt0NjdQRXd1Zm1j?=
+ =?utf-8?B?SzNqM3BuL3JZWTc2QkxsajlzbGVxOEJHZnZ0TmI3ZDliV1pUMmlMcWFpbDlL?=
+ =?utf-8?B?clhZYlhzMHEzemowSGhDRXdjRTRGKzFGbkdiUUR1R092dDZmRVMvOWN4QnFN?=
+ =?utf-8?B?R1JLT0hoampkTnkrbVpUeUNoMFZxK0grRWZyYXNKRU5HWm1GcTZJN2tzZlB5?=
+ =?utf-8?B?Q3RzcDV4NkdMSUJadkxOdE5vY0FoR085WmZPMkxzVS9qMmFmZGpPQkxUUi9l?=
+ =?utf-8?B?TEJpWXBpdnZtdFphb2M2aFhHTHhzdGdoMFNYVHZoREhFdVFDNlowZXY5Wjh2?=
+ =?utf-8?B?RC9LVUhLMXppbm9EYWN3c05mc05haWRmU05kSGlxd00vcG5zck9DMld3YkpP?=
+ =?utf-8?B?b0hFVHpnbFpVOXhPNFlZVVA2Nk1SWVBHU1Y4MkxlOG5oaDZua3hQYmNmblhp?=
+ =?utf-8?B?dzNFeklkQ3luN0lLR1NIUDZUWXFWbm53clpCV2NiOC9HMWkrN0xPV0FHYVFi?=
+ =?utf-8?B?ejJuREVTM0RuRWR5UVBtQ2h0alk2MTkxT3BvODJGN0pmVTR3L2QxVGNFZklW?=
+ =?utf-8?B?MXlMdWpCQmdIaXVOMzR6cEZSZC9DakZoZXBuQ0x4TWNOWEV6bGtkT1hHRlps?=
+ =?utf-8?B?eXBVTXZkcXQwVEVpTklDL3lFWEkxcndpUTNNVEVIVStIR2RPNzJjaEZ6bnhz?=
+ =?utf-8?B?Zi9jWGwvRG94dXdETFFwa3oyZVh0VHdIN280RVdhU0M2R2pYQWVTN0FOV212?=
+ =?utf-8?B?Uy84S0o4MXY0ZTJCdUwvZW9paWRVdllEUWFFM0VOVHFuQjE1ditDU21oUTFp?=
+ =?utf-8?B?aE9ZRWZZdG9ScVVqaFdWakRxaEt1NHBFR3lIMm9HVExOZ2wrLzJ4cHVmL3M0?=
+ =?utf-8?B?ckNZQ1MrenRUWE95aUxHVXNaZlJyaGFaOUgzVVJ6VmVIU2lPcDRkeFYrNVF5?=
+ =?utf-8?B?UzVHaUpmOWNFM28vUDNNQ3VzUm16dG41S25zTElxSllJcGNjRnVqQT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e176116a-6043-4d6e-bbae-08df264119e7
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 20:08:36.4000
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jvlUfqI84EsT9jdJQcioWacU4IEReBGUmk49Qv4ZzOXRPS/cBHxI/yM64PGLoO7foTBtTumgn08+dMpLlhj5jA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6346
 
---00000000000070789f065d6de81f
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Commit ee172227d0dc ("sched_ext: Delegate proxy donor admission to BPF
+schedulers") makes put_prev_task_scx() pass a retained proxy donor to
+ops.enqueue() with SCX_ENQ_BLOCKED.
 
-On Fri, Oct 9, 2026 at 12:45=E2=80=AFPM Joe Damato <joe@dama.to> wrote:
->
-> On Fri, Oct 09, 2026 at 11:33:07AM -0700, Michael Chan wrote:
-> > Did you mean generic XDP turning around incoming packets with XDP_TX
-> > actions and transmitting them through the software stack?  This path
-> > cannot generate USO packets, right?
->
-> Hm, I'm probably missing something, but the case I'm describing is generi=
-c XDP
-> bouncing received packets back out with XDP_TX.
->
-> I could be wrong (and if so I am happy to drop this if statement from the
-> code), but IIUC generic XDP runs from __netif_receive_skb_core() after
-> software GRO, so the packet it sees can be a GRO'd UDP packet with
-> SKB_GSO_UDP_L4 set (because maybe the socket had UDP_GRO set?).
->
-> The generic XDP path seems to keep all of the gso fields. Later generic
-> XDP TX calls netdev_start_xmit without validate_xmit_skb being called
-> and so gso_size could potentially be some tiny value.
+Some of these puts are only proxy bookkeeping. proxy_resched_idle()
+drops the rq's donor reference before switching to idle when:
+ - find_proxy_task() finds a remote mutex owner before the donor
+   switches out,
+ - proxy_migrate_task() detaches the donor before migration,
+ - proxy_deactivate() blocks a donor whose owner cannot run.
 
-I don't know.  You may be right, but this is a highly unusual code
-path.  Other features checked in bnxt_features_check() do not get
-rechecked again.
+In the first case, BPF has already selected a donor with slice left.
+Returning it to ops.enqueue() forces BPF to dispatch it again before
+proxy resolution can continue. In the other two cases, the caller
+deactivates the donor immediately after ops.enqueue(), undoing any
+placement BPF makes.
 
-If you decide to keep the check, please add a comment.  Thanks.
+Keep a donor with slice left at the head of the local DSQ so the next
+pick can resolve its owner, or deactivation can remove it without an
+unnecessary BPF handoff. An IMMED donor can stay there only for a
+bookkeeping put during proxy resolution. Mark a blocked pick as
+awaiting resolution to distinguish that put from a real preemption.
+Return a preempted IMMED donor to BPF and apply the normal IMMED rule
+during deferred local reenqueues. Use SCX_ENQ_IMMED on the temporary
+local insertion so the base CPU capability is sufficient.
 
---00000000000070789f065d6de81f
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+Moreover, allow blocked donors to receive SCX_ENQ_LAST when the
+scheduler needs to arrange a follow-up scheduling event. During a
+scheduler ownership change, mark the active donor's proxy reset in
+sched_ext and skip reenqueueing it: sched_proxy_block_task() will
+dequeue it next. This avoids a transient enqueue/dequeue pair and a
+false ENQ_LAST warning.
 
-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
-DPVtLUtep/P3evQuAtTQRaKedjamBcUpJ7qUhBuv/Z07LlLIlB/vfNSPWe1V+njTezc8m3VfvNEC
-qEpXasPSfDgfcuUhcPR+7++oUDaTt9iqGFOjwiURxx08pL6ogSuiT41O4Xu7msabnUE6RY0O0xR5
-5UGwbpC1QSmnBq7TAy8oQg/nNw4vowEh3S2lmjdHCOdR270Ygd7jet8WQKa5ia4ZK4QdkS8+5uLt
-rMMRyM3QurndiZZJBipjPvEWJR/+jod8867f3n0CAwEAAaOCAd0wggHZMA4GA1UdDwEB/wQEAwIF
-oDAMBgNVHRMBAf8EAjAAMIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEFBQcwAoY6aHR0cDovL3Nl
-Y3VyZS5nbG9iYWxzaWduLmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2EyMDIzLmNydDA5BggrBgEF
-BQcwAYYtaHR0cDovL29jc3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNtaW1lY2EyMDIzMGUGA1Ud
-IAReMFwwCQYHZ4EMAQUDAzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoDAjA0MDIGCCsGAQUFBwIB
-FiZodHRwczovL3d3dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBBBgNVHR8EOjA4MDagNKAy
-hjBodHRwOi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMy5jcmwwJAYDVR0R
-BB0wG4EZbWljaGFlbC5jaGFuQGJyb2FkY29tLmNvbTATBgNVHSUEDDAKBggrBgEFBQcDBDAfBgNV
-HSMEGDAWgBQAKTaeXHq6D68tUC3boCOFGLCgkjAdBgNVHQ4EFgQUJbO/Fi7RhZHYmATVQf6NlAH2
-qUcwDQYJKoZIhvcNAQELBQADggIBABcLQEF8mPE9o6GHJd52vmHFsKsf8vRmdMEouFxrW+GhXXzg
-2/AqqhXeeFZki82D6/5VAPkeVcgDeGZ43Bv89GHnjh/Vv0iCUGHgClZezpWdKCAXkn698xoh1+Wx
-K/c/SHMqGWfBSVm1ygKAWkmzJLF/rd4vUE0pjvZVBpNSVkjXgc80dTZcs7OvoFnt14UgvjuYe+Ia
-H/ux6819kbi0Tmmj5LwSZW8GXw3zcPmAyEYc0ZDCZk9QckL5yPzMlTAsy0Q+NMVpJ8onLj/mHgTk
-Ev8zt1OUE8MlXZj2+wgVY+az2T8rGmqRU2iOzRlJnc86qVwuwjL9AA9v4R13Yt8zYyA7jL0NiBNP
-WaOSajKBB5Z/4ZVtcvOMILD1+G+CVZX7GUWERT9NRXw/SyIEMU59lFbuvy4zxe3+RbOleCgp3pze
-q8HE2p9rkOJT3MkCNLxe+ij4RytIvPQXACsZeLdfTDUnjeXCDDJ9KugVhuqMelAZc4NissPz8FOn
-2NK++r5/QamlFqYRhsFxSBIvhkh2Q/hD3/zy4j17Yf/FUje5uyg03FblSBOk2WYpRpXEuCpyn5pb
-bYVIzfhQJgwGfO+L8BAeZIFjO1QL3s/zzn+RBlTl4wdDzh8L9eS+QEDhMcSsqb4fFRDbsoVuRjpx
-R5MunSUzk4GcmmM19m7oHhPGeKwIMYICVzCCAlMCAQEwYjBSMQswCQYDVQQGEwJCRTEZMBcGA1UE
-ChMQR2xvYmFsU2lnbiBudi1zYTEoMCYGA1UEAxMfR2xvYmFsU2lnbiBHQ0MgUjYgU01JTUUgQ0Eg
-MjAyMwIMZh03KTi4m/vsqWZxMA0GCWCGSAFlAwQCAQUAoIHHMC8GCSqGSIb3DQEJBDEiBCBgrSpV
-gX765ya1aCdY5HB+U3JKjgAUkzP5vX0nuZd7FDAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwG
-CSqGSIb3DQEJBTEPFw0yNjEwMDkyMDA4MTJaMFwGCSqGSIb3DQEJDzFPME0wCwYJYIZIAWUDBAEq
-MAsGCWCGSAFlAwQBFjALBglghkgBZQMEAQIwCgYIKoZIhvcNAwcwCwYJKoZIhvcNAQEHMAsGCWCG
-SAFlAwQCATANBgkqhkiG9w0BAQEFAASCAQBZ4+PpfmCj67JE8YrBbXCv5MLRqitDRGv3me6LQO6v
-3qd5ARUzHuRh1bWtMWIRoWTbR8bNK5tdWFPxUBPtGfucjn3nqQQxzmwPPvs6tTxCzuCcmo6xd8+U
-YkawgK5qFC7A0K7R+iIRgGzMG9CADiuponEDA7xC4WZamiX643Rz9BEazw5q0p/GbOhCAwiVZ+fN
-W6hJeXV2iw5xuRT5LOfGJdJDuYL0/sJXay3S/tkM8BvD3uYtSBICAwf8Z+IZKR0Co+/9eipBudXW
-s6N90Qyrbazgp0YBfdHBbiCZLS93LC0vt+b5VSh7BRTzDFcPDrrBIx1erQcxagIMhlily3KM
---00000000000070789f065d6de81f--
+For donors with slice left, this leaves BPF to handle meaningful
+placement decisions rather than transient proxy-bookkeeping puts.
+
+Fixes: ee172227d0dc ("sched_ext: Delegate proxy donor admission to BPF schedulers")
+Signed-off-by: Andrea Righi <arighi@nvidia.com>
+---
+Changes in v3:
+ - Restore SCX_RQ_PROXY_PICK_PENDING so only proxy bookkeeping keeps an
+   IMMED donor local, real preemption and deferred reenqueues follow
+   the normal IMMED rules (Tejun Heo)
+ - Allow blocked donors to receive SCX_ENQ_LAST and use
+   SCX_RQ_PROXY_BLOCKING during scheduler ownership changes to avoid
+   transient enqueue/dequeue and false ENQ_LAST warning (Tejun Heo)
+ - Link to v2: https://lore.kernel.org/r/20261002221559.3090900-1-arighi@nvidia.com
+
+ kernel/sched/ext/ext.c      | 78 +++++++++++++++++++++++--------------
+ kernel/sched/ext/internal.h | 16 +++++---
+ kernel/sched/sched.h        |  2 +
+ 3 files changed, 62 insertions(+), 34 deletions(-)
+
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index 248b39d09ce3c..e168aadb5c032 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -24,6 +24,13 @@
+ 
+ DEFINE_RAW_SPINLOCK(scx_sched_lock);
+ 
++static void scx_block_proxy_donor(struct rq *rq, struct task_struct *p)
++{
++	rq->scx.flags |= SCX_RQ_PROXY_BLOCKING;
++	sched_proxy_block_task(rq, p);
++	rq->scx.flags &= ~SCX_RQ_PROXY_BLOCKING;
++}
++
+ bool __scx_allow_proxy_exec(const struct task_struct *p)
+ {
+ 	struct scx_sched *sch;
+@@ -47,7 +54,7 @@ void scx_prepare_task_sched_change(struct task_struct *p)
+ 	lockdep_assert_rq_held(task_rq(p));
+ 
+ 	update_rq_clock(task_rq(p));
+-	sched_proxy_block_task(task_rq(p), p);
++	scx_block_proxy_donor(task_rq(p), p);
+ }
+ 
+ /*
+@@ -1574,7 +1581,8 @@ static void dsq_inc_nr(struct scx_dispatch_q *dsq, struct task_struct *p, u64 en
+ 
+ 		/*
+ 		 * If @rq already had other tasks or the current task is not
+-		 * done yet, @p can't go on the CPU immediately. Re-enqueue.
++		 * done yet, @p can't go on the CPU immediately. Check whether
++		 * it needs to be reenqueued.
+ 		 */
+ 		if (unlikely(dsq->nr > 1 || !rq_is_open(rq, enq_flags)))
+ 			scx_schedule_reenq_local(rq, 0);
+@@ -3318,6 +3326,9 @@ static enum scx_dsp_verdict dispatch_one(struct rq *rq, struct task_struct *prev
+ 	 *
+ 	 * - A non-IMMED HEAD task can get queued in front of an IMMED task
+ 	 *   between the IMMED queueing and the subsequent scheduling event.
++	 *
++	 * A blocked IMMED donor may make this scan a no-op. Skipping it does
++	 * not schedule another scan, so avoid separate accounting for it.
+ 	 */
+ 	if (unlikely(rq->scx.local_dsq.nr > 1 && rq->scx.nr_immed))
+ 		scx_schedule_reenq_local(rq, 0);
+@@ -3346,6 +3357,11 @@ static void set_next_task_scx(struct rq *rq, struct task_struct *p, enum snt_e t
+ 	bool first = type == SNT_PICK;
+ 	bool can_stop_tick;
+ 
++	rq->scx.flags &= ~SCX_RQ_PROXY_PICK_PENDING;
++	if (sched_proxy_exec() && p->is_blocked &&
++	    (type == SNT_PICK || type == SNT_REPICK))
++		rq->scx.flags |= SCX_RQ_PROXY_PICK_PENDING;
++
+ 	if (type == SNT_REPICK)
+ 		return;
+ 
+@@ -3425,6 +3441,7 @@ void scx_proxy_donor_start(struct rq *rq)
+ 	struct task_struct *donor = rq->donor;
+ 
+ 	lockdep_assert_rq_held(rq);
++	rq->scx.flags &= ~SCX_RQ_PROXY_PICK_PENDING;
+ 
+ 	if (donor->sched_class == &ext_sched_class && (donor->scx.flags & SCX_TASK_QUEUED))
+ 		scx_start_task_running(rq, donor);
+@@ -3485,8 +3502,14 @@ static void put_prev_task_scx(struct rq *rq, struct task_struct *p,
+ 			      struct task_struct *next)
+ {
+ 	struct scx_sched *sch = scx_task_sched(p);
++	bool proxy_put = p->is_blocked && next == rq->idle &&
++			 (rq->scx.flags & SCX_RQ_PROXY_PICK_PENDING);
++	bool proxy_block = p->is_blocked && next == rq->curr &&
++			   (rq->scx.flags & SCX_RQ_PROXY_BLOCKING);
+ 	bool rescue_keep = false;
+ 
++	rq->scx.flags &= ~SCX_RQ_PROXY_PICK_PENDING;
++
+ 	/* see kick_sync_wait_bal_cb() */
+ 	smp_store_release(&rq->scx.kick_sync, rq->scx.kick_sync + 1);
+ 
+@@ -3510,45 +3533,36 @@ static void put_prev_task_scx(struct rq *rq, struct task_struct *p,
+ 	if (next != p && (p->scx.flags & SCX_TASK_QUEUED) &&
+ 	    (p->scx.flags & SCX_TASK_RUN_TRACKED)) {
+ 		if (SCX_HAS_OP(sch, stopping))
+-			SCX_CALL_OP_TASK(sch, stopping, rq, p, true);
++			SCX_CALL_OP_TASK(sch, stopping, rq, p, !proxy_block);
+ 
+ 		p->scx.flags &= ~SCX_TASK_RUN_TRACKED;
+ 	}
+ 
+ 	if (p->scx.flags & SCX_TASK_QUEUED) {
+-		set_task_runnable(rq, p);
++		if (proxy_block)
++			goto switch_class;
+ 
+-		/* Delegate retained donor admission to its owning BPF scheduler. */
+-		if (p->is_blocked) {
+-			/*
+-			 * If the donor is the same and only the mutex owner
+-			 * changes, avoid triggering another ops.enqueue(): the
+-			 * BPF scheduler has already admitted the donor, so it
+-			 * can continue running.
+-			 */
+-			if (next == p)
+-				goto switch_class;
++		set_task_runnable(rq, p);
+ 
+-			if (WARN_ON_ONCE(!sch))
+-				goto switch_class;
+-			WARN_ON_ONCE(!(sch->ops.flags & SCX_OPS_ENQ_BLOCKED));
+-			scx_do_enqueue_task(rq, p, 0, -1);
++		/*
++		 * If the donor is the same and only the mutex owner changes,
++		 * avoid triggering another ops.enqueue(): the BPF scheduler has
++		 * already admitted the donor, so it can continue running.
++		 */
++		if (p->is_blocked && next == p)
+ 			goto switch_class;
+-		}
+ 
+ 		/*
+-		 * If @p has slice left and is being put, @p is getting
+-		 * preempted by a higher priority scheduler class or core-sched
+-		 * forcing a different task. Leave it at the head of the local
+-		 * DSQ unless it was an IMMED task. IMMED tasks should not
+-		 * linger on a busy CPU, reenqueue them to the BPF scheduler.
++		 * If @p has slice left, keep it at the head of the local DSQ.
++		 * An IMMED task instead returns to BPF if it is preempted, but a
++		 * proxy put only drops references before resolving the owner.
+ 		 *
+ 		 * An open rescue must keep @p on the local DSQ even if the
+ 		 * scheduler zeroed the slice in ops.stopping() above.
+ 		 */
+ 		if ((p->scx.slice || unlikely(p == scx_rescuee(rq))) &&
+ 		    !scx_bypassing(sch, cpu_of(rq))) {
+-			if (p->scx.flags & SCX_TASK_IMMED) {
++			if ((p->scx.flags & SCX_TASK_IMMED) && !proxy_put) {
+ 				p->scx.flags |= SCX_TASK_REENQ_PREEMPTED;
+ 				scx_do_enqueue_task(rq, p, SCX_ENQ_REENQ, -1);
+ 			} else {
+@@ -3565,6 +3579,9 @@ static void put_prev_task_scx(struct rq *rq, struct task_struct *p,
+ 						enq_flags |= SCX_ENQ_HEAD;
+ 				} else {
+ 					enq_flags |= SCX_ENQ_HEAD;
++					/* SCX_ENQ_IMMED uses SCX_CAP_ENQ_IMMED, the base cap. */
++					if (proxy_put && (p->scx.flags & SCX_TASK_IMMED))
++						enq_flags |= SCX_ENQ_IMMED;
+ 				}
+ 
+ 				scx_dispatch_enqueue(sch, rq, &rq->scx.local_dsq, p, 0, 0,
+@@ -3756,6 +3773,9 @@ do_pick_task_scx(struct rq *rq, struct rq_flags *rf, bool force_scx)
+ 	enum scx_dsp_verdict verdict;
+ 	struct task_struct *p;
+ 
++	/* A retry can abandon a provisional blocked-donor pick. */
++	rq->scx.flags &= ~SCX_RQ_PROXY_PICK_PENDING;
++
+ 	/* see kick_sync_wait_bal_cb() */
+ 	smp_store_release(&rq->scx.kick_sync, rq->scx.kick_sync + 1);
+ 
+@@ -4776,7 +4796,7 @@ void scx_prepare_setscheduler(struct task_struct *p, int policy)
+ 	lockdep_assert_rq_held(task_rq(p));
+ 
+ 	if (scx_enabled() && p->policy != policy && policy == SCHED_EXT)
+-		sched_proxy_block_task(task_rq(p), p);
++		scx_block_proxy_donor(task_rq(p), p);
+ }
+ 
+ static void process_ddsp_deferred_locals(struct rq *rq)
+@@ -4823,9 +4843,9 @@ static void process_ddsp_deferred_locals(struct rq *rq)
+  *   rq_is_open() is true.
+  *
+  * An IMMED task is kept (returns %false) only if it's the first task in the DSQ
+- * AND the current task is done — i.e. it will execute immediately. All other
+- * IMMED tasks are reenqueued. This means if a non-IMMED task sits at the head,
+- * every IMMED task behind it gets reenqueued.
++ * AND the current task is done, so it will execute immediately. Other IMMED
++ * tasks are reenqueued. If a non-IMMED task sits at the head, every IMMED task
++ * behind it gets reenqueued.
+  *
+  * Reenqueued tasks go through ops.enqueue() with %SCX_ENQ_REENQ |
+  * %SCX_TASK_REENQ_IMMED. If the BPF scheduler dispatches back to the same local
+diff --git a/kernel/sched/ext/internal.h b/kernel/sched/ext/internal.h
+index 8dcab02a38ab1..d61eb88ea8d74 100644
+--- a/kernel/sched/ext/internal.h
++++ b/kernel/sched/ext/internal.h
+@@ -1816,14 +1816,14 @@ enum scx_enq_flags {
+ 	SCX_ENQ_PREEMPT_LAZY	= 1LLU << 35,
+ 
+ 	/*
+-	 * Only allowed on local DSQs. Guarantees that the task either gets
+-	 * on the CPU immediately and stays on it, or gets reenqueued back
+-	 * to the BPF scheduler. It will never linger on a local DSQ or be
+-	 * silently put back after preemption.
++	 * Only allowed on local DSQs. Guarantees that an unblocked task either
++	 * gets on the CPU immediately and stays on it, or gets reenqueued back
++	 * to the BPF scheduler. A blocked proxy donor can stay on the local DSQ
++	 * with slice left because its progress depends on its mutex owner.
+ 	 *
+ 	 * The protection persists until the next fresh enqueue - it
+ 	 * survives SAVE/RESTORE cycles, slice extensions and preemption.
+-	 * If the task can't stay on the CPU for any reason, it gets
++	 * If an unblocked task can't stay on the CPU for any reason, it gets
+ 	 * reenqueued back to the BPF scheduler.
+ 	 *
+ 	 * Exiting and migration-disabled tasks bypass ops.enqueue() and
+@@ -1865,6 +1865,12 @@ enum scx_enq_flags {
+ 	/*
+ 	 * The task is blocked on a mutex and is being kept runnable as a proxy
+ 	 * donor. Only passed to ops.enqueue() when %SCX_OPS_ENQ_BLOCKED is set.
++	 *
++	 * Blocking on the mutex does not enqueue the task by itself. A donor put
++	 * with slice left stays at the head of the local DSQ, except when an
++	 * IMMED donor is preempted or cannot stay local. It is passed to
++	 * ops.enqueue() when its slice runs out, the IMMED placement cannot be
++	 * kept, or proxy execution moves it to the owner's CPU.
+ 	 */
+ 	SCX_ENQ_BLOCKED		= 1LLU << 42,
+ 
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index fc65296f5c745..d6813eccd7f74 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -793,6 +793,8 @@ enum scx_rq_flags {
+ 	SCX_RQ_ROOT_IDLE_RENOTIFY	= 1 << 8, /* the root is owed update_idle() */
+ 	SCX_RQ_PROXY_RETRY	= 1 << 9, /* proxy-rejected tasks need retry */
+ 	SCX_RQ_PROXY_TICK	= 1 << 10, /* proxy execution requires the tick */
++	SCX_RQ_PROXY_PICK_PENDING = 1 << 11, /* blocked donor awaits proxy resolution */
++	SCX_RQ_PROXY_BLOCKING	= 1 << 12, /* donor is being removed for sched change */
+ 
+ 	SCX_RQ_IN_WAKEUP	= 1 << 16,
+ 	SCX_RQ_IN_DISPATCH	= 1 << 17,
+-- 
+2.56.0
+
