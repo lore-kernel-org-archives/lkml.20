@@ -1,245 +1,238 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012004.outbound.protection.outlook.com [52.101.53.4])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010040.outbound.protection.outlook.com [52.101.56.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCB9042EEDA;
-	Fri,  9 Oct 2026 06:14:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64C1E3DCDBC;
+	Fri,  9 Oct 2026 06:14:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.40
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791526465; cv=fail; b=ZphYdq1VRbAiTkWBMZgPpWO1xDhsSbqP9gDCdvfBuJEh+VjoR7rEsziOSaqRXRABEXG0IpNzxcFmhvsohMr0hJCVl4aPnlh+xDBv+fbPlsl6VGQ/tGsQNce/hhdXdfVOLS2+N3EA/rtAMoVA7mrlb5vixN45KAEM4gL1wWU72Bo=
+	t=1791526467; cv=fail; b=Y1Ale2vENk0B4mmy3eqoLYUQgMWVPYGyC19FuZIiIREqlftF4K3rCCsFHeQhpOqf11uloWaks5n6mVIpUfkQjCOKtfYv8r/giQ7qJ9YWvhjjkFZiaanQitJvQW8VzDfebqUPJKzFc+CibBOtMkteNAQEbzWd6p54ciD5rg625f8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791526465; c=relaxed/simple;
-	bh=0UNADiDQ9XrbizL0xzwEB41mogsMtt+staCb5hS1Rag=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=la9dAlEoAtSU3O1esgKKc2ArUFyQD+Jk3DSi5gI9sDCrF9Tt7PYoD9KJ6ait87zP3RxH9bbyV5yGbxqnLJmBcFlCCIiKD+3/sZjtfU3ixibGqcOBcSKsUg2cWSJIKujZ0jlEs8e2ZdlEqT1W4nfa98jkAdHbP2AW2tPM9Tz0Yas=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Qn9XLowh; arc=fail smtp.client-ip=52.101.53.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1791526467; c=relaxed/simple;
+	bh=sIciFpPxfBuRptSvkUS1HTy85qajjVGR2QH1Mb6BNMs=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=bUAO6ubdMOCKB/Ir+4NInvPV2zVDzdZkasHmB9JW/k/EPlyicb+hpwG4UB/gmBbkd1oe9TRwTVHONFTNonC8YXykLVQAYvAixAwZ7boAZlf2jAukm74r1TJyOWOYupNiYQQYdHdThgoZ+gL5QmgABNlgpVO4SzGWuaOzs0cCnUw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=OUQ/v83T; arc=fail smtp.client-ip=52.101.56.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Qn9XLowh"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="OUQ/v83T"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pjHThXNrYo6rfqJE6HnTaT6EtEV5ZaIB/hSeHqhw7Hd8Dg6B8zE5p01WxhJi/MF8YUjlVgFWoJFwjY7L2E3VjTTKRA8JNUKzyqW/oMUKyz3hcwAcOdso3GNtibtC8Lmdz/BT+esTjIt2qwwPAcdu5G1LR5e1iKaUHA3kz2f7Fm4BD2lSyYCyst82HjFMSJW/uMA8va6OYE5wBnUYUhbE/usPQdtrZSBjlPTxzjqEIMK6VN4N3ryE69gg5h5TS0t65tGLBZO3ttpehBOMAQ/rmZGf3m6sRRLhSdnKNXtOm6VYf2dn6jSKdMiEu5m9eprw0y/vBMmBKpimRB/ADz14rA==
+ b=BF8npfgV+QPTtErFI+HhRtBK5zMwmdOsAKBjSdhgkbs0DIi7uA2ZfqRrQWXLrGU3GPnuNv+0VrvrVgoD+QsydMe7kDR1MCEH0BnvhFKO8C9+h9lrbU6ExbAQ37ZxFMokyj7tV7nJx7P2xvB4eUf8EuaHKcaKuySpnJfZ+IfhJBYLBpwU+Z1cZt2UTliv5+Bgbjzb8mit1etXpl83Anu5b738QmYbL5ZUPhwWVXZk8F5v/v2leffGHggy+7bbJnU7BAeepxgzyT/dUYW09LwmSpEcsGPWxWEjrOc9Ao/v+sf/PeBlo41beVFleIGQ87V+FkvU+foiBxHsVF6Dq6AZrw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Xs54aFBIeAaEaBLGcKtrcd4IlWENL8TkVozh4TJYaYU=;
- b=eUpU9EwcktEI7muMXpEygFVjA/VP5mZvSFulHuCS4nnv7iFn1+U5NqwBpm1ThUyTSTZxyjCBDDPpTqS8t6d1gar7JrR2biyCIEkQaz6eQEVxGcA9QE5cJuQPYI4bEAt0v36DQ1DC9EQK3JUEQBBfymVXiyhJ0eBJHaosTkH6kcAtxT3bPRMdUX3B9lKBFD7xHL+jNRvIpL0R0MAgf3dnIN/KzeouKf/iSW5HLmYVgM9s94PL4qYE03jbBm3THe6whQ1qx7IhHBbLp8qAU8fNLsFLEy49pr+tE5sxbKKdkpnEAGo9TIbS+yQzuVl+dU7MxYMDuNvAryQI61dx/Cg/Nw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=tD0nslwvTGDk7tq8N3ZfgE3KxVqauhNsr3rDECtNd0E=;
+ b=NhuEOBNNzujBdzaZcLfcaDJaB5RNjB1avk4a67nUgcLKfD/Y3XIBZw7r3qkQY/pAF7Cw9l1YDFiVlW8TUctKYVb2TIXxuTjnzbkiE2foY2ShXqAYGNZyXAnjhYse4clJeH2US24xspfFN9LdVY4MAFEM2hIms9YCEd6Gv7TqbXzVhfuzduurFES8LO/4X56uigVPTWebXKznfhIGFp1xiLNsRKqUC/ykupRE4SMhj4z5MfrqXjoPblDi5D/xrHtJG2ED2ijMnPpE7D0f7OXcQeOPZO7NEHTqIqPE2jTWBy/877R0X2BrzeqBNsp37rjCJJfQK1lbE6NgfuB1qSm99A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=linux.intel.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Xs54aFBIeAaEaBLGcKtrcd4IlWENL8TkVozh4TJYaYU=;
- b=Qn9XLowhUUQbhf0AJ6/4cjiWqyqbor3gFt6sQM4qT+ZG6tPEwCtK3wJwq7N3N4JHTbo53Cl5SzXzHSmyGkaF89OAvWdeV5YRqpBy18kfkX1DFqMQHVaZ0cpqnsv3X2oRbQRnveB1YU2cGic9ZWzo5aaRdm8GFWTueLqMO9q//PQ83+7FaWMUotIy0AANi2UHUwnzg05OTGoy14aptq4tbxOg2x+FzGsQXQ7DU/g63GpyG9Ne48rSv1fGoY3bZBP11zYbFlPvdm1EH4BtQ8fPM0Gs8I9JX7AIZng8pqZHz1N9aa+QZpg8y3a9lA2iFa27eI1tzlaLqiVpULM0iiL3hw==
-Received: from IA1PR12MB9030.namprd12.prod.outlook.com (2603:10b6:208:3f2::22)
- by CH3PR12MB8912.namprd12.prod.outlook.com (2603:10b6:610:169::15) with
+ bh=tD0nslwvTGDk7tq8N3ZfgE3KxVqauhNsr3rDECtNd0E=;
+ b=OUQ/v83TVqyHNdi59Xh85Q2831QaYDAsVLQPZhbIAVkR/pzfjbfwoD9w/qYgJcnIvVSnTyZ82foVNu8FGuhpXDvCxgphjzJOGHiqI5JL6/lUkBcHFx3EJ32wLLEyGDYzYipn4P8Ite18hvI+EavH6MViftb5VTuGEnGg4WADAmU=
+Received: from SJ0PR03CA0172.namprd03.prod.outlook.com (2603:10b6:a03:338::27)
+ by BL3PR12MB6571.namprd12.prod.outlook.com (2603:10b6:208:38e::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
- 2026 06:14:18 +0000
-Received: from IA1PR12MB9030.namprd12.prod.outlook.com
- ([fe80::2c1d:ed27:b53a:97d2]) by IA1PR12MB9030.namprd12.prod.outlook.com
- ([fe80::2c1d:ed27:b53a:97d2%7]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
- 06:14:18 +0000
-From: Manish Honap <mhonap@nvidia.com>
-To: Alex Williamson <alex@shazbot.org>
-CC: "jgg@ziepe.ca" <jgg@ziepe.ca>, Ankit Agrawal <ankita@nvidia.com>,
-	"jic23@kernel.org" <jic23@kernel.org>, "dave.jiang@intel.com"
-	<dave.jiang@intel.com>, "alejandro.lucero-palau@amd.com"
-	<alejandro.lucero-palau@amd.com>, Srirangan Madhavan <smadhavan@nvidia.com>,
-	"corbet@lwn.net" <corbet@lwn.net>, "skhan@linuxfoundation.org"
-	<skhan@linuxfoundation.org>, "dave@stgolabs.net" <dave@stgolabs.net>,
-	"alison.schofield@intel.com" <alison.schofield@intel.com>,
-	"vishal.l.verma@intel.com" <vishal.l.verma@intel.com>, "iweiny@kernel.org"
-	<iweiny@kernel.org>, "ming.li@zohomail.com" <ming.li@zohomail.com>, Yishai
- Hadas <yishaih@nvidia.com>, Shameer Kolothum Thodi <skolothumtho@nvidia.com>,
-	"kevin.tian@intel.com" <kevin.tian@intel.com>, "bhelgaas@google.com"
-	<bhelgaas@google.com>, "dmatlack@google.com" <dmatlack@google.com>,
-	"kees@kernel.org" <kees@kernel.org>, "gustavoars@kernel.org"
-	<gustavoars@kernel.org>, Neo Jia <cjia@nvidia.com>, Krishnakant Jaju
-	<kjaju@nvidia.com>, Vikram Sethi <vsethi@nvidia.com>, Zhi Wang
-	<zhiw@nvidia.com>, "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "linux-cxl@vger.kernel.org"
-	<linux-cxl@vger.kernel.org>, "linux-pci@vger.kernel.org"
-	<linux-pci@vger.kernel.org>, "linux-kselftest@vger.kernel.org"
-	<linux-kselftest@vger.kernel.org>, "linux-hardening@vger.kernel.org"
-	<linux-hardening@vger.kernel.org>, Manish Honap <mhonap@nvidia.com>
-Subject: RE: [PATCH v5 08/27] vfio/pci: Fall back to plain vfio-pci when CXL
- init fails
-Thread-Topic: [PATCH v5 08/27] vfio/pci: Fall back to plain vfio-pci when CXL
- init fails
-Thread-Index: AQHdRgp9P5ywQhYQc0Kem8vSBssNdrbZ5EQAgBrm4yA=
-Date: Fri, 9 Oct 2026 06:14:17 +0000
-Message-ID:
- <IA1PR12MB90305F4ACBFC2094CE3EE8FBBD922@IA1PR12MB9030.namprd12.prod.outlook.com>
-References: <20260916183540.3813685-1-mhonap@nvidia.com>
-	<20260916183540.3813685-9-mhonap@nvidia.com>
- <20260921201502.0ed59b5a@shazbot.org>
-In-Reply-To: <20260921201502.0ed59b5a@shazbot.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA1PR12MB9030:EE_|CH3PR12MB8912:EE_
-x-ms-office365-filtering-correlation-id: 92fbb7a1-df8b-48c1-373a-08df25cc8d0d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|6133799003|18002099003|22082099003|10067099003|38070700021|11063799006|4143699003|56012099006;
-x-microsoft-antispam-message-info:
- sFIS3cw6NMEbG0YFI0PuQkfao85LU0yHiXycW4rksSMJiAi+aysrJv0PmhuSu2HEP/NhWSvW/z8GTQN16LmTjPPsNrR7QPMv7nOwXiuUtL/lfme8B4PQfAjhf4S/l/2xZu6Ry8WYXnYp6SmwV+knr/bvIsbWZGk14S4Rfu3aAcwu3cTb9eCP3/Un1NQiGgQBzSS88/s9ew4YhlOxYWEPP8/r2LGlKvEsGxktTeuIc4krppGC30YN3XqUzdiFGfd+K4idb5KpMaMQJrKDgjWhcE/z2cRT6rjq9HBAJtI0MSX1OPF8DisvmhA4QdcsYyruy9lyVRAGUGBs3W7RNwiCq71Bt+YFlDb8ILjmi0h5vlVAwuUbEBvOSkyjS63sVwYxv2AC7UWYCQh1LiezSJ6ARyCeJy5msVxGCaqIG5Yqv3RiwTGMEQ+YTeerRiruXH4e8LmZVRQrxoy5dCe7kb9+m+tVWgu0u0TpfTloDJUo1PDDS9VxMaE6R0KR7OstUS8KklQt6152XL96KkbEEfeNd0sRR/Ykbe0ON5DsCLCbiVCZGHzk96RfCS2xCoYXqzfvHV+s6xzPnHfSaBhMdoSLCNss4UysMSA7gulz6NQ5xE/Xyfp9cfAUe3m40XBx5tauc7UKwbdbCHbf2vg2o7b2IG2mLVHweLx/avvtbGT6ifAMh0seTupxvDF/CuZTWRjkU21Y7GUVFuzq9n2sknjbSzT+h00dDC5eRC9NbycPZV4=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB9030.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(6133799003)(18002099003)(22082099003)(10067099003)(38070700021)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?WUpmf3DXw07DlDXc7vLKCfCi6vYFY5nC30sfl+Q+8/AppHeA0WaKCMQ+mja+?=
- =?us-ascii?Q?jVF9lIaZTIAZxuArXobsvpbGWoZH4cVctx2itD4EjtexLibvrLFt8YDb/ZSV?=
- =?us-ascii?Q?5wguhyndBxoLXTekKMbw0OL8p3SRTABnpJPOaqhAinYUI5IJ2BkSuGoCWrK7?=
- =?us-ascii?Q?uVwQLQF5XZN5sz57VRrb966sKz/13Se8lH28IpsygcfJmt6kPq6FPZevoF86?=
- =?us-ascii?Q?DV+aa0iG6oomJkfzj9/1XWSmxfNc/NS1Z5rFFjSTl9juRwe/Pk7/BRihl5lV?=
- =?us-ascii?Q?XHND1MpraORuYZCj5fRRKFOcuI7yaVydt7V+iX484ga15uj6TDdl49Hk+HZW?=
- =?us-ascii?Q?wC5NbeEOJM/J9dclOjwhrXoD+sclgHsRMpDm3mzNJ38G34kkWhk+lxaWAybe?=
- =?us-ascii?Q?iZTwPPzA8PkZnrLbPrQ7vnH46K7fC4eHFE6dTVDR+sz5M40/r5607RwgW6tn?=
- =?us-ascii?Q?Q3XBcwGnCQbeZw3BJeNmw40NicV4mCheKVuz5Qnjy+pU4okU1JnNsjWQlb8f?=
- =?us-ascii?Q?bKNEwPp4iIQqt2sH4it23Do+mbtkrEJFS4ibk0Mj5wsKqL2UucHBl+Xi4mgQ?=
- =?us-ascii?Q?miBeQyKc3MS+MXtvnkPQ4TuVRfvtzN+yOmEX7bUcpSsfpmAz+zPjoHCClyS4?=
- =?us-ascii?Q?U7EeaaxMIkn4MomXsuh1IhsvZY+lI51/qtFUHlBt/YvPYNde6oL+KUfZ1/tV?=
- =?us-ascii?Q?EWnLysLgmeXeunV7AkdEFlFWsjy2vjQtx6wcZSYcFbQZ1TGioBPnRoexpCSQ?=
- =?us-ascii?Q?b06M3hd5O1gz7HOmlw3GvzMlLwGHewUrrT5R9pBThfcpabghZwQqFTBKpp2X?=
- =?us-ascii?Q?w0yW725NPJP3bneGPRX9PA1fbFCwgiE84rD9SjighGPqG11DdtTQQV/6z+Lo?=
- =?us-ascii?Q?++wG2K2aD/ZwXyEpBRpCmRpDW4fWOumT7n1LgTLobMI2Lqtx2uNc1qC6Dxbi?=
- =?us-ascii?Q?cSk7Z84hdg+eEuuiI+0t9AFet6pIzcJN4KAfBpPsUvfm6OLhWD7zUVk07yyO?=
- =?us-ascii?Q?WAaaohXR2bSnpcWZwdKMSfxuWs0f+XMLVCRpCK9UfCJLwvX4bbpfjx9MXsah?=
- =?us-ascii?Q?HlSGJCsORwQJKn5EfSGqmmce1BZX/dYwD8LH9rZgKLpSi3MPDYuc0lozy/tB?=
- =?us-ascii?Q?FhfVtxE/5gTAsGrdJ4pBVisbVYdbbGawDYPOcRzyAqVtiDeudkvoIKNSaSz4?=
- =?us-ascii?Q?i/9Hfua1EHTyfgYDv1RFDa9nmBMGNLJJldVKmEJ4tqhMvF7sqJ7IIaZKVGSS?=
- =?us-ascii?Q?C9rOtvuPqLPnuscIWDzUyfRjAR+p5kTpL8ml/b09UYnpyImHkks3dPUVWbPj?=
- =?us-ascii?Q?9ZLZlcD5CMTxotQoL8X4ONbgRjctQMpThzUOL74NTrLToBgpzi9ZD2n2nS79?=
- =?us-ascii?Q?P7XJcooB6OIRE1kIZX5QC3wHX479yOfw7aFjHedusYQlyC/MII+bm0aE/D8x?=
- =?us-ascii?Q?skuhMXPAIE+M467zNBEVFS1iwa6n6rZRs/Lg27dHF35PeeuHWyNWopSngJP+?=
- =?us-ascii?Q?w9CTCqduscrNnbt+/HN2V7RLJyv9+0pCqVVlyOqwZWzsr1H2HBADZdfqtGpV?=
- =?us-ascii?Q?R0XBl2hVyKJUpyUm8WtsXDFNm8yhL/W2sdSlSlYdq2/u8nwqj3FDp2UPgu9w?=
- =?us-ascii?Q?GyPZdY+DVqGfmg9c8lBNWu+VklcHxTaOPjysFBKg/qdtAzwVoIgFGIC2EuaT?=
- =?us-ascii?Q?5wRNHElaMde1gZuo6b3D1mce5N3tz17zqDKclKcJsoeGthxB?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Fri, 9 Oct
+ 2026 06:14:21 +0000
+Received: from SJ1PEPF00002312.namprd03.prod.outlook.com
+ (2603:10b6:a03:338:cafe::32) by SJ0PR03CA0172.outlook.office365.com
+ (2603:10b6:a03:338::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Fri, 9
+ Oct 2026 06:14:21 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF00002312.mail.protection.outlook.com (10.167.242.166) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 9 Oct 2026 06:14:21 +0000
+Received: from dcsm-trdripper1.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 9 Oct
+ 2026 01:14:11 -0500
+From: Muralidhara M K <muralidhara.mk@amd.com>
+To: <ilpo.jarvinen@linux.intel.com>
+CC: <platform-driver-x86@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	Muralidhara M K <muralidhara.mk@amd.com>, Mario Limonciello
+	<superm1@kernel.org>
+Subject: [PATCH v8 3/4] platform/x86/amd/hsmp: Route metric table through the client messages
+Date: Fri, 9 Oct 2026 11:43:55 +0530
+Message-ID: <20261009061356.3234513-4-muralidhara.mk@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261009061356.3234513-1-muralidhara.mk@amd.com>
+References: <20261009061356.3234513-1-muralidhara.mk@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB9030.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 92fbb7a1-df8b-48c1-373a-08df25cc8d0d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Oct 2026 06:14:17.9742
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002312:EE_|BL3PR12MB6571:EE_
+X-MS-Office365-Filtering-Correlation-Id: 89c6a3c9-b3a3-41f3-2e47-08df25cc8efa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|36860700016|82310400026|23010399003|56012099006|11063799006|10067099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	1yW4rlCUQP3cARDE/z/iv6FZOX3Ru3ce3bqZHQbkZywbzZJniHpweWJAFNAVRkT62jgKuKXcWz6cOOaeHDQD5bqsuJIy2ys3EbOs6ie00HvmWIz8opxCUg/fO/tOAJ1ct/P5gbjeWWWWVB2uXyNz/zM9sJ4QJS7XplUj39FLyV8xzZMaWeZHGzWzKmB/6lGS+dosAORaWMexO6SEIuPWS3JYv6MA81CFAseXs49Q48zXKpjAOQtzOl39aS9bMW5sVSU2ShzncTBNBTy6M1Um4sW3UqR2mNsmBYZ7p3Qmct/SlI38844tT/P7sI2feqVTARrMPiInlaiBO8DS5Byo5Y1LZa2D21jqgG/IsDSI6udbuUd1qi2GJM0Kubc1wmaNYSAeGgf+ayW/fohRZTsjOrdUVNQ7vVsay/LpT4EKLgK0amqUTPkufGP4OZXq/sQ9SJ9WUWhtZOQoimxmqRRfzf1ItCev1mVBELXXEKSD6475HshYrKrJK++1AvyM1LSuGdPEZeGLCOuT83MWXgymK7wgeK5LNzYRusrAW5T6Ceqmt2Z3FXVOXbNYLHxtwE0SjSW/LrcF1DG0WM3l9WPL1pnUmgACb3a5gHsVWspFnBLhLjbLXVqSPU9T5AmDVtzxEtWGdmvJ1y1+1dpnaFnDgZ3H80MiWqXq/HkxOlacdd9ZldEEInGCyK1CXXzMfs0IFxJkFBPA52qmQ/cKqm3wrw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700016)(82310400026)(23010399003)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	NcPqEEAxPga1hPM2P5OoUA7UleYOZYXjpldmV00XuZqSTOx1qN8pVorSa+RGhVZXM7+r4mGZfP128VyyKhnWSYFTR9SLcu3b0O1rhK65ixwMYYzAAxvXji18CGAQvgaW0nSi9aGh5XYUl5BiyIQNvU9HRpJwJCce3Ia63ilw6bn0sPgqTb4E4Z32fCB5LMci+cfVe5qTRCynbyJTGkzuVLT6FLTiOLFpFWRkOXoqDWuMxot5IE4NPORc9CVHtkPFBrwJvQUgBwGHRum39m6r1nF5/G9h/XbL85cqUgZMP5pvbUN/eqG9KcLXNABtX+lVypuQvuvrn7+mzPwMY5KLZCcZRYImCyUBAXytJb+VNCvC8LsObW6HWxuODT7ifcKkNyp8ieZK6NN699Urcq2ho1ibbOwEVU5laUS/I+aNWHQEBSdbxaRecGEdlGgi9yqF
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 06:14:21.0938
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Oh0PwRJ8eOZzunQqQJm1/BoaSMJnAYeTLfA1gKO9jaxo5fex8sfZa3Hca3Ek1ZQB3Gv55ueYs43BEXhbSvbjyQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8912
+X-MS-Exchange-CrossTenant-Network-Message-Id: 89c6a3c9-b3a3-41f3-2e47-08df25cc8efa
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF00002312.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6571
 
+Wire the client metric table and metric table DRAM address messages
+into the metric table read path for the Family 1Ah client platforms,
+and fetch the DRAM base for them during ACPI probe, lifting the
+defensive client exclusion placed on that call several commits ago.
 
-> -----Original Message-----
-> From: Alex Williamson <alex@shazbot.org>
-> Sent: Tuesday, September 22, 2026 7:45 AM
-> To: Manish Honap <mhonap@nvidia.com>
-> Cc: jgg@ziepe.ca; Ankit Agrawal <ankita@nvidia.com>; jic23@kernel.org;
-> dave.jiang@intel.com; alejandro.lucero-palau@amd.com; Srirangan
-> Madhavan <smadhavan@nvidia.com>; corbet@lwn.net;
-> skhan@linuxfoundation.org; dave@stgolabs.net; alison.schofield@intel.com;
-> vishal.l.verma@intel.com; iweiny@kernel.org; ming.li@zohomail.com; Yishai
-> Hadas <yishaih@nvidia.com>; Shameer Kolothum Thodi
-> <skolothumtho@nvidia.com>; kevin.tian@intel.com; bhelgaas@google.com;
-> dmatlack@google.com; kees@kernel.org; gustavoars@kernel.org; Neo Jia
-> <cjia@nvidia.com>; Krishnakant Jaju <kjaju@nvidia.com>; Vikram Sethi
-> <vsethi@nvidia.com>; Zhi Wang <zhiw@nvidia.com>; linux-
-> doc@vger.kernel.org; linux-kernel@vger.kernel.org; kvm@vger.kernel.org;
-> linux-cxl@vger.kernel.org; linux-pci@vger.kernel.org; linux-
-> kselftest@vger.kernel.org; linux-hardening@vger.kernel.org; alex@shazbot.=
-org
-> Subject: Re: [PATCH v5 08/27] vfio/pci: Fall back to plain vfio-pci when =
-CXL init
-> fails
->=20
-> External email: Use caution opening links or attachments
->=20
->=20
-> On Thu, 17 Sep 2026 00:05:21 +0530
-> <mhonap@nvidia.com> wrote:
->=20
-> > From: Manish Honap <mhonap@nvidia.com>
-> >
-> > A CXL Type-2 device is also a valid plain vfio-pci device. If the
-> > vfio-cxl provider cannot bring it up as Type-2, failing the bind would
-> > regress a device that previously worked as plain vfio-pci.
-> >
-> > Make a non-deferred CXL init failure non-fatal: log it, drop the
-> > provider reference, leave cxl_ops NULL, and continue driving the
-> > device as plain vfio-pci. The -EPROBE_DEFER path added earlier still
-> > retries rather than falling back.
-> >
-> > Assisted-by: LLM
-> > Signed-off-by: Manish Honap <mhonap@nvidia.com>
-> > ---
-> >  drivers/vfio/pci/vfio_pci_core.c | 10 +++++++++-
-> >  1 file changed, 9 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/vfio/pci/vfio_pci_core.c
-> > b/drivers/vfio/pci/vfio_pci_core.c
-> > index a63a4f5228b8..9a75c30b67e2 100644
-> > --- a/drivers/vfio/pci/vfio_pci_core.c
-> > +++ b/drivers/vfio/pci/vfio_pci_core.c
-> > @@ -2271,9 +2271,17 @@ static int vfio_pci_core_cxl_init(struct
-> vfio_pci_core_device *vdev)
-> >               vfio_pci_put_cxl_ops(ops);
-> >               return ret;
-> >       }
-> > +     /*
-> > +      * Any other failure is non-fatal: a CXL device that cannot be br=
-ought
-> > +      * up as Type-2 still works as plain vfio-pci, so log and continu=
-e
-> > +      * rather than failing the bind.
-> > +      */
-> >       if (ret) {
-> > +             pci_warn(vdev->pdev,
-> > +                      "CXL init failed (%d), continuing as plain vfio-=
-pci\n",
-> > +                      ret);
-> >               vfio_pci_put_cxl_ops(ops);
-> > -             return ret;
-> > +             return 0;
-> >       }
-> >
-> >       vdev->cxl_ops =3D ops;
->=20
-> Why isn't this the initial implementation in patch 6?  I don't fully unde=
-rstand
-> why patches 7 and 8 are circling back to modify the broken behavior
-> established in patch 6 rather than resolving it in the patch where it was
-> introduced.
->=20
-> Perhaps rephrasing the message, "... continuing without CXL support".  "p=
-lain
-> vfio-pci" doesn't mean anything to a user that only knows to use vfio-pci=
-.
-> Thanks,
->=20
+Add metric_tbl_msg and metric_dram_msg to struct hsmp_plat_desc, and
+have hsmp_metric_tbl_read_locked() and hsmp_get_tbl_dram_base() take
+the message ID from there instead of a shared constant, since the
+client set numbers these messages differently from the server set
+(05h/06h vs 24h/25h). Have hsmp_get_tbl_dram_base() take response_sz
+from hsmp_msg_response_sz() too, since the client set has no
+descriptor table to take it from directly.
 
-Agreed. Sorry for this churn; In v6 I will fold 07 and 08 into 06, so the p=
-rovider
-hookup lands with its final error handling: -EPROBE_DEFER from the
-provider defers the bind, and any other init error leaves the device
-bound without the CXL extensions.
+Add enum ryzen_master_proto_versions, and replace the single
+!is_client_platform() exclusion guarding the hsmp_get_tbl_dram_base()
+call in init_acpi() with a RYZEN_MASTER_PROTO_VER1 clause for client
+platforms alongside the existing HSMP_PROTO_VER6 clause for server.
+proto_ver holds the Ryzen Master interface version on client
+platforms, a separate numbering space from enum hsmp_proto_versions;
+gating the two platforms on their own version enum avoids relying on
+numeric coincidence between the two, and lets a client interface
+version bump be reasoned about independently of the server protocol
+version.
 
-I will also update the error message to mention "continuing without CXL sup=
-port"
-and remove any references to "plain vfio-pci".
+Signed-off-by: Muralidhara M K <muralidhara.mk@amd.com>
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+---
+ arch/x86/include/uapi/asm/amd_hsmp.h |  9 +++++++++
+ drivers/platform/x86/amd/hsmp/acpi.c | 11 +++++++++--
+ drivers/platform/x86/amd/hsmp/hsmp.c | 14 ++++++++++----
+ 3 files changed, 28 insertions(+), 6 deletions(-)
 
-> Alex
+diff --git a/arch/x86/include/uapi/asm/amd_hsmp.h b/arch/x86/include/uapi/asm/amd_hsmp.h
+index 7274cf040a66..b4f64b2407b6 100644
+--- a/arch/x86/include/uapi/asm/amd_hsmp.h
++++ b/arch/x86/include/uapi/asm/amd_hsmp.h
+@@ -106,6 +106,15 @@ enum hsmp_proto_versions {
+ 	HSMP_PROTO_VER7
+ };
+ 
++/*
++ * Ryzen Master SMC interface version, reported by
++ * HSMP_CLIENT_GET_INTERFACE_VER. Separate numbering space from enum
++ * hsmp_proto_versions, which applies to the server set only.
++ */
++enum ryzen_master_proto_versions {
++	RYZEN_MASTER_PROTO_VER1 = 1,
++};
++
+ struct hsmp_msg_desc {
+ 	int num_args;
+ 	int response_sz;
+diff --git a/drivers/platform/x86/amd/hsmp/acpi.c b/drivers/platform/x86/amd/hsmp/acpi.c
+index 1e5028aea54b..167c76c13ad0 100644
+--- a/drivers/platform/x86/amd/hsmp/acpi.c
++++ b/drivers/platform/x86/amd/hsmp/acpi.c
+@@ -567,8 +567,15 @@ static int init_acpi(struct device *dev)
+ 		return ret;
+ 	}
+ 
+-	/* Exclude client platforms from the metric table DRAM base lookup */
+-	if (!is_client_platform() && hsmp_pdev->proto_ver >= HSMP_PROTO_VER6) {
++	/*
++	 * proto_ver holds the Ryzen Master interface version on client
++	 * platforms, a separate numbering space from enum
++	 * hsmp_proto_versions; gate the two platforms on their own
++	 * version enum rather than relying on numeric coincidence
++	 * between the two.
++	 */
++	if ((is_client_platform() && hsmp_pdev->proto_ver >= RYZEN_MASTER_PROTO_VER1) ||
++	    (!is_client_platform() && hsmp_pdev->proto_ver >= HSMP_PROTO_VER6)) {
+ 		ret = hsmp_get_tbl_dram_base(sock_ind);
+ 		if (ret)
+ 			dev_info(dev, "Failed to init metric table\n");
+diff --git a/drivers/platform/x86/amd/hsmp/hsmp.c b/drivers/platform/x86/amd/hsmp/hsmp.c
+index 87765116952a..84022a7f47a5 100644
+--- a/drivers/platform/x86/amd/hsmp/hsmp.c
++++ b/drivers/platform/x86/amd/hsmp/hsmp.c
+@@ -57,6 +57,8 @@ struct hsmp_plat_desc {
+ 	u32				num_msgs;
+ 	u32				test_msg;
+ 	u32				proto_ver_msg;
++	u32				metric_tbl_msg;
++	u32				metric_dram_msg;
+ };
+ 
+ static const struct hsmp_plat_desc hsmp_desc_server = {
+@@ -64,6 +66,8 @@ static const struct hsmp_plat_desc hsmp_desc_server = {
+ 	.num_msgs		= HSMP_MSG_ID_MAX,
+ 	.test_msg		= HSMP_TEST,
+ 	.proto_ver_msg		= HSMP_GET_PROTO_VER,
++	.metric_tbl_msg		= HSMP_GET_METRIC_TABLE,
++	.metric_dram_msg	= HSMP_GET_METRIC_TABLE_DRAM_ADDR,
+ };
+ 
+ /*
+@@ -77,6 +81,8 @@ static const struct hsmp_plat_desc hsmp_desc_client = {
+ 	.num_msgs		= HSMP_CLIENT_MSG_ID_MAX,
+ 	.test_msg		= HSMP_CLIENT_TEST,
+ 	.proto_ver_msg		= HSMP_CLIENT_GET_INTERFACE_VER,
++	.metric_tbl_msg		= HSMP_CLIENT_GET_METRICS_TABLE,
++	.metric_dram_msg	= HSMP_CLIENT_GET_METRICS_TABLE_DRAM_ADDR,
+ };
+ 
+ static struct hsmp_plat_device hsmp_pdev;
+@@ -681,11 +687,11 @@ static ssize_t hsmp_metric_tbl_read_locked(struct hsmp_socket *sock, char *buf,
+ 		return -EINVAL;
+ 	}
+ 
+-	msg.msg_id	= HSMP_GET_METRIC_TABLE;
++	msg.msg_id	= hsmp_desc()->metric_tbl_msg;
+ 	msg.sock_ind	= sock->sock_ind;
+ 
+ 	/*
+-	 * HSMP_GET_METRIC_TABLE makes firmware refill this socket's shared
++	 * The metric table message makes firmware refill this socket's shared
+ 	 * metric DRAM region, which is then copied out below.  Hold the
+ 	 * per-socket lock across the fill-and-copy so concurrent readers of the
+ 	 * same socket cannot return a torn snapshot.
+@@ -751,8 +757,8 @@ int hsmp_get_tbl_dram_base(u16 sock_ind)
+ 	int ret;
+ 
+ 	msg.sock_ind	= sock_ind;
+-	msg.response_sz	= hsmp_msg_desc_table[HSMP_GET_METRIC_TABLE_DRAM_ADDR].response_sz;
+-	msg.msg_id	= HSMP_GET_METRIC_TABLE_DRAM_ADDR;
++	msg.msg_id	= hsmp_desc()->metric_dram_msg;
++	msg.response_sz	= hsmp_msg_response_sz(msg.msg_id);
+ 
+ 	ret = hsmp_send_message_locked(&msg);
+ 	if (ret)
+-- 
+2.34.1
+
