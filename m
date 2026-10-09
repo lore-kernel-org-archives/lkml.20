@@ -1,515 +1,153 @@
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6FDF33438F
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 17:06:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 114FD382F1A;
+	Fri,  9 Oct 2026 17:08:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791565616; cv=none; b=h5GX2N7U/CsB0wEB0ouqNYwxrmrixUWEff7e8txey//oUvE8OtM0kRcB3irlkzPZuxcOjt3CLUcwQPJfvgx0T7trcMZ5TfLuEgpfKfZtFNJdLB6bp2EgsBGRWvLouR0GGXOGWS/ZuIyF22pFTYIA3ayoxKpqO/8aOusvj4JnhNY=
+	t=1791565705; cv=none; b=DRZKHSyd5phLCP33eGXJKCb+TgQM6K1UeKrS3iS2BRi/a2unzj+8AxEapFCg2aV8lvU+CtfV1f5jMWpFl9Ckijcis1HQo0xnDVpERUHlFcqqR6J89Z63BvIXP3fUISm5LcSKc7d+MKeeJFLbn1cX8JatbneJCfWApSFofsYsRfk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791565616; c=relaxed/simple;
-	bh=iNLOmu2LmpKZwgdfiGlxqSDAP4fbyBaHVZy6CJ3/fSA=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=CniwA1qzv4upuFbYpMqV6sfwULynbGDTo5G6EpwHtUD0N9577BVkd5cvfFiV0aixTp8XrgN7EL3jDLxXu0QYb/A0gg81k6ivw6uQCDPDJ92vWHq5vffp7q/72ZzjTG7IO6BKFrab9L8aiFMsIsNO5tJyCu9LiJG2dQyPzdzFsHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=wnX85CP8; arc=none smtp.client-ip=74.125.82.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com
+	s=arc-20240116; t=1791565705; c=relaxed/simple;
+	bh=6YzTNOLTT1Te9JhJDtNggsuthcxl1b3q6N63kjISzg4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NdYNXTIpfHmn2oP9Gc7RmQkung+by11yK4ozVL06HOPVj+GIz9lgfA/wkzXYfoTGi02ntplb8Nsu3G7oAXekOIFj4IGfC97yt6Q01JZ5eksUqm6rXLWsH7uxGyF8BH9zy3aqPHV7RHnPadBpa+VSMKnn0/Sz65Ml7z1W4J7HYBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=obtGyV1j; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="wnX85CP8"
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3510d0baf63so14429879eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 10:06:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791565614; x=1792170414; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=k5KasiH5+KHZYBmSfRWkuCJtGiHL9IQdSlo5h/9ywTs=;
-        b=wnX85CP8H/pMPaOsNoXP0GTEvTN6hnMfpxYyYc1d9FtZZjT6qhnjJqUWSARyO835v3
-         IqT8whmo98BcdlAQby2PPACiAPXTv5asdr/l7fhWiJazc1LJgSq2yCz4FYHZZTv37nr7
-         /X5kU+m9GKAtbe1SYSj2KXl7l91zpneP9kQUZ4GFP3b8zP41KVR7OtL1bF+x5m+znyp/
-         ZoRR+k/9VBrWtXhpPZIT9zSGx6+2VeivgdK0860+/nfeRZKh9msyKStSwDcs8Uq0RKi/
-         SyjBvOtyA98AtTjhvNF5pI3shSiXaLqwuNtjqSGrgy+urBPo5kizfuKcvWViM5DfP6zF
-         n9mg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791565614; x=1792170414;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=k5KasiH5+KHZYBmSfRWkuCJtGiHL9IQdSlo5h/9ywTs=;
-        b=Ohy7o/KpIg4LQcAE3zAGkm3jPhWdMCb9vprZNC7RJlXv/hQgwC0ct+9hn4+K0R6XLQ
-         ZvlKdARSxq6j7TRky0/trma39+38Vk5+qDMOljCx9MSaWfq8vfXXywKflE+lZAPyjDlP
-         ziuZhBw4WcjA6PTu4b4Gj5PcP2J7nzan27UksWvGTgzn0B5gzeYKWUwCViwSuNLxHAoI
-         H7abkjGD2sg5Mj+Kolx6ufQZI7inPg7odjNZkzUYHnZacDSiIIK3P51+NN5ZGUGqyJNx
-         LI1SP+DzhJ6JEfbu0H5EWTy8tNbTTwZOF+UA2ASJK3o1p7Ppi9xwOp2pKtJJoQOdKrv7
-         iGRw==
-X-Forwarded-Encrypted: i=1; AKwUvBxBSoPhNos7rl7FiGUb0UL4gLIZV/i2Ix6lXlgD8r6ve07V6kFU5XphMCPwam6IEd6Esn3eU2NE9vi3a/4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLRHdzhJNt2gPg9j2QbeH/ae6CzQLpWtB4I6EX7n/r/hXXrG9OU
-	pbeHbOixhfYrgF+pF1L5qZbrIL1ZrkTwp6V9g7gZ18QoFtyeSLOMQSf7/yH4SDGfookpsnFffrr
-	4iTKgRTVhCXhtZw==
-X-Received: from dybmt5.prod.google.com ([2002:a05:7300:d585:b0:351:4806:4ae4])
- (user=cmllamas job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7301:4b0f:b0:350:4fc1:f22a with SMTP id 5a478bee46e88-3537e0ba5bfmr3349219eec.21.1791565613330;
- Fri, 09 Oct 2026 10:06:53 -0700 (PDT)
-Date: Fri,  9 Oct 2026 17:06:27 +0000
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="obtGyV1j"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 699H6xiv636456;
+	Fri, 9 Oct 2026 17:08:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=wXIsN+
+	s46Yidwn8rxJkjnKxRl2Vxbvm8hA0IJ2zcWRQ=; b=obtGyV1j76gcby9omZ9iv9
+	dBIYr4z+Yq91nzkFJpa3KnHQOD4hZOUJlBly0uggh/dZoQF0dkGzhdmwae6cMcIS
+	PAAFQVbe7yFLJ/c5ow+G8NTvR022CQCiqKdbvW+JoWeBbjuZsh236o09OS+uVrD8
+	xQYKNvqRFRDpoF/FJoG8M/k1BY18p/9nWgP2A4/YxbjwlcqMSfq47Loh642vmnLV
+	Y4tiwDyLiPbdP8cOZfvfrWiWEpmlJzA8y8601WH9FXOnhbPmpQIRq1+PZl9I5Tqp
+	S6VCsx+7xOdQSnDThORaTQnQZSQwq1ybokt2BsCgl0QzWNg5pvREYIeyRxMm6e2A
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h5xjvm0up-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 09 Oct 2026 17:08:19 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 699H8Fst1204260;
+	Fri, 9 Oct 2026 17:08:19 GMT
+Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h6x1y9egx-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 09 Oct 2026 17:08:19 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com [10.39.53.232])
+	by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 699H8IT824904234
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 9 Oct 2026 17:08:18 GMT
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 47CF35805D;
+	Fri,  9 Oct 2026 17:08:18 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1B61158043;
+	Fri,  9 Oct 2026 17:08:17 +0000 (GMT)
+Received: from [9.61.241.153] (unknown [9.61.241.153])
+	by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Fri,  9 Oct 2026 17:08:16 +0000 (GMT)
+Message-ID: <7ed02ff5-d7f8-42e4-bca9-b3d3ce7b6795@linux.ibm.com>
+Date: Fri, 9 Oct 2026 10:08:15 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261009170627.3075594-1-cmllamas@google.com>
-Subject: [PATCH] rust_binder: add state_hashed and transactions_hashed files
-From: Carlos Llamas <cmllamas@google.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Alice Ryhl <aliceryhl@google.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	"=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	"=?UTF-8?q?Onur=20=C3=96zkan?=" <work@onurozkan.dev>, kernel-team@android.com, linux-kernel@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org, Carlos Llamas <cmllamas@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] PCI/PM: Do not save the config space of an
+ inaccessible device
+To: Bjorn Helgaas <helgaas@kernel.org>,
+        =?UTF-8?Q?Francisco_Beltr=C3=A1n_Millal=C3=A9n?= <fbeltranmillalen@gmail.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+        Alan Stern <stern@rowland.harvard.edu>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Lukas Wunner <lukas@wunner.de>,
+        Andreas Noever <andreas.noever@gmail.com>,
+        Mika Westerberg <westeri@kernel.org>,
+        Yehezkel Bernat <YehezkelShB@gmail.com>
+References: <20261008225825.GA936610@bhelgaas>
+Content-Language: en-US
+From: Farhan Ali <alifm@linux.ibm.com>
+In-Reply-To: <20261008225825.GA936610@bhelgaas>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: 4ZH1ueigKIh6mBxxAAiJQcABL3lcmDGH
+X-Proofpoint-ORIG-GUID: U-Ctq-YPjyfDCPUwRMooOgyuISM7Qvli
+X-Authority-Analysis: v=2.4 cv=H8NOUOYi c=1 sm=1 tr=0 ts=6ac91f84 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=522apck9F_D-Mxne:21 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22
+ a=VwQbUJbxAAAA:8 a=K2jGQ8kdn3RRRsgUj50A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA2OCBTYWx0ZWRfX+zU5PmotcETz
+ z52aRkY5DLV5YppuNg6KpH9GpeZFH2wh29oMmHpRlRWH3jdl30aQQW1X+n4sSLzDvxaJs8Hd/q3
+ w5GiEcK+RRGAZcl9QLDgGOv1GXMOl7XRSNvHZGX3jSnyGHrhds6Gg5w7rgd1OyPMWodvb8Locr4
+ sGLJ4XLpMYw72Z8KdKKTnJ5gyNn9835ZLo6AUkX5p3sgXC6kjOFaG0SL1uN7Nc9IvXe2euujppy
+ ZiVC0BjbhgcDgsPM7XOljXOEEKK5tmWceg+7uKvGOkX6G6Mik0AIzXPbkjctTNK8VBeucOR0JTC
+ x4K79P3M/QIGXcuNgCNl6vxUMoVJ8e9I1xpQGDeGAsY2BJMjRbOhjah9JdObNfKKVkHtu+ysaHR
+ aq3VoEla3Zras3BqFXLeFJQj7XqF8T5mpHv2Pgdg2YD5O5XF6ZF+dNdX7GpEi+dhE7UmCsLSJv0
+ CnEz69s1Ff9QYGNBGRA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA2OCBTYWx0ZWRfXysn1JeKRxtgv
+ 7b1m6IBE5yqSjuuT+hICG6HDN25qvDx1Y0X/R9H0yAEvflwZqODjcs5WAcoxK8oCpADMbQZosSI
+ KyNli6v9xIUWeXHrbDCBae3XbnwS64A=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-09_05,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
+ clxscore=1011 spamscore=0 priorityscore=1501 malwarescore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090068
 
-The 'state' and 'transactions' binderfs files print the userspace ptr
-and cookie of each node as raw values, which leaks the userspace memory
-layout and forces access to these files to be heavily restricted. Add
-hashed versions of these files, as done for the C driver in commit
-57483a362741 ("binder: Create safe versions of binder log files"), so
-that access to them can be granted more broadly.
+Hi Bjorn,
 
-Pass a 'hashed' flag down the debug_print() chain and print the ptr and
-cookie through a new MaybeHashed helper, which either prints the raw
-value or hashes it like {:p} does. Everything else in the files remains
-unchanged:
+Thanks for cc'ing me.
 
-  $ grep "node 2:" /dev/binderfs/binder_logs/state*
-  state:        node 2: u000000003cf2c740 c0000000000000000 hs true ...
-  state_hashed: node 2: u00000000abab9b6d c0000000000000000 hs true ...
+On 10/8/2026 3:58 PM, Bjorn Helgaas wrote:
+> [+cc Lukas, Farhan, Andreas, Mika, Yehezkel]
+>
+> On Wed, Sep 30, 2026 at 11:19:13AM -0300, Francisco Beltrán Millalén wrote:
+>> pci_save_state() reads the standard header into dev->saved_config_space
+>> and marks it valid without checking that the device answered.  If the
+>> device is not accessible, every read returns all ones, the previous
+>> snapshot is overwritten, and pci_restore_state() writes the all-ones
+>> values back once the device answers again.  On a bridge that sets every
+>> writable bit of the Bridge Control register, Secondary Bus Reset
+>> included, and sets the primary, secondary and subordinate bus numbers
+>> to 0xff, which cuts off everything below it.
+>>
+>> On a MacBookPro14,3 this happens to the upstream bridge of a
+>> Thunderbolt controller that drops off the bus while the system is
+>> suspending: after resume the bridge answers again, but with bus numbers
+>> ff/ff/ff and Secondary Bus Reset asserted, and the xHCI controllers
+>> behind it are removed.
+> Apparently this is a reproducible issue on MacBookPro14,3.  That makes
+> me a little hesitant because we're not actually dealing with the fact
+> that the Thunderbolt controller isn't responsive during suspend.
+>
+> It seems worthwhile to me to skip pci_save_state() if the device isn't
+> accessible, but I don't think it's a real solution to whatever is
+> going on with Thunderbolt, and I don't think we should mention it here
+> as though it is.
 
-Assisted-by: LLM
-Signed-off-by: Carlos Llamas <cmllamas@google.com>
----
+When I had initially looked into this, I had proposed adding the 
+accessibility check in pci_save_state() as well [1]. Though Lukas had 
+some valid concerns around the additional overhead from adding it in 
+pci_save_state(). But maybe its worth re-visiting again?
 
-Notes:
-  The output of the hashed values depends on this {:p} fix:
-  https://lore.kernel.org/all/20261006183857.396710-1-cmllamas@google.com/  
-  Without it, the patch still builds and works, but an odd "0x" prefix
-  is added to the hashed values, e.g. "u0x00000000abab9b6d".
+Thanks
 
- drivers/android/binder/freeze.rs              |  2 +-
- drivers/android/binder/node.rs                | 39 ++++++++++----
- drivers/android/binder/node/wrapper.rs        | 14 +++--
- drivers/android/binder/process.rs             | 14 +++--
- drivers/android/binder/rust_binder_internal.h |  2 +
- drivers/android/binder/rust_binder_main.rs    | 52 +++++++++++++++----
- drivers/android/binder/rust_binderfs.c        | 18 +++++++
- drivers/android/binder/thread.rs              | 11 ++--
- drivers/android/binder/transaction.rs         |  2 +-
- 9 files changed, 122 insertions(+), 32 deletions(-)
+Farhan
 
-diff --git a/drivers/android/binder/freeze.rs b/drivers/android/binder/freeze.rs
-index 38faa8c63af9..1d225c5c6a0b 100644
---- a/drivers/android/binder/freeze.rs
-+++ b/drivers/android/binder/freeze.rs
-@@ -153,7 +153,7 @@ fn should_sync_wakeup(&self) -> bool {
-     }
- 
-     #[inline(never)]
--    fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
-+    fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str, _hashed: bool) -> Result {
-         seq_print!(m, "{}has frozen binder\n", prefix);
-         Ok(())
-     }
-diff --git a/drivers/android/binder/node.rs b/drivers/android/binder/node.rs
-index b16ea0ff9ed9..1784d73dedc7 100644
---- a/drivers/android/binder/node.rs
-+++ b/drivers/android/binder/node.rs
-@@ -3,6 +3,7 @@
- // Copyright (C) 2025 Google LLC.
- 
- use kernel::{
-+    fmt,
-     list::{AtomicTracker, List, ListArc, ListLinks, TryNewListArc},
-     prelude::*,
-     seq_file::SeqFile,
-@@ -213,6 +214,21 @@ impl ListItem<0> for DTRWrap<Transaction> {
-     }
- }
- 
-+/// Formats the userspace `ptr` or `cookie` of a [`Node`] in full, or hashed like `%p` if the
-+/// flag is set, as done for the `*_hashed` binder_logs files.
-+struct MaybeHashed(u64, bool);
-+
-+impl fmt::Display for MaybeHashed {
-+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-+        let Self(value, hashed) = *self;
-+        if hashed {
-+            fmt::Pointer::fmt(&ptr::without_provenance::<()>(value as usize), f)
-+        } else {
-+            write!(f, "{value:016x}")
-+        }
-+    }
-+}
-+
- impl Node {
-     pub(crate) fn new(
-         ptr: u64,
-@@ -255,14 +271,19 @@ pub(crate) fn has_oneway_transaction(&self, owner_inner: &mut ProcessInner) -> b
-     }
- 
-     #[inline(never)]
--    pub(crate) fn full_debug_print(&self, m: &SeqFile, owner_inner: &mut ProcessInner) -> Result {
-+    pub(crate) fn full_debug_print(
-+        &self,
-+        m: &SeqFile,
-+        owner_inner: &mut ProcessInner,
-+        hashed: bool,
-+    ) -> Result {
-         let inner = self.inner.access_mut(owner_inner);
-         seq_print!(
-             m,
--            "  node {}: u{:016x} c{:016x} hs {} hw {} cs {} cw {}",
-+            "  node {}: u{} c{} hs {} hw {} cs {} cw {}",
-             self.debug_id,
--            self.ptr,
--            self.cookie,
-+            MaybeHashed(self.ptr, hashed),
-+            MaybeHashed(self.cookie, hashed),
-             inner.strong.has_count,
-             inner.weak.has_count,
-             inner.strong.count,
-@@ -755,14 +776,14 @@ fn should_sync_wakeup(&self) -> bool {
-     }
- 
-     #[inline(never)]
--    fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
-+    fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str, hashed: bool) -> Result {
-         seq_print!(
-             m,
--            "{}node work {}: u{:016x} c{:016x}\n",
-+            "{}node work {}: u{} c{}\n",
-             prefix,
-             self.debug_id,
--            self.ptr,
--            self.cookie,
-+            MaybeHashed(self.ptr, hashed),
-+            MaybeHashed(self.cookie, hashed),
-         );
-         Ok(())
-     }
-@@ -1150,7 +1171,7 @@ fn should_sync_wakeup(&self) -> bool {
-     }
- 
-     #[inline(never)]
--    fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
-+    fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str, _hashed: bool) -> Result {
-         let inner = self.inner.lock();
- 
-         let dead_binder = inner.dead && !inner.notification_done;
-diff --git a/drivers/android/binder/node/wrapper.rs b/drivers/android/binder/node/wrapper.rs
-index edfbccf6e6da..c861ac0e7660 100644
---- a/drivers/android/binder/node/wrapper.rs
-+++ b/drivers/android/binder/node/wrapper.rs
-@@ -4,7 +4,11 @@
- 
- use kernel::{list::ListArc, prelude::*, seq_file::SeqFile, seq_print, sync::UniqueArc};
- 
--use crate::{node::Node, thread::Thread, BinderReturnWriter, DArc, DLArc, DTRWrap, DeliverToRead};
-+use crate::{
-+    node::{MaybeHashed, Node},
-+    thread::Thread,
-+    BinderReturnWriter, DArc, DLArc, DTRWrap, DeliverToRead,
-+};
- 
- use core::mem::MaybeUninit;
- 
-@@ -94,14 +98,14 @@ fn should_sync_wakeup(&self) -> bool {
-     }
- 
-     #[inline(never)]
--    fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
-+    fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str, hashed: bool) -> Result {
-         seq_print!(
-             m,
--            "{}node work {}: u{:016x} c{:016x}\n",
-+            "{}node work {}: u{} c{}\n",
-             prefix,
-             self.node.debug_id,
--            self.node.ptr,
--            self.node.cookie,
-+            MaybeHashed(self.node.ptr, hashed),
-+            MaybeHashed(self.node.cookie, hashed),
-         );
-         Ok(())
-     }
-diff --git a/drivers/android/binder/process.rs b/drivers/android/binder/process.rs
-index 64960857bcdc..b19280d224e8 100644
---- a/drivers/android/binder/process.rs
-+++ b/drivers/android/binder/process.rs
-@@ -596,7 +596,13 @@ pub(crate) fn debug_print_stats(&self, m: &SeqFile, ctx: &Context) -> Result {
-     }
- 
-     #[inline(never)]
--    pub(crate) fn debug_print(&self, m: &SeqFile, ctx: &Context, print_all: bool) -> Result {
-+    pub(crate) fn debug_print(
-+        &self,
-+        m: &SeqFile,
-+        ctx: &Context,
-+        print_all: bool,
-+        hashed: bool,
-+    ) -> Result {
-         seq_print!(m, "proc {}\n", self.pid_in_current_ns());
-         seq_print!(m, "context {}\n", &*ctx.name);
- 
-@@ -628,13 +634,13 @@ pub(crate) fn debug_print(&self, m: &SeqFile, ctx: &Context, print_all: bool) ->
-         }
- 
-         for thread in all_threads {
--            thread.debug_print(m, print_all)?;
-+            thread.debug_print(m, print_all, hashed)?;
-         }
- 
-         let mut inner = self.inner.lock();
-         for node in all_nodes {
-             if print_all || node.has_oneway_transaction(&mut inner) {
--                node.full_debug_print(m, &mut inner)?;
-+                node.full_debug_print(m, &mut inner, hashed)?;
-             }
-         }
-         drop(inner);
-@@ -659,7 +665,7 @@ pub(crate) fn debug_print(&self, m: &SeqFile, ctx: &Context, print_all: bool) ->
- 
-         let inner = self.inner.lock();
-         for work in &inner.work {
--            work.debug_print(m, "  ", "  pending transaction ")?;
-+            work.debug_print(m, "  ", "  pending transaction ", hashed)?;
-         }
-         for _death in &inner.delivered_deaths {
-             seq_print!(m, "  has delivered dead binder\n");
-diff --git a/drivers/android/binder/rust_binder_internal.h b/drivers/android/binder/rust_binder_internal.h
-index 50a50df14c77..3c4f9a8330bf 100644
---- a/drivers/android/binder/rust_binder_internal.h
-+++ b/drivers/android/binder/rust_binder_internal.h
-@@ -43,7 +43,9 @@ struct binder_device {
- 
- int rust_binder_stats_show(struct seq_file *m, void *unused);
- int rust_binder_state_show(struct seq_file *m, void *unused);
-+int rust_binder_state_hashed_show(struct seq_file *m, void *unused);
- int rust_binder_transactions_show(struct seq_file *m, void *unused);
-+int rust_binder_transactions_hashed_show(struct seq_file *m, void *unused);
- int rust_binder_transaction_log_show(struct seq_file *m, void *unused);
- int rust_binder_proc_show(struct seq_file *m, void *pid);
- 
-diff --git a/drivers/android/binder/rust_binder_main.rs b/drivers/android/binder/rust_binder_main.rs
-index 56c786475237..9070c1c46a5f 100644
---- a/drivers/android/binder/rust_binder_main.rs
-+++ b/drivers/android/binder/rust_binder_main.rs
-@@ -163,7 +163,9 @@ fn do_work(
-     /// Generally only set to true for non-oneway transactions.
-     fn should_sync_wakeup(&self) -> bool;
- 
--    fn debug_print(&self, m: &SeqFile, prefix: &str, transaction_prefix: &str) -> Result;
-+    /// Prints this work item for the binder_logs files, hashing userspace pointers like `%p` when
-+    /// `hashed` is set.
-+    fn debug_print(&self, m: &SeqFile, prefix: &str, tprefix: &str, hashed: bool) -> Result;
- }
- 
- // Wrapper around a `DeliverToRead` with linked list links.
-@@ -279,7 +281,7 @@ fn should_sync_wakeup(&self) -> bool {
-         false
-     }
- 
--    fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
-+    fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str, _hashed: bool) -> Result {
-         seq_print!(m, "{}", prefix);
-         if self.skip.load(Relaxed) {
-             seq_print!(m, "(skipped) ");
-@@ -513,7 +515,23 @@ unsafe impl<T> Sync for AssertSync<T> {}
-     // SAFETY: The caller ensures that the pointer is valid and exclusive for the duration in which
-     // this method is called.
-     let m = unsafe { SeqFile::from_raw(ptr) };
--    if let Err(err) = rust_binder_state_show_impl(m) {
-+    if let Err(err) = rust_binder_state_show_impl(m, false) {
-+        seq_print!(m, "failed to generate state: {:?}\n", err);
-+    }
-+    0
-+}
-+
-+/// # Safety
-+/// Only called by binderfs.
-+#[no_mangle]
-+unsafe extern "C" fn rust_binder_state_hashed_show(
-+    ptr: *mut seq_file,
-+    _: *mut kernel::ffi::c_void,
-+) -> kernel::ffi::c_int {
-+    // SAFETY: The caller ensures that the pointer is valid and exclusive for the duration in which
-+    // this method is called.
-+    let m = unsafe { SeqFile::from_raw(ptr) };
-+    if let Err(err) = rust_binder_state_show_impl(m, true) {
-         seq_print!(m, "failed to generate state: {:?}\n", err);
-     }
-     0
-@@ -547,7 +565,23 @@ unsafe impl<T> Sync for AssertSync<T> {}
-     // SAFETY: The caller ensures that the pointer is valid and exclusive for the duration in which
-     // this method is called.
-     let m = unsafe { SeqFile::from_raw(ptr) };
--    if let Err(err) = rust_binder_transactions_show_impl(m) {
-+    if let Err(err) = rust_binder_transactions_show_impl(m, false) {
-+        seq_print!(m, "failed to generate state: {:?}\n", err);
-+    }
-+    0
-+}
-+
-+/// # Safety
-+/// Only called by binderfs.
-+#[no_mangle]
-+unsafe extern "C" fn rust_binder_transactions_hashed_show(
-+    ptr: *mut seq_file,
-+    _: *mut kernel::ffi::c_void,
-+) -> kernel::ffi::c_int {
-+    // SAFETY: The caller ensures that the pointer is valid and exclusive for the duration in which
-+    // this method is called.
-+    let m = unsafe { SeqFile::from_raw(ptr) };
-+    if let Err(err) = rust_binder_transactions_show_impl(m, true) {
-         seq_print!(m, "failed to generate state: {:?}\n", err);
-     }
-     0
-@@ -574,13 +608,13 @@ unsafe impl<T> Sync for AssertSync<T> {}
-     0
- }
- 
--fn rust_binder_transactions_show_impl(m: &SeqFile) -> Result {
-+fn rust_binder_transactions_show_impl(m: &SeqFile, hashed: bool) -> Result {
-     seq_print!(m, "binder transactions:\n");
-     let contexts = context::get_all_contexts()?;
-     for ctx in contexts {
-         let procs = ctx.get_all_procs()?;
-         for proc in procs {
--            proc.debug_print(m, &ctx, false)?;
-+            proc.debug_print(m, &ctx, false, hashed)?;
-             seq_print!(m, "\n");
-         }
-     }
-@@ -601,13 +635,13 @@ fn rust_binder_stats_show_impl(m: &SeqFile) -> Result {
-     Ok(())
- }
- 
--fn rust_binder_state_show_impl(m: &SeqFile) -> Result {
-+fn rust_binder_state_show_impl(m: &SeqFile, hashed: bool) -> Result {
-     seq_print!(m, "binder state:\n");
-     let contexts = context::get_all_contexts()?;
-     for ctx in contexts {
-         let procs = ctx.get_all_procs()?;
-         for proc in procs {
--            proc.debug_print(m, &ctx, true)?;
-+            proc.debug_print(m, &ctx, true, hashed)?;
-             seq_print!(m, "\n");
-         }
-     }
-@@ -620,7 +654,7 @@ fn rust_binder_proc_show_impl(m: &SeqFile, pid: Pid) -> Result {
-     for ctx in contexts {
-         let procs = ctx.get_procs_with_pid(pid)?;
-         for proc in procs {
--            proc.debug_print(m, &ctx, true)?;
-+            proc.debug_print(m, &ctx, true, false)?;
-             seq_print!(m, "\n");
-         }
-     }
-diff --git a/drivers/android/binder/rust_binderfs.c b/drivers/android/binder/rust_binderfs.c
-index 25dc54ab45e9..4defc8fa51ee 100644
---- a/drivers/android/binder/rust_binderfs.c
-+++ b/drivers/android/binder/rust_binderfs.c
-@@ -45,7 +45,9 @@
- 
- DEFINE_SHOW_ATTRIBUTE(rust_binder_stats);
- DEFINE_SHOW_ATTRIBUTE(rust_binder_state);
-+DEFINE_SHOW_ATTRIBUTE(rust_binder_state_hashed);
- DEFINE_SHOW_ATTRIBUTE(rust_binder_transactions);
-+DEFINE_SHOW_ATTRIBUTE(rust_binder_transactions_hashed);
- DEFINE_SHOW_ATTRIBUTE(rust_binder_transaction_log);
- DEFINE_SHOW_ATTRIBUTE(rust_binder_proc);
- 
-@@ -605,6 +607,13 @@ static int init_binder_logs(struct super_block *sb)
- 		goto out;
- 	}
- 
-+	dentry = rust_binderfs_create_file(binder_logs_root_dir, "state_hashed",
-+				      &rust_binder_state_hashed_fops, NULL);
-+	if (IS_ERR(dentry)) {
-+		ret = PTR_ERR(dentry);
-+		goto out;
-+	}
-+
- 	dentry = rust_binderfs_create_file(binder_logs_root_dir, "transactions",
- 				      &rust_binder_transactions_fops, NULL);
- 	if (IS_ERR(dentry)) {
-@@ -612,6 +621,15 @@ static int init_binder_logs(struct super_block *sb)
- 		goto out;
- 	}
- 
-+	dentry = rust_binderfs_create_file(binder_logs_root_dir,
-+				      "transactions_hashed",
-+				      &rust_binder_transactions_hashed_fops,
-+				      NULL);
-+	if (IS_ERR(dentry)) {
-+		ret = PTR_ERR(dentry);
-+		goto out;
-+	}
-+
- 	dentry = rust_binderfs_create_file(binder_logs_root_dir,
- 				      "transaction_log",
- 				      &rust_binder_transaction_log_fops,
-diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
-index e5ae3b0e56c5..5da1c4513fc7 100644
---- a/drivers/android/binder/thread.rs
-+++ b/drivers/android/binder/thread.rs
-@@ -482,7 +482,12 @@ pub(crate) fn new(id: i32, process: Arc<Process>) -> Result<Arc<Self>> {
-     }
- 
-     #[inline(never)]
--    pub(crate) fn debug_print(self: &Arc<Self>, m: &SeqFile, print_all: bool) -> Result {
-+    pub(crate) fn debug_print(
-+        self: &Arc<Self>,
-+        m: &SeqFile,
-+        print_all: bool,
-+        hashed: bool,
-+    ) -> Result {
-         let inner = self.inner.lock();
- 
-         if print_all || inner.current_transaction.is_some() || !inner.work_list.is_empty() {
-@@ -510,7 +515,7 @@ pub(crate) fn debug_print(self: &Arc<Self>, m: &SeqFile, print_all: bool) -> Res
-         }
- 
-         for work in &inner.work_list {
--            work.debug_print(m, "    ", "    pending transaction ")?;
-+            work.debug_print(m, "    ", "    pending transaction ", hashed)?;
-         }
-         Ok(())
-     }
-@@ -1788,7 +1793,7 @@ fn should_sync_wakeup(&self) -> bool {
-         false
-     }
- 
--    fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
-+    fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str, _hashed: bool) -> Result {
-         seq_print!(
-             m,
-             "{}transaction error: {}\n",
-diff --git a/drivers/android/binder/transaction.rs b/drivers/android/binder/transaction.rs
-index e627522141b8..e5ad49c9e180 100644
---- a/drivers/android/binder/transaction.rs
-+++ b/drivers/android/binder/transaction.rs
-@@ -772,7 +772,7 @@ fn should_sync_wakeup(&self) -> bool {
-         !self.flags.is_oneway()
-     }
- 
--    fn debug_print(&self, m: &SeqFile, _prefix: &str, tprefix: &str) -> Result {
-+    fn debug_print(&self, m: &SeqFile, _prefix: &str, tprefix: &str, _hashed: bool) -> Result {
-         self.debug_print_inner(m, tprefix);
-         Ok(())
-     }
-
-base-commit: c26cc979e28f5193310e4379e14aa6417375c565
-prerequisite-patch-id: 4aaa9c816eb12666d45b37e79fd4eb54d68399f8
--- 
-2.56.0.385.gd3acb90ef8-goog
+[1] https://lore.kernel.org/all/aOQX6ZTMvekd6gWy@wunner.de/
 
