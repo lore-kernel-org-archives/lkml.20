@@ -1,256 +1,176 @@
-Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 639BA38E8BD;
-	Fri,  9 Oct 2026 09:20:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 943044908DB;
+	Fri,  9 Oct 2026 09:20:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791537629; cv=none; b=cbH0cgjOh/1AfDn8YbR7VvIKRY+5jCIw2xPhhJ43o3+DUqmkwZ523LyzYhuH7dTlqZLZ/I+eEvFyS8c0jqWXj++U0QcW+7a2KlaiGd+qs2HRRhC5RZmzykpD/kIfDQLWo88py6ZxT1A12TZs/UZabksXVjYWFDVrici5oVbS9kA=
+	t=1791537648; cv=none; b=txLwRoCQIp5TGYyvUVDLqYEyTVbJr+vs7j/haaXFvhvX+WyFdp2IFGlEmgWOQHIiqu8aEBcaEgjvctUmnBBDHLONdr+8aXXWVmWfKYm9jYeBFWlY94GjIRa3M1XPip3/lCF9K/V4WSPtukAQdRrjEIt5RMiIceK8nXDOIlV+wPU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791537629; c=relaxed/simple;
-	bh=fMIT/S0j28LVx2f9vPxpCyoDbPl7tIkOGZXDvSTZBVc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fFgnnvPinGf1/Itmfe5wS+8thYCl0BfUu3zf2kc/T9uq7ilufVZxEPKeCsnv77r0MwjEOaegbdxqqIcRnFHqgNHS8ftTjp7LwU4g/gqqrWJAmpbJwHp/U963ukjvBxrkFc/afezcV9NWwgWwyX3/LFiPXrie8QB0CBQmzI5W5kU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=PA7UIZ58; arc=none smtp.client-ip=115.124.30.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1791537648; c=relaxed/simple;
+	bh=ezOnOWeLOhhEY+nDjZ0CF5hvs6z4Z/GZeaWMjywhtdU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=idtXHTwqv84xovHRV4WX8TCJFjVsni3SHsdECugAxXo2mmJ5S/0M9hBIvDEggvtPyAn2vJkkRUiblCUUSpFkFCqkGL4Mj8Xv9NwHvqDjn6cOuFfu/Z/mxPM5c55kynqrKpL9ZaFmbn3L8oO58zd++i0PdZQM1X52Et0i1LI10oU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PNghjdUu; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="PA7UIZ58"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791537625; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=1mSIiAs4jX9gpf3hud20U8YZ2HXZeFMMb2BradKi01g=;
-	b=PA7UIZ58xiSjR+OhoTRqaxl6mB+5QxS6Iwws3aXCOcy8kiKlO66eCooUrsoSrdpUzlUKKepqt2c9deoVbjqmikdxHywe6hOsxMbXdyZ6MoiFmmbNUHDQzy1PaBxvoan3ccumHkqpWoFbTtiHY/zEnThBTrfA8sqXKNRWwwqkd2U=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0XCT-5GK_1791537623;
-Received: from 30.74.144.136(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XCT-5GK_1791537623 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Fri, 09 Oct 2026 17:20:24 +0800
-Message-ID: <5ebaba53-b2de-490e-a14c-c49bbb4337ad@linux.alibaba.com>
-Date: Fri, 9 Oct 2026 17:20:23 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PNghjdUu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791537647; x=1823073647;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ezOnOWeLOhhEY+nDjZ0CF5hvs6z4Z/GZeaWMjywhtdU=;
+  b=PNghjdUuMLLvQQKPnyWIkE5eFE72Yl4gGz3rakgroguJC+kehJ3rV4iB
+   XhvniFNiYx7HM+RsoW14iNyKMfylBBcFpbrH/p5EYI0wDnUCBYSMTFhTX
+   /iogrbN26RVNXB72UV+08bdxoyr+YXnyjpp0ACtrHkDYsc13Ymg+ooH0w
+   ZebJkd94wbPg+aly6Yt6k4Xf756eAZGJKerNFhegh0cchDg+2euaHX4Hv
+   K/UH2aPXS1Zwztf1iPWEqTqKC644rC0Qnhn4NVTWyvQdwGE882wLQAqMi
+   0uUvDowqvmIDtTlpMo0fSusDRfSUdSXnB/nS0lVu09yqHJcmcUcAXgYCe
+   g==;
+X-CSE-ConnectionGUID: SstSlrXRRq2+bytWRhCJ/A==
+X-CSE-MsgGUID: TC8xHhoKQhCr05FxeBEF6g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="341919"
+X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
+   d="scan'208";a="341919"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 02:20:46 -0700
+X-CSE-ConnectionGUID: dRoMxbbTR0W9zZHjtlK++g==
+X-CSE-MsgGUID: wqg2A/OpSmCwiasMVVjtHg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
+   d="scan'208";a="2012226"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.16])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 02:20:44 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 6E4861206CF;
+	Fri, 09 Oct 2026 12:20:46 +0300 (EEST)
+Date: Fri, 9 Oct 2026 12:20:46 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: "D. Manresa" <dmanresa@gmail.com>
+Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Fernando Rimoli <fernandorimoli11@gmail.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] media: ipu-bridge: reuse the software nodes on
+ rebind
+Message-ID: <asix7qsLHUG027pU@kekkonen.localdomain>
+References: <20261008132614.2456716-1-dmanresa@gmail.com>
+ <20261008132614.2456716-3-dmanresa@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG] shmem: FALLOC_FL_PUNCH_HOLE vs fault-around race corrupts
- page cache / rss counters
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>,
- Ayush Ranjan <ayushr@modal.com>, Hugh Dickins <hughd@google.com>,
- Matthew Wilcox <willy@infradead.org>, David Hildenbrand <david@kernel.org>,
- Gregory Price <gourry@gourry.net>, linux-mm@kvack.org,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260924061708.1645968-1-ayushr@modal.com>
- <arTdLsBENhrpOyk-@pedro-suse.tail5790ac.ts.net>
- <20260925053027.1998394-1-ayushr@modal.com>
- <20260925065013.3682431-1-ayushr@modal.com>
- <20261003033107.1488699-1-ayushr@modal.com>
- <20261004222831.bdd648a2b406f02747dd9e40@linux-foundation.org>
- <fyswoh7wpxzlbnjjanggjd2jz6yispmeirhwjl3wzi57nacddb@bjkb6kxyfcal>
- <fbb046b9-be48-42d8-96b3-7e554484b625@linux.alibaba.com>
- <asigKktcrSY80A_2@pedro-suse.tail5790ac.ts.net>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <asigKktcrSY80A_2@pedro-suse.tail5790ac.ts.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008132614.2456716-3-dmanresa@gmail.com>
 
+Hi D.,
 
+On Thu, Oct 08, 2026 at 03:26:14PM +0200, D. Manresa wrote:
+> The software nodes registered by ipu_bridge_init() are deliberately
+> never unregistered, and the intended design is for a rebind to reuse
+> the already registered nodes. That reuse path however only exists for
+> the case where the IPU device kept its secondary fwnode link, which the
+> fwnode graph check at the top of ipu_bridge_init() detects: then the
+> function returns early. When the link is gone, ipu_bridge_init()
+> unconditionally registers the IPU HID software node again, which fails
+> with -EEXIST on the sysfs name (the node from the previous bind is
+> still registered) and the IPU driver fails to probe.
+> 
+> That is exactly what happens when the IPU PCI device is removed and
+> re-scanned: device_del() unsets the ACPI companion, and
+> set_primary_fwnode(dev, NULL) then clears the ACPI fwnode's ->secondary
+> pointer, so the fwnode graph check on the next probe finds no endpoints
+> and falls through to registration. Observed on a Surface Pro 7+ (IPU6):
+> 
+>   echo 1 > /sys/bus/pci/devices/0000:00:05.0/remove
+>   modprobe -r intel_ipu6_isys intel_ipu6   # ipu-bridge unloads too
+>   echo 1 > /sys/bus/pci/rescan
+>   modprobe intel_ipu6
+> 
+>   sysfs: cannot create duplicate filename '/kernel/software_nodes/INT343E'
+>   intel-ipu6 0000:00:05.0: Failed to register the IPU HID node
+>   intel-ipu6: probe of 0000:00:05.0 failed with error -17
+> 
+> after which the cameras are unusable until reboot.
+> 
+> Add the missing reuse path: if the IPU software node is already
+> registered, look it up with software_node_find_by_name(), point the
+> device's secondary fwnode at it and return success. That is all a
+> rebind needs: the sensor, IVSC and VCM links live on devices that
+> survive an IPU unbind, so nothing has cleared those.
+> 
+> software_node_find_by_name() takes a reference on the node it returns;
+> drop it right away since the node is kept alive by its never dropped
+> registration.
 
-On 10/9/26 4:41 PM, Pedro Falcato wrote:
-> On Fri, Oct 09, 2026 at 02:46:18PM +0800, Baolin Wang wrote:
->>
->>
->> On 10/8/26 5:24 PM, Jan Kara wrote:
->>> On Sun 04-10-26 22:28:31, Andrew Morton wrote:
->>>> On Sat,  3 Oct 2026 03:31:03 +0000 Ayush Ranjan <ayushr@modal.com> wrote:
->>>>> Gentle ping on this. The reproducer in my previous mail [1] triggers
->>>>> "Bad page cache ... still mapped when deleted" on 6.18.46 within a
->>>>> couple of minutes on a 128-CPU bare-metal box, with no fork() and no
->>>>> gVisor involved.
->>>>>
->>>>> We continue to hit this in production at low frequency, so I am happy
->>>>> to test patches or collect more data if that would help.
->>>>>
->>>>
->>>> fwiw I made gpt and gemini argue about this for a while and ended up
->>>> with the below.
->>>
->>> Worth a try I guess. Let's see :)
->>>
->>>> From: Andrew Morton <akpm@linux-foundation.org>
->>>> Subject: mm: shmem: serialize fault-around against hole punching
->>>> Date: Sun Oct 4 09:05:31 PM PDT 2026
->>>>
->>>> shmem uses filemap_map_pages() for fault-around.  Unlike shmem_fault(),
->>>> filemap_map_pages() does not participate in shmem's fallocate exclusion
->>>> protocol.
->>>>
->>>> During a partial hole punch of a large shmem folio, the folio can be split
->>>> and the resulting smaller folios can remain temporarily visible in the page
->>>> cache while shmem_undo_range() restarts its walk.  Fault-around can then map
->>>> one of those folios again before the hole-punch path removes it.
->>>>
->>>> shmem_undo_range() may subsequently delete that folio from the page cache
->>>> despite the new userspace mapping.  This can trigger "still mapped when
->>>> deleted" warnings and leave stale mappings or inconsistent RSS/page-table
->>>> accounting behind.
->>>
->>> So this part of explanation is either incomplete or wrong in my opinion.
->>> Yes, shmem_undo_range() calls truncate_inode_partial_folio() which can
->>> split a large folio. Yes, filemap_map_pages() can map those pages back into
->>> page tables. But how "shmem_undo_range() may subsequently delete that folio
->>> from the page cache despite the new userspace mapping" happens is unclear
->>> to me. After splitting a folio, shmem_undo_range() will restart and find the
->>> newly split (and mapped) folios and calls truncate_inode_folio() to get rid
->>> of them. Now truncate_inode_folio() calls truncate_cleanup_folio() which
->>> does:
->>>
->>>           if (folio_mapped(folio))
->>>                   unmap_mapping_folio(folio);
->>>
->>> so the mapping is reliably removed under folio lock. Can you perhaps push
->>> your agents further to explain in more detail how this "still mapped when
->>> deleted" happens in their opinion?
->>
->> Good point and I think you are right.
->>
->> Yesterday I quickly reproduced the issue with Ayush's reproducer, and I got
->> the following crash info. From the dump message, we can see that
->> truncate_inode_folio() is really trying to remove mapped folios, which is
->> incorrect.
->>
->> I also quickly tried Andrew's patch, and the issue no longer reproduces, so
->> I initially thought that was the root cause. But after your reminder, I now
->> believe Andrew's patch merely workaround the issue rather than fixing the
->> actual root cause.
->>
->> Today I'm going to re-analyze the race with the reproducer (thanks Ayush).
->>
->> After analysis, I believe the race exists between truncation and
->> MADV_DONTNEED, and shmem's fault_around() merely makes the issue easier to
->> reproduce. Since MADV_DONTNEED synchronously releases the pagetable page
->> before calling tlb_flush_rmaps(), this could cause another thread's
->> truncation to skip zap_pte_range() but still observe the folio's mapcount as
->> non-zero. A possible race scenario is as follows:
->>
->> CPU 0				CPU 1
->> 				madvise_dontneed_single_vma
->> shmem_fallocate			......
->>    ......			  zap_pte_range
->>    truncate_inode_folio		    zap_empty_pte_table(pmd clear)		
->>      unmap_mapping_folio		
->>      ......
->>        zap_pmd_range(saw pmd none)
->>      filemap_remove_folio
->>         BUG_ON(folio_mapped)
->> 				    tlb_flush_rmaps
-> 
-> Thanks for the investigation!
-> 
-> So, I think I understand the problem (rmap walks race PTE zapping, which no
-> longer serializes on the PTE lock), but I don't understand your solution at
-> all.
->>
->> Based on the above race analysis, I made the following fix that uses the PMD
->> lock synchronously to prevent this race, and the issue no longer reproduces.
->> I will clean it up and send out a formal patch.
->>
->> diff --git a/mm/memory.c b/mm/memory.c
->> index 6a8e7772b8d6..2039ada99b64 100644
->> --- a/mm/memory.c
->> +++ b/mm/memory.c
->> @@ -2036,6 +2036,15 @@ static unsigned long zap_pte_range(struct mmu_gather
->> *tlb,
->>                  }
->>          } while (pte += nr, addr += PAGE_SIZE * nr, addr != end);
->>
->> +       add_mm_rss_vec(mm, rss);
->> +       lazy_mmu_mode_disable();
->> +
->> +       /* Do the actual TLB flush before dropping ptl */
->> +       if (force_flush) {
->> +               tlb_flush_mmu_tlbonly(tlb);
->> +               tlb_flush_rmaps(tlb, vma);
->> +       }
->> +
->>          /*
->>           * Fast path: try to hold the pmd lock and unmap the PTE page.
->>           *
->> @@ -2046,15 +2055,6 @@ static unsigned long zap_pte_range(struct mmu_gather
->> *tlb,
->>           */
->>          if (can_reclaim_pt && direct_reclaim && addr == end)
->>                  direct_reclaim = zap_empty_pte_table(mm, pmd, ptl, &pmdval);
->> -
->> -       add_mm_rss_vec(mm, rss);
->> -       lazy_mmu_mode_disable();
->> -
->> -       /* Do the actual TLB flush before dropping ptl */
->> -       if (force_flush) {
->> -               tlb_flush_mmu_tlbonly(tlb);
->> -               tlb_flush_rmaps(tlb, vma);
->> -       }
->>          pte_unmap_unlock(start_pte, ptl);
-> 
-> Namely, why moving this hunk of code up there makes any difference.
-> I suppose it's subtly changing memory order, but it's not immediate
-> in any way why this is correct.
-> 
-> What you really need (I think) is a happens-before relationship between
-> the rmap changes and the PMD zapping. Something like:
-> 
-> diff --git a/mm/memory.c b/mm/memory.c
-> index 330cde31bf8b..17cdd48fff27 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -2108,6 +2108,13 @@ static inline unsigned long zap_pmd_range(struct mmu_gather *tlb,
->                          sync_with_folio_pmd_zap(tlb->mm, pmd);
->                  }
->                  if (pmd_none(*pmd)) {
-> +                       /*
-> +                        * Pairs with tlb_flush_rmaps() in PTE zapping.
-> +                        * Possibly skipping a page table (due to PTE zapping)
-> +                        * needs to enforce ordering between the rmap changes
-> +                        * and the PMD getting cleared.
-> +                        */
-> +                       smp_rmb();
->                          addr = next;
->                          continue;
->                  }
-> diff --git a/mm/mmu_gather.c b/mm/mmu_gather.c
-> index 9f353f0e2ef4..47b25c42bf77 100644
-> --- a/mm/mmu_gather.c
-> +++ b/mm/mmu_gather.c
-> @@ -89,6 +89,10 @@ void tlb_flush_rmaps(struct mmu_gather *tlb, struct vm_area_struct *vma)
->          tlb_flush_rmap_batch(&tlb->local, vma);
->          if (tlb->active != &tlb->local)
->                  tlb_flush_rmap_batch(tlb->active, vma);
-> +       /*
-> +        * rmap changes need to be observed before e.g PTEs get zapped.
-> +        */
-> +       smp_wmb();
->          tlb->delayed_rmap = 0;
->   }
->   #endif
-> 
-> On top of your diff. Where the smp_wmb() is perhaps not required: I suppose TLB flushing
-> works as a sort of memory barrier itself on most/all architectures.
-> Either way, we have to document and fix expectations around this code.
+Same for this comment, please clean it up.
 
-Agree, I don't think we need smp_wmb() here. Moreover, 
-zap_empty_pte_table() will call the pmd lock/unlock, which already 
-indicates a memory barrier.
-
-         /*
->> @@ -2103,7 +2103,6 @@ static inline unsigned long zap_pmd_range(struct
->> mmu_gather *tlb,
->>                          }
->>                          /* fall through */
->>                  } else if (details && details->single_folio &&
->> -                          folio_test_pmd_mappable(details->single_folio) &&
 > 
-> Why?
+> Assisted-by: LLM
+> Fixes: 803abec64ef9 ("media: ipu3-cio2: Add cio2-bridge to ipu3-cio2 driver")
+> Signed-off-by: D. Manresa <dmanresa@gmail.com>
+> ---
+>  drivers/media/pci/intel/ipu-bridge.c | 24 ++++++++++++++++++++++++
+>  1 file changed, 24 insertions(+)
+> 
+> diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+> index b9779c3..f0fadc0 100644
+> --- a/drivers/media/pci/intel/ipu-bridge.c
+> +++ b/drivers/media/pci/intel/ipu-bridge.c
+> @@ -1099,6 +1099,7 @@ static DEFINE_MUTEX(ipu_bridge_mutex);
+>  int ipu_bridge_init(struct device *dev,
+>  		    ipu_parse_sensor_fwnode_t parse_sensor_fwnode)
+>  {
+> +	const struct software_node *ipu_node;
+>  	struct fwnode_handle *fwnode;
+>  	struct ipu_bridge *bridge;
+>  	unsigned int i;
+> @@ -1109,6 +1110,29 @@ int ipu_bridge_init(struct device *dev,
+>  	if (!ipu_bridge_check_fwnode_graph(dev_fwnode(dev)))
+>  		return 0;
+>  
+> +	/*
+> +	 * The software nodes registered by a previous ipu_bridge_init() call
+> +	 * are deliberately kept registered when the module is unloaded, and
+> +	 * the sensors' ACPI fwnodes still have them as their secondary
+> +	 * fwnodes. If the IPU software node is already registered this is a
+> +	 * rebind, e.g. after the PCI device was removed and re-scanned,
+> +	 * which drops the IPU's secondary fwnode link. Registering the nodes
+> +	 * again would fail with -EEXIST, so instead reuse them and just
+> +	 * restore the IPU's secondary fwnode link.
+> +	 */
 
-Ah, sorry, this change can be removed.
+This, too.
+
+> +	ipu_node = software_node_find_by_name(NULL, IPU_HID);
+> +	if (ipu_node) {
+> +		fwnode = software_node_fwnode(ipu_node);
+> +		set_secondary_fwnode(dev, fwnode);
+> +		/*
+> +		 * The node stays registered, it does not need the reference
+> +		 * software_node_find_by_name() took to stay alive.
+> +		 */
+
+Rather than this, it'd be more useful to say why, if you are to add a
+comment.
+
+> +		fwnode_handle_put(fwnode);
+> +		dev_dbg(dev, "Reusing the previously registered software nodes\n");
+> +		return 0;
+> +	}
+> +
+>  	if (!ipu_bridge_ivsc_is_ready())
+>  		return dev_err_probe(dev, -EPROBE_DEFER,
+>  				     "waiting for IVSC to become ready\n");
+
+-- 
+Regards,
+
+Sakari Ailus
