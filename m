@@ -1,102 +1,194 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010012.outbound.protection.outlook.com [52.101.84.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D881A344D9B;
-	Fri,  9 Oct 2026 03:13:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791515616; cv=none; b=EzdnlkcrLMVsvxfkmnjcxNtn9tdeXEYboILAWeyarDP4mRjN8uMVME8jQYFhejnQR5x+0hh6DBtWslLj+u1epU3CIlJDTHVwsAiFNOIMYs52HOIBIz4Gl2oF3VKAVIncOlsJxyUdxfFSJIOvRleO8/wuff5JhxO+fbK57zOcz6A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791515616; c=relaxed/simple;
-	bh=YGJ/YuFtOpApRmIjcAg+eUkIF40aIyFKvEDDOWAlWVs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=szOlXnyVxZxr5CjOB5ljoklOSbZppAI0Y/aXJMYuMpFq3CBDE8hVMmwU6K6j6AaptzH3doABbiYuQgB8jpBO1Th96zkjEcNk80yeqZjZj4016/AjZPe7i9aq+9MGoFReIS/aE/EW+/rb1nTN5x341v3U0QM7e5lWqtcwOWd6YBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=bcSfLQjh; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 428902EC0B0;
+	Fri,  9 Oct 2026 03:15:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791515714; cv=fail; b=f/yqxazz3oh6GcjzBDF2No8M9o+BT6Rfkj4aWQb6nCUNNkqYNxz8wQqgAkM/KRPNh8WSXc3X7N7c8whQqHn6p57wZX9zp3H3w4O+nEG+7zpfPkRsSoYdk+AmY+MrzJ3ntn7WfpfNfrEbIxM2CeyicMx08oIB2ccvcaoLcOR2MQI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791515714; c=relaxed/simple;
+	bh=rPei2E9TR7f7HXCEJWlBODN6U4dTn/A6a58971NKjes=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=e35HWsrn3GKuyLcgilptuldRhXlGncQTjupZLTfFO8tyREkYO3DeYzs0/dPRWJcQLHAdiSQ/wSDT4eLvT9W2TgK5S8TBaZOhW7Kc9iSmRQYy4proYusxabcRVHciHXE+ZrUDRQqUzNFT4/nmBOBF67PiViJjBpxwv+bWHZqdnZA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=A0EsY/lh; arc=fail smtp.client-ip=52.101.84.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="bcSfLQjh"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 50622db01;
-	Fri, 9 Oct 2026 11:13:25 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Daniel Mack <daniel@zonque.org>,
-	Haojian Zhuang <haojian.zhuang@gmail.com>,
-	Robert Jarzmik <robert.jarzmik@free.fr>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-usb@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="A0EsY/lh"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dG9b/5oqBN1egppclMm3AsGoMD2EpmUrgmRzagLmUGS3pGeNGiRYF5N2v0Rnw8DLSy5GjqX8ghZKx9teaSSMMoT+c2pT/IduAI+gy1GW6OVVHZKCJ/cJxVcz3Itng8nVtAkFGKp1YpHdQbSeqBe7eyWI1kA96KrEUL/SfXVYlbKRyK0K1o5GUMr2laPFcxbVd7nZfAuIVr1QlFTp1S8uA+A0eu/YwdcdtnZk6oCzStkl9P44ZQJhRKXVFUamGkZKt5kTJAmN9x1sLkCoLjC6Bre9V76OOv8bQOhTH6H9FWnzgPnXiPd7NoneBZlZ4EC1axqSpbQMtjr+qZZ+uawitA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jhIzjb/ez08IyyoDOKM3KXrWPoAmPvEkYa9jAFQWHdQ=;
+ b=dfOaNuHB76RvbZYBu0/djk7uFwvtBkYMifn7+k4X3aMBFRyCaS7MIuKTNy8cRSxuYNFBk6ibNjYYrpl+6LDjUmWG6D0IE4sJhVGeLYHHr3/sk7tfHtt5VHcIrJwR8Gh64gVOkg12+DNTcLDNL9qE4mVE+EOHz3RLUoKguHZQ6+GB+FhCwOu9xEVOOP3dLgsA/hTF4gPV9+bDSVmG3ZVSatl8SJscnhd091iUiy3n4VXZxMHi6A01xfccjbsuttRjKErrGpNRQD1xWr3xHDz2aff9O8RjYg+8miZOkwOdihm9qRZVOxDjvvRuavBBq3UlbGLkAQRD2k2AnBuy270K7A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jhIzjb/ez08IyyoDOKM3KXrWPoAmPvEkYa9jAFQWHdQ=;
+ b=A0EsY/lh9mh5slly0mSN/J3/m9XIc1LBWpBmavdEsO9dVZqYgyDIbdWJUCtLhEgj7yRhuirWhXH1cA7mU0LcqvMEodHjWmU5v5FcTyiCzx1JPog4GYxZgH/5T3z3cDlM/1LF0r+sIBnWHU187224yveCpdXbFENXtu/zM1WrWeLBKpvVcgycC8op/JDpT6cEltrNdGLlqACr4lIP5fJ4TBoOx7NOXQWFAGGC2Jp6hWNHNsu5EFbD7i0emTznMp9pTp5vd6OdQdDLFhHwq4ga0n8yBg3+9CKc0uwfMYosdQ/CxFbsFyd58Ere9PGV8dnMjK3ajOzOOU+yNdM5erkEnQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by DU2PR04MB8645.eurprd04.prod.outlook.com (2603:10a6:10:2dc::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
+ 2026 03:15:10 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0496.010; Fri, 9 Oct 2026
+ 03:15:10 +0000
+Date: Fri, 9 Oct 2026 11:19:42 +0800
+From: Peng Fan <peng.fan@oss.nxp.com>
+To: Frank.Li@oss.nxp.com
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>,
+	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] usb: gadget: pxa25x: mark the watchdog timer IRQ-safe
-Date: Fri,  9 Oct 2026 11:13:18 +0800
-Message-Id: <20261009031318.1122589-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>,
+	Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v4 3/4] arm64: dts: freescale: imx95-15x15-frdm: remove
+ some rmem regions
+Message-ID: <ashdTrRVvEh8BMuV@shlinux89>
+References: <20260917-memory-region-name-v4-0-260755920ebf@nxp.com>
+ <20260917-memory-region-name-v4-3-260755920ebf@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917-memory-region-name-v4-3-260755920ebf@nxp.com>
+X-ClientProxiedBy: SI2P153CA0031.APCP153.PROD.OUTLOOK.COM (2603:1096:4:190::7)
+ To AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa11ea6b86503a1kunm2290a5e1430986
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTkkeVkpCGkJCSB1CSx4dQlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=bcSfLQjh4BTRg43Eyh/AtX3mKz0+pVTtRZS6sjLjvU5FF6Tz++1E+48c/SGtaOtYOE33rQg/aawOo26rq60Dj14/HBkrE2cRQZZaeJh6Dv+iuPup0Y5DZYVTVPkAiRHa0wSy76LDIo32f89moZhcvluoejcw8Sd1HjTgFJ8FcoU=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=JSSC87nfxfspDKDrjTT3iXE48aOn32ItDe2Aa1070uI=;
-	h=date:mime-version:subject:message-id:from;
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|DU2PR04MB8645:EE_
+X-MS-Office365-Filtering-Correlation-Id: 266f239d-9379-4319-d07e-08df25b386b1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|7416014|19092799006|4143699003|11063799006|10067099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	mdnSyJhKDRO/qpCa8SZvkgUdn72CGEv2xLKepjpdMtWWoFdlyP9at2+voH19xLcn93WRGxovc21J82iaTIIZu5HiUykHj1X5+uxVKFLZh3uR7TPKibSKOiunyTRxgvvKAdK849ggzDEoKB4lai5tUxf2oCJQeq00KGNzj8Vht5XSHSqxnw7k36sJ8C3jPeUhu4R0cl/dgj+Qhf9myEjTRd+9528uLeLiMEk3YXUU0/rYt3GiGlbS5V7me97oHJJF+42UitCvAZR0nQ/zIyZprTcDijNymH1WEGQz4K21JTG1hsw2tWy8Rnb0Cl0c8WjGwsRsLdRdnh3b9VUd8NsKtSk9E/qn/5kjEOpgLn/DeWtO6n3zk9Mgrml0sIl5A5SE8h9ctT5T2JeBRrEepB+tyY4l4uHgxIyXjUp1deDXvM4ghKhtNozLNpxnx3NFYjYb/CsILesEa28XxaBffUm6kNBq//2O6EOh9j92NK0BGcXsMSQP4Qp7VuIbpjBxLLkNiPBSOcxDOvAlq0KMynZ60eLAKBK1fmOp+hC5sCs/ltWEyYjy+I6XinBNLdFgDHzguM3j3Qt264p5M4nolEXadAetxbAhEN28ry4WWItKxitXNR0t61Jdd8RM0N8DCH2rDShJAchgeQensyE17K6lztL/fxlRa2DmYZD9OjR4v2c=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(7416014)(19092799006)(4143699003)(11063799006)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?HinaIxS4cFup4OX3Lj3fvyIfeBk8NTT4mj3/k7+D2PSB0G+LhL3efkzJnjP0?=
+ =?us-ascii?Q?kokOTN5LkBBxayXF7AIR/7Ii4tNlNgIlKt68XjmV+K1ZWoBOQVEVxqWm9Zlb?=
+ =?us-ascii?Q?P30nJAhfP4sEdCtF03Duz+ZI2dGK/z4XhyTfqFRvJgghOoIVNqhOY2kFQ49k?=
+ =?us-ascii?Q?0OB2tUbcWDdRMBveCoYHQF3iN/liOL5IQWTfK2jeFXdCMT4p02pMdAGQPem4?=
+ =?us-ascii?Q?OppZ+2pHWkypoKGKfGi1PUIKcG4lSeR7Lvook0TpB+N3PDpNUWGbFmHzsO+h?=
+ =?us-ascii?Q?6C3Bm1Eb6UGYVbvbbEh6v5ca3QNDQaSc4XzfFt6KR+uwXkzTPonsRh4X+7Jp?=
+ =?us-ascii?Q?2xJrQKjr6V9d6NWIfia21FrnLNGq6L1DW9fDL+pYQh9x6l8TELDruVZBT8c3?=
+ =?us-ascii?Q?3STsH+wRjgKXFwSMZBtzfLijUgSCo7mfoeshkpkUD6YgBx3xrTKvGk+g72WQ?=
+ =?us-ascii?Q?2+T4OO0f5SU8wKfbWHQB7OZ2OZD4unIqbbo6hwXbLrvVcpsmhkCPf2nf60Yn?=
+ =?us-ascii?Q?hM1LEallGqwUjj74nZpkwoCYPNUGOQR2zO/JKZjX7YjdhySQbb7Eifnd4zXO?=
+ =?us-ascii?Q?zzsO5Qvp6G/7O1aRl+HbDVHrHVPpKO/qnnexYwsDumzH3N0ZyV+izipLd4AH?=
+ =?us-ascii?Q?ON1lnpJ1K/l2c7XyyaQrYEqk4NhGDCwru2q8ZqWZH43NJhQfRzf5Xq1tc7Y9?=
+ =?us-ascii?Q?Pk7HSl3WZxZECSe75qWpTmdVO9LABK1egOAHPKa/8gIuwQLjG7I/ZPAyhsIJ?=
+ =?us-ascii?Q?yQccc1pxq37twHlxOHiCh48lLGXkVAxNu8TxkdY5ICksIIKggEPYTfe6d/B0?=
+ =?us-ascii?Q?eGfdVLqmLm+PVCgnSALSqaWLj+SJR3qNLxMj9zyGTgVRorHKz9pBX8QairxU?=
+ =?us-ascii?Q?kTYYU1gyS8rSwNrI8mljyEG1196Ka9Iy37Br9p507/hvO5F612S+i8m3rSq/?=
+ =?us-ascii?Q?OTZpa6hdZGy5iDHe2fczf2DvYlORM2z7OZJOGdq7tXb/3LSTx+s0pywZSUNj?=
+ =?us-ascii?Q?DBX5Dka99zWPBxJ13gjYTpwSNdfII4mLaF9s3NaVyQVnY7XEY7m6VBR4p0fs?=
+ =?us-ascii?Q?f6MxlIpEKvEwGo9+FtiAbhmjKhRqLL31l5bGl6OuyzvaslDCCnCp/+PVvvM9?=
+ =?us-ascii?Q?b3u3PHlEbrVEf003HANJENNeKbOF+xn0bc0imf8T8iOtN7grhKxqpVD9ftF1?=
+ =?us-ascii?Q?0ac2Yuf0iMficR7nR+NOXpgQRuvInXp3DJSYn2J2wPcp5uEJfarck54KOl5U?=
+ =?us-ascii?Q?o3dSj1G9Wxn+N1Bl5v2zsZAPAP3f7qWyrKabfN9xUNoELTNFiVNlFbZ7BM5/?=
+ =?us-ascii?Q?UrzphLy1sr3dm6JZxojE8Wmcz0DfpX45V/NZz4hcylFux2vCQ6KuWeLBVAvC?=
+ =?us-ascii?Q?RQLdlof64vyjBuH9dKeQKCo+tXCUx11/VcjiUOt3VHTfd6jlXnBnUrBlwJV4?=
+ =?us-ascii?Q?IyVHF1flGNvlLK87DSyAdYVlWDCpg+lrXmQIhHzVh0dNALA1RKsUmBckeJtl?=
+ =?us-ascii?Q?lJJOWQ2SMe/xHWph/s6n9lqH7PBew2wTXV4hs8D4w2gN7cZE18bo81LT4ivo?=
+ =?us-ascii?Q?ct1vb6TJo0DVVBzd6V4pd4trsu9x4rH/UY+g/aof3V+5dDpCE0rOIAeVwLK9?=
+ =?us-ascii?Q?yndrWwY9PE0EYSagLAVF27yEBS+WmGhBhFQQI3ndClXVh0/erlJnntp6FTHU?=
+ =?us-ascii?Q?03aQ4EOD70nWqttBgeSlghfMX1Ul5ZmBGdb+BeGaskWoK431Befi3oAf6H3Q?=
+ =?us-ascii?Q?hwFgkw391BYDHK7GefaeimnYlaxdo56zrzxMvrqGLjQ0gQLt9ZcN?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 266f239d-9379-4319-d07e-08df25b386b1
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 03:15:10.0380
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zEcJEqIuCDJaGACZ/xzF5nVeF+8H9BE2KPYl40bEHdWYL2jFz9k4N9NdKGmw2TBGNXQ4i0V54dmYfNPL841L/6hieMV7lCYwm+XfZBfHohLYYx2eosqlm3KYg7d7U9Wl
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8645
 
-The PXA25x UDC reset path runs from its hard-IRQ handler and calls
-timer_delete_sync() for the watchdog. The timer is currently initialized
-without TIMER_IRQSAFE, so timer_delete_sync() warns and can deadlock when
-the reset races with the watchdog callback.
+On Thu, Sep 17, 2026 at 02:19:44PM -0400, Frank.Li@oss.nxp.com wrote:
+>From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+>
+>Remove some of the remoteproc reserved memory regions, which are currently
+>not being used for anything. These will be added in the DT overlay
+>enabling remoteproc support for this board.
+>
+>Signed-off-by: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+>Signed-off-by: Frank Li <Frank.Li@nxp.com>
+>---
+> arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts | 21 ---------------------
+> 1 file changed, 21 deletions(-)
+>
+>diff --git a/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts b/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts
+>index 0f43e3be70589..f9b0e266754d6 100644
+>--- a/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts
+>+++ b/arch/arm64/boot/dts/freescale/imx95-15x15-frdm.dts
+>@@ -188,16 +188,6 @@ linux_cma: linux,cma {
+> 			linux,cma-default;
+> 		};
+> 
+>-		vdev0vring0: memory@88000000 {
+>-			reg = <0 0x88000000 0 0x8000>;
+>-			no-map;
+>-		};
+>-
+>-		vdev0vring1: memory@88008000 {
+>-			reg = <0 0x88008000 0 0x8000>;
+>-			no-map;
+>-		};
+>-
+> 		vdev1vring0: memory@88010000 {
+> 			reg = <0 0x88010000 0 0x8000>;
 
-Mark the timer IRQ-safe. Since IRQ-safe callbacks run with interrupts
-disabled and remain so on return, remove the callback's local IRQ disable
-and enable pair; local_irq_enable() would otherwise re-enable interrupts
-before the callback returns.
+vdev1 seems to be missed?
 
-Fixes: 8fa7292fee5c ("treewide: Switch/rename to timer_delete[_sync]()")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/usb/gadget/udc/pxa25x_udc.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+Regards
+Peng
 
-diff --git a/drivers/usb/gadget/udc/pxa25x_udc.c b/drivers/usb/gadget/udc/pxa25x_udc.c
-index 594d67193..41076ecca 100644
---- a/drivers/usb/gadget/udc/pxa25x_udc.c
-+++ b/drivers/usb/gadget/udc/pxa25x_udc.c
-@@ -1563,7 +1563,6 @@ static void udc_watchdog(struct timer_list *t)
- {
- 	struct pxa25x_udc	*dev = timer_container_of(dev, t, timer);
- 
--	local_irq_disable();
- 	if (dev->ep0state == EP0_STALL
- 			&& (udc_ep0_get_UDCCS(dev) & UDCCS0_FST) == 0
- 			&& (udc_ep0_get_UDCCS(dev) & UDCCS0_SST) == 0) {
-@@ -1571,7 +1570,6 @@ static void udc_watchdog(struct timer_list *t)
- 		DBG(DBG_VERBOSE, "ep0 re-stall\n");
- 		start_watchdog(dev);
- 	}
--	local_irq_enable();
- }
- 
- static void handle_ep0 (struct pxa25x_udc *dev)
-@@ -2343,7 +2341,7 @@ static int pxa25x_udc_probe(struct platform_device *pdev)
- 		goto err;
- 	}
- 
--	timer_setup(&dev->timer, udc_watchdog, 0);
-+	timer_setup(&dev->timer, udc_watchdog, TIMER_IRQSAFE);
- 
- 	the_controller = dev;
- 	platform_set_drvdata(pdev, dev);
--- 
-2.34.1
+> 			no-map;
+>@@ -208,17 +198,6 @@ vdev1vring1: memory@88018000 {
+> 			no-map;
+> 		};
+> 
+>-		vdevbuffer: memory@88020000 {
+>-			compatible = "shared-dma-pool";
+>-			reg = <0 0x88020000 0 0x100000>;
+>-			no-map;
+>-		};
+>-
+>-		rsc_table: memory@88220000 {
+>-			reg = <0 0x88220000 0 0x1000>;
+>-			no-map;
+>-		};
+>-
+> 		vpu_boot: memory@a0000000 {
+> 			reg = <0 0xa0000000 0 0x100000>;
+> 			no-map;
+>
+>-- 
+>2.43.0
+>
+>
