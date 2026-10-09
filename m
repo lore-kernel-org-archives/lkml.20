@@ -1,102 +1,152 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 848BF3A5445
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 04:09:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791518976; cv=none; b=FdXa+F56M5eJtDky1nDNKZgACA+kHAYOAAcGOu0ndWSXvdYfpE73oXf+quMSdHf5GWQndCmJ34C6yACN6rsNYKHwDlvlejCMuLUMuCGdjm9u1nGiRHN9WtKyidrVBapXYG7Y5wh/nEboh0VCNLiVFmRugrLllyCxmVrdztyym2U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791518976; c=relaxed/simple;
-	bh=KmIIyE7EGRXxBsHkrV8hu/pYMT9Lqzpcue7Nh3FQ3Jc=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pujFOeIrukyE8AOmf3kXLGL0QX62tEESDJ0IdfRYeCNwoHIKQtGUdwAw8yKJRBG+MNZ62gtXviAQ5emfJuUtyilxn3Pjgl6l9MZUeqyMc56YHNzFuClI904O0cm73g1QpkuNWOnAS6Mbh7FjlvxGBCfvN/X0nWs+snTHspmUcWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=SM6gz6GP; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71A3D3655CE
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 04:09:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791519003; cv=pass; b=mgz49XhKRDYsO/th3nPYz+ZN7BC1XoykuAVebOeXFXCYc2fSTsVWkVEl2zzPsTMKFQaDb47gBGJ3BLNgMcWnajK3xeC1OGJvtizKkDMi8UH1AUg4AEuer300pyhUoolgEjrYm8aEHviqz0kdMoOyzwee9Hx49Y1FmucCC9rjhnw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791519003; c=relaxed/simple;
+	bh=NPttGRQsFZMlYlWq7ACnEyxHFvnrxryCdv97VywA4yU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PPbwr4wSmK7bc5GXC3rVpCKxMgpy7AhxLzG3VbJXdTHaitiIgZe4tKnWwQsuOGUFF2oaWpBCF3NjOe9c4bSigVbUxNjlLR043m7u5U4ryiQZxgCBuNEmhpoizKhlXSCUGH6Z2lhTeY/pPUUJBXqLyrcOdhOoF6EYoBQNTvBx3Ak=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p6d+iwRm; arc=pass smtp.client-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="SM6gz6GP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:Message-ID:From:To:Subject:MIME-Version:
-	Content-Type; bh=KmIIyE7EGRXxBsHkrV8hu/pYMT9Lqzpcue7Nh3FQ3Jc=;
-	b=SM6gz6GPghGTsFOnVbBnqxzcBhqw2ZOVdkuxKYtDvBeenC0D7rkvSQmOSmgOcC
-	2MLLqNNO6qIzOkjyuNI35WmlAEJS+KNPDgt6RzPOqKY1k8NCJ2nMoAfcCoNg84Nk
-	yEvBQbVJrSUHoRVu/W+hGNWc+x++NCMvmqULm0kuruzBU=
-Received: from localhost (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgA3HqunaMhq36N3Dg--.46730S2;
-	Fri, 09 Oct 2026 12:08:08 +0800 (CST)
-Date: Fri, 09 Oct 2026 13:07:51 +0900
-Message-ID: <179151887161.2196447.9527206946798924448@163.com>
-From: Hui Su <sh_def@163.com>
-To: Jemmy Wong <jemmywong512@gmail.com>,
-	Kayra Cizmeci <kayracizmeci@gmail.com>
-Cc: sh_def@163.com,
-	jstultz@google.com,
-	bsegall@google.com,
-	dietmar.eggemann@arm.com,
-	juri.lelli@redhat.com,
-	kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org,
-	mgorman@suse.de,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	rostedt@goodmis.org,
-	tim.c.chen@linux.intel.com,
-	vincent.guittot@linaro.org,
-	vschneid@redhat.com
-Subject: Re: [PATCH 0/3] sched: Fix proxy-exec use of curr and donor
-In-Reply-To: <309FAB10-ACB0-4EFF-81B2-5E7906A00ECE@gmail.com>
-References: <20261008132604.98242-1-jemmywong512@gmail.com>
-	<20261008153348.92684-1-kayracizmeci@gmail.com>
-	<309FAB10-ACB0-4EFF-81B2-5E7906A00ECE@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p6d+iwRm"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c2e5f8fe879so589627266b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 21:09:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791518996; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WE+r09yW+fzuV3zcTuTi7R5F6/4M0Wl3ZqERT8/oU9YRJlTvuIF68EPlYJspvmXebM
+         vRGZcycr0FW38TUB/pJ63gmGQIS1t5dSegMXlVfpnKO81eOX/33E8tfC8uVUaLm2VfLc
+         NY3xMcr0QMMD1Iogmnw5XHpUxbx2pGn+X8zjSl6Rlr+hmFpWxk5AHxDWt7UfTr/KNukC
+         1ZtLUxN0ki/50NBvgIaZt7VjocanigVSiySco4nocprPcOebBGZMgBSPGO/aLEnUiWub
+         FBQPoHJwK5L6rzbvA+ND39XKCFvCbAFfEX8nvTRVGkKN/chRQ3MDfFJ6FTM0arzooYJo
+         CoQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=s0w22iAxwWX3zCufP/m+FoKgPyaiXV2DxPNqJeKo2Y8=;
+        fh=mi1bNm3R2YtxJDaFnYY2rqNDj+5FKYRzjF+Y9mucGoY=;
+        b=sAYyh6fhKInToSIlry0Iv97ZSRTHunqwfjHZzQN7mKcjoes62tE5Lxw3t164C3vh1F
+         M/4ZTmWIlbcVz7jbOXvA1ZfNX8oxKsYTjK0DT5Bq83p38hfAxez9/e4v7mHzO/XJbEYx
+         gIJDT0Xfiz9nksHEg+2e8AE2XO4berQcFJj4PjUi68sswsYHAoMd/JXiqsy5/L3Mp+0K
+         PGY+w99PiNsv9Zi6dvS1WPq78rCh8qH8zzRkCSiZTTiYNlFpSz/+5+eP49/gvN0WiKLJ
+         CSA0j+6v+RePCJOw5Qkq01ztDvo/YZTlVztasNZhcfyAoA3WXW8TzV+dt6HfynaqijZJ
+         YyyQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791518996; x=1792123796; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=s0w22iAxwWX3zCufP/m+FoKgPyaiXV2DxPNqJeKo2Y8=;
+        b=p6d+iwRm2x7LWaIkCMasRyU2yPdVda2HJWuUN8G/H3h7LwLkWevqmmbL7R8P3BGKZ2
+         GV4Gq0gzVR6d728XeL5QV0nfse+EQfJOdOEt78o7kslfz7C/9NgZrZT1PZ74km4OCvCi
+         noNV08SqDMdCNM3l1HrBbhJhQtY7ukO6GzMIDExpHDSIuhCJm9SoYjcpg0aUzo9hxn7S
+         /t0wP+rX2hT022VHOVHpV+q0LGRwwED4585VIcCZnJP6IT0zdqMKm3Xcz12aIY4TSh2U
+         PkVdNj7+diullU+IB1OEyQ1wS/m5r2k332sxNNP1FHTFAZiO7/R+Czp0e/1TYqZzEdrV
+         5yiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791518996; x=1792123796;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=s0w22iAxwWX3zCufP/m+FoKgPyaiXV2DxPNqJeKo2Y8=;
+        b=k0MCaIWqhLyrHg7BhX0CCE5YzlPuEOHZGOy2HRapnu4GxlW52+HLUi+VNaulQnOrmN
+         wFO8JSk8mj5C+MrvHCcLTaOLIHcrq9udCvMysSWjtu4tNzV7A42XN/B1hi4pbrcacBVm
+         KwRv/ErI4JZyvVjC/bKvuMgSWXcWzJSRHGHQvoNlaSVV+doR1hufLgj9MBMd5OsqFQNZ
+         TzLY4n1Dl67OrUePnpEfFEczerBpI6iIObu8AVh3ZikVcKR/fLpTldAs0wbqbw+QgbnU
+         AbrPiPoqhfqIAhheT39zy6u51kqg5XeE7AjsNCD99SRN0qWx5g9W6am9U0yCx0nxHIYY
+         CEeg==
+X-Forwarded-Encrypted: i=1; AKwUvBxW60ihOrJKFvArhwrpuWo8di5ZkgwyDyIf+QLDB60nRmi7rwxs/zC0UM36LBMM3pO8Djx0+KCZv/hQE4E=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZuWE6lS8LDpU3Kc2cWwRZw0ExykPJb7NluhFSIbi5zuln74B9
+	GWM8y+cxmSlmYiXg97PV/HiWzc3zT7E6dwD3NkJwB3evqdPHTn9GXs/4938May7R8NWhDRDFEan
+	EpjHSwPfKBzOHDEvZInKwX35vqF6S7Do=
+X-Gm-Gg: AYBFou0yo4QqI5Lgn4q+xk2UMJ9W+JcKFbFEjb4aeM2PdPEXyKoZ6IPuZiSVp9JMFfB
+	Nevl2P37IKBl9cA/bcbqK8si/nq2AxLDhPrrQiUgk1nA+X/1IdvCw0uBNC0bNCWNOzWmcBnZtUG
+	EbLygbN4Mv+Wf5HKyRHn2gGZjcnr33TWYqNM40nhoUL7nqsbLW+FITNVJPDVuUi/l9KAktxOiuy
+	N0bih6fL0rSY4SaKfXJj1tFzzV5m3rgvRg2f14BWxaoGML0PMR0BNM+/6tKR6acOLAUpkHZ9q4K
+	lLluh9yQEBhB9JBpEQ+3cAWtVCYLoOs5I7G1jFw4+a5LaFOTiEGAI7UQT9M0kukWIoKvIYviQ8i
+	aq88JyoPZ8Ll+nfb1VIUKCbL3vQIiQS7sdvfzG7/dc8LEeNodh/2LGQxfeqOrj7lSTeS/TrWdBC
+	qDWdo8AAxoDEey4LDggre4+8v5ztGsTCUBiR5JwJDqRmPDS0KGFfF8uTa6cJ5zuJDjPH4=
+X-Received: by 2002:a17:906:dc8c:b0:c31:8984:7fad with SMTP id
+ a640c23a62f3a-c31a9feb114mr51812266b.15.1791518996327; Thu, 08 Oct 2026
+ 21:09:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgA3HqunaMhq36N3Dg--.46730S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tr15Kr4rZrWDAFy8urW7Arb_yoW8Gw1rpF
-	sYvr4aqwnrKa4xJasFg3yqga1Sgwn5Ga48Jr95G398uw15t34FkF92kw1SvF1Yk3yakF17
-	tr1vvFZ3GayYvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUDCzZUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwQgRcGrIaKikDAAA3i
+References: <20261004233523.516891-1-rosenp@gmail.com> <ashiQ98Qmie63mB2@studio.local>
+In-Reply-To: <ashiQ98Qmie63mB2@studio.local>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Thu, 8 Oct 2026 21:09:45 -0700
+X-Gm-Features: AclHuK_UrczYSgWiELM86QENzwDdfuoi_HLVyZFd-zZES-cUZQQiE5vhNbu5RWc
+Message-ID: <CAKxU2N8WtY+=dhSTfyu=8ujEwnkcfV9PEkXxuTLHthwksDhTxw@mail.gmail.com>
+Subject: Re: [PATCH] bcache: fix kernel-doc warning on CLOSURE_CALLBACK
+To: Coly Li <colyli@fygo.io>
+Cc: linux-bcache@vger.kernel.org, Kent Overstreet <kent.overstreet@linux.dev>, 
+	open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> Yes. My first patch and Hui's v5 2/4 and 3/4 move the NUMA and cache
-> ticks onto rq->curr when that task is fair. Hui's 1/4 is the right
-> shape: task_tick() runs the donor class and, when a proxy crosses
-> classes, the execution class as well. A fair lock holder whose donor
-> is RT or deadline still gets those hooks. My patch only changes
-> task_tick_fair(), so that case stays missing. I'll drop it.
-
-Thanks Jemmy,
-
-Yes, agreed on 1/3.
-
-For 2/3, I think this also overlaps with an earlier standalone patch I
-posted on Sep 2:
-
-[PATCH] sched/core: fix task_sched_runtime() for proxy execution
-Message-ID: <20260902112539.879979-1-sh_def@163.com>
-https://lore.kernel.org/r/20260902112539.879979-1-sh_def@163.com/
-
-It makes the same two changes in task_sched_runtime(): test whether @p is
-the execution context with task_current(), while still invoking
-update_curr() through rq->donor->sched_class.
-
-For 3/3, Andrea has an earlier patch, first posted on Jul 16, addressing
-the same NOHZ CFS bandwidth issue:
-
-sched: Make NOHZ CFS bandwidth checks follow proxy donor
-https://lore.kernel.org/r/20260716132229.61603-2-arighi@nvidia.com/
-
-In particular, that patch also removes the nr_running == 1 restriction.
-As Andrea points out, a retained proxy donor keeps both the donor and
-mutex owner queued, so keeping that restriction would skip the bandwidth
-check in the active proxy case.
-
-Thanks,
-Hui
-
+On Thu, Oct 8, 2026 at 8:41=E2=80=AFPM Coly Li <colyli@fygo.io> wrote:
+>
+> Hi Rosen,
+>
+> On Sun, Oct 04, 2026 at 04:35:23PM +0800, Rosen Penev wrote:
+> > bch_data_insert() is defined through the CLOSURE_CALLBACK() macro, whic=
+h
+> > kernel-doc cannot see through, so the kernel-doc comment above it
+> > produces:
+> >
+> >   request.c:308 function parameter 'bch_data_insert' not described in '=
+CLOSURE_CALLBACK'
+> >   request.c:308 expecting prototype for bch_data_insert(). Prototype wa=
+s for CLOSURE_CALLBACK() instead
+> >
+> > Turn it into a regular block comment, and drop the @cl line along
+> > with the kernel-doc markup.
+> >
+> > Assisted-by: LLM
+>
+> The patch is fine to me. Can you provide the detailed LLM name here?
+It was Opencode's Big Pickle IIRC. Current documentation says to just say L=
+LM.
+>
+> > Signed-off-by: Rosen Penev <rosenp@gmail.com>
+>
+> Thanks.
+>
+> Coly Li
+>
+> > ---
+> >  drivers/md/bcache/request.c | 3 +--
+> >  1 file changed, 1 insertion(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/md/bcache/request.c b/drivers/md/bcache/request.c
+> > index 3fa3b13a410f..e7f097346d64 100644
+> > --- a/drivers/md/bcache/request.c
+> > +++ b/drivers/md/bcache/request.c
+> > @@ -285,9 +285,8 @@ static CLOSURE_CALLBACK(bch_data_insert_start)
+> >       }
+> >  }
+> >
+> > -/**
+> > +/*
+> >   * bch_data_insert - stick some data in the cache
+> > - * @cl: closure pointer.
+> >   *
+> >   * This is the starting point for any data to end up in a cache device=
+; it could
+> >   * be from a normal write, or a writeback write, or a write to a flash=
+ only
+> > --
+> > 2.56.0
