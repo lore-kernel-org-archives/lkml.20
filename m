@@ -1,253 +1,114 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E7C6471D1F
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:07:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 217334718E7
+	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:07:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791529664; cv=none; b=miq1/QNVPl/Pg21eSBp8pIUdDUvac26zTUCb4GJbSke80e5foJ/9gqMaSCuEmB3qu59Ama0SHV9Tsej2cPighCII9iemPTtGestDeFAA5fC2tRYDACdKaTNjBDEyp5mkMeBuzu6OLDZPoLI++z3rdTio6Y00F2b1BLmPFw+Jw3Y=
+	t=1791529666; cv=none; b=j82v5ztp7iC0OnZs83v4xcvC5IUJ4P1c6kRardTO0gympQLl90BwtPuG0UVQSBoQsonZo+nTH6z00XDVqDiNzFHIxDnBvo/EeKKiWlDp6dXWf+tV+QEWCIoCVZCqyefRmXVIr2B6iss01YZhSG+uQ747E3TgTiS6HNhlzv/lixc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791529664; c=relaxed/simple;
-	bh=nSTo1VdEKP46zFTyr6sw7nYXnk3rhLO34q31k9PbB7w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SijwT06x33seO/lKQVHnXscCqnhK3rxNzQPnXaCUdqC9RGylwR9Gd3HGCW0hwE2Yi/LFuhOgyJsBYfisjfl67oRXZLP9ZoUh4Ql4iPhDcQJBuvSuGUe7wt0PC1dCn7zsJpYi1iOsLn8aSA5qJNdKccbM3Ix/GpvkwC4g5a6DVqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SC6JOvRo; arc=none smtp.client-ip=209.85.128.45
+	s=arc-20240116; t=1791529666; c=relaxed/simple;
+	bh=AOBfyMObxsPKe5555MA7X0XhuhbKoT8tcSGCgf4g340=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jj4bNZkS6kplieStn1vq53ZmDSBgXqcFD/uKoEj7BMGPPvOrZUSLKHqS4pGbwwCyS6pjdgdx7C5ZaKXxR1rQdpGJFoOvrS8tCEjed/zO3dLc5lA9POdj2rHKmJKqdGbx4j5+GVXPFAhI/vrxnVD/QshMU2N+WhytZYeMxTy4qhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B0FazBUM; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SC6JOvRo"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a1880e1bf1so9777905e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:07:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B0FazBUM"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso54364165e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:07:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791529661; x=1792134461; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Z0DKBerAMph010nG26guGGCaKha8XpWR5390+tf1UWA=;
-        b=SC6JOvRoco+R8fPOtk72FX+2PUZkF2r1R8mfXCVlFNFez42nHYrZ5lEi5Vmr27K1V5
-         Wn2pRI8GHAE4aNxdq4KN+g65LYBjrmR7Y5VdCv2kfdcjXfFEkaTbtvawQhWvfvEbjUIh
-         CVVQabkpVK8/gNNRTxpvIRvN8WaBcRTDH39IGxfFybiRj+lzcSQVeJ916bimUGNDZF0a
-         HcBH95060U8NBb+w+u8as45pWs6x/R8LjVjWSjB0hKMd4x56YnhnL7XmCAfzYs1cETnu
-         /x7p3rS67xkvB0DGk2An9wAYL7Igs7ZY87PI3vV1j7IRYpvx/5/KW97UFCeTxtxIC9CU
-         V2FQ==
+        d=gmail.com; s=20251104; t=1791529663; x=1792134463; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sKKm9SmEIl/bnNoeHMWb5gysBaP9kkRYpBJirexaJDo=;
+        b=B0FazBUMi25Nrrx2P3zFQv2Ew0+HrurV02ZxT0ILniaokSjQwT9spny6pLPlp1arCQ
+         1nAdmH3V1brYpLPo7/AztGbTYqYoJJgWo98R3F97yxJ4sq8ZBEGYHgri/atjcF2d6pkI
+         jbLcBH9o3tVEXeAtKs1O/scczwwJxtXZS/4/mls0BYyO8yOsEFwj5Kijs9eJehnAmisA
+         iA+GKPcr1x1HpVpwtgwfz5NeI+GgRU+dMy9ucDUovhkXoMK+uXY4w6cFkRYrzzAzLSUg
+         ca2YmFMruULHowX/r57yL5GemGkCyKceU0f55382ZLGYbx2V3I9+xMDTRJCZAJjnrGlp
+         Q0QQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791529661; x=1792134461;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z0DKBerAMph010nG26guGGCaKha8XpWR5390+tf1UWA=;
-        b=eA72iaH/5Sdx4vvGowXmdZ/rNIA6r5bxU2JZi9ZQwkPNe2z/Kkji1RbM3iFDQja2Ol
-         1GcsLtgIMeeFpDMaI0EIqbHrV2soX6QLQc5AmnN2tdcwS3ZLf2ARZmDU0yPByln92Q30
-         AnzDJ8R0uwL26jMUjHUcqEP8C9ep03Fnu2PlSkBdOLh17guGz2PenNZEHWrBa1cXuVeD
-         D6XliK+5m8SkeIaPEPQL2J7ZyMv3TxADnrkJgnkA/Wqvy5djRngUtmPbb6imNixT7U/S
-         wgYi+tsYFaWKtl3S8G+/H8vyL9WXorD42wZfdhIXWAd3eHDb88LKU0JHtrEQD7YOVy9Q
-         Yrfg==
-X-Forwarded-Encrypted: i=1; AKwUvBx7ms64VUb09w01FH78/Cpqsptyt3f75VoPOMdX+tmcG8RjpXxcHvIWDj20r84WWdAtXi0mSAps666L7H8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lGbnuUBNx2Ybb/6ZVWbuZadz4UdZO5a0QpKpgtJZYSEOTAHYY8
-	2EEO9RMhqvXIP24VZnOCZ0d8UgebRLUNaT1jZIdO7ao4oeTF7QtCrPTq
-X-Gm-Gg: AYBFou3LbacFNb881Q85PT7H7nWX7ccmZTynRydfcjIuHnKA1mFUVP6n2N8B9QuInSF
-	ez6XKxmMUeI8xhOxPO/I1ZZNmUsptTesYfYS4s/tWMWDjJT9dJQ0zgTzrzeg/Yt17ra3Iz/FIbM
-	oiXAj9/M42QUe2p1yhxExpJUlnXQ0pLG14mova3n72gSOX+VQQD4pstybgVoVuOAaq1LiF5dxnt
-	6SaSTIlz2op/IgGrqY2/PtVdNgL1GcMNffKMHXG9vYFUEIMeDX8V0eqOZIsz/XpU+4yapC/OXY2
-	Mq24TTkRitunZv+hUH8xelPTPRRGCbVws7fTfwd6aFslS3WHTEUlPCPokUDZp4x0PPVE26GHcl5
-	n6ih4jLEOgJnQesrioY2wwx4ZTEUMMyx1WNYCWQo9aL1lolLEAYdz0wLbxyw9mh6G/2aGHM7bUz
-	FGM8l59TUBFVFedA8zU5UCYlJ83OnSbL33k9o5/1Ciuz3aZU62KoQuuaFJvMMtLew74gbXW2ida
-	Zc66/qNU+XTDCwQWFbaaOW7A9jYYdwUpMk0FMUTN80hG0OZH3vWKVcYpE3yBXHVXMNO+rqLfdYc
-	kI5IGGUKEDxNMg==
-X-Received: by 2002:a05:600c:8716:b0:4a1:62b8:9aa1 with SMTP id 5b1f17b1804b1-4a18e44885dmr16083295e9.2.1791529661191;
-        Fri, 09 Oct 2026 00:07:41 -0700 (PDT)
-Received: from Ansuel-XPS24.localdomain (host-95-233-52-5.retail.telecomitalia.it. [95.233.52.5])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a18ca4621fsm26176815e9.3.2026.10.09.00.07.37
+        d=1e100.net; s=20260707; t=1791529663; x=1792134463;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sKKm9SmEIl/bnNoeHMWb5gysBaP9kkRYpBJirexaJDo=;
+        b=ICuMR68C1ussFYrwm61Jig+y+lwT8QDFD24FsHVbWCWKq+1KfRYuoCgkP8nTZ4R/G8
+         u+r+4AjRvU0PSgyrsOje2IedUqQa/tm3N4hcC60lg4fqMOFxCOsZx+oabkHjtTGbsnlj
+         AE06HKSKbCUdiptfvEFv5gKCqZwiLBqyBBaotpU21wGWulzEjsHBdJs2yMdiue4X2H1C
+         DnW2g7tfImWR4QCXgrS5sJTwP9NLRQVRu+Pgt7FdgDnKAeANcKub/JYODfTR41EIZFvK
+         XghYpCzL5S8hAsXZkjA9SefNVHrOEbx4yUw5+pbKsrRryYURUSIHl73MXXLrA2CWpKRe
+         7Yag==
+X-Forwarded-Encrypted: i=1; AKwUvBxeDKXCpf4SZSsPLeiPtUFQrA136qXr8r1xKAw2lj64GPqfCMo8mnyx7xPGLIGJ8gfiyndyyARZHquc8uE=@vger.kernel.org
+X-Gm-Message-State: AFuF++l4dlJx7EZMfAJLag+fXqhTvVnACsUH6gBlZj3FK1s2lGeUcwT5
+	jO10rIk0zgclUZHoPSRkSHswoZ+Ao4mTTVVr+P/1fiL3jKpvTUBjq1x0
+X-Gm-Gg: AYBFou3Vnmse5pPnWyr4msvjnYakZNTPq9xDZFAnV19Ha0MRLBlzFae6/JmEFir8FX0
+	Z9thByV/Jl5V6m6WK+5VUQwYp0XuZfJwuCiibC8MeyrdAUyit/9ON9lCu/GqIi+hAypN/f9+9CL
+	bnR2/t8cZFC2YtlIe0n5kgtOuY0rT4X0VR/sLt6F2hvI9zeh7Do005iDtF0EhIgFqX5qOn19C51
+	mFZFzKVKK2xJV31f7kwRdwwDLc4p0HIEZmWmIR60HZ88ilFx3iatnkxD/AOZtF+HmaLRaS++hiD
+	YfRgMETo7ufXlKYSDH0kRHI75PMF6SD9p7j8j6ivUS2JIOQfj5x5eJ0ADXh7XWNOl/k/nsTNsRc
+	fjPw7qE0s5wgBr18GMiMvl5Xufo7BF/NI1/r6LWZCalHxHr4+qoW5azMtHAOlInKjELjc4nu7Zh
+	n9qt5cU+irFRVkO34ER5+fzahAZOmQ2QgvGPLtJNaJ8TfoebtogsLFUiKCChXdRIPP5P0LTd2db
+	Yt7JFGIURgWsvkao9OEJzJzpZEoOKK8X87iHVrU9VKWU/OqQP+ll7mUXws/20frS6p3Fk29B9C2
+	Xh7DmhIdVD3nIWcQOQcM/sIawaCI0+YCa2bKfIQ+ODaRf0lgW6jL8yOBk29ET5olynAQyTYPSTa
+	ZrMIeRS3fwQ==
+X-Received: by 2002:a05:600c:8708:b0:4a1:7b05:3a6d with SMTP id 5b1f17b1804b1-4a18e49881amr14849175e9.8.1791529663117;
+        Fri, 09 Oct 2026 00:07:43 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-a128-aa01-297a-7094-853e-a20c.310.pool.telefonica.de. [2a02:3100:a128:aa01:297a:7094:853e:a20c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf2caf4sm41656205e9.10.2026.10.09.00.07.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 00:07:39 -0700 (PDT)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Felix Fietkau <nbd@nbd.name>,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Christian Marangi <ansuelsmth@gmail.com>
-Subject: [PATCH v7 1/3] dt-bindings: clock: airoha: Document support for AN7583 clock
-Date: Fri,  9 Oct 2026 09:07:21 +0200
-Message-ID: <20261009070725.13196-2-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261009070725.13196-1-ansuelsmth@gmail.com>
-References: <20261009070725.13196-1-ansuelsmth@gmail.com>
+        Fri, 09 Oct 2026 00:07:42 -0700 (PDT)
+Date: Fri, 9 Oct 2026 09:07:41 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Harry Yoo <harry@kernel.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+	David Rientjes <rientjes@google.com>, Muchun Song <muchun.song@linux.dev>, 
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Alexei Starovoitov <ast@kernel.org>, cgroups@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
+Subject: Re: [PATCH 1/2] mm/slub: preserve no-lock freeing after memcg charge
+ failure
+Message-ID: <asiSUpAYYU8Od4HM@gmail.com>
+References: <20261001044056.75079-1-kmehltretter@gmail.com>
+ <20261001044056.75079-2-kmehltretter@gmail.com>
+ <asaAwg1KeZoEYd4K@thinkpad>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <asaAwg1KeZoEYd4K@thinkpad>
 
-Document support for Airoha AN7583 clock. This is based on the EN7523
-clock schema with the new requirement of the "airoha,chip-scu".
+On Wed, Oct 07, 2026 at 07:40:17PM +0100, Harry Yoo wrote:
+> > 
+> > Use kfree_nolock() when the allocation flags disallow spinning.  This
+> > keeps the SLUB object rollback on the no-lock free path.  The failed
+> > allocation continues to return NULL.
+> 
+> When this happens, the object is not charged by memcg.
+> 
+> The kernel should not invoke memcg_slab_free_hook() (called by
+> kfree_nolock()) for a slab object that is not charged by memcg.
+> 
 
-The register for clock and reset for normal system and PCIe are scattered
-between the "SCU" and "chip SCU" registers (they are 2 different register
-block, the name is taken from the programming guide)
+Agreed. I'll avoid the memcg free hook on charge abort.
 
-- Chip SCU provide register access to some clk gate and clk rate
-- SCU provide register for reset, PCIe clock, other clock gate and PHY
-  SERDES.
+One question: kfree_nolock() currently skips init_on_free, while the
+existing charge-abort path honors it. Was that intentional? I couldn't
+find it discussed in the introduction threads.
 
-Upcoming and current airoha clock driver all follow this pattern of
-declaring one of the 2 register and use a sysconf for the other as the 2
-register block are tighlty coupled.
+If kfree_nolock() should honor init_on_free, I'll include that fix as
+the first patch in the revised series. The charge-abort fix will then
+reuse the shared initialization helper.
 
-EN7581 internally handle the syscon with a direct reference by the use of
-syscon_regmap_lookup_by_compatible while AN7583 wants to make this
-explicit in DT with the new "airoha,chip-scu" phandle.
-
-Similar to EN7581, also AN7583 permit the selection of the serdes line.
-
-Add additional binding for additional clock and reset lines.
-
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
----
- .../bindings/clock/airoha,en7523-scu.yaml     | 23 +++++++
- include/dt-bindings/clock/en7523-clk.h        |  3 +
- .../dt-bindings/reset/airoha,an7583-reset.h   | 65 +++++++++++++++++++
- 3 files changed, 91 insertions(+)
- create mode 100644 include/dt-bindings/reset/airoha,an7583-reset.h
-
-diff --git a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
-index fc37786ac7ed..8b94113d00ab 100644
---- a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
-+++ b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
-@@ -31,6 +31,7 @@ properties:
-   compatible:
-     items:
-       - enum:
-+          - airoha,an7583-scu
-           - airoha,en7523-scu
-           - airoha,en7581-scu
-           - econet,en751221-scu
-@@ -57,12 +58,34 @@ properties:
-       available serdes port.
-     const: 1
- 
-+  airoha,chip-scu:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: phandle to the Chip SCU providing the registers required
-+      for configuring the PCIe related clocks and resets.
-+
- required:
-   - compatible
-   - reg
-   - '#clock-cells'
- 
- allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          const: airoha,an7583-scu
-+
-+    then:
-+      properties:
-+        reg:
-+          maxItems: 1
-+
-+      required:
-+        - airoha,chip-scu
-+
-+    else:
-+      properties:
-+        airoha,chip-scu: false
-+
-   - if:
-       properties:
-         compatible:
-diff --git a/include/dt-bindings/clock/en7523-clk.h b/include/dt-bindings/clock/en7523-clk.h
-index edfa64045f52..0fbbcb7b1b25 100644
---- a/include/dt-bindings/clock/en7523-clk.h
-+++ b/include/dt-bindings/clock/en7523-clk.h
-@@ -14,4 +14,7 @@
- 
- #define EN7581_CLK_EMMC		8
- 
-+#define AN7583_CLK_MDIO0	9
-+#define AN7583_CLK_MDIO1	10
-+
- #endif /* _DT_BINDINGS_CLOCK_AIROHA_EN7523_H_ */
-diff --git a/include/dt-bindings/reset/airoha,an7583-reset.h b/include/dt-bindings/reset/airoha,an7583-reset.h
-new file mode 100644
-index 000000000000..410e19802cf7
---- /dev/null
-+++ b/include/dt-bindings/reset/airoha,an7583-reset.h
-@@ -0,0 +1,65 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-+/*
-+ * Copyright (c) 2024 AIROHA Inc
-+ * Author: Christian Marangi <ansuelsmth@gmail.com>
-+ */
-+
-+#ifndef __DT_BINDINGS_RESET_CONTROLLER_AIROHA_AN7583_H_
-+#define __DT_BINDINGS_RESET_CONTROLLER_AIROHA_AN7583_H_
-+
-+/* RST_CTRL2 */
-+#define AN7583_XPON_PHY_RST		 0
-+#define AN7583_GPON_OLT_RST		 1
-+#define AN7583_CPU_TIMER2_RST		 2
-+#define AN7583_HSUART_RST		 3
-+#define AN7583_UART4_RST		 4
-+#define AN7583_UART5_RST		 5
-+#define AN7583_I2C2_RST			 6
-+#define AN7583_XSI_MAC_RST		 7
-+#define AN7583_XSI_PHY_RST		 8
-+#define AN7583_NPU_RST			 9
-+#define AN7583_TRNG_MSTART_RST		10
-+#define AN7583_DUAL_HSI0_RST		11
-+#define AN7583_DUAL_HSI1_RST		12
-+#define AN7583_DUAL_HSI0_MAC_RST	13
-+#define AN7583_DUAL_HSI1_MAC_RST	14
-+#define AN7583_XPON_XFI_RST             15
-+#define AN7583_WDMA_RST			16
-+#define AN7583_WOE0_RST			17
-+#define AN7583_HSDMA_RST		18
-+#define AN7583_TDMA_RST			19
-+#define AN7583_EMMC_RST			20
-+#define AN7583_SOE_RST			21
-+#define AN7583_XFP_MAC_RST		22
-+#define AN7583_MDIO0_RST		23
-+#define AN7583_MDIO1_RST		24
-+/* RST_CTRL1 */
-+#define AN7583_PCM1_ZSI_ISI_RST		25
-+#define AN7583_FE_PDMA_RST		26
-+#define AN7583_FE_QDMA_RST		27
-+#define AN7583_PCM_SPIWP_RST		28
-+#define AN7583_CRYPTO_RST		29
-+#define AN7583_TIMER_RST		30
-+#define AN7583_PCM1_RST			31
-+#define AN7583_UART_RST			32
-+#define AN7583_GPIO_RST			33
-+#define AN7583_GDMA_RST			34
-+#define AN7583_I2C_MASTER_RST		35
-+#define AN7583_PCM2_ZSI_ISI_RST		36
-+#define AN7583_SFC_RST			37
-+#define AN7583_UART2_RST		38
-+#define AN7583_GDMP_RST			39
-+#define AN7583_FE_RST			40
-+#define AN7583_USB_HOST_P0_RST		41
-+#define AN7583_GSW_RST			42
-+#define AN7583_SFC2_PCM_RST		43
-+#define AN7583_PCIE0_RST		44
-+#define AN7583_PCIE1_RST		45
-+#define AN7583_CPU_TIMER_RST		46
-+#define AN7583_PCIE_HB_RST		47
-+#define AN7583_XPON_MAC_RST		48
-+/* RST_PCIC */
-+#define AN7583_PCIC_PERSTOUT0_RST	49
-+#define AN7583_PCIC_PERSTOUT1_RST	50
-+
-+#endif /* __DT_BINDINGS_RESET_CONTROLLER_AIROHA_AN7583_H_ */
--- 
-2.55.0
-
+Karl
