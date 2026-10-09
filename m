@@ -1,344 +1,162 @@
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CE4836B910
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 07:24:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 671EA3E9C3C;
+	Fri,  9 Oct 2026 07:25:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791530681; cv=none; b=WRDoe0FL32jJcwEj1ZxxSnhxxJRfObKbIcLb9KhhL/OlxvIYOQoPYxrSMLPogi24Fi3T/HriV5ZMTHbKsAyptS0lt7aKDPesttc+oDEwUkf5kD22tSLFb93KV+qDproOOKqhjDaCn6OdFc1D6C+XFQZD/q78WQj8umPtsWvBycA=
+	t=1791530729; cv=none; b=pz2RheWobMpX2stCAdLZfrIw3pk88aKZzqUBBUlqyibt5rlCnDwsmbBCFCNVNmDBq2jR0KyjDbpeo6n2rbuCw38QQCK7Zwu1sHVTy3Fsgc0u5z5QD1TseS3enpvqrqn7lvnudOBaGj3t7n1TY5d6QKldPL8Esy9M2zGb3pDYE3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791530681; c=relaxed/simple;
-	bh=pxUkCMM2UXyrR1rZnwfMs9nbal+HDiHNcbfctc5svgI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YmBCY37ZH7IAn/v9jFFWbCbkk+yo+Ch8qn2lNjMDk1fmrx9VVZunERdgOuPPUDoBsd6s7Apco6pNLGnJMVq6tRzLXzTexrO0Ad20HcFVNLoNHL1f9u3Vkz2m241JZsU6tXHRMxiJ3Lov1BcatShJ1QlRp3skpOsMc8igBF9s6n8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LJPhBEet; arc=none smtp.client-ip=74.125.82.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791530729; c=relaxed/simple;
+	bh=nRfx4PEdAVe/tiZSwV6KOad6Jk8ggOZNrdSFq/iADUM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=U+Z2AtgDFk4edE0SVEbYI/loh3yw4/9gpPN60Z1jZwdnLhj2HSz4CyNZPpZUY7DJBQH5+3uPIEHdRHA9TwLvtnkfJ2c4CPOtf3maN48+NEwpldG9z0CtWyqOSkWPE7DXEngS8ZYsSqQWtCUu6N1yBBcVA+MKz/yaxe6cg4jqfTI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=lGW/rDza; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LJPhBEet"
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-16ad92569b5so238506c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 00:24:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791530679; x=1792135479; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fwSepRwSuQr7wi2Gml76JYUuzR52erk1HLC3v/0O/54=;
-        b=LJPhBEetqv+R+qcyXm6nz0nESY94M96buoMXUgf7t5ZmHvRdcx58g8dJ4CCPOM55F5
-         tUrgGfTzCebQeS59WAHe7NF/8GEIyPwXGBPmYH7a4cchVvF+PqwP35gV73PAO6BzfP9F
-         8kHcLAUGOzl4AzsaibuPa7w6U/LEg4vXIqDzTH+GCgs+070jC81dls9nAJutvIBKgVbv
-         AsnU1Yp05o9e8shJ7WCw0g1b5okuajMSJ8oeFdzEX5qSpPNyIebPgB2VxxHYLlWmP9FH
-         A1F6w1gqNM628Ck16eejxSXk3EnAMtgQCs4pTA7IwnpowQh7a/hMHmP2f1DgpWkuCk8V
-         6bxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791530679; x=1792135479;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fwSepRwSuQr7wi2Gml76JYUuzR52erk1HLC3v/0O/54=;
-        b=PbLrEFofDnk8WSorR0iLR0zYEa3hNH4ohPidRZTBk/kl+558A1Xl7rYp7e073O5N2S
-         makGzH9CYt2n2OBYcHconISGDvjmCQeJLa93pJSJhhDWsKiKxdGGVxFJiCV8yigiue1f
-         YvtvE0tkBFFbZp2vWCeZp5Whk7O+xybM99dAsJ8LYe8epiPrWTsSJRyzsjma3YwpTwfZ
-         AGBKuV4UgJ/6MYpXd3ninJZdmk80OKWe2dDdDHKGOAsvNYfk0eru1a/vRKIcOuLCzYAg
-         0YzUCo7RXXfR9YtiHmZ940NPD0IlNgxPhwcXzP4v+CVKk0ZDGUj27AveuSCx2Cclflmq
-         la3A==
-X-Forwarded-Encrypted: i=1; AKwUvBzW/7GdcmF8waedQxFR9PGEX11rRBC5OGr015CfCNlSX00EipOV6rlxZR5DzUSKDHk3jnk+4CHedZkryJE=@vger.kernel.org
-X-Gm-Message-State: AFuF++n3GoL+PKlY0s9BZcdlc7I+E4YW10azirrXq5haafmdR6sHn3T1
-	t+m8odeIO7oz+FBgJqyjqdNYVKPaClVLZzvDWAc8MOoOCRQpaVwmR/DB
-X-Gm-Gg: AYBFou28fDsZEL5VdoFw/2XWdv6+gKzP1mAH6Feq/++T50b2HRV6H0tPO3rjpbhUEGJ
-	dNooxYlzueGAHXMxMhZ+t6Z67jUMl0WhLics3cLyxkA6o/XlpmVDWhk+ifB0NoAZw7/EA9jsdkD
-	OhtfN3kgTeWNThd5/vLJLht+zhWLSzCSgZVGSYuDUC78ZJQ8XbQy1XxaQigkdtr/CGgM1tIOCti
-	WC4fEPo50lhO2r83YnBU/KLQp+CTqpRVhzzWSgJoebWXAowguegh+Rit9YIGgTmIEYjm1BZPfu+
-	zlPbbYO6RK18Cq+KoLppFXFaX4HNtnJc1elYVsFqCfmV6CqhDpT6WUYsd+p2y/qzfH+esElx356
-	I0r7Cie5Y29TcFgly7SX4m7egOTSXVJEdstKny4h14FGaYFP2eWmVVnXIqcQRJS7OUgIp8VMuPO
-	qyG3ENHI8u5r0uRLrdfeOUlTPdmnUaWx0nKnXr6HAdpInXI80Odx4FywluLGo0VvZI8Qh+iKIQN
-	hfVOj6GCXck+Q7sWErI2A==
-X-Received: by 2002:a05:7022:3a81:b0:14c:efa5:ee7 with SMTP id a92af1059eb24-16a5afe51b5mr1363735c88.14.1791530678695;
-        Fri, 09 Oct 2026 00:24:38 -0700 (PDT)
-Received: from chitransh.. ([27.61.36.10])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a1becf08sm4600941c88.5.2026.10.09.00.24.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 00:24:37 -0700 (PDT)
-From: chitranshmandhaniya@gmail.com
-To: hansg@kernel.org
-Cc: ilpo.jarvinen@linux.intel.com,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chitransh_Mandhaniya@dell.com
-Subject: [PATCH v2] platform/x86: dell-uart-backlight: fall back to PCH PWM on UART timeout
-Date: Fri,  9 Oct 2026 12:54:01 +0530
-Message-ID: <20261009072401.52509-1-chitranshmandhaniya@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261008141610.42894-1-chitranshmandhaniya@gmail.com>
-References: <20261008141610.42894-1-chitranshmandhaniya@gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="lGW/rDza"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=nRfx4PEdAVe/tiZSwV6KOad6Jk8ggOZNrdSFq/iADUM=; b=l
+	GW/rDzaUYhdsjZvnIcmA9fXB9SYhjkaJjpz9qqewItq0wee5khus3pLgVoPcJbGT
+	gEV//OXXyCtqgzXtF5bFg1XcNUvUuzPIN2Q+LDuWnS0EEeYBoI90AUi8sU+ntUKH
+	q2I0/vgTnVxpT/W17HjQPe/rDdOapIw+vomcthFWbc=
+Date: Fri, 9 Oct 2026 15:24:51 +0800 (CST)
+From: =?GBK?B?wO7T07roIA==?= <dayou5941@163.com>
+To: yukuai@fygo.io
+Cc: song@kernel.org, magiclinan@didiglobal.com, xiao@kernel.org,
+	linux-raid@vger.kernel.org, linux-kernel@vger.kernel.org,
+	"Li Youhong" <liyouhong@kylinos.cn>, stable@vger.kernel.org
+Subject: Re:Re: [PATCH v2] md/raid5: use dedicated llist for stripe plug
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <fb8edfb3-ce4c-4b3d-87f8-70552626311f@fygo.io>
+References: <20260922060928.3486799-1-dayou5941@163.com>
+ <fb8edfb3-ce4c-4b3d-87f8-70552626311f@fygo.io>
+X-NTES-SC: AL_Qu2SA/mYv04i5ySbYekckk4Wjug8Wcexufwj34NTc94Fgyr94yIvQXFsLUbb/M2PAC6lmjK1fR1K4892frFac2SVp/XePkOKoniBVM+sQw==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <59377ab5.6b99.1a11f8ceb72.Coremail.dayou5941@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:jCgvCgDXD2jElshqWKVUAA--.5592W
+X-CM-SenderInfo: 5gd103ivzuiqqrwthudrp/xtbC+QSjUmrIlsSunwAA3N
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-From: Chitransh Mandhaniya <Chitransh_Mandhaniya@dell.com>
-
-Some Dell OptiPlex AIO 7410 (35W, board 01KP8D) ship with DELL0501 in
-the ACPI DSDT (status = 0x0F) even though no UART scalar board is
-physically present.  This causes acpi_video_get_backlight_type() to
-return acpi_backlight_dell_uart, which makes i915 skip registering
-intel_backlight.  The dell-uart-backlight driver then times out talking
-to the absent board and the probe fails, leaving the machine with zero
-backlight control.
-
-A BIOS update fixes this on some models (e.g. OptiPlex 7420, board
-0914RT) by setting DELL0501 _STA to 0, but Dell has not shipped a
-corrected BIOS for the 7410 even in the latest release (1.37.0,
-2026-05-28).
-
-When the initial get_version command returns -ETIMEDOUT, fall back to
-driving the backlight through the Intel PCH PWM registers (BLC_PWM_CTL /
-BLC_PWM_FREQ / BLC_PWM_DUTY at MMIO BAR0 + 0xC8250).  The fallback
-reads the BIOS-programmed PWM frequency as max_brightness and registers
-a BACKLIGHT_PLATFORM device so that compositors (Weston, GNOME, KDE)
-pick it up normally.
-
-Tested on:
-  - OptiPlex AIO 7410 35W (01KP8D) -- timeout, fallback activates, works
-  - OptiPlex AIO 7420 35W (0914RT, old BIOS) -- timeout, fallback works
-  - OptiPlex AIO 7420 35W (0914RT, new BIOS) -- DELL0501 absent, driver
-    not loaded, intel_backlight works natively (no regression)
-
-Signed-off-by: Chitransh Mandhaniya <Chitransh_Mandhaniya@dell.com>
----
-v1 -> v2:
-  - Use __free(pci_dev_put) for automatic PCI device cleanup (Ilpo)
-  - Replace 0x10 with SZ_16, add linux/sizes.h (Ilpo)
-  - Name BIT(31) as PCH_BLC_PWM_ENABLE (Ilpo)
-  - Fix double-space in block comment (Ilpo)
-  - Reduce devm_backlight_device_register() to fewer lines (Ilpo)
-  - Extract dell_uart_bl_init() for the normal UART backlight path
-    so the probe function reads more clearly (Ilpo)
-
- .../platform/x86/dell/dell-uart-backlight.c   | 157 +++++++++++++++---
- 1 file changed, 134 insertions(+), 23 deletions(-)
-
-diff --git a/drivers/platform/x86/dell/dell-uart-backlight.c b/drivers/platform/x86/dell/dell-uart-backlight.c
-index f323a667dc2d..edc7cfe38069 100644
---- a/drivers/platform/x86/dell/dell-uart-backlight.c
-+++ b/drivers/platform/x86/dell/dell-uart-backlight.c
-@@ -13,10 +13,13 @@
- #include <linux/delay.h>
- #include <linux/device.h>
- #include <linux/err.h>
-+#include <linux/io.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
-+#include <linux/pci.h>
- #include <linux/platform_device.h>
- #include <linux/serdev.h>
-+#include <linux/sizes.h>
- #include <linux/string.h>
- #include <linux/types.h>
- #include <linux/wait.h>
-@@ -50,6 +53,12 @@
- #define MIN_RESP_LEN			3
- #define MAX_RESP_LEN			80
- 
-+/* PCH PWM backlight registers relative to Intel GPU MMIO BAR0 */
-+#define PCH_BLC_PWM_CTL		0xC8250
-+#define PCH_BLC_PWM_FREQ	0xC8254
-+#define PCH_BLC_PWM_DUTY	0xC8258
-+#define PCH_BLC_PWM_ENABLE	BIT(31)
-+
- struct dell_uart_backlight {
- 	struct mutex mutex;
- 	wait_queue_head_t wait_queue;
-@@ -64,6 +73,11 @@ struct dell_uart_backlight {
- 	int power;
- };
- 
-+struct dell_pwm_backlight {
-+	void __iomem *mmio;
-+	u32 max_brightness;
-+};
-+
- /* Checksum: SUM(Length and Cmd and Data) xor 0xFF */
- static u8 dell_uart_checksum(u8 *buf, int len)
- {
-@@ -267,32 +281,97 @@ static const struct serdev_device_ops dell_uart_bl_serdev_ops = {
- 	.write_wakeup = serdev_device_write_wakeup,
- };
- 
--static int dell_uart_bl_serdev_probe(struct serdev_device *serdev)
-+/*
-+ * Some Dell AIO models (e.g. OptiPlex 7410) declare DELL0501 in ACPI but
-+ * have no physical UART scalar board. When the UART times out fall back
-+ * to driving the Intel PCH PWM backlight registers directly.
-+ */
-+static int dell_pwm_update_status(struct backlight_device *bd)
- {
--	u8 get_version[GET_CMD_LEN], resp[MAX_RESP_LEN];
-+	struct dell_pwm_backlight *pwm = bl_get_data(bd);
-+	u32 duty;
-+
-+	if (bd->props.power != BACKLIGHT_POWER_ON ||
-+	    bd->props.state & BL_CORE_SUSPENDED)
-+		duty = 0;
-+	else
-+		duty = bd->props.brightness;
-+
-+	writel(duty, pwm->mmio + (PCH_BLC_PWM_DUTY - PCH_BLC_PWM_CTL));
-+	return 0;
-+}
-+
-+static int dell_pwm_get_brightness(struct backlight_device *bd)
-+{
-+	struct dell_pwm_backlight *pwm = bl_get_data(bd);
-+
-+	return readl(pwm->mmio + (PCH_BLC_PWM_DUTY - PCH_BLC_PWM_CTL));
-+}
-+
-+static const struct backlight_ops dell_pwm_backlight_ops = {
-+	.update_status  = dell_pwm_update_status,
-+	.get_brightness = dell_pwm_get_brightness,
-+};
-+
-+static int dell_pwm_fallback_register(struct device *dev)
-+{
-+	struct pci_dev *gpu __free(pci_dev_put) = NULL;
- 	struct backlight_properties props = {};
--	struct dell_uart_backlight *dell_bl;
--	struct device *dev = &serdev->dev;
--	int ret;
-+	struct dell_pwm_backlight *pwm;
-+	struct backlight_device *bl;
-+	resource_size_t bar0;
-+	u32 freq, duty, ctl;
- 
--	dell_bl = devm_kzalloc(dev, sizeof(*dell_bl), GFP_KERNEL);
--	if (!dell_bl)
-+	gpu = pci_get_class(PCI_CLASS_DISPLAY_VGA << 8, NULL);
-+	if (!gpu || gpu->vendor != PCI_VENDOR_ID_INTEL) {
-+		dev_warn(dev, "No Intel GPU found, cannot fall back to PCH PWM\n");
-+		return -ENODEV;
-+	}
-+
-+	bar0 = pci_resource_start(gpu, 0);
-+	if (!bar0) {
-+		dev_warn(dev, "Intel GPU BAR0 not assigned\n");
-+		return -ENODEV;
-+	}
-+
-+	pwm = devm_kzalloc(dev, sizeof(*pwm), GFP_KERNEL);
-+	if (!pwm)
- 		return -ENOMEM;
- 
--	mutex_init(&dell_bl->mutex);
--	init_waitqueue_head(&dell_bl->wait_queue);
--	dell_bl->dev = dev;
-+	pwm->mmio = devm_ioremap(dev, bar0 + PCH_BLC_PWM_CTL, SZ_16);
-+	if (!pwm->mmio) {
-+		dev_warn(dev, "Failed to ioremap PCH PWM registers\n");
-+		return -ENOMEM;
-+	}
- 
--	serdev_device_set_drvdata(serdev, dell_bl);
--	serdev_device_set_client_ops(serdev, &dell_uart_bl_serdev_ops);
-+	ctl  = readl(pwm->mmio);
-+	freq = readl(pwm->mmio + (PCH_BLC_PWM_FREQ - PCH_BLC_PWM_CTL));
-+	duty = readl(pwm->mmio + (PCH_BLC_PWM_DUTY - PCH_BLC_PWM_CTL));
- 
--	ret = devm_serdev_device_open(dev, serdev);
--	if (ret)
--		return dev_err_probe(dev, ret, "opening UART device\n");
-+	if (!(ctl & PCH_BLC_PWM_ENABLE) || freq == 0) {
-+		dev_warn(dev, "PCH PWM not enabled by BIOS (ctl=0x%08x freq=%u)\n", ctl, freq);
-+		return -ENODEV;
-+	}
- 
--	/* 9600 bps, no flow control, these are the default but set them to be sure */
--	serdev_device_set_baudrate(serdev, 9600);
--	serdev_device_set_flow_control(serdev, false);
-+	pwm->max_brightness = freq;
-+
-+	dev_info(dev, "Falling back to PCH PWM backlight (max=%u current=%u)\n", freq, duty);
-+
-+	props.type = BACKLIGHT_PLATFORM;
-+	props.brightness = duty;
-+	props.max_brightness = freq;
-+
-+	bl = devm_backlight_device_register(dev, "dell_uart_backlight", dev, pwm,
-+					    &dell_pwm_backlight_ops, &props);
-+	return PTR_ERR_OR_ZERO(bl);
-+}
-+
-+static int dell_uart_bl_init(struct device *dev, struct serdev_device *serdev,
-+			     struct dell_uart_backlight *dell_bl)
-+{
-+	u8 get_version[GET_CMD_LEN], resp[MAX_RESP_LEN];
-+	struct backlight_properties props = {};
-+	int ret;
- 
- 	get_version[0] = DELL_SOF(GET_CMD_LEN);
- 	get_version[1] = CMD_GET_VERSION;
-@@ -300,7 +379,7 @@ static int dell_uart_bl_serdev_probe(struct serdev_device *serdev)
- 
- 	ret = dell_uart_bl_command(dell_bl, get_version, GET_CMD_LEN, resp, MAX_RESP_LEN);
- 	if (ret)
--		return dev_err_probe(dev, ret, "getting firmware version\n");
-+		return ret;
- 
- 	dev_dbg(dev, "Firmware version: %.*s\n", resp[RESP_LEN] - 3, resp + RESP_DATA);
- 
-@@ -318,13 +397,45 @@ static int dell_uart_bl_serdev_probe(struct serdev_device *serdev)
- 	props.max_brightness = DELL_BL_MAX_BRIGHTNESS;
- 	props.power = dell_bl->power;
- 
--	dell_bl->bl = devm_backlight_device_register(dev, "dell_uart_backlight",
--						     dev, dell_bl,
--						     &dell_uart_backlight_ops,
--						     &props);
-+	dell_bl->bl = devm_backlight_device_register(dev, "dell_uart_backlight", dev, dell_bl,
-+						     &dell_uart_backlight_ops, &props);
- 	return PTR_ERR_OR_ZERO(dell_bl->bl);
- }
- 
-+static int dell_uart_bl_serdev_probe(struct serdev_device *serdev)
-+{
-+	struct dell_uart_backlight *dell_bl;
-+	struct device *dev = &serdev->dev;
-+	int ret;
-+
-+	dell_bl = devm_kzalloc(dev, sizeof(*dell_bl), GFP_KERNEL);
-+	if (!dell_bl)
-+		return -ENOMEM;
-+
-+	mutex_init(&dell_bl->mutex);
-+	init_waitqueue_head(&dell_bl->wait_queue);
-+	dell_bl->dev = dev;
-+
-+	serdev_device_set_drvdata(serdev, dell_bl);
-+	serdev_device_set_client_ops(serdev, &dell_uart_bl_serdev_ops);
-+
-+	ret = devm_serdev_device_open(dev, serdev);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "opening UART device\n");
-+
-+	/* 9600 bps, no flow control, these are the default but set them to be sure */
-+	serdev_device_set_baudrate(serdev, 9600);
-+	serdev_device_set_flow_control(serdev, false);
-+
-+	ret = dell_uart_bl_init(dev, serdev, dell_bl);
-+	if (ret == -ETIMEDOUT) {
-+		dev_info(dev, "UART backlight controller not responding, trying PCH PWM fallback\n");
-+		return dell_pwm_fallback_register(dev);
-+	}
-+
-+	return ret;
-+}
-+
- static struct serdev_device_driver dell_uart_bl_serdev_driver = {
- 	.probe = dell_uart_bl_serdev_probe,
- 	.driver = {
--- 
-2.43.0
-
+CgoKCgoKCgoKCgoKCgoKCgpBdCAyMDI2LTEwLTA5IDExOjEyOjMzLCAieXUga3VhaSIgPHl1a3Vh
+aUBmeWdvLmlvPiB3cm90ZToKPkhpLAo+Cj7U2iAyMDI2LzkvMjIgMTQ6MDksIExpIFlvdWhvbmcg
+0LS1wDoKPj4gRnJvbTogTGkgWW91aG9uZyA8bGl5b3Vob25nQGt5bGlub3MuY24+Cj4+Cj4+IHJl
+bGVhc2Vfc3RyaXBlX3BsdWcoKSBhbmQgZG9fcmVsZWFzZV9zdHJpcGUoKSBzaGFyZSBzaC0+bHJ1
+Lgo+PiByZWxlYXNlX3N0cmlwZV9wbHVnKCkgc2V0cyBTVFJJUEVfT05fVU5QTFVHX0xJU1QgYW5k
+Cj4+IGxpc3RfYWRkX3RhaWwoKXMgc2gtPmxydSBvbnRvIHJhaWQ1X3BsdWdfY2IubGlzdCB3aXRo
+b3V0Cj4+IGRldmljZV9sb2NrLiBkb19yZWxlYXNlX3N0cmlwZSgpIGhvbGRzIGRldmljZV9sb2Nr
+IGFuZCwgd2hlbiB0aGUKPj4gbGFzdCByZWZlcmVuY2UgZHJvcHMsIGxpc3RfYWRkKClzIHRoZSBz
+YW1lIGxydSBvbnRvIGEgaGFuZGxlIG9yCj4+IGluYWN0aXZlIGxpc3QuCj4+Cj4+IFR3byBsaXN0
+X2FkZCgpcyBvbiBvbmUgbm9kZSBjb3JydXB0IGl0LiBzaC0+bHJ1IGNhbiBiZQo+PiByZWluaXRp
+YWxpemVkIGludG8gYSBzZWxmLWxvb3Agd2hpbGUgcmFpZDVfcGx1Z19jYi5saXN0IHN0aWxsCj4+
+IHBvaW50cyBhdCB0aGF0IHN0cmlwZS4gcmFpZDVfdW5wbHVnKCkgdGhlbiB3YWxrcyB0aGUgbGlz
+dCB1bmRlcgo+PiBkZXZpY2VfbG9jayB3aXRoIElSUXMgZGlzYWJsZWQgYW5kIG5ldmVyIGZpbmlz
+aGVzLiBPdGhlciBDUFVzCj4+IHdhaXRpbmcgZm9yIHRoZSBzYW1lIGxvY2sgaGFyZC1sb2NrdXAu
+Cj4+Cj4+IEFkZCBhIGRlZGljYXRlZCBsbGlzdF9ub2RlLCB1bnBsdWdfbGlzdCwgdG8gc3RyaXBl
+X2hlYWQsIGFzCj4+IHJlbGVhc2VfbGlzdCBpcyB1c2VkIGZvciByZWxlYXNlZF9zdHJpcGVzLgo+
+Pgo+PiBGaXhlczogODgxMWI1OTY4ZjYyICgicmFpZDU6IG1ha2VfcmVxdWVzdCB1c2UgYmF0Y2gg
+c3RyaXBlIHJlbGVhc2UiKQo+PiBTdWdnZXN0ZWQtYnk6IFl1IEt1YWkgPHl1a3VhaUBmeWdvLmlv
+Pgo+PiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwo+PiBTaWduZWQtb2ZmLWJ5OiBMaSBZb3Vo
+b25nIDxsaXlvdWhvbmdAa3lsaW5vcy5jbj4KPj4gLS0tCj4+IHYyOgo+PiAtIERyb3AgdGFraW5n
+IGRldmljZV9sb2NrIGluIHJlbGVhc2Vfc3RyaXBlX3BsdWcoKS4gQWRkIGEgZGVkaWNhdGVkCj4+
+ICAgIHVucGx1Z19saXN0Lgo+PiAtIHYxOiBsaW5rOiBodHRwczovL2xvcmUua2VybmVsLm9yZy9s
+aW51eC1yYWlkLzIwMjYwOTAyMDk1MzA3LjM1ODU2OS0xLWRheW91NTk0MUAxNjMuY29tLwo+Pgo+
+PiAtLS0KPj4gICBkcml2ZXJzL21kL3JhaWQ1LmMgfCA1MiArKysrKysrKysrKysrKysrKysrKysr
+KysrKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4+ICAgZHJpdmVycy9tZC9yYWlkNS5oIHwg
+IDEgKwo+PiAgIDIgZmlsZXMgY2hhbmdlZCwgMjcgaW5zZXJ0aW9ucygrKSwgMjYgZGVsZXRpb25z
+KC0pCj4+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL21kL3JhaWQ1LmMgYi9kcml2ZXJzL21kL3Jh
+aWQ1LmMKPj4gaW5kZXggYjkxNTQ1Y2UwOTBkLi45ZGFiYmY5NzQzZDcgMTAwNjQ0Cj4+IC0tLSBh
+L2RyaXZlcnMvbWQvcmFpZDUuYwo+PiArKysgYi9kcml2ZXJzL21kL3JhaWQ1LmMKPj4gQEAgLTU3
+MTAsNyArNTcxMCw3IEBAIHN0YXRpYyBzdHJ1Y3Qgc3RyaXBlX2hlYWQgKl9fZ2V0X3ByaW9yaXR5
+X3N0cmlwZShzdHJ1Y3QgcjVjb25mICpjb25mLCBpbnQgZ3JvdXApCj4+ICAgCj4+ICAgc3RydWN0
+IHJhaWQ1X3BsdWdfY2Igewo+PiAgIAlzdHJ1Y3QgYmxrX3BsdWdfY2IJY2I7Cj4+IC0Jc3RydWN0
+IGxpc3RfaGVhZAlsaXN0Owo+PiArCXN0cnVjdCBsbGlzdF9oZWFkCXVucGx1Z19saXN0Owo+PiAg
+IAlzdHJ1Y3QgbGlzdF9oZWFkCXRlbXBfaW5hY3RpdmVfbGlzdFtOUl9TVFJJUEVfSEFTSF9MT0NL
+U107Cj4+ICAgfTsKPj4gICAKPj4gQEAgLTU3MTgsMzQgKzU3MTgsMzMgQEAgc3RhdGljIHZvaWQg
+cmFpZDVfdW5wbHVnKHN0cnVjdCBibGtfcGx1Z19jYiAqYmxrX2NiLCBib29sIGZyb21fc2NoZWR1
+bGUpCj4+ICAgewo+PiAgIAlzdHJ1Y3QgcmFpZDVfcGx1Z19jYiAqY2IgPSBjb250YWluZXJfb2Yo
+Cj4+ICAgCQlibGtfY2IsIHN0cnVjdCByYWlkNV9wbHVnX2NiLCBjYik7Cj4+IC0Jc3RydWN0IHN0
+cmlwZV9oZWFkICpzaDsKPj4gKwlzdHJ1Y3Qgc3RyaXBlX2hlYWQgKnNoLCAqdG1wOwo+PiAgIAlz
+dHJ1Y3QgbWRkZXYgKm1kZGV2ID0gY2ItPmNiLmRhdGE7Cj4+ICAgCXN0cnVjdCByNWNvbmYgKmNv
+bmYgPSBtZGRldi0+cHJpdmF0ZTsKPj4gKwlzdHJ1Y3QgbGxpc3Rfbm9kZSAqaGVhZDsKPj4gICAJ
+aW50IGNudCA9IDA7Cj4+ICAgCWludCBoYXNoOwo+PiAgIAo+PiAtCWlmIChjYi0+bGlzdC5uZXh0
+ICYmICFsaXN0X2VtcHR5KCZjYi0+bGlzdCkpIHsKPj4gLQkJc3Bpbl9sb2NrX2lycSgmY29uZi0+
+ZGV2aWNlX2xvY2spOwo+PiAtCQl3aGlsZSAoIWxpc3RfZW1wdHkoJmNiLT5saXN0KSkgewo+PiAt
+CQkJc2ggPSBsaXN0X2ZpcnN0X2VudHJ5KCZjYi0+bGlzdCwgc3RydWN0IHN0cmlwZV9oZWFkLCBs
+cnUpOwo+PiAtCQkJbGlzdF9kZWxfaW5pdCgmc2gtPmxydSk7Cj4+IC0JCQkvKgo+PiAtCQkJICog
+YXZvaWQgcmFjZSByZWxlYXNlX3N0cmlwZV9wbHVnKCkgc2Vlcwo+PiAtCQkJICogU1RSSVBFX09O
+X1VOUExVR19MSVNUIGNsZWFyIGJ1dCB0aGUgc3RyaXBlCj4+IC0JCQkgKiBpcyBzdGlsbCBpbiBv
+dXIgbGlzdAo+PiAtCQkJICovCj4+IC0JCQlzbXBfbWJfX2JlZm9yZV9hdG9taWMoKTsKPj4gLQkJ
+CWNsZWFyX2JpdChTVFJJUEVfT05fVU5QTFVHX0xJU1QsICZzaC0+c3RhdGUpOwo+PiAtCQkJLyoK
+Pj4gLQkJCSAqIFNUUklQRV9PTl9SRUxFQVNFX0xJU1QgY291bGQgYmUgc2V0IGhlcmUuIEluIHRo
+YXQKPj4gLQkJCSAqIGNhc2UsIHRoZSBjb3VudCBpcyBhbHdheXMgPiAxIGhlcmUKPj4gLQkJCSAq
+Lwo+PiAtCQkJaGFzaCA9IHNoLT5oYXNoX2xvY2tfaW5kZXg7Cj4+IC0JCQlfX3JlbGVhc2Vfc3Ry
+aXBlKGNvbmYsIHNoLCAmY2ItPnRlbXBfaW5hY3RpdmVfbGlzdFtoYXNoXSk7Cj4+IC0JCQljbnQr
+KzsKPj4gLQkJfQo+PiAtCQlzcGluX3VubG9ja19pcnEoJmNvbmYtPmRldmljZV9sb2NrKTsKPj4g
+KwloZWFkID0gbGxpc3RfZGVsX2FsbCgmY2ItPnVucGx1Z19saXN0KTsKPgo+SXMgaXQgcG9zc2li
+bGUgdGhhdCByZWdpc3RlcmVkIHBsdWcgZnJvbSB0YXNrIEEgY2FuIGJlIGZsdXNoZWQgY29uY3Vy
+cmVudCBieSB1bnBsdWcgZnJvbQo+YW5vdGhlciB0YXNrLCBhbmQgbGF0ZXIgdW5wbHVnX2xpc3Qg
+aXMgZW1wdHkgZm9yIHRhc2sgQSdzIHVucGx1Zy4gSWYgc28sIGEgTlVMTCBjaGVjayBmb3IKCj5o
+ZWFkIGlzIG5lZWRlZCBoZXJlLgoKCkhpIEt1YWksCgoKQSBwbHVnIGJlbG9uZ3MgdG8gb25lIHRh
+c2ssIGluIGN1cnJlbnQtPnBsdWcuIGJsa19jaGVja19wbHVnZ2VkKCkKc2VhcmNoZXMgdGhhdCBw
+bHVnJ3MgY2JfbGlzdCBieSBjYWxsYmFjayBhbmQgZGF0YSAodGhlIG1kZGV2KSwgc28gZWFjaAp0
+YXNrIG9ubHkgZmx1c2hlcyBpdHMgb3duIGNicy4gZmx1c2hfcGx1Z19jYWxsYmFja3MoKSBhbHNv
+IGRyb3BzIHRoZSBjYgpmcm9tIGNiX2xpc3QgYmVmb3JlIHJhaWQ1X3VucGx1ZygpLCBhbmQgcmFp
+ZDVfdW5wbHVnKCkgZnJlZXMgaXQuIFNvCmFub3RoZXIgdGFzayBzaG91bGQgbm90IGJlIGFibGUg
+dG8gZmx1c2ggdGhpcyB1bnBsdWdfbGlzdC4KCgpBbiBlbXB0eSB1bnBsdWdfbGlzdCBjYW4gc3Rp
+bGwgaGFwcGVuLCBqdXN0IG5vdCBmcm9tIHRoYXQgcmFjZS4KYmxrX2NoZWNrX3BsdWdnZWQoKSBw
+dXRzIHRoZSBuZXcgY2Igb24gY2JfbGlzdCBiZWZvcmUgdGhlIHN0cmlwZSBpcwphZGRlZC4gSWYg
+U1RSSVBFX09OX1VOUExVR19MSVNUIGlzIGFscmVhZHkgc2V0LCB0ZXN0X2FuZF9zZXRfYml0KCkg
+ZmFpbHMKYW5kIHdlIGNhbGwgcmFpZDVfcmVsZWFzZV9zdHJpcGUoKSBpbnN0ZWFkIG9mIGxsaXN0
+X2FkZCgpLiBUaGUgc3RyaXBlIGlzCmFscmVhZHkgcXVldWVkIG9uIHNvbWUgb3RoZXIgdGFzaydz
+IHVucGx1Z19saXN0LCBhbmQgdGhpcyBjYiBzdGF5cwpyZWdpc3RlcmVkIHdpdGggbm90aGluZyBv
+biBpdC4gbGxpc3RfZGVsX2FsbCgpIHRoZW4gcmV0dXJucyBOVUxMLgpsbGlzdF9yZXZlcnNlX29y
+ZGVyKE5VTEwpIHJldHVybnMgTlVMTCwgYW5kIGxsaXN0X2Zvcl9lYWNoX2VudHJ5X3NhZmUoKQpk
+b2VzIG5vdCB3YWxrIGEgTlVMTCBub2RlLCBzbyBJIHRoaW5rIGFuIGV4dHJhIE5VTEwgY2hlY2sg
+aXMgbm90Cm5lY2Vzc2FyeS4KCgpUaGFua3MsCkxpIFlvdWhvbmcKCj4KPj4gKwloZWFkID0gbGxp
+c3RfcmV2ZXJzZV9vcmRlcihoZWFkKTsKPj4gKwlzcGluX2xvY2tfaXJxKCZjb25mLT5kZXZpY2Vf
+bG9jayk7Cj4+ICsJbGxpc3RfZm9yX2VhY2hfZW50cnlfc2FmZShzaCwgdG1wLCBoZWFkLCB1bnBs
+dWdfbGlzdCkgewo+PiArCQkvKgo+PiArCQkgKiBhdm9pZCByYWNlIHJlbGVhc2Vfc3RyaXBlX3Bs
+dWcoKSBzZWVzCj4+ICsJCSAqIFNUUklQRV9PTl9VTlBMVUdfTElTVCBjbGVhciBidXQgdGhlIHN0
+cmlwZQo+PiArCQkgKiBpcyBzdGlsbCBpbiBvdXIgbGlzdAo+PiArCQkgKi8KPj4gKwkJc21wX21i
+X19iZWZvcmVfYXRvbWljKCk7Cj4+ICsJCWNsZWFyX2JpdChTVFJJUEVfT05fVU5QTFVHX0xJU1Qs
+ICZzaC0+c3RhdGUpOwo+PiArCQkvKgo+PiArCQkgKiBTVFJJUEVfT05fUkVMRUFTRV9MSVNUIGNv
+dWxkIGJlIHNldCBoZXJlLiBJbiB0aGF0Cj4+ICsJCSAqIGNhc2UsIHRoZSBjb3VudCBpcyBhbHdh
+eXMgPiAxIGhlcmUKPj4gKwkJICovCj4+ICsJCWhhc2ggPSBzaC0+aGFzaF9sb2NrX2luZGV4Owo+
+PiArCQlfX3JlbGVhc2Vfc3RyaXBlKGNvbmYsIHNoLCAmY2ItPnRlbXBfaW5hY3RpdmVfbGlzdFto
+YXNoXSk7Cj4+ICsJCWNudCsrOwo+PiAgIAl9Cj4+ICsJc3Bpbl91bmxvY2tfaXJxKCZjb25mLT5k
+ZXZpY2VfbG9jayk7Cj4+ICAgCXJlbGVhc2VfaW5hY3RpdmVfc3RyaXBlX2xpc3QoY29uZiwgY2It
+PnRlbXBfaW5hY3RpdmVfbGlzdCwKPj4gICAJCQkJICAgICBOUl9TVFJJUEVfSEFTSF9MT0NLUyk7
+Cj4+ICAgCWlmICghbWRkZXZfaXNfZG0obWRkZXYpKQo+PiBAQCAtNTc2OCwxNSArNTc2NywxNiBA
+QCBzdGF0aWMgdm9pZCByZWxlYXNlX3N0cmlwZV9wbHVnKHN0cnVjdCBtZGRldiAqbWRkZXYsCj4+
+ICAgCj4+ICAgCWNiID0gY29udGFpbmVyX29mKGJsa19jYiwgc3RydWN0IHJhaWQ1X3BsdWdfY2Is
+IGNiKTsKPj4gICAKPj4gLQlpZiAoY2ItPmxpc3QubmV4dCA9PSBOVUxMKSB7Cj4+ICsJaWYgKCFj
+Yi0+dGVtcF9pbmFjdGl2ZV9saXN0WzBdLm5leHQpIHsKPj4gICAJCWludCBpOwo+PiAtCQlJTklU
+X0xJU1RfSEVBRCgmY2ItPmxpc3QpOwo+PiArCj4+ICsJCWluaXRfbGxpc3RfaGVhZCgmY2ItPnVu
+cGx1Z19saXN0KTsKPj4gICAJCWZvciAoaSA9IDA7IGkgPCBOUl9TVFJJUEVfSEFTSF9MT0NLUzsg
+aSsrKQo+PiAgIAkJCUlOSVRfTElTVF9IRUFEKGNiLT50ZW1wX2luYWN0aXZlX2xpc3QgKyBpKTsK
+Pj4gICAJfQo+PiAgIAo+PiAgIAlpZiAoIXRlc3RfYW5kX3NldF9iaXQoU1RSSVBFX09OX1VOUExV
+R19MSVNULCAmc2gtPnN0YXRlKSkKPj4gLQkJbGlzdF9hZGRfdGFpbCgmc2gtPmxydSwgJmNiLT5s
+aXN0KTsKPj4gKwkJbGxpc3RfYWRkKCZzaC0+dW5wbHVnX2xpc3QsICZjYi0+dW5wbHVnX2xpc3Qp
+Owo+PiAgIAllbHNlCj4+ICAgCQlyYWlkNV9yZWxlYXNlX3N0cmlwZShzaCk7Cj4+ICAgfQo+PiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9tZC9yYWlkNS5oIGIvZHJpdmVycy9tZC9yYWlkNS5oCj4+IGlu
+ZGV4IGNiNWZlYWUwNGRiMi4uZTMxNGYxN2ViOTQ5IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL21k
+L3JhaWQ1LmgKPj4gKysrIGIvZHJpdmVycy9tZC9yYWlkNS5oCj4+IEBAIC0yMDEsNiArMjAxLDcg
+QEAgc3RydWN0IHN0cmlwZV9oZWFkIHsKPj4gICAJc3RydWN0IGhsaXN0X25vZGUJaGFzaDsKPj4g
+ICAJc3RydWN0IGxpc3RfaGVhZAlscnU7CSAgICAgIC8qIGluYWN0aXZlX2xpc3Qgb3IgaGFuZGxl
+X2xpc3QgKi8KPj4gICAJc3RydWN0IGxsaXN0X25vZGUJcmVsZWFzZV9saXN0Owo+PiArCXN0cnVj
+dCBsbGlzdF9ub2RlCXVucGx1Z19saXN0Owo+PiAgIAlzdHJ1Y3QgcjVjb25mCQkqcmFpZF9jb25m
+Owo+PiAgIAlzaG9ydAkJCWdlbmVyYXRpb247CS8qIGluY3JlbWVudHMgd2l0aCBldmVyeQo+PiAg
+IAkJCQkJCSAqIHJlc2hhcGUgKi8KPgo+LS0gCj5UaGFua3MsCj5LdWFpCg==
