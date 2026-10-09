@@ -1,501 +1,260 @@
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6835637F00C;
-	Fri,  9 Oct 2026 03:20:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D25C5384CE5;
+	Fri,  9 Oct 2026 03:21:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791516044; cv=none; b=llnLOlYqr2TwglxJxQIYiihj1HKrL4bh7IxuWAha9MO+1RcgRg7CjvJ+jfBQ2l4sBItrlFr73nqG8IQzBLIkGU5a6Zmppa1UJoAGkSnq0wigZF2Xy8oflO4cLVrGdmeYxO1KzZtR76QYn+1TyiUPs9obGg2IAiu1nO5moea34b4=
+	t=1791516076; cv=none; b=uGajJw8NrZvZklQgenhso31hf4dKhkWJfujvjIWISTI02HTtwwqGkf0zqCnIbAUbRwep0m3ZfUx9Xvbyjs4VHd2meU4GVdQAMoBGiAj4fbcYB071gYn4y/sAPdm5kZTKnhZy3ecziT8yZLx8+Lk64AZzocb7MmLlXC2Dx9jqklk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791516044; c=relaxed/simple;
-	bh=Yp5+PAKas8kqXJlGRMgTP9Z0Xs/+sCFXM7nj2OHPhGo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GQv9j3YOyAAfnHIBla/4fSsaQ9Urg8kjJvneG0tuIHliKi7okMlC0BMQlpH7jOm6IOpp9f3GE4a300mV3RqU66IRSa944aMOzgzJvoheBKQmeYJ4VMZnidhMN/nlcTzl5qtx98RpXSeq1G0e+8zW7k2syCwDTiWfajdzF7Z5aeQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.204.34.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpip2t1791515901t4ada0de9
-X-QQ-Originating-IP: xGKYoId2p8i5SQCboydz4Awc7nsTmpRW6JM3oIHy48c=
-Received: from [192.168.30.32] ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 09 Oct 2026 11:18:19 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 17029949889969259388
-EX-QQ-RecipientCnt: 29
-From: Xilin Wu <sophon@radxa.com>
-Date: Fri, 09 Oct 2026 11:16:12 +0800
-Subject: [PATCH v2 20/20] drm/msm/dp: Add static HDR metadata support for
- DP and eDP
+	s=arc-20240116; t=1791516076; c=relaxed/simple;
+	bh=wcqHV2Wg3FXBYYmg1vUHmOb3Xq5jc8STEKB0J+8XZ5A=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=OKKn60g5OjS80oyoGJeM5ZFTJZRy04Hz13wLm3iNdcFz48MXUWum+sst9hOI99YsA+6CvYZMiwPu4LViaL/KeABmeLtHtmdBInW2qrSsdvcexu+r2iXd/RpyCLXCvnx7vY83ayuNm7+M6IeuJRseTcZc1dKAVdWMAhg8TqoFxyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SZiCeaWy; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SZiCeaWy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7982D1F00899;
+	Fri,  9 Oct 2026 03:21:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791516063;
+	bh=JXfCHG31Bc/gSZjaK8k9wksl9IuXvNCzPnYy9hoGaWo=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=SZiCeaWykiCNamdBlxa2XXBIE7gHvyKIOn3LN9Z24cQoLXU1mgA+E4KHeFYXnfA8w
+	 nqIAdtQM2bUAlDeqLfi8ov47ZQsL1z0gyDQt3j3saygu6WtBAm21eNfuexjr/pGN6Q
+	 t4AkxHMvpWPEBN9PJKOmuxrBsKYq4/i0GcvolU+G3xbJk9ht9dV2KmZ3bYResU1deR
+	 TYj7BjSjB0vD6D/mfDOYA5RtgrHYodZ8MQY7Yim4b73YyIKDn7KIylPvIPh9Ahiigy
+	 XG4dPmJibsR6eKsD54zdUO7qufshIQBGq1l9gQ7j4D6bG8QIlhllADGadEtXMFF4QG
+	 Qpvto6oN0so+g==
+Subject: Re: [PATCH v3] netfilter: nf_nat: Fix stale outer UDP checksum on
+ VXLAN encapsulated packets
+From: netdev-bot+sashiko@kernel.org
+To: lvjunyu@cmss.chinamobile.com
+Cc: pablo@netfilter.org, fw@strlen.de, phil@nwl.cc,
+ netfilter-devel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
+Date: Fri, 09 Oct 2026 03:21:03 +0000
+Message-ID: <179151606303.434549.9146029208323443792@kernel.org>
+In-Reply-To: <20260922062305.752147-1-lvjunyu@cmss.chinamobile.com>
+References: <20260922062305.752147-1-lvjunyu@cmss.chinamobile.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-msm-dp-hdr10-v2-20-1835d4966da3@radxa.com>
-References: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
-In-Reply-To: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- dragon@radxa.com, Xilin Wu <sophon@radxa.com>, 
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=16002; i=sophon@radxa.com;
- h=from:subject:message-id; bh=Yp5+PAKas8kqXJlGRMgTP9Z0Xs/+sCFXM7nj2OHPhGo=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFknYlZ3S3dWzTh0373MNfXoz5DQOV/mstZmXbOStuLer
- fTR/3t/RykLgxgXg6yYIotCPMNc9srca0/FSvVg5rAygQxh4OIUgIlcdWVk2PkvLzWi8kdjvIb3
- 15V+k+VrDNa6flt4eIKP8v6d9zdJ1jMydBzN6PMU4Eo5mLhelq+xRHm6xk41032tGzZmqbWIcRs
- wAgA=
-X-Developer-Key: i=sophon@radxa.com; a=openpgp;
- fpr=205F009D07796DD6E516752E32C31567AD9E324E
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: NC2sbZ2AMa4K/rPlbgyxRqg6goTh96LPPcB3wZmY7wOQ8ZmhpxRbm/xj
-	JJuXV/DRD1BBi2z8YoX9HRJLrFRXzR1Ab/s2t+GotkfUAt94mawA7u1LYC1zC5R3u/89WwQ
-	VOck+w8aKSXG0X4eqo1PEPVi592F/6L9Hg+i9ZR+gC0+vIf2RpncG6KvVOSpRF8bQYYHxED
-	BdCQjLG2hUNOgymPj39UosBvQAo1FXzGK0roBk/okl2DvkpKa3LM157bepBvbnAJFUWbP79
-	tPeLc94zncCPwV5h6YgHC1qTi8PI4vbu3gqjoJwMoflHxLuuC2IQg7JNx65vkPETTPAq4a7
-	h3hJfXZZgknXhUaKqe/HihlpJvrK0kAbbb6MHq0tvxU0ICCYX2e/+2BLM76+5O0aKSFSsJR
-	adDbrrTJKBpsYqNfU0GhoztcGnvDNcTLaJZSnCHvjuh9gBJxESWSTxO0pzsYEA4s3jLG/l7
-	lEmPSFTWq9WEugI0tvlNG+6PrAOAPoietJnP9dq8J8Ap19IEnJAwEIQuEILXVySvwhuTn2j
-	TU0eIC4I0dVGxFydEWmKW8ULIaV2PvapycHAGRvsn6V1qo622tLlRFvCpKZCwQ8ZPAOK8tt
-	eEAhfEL3i9Gh2y1zHgiKX6aZDC3PV/jebju+v3cgybQnW5+DXRaeCjEWMejKKFuJF8E7P3e
-	c7fEOp4l5LZCSOhfBZyjtqo0RBafxKKtvzja7FywmYAj2j/hkdFo/LP56ZON4QkgFObzFq5
-	WPykhdCUw7v2roAdWJDnz6rd1BsYRk06ZDXO4uk+HyZ7uZd/1A/GC4rS8Y4npt/WtCZu25C
-	UrWyf1UPvBQTXT8dlQ5md9rxX8JmicfDfvvD+ud+F0MFJHP5AFxODoYIWAsZupmeHSlowWV
-	jleWXCKYj8QLSLtgt21eKzLcWadZxTaoRIwDkyC4lU1nL9pru9/t1nIqTrH1U279/yf/p5G
-	dNOSbtHEteDrKAsYtW6j3az1uBWujW+ohUXH7rGrlAPUaarUUFnyM6mCoUbOwqF/MgZxgbs
-	6Q7oW4mTn08+X7a84yTHRsO1f/q2RHqh7p2kKmEMi+DAeEwyVR/aLka2Z2boM6J/g+tGVTw
-	g==
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
 
-Expose HDR_OUTPUT_METADATA and validate and pack it during atomic check.
-Program Generic2 from the checked bridge state on every stream enable.
-Reuse the DRM metadata conversion and infoframe packing helpers, omit
-the HDMI checksum when constructing the DP SDP, and zero reserved bytes.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Check the cached controller revision and sink HDR capabilities before
-accepting the atomic state. Require 10 bpc for HDR transfer functions
-and validate link bandwidth during atomic check. Training must preserve
-that depth; report a link failure if the trained link cannot carry the
-stream.
+Critical: 0 · High: 1 · Medium: 0 (1) · Low: 2
 
-Force a modeset for metadata changes and include metadata enable and
-disable in peripheral flush requests. Keep HDR streams out of PSR and
-clear Generic2 enable state when disabling the stream. Preserve the
-checked metadata in bridge state so every stream rebuild restores its
-packets. Pass state through stream programming without copying the
-configuration into the panel.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Give checked HDR modesets precedence over SDR video-pattern tests.
-Reject new test requests with NAK while HDR is pending or active and
-return -EBUSY from the debugfs test control. Clear the test override
-under plugged_lock when applying HDR so that a request arriving after
-atomic check cannot replace the checked output depth. Keep pending test
-colorimetry from overriding HDR signalling. Release the test exclusion
-on disable or enable failure. Atomic checks leave the running test state
-untouched.
+- [High] The fix is incomplete.
+- [Low] The commit message describes the trigger more narrowly than the
+  code shows.
+- [Low] The new comment in __udp_manip_pkt() presents the offload-target
+  test as a way to tell apart only the two states that udp_set_csum()…
 
-Assisted-by: LLM
-Signed-off-by: Xilin Wu <sophon@radxa.com>
----
- drivers/gpu/drm/msm/Kconfig         |  1 +
- drivers/gpu/drm/msm/dp/dp_ctrl.c    | 15 +++++++--
- drivers/gpu/drm/msm/dp/dp_display.c | 35 ++++++++++++++++++---
- drivers/gpu/drm/msm/dp/dp_drm.c     |  1 +
- drivers/gpu/drm/msm/dp/dp_drm.h     |  2 ++
- drivers/gpu/drm/msm/dp/dp_panel.c   | 29 ++++++++++++++++++
- drivers/gpu/drm/msm/dp/dp_panel.h   |  3 ++
- drivers/gpu/drm/msm/dp/dp_utils.c   | 61 ++++++++++++++++++++++++++++++++++---
- drivers/gpu/drm/msm/dp/dp_utils.h   |  5 ++-
- 9 files changed, 140 insertions(+), 12 deletions(-)
+Pre-existing issues:
+- [Medium] This problem wasn't introduced by this patch, but the IPVS UDP
+  NAT handlers have the same bug.
 
-diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
-index ed1c4775d1e9..e988e6509ec8 100644
---- a/drivers/gpu/drm/msm/Kconfig
-+++ b/drivers/gpu/drm/msm/Kconfig
-@@ -119,6 +119,7 @@ config DRM_MSM_DP
- 	depends on DRM_MSM
- 	depends on DRM_MSM_KMS
- 	select DRM_DISPLAY_HDMI_AUDIO_HELPER
-+	select DRM_DISPLAY_HDMI_HELPER
- 	select RATIONAL
- 	select DRM_DISPLAY_DP_AUX_BUS
- 	select DRM_DISPLAY_DP_HELPER
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-index a1a649c636c7..cc1914f7cf18 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -467,13 +467,16 @@ static void msm_dp_ctrl_lane_mapping(struct msm_dp_ctrl_private *ctrl)
- }
- 
- static void msm_dp_ctrl_config_misc1_misc0(struct msm_dp_ctrl_private *ctrl,
--					   struct msm_dp_panel *msm_dp_panel)
-+					   struct msm_dp_panel *msm_dp_panel,
-+					   const struct msm_dp_bridge_state *state)
- {
- 	u32 colorimetry_cfg, test_bits_depth, misc_val;
- 
- 	test_bits_depth = msm_dp_link_get_test_bits_depth(ctrl->link,
- 							  msm_dp_panel->msm_dp_mode.bpp);
--	colorimetry_cfg = msm_dp_link_get_colorimetry_config(ctrl->link);
-+	/* A video test request must not override the HDR quantization range. */
-+	colorimetry_cfg = state->hdr_enabled ? DP_MISC0_COLORIMERY_CFG_LEGACY_RGB :
-+		msm_dp_link_get_colorimetry_config(ctrl->link);
- 
- 	misc_val = msm_dp_read_link(ctrl, REG_DP_MISC1_MISC0);
- 
-@@ -496,7 +499,7 @@ static void msm_dp_ctrl_configure_source_params(struct msm_dp_ctrl_private *ctrl
- {
- 	msm_dp_ctrl_config_ctrl_streams(ctrl, panel, !state->vsc_enabled);
- 
--	msm_dp_ctrl_config_misc1_misc0(ctrl, panel);
-+	msm_dp_ctrl_config_misc1_misc0(ctrl, panel, state);
- 
- 	msm_dp_panel_timing_cfg(panel, ctrl->msm_dp_ctrl.wide_bus_en);
- 
-@@ -504,6 +507,11 @@ static void msm_dp_ctrl_configure_source_params(struct msm_dp_ctrl_private *ctrl
- 		msm_dp_panel_enable_vsc_sdp(panel, vsc_sdp);
- 	else
- 		msm_dp_panel_disable_vsc_sdp(panel);
-+
-+	if (state->hdr_enabled)
-+		msm_dp_panel_enable_hdr_sdp(panel, &state->hdr_sdp);
-+	else
-+		msm_dp_panel_disable_hdr_sdp(panel);
- }
- 
- /*
-@@ -2747,6 +2755,7 @@ void msm_dp_ctrl_off_link(struct msm_dp_ctrl *msm_dp_ctrl,
- 	/* Link startup may have failed before enabling the link clocks. */
- 	if (ctrl->link_clks_on) {
- 		msm_dp_panel_disable_vsc_sdp(panel);
-+		msm_dp_panel_disable_hdr_sdp(panel);
- 		msm_dp_ctrl_mainlink_disable(ctrl);
- 	}
- 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index c51d033598a5..7104822b03e0 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -58,6 +58,8 @@ struct msm_dp_display_private {
- 	bool audio_supported;
- 	/* Pending DPU peripheral flush, set before encoder enable. */
- 	bool sdp_needs_flush;
-+	/* Block asynchronous video tests while an HDR stream is pending or active. */
-+	bool video_test_blocked;
- 	bool stream_pm_active;
- 	bool stream_link_attempted;
- 	struct work_struct link_status_work;
-@@ -440,6 +442,9 @@ static int msm_dp_display_set_video_test_locked(struct msm_dp_display_private *d
- {
- 	lockdep_assert_held(&dp->plugged_lock);
- 
-+	if (enable && dp->video_test_blocked)
-+		return -EBUSY;
-+
- 	dp->panel->video_test = enable;
- 	return 0;
- }
-@@ -701,12 +706,19 @@ static int msm_dp_display_set_mode(struct msm_dp *msm_dp_display,
- 
- 	guard(mutex)(&dp->plugged_lock);
- 
-+	dp->video_test_blocked = state->hdr_enabled;
-+
-+	/* A checked HDR modeset supersedes any intervening video test request. */
-+	if (state->hdr_enabled)
-+		dp->panel->video_test = false;
-+
- 	if (dp->panel->video_test)
- 		bpp = msm_dp_link_bit_depth_to_bpp(dp->link->test_video.test_bit_depth);
- 	else
- 		bpp = state->bpp;
- 
--	dp->sdp_needs_flush = old_state->vsc_enabled || state->vsc_enabled;
-+	dp->sdp_needs_flush = old_state->vsc_enabled || state->vsc_enabled ||
-+		old_state->hdr_enabled || state->hdr_enabled;
- 	msm_dp_panel_init_panel_info(msm_dp_panel, adjusted_mode, bpp ? bpp : 24);
- 
- 	/* populate wide_bus_support to different layers */
-@@ -723,7 +735,7 @@ int msm_dp_display_atomic_check(struct msm_dp *msm_dp_display,
- 	const struct drm_display_info *info = &conn_state->connector->display_info;
- 	struct msm_dp_display_private *dp;
- 	unsigned int clock = mode->clock;
--	int bpp;
-+	int bpp, ret;
- 
- 	dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
- 
-@@ -732,17 +744,28 @@ int msm_dp_display_atomic_check(struct msm_dp *msm_dp_display,
- 	if (!dp->panel->link_caps_valid)
- 		return -EINVAL;
- 
-+	ret = msm_dp_utils_pack_hdr_sdp(conn_state, &state->hdr_sdp);
-+	if (ret)
-+		return ret;
-+
-+	state->hdr_enabled = !!conn_state->hdr_output_metadata;
-+	if (state->hdr_enabled && dp->panel->hw_revision < DP_HW_VERSION_1_0)
-+		return -EINVAL;
-+
- 	bpp = msm_dp_utils_select_bpp(info->bpc, conn_state->max_requested_bpc ?: 8,
- 				      clock, dp->panel->link_info.rate,
- 				      dp->panel->link_info.num_lanes,
--				      drm_mode_is_420_only(info, mode));
-+				      drm_mode_is_420_only(info, mode),
-+				      state->hdr_enabled && state->hdr_sdp.db[2] !=
-+				      HDMI_EOTF_TRADITIONAL_GAMMA_SDR);
- 	if (bpp < 0)
- 		return bpp;
- 
- 	state->bpp = bpp;
- 	state->colorspace = conn_state->colorspace;
- 	state->vsc_enabled = drm_mode_is_420_only(info, mode) ||
--			     state->colorspace != DRM_MODE_COLORIMETRY_DEFAULT;
-+			     state->colorspace != DRM_MODE_COLORIMETRY_DEFAULT ||
-+			     state->hdr_enabled;
- 	if (!state->vsc_enabled)
- 		return 0;
- 
-@@ -880,10 +903,13 @@ static int msm_dp_display_disable(struct msm_dp_display_private *dp,
- 
- 	lockdep_assert_held(&dp->plugged_lock);
- 
-+	dp->video_test_blocked = false;
-+
- 	if (!msm_dp_display->power_on)
- 		return 0;
- 
- 	msm_dp_panel_disable_vsc_sdp(msm_dp_panel);
-+	msm_dp_panel_disable_hdr_sdp(msm_dp_panel);
- 
- 	msm_dp_ctrl_off_pixel_clk(dp->ctrl);
- 
-@@ -1774,6 +1800,7 @@ void msm_dp_display_atomic_enable(struct msm_dp *msm_dp_display,
- 		msm_dp_hpd_unplug_handle(dp);
- 	msm_dp_display_unprepare(dp);
- 	scoped_guard(mutex, &dp->plugged_lock) {
-+		dp->video_test_blocked = false;
- 		dp->link_failed = true;
- 		/* Keep reporting BAD, but notify only once until recovery. */
- 		schedule_work(&dp->link_status_work);
-diff --git a/drivers/gpu/drm/msm/dp/dp_drm.c b/drivers/gpu/drm/msm/dp/dp_drm.c
-index 0d17536f02fd..16c9bd3afc1b 100644
---- a/drivers/gpu/drm/msm/dp/dp_drm.c
-+++ b/drivers/gpu/drm/msm/dp/dp_drm.c
-@@ -467,6 +467,7 @@ struct drm_connector *msm_dp_drm_connector_init(struct msm_dp *msm_dp_display,
- 	if (ret)
- 		return ERR_PTR(ret);
- 	drm_connector_attach_colorspace_property(connector);
-+	drm_connector_attach_hdr_output_metadata_property(connector);
- 
- 	if (!msm_dp_display->is_edp)
- 		drm_connector_attach_dp_subconnector_property(connector);
-diff --git a/drivers/gpu/drm/msm/dp/dp_drm.h b/drivers/gpu/drm/msm/dp/dp_drm.h
-index 0e85a1a55c88..89c0123af641 100644
---- a/drivers/gpu/drm/msm/dp/dp_drm.h
-+++ b/drivers/gpu/drm/msm/dp/dp_drm.h
-@@ -23,6 +23,8 @@ struct msm_dp_bridge_state {
- 	enum drm_colorspace colorspace;
- 	bool vsc_enabled;
- 	struct dp_sdp vsc_sdp;
-+	bool hdr_enabled;
-+	struct dp_sdp hdr_sdp;
- };
- 
- #define to_dp_bridge_state(x) container_of((x), struct msm_dp_bridge_state, base)
-diff --git a/drivers/gpu/drm/msm/dp/dp_panel.c b/drivers/gpu/drm/msm/dp/dp_panel.c
-index bbbe7dc62550..78ab2d280e11 100644
---- a/drivers/gpu/drm/msm/dp/dp_panel.c
-+++ b/drivers/gpu/drm/msm/dp/dp_panel.c
-@@ -572,6 +572,35 @@ void msm_dp_panel_disable_vsc_sdp(struct msm_dp_panel *msm_dp_panel)
- 	msm_dp_panel_update_sdp(panel);
- }
- 
-+void msm_dp_panel_enable_hdr_sdp(struct msm_dp_panel *msm_dp_panel,
-+				 const struct dp_sdp *hdr_sdp)
-+{
-+	struct msm_dp_panel_private *panel =
-+		container_of(msm_dp_panel, struct msm_dp_panel_private, msm_dp_panel);
-+	u32 cfg, cfg2;
-+
-+	msm_dp_panel_send_sdp(panel, hdr_sdp, MMSS_DP_GENERIC2_0);
-+
-+	cfg2 = msm_dp_read_link(panel, MMSS_DP_SDP_CFG2);
-+	msm_dp_write_link(panel, MMSS_DP_SDP_CFG2, cfg2 | GENERIC2_SDPSIZE_VALID);
-+	cfg = msm_dp_read_link(panel, MMSS_DP_SDP_CFG);
-+	msm_dp_write_link(panel, MMSS_DP_SDP_CFG, cfg | GEN2_SDP_EN);
-+	msm_dp_panel_update_sdp(panel);
-+}
-+
-+void msm_dp_panel_disable_hdr_sdp(struct msm_dp_panel *msm_dp_panel)
-+{
-+	struct msm_dp_panel_private *panel =
-+		container_of(msm_dp_panel, struct msm_dp_panel_private, msm_dp_panel);
-+	u32 cfg, cfg2;
-+
-+	cfg = msm_dp_read_link(panel, MMSS_DP_SDP_CFG);
-+	msm_dp_write_link(panel, MMSS_DP_SDP_CFG, cfg & ~GEN2_SDP_EN);
-+	cfg2 = msm_dp_read_link(panel, MMSS_DP_SDP_CFG2);
-+	msm_dp_write_link(panel, MMSS_DP_SDP_CFG2, cfg2 & ~GENERIC2_SDPSIZE_VALID);
-+	msm_dp_panel_update_sdp(panel);
-+}
-+
- int msm_dp_panel_timing_cfg(struct msm_dp_panel *msm_dp_panel, bool wide_bus_en)
- {
- 	u32 data, total_ver, total_hor;
-diff --git a/drivers/gpu/drm/msm/dp/dp_panel.h b/drivers/gpu/drm/msm/dp/dp_panel.h
-index 9b81042e1036..58a5f846f788 100644
---- a/drivers/gpu/drm/msm/dp/dp_panel.h
-+++ b/drivers/gpu/drm/msm/dp/dp_panel.h
-@@ -64,6 +64,9 @@ void msm_dp_panel_clear_dsc_dto(struct msm_dp_panel *msm_dp_panel);
- 
- void msm_dp_panel_enable_vsc_sdp(struct msm_dp_panel *msm_dp_panel, const struct dp_sdp *vsc_sdp);
- void msm_dp_panel_disable_vsc_sdp(struct msm_dp_panel *msm_dp_panel);
-+void msm_dp_panel_enable_hdr_sdp(struct msm_dp_panel *msm_dp_panel,
-+				 const struct dp_sdp *hdr_sdp);
-+void msm_dp_panel_disable_hdr_sdp(struct msm_dp_panel *msm_dp_panel);
- 
- /**
-  * is_link_rate_valid() - validates the link rate
-diff --git a/drivers/gpu/drm/msm/dp/dp_utils.c b/drivers/gpu/drm/msm/dp/dp_utils.c
-index 431c18aa2096..c7a42f130d42 100644
---- a/drivers/gpu/drm/msm/dp/dp_utils.c
-+++ b/drivers/gpu/drm/msm/dp/dp_utils.c
-@@ -4,6 +4,8 @@
-  */
- 
- #include <linux/types.h>
-+#include <drm/display/drm_hdmi_helper.h>
-+#include <drm/drm_property.h>
- #include <drm/drm_crtc.h>
- 
- #include "dp_utils.h"
-@@ -105,16 +107,19 @@ bool msm_dp_utils_link_fits(unsigned int clock, unsigned int bpp,
- 
- int msm_dp_utils_select_bpp(unsigned int bpc, unsigned int max_bpc,
- 			    unsigned int clock, unsigned int rate,
--			    unsigned int lanes, bool yuv420)
-+			    unsigned int lanes, bool yuv420, bool hdr)
- {
- 	unsigned int bpp;
- 
-+	if (hdr && bpc < 10)
-+		return -EINVAL;
-+
- 	bpc = min3(bpc ? bpc : 8, max_bpc, 10U);
- 	bpc = round_down(bpc, 2);
--	if (bpc < 6)
-+	if (bpc < (hdr ? 10 : 6))
- 		return -EINVAL;
- 
--	for (bpp = bpc * 3; bpp >= 18; bpp -= 6) {
-+	for (bpp = bpc * 3; bpp >= (hdr ? 30 : 18); bpp -= 6) {
- 		if (msm_dp_utils_link_fits(clock, bpp, rate, lanes, yuv420))
- 			return bpp;
- 	}
-@@ -153,11 +158,59 @@ int msm_dp_utils_pack_vsc_sdp(struct dp_sdp *sdp, enum drm_colorspace colorspace
- 	return ret < 0 ? ret : 0;
- }
- 
-+int msm_dp_utils_pack_hdr_sdp(const struct drm_connector_state *conn_state,
-+			      struct dp_sdp *sdp)
-+{
-+	const struct hdr_output_metadata *metadata;
-+	const struct hdr_static_metadata *sink;
-+	struct hdmi_drm_infoframe frame;
-+	u8 buffer[HDMI_INFOFRAME_HEADER_SIZE + HDMI_DRM_INFOFRAME_SIZE];
-+	int ret;
-+
-+	memset(sdp, 0, sizeof(*sdp));
-+	if (!conn_state->hdr_output_metadata)
-+		return 0;
-+
-+	if (conn_state->hdr_output_metadata->length != sizeof(*metadata))
-+		return -EINVAL;
-+
-+	metadata = conn_state->hdr_output_metadata->data;
-+	sink = &conn_state->connector->display_info.hdr_sink_metadata.hdmi_type1;
-+	if (metadata->metadata_type != HDMI_STATIC_METADATA_TYPE1 ||
-+	    metadata->hdmi_metadata_type1.metadata_type != HDMI_STATIC_METADATA_TYPE1 ||
-+	    metadata->hdmi_metadata_type1.eotf > HDMI_EOTF_BT_2100_HLG)
-+		return -EINVAL;
-+
-+	if (!(sink->metadata_type & BIT(HDMI_STATIC_METADATA_TYPE1)) ||
-+	    !(sink->eotf & BIT(metadata->hdmi_metadata_type1.eotf)))
-+		return -EINVAL;
-+
-+	ret = drm_hdmi_infoframe_set_hdr_metadata(&frame, conn_state);
-+	if (ret)
-+		return ret;
-+
-+	ret = hdmi_drm_infoframe_pack_only(&frame, buffer, sizeof(buffer));
-+	if (ret < 0)
-+		return ret;
-+
-+	sdp->sdp_header.HB1 = HDMI_INFOFRAME_TYPE_DRM;
-+	sdp->sdp_header.HB2 = 0x1d;
-+	sdp->sdp_header.HB3 = 0x13 << 2;
-+	sdp->db[0] = frame.version;
-+	sdp->db[1] = frame.length;
-+	/* DP carries the version and length, but no HDMI checksum. */
-+	memcpy(&sdp->db[2], &buffer[HDMI_INFOFRAME_HEADER_SIZE],
-+	       HDMI_DRM_INFOFRAME_SIZE);
-+
-+	return 0;
-+}
-+
- bool msm_dp_utils_needs_modeset(struct drm_connector_state *old_state,
- 				struct drm_connector_state *new_state)
- {
- 	return old_state->max_requested_bpc != new_state->max_requested_bpc ||
--	       old_state->colorspace != new_state->colorspace;
-+	       old_state->colorspace != new_state->colorspace ||
-+	       !drm_connector_atomic_hdr_metadata_equal(old_state, new_state);
- }
- 
- bool msm_dp_utils_psr_needs_modeset(const struct drm_crtc_state *state)
-diff --git a/drivers/gpu/drm/msm/dp/dp_utils.h b/drivers/gpu/drm/msm/dp/dp_utils.h
-index 81773db75c60..397a40a58e1c 100644
---- a/drivers/gpu/drm/msm/dp/dp_utils.h
-+++ b/drivers/gpu/drm/msm/dp/dp_utils.h
-@@ -41,11 +41,14 @@ bool msm_dp_utils_link_fits(unsigned int clock, unsigned int bpp,
- 			    unsigned int rate, unsigned int lanes, bool yuv420);
- int msm_dp_utils_select_bpp(unsigned int bpc, unsigned int max_bpc,
- 			    unsigned int clock, unsigned int rate,
--			    unsigned int lanes, bool yuv420);
-+			    unsigned int lanes, bool yuv420, bool hdr);
- 
- int msm_dp_utils_pack_vsc_sdp(struct dp_sdp *sdp, enum drm_colorspace colorspace,
- 			      unsigned int bpc, bool yuv420);
- 
-+int msm_dp_utils_pack_hdr_sdp(const struct drm_connector_state *conn_state,
-+			      struct dp_sdp *sdp);
-+
- bool msm_dp_utils_needs_modeset(struct drm_connector_state *old_state,
- 				struct drm_connector_state *new_state);
- 
+--
+
+netfilter: nf_nat: Fix stale outer UDP checksum on VXLAN encapsulated packets
+
+This patch changes __udp_manip_pkt() to detect the local checksum offload
+(LCO) state. In that state the outer UDP header holds a complete checksum
+while csum_start points at the inner transport header. When it sees this
+state, it sets ip_summed to CHECKSUM_NONE for the duration of the update,
+so the address and port deltas are applied through csum_replace*().
+
+> When MASQUERADE --random-fully rewrites the outer UDP source port and
+> address of a VXLAN-encapsulated packet whose inner header has
+> CHECKSUM_PARTIAL, the outer UDP checksum is not updated correctly.
+
+[Severity: Low]
+Is the trigger described here narrower than the real one?
+
+Any SNAT, DNAT or MASQUERADE that changes the address of an LCO-state
+outer UDP header hits the wrong-sign delta in
+nf_csum_update()->inet_proto_csum_replace4/16(pseudohdr=true), even if no
+port changes. Any port rewrite hits the no-op inet_proto_csum_replace2().
+
+The LCO branch lives in udp_set_csum(). Its callers are
+udp_tunnel_xmit_skb() (VXLAN, GENEVE, bareudp and others),
+l2tp_xmit_core(), fou_build_udp() and ip_vs_tunnel_xmit().
+udp6_set_csum() has the same branch for IPv6, and the patch also changes
+IPv6 behaviour through nf_nat_ipv6_csum_update().
+
+The reproducer may have needed --random-fully only because MASQUERADE in a
+single netns keeps the same source address. That leaves the port as the
+only field that changes.
+
+Could the changelog state the general trigger, so stable triage can judge
+the impact correctly?
+
+> diff --git a/net/netfilter/nf_nat_proto.c b/net/netfilter/nf_nat_proto.c
+> index 64b9bac228eae..6779e9f2812d9 100644
+> --- a/net/netfilter/nf_nat_proto.c
+> +++ b/net/netfilter/nf_nat_proto.c
+> @@ -54,9 +54,39 @@ __udp_manip_pkt(struct sk_buff *skb,
+>  		portptr = &hdr->dest;
+>  	}
+>  	if (do_csum) {
+> +		/* When udp_set_csum() takes the LCO branch (encapsulated
+
+[ ... ]
+
+> +		 * The seed/offload branch of udp_set_csum() sets csum_start
+> +		 * to the outer UDP header, so the offload-target test
+> +		 * below distinguishes the two states.
+> +		 */
+
+[Severity: Low]
+This isn't a bug, but is this comment complete? It describes the test as
+telling apart only the two states that udp_set_csum() creates. The
+predicate below is true for any CHECKSUM_PARTIAL non-GSO skb whose
+csum_start + csum_offset is not &hdr->check.
+
+One such case is the UDP header embedded in an ICMP or ICMPv6 error. In
+nf_nat_icmp_reply_translation() and nf_nat_icmpv6_reply_translation(), it
+is rewritten through:
+
+  nf_nat_ipv{4,6}_manip_pkt()
+    udp_manip_pkt()
+      __udp_manip_pkt()
+
+On that path the offload target is the outer ICMP checksum.
+
+The embedded UDP checksum there is a complete checksum, so switching to
+csum_replace*() gives the right result. The only gap is that neither the
+comment nor the lco name covers this case.
+
+The comment also names only the IPv4 helpers. This code covers
+udp6_set_csum() and inet_proto_csum_replace16() too.
+
+> +		bool lco = skb->ip_summed == CHECKSUM_PARTIAL &&
+> +			   !skb_is_gso(skb) &&
+> +			   (skb->head + skb->csum_start + skb->csum_offset) !=
+> +			   (unsigned char *)&hdr->check;
+
+[Severity: High]
+Is this fix complete for flows that are offloaded to an nft flowtable?
+
+The flowtable fast path applies the same conntrack NAT with the old
+helpers:
+
+net/netfilter/nf_flow_table_ip.c:nf_flow_nat_ip_udp() {
+    ...
+	if (udph->check || skb->ip_summed == CHECKSUM_PARTIAL) {
+		inet_proto_csum_replace4(&udph->check, skb, addr,
+					 new_addr, true);
+    ...
+}
+
+net/netfilter/nf_flow_table_core.c:nf_flow_nat_port_udp() {
+    ...
+	if (udph->check || skb->ip_summed == CHECKSUM_PARTIAL) {
+		inet_proto_csum_replace2(&udph->check, skb, port,
+					 new_port, false);
+    ...
+}
+
+nf_flow_nat_ipv6_udp() follows the same pattern with
+inet_proto_csum_replace16().
+
+For an LCO-state outer UDP header, these functions hit the same two
+failures this patch fixes in __udp_manip_pkt(): the address delta gets the
+wrong sign, and the port update does nothing. Nothing in the flowtable
+path filters out CHECKSUM_PARTIAL or encapsulated skbs.
+
+Take a MASQUERADE or SNAT rule plus a flowtable. The first packets of a
+UDP tunnel flow get correct checksums through nf_nat. Once the conntrack
+is offloaded, the rest of the flow goes through:
+
+  nf_flow_offload_ip_hook()
+    nf_flow_offload_forward()
+      nf_flow_snat_ip() / nf_flow_dnat_ip()
+        nf_flow_nat_ip_l4proto()
+          nf_flow_nat_ip_udp()
+      nf_flow_snat_port() / nf_flow_dnat_port()
+        nf_flow_nat_port_udp()
+
+Would the receiver then drop those packets with UdpInCsumErrors?
+
+tcf_nat_act() in net/sched/act_nat.c uses the same pattern on outer UDP
+headers.
+
+All of these callers rely on one assumption in inet_proto_csum_replace*():
+under CHECKSUM_PARTIAL, the field being patched is taken to be the
+offload target.
+
+net/core/utils.c:inet_proto_csum_replace4() {
+    ...
+	} else if (pseudohdr)
+		*sum = ~csum_fold(csum_add(csum_sub(csum_unfold(*sum),
+						    (__force __wsum)from),
+					   (__force __wsum)to));
+}
+
+Would it work better to compare sum against skb->head + csum_start +
+csum_offset inside those shared helpers? That would cover nf_nat, the
+flowtable and act_nat in one place, instead of a local workaround in
+__udp_manip_pkt().
+
+> +
+> +		if (lco)
+> +			skb->ip_summed = CHECKSUM_NONE;
+> +
+>  		nf_csum_update(skb, iphdroff, &hdr->check, tuple, maniptype);
+>  		inet_proto_csum_replace2(&hdr->check, skb, *portptr, newport,
+>  					 false);
+> +
+> +		if (lco)
+> +			skb->ip_summed = CHECKSUM_PARTIAL;
+> +
+
+[Severity: Medium]
+This is a pre-existing issue and was not introduced by this patch, but the
+IPVS UDP NAT handlers look like they have the same problem.
+
+udp_snat_handler() and udp_dnat_handler() in
+net/netfilter/ipvs/ip_vs_proto_udp.c check only ip_summed:
+
+	if (skb->ip_summed == CHECKSUM_PARTIAL) {
+		udp_partial_csum_update(cp->af, udph, &cp->daddr, &cp->vaddr,
+					htons(oldlen),
+					htons(skb->len - udphoff));
+
+udp_partial_csum_update() always treats the field as a seed:
+
+	uhdr->check =
+		~csum_fold(ip_vs_check_diff4(oldip->ip, newip->ip,
+				ip_vs_check_diff2(oldlen, newlen,
+						csum_unfold(uhdr->check))));
+
+It never applies the port change.
+
+For an LCO outer UDP header built by udp_set_csum() or udp6_set_csum(),
+won't IPVS also apply the address delta with the wrong sign and skip the
+port delta?
+
+After this patch, nf_nat and IPVS would also handle the same skb state
+differently.
+
+>  		if (!hdr->check)
+>  			hdr->check = CSUM_MANGLED_0;
+>  	}
 
 -- 
-2.56.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260922062305.752147-1-lvjunyu%40cmss.chinamobile.com
