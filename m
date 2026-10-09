@@ -1,130 +1,206 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013044.outbound.protection.outlook.com [52.101.83.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1CCF1FFC59
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 03:06:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791515206; cv=none; b=kHjq6AnxBvrinPVKysqv098+cZZGbH/+TOqm36duZ5NyirMSuHi8cVOsnKPoVNSUEuPZRcMcDwU2hn5kFLPZI8/7HWAukYn8duMVDfzA8HTygSUm2E3IsX9sx7lt7Y2j93amKNq1nuss4A9L2hFtdLfhAxeWDy8iYTvnYGhDFyQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791515206; c=relaxed/simple;
-	bh=5Uz2zi/HaHZ9scqnUVj7yk+2fytGfDAxOLNXAwt2vw4=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version; b=gG9y63IEzg0U4RDTVlHowCWq+eDwmKM1d4OnWRY+iiblvdsQ0rVcygFJbrKDrGGtS49G43Sva2sdqh9uIRyiG5Vs/Vp7okQyDTtEchckd/ZQacy7Nuwkz2YQ6BMovEevPUxlFECoYxHp6A3JU4/KTBDM0xYjfYRxGJYNybV+Zu8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gmiwYATY; arc=none smtp.client-ip=209.85.210.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F34F2609C5;
+	Fri,  9 Oct 2026 03:11:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791515518; cv=fail; b=NJP1cDqanhYORE35hyjnbPUdo9ESVSmT6cVnikLQj3oQrh51+J5GcaP0DBki1bEylghsTC3tTBUa/B21OuYEkjsr5svAotQxXkDeOSA0SqYPQFCSB4JTK8luoYZ/YI8fQKZXDG1yg23ODB9sxht1tIPh+I3pVSwak9ZAgVy6wuk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791515518; c=relaxed/simple;
+	bh=kX0CWEdzUIVF91wy0ZGSnA3F2KGTe0yyIXtYWS8s5sI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=C5tu/SRMbwF1fyi3SLScqEUbbYPm6Yi/vyWwRjCPfrPZzikNvyGdFI4QaS4k+XtkCC6iuJuuKSLPkktqkPt2QpfsBkwvduGkMZ9GAJPlTHncvQzpPjoKaq6UHp0Z+489+A1ofcwF5AsLjraR1wZfRq8SlXDqQPgLkC0X6q60v6E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=xSYiR9Xk reason="signature verification failed"; arc=fail smtp.client-ip=52.101.83.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gmiwYATY"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-88bda150550so2218457b3a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 08 Oct 2026 20:06:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791515204; x=1792120004; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:reply-to:message-id:date
-         :subject:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KrdVnUhtPNK/Av17PhvpBtm9fsARY9axkUcpxdE9xCo=;
-        b=gmiwYATYJDVsrjbDD631PuI+E1Bodn447DUDkztIwobHVVaY6Tl9cwqDDtalGnjCCh
-         d2IFLrQEBmM9JlR96GifgEEyp8Fj2tgUSMeQr/u4XPyIO/+RcgYdOg1OnWYwTft1ktzh
-         gA0eNgrOcmxsdQNazDWxwCTV1kT9aP/8m0sHi+JYY40vp5K8dwI9KN4eZ1JxvnwOTOIX
-         IBI5fwfLpMruw3GT1CwWfkZHTyVyRqDFr9JIU4cxYOy0fe6hbQrN36k8cPMUSsL54+PL
-         /nR1sFvJJuYj4Hd3WDjucQtPhlWFbMXHy7j3bd1Dwg7y2BoX2TIBqkMwqohbL5kNju3R
-         jKOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791515204; x=1792120004;
-        h=content-transfer-encoding:mime-version:reply-to:message-id:date
-         :subject:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KrdVnUhtPNK/Av17PhvpBtm9fsARY9axkUcpxdE9xCo=;
-        b=mjvAZ3EKU4cXf9DQtah1jBJvASVTW0xdNJUAKS60VII8/Jvv3+QOp+FlWjsPge5fgc
-         Efb6+mTQXFVKSaaUJMWZkU2VkcrPt2ZwdS32YAVeiSa8gp0JvFTRRfzpz2r5cwUZX2B3
-         zRyncfhMT3oJbtay4v4Y7eP2aOVvEH36COTe3d+4lxYoYWya6a2gViF+gEhpR3RHKNaw
-         TrmYVTk7JgLnG6ovaKa9ZnS7iWUeGnSqMy/Axkgf+7LKEvk6EieEpkUs4kQPkrN1AT1p
-         08Cvgi6Pr0hXJZGUQWUVgVPxtg9AnS61hgQF3dpLI7A4lVrmLP6xXsX+3TOzdQizLqHE
-         bs3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzceHK2QohVaf0M+drbj3TLot+0Hjtxn4rLKANdeiZTpjmyIQYhbdLH+Qoxm5TwjFCog4f6s93WzcQ4EzI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK5iqXnIHZO4RAPu6xSrgpg3tBtJlMKcZgQYmMqQoyZ5C+bdJLb
-	7PbSLszCb2GFM68U4fJ4CEWEP7R5zxDb3kzMaPJcpZNc4MH7onmjMsAG
-X-Gm-Gg: AYBFou2OwnCmSEvI8eXB8Qc/51TvZ2NA/tSbZvUMUqmF/upK/Sk7cr1IQp8GmhfzeVj
-	VzskvjEviFOt7ZjBwTzY9mYpPwZ4Pua6I2yICwDzxrF9c5dkfzvdLOEZAsg/ysh7OvfZHmevjmF
-	zS58XxNZYWAqFIkPjpuJczNKm8mIlE4flcZ1zjYZeaI9vGxy5DTsUPIW23HHwZhN0S/IlNGWXyU
-	hvTQ15Hjdw4gLzktUZ56Goy5A4gNPdWHrjnCdxF1jy3w3eaYPTPlkNq16JWA6hzbLbuchbvJuTt
-	SVpTr6jsrHB9VrDAF+gYQov5AiqxN6tjfexmbTYNIZhDEEWHpPAWfSqVh6HQMmQe1FpNe/I8YJH
-	TknrQEq+1/yrw9KB2ebcoJe4AdwDHwGVzagE/a4/tvR+KyMrX3/N/DU8isa9TWA06RmbBescHne
-	PlHs76zT06Xmna4wzXpLKEoyVnSrRF5z5RUk5lObZmgMvHmFTvNtgoyJ1QFAcqE9noNoKiU4eBd
-	7nJtxwnjEdnDySOpOQur64zswmItt2leKGJP/Rlqw4a/6dKX3WJjIhmbbNrgMXcxuM=
-X-Received: by 2002:a05:6a00:1254:b0:882:bba:8791 with SMTP id d2e1a72fcca58-897c73f9603mr484203b3a.34.1791515204273;
-        Thu, 08 Oct 2026 20:06:44 -0700 (PDT)
-Received: from localhost.localdomain (c-174-165-208-10.hsd1.wa.comcast.net. [174.165.208.10])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c3ecb01dsm320656b3a.36.2026.10.08.20.06.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 20:06:43 -0700 (PDT)
-From: Michael Kelley <mhkelley58@gmail.com>
-X-Google-Original-From: Michael Kelley <mhklinux@outlook.com>
-To: haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="xSYiR9Xk"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bM20vcJVN/LxWiQl0y6t4UFd8hOPrAfPvCFlYhrhB4Y3s9RhxZFoSoMRCL5NAYBxw0hjaccpGrtgsCXTglBbC+Jsy8ds+n4RHsT119bp5oYYVh1xY1xV2DCUpYBzDrvqxNy0ZAWbIV2xzq+efCjKtURDj/44c+hcjDue9CISuAGm1dHyaSZlQdB3G7tJt1513cCNnJxQt8Se67k+XGO0HRYPL8K1bGXoCWWtQIl/9n2I1Ws1jEZTUrvpo9r8Rde7MnypHeyOYF6l4W3KQYjtBIjY6TiMQsXX0VHblUcx7RKZl9NVqVazAUYiChgJmKOTMu9cCVxFTaAOrqlsyM4/mw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vXgaBu0wXQvZ2R1ogj1MKUL/ySep5Q4zwMMSm0C+aC0=;
+ b=QRiharMiq1QZr/VqbaCkHmjh2izLlh9Zx1GOhLvKvbBFjKhv2dmD4J4KZBhMQ+5RDpSbZ1PdGhzrpr3lV7UehVRw/xBigXyy15s/2VBs2IXyKJ7tmUOdnjUiJ3xxif7PAPnjqCTToz57FSnKwTmWkWWFhSGbpshydki65cXcxTOwCmVIcXZRdlodvfvDFIgFk2wy/yz3Ujtn//lanzZbqdN5e9uyah89sxL4GIDYSVf6xTPiqlknYY06Va5Y2rkv0/XmKqTnX5lJE0EeppURzrcQ0YpslRd3qtySxYVovQ+NnBMLvbOmghirzkVtT3L56pypBptO4/+lqWqiMpKEJA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vXgaBu0wXQvZ2R1ogj1MKUL/ySep5Q4zwMMSm0C+aC0=;
+ b=xSYiR9Xk7wOQDFS6kqdecZgVu3aBzg/gMYdEt2pKqeqj52mUDX8j3rKDFgw3iP2BzApvyc3oIgiqHZwA3Yy4xK8aXqd5KWVOkGcdkjNdGfvHv8AuSnyXWOZxsIB2eu5NN2EZUsDHzmFBpG26cDCCWKrbVe/h5x89uw3WQYqHq2Ij4Q99KrbQ4ikp8PAWdbzWQv8EAF/9MUxtDT8FgnGpCdz3DLgRy9B9NQ6yRyH+xhUqaWl2IlgoQweCYPDlYSrC2niwXi1ISnqSaolMcSLbQtG03JKXuxFoSD8FHNi289G9pYixVSy4y7s/BDoz4Wkkn/V6f1mQlujp/UapAO8PHA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by AMBPR04MB226274.eurprd04.prod.outlook.com (2603:10a6:20b:75c::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Fri, 9 Oct
+ 2026 03:11:53 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0496.010; Fri, 9 Oct 2026
+ 03:11:53 +0000
+Date: Fri, 9 Oct 2026 11:16:26 +0800
+From: Peng Fan <peng.fan@oss.nxp.com>
+To: Frank.Li@oss.nxp.com
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Peng Fan <peng.fan@nxp.com>,
+	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-hyperv@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: [PATCH 1/1] Documentation: hyperv: Update documentation for sending VMBus packets
-Date: Thu,  8 Oct 2026 20:06:37 -0700
-Message-Id: <20261009030637.3869-1-mhklinux@outlook.com>
-X-Mailer: git-send-email 2.25.1
-Reply-To: mhklinux@outlook.com
+	Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>,
+	Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v4 1/4] dt-bindings: remoteproc: imx_rproc: document
+ memory-region-names to avoid hidden ABI
+Message-ID: <ashciuN/Po8nIElu@shlinux89>
+References: <20260917-memory-region-name-v4-0-260755920ebf@nxp.com>
+ <20260917-memory-region-name-v4-1-260755920ebf@nxp.com>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260917-memory-region-name-v4-1-260755920ebf@nxp.com>
+X-ClientProxiedBy: SG2PR04CA0204.apcprd04.prod.outlook.com
+ (2603:1096:4:187::16) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|AMBPR04MB226274:EE_
+X-MS-Office365-Filtering-Correlation-Id: 06804b07-411f-4929-98b5-08df25b31142
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|19092799006|376014|7416014|4143699003|56012099006|5023799004|11063799006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	QKlQQp9ijbAi0KIA4plOguyPIPpMaMHgsjoDSZWMyVuHBASPrQ7/b05f4Lrimnk3qb89EEOP2DPAeeOFfkMPBEH7QofR4M0J1sJvwApl4fG8doHV2MXWPkZZCeMOZwQBamuLbsTpliDb+cSCndBf//+ePOKDZ+Yc1JwB7MTcL5stKxpsivGfNVlOKC+kUsdXH8/FXKhNbWsfuYRAuwY3ZRdtRQAk0HJe/jbpKq6PkZeONnmnnVgWHXGYIqaCqvujRmuEEjy1lzXfIsS+NgeN6iED6dyubOO53Jht3At+xa26W4TNj7/d1OPTPrOw2kibn3fD6jChhNueaJ2+hxF+fSP/8U2rq9DsK/xzHop1T+BjO1ML4jGH7x2kPJtgxzUS4eR4Qf/LCQiERaH2IwieIGhw2iHECNU3yjFOAoKEDit1DydkX8Z1tALKmAh7UCRi9luUh0e/upcE53BzkLc81vh5t6QXo+DwK2Frrvtw/aiLM6h1yvSpSl3ZvxS4yZGcoGTh6zdJbNWcDn9Dq9UVerJQ5gMTveUqVjGXzmUui9OKskT6AOaKB8PLt57mmQBOOeiK+0eh6Qisgyk3/azjwah/dBXKrObAwbCSTUaODK3uo2xVFdDaOH7DQPGcak7D
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(19092799006)(376014)(7416014)(4143699003)(56012099006)(5023799004)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?iso-8859-1?Q?WrRNaALDXQUZJ9NVnA8ZU1xyF8BwQKgkNnChP0uhTpRo4FI/Pbd8ouGRDY?=
+ =?iso-8859-1?Q?r5mN7rUF9EyI/vIYReQVqWQgFVFyrvGQx5Px8drQi9NbTdt3FQbkoZEp5j?=
+ =?iso-8859-1?Q?EWaCn7N4+hIkBzKnYaw7Qzn6SXkDLr++2VNu9GRBDM9ua5NzPUmZ6djcUf?=
+ =?iso-8859-1?Q?XArQiM59ufN/N865ZUOcI2UX1rVd+TS85qP21+CQ9xEuk/9xhSNaJWla9i?=
+ =?iso-8859-1?Q?8Raz6miZUZWTbm7N5TrwyYQMh3cmKvA4JmH/TDa6pvB56MztbJ0SEBkA0x?=
+ =?iso-8859-1?Q?AWlt+CDApKAYlkdUgD7rXNXWxgAk2pNYTpSe2TgwmuY+dsHPBnhEP9cCKM?=
+ =?iso-8859-1?Q?DnmH/2a7a6zZ2VwPdHv7MirZ1wnaaCwAxQnWxeLeY/Rr3vhQg+aX8NGhbR?=
+ =?iso-8859-1?Q?A+oHw43QZ6gY5d3wcEs6lGZxbbbzHdpyJWXJhGhYr2xuHjo0orhbOWpexo?=
+ =?iso-8859-1?Q?wnPC5cRtpxUbB7KMGChz71FiGofSbPzjrrh/hZ1UIup30JkIuLXuERH60Y?=
+ =?iso-8859-1?Q?It7YiU8n9Nz/v3uG3juEPx+gzbzpOr0JHe+EQrLqr0q/SzA+o+ndx2OSMp?=
+ =?iso-8859-1?Q?l5SnutdYwi2zIdjWGLIx/oOj57ploPVXlUfMp0gUSxG17jQU6YGNTl7sD8?=
+ =?iso-8859-1?Q?5vTL1TraRFZIYovphk0jfQ4Af91WDImWINpnjb6626Mvu09A3IL/glyqau?=
+ =?iso-8859-1?Q?wkZr8bpZxSyIIFE5rxr/fVTlU1I0R71bvTFq+0dXCL1icCKJhms4dliFtx?=
+ =?iso-8859-1?Q?IEpWF21SES1S6jgrWsplzvap/4RRhEbcUHiEFfmgLSO4OQq0K7BRTrsFTL?=
+ =?iso-8859-1?Q?heKWRTLSF6eP9B9tg1SjRhKftZ0+L8TM4WMYiYlRV0eEPsDuqNZ57lzC+6?=
+ =?iso-8859-1?Q?GEbbHQjR8esmnDODMzUvrLvbnfrVlOGuCVVkho0dmtYWoXj9pofL/3mz5L?=
+ =?iso-8859-1?Q?xZw+78h+YTbZKJjMxI8ECMGhzCT3r8PYO3sRbmw1qWEVPhef3rQcFSqwm5?=
+ =?iso-8859-1?Q?4BvZtJUajF0KvHIGlUCs988BlbunCZSwsw0an+jImpHdJBpoEg9rJuc7GW?=
+ =?iso-8859-1?Q?fC/ekq0Bw37MHaxNzKPRkdcoGfvX50q12COVWTSeNwaq5OcThbJtOelb0U?=
+ =?iso-8859-1?Q?68D1SbIs7AmXqTFT3rHNKP5C1rmWe5ZhW1CuP2u+PJBskvgufVKeA0ojY9?=
+ =?iso-8859-1?Q?EAiAgpqpkYb4q9zwQMo5+GZwijFkccyi9YnxSZN2s2Mz6qGzEEGU2igWQp?=
+ =?iso-8859-1?Q?U+U7Omxq6rOkrT4pKpL7590adKxvV6ibwj39p7/Wts+kvvQc/ut2TWRgE9?=
+ =?iso-8859-1?Q?84WUN30iehzXOUJU6XX22jjbYcX0W5gfYixvMpniAiFb3rcoP3e8i9Mqud?=
+ =?iso-8859-1?Q?pWnyHI5YicAuHl4E3uGYzcZbhHpwkpTA+8UIhnz0PKF4ictb9XxnDRlEms?=
+ =?iso-8859-1?Q?BwShk50zM0y3xieVQauxVLLbgjiAxFA5XMo1cpGr7cNyqGAeaX+KzjFbit?=
+ =?iso-8859-1?Q?C02ygtoYVyJ2ElGdo8dq+s6GRS9+hrVEtNvbTLnDHMxpmsGFDcR7shn0WM?=
+ =?iso-8859-1?Q?DHgsosDJ/g0WPCx2TzaYi+Pr51FzxxMDSBZA8AbubNIUK7LaiM/y6+G2FI?=
+ =?iso-8859-1?Q?Log76SP8N3N/KHKNe476V2F6dZx67qA1nEtDwrRejM84tGHMWcaON9xo7r?=
+ =?iso-8859-1?Q?YunetRK8OPfKVxcugqhkUViprgoabPDWEiPjpiKd9+XZarlZKqWVmur9ja?=
+ =?iso-8859-1?Q?zgTlrID7Vsvz2YgnUJUSv3xpwVC18jsNP6OfiQFAC367L0u1BtdtsIdLC7?=
+ =?iso-8859-1?Q?bfWP9SeH2QpS2lQ4tEErcxk+H+2CSTHBRYG7R+HeZ5/7JslKLqeZ?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 06804b07-411f-4929-98b5-08df25b31142
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 03:11:53.2196
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ntddJdoIQYrqvum9TuMetROCZ0FqjMFy+2HfhrqO7TKO08qFZHHzXW8+qeu1ztXn+kax1zX9oRp6ggdl3USRLoze23sREtH8jySQdesmq5F1Pumhg2VGKMx0+hEsi6MQ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR04MB226274
 
-The functions for sending VMBus packets have been simplified.
-vmbus_sendpacket_mpb_desc() can target multiple ranges, and
-vmbus_sendpacket_pagebuffer() has been removed. Update the
-documentation accordingly.
+On Thu, Sep 17, 2026 at 02:19:42PM -0400, Frank.Li@oss.nxp.com wrote:
+>From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+>
+>Document the optional memory-region-names property.
+> 
+>The driver currently derives the memory region type from the referenced
+>memory node name, creating a hidden DT ABI. Since memory node names are
+>not constrained by the binding, incorrect names can silently pass DT
+>validation, as seen in examples using "vdevbuffer" instead of
+>"vdev0buffer" ([1] and [2]).
+>
+>Add memory-region-names to explicitly identify the expected memory regions
+>and avoid relying on memory node names as ABI.
+>
+>Link: https://lore.kernel.org/imx/a3602ef8-2b77-4cc3-adef-2c4cba08a5d9@nabladev.com/ [1]
+>Link: https://lore.kernel.org/imx/alexXTYQHUs76J7v@SMW015318/T/#mb9dc709ff3adc24d9db6d30c973f37b580f6f1f9 [2]
+>Signed-off-by: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+>Signed-off-by: Frank Li <Frank.Li@nxp.com>
+>---
+>Use optional property to keep back compatible with old platform.
+>New platform should use memory-region-names.
+>---
+> .../devicetree/bindings/remoteproc/fsl,imx-rproc.yaml         | 11 +++++++++++
+> 1 file changed, 11 insertions(+)
+>
+>diff --git a/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.yaml
+>index c18f71b648890..5d98d21035f8c 100644
+>--- a/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.yaml
+>+++ b/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.yaml
+>@@ -62,6 +62,15 @@ properties:
+>     minItems: 1
+>     maxItems: 32
+> 
+>+  memory-region-names:
+>+    minItems: 1
+>+    maxItems: 32
+>+    items:
+>+      anyOf:
+>+        - const: rsc-table
+>+        - pattern: "^vdev[0-9]+(buffer|vring[0-9])+$"
 
-Fixes: 45a442fe369e ("Drivers: hv: vmbus: Remove vmbus_sendpacket_pagebuffer()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Michael Kelley <mhklinux@outlook.com>
----
-The Fixes: tag reflects the code change that was made. The
-documentation update should have been included with the
-original code change.
+Should be "^vdev[0-9]+(buffer|vring[0-9]+)$"?
 
- Documentation/virt/hyperv/vmbus.rst | 13 ++++---------
- 1 file changed, 4 insertions(+), 9 deletions(-)
+Regards
+Peng
 
-diff --git a/Documentation/virt/hyperv/vmbus.rst b/Documentation/virt/hyperv/vmbus.rst
-index 654bb4849972..77a437969b49 100644
---- a/Documentation/virt/hyperv/vmbus.rst
-+++ b/Documentation/virt/hyperv/vmbus.rst
-@@ -137,18 +137,13 @@ control message contains a list of GPAs that describe the data
- buffer.  For example, the storvsc driver uses this approach to
- specify the data buffers to/from which disk I/O is done.
- 
--Three functions exist to send VMBus channel messages:
-+Two functions exist to send VMBus channel messages:
- 
- 1. vmbus_sendpacket():  Control-only messages and messages with
-    embedded data -- no GPAs
--2. vmbus_sendpacket_pagebuffer(): Message with list of GPAs
--   identifying data to transfer.  An offset and length is
--   associated with each GPA so that multiple discontinuous areas
--   of guest memory can be targeted.
--3. vmbus_sendpacket_mpb_desc(): Message with list of GPAs
--   identifying data to transfer.  A single offset and length is
--   associated with a list of GPAs.  The GPAs must describe a
--   single logical area of guest memory to be targeted.
-+2. vmbus_sendpacket_mpb_desc(): Message with one or more data ranges
-+   to target. Each range consists of a single offset and length plus
-+   a list of GPAs that describe a logical area of guest memory.
- 
- Historically, Linux guests have trusted Hyper-V to send well-formed
- and valid messages, and Linux drivers for synthetic devices did not
--- 
-2.25.1
-
+>+        - pattern: "^m(4|7|33)-reserved(-[a-z0-9-]+)+$"
+>+
+>   power-domains:
+>     minItems: 2
+>     maxItems: 8
+>@@ -134,6 +143,7 @@ examples:
+>     imx7d-cm4 {
+>       compatible = "fsl,imx7d-cm4";
+>       memory-region = <&m4_reserved_sysmem1>, <&m4_reserved_sysmem2>;
+>+      memory-region-names = "m4-reserved-sysmem1", "m4-reserved-sysmem2";
+>       syscon = <&src>;
+>       clocks = <&clks IMX7D_ARM_M4_ROOT_CLK>;
+>     };
+>@@ -149,6 +159,7 @@ examples:
+>                 &mu 1 1
+>                 &mu 3 1>;
+>       memory-region = <&vdev0buffer>, <&vdev0vring0>, <&vdev0vring1>, <&rsc_table>;
+>+      memory-region-names = "vdev0buffer", "vdev0vring0", "vdev0vring1", "rsc-table";
+>       syscon = <&src>;
+>     };
+> ...
+>
+>-- 
+>2.43.0
+>
+>
