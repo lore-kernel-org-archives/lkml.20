@@ -1,269 +1,206 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40ADB4F3EBF
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 18:06:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2275C4F3900;
+	Fri,  9 Oct 2026 18:06:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791569168; cv=none; b=Vkn0p+Y8oO514uJ/OdKj7YN/P2prkF8iTTln3gPeesAUNFo/mnkvrs/eAa6KjTVMt3kZAI1ZiJVSxYE3o+febYodBv94nEyNI7GT6KGp4DCLw0s4Vr0Ttp1RlprlS4EKEc8M4nz03/JOEZp8yqVRlQKOzvTdhJjm/40aJ418eMg=
+	t=1791569183; cv=none; b=EFYMizdTJVBuaJ5eS5ubRmu1hwGZUgOUV0iqULCCFuTLnLjlisxeW8vhtSIC6ARaFZ+17B+6LJCBL0raeesB2yfB2akMnW1lO7CkTFogjqBKY4LD/5Da5y1gIATs7iLyyiwIQwyaUkUVh2UshMljwkISa354ph69okY86vayY9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791569168; c=relaxed/simple;
-	bh=bsf8TxF7WdL5O6WNyvZ/kcjCgsQy1HF8zNK4J52zy7M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=h9Q5N07q1Rrj0qch4vX4kgDnOvyMfN5IqMqO9tYhjFvJoYtKrilgPnBIGiFQ3BWoXExDxw2qCcaTBX/wyz257BHEv9tPsz7qxi5LEezB/tPiHsEIZJuiuGO1KIpUV+zqO8yBQy6RxQVLUCMVlYrCoh1CL3GVeVHf946Wirp3sCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=fPmEPyu3; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
+	s=arc-20240116; t=1791569183; c=relaxed/simple;
+	bh=W5EJA/cmsVT7jDTw6eYY8+j+S742rFhYZzwOfLirwec=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=sozccp8DbxwU1xsCkdwOMJhNQu/E8bAYpNBHyJ++s9JTFEHxxcLyFI8D/MHFkt/CrFHTbweUZhhvcukwz7GL0VKeGPz/29LdFtZhzKV3T3RA7jao1e/EQVJwi6LfSLCMjWPyXmdC8g0JCoz2enahveHVHU1ZfSCz+jKs9sOkmiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d+b8wTFf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="fPmEPyu3"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a172eb31f0so902765e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 11:06:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1791569165; x=1792173965; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WGNA0/QZCrfB7QLLTaLeaXo+rC65bpP9iitE8k+9l10=;
-        b=fPmEPyu3RAQvPHwTr/P9NovKHYsEZ0/JqI7DUNWStk6/X9ADyAEa2hVuY9+HMUUf6i
-         J8YjVp/DCiHMbjFE2F5kVsfNSZwRVc7gJtk9twrAfK4e4BZXBuT2w9aF/v5vv8Oa/WZS
-         ePdO9LHg16Qb0SFJ21KQHDF/004Y63wn2Z6yzOilX3pZ0Ur/VqPvo6jYY7NxY3scMLtX
-         SbDelFZXEy9b9RITDCEJm11GcLOEySIIlYUApiwppauywEU4SqLTWXecghKsE7B7XvuF
-         CjRrEYyo4L1LegHnVwmI/ooFwX1TEzQDpzhXoiTCIB4F2Cqmvi0TZ8jcsHD7Eqar2QR3
-         WLSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791569165; x=1792173965;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WGNA0/QZCrfB7QLLTaLeaXo+rC65bpP9iitE8k+9l10=;
-        b=QC7JlXiK0iJqtI23tP5eiIcBMAm66mewq1jrBp7zeypn1QCsIAxiaDQ3VLptQWyOls
-         ouLTp9N1+vjAPTHtfGZAfby/Ep8ZSEKTnl8KKxwFt5o98f2ZOv/uI4QiVymYOe6k6k04
-         WV+yByIpXoCAF3kvzFiVAz0YKpkZXVib8upnogm5KKkWuDVOtxzbjZD5kV6hKnFfEYd0
-         kMd4wXEMnCkAHMVqEvyNrJYeb5keJq6dyqIGBjlvnfNIevE3KfPpb+39AGzk96QkIewR
-         bTZYIVVxLubyWJQOr6lMcNk7mW/gFrgcidZ3YRfNx/jQkHw4yI8PnfwL1/5/2g3jbazW
-         9z6A==
-X-Forwarded-Encrypted: i=1; AKwUvBwLiEobUocyioy0ffYaRVi9+Yofiuj9PSZft6PU962UG2xkpvPHC/Gbq0TJj52RfqGrectQ2lqzSGFsLjM=@vger.kernel.org
-X-Gm-Message-State: AFuF++m7yArRmxp0CF6p6QsMzc7Tq2M9Pm2gWSgWwPgmxZUbN8E55N50
-	7nGGGi35VGm/OiCNsZpPm9CL1SEvPjbjbBpWiBa/8HxeKLYNCZLEjy2OsBe3gT7p+28=
-X-Gm-Gg: AYBFou0DXbzwar7ipTaOdFY+taA6bXDuDFQfef8gkS6zr85FT8rskTriQqnB5ngNtvd
-	Gt+BOfJG6uW2+KBIvKuGXvPZvYsIxb/UhyIE03gPmErysjDl2VHEMQpGi2tsdTDdK/a77erX+gF
-	9Hnv6Qb2el79W//8JAsCxJVOEiYPAU36mOk1O0K3kYRyNoKyiQuP86dhSvthzeSjrRwoewY7BTj
-	wC0592t2LTXxOdUH0caJp6rNk5U5Z4WwSHj+B0aMr/qpW8hsBLnSk35tqQPaVJXGslwVGfRUMCk
-	ErSs/uhUhzuDPhWLO6SLd86P87BDOzQIY2BblwZFG7ghaUeWarAmj+KD+FKRGv1PzayXSe0izRI
-	Kef+n2yG8TiLfJ7HBZbjUSj4AL4i8cKDu0t6lPlPTZcP1c7e0dpbCjytImjJsV2a3wyHVwudQSm
-	Qhnbt0SArbfLLVYKYD9Jukw5z0DSteh8p7xQL7yqHIlZjou1CBIg==
-X-Received: by 2002:a05:600c:3111:b0:4a1:811c:8069 with SMTP id 5b1f17b1804b1-4a18e49d640mr51938095e9.8.1791569164821;
-        Fri, 09 Oct 2026 11:06:04 -0700 (PDT)
-Received: from remote-01 ([84.17.55.225])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf21276sm118184915e9.8.2026.10.09.11.06.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 11:06:04 -0700 (PDT)
-From: Aleksei Sviridkin <f@lex.la>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	netdev@vger.kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Woojung Huh <woojung.huh@microchip.com>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>
-Subject: [PATCH net-next v5 4/4] net: phy: make an unbind wait for the attached consumer to detach
-Date: Fri,  9 Oct 2026 21:05:50 +0300
-Message-ID: <20261009180551.1234107-5-f@lex.la>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261009180551.1234107-1-f@lex.la>
-References: <20261009180551.1234107-1-f@lex.la>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d+b8wTFf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36F351F00893;
+	Fri,  9 Oct 2026 18:06:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791569181;
+	bh=SAzG9Wth1XJ2c0bU3DI60XqRT1mNgvn5WEld38uFlsY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=d+b8wTFfrUQ8jmcrAK3KmrwEgBliaTXeFDj86MnPlTPMIMnYedIfLBUmim+zSePtq
+	 UiwBe3e3wudgLqlmR9vuD68Tayt0xK2rYcueEdm1uHrOO5VMNajbaH0+m3IGkEoFDo
+	 9P8vYCgL6KUze0m/6htzdTfZiU/D1x2UDZbLNxsrSVR53mxRl9yglP/jRajhOPeoKK
+	 r1Dv7XsFbXJBcDoi9Q1sw7SyZiAzX5r9bHoTHt6zfJ7xcqF/GYmPnPtYysW7rCjNsi
+	 EKX1TPRIdDWJS/C/1YvtA8/xU6+WziFiHmsi65Gb5ogjUgzQTQE+10EMp+/PgVWPGk
+	 iYMN/rphhdJVg==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Fri, 09 Oct 2026 19:03:59 +0100
+Subject: [PATCH v5 05/38] mm: make map_kernel_pages_[prepare,complete]
+ internal and unexported
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-5-923b70125b1e@kernel.org>
+References: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
+In-Reply-To: <20261009-b4-mmap-prepare-vma-flag-sanify-v5-0-923b70125b1e@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ Helge Deller <deller@gmx.de>, Sebastian Reichel <sre@kernel.org>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Michal Hocko <mhocko@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Xu Xin <xu.xin@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ Bert Karwatzki <spasswolf@web.de>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2708; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=W5EJA/cmsVT7jDTw6eYY8+j+S742rFhYZzwOfLirwec=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJO6sws8px184BXlMYNnaRekyN5kgvOVk122ur3tlL88
+ KH+koPuHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZiIqT8jw1UnLrF7Ss+Se14I
+ HP62U1T88wUR48jznP0vvqTt5Q6qusjwv2jGPLFPwhc9TOK3Za803r3pQPWzqSGn4vfMtAy9d8x
+ 4Gy8A
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-With attach serialised against unbind, the unbind that loses the race
-waits for the attach and then removes the driver from a PHY that is now
-attached. phylink uses phydev->drv right after the attach returns, and
-phylib uses it again in later phy_start(), phy_stop() and state machine
-runs.
+There's no reason to export the symbols for these functions which are only
+called from internal mm logic, additionally there's no reason for them to
+be declared in mm.h.
 
-Found on the same KN-1012 by repeating the wan race on a kernel with
-the previous patch. The attach completed, the unbind then removed the
-driver, and phylink faulted one frame up:
+This patch therefore removes the exports and moves the declarations to
+mm/internal.h.
 
-  Unable to handle kernel access to user memory outside uaccess
-  routines at virtual address 00000000000000a0
-  Comm: ip
-  Call trace:
-   phylink_bringup_phy+0x680/0x784 (P)
-   phylink_fwnode_phy_connect+0x1b8/0x27c
-   phylink_of_phy_connect+0x18/0x20
-   mtk_open+0x38/0xb70
+No functional change intended.
 
-A DSA port gets there without any race, and did on the same board
-before this series: unbinding the lan4 PHY driver returns at once, and
-with lan4 up, tearing the switch down later faults in
-_phy_state_machine(), called by phy_stop() from dsa_user_close().
-
-The driver core gives a driver no way to refuse an unbind, so make
-phy_remove() wait until phy_detach() has run. An unbind of a PHY in use
-now blocks until the consumer lets go: ifdown for a MAC that connects
-in ndo_open, the switch teardown for DSA, which connects at probe.
-A reboot behind such an unbind hangs: device_shutdown() takes the
-device lock the waiting unbind holds.
-Detach clears the attached flag in the section where it clears
-phy_link_change, so it cannot overwrite the flag of an attach that
-comes right after. For the same reason, the restore of phydev->irq
-for a PHY on the generic driver moves ahead of that section.
-
-Deleting the PHY device through phy_device_remove(), as
-mdiobus_unregister() does, keeps today's behaviour and does not wait,
-and it releases an unbind that is already waiting. Some MAC drivers
-unregister their MDIO bus with the PHY still attached and never detach
-it (greth), so waiting there would hang their removal for good.
-
-One case is known to wait for good and is untested: when the PHY and
-its MAC or switch are managed device-link consumers of one supplier,
-unbinding the supplier can unbind the PHY first, and phy_remove() then
-waits for a detach that only the same thread would run later.
-
-Fixes: 00db8189d984 ("This patch adds a PHY Abstraction Layer to the Linux Kernel, enabling ethernet drivers to remain as ignorant as is reasonable of the connected PHY's design and operation details.")
-Assisted-by: LLM
-Signed-off-by: Aleksei Sviridkin <f@lex.la>
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
-Changes in v5:
-- READ_ONCE()/WRITE_ONCE() on attached. Detach clears it in the
-  bind_lock section that clears phy_link_change, then wakes the waiter.
-- Rebased on net-next: the interrupt restore in phy_detach_internal()
-  now comes before the bind_lock section that lets a new attach in, so
-  it cannot land on that attach.
-- The message names the device-link case where the wait never ends.
-- The comment on bind_lock names every flag it protects.
-- The message says that a reboot behind a waiting unbind hangs.
-- WRITE_ONCE() on removing as well.
+ include/linux/mm.h | 3 ---
+ mm/internal.h      | 3 +++
+ mm/memory.c        | 2 --
+ 3 files changed, 3 insertions(+), 5 deletions(-)
 
- drivers/net/phy/phy_device.c | 34 +++++++++++++++++++++++++++++++---
- include/linux/phy.h          |  6 +++++-
- 2 files changed, 36 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-index 0ffaa456a308..a271fe76c3f8 100644
---- a/drivers/net/phy/phy_device.c
-+++ b/drivers/net/phy/phy_device.c
-@@ -1065,6 +1065,13 @@ void phy_device_remove(struct phy_device *phydev)
- 	unregister_mii_timestamper(phydev->mii_ts);
- 	pse_control_put(phydev->psec);
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 68250ece4219..0c17f0932b76 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -4768,9 +4768,6 @@ int remap_pfn_range(struct vm_area_struct *vma, unsigned long addr,
+ int vm_insert_page(struct vm_area_struct *, unsigned long addr, struct page *);
+ int vm_insert_pages(struct vm_area_struct *vma, unsigned long addr,
+ 			struct page **pages, unsigned long *num);
+-int map_kernel_pages_prepare(struct vm_area_desc *desc);
+-int map_kernel_pages_complete(struct vm_area_struct *vma,
+-			      struct mmap_action *action);
+ int vm_map_pages(struct vm_area_struct *vma, struct page **pages,
+ 				unsigned long num);
+ int vm_map_pages_zero(struct vm_area_struct *vma, struct page **pages,
+diff --git a/mm/internal.h b/mm/internal.h
+index 061a87f9c3fb..fc4e249e2343 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -1512,6 +1512,9 @@ int remap_pfn_range_prepare(struct vm_area_desc *desc);
+ int remap_pfn_range_complete(struct vm_area_struct *vma,
+ 			     struct mmap_action *action);
+ int simple_ioremap_prepare(struct vm_area_desc *desc);
++int map_kernel_pages_prepare(struct vm_area_desc *desc);
++int map_kernel_pages_complete(struct vm_area_struct *vma,
++			      struct mmap_action *action);
  
-+	mutex_lock(&phydev->bind_lock);
-+	WRITE_ONCE(phydev->removing, true);
-+	mutex_unlock(&phydev->bind_lock);
-+	/* Order the store before waking an unbind waiting in phy_remove() */
-+	smp_mb();
-+	wake_up_var(&phydev->attached);
-+
- 	device_del(&phydev->mdio.dev);
- 
- 	/* Assert the reset signal */
-@@ -1734,25 +1741,33 @@ static void phy_detach_internal(struct phy_device *phydev, bool notify_bus)
- 
- 	phydev->phylink = NULL;
- 
-+	/* Before phy_link_change is cleared, so it cannot land on a new attach */
-+	if (phydev->is_genphy_driven)
-+		phydev->irq = phydev->mdio.bus->irq[phydev->mdio.addr];
-+
- 	/* A new attach may pass its "already attached" test as soon as
--	 * phy_link_change is clear, so take the owner in the same section.
-+	 * phy_link_change is clear, so take the owner and clear attached in
-+	 * the same section.
- 	 */
- 	mutex_lock(&phydev->bind_lock);
- 	phydev->phy_link_change = NULL;
- 	drv_owner = phydev->drv_owner;
- 	phydev->drv_owner = NULL;
-+	WRITE_ONCE(phydev->attached, false);
- 	mutex_unlock(&phydev->bind_lock);
- 
- 	module_put(drv_owner);
- 
-+	/* Order the store before waking an unbind waiting in phy_remove() */
-+	smp_mb();
-+	wake_up_var(&phydev->attached);
-+
- 	/* If the device had no specific driver before (i.e. - it
- 	 * was using the generic driver), we unbind the device
- 	 * from the generic driver so that there's a chance a
- 	 * real driver could be loaded
- 	 */
- 	if (phydev->is_genphy_driven) {
--		/* The release below lets phy_probe() write this field. */
--		phydev->irq = phydev->mdio.bus->irq[phydev->mdio.addr];
- 		device_release_driver(&phydev->mdio.dev);
- 		phydev->is_genphy_driven = 0;
- 	}
-@@ -1954,6 +1969,7 @@ int phy_attach_direct(struct net_device *dev, struct phy_device *phydev,
- 
- 	phy_resume(phydev);
- 
-+	WRITE_ONCE(phydev->attached, true);
- 	mutex_unlock(&phydev->bind_lock);
- 
- 	/**
-@@ -3858,11 +3874,23 @@ static int phy_probe(struct device *dev)
- static int phy_remove(struct device *dev)
+ static inline int io_remap_pfn_range_prepare(struct vm_area_desc *desc)
  {
- 	struct phy_device *phydev = to_phy_device(dev);
-+	bool attached;
+diff --git a/mm/memory.c b/mm/memory.c
+index 926276d41920..448342883e9d 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -2628,7 +2628,6 @@ int map_kernel_pages_prepare(struct vm_area_desc *desc)
  
- 	mutex_lock(&phydev->bind_lock);
- 	phydev->bound = false;
-+	attached = READ_ONCE(phydev->attached) && !phydev->removing;
- 	mutex_unlock(&phydev->bind_lock);
+ 	return 0;
+ }
+-EXPORT_SYMBOL(map_kernel_pages_prepare);
  
-+	/* The driver core cannot refuse an unbind, and the consumer keeps
-+	 * using phydev->drv until it detaches.
-+	 */
-+	if (attached) {
-+		phydev_warn(phydev, "unbind waits for the PHY to be detached\n");
-+		wait_var_event(&phydev->attached,
-+			       !READ_ONCE(phydev->attached) ||
-+			       READ_ONCE(phydev->removing));
-+	}
-+
- 	cancel_delayed_work_sync(&phydev->state_queue);
+ int map_kernel_pages_complete(struct vm_area_struct *vma,
+ 			      struct mmap_action *action)
+@@ -2640,7 +2639,6 @@ int map_kernel_pages_complete(struct vm_area_struct *vma,
+ 			    action->map_kernel.pages,
+ 			    &nr_pages, vma->vm_page_prot);
+ }
+-EXPORT_SYMBOL(map_kernel_pages_complete);
  
- 	if (IS_ENABLED(CONFIG_PHYLIB_LEDS) && !phy_driver_is_genphy(phydev))
-diff --git a/include/linux/phy.h b/include/linux/phy.h
-index db7c8696743c..8fa3685b24e6 100644
---- a/include/linux/phy.h
-+++ b/include/linux/phy.h
-@@ -673,6 +673,8 @@ struct phy_oatc14_sqi_capability {
-  * @lock:  Mutex for serialization access to PHY
-  * @bind_lock: Serialises attach and detach with phy_probe() and phy_remove()
-  * @bound: A driver has finished probing and is not being removed
-+ * @attached: phy_attach_direct() succeeded and phy_detach() has not run
-+ * @removing: phy_device_remove() is deleting the device
-  * @state_queue: Work queue for state machine
-  * @link_down_events: Number of times link was lost
-  * @shared: Pointer to private data shared by phys in one package
-@@ -804,9 +806,11 @@ struct phy_device {
- 
- 	struct mutex lock;
- 
--	/* Protects bound */
-+	/* Protects bound, attached and removing */
- 	struct mutex bind_lock;
- 	bool bound;
-+	bool attached;
-+	bool removing;
- 
- 	/* This may be modified under the rtnl lock */
- 	bool sfp_bus_attached;
+ /**
+  * vm_insert_page - insert single page into user vma
+
 -- 
-2.53.0
+2.55.0
 
