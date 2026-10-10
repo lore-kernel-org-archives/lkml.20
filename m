@@ -1,73 +1,83 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC4CA377ED9
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 14:18:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE84C353A8E;
+	Sat, 10 Oct 2026 14:18:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791641885; cv=none; b=qz25t/34+KjQ/L6n7WxodAzDUkwYlD2chzHJg9SNJDbyRFNNkGZMp2VeEKMjZ1GfVgasbh9Gwvfd+nMz2Ddnzde1ZsnXtcwKsLi0PLomvRKXWwXUOh5PXvL6t5PRPjaqcEWGxWA/ivikIBERumIEbr9JuDmfLi0tmujc8Bz9lp4=
+	t=1791641929; cv=none; b=LbkJyyiM6XrD9XQS321iXgXf1TSulF3UoDHBDy5AbpXDZfrXEVlZf1m+ZzN32/22VswCVtCn3/uvAGMh5pEbSYnb5bWeWpcRJucgKv7MWwJ/40SUeC1XffDzzuJo6yLr/j4iD1WNMQSKdeWKBbOrvJY0IJvGzkm0EPLe3E1RuNc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791641885; c=relaxed/simple;
-	bh=InT5YSzvTjWFNMB6OYCP5uV+r6SNFWBt1LxaECgGALo=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=t46bwSFmfiKUItKA927FelLfBaxd9npWzk9heo7yai0LNARECNJDt0bzgIQr4NPTZwVrgOYqn/aluKDE8pOBL1Z9aiMHsVlhrhdbL03uDtfg723164F2ZTwyzA1XCRF9WxxH5NKZfwGZl+eMX02LuB5Uhd8n3e5zuSKm4drZnNY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4a45b3f0bdfso1275782b6e.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 07:18:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791641883; x=1792246683;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=EcxkuS2RBMYMTop2TmJ2lUQ2A0raMtRIJ95H86/AkrU=;
-        b=TTrce9FYT+KlURFtvkev4IgV6Hk0TcG31dmxJFobsAfw7/s6LnI/6vugTRkeJ+Z5J1
-         YZKIuPj1I6vI+JVtq7OKjjvrGb2UTsf6QmxeK0zOtHrTBkUj+jS0BUWFVSNiqnb73Swc
-         u6WYbwJaT0osMgAz2xAuXe82m8PnLUB3UtBxFAG+R1PIB2DebB5Yd1B3zjojH2B3XCT0
-         /acn0SGLppY0wx3TuTl3kxwzSofSAEl9ojDoYB8hyjgQXsuThKD6ccJbhsevcdpeYzUj
-         5Qim9dPyDF5AVTto4Bw8UytK0uRmhUtF3w09y9E0knbPTNFqU5FhKoVy248PLI+PbJKn
-         6Fmg==
-X-Forwarded-Encrypted: i=1; AKwUvBxgCVM72e3EiZ153xL4VTHZ8VKwtgDWnJl26UcmxNsSTILH2+P591VLKF65HEGoHe3XlJRtS1MzeqymOK8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL52vqLegMsvjvaldS6ODMDo2o0veosnvYCHxFD2DpzRmJxS0Xp
-	Gdi1vBCyUy6Io5vu1xIMn/f0A5fJ3RcE3eCXe05ORZtyieAkxTj0Sas2QyHS5ZgpPCup3rhb80L
-	tS0Ckude7NGhHDrZ/WAWJfJTU/fPGZMFGeSIjXQE8di/jYjc+vGrQjiYJCVc=
+	s=arc-20240116; t=1791641929; c=relaxed/simple;
+	bh=Ctfy8doPwyTmRah9VMrKFa13iKqAU6HP7+q684v8FQ0=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=Dakx17jnXzZrz8XKsRQiz4CE/LIpEo2XrIQxfPPOuGKb8MP2dVbrVCFZrSNoEmcwMvcWwWwwHfPhUvSju+PO7ie63zRDsRMhi9sJ/D6EvyK842bWp31zoOM9PQhABi/sBii3bieQeO24gvrwNjW3ZMNw4hIKAog7oFeUppZ2DgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=bOlTPzm4; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="bOlTPzm4"
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 269E982B5C;
+	Sat, 10 Oct 2026 16:18:39 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id U1e4Zr0zClsP; Sat, 10 Oct 2026 16:18:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1791641918; bh=Ctfy8doPwyTmRah9VMrKFa13iKqAU6HP7+q684v8FQ0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=bOlTPzm4tenLVpzb+vjeHa8+j1ALMdeFUeP3ZiBphPg3BUPXEG+MaAETkIEUQCuiJ
+	 pROV2CNZsjZ6TieVysYSZ8HrZJMjJjmPBg7BbGCSsKBQY5Jx7S3HOH344pDLKQ8Whz
+	 WhpVebz2bhdAr0hmmOdao6uw39hXWqTJHeyBLNTWXV0MBbx6ZK3e58V48ex3tehOr4
+	 K+eXJGdUNlnxW9p9GEIa8MT+XjIlgl/l3AwKBaSnEf5KiEo257ricn6+r5oyuRjJ2z
+	 KwNQTO+i5fVvSIL3HQG6v5LWWzyJUccHLO64Iu2SZeUCaPPS8wfgVbj7kQtAHJ4Lee
+	 FPhjsLoXlmJ/g==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:14c6:b0:4f4:2b4c:d66e with SMTP id
- 5614622812f47-50c5870f5e0mr4300516b6e.50.1791641882780; Sat, 10 Oct 2026
- 07:18:02 -0700 (PDT)
-Date: Sat, 10 Oct 2026 07:18:02 -0700
-In-Reply-To: <f10557f6-fe56-4f3e-b138-c1624465a15e@rowland.harvard.edu>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aca491a.a150a118.27e199.002a.GAE@google.com>
-Subject: Re: [syzbot] [input?] [usb?] UBSAN: shift-out-of-bounds in s32ton (3)
-From: syzbot <syzbot+25a1d2907885b2182275@syzkaller.appspotmail.com>
-To: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-usb@vger.kernel.org, stern@rowland.harvard.edu, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Date: Sat, 10 Oct 2026 14:18:37 +0000
+From: Rustam Adilov <adilov@disroot.org>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, Bartosz Golaszewski
+ <brgl@kernel.org>, Sander Vanheule <sander@svanheule.net>,
+ linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] gpio: realtek-otto: make the driver work with
+ SWAP_IO_SPACE
+In-Reply-To: <CAD++jLk8gCAy+SbGffttCQ7dM9x6gzVRBwRppCByzwYdm_5kGw@mail.gmail.com>
+References: <20260815094451.31792-1-adilov@disroot.org>
+ <aro4qbhcd3X6wTvP@black.igk.intel.com>
+ <CAD++jLk8gCAy+SbGffttCQ7dM9x6gzVRBwRppCByzwYdm_5kGw@mail.gmail.com>
+Message-ID: <e1c0f3ff0c47fc7a2258bbb67f588f57@disroot.org>
+X-Sender: adilov@disroot.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hello,
+On 2026-10-01 20:14, Linus Walleij wrote:
+> On Mon, Sep 28, 2026 at 11:51 AM Andy Shevchenko
+> <andriy.shevchenko@intel.com> wrote:
+>> On Sat, Aug 15, 2026 at 02:44:49PM +0500, Rustam Adilov wrote:
+>> > This patch series changes gpio-realtek-otto to be functional around
+>> > SWAP_IO_SPACE config.
+> (...)
+>> Convert the driver to use regmap MMIO and most of the code in this series won't
+>> be needed. Also it will give some benefits (like register caching and debugfs
+>> monitoring).
+> 
+> Andy is right.
+> 
+> Make an attempt on top of the merged patches to convert this to regmap MMIO
+> and see what happens, and if that works consider regmap GPIO as
+> well.
+> 
+> Everyone will be happier, because less code.
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+As far as i remember, i thought of using regmap earlier but got stuck because
+the regmap has to not swap in realtek_gpio_update_line_imr() but potentially
+swap in other places by bank_read/write.
+Maybe i am missing something but i just couldn't figure it out.
 
-Reported-by: syzbot+25a1d2907885b2182275@syzkaller.appspotmail.com
-Tested-by: syzbot+25a1d2907885b2182275@syzkaller.appspotmail.com
-
-Tested on:
-
-commit:         5926a7da Merge 7.3-rc6 into usb-next
-git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=1622867f980000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=7f0127eb11110629
-dashboard link: https://syzkaller.appspot.com/bug?extid=25a1d2907885b2182275
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=12bd123e580000
-
-Note: testing is done by a robot and is best-effort only.
+Best,
+Rustam
