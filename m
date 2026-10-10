@@ -1,239 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7424526A1AC;
-	Sat, 10 Oct 2026 01:37:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791596278; cv=none; b=RXL55dO548rkGhQ/dKbxLHLJc/4bleKrD46vCL76NUDa73p0fTkD+Vwdvd9gcw7nbDzlRkOPrCGRGNRkY5wnYfItycLRjdHBOKyme2sTUUy+YTUGUVNzxRicHQCwWqMsOeZ+lp0dp8a7/s+bBcohmtU1Q6JCpYo+GINv/SGMIp4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791596278; c=relaxed/simple;
-	bh=KpIWCwsltQQMw5KpQgzg1L+nCdWsKvgfgwoJ+9uwvv8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=j9d2+LnOaBWjszSJbSYBkfnn9BKCTqqOVJ0ZfmyuqrJ5y0HPyPEhTuq+DLX5lrnscyunWJy9+EnEUVxcveQMVkH8DSg5yzvWCjpbTsfOU4V3CRoX42hTgQQOhw0SlpzoVteREkMC4CZdVXc6BQS8/sDsYKqRuHE8fgtqzxRhDjg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZexH+pCs; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03EFE37F738
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 01:38:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791596286; cv=pass; b=qjTX49kTBRzyTDH+SZ5y3Rg1a5FSbOX0AeA1lUcSJ0ip3PO4EoW3XOVoDlQBerHt4DzUzv9LRjzAKaGlZjtDS3yMXmxBRQOXC0yxBK0LYwJwPOAvH7UB3i0umtgViXINxptRvmQqqyX2uFllZrWcixwOhYy40R1d40wCgSkhbXU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791596286; c=relaxed/simple;
+	bh=T1YUmKKSmMhx51by4j1VRxqcJQ/l6HdCcVZfWVF8o4c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IpnxiYt8sod/1ictMZl1ht+dTOMMAv0hdPwZcErNeJQYnyGxzYhYo5Q4cfuDwZCRkWI/T2ad9JV00VTg/Td9lVGhjVBv674Ni5k0T6z8x8y3Sx7vKOz06uSGCHEOZ0Q2apTBmcBWo3NRKBYBSUvSPprE/6uZU0PURREnT8JrFWU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IGxKbipB; arc=pass smtp.client-ip=209.85.208.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZexH+pCs"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 254EAC2BCFC;
-	Sat, 10 Oct 2026 01:37:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791596278;
-	bh=KpIWCwsltQQMw5KpQgzg1L+nCdWsKvgfgwoJ+9uwvv8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=ZexH+pCsBk62rmTGcXzadvODJWk+HVGbLG6BXonR0pNVANlCv4t9w1hiMp6mm/wKB
-	 jzLGYSvvuBsuK3wFq/Y1OqDJXpkYbbXqjazeYx054pEUoftlUdmjokfD78EjL/kSpJ
-	 BCWnR52A+Y2vrkVZQzGu8s53oUtOJdlGJegn5MeufNBvoR9byi14ugBrlOvH1wqMZr
-	 0KR9HzFZBVzhTSVFfwa9SnSOjCob1YG38CDodJbfNiR+MLIuTqBYtqnIZ843aizcQ5
-	 2Cuz5nOMSPtFrfMQEYkX2uskLLmDb/hqOm1hbfCo5X7KkpwY2K+Q+AhZWnjhVhK+VM
-	 SSnUwFJpyDqDQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 08C44CA9EBB;
-	Sat, 10 Oct 2026 01:37:58 +0000 (UTC)
-From: Amit Sunil Dhamne via B4 Relay <devnull+amitsd.google.com@kernel.org>
-Date: Sat, 10 Oct 2026 01:37:38 +0000
-Subject: [PATCH v2 2/2] usb: typec: tcpm: Allow configuring tSenderResponse
- via fwnode
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IGxKbipB"
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a9cc82ef31so3056181fa.3
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 18:38:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791596283; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lbQwth+obSWZMx4chz381mV7ZLwG+0zhsxazv/wtlrmQV+bgRKEZ2zxuHfaqBnLBcl
+         pv+6jzH1Yj3/zxnOZdFapb10NXA6H1xqIZnavc8uwkbghqCa17P9dRSGisNYeBqhNid5
+         tMWrb9/q3jGpQptr/f9xwRFTrI+eOVU8k0Fg8e3rUZevrQjJzGcU2nM7hIlplEbsIoBk
+         3x4MtM/qmgQHvkhpymC/mNOIuwPKypAeRZxMPaBDeYafQNoLAs+tS7+D/KPaQO1FA4eS
+         fNknbvk5UhSBVjcxkCKOP4XIkXyo0zIl/Vaj2D3AqBqY5VWcpPL5inMBtUygg5gSh+nI
+         qY3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=T1YUmKKSmMhx51by4j1VRxqcJQ/l6HdCcVZfWVF8o4c=;
+        fh=T+JaCZ9rJveBj4zP6KZm24cpzw4kH5dsm0TV44jSQHM=;
+        b=Jwu8LHZAIkYDx+/V+xmRD+avye+pqp0/nXbseIilDbmvuxuU4THZ8M6u8OgRmR48Yq
+         CVFK+y80K2cuS+ypokOpRjsA61RKkBpAP+7Zpq6KDBYM1lVNRO74YJG74D4lKs7ixLh0
+         k9RJa4QgMsErvTH/KOJ6u8ErXWaHL6APOzG0TnIvHp1kSncNoZ/S8gpr+QtOTMMGntNN
+         h3bRa4oSgudoE7ZkA6noBphi29C8fuXVjTws1X03SiUu31DXX1cAHWXEG2NRzSHW3nND
+         iqPKsnHEwIa8d6MVGJg8WFV7F9w6AK2X6Dj0ZXvYvoDenwzJgAgJVaEnIeCv68MPzzAe
+         RAmw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791596283; x=1792201083; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=T1YUmKKSmMhx51by4j1VRxqcJQ/l6HdCcVZfWVF8o4c=;
+        b=IGxKbipB68o0TLV6KLhgXmUvQAFN+0RSiZtmxi0ppjf4fOzeorM1N+AgzHHCvAo00S
+         zemG2v8PcZ5y0hG7Jkfz/EjUUfoNGyeGFkozYyHR1VZdvUGJL4/p4upP1AcYdhP44zAV
+         D0WVuRxaFq3e+tQPiPSrkFt+VEksullte4C2QE/qFjNKELOZJK0F98Q8XEOc87Rrq8R7
+         LQvrmUv9sNYHMfMANvTO7NR5VC2RnX1wIG4ix+5XJhwrz42UiIDmkM8ayVUE9d4tn3I1
+         l8KBHamES6AOV94Mm0f9nnXkE1Z8cl2G/KQbxTAqBAZwEz+vmFwWHnMWUMiGp0OaKbEA
+         vbIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791596283; x=1792201083;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=T1YUmKKSmMhx51by4j1VRxqcJQ/l6HdCcVZfWVF8o4c=;
+        b=d6zwp9JyLRn79QGTw8goKyhLYUOUjNu8Ke/FXsSme2701GHNLZ3TS2dQPrDjq7O+8v
+         pLbzberPn7db5mQDESbFRui81AZpAO9gRZ/kq1E3oIkQkCFSkRZSK7FsP2MUf3m8eZKm
+         iS2M1yzhRrhr8s3A6oSVUAeBxvEpp/T907A+8Ec/D7peClYwKoQstBcqyR/COjiwIORa
+         UvdiIHyKYLxUNRCMvWhUMqFG2ioHhYRF+pKSUnPKLpw7iGJuIh1Mgd69SwZPDXQFp7SH
+         f9JbAEiFM6KdrLrpxosyc/uRoVJQc9iGLcpWSVOSjwIs7iDzWqo7g6ntjkxIZpJ50zku
+         tloA==
+X-Forwarded-Encrypted: i=1; AKwUvBxtS0noi1H5QNlapa41sb0J2N+GCbG+/x0TDsUYXSFofZu68y9FS9ilpgKyEJVe/2ctB/7pCvgOIjYlLV4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIYWjOEULh3T6B7qLcMc66fSUfW2lRTEUNqIUZRidFENdeuU1Xv
+	3Yclh3tXdh1L3bohZ1WYjn6/TMVIFklZYSWe+FDjCy2zUYUHmBYg+RUfGqVk7kI2dFkTiECB3km
+	kCFpA6UPS4lJVlAWJThjXG6LrREtWzy8=
+X-Gm-Gg: AYBFou2qdhlegYlgjvC8Vqv+Ovqgw5x7tht4QvKfZkhoVu62NRE737Rqsbb/5ekgYb9
+	yK2gwZem6ezy/MGRI/XjLTbkUus6NhNGqgVPYkNBMs7AW0ksgZmX6khCXzsDORY33+/9HaUlneg
+	z7NvkudadvGOXW9BSqNJkmSQFIFWU6p3WNIa/ueqXk0D1jHS42GRlBNlmVkbjqK2MsgJkX6mPei
+	7VAPckxw10wqPEp+cHTGFM7m78ugy0g5WhYJQ1b/psacL273oZlrVVj/tbpYBkSxgH63X4cfQA1
+	29ekGsDiWf0P+bkBNwho5sPTbpyeX4CVNNXoi3/VS8Pw1jNNBujoaRoa75resTG24GHC5ZKXvN/
+	arnKoylSl7ypbLhrPU74I0okQrtuGP+349D+EtnBmDSmupDVXTgsxgJToCaWhwRLlFwKvwn0=
+X-Received: by 2002:a05:651c:198f:b0:3a9:6f4d:b32b with SMTP id
+ 38308e7fff4ca-3a9c52535damr7619141fa.4.1791596282763; Fri, 09 Oct 2026
+ 18:38:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261010-tcpm-sender-response-time-v2-2-67ea364a21d7@google.com>
-References: <20261010-tcpm-sender-response-time-v2-0-67ea364a21d7@google.com>
-In-Reply-To: <20261010-tcpm-sender-response-time-v2-0-67ea364a21d7@google.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Badhri Jagan Sridharan <badhri@google.com>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-usb@vger.kernel.org, RD Babiera <rdbabiera@google.com>, 
- Kyle Tso <kyletso@google.com>, Amit Sunil Dhamne <amitsd@google.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791596277; l=6747;
- i=amitsd@google.com; s=20241031; h=from:subject:message-id;
- bh=J+IIiMdzld+kdjQZhEZSnJlXVF3ZcB7U6ACRMnwPORw=;
- b=IuSRKea65JXEzUAlXIU1VZFLnkQZ/1okaHqkZrJ0E1/NIIKSDWvqNcmWuGaSkL9GMig9W1SZS
- 57aI9S7lW7FBruEqaUuFXHL+nU5yOCxDG059ZqCkiKGmEoz7oHNI8LM
-X-Developer-Key: i=amitsd@google.com; a=ed25519;
- pk=wD+XZSST4dmnNZf62/lqJpLm7fiyT8iv462zmQ3H6bI=
-X-Endpoint-Received: by B4 Relay for amitsd@google.com/20241031 with
- auth_id=262
-X-Original-From: Amit Sunil Dhamne <amitsd@google.com>
-Reply-To: amitsd@google.com
+References: <20261009115627.969047-1-linmag7@gmail.com> <20261009115627.969047-3-linmag7@gmail.com>
+In-Reply-To: <20261009115627.969047-3-linmag7@gmail.com>
+From: Matt Turner <mattst88@gmail.com>
+Date: Fri, 9 Oct 2026 21:37:48 -0400
+X-Gm-Features: AclHuK8JgdohANmvDTbCTJI-lrC0lc-owpC4Q1qv3oLAqF_LxjHp5E7akWIdg28
+Message-ID: <CAEdQ38H7aFjEouWvwkVd-KX5+fW-+vT6ap1QRvZDbiRp9+Natw@mail.gmail.com>
+Subject: Re: [PATCH v5 2/5] alpha: describe the Tsunami system machine check frame
+To: Magnus Lindholm <linmag7@gmail.com>
+Cc: richard.henderson@linaro.org, linux-kernel@vger.kernel.org, 
+	linux-alpha@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Amit Sunil Dhamne <amitsd@google.com>
+On Fri, Oct 9, 2026, Magnus Lindholm wrote:
+> Define the five system-specific quadwords in the SRM logout frame,
+> as documented in the AlphaServer ES40 Service Guide, Table D-19.
 
-The USB PD specification defines a range of values for tSenderResponse.
-TCPM currently uses a fixed, relaxed value of 60 ms
-(PD_T_SENDER_RESPONSE), which may not suit all platforms.
-
-Allow platforms to specify their own tSenderResponse deadline through
-the "sender-response-time-ms" fwnode property. Platforms that do not
-set the property keep the existing 60 ms default.
-
-Assisted-by: LLM
-Signed-off-by: Amit Sunil Dhamne <amitsd@google.com>
-Reviewed-by: Badhri Jagan Sridharan <badhri@google.com>
-Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
----
- drivers/usb/typec/tcpm/tcpm.c | 35 ++++++++++++++++++++++-------------
- 1 file changed, 22 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
-index 2d6b14aa20856..9f98c87957b1d 100644
---- a/drivers/usb/typec/tcpm/tcpm.c
-+++ b/drivers/usb/typec/tcpm/tcpm.c
-@@ -399,12 +399,14 @@ struct pd_revision_info {
-  * @sink_wait_cap_time: Deadline (in ms) for tTypeCSinkWaitCap timer
-  * @ps_src_wait_off_time: Deadline (in ms) for tPSSourceOff timer
-  * @cc_debounce_time: Deadline (in ms) for tCCDebounce timer
-+ * @sender_response_time: Deadline (in ms) for tSenderResponse timer
-  */
- struct pd_timings {
- 	u32 sink_wait_cap_time;
- 	u32 ps_src_off_time;
- 	u32 cc_debounce_time;
- 	u32 snk_bc12_cmpletion_time;
-+	u32 sender_response_time;
- };
- 
- /* Convert microwatt to watt */
-@@ -4316,7 +4318,7 @@ static bool tcpm_send_queued_message(struct tcpm_port *port)
- 			} else if (port->pwr_role == TYPEC_SOURCE) {
- 				tcpm_ams_finish(port);
- 				tcpm_set_state(port, HARD_RESET_SEND,
--					       PD_T_SENDER_RESPONSE);
-+					       port->timings.sender_response_time);
- 			} else {
- 				tcpm_ams_finish(port);
- 			}
-@@ -5549,7 +5551,7 @@ static void run_state_machine(struct tcpm_port *port)
- 			port->caps_count = 0;
- 			port->pd_capable = true;
- 			tcpm_set_state_cond(port, SRC_SEND_CAPABILITIES_TIMEOUT,
--					    PD_T_SENDER_RESPONSE);
-+					    port->timings.sender_response_time);
- 		}
- 		break;
- 	case SRC_SEND_CAPABILITIES_TIMEOUT:
-@@ -5896,7 +5898,7 @@ static void run_state_machine(struct tcpm_port *port)
- 			tcpm_set_state(port, SNK_WAIT_CAPABILITIES, 0);
- 		} else {
- 			tcpm_set_state_cond(port, hard_reset_state(port),
--					    PD_T_SENDER_RESPONSE);
-+					    port->timings.sender_response_time);
- 		}
- 		break;
- 	case SNK_NEGOTIATE_PPS_CAPABILITIES:
-@@ -5921,7 +5923,7 @@ static void run_state_machine(struct tcpm_port *port)
- 				tcpm_set_state(port, SNK_READY, 0);
- 		} else {
- 			tcpm_set_state_cond(port, hard_reset_state(port),
--					    PD_T_SENDER_RESPONSE);
-+					    port->timings.sender_response_time);
- 		}
- 		break;
- 	case SNK_TRANSITION_SINK:
-@@ -6208,7 +6210,8 @@ static void run_state_machine(struct tcpm_port *port)
- 			port->message_id_prime = 0;
- 			port->rx_msgid_prime = -1;
- 			tcpm_pd_send_control(port, PD_CTRL_SOFT_RESET, TCPC_TX_SOP_PRIME);
--			tcpm_set_state_cond(port, ready_state(port), PD_T_SENDER_RESPONSE);
-+			tcpm_set_state_cond(port, ready_state(port),
-+					    port->timings.sender_response_time);
- 		} else {
- 			port->message_id = 0;
- 			port->rx_msgid = -1;
-@@ -6218,7 +6221,7 @@ static void run_state_machine(struct tcpm_port *port)
- 				tcpm_set_state_cond(port, hard_reset_state(port), 0);
- 			else
- 				tcpm_set_state_cond(port, hard_reset_state(port),
--						    PD_T_SENDER_RESPONSE);
-+						    port->timings.sender_response_time);
- 		}
- 		break;
- 
-@@ -6226,7 +6229,7 @@ static void run_state_machine(struct tcpm_port *port)
- 	case DR_SWAP_SEND:
- 		tcpm_pd_send_control(port, PD_CTRL_DR_SWAP, TCPC_TX_SOP);
- 		tcpm_set_state_cond(port, DR_SWAP_SEND_TIMEOUT,
--				    PD_T_SENDER_RESPONSE);
-+				    port->timings.sender_response_time);
- 		break;
- 	case DR_SWAP_ACCEPT:
- 		tcpm_pd_send_control(port, PD_CTRL_ACCEPT, TCPC_TX_SOP);
-@@ -6256,7 +6259,7 @@ static void run_state_machine(struct tcpm_port *port)
- 			tcpm_set_state(port, ERROR_RECOVERY, 0);
- 			break;
- 		}
--		tcpm_set_state_cond(port, FR_SWAP_SEND_TIMEOUT, PD_T_SENDER_RESPONSE);
-+		tcpm_set_state_cond(port, FR_SWAP_SEND_TIMEOUT, port->timings.sender_response_time);
- 		break;
- 	case FR_SWAP_SEND_TIMEOUT:
- 		tcpm_set_state(port, ERROR_RECOVERY, 0);
-@@ -6288,7 +6291,7 @@ static void run_state_machine(struct tcpm_port *port)
- 	case PR_SWAP_SEND:
- 		tcpm_pd_send_control(port, PD_CTRL_PR_SWAP, TCPC_TX_SOP);
- 		tcpm_set_state_cond(port, PR_SWAP_SEND_TIMEOUT,
--				    PD_T_SENDER_RESPONSE);
-+				    port->timings.sender_response_time);
- 		break;
- 	case PR_SWAP_SEND_TIMEOUT:
- 		tcpm_swap_complete(port, -ETIMEDOUT);
-@@ -6385,7 +6388,7 @@ static void run_state_machine(struct tcpm_port *port)
- 	case VCONN_SWAP_SEND:
- 		tcpm_pd_send_control(port, PD_CTRL_VCONN_SWAP, TCPC_TX_SOP);
- 		tcpm_set_state(port, VCONN_SWAP_SEND_TIMEOUT,
--			       PD_T_SENDER_RESPONSE);
-+			       port->timings.sender_response_time);
- 		break;
- 	case VCONN_SWAP_SEND_TIMEOUT:
- 		tcpm_swap_complete(port, -ETIMEDOUT);
-@@ -6467,7 +6470,7 @@ static void run_state_machine(struct tcpm_port *port)
- 	case GET_STATUS_SEND:
- 		tcpm_pd_send_control(port, PD_CTRL_GET_STATUS, TCPC_TX_SOP);
- 		tcpm_set_state(port, GET_STATUS_SEND_TIMEOUT,
--			       PD_T_SENDER_RESPONSE);
-+			       port->timings.sender_response_time);
- 		break;
- 	case GET_STATUS_SEND_TIMEOUT:
- 		tcpm_set_state(port, ready_state(port), 0);
-@@ -6475,14 +6478,14 @@ static void run_state_machine(struct tcpm_port *port)
- 	case GET_PPS_STATUS_SEND:
- 		tcpm_pd_send_control(port, PD_CTRL_GET_PPS_STATUS, TCPC_TX_SOP);
- 		tcpm_set_state(port, GET_PPS_STATUS_SEND_TIMEOUT,
--			       PD_T_SENDER_RESPONSE);
-+			       port->timings.sender_response_time);
- 		break;
- 	case GET_PPS_STATUS_SEND_TIMEOUT:
- 		tcpm_set_state(port, ready_state(port), 0);
- 		break;
- 	case GET_SINK_CAP:
- 		tcpm_pd_send_control(port, PD_CTRL_GET_SINK_CAP, TCPC_TX_SOP);
--		tcpm_set_state(port, GET_SINK_CAP_TIMEOUT, PD_T_SENDER_RESPONSE);
-+		tcpm_set_state(port, GET_SINK_CAP_TIMEOUT, port->timings.sender_response_time);
- 		break;
- 	case GET_SINK_CAP_TIMEOUT:
- 		port->sink_cap_done = true;
-@@ -8160,6 +8163,12 @@ static void tcpm_fw_get_timings(struct tcpm_port *port, struct fwnode_handle *fw
- 	ret = fwnode_property_read_u32(fwnode, "sink-bc12-completion-time-ms", &val);
- 	if (!ret)
- 		port->timings.snk_bc12_cmpletion_time = val;
-+
-+	ret = fwnode_property_read_u32(fwnode, "sender-response-time-ms", &val);
-+	if (!ret)
-+		port->timings.sender_response_time = val;
-+	else
-+		port->timings.sender_response_time = PD_T_SENDER_RESPONSE;
- }
- 
- static void tcpm_fw_get_pd_ident(struct tcpm_port *port)
-
--- 
-2.56.0.385.gd3acb90ef8-goog
-
-
+Reviewed-by: Matt Turner <mattst88@gmail.com>
