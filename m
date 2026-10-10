@@ -1,148 +1,157 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from flow-a6-smtp.messagingengine.com (flow-a6-smtp.messagingengine.com [103.168.172.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1705F446BF8;
-	Sat, 10 Oct 2026 09:56:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64E2243CE6A
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 09:56:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791626189; cv=none; b=iD1zGfvxuFl9C6FpmSWMg/P0cgcK+PRym/3bpj+6pR1WT0njR8d0pIv7ooPkqyVIAB43ix50ksC1hvfRL9XKXOEsIpI5TmA+brvXpdDPU10tf7bMQ2croPcHprmq+7ssIw6gmN6cLjKWjDOoidP70zash8ilVA0mDWXwMtF0OGs=
+	t=1791626212; cv=none; b=jMWtyGXiO1EhIIWrD2crMqllaVFet/TjVfmq/uJz2zdHcWKuS2te6cACd3ZPqbcqER3nhOyJN0I+RoaIsU1/wlI/WDudwuAQikdn8OsLl5UrX4gaCgvd576U2cs+M73VEDu38xLqqcePYVF1N1XgSP/ixOJE8Cv37Tmn9Rc76rU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791626189; c=relaxed/simple;
-	bh=CvujF6Rhbny92yo0tD4Tz0HZfJwHu+cFhQ3cxEOt8U8=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CAbrNC6S6/KravVFEEeMZCzKMExVgpk1zyyCeAqL9RAkRT9t5ff3zWLr8vasVu/sW1zyZ5afcA5vM2tS5s7B3XDv2S3lm83eQgTZxZDVkMw3t4FitStYHgy5MK7e71iza8IWZ3cZve5avDYaB2vR4YWrVLnSngPMZgLFrprt86o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=gvUJufHp; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=c67FgjOh; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=YMgHQFB2; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=s1nlBLht; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791626212; c=relaxed/simple;
+	bh=EQwaIVpYCg5E5ydBQbytU/MGSRUfC1bWM8MHkwd4dos=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PfEoam4HZZL9n61/NyfWnz+PT3IVngzlVJLb7qPXGZOAiYrynko+6aPnScxzyGmS2XpwfWZdPEwEYUb7gurlWhdj5fB1vzgZZGhRExAbK1ya6Xvei/CBmG3XTgAg8PAEdGFDIgoa9O1150aT+U3glENvWdM42+IyaOrtljdrzOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=Y1+Hn8nr; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=jrVT+kSw; arc=none smtp.client-ip=103.168.172.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="gvUJufHp";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="c67FgjOh";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="YMgHQFB2";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="s1nlBLht"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id E65EA1F388;
-	Sat, 10 Oct 2026 09:56:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791626184; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=g94z204rIZJmTZLw27FHJRpoDmbidWy3zAcSVs5TUDA=;
-	b=gvUJufHpTvqM6AHxG3jSCe8u9AdQO3LgReQxkITtE0EyqcJW5cbm0OVDvnTSovAw2cn4Xj
-	fSWgoZorP5IsT4dboAvDZtiw+txL++3sYgLxzwqCj0edQfr6fYd2VbW05jtNqwfSbp+CFt
-	9UOx273/v1fiYgc1WazrClHV1ftp9e4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791626184;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=g94z204rIZJmTZLw27FHJRpoDmbidWy3zAcSVs5TUDA=;
-	b=c67FgjOh4wQzRv3X9fwC5DaZFHXY5sD+qtFuEBlm8+JfGd6K8IxgMqFQoV/MqIFyq75SDS
-	Reg/FbVuchOzCoBg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=YMgHQFB2;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=s1nlBLht
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791626183; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=g94z204rIZJmTZLw27FHJRpoDmbidWy3zAcSVs5TUDA=;
-	b=YMgHQFB2OalGuSzCvqSKW0GvmC/jEleNiAAtyilgB29kOTb8aI+80BG4+jjtMhXJr/ij/1
-	R5CLO3Oqturn/fieBmfUvxhSBfKCgdV45ZBRl9rDlDQ3B8qyVM8IG7NK5hbp6Iy9cLTVq4
-	ZP02SP4RfpB0F7NyT1ePfgyRpJFahh8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791626183;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=g94z204rIZJmTZLw27FHJRpoDmbidWy3zAcSVs5TUDA=;
-	b=s1nlBLhtG6voNqwQnN5tbhkH4hP+K/mwv2UOEE0aHMoEqpffn/6vjwV1ED9Dg2OcY4A7BV
-	r5olQW9xiRvKMEBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9D5E5133F6;
-	Sat, 10 Oct 2026 09:56:23 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id WQc0HccLymr4PwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sat, 10 Oct 2026 09:56:23 +0000
-Date: Sat, 10 Oct 2026 11:56:23 +0200
-Message-ID: <877bjpkhfc.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Yi Tao <taoyi.sh.cn@gmail.com>
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] ALSA: usb-audio: Enable native DSD for MOONDROP DAWN PRO2
-In-Reply-To: <20261010094055.49308-1-taoyi.sh.cn@gmail.com>
-References: <20261009215322.8223-1-taoyi.sh.cn@gmail.com>
-	<20261010094055.49308-1-taoyi.sh.cn@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="Y1+Hn8nr";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="jrVT+kSw"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailflow.phl.internal (Postfix) with ESMTP id 6EDCF1380098
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 05:56:50 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Sat, 10 Oct 2026 05:56:50 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm2; t=1791626210; x=1791633410; bh=nJReIR9tSV
+	8zwZOy58+KzaQBNhO7VbvAAXc7HpRGYro=; b=Y1+Hn8nrpp064xV6sAge7A9fhD
+	W6cPOm7upOkqGcSpfSC4tjBfkLZbcSsQ/PbBdUS+tMD/p7KobLcSmNmwckVWbvqO
+	FQgPGZHyRSi9LSU5nb4/JyJK3R6pHdUHYstO5fan21HH+izFiZoiaIaAJ+GlQw2R
+	Z4HCT9f2fmMFn+CisWC0FimYj+paxB+hm49CU7Pej4vIMvKtUGQZTdANGlRdt+qR
+	oBm+WpJL8K832xAp8DH/cfkrVW1A7ym+805RHxohQ1/znN3oB6BzAXk5SeU41ZcQ
+	4o4iUirKE3shoFgWMIsbMh2ms0Vzx5eaLv8BP1tgFi1sxi4fDiuSKt4kVSLw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1791626210; x=1791633410; bh=nJReIR9tSV8zwZOy58+KzaQBNhO7VbvAAXc
+	7HpRGYro=; b=jrVT+kSwdWYpLuwFHG9QHLj3s/VpEgHbvn66esiWcvMt1MQTwB/
+	dKnT4hJ3xhwCSBGvKwVP6K5tW2xuv0I95UD3qJwGUzRxpAGnzhXPAezWNvyFpksl
+	6SPTWHc1uz2SOOqHz9lDZA1TvLeGAOoM71KDqD+wwhtyKKpGdJ/MynGqS3v5gOPg
+	Mx6YAvngqot5If3nWo7PAD0Pvx5bdG/6Z668zHBHqG2ypR669cmAEAtvRC7oW+qE
+	cAsSgQGGN+jelmQN1iVU2C5JuGBT3wAFd52kwuCWX1Aw++YwCiS1DGQhWFpfQxuH
+	239a7RpBRN5tU+CGkbi5BPi2hMaUkkMXXcg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=kroah.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791626210; d=kroah.com;
+	mf=PGdyZWdAa3JvYWguY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:mm3tJ34ivWGQGX1EOHzMKr3S4Qg3xG2AK9BBavOAybur8Hr
+	oSZsQtZvwp9UqNlx1FdbleZ2fqawAqsDwMYzOrgdjkwU7PCzRPlL9Gb9mQGOie0k
+	g+APBQSJDBRzHvmTT4Uz9YpQKHYrTcO0AiMU6RuvUA9WHocyaSrHQ+vPn8+YbTOJ
+	HfvFbIdXcO+7mAnDDR9iFcq/z9/P9l7H2tRpH+rxjF1u+KQxP2lD/AY9iktJmWp9
+	4PThSfjsNjb1eHJAMumMtrYyPOIPLgH6240W3v1raIkuet3NkRdOmkgvHw/eTwkH
+	PBk3UFOh37nOYQNKkjuwllgrVCGa/9uFMQz9rRg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:dx36ySUIPjOF8JZnX0c0xgk6+9g6Jwnh6Uao7zqga6w=:EQwaIVpYCg5E5ydBQbytU/MGSRUfC1bWM8MHkwd4dos=;
+X-ME-Sender: <xms:4QvKauiHLPn4eVXalp1mor1b_mEOJ5zbdN6Ab_DSdZIr-lfG-WHzIg>
+    <xme:4QvKaiWSyejddYyH-GIHxYoWg7LWs0joWqSiAGr30pBwacaRVuRbEW6IbmgqUHPNf
+    gJKc7uoi1s9IORCdmLQtZfGlw0IVdd-30WqdByUKxrmzcZUYfk>
+X-ME-Received: <xmr:4QvKah5mzv1qds_FTzF48aw5fJT0YeaMpMPRZvsMvxsD9jgCtPT-ldRuGTPmq6QmpMvBOjDz-WhDkT5V6EuUT7nlpuj88NdoZVQyRHQ2xyk>
+X-ME-Proxy-Cause: dmFkZTGNwFotM+MERPG7jwl/03lTN6Lvym52gvNwntgQ9yPA1rs2/HESVaUYydqavpJNTa
+    4jDJPfayYKNrO+uNFu5P8MxBVZOPlUifNdd1B8EShhlMxxqQ6tdo1HvlwpN4RvOJ97eYPW
+    ubQCD5XOADVJBw6yNerhcYSXhABUthZo8s6xILymRleoxS2ZJHI56Rt/T0XIKMmNXtRAKU
+    FVffDP0WJY5BsT2RB0J31Qiv8yL4tyAgjfn3ZKh2e+qRBTthb0V6PynXEw3c/FcA+nUlhf
+    xBH64Y7gU9X/hYHRb8S3CmFyDXJi7LNf9XC/g6sPKEoRlaMIOGgyT0qQuNJJKDxv9LT3NC
+    F9cZnnsljeWuGbfitECMa5nMFXCE7wX0dhdNdRP5VZanKwncmCN7l5AqxAdtoxlGKkadYi
+    ihNifPcTEl+1d8C490YOTlIdZ3QiIpMNiKUCzQAP/x5w372El/bFS3UxCMza2RQlZJVJ5y
+    b2G6Twzzp3l9gCVsJa5Zx7kebQkQp2ooFw+/+wC18igLHrpAUIvvMFzy8deWhqw5tthKBP
+    u7OWHLexdIMcPExY6qnBCyglBl1/h+g1qFa5qpWI0N/uX4xZeBnFhKapVeN0VaVsQs9Mb7
+    S0+2ypT1/PHPXqQx5L1fXd90vbJ45XAmCUbJmX6zc1nZ1w8a4xLwa/vc0ucA
+X-ME-Proxy: <xmx:4QvKaqcYgLZBkQZY8RBBR5_45rbklwyLopweAya9ChSFZdP4MVtiOw>
+    <xmx:4QvKavvSc4vYAhiLnzn_o5KejXU6q692Z3pZWTQC2bWH7OwaJEkmsw>
+    <xmx:4QvKaiiaFuk8NF4Q-oF0m_m9pY00H3ItsjfXllgVZR_tPJHVKy8sZg>
+    <xmx:4QvKag6Z1NLzALCDHQ1hSqPHkUDoKYAxKml3qQgXnIWBewr00p4s6Q>
+    <xmx:4gvKasNjp-JnMOY4xx_f0z8PRk-6YxljNDwCl1YFFOWeeTWEZAj5gjDp>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 10 Oct 2026 05:56:48 -0400 (EDT)
+Date: Sat, 10 Oct 2026 11:56:45 +0200
+From: Greg KH <greg@kroah.com>
+To: AmirHossein HajiMohammadi <info@hajimohammadi.net>,
+	David Miller <davem@davemloft.net>,
+	Franco Hector Hugo Montenegro <franco.montenegro.ruke@gmail.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Wireless <linux-wireless@vger.kernel.org>,
+	Hungyu Lin <dennylin0707@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Leonardo Martins Martins <dev.lmmrtns@gmail.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Luka Gejak <luka.gejak@linux.dev>,
+	Networking <netdev@vger.kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>, Ping-Ke Shih <pkshih@realtek.com>,
+	Rishik Yechuri <epicrishik@gmail.com>,
+	Rishik Yechuri <rishik.yechuri.code@gmail.com>,
+	Rishik Yechuri <rishikyechuri@protonmail.com>,
+	Siho Kim <siho93.kim@gmail.com>,
+	Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+Subject: Re: linux-next: manual merge of the staging tree with the
+ wireless-next tree
+Message-ID: <2026101032-negotiate-overbid-c704@gregkh>
+References: <aslfIkFxsc9oIqku@sirena.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: E65EA1F388
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.01 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	TAGGED_RCPT(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim]
-X-Spam-Flag: NO
-X-Spam-Score: -2.01
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aslfIkFxsc9oIqku@sirena.co.uk>
 
-On Sat, 10 Oct 2026 11:40:55 +0200,
-Yi Tao wrote:
+On Fri, Oct 09, 2026 at 11:39:46PM +0200, Mark Brown wrote:
+> Hi all,
 > 
-> The MOONDROP DAWN PRO2 (USB ID 35d8:011d) exposes a UAC2 RAW_DATA
-> playback altsetting, but ALSA reports it as SPECIAL without the
-> DSD_RAW quirk, preventing native DSD playback.
+> Today's linux-next merge of the staging tree got a conflict in:
 > 
-> Add the device to the raw DSD quirk table. With the quirk enabled,
-> ALSA exposes DSD_U32_BE and MPD 0.24.4 outputs stereo DSD256 through
-> USB altsetting 4 at 352800 frames/s, instead of converting to PCM.
+>   drivers/staging/rtl8723bs/
 > 
-> Tested using snd-usb-audio quirk_flags=35d8:011d:DSD_RAW on
-> Linux 7.2.6+deb13-amd64 (Debian 13).
+> between commit:
 > 
-> Assisted-by: LLM
-> Signed-off-by: Yi Tao <taoyi.sh.cn@gmail.com>
+>   c520f3af7df42 ("staging: rtl8723bs: remove the obsolete driver")
+> 
+> from the net-next tree and commits:
+> 
+>   dbc2fa996f446 ("staging: rtl8723bs: Remove manual ifname allocation")
+>   eb903412616ff ("staging: rtl8723bs: make rtl8723_dequeue_writeport() return bool")
+>   94f8dd8b96b03 ("staging: rtl8723bs: remove unused monitor interface name")
+>   0e5058a181451 ("staging: rtl8723bs: rename PHY_ConvertTxPowerLimitToPowerIndex()")
+>   36d9b855cf944 ("staging: rtl8723bs: make xmitframe_swencrypt() return void")
+>   18a42264074ae ("staging: rtl8723bs: remove unnecessary parentheses around prframe->u.hdr.list")
+>   6b4405c0f6001 ("staging: rtl8723bs: align function parameters in aes_decipher")
+>   2268c1bf1a861 ("Staging: rtl8723bs: fixed camel case coding style issue.")
+>   bbcc68a61f3be ("staging: rtl8723bs: fix block comment style")
+> 
+> et al from the staging tree.
+> 
+> I fixed it up (see below) and can carry the fix as necessary. This
+> is now fixed as far as linux-next is concerned, but any non trivial
+> conflicts should be mentioned to your upstream maintainer when your tree
+> is submitted for merging.  You may also want to consider cooperating
+> with the maintainer of the conflicting tree to minimise any particularly
+> complex conflicts.
+> 
+> (deleted the files)
 
-Applied to for-next branch now.  Thanks.
+Yes, deleting all of this is fine, thanks!
 
-
-Takashi
+greg k-h
