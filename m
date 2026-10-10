@@ -1,126 +1,276 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47F3142983C;
-	Sat, 10 Oct 2026 11:23:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F82844A708
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 11:23:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791631395; cv=none; b=BiJr8gC/S77rOVV+W9s6hj+C9zwZYFA+rJQ88RsU1+p5R9pblkps1b55m4AL2T2zcVOb39xhEJuER95CacRjnCvKrzUCMAYt2xojjoMcWuxKks8nghdrUKBI57n620PlqLHyTcY7sabbhh931ZZ7Be1taoaj11+Euf0p6nF6RBg=
+	t=1791631432; cv=none; b=ANXzhClZEvAhrZrDwQQyZwPFqM4vQFuTp9uKjjX7H5LFjaUhFIdwMLtsHNIcq2UHqmNOSntGZkmVe32PLxHmNpRmORmGNs05QKJMHVrwxsh+trNkdbMh6b4kmMeSbNdLOugK3Y3+3EQilhdGjjx+wuAOX1uvgfw7GKGQ0JjuarI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791631395; c=relaxed/simple;
-	bh=HZdGxYHEMkc4s2cbkzkUKI/D+Gi4K0+BehyAne9iJLI=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HruS/H77xipE4+aTlTRJVgvN0CC7U6Wq1u2z55jYweXdAMi5TjvlCD3btY/6Xw8vGDV3S8ceSviQ0S6qemxuQYeqB3UC+7HnpoVEgh9BoIm109864VY5mntOhkZJYqxWAbdA6q7cuIUaU8r8ybHWn2CyZwzEjjmhKBxqhrINx1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Y7Gx78H6; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=+ZtKG6hR; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Y7Gx78H6; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=+ZtKG6hR; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791631432; c=relaxed/simple;
+	bh=29EACdLxzYRratyDbeWoNXVIHRUiUVtnepkFCk69mzE=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=X5/7SuH6sBhRxy5i+i+QAldc+iWrC8kLaxcpsn5QEkrOEGiEO7dsF0IxZuaBVOIIBTd+yziXTKb3XEornYD+jrhJsKIhuYtohOqEM8YXcrGtK9rfXrL3Y41Ls/77ABGv8SFPuTWnKYeOhwx7bAq7dqHTqK/hqU9Sfd1ISXOcXNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=Ci6dayoF; arc=none smtp.client-ip=109.224.244.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Y7Gx78H6";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+ZtKG6hR";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Y7Gx78H6";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+ZtKG6hR"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 6FBF51F461;
-	Sat, 10 Oct 2026 11:23:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791631392; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9cAYy05ANTMfAPFULaHW5G0zg3snyYlsrcQdFO/Z/Jc=;
-	b=Y7Gx78H62yjO3OY/4Km6kEieACATZXkGjU6HBXx4gvOkU7g01NvvCpLWV0BKaw0+zRWWoo
-	iBDibuDtdGgzfBnVGWshd+hrIyqtHSRKEHllTb2InKcDF2TSa2AYuj6OFiBN05q8iQXOcL
-	eL+aGMn1kDTLnilNnz1fOOTnQlw88AM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791631392;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9cAYy05ANTMfAPFULaHW5G0zg3snyYlsrcQdFO/Z/Jc=;
-	b=+ZtKG6hRM9iDobbub9EoS3XyjSJG39WTU1cRwU9g7RjLRqMyfB7hcE9Rv7CsjAiPrDiDkV
-	d0p4m6P73QEBiXDA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791631392; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9cAYy05ANTMfAPFULaHW5G0zg3snyYlsrcQdFO/Z/Jc=;
-	b=Y7Gx78H62yjO3OY/4Km6kEieACATZXkGjU6HBXx4gvOkU7g01NvvCpLWV0BKaw0+zRWWoo
-	iBDibuDtdGgzfBnVGWshd+hrIyqtHSRKEHllTb2InKcDF2TSa2AYuj6OFiBN05q8iQXOcL
-	eL+aGMn1kDTLnilNnz1fOOTnQlw88AM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791631392;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9cAYy05ANTMfAPFULaHW5G0zg3snyYlsrcQdFO/Z/Jc=;
-	b=+ZtKG6hRM9iDobbub9EoS3XyjSJG39WTU1cRwU9g7RjLRqMyfB7hcE9Rv7CsjAiPrDiDkV
-	d0p4m6P73QEBiXDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 198071326D;
-	Sat, 10 Oct 2026 11:23:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id TF6dOB8gymq4FwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sat, 10 Oct 2026 11:23:12 +0000
-Date: Sat, 10 Oct 2026 13:23:11 +0200
-Message-ID: <87zewliyu8.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Marco Giunta <marco_giunta@outlook.it>
-Cc: tiwai@suse.com,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz
-Subject: Re: [PATCH] MAINTAINERS: add entry for AW88399 HDA side codec driver
-In-Reply-To: <SN6PR19MB2303FD862C95299D7F386F0BFC912@SN6PR19MB2303.namprd19.prod.outlook.com>
-References: <SN6PR19MB23036B2EBA9AD55D12961FA0FC822@SN6PR19MB2303.namprd19.prod.outlook.com>
-	<SN6PR19MB2303FD862C95299D7F386F0BFC912@SN6PR19MB2303.namprd19.prod.outlook.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="Ci6dayoF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1791631421; x=1791890621;
+	bh=oo79LKWTx4aAtArHq4xXSoc7i/wEN7VwGdsWaQW6NV8=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=Ci6dayoFUMY/k81NymBOBaqSuC3q9llTEfP0Sh1/TyVzD0VdE/QJnnlpzaz2j7e+K
+	 hgk864ShChkLFGmLQkwf9CqHMIq8dNeNAfxxzn2Yqg7obJA9XI4DJtyXnxolUCIr5Y
+	 THfL5HTQyLigYecEPQop6RPkv3+BvH9rhyEqukKlI5WThxcNZW+GiwnUQt1puerxRj
+	 uCpXr0VBncgvXKPla3S9uLRjjNeSx33PWnp12Wdfoi++dtXXZ48oiXHosVNip8+qJc
+	 jmLSSNcNYDj/WTbynCKKFvwTqMsNHayJiYQzWkeo+IC/jV1maXaJrVNDkgIshY/vfd
+	 S6NbjfnkwwvIQ==
+Date: Sat, 10 Oct 2026 11:23:36 +0000
+To: Bjorn Andersson <andersson@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>
+From: Birk Skyum <birk.skyum@pm.me>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [RFC PATCH] pinctrl: qcom: Restore the pin configuration after hibernation
+Message-ID: <179163141354.18006.80461347454353634@pm.me>
+Feedback-ID: 21326998:user:proton
+X-Pm-Message-ID: 9005c5cbff3375a4d0631500baca45f5b1b2f650
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_TO(0.00)[outlook.it];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[outlook.it];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, 10 Oct 2026 11:56:41 +0200,
-Marco Giunta wrote:
-> 
-> Hi Takashi,
-> second friendly ping on the other thing I forgot to add in the original
-> driver submission.
+A hibernation image is restored after a power cycle. The TLMM registers
+then hold what the boot firmware and the kernel that loaded the image
+made of them. The restored kernel has the configuration it applied in
+memory only, and nothing writes it to the hardware again, so every pin
+that the loading kernel did not set up the same way stays wrong.
 
-Applied to for-next branch now.  Thanks.
+On a Lenovo Yoga Slim 7x (X1E80100) the Bluetooth and Wi-Fi enable lines
+are two of them. Their drivers are loaded from the root file system, so
+the kernel that loads the image never touches the pins. This is
+/sys/kernel/debug/gpio before the hibernation and after the resume:
+
+  gpio116 : out low  func0 2mA no pull
+  gpio117 : out high func0 2mA no pull
+
+  gpio116 : in  low  func0 2mA pull down
+  gpio117 : out high func0 16mA no pull
+
+The driver that owns gpio116 still believes it drives the line.
+
+Save the control, output and interrupt configuration registers of every
+valid pin in freeze_noirq and write them back in restore_noirq, the
+output level first, so that a pin drives the right level from the
+moment it becomes an output. Enabling the raw interrupt status can
+latch an interrupt, so the status is cleared afterwards, as
+msm_gpio_irq_set_type() does.
+
+msm_pinctrl_dev_pm_ops gets the two callbacks and x1e80100 starts using
+these ops. With that x1e80100 also gets their suspend and resume
+callbacks, which apply the sleep and default state of the controller's
+own pins where a board defines them.
+
+Signed-off-by: Birk Skyum <birk.skyum@pm.me>
+---
+RFC because the two callbacks go into msm_pinctrl_dev_pm_ops, which the
+sc7180, sc7280, sdm845 and sm7150 drivers use as well, and I can only
+test x1e80100. If you would rather have this for x1e80100 alone, or
+done another way, I am happy to redo it.
+
+Tested on a Lenovo Yoga Slim 7x with Arch Linux ARM's v7.2 kernel plus
+this patch. The kernel also carried the PCI change in [1], without
+which this machine does not resume at all, the smp2p change in [2] and
+a GENI serial change that is not ready for the list. The patch is
+based on pinctrl/devel, where it builds without warnings (W=3D1,
+CONFIG_HIBERNATION=3Dy).
+
+- Without the patch, gpio116 and gpio117 come back as shown above
+  after a hibernation with a real power-off. With it, in four such
+  hibernations, the TLMM part of /sys/kernel/debug/gpio differs only
+  in the level read on two inputs (gpio93 and gpio153).
+- pm_test=3Dcore and test_resume pass.
+- A suspend (deep) and wake still works. On x1e80100 it now goes
+  through msm_pinctrl_suspend() and msm_pinctrl_resume().
+
+Not covered here: the LPASS LPI pin controller, whose pins also came
+back at their reset values after a hibernation.
+
+[1] https://lore.kernel.org/r/179157746908.73485.2343672865542690797@pm.me
+[2] https://lore.kernel.org/r/179158127177.70185.5691100900886332545@pm.me
+
+ drivers/pinctrl/qcom/pinctrl-msm.c      | 106 +++++++++++++++++++++++-
+ drivers/pinctrl/qcom/pinctrl-x1e80100.c |   1 +
+ 2 files changed, 105 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/pinctrl/qcom/pinctrl-msm.c b/drivers/pinctrl/qcom/pinc=
+trl-msm.c
+index 27f06bbc1..fba8a4165 100644
+--- a/drivers/pinctrl/qcom/pinctrl-msm.c
++++ b/drivers/pinctrl/qcom/pinctrl-msm.c
+@@ -39,6 +39,14 @@
+ #define MAX_NR_TILES 4
+ #define PS_HOLD_OFFSET 0x820
+=20
++/* Register values of one pin, kept across a hibernation. */
++struct msm_pin_state {
++=09u32 ctl;
++=09u32 io;
++=09u32 intr_cfg;
++=09u32 intr_target;
++};
++
+ /**
+  * struct msm_pinctrl - state for a pinctrl-msm device
+  * @dev:            device handle.
+@@ -58,6 +66,7 @@
+  * @soc:            Reference to soc_data of platform specific data.
+  * @regs:           Base addresses for the TLMM tiles.
+  * @phys_base:      Physical base address
++ * @saved:          Pin registers kept while a hibernation image is taken.
+  */
+ struct msm_pinctrl {
+ =09struct device *dev;
+@@ -80,6 +89,8 @@ struct msm_pinctrl {
+ =09const struct msm_pinctrl_soc_data *soc;
+ =09void __iomem *regs[MAX_NR_TILES];
+ =09u32 phys_base[MAX_NR_TILES];
++
++=09struct msm_pin_state *saved;
+ };
+=20
+ #define MSM_ACCESSOR(name) \
+@@ -1583,9 +1594,93 @@ static __maybe_unused int msm_pinctrl_resume(struct =
+device *dev)
+ =09return pinctrl_force_default(pctrl->pctrl);
+ }
+=20
+-SIMPLE_DEV_PM_OPS(msm_pinctrl_dev_pm_ops, msm_pinctrl_suspend,
+-=09=09  msm_pinctrl_resume);
++static bool msm_pin_has_own_intr_target(struct msm_pinctrl *pctrl,
++=09=09=09=09=09const struct msm_pingroup *g)
++{
++=09return !pctrl->intr_target_use_scm && g->intr_target_reg &&
++=09       g->intr_target_reg !=3D g->intr_cfg_reg;
++}
++
++/* Remember how the pins are set up when a hibernation image is taken. */
++static int msm_pinctrl_freeze_noirq(struct device *dev)
++{
++=09struct msm_pinctrl *pctrl =3D dev_get_drvdata(dev);
++=09const struct msm_pingroup *g;
++=09struct msm_pin_state *s;
++=09unsigned long flags;
++=09unsigned int i;
++
++=09raw_spin_lock_irqsave(&pctrl->lock, flags);
++=09for (i =3D 0; i < pctrl->chip.ngpio; i++) {
++=09=09if (!gpiochip_line_is_valid(&pctrl->chip, i))
++=09=09=09continue;
++
++=09=09g =3D &pctrl->soc->groups[i];
++=09=09s =3D &pctrl->saved[i];
++=09=09s->ctl =3D msm_readl_ctl(pctrl, g);
++=09=09s->io =3D msm_readl_io(pctrl, g);
++=09=09if (!g->intr_cfg_reg)
++=09=09=09continue;
++
++=09=09s->intr_cfg =3D msm_readl_intr_cfg(pctrl, g);
++=09=09if (msm_pin_has_own_intr_target(pctrl, g))
++=09=09=09s->intr_target =3D msm_readl_intr_target(pctrl, g);
++=09}
++=09raw_spin_unlock_irqrestore(&pctrl->lock, flags);
++
++=09return 0;
++}
++
++/*
++ * The image is restored after a power cycle, when the pins are back at wh=
+at
++ * the firmware and the kernel that loaded the image made of them. Nothing=
+ else
++ * writes the configuration again, so put back what was there.
++ */
++static int msm_pinctrl_restore_noirq(struct device *dev)
++{
++=09struct msm_pinctrl *pctrl =3D dev_get_drvdata(dev);
++=09const struct msm_pingroup *g;
++=09struct msm_pin_state *s;
++=09unsigned long flags;
++=09unsigned int i;
++=09u32 val;
++
++=09raw_spin_lock_irqsave(&pctrl->lock, flags);
++=09for (i =3D 0; i < pctrl->chip.ngpio; i++) {
++=09=09if (!gpiochip_line_is_valid(&pctrl->chip, i))
++=09=09=09continue;
++
++=09=09g =3D &pctrl->soc->groups[i];
++=09=09s =3D &pctrl->saved[i];
++
++=09=09/* Set the level before the pin starts driving it. */
++=09=09val =3D msm_readl_io(pctrl, g);
++=09=09val &=3D ~BIT(g->out_bit);
++=09=09val |=3D s->io & BIT(g->out_bit);
++=09=09msm_writel_io(val, pctrl, g);
++
++=09=09msm_writel_ctl(s->ctl, pctrl, g);
++=09=09if (!g->intr_cfg_reg)
++=09=09=09continue;
+=20
++=09=09if (msm_pin_has_own_intr_target(pctrl, g))
++=09=09=09msm_writel_intr_target(s->intr_target, pctrl, g);
++=09=09msm_writel_intr_cfg(s->intr_cfg, pctrl, g);
++
++=09=09/* Enabling the raw status can latch an interrupt. */
++=09=09if (s->intr_cfg & BIT(g->intr_raw_status_bit))
++=09=09=09msm_ack_intr_status(pctrl, g);
++=09}
++=09raw_spin_unlock_irqrestore(&pctrl->lock, flags);
++
++=09return 0;
++}
++
++const struct dev_pm_ops msm_pinctrl_dev_pm_ops =3D {
++=09SYSTEM_SLEEP_PM_OPS(msm_pinctrl_suspend, msm_pinctrl_resume)
++=09.freeze_noirq =3D pm_sleep_ptr(msm_pinctrl_freeze_noirq),
++=09.restore_noirq =3D pm_sleep_ptr(msm_pinctrl_restore_noirq),
++};
+ EXPORT_SYMBOL(msm_pinctrl_dev_pm_ops);
+=20
+ int msm_pinctrl_probe(struct platform_device *pdev,
+@@ -1663,6 +1758,13 @@ int msm_pinctrl_probe(struct platform_device *pdev,
+ =09if (ret)
+ =09=09return ret;
+=20
++=09if (IS_ENABLED(CONFIG_HIBERNATION)) {
++=09=09pctrl->saved =3D devm_kcalloc(&pdev->dev, pctrl->chip.ngpio,
++=09=09=09=09=09    sizeof(*pctrl->saved), GFP_KERNEL);
++=09=09if (!pctrl->saved)
++=09=09=09return -ENOMEM;
++=09}
++
+ =09platform_set_drvdata(pdev, pctrl);
+=20
+ =09dev_dbg(&pdev->dev, "Probed Qualcomm pinctrl driver\n");
+diff --git a/drivers/pinctrl/qcom/pinctrl-x1e80100.c b/drivers/pinctrl/qcom=
+/pinctrl-x1e80100.c
+index e4c0abcd9..bfe122fc7 100644
+--- a/drivers/pinctrl/qcom/pinctrl-x1e80100.c
++++ b/drivers/pinctrl/qcom/pinctrl-x1e80100.c
+@@ -1855,6 +1855,7 @@ static struct platform_driver x1e80100_pinctrl_driver=
+ =3D {
+ =09.driver =3D {
+ =09=09.name =3D "x1e80100-tlmm",
+ =09=09.of_match_table =3D x1e80100_pinctrl_of_match,
++=09=09.pm =3D &msm_pinctrl_dev_pm_ops,
+ =09},
+ =09.probe =3D x1e80100_pinctrl_probe,
+ };
+--=20
+2.53.0
 
 
-Takashi
