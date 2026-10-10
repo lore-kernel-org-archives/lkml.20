@@ -1,36 +1,36 @@
-Received: from e234-56.smtp-out.ap-northeast-1.amazonses.com (e234-56.smtp-out.ap-northeast-1.amazonses.com [23.251.234.56])
+Received: from e234-57.smtp-out.ap-northeast-1.amazonses.com (e234-57.smtp-out.ap-northeast-1.amazonses.com [23.251.234.57])
 	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DC083BE163;
-	Sat, 10 Oct 2026 16:57:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.251.234.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 121AC3B38A9;
+	Sat, 10 Oct 2026 16:57:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.251.234.57
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791651472; cv=none; b=EHpnwi5vMEsCHM+BhPt1KJrPWK7JzqhWuDBLRdwwIQSWmUfQOGc/r1zIpQzyNUk9eGlaw80EfwfsyCpY65MauNFnGBZmCky12HdgkkOlmZGiGRpLnaziRvObgy4SzPp6lowTLnvM2hF0jLOlB8GLHVc7AiOrpcGyj0QeshzIBG0=
+	t=1791651472; cv=none; b=rTUE46yypEMi8vQC3eCNOoPm1NqemYCdPEm3hPVoMcLt5BNJ/g5E0IPyHj/Ho6mNiPSuMuVZ9EJnlR8DqmCQiTxaKjC4RUJWHhXJjf/DkgbgJYNYuxLu2UfrpyucN8d64PnSABNE7PDNCQBEHBCyzY27sTZvbeoCpdBVcYKs+C4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791651472; c=relaxed/simple;
-	bh=kXbIf5/9xYmnmT6dcocndnvXtyd4N64Gcj+PHJdrnls=;
+	bh=gYrbNgjzXub9X5dd2apyZ4b6ziQybWU7QCrft4GxRc8=;
 	h=In-Reply-To:From:To:Cc:Subject:Message-ID:Date:MIME-Version:
-	 Content-Type; b=ZQbpfQejFjMHaE1mpqaLkRPZwNTcdjAvc/Mhifw9MW8A1xtm/37PuNY7keJpSVik5sZbxrWEiYeTMjhhlbhT7XPc1T3sat5OMttLrC+Yjgg/G8LVBvcc7y5yVJlbgr6ies2TupQtzAY6OJyXYhtqfkOq2gOkku76bjZoV/ceAUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz; spf=pass smtp.mailfrom=send.fqwqf.xyz; dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b=gQvWL9OO; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=FJ8W8NYh; arc=none smtp.client-ip=23.251.234.56
+	 Content-Type; b=D8miApZlZY50d5Yefw6QOO03dMiswDwilVS4cXxmnWZztLpzJ2HiXwJM+w8FBWVuvCrGilvPtFET1Fsmr33mvuWH22ikNtCpO1wd62OX0yk/0muq0OLninTrq2MDpUqF7VjhVW9Zipzn5qYCiHcjbujus6T6zMonocoG7+k6b6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz; spf=pass smtp.mailfrom=send.fqwqf.xyz; dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b=zTBaVIfN; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=AOkLcvuW; arc=none smtp.client-ip=23.251.234.57
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.fqwqf.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b="gQvWL9OO";
-	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="FJ8W8NYh"
+	dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b="zTBaVIfN";
+	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="AOkLcvuW"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
 	d=fqwqf.xyz; t=1791651470;
 	h=In-Reply-To:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
-	bh=kXbIf5/9xYmnmT6dcocndnvXtyd4N64Gcj+PHJdrnls=;
-	b=gQvWL9OOAB2qh/hHv9D+NjSzchNmhUajfCHbmmSk03Tl8yySkdzK9bwYDWGDAx5L
-	a3kNZJd3jBa8YNvid5x2snqtGaB8noXHMONFo532vJGapFH4q5+vWHpDBg65zOld3KS
-	HnmFHckK8ZI2g6YI/TIMtx3jF6PjAcwvAjiBTcAg=
+	bh=gYrbNgjzXub9X5dd2apyZ4b6ziQybWU7QCrft4GxRc8=;
+	b=zTBaVIfNGrayvLaikro5Om26H4u7/JXxZS9Niv/fQjhfdyxPO9KLcYgxX2CSpw+4
+	hEKJ0+c/IRhuQb2neE8afEv71nAJYn9gMiP1iXVuoe4JHjliMqpH1g0vcGP4EzQEFML
+	Tt2UgkqBrAY8kIMSnzqjVMx5u+0tQFzMBrayd+ZU=
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
 	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1791651470;
 	h=In-Reply-To:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
-	bh=kXbIf5/9xYmnmT6dcocndnvXtyd4N64Gcj+PHJdrnls=;
-	b=FJ8W8NYhpZZXwS04P/XZVs/BOq40ZznP2NW3qexJBhUq/2F2WBNVi0djwWI8Up1x
-	xduIY/NKJf8W3NVJ25JVthlrwP5BhUKRuIeV4sK+se363V/tKXcgrOuXrz4OKvyaB2W
-	5cdnERYVBDfMEvSJlQr8T3JwOhlMaK/vjMGb5YJ0=
+	bh=gYrbNgjzXub9X5dd2apyZ4b6ziQybWU7QCrft4GxRc8=;
+	b=AOkLcvuWhG2AOGuc2MZkJ373LZWV9SMzlryvvM0UVX4g2BlrUwXA0BqH9xaKMcAx
+	DpYkZiJzWyz2AKpP5so56LdnusBWUHpgKu5yCit+N7DNvsNDAwpxZ79kMFJ5hN2VzZz
+	RL8Ve5rkkAt90AY3C5nyXGgoGkqXhHObKkKTrc78=
 In-Reply-To: <20261010165732.43465-1-fqwqf@fqwqf.xyz>
 X-Mailer: git-send-email 2.53.0
 From: fQwQf <fqwqf@fqwqf.xyz>
@@ -40,11 +40,11 @@ Cc: jikos@kernel.org, bentiss@kernel.org, dmitry.torokhov@gmail.com,
 	daleyo@gmail.com, broonie@kernel.org, linux-spi@vger.kernel.org, 
 	devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
 	conor+dt@kernel.org
-Subject: [RFC PATCH 4/6] dt-bindings: input: describe the Romulus13 QSPI
- touchpad
-Message-ID: <010601a126bfdb39-6c28068c-cb45-4a6f-873f-99f26b812505-000000@ap-northeast-1.amazonses.com>
+Subject: [RFC PATCH 3/6] HID: spi-hid: assemble bounded fragmented input
+ reports
+Message-ID: <010601a126bfd9ca-7ca456f4-3977-469e-891e-bd5ba3459280-000000@ap-northeast-1.amazonses.com>
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 10 Oct 2026 16:57:50 +0000
+Date: Sat, 10 Oct 2026 16:57:49 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,124 +53,234 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Feedback-ID: :1.ap-northeast-1.6BGMgStFQE7EJYq5syaCRzdneEHVt/+DAaGDrqUmDs9QLO4/SllUBZ3fHvnZ8rcAX/3IjUyTRgi5JFZsWrikFHwlPJqCkqEMlxDFM4JXh+ycxH/J5Tudg5bGdz6h4331g1L1EFsGR8kuYNfGLsrxz4Nym4YXoPcZxeVkrHry4Zx21n8vEVLEjc7s+OCM8PU9:1.ap-northeast-1.DTXDV/V9GPBWozcllKo8innbNB2qs2O/3F8XZSzd9ZM=:AmazonSES
-X-SES-Outgoing: 2026.10.10-23.251.234.56
+X-SES-Outgoing: 2026.10.10-23.251.234.57
 
-Describe the fixed-address HID-over-SPI touchpad on Surface Laptop 7
-13.8-inch, with quad address/data transfers, an active-low reset and a 5
-V supply.
+Keep fragment lengths separate from complete HID report lengths.
+Assemble DATA reports into a dedicated buffer, enforce the declared
+content length and final padding, and reject fragmented command
+responses. Discard incomplete reports after a one-second gap or during
+error recovery and suspend.
+
+Require a body header before parsing and bound=
+ allocations to 8 KiB.
+Preserve the v5 request serialization and response =
+matching.
+
+Use the existing max_fragment_length descriptor field for each =
+fragment;
+max_input_length describes a complete input report and remains =
+distinct.
 
 Signed-off-by: Jizhou Tong <fqwqf@fqwqf.xyz>
 ---
- .../input/microsoft,romulus13-touchpad.yaml   | 86 +++++++++++++++++++
- 1 file changed, 86 insertions(+)
- create mode 100644 =
-Documentation/devicetree/bindings/input/microsoft,romulus13-touchpad.yaml
+ drivers/hid/spi-hid/spi-hid-core.c | 70 +++++++++++++++++++++++++-----
+ drivers/hid/spi-hid/spi-hid-core.h |  4 ++
+ 2 files changed, 63 =
+insertions(+), 11 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/input/microsoft,=
-romulus13-touchpad.yaml b/Documentation/devicetree/bindings/input/microsoft=
-,romulus13-touchpad.yaml
-new file mode 100644
-index =
-0000000000000000000000000000000000000000..88e4664c56e7fb1c3f9f5949a3ded2f9d=
-7070604
---- /dev/null
-+++ b/Documentation/devicetree/bindings/input/microso=
-ft,romulus13-touchpad.yaml
-@@ -0,0 +1,86 @@
-+# SPDX-License-Identifier: =
-(GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.=
-org/schemas/input/microsoft,romulus13-touchpad.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/hid/spi-hid/spi-hid-co=
+re.c b/drivers/hid/spi-hid/spi-hid-core.c
+index 9d02c156fcd641e9c944c0dfe08=
+b5aad57a97f6a..2778d147b202ab663928a851198eca8fe628b16a 100644
+--- a/drivers/hid/spi-hid/spi-hid-core.c
++++ b/drivers/hid/spi-hid/spi-hid-=
+core.c
+@@ -146,7 +146,6 @@ static void spi_hid_parse_dev_desc(const struct =
+hidspi_dev_descriptor *raw,
+ 	desc->max_input_length =3D =
+le16_to_cpu(raw->max_input_len);
+ 	desc->max_output_length =3D =
+le16_to_cpu(raw->max_output_len);
+=20
+-	/* FIXME: multi-fragment not =
+supported, field below not used */
+ 	desc->max_fragment_length =3D =
+le16_to_cpu(raw->max_frag_len);
+=20
+ 	desc->vendor_id =3D =
+le16_to_cpu(raw->vendor_id);
+@@ -335,6 +334,7 @@ static int =
+spi_hid_suspend(struct spi_hid *shid)
+ 	 */
+ 	disable_irq(shid->spi->irq);
+ 	cancel_work_sync(&shid->reset_work);
++	shid->fragment_len =3D 0;
+=20
+ 	guard(mutex)(&shid->power_lock);
+ 	if (!device_may_wakeup(dev)) {
+@@ -468,6 +468,7 @@ static void spi_hid_error_handler(struct spi_hid *shid)
+ 		return;
+=20
+ 	disable_irq(shid->spi->irq);
++	shid->fragment_len =3D 0;
+=20
+ 	if (shid->reset_attempts++ >=3D SPI_HID_MAX_RESET_ATTEMPTS) {
+ 		dev_err(dev, "unresponsive device, aborting\n");
+@@ -1039,6 +1040,48 @@ static int spi_hid_process_input_report(struct =
+spi_hid *shid,
+ 	return 0;
+ }
+=20
++/* Only DATA reports may be fragmented; =
+command responses remain atomic. */
++static int spi_hid_accept_fragment(str=
+uct spi_hid *shid,
++				   const struct spi_hid_input_header *header)
++{
++	struct spi_hid_input_report body;
++	u16 len =3D header->report_length;
++	unsigned int total;
++	int error;
 +
-+title: Microsoft Surface Laptop 7 13.8-inch QSPI touchpad
++	if (shid->fragment_len &&
++	    time_after(jiffies, shid->fragment_time + msecs_to_jiffies(1000)))
++		goto invalid;
++	if (!shid->fragment_len) {
++		if =
+(header->last_fragment_flag)
++			return spi_hid_process_input_report(shid, =
+shid->input);
++		spi_hid_populate_input_body(shid->input->body, &body);
++		if (body.report_type !=3D DATA || body.content_length > shid->bufsize)
++			goto invalid;
++		shid->fragment_expected =3D HIDSPI_INPUT_BODY_SIZE(bod=
+y.content_length);
++	}
++	total =3D shid->fragment_len + len;
++	if (total > round_up(shid->bufsize + HIDSPI_INPUT_BODY_HEADER_SIZE, 4) ||
++	    (!header->last_fragment_flag && total >=3D shid->fragment_expected) =
+||
++	    (header->last_fragment_flag && total !=3D ALIGN(shid->fragment_exp=
+ected, 4)))
++		goto invalid;
++	memcpy((u8 *)shid->fragment + =
+offsetof(struct spi_hid_input_buf, body) +
++	       shid->fragment_len, =
+shid->input->body, len);
++	shid->fragment_len =3D total;
++	shid->fragment_time =3D jiffies;
++	if (!header->last_fragment_flag)
++		return 0;
 +
-+maintainers:
-+  - Jizhou Tong <fqwqf@fqwqf.xyz>
++	memcpy(shid->fragment->header, shid->input->header, =
+HIDSPI_INPUT_HEADER_SIZE);
++	put_unaligned_le16((total / 4) | BIT(14), =
+&shid->fragment->header[1]);
++	error =3D spi_hid_process_input_report(shid,=
+ shid->fragment);
++	shid->fragment_len =3D 0;
++	return error;
++invalid:
++	shid->fragment_len =3D 0;
++	return -EPROTO;
++}
 +
-+description:
-+  The touchpad on the =
-13.8-inch Surface Laptop 7 uses the HID SPI v3
-+  protocol over a quad SPI =
-connection. Its supply and board reset states
-+  must be controlled during =
-initialization and recovery.
+ static int =
+spi_hid_bus_validate_header(struct spi_hid *shid,
+ 				       struct =
+spi_hid_input_header *header)
+ {
+@@ -1061,24 +1104,20 @@ static int =
+spi_hid_bus_validate_header(struct spi_hid *shid,
+ 	 * report_length is =
+device-provided and is used as the size of the body
+ 	 * transfer, so it must never exceed the input buffer.
+ 	 */
+-	if (header->report_length > max_body) {
++	if (header->report_length < =
+HIDSPI_INPUT_BODY_HEADER_SIZE ||
++	    header->report_length > max_body) {
+ 		dev_err(dev, "Input report too big: %u > %u\n",
+ 			=
+header->report_length, max_body);
+ 		return -EMSGSIZE;
+ 	}
+=20
+-	if (shid->desc.max_input_length !=3D 0 &&
+-	    header->report_length > =
+shid->desc.max_input_length) {
++	if (shid->desc.max_fragment_length &&
++	    header->report_length > shid->desc.max_fragment_length) {
+ 		dev_err(dev, "Input report body size %u > max expected of %u\n",
+-			header->report_length, shid->desc.max_input_length);
++			header->report_length, shid->desc.max_fragment_length);
+ 		return -EMSGSIZE;
+ 	}
+=20
+-	if (header->last_fragment_flag !=3D 1) {
+-		dev_err(dev, "Multi-fragment reports not supported\n");
+-		return -EOPNOTSUPP;
+-	}
+-
+ 	if (header->sync_const !=3D =
+SPI_HID_INPUT_HEADER_SYNC_BYTE) {
+ 		dev_err(dev, "Invalid input report =
+sync constant (0x%x)\n",
+ 			header->sync_const);
+@@ -1149,6 +1188,7 @@ =
+static int spi_hid_set_request(struct spi_hid *shid, u8 *arg_buf, u16 =
+arg_len,
+ /* Schedule a reset to recover from an error in the IRQ handler. =
+*/
+ static irqreturn_t spi_hid_irq_error(struct spi_hid *shid)
+ {
++	shid->fragment_len =3D 0;
+ 	set_bit(SPI_HID_ERROR, &shid->flags);
+ 	schedule_work(&shid->reset_work);
+=20
+@@ -1231,7 +1271,7 @@ static =
+irqreturn_t spi_hid_dev_irq(int irq, void *_shid)
+ 		}
+ 	}
+=20
+-	error =3D spi_hid_process_input_report(shid, shid->input);
++	error =3D spi_hid_accept_fragment(shid, &header);
+ 	if (error) {
+ 		dev_err(dev, "Failed to process input report: %d\n", error);
+ 		return spi_hid_irq_error(shid);
+@@ -1249,6 +1289,9 @@ static int =
+spi_hid_alloc_buffers(struct spi_hid *shid, size_t report_size)
+ 	size_t xfer_size;
+ 	void *tmp;
+=20
++	if (report_size > SZ_8K)
++		return -EMSGSIZE;
 +
-+allOf:
-+  - $ref: /schemas/spi/spi-peripher=
-al-props.yaml#
+ 	tmp =3D devm_krealloc(dev, shid->output, =
+outbufsize, GFP_KERNEL | __GFP_ZERO);
+ 	if (!tmp)
+ 		return -ENOMEM;
+@@ -1264,6 +1307,11 @@ static int spi_hid_alloc_buffers(struct spi_hid =
+*shid, size_t report_size)
+ 		return -ENOMEM;
+ 	shid->response =3D tmp;
+=20
++	tmp =3D devm_krealloc(dev, shid->fragment, inbufsize, GFP_KERNEL | =
+__GFP_ZERO);
++	if (!tmp)
++		return -ENOMEM;
++	shid->fragment =3D tmp;
 +
-+properties:
-+  compatible:
-+    const: microsoft,=
-romulus13-touchpad
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  vdd-supply:
-+    description: Touchpad 5 V supply.
-+
-+  spi-max-frequency:
-+    maximum: 20000000
-+
-+  spi-rx-bus-width:
-+    items:
-+      - const: 4
-+
-+  spi-tx-bus-width:
-+    items:
-+      - const: 4
-+
-+  reset-gpios:
-+    maxItems: 1
-+    description: Active-low touchpad reset.
-+
-+  pinctrl-0: true
-+
-+  pinctrl-names:
-+    items:
-+      - const: default
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - vdd-supply
-+  - spi-rx-bus-width
-+  - spi-tx-bus-width
-+  - reset-gpios
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include =
-<dt-bindings/interrupt-controller/irq.h>
-+    #include =
-<dt-bindings/gpio/gpio.h>
-+
-+    spi {
-+        #address-cells =3D <1>;
-+        #size-cells =3D <0>;
-+
-+        touchpad@0 {
-+            compatible =3D "microsoft,romulus13-touchpad";
-+            reg =3D <0>;
-+            spi-max-frequency =3D <20000000>;
-+            spi-rx-bus-width =3D <4>;
-+            spi-tx-bus-width =3D =
-<4>;
-+            interrupts-extended =3D <&tlmm 3 IRQ_TYPE_LEVEL_LOW>;
-+            vdd-supply =3D <&vreg_ts_5p0>;
-+            reset-gpios =3D =
-<&tlmm 120 GPIO_ACTIVE_LOW>;
-+            pinctrl-0 =3D <&touchpad_reset>;
-+            pinctrl-names =3D "default";
-+        };
-+    };
+ 	/* io_lock serializes the separate, DMA-aligned TX and RX regions. */
+ 	xfer_size =3D ALIGN(max(inbufsize, outbufsize), ARCH_DMA_MINALIGN) +
+ 		    ARCH_DMA_MINALIGN;
+diff --git a/drivers/hid/spi-hid/spi-hid-core.h =
+b/drivers/hid/spi-hid/spi-hid-core.h
+index 554288dd17631edc1a503755b04170c0=
+4501bcb7..635d66daaf456cdb65c57146758ea7c64a1537f7 100644
+--- a/drivers/hid/spi-hid/spi-hid-core.h
++++ b/drivers/hid/spi-hid/spi-hid-=
+core.h
+@@ -61,6 +61,10 @@ struct spi_hid {
+ 	struct spi_hid_output_buf =
+*output;	/* Output buffer. */
+ 	struct spi_hid_input_buf *input;	/* Input =
+buffer. */
+ 	struct spi_hid_input_buf *response;	/* Response buffer. */
++	struct spi_hid_input_buf *fragment;
++	u16 fragment_len;
++	u16 fragment_expected;
++	unsigned long fragment_time;
+=20
+ 	struct drm_panel_follower panel_follower;
+ 	bool	is_panel_follower;
