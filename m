@@ -1,121 +1,111 @@
-Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com [209.85.167.181])
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6A21361651
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 18:00:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791655202; cv=pass; b=oSxWR88pT1FBF/w8ICHs0zpkypUvfDxMQ68HOL7/MMg7vD+gmAsnBkqoe1BVTvPcWI4RxT31Otft1wWGOAWQ/jA8qQVK8vdjDNT3eP0y2hvGVp9QlvjdIpY1SfsAt3SwYEshA/hiCaM0gyrgc26BwyBZ0xTG8k4dqoqGvwSsRKg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791655202; c=relaxed/simple;
-	bh=RRaKBHfesnMj/MQ56/1YpZoTCrxeT4WyUztjdaRJ/BY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LnwEKRYgRRfSJZg41982P7u3oMCezLrpex6K9PraauyFFzJoBq1OE+xmab2N0BfxdU4DT1x/j6clGt/unseiYj0+j8HNk2VzwtPdxRbVSwuzKDSmUiN+TxftJSiyjagKU2g52UFsXbNgBC5KYFuICfxUGqlzKIHESXmvMPzWRl4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OOoz/Xg+; arc=pass smtp.client-ip=209.85.167.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E29F345ECC
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 18:00:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791655235; cv=none; b=iHSszDAXxlu3p24Xq9LHeF+e9KyxPuaGF89DbTJmpRY0GQezD4mlaTbF5vr+nejtODMt5XYsDPh0bRgFvcD8OWF6avbuQR1NkLVkgBeXrDhmooKzsaxKzFNN+Y0Q1ACAPnu6NzUy4T0A4yC7eqIpBF43urfZWMio7rIp7aDhWK4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791655235; c=relaxed/simple;
+	bh=QEE/N6PnwPszZHQB06FbCOKn/XxBs8ay66Sp+xmfqv4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L5bkyAB9Fz4HPn9d5GtM/u9aAheCDFRbXh9W6Uf8wFmXNYpwGepdpYNWZH/S7bZKzeu7jcKepvjjjafm7saBEsV0whipG+sR4FDlCPYHLIPvRP5vqZRM+0UU2GUu1HPuulEdvWKUNFvTZUxQw67gJ52dP93SFdvNcwtqL0ou0Ww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=voidship.net; spf=pass smtp.mailfrom=voidship.net; dkim=pass (2048-bit key) header.d=voidship-net.20251104.gappssmtp.com header.i=@voidship-net.20251104.gappssmtp.com header.b=WoD+fPtV; arc=none smtp.client-ip=209.85.160.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=voidship.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=voidship.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OOoz/Xg+"
-Received: by mail-oi1-f181.google.com with SMTP id 5614622812f47-4f48d91ba7dso525159b6e.2
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 11:00:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791655199; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KO6RQ5+bmxBcIjtFEkYOsW/n9YDhb/il++OsXi76heSFS6Qg17kP2wTiAzqpXdWmqV
-         PZRm9saUZO5MQtAOgAsG88j/qqrZav/Caif+4TXpvwySQWiFhTLMJBtIusJdI3+x8+xA
-         qxpBkV3wb+PsuuJANSH8VOSGhcgPgrEa3yo+TKEM9e4Ibv4AMz/VPNnjqv3HDae7VH3w
-         ZWIYkC+1SgLulnovveYoQfUDKHLJJEw440b3WgxV1nb18snPJKKztkOsEd/6eYcceGxD
-         sUt+B4RoMFzl/OMH9Q6C5fKhQftBqbkoHuAk+IByqexgCxJ4oJu+iLMMWrFxuLcSKZcL
-         Stvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=U8Kusf1hH/TH2DSJRRPTz+9MUvUE8UuukGJs1Nu4sUY=;
-        fh=tMf+TKWpv4nxu8lWxt6cJK/ZQHA4sx9wTwgYrdD2Y8A=;
-        b=C2wOx9U+xR67prtX9HrkxGZiH0ib0mO6IX2vYqP3hPVUa6yzh4vDor+0Z2d2HERJR9
-         JW4ApvwZjjF9QRr+kjt6bvjckCVDW7XIUmWIkRMlaIlR7lb018A1ykcYYx9rmgrLbqaR
-         sQ127INJknwXlmfqG7y7PmmktAyYUmj0Xah2zWHvPcdlaKqpleE0NOs14mHJn+XC7a4p
-         ahdMK7Y4oGAXmOCANgDJILgr2F/zoA+XEpoIUOB+WcLg8FM7uHa8WuiL23WiqJEm29Kl
-         nz4KVV6lLIE+c7pXjwUhdx1xvhUfNkkXmHJ35AHYXKkIviijTDtYiR7OeI3Gx1EDI+EU
-         yftw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=voidship-net.20251104.gappssmtp.com header.i=@voidship-net.20251104.gappssmtp.com header.b="WoD+fPtV"
+Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-53519e20d7bso10489941cf.0
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 11:00:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791655199; x=1792259999; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=U8Kusf1hH/TH2DSJRRPTz+9MUvUE8UuukGJs1Nu4sUY=;
-        b=OOoz/Xg+V32Qj9en3Gmc9HwFDs1v270dJtyHowCL/ZeufT9GnuLpFPWVx70F5UJ79s
-         Jsms1PgrqRikZLN/41qbvBIzauVoXuk+UG9jAf7vqNW0DGEieKCzM+P3+MT7NPmPBQjw
-         KCajBxI8Jk6bjFURdARnSRQ+nw3N3i9NgL4P8uNqzCWzyLM+lDuwKOO6Y1bj3npZv94u
-         owRUxmAJpW0XID7zIDR1jfcJvTO56D0Abwlyc71DacVFal4fJh9tWhrfTvzBJYHx2S0s
-         woJAydVepydVH/zCfAj7NeediIhspVPG/D2UPLSyX/5HxbpM1FHX7fzzEjjZQuiht8H/
-         AXeA==
+        d=voidship-net.20251104.gappssmtp.com; s=20251104; t=1791655233; x=1792260033; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OCsenb9Bskg3bCFGqLkiR40EBE50kMlcijLAOuMhnEE=;
+        b=WoD+fPtVVsk8glmY0MtOSLbCvFA1NpzTK03e+ePsgmzbL+/V3/iZF8E5Isqst/hZiv
+         Dw4r2XizyYpKnWUGjsjEr4XLNNypm2geSXy021YfzC4UyWJoss/6dc3T2uDHTgT66LWy
+         goTjXHw0eKg0da3o2Fzsy1OlVUBelYetpVEkiTiV1MlBq1hVN6yo6N8yy/5pgrhD3dwU
+         MH4M7JmLLDrhOTov4SE6bEwVDjP9xLsbUwAbw/M/p0VfHcLoJ0Yuj4mmBKheJJKdwlKi
+         SffPGBIsW9FG6PJtItcc9XaeFnilsfLmI6URdviRhuKb9S+3FnEGzqE7X8db3kyYnCdb
+         pGaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791655199; x=1792259999;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=U8Kusf1hH/TH2DSJRRPTz+9MUvUE8UuukGJs1Nu4sUY=;
-        b=H4kndP7qT2cNWK71NKCehBxFARKb44OaRG1X7hOm86CzRUCiMnkLOg0Mutfl4qMj1R
-         fdVvuBHiIIEIQ8ZOYkNKWp4Dg8i1AlSL050sobV5ZOz/If/QLEB+TlfDAE5hsC4Db/iy
-         1gA1kifxQg1dJpeo5Bl7iRxWZmudWG01Kp5qTBsZzlZn76g11haH2AhTYIUHn1JKhU7X
-         M67hwzS4PJ5e4VbJ+1yKYV11DIK+Uc7d59k6b/02l/xQ7/VMkju2CjjkqmJ0aTyOpFA7
-         EViVZU1UrC2XAXLsb5Yff1WWSFhRZC21YTknEeCE+dfQSfexikl/bsGWEo7kHk8hL1yr
-         xLIA==
-X-Forwarded-Encrypted: i=1; AKwUvByyL7cWpX2xx/Syd1sPEyGXIL4b0r/E729xreMWfCD/s8qHuw3+NFv6vrcfQ9WwsMGUm+OyyvRyrTMq1H0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL2gzF3RA6VhReOLrCI1BvBAPVd8i1SIAgNuQhOpNKtMeV21Ow0
-	mE3armTHaTMmilYJkD3+Mdt3s1X05IxMzo4zQqtvqHLL8dldN7HdobCo+ewN4DLOcmnZ5upiVIj
-	1GBC5LfjOhRqJg6zztUp4m+xcanei92w=
-X-Gm-Gg: AYBFou0dGOH9R9CXBSO3bYr5qOymJe5b/KvOAhlFGevYm2YkTeiClutfSglapAzChg5
-	J86fYzqDIYQ2K1KeDJYO8gyDT+Hqkc+8F2t8cn8e6mngptTI/vHlhITp/RACbVIJfpuPSdbtctH
-	NgeKxzyxVkG9Lq6T69p2/aAOj744yPRlkQxDtIlrcMEDQOZwxoF9/Z/75RbUT8sA1YEIc2tAl2r
-	qfaT20cDyX270wO+DiEOCJcDjw+SkgdB0ixjSNmxnnhz/VTVTBI26IwU709hYFCUtEgQVZ0I+wo
-	vjqcleEVFrqBuUFCvuvpYRd0VR+CQxKQCgRR19+rSYfM3T19LpsYfxkSWsjhizybaGUzF5CVLOp
-	l6r5PiQ5PheCNP+7v+P8vh/8HqijeaI/kfzK3BptuI9Vc
-X-Received: by 2002:a05:6808:30a1:b0:4b3:7da2:f393 with SMTP id
- 5614622812f47-50c52471233mr6704569b6e.15.1791655199462; Sat, 10 Oct 2026
- 10:59:59 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791655233; x=1792260033;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OCsenb9Bskg3bCFGqLkiR40EBE50kMlcijLAOuMhnEE=;
+        b=bXTuB2R8pkrDrLeAGsj0zCfmYwQ5fVvwpngaep3COwC3bTDSC80gitI8zEk33LVyGC
+         O1/TyD0hdhpLvzB5FRRAmpSIf7j9VFVEOEEHCn+yuU1qstj3qSTIfiqZF+lICaCNiXHs
+         NR1guhKKEuy5wXpyY0syfLzQmMcpwT+P1M1u9q5tOpfxKdIKlZrGp7uA3alrSB3CapmC
+         6YH3yW2Yc8Dzpq8ckrh3qb14c8fkoaHU/Swl84BGishEBi9rAPYGUulw2XGcYBf/8s1O
+         W0CyPxrjg6slbZtmFQ3c5AnOVWtvRuIa33cdFC+Rs8hXcyu4xZjyZKn1wZDVjhMT1Pom
+         kXjw==
+X-Forwarded-Encrypted: i=1; AKwUvBwL47L++6ZFG7+iOUuHE+foj/ieT5oHk5PcYrd/ilpOBLrZXRlIyQ550GVuE2FnDsRidbtV4S/6xgwekik=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLS1i9rRSHEqYD3wX+xcFVtwlPwSAx5JSZiPIR+12PqQd4gVp3l
+	m4KzQxSU0mm6g6w7gaIofq4p0TZSjXznc+5VqJo6DJEL19a6uO6IU6vCv0wO9TynSEM=
+X-Gm-Gg: AYBFou0x16zAtL3GwGsVa9tPfgDQuI9JwJ55Q4ZJOAB/Q3UZhrHqagYAarHYMtdhHXt
+	Zp4BTnPDU83iyumHdXNtT637pIpOEyKQjYPpABxj8WhTpPCv4GmVg9HYOcGoHeW23Y+gmPxNyKi
+	3XwjyQg+9lrDlOPias1lRRmDer/NHAXSjFJRO35JhBLyphnE4FQgdbJCJJTnfRVmcvQ0KnujFb0
+	7RU/mPh2OE2CB2fWkZWcGRP4ZSZmKl6WazBV66Eivpf2FE/957saQWCd0hjm1SWdjg++Ygtylgt
+	huzmOMaCf6S9L8ZuZLQJWwWDhI9edgeCz+WUAJxqyJPvqvYBTOLgS2VgbrLfQLJqWUgvvuiTsts
+	CdFWMObTxMbRq6eOinvjsyx9jC1GGQfPN1C1RIZ3QslJd/jrBQh6VNOXFXoAHIQ5Y2Hi0gpD9zK
+	txHJywJZV/ksUVIT5Sv6zSwMz2arOcVmJFpkUckasHMhqkCIlpf7m5NnUAMQ+bzvFwrwmvoTrgk
+	Mn5OMhXDQRpbd4h1My+HFVQBb4M9PJ1jvMvRdeG
+X-Received: by 2002:a05:622a:120b:b0:532:8063:4ccc with SMTP id d75a77b69052e-5359d6a6713mr90845801cf.3.1791655233434;
+        Sat, 10 Oct 2026 11:00:33 -0700 (PDT)
+Received: from boomzilla (dynamic-acs-24-101-237-49.zoominternet.net. [24.101.237.49])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b550175e3sm50339326d6.11.2026.10.10.11.00.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 11:00:32 -0700 (PDT)
+From: Karlos Abel <kabel@voidship.net>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] Input: discard pre-registration events and test state seeding
+Date: Sat, 10 Oct 2026 14:00:29 -0400
+Message-ID: <20261010180031.7-1-kabel@voidship.net>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009165825.359259-5-mmyangfl@gmail.com> <179165246658.434549.13789649791572206324@kernel.org>
-In-Reply-To: <179165246658.434549.13789649791572206324@kernel.org>
-From: David Yang <mmyangfl@gmail.com>
-Date: Sun, 11 Oct 2026 01:59:23 +0800
-X-Gm-Features: AclHuK83CIhkKI0SXuptnmlX9MwXNcY8gSNZtizFBXcwCcTNrzVJ_Ce_8IafsTU
-Message-ID: <CAAXyoMPnoTvCiYanrYCrfY=u19+-7PQkQt-SbahuiV9RRwijMQ@mail.gmail.com>
-Subject: Re: [PATCH net-next v3 4/4] net: dsa: motorcomm: Add TC prio support
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com, 
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 11, 2026 at 1:14=E2=80=AFAM <netdev-bot+sashiko@kernel.org> wro=
-te:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 0
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [Medium] net: dsa: motorcomm: strict TC priority modulo check breaks
->   auto-allocation
+This series prevents input handlers from receiving buffered initialization
+events after device registration. On a ThinkPad T14 Gen 6, a later LED
+update flushed a stale SW_RFKILL_ALL event seeded by thinkpad_acpi.
+The fix drops the pending events and their timestamp before handlers
+attach, while retaining the seeded switch and absolute-axis state.
 
-Already explained in the comment. Also we already reject some rules
-with -EOPNOTSUPP, if returning -EOPNOTSUPP when skip_sw is not set is
-a problem, that should be fixed by another series.
+Patch 1 contains the six-line runtime fix. Patch 2 adds KUnit coverage for
+registration with and without event-buffer resizing. The test uses a
+virtual SW_DOCK device and performs no real radio operations.
+
+Tested on mainline 3857c2fe5449541e24afc5efdb0f81a8a8f9a3a0 (7.3.0-rc6):
+ - Tests alone on the unmodified input core: four pass, two fail.
+   The non-resizing case replays one stale switch event; both cases
+   retain the initialization timestamp.
+ - Patch 1 alone: all four existing input-core tests pass.
+ - Both patches: all six input-core tests pass.
+Both source commits were built and tested under UML without compiler
+warnings. The final files match the earlier failing/passing comparison.
+
+The same runtime fix was also tested with QEMU/KVM on Arch 7.2.7 and on
+the ThinkPad.
+
+AI assistance: OpenAI Codex assisted source analysis, the fix, regression
+tests and this text. The submitter performed the physical hardware
+comparisons.
+
+Karlos Abel (2):
+  Input: discard pre-registration events before attaching handlers
+  Input: test state seeding across device registration
+
+ drivers/input/input.c            |   6 ++
+ drivers/input/tests/input_test.c | 168 +++++++++++++++++++++++++++++++
+ 2 files changed, 174 insertions(+)
+
+
+base-commit: 3857c2fe5449541e24afc5efdb0f81a8a8f9a3a0
