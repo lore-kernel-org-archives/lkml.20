@@ -1,39 +1,43 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B629C2EEE67;
-	Sat, 10 Oct 2026 20:06:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791662813; cv=none; b=ZYUIwNyWwkaS3p25YzqAbrsNt1DDhL2fkWK+Xh1YGtH2Gku+rpXVIIhE6wBOvMVd4Fx7I/UOQETTomvUvcyBhvgKKKykZRN8xC1qzP7lvMzairYLnFQVsaw2OOA510sA3s3X3yob6bytxhvvkIr4cihQZUJOmsn8KX1P7E6uwXA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791662813; c=relaxed/simple;
-	bh=A9FBofGl37xJR8oq5OmosIEL/I/7sJ1nPNlbFn06omM=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB153D5C06
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 20:11:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791663101; cv=pass; b=jlkVyOnG83d3N3QgRDMOexJ9OETcd7WhLuBGbckJaSQfPN0pyiA2qeQCmGuH2a8LPUIEFYiSbdCwdgxxQ36Sh5z+5BLkkXP/34NVswPInSSBTwf2AAGXIX4B5lCeJXwCQ2/yB1DrIM4eOHSfHbtrNMNmZ37qI3zFwR9QnFeIQ5U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791663101; c=relaxed/simple;
+	bh=w5fRRU3aj3jyVk5q7XtQZcWg+4yHTcFHtXjisa0N+Xk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZFHwMDz35F0JoT6Pouw9bL6tFf5vlmmu/jaSC4fGvXmcS2Hdj40KHqzq+k7Zbuwl/dAd2QfgK4O0E7yyQSU2Dugn8YDz2Tx6RyWM3lJXWCM0QRn1suykLpzFEuqhD0rBRKapqRW4Sv6voWL9lOBe/PL90bxXZRIjMfYfSxolUbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=aa2kzHLT; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	 In-Reply-To:Content-Type; b=S9wI6BDJS3f5jSa7EUJkuEjEIOOk/CD5+vpag0nyCJbfbpy8aRppXSEiqJhJCe4KTQJbDG9e3UD9Ew9THagcCT6YbpcgsqTls7EKryJIla1eLkqkZHP0HLv260JQKzr+hW8Mcg1z6R41wsqMvwKFhpl67siReAtVl70MNrLgLZk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=S+JoghMs; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="aa2kzHLT"
-Received: from [IPV6:2003:100:7701:8b01::1815] (p2003010077018b010000000000001815.dip0.t-ipconnect.de [IPv6:2003:100:7701:8b01::1815])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 511775340CAD;
-	Sat, 10 Oct 2026 22:06:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1791662808;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=GB5ACTloRf11HyvbWvz+MY68dePD95J5caH0jBxNFcc=;
-	b=aa2kzHLTcftUxHlhoQFtvrAL+RM2wWuV3uAazwvQQgrzsEuusZSjZ1iW0CTvr5MsP7yclp
-	87Buh4DHQaAVPp2+s5KtOz5FIyc6e4k6KbfjGfhWhksM1sl0B1jbQrtNDrCYJ1v2S/Wdks
-	NfxHYDaB8y/Y7H6yr8RUbvwpvAXpwf8=
-Message-ID: <177c2c79-dcc5-4fad-8ffd-7ed3f4d3978c@ixit.cz>
-Date: Sat, 10 Oct 2026 22:06:47 +0200
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="S+JoghMs"
+ARC-Seal: i=1; a=rsa-sha256; t=1791663075; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=aqK4hrydh8m7R0nIlQ7V3e0KUCUZ3NHOTuKJ8DRts3KeYH1dOAmpL7v653rBKcaJ1xjK3YeBZRVWFB5rffnet4Q4qa4/1AVYkAwWyuqc594gEar84UQZ6XYCnMWRKGYQL4KR8e9YMeoiKCENknnlRPDM34Ikar1LdBdltc8lg8k=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791663075; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=fhpHISKN2ejdt1SYpWE67fgDiBtyNOwb9rbmi+vJp4M=; 
+	b=a9aj72gXAIALOxhiEY/K/B3dG/Jy/xSDnN6xAmmudEpBUgxlgE1tPhpBEOi+sGdCtWet/YF4YC2aahmdSlNF4v36nDqTuzFk9Hd0wOCPZSVfKlkth4iHnM3oC1e3JVtPAHU7+K0B5ElHDJWp7xXeO7U3OQOfqXCe1Jw7Q1iD/YA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791663075;
+	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=fhpHISKN2ejdt1SYpWE67fgDiBtyNOwb9rbmi+vJp4M=;
+	b=S+JoghMsC/PvKhW+b+nohiJEp2LDhQ6HM98POHR5tVPy9HTB6Ch9FJR0CkyHftAC
+	F+YYpzYKZ2WifQw0pTuR1va/s0/Ks0s2nYtUvr6hWpJh594BitJqZNkDIh5KAX58LGe
+	Q3WwNgCOp/GpCdBIfwDyk0WmkVbmSSxLq5RAsh9Y=
+Received: by smtp.zohomail.com with SMTPS id 1791663075057635.7254755559173;
+	Sat, 10 Oct 2026 13:11:15 -0700 (PDT)
+Message-ID: <d459ced7-99f0-46c1-961c-0f6815163596@collabora.com>
+Date: Sat, 10 Oct 2026 23:11:10 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,76 +45,72 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/7] leds: aw2013: use dev_err_probe
-To: Paul Sajna <sajattack@postmarketos.org>, Lee Jones <lee@kernel.org>,
- Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Nikita Travkin <nikitos.tr@gmail.com>,
- Alexey Min <alexeymin@minlexx.ru>
-Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht
-References: <20261005-aw2013-aw20xx-rename-v2-0-108ecbdf2775@postmarketos.org>
- <20261005-aw2013-aw20xx-rename-v2-4-108ecbdf2775@postmarketos.org>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20261005-aw2013-aw20xx-rename-v2-4-108ecbdf2775@postmarketos.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH RESEND] drm/virtio: expose GEM memory statistics through
+ fdinfo
+To: shechenglong <shechenglong@xfusion.com>, airlied@redhat.com,
+ kraxel@redhat.com, tzimmermann@suse.de
+Cc: gurchetansingh@chromium.org, olvaffe@gmail.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stone.xulei@xfusion.com,
+ chenjialong@xfusion.com
+References: <ce72b2f5-1343-44e9-89fe-e2de4efb7e9c@collabora.com>
+ <20261008164135.510-1-shechenglong@xfusion.com>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20261008164135.510-1-shechenglong@xfusion.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On 06/10/2026 05:46, Paul Sajna wrote:
-> Failure to use dev_err_probe() for regulator requests violates
-> LED subsystem guidelines.
+On 10/8/26 19:41, shechenglong wrote:
+> On Thu, 8 Oct 2026 00:44:34 +0300, Dmitry Osipenko wrote:
+>> Usefulness of this change is dubious. VirtIO-GPU has different types of
+>> RAM, I'd expect them all represented properly instead of only shmem.
 > 
-> The original driver didn't use it, but it's worth cleaning up
-> while I'm here.
+> Hi Dmitry,
 > 
-> Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
-> ---
->   drivers/leds/leds-aw2013.c | 28 +++++++++++++---------------
->   1 file changed, 13 insertions(+), 15 deletions(-)
+> Thanks for the review.
 > 
-Reviewed-by: David Heidelberg <david@ixit.cz>
+> Agreed that a generic memory collector does not map well onto
+> virtio-gpu, given its different memory types. For v2, I plan to
+> replace it with virtio-gpu-specific accounting and to document the
+> semantics of each reported value explicitly:
+> 
+> - Guest shmem objects: reported under the "memory" region as
+>   drm-total/drm-shared, based on the guest GEM object size. These
+>   reflect the requested buffer size; drm-resident, if reported, would
+>   be derived from the actual state of the guest backing pages.
+> 
+> - Host-only blobs (VIRTGPU_BLOB_MEM_HOST3D): reported under a separate
+>   region, tentatively "host3d", using the requested blob size. These
+>   values would be documented as logical sizes and not as actual host
+>   RAM or VRAM consumption.
+> 
+> - Mixed blobs (VIRTGPU_BLOB_MEM_HOST3D_GUEST): the guest shadow
+>   backing is accounted under "memory", while the logical blob size is
+>   exposed through a separate, documented supplementary key. This
+>   distinguishes mixed resources from guest-only ones without
+>   presenting the supplementary value as additional measured host
+>   memory.
+> 
+> - Imported dma-bufs: handled explicitly, without assuming that they
+>   are backed by local shmem.
+> 
+> Usage of the host-visible memory region would be reported separately
+> from the backing statistics and would not be used to infer host
+> residency.
+> 
+> The actual host allocation size and residency, including legacy virgl
+> resources and the host part of mixed blobs, are not available through
+> the existing guest/host interface. Reporting them would require
+> additional host/renderer support, so I propose leaving that out of
+> this series unless you consider it a prerequisite.
+> 
+> Does this scope match your expectations for v2? Are there other
+> memory types or accounting semantics you would like covered?
+Sounds okay
+
+-- 
+Best regards,
+Dmitry
