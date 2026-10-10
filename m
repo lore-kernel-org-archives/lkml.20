@@ -1,117 +1,154 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09DAD34DCC8
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 23:10:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 736DD37E5EF;
+	Sat, 10 Oct 2026 23:16:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791673828; cv=none; b=NeX60c3m8VANSdP/hTobIWthkgtSfU8uDheAKVkXA9uhNmxG+fPQKXpxxG7dy4+L+OQ88M3m6DM2PuEdaiIenhMjWl+kpk5jHBU1hP3/VS+bEu3ocIrulj48KyWJXqtLSrfGfRyTeWCvEn7rNBszqdbSGkQukJi/hxIR7eCJ39A=
+	t=1791674167; cv=none; b=iOr/ME1ykrSBB/4ExjJufXQmn8C6J4qyHaA+S2xcVPpuspiQrsfhLRx8k3NtOgGY9pYhVUqGFwSzz6rLNMw19A2F0S3HYUIEDPJaSQqRE7J6zFNQrNwnSv8NGUDCsQl4lILe6ujcm9YihYzcYQuDmvGwczj55KL6CW6wCgKuBUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791673828; c=relaxed/simple;
-	bh=S5Yk9i5Uw4O3a4L26F9Dhe+pD2vL/083DG/Xe5+4P3A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l+9bRPDtGcfAaXC9X037prCFvY7mJ6j9xlVBK8rJ8uBDZncc3jUVmpOGTHhMUD20s702mCEmccvUeqNV1WtbO9oivHWoSbWov1kFahD9B8MfPDPXItR3+YO18vjmJi7gNNXnOEsQf9hoL5oO6Ta4gSiSZNIHi0KS5GOLW1vHG2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nN9cYXrq; arc=none smtp.client-ip=209.85.214.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791674167; c=relaxed/simple;
+	bh=w+21xFJQ/auSUxWKJAFzZ73bGtjJB3Hqq2b25SLt1xU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=rKllTf9oX8gRwjP9ISVg1jYxFrf26EdhZtX8+wSECajC7w7bWNTX3kWY6a1W2Ahytex3qAXhooaAwbVL5J8zOUFVnMfCw1lWlZTCRYd8R+vja+iASuT70TEKuZdBNKrzQ1EgRshSDZ9hOn9InSJxGrpF4ObpRy9Wl3FSPfWtpCY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gb6a2EGz; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nN9cYXrq"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2db80fcdf8bso4333305ad.2
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 16:10:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791673826; x=1792278626; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vI2kBkECW5iZmYYSZT60CeuUy8PSWpfrPWMFdyyehWA=;
-        b=nN9cYXrq255tD9Aahm9RsHi+tbECrjSHxGqeYvjxXWO9iw45YcAYIMNBR1pzA/YLqm
-         WbX0JBDza97y+Cpo+ZLtYxAtcyaV/SZ7l8l1Afylg2SVCtaP1OV5wtBkRAT4q1LMN2dU
-         3w27CFVNO2PlB22zUTElTl3vMyhlLfAjL723UtCFFDsF7x5Dw5N4HoGO2ViIIFIBRdQ7
-         lgRB0KvVoLGFwFm8lrKpaEZ+5GiGiqn6K9xSAbci604OFbHIGW8u6XqdfMln6I1ESv2w
-         jcbTANXVtsevDQGPOTmU9nge62XFlXEZ7wKt+mNQ3eocE9BetstvzwbA9QDLBBcxeI3a
-         hdgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791673826; x=1792278626;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vI2kBkECW5iZmYYSZT60CeuUy8PSWpfrPWMFdyyehWA=;
-        b=qY+uwQl6DfH2hNh6Jz6Vquxf1JBFD6R9cx0o8AtpwqCPLiHy30K5HICnOM1NJQfIr5
-         S+v97NGerm4xN7ynpNyIBNmlVnkssgrAvOziAj9Sdr03rBxpmFghmqDRsbYfb14UeTZ8
-         dH8pJ7c5VztM6x/SPFsjCqTKdIUCrHS8KH4hvhsf7YqDZxIs1Vaw+kF5IXAQkgoaBlF6
-         qbUHezO4KXRtT0/nMBJ1P5U0idDnzcSRtr1I3oOgO8V0QKJTMj5XnYubKKW91W+uvbQU
-         1XEKlTS3LE3koXs1j5Qprh0snJJNtrxjMLksg2jk2h2fzUWrh7tZplmwfcTpikIGb0Oc
-         hBQg==
-X-Forwarded-Encrypted: i=1; AKwUvBzOnoFAh/Yc8lNj26lZqFWstAkgUhubusxgnszBcHlIsBFQ9+uUQUpkpHHkc7N7rLAY0mnpLBVwkxOv8hA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJOpqot3NdjgvU6Mb5uTfYmWmpWkMJsUucJj2y6kVtqlzaqN0GE
-	+pV0yEgQ4xJL3CsK7+71drtR6ZOhexzPeAWBH+GMGkMWDa70mtR6krOe
-X-Gm-Gg: AYBFou2WQZMeDUpxe2cA5/l0NjH2LMmNwltwmXRUCUFhXW7Jlu5h2RFZ/rSWK6cN91/
-	T1eD/oThifmyghEFL2MsOQJg2cCW0YiowX0AQgG3aWBbtB48H0PtN54uklCpdQREAdLS+r3t9NN
-	QeF9RBqDVENmmOtQbfU0RwD7kJ5j34PZvJt3A6wDBnPkQY/KSSVEM+XYjZgRmZe5z8nB7tXlQLN
-	UZAmxGP5/YgK8mGQTYunumJvIM0+FZ/w55BmrXC2bO61AqWhp3PeaNFglitAw/FyO60Y+YXPg8N
-	WyhV82KxzzyIhKa9cRA6gSY+IO+/5X4nkQAWkvKg6qpCbH3e8dTwigyZwl/JhUL/61W2Uu0RedT
-	RDVkiIBvmq4AUpOJS8hpXknQf0Qt0vBJnU5b2yhCk+KOSW8N8Kdj/IiaQt/RnTiIXRoEi7TrSLt
-	Y7uPQTr0oiEy/tMBHxS9K/F171adnv/Wj6s1Y2Y6A/oiWwhyrByKxSDV4oLSTMTjJ0ytE4JZlvj
-	d6HjpHZzz2phTbxnoDb7V2Ugas=
-X-Received: by 2002:a17:902:ce84:b0:2e6:5ef:abe9 with SMTP id d9443c01a7336-2e8429addfcmr42328485ad.37.1791673826108;
-        Sat, 10 Oct 2026 16:10:26 -0700 (PDT)
-Received: from d.home.yangfl.dn42 ([2a09:bac5:661c:1246::1d2:d1])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422e14f6sm26813065ad.69.2026.10.10.16.10.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 16:10:25 -0700 (PDT)
-From: David Yang <mmyangfl@gmail.com>
-To: netdev@vger.kernel.org
-Cc: David Yang <mmyangfl@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next] net: dsa: motorcomm: Do not do the redundant MIB clear
-Date: Sun, 11 Oct 2026 07:10:12 +0800
-Message-ID: <20261010231015.2600207-1-mmyangfl@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gb6a2EGz"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D7FBBC2BCB9;
+	Sat, 10 Oct 2026 23:16:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791674166;
+	bh=w+21xFJQ/auSUxWKJAFzZ73bGtjJB3Hqq2b25SLt1xU=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=Gb6a2EGzPvWPJTNbupVUh/7clEZFYo+2hnYBRI7mbZMRNeA+LORNItE/vjUNxP5dv
+	 ErdY+tU+se8UqfqhzRk+8kEihh6/FX6iN05vQ3pCYZYD1I8HeorB7A8m2eo/bddJ7a
+	 HQ3Ax4ISEH+l4NQ6X8ZTN6Zr/VUj6h+zu287iT/nicrUIO127N7AS9t7nSV1sbi+CE
+	 1Zy5Z2qRw3/KqY9yulwNYLYduIV8U4knJ2QFeAWXiP3ClFf6f7xOIhC4aZ8baRlMMQ
+	 r5163SmNRaSuGDx1XVOxLyaIzRLqoc42hh3cKshuDNEAShKcxygQKW52L64dn5eRf9
+	 vhoD9ofOxHRXg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AF3E6CA9ECC;
+	Sat, 10 Oct 2026 23:16:06 +0000 (UTC)
+From: Joe Finzel via B4 Relay <devnull+joe.sudmix.de@kernel.org>
+Date: Sun, 11 Oct 2026 01:15:38 +0200
+Subject: [PATCH] usb: core: sysfs: show product, manufacturer and serial
+ without the device lock
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261011-usb-string-attrs-v1-1-81c01b035237@sudmix.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDA0ND3dLiJN3ikqLMvHTdxJKSomJdc5PEpORkiyQDQ0tTJaC2gqLUtMw
+ KsJHRsbW1AK/2+spiAAAA
+X-Change-ID: 20261011-usb-string-attrs-74abcc8b0195
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Joe Finzel <joe@sudmix.de>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791674165; l=3659;
+ i=joe@sudmix.de; s=default; h=from:subject:message-id;
+ bh=LEiZ3lipNkBDeej5oGGzhDg0xp3CXis9f9pyWGU3Azk=;
+ b=xDiGdSpez3KbgFv5iw8xei9b210OS1Ui8sJ+qEH4Ndtx1luVcc6L1Y6eoOvYc7FZNwniLGEQ5
+ tF/WltXOTGTBedUBqezxHfs0AyMa54/6ylVnyBtlaG6jCI8BAzewX+z
+X-Developer-Key: i=joe@sudmix.de; a=ed25519;
+ pk=vaX11uVm57me/1N8otNmzMMnsE+f0U3/Hi9TCPbnvZM=
+X-Endpoint-Received: by B4 Relay for joe@sudmix.de/default with
+ auth_id=1151
+X-Original-From: Joe Finzel <joe@sudmix.de>
+Reply-To: joe@sudmix.de
 
-The MIB clear in yt921x_chip_setup() is redundant: it runs right after
-hard reset of the hardware, which already zeroes MIB counters.
+From: Joe Finzel <joe@sudmix.de>
 
-It did not execute the right procedure either: ALL_PORT must be lifted
-from latched value before CLEAN is fired. It works only because the
-reset lifts the MIB control register (and counters altogether).
+Reading the product, manufacturer or serial attribute of a USB device
+takes the device lock. A hub holds its lock in hub_event() while it
+enumerates all of its ports, including the debounce and reset delays of
+every child, so a reader of the hub's strings waits until the last port
+is done -- seconds on a hub with several devices.
 
-Nor should we take care of it elsewhere: .port_setup() should not clear
-it, and .setup() runs at most once per registration, so per-port state
-is always freshly allocated by .port_setup().
+udev reads these strings for every USB device (the usb_id builtin, run
+from 50-udev-default.rules). Its worker blocks SIGTERM, so when systemd
+stops udevd in the initrd before switching root, it waits for that
+worker. On a desktop with a few hubs this delays every boot:
 
-Signed-off-by: David Yang <mmyangfl@gmail.com>
+  i7-13700K, ASUS ROG STRIX Z790-F, four hubs with HID devices behind
+  them: udevd took 1.7 s to stop, while the hubs were still enumerating.
+
+  QEMU, qemu-xhci with 8 usb-hubs of 8 HID devices each, second boot,
+  three runs: udevd stops in 2.55-2.58 s (switch-root at 5.56-5.59 s);
+  with this patch in 11-12 ms (switch-root at 3.02 s). Without usb_id in
+  the udev rules, it stops in 9 ms as well.
+
+  -device qemu-xhci,id=xhci,p2=8,p3=8
+  -device usb-hub,bus=xhci.0,port=N       (N = 1..8)
+  -device usb-kbd,bus=xhci.0,port=N.M   (M = 1..8; also mouse, tablet)
+
+The lock is not needed: usb_enumerate_device() sets the strings once,
+before device_add() makes the attributes visible, and usb_release_dev()
+frees them only after the attributes are gone. Nothing changes them in
+between: authorizing or deauthorizing a device no longer touches them
+since Wireless USB, for which they could appear and disappear, was
+removed. dev_string_attrs_are_visible() already reads them unlocked.
+
+Andy Whitcroft reported the same boot stall in 2010 ("khubd -- switch
+USB product/manufacturer/serial handling to RCU"); back then the strings
+could still change under Wireless USB.
+
+Signed-off-by: Joe Finzel <joe@sudmix.de>
 ---
- drivers/net/dsa/motorcomm/chip.c | 6 ------
- 1 file changed, 6 deletions(-)
+Found while looking into a 1.7 s stall at the end of the initrd on a
+desktop with several USB hubs; reproducible in QEMU (see the commit
+message). Tested on 7.2.9 with the QEMU reproduction; applies to
+usb-next.
+---
+ drivers/usb/core/sysfs.c | 19 +++++++++----------
+ 1 file changed, 9 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-index 980d066a4bea..43e8af90ffc9 100644
---- a/drivers/net/dsa/motorcomm/chip.c
-+++ b/drivers/net/dsa/motorcomm/chip.c
-@@ -3996,12 +3996,6 @@ static int yt921x_chip_setup(struct yt921x_priv *priv)
- 		return res;
+diff --git a/drivers/usb/core/sysfs.c b/drivers/usb/core/sysfs.c
+index d22dc7845..52e0a227c 100644
+--- a/drivers/usb/core/sysfs.c
++++ b/drivers/usb/core/sysfs.c
+@@ -120,21 +120,20 @@ static ssize_t devspec_show(struct device *dev, struct device_attribute *attr,
+ static DEVICE_ATTR_RO(devspec);
  #endif
  
--	/* Clear MIB */
--	ctrl = YT921X_MIB_CTRL_CLEAN | YT921X_MIB_CTRL_ALL_PORT;
--	res = yt921x_reg_write(priv, YT921X_MIB_CTRL, ctrl);
--	if (res)
--		return res;
--
- 	/* Miscellaneous */
- 	res = yt921x_reg_set_bits(priv, YT921X_SENSOR, YT921X_SENSOR_TEMP);
- 	if (res)
+-/* String fields */
++/*
++ * String fields. usb_enumerate_device() reads them once, before the device
++ * is added, and they are freed only when it is released, so showing them
++ * needs no lock -- dev_string_attrs_are_visible() reads them unlocked, too.
++ * The device lock would make readers wait while a hub holds it to enumerate
++ * all of its ports.
++ */
+ #define usb_string_attr(name)						\
+ static ssize_t  name##_show(struct device *dev,				\
+ 		struct device_attribute *attr, char *buf)		\
+ {									\
+-	struct usb_device *udev;					\
+-	int retval;							\
++	struct usb_device *udev = to_usb_device(dev);			\
+ 									\
+-	udev = to_usb_device(dev);					\
+-	retval = usb_lock_device_interruptible(udev);			\
+-	if (retval < 0)							\
+-		return -EINTR;						\
+-	retval = sysfs_emit(buf, "%s\n", udev->name);			\
+-	usb_unlock_device(udev);					\
+-	return retval;							\
++	return sysfs_emit(buf, "%s\n", udev->name);			\
+ }									\
+ static DEVICE_ATTR_RO(name)
+ 
+
+---
+base-commit: 42bcac323cc3b16566fed8c5b250318ad02a0de0
+change-id: 20261011-usb-string-attrs-74abcc8b0195
+
+Best regards,
 -- 
-2.53.0
+Joe Finzel <joe@sudmix.de>
+
 
