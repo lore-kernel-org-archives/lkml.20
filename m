@@ -1,106 +1,100 @@
-Received: from mta0.migadu.com (out-123.mta0.migadu.com [91.218.175.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from jpms-ob01-os7.noc.sony.co.jp (jpms-ob01-os7.noc.sony.co.jp [211.125.139.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EC9D43DEBE
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 09:42:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B426C2F12DA
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 09:43:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.125.139.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791625362; cv=none; b=syQok7s4wUlX+ThDvC17uh6bq9EqOS3BpOzy6AmOvG587ORx/2nOwnxhxBgIE99q4ZLTx72JQavOR1h3Qu/O2Ca5ODpa1pL0Gx+xbYLeIG+OZYNVkQybpDW65zWjN1x1etPQTlYu4w74hFtqQ6nxWfOXbyVVhI6cLC1mFacpMK8=
+	t=1791625413; cv=none; b=RPqxdVkB8hi4eBBOqeRY93PU6Noc4SZrgmD6GNAewqxvwyeVUwrtD0RlFe+kBJUdxnBt8Af/Um1HzYoETppmu/2/O07kqIv82w5qVh6pyhE/ss+0TO3erOPL/zo9h4lo3yjvXcbGVqyWpJ2ip37aVXjSGeJXWJaNWjxGNMKpT+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791625362; c=relaxed/simple;
-	bh=AYKq4I4pt+XRaSTHkcogaEaoukmbVRkhJcniZ//zAgg=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=UVMs5/8gbZCTbQW+qJjWcJpUtfqbPWfr+zj4DNB2yk/8rSSdJwA/X0ASCJkWtmFuG9Sbm8USa+ew/x+UjIBegTCJy5AjH/slcLEhW5ccSYb+vzcN4UtR5C4wO0crvjJUrJ+zFxduJOq8MsvS0u+RcTZnPdu0O5xfRKv5rnwUKvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=GkHp9HYw; arc=none smtp.client-ip=91.218.175.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791625413; c=relaxed/simple;
+	bh=hMxHzYundgXCd4bUxx+rHFYt2+zPl7lY2u3LsSYrnO4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pq0OcHL21onMl8fvB7u75WoQT1L9PXxj1RmK4vWbDDC6GrLnhQVlWCY1M1ZB22VZ7qhiEFSWkuthPbOYz4QZSzhoSGpGapXxlasAtwqurqgqjXLwReh6J9vB0IF9xXbZJ4lOhvMNG+TX5VwnDeaCd3kg4wGmwLdHwzaik3pxAOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com; spf=fail smtp.mailfrom=sony.com; dkim=pass (2048-bit key) header.d=sony.com header.i=@sony.com header.b=SnX/ajqx; arc=none smtp.client-ip=211.125.139.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=sony.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="GkHp9HYw"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=AYKq4I4pt+XRaSTHkcogaEaoukmbVRkhJcniZ//zAgg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791625355; v=1; x=1792230155;
- b=GkHp9HYwYhlAfeZazSdWeQJrN0BWOreotNM+3ynVXJ6yGnjdQ2Yu157g2bWLcwgamVXkbA93
- qVTxIRGoZu3xUgv3nCKemIeKJWgUI7gLXasWnweZklqS1PpbQmM0g6iIdshtoRXyUsOG3ecPmHy
- UyKbqa5ut/uLpAJg0pbhzZew=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 57f0757703d8e229;
-	Sat, 10 Oct 2026 09:42:34 +0000
-X-Mizu-Trace-ID: 57f0757703d8e229
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=sony.com header.i=@sony.com header.b="SnX/ajqx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=sony.com; s=s1jp; t=1791625411; x=1823161411;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=gY84DdlCXXCCtPKxy3gsbbnHG9YkyEpV7xHj0YNGUXc=;
+  b=SnX/ajqxCvI7Kyuk53Ub4hNkiuKKk9Ln/zlMmu/+Rbq1NQ8hrI56tKBr
+   at8eieTKs5xfRckyOL45H/w4yVneKpGza3v81abKZsL+usKnakzLSQeby
+   8oGIzsaYgiX+oFHa/hAqqVzVoJoXbIDA5w65NJjCGroPak9ccJEeH9RpZ
+   EqlwxOxu+wJG7pslniNMBvEvtVSUZWGmY/ev/Of7gTtq+rG7pplg0kHcM
+   zsFiMWqqRoAIeUF0lgFixea9VaB2n56t2wxhb4vnS0jiJEC3eUu1MEuC9
+   Ts92HfnUBYT+Uk6ZfhGdlmCux4dmUlgTxKsGDa/Qbe3+usDhs4X0kscX6
+   Q==;
+X-CSE-ConnectionGUID: KliJkNBBRwKOv6DQXzNnpQ==
+X-CSE-MsgGUID: fEJzalppSQ+dm3QJUMhWbw==
+Received: from unknown (HELO jpmta-ob01-os7.noc.sony.co.jp) ([IPv6:2001:cf8:acf:1104::6])
+  by jpms-ob01-os7.noc.sony.co.jp with ESMTP/TLS/TLS_AES_256_GCM_SHA384; 10 Oct 2026 18:43:23 +0900
+X-CSE-ConnectionGUID: 5cs7UJUuTeKVEjejzsyScQ==
+X-CSE-MsgGUID: 4VAO1LyrTgqIoadtMI4Fyw==
+X-IronPort-AV: E=Sophos;i="6.27,150,1786978800"; 
+   d="scan'208";a="71590581"
+Received: from unknown (HELO cscsh-5109200313.ap.sony.com) ([43.82.111.223])
+  by jpmta-ob01-os7.noc.sony.co.jp with ESMTP; 10 Oct 2026 18:43:22 +0900
+From: Friendy Su <friendy.su@sony.com>
+To: xiang@kernel.org,
+	chao@kernel.org
+Cc: linux-erofs@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	Friendy Su <friendy.su@sony.com>,
+	Yuezhang Mo <Yuezhang.Mo@sony.com>,
+	Daniel Palmer <daniel.palmer@sony.com>
+Subject: [PATCH v1] erofs: enable SB_I_ALLOW_HSM to support fanotify pre access event
+Date: Sat, 10 Oct 2026 17:40:00 +0800
+Message-Id: <20261010094000.2036805-1-friendy.su@sony.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH 0/4] mm: Fix page-table teardown during memory hot-remove
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <b62aa96d-6c83-476c-bc28-7c2057702063@intel.com>
-Date: Sat, 10 Oct 2026 17:42:18 +0800
-Cc: Muchun Song <songmuchun@bytedance.com>,
- akpm@linux-foundation.org,
- linux-mm@kvack.org,
- stable@vger.kernel.org,
- david@kernel.org,
- osalvador@suse.de,
- dave.hansen@linux.intel.com,
- luto@kernel.org,
- peterz@infradead.org,
- tglx@kernel.org,
- mingo@redhat.com,
- bp@alien8.de,
- x86@kernel.org,
- hpa@zytor.com,
- catalin.marinas@arm.com,
- will@kernel.org,
- mark.rutland@arm.com,
- linux-arm-kernel@lists.infradead.org,
- pjw@kernel.org,
- palmer@dabbelt.com,
- aou@eecs.berkeley.edu,
- alex@ghiti.fr,
- linux-riscv@lists.infradead.org,
- agordeev@linux.ibm.com,
- kevin.brodsky@arm.com,
- bjorn@rivosinc.com,
- apopple@nvidia.com,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: 7bit
-Message-Id: <D9A15D57-0640-45AC-B404-13982B4A20B1@linux.dev>
-References: <20261008073021.2512665-1-songmuchun@bytedance.com>
- <b62aa96d-6c83-476c-bc28-7c2057702063@intel.com>
-To: Dave Hansen <dave.hansen@intel.com>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+This patch makes erofs support a use case below:
 
+erofs file data are not available at local, but need be
+filled at fanotify pre access event handler.
 
-> On Oct 10, 2026, at 04:48, Dave Hansen <dave.hansen@intel.com> wrote:
-> 
-> On 10/8/26 00:30, Muchun Song wrote:
->> This series is limited to bug fixes for the existing teardown paths.
-> 
-> Why is this a series? Why not send the architectures independently? Is
-> there some dependency where they all need to be applied at once? What do
-> you want done with this series? Are you expecting it to be merged via
-> the mm path or the individual arch maintainers?
+E.g. when format erofs to blob mode, meta data image
+is store locally, blob image size is big so it is stored remotely.
+At erofs mount, a loop device based on a sparse image file is
+used as blob device. The sparse image file size is equal to blob
+image size. Like:
 
-You're right that there is no strict dependency across all three
-architectures in v1.
+$ sudo mount -o device=/dev/loop1 /dev/sdb1 /mnt/erofs/
 
-I grouped them because they address the same page-table
-constructor/destructor imbalance exposed during memory hot-remove, but
-that alone does not require them to be applied as one series.
+Then at file access, need retrieve data from remote, then fill
+into sparse image at FAN_PRE_ACCESS event handler.
 
-For v2, I will move the common destructor handling into
-pagetable_free() as suggested by David. The RISC-V and arm64 fixes will
-then depend on that common MM change, so I plan to keep them in one
-series and have it go through the MM tree, with review or acks from
-the relevant architecture maintainers.
+Signed-off-by: Friendy Su <friendy.su@sony.com>
+Reviewed-by: Yuezhang Mo <Yuezhang.Mo@sony.com>
+Reviewed-by: Daniel Palmer <daniel.palmer@sony.com>
+---
+ fs/erofs/super.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Thanks,
-Muchun
+diff --git a/fs/erofs/super.c b/fs/erofs/super.c
+index 0967aace9f7f..b92d3353319d 100644
+--- a/fs/erofs/super.c
++++ b/fs/erofs/super.c
+@@ -659,6 +659,10 @@ static int erofs_fc_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	sb->s_maxbytes = MAX_LFS_FILESIZE;
+ 	sb->s_op = &erofs_sops;
+ 
++	/*
++	 * Allow HSM to support fanotify pre access event
++	 */
++	sb->s_iflags |= SB_I_ALLOW_HSM;
+ 	if (!sbi->domain_id && test_opt(&sbi->opt, INODE_SHARE)) {
+ 		errorfc(fc, "domain_id is needed when inode_share is on");
+ 		return -EINVAL;
+-- 
+2.34.1
 
