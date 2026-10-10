@@ -1,173 +1,147 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012017.outbound.protection.outlook.com [40.107.200.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E59222701B8
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 07:37:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791617881; cv=fail; b=l73MoVS0Luurv/NRDgxbyN4s+UDDq2vUQ8iKzZIgAO/0MS8m3oGz4R2sAHMXic8e7GW3trtcfdQhj7rUGfWSgUALGZy3zFqy2taAUfj3LM3PLnD0evH8bMdJZ5pI2ikXciaJscySFkLckC0OSouAojk0lCb5kFJ+Dws3cb8s3Ww=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791617881; c=relaxed/simple;
-	bh=MXTqi6uYQ45ybZ9zcZIRTTf0PLGGuxWpHvuC4a48nXw=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=JhyN7IgU5nFBN6u5MDMV0/I1FXeEsvuA1M8bbgASuy2i+Nm+E6toTa/fvqWYdRzS5BTWu9jsQ0li/Ir+XYFcBmJiZ+NFiqCDYY2dFdAKmiLGkHpMSftctSD61r3bO5+tPZBIXm5HDN5hjFMbH7jv5zPmj+MQqlw4YFfxdfZ1zaQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=FUHKkRHZ; arc=fail smtp.client-ip=40.107.200.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 798AF3630B0
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 07:38:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791617907; cv=none; b=ZalrEfTNS/ECmWrKUaWKb19IxyXm6WwfB9Z4Q7iBCxefg5odLvl0gWc59jv/kfRPEKCvKUa4L0ZNs7PYE4N+W1E7DuwrcV/0TcW/ihn/cB+xv3ue+kdhjHXd+U2rbYBjEJbT2elRx0LIK9RQNo+pjR+3XY0iyZFpcKc0oWCSvXc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791617907; c=relaxed/simple;
+	bh=HrNtqZGMJwHAHK27VJ1CwFKK7rixvgcxmfh56RdnLq0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H06WqjaPIj683WsybfAAC1Us5BUMAsG4TeK7J7nbdiPe+Lj1HkcE0ohksGjBQjzTqMOOnZemZU0jhEkdmmR8Xh14gtw9iFTkT4nANNRtPrEzt1dIpuqjbm2rWl1gBZKBNHauR+0EwEpSRXkYJyLKHWDuuI3MlOft3KydRc18H8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=bHD5hBIm; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="FUHKkRHZ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DqMaqZ2Tc80XlZE4BLZOeAi4zRzE3ZCZYiQNBECJ85TNU51/w0681SnQHgO3Qr63wOFoapj+x1KJLbGTN6wIWK2nNR84kz5WS/fAa3gK77ZotUPqfmflHMwZpoDCQTM1TmM8uIws6NJwHd0zzCBWvlxa5oTWmw0x6HWCkYmRbC9Q+Nc6GHoxdRunBfOx6dZhgTQwtew21jyjSGTxnFnUeJbZ5CuCLj7ukWEC+DZZ+X0fDETvZvJA90it1IMdu6X4m+FRC3WzPAVCdmfs9U3xmFqlrPiBeJbljBjUheAAnLMGnC0KrmSOsb0bdzjEl9KFeK+Q0ajZMPRE4wXSNEOUIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JzF8fiJs15TupAMOGtcF/tbDJnFRYi5WcSd2OPbn9Ww=;
- b=uzJkjETnpINA4GTva5U7eaZAJwxxDJbm5TGMl2yXqzhK1Vtdx7r8l995ZDWmDgc7WJV0c5tsonwJAZeZt8yaexJUxdiUB4S1ZQO46LnzntP66yAxxyR7S2uQx5T/vN6pNGZ7hhGpfWEYnjlHXx8dWcdp5Ay1xNw+65iuCAb6otT9vRFN/12nqXfZSXaDipgWwFXuQSumsQRZhUK6F9QnzWTnJM0CHfZOVq1OFV+57xgDeoaPX1RL8f9rxY+GWKuAo6zFdPc1k97NkvHxfemlVSHCIyfS08TqPTjOMV0ZYHXLc9Cmxo7dojRev7kyINYngA9R2/Il2NtXtUKXtJwR7g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JzF8fiJs15TupAMOGtcF/tbDJnFRYi5WcSd2OPbn9Ww=;
- b=FUHKkRHZatuFQl935GrVMfq3aw5DC+FXVYIUyqE7LupS/9PnSehpKopObI6r82GjdsMbEhKalgsWNw5c41RWQ1HPMYe76YqEVXJrHOdiJCt2hZuvegL5YLPeOQiGeAdg5i9x1FhaxdHeeNiZGbOWlPzG4PIOEhuazmuw3h4+J/w=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
- by DM6PR12MB4042.namprd12.prod.outlook.com (2603:10b6:5:215::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Sat, 10 Oct
- 2026 07:37:57 +0000
-Received: from CY8PR12MB7170.namprd12.prod.outlook.com
- ([fe80::7565:bdd3:383a:de5f]) by CY8PR12MB7170.namprd12.prod.outlook.com
- ([fe80::7565:bdd3:383a:de5f%3]) with mapi id 15.21.0496.010; Sat, 10 Oct 2026
- 07:37:57 +0000
-Message-ID: <7c32c182-5b49-4dc0-9c97-a4238743f28c@amd.com>
-Date: Sat, 10 Oct 2026 15:37:45 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v9 3/4] drm/virtio: implement userptr resource support
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org, odaki@rsg.ci.i.u-tokyo.ac.jp,
- airlied@redhat.com, kraxel@redhat.com
-References: <20260924095556.1326164-1-honghuan@amd.com>
- <20260924095556.1326164-4-honghuan@amd.com>
- <dfa2f117-1094-40b9-9445-ab2bbf62ff2e@collabora.com>
-Content-Language: en-US
-From: "Huang, Honglei" <honghuan@amd.com>
-In-Reply-To: <dfa2f117-1094-40b9-9445-ab2bbf62ff2e@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: TPYP295CA0046.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:7d0:8::17) To CY8PR12MB7170.namprd12.prod.outlook.com
- (2603:10b6:930:5a::18)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="bHD5hBIm"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49ff639372eso494405e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 00:38:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1791617904; x=1792222704; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=icy62ZS1ngYq12CKSGVk1ttF9vUahbM+7mKp/fS2KJ4=;
+        b=bHD5hBImVVhZEhqtmBKcPA1tKv+cNoxpOcd0wUig2U/TE/YJKAXrkX3U9PmWLqKE5N
+         S2yxRra48zEfkzLhRhDnG8fZhxjKca18cAyvFVOMfGhKnpsS1adsI3g+NxFSaK4ZeAz5
+         sGOhzfOfov7nfxlrk9MMT9gai9iIE/ylXLBzumL9EOsP5NuJMnSEzzw4K33o2QODjWwo
+         sAu1hazhhWP1wDMoXmjQJu8C8GGNN6YNZiwFpcyJ6lTnhMUNlsLmIgpfCJxVUvVG0vEx
+         Da3Y6Wo7OXNyMYL7aE5O9dr3ouckfNeOmkRzqXTxXReUJntg0ax7s3noasYlnxH5aQfV
+         iDdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791617904; x=1792222704;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=icy62ZS1ngYq12CKSGVk1ttF9vUahbM+7mKp/fS2KJ4=;
+        b=lkGR9X4vKMvjfTwKcON2CrPuxIb4CuDzbvDEL7Hd0c3adv8mG9sDu0gJ6pAW+RFF0I
+         sbZBmi1TePz31mTYpCmdbCLvTFgd/BAPiXnvJH9s0KTSy0A8UsWOC2Npl8VnYX1cZdLO
+         3d/Bc966SwTxcJfQeWorj4CCq0+mJ6Nt/q9yK59SrgJaWjcpn45EOEsAPwPWHC5rUIbZ
+         l+fLOPRm7te8tXzMvwG1xbDpHyIcLVv0AwOcWCp5T1HYa6eEYQ4CRGA/VYugZeWW3dFi
+         +QnI5ujneofSONmYlAhoHIV0dQK9SVP30mPIyv79cWY3RgZNjLcrQLY9GCB0VLt9aOat
+         Qu2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxEhMzfiQdwkbTQAYFBGJ/HSKCUrIna7X/u9YqeZglkw/xxXJ/yjM+xm2O0XxxYKMvsZWOoZfMIoHCza0Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL7za5REoT+92nvP/8yDfks8kmCADfd3iAvvXMu8YqEAb/nimJD
+	jtHjjAJg2OIJS5kwjm/uHYJrKVQCquDGRPcrH5FKDhRPwloeCxuRpMm2csjrhNphuKk=
+X-Gm-Gg: AYBFou2/52v/di7c1qt7bU1AJNTRhuWMWiToxfqWIu8ZScZhZY42to6gOKQ2Gi68VTk
+	kH0OJqSRjmZYe36oG4o4PC9/rh1Fwk0ZcMP1F7++K03xxzuRqPCCI0kTK/ztn111+QqkdQm9okX
+	mveL5sjOWYDJX7qNLKG3fTeT5LJJkg+UISjtpeDX12sWZuNvJoxcGh86ibErFBysPFYHs8h01kt
+	QWMZf4mpPLvF1onu4s3UzNHqhEuCeRphRZM/YlHeB5ahVU9J/hNVQTrpG4d0naDpYLygWN5vJjT
+	jePPJijFE0AK7nP8iekumBLMBPkBhiadtWF0pKK1qa6YE5L7kQ7OGwM7WRfgv8ymaUVEezbfG2f
+	RIqT5H7bayvAaNtxUw7KjMX4T4kJGdQgkABidgHpVBnLWkfqXV9fHGLVCD7kwKCAlizIDkg0HQR
+	Nenl91gqvnFH3whqRitsnAAHabJLjHMdWJk+P158IsBrKhxNVdHfgROD/17GLh8Uip1w/6ISal6
+	BVVRYQ=
+X-Received: by 2002:a05:600c:1e0f:b0:4a1:8469:e6c8 with SMTP id 5b1f17b1804b1-4a18e46f48fmr76946365e9.1.1791617904172;
+        Sat, 10 Oct 2026 00:38:24 -0700 (PDT)
+Received: from localhost ([202.127.77.110])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab50ce9d98sm5322288a91.9.2026.10.10.00.38.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 00:38:22 -0700 (PDT)
+Date: Sat, 10 Oct 2026 15:38:18 +0800
+From: Heming Zhao <heming.zhao@suse.com>
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: mark@fasheh.com, jlbec@evilplan.org, joseph.qi@linux.alibaba.com, 
+	akpm@linux-foundation.org, ghe@suse.com, ocfs2-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+Subject: Re: [PATCH] ocfs2: Publish the filecheck owner before adding sysfs
+ attributes
+Message-ID: <asnqJTe50D-EuhTb@p15>
+References: <pm-ocfs2-objects-candidate-0086-v2-646731c4254a02823b4d@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR12MB7170:EE_|DM6PR12MB4042:EE_
-X-MS-Office365-Filtering-Correlation-Id: 94fb2e2e-a6c0-439e-f8c4-08df26a16704
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|10067099003|18002099003|22082099003|261009223027099003|261009221227099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	VCkjNf7FX9SQEtD0aYurkhupZ/vO/F4PoOrTtvzpHwB33kTGnFRCzPMga0M76vCvf8gK/SP33TroVjyHFWjdTYjntKEzWDJxQbAMDeX7l7O9URkzjXs18bm9XseviFmqleiKiADEmXIstjKzeGgLf9UCPQWtF5BLGBN/Gi2pVZA489wJFIMnx0NEWweZUpBMHcKkRWH8gIyqD71MtkMhOfPcf6IZw6ckw7mVFJYUo8rERx2kX7mtsMgq1HgBU05lA99RNDkGUZYJit5eqvv99kcaRY55UbhpITTPZVnYDYNIsabOQqWKbhxO4lZ/OVQvllJ5RIR//TKrWfFluDjySBr9Z+zJA8khwy2eHmD2d3mVd0eVx9PQ5hOxcF6U8YI+yr/hxxeH8XOwXiMbnqIIN8rocgW+9ua3Wg/kTc8OVRRMW5Rs/qcArLphHyTtZaXL3VVRrAATcFvfoZ6hPLhrsJ+ByhES4+lyZTe5ycqI/lrPouVzkQT2gHPTIFanIs5GNqyTHtf7uenqB1WgMOzYJ4/o3NEfa5dexGensJjFGzHqsZiBKN3WcIr7ZUtqhC8Mj4VykQEzMvrUPG/ah8J8RHzGkvkIAet+SqhrJvkGWqJtI0ZFQ7nnKgJsA9Trw3uNgdMiDyqhYCo7b51lLWVauxQ2ycW6e6r1dfQssSoaJvM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7170.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(10067099003)(18002099003)(22082099003)(261009223027099003)(261009221227099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dWNYRjhXV3ZWWXZ6TmQ2UlpacFlERUtFNlBsZjBoWi8vc2pZQlNYTTY1WFli?=
- =?utf-8?B?bGZoNlBHR2N3bEVBQW41VUlSTjVlWEYzMHVyYmxPY0w2WllXOGpCWmpweDFR?=
- =?utf-8?B?REtLdTE0cVZkaUNyVnlRUGJmR0ZnTEt6M2I1MTZSTU4zVGE2YlN6dm1ldUls?=
- =?utf-8?B?UXVNT0ZVVWlxT2hBRGRtclJxNWRxOXlYU05KaEExeVJhNUxESGFOem9IK3Jw?=
- =?utf-8?B?UDNmdFkrN3JjaTBnaW9YYVNGWkdIemoxLzduR2ZNVWZNUEliRW5Fd0xKT25u?=
- =?utf-8?B?eVA2Um05R2dzOHc2bGdkdjVORlNNTUV6ZCs5Yy9vRm5OampqbnVORVpOdWdz?=
- =?utf-8?B?NWNIbjZjT3dvbmtGRVlOSndKaEQ2RUNQdkN2ZFBVckdpcHBtTiszSWVaWU5a?=
- =?utf-8?B?SWpPSGFEL0xHbUtKU0dtclhaUUNqN1FzTFlkbkRVd25JMWZ2SWQzcUtxQ2xL?=
- =?utf-8?B?NFd5TmxYRUs0L294WlRjekN6NHRJc1FpMHo0NEd6VU41N3F1Wk83Y2E2aHVr?=
- =?utf-8?B?eFp5RmxjKzkreTdraU5WNzJRSHBCUXNXb2JUU2tqa29Jc1lLOWRyaDErbldt?=
- =?utf-8?B?ZVBwMVE3bFA4bTEya2NSaUJEUHNacm5PZjliOVJBOXJNRW9TTEVCUkp6Sk80?=
- =?utf-8?B?SktGdFp5TTJPRExWUGkxRnV1UVlFa1I0RDVKVi9mZTBJNUJrT08vdjJ2OXV2?=
- =?utf-8?B?M3AyQisxM1RRenRYY2h3bTJ5dUU5WjB5Q3Jxd2NnMmRUZEpCZWNwbkpWdU5K?=
- =?utf-8?B?a1F5ZGZUVDMybnQxc0lnNEw0SmNINGtKNlJtYXpyMFBaZGxBUHZTMldMSU1Z?=
- =?utf-8?B?MFBkb0dYa3JGWWdVUWEwTHBleEYxZVdCbkZOWk9qUG5tSGhqblovd3IwTFA1?=
- =?utf-8?B?Vmt4K01SZkMrWFpTbU9RUEowODNOUVB1QWcySkFJWHlQSHNlcFRXcGdsVW15?=
- =?utf-8?B?aGNDT1h1ZEFibndocEpPaWJXcUYxOFArWUpoK3JXTnI1VjBVVEdZNlRPU0xH?=
- =?utf-8?B?UW1OTDBoVTl3dGpWczRBejVoYlZnOGpQKzllRHI4RHZ4bW1wMndocVp1YXVT?=
- =?utf-8?B?b2wrY1RRUDZ4UFZUNWo5K3o1Mi9kZVpKYWpkYXRwaHN0MEovWEZOay84bVBy?=
- =?utf-8?B?M2lKbyswdzFEaktlMkMvWkZPbzF2KytsS09QdWpKWDF4Wi9VK1dxVzJxaGNK?=
- =?utf-8?B?QjFDZnY2d1l6Z3ZVVGpHbVlVZEhraUdPaGRFTkZFTlVya0tXMGljWVh5TGdr?=
- =?utf-8?B?ck5td1E3U1RTc0toS0NZRkZUK2FSYVZmaEgzNUdOZXhDbmNqOHVxRjM0VDda?=
- =?utf-8?B?MnNuRzNNTFpRa0pkUFkxZ1lTUWtwRXIzYUhGK3dhTXBEV1haNXA0VWhjaGw5?=
- =?utf-8?B?Qy84dW1MaXM0bzg4UlcrYnZoc25XS0M1YWh2YzU4WlFRV25CTGRDU1FEV0FX?=
- =?utf-8?B?VmNyaVFXaXp0T3pPeWVJMjZJMHMrNFRiQ3h6OWpwRGxiV0ZvTkpjSzNWNDVO?=
- =?utf-8?B?Q0VnMDhPWUZMa253L1hEUnFBWFJqMDZTTGc1eTdneU5XTkRZZ1ZWTHBEYzIw?=
- =?utf-8?B?UzNUK3NYVkk1VkExQ3cvQ2pSaGY4OXJBaUx1ZEUvL25ack5ZdUNVZlZWWUNz?=
- =?utf-8?B?TThZWmtYdDdyVlpRWXcvTjA3STVLaTU5YUZUcnN3UnZSaXVuakhNaWpPRnIz?=
- =?utf-8?B?UnBMUW5iMnBPNy9uY1dCVUtOeUVrVDNtcUhwdU81dUlxR2k0VllQQXhuUGkv?=
- =?utf-8?B?YjUrOWpqN3kzd25ybko2TCtmT1ZYZjFSaXJmSVgxLy8yeG9ndlVGRlhUZXo3?=
- =?utf-8?B?VGhhRkpOUVpFdUtQaU9HeVFuZjRZWWR1SkJaMXg4bmUxekN6L3dxcitibFFt?=
- =?utf-8?B?MHRjUmxmVDhjWnRsY2M1VzJtaWVnbzdadlhwb0YvQjhIaUVjd2N1WFNVdnR4?=
- =?utf-8?B?ODczaS9Ga00vUDhKWDhPNFRIOHhxMGMxVEJXSUxMRXRVa0hlbTkwSWZIMVZ3?=
- =?utf-8?B?STJkaUgzZm0vWld4ZmZnZW8xWjdYbzI1L3NGaGx5K0EyeEp2QjV3NnJVWktr?=
- =?utf-8?B?K1k5YmxveVdnd1IzN2dEbU8rRnJ4LytmNW1kd2cwNzI3eFZTeHhudVVmWXBB?=
- =?utf-8?B?d252eUxsaVhZbTJUQ0xHUWVsY3BqeDhLcVJzUUtJc2NHbHJMRTdpTnlQR2ov?=
- =?utf-8?B?SkZDbGQ2Y2I4VW1xV1cyaHdsaXdYbTRYU045cVNVd2lNQzlwQlFzYW5OK1Y5?=
- =?utf-8?B?U29IZUtva0VaTUI2UjNxeEtmK1F3SGdUT2xIOUE3SHR4Ty8wYzdxRWtEVzZI?=
- =?utf-8?Q?6/yES/nQ77RL8NRl6L?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 94fb2e2e-a6c0-439e-f8c4-08df26a16704
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7170.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2026 07:37:57.2174
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lOxI8+ykEUfhNab/vFolYNHShJ8r5N3u2nxVFpsuXUh7lTwvxNgjiMIDcJ1bmaUPeONRyGg5HR7GnCQegbo/mw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4042
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <pm-ocfs2-objects-candidate-0086-v2-646731c4254a02823b4d@gmail.com>
 
-
-
-On 10/10/2026 2:53 AM, Dmitry Osipenko wrote:
-> 24.09.2026 12:55, Honglei Huang пишет:
->> +int virtio_gpu_userptr_create(struct virtio_gpu_device *vgdev,
->> +			      struct drm_file *file,
->> +			      struct virtio_gpu_object_params *params,
->> +			      struct virtio_gpu_object **bo_ptr)
->> +{
->> +	struct virtio_gpu_object_userptr *userptr;
->> +	struct virtio_gpu_mem_entry *ents = NULL;
->> +	struct sg_table *sgt;
->> +	struct mm_struct *mm;
->> +	unsigned long lock_limit;
->> +	unsigned long start;
->> +	unsigned long end;
->> +	s64 new_pinned;
->> +	unsigned int nents;
->> +	int ret;
->> +
->> +	*bo_ptr = NULL;
->> +
->> +	if (!params->size || !IS_ALIGNED(params->size, PAGE_SIZE) ||
->> +	    params->userptr != (unsigned long)params->userptr)
->> +		return -EINVAL;
->> +
->> +	start = params->userptr;
->> +	if (!IS_ALIGNED(start, PAGE_SIZE) ||
->> +	    check_add_overflow(start, (unsigned long)params->size, &end))
->> +		return -EINVAL;
+On Fri, Oct 09, 2026 at 06:04:49PM +0800, Cen Zhang wrote:
+> ocfs2_filecheck_create_sysfs() initializes the filecheck allocation
+> before calling kobject_init_and_add(), but assigns entry->fs_fcheck
+> only after that call returns. The default attribute group can already
+> be visible while registration is in progress. A concurrent read can
+> therefore enter ocfs2_filecheck_attr_show() with a NULL fs_fcheck and
+> try to lock its fc_lock.
 > 
-> There is new vgdev->blob_alignment defining host page size as it may
-> differ from guest's page. Will be good to validate both.
+> Assign the initialized owner before adding the kobject, so every
+> activated attribute has valid state. Clear the pointer when addition
+> fails, preserving the existing teardown guard and error cleanup.
 > 
+> A controlled probe-instrumented test kernel with the original OCFS2
+> registration ordering produced this Oops during a concurrent sysfs read:
+> 
+>   KASAN: null-ptr-deref in range [0x0000000000000028-0x000000000000002f]
+>   RIP: 0010:kasan_byte_accessible+0x15/0x30
+>   Call Trace:
+>    <TASK>
+>    __kasan_check_byte+0x13/0x50
+>    lock_acquire+0x113/0x300
+>    _raw_spin_lock+0x31/0x40
+>    ocfs2_filecheck_attr_show+0x138/0x5f0
+>    ocfs2_filecheck_show+0x5d/0x90
+>    sysfs_kf_seq_show+0x1d3/0x360
+>    seq_read_iter+0x480/0x1110
+>    kernfs_fop_read_iter+0x419/0x5a0
+>    vfs_read+0x7d2/0xc20
+>    ksys_read+0x111/0x200
+>    do_syscall_64+0x114/0x620
+>    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>    </TASK>
+>   Modules linked in:
+> 
+> Fixes: a860f6eb4c6a ("ocfs2: sysfile interfaces for online file check")
+> Assisted-by: LLM
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> ---
+>  fs/ocfs2/filecheck.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/ocfs2/filecheck.c b/fs/ocfs2/filecheck.c
+> index be713d7d24a76b9aa8fcded3d83b3d91d124eb6e..862c1ee7099c943b2e3e57e31f887380c6dc8a88 100644
+> --- a/fs/ocfs2/filecheck.c
+> +++ b/fs/ocfs2/filecheck.c
+> @@ -181,2 +181,4 @@ int ocfs2_filecheck_create_sysfs(struct ocfs2_super *osb)
+>  
+> +	/* Publish the initialized owner before activating its sysfs callbacks. */
+> +	entry->fs_fcheck = fcheck;
+>  	entry->fs_kobj.kset = osb->osb_dev_kset;
+> @@ -186,2 +188,3 @@ int ocfs2_filecheck_create_sysfs(struct ocfs2_super *osb)
+>  	if (ret) {
+> +		entry->fs_fcheck = NULL;
 
-Will add blob_alignment check in next version, thanks for the review.
+setting to NULL is unnecessary, it becomes a harmless dangling pointer here.
+Other code looks good to me.
 
-Regards,
-Honglei
-
+Thanks,
+Heming
+>  		kobject_put(&entry->fs_kobj);
+> @@ -191,3 +194,2 @@ int ocfs2_filecheck_create_sysfs(struct ocfs2_super *osb)
+>  
+> -	entry->fs_fcheck = fcheck;
+>  	return 0;
+> 
