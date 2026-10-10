@@ -1,179 +1,135 @@
-Received: from mail-lr2-f3.google.com (mail-lr2-f3.google.com [74.125.230.67])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C9D35B14E
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 03:23:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791602620; cv=pass; b=Er920NMumTSJ6mIES5x7XUO9LhL0D4jDupXAZ8YfKS2Ux0G3gFBIOj8uvc558a94WTAlDUQiK/MHkPDHAAKC1G8Z1ekFBVt5C4nUFauwwBVyw0F6GDv8WgE5ADQlL3AJpB8nMDleApvNTvAocqOfv5A1WX3gLumz2HyrZ946o+M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791602620; c=relaxed/simple;
-	bh=DilpxP77Wf5IGboFkUym9zfEMniRVTNtL7kIYRWXCaw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Zn/VNkguHs/dxfgBiB3TbPYsy08ep6u6DvDnEqWp6BjharnWqYoUGbzwG9pqWVsoDcBYSGHTuN7Odl7yDol1xATCI2R5bs2dWJ5EXZoAiSlc89pSLiJxHDxdJ+HJZyzwybdsz0mDbTYz7zCHQRETN7GbBanaE+U8VLzNmxXixm0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iy9l2wXq; arc=pass smtp.client-ip=74.125.230.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F08973C0621;
+	Sat, 10 Oct 2026 03:23:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791602622; cv=none; b=WMnlB5npZcGdSwl+n9jQE18EbodsTsi6JtagQcIiiCC3sTn4Ul46iQUIKirVjXR7YixfYjisoHKm3xAXAi8VQfOs7jQhYhtsqu+Y2Kgu1HkIwC7Gv+NPnCCh3o+Mtyn46fOiYn3O6I46WU4Wt5Kmtr4iJCB40Z/FutJNjDZEuc8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791602622; c=relaxed/simple;
+	bh=boeBybVkHR4ylIABwK1fJFz3P6gqUYTFRsppyS7PUio=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=enpLmlSMCN7xenCQ64Kn45uTdhTTh21KApwnUPycbAmd63QacgYVsA5NBNsmnAY9PrC82Hb9Eg2A9ew5j//ihipGyqjkp6Pk28tp13g+yxZaYL4PgUtZggOTqwFdcm3K+DiFYvHt8O7z4iw2G7+JsVQjtoR3qRW8IEjhwflobu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cUDr5lkZ; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iy9l2wXq"
-Received: by mail-lr2-f3.google.com with SMTP id 38308e7fff4ca-3a77d0dc26fso2697281fa.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 20:23:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791602617; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Hc5U/DvwK9k0qUlkwsFGnZmzJjxE/vhSx7YVsQLQEf1TdrudQDK1Q1CXWMihZhgk3c
-         k1O9ITTo+ReIRxUNGEMXXYX3UK3Do2FelTXAEtetlXDV/gje4VQqnfgGsHFfZLK6ecTU
-         TItv4DLncXJsPt29en2uR1Rx+RZMG4d1OOtSwAODD8yVY0fVj09dXMVPd6UkjcFXcXrQ
-         rLTwSw9x3+YslEH+woOq+J0VYlnUv6gWJ1A94RAimdq9dc5VtwDjjNu84e5QyXBgfEDu
-         FMCKWIuDKhw27HJG1sOVyhp1v8Jz4SakR1nJ1i5mrLMF2jSw/7uTr/z9eiVK/Aytqo0C
-         KViA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vieoj/AaG5T84Kvl4ASa8xKsULW9X7IG5LBpCgMJAnA=;
-        fh=FnIVoBnoShaz4T6tODMGrxbjaX9Jg8gCtYcS/YVD2f0=;
-        b=nYmH9my7uef4OsBpvB4k+ThraUd++q5ljQW86hjWhQXoKzfHp2SYDHLGPOQOBhm9NT
-         rr7Z8wXWTNgQP75EKJSC8GkPEJBt93VbeFvvxSPCdBvwGaHEErfyPWgbmAc99j+ItO+I
-         Q+oXwCe7LbPzKdLOH1EKTuDb2DzPVgsCFGVCbnbjGBBFiGfmilGLOa65WTfTgO7vwLoy
-         QNmso1y2TAiLDfyDHvhc5XfJXDT+16WVqVTYXa9BgsSnuFyLcZTuKODnYYUmF3EN8GVj
-         HMW09YR7n1QYP5Mq8IKyDJz07EthIH/eMc7NKdcGJ683rAJnv47ARnyxqE3sJBJlL1M/
-         gYnw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791602617; x=1792207417; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vieoj/AaG5T84Kvl4ASa8xKsULW9X7IG5LBpCgMJAnA=;
-        b=iy9l2wXqxs450eRlYYluXw+MWY1jZUo5eEy2HK9P7AhZRvHGzif8YV2/PI7V4uSMq4
-         zze9yMaEWfjG5aavLkL8YTBS2sTJF7nHf16ddDDulRdQP1p7JDSNbyN/hCwxdh7Mi3x2
-         o6oXlGFPcniIRo3RlexBjlk7INFFCPA5uOLhprd8YiP5SjWFFBH0zk7xt+U9VbTjkpRc
-         IhSzYfXvy+eU7FKtFc7EQ0wK94DfRBSwnG52EPZ1L83L+Rtru26xZKoQJAjlsMdw8uuX
-         cGn/d8nDMFicpHj8xYl9d1G9DPeP/d8b1PlxGbC9LhJ4WWVqe1QJj/sr20Bgtx2A7nFC
-         SqGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791602617; x=1792207417;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vieoj/AaG5T84Kvl4ASa8xKsULW9X7IG5LBpCgMJAnA=;
-        b=AsQA6VZUepngWyS5Kc7JtyOkl/79egbQGPbtyMXWD/wWr5u3QNpqfg6NXjl/Wt5ixt
-         meW5CvD0E/zpEuKAfobWy+gPDsg75oQEphYgMv8l6FUpmWfHtioWZviIYu91G1L5HlNI
-         W7InNCRYsQUxqjcM/yQIS9wBkBnzyNnw+QHvxrCS3qPZrsV4ZaIYhcroLUKxC8XKtABh
-         Rh7gy9IVy8rQMcx3rtv7GDuCDoh55+hR/VT0mTRSs8V7nn9ObGdRiXRQDg/QC9IjxU78
-         Dso0Mziky7BzetLp8ROG7rXjBCT1LR0D5a1kwYNpnPG6/aWaQOiWiLsgf1BpLJwvaZGP
-         +dJQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxZONR2BUQCU67nnZZirjb50XUQ0l2iQimWb83zkC+RGGQzCqNuk8yADStxOTgTDdP4LB+RXJWtDtfywWg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIAIym1Os7p8nHkHFr/u77L0HckobcrtLELpLuDE9qEURnh0kvi
-	rf5RZUSoC++86Lt7NMdsHW8J9q4yR0Vixjp11KxvoxS6aF0LrWuVy4ezcO/EQqZq+kNuw9SCRZy
-	KVeNc55dkEEUG9cqPKNImPm6L6gb/kQo=
-X-Gm-Gg: AYBFou1LkOA5FJ6nGL5711wHfFng1qn8HYlGkJJst+0uCIEdOOxnDx5WxGuxW/elBe/
-	gO3gpdS+JBAJgVCvXlCaFDK3rUm0S7VBJtZ9HzkC+LLfqLR27KyPBESKT5WU0AIfRboLw9LTo7a
-	gJ2kZPT0KQsBsFugs6AQZlVtNVFJBLMTWgLGiwHcejg3XHYY/Q98Qv58hHKXK2mY7nC2dJr4eAw
-	6y1VYb9ataQ0ieI/soGfvDrUCuMrV/urtTfTvmenUb0QZTvpj6n9fBCtDDir6D+7ufgSu9V9sVh
-	QyaTXfUCdf1e/b64rReys9nBWmt+LIzNpcKxNntdCZixs1LdyVpDzQgI
-X-Received: by 2002:a2e:be0d:0:b0:3a9:707e:ad88 with SMTP id
- 38308e7fff4ca-3a9c4eba34emr9355861fa.2.1791602617190; Fri, 09 Oct 2026
- 20:23:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cUDr5lkZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791602622; x=1823138622;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=boeBybVkHR4ylIABwK1fJFz3P6gqUYTFRsppyS7PUio=;
+  b=cUDr5lkZFTRpvB8R4UPawiTVuzUjfl3lp8xcPlhBzBCEcSsyQaGekk1E
+   jDgCPoRSLpalLsXcglUJDr0BnSShge0c0qfMWB+a6MKaijt+FHoaWwZgn
+   xCAu+IBab7NdOTub/6vQFeyirVcyOJ2vWi8h9/S2/1ckDcxrFjU5I7Rn9
+   9+m7sRP2vOqGuxyiZ9YxuExwfD7KLXxhAqG9m+5So5mmNjYFkyk/YaPdg
+   brEMxHm0lUsYV8qoq/XRzlDv3V9yYlE96ocv1PScWr0bKIRHxdHmBVvui
+   X2GY2mhNYEkNx+EjlLwYbeDvmX9N5siRgCNdW4TcWlsihi+0GlSbRhFbA
+   g==;
+X-CSE-ConnectionGUID: yoNwdjv0Qoqg0VjV13QvvQ==
+X-CSE-MsgGUID: 4Hqys/m3RXalWOi4tt4gFQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="395596"
+X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
+   d="scan'208";a="395596"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 20:23:41 -0700
+X-CSE-ConnectionGUID: wXLdcWPOR7OcB45omJPC5A==
+X-CSE-MsgGUID: Ws8vEc+cRGWOER0ondcQhQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
+   d="scan'208";a="640160"
+Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
+  by fmviesa001.fm.intel.com with ESMTP; 09 Oct 2026 20:23:36 -0700
+Date: Sat, 10 Oct 2026 11:20:10 +0800
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+Cc: "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"x86@kernel.org" <x86@kernel.org>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+	"Li, Xiaoyao" <xiaoyao.li@intel.com>,
+	"Hansen, Dave" <dave.hansen@intel.com>,
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+	"baolu.lu@linux.intel.com" <baolu.lu@linux.intel.com>,
+	"Hunter, Adrian" <adrian.hunter@intel.com>,
+	"tony.lindgren@linux.intel.com" <tony.lindgren@linux.intel.com>,
+	"kas@kernel.org" <kas@kernel.org>, "Xu, Yilun" <yilun.xu@intel.com>,
+	"artem.bityutskiy@linux.intel.com" <artem.bityutskiy@linux.intel.com>,
+	"nik.borisov@suse.com" <nik.borisov@suse.com>,
+	"Mehta, Sohil" <sohil.mehta@intel.com>,
+	"Duan, Zhenzhong" <zhenzhong.duan@intel.com>,
+	"Gao, Chao" <chao.gao@intel.com>,
+	"Fang, Peter" <peter.fang@intel.com>,
+	"Maloor, Kishen" <kishen.maloor@intel.com>
+Subject: Re: [PATCH v3 3/6] x86/virt/tdx: Add extra memory to TDX module for
+ the extensions
+Message-ID: <asmu6nwPYKPnZ3jC@yilunxu-OptiPlex-7050>
+References: <20261006-tdx-module-ext-v3-0-db52cb05b918@linux.intel.com>
+ <20261006-tdx-module-ext-v3-3-db52cb05b918@linux.intel.com>
+ <e6207c3e0443be4ee120ad4ce2b10359f7769964.camel@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009080252.2805877-1-bsdhenrymartin@gmail.com> <CAKYAXd8MyiCVhdN_PaQ=aSEO3yYYQ-Qb-2TnC68o0_pbchM0mw@mail.gmail.com>
-In-Reply-To: <CAKYAXd8MyiCVhdN_PaQ=aSEO3yYYQ-Qb-2TnC68o0_pbchM0mw@mail.gmail.com>
-From: henry martin <bsdhenrymartin@gmail.com>
-Date: Sat, 10 Oct 2026 11:23:24 +0800
-X-Gm-Features: AclHuK-ClitBdOErynduKFQRc6WJDbowcHXBQ97nLFTy84wq9FJpNr2s6fS0Too
-Message-ID: <CAEnQdOrta-P0OptZ+6qCKGxHN00=fR71JhjdP1b75bS+3EMFyA@mail.gmail.com>
-Subject: Re: [PATCH] cifs: fix use-after-free of server info on
- cifs_ses_add_channel error
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Paulo Alcantara <pc@manguebit.org>, Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
-	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>, 
-	Bharath SM <bharathsm@microsoft.com>, Steve French <stfrench@microsoft.com>, 
-	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e6207c3e0443be4ee120ad4ce2b10359f7769964.camel@intel.com>
 
-Hi Jeon,
-
-You're right, thanks for catching that.  chan points into
-ses->chans[], so once chan_count is decremented under chan_lock a
-concurrent add_channel can reuse the slot and overwrite chan->server
-before the unlocked put reads it.
-
-v2 caches the pointer in a local under chan_lock and uses the cached
-pointer for both cifs_chan_clear_need_reconnect() and the final
-cifs_put_tcp_session(), so the reference we drop is always the one
-this error path took.
-
-Regards,
-Henry
-
-Namjae Jeon <linkinjeon@kernel.org> =E4=BA=8E2026=E5=B9=B410=E6=9C=889=E6=
-=97=A5=E5=91=A8=E4=BA=94 21:32=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Fri, Oct 9, 2026 at 5:03=E2=80=AFPM Henry Martin <bsdhenrymartin@gmail=
-.com> wrote:
-> >
-> > The error path of cifs_ses_add_channel() calls cifs_put_tcp_session()
-> > before cifs_chan_clear_need_reconnect().  The latter reaches
-> > cifs_ses_get_chan_index(), which dereferences server->terminate; if
-> > the put was the final reference, TCP_Server_Info is already freed and
-> > this is a use-after-free.  Same put-then-use pattern as the recently
-> > fixed sibling in commit 717e0a25036b6.
-> >
-> > Reorder: clear the reconnect bit and drop chan_count under chan_lock
-> > first, release the server reference last.
-> >
-> > This vulnerability was discovered by Tencent CodeBuddy Security.
-> >
-> > Cc: stable@vger.kernel.org
-> > Fixes: ee1d21794e55a ("cifs: handle when server stops supporting multic=
-hannel")
-> > Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
-> > ---
-> >  fs/smb/client/sess.c | 12 +++++++++---
-> >  1 file changed, 9 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/fs/smb/client/sess.c b/fs/smb/client/sess.c
-> > index e095f41b5882..650c0f855a29 100644
-> > --- a/fs/smb/client/sess.c
-> > +++ b/fs/smb/client/sess.c
-> > @@ -626,12 +626,16 @@ cifs_ses_add_channel(struct cifs_ses *ses,
-> >
-> >  out:
-> >         if (rc && chan->server) {
-> > -               cifs_put_tcp_session(chan->server, 0);
-> > -
-> >                 spin_lock(&ses->chan_lock);
-> >
-> > -               /* we rely on all bits beyond chan_count to be clear */
-> > +               /* Clear the reconnect bitmask BEFORE dropping the serv=
-er
-> > +                * reference: cifs_ses_get_chan_index() dereferences
-> > +                * server->terminate, and cifs_put_tcp_session() may be=
- the
-> > +                * final put that frees chan->server (use-after-free).
-> > +                */
-> >                 cifs_chan_clear_need_reconnect(ses, chan->server);
+On Fri, Oct 09, 2026 at 06:58:44PM +0000, Edgecombe, Rick P wrote:
+> On Tue, 2026-10-06 at 01:41 +0800, Xu Yilun wrote:
+> > +static __init int tdx_ext_mem_setup(void)
+> > +{
+> > +	unsigned int required_pages, added_pages;
+> > +	struct tdx_sys_info_ext sysinfo_ext;
+> > +	struct tdx_hpa_list *hpa_list;
+> > +	struct page *page;
+> > +	int ret;
 > > +
-> > +               /* we rely on all bits beyond chan_count to be clear */
-> >                 ses->chan_count--;
-> >                 /*
-> >                  * chan_count should never reach 0 as at least the prim=
-ary
-> > @@ -639,6 +643,8 @@ cifs_ses_add_channel(struct cifs_ses *ses,
-> >                  */
-> >                 WARN_ON(ses->chan_count < 1);
-> >                 spin_unlock(&ses->chan_lock);
+> > +	ret = get_tdx_sys_info_ext(&sysinfo_ext);
+> > +	if (ret)
+> > +		return ret;
 > > +
-> > +               cifs_put_tcp_session(chan->server, 0);
-> As soon as the lock is released, a new channel can be added in the
-> slot indicated by the decremented chan_count. Then the final put will
-> act on the new channel. Please save the server pointer under chan_lock
-> and use that for cifs_put_tcp_session().
+> > +	required_pages = sysinfo_ext.memory_pool_required_pages;
+> > +
+> > +	/*
+> > +	 * Skip the memory setup if no memory is required. This may happen when
+> > +	 * no add-on features requiring TDX module extensions are configured
+> > +	 * via TDH.SYS.CONFIG.
+> > +	 */
+> > +	if (!required_pages)
+> > +		return 0;
+> 
+> Marshaling this through the struct just to get a set it to required_pages seems
+> a bit silly. But I see required_pages is needed for line length.
+> 
+> Two options:
+> 
+> Make the get_tdx_sys_info_ext() just take an unsigned int pointer arg. When
+> Chao's metadata reading stuff lands, we can keep the struct internal to the
+> helper, to still re-use the macro struct mapper stuff.
+
+struct tdx_sys_info_handoff is an existing example so I don't want to
+make it different.
+
+> 
+> Rename memory_pool_required_pages to required_pages to shorten the lines to
+> something manageable and use it directly below.
+
+I prefer the 2nd one. I also want to rename the sysinfo_ext to ext, to
+make the field short enough for direct usage everywhere.
+
+  struct tdx_sys_info ext ext;
+
+  ret = get_tdx_sys_info_ext(&ext);
+  if (ret)
+	return ret;
+
+  if (!ext.required_pages)
+	return 0;
+
+  ...
