@@ -1,218 +1,111 @@
-Received: from mail-m11874.qiye.163.com (mail-m11874.qiye.163.com [115.236.118.74])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com [209.85.160.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D108639A4B3;
-	Sat, 10 Oct 2026 03:03:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.118.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 612FD381EBE
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 03:06:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791601422; cv=none; b=pGruzUFXM/rhp3rRrtey/BYE1OGlOY/KKPZ18qu9f67Wn04+Lh2Xzn8EblppVsn+Ne+kvBiXPg7eDOtZMaOFAMGaWvbih6bnVRNCHybSdsDkoqqbvFv7VGb6Y0Jkq3XaROmBGmBygAGoHNGOnrEgv1u09lQXrn60FQ5iNJWLrDU=
+	t=1791601567; cv=none; b=RYiNkAhPwk7/HBniNw6BdIUoxWhJ5Bp690ogSEB9LOykFJW7ewpgOXInF2c1DR88sAV2QZzB+slt1DB0GiT1DP87aF2NSHxOT4u4whlmkjc0Zy4M5relI1DaDePsxSXTY3dwKeST/xngiAu3Lsc4OUGTZXXCU4KEJqb6vKiXh3U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791601422; c=relaxed/simple;
-	bh=AkYlLIK8dXEz/wLhTJ8RneeAz1r/AIjmJoMVExOFo6o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sulaYhTI3lHUy2VKxoOnLS/a4kYEaU1AJdPagPTZCndJTDnY2jwcLosKRrWsLpLBuuJmMg50vYPAoHwWePLmiirynxytP3npWZsTdbLK2l3c1qX6duMD0Bi7mk0TYbzBkSnab0QpTSOmCUG19zQ2TuN7TJbmRSc895fAxKtC6n4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=NDDV4FoZ; arc=none smtp.client-ip=115.236.118.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1791601567; c=relaxed/simple;
+	bh=SQm2L1WnAvOzt9czOf54PXiFLVwKkZpDA3uUyWtGD70=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FSldkfGQvcXY7H008CJPyHNqk24k836Z50t62II21BgHkrE+zjeERFzmg/VyGkx48SsSb1LYKvCNEH5//a4jaSE7dULzgBh4K19SPp3qxMntwbM3QeYi04J7ErNGRTNboAdBGKZXn6nh5fUbfiLn8lWK69OFiUQsnQtR0iInmPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z0eWvc5M; arc=none smtp.client-ip=209.85.160.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="NDDV4FoZ"
-Received: from [172.16.12.90] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 50848de2e;
-	Sat, 10 Oct 2026 10:48:09 +0800 (GMT+08:00)
-Message-ID: <80f7ba75-d374-4eae-abfe-d53ec2deb52f@rock-chips.com>
-Date: Sat, 10 Oct 2026 10:48:06 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z0eWvc5M"
+Received: by mail-oa1-f48.google.com with SMTP id 586e51a60fabf-49de8ea072cso188797fac.3
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 20:06:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791601565; x=1792206365; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NUIEYGnE8BKwPbIYe8Tft2q9XP8PDGs7PYIrSC6//ig=;
+        b=Z0eWvc5MzULkJiu7IRQIU/mzKL8sBS2sGrTf//tWJndgChQ0T72jdw36CdnS9Dj5cZ
+         8pNDgrCDqXjTHqiLhk9uqe8hG46vgrNXu7k5zSlN7fSSFFUV9PFos9zQE/H7Y5Dd3LrR
+         lUdEBuNet5v3P0/NS926bCn430i99IsP+yy7vg4NQzN0bh5juVVbQyEu1RwlE7FKRvbY
+         LQUmn2asMlg7NamK/Q95FKcgIE5owtlUdLtJ2Av+Ns6kBemzzcOMoAtppXrKxRvudLp9
+         sGHZ3yDQXNcfF37bs46eByLxqyrtiITAnGwAxtyBBomJknTsFwCnGZcDKXyvU6YxtWcX
+         b+Xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791601565; x=1792206365;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NUIEYGnE8BKwPbIYe8Tft2q9XP8PDGs7PYIrSC6//ig=;
+        b=iH4uN/q8CQpIeiwlNJJdsP7UCOgCQrWwvKVB57zlW9o+UkFDLWef7uly4QLgWHchai
+         12Qj4W/+xuXywmxDhYJJSMwM703/yMr6MLZ/kH7kQhnC8GMiAiU4uUSwzNFny4StJtMK
+         4zzWaKT8Uemlnu1UtcOC3jvE4gEhnfG9QbwHItwDbku3RdyE8lIjYlmsZRHGE2iWfp3X
+         KVGS/83oDUonqRMuZH3/JqOzabb0AJ6mrn5Fy6QI4PZwBfZTCn7B6Y5GmeQq0ciacNHH
+         EjnywEMKOq9hnPfy8SGFOanQGu3fbiCroE2V0lNLRAnrJ3Aava6YEEmxzOKg21DojER7
+         ff7w==
+X-Forwarded-Encrypted: i=1; AKwUvBzbxFHV/ilwzeHq4Va4/gh9hsGisKunm3aokY2EUDFB7+AHlOsIw7X12RmI+vApp/mxuVdyqcgdUOnWdPU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJf+4QXRPQgKbgrjV6nbDPLb60FuYH4a4xyEJSmAB+16je+HEAD
+	Pt7q9SCrXYLHrpYyOGllM/LRTg0Rq3Gs11rM1rMIz2SGhx+l9mLs06Gf
+X-Gm-Gg: AYBFou3BGDpYqLpPZFcza+17mw32qh7c6RpxAp2nMO7vqawDGQODtyOY0F0Bf5h/KDO
+	5tS32ZUG5mwSl0OB4b/IPoawJoiZlVbmQLIzImcugsJwOruNNdbgtoqsKAwNTFLPxhynSVlM785
+	T2lqk2CbGhVs4mJE4SJ7IBar3iQyw2IvO4thyU319ATTHPN/NdF6vVNhUT5WU7IIXx9E9j5AGXh
+	xH7Q50lqyTxvqMLUaWvR+H27r6Xb1ifVyOcVaasZmYS7objwUq191tCvvZt0GB8Ne0Ch7PLitf+
+	s/5w+Z68jh34UjvtgQA2n1+jlZzGHnl1eoUUkM5NB0MIWhq/o9hbVOtNQdfnRtufAQVaXT+NkSc
+	83Bk7CwPXrnnASrHSQXIvhevQVDGxlK/2khY/SZDG/DPkVLd61IljI5au1X3u4ZYTegjwHQ31in
+	qp0R6dPCayLcymB+yKu0R+aP+QLZDKE0WDX/MaZJhVhCrQ9iN5OxALykm+6oO+GacdiCurQYXym
+	Kqew0wcICS6oEkQFLPtZsLHX2Ln46azj7bUSxwXv6qmOHShBq55SGKgJKfhmhYnYhywH6HJpknF
+	Rn2S
+X-Received: by 2002:a05:6870:e08f:b0:491:47e1:6280 with SMTP id 586e51a60fabf-4a2a8938915mr3416608fac.15.1791601564761;
+        Fri, 09 Oct 2026 20:06:04 -0700 (PDT)
+Received: from fedora-laptop ([172.245.82.59])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a2a85edf81sm3689450fac.15.2026.10.09.20.06.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 20:06:04 -0700 (PDT)
+Date: Fri, 9 Oct 2026 22:05:59 -0500
+From: Ming Lei <tom.leiming@gmail.com>
+To: Qiliang Yuan <odys.yuan@gmail.com>
+Cc: Jens Axboe <axboe@kernel.dk>, Wen Xiong <wenxiong@linux.ibm.com>,
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] blk-mq: run the hw queue synchronously for unplugged
+ scheduler inserts
+Message-ID: <asmrlzbmQ0TU3rO6@fedora-laptop>
+References: <20260930-bug-blk-mq-noplug-sched-dispatch-v1-1-ff1e49e52b00@gmail.com>
+ <20261010023548.3666200-1-odys.yuan@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/20] drm/atomic: Handle max bpc properties before
- connector state allocation
-To: Xilin Wu <sophon@radxa.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Igor Paunovic <royalnet026@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, dragon@radxa.com,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-References: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
- <20261009-msm-dp-hdr10-v2-1-1835d4966da3@radxa.com>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20261009-msm-dp-hdr10-v2-1-1835d4966da3@radxa.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa123b5f22b03a7kunm6360a2b5135bed8
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCT0lCVh4eS0NISB0ZGkIZQ1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQkxVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=NDDV4FoZEkpnMGy2XPGW8N+gwtaSRGLvEggg0PegiDpBP5UhKFXzFgDGs7vhPjaiOze7Fyi4/WWCLvCSyp2ikyPrx//6pcTMrtVJcxyw9Qaw1Za2AAiM6d2ZWXCVVg5KUlWFQXDDNihwmxL85/LQ5quIpkQDKNopIVW3o7xdwo0=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=XezuMrCTQbMzbi20T+1rCrxjWanYRbUDYkUJJW/TRwg=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261010023548.3666200-1-odys.yuan@gmail.com>
 
-Hi Xilin,
-
-On 10/9/2026 11:15 AM, Xilin Wu wrote:
-> Allow drivers to attach the max bpc property before allocating connector
-> state, as needed by the upcoming non-HDMI bridge connector support.
-> Only update the current state when one exists.
+On Sat, Oct 10, 2026 at 10:35:47AM +0800, Qiliang Yuan wrote:
+> Hi Jens, Ming,
 > 
-> Initialize max_requested_bpc and max_bpc from the attached property default
-> when creating connector state. Use drm_object_property_get_default_value()
-> rather than the range maximum so that state creation and subsequent resets
-> restore the value chosen when attaching the property.
-> 
-> Cover deferred allocation, existing state and restoration of a default
-> that differs from the range maximum in the connector KUnit tests.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Xilin Wu <sophon@radxa.com>
-> ---
->  drivers/gpu/drm/drm_atomic_state_helper.c  |  8 +++++
->  drivers/gpu/drm/drm_connector.c            |  6 ++--
->  drivers/gpu/drm/tests/drm_connector_test.c | 53 ++++++++++++++++++++++++++++++
->  3 files changed, 65 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
-> index a2ef272e9f27..8352b5a9097a 100644
-> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
-> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-> @@ -494,7 +494,15 @@ void
->  __drm_atomic_helper_connector_state_init(struct drm_connector_state *conn_state,
->  					 struct drm_connector *connector)
->  {
-> +	u64 val;
-> +
->  	conn_state->connector = connector;
-> +	if (connector->max_bpc_property &&
-> +	    !drm_object_property_get_default_value(&connector->base,
-> +						   connector->max_bpc_property, &val)) {
-> +		conn_state->max_requested_bpc = val;
-> +		conn_state->max_bpc = val;
-> +	}
->  }
->  EXPORT_SYMBOL(__drm_atomic_helper_connector_state_init);
->  
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-> index 8b4baed060f3..34c30469f405 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -2886,8 +2886,10 @@ int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
->  	}
->  
->  	drm_object_attach_property(&connector->base, prop, max);
-> -	connector->state->max_requested_bpc = max;
-> -	connector->state->max_bpc = max;
-> +	if (connector->state) {
-> +		connector->state->max_requested_bpc = max;
-> +		connector->state->max_bpc = max;
-> +	}
-> 
+> Gentle ping on this one. It fixes a v7.2 regression from 9cbbac29d752
+> ("block: Remove redundant plug in __submit_bio()"): unplugged I/O to a
 
-And for patch1/2. I don't think it's right way to go.
+It is hard to say it is one regression cause 9cbbac29d752 is doing correct
+thing, and single request isn't supposed to dispatch via plug list, and it
+only recovers to previous behavior before 060406c61c7c 
+("block: add plug while submitting IO").
 
-As comment said: 
-drm_connector_attach_max_bpc_property() requires the connector to have a state.
+> device with an I/O scheduler is now run from kblockd, and the kworker
+> preempts the submitter once per I/O. A single-queue null_blk device with
+> mq-deadline drops from 289K to 193K IOPS, and a single-queue ublk device
+> from 265K to 113K.
 
-There are two reasons here. First, most drivers follow the convention
-described in this comment, but you only modified some of them. Second, 
-it appears you are removing the connector state, so the 
-"if (connector->state)" check here would always evaluate to false, 
-which doesn't seem to make much sense.
+For both SQ null & ublk, you can switch to none for better performance.
 
->  	return 0;
->  }
-> diff --git a/drivers/gpu/drm/tests/drm_connector_test.c b/drivers/gpu/drm/tests/drm_connector_test.c
-> index beb1d50a6646..1174607441b9 100644
-> --- a/drivers/gpu/drm/tests/drm_connector_test.c
-> +++ b/drivers/gpu/drm/tests/drm_connector_test.c
-> @@ -12,6 +12,7 @@
->  #include <drm/drm_file.h>
->  #include <drm/drm_kunit_helpers.h>
->  #include <drm/drm_modes.h>
-> +#include <drm/drm_property.h>
->  
->  #include <drm/display/drm_hdmi_helper.h>
->  
-> @@ -187,7 +188,59 @@ KUNIT_ARRAY_PARAM(drm_connector_init_type_valid,
->  		  drm_connector_init_type_valid_tests,
->  		  drm_connector_init_type_desc);
->  
-> +/* The attached default need not equal the upper end of the property range. */
-> +static void drm_test_connector_max_bpc_default(struct kunit *test)
-> +{
-> +	struct drm_connector_init_priv *priv = test->priv;
-> +	struct drm_connector *connector = &priv->connector;
-> +	struct drm_property *prop;
-> +	int ret;
-> +
-> +	ret = drmm_connector_init(&priv->drm, connector, &dummy_funcs,
-> +				  DRM_MODE_CONNECTOR_DisplayPort, NULL);
-> +	KUNIT_ASSERT_EQ(test, ret, 0);
-> +
-> +	prop = drm_property_create_range(&priv->drm, 0, "max bpc", 6, 12);
-> +	KUNIT_ASSERT_NOT_NULL(test, prop);
-> +	connector->max_bpc_property = prop;
-> +	ret = drm_connector_attach_max_bpc_property(connector, 6, 10);
-> +	KUNIT_ASSERT_EQ(test, ret, 0);
-> +	KUNIT_EXPECT_NULL(test, connector->state);
-> +
-> +	drm_mode_config_reset(&priv->drm);
-> +	KUNIT_ASSERT_NOT_NULL(test, connector->state);
-> +	KUNIT_EXPECT_EQ(test, connector->state->max_requested_bpc, 10);
-> +	KUNIT_EXPECT_EQ(test, connector->state->max_bpc, 10);
-> +
-> +	connector->state->max_requested_bpc = 8;
-> +	connector->state->max_bpc = 8;
-> +	drm_mode_config_reset(&priv->drm);
-> +	KUNIT_ASSERT_NOT_NULL(test, connector->state);
-> +	KUNIT_EXPECT_EQ(test, connector->state->max_requested_bpc, 10);
-> +	KUNIT_EXPECT_EQ(test, connector->state->max_bpc, 10);
-> +}
-> +
-> +static void drm_test_connector_max_bpc_existing_state(struct kunit *test)
-> +{
-> +	struct drm_connector_init_priv *priv = test->priv;
-> +	struct drm_connector *connector = &priv->connector;
-> +	int ret;
-> +
-> +	ret = drmm_connector_init(&priv->drm, connector, &dummy_funcs,
-> +				  DRM_MODE_CONNECTOR_DisplayPort, NULL);
-> +	KUNIT_ASSERT_EQ(test, ret, 0);
-> +	drm_mode_config_reset(&priv->drm);
-> +	KUNIT_ASSERT_NOT_NULL(test, connector->state);
-> +
-> +	ret = drm_connector_attach_max_bpc_property(connector, 6, 10);
-> +	KUNIT_ASSERT_EQ(test, ret, 0);
-> +	KUNIT_EXPECT_EQ(test, connector->state->max_requested_bpc, 10);
-> +	KUNIT_EXPECT_EQ(test, connector->state->max_bpc, 10);
-> +}
-> +
->  static struct kunit_case drmm_connector_init_tests[] = {
-> +	KUNIT_CASE(drm_test_connector_max_bpc_default),
-> +	KUNIT_CASE(drm_test_connector_max_bpc_existing_state),
->  	KUNIT_CASE(drm_test_drmm_connector_init),
->  	KUNIT_CASE(drm_test_drmm_connector_init_null_ddc),
->  	KUNIT_CASE_PARAM(drm_test_drmm_connector_init_type_valid,
 > 
+> Every single-queue device that defaults to mq-deadline is affected, so it
+> would be good to get this fixed in 7.3. Any comments are welcome.
 
--- 
-Best, 
-Chaoyi
+Not sure you can observe big difference for other real SQ device.
+
+
+Thanks,
+Ming
