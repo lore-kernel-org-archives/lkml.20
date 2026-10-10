@@ -1,297 +1,372 @@
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CD5D4B205A
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 19:10:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D05F03EB11E;
+	Sat, 10 Oct 2026 19:10:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791659439; cv=none; b=TJE4gDye7jvUR7hQ1nwiwnxtYGnsC1Yv4cnvYyUAlgOYw8CgFqMYZIGKhKFSXiS3enO1YXalgYAnGxFa5zreKw0GRFPqLr8ZtFOs/lgvCyOHQRwpFLimNn6hgCe87sesaskfBjdrtA2BnyLIM3sBdG30gRpz5JGEi+izKNVGZzE=
+	t=1791659449; cv=none; b=UlwDn5MXrsxK879G4mPYhapW/s7cuhwTpsW+6esJRInLzYWfWmg0+x0Sgkzsv2SKkyl9CdHPm1qpFffX0FEX5BGAO1bgnMebg4q640KOAsu+tfT6lt+ukWcMwRRMaQpka/hgdTxaj16CYKNpsZy5k7bxgxBt4EpbG+i8XmZo6pM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791659439; c=relaxed/simple;
-	bh=jwbxYj6n7+DjCN34IcgtsswOQMKMadLoao08qekHJv0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=t9KDdPmyMNtsTuuCKyXo7lD7G2bGfnAY43VIvzWNw5K9XkMhG3dANCDVYSUCr2sa+vTQaZDa3HiHDG9vxhQij/Yg0n3Y92U5kR5vjE/XOnZjyFTErbLPs1PBiI7bY6u+T0Lh6mdjRRCX2U4eabSd3MGR7mr2sh5MCAXF6visd0w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=voidship.net; spf=pass smtp.mailfrom=voidship.net; dkim=pass (2048-bit key) header.d=voidship-net.20251104.gappssmtp.com header.i=@voidship-net.20251104.gappssmtp.com header.b=tQeQuYaK; arc=none smtp.client-ip=209.85.219.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=voidship.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=voidship.net
+	s=arc-20240116; t=1791659449; c=relaxed/simple;
+	bh=siTGSaxa2ghjbwi1HBCDUIewIA+lbRItIkT1fFM421Y=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=bVp5K5abIQUOX0Hig5xYx5u8H9680eLkVKm10M++0J6o8bfWS2PvfnWD/4QPlZHcmxsNqxqtWcG+f1OoMqB2fBLdYGTvdQzEkJ2NwWuZHMf0QKRvdWsMZ5GCL12+8+Uu0EVpDpSodGWG8/wxBzaZj7OjHnNqcWj2mr//h+ABi3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KBscKhh9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=voidship-net.20251104.gappssmtp.com header.i=@voidship-net.20251104.gappssmtp.com header.b="tQeQuYaK"
-Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-91b52ba422cso10688066d6.2
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 12:10:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=voidship-net.20251104.gappssmtp.com; s=20251104; t=1791659436; x=1792264236; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bLAb4kAPuhnWOnja9uy9LTtNmvQ77jTETJ/932SVf/c=;
-        b=tQeQuYaK5JSRpEXWhzbotE3VVW3osAaGAed9xidn8EWqUtggvwB/Zi5jgsxgF7QWsS
-         hr9lQSFWsaEyeV4Ud80p1kdLeXciz59TaovcvzROSJqs8BQrRPZRC+r6U3RX/GMiOqPe
-         ZpTF0jjDguQtCWfRICHtR5mTpAEnU9DOvYsG5/jm06xD9lSVLNBSDzOOrQwL4yWhGOJr
-         ZG7W0AGYhihPsAJhFW2TJU6s0Kd3gwH/4bf+FRcKGblH+B/7RUgKCzU0hgyeLAnYuB2l
-         nGM1blb2jp7/QZ1q3i4KYBaai+euYtdiPD7fWYmwEZonC97koQ/OMU3hyF68VX0wQtRs
-         9oog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791659436; x=1792264236;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bLAb4kAPuhnWOnja9uy9LTtNmvQ77jTETJ/932SVf/c=;
-        b=2ZTdBXQwjrTixSkaLL6PkSsIrRqPCP9mrPBywKJ4d7V0kmOpYqzT5DlkI2UQ6C2iz/
-         HnZFYtHm/QSCJZLKgKXToTXglvAQ6FpLoM75m1e8XPZ0t/2TYBW0Zrp2MT01bQi2TMpj
-         SuizW/RC5E+r/fs6K7eRjN0TytjgKNfrxRG+/FQYoAgHlvpjtnqFfk/ox0DmEW6q3YLy
-         AtYlgs1QU+E1UXmAE15CHU7NQl6CpfSJ1FXIwjXlIgDewySk20RiDxux9GUxZBTJi0Yy
-         L1gViL7uRl/7nJTPCd7GsXdfD9VopkDbH1WqhaXjd5tC5zooPgPD5ZFHS2yl4Y1x7TsP
-         UWHA==
-X-Forwarded-Encrypted: i=1; AKwUvBwtcPxA5bXe9KdazmqnmdZPgyAGdsp+MYwfz5KGNjtZa6Jw5M458xADEzb9KPup9Xcq5hUk6Z1VyActb6A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKPJ85fToHP6wA90KVvcPGnl6PE09ytRTvQWQJWlYcTwbqarp3g
-	UrzYIETs2o74vUTPfno4nT0zmhyTTFoGGs6Ic5GnH8+lgo6fYe/71HrztMld7za90Ho=
-X-Gm-Gg: AYBFou0n4zCIWryOI+5V7NHqYzQcmbWcIke4pBAMnK3D1tUM1ATjor2ycTx4Yf0Zv38
-	rK+FVe0lWUNDBKXSV2s59PLWHSGdZCakfoeY5hfoV5zvHyNtL2FofatBMXUAlrWbeD7usoq8DT9
-	gcCBdDIsmg0nmCJVel7BoJfGCPpXCwwKr7w3qbKTWVPewvpA/v8kcno2Fy0j2VSNDDG8h+PHwbH
-	+cQw5PjCPF09KEaJsd8JhNrB8veGogpeg0Cmich8JCNtcqYpZh+CgFlgMyUUkirogCdhMj43xgh
-	DBP4ciVCiWC7Da1Fv7iyqYW3I8pQIZ42NPIuDoyACaSn2EE318/2giEoQyZLD7hx+dLq0MeLJ9P
-	Ni724vnrsmEbn6ZT6pwwJPevsvHr1CksF3gcOsgiTPqpBaqMeptzy25Ir1nOgWG09AAZoBY4nq+
-	BhMSpRob/yD8wFMwEAd0vc7UGPvJLO0U2ejExLvhiSjZNg1nxnLrrkV5zxRW4otAOfl5kspLd0S
-	B6nYZe0i+nKVF21f81By+h3NOeBNqObcg40FpW1nyQ=
-X-Received: by 2002:a05:620a:a2cf:10b0:93e:c12c:f142 with SMTP id af79cd13be357-93ec12d0865mr594387485a.76.1791659436074;
-        Sat, 10 Oct 2026 12:10:36 -0700 (PDT)
-Received: from boomzilla (dynamic-acs-24-101-237-49.zoominternet.net. [24.101.237.49])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb986c0cfsm489355685a.19.2026.10.10.12.10.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 12:10:35 -0700 (PDT)
-From: Karlos Abel <kabel@voidship.net>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	sashiko-bot@kernel.org
-Subject: [PATCH v2 2/2] Input: test state seeding across device registration
-Date: Sat, 10 Oct 2026 15:10:33 -0400
-Message-ID: <20261010191033.23577-3-kabel@voidship.net>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261010191033.23577-1-kabel@voidship.net>
-References: <20261010191033.23577-1-kabel@voidship.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KBscKhh9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 703861F000FF;
+	Sat, 10 Oct 2026 19:10:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791659447;
+	bh=Yg4STVau57RFMxif8ip3Fv5kvfpRUl+yjYtx6g84m3A=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=KBscKhh9j/JJla+92whP86amlQota94cZQk+fhLh9TmvUxhTzAGQOdnjmDKBWaJ/j
+	 SYFsL+uQdYGpT9X7/Vq8C3Bg/ss5GWkz8sm4oNCNrFXhG17ahu+ARbwY6txge/2528
+	 3+GnLVzsyX8Ya8XvM0oSYgRhtBDgouY9e+M6cCOlwCvPkm+hBw3q6+YvrM305j0tpQ
+	 2TB9fz8Gaolx4Eoucw4X8t5tZsq6uWN4Kuzj+y/edJ9KVR/1PPmZp0xstIyx/FMl/5
+	 zITJ0T7e5t2MDiqJeaTkPH/YOgE7DAmzot6QOFlpcwG3xsdh6bSY0Y8JKVaQLoTi2m
+	 amDyAhsgFnXkA==
+Subject: Re: [PATCH net 1/2] sfc: ptp: serialize host and MC synchronization
+ transactions
+From: netdev-bot+sashiko@kernel.org
+To: alex.austin@amd.com
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, bhutchings@solarflare.com,
+ davem@davemloft.net, ecree.xilinx@gmail.com, edumazet@kernel.org,
+ kuba@kernel.org, linux-kernel@vger.kernel.org, linux-net-drivers@amd.com,
+ pabeni@redhat.com, richardcochran@gmail.com, smhodgson@solarflare.com,
+ alucero@amd.com, pieter.jansen-van-vuuren@amd.com, alucerop@amd.com
+Date: Sat, 10 Oct 2026 19:10:45 +0000
+Message-ID: <179165944590.434549.13992833657056738261@kernel.org>
+In-Reply-To: <20261009183240.1898762-2-alex.austin@amd.com>
+References: <20261009183240.1898762-2-alex.austin@amd.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add KUnit coverage for input events used to initialize device state before
-registration. Register a handler for a virtual switch/LED device, seed a
-switch before input_register_device(), and inject a later LED update and
-SYN_REPORT. Verify that the initial state is retained without replaying
-its event or reusing its timestamp, and that a real later change arrives.
+Thank you for your contribution! Sashiko AI review found 5 potential
+issue(s) to consider.
 
-Exercise both the original event buffer and registration with a larger
-buffer. Also verify preservation and subsequent delivery of absolute-axis
-state in the resizing case. Use SW_DOCK to avoid real radio operations.
+Critical: 0 · High: 0 · Medium: 3 (1) · Low: 2
 
-These tests depend on the preceding pre-registration event fix. Against
-the unpatched input core, the non-resizing case delivers one stale switch
-event and both cases retain the initialization timestamp. Both tests pass
-with the fix, together with the four existing input-core tests.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Assisted-by: LLM
-Signed-off-by: Karlos Abel <kabel@voidship.net>
----
-Changes in v2:
- - Check absinfo allocation before seeding ABS_X and free the test device
-   if allocation failed.
- - Unregister the test handler before unregistering the device, so its
-   pointer matcher cannot bind to a replacement at the freed address.
+- [Medium] At this commit, ptp->host_time_pps is written by
+  efx_ptp_process_times() while phc_lock is held.
+- [Medium] phc_lock is created separately in each PCI function's
+  efx_ptp_data: efx_ptp_probe() calls mutex_init(&ptp->phc_lock) for…
+- [Medium] sfc: data race on current_adjfreq in efx_ptp_start
+- [Low] The patch changes how efx_ptp_synchronize()
+  (drivers/net/ethernet/sfc/ptp.c) handles a failed…
+- [Low] The commit message says clock adjustments are serialized with
+  phc_lock "so they cannot change the PHC during a capture".
 
- drivers/input/tests/input_test.c | 171 +++++++++++++++++++++++++++++++
- 1 file changed, 171 insertions(+)
+Pre-existing issues:
+- [Medium] efx_ptp_start() resets ptp->current_adjfreq = 0 (line 1457)
+  without phc_lock.
 
-diff --git a/drivers/input/tests/input_test.c b/drivers/input/tests/input_test.c
-index e105ce71a..fe4beec8e 100644
---- a/drivers/input/tests/input_test.c
-+++ b/drivers/input/tests/input_test.c
-@@ -161,11 +161,182 @@ static void input_test_grab(struct kunit *test)
- 	input_put_device(input_dev);
- }
- 
-+struct input_seed_test {
-+	struct input_dev *dev;
-+	struct input_handler handler;
-+	struct input_handle handle;
-+	unsigned int switch_events;
-+	unsigned int abs_events;
-+	ktime_t led_timestamp;
-+	bool connected;
-+};
-+
-+static void input_seed_event(struct input_handle *handle, unsigned int type,
-+			     unsigned int code, int value)
-+{
-+	struct input_seed_test *seed = handle->private;
-+
-+	if (type == EV_SW && code == SW_DOCK)
-+		seed->switch_events++;
-+	if (type == EV_ABS && code == ABS_X)
-+		seed->abs_events++;
-+	if (type == EV_LED && code == LED_NUML)
-+		seed->led_timestamp = input_get_timestamp(handle->dev)[INPUT_CLK_MONO];
-+}
-+
-+static bool input_seed_match(struct input_handler *handler,
-+			     struct input_dev *dev)
-+{
-+	struct input_seed_test *seed = container_of(handler, struct input_seed_test,
-+						  handler);
-+
-+	return seed->dev == dev;
-+}
-+
-+static int input_seed_connect(struct input_handler *handler,
-+			      struct input_dev *dev,
-+			      const struct input_device_id *id)
-+{
-+	struct input_seed_test *seed = container_of(handler, struct input_seed_test,
-+						  handler);
-+	int error;
-+
-+	seed->handle.dev = dev;
-+	seed->handle.handler = handler;
-+	seed->handle.name = "input-seed-test";
-+	seed->handle.private = seed;
-+	error = input_register_handle(&seed->handle);
-+	if (error)
-+		return error;
-+
-+	error = input_open_device(&seed->handle);
-+	if (error) {
-+		input_unregister_handle(&seed->handle);
-+		return error;
-+	}
-+
-+	seed->connected = true;
-+	return 0;
-+}
-+
-+static void input_seed_disconnect(struct input_handle *handle)
-+{
-+	input_close_device(handle);
-+	input_unregister_handle(handle);
-+}
-+
-+static const struct input_device_id input_seed_ids[] = {
-+	{ .flags = INPUT_DEVICE_ID_MATCH_BUS, .bustype = BUS_VIRTUAL },
-+	{ }
-+};
-+
-+static void input_test_seed_events(struct kunit *test, bool resize)
-+{
-+	const ktime_t seed_timestamp = ktime_set(123456, 789);
-+	struct input_seed_test *seed;
-+	int error;
-+
-+	seed = kunit_kzalloc(test, sizeof(*seed), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, seed);
-+	seed->dev = input_allocate_device();
-+	KUNIT_ASSERT_NOT_NULL(test, seed->dev);
-+
-+	seed->dev->name = "Input pre-registration events";
-+	seed->dev->id.bustype = BUS_VIRTUAL;
-+	input_set_capability(seed->dev, EV_SW, SW_DOCK);
-+	input_set_capability(seed->dev, EV_LED, LED_NUML);
-+	/* An ABS axis also raises the estimated event-buffer size. */
-+	if (resize) {
-+		input_set_abs_params(seed->dev, ABS_X, 0, 100, 0, 0);
-+		KUNIT_EXPECT_NOT_NULL(test, seed->dev->absinfo);
-+		if (!seed->dev->absinfo)
-+			goto free_device;
-+		seed->dev->hint_events_per_packet = 128;
-+	}
-+
-+	seed->handler.event = input_seed_event;
-+	seed->handler.match = input_seed_match;
-+	seed->handler.connect = input_seed_connect;
-+	seed->handler.disconnect = input_seed_disconnect;
-+	seed->handler.name = "input-seed-test";
-+	seed->handler.id_table = input_seed_ids;
-+	error = input_register_handler(&seed->handler);
-+	KUNIT_EXPECT_EQ(test, error, 0);
-+	if (error)
-+		goto free_device;
-+
-+	/* Initialize state before registration, without a SYN_REPORT. */
-+	input_set_timestamp(seed->dev, seed_timestamp);
-+	input_report_switch(seed->dev, SW_DOCK, 1);
-+	if (resize)
-+		input_report_abs(seed->dev, ABS_X, 42);
-+	error = input_register_device(seed->dev);
-+	KUNIT_EXPECT_EQ(test, error, 0);
-+	if (error)
-+		goto unregister_handler;
-+
-+	KUNIT_EXPECT_TRUE(test, seed->connected);
-+	if (!seed->connected)
-+		goto unregister_device;
-+
-+	KUNIT_EXPECT_TRUE(test, test_bit(SW_DOCK, seed->dev->sw));
-+	if (resize)
-+		KUNIT_EXPECT_EQ(test, input_abs_get_val(seed->dev, ABS_X), 42);
-+	KUNIT_EXPECT_EQ(test, seed->switch_events, 0);
-+	KUNIT_EXPECT_EQ(test, seed->abs_events, 0);
-+
-+	/* A later LED write must not replay the initialization events. */
-+	input_inject_event(&seed->handle, EV_LED, LED_NUML, 1);
-+	input_inject_event(&seed->handle, EV_SYN, SYN_REPORT, 0);
-+	KUNIT_EXPECT_EQ(test, seed->switch_events, 0);
-+	KUNIT_EXPECT_EQ(test, seed->abs_events, 0);
-+	KUNIT_EXPECT_NE(test, seed->led_timestamp, seed_timestamp);
-+	KUNIT_EXPECT_NE(test, seed->led_timestamp, ktime_set(0, 0));
-+
-+	/* Genuine post-registration state changes must still be delivered. */
-+	seed->switch_events = 0;
-+	seed->abs_events = 0;
-+	input_report_switch(seed->dev, SW_DOCK, 0);
-+	if (resize)
-+		input_report_abs(seed->dev, ABS_X, 77);
-+	input_sync(seed->dev);
-+	KUNIT_EXPECT_EQ(test, seed->switch_events, 1);
-+	KUNIT_EXPECT_EQ(test, seed->abs_events, resize ? 1 : 0);
-+	KUNIT_EXPECT_FALSE(test, test_bit(SW_DOCK, seed->dev->sw));
-+	if (resize)
-+		KUNIT_EXPECT_EQ(test, input_abs_get_val(seed->dev, ABS_X), 77);
-+	input_inject_event(&seed->handle, EV_SYN, SYN_REPORT, 0);
-+	KUNIT_EXPECT_EQ(test, seed->switch_events, 1);
-+	KUNIT_EXPECT_EQ(test, seed->abs_events, resize ? 1 : 0);
-+
-+unregister_device:
-+	input_unregister_handler(&seed->handler);
-+	input_unregister_device(seed->dev);
-+	return;
-+
-+unregister_handler:
-+	input_unregister_handler(&seed->handler);
-+free_device:
-+	input_free_device(seed->dev);
-+}
-+
-+static void input_test_seed(struct kunit *test)
-+{
-+	input_test_seed_events(test, false);
-+}
-+
-+static void input_test_seed_resize(struct kunit *test)
-+{
-+	input_test_seed_events(test, true);
-+}
-+
- static struct kunit_case input_tests[] = {
- 	KUNIT_CASE(input_test_polling),
- 	KUNIT_CASE(input_test_timestamp),
- 	KUNIT_CASE(input_test_match_device_id),
- 	KUNIT_CASE(input_test_grab),
-+	KUNIT_CASE(input_test_seed),
-+	KUNIT_CASE(input_test_seed_resize),
- 	{ /* sentinel */ }
- };
- 
+--
+
+sfc: ptp: serialize host and MC synchronization transactions
+
+This commit adds a phc_lock mutex to struct efx_ptp_data and holds it
+across the SYNCHRONIZE DMA handshake in efx_ptp_synchronize(). The PHC
+adjfine, adjtime, gettime and settime callbacks are serialized with the
+same mutex, and efx_phc_settime() now reads and adjusts under one lock
+hold.
+
+> Protect the DMA handshake and result processing against concurrent
+> synchronization callers. Serialize clock adjustments with the same mutex
+> so they cannot change the PHC during a capture.
+
+[Severity: Low]
+Is this rationale accurate for adjustments made on the same function?
+
+efx_ptp_synchronize() acquires the MCDI interface in
+efx_mcdi_rpc_start()->efx_mcdi_acquire_sync(). It only releases it at
+the end of efx_mcdi_rpc_finish():
+
+drivers/net/ethernet/sfc/mcdi.c:efx_mcdi_acquire_sync() {
+	wait_event(mcdi->wq,
+		   cmpxchg(&mcdi->state,
+			   MCDI_STATE_QUIESCENT, MCDI_STATE_RUNNING_SYNC) ==
+		   MCDI_STATE_QUIESCENT);
+}
+
+efx_phc_adjfine(), efx_phc_adjtime() and efx_phc_gettime() all go
+through efx_mcdi_rpc()->_efx_mcdi_rpc()->efx_mcdi_rpc_start(). So even
+before this patch, they could not send an MC command while SYNCHRONIZE
+was in flight.
+
+After rpc_finish, efx_ptp_process_times() only uses the response buffer
+and nic_to_kernel_time(). It does not use current_adjfreq.
+
+The commit message doesn't mention what the new PHC locking actually
+adds:
+
+- efx_phc_settime() now does its gettime and adjtime atomically.
+- The current_adjfreq cached by efx_phc_adjfine() now stays consistent
+  with the PTP_IN_ADJUST_FREQ value that _efx_phc_adjtime() sends.
+
+Could the commit message describe these changes instead?
+
+> diff --git a/drivers/net/ethernet/sfc/ptp.c b/drivers/net/ethernet/sfc/ptp.c
+> index 6ca9a75af01d8..ac9951fee5ddd 100644
+> --- a/drivers/net/ethernet/sfc/ptp.c
+> +++ b/drivers/net/ethernet/sfc/ptp.c
+
+[ ... ]
+
+> @@ -1027,11 +1030,14 @@ static int efx_ptp_synchronize(struct efx_nic *efx, unsigned int num_readings)
+>  	MCDI_SET_QWORD(synch_buf, PTP_IN_SYNCHRONIZE_START_ADDR,
+>  		       ptp->start.dma_addr);
+>  
+> +	mutex_lock(&ptp->phc_lock);
+> +
+
+[Severity: Medium]
+Can a per-function phc_lock protect a PHC that is shared across PCI
+functions?
+
+efx_ptp_probe() calls mutex_init(&ptp->phc_lock) for every function.
+Only the primary function registers the clock with ptp_clock_register().
+efx_ptp_get_ts_info() reports the primary's clock for secondaries too:
+
+drivers/net/ethernet/sfc/ptp.c:efx_ptp_get_ts_info() {
+    ...
+	if (primary && primary->ptp_data && primary->ptp_data->phc_clock)
+		ts_info->phc_index =
+			ptp_clock_index(primary->ptp_data->phc_clock);
+    ...
+}
+
+A secondary function still captures against that clock through
+efx_ptp_change_mode()->efx_ptp_synchronize(). While it does so it holds
+only secondary->ptp_data->phc_lock.
+
+On the primary, efx_phc_adjtime(), efx_phc_settime() and
+efx_phc_adjfine() take primary->ptp_data->phc_lock, which is a different
+mutex. They send MC_CMD_PTP_OP_ADJUST over the primary's own MCDI
+interface, so per-function MCDI serialization doesn't cover this case
+either.
+
+If ptp4l on the primary steps the PHC while SIOCSHWTSTAMP runs on a
+secondary, could the secondary's timesets become inconsistent?
+
+In that case efx_ptp_process_times() would return -EAGAIN. The baseline
+synchronisation in efx_ptp_change_mode() would then fail, and PTP would
+be stopped on that function:
+
+			if (rc == 0) {
+				rc = efx_ptp_synchronize(efx,
+							 PTP_SYNC_ATTEMPTS * 2);
+				if (rc != 0)
+					efx_ptp_stop(efx);
+			}
+
+Whether this actually goes wrong depends on whether the MC firmware
+processes the primary's ADJUST while it is servicing the secondary's
+SYNCHRONIZE. That can't be confirmed from the driver.
+
+Would a lock scoped to the clock be needed to fully cover the case the
+commit message describes? One option is a lock shared through
+efx->primary->ptp_data.
+
+>  	/* Clear flag that signals MC ready */
+>  	WRITE_ONCE(*start, 0);
+>  	rc = efx_mcdi_rpc_start(efx, MC_CMD_PTP, synch_buf,
+>  				MC_CMD_PTP_IN_SYNCHRONIZE_LEN);
+> -	EFX_WARN_ON_ONCE_PARANOID(rc);
+> +	if (rc)
+> +		goto out;
+
+[Severity: Low]
+This change looks correct, but it fixes a separate bug that the commit
+message doesn't mention.
+
+efx_mcdi_rpc_start() can fail before it calls efx_mcdi_acquire_sync().
+This happens when efx_mcdi_check_supported() fails, when
+mc_bist_for_other_fn is set, or when mcdi->mode is MCDI_MODE_FAIL:
+
+drivers/net/ethernet/sfc/mcdi.c:efx_mcdi_rpc_start() {
+    ...
+	if (efx->mc_bist_for_other_fn)
+		return -ENETDOWN;
+
+	if (mcdi->mode == MCDI_MODE_FAIL)
+		return -ENETDOWN;
+
+	efx_mcdi_acquire_sync(mcdi);
+    ...
+}
+
+Without paranoid checks, EFX_WARN_ON_ONCE_PARANOID() compiled to
+nothing. The old code then busy-waited for up to MAX_SYNCHRONISE_WAIT_MS
+and called efx_mcdi_rpc_finish() anyway.
+
+That path waited for a completion that never came and called
+efx_mcdi_abandon(). It then called efx_mcdi_release() on an interface
+this caller had never acquired.
+
+Could this be described in the commit message, or split into its own
+patch with its own justification?
+
+[ ... ]
+
+> @@ -1062,11 +1068,13 @@ static int efx_ptp_synchronize(struct efx_nic *efx, unsigned int num_readings)
+>  			++ptp->no_time_syncs;
+>  	}
+>  
+> +out:
+>  	/* Increment the bad syncs counter if the synchronize fails, whatever
+>  	 * the reason.
+>  	 */
+>  	if (rc != 0)
+>  		++ptp->bad_syncs;
+> +	mutex_unlock(&ptp->phc_lock);
+>  
+>  	return rc;
+>  }
+
+[Severity: Medium]
+Is ptp->host_time_pps still racy after this unlock?
+
+efx_ptp_process_times() writes ptp->host_time_pps while phc_lock is
+held. efx_ptp_pps_worker() reads it only after efx_ptp_synchronize() has
+dropped the mutex:
+
+drivers/net/ethernet/sfc/ptp.c:efx_ptp_pps_worker() {
+	...
+	if (efx_ptp_synchronize(efx, PTP_SYNC_ATTEMPTS))
+		return;
+
+	ptp_evt.type = PTP_CLOCK_PPSUSR;
+	ptp_evt.pps_times = ptp->host_time_pps;
+	ptp_clock_event(ptp->phc_clock, &ptp_evt);
+}
+
+A concurrent SIOCSHWTSTAMP can go through
+efx_ptp_change_mode()->efx_ptp_synchronize() and overwrite host_time_pps
+while the worker is copying it. The PPS event passed to
+ptp_clock_event() could then carry a torn timestamp.
+
+This race existed before this commit.
+
+The next patch in this series, "sfc: ptp: avoid racing PPS timestamp
+updates", removes host_time_pps from struct efx_ptp_data. That patch
+returns the result through a caller-owned struct efx_ptp_sync_result
+filled in under phc_lock, and efx_ptp_change_mode() passes NULL. The
+race is gone by the end of the series.
+
+[ ... ]
+
+> @@ -2106,23 +2117,23 @@ static int efx_phc_adjfine(struct ptp_clock_info *ptp, long scaled_ppm)
+>  	MCDI_SET_QWORD(inadj, PTP_IN_ADJUST_FREQ, adjustment_ns);
+>  	MCDI_SET_DWORD(inadj, PTP_IN_ADJUST_SECONDS, 0);
+>  	MCDI_SET_DWORD(inadj, PTP_IN_ADJUST_NANOSECONDS, 0);
+> +	mutex_lock(&ptp_data->phc_lock);
+>  	rc = efx_mcdi_rpc(efx, MC_CMD_PTP, inadj, sizeof(inadj),
+>  			  NULL, 0, NULL);
+> -	if (rc != 0)
+> -		return rc;
+> -
+> -	ptp_data->current_adjfreq = adjustment_ns;
+> -	return 0;
+> +	if (!rc)
+> +		ptp_data->current_adjfreq = adjustment_ns;
+> +	mutex_unlock(&ptp_data->phc_lock);
+> +	return rc;
+>  }
+
+[Severity: Medium]
+efx_ptp_start() still writes ptp->current_adjfreq without taking
+phc_lock:
+
+drivers/net/ethernet/sfc/ptp.c:efx_ptp_start() {
+    ...
+	ptp->evt_frag_idx = 0;
+	ptp->current_adjfreq = 0;
+    ...
+}
+
+current_adjfreq is an s64. _efx_phc_adjtime() reads it under phc_lock
+and passes it to MCDI_SET_QWORD(). That macro evaluates its value
+argument twice, once for the low dword and once for the high dword.
+Even on 64-bit the compiler is free to emit two separate loads. On
+32-bit, the store in efx_ptp_start() is also two separate 32-bit
+writes.
+
+efx_ptp_start() is reached in two ways that don't hold phc_lock:
+
+- SIOCSHWTSTAMP via efx_ptp_change_mode()
+- efx_ptp_worker(), when reset_required is set
+
+So a concurrent clock_adjtime() on the PHC can run _efx_phc_adjtime()
+at the same moment.
+
+Could the MC then receive a PTP_IN_ADJUST_FREQ built from the low half
+of one value and the high half of another? Suppose current_adjfreq
+held a small negative value. The low dword could read the new 0 while
+the high dword still reads 0xffffffff. The result is a frequency
+adjustment of roughly -4.3e9, which is neither the old value nor 0.
+How the firmware reacts to such a value can't be determined from the
+driver.
+
+This is the same unlocked write raised above for efx_phc_adjfine(),
+but the consequence here is a corrupted value rather than just a lost
+one. This patch makes phc_lock the lock for current_adjfreq. Should
+efx_ptp_start() also take phc_lock around the reset?
+
+efx_ptp_start() runs in process context. It doesn't appear to be
+called with phc_lock already held: efx_ptp_change_mode() calls
+efx_ptp_synchronize() only after efx_ptp_start() returns. So taking
+the mutex there looks straightforward.
+
+[Severity: Medium]
+This is a pre-existing issue and was not introduced by this patch.
+efx_ptp_start() still resets current_adjfreq without taking phc_lock:
+
+drivers/net/ethernet/sfc/ptp.c:efx_ptp_start() {
+    ...
+	ptp->evt_frag_idx = 0;
+	ptp->current_adjfreq = 0;
+    ...
+}
+
+efx_ptp_start() is reached from three places:
+
+- efx_ptp_worker(), when reset_required is set
+- efx_ptp_start_datapath()->efx_ptp_restart()
+- efx_ptp_change_mode()
+
+None of them take phc_lock, so efx_ptp_start() can run alongside the
+PHC clock ioctls.
+
+Could this interleaving drop the servo's frequency correction?
+
+efx_phc_adjfine()
+  sends frequency X to the MC
+  current_adjfreq = X
+                              efx_ptp_start()
+                                current_adjfreq = 0
+efx_phc_adjtime()
+  _efx_phc_adjtime()
+    sends PTP_IN_ADJUST_FREQ = 0
+
+The next adjfine would correct this, so the frequency error is
+transient.
+
+Now that phc_lock protects the other accesses to current_adjfreq,
+should efx_ptp_start() take it as well?
+
 -- 
-2.56.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261009183240.1898762-1-alex.austin%40amd.com
