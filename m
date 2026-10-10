@@ -1,307 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90EC44B44BF;
-	Sat, 10 Oct 2026 19:07:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0C5D391E60
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 19:10:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791659256; cv=none; b=k/L4JTrq013SIxfVZ6BafqD6GlwmILVeMANJuemTsnoOF5sf8eLQJhKIabt/a1s7ZFbGggTEWOcFpIjMjLgUV2kUyNLG89e4ZQvzZ4eUpdIz50rorpNepTr+/aR9xvvGr0Ra/31h0r+3uDXG6dQqCrtn65Vhb77TuSu+LAExdgM=
+	t=1791659437; cv=none; b=dpcEVH2htUBp9bAgIELzBQLcoX6Q+YcuLQXKJ8CBzTKkjtxS+7LD7Sth1YhT1LJFYdlLf9ZwW6eh2T97zjBGQJNYF4rVtlXJ/7G6ubCQ2OFaug59SqzAT6+FvQ1RsOyOP2mHFpV/rRIKTgGx/my2VriRoAWuD7OQJNLM8nI72Hs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791659256; c=relaxed/simple;
-	bh=RX3HUGnJvfbNuOfh2YfO4unieZqsx+UEPgo3+7Gc+nw=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=pelE59j9mH1L4glJJ7AvIfp0RbE9KO3j/AusvfcLd3xodpYWym6t6cPXIfRE1sWHAqCMqOLQoywBJfH1PqVUmCWel8C/GP1TcPyMdMei3CJGSdcTK5O5CbzZPADaU0MvAKrL1oCqPDR9cg0IA7X/liw2ip7N9HNMWrm+H+YyyGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kq2V+YXd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791659437; c=relaxed/simple;
+	bh=awjdtHzdvRtnEfgvFMsm8k9DOKmErrjpCal2ijjHmWQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ucIGj4UEnGPlvFg2Pzk/qSWDSB3FlPQHC+fMDqOaK+ktnryMGNZAwGKTTeXMTInhTiWWawjF10lp+sjjC4rhShfKaW4s/36Lmo260MbWEiH/EYN8RdSsWYrCUbhgwtEGvMLkMr+vdDj/q0ED36RZL0BCHVIQETN1gV4bVVqWqo4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=voidship.net; spf=pass smtp.mailfrom=voidship.net; dkim=pass (2048-bit key) header.d=voidship-net.20251104.gappssmtp.com header.i=@voidship-net.20251104.gappssmtp.com header.b=bAAgH/Rt; arc=none smtp.client-ip=209.85.222.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=voidship.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=voidship.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kq2V+YXd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9157E1F000FF;
-	Sat, 10 Oct 2026 19:07:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791659254;
-	bh=8GdtLgttCyKb4tZx9St8N2yZyVc+yX3u7FwIGjnKRQg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=kq2V+YXd+S1I3XJFDTfGJcUm1jKBU17Y35kf7n/MC4vAHHy09F79XeiLXSYmeXMIP
-	 vi9EkPMdrnNl9aQETMtPJ+fr8/aCC7he/WPwJWOilLUgyTh5yM4j3Vx+Mhc+InBHdA
-	 G0x6hwmRF1hpPiy9dXWvtJBTw3KOLsa2QWg9Vm6P3PVmRXRS+Hy0l2/sIEIJvohH7W
-	 3MB7k2PRVNreSZRPAHrJBk+Y+TjJT1VyJXlLQCZm1Fe7Kylb5DDgxCvdJGI3a8kCzY
-	 Pq111Jeuze8Ov+DVHRwDGZJ/8UCtIYo5NxPdgyv35wRgDvrzb56tcIeQ0yTh1sVBSA
-	 nQ6NTlH51xE/w==
-Subject: Re: [PATCH net-next v5 4/4] net: phy: make an unbind wait for the
- attached consumer to detach
-From: netdev-bot+sashiko@kernel.org
-To: f@lex.la
-Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
- netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, linux-kernel@vger.kernel.org,
- f.fainelli@gmail.com, woojung.huh@microchip.com, vladimir.oltean@nxp.com,
- maxime.chevallier@bootlin.com
-Date: Sat, 10 Oct 2026 19:07:33 +0000
-Message-ID: <179165925312.434549.3215733785480960392@kernel.org>
-In-Reply-To: <20261009180551.1234107-5-f@lex.la>
-References: <20261009180551.1234107-5-f@lex.la>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=voidship-net.20251104.gappssmtp.com header.i=@voidship-net.20251104.gappssmtp.com header.b="bAAgH/Rt"
+Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-93e5c8f53a9so61829685a.3
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 12:10:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=voidship-net.20251104.gappssmtp.com; s=20251104; t=1791659435; x=1792264235; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sePYJd1IcAwgM9NvQ3Wm/mXj27dl2KtQ+o9Z69cf6Y0=;
+        b=bAAgH/RtUa/jmSbzD+WrInwMpF+6yGUvKk26GHHL7EJhEEAHNPDo8mVAM28kggOmKI
+         JTe1DjCpX+BBsf/ZZrIscZXq+y3P3Fpay7Er94WfEgJImVgoPUmRbAOhZaZNTYOjJhyJ
+         /Gn/LQ3K+sTdH94+tMwXW1L9I1CNdD57KGkSbgtVvMWfqy9BSYFCaKRrnTV2swpmDbwc
+         LJOjtseKxAssoPjDyOUKqQLZVdcNfaATXPnwQ7+nUJgVe79vwqoKe6NGNvcC740PgMct
+         zQeEzG5MZFD2cJXVA/3Z+HgvDejWM74jXc5GM6FEc7bWo2RmWWRaNpFVeuP9M84POBEZ
+         1b+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791659435; x=1792264235;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sePYJd1IcAwgM9NvQ3Wm/mXj27dl2KtQ+o9Z69cf6Y0=;
+        b=nMuK52wq/Ey5l4mpUjO87LfSvc62HCYGQLn5mt78Opl/X6eYi1obkyqLs6qjCkCQ4f
+         7MOA90dy4tZan/QE62C6A4tdNz2iJ1j90NMIIsEPTy+1R1bUCeShlJmWkDJ9EnrNlHO4
+         BkVbag/Brlq28UFdY/qqxWRkm0VviOBzEgDbw5i/uONq6rUy+hf3iFQ5bJEihOX6CpQa
+         iGXtTaKfYQIN3OYAEYL82bgB6dPyESbqRMPGeq7wYrx3Dot7p24Lok6vLb/kgipFeRJH
+         W0j0ijzpXT9WJE4DtgjqqkUkE3ay9p6x+/bL5rlAwNyDiVWRt12cjA+DnQytLUalVPQM
+         4BAA==
+X-Forwarded-Encrypted: i=1; AKwUvBxRXX4gc/i9wUNZsGnEQSAxkovDqW5Bus3ebsbr77hb+2vPX7zqCa6chla23sCgyxQbCBFhX/b0+YEq7d4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKe2KcunAPyEHReiv/Pk42xt6JoLNOxpXLmE+KOA+fOqWmButcD
+	00gGTGgv4pKLr5PUXTlOxyUQbiG+Gf3W+RWjbC2b2SWveL0w2iSqnsq4jgKxxhVr4p8=
+X-Gm-Gg: AYBFou0sJOkt7a58CtIIn+hS9loyC93f+E6tDyHCUYZM/t8B1KC74KNBuSIzHKMQ8bP
+	rvbHBr/MN9sCOq7Hw9dTRdBb+9f4ggHBg2zrazMYmIfRXUjCNO0ZITmFZ7yElotxdoyqchc3yqf
+	QuXmqpyXuzpCLCuwsnhpipmFs3qD7LQSh+Z1LectJYHCAmajbR9aldX0yl2d6hjx/g8299/99tU
+	GNrsPYrhZlDXizg6puf8kzc17RYPGa1MUHl7uRt3jOP3dgTigWe0aja8ouzjYNNFBnElnbN4DjL
+	dtU8GM9H5AQEvlcpavjPZc/1ma9xwsPEectWZHrsaS6XZTtTMjImw86NhUm78qCxoEYEB6U0/F1
+	JCgruzzSo2FVwWF7BhooUTxKFWkyvNwOUi4RoR3KV8u08q6cEsJ5CebbagHsOnp9AI6oac19KwQ
+	veS39GkHTzcqfPXArHdQxIAj+e9imWcYh78F7Z/Zdta90Y5TFA8NNyNEH4oUFTTcXmKuC5devA4
+	u/O775aaA3KuLvwtmWVHTaOOSL2BUo+Ia1XwPoWSQ==
+X-Received: by 2002:a05:620a:618c:b0:93c:8544:6adb with SMTP id af79cd13be357-93ebd228f75mr909689285a.22.1791659434752;
+        Sat, 10 Oct 2026 12:10:34 -0700 (PDT)
+Received: from boomzilla (dynamic-acs-24-101-237-49.zoominternet.net. [24.101.237.49])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb986c0cfsm489355685a.19.2026.10.10.12.10.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 12:10:34 -0700 (PDT)
+From: Karlos Abel <kabel@voidship.net>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	sashiko-bot@kernel.org
+Subject: [PATCH v2 0/2] Input: discard pre-registration events and test state seeding
+Date: Sat, 10 Oct 2026 15:10:31 -0400
+Message-ID: <20261010191033.23577-1-kabel@voidship.net>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+This series prevents input handlers from receiving buffered initialization
+events after device registration. On a ThinkPad T14 Gen 6, a later LED
+update flushed a stale SW_RFKILL_ALL event seeded by thinkpad_acpi.
+The fix drops the pending events and their timestamp before handlers
+attach, while retaining the seeded switch and absolute-axis state.
 
-Critical: 0 · High: 3 · Medium: 1 · Low: 0
+Patch 1 contains the six-line runtime fix. Patch 2 adds KUnit coverage for
+registration with and without event-buffer resizing. The test uses a
+virtual SW_DOCK device and performs no real radio operations.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Tested on mainline 3857c2fe5449541e24afc5efdb0f81a8a8f9a3a0 (7.3.0-rc6):
+ - Tests alone on the unmodified input core: four pass, two fail.
+   The non-resizing case replays one stale switch event; both cases
+   retain the initialization timestamp.
+ - Patch 1 alone: all four existing input-core tests pass.
+ - Both patches: all six input-core tests pass.
+Both source commits were built and tested under UML without compiler
+warnings. The revised tests repeat the same failing/passing comparison.
 
-- [High] phy_remove() can wait forever on its own thread.
-- [High] net: phy: driver state corruption due to attach/detach race
-- [High] net: phy: deadlock in phy_detach_internal() waiting for unbind
-- [Medium] The new wait_var_event() in phy_remove()
-  (drivers/net/phy/phy_device.c, lines 3887-3892) has no upper bound and…
+The same runtime fix was also tested with QEMU/KVM on Arch 7.2.7 and on
+the ThinkPad.
 
---
+AI assistance: OpenAI Codex assisted source analysis, the fix, regression
+tests and this text. The submitter performed the physical hardware
+comparisons.
 
-net: phy: make an unbind wait for the attached consumer to detach
+Previous version:
+ Message-ID: <20261010180031.7-1-kabel@voidship.net>
+Review addressed:
+ Message-ID: <sashiko-outbox-166792@kernel.org>
 
-With this patch, phy_remove() waits for phy_detach() to run before it
-takes the driver away from a PHY that is still attached. Without the
-wait, phylink and phylib keep using phydev->drv after the unbind. Removing
-the device through phy_device_remove() sets a new removing flag, which
-skips the wait and wakes any unbind that is already waiting.
+Changes in v2:
+ - Patch 1 is unchanged.
+ - Patch 2 checks absinfo allocation before event seeding and unregisters
+   its handler before its device, addressing Sashiko's review of v1.
+ - Forced allocation failure now reaches the explicit check and cleanup.
+   A forced teardown interleaving reproduced unintended binding after
+   actual allocator address reuse; handler-first cleanup prevents it.
 
-> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-> index 0ffaa456a308b..a271fe76c3f8e 100644
-> --- a/drivers/net/phy/phy_device.c
-> +++ b/drivers/net/phy/phy_device.c
+Karlos Abel (2):
+  Input: discard pre-registration events before attaching handlers
+  Input: test state seeding across device registration
 
-[ ... ]
+ drivers/input/input.c            |   6 ++
+ drivers/input/tests/input_test.c | 171 +++++++++++++++++++++++++++++++
+ 2 files changed, 177 insertions(+)
 
-> @@ -3858,11 +3874,23 @@ static int phy_probe(struct device *dev)
->  static int phy_remove(struct device *dev)
->  {
->  	struct phy_device *phydev = to_phy_device(dev);
-> +	bool attached;
->  
->  	mutex_lock(&phydev->bind_lock);
->  	phydev->bound = false;
-> +	attached = READ_ONCE(phydev->attached) && !phydev->removing;
->  	mutex_unlock(&phydev->bind_lock);
->  
-> +	/* The driver core cannot refuse an unbind, and the consumer keeps
-> +	 * using phydev->drv until it detaches.
-> +	 */
-> +	if (attached) {
-> +		phydev_warn(phydev, "unbind waits for the PHY to be detached\n");
-> +		wait_var_event(&phydev->attached,
-> +			       !READ_ONCE(phydev->attached) ||
-> +			       READ_ONCE(phydev->removing));
-> +	}
 
-[Severity: High]
-Can the detach of a genphy-driven PHY end up waiting for a different
-consumer? The commit message expects an attach to come right after
-this section. For a PHY on the generic driver, though, the detach is
-not finished at that point.
-
-attached is cleared and bind_lock is dropped before
-device_release_driver() runs. phy_remove() only samples attached when
-it takes bind_lock again from inside the driver core. As far as I can
-tell, __device_release_driver() calls driver_sysfs_remove() before
-device_remove(), and dev->driver is cleared only afterwards, in
-device_unbind_cleanup().
-
-A phy_attach_direct() that lands in that window sees:
-
-- phy_link_change == NULL
-- d->driver still set
-- phydev->bound still true
-- is_genphy_driven still 1
-
-It runs __phy_probe() again. device_bind_driver() now succeeds because
-the driver sysfs links are already gone; driver_bound() only warns that
-the device is already bound. The attach then completes and sets
-attached to true.
-
-The detaching thread then gets to phy_remove() and sees attached set
-and removing clear. It sleeps in wait_var_event() with the PHY's device
-lock held until the new consumer detaches.
-
-The old consumer usually gets here through phylink_disconnect_phy() or
-phy_disconnect() from ndo_stop with RTNL held. The ifdown then hangs
-in D state behind an unrelated consumer. Suppose that consumer attached
-without RTNL, for example from a probe path, but needs RTNL for its
-own detach. Then the wait can never end.
-
-Even when the wait does end, the new attach has re-run __phy_probe()
-and device_bind_driver() on a device that was halfway through its
-unbind.
-
-Could phy_link_change stay set until device_release_driver() has
-returned, with only attached cleared before it? An attach in this
-window would then be refused with -EBUSY instead.
-
-[Severity: High]
-Does the genphy release at the end of phy_detach_internal() still race
-with a new attach? The irq restore now comes ahead of the bind_lock
-section so that a new attach cannot see it. However, is_genphy_driven
-and d->driver are still used after bind_lock has been dropped.
-
-Once phy_link_change is NULL, a concurrent phy_attach_direct() passes
-its "already attached" test. At that point d->driver still points at
-the genphy driver, phydev->bound is still true and is_genphy_driven is
-still 1. The attach therefore takes the genphy path again and calls
-__phy_probe() and device_bind_driver() on a device that is still bound.
-
-If the driver sysfs links have not been removed yet, driver_sysfs_add()
-fails with -EEXIST. The attach then unwinds through error_module_put,
-which clears is_genphy_driven and sets d->driver to NULL.
-
-The detaching thread then does one of two things:
-
-- It sees is_genphy_driven == 0 and skips device_release_driver().
-
-- It reaches __device_release_driver() after dev->driver was cleared
-  and does nothing.
-
-Either way the device stays on the genphy driver's klist with its
-driver sysfs links in place, but with a NULL driver pointer. Since
-phy_remove() never runs, phydev->bound stays true.
-
->From then on, every genphy attach fails the same way in
-driver_sysfs_add(). When the device is later deleted,
-bus_remove_device() finds no driver to release. As far as I can tell,
-the knode_driver of a freed device is then left on the genphy driver's
-list.
-
-Would it work to keep phy_link_change set until
-device_release_driver() has returned? Only attached would be cleared,
-and the waiter woken, before it. A new attach would then get -EBUSY
-for the whole genphy release. Or is there another way you would
-prefer to keep phy_attach_direct() off a device whose genphy driver is
-still being released?
-
-[Severity: Medium]
-This wait has no timeout and cannot be interrupted. It also runs while
-the driver core holds the PHY's device lock. __wait_var_event() is:
-
-include/linux/wait_bit.h:
-#define __wait_var_event(var, condition)
-	___wait_var_event(var, condition, TASK_UNINTERRUPTIBLE, 0, 0,
-			  schedule())
-
-and phy_remove() is reached under the device lock (plus the parent lock,
-when the bus needs it):
-
-drivers/base/dd.c:device_release_driver_internal() {
-    ...
-	__device_driver_lock(dev, parent);
-
-	if (!drv || drv == dev->driver)
-		__device_release_driver(dev, parent);
-
-	__device_driver_unlock(dev, parent);
-    ...
-}
-
-Only phy_detach_internal() or phy_device_remove() can end the wait. For
-a MAC that connects in ndo_open, that means an ifdown. For DSA, or a MAC
-that connects at probe, it means tearing down the consumer driver. Until
-then the unbinding task sits in D state and keeps holding dev->mutex.
-
-The commit message covers the reboot hang in device_shutdown(). There
-seem to be other effects as well:
-
-- The freezer cannot freeze a task in TASK_UNINTERRUPTIBLE without
-  TASK_FREEZABLE, so system suspend and hibernate would abort.
-
-- The hung task detector would report the task every
-  hung_task_timeout_secs, and with hung_task_panic=1 the machine would
-  panic.
-
-- Anything else that needs this device's lock would block too, such as
-  a later bind, a driver_override write, or loading a driver that
-  matches the device.
-
-The dependency is a bool flag plus wait_var_event(), and dev->mutex uses
-a lockdep novalidate class. As far as I can tell, lockdep cannot report
-any of these hangs.
-
-Was a different design considered? For example, a managed device link
-from the consumer to the PHY would make the driver core unbind the
-consumer before the PHY, so phy_remove() would not have to block under
-the device lock.
-
-[Severity: High]
-Can this wait end up waiting on its own thread forever? The commit
-message says:
-
-  One case is known to wait for good and is untested: when the PHY and
-  its MAC or switch are managed device-link consumers of one supplier,
-  unbinding the supplier can unbind the PHY first, and phy_remove() then
-  waits for a detach that only the same thread would run later.
-
-When a supplier is unbound, device_links_unbind_consumers() unbinds each
-active managed consumer synchronously, one at a time:
-
-drivers/base/core.c:device_links_unbind_consumers() {
-    ...
-		if (status == DL_STATE_ACTIVE) {
-			struct device *consumer = link->consumer;
-
-			get_device(consumer);
-
-			device_links_write_unlock();
-
-			device_release_driver_internal(consumer, NULL,
-						       consumer->parent);
-			put_device(consumer);
-			goto start;
-		}
-    ...
-}
-
-The PHY can be a consumer of a third-party supplier through fw_devlink,
-for example via reset-gpios, interrupts, pinctrl or a clock. If its link
-is processed before the link of the MAC or switch that holds it
-attached, the call chain is:
-
-device_release_driver_internal(supplier)
-  __device_release_driver(supplier)
-    device_links_unbind_consumers(supplier)
-      device_release_driver_internal(phy)
-        phy_remove()
-          wait_var_event()
-
-The phy_detach() that would wake the waiter runs only when the MAC or
-switch consumer is unbound. That happens later in the same loop, on the
-same thread, after phy_remove() returns. The thread then hangs for good
-while holding both the supplier's and the PHY's device locks, and any
-later reboot hangs in device_shutdown() as well.
-
-The MAC-to-PHY link created in phy_attach_direct() does not help here:
-
-	phydev->devlink = device_link_add(dev->dev.parent, &phydev->mdio.dev,
-					  DL_FLAG_PM_RUNTIME | DL_FLAG_STATELESS);
-
-Because it is stateless, device_links_unbind_consumers() ignores it and
-does not unbind the MAC before the PHY.
-
-This patch knowingly ships a hang that cannot be recovered. Could it be
-avoided before merging, for example with a timeout, a managed link, or
-by skipping the wait when the unbind comes from a supplier?
-
->  	cancel_delayed_work_sync(&phydev->state_queue);
->  
->  	if (IS_ENABLED(CONFIG_PHYLIB_LEDS) && !phy_driver_is_genphy(phydev))
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261009180551.1234107-1-f%40lex.la
+base-commit: 3857c2fe5449541e24afc5efdb0f81a8a8f9a3a0
