@@ -1,56 +1,115 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from omta033.useast.a.cloudfilter.net (omta033.useast.a.cloudfilter.net [44.202.169.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E539940960D;
-	Sat, 10 Oct 2026 07:27:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF2830E828
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 07:28:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.32
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791617237; cv=none; b=acjyOtgYQCr8e0bYI8ubbZnKFxLCWGPNXQFiM0jl4P0hiwNDkbJXy/mwIYOIzvSGOOS3+XE4Wn/Hrlmht1QGHA2vkETM206CQUUbwrhGDMzK+zaemZAi/RVqxUApZU/XhlJXziDjy5RFbl/qlhqtZZqf7GWBz8qWY5yyglDAd5o=
+	t=1791617304; cv=none; b=HwQ3rObnjaxCfq17wYpqOn3NvPywTQJ8j17ooEhIrCN5JUf5xBIq2Imm3YRmBG/pZtZ9KJl0MXq54N0uY3L0/+pNrKVVO2KlB3+RyW3P2I2pxlNrHRFp23vpk0i0lALYckwBgKejXLqx0TyMhvci4gqSplfAOPq2YLF5AT1kQ/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791617237; c=relaxed/simple;
-	bh=g4eHFf/k9paFRp0bk4uNRxT9u/IvDo8cgf9cKjk1OyI=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References; b=YZftWK/KGkW/p2lAOsqYCj2H1vYmnzP/oETmtC6mC0DzboM4G2qDoAj50fYF3ayzvYzTS8bOdgin2WVyhfcH3U14dFKU8iW1FTxpu8a7k4wVEiBmUapTpToReiBAiV2P2BQg2+6GxErfpZ+ECYScx4WDFCuD38gAPEvmUbcINPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=aaGfZ6nV; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791617304; c=relaxed/simple;
+	bh=Zrb8fF83ihwCy5E64vD7+UdNPyX6korPq7gOC+OVVPg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OdoX2oFra70iZp8hHgZjtAJntpxqFE2Nc9W4JEu5vD/IAGuqhiM3ZZh1K5zsC1dxd6xee57Yk4GW4Bokv8o/2bRFLW6sdG44GWSWyv1idYYqvTLK2p3ZHuJnScwFQhyPru84N+zThwwW4aQ4SuzF1hFA9e20s1NqaPet7YHfoB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=rtYa5qxi; arc=none smtp.client-ip=44.202.169.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="aaGfZ6nV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:From:To:Subject:Date; bh=g4eHFf/k9paFRp0
-	bk4uNRxT9u/IvDo8cgf9cKjk1OyI=; b=aaGfZ6nVvr5053xP9fbRflDYtanq/h4
-	mm5OyGlJlMbWLrNGesOYoVNI2Ik2BJflnXQ10QWgQhitzXEcM5NZRcyJPkpnaGdO
-	SiZfXLjevYc478arFYPcjDAic2LUaSR4xnRWTkR5FWFFNpsaIDwDXrQoHPtFqrAg
-	alTT1Ouw4e1U=
-Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3n4W66Mlqc7usDQ--.33285S2;
-	Sat, 10 Oct 2026 15:26:50 +0800 (CST)
-Message-ID: <23f74656850cf78261d84fd18bfc7870@163.com>
-From: Hui Su <sh_def@163.com>
-To: Tejun Heo <tj@kernel.org>
-Cc: sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] sched_ext: Fix use-after-free of a destroyed user DSQ by a deferred reenqueue
-Date: Sat, 10 Oct 2026 15:23:23 +0900
-In-Reply-To: <20261009220001.196762128-1-tj@kernel.org>
-References: <20261009220001.196762128-1-tj@kernel.org>
-X-CM-TRANSID:_____wD3n4W66Mlqc7usDQ--.33285S2
-X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUUmiRUUUUU
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6hp11GrJ6LojjAAA3P
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="rtYa5qxi"
+Received: from eig-obgw-5001b.ext.cloudfilter.net ([10.0.29.181])
+	by cmsmtp with ESMTPS
+	id FKyjxnnxjPG7QFRThxsumr; Sat, 10 Oct 2026 07:26:45 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id FRThxVZaMP7wgFRThx1xTP; Sat, 10 Oct 2026 07:26:45 +0000
+X-Authority-Analysis: v=2.4 cv=NMzV+16g c=1 sm=1 tr=0 ts=6ac9e8b5
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=49j0FZ7RFL9ueZfULrUA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=CQiSQOokz4LWgZwaj9OnPw7iZq1kF3GjFfNI9gqb7II=; b=rtYa5qxiANZvwwpOSfj0B2oPq4
+	gtAIp2k+hEUO5Nq6/RHXObygzE7fZ2f42efLqVqGRB2pj8IaOsLa8BjCFNSLIcX0go+KesslsAXwr
+	Nz5YZchLPWp9peUOIP9HtcCb05NbXk6HkrPThNlWGxJW4UbyqQedx2GjlM0e9omfyz4NVvnWih08q
+	SJ9i8MYIizUaBMvcX5zAd0nUPvPReo42FnZjFnoyQ4QHT+bwZyyne5lRW6PutnyAMo2SHVlHDsa1S
+	Q4k0X/3uyrAaLzA5O+kmBb9MM8kH5VvfLshePDfOM8eizpFOVRXcIfSoFGK6YPPPLeGRiIm6o28A6
+	uVYHQo0w==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:39670 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100.1)
+	(envelope-from <re@w6rz.net>)
+	id 1xFRTg-00000001lDx-1ptS;
+	Sat, 10 Oct 2026 01:26:44 -0600
+Message-ID: <96eb4021-e133-4690-af8c-905587b94593@w6rz.net>
+Date: Sat, 10 Oct 2026 00:26:42 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 000/403] 6.18.56-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261009140952.119038291@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20261009140952.119038291@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1xFRTg-00000001lDx-1ptS
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:39670
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 37
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfBO9KP4WSrCtxBRSajhXnv6HBioQLySdsKmnNd/T4DomCrqZhFheguEeJ3ApYvtMTNddYXyUaEYYLtibUlh3sp+YMZ8i4HYR5COgMkBwoWAm+PYpJgQZ
+ SS6vCjrbtm6HXkO89BsiPrEppfM7tzzNbDAEf1Z/7VVtda2wNv25a8vTdAjVZWEG8nEQ7utIoq0id9prKN1J+NrWHCxPUG0zqTE=
 
-Hi Tejun,
+On 10/9/26 07:06, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.56 release.
+> There are 403 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Sun, 11 Oct 2026 14:08:27 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.56-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-Tested on x86_64 KVM with KASAN; sched_ext selftests passed, and the targeted
-DSQ lifetime test completed without the pre-fix slab-use-after-free.
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-Tested-by: Hui Su <sh_def@163.com>
-
-Thanks,
-Hui
+Tested-by: Ron Economos <re@w6rz.net>
 
