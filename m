@@ -1,217 +1,232 @@
-Received: from smtp-bc08.mail.infomaniak.ch (smtp-bc08.mail.infomaniak.ch [45.157.188.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A1DA34B1A6
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 12:20:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.188.8
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791634843; cv=none; b=lKYCC7C6Uvr9Uenb105/LeyJ9TZpm9IiouShRzNwyh8VjxxIm/fAQx21+I2JG+LxB7UnBBFG0MhxXziA8pjpLtYPuzjIS4qBBCUlhMT9r9zdUnkrjFgLkm3xjO+WIcMXCcy5LkHtPEtqlxxp4HffKFNORkRlccYNyswcEIaCojI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791634843; c=relaxed/simple;
-	bh=idsWFdaV18owxyQKTWuesq8tc8fj4wX0xUezUBnU3bw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fMcGsurjZhYu+FsR2OpdSs6qcMrwvmopPyX1TX7L9TGO5lzToZSI/tPSTrt+8WJ6j4oFGzuIT60yFXrii/mzad+g5i7OiYWLZ5gFqy5b8nrMk2wG9T7TWZoLFx/8jVXolIhey7jRluM/6A3/KgsVLDvRnTgBpS8qghHlhr1cJjg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=etik.com; spf=pass smtp.mailfrom=etik.com; dkim=pass (1024-bit key) header.d=etik.com header.i=@etik.com header.b=TTGzBhhw; arc=none smtp.client-ip=45.157.188.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=etik.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etik.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 646FF34B1A6
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 12:20:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.175
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791634850; cv=pass; b=OOBXqLzMTOm1mTjGazvgDxqeHTH6Ixr4RFSROlhhqJ+75Cet3tKmF5IS5wnTAPGBgGwLvj2iZlIFAqJ/bv44Wh5rZYDCf+tbZlpzxd84h3MkAoBz+wv50t0qmoHSsii0x8Lsz9PNt85Go1Re+o/3gi/GR9tFGzrh3U4H8qG12mM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791634850; c=relaxed/simple;
+	bh=lc4UsY1TZLGvC2N0lakWf5ohFA9smFejBK2iwHxxb6E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=h45NLCrjSoN6r4Un74CL+9HAyDq+V491/VC4ZvdRwN/S5sMOr9rh5LYYM/b8xpf8npMPWP3cGkdX4rol50Czo4FYDYRps1/qqlvl7JhjEwcBCapB3WfGRXVtXDmC3XY08m9SwXJtiXTVW1T9iiFc8aUAM/+mrQ5B/NKoZYYiflk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZvIAIewd; arc=pass smtp.client-ip=209.85.160.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=etik.com header.i=@etik.com header.b="TTGzBhhw"
-Received: from smtp-3-0000.mail.infomaniak.ch (unknown [IPv6:2001:1600:4:17::246b])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4j22cQ3JfgzYcn;
-	Sat, 10 Oct 2026 14:10:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=etik.com;
-	s=20210927; t=1791634230;
-	bh=J+48iWCghkVYJEQ+wIRDbVEk4gxMDcsHQqzQKdyIdV8=;
-	h=From:To:Cc:Subject:Date:From;
-	b=TTGzBhhwmZYgpjfK0GxLzpl4ZmKIDdxU2rUldumMnuMx5kttjIO3GeBLz1v2cKD6v
-	 EKY9w8amMrsvvG9LbM+38bRfRUZCyWjD2j0AzeViZAS47nBgm/RluEF6mAABgqSdIa
-	 F/KinuzGMS4VZ2+XmH10AZOaRRzHHgHmPCSI//jg=
-Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4j22cP2y5Jzw49;
-	Sat, 10 Oct 2026 14:10:29 +0200 (CEST)
-From: David Vornholt <dv@etik.com>
-To: heikki.krogerus@linux.intel.com,
-	gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	abhilash.k.v@intel.com,
-	David Vornholt <david@vornholt.online>,
-	stable@vger.kernel.org
-Subject: [PATCH] usb: typec: ucsi: Stop a power level change notification storm
-Date: Sat, 10 Oct 2026 14:10:26 +0200
-Message-ID: <20261010121026.84844-1-dv@etik.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZvIAIewd"
+Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-5337c7b9937so84241cf.0
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 05:20:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791634847; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PPjIzk/yNBCJM/puAiVcrD0ZRl3iSXBINBTSo79ufmmnsW5jgssWyawDR1nc23O6Wq
+         G9gGkAFMp6x/P8eycqjnF3n3+YbiBVLZlHjPaUzcvYPTHn69E4bVZRf8+u23eI/qCkuE
+         NHRxXmZ7IdNxBsBhhIG1T8wvq0Ji4NoVrEta1V+lmJ0aBUJUk/1WZpVjdkl8g7+GfCDq
+         00cNyVWXAy5s8V5kTOpLBmAVzpxgffhpMyVpgX4O4H/Me/S82+pTjQjEzxS/n+7I9Bla
+         m3CYYJdc1obJyp3oblinDApXjof99dRW7x9M0p/jjxgkoAG0t3bKVbge7t+2Z2gh78/J
+         TdFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=IPFHphyntfv7EujodlAC35Zv0BkEnP7paRj5r0L1kh0=;
+        fh=vM2mqRXZvtmwSINTRRllIK9zAun/uXYNGnr6ZTaYUJ4=;
+        b=hRi4JVRIE38TNHBBVxmMsLoKJ7Dyd7wR/+ovEpvhL2/uc7dfX9U0H33B+fR4A0wz0R
+         NQFvAkskq/l4W3WeaWbvn7NTvOOhF5JKDQpAqwBNwymIdueGsnoEtj2xqq+uMxtaFHCO
+         tdlrlUastEIiyMq7p+ARbS4Mb72vtzjjXYSXoDwYQJlsrIRov0Ewm3adY2Yb6x3F1pOa
+         Qd3EqNrl9Ow9zjn7obT72ut0DpO5clFHlOEjoIcOhsZ+XMdpfbnvfCaKHcw5lvZdB5E8
+         1ccNefTNqNAtWtbG0h7UyCkCdDnwnGf6JTNvwQc7JhlPZYBOyY63Trjnt7SDHKI+Amx0
+         tkTw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791634847; x=1792239647; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IPFHphyntfv7EujodlAC35Zv0BkEnP7paRj5r0L1kh0=;
+        b=ZvIAIewdLV5P4Dlh9k6I9ddOCBm/shEpw4jJ3Hmjz7hMvseD9tm1PgWVT7cHXLgbbs
+         D+JbmSJuJQwOBxL4/osd1k3xz/9MIPtR9vfcdI8jJBiEmNDgtbp3mocjLkqqYLhykJBE
+         +V3YlIBcpKvdPOAInd+t7bY3SKECdOAIwRIdM+TTRo2R7OEF3ewhLbALkhdf2lAnz+fQ
+         EwtBqvD6kA2U/d1VJHYkBe5r2BK7BBpHVG2kECeR+LSqn1uCYeCihappkEgbBR/RC6Rp
+         zCDVuc6b19Ae6iA4GbNP2/9TMywtGmD9Y5eiNNMNzIOPCRBNZ6VLuZSij+LiWMUFh1ED
+         HWFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791634847; x=1792239647;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IPFHphyntfv7EujodlAC35Zv0BkEnP7paRj5r0L1kh0=;
+        b=aYVpMzSz5HFNMO3jfVqadXsJup1x22ffeoui1InfMSjUxd+dU/piqsHF1CUNOHXIlc
+         vEOQUto7z9zx5hre9Xqe0wwO1QNsu82fycP5UwKgEfkubEH7rNsYm7spS1wLACF0XaV/
+         0AYY+AykmR6YvU4MIajt5wcNnKFY+fugOh1waTF7cVTup/o1NYcXQVt4wLBuyysv7b3A
+         wrsxsKgaOEPgjlg7oj7yR0KC937HDds8NJXurCOuOcVvhULaV6DDz90HqI1kB7f9SXXO
+         +LnYz5MGWoDxS1wscZmNgGVD90t4gTVdf9ffYqjdptM+a/ANTTHNx1UqReGSC1tdUnqC
+         DdPA==
+X-Forwarded-Encrypted: i=1; AKwUvBw9ZGKPnRK/6Omzuaopb/tleM81+YMBOyuk/YPxVZ7uGAruMmVZWJR7z5buQ8h5UcS3QcaO7fuWr8cPfdY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKdlE451GP0lzyat50tpV11OPw4akg5Ic2/iJm/3PQYJ4OgL954
+	ZEgoLH99jSDcvzW9w2yOMmzMyIaYOkHctgF8zQ5XiCGOhivN+t8AYU8tQqkSfAOArvzszkUy9v0
+	sA/VzcrSfTwzorZgNT4QG6y4Rk9EizRM8cA2IGM/3
+X-Gm-Gg: AYBFou1cM36owFFqdfFbTmnlA7x1XUljpWFkojfQnpoCtoL7CjLw7A7ggGwHye0YH2v
+	XFPPBszJw0hzA8pTas/N6hY27BzH2LCllUAqkJuvtQ1to+FeBvdaJNBsOSvvTkpdU5HMajZhpc0
+	0bnKtd9T4n5xTZbsCo/uAIoPlMZZCMtrolbEX1+6NtcJDLmCuzprePTZPYxiqgvSuw9jWCe2sao
+	mxRgPy+R1zlN9xBm/9UzLAl3WoCIu6agghFbZ3nAmQ/rKScaffvpREOBnt1MBbRobYc3JI+r4HY
+	3b2TpLnbh0i7hVspiPc+EqlgRvMnZkL0qoXgqXH9H6R6tJIgVf8Qpe/4
+X-Received: by 2002:a05:622a:4cc:b0:52f:8389:29e0 with SMTP id
+ d75a77b69052e-535b2910266mr7700761cf.0.1791634846455; Sat, 10 Oct 2026
+ 05:20:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Feedback-ID: :8e558a56fdab348:ham:123049f310c9d1d
-X-Infomaniak-Routing: alpha
+References: <20251016205126.2882625-1-irogers@google.com> <20251016205126.2882625-3-irogers@google.com>
+ <47f8c30b-e326-4ff0-a2bc-5683209a9e2d@pengutronix.de> <20261006-dynamic-succinct-woodpecker-a36c7f-mkl@pengutronix.de>
+ <2f6094ff-f585-4b8b-8c25-20c11d1bfc7d@app.fastmail.com> <CAP-5=fVt81pYz_EXj+QNG+hFGomb-xcpm-6=ZNzNm+c2sbP6UA@mail.gmail.com>
+ <620331f5-c576-4895-b4a8-7bd0baddbde8@kernel.org>
+In-Reply-To: <620331f5-c576-4895-b4a8-7bd0baddbde8@kernel.org>
+From: Ian Rogers <irogers@google.com>
+Date: Sat, 10 Oct 2026 05:20:34 -0700
+X-Gm-Features: AclHuK9Se0rWE6CksnCr93m6yCZdqzjvzXuHkfM3w-HeKaeFOS0TfWGW9tcRQsc
+Message-ID: <CAP-5=fVOJNtg99B0_xoSZFCf6ex_YBf_ohhXSdzZvPXU2NTWXQ@mail.gmail.com>
+Subject: Re: [Regression] [PATCH v5 2/4] vdso: Switch get/put unaligned from
+ packed struct to memcpy
+To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, Thomas Gleixner <tglx@linutronix.de>, 
+	Marc Kleine-Budde <mkl@pengutronix.de>, Stefan Kerkmann <s.kerkmann@pengutronix.de>, 
+	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>, 
+	Andy Lutomirski <luto@kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, 
+	Arnaldo Carvalho de Melo <acme@redhat.com>, linux-parisc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Eric Biggers <ebiggers@google.com>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, "Jason A . Donenfeld" <Jason@zx2c4.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: David Vornholt <david@vornholt.online>
+On Sat, Oct 10, 2026 at 3:26=E2=80=AFAM Christophe Leroy (CS GROUP)
+<chleroy@kernel.org> wrote:
+>
+> Le 09/10/2026 =C3=A0 23:28, Ian Rogers a =C3=A9crit :
+> > On Wed, Oct 7, 2026 at 4:00=E2=80=AFAM Arnd Bergmann <arnd@arndb.de> wr=
+ote:
+> >>
+> >> On Tue, Oct 6, 2026, at 14:31, Marc Kleine-Budde wrote:
+> >>> Cc+ Arnd
+> >>
+> >> Thanks for the Cc!
+> >>
+> >>> On 28.09.2026 17:39:15, Stefan Kerkmann wrote:
+> >>>> Hi Ian,
+> >>>>
+> >>>> On 10/16/25 22:51, Ian Rogers wrote:
+> >>>>> Type punning is necessary for get/put unaligned but the use of a
+> >>>>> packed struct violates strict aliasing rules, requiring
+> >>>>> -fno-strict-aliasing to be passed to the C compiler. Switch to usin=
+g
+> >>>>> memcpy so that -fno-strict-aliasing isn't necessary.
+> >>>>>
+> >>>>> Signed-off-by: Ian Rogers <irogers@google.com>
+> >>>>> ---
+> >>>
+> >>>> Is this an accepted trade-off? My understanding is that the kernel i=
+s always
+> >>>> built with -fno-strict-aliasing, so the packed-struct type punning w=
+as well
+> >>>> defined there, and the __packed annotation is what lets GCC generate=
+ valid
+> >>>> code for the unaligned access.
+> >>
+> >> The previous upstream version was the result of endless discussions, a=
+nd it
+> >> looks like changing it to the memcpy version was premature. At the tim=
+e we
+> >> unified all architectures to use a common implentation, this was the o=
+nly one
+> >> that resulted in correct and fast code on all architectures, so I don'=
+t
+> >> understand why this was just applied without including everyone who wa=
+s
+> >> involved in coming up with the version that was replaced.
+> >>
+> >> My feeling is that we should just revert this. I'm not sure about the
+> >> motivation for the change. It sounds like this was meant to be
+> >> used in userland code, and that clashed with assumptions we make
+> >> in the kernel, but I don't think that is sufficient reason for
+> >> regressing kernel code.
+> >
+> > So the original motivation for the change was that the perf tool had
+> > an OpenSSL dependency for the sake of doing a hash when copying jitted
+> > code into a fake ELF file for the purpose of disassembly and
+> > symbolization. The kernel contained the same hash function, and using
+> > the kernel function allowed the perf tool to avoid an OpenSSL
+> > dependency. Linus asked the perf tool to minimize its dependencies, so
+> > we pursued this change. The kernel hash function used the
+> > get_unaligned code for unaligned memory accesses, meaning the change
+> > required the perf tool to add -fno-strict-aliasing to its build flags
+> > until we could have a strict aliasing safe get_unaligned. The strict
+> > aliasing safe code is what we're discussing here and when originally
+> > written it sat on the mailing list not really doing anything. To my
+> > surprise Thomas Gleixner picked it up 6 months later, and I believe
+> > something other than the perf tool motivated this.
+> >
+> > There was an issue with the original series on Power IIRC, they had a
+> > char global variable that they knew was an int through linker tricks.
+> > The change caused a correct compiler error of a 4 byte copy to a byte
+> > sized address, and I forget if we used pragmas or a local packed
+> > struct get_unaligned implementation to work around this. I didn't have
+> > a way to replicate the problem locally, I was glad others were helping
+> > with the series!
+> >
+>
+> I can't remember any special issue with powerpc, I've looked into the
+> history and couldn't find anything either.
+>
+> As far as I can see the only problem we had was with your version v1
+> where you were using memcpy() instead of builtin_memcpy(), leading to a
+> VDSO link failure due to missing memcpy() function.
+>
+> But if you think about other problems with powerpc let me know and I'll
+> look at it.
 
-On a Lenovo ThinkPad X1 Carbon Gen 13 (BIOS N4BET78W 1.48, EC N4BHT61W
-1.41, UCSI 1.0) with an HP E273m monitor connected, the PPM keeps
-signaling a Negotiated Power Level Change although the power contract
-stays the same, and signals it again right after it has been
-acknowledged:
+Thanks Christophe! The issues weren't performance regressions, as here
+with ARMv5, but build bots that failed due to warnings about the
+memcpy source or destination being invalid.
 
-  ucsi_connector_change: port1 status: change=0040, opmode=3,
-    connected=1, sourcing=0, partner_flags=2, partner_type=4,
-    request_data_obj=1304b12c, BC status=2
+You are right that PowerPC wasn't the architecture that failed; it was
+PA-RISC. Here is what I could find in the LKML history:
 
-This repeats about seven times a second for as long as the monitor stays
-connected. Since commit a0d4618788f2 ("usb: typec: ucsi: Workaround for
-missed op_mode change"), every Negotiated Power Level Change is handled
-like a power operation mode change, so the driver reads the source PDOs
-again, checks the alternate modes and the connector capability, and
-registers the partner's PDOs again each time. Every UCSI command takes
-about 50 ms of EC transactions on this machine. The EC GPE fires about
-680 times a second, and irq/9-acpi and the kworkers keep a CPU busy.
-Skipping that work for an unchanged contract only brings the rate down
-to about 360 a second, because the PPM still signals every change and
-the driver still reads the connector status and acknowledges it.
+PA-RISC build error:
+https://lore.kernel.org/lkml/CAP-5=3DfVEp8UPS-B3X=3D66AwYbbbs8559AHEObpQZSV=
+nSnVYSxhA@mail.gmail.com/
+PA-RISC workaround:
+https://lore.kernel.org/lkml/20251016205126.2882625-2-irogers@google.com/
+MIPS failure with suggested workaround:
+https://lore.kernel.org/lkml/CAP-5=3DfVBZPBz6J1omfvSS4JLkueRGqCdouLji6gsFLT=
+eu9nJTw@mail.gmail.com/
 
-Keep handling the notification as before when the power operation mode
-or the RDO changed, which the workaround for Dell's firmware relies on.
-Once the PPM has signaled it ten times in a row with the same PD
-contract, each within a second of the previous one, disable the
-notification with SET_NOTIFICATION_ENABLE and log it once. This PPM
-still reports the bit in the connector status change field, so a later
-contract change is handled with the next connector change it does
-signal. The notification stays disabled while the driver is bound,
-because resume and the reset path resend ucsi->ntfy.
+Thanks,
+Ian
 
-Also forget the RDO when the partner goes away, so that the first
-contract with the next partner counts as a new one.
-
-With this, the PPM signals ten changes after the monitor is connected,
-the driver disables the notification and the GPE rate drops to zero.
-The ports, the partner and its 5 V/3 A power supply stay registered.
-
-Fixes: c1b0bc2dabfa ("usb: typec: Add support for UCSI interface")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Vornholt <david@vornholt.online>
----
-
-Notes:
-    Claude Code, an AI coding assistant, found the cause while I was looking
-    into why irq/9-acpi kept a CPU busy, and wrote this patch and its
-    description.
-    
-    Tested: a port of this patch to v7.2.9 on the X1 Carbon Gen 13 with the
-    HP E273m. The ucsi trace events show ten connector changes about 100 ms
-    apart, one SET_NOTIFICATION_ENABLE and the warning, and no connector
-    changes after that. GPE 0x6E went from about 680/s to 0/s.
-    
-    This version against usb-linus is only compile-tested (x86_64 defconfig
-    with TYPEC_UCSI=m and UCSI_ACPI=m, W=1) and passes checkpatch --strict.
-    
-    Not tested: other PPMs, in particular Dell's that rely on a0d4618788f2;
-    other partners on this laptop; suspend and resume with the notification
-    disabled; sparse (the version available to me was too old).
-    
-    The patch applies as-is from v6.13 on, after 226ff2e681d0 ("usb: typec:
-    ucsi: Convert connector specific commands to bitmaps"). Older stable
-    trees need a backport.
-
- drivers/usb/typec/ucsi/ucsi.c | 51 ++++++++++++++++++++++++++++++++++-
- drivers/usb/typec/ucsi/ucsi.h |  2 ++
- 2 files changed, 52 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
-index c1450639c..f2677875a 100644
---- a/drivers/usb/typec/ucsi/ucsi.c
-+++ b/drivers/usb/typec/ucsi/ucsi.c
-@@ -1254,6 +1254,51 @@ static void ucsi_pwr_opmode_change(struct ucsi_connector *con)
- 	}
- }
- 
-+/*
-+ * Some PPMs keep signaling a Negotiated Power Level Change although the power
-+ * contract stays the same, and signal it again as soon as it has been
-+ * acknowledged, so the PPM and the driver keep each other busy for as long as
-+ * the partner stays connected. Stop listening to the notification once the
-+ * PPM has signaled it this many times in a row, each within a second of the
-+ * previous one, without a new contract.
-+ */
-+#define UCSI_PWR_LEVEL_UNCHANGED_MAX	10
-+
-+static void ucsi_pwr_level_change(struct ucsi_connector *con)
-+{
-+	struct ucsi *ucsi = con->ucsi;
-+	u64 ntfy;
-+
-+	if (UCSI_CONSTAT(con, PWR_OPMODE) != UCSI_CONSTAT_PWR_OPMODE_PD ||
-+	    UCSI_CONSTAT(con, RDO) != con->rdo) {
-+		con->pwr_level_unchanged = 0;
-+		ucsi_pwr_opmode_change(con);
-+		return;
-+	}
-+
-+	/* Queued before the notification was disabled */
-+	if (!(ucsi->ntfy & UCSI_ENABLE_NTFY_PWR_LEVEL_CHANGE))
-+		return;
-+
-+	if (time_after(jiffies, con->pwr_level_change_time + HZ))
-+		con->pwr_level_unchanged = 0;
-+	con->pwr_level_change_time = jiffies;
-+
-+	if (++con->pwr_level_unchanged < UCSI_PWR_LEVEL_UNCHANGED_MAX) {
-+		ucsi_pwr_opmode_change(con);
-+		return;
-+	}
-+
-+	ntfy = ucsi->ntfy & ~UCSI_ENABLE_NTFY_PWR_LEVEL_CHANGE;
-+	if (ucsi_send_command(ucsi, UCSI_SET_NOTIFICATION_ENABLE | ntfy, NULL, 0) < 0)
-+		return;
-+
-+	ucsi->ntfy = ntfy;
-+	dev_warn(ucsi->dev,
-+		 "con%d: Firmware bug: power level changes without a new contract, disabling the notification\n",
-+		 con->num);
-+}
-+
- static int ucsi_register_partner(struct ucsi_connector *con)
- {
- 	u8 pwr_opmode = UCSI_CONSTAT(con, PWR_OPMODE);
-@@ -1324,6 +1369,8 @@ static void ucsi_unregister_partner(struct ucsi_connector *con)
- 	typec_unregister_partner(con->partner);
- 	memset(&con->partner_identity, 0, sizeof(con->partner_identity));
- 	con->partner = NULL;
-+	con->rdo = 0;
-+	con->pwr_level_unchanged = 0;
- }
- 
- static void ucsi_partner_change(struct ucsi_connector *con)
-@@ -1514,8 +1561,10 @@ static void ucsi_handle_connector_change(struct work_struct *work)
- 		}
- 	}
- 
--	if (change & (UCSI_CONSTAT_POWER_OPMODE_CHANGE | UCSI_CONSTAT_POWER_LEVEL_CHANGE))
-+	if (change & UCSI_CONSTAT_POWER_OPMODE_CHANGE)
- 		ucsi_pwr_opmode_change(con);
-+	else if (change & UCSI_CONSTAT_POWER_LEVEL_CHANGE)
-+		ucsi_pwr_level_change(con);
- 
- 	if (con->partner && (change & UCSI_CONSTAT_PARTNER_CHANGE)) {
- 		ucsi_partner_change(con);
-diff --git a/drivers/usb/typec/ucsi/ucsi.h b/drivers/usb/typec/ucsi/ucsi.h
-index dc594388d..0202788fe 100644
---- a/drivers/usb/typec/ucsi/ucsi.h
-+++ b/drivers/usb/typec/ucsi/ucsi.h
-@@ -554,6 +554,8 @@ struct ucsi_connector {
- 	struct power_supply *psy;
- 	struct power_supply_desc psy_desc;
- 	u32 rdo;
-+	unsigned long pwr_level_change_time;
-+	unsigned int pwr_level_unchanged;
- 	u32 src_pdos[PDO_MAX_OBJECTS];
- 	int num_pdos;
- 
-
-base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
--- 
-2.54.0
-
+>  > VDSO build fails with this patch:
+>  >
+>  >    VDSO32L arch/powerpc/kernel/vdso/vdso32.so.dbg
+>  > arch/powerpc/kernel/vdso/vdso32.so.dbg: dynamic relocations are not
+>  > supported
+>  > make[2]: *** [arch/powerpc/kernel/vdso/Makefile:79: arch/powerpc/kerne=
+l/
+>  > vdso/vdso32.so.dbg] Error 1
+>  >
+>  > Behind the relocation issue, calling memcpy() for a single 4-bytes wor=
+d
+>  > kills performance.
+>  >
+>  >   170:   7f e4 fb 78     mr      r4,r31
+>  >   174:   38 a0 00 04     li      r5,4
+>  >   178:   38 61 00 10     addi    r3,r1,16
+>  >   17c:   93 81 00 10     stw     r28,16(r1)
+>  >   180:   48 00 00 01     bl      180 <__c_kernel_getrandom+0x180>
+>  >                          180: R_PPC_REL24        memcpy
+>  >   184:   38 81 00 10     addi    r4,r1,16
+>
+> Christophe
