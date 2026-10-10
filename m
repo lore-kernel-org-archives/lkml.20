@@ -1,140 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f4.google.com (mail-dy2-f4.google.com [74.125.229.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D5907E792
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 00:04:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791590665; cv=none; b=RzhKUL0ci/jxHDEDkSpjkw8zx1u/+1ZkB3MmswLs1zA6FTMz7B7qa21a5ZjBbtQsWaI334APRlbqsE5J64Tig1Qn/532zTHZixazbef0Intebi3iyQnuENW34QRCphLHRs7LgOLWyn0TbZfXol1SbSGrFJqbFfLk+HlXMTKpsto=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791590665; c=relaxed/simple;
-	bh=Pl89ldNA4zvYlLrYRMfvneG3sLxDMCMFtzjmXl10uZY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rEKeLMKs3VlXvyJnNtFAb2BTnPXaXAXs1aw40Lk75H/oVzlVhp5BZRVGXKVcQv1ILW+8xp9y42f1RNVixiEY9HQKfZeRl20Zhmz6saqHTDmdHHg7mlW1z1xZVVQh/n0oTkWM4gi6lzqhAy94F7/DaHZOdO0Iip7iIVsq54OyA3A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OlnPTHD6; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B94C547059
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 00:10:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.4
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791591030; cv=pass; b=KNyJnXpdXXmtcmoF3pftiAJJdXLcJqnstmffCfqT1KdypIjesLDWCrlhmpLnIW6AFUE1ETT/c/Fs4IugjMLEeFA36CfxeXFUCujpYnuzI0tdiEICzbZQYAo4MysUO81pw0evHbmfWtDr4ihE+rgLewSCsTAuTmcXWvoJg61/QaE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791591030; c=relaxed/simple;
+	bh=VDF3hQxEsXwOOEKMR7uFIu2BM583vjfhY7iLbnx2e6Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=D4BSci3I1wZCpbg+WGU06CVqPeauiAgoLodRanu3ynWbyRrafLS8H+oSPkp9mehmx2u5/jQqxuLWaYHmLE0vwO3EDmqi5vLEhjFLuL5zaBApUT9qqkandQ1nEFz7is6tzhMYL3i8z1ilanmm6iWoxZpciWu8jlNSUlw23fip2TE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tAb0lZ2t; arc=pass smtp.client-ip=74.125.229.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OlnPTHD6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D63F61F00893;
-	Sat, 10 Oct 2026 00:04:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791590664;
-	bh=+4jpQxhUM2rm241PTUEfsH6sQtxcE1qdLAK5XanGPhw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OlnPTHD6IOcKD4UhXJBpgSqSsXPPRaoli5oBrjyjiaht8El0h6kM/kn2j3TjrNP6S
-	 4mXbileyyJjw7y87gus2wOARX2ughy6GHRvEqvvLHzfPi8Gx/vqSZAmbXLqcWNNV1C
-	 w5h9XNV0KnN518GXHER9v+dPDcTRtP1/SDf631FDBZn/BPrcOajrnvWly372gN5Rnk
-	 b+Sky9m0EflYZyGdv+bzH9Pj9XIhMbYuUNGNNAmU5emqWYhxVbEE+mt2PFgIm2zCMo
-	 PO/jvseY3vOBncRsm3SlDyqk1TWPMg+BjRIcTaRTWox53WWTk3iS0deW7Q7sdzpS9s
-	 eqKQTSO/ZqHPA==
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 3/3] riscv: word-at-a-time: improve find_zero() for Zbb
-Date: Sat, 10 Oct 2026 07:44:20 +0800
-Message-ID: <20261009234420.29425-4-jszhang@kernel.org>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20261009234420.29425-1-jszhang@kernel.org>
-References: <20261009234420.29425-1-jszhang@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tAb0lZ2t"
+Received: by mail-dy2-f4.google.com with SMTP id 5a478bee46e88-3535936351fso211367eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 17:10:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791591028; cv=none;
+        d=google.com; s=arc-20260327;
+        b=saKdZVw1eltNp5qrpHhLmePDncVsWdrhqt7ibbVqweg5FLenx257U3pb+JvMh43iFN
+         dKG0C7bCM7AfKXpS/TY9vLo7xMEoQkdIZZM1EwwluW/Anw9AzcC/qT4Nx1SRpFMB+BdV
+         4rQcLO5WCVS7nfS9rRdFBo++koflPi4nnudjZW6Z3c2jC+zIL9TacfPR/6ccFh4BB0Uz
+         lMev1PhNklU2p/h8W1LXY0KIfmDExc92JOAvtPIbFlWWz8yWzwmKGS8ENsoclwrPwiep
+         YujjyM1zfmFeF2t9gWxQ0EfFKu8KpPdHrQRZ2XYDPMGjQ509MpxNZOABGDobMwqYVXi6
+         Uiww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cR/CPJKG3NoiCnDGVGJZMEP7USNRf/dhi11bwg0wPvE=;
+        fh=EDzo4WYFOAeu+GJREutpuGUQk4OAgQT9r+xKde5EBEk=;
+        b=NImbxBjl9t+loqgT97tsT4BfvaF+vnH7LReuN5GqopgIYLLwoXibnkbT9ps2sIIC1V
+         PyzHC0ou95Fld3stMtYd0T7qieq7IIxrIx5zJFfVAlVdyLvQwJ8SsBeB+U3wzb2YoBsz
+         cWrJpr2cd9dzu+RYyJ3c8BjQloB63YoYzmX7SaDizC99CvNf/fu39dTvg6g034oJtINS
+         xaqG79CVhauFRNeSBDw3nhzfAna9JcfFQ9zgHBYyG1+tstVsHkpJAx9RGiMb9EsUULsd
+         l9k+pMhg0GYEs8YFCrinPrZtKfi+YT3QrXDbbG11nyqOyZkB8V2gxXAk/Y/JVFEATwA0
+         /KGA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791591028; x=1792195828; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cR/CPJKG3NoiCnDGVGJZMEP7USNRf/dhi11bwg0wPvE=;
+        b=tAb0lZ2tx6u8SLh3zO/dNMo5WZ7CTdCJkpLGr4TlttMSyGyZ8mX+2vsxUGGPNVcq5M
+         h9EvltQw0Qese8SCZ68BmiTcmNqsFmdiPlz53EkZiiEKqFqip9fkOrVx4a8tU5ydUaEf
+         yye54pRrLyF3p48MJMWFaR0H9cTxeYRAiyF0NuHdXSDGxMq5NNcH1hlAgM49CPfseeoH
+         LAK7ClrhayZlhhTf3NfaraX3p4O/Q7dYWuhsxlPQoLL5VuVTqmslwWbMMO4boP8wESWR
+         Nsn1oPzFukTg0GgELloX0HWTh8QxxvgmQKKexFVXAAJwLZQNPn6NZtdmTttH72Se3fGx
+         1/6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791591028; x=1792195828;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cR/CPJKG3NoiCnDGVGJZMEP7USNRf/dhi11bwg0wPvE=;
+        b=aKJm4+p37mE/mMCeL731eLHoIQsZ+Bt1JXGTc5DKx71HJ+8EtyEtAxGvchJXYE2ave
+         jmbhWTvMBmcO/ME3BDH564Wnq+oAWBDxJS2cjvG4qU0HSV6hzQYA7mAI1we4bEBoA/uF
+         rwbWwK6uym66bmtJIHmewKVXipfdryHyJ+uAvUm7/b9eHuXKoYyCYNxZKb59Qp6KthHM
+         TdC5U9CSIcr/OZo/azopf03yJ7a7di6arlnt07j7FBSkeGQhXGJwqrkS9hNkH8SVMraN
+         hLUonsKYC+0KTHd6N+tBKWspceh+vAhlwqCwowPVDHrbv9b4TE21BkCbYCStsqDgyLIB
+         b/fg==
+X-Forwarded-Encrypted: i=1; AKwUvBwwobDuOYk4rpFlYKahlCJhaCt9HPSnF/muE7C2varbb0X8QgRkgLOstC7Uzl/PSEBHUAM7QGqdA9Wzm5s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ8v/hZgx0Z1xQosfJvXR9ykw3MOBMkPtSW4rcFx4lnP/MC1HLC
+	qSoBzmzr7/Gx5GSsD62P1NkYmSPmHFc/WRsb78QLXwuxd/RwuIJgAmKFAJ2w0po74Yg7TeTgvfl
+	StE6zDal2B2f0F9aKOI8mfLnrSqiWZQ==
+X-Gm-Gg: AYBFou1FGRfHAhAwX3UyuLTiCvG2Jijd5j1GxIEnFRfx0X8RCN3kTLpZu18Wt49paSU
+	dgV2QRvTkz+g1udc2vLGQUkHYUNnq2h3fSAJjWL0SvWepvQqlnb+lSvz2aXZExf7PgorMrVHKFj
+	BA0tEEPLeZR+LRCUAWecK1uopFjAzew7gAYYgdJgbyKs3x74UbqFYHOljC7swc1kmgpEgaehMRZ
+	KRpIliPoLHzOLTa5lhdsWvqLkblQm9BK04oUlFNgV8vp6KKDw3c0i7lHe2MriEg/u/Z6YCkHEZ0
+	V51QLJzkYHWranISZxXX6SjT3C5N37NTq0EK570UdApi3OhtC04uj/bD
+X-Received: by 2002:a05:701b:2607:b0:144:f096:4dd1 with SMTP id
+ a92af1059eb24-16a611c76a1mr3960393c88.41.1791591028199; Fri, 09 Oct 2026
+ 17:10:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261003202727.3673-1-ravis.opensrc@gmail.com> <20261004080110.37328-1-sj@kernel.org>
+In-Reply-To: <20261004080110.37328-1-sj@kernel.org>
+From: Ravi Jonnalagadda <ravis.opensrc@gmail.com>
+Date: Fri, 9 Oct 2026 17:10:16 -0700
+X-Gm-Features: AclHuK9iErDpI0ky8YsjjXHUJ1Bhqg2BvHDmttXO2gzSECAslgV1ytghZLxTEaM
+Message-ID: <CALa+Y17H55dp07Td7oqhDPq0TmuWHFB9DNcXNZ91Su_di2vhnA@mail.gmail.com>
+Subject: Re: [PATCH] mm/damon: add damos_node_eligible_mem_bp tracepoint
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, damon@lists.linux.dev, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Bijan Tabatabai <bijan311@gmail.com>, Ajay Joshi <ajayjoshi@micron.com>, 
+	Honggyu Kim <honggyu.kim@sk.com>, Yunjeong Mun <yunjeong.mun@sk.com>, 
+	Akinobu Mita <akinobu.mita@gmail.com>, Lian Wang <lianux.mm@gmail.com>, 
+	Kunwu Chan <kunwu.chan@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-In commit f915a3e5b018 ("arm64: word-at-a-time: improve byte count
-calculations for LE"), Linus improved the find_zero() for arm64 LE.
-Do the same optimization as he did: "do __ffs() on the intermediate value
-that found whether there is a zero byte, before we've actually computed
-the final byte mask.", so that we share the similar improvements:
+On Sun, Oct 4, 2026 at 1:01=E2=80=AFAM SJ Park <sj@kernel.org> wrote:
+>
+> Hi Ravi,
+>
+> On Sat,  3 Oct 2026 13:27:27 -0700 Ravi Jonnalagadda <ravis.opensrc@gmail=
+.com> wrote:
+>
+> > Add a tracepoint for DAMOS_QUOTA_NODE_ELIGIBLE_MEM_BP quota goal
+> > evaluation.  The tracepoint fires once per quota-score computation when
+> > the goal metric is DAMOS_QUOTA_NODE_ELIGIBLE_MEM_BP, exposing
+> > context_idx, scheme_idx, nid, target_value, and current_value.
+> > current_value is reported as the quota tuning sees it, after the goal's
+> > complement setting is applied.
+> >
+> > The DAMOS_QUOTA_NODE_ELIGIBLE_MEM_BP metric expresses node memory
+> > occupancy as basis points of eligible bytes.  This information is not
+> > exposed through any existing external interface (perf stat, /proc, or
+> > sysfs), so the tracepoint is the only way for userspace to observe the
+> > target and current eligible-memory basis point values at quota-scoring
+> > time.
+>
+> Thank you for this patch!
+>
+> We have damos_esz tracepoint.  Have you considered using it?  It doesn't =
+expose
+> the current value, though.  I thought it wouldn't be real problem in most
+> cases, but I can show it could be problematic for node_eligible_mem_bp ca=
+se, as
+> the metric value is not straightforward to see without using DAMON.
 
-"The difference between the old and the new implementation is that
-"count_zero()" ends up scheduling better because it is being done on a
-value that is available earlier (before the final mask).
+Hi SJ,
 
-But more importantly, it can be implemented without the insane semantics
-of the standard bit finding helpers that have the off-by-one issue and
-have to special-case the zero mask situation."
+Yes, with the temporal goal tuner, damos_esz only
+tells whether the goal is met, not how close current_value is to
+target_value, and damo needs that to know when a step has settled.
 
-Before the patch:
-0000000000000000 <find_zero>:
-   0:	c909                	beqz	a0,12 <.L1>
-   2:	60051793          	clz	a5,a0
-   6:	03f00513          	li	a0,63
-   a:	8d1d                	sub	a0,a0,a5
-   c:	2505                	addiw	a0,a0,1
-   e:	4035551b          	sraiw	a0,a0,0x3
+>
+> If you really need to know the current_value, I'm open to add a new trace=
+point.
+> But I think it has no reason to make it only eligible_mem_bp specific.  H=
+ow
+> about adding more general purpose tracepoint, and/or update the current_v=
+alue
+> file [1] under the goal sysfs directory to show the current current_value=
+ for
+> all goal types?
+>
 
-0000000000000012 <.L1>:
-  12:	8082                	ret
+Agreed, nothing in it needs to be specific to node_eligible_mem_bp.  I
+will rework it as a general quota goal tracepoint, emitted for each goal
+evaluation with the goal's metric, target_value and current_value, the
+node id for the node metrics, and the memcg id for the memcg metrics.
 
-After the patch:
+I would leave the current_value file as it is for now.  It would need a
+stats update command or refresh_ms to stay current, and damo wants every
+evaluation as it happens, which the tracepoint gives it.
 
-0000000000000000 <find_zero>:
-   0:	60151513          	ctz	a0,a0
-   4:	810d                	srli	a0,a0,0x3
-   6:	8082                	ret
+Thanks,
+Ravi.
 
-7 instructions vs 3 instructions!
-
-As can be seen, on RV64 w/ Zbb, the new "find_zero()" ends up just
-"ctz" plus the shift right that then ends up being subsumed by the
-"add to final length".
-
-But I have no HW platform which supports Zbb, so I can't get the
-performance improvement numbers by the last patch, only built and
-tested the patch on QEMU.
-
-Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
----
- arch/riscv/include/asm/word-at-a-time.h | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
-
-diff --git a/arch/riscv/include/asm/word-at-a-time.h b/arch/riscv/include/asm/word-at-a-time.h
-index f2d16c1eea8d..31240133eccd 100644
---- a/arch/riscv/include/asm/word-at-a-time.h
-+++ b/arch/riscv/include/asm/word-at-a-time.h
-@@ -35,6 +35,10 @@ static inline unsigned long prep_zero_mask(unsigned long val,
- 
- static inline unsigned long create_zero_mask(unsigned long bits)
- {
-+	if (IS_ENABLED(CONFIG_RISCV_ISA_ZBB) && IS_ENABLED(CONFIG_TOOLCHAIN_HAS_ZBB) &&
-+	    riscv_has_extension_likely(RISCV_ISA_EXT_ZBB))
-+		return bits;
-+
- 	bits = (bits - 1) & ~bits;
- 	return bits >> 7;
- }
-@@ -67,13 +71,21 @@ static inline unsigned long find_zero(unsigned long mask)
- {
- 	if (IS_ENABLED(CONFIG_RISCV_ISA_ZBB) && IS_ENABLED(CONFIG_TOOLCHAIN_HAS_ZBB) &&
- 	    riscv_has_extension_likely(RISCV_ISA_EXT_ZBB))
--		return !mask ? 0 : ((__fls(mask) + 1) >> 3);
-+		return __ffs(mask) >> 3;
- 
- 	return count_masked_bytes(mask);
- }
- 
--/* The mask we created is directly usable as a bytemask */
--#define zero_bytemask(mask) (mask)
-+static inline unsigned long zero_bytemask(unsigned long bits)
-+{
-+	if (IS_ENABLED(CONFIG_RISCV_ISA_ZBB) && IS_ENABLED(CONFIG_TOOLCHAIN_HAS_ZBB) &&
-+	    riscv_has_extension_likely(RISCV_ISA_EXT_ZBB)) {
-+		bits = (bits - 1) & ~bits;
-+		return bits >> 7;
-+	}
-+
-+	return bits;
-+}
- 
- #ifdef CONFIG_DCACHE_WORD_ACCESS
- 
--- 
-2.51.0
-
+> [1] https://origin.kernel.org/doc/html/latest/admin-guide/mm/damon/usage.=
+html#sysfs-schemes-quota-goals
+>
+>
+> Thanks,
+> SJ
+>
+> [...]
