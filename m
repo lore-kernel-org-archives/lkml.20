@@ -1,190 +1,190 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.web.de (mout.web.de [212.227.15.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CAE4368D45
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 18:08:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8036230F55F;
+	Sat, 10 Oct 2026 18:10:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791655735; cv=none; b=qobe29/E2tYU4055GyOQvWaJICtphYAdlGlVkDpS42eDIyEyfhxfKQZtqUEhr48jR0PBXfsKYa7w1CGSbOKBgd+h6TYwbF72e/X6EDK5VhCHu846riQy6kklAr+ocq6iZ9PJsb0MB+OCOcBP3BcUh/Vf0GsgRCxQo3Ztj97rvtI=
+	t=1791655830; cv=none; b=VEda1XYB0JV/10HoPdY+61UAAedFNAwBr/An31klmuI4j644pcSeZYm94PWQAnPiW9SdIqZaaFC4cqeAUmNpcUowcMj7cn44c7oyUCejwpf3W/rODRxYAOSzMvOeL2WANQvpRJH1vfEqo7X2adOUCMSTtxXY/B7mAyPgUbyYM2o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791655735; c=relaxed/simple;
-	bh=efG0LPwWpnCuyTOzbhovMwCos3QoQ+/RLRNQqktiG64=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cURn7Fyddoq7HKgyydQUkYaWoPn+BKDKGjS9aS8dJLJqfRVXmT/nFrHIA1OIy8y2nEwsBQiwnMG78JO8kr4gsK996b0OIGpGZhHWuTtkndLNz40RhfvZwDxUQFpLqsQd0oYeCXbkmHXNodB0WHxZOvYtuMlvAG1xYmm+XewWmnQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VzS0wAgc; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791655830; c=relaxed/simple;
+	bh=2MFCa2g9mR833mpA1ZLv3Jrd+zAYbkQUEzEhWw1N9Ro=;
+	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=L8BFgbxTdy2SAyw99NNc2OFvGUZydXZjAaSbcrqzLLaiB411yeIB0tEWu2AjcbANrHYzi1/wQiu6lZuF8X0KeoUlJ3wh/4gIwcUb80i13RsYJhnMEySjSFqms/uVMewm9CHxBlvFTw0odGD2P3vBT0FrE4L+7egmnqL1QIAUOO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=gAvShXXH; arc=none smtp.client-ip=212.227.15.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VzS0wAgc"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a16c399641so7152575e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 11:08:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791655731; x=1792260531; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hwjLjIdBjLhSbHy5MbJpSboN8vZWvV8OrJbj2jSTRdo=;
-        b=VzS0wAgcU4tultWaoc6xAwtqnxJLL9VAqDwwRohVaC2oUTaqY/nGjUKfC3g4TEyThz
-         haJxQRS5rtBWJM166HSGy6Zt2cZgINowUnOhUxJusbQAtIqRGQRM/Qk456usLIeYFtLd
-         9RBXtRldl2t8FzcWhdUzU7oAAepcGsXhseHZRtHdSKR2SaSeeJxmBIJtb//69F5DROqp
-         YOzjZhAsX7HOZBX7dr+B37Zk8Nx6l6DRWTCunq1m1Nz8L7Qdklg4C+ZioKtMLRPaQflK
-         7aJuS0ithiInGxFKXnYv5AsXUZvE3PWLJRlyKTHD1U8kbJSRxBMSPHdLSFXOgeJ8Z4BX
-         aQyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791655731; x=1792260531;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hwjLjIdBjLhSbHy5MbJpSboN8vZWvV8OrJbj2jSTRdo=;
-        b=nFvp0hbZhAXtKYFqy6S2qq//0iXaq3HdLh9e/WV1AY3Ah2kgom1Y64HkB4s9tz7co7
-         vY5yb75TENhoP1jkdW6Y+n4/X58Jz4+exedXOjGQqQc1p3W644k1Kum2WJGcxQhOXA3B
-         anqijH5J8TqXn6a/AloVoyIeo4vjQrLXTI/vbpdetpIO7GNO+zUkGDANByNrj7Q24Qa4
-         VU9wjV45cZDZdj2vsv1Nvrv7ugF0qx/Q0/HB6C6aHOImPI2pyegtt+nFU4M0S+rwls9g
-         sIIvrViRAbB7YVKpmdHgE/ybTvjm3ep+dMYyPNRnhjQd5kCVU0+TdDhuzijaagxJr9eh
-         n1Zg==
-X-Forwarded-Encrypted: i=1; AKwUvBwE+yVJ9LXzkEWTMZQw/XaGLID0uZY5qRvbTCpi2YsYSpw9fCqUqwAan3Xxkgc5bWbQaG2CWPloJRowHek=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIzYPanImQz91TyWGA8Ete/GtTbhwg2UNCEunoh5wnZCorqxN4c
-	SF4o4p0Ki/iJZXsVQxXSrlaB59dWZ+LiAc6/nD22mQ/ENwMQncAxmU9+
-X-Gm-Gg: AYBFou3jSgi1wkPxVUTWqkR+tDq4jhqaGsZBPUFdqyqvE0PyJUcFFPXhcLBrINIpPdM
-	MMPlxM1LQZaF1K4aRqIu3dmKD/YLm5cR2YJ1gQyWM+HnQlW+XPF1JwnL7rH1C02gAq7zcddhwD5
-	6UuOAa3kKsnrxNXm0ia412CHIc5acc3+WJXMlUCmNE8vSQP9I6kLrKHNqRFUa16Tp4W7UGrZF46
-	fWFwEXepHryexD3TK12Pp2Z0Qdb3Dg6IOWoJP6KZJ9k2nHRolnZU3CgczKbEZHfAq8K1iBZebMz
-	LGu5gn2vn03805Zz+BPhqEvrwV00Fzsi50yv+JfDoowdrxGahzcRvQspLeLDfjxmRjIxlqNEovC
-	eo02QthrAb9+1RUs90xNAmXbpla6bpJnU7yR/pEsmjrMhNZQbTqiM6Q8iFswDN396VrbHAAaQ1a
-	uYYZAmXPFkZD36uZnm8O44kUqH16Pq789aE6eZNzjrrszUTAmec3VVUZ0AS/ixfEDlbHPCtkCpc
-	uqrCrfBFWM47MHjQ7gz33rbccrEKRS5JMBJmGOlrfe8/ES2syrlCsOIQyeubvnpyqovUX60EG7E
-	UyLaBjDasIeS2GQ/053giffrZ8k=
-X-Received: by 2002:a05:600c:674a:b0:4a1:7cf8:5433 with SMTP id 5b1f17b1804b1-4a18e443ee9mr99738155e9.3.1791655731151;
-        Sat, 10 Oct 2026 11:08:51 -0700 (PDT)
-Received: from center.jhjvjihww5qejoy14qwv1cc4td.frax.internal.cloudapp.net ([131.189.143.225])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db97ce3aasm10187163f8f.21.2026.10.10.11.08.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 11:08:49 -0700 (PDT)
-From: Orgad Shaneh <orgads@gmail.com>
-To: miquel.raynal@bootlin.com,
-	richard@nod.at,
-	vigneshr@ti.com,
-	tsbogend@alpha.franken.de
-Cc: linux-mtd@lists.infradead.org,
-	linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linusw@kernel.org,
-	kaloz@openwrt.org,
-	ulli.kroll@googlemail.com,
-	john@phrozen.org,
-	nico@fluxnic.net,
-	dwmw2@infradead.org,
-	corbet@lwn.net,
-	linux-doc@vger.kernel.org
-Subject: [PATCH v2 3/3] MIPS: Octeon: flash: use the simple map accessors without a shared eMMC
-Date: Sat, 10 Oct 2026 18:08:40 +0000
-Message-ID: <20261010180840.2152492-4-orgads@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261010180840.2152492-1-orgads@gmail.com>
-References: <20261010172142.2138956-1-orgads@gmail.com>
- <20261010180840.2152492-1-orgads@gmail.com>
+	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="gAvShXXH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1791655822; x=1792260622; i=markus.elfring@web.de;
+	bh=DmjZgOLOOOv4Ct+7ez2dPb31Ctn48nINPgNlWtcXtbY=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:From:
+	 Subject:Content-Type:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=gAvShXXHvoh/HLWGEQQqS1+IlCU7pwO/HfhkIpmN13xvnchPH4LB7NVqkPd2hr+T
+	 DFZmBY+TLvzDUCD8M31uiUI9XqQQ5yH+3rfBLZ+AMjoPSz//wrmZ+Suh65oRs5As2
+	 ZxW336FCP/LmfJFbTddc6EYtCBX/Flm4oRGib1o0n7H+a4uFOrhIJuu+Jo9ewYgKF
+	 Gvc8t4ylVYnYVF2ou3kscusbcx36xbi3X3q4k7nKMOmMyu4rhqGAS9tKz+qPOXMtx
+	 1rkUQRf8hxQizNH1XkFl+wpMXnOkjnxmJC/EfRLa1h2XVU0DxonsBt3/Xmt2ppZuq
+	 EnWGlfUIKeFs3OdnvA==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb005
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1MFs1z-1xRMRN2SWV-007Opn; Sat, 10
+ Oct 2026 20:10:22 +0200
+Message-ID: <3906d06e-50cf-4230-a29e-939a1ac04e07@web.de>
+Date: Sat, 10 Oct 2026 20:10:18 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Content-Language: en-GB, de-DE
+To: linux-fsdevel@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Mateusz Guzik <mjguzik@gmail.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org,
+ Nikolaos Karaolidis <nick@karaolidis.com>
+From: Markus Elfring <Markus.Elfring@web.de>
+Subject: [PATCH] fs: Use common code in wait_on_new_inode()
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:Uz3fnnJuNouJDAtxkIZbR86+e+U3nEcpvAB/UeZrwyOLUsOGiAO
+ 5M2lY0lUdwGCYksLZDxh2yTaIAgyeff/iRhjkNe1sOF6f73l+6KwP2heDNZ2MbvO/TpvqqP
+ WJAJ+Vkoh5fTPsC8jMhtcxSiFjDuk1ODQcpgM+To8X5ZceWkDnPk/ui+72ayQ6AmXqQdlWI
+ N8PYQXb4cIBrQhXoOkoNA==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:0boYX8hPweo=;aNe9cyemGK4uEWD5S22N1m95YQ8
+ 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
+ QXYTeW7ZmAk2M8d+A==
 
-CAVIUM_OCTEON_SOC selects MTD_COMPLEX_MAPPINGS, and since
-commit 8c1e6b14e27d ("MIPS: OCTEON: Protect accesses to bootbus flash
-with octeon_bootbus_sem.") the flash map accessors take the semaphore
-around every access. Its only other user is the eMMC host of the older
-parts ("cavium,octeon-6130-mmc" in drivers/mmc/host/cavium-octeon.c),
-which shares the boot bus; the CIU3 parts serialize their eMMC with a
-lock of their own.
+From: Markus Elfring <elfring@users.sourceforge.net>
+Date: Sat, 10 Oct 2026 20:00:18 +0200
 
-On boards without that host the semaphore guards nothing, but the
-custom accessors make the map non-simple, so MTD will not let jffs2
-point at it and its mount copies every used eraseblock. Use
-simple_map_init() there. The test is for the node, not the driver, so
-a disabled mmc node keeps the semaphore.
+Use an additional label so that a statement can be better reused
+at the end of this function implementation.
 
-simple_map_init() BUG()s on an unsupported bank width; the old code
-warned and then hit the BUG() in the inline map accessors on the first
-probe command. Check the width before mapping anything and fail the
-probe instead.
+Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
+=2D--
+ fs/inode.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-On an Octeon CN6635 board (no eMMC) with a 100 MB jffs2 partition on
-an 8-bit NOR the mount drops from 15-30 s to under 1 s together with
-point() support in cfi_cmdset_0002.
-
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Orgad Shaneh <orgads@gmail.com>
----
-v2: check the bank width before ioremap() and drop the added
-    iounmap() calls: flash_map is one static instance, so they could
-    unmap a mapping that an earlier probe registered (sashiko).
-
- arch/mips/cavium-octeon/flash_setup.c | 36 +++++++++++++++++++++++----
- 1 file changed, 31 insertions(+), 5 deletions(-)
-
-diff --git a/arch/mips/cavium-octeon/flash_setup.c b/arch/mips/cavium-octeon/flash_setup.c
-index 9242521..1c0b7d7 100644
---- a/arch/mips/cavium-octeon/flash_setup.c
-+++ b/arch/mips/cavium-octeon/flash_setup.c
-@@ -63,6 +63,17 @@ static void octeon_flash_map_copy_to(struct map_info *map, unsigned long to,
- 	up(&octeon_bootbus_sem);
+diff --git a/fs/inode.c b/fs/inode.c
+index 702f2d5ef459..f4699866a73b 100644
+=2D-- a/fs/inode.c
++++ b/fs/inode.c
+@@ -529,10 +529,8 @@ void wait_on_new_inode(struct inode *inode)
+ 	struct wait_queue_head *wq_head;
+=20
+ 	spin_lock(&inode->i_lock);
+-	if (!(inode_state_read(inode) & I_NEW)) {
+-		spin_unlock(&inode->i_lock);
+-		return;
+-	}
++	if (!(inode_state_read(inode) & I_NEW))
++		goto unlock;
+=20
+ 	wq_head =3D inode_bit_waitqueue(&wqe, inode, __I_NEW);
+ 	for (;;) {
+@@ -545,6 +543,7 @@ void wait_on_new_inode(struct inode *inode)
+ 	}
+ 	finish_wait(wq_head, &wqe.wq_entry);
+ 	WARN_ON(inode_state_read(inode) & I_NEW);
++unlock:
+ 	spin_unlock(&inode->i_lock);
  }
- 
-+static bool octeon_flash_bus_shared(void)
-+{
-+	struct device_node *np;
-+	bool shared;
-+
-+	np = of_find_compatible_node(NULL, NULL, "cavium,octeon-6130-mmc");
-+	shared = !!np;
-+	of_node_put(np);
-+	return shared;
-+}
-+
- /*
-  * Module/ driver initialization.
-  *
-@@ -85,6 +96,12 @@ static int octeon_flash_probe(struct platform_device *pdev)
- 	 */
- 	region_cfg.u64 = cvmx_read_csr(CVMX_MIO_BOOT_REG_CFGX(cs));
- 	if (region_cfg.s.en) {
-+		/* 8-bit bus (0 + 1) or 16-bit bus (1 + 1) */
-+		if (!map_bankwidth_supported(region_cfg.s.width + 1)) {
-+			pr_err("Unsupported flash bank width %d\n",
-+			       region_cfg.s.width + 1);
-+			return -EINVAL;
-+		}
- 		/*
- 		 * The bootloader always takes the flash and sets its
- 		 * address so the entire flash fits below
-@@ -102,11 +119,20 @@ static int octeon_flash_probe(struct platform_device *pdev)
- 		flash_map.virt = ioremap(flash_map.phys, flash_map.size);
- 		pr_notice("Bootbus flash: Setting flash for %luMB flash at "
- 			  "0x%08llx\n", flash_map.size >> 20, flash_map.phys);
--		WARN_ON(!map_bankwidth_supported(flash_map.bankwidth));
--		flash_map.read = octeon_flash_map_read;
--		flash_map.write = octeon_flash_map_write;
--		flash_map.copy_from = octeon_flash_map_copy_from;
--		flash_map.copy_to = octeon_flash_map_copy_to;
-+		/*
-+		 * The boot bus semaphore only serializes the flash against
-+		 * an eMMC host that shares the bus (the CIU3 parts have
-+		 * their own). Without one, use the simple accessors: they
-+		 * let MTD point at the flash, so jffs2 scans it in place.
-+		 */
-+		if (octeon_flash_bus_shared()) {
-+			flash_map.read = octeon_flash_map_read;
-+			flash_map.write = octeon_flash_map_write;
-+			flash_map.copy_from = octeon_flash_map_copy_from;
-+			flash_map.copy_to = octeon_flash_map_copy_to;
-+		} else {
-+			simple_map_init(&flash_map);
-+		}
- 		mymtd = do_map_probe("cfi_probe", &flash_map);
- 		if (mymtd) {
- 			mymtd->owner = THIS_MODULE;
--- 
-2.53.0
+ EXPORT_SYMBOL(wait_on_new_inode);
+=2D-=20
+2.56.0
 
