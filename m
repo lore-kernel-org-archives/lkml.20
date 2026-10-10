@@ -1,119 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010004.outbound.protection.outlook.com [52.101.56.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4635F379C23;
-	Sat, 10 Oct 2026 07:36:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791617788; cv=none; b=Yy4pTwyLBz1WoZ24UcJMCMHei6Tbjei4d7Zmgau1zzcBrtdCLXitBw5/iEwGPbfH6xUcn33RDsTReSJBRodZHDJtL/m33zT0C5+cbzHesplY9C5vzMRyUq9KuvSL8QLW3TyDyrRPDycffzXWiQ8PWAjkMSe/BBJVbRBrY/0NzMs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791617788; c=relaxed/simple;
-	bh=4ko9gSj+vxgBtEJWFjbBisBasVf3lndbjG7WDoYLcn4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=D5I0rc97HVDeTKyClYObvvdQ6vwGbokclXCQLXY4X/y+ZQynOoYSBVqU6LAwFly2sqH0PBKmBuJGMsLFZmXH2Hir91qxZiCaqQ9vAec44RIx7S/O90NByIBF0Hm1UtYmcXwdwKX54bNhP/VHkBFao+SJUwJhUKwXdHLTY+hlUXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O1scjIDh; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E597736B932
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 07:36:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.4
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791617798; cv=fail; b=SCvQK137eO9Nf9WYBo50qACJ/dzDXakQxz6MUmX2uQQPfg3t42q8T8AIswlwUtFktsQb2iByvLisHaxMAbArxyNDBkIPidY/tB1M2f4wN8dALoo0ltBHS8pueF91QxB7Hz0io86fuN7abmxkHpbGf4Ny4Ve/4AMpoMr8liy1PiM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791617798; c=relaxed/simple;
+	bh=Cuc2of1MgMf3Bp0xeC/K6tHnse31yCR1NjWzCD8OBR4=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=kBQHPJubstjsSVpMwxXd7Ws7hvTUWv60JVdl4bSkVKs4fJ2nb+3+w7zGeKKjtWegyiK3cslDvZEMbPaOfvedRln0g83ZeebSKcooHj9NjD61iJqjb5JLPc7alHOPJCqo0g7y2iaKDu94zMFMhvejsZchxOrEibogQNJPp4mmJzw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=2QZuiSnz; arc=fail smtp.client-ip=52.101.56.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O1scjIDh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10F321F000FF;
-	Sat, 10 Oct 2026 07:36:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791617786;
-	bh=lvHacGZHOil6n8X8TWo3a/lv5iJ2YDY90NDrBy/yA4U=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=O1scjIDh9Idq26MCPYxo0nalUPgIQV8jPHjj9EAukOJzrIDI+14xcWHlQyw+RQW+z
-	 c7bfG0uCWt+vPb6LQbz83ilcKuAN5wvPqekwmSW/kUbYPHVXoZV+KlJYXQjZTB81Cd
-	 VxJqf2JFBOtbzVjZ6kkqAF7Dde+UtRdu4nMX+IrjnQrHWWwBN0ZbwR7o5StsVqvnKd
-	 ReygXOyiuezuAqNAnHRGyM99QlGFGSNZttQJtO1GHCBElzQxgme2m+vwsQ9rz5XRWx
-	 5hiOXKqAE2c85h3nDndjJe1iif63W9teMNiLmh+O8rOw6WU6umu3Kx2kzmp/rr7N7n
-	 V56r/87rFYK1A==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Fred Griffoul <griffoul@gmail.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <shuah@kernel.org>
-Cc: David Woodhouse <dwmw2@infradead.org>,
-	Ackerley Tng <ackerleytng@google.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev, iommu@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org
-Subject: Re: [RFC PATCH 0/9] mm: Memory providers for guest_memfd and iommufd
-In-Reply-To: <20261006183235.16576-1-griffoul@gmail.com>
-References: <20260720111259.122911-1-dwmw2@infradead.org>
- <20261006183235.16576-1-griffoul@gmail.com>
-Date: Sat, 10 Oct 2026 13:06:09 +0530
-Message-ID: <yq5ald8680t2.fsf@kernel.org>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="2QZuiSnz"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=v+psvXNHbhHji5V8amCltzUYCDPEuf5Xcko7UBvD5OrDP0ggGA8BTLwM/bRB/7fShXi6ulvhlcqyRuVpWhD54C7YjTeBALooBNVJhDimi1gV4K+4azTGcFETdQWpdddjxLsJaTIpqU2SPH1i0AQoPUBHgA0wJXRDV5Nc+nrtgxGThagxk5yH/rL+M3k2lwOF0+BBPj+GMfWLzZtrUGIh3B7V6CXW0vHy7vaO+EoYQdlBep425WQuWKiFQKGVvHzaMIsgmLXzTykwJiDqVConxrIKHAalaDID4G0K3+qPIgN/kCIbzxqavJAkPzKXQA2IbZSECrFCiuPpH1ZejMvdyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VYz9r8PmsOwxzyPyrjquMnAjad0LJaf3uyKSiBQn1Yc=;
+ b=BeG41VlB+4a1xwQ2I4C3B1oP6XWkhWlA75laBfLe0rLxtb4Ss9xKirqtm9a720U++pFOECNCChPOyqCkA0iPIDKSxf+yx0SKYrZuTAlgMvACbu21h4K2kAtlC/VxEIeD4eNpQ05ChX0eIX/6j+xYpWTi4CvOPgAxnMCMoXqbfLvRmdetYvjp2JuoGdWgc9+/SUOYcou7j7iXt8060gM/TBD5Mh8IX2ASK7/zPEUNQPqmuIrKRWfYunG8t1PmzqUE04Y3TIZ/MtrpxyhW0OzcG9F+/zx5lDO5/puhh7cfKkITBuvcPlVhZHFZygne0H04qhE153chPP/9lLQ43yeI5g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VYz9r8PmsOwxzyPyrjquMnAjad0LJaf3uyKSiBQn1Yc=;
+ b=2QZuiSnzzgfXhyIDicFeha9up3FQ60iy1qiQl2/j/Kz8mdHn6G7WRiXO9gdM6OpJjAKfqj2hl4RBn44+mEAeTRHRvJMB314UhEPQU6q/veA0VursZa8StEE3D/ioOmcIk+15RFbCwZtzFVeK68SyXJ6I1rB8tC6GZFgRnvbm0lE=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
+ by DM6PR12MB4042.namprd12.prod.outlook.com (2603:10b6:5:215::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Sat, 10 Oct
+ 2026 07:36:32 +0000
+Received: from CY8PR12MB7170.namprd12.prod.outlook.com
+ ([fe80::7565:bdd3:383a:de5f]) by CY8PR12MB7170.namprd12.prod.outlook.com
+ ([fe80::7565:bdd3:383a:de5f%3]) with mapi id 15.21.0496.010; Sat, 10 Oct 2026
+ 07:36:32 +0000
+Message-ID: <16241811-671c-4962-aa3c-ac8f3ffb4f2c@amd.com>
+Date: Sat, 10 Oct 2026 15:36:20 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v9 3/4] drm/virtio: implement userptr resource support
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, odaki@rsg.ci.i.u-tokyo.ac.jp,
+ airlied@redhat.com, kraxel@redhat.com
+References: <20260924095556.1326164-1-honghuan@amd.com>
+ <20260924095556.1326164-4-honghuan@amd.com>
+ <69e33ec9-a0bc-4d02-b20d-9c0c03236a42@collabora.com>
+Content-Language: en-US
+From: "Huang, Honglei" <honghuan@amd.com>
+In-Reply-To: <69e33ec9-a0bc-4d02-b20d-9c0c03236a42@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: TPYP295CA0057.TWNP295.PROD.OUTLOOK.COM (2603:1096:7d0:8::8)
+ To CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY8PR12MB7170:EE_|DM6PR12MB4042:EE_
+X-MS-Office365-Filtering-Correlation-Id: d72145b7-6fbb-4d4b-6e6b-08df26a1348d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|10067099003|18002099003|22082099003|261009220027099003|261009223027099003|261009223327099003|261009221227099003|4143699003|261009221727099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	nvzxsQpaFWKzsoMk6zMxOgDII7N8G97k0ehiYX4hUsCp3cKKKl0vCj0M0eSrS7vEbGBMqI+UOmTOeZ3qb+/H4q9QD+JV6JSq170ju12a1lAWHeRfGPLb3a6vK6UsmVC2Io4lm9h4ase7Fli/rFTAuD/Xsbkz4WfnzMpYpkc1uipml+g2i6Dq64JQQRAod5nH/phFeaBZKA2cMjPqSEQRM0Rq2OD1Q4uY5mI+21Ca0/LwQP0JVzeWmfhCESDYhwBdbfIX33bjSSr3nQ4Htaa70LB1bkDroYH1BKhXSv5kpQBu1cXu/gBJ4FOXMZGAR5c84ijOZfQmP9wRpN7qFx+yQzk6+rWm2QrCifZ+lzkbyg8oh9aUglCTYU4PVTLRu7vSsJ8jWPtNqUv77PdIzh9joagiqtM3R+lz4m/WBhSFq/kDp7FMNIxyuKUEkgky6RZv9U1oPS3vShg5LArILKEJfRSnwur3hSx/n2PQBMeAGuHtE52AYBrSU55TIdq4ydJd7yTuusSxnSa8TkPqSNm9HeD2OJIC3lmaHQaSfVJHZ5TFGAxicEnzSWhq2HZcw4W3wdxaYykrCpvGdqzKytOe23WCqpXbO8jGkd+x2RB7O2kj6PNJdA6eD/6sxKOT3YeEj0t+j+ApbnzDyrLtVwtOh2vCcRPJeg8CPQuq5wBpBPE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7170.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(10067099003)(18002099003)(22082099003)(261009220027099003)(261009223027099003)(261009223327099003)(261009221227099003)(4143699003)(261009221727099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?aVVmblRqRTFqVkI3V0ZuUzVHYjYxVjJ4MS83a0V0VW9xbk0yeVU3MnVSRE50?=
+ =?utf-8?B?Nmk3M0hzZlRraVN1cTZTVDFFeEt5aXQyeGROYUQvVERFajdhbkRvOW90UUYw?=
+ =?utf-8?B?MU0ydFA0bmdtb1d2NXBQRFYzOWdFVk9ZM0VaRFNuYUhtYzBZb0dkalpsd21P?=
+ =?utf-8?B?OTB6UzI2dE5WZ0JSMFlSMzVxT2VNK3p3OEEzbWswSHRITk1mbkVrZ2w5ZG9U?=
+ =?utf-8?B?UGdTZ0NqMEd3ZU1RV2xwbTg5RkVkdzh1bVlaQXNCZTMxSGpRbGNicmRpQmVV?=
+ =?utf-8?B?eUZLbGwzYXFtWlYxRFIwV1ZscldUUjA5RWYvNllzZHVCV1J0c2VmcUk0MTI5?=
+ =?utf-8?B?ZmExQ2x3cGxJZ2NHYlIxWjB5ZHdwbk1WREF4UWhkZ3FGUFZhOEwrMjhMUVhM?=
+ =?utf-8?B?czkxZzRlR3ExMHNqbjBUUlFUclQ5bW5SZlQ1cS9MWjJCVDBpbWQ2MmdMRWR4?=
+ =?utf-8?B?Vythb3NpL2ZZQ0UvK1RlOVJ5VmhmQlhXZlJ3ZmVNQXAxQ3VJdXo3amlsMWFI?=
+ =?utf-8?B?bHdKSUg1MmVoLzVVSDJWcUd0U1RaalVLcGR0M1REb1RKOXZMQ2ZsQ0VTYTBy?=
+ =?utf-8?B?TjBwa256OEpGODJ0Q2Q1YWxURThVa2crYU5ZWk9lTG5mQ0prZ1Zqcng4MmVL?=
+ =?utf-8?B?SWo3eFBVOW1GNTd3Tkc1ekFxcHFXZi9zZStyYWNERUl5WkxMdWpweFI2SnBJ?=
+ =?utf-8?B?ZnBVMHdNdWY3ekY5dlhZSXI0ZW9PTnNndzViRGxOem85YTYxb3J6TDlaRmk5?=
+ =?utf-8?B?TmcrYXBjdkVJbmlGQWRQL2pwTzRINzhybkdJT29VNmlmdUtrejh5ZnJYSVlY?=
+ =?utf-8?B?cVBwZExUV29rdHFoK2ZZVkd4U1pDWWpsS0I0d1R5QUtyemhUcGttTUd2TmFz?=
+ =?utf-8?B?a2JTV09ZTkVybkJBU0s0bG1LZDFMR3BIbW9EU2NJQkd3SzVLaWFsbUFSNjNL?=
+ =?utf-8?B?Mk84aWlHcTZkekVGWDhDTVJBcCt3eWtmVjE1TG5KQW1aRjV1M2xiS1JpVC9Q?=
+ =?utf-8?B?cGliSlpHdXFYRlo1RUFiMmxpcVRDWldwNkF0MHhLTXlEZ3NWVWhSQlhDWWJa?=
+ =?utf-8?B?elJSakJNS0pIcHQ4QUZoR2NYQ1prZmxMMDhUTElFdm9ZR2hvK21kdjhUa3ZQ?=
+ =?utf-8?B?SDlUNWhOVGVlQXRCd0gxSmZWU3JtRDJMQUxkSFpVOHlwalNhaXl4SFgxTWNI?=
+ =?utf-8?B?K2szWDhSbWRubkNEOE43dmJ4SDFlNTh5N0xiT2FUOW5tWkEzZjF5SmNRdk5K?=
+ =?utf-8?B?TldMeWJoYlVtZUZXYTYxVVczemF3Y1pEUE1GcjJqQ3ZOTHVtL0kyelhjWnB5?=
+ =?utf-8?B?eUtmYjdrUmExZ2tWQXZXdFZVZDhhV1JzUjNWL2FLWlZ6ZUE4WnRpT01sVlNX?=
+ =?utf-8?B?TlphQ0F2YTRuSjV3SUd5YjltR3huN3BsVGJ6R0o4T3EvQXdNZWJRM3FRc2hK?=
+ =?utf-8?B?Mi9ERWg2THo5Y2lleWZPRkx2eXRjWFJzTk9sRnFDdEhXT0dtd2pna2pFVk9O?=
+ =?utf-8?B?QlVXNGw0c0FlZkpNbWsrRnErY2ZTc1ZiNGRNb3IrVFQ1TUZOWWJVZGtCZGcy?=
+ =?utf-8?B?MitoWDJCT0dabm5ha1BLdEkzK29taUw3ZTJtSUxaQVVPSThaZzY5Qm9RWlJG?=
+ =?utf-8?B?VzVaR3hEeTlDK0doLy8reGFDT01lajlvaDJTY1czSGIxdEVHdzNBSkFmNkpw?=
+ =?utf-8?B?a0lWNEs4MFFZN3JxeHlPdWJMVzVMcEIyQS9HcDQ0RTI4N3RVbXhxVXBtQ0ln?=
+ =?utf-8?B?cm1WQjhhTVNFNkNTNVdvWVdiUitTUEhmQzlxY0VNbm5HY083VWlmZTMrUUUx?=
+ =?utf-8?B?Y09FajVqKzF0a1FycW1ic0grSjhlMExFR0JxSHZDbHpEN3pKOEVtRWp1R25T?=
+ =?utf-8?B?VTVTOUdSUDN6SHhPbXR3c2xXNFY4amRDUUxWdllRSjJ0UTNrQTVKbjlBNHpY?=
+ =?utf-8?B?U1hUZFZGdEc4d2Z6L251Wkd1TU44eEQxd1g4NkVpdkd4RmI5WFZpVERsTGZM?=
+ =?utf-8?B?d2tlbXlOSTBTY3pEQmRuSUNJbVFDWWlrQTQ0RnAvTWkrU2syZVBYNDZPVi9P?=
+ =?utf-8?B?cU01YmxjeE82VDcyQ1h5SXpTY3I2ZUMyL3M2QTZqYzZPeFpvdnVTeWtXbk9U?=
+ =?utf-8?B?dk1ucFJPNXIwVVlGZWxTaGs1MXk3cFIvNkdZdmxGSVZFeEtxTk9tOGhtN0Nq?=
+ =?utf-8?B?VGlYNVU1TWNaZFljQU41dEg5L0d0UGhJSlErLzFiSXRHcWV3MTdmT3VYNEZD?=
+ =?utf-8?B?VjlNWHBYR2xQNzdhYjlnRkRsSHp5RVYxdjFmQzRBREtMMzdyRXRWZ0R6MC8z?=
+ =?utf-8?B?Z2dDL3dTdXZJSmkwcDhCSVNQdHFmUUNtdS9xSjRub3RnYXVMai9jQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d72145b7-6fbb-4d4b-6e6b-08df26a1348d
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7170.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2026 07:36:32.6358
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vzQUwkCnhyWsVAB28FIwMSAHUKM1rs+WLEjNNWD+2vhOP+hWufD2LBy42ecHpBrYvWrwX1Tn8lIffeq3U1xNvA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4042
 
-Fred Griffoul <griffoul@gmail.com> writes:
-
-> From: Fred Griffoul <fgriffo@amazon.co.uk>
->
-> Some drivers manage RAM outside the page allocator: a carve-out, device
-> memory, or memory that a host component moves between VMs while they
-> run. This memory often has no struct page. The driver wants to lend
-> pages to a VM and to its devices, and to take any of them back later.
->
-> David Woodhouse's series "KVM: Allow alternative providers of
-> guest_memfd backed by PFNMAP memory" lets such a driver back a
-> guest_memfd through struct kvm_gmem_ops:
->
->   https://lore.kernel.org/kvm/20260720111259.122911-1-dwmw2@infradead.org/
->
-> That covers the guest, but not the VM's devices, which his cover
-> letter left as an open question. This series adds a small interface in
-> mm: the driver that owns the memory becomes a provider, and the code
-> that maps it attaches as a consumer. There are two consumers, a
-> guest_memfd backend and IOMMU_IOAS_MAP_FILE in iommufd.
->
-> The series is on top of David's v2 (base 0e35b9b6ec0f). Patch 1 was
-> part of the earlier dma-buf RFC. The provider backend depends on it, so
-> this series carries it.
->
 
 
-I have been working on something similar for confidential computing use
-cases. There is likely some overlap between this series and what I posted
-at [1].
+On 10/10/2026 2:32 AM, Dmitry Osipenko wrote:
+> 24.09.2026 12:55, Honglei Huang пишет:
+>> +static struct dma_buf *
+>> +virtio_gpu_userptr_prime_export(struct drm_gem_object *obj, int flags)
+>> +{
+>> +	return ERR_PTR(-EINVAL);
+>> +}
+>> +
+>> +static const struct drm_gem_object_funcs virtio_gpu_userptr_funcs = {
+>> +	.open = virtio_gpu_gem_object_open,
+>> +	.close = virtio_gpu_gem_object_close,
+>> +	.free = virtio_gpu_userptr_free,
+>> +	.export = virtio_gpu_userptr_prime_export,
+>> +};
+> 
+> Is virtio_gpu_userptr_prime_export() optional?
+> 
+Yes it is optional, but if not set this callback then .export will 
+fallback to  drm_gem_prime_export, userptr can not support the export
+feature, to prevent silent failure, an explicit registration method is 
+used here to ensure it is not supported.
 
-I have not reviewed this series in detail yet, but I will compare the two
-approaches and identify what can be shared between the use cases. Please
-let me know how you would like to proceed.
-
-[1] https://lore.kernel.org/all/20261010072504.536230-1-aneesh.kumar@kernel.org/
-
--aneesh
+Regards,
+Honglei
