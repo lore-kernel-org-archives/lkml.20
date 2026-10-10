@@ -1,195 +1,418 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012021.outbound.protection.outlook.com [52.101.43.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19A013DDA4;
-	Sat, 10 Oct 2026 02:09:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.21
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791598156; cv=fail; b=m0tfQ5DGwC+shtLesYM0dGGhTPTmr7EobzZy2is5OFR+iJf5n48b2xqCl2BWy/KjAOSxrI0a+CDtiNBIGbfC/o+YkP2K4RfDdJGQAPYRNbZSv7ncx/IYZusqGTIFxvyz/kZLuArATRmjNUtd/MgV4aav3niJcWjF7smWrkfw3uc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791598156; c=relaxed/simple;
-	bh=PDNbeh2PztUdI61y6SGpKbdCCFxiGcL7IoZThsUiyDM=;
-	h=From:Date:Subject:Content-Type:Message-Id:To:Cc:MIME-Version; b=iPbomIMqrXAhooRcf1gHMFO8e7P6r0O9nOcyxmPxvneqcRAfbfVjW3kR8flDzfKskrIBSnLnGasXe1MhZTaY1TZL3/55LvDga4/wF+x4A83dHEnHYGr9GTrpuuuz4gZe02Gsfi/+98i7uErL6K/Y4eD+GQoNc41xn4qk2Och3bk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=acQAKfxK; arc=fail smtp.client-ip=52.101.43.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EECC513DDA4
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 02:09:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791598169; cv=none; b=JduhZebGnXRN2q0ie0xJAHO3wh0AwhNimKEtLm7JcLKkc4U5EdcoZJBVp6PWP6IWwSW7ff2ppmybA8gDi8yf4gPN66G95XP8UP0Vzo2npLacSpy3XiOrTK8ur0Tvp5RXASa7pHOWF8X0sBBSdqzZ0velYdYTieYYrU9bJhclUr4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791598169; c=relaxed/simple;
+	bh=d0EDoYHxfrUlr02R+Iw2ZmY9MamAcQ0Y6aKU5ptZvBo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cSOAm8ccjg/dgV29MfLp29rMV5gaIO/MSaPubNr+filgvNJ9d+W2xkOwzq5409uuL/fn3wLfjbITLJkRtpWNGl77Zu46Nrv4Uc3ubZUn+PfxzUzVSyYlePWc9rI5XbHUGp3VTW2NgkmcZmD3259OiQGjcIjaA77QCaATH10gdKY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=U9PSLapU; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="acQAKfxK"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NqjWXQ6QhFXblCzA/97rzeGmzPRorTk4p02KVg1NeSSN+bxbyW53q0cyG1KvACUb0E/X1YBPXkIZrBC2VXv557OFwa+cTouyNSQopRGCiGJP3xepXY/fEr4IEIax7PjOfoZ7b5ku/JdbagXGqGbNzGMJGB7teIz4NaixbGvg6wcWeAB0wy7OB2nL935F51yzimvL0YRqFvKuqSFdrXTjf3sBAo0TTLMaL22RbpTotzg4FU4AVLMyugi5QJs+6i8ADCopY5AkIJXLQD3SmiSVMDbg+Cku9DbzHywq7Db6c4mU4rJ1v1mGjwPGu3i5XWSMdzQdYvT3N8hUNm23zrcy7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1JtqIIhFvlwYd1Rktcz+I4LepWNe3g9EDOhrtpPY7mo=;
- b=tebZUMjI/TnuRanVncKGWsRwEytrD0xrRq3d72osk3Tbt3WOpHVOU2dNZ4KsFspnncJaYRJN41TxXHRHjMv71JwAiXib6Iu1N65D1OTN0MbOgKzHsKPZNzNQQ+tc6lMSYIigGLz7WdSiXnA4LKnszq2bwPw1ZeHEiZ6EVlFsljubJdLrKWlOCmrA9HxUr1qkmZoARZH5i02YMFBT2hIDrtymUrc5XSph29fX3s40cFkrNcBcGAtVHaIrgP3Vfsoe3i+Ms0eXFm/QwXiGbKSvPMkyMw65ryoTQkLrnq7UB7WSYj62LThM5DC7gDLWubTQYCEjEERqMaTXnQ84F0lYLg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1JtqIIhFvlwYd1Rktcz+I4LepWNe3g9EDOhrtpPY7mo=;
- b=acQAKfxKZDugdrlUF2q+sWKV1+WbCJOsfWaztHaEAdx5Q2EjXtVQnWqHrxKPDBUM60HbwDFxGayKXUNnI1HpxSv1ZcO8lrywBfcSbRjRx/06XP7ggIvHo8trZ15imI2eaTojNYJTlrVOJfs1F3YI291MJ8MjnsQ5NMD7OL+ncdAG3JlGJzs1MotlrbsWzdbPmBKwOICNAjcD3QWyGCdrV7Ek1/I/6cAzGMaCnrOjN7t0PpjZRRJJH4fAYISse1d/4tPdFBXA3tnufoIbGv2/R5ItoEUSmaaFIeobFF7R6Yg8xCVuTVis2CszObuig3schejE1FzlcMJmyxlawDJUEw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by FT1PR12MB222952.namprd12.prod.outlook.com (2603:10b6:170:d::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Sat, 10 Oct
- 2026 02:09:10 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0472.016; Sat, 10 Oct 2026
- 02:09:10 +0000
-From: Zi Yan <ziy@nvidia.com>
-Date: Fri, 09 Oct 2026 22:08:18 -0400
-Subject: [PATCH] mm/rmap: don't discard lazyfree THPs at PMD level
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-lazyfree-stable-fix-v1-1-70997958ef8d@nvidia.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMUQqDMBCE4avIPnchCUWxVyl9SMxot4gtWRWre
- HfT+vgNzL+RIgmUbsVGCbOovIcMeymoefqhA0vMJmdcaY2puffrt00A6+hDD25l4bKqrAvOXOs
- YKT8/CXn+V++P0zqFF5rxl6J9PwCDvdK3dwAAAA==
-X-Change-ID: 20261009-lazyfree-stable-fix-67712b2049dd
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Rik van Riel <riel@surriel.com>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, 
- Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>, 
- Kyle Zeng <kylebot@openai.com>
-Cc: stable@vger.kernel.org, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, Zi Yan <ziy@nvidia.com>
-X-Mailer: b4 0.16.0
-X-ClientProxiedBy: YQBPR0101CA0180.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:f::23) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="U9PSLapU"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d3b445a84fso3745ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 19:09:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791598166; x=1792202966; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZckNohU8rxASyti8f1rup11rFGJuPHV9Cw9uToI+h6I=;
+        b=U9PSLapUr+67/xXjOrzm7PU2kzrAUQu3MQ3LF8KZmqXFwlYObqFdoJkNxE3yHnUmRC
+         rp5ry7a5pVBKSZDYqdI1LNKo2+/uOK9sfIe1hIEKS1wbU9iFZQGtEpCb8tiwwI2wNbdY
+         u7WfqkT9PiHojvXMYJv8lfxcem9ClQNaIiODCT7B8yd4jvL0Pjtg5KmYaVyhBG+Yxj+p
+         tTWXTTbR62Zz/8wSvuNI/hg0f14gzoda0isl4bOj+49hX8OQY2YljEd0baejAnhvujZE
+         rE1xluZ9g8f5P5fLLArJS4pfQMcBrW1Itb7AntaZtL3PS2mAcxuGBmnsE1SDnFQIcZab
+         0rNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791598166; x=1792202966;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZckNohU8rxASyti8f1rup11rFGJuPHV9Cw9uToI+h6I=;
+        b=mZcHH/HBHmceEp3cO09x/EVkUz+bNQMLr+LWZ8CPTa17jJnNlDDSu1BQV5zM7cl3ks
+         YJEoH2GYcjE42sdyVarUImtLC5NGZlA72/Zv1Iwd5/8j3hmuLKY7RcuGJ1tN/7DeSvfQ
+         UoDZXSjAvyal6Q8RNs9sXwAnVOZ7RCfKdOOr3kOsvYfX6P4b1zFgFBUBfOGiZxEJ5Z7y
+         056v35QReRDv7qTs8FgkzH3q8cDP3Dds99djvfIpWuddS2Z34OfZKdkZLgQQLIPQLJgx
+         8F3bVP8fLf0aorvlTFGRw2EivYSpJUumcgXb+OjAP5SqZMSLO3MGKQDs+iqFOlpaWWEc
+         f6nw==
+X-Forwarded-Encrypted: i=1; AKwUvBw/LiJkY8NBWeo1F6BCwdPDHhYyh8pI14H1Oh8oawlbNzOauXeaWCOBigftdBBh3a/UVujqTQvekaC019s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKDsaZIGwcDtx2saBOxs8L9K50gpD6DLqnafj9fwTtHzQTIvkup
+	I0hn8AZMAYQAWncnbykfb4WT8+6VEkbS51L1hfXKSqGMT55MS62XdAD8YGl3Wwpj8w==
+X-Gm-Gg: AYBFou19673kNQtE8a0HBJPTde2kGOP1n6poxzpDOABE1g2yLOgxj1uykC4jERRdGu/
+	WFqX1qCQVo3QGvfKe3kav6SejzFK9r7Wxm5eact/6/zt/NUhi8SF2lD3lTx201Rs8KajXF7Ba43
+	YN/ELTzFMoa8QEl56N1LMJCGbhljHk5EoKhQiiOenkHx4UBSoXTmOmiN/C7neZELPYP9MwuPbtE
+	yTUTqE0QcC2vCTsdKQfpAQWhmAVufxAceWnS2pdsKv6U8Rl2h7KilaHcw7/bieyKAZDX9C78kwE
+	9o9YfFmBMn/rpXDZTc9EcO+3tOx+JokdC1/L90nx7zwjza3cuQWyXMlGoafKLDZcuwAB3d6E6Lk
+	fs8axmY2kxKbGYP4RHMiVOPka7N2mF5vW6icr6HC8J+ZZvArWlimxQ9qUTWBv6hoNinrcRF/swH
+	vB19JMMO8jeGEoFn5u93F5UNEfFqL3I/ZxV0uMpsYKoz3km0DJvr+YlmwQFzBd2ka9lzzmnkP/V
+	XqrSoLAI7wy3x7MwCSxZfIGnefscSF5UC+hS/+I3U5RYRMhSjbGyb+XETIheZfzZBs=
+X-Received: by 2002:a17:903:324c:b0:2e7:e742:8bb5 with SMTP id d9443c01a7336-2e87e2d3f9fmr549055ad.14.1791598165462;
+        Fri, 09 Oct 2026 19:09:25 -0700 (PDT)
+Received: from google.com (163.1.145.34.bc.googleusercontent.com. [34.145.1.163])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422c99b6sm17931255ad.65.2026.10.09.19.09.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 19:09:24 -0700 (PDT)
+Date: Sat, 10 Oct 2026 02:09:21 +0000
+From: Samiullah Khawaja <skhawaja@google.com>
+To: Baolu Lu <baolu.lu@linux.intel.com>
+Cc: David Woodhouse <dwmw2@infradead.org>, Joerg Roedel <joro@8bytes.org>, 
+	Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, 
+	Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Pranjal Shrivastava <praan@google.com>, 
+	Vipin Sharma <vipinsh@google.com>
+Subject: Re: [PATCH v5 12/18] iommu/vt-d: Handle reattach of the restored
+ domain
+Message-ID: <asmb0qNsVLfUkIRo@google.com>
+References: <20260921004834.2601285-1-skhawaja@google.com>
+ <20260921004834.2601285-13-skhawaja@google.com>
+ <5be26af3-9d0c-40ce-bf58-9e98ef4a8670@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|FT1PR12MB222952:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6dc73243-a3bd-407d-4095-08df267378f0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|11063799006|921020|261009223027099003|56012099006|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	/VPuMoe4fKHwqZHh0a7QI/LM/tF866Sl2OeceBgDtrG3qfm+p8HqiRK8W4EhjoWOpDqfq5RO9xTf5j/72CoIgSTvm6hp9A7Dd1riL86xnxXJl9adIJOuuuZfySE/zHvbRYL50/5rgKOMXvVPx5lmzsGAv5tOPLi9EKh25zzNgnt4hfw8mAek9+AvsF1ScAvjiyUD5aglAn8Kotj6smqmvf16MXwE9Ybq8UtDTdPOzeP4VZYI6VUy/OTz/y7ZLKhm9Hp7t8b1rFQcAVP4SZbLNdAP44XrACITwLNg1Au+Yj+4b7RVj8ncNotA99syGVFdnBzhZn9Owzb1YD5y2w8J2HhQSozqNF1YqpXoT0aWMufvKm/HDjhGngZFwJIRiGZ0UQOx4R8dQXZeKt7Ebn32y0etbEnlkuvp2VkEUtMatlmgUK4BfKn57dsu/XuRtAHydEuwUl9tRX6AOBfZl4YyjmH/P+Gaa+XCuCPqvMd+3eG4UO3mKgnsKHiBSJ4aMVLr/v27RbERNGPiHeRVreKV82zusk4IMtSTR830CuCegL1zFkndnE+cHfakMoFSaB1Vwi4pJcBGhylOxsNPHPkkFqAccqiFefz8X5ig6yVnko/U8I+LbN8+IICeTDHtLyTmHnjGYFDuRgbx3CpHbqqNwpcyb/nxD5PgiJHlwilcvYdzfai1uE0Q7PSuWPZoN1wMzmg4edk0HYMd8oQTWXKoGw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(11063799006)(921020)(261009223027099003)(56012099006)(10067099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aEQ3RE5xano0NEl4WXNPVFlxRW1GNzJRK0FWT1lpaGdIOGVLbkRIOXllKzJW?=
- =?utf-8?B?TGNCK3JlZHA3VG5KaUYvKzF5MHNUelpKQmNPZGp4enJ2emlLNXpRYlFaZjdK?=
- =?utf-8?B?ZzRyYXJKZ3Yzb2pIYkJ4R1hSUXNMSHVVdytRM3JMeFR1MmdzcEdJR1hvczNS?=
- =?utf-8?B?ZzdBWFhmSHFIYXNnWUMzRUMvZ3RBMS9VbHJGTnlSRnlaTEt2ZnRUSTdJVENI?=
- =?utf-8?B?aDNOb3d5dS8rUm1sOEZLT3pCb3ZpWTlqVDFIdjhCNStXTWY2L3RPcktjcEM5?=
- =?utf-8?B?L2gwNGEzbjd4d3hjeVozUVdxTEZ5aU9PdnhLdGwyNmVEWGhxQ2o0YU5IaVV3?=
- =?utf-8?B?Q2YyUnFOQ2NWS2RTbFd2SWoyT1dpY0dHeEsxYkI0Q1ZGOUdGdVl6Uk9XQmd2?=
- =?utf-8?B?REJGald5TXpKTHQxRyttWk1qQjF0eXdsdHFTQUlOQXJmek1wcHJqN0pJVDN6?=
- =?utf-8?B?YUlNb1NwbUdUM0I4K3ZWYTdLSDRIemMxT0dwZWxUeGxZZnZFbXZHYzJ3Z1p6?=
- =?utf-8?B?di91U2JoUXpqQk5yMmszTDZNakk3RFVhQllxNDVNcXpJMzkzZVU0ZUttNUZj?=
- =?utf-8?B?Q0g5dG5HWi9VR3g4L29KZTMxVXZmK3plcXpVYTBqVWw2V0JYTDN6QUZKOWh1?=
- =?utf-8?B?c3Q5dVJuSWxSc25MRmY2Zkt4bzlxeDZKS0FPQ1NDNUIvSE9ueGxqZk92ZGRD?=
- =?utf-8?B?M2x4YzJQY0ZidlMwTVBQTGZzRERrVnZ6WStKZmlHcnhmMWU5RmpUR2xhVDhZ?=
- =?utf-8?B?eFpJWUZkZzlMWEVFUlNFaG5zTmdod2FuYVdReDhsNzloMWZpYVM4R2JKOGxq?=
- =?utf-8?B?T0NqRzA4QlI2MXZueW9HZWFEVVJ0b3hXcTRMU2pJRlRoS1pZUjViTGF4U0ly?=
- =?utf-8?B?RVlrWldrcllLTTd0UlVxc1VDZVIrQ2l1aUF5NGNxWHEwVmJ2SXB3aDJwbWtE?=
- =?utf-8?B?aUZ3cjNQRFBuZE9YZTNHU3VXL3R3TEFoYXoveDFZekZ5ZFJSVG90cGt6RTlH?=
- =?utf-8?B?Vk4xV05tajFGcUtmQUZMR3FTb3U2ckVZcWY4UG5Kb3BFNVZPMmtsdHZrZytp?=
- =?utf-8?B?djE0Z0RjVCt4MVFaZWxreTJiMDd6VHlnUERlaDVJMHo0NSt3c2loZDQ0WmZk?=
- =?utf-8?B?YUhsTzdzVnMrV2RWVEY0Vy9WQ0xkRyt4MU12OWtxOHorWEoxZ1B6ZUZTaE51?=
- =?utf-8?B?K2lMdmJUeXVQSE9DRnVWNlAwZDRYUkhYVFBHZXVYSG1TT0VPZnJUZ0xkSkxn?=
- =?utf-8?B?MTRHVExHejZkK3ZwQ2NKNlQ2MHVLVWIyNEZYR3g2MWZvMkNINFpqTjFRakZG?=
- =?utf-8?B?OEh6Z1lyaTJBYnFGdmpIUVQvL05zNmY2NWZGSTRNYmViUU10aTVCZ1pRKzdP?=
- =?utf-8?B?cVl5dkJLYmFhVWIwcDRCeU9aajY1S2lKODZNYU1ob3pxZ21XTmVvS2x0czI1?=
- =?utf-8?B?dmxydkFrTmw0MUhGM2s0Z2tZYXVnUnVBMTgrVWdLMEpYajNWUUx1czRYelM3?=
- =?utf-8?B?MHNpems1c1VDTGJyV1B3THI5TDBiRUJSZE82ZFdoMi9ESXRKa0dYazV3WlhV?=
- =?utf-8?B?STFuZTBERFM3UU1FbjQ5Skg5dnloMzFLZU1OK2ZMV1B2c2ovS25zWjgyZ2ZN?=
- =?utf-8?B?ODhNb1MwMnRIME1tc1JJZG1iMmxsWFlJV1hxem9zaVVqWnEwTURudXVudUx5?=
- =?utf-8?B?YTVhWjlkY1R2bHg4SlNlTGxOQnIwZmRoNVZrbUVYK1Z3Nnlzd2RkUkxmYnBW?=
- =?utf-8?B?bEdra3FlanJINnZxVzRzT2lNSEpkL0FsYkQySVdqam8yNzdEVk00ZlZSVlkr?=
- =?utf-8?B?TVZMbkNBQ3A5czNWVWZ2YXRJNWpaM1NieHRVbWVLM2hKMHgrN2lhdDd5ZzlO?=
- =?utf-8?B?OUlDQ2I4VWJ2SlVRUHNka0FCakdwRkZyWXYvQkdMYnNBNkRlZ2ptTXhiMnZ5?=
- =?utf-8?B?cFRTUGZtbFBtUmlqTDJRSlp0TGZ5UjAvU3pnUGtLTUNKVkZUU0o3ai9VZVRw?=
- =?utf-8?B?UitXYVdTQll5SURvaTNOWFZmNGY1Y2VWQndTcmcrY2VMZG82RGtwUFVic0xl?=
- =?utf-8?B?MVR3SE1waEhNYjE0TFpFaExUTEtSb01MODZ5aS9yMFRwSXFjMGpHM0J0RS9l?=
- =?utf-8?B?azBmcG9HQ2pnQkNVM0h4SDlFUlhoZUNUVFU4dTQ3cHR0VXBOdG8yRER6VlZH?=
- =?utf-8?B?V3lidWFaTzBXeWhmVEVwelUzdVdIWlBQSEcycGozS05teWJmV2M1dDJ4dmNz?=
- =?utf-8?B?Vm9PN1lUNXlWSkpvbjN5YzY2WGo1SmVVRXZHdHhqQVorRndxU1BCQTFrWWNp?=
- =?utf-8?Q?iAa8m9ZvQH9cWnhWZz?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6dc73243-a3bd-407d-4095-08df267378f0
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2026 02:09:10.4240
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tmC7xF5kGiebkjNT0lUcZxir418w+TSoioOY+XeWJYzkXiyT38xLtRdtecdm5eex
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FT1PR12MB222952
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <5be26af3-9d0c-40ce-bf58-9e98ef4a8670@linux.intel.com>
 
-__discard_anon_folio_pmd_locked() clears a lazyfree THP PMD before it knows
-whether the folio can be discarded, and restores it if the folio was
-redirtied or has extra references. A concurrent munmap() or
-MREMAP_DONTUNMAP skips the temporary none PMD and unlinks the VMA from its
-anon_vma, so the folio stays mapped after the anon_vma is freed and a later
-rmap walk uses the freed anon_vma.
+On Fri, Oct 09, 2026 at 10:24:28AM +0800, Baolu Lu wrote:
+>On 9/21/26 08:48, Samiullah Khawaja wrote:
+>>Reattach the restored domain to the preserved device using restored
+>>domain ID. While reattaching do not setup the context and PASID entries
+>>as those are preserved during liveupdate.
+>>
+>>Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+>>---
+>>  drivers/iommu/intel/iommu.c      |  32 +++++--
+>>  drivers/iommu/intel/iommu.h      |  14 +++
+>>  drivers/iommu/intel/liveupdate.c | 159 +++++++++++++++++++++++++++++++
+>>  3 files changed, 197 insertions(+), 8 deletions(-)
+>>
+>>diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
+>>index c5044e834337..6d3cbe0745c9 100644
+>>--- a/drivers/iommu/intel/iommu.c
+>>+++ b/drivers/iommu/intel/iommu.c
+>>@@ -2819,6 +2819,9 @@ static int blocking_domain_attach_dev(struct iommu_domain *domain,
+>>  {
+>>  	struct device_domain_info *info = dev_iommu_priv_get(dev);
+>>+	if (dev_iommu_restored_state(dev))
+>>+		return -EBUSY;
+>>+
+>>  	iopf_for_domain_remove(info->domain ? &info->domain->domain : NULL, dev);
+>>  	device_block_translation(dev);
+>>  	return 0;
+>>@@ -3187,6 +3190,9 @@ static int intel_iommu_attach_device(struct iommu_domain *domain,
+>>  {
+>>  	int ret;
+>>+	if (dev_iommu_restored_state(dev))
+>>+		return intel_iommu_restore_device(domain, dev);
+>>+
+>>  	device_block_translation(dev);
+>>  	ret = paging_domain_compatible(domain, dev);
+>>@@ -3317,7 +3323,8 @@ static struct iommu_device *intel_iommu_probe_device(struct device *dev)
+>>  	info->iommu = iommu;
+>>  	RB_CLEAR_NODE(&info->node);
+>>  	if (dev_is_pci(dev)) {
+>>-		if (ecap_dev_iotlb_support(iommu->ecap) &&
+>>+		if (!dev_iommu_restored_state(dev) &&
+>>+		    ecap_dev_iotlb_support(iommu->ecap) &&
+>>  		    pci_ats_supported(pdev) &&
+>>  		    dmar_ats_supported(pdev, iommu)) {
+>>  			info->ats_supported = 1;
+>>@@ -3421,12 +3428,16 @@ static void intel_iommu_release_device(struct device *dev)
+>>  	struct device_domain_info *info = dev_iommu_priv_get(dev);
+>>  	struct intel_iommu *iommu = info->iommu;
+>>-	iommu_disable_pci_pri(info);
+>>-	iommu_disable_pci_ats(info);
+>>+	if (!dev_iommu_restored_state(dev)) {
+>>+		iommu_disable_pci_pri(info);
+>>+		iommu_disable_pci_ats(info);
+>>-	if (info->pasid_enabled) {
+>>-		pci_disable_pasid(to_pci_dev(dev));
+>>-		info->pasid_enabled = 0;
+>>+		if (info->pasid_enabled) {
+>>+			pci_disable_pasid(to_pci_dev(dev));
+>>+			info->pasid_enabled = 0;
+>>+		}
+>>+	} else {
+>>+		intel_iommu_detach_restored_device(dev);
+>>  	}
+>>  	mutex_lock(&iommu->iopf_lock);
+>>@@ -3434,11 +3445,13 @@ static void intel_iommu_release_device(struct device *dev)
+>>  		device_rbtree_remove(info);
+>>  	mutex_unlock(&iommu->iopf_lock);
+>>-	if (sm_supported(iommu) && !dev_is_real_dma_subdevice(dev) &&
+>>+	if (!dev_iommu_restored_state(dev) && sm_supported(iommu) &&
+>>+	    !dev_is_real_dma_subdevice(dev) &&
+>>  	    !context_copied(iommu, info->bus, info->devfn))
+>>  		intel_pasid_teardown_sm_context(dev);
+>>-	intel_pasid_free_table(dev);
+>>+	if (!dev_iommu_restored_state(dev))
+>>+		intel_pasid_free_table(dev);
+>>  	intel_iommu_debugfs_remove_dev(info);
+>>  	kfree(info);
+>>  }
+>>@@ -3900,6 +3913,9 @@ static int identity_domain_attach_dev(struct iommu_domain *domain,
+>>  	struct intel_iommu *iommu = info->iommu;
+>>  	int ret;
+>>+	if (dev_iommu_restored_state(dev))
+>>+		return -EBUSY;
+>>+
+>>  	device_block_translation(dev);
+>>  	if (dev_is_real_dma_subdevice(dev))
+>>diff --git a/drivers/iommu/intel/iommu.h b/drivers/iommu/intel/iommu.h
+>>index 3a2cb08c0ac1..25104644317c 100644
+>>--- a/drivers/iommu/intel/iommu.h
+>>+++ b/drivers/iommu/intel/iommu.h
+>>@@ -1310,6 +1310,9 @@ void intel_iommu_unpreserve(struct iommu_device *iommu,
+>>  void clear_unpreserved_context_entries(struct intel_iommu *iommu);
+>>  void intel_iommu_liveupdate_restore_root_table(struct intel_iommu *iommu,
+>>  					       struct iommu_hw_ser *iommu_ser);
+>>+int intel_iommu_restore_device(struct iommu_domain *domain,
+>>+			       struct device *dev);
+>>+int intel_iommu_detach_restored_device(struct device *dev);
+>>  #else
+>>  static inline void clear_unpreserved_context_entries(struct intel_iommu *iommu)
+>>  {
+>>@@ -1319,6 +1322,17 @@ static inline void intel_iommu_liveupdate_restore_root_table(struct intel_iommu
+>>  							     struct iommu_hw_ser *iommu_ser)
+>>  {
+>>  }
+>>+
+>>+static inline int intel_iommu_restore_device(struct iommu_domain *domain,
+>>+					     struct device *dev)
+>>+{
+>>+	return -EOPNOTSUPP;
+>>+}
+>>+
+>>+static inline int intel_iommu_detach_restored_device(struct device *dev)
+>>+{
+>>+	return -EOPNOTSUPP;
+>>+}
+>>  #endif
+>>  #ifdef CONFIG_INTEL_IOMMU_SVM
+>>diff --git a/drivers/iommu/intel/liveupdate.c b/drivers/iommu/intel/liveupdate.c
+>>index c9e553379683..6e6707eefc8c 100644
+>>--- a/drivers/iommu/intel/liveupdate.c
+>>+++ b/drivers/iommu/intel/liveupdate.c
+>>@@ -351,6 +351,165 @@ void intel_iommu_liveupdate_restore_root_table(struct intel_iommu *iommu,
+>>  	BUG_ON(iommu_for_each_preserved_device(_restore_used_domain_ids, iommu));
+>>  }
+>>+static void domain_detach_reattached_iommu(struct dmar_domain *domain,
+>>+					   struct intel_iommu *iommu)
+>
+>The naming is ambiguous. How about
+>
+>	domain_detach_restored_iommu()
+>	domain_attach_restored_iommu()
+>
+>?
 
-Using an invalidated PMD instead of a cleared one requires additional arch
-code fixes. Instead, disable the PMD level discard of lazyfree THPs, as
-before commit 735ecdfaf4e8 ("mm/vmscan: avoid split lazyfree THP during
-shrink_folio_list()").
+This looks good to me. Will update.
+>
+>>+{
+>>+	struct iommu_domain_info *info;
+>>+
+>>+	guard(mutex)(&iommu->did_lock);
+>>+	info = xa_load(&domain->iommu_array, iommu->seq_id);
+>>+	if (--info->refcnt == 0) {
+>>+		xa_erase(&domain->iommu_array, iommu->seq_id);
+>>+		kfree(info);
+>>+	}
+>>+}
+>>+
+>>+static int domain_reattach_iommu(struct dmar_domain *domain,
+>>+				 struct intel_iommu *iommu,
+>>+				 struct iommu_device_ser *device_ser)
+>>+{
+>>+	struct iommu_domain_info *info, *curr;
+>>+	struct iommu_domain_ser *domain_ser;
+>>+	struct iommu_hw_ser *iommu_hw_ser;
+>>+	int restored_did;
+>>+	int ret;
+>>+
+>>+	if (!iommu_domain_restored_state(&domain->domain))
+>>+		return -EINVAL;
+>>+
+>>+	if (!device_ser->domain_iommu_ser.domain_phys ||
+>>+	    !device_ser->domain_iommu_ser.iommu_phys)
+>>+		return -EINVAL;
+>>+
+>>+	domain_ser = phys_to_virt(device_ser->domain_iommu_ser.domain_phys);
+>>+	if (domain_ser->restored_domain != &domain->domain)
+>>+		return -EINVAL;
+>>+
+>>+	iommu_hw_ser = phys_to_virt(device_ser->domain_iommu_ser.iommu_phys);
+>>+	if (iommu_hw_ser->type != IOMMU_INTEL ||
+>>+	    iommu_hw_ser->intel.phys_addr != iommu->reg_phys)
+>>+		return -EINVAL;
+>>+
+>>+	restored_did = device_ser->domain_iommu_ser.attachment_id;
+>>+	if (!ida_exists(&iommu->domain_ida, restored_did))
+>>+		return -EINVAL;
+>>+
+>>+	info = kzalloc_obj(*info);
+>>+	if (!info)
+>>+		return -ENOMEM;
+>>+
+>>+	guard(mutex)(&iommu->did_lock);
+>>+	curr = xa_load(&domain->iommu_array, iommu->seq_id);
+>>+	if (curr) {
+>>+		curr->refcnt++;
+>>+		kfree(info);
+>>+		return 0;
+>>+	}
+>>+
+>>+	info->refcnt	= 1;
+>>+	info->did	= restored_did;
+>>+	info->iommu	= iommu;
+>>+	curr = xa_cmpxchg(&domain->iommu_array, iommu->seq_id,
+>>+			  NULL, info, GFP_KERNEL);
+>>+	if (curr) {
+>>+		ret = xa_err(curr) ? : -EBUSY;
+>>+		goto err_unlock;
+>>+	}
+>>+
+>>+	return 0;
+>>+
+>>+err_unlock:
+>>+	kfree(info);
+>>+	return ret;
+>>+}
+>>+
+>>+/**
+>>+ * intel_iommu_restore_device() - Restore device domain attachment after live update
+>>+ * @domain: Restored domain
+>>+ * @dev: Restored device
+>>+ *
+>>+ * Return: 0 on success, or negative error code.
+>>+ */
+>>+int intel_iommu_restore_device(struct iommu_domain *domain,
+>>+			       struct device *dev)
+>
+>How about renaming it intel_iommu_attach_restored_device() to pair with
+>the detach helper?
 
-Fixes: 735ecdfaf4e8 ("mm/vmscan: avoid split lazyfree THP during shrink_folio_list()")
-Reported-by: Kyle Zeng <kylebot@openai.com>
-Closes: https://lore.kernel.org/r/20261009165214.40212-2-kylebot@openai.com
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Zi Yan <ziy@nvidia.com>
----
-The proposed fix[1] requires additional arch code fixes[2]. Disable it
-first for stable fix. The function will be re-enabled along with arch code
-fixes.
+Agreed. Will update.
+>
+>>+{
+>>+	struct iommu_device_ser *device_ser = dev_iommu_restored_state(dev);
+>>+	struct device_domain_info *info = dev_iommu_priv_get(dev);
+>>+	struct dmar_domain *dmar_domain = to_dmar_domain(domain);
+>>+	struct intel_iommu *iommu = info->iommu;
+>>+	unsigned long flags;
+>>+	int ret;
+>>+
+>>+	if (!device_ser)
+>>+		return -EINVAL;
+>>+
+>>+	if (dev_is_real_dma_subdevice(dev))
+>>+		return -EOPNOTSUPP;
+>
+>The vmd subdevices rely on the host endpoint to restore the domain
+>attachment, so instead of returning an error, it could return 0,
+>indicating nothing to do?
 
-Link: https://lore.kernel.org/all/20261009165214.40212-2-kylebot@openai.com/ [1]
-Link: https://lore.kernel.org/all/DM0II2QHWWS1.2RXEJXC8S0101@nvidia.com/ [2]
----
- mm/rmap.c | 11 -----------
- 1 file changed, 11 deletions(-)
+This should never happen, as subdevices are not preserved, so this
+function is never called for them. It is basically dead code, so I will
+drop it.
+>
+>>+
+>>+	ret = domain_reattach_iommu(dmar_domain, iommu, device_ser);
+>>+	if (ret)
+>>+		return ret;
+>>+
+>>+	info->domain = dmar_domain;
+>>+	info->domain_attached = true;
+>>+	spin_lock_irqsave(&dmar_domain->lock, flags);
+>>+	list_add(&info->link, &dmar_domain->devices);
+>>+	spin_unlock_irqrestore(&dmar_domain->lock, flags);
+>>+
+>>+	ret = cache_tag_assign_domain(dmar_domain, dev, IOMMU_NO_PASID);
+>>+	if (ret)
+>>+		goto err;
+>
+>The restored domain is an immutable domain. It could only be freed; no
+>map and unmap should happen on it. So why do you need to assign a cache
+>tag for it?
 
-diff --git a/mm/rmap.c b/mm/rmap.c
-index 805db93fe0428..1131b76bbbc28 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -2275,17 +2275,6 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
- 		}
- 
- 		if (!pvmw.pte) {
--			if (folio_test_lazyfree(folio)) {
--				if (unmap_huge_pmd_locked(vma, pvmw.address, pvmw.pmd, folio))
--					goto walk_done;
--				/*
--				 * unmap_huge_pmd_locked has either already marked
--				 * the folio as swap-backed or decided to retain it
--				 * due to GUP or speculative references.
--				 */
--				goto walk_abort;
--			}
--
- 			if (flags & TTU_SPLIT_HUGE_PMD) {
- 				/*
- 				 * We temporarily have to drop the PTL and
+Interesting.. this is a valid point. I will remove this.
+>
+>>+
+>>+	ret = iopf_for_domain_set(domain, dev);
+>
+>ATS and PRI are not supported on the preserved devices, so the above is
+>dead code, right?
 
----
-base-commit: 8b38ed9ab5b09c8ba168cbcc49524e9b380ee5c4
-change-id: 20261009-lazyfree-stable-fix-67712b2049dd
+Agreed. Will update.
+>
+>>+	if (ret)
+>>+		goto err;
+>>+
+>>+	return 0;
+>>+
+>>+err:
+>>+	/*
+>>+	 * Detach the restored domain from device and iommu on failure, but keep
+>>+	 * the hardware state intact.
+>>+	 */
+>>+	info->domain_attached = false;
+>>+	cache_tag_unassign_domain(info->domain, dev, IOMMU_NO_PASID);
+>>+	spin_lock_irqsave(&info->domain->lock, flags);
+>>+	list_del(&info->link);
+>>+	spin_unlock_irqrestore(&info->domain->lock, flags);
+>>+
+>>+	domain_detach_reattached_iommu(info->domain, iommu);
+>>+	info->domain = NULL;
+>>+	return ret;
+>>+}
+>>+
+>>+int intel_iommu_detach_restored_device(struct device *dev)
+>>+{
+>>+	struct device_domain_info *info = dev_iommu_priv_get(dev);
+>>+	struct intel_iommu *iommu = info->iommu;
+>>+	struct iommu_domain *domain;
+>>+	unsigned long flags;
+>>+
+>>+	if (!info->domain_attached || !info->domain)
+>>+		return -EINVAL;
+>>+
+>>+	domain = &info->domain->domain;
+>>+	if (!iommu_domain_restored_state(domain))
+>>+		return -EINVAL;
+>>+
+>>+	iopf_for_domain_remove(domain, dev);
+>>+	cache_tag_unassign_domain(info->domain, dev, IOMMU_NO_PASID);
+>>+	info->domain_attached = false;
+>>+
+>>+	spin_lock_irqsave(&info->domain->lock, flags);
+>>+	list_del(&info->link);
+>>+	spin_unlock_irqrestore(&info->domain->lock, flags);
+>>+
+>>+	domain_detach_reattached_iommu(info->domain, iommu);
+>>+	info->domain = NULL;
+>>+
+>>+	return 0;
+>>+}
+>>+
+>>  /**
+>>   * intel_iommu_preserve_device() - Intel IOMMU callback to preserve device state
+>>   * @dev: Target device
+>
+>Thanks,
+>baolu
 
-Best regards,
---  
-Yan, Zi
-
+Thanks,
+Sami
