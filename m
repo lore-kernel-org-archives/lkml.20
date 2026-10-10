@@ -1,155 +1,239 @@
-Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B924A9D63
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 14:30:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72EEA381C4;
+	Sat, 10 Oct 2026 14:32:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791642638; cv=none; b=BtTRUaAh+hmevaVYP13caKRjTUUnVE0YuW6fEroNtFdmaJnMh9NpI+yk3Rd1mSm/yoTSlKisGS6aragbhHqgHPm5DfPV/KiUJ0eGU7XtxeAvYLgZWPEEYDb9aps4EnIW8Q8h+C5I4vIo7IKI7nqSqsDOcBRhaqWUPy5QiLudUWM=
+	t=1791642734; cv=none; b=MIfS1EOX0mXc+zEctU3e93gJY6gLaxV+tYBqO6Vjav6urj8Q1X00zQrW19z81ffLLWd1ynYPOfwN4lB/fM2bFUdTRbJCMy34DUzgNsc+kh4wdXQnogcsSmfM93t/9j3NAlAPOOWU1dnutKv1xYk0F8vmj+iBiRWWaKqBkWgpuTY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791642638; c=relaxed/simple;
-	bh=kTyOPd6sbaAaSQGfySTZuG3Q9c4EjZEa+S4p9EOIzrc=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=Xba8DRDMa9FDy/tKwsSm8Hiotn35xMQwYYqAeiNujnAjC1d0yowNwkfiJhhoa5tch3OVaS3vuDcIj8VQCIr29VPNW0kAQOFAW0ilCAWJOXmC1+wa75wIvZ1ZOnbIn16pnFcSWTkhPbJT36imWvmvn0lfyOOxFwtYYL2qWLokg1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=gMjmK/fw; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=iLhmRthQ; arc=none smtp.client-ip=202.12.124.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1791642734; c=relaxed/simple;
+	bh=2LIPWbfOeDgSf5t6nd75y8gDzljUUM8YhDMfuPbA9qM=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=OtMyFTH/QT6SGZet9tPcH2oLLNGJj8+kxnjxkjBb2Q6CY16p4Gam/aSu5VhiA3EA7ElI8QwzB9oEx8OU7PQbC7YFPIkuAPQgRo0KiH4cYry6AKzNKdtqhbOH95K3gebYRERu3IhbmZqshbfvxLw6vhCnUcw4p0r8AosJmBDaK4o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KTST7iuv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="gMjmK/fw";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="iLhmRthQ"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.stl.internal (Postfix) with ESMTP id 5EF481D000BC
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 10:30:34 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Sat, 10 Oct 2026 10:30:34 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1791642617;
-	 x=1791729017; bh=0CmHHOOqX+1xiZjtZ5DWDZbtI4XzSSaR1wpGb5qLQP4=; b=
-	gMjmK/fwNMCVh2Ls31/FUtQU4K6wi15Xd4TwcHZDn2UKi6wxNBjmGUNfO8Q/zGNp
-	MuOFLP95dD4ejE0BE1jEG4PPxGGd3ex7OCvvj2JVd9zS/Rehk9Nm/VWS552sMajg
-	HFrHKNgv6x4EKrPiIZmEeIMuQuWg6LAeMQvlPcsTUft5ACOAtKgJ10OF9mD1BCVM
-	tjW4FtpHrZehJ3sztWMUhmq740LosVKhZdkELz5pHm7XL7o/SHVu74KGP2vdcGnv
-	1KtYcV3SyBIXXBqACb3HUmg5XjXI8/0JMfhPyypzRJRoxHYMG70Ozyt3RoMdgogT
-	6PL8IyW2t89KFuFWbq5tzg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791642617; x=
-	1791729017; bh=0CmHHOOqX+1xiZjtZ5DWDZbtI4XzSSaR1wpGb5qLQP4=; b=i
-	LhmRthQ6DQxkp4LY0LfhZoUmNpl/AYB4qhFOJtCs4jcAiyD5RArDa/UwSt3e9LzH
-	tuVV4SjNHnCHQBvKUqrIVyWGXG0Ekj0TgBP8eeVeVKxsMGKTesC5p5a4WIUTWOZ6
-	gcGBHC4vWrLvFcu0g+IuZZN9wY4DDp6C/BB/b/FisbQ9w1Dc62lvUvgJDn6oPRQM
-	xtpOwKbZrQ/13pckCRb5aR9UgrQCWCX/Lsc4ahj2XRunfnTnk/WXP259RXge8jx8
-	pm2dAeubd+21CzGkW/a507WeNS/isgjaopKl1w/pghaoUsvtI+Q1bHYwwpocegh0
-	IsF+DiiF/VBkiuAW8SJ1A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791642617; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:fDtBAufQFfOr0d0HCk7WlQshSBZTQ1QZu0BpiFXhl5+i8D1
-	GHNCcYa3ZGlM+ibDSY6V2ZuniU+MDoKTHS5Yv87iL5KJMPdeuJpIFemP2NFG35i3
-	eHaBB6Z7fOyaPqdcxc0b5gANDEgGE+7eHXEOXdbn0nkkcg997RVBU4t+jOHx3deV
-	MIkWIp0RwUxj0v5RWnGap8RBnIATQIjCyrfFu4OXa4ViDEUgw0+IIBzrDXF8XylW
-	XVUVambBqPqHz5G4YQ6Ro7Mvtb8q5Dv1I/xvRnSz2ec7ZVtQsq28EnE6hz09afAM
-	eTBvFGqBGq9RDssz1+aWE6Ng/kyUqRuxW7R5yOA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:FCcUwALsvQPD3s++e8KnBI5uHlN28iyXWaXFw9GfpwU=:kTyOPd6sbaAaSQGfySTZuG3Q9c4EjZEa+S4p9EOIzrc=;
-X-ME-Sender: <xms:8UvKaud9UPAeZo0SUNXCBv-xitLm8uE-Z_ItsPIztCwnGNZYJsagXQ>
-    <xme:8UvKajD55eG9_1eG_q_6IH_ZK16AXovLFay79jr2hWgmY01DRSfXQ36EAucnE49Fn
-    f937Xejcycsr8l7oqtabOa8DKmszzAKODGA1pLlppLmpB88igIYF_s>
-X-ME-Proxy-Cause: dmFkZTF4Y9Jpn4smgjHjjJaLUEX5km7VArfjakyh/rS/HxayXIDGX6XwBgWL2nNPJeORLV
-    kN1T+O3NxkMrs/Bt7/kAl5iYFPrLFMA8o+5995r+lhyUxiAFJ/7MxBadEFMNcWO4/YHCiU
-    cTmo+QAy9/pybqXrSDfZbttd8jmIBeghrYwkNVYgAFAiKjnzKoF0/njU3lFZk7DC51Zljx
-    483DEzAYYpf3mAlilXBxRNWRtWaFFGumKANspl647AiglokZXmAW3tgjsyOcTJAXPraX/W
-    694MS5Vda9p5JzxD1BqxsIxFq0Brta5NSXZYVzsQUgV2s8sXBMFJLCqrgkhYDZbQHlMfEo
-    HjEXWfXU6ZLnvg4gluDtigOrYh9zGswAh+fvNJZGS3dwJkG0tut75+jh1JOa1gzhW90yBX
-    LM/FSxZVv+R5FRP733Kkqoj+7nZ3Hxpvq3vFrIzBWLdEkWsY/JKinIJcVnVwOMrXEWqaFh
-    CIXZarxZ55fjTv+HCWn2F1kN+/w6calR/XEWhaf4rK62eQ63YFPW3fbU7WNAf2ffH54OZu
-    Z2Q/dF/FFLLiDC9RC8sKZ7Gw9KPiFILP5RwTY3P9ioSIrpTX+ztTpHsnfTa5lpPMMSsdQi
-    3pP0G/aNaNrsvjEzim72/QMP0NZcK/QoLVyCraUZE8q+OcyVdRMtPJlmTABA
-X-ME-Proxy: <xmx:9UvKalm2LAjxPmO3reRHWdAMHyQus5HMywmzvFmieaqV8f069_epSA>
-    <xmx:9UvKaqcdNWumm2a80B6aL-jaRjObZENu0CJLG-yv0wosYonOGRt2iw>
-    <xmx:9UvKavERm7IXSdk3IBdLifNogQBoUZAoWHZfPN7KQKdFhZBy7YXxWQ>
-    <xmx:9UvKascJWVQwVHzYUZPnzh1JM9-qg1ms8IjsvPvxJCmBTf5CZhhgPQ>
-    <xmx:-UvKahhRCWmUvF7IIllKchB7epjuQO4x8N2syTQEbLhhD7etKPNOgNPA>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id AAA7E32A008E; Sat, 10 Oct 2026 10:30:09 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KTST7iuv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DBE51F000FF;
+	Sat, 10 Oct 2026 14:32:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791642732;
+	bh=dJZLdbFhLC/ynJVpWk/rEOzcEFJLRmSBZudkVqLrcp0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=KTST7iuvzfxpvR5a97XPjhGCw1IhaZDtfa+AjX4TqdyWUO/8ktIJ6XTIUOX3XgoGU
+	 yXZBCO0F2c+sTEpp/hOHQC87sBulKnlE3LVk1I0tvd221bTemtMvYgiUebSCVKwdQi
+	 kAeYeM5nkmGBAnMT4Jek2IQtsi+zkDs1PfPS3y4gAIo0MEWhA8m4nV07uOxWTzvmoj
+	 5OuKLIXLhwXbUmidi/FFFdwkxL0sJDIxOmC9/XsaAnpGYNMJJ8t6eLcPZ2WTzkk8wE
+	 ZRJ/hfIgvxGq+1sewqDhcSliTh9/25g+Y+8fKvM/Dp5A04yKlmWk/Xpy8UxgEOEYsh
+	 PQRji3tPxCzAg==
+Subject: Re: [PATCH net] esp: fix out-of-bounds transport-header read after
+ exthdr walk
+From: netdev-bot+sashiko@kernel.org
+To: bsdhenrymartin@gmail.com
+Cc: steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Sat, 10 Oct 2026 14:32:11 +0000
+Message-ID: <179164273177.434549.11736942363139290526@kernel.org>
+In-Reply-To: <20261009135233.4084239-1-bsdhenrymartin@gmail.com>
+References: <20261009135233.4084239-1-bsdhenrymartin@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AYDIbhfDD_9F
-Date: Sat, 10 Oct 2026 16:29:49 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Karl Mehltretter" <kmehltretter@gmail.com>, "Gary Guo" <gary@garyguo.net>
-Cc: "Russell King" <linux@armlinux.org.uk>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- "Benno Lossin" <lossin@kernel.org>,
- "Andreas Hindborg" <a.hindborg@kernel.org>,
- "Alice Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>,
- "Danilo Krummrich" <dakr@kernel.org>,
- "Daniel Almeida" <daniel.almeida@collabora.com>,
- "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>,
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- "Linus Walleij" <linusw@kernel.org>,
- "Christian Schrefl" <chrisi.schrefl@gmail.com>,
- "Bradley Morgan" <brads@mainlining.org>,
- "Paul E. McKenney" <paulmck@kernel.org>,
- "Nathan Chancellor" <nathan@kernel.org>,
- "Nick Desaulniers" <ndesaulniers@google.com>,
- "Bill Wendling" <morbo@google.com>,
- "Justin Stitt" <justinstitt@google.com>,
- linux-arm-kernel@lists.infradead.org, rust-for-linux@vger.kernel.org,
- llvm@lists.linux.dev, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-Id: <19b80262-a7f2-42d5-a44b-60a36a1ba373@app.fastmail.com>
-In-Reply-To: <ashAuRn5eT2iiMAk@gmail.com>
-References: <20261008053746.49631-1-kmehltretter@gmail.com>
- <20261008053746.49631-6-kmehltretter@gmail.com>
- <DLZC7PFV4O75.VPMF8KDNW8JY@garyguo.net> <ashAuRn5eT2iiMAk@gmail.com>
-Subject: Re: [PATCH v2 5/6] ARM: rust: Enable Rust support for ARMv4T
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 9, 2026, at 03:21, Karl Mehltretter wrote:
-> On Thu, Oct 08, 2026 at 11:08:52AM +0100, Gary Guo wrote:
->> > +=============  ================  ======================================================
->> >  Architecture   Level of support  Constraints
->> > -=============  ================  ==============================================
->> > -``arm``        Maintained        ARMv5TE, ARMv6K and ARMv7, Little Endian only.
->> > +=============  ================  ======================================================
->> > +``arm``        Maintained        ARMv4T, ARMv5TE, ARMv6K and ARMv7, Little Endian only.
->> 
->> Can we say "ARMv4T or above" or something similar?
->> 
->
-> Plain ARMv6 (CPU_V6, ARM1136r0) and ARMv7-M stay excluded, so "or above"
-> alone would cover too much. It could be
->
->   ARMv4T and above except plain ARMv6 and ARMv7-M, Little Endian only.
->
-> That is longer than the list. I can change it if there is a preference
-> for this form.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-I think your current list is fine. I'm still not sure about ARMv8-A and
-would not list it either as explicitly included or excluded here. It probably
-works but this seems hard to guarantee since ARMv6 and ARMv8-A are normally
-not compatible with one another.
+Critical: 0 · High: 1 · Medium: 1 · Low: 1
 
-     Arnd
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] Both new bounds checks compare a negative, data-relative offset
+  against skb->len using unsigned arithmetic, so the check is always…
+- [Medium] Where the computed offset is non-negative, the new checks
+  bound it only by skb->len (total length including page frags and…
+- [Low] The new comments and the commit message do not describe the main
+  receive paths accurately.
+
+--
+
+esp: fix out-of-bounds transport-header read after exthdr walk
+
+This adds a bounds check to esp_input_done2() and to esp6_input_done2()
+before the 2-byte source port is read from the encap transport header.
+If the computed offset plus two bytes is past skb->len, the packet is
+rejected with -EINVAL.
+
+> diff --git a/net/ipv4/esp4.c b/net/ipv4/esp4.c
+> index e76db5817e78e..aaff5a2b659db 100644
+> --- a/net/ipv4/esp4.c
+> +++ b/net/ipv4/esp4.c
+> @@ -744,6 +744,18 @@ int esp_input_done2(struct sk_buff *skb, int err)
+>  		struct udphdr *uh = (void *)(skb_network_header(skb) + ihl);
+>  		__be16 source;
+>  
+> +		/*
+> +		 * ihl is taken from the decrypted inner packet and is not
+> +		 * re-validated after esp_remove_trailer() shrank the skb;
+> +		 * make sure the 2-byte source port we read below is within
+> +		 * the packet.
+> +		 */
+
+[Severity: Low]
+Is this comment accurate for the UDP encap path?
+
+In esp_input_done2(), ihl comes from:
+
+	iph = ip_hdr(skb);
+	ihl = iph->ihl * 4;
+
+At this point that is the outer, unencrypted IPv4 header that
+ip_rcv_core() validated. The inner network header is only reset later,
+by the mode input callback.
+
+The UDP header at network_header + ihl was already linearized by
+__xfrm4_udp_encap_rcv():
+
+	if (!pskb_may_pull(skb, sizeof(struct udphdr) + min(len, 8)))
+
+That header sits before skb->data, so esp_remove_trailer() trimming the
+tail can't move it out of range.
+
+The esp6 comment has the same problem. On the UDP path,
+ipv6_skip_exthdr() walks outer extension headers that IPv6 input has
+already validated, stops at the UDP header, and returns a negative
+offset relative to skb->data.
+
+The scenario might really happen on espintcp paths where the network
+header is stale. tcp_collapse() leaves network_header at 0 for a new
+head, and alloc_skb_for_msg() copies first->network_header into a
+0-byte head through __copy_skb_header(). That would fit the Fixes: tag,
+but neither the comments nor the commit message describe it.
+
+Could the comments and the commit message describe how the offsets
+actually work, and which path produces the bad header?
+
+> +		if (skb_network_offset(skb) + ihl + sizeof(__be16) >
+> +		    skb->len) {
+> +			err = -EINVAL;
+> +			goto out;
+> +		}
+
+[Severity: High]
+Can this check ever pass for a valid encapsulated packet?
+
+When esp_input_done2() runs, skb->data points at the ESP header. The
+outer IP header and the UDP or TCP encap header both sit before
+skb->data. For UDP, __xfrm4_udp_encap_rcv() pulls the UDP header off:
+
+net/ipv4/xfrm4_input.c:__xfrm4_udp_encap_rcv() {
+    ...
+	if (pull) {
+		__skb_pull(skb, len);
+		skb_reset_transport_header(skb);
+    ...
+}
+
+For espintcp, espintcp_rcv() does:
+
+	if (!pskb_pull(skb, rxm->offset + 2)) {
+
+So with UDP encap, skb_network_offset(skb) is -(ihl + 8), and
+skb_network_offset(skb) + ihl is -8. Adding sizeof(__be16) converts
+that to size_t, so the left side becomes a huge unsigned value and the
+comparison is always true.
+
+Wouldn't that drop every UDP_ENCAP_ESPINUDP and TCP_ENCAP_ESPINTCP
+packet with -EINVAL after a successful decrypt? That would break both
+NAT-T and espintcp receive.
+
+The new check in esp6_input_done2() looks like it has the same problem:
+
+	if (offset + sizeof(__be16) > skb->len) {
+
+offset starts at skb_network_offset(skb) + sizeof(*ip6h).
+ipv6_skip_exthdr() stops at the UDP or TCP header, which gives -8 for
+UDP. The existing code already depends on offset being negative there:
+
+	hdr_len += offset;
+
+Also, skb->len counts bytes from skb->data onward, but the port being
+read is before skb->data. Even a signed comparison against skb->len
+would not bound this read.
+
+Would something like skb_header_pointer_careful(), or a signed check
+against the headroom and headlen, be needed instead of extending this
+check?
+
+> +
+>  		switch (x->encap->encap_type) {
+>  		case TCP_ENCAP_ESPINTCP:
+>  			source = th->source;
+> diff --git a/net/ipv6/esp6.c b/net/ipv6/esp6.c
+> index b1c9b36f76dc4..89e8cdf5a26b2 100644
+> --- a/net/ipv6/esp6.c
+> +++ b/net/ipv6/esp6.c
+> @@ -782,6 +782,17 @@ int esp6_input_done2(struct sk_buff *skb, int err)
+>  			goto out;
+>  		}
+>  
+> +		/*
+> +		 * ipv6_skip_exthdr() can advance past the packet end when the
+> +		 * last extension header claims an oversized length; the
+> +		 * transport header below would then be read out of bounds.
+> +		 * Make sure there is room for the 2-byte source port we read.
+> +		 */
+> +		if (offset + sizeof(__be16) > skb->len) {
+> +			err = -EINVAL;
+> +			goto out;
+> +		}
+> +
+>  		uh = (void *)(skb->data + offset);
+>  		th = (void *)(skb->data + offset);
+>  		hdr_len += offset;
+
+[Severity: Medium]
+When offset is non-negative, does this check bound the read that
+follows?
+
+skb->len includes page frags and the frag_list. The port, however, is
+read straight from the linear buffer through skb->data + offset. Any
+offset with skb_headlen(skb) <= offset + 2 <= skb->len passes the
+check, and the read then lands past the linear data, possibly past the
+end of the head allocation.
+
+Non-negative offsets seem possible on the espintcp paths where the
+network header is stale. alloc_skb_for_msg() does:
+
+	n = alloc_skb(0, GFP_ATOMIC);
+	...
+	skb_shinfo(n)->frag_list = first;
+
+	__copy_skb_header(n, first);
+
+and tcp_collapse() leaves network_header at 0. In both cases
+ipv6_hdr() points at bytes that are not a real IPv6 header.
+ipv6_skip_exthdr() walks with skb_header_pointer(), which can read
+frags, and each step can advance up to 2048 bytes. esp6_input() does
+not linearize the skb, so the offset can end up well inside skb->len
+but past skb_headlen().
+
+The esp4 check has the same skb->len bound in front of the direct
+th->source and uh->source reads at skb_network_header(skb) + ihl.
+
+I haven't confirmed the whole path end to end. Would reading the port
+with skb_header_pointer_careful() handle both the negative-offset case
+and the frag case?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261009135233.4084239-1-bsdhenrymartin%40gmail.com
