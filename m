@@ -1,102 +1,127 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEEE432142B;
-	Sat, 10 Oct 2026 22:40:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791672017; cv=none; b=VpPvYbFRIUXNt1u7A20WshDyDziZI3zqbjAYHRfX9oFvAlCKgnlvZ8hs9N9DeS7Az4qV/6sgGwMeovnqq/ZCVfIF/UAwiLSfNbGMjPjT7a6r1XkqrUcht8uWNYneyYi5slxxDunpoHrGjPVFnrMF0yLCvnUZOevjO0a00qsWWok=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791672017; c=relaxed/simple;
-	bh=GtHoP63iPZIbUPdawW2RiplLrwc+rbs2HYfiK9uD2z0=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=NwxgNeiCcelFofn9BuI5e8M8idu/zU1axM54iicplYOMocaWmu06votmwL41ANhTsECF1+dr8fWFgBPwpmTLwGS3pCLMeWpLRpH8GaKfPBB8WQdC/800jD+ErpqONBNSugooGUGn2HR+2lTBHzjoYaKagCSE+pHobuFwKxTH30E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=XOs4Vn+e; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6485B37CD33
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 22:40:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791672056; cv=pass; b=tw6G1DM3dPNe04PMJLbSZmvPLJTIY7ZK7d+b9BwsQmsCZYwhcBCqkZsFrFelPGZVQaMI4jLDHmmCiQgkvCsp7ms+OE7wYZbnIf43NfXa9N12vrIp+8V9B51tR+JSS9O3TQKZjP6bJcbHZs0WZJHHztIChR7zMzPgSVJJ7t8mLVA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791672056; c=relaxed/simple;
+	bh=6mEGm2u4SySep02ssBb6cSOg0RdAq/up2Jup45p2V48=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NuVLhB9LYnq5Ss3BVbm6AZq3peM1v6yRk28XfPcRsMTUF79/rAO7oa0Rq68csjypDq1QikRPT54Aw7BoWV+eqmIq53Dv4humvuvbjYioosUR9f8RzDBXGhisB8Qgwg76KgVBe4Tkmp75Y2mb9Ds1gHtrWKQjfz41A2QoK7nfe80=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=hTbDXvB+; arc=pass smtp.client-ip=74.125.224.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="XOs4Vn+e"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 2508C40E048C;
-	Sat, 10 Oct 2026 22:40:11 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id qcWqa3Oc4DBb; Sat, 10 Oct 2026 22:40:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1791672001; bh=LmapBEYR3R7x6MIahWuulBdCuxfiaUOHVo9p59VFJe8=;
-	h=Date:From:To:Cc:Subject:From;
-	b=XOs4Vn+eCyar2PRzHT730iGfkiOlAN6uOhBz6Yghw/09fCVJIDm4OyUa3Qtd3nOQ6
-	 VTXgzjFG09MGw3Sw42ZkWrhxS1ArFcINg4ctVsv+YckgygI0lWYLBDLtYNdqg6Ig7n
-	 ae2QZYaHGw1XEPu8latX7mDQkdKU+xpMNbJL2mywF9RLdMKAfmQ1acLfmL54mOo/gJ
-	 HvbMhsZ1iE8OwDhC8IEdPMmwi/DXiiRstedRscRq3hpue+mYROge4PvjeW1gimvBKH
-	 mSCoKkcuNnRjSe4Kmw83aobfCKS4rUDiUYjXdEev1l/WLGV6OPnwGlvLcPYJk6UTur
-	 KvRi3+MtyrTSZtryZCMAXF0G65Mlf7gSenj68pUIHkaYh4mULn1JCuWCbh7twzCwXk
-	 gekqmS0Fl+HdTAydFKkzXcMamUHrkGoY2BbBoldSbiGq6IblpQoYtmaDXkeVuHjCXe
-	 khIliQUxj980kQBYXFA4yR1uVzU7qtCKPoMef0G4wIyS26tKhZ1/RohIu/JqlR4AxL
-	 5Gg+RHDitDypjtwQ+a5RMpkEW2a2wCSdSWGDL7dJI8w1Oao+fZsqh7qfhczySrHdiJ
-	 4lr+Vu8ns03RwGkzGLmcqh19Oyb4vSQZiwQ7uzmXzSS3TXCqSaB+8dH/tvtOz5rNJ2
-	 xUKYYGzhi92eDGnjaKm01LV0=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id A72FC40E03BE;
-	Sat, 10 Oct 2026 22:39:57 +0000 (UTC)
-Date: Sat, 10 Oct 2026 15:39:54 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-edac <linux-edac@vger.kernel.org>,
-	lkml <linux-kernel@vger.kernel.org>
-Subject: [GIT PULL] EDAC urgent for v7.3-rc7
-Message-ID: <20261010223954.GAasq-unx3IIBs4zTh@fat_crate.local>
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="hTbDXvB+"
+Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-677d35fd1d2so656797d50.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 15:40:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791672053; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nxMd13L9bVGcOpjQ9YH7qYwZbuM6U0DTY2TdygcoUAbX3yGkAHK6TOjwRqZxESqN59
+         gal/FYf+XK8SCqIZoovONDIlm2kopWbZCY/vQ+u7ftOPVVdz4Est5FtaepE0dRu+FaLp
+         huLinEjI2pOSLX5kOyBXbK0HYTBDGQ5hCp9AATCPKX3LOt+KREn6pJ1D2YUxBs929laV
+         DJSwoe2kEbZ+ILSGLuuHn+TJLbJLzFsOnn92L+CVCk1yXFFg8tfX1hd88TFXQBZpLijP
+         GYLzHtfy2Vkvn0UuaUY57lKqF70fQ48B894tJUTrQdMaxObnrL5LDxsCCJlyNQh9xf0b
+         zXtg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6mEGm2u4SySep02ssBb6cSOg0RdAq/up2Jup45p2V48=;
+        fh=j0na8JRcDvIaQABGte7Rqps+md1kfZO0Z9Cjwwguju4=;
+        b=RLPw+7QCbDQjqsYql+Q1plrZjN/wwXmbCn6phvEdGb3hFY5aXmVOvVWFKKMNOFQgC4
+         lo+H6O4epvqo0L5rNY0+kmRQ21zA9qAATwWDngxjHJv/V2uuOgn/C+xzjuKt9rE/OQee
+         5lUEpWmpoDXgiiCuo9DK1iXzNa7eTdPj7dUT7TMkSuwNhf7LaxF49plxJH31yAucjn0u
+         YIVLlU4wACKwalDkhWjDkyEcxgJ82RUogOt2Ci4ijzc+Qsr4cFH2h83c3NsBSO5r4EhO
+         U3MVF9w91Z32FlTaVgzYqxhVJM+RJabPjFknNgTymmIxaFndKAWF4IYZZikQV6KzmRir
+         Ht/w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1791672053; x=1792276853; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6mEGm2u4SySep02ssBb6cSOg0RdAq/up2Jup45p2V48=;
+        b=hTbDXvB+EroO1FpSn6zCPJhCbP3gFD8tCYQk6spnV04sD8P4ZB7CnAeyHnUWZY0brJ
+         CCNyb+U8INcbxlctmvPP1Fbl6QShI5MLkUeZ7ilq1+Jm4jcXWXweJogVeYRJSMVH9vWA
+         6dswFz9Har+uvJBV1NG4SDnf1ChzqAbMIrT01MvyOVt9oHrK+a8hpJrwsTYwlyT7kJ0Z
+         lnUnFgGmqCa2VjrIWZtdwTu1iBtDOlq8hs6gQKKLJvIZwGEadEyALFWyPsZLUHEkVy/S
+         9g2uf/C6Gaz288AxUS6rajoAcKVRYGRoFwC2bcKY+B90XfYhiOR+R7KRCrnNubF6KV6Y
+         pqxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791672053; x=1792276853;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6mEGm2u4SySep02ssBb6cSOg0RdAq/up2Jup45p2V48=;
+        b=RatqzR7/i+c8Ks1wLY92dStYR0gNLT0mczlTKBpT3D2H2nf/yT2V1K5dOG9aDw7lIx
+         t44wn5zDU5S/CK/pKGW+e1lgfZ0UYvBqghUWYPc4fgmDRLtPg8KR8+Jnzcxu7zvbU4ob
+         KEFRiyQQ/IRTvpdPAjDGphl+3j329wPhlMLeQ/3vbH429fUwAimWeuTjW3GwE7RuBLZy
+         hd9TZddmg4Iqfpu8ILJWD2LtqsQ8jlB4j9qdDoQuwcjgEd2dDxF9X1aw6pY/rhaPzDmr
+         MLP8xKka8kpAGNziyI9p2Au8vWDhfroTrSx1EpksangAGoA5jf3xELUQ03WdYtrBMEHD
+         aJ9g==
+X-Forwarded-Encrypted: i=1; AKwUvBwgUp+kgez3fZdSMvtWKx4kbbipRB5ONfBSe1oiDFqIWbe6SJ7Y918ghFuhSfELQh20v+1jaKSgWNhC810=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKwTe/uu1e74u+dxgdpqHnML7AMwgkuJOLNlzhb5H2Lo+GlCdOk
+	tuBpzDHjgH7EYciKrDLDh+poZq7agw/T6DInU/L3AjCFoJSKscN932VwciFGxVBYxuIkIgSkjrp
+	s/cDMmeiejm+9GCdxnH2Ihzpvq3mI8oI=
+X-Gm-Gg: AYBFou2LjR260YSVlY3D6sJyKK2jiZYmwLEk2I0wtY16kVYLeLQShf3PyKnVdTLiTGz
+	a90BdYbIYroTtfvLUuPoR/ty7/d3ymKVeVVSvARQWxN6jG7Z5BF4MAmXnUxAgMk9uc/2Ib2KYEN
+	kr3FoRQwVsOb8TMGJUVrHwXUJ//5LkvOSswKnJLYVEa0C9ACpQsutCmndkZQrPKb7bvikIsHf4e
+	DeoHuopzCbT7Yye5Moxs5yJRDUAl+LkHQoSuJJIFVAj+zK4YdrW0EqMY2Q4RwPP9uZSrg68qVVG
+	XZKaldfvt91v2/hJDcGozvA1c5rqyqXI1GXIoAjCptIGtObQK0bwcwtNYSCTS0HO5SMHThhIMXI
+	y8Bn3gsfqyEL+
+X-Received: by 2002:a05:690e:12cf:b0:667:e855:ecdb with SMTP id
+ 956f58d0204a3-67935edbdd4mr1914994d50.3.1791672053242; Sat, 10 Oct 2026
+ 15:40:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+References: <20261010105900.247342-1-tanure@linux.com> <20261010105900.247342-4-tanure@linux.com>
+In-Reply-To: <20261010105900.247342-4-tanure@linux.com>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Sun, 11 Oct 2026 00:40:42 +0200
+X-Gm-Features: AclHuK8sus9eXHW8D0kCsjiICdQbyK-pql4xQRfUyDiKVkCN64EjzyryJR6PDrA
+Message-ID: <CAFBinCCaAT8+YjSwg0=aFF8mbN=j-MQ=oWvfwUakVE8O-eu93Q@mail.gmail.com>
+Subject: Re: [PATCH v3 3/8] net: stmmac: dwmac-meson8b: add support for the
+ Amlogic T7
+To: Lucas Tanure <tanure@linux.com>
+Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Jerome Brunet <jbrunet@baylibre.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Linus,
-
-please pull an EDAC fix for v7.3-rc7.
-
-Thx.
-
----
-
-The following changes since commit a90ee4305c4a5df72c11b31dacfdc76e00fcf78a:
-
-  Linux 7.3-rc6 (2026-10-04 13:45:25 -0700)
-
-are available in the Git repository at:
-
-  ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/ras/ras.git tags/edac_urgent_for_v7.3_rc7
-
-for you to fetch changes up to 7484bc43ba6b8e189b482db5b75e7842890a82b1:
-
-  EDAC/amd64: Mask UMC chip select to the four implemented selects (2026-10-05 11:02:42 -0700)
-
-----------------------------------------------------------------
-- amd64_edac: Shorten the ErrorInformation field read from the MCA_SYND MSR to
-  only two bits. It is perfectly fine to do so because no system ever
-  supported more than 2 bits of information (the Chip Selects used were only
-  4 maximum) and newer hardware will use only 2 bits anyway
-
-----------------------------------------------------------------
-Vishal Badole (1):
-      EDAC/amd64: Mask UMC chip select to the four implemented selects
-
- drivers/edac/amd64_edac.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+On Sat, Oct 10, 2026 at 12:59=E2=80=AFPM Lucas Tanure <tanure@linux.com> wr=
+ote:
+>
+> The glue registers on the T7 are laid out exactly as the G12A ones, RX
+> delay field included, so the T7 can reuse the G12A settings.
+>
+> What it does not share is how the controller reaches memory. That path
+> runs through a pipeline stage with a gate of its own, and no other
+> device has any use for that gate. Nothing claims it, so it is switched
+> off as unused and a transfer that has started can never finish.
+>
+> Without that gate the controller cannot do DMA at all, so it is
+> required rather than optional: a clear probe failure beats an
+> undiagnosable hang later.
+>
+> Assisted-by: LLM
+> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+> Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+> Signed-off-by: Lucas Tanure <tanure@linux.com>
+Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
