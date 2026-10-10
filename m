@@ -1,122 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89C513451CD;
-	Sat, 10 Oct 2026 04:37:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0941E36605E
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 04:41:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791607066; cv=none; b=rnb45ouQueaCIA3sJQeNvT/v6KM7ZWUmZGtAvxql4TsifQodJFJs6joBHLQHoAGTUVwngOBc292u2qyx5U9GjBDtI8Lexu+DrmsyszzQmO+tOPW8IsklJ4v3S5An4M7sdaa3b8j67pyjUA/B/7o4Wv4DOZUmRkMIasqO5wVNKOI=
+	t=1791607268; cv=none; b=r8XJDsRPCMbNVLkkQ+4txLQSjqkECdlSVTF9sc9D3GMbac15aeb7D8+9k+uLsGv2D9vnlUiS/lFQhX0giOxaW9plFAv1IKj1UMH1XpRVHwsNyUty6RszyHjQ7v9ZZayseQZpWvfwJKeUAZrw5M7csPfxdeQt5gznAZlor+dPbXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791607066; c=relaxed/simple;
-	bh=IrHjKkj+D8DU5ckKYWgKnh1RN9L06X//M7q9ZNvM934=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b3+/ywdvK1OZOkOowvimKtPqksM8LOzKEFFifhEROWtsua8mbalEqt2pmmPd+W/XzP50fupFx+mKtwLIv3P8lca6luZov+iil4WUFl5E2Duic0An/4m/XCT1NrlBUmGNmGppwqqMAeF4P+yW/dCiz59C8JPHknsvHkLSwL+qGK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E0z9Dtj1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791607268; c=relaxed/simple;
+	bh=fN6Fd6o/zCGIvEnXn+MFZXCFpeQhWnuklflkSkR1o9A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lApMZp2PIOs8Zzg5hHtl+2EDW5Scb3SOGdw3I9Mcy70aluzTvXFXCs+cpOdHX+H8Agky7+115YhOrhFq4Ebe0rVwPaPnwMqQZNOUP6LcpBgEK8feNzKON4EQArjpWKCgBOfcvCiX+no01NVfc25QqFw4to3Tng1aF85bQQtzltQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cgXpbpsI; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E0z9Dtj1"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 809131F000FF;
-	Sat, 10 Oct 2026 04:37:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791607065;
-	bh=DphHsZp1KEB4Zq1MHO6l6LHNE4Q8dWYRthKIspYwFY8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=E0z9Dtj1BwdO6ikmfavrG8BDcuWX7zdSrl4/TFEdsZUaFmdEvTi3UvAGUBf3CJSL5
-	 jDnnUSDTboKSsvEGgasJoTshsIMl2ZQZBkvHBoyqPHTmGG0nx1hAGQoXFisfBiXsY9
-	 QGQbhTzaGX4YvvPBk93Xw3G55+jOZkD9upNHiGfscYrFclLYqL4XTh6fxTE2AjYQjF
-	 mMsQn5iFrJIYzKSugV3yKNzvq39QeSzUIBbKzxj5CVVFxQNb9k5lEKHUEnA0CkHRp0
-	 EpV5BKBYYmPypz2JzqUIkIEjZyiW3wzytbbUMExAEeVdezR2ZvcwniTIalEh3utqwh
-	 z7X/o91eHk69g==
-Date: Sat, 10 Oct 2026 07:37:40 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Pei Xiao <xiaopei01@kylinos.cn>
-Cc: peterhuewe@gmx.de, linux-integrity@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/4] tpm: some tpm small fixes.
-Message-ID: <asnBFP1jo1g82ZHQ@kernel.org>
-References: <cover.1791421672.git.xiaopei01@kylinos.cn>
- <asfYIg95-qQ4JrL_@kernel.org>
- <c74c47b0-e1e6-48f4-8997-ef264fcbf977@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cgXpbpsI"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2dd76b1361dso1848805ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 21:41:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791607266; x=1792212066; darn=vger.kernel.org;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sNrVsnb4FmKFTXfrSdVYo8TWlLsGj3AF2yF7SV7KZcs=;
+        b=cgXpbpsIUhdnGLr0Xnr2XbrKl3aZBSQOy+cfu4YeYjSd2m/EGp9Z8DXn7615hhnE5o
+         8nM6db8fYoqCFKwrR67Yc77ymryNZrK/6hWWzYDQOmYHHqKDWhP3JoAJzIcfPeBsEChQ
+         z8ZxadZXhoQHEm4N/tFnvuFh1c/q4sGVB7CapuQ/ZJK2LZie3AmC9j41fD5TaNoVkXCC
+         xrAMiTAGRKJsMQwmj3rwfHYf29Mmjfvw/WP/6PHdpz363gnlBTQe8rn9UTbHtbz6+LM9
+         naCv2PKfaRM9XksGwpydYkOi0VJTbmXdew3ZL0iNlcrKj71xb4qIxCgoUar1UqBooume
+         urdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791607266; x=1792212066;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sNrVsnb4FmKFTXfrSdVYo8TWlLsGj3AF2yF7SV7KZcs=;
+        b=LmpH+3AT30Jg+EJfFj/KTYG76MCEyUWvu9ZQurVmbR+UQ0lRNv9UiGRK7J4Snvmr5U
+         MuRLK09dhM9qo/IhsL4FdID3knvZq6rLbEfHUOg0AYbsyO0jV6+oI+rkL5UP2lYYMZ83
+         W9tQPO3t3vMfWIKxo9qiidDHoG5K9vrGI82Brw/mjsg4BPdl9Z3XuP949mdMNvuP014p
+         1O7yCL7TLSmwzcNOaI90bJE75wCxlvUOwW1oN6g23cwgScjWcfeClE82tI0iMTrsw4+6
+         Bqm24a/rg+mbt9YcjXYIqtMYbyLRzT/U4oRsvQj+VA+LXWbTRzJqoSucuDwhSHnSU7Pe
+         HiRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzG4C9G+w2hCkBUfujMVm/Kepz/nra1JRmq+HQ9cBNOAxa/e7HMYl52rg1C1rKV2zC6PJCCiFEwDgtTru0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYINa1kAD/yD6fKjqmnCUDvd9BiJSptFX/vSki7kLmEphd+yq+Gl
+	PQUOmDUCRRCpG8HNM/oQIUTzzXB5sY47EsxZzdEQeW77qJkYD0b14+LNHjTh4fcU
+X-Gm-Gg: AYBFou3jqIk7a7kX/sHJMSrRDWJcyEdYZRmeUEQVb0E4vRecI2s0tmZpjFeScYO25L6
+	d3UPyvy9mexHlLRo4o6vi0rYP8zhdxDyJeiJ4aRMjbBa62NzOk40HxTCjHWS0HkHxPs5COlcSfA
+	/aTjR1EAefPTBt34pLM92iQx3hK0lYPbTVRsxzU2Ld6uCTUIv8RQhkhJUY8hJkYQcrC7eG6Yuwd
+	QP5NlWDZgj7htFuzCM02vqZAxgS/67QSCCuQswEdzgwpqqOah23wf5MgimEAIrmHxTA18vYY9jp
+	Y1syx5Bm4XKTtjHmOjp3Iw4xGdU5cOgYa/1ZQ2i6FwIo53eG6m1l56r7zpF6RGDLmDAc0AmFs71
+	OmpmACJl8RHqH5rJm2aGkbQQbt24GGlkmFKF/klLcfu7QeIGDsPz2Lcu8OnBi+1jKNk1i23T3md
+	0K2edptSIzqSygmMoHcmnhYdYcPuUnIp7ozcq5qvfAebsIWC3m4aJkOoJMnyr6FoeTeitOIzhMQ
+	W9dXxkfkO/17mgAc1N6nrQYe1rIKjG/9+I9QMsLe/mg/7/z+LW+sqMwlfKz6HFvbybl98sUGkoU
+	yPABJk/saDTlQqfoauNm9Ek8aLPBM5KFxeNR/Pt54MikthSt1Nk=
+X-Received: by 2002:a17:903:1a0e:b0:2dd:8639:9931 with SMTP id d9443c01a7336-2e842ab8200mr30793065ad.19.1791607266248;
+        Fri, 09 Oct 2026 21:41:06 -0700 (PDT)
+Received: from setsuna.localnet ([2403:581e:d87e:0:fc2d:ed31:e80e:412d])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422e171bsm19910975ad.73.2026.10.09.21.40.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 21:41:05 -0700 (PDT)
+From: James Calligeros <jcalligeros99@gmail.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Cc: asahi@lists.linux.dev, linux-sound@vger.kernel.org,
+ patches@opensource.cirrus.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, Hector Martin <marcan@marcan.st>,
+ Sasha Finkelstein <k@chaosmail.tech>, David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Martin =?UTF-8?B?UG92acWhZXI=?= <povik+lin@cutebit.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+ Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+ Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>
+Subject: Re: [PATCH v2 09/21] ASoC: apple: Add macaudio machine driver
+Date: Sat, 10 Oct 2026 14:40:54 +1000
+Message-ID: <l_pd6lBHQaWNYoohhfxhFw@gmail.com>
+In-Reply-To: <3698d260-13c5-4050-8f03-61f7b7185514@intel.com>
+References:
+ <20261004-macaudio-v2-0-7b47ed6335a8@gmail.com>
+ <20261004-macaudio-v2-9-7b47ed6335a8@gmail.com>
+ <3698d260-13c5-4050-8f03-61f7b7185514@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <c74c47b0-e1e6-48f4-8997-ef264fcbf977@kylinos.cn>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On Fri, Oct 09, 2026 at 09:01:05AM +0800, Pei Xiao wrote:
-> 
-> 
-> 在 2026/10/9 01:51, Jarkko Sakkinen 写道:
-> > On Thu, Oct 08, 2026 at 09:16:19AM +0800, Pei Xiao wrote:
-> >> This series fixes several small issues found during a code review of
-> >> drivers/char/tpm:
-> >>
-> >>   1. tpm_ppi: tpm_show_ppi_response() stores its return value in an
-> >>      acpi_status (a u32 typedef), so error codes such as -EINVAL reach
-> >>      user space as huge positive values.  Declare the variable as
-> >>      ssize_t to match the show callback's return type.
-> >>
-> >>   2. tpm_nsc: tpm_nsc_remove() doubles as the release callback of the
-> >>      hand-created platform device and dereferences the chip drvdata
-> >>      unconditionally; init failures before tpmm_chip_alloc() crash
-> >>      module load.  Return early when the chip has not been created.
-> >>
-> >>   3. tpm_nsc: the cleanup runs twice on module exit because
-> >>      tpm_nsc_remove() is both the explicit cleanup and the device
-> >>      release callback; the second run operates on an already freed
-> >>      chip.  Stop overriding the release callback, which also stops the
-> >>      platform object allocation from leaking.
-> >>
-> >>   4. tpm_dev: a zero-length read() discards a pending response,
-> >>      breaking the command/response pairing of the TPM character
-> >>      devices, although POSIX requires zero-count reads to have no side
-> >>      effects.  Return early on a zero count.
-> >>
-> >> chhanges in v2:
-> >> 1.add reviewed-by tag
-> >> 2.remove patch 5: 
-> >> make the tpm_init() error messages consistently prefixed with "tpm: " and
-> >> report the actual failure of tpm_dev_common_init().
-> >> 3.modify patch 1 git commit information.
-> >>
-> >> Pei Xiao (4):
-> >>   tpm: tpm_ppi: fix zero-extension of negative error codes
-> >>   tpm: tpm_nsc: fix NULL pointer dereference on init failure
-> >>   tpm: tpm_nsc: stop using the cleanup callback as dev.release
-> >>   tpm: fix zero-length read discarding the pending response
-> >>
-> >>  drivers/char/tpm/tpm-dev-common.c | 3 +++
-> >>  drivers/char/tpm/tpm_nsc.c        | 8 ++++++--
-> >>  drivers/char/tpm/tpm_ppi.c        | 2 +-
-> >>  3 files changed, 10 insertions(+), 3 deletions(-)
-> >>
-> >> -- 
-> >> 2.25.1
-> >>
-> > 
-> > Right, so I've already applied some of the patches so I'm a bit 
-> > confused what to do with this.
-> > 
-> > See:
-> > 
-> > https://git.kernel.org/pub/scm/linux/kernel/git/jarkko/linux-tpmdd.git/log/
-> > 
-> > Is there something wrong in the ones that I already applied?
-> hi Jarkko，
->   Because this patch ("tpm: tpm_ppi: fix zero-extension of negative
-> error codes") did not pass review, I resend a v2 version that includes
-> the patches that have already passed review and carries their
-> Reviewed-by tags.
+Hi,
 
-Hey, no worries, I'm just sanity checking (and thus asking, that's
-all). Nothing you did particularly wrong.
+On Friday, 9 October 2026 9:52:09=E2=80=AFpm Australian Eastern Standard Ti=
+me Cezary=20
+Rojewski wrote:
+> macaudio_dpcm_hw_params()
+> macaudio_be_hw_free()
+> 	both can access the card from the substream/dai without
+> 	relying on the ma-context
+>=20
+> macaudio_parse_of()
+> macaudio_parse_of_be_dai_link()
+> 	called in context which creates the very card
+
+I have fixed all of these by copying what rockchip/rockchip_max98090.c
+does to initialise the card, however
+
+> macaudio_vlimit_enable_timeout()
+> macaudio_vlimit_disable_timeout()
+> macaudio_vlimit_update()
+> 	called in context of delayed part of the trigger() callback.
+> 	I'd need more information on the trigger() implementation of
+> 	yours to present a solution. See the comments below.
+
+are slightly more difficult to deal with. These are called from workqueues
+which only have reference to the driver data struct. Other than keeping a
+pointer to the card around, I'm not sure how else to deal with this other
+than keeping a pointer to card around in the driver data struct.
+
+> Please correct me if I'm wrong but it seems the scheduled work does
+> speaker-volume operations only. Moreover, it seems that
+> ->lock_update_work may schedule a follow up work in form of
+> ->lock_timeout_work. Are you sure trigger() is the right place to do
+> volume-control in delayed manner?
+
+The intention here is to activate the timeout when the stream starts
+so that if speakersafetyd dies at any point during playback, the speaker
+volume(s) are limited to prevent damage. We only want this running when
+speaker playback starts and we need to disable it when that playback stops,
+so trigger() seems like the natural place for this.
+
+James
 
 
-> Pei.
-> thanks!>
 
-Br, Jarkko
