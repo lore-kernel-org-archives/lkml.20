@@ -1,162 +1,294 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89E244B3373
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 19:32:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9D12347BBD;
+	Sat, 10 Oct 2026 19:33:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791660725; cv=none; b=So7XUBbxmfVTKzCCtMZCg3rViMdrvKN8pQs4628yFDEJMHiR+cIkbg5tPKcPxhVQ66kv8piNmu7CEla1OG0ZGfuQo3R3yhhmjIEJkgbgvwlKXGPM62s+iPqWIjScd0/Siq0ctoR7FRj1B7icxC48MHPdI4aDwkcP/yLeWn09e8s=
+	t=1791660816; cv=none; b=VQottPz0zVyUVLtZqO5jhPm1KQRHV8gPKggsjl5mPbXXSI/B4UFuL/EpV9y1mO9VmpkiDuwoqPZgk897E9zDEB9bVaaAX/eBuLZ5Nh+MA48ucxMGj39QiT+Pa9V6u9RIIZQpQ/Y9CQFTmi9yS2/L4ZaHAaSlMf6JlFei/iuHn98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791660725; c=relaxed/simple;
-	bh=F1D4iukY4nyVTtimKuBfEcunfvHRFpiZ1VWWXmphPtI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HrRpVkQ7CepeCxnViOjhPiW5/P4dbVjfOz4+WnyInbVeqHYGN0PqWSDb2QPm8czggZWQxRgxuioVINHN2ifv8ZNgukN7u+ti0Mln5PP0hz2we0YVPUG4LS7BHXA8n8D0tRLHlnIByPlcMxLos2r7BGpUqONKE8E1QxW/s+/E098=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rBizblaz; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791660816; c=relaxed/simple;
+	bh=CpfSA049zXIHBDqUxoWyWE6QWuPEyLZFEqo/eNSJUow=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=gO1Ik/rTAQfcGF/z4WRJlCxCGXJFt56cx/UoxPHdfaRckdut+eDQSPLOX01EzNZ92hhyFsiagFkzHD+Bgzi8GmN1uFusWUBsT2EYpM9McOMjvpnUFIExdOfoJFeKwAreFVpdf3zestmPi178Wa8qRSLQSuXDtnlZwe2L+sSPczo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JqJDpcPm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rBizblaz"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a1635f7c89so7204845e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 12:32:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791660722; x=1792265522; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HpFsl06GKj3/HmCfxz07Pc541DBxtIMKfhoqnvBoI6I=;
-        b=rBizblazRS4sAo7J/4dBuvgGncpW/xwWmXvlaTHKYyMAzAku5JdRDe+CupFAE2QAM9
-         +PICZkCfiot6wbQeEpMd5TYN+16J6OEhobKd/a7qdiO6XCcUG5QsDRA4NAEuihjM3M6W
-         f5VkQN2p5ZAZYbm/cv+EU7NW0yBeGZp2LyrYsCsjLb0R49HXLCmGKs4HnyFC++SJPePs
-         TsxS9W13NHmhCoo6xbjNuru2dz6v2OWqI2LK4n0Jh1wdObnSlSNoU3s7Tkpd0Titac/+
-         mQ2dDGweIm0MeLxenpDAnP5hTE1foY3BG3hovLxvd9AzyvQs0RI9/V37QCdBMT/B39Xg
-         vsQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791660722; x=1792265522;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HpFsl06GKj3/HmCfxz07Pc541DBxtIMKfhoqnvBoI6I=;
-        b=wfzqVkKc1y6VWESX1XgsRjTDofPwk3N9SDU+4D2wqCfG0L85LuJmdZHyDyXCsdyzrN
-         V1brHtRlMKz4TDsX7oH6rKDh+5MbPtldpPPKoqh6LCF06Go9hJH7gmSfwwzE3+Dgc6we
-         d29D6pFbYlSG/6TDujdYypaOQFscQY76psOwJal3dwqb+lHTw1hrQn7eNgC5asM+i34P
-         UE3aa2AoZUggBfJsMzuHEWVfRu1cpdEAUt8ZEANSiAoIE0AJt4WZSRtEofn+JYNu/IVx
-         nOt3DZ7WigoB6niadPWE+tb8Ww2pBQXtqQW1f3bohnES47Un/nDasihX2m42N1IRzBqg
-         6Bsg==
-X-Forwarded-Encrypted: i=1; AKwUvBykx/PgQixjvAUJvF4EQWiaeccCn8nVci8qpw0I/5S5Gp9D9dordaTDdKFRVhjdbR2AUYCh6SFSU8dGCEk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJaVk1LSF0Kphr5Cx/5ozRgMbiGQRWVPX6A1GTXQNxrxaN2XKtk
-	2yUBNIP6R164RPfHfK3KtLf0+fhHPSmare8qTWKABBtUhdY0lhFaHofq
-X-Gm-Gg: AYBFou1ETuRj51uM52CwD6+9K3kAUbiZDF7k4GxAaKo7M9pMjyJosU+TqHlMHGN579F
-	J6F+yJWpSzi+ncJnvDUPBdx2hYdwe9sHtXrEejoqDCJzK3VSmNB7P4e+G0EWySVxlb/GAKE74VJ
-	o7Qd6BgqGA6C+I6wHkk62ViXvo5LEMD7u+nOJ94f9PryfgcqNEj9K7Q3eRMsPumfCUSExbmeRnj
-	c2CdO09a7M+bCAUeGc0nCLkSaOfYQh69Sp03BvM3CyiGSE/1LwSiwu8xPgyEyRsqLN9gv4hA0kR
-	/2Ga7KWywGWI0i5JMyOVCova+KuscA5QfJkeFuTCUDYHgyuCNcdK2CUb5vc729+mqGkMMpKGmjN
-	8QpCDEBJz3KLVY16Sz6MUeDFkW0DrgLNrrfHAB4HfSpQZcEZCWlCPy5+Rku0gqvqwoIgCkgUv+L
-	4cEZRwsTAa1ETatKrgJ9AyE+O6r208O7Bj2HOxBef4Y2F5BiICo3un4jWh5NsQ+iRpIUniNuCdr
-	xWbHQCGdHH6CDOzI6OJAmqkpqjHEJCn1m46pGvtSf5vkSRrjkrOmEYpUgWoCPU10XBPeibIb2nS
-	aTMkH9UImEGGs6ccP5qLJg==
-X-Received: by 2002:a05:600c:4f92:b0:4a1:6dc3:f5e2 with SMTP id 5b1f17b1804b1-4a18e4f6668mr94394465e9.33.1791660721428;
-        Sat, 10 Oct 2026 12:32:01 -0700 (PDT)
-Received: from omarchy ([2a02:ff0:1e10:93f:ce47:40ff:fef1:ce77])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18e4a3b4asm279544955e9.5.2026.10.10.12.32.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 12:32:01 -0700 (PDT)
-From: Abdurrahman Karadag <abdurrahmankaradag19@gmail.com>
-To: linux-wireless@vger.kernel.org
-Cc: pkshih@realtek.com,
-	linux-kernel@vger.kernel.org,
-	rtl8821cerfe2@gmail.com
-Subject: [PATCH rtw-next v2] wifi: rtw88: pci: wake the TX queues when the rings are reset
-Date: Sat, 10 Oct 2026 22:31:36 +0300
-Message-ID: <20261010193136.294816-1-abdurrahmankaradag19@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JqJDpcPm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 399181F000FF;
+	Sat, 10 Oct 2026 19:33:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791660814;
+	bh=Fzc8+tRAJ7AEIcgEoxj0qZuy1DL8pWMSDU/7S8WvPk4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=JqJDpcPmcKoMq7urKjL/VnW88zg5jigpwinjOujKwXW9hYcO+YPaQWMafgmmfGPJD
+	 s3xlpr6B4tc6cynrlMPFTWtZRg6VEmK/U03e4T77SlpphXZc4eW6P96AIYvr2SGJ3v
+	 tP4m03+EaH6v8IqsOXHyGXByTmqOaTEh7+XZWk+BrTxTl5/0EIQNxIbs6s8zf9VgtL
+	 iZBh83ZgSub1QjYbwymyX0lX4Fyac9lcS4Tinmg22FTE0lYPFKZqF0A9efIH4VxHM3
+	 chvMPsclOTkU/lTAlnIfkUfeGmLyTKCBMq6hbS3gPrn2Uz8jLBR4bLUJTZadDHfvYt
+	 M3ksjNp85Cr7A==
+Subject: Re: [PATCH net-next v3 4/8] ibmveth: step past bad RX correlators
+ instead of spinning or oopsing
+From: netdev-bot+sashiko@kernel.org
+To: mmc@linux.ibm.com
+Cc: netdev@vger.kernel.org, maddy@linux.ibm.com, mpe@ellerman.id.au,
+ npiggin@gmail.com, chleroy@kernel.org, ritesh.list@gmail.com,
+ sshegde@linux.ibm.com, nnac123@linux.ibm.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, horms@kernel.org,
+ davemarq@linux.ibm.com, bjking1@linux.ibm.com, stephen@networkplumber.org
+Date: Sat, 10 Oct 2026 19:33:32 +0000
+Message-ID: <179166081271.434549.2458181310224040226@kernel.org>
+In-Reply-To: <20261009183258.18624-5-mmc@linux.ibm.com>
+References: <20261009183258.18624-5-mmc@linux.ibm.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-When a TX ring fills, rtw_pci_tx_write() stops the mac80211 queue and
-records that in ring->queue_stopped, which is cleared only by the
-completion loop in rtw_pci_tx_isr(). Resetting the rings rewinds the
-indices, so nothing that was in flight can complete and run that loop,
-and the queue stays stopped over a ring that is now empty.
-ieee80211_restart_hw() does not release that stop either, because
-ieee80211_reconfig() wakes only IEEE80211_QUEUE_STOP_REASON_SUSPEND.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Release those queues where the reset happens. The stop side is the one
-that matters: rtw_fw_recovery() reaches rtw_pci_dma_release() through
-rtw_enter_ips() before it calls ieee80211_restart_hw(), so that is
-where a queue stopped before the crash is still stopped. By the time
-rtw_pci_setup() runs the flag is already clear.
+Critical: 0 · High: 3 (1) · Medium: 0 · Low: 0
 
-Wake all the queues, but only if at least one ring had filled. This
-cannot tell one DRIVER stop from another: rtw_pci_io_err_detected() and
-the hardware scan paths in fw.c stop every queue with the same
-IEEE80211_QUEUE_STOP_REASON_DRIVER, which mac80211 keeps as a single
-non-refcounted slot per queue. Gating on ring->queue_stopped at least
-keeps the resets that stopped nothing out of it.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-On an RTL8821CE, a BE ring held until rtw_pci_tx_write() stopped its
-queue did not come back from the restart. The ring itself was reset -
-0x3a8 read 0x00000000 and REG_TXPAUSE was clear again - but BE's
-mac80211 stop reason still read 0x1 three minutes later and TX never
-resumed. With this patch it reads 0x0 and TX resumes within 2 s. The
-ring was filled by writing REG_TXPAUSE 0x0f from debugfs under load,
-and rtw_fw_recovery() was called from a debug build.
+- [High] This patch's short-frame check is incomplete.
+- [High] Returning budget - 1 does not make ibmveth_poll()'s schedule-
+  and-continue path safe when threaded NAPI and busy polling are both…
+- [High] net/ibmveth: TOCTOU double-fetch of RX correlator in
+  harvest_buffer
 
-Signed-off-by: Abdurrahman Karadag <abdurrahmankaradag19@gmail.com>
----
-v2:
- - wake with ieee80211_wake_queues() instead of recording and replaying
-   per-ring queue mappings (Ping-Ke Shih)
- - drop the Fixes tag: the bug only bites once a recovery path exists,
-   which the blamed commit predates (Ping-Ke Shih)
- - cut the commit message down to why and how (Ping-Ke Shih)
- - say which of the two reset call sites fires during recovery, and
-   that the measured stall was induced from debugfs
- - patch 2 of the v1 series is dropped rather than resent, while the
-   cause of the stall is still open
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but
+  ibmveth_rx_csum_helper() calls ip_fast_csum(iph, iph->ihl) whenever…
 
-v1: https://lore.kernel.org/linux-wireless/20261002231013.11792-1-abdurrahmankaradag19@gmail.com/
+--
 
- drivers/net/wireless/realtek/rtw88/pci.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ibmveth: step past bad RX correlators instead of spinning or oopsing
 
-diff --git a/drivers/net/wireless/realtek/rtw88/pci.c b/drivers/net/wireless/realtek/rtw88/pci.c
-index 66d2e5f..4d3524e 100644
---- a/drivers/net/wireless/realtek/rtw88/pci.c
-+++ b/drivers/net/wireless/realtek/rtw88/pci.c
-@@ -475,7 +475,29 @@ static void rtw_pci_reset_buf_desc(struct rtw_dev *rtwdev)
- 
- static void rtw_pci_reset_trx_ring(struct rtw_dev *rtwdev)
- {
-+	struct rtw_pci *rtwpci = (struct rtw_pci *)rtwdev->priv;
-+	enum rtw_tx_queue_type queue;
-+	bool wake = false;
-+
- 	rtw_pci_reset_buf_desc(rtwdev);
-+
-+	/*
-+	 * The indices are back at zero, so nothing that was in flight can
-+	 * complete and reach the wake in rtw_pci_tx_isr(); a queue stopped
-+	 * when its ring filled would stay stopped for good. Only wake when
-+	 * that happened: the stop reason is shared with the AER and scan
-+	 * paths, which wake the queues again themselves.
-+	 */
-+	for (queue = 0; queue < RTK_MAX_TX_QUEUE_NUM; queue++) {
-+		if (!rtwpci->tx_rings[queue].queue_stopped)
-+			continue;
-+
-+		rtwpci->tx_rings[queue].queue_stopped = false;
-+		wake = true;
-+	}
-+
-+	if (wake)
-+		ieee80211_wake_queues(rtwdev->hw);
- }
- 
- static void rtw_pci_enable_interrupt(struct rtw_dev *rtwdev,
+This patch makes ibmveth_poll() advance the RX ring past slots with a bad
+correlator, including correlators that name an inactive pool, instead of
+breaking out and restarting on the same slot. It counts those slots as
+drops and schedules a reset. It also drops frames that do not fit the pool
+buffer or are shorter than an Ethernet header, and returns budget - 1 once
+napi_schedule() has queued the NAPI.
+
+> diff --git a/drivers/net/ethernet/ibm/ibmveth.c b/drivers/net/ethernet/ibm/ibmveth.c
+> index cee0e9783b2ab..55c0b5d6e0a9f 100644
+> --- a/drivers/net/ethernet/ibm/ibmveth.c
+> +++ b/drivers/net/ethernet/ibm/ibmveth.c
+
+[ ... ]
+
+> @@ -1481,19 +1525,46 @@ static int ibmveth_poll(struct napi_struct *napi, int budget)
+
+[ ... ]
+
+>  		} else {
+>  			struct sk_buff *skb, *new_skb;
+>  			int length = ibmveth_rxq_frame_length(adapter);
+>  			int offset = ibmveth_rxq_frame_offset(adapter);
+>  			int csum_good = ibmveth_rxq_csum_good(adapter);
+>  			int lrg_pkt = ibmveth_rxq_large_packet(adapter);
+> +			u64 correlator = ibmveth_rxq_correlator(adapter);
+> +			unsigned int pool, room, off, len;
+>  			__sum16 iph_check = 0;
+
+[Severity: High]
+The commit message says the bound uses the pool "from the correlator
+that was validated, read once, not from a second read of the ring".
+Doesn't ibmveth_rxq_harvest_buffer() still do that second read?
+
+ibmveth_poll() now reads the correlator once with
+ibmveth_rxq_correlator(). It uses that value to look up skb in
+ibmveth_rxq_get_buffer() and to compute room. Every harvest after that
+ignores it, though: this call, the copybreak call and the one on the
+bad-frame path. ibmveth_rxq_harvest_buffer() loads
+queue_addr[rx_queue.index].correlator again with a plain load and
+passes that to ibmveth_remove_buffer_from_pool(). Nothing ties the
+second value to the one poll validated.
+
+Suppose the entry changes between the two loads, so skb is looked up
+from slot A and harvested from slot B. On this reuse=false path:
+
+- rx_buff_pool[].skbuff[B] is cleared and dma_addr[B] is unmapped.
+  B goes on free_map, and the skb that was in slot B is leaked.
+
+- skb A goes to napi_gro_receive() while it is still in skbuff[A],
+  still DMA mapped and not on free_map. The driver still treats it
+  as a posted buffer.
+
+- On close or reset, ibmveth_free_buffer_pool() finds skb A in
+  skbuff[A], unmaps it and calls dev_kfree_skb_any() on it after the
+  stack has already freed it.
+
+The copybreak and bad-frame paths would recycle slot B instead of A
+in the same way.
+
+ibmveth_rxq_correlator_valid() does not catch this, because both
+correlators can be in range and name live skbs.
+
+PHYP should not rewrite an entry once the toggle is set. But this
+patch treats the correlator as untrusted, and the changelog says it
+is read once. Should ibmveth_rxq_harvest_buffer() take the correlator
+from its caller, so poll uses one value for lookup, bound check and
+harvest? The new KUnit harvest test could read the ring entry itself
+before calling it.
+
+[ ... ]
+
+> +			pool = correlator >> 32;
+> +			room = min_t(unsigned int, skb_tailroom(skb),
+> +				     adapter->rx_buff_pool[pool].buff_size);
+> +			off = offset;
+> +			len = length;
+> +			if (unlikely(len < ETH_HLEN || off >= room ||
+> +				     len > room - off)) {
+> +				if (net_ratelimit())
+> +					netdev_err(netdev,
+> +						   "bad RX frame offset %u length %u (buffer %u), dropping\n",
+> +						   off, len, room);
+> +				ibmveth_rxq_harvest_buffer(adapter, true);
+> +				netdev->stats.rx_dropped++;
+> +				frames_processed++;
+> +				continue;
+> +			}
+
+[Severity: High]
+
+The commit message says this check fixes the case where "the checksum
+helpers would write past a short frame". Is an ETH_HLEN minimum enough
+for that?
+
+Once this check passes, ibmveth_poll() and its helpers assume a full IP
+header and TCP header and never look at skb->len:
+
+ibmveth_poll()
+    iph_check = iph->check;
+    ibmveth_rx_mss_helper()     /* lrg_pkt or iph_check == 0xffff */
+        skb_shinfo(skb)->gso_size = ntohs(tcph->check);
+        tcph->check = 0;
+        hdr_len = offset + tcph->doff * 4;
+        skb_shinfo(skb)->gso_segs =
+                DIV_ROUND_UP(skb->len - hdr_len, ...);
+    ibmveth_rx_csum_helper()    /* csum_good */
+        iph->check = ip_fast_csum((unsigned char *)iph, iph->ihl);
+        struct tcphdr *tcph = (struct tcphdr *)(skb->data + iphlen);
+        if (tcph->check == 0x0000) {
+            tcph->check = ~csum_tcpudp_magic(...);
+
+A frame of about 14 to 92 bytes passes the new check, but these helpers
+still read and write past the end of the frame. In
+ibmveth_rx_mss_helper(), skb->len - hdr_len can also wrap.
+
+On the copybreak path, those accesses land in the uninitialized tailroom
+of new_skb.
+
+On the non-copybreak path, they land in the pool buffer past the frame.
+That path runs when the GFP_ATOMIC copybreak allocation fails, or when
+rx_copybreak is set at or below the frame length.
+
+The new bound also accepts a short frame at the very end of the buffer.
+For pool 0 with room = 512, off = room - 34 and len = 34 leave
+skb->tail == skb->end after skb_put(). eth_type_trans() then leaves 20
+bytes of IPv4 header, so tcph sits at skb->end.
+
+Wouldn't the tcph->check writes then land in struct skb_shared_info
+(hwtstamps, gso_type, tskey or dataref, depending on ihl)?
+skb_partial_csum_set() rejects this only after the write has already
+happened.
+
+Should there be per-protocol skb->len checks, or pskb_may_pull(), before
+the IP and TCP headers are parsed, rather than a fixed minimum?
+
+[Severity: High]
+
+This isn't a bug introduced by this patch, but since this patch hardens
+the RX path: should ibmveth_rx_csum_helper() check iph->ihl before it
+calls ip_fast_csum()?
+
+    if (iph->check == 0xffff) {
+        iph->check = 0;
+        iph->check = ip_fast_csum((unsigned char *)iph,
+                                  iph->ihl);
+    }
+
+On ppc64, ip_fast_csum_nofold() in arch/powerpc/include/asm/checksum.h
+documents that ihl "is always >= 5" and does:
+
+    for (i = 0; i < ihl - 1; i++, ptr++)
+        s += *ptr;
+
+ihl is unsigned, so with ihl == 0, ihl - 1 wraps to 0xFFFFFFFF and the
+loop reads about 16 GiB starting at the RX buffer, in NAPI softirq
+context.
+
+The ihl, check and ethertype fields and the IBMVETH_RXQ_CSUM_GOOD flag
+all come from the sending partition. Could a single IPv4 frame with
+ihl = 0 and check = 0xffff from a peer on the same virtual LAN oops or
+stall this partition?
+
+[ ... ]
+
+> @@ -1581,10 +1661,16 @@ static int ibmveth_poll(struct napi_struct *napi, int budget)
+>  	if (ibmveth_rxq_pending_buffer(adapter) && napi_schedule(napi)) {
+>  		lpar_rc = h_vio_signal(adapter->vdev->unit_address,
+>  				       VIO_IRQ_DISABLE);
+> +		rescheduled = 1;
+>  		goto restart_poll;
+>  	}
+>  
+>  out:
+> +	/* napi_schedule() already queued us. Returning budget would
+> +	 * make busy_poll_stop() queue the napi a second time.
+> +	 */
+> +	if (rescheduled && budget && frames_processed >= budget)
+> +		return budget - 1;
+>  	return frames_processed;
+>  }
+
+[Severity: High]
+
+Does returning budget - 1 cover the case where threaded NAPI and busy
+polling are both enabled?
+
+busy_poll_stop() clears NAPI_STATE_IN_BUSY_POLL before it calls the
+driver poll. Its own comment says "Unless rc == budget we no longer own
+the NAPI instance". From there:
+
+busy_poll_stop()
+  ibmveth_poll()
+    napi_complete_done()             /* succeeds */
+    h_vio_signal(..., VIO_IRQ_ENABLE)
+    napi_schedule()
+      ____napi_schedule()
+        set_bit(NAPI_STATE_SCHED_THREADED, &napi->state);
+        wake_up_process(thread);
+    goto restart_poll;               /* keeps processing the ring */
+
+The woken kthread sees NAPI_STATE_SCHED_THREADED in napi_thread_wait()
+and calls __napi_poll()->ibmveth_poll() on another CPU. Meanwhile the
+original call is still running from restart_poll.
+
+Can the two pollers then race, with no lock, on rx_queue.index and
+toggle, rx_buff_pool[].skbuff[], free_map and producer_index? For
+example, one harvest with reuse=false could clear and unmap an skb while
+the other poller passes the same skb to napi_gro_receive().
+
+The budget - 1 return only runs after this overlap. Continuing to poll
+after napi_schedule() predates this patch, but this patch now reasons
+about NAPI ownership after napi_schedule(). Would it be better to stop
+processing once napi_schedule() succeeds, instead of jumping back to
+restart_poll?
+
 -- 
-2.55.0
-
-base-commit: 83de3a16c7b37064a59305040ba9b0f93b832794
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261009183258.18624-1-mmc%40linux.ibm.com
