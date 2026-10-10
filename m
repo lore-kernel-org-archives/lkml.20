@@ -1,189 +1,144 @@
-Received: from jpms-ob01-os7.noc.sony.co.jp (jpms-ob01-os7.noc.sony.co.jp [211.125.139.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 322433D9522
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 10:12:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.125.139.71
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791627148; cv=none; b=T5e/rSO8+ETXAgHKUsO5K/Xum6/2hLpnSbx2QrNortezCaPAIYipYy+yBPuESTQJZDvL7/KySty25Qtf8tOHHO3nnwLt6/hNzeuIHUSptqSyNYpr4aWCsy+yTXPf0WEa3yhXe7eRmuxaBS/B/hAT957wQ9PooH0P7EPvTGXc8Gw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791627148; c=relaxed/simple;
-	bh=a0Tr1/N3FgUV6QdlbSqAXtxJzvfOcvceFqsFeJUPKBM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QYSo2MulANb/CyvHgwhmvQKwclyLoXmnQ00IGDnE4yEbGHr0ulZs8W80tYJ132jEA8th71Ze8UfV+JT3NOs7la3c1DY1ZmAutYmKsFJvTthb8qAkXBWKHlNwRR01HG2GGAuuDZJEDpUimq4qnXRmWkeWsKj1GF6uma5Plv7Zwhw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com; spf=fail smtp.mailfrom=sony.com; dkim=pass (2048-bit key) header.d=sony.com header.i=@sony.com header.b=qnOkklXZ; arc=none smtp.client-ip=211.125.139.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=sony.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D869A439F99
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 10:14:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791627298; cv=pass; b=YBN9GpjUD5rHJawIiExnf8UPHUBLM23zOK6jCmO+9HZ7vObi4V4p5eJBaRTpR2O+6XYzz1vsPcC9yRsHWusRqKzGzS0l+LjSvWYCCgPUO97vHM8eSIYjKRgG5OjMCGZ9PO1ATT7B7dzs3row3QWhhTqhdDGQFlJQN5UTPhIxml4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791627298; c=relaxed/simple;
+	bh=to0DTtAZWnV/meuGGusMEzel5dBXd8LQTc50qPpb4A8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tY30cikUnlGxLzB970pH1RZkc7tFJcr0OPvtAxm7LXV7Ry4HhCoVWoHqs9eHFBnviru1FUFusjU+/9ZX57wIc2SaCRKwLD3Rd9TEj+/E21eIWeWGSkA5vyMQE/3ODeSuBGUA7v9zaHAjBJEmassuR5GLSfaZCxODYZwCbAhtbto=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NMCoGtcQ; arc=pass smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sony.com header.i=@sony.com header.b="qnOkklXZ"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NMCoGtcQ"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-487048857f6so490723f8f.3
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 03:14:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791627295; cv=none;
+        d=google.com; s=arc-20260327;
+        b=O3fWVf3OmhnKs2nfr5ywaiYzsvwi+B0K4WMfAYa40PMVYPBp/Zl4a0jJsL7hpnKX9E
+         lKXc/mKm+fBTzl5qlCtlQD7vONb1OQ3RurnREVbLEe6Oyia2z5WgmCkKz2vkJP7fLMSd
+         LYdgjXzo0lL72pQiyN3oiH5XPye/4IWPaQ/eVyaqrf79p0wDJSU+12/p2so3ok8bFRrI
+         mR10fY729wJS+Rb8K93QiS2Xlb9Seie/TEBFXWxCD+2KEUowYjqpNOL2V8/xJMGgUDBq
+         Co6uyRIqdPjb9EbYv6t76k/GU7SXsC94dAydybBvUSUDg5YWH8Nx+ZruafEk5nGUMSqu
+         2IGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=4ZCwz3KK4ioGo2sblpjh0J8bdLeG8IsOrV/Z4ACQP54=;
+        fh=X587D9eiQrv6hr6NIkhpMN5vXjEUAejnNxckdbvheKk=;
+        b=QgZ3RzsBlx/SzGRSG7eft6Ug+f0RuySj517nq6XZURBxtzHFh5Jyo9BK/ScixEsEt5
+         nKW3+vttQsCKUwp+MTGhz0u3PQHO+Fthyz2FHP8UqRO3IEEJgeaF/vgo8TF1QUU/As9X
+         YYF1HDz0MFIK51QOs+Ol/1yofIXHRvMnLUNGr6NuczlbCKxMfV4r0uuwJ9RuYd/aCwRw
+         4qzuGGs3LeBOfZCr4kOd9Vz2rZbfz54hbbnr77yOKqs8MfnrBpVOox6t4EtJB7rJzAF4
+         dEOzh/rqSmaeeLK4+rppnNx7BcYu6tk0CNgqkiaHaPM4YWzDSxtVEAHwaGkhb0krOijd
+         f9jw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=sony.com; s=s1jp; t=1791627145; x=1823163145;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=qdGKivqSj33ZyBaC+TT8pTlVHkeKOtmcQ5ZF/JBhE0k=;
-  b=qnOkklXZoL5AfaKPUu8WddemfxHeyKPuLycfKfnoldeAkcjIsrchWp2+
-   IlWTvz1HWy5ZA/dbEfDvm6qVY0kuiET5KJiHp+GOtzpVWkuGwkcgEeXbW
-   mvSjC4FI5plAX0RZ/m+V6LfaqCriN+5MnKFpKXT5Ss6CgPXiq4TptbXDs
-   773RInpNgIJgiCw4peECFXfFqJE89HeJwzRUwrJqKuZvnXxVv5R2Uxb5X
-   /AKkUXuG8G2wHWJoPqHXlyN8TGQSFxk3P77A78pGLH1zKOWEBZzakX9dR
-   tvWWdDR8lDN7zwyXF9bIqtyhfyBGVQsXkFX4fN67zQ2vyoaosPc5v7NRG
-   A==;
-X-CSE-ConnectionGUID: MSDQQoC/RpCSCbN8WwC9lg==
-X-CSE-MsgGUID: aHzgntEMS0efdh6efRGMXg==
-Received: from unknown (HELO jpmta-ob02-os7.noc.sony.co.jp) ([IPv6:2001:cf8:acf:1104::7])
-  by jpms-ob01-os7.noc.sony.co.jp with ESMTP/TLS/TLS_AES_256_GCM_SHA384; 10 Oct 2026 19:12:23 +0900
-X-CSE-ConnectionGUID: KrOW1YCfQBqbAIGL0B8WyA==
-X-CSE-MsgGUID: 9Byr+/MdQVCaCkbgMIAWpQ==
-X-IronPort-AV: E=Sophos;i="6.27,150,1786978800"; 
-   d="scan'208";a="60226729"
-Received: from unknown (HELO cscsh-7000014390..) ([43.82.111.225])
-  by jpmta-ob02-os7.noc.sony.co.jp with ESMTP; 10 Oct 2026 19:12:23 +0900
-From: Yuezhang Mo <Yuezhang.Mo@sony.com>
-To: exfat@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org,
-	linkinjeon@kernel.org,
-	sj1557.seo@samsung.com,
-	chizhiling@163.com,
-	dxdt@dev.snart.me,
-	Yuezhang Mo <Yuezhang.Mo@sony.com>
-Subject: [PATCH v3] exfat: mark straddling folio RO and zero the post-EOF range
-Date: Sat, 10 Oct 2026 18:12:01 +0800
-Message-ID: <20261010101200.1211462-2-Yuezhang.Mo@sony.com>
-X-Mailer: git-send-email 2.43.0
+        d=gmail.com; s=20251104; t=1791627295; x=1792232095; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4ZCwz3KK4ioGo2sblpjh0J8bdLeG8IsOrV/Z4ACQP54=;
+        b=NMCoGtcQ0QY+nCy8fRACIZuo0G4YycaFF6FzJyqBf4KJmDt8HkHnas7PtnkOYWm4Ki
+         0lKLyE3+5dnG+c2lLgyHKS7hVCYJUkIt6FpGv19VDpdMVCAmHy6wndDsMuJO/MuzdB+6
+         app9oROrc1/+t8dQY0I7MJdZbor6tR4hMVLreSpiAGdMZxTHcX7v6XKfPWGU3rtH/0/H
+         92LRxuER/emjnd1qKvby1E1/cyrhR7+yQfRTu0Mqoi25w7T+qlum3m+K7DXPu37RI3kx
+         BTezhG055u6ENLe6d32gFxq0Xg1dQe0XmRCUwdoiNOu2o+RRDD9zi1TPb/YXs/p1KdUk
+         MkfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791627295; x=1792232095;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4ZCwz3KK4ioGo2sblpjh0J8bdLeG8IsOrV/Z4ACQP54=;
+        b=j3RG5z0lerDLab5xQbrLQSIOfuZJ4gwDSiLFjH11BEIXOhgY/9yI4MNG6hbyn+/2h6
+         l/f/J+1TCv9qz24t4FDZ7DKVsvdgrFKmMgHk9DP3W6vFELNb6xMWeqFjEZ7tmjGKaVHP
+         cYBLvAgvq59I/eAXzet5UTlh1DTiHKKm7RFdzgj3InIugVKOV73uYWIAuFVdwX1gWKNN
+         vu1yqYtNfoLJZhEHHj+fuS5dbJ4nLDukwvLqBYJwVHaEedPLdc3LaFC5UBBVm5xRisyC
+         HAsA8i26psKe3IIL+4pNpEet3DHlYjTRC/++/SthFNnNK/GQRkbrWsRetnyea8YXmUwC
+         iH2A==
+X-Forwarded-Encrypted: i=1; AKwUvBxfmf1rLhDFBV4mQsGby0XAYKOl4/USg7B6XkaRQreRj7x/1NrbIQR1rFjqK3CEtM4LmnKqTEyKw5LUU1o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKF72QVe6VnUh9IypTvnnPPJpQPKiaGP41SExiZq6FZaBOtyia2
+	NE+Luek9wBo/n/3StHYPbGY48AqEPBq74RB6U9EE9mznK88Us2OeH7IpYCxI5THQD2Aqo85SoEP
+	386gRWHUk6eSWMjJStAm5NSdN3gSDx2s=
+X-Gm-Gg: AYBFou2XtUe6+rv3ZKKhvvQdHt+RRNUG37kJsngEWZ8xnc2snAOFjdnHNVhV7Cp7Wy2
+	k0yxkYn+YNdCRgt0zZaTk8IA0HKhAEfe7Mt1I5Yc1WaYotMvV+vRT5hE3bxJQAXFLPL6QS5Hf9j
+	2x303MWwtLRro/xlyO+16IYuyWQ4K1MwinRvRdL7Jf0PlLgGFc6FH1rwi4JNBMeSyc5Cmls7AoW
+	msz/di2dCfEh283z8ZE3xgKyXyOXMsna6nwTsBnT7IlLffP6XKx6n0WFRr8TY6o9JEqv2zLV60s
+	IZ13Vdhh+SooYKre6G7KECpoI0Uq5PUavi6Iis+yOK340M6qR5WeKt7hSuLrU0dRU34uv+rSpyL
+	GR/i/esE1aw8=
+X-Received: by 2002:a05:6000:4917:b0:48c:7302:96ea with SMTP id
+ ffacd0b85a97d-48dbace4edemr8358190f8f.51.1791627294664; Sat, 10 Oct 2026
+ 03:14:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261009163146.83112-1-usama.arif@linux.dev> <20261009163146.83112-2-usama.arif@linux.dev>
+In-Reply-To: <20261009163146.83112-2-usama.arif@linux.dev>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Sat, 10 Oct 2026 12:14:42 +0200
+X-Gm-Features: AclHuK8eHrKrxCU2Kz0-csCBZga-KHX89XLvw82csYCAbhZVbUsSPi6LOzolr2M
+Message-ID: <CAKEwX=NFGr9hwavYof=zGtZ-nXGcWWsxnt6xQE_F5D1ZO1MnBA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] mm: zswap: use separate compression and
+ decompression requests
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, chengming.zhou@linux.dev, dsterba@suse.com, 
+	hannes@cmpxchg.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	terrelln@fb.com, yosry@kernel.org, riel@surriel.com, shakeel.butt@linux.dev, 
+	alex@ghiti.fr, senozhatsky@chromium.org, 
+	Herbert Xu <herbert@gondor.apana.org.au>, davem@davemloft.net, 
+	linux-crypto@vger.kernel.org, kernel-team@meta.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-When extending a file across a non-page-aligned EOF, the folio
-containing the old EOF must be marked RO so that subsequent mmap
-writes trigger ->page_mkwrite() and update valid_size.
+On Fri, Oct 9, 2026 at 6:31=E2=80=AFPM Usama Arif <usama.arif@linux.dev> wr=
+ote:
+>
+> Stores and loads serialize on the same per-CPU acomp request and mutex.
+> A low-priority store can be preempted as soon as the compressor drops
+> its stream lock, while it still holds the mutex. A higher-priority load
+> on that CPU then waits until the store runs again, which can take a
+> long time when other tasks are runnable.
+>
+> Give compression and decompression their own request, completion wait
+> and mutex. Since commit e2c3b6b21c77f ("mm: zswap: use SG list
+> decompression APIs from zsmalloc"), the per-CPU buffer is only used for
+> compression, so group it with the compression request. Independent
+> requests can share the per-CPU transform; the codecs and drivers
+> synchronize their shared state internally. Loads can still wait for
+> each other on the decompression mutex, and stores still serialize on
+> the compression mutex.
+>
+> acomp_request_free() ignores NULL requests, so drop the check in
+> acomp_ctx_free().
+>
+> This follows the proposal from Sergey Senozhatsky for the same split
+> for zram [1].
+>
+> [1] https://lore.kernel.org/all/20261005122036.718976-10-senozhatsky@chro=
+mium.org/
+>
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
 
-The straddling folio remains mapped to the same filesystem block
-after the file is extended. As a result, the existing writable PTE
-may remain in place, allowing mmap writes to bypass ->page_mkwrite()
-and leave valid_size unchanged.
+Acked-by: Nhat Pham <nphamcs@gmail.com>
 
-Furthermore, writes to the post-EOF range may occur between
-truncate_pagecache() and locking the folio. So the post-EOF range
-should be zeroed after marking the straddling folio RO, and using
-truncate_pagecache() to zero out the post-EOF range is redundant.
+Herbert, does this also look good to you?
 
-Introduce exfat_pagecache_isize_extended() to mark the straddling
-folio RO and zero the post-EOF range after clearing writable mapping.
-This ensures that data written beyond the old EOF before the extension
-is not exposed as valid file data, and that subsequent mmap writes
-trigger ->page_mkwrite() to update valid_size.
+> ---
+>  mm/zswap.c | 108 +++++++++++++++++++++++++++++++----------------------
+>  1 file changed, 64 insertions(+), 44 deletions(-)
+> +       if (zswap_acomp_req_init(&acomp_ctx->comp.areq, acomp_ctx->acomp)=
+ ||
+> +           zswap_acomp_req_init(&acomp_ctx->decomp, acomp_ctx->acomp)) {
 
-Fixes: 82a81a7352bc ("exfat: add iomap buffered I/O support")
-Signed-off-by: Yuezhang Mo <Yuezhang.Mo@sony.com>
----
-
-v2: https://lore.kernel.org/all/20261009093020.1018892-3-Yuezhang.Mo@sony.com/
-v1: https://lore.kernel.org/all/20260930104332.4022207-2-Yuezhang.Mo@sony.com/
-
- fs/exfat/file.c | 65 ++++++++++++++++++++++++++++++++++++++++++-------
- 1 file changed, 56 insertions(+), 9 deletions(-)
-
-diff --git a/fs/exfat/file.c b/fs/exfat/file.c
-index d24f0650bfc88..9af3de65e2267 100644
---- a/fs/exfat/file.c
-+++ b/fs/exfat/file.c
-@@ -17,11 +17,63 @@
- #include <linux/fileattr.h>
- #include <linux/iomap.h>
- #include <linux/pagemap.h>
-+#include <linux/rmap.h>
- 
- #include "exfat_raw.h"
- #include "exfat_fs.h"
- #include "iomap.h"
- 
-+/*
-+ * Unlike pagecache_isize_extended(), this function updates i_size while
-+ * holding the straddling folio lock, and does not skip the straddling
-+ * folio when the filesystem block size is >= PAGE_SIZE or when 'from'
-+ * and 'to' fall within the same filesystem block.
-+ *
-+ * This ensures that the folio is marked RO and the post-EOF range is
-+ * zeroed before writeback can observe the updated i_size.
-+ */
-+static void exfat_pagecache_isize_extended(struct inode *inode, loff_t from,
-+		loff_t to)
-+{
-+	struct folio *folio;
-+
-+	if (!(from & (PAGE_SIZE - 1))) {
-+		i_size_write(inode, to);
-+		return;
-+	}
-+
-+	folio = filemap_lock_folio(inode->i_mapping, from >> PAGE_SHIFT);
-+	i_size_write(inode, to);
-+
-+	/* Folio not cached? Nothing to do */
-+	if (IS_ERR(folio))
-+		return;
-+
-+	/*
-+	 * See folio_clear_dirty_for_io() for details why folio_mark_dirty()
-+	 * is needed.
-+	 */
-+	if (folio_mkclean(folio))
-+		folio_mark_dirty(folio);
-+
-+	/*
-+	 * The post-eof range of the folio must be zeroed before it is exposed
-+	 * to the file. Writeback normally does this, but since i_size has been
-+	 * increased we handle it here.
-+	 */
-+	if (folio_test_dirty(folio)) {
-+		loff_t offset, end;
-+
-+		offset = from - folio_pos(folio);
-+		end = min_t(loff_t, to - folio_pos(folio),
-+			    folio_size(folio));
-+		folio_zero_segment(folio, offset, end);
-+	}
-+
-+	folio_unlock(folio);
-+	folio_put(folio);
-+}
-+
- static int exfat_cont_expand(struct inode *inode, loff_t size)
- {
- 	int ret;
-@@ -32,8 +84,6 @@ static int exfat_cont_expand(struct inode *inode, loff_t size)
- 	struct exfat_chain clu;
- 	loff_t oldsize = i_size_read(inode);
- 
--	truncate_pagecache(inode, oldsize);
--
- 	ret = inode_newsize_ok(inode, size);
- 	if (ret)
- 		return ret;
-@@ -81,15 +131,12 @@ static int exfat_cont_expand(struct inode *inode, loff_t size)
- 
- out:
- 	inode_set_mtime_to_ts(inode, inode_set_ctime_current(inode));
--	/* Expanded range not zeroed, do not update valid_size */
--	i_size_write(inode, size);
- 	/*
--	 * When extending file size, call truncate_pagecache() first,
--	 * then update i_size, and call pagecache_isize_extended()
--	 * to ensures the straddling folio is properly marked RO so
--	 * page_mkwrite() is called and post-EOF area is zeroed.
-+	 * When extending file size, call exfat_pagecache_isize_extended()
-+	 * to updates i_size and ensures the straddling folio is properly
-+	 * marked RO so page_mkwrite() is called and post-EOF area is zeroed.
- 	 */
--	pagecache_isize_extended(inode, oldsize, inode->i_size);
-+	exfat_pagecache_isize_extended(inode, oldsize, size);
- 
- 	inode->i_blocks = round_up(size, sbi->cluster_size) >> 9;
- 	mark_inode_dirty(inode);
--- 
-2.43.0
-
+This really breaks my brain...
