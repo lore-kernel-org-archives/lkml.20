@@ -1,222 +1,147 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E7BA36F8F2;
-	Sat, 10 Oct 2026 04:58:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C150534DCC8
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 04:59:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791608333; cv=none; b=K6sMkH6vctrmJQqCGFRLcw7J+TA/ghgjH9uj1sB/bbtsGtCm75vFhXTT5bcFnDFwJNFzUFa8YNGCeelVBx1QH2PBbXhylxDfALK05CptHl0zqh16j6O+xNhoCUr4ANTuvv8qROuH3BaFwLnRBJqrWhgPcFesqZkjc66d7PYUUSE=
+	t=1791608368; cv=none; b=jfrC8387bjGuYIwGAMEV3kkqFzpi5wDaNOSklRmN703u9vjXLZ09sKwwUIdL7uKrS0yWUhe7f2eN+t5UjHq3oo1BoLmPFgyg6/vleLMh7wbhwacB90JxeYNKCMdwFpip1Niygy0FlsFKKLfbnCQtNwD9Ul6ysfhHIYFZsflkjzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791608333; c=relaxed/simple;
-	bh=ag2XnCTWD1B3RSMs/txEiRAej3usmudDtH335mGetfs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s9VD2ghjxiqPx1cBjXOciaXzg2aiKF2L9sZlr7ld7MLxZcvGIfmTtaiaRH1pdBLOaLvUEyYxaKmXSz1MKD43Q0ia4LYfPrwWi6boThNhshzHR0IE9hv0W02xwLPM0NCxlnyhnLsanxui9U+8Xm8RiTnuMR0sl9aXzmHY7UjJPfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dfUF7/w4; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791608368; c=relaxed/simple;
+	bh=P7yCH5kYXrmTKOJ0FGZzZuy+blQgstUKAmh/g+oX51s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IuPyHiHU0TYXpSdUizs3+pCX2srap9YFjwyT3rGsmEHtQwRhGZnd5lhpioT4ouqHj/3nXHpJtAQgQqlcDx9LsP1fFk9BiSjiKSlNOhxFY6q0MM+DyJMVoAsETvn8Vpbaa8FgUGp5NmKaJgJni3666N1Q1ICaJfl33UM58NpYmsw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca; spf=pass smtp.mailfrom=metarealtyinc.ca; dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b=ncNbsusu; arc=none smtp.client-ip=209.85.219.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=metarealtyinc.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dfUF7/w4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791608332; x=1823144332;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ag2XnCTWD1B3RSMs/txEiRAej3usmudDtH335mGetfs=;
-  b=dfUF7/w4kCy1FnniYcYWAP1aCarAtdOvM6Aay3RQllY0XP4F1AEd9nMv
-   Wpw2rLGBQZrHocwpZt8SIYnK54DYBt87XtVC+BsGYYWgnTU3ffiYU7XAr
-   L296FJGFkLGHpipezlJrJk7XTGPe88seKyuNAW+mBZVhjNt6CcvGKasWX
-   G3Ah4pZxacSyK5yfFYlWbIXFkKnMCTm2pn11Ji+3HMnL6ywU3LnrAmU2E
-   25fO2SoZgqBwOsHhlUAj4DvRIrGLubTu1djBvCmveR8U0o6Xvwh/DCKSi
-   XYDGMswSC4w/O5ZZtXfNSW0WDdOn28LPdqg+fvshVSrberD862C+e+yoO
-   A==;
-X-CSE-ConnectionGUID: O931C6YASA2diH2AnbgrjQ==
-X-CSE-MsgGUID: OoVXhG5GSbiv+YZtl995RQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="514753"
-X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
-   d="scan'208";a="514753"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 21:58:51 -0700
-X-CSE-ConnectionGUID: 7MXMr4H0Tx+E5wiNybeEbA==
-X-CSE-MsgGUID: HK1/+BMeR6mAn//93gpzKg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
-   d="scan'208";a="456970"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa003.jf.intel.com with ESMTP; 09 Oct 2026 21:58:48 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xFPAT-000000006VX-25AE;
-	Sat, 10 Oct 2026 04:58:45 +0000
-Date: Sat, 10 Oct 2026 12:58:08 +0800
-From: kernel test robot <lkp@intel.com>
-To: Christian Marangi <ansuelsmth@gmail.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev
-Subject: Re: [PATCH v3 2/2] ASoC: airoha: Add support for AN7581 PCM driver
-Message-ID: <202610101205.hqe234SY-lkp@intel.com>
-References: <20261009111334.23522-3-ansuelsmth@gmail.com>
+	dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="ncNbsusu"
+Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-917b78dfe30so7699396d6.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 21:59:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1791608365; x=1792213165; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8nRDOlvFA2YLyiFZW2o7vc4YCb0RwgsJ9ji12ZBwLmc=;
+        b=ncNbsusu7y+0/8uWqVIiOntLT/54Az/z+wnfEmqhHHpJyAZ3/WQzXQ6wcBAnqOU5C8
+         mjxK7KJuCrBPKYj++Un1y+/uO2v9VfByLOwPPEJorxl+w4njSQG/OA1xKKHqYOoDlX+b
+         OGro8H+/vrYLmahe7fJ/I1BuaeqGWLLUWg+P+b5yGTYtMQmejNSO0nyZwHYrQN5I9CUQ
+         +e3e5otVB50XgEa5QmwV1j/+VuiWRb5djsV5LYl6BG0kBoWmDd0qpUZ5FMucXkAZqRZM
+         +A0ckSzeNkuSHRhB+UQttiOvFBJRG4pNzp/qK4rep9nHkYJXUMsL9l/Szvfl5EK6gE1K
+         q19Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791608365; x=1792213165;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8nRDOlvFA2YLyiFZW2o7vc4YCb0RwgsJ9ji12ZBwLmc=;
+        b=QjDMc6JPlRge7PMtq2XYEkNjz7zWGT1BVYVmeTBy8M5IL1rGLH4jXFU64G7mNpoFoU
+         AD3rWoz4aqd+mzETt1mfL5o66aM4RCJVNiQxLwmpRM30VAY3rNlgBH/+3pI9qJhdfJVq
+         7EhZY8upL+nycvdaBntU6Sy5on3JXbq3GkwhydDF2V8R7dob3bTwLrbYVvsG/QIuoSQx
+         o+fOocyZ+1+T7489BcPQRbHergRXcDAqDx4A9qyMSncmRi74YbYbw6x/4D393r9isX+j
+         PaR/vm08CWF/dCxMPorbjpfwvt0LYp+AwaX7M1hN2vzLq5ao0qJaxzTXfd31vZeqgLYq
+         9P1g==
+X-Forwarded-Encrypted: i=1; AKwUvBzqH6eWBnozi0xuKZJh58jsLrNARMJZk9TtHQdg4+2veiuKQxGrAv+XiyRmCHP5zUR49qE76rXCtCoo8jk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZ3YVwcBeh5sd0i2Ad/6G0cSRAHMuo7DUWftb8IbNohrcsdfAu
+	U1y43Rj/X7g9p07kRoT2J7RyVkQle/icqJi5MP+algHAntKVrmC4rKJd6bcY15hNhD4=
+X-Gm-Gg: AYBFou2I7JWPj5tndf4qyjs6DJjoF2Hhpws5DxmqPxNxFRVGc0RCrDzCooDjYc3+FNS
+	f6OLxAeococxLngma177PlFZNzHSn4yXEqDjTr27fJvMbNOhNX0aFFVBBKWMIs+3gp9YN0NmcmX
+	AiUk98rpNn2p3ioXIlPvmlhlpQN9/ANHGEV7bjw2zUcLr7ms1OkT59faIHiA2hVvwXRP/yhyhxz
+	9l8sU2B2chtX9gBLS7Ci8UiLieKKxPRzjzbFuiN263jQnkGX16EcYQ/Smc7LIKjm3pbRA99CZE3
+	rRkCw2z7JnNP6SS/trWyA86HUHrwllvBLtSW/4LVVo/7jocOoTgSumNQvAvbvZvWjr6D5LA/PkY
+	ki5ttxsXZiWYJ4TWgFJlZ/owIts43KN+wnMcp6YDmx/HuYlWglptVf/WkJ1iT5vH182YHI9o1R+
+	fgUAX3FTYeBbnHh3T/ZdMAS1CqPUekf5Yk0pIiUgnKwdSccZFdQt172r6ZR6/BjDuqrDtFp2uQ7
+	TKpQ0iJp5ERQ9INOZ8t7UtwX9qDhLuFBFnHab0/IYlEuQjkKOM3gRBqZ0WK++7k2lIShLL+vxH0
+	Hi+ml0W2ml2tCOKswSIqR7ED04beITppOexSC/zSs52eKi371LY3emUF1uEG32HUcYOa
+X-Received: by 2002:a05:620a:261d:b0:93e:49eb:a274 with SMTP id af79cd13be357-93ebd225724mr641879885a.23.1791608365448;
+        Fri, 09 Oct 2026 21:59:25 -0700 (PDT)
+Received: from jake-laptop ([153.67.39.44])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b550887ebsm35827736d6.33.2026.10.09.21.59.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 21:59:24 -0700 (PDT)
+From: Jake Steinman <j@metarealtyinc.ca>
+To: Ramshouriesh R <rshouriesh@gmail.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Bingbu Cao <bingbu.cao@intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] media: hm1092: Intel IPU (ACPI) support on top of v6
+Date: Sat, 10 Oct 2026 00:59:20 -0400
+Message-ID: <cover.1791608336.git.j@metarealtyinc.ca>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20260801-hm1092-driver-v6-0-5979f223748a@gmail.com>
+References: <20260801-hm1092-driver-v6-0-5979f223748a@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009111334.23522-3-ansuelsmth@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Christian,
+Hi Ramshouriesh, Sakari,
 
-kernel test robot noticed the following build warnings:
+These two patches make the HM1092 usable on Intel IPU laptops, where the
+sensor is described in ACPI as HIMX1092. They apply on top of
+"[PATCH v6 0/2] media: Add Himax HM1092 mono NIR sensor driver".
 
-[auto build test WARNING on broonie-sound/for-next]
-[also build test WARNING on next-20261008]
-[cannot apply to linus/master v7.3-rc6]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Patch 1 is for the sensor driver. v6 cannot bind on x86: there is no
+ACPI match table, the 19.2 MHz clock these machines supply is rejected,
+and the only mode is the 24 MHz one. The patch selects the configuration
+from the clock rate and adds the 19.2 MHz / 648x368 / 180.48 MHz one.
+The 24 MHz path is functionally unchanged. Ramshouriesh, feel free to
+fold it into a v7 if you prefer that to a follow-up.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Christian-Marangi/ASoC-dt-bindings-airoha-Add-AN7581-PCM-controller/20261009-131331
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-patch link:    https://lore.kernel.org/r/20261009111334.23522-3-ansuelsmth%40gmail.com
-patch subject: [PATCH v3 2/2] ASoC: airoha: Add support for AN7581 PCM driver
-config: sh-allmodconfig (https://download.01.org/0day-ci/archive/20261010/202610101205.hqe234SY-lkp@intel.com/config)
-compiler: sh4-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261010/202610101205.hqe234SY-lkp@intel.com/reproduce)
+Patch 2 is independent of the sensor. The IPU7 capture nodes have no
+pixel format for MEDIA_BUS_FMT_Y10_1X10, so no monochrome sensor can be
+captured, whatever its driver.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610101205.hqe234SY-lkp@intel.com/
+Tested together on a Dell XPS 16 DA16260 (Panther Lake), kernel
+7.3-rc5, with the ipu-bridge entry that is already in media/next:
 
-All warnings (new ones prefixed by >>):
+  intel_ipu7_isys.isys intel_ipu7.isys.40: bind hm1092 17-0024 nlanes is 1 port is 2
 
-   sound/soc/airoha/an7581-pcm.c:618:10: error: 'const struct snd_soc_component_driver' has no member named 'pcm_construct'
-     618 |         .pcm_construct = an7581_pcm_new,
-         |          ^~~~~~~~~~~~~
-   sound/soc/airoha/an7581-pcm.c:618:26: error: initialization of 'int (*)(struct snd_soc_component *, struct snd_pcm_substream *, struct timespec64 *, struct timespec64 *, struct snd_pcm_audio_tstamp_config *, struct snd_pcm_audio_tstamp_report *)' from incompatible pointer type 'int (*)(struct snd_soc_component *, struct snd_soc_pcm_runtime *)' [-Wincompatible-pointer-types]
-     618 |         .pcm_construct = an7581_pcm_new,
-         |                          ^~~~~~~~~~~~~~
-   sound/soc/airoha/an7581-pcm.c:618:26: note: (near initialization for 'an7581_pcm_platform.get_time_info')
-   sound/soc/airoha/an7581-pcm.c:603:12: note: 'an7581_pcm_new' declared here
-     603 | static int an7581_pcm_new(struct snd_soc_component *component,
-         |            ^~~~~~~~~~~~~~
-   sound/soc/airoha/an7581-pcm.c: In function 'an7581_pcm_probe':
->> sound/soc/airoha/an7581-pcm.c:778:21: warning: unused variable 'connection_type' [-Wunused-variable]
-     778 |         const char *connection_type;
-         |                     ^~~~~~~~~~~~~~~
+  link_frequency  180480000
+  pixel_rate      36096000
+  exposure        min=2 max=719 default=360
 
+  Y10   648x368, 1344 bytes per line, 10 frames, 4945920 bytes
+  Y10P  648x368,  832 bytes per line, 10 frames, 3061760 bytes
 
-vim +/connection_type +778 sound/soc/airoha/an7581-pcm.c
+  exposure 100: mean level  59
+  exposure 700: mean level 198
 
-   771	
-   772	static int an7581_pcm_probe(struct platform_device *pdev)
-   773	{
-   774		struct snd_soc_card *card = &an7581_pcm_card;
-   775		struct snd_soc_dai_link *dai_link;
-   776		struct device *dev = &pdev->dev;
-   777		struct an7581_pcm_priv *priv;
- > 778		const char *connection_type;
-   779		int irq;
-   780		int ret;
-   781		int i;
-   782	
-   783		card->dev = dev;
-   784	
-   785		priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-   786		if (!priv)
-   787			return -ENOMEM;
-   788		snd_soc_card_set_drvdata(card, priv);
-   789	
-   790		priv->map = device_node_to_regmap(dev->of_node);
-   791		if (IS_ERR(priv->map))
-   792			return PTR_ERR(priv->map);
-   793	
-   794		priv->reset = devm_reset_control_get_exclusive(dev, "pcm1");
-   795		if (IS_ERR(priv->reset))
-   796			return PTR_ERR(priv->reset);
-   797	
-   798		irq = of_irq_get(dev_of_node(dev), 0);
-   799		if (irq < 0)
-   800			return irq;
-   801	
-   802		ret = devm_request_threaded_irq(dev, irq, an7581_pcm_irq_handler,
-   803						NULL, IRQF_ONESHOT, dev_name(dev), priv);
-   804		if (ret)
-   805			return ret;
-   806	
-   807		spin_lock_init(&priv->desc_lock);
-   808		mutex_init(&priv->user_lock);
-   809	
-   810		/* Reset the PCM interface */
-   811		reset_control_assert(priv->reset);
-   812		usleep_range(5000, 10000);
-   813		reset_control_deassert(priv->reset);
-   814		usleep_range(5000, 10000);
-   815	
-   816		ret = dma_set_mask(dev, DMA_BIT_MASK(32));
-   817		if (ret)
-   818			return ret;
-   819	
-   820		priv->tx_descs = dma_alloc_coherent(dev, sizeof(struct an7581_pcm_desc) *
-   821						    AN7581_PCM_TX_DESCRIPTORS, &priv->tx_dma,
-   822						    GFP_KERNEL);
-   823		if (!priv->tx_descs)
-   824			return -ENOMEM;
-   825	
-   826		priv->rx_descs = dma_alloc_coherent(dev, sizeof(struct an7581_pcm_desc) *
-   827						    AN7581_PCM_RX_DESCRIPTORS, &priv->rx_dma,
-   828						    GFP_KERNEL);
-   829		if (!priv->rx_descs) {
-   830			ret = -ENOMEM;
-   831			goto err_free_tx;
-   832		}
-   833	
-   834		for_each_card_prelinks(card, i, dai_link)
-   835			dai_link->platforms->of_node = dev->of_node;
-   836	
-   837		ret = devm_snd_soc_register_component(dev,
-   838						      &an7581_pcm_platform,
-   839						      NULL, 0);
-   840		if (ret) {
-   841			dev_err_probe(dev, ret, "Cannot register PCM component\n");
-   842			goto err_free_rx;
-   843		}
-   844	
-   845		ret = devm_snd_soc_register_component(dev,
-   846						      &an7581_pcm_dai_component,
-   847						      an7581_pcm_dai_driver,
-   848						      ARRAY_SIZE(an7581_pcm_dai_driver));
-   849		if (ret) {
-   850			dev_err_probe(dev, ret, "Cannot register PCM DAI component\n");
-   851			goto err_free_rx;
-   852		}
-   853	
-   854		ret = devm_snd_soc_register_card(dev, card);
-   855		if (ret) {
-   856			dev_err_probe(dev, ret, "%s snd_soc_register_card fail\n", __func__);
-   857			goto err_free_rx;
-   858		}
-   859	
-   860		return 0;
-   861	
-   862	err_free_rx:
-   863		dma_free_coherent(dev, sizeof(struct an7581_pcm_desc) *
-   864				  AN7581_PCM_RX_DESCRIPTORS, priv->rx_descs, priv->rx_dma);
-   865	err_free_tx:
-   866		dma_free_coherent(dev, sizeof(struct an7581_pcm_desc) *
-   867				  AN7581_PCM_TX_DESCRIPTORS, priv->tx_descs, priv->tx_dma);
-   868	
-   869		return ret;
-   870	}
-   871	
+Two things worth knowing when reviewing patch 1:
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+- The 19.2 MHz configuration reads X 0..1293 and Y 0..733, which is the
+  full 1296x736 array including the dummy border. That is what the
+  vendor sequence programs, so the crop rectangle reports it as is, and
+  it lies outside the 1280x720 crop bounds v6 defines. I left the
+  bounds alone. Say if you would rather have them widened.
+
+- The 24 MHz configuration is compile-tested only here. I have no
+  devicetree hardware with this sensor.
+
+Regards,
+Jake
+
+Jake Steinman (2):
+  media: i2c: hm1092: Add ACPI enumeration and the 19.2 MHz
+    configuration
+  media: staging/ipu7: Add 10-bit greyscale capture formats
+
+ drivers/media/i2c/hm1092.c                   | 363 ++++++++++++++++---
+ drivers/staging/media/ipu7/ipu7-isys-video.c |   4 +
+ 2 files changed, 321 insertions(+), 46 deletions(-)
+
+-- 
+2.56.0
+
