@@ -1,116 +1,162 @@
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B53AA3016F1
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 13:32:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791639176; cv=pass; b=mEeoVoS40ApGeoGic9jTxfKDUPvAKp2DKaaGxFgNsxUwpCIbo4mkItfdSbFc+QSYNFmy1V05JriKizq7Srf4V5vrQ2wcbdKBCYiweTcEHOykZH4q5biyg/NdE1b/Yt6vS9jtpXrZAYABj0Kx+jwJ6paIlsJI3q+eZcx5ewQ7m40=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791639176; c=relaxed/simple;
-	bh=mtsamemj69B3iRndW+JReJ4MdazWwyBzoeeClqSsfHI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pMm4Obxgd1bfTbtAm7D8gVhB4SLdNbfePwxwA+KHD6uLHj9i6LgNy++wcJb7cd4Hh7pw7cGjna11KuLiazTJW0slusVIrAhS21ORxwo5uJoV0yGNHI415kmE6snI5mECM7kiYOniWotCYciglRz9nT+t/31Sc5TpEqI6lZxKOBw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Th08GXw0; arc=pass smtp.client-ip=209.85.208.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21CA236B07C;
+	Sat, 10 Oct 2026 13:33:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791639197; cv=none; b=RQiBJcCOR/lbkRe/hCpGzoIqzbnESP/wkfKSfJFcOTSKUKxgCZEF1O6lVRhA7QuniQuwockqG3fiZonsBtaekBoJkSMvQUR9bYYB/cSCQLOeBjbFEVJDI2V68eD/L/tEl9Bg1Y15uWskng2Gn7HHmMmUlZDJeStWRA0zb9a2WmQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791639197; c=relaxed/simple;
+	bh=fQ96koIwsc+73ye2d9WY1cAHeJdGvpPPwMKjvKPy60U=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=IMKFQhl2IS630KMFn6QVu8SRAvKh908O8xgHxdbiHxH96hME0L8IB+ISURpYd0Nzee/3zRq/D1xRWyX48cGiHY5LaY5JHFpd1I3W4UOfagWyns8tR01B0LHdFSLJ1MqdrjI5YU2b8YzRq/dO9MZayjHEMFVbj42r2uL/luZNy/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BkAJVzE1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Th08GXw0"
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3a9ad623098so5940981fa.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 06:32:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791639174; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XONCTzM36cHcPziOHTOnq6p7OfBnP1tsq/gG+nRuLXEweQGFGyvEIeZCHQjK9GUAma
-         MUsQDiXVRRgxPpHjDDSRuuJZ3mkWu/8xxb7PWMo6PQqPQr+dA1MzrAyocnmXXTUBmWwV
-         3SXFtfEKveHUaMq+H/SxpaJrZ0FXglB8DnWrdhr3iRd+uy3D6l5a98lrC2/0lTbwtQqS
-         H8+inCzY59jGEgGazh2VB9Q99+2i5M3lB6ucx2EW41Hol5M/zIF6tI/GTqX5bmL+7nUD
-         VWxgj3XucDgUjw6E1XFj176xi0mI6S1iycg3zRYJq2pirgT0eSFU5G6Q7X+Ktb0MID/O
-         OvmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=pYVu/5x8kOjkfB1OLFe4Wb0FAXv3rimBPK2ZUX360S0=;
-        fh=0npH6M9j5NR9ofC+5Rh/pWSvGpV4sFfRNBgTVeqmwgE=;
-        b=p7scqJsoCGENzb5j1H041RCADFRPMtl9uYq0TbykbAXjKb2fdPAJWPHTymPqXIPZOr
-         huiEVo+E9kWO6S8w0RT7O0QoFr7KNzDIknosfvsspivlkaU0mXKB095HQ2wWqHNnVh3Z
-         OiFtC0WYD0EqtDvVWzIEvECQagrymtCVo7H0QmdH19FGBtv++6lsM7lmAgMJowN506Jm
-         qukyvFJOEXzeEVHlXZurj3uCGPYbuhhGKthFmPD0JkdKpO9dh9DwTLnYl9+aHFOxor5r
-         S246EizSNwhVskX48EvnKneSOvethL+lx8Vx7VMcqOMGF7G+K3seUGOwnbk02B/AuRWJ
-         F8Zg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791639174; x=1792243974; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pYVu/5x8kOjkfB1OLFe4Wb0FAXv3rimBPK2ZUX360S0=;
-        b=Th08GXw04g5oyZOZrcolN6lkThyeSPl0uFs26ILwRvrekmRRyU/ak6jLJM+6GPYtVy
-         wjg5O0m+/GNnWrRGiPlZYAUiw15NdoT5TwXam9XdcOhy/rQNY/29Tqr7AtUtnZJoVp+U
-         Ml6ezJ1q2rFvqi8kWNoiYmDTpJF+M/esoF+IaT+vimu9y8wu+kayoSOJ55OkDQSei1W7
-         WUDnx2hR/Zs1EulcVkkhMUt/ExN/VC3PJpXCZ37leVxP5vbP4ssU6AsKvKWIUablkjCf
-         3EwdwDIwaLNqQ+9gOH1cA0n13/pW55YRnhaaPylYTl3dTZ/0gTzMMBStVWX58ZZ+3yIX
-         2OIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791639174; x=1792243974;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=pYVu/5x8kOjkfB1OLFe4Wb0FAXv3rimBPK2ZUX360S0=;
-        b=2Xju+7MRx29tuO6R/HKnlxJfQHxz4NOIqZf4ifFoC7yKR/nT6/9WTq7VfWT/JPu2qI
-         j/sevwjvqZgKFH8TVRFXpTvp63AMf4bVZ3xWd9mJ7qT8WDMWLzZdwN8E1Q/vYQhKXu06
-         YpnvmdKcgNrHrey0AAXs3Wq4cXsfTy2wq9He398Bss0hhwQNRR13pdF2A5/NDdTxTKXS
-         ZW6EizN8yAIrsTB1yUjEYW2MBuRTUGaYIfq/DcKmAl8JbZwB1EEHd3sYjBnHhjwXjzC/
-         faMAdtK7wNSo+MeCGm8xrMH9gpdI+Z/63dTTG9B0uWA4lw5mlltgtrXo6N30Fl9nfA8l
-         dAhw==
-X-Forwarded-Encrypted: i=1; AKwUvBywANvhlj5e2jiq1f9OCD0ma3/1IZoTUrFNvBroAJ0/lhiz47zZXn59PVqmyXCSR5boWDKeGKG31knWd1o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLX/IUkAURAE9HIBAXl1uvsAlEsDovE2FEIsD8ABbpRrFJeXHn5
-	H7zXdCMq5ZrQ3+KQ3VTuk15MRlHs3BYLEF1WmkyblyBSdVmuwReBbD99x2jKHLYD2VL/v7RyLrP
-	EKO123aQ+/8TdusbhcV/+L0Nbdw2ARa2FCzQo
-X-Gm-Gg: AYBFou1jg70Qm/Ukikn6snE5QGK5Jx4J3GfWoEOkqxyP+/XrPlHWGy87kjRcSE9P1wG
-	uhsnOoQMIYqKra/pTKNS9CAPz4qqo5muePo5/TSUOqE7fN9+XIki5FtN/XtLYkuoEA6IFVgxvX/
-	6oNTnQhWETo8ADrCRyzkCG3xKz5nP4xZjbjlIypKIuN6kzwDY5GvFnPnkYW6N8X7UESEoh5CVts
-	gilzNnm9WcXwc5VUUc/0SrEgMQVAXBLRTx0jjlDg355WkYlxX0AwK57GFbPkn+y3zi02pyQijIl
-	ZMddp60aBjtLmX1oqwHZNuHgNezYRwkmV3HKzfIDrREVs6jWkdeXs0IKwitmwSlbMM5Rk3TvFrv
-	7p+dQwifzum3BoffvtY/Ui6QUYr3ZTj2uGto5LdV4NREaVqipJ+E6ixfg
-X-Received: by 2002:a05:651c:144c:b0:3a9:707e:ad9c with SMTP id
- 38308e7fff4ca-3a9c5399cb7mr11669841fa.4.1791639173378; Sat, 10 Oct 2026
- 06:32:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BkAJVzE1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 053691F000FF;
+	Sat, 10 Oct 2026 13:33:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791639195;
+	bh=hSeD2f5/61SwfYL5OwNCKY5q2+rB1164Ic0xoMaUHwU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=BkAJVzE1U0KVGOqZ/8okpduQkfKpZZsG5ycHEHb5VVYkj8pCi5Nml+GXwITmxWdrb
+	 v0f0qwLgReRbV2uyHP0Fn1z9JXU0N5TK+n2sUiIftIudcQyqmx0f9lJx034aFStm1k
+	 dfuuLbixvN0obW3B/iBmtGwPMiK/MQVtszmA9hZ6ZZ+DMJ2RWrUL/pUfyn7s6BLWNs
+	 DQxp3V8C4bnUCM9FnPzeYQJgLgu0VpWoBIdQ7rxCcwUJQ4VmlIr0nXHrGlXnTHGcS6
+	 bEFcQVmQSHclH5f79gQpvTHfNdmlJ9ZE59vJbQPmOzdkmk5SFExAaeyKX6nJ2hdlzo
+	 fOyrYnINAvpdA==
+Subject: Re: [PATCH net] net: skbuff: don't segment unreadable skbs without SG
+From: netdev-bot+sashiko@kernel.org
+To: josef@toxicpanda.com
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, almasrymina@google.com,
+ willemb@google.com, kaiyuanz@google.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Sat, 10 Oct 2026 13:33:14 +0000
+Message-ID: <179163919450.434549.9325877615055483977@kernel.org>
+In-Reply-To:
+ <20261009-b4-skb-segment-nosg-unreadable-v1-1-7e2334a55fe8@toxicpanda.com>
+References:
+ <20261009-b4-skb-segment-nosg-unreadable-v1-1-7e2334a55fe8@toxicpanda.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261007115821.11332-4-sigefriedhyy@gmail.com> <179154713053.434549.11454657718901075006@kernel.org>
-In-Reply-To: <179154713053.434549.11454657718901075006@kernel.org>
-From: Yuyang Huang <sigefriedhyy@gmail.com>
-Date: Sat, 10 Oct 2026 22:32:42 +0900
-X-Gm-Features: AclHuK8XHLLXtzmhhgPNwPEtq6aAUTQyZKtjE1IommkdRmUGkoYJ9BfWJQP14DE
-Message-ID: <CA+7S2v+=pQv4OGqcK5Gw=ZdnQJ9FAhsYXwdbichThiTd4sVH7A@mail.gmail.com>
-Subject: Re: [PATCH net-next v10 3/6] net: add a generation counter for
- dev->mc changes
-To: netdev-bot+sashiko@kernel.org
-Cc: ajay.kathat@microchip.com, aleksandr.loktionov@intel.com, 
-	andrew+netdev@lunn.ch, claudiu.beznea@tuxon.dev, davem@davemloft.net, 
-	dsahern@kernel.org, donald.hunter@gmail.com, edumazet@google.com, 
-	idosch@nvidia.com, jacob.e.keller@intel.com, kuba@kernel.org, 
-	johannes@sipsolutions.net, kees@kernel.org, kory.maincent@bootlin.com, 
-	kuniyu@google.com, nicolas.dichtel@6wind.com, nickgarlis@gmail.com, 
-	pabeni@redhat.com, sd@queasysnail.net, shuah@kernel.org, horms@kernel.org, 
-	sdf.kernel@gmail.com, vadim.fedorenko@linux.dev, willemb@google.com, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-wireless@vger.kernel.org, netdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-> - [Medium] netlink: AF_PACKET multicast dump misses changes due to
->   reading sequence after loop
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-This  seems real, I will send a v11 patch, will sample before the
-walk, and once more after it for the
-NLMSG_DONE check.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-> - [Low] __hw_addr_changed() (net/core/dev_addr_lists.c) does
->   atomic_inc(&dev_net(list->mc_dev)->dev_mc_genid).
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Same as every other dev->mc writer under the address lock, nothing new.
+- [Medium] The commit message says the 'only checksum offload off' case
+  is safe because 'the segments keep sharing the frags'.
+
+--
+
+net: skbuff: don't segment unreadable skbs without SG
+
+This patch makes skb_segment() reject unreadable skbs, including their
+frag_list members, when NETIF_F_SG is not set. Without SG the payload is
+copied out of head_skb. Since commit ab9414ed70bd, a devmem payload copied
+that way turns into zeroes that carry a valid checksum.
+
+Link: https://lore.kernel.org/all/179148235783.434549.14322374227477832817@kernel.org/
+
+> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+> index 41beaf625421a..4ba544b5f3bab 100644
+> --- a/net/core/skbuff.c
+> +++ b/net/core/skbuff.c
+
+[ ... ]
+
+> @@ -4842,6 +4854,14 @@ struct sk_buff *skb_segment(struct sk_buff *head_skb,
+>  	sg = !!(features & NETIF_F_SG);
+>  	csum = !!can_checksum_protocol(features, proto);
+>  
+> +	/* Without SG every segment's payload is copied out of head_skb, which
+> +	 * can't be done for unreadable frags.
+> +	 */
+> +	if (!sg && skb_segment_unreadable(head_skb)) {
+> +		err = -EINVAL;
+> +		goto err;
+> +	}
+> +
+
+[Severity: Medium]
+Does this guard also need to cover the sg && !csum case?
+
+The commit message says:
+
+  "and with only checksum offload off the segments keep sharing
+  the frags."
+
+The segments do share the frags. But in that case skb_segment() still
+reaches perform_csum_check, and __copy_skb_header() has already copied the
+unreadable bit into each nskb:
+
+net/core/skbuff.c:skb_segment() {
+    ...
+perform_csum_check:
+		if (!csum) {
+			if (skb_has_shared_frag(nskb) &&
+			    __skb_linearize(nskb))
+				goto err;
+
+			if (!nskb->remcsum_offload)
+				nskb->ip_summed = CHECKSUM_NONE;
+			SKB_GSO_CB(nskb)->csum =
+				skb_checksum(nskb, doffset,
+					     nskb->len - doffset, 0);
+    ...
+}
+
+The devmem MSG_ZEROCOPY path in tcp_sendmsg_locked() goes through
+skb_zerocopy_iter_stream() and never sets SKBFL_SHARED_FRAG. As far as I
+can tell, only the MSG_SPLICE_PAGES branch sets it. That means the
+__skb_linearize() fallback is skipped and skb_checksum() is called on an
+nskb whose payload is entirely in unreadable frags. skb_checksum() then
+hits:
+
+	if (WARN_ON_ONCE(!skb_frags_readable(skb)))
+		return 0;
+
+This leaves SKB_GSO_CB(nskb)->csum at 0. tcp_gso_segment() then calls
+gso_make_checksum() and writes a TCP checksum that does not cover the
+dmabuf payload that actually goes out on the wire.
+
+The setup looks reachable in the same way the commit message describes
+for the case where both features are off. sk_setup_caps() grants SG and
+HW_CSUM, and validate_xmit_unreadable_skb() lets the skb through.
+harmonize_features() strips the checksum and GSO features but keeps SG:
+
+	if (skb->ip_summed != CHECKSUM_NONE &&
+	    !can_checksum_protocol(features, type)) {
+		features &= ~(NETIF_F_CSUM_MASK | NETIF_F_GSO_MASK);
+	}
+
+So with tx-checksumming off and SG on, software GSO reaches skb_segment()
+with sg=1 and csum=0. The result is a WARN splat, and the peer drops
+segments that will never checksum correctly, including on retransmit.
+
+Would checking !sg || !csum here be more appropriate? Since this is
+tagged for stable, could the commit message also be updated so it does
+not describe the checksum-off-only case as safe?
+
+>  	if (sg && csum && !gso_by_frags)  {
+>  		if (!(features & NETIF_F_GSO_PARTIAL)) {
+>  			struct sk_buff *iter;
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261009-b4-skb-segment-nosg-unreadable-v1-1-7e2334a55fe8%40toxicpanda.com
