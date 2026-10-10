@@ -1,146 +1,170 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011052.outbound.protection.outlook.com [52.101.65.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-55.mta0.migadu.com [91.218.175.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58FBE36B939;
-	Sat, 10 Oct 2026 02:01:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791597712; cv=fail; b=R6UFO5vh1de4cvQXIwWEn+M8vV4T2nE4HruwkMzStM8NXgXWji2hr+/OaDO01b6Q0zcJRkqnSyyoED4gH6HjJyERIZFIai3KUgMqFWFhRvXU1ANOHxiKsbMREl659h5x5SlM5KfiQNa553Nbp+iLqgOqKNfIbfUumGxjSwDDY/M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791597712; c=relaxed/simple;
-	bh=5tbzjSLWZD5kYJO78qINBc0jHaz5sPYE6qlKIhIICBU=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=t65wFdQkFs+tvPBQjpXRyvizEtan9WjDa7YTV4Xk70oxgfhg4whsqpuKO/V3ded2CzEGk75gMSTyIwrJhc96WT5j5tXxE9GRIvemdicHL4Go+vsCUaapyU1VCmwgHjTlWdkYs/iuLuzabimTV0hE72nvAofOi9VQ2wz9s37NpXI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=S9puvCLP; arc=fail smtp.client-ip=52.101.65.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EBAB1F94F
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 02:04:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.55
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791597871; cv=none; b=VG0VhqQOHPrrUUbg6/LiVO+ElGhCXl/NOdS7SZSsfhh2gAyU+D50EAEi3K6jye3tRZOTwh9oPlDmlOEkyakBPj7RO9Wf3d3Fjx2M9pJ1wQXLg++SxXyUbUHITKIHprE2UfwSEkXM0CYWMhj6kN+9SulwShi5VbC3dmYnAVsmSb4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791597871; c=relaxed/simple;
+	bh=fbmxI+htNWm74+BKcQ7IgvVzWZQKZq0MmTX+riidlGQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Vv059a1poSdelqZ71taENav/VgsnCZ93JdlrFGt7XODNMLKBIIPWNJwZG3XdiGDvRZLVx0B6FxC/ZVPkfKf9Z7PKT98xkFnbdhCnG0aZdLebqPDKlSie5pK9GNc9oKXSozO+bGxuBnZdaZ6+uTmY/LgV7UWE/aS5WN+XF4gAO4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FKG/sy/l; arc=none smtp.client-ip=91.218.175.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="S9puvCLP"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qxVexJdsdo3RTBkWqXeUQXn9bsYCAZP+yvwK8wz/AigocgLCTUDsyYllKaXRgD5Vaq19e5fUATo1wAmlvidI74EhVukW129cadr3cyAyihGhtqP9ywZQqKL9rVKPAl7IGtNpEYUiFbyhuN0wZ/lLl+46ADdnjQsqUF7qfFJkSuNAgIA4B3n4g5OxPQQLudmtWfA8xCymBg2FNJUKf+H3asGAUUW0yJQCjawvIDNJWk6h/VlCwNmgouuaaCuz1Qf7tDG8vmPDhQlfDVjtlN0LGCBadLP7Q/AehY59tmTajfrR0JmnSV/S9dGWvr/h78Ne71z5lEXsm60THUIebEfd6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5tbzjSLWZD5kYJO78qINBc0jHaz5sPYE6qlKIhIICBU=;
- b=NoAK/G473lC2jjxiVuwXyiWIiBqMf7TF31IhYZBUrRLsgoWMc+j2yn0z+rUzvzn3jos7o6XDiSG9XTEpQpheMxVDReBFaUMkU3fj9/olgEoKMXKqTmnhjoD9EoP9e5rG2tw6zUe5z3Sj8JIjASwD0w/YtkRkbzbgU3WZuzxvwYIUipezuBCz5wFMsJBvCiRjDPAjm24tobo9LKnqhZjQdZj69XTBE4dizYl8yfN++/9oUtPM0+q1R0+n9PBtmaguLPXNs/ub/tdlYybTg33yI/NQyFIkMorkPUNqOfSpR+2ruyRtx5AKmCeSARi+oGgbG09wQnwW14OqMNdRM8nnPA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5tbzjSLWZD5kYJO78qINBc0jHaz5sPYE6qlKIhIICBU=;
- b=S9puvCLPmWXw/mxoZJ7sKWVFpjSXr8+f7Dk0wMQZLWyyNWOgcSb9Dr4nzD5zZnJ2FKkeWBA1pi9WztNVgVZLzJ+IDDCEPFHY/V5V3mIO+EgbsAHmwLSO6sX/uaPLrDvC0jN7DYjujbCaM8TETIOtacoFWsawczO0P/8Zyv0FsiKtUpATxp0P8Wq4B7F8IPEzmjJOjIYjqREdYG8GmHvlKImW8VnvGDMk7QWNr/n8xoVn+VpoJ7dgojtAvZhijGDDoXngKwZbl+0LRkj+AEeJ3XEp4qA37GrfaWun8gbwaEAsAEu4wiH8Z3thofv51YTQ1rGT9HJznhFNOef+nZb15g==
-Received: from AS4PR04MB9338.eurprd04.prod.outlook.com (2603:10a6:20b:4e6::17)
- by MRWPR04MB11496.eurprd04.prod.outlook.com (2603:10a6:501:75::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Sat, 10 Oct
- 2026 02:01:47 +0000
-Received: from AS4PR04MB9338.eurprd04.prod.outlook.com
- ([fe80::7c4c:9c56:8552:f680]) by AS4PR04MB9338.eurprd04.prod.outlook.com
- ([fe80::7c4c:9c56:8552:f680%6]) with mapi id 15.21.0496.015; Sat, 10 Oct 2026
- 02:01:47 +0000
-From: Wei Fang <wei.fang@nxp.com>
-To: Claudiu Manoil <claudiu.manoil@nxp.com>
-CC: dl-S32 <S32@nxp.com>, Vladimir Oltean <vladimir.oltean@nxp.com>, Clark
- Wang <xiaoning.wang@nxp.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>
-Subject: RE: [PATCH net-next v1 2/5] net: enetc: Enable probing of version 4.4
- devices
-Thread-Topic: [PATCH net-next v1 2/5] net: enetc: Enable probing of version
- 4.4 devices
-Thread-Index: AQHdV+todoZtUuB4hEiKAorU+ERkYLb2Aydg
-Date: Sat, 10 Oct 2026 02:01:46 +0000
-Message-ID:
- <AS4PR04MB9338CC6990BCB8781706AAD088912@AS4PR04MB9338.eurprd04.prod.outlook.com>
-References: <cover.1791548316.git.claudiu.manoil@nxp.com>
- <701f38d08f9ea371877645223e6ac919af7870b5.1791548316.git.claudiu.manoil@nxp.com>
-In-Reply-To:
- <701f38d08f9ea371877645223e6ac919af7870b5.1791548316.git.claudiu.manoil@nxp.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AS4PR04MB9338:EE_|MRWPR04MB11496:EE_
-x-ms-office365-filtering-correlation-id: 690e9d85-7a98-462f-51fe-08df267270be
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|23010399003|376014|19092799006|1800799024|38070700021|56012099006|11063799006|4143699003|22082099003|18002099003|6133799003|10067099003;
-x-microsoft-antispam-message-info:
- PDaa6n5O7l1klPEDyD2O/sfnCzL6GlxwuG8Fy2gLFVrbCzYHBqDYW42YoCltj31H7ZqzjPlkIvz9e9ofaFJUtLg60N6f4p1gzzSmBjxTJZxfy7QIrfyBmDBjgyaRW4+ESOD1Q3j3gPee3XmHiKVUXx5ok1CIItVTp9Pktq+9soh5pkItVEgxuNybxkr44IOeaKY7I7qEJmrCnAA4NPna1PUQLZFCGN7DbXNgE/+so7+ksjLNDhgH1YkYXi40QfOIsIYpy9iB6mmSN6ZsZwXI7g0asweU2ZvFJViS3th7NyyFcOGH4MYdzF3+BF7BTTVm+2sglhR3ByodU5REQlZLpMKeZofDv9PFYX+QoLszMf2akXdx9ku1/p9BSjH3cQ3jGpQR8UTb0OZhJV9vcj+v3gSst+pfnFtkC7Vytd2IQ3ERb7671anoFF+tKst/5kdhsKFl5X0c9lViGu/v3kQ5Pr3Dr+de4fMzVNlyQl54plGuGy7xcx/oWxW9IerFmrIn9DOqypmPH28UoL4/YeTaD0U/Sjj3BPfcX5ubirVKgPvWmaXw/uOGKOGfp2ACsvm2QtVw4jvrQ/gr4G602rg/LKtmZMa7qsS52FgCf5mLK9jvdkt4qoYGONdr27ypHDCdN1ButCGvb8th5QjsrstCoJEROLrbb6hN96bjRP+7Ejtgo84zgMlKBF4I/SBMgPGba0hI2S6G6r5Fvvoaa5KcQ/03sBAhKZMMyQxHSX9LwPI=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR04MB9338.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(19092799006)(1800799024)(38070700021)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003)(6133799003)(10067099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?NGRwwB7UOCSfiFzh1RqRvGxzsap8ZE9YxZZDO6Xf2kxC4ARwtuv7W/EsPDXw?=
- =?us-ascii?Q?u9qrMMH9v0FhPrOzEgpf9ZG9OdGeB3CT/IEZ9FS6jiwAAMXIkVVy2bzDEK6U?=
- =?us-ascii?Q?r4FmsdsYziStjOM/sGu+rYs1Lp5+CPP8zMgGUeMf2WtVk7Qtzw8lOd68GSTS?=
- =?us-ascii?Q?q5KPwxHYDGC8TGBNqeXQxljjY9ghErJI+SE7ztVYZmQrM77Glxa6Exqh4O8I?=
- =?us-ascii?Q?9sAIsK3VVJvqECJWUIhV+UZA9WY6OjVrzFybxG6JrNYrtLvQbeXM9B4AqXR6?=
- =?us-ascii?Q?1CZwrTGjhOrS3+f4emwFzdrukIXWaR86bp5nOHCEk69UNSAPTnNUydqhYRCC?=
- =?us-ascii?Q?jI7CGLRP0xHkc+Knvh7luarkUuvEwjOdEK8NgImMVprZ3YpP7PyHUxDqaLvp?=
- =?us-ascii?Q?oM/IgB3ba9yqKpkgJXiqf/ZAQnzxyuthFYX6+HBaIhfH9SGuxq/0MenVjbW7?=
- =?us-ascii?Q?1DD7Br+3+yQMBCU92M6GE/+o0gvHIWB0JfT4z4tz9zr4V9ihqt1ob7sFkvBi?=
- =?us-ascii?Q?zEyXvs4yNHxCaCKJzTPYnr8SV77k5nnM1swNs/DYdQzFJ9cgKygxZhNX/4+5?=
- =?us-ascii?Q?UE0EmrB4b1Eo+DoEWSqXJomCRW34if3jtb7gVgGNdrp5AnPcC2K9A7quXVMH?=
- =?us-ascii?Q?w9jwIlw4UgW9OQhGF1eJLhWh4KzkJVmQqgjQ42pHxU3r2PEsl4ItWbqNoJ0P?=
- =?us-ascii?Q?/mi87cctCLoHmWkqeGzrVkCNSIQqTEYK/MCn+EqCh036GokoLZyig+NrJfj+?=
- =?us-ascii?Q?AVOEdXePNIHJbB/8ZkFZOnWr9U7UXdX3u+QhH8HKJsJkCdXe03jAMJUodSi/?=
- =?us-ascii?Q?fEEtCnHnPOK/u6hupn2qcM8Fpjo4VOFVLEmNd7lxPyXF2R45cw6M7+f8tvNR?=
- =?us-ascii?Q?5MZpOZ2W9ONuOkDfnDBS6hFwb3TK1fmfKl8G8xVmn0iQl50bBJkIDA6desSx?=
- =?us-ascii?Q?AQ1hwY+yK96pqj/diHGaIcA9XkNbbeb/7GQjHLRzUP9GyEsG6Ynr1S7f8Rsu?=
- =?us-ascii?Q?G8xHE6fb7fXMUuQHP+RJPJA3g0OTJZGn1N3/KRB3/wsKiKHZTFl0IYrJWTsT?=
- =?us-ascii?Q?bo9dTH7C2dZWO0+w8J9VseQQGht/tQ74qZV69902yaXPNr+klifnsKo5esal?=
- =?us-ascii?Q?CuIMvzCQrdpDAeAabh8eNnds5EuPtUmWDvd52zPz9Tif9NSqYNM4DrZxUV0d?=
- =?us-ascii?Q?bj5WA7On0vlTOrHrn1x0egakL35P5ywPt+PHH8oMOKGka0atJgN9UPruOojb?=
- =?us-ascii?Q?L2/SMXpHN3kxJtSIpHi3sEufCl3lmgm0p7cLbsupjnB/BXeqg1hltFG+5rrY?=
- =?us-ascii?Q?TwVaoXCi/CPpR0Iwy/DfGzR/s+hbWd6nYN0V29vA6ky5jjyhezgWrKcMQ4Pr?=
- =?us-ascii?Q?yvQTIxuATtZtrJmnL7Rb3x175IwJ44ajgg0V6B8t98jX3U7HLgq5W1KPZSnJ?=
- =?us-ascii?Q?MpKk+FJV5bZYQEgwtUd45DU2sPMJ0/e0QpE/WNcAnXGSF6z55FWcsG8UHMv3?=
- =?us-ascii?Q?nXRS0+W82zts21BQYyh6pdSIwBWHT3ccxTjMELHZYaW+QDosc98WeyUIlCju?=
- =?us-ascii?Q?rZ0iJN9xaFA23lEbBHpQRjrtWoNwntsj1zUWZgOillfx5fSvbleJ58MJnFuO?=
- =?us-ascii?Q?zGH+R9mAHT3O4qVoy0eWG5lVDRF4EA2AnwNm3/oCm+v1FPUDkouT5lIS4FbS?=
- =?us-ascii?Q?TOlUdsMidJA0i5XEoWdODUfyzGrlGEXmMVRxvtLg8TEmWoPG?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FKG/sy/l"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=fbmxI+htNWm74+BKcQ7IgvVzWZQKZq0MmTX+riidlGQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791597866; v=1; x=1792202666;
+ b=FKG/sy/lZB2dNFjWpqgvN5VwDtTKpSwOj/nsE1d6r01NeWdMc6w8rnJzau8xFdG/TGCoOII9
+ DQllyG/uRqaIj+wFyww4IJA4PfFs5r1VpUsSpSstZ1jqd32mSQHUYegl8gZTSRo3/70+ylrXmqw
+ P07gDFF4Ig9MTVnDJrTQiGuc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6dd7cb59ec794fa2;
+	Sat, 10 Oct 2026 02:04:26 +0000
+X-Mizu-Trace-ID: 6dd7cb59ec794fa2
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b8d458c7-b9be-4d89-be48-940897695e6d@linux.dev>
+Date: Sat, 10 Oct 2026 10:04:12 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AS4PR04MB9338.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 690e9d85-7a98-462f-51fe-08df267270be
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Oct 2026 02:01:46.9342
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: fjjwbTLVjOb38lgs5PONpAcU1ELYUiUR6KjKXmFI3eNt4/0orLeGk1uW7G5IYUGYXEQUdG8jQz/sd0rsSqQoYQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MRWPR04MB11496
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/huge_memory: avoid transient none PMDs during lazyfree
+ reclaim
+Content-Language: en-US
+To: Zi Yan <ziy@nvidia.com>, "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Kyle Zeng <kylebot@openai.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ stable@vger.kernel.org
+References: <20261009165214.40212-2-kylebot@openai.com>
+ <DM0II2QHWWS1.2RXEJXC8S0101@nvidia.com>
+ <8db35dc0-eb06-42e4-90f9-534522e810e1@kernel.org>
+ <55765FF3-18D7-424C-984D-81C316F323E1@nvidia.com>
+ <d68cb3de-e471-4ce8-8c6d-c7260d79ec1e@kernel.org>
+ <0ec81c65-fbf5-405f-948b-0fb1b2e083e8@linux.dev>
+ <DM0S9L075B57.1FCNOI7LA1FJW@nvidia.com>
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <DM0S9L075B57.1FCNOI7LA1FJW@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-> The ENETC v4.4 devices are present on S32N79 SoCs and feature only
-> Pseudo-MAC ENETC ports, whose PFs expose both the 0xe101 and 0xe110
 
-I think the device ID of the ENETC PF with the pseudo MAC should be 0xe110.
-The device ID 0xe101 should be only used for the standalone ENETCs (without
-pseudo MAC). Is this a hardware issue? If so, a workaround is to set these =
-PF's
-device ID to 0xe110 in IERB module. Then the device ID 0xe110 will be prese=
-nt
-in the PCIe ECAM space.
 
-> PCI device IDs, while the VFs answer to the usual device ID of 0xef00.
->=20
-> Signed-off-by: Claudiu Manoil <claudiu.manoil@nxp.com>
+On 2026/10/10 09:56, Zi Yan wrote:
+> On Fri Oct 9, 2026 at 9:12 PM EDT, Lance Yang wrote:
+>>
+>>
+>> On 2026/10/10 04:44, David Hildenbrand (Arm) wrote:
+>>> On 10/9/26 22:27, Zi Yan wrote:
+>>>> On 9 Oct 2026, at 16:23, David Hildenbrand (Arm) wrote:
+>>>>
+>>>>> On 10/9/26 20:17, Zi Yan wrote:
+>>>>>>
+>>>>>> There are some gaps we need to close before getting this fix in:
+>>>>>>
+>>>>>> 1. GUP-fast cannot follow the invalidated PMD: riscv and LoongArch need
+>>>>>> pmd_access_permitted() that requires _PAGE_PRESENT; s390's
+>>>>>> pmdp_invalidate() needs a change.
+>>>>>
+>>>>> Ugh. We really need pmdp_invalidate() to have reasonable semantics. This whole
+>>>>> PMD locking is a mess :(
+>>>>>
+>>>>>>
+>>>>>> 2. sparc64's thp_pte_count can be imbalanced with this change (based on
+>>>>>> Lance's offlist feedback).
+>>>>>
+>>>>> Ack.
+>>>>>
+>>>>>>
+>>>>>> In addition, powerpc has a page table check issue similr to riscv, where riscv
+>>>>>> fixed it with commit 9f4a88b8d01a6. This is not related to this issue
+>>>>>> but discovered along with the investigation.
+>>>>>
+>>>>> Zi, do you have the capacity to take over this patch?
+>>>>
+>>>> Yes, I can take over it. My plan is to send a series including
+>>>> patches for 1 and this patch as is. powerpc fix can be a separate one.
+>>>>
+>>>> Best Regards,
+>>>> Yan, Zi
+>>>
+>>> If we need a quick stable fix we could temporarily disable the whole thing until
+>>> it is fixed, just a thought.
+>>
+>> +1 we could do that for now. A quick fix with minimal churn (correctness
+>> comes first).
+> 
+> How about the patch below? unmap_huge_pmd_locked() and
+> __discard_anon_folio_pmd_locked() will be dead code to keep the patch
+> small. Later, with arch fixes, the function can be re-enabled.
+
+Looks good to me! Thanks for the quick fix!
+
+> 
+> 
+>  From 2204b9d08530796847a586428b1f782b987d071c Mon Sep 17 00:00:00 2001
+> From: Zi Yan <ziy@nvidia.com>
+> Date: Fri, 9 Oct 2026 21:28:10 -0400
+> Subject: [PATCH] mm/rmap: don't discard lazyfree THPs at PMD level
+> 
+> __discard_anon_folio_pmd_locked() clears a lazyfree THP PMD before it knows
+> whether the folio can be discarded, and restores it if the folio was
+> redirtied or has extra references. A concurrent munmap() or
+> MREMAP_DONTUNMAP skips the temporary none PMD and unlinks the VMA from its
+> anon_vma, so the folio stays mapped after the anon_vma is freed and a later
+> rmap walk uses the freed anon_vma.
+> 
+> Using an invalidated PMD instead of a cleared one requires additional arch
+> code fixes. Instead, disable the PMD level discard of lazyfree THPs, as
+> before commit 735ecdfaf4e8 ("mm/vmscan: avoid split lazyfree THP during
+> shrink_folio_list()").
+> 
+> Fixes: 735ecdfaf4e8 ("mm/vmscan: avoid split lazyfree THP during shrink_folio_list()")
+> Reported-by: Kyle Zeng <kylebot@openai.com>
+> Closes: https://lore.kernel.org/r/20261009165214.40212-2-kylebot@openai.com
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Zi Yan <ziy@nvidia.com>
+> ---
+
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+
+>   mm/rmap.c | 11 -----------
+>   1 file changed, 11 deletions(-)
+> 
+> diff --git a/mm/rmap.c b/mm/rmap.c
+> index 805db93fe0428..1131b76bbbc28 100644
+> --- a/mm/rmap.c
+> +++ b/mm/rmap.c
+> @@ -2275,17 +2275,6 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+>   		}
+>   
+>   		if (!pvmw.pte) {
+> -			if (folio_test_lazyfree(folio)) {
+> -				if (unmap_huge_pmd_locked(vma, pvmw.address, pvmw.pmd, folio))
+> -					goto walk_done;
+> -				/*
+> -				 * unmap_huge_pmd_locked has either already marked
+> -				 * the folio as swap-backed or decided to retain it
+> -				 * due to GUP or speculative references.
+> -				 */
+> -				goto walk_abort;
+> -			}
+> -
+>   			if (flags & TTU_SPLIT_HUGE_PMD) {
+>   				/*
+>   				 * We temporarily have to drop the PTL and
 
