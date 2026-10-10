@@ -1,313 +1,257 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 799A3379C5D
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 15:04:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791644678; cv=none; b=lSNxM78zo+XyHMluHkFefqmf86osCRAZ82CTt+Jej4poLwLgG2rQdNkgsdtteEG+MLsZUDnzualqOkuWo0foV0v+LYQgRKvdWNwyG8W7WPbJ+SUl5ABuQO08bJlyHh0mUUpfDT9idOr2rOpVpNrBflLX3wZI+ZGjAPBiULLxFh0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791644678; c=relaxed/simple;
-	bh=aFOuBcq8s0zAMZGmHPxTn6WLqCn5oqC7GIz+Ls65TFk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N/1G6t4UqIsc1uflGtZsl/PzKRQZ2T1IUtxaEaJpPNvodeVyfyHBTOhR40mjM+YeulgW1VcKHTEiJ1Tl0YJd5UUtOfpG01s8VcWRDH7szW715ZFfNiuszFNM3Txq2c+QkLX4kGeDgRydO/X+wsGVOAu1zOnTm1DknK55PfIQl5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IUnO2CZb; arc=none smtp.client-ip=209.85.216.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11A7239768D
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 15:04:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.172
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791644698; cv=pass; b=O9Ks5vsuiE9zTFYkZ5f/fC4i6eb7gBTCt9GtKKGvrLRERoYIFhknQyTA/5Gs+7NlXYIl2Ij6A3o3OORymV2H4OtXK7uwTklyxjxsLzvv10VhLbwTauJTBxsOa1iFLDrV0JUVq5rsbLyvYY0s+vOWgP0Nf58kuWuP2wOpCMCYT5U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791644698; c=relaxed/simple;
+	bh=qKP0WSNcFuAAkX+PM25bURdeQUE0IEPKGPNzUJVA6pI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fxCpyjhOnA49QPzgsVLmurK/7O+Uru4EH35NDFBxbhdhlibYw676uWm80ikPZWoVDgwQfeGfNONWmRowqHgWlkEiI9h74L7/uKPdx/PwJuGqMF2WE+Rwcnxnm7MygY4wjgkc5uBD2sJvtn1oc9GNEVBRogieNPIPeOzEbgP6IrI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=RSPENE96; arc=pass smtp.client-ip=209.85.160.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IUnO2CZb"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ab752f6244so463969a91.2
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:04:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="RSPENE96"
+Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-5337fa12431so79881cf.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:04:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791644696; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fHpKJTT1a2WhBQUoYh+/LPUaJa7GcaJzNM7MvPmUg0t7hZEoZPY67SKUGVdgb9jvpC
+         ShmbFwGCC1Lrddg4zNbzMHXCsUpxi09vF24eTLDmcg66r6tt7I6KpOUPgwupt+8cHARD
+         5Dlp1RNk6ehvwXeBIC0FHNcXLEWsN/KKeaeSsOfBVZ2rMOzUU1ffJD9kjoAX9gPn3KcY
+         OCC66uN6MbWxbaNzV2hNkE19jYAYvJs+kBeQbVpVTwV9zu2o01FxT/KRc22gmTQnTE0v
+         AxRizCCRn2eT/UN9FccDtVvhD1RsoBQP+UiKvNgE2KlFfge4iQhqzYpLFLnceJzUApBU
+         sjmg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=YVL94d7fLPwyZDcajQUwfFhDfKQ8/7V1BaalpbSzdNA=;
+        fh=i4UFqxvfvWiDS4upkTbrLpoKn18KRYXZ7Oy3zMZdidQ=;
+        b=WjL9mKRIPekWzE8nKeZUEoh9au8ojOpn7nMwwCSZYFlNas9JgUhcu1p1NdrTGxN5U2
+         bOn+f3vnwTy34cazpb2TkOHggIpUiYMpQucEhig2GxH++1zIRi5yY8lxz3w3hHI/YGZ6
+         73VX7LqWKgUG1Cr6s0+BGuq9APmJejtwvY+mHL50x7qTv6Em1k+njZwbrtv5AsHWVzfo
+         bOlRnYCG9UwsnPMM3B8wYIu+oD0MOMVh6r6gvomjCscWsM36I1yVPBkyWuG15rntF5uE
+         TbGAHuP006tABhFEcl2l5m5jQu0jW0D/rz6qJSHTNIXNaqrCAgoQ5ODCPYgMeLWbMAc4
+         SgfQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791644677; x=1792249477; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aUdWymVuN1GgzXiVTLtzb4zC9ehLS9HDiJgUQVk5Mn4=;
-        b=IUnO2CZbRIrJePCfFNERa8UQgBGZuAXuxtV/PfeDWGp6cZDMzQxq5+3I3+E0HImDj2
-         rF53zJKaXxSLjBvVPawFDNJBKRnVNQMjv4N6iIMQP+Yv3V6HVJ8Wc01TVGNkQ8HsdBP/
-         ymdUYY4Svc9CDZBy4Sv1tN6nSD5Dnn3UgP8TxfhlY/wL06FSBjZs6W8G9DZJ40Br9gLF
-         0lrjeoPTti1ASBSrEAppVAEnWrKErg2xLblq9yOCfK04Dtj26+gZV5uRplvnRkg4kxEQ
-         P6SWSn+WpXOZaAlXYZMjuyEfFCEUn8jIBn0R5Kasb7x8Dl7syaZdJryz8u4DpqIC49IO
-         PSFw==
+        d=google.com; s=20251104; t=1791644696; x=1792249496; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YVL94d7fLPwyZDcajQUwfFhDfKQ8/7V1BaalpbSzdNA=;
+        b=RSPENE96xyOj2/GDGw9K+7Q0oAKf44FMSpQC7Uma8ZRsYE4giPymkc8AITUYYchUjT
+         RyJ9F0LBdwYTEml9icg6S4TKS5JP5T56SMujkjGCJPqKB5PVh9OQZeI4e9s/ur9De84t
+         uHlqw1o1alR4iHmalXikrzrWGMwMgfgKMGShKjGfukidiklaY7P/7/7yuN736zjkUqRO
+         0wra+HFvh8pDDb2TqrSwXQsbKlGXGQIPFiux3vhKBJ1+pBA3MBtq69O9ywL1s8/oQ7gD
+         YD/2fc9/jPGtFJOXPvbIkRl4Bimf1hHnrAAm4bmSl4c7Juk10/32j667fEUAYMH4LUVy
+         7aRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791644677; x=1792249477;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aUdWymVuN1GgzXiVTLtzb4zC9ehLS9HDiJgUQVk5Mn4=;
-        b=WRzuxZLvMDppeYMV4gxIrCyxjQaVPUvCP8nlyq7tuHAf0Stj4o0i8I6VCnTA7ZkhQB
-         8N28Cu+zcEYz8kU9ETmqGVWrAAhz+Xtiwu5yfDAAIWM/VXEVrxUTg6mlifCTxvZ7ejC2
-         oQY+9dqR3KCWgvAJge6M0NUN79xF5OAI5KFVxN2cASyrKj2dOhKLHkotbI0MXFS3BxPM
-         hCe12PNLwJo12nvfQpLLakziDH+2OW+y6Gtyk7XqnfKsQ8rQ7j58LO6CCQ0xU+HItSzO
-         hgd0sVzdfGLGk7C+NbKNamdzVOc63LEo9bKgOXW0qkFNxFd4onohCSABttEsgMXQsVr7
-         Vf2w==
-X-Forwarded-Encrypted: i=1; AKwUvBxlYVTuMwFqrvicfbdE6s9wSGETE3FbCAr5MEI0/m1oqTcFhiCSd8wCny2yNWdfeiBgXZ7xQHTEY9EGZ9E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLSbneLQH+OYl2kT+pz0DD4nfb89fIG98rL9aGVxOoEo2LtSkld
-	dQqfnz192EbBuDBAVlGvqIBX2jykoMjf2HAPXn1MtBfiNvomUAj/LEgH
-X-Gm-Gg: AYBFou3LB108N/TtfdoSsVnvcwqsLyXj85MS4jNC/QU9CZ5F6y6tJSQItfApgJh/ibI
-	i+LGAd3bxbtU3xM3Ug3EpXxiK+rUYOi0anneJV/EhLLTz5JbPMf2BvVjLnqivweSwedlqkQ6XJY
-	StNwtInrUZydtQgTeVizAQwyI8LV2k//kx2ZI/4VM+OeallM/OwSXSRXggxJcBHj51W1YcZVuGL
-	k99l7hcgkvpflXoukwWS47MQEUvhyAkjKuDNAFNx6jAJ6EGWiFrsA6nlER7IEYtd2VNPjF8tn48
-	ipOUf4SE5fyD2v6vyKXqdKgmlGYjjVv8QxOr0CH7AUDhX1pJcWHf7wXrf4BI9LMpzEbJ0w9lrxi
-	QxKUewlRULWN0MHGNyZ6valz0pDhRk3sg8PoMnmKLIuz6PAh+urUrqq6F5qgwqZ295MH7oE0bRu
-	7pT9GT3RmapwZsYyyidlztFO+xOu38cYgg2dbV1OWirfPNsqF4qtKOMurJFJPV5qP6MA3ZhA==
-X-Received: by 2002:a17:90b:3b84:b0:3ab:1b19:78f4 with SMTP id 98e67ed59e1d1-3ab3a3a11a1mr4404697a91.6.1791644676645;
-        Sat, 10 Oct 2026 08:04:36 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2a09:bac1:7a80:50::3cf:2d])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab397920b4sm4828242a91.4.2026.10.10.08.04.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 08:04:35 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: David Airlie <airlied@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Cc: Hillf Danton <hdanton@sina.com>,
-	Gurchetan Singh <gurchetansingh@chromium.org>,
-	Chia-I Wu <olvaffe@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	syzbot+1b129b44597a126d2d79@syzkaller.appspotmail.com
-Subject: [PATCH v3] drm/virtio: share one vbuf cache across all devices
-Date: Sat, 10 Oct 2026 22:04:29 +0700
-Message-ID: <20261010150429.17036-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1791644696; x=1792249496;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YVL94d7fLPwyZDcajQUwfFhDfKQ8/7V1BaalpbSzdNA=;
+        b=wk29LHd0iT3dVzMcyJAwVd7SR/sZ0qACo1mf5V87ZzB643a56gks3FLqPdTnQPQrEo
+         VobJPY7cozFRNTabr/j9gKFonk0zEadcTvRBlvUWgwKJVSUAJjyE0ff8XHvNTG11ZXIY
+         u8Xwnfgpt5lcuXTWNFumi9tkQCI/hNdzBJdcNWhjCx2aV5noMlB6cfuF0Ea86oMiY2Gj
+         XKV7lmPlJQSiWh3JhMzMutI/HLq9hDaVb2upFavdW17xN4AFGYKWm6y6AVc9BNbFMegj
+         p+tPuM6fBInKTPvRbWNr7mGwbWyBX8wQtx7iRsvnA6nvmVAjxMPYveTl1DOhurRkw2kl
+         NvpA==
+X-Forwarded-Encrypted: i=1; AKwUvBy12t1HnZ1DM1eip1nOs2seVhtBf/fbelC2xlJZHOm472FmQk98vBNg3L5d6oP4lHoegNfnSl0Syw0SI6c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLKT8rVCBgys9266jyGvC6sS+oECEj1MO/cIDfOJVOPfR28jneR
+	+KJ4O4YlerlSdAjn2yMEqXEBR36yuxdSKOcgLv4nn1kDFgsruOTzWVP4ozOP9isVvibM/gVNP7X
+	0yr9bRE8jbAPtZJZmvhy/DObd0ghWS7/7dj7lqoZR
+X-Gm-Gg: AYBFou2YCjqhNsm9SOZNh+pg4UR3fE6a0wNbe0x2kOIAWv40g6yHpZscgVH9llo9+V5
+	dGJBGhG3+ZX2k4YwFD42rODg+6V84h/dk/K/3Ss8LXKp/INBWPJ/CYeNzchDrUeQPO0n3rwebFC
+	3iwUmWS+vFeifU+qNQyHXgHemT2a0Hh59syYIJctfBMT4ILYUn635EEvdh/qX+Ekh+3zbk5tzpk
+	mPqQavzU4ZDdZRkuofRrjs8cFGXhOFBlYX2oLT10FQi2j8w5OxnxKe55gbgBR+sD57qlJe75PH4
+	RNEgxwAI2arQ8m5Q1mT/pUz4GQj45uxJstmASlF/VFXUqX2UCbH4hptuVNfGeTWKwVE=
+X-Received: by 2002:ac8:6105:0:b0:531:475:4ce6 with SMTP id
+ d75a77b69052e-535b4ed04b3mr7329011cf.9.1791644695120; Sat, 10 Oct 2026
+ 08:04:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20251016205126.2882625-1-irogers@google.com> <20251016205126.2882625-3-irogers@google.com>
+ <47f8c30b-e326-4ff0-a2bc-5683209a9e2d@pengutronix.de> <20261006-dynamic-succinct-woodpecker-a36c7f-mkl@pengutronix.de>
+ <2f6094ff-f585-4b8b-8c25-20c11d1bfc7d@app.fastmail.com> <CAP-5=fVt81pYz_EXj+QNG+hFGomb-xcpm-6=ZNzNm+c2sbP6UA@mail.gmail.com>
+ <b2a50293-d6f7-41eb-854c-c43bc9874ffa@app.fastmail.com>
+In-Reply-To: <b2a50293-d6f7-41eb-854c-c43bc9874ffa@app.fastmail.com>
+From: Ian Rogers <irogers@google.com>
+Date: Sat, 10 Oct 2026 08:04:42 -0700
+X-Gm-Features: AclHuK8LQ7voUaQ5iDWw6xEK4vR5E2o28JWfPIq-jnjM1tPowB9wY3mLPMNEGbs
+Message-ID: <CAP-5=fW25k8uOeamGRhwbFUUZ8D0D1n5YK-NFF7_2JMJcGOsiw@mail.gmail.com>
+Subject: Re: [Regression] [PATCH v5 2/4] vdso: Switch get/put unaligned from
+ packed struct to memcpy
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Thomas Gleixner <tglx@linutronix.de>, Marc Kleine-Budde <mkl@pengutronix.de>, 
+	Stefan Kerkmann <s.kerkmann@pengutronix.de>, 
+	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>, 
+	Andy Lutomirski <luto@kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, 
+	Arnaldo Carvalho de Melo <acme@redhat.com>, linux-parisc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Eric Biggers <ebiggers@google.com>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Christophe Leroy <christophe.leroy@csgroup.eu>, 
+	"Jason A . Donenfeld" <Jason@zx2c4.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-virtio_gpu_alloc_vbufs() creates a kmem_cache with the fixed name
-"virtio-gpu-vbufs" for every virtio-gpu device and destroys it from
-virtio_gpu_release(), which only runs once the last drm_device
-reference is dropped.
+On Sat, Oct 10, 2026 at 7:06=E2=80=AFAM Arnd Bergmann <arnd@arndb.de> wrote=
+:
+>
+> On Fri, Oct 9, 2026, at 23:28, Ian Rogers wrote:
+> > On Wed, Oct 7, 2026 at 4:00=E2=80=AFAM Arnd Bergmann <arnd@arndb.de> wr=
+ote:
+> >> On Tue, Oct 6, 2026, at 14:31, Marc Kleine-Budde wrote:
+> >> > On 28.09.2026 17:39:15, Stefan Kerkmann wrote:
+> >> The previous upstream version was the result of endless discussions, a=
+nd it
+> >> looks like changing it to the memcpy version was premature. At the tim=
+e we
+> >> unified all architectures to use a common implentation, this was the o=
+nly one
+> >> that resulted in correct and fast code on all architectures, so I don'=
+t
+> >> understand why this was just applied without including everyone who wa=
+s
+> >> involved in coming up with the version that was replaced.
+> >>
+> >> My feeling is that we should just revert this. I'm not sure about the
+> >> motivation for the change. It sounds like this was meant to be
+> >> used in userland code, and that clashed with assumptions we make
+> >> in the kernel, but I don't think that is sufficient reason for
+> >> regressing kernel code.
+> >
+> > So the original motivation for the change was that the perf tool had
+> > an OpenSSL dependency for the sake of doing a hash when copying jitted
+> > code into a fake ELF file for the purpose of disassembly and
+> > symbolization. The kernel contained the same hash function, and using
+> > the kernel function allowed the perf tool to avoid an OpenSSL
+> > dependency. Linus asked the perf tool to minimize its dependencies, so
+> > we pursued this change. The kernel hash function used the
+> > get_unaligned code for unaligned memory accesses, meaning the change
+> > required the perf tool to add -fno-strict-aliasing to its build flags
+> > until we could have a strict aliasing safe get_unaligned. The strict
+> > aliasing safe code is what we're discussing here and when originally
+> > written it sat on the mailing list not really doing anything. To my
+> > surprise Thomas Gleixner picked it up 6 months later, and I believe
+> > something other than the perf tool motivated this.
+> >
+> > There was an issue with the original series on Power IIRC, they had a
+> > char global variable that they knew was an int through linker tricks.
+> > The change caused a correct compiler error of a 4 byte copy to a byte
+> > sized address, and I forget if we used pragmas or a local packed
+> > struct get_unaligned implementation to work around this. I didn't have
+> > a way to replicate the problem locally, I was glad others were helping
+> > with the series!
+>
+> Ok, thanks for explaining the background.
+>
+> > Am i going to be able to convince people builtin_memcpy is a better
+> > unaligned choice than a packed struct? Well memcpy is the expected C
+> > way to solve this problem, and C compilers like clang implicitly emit
+> > memcpy intrinsics when copying things like aggregate values. The
+> > packed struct requires a cast to a pointer type violating strict
+> > aliasing rules, but has been sound for many years because of
+> > -fno-strict-aliasing. We'd like the perf tool to be clean for things
+> > like undefined behavior sanitizers, but separate userland code could
+> > support this. I was trying to be as useful as possible and I don't
+> > think the patches were rushed at any point.
+>
+> Aside from the performance regression, I see more issues with
+> using __builtin_memcpy() here:
+>
+> - since the compiler is allowed to always turn __builtin_memcpy()
+>   into an extern memcpy() call, it looks invalid to use this
+>   in the vdso, which is not allowed to call any functions.
+>
+> - the original version used memmove() instead of memcpy(). While
+>   this was removed in bf067edf5d2f ("openrisc: always use
+>   unaligned-struct header"), this was surely intentional at the time.
+>
+> - the use of __unqual_scalar_typeof() turns a relatively simple
+>   expression into a much larger amount of preprocessed code, which
+>   tends to confuse the inlining choices and compile speed, especially
+>   when this is mixed with other macros that expand the arguments
+>   multiple times.
+>
+> > What the bug report shows is that there is a lowering problem for
+> > memcpy with GCC on ARMv5, presumably as ARMv5 lacks unaligned memory
+> > operations. It seems the packed code shows how we can teach the faster
+> > unaligned lowering to GCC for ARMv5. Fixing the lowering issue in GCC
+> > will likely win performance improvements elsewhere on code compiled
+> > for ARMv5, as optimal memcpy codegen is an expectation for things like
+> > copying an aggregate value.
+>
+> As far as I can tell, this only happens when building with -Os,
+> and I don't even think the decision to call the external memcpy()
+> is necessarily wrong here. The same thing happens on mips32, mips64,
+> openrisc, riscv32, riscv64, sh4, sparc32, and sparc64. Some of these
+> also use an out-of-line bswap32 in put_unaligned_be32() when building
+> with -Os.
+>
+> > Fixing GCC would be best but a workaround is to use the packed
+> > unaligned functions:
+> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/include/linux/unaligned/packed_struct.h
+> > I guess this could be a pain if there are regressions elsewhere in the
+> > kernel that also need fixing.
+>
+> I hadn't realized that we still have the extra copy for those,
+> my guess is that we had planned to remove that but somehow never
+> converted the last remaining user in tools/include/linux/jhash.h
+> after commit 50b4233a22b1 ("include/linux/jhash.h: replace
+> __get_unaligned_cpu32 in jhash function") did the second-to-last.
+>
+> > I believe I spoke to Stefan at LPC on Tuesday and explained all of
+> > this, suggesting the packed unaligned functions as a workaround. It
+> > would be interesting to hear of other motivations for memcpy that
+> > Thomas may know. Perhaps some config value defaulted to memcpy and
+> > switching to packed structs works for everyone. Maybe separating the
+> > user and kernel code makes most sense.
+>
+> Right, that seems easy enough to do: the include/vdso/ headers
+> are not meant for user consumption in the first place, so it would
+> make sense to use the struct variant there, and the
+> include/linux/unaligned/packed_struct.h version could provide the
+> memcpy() based code for tools/ and get deleted from the kernel
+> internal version.
+>
+> It's just complicated a bit by the fact that the current code does
+> the exact oppposite ;-)
 
-Two live virtio-gpu devices are enough to hit this: the second
-kmem_cache_create() call finds the name already taken and
-kmem_cache_sanity_check() WARNs. This reproduces at plain boot with
-two "-device virtio-gpu-pci" on the QEMU command line, no sysfs
-remove/rescan or held-open fd needed.
+So completely fwiw, I speak to the compiler folks within Google and
+there has always been unanimous support for code using memcpy over
+type punning. I'm not sure where the inlining decisions would be
+impacted, as to my understanding those are made later in the compiler
+pipeline and things like __unqual_scalar_typeof are almost at the
+stage of the preprocessor. If -Os is not inlining small fixed size
+memcpys, this sounds like another compiler bug. It would also be
+completely valid for the compiler to lower packed struct accesses to
+memcpys.
 
-  kmem_cache of name 'virtio-gpu-vbufs' already exists
-  WARNING: mm/slab_common.c:111 at __kmem_cache_create_args
-  Call Trace:
-   virtio_gpu_alloc_vbufs
-   virtio_gpu_init
-   virtio_gpu_probe
-   ...
+I was trying to reach an implementation that avoided undefined
+behavior and benefited both user and kernel code. Performance
+regressions aren't a benefit and fixing compilers can be tricky, so
+work remains. I'd prefer to avoid undefined behavior at least in user
+land. I'd also prefer to avoid config values, so using packed structs
+for __KERNEL__ code is a possibility. It seems a little sad that we've
+lived with a strict-aliasing-compliant implementation for a year, and
+we could regress that for the sake of ARMv5. I don't feel strongly
+enough to argue for kernel land; hopefully, Thomas can say what
+motivated moving the patch series forward as I'm pretty certain it
+wouldn't be undefined behavior in the perf tool :-)
 
-syzbot found the same WARNing through a different path: open an
-fbdev node, then remove and rescan its PCI device over sysfs. The
-drm_device reference the open fd holds delays virtio_gpu_release(),
-so the old cache is still around when the rescan probes the device
-again and calls virtio_gpu_alloc_vbufs() a second time.
+Thanks,
+Ian
 
-Either way kmem_cache_create() still returns a valid (merged) cache,
-so the device keeps working; the WARN is not a probe failure. But it
-is a real defect: as the comment next to the check says, a duplicate
-name "confuses slabtop, et al", and it is exactly what syzbot and
-any panic_on_warn setup treat as a crash.
-
-The vbuf size is the same for every device, so create the cache once
-at module init and destroy it at module exit instead of per device.
-
-Reported-by: syzbot+1b129b44597a126d2d79@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=1b129b44597a126d2d79
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
-No Fixes: tag. I could not pin down which commit introduced the
-dedicated per-device cache (dc5698e80cf7, the original driver commit,
-still used a plain kzalloc() pool); happy to add the right one if
-someone can point to it.
-
-v3: back to one cache shared at module scope (Dmitry), not kzalloc()/
-    kfree() (v2) -- kmem_cache keeps the allocation off the general
-    kmalloc slabs for this latency-sensitive path. Commit message
-    corrected: the duplicate-name WARN does not fail the probe (the
-    cache still gets created, merged with the existing one), and the
-    trigger is any two live virtio-gpu devices, not just the syzbot
-    remove/rescan path. Tested with two "-device virtio-gpu-pci" at
-    once, and with one device torn down and rescanned while its fbdev
-    node stays open.
-    v2: https://lore.kernel.org/r/20260927042035.19956-1-ngocthang2710.1999@gmail.com
-    v1: https://lore.kernel.org/r/20260926162452.136863-1-ngocthang2710.1999@gmail.com
-
- drivers/gpu/drm/virtio/virtgpu_drv.c | 13 ++++++++++++-
- drivers/gpu/drm/virtio/virtgpu_drv.h |  5 ++---
- drivers/gpu/drm/virtio/virtgpu_kms.c |  8 --------
- drivers/gpu/drm/virtio/virtgpu_vq.c  | 26 ++++++++++++++------------
- 4 files changed, 28 insertions(+), 24 deletions(-)
-
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.c b/drivers/gpu/drm/virtio/virtgpu_drv.c
-index 2aaa7cb08085..eec6f73a4c15 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.c
-@@ -283,6 +283,10 @@ static int __init virtio_gpu_driver_init(void)
- 	struct pci_dev *pdev;
- 	int ret;
- 
-+	ret = virtio_gpu_vbufs_init();
-+	if (ret)
-+		return ret;
-+
- 	pdev = pci_get_device(PCI_VENDOR_ID_REDHAT_QUMRANET,
- 			      PCI_DEVICE_ID_VIRTIO_GPU,
- 			      NULL);
-@@ -291,7 +295,7 @@ static int __init virtio_gpu_driver_init(void)
- 			VGA_RSRC_LEGACY_IO | VGA_RSRC_LEGACY_MEM);
- 		if (ret) {
- 			pci_dev_put(pdev);
--			return ret;
-+			goto err_vbufs;
- 		}
- 	}
- 
-@@ -305,12 +309,19 @@ static int __init virtio_gpu_driver_init(void)
- 		pci_dev_put(pdev);
- 	}
- 
-+	if (ret)
-+		goto err_vbufs;
-+	return 0;
-+
-+err_vbufs:
-+	virtio_gpu_vbufs_exit();
- 	return ret;
- }
- 
- static void __exit virtio_gpu_driver_exit(void)
- {
- 	unregister_virtio_driver(&virtio_gpu_driver);
-+	virtio_gpu_vbufs_exit();
- }
- 
- module_init(virtio_gpu_driver_init);
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
-index 9df4c7117341..f6009fc8472f 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.h
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
-@@ -261,7 +261,6 @@ struct virtio_gpu_device {
- 	struct virtio_gpu_queue ctrlq;
- 	struct virtio_gpu_queue cursorq;
- 	bool vqs_released;
--	struct kmem_cache *vbufs;
- 
- 	atomic_t pending_commands;
- 
-@@ -361,8 +360,8 @@ void virtio_gpu_array_put_free_delayed(struct virtio_gpu_device *vgdev,
- void virtio_gpu_array_put_free_work(struct work_struct *work);
- 
- /* virtgpu_vq.c */
--int virtio_gpu_alloc_vbufs(struct virtio_gpu_device *vgdev);
--void virtio_gpu_free_vbufs(struct virtio_gpu_device *vgdev);
-+int virtio_gpu_vbufs_init(void);
-+void virtio_gpu_vbufs_exit(void);
- void virtio_gpu_reclaim_vbufs(struct virtio_gpu_device *vgdev);
- void virtio_gpu_cmd_create_resource(struct virtio_gpu_device *vgdev,
- 				    struct virtio_gpu_object *bo,
-diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
-index 1d4d3bf46a20..047b591b5da2 100644
---- a/drivers/gpu/drm/virtio/virtgpu_kms.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
-@@ -264,11 +264,6 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
- 		DRM_ERROR("failed to find virt queues\n");
- 		goto err_vqs;
- 	}
--	ret = virtio_gpu_alloc_vbufs(vgdev);
--	if (ret) {
--		DRM_ERROR("failed to alloc vbufs\n");
--		goto err_vbufs;
--	}
- 
- 	/* get display info */
- 	virtio_cread_le(vgdev->vdev, struct virtio_gpu_config,
-@@ -324,8 +319,6 @@ int virtio_gpu_init(struct virtio_device *vdev, struct drm_device *dev)
- 	virtio_reset_device(vgdev->vdev);
- 	virtio_gpu_modeset_fini(vgdev);
- err_scanouts:
--	virtio_gpu_free_vbufs(vgdev);
--err_vbufs:
- 	vgdev->vdev->config->del_vqs(vgdev->vdev);
- err_vqs:
- 	dev->dev_private = NULL;
-@@ -365,7 +358,6 @@ void virtio_gpu_release(struct drm_device *dev)
- 		return;
- 
- 	virtio_gpu_modeset_fini(vgdev);
--	virtio_gpu_free_vbufs(vgdev);
- 	virtio_gpu_cleanup_cap_cache(vgdev);
- 
- 	if (vgdev->has_host_visible)
-diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
-index c02c03c10d92..769b6e70feda 100644
---- a/drivers/gpu/drm/virtio/virtgpu_vq.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
-@@ -70,21 +70,23 @@ void virtio_gpu_cursor_ack(struct virtqueue *vq)
- 	schedule_work(&vgdev->cursorq.dequeue_work);
- }
- 
--int virtio_gpu_alloc_vbufs(struct virtio_gpu_device *vgdev)
-+/* Shared by all devices: a per-device cache would collide by name. */
-+static struct kmem_cache *virtio_gpu_vbufs;
-+
-+int virtio_gpu_vbufs_init(void)
- {
--	vgdev->vbufs = kmem_cache_create("virtio-gpu-vbufs",
--					 VBUFFER_SIZE,
--					 __alignof__(struct virtio_gpu_vbuffer),
--					 0, NULL);
--	if (!vgdev->vbufs)
-+	virtio_gpu_vbufs = kmem_cache_create("virtio-gpu-vbufs",
-+					     VBUFFER_SIZE,
-+					     __alignof__(struct virtio_gpu_vbuffer),
-+					     0, NULL);
-+	if (!virtio_gpu_vbufs)
- 		return -ENOMEM;
- 	return 0;
- }
- 
--void virtio_gpu_free_vbufs(struct virtio_gpu_device *vgdev)
-+void virtio_gpu_vbufs_exit(void)
- {
--	kmem_cache_destroy(vgdev->vbufs);
--	vgdev->vbufs = NULL;
-+	kmem_cache_destroy(virtio_gpu_vbufs);
- }
- 
- /* For drm_panic */
-@@ -93,7 +95,7 @@ virtio_gpu_panic_get_vbuf(struct virtio_gpu_device *vgdev, int size)
- {
- 	struct virtio_gpu_vbuffer *vbuf;
- 
--	vbuf = kmem_cache_zalloc(vgdev->vbufs, GFP_ATOMIC);
-+	vbuf = kmem_cache_zalloc(virtio_gpu_vbufs, GFP_ATOMIC);
- 
- 	vbuf->buf = (void *)vbuf + sizeof(*vbuf);
- 	vbuf->size = size;
-@@ -110,7 +112,7 @@ virtio_gpu_get_vbuf(struct virtio_gpu_device *vgdev,
- {
- 	struct virtio_gpu_vbuffer *vbuf;
- 
--	vbuf = kmem_cache_zalloc(vgdev->vbufs, GFP_KERNEL | __GFP_NOFAIL);
-+	vbuf = kmem_cache_zalloc(virtio_gpu_vbufs, GFP_KERNEL | __GFP_NOFAIL);
- 
- 	BUG_ON(size > MAX_INLINE_CMD_SIZE ||
- 	       size < sizeof(struct virtio_gpu_ctrl_hdr));
-@@ -205,7 +207,7 @@ static void free_vbuf(struct virtio_gpu_device *vgdev,
- 	if (vbuf->resp_size > MAX_INLINE_RESP_SIZE)
- 		kfree(vbuf->resp_buf);
- 	kvfree(vbuf->data_buf);
--	kmem_cache_free(vgdev->vbufs, vbuf);
-+	kmem_cache_free(virtio_gpu_vbufs, vbuf);
- }
- 
- void virtio_gpu_reclaim_vbufs(struct virtio_gpu_device *vgdev)
--- 
-2.43.0
-
+>        Arnd
