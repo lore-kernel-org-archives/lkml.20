@@ -1,405 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36B5B3803DB;
-	Sat, 10 Oct 2026 08:19:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EBA13603D5
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:19:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791620360; cv=none; b=IWoYOyqhnwvOXjWlATtGNNyVPzhogMVKS1aQXhBzuPwcBPnAELp05OksFd7vRhtTFqb+YE2qx9nIYVUP85gare/tP29bTY4rZ8vRrWPNo0YpcqFPzDfKm7YOFsOGq4e095/QeEq56DY3K22YSWHdjH/e4ZqHUJb9mvJxcuVL77w=
+	t=1791620364; cv=none; b=dritVGf79AW/6DACuJc3TsihTRt5lcqwzjISd7bq7AKAUNi9+sWiU1bgmWLOZV2Ops9jH0O2dAK12nLHYWzWitFiD63fSZfbtpXosMb5nsbq9CHkapUKEsZajvy23FsMuLpNdpVgdvOOjFldUZVp2UXv9lPDXU26KT3nHyzqALQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791620360; c=relaxed/simple;
-	bh=3dxAy3XxqoV0kIjJ+fejECq8Xr3Ui5Qy2JhhBHUeqPI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LEbIwjKMFtAoDhOEZFYjDFoNqmzmq7MyaGtkfvz1PpgAmUXgqRCjITE99nHe5tvUueO7X5QpD6tSWpKiNaSlh/j7DJF8M7LjwkX95udPDQznaQsSYXmk+Wf8RFDmcR74VGiH5LwZdo4BxN8zZ/SLRILiRnrv25ov9ZMXemUelmA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T8eI0fuh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791620364; c=relaxed/simple;
+	bh=0nIngpZp+inShOASYSj886fWfbkUeZYjBtrsY8Usq7k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B+MdyITMLPQHAQ0cALWorD1/df9c4vjoNDbpWm/799TXWuFiFjz7s0CIjd2OXU9F160ZeCrYdVZGBNDr+ea7g6O4Re9TibN+1Va6U1IsPRJyTmk/UZAC9hnqYAZHbS2VhSAzgss97fzquGCfVd3GyWDAjMzwYd4bVrYHrME1BSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bV3Fr2PU; arc=none smtp.client-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T8eI0fuh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D495D1F000FF;
-	Sat, 10 Oct 2026 08:19:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791620354;
-	bh=jbrxToL9h+mh+x8TvDBXiXTUfIGGsVunMTIPlJq7gv0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=T8eI0fuhzMmBMrkKQhKreHm77JjUWrFNiT1Zu1MBhoCalLeDw3nvvzWYWO95fsRA1
-	 gfn93b0jKOUJ9/LQFcTYqcwHvJ9UAdafX9D4GStRt8RK3E9MVm1ZdazpM9UFcLOjX8
-	 R+vUxa5hj9XHpwdRIINeGpxDNF2nrMAKvcbLCgiNLfFC7qTIAFyj3/4oodi0OGk8RS
-	 JyCq2cIf4+VcBUxjYfLV8MFYdx3YHpRgHFvavZ8G+EnX3jamljdXrmwwFmbFc6nz3T
-	 x2oMof/YKHNqqdXRMgeKvfsUcuNqmbELvLGF8OtiMB/+S9mbIWp+YNCeei3ovLaw8G
-	 XYWayMa3uTuKw==
-From: Kees Cook <kees@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Kees Cook <kees@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Manuel Ebner <manuelebnerli@mailbox.org>,
-	linux-kbuild@vger.kernel.org,
-	Ard Biesheuvel <ardb@kernel.org>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Nicolas Schier <n.schier@fritz.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bV3Fr2PU"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ab9268d90eso93745a91.3
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 01:19:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791620356; x=1792225156; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6k52INFfuvMm/tjJwSTAbKQML/NWkmAz6TpJUNRMaqY=;
+        b=bV3Fr2PUmixZ6BhEY/znWdntjnSZwEiZUWaANPbSpvmnMg6VsG73BKTq1kk5H9itjN
+         CmJtUY+B1BDalspG0GEuxmZMu16ZMU4bdpVALzlKWHoiW3K8WQ/PAb20PmMZed/Z9OMb
+         hRjtDkOYHj/sWkNK2wqJFEAOsp5J5fHzYmhMaQuEioMwQloTmbmog2TrL8ti1K/k4TET
+         3BfZa/FmjevvI182MCgrjFXqUYkWJrl55Lao5vtEJSeinORdKqAzTSVjjPDprb/2otR+
+         dpXcyMbDi4irc+Ji9WniOItPigCuNphXGa98HfBPADPCzb1/nMVkQcOcHqJYqotoHE5f
+         lp1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791620356; x=1792225156;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6k52INFfuvMm/tjJwSTAbKQML/NWkmAz6TpJUNRMaqY=;
+        b=wPZzF4WJB9u5mcev6fvq7tLfFf51AMZqZY5qwZ1AIfFFYCzoIzbBYETzdLNMJWdGKR
+         Mk8eAiHfXkfQCR9LjHIMSqIP2L6BUG/JT9NSbVhFkUShzjAdFRSdLmJd/RiesMmbVAbB
+         ue8wG2vI0ZGPVDTO6GExnIjep/reRlQXR4E48BcD8aKMOwXOauVpgYP+3KHYPZHjks0g
+         kTgDDWFZUB+CAwq0XNgwzJcd1bZE1WlBupBCeeCQmVkwzkZEr22aUsMBMQRvYHs117Sh
+         2YfrmuLpJaVk3oXhqG+kBUOfjvPeYEKo/buTCz8DjF5BgEgg8Wfy643kAIj0DfUl0o3h
+         Q6tg==
+X-Forwarded-Encrypted: i=1; AKwUvBxlDfjyCCjxlyOVTXkAxH4k7CM/xOdfRkv2Z2FFYhPBGkTCl6Fq0+/zdL/i2oxB6hYtpkajQ2xsJg4pwN4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZPDo2cKJ1adQV500fxai6J1qTGvzMXAmDXgh+ESFkc/C6cmLf
+	vUweIpCtVjbDi/6RhJKCN2nyOhKuanhwfE5p+jQahez71AQ4cvWXoXnW
+X-Gm-Gg: AYBFou28cemZcZTeMEu5Ra2DJYX7pPI0TXyjD1yiCXZVAX80Q/q4QfcATDK06J4yBNK
+	tERZntsc1fN4Et9mBOoSjTCWGskYQIjcTV8/8YmvZRdMDyC+IFEtK9BniAbM7HjBsc9qV9yEeSd
+	QDz28ol+IFC/CVuvsaZG+H1OP9Trr8E6Dd8fAr9KwAuUgDOJqZZjlhBvLKjjV34wMwgP9HeLoeW
+	ua5GvaEGAzJiJlrrHaWj57a1uHPHABartKuT8wtwbVWNNVOhRnu04bSb8C44npvYGdw2iKRZXpj
+	bcO//0kWOGnZDP2SB22b4n01MfS8W7jqMaTtbgA1oMW/bufpSgtlFQWlSP26chMO8Q2iSq4G0xj
+	ySHi0mMbCxhm6S1k467YmqOJMfL1LOohQWrhba9ZrQa2lPhRhH37QO4/v4MAbmUfL5aT6p6DhV0
+	nNum4+8U7dK3RUe2/YxO3mXAUTEY4Gor3WnEKaLogX+j0cV3XjWFyS1aPpaxL0Ltsd8HVTUsI9y
+	3uEI5c=
+X-Received: by 2002:a17:90b:2886:b0:3a6:fec5:c186 with SMTP id 98e67ed59e1d1-3ab3acf7535mr3661751a91.46.1791620355561;
+        Sat, 10 Oct 2026 01:19:15 -0700 (PDT)
+Received: from arch.localdomain ([161.33.202.10])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36ed0332sm7744574a91.3.2026.10.10.01.19.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 01:19:15 -0700 (PDT)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: MyungJoo Ham <myungjoo.ham@samsung.com>,
+	Chanwoo Choi <cw00.choi@samsung.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michael Auchter <michael.auchter@ni.com>
+Cc: Jun Yan <jerrysteve1101@gmail.com>,
 	linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: [PATCH v2 1/2] kbuild: Mark the gzip recipes as recursive
-Date: Sat, 10 Oct 2026 01:19:10 -0700
-Message-ID: <20261010081914.540611-1-kees@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261010081910.stay.092-kees@kernel.org>
-References: <20261010081910.stay.092-kees@kernel.org>
+	devicetree@vger.kernel.org
+Subject: [PATCH] dt-bindings: extcon: tusb320: add SGM7220 fallback compatible
+Date: Sat, 10 Oct 2026 16:19:06 +0800
+Message-ID: <20261010081907.479226-1-jerrysteve1101@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=13636; i=kees@kernel.org; h=from:subject; bh=3dxAy3XxqoV0kIjJ+fejECq8Xr3Ui5Qy2JhhBHUeqPI=; b=owGbwMvMwCVmps19z/KJym7G02pJDFknv/xj27R58btzF36/4tV6NeHysvksD2sL/x15sKw0f Q0/X8G8DR2lLAxiXAyyYoosQXbucS4eb9vD3ecqwsxhZQIZwsDFKQATUTnDyHBY897qZSJiZprP 5BN220q53iiW22vUFVY+05y78xbvztWMDHvnrL2vd/ry9+fFvVVsQiuK/v/vSY5gKBT4cT3j/o/ y2dwA
-X-Developer-Key: i=kees@kernel.org; a=openpgp; fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 Content-Transfer-Encoding: 8bit
 
-Since commit 48ebe1cbbeb51 ("kbuild: compress the kernel with pigz if
-available"), cmd_gzip runs pigz through scripts/jobserver-exec, which
-takes the job slots make has free. GNU Make passes the jobserver pipe
-only to recipes it treats as recursive, but leaves --jobserver-auth in
-MAKEFLAGS for all of them. The make 4.3 in CentOS Stream 9 also hides
-the pipe in sub-makes (a backport of the fix for GNU Make bug 58232), so
-jobserver-exec cannot open it, runs pigz on one thread, and prints:
+The SGM7220 is register-compatible with the TI TUSB320, even reporting
+the same device ID, so it can be described in a device tree using
+ti,tusb320 as the fallback compatible string.
 
-  WARNING: Unable to reopen jobserver read-side pipe: FileNotFoundError(2, 'No such file or directory')
-
-Mark every recipe that can run cmd_gzip as recursive with "+", as
-commit ecab4115c44cc ("kbuild: mark `rustc` (and others) invocations as
-recursive") did for rustc. Besides the $(call if_changed,gzip) rules,
-this covers those that choose gzip through a variable: the built-in
-initramfs in usr/Makefile (which rcutorture's kvm.sh builds), the EFI
-zboot image, and the arm, csky, and mips compressed images. As with
-rustc, "make -n" now runs these recipes, including those that choose
-through a variable when they select another compressor. Also update the
-gzip entry in Documentation/kbuild/makefiles.rst, as suggested in
-review.
-
-Tested with GNU Make 4.3 plus CentOS Stream 9's make-4.3-cloexec.patch,
-GCC 16.2.0, and -j64, on ARCH=x86_64, arm64, and arm defconfig, and
-ARCH=x86_64 defconfig with a built-in initramfs: none of them prints the
-warning, and pigz gets the free job slots (-p 54, 64, and 50 for the
-kernel image). Without this change, the x86_64 builds print it for the
-kernel image and for the initramfs.
-
-Reported-by: Paul E. McKenney <paulmck@kernel.org>
-Closes: https://lore.kernel.org/all/0ddb5e5e-f801-444c-aa98-0cfe814a3026@paulmck-laptop/
-Fixes: 48ebe1cbbeb51 ("kbuild: compress the kernel with pigz if available")
-Assisted-by: LLM
-Reviewed-by: Nicolas Schier <n.schier@fritz.com>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Kees Cook <kees@kernel.org>
+Link: https://www.sg-micro.com/rect/assets/bec47c84-84b4-4015-8d61-9433e0d76583/SGM7220.pdf
+Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
 ---
- arch/alpha/boot/Makefile                    | 4 ++--
- arch/arc/boot/Makefile                      | 2 +-
- arch/arm/boot/compressed/Makefile           | 2 +-
- arch/arm64/boot/Makefile                    | 2 +-
- arch/csky/boot/Makefile                     | 2 +-
- arch/microblaze/boot/Makefile               | 2 +-
- arch/mips/boot/Makefile                     | 2 +-
- arch/mips/boot/compressed/Makefile          | 2 +-
- arch/nios2/boot/Makefile                    | 2 +-
- arch/parisc/boot/compressed/Makefile        | 2 +-
- arch/riscv/boot/Makefile                    | 2 +-
- arch/s390/boot/Makefile                     | 2 +-
- arch/sh/boot/Makefile                       | 2 +-
- arch/sh/boot/compressed/Makefile            | 2 +-
- arch/sparc/boot/Makefile                    | 4 ++--
- arch/x86/boot/compressed/Makefile           | 2 +-
- arch/xtensa/boot/Makefile                   | 2 +-
- usr/Makefile                                | 2 +-
- drivers/firmware/efi/libstub/Makefile.zboot | 2 +-
- Documentation/kbuild/makefiles.rst          | 7 +++++--
- 20 files changed, 26 insertions(+), 23 deletions(-)
+ .../bindings/extcon/extcon-usbc-tusb320.yaml           | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/arch/alpha/boot/Makefile b/arch/alpha/boot/Makefile
-index d8dba85e606c..b050753e9015 100644
---- a/arch/alpha/boot/Makefile
-+++ b/arch/alpha/boot/Makefile
-@@ -40,7 +40,7 @@ endif
+diff --git a/Documentation/devicetree/bindings/extcon/extcon-usbc-tusb320.yaml b/Documentation/devicetree/bindings/extcon/extcon-usbc-tusb320.yaml
+index 126107dd57b1..f88486c2fb09 100644
+--- a/Documentation/devicetree/bindings/extcon/extcon-usbc-tusb320.yaml
++++ b/Documentation/devicetree/bindings/extcon/extcon-usbc-tusb320.yaml
+@@ -11,9 +11,13 @@ maintainers:
  
- # Compressed kernel image
- $(obj)/vmlinux.gz: $(obj)/vmlinux FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- 	@echo '  Kernel $@ is ready'
+ properties:
+   compatible:
+-    enum:
+-      - ti,tusb320
+-      - ti,tusb320l
++    oneOf:
++      - enum:
++          - ti,tusb320
++          - ti,tusb320l
++      - items:
++          - const: sgmicro,sgm7220
++          - const: ti,tusb320
  
- $(obj)/main.o: $(obj)/ksize.h
-@@ -85,7 +85,7 @@ $(obj)/vmlinux.nh: vmlinux $(OBJSTRIP) FORCE
- 	$(call if_changed,objstrip)
- 
- $(obj)/vmlinux.nh.gz: $(obj)/vmlinux.nh FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- 
- $(obj)/tools/lxboot: $(obj)/bootloader $(OBJSTRIP) FORCE
- 	$(call if_changed,objstrip)
-diff --git a/arch/arc/boot/Makefile b/arch/arc/boot/Makefile
-index 5a8550124b73..8a44c3e7ff3e 100644
---- a/arch/arc/boot/Makefile
-+++ b/arch/arc/boot/Makefile
-@@ -23,7 +23,7 @@ $(obj)/vmlinux.bin: vmlinux FORCE
- 	$(call if_changed,objcopy)
- 
- $(obj)/vmlinux.bin.gz: $(obj)/vmlinux.bin FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- 
- $(obj)/vmlinux.bin.lzma: $(obj)/vmlinux.bin FORCE
- 	$(call if_changed,lzma)
-diff --git a/arch/arm/boot/compressed/Makefile b/arch/arm/boot/compressed/Makefile
-index e3f550d62857..5f0a1a2e915a 100644
---- a/arch/arm/boot/compressed/Makefile
-+++ b/arch/arm/boot/compressed/Makefile
-@@ -153,7 +153,7 @@ $(obj)/vmlinux: $(obj)/vmlinux.lds $(obj)/$(HEAD) $(obj)/piggy.o \
- 	@$(check_for_bad_syms)
- 
- $(obj)/piggy_data: $(obj)/../Image FORCE
--	$(call if_changed,$(compress-y))
-+	+$(call if_changed,$(compress-y))
- 
- $(obj)/piggy.o: $(obj)/piggy_data
- 
-diff --git a/arch/arm64/boot/Makefile b/arch/arm64/boot/Makefile
-index b5a08333bc57..d42d07667822 100644
---- a/arch/arm64/boot/Makefile
-+++ b/arch/arm64/boot/Makefile
-@@ -26,7 +26,7 @@ $(obj)/Image.bz2: $(obj)/Image FORCE
- 	$(call if_changed,bzip2)
- 
- $(obj)/Image.gz: $(obj)/Image FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- 
- $(obj)/Image.lz4: $(obj)/Image FORCE
- 	$(call if_changed,lz4)
-diff --git a/arch/csky/boot/Makefile b/arch/csky/boot/Makefile
-index c3cfde28f8e6..5d88dc31877b 100644
---- a/arch/csky/boot/Makefile
-+++ b/arch/csky/boot/Makefile
-@@ -12,7 +12,7 @@ compress-$(CONFIG_KERNEL_XZ)   = xzkern
- compress-$(CONFIG_KERNEL_LZ4)  = lz4
- 
- $(obj)/zImage:  $(obj)/Image FORCE
--	$(call if_changed,$(compress-y))
-+	+$(call if_changed,$(compress-y))
- 	@echo '  Kernel: $@ is ready'
- 
- UIMAGE_ARCH		= sandbox
-diff --git a/arch/microblaze/boot/Makefile b/arch/microblaze/boot/Makefile
-index 2b42c370d574..e3df3a64808a 100644
---- a/arch/microblaze/boot/Makefile
-+++ b/arch/microblaze/boot/Makefile
-@@ -14,7 +14,7 @@ $(obj)/linux.bin.ub: $(obj)/linux.bin FORCE
- 	$(call if_changed,uimage)
- 
- $(obj)/linux.bin.gz: $(obj)/linux.bin FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- 
- quiet_cmd_strip = STRIP   $< $@$2
- 	cmd_strip = $(STRIP) -K microblaze_start -K _end -K __log_buf \
-diff --git a/arch/mips/boot/Makefile b/arch/mips/boot/Makefile
-index 8473c4671702..996bf41b78de 100644
---- a/arch/mips/boot/Makefile
-+++ b/arch/mips/boot/Makefile
-@@ -63,7 +63,7 @@ $(obj)/vmlinux.bin.bz2: $(obj)/vmlinux.bin FORCE
- 	$(call if_changed,bzip2)
- 
- $(obj)/vmlinux.bin.gz: $(obj)/vmlinux.bin FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- 
- $(obj)/vmlinux.bin.lzma: $(obj)/vmlinux.bin FORCE
- 	$(call if_changed,lzma)
-diff --git a/arch/mips/boot/compressed/Makefile b/arch/mips/boot/compressed/Makefile
-index e0b8ec9a9516..2684540758a8 100644
---- a/arch/mips/boot/compressed/Makefile
-+++ b/arch/mips/boot/compressed/Makefile
-@@ -69,7 +69,7 @@ tool_$(CONFIG_KERNEL_ZSTD)    = zstd22_with_size
- targets += vmlinux.bin.z
- 
- $(obj)/vmlinux.bin.z: $(obj)/vmlinux.bin FORCE
--	$(call if_changed,$(tool_y))
-+	+$(call if_changed,$(tool_y))
- 
- targets += piggy.o dummy.o
- 
-diff --git a/arch/nios2/boot/Makefile b/arch/nios2/boot/Makefile
-index 29c11a06b750..1381e6e428a8 100644
---- a/arch/nios2/boot/Makefile
-+++ b/arch/nios2/boot/Makefile
-@@ -18,7 +18,7 @@ $(obj)/vmlinux.bin: vmlinux FORCE
- 	$(call if_changed,objcopy)
- 
- $(obj)/vmlinux.gz: $(obj)/vmlinux.bin FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- 
- $(obj)/vmImage: $(obj)/vmlinux.gz FORCE
- 	$(call if_changed,uimage)
-diff --git a/arch/parisc/boot/compressed/Makefile b/arch/parisc/boot/compressed/Makefile
-index 14eefb5ed5d1..a7fc7d424c00 100644
---- a/arch/parisc/boot/compressed/Makefile
-+++ b/arch/parisc/boot/compressed/Makefile
-@@ -55,7 +55,7 @@ suffix-$(CONFIG_KERNEL_LZO)  := lzo
- suffix-$(CONFIG_KERNEL_XZ)  := xz
- 
- $(obj)/vmlinux.bin.gz: $(obj)/vmlinux.bin FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- $(obj)/vmlinux.bin.bz2: $(obj)/vmlinux.bin FORCE
- 	$(call if_changed,bzip2_with_size)
- $(obj)/vmlinux.bin.lz4: $(obj)/vmlinux.bin FORCE
-diff --git a/arch/riscv/boot/Makefile b/arch/riscv/boot/Makefile
-index 4a2d75b7e42d..b80a077a8e8f 100644
---- a/arch/riscv/boot/Makefile
-+++ b/arch/riscv/boot/Makefile
-@@ -23,7 +23,7 @@ $(obj)/Image: vmlinux FORCE
- 	$(call if_changed,objcopy)
- 
- $(obj)/Image.gz: $(obj)/Image FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- 
- $(obj)/loader.o: $(src)/loader.S $(obj)/Image
- 
-diff --git a/arch/s390/boot/Makefile b/arch/s390/boot/Makefile
-index 10b75e053a6f..e8e43ae80dd5 100644
---- a/arch/s390/boot/Makefile
-+++ b/arch/s390/boot/Makefile
-@@ -117,7 +117,7 @@ suffix-$(CONFIG_KERNEL_XZ)  := .xz
- suffix-$(CONFIG_KERNEL_ZSTD)  := .zst
- 
- $(obj)/vmlinux.bin.gz: $(obj)/vmlinux.bin FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- $(obj)/vmlinux.bin.bz2: $(obj)/vmlinux.bin FORCE
- 	$(call if_changed,bzip2_with_size)
- $(obj)/vmlinux.bin.lz4: $(obj)/vmlinux.bin FORCE
-diff --git a/arch/sh/boot/Makefile b/arch/sh/boot/Makefile
-index 1f5d2df3c7e0..cf63e319b786 100644
---- a/arch/sh/boot/Makefile
-+++ b/arch/sh/boot/Makefile
-@@ -66,7 +66,7 @@ $(obj)/vmlinux.bin: vmlinux FORCE
- 	$(call if_changed,objcopy)
- 
- $(obj)/vmlinux.bin.gz: $(obj)/vmlinux.bin FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- 
- $(obj)/vmlinux.bin.bz2: $(obj)/vmlinux.bin FORCE
- 	$(call if_changed,bzip2)
-diff --git a/arch/sh/boot/compressed/Makefile b/arch/sh/boot/compressed/Makefile
-index 58df491778b2..b85aa5f0d616 100644
---- a/arch/sh/boot/compressed/Makefile
-+++ b/arch/sh/boot/compressed/Makefile
-@@ -39,7 +39,7 @@ $(obj)/vmlinux.bin: vmlinux FORCE
- 	$(call if_changed,objcopy)
- 
- $(obj)/vmlinux.bin.gz: $(obj)/vmlinux.bin FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- $(obj)/vmlinux.bin.bz2: $(obj)/vmlinux.bin FORCE
- 	$(call if_changed,bzip2_with_size)
- $(obj)/vmlinux.bin.lzma: $(obj)/vmlinux.bin FORCE
-diff --git a/arch/sparc/boot/Makefile b/arch/sparc/boot/Makefile
-index 339c42d35089..b53cf596611e 100644
---- a/arch/sparc/boot/Makefile
-+++ b/arch/sparc/boot/Makefile
-@@ -23,7 +23,7 @@ ifeq ($(CONFIG_SPARC64),y)
- # Actual linking
- 
- $(obj)/zImage: $(obj)/image FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- 	@$(kecho) 'Kernel: $@ is ready' '(#'$(or $(KBUILD_BUILD_VERSION),`cat .version`)')'
- 
- $(obj)/vmlinux.aout: vmlinux FORCE
-@@ -45,7 +45,7 @@ $(obj)/image.bin: $(obj)/image FORCE
- 	$(call if_changed,objcopy)
- 
- $(obj)/image.gz: $(obj)/image.bin FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- 
- UIMAGE_LOADADDR = $(CONFIG_UBOOT_LOAD_ADDR)
- UIMAGE_ENTRYADDR = $(CONFIG_UBOOT_ENTRY_ADDR)
-diff --git a/arch/x86/boot/compressed/Makefile b/arch/x86/boot/compressed/Makefile
-index 6ec5e031db1d..680ad803cba7 100644
---- a/arch/x86/boot/compressed/Makefile
-+++ b/arch/x86/boot/compressed/Makefile
-@@ -133,7 +133,7 @@ vmlinux.bin.all-y := $(obj)/vmlinux.bin
- vmlinux.bin.all-$(CONFIG_X86_NEED_RELOCS) += $(obj)/vmlinux.relocs
- 
- $(obj)/vmlinux.bin.gz: $(vmlinux.bin.all-y) FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- $(obj)/vmlinux.bin.bz2: $(vmlinux.bin.all-y) FORCE
- 	$(call if_changed,bzip2_with_size)
- $(obj)/vmlinux.bin.lzma: $(vmlinux.bin.all-y) FORCE
-diff --git a/arch/xtensa/boot/Makefile b/arch/xtensa/boot/Makefile
-index d8b0fadf429a..934f9015b15f 100644
---- a/arch/xtensa/boot/Makefile
-+++ b/arch/xtensa/boot/Makefile
-@@ -36,7 +36,7 @@ $(obj)/vmlinux.bin: vmlinux FORCE
- 	$(call if_changed,objcopy)
- 
- $(obj)/vmlinux.bin.gz: $(obj)/vmlinux.bin FORCE
--	$(call if_changed,gzip)
-+	+$(call if_changed,gzip)
- 
- boot-elf: $(obj)/vmlinux.bin
- boot-redboot: $(obj)/vmlinux.bin.gz
-diff --git a/usr/Makefile b/usr/Makefile
-index 5b97ee66c00a..975c68e5b6b6 100644
---- a/usr/Makefile
-+++ b/usr/Makefile
-@@ -76,7 +76,7 @@ $(obj)/initramfs_data.cpio: $(srctree)/scripts/gen_initramfs.sh scripts/gen_init
- endif
- 
- $(obj)/initramfs_inc_data: $(cpio-data) FORCE
--	$(call if_changed,$(compress-y))
-+	+$(call if_changed,$(compress-y))
- 
- targets += initramfs_data.cpio initramfs_inc_data
- 
-diff --git a/drivers/firmware/efi/libstub/Makefile.zboot b/drivers/firmware/efi/libstub/Makefile.zboot
-index 832deee36e48..52baacf3e9d9 100644
---- a/drivers/firmware/efi/libstub/Makefile.zboot
-+++ b/drivers/firmware/efi/libstub/Makefile.zboot
-@@ -24,7 +24,7 @@ zboot-method-$(CONFIG_KERNEL_ZSTD)	:= zstd22_with_size
- zboot-size-len-$(CONFIG_KERNEL_ZSTD)	:= 4
- 
- $(obj)/vmlinuz: $(obj)/vmlinux.bin FORCE
--	$(call if_changed,$(zboot-method-y))
-+	+$(call if_changed,$(zboot-method-y))
- 
- # avoid eager evaluation to prevent references to non-existent build artifacts
- OBJCOPYFLAGS_vmlinuz.o = -I binary -O $(EFI_ZBOOT_BFD_TARGET) $(EFI_ZBOOT_OBJCOPY_FLAGS) \
-diff --git a/Documentation/kbuild/makefiles.rst b/Documentation/kbuild/makefiles.rst
-index 7521cae7d56f..535d30eef59a 100644
---- a/Documentation/kbuild/makefiles.rst
-+++ b/Documentation/kbuild/makefiles.rst
-@@ -1452,13 +1452,16 @@ objcopy
-   OBJCOPYFLAGS_$@ may be used to set additional options.
- 
- gzip
--  Compress target. Use maximum compression to compress target.
-+  Compress target. Use maximum compression to compress target. Prefix the
-+  recipe line with '+' so that GNU Make passes it the jobserver, which
-+  scripts/jobserver-exec needs to run pigz (if available) on the free job
-+  slots.
- 
-   Example::
- 
-     #arch/x86/boot/compressed/Makefile
-     $(obj)/vmlinux.bin.gz: $(vmlinux.bin.all-y) FORCE
--            $(call if_changed,gzip)
-+            +$(call if_changed,gzip)
- 
- dtc
-   Create flattened device tree blob object suitable for linking
+   reg:
+     maxItems: 1
 -- 
-2.55.0
+2.56.0
 
