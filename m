@@ -1,185 +1,169 @@
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B437337699;
-	Sat, 10 Oct 2026 17:05:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FB8113B58C
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 17:07:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791651932; cv=none; b=esfE18+SpkLqkt73skByFA+XHbmVoIeCaeos+2chGkhTjpnxMkIOLCGiOX9WpFCWKzQIp2S2ko27dJMRuBdOaKaz1yRfOcLS8a7LxUdO6ZvhoeqAD2RSl3WBgcfwO01OrXMC9gEO5U+sfBuxvnlt+TLGNfOfb9FouztrnCTRzzE=
+	t=1791652053; cv=none; b=AiOcpWorvnYvUx1WVPN57mU/GX2Uw5UWojr6l02D8eexiln9UzuqYEvpzBNH8eJvQ/yyldQDkS64ylx/h7kpba1Ei0LgyAD7IZNsfiPo2qCBL2Hb1R2YKjU7bEavQjq0InyOYJKyGMoVmG6QCBqQEPDhgGmdGVDBSsTUK3YItbE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791651932; c=relaxed/simple;
-	bh=bX69TTLpm2F+KxFhin6mG64NDg6qinxqgsZOLwiteXg=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 MIME-Version:Content-Type; b=QB/VDTGzPTeYr8pujRgNalGGe0ZDRKHoaBJwAENLjrTXlwqdjSC2WwnnE9Rl5G+aAZ2boRefrGt/xuHxEAJ+ulfD5h+ZBpXbTObWxMtIFoo8Q5xk7dhGGIpXkHPc7rVUEOz/dxBl0LM8K/pdSNJHtAJKlSs3xsxjJ0Wp3vkS//Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=GBJ5QDBd; arc=none smtp.client-ip=143.255.12.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	s=arc-20240116; t=1791652053; c=relaxed/simple;
+	bh=xD8bfS3io+knOqQfia0Tyat1IcRQHDGpTNIwfhL4cpg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=bc6F42TZEaFp15N3vbP7HNOMG+IztChzPASZtFw7VQ0fRlKwdAvijjeeCgFKd8+RWrlOniyF708XXJm2/e41Vfg5ZyUh7F66LLmoqGc0mZL3bIfTj7itkFnIpPu/UasCzlNExuqSNa9W/z6JjU3y4l3cUtYoG+0Bv5GG0QBnMKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dhAdQ/yc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kCKhPWJE; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="GBJ5QDBd"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
-	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=7hcF4/ysd3bmWU9fUJN00eTICOOg/RwQsYlRByeFUYA=; b=GBJ5QDBd7r39weyBBEB+qc3wau
-	PIV3aEBoowGr9Lka6RXxZVvg6mOTlOnmk9XcZIStaLC9UKJ00KPgb0yqMnwn20BQtsHH6tpyWdyMS
-	A//gL9oPwWk8MxpZFSZMd7ZWNVzxPbBcJ/NbLAT8PIYr499ZChqhiG9+wFYosOYVKnP7Ae4DEHA63
-	uE2OguOZj97Qc/BLKOoS2dFsLSs+CqbCj9lhDqy5sN3cUYIMhJ82l+XlVVXDmYW6ZvP2lvZhMYFXY
-	Me131l0jw2T4BDREyk9kchrN5nc/fvSjheWBi7+kFp4Bv/sYTxNIEH9TiwjVcLEJ+VOvVPSsaobWi
-	MjN9M88g==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1xFaVj-00000003LE6-36l3;
-	Sat, 10 Oct 2026 14:05:27 -0300
-Message-ID: <de35bcca12facb37a96cf38f328bd82b@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: Diego Oliva <diego@bynar.io>, Namjae Jeon <linkinjeon@kernel.org>,
- linux-cifs@vger.kernel.org
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad N
- <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>, Bharath SM
- <bharathsm@microsoft.com>, Jeff Layton <jlayton@kernel.org>,
- samba-technical@lists.samba.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/7] smb: client: fix OOB and use-after-free infoleaks
- in SMB1 FIND responses
-In-Reply-To: <20260929091636.2618227-1-diego@bynar.io>
-References: <20260929091636.2618227-1-diego@bynar.io>
-Date: Sat, 10 Oct 2026 14:05:27 -0300
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dhAdQ/yc";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kCKhPWJE"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69AFPRD7795570
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 17:07:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	t/1QcsDW5BJKU9YLkS92YpjE8gYPmGHsWSBALL/pLBg=; b=dhAdQ/ycMl+oPia2
+	fd8bj0rA4C6/kmqcKWlHITpsqMTg6fOHMqnTdnDYtPu6rsAu94ToumDsdmDOT+7b
+	oLitpw8uy+KCF0IJ5vBm6qHAAYHhjgCy2ChbEqSGOTVh33xwGYNb7tV6NvbDhmSW
+	fTEzmFRNXCcS5koS2rmh/T8z+Dy6GgeN2o28sNQnOhmlo104/S5EgdQoA3ja7kXt
+	A9QeaRBUEaWee/adwXLFSYPEOviys0tUCJfBSFlUJjKT2aty0qZmenPbUjEKkEKl
+	Lt16S+u/qCmBcPmFygY+GkjkyM5ar47MTtvZsN/OeicltXFoYzfwjOeu4/u5ofcK
+	EJIO+g==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7aqmsuh8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 17:07:30 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-35158d674e1so3187338eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 10:07:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791652049; x=1792256849; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=t/1QcsDW5BJKU9YLkS92YpjE8gYPmGHsWSBALL/pLBg=;
+        b=kCKhPWJE4u2Pm3/DA9LVwJGEUf9xQE6oPeBV1ticfHYW5MXulpSk2RpuPFWnZ0v6+N
+         CsqsOScKnRIMxrrHHyi/gdf1dtEhkgkJDJc4saehFMx2998vT3Sd6YkUU7AroXKZk1dk
+         ue6Ossl2RLXRP9ZhxBwRO+2AHlqCSPARXHf2fG7QaMmpYvnLSocVkdh8kXI9llmdPABP
+         07Yoc89bNI7a10xB3bAOuwcaavihf2comFd+4ITF4mR7NpNiJ8idV2jEWCf1EzfC6en1
+         cUbupVOw+f/9k1LubIrnFkah1hUm0ZAGxOFYt2kvw4NGqgBCUoErSwcyOwn9IuWdzNwO
+         vAfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791652049; x=1792256849;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=t/1QcsDW5BJKU9YLkS92YpjE8gYPmGHsWSBALL/pLBg=;
+        b=GDpccGm6vcjPSL2S8rEH2TFWp03UQihA4uYJNjhwi4E1/vJ9XBRL92Mj16Kuyd05tT
+         02DbwwT+0/OET1MW3OaPSegm3ywsFQmJxrpRdYPSynQgeRfDOjCYk+Fl1zM4krrjWT89
+         b2qYXntkY2iCnzx3kwB53P9n6Tq+X6DutVL4GtXO6MAJhSOqb7UgPpZjLNmdgZqYThMG
+         MOnZjr4ZBwpgCjtlzJQBcTC5Y9r18BybgVCPJgnHhrarhUEt2J+BalY5ntHp6mWr1xSP
+         YVlsSlFaPbdKcM6ocej+/VeAIzCkXYaYY2W1r9j9vIuxAEWTmB8DMTxaJ812wcHvNA9s
+         wgnw==
+X-Forwarded-Encrypted: i=1; AKwUvBwtGodTsOdk3sNlgPf4D3Q73LaxJZDRv3z0CctYCFA30UjoMTAFp5CK+QF3Ps3kuKVd5jHl4WWraGmaPXA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKlUBQlIwLcjC/tR6M8+n2kufo6FpzAHi+LM6SrVAzh/fC2+Nw6
+	TK9dd/6JDBXMXyMFDnfxROaHsK1LDUN+WogyZrxNy3eOlTmivmiDT1d4G2W7Tg0RBi5O0hZeLX1
+	xmK7dbTA+hFVCHQ1k4rjaw/Htb/mJmQVgeT/vDmYaLi76BaRs/6olF7DTZuPFXP77V/kA7Xo+Da
+	I=
+X-Gm-Gg: AYBFou3JIWglfsPugpiokX3nzvvIeut80XeHSNth3QR2sJEM8Tl0DFv1FzTbi1B9Avv
+	O/LpcTiyrn4+/C4dT84AIFz1xVcCXTqekFioH96+Cahv2lwovX1Q9tzYjq06vJpyLWkJTOPj7/J
+	QCjc1Sw+EtUl8c9PUcfW9E7ERIuxtNBsrU5aYqIbnPjacHEM4PYxhNQbmb/8KF4+H3sk+73yaQD
+	G82s1g6hKXNoDkJ8BX/m7SqwLXkkHtL6KAKIxEEUlQFukxSi/2TCoXN9JGT6Yn1WuJp6t/kIkJ2
+	mWjM1CXxLqFlqjhQnujDdJMJNMOJVqOKmZGeUV/MqJy2/0agD5AyxTwNY8F1x4sk58WDz0n+hqH
+	g/1C7i5WO08/rHvvYd0W4k30V8E+7tij1+bxNphrVdynKwWDzp/WVIn4fAw==
+X-Received: by 2002:a05:7300:8420:b0:351:7f5c:dbe1 with SMTP id 5a478bee46e88-3537e02318amr7699843eec.28.1791652049071;
+        Sat, 10 Oct 2026 10:07:29 -0700 (PDT)
+X-Received: by 2002:a05:7300:8420:b0:351:7f5c:dbe1 with SMTP id 5a478bee46e88-3537e02318amr7699807eec.28.1791652048453;
+        Sat, 10 Oct 2026 10:07:28 -0700 (PDT)
+Received: from [192.168.1.20] (33.sub-75-218-193.myvzw.com. [75.218.193.33])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3581f594a41sm9274614eec.23.2026.10.10.10.07.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 10 Oct 2026 10:07:27 -0700 (PDT)
+Message-ID: <d7f5ae97-05f0-487d-a31a-38c14e9c9e12@oss.qualcomm.com>
+Date: Sat, 10 Oct 2026 10:07:26 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/5] wifi: ath: avoid IDR mutation while iterating
+To: Jiale Yao <yaojiale02@163.com>, Jeff Johnson <jjohnson@kernel.org>,
+        Shashidhar Lakkavalli <slakkavalli@datto.com>,
+        linux-wireless@vger.kernel.org, ath10k@lists.infradead.org,
+        linux-kernel@vger.kernel.org, ath11k@lists.infradead.org,
+        ath12k@lists.infradead.org
+References: <20261003092104.520135-1-yaojiale02@163.com>
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20261003092104.520135-1-yaojiale02@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEwMDA2OCBTYWx0ZWRfX/KaJTGSksnyb
+ CItMo/9qSWWuSM9734OQP6+cxyx4OfM97TQ3sqBoQ1sNCqgL+U0d+nZ+oS5ZUiOh9Dp0X26Sc4e
+ dPyFGh/Zz1RyYIXjAYY8wq/g5mdFv+8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEwMDA2OCBTYWx0ZWRfXx2KYB9hBOg6D
+ IUGFd6lXqqYkq03pm223DF1GFRQ9oUzouh5LkPEuEp/AAH18KXle/tlr/pDgHZ3oOHBPSzAfCH/
+ nKSMD3lkJAPK3mYDeGAfhe40UlwJjZNtKyi2Bq0FJtYZvgvWRqrDp538FvMR4RPe0Xpplugj6EK
+ CkjnX4T6ZDzg+aPteZBhZ5Q5D30skLNdsmf39J6ZpQVV8P2AIxvrUS8So3PvhVYe7SdW3/+p/h4
+ M0Wo/jzpCg2k+uI9YRJXyc2oVP5Nzh500JSmZm2E7iK59EIDF1kvhbikSxPqNQQ9xFJ/eiBRSdm
+ rNs59mHfI1HevZ3Qv4GNZuiwLg3ScOAWOjqymUgBg0Z6mIwsvUqOYK7usyNUUGxJ2pZ1wquSgiQ
+ 5Rwqa8b1PXLzQ7Qyswu5T0q946joo4Kj3IZTMJ8A/PszSEON4nZD6N/O1qM/GdOE14u5SzhBrao
+ xP+PefNSALe+Pp6J8LA==
+X-Authority-Analysis: v=2.4 cv=Uq32pOwB c=1 sm=1 tr=0 ts=6aca70d2 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=AnolQpdaNwb4XK4FG+QP+g==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=2dOy96dDxX5ttOVY4VAA:9 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-ORIG-GUID: uoekulbl0ie4qWQwQKRHc30C_7Gjkev-
+X-Proofpoint-GUID: uoekulbl0ie4qWQwQKRHc30C_7Gjkev-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-10_03,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 priorityscore=1501 malwarescore=0 spamscore=0
+ bulkscore=0 adultscore=0 impostorscore=0 suspectscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610100068
 
-Diego Oliva <diego@bynar.io> writes:
+On 10/3/2026 2:20 AM, Jiale Yao wrote:
+> The ath10k, ath11k, and ath12k cleanup paths walk an IDR while removing
+> the current entry. idr_for_each() retains radix-tree iterator state across
+> the callback, so that removal can invalidate the walk.
+> 
+> Use idr_for_each_entry() in each cleanup path. It performs a fresh
+> idr_get_next() lookup for every iteration, allowing the current entry to
+> be removed safely before its skb is released. Keeping the existing locked
+> removal helpers also ensures that a concurrent TX completion cannot find
+> an IDR entry which points to an already freed skb.
+> 
+> Changes in v2:
+> - Rework the ath11k and ath12k pending management TX cleanup patches to
+>   remove each IDR entry before freeing its skb, as pointed out by
+>   Rameshkumar and Jeff.
+> - Use idr_for_each_entry() for the pending cleanup callers instead of
+>   leaving freed skb pointers in the IDR until idr_destroy().
+> 
+> Jiale Yao (5):
+>   wifi: ath10k: avoid IDR mutation during TX cleanup
+>   wifi: ath11k: avoid IDR mutation during pending mgmt TX cleanup
+>   wifi: ath11k: avoid IDR mutation during vif mgmt TX cleanup
+>   wifi: ath12k: avoid IDR mutation during pending mgmt TX cleanup
+>   wifi: ath12k: avoid IDR mutation during vif mgmt TX cleanup
+> 
+>  drivers/net/wireless/ath/ath10k/htt_tx.c |  7 ++++-
+>  drivers/net/wireless/ath/ath11k/core.c   |  3 +--
+>  drivers/net/wireless/ath/ath11k/mac.c    | 33 ++++++++++++------------
+>  drivers/net/wireless/ath/ath11k/mac.h    |  2 +-
+>  drivers/net/wireless/ath/ath12k/core.c   |  3 +--
+>  drivers/net/wireless/ath/ath12k/mac.c    | 33 ++++++++++++------------
+>  drivers/net/wireless/ath/ath12k/mac.h    |  2 +-
+>  7 files changed, 44 insertions(+), 39 deletions(-)
+> 
 
-> The SMB1 client parses TRANS2_FIND_FIRST2 and TRANS2_FIND_NEXT2
-> responses without checking them against the number of bytes it
-> received. A malicious or compromised server can make the client read
-> past the end of a response, and past the end of the cifs_request
-> buffer holding it, and send what it read back to the server. Both the
-> out-of-bounds reads and the use-after-free read are information leaks:
-> the bytes leave the machine in the client's next FindNext request,
-> from a position the server picks:
->
->  - LastNameOffset, which the client uses to locate the last entry of
->    a response, is only checked against CIFSMaxBufSize, never against
->    the response that was actually received, so psrch_inf->last_entry
->    can be placed past the end of the allocation.
->  - cifs_save_resume_key() parses the entry there without a bound. The
->    name length comes from the entry itself, and for SMB_FIND_FILE_UNIX
->    from a NUL scan of up to PATH_MAX + 1 UTF-16 units. The name is
->    recorded as the resume name of the search, and the next
->    CIFSFindNext() rejects only a recorded length of PATH_MAX or more
->    before copying the name into its request and sending it, so up to
->    4 KiB of memory from beyond the response leaves the machine,
->    together with the resume key read from the same entry.
->  - When the last entry is rejected, and when a search rewind frees
->    the buffer without its FindFirst recording a new name, the resume
->    name keeps pointing into a buffer that has been released, and the
->    next CIFSFindNext() copies it from there.
->  - The response parameters (search handle, entry count, end-of-search
->    flag, LastNameOffset) and the data area are read at offsets that
->    validate_t2() caps at 1024. It bounds the parameter and data
->    counts by the byte count of the response, but nothing ties either
->    area to the bytes that were received, so one can begin or end past
->    them; those reads stay inside the allocation but can return stale
->    bytes.
->
-> A FindNext response that reports no entries without ending the search
-> is enough to make the client send the resume name, and each further
-> response can do the same. Reaching the code needs a malicious or
-> compromised server, an explicit vers=1.0 mount of it
-> (CONFIG_CIFS_ALLOW_INSECURE_LEGACY, default y) and a directory listing
-> on that mount; SMB1 is not negotiated by default. The same code is in
-> every maintained stable tree.
->
-> Commit f8cf09a53a0d ("smb: client: bound dirent name against end of
-> SMB response in cifs_filldir"), in v7.2, bounded the name of the
-> entries cifs_readdir() emits, after the parse; the resume-key path was
-> left unbounded and the parse itself still ran before any bound.
->
-> The fix is one change conceptually, but as a single patch it is well
-> over the 100 lines with context that stable-kernel-rules.rst allows,
-> so stable could not take it. This series splits it into patches that
-> each fix one thing, build and pass checkpatch on their own, and stay
-> under that limit.
->
-> What each patch fixes, and what to backport:
->
->   1/7 fix use-after-free infoleak via the readdir resume name
->       The use-after-free. It comes first so that the patches after it
->       cannot widen the window it closes. Also resets resume_key with
->       the name and skips the zero-length copy in CIFSFindNext().
->       Tagged Cc: stable.
->   2/7 fix OOB last_entry pointer from unbounded LastNameOffset
->       The out-of-bounds pointer, bounded against the response that
->       was received rather than against the declared data area. It
->       applies on top of 1/7, whose resets sit in its context and
->       which makes the paths this patch sends more responses down
->       safe. Also records the search handle before the last entry is
->       examined, because the new no-entries case would otherwise lose
->       the handle. Cc: stable.
->   3/7 fix OOB read of the resume name sent in TRANS2_FIND_NEXT2
->       Bounds the entry parse in cifs_fill_dirent() for both callers,
->       before anything is read. This is what stops a name from being
->       recorded and sent from past the end of the response.
->       Tagged Cc: stable.
->   4/7 fix OOB read in the SMB_FIND_FILE_UNIX name scan
->       Caps the NUL scan at the response end; without it the scan
->       still runs several KiB past the allocation. Depends on 3/7 for
->       the end of the response. A scan that reaches the end of the
->       response without finding a terminator is rejected; a name
->       longer than the PATH_MAX cap of the scans is still truncated
->       there, as before. Cc: stable.
->   5/7 reject FIND data areas that run past the received response
->       Hardening rather than memory safety: it stops entries being
->       parsed from stale bytes inside the allocation, and bounds the
->       data area that the nxt_dir_entry() walk starts from and that
->       the two query helpers read their entry from. It rejects with
->       -EINVAL, as validate_t2() does, logging with cifs_dbg(), and
->       adds no tracepoint, so it applies to trees before 6.19.
->       Cc: stable.
->   6/7 reject short or out-of-range FIND response parameters
->       The parameters are read inside the allocation, but the stale
->       search handle among them is sent back to the server. Depends on
->       5/7, whose declarations it extends. It returns smb_EIO2() with
->       two new smb_eio_traces values; backports before v6.19 need
->       -EINVAL instead. Cc: stable.
->   7/7 drop the redundant name bounds in cifs_filldir()
->       Cleanup of the two post-parse checks that 3/7 made redundant.
->       Depends on 3/7. Not for stable.
->
-> No patch needs one that follows it, so the series can be cut after any
-> patch. Patches 1/7 to 4/7 are every out-of-bounds and use-after-free
-> fix; 5/7 stands on its own; 6/7 can follow where smb_EIO2() exists.
-> Trees before v7.2 need the adjustments noted in the patches that need
-> them.
->
-> cifs_fill_dirent() is shared with the SMB2 readdir path; 3/7 and 4/7
-> add checks there that a valid SMB2 response cannot fail, since
-> smb2_parse_query_directory() already walks its entries against the
-> end of the response.
->
-> Left out on purpose: an entry-size check for cifs_query_path_info()
-> and cifs_backup_query_path_info(), which still read one whole entry
-> from a data area that 5/7 bounds only as a whole (those reads stay
-> inside the allocation); passing the end to posix_info_parse() in
-> cifs_fill_dirent_posix(), which only SMB3.1.1 POSIX mounts reach,
-> with entries that num_entries() has already validated; and a lower
-> bound on ParameterOffset and DataOffset, since reads at a low offset
-> stay inside the received response.
->
-> Each patch builds with W=1 without warnings and passes checkpatch.
-> The out-of-bounds reads and the use-after-free read were reproduced
-> against a test server with KASAN enabled, by listing a directory on
-> an SMB1 mount; the splats are in 1/7, 2/7, 3/7 and 4/7, all taken on
-> the unpatched tree. The one in 4/7 shows the case the preceding
-> patches leave open, where the entry starts inside the response and
-> the scan still leaves the allocation.
->
-> The series is based on cifs-next at commit f14572c203d5 ("Merge tag
-> 'cifs-fixes-7.3-rc5' of https://git.manguebit.org/linux"). The files it
-> touches are identical there and in v7.3-rc4.
-> ...
-
-Applied.
+(dropped obsolete codeaurora and quicinc addresses)
+Version with the ath10k change updated is in my 'pending' branch:
+https://git.kernel.org/pub/scm/linux/kernel/git/ath/ath.git/commit/?h=pending&id=3d806fd957b02ca1fa7991ffaf6c02ddd3dcbfe4
