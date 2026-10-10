@@ -1,100 +1,122 @@
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31BAD3612EE;
-	Sat, 10 Oct 2026 04:35:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89C513451CD;
+	Sat, 10 Oct 2026 04:37:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791606906; cv=none; b=kFEV3EpsVRlH6n3eNh0iHyIrTyAd/ouIF3uEtZvaq0/WkAVWtdeohs03JsfkroBf38Aox37R3zQTNIPHWL9kK3R1Eaph4CM5hYlKdqpLaVDiMR9HkVjDueXslcpO+Hvam004F1b79y5DKEAjHE8feBg6scntBhvcV1/bc18Zuoo=
+	t=1791607066; cv=none; b=rnb45ouQueaCIA3sJQeNvT/v6KM7ZWUmZGtAvxql4TsifQodJFJs6joBHLQHoAGTUVwngOBc292u2qyx5U9GjBDtI8Lexu+DrmsyszzQmO+tOPW8IsklJ4v3S5An4M7sdaa3b8j67pyjUA/B/7o4Wv4DOZUmRkMIasqO5wVNKOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791606906; c=relaxed/simple;
-	bh=80rjkX/a1IzJ7fnM47AVZQsjw6x54D+aSaJzkJW9vig=;
-	h=From:To:Cc:Subject:Mime-Version:Content-Type:Date:Message-ID:
-	 References:In-Reply-To; b=mdcQe8Amh82rfC/LTFiohGuqyd9oaV1BgZCnSgeNkh/zK7Ciqddwn47M5N6ojB3PWzXA+76FzXDk0Ujjx2efoVLw78HxBDZZkFCP42NdTuQeYsOERvbwdIhEOyZzxcs7JUfyLg2VjBaWVjhU6pX5WqN17kGbC4ynrkkRArJP//M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=KKzBh8iB; arc=none smtp.client-ip=54.92.39.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1791607066; c=relaxed/simple;
+	bh=IrHjKkj+D8DU5ckKYWgKnh1RN9L06X//M7q9ZNvM934=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=b3+/ywdvK1OZOkOowvimKtPqksM8LOzKEFFifhEROWtsua8mbalEqt2pmmPd+W/XzP50fupFx+mKtwLIv3P8lca6luZov+iil4WUFl5E2Duic0An/4m/XCT1NrlBUmGNmGppwqqMAeF4P+yW/dCiz59C8JPHknsvHkLSwL+qGK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E0z9Dtj1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="KKzBh8iB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1791606866;
-	bh=80rjkX/a1IzJ7fnM47AVZQsjw6x54D+aSaJzkJW9vig=;
-	h=From:To:Subject:Mime-Version:Date:Message-ID;
-	b=KKzBh8iBMf+JdzEG/XyK6iCJOEIc7gadGiF16LdhC8IUkLgpAza6VRka2GmvdUl14
-	 2MXlwQqFJVGZri/0F+/d9QYUYbKZ1+dzdvYjcfUZ7XVl6hyQdvqPbSsG9tl49uPLhB
-	 TO99xUpJBecHh8CnTJ+MFAij2rN8WYUeF119QW2s=
-EX-QQ-RecipientCnt: 7
-X-QQ-GoodBg: 1
-X-QQ-SSF: 00400000000000F0
-X-QQ-FEAT: D4aqtcRDiqQnft7kyUuJbd/1GndRJklzmB5VJlBX//o=
-X-QQ-BUSINESS-ORIGIN: 2
-X-QQ-Originating-IP: HeilzH7BoGic1gszdDYTeuISgSGfIaB1/TNSPZD9Zwc=
-X-QQ-STYLE: 
-X-QQ-mid: lv3gz7b-6t1791606850teb1258f8
-From: "=?utf-8?B?V2VudGFvIEd1YW4=?=" <guanwentao@uniontech.com>
-To: "=?utf-8?B?5YWz5paH5rab?=" <guanwentao@uniontech.com>, "=?utf-8?B?U2FzaGEgTGV2aW4=?=" <sashal@kernel.org>, "=?utf-8?B?a2FydGlrZXk0MDY=?=" <kartikey406@gmail.com>
-Cc: "=?utf-8?B?am9oYW5uZXM=?=" <johannes@sipsolutions.net>, "=?utf-8?B?bGludXgtd2lyZWxlc3NAdmdlci5rZXJuZWwub3Jn?=" <linux-wireless@vger.kernel.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
-Subject: Re:[PATCH 6.6.y] wifi: cfg80211: release locks on error in cfg80211_wext_siwgenie()
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E0z9Dtj1"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 809131F000FF;
+	Sat, 10 Oct 2026 04:37:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791607065;
+	bh=DphHsZp1KEB4Zq1MHO6l6LHNE4Q8dWYRthKIspYwFY8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=E0z9Dtj1BwdO6ikmfavrG8BDcuWX7zdSrl4/TFEdsZUaFmdEvTi3UvAGUBf3CJSL5
+	 jDnnUSDTboKSsvEGgasJoTshsIMl2ZQZBkvHBoyqPHTmGG0nx1hAGQoXFisfBiXsY9
+	 QGQbhTzaGX4YvvPBk93Xw3G55+jOZkD9upNHiGfscYrFclLYqL4XTh6fxTE2AjYQjF
+	 mMsQn5iFrJIYzKSugV3yKNzvq39QeSzUIBbKzxj5CVVFxQNb9k5lEKHUEnA0CkHRp0
+	 EpV5BKBYYmPypz2JzqUIkIEjZyiW3wzytbbUMExAEeVdezR2ZvcwniTIalEh3utqwh
+	 z7X/o91eHk69g==
+Date: Sat, 10 Oct 2026 07:37:40 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Pei Xiao <xiaopei01@kylinos.cn>
+Cc: peterhuewe@gmx.de, linux-integrity@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/4] tpm: some tpm small fixes.
+Message-ID: <asnBFP1jo1g82ZHQ@kernel.org>
+References: <cover.1791421672.git.xiaopei01@kylinos.cn>
+ <asfYIg95-qQ4JrL_@kernel.org>
+ <c74c47b0-e1e6-48f4-8997-ef264fcbf977@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Sat, 10 Oct 2026 12:34:10 +0800
-X-Priority: 3
-Message-ID: <tencent_54DE3A7910D4598F5676AE58@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <20261010043002.2919860-1-guanwentao@uniontech.com>
-In-Reply-To: <20261010043002.2919860-1-guanwentao@uniontech.com>
-X-QQ-ReplyHash: 2432166471
-X-BIZMAIL-ID: 12405904260231876868
-X-Address-Ticket:version=;type=;ticket_id=;id_list=;display_name=;session_id=;
-X-QQ-SENDSIZE: 520
-Received: from qq.com (unknown [127.0.0.1])
-	by smtp.qq.com (ESMTP) with SMTP
-	id ; Sat, 10 Oct 2026 12:34:11 +0800 (CST)
-Feedback-ID: lv:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: MpJmQ90V4eWUtzDiqQCTDN8l9mUVqmtQnxaiTtPId3jvUkv0wi7KVp9n
-	YPJBXlH5Yd15F6IcqychEcNgEyL7rIM3K0gCByxz3MapaljWJ/fR04DFg0ghxfhwOMUd696
-	riMuUujvxivN2vdosrujDeCWOnv9gLLgewZD3m1xGU6WXo6FLK249ITkh0CEf9ln4mh0xYd
-	l9QkMwwfrxz2uog/XGvsHzS6u634roz3SQ0mmR9p/JgXc4VVWTLhj9RAONXymAlAgHoipk4
-	JDnTQJGxJ0IDde7y4FlzDQDCGdm4DzH/54QSqOKVwrxqgRqfPFr1e8ToGa64rE4Q2iPN3vB
-	QYf9EULi5IaClLe6bZmfbotKTBBInEjG5VnQEok6sm17/7VaY5FNC0j7zJ8GqMfjG9+n3IU
-	+tOSX5jBY2oB8E9qncZHCVBTYnca/zTJSKKBx+QpAZz9CpXBZnqjnm45VUrsaU4TZH9Y45M
-	0nGBGRFTIPhsZ7xZORWxlrU5D1gWwrCRcUqREWPasNTCsAE+DnEuVObiCd42Z5nZEV39n0g
-	9nOksOcV1Ml3GO+fmHOJggUsD8V5uqtHzcsiDJ+AK9nbdUhx0AXKG8lNoxdqzqhIfQy2uYw
-	QTgBjD3I2PEHjv3fBY8+4CIYY7N1WcL4lv6igz5HFaN2/ueck3hGhMgiGrtIU2tsxjQ3+/e
-	bgOjrjDo68ISzQ95cEVW9m1jQNAn75MabtXe65IpRrQilS70y8q+GsHlAM7fpa7ZTkeToKV
-	75eY+57l6hZatZ3iKW8Fe7tdri9833AXD1133O8WF6I8UZQNEAdxGeJhwj4m63v3A/enWEd
-	LXl67zvNub2b45yZifblLGlULOoJ3kgRsORsCIBTvc86WEarB1FrB4W/E7U/BwtowMmIUtF
-	Hs2PJlHCpQQvOgOT1iWw86kJ0Dq9xx0Dlhp1x7kanMbRdnsPG2k6tMBv5FMk/cU0e7rxwMN
-	Zq3Y9Fygw+fcMSXJAZNioaIRJgUafjFafFUtr7nnrI2gpr/fIAp3roBPdXOdQo3AIKeLU5l
-	oPCqK8Y+R2t4VSQx4jCR1iGMsml9HpuPtkZ1kX0DE/r//+INQwDHmf9xqrjDD3N47SZsG0/
-	w==
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <c74c47b0-e1e6-48f4-8997-ef264fcbf977@kylinos.cn>
 
-U29ycnksIGl0IGlzIGZvciB2Ni42LjE1OC4gY2MgdGhlIHN0YWJsZSBsaXN0Lg0KDQpCUnMN
-CldlbnRhbyBHdWFuDQoNCj4gLS0tDQo+IG5ldC93aXJlbGVzcy93ZXh0LXNtZS5jIHwgNiAr
-KysrLS0NCj4gMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMo
-LSkNCj4gDQo+IGRpZmYgLS1naXQgYS9uZXQvd2lyZWxlc3Mvd2V4dC1zbWUuYyBiL25ldC93
-aXJlbGVzcy93ZXh0LXNtZS5jDQo+IGluZGV4IGNmYTkwM2ViMGU4MmYuLjBlN2MzMTRiZGVl
-ZjAgMTAwNjQ0DQo+IC0tLSBhL25ldC93aXJlbGVzcy93ZXh0LXNtZS5jDQo+ICsrKyBiL25l
-dC93aXJlbGVzcy93ZXh0LXNtZS5jDQo+IEBAIC0zNTQsOCArMzU0LDEwIEBAIGludCBjZmc4
-MDIxMV93ZXh0X3Npd2dlbmllKHN0cnVjdCBuZXRfZGV2aWNlICpkZXYsDQo+ICAgICAgICAg
-ICAgICAgICAgICAgICAgIC8qIG5vdGhpbmcgKi8NCj4gICAgICAgICAgICAgICAgIH0NCj4g
-IA0KPiAtICAgICAgICAgICAgICAgaWYgKCFmb3JfZWFjaF9lbGVtZW50X2NvbXBsZXRlZChl
-bGVtLCBleHRyYSwgaWVfbGVuKSkNCj4gLSAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJu
-IC1FSU5WQUw7DQo+ICsgICAgICAgICAgICAgICBpZiAoIWZvcl9lYWNoX2VsZW1lbnRfY29t
-cGxldGVkKGVsZW0sIGV4dHJhLCBpZV9sZW4pKSB7DQo+ICsgICAgICAgICAgICAgICAgICAg
-ICAgIGVyciA9IC1FSU5WQUw7DQo+ICsgICAgICAgICAgICAgICAgICAgICAgIGdvdG8gb3V0
-Ow0KPiArICAgICAgICAgICAgICAgfQ0KPiANCj4gICAgICAgICAgICAgICAgaWUgPSBrbWVt
-ZHVwKGV4dHJhLCBpZV9sZW4sIEdGUF9LRVJORUwpOw0KPiAgICAgICAgICAgICAgICAgaWYg
-KCFpZSkgew==
+On Fri, Oct 09, 2026 at 09:01:05AM +0800, Pei Xiao wrote:
+> 
+> 
+> 在 2026/10/9 01:51, Jarkko Sakkinen 写道:
+> > On Thu, Oct 08, 2026 at 09:16:19AM +0800, Pei Xiao wrote:
+> >> This series fixes several small issues found during a code review of
+> >> drivers/char/tpm:
+> >>
+> >>   1. tpm_ppi: tpm_show_ppi_response() stores its return value in an
+> >>      acpi_status (a u32 typedef), so error codes such as -EINVAL reach
+> >>      user space as huge positive values.  Declare the variable as
+> >>      ssize_t to match the show callback's return type.
+> >>
+> >>   2. tpm_nsc: tpm_nsc_remove() doubles as the release callback of the
+> >>      hand-created platform device and dereferences the chip drvdata
+> >>      unconditionally; init failures before tpmm_chip_alloc() crash
+> >>      module load.  Return early when the chip has not been created.
+> >>
+> >>   3. tpm_nsc: the cleanup runs twice on module exit because
+> >>      tpm_nsc_remove() is both the explicit cleanup and the device
+> >>      release callback; the second run operates on an already freed
+> >>      chip.  Stop overriding the release callback, which also stops the
+> >>      platform object allocation from leaking.
+> >>
+> >>   4. tpm_dev: a zero-length read() discards a pending response,
+> >>      breaking the command/response pairing of the TPM character
+> >>      devices, although POSIX requires zero-count reads to have no side
+> >>      effects.  Return early on a zero count.
+> >>
+> >> chhanges in v2:
+> >> 1.add reviewed-by tag
+> >> 2.remove patch 5: 
+> >> make the tpm_init() error messages consistently prefixed with "tpm: " and
+> >> report the actual failure of tpm_dev_common_init().
+> >> 3.modify patch 1 git commit information.
+> >>
+> >> Pei Xiao (4):
+> >>   tpm: tpm_ppi: fix zero-extension of negative error codes
+> >>   tpm: tpm_nsc: fix NULL pointer dereference on init failure
+> >>   tpm: tpm_nsc: stop using the cleanup callback as dev.release
+> >>   tpm: fix zero-length read discarding the pending response
+> >>
+> >>  drivers/char/tpm/tpm-dev-common.c | 3 +++
+> >>  drivers/char/tpm/tpm_nsc.c        | 8 ++++++--
+> >>  drivers/char/tpm/tpm_ppi.c        | 2 +-
+> >>  3 files changed, 10 insertions(+), 3 deletions(-)
+> >>
+> >> -- 
+> >> 2.25.1
+> >>
+> > 
+> > Right, so I've already applied some of the patches so I'm a bit 
+> > confused what to do with this.
+> > 
+> > See:
+> > 
+> > https://git.kernel.org/pub/scm/linux/kernel/git/jarkko/linux-tpmdd.git/log/
+> > 
+> > Is there something wrong in the ones that I already applied?
+> hi Jarkko，
+>   Because this patch ("tpm: tpm_ppi: fix zero-extension of negative
+> error codes") did not pass review, I resend a v2 version that includes
+> the patches that have already passed review and carries their
+> Reviewed-by tags.
 
+Hey, no worries, I'm just sanity checking (and thus asking, that's
+all). Nothing you did particularly wrong.
+
+
+> Pei.
+> thanks!>
+
+Br, Jarkko
