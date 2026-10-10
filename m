@@ -1,94 +1,104 @@
-Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006C83C81B5
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:47:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.114
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E336E374187;
+	Sat, 10 Oct 2026 08:48:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791622080; cv=none; b=F2g2b0B9Oi9aKYLqVSL+qSJDh2HLLuVqACJmwKxsVO0wXF5QoTds0dbe5wNpWGarioXnEM9/yhv+xuTOTfORtKGeRJoMLwNzCCFlhMzeiqnEbk1JoTLkbe45VMtNMcg8QlxgAHpXS6atH2aDE1rizIXpblPN6T/2z+fnnNect0U=
+	t=1791622083; cv=none; b=oa6xqxHG0etq+R95a5W445uasYTeXj/v+UkfPHgJDyOCcXWOyULW6C8Og4OKHSSgOepwZdRJpyRIIyQ/OmuKaBc4oAPVlZ6eODcxv/4n+58RrAUgNkp8EqFdTda0uAjdi4dv+2BUQJLC9ErVbf721n0cnDGVVD4/oYcrfyXUD7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791622080; c=relaxed/simple;
-	bh=EeZqUFoqaIsW5Cx6AmU0xug2Ti1qbwb1p6zR5gzwmwg=;
-	h=Cc:Date:Mime-Version:To:Subject:References:Content-Type:From:
-	 Message-Id:In-Reply-To; b=npMpDBt0Awx3uyeNWDcs4LNZL83x6GIWIwWmpdl4PVbZoLZwDzPZn8F7YVn4Y9aw/hljrgWI8GT1AFQg2hpcjpCJsb3qEYUmqVkc3M4TdWRV69IuIxxyky4pnioye3cwWM/N1QToBBFAeRzm7c/dpf6NnV80+oY6KSXGedDpWRc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=Dz7OK+FC; arc=none smtp.client-ip=209.127.230.114
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1791622083; c=relaxed/simple;
+	bh=ls/4e4TTxmpeeTi/kMhBzjBeeG2J8NUVdjBhBVpVSn8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZAWP+eom7Qq0AoNKNUSeuuU5ym4unfT0rC93TVMCWVztSumorxmfuC8DPfU2VBRSpe5PSOOl8Ttu2I4Sby1wX/NclulJ3eRVHYW9+SfCpuzdjt39Fn8LN57FHoNtVeOdBANQunoQHki/+97Ubm/1nXX/uux8chVil2P3t3n/ACQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a+QntHaB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="Dz7OK+FC"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1791622067; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=WCo5NPKaCfP7g9DBT1HMo+1v4Rsy+b8BT+qecwvrSuI=;
- b=Dz7OK+FCLL3nAY72Q7e5wpk5GDDSYjdAeUUorkpN8Q6UtoUx8jRFpV+EBhEOfGVRqTeq0T
- fSJEcf7hZWP3wtCSRs4tJUyLIsWL4S/8nrW5GfD8T4mG/FX7Yq4qCO3k8Q/l6B1c2/zD5C
- YEZv6vuZfIGOOm4Lbwv5y0LObz4SkI5p2q+5OzZgyN/EiAzyICNgpxHi6pVOAiMPgnqN4b
- GmHqMmt0Vc3jy9OEsmzooe1WzbOPFA2P/DEuHW4NIZgbdMrYBn0qgnW9B/2GxoYN0J1e8B
- I+teL+8sgVCXDzk2qmvLwJ1p/yzXTvDQf9k+HyU8BFPfAF+IdECqcjE+rh5T6Q==
-Cc: <mark.rutland@arm.com>, <ardb@kernel.org>, <song@kernel.org>, 
-	<dylanbhatch@google.com>, <linux-arm-kernel@lists.infradead.org>, 
-	<linux-kernel@vger.kernel.org>, "Rui Qi" <qirui.001@bytedance.com>, 
-	<stable@vger.kernel.org>
-Date: Sat, 10 Oct 2026 16:47:19 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a+QntHaB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93D321F000FF;
+	Sat, 10 Oct 2026 08:47:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791622082;
+	bh=9aAKNdFlAWIBUhCteIbdgam8eQs/tWYWWSOa0TvAgNk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=a+QntHaBhv0z8VDbqJJkqrAwEbrFgBRg9/Xdm5ENmSUmHKoLcSJ8FMMZ1gUr4vKt2
+	 kGmnMkcNDCeDjoev+XtP9mnEW/W3AbTtLQlms8kGI99KHAiN8gB4Ms0D0wlymWzpY3
+	 A9bZ3rVrc8o9I5DkUPZn69Dq+TWk/7MmKxXr0QQB+04WP/nEaGg0ZWk5RR+xz+Bss8
+	 7j/ghcFbgoFQw9puG4IAQz8wyGEuft4Vd85CchZXZtPtCYMZJC3Cw2LlLaQBeKgVQW
+	 LkWEQNOgeGNWM1wyUpEfoQkQoV3dm7cHU5Fl9S+m6qv4N2Kw4TOV+2TKCNPET8VLZ9
+	 VReZAo7MXRnpw==
+Date: Sat, 10 Oct 2026 10:47:52 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: David Matlack <dmatlack@google.com>
+Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-pci@vger.kernel.org,
+	Adithya Jayachandran <ajayachandra@nvidia.com>,
+	Alexander Graf <graf@amazon.com>,
+	Alex Williamson <alex@shazbot.org>,
+	Bjorn Helgaas <bhelgaas@google.com>, Chris Li <chrisl@kernel.org>,
+	David Rientjes <rientjes@google.com>,
+	Jacob Pan <jacob.pan@linux.microsoft.com>,
+	Jason Gunthorpe <jgg@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Josh Hilke <jrhilke@google.com>,
+	Leon Romanovsky <leonro@nvidia.com>, Lukas Wunner <lukas@wunner.de>,
+	Parav Pandit <parav@nvidia.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pranjal Shrivastava <praan@google.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Saeed Mahameed <saeedm@nvidia.com>,
+	Samiullah Khawaja <skhawaja@google.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Vipin Sharma <vipinsh@google.com>, William Tu <witu@nvidia.com>,
+	Yi Liu <yi.l.liu@intel.com>
+Subject: Re: [PATCH v9 03/13] PCI: liveupdate: Track incoming preserved PCI
+ devices
+Message-ID: <asn7uP123pDkdkSm@kernel.org>
+References: <20260918200640.887030-1-dmatlack@google.com>
+ <20260918200640.887030-4-dmatlack@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Original-From: Rui Qi <qirui.001@bytedance.com>
-To: <catalin.marinas@arm.com>, <will@kernel.org>
-Subject: [PATCH 1/3] arm64/module: Fix big-endian breakage in late data relocations
-References: <20261010084721.2197683-1-qirui.001@bytedance.com>
-X-Mailer: git-send-email 2.20.1
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-From: "Rui Qi" <qirui.001@bytedance.com>
-Message-Id: <20261010084721.2197683-2-qirui.001@bytedance.com>
-X-Lms-Return-Path: <lba+26ac9fbb1+bb0ab3+vger.kernel.org+qirui.001@bytedance.com>
-In-Reply-To: <20261010084721.2197683-1-qirui.001@bytedance.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918200640.887030-4-dmatlack@google.com>
 
-The WRITE_PLACE macro declares its temporary value with the type of the
-source argument:
+Hi David,
 
-    __typeof__(val) __val = (val);
+On Fri, Sep 18, 2026 at 08:06:29PM +0000, David Matlack wrote:
+> During PCI enumeration, the previous kernel might have passed state about
+> devices that were preserved across kexec. The PCI core needs to fetch
+> this state to identify which devices are "incoming" and require special
+> handling.
+> 
+> Add pci_liveupdate_setup_device() which is called during device setup
+> to fetch the serialized state (struct pci_ser) from the Live Update
+> Orchestrator. The first time this happens, pci_flb_retrieve() will run
+> and convert the array of pci_dev_ser structs into an xarray so that it
+> can be looked up efficiently.
 
-For the 16-bit and 32-bit data relocations in reloc_data(), val is the
-s64 result of do_reloc(), so __val is an 8-byte integer.  When the
-module is already loaded (state != MODULE_STATE_UNFORMED), the macro
-hands the address of __val to aarch64_insn_copy() and asks it to copy
-only sizeof(*place) -- 2 or 4 -- bytes.
+...
 
-aarch64_insn_copy() performs a raw byte copy with no endian conversion.
-On a big-endian kernel the most significant bytes of the s64 sit at the
-lowest address, so copying only the first 2/4 bytes grabs the
-sign-extension upper half instead of the computed relocation value,
-corrupting the patched location.  The UNFORMED direct-assignment path
-is unaffected because the compiler narrows the s64 to the destination
-type.
+> diff --git a/drivers/pci/Kconfig b/drivers/pci/Kconfig
+> index 3781e2b5f095..8af20f558086 100644
+> --- a/drivers/pci/Kconfig
+> +++ b/drivers/pci/Kconfig
+> @@ -273,7 +273,7 @@ config VGA_ARB_MAX_GPUS
+>  
+>  config PCI_LIVEUPDATE
+>  	bool "PCI Live Update Support"
+> -	depends on PCI && LIVEUPDATE
+> +	depends on PCI && LIVEUPDATE && 64BIT
 
-Type the temporary after the destination element instead.
+This could have been there from the first patch, no? :)
 
-Fixes: 91b89a634487d5614e51ee773a889ed57f5551ca ("arm64/module: Use text-poke API for late relocations.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Rui Qi <qirui.001@bytedance.com>
----
- arch/arm64/kernel/module.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+>  	help
+>  	  Enable PCI core support for preserving PCI devices across Live
+>  	  Update. This, in combination with support in a device's driver,
 
-diff --git a/arch/arm64/kernel/module.c b/arch/arm64/kernel/module.c
-index 24adb581af0e..0fdf4c1c4e05 100644
---- a/arch/arm64/kernel/module.c
-+++ b/arch/arm64/kernel/module.c
-@@ -50,7 +50,7 @@ static u64 do_reloc(enum aarch64_reloc_op reloc_op, __le32 *place, u64 val)
- }
- 
- #define WRITE_PLACE(place, val, mod) do {				\
--	__typeof__(val) __val = (val);					\
-+	__typeof__(*place) __val = (val);					\
- 									\
- 	if (mod->state == MODULE_STATE_UNFORMED)			\
- 		*(place) = __val;					\
 -- 
-2.20.1
+Sincerely yours,
+Mike.
