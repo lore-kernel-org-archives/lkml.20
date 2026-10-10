@@ -1,109 +1,89 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B13F7495041;
-	Sat, 10 Oct 2026 13:09:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A32040F753
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 13:09:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791637755; cv=none; b=RuIYrn00tFFc+8+i0qV3y+/wD9cIkAjVGK6ypkrfyjeAndFGq7n2/dXyQgMHk4XBXOcjP1+wWcviLAWaCDSMpRUJ8X8xRxNKkRDhmMTzbdLzOzVHNzSjtqGvZNiyrCMAkoy76N9yldQrh57P0v8WDW3n9EBvs3yL0c2fGBBt3m4=
+	t=1791637779; cv=none; b=RityqwpqVL6iWhbPVU127aVq3JQ8zJAER/97JMP8P+7JRuwPkEnaYJvc/UuR2iHAGCJrchr/FucxrtJf8D6J/pik7rmO7NmpfVTr9Xqgsaqs7uULRK5tg1aYUb1bqpjy2pMQZIX+ZcRYhB/eUFtTWKEkCmv8tQAh5VuUhz3KfqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791637755; c=relaxed/simple;
-	bh=8DssSaJsHim/+maUAmaaLIsfaehlMuYbnxy/x70yhP4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hraBcaiDkUGeOZFVVDyAVmXLBSLX2aO3a4P3c7hXMaomVi7A1Xo5LM7SlsID0oOIUNud+v5Dyxp5P/gNzRbY8AjzDmhmgc6qbdzSJnJz55FT//ULK3a2JqtGnlQgKb+76DvMptOwfPtAjZ14D8DDae55sh8bR9NFGQdovSgpCp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=MYLyURag; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1791637779; c=relaxed/simple;
+	bh=LsK6fZ0SfROYf4etiSROXi+yEPcumM8U1TqvGAnBhk4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=W+IHlWqKT9abfYRaKCnh5sp4/QG24mtGr/uB7v0CgTsFU6K8JanetVGJ0Un+PSEylw69H6iXO6V27BbNfXjD21RvVIeCsQSY2njZ36b+zNvSqvVk/Fws73Z3IfW29509rgCLxsG2zKXHxlPgaIe+W30MaOB2JnQeBXB+szzXNoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fMRk9Ns9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="MYLyURag"
-Received: from [IPV6:2003:100:7701:8b01::1815] (p2003010077018b010000000000001815.dip0.t-ipconnect.de [IPv6:2003:100:7701:8b01::1815])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 269DD5340E52;
-	Sat, 10 Oct 2026 15:02:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1791637376;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=EotFNgfyUJAk/u2/nPeXgorvOU7nrQpuCtAnNFh0fQs=;
-	b=MYLyURagGN3T76OGhw47R4KCQL/5bh+4pFOwSKz0xsvNlmO0XG5od29H9Z72GGznoozped
-	tGbe4vtxelSWHhZqJQRuZFWV20ojGjLvqD13ZDULDf0rE78UiZue2oPXXFwoUfZIjxcbTe
-	QLnJvQZ7bZ+FtGckkm6pQTls11Q8MGo=
-Message-ID: <89489dd6-1626-474f-a529-12aa5f9c563b@ixit.cz>
-Date: Sat, 10 Oct 2026 15:02:55 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fMRk9Ns9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DE051F0089A
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 13:09:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791637778;
+	bh=az0lTeXZV5T09G7IFnvnoEANNK1G4YVdPM1Se95rG/M=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=fMRk9Ns9JicVxY3EOz7ROCFQGwTbSn59PTYJfLm78aYfCIsGVfDMAeoi3V2Klbz4e
+	 VjOrYRzHrJ2lu1a/eNIW+4+lxwneCaTuaD2hnaYmubA61FqnLFaNUVQkcUDg/ImDx5
+	 l2449RbUFG8IJfmCVEal5XWoqKWikZ3ymzJoDUozLyeegFXj/NSdXtVkdV/u3iEFgR
+	 voLTbZDESt4hzafrzB7Eh7AVAfN2i4FyKD5iZDaH83bYAui9DTP+sgHGVSNr0hEA1R
+	 UjjH32c40O2yeoKgDW9RWb0zTpLeiMgmox4yKBW3DLog+RWlb5aPFjXdc3IEh1ZSAM
+	 kMCowg5r7zqTw==
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6afe8d3980aso711858a12.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 06:09:37 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByhrI5IdTG1NI2kCR1AWa0cq2WeUFu0RVvobwEzx2ZQ2ba7TlhMxSvI3W9NNHhXplbfkG4C3LYGNJ1wgQs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLRUfnjHBsiH9MNWUztFcyiPtpYMFr3wmj+lROFrOKLdbiJvqhO
+	UNLus9jLku2UQS0EorobOraI+6QW/D1r3nhD8YagSAITZbtMJiNPqqX0cRzyyNfuZtRxypM52EF
+	j61HR62RBO/WfjIwW9hIhUDE96UBLvcE=
+X-Received: by 2002:a17:906:f58f:b0:c29:f5d5:5a97 with SMTP id
+ a640c23a62f3a-c31aa04b413mr539680266b.33.1791637776558; Sat, 10 Oct 2026
+ 06:09:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Input: s6sy761 - drop duplicate axis initialization in
- s6sy761_probe()
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-input@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-References: <asdjLHHNrrtjIKCb@google.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <asdjLHHNrrtjIKCb@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <CAKYAXd8MyiCVhdN_PaQ=aSEO3yYYQ-Qb-2TnC68o0_pbchM0mw@mail.gmail.com>
+ <20261010032856.1880706-1-bsdhenrymartin@gmail.com>
+In-Reply-To: <20261010032856.1880706-1-bsdhenrymartin@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Sat, 10 Oct 2026 22:09:24 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-GfJxLk6tUdy5tiqz-w-zjLzqUzh5kZDuoJBLLXcLUtg@mail.gmail.com>
+X-Gm-Features: AclHuK-MmhmTOSXadXJ8KeSGNp1qxkmHPXULH0ZOyu2ydC4gtXzj6eFxbqq9qVg
+Message-ID: <CAKYAXd-GfJxLk6tUdy5tiqz-w-zjLzqUzh5kZDuoJBLLXcLUtg@mail.gmail.com>
+Subject: Re: [PATCH v2] cifs: fix use-after-free of server info on
+ cifs_ses_add_channel error
+To: Henry Martin <bsdhenrymartin@gmail.com>
+Cc: Paulo Alcantara <pc@manguebit.org>, Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
+	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>, 
+	Bharath SM <bharathsm@microsoft.com>, Steve French <stfrench@microsoft.com>, 
+	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-
-On 08/10/2026 11:33, Dmitry Torokhov wrote:
-> ABS_MT_TOUCH_MAJOR and ABS_MT_TOUCH_MINOR are initialized twice with
-> identical parameters in s6sy761_probe(). Remove the duplicate calls.
-> 
-> Reported-by: sashiko-bot@kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-with or without Fixes: tag,
-
-Reviewed-by: David Heidelberg <david@ixit.cz>
+On Sat, Oct 10, 2026 at 12:29=E2=80=AFPM Henry Martin <bsdhenrymartin@gmail=
+.com> wrote:
+>
+> The error path of cifs_ses_add_channel() calls cifs_put_tcp_session()
+> before cifs_chan_clear_need_reconnect().  The latter reaches
+> cifs_ses_get_chan_index(), which dereferences server->terminate; if
+> the put was the final reference, TCP_Server_Info is already freed and
+> this is a use-after-free.  Same put-then-use pattern as the recently
+> fixed sibling in commit 717e0a25036b ("cifs: Fix server use-after-free
+> in cifs_chan_skip_or_disable()").
+>
+> Move the put last, but do not read chan->server after dropping
+> chan_lock: chan points into ses->chans[], and once chan_count is
+> decremented a concurrent add_channel can reuse the slot and overwrite
+> the pointer, so the put would act on the new channel's server.  Cache
+> the pointer under chan_lock, clear the reconnect bit and decrement
+> chan_count while still holding the reference, and release it after
+> the unlock.
+>
+> This issue was discovered by Tencent CodeBuddy Security.
+>
+> Cc: stable@vger.kernel.org
+> Fixes: ee1d21794e55a ("cifs: handle when server stops supporting multicha=
+nnel")
+> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Thanks!
