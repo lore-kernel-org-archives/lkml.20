@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75E912AEF5;
-	Sat, 10 Oct 2026 21:08:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 131A537DAA3;
+	Sat, 10 Oct 2026 21:08:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791666534; cv=none; b=n9cwbVaRFoIqez65RwbwBQcOpzWvmokfJBzzurAvWQ4NMIBSHrU7aCjJ+1PpZ8Fa6VEMR2e2zbhnIkRRSocOeJUgN5UvOdQkQqdUBo+1vt0W4ZHdnzdGNu7SqA6koojqF0So/jZRuSiGVfgRwQqL38ilyT118h3B67rt9i1AEL4=
+	t=1791666537; cv=none; b=dqTng2H6MLgr9ltuZZaZ3frAe5nsfOOBqHsOKifGt3An+bgC3x3gMuriPeDk9gvJGj1xOj/VMGVIme02h1BJqe3kdaYUCg8zUmcwbCRJWRcqFaDCmMOgAT+7omoxr6PH1EOSZSK8BUCORHNaUnVEq9SeM1fb3WwAVT4gaUM5Axk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791666534; c=relaxed/simple;
-	bh=4sZT1lidg2qUi9wNSszlyezNz1ZQ6LWJsNuulAFWDec=;
+	s=arc-20240116; t=1791666537; c=relaxed/simple;
+	bh=HxDJlHv2+RP53Mbg0H6pjNP4IbMrftYYh/csz6mC9xo=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=MNBw6Qy4QS4qUHvKbb1bN46ISgDGwcShY+YVm7nOiBtFYvU9RFLjTRtKVHND5sYajuN6tg/5hOZTao0zSsRf97KAs5zfZLa4KDQmgBMcD3Iy17pN4M3ZDzVVfVt7/2p5oZ6S0x3cIVRNNzX3EQQCxMSo+nMLve6xcd/g0tYjNP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fStO893j; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=N1wup5ecM8LjC6apfPl5Pfs8ScUD14aaa6iURx/Eb1D5GnjX4GxKEeKOz89VyDw3O4SiKwStISVqyf8gjDeHMoBloIXv/dVoiuFsINf5/YS+b3VFw6y/0TfgSRK5dcErGrKQFMdsWWjmbjLlFxSghbY7xkDlmCjsUdTfK+CQQ+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PGxZXkQ0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fStO893j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 739F01F000FF;
-	Sat, 10 Oct 2026 21:08:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PGxZXkQ0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 100231F000FF;
+	Sat, 10 Oct 2026 21:08:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791666533;
-	bh=wGum4GbKA1QmItEo32DpAURITDeGtaFPXEbkaSVSSsU=;
+	s=k20260515; t=1791666535;
+	bh=JVPUal05KatY+z/I78apTnxe8d9zpa4SJXc95q/sBUw=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=fStO893jPnxAqdN8Yc602oQ49jgz4rlhJsP0iH7tRVY8ockG+VVxw9gAyzFmMDFt4
-	 8C/w/nDe8R9Nw9WslY6+sJ9Ldxp55nGMfSqIETvG3LzRC70uyLSv3q05SJdrlsSySx
-	 o3lVZN4iMKNWYu7//b7pvNsba118a23omwRYfxL/hkDsMpjDyA7JRegKL+ijGPBlP8
-	 BCMDLfmCyPIoQk8IdaKXUPABxFk+0/5i+nLffADgTpVurhjBUOI8Qp866//FeC92l8
-	 oPBL5p65cKGxx4VtPlS29ipkgiuGfAoGbkv98nmUDhj1K1vFusfuPwJPKsVt07YKzJ
-	 VcX30QW6Y3FpQ==
-Subject: Re: [PATCH net v2 1/3] amt: key relay tunnel state on the (address,
- port) endpoint, not the address
+	b=PGxZXkQ0xoJrKS6FgIkgMNoTVIIpntf0x/DOOcVydJxGUHHW+l0C8wwpMrTvh4tCb
+	 ssO8Lgr4kBMiHqa9ldphfaQfPTz1dlnv8sMpp0YFrGTeS2VIl8w5XH8stdL7GDwF5Q
+	 gRCL46R6mOlqrdTG3Tunz+xUy2RSrQD33fuPmTLGQgXcy+3NlhN86JkdmLRZF1+FzD
+	 OQNIinGtvQjM+Qh6/Q5FVUAhhc4SPcauSmr/MECiutQEdlaBPrsjQGxdUD3AuMnI+W
+	 ItTfv6WTFM3d2dUdIvf/NkV9sZjfh64Ju7DmbzW1OuRvngHHb0JW01txGCzdrB7NG+
+	 ImNWHYaqFZB7w==
+Subject: Re: [PATCH net v2 3/3] amt: do not create tunnel state for
+ unauthenticated Requests
 From: netdev-bot+sashiko@kernel.org
 To: omar@blockcast.net
 Cc: ap420073@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
  edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org, horms@kernel.org
-Date: Sat, 10 Oct 2026 21:08:51 +0000
-Message-ID: <179166653195.434549.4491351472065396785@kernel.org>
-In-Reply-To: <20261009201455.1904698-2-omar@blockcast.net>
-References: <20261009201455.1904698-2-omar@blockcast.net>
-X-sashiko-severity: High
+Date: Sat, 10 Oct 2026 21:08:54 +0000
+Message-ID: <179166653457.434549.4036433539604908701@kernel.org>
+In-Reply-To: <20261009201455.1904698-4-omar@blockcast.net>
+References: <20261009201455.1904698-4-omar@blockcast.net>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -47,10 +47,10 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
+Thank you for your contribution! Sashiko AI review found 6 potential
 issue(s) to consider.
 
-Critical: 0 (1) · High: 1 · Medium: 1 · Low: 1 (2)
+Critical: 0 · High: 0 (2) · Medium: 4 · Low: 2
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -58,131 +58,185 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] Keying the tunnel lookup on (saddr, sport) instead of saddr
-  alone removes the only limit on how many tunnels one source address…
-- [Medium] The new `amt->dev->stats.rx_dropped++` on the "Invalid MAC"
-  arm of amt_update_handler() counts each rejected Update twice.
-- [Low] The new `amt->dev->stats.rx_dropped++` in amt_update_handler() is
-  a plain read-modify-write of the shared net_device counter from…
+- [Medium] Response MACs now expire after 60–120 s.
+- [Medium] When the table is full, the relay now refuses only after
+  sending a Query.
+- [Medium] Every Membership Update rejected for a bad MAC is counted
+  twice in rx_dropped.
+- [Medium] At device open, packets can be checked against MAC keys that
+  are still zero, which lets an attacker create tunnels for spoofed…
+- [Low] Parts of the commit message are wrong for the tree this patch
+  applies to, and one behaviour change is not mentioned.
+- [Low] The selftest's explanation is now out of date.
 
 Pre-existing issues:
-- [Critical] This problem wasn't introduced by this patch, but it is a
-  remotely reachable use-after-free that is still present at the end of…
-- [Low] amt_request_handler() does its (ip4, source_port) lookup
-  locklessly, then takes amt->lock and allocates without looking again.
-- [Low] In amt_request_handler() a new tunnel is published with
-  list_add_tail_rcu() before tunnel->key is set, and…
+- [High] Use-after-free: an Update can re-arm gc_wq on a tunnel that
+  amt_tunnel_expire() is unlinking and freeing.
+- [High] This problem wasn't introduced by this patch, but amt_dev_stop()
+  can unlink and free a tunnel at the same time as that tunnel's…
 
 --
 
-amt: key relay tunnel state on the (address, port) endpoint, not the address
+amt: do not create tunnel state for unauthenticated Requests
 
-This patch adds the UDP source port to the relay tunnel lookups in
-amt_request_handler() and amt_update_handler(), so tunnels are keyed on
-the (address, port) endpoint as RFC 7450 s4.2.2 describes. It also counts
-"Invalid MAC" Update drops in rx_dropped.
+With this commit, amt_request_handler() no longer allocates tunnel state
+for unauthenticated Relay Membership Requests. On Request the relay
+computes the response MAC without storing anything. On Update it
+recomputes the MAC, accepting either the current or the previous secret.
+A tunnel is created only after that check passes.
+
+> Note for reviewers: the MAC covers the UDP source port, so a NAT
+> rebinding between Request and Update now changes the recomputed MAC where
+> the stored value would have survived it.
+
+[Severity: Low]
+Is this accurate for the tree this applies to? In the parent, the Update
+lookup already required a matching port:
+
+-		if (tunnel->ip4 == saddr &&
+-		    tunnel->source_port == sport) {
+
+The stored MAC was also already computed over tunnel->source_port. So an
+Update from a rebound port already matched no tunnel and was dropped.
+That behaviour came from "amt: key relay tunnel state on the (address,
+port) endpoint, not the address", not from this patch.
+
+> Once full, every further
+> Request also emits an ICMP_DEST_UNREACH to the spoofed source, turning
+> the relay into an ICMP reflector.
+
+The ICMP reflector is listed as one of the problems being fixed. However,
+amt_request_handler() still sends an unsolicited Membership Query to
+every claimed source. Only the type of the reply has changed.
+
+The commit message also doesn't say that "relay full" is now reported on
+the Update path rather than the Request path. A refused gateway now
+always gets a Query, becomes ready, and then gets ICMP host unreachable
+for each Update.
 
 > diff --git a/drivers/net/amt.c b/drivers/net/amt.c
-> index b53f8ec556615..ed82f8fac3f0a 100644
+> index 492d450fdb55c..bc8e552a9bad4 100644
 > --- a/drivers/net/amt.c
 > +++ b/drivers/net/amt.c
 
 [ ... ]
 
-> @@ -2491,7 +2494,8 @@ static bool amt_update_handler(struct amt_dev *amt, struct sk_buff *skb)
->  	skb_reset_network_header(skb);
+> @@ -925,7 +934,8 @@ static void amt_secret_work(struct work_struct *work)
+>  					   secret_wq);
 >  
->  	list_for_each_entry_rcu(tunnel, &amt->tunnel_list, list) {
-> -		if (tunnel->ip4 == saddr) {
-> +		if (tunnel->ip4 == saddr &&
-> +		    tunnel->source_port == sport) {
->  			if ((nonce == tunnel->nonce &&
->  			     response_mac == tunnel->mac)) {
->  				mod_delayed_work(amt_wq, &tunnel->gc_wq,
-
-[Severity: Critical]
-This problem is older than this patch, but can this mod_delayed_work()
-re-arm gc_wq on a tunnel that amt_tunnel_expire() is about to free?
-
-The tunnel comes from a lockless RCU walk, and nothing checks that it is
-still on the list before the work is re-armed. The workqueue clears the
-pending bit before it calls amt_tunnel_expire(), which then does:
-
-	spin_lock_bh(&amt->lock);
-	rcu_read_lock();
-	list_del_rcu(&tunnel->list);
-	amt->nr_tunnels--;
-	amt_clear_groups(tunnel);
-	rcu_read_unlock();
-	spin_unlock_bh(&amt->lock);
-	kfree_rcu(tunnel, rcu);
-
-Here is one possible sequence:
-
-CPU1                                CPU2
-                                    amt_rcv()
-                                      rcu_read_lock_bh()
-                                      amt_update_handler()
-                                        finds tunnel in tunnel_list
-gc_wq fires, pending cleared
-amt_tunnel_expire()
-  list_del_rcu(&tunnel->list)
-                                        mod_delayed_work(&tunnel->gc_wq)
-                                          re-arms gc_wq.timer
-  kfree_rcu(tunnel, rcu)
-                                      rcu_read_unlock_bh()
-tunnel freed after grace period,
-gc_wq.timer still queued
-
-The gc_wq expiry is much longer than a grace period, so the timer would
-still be in the timer wheel after the tunnel is freed. When it fires,
-delayed_work_timer_fn() would work on freed memory. A second
-amt_tunnel_expire() would then repeat list_del_rcu() and underflow
-nr_tunnels.
-
-This patch makes the race easier to hit, because one host can now hold
-many tunnels that expire separately. The same window still exists at the
-end of the series. The locked re-check in amt_tunnel_get_or_create() can
-find the tunnel while amt_tunnel_expire() waits on amt->lock, and the
-caller re-arms gc_wq after it unlocks.
-
-> @@ -2499,7 +2503,13 @@ static bool amt_update_handler(struct amt_dev *amt, struct sk_buff *skb)
->  								  * 3);
->  				goto report;
->  			} else {
-> +				/* The endpoint match is unique, so no other
-> +				 * tunnel can validate this Update. Count the
-> +				 * drop: an unauthenticated Update is not
-> +				 * observable from the gateway's own side.
-> +				 */
-
-[Severity: Low]
-This race is older than this patch, but is the endpoint match really
-unique? amt_request_handler() does its (ip4, source_port) lookup without
-amt->lock, then takes amt->lock and allocates without looking again:
-
-	list_for_each_entry_rcu(tunnel, &amt->tunnel_list, list)
-		if (tunnel->ip4 == iph->saddr &&
-		    tunnel->source_port == udph->source)
-			goto send;
-
-	spin_lock_bh(&amt->lock);
-	if (amt->nr_tunnels >= amt->max_tunnels) {
-
-Two concurrent Requests from the same endpoint could create duplicate
-tunnels. The early return on this Invalid MAC arm assumes there is only
-one.
-
-Later in the series, "amt: do not create tunnel state for unauthenticated
-Requests" seems to fix this. Its amt_tunnel_get_or_create() re-checks
-under amt->lock, and that commit also removes this comment.
-
->  				netdev_dbg(amt->dev, "Invalid MAC\n");
-> +				amt->dev->stats.rx_dropped++;
+>  	spin_lock_bh(&amt->lock);
+> -	get_random_bytes(&amt->key, sizeof(siphash_key_t));
+> +	amt->key[1] = amt->key[0];
+> +	get_random_bytes(&amt->key[0], sizeof(siphash_key_t));
+>  	spin_unlock_bh(&amt->lock);
+>  	mod_delayed_work(amt_wq, &amt->secret_wq,
+>  			 msecs_to_jiffies(AMT_SECRET_TIMEOUT));
 
 [Severity: Medium]
-Does this count each rejected Update twice? amt_update_handler() returns
-true here, and amt_rcv() already counts that on its drop path:
+Does this give every response MAC a fixed lifetime that is shorter than
+the Query Interval the relay advertises?
+
+amt_secret_work() runs every AMT_SECRET_TIMEOUT (60000 ms) and only one
+previous key is kept. A MAC issued at time t therefore stops verifying in
+amt_update_handler() at the second rotation after t, which is 60 to 120
+seconds later.
+
+Before this patch, each tunnel copied amt->key when it was created, and
+that copy never rotated. A gateway's (nonce, MAC) stayed valid for the
+whole life of the tunnel.
+
+The relay advertises QQIC = amt->qi (AMT_INIT_QUERY_INTERVAL, 125) in
+amt_build_igmp_gq() and amt_build_mld_gq(). Gateways reuse the cached
+nonce and MAC from the last Query for every Update, including unsolicited
+joins and leaves:
+
+drivers/net/amt.c:amt_send_membership_update() {
+    ...
+	amtmu->nonce		= amt->nonce;
+	amtmu->response_mac	= amt->mac;
+    ...
+}
+
+Take a third-party gateway that paces its Requests by the advertised
+125 second interval. Its joins and leaves would be dropped as "Invalid
+MAC" during the last 5 to 65 seconds before each refresh. A lost join
+means no multicast until the next cycle. A lost leave means the relay
+keeps forwarding until gc.
+
+The Linux gateway in this file sends a new Request about every 2 seconds
+(amt_event_send_request() with req_cnt reset by each Query), so it is
+not affected.
+
+The commit message describes the two-key window only as covering "an
+exchange straddling a rotation". Should it mention this lifetime limit?
+Alternatively, should the rotation period or the number of kept keys be
+tied to amt->qi?
+
+> @@ -1115,9 +1125,16 @@ static void amt_send_multicast_data(struct amt_dev *amt,
+>  			    0);
+>  }
+>  
+> +/* Send a Membership Query to a source that has not been authenticated yet.
+> + *
+> + * No per-source state exists at this point and none is created: the nonce and
+> + * the keyed MAC are carried in the Query and recomputed from the Membership
+> + * Update when it comes back, so everything this needs is passed by value.
+> + */
+
+[Severity: Low]
+This isn't a bug, but the comment above test_query_egress() in
+tools/testing/selftests/net/amt.sh still describes the Query as tied to
+a tunnel:
+
+# The relay sends its General Queries straight from the receive path, in
+# the same context that found the tunnel. A query queued on the amt device
+# instead could outlive the tunnel it was built for.
+
+After this change amt_request_handler() neither looks up nor creates a
+tunnel. Should the selftest comment be updated to match?
+
+>  static bool amt_send_membership_query(struct amt_dev *amt,
+>  				      struct sk_buff *skb,
+> -				      struct amt_tunnel_list *tunnel,
+> +				      __be32 daddr, __be16 dport,
+> +				      __be32 nonce, u64 mac,
+>  				      bool v6)
+
+[ ... ]
+
+> @@ -2496,36 +2573,58 @@ static bool amt_update_handler(struct amt_dev *amt, struct sk_buff *skb)
+
+[ ... ]
+
+> +	for (i = 0; i < ARRAY_SIZE(key); i++) {
+> +		u64 mac = siphash_3u32((__force u32)saddr,
+> +				       (__force u32)sport,
+> +				       (__force u32)nonce,
+> +				       &key[i]) >> 16;
+
+[ ... ]
+
+> +		if (response_mac == mac) {
+> +			verified = true;
+> +			break;
+>  		}
+>  	}
+>  
+> -	return true;
+> +	if (!verified) {
+> +		/* Count the drop: an unauthenticated Update is not observable
+> +		 * from the gateway's own side.
+> +		 */
+> +		netdev_dbg(amt->dev, "Invalid MAC\n");
+> +		amt->dev->stats.rx_dropped++;
+> +		return true;
+> +	}
+
+[Severity: Medium]
+Is this packet counted twice in rx_dropped?
+
+amt_update_handler() increments rx_dropped and returns true. amt_rcv()
+then takes its drop path for the same skb:
 
 drivers/net/amt.c:amt_rcv() {
     ...
@@ -198,122 +252,163 @@ drop:
     ...
 }
 
-If so, this part of the commit message is not accurate:
+The extra increment came in with "amt: key relay tunnel state on the
+(address, port) endpoint, not the address". This patch moves it but
+keeps it, so every spoofed or stale-MAC Update raises rx_dropped by 2.
 
-  "Also count the "Invalid MAC" drop in rx_dropped. It is currently a
-  netdev_dbg only"
+> +
+> +	tunnel = amt_tunnel_get_or_create(amt, saddr, sport);
+> +	if (!tunnel) {
+> +		/* Out of tunnel slots.  Unlike the Request path this reply
+> +		 * only ever goes to a source that has proved it received our
+> +		 * Query, so it cannot be used to reflect at a third party.
+> +		 */
+> +		icmp_ndo_send(skb, ICMP_DEST_UNREACH, ICMP_HOST_UNREACH, 0);
+> +		return true;
+> +	}
 
-Before this patch, the drop was already counted once through amt_rcv().
-The double count is still there at the end of the series, in the
-!verified branch of amt_update_handler() after "amt: do not create tunnel
-state for unauthenticated Requests".
+[Severity: Medium]
+When the table is full, does this stop the gateway from ever falling back
+to rediscovery?
 
-Could the added increment be removed?
+amt_request_handler() now answers every Request with a Query, whatever
+the capacity, and the refusal only happens here. With the gateway code in
+this file, the sequence becomes:
 
-[Severity: Low]
-Separately, this is a plain read-modify-write of dev->stats.rx_dropped in
-softirq context. amt_rcv() can run on several CPUs at once, so concurrent
-invalid Updates can lose increments. This increment also races with the
-plain increment at the drop label in amt_rcv().
+gateway: amt_membership_query_handler()
+    amt->req_cnt = 0;  (ready4/ready6 set to true)
+gateway sends Update
+relay: amt_update_handler() -> icmp_ndo_send(ICMP_HOST_UNREACH)
+gateway: amt_err_lookup()
+    mod_delayed_work(amt_wq, &amt->req_wq, 0);
+gateway: amt_event_send_request() sees req_cnt == 0, sends a new Request
+relay answers with another Query, and req_cnt is reset again
 
-Removing the extra increment above would fix this too. If it stays, would
-DEV_STATS_INC() be the right form?
+As a result, this give-up branch in amt_event_send_request() can no
+longer be reached:
 
->  				return true;
->  			}
->  		}
+	if (amt->req_cnt > AMT_MAX_REQ_COUNT) {
+		...
+		WRITE_ONCE(amt->remote_ip, 0);
+		amt_update_gw_status(amt, AMT_STATUS_INIT, false);
 
-[ ... ]
+Before this patch, a full relay answered the Request with ICMP and sent
+no Query. req_cnt kept climbing, and the gateway went back to discovery,
+where an anycast discovery address could pick another relay.
 
-> @@ -2705,7 +2715,8 @@ static bool amt_request_handler(struct amt_dev *amt, struct sk_buff *skb)
->  		return true;
->  
->  	list_for_each_entry_rcu(tunnel, &amt->tunnel_list, list)
-> -		if (tunnel->ip4 == iph->saddr)
-> +		if (tunnel->ip4 == iph->saddr &&
-> +		    tunnel->source_port == udph->source)
->  			goto send;
->  
->  	spin_lock_bh(&amt->lock);
+Now the gateway keeps cycling through Request, Query, Update and ICMP
+with a relay that will never admit it, and it reports ready4/ready6 as
+true the whole time. Is this change in behaviour intended?
+
+> +
+> +	mod_delayed_work(amt_wq, &tunnel->gc_wq,
+> +			 msecs_to_jiffies(amt_gmi(amt)) * 3);
 
 [Severity: High]
-With the port added to the key, can one host using its own address fill
-the whole tunnel table?
+This is a pre-existing issue, but can this re-arm gc_wq on a tunnel that
+amt_tunnel_expire() is in the middle of freeing?
 
-Every Request from a new UDP source port now misses this lookup and
-allocates a new amt_tunnel_list. The only admission check left is the
-device-wide one just below:
+amt_tunnel_get_or_create() returns an existing tunnel either from the
+lockless walk or from the re-check after amt->lock is dropped. Here the
+only protection is rcu_read_lock_bh() from amt_rcv(). Suppose the
+tunnel's gc_wq has already started running:
 
-	if (amt->nr_tunnels >= amt->max_tunnels) {
-		spin_unlock_bh(&amt->lock);
-		icmp_ndo_send(skb, ICMP_DEST_UNREACH, ICMP_HOST_UNREACH, 0);
-		return true;
+CPU1 (amt_wq)
+amt_tunnel_expire()
+    spin_lock_bh(&amt->lock);
+    list_del_rcu(&tunnel->list);
+    amt->nr_tunnels--;
+    amt_clear_groups(tunnel);
+    spin_unlock_bh(&amt->lock);
+    kfree_rcu(tunnel, rcu);
+
+CPU2 (amt_rcv)
+amt_update_handler()
+    tunnel = amt_tunnel_get_or_create(...);  /* same tunnel */
+    mod_delayed_work(amt_wq, &tunnel->gc_wq, ...);
+    amt_igmp_report_handler(amt, skb, tunnel);
+
+The work is running rather than pending, so mod_delayed_work() queues it
+again and arms a timer inside an object that is waiting for kfree_rcu().
+The report handler also attaches new group and source nodes after
+amt_clear_groups() has already run.
+
+When that timer fires, amt_tunnel_expire() runs on freed memory. It calls
+list_del_rcu() on a poisoned entry and decrements nr_tunnels a second
+time, which underflows it and bypasses max_tunnels. The orphaned group
+nodes leak, with timers that point at the freed tunnel.
+
+The lookup has now moved into a new helper. Would it be worth checking
+under amt->lock that the tunnel is still on the list (or not marked dead)
+before gc_wq is re-armed?
+
+[ ... ]
+
+> @@ -3061,7 +3128,7 @@ static int amt_dev_open(struct net_device *dev)
+>  	amt->req_cnt = 0;
+>  	WRITE_ONCE(amt->remote_ip, 0);
+>  	amt->nonce = 0;
+> -	get_random_bytes(&amt->key, sizeof(siphash_key_t));
+> +	get_random_bytes(&amt->key, sizeof(amt->key));
+
+[Severity: Medium]
+Can Updates be verified against all-zero keys while the device is being
+opened?
+
+amt_socket_create() -> setup_udp_tunnel_sock() publishes sk_user_data,
+installs encap_rcv = amt_rcv and enables encap before it returns. The
+keys are seeded only after that, and without amt->lock:
+
+amt_dev_open()
+    err = amt_socket_create(amt);
+    ...
+    get_random_bytes(&amt->key, sizeof(amt->key));
+
+On the first bring-up the netdev private data is zero-filled, so key[0]
+and key[1] are both zero during that window.
+
+With this patch, the only check before admitting a tunnel is recomputing
+siphash_3u32(saddr, sport, nonce, key) >> 16. A spoofed Update carrying a
+MAC computed offline under the zero key would pass amt_update_handler()
+and get a tunnel, plus group joins that forward multicast to the spoofed
+address. That entry stays after the keys are randomized.
+
+amt_request_handler(), amt_update_handler() and amt_secret_work() all
+access amt->key[] under amt->lock, so readers here can also see a
+half-written key. Should the keys be seeded under amt->lock before
+amt_socket_create() is called?
+
+[Severity: High]
+This is a pre-existing issue and was not introduced by this patch.
+While looking at tunnel lifetime, though, can amt_dev_stop() double free
+a tunnel whose amt_tunnel_expire() is running at the same time?
+
+drivers/net/amt.c:amt_dev_stop() {
+    ...
+	list_for_each_entry_safe(tunnel, tmp, &amt->tunnel_list, list) {
+		list_del_rcu(&tunnel->list);
+		amt->nr_tunnels--;
+		cancel_delayed_work_sync(&tunnel->gc_wq);
+		amt_clear_groups(tunnel);
+		kfree_rcu(tunnel, rcu);
 	}
+    ...
+}
 
-A host can open max_tunnels (default 128) sockets on different ports and
-send a Request from each. It receives the Membership Query on each port,
-since it owns them, and answers with valid Updates. Each refreshing Update
-keeps its entry alive through mod_delayed_work() in amt_update_handler().
-Once the table is full, every other gateway's Request gets
-ICMP_HOST_UNREACH.
+amt->lock is not held here, and the tunnel is unlinked before gc_wq is
+cancelled.
 
-No spoofing is needed, so source address filtering does not help. Before
-this patch, a non-spoofing host could hold at most one tunnel.
+Suppose amt_tunnel_expire() is already running for that tunnel. It takes
+amt->lock and calls list_del_rcu() on an entry that dev_stop has already
+unlinked, which writes through LIST_POISON2.
 
-Each of these tunnels also has its own group and source state, and
-amt_dev_xmit() calls amt_send_multicast_data() once per tunnel. Would the
-relay then send up to max_tunnels copies of each joined stream to the
-same address?
+cancel_delayed_work_sync() then waits for expire, which calls
+kfree_rcu(tunnel), and dev_stop calls kfree_rcu(tunnel) a second time.
+nr_tunnels is also decremented twice.
 
-The commit message mentions this:
-
-  "Note this removes an accidental bound: while tunnels were keyed on the
-  address alone, one source address could never hold more than one
-  tunnel, whatever it did. [ ... ] it is restored in a companion net-next
-  patch ("amt: bound relay tunnels admitted per source address") rather
-  than here, since it adds UAPI and this is a fix."
-
-This patch has a Fixes: tag, so it may be backported to stable without
-the net-next patch. Should the per-source bound go in with this fix?
-
-The problem also remains at the end of the series. After "amt: do not
-create tunnel state for unauthenticated Requests", the only limit in
-amt_tunnel_get_or_create() is still nr_tunnels >= max_tunnels. A
-non-spoofing host passes MAC verification on each of its own ports.
-
-[ ... ]
-
-> @@ -2743,6 +2754,14 @@ static bool amt_request_handler(struct amt_dev *amt, struct sk_buff *skb)
->  	spin_unlock_bh(&amt->lock);
 >  
->  send:
-> +	/* source_port is part of the tunnel's identity and is set once, in
-
-[ ... ]
-
-> +	 */
->  	tunnel->nonce = amtrh->nonce;
->  	mac = siphash_3u32((__force u32)tunnel->ip4,
->  			   (__force u32)tunnel->source_port,
-
-[Severity: Low]
-This problem is older than this patch, but the allocation path above
-publishes the tunnel before its key is set:
-
-	list_add_tail_rcu(&tunnel->list, &amt->tunnel_list);
-	tunnel->key = amt->key;
-
-Here, tunnel->nonce and tunnel->mac are also written without a lock, while
-amt_update_handler() reads them locklessly.
-
-Could a concurrent Request that finds the new entry compute tunnel->mac
-with a zero key? Could amt_update_handler() see a nonce/mac pair that
-comes from two different Requests?
-
-Later in the series, "amt: do not create tunnel state for unauthenticated
-Requests" appears to resolve this. It removes the per-tunnel nonce, key
-and mac, and amt_tunnel_get_or_create() publishes only fully initialised
-entries.
+>  	amt->status = AMT_STATUS_INIT;
+>  	if (amt->mode == AMT_MODE_GATEWAY) {
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261009201455.1904698-1-omar%40blockcast.net
