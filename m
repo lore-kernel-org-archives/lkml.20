@@ -1,135 +1,269 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazolkn19012016.outbound.protection.outlook.com [52.103.11.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66EA8453A33;
-	Sat, 10 Oct 2026 09:44:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.11.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791625472; cv=fail; b=dCgqnlP0iquVNDQVr7E7RCU0yk/msvcSYfP1u8tcMtZt3FJG9K5/JUiDZyVMWcILFAuKewvRVGn5aTOuaAfQJh9+BTrye3TMuV20yOE8dYFTRAAUZeBEMUX+MMNXnflR1w4nb8ICuV7sBckd3XURRuDbUVXLjQK1XotG2eRGW6w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791625472; c=relaxed/simple;
-	bh=naNTcpaj6mdGSNnT3KGGz/4DO1vVGcSTWYSLztnnVIQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=MpJJsA6pTl9RWzJ+EeujPMbiKA451bVHqJezIcOb6minjr4tbMcb9x8gyIH8Zg71xIvHEaYZgjtwss3oyXdy66FWFAHK3cQwM3Gfs2RTKltFWMNbBsMwS9PaOxr4cUmL2ctNVRdVucOMM7GQIgXpmavSQ2Whyd1YBgIwEaemC3o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.it; spf=pass smtp.mailfrom=outlook.it; dkim=pass (2048-bit key) header.d=OUTLOOK.IT header.i=@OUTLOOK.IT header.b=MqGULQ2N; arc=fail smtp.client-ip=52.103.11.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 304AC314D13
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 09:50:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791625820; cv=none; b=Roa2H5TEkBgv0pihiyYkNhu/HppemKOlKKekjttSWrhMYniiKcKkkyRzso2yH/iN5/k1svlROTWgtH9NY2T303AzS/If8xyzTBc68HxP7KPDqaZfVoQ2WrOB9017D2vHNU+0qnMb31uGo2rC9Zi1EsYVPQdkhEneW/5BfVzzyTY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791625820; c=relaxed/simple;
+	bh=Pz9mjQaWBvzyAjmLpF1JmG7U6qn2e1XO0gz8PWDrPd4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Me6qCYZ0cXqfFEdRnGmiA82RpBk0X81m9yx8nvFFWmJvzdDHUgW4rOmCeuuL6skr2Bplid5uwsNAmOP+h1hVbwG7lwcMoKpyHc9wsh9mL22O8PBRLSW3HZlpJ6VV/lxbo2amkwbDhrdlFmWZmsvMdzRFfihZj7z/wYsb0V1oGbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZZ0YiM91; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=OUTLOOK.IT header.i=@OUTLOOK.IT header.b="MqGULQ2N"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d/NKOpAyxu1Qe8XF+pcfAJM7k17IC7U/RX6MYJuRQuqG7FMlTBqtpT4Vm47JQGaL8kGbkB6ZTSZaXoXZNV6kD7cbom94huwMP/d5NPN+i7TE4H72MJf2IyZUWsSR+ux7b6WyUst5Bkx344zEHanLol9i625/R1TS08BiZVuOGmkwnFzHEs/MTDGOcl00jHfwUuLLeTdFhFit83xa6fAYXja3vwhSKbFNepj1w3C8eXKCRbhzst5mFaof9PircnYenZPWHu27DnoJWetw3T0HMotLMEjWdaCznddaoglaEry6sZoB3inB4r37xyUcpzGHi+omShQ1abhrXpcqC6VvAQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=naNTcpaj6mdGSNnT3KGGz/4DO1vVGcSTWYSLztnnVIQ=;
- b=FCXsMzOQTc/ph/bJMJRbmu6dU+1Qc9DAvw19F2nMAI+Ch3VHA+8+hCGmYXtL0+IqKEDKEn56+B256DN7WV2Mlsl4FAL1V44TM5tqSEFQ0do4YZTxneO6gZAyqij2Za9bXOfhGEx8DA5QVghBVyKrkjNr0Msa7Akhb9F1nRMPfTJss4Bvw4HL8PbAdXT4/eDe8mzcCw3Lo7OoBXzDn+0PvzfGyx4WkQNf7hXp+vCEpWChOGxsHSm3cRoFayQ6Uhh3icoOss/16/vQrGx4SiwtoHPij9IAOB3vQf9Ao22smV1Gmk5tV97fKqBjVJxRIDCG0dQASU639r1zVNwvO1MxZw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=OUTLOOK.IT;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=naNTcpaj6mdGSNnT3KGGz/4DO1vVGcSTWYSLztnnVIQ=;
- b=MqGULQ2NOk2mkKIZe2mRE4Aos/gwA/z6foMx5BWWFU/N5EI+sYd0sE2jYP0mAqVjbCXBV+ucjewsV/9b7o/2ox9lDbDaSmclXtTkNk64zNra1ouxGO4+sjYRG/Ctylyx/6KnlOfDHJbQbgBuHPPkIUU1giAt9QQGn9WuHf1D/da7+of01tMnXXKrpXrNlwtvW1C5LD8Zri3RJKhBB6Q9RgBXNQdSDuU0508i9FsD+w+yM8czOCpLzoY3o5QbYetwC/NypdOdY1m6IjFYoPPB7YnMkj/gtdwo8NtfuearqEllsmcsK9k2OIQ0NLeBe5GJ4R0ss5vTXe2gB6D92uMhSw==
-Received: from SN6PR19MB2303.namprd19.prod.outlook.com (2603:10b6:805:56::19)
- by IA3PR19MB911919.namprd19.prod.outlook.com (2603:10b6:208:70c::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.18; Sat, 10 Oct
- 2026 09:44:28 +0000
-Received: from SN6PR19MB2303.namprd19.prod.outlook.com
- ([fe80::805c:7f80:c69f:876a]) by SN6PR19MB2303.namprd19.prod.outlook.com
- ([fe80::805c:7f80:c69f:876a%6]) with mapi id 15.21.0496.015; Sat, 10 Oct 2026
- 09:44:27 +0000
-From: Marco Giunta <marco_giunta@outlook.it>
-To: tiwai@suse.com
-Cc: marco_giunta@outlook.it,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZZ0YiM91"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a061a13884so4362095e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 02:50:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791625817; x=1792230617; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jYxpsTzHFlYPOtsBqibfHOX9Q66IxX+cTOR1n+n+0sY=;
+        b=ZZ0YiM91iI/JIGvhtoj998S+7gYK+f2OM2180bFhffJKwiOg2VG9atNbJb0g3GJsX9
+         2ltaJm6EChNfC2vBbBhVVlpDTTbOjR823KiSzqokYK26VbSp9pHpGy7U9/Q9bGpqzjaZ
+         zILS8nEORU0sOgE8JOK4IHdnm9te6O93rf8weptyn2Xq8VU/0Rbn8U/2ZntQ23thgq1p
+         w6mxjrH+goqU2UldWL+ftWKFsZP1+pSlAnLKgwHet81LAEXs5O1iN4UQL3r9bQApgblw
+         zhReVIImwTNez0AxuwIuyMoV2KpI3PktXk3NAVdQEORCkVAB++FEBbbeuGEQfx4/5CJe
+         HNZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791625817; x=1792230617;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jYxpsTzHFlYPOtsBqibfHOX9Q66IxX+cTOR1n+n+0sY=;
+        b=uBwjpX2tVabvQmA6KYi1xUwyRJrVjBcCf6MWbR1czF8+qQ3T4MyCJLT/kJ1ggcctJ0
+         PMgI0dFWHoWx648Qnb4gY3iJwfssQOeq5BahTjaNP/qMZttP/+xNP9BNBZoW0j3HMgDN
+         vL6RECqNJYDNUEPfoCV8vhc2YV/JChM3Dg3FAg1NOWkMxvPe3bshvpnBtmG58KZek7mk
+         3PUy9PHXOVhgpqvwc/hyAajVsTjiHOsdnNJPYv52thB6LprvhRIw4y0CHeQHDTWv5wbe
+         ybXb+hkAsZyKDfQMqHghEyv0nkyhLEJpFe/ArJffSCOuAjFSdIZmrpmnja5W7EfBuBD+
+         XvLw==
+X-Forwarded-Encrypted: i=1; AKwUvBxc6BJ4Ubrsi0JWlP4XxN07Lhg1PESTuyblz2pQqWAwaie+LYGwOTGo0ULyxhGX27isxVvxCyRS/hQtH0w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIKNOIfPxSRwkGpROZp8XKGrP6gRIIUUKCrvNe94xxpurgrYObU
+	Qcvo6Mx9WcJl4NFtXmPSar3w8Uk8dTT7gIWDg7hHEuJlLtYn9lgLYkS+
+X-Gm-Gg: AYBFou0D4XHs2H9xaRPduwbfa14fKZpAb5zgDR6r5EI6g6hnd/8eLYK4YN+EHpi1gn1
+	RinrkFl+7POVlUmZfwGnJAFtDI96opzj/hTqeOY29MVXKdCJaMXb5kky7A8j6jVk5EgTWzuNFgw
+	VUngzJHVpWTDIrkfKjvI+s8WcZeFbK8dV+27TTaS1MlDsej451d/blXbK2MbXBZEwwPd3/1QH2t
+	gRt3tVGy7NFmfIkUxrBtgaZVlr7NN91963qxRSePTX9zUnT10utuYcgDgE97dMnxOyaysmQG6SR
+	rJAHH0HnD3WR7mLKvGHn8E5TIhImAyQz8c1ufK2WcwnH7FnQEIPNra8gI+de++Ky//rdgP4nq6q
+	1fKvHyQiemETP2D96NsdXlIbHvtZxEv41+v7SsD4z/6OiDfHH1QUhDMlVEcmUnVHXPeT3e/uvxQ
+	Vn2q9XxGj//cgg3898Epma4uOQf/Nq2fuiB5o2/Js1ekX2yemFacSB+0ujoe5QyfzmOmRev9jQt
+	7F/YNKVda8aq1jISFgd8MNpoL2Zmiw=
+X-Received: by 2002:a05:600c:8b82:b0:49f:fd2d:23c7 with SMTP id 5b1f17b1804b1-4a18e4b887amr84139465e9.27.1791625817058;
+        Sat, 10 Oct 2026 02:50:17 -0700 (PDT)
+Received: from nixos-office ([81.0.251.149])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf15691sm119149615e9.6.2026.10.10.02.50.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 02:50:16 -0700 (PDT)
+Sender: Julian Braha <julian.braha@gmail.com>
+From: Julian Braha <julianbraha@gmail.com>
+To: nathan@kernel.org,
+	nsc@kernel.org
+Cc: ojeda@kernel.org,
+	a.hindborg@kernel.org,
+	nico@fluxnic.net,
+	rdunlap@infradead.org,
+	grahamr@qti.qualcomm.com,
+	jakub.git@horky.net,
+	linux-kbuild@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz
-Subject: Re: [PATCH] ALSA: hda/scodec: imply SERIAL_MULTI_INSTANTIATE for AW88399
-Date: Sat, 10 Oct 2026 11:44:18 +0200
-Message-ID:
- <SN6PR19MB2303021FB731E4B20F2283B1FC912@SN6PR19MB2303.namprd19.prod.outlook.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <SN6PR19MB2303BF65050B51AE7217BB9AFCBD2@SN6PR19MB2303.namprd19.prod.outlook.com>
-References: <SN6PR19MB2303BF65050B51AE7217BB9AFCBD2@SN6PR19MB2303.namprd19.prod.outlook.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ZR2P278CA0071.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:52::17) To SN6PR19MB2303.namprd19.prod.outlook.com
- (2603:10b6:805:56::19)
-X-Microsoft-Original-Message-ID:
- <20261010094418.16844-1-marco_giunta@outlook.it>
+	rust-for-linux@vger.kernel.org,
+	Julian Braha <julianbraha@gmail.com>
+Subject: [PATCH] kconfig: wrap long expressions in menuconfig
+Date: Sat, 10 Oct 2026 10:50:01 +0100
+Message-ID: <20261010095001.265759-1-julianbraha@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR19MB2303:EE_|IA3PR19MB911919:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2ba3a4cc-e1ae-443b-3b94-08df26b31309
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|15080799012|5072599009|51005399006|23021999003|24021099003|19110799012|25010399006|8060799015|260925184616899003|3412199025|440099028|40105399003|2607281247196008|1710799026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?ukmvWVe04hBpak+O6AN+K5seI0aGluGiMc30+Eh1BqfAcjrHWLiXkxCSZ3oA?=
- =?us-ascii?Q?GgfS7PbpByEMPo4nU1zxNzXJZLCHxPHLJbi47kM13Ig8lCGBalInWVweBFkN?=
- =?us-ascii?Q?vbVvn0bR9dnsSPPPSOZoIb4FT2Bh/7cC7xOIboXUAk/n9zbMsX8ziP/k3IO9?=
- =?us-ascii?Q?uDMqQDoWZnS7QRmUBhsmoDyn9lPdLPeTSCPZKO8NWLM9ARDCGurGjfhVVmCq?=
- =?us-ascii?Q?wdjrh7xvNu4WcVrd6E5qtWzpoq4QrncWm5QA5Zvs7NLz39/FPDHolxXA3TNJ?=
- =?us-ascii?Q?t2asB3Rw0fFpDe+jCESgj9+iQmAdLmIhviSScBAcAbEHndYbLgZHwdAh8mdR?=
- =?us-ascii?Q?FB3TVoSyZxe6k0oCV7O8yak+X4jk0eZRJpbbMoc9Kyb4JkABP2gAb9ptrL2X?=
- =?us-ascii?Q?Gw2eEi28oBhzGHolGxcnJDk4OPZJY4MAUZEW+JNtAH38z7bvikoMphB4HcfH?=
- =?us-ascii?Q?/eHCWoafCzIQL0XcSI84fMJ+UjQmLAjQtC+Oogxe57lt+jtTbCkE39NxyeoU?=
- =?us-ascii?Q?NbKRqR6qxRkqW8GRw0ZxmJFBCCcuL74b78R1+bmvFE20NaWK0pPm7szyvjNG?=
- =?us-ascii?Q?Hs/HhgFFVziN1t+dIL+mWpdWiDvDSVE/59bXEDUTUNvGE4ZyAiIw5RikJStB?=
- =?us-ascii?Q?Ok+8btFXp8qPABK+HP8DABooDjyh9UZMeOAuLZKh2JrVQAmy/MbsD6Cdi7Od?=
- =?us-ascii?Q?8ohHgyCdQHBRG5D4Bg5FeatpydjDnxIef5dQNxa/7NALhXduL9jLgzQFR7Ga?=
- =?us-ascii?Q?pKSRscpBCoEYs9My5c5g6ij8zhA+NQzP76T1mDZ3CoFqbVAiBhPH8UyUsWcu?=
- =?us-ascii?Q?+dACE0KSPc3T0YvGg8mb77AEtOlyakK/XZJLIccJOF30pUyeC23yYoJw22JI?=
- =?us-ascii?Q?fQePZzwPPCvuSlCJtEa+/99ULkiZtehcHPQo9lWSUGjc1l7wfaecYb5Tr1MY?=
- =?us-ascii?Q?Fysm8Ryihz0KmF2HRtr5Bw=3D=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?6owGJGw1/4TpdhvzFGWIXIjX9GsXOH9hU3jfRdZOXE1jJSowsiQWa1++dHWg?=
- =?us-ascii?Q?JWL8plsRFVkzl2KyoI0HReCcQRqEC7AJZBGM/YOnfCfC4cQFHlmjNkkqtTHd?=
- =?us-ascii?Q?TuUFIYpOJcrHqhfLNME0EtuNQi+gPMGR0hoa/pCqNdLMPdEopnHfMlfSqr/J?=
- =?us-ascii?Q?mpTS+hy47+uY9sL1Mb+B7EYFXBtmifmJShAP9scbEPRh5uIMrcX+J7O7Y3aS?=
- =?us-ascii?Q?nHZUUW//Lx9+M2Nb25TEiywle+tkXBo7ikaSX20RCEO2sHCWBopeAMRHzlfs?=
- =?us-ascii?Q?Vk9yBpBTyzA+7dKZnOZKmtefXQ94YUSm82v2cIeJTnBRLtDijJHz0u6cVMyD?=
- =?us-ascii?Q?28EXIkQyK578NLPT4TygDbZ9r1osFiwpysBbTDeoS0hL9Z1p2jevvDqe3UmR?=
- =?us-ascii?Q?KRoDkiH8p57xO29dbUDJC+G+1PaxCRpRqqqz83H+tL/8zpmF/a4aW6mEsyvd?=
- =?us-ascii?Q?oSR53mWnIwCSlrsDDcBGUxkojclBFuJ8lsKxUPfcqQ3liMBUDRbg5bniWaaq?=
- =?us-ascii?Q?8jBEfmbk1KfrrTYvUCTzxGrweS6GXFAGcOmuj7IOYOdNSihLC6LeNipWRoMN?=
- =?us-ascii?Q?CXFAzPgH8uwm2ksHDPTRFFO+A3PkLSA508JUaV/92mi3IqGzoyX3KxKmjvKe?=
- =?us-ascii?Q?ArFO0/eYzrXLweKHU8RqdLKByw0jaMQ/5AJHXbAuQoKIBIzKCKCynNrcIKP0?=
- =?us-ascii?Q?KyMRh2CZTYVnhXp0ekObBJkdRxhmOjcq+uQ7p/EmZGD9YVKwNP9vq7mFI5IZ?=
- =?us-ascii?Q?THD5tiMWaP5HdvKJhGwp3aNpveIqHNxeWcHQt19xGfL1J83qPGynNL1f44b7?=
- =?us-ascii?Q?zU2l1mayhoyMW+YVa1IDDdX/8M5VZp4MiuE/SY4EX4zWKsfDVzBf3E07SYgZ?=
- =?us-ascii?Q?cRHhGhtxONaMqgOL8j/kMGawmfgcyulAlobvggZ+oTjfTqQnLY3IuekIZDlO?=
- =?us-ascii?Q?44mTJnqSg0+D2YpHJ8x0uyjwWaltQblUy9U4fQTyzsnayE6PnsGzgUMt9Jsi?=
- =?us-ascii?Q?TvHDh6XSmFupghrDYHNvLh1WoLM45k6E/ggboMEi1Fsh1/5zYo1yV3UW3Zww?=
- =?us-ascii?Q?8C2+kUl96F6sEGnq/FZ/TefhvoZeIgOdkhu5d6O7Xk4/6U+OxGx+wPTYJZjh?=
- =?us-ascii?Q?n1Wk6j41q+Kg6m3kpC5fGcBxJi3thm0tW9TnL4UgoB2nlxEm+6mgPLVzoXxo?=
- =?us-ascii?Q?SrztbXMk7xkXfmoIFFKw1mZ1BWfYajMGSvuSONFRkG/ZfG6odH1HBCzzbkvv?=
- =?us-ascii?Q?Oi6t6ZpjaCZo+Ou4eXULGHwqsjEJxDxf0Bk+1xYlID2XKmcAwgKqy9lcRlen?=
- =?us-ascii?Q?AYYKHKPdGygHic5UTDL+W9P1zbiYRrosFhP/0gIyDLl6iI/7OMdwnam6W/m5?=
- =?us-ascii?Q?oLnQNrxk3IrAz5dGKHMee5W8dVer?=
-X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-990eb.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ba3a4cc-e1ae-443b-3b94-08df26b31309
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR19MB2303.namprd19.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2026 09:44:27.7089
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR19MB911919
+Content-Transfer-Encoding: 8bit
 
-Hi Takashi,
-friendly ping on this one-liner (I forgot to include it in the original
-driver submission and it's been bothering me ever since).
+In an offline conversation, Miguel Ojeda reported that scrolling
+horizontally in menuconfig's search to read RUST's dependencies has been
+slowing down debugging.
 
-Thanks,
-Marco
+Let's wrap expressions (like in the 'Depends on', 'Selected by', or
+'Range' sections) between tokens at the end of the window, such that each
+line begins with the same indentation. Ensure the '!' negation stays
+attached to the left side of the option symbol, and keep the value
+annotation attached to the right side when wrapping.
+
+Note that the 'help' textbox uses the same expression printer as search,
+so this has the side effect of improving the formatting in 'help', too.
+
+In the future, we should consider a larger revamp that would wrap all text
+in the search window, allowing us to safely disable horizontal scrolling.
+
+Assisted-by: LLM
+Signed-off-by: Julian Braha <julianbraha@gmail.com>
+---
+ scripts/kconfig/expr.c  | 24 ++++++++++++++++--------
+ scripts/kconfig/lkc.h   |  5 ++++-
+ scripts/kconfig/mconf.c |  2 +-
+ scripts/kconfig/menu.c  |  7 ++++++-
+ scripts/kconfig/nconf.c |  2 +-
+ scripts/kconfig/util.c  |  1 +
+ 6 files changed, 29 insertions(+), 12 deletions(-)
+
+diff --git a/scripts/kconfig/expr.c b/scripts/kconfig/expr.c
+index 2b91d16bf14f..f1e100c3c755 100644
+--- a/scripts/kconfig/expr.c
++++ b/scripts/kconfig/expr.c
+@@ -1155,21 +1155,28 @@ static void expr_print_gstr_helper(void *data, struct symbol *sym, const char *s
+ 	if (sym)
+ 		sym_str = sym_get_string_value(sym);
+ 
+-	if (gs->max_width) {
++	if (gs->max_width && !strchr(str, '\n')) {
+ 		unsigned extra_length = strlen(str);
+ 		const char *last_cr = strrchr(gs->s, '\n');
+ 		unsigned last_line_length;
+-
+-		if (sym_str)
++		/* Ensure the value annotation stays attached to the symbol on wrap */
++		if (sym_str && sym->type != S_UNKNOWN)
+ 			extra_length += 4 + strlen(sym_str);
+ 
+-		if (!last_cr)
+-			last_cr = gs->s;
++		last_line_length = strlen(last_cr ? last_cr + 1 : gs->s);
+ 
+-		last_line_length = strlen(gs->s) - (last_cr - gs->s);
++		if (last_line_length > gs->indent &&
++		    last_line_length + extra_length > gs->max_width) {
++			/* Ensure '!' stays attached to the symbol on wrap */
++			char *last = gs->s + strlen(gs->s) - 1;
++			bool negated = *last == '!';
+ 
+-		if ((last_line_length + extra_length) > gs->max_width)
+-			str_append(gs, "\\\n");
++			if (negated)
++				*last = '\0';
++			str_printf(gs, "\n%*s%s", gs->indent, "",
++					   negated ? "!" : "");
++			str += strspn(str, " ");
++		}
+ 	}
+ 
+ 	str_append(gs, str);
+@@ -1209,5 +1216,6 @@ static void expr_print_revdep(struct expr *e,
+ void expr_gstr_print_revdep(struct expr *e, struct gstr *gs,
+ 			    tristate pr_type, const char *title)
+ {
++	gs->indent = strlen("  - ");
+ 	expr_print_revdep(e, expr_print_gstr_helper, gs, pr_type, &title);
+ }
+diff --git a/scripts/kconfig/lkc.h b/scripts/kconfig/lkc.h
+index bbc99f75b416..f5fe3731db0c 100644
+--- a/scripts/kconfig/lkc.h
++++ b/scripts/kconfig/lkc.h
+@@ -65,6 +65,8 @@ struct gstr {
+ 	* wrapped not to exceed the max_width value
+ 	*/
+ 	int max_width;
++	/* Indentation of wrapped expression lines. */
++	int indent;
+ };
+ struct gstr str_new(void);
+ void str_free(struct gstr *gs);
+@@ -101,7 +103,8 @@ const char *menu_get_prompt(const struct menu *menu);
+ struct menu *menu_get_parent_menu(struct menu *menu);
+ struct menu *menu_get_menu_or_parent_menu(struct menu *menu);
+ int get_jump_key_char(void);
+-struct gstr get_relations_str(struct symbol **sym_arr, struct list_head *head);
++struct gstr get_relations_str(struct symbol **sym_arr, struct list_head *head,
++				int max_width);
+ void menu_get_ext_help(struct menu *menu, struct gstr *help);
+ void menu_dump(void);
+ 
+diff --git a/scripts/kconfig/mconf.c b/scripts/kconfig/mconf.c
+index b8b7bba84a65..fb87f944d3f9 100644
+--- a/scripts/kconfig/mconf.c
++++ b/scripts/kconfig/mconf.c
+@@ -431,7 +431,7 @@ static void search_conf(void)
+ 		struct jump_key *pos, *tmp;
+ 
+ 		jump_key_char = 0;
+-		res = get_relations_str(sym_arr, &head);
++		res = get_relations_str(sym_arr, &head, getmaxx(stdscr) - 10);
+ 		set_subtitle();
+ 		dres = show_textbox_ext("Search Results", str_get(&res), 0, 0,
+ 					&vscroll, &hscroll,
+diff --git a/scripts/kconfig/menu.c b/scripts/kconfig/menu.c
+index bda3e2650216..31f12cfe981b 100644
+--- a/scripts/kconfig/menu.c
++++ b/scripts/kconfig/menu.c
+@@ -668,6 +668,7 @@ static void get_dep_str(struct gstr *r, const struct expr *expr,
+ {
+ 	if (!expr_is_yes(expr)) {
+ 		str_append(r, prefix);
++		r->indent = strlen(prefix);
+ 		expr_gstr_print(expr, r);
+ 		str_append(r, "\n");
+ 	}
+@@ -743,6 +744,7 @@ static void get_symbol_props_str(struct gstr *r, struct symbol *sym,
+ 	bool hit = false;
+ 	struct property *prop;
+ 
++	r->indent = strlen(prefix);
+ 	for_all_properties(sym, prop, tok) {
+ 		if (!hit) {
+ 			str_append(r, prefix);
+@@ -772,6 +774,7 @@ static void get_symbol_str(struct gstr *r, struct symbol *sym,
+ 			prop = sym_get_range_prop(sym);
+ 			if (prop) {
+ 				str_printf(r, "Range : ");
++				r->indent = strlen("Range : ");
+ 				expr_gstr_print(prop->expr, r);
+ 				str_append(r, "\n");
+ 			}
+@@ -810,12 +813,14 @@ static void get_symbol_str(struct gstr *r, struct symbol *sym,
+ 	str_append(r, "\n\n");
+ }
+ 
+-struct gstr get_relations_str(struct symbol **sym_arr, struct list_head *head)
++struct gstr get_relations_str(struct symbol **sym_arr, struct list_head *head,
++			int max_width)
+ {
+ 	struct symbol *sym;
+ 	struct gstr res = str_new();
+ 	int i;
+ 
++	res.max_width = max_width;
+ 	for (i = 0; sym_arr && (sym = sym_arr[i]); i++)
+ 		get_symbol_str(&res, sym, head);
+ 	if (!i)
+diff --git a/scripts/kconfig/nconf.c b/scripts/kconfig/nconf.c
+index 521700ed7152..fc39830a850b 100644
+--- a/scripts/kconfig/nconf.c
++++ b/scripts/kconfig/nconf.c
+@@ -741,7 +741,7 @@ static void search_conf(void)
+ 			.target = NULL,
+ 		};
+ 		jump_key_char = 0;
+-		res = get_relations_str(sym_arr, &head);
++		res = get_relations_str(sym_arr, &head, 0);
+ 		dres = show_scroll_win_ext(main_window,
+ 				"Search Results", str_get(&res),
+ 				&vscroll, &hscroll,
+diff --git a/scripts/kconfig/util.c b/scripts/kconfig/util.c
+index 0809aa061b6a..1de072e45ca3 100644
+--- a/scripts/kconfig/util.c
++++ b/scripts/kconfig/util.c
+@@ -77,6 +77,7 @@ struct gstr str_new(void)
+ 	gs.s = xmalloc(sizeof(char) * 64);
+ 	gs.len = 64;
+ 	gs.max_width = 0;
++	gs.indent = 0;
+ 	strcpy(gs.s, "\0");
+ 	return gs;
+ }
+-- 
+2.55.0
+
