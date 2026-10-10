@@ -1,118 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AA3F33EB10;
-	Sat, 10 Oct 2026 09:19:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 486043B6BF1;
+	Sat, 10 Oct 2026 09:22:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791623952; cv=none; b=ki163UGo6Fw7ihgg/MaaZAb2+2/PM22wocFjBLs6o9lsBAcO5BhUohShF69Sv0KZ/gtPns02CRGT4mnW/337BdUNJ9vyPHks4W2CVoMhOQ7hnr0bPB8XXCyWQSq3cF+SMbY9iXeUCRLs7zMV76bXBN4ehWdXuey9GSD6yppIjY0=
+	t=1791624166; cv=none; b=GtmqMUoIc39/paVnEOt0inFen3CutYlfVxNHEN6JLfx+d8nSs+aqY4stk73jckK8b8BQbtAQ6Un3ukMiSsZm5TC4q4+vzRsABw1BNzbfMKyyxECtP0+y0jZInlrn5WN6uys/PiN+Mfu/SxP5WADRJXgd0qESrJ/KS47OdOTbgak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791623952; c=relaxed/simple;
-	bh=xJWOuAfcQ5pH23EefrBgictiwLlfihQDSTjnoO+K1HM=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NOP4nMzTSNqgwOuUEkMcEarJJCqoRzHqpPHeeRM+L1b7/LYqkinqYRe2Uwql64V/X+2P2ICbjoi8pgX57+j51aax5DmNGUIG5zrWSX0diXXS+007x0iOisuPvwzry9AiWB1O+mrWfgtuObCjo6V8ub4kX/EMjUfme4jwuvZO7Yc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q9nfPoD3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791624166; c=relaxed/simple;
+	bh=6/4qvDnaYM2Z85U+qehegp5waEtzX0dhCN/9J3t82TA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=QYs331IJY02IEvKpoe3mvPoQ4UgL6vf76KPaMPQdaaridnjV87eo24xs3odZttYT+LESS8YOG20XKxNNOIWhi9GuxBY/j5bPmcm9YcAoj6/e32Tlx5/Z0mM1Q8WCX2gRKQUEtewgVGm4zbNlNBbR1LqSHYb9LaBsRQMhDzTJbww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=EWUUlwtV; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q9nfPoD3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 530151F000FF;
-	Sat, 10 Oct 2026 09:19:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791623950;
-	bh=D4+Af9krnXG1FyhekW6iYE8+UMidk+F4PGKFcs/h4no=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Q9nfPoD3r0DN+zYl9hJGdoxzF+vQaPfP2sWcCXS3tjgtErSXq5ULXDJaNx3eg9SyG
-	 8oCobmGKCekdNmes0FH0zVEuQL1zRiEqLU6d8psZDuppz0ldsQ8dEIhc0bjKYK8RDm
-	 ejcrgaDOim3ulP9XsAy+piqwKQ7fBM8BwAbBwzDQT6YUni84MUec4lgKoY9CBtYot6
-	 sO7yUEuLGYCMsxFekTAveHnDSNLRATspHd6/bo4lHFMBT+kOsSC4KPOXI+6jA/EfM5
-	 OuTHp5rJ/sbc8p0h6NrGxye9ng7NkFAgYGB8l/M+tDAnk35WXrCOqeJ3/JVDOhTwlU
-	 S0hie+wH93mCA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xFTER-00000001JUf-3yLq;
-	Sat, 10 Oct 2026 09:19:08 +0000
-Date: Sat, 10 Oct 2026 10:19:07 +0100
-Message-ID: <865wz93oc4.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	will@kernel.org,
-	catalin.marinas@arm.com,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	steven.price@arm.com,
-	aneesh.kumar@kernel.org,
-	oupton@kernel.org,
-	gshan@redhat.com,
-	joey.gouly@arm.com,
-	yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev,
-	gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com,
-	alpergun@google.com,
-	fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com,
-	lpieralisi@kernel.org,
-	enju.kohei@fujitsu.com,
-	jonathan.cameron@oss.qualcomm.com,
-	Sudeep Holla <sudeep.holla@kernel.org>
-Subject: Re: [PATCH v23 00/14] KVM: arm64: CCA: Add basic plumbing for Realms
-In-Reply-To: <CA+EHjTymHEqCJco+d_yy33ndqPPsoZARhOQZ5A0Zwc5N3SV4Qg@mail.gmail.com>
-References: <20261007073537.2454351-1-suzuki.poulose@arm.com>
-	<179155224299.829527.1733164520192309991.b4-ty@b4>
-	<CA+EHjTymHEqCJco+d_yy33ndqPPsoZARhOQZ5A0Zwc5N3SV4Qg@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="EWUUlwtV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version:
+	Content-Type; bh=Zg2aBdBdTLP9z/WGD5ND/M8stJfE0DaZc3MKIYs9Juo=;
+	b=EWUUlwtV9OtfeaIR8NS/MuIGWzcVRH4txpOXC9Z4stjbe1SwQYy5zrUH5dHmyt
+	uOOUGCUQLA07QNA19DRN8SqnrcqVfwB7NuhhV3fyKdc71OAe6OswZ4m4hheDvv1U
+	yMVDNT/A9irq5BtIoJZHqySuURPvqkSQGQpr70dX4TrmQ=
+Received: from lx2.. (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3n3qeA8pqnP+WDg--.44293S2;
+	Sat, 10 Oct 2026 17:21:35 +0800 (CST)
+From: Zijin Tao <taozj888@163.com>
+To: theo.lebrun@bootlin.com
+Cc: Zijin Tao <taozj888@163.com>,
+	stable@vger.kernel.org,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	netdev@vger.kernel.org (open list:NETWORKING DRIVERS),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net v5] net: macb: rate limit netdev error info print in the data path
+Date: Sat, 10 Oct 2026 17:21:34 +0800
+Message-Id: <20261010092134.130564-1-taozj888@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, kvm@vger.kernel.org, kvmarm@lists.linux.dev, suzuki.poulose@arm.com, will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com, jonathan.cameron@oss.qualcomm.com, sudeep.holla@kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3n3qeA8pqnP+WDg--.44293S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXFWrAry3tw18ZF1rGr1xXwb_yoWrCryfpa
+	yUC3s8Jw4kJr42yas7tr40vF1rZrn8tryUWrW8Gw13Xw15Xr98WFySgrya9FW8GayfA3WF
+	yr1DZFZIka1kZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zEBT5JUUUUU=
+X-CM-SenderInfo: hwdr6yqyyyqiywtou0bp/xtbC+R81-GrKA583jQAA3p
 
-On Fri, 09 Oct 2026 15:20:44 +0100,
-Fuad Tabba <fuad.tabba@linux.dev> wrote:
-> 
-> Hi Marc,
-> 
-> On Fri, 09 Oct 2026 14:28:03 +0100, Marc Zyngier <maz@kernel.org> wrote:
-> [...]
-> > Of course, mmu.c is where the crap happens, so anyone with any interest
-> > in this stuff being halfway sane, please review the conflict resolution.
-> 
-> I went through the mmu.c resolution and it looks good to me. Unmap and
-> aging are still no-ops for protected VMs, their abort handler is
-> unchanged, and the default op keeps the tracked unmap for nested MMUs.
-> Two minor things you might want to tidy up.
-> 
-> kvm_vm_stage2_unmap_range() repeats the lockdep_assert_held_write()
-> and WARN_ON(size & ~PAGE_MASK) that kvm_stage2_unmap_range() already
-> does before calling the op.
-> 
-> The VM_WARN_ON_ONCE() in kvm_vm_mem_abort() reads the ESR from the
-> vcpu again, where next had moved these checks to s2fd->esr. It's the
-> same result today, since the only caller handles a real abort, but
-> this (and dropping the vcpu local) would keep it in line with the
-> rest:
-> 
->         VM_WARN_ON_ONCE(kvm_s2_fault_is_perm(s2fd) &&
->                         !esr_abt_is_write_fault(s2fd->esr) &&
->                         !kvm_s2_fault_is_exec(s2fd));
+Now the MACB ethernet driver print the netdev error information
+directly by netdev_err(), which would lead to a large number of
+error information print if there was a significant number of
+error or just jumbo packets exceeding the MTU received when booting.
+For example, it would print a large number of:
 
-Thanks for looking. I've now applied this to the merge resolution.
+macb PHYT0036:00 eth0: not whole frame pointed by descriptor
+macb PHYT0036:00 eth0: not whole frame pointed by descriptor
+...
 
-Cheers,
+in gem_rx() by received a large number of packets without
+RX_EOF flag set, especially with unknown packet
+type that would penetrate the hardware offload for the IP packets.
 
-	M.
+The unlimited prints here would greatly bother and delay
+the system booting process unless the source stop sending
+packets since they occupy the console output bandwidth and
+other processes have to wait for the completion of printing those
+messages.
 
+So rate limit the netdev error information print in the receive
+and transmit data path.
+
+Fixes: 4df95131ea80 ("net/macb: change RX path for GEM")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zijin Tao <taozj888@163.com>
+---
+
+Changes since v1:
+
+v5:
+
+- Update the commit message for the target fix id to 4df95131ea80
+which was indicated by Theo <theo.lebrun@bootlin.com> and Nicolai
+<nb@tipi-net.de>
+- Update the user name in the "From" part to Zijin Tao which is
+the same as that of "Signed-off-by"
+
+v4:
+
+- Update the commit message for the target fix id to 89e5785fc8a6
+as suggested by Nicolai Buchwitz<nb@tipi-net.de>
+- Update the patch with the changelog added in the patch itself
+
+v3:
+
+- add this change log since v2 missing it
+- drop the blank line between the assignment sentence and the commit
+  info
+
+v2:
+
+- update the commit message with the reason why the unlimit prints would
+  bother/delay booting process
+- update the commit message with the Fix commit id provided which is
+  suggested by Théo Lebrun<theo.lebrun@bootlin.com>
+- update the commit message with what packet type would trigger the
+  error printings more easily.
+
+v1:
+
+- initial commit
+
+ drivers/net/ethernet/cadence/macb_main.c | 17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+index b8234ac4b602..c32d48d03008 100644
+--- a/drivers/net/ethernet/cadence/macb_main.c
++++ b/drivers/net/ethernet/cadence/macb_main.c
+@@ -1617,16 +1617,16 @@ static int gem_rx(struct macb_queue *queue, struct napi_struct *napi,
+ 		count++;
+ 
+ 		if (!(ctrl & MACB_BIT(RX_SOF) && ctrl & MACB_BIT(RX_EOF))) {
+-			netdev_err(bp->netdev,
+-				   "not whole frame pointed by descriptor\n");
++			if (net_ratelimit())
++				netdev_err(bp->netdev, "not whole frame pointed by descriptor\n");
+ 			bp->netdev->stats.rx_dropped++;
+ 			queue->stats.rx_dropped++;
+ 			break;
+ 		}
+ 		skb = queue->rx_skbuff[entry];
+ 		if (unlikely(!skb)) {
+-			netdev_err(bp->netdev,
+-				   "inconsistent Rx descriptor chain\n");
++			if (net_ratelimit())
++				netdev_err(bp->netdev, "inconsistent Rx descriptor chain\n");
+ 			bp->netdev->stats.rx_dropped++;
+ 			queue->stats.rx_dropped++;
+ 			break;
+@@ -1829,7 +1829,8 @@ static int macb_rx(struct macb_queue *queue, struct napi_struct *napi,
+ 		unsigned long flags;
+ 		u32 ctrl;
+ 
+-		netdev_err(bp->netdev, "RX queue corruption: reset it\n");
++		if (net_ratelimit())
++			netdev_err(bp->netdev, "RX queue corruption: reset it\n");
+ 
+ 		spin_lock_irqsave(&bp->lock, flags);
+ 
+@@ -2102,7 +2103,8 @@ static int macb_interrupt_misc(struct macb_queue *queue, u32 status)
+ 
+ 	if (status & MACB_BIT(HRESP)) {
+ 		queue_work(system_bh_wq, &bp->hresp_err_bh_work);
+-		netdev_err(netdev, "DMA bus error: HRESP not OK\n");
++		if (net_ratelimit())
++			netdev_err(netdev, "DMA bus error: HRESP not OK\n");
+ 		macb_queue_isr_clear(bp, queue, MACB_BIT(HRESP));
+ 	}
+ 
+@@ -2511,7 +2513,8 @@ static netdev_tx_t macb_start_xmit(struct sk_buff *skb,
+ 		else
+ 			hdrlen = skb_tcp_all_headers(skb);
+ 		if (skb_headlen(skb) < hdrlen) {
+-			netdev_err(bp->netdev, "Error - LSO headers fragmented!!!\n");
++			if (net_ratelimit())
++				netdev_err(bp->netdev, "Error - LSO headers fragmented!!!\n");
+ 			/* if this is required, would need to copy to single buffer */
+ 			return NETDEV_TX_BUSY;
+ 		}
 -- 
-Without deviation from the norm, progress is not possible.
+2.34.1
+
