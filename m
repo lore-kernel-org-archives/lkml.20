@@ -1,110 +1,124 @@
-Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
+Received: from mail-ed2-f6.google.com (mail-ed2-f6.google.com [74.125.228.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF3B42459E1
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 00:21:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D614826F289
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 00:23:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.70
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791591672; cv=pass; b=ZREAw2WAuFAbO9OWYDU01wJ9oQu4u2X9dFHMqyJ+4gYkvJ4eMfZgl5hA7lpHRNI1axr9x46+FBQtGsMzwhJFvl6JXJgBQ7Nu5IqUlV4KAE45JRpbq4K5N0toDs3gnHV0SLakMh0QLCkPlJB4DmsnqQZ/OL7snCt/YI5u0piSTco=
+	t=1791591816; cv=pass; b=iYOyLUORm/oqOybACUxMVJ4+RfD3Z6s97RRiiaBolEhYzGkY7115CWc48x6wfu2+vpedK1SswFW+xw/XF1zoIrRiTaE8Nt/jTo6IltY+f3/q5qnBxDTuZ4u59GqoNjf2gosmba+RxpRRjX6O40tiEeFFO9AEzAf/4TPkFc29q/A=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791591672; c=relaxed/simple;
-	bh=HxAWx+vouM1rFRwo1u+RrW+BszfFH2h14d83b6DcrnY=;
+	s=arc-20240116; t=1791591816; c=relaxed/simple;
+	bh=Z2JW9LIkFMXkPvHGM0Dgtv4gTXM2c3LF5UF6k5I8+HM=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=vEahN3hfjXYVElVrVgmP6bmXEuPs9ynqGCCYL4JnI1XhCX7vT8fRb4pTODeYc6ZUzDHVAYNIvKgsIeUDOs5Z0L7W/LKBJMYVz03CDupk9CI0I467cPKbYlDW9bWBcwcZFROC3sWMyXgovmrZSpbevuaIP/ozXPFTxgY75g8misg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RPyBHTUI; arc=pass smtp.client-ip=74.125.229.7
+	 To:Cc:Content-Type; b=b60bIPExCr3kN2Fv8FxWGfN2cSHXaFtQ+ufFht4bZHa2LLCR0+SC1+UKxUdbMh5iGzHGD7eb3D59Yn8R6ZqnVEyUa7rEmSx5YZwFGoIm9zr3GeCsOn1SF6sns9xpG5EZjTqaNQTw6qbb5M9E2flFbvfmuyu2SLrNlC+yZNaAho0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PKy3OKgn; arc=pass smtp.client-ip=74.125.228.70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RPyBHTUI"
-Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-33e5ae86ff2so68624eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 17:21:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791591670; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PKy3OKgn"
+Received: by mail-ed2-f6.google.com with SMTP id 4fb4d7f45d1cf-6a5d790cce1so131826a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 17:23:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791591813; cv=none;
         d=google.com; s=arc-20260327;
-        b=ezdCfrR3PdQmTVT1opownLJ/rMC3cSL9mGnN1zXcgd5H7SMifEkAE1doVP/eSetpio
-         G6kBY9e4RiOnGk+ZgAmP77eSdpWyUclD1bv/ywJRGN9owU816Lg43w+cWLnwSAOcajMK
-         EUhmRUJNw+A+gm+MYxtTnaMfT9gizYDNYROQKR+XRDN80jCkmTXvyx7oUp77lok5UiQK
-         p3yx/x8c/vnkWu1Ds/dHH5aloC1pJ6OavA4AhHSysPWlv6LS+9PRf+CcR4eqcEI6HGAP
-         3DxmaboDLGfHYKAU5ISyitzubkfNukeP4olDZBaBwsMhJXX/+DgE9Qw9cd1gmQcX9Wga
-         pQtQ==
+        b=K4Ny6YUZwVmc2tlSy8QOtWiFLdzwqOTGoTR63c0lHJfhQP7cD/lbk/2ooIRpuKDrrI
+         Txr9jjUnnEqGTzC0L5E81l2OFMFREnP77ab6jA2p9DPx3aHgzGbfe8a0au5++uECqmu2
+         ardBzVP7JEBTmmmNPzGjUiz6l9I5IefE5vGNWiyIcs9Fki6bbYnceT23SsBjZcea+04O
+         HvInalsaJuYGZezu91KoeVF43r/lvZGI0JdqvMAFffsPPhPu0N1AgFf4ntW7L7DnRaA3
+         2bByyYrZVMn6NSF13tNot75RqeZHpMPw9ekmmapEaygsKCFBRet8QI+Oi8vBqsNq61/o
+         2tMQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=aLhgNbsx0+wXZ0nMHKkwbYkJUXpFXWO/o3bDIihSveI=;
-        fh=H1zdtd4kGIUzOgf/EItlhtj45N5p2Fx4kFXR+y9KD2o=;
-        b=fOXu7KvFKaPVkr7fa99hw9E+3ZP7H7Rz0KWPhF7wGKC+u5l1Rkr0AVHZ6vop9QSA6z
-         4FJc9gCgmIOD8KWW4I75yUnvja402wHNEIkw4YDpkF6SPwVtGDAZQtR/LLdrxepgtwYK
-         LZjLtq/eZrYN5Fa1o02sLEWZ4FoVUxQaFnfKZK95105wu4v+sTFw+xyr18dogyg1t+5l
-         CPY+an9DvSFyrvwhHAP32yvD2hKZ4EBO4w9lwr5dPk+aq5FUXwz4tOarVjJrnZ0AQGra
-         1tMwEKYjO6tT5WgP685QMvwN5clsauyRhjclO+A+0F6es4A5vy6gzXA31LHRa6J6JwuM
-         lTQg==;
+        bh=E5Py6HL+QggVsOTpYoDRwjrwSN8ziJN3Kv+kCMYmLTg=;
+        fh=+r5myJ4i6thLlvFsWYYoQoJN2bDH4Suyq/50DkuKg2A=;
+        b=OC0iKNhX5Bx3/sN0omn+Rl+qPXnT07OcSfcklLFo+ZiJ7A/7F+7jkZR9HkkD7HFYse
+         9SYrYeS6GNjFCZotUwvquFMiz2iR0oCsW++8hrmJaTt+L4JXugJFuNvj3KcdKDeDfbSJ
+         0p8ldfAIIEa6cKHJe8mnz+W4i90PGmA4DNjeqSn2+sLo+mMlpyUB6emTbhEesuRzw7mD
+         PGE6x2pG0hebZNpoFzuEkTANEqWUuhLDMiUhVXtKS35YUfweuNjNtS9Q+M2y6HUYw457
+         MmxgJvpeK00hRGLpsccBzK8PayDzRp/OPIXTZDG40EOUFoLeS0sOSFVvLuTEFDPtce8O
+         tGFA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791591670; x=1792196470; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791591813; x=1792196613; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=aLhgNbsx0+wXZ0nMHKkwbYkJUXpFXWO/o3bDIihSveI=;
-        b=RPyBHTUIJTLM8EDj6zM7bb9At3/8AemAI460eoEv86Ei1zKVoA7WRdwl00JV7G1Saj
-         ZKZqW26LLe1XP+D3H65FGqVBKPrco8y/6j2wZ7xQ87yUZzzWKvHAs8PC8CNker+5PuJI
-         SPmBu5KTyVtkA+KYjhrP6E3Hk+gIRtC2UaJYQAq+kEk6Qhmvqt/nFGzBcxi3D1c+ppnW
-         r2zvrlRzfC2iNF5UefefezwJeMwVzWxrhis+TOX4Nj1RpmlG8pOYEXA5KNaaTwgX1c12
-         +CTg6m00q+Toh4/pRlB518jQ+n0HcNGsmDQrTuXFihQ3rwe98moyfk2Ol4Jak8+kCNLJ
-         DLpQ==
+        bh=E5Py6HL+QggVsOTpYoDRwjrwSN8ziJN3Kv+kCMYmLTg=;
+        b=PKy3OKgnPwyLIooBy0jhvouBj7Pts2kStw9yCGybwCw0Zd6Vw78EP+e0NvTWdXxc7P
+         me7iCECjOF2nrYf3saNcKzp6hjJxxdHo0wEtL6NdK0hppcsSqbTmwZDFbCn2JdQSc0AX
+         65sZRhZIeshp6nri3dCAKUlkwG6nc/XnYf2CvB3/V51sFQskjKyfIKFjukGr02eSdMbE
+         7YOfdFnsXWsUJ14Gj2hfSTqs34NCsS+dUP6pw40zZeEpPDtXqq2a41bODSFAOXwfYhz8
+         DBM1Vc6QlZeat3OvG4GD7j0GHQexUAxSHH1IH3kTuYdzl/U5MD6MJ30dwtvIzkJ6hFod
+         Fe4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791591670; x=1792196470;
+        d=1e100.net; s=20260707; t=1791591813; x=1792196613;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=aLhgNbsx0+wXZ0nMHKkwbYkJUXpFXWO/o3bDIihSveI=;
-        b=K2KElh1ca2JzgumXqvHJwnZIQem0tATYSzUDTWdSywJprgDUiq0dVYRkKGT/fTWXl8
-         S6xp1LUe2mDv26N9XDn4yeoCB6YY5OsH70v6n2G2qhSBhSJ3OH1JOezX88RvDKYG/nza
-         3w4x/k52EPgq4pqmDrvEkpB+XXggxD6Y8+7nOUs0ZmnuK3tNknLdw4/SdFV1tF81rxnb
-         V2iKQLaw2tsXQDG2/Pd5OAd8STYBxBddfJU6FEzXjMeThRpYHcgHxskU/ucWuBOFyRaY
-         WtBMEeoS9nS1tzceT8Q00dEBIZ6Pa/XfwltNurKESk6yEUibN2LqE7GrrVcGidc3cHva
-         RX/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwRG/+3Vddj4as0WNmPG30qD3Qti0YQyfUIZtPhmN/LRHXDk66yGxUpAX2UDRO3BcYTNlB3H1dhF8CTEvk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI4XFg4SgJvNMyrgZTqU1zsr60PCHPHj2cSohmk9qM6Fbk6+hrI
-	DQYhnhv81yDk692exN3chmm+4PFbS83WOVoxh0YuO935es/xHC88rTsTi/GkVlHiO+2Xdgiq+mR
-	Swxd+pCVcadK5XKQsfqWQIXb4l3P0NA==
-X-Gm-Gg: AYBFou1Bf2L6gUB0tvO8ml+rhuL79VgCA7gETOXOJjHRsFSwRghZkMRfcR1B5IK0//A
-	s5aOMlcNDRkzt9L3hp2fxOPgQIIvA3BkIAmAnGpKd65FYhI/4zhShjbsHt6g6cQntv7Wr9uW3pm
-	CkAYdldVvbVYYh6/zrNEZWxYw2+IvgZfIq7JippuntqxAj8mbiIfltbisKDMm6D3d0fQJwBh+8i
-	lUZDOUk+e6MegrGRcA4+yfMsZXLLKlrUIDyxdpLSkD0uf/s4Y2Y36rfw2TBQ75VOb5HIR+IxRRM
-	KF2pXmNpuC9/LY7kfdS9kB9IIn9y6thynlPP6vg57z9EsE/OTo6AfG03sQCLL7Ln4VM=
-X-Received: by 2002:a05:7022:1584:b0:143:4d12:396d with SMTP id
- a92af1059eb24-16a61a6def5mr6220928c88.26.1791591669725; Fri, 09 Oct 2026
- 17:21:09 -0700 (PDT)
+        bh=E5Py6HL+QggVsOTpYoDRwjrwSN8ziJN3Kv+kCMYmLTg=;
+        b=yWx0BJg2lHL1BSIpXyJmzFM1JTg+Bre1TN0CNX+FgW+HqxdAUy+yy4QbcCjifQ3A97
+         bNdcDc67MA8H4ds9ZMKaSC089C6GTXdMMZxFCHfj09QuB3tBiEhW25H1GEN0XyYmKlyG
+         xYQ3tUYMdCpIaXY2joVz18KGH+3FEUX5MkL8BVWVMzATFEg6WzgppVKPuEWCwmLORDop
+         6ONzd57V6ulOu3WmCAimL+6LyqvQUALfDV84VZc1i9z8Zs/XPoOZBk86bdtpOmr6NVip
+         5z3UqJUTWR9r7jPW/Z7Wbgj+tcWHmsQZt4/D3pP12TRa6Or8tFAIDleBuw9FN1Zda5Vo
+         Yngg==
+X-Forwarded-Encrypted: i=1; AKwUvByaVxWH83sADW+oLeAxfcQSvpOQ01rldqIKnrF7hiryDsEfNKlSWFKeQb7F+CNnEen6HGmVlBCzC7jcHgI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ+03+GtogydT3Ot1MPLYDlTdwixGBfnxxMI/pnS8bTWeHxAZv2
+	YYqpQVcJZpLzP7BZ7sms7hrHh1pSR3siwi4nOdmCzve3PktEGD2eL/kSlYbyMfdnonSJ4kvH54J
+	R7HIoVC8ZpAY7BxnlgdFHBEGG2q79uA==
+X-Gm-Gg: AYBFou3zoywFYfKs0JtNMZJJmnhc1J3kfYlRDKvMyE4jx9Z921ZOCbetFscXehSVK4e
+	ZtiYukCwemgLnVdW7IlwlhAXknnU9NJAo7iBiEB0LXPaGRFjWGxLglLxiuNolhNkDGviIS+QBle
+	uf21eA3bZJZRzt4kF3h9mKtkOmfGavRVKNUxpsTeoZ/MpqWEF/XUBjzW8zyHEM5/CK53l7MbzCZ
+	hNiAjxrEW96Cjy0dG5nVDG+DAh4yxX9T6svVUVC56j8/dxjNrfMSdjbjbN2g6SwFElBmMAZR8bg
+	4Plf2r3mJtE0ZHI2AX1Ku1mMsPISZO8M2iX9OwGbnPSHS0I+4LC23cxFBmsVmKOhddYY
+X-Received: by 2002:a05:6402:4490:b0:6ac:9a44:d412 with SMTP id
+ 4fb4d7f45d1cf-6b17c25d32amr3176429a12.7.1791591812741; Fri, 09 Oct 2026
+ 17:23:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261003202727.3673-1-ravis.opensrc@gmail.com> <20261004051632.71726836@fedora>
-In-Reply-To: <20261004051632.71726836@fedora>
+References: <20261003202727.3673-1-ravis.opensrc@gmail.com> <20261005100435.1211485-1-kunwu.chan@gmail.com>
+In-Reply-To: <20261005100435.1211485-1-kunwu.chan@gmail.com>
 From: Ravi Jonnalagadda <ravis.opensrc@gmail.com>
-Date: Fri, 9 Oct 2026 17:20:58 -0700
-X-Gm-Features: AclHuK9WQbXCtUH8jjgwOQuphF_nuOqJSSeO2P2D0u1Fn7EltapGuD6HQRfN-gs
-Message-ID: <CALa+Y14+pGN+ZA90gALy30mvrmkTp21AVFrjfzP1AtYEo-uVPw@mail.gmail.com>
+Date: Fri, 9 Oct 2026 17:23:17 -0700
+X-Gm-Features: AclHuK9H7NRLbSCaBe_aB3pxVn0sHlmdw2q3s22R7c9utOO5Z_szeWimYSsPy00
+Message-ID: <CALa+Y17i9wN=0oLbbrsPafJY_KNEoKwZPLdLCrMq5Nf2k3aVKw@mail.gmail.com>
 Subject: Re: [PATCH] mm/damon: add damos_node_eligible_mem_bp tracepoint
-To: Steven Rostedt <rostedt@goodmis.org>
+To: Kunwu Chan <kunwu.chan@gmail.com>
 Cc: Andrew Morton <akpm@linux-foundation.org>, SJ Park <sj@kernel.org>, damon@lists.linux.dev, 
 	linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Bijan Tabatabai <bijan311@gmail.com>, Ajay Joshi <ajayjoshi@micron.com>, 
+	linux-trace-kernel@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Bijan Tabatabai <bijan311@gmail.com>, Ajay Joshi <ajayjoshi@micron.com>, 
 	Honggyu Kim <honggyu.kim@sk.com>, Yunjeong Mun <yunjeong.mun@sk.com>, 
 	Akinobu Mita <akinobu.mita@gmail.com>, Lian Wang <lianux.mm@gmail.com>, 
 	Kunwu Chan <kunwu.chan@linux.dev>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Oct 4, 2026 at 2:16=E2=80=AFAM Steven Rostedt <rostedt@goodmis.org>=
- wrote:
+On Mon, Oct 5, 2026 at 3:04=E2=80=AFAM Kunwu Chan <kunwu.chan@gmail.com> wr=
+ote:
 >
-> On Sat,  3 Oct 2026 13:27:27 -0700
-> Ravi Jonnalagadda <ravis.opensrc@gmail.com> wrote:
+>
+> Hi Ravi,
+>
+> I agree with SJ that this would be more useful as a general quota-goal
+> tracepoint rather than being specific to NODE_ELIGIBLE_MEM_BP. The
+> target_value and current_value fields are not metric-specific.
+
+Hi Kunwu,
+
+Thank you for the review.  Agreed; I will make it a general quota goal
+tracepoint, as I wrote in my reply to SJ.
+
+>
+> On Sat,  3 Oct 2026 13:27:27 -0700 Ravi Jonnalagadda <ravis.opensrc@gmail=
+.com> wrote:
 >
 > > Add a tracepoint for DAMOS_QUOTA_NODE_ELIGIBLE_MEM_BP quota goal
 > > evaluation.  The tracepoint fires once per quota-score computation when
@@ -138,6 +152,14 @@ h
 > >  );
 > >
 > > +/* Per-tick DAMOS_QUOTA_NODE_ELIGIBLE_MEM_BP goal evaluation. */
+>
+> The comment says "Per-tick", but the event is emitted for each matching
+> goal in damos_quota_score(). "Per quota-goal evaluation" would be more
+> precise.
+
+Right, I will fix the comment.
+
+>
 > > +TRACE_EVENT(damos_node_eligible_mem_bp,
 > > +
 > > +     TP_PROTO(unsigned int context_idx, unsigned int scheme_idx,
@@ -151,19 +173,27 @@ h
 > > +             __field(unsigned int, context_idx)
 > > +             __field(unsigned int, scheme_idx)
 > > +             __field(int, nid)
->
-> Can you move the nid after the two unsigned long values below. This
-> creates a structure, and on 64bit machines, this adds a 4 byte padding
-> in the middle of the ring buffer.
-
-Hi Steve,
-
-Thank you.  Will do; in the next version the 8-byte fields come first
-and nid follows them.
-
->
 > > +             __field(unsigned long, target_value)
 > > +             __field(unsigned long, current_value)
+>
+> Also, context_idx is currently always 0 here, since
+> damos_quota_score() only has struct damon_ctx * and no context index.
+> If this tracepoint is generalized, it may be worth considering how the
+> context/scheme are identified rather than introducing another tracepoint
+> field that is currently always 0.
+
+I kept context_idx for consistency with damos_esz and
+damos_before_apply, which carry the same field and also pass 0 today,
+since a kdamond runs one context.  I will follow whatever SJ prefers
+for identifying the context in the generalized event.
+
+Thanks,
+Ravi.
+
+>
+> Thanks,
+> Kunwu
+>
 > > +     ),
 > > +
 > > +     TP_fast_assign(
@@ -197,26 +227,6 @@ mon_ctx *c, struct damos *s)
 > > +             if (goal->metric =3D=3D DAMOS_QUOTA_NODE_ELIGIBLE_MEM_BP =
 &&
 > > +                 trace_damos_node_eligible_mem_bp_enabled()) {
->
-> If you move the trace_damos_node_eligible_mem_bp_enabled() before the
-> goal->metric check, you will save yourself a branch when tracing is
-> off. As the trace_*_enabled() is a static branch (nop or jmp) it has no
-> cmp branch, but the above will keep the goal->metric still exposed. By
-> swapping the two compares, the goal->metric check will be hidder behind
-> the 'nop' when tracing is disabled.
->
-> -- Steve
-
-Makes sense; I will put the trace_*_enabled() check first.  SJ asked for
-the event to cover every quota goal rather than this metric only, so
-the next version may not need the metric check at all, but the enabled
-check will lead either way.
-
-Thanks,
-Ravi
-
->
->
 > > +                     unsigned int cidx =3D 0, sidx =3D 0;
 > > +                     struct damos *siter;
 > > +
@@ -235,4 +245,9 @@ Ravi
 > >       return highest_score;
 > >
 > > base-commit: 763ad0211c7b587344f03bc4d1299810aeb736f4
+> > --
+> > 2.54.0 (Apple Git-157)
+> >
+> >
 >
+> Sent using hkml (https://github.com/sjp38/hackermail)
