@@ -1,40 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D1B43D1A8E
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 06:55:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99052414409
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 06:55:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791615353; cv=none; b=pwcXhATcJ2kotOkJYekiIGEIf9fqSJgcEVAxkERYyPy4+ZsGwpPfsZYJqaB/P+keq43wlevEaXeR769GbZ7d9yw2NZIwI4cqX8wyQFZaoMhtosCSnZ47lfCK7JvdXuWJ1p/JsaK5GGLMIPmKGplmZy27auh+K6yKfsB3qHa8F74=
+	t=1791615354; cv=none; b=ILGq9sHPYcpWSFLSXKfV8QFTe48Fs8eQhx0FjbbXyIP2SZnRtiO84m14CErIemz4ck6ZwOlwxlLIXI87HSjM1ZJ05zktQaBF9I+HCUGuftF+bCEW1eKumk2o0QwBI/RGIz5lcCiwCibFIBTlkUWCkx1/z607WHcOCfZM8n7MxzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791615353; c=relaxed/simple;
-	bh=46pdqWWWiOsJ5zguAHSYvDLWrSpcqWMhxDddkipq130=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hNLFKEJejz8IDN9hHkK9occaHWT+V97qni5sA+7XvzpFKmBtI8k2hxytJc6/TaOBTrLSMqFamjKzPg/34Pt4YljBCvwBTUaw72xINu6JeYm/8OH8W3cVmkZwUaVZVYzZxWoZmU1B9lVgKZLysSUzxNOhbXsAo/bfntFnrA2Pxl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OH80fbb7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791615354; c=relaxed/simple;
+	bh=5n3Bt0KAZOlUUymoVVDlUyHCw9bJ1wKlVf5MS/5k0es=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=tnqAjozo8NkSc0wKsTu4jJmc/NQNNDOxV+5aUOJXg5PQv0WW/zcYnK7zxm3VhQ0oLPJglcRevnIoRWW8XXjv5qZzQ6m4sGjVtYMu4uW4CTB2/bsXpZu6Gv5+AEnisjd5Td3SYKUHGYh6kO1H2XVy8P2aQ+RXOP03I3QXRAyZLuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GdCJdeCV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OH80fbb7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB5C91F000FF;
-	Sat, 10 Oct 2026 06:55:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GdCJdeCV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B90A1F00893;
+	Sat, 10 Oct 2026 06:55:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791615351;
-	bh=QRWnPGtWKckNp3hs8edix9eHlTIjDYrtAUIeCheZUps=;
-	h=From:To:Cc:Subject:Date;
-	b=OH80fbb7FijIsySrCttb8hNTS0py1Tro1H3JnuxrFmx6UbThO+JXzIiQfsKTusWFR
-	 a0rkAQXZbpoQagFC2GpYv4ZulK6+YIpEDCCJPm6VSLGYXrExGljrmqmT49ot2SynbO
-	 9JWskV+pdL3psv0K1YBQjMlKqVV4pHhiLLK9PKbmIqJc/i6yMq0qZgdUHHW0CShS3a
-	 V3Vwuw1ss9y5W/THs75nt7GrwV2wjSarT7MjdCrx5XcBwBVWd61y8RRFDZ6/PbtjmF
-	 FyByD0FJbS5FUxLPSfHZDPbR2WBceWcdA+r6ZWHeDOu3P5uv48APr6GIAx2XFT5Jxo
-	 5ObqeGhvZ5V0w==
+	s=k20260515; t=1791615353;
+	bh=JOiUkN7r2Yeqd3aPeXM7mU/7MNeWq1sCh7vWVmWB6IM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GdCJdeCVWTngnRoJPARDVzsKUxv9wJM3oQuo+SGP3xA5kRR4+R9NeH3R2OTSVQHVX
+	 iK1v5dDlh01XBndl3MZfj0ERycFAuzdXy/cedmu2NyNErjGfjzm0LbVmJJRiwynvsS
+	 0DEhYkHOoLWaWthnwNCtcBSGSL2tUmGx/eXFRWmyo57547W+iJjqTMCCAeUVdaZRpZ
+	 esAmxMXpAU1bLqiBQqvWSABUmgu5xgwvrCgSu+Li8X0QpMWE7DfrMHqALzIoPaSdTJ
+	 iKYF7axicYp5V1mzjqVItI67N/6Zxo5IeMU7tdaYoOaij6EvaXtNVsdFhgn+DHiofg
+	 RPv8PFbO/yNHQ==
 From: Chao Yu <chao@kernel.org>
 To: jaegeuk@kernel.org
 Cc: linux-f2fs-devel@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
 	Chao Yu <chao@kernel.org>,
 	stable@kernel.org
-Subject: [PATCH 1/2] f2fs: fix to use bio_in_atomic() in f2fs_write_end_io()
-Date: Sat, 10 Oct 2026 14:55:45 +0800
-Message-ID: <20261010065546.1762091-1-chao@kernel.org>
+Subject: [PATCH 2/2] f2fs: fix to use bio_in_atomic() in f2fs_read_end_io()
+Date: Sat, 10 Oct 2026 14:55:46 +0800
+Message-ID: <20261010065546.1762091-2-chao@kernel.org>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+In-Reply-To: <20261010065546.1762091-1-chao@kernel.org>
+References: <20261010065546.1762091-1-chao@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,57 +48,68 @@ Content-Transfer-Encoding: 8bit
 
 From: Chao Yu <chao@kernel.org>
 
-f2fs_write_end_io() uses in_atomic() to decide whether a write bio which
-exceeds max_atc_write_bio_size or max_atc_write_bio_entry_cnt should be
-completed in sbi->wq rather than in the current context.
+f2fs_read_end_io() uses "in_task() && !irqs_disabled()" to decide
+whether it is safe to sleep, the result is passed down as @in_task to:
+- f2fs_put_dic() -> f2fs_free_dic() -> f2fs_release_decomp_mem()
+  -> vm_unmap_ram(), which may sleep.
+- f2fs_end_read_compressed_page() -> f2fs_cache_compressed_page()
+  -> f2fs_grab_cache() -> f2fs_lock_cache(), which may sleep in
+  wait_on_bit_lock().
 
-However, in_atomic() is not meant to be used outside core kernel code
-(checkpatch.pl warns about it), as it only looks at preempt_count(): it
-misses irqs-disabled and RCU read-side critical sections, and on kernels
-without CONFIG_PREEMPT_COUNT it cannot see spinlock-held sections at all.
-In those contexts, a large write bio will still be completed inline,
-which defeats the purpose of the above knobs.
+However, the check still treats below task contexts as sleepable:
+- with spinlock held via spin_lock(), i.e. preempt count != 0 while
+  irqs are enabled.
+- with BH disabled via local_bh_disable().
+- inside an RCU read lock on kernels with CONFIG_PREEMPTION.
+- with any spinlock held on kernels without CONFIG_PREEMPT_COUNT.
+
+So the "sleeping function called from invalid context" issue fixed by
+commit 08a7efc5b02a ("f2fs: vm_unmap_ram() may be called from an
+invalid context") can still be triggered.
 
 The block layer provides bio_in_atomic() for exactly this purpose, it
 checks rcu_preempt_depth() and preemptible(), and conservatively returns
 true if CONFIG_PREEMPT_COUNT is disabled, let's use it instead. The
 difference is as below:
 
- Context                              | in_atomic()    | bio_in_atomic()
- -------------------------------------+----------------+----------------
- Hard IRQ / softirq                   | true           | true
- IRQs disabled, preempt count 0       | false (missed) | true
- RCU read lock (CONFIG_PREEMPTION)    | false (missed) | true
- Kernel w/o CONFIG_PREEMPT_COUNT      | IRQ ctx only   | always true
+ old: intask = in_task() && !irqs_disabled()
+ new: intask = !bio_in_atomic()
 
-Note that on kernels without CONFIG_PREEMPT_COUNT, write bios exceeding
-the thresholds will always be offloaded to sbi->wq, since there is no way
-to tell whether the current context is atomic. The thresholds default to
-UINT_MAX, so the default behavior is not changed.
+ Context                              | old intask     | new intask
+ -------------------------------------+----------------+----------------
+ Hard IRQ / softirq                   | false          | false
+ IRQs disabled                        | false          | false
+ spin_lock() held, IRQs enabled       | true (wrong)   | false
+ BH disabled by local_bh_disable()    | true (wrong)   | false
+ RCU read lock (CONFIG_PREEMPTION)    | true (wrong)   | false
+ Spinlock held, w/o PREEMPT_COUNT     | true (wrong)   | false
+
+Note that on kernels without CONFIG_PREEMPT_COUNT, bio_in_atomic()
+always returns true, so dic freeing will always be offloaded to sbi->wq,
+and compressed pages will not be cached in f2fs_read_end_io(); this is
+the price of correctness, since there is no way to tell whether the
+current context can sleep.
 
 Cc: stable@kernel.org
-Fixes: 3de6b8094115 ("f2fs: Run f2fs_write_end_io() asynchronously")
+Fixes: 08a7efc5b02a ("f2fs: vm_unmap_ram() may be called from an invalid context")
 Signed-off-by: Chao Yu <chao@kernel.org>
 ---
- fs/f2fs/data.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ fs/f2fs/data.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 2613e8821af6..86150f7a372c 100644
+index 86150f7a372c..8da443fec0a6 100644
 --- a/fs/f2fs/data.c
 +++ b/fs/f2fs/data.c
-@@ -398,8 +398,9 @@ static void f2fs_write_end_io(struct bio *bio)
+@@ -271,7 +271,7 @@ static void f2fs_read_end_io(struct bio *bio)
+ {
+ 	struct f2fs_sb_info *sbi = F2FS_F_SB(bio_first_folio_all(bio));
+ 	struct bio_post_read_ctx *ctx;
+-	bool intask = in_task() && !irqs_disabled();
++	bool intask = !bio_in_atomic();
  
- 	sbi = bio->bi_private;
- 
--	if (in_atomic() && (bio->bi_iter.bi_size > sbi->max_atc_write_bio_size ||
--			F2FS_BIO(bio)->entry_cnt > sbi->max_atc_write_bio_entry_cnt)) {
-+	if (bio_in_atomic() &&
-+	    (bio->bi_iter.bi_size > sbi->max_atc_write_bio_size ||
-+	     F2FS_BIO(bio)->entry_cnt > sbi->max_atc_write_bio_entry_cnt)) {
- 		struct work_struct *w;
- 
- 		w = &container_of(bio, struct f2fs_bio, bio)->work;
+ 	iostat_update_and_unbind_ctx(bio);
+ 	ctx = bio->bi_private;
 -- 
 2.49.0
 
