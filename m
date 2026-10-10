@@ -1,65 +1,65 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 540374AA577
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 13:00:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE4184AA56A
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 13:00:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791637251; cv=none; b=n9PGVzqiKmcRLnAS+Up+BOe5aD7M8qcHSzrZdjT//s7b7/Ec4O/9hZE/r4w0iR81Rt11ao7GUISeNeWXJ20TalyAY0UdUDlbOhhsx9Yl+0DiRG/Rpkd9bRWOwgKlgsQ9U/rJONMJN7nLyExjufGB62YJtmJP6YY8Rwcpifo12dg=
+	t=1791637254; cv=none; b=d+cS6hZOFAwEsFJOnG5qbRZXdLp6HeJr9nnf6jGAKVolMWoJ5xKNQGAJyD8reAhoj6wowqnuSlDRwEHb8KWMtO2VvZk9FELSmeCCK+pB6CedFV8ZondPQW1giv8tmhWPzQzM20XenIjK6AHl9KQcYGMaRfZFqnbXaTJ5ofuQSrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791637251; c=relaxed/simple;
-	bh=8cE+kRigrC2rLbTtNcE4tzjW4qt6M+Ijxp2hlZozUug=;
+	s=arc-20240116; t=1791637254; c=relaxed/simple;
+	bh=42d9HDwBt+B8P7fHH96fvCp4pQgu6usf2SceCCjvRRo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cd7VbhZpjZXiKKj+gKfKVOmon3+N5UfF/W4pQG5nCSXQv3eUR1fDLgqWjzAgZK0xo9aiU1+Y2g5jksh0PU8VM9xemw3ijeiF9xv+gSwzvvYVkPK3iiMBoVPbzLsrUPuRV9Wn92gjvg6uBt9JUPTFqglt2E/Jr1AIzhOw1QPWwwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a6wvYjMq; arc=none smtp.client-ip=209.85.128.52
+	 MIME-Version; b=RsSkmvr+COv5js37BobaAmTdi6vyRUXngDVI076ZF/qSOlRBnRy+2hI1+AfJHKMA5ptOPYhshEaokkkFtqfLKmsswF2SK24vr7YymhDilrG7A8EoDIwWmvMfSH+GZ8V/aV+Ik8E9DQ0k2msmXwcM49jvhwsI+3Pd+ddQhjh98to=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IhyV6nAN; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a6wvYjMq"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso5558855e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 06:00:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IhyV6nAN"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a16af2a232so4873595e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 06:00:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791637245; x=1792242045; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791637249; x=1792242049; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GoroDu6xICaIQCB3Y6XVwmspeLrCWXpr98G9YRTCm5U=;
-        b=a6wvYjMqGOOiJx9fOCfWsGphAcSj2W68dynQ9WlLrvExRGKNfuMPgI+7rV5dmQw1eG
-         WTVbFGiVLDn3k4l49u+HXpZ/Pxgp+RF+hWlWeb+QdMWFT4CkToXerOHa8K1kQ3lMypIR
-         /AX2zhtMs4vXlGeVklOyQKqPCKAzvKnzBA1fDT0FZaJswcQ/Ps553F3VYeDs4z3dTQC/
-         lO2nEX2y+ea1eArLqSuXBV+UdqptDY+s6AiYzwSr4m7GHyjhUYz5JJZypib9q0YXiESs
-         IlTomIA47dXHwoT07svtdIQFNjF7x4naez6X9dsJd4xi/hqiUVjyfCayl30ESCvW9XfZ
-         +weQ==
+        bh=zPcp5ifQOKmlbhns5WaO84H4QU9w87b0LtEeq3dQOzY=;
+        b=IhyV6nAN+6ohOXdDXEzJMcl+oc3yB6wjoyREhvj1BfvTVehZJbTdwv+Tm+458YdUWX
+         EF+obN8XFrOiPFPi8u9DKx98/CHFMcGYZC1Id3Lrd81+WCx9x6mBp23WVoiaYYL5vzHU
+         IutzpAQy1XAXsLWblgg2Fc32ejCzrYsefUhPCTBJnUS2f1AitbAFXiu1kh9QPkaSnl9X
+         1+hQKysW9v0VX+fBnk1LeMmZadGV1bfLKf9rTNTccB0wjRIuP6E9MTCFRRi0MGqjngc5
+         Cm5paczR8yQyGiGvHuOm9EwRBcrPm18A6Wn+RqCJWTi7KTdLP3QRtQokzj7rJiVzB9Jl
+         H49w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791637245; x=1792242045;
+        d=1e100.net; s=20260707; t=1791637249; x=1792242049;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GoroDu6xICaIQCB3Y6XVwmspeLrCWXpr98G9YRTCm5U=;
-        b=hpOMzjH1Al+p79h5/lp9JfJ0LQw+jfwJzKC4ah90Oac0ta3zWUpna+t/BeQNrteu5l
-         fESyAwFL0i4BT4XZgy/3e6tba8vpExoZ1qSUXM5OeNrJoQ5CqzFe9hPGAWYr92+5cAkz
-         pHXfpP/daCehGHdeqC2yNv2/leKQamnOQPdZPTIEhrdE5ncqx4cJXsrdynIL+ehrWjd+
-         bSPQHNjVB3oMHEjOclwA76epgtsIhsW0+tnxOlKm6L7Wge3pUn8GrJRgi/Pvjte22ID4
-         vOTkXe5ly1JPtovoIQR7mAn0P+nOjcj2/ftBLys9oLpiEnBUYyV6pjv7AyaLJzkJxtIe
-         uHHw==
-X-Forwarded-Encrypted: i=1; AKwUvByje0es7lTMThstCHM8aHrMxNIBHBOwZUZgvQ5AuaLRO4h0S8EIbG+Naa7s/MEKS7fFfUARlmOsej52nmo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLq9wNWfM1Kw1CxwBkyT4rMmP/N7bCKj2r9/HkFnN2l7oSw2AsH
-	8A81GvDwWPmDwNFtbtLnNtWHYPQFg3mCpxBLvBaDeXHKVh3xSk8rTkz6
-X-Gm-Gg: AYBFou0ep9OiIXa8IcCOn8iTXJLbfBgRZOAZ0RUTpLuyrqPxHmHus6inQjqgBMe3wwq
-	yPtiv8JYzJVe4VocS1b3DL7uNY9tXrtTnL9HgrkNsjCUCMRH+BQek0Jn5afzgcMHelO/OFc62Q9
-	1OUUsuWE21RgflzVeEbfLKgYqZ8aMKrMBNrT2VlMrI8YnLX2HCgXZaJI/wZs3zN8aAbT5Pd58ZD
-	FJ6b+sYEmFEbzFCqlprKobk8HSOxXiY89g+zpK9ERD55I9962GI+zVZGsZIiNxHYCyDnTNcLlrr
-	aLuucJQjV6FquFpNj6Vigd+zqRHvWOiPwWuLWXAP4gZpnRLMrHgSqA3FU1iXJ4K1p0SEbl62VQk
-	5Qn/JQ6Ft7qKW158Ofa0cDfzw1DmxaBUAqzPuxZuqgUgksa0vrlRwrAp7uy7aA1rXEEKYfVtSa/
-	hL6CSsHOTtdxEBOhYkZ88y8h75X0SRSsaRl5oaVuo0Uof9BPCKDK35IIQ9ziqDvoL1ptH7p+h4A
-	rf/+R3o7P3uHADZKepLQ1hu37VCQSAYsv8aAkCXJGA4rqHTJZTGk6ydRNlj4yO/GO3eDfuN85HE
-	ppfHYf9n2aSi8HZ5hZZwcw7dAwAv9dqAMgf5VQK+OYPWPW6Ga3YIiBV2BNyQ8A==
-X-Received: by 2002:a05:600c:8b06:b0:4a1:7ce1:2eaf with SMTP id 5b1f17b1804b1-4a18e4e0963mr91375015e9.34.1791637245361;
-        Sat, 10 Oct 2026 06:00:45 -0700 (PDT)
+        bh=zPcp5ifQOKmlbhns5WaO84H4QU9w87b0LtEeq3dQOzY=;
+        b=sistWOQCsi7IOn/enZ6T0cNEP3oJTSES8pJDxvu+kw9WjidczBtvdgXFpy+HJfp1Ki
+         5NWYgQVA25Ub4hE0EeH9hJ3VNwvN4TRRdSrnHne064f+ASwyarip1CavAaPQV7HPwP8b
+         bsWMeV14ilRT63Tk9BMzLE4M1vTAiaoEE+/9m3FTR3P9rLjs/cYR6Q9v27nYJBknXd6+
+         wdA3GyGKGldrQ9vYlYsTvODp+U4q/gWxbfXn7jEo7l7hixbzs8UoCa08Fqk9z98l+rS/
+         hL1ejFRKLq/kEAK09U1lNYrzpSul13tENew73DIeyJTpMf1LNYWq5c8mc7RW8iPHYJg5
+         Ulwg==
+X-Forwarded-Encrypted: i=1; AKwUvBy9M63HUA4wDhtypdIjeAL8clZ0KgjWDTB9PBMExrjtHbAxg82m/6K56ONTL/sQ4nWrZVdcBytIQ+E5l1I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLXuX3N5Acw1E3dqlXpnFpekWHPtrVEkGjpg8/as+9MgPOdo3h2
+	ilNTMc+F+V2RZAzhdarziFx8QkEOyEuxUf/yGIitj3124wOq71UtusCo
+X-Gm-Gg: AYBFou1v/bgMqXQyqkI/ujZq6heklcabe7NTcDdbLbtctLjuD8NzjWCfRk2geEag5aU
+	pHUoTVAcJZUm+1xfnkrJStLPm1f1CUfQlOxh2H/KCG+DtkNzKFin7Yua+QkzF+QAbyapcXqJzPC
+	/zN9wZOgouVhorhHIx8q+IbybPGeDueje5OR/Zj5C3kD9SC5Wnla2XgHUrqnIpAs7r8HahUHS9L
+	a/SmdHPy0V5H4ReZE0gtf/uWZfWmtd+IRCZInJ6GWRCtimrY6i8r9pf6AOuzcwkAjbiwoXSdTc5
+	ojhIAJXuBbkfJPCZS5fR1wHVuqqvwvhwk61oAXf+KZEk/wQdaRWfqgCOPWfy+tL7rpawcDF0tfK
+	YhSPZBg6FefPJHEHoPNtWZOBQjvCLd2bMf9dcwLLq9Oq8oW8s70Si0uxV7+Dr6RyUZHCKxgPxiz
+	WOciqpld3979vlny0S0HhKiuSuGJUCkLD3HDZduh1tTzNoMIwjju8u3rl1399wBAkMA/SyhZNdq
+	I20F+jSqWVpeAaDL1FCfgNK6T/UyZZtBSn61t9kb1BNV26fUb5n53OXnMPSocx/UiQHCp0IKgG2
+	VG5P+Gu4i70wHcynAFfqbqLwMcbAuU4wJOvdjEVtTXGrL7rXCWDXH6YGS/jCuA==
+X-Received: by 2002:a05:600c:4ecb:b0:4a0:c01:1902 with SMTP id 5b1f17b1804b1-4a18e43a29fmr95353065e9.2.1791637248717;
+        Sat, 10 Oct 2026 06:00:48 -0700 (PDT)
 Received: from navid-pc ([2a01:4b00:a856:6220::a11])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a190c49d5csm162309975e9.3.2026.10.10.06.00.44
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a190c49d5csm162309975e9.3.2026.10.10.06.00.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 06:00:44 -0700 (PDT)
+        Sat, 10 Oct 2026 06:00:48 -0700 (PDT)
 From: Navid Ghahremani <ghahramani.navid@gmail.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: devicetree@vger.kernel.org,
@@ -70,9 +70,9 @@ Cc: devicetree@vger.kernel.org,
 	robh@kernel.org,
 	krzk@kernel.org,
 	Navid Ghahremani <ghahramani.navid@gmail.com>
-Subject: [PATCH 17/24] dt-bindings: net: Add ZTE ZX279128S Ethernet switch
-Date: Sat, 10 Oct 2026 13:59:55 +0100
-Message-ID: <20261010130024.177503-18-ghahramani.navid@gmail.com>
+Subject: [PATCH 21/24] dt-bindings: usb: Add ZTE ZX279128S DWC3 controller
+Date: Sat, 10 Oct 2026 13:59:59 +0100
+Message-ID: <20261010130024.177503-22-ghahramani.navid@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261010130024.177503-1-ghahramani.navid@gmail.com>
 References: <20261010130024.177503-1-ghahramani.navid@gmail.com>
@@ -84,129 +84,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Describe the switch, receive interrupt and per-port PHY modes and MAC
-addresses.
+Describe the USB host integration with three CRM clocks and four reset
+bits.
 
 Assisted-by: LLM
 Signed-off-by: Navid Ghahremani <ghahramani.navid@gmail.com>
 ---
- .../bindings/net/zte,zx279128s-gmac.yaml      | 108 ++++++++++++++++++
- 1 file changed, 108 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/net/zte,zx279128s-gmac.yaml
+ .../bindings/usb/zte,zx279128s-dwc3.yaml      | 76 +++++++++++++++++++
+ 1 file changed, 76 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/usb/zte,zx279128s-dwc3.yaml
 
-diff --git a/Documentation/devicetree/bindings/net/zte,zx279128s-gmac.yaml b/Documentation/devicetree/bindings/net/zte,zx279128s-gmac.yaml
+diff --git a/Documentation/devicetree/bindings/usb/zte,zx279128s-dwc3.yaml b/Documentation/devicetree/bindings/usb/zte,zx279128s-dwc3.yaml
 new file mode 100644
-index 0000000000..56c81aa6e7
+index 0000000000..ee26915f42
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/net/zte,zx279128s-gmac.yaml
-@@ -0,0 +1,108 @@
++++ b/Documentation/devicetree/bindings/usb/zte,zx279128s-dwc3.yaml
+@@ -0,0 +1,76 @@
 +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/net/zte,zx279128s-gmac.yaml#
++$id: http://devicetree.org/schemas/usb/zte,zx279128s-dwc3.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: ZTE zx279128s Ethernet switch
++title: ZTE zx279128s DWC3 USB controller
 +
 +maintainers:
 +  - Navid Ghahremani <ghahramani.navid@gmail.com>
 +
 +description:
-+  The ZTE zx279128s has a five-port gigabit Ethernet switch with a traffic
-+  manager, a buffer manager and a DMA engine that connects it to the CPU.
-+  Each port is described by a child node of ethernet-ports and becomes its
-+  own network interface, with the MAC address given in that node.
++  The ZTE zx279128s has a DesignWare USB3 controller (DWC_usb3 2.80a) with
++  integrated USB 2.0 and USB 3.0 PHYs, used as a host. Its clocks and resets
++  come from the top clock and reset module.
++
++allOf:
++  - $ref: snps,dwc3-common.yaml#
 +
 +properties:
 +  compatible:
-+    const: zte,zx279128s-gmac
++    const: zte,zx279128s-dwc3
 +
 +  reg:
 +    maxItems: 1
 +
 +  interrupts:
 +    maxItems: 1
-+    description: The traffic manager's interrupt, which signals frames
-+      received for the CPU.
 +
-+  ethernet-ports:
-+    type: object
-+    additionalProperties: false
++  clocks:
++    items:
++      - description: 20 MHz reference clock
++      - description: bus (AXI) clock
++      - description: 32.768 kHz suspend clock
 +
-+    properties:
-+      '#address-cells':
-+        const: 1
-+      '#size-cells':
-+        const: 0
++  clock-names:
++    items:
++      - const: ref
++      - const: bus_early
++      - const: suspend
 +
-+    patternProperties:
-+      "^port@[0-4]$":
-+        type: object
-+        $ref: /schemas/net/ethernet-controller.yaml#
-+        unevaluatedProperties: false
-+
-+        properties:
-+          reg:
-+            description: Switch port number
-+            maximum: 4
-+
-+          label: true
-+
-+          phy-handle: true
-+
-+          phy-mode:
-+            description: internal for the SoC's own PHYs of ports 0-3, gmii
-+              for an external PHY.
-+            enum: [gmii, internal]
-+
-+        required:
-+          - reg
-+          - phy-handle
-+          - phy-mode
-+
-+    required:
-+      - '#address-cells'
-+      - '#size-cells'
++  resets:
++    description: The four reset bits of the controller and its PHYs, in the
++      order they are released.
++    maxItems: 4
 +
 +required:
 +  - compatible
 +  - reg
 +  - interrupts
-+  - ethernet-ports
++  - clocks
++  - clock-names
++  - resets
 +
-+additionalProperties: false
++unevaluatedProperties: false
 +
 +examples:
 +  - |
++    #include <dt-bindings/clock/zte,zx279128s-crm.h>
 +    #include <dt-bindings/interrupt-controller/arm-gic.h>
 +
-+    ethernet@92000000 {
-+        compatible = "zte,zx279128s-gmac";
-+        reg = <0x92000000 0x400000>;
-+        interrupts = <GIC_SPI 36 IRQ_TYPE_LEVEL_HIGH>;
-+
-+        ethernet-ports {
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            port@0 {
-+                reg = <0>;
-+                label = "lan1";
-+                phy-handle = <&phy10>;
-+                phy-mode = "internal";
-+                nvmem-cells = <&macaddr 0>;
-+                nvmem-cell-names = "mac-address";
-+            };
-+
-+            port@4 {
-+                reg = <4>;
-+                label = "wan";
-+                phy-handle = <&phy8>;
-+                phy-mode = "gmii";
-+                nvmem-cells = <&macaddr 1>;
-+                nvmem-cell-names = "mac-address";
-+            };
-+        };
++    usb@9100000 {
++        compatible = "zte,zx279128s-dwc3";
++        reg = <0x09100000 0x100000>;
++        interrupts = <GIC_SPI 50 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&topcrm ZX279128S_TOP_USB_REF>,
++                 <&topcrm ZX279128S_TOP_USB_ACLK>,
++                 <&topcrm ZX279128S_TOP_USB_SUSPEND>;
++        clock-names = "ref", "bus_early", "suspend";
++        resets = <&topcrm ZX279128S_TOP_RST_USB_B11>,
++                 <&topcrm ZX279128S_TOP_RST_USB_B14>,
++                 <&topcrm ZX279128S_TOP_RST_USB_B9>,
++                 <&topcrm ZX279128S_TOP_RST_USB_B10>;
++        dr_mode = "host";
++        snps,ref-clock-period-ns = <50>;
 +    };
 -- 
 2.55.0
