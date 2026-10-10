@@ -1,185 +1,251 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F4B2DE702;
-	Sat, 10 Oct 2026 12:22:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B55421229;
+	Sat, 10 Oct 2026 12:24:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791634979; cv=none; b=rAoPX2iKvckuTgdLbS+oV8eNGYFW/4qXGhgKeNtk4otuILjubIDovk9eR10Hny/8GjAaM3tDJANbZaVAlM+qh4rCRlhnk2Np9r5dGdIQgrRJ1UdO0bJwK2m7hlRsPbV2tAzg+XsNPIQadRzfMABomda9sQgDaZr/S7jQ8k0+/6o=
+	t=1791635049; cv=none; b=Bn6b5ZMDt5grRqM/N+pmh/CwE/wBipPbExZxhEiLrcfaqnMya6ow5UULcR3lWV6Jlcdkf0BM7EJeYw/fZQF8HorYf3rsz0ljRn6yFnhhJlphVu6B+s/GdvN1KJnotcRVu4QycWl/BiQDwRYY8hAteUS2WH3SEngUkrozYw//A6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791634979; c=relaxed/simple;
-	bh=jLM7n8anMoy/v6dyJjxgPud6P59bzWMAS6Egmu7KLDY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=kSoKRj+2rdU/aRmDZ7UgkrrcTZ+VGo7+m7upcmNWqvropCQ3gmRumnCW7fhmYKomY/bNhCB5xc3qZvuvOznyO7nUW9dhZddp/lqtRTScloIYP7mIDNeEhExOA8nG+PnK2bYI6RX/GK/NcXzY+aymFWWXCUj7y3IuRZMUhIIe1WY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lQuSqbaT; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791635049; c=relaxed/simple;
+	bh=kXoCS2s/EhYyCUZklu3u7dX6M8GPPdVwmxPc84JgaXE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=mjX+4bUZvXEZyBVe9iDR79H/CM5Nro0eaIUekF/q47feJMSjMpKMWQzRzB4BmHnXMbt+LXFG6+hUjHEZgp8fmzJYCJFWIQn9c+hDLuMSi/Fg9dZo7xO86ENkislxNNGLUznRH5J4nDBbOdN0dhfA93fInKFkV5uHw3LC9Ekt6ig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=WBqwhh+v; arc=none smtp.client-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lQuSqbaT"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4CB6DC2BCB9;
-	Sat, 10 Oct 2026 12:22:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791634979;
-	bh=jLM7n8anMoy/v6dyJjxgPud6P59bzWMAS6Egmu7KLDY=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=lQuSqbaTusay8awkGQoF+u1so0+uw+Ln7jkwps6PT0MW24Z4NOghcCENZn6AvPUfp
-	 8goCQUhOzjN2Q0idmVq5iB6Qr7+G4p+SbHOji6RY3UxawW+IqZ3fnn18VBT5OUyIOz
-	 BopQTrRhLVy0AQx2g330TSmsFYwD3icYPdCTuvR2F0zpwyjjaJkla8uYKILzLcxWq0
-	 AEkGSjjj/R4fkfqEqMxF3JQz0h5hIFXYW3as8G4XqfgvZg4rZUhJXoIHUL/HD95QEK
-	 tRe5eSbrWuEjqiX/y3pp/uuRaCCxvBruau9qncBMlHqj5HNRGQ5M/86xhpmmtukASr
-	 fJLRIImc6VUGw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 294FDCA6017;
-	Sat, 10 Oct 2026 12:22:59 +0000 (UTC)
-From: Linfeng Sun via B4 Relay <devnull+linfeng.sun.dev.gmail.com@kernel.org>
-Date: Sat, 10 Oct 2026 20:22:58 +0800
-Subject: [PATCH v3] vhost-scsi: reject delayed virtqueue setup
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="WBqwhh+v"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261010122357euoutp02bf04a99341e5bbc43473ffce11d38391~dKpMJ5mLK1277212772euoutp02E;
+	Sat, 10 Oct 2026 12:23:57 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261010122357euoutp02bf04a99341e5bbc43473ffce11d38391~dKpMJ5mLK1277212772euoutp02E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791635037;
+	bh=W/evXz/fk2nDwkRg/LgD/8BHntxXciqgyux6ksl533s=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=WBqwhh+vwDnb1ddbWTUFdAtvh6PQvDDQRRNk1HdcMIi3YL0IpQaH9EngEeVFTNiS2
+	 zAYBnlByApQHLgVml8kj8M6k9C1EeX0he4lF7JmuWaeUwc9WRCYjLFDgXMMFHKWIh+
+	 8uGWecAQfgqPR4OXwT5HvF14YaSXEiRzHLkPV2iY=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261010122357eucas1p1892ef8aa961af3208f81f5356316372e~dKpL1ApHV2372723727eucas1p1W;
+	Sat, 10 Oct 2026 12:23:57 +0000 (GMT)
+Received: from [192.168.1.44] (unknown [106.210.136.40]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261010122355eusmtip2ad5884c70b787c8d696f7ac9805aa691~dKpKCi3Gt0696206962eusmtip2U;
+	Sat, 10 Oct 2026 12:23:55 +0000 (GMT)
+Message-ID: <e0c42946-ed2a-41cc-9f2a-1bb089e02085@samsung.com>
+Date: Sat, 10 Oct 2026 14:23:55 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
+ starfive,jh7110-inno-hdmi-phy
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+	<neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
+	Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej
+	Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
+	Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+	<jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+	<luca.ceresoli@bootlin.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
+	Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, Emil
+	Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+	<sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley
+	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
+	Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
+	Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
+	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
+	Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
+	<maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
+	Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+	Joshua Peisach <jpeisach@ubuntu.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+	<u.kleine-koenig@baylibre.com>
+Content-Language: en-US
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+In-Reply-To: <ac7b82e6-22ea-465c-8477-bbe0bd9c8c27@kernel.org>
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261010-fix-warning-in-sbitmap_get-v3-1-33de562d1359@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43NQQ6CMBCF4auQrq1pR1PAlfcwxrR1gDFSSIuoI
- dzdFjesjMuXvHz/xAJ6wsAO2cQ8jhSoc3HsNhmzjXY1crrGzUCAEqUoeEUv/tTekas5OR4MDa3
- uLzUO3CiAUmNlhRIsAr3H+F7w0/m7w8Pc0A5JTI+GwtD591IfZfr9FRollzxXuQULUmowx7rVd
- N/armUpNMKKkuonBZFCJXVs7nNRlGtqnucPZQoLhCEBAAA=
-X-Change-ID: 20260908-fix-warning-in-sbitmap_get-b6229aefc060
-To: "Michael S. Tsirkin" <mst@redhat.com>, 
- Jason Wang <jasowangio@gmail.com>, 
- Mike Christie <michael.christie@oracle.com>, 
- =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>
-Cc: virtualization@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Linfeng Sun <linfeng.sun.dev@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791634978; l=5354;
- i=linfeng.sun.dev@gmail.com; s=20261010; h=from:subject:message-id;
- bh=tSXH3z3FUfG59x/oF0TAiwVbAv/p4oxB4J5rJGqlY2Y=;
- b=R9/F95DB5IZDhvYSXThGx9td/upl0Ol2tRW2/50nKqagWnDoBfHyBsWBHFDC2RPqj6RhSInkI
- 5Im3y0H5nVXDA4uV/bEGhNaPtutCZujlLfE9LoDZP1Heo85C5Ipd/NZ
-X-Developer-Key: i=linfeng.sun.dev@gmail.com; a=ed25519;
- pk=IPHLe8L3bTveNcYFP12okRAIWs4eqaVd4jrqSNMj7UU=
-X-Endpoint-Received: by B4 Relay for linfeng.sun.dev@gmail.com/20261010
- with auth_id=1150
-X-Original-From: Linfeng Sun <linfeng.sun.dev@gmail.com>
-Reply-To: linfeng.sun.dev@gmail.com
+X-CMS-MailID: 20261010122357eucas1p1892ef8aa961af3208f81f5356316372e
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125
+X-EPHeader: CA
+X-CMS-RootMailID: 20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125
+References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+	<CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com>
+	<20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com>
+	<20260917-mutant-chamois-of-competence-46ca77@quoll>
+	<1a1a9b49-430b-4218-b27d-e133d488e8d9@samsung.com>
+	<6cf9e611-bfc5-407b-8132-bd328f8b61fc@kernel.org>
+	<eaba2fa9-a1ce-4dac-9bd6-e0b3a3dd01ef@samsung.com>
+	<3ee91c92-4e3a-4bac-85cf-923f5d77ceff@kernel.org>
+	<3c5c15d9-ea7e-49a2-adae-ec3e3c72594b@samsung.com>
+	<ac7b82e6-22ea-465c-8477-bbe0bd9c8c27@kernel.org>
 
-From: Linfeng Sun <linfeng.sun.dev@gmail.com>
 
-vhost_scsi_set_endpoint() allocates command pools only for I/O
-virtqueues that are already set up, but publishes the backend for every
-virtqueue. Userspace can complete a skipped queue after attaching the
-endpoint, then kick it with scsi_tags uninitialized and trigger the
-alloc_hint warning in sbitmap_get().
 
-Delayed virtqueue setup is not supported. Leave skipped I/O virtqueues
-inactive and reject changes to the vring size or addresses while an
-endpoint is attached. Userspace must clear the endpoint before changing
-the vring configuration.
+On 10/4/26 09:15, Krzysztof Kozlowski wrote:
+> On 04/10/2026 00:35, Michal Wilczynski wrote:
+>>
+>>
+>> On 10/3/26 22:45, Krzysztof Kozlowski wrote:
+>>> On 03/10/2026 17:36, Michal Wilczynski wrote:
+>>>>
+>>>>
+>>>> On 9/30/26 13:01, Krzysztof Kozlowski wrote:
+>>>>> On 25/09/2026 23:05, Michal Wilczynski wrote:
+>>>>>>>> +  clocks:
+>>>>>>>> +    maxItems: 1
+>>>>>>>> +    description: Reference oscillator.
+>>>>>>>
+>>>>>>> This barely counts as a resource, so usual question: no resources here?
+>>>>>>> no MMIO? Even the user of this phy is the block itself.
+>>>>>>>
+>>>>>>> This makes me wonder if this should be a device node in the first place
+>>>>>>> (instead folded into the parent).
+>>>>>>
+>>>>>> The PHY has no reg because the reg is shared with the controller and
+>>>>>> owned by the parent - patch 9 lets the bridge take its regmap from
+>>>>>> there.
+>>>>>>
+>>>>>> The user of the PHY is not only the block itself. It is the pixel clock
+>>>>>> provider for the whole display subsystem, voutcrg takes hdmitx0_pixelclk
+>>>>>> as the parent of its DC8200 pixel MUXes, and while HDMI output is active
+>>>>>> it is the only intended source for that clock. The parent has to be
+>>>>>> assigned explicitly so the general PLL does not end up driving the pixel
+>>>>>> clock, and so a DSI user does not reach the HDMI PHY clock generator.
+>>>>>>
+>>>>>> So it has to be its own node. The HDMI block has two independent
+>>>>>
+>>>>> I do not see the logic which lead to this conclusion. Pixel clock
+>>>>> provider, so a clock controller, cannot be a user of a phy. Clock
+>>>>> controller does not have a physical layer.
+>>>>
+>>>> Sorry I think the wording was not perfect. I meant the PHY node is a
+>>>> pixel clock provider. voutcrg consumes a clock not a PHY.
+>>>>
+>>>> voutcrg: clock-controller@295c0000 {
+>>>>          clocks = <&syscrg ...>, <&hdmi_phy>;
+>>>>          clock-names = ...,"hdmitx0_pixelclk";
+>>>> };
+>>>>
+>>>> The consumer of the PHY is only the hdmi controller.
+>>>>
+>>>> What matters for the node layout is where that clock goes. voutcrg is the
+>>>> SoC display clock controller - it is not part of the HDMI block:
+>>>>
+>>>> hdmi_phy -- pixel clock -> voutcrg
+>>>>                               |
+>>>>                               - pclk/mclk/bclk -> hdmi_controller
+>>>>                               - pix0/pix1 -> dc8200
+>>>>
+>>>> hdmi_phy and hdmi_controller are the same register block with one reg
+>>>> owned by the parent. So if that block is described as a single node:
+>>>>
+>>>> hdmi_node - pixel clock -> voutcrg
+>>>>      ^                          |
+>>>>      --- pclk/mclk/bclk --------
+>>>>
+>>>> the node provides a clock to voutcrg and consumes three clocks from
+>>>> voutcrg. That is a cycle in the device tree description.
+>>>
+>>> There is no cycle. Internal signals to the block are not represented in DT.
+>>>
+>>> What you have is a driver problem and you create some sort of DT
+>>> structure to solve that. DT purpose is NOT to solve your driver
+>>> dependencies or circular connections.
+>>
+>> The structure is not something I added. The voutcrg binding has required
+>> an input clock named hdmitx0_pixelclk since it was merged in 2023
+>> a097a5ec14df ("dt-bindings: clock: Add StarFive JH7110 Video-Output
+>> clock and reset generator") and this series does not touch that file:
+>>
+>> Documentation/devicetree/bindings/clock/starfive,jh7110-voutcrg.yaml
+>>        - const: hdmitx0_pixelclk
+>>
+>> Mainline satisfies it with a placeholder, because so far nothing provided the
+>> real clock:
+>>
+>> hdmitx0_pixelclk: hdmitx0-pixel-clock {
+>>             compatible = "fixed-clock";                                                                          
+>>             clock-output-names = "hdmitx0_pixelclk";
+>>             #clock-cells = <0>;
+>> };
+>>
+>> All this series does is point that existing input at the device that actually
+>> generates it.
+>>
+>> TRM [1] table 5-3  on page 529 lists the display CRG's input clocks. Most come from
+>> dom_vout_top, but three come from IP blocks inside the subsystem:
+>>
+>> clk_hdmitx0_pixelclk        297 MHz   u0_hdmi_tx.clk_pix
+>> clk_mipitx_dphy_rxesc        10 MHz   u0_mipitx_dphy.clk_rxesc
+>> clk_mipitx_dphy_txbytehs    297 MHz   u0_mipitx_dphy.clk_txbytehs
+>>
+>> and on page 530 the CRG offers clk_hdmitx0_pixelclk as Source1 for:
+>>
+>> u0_dc8200.clk_pix0      Source0 clk_dc8200_pix0  Source1 clk_hdmitx0_pixelclk
+>> u0_dc8200.clk_pix1      Source0 clk_dc8200_pix0  Source1 clk_hdmitx0_pixelclk
+>> u0_cdns_dsiTx.clk_dpi   Source0 clk_dc8200_pix0  Source1 clk_hdmitx0_pixelclk
+>>
+>> The DC8200 and the DSI TX are separate devices, so the pixel clock
+>> crosses two block boundaries to reach them.
+>>
+>> That is also why the DT has to be able to name it. Those MUXes have two
+>> parents and the selection is made in DT:
+>>
+>> &dc8200 {
+>>           assigned-clocks = <&voutcrg JH7110_VOUTCLK_DC8200_PIX0>, ...;
+>>           assigned-clock-parents = <&hdmi_phy>, <&hdmi_phy>;
+>> };
+>>
+>> and voutcrg takes it as an input clock because that is what the hardware
+>> does. If the PHY is folded into the HDMI node, that input phandle points at
+>> a node which also consumes pclk/mclk/bclk from voutcrg. That is where the
+>> cycle comes from - the hardware topology not the driver.
+> 
+> Which is perfectly "fine" - present in many other SoCs as well. This is
+> not different and your arguments are insufficient to give here
+> exceptions. Why? Because again you use as an argument a Linux driver
+> problem (cyclic dependency). Basically to solve Linux problem you
+> introduce new empty nodes.
+> 
+> Best regards,
+> Krzysztof
+> 
 
-I found this bug myself, though the patch was written with AI assistance.
+OK probe ordering is a Linux concern and can't be used it to justify the
+binding.
 
-Fixes: 25b98b64e284 ("vhost scsi: alloc cmds per vq instead of session")
-Assisted-by: OpenAI-Codex:GPT-5.6
-Signed-off-by: Linfeng Sun <linfeng.sun.dev@gmail.com>
----
-I checked QEMU and found no evidence it's affected. I haven't checked 
-VirtualBox because I am not familiar with it. However, the virtio spec 
-doesn't require a specific operation order, so a new VMM could still 
-trigger this issue. 
+We spoke briefly about this on Monday and I came away thinking the node
+is acceptable as long as it is justified by what it describes rather
+than by probe order. Is that the right reading of what you meant?
 
-Crash log:
-[   34.698961] ------------[ cut here ]------------
-[   34.699385] WARNING: lib/sbitmap.c:286 at sbitmap_get+0x227/0x270, CPU#0: vhost-82/88
-[   34.700542] Modules linked in:
-[   34.701309] CPU: 0 UID: 0 PID: 88 Comm: vhost-82 Not tainted 7.3.0-rc2+ #14 PREEMPT(full)
-[   34.701958] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[   34.702717] RIP: 0010:sbitmap_get+0x227/0x270
-[   34.703247] Code: 41 8d 5d 01 89 df 44 89 fe e8 f5 3a 46 ff 31 c0 44 39 fb 0f 43 d8 e8 38 46 46 ff 65 41 89 1c 24 e9 25 ff ff ff e8 29 46 46 ff <0f> 0b eb ba e8 20 46 46 ff 44 89 fe 31 ff 45 31 e4 e8 c3 3b 46 ff
-[   34.704234] RSP: 0018:ffffc90000ec3bb0 EFLAGS: 00000246
-[   34.704677] RAX: 0000000000000000 RBX: ffff88800500dee8 RCX: 0000000000000000
-[   34.705166] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff88800500dee8
-[   34.705584] RBP: ffffc90000ec3be0 R08: 0000000000000000 R09: 0000000000000000
-[   34.705988] R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000006
-[   34.706477] R13: 0000000000000000 R14: 0000000000000000 R15: ffff8880050094d0
-[   34.706955] FS:  0000000014d05380(0000) GS:ffff888099c36000(0000) knlGS:0000000000000000
-[   34.707463] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[   34.707854] CR2: 00007c0c3c20e000 CR3: 0000000008e47000 CR4: 00000000000006f0
-[   34.708592] Call Trace:
-[   34.709259]  <TASK>
-[   34.709822]  vhost_scsi_handle_vq+0x4a9/0x1b20
-[   34.710437]  ? update_cfs_rq_load_avg+0x2e/0x230
-[   34.710874]  vhost_scsi_handle_kick+0x2c/0x40
-[   34.711292]  vhost_run_work_list+0xa6/0xf0
-[   34.711673]  vhost_task_fn+0x76/0x1b0
-[   34.712003]  ? __sanitizer_cov_trace_const_cmp1+0x1a/0x30
-[   34.712506]  ? recalc_sigpending+0xe1/0x130
-[   34.712890]  ? __pfx_vhost_task_fn+0x10/0x10
-[   34.713325]  ret_from_fork+0x37a/0x630
-[   34.713673]  ? __pfx_vhost_task_fn+0x10/0x10
-[   34.714031]  ret_from_fork_asm+0x1a/0x30
-[   34.714535] RIP: 0033:0x0
-[   34.715201] Code: Unable to access opcode bytes at 0xffffffffffffffd6.
-[   34.715587] RSP: 002b:0000000000000000 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-[   34.716158] RAX: 0000000000000000 RBX: 000000000048bb20 RCX: 000000000041ca3d
-[   34.716571] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000003
-[   34.716957] RBP: 00007ffcac47c4e0 R08: 00000000ffffffff R09: 0000000000000000
-[   34.717418] R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000004
-[   34.717826] R13: 00007ffcac47c778 R14: 00000000004af868 R15: 0000000000000001
-[   34.718363]  </TASK>
----
-Changes in v3:
-- Reject delayed virtqueue setup instead of activating it.
-- Link to v2: https://patch.msgid.link/20260916-fix-warning-in-sbitmap_get-v2-1-e61a09047089@gmail.com
+On that basis the PHY node:
+- is a clock provider, and voutcrg consumes that clock and
+  routes it on to the DC8200 pixel MUXes and the DSI TX
+- is a phy provider for the controller
+- takes a different input clock than the controller - xin24m, against
+  pclk/mclk/bclk from voutcrg
+- is separate IP - the same Innosilicon PHY that RK3328 instantiates at its
+  own address (phy@ff430000), which here shares a register window with the
+  controller
 
-Changes in v2:
-- Activate only the virtqueue specified by VHOST_SET_VRING_ADDR.
-- Mask the userspace provided index before accessing the virtqueue array.
-- Link to v1: https://patch.msgid.link/20260908-fix-warning-in-sbitmap_get-v1-1-767c2c211a2b@gmail.com
----
- drivers/vhost/scsi.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/vhost/scsi.c b/drivers/vhost/scsi.c
-index 885fac5ed042..1710bc8e4381 100644
---- a/drivers/vhost/scsi.c
-+++ b/drivers/vhost/scsi.c
-@@ -2105,6 +2105,9 @@ vhost_scsi_set_endpoint(struct vhost_scsi *vs,
- 
- 		for (i = 0; i < vs->dev.nvqs; i++) {
- 			vq = &vs->vqs[i].vq;
-+			if (i >= VHOST_SCSI_VQ_IO && !vs->vqs[i].scsi_cmds)
-+				continue;
-+
- 			mutex_lock(&vq->mutex);
- 			vhost_vq_set_backend(vq, vs_tpg);
- 			vhost_vq_init_access(vq);
-@@ -2466,10 +2469,16 @@ vhost_scsi_ioctl(struct file *f,
- 	default:
- 		mutex_lock(&vs->dev.mutex);
- 		r = vhost_dev_ioctl(&vs->dev, ioctl, argp);
--		if (r == -ENOIOCTLCMD)
--			r = vhost_vring_ioctl(&vs->dev, ioctl, argp);
--		else
-+		if (r == -ENOIOCTLCMD) {
-+			if (vs->vs_tpg &&
-+			    (ioctl == VHOST_SET_VRING_NUM ||
-+			     ioctl == VHOST_SET_VRING_ADDR))
-+				r = -EBUSY;
-+			else
-+				r = vhost_vring_ioctl(&vs->dev, ioctl, argp);
-+		} else {
- 			vhost_scsi_flush(vs);
-+		}
- 		mutex_unlock(&vs->dev.mutex);
- 		return r;
- 	}
-
----
-base-commit: c69023b5e16e5ffe9368603dca76d85bd544ee57
+The reg is the only thing it does not have of its own, and that is shared
+with the controller and owned by the parent.
 
 Best regards,
 -- 
-Linfeng Sun <linfeng.sun.dev@gmail.com>
-
-
+Michal Wilczynski <m.wilczynski@samsung.com>
