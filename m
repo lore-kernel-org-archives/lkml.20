@@ -1,143 +1,173 @@
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 601EC491589
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 13:29:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791638968; cv=pass; b=RNCPeO2K3vplu7f6/X8S9faskMr3Izfn74OiXVFZcAsIv9wZL73+9vRjq+AVYuVyCMwm38W+z9v5uUSqLtb1VtQcsL7BhZ4V+A9RI3tE+id7Fdjew4JyTtvOK386uR4tJInzound9F20qlOFh6Bbv1THnZ3RblTB/G0pzEGlhqs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791638968; c=relaxed/simple;
-	bh=0mOLJ1qbIO4bHtL723mklyC/FW/EWWw0glxLKNa5KhQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qNSlfQBPcwoV3vo1vB9MctDNbISQ1sEWzIqbwDnCF/aOsSoUCwVz/pAviRrYzJI7qrftCwC6JJXk+bB7waL+1M2/GiT3EUdPd8+ksOCOUeY0Gh9Z5UOXLNiBekZQV1k8kEDzVBkGrjTmMCMnZbmj64d/VVFZPQl5hFXS70C/DhY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com; spf=pass smtp.mailfrom=futuring-girl.com; dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b=ai352XnO; arc=pass smtp.client-ip=209.85.218.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=futuring-girl.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 050BA491589;
+	Sat, 10 Oct 2026 13:30:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791639005; cv=none; b=McKZzPGHAodcMT549b2Tc9IfvT2ef0pQCeFeePhi5RkpL0O2QPLe2zJ4UgIDfGhjXGFAuffJuMYPexv31mwWRFuoxK1hHTxfPri9VtYBESwFjCACn4RlUg2Y8Mtss0LF9j0Dzf+QdOPN38O7/OWbcHc5ZkUVfVsjO+IhV2GEaHg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791639005; c=relaxed/simple;
+	bh=JOeA7/Juj3GWj37EAgYk4cNWxQojpqCiVvPNTmn+bKg=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=rxnuAUx3lBY9r7HRuwcMwlxU36tCo/gwHwcs2aWDAYyxtXbIw6f8ihak2vYfxrocFlbWuvhyPCfCZtJAiPIJFj9o3E0f1LFGa7pQJ9i9Qq5UxMD78J5tKg39FlciJbIjJd5wB8x1HzEQNXtVvZeROY7sz0lBMDtpcbJ5Hj0xm7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jg0/s4ck; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b="ai352XnO"
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c29c6a3930bso81689166b.3
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 06:29:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791638965; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SrWw4evyvM9Bn02ssiNU0fRgYPD/uemd2NzyqXnBR4adKsIJ066VW2m6U42NSVtlxa
-         cfD4G5vodBN3kgc6/m6INtfoI1VqZfLNTEGi0Gp8XUyMP8VXkUesrmEj8mumTSimk7Gu
-         W+zipaaKvbjEtK/fxjnm7yOOPkxBNocojXV5yL0hKmjjgMiXcBIWD81JkzLTjTGavC0C
-         c50ZukEBA/bEihL91oheyxfYUYzeUmIL8XRpNrRNyfyOZAFG+fvnsIXULyr1ypeEkfHa
-         OYY39PcpeYc5PnZ8Gm8Xm3F0X3P6fstkhuIOLp7R5U+nPrS77RRq6oDS3W0GQzCCfvWL
-         FHpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=6/nHQi/CMAK+j6F/l0YNH4Qaf56yMgapiWA9WJPD8E8=;
-        fh=j9sCHWC2hoFclbaTLFoDEAiWvebzA5W3CMFePDFAPLw=;
-        b=MbhyzQIutv3OGqGbe+lUxGBQ8Ng3TcsQ4HITLeGUFltegNngCbqhetgTP1una4rIGl
-         GgXJgM6UQzeYz+1UTTK6LmErJoNjoQooKLSWPM91XqL8toYL2/0IMLoxpmSNMgC66H88
-         /kuXDoxcKBTxlR5/jWeYEapyWNz0ExUUEaivEKHZnVevtXvXNjvlJOSakc8oWFiauXca
-         Kx8CyS0l9WbiD/NjnjL7DmXzdOYpUVnqpsOLC7E9yLNUM6mCADUeREd/azZQHbNx9CBQ
-         frZTrfI9//LklXt6MlTdMvcvfIZIY1QHvoHqadrA/XrxX89ymcE9QXOk8chLqQEDF2mt
-         Mr8A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=futuring-girl.com; s=google; t=1791638965; x=1792243765; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6/nHQi/CMAK+j6F/l0YNH4Qaf56yMgapiWA9WJPD8E8=;
-        b=ai352XnOj9oJad83EhHSowwm2A3/Nku9MCiipuxmkASHamPsdOIzYHxc2Pm0zQpAKR
-         ZIkh3ehe98ENou+5jWLJnIpd10hkzIdsKHZNifX2D7qlG6nHEzI1eT8Bqbklk5VFbcHQ
-         fUz0T8VPIfrNJgFN3y95ztAJdkTwGhhCjD5XTRiyeNLySFoN2zGKXJfuVWBbHUiiIQx0
-         gPWxb/fjjcjo/eNNhMY2Rnuf0qI3FF7pc0N10dE1fEjdc0OwlBpsHyjIZ6lZ1sogHMXT
-         /2ly1nHP5e3DyJnn9S3Jz2hwkNpB5ec2yzPMv0yN5GDGtyI4R//6hgC7pqg/8flElwe7
-         KYAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791638965; x=1792243765;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6/nHQi/CMAK+j6F/l0YNH4Qaf56yMgapiWA9WJPD8E8=;
-        b=c/QvQnT4XQpXi3yAav/s9ZDE9KlzQQwjMHMi5fhkmugp7sPaKxW8av+y73d6b9nYZC
-         iHVqZcN6gWwvpnLLDGiWO+ZJCg2HttskjYy8e5JLW7Z7rab5C+m5ol2SBKCfhL93GBkV
-         gahy57DVOlXnyGoqg2zYz00Hvqa1+bajJljjWgOGgSYBFco+kpkU0Wxmcski9bslnEey
-         ssK7xapLqXXOfnJUugUoap3woDbHWMfJchvFUvyO3+tf0wxDkuazd3wJvxcwzTl8c+WB
-         9sVM2OmhmGOXiIx4v+y3wTZU84vbn3I5DWneIxOeiyJT2uaMG+3oY84ZtZUzN9+JeAZj
-         /REA==
-X-Forwarded-Encrypted: i=1; AKwUvBxEXK3bSl/clhgEsPhk4wleHuHnTE2C4KnQNWGCAbYfVlMkB18lukPCRRF2h9BQZpoNWIDWT0oL0lM2xf4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKOVedkaW26Hpx92hDkLjZHyU+cwSUy4QLRlGsqX03O+0wuzfle
-	kr6F2WrHD+CJlH+nhCdueSH9MSM8b0hohIb34zqRBqBpDSMm2MSOeEqIsc6o70tjYa7PKGjthop
-	i0B3kwuXubylqK2vRxqqRqh9LZ+PDbmwsBigtn7cHsA==
-X-Gm-Gg: AYBFou1mreI3/L21O5ydwwm+1bps/3Z7/iFwSg1YLFBx7lv417N7cIKdbdwuPfhqSzp
-	95pkGBIL9SDkOfVR2sggg8Jy/cOEo9RUiG2ryaPzNrV9skLRLUso1L7Iyv5wz4cFFJt+5pDC/Fz
-	9I+MSVNgetJUTAna2PDAjAtjMv91cULUXuDLuI2ztU+s2KUj2ykEThSiwwb96VaIruzJwL6n9fE
-	tKdslWa03DjYlq3ajqnk014f/ko6ym6VUs0Vj5yy7q5kcXyihz7/mqxpizz3svlbSRBZtooXZ0q
-	QTBj8fNqKs0v7ZtEJMvyLRTGS7gWyJ4yVvDCYxsGevZLrEbHphcKxMM=
-X-Received: by 2002:a17:907:6e92:b0:c29:6400:ef8e with SMTP id
- a640c23a62f3a-c31aa0098a2mr468624466b.42.1791638965252; Sat, 10 Oct 2026
- 06:29:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jg0/s4ck"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 928401F00899;
+	Sat, 10 Oct 2026 13:30:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791639003;
+	bh=SBp86mc+EtnQ2CbOzJDZ2KvI0MDHcbGBhqu1BEBEx80=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Jg0/s4ckdQnf73hhIcxDscUUgS37DeDrvLjKjxgMwOC9YkWxLO78eCAPTTn3M5/dq
+	 UA04vfwIiNTQyOtj19VrcQudRzYg5VxZRsBjWSyJEfx7MusbCtuDQ9vx3SjN1lIo+P
+	 STQTqrunvsOgcBCPix+gCa9xLABh247z2+cPTB+JG3AhNsRI2xNW2ATPueBNJ9WRNn
+	 5SOnmJUZm9QFXEVLjudz/bo3v15RPDK2B5UzM2vFjGNb/gQQslYKeDOFB6p4AHUEb1
+	 shpGKCkCJIbAk9fmgn76DfmKxO5DF/XAXwKk9B7eRR8mm3UlyzUdtahjv8Uw0xCVCy
+	 hhAw+5qaDyaWw==
+Subject: Re: [PATCH] netfilter: nf_conntrack_h323: fix NULL pointer deref in
+ decode_seqof()
+From: netdev-bot+sashiko@kernel.org
+To: bsdhenrymartin@gmail.com
+Cc: pablo@netfilter.org, fw@strlen.de, phil@nwl.cc, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ netfilter-devel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Sat, 10 Oct 2026 13:30:01 +0000
+Message-ID: <179163900178.434549.6423959143642919606@kernel.org>
+In-Reply-To: <20261009124116.3950469-1-bsdhenrymartin@gmail.com>
+References: <20261009124116.3950469-1-bsdhenrymartin@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009140946.008206689@linuxfoundation.org>
-In-Reply-To: <20261009140946.008206689@linuxfoundation.org>
-From: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
-Date: Sat, 10 Oct 2026 22:29:08 +0900
-X-Gm-Features: AclHuK9jyG7nhFSraKVNersbzp_MigR0JEtHr1nx66h6cqyz_SecNiHhQNS9bdk
-Message-ID: <CAKL4bV57zkwfGiTzGvK5Ho9AWVJfMamrbzOctPh8RkNKZ3339Q@mail.gmail.com>
-Subject: Re: [PATCH 7.2 000/428] 7.2.10-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
-	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
-	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
-	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
-	achill@achill.org, sr@sladewatkins.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Greg
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-On Fri, Oct 9, 2026 at 11:24=E2=80=AFPM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> This is the start of the stable review cycle for the 7.2.10 release.
-> There are 428 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Sun, 11 Oct 2026 14:08:23 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
->         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
-7.2.10-rc1.gz
-> or in the git tree and branch at:
->         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
--rc.git linux-7.2.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
->
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-Linux version 7.2.10-rc1 tested.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Build successfully completed.
-Boot successfully completed.
-No dmesg regressions.
-Video output normal.
-Sound output normal.
+- [Medium] The commit message says decode_seqof() can be made to
+  dereference NULL through the eight *_Caps.supportedPrefixes rows (and…
+- [Low] The new comment in decode_seqof() is wrong in three ways.
 
-Lenovo ThinkPad X1 Carbon Gen10(Intel i7-1260P(x86_64) arch linux)
+--
 
-[    0.000000] Linux version 7.2.10-rc1rv-g77b730c57839
-(takeshi@ThinkPadX1Gen10J0764) (gcc (GCC) 16.2.1 20260810, GNU ld (GNU
-Binutils) 2.47) #1 SMP PREEMPT_DYNAMIC Sat Oct 10 21:48:22 JST 2026
+netfilter: nf_conntrack_h323: fix NULL pointer deref in decode_seqof()
 
-Tested-by: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
+This patch adds a NULL check on f->fields in decode_seqof(). When the
+pointer is NULL it returns H323_ERROR_BOUND. The commit message says an
+attacker can use the eight *_Caps.supportedPrefixes rows to trigger a NULL
+pointer dereference there.
+
+> The eight supportedPrefixes table entries (_H310Caps, _H320Caps,
+> _H321Caps, _H322Caps, _H323Caps, _H324Caps, _VoiceCaps and
+> _T120OnlyCaps, all reached through the _SupportedProtocols CHOICE)
+> are declared SEQOF,SEMI with fields=NULL.  decode_seqof()
+> dereferences f->fields on the first loop iteration whenever the
+> attacker-controlled SEMI count is non-zero, causing a NULL pointer
+> dereference.
+
+[ ... ]
+
+> Cc: stable@vger.kernel.org
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+
+[Severity: Medium]
+Can decode_seqof() actually be reached for these rows?
+
+The parent entries in _SupportedProtocols in nf_conntrack_h323_types.c
+are:
+
+	{FNAME("h310") SEQ, 1, 1, 3, SKIP | EXT, 0, _H310Caps},
+	...
+	{FNAME("t120-only") SEQ, 1, 1, 3, SKIP | EXT, 0, _T120OnlyCaps},
+
+With lb=1, nonStandardData is the only root component of _H310Caps.
+dataRatesSupported and supportedPrefixes are both extension additions.
+
+The parent is SKIP without DECODE, so decode_seq() sets base to NULL when
+it starts:
+
+	base = (base && (f->attr & DECODE)) ? base + f->offset : NULL;
+
+In the extension loop of decode_seq(), each present extension reads its
+open type length. It then reaches this check before Decoders[son->type]
+is called:
+
+	if (!base || !(son->attr & DECODE)) {
+		...
+		bs->cur += len;
+		continue;
+	}
+
+The supportedPrefixes row is also plain SKIP:
+
+	{FNAME("supportedPrefixes") SEQOF, SEMI, 0, 0, SKIP, 0, NULL},
+
+So it looks like Decoders[SEQOF] is never called for any of the eight
+rows.
+
+The other SEQOF rows in nf_conntrack_h323_types.c that have NULL fields
+seem to fall into two groups:
+
+  - STOP rows. decode_seq() returns H323_ERROR_STOP for these before any
+    decoder runs.
+  - SKIP rows in an extension position. These are skipped by length.
+
+Some examples are Setup_UUIE, Connect_UUIE,
+EndpointType.supportedTunnelledProtocols, RRQ.alternateEndpoints and
+RCF.alternateGatekeeper.
+
+If none of these rows can reach decode_seqof(), the new check is dead
+code. Could this be resent as hardening, without the Cc: stable tag, the
+Fixes: tag and the claim of an attacker-reachable NULL dereference?
+
+> diff --git a/net/netfilter/nf_conntrack_h323_asn1.c b/net/netfilter/nf_conntrack_h323_asn1.c
+> index 6830c9da3507c..4d66db5bf5f70 100644
+> --- a/net/netfilter/nf_conntrack_h323_asn1.c
+> +++ b/net/netfilter/nf_conntrack_h323_asn1.c
+> @@ -692,6 +692,13 @@ static int decode_seqof(struct bitstr *bs, const struct field_t *f,
+>  
+>  	/* Decode nested field */
+>  	son = f->fields;
+> +	/*
+> +	 * Malformed table entries may carry a NULL fields pointer (e.g.
+> +	 * the *_Caps.supportedPrefixes SEQOF,SEMI rows); treat them as
+> +	 * undecodable instead of dereferencing NULL when count > 0.
+> +	 */
+> +	if (!son)
+> +		return H323_ERROR_BOUND;
+
+[Severity: Low]
+Is this comment accurate? A few parts of it don't seem to match the code.
+
+The comment calls the *_Caps.supportedPrefixes rows malformed and uses
+them as an example of rows that reach decode_seqof(). As noted above,
+decode_seq() skips them by length. A NULL fields pointer on SKIP and STOP
+rows also looks like the normal convention in nf_conntrack_h323_types.c.
+Many rows use it.
+
+The comment says the problem only occurs "when count > 0". The check
+runs after count has been decoded, though, and it returns an error for
+every count, including 0. Before this patch, count == 0 with a NULL base
+succeeded.
+
+Elsewhere in this file, H323_ERROR_BOUND means the bitstream would run
+past the end of the buffer. Would a different error code fit a missing
+table descriptor better?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261009124116.3950469-1-bsdhenrymartin%40gmail.com
