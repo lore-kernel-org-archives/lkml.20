@@ -1,43 +1,41 @@
-Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch [79.135.106.29])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB0113BB68F
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 14:33:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.29
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44223364E98;
+	Sat, 10 Oct 2026 14:34:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791642833; cv=none; b=AvaiGU8wIs6JsGG05lPcmPp6VcrL0TuGgF/QH0xjwS5znXvLqgootWUDYzv0MfiA8J8bYC+mEbcdKt/9nnoM/J+itJ4Pw0RzlNXMYx+iALQGkp9KAnopY0gVoNJEylp4f7QMhcEfCzT0gKLemHnavERy/ua6Q6DPLPkmKcoJyrY=
+	t=1791642868; cv=none; b=pYFaR7ffNJ1k5EqQ+zqW90/h7pLZKwy2EAYGI/giYi2WB4sXVXW9g6eOqq+rrjTZg4x/310mz0jf5qSDgjWOO5KNQ1DcpLctdhWDGA1+kb6U46DCS2pTU34+4Zewg68cWig+EBW31q2OiQo0+lqIaqLvUgjVJuO/NNxfwQk0Cbw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791642833; c=relaxed/simple;
-	bh=n7gDfNG9Q+MVjqXjB4TtsbF2Yo4JB2nCAH6pKIZSPB8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Z9A4Xc3cmWRfkzISdJUthdHg6xxNdHyBoPW8DnDX0oKN1Bpb9vPA4jgLT1HJ74R/5CIyZyLqgtx+j9pfGbUoKKcc8BuoSo4yvZAQmFg/6l+cca4JGfqG/dgUutdsDG03zuXZLeBryAiP5gOWT/RBWLzTvbfgB4o8c9HBV+sSSKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=ECUTovuc; arc=none smtp.client-ip=79.135.106.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1791642868; c=relaxed/simple;
+	bh=bY1FkzrmoTrmnMtl/t7yCZ44XVx09IFgGcx53OvFoHs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WQdTtbKZiWvLeNQczYhRvHP4iKpo4RUAYnyXv0nxO0C5OtRRdGfoMDKHiZ8XDL+AjBgcPn6VwySmTqgQw8T//A5dPvVRg9pbxs99YgD/ZLGtSROJ89m6n2v55BQ0j3RAv/xmQAiLz5kgx5tzhEETuvWfTQBoI7Gp0BH9AZkqPe8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JxylpYuF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="ECUTovuc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1791642829; x=1791902029;
-	bh=PXVc4olALIrNTwac4TDJs0rZIRrcHlvzXNA+n2MLKCI=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=ECUTovuc0jfWnWjs7GzXRrDNf3fxOEZCGFMQvj1UDhOV8AKxr5k2IxzRm/gZ2MDpz
-	 ywg+ug9/UOl3DWKUe+/vpzaI16IoiXh7LlQhSvmztr0RddOTugcmmyikS30CCrlgsR
-	 QyWSKtFA9a1jkDYkBntcMCSJ1t1QQGfRWM9a8HQG5v/lVK7S/Ti5fky3I2sQOaulOa
-	 ZREAnewXKZNImSGmGAsebly6wbVCPcD/oNtT+hVTwUDwJsrxd+bcfh6K79SgAxcbFc
-	 JPWioybFUGHiR/xcXuD/YlXS6AFbirwWY8KOfYZGOdBsnG94/cQX3cW9/ZVWziac2i
-	 VVWaUKl7hfbuA==
-Date: Sat, 10 Oct 2026 14:33:44 +0000
-To: sashiko-bot@kernel.org
-From: Birk Skyum <birk.skyum@pm.me>
-Cc: Bjorn Andersson <andersson@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>, linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH] pinctrl: qcom: Restore the pin configuration after hibernation
-Message-ID: <179164282189.97158.2443151927663474607@pm.me>
-In-Reply-To: <sashiko-outbox-166471@kernel.org>
-References: <179163141354.18006.80461347454353634@pm.me> <sashiko-outbox-166471@kernel.org>
-Feedback-ID: 21326998:user:proton
-X-Pm-Message-ID: dea882c62d25aa2543fb2ce342a1e0d933d4401c
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JxylpYuF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B87111F000FF;
+	Sat, 10 Oct 2026 14:34:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791642866;
+	bh=cDnCu2/UzjdlBjBG61ofGnnF+daBO265HXx+uRzlR2c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JxylpYuFGD0bsDT2yhVbDIn3AI/VXQPGQBV/T2NiKD6QMdyuqDrlaTQy1jSVAympo
+	 l9JlGJgJnVXPYKic1RsQDs4Gtwo/hxMbpAerxtx+iw4a8DUTCkFNHIZDipOBRdov1X
+	 c8gy+SVnoZ980NxoF10HJEEAutRLV3yy5wrcR+Pcu+qtqDPFU2TaVNBWDU6V8oIb0l
+	 cv5tN67XsacVP1/3VqUuOo3juyGfo1hNvCW6syIN1yhbwNVpQQ5kEtUDf8UVhOEEu2
+	 2O82OS7q9ZIodA6FLR/nA/88gdNT3PjVvyeqdum1U4mQbZmbBTYvF6zJuSsTrBqRBU
+	 l0kmkzoVmw4hA==
+Date: Sat, 10 Oct 2026 16:34:23 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Alexey Charkov <alchark@gmail.com>
+Cc: Wentao Liang <vulab@iscas.ac.cn>, krzk@kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux@prisktech.co.nz, wsa@kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 04/20] i2c: viai2c-wmt: Fix clock leak in wmt_i2c_probe()
+Message-ID: <aspGdlG2J4h6KxFl@zenone.zhora.eu>
+References: <20260916070631.1965713-1-vulab@iscas.ac.cn>
+ <CABjd4YzNzZ0nnO4Xgw1JsRHhj9Crc6diX1uJnWHpHvd6BcPk2g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,65 +43,61 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CABjd4YzNzZ0nnO4Xgw1JsRHhj9Crc6diX1uJnWHpHvd6BcPk2g@mail.gmail.com>
 
-> Will this result in a NULL pointer dereference on kernels built with
-> CONFIG_HIBERNATION=3Dn but CONFIG_HIBERNATE_CALLBACKS=3Dy?
+Hi Wentao,
 
-Yes, the two conditions do not match. The only other option that
-selects HIBERNATE_CALLBACKS is XEN_SAVE_RESTORE on x86, where no TLMM
-exists, but nothing in the driver says so. In v2 the array and the
-callbacks depend on the same option:
+On Wed, Sep 16, 2026 at 11:17:49AM +0400, Alexey Charkov wrote:
+> On Wed, Sep 16, 2026 at 11:07 AM Wentao Liang <vulab@iscas.ac.cn> wrote:
+> >
+> > In wmt_i2c_probe(), i2c->clk is acquired using of_clk_get(). If any
+> > subsequent operation fails or when the module is unloaded, the clock
+> > reference count is never decremented via clk_put(), leading to a
+> > resource leak.
+> >
+> > Switch to devm_clk_get() so that the clock is automatically managed
+> > and released.
+> >
+> > Fixes: 560746eb79d3 ("i2c: vt8500: Add support for I2C bus on Wondermedia SoCs")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-=09.freeze_noirq =3D PTR_IF(IS_ENABLED(CONFIG_HIBERNATE_CALLBACKS),
-=09=09=09       msm_pinctrl_freeze_noirq),
-=09.restore_noirq =3D PTR_IF(IS_ENABLED(CONFIG_HIBERNATE_CALLBACKS),
-=09=09=09=09msm_pinctrl_restore_noirq),
+this is 4/20 but where are the rest of the patches?
 
-and in msm_pinctrl_probe():
+> > ---
+> >  drivers/i2c/busses/i2c-viai2c-wmt.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/i2c/busses/i2c-viai2c-wmt.c b/drivers/i2c/busses/i2c-viai2c-wmt.c
+> > index 2cf3cc0165fb..74ca93b44347 100644
+> > --- a/drivers/i2c/busses/i2c-viai2c-wmt.c
+> > +++ b/drivers/i2c/busses/i2c-viai2c-wmt.c
+> > @@ -117,7 +117,7 @@ static int wmt_i2c_probe(struct platform_device *pdev)
+> >                 return dev_err_probe(&pdev->dev, err,
+> >                                 "failed to request irq %i\n", i2c->irq);
+> >
+> > -       i2c->clk = of_clk_get(np, 0);
+> > +       i2c->clk = devm_clk_get(&pdev->dev, NULL);
+> 
+> Maybe we could go for devm_clk_get_enabled and drop some more
+> boilerplate which follows in wmt_i2c_reset_hardware, while at it?
+> 
+> Backporting this to stable seems like a stretch to me, though (it's
+> quite old code, so there would be quite a lot of backporting for a
+> rarely hit resource leak).
 
-=09if (IS_ENABLED(CONFIG_HIBERNATE_CALLBACKS)) {
-=09=09pctrl->saved =3D devm_kcalloc(&pdev->dev, pctrl->chip.ngpio,
+Alexey asked a question. Wouldn't it be good to follow up?
 
-> Will unconditionally clearing the interrupt status here drop legitimately
-> latched edge wakeups?
+Unfortunately, this is becoming quite common with LLM generated
+patches, where questions are often left unanswered, perhaps
+because the patches are not fully understood by committers.
 
-Yes. The kernel that loads the image can have set a pin up the same
-way, and an edge that is latched there is a real one. The commit message
-says the patch does what msm_gpio_irq_set_type() does, but that function
-clears the status only where it changed the register. v2 does that too:
+I think the patch is correct, though, and Alexey's suggestions
+can be addressed after this is merged.
 
-=09=09val =3D msm_readl_intr_cfg(pctrl, g);
-=09=09msm_writel_intr_cfg(s->intr_cfg, pctrl, g);
-=09=09if (val !=3D s->intr_cfg)
-=09=09=09msm_ack_intr_status(pctrl, g);
+With some disappointment, I'm pushing this patch to
+i2c/i2c-fixes-2.
 
-> Could blindly restoring the saved intr_cfg cause missed dual-edge interru=
-pts?
-> [...]
-> Should this re-evaluate the line level and update the polarity by calling
-> msm_gpio_update_dual_edge_pos() for pins marked in pctrl->dual_edge_irqs
-> during resume?
-
-Not with the drivers that use these ops today. The polarity is flipped
-only for pins with one-bit detection (intr_detection_width =3D=3D 1), which
-apq8064, ipq8064, mdm9615, msm8660 and msm8960 have. sc7180, sc7280,
-sdm845, sm7150 and x1e80100 detect both edges in hardware. Where the
-parent emulates both edges (wakeirq_dual_edge_errata), the polarity is
-in the parent, and this patch does not touch it.
-
-I would not call msm_gpio_update_dual_edge_pos() for it either. It
-flips the polarity before it compares the levels, so for a line that
-did not change it would leave the opposite of what was primed. A driver
-with such pins would need the polarity set from the level instead. I
-have no such SoC to test that on, so v2 only gets a comment that says
-these pins are not primed again.
-
-Both changes ran on the Yoga Slim 7x before I wrote this, on the same
-kernel as before with v2 of the patch. pm_test=3Dcore and test_resume
-pass, and after a hibernation with a power-off the TLMM part of
-/sys/kernel/debug/gpio again differs only in the level read on gpio93
-and gpio153.
-
-I will hold v2 until a maintainer has had a look at the RFC question.
-
+Andi
