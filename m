@@ -1,118 +1,134 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1C36282F20;
-	Sat, 10 Oct 2026 00:57:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8E47175A68;
+	Sat, 10 Oct 2026 01:11:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791593868; cv=none; b=ALThQs6tBMOQl9/oeUMVhTAJlZFmPSKsiOa5qzCR4tk5nICmBAUFVO1GykagmEO+R9S4OGoeKxz4X9Jh1eyFk41ovMci1/wPkm8Ps8YGZXsv65EEqw6owLQp2BCfAGk49+cIDwhw9mQDKE41j3AFkX/Br0x+O12xMpnQ84LIl7E=
+	t=1791594677; cv=none; b=Y787kgeOYGh0ZkxD712DJyOQcMxj7i7E/hmNDdm+edIzXk614Up+kBv7BeIkVSXtjz+bLriKtWzh4UpvqKTEMzeTYvU0/p+NgjKYvruJ9jFUWR2G6cPTlc3hKPCZhsbpQlVWPbUVAUoOK0sIvOBaRqz3AHwI5KXbtMEGD6OtaII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791593868; c=relaxed/simple;
-	bh=z6IxooTjuOgG1KK1fwl6PBrv1MCI2r4p6lXFZKXLHRM=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=rbhVw93dz5MFeetKgSdZ5WTrAA58OH7i9oEhMc9n3QjQEUVFizDiYXmxE71DoUeeK51o2mkksG/HxAVnS2Up/EDWGJZ1+HpMbZsbhz73ZIrN7GwwZBssbmUcj8NcD6wixHkS1nZZsa8wixr4VsPgT0xEHhfyJNSnEKz4u/cbTxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=i0jzaYAO; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=J7dUn2mp; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1791594677; c=relaxed/simple;
+	bh=UErRGcKL/uGrCfi/20f2xr+wm/BTrybHItYVUX6mDxs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=odbFu0WH6oLk1dWUoKW5eIXCqXLz8DbLM1FVqeQE7VKBub/ETDG5HZcKTaw6zm1v1tD2y3xeKrBhEoJIWnzMOWptCKHujvum97q3NAVm7mfHP1eThpynXFFOluP4YgudPKd51EDZKhc6BhcJzaj8nDSgpdL61fqit74yegV8Nw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZM0ddwry; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="i0jzaYAO";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="J7dUn2mp"
-Date: Sat, 10 Oct 2026 00:57:42 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1791593864;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PQhXrf56D50oqM+tigiAR6F4B+L2c+uHHOsSmML2vjU=;
-	b=i0jzaYAO26qIYN7IyAAHkH8DNa0uzDpGkn3ZJZWl/P814ZcnSXMigi4R61fIWC/CFqtD6j
-	tBa+g0VNRV2asW53FLYbVwFVUf5lIv7cwt36FdrQz5vuERgoMQ69KvUVPAClh7H0WFyHSJ
-	n4q+g4uV/0mXLymIed7XaNe9hwEntTnGMM/9e6i0DhsHHqKoT5ZspuRz0kolpaqHqmIysf
-	8igPKwbSFcsjZUUH3mdi/V4md001EVitj3p9bemTSWVLfgLPhaaeNoeM1Wp4LDBByi4cXh
-	u82OsUG+hNsm6tkkZ0iAz8RWN3RhY6WNGaePQ5ss/x6KU9RM+5e0X/iMLQTczg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1791593864;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PQhXrf56D50oqM+tigiAR6F4B+L2c+uHHOsSmML2vjU=;
-	b=J7dUn2mpk4lHFYfXH62oLuT11sJ0Xs1rPsI5A1Hk/k56cDWqL8JRAtFvvYlRlGcZY8YkSo
-	0wsrdaxWWT0iHiCg==
-From: "tip-bot2 for Tony Luck" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/cache] fs/resctrl: Ensure default group reports tasks on
- monitor-only systems
-Cc: Sashiko <sashiko-bot@kernel.org>, Tony Luck <tony.luck@intel.com>,
- "Borislav Petkov (AMD)" <bp@alien8.de>,
- Reinette Chatre <reinette.chatre@intel.com>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261009193923.15498-1-tony.luck@intel.com>
-References: <20261009193923.15498-1-tony.luck@intel.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZM0ddwry"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791594676; x=1823130676;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=UErRGcKL/uGrCfi/20f2xr+wm/BTrybHItYVUX6mDxs=;
+  b=ZM0ddwry+9gMr5s+mi88tP6EVd7dIHkMW0fLKe3u0NNpiw4QR6kAutI/
+   ppbCaQFHB05/tlTIwHblXcw2zAiYI7cpbRsUWIKAycqj4pWRnRVG+Q1S9
+   u8NYc25ODqYkfTaFLGSwlIWjdPXHaSDCNFUm+K8mGfJXCUqemsX3RzcMV
+   fDd7U+G4RsUBMFotOnQpg62j9Hf1sknK5e6SRJwrTPlhibm7/Fde+ZoZa
+   q1SFGbY3gRE7BlSn5veV9fAUDmTHnBgN+KYQ+DQJ+jB3qhSvO/2uj3Zsw
+   KUA5RsQ6sHM4CIyhK9NFy08YmUX4XbXxt0JwaKIU7Ju2+tKOWXpK9KJF3
+   A==;
+X-CSE-ConnectionGUID: KepNQ5PvRaedQ+xBE7MkOA==
+X-CSE-MsgGUID: QIWuanScTNGYNea6j4x84w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="403079"
+X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
+   d="scan'208";a="403079"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 18:11:16 -0700
+X-CSE-ConnectionGUID: yhgaFlczRx+LLewp7pWV7A==
+X-CSE-MsgGUID: tA/mBHqkTdaAJHZfKHMDAQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
+   d="scan'208";a="892557"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa010.fm.intel.com with ESMTP; 09 Oct 2026 18:11:12 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xFLcC-000000006MQ-2rJh;
+	Sat, 10 Oct 2026 01:11:08 +0000
+Date: Sat, 10 Oct 2026 09:11:08 +0800
+From: kernel test robot <lkp@intel.com>
+To: Naresh Maramaina <naresh.maramaina@oss.qualcomm.com>,
+	konrad.dybcio@oss.qualcomm.com, Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+	Aniket Randive <aniket.randive@oss.qualcomm.com>,
+	chandana.chiluveru@oss.qualcomm.com,
+	jyothi.seerapu@oss.qualcomm.com, praveen.talari@oss.qualcomm.com,
+	Naresh Maramaina <naresh.maramaina@oss.qualcomm.com>
+Subject: Re: [PATCH 4/4] tty: serial: qcom_geni_serial: Add GPI DMA support
+Message-ID: <202610100800.CCtA9f8L-lkp@intel.com>
+References: <20261009-add-gpi-dma-support-for-uart-v1-4-c69e728df686@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179159386255.816309.5522989915437177306.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009-add-gpi-dma-support-for-uart-v1-4-c69e728df686@oss.qualcomm.com>
 
-The following commit has been merged into the x86/cache branch of tip:
+Hi Naresh,
 
-Commit-ID:     2c10b3fa5bdf61e344bc522e6c2e00d870ce7ab8
-Gitweb:        https://git.kernel.org/tip/2c10b3fa5bdf61e344bc522e6c2e00d870c=
-e7ab8
-Author:        Tony Luck <tony.luck@intel.com>
-AuthorDate:    Fri, 09 Oct 2026 12:39:23 -07:00
-Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Fri, 09 Oct 2026 17:43:05 -07:00
+kernel test robot noticed the following build warnings:
 
-fs/resctrl: Ensure default group reports tasks on monitor-only systems
+[auto build test WARNING on aac26bee2287c88af5be5a5ff96d783b19a28790]
 
-resctrl can be mounted on a system that supports monitoring but not allocatio=
-n.
+url:    https://github.com/intel-lab-lkp/linux/commits/Naresh-Maramaina/dmaengine-qcom-gpi-Add-UART-transfer-support/20261009-122753
+base:   aac26bee2287c88af5be5a5ff96d783b19a28790
+patch link:    https://lore.kernel.org/r/20261009-add-gpi-dma-support-for-uart-v1-4-c69e728df686%40oss.qualcomm.com
+patch subject: [PATCH 4/4] tty: serial: qcom_geni_serial: Add GPI DMA support
+config: arc-allmodconfig (https://download.01.org/0day-ci/archive/20261010/202610100800.CCtA9f8L-lkp@intel.com/config)
+compiler: arc-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261010/202610100800.CCtA9f8L-lkp@intel.com/reproduce)
 
-On such a system reading the "tasks" file in the default group reports no
-tasks, even when there are tasks assigned to the default group. This problem
-occurs because the check for whether a task belongs to a CTRL_MON group is
-gated by a check for whether the system supports allocation.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610100800.CCtA9f8L-lkp@intel.com/
 
-The resctrl_arch_alloc_capable() check in is_closid_match() breaks task
-reporting for the default group on monitor-only systems so remove this check.
-On systems that support allocation the check is redundant.
+All warnings (new ones prefixed by >>):
 
-Fixes: e6b2fac36fcc ("x86/resctrl: Use is_closid_match() in more places")
-Closes: https://sashiko.dev/#/patchset/20260831174421.13921-1-tony.luck%40int=
-el.com?part=3D9
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Signed-off-by: Tony Luck <tony.luck@intel.com>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Reviewed-by: Reinette Chatre <reinette.chatre@intel.com>
-Link: https://patch.msgid.link/20261009193923.15498-1-tony.luck@intel.com
----
- fs/resctrl/rdtgroup.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+   drivers/tty/serial/qcom_geni_serial.c: In function 'qcom_geni_serial_gpi_tx_unmap':
+>> drivers/tty/serial/qcom_geni_serial.c:1424:29: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
+    1424 |         port->tx_dma_addr = (dma_addr_t)NULL;
+         |                             ^
+   drivers/tty/serial/qcom_geni_serial.c: In function 'qcom_geni_serial_gpi_tx_xfer_work':
+   drivers/tty/serial/qcom_geni_serial.c:1613:37: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
+    1613 |                 port->tx_dma_addr = (dma_addr_t)NULL;
+         |                                     ^
+   drivers/tty/serial/qcom_geni_serial.c: In function 'qcom_geni_serial_unprepare_gpi_rx_dma':
+   drivers/tty/serial/qcom_geni_serial.c:1670:47: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
+    1670 |                         gpi->rx_dma_addr[i] = (dma_addr_t)NULL;
+         |                                               ^
 
-diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-index 68be9b9..57ab090 100644
---- a/fs/resctrl/rdtgroup.c
-+++ b/fs/resctrl/rdtgroup.c
-@@ -685,7 +685,7 @@ static int __rdtgroup_move_task(struct task_struct *tsk,
-=20
- static bool is_closid_match(struct task_struct *t, struct rdtgroup *r)
- {
--	return (resctrl_arch_alloc_capable() && (r->type =3D=3D RDTCTRL_GROUP) &&
-+	return (r->type =3D=3D RDTCTRL_GROUP &&
- 		resctrl_arch_match_closid(t, r->closid));
- }
-=20
+
+vim +1424 drivers/tty/serial/qcom_geni_serial.c
+
+  1414	
+  1415	static void qcom_geni_serial_gpi_tx_unmap(struct qcom_geni_serial_port *port)
+  1416	{
+  1417		struct qcom_geni_serial_gpi *gpi = port->gpi;
+  1418	
+  1419		if (!port->tx_dma_addr)
+  1420			return;
+  1421	
+  1422		dma_unmap_single(port->se.dev->parent, port->tx_dma_addr,
+  1423				 gpi->xmit_size, DMA_TO_DEVICE);
+> 1424		port->tx_dma_addr = (dma_addr_t)NULL;
+  1425	}
+  1426	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
