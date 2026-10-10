@@ -1,52 +1,52 @@
 Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6430136A033;
-	Sat, 10 Oct 2026 04:54:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DEEB36B92C;
+	Sat, 10 Oct 2026 04:54:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.97.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791608089; cv=none; b=h/B/IBCNH3t5sYlXMBE5Wr6EmktUg+C6oDNSNJTg/O8nE3tUyMHAOtNJndYei6dXTKt2ID1AZuNZpG2QxhB35euqqwYRdWmM365p+YFubxusf8OXR/5HqDL3waaYO+hx5qv/20MqcdWcWNpJGG7QSnsXdXel/9qCCXQd8O5g/sc=
+	t=1791608085; cv=none; b=ARYcupv3x7mOCK+9MWzK2EkLZE7QK8LM4IIOVSUn/8MSXeuxvS7/gxoOGLxxXKAXU4MEXwWR0qP7+0VkQuP4kqMCTz5wzDSRrfFfxsgECHdrXsifAMUtjwzrPAdtOViDBgPI7mWmscg1A+l/jmTSSQxUGqcXpYiSebTyP2zPSTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791608089; c=relaxed/simple;
-	bh=tUJJD0jksXNkuuen4ysvmFDXBzUvd0XFximdyxc56jU=;
+	s=arc-20240116; t=1791608085; c=relaxed/simple;
+	bh=Upw0hK/ziFbAWX3IUZnPfPmT4s97ncr03RppiKyBaoA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WLBgFprej/WEVbqvGh1ct+qyK8aaqBUzuZQQwOqnOJWnCrcYdI/5o8+zFA7JtXn0Z6Wx0qViOqniq3X5eSNwkRs53x20oVAVgWwbmChiXz39cB4v73Yevp63j32UFjm7wpgj9S7Xz58iw7LwldOjVNX4XiemAYlWgpBxjo/xsnY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=DkCiYBRV; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=YsR3a54g; arc=none smtp.client-ip=23.88.97.239
+	 In-Reply-To:To:Cc; b=o+YVsQLMCsLC8mKis1E4Pqegp99qziTm5qc5G/6quJLq6W9yHZA0vkW1A+X6uOQ0suo8TNK0qQWGUthQFxHaMw8glZwnr5ED10ugH4YOcszjjIhQCJ6aJo5Bm7guzjeZS9Jy85PtnTsJCviM7HSduymJi7AGjrsEhTk/aQfgaXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=MzKOqXjG; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=jEs0PjUX; arc=none smtp.client-ip=23.88.97.239
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="DkCiYBRV";
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="YsR3a54g"
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="MzKOqXjG";
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="jEs0PjUX"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1791608085;
-	bh=tUJJD0jksXNkuuen4ysvmFDXBzUvd0XFximdyxc56jU=;
+	s=default; t=1791608076;
+	bh=Upw0hK/ziFbAWX3IUZnPfPmT4s97ncr03RppiKyBaoA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=DkCiYBRVwozSiyrUhyvLVpSXI9C4W28mORdHZrEAq5tST4fRicxCJPUn17LMDeiwY
-	 1793J3Pk8LI+jjfGlQdAQOx6d3z4hDBndEaoW3yr6i/VSw2xWam2drTluqYpIKEy7F
-	 ugMw15t9ggd2tNZ+MN74sIuS64fq7vtf4LFOyLZVNjO5WqyZjRuzoPvqaeKUxmgOv6
-	 S5EXh3uvUyAkwnwVivEtKDLW/nzKqsPMkWHg5RxlEdyuftGnEnsxC7zBxitQTp/4nx
-	 ajvqhBgrR+Z8GwLkHuP3NctBBuPfKYeJ5DxNy5ZrRHdmqhySAG+x4txK0+gutm7+7X
-	 50+OOTbIFA3wg==
+	b=MzKOqXjG6PwaIVdn7cK2rV9s/xiFcQma5jAzp7PEDh20azBchI2rzRQpPukei9SCK
+	 siNGEO1JUsChMaijmGbzsva5MJjAyNBEJ/RuALzagt48zSLXxqYPIc8NeQBxiGLIin
+	 bc1mD5rfT73O088yHkGFGlPGPu+WW+kQNxzEVZSKhVTBIbaCG+B70ZqNBUdxRwhCS4
+	 p9i5vXZV7iQ4eRqTBVwpepA1jpLIATS5o2BLLlGsukramWe4ojC3hStHMtf3Jt2D50
+	 dGAF/j6jQmZFqivksIZNbOOZC60jSJLS73J596xpqGQ6QscWMHF/7h94GgmTBpzfSr
+	 m0OGZN7dCDPJg==
 Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
-	id DC90F47575; Sat, 10 Oct 2026 04:54:45 +0000 (UTC)
+	id A46A047558; Sat, 10 Oct 2026 04:54:36 +0000 (UTC)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1791608072;
-	bh=tUJJD0jksXNkuuen4ysvmFDXBzUvd0XFximdyxc56jU=;
+	s=default; t=1791608069;
+	bh=Upw0hK/ziFbAWX3IUZnPfPmT4s97ncr03RppiKyBaoA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=YsR3a54gPNoP5uwml/Xt2T4Z9MEGWp8ExN/qnyHrVFzqbAkcc3iGhb3GgDrtgmgnr
-	 GfCkUVp3OVDal3xMm85ogwdb8nA9V4T2zLCrHZjEWmA6K910TflDpJ7QMvXw5xPAVj
-	 Fthmxi+2hntEHRjoiOtNUOkLPBStzbCnTl3biRRTbXDJU0BgpgKRkMTeqnigp9XXHC
-	 XESapEG8Qtggd5LFVbT/aYBd3uCIkhJdBVd9KBg6grahgG03IuwcJJckyY6I/vGr34
-	 SClctWvOTzVTzN2inBnu9Ajggb6jTEP6YyWGnuF/WySg1c4OmfL3oUbBaXpILZIgfx
-	 D01h0VQ90TLPg==
+	b=jEs0PjUXg+/PA/sZ0S6rORbbwv83CGnxWPaofWo3aOXn+CNgeRNWO09AhPdhGut1H
+	 dUF7H12Us2tlnfJLfnFpWCqP1/HXx+oFuD3qUd6QKIoQXgkkErBS1qofwMxmTivz0p
+	 ovXPpx7TAjDcUaNzqWE6ydaPnMM0Pb17L8NJLD2OvsYoEQ+0QUwuuU+MqUz57U/OIT
+	 JAofnH3WBwSYPt2Z2VH2/L6gl8OwiLAjaqZqHFa5q6pWxz0Wm3P5b4Zg0EkbAK7yuk
+	 TuF6oPUVWwmKcxYCf0T66a09GawHqzdu2XU7NIruHroY/+jAM2ra+KhNMM/zuH6XFa
+	 rdrJ0XOsffqOw==
 Received: from AMDDesktop.lan (unknown [IPv6:2a00:6020:47a3:e800:271c:c6c5:9fde:77cb])
-	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 579A3475E4;
-	Sat, 10 Oct 2026 04:54:32 +0000 (UTC)
+	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 7826747535;
+	Sat, 10 Oct 2026 04:54:29 +0000 (UTC)
 From: Birger Koblitz <mail@birger-koblitz.de>
-Date: Sat, 10 Oct 2026 06:54:31 +0200
-Subject: [PATCH net-next v19 09/13] ax88179_178a: Add Suspend/resume
- support for AX88179A/772D/279
+Date: Sat, 10 Oct 2026 06:54:25 +0200
+Subject: [PATCH net-next v19 03/13] ax88179_178a: Split driver into library
+ and device specific code
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,7 +55,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261010-ax88179a-v19-9-7475173cfb56@birger-koblitz.de>
+Message-Id: <20261010-ax88179a-v19-3-7475173cfb56@birger-koblitz.de>
 References: <20261010-ax88179a-v19-0-7475173cfb56@birger-koblitz.de>
 In-Reply-To: <20261010-ax88179a-v19-0-7475173cfb56@birger-koblitz.de>
 To: Andrew Lunn <andrew+netdev@lunn.ch>, 
@@ -67,290 +67,1384 @@ To: Andrew Lunn <andrew+netdev@lunn.ch>,
 Cc: linux-usb@vger.kernel.org, netdev@vger.kernel.org, 
  linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, 
  Jianhui Xu <neuromoments@gmail.com>, 
- Birger Koblitz <mail@birger-koblitz.de>
+ Birger Koblitz <mail@birger-koblitz.de>, Nicolai Buchwitz <nb@tipi-net.de>
 X-Mailer: b4 0.14.2
 
-The suspend and resume functions are called via the usb_driver structure,
-for which the driver has only a single instance. Add wrapper functions
-for the different implementations for the AX88179 and AX179A architecutres
-in ax88179_lib which calls the 2 implementations in ax88179_178a and
-ax88179a_devices, respectively.
+Split the ax88179_178a module code into code common to the
+AX88179/178a/179a and 279 family of controllers and device
+specific code for the currently supported devices based
+on the AX88179 and AX88178a.
+
+Rename the module to ax88179 to reflect the broader scope of
+controllers supported by the module and add an alias to the old
+module name:
+MODULE_ALIAS("ax88179_178a");
 
 Signed-off-by: Birger Koblitz <mail@birger-koblitz.de>
-Suggested-by: Jianhui Xu <neuromoments@gmail.com>
 Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
 ---
- drivers/net/usb/ax88179_178a.c     |   9 ++-
- drivers/net/usb/ax88179_lib.c      |  19 ++++++
- drivers/net/usb/ax88179_lib.h      |   4 ++
- drivers/net/usb/ax88179a_devices.c | 129 +++++++++++++++++++++++++++++++++++--
- 4 files changed, 153 insertions(+), 8 deletions(-)
+ drivers/net/usb/Makefile       |   3 +-
+ drivers/net/usb/ax88179_178a.c | 613 +----------------------------------------
+ drivers/net/usb/ax88179_lib.c  | 461 +++++++++++++++++++++++++++++++
+ drivers/net/usb/ax88179_lib.h  | 195 +++++++++++++
+ 4 files changed, 661 insertions(+), 611 deletions(-)
 
+diff --git a/drivers/net/usb/Makefile b/drivers/net/usb/Makefile
+index 4964f7b326fbcedffc1e5a1bf004aea95560db8c..ddd76fa71e2ee670888df1c9715632e5c04a8149 100644
+--- a/drivers/net/usb/Makefile
++++ b/drivers/net/usb/Makefile
+@@ -12,7 +12,8 @@ obj-$(CONFIG_USB_HSO)		+= hso.o
+ obj-$(CONFIG_USB_LAN78XX)	+= lan78xx.o
+ obj-$(CONFIG_USB_NET_AX8817X)	+= asix.o
+ asix-y := asix_devices.o asix_common.o ax88172a.o
+-obj-$(CONFIG_USB_NET_AX88179_178A)      += ax88179_178a.o
++obj-$(CONFIG_USB_NET_AX88179_178A)      += ax88179.o
++ax88179-y := ax88179_178a.o ax88179_lib.o
+ obj-$(CONFIG_USB_NET_CDCETHER)	+= cdc_ether.o
+ obj-$(CONFIG_USB_NET_CDC_EEM)	+= cdc_eem.o
+ obj-$(CONFIG_USB_NET_DM9601)	+= dm9601.o
 diff --git a/drivers/net/usb/ax88179_178a.c b/drivers/net/usb/ax88179_178a.c
-index 071b03b4f145c05fd2391546655cf569cf6ea4cd..ef0856627d08b456afb1569e8a4459b0e526ab46 100644
+index 2ed46ab62c0065d32040439f31d44f118d7e9952..85abccaaa5c67ec43687f5c247efada66411b5e2 100644
 --- a/drivers/net/usb/ax88179_178a.c
 +++ b/drivers/net/usb/ax88179_178a.c
-@@ -685,6 +685,9 @@ static int ax88179_bind(struct usbnet *dev, struct usb_interface *intf)
- 	dev->driver_priv = ax179_data;
- 	mutex_init(&ax179_data->medium_status_mutex);
+@@ -8,179 +8,12 @@
+ #include <linux/module.h>
+ #include <linux/etherdevice.h>
+ #include <linux/mii.h>
+-#include <linux/usb.h>
+-#include <linux/crc32.h>
+-#include <linux/usb/usbnet.h>
+ #include <uapi/linux/mdio.h>
+ #include <linux/mdio.h>
+-
+-#define AX88179_PHY_ID				0x03
+-#define AX_EEPROM_LEN				0x100
+-#define AX88179_EEPROM_MAGIC			0x17900b95
+-#define AX_MCAST_FLTSIZE			8
+-#define AX_MAX_MCAST				64
+-#define AX_INT_PPLS_LINK			((u32)BIT(16))
+-#define AX_RXHDR_L4_TYPE_MASK			0x1c
+-#define AX_RXHDR_L4_TYPE_UDP			4
+-#define AX_RXHDR_L4_TYPE_TCP			16
+-#define AX_RXHDR_L3CSUM_ERR			2
+-#define AX_RXHDR_L4CSUM_ERR			1
+-#define AX_RXHDR_CRC_ERR			((u32)BIT(29))
+-#define AX_RXHDR_DROP_ERR			((u32)BIT(31))
+-#define AX_ACCESS_MAC				0x01
+-#define AX_ACCESS_PHY				0x02
+-#define AX_ACCESS_EEPROM			0x04
+-#define AX_ACCESS_EFUS				0x05
+-#define AX_RELOAD_EEPROM_EFUSE			0x06
+-#define AX_PAUSE_WATERLVL_LOW			0x54
+-#define AX_PAUSE_WATERLVL_HIGH			0x55
+-
+-#define PHYSICAL_LINK_STATUS			0x02
+-	#define	AX_USB_SS		0x04
+-	#define	AX_USB_HS		0x02
+-
+-#define GENERAL_STATUS				0x03
+-/* Check AX88179 version. UA1:Bit2 = 0,  UA2:Bit2 = 1 */
+-	#define	AX_SECLD		0x04
+-
+-#define AX_SROM_ADDR				0x07
+-#define AX_SROM_CMD				0x0a
+-	#define EEP_RD			0x04
+-	#define EEP_BUSY		0x10
+-
+-#define AX_SROM_DATA_LOW			0x08
+-#define AX_SROM_DATA_HIGH			0x09
+-
+-#define AX_RX_CTL				0x0b
+-	#define AX_RX_CTL_DROPCRCERR	0x0100
+-	#define AX_RX_CTL_IPE		0x0200
+-	#define AX_RX_CTL_START		0x0080
+-	#define AX_RX_CTL_AP		0x0020
+-	#define AX_RX_CTL_AM		0x0010
+-	#define AX_RX_CTL_AB		0x0008
+-	#define AX_RX_CTL_AMALL		0x0002
+-	#define AX_RX_CTL_PRO		0x0001
+-	#define AX_RX_CTL_STOP		0x0000
+-
+-#define AX_NODE_ID				0x10
+-#define AX_MULFLTARY				0x16
+-
+-#define AX_MEDIUM_STATUS_MODE			0x22
+-	#define AX_MEDIUM_GIGAMODE	0x01
+-	#define AX_MEDIUM_FULL_DUPLEX	0x02
+-	#define AX_MEDIUM_EN_125MHZ	0x08
+-	#define AX_MEDIUM_RXFLOW_CTRLEN	0x10
+-	#define AX_MEDIUM_TXFLOW_CTRLEN	0x20
+-	#define AX_MEDIUM_RECEIVE_EN	0x100
+-	#define AX_MEDIUM_PS		0x200
+-	#define AX_MEDIUM_JUMBO_EN	0x8040
+-
+-#define AX_MONITOR_MOD				0x24
+-	#define AX_MONITOR_MODE_RWLC	0x02
+-	#define AX_MONITOR_MODE_RWMP	0x04
+-	#define AX_MONITOR_MODE_PMEPOL	0x20
+-	#define AX_MONITOR_MODE_PMETYPE	0x40
+-
+-#define AX_GPIO_CTRL				0x25
+-	#define AX_GPIO_CTRL_GPIO3EN	0x80
+-	#define AX_GPIO_CTRL_GPIO2EN	0x40
+-	#define AX_GPIO_CTRL_GPIO1EN	0x20
+-
+-#define AX_PHYPWR_RSTCTL			0x26
+-	#define AX_PHYPWR_RSTCTL_BZ	0x0010
+-	#define AX_PHYPWR_RSTCTL_IPRL	0x0020
+-	#define AX_PHYPWR_RSTCTL_AT	0x1000
+-
+-#define AX_RX_BULKIN_QCTRL			0x2e
+-#define AX_CLK_SELECT				0x33
+-	#define AX_CLK_SELECT_BCS	0x01
+-	#define AX_CLK_SELECT_ACS	0x02
+-	#define AX_CLK_SELECT_ULR	0x08
+-
+-#define AX_RXCOE_CTL				0x34
+-	#define AX_RXCOE_IP		0x01
+-	#define AX_RXCOE_TCP		0x02
+-	#define AX_RXCOE_UDP		0x04
+-	#define AX_RXCOE_TCPV6		0x20
+-	#define AX_RXCOE_UDPV6		0x40
+-
+-#define AX_TXCOE_CTL				0x35
+-	#define AX_TXCOE_IP		0x01
+-	#define AX_TXCOE_TCP		0x02
+-	#define AX_TXCOE_UDP		0x04
+-	#define AX_TXCOE_TCPV6		0x20
+-	#define AX_TXCOE_UDPV6		0x40
+-
+-#define AX_LEDCTRL				0x73
+-
+-#define GMII_PHY_PHYSR				0x11
+-	#define GMII_PHY_PHYSR_SMASK	0xc000
+-	#define GMII_PHY_PHYSR_GIGA	0x8000
+-	#define GMII_PHY_PHYSR_100	0x4000
+-	#define GMII_PHY_PHYSR_FULL	0x2000
+-	#define GMII_PHY_PHYSR_LINK	0x400
+-
+-#define GMII_LED_ACT				0x1a
+-	#define	GMII_LED_ACTIVE_MASK	0xff8f
+-	#define	GMII_LED0_ACTIVE	BIT(4)
+-	#define	GMII_LED1_ACTIVE	BIT(5)
+-	#define	GMII_LED2_ACTIVE	BIT(6)
+-
+-#define GMII_LED_LINK				0x1c
+-	#define	GMII_LED_LINK_MASK	0xf888
+-	#define	GMII_LED0_LINK_10	BIT(0)
+-	#define	GMII_LED0_LINK_100	BIT(1)
+-	#define	GMII_LED0_LINK_1000	BIT(2)
+-	#define	GMII_LED1_LINK_10	BIT(4)
+-	#define	GMII_LED1_LINK_100	BIT(5)
+-	#define	GMII_LED1_LINK_1000	BIT(6)
+-	#define	GMII_LED2_LINK_10	BIT(8)
+-	#define	GMII_LED2_LINK_100	BIT(9)
+-	#define	GMII_LED2_LINK_1000	BIT(10)
+-	#define	LED0_ACTIVE		BIT(0)
+-	#define	LED0_LINK_10		BIT(1)
+-	#define	LED0_LINK_100		BIT(2)
+-	#define	LED0_LINK_1000		BIT(3)
+-	#define	LED0_FD			BIT(4)
+-	#define	LED0_USB3_MASK		0x001f
+-	#define	LED1_ACTIVE		BIT(5)
+-	#define	LED1_LINK_10		BIT(6)
+-	#define	LED1_LINK_100		BIT(7)
+-	#define	LED1_LINK_1000		BIT(8)
+-	#define	LED1_FD			BIT(9)
+-	#define	LED1_USB3_MASK		0x03e0
+-	#define	LED2_ACTIVE		BIT(10)
+-	#define	LED2_LINK_1000		BIT(13)
+-	#define	LED2_LINK_100		BIT(12)
+-	#define	LED2_LINK_10		BIT(11)
+-	#define	LED2_FD			BIT(14)
+-	#define	LED_VALID		BIT(15)
+-	#define	LED2_USB3_MASK		0x7c00
+-
+-#define GMII_PHYPAGE				0x1e
+-#define GMII_PHY_PAGE_SELECT			0x1f
+-	#define GMII_PHY_PGSEL_EXT	0x0007
+-	#define GMII_PHY_PGSEL_PAGE0	0x0000
+-	#define GMII_PHY_PGSEL_PAGE3	0x0003
+-	#define GMII_PHY_PGSEL_PAGE5	0x0005
++#include "ax88179_lib.h"
  
-+	ax179_data->resume = ax88179_resume;
-+	ax179_data->suspend = ax88179_suspend;
-+
- 	ret = ax88179_read_cmd(dev, AX_ACCESS_MAC, AX_CHIP_STATUS,
- 			       1, 1, &ax179_data->chip_version);
- 	if (ret < 0)
-@@ -1356,9 +1359,9 @@ static struct usb_driver ax88179_178a_driver = {
- 	.name =		"ax88179_178a",
- 	.id_table =	products,
- 	.probe =	usbnet_probe,
--	.suspend =	ax88179_suspend,
--	.resume =	ax88179_resume,
--	.reset_resume =	ax88179_resume,
-+	.suspend =	ax88179_suspend_wrapper,
-+	.resume =	ax88179_resume_wrapper,
-+	.reset_resume =	ax88179_resume_wrapper,
- 	.disconnect =	ax88179_disconnect,
- 	.supports_autosuspend = 1,
- 	.disable_hub_initiated_lpm = 1,
-diff --git a/drivers/net/usb/ax88179_lib.c b/drivers/net/usb/ax88179_lib.c
-index b4b00c8b4b62320471e13ae34a1fed5d02e80441..b54e98e781f334c5aeff0b3d2861a5565934454c 100644
---- a/drivers/net/usb/ax88179_lib.c
-+++ b/drivers/net/usb/ax88179_lib.c
-@@ -495,3 +495,22 @@ int ax88179_set_mac_addr(struct net_device *net, void *p)
+ static int ax88179_reset(struct usbnet *dev);
+ 
+-struct ax88179_data {
+-	u8  eee_enabled;
+-	u8  eee_active;
+-	u16 rxctl;
+-	u8 in_pm;
+-	u32 wol_supported;
+-	u32 wolopts;
+-	u8 disconnecting;
+-};
+-
+-struct ax88179_int_data {
+-	__le32 intdata1;
+-	__le32 intdata2;
+-};
+-
+ static const struct {
+ 	unsigned char ctrl, timer_l, timer_h, size, ifg;
+ } AX88179_BULKIN_SIZE[] =	{
+@@ -190,165 +23,6 @@ static const struct {
+ 	{7, 0xcc, 0x4c, 0x18, 8},
+ };
+ 
+-static void ax88179_set_pm_mode(struct usbnet *dev, bool pm_mode)
+-{
+-	struct ax88179_data *ax179_data = dev->driver_priv;
+-
+-	ax179_data->in_pm = pm_mode;
+-}
+-
+-static int ax88179_in_pm(struct usbnet *dev)
+-{
+-	struct ax88179_data *ax179_data = dev->driver_priv;
+-
+-	return ax179_data->in_pm;
+-}
+-
+-static int __ax88179_read_cmd(struct usbnet *dev, u8 cmd, u16 value, u16 index,
+-			      u16 size, void *data)
+-{
+-	int ret;
+-	int (*fn)(struct usbnet *, u8, u8, u16, u16, void *, u16);
+-	struct ax88179_data *ax179_data = dev->driver_priv;
+-
+-	BUG_ON(!dev);
+-
+-	if (!ax88179_in_pm(dev))
+-		fn = usbnet_read_cmd;
+-	else
+-		fn = usbnet_read_cmd_nopm;
+-
+-	ret = fn(dev, cmd, USB_DIR_IN | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
+-		 value, index, data, size);
+-
+-	if (unlikely((ret < 0) && !(ret == -ENODEV && ax179_data->disconnecting)))
+-		netdev_warn(dev->net, "Failed to read reg index 0x%04x: %d\n",
+-			    index, ret);
+-
+-	return ret;
+-}
+-
+-static int __ax88179_write_cmd(struct usbnet *dev, u8 cmd, u16 value, u16 index,
+-			       u16 size, const void *data)
+-{
+-	int ret;
+-	int (*fn)(struct usbnet *, u8, u8, u16, u16, const void *, u16);
+-	struct ax88179_data *ax179_data = dev->driver_priv;
+-
+-	BUG_ON(!dev);
+-
+-	if (!ax88179_in_pm(dev))
+-		fn = usbnet_write_cmd;
+-	else
+-		fn = usbnet_write_cmd_nopm;
+-
+-	ret = fn(dev, cmd, USB_DIR_OUT | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
+-		 value, index, data, size);
+-
+-	if (unlikely((ret < 0) && !(ret == -ENODEV && ax179_data->disconnecting)))
+-		netdev_warn(dev->net, "Failed to write reg index 0x%04x: %d\n",
+-			    index, ret);
+-
+-	return ret;
+-}
+-
+-static void ax88179_write_cmd_async(struct usbnet *dev, u8 cmd, u16 value,
+-				    u16 index, u16 size, void *data)
+-{
+-	u16 buf;
+-
+-	if (2 == size) {
+-		buf = *((u16 *)data);
+-		cpu_to_le16s(&buf);
+-		usbnet_write_cmd_async(dev, cmd, USB_DIR_OUT | USB_TYPE_VENDOR |
+-				       USB_RECIP_DEVICE, value, index, &buf,
+-				       size);
+-	} else {
+-		usbnet_write_cmd_async(dev, cmd, USB_DIR_OUT | USB_TYPE_VENDOR |
+-				       USB_RECIP_DEVICE, value, index, data,
+-				       size);
+-	}
+-}
+-
+-static int ax88179_read_cmd(struct usbnet *dev, u8 cmd, u16 value, u16 index,
+-			    u16 size, void *data)
+-{
+-	int ret;
+-
+-	if (2 == size) {
+-		u16 buf = 0;
+-		ret = __ax88179_read_cmd(dev, cmd, value, index, size, &buf);
+-		le16_to_cpus(&buf);
+-		*((u16 *)data) = buf;
+-	} else if (4 == size) {
+-		u32 buf = 0;
+-		ret = __ax88179_read_cmd(dev, cmd, value, index, size, &buf);
+-		le32_to_cpus(&buf);
+-		*((u32 *)data) = buf;
+-	} else {
+-		ret = __ax88179_read_cmd(dev, cmd, value, index, size, data);
+-	}
+-
+-	return ret;
+-}
+-
+-static int ax88179_write_cmd(struct usbnet *dev, u8 cmd, u16 value, u16 index,
+-			     u16 size, const void *data)
+-{
+-	int ret;
+-
+-	if (2 == size) {
+-		u16 buf;
+-		buf = *((u16 *)data);
+-		cpu_to_le16s(&buf);
+-		ret = __ax88179_write_cmd(dev, cmd, value, index,
+-					  size, &buf);
+-	} else {
+-		ret = __ax88179_write_cmd(dev, cmd, value, index,
+-					  size, data);
+-	}
+-
+-	return ret;
+-}
+-
+-static void ax88179_status(struct usbnet *dev, struct urb *urb)
+-{
+-	struct ax88179_int_data *event;
+-	u32 link;
+-
+-	if (urb->actual_length < 8)
+-		return;
+-
+-	event = urb->transfer_buffer;
+-	le32_to_cpus((void *)&event->intdata1);
+-
+-	link = (((__force u32)event->intdata1) & AX_INT_PPLS_LINK) >> 16;
+-
+-	if (netif_carrier_ok(dev->net) != link) {
+-		usbnet_link_change(dev, link, 1);
+-		if (!link)
+-			netdev_info(dev->net, "ax88179 - Link status is: 0\n");
+-	}
+-}
+-
+-static int ax88179_mdio_read(struct net_device *netdev, int phy_id, int loc)
+-{
+-	struct usbnet *dev = netdev_priv(netdev);
+-	u16 res;
+-
+-	ax88179_read_cmd(dev, AX_ACCESS_PHY, phy_id, (__u16)loc, 2, &res);
+-	return res;
+-}
+-
+-static void ax88179_mdio_write(struct net_device *netdev, int phy_id, int loc,
+-			       int val)
+-{
+-	struct usbnet *dev = netdev_priv(netdev);
+-	u16 res = (u16) val;
+-
+-	ax88179_write_cmd(dev, AX_ACCESS_PHY, phy_id, (__u16)loc, 2, &res);
+-}
+-
+ static inline int ax88179_phy_mmd_indirect(struct usbnet *dev, u16 prtad,
+ 					   u16 devad)
+ {
+@@ -510,146 +184,11 @@ static void ax88179_disconnect(struct usb_interface *intf)
+ 	usbnet_disconnect(intf);
+ }
+ 
+-static void
+-ax88179_get_wol(struct net_device *net, struct ethtool_wolinfo *wolinfo)
+-{
+-	struct usbnet *dev = netdev_priv(net);
+-	struct ax88179_data *priv = dev->driver_priv;
+-
+-	wolinfo->supported = priv->wol_supported;
+-	wolinfo->wolopts = priv->wolopts;
+-}
+-
+-static int
+-ax88179_set_wol(struct net_device *net, struct ethtool_wolinfo *wolinfo)
+-{
+-	struct usbnet *dev = netdev_priv(net);
+-	struct ax88179_data *priv = dev->driver_priv;
+-
+-	if (wolinfo->wolopts & ~(priv->wol_supported))
+-		return -EINVAL;
+-
+-	priv->wolopts = wolinfo->wolopts;
+-
+-	return 0;
+-}
+-
+ static int ax88179_get_eeprom_len(struct net_device *net)
+ {
+ 	return AX_EEPROM_LEN;
+ }
+ 
+-static int
+-ax88179_get_eeprom(struct net_device *net, struct ethtool_eeprom *eeprom,
+-		   u8 *data)
+-{
+-	struct usbnet *dev = netdev_priv(net);
+-	u16 *eeprom_buff;
+-	int first_word, last_word;
+-	int i, ret;
+-
+-	if (eeprom->len == 0)
+-		return -EINVAL;
+-
+-	eeprom->magic = AX88179_EEPROM_MAGIC;
+-
+-	first_word = eeprom->offset >> 1;
+-	last_word = (eeprom->offset + eeprom->len - 1) >> 1;
+-	eeprom_buff = kmalloc_array(last_word - first_word + 1, sizeof(u16),
+-				    GFP_KERNEL);
+-	if (!eeprom_buff)
+-		return -ENOMEM;
+-
+-	/* ax88179/178A returns 2 bytes from eeprom on read */
+-	for (i = first_word; i <= last_word; i++) {
+-		ret = __ax88179_read_cmd(dev, AX_ACCESS_EEPROM, i, 1, 2,
+-					 &eeprom_buff[i - first_word]);
+-		if (ret < 0) {
+-			kfree(eeprom_buff);
+-			return -EIO;
+-		}
+-	}
+-
+-	memcpy(data, (u8 *)eeprom_buff + (eeprom->offset & 1), eeprom->len);
+-	kfree(eeprom_buff);
+-	return 0;
+-}
+-
+-static int
+-ax88179_set_eeprom(struct net_device *net, struct ethtool_eeprom *eeprom,
+-		   u8 *data)
+-{
+-	struct usbnet *dev = netdev_priv(net);
+-	u16 *eeprom_buff;
+-	int first_word;
+-	int last_word;
+-	int ret;
+-	int i;
+-
+-	netdev_dbg(net, "write EEPROM len %d, offset %d, magic 0x%x\n",
+-		   eeprom->len, eeprom->offset, eeprom->magic);
+-
+-	if (eeprom->len == 0)
+-		return -EINVAL;
+-
+-	if (eeprom->magic != AX88179_EEPROM_MAGIC)
+-		return -EINVAL;
+-
+-	first_word = eeprom->offset >> 1;
+-	last_word = (eeprom->offset + eeprom->len - 1) >> 1;
+-
+-	eeprom_buff = kmalloc_array(last_word - first_word + 1, sizeof(u16),
+-				    GFP_KERNEL);
+-	if (!eeprom_buff)
+-		return -ENOMEM;
+-
+-	/* align data to 16 bit boundaries, read the missing data from
+-	   the EEPROM */
+-	if (eeprom->offset & 1) {
+-		ret = ax88179_read_cmd(dev, AX_ACCESS_EEPROM, first_word, 1, 2,
+-				       &eeprom_buff[0]);
+-		if (ret < 0) {
+-			netdev_err(net, "Failed to read EEPROM at offset 0x%02x.\n", first_word);
+-			goto free;
+-		}
+-	}
+-
+-	if ((eeprom->offset + eeprom->len) & 1) {
+-		ret = ax88179_read_cmd(dev, AX_ACCESS_EEPROM, last_word, 1, 2,
+-				       &eeprom_buff[last_word - first_word]);
+-		if (ret < 0) {
+-			netdev_err(net, "Failed to read EEPROM at offset 0x%02x.\n", last_word);
+-			goto free;
+-		}
+-	}
+-
+-	memcpy((u8 *)eeprom_buff + (eeprom->offset & 1), data, eeprom->len);
+-
+-	for (i = first_word; i <= last_word; i++) {
+-		netdev_dbg(net, "write to EEPROM at offset 0x%02x, data 0x%04x\n",
+-			   i, eeprom_buff[i - first_word]);
+-		ret = ax88179_write_cmd(dev, AX_ACCESS_EEPROM, i, 1, 2,
+-					&eeprom_buff[i - first_word]);
+-		if (ret < 0) {
+-			netdev_err(net, "Failed to write EEPROM at offset 0x%02x.\n", i);
+-			goto free;
+-		}
+-		msleep(20);
+-	}
+-
+-	/* reload EEPROM data */
+-	ret = ax88179_write_cmd(dev, AX_RELOAD_EEPROM_EFUSE, 0x0000, 0, 0, NULL);
+-	if (ret < 0) {
+-		netdev_err(net, "Failed to reload EEPROM data\n");
+-		goto free;
+-	}
+-
+-	ret = 0;
+-free:
+-	kfree(eeprom_buff);
+-	return ret;
+-}
+-
+ static int ax88179_get_link_ksettings(struct net_device *net,
+ 				      struct ethtool_link_ksettings *cmd)
+ {
+@@ -864,125 +403,6 @@ static const struct ethtool_ops ax88179_ethtool_ops = {
+ 	.get_ts_info		= ethtool_op_get_ts_info,
+ };
+ 
+-static void ax88179_set_multicast(struct net_device *net)
+-{
+-	struct usbnet *dev = netdev_priv(net);
+-	struct ax88179_data *data = dev->driver_priv;
+-	u8 *m_filter = ((u8 *)dev->data);
+-
+-	data->rxctl = (AX_RX_CTL_START | AX_RX_CTL_AB | AX_RX_CTL_IPE);
+-
+-	if (net->flags & IFF_PROMISC) {
+-		data->rxctl |= AX_RX_CTL_PRO;
+-	} else if (net->flags & IFF_ALLMULTI ||
+-		   netdev_mc_count(net) > AX_MAX_MCAST) {
+-		data->rxctl |= AX_RX_CTL_AMALL;
+-	} else if (netdev_mc_empty(net)) {
+-		/* just broadcast and directed */
+-	} else {
+-		/* We use dev->data for our 8 byte filter buffer
+-		 * to avoid allocating memory that is tricky to free later
+-		 */
+-		u32 crc_bits;
+-		struct netdev_hw_addr *ha;
+-
+-		memset(m_filter, 0, AX_MCAST_FLTSIZE);
+-
+-		netdev_for_each_mc_addr(ha, net) {
+-			crc_bits = ether_crc(ETH_ALEN, ha->addr) >> 26;
+-			*(m_filter + (crc_bits >> 3)) |= (1 << (crc_bits & 7));
+-		}
+-
+-		ax88179_write_cmd_async(dev, AX_ACCESS_MAC, AX_MULFLTARY,
+-					AX_MCAST_FLTSIZE, AX_MCAST_FLTSIZE,
+-					m_filter);
+-
+-		data->rxctl |= AX_RX_CTL_AM;
+-	}
+-
+-	ax88179_write_cmd_async(dev, AX_ACCESS_MAC, AX_RX_CTL,
+-				2, 2, &data->rxctl);
+-}
+-
+-static int
+-ax88179_set_features(struct net_device *net, netdev_features_t features)
+-{
+-	u8 tmp;
+-	struct usbnet *dev = netdev_priv(net);
+-	netdev_features_t changed = net->features ^ features;
+-
+-	if (changed & NETIF_F_IP_CSUM) {
+-		ax88179_read_cmd(dev, AX_ACCESS_MAC, AX_TXCOE_CTL, 1, 1, &tmp);
+-		tmp ^= AX_TXCOE_TCP | AX_TXCOE_UDP;
+-		ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_TXCOE_CTL, 1, 1, &tmp);
+-	}
+-
+-	if (changed & NETIF_F_IPV6_CSUM) {
+-		ax88179_read_cmd(dev, AX_ACCESS_MAC, AX_TXCOE_CTL, 1, 1, &tmp);
+-		tmp ^= AX_TXCOE_TCPV6 | AX_TXCOE_UDPV6;
+-		ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_TXCOE_CTL, 1, 1, &tmp);
+-	}
+-
+-	if (changed & NETIF_F_RXCSUM) {
+-		ax88179_read_cmd(dev, AX_ACCESS_MAC, AX_RXCOE_CTL, 1, 1, &tmp);
+-		tmp ^= AX_RXCOE_IP | AX_RXCOE_TCP | AX_RXCOE_UDP |
+-		       AX_RXCOE_TCPV6 | AX_RXCOE_UDPV6;
+-		ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_RXCOE_CTL, 1, 1, &tmp);
+-	}
+-
+-	return 0;
+-}
+-
+-static int ax88179_change_mtu(struct net_device *net, int new_mtu)
+-{
+-	struct usbnet *dev = netdev_priv(net);
+-	u16 tmp16;
+-
+-	WRITE_ONCE(net->mtu, new_mtu);
+-	dev->hard_mtu = net->mtu + net->hard_header_len;
+-
+-	if (net->mtu > 1500) {
+-		ax88179_read_cmd(dev, AX_ACCESS_MAC, AX_MEDIUM_STATUS_MODE,
+-				 2, 2, &tmp16);
+-		tmp16 |= AX_MEDIUM_JUMBO_EN;
+-		ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_MEDIUM_STATUS_MODE,
+-				  2, 2, &tmp16);
+-	} else {
+-		ax88179_read_cmd(dev, AX_ACCESS_MAC, AX_MEDIUM_STATUS_MODE,
+-				 2, 2, &tmp16);
+-		tmp16 &= ~AX_MEDIUM_JUMBO_EN;
+-		ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_MEDIUM_STATUS_MODE,
+-				  2, 2, &tmp16);
+-	}
+-
+-	/* max qlen depend on hard_mtu and rx_urb_size */
+-	usbnet_update_max_qlen(dev);
+-
+-	return 0;
+-}
+-
+-static int ax88179_set_mac_addr(struct net_device *net, void *p)
+-{
+-	struct usbnet *dev = netdev_priv(net);
+-	struct sockaddr *addr = p;
+-	int ret;
+-
+-	if (netif_running(net))
+-		return -EBUSY;
+-	if (!is_valid_ether_addr(addr->sa_data))
+-		return -EADDRNOTAVAIL;
+-
+-	eth_hw_addr_set(net, addr->sa_data);
+-
+-	/* Set the MAC address */
+-	ret = ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_NODE_ID, ETH_ALEN,
+-				 ETH_ALEN, net->dev_addr);
+-	if (ret < 0)
+-		return ret;
+-
+-	return 0;
+-}
+-
+ static const struct net_device_ops ax88179_netdev_ops = {
+ 	.ndo_open		= usbnet_open,
+ 	.ndo_stop		= usbnet_stop,
+@@ -1249,35 +669,6 @@ static int ax88179_led_setting(struct usbnet *dev)
  	return 0;
  }
  
-+int ax88179_suspend_wrapper(struct usb_interface *intf, pm_message_t message)
+-static void ax88179_get_mac_addr(struct usbnet *dev)
+-{
+-	u8 mac[ETH_ALEN];
+-
+-	memset(mac, 0, sizeof(mac));
+-
+-	/* Maybe the boot loader passed the MAC address via device tree */
+-	if (!eth_platform_get_mac_address(&dev->udev->dev, mac)) {
+-		netif_dbg(dev, ifup, dev->net,
+-			  "MAC address read from device tree");
+-	} else {
+-		ax88179_read_cmd(dev, AX_ACCESS_MAC, AX_NODE_ID, ETH_ALEN,
+-				 ETH_ALEN, mac);
+-		netif_dbg(dev, ifup, dev->net,
+-			  "MAC address read from ASIX chip");
+-	}
+-
+-	if (is_valid_ether_addr(mac)) {
+-		eth_hw_addr_set(dev->net, mac);
+-		if (!is_local_ether_addr(mac))
+-			dev->net->addr_assign_type = NET_ADDR_PERM;
+-	} else {
+-		netdev_info(dev->net, "invalid MAC address, using random\n");
+-	}
+-
+-	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_NODE_ID, ETH_ALEN, ETH_ALEN,
+-			  dev->net->dev_addr);
+-}
+-
+ static int ax88179_bind(struct usbnet *dev, struct usb_interface *intf)
+ {
+ 	struct ax88179_data *ax179_data;
+@@ -1292,6 +683,7 @@ static int ax88179_bind(struct usbnet *dev, struct usb_interface *intf)
+ 		return -ENOMEM;
+ 
+ 	dev->driver_priv = ax179_data;
++	mutex_init(&ax179_data->medium_status_mutex);
+ 
+ 	dev->net->netdev_ops = &ax88179_netdev_ops;
+ 	dev->net->ethtool_ops = &ax88179_ethtool_ops;
+@@ -1951,3 +1343,4 @@ module_usb_driver(ax88179_178a_driver);
+ 
+ MODULE_DESCRIPTION("ASIX AX88179/178A based USB 3.0/2.0 Gigabit Ethernet Devices");
+ MODULE_LICENSE("GPL");
++MODULE_ALIAS("ax88179_178a");
+diff --git a/drivers/net/usb/ax88179_lib.c b/drivers/net/usb/ax88179_lib.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..063427ff55e42e38be1acb66806c0cdbe8e84347
+--- /dev/null
++++ b/drivers/net/usb/ax88179_lib.c
+@@ -0,0 +1,461 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * ASIX AX88179/178A USB 3.0/2.0 to Gigabit Ethernet Devices
++ *
++ * Copyright (C) 2011-2013 ASIX
++ */
++
++#include <linux/etherdevice.h>
++#include <linux/rtnetlink.h>
++#include "ax88179_lib.h"
++
++void ax88179_set_pm_mode(struct usbnet *dev, bool pm_mode)
 +{
-+	struct usbnet *dev = usb_get_intfdata(intf);
-+	struct ax88179_data *priv;
++	struct ax88179_data *ax179_data = dev->driver_priv;
 +
-+	priv = dev->driver_priv;
-+
-+	return priv->suspend(intf, message);
++	ax179_data->in_pm = pm_mode;
 +}
 +
-+int ax88179_resume_wrapper(struct usb_interface *intf)
++static int ax88179_in_pm(struct usbnet *dev)
 +{
-+	struct usbnet *dev = usb_get_intfdata(intf);
-+	struct ax88179_data *priv;
++	struct ax88179_data *ax179_data = dev->driver_priv;
 +
-+	priv = dev->driver_priv;
-+	return priv->resume(intf);
++	return ax179_data->in_pm;
 +}
 +
-diff --git a/drivers/net/usb/ax88179_lib.h b/drivers/net/usb/ax88179_lib.h
-index adc2b4598bb52d80c18a6e2cc467144d3bd57a88..401c0bed3d28b4b94f0a0cad7509cd7087ef0639 100644
---- a/drivers/net/usb/ax88179_lib.h
-+++ b/drivers/net/usb/ax88179_lib.h
-@@ -315,6 +315,8 @@ struct ax88179_data {
- 	struct phy_device *phydev;
- 	struct phylink *phylink;
- 	struct phylink_config phylink_config;
-+	int (*resume)(struct usb_interface *intf);
-+	int (*suspend)(struct usb_interface *intf, pm_message_t message);
- };
- 
- struct ax88179_int_data {
-@@ -348,6 +350,8 @@ int ax88179_set_features(struct net_device *net, netdev_features_t features);
- void ax88179_get_mac_addr(struct usbnet *dev);
- int ax88179_change_mtu(struct net_device *net, int new_mtu);
- int ax88179_set_mac_addr(struct net_device *net, void *p);
-+int ax88179_suspend_wrapper(struct usb_interface *intf, pm_message_t message);
-+int ax88179_resume_wrapper(struct usb_interface *intf);
- 
- extern const struct driver_info ax88179a_info;
- extern const struct driver_info ax88772d_info;
-diff --git a/drivers/net/usb/ax88179a_devices.c b/drivers/net/usb/ax88179a_devices.c
-index a6b0a3f47118c46db38d483792c083510aa2641a..01d6a35f68b2c56f79acbe2875ce8e99ccdfb197 100644
---- a/drivers/net/usb/ax88179a_devices.c
-+++ b/drivers/net/usb/ax88179a_devices.c
-@@ -5,6 +5,8 @@
- #include <linux/if_vlan.h>
- #include "ax88179_lib.h"
- 
-+static int ax88179a_reset(struct usbnet *dev);
-+
- #define AX88279_EEPROM_LEN			0x4000
- #define AX88179A_EEPROM_LEN			(32 * 20)
- 
-@@ -126,6 +128,63 @@ static void ax88179a_status(struct usbnet *dev, struct urb *urb)
- 	phylink_mac_interrupt(data->phylink);
- }
- 
-+static int ax88179a_suspend(struct usb_interface *intf, pm_message_t message)
++int __ax88179_read_cmd(struct usbnet *dev, u8 cmd, u16 value, u16 index,
++		       u16 size, void *data)
 +{
-+	struct usbnet *dev = usb_get_intfdata(intf);
-+	struct ax88179_data *priv;
-+	u8 tmp8 = 0;
-+	u16 tmp16;
++	int (*fn)(struct usbnet *dev, u8 cmd, u8 rtype, u16 val, u16 i, void *d, u16 size);
++	struct ax88179_data *ax179_data = dev->driver_priv;
 +	int ret;
 +
-+	priv = dev->driver_priv;
-+	ax88179_set_pm_mode(dev, true);
++	if (!ax88179_in_pm(dev))
++		fn = usbnet_read_cmd;
++	else
++		fn = usbnet_read_cmd_nopm;
 +
-+	if (netif_running(dev->net)) {
-+		rtnl_lock();
-+		phylink_suspend(priv->phylink, !!priv->wolopts);
-+		rtnl_unlock();
++	ret = fn(dev, cmd, USB_DIR_IN | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
++		 value, index, data, size);
++
++	if (unlikely(ret < 0 && !(ret == -ENODEV && ax179_data->disconnecting)))
++		netdev_warn(dev->net, "Failed to read reg index 0x%04x: %d\n",
++			    index, ret);
++
++	return ret;
++}
++
++static int __ax88179_write_cmd(struct usbnet *dev, u8 cmd, u16 value,
++			       u16 index, u16 size, const void *data)
++{
++	int (*fn)(struct usbnet *dev, u8 cmd, u8 rtype, u16 val, u16 i, const void *d, u16 size);
++	struct ax88179_data *ax179_data = dev->driver_priv;
++	int ret;
++
++	if (!ax88179_in_pm(dev))
++		fn = usbnet_write_cmd;
++	else
++		fn = usbnet_write_cmd_nopm;
++
++	ret = fn(dev, cmd, USB_DIR_OUT | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
++		 value, index, data, size);
++
++	if (unlikely(ret < 0 && !(ret == -ENODEV && ax179_data->disconnecting)))
++		netdev_warn(dev->net, "Failed to write reg index 0x%04x: %d\n",
++			    index, ret);
++
++	return ret;
++}
++
++void ax88179_write_cmd_async(struct usbnet *dev, u8 cmd, u16 value,
++			     u16 index, u16 size, void *data)
++{
++	u16 buf;
++
++	if (size == 2) {
++		buf = *((u16 *)data);
++		cpu_to_le16s(&buf);
++		usbnet_write_cmd_async(dev, cmd, USB_DIR_OUT | USB_TYPE_VENDOR |
++				       USB_RECIP_DEVICE, value, index, &buf,
++				       size);
++	} else {
++		usbnet_write_cmd_async(dev, cmd, USB_DIR_OUT | USB_TYPE_VENDOR |
++				       USB_RECIP_DEVICE, value, index, data,
++				       size);
++	}
++}
++
++int ax88179_read_cmd(struct usbnet *dev, u8 cmd, u16 value, u16 index,
++		     u16 size, void *data)
++{
++	int ret;
++
++	if (size == 2) {
++		u16 buf = 0;
++
++		ret = __ax88179_read_cmd(dev, cmd, value, index, size, &buf);
++		le16_to_cpus(&buf);
++		*((u16 *)data) = buf;
++	} else if (size == 4) {
++		u32 buf = 0;
++
++		ret = __ax88179_read_cmd(dev, cmd, value, index, size, &buf);
++		le32_to_cpus(&buf);
++		*((u32 *)data) = buf;
++	} else {
++		ret = __ax88179_read_cmd(dev, cmd, value, index, size, data);
 +	}
 +
-+	ret = usbnet_suspend(intf, message);
-+	if (ret && netif_running(dev->net)) {
-+		rtnl_lock();
-+		phylink_resume(priv->phylink);
-+		rtnl_unlock();
-+		ax88179_set_pm_mode(dev, false);
-+		return ret;
++	return ret;
++}
++
++int ax88179_write_cmd(struct usbnet *dev, u8 cmd, u16 value, u16 index,
++		      u16 size, const void *data)
++{
++	int ret;
++
++	if (size == 2) {
++		u16 buf;
++
++		buf = *((u16 *)data);
++		cpu_to_le16s(&buf);
++		ret = __ax88179_write_cmd(dev, cmd, value, index,
++					  size, &buf);
++	} else {
++		ret = __ax88179_write_cmd(dev, cmd, value, index,
++					  size, data);
 +	}
 +
-+	/* Enable WoL */
-+	if (priv->wolopts) {
-+		ax88179_read_cmd(dev, AX_ACCESS_MAC, AX_MONITOR_MOD, 1, 1, &tmp8);
-+		tmp8 &= ~(AX_MONITOR_MODE_RWLC | AX_MONITOR_MODE_RWMP);
-+		if (priv->wolopts & WAKE_PHY)
-+			tmp8 |= AX_MONITOR_MODE_RWLC;
-+		if (priv->wolopts & WAKE_MAGIC)
-+			tmp8 |= AX_MONITOR_MODE_RWMP;
++	return ret;
++}
 +
-+		ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_MONITOR_MOD, 1, 1, &tmp8);
++void ax88179_status(struct usbnet *dev, struct urb *urb)
++{
++	struct ax88179_int_data *event;
++	u32 link;
 +
-+		ax88179_read_cmd(dev, AX_ACCESS_MAC, AX_MEDIUM_STATUS_MODE, 2, 2, &tmp16);
-+		tmp16 |= AX_MEDIUM_RECEIVE_EN;
-+		ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_MEDIUM_STATUS_MODE, 2, 2, &tmp16);
++	if (urb->actual_length < 8)
++		return;
 +
-+		if (priv->chip_version == AX_VERSION_AX88279)
-+			ax88179_write_cmd(dev, AX88179A_WAKEUP_SETTING, 8,
-+					  EPHY_LOW_POWER_EN | S5_WOL_EN
-+					  | S5_WOL_LOW_POWER | 0x8000, 0, NULL);
-+		else
-+			ax88179_write_cmd(dev, AX88179A_WAKEUP_SETTING, 0,
-+					  EPHY_LOW_POWER_EN, 0, NULL);
++	event = urb->transfer_buffer;
++	le32_to_cpus((void *)&event->intdata1);
 +
-+	} else if (priv->chip_version == AX_VERSION_AX88279) {
-+		ax88179_write_cmd(dev, AX88179A_WAKEUP_SETTING, 8, 0x8000, 0, NULL);
++	link = (((__force u32)event->intdata1) & AX_INT_PPLS_LINK) >> 16;
++
++	if (netif_carrier_ok(dev->net) != link) {
++		usbnet_link_change(dev, link, 1);
++		if (!link)
++			netdev_info(dev->net, "ax88179 - Link status is: 0\n");
 +	}
++}
 +
-+	ax88179_set_pm_mode(dev, false);
++int ax88179_mdio_read(struct net_device *netdev, int phy_id, int loc)
++{
++	struct usbnet *dev = netdev_priv(netdev);
++	u16 res;
++
++	ax88179_read_cmd(dev, AX_ACCESS_PHY, phy_id, (__u16)loc, 2, &res);
++	return res;
++}
++
++void ax88179_mdio_write(struct net_device *netdev, int phy_id, int loc, int val)
++{
++	struct usbnet *dev = netdev_priv(netdev);
++	u16 res = (u16)val;
++
++	ax88179_write_cmd(dev, AX_ACCESS_PHY, phy_id, (__u16)loc, 2, &res);
++}
++
++void ax88179_get_wol(struct net_device *net, struct ethtool_wolinfo *wolinfo)
++{
++	struct usbnet *dev = netdev_priv(net);
++	struct ax88179_data *priv = dev->driver_priv;
++
++	wolinfo->supported = priv->wol_supported;
++	wolinfo->wolopts = priv->wolopts;
++}
++
++int ax88179_set_wol(struct net_device *net, struct ethtool_wolinfo *wolinfo)
++{
++	struct usbnet *dev = netdev_priv(net);
++	struct ax88179_data *priv = dev->driver_priv;
++
++	if (wolinfo->wolopts & ~(priv->wol_supported))
++		return -EINVAL;
++
++	priv->wolopts = wolinfo->wolopts;
++
 +	return 0;
 +}
 +
- static int ax88179a_auto_detach(struct usbnet *dev)
- {
- 	u16 tmp16;
-@@ -135,6 +194,47 @@ static int ax88179a_auto_detach(struct usbnet *dev)
- 	return 0;
- }
- 
-+static int ax88179a_resume(struct usb_interface *intf)
++int ax88179_get_eeprom(struct net_device *net, struct ethtool_eeprom *eeprom, u8 *data)
 +{
-+	struct usbnet *dev = usb_get_intfdata(intf);
-+	struct ax88179_data *ax179_data;
-+	u8 reg8 = 0;
-+	int ret;
++	struct usbnet *dev = netdev_priv(net);
++	u16 *eeprom_buff;
++	int first_word, last_word;
++	int i, ret;
 +
-+	ax179_data = dev->driver_priv;
-+	ax88179_set_pm_mode(dev, true);
++	if (eeprom->len == 0)
++		return -EINVAL;
 +
-+	ret = ax88179_read_cmd(dev, AX88179A_PHY_POWER, 0, 0, 1, &reg8);
-+	if (ret < 0)
-+		goto err_out;
++	eeprom->magic = AX88179_EEPROM_MAGIC;
 +
-+	if (!(reg8 & AX_PHY_POWER)) {
-+		reg8 = AX_PHY_POWER;
-+		ax88179_write_cmd(dev, AX88179A_PHY_POWER, 0, 0, 1, &reg8);
-+		msleep(250);
-+	}
-+	ax88179_write_cmd(dev, AX_FW_MODE, AX_FW_MODE_179A, 0, 0, NULL);
++	first_word = eeprom->offset >> 1;
++	last_word = (eeprom->offset + eeprom->len - 1) >> 1;
++	eeprom_buff = kmalloc_array(last_word - first_word + 1, sizeof(u16),
++				    GFP_KERNEL);
++	if (!eeprom_buff)
++		return -ENOMEM;
 +
-+	/* Now, that AX_FW_MODE_179A is enabled, the PHY needs a power-cycle.
-+	 * PHY-power is re-enabled in ax88179a_reset()
-+	 */
-+	ax88179_write_u8(dev, AX88179A_PHY_POWER, 0, 0, 0);
-+	msleep(250);
-+
-+	ax88179a_reset(dev);
-+
-+err_out:
-+	if (netif_running(dev->net)) {
-+		rtnl_lock();
-+		phylink_resume(ax179_data->phylink);
-+		rtnl_unlock();
++	/* ax88179/178A returns 2 bytes from eeprom on read */
++	for (i = first_word; i <= last_word; i++) {
++		ret = __ax88179_read_cmd(dev, AX_ACCESS_EEPROM, i, 1, 2,
++					 &eeprom_buff[i - first_word]);
++		if (ret < 0) {
++			kfree(eeprom_buff);
++			return -EIO;
++		}
 +	}
 +
-+	ax88179_set_pm_mode(dev, false);
-+
-+	return usbnet_resume(intf);
++	memcpy(data, (u8 *)eeprom_buff + (eeprom->offset & 1), eeprom->len);
++	kfree(eeprom_buff);
++	return 0;
 +}
 +
- static void ax88179a_bulkin_config(struct usbnet *dev, u8 link_sts, u8 speed, bool full_duplex)
- {
- 	struct ax88179_data *ax179_data = dev->driver_priv;
-@@ -755,6 +855,9 @@ static int ax88179a_bind(struct usbnet *dev, struct usb_interface *intf)
- 		ax179_data->eeprom_wen = 0;
- 	}
- 
-+	ax179_data->resume = ax88179a_resume;
-+	ax179_data->suspend = ax88179a_suspend;
++int ax88179_set_eeprom(struct net_device *net, struct ethtool_eeprom *eeprom, u8 *data)
++{
++	struct usbnet *dev = netdev_priv(net);
++	u16 *eeprom_buff;
++	int first_word;
++	int last_word;
++	int ret;
++	int i;
 +
- 	dev->net->netdev_ops = &ax88179a_netdev_ops;
- 	dev->net->ethtool_ops = &ax88179a_ethtool_ops;
- 	dev->net->needed_headroom = 8;
-@@ -802,6 +905,13 @@ static int ax88179a_bind(struct usbnet *dev, struct usb_interface *intf)
- 	if (ret)
- 		goto initphy_err;
- 
-+	/* Keep this interface runtime-PM active by taking a usage ref.
-+	 * Prevents runtime suspend while bound and avoids resume paths
-+	 * that could deadlock (autoresume under RTNL while USB PM lock
-+	 * is held, phylink/MDIO wants RTNL).
-+	 */
-+	pm_runtime_get_noresume(&intf->dev);
++	netdev_dbg(net, "write EEPROM len %d, offset %d, magic 0x%x\n",
++		   eeprom->len, eeprom->offset, eeprom->magic);
 +
- 	return 0;
- 
- initphy_err:
-@@ -829,7 +939,8 @@ static void ax88179a_unbind(struct usbnet *dev, struct usb_interface *intf)
- 	ax88179a_mdio_unregister(ax179_data);
- 
- 	ax88179_write_u8(dev, AX88179A_PHY_POWER, 0, 0, 0);
--
-+	/* Drop the PM usage ref taken in bind() */
-+	pm_runtime_put_noidle(&intf->dev);
- 	kfree(ax179_data);
- }
- 
-@@ -1055,9 +1166,13 @@ static int ax88179a_reset(struct usbnet *dev)
- 	ax88179_write_u8(dev, AX_ACCESS_MAC, AX88179A_MAC_SWP_CTRL, 1, 0);
- 	ax88179_write_u8(dev, AX_ACCESS_MAC, AX88179A_MAC_TX_HDR_CKSUM, 1, 0);
- 
--	/* Read MAC address from DTB or asix chip */
--	ax88179_get_mac_addr(dev);
--	memcpy(dev->net->perm_addr, dev->net->dev_addr, ETH_ALEN);
-+	/* Read MAC address from DTB or asix chip, except when called
-+	 * from resume context.
++	if (eeprom->len == 0)
++		return -EINVAL;
++
++	if (eeprom->magic != AX88179_EEPROM_MAGIC)
++		return -EINVAL;
++
++	first_word = eeprom->offset >> 1;
++	last_word = (eeprom->offset + eeprom->len - 1) >> 1;
++
++	eeprom_buff = kmalloc_array(last_word - first_word + 1, sizeof(u16),
++				    GFP_KERNEL);
++	if (!eeprom_buff)
++		return -ENOMEM;
++
++	/* align data to 16 bit boundaries, read the missing data from
++	 * the EEPROM
 +	 */
-+	if (!ax179_data->in_pm) {
-+		ax88179_get_mac_addr(dev);
-+		memcpy(dev->net->perm_addr, dev->net->dev_addr, ETH_ALEN);
++	if (eeprom->offset & 1) {
++		ret = ax88179_read_cmd(dev, AX_ACCESS_EEPROM, first_word, 1, 2,
++				       &eeprom_buff[0]);
++		if (ret < 0) {
++			netdev_err(net, "Failed to read EEPROM at offset 0x%02x.\n", first_word);
++			goto free;
++		}
 +	}
- 
- 	/* The Bulk-Register configuration for the AX88179A is done in
- 	 * ax88179a_mac_link_up(), once the link is up for a given link and USB-speed.
-@@ -1117,7 +1232,11 @@ static int ax88179a_reset(struct usbnet *dev)
- 	/* Ensure EEE state is off, consistent with phylink setup */
- 	ax88179_write_cmd(dev, AX_GPHY_CTL, AX_GPHY_EEE_CTRL, false, 0, NULL);
- 
--	phylink_start(ax179_data->phylink);
-+	/* ax88179a_reset() may also be called from resume context,
-+	 * phylink_resume() will start phylink, then.
-+	 */
-+	if (!ax179_data->in_pm)
-+		phylink_start(ax179_data->phylink);
- 
- 	return 0;
- }
++
++	if ((eeprom->offset + eeprom->len) & 1) {
++		ret = ax88179_read_cmd(dev, AX_ACCESS_EEPROM, last_word, 1, 2,
++				       &eeprom_buff[last_word - first_word]);
++		if (ret < 0) {
++			netdev_err(net, "Failed to read EEPROM at offset 0x%02x.\n", last_word);
++			goto free;
++		}
++	}
++
++	memcpy((u8 *)eeprom_buff + (eeprom->offset & 1), data, eeprom->len);
++
++	for (i = first_word; i <= last_word; i++) {
++		netdev_dbg(net, "write to EEPROM at offset 0x%02x, data 0x%04x\n",
++			   i, eeprom_buff[i - first_word]);
++		ret = ax88179_write_cmd(dev, AX_ACCESS_EEPROM, i, 1, 2,
++					&eeprom_buff[i - first_word]);
++		if (ret < 0) {
++			netdev_err(net, "Failed to write EEPROM at offset 0x%02x.\n", i);
++			goto free;
++		}
++		msleep(20);
++	}
++
++	/* reload EEPROM data */
++	ret = ax88179_write_cmd(dev, AX_RELOAD_EEPROM_EFUSE, 0x0000, 0, 0, NULL);
++	if (ret < 0) {
++		netdev_err(net, "Failed to reload EEPROM data\n");
++		goto free;
++	}
++
++	ret = 0;
++free:
++	kfree(eeprom_buff);
++	return ret;
++}
++
++void ax88179_set_multicast(struct net_device *net)
++{
++	struct usbnet *dev = netdev_priv(net);
++	struct ax88179_data *data = dev->driver_priv;
++	u8 *m_filter = ((u8 *)dev->data);
++
++	data->rxctl = (AX_RX_CTL_START | AX_RX_CTL_AB | AX_RX_CTL_IPE);
++
++	if (net->flags & IFF_PROMISC) {
++		data->rxctl |= AX_RX_CTL_PRO;
++	} else if (net->flags & IFF_ALLMULTI ||
++		   netdev_mc_count(net) > AX_MAX_MCAST) {
++		data->rxctl |= AX_RX_CTL_AMALL;
++	} else if (netdev_mc_empty(net)) {
++		/* just broadcast and directed */
++	} else {
++		/* We use dev->data for our 8 byte filter buffer
++		 * to avoid allocating memory that is tricky to free later
++		 */
++		u32 crc_bits;
++		struct netdev_hw_addr *ha;
++
++		memset(m_filter, 0, AX_MCAST_FLTSIZE);
++
++		netdev_for_each_mc_addr(ha, net) {
++			crc_bits = ether_crc(ETH_ALEN, ha->addr) >> 26;
++			*(m_filter + (crc_bits >> 3)) |= (1 << (crc_bits & 7));
++		}
++
++		ax88179_write_cmd_async(dev, AX_ACCESS_MAC, AX_MULFLTARY,
++					AX_MCAST_FLTSIZE, AX_MCAST_FLTSIZE,
++					m_filter);
++
++		data->rxctl |= AX_RX_CTL_AM;
++	}
++
++	ax88179_write_cmd_async(dev, AX_ACCESS_MAC, AX_RX_CTL,
++				2, 2, &data->rxctl);
++}
++
++int ax88179_set_features(struct net_device *net, netdev_features_t features)
++{
++	u8 tmp;
++	struct usbnet *dev = netdev_priv(net);
++	netdev_features_t changed = net->features ^ features;
++
++	if (changed & NETIF_F_IP_CSUM) {
++		ax88179_read_cmd(dev, AX_ACCESS_MAC, AX_TXCOE_CTL, 1, 1, &tmp);
++		tmp ^= AX_TXCOE_TCP | AX_TXCOE_UDP;
++		ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_TXCOE_CTL, 1, 1, &tmp);
++	}
++
++	if (changed & NETIF_F_IPV6_CSUM) {
++		ax88179_read_cmd(dev, AX_ACCESS_MAC, AX_TXCOE_CTL, 1, 1, &tmp);
++		tmp ^= AX_TXCOE_TCPV6 | AX_TXCOE_UDPV6;
++		ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_TXCOE_CTL, 1, 1, &tmp);
++	}
++
++	if (changed & NETIF_F_RXCSUM) {
++		ax88179_read_cmd(dev, AX_ACCESS_MAC, AX_RXCOE_CTL, 1, 1, &tmp);
++		tmp ^= AX_RXCOE_IP | AX_RXCOE_TCP | AX_RXCOE_UDP |
++		       AX_RXCOE_TCPV6 | AX_RXCOE_UDPV6;
++		ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_RXCOE_CTL, 1, 1, &tmp);
++	}
++
++	return 0;
++}
++
++void ax88179_get_mac_addr(struct usbnet *dev)
++{
++	u8 mac[ETH_ALEN];
++
++	memset(mac, 0, sizeof(mac));
++
++	/* Maybe the boot loader passed the MAC address via device tree */
++	if (!eth_platform_get_mac_address(&dev->udev->dev, mac)) {
++		netif_dbg(dev, ifup, dev->net,
++			  "MAC address read from device tree");
++	} else {
++		ax88179_read_cmd(dev, AX_ACCESS_MAC, AX_NODE_ID, ETH_ALEN,
++				 ETH_ALEN, mac);
++		netif_dbg(dev, ifup, dev->net,
++			  "MAC address read from ASIX chip");
++	}
++
++	if (is_valid_ether_addr(mac)) {
++		eth_hw_addr_set(dev->net, mac);
++		if (!is_local_ether_addr(mac))
++			dev->net->addr_assign_type = NET_ADDR_PERM;
++	} else {
++		netdev_info(dev->net, "invalid MAC address, using random\n");
++	}
++
++	ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_NODE_ID, ETH_ALEN, ETH_ALEN,
++			  dev->net->dev_addr);
++}
++
++int ax88179_change_mtu(struct net_device *net, int new_mtu)
++{
++	struct usbnet *dev = netdev_priv(net);
++	struct ax88179_data *data;
++	u16 tmp16;
++	int err;
++
++	data = dev->driver_priv;
++	mutex_lock(&data->medium_status_mutex);
++	WRITE_ONCE(net->mtu, new_mtu);
++	dev->hard_mtu = net->mtu + net->hard_header_len;
++	if (net->mtu > 1500) {
++		err = ax88179_read_cmd(dev, AX_ACCESS_MAC, AX_MEDIUM_STATUS_MODE,
++				       2, 2, &tmp16);
++		if (err < 0)
++			goto err_out;
++		tmp16 |= AX_MEDIUM_JUMBO_EN;
++		err = ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_MEDIUM_STATUS_MODE,
++					2, 2, &tmp16);
++		if (err < 0)
++			goto err_out;
++	} else {
++		err = ax88179_read_cmd(dev, AX_ACCESS_MAC, AX_MEDIUM_STATUS_MODE,
++				       2, 2, &tmp16);
++		if (err < 0)
++			goto err_out;
++		tmp16 &= ~AX_MEDIUM_JUMBO_EN;
++		err = ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_MEDIUM_STATUS_MODE,
++					2, 2, &tmp16);
++		if (err < 0)
++			goto err_out;
++	}
++	mutex_unlock(&data->medium_status_mutex);
++
++	/* max qlen depend on hard_mtu and rx_urb_size */
++	usbnet_update_max_qlen(dev);
++
++	return 0;
++
++err_out:
++	mutex_unlock(&data->medium_status_mutex);
++	return err;
++}
++
++int ax88179_set_mac_addr(struct net_device *net, void *p)
++{
++	struct usbnet *dev = netdev_priv(net);
++	struct sockaddr *addr = p;
++	int ret;
++
++	if (netif_running(net))
++		return -EBUSY;
++	if (!is_valid_ether_addr(addr->sa_data))
++		return -EADDRNOTAVAIL;
++
++	eth_hw_addr_set(net, addr->sa_data);
++
++	/* Set the MAC address */
++	ret = ax88179_write_cmd(dev, AX_ACCESS_MAC, AX_NODE_ID, ETH_ALEN,
++				ETH_ALEN, net->dev_addr);
++	if (ret < 0)
++		return ret;
++
++	return 0;
++}
++
+diff --git a/drivers/net/usb/ax88179_lib.h b/drivers/net/usb/ax88179_lib.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..9111a1395eb2f7208c7e90c93027845423bbda00
+--- /dev/null
++++ b/drivers/net/usb/ax88179_lib.h
+@@ -0,0 +1,195 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++
++#include <linux/usb.h>
++#include <linux/crc32.h>
++#include <linux/usb/usbnet.h>
++
++#ifndef __LINUX_USBNET_AX88179_H
++#define __LINUX_USBNET_AX88179_H
++
++#define AX88179_PHY_ID				0x03
++#define AX_EEPROM_LEN				0x100
++#define AX88179_EEPROM_MAGIC			0x17900b95
++#define AX_MCAST_FLTSIZE			8
++#define AX_MAX_MCAST				64
++#define AX_INT_PPLS_LINK			((u32)BIT(16))
++#define AX_RXHDR_L4_TYPE_MASK			0x1c
++#define AX_RXHDR_L4_TYPE_UDP			4
++#define AX_RXHDR_L4_TYPE_TCP			16
++#define AX_RXHDR_L3CSUM_ERR			2
++#define AX_RXHDR_L4CSUM_ERR			1
++#define AX_RXHDR_CRC_ERR			((u32)BIT(29))
++#define AX_RXHDR_DROP_ERR			((u32)BIT(31))
++#define AX_ACCESS_MAC				0x01
++#define AX_ACCESS_PHY				0x02
++#define AX_ACCESS_EEPROM			0x04
++#define AX_ACCESS_EFUS				0x05
++#define AX_RELOAD_EEPROM_EFUSE			0x06
++#define AX_PAUSE_WATERLVL_LOW			0x54
++#define AX_PAUSE_WATERLVL_HIGH			0x55
++
++#define PHYSICAL_LINK_STATUS			0x02
++	#define	AX_USB_SS		0x04
++	#define	AX_USB_HS		0x02
++
++#define GENERAL_STATUS				0x03
++/* Check AX88179 version. UA1:Bit2 = 0,  UA2:Bit2 = 1 */
++	#define	AX_SECLD		0x04
++
++#define AX_SROM_ADDR				0x07
++#define AX_SROM_CMD				0x0a
++	#define EEP_RD			0x04
++	#define EEP_BUSY		0x10
++
++#define AX_SROM_DATA_LOW			0x08
++#define AX_SROM_DATA_HIGH			0x09
++
++#define AX_RX_CTL				0x0b
++	#define AX_RX_CTL_DROPCRCERR	0x0100
++	#define AX_RX_CTL_IPE		0x0200
++	#define AX_RX_CTL_START		0x0080
++	#define AX_RX_CTL_AP		0x0020
++	#define AX_RX_CTL_AM		0x0010
++	#define AX_RX_CTL_AB		0x0008
++	#define AX_RX_CTL_AMALL		0x0002
++	#define AX_RX_CTL_PRO		0x0001
++	#define AX_RX_CTL_STOP		0x0000
++
++#define AX_NODE_ID				0x10
++#define AX_MULFLTARY				0x16
++
++#define AX_MEDIUM_STATUS_MODE			0x22
++	#define AX_MEDIUM_GIGAMODE	0x01
++	#define AX_MEDIUM_FULL_DUPLEX	0x02
++	#define AX_MEDIUM_EN_125MHZ	0x08
++	#define AX_MEDIUM_RXFLOW_CTRLEN	0x10
++	#define AX_MEDIUM_TXFLOW_CTRLEN	0x20
++	#define AX_MEDIUM_RECEIVE_EN	0x100
++	#define AX_MEDIUM_PS		0x200
++	#define AX_MEDIUM_JUMBO_EN	0x8040
++
++#define AX_MONITOR_MOD				0x24
++	#define AX_MONITOR_MODE_RWLC	0x02
++	#define AX_MONITOR_MODE_RWMP	0x04
++	#define AX_MONITOR_MODE_PMEPOL	0x20
++	#define AX_MONITOR_MODE_PMETYPE	0x40
++
++#define AX_GPIO_CTRL				0x25
++	#define AX_GPIO_CTRL_GPIO3EN	0x80
++	#define AX_GPIO_CTRL_GPIO2EN	0x40
++	#define AX_GPIO_CTRL_GPIO1EN	0x20
++
++#define AX_PHYPWR_RSTCTL			0x26
++	#define AX_PHYPWR_RSTCTL_BZ	0x0010
++	#define AX_PHYPWR_RSTCTL_IPRL	0x0020
++	#define AX_PHYPWR_RSTCTL_AT	0x1000
++
++#define AX_RX_BULKIN_QCTRL			0x2e
++#define AX_CLK_SELECT				0x33
++	#define AX_CLK_SELECT_BCS	0x01
++	#define AX_CLK_SELECT_ACS	0x02
++	#define AX_CLK_SELECT_ULR	0x08
++
++#define AX_RXCOE_CTL				0x34
++	#define AX_RXCOE_IP		0x01
++	#define AX_RXCOE_TCP		0x02
++	#define AX_RXCOE_UDP		0x04
++	#define AX_RXCOE_TCPV6		0x20
++	#define AX_RXCOE_UDPV6		0x40
++
++#define AX_TXCOE_CTL				0x35
++	#define AX_TXCOE_IP		0x01
++	#define AX_TXCOE_TCP		0x02
++	#define AX_TXCOE_UDP		0x04
++	#define AX_TXCOE_TCPV6		0x20
++	#define AX_TXCOE_UDPV6		0x40
++
++#define AX_LEDCTRL				0x73
++
++#define GMII_PHY_PHYSR				0x11
++	#define GMII_PHY_PHYSR_SMASK	0xc000
++	#define GMII_PHY_PHYSR_GIGA	0x8000
++	#define GMII_PHY_PHYSR_100	0x4000
++	#define GMII_PHY_PHYSR_FULL	0x2000
++	#define GMII_PHY_PHYSR_LINK	0x400
++
++#define GMII_LED_ACT				0x1a
++	#define	GMII_LED_ACTIVE_MASK	0xff8f
++	#define	GMII_LED0_ACTIVE	BIT(4)
++	#define	GMII_LED1_ACTIVE	BIT(5)
++	#define	GMII_LED2_ACTIVE	BIT(6)
++
++#define GMII_LED_LINK				0x1c
++	#define	GMII_LED_LINK_MASK	0xf888
++	#define	GMII_LED0_LINK_10	BIT(0)
++	#define	GMII_LED0_LINK_100	BIT(1)
++	#define	GMII_LED0_LINK_1000	BIT(2)
++	#define	GMII_LED1_LINK_10	BIT(4)
++	#define	GMII_LED1_LINK_100	BIT(5)
++	#define	GMII_LED1_LINK_1000	BIT(6)
++	#define	GMII_LED2_LINK_10	BIT(8)
++	#define	GMII_LED2_LINK_100	BIT(9)
++	#define	GMII_LED2_LINK_1000	BIT(10)
++	#define	LED0_ACTIVE		BIT(0)
++	#define	LED0_LINK_10		BIT(1)
++	#define	LED0_LINK_100		BIT(2)
++	#define	LED0_LINK_1000		BIT(3)
++	#define	LED0_FD			BIT(4)
++	#define	LED0_USB3_MASK		0x001f
++	#define	LED1_ACTIVE		BIT(5)
++	#define	LED1_LINK_10		BIT(6)
++	#define	LED1_LINK_100		BIT(7)
++	#define	LED1_LINK_1000		BIT(8)
++	#define	LED1_FD			BIT(9)
++	#define	LED1_USB3_MASK		0x03e0
++	#define	LED2_ACTIVE		BIT(10)
++	#define	LED2_LINK_1000		BIT(13)
++	#define	LED2_LINK_100		BIT(12)
++	#define	LED2_LINK_10		BIT(11)
++	#define	LED2_FD			BIT(14)
++	#define	LED_VALID		BIT(15)
++	#define	LED2_USB3_MASK		0x7c00
++
++#define GMII_PHYPAGE				0x1e
++#define GMII_PHY_PAGE_SELECT			0x1f
++	#define GMII_PHY_PGSEL_EXT	0x0007
++	#define GMII_PHY_PGSEL_PAGE0	0x0000
++	#define GMII_PHY_PGSEL_PAGE3	0x0003
++	#define GMII_PHY_PGSEL_PAGE5	0x0005
++
++struct ax88179_data {
++	struct mutex medium_status_mutex;  /* protect AX_MEDIUM_STATUS_MODE */
++	u8  eee_enabled;
++	u8  eee_active;
++	u16 rxctl;
++	u8 in_pm;
++	u32 wol_supported;
++	u32 wolopts;
++	u8 disconnecting;
++};
++
++struct ax88179_int_data {
++	__le32 intdata1;
++	__le32 intdata2;
++};
++
++void ax88179_set_pm_mode(struct usbnet *dev, bool pm_mode);
++int __ax88179_read_cmd(struct usbnet *dev, u8 cmd, u16 value, u16 index, u16 size, void *data);
++int ax88179_read_cmd(struct usbnet *dev, u8 cmd, u16 value, u16 index, u16 size, void *data);
++int ax88179_write_cmd(struct usbnet *dev, u8 cmd, u16 value, u16 index, u16 size,
++		      const void *data);
++void ax88179_write_cmd_async(struct usbnet *dev, u8 cmd, u16 value, u16 index,
++			     u16 size, void *data);
++int ax88179_mdio_read(struct net_device *netdev, int phy_id, int loc);
++void ax88179_mdio_write(struct net_device *netdev, int phy_id, int loc, int val);
++void ax88179_status(struct usbnet *dev, struct urb *urb);
++void ax88179_get_wol(struct net_device *net, struct ethtool_wolinfo *wolinfo);
++int ax88179_set_wol(struct net_device *net, struct ethtool_wolinfo *wolinfo);
++int ax88179_get_eeprom(struct net_device *net, struct ethtool_eeprom *eeprom, u8 *data);
++int ax88179_set_eeprom(struct net_device *net, struct ethtool_eeprom *eeprom, u8 *data);
++void ax88179_set_multicast(struct net_device *net);
++int ax88179_set_features(struct net_device *net, netdev_features_t features);
++void ax88179_get_mac_addr(struct usbnet *dev);
++int ax88179_change_mtu(struct net_device *net, int new_mtu);
++int ax88179_set_mac_addr(struct net_device *net, void *p);
++#endif /*__LINUX_USBNET_AX88179_H */
 
 -- 
 2.47.3
