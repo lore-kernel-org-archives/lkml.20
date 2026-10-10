@@ -1,72 +1,54 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from a4i850.smtp2go.com (a4i850.smtp2go.com [158.120.83.82])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0273750D7
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 14:08:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3A6D49553A
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 14:10:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=158.120.83.82
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791641297; cv=none; b=fh81R+NU6bVbWbzm0npJMVYf0JZrEof1riuWUaNcHo8w4KbIuk6NfUcr3z2NfyvnCMGDzKP3YH6LbdNKE27LJNN6u72jrvx86pVaVyI77823v4jLpKJ3CQJ0svhFi0oPvJRw/vz4QQsxp8qCVXbw52IdHygUU+GtV3O+A2RSvDU=
+	t=1791641438; cv=none; b=bFCslby6ea1iMaSo+bnytz5z04yefpQio1E+jiEz7TWJu6ttvxJPdcSHD8bSXAYdu6tMCDJWUn9JGhGZBoGh27ecMT73XZ453aOOhBpEz9NOMASfNvVaMvQ+qFFqFtoQ7QAwJ+DsWkdg3DvKWE2/ldPyyjiTAkCyr3SE4AXG8cw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791641297; c=relaxed/simple;
-	bh=fQDInI1W10eUugdQwet9qBPWjoYFjRiuPOXtMNncH3k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bp41phv0+9F/u6jVP6nqNc+fi3Wwz5v8doDK5wAbLwIKsd3AtLJmkLESods4bt62m8eEgdKvQgUGlw91dbg70IoqYNVdJWL2fJnjkTTe1hNhDX8PEaLSNzuDSFriwyYdnHdTMPQ/Fe2ubIqP/xPPc2RpUdzYWu2MAOEhSXbumpw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LplsGtum; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791641438; c=relaxed/simple;
+	bh=KurMqRYTtfK7Q2u2yEmmD+g6KxcgzV/eyli+dy2Qm2M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CoLS2Dc3SUOWyrYpwGI8l+jqId9L3sSDQQJxEfklMx31l5s9AGnFqa4n4otSenAZVqxQYswfioQJsA/i7ulxszWw5PmDtIDP23PNE2sx+FtbnA9MYWQpcplxJraixOX8Xsmp6eEb/BzkK7kbuyIm1VKYwJHI2UEcS7o4HSrDc30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dilluti0n.com; spf=pass smtp.mailfrom=em840244.dilluti0n.com; dkim=pass (2048-bit key) header.d=dilluti0n.com header.i=@dilluti0n.com header.b=EuhGIoDG; arc=none smtp.client-ip=158.120.83.82
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dilluti0n.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em840244.dilluti0n.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LplsGtum"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ab9268d90eso167364a91.3
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 07:08:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791641296; x=1792246096; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UjpHf4PwjNUxYMxzaCqn9UvI9tlvLO9Xt3mhcZZZJjI=;
-        b=LplsGtumBvxlcxVCxVtDFskVDbhTW1C1o1HC5hbyu+af+SNe74BAAZ4xFnwo86gleC
-         GTZwwqbrz/OtjMrmK1YEojLlG0v+t9el8ub17p4/IY6ETeYEZeo59YKDfRJZPtsptzbF
-         0ddfLXaS/1dhR3y3Tol3BDo35XNeoAvuLqacgmxgEzMnC5d3dzdrGb/7Ih0Y+4REmZvw
-         ugsDmZpHm1DSEJG80BsRvjGFBg5racTIDE6pHj4iXRQRPs3v1BhMI+YtsTXK19lSBGVS
-         KZo264Irsmuc6d1GxXxmUc8Dv6IbRdf1Ewq2Mv+3GC2p3uFno5wFvk7bPr6n/nUM+hRt
-         Wt6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791641296; x=1792246096;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UjpHf4PwjNUxYMxzaCqn9UvI9tlvLO9Xt3mhcZZZJjI=;
-        b=gnlYO12vmcZbTrURS4DsFs1Peobcat618Z2KqtPgewkaC3n+ll7VZLunUbmFH6DXg2
-         CHyaZk+fEtfUe4jpX//fa2aypcFFWTOqPMGj92dbdpXWFZPXL87sZAHLx1faLCSHdaFM
-         hOv9J3e3k9B46tvfu6bf2PKWbPws5KRBOmsbXrNUE2ar45VuN7KErxzzTrTJ4GEjGW6x
-         U8o04YSX2twO7W2jqhYORe1LcXWQfGY9m/ZDy1R0/R/3X98MGFQ13ln3KRfs05R4Y8CJ
-         JN5QgX97LM3k4g6Lr8gw6o3f2Jo4iXxnMHQZ2dPDIpo/H9Sn+FU8Y+/vZzLqL871VtVe
-         dQyA==
-X-Forwarded-Encrypted: i=1; AKwUvBzAmPxrbYjatQnS6x+lWlLj6jX+gnzISbFIsHW7YZ3j+gpPKl9YS9oV2n0uDXITtyc71NXyfTBF7PdAWMI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKSumMQO5vH/dP2KAxxHgJ113SmH/l5lulIThE2HKG1aAqR6w84
-	OWUIkPi63BV2IK9o85DfEQHzYG4JtvD+3Jy+5EFTR1thA/qnZ0YhhTAlsfn/MI0u
-X-Gm-Gg: AYBFou3IB3zThOeTL+tznzRlQSd6/X3NaKTRuKKpFx5ASsEjlQ/4V/+SGRJqZZeTr14
-	EfqEMG93tldeHfWHba4+DzNCw1uKo7cvsiQy2s2PHqYpmvsjTTVaGu8IXqNN6gcX1vBk+FOCCH3
-	pRqWdYxrkOGkVcwv0nxzNWoRlUsk1auxjHQxLQBHEThYtkUlOjwCK0AHpYu9aYhhOixARewOaTv
-	W4vMf3yEMnk2bfAhwM+j0MVKqyxfIJWVC7UwnIXMVAnJv1J+J8DSgT/mA4x7rWUf2g7zODhRn9g
-	Ruo3zP7aUc2E2079YCweZcE/1C6kGpxKj1lFfekY16JjJKOXTMBVZdDgKK9/W2qFYuONNwByCYV
-	FIFOv1R2bpECSABHx+uXiUvmVkSWCuLx5QgvnnqiVWGqxgafZHJz711xFLkpbtxqchFvtiRqrus
-	12QQSAC81msSn4cbIeNPpwNSzGfEUbVZkzjQChU4twi30tSiyAnsiPHKPcZ6OwMeVwZXO8VHQN8
-	XjwOUDVts+OuHliDnJ6JEBKrHX+Aoqqhw9BBsiOSKbUiW4lljJJMnxR
-X-Received: by 2002:a17:90b:2ec3:b0:3a8:240e:b493 with SMTP id 98e67ed59e1d1-3ab3acf5c6amr4385332a91.45.1791641296024;
-        Sat, 10 Oct 2026 07:08:16 -0700 (PDT)
-Received: from localhost.localdomain ([58.186.105.39])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38b9639bsm7968831a91.4.2026.10.10.07.08.13
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 10 Oct 2026 07:08:15 -0700 (PDT)
-From: "Adrian.Nguyen-Qualgo" <thenguyen1024@gmail.com>
-X-Google-Original-From: "Adrian.Nguyen-Qualgo" <nguyen.ndt@qualgo.net>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Adrian Nguyen <thenguyen1024@gmail.com>
-Subject: [PATCH] Bluetooth: msft: Ignore vendor events shorter than the event prefix
-Date: Sat, 10 Oct 2026 21:08:06 +0700
-Message-ID: <20261010140806.65929-1-nguyen.ndt@qualgo.net>
+	dkim=pass (2048-bit key) header.d=dilluti0n.com header.i=@dilluti0n.com header.b="EuhGIoDG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dilluti0n.com;
+ i=@dilluti0n.com; q=dns/txt; s=s840244; t=1791640529; h=from : subject
+ : to : message-id : date : list-unsubscribe : list-unsubscribe-post;
+ bh=r2qIUuIj7U6tM96spZZJ0rqFYcbWjd0y9e3WDSS49yk=;
+ b=EuhGIoDGpy/Bxe2xo2y2qWMNnwOiFf8WaPFpcCvACO323wrr82SP0L8Wfwfd0oCNqsfEl
+ twtA7rC3YHy2vrPJSElYYzamlz47ugv/ajIhFQu97WVZjWsK1AQx3KQPRwzdCoA7sQsV6mP
+ eEklPaJ85hgmEKaimqcYpMKCHoPYt1PfyaVGJfclM8wJg69ItLXUFrALygl4dsybL0UHitU
+ yKwKk+mgq5Fvh5QMqbe/jgFCGCpz8KvaX/ag4xqnewh3zk0wVN38GIqLswWZIHBp+3m/rVb
+ NqstIXnt2W1jxVRzLYWaGfvMaN1BtC2/0SLoaqYwXSfkmxOgmmboHN8D3Xgg==
+Received: from [10.40.244.132] (helo=dilluti0n.com)
+	by smtpcorp.com with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256:X25519)
+	(Exim 4.100.1)
+	(envelope-from <hskim@dilluti0n.com>)
+	id 1xFXXn-4o5NDgrmnGh-t6LZ;
+	Sat, 10 Oct 2026 13:55:23 +0000
+Received: from localhost (<unknown> [10.42.0.2])
+	by dilluti0n.com (OpenSMTPD) with ESMTP id c195b92f;
+	Sat, 10 Oct 2026 13:55:15 +0000 (UTC)
+From: Hee-Suk Kim <hskim@dilluti0n.com>
+To: netdev@vger.kernel.org
+Cc: Hee-Suk Kim <hskim@dilluti0n.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	nic_swsd@realtek.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Daniel Golle <daniel@makrotopia.org>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next] r8169: allow Giga Lite fallback on RTL8168EP
+Date: Sat, 10 Oct 2026 22:53:52 +0900
+Message-ID: <20261010135356.85454-1-hskim@dilluti0n.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -75,61 +57,166 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Report-Abuse: Please forward a copy of this message, including all headers, to <abuse-report@smtp2go.com>
+Feedback-ID: 840244m:840244atORciv:840244sg2a5K__8p
+X-smtpcorp-track: JoBaAKvogW9T.L-8bRn06nRlz.bmRUAwQQgvy
 
-From: Adrian Nguyen <thenguyen1024@gmail.com>
+Giga Lite is a Realtek proprietary mode which allows links of up to
+500 Mbps over two-pair cabling. In South Korea, it is widely used to
+support 500 Mbps plans by most ISPs. The vendor driver [1] sets PHY
+page 0xa42, reg 0x14, bit 9 to allow it on RTL8168H and FP. The driver
+does not handle RTL8168EP but I confirmed the same works for it by
+setting the PHY register via SIOCSMIIREG on an SK Broadband 500 Mbps
+plan [2].
 
-msft_vendor_evt() is called for every HCI vendor event. When the
-controller defines an MSFT event prefix, it pulls the prefix with
-msft_skb_pull(), which logs "Malformed MSFT vendor event" when the
-event is too short. A vendor event shorter than the prefix cannot be
-an MSFT event, though, so it is reported as malformed for nothing.
-Before commit 3368aa357f3b ("Bluetooth: msft: Handle MSFT Monitor
-Device Event") such events were dropped silently.
+With the bit set, the link still came up at about 470 Mbps even when
+only 10/100 was advertised. So set it only when autonegotiating with
+1000baseT/Full advertised, and clear it otherwise, to respect a lower
+advertised speed. This matches what the vendor driver does for
+RTL8168H and FP.
 
-A WCN3990 logs this 20 times at every boot, while btqca downloads its
-firmware and the controller answers each segment with a short QCA
-vendor event.
+PHYSR reports 0x30 in its speed field to denote a Giga Lite link. This
+value is not handled in rtlgen_decode_physr(), so the reported speed
+varies between 100 and 1000 Mbps on the same link. Handle it to report
+1000, as there is no 500 Mbps uAPI.
 
-Return quietly when the event is shorter than the prefix. Events that
-match the prefix but are cut short still get reported.
+[1] https://github.com/mtorromeo/r8168/blob/b3e24e4aa74a3561618d0abf01b708bd55def57a/src/r8168_n.c#L6375-L6390
+[2] https://www.tworld.co.kr/web/product/callplan/NI00000567
 
-Fixes: 3368aa357f3b ("Bluetooth: msft: Handle MSFT Monitor Device Event")
 Assisted-by: LLM
-Signed-off-by: Adrian Nguyen <thenguyen1024@gmail.com>
+Signed-off-by: Hee-Suk Kim <hskim@dilluti0n.com>
 ---
+Test results on a ThinkPad T14 Gen 5 (RTL8168ep/8111ep, XID 502) with
+an SK Broadband 500 Mbps plan ("before"/"after" = without/with this
+patch, throughput by fast.com):
 
-Notes:
-    An LLM helped track down the cause and draft the fix and changelog;
-    I reviewed the result and tested it.
-    
-    Tested on a Vsmart Active 1 (SDM660, WCN3990) with a 7.2-based kernel:
-    the errors are gone at boot and hci0 comes up as before. Build-tested
-    on bluetooth-next with W=1.
+  kernel  bit 9          advertised   PHYSR  reported     throughput
+  ------  -------------  -----------  -----  -----------  ----------
+  before  clear          10/100/1000  0x10   100          94 Mbps
+  before  set manually   10/100/1000  0x30   100 or 1000  470 Mbps
+  after   set manually   10/100       0x30   1000         470 Mbps
+  after   clear          10/100       0x10   100          95 Mbps
+  after   set            10/100/1000  0x30   1000         470 Mbps
 
- net/bluetooth/msft.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+"set manually" means bit 9 was set via SIOCSMIIREG. Happy to share the
+script if useful.
 
-diff --git a/net/bluetooth/msft.c b/net/bluetooth/msft.c
-index 6f4b7c38a247..a3f07f35a1b3 100644
---- a/net/bluetooth/msft.c
-+++ b/net/bluetooth/msft.c
-@@ -1082,9 +1082,13 @@ void msft_vendor_evt(struct hci_dev *hdev, void *data, struct sk_buff *skb)
- 		return;
- 
- 	/* When the extension has defined an event prefix, check that it
--	 * matches, and otherwise just return.
-+	 * matches, and otherwise just return. A vendor event shorter than the
-+	 * prefix cannot be an MSFT event, so it is not malformed either.
- 	 */
- 	if (msft->evt_prefix_len > 0) {
-+		if (skb->len < msft->evt_prefix_len)
-+			return;
+ MAINTAINERS                               |  1 +
+ drivers/net/ethernet/realtek/r8169_main.c |  4 ++++
+ drivers/net/phy/realtek/realtek_main.c    | 26 +++++++++++++++++++++++
+ include/linux/realtek_phy.h               | 10 +++++++++
+ 4 files changed, 41 insertions(+)
+ create mode 100644 include/linux/realtek_phy.h
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 509b35b5a0e7..a54370ae80a3 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -9789,6 +9789,7 @@ F:	include/linux/phy_fixed.h
+ F:	include/linux/phy_link_topology.h
+ F:	include/linux/phylib_stubs.h
+ F:	include/linux/platform_data/mdio-bcm-unimac.h
++F:	include/linux/realtek_phy.h
+ F:	include/net/phy/
+ F:	include/trace/events/mdio.h
+ F:	include/uapi/linux/mdio.h
+diff --git a/drivers/net/ethernet/realtek/r8169_main.c b/drivers/net/ethernet/realtek/r8169_main.c
+index 43c46d483eb8..fe49197c4d7b 100644
+--- a/drivers/net/ethernet/realtek/r8169_main.c
++++ b/drivers/net/ethernet/realtek/r8169_main.c
+@@ -28,6 +28,7 @@
+ #include <linux/bitfield.h>
+ #include <linux/phylink.h>
+ #include <linux/prefetch.h>
++#include <linux/realtek_phy.h>
+ #include <linux/ipv6.h>
+ #include <linux/unaligned.h>
+ #include <net/ip6_checksum.h>
+@@ -5619,6 +5620,9 @@ static int r8169_mdio_register(struct rtl8169_private *tp)
+ 		return -EUNATCH;
+ 	}
+
++	if (tp->mac_version == RTL_GIGA_MAC_VER_51)
++		tp->phydev->dev_flags |= RTL_PHY_F_GIGA_LITE;
 +
- 		evt_prefix = msft_skb_pull(hdev, skb, 0, msft->evt_prefix_len);
- 		if (!evt_prefix)
- 			return;
+ 	/* Keep EEE off but the version stays EEE-capable so that link-up
+ 	 * still clears the MAC TX-LPI bits.
+ 	 */
+diff --git a/drivers/net/phy/realtek/realtek_main.c b/drivers/net/phy/realtek/realtek_main.c
+index e14960192e79..319122270bca 100644
+--- a/drivers/net/phy/realtek/realtek_main.c
++++ b/drivers/net/phy/realtek/realtek_main.c
+@@ -14,6 +14,7 @@
+ #include <linux/of.h>
+ #include <linux/phy.h>
+ #include <linux/pm_wakeirq.h>
++#include <linux/realtek_phy.h>
+ #include <linux/netdevice.h>
+ #include <linux/module.h>
+ #include <linux/delay.h>
+@@ -1706,6 +1707,7 @@ static void rtlgen_decode_physr(struct phy_device *phydev, int val)
+ 		phydev->speed = SPEED_100;
+ 		break;
+ 	case 0x0020:
++	case 0x0030:	/* Giga Lite */
+ 		phydev->speed = SPEED_1000;
+ 		break;
+ 	case 0x0200:
+@@ -1735,6 +1737,29 @@ static void rtlgen_decode_physr(struct phy_device *phydev, int val)
+ 	}
+ }
 
-base-commit: 964430c038967fd06643e866f68115664e1a1bd1
--- 
-2.43.0
++static int rtlgen_config_aneg(struct phy_device *phydev)
++{
++	int ret = 0;
++
++	/* With Giga Lite enabled, the PHY can link in Giga Lite even
++	 * when 1000baseT/Full is not advertised.  Only allow it when
++	 * autonegotiating with 1000baseT/Full advertised, so that a
++	 * lower speed set by the user is respected.
++	 */
++	if (phydev->dev_flags & RTL_PHY_F_GIGA_LITE) {
++		bool en = phydev->autoneg == AUTONEG_ENABLE &&
++			  linkmode_test_bit(ETHTOOL_LINK_MODE_1000baseT_Full_BIT,
++					    phydev->advertising);
++
++		ret = phy_modify_paged_changed(phydev, 0xa42, 0x14, BIT(9),
++					       en ? BIT(9) : 0);
++		if (ret < 0)
++			return ret;
++	}
++
++	return __genphy_config_aneg(phydev, ret > 0);
++}
++
+ static int rtlgen_read_status(struct phy_device *phydev)
+ {
+ 	int ret, val;
+@@ -3248,6 +3273,7 @@ static struct phy_driver realtek_drvs[] = {
+ 	}, {
+ 		.name		= "Generic FE-GE Realtek PHY",
+ 		.match_phy_device = rtlgen_match_phy_device,
++		.config_aneg	= rtlgen_config_aneg,
+ 		.read_status	= rtlgen_read_status,
+ 		.suspend	= genphy_suspend,
+ 		.resume		= rtlgen_resume,
+diff --git a/include/linux/realtek_phy.h b/include/linux/realtek_phy.h
+new file mode 100644
+index 000000000000..7fcde616c070
+--- /dev/null
++++ b/include/linux/realtek_phy.h
+@@ -0,0 +1,10 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _REALTEK_PHY_H
++#define _REALTEK_PHY_H
++
++#include <linux/bits.h>
++
++/* phy_device::dev_flags */
++#define RTL_PHY_F_GIGA_LITE	BIT(0)
++
++#endif /* _REALTEK_PHY_H */
 
+base-commit: d8674294aefef02266c4d47ad10131f1bffbe534
+--
+2.55.0
