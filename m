@@ -1,186 +1,121 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3707036F914
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 17:21:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B1FD3328FD
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 17:22:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791652911; cv=none; b=D106DDsvDeuEEeDcPGblCY59NXfi9zfYzVO9n00W6YlS9tRHQQ/Tuq5M4IIXp/ghH/2kKK4lSLj/LTOBh5NuUCgTck+ckgEREsqR7LjRPekwUjkwi55REhvHrVYFgnTk0T7KgfsJ0jqFGONSIeC57DTk3uNryWvEaXlk4gzc7ss=
+	t=1791652956; cv=none; b=bUBwnT4daEUdpBiaIoyvwQAt60wdqKEXD8fEdCHORFnlyiZazvCjQNBBsP30VHgXSe9csWkhXYAGRy/swrSOOL5QB4uHOVnKAQymLwldjOK3TwGFsF3SHqc14UinIMV9T97P+eBozoEfwemSleQx4bDSJ8EASOcbp28jeVDK5Bw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791652911; c=relaxed/simple;
-	bh=oJsYl1DS5M76Zz/kovmTDYXs0UpltIPB0aKVEPmLvhQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KP0fJvw55fDzcKkYGLJsLdRJ9HLYA9v7LjXcLEAYjWIngwL8J4xjXdB6jkNlPioU7EpPvNVpaA1mYsFv/iLQ5GN9NgmUnJs1wWPQU90qlKjjpmBcPepw+avc7KRvCPBuixeOdshKmQMsmJ/23TykXJ3NE4RTZHqd+Gq9pTPGUNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aop+tANs; arc=none smtp.client-ip=209.85.128.45
+	s=arc-20240116; t=1791652956; c=relaxed/simple;
+	bh=VKAd+K1N9VcAyobh6Rlv25i6M2gM4ufwOIzTycg5WuI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=FQuKIpFAgkS7nD8zhbnIzSRzdJLWROCK1daimEesaXl/PUMNyXv6IcbrqjQTiq8EUtSUq5GhAETROVz991MX/BhT3KQJfpbLvNcPcdti0h0qIC5MyK73nUAE/RoxeRXXNh0JFpk+96yGOENamSAAA7IUVD7rvFZkcNDR61iO7iY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tEVrQ4cG; arc=none smtp.client-ip=209.85.215.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aop+tANs"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4956869750eso5306965e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 10:21:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tEVrQ4cG"
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc4b62d118aso368043a12.2
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 10:22:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791652908; x=1792257708; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9TFjLqjpz1OV1iGjbq0FG1a5x3VLRDXIY9kkC816eew=;
-        b=aop+tANs+X08VecrR7am2jcVAFozFCafFGzpVsY+aaMAqEwpzXsb0GFijeNPtRza6f
-         V3E/6hfGu/Cn6AMXnKhxyGjXeZrXIgWxFfVgtHh1mcESDkR6WzRC0CuxO/fFgwwwDb/D
-         ZZFBucNj1GYSkjqyfE9POsup9oZFQ8mDymdzFQh12HhtoXgn3u/66DvtbsoSPS7Kde8A
-         m6ue7aRv4yLT3ONM0/wLyvv0BBjh5fy+eSGKOWavR+wHE6PWa6JH5OXNa+QGMUl+ZZqD
-         0TDbB0UHfZ4cLXUDoXJ65BA9W5GSnqLNDCgHLR/OQefONaG6MbI2Jtbczt8hG931uUWB
-         15+Q==
+        d=gmail.com; s=20251104; t=1791652954; x=1792257754; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=OnHwutE7ITegaeoZburj81GeIxbecNg4buPuoGhuOZs=;
+        b=tEVrQ4cGiSM4VzqzMltU+/JS4H5W7yQ4F16N6QzxLXAZDQEafIRVPgX0JXzKo9hqfi
+         I9YFCvzfX6/9L+4H1ZozhZRzJsIW8v276zpl2zvCIXVTMBI+8uBRmHYAmfbM0/fPp948
+         lVEFj69mcTAqt05PqtR69HQB6TvqDE3x/2uvp+4y1LCfKKw7/QzJ0Izc8HPnN2iM1Kuu
+         qRo33bfW1A4QxMNH3Kg6MsoznAVZb8BwHIUxNQeZR4qVekWAi9+nY1ovoPAzEyzWOWI2
+         aGmAWOHeWdROQqZy/+wNTHl8GfiAqbOQM37ibGS/LUjn2s19XYCAL/J5u3vIs+gGRYRc
+         L3fQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791652908; x=1792257708;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9TFjLqjpz1OV1iGjbq0FG1a5x3VLRDXIY9kkC816eew=;
-        b=2tyXdULXMKQJMOZqqsr5EBKr5YzjLRi3ArPJVz0CR80EqHqpU1B/NiVEQB2XlDFHu2
-         jiler7cPRZP8r4GXkMv77S7apNAMZTPnF0qsLBp3Cn493giDvGXqiK2Tcq/9HQOabSv9
-         Kj0FJ5Ib7IdgkKKZC1cthzunGO8s3CacB2575uLqenu2K1q6Jrf08cHIEOJ4muvwjv1H
-         DGg6WjQ0rSqEcN8e8qTicg/0dFaJECogFhUvcF2OidembHIc6TRU+LTQ0sfXzF2z4BNn
-         jBiJIW/yhR/soOZ9k15o6QntvOESXEXDSaoVCn78FEEq38Dg1R8jKQLYBzZjLvgCPvHU
-         5IrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBywMk/3wytU9WNeYmj2vZ7P6PWv8OEbuuyU/oeAphj+iO7uWw9jfQ7B48mLDdo0HPR3IzbS/DZTeDJwoIU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJTGtwriSwSZ4EsRadqJw2ajJplc18r/1k0wLVAXryfdQQR5K7T
-	hyvmFS3vdhwGUGQOioaBlrGqxDE2VgKkRW/NJeyD6fQ2SUVo6s+okgQxf9ydVY22w2U=
-X-Gm-Gg: AYBFou3230d4jv4dVce6yr83/+nLpM2FCfHEKOJwpO9oqPOhBpbYzdo6lOQ0TvpA/hz
-	ObAajDoI59Gg38WxPbvJEgPMVGQoJodHOHIDXYa3LyvFmUm2V83fEdQqr9SfLQU5rZHUrgTgyPs
-	AGBw7kN7W9YHuWcr6f/43Nyq8EG/GRLXKk6POSdB16QGkQkIq7bPivzOrnAW0xzuLZwZpZAS+LR
-	VNi38AoMXlizYJ99+HT0Dv9cRvWxLIZaghiL4Y8IuHEwukV5JbP3I4OR/LDFz8KGKk3nBWZGET0
-	S8jeLTMqADiCMVbFifS+dw+NlQZrGRf3qAnrdxJvIsgZpGpKYkpOzrtKjd96g+/w8XgnFOeb9fp
-	jue5FXodz89LQ87XBo3pWMLjuQLo21vdgSeD8+gIs71nqSwbSTufkBQKZJmTwOj2i9n6CdiVrCH
-	Iiwa4welIziWzSmXp4jmoGPQ3uYPhS/AgrzevkxslDA1+0SBikIEeqShcWDjlv5ElcVL+qvK9Ki
-	9uyAlhsmVT0xCwDzKtMIzp3qrQIIkkbU8xstpfB3R7e4Mf1IQ4vOjOEyKTjEqCL1XsQjbD7GJMg
-	ogor5uRRfdJF5oKS
-X-Received: by 2002:a05:600c:6207:b0:49f:ff73:9971 with SMTP id 5b1f17b1804b1-4a18e4aff66mr96959555e9.18.1791652908208;
-        Sat, 10 Oct 2026 10:21:48 -0700 (PDT)
-Received: from center.jhjvjihww5qejoy14qwv1cc4td.frax.internal.cloudapp.net ([131.189.143.225])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18c85009csm114159655e9.2.2026.10.10.10.21.46
+        d=1e100.net; s=20260707; t=1791652954; x=1792257754;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=OnHwutE7ITegaeoZburj81GeIxbecNg4buPuoGhuOZs=;
+        b=q+8nuTywurfHRzSwodSU6GElpdpz23mlJqh3bwKmCAOaewD3I8Lgmnz60wWEoH6lq/
+         9FugBGFJWwGztAzfQYDCIJzZJwbGhh8rusdbYmHe36Jbqw5aKfy/5968BhNL5mjKvjVE
+         9L1Tu/TLPA04gr9Q6OhEN7RhEAcYoHnDerHLBwWSgS8RFXVkRHbvKtI4TTIgAkfeLJYy
+         Ouj8/OmmWnig0H3iEjpHUWOASrfpU4QUbxq4p+Ylb4SRgT8ap3/FSyGmrw4M8t0kVcEb
+         Lvzz63eQ0mFzpXOLpnCKo5PgOv/imr9grOlf4oWDu+dSfLkSNhy+Su2zc1Y4kft4Mmk7
+         +/Sw==
+X-Forwarded-Encrypted: i=1; AKwUvBxCCADeB4dkNKQibW1gXgHwSeG5E5RzA0AZdTK1zM6Jm7tXxtdgHWoHf8+iZicAFL/GUBwXA//gDYEe0GA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJ6g5KBcRAJ08j5Rm7W9b29pxUgNXMyW8ZEZBmiXaG42BSJw6Q
+	td+fWiD0QK7h+ysSjhizyHVJpcRJIZu+619T8kpNxrgPaO8xy3TrsKjC
+X-Gm-Gg: AYBFou2x20XvUsvX64mBESueutgr5ZKCNBPTwM+NQqtnaR9+xQtBr2WPBOFsW8sXHTv
+	TQlwODcexsbqkQCe3lBNF5KkYun18f93ZVLRtyklYFj6YTA4m+Bab0k6zbKKSpMwhcgxroGXjDF
+	Rs9Uo7Gif2MjRoKOuROdigGrJDskHV0KF3xp49WXmmWGEVX2kb+9PVbMKmW/v3/to3KK/UUIPtK
+	wUaQQ/KJBK93exeHwFX+Q74oC5NmbxwpXhbiwvENw+sbSL5ejvcx3qqtuM5iBrV4WjekadWGsM5
+	pf0Q/BFsp53/mycNrKDPa8zWvqTuPOK/b+so3qoNa6iu/TFiwNpLViMR5dB9T/Y2PE56L50yZX4
+	zAJYOiFieN3ncAY09e8L3+YmLAXOQXwDXOwi7uukq3cpCaqIuJUd8cV7m3KJuark6AAXx1G6fZK
+	H4SoVZufljL3ycMIsHRcssNmOMuq4/r/rL8nmsDG/htBSjl1pOATatZEsSdXXBgpM5wvM=
+X-Received: by 2002:a05:6a20:c793:b0:3de:247d:73dd with SMTP id adf61e73a8af0-3e16bf4e584mr4266698637.73.1791652954365;
+        Sat, 10 Oct 2026 10:22:34 -0700 (PDT)
+Received: from [127.0.1.1] ([121.125.115.175])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-898802de7d6sm1510213b3a.23.2026.10.10.10.22.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 10:21:47 -0700 (PDT)
-From: Orgad Shaneh <orgads@gmail.com>
-To: miquel.raynal@bootlin.com,
-	richard@nod.at,
-	vigneshr@ti.com,
-	tsbogend@alpha.franken.de
-Cc: linux-mtd@lists.infradead.org,
-	linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linusw@kernel.org,
-	kaloz@openwrt.org,
-	ulli.kroll@googlemail.com,
-	john@phrozen.org,
-	nico@fluxnic.net,
-	dwmw2@infradead.org,
-	corbet@lwn.net,
-	linux-doc@vger.kernel.org
-Subject: [PATCH 3/3] MIPS: Octeon: flash: use the simple map accessors without a shared eMMC
-Date: Sat, 10 Oct 2026 17:21:42 +0000
-Message-ID: <20261010172142.2138956-4-orgads@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261010172142.2138956-1-orgads@gmail.com>
-References: <20261010172142.2138956-1-orgads@gmail.com>
+        Sat, 10 Oct 2026 10:22:33 -0700 (PDT)
+From: Gyeyoung Baek <gye976@gmail.com>
+Subject: [PATCH 0/2] drm/imagination: Switch the GPUVM to immediate mode
+Date: Sun, 11 Oct 2026 02:22:19 +0900
+Message-Id: <20261011-pvr-gpuvm-immediate-v1-0-5b298dfce4f8@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEt0ymoC/zWMzQqDMBCEX0Vy7lKTQy19ldJDflbdQtKwq0EQ3
+ 71Jpbf5hvlmV4JMKOrR7YqxkNAnVdCXTvnZpgmBQmVlenPTvdaQC8OU1xKBYsRAdkEYB7R3DN7
+ gMKpqZsaRtt/r83WyrO6NfmlXbeGsIDi2yc+tChwhkvjrP8DpH8cXmOnsQKEAAAA=
+X-Change-ID: 20261011-pvr-gpuvm-immediate-f7ea8edc2e7f
+To: Alessio Belle <alessio.belle@imgtec.com>, 
+ Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Alexandru Dadu <alexandru.dadu@imgtec.com>, 
+ Brajesh Gupta <brajesh.gupta@imgtec.com>, 
+ Frank Binns <frank.binns@imgtec.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, imagination@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Gyeyoung Baek <gye976@gmail.com>
+X-Mailer: b4 0.15.1
 
-CAVIUM_OCTEON_SOC selects MTD_COMPLEX_MAPPINGS, and since
-commit 8c1e6b14e27d ("MIPS: OCTEON: Protect accesses to bootbus flash
-with octeon_bootbus_sem.") the flash map accessors take the semaphore
-around every access. Its only other user is the eMMC host of the older
-parts ("cavium,octeon-6130-mmc" in drivers/mmc/host/cavium-octeon.c),
-which shares the boot bus; the CIU3 parts serialize their eMMC with a
-lock of their own.
+Switch the GPUVM to immediate mode, as a prerequisite for asynchronous
+VM_BIND. A revised VM_BIND series will follow separately; v1 [1] is
+linked only for context.
 
-On boards without that host the semaphore guards nothing, but the
-custom accessors make the map non-simple, so MTD will not let jffs2
-point at it and its mount copies every used eraseblock. Use
-simple_map_init() there. The test is for the node, not the driver, so
-a disabled mmc node keeps the semaphore.
+The switch also fixes an issue Sashiko reported on [1]: the GPUVA lists
+of other objects are updated without holding their reservations [2].
 
-simple_map_init() BUG()s on an unsupported bank width; the old code
-warned and then hit the BUG() in the inline map accessors on the first
-probe command. Check the width first and fail the probe instead, and
-unmap the window when the probe fails.
+Based on drm-misc-fixes (depends on 196d4d10c1b3).
 
-On an Octeon CN6635 board (no eMMC) with a 100 MB jffs2 partition on
-an 8-bit NOR the mount drops from 15-30 s to under 1 s together with
-point() support in cfi_cmdset_0002.
+Tested on BeagleY-AI with lockdep, KASAN and failslab enabled:
+- All IGT imagination tests pass, including pvr_vm_map [3].
+- The fail-nth reproducer in patch 1 no longer warns.
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Orgad Shaneh <orgads@gmail.com>
+[1] https://lore.kernel.org/r/20260817-pvr-vm-bind-v1-0-0a0f21be7d38@gmail.com
+[2] https://sashiko.dev/#/patchset/20260817-pvr-vm-bind-v1-0-0a0f21be7d38@gmail.com?part=1
+[3] https://lore.kernel.org/igt-dev/20260930125057.1837788-1-gye976@gmail.com/
+
+Signed-off-by: Gyeyoung Baek <gye976@gmail.com>
 ---
- arch/mips/cavium-octeon/flash_setup.c | 37 +++++++++++++++++++++++----
- 1 file changed, 32 insertions(+), 5 deletions(-)
+Gyeyoung Baek (2):
+      drm/imagination: Switch the GPUVM to immediate mode
+      drm/imagination: Stop locking reservations around map and unmap
 
-diff --git a/arch/mips/cavium-octeon/flash_setup.c b/arch/mips/cavium-octeon/flash_setup.c
-index 9242521..a616e7a 100644
---- a/arch/mips/cavium-octeon/flash_setup.c
-+++ b/arch/mips/cavium-octeon/flash_setup.c
-@@ -63,6 +63,17 @@ static void octeon_flash_map_copy_to(struct map_info *map, unsigned long to,
- 	up(&octeon_bootbus_sem);
- }
- 
-+static bool octeon_flash_bus_shared(void)
-+{
-+	struct device_node *np;
-+	bool shared;
-+
-+	np = of_find_compatible_node(NULL, NULL, "cavium,octeon-6130-mmc");
-+	shared = !!np;
-+	of_node_put(np);
-+	return shared;
-+}
-+
- /*
-  * Module/ driver initialization.
-  *
-@@ -102,11 +113,26 @@ static int octeon_flash_probe(struct platform_device *pdev)
- 		flash_map.virt = ioremap(flash_map.phys, flash_map.size);
- 		pr_notice("Bootbus flash: Setting flash for %luMB flash at "
- 			  "0x%08llx\n", flash_map.size >> 20, flash_map.phys);
--		WARN_ON(!map_bankwidth_supported(flash_map.bankwidth));
--		flash_map.read = octeon_flash_map_read;
--		flash_map.write = octeon_flash_map_write;
--		flash_map.copy_from = octeon_flash_map_copy_from;
--		flash_map.copy_to = octeon_flash_map_copy_to;
-+		if (!map_bankwidth_supported(flash_map.bankwidth)) {
-+			pr_err("Unsupported flash bank width %d\n",
-+			       flash_map.bankwidth);
-+			iounmap(flash_map.virt);
-+			return -EINVAL;
-+		}
-+		/*
-+		 * The boot bus semaphore only serializes the flash against
-+		 * an eMMC host that shares the bus (the CIU3 parts have
-+		 * their own). Without one, use the simple accessors: they
-+		 * let MTD point at the flash, so jffs2 scans it in place.
-+		 */
-+		if (octeon_flash_bus_shared()) {
-+			flash_map.read = octeon_flash_map_read;
-+			flash_map.write = octeon_flash_map_write;
-+			flash_map.copy_from = octeon_flash_map_copy_from;
-+			flash_map.copy_to = octeon_flash_map_copy_to;
-+		} else {
-+			simple_map_init(&flash_map);
-+		}
- 		mymtd = do_map_probe("cfi_probe", &flash_map);
- 		if (mymtd) {
- 			mymtd->owner = THIS_MODULE;
-@@ -114,6 +140,7 @@ static int octeon_flash_probe(struct platform_device *pdev)
- 						  NULL, NULL, 0);
- 		} else {
- 			pr_err("Failed to register MTD device for flash\n");
-+			iounmap(flash_map.virt);
- 		}
- 	}
- 	return 0;
--- 
-2.53.0
+ drivers/gpu/drm/imagination/pvr_vm.c | 80 +++++++++++++-----------------------
+ 1 file changed, 28 insertions(+), 52 deletions(-)
+---
+base-commit: 6ccf996a0dec1852dab94ad865f27b4904750e12
+change-id: 20261011-pvr-gpuvm-immediate-f7ea8edc2e7f
+
+Best regards,
+--  
+Gyeyoung Baek <gye976@gmail.com>
 
