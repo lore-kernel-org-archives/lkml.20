@@ -1,179 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88BF3270EC3
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 17:31:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE9561A38F9;
+	Sat, 10 Oct 2026 17:32:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791653501; cv=none; b=Ky6vaVtEKTZuuM3ainK6zomjK+1Ru036IUBiQYsm92inrE1eefm8HqI+TYeMXkUH0A3X/mw6nM1gG5XzXRoMZNxeLs/BMsUVdtGBU6kdQvqxMWTEF6OzDubd6oHDED8UMGZ4DLWEj8xyc/RYK7/eD2WCibhrz/I6DhaEtyuL1m4=
+	t=1791653527; cv=none; b=h6I34QPNZ/CSUc1v4nAbtyoLzCgJyZtMcKm01p6IeZjDR5FdsXAxafDz6BFCRPA02UXS354MZpC0/ZpyoJPTaGHJ+Vt6n4YZ7YduXUssIZMyteebnEAUKnmYAoPmA4hHtFu2Bn3Lq5ZtUADIzqyYKv+cjm4wAUx8gWot4D/6uAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791653501; c=relaxed/simple;
-	bh=6e/wKykn4I0CIREmsh6sbNcypFs6xJVNzdkbfokcO28=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UfmRXP85veVHEdp7HJd4+GfcVZMA9u0quypMbSo/qPkmijC2tQXIDzgpPe+NKBoGLQ5oiXfWktAcgNsSprXMXr6MRKQWk+KvxLE6GKSJJcySDoXzDnQXUxdXbAv4OKOGIX7xnvH0d3NhsXdVBWuBYnvAAp+ivFvRMj72Ib4D+44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q5VU2pmn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791653527; c=relaxed/simple;
+	bh=g5wXzyRKjRO7EDueR6svTDpzjwrDKZ9xDhYyiHBcpVs=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=fMB0bdvslQPUnNgA+v8Cx0EgTifmjpJYuOpkXBJpcGf3A8/0ytvmq+QdODDDnRP0S9NRiJtp3aXTCa8mhHTj55YV4cPu7+gafLbgEdm7wEIe4b9+zKhHGSztf/2i3iQ1pOo0d0G46kxvBfm2Q1AzbTUavmQbLoAe6FlmEQUL1Gw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aPjwLqH7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q5VU2pmn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 007B51F000FF;
-	Sat, 10 Oct 2026 17:31:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aPjwLqH7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 402E51F000FF;
+	Sat, 10 Oct 2026 17:32:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791653500;
-	bh=e2SG1oGKx1pJ9O3O89wodpevhJou8Cyz1CclTJcPSOw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Q5VU2pmnyga/EOzEG90Yo3Y7DLmndxWBIb6qC/Bc2DZvJu/kjyeBa7KOqemmfHgsp
-	 Ll/Pv5nhggrT9NTfkqrpUCLjObuIEPFF1iBqiYNybEkvsCK/ZKocWkl+kpgPSNtarL
-	 BC0kCsmcEWhY9R3J5NguAn7JjfR5jFvmWmhtlA+jnKdNq99WReX9Om9k0mtsQZBtZt
-	 WgWpwSMlW/a8MS4fsRmjZ9c08mtsNtw/7ZDnrsEN7hekPLt9xAyTUd25MgHelDfwSe
-	 4fP1Nlf9rOCxNHBnYK++RTGCiO/irZ4JgYgjLlR1sbiZg9LfctK3LsTZEyGAewBfrQ
-	 QTgjSIKGOlUqA==
-Message-ID: <cbc1ae4e-3e83-4f47-91e0-f4f2913b141e@kernel.org>
-Date: Sat, 10 Oct 2026 19:31:35 +0200
+	s=k20260515; t=1791653526;
+	bh=IUWT7DJ5VKwNdScNJZ8XESSRx4a5ok3hMOTtULGo01c=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=aPjwLqH7egSTzP1IkBPDk2TlfLdFTZdgB55PDKqpN1nkbztn5M6kEUVZXb3nKloLg
+	 jxL61pFl8oKn7Mn8Hb0wMIKmhmRs4hj21xUkGNSh7/e+Z24AS0lBcv/RkePkZaPCTO
+	 i6uT7shFGhXDdWrhrPceSx857jgMV0Tk1k1XZfAvP9dJUm3eIKuuiXZx9XIwBD9aIf
+	 5C/g92ER491xKjr5V6rF65IBatxFdEio7Yce4jCr9EMtWzVoUbDdv2qngluQrq9MMM
+	 eO2tl0hr6LmbXlroecDhljh6eT6GsRvzlX543jP7mKq+GzdRbyWZpIOgTncJTVr0p/
+	 hfBKLbw4XrN8w==
+Message-ID: <sashiko-outbox-166778@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] MIPS: Octeon: flash: use the simple map accessors
+ without a shared eMMC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com, "Orgad
+ Shaneh" <orgads@gmail.com>, tsbogend@alpha.franken.de
+Cc: dwmw2@infradead.org, ulli.kroll@googlemail.com, corbet@lwn.net, kaloz@openwrt.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linusw@kernel.org, nico@fluxnic.net, linux-mtd@lists.infradead.org, linux-mips@vger.kernel.org, john@phrozen.org
+In-Reply-To: <20261010172142.2138956-4-orgads@gmail.com>
+References: <20261010172142.2138956-1-orgads@gmail.com>
+ <20261010172142.2138956-4-orgads@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 10 Oct 2026 17:32:04 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] powerpc/lib: prefetch ahead in __csum_partial()
-To: Rosen Penev <rosenp@gmail.com>
-Cc: linuxppc-dev@lists.ozlabs.org, Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- open list <linux-kernel@vger.kernel.org>
-References: <20261008034932.3180490-1-rosenp@gmail.com>
- <509cac24-1b3b-4b85-8ad2-ef90da521dd6@kernel.org>
- <CAKxU2N9imBpPHmJSefACvSR1FJofF9JY=ziRatmnQyKK9084gw@mail.gmail.com>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <CAKxU2N9imBpPHmJSefACvSR1FJofF9JY=ziRatmnQyKK9084gw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] mips: cavium-octeon: global state corruption on multiple flash pro=
+bes
+--
 
+commit 9e242ec4162d9c7c06bd10d98f2bbfb32869d150
+Author: Orgad Shaneh <orgads@gmail.com>
 
-Le 09/10/2026 à 22:13, Rosen Penev a écrit :
-> On Fri, Oct 9, 2026 at 9:23 AM Christophe Leroy (CS GROUP)
-> <chleroy@kernel.org> wrote:
->>
->> Hi Rosen,
->>
->> Le 08/10/2026 à 05:49, Rosen Penev a écrit :
->>> __csum_partial() reads every byte of the buffer once and never touches
->>> it again, so on cores without a hardware prefetcher every cache line is
->>> a demand miss. After a non-coherent DMA the received data is never in
->>> the cache, which makes the GRO checksum validation of forwarded TCP
->>> traffic the top entry in the profile on a 464FP (APM82181): 22% of all
->>> cycles were spent in __csum_partial() when routing with GRO enabled.
->>
->> Very nice patch. What is the new % after the change ?
-> 22.2% -> 13.4% of cycles, but the second profile also had a larger RX
-> ring (RXB 256) and was forwarding ~20% more traffic, so it understates
-> the reduction per byte. I can redo a clean A/B profile if useful.
+MIPS: Octeon: flash: use the simple map accessors without a shared eMMC
 
-Yes would be usefull
+This patch updates the Cavium Octeon flash setup to use simple map accessors
+when there is no shared eMMC host on the boot bus. It also changes the flash
+bank width check to fail and unmap the memory if unsupported, rather than
+just warning.
 
->>
->> How do you test that ? I'd like to do some performance test on 8xx and 83xx.
-> Single-stream iperf3 TCP routed through the board (LAN and WAN in
-> separate netns on the host), GRO on, median of 3 runs, A/B in the same
-> boot. On the MX60 the TAH can't verify the checksum because of the
-> qca8k tag in front of the EtherType, so every forwarded packet is
-> checksummed by GRO in software. Any setup where GRO has to checksum
-> in software should show it; "perf record -a" during the run shows
-> the __csum_partial share.
-> 
-> - The 8xx distance. On 8xx, 3x is only 48 bytes, shorter than the
-> shortest distance tested on the 464 (64 bytes). The reviewer's 8xx
-> results may argue for a fixed distance in bytes instead of a multiple
-> of L1_CACHE_BYTES.
+> diff --git a/arch/mips/cavium-octeon/flash_setup.c b/arch/mips/cavium-oct=
+eon/flash_setup.c
+> index 3395acde4d60a..28fbe3d15c956 100644
+> --- a/arch/mips/cavium-octeon/flash_setup.c
+> +++ b/arch/mips/cavium-octeon/flash_setup.c
+[ ... ]
+> @@ -102,11 +113,26 @@ static int octeon_flash_probe(struct platform_devic=
+e *pdev)
+>  		flash_map.virt =3D ioremap(flash_map.phys, flash_map.size);
+>  		pr_notice("Bootbus flash: Setting flash for %luMB flash at "
+>  			  "0x%08llx\n", flash_map.size >> 20, flash_map.phys);
+> -		WARN_ON(!map_bankwidth_supported(flash_map.bankwidth));
+> -		flash_map.read =3D octeon_flash_map_read;
+> -		flash_map.write =3D octeon_flash_map_write;
+> -		flash_map.copy_from =3D octeon_flash_map_copy_from;
+> -		flash_map.copy_to =3D octeon_flash_map_copy_to;
+> +		if (!map_bankwidth_supported(flash_map.bankwidth)) {
+> +			pr_err("Unsupported flash bank width %d\n",
+> +			       flash_map.bankwidth);
+> +			iounmap(flash_map.virt);
+> +			return -EINVAL;
+> +		}
 
-Let see
+[Severity: High]
+Since flash_map is a static global structure, what happens if there are
+multiple flash devices probed sequentially?
 
->>
->>
->> When you say "never touches it again", do you mean the data is not used
->> again after that ? In that case would it help to do a 'dcbi' after using
->> the data in order to make the cache line available again and avoid
->> possible writeback to free a new cache line ?
-> "Never touches it again" was poorly worded. I meant the loop reads each
-> byte once, so there is no reuse within the function. The caller may
-> well use the data (local receive followed by a copy to user space), and
-> csum_partial() is also called on buffers the CPU just wrote, where dcbi
-> would throw away dirty data. For the DMA'd RX case the lines are clean,
-> so evicting them costs no writeback anyway. I'll reword it in v2.
+The line just above this block unconditionally overwrites flash_map.virt
+with a new ioremap() on each probe, which appears to leak the previous
+mapping and corrupt the state of any already-registered MTD device.
 
-Yes of course, I should have thought twice before asking.
+If octeon_flash_probe() executes a second time and fails the bank width che=
+ck
+here, it calls iounmap(flash_map.virt) and returns an error. Does this unmap
+operation turn the first successfully probed MTD device's shared reference
+into a dangling pointer, leading to an invalid memory access when the first
+device is accessed?
 
-A reword will be welcome anyway.
-
->>
->>>
->>> Issue a dcbt four cache lines ahead in the main loop. dcbt is a hint and
->>> never faults, so prefetching past the end of the buffer is harmless.
->>>
->>> On a Meraki MX60 (APM82181 at 800 MHz, single TCP stream routed through
->>> a qca8k DSA switch, iperf3 median of 3, A/B in the same boot):
->>>
->>>     prefetch distance   LAN->WAN   WAN->LAN  (Mbit/s)
->>>     none                370        341
->>>     64 bytes            430        381
->>>     96 bytes            438        397
->>>     128 bytes           438        385
->>>     160 bytes           434        386
->>>     256 bytes           423        383
->>
->> 3x CACHE_SIZE distance seems the most efficient, why did you choose to
->> implement 4x CACHE_SIZE ?
-> AI answer:
-> 
-> Why 4x
-> 
-> There wasn't a measured reason. In the original session's reasoning,
-> 96 to 160 bytes were treated as the same within noise, and 128 was
-> picked from the middle of that range. The full log is less one-sided
-> than the table in the commit message:
-> 
-> dist=96  head=0  up=438(375-443) down=397(392-398)   <- run once, one bad up run
-> dist=96  head=3  up=425(422-443) down=391(386-392)
-> dist=128 head=0  up=438(433-439) down=385(385-389)
-> dist=128 head=4  up=444(437-444) down=387(386-392)
-> dist=128 head=4  up=440(420-446) down=380(380-389)
-> pf128 small_rx=0 up=436(426-439) down=389(384-393)
-> pf128 small_rx=0 up=431(422-438) down=387(380-389)
-> dist=160 head=0  up=434(425-435) down=386(385-391)
-> 
-> 128 was run five times, with WAN->LAN between 380 and 393. 96 was run
-> once with a clean configuration, and that run had an outlier upstream
-> sample of 375. The 397 vs 385 gap is about 3%, which is close to the
-> spread between 128 runs. So 96 may be slightly better, but the data
-> can't separate the two. The honest answer is "no strong reason, happy
-> to switch to 3x."
-
-Ok
-
->>
->>>
->>> Prefetching the first lines before the loop made no measurable
->>> difference and is not done.
->>>
->>> Assisted-by: LLM
->>
->> In what way did LLM help ?
-> All of it. I set up a serial console to my Meraki MX60, sudo chmod 666
-> /dev/ttyUSB0, and hooked up two ethernet cables to my desktop and its
-> WAN and one of its LAN ports so it could test routing performance.
-> 
-> The task I gave it was to speed up ethernet performance. I expected a
-> fair amount of work on its dated ethernet driver (IBM EMAC) but
-> because GRO (software checksumming actually) was unavoidable, it made
-> this change. It was using perf to find out where the bottlenecks were.
-> This is one place. I probably should have constrained it further.
-> 
-> All responses before the above were generated. I'll fix the patch up
-> once I get the MX60 set up again.  I currently have a bcm47xx device
-> hooked up which codewise is in a really bad shape.
-
-Nice to know.
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261010172142.2138=
+956-1-orgads@gmail.com?part=3D3
