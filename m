@@ -1,73 +1,48 @@
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF7436404E
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 17:57:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C18F0352032;
+	Sat, 10 Oct 2026 17:57:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791655023; cv=none; b=O3iRtXBEa6W7tqRqogyZPHh+HorOSuAeyjjwsThXeXnwK8VTxpF8mY6tkwyqOUOGMDcnW145lvgfuUesUVWYpqd6Vp/lMix5yBZPMiFEJVOS0n92mFMdGBxr/UujNFHk0B21EGStA+DyWYRDJKWF1qtAKb/emGHHe4Mc/vmynTY=
+	t=1791655070; cv=none; b=E43IcptDpikCPpSky/bsV3WuQ6XillvNQlRbvCEl7I52MeDhPE82QF6s3EmajsH0BzEFu5Pa4KsBwTXhCZLrZB8/qifgQS91o3TZ86100tzxHI2gwk2jE8Yv13C+2k2HngAJmx4mEkLtCdKKeCLSS3Um8B1xC4tHV3V0dkCsm30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791655023; c=relaxed/simple;
-	bh=MpnALZG1g9ffSEIKd4Yh2uqvfW31Aa9s3G1+6rk6JIE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gka9Bbu9YHb12PF9pL1K8lyXyFo9ifqEK2Jn0CFG0/ZDw9ohP1wcsg8hy6EeTOIwbNpxbJlJkBSFvDX8Nvk9ZXP5r0RMl97jGY+G6QIAcE3Q9YkgOmmforAC2JOOxjyS1BoBQ+xMD11gbXlDpp4IsDqJrOgA8Ku7ECOGbK+qfgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=DDl4+pw0; arc=none smtp.client-ip=209.85.222.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	s=arc-20240116; t=1791655070; c=relaxed/simple;
+	bh=amUnCp8nO/3YDfeN8K6fzquoB8WYxfrrFRaRFx4B9xI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QdMAbFThcDhDYsQaKeVGjzb1vVu6/IKao3AfjFp4eUJk9xucdqjEClGvk7CBbb9AclfZG495455ao8oZRkg8E1P361S7Z49EzFW7Dnr+OZI/dInPMbm3cOi7tm5ITYtUfADQuYrNjh/jZ8wOxLmQxeCY62YLr8oaXugddPZfq2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=MrP3MGdP; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="DDl4+pw0"
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93e7457349eso61494285a.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 10:57:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1791655020; x=1792259820; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i3+ihWzjyeVbz1fS/BASYfQ2t4vA4knncZR4QXyo1so=;
-        b=DDl4+pw0XhjDwWOunAKn9s4OP9x6b3RifMCZ0ayFXJpxFwM1Yif8r0gxs0RnO1agei
-         rgJnfxxNcxTvFlZIAFx1xZ9+P2km/NEs2kQ0/i1bm4KUS/RpoUVPlIhPR7rM5NwIod3b
-         aHYKDNzHSFskaWeHg7KjisT04oOBk2+OXt4Dohx0I97wUZFP1YC/lHUgMDvHLx8hU93H
-         T46XCCNXP/Cc1XKWohKT7U2XKVqgdXTr7zQZpXMcCCH0qiUji5pqqFDYIPUue4iZwjNn
-         rujzMFtkmJfVM0RUFT1qskmSpdiHqOOBbh+in8I26qLGSQmjbRCasAR27zAoFTsFdANy
-         HZ5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791655020; x=1792259820;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=i3+ihWzjyeVbz1fS/BASYfQ2t4vA4knncZR4QXyo1so=;
-        b=S7l9ClY4bhyl9FmDUbqFx+Ci2Y6f0WkedCgt2SO6A06v205BZsbC/NUHRXZvTtsZfu
-         qB9j2O0SoklfhYxK+QXZZzavXzQ16dbjd7sBUGPtKwIfDo75uIkA980xHEwOK/IAlKuQ
-         TKt106Nk+TaAq6uKOsqFdZlb/5kuflnNhKt2NStpYJLB5+QjBPzrZ0ksMmxXXdJwRWEa
-         TY4y4tKXRsDmZ1Z8uyIXnBOGvOPQCbkl04h+l762KMH0xyl/SqX8fsq/vtraLSifh/ZA
-         O6+6KNcvZL4//fKztwjVY9xny72ofqIO2eONjsPvz6Mu8LJ+OpWt8qljVuwG/ko4uyWe
-         fPOA==
-X-Forwarded-Encrypted: i=1; AKwUvBxmr3A4J174AU4T1IlvKgY97leH8vm38RuvrpLTxRNZ/+kryiz/Dj1rH8H6pzXDsWh2V6q3JgWxwFUfEdQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJno/KUjk3ahBt7PBOo3Jr3fAsnu9uVqyKqIpztdWMGWLmAinnj
-	83aNXyX7n0kDkAbyMPJ6Jx0YNRxSWk1iYSft3XlvmsydzJwswxnWxKlV7tfDiraTsg==
-X-Gm-Gg: AYBFou2GIZsjKGNZiAwJyefJ5B7OvDpw5wTkWpLwYIRGI5NBvifsgY3iaGC2vQ/VKe9
-	e+R09D9XcNsXBxExX6T+3rp50hdFCP+mcRNmGzLIxfWkkZaZUTAKjbcoG+aW53sFZ7oMpjSyQY7
-	j0SF+h6dtnDgmp7fhqfQCZxD6bJrMFPuORVxbtSlRrehzy2YXvDXeU2MMwYou3/LvrykGGAMesF
-	/K1c4iK3VRW/aVGaRztEryD5ETK7g+0BmrQRcIKSaYnPjq7sht7IU1yUFc/B0kn/q8WXRwdZMi7
-	Kcc9CYrJaXs5CiHXBGils5WbRbp0LkfDzAtUUcEu4hE3Z42RNwVQO8omEtDvPUYnwL9gWbI35XT
-	nH4Iq9lZ2ATD6txq/Vl3MR7eB3HnvgUGcDRTy1rrBFU+HlxNlmsBm5Yjt+lwmBKWeHZOao/wMUq
-	DGmPTNCDnUtIw/gxAqA1J52nODtCXOARvTBNZ95v6xVRY0lD9apL2rtYN+EoA75AHG39YL3cWXl
-	tWUoB87gqHHCJKBdOLroRs=
-X-Received: by 2002:a05:620a:7110:b0:939:feee:630 with SMTP id af79cd13be357-93ebd24474bmr897615685a.30.1791655020077;
-        Sat, 10 Oct 2026 10:57:00 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb98861bdsm476732285a.24.2026.10.10.10.56.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 10:56:59 -0700 (PDT)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: Jan Kara <jack@suse.cz>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Thomas Schmitt <scdbackup@gmx.net>,
-	Matthias Goergens <matthias.goergens@gmail.com>,
-	linux-fsdevel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="MrP3MGdP"
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id B16AC82A48;
+	Sat, 10 Oct 2026 19:57:46 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id Kf6abI61CVjB; Sat, 10 Oct 2026 19:57:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1791655066; bh=amUnCp8nO/3YDfeN8K6fzquoB8WYxfrrFRaRFx4B9xI=;
+	h=From:To:Cc:Subject:Date;
+	b=MrP3MGdPHBjQqW2QKx9m5v0deClKQfdcmK9LQJneCnlLX4dTiA85kW4zToX1+OBgD
+	 Nv9UgAbpa9n2NCircHWkpemNXlfDVq6KT3W+y3m70soJDjfWUiROTlF765U41wPJbR
+	 rEgp1So5JXacGgX/2T7XyxQ3cdwcFmnHgz2mGopEpUmU+CCgXcqRuBzLe0iP+yI0bM
+	 UnNwVploy6zqmmYbu9O+1SBhkyBp4igeVfniPt9s5AB73itopgu+L+HTMO7/0QzLKN
+	 39GJbZlzhF6wcz4xjYTCVRu08gt1UudumKzPBh44UkTMXX8LP8iYVFWcPGqOuZrtyO
+	 kcl9jwQn7YCiw==
+From: Rustam Adilov <adilov@disroot.org>
+To: Tony Lindgren <tony@atomide.com>,
+	Haojian Zhuang <haojian.zhuang@linaro.org>,
+	Linus Walleij <linusw@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-omap@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] isofs: Fix handling of directories with small logical blocks
-Date: Sat, 10 Oct 2026 13:56:49 -0400
-Message-ID: <20261010175649.700233-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
+Cc: Rustam Adilov <adilov@disroot.org>
+Subject: [PATCH v2] pinctrl: single: add big endian support
+Date: Sat, 10 Oct 2026 22:57:21 +0500
+Message-ID: <20261010175721.76213-1-adilov@disroot.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,120 +51,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit b2eb2e288604 ("isofs: Drop support of directory entries
-straddling blocks") made do_isofs_readdir() and isofs_find_entry()
-reject a directory record that does not end in the block it begins in.
+Add support for big endian pin controllers by taking into account
+a big-endian device tree property.
 
-However, the block is the logical block of the volume, which can be 512
-or 1024 bytes. ECMA-119 only requires a record to end in the 2048-byte
-logical sector in which it begins, so a record can cross a logical
-block. As of now, ls stops at the first such record and the files after
-it cannot be opened.
+This is needed on big endian MIPS platforms like RTL930X, RTL931X
+and RTL9607C who use pinctrl-single, because when SWAP_IO_SPACE is
+enabled, the mmio accessors in pinctrl-single perform a byte swap.
 
-The issue can be reproduced with an image that has 1024-byte logical
-blocks and 40 files in its root directory:
-
-    mount -t iso9660 -o loop,ro lbs1024.iso /mnt
-    ls /mnt | wc -l
-
-Before commit b2eb2e288604 ("isofs: Drop support of directory entries
-straddling blocks"), the result is 40.
-
-After that commit, the result is 19, and the kernel logs:
-
-    iso9660: Corrupted directory entry in block 0 of inode 1152
-
-This patch will put such a record together from its two blocks again,
-but only when it ends in the logical sector in which it begins.
-
-Fixes: b2eb2e288604 ("isofs: Drop support of directory entries straddling blocks")
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+Signed-off-by: Rustam Adilov <adilov@disroot.org>
 ---
- fs/isofs/dir.c   | 22 +++++++++++++++++++++-
- fs/isofs/namei.c | 22 +++++++++++++++++++++-
- 2 files changed, 42 insertions(+), 2 deletions(-)
+Change in v2:
+- Change to generic big endian io read/write functions.
 
-diff --git a/fs/isofs/dir.c b/fs/isofs/dir.c
-index 28741251d56e..c72cfb08707c 100644
---- a/fs/isofs/dir.c
-+++ b/fs/isofs/dir.c
-@@ -95,7 +95,9 @@ static int do_isofs_readdir(struct inode *inode, struct file *file,
- 	int map;
- 	int first_de = 1;
- 	char *p = NULL;		/* Quiet GCC */
-+	u8 record[256];
- 	struct iso_directory_record *de;
-+	struct iso_directory_record *tmpde = (void *)record;
- 	struct isofs_sb_info *sbi = ISOFS_SB(inode->i_sb);
+ drivers/pinctrl/pinctrl-single.c | 41 ++++++++++++++++++++++++++++----
+ 1 file changed, 37 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/pinctrl/pinctrl-single.c b/drivers/pinctrl/pinctrl-single.c
+index e0eb7240a985..cdfe38f259b0 100644
+--- a/drivers/pinctrl/pinctrl-single.c
++++ b/drivers/pinctrl/pinctrl-single.c
+@@ -265,6 +265,26 @@ static void pcs_writel(unsigned int val, void __iomem *reg)
+ 	writel(val, reg);
+ }
  
- 	offset = ctx->pos & (bufsize - 1);
-@@ -129,7 +131,25 @@ static int do_isofs_readdir(struct inode *inode, struct file *file,
- 		offset_saved = offset;
- 		offset += de_len;
- 
--		if (!isofs_dir_record_valid(de, offset_saved, bufsize)) {
-+		/* A record may span blocks within a logical sector. */
-+		if (offset > bufsize &&
-+		    de_len <= ISOFS_BLOCK_SIZE -
-+			      (ctx->pos & (ISOFS_BLOCK_SIZE - 1))) {
-+			unsigned int slop = bufsize - offset_saved;
++static unsigned int pcs_readw_be(void __iomem *reg)
++{
++	return ioread16be(reg);
++}
 +
-+			memcpy(tmpde, de, slop);
-+			offset &= bufsize - 1;
-+			block++;
-+			brelse(bh);
-+			bh = isofs_bread(inode, block);
-+			if (!bh)
-+				return -EIO;
-+			memcpy((char *)tmpde + slop, bh->b_data, offset);
-+			de = tmpde;
++static unsigned int pcs_readl_be(void __iomem *reg)
++{
++	return ioread32be(reg);
++}
++
++static void pcs_writew_be(unsigned int val, void __iomem *reg)
++{
++	iowrite16be(val, reg);
++}
++
++static void pcs_writel_be(unsigned int val, void __iomem *reg)
++{
++	iowrite32be(val, reg);
++}
++
+ static unsigned int pcs_pin_reg_offset_get(struct pcs_device *pcs,
+ 					   unsigned int pin)
+ {
+@@ -1785,6 +1805,7 @@ static int pcs_probe(struct platform_device *pdev)
+ 	struct resource *res;
+ 	struct pcs_device *pcs;
+ 	const struct pcs_soc_data *soc;
++	bool byte_be;
+ 	int ret;
+ 
+ 	soc = of_device_get_match_data(&pdev->dev);
+@@ -1860,18 +1881,30 @@ static int pcs_probe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, pcs);
+ 
++	byte_be = device_is_big_endian(pcs->dev);
++
+ 	switch (pcs->width) {
+ 	case 8:
+ 		pcs->read = pcs_readb;
+ 		pcs->write = pcs_writeb;
+ 		break;
+ 	case 16:
+-		pcs->read = pcs_readw;
+-		pcs->write = pcs_writew;
++		if (byte_be) {
++			pcs->read = pcs_readw_be;
++			pcs->write = pcs_writew_be;
++		} else {
++			pcs->read = pcs_readw;
++			pcs->write = pcs_writew;
 +		}
-+
-+		if (!isofs_dir_record_valid(de, de == tmpde ? 0 : offset_saved,
-+					    de == tmpde ? de_len : bufsize)) {
- 			printk(KERN_NOTICE "iso9660: Corrupted directory entry"
- 			       " in block %lu of inode %llu\n", block,
- 			       inode->i_ino);
-diff --git a/fs/isofs/namei.c b/fs/isofs/namei.c
-index 4fba1bf7f016..289efa60f3bf 100644
---- a/fs/isofs/namei.c
-+++ b/fs/isofs/namei.c
-@@ -54,6 +54,8 @@ isofs_find_entry(struct inode *dir, struct dentry *dentry,
- 	unsigned char bufbits = ISOFS_BUFFER_BITS(dir);
- 	unsigned long block, f_pos, offset, block_saved, offset_saved;
- 	struct buffer_head *bh = NULL;
-+	u8 record[256];
-+	struct iso_directory_record *tmpde = (void *)record;
- 	struct isofs_sb_info *sbi = ISOFS_SB(dir->i_sb);
- 
- 	if (!ISOFS_I(dir)->i_first_extent)
-@@ -93,7 +95,25 @@ isofs_find_entry(struct inode *dir, struct dentry *dentry,
- 		offset += de_len;
- 		f_pos += de_len;
- 
--		if (!isofs_dir_record_valid(de, offset_saved, bufsize)) {
-+		/* A record may span blocks within a logical sector. */
-+		if (offset > bufsize &&
-+		    de_len <= ISOFS_BLOCK_SIZE -
-+			      ((f_pos - de_len) & (ISOFS_BLOCK_SIZE - 1))) {
-+			unsigned int slop = bufsize - offset_saved;
-+
-+			memcpy(tmpde, de, slop);
-+			offset &= bufsize - 1;
-+			block++;
-+			brelse(bh);
-+			bh = isofs_bread(dir, block);
-+			if (!bh)
-+				return 0;
-+			memcpy((char *)tmpde + slop, bh->b_data, offset);
-+			de = tmpde;
+ 		break;
+ 	case 32:
+-		pcs->read = pcs_readl;
+-		pcs->write = pcs_writel;
++		if (byte_be) {
++			pcs->read = pcs_readl_be;
++			pcs->write = pcs_writel_be;
++		} else {
++			pcs->read = pcs_readl;
++			pcs->write = pcs_writel;
 +		}
-+
-+		if (!isofs_dir_record_valid(de, de == tmpde ? 0 : offset_saved,
-+					    de == tmpde ? de_len : bufsize)) {
- 			printk(KERN_NOTICE "iso9660: Corrupted directory entry"
- 			       " in block %lu of inode %llu\n", block,
- 			       dir->i_ino);
+ 		break;
+ 	default:
+ 		break;
 -- 
-2.53.0
+2.56.0
 
