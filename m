@@ -1,142 +1,95 @@
-Received: from mail-oo2-f2.google.com (mail-oo2-f2.google.com [74.125.231.130])
+Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16E623C9890
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:50:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ABDC3C8C48
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:51:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.114
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791622219; cv=none; b=q74OKlADz+0/bJverdSo0ZUuRDZy51Z2HfFoxK/oUxgv25ylySC02cScMstIwlk/Cm+AyjF0wRvMBK3ci0/iNdRSRwUuYS8qWjtjkgjeO4LizUrjxDmcCmftg471j/Kktg+8wgq0abtDzW61/RM6GMd4AciQ/NsNF6agnc5w2bw=
+	t=1791622281; cv=none; b=J7IsqD0KD3J8lOhIVdbwuQpgOsSjM5XeUKaQiJDdQ2lhucDqTogiSDWjJsY/WVXAF8Deio0CEca7ShLkDi4YbNMIObaLUhSxMSQ78MCRkYvsjy/h2xkf+fmLz0XzztQ38gEQrXqokWPmw3EjV/vIeQHbNH0JwirfotMWVlWPd2w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791622219; c=relaxed/simple;
-	bh=dBpu91GhGp71AhjQrBoWYb2hnyV7FaxIHcjPH1PEfvQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Bccjjt8bDlYFJUycAWvtjEt2emqxGrnm1un4nRIIo/R4csVsEoVZpQ3E44d3H9KOXvu2odvdW58W7irzmAszENF7lsdqPVQT8IG4tbhh3aEe40KnebumK/Wn8CmfwJSBRFZVzTOAkzTvLidQpWyMVuEbLoruDXAmqFL9hDPJuHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m8jzfYGa; arc=none smtp.client-ip=74.125.231.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791622281; c=relaxed/simple;
+	bh=cd+qtmAUyM54UmD8OqQP4Yq41CihaITI5H1EIaBCFO8=;
+	h=Cc:Mime-Version:References:From:In-Reply-To:Content-Type:To:
+	 Subject:Date:Message-Id; b=g0VTPQSked5g2ZLrupDSs/apnIVEqhO/M343pVnMBDQ3IJxpgpI5BXYrzCqbgtRK9ThzvB/QWRFJG8lc5VOAjoPudXHqsroTVob4y239uI/eo+fVXx+fvqBX05Pyb/4IxMinTzWLQ/z733ot2zAGNHpkRhtl82emcyJVm9AFXnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=nMoo/SF1; arc=none smtp.client-ip=209.127.230.114
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m8jzfYGa"
-Received: by mail-oo2-f2.google.com with SMTP id 46e09a7af769-824f4032704so152745a34.0
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 01:50:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791622217; x=1792227017; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0AzRHZlsZ/kgam4CoQL/YmVx0Bb+p0rC1CfcNC+r3us=;
-        b=m8jzfYGamQk+j9hdrbtaz8f+MPQq+bfSmP3btpbh1BkppDnFb7EHmFYSrRK0gt9Kfg
-         mZTD7gyiYLojvRCkOtLZmBJDfxB2fuaRAF+BzfMPtOXEbkZDYMpHcjRi0BBcMpHwqBhX
-         UAjMiVKAO25slOYDvZYSr5JIk5/tUN/CSoZlVLWANNGKWNt57Ku26/WWpkSneVQzEYMA
-         6ceBf4cnUjeKw8esDKzsqTdceAhDre7fRkWaZpJ4GqjvD+pNNF1YcNPxANRcCvBkYwN6
-         u5vHb1qkITtHXFoQxdMqQXki/uPjKySE4MUVJ3LsfVFVrru0avn4+93G7C37aUQzHZ9k
-         sY/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791622217; x=1792227017;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0AzRHZlsZ/kgam4CoQL/YmVx0Bb+p0rC1CfcNC+r3us=;
-        b=W69EOe2zKCp1oGsn6jV0iiymWeSrh8MpbRiQPxtS7oKVJjwZkmBHXYZP07DaFHsY7O
-         9MMJ0No7BOk2K7QJtA1Tm80NUZnWslDBHVydWvUfXkGhB0P9137eEwygcQOoAbHs+jxy
-         zKdjopYfiapjxjDajg5L5kmsn4IYDOvGR1R92f+0NAZ1NX/yF9mSyi+57nzItHrFCHee
-         7O0UlmK4utSBFOA2Ev+Juts2q41hhERzp1rJsq1vkH+u+X7oRPeA5KDjAnjCPMOH9h7G
-         IrRwj2cdcej+or8zQiIAVoQITn/aIy9SFUndmiOeU9KKonfZVGKJovFgh1oISXMLMUyR
-         CBFA==
-X-Forwarded-Encrypted: i=1; AKwUvBzln9hOIShxjkQP5OPeoRyGfxljIEE+vsVfrSYywOf1GwdZ2NYCSb+z3DpHEDDlONLlVTuQUsEFLupdIqk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIIcLSsNIK5oLRHJzO3iKXo/E+M6wERPaS/gx9mCoI8WjfwHgCc
-	eMAxF89LgrqmSOceOVIS9+TSUnGPLP70mWi102megzw/Z6PBqzoE7Hxl
-X-Gm-Gg: AYBFou1F12bjtspMp0+SguPo6oO5WKH8Ui+yrqmBLtaRd/Vc9x/2H2hQW2ylREcO6e0
-	W/MNNwFfnYOvycDqmHC6STCsPQDQaS1SllaAWb3GlY5Ru5s8A+BJgJ4WdlY/aMyfoY4JYLnfr4f
-	5Aq0Dvhe192afWE70Usto7JuDYgIt53hZ2G98otTyD6xssr9EJj5rl/sHLVKffNt4fYQkid6qos
-	LjlYCdrnZDcw1/Wo8oavneUIlWU4Qg0OqcEa+s/RbEK/1Fj5C0RPUUNFSvYt2+HgWEYHY8Va5Eb
-	GFmDdlVV/eb85F8aMdNtWMLJ7MhE0ZjCvHHLA7XUB4ShVrYoVEe7fwoPwddwluiDATS28k+W7zm
-	dPhAPeqQN+EgYFbmgu6zHuhfUNDS97xpcAHqYvM+b52P8PAPPG8oj5y5SfL0uAhjo2KppDHZvKa
-	f2DVOIMvnnD2Acg0F4ke+Rzce/b3oGfcC0MWUeorTvDT/GhpMMqCGEjVL+lkACthfRewRZnFuBM
-	Axa/zbbg8VRcpeiP22pigC2mNgeIlBbn9BmUw==
-X-Received: by 2002:a05:6820:4dec:b0:6d8:462d:2737 with SMTP id 006d021491bc7-6ef0e8dded8mr2517883eaf.27.1791622216750;
-        Sat, 10 Oct 2026 01:50:16 -0700 (PDT)
-Received: from localhost.localdomain ([14.116.239.34])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6eef6e22b46sm4037577eaf.0.2026.10.10.01.50.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 01:50:14 -0700 (PDT)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: Vladimir Oltean <vladimir.oltean@nxp.com>,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] ipconfig: fix use-after-free of device list after ic_close_devs()
-Date: Sat, 10 Oct 2026 16:49:58 +0800
-Message-ID: <20261010085003.3261587-1-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="nMoo/SF1"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1791622271; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=US+Gg57swXQ2D9e2dltsJCvKtQB77YrVn7jqeloa4eI=;
+ b=nMoo/SF1pWKjC+qel/mkFZOq902NvICMhgxq46LNnzUnpGTXrZgp/BLtY42qb+8nahyQI+
+ pzKcIEBtRkBDyCnGoBJ50nKFnba6kFEhzFt+0N0yqqkFNwK/XusKc2Wudd9mSkkcDNLDCf
+ t51jmPkv9z+TVfF+CLSZqi8G1pnLyTTSr/oa3X/zJoUII50H4x4OQhj8bp/VDD3Jo8ztjH
+ RSzJQ876Dt03ZyyOC9GPDhKrhoz2dw6v4aieyfMV8KjUH9O+NFUxngngvVITdQ4FYjq7oB
+ echs45WRoWauLHTRBo4dwFqZgy4goWf4yGvzBaR7oRbzNjtaua9YxCHdCvFoNQ==
+Cc: <mark.rutland@arm.com>, <ardb@kernel.org>, <song@kernel.org>, 
+	<dylanbhatch@google.com>, <linux-arm-kernel@lists.infradead.org>, 
+	<linux-kernel@vger.kernel.org>, "Rui Qi" <qirui.001@bytedance.com>, 
+	<stable@vger.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+X-Lms-Return-Path: <lba+26ac9fc7d+e011b0+vger.kernel.org+qirui.001@bytedance.com>
+References: <20261010084721.2197683-1-qirui.001@bytedance.com>
+From: "Rui Qi" <qirui.001@bytedance.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20261010084721.2197683-1-qirui.001@bytedance.com>
+Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Original-From: Rui Qi <qirui.001@bytedance.com>
+To: <catalin.marinas@arm.com>, <will@kernel.org>
+Subject: [PATCH 2/3] arm64: patching: Fix instruction byte order in aarch64_insn_set()
+Date: Sat, 10 Oct 2026 16:50:54 +0800
+Message-Id: <20261010085055.2200241-1-qirui.001@bytedance.com>
 
-ic_close_devs() kfree()s every ic_device node but leaves the static
-ic_first_dev and ic_dev pointers dangling behind.  When a DHCP
-negotiation gets an OFFER but never the matching ACK, ic_bootp_recv()
-accepts the OFFER and records ic_dev = <list node>, the round times
-out and ic_close_devs() frees the whole list — node included.  The
-next failed retry round runs ic_close_devs() once more, evaluating
+aarch64_insn_set() passes the host-endian u32 instruction straight to
+text_poke_memset(), which memset32()'s it into memory in host byte order.
+AArch64 instructions must be little-endian in memory, so on a big-endian
+kernel the written bytes are reversed and the CPU takes an UNDEFINED
+instruction exception when fetching them.  The sibling aarch64_insn_write()
+already converts with cpu_to_le32(); aarch64_insn_set() does not.
 
-    selected_dev = ic_dev ? ic_dev->dev : NULL;
+This is reachable in-tree: bpf_arch_text_invalidate() fills freed JIT
+regions with AARCH64_BREAK_FAULT through aarch64_insn_set(), and arm64
+selects HAVE_EBPF_JIT without a big-endian guard, so the path is taken on
+BE kernels with BPF JIT.  The direct-fill loop in the same file already
+cpu_to_le32()'s the constant, confirming the expected byte order.
 
-against the freed ic_device — an 8-byte use-after-free read.
+Convert the instruction to little-endian before the memset, mirroring
+aarch64_insn_write().  On LE the conversion is a no-op, so behaviour is
+unchanged.
 
-KASAN confirms:
-
-  BUG: KASAN: slab-use-after-free in ic_close_devs+0x214/0x220
-  Read of size 8
-    ic_close_devs    <- ip_auto_config
-  Allocated by: ip_auto_config (ic_open_devs)
-  Freed by:      ic_close_devs <- ip_auto_config
-
-NULL both pointers after the free loop so retry rounds take the
-clean empty-list path.
-
-This memory-safety issue was discovered by Tencent CodeBuddy Security.
-
+Fixes: 451c3cab9a65e656c3b3d106831fc02d56b8c34a ("arm64: patching: implement text_poke API")
 Cc: stable@vger.kernel.org
-Fixes: 46acf7bdbc72 ("Revert "net: ipv4: handle DSA enabled master network devices"")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+Signed-off-by: Rui Qi <qirui.001@bytedance.com>
 ---
-Changes in v2:
- - Fixes: tag corrected to the commit that introduced the ic_dev->dev
-   dereference that makes this a UAF (46acf7bdbc72); in 2.6.12 ic_dev
-   was a struct net_device * that was only compared, never dereferenced.
- - Code comment in ic_close_devs() dropped per review.
- - Message reduced to the memory-safety mechanism (no vulnerability
-   framing).
+ arch/arm64/kernel/patching.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
- net/ipv4/ipconfig.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/net/ipv4/ipconfig.c b/net/ipv4/ipconfig.c
-index 1b8585404a41..ac4851e59c3b 100644
---- a/net/ipv4/ipconfig.c
-+++ b/net/ipv4/ipconfig.c
-@@ -346,6 +346,9 @@ static void __init ic_close_devs(void)
- 		kfree(d);
- 	}
- 	rtnl_unlock();
+diff --git a/arch/arm64/kernel/patching.c b/arch/arm64/kernel/patching.c
+index 09f019c6547a..ffd790b2b277 100644
+--- a/arch/arm64/kernel/patching.c
++++ b/arch/arm64/kernel/patching.c
+@@ -170,10 +170,12 @@ noinstr void *aarch64_insn_copy(void *dst, void *src, size_t len)
+  */
+ noinstr void *aarch64_insn_set(void *dst, u32 insn, size_t len)
+ {
++	__le32 __insn = cpu_to_le32(insn);
 +
-+	ic_first_dev = NULL;
-+	ic_dev = NULL;
+ 	if ((uintptr_t)dst & 0x3)
+ 		return NULL;
+ 
+-	return __text_poke(text_poke_memset, dst, &insn, len);
++	return __text_poke(text_poke_memset, dst, &__insn, len);
  }
-
- /*
---
-2.43.7
-
+ 
+ int __kprobes aarch64_insn_patch_text_nosync(void *addr, u32 insn)
+-- 
+2.20.1
