@@ -1,330 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17F6E1AF0BB
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:51:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791622286; cv=none; b=QsuCy8QKmUPWZx3dHVItXgP4u8vI6vsY0Nlz6MYEyfzxZfVj+XhPJbUfa/Qnpe32vZCuG9O7lqZ08BIhBGwM2l1hE0k0wxldgBunK0OS803PD29K3gK7XcmKCGEnGPUsGjVIwWakMzc7/tS6Lt7GoDnwsEzp6uqeQ8KrYuGrfBg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791622286; c=relaxed/simple;
-	bh=Rx04cpqqnDz8Dm91T6o+MSoclfXMLo+iJo7DHjxh3Z0=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 098BE39478D
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:51:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791622292; cv=pass; b=A0XSwUlTwQPuSgIwIAHFtpAHCrFRUSvicTEIl4PrKqRcWWqqRq5pOCzPoj3qV7E57qN6RJqLqWsomIEgHltRfOblTQ5la82UitIXSEGAZ5IILX80DxtreUEOdeAepuLY1ycLqAC3TjVIXQltwyd4wI+Z6zYGzbSA1+sUqOvQiIo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791622292; c=relaxed/simple;
+	bh=u6d7SFXuP1ZVnuQoZ762H6ZqDSQEKstty+kgOiz1vSM=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OpRIG15rMsPg8HsTuCWuOfPTvpAArljOYUA5TiTn887OS/YqIo8ADLZm2BWlpuoYdO6wm5riQth30VA2F+KQ2Z33uD1Bw9UfXaA1n8tCCu8bOO2txvVOAOWMjZx9Zf9zcDd9vg+d9HgEIaPEE+6JdwGfmPloI67ABPbt443P5vM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jn5HG6Um; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=gQzXzWaiMDz+ijpLTRKi6qKQ0czaFZSZUy8X6B6JcVV/IRAxBBvZoozZdwonHwEF/8CeKBWgjBQcUY0j2YubEBHDiksGlZwZvKfJ062bFTlZR7k7kFuHbUUUPnZR1eNntFAb2rUbIdAogYloazub0I/70zQDCUkdSl0ZggBjWwg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YvwAxthP; arc=pass smtp.client-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jn5HG6Um"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A29C51F0089B
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:51:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791622284;
-	bh=UKe6Pwi9aosqd/1BTRv65g5XrEe0PTDfARKnWKqLqRc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=jn5HG6UmsbnE9zPFBj+0DNSKudJj1RtW1omIoSVrkEPEZUb6NUTcKiPWqxXZpfPgS
-	 FvvndyPealnW/DLxCFOySjV0/kldgEYtidP3qXCQTD74be9c9vv/T02weypRrRfX7j
-	 GX96sJDUkLEX4sgQcgCGiulhPJQRMmGuo0JrebBWY8HWkCTlkSFUY2e8VtzCOR35zp
-	 Ur6HTirTKm7PQUpMII4O44Zy73/oh9TxWaIp2TVmbbZfT8tanCElIvJxbAy9gKC2nP
-	 NNR34CEGIYU2jK5XnfQQMsHX1JLnvPoCpanefI/X3wU6XJz0s6DfnoQ/gzQG6eefTj
-	 iYPykS4YYvBmg==
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-93ece7a73b9so32928085a.3
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 01:51:24 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw+DXHrg8iOm2i1zVmmvcsWLo4EyWDFKBxRB9S8lY31ANWBs9gotUuKra0RVyhgT4FFoYkvhg+MRDn35Zw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJtObZxiegdL2ILYEML/3EXIc6yKy0H722qUh1uwy7D2gDkYubL
-	14gshQnbor272G38yzjZWXdZjmju830CRIUqVOfGVmMQtWoMsFFrE6tmCKgBcE16H0yd5AKIALu
-	u+czoh+3uJA/hapkkr1vUNL8zk5pldS4=
-X-Received: by 2002:a05:620a:4510:b0:93e:c12c:f13a with SMTP id
- af79cd13be357-93ec12d0631mr572328185a.68.1791622283896; Sat, 10 Oct 2026
- 01:51:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YvwAxthP"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6afac79b3a3so1423a12.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 01:51:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791622289; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qkk/0zY+Y4bBsYdXIgIQaypOCGLo6oaI6ptF7u16RiRpJgDTc6bBAlxTSbJYeOITJR
+         L66rMNFkFlUHedvgAiwIIimOJtbRvHtJMIU3T8TxwQylKSdY5FQIDau0oOUczYU2i/JE
+         4WkQ5H23jy2/9/LZ9lw5mUbKWTolkcc8LoMGvS1smIHtHel7d5ReKIr5a9Hvonng4nU3
+         HVsZu9cbfVdMt+wo7OqOq8B/cxVQJNRRucDKbLiQaihu/6cUeZ7Pbv2pfyhEM5HI3fWl
+         sHPGsgzNZ5NqHVWwmLtg/IOW3ZFkvU8L7mfD3HLWvbIszL7eaOvNvgciRZFNXrFo/x+4
+         sQBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=1qzTr0YbnBfbPj9+5K148QJC7O1RDLZnnS+cEO+oPi8=;
+        fh=obewvxyhIQfNiaVLVLo0X9+bKGf26qVzn6bB3i4c2Ck=;
+        b=KyqGFGG/Z6ie/dNBLxmgamfFi4eiFgRyhogr9BwE270xOjKc7+FWXpVZjhUh3xSQlv
+         ZYT1R0JlrMtV09TCqmtjSga9CJSyAFUZaQglfasxAb7tTvsIMhi80V05upipVLQT/++f
+         rbM/33KuZZENjfxbuRVdMEo/cy82BQg3W/U+y2fgPLMnFocn+U6cJqRKfJuQtkqOJ+B1
+         32dJHWWyIvoXOZn/LdyjHj2W8xPPZBdbjguBfD8jAvSTY75aHxHn599r+y3Gz21Simyd
+         3YZ2F9e6IswLohciImfrSHSY6QJPG+ffJC+IosEr9YfhYUf5UKh5wcPvqV1wzSrgmMxV
+         p1yw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791622289; x=1792227089; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1qzTr0YbnBfbPj9+5K148QJC7O1RDLZnnS+cEO+oPi8=;
+        b=YvwAxthPJyhOL4eFMPj0oYntTOJvVIk9w6WH9Kt1na3Q8Wgx4rZMnn9dxOU49RjCKr
+         CO0sEt9yZ/E7IjKLXwLT5Y83fZ3rqqiMxVfKkAXqAtusxKuuSC3RJxzOHeb3JfGiLciL
+         KFXvToowiYRZkcD5JR9G8fThOogDpnD+lPlzyEScANN8zpz4f5jjHswzU7leUSYxVWQP
+         yFnsGOluSCCxaSRpXhIqn/dOweHPSCbD1K9BOrQXQnRqGJYKCM1GUaf4cj8TkSN13ayP
+         YNc8Yndp9eBUghyyjftch4P6OF/fGHjktFbAfr2FDPxvVSLNB20orh0BWXSJb6kD38Js
+         GBjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791622289; x=1792227089;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1qzTr0YbnBfbPj9+5K148QJC7O1RDLZnnS+cEO+oPi8=;
+        b=yaDOBMyYyLg6yd/CcRa2agWvouJBU2IY06BhRgNRb0d+DcHVx5Ig19CaSTxEh6irXs
+         5wJ0jEWCIxw+ZkKZuIUcu/2QbP+vSJ6TQBSL+awEk0leYr+SqPLeV+8cUZMBTeD5aT2O
+         Kwq5/FkS58CCFU9Mq1pPe080C9AGy+5QKASv4M6hdNZ4FJ16QV6J2zbL8CrhPddU4e+f
+         i1kG/XTELuOtZVGs124V0RfeTDUCIE2SuJ9FUAQR+f8VdC6kakmYPoYFqqk6awcR48Bw
+         9TY9Y3RNrLwBDAAQi/tOYZR+iWqK5gXVB9AplcwRu9Cg7UeLyqK7k7Zx5p7uqzUcSn+O
+         9hMA==
+X-Forwarded-Encrypted: i=1; AKwUvBzvj+Dyku+oxs1NsW89aRpW2BaXY8+gwyev/MBnOQDXazWXM55kVlFhROPFgoPHwiykiAUfjc+ZNOY1XCc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI7coWcYNRuVl6kzdJKS+soDH2lqNOTt2w3PGHhYWwzGohxaxNM
+	CAnmGpmk5cqyybV/fja/2+QQDtYzILWwMDRAUlpdUhdywGPyUKZR6dt8mBP9uEkEsd+0x+vJ5CV
+	EgFmN4nFaE7mvM0U2xHUcERAu7TlC+C8tNuURf8Be
+X-Gm-Gg: AYBFou1gqy59+J8m2/ImmAD3iaZLQmRYNJFPP2kyuOlnRb9OvUPusge/1J+WM0/5kB3
+	+BpGvIzL4BaPNqV2+B0Z9Gx0a4RgO7pyTb+vysVUEfSobPgJWoQUN+lk7IUUVbz1+zq0u7K0QKV
+	OuyfXNKo2fEi/ZUvX5UiRABU9lgm3moTgXUAjN1XtHXeqzF8ac+CKQFMPpmPXJV8Us8XNUW5sEJ
+	JhBfk9gpm5k0RSFCjqAeEcZnJ4Aw9mWUPBE24Cp6Ba2lS/c8dB6X0lbXAvgJ2qc7nyO4Ycew7FO
+	TGkQrg4ClTIoRwLFle8PLwRs/aK0s3md/hmTZ3vZwYqf/7lcP1z/LA==
+X-Received: by 2002:a05:6402:c4ce:10b0:6af:97a9:224a with SMTP id
+ 4fb4d7f45d1cf-6b19883993fmr15040a12.2.1791622288658; Sat, 10 Oct 2026
+ 01:51:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <SJ1PR11MB6105E073723CFEEE8C8EDBF48C832@SJ1PR11MB6105.namprd11.prod.outlook.com>
- <cover.1791577417.git.ehab.ababneh@intel.com> <ca68c5188e133af575302f797e7e8bd9f054709a.1791577417.git.ehab.ababneh@intel.com>
-In-Reply-To: <ca68c5188e133af575302f797e7e8bd9f054709a.1791577417.git.ehab.ababneh@intel.com>
-From: Barry Song <baohua@kernel.org>
-Date: Sat, 10 Oct 2026 16:51:11 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4wur9YqS1QY6b15uvFVkA8xFAV04Oi+peMGKCu4uY1y2A@mail.gmail.com>
-X-Gm-Features: AclHuK_FqLAQ3bNXPcYkH27-EtFb41er8DDHIvFhRvBTX7SlUV2ZDCmcIci4y4A
-Message-ID: <CAGsJ_4wur9YqS1QY6b15uvFVkA8xFAV04Oi+peMGKCu4uY1y2A@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 1/5] vmscan: Support multiple kswapd threads per node
-To: Ehab Ababneh <ehab.ababneh@intel.com>
-Cc: ziy@nvidia.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	buddy.lumpkin@oracle.com, akpm@linux-foundation.org, kasong@tencent.com, 
-	qi.zheng@linux.dev, shakeel.butt@linux.dev, axelrasmussen@google.com, 
-	yuanchu@google.com, weixugc@google.com, david@kernel.org, ljs@kernel.org, 
-	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
-	mhocko@suse.com, jackmanb@google.com, hannes@cmpxchg.org, 
-	baoquan.he@linux.dev, baolin.wang@linux.alibaba.com
+References: <20261010083935.3274178-1-almasrymina@google.com> <179162194176.2527009.17837283221529280785@kernel.org>
+In-Reply-To: <179162194176.2527009.17837283221529280785@kernel.org>
+From: Mina Almasry <almasrymina@google.com>
+Date: Sat, 10 Oct 2026 01:51:17 -0700
+X-Gm-Features: AclHuK_yiP687Fitsz3qcW8jp5keSTQlvPwHmngAicI8BRA9_47JLCvvHXQHfsY
+Message-ID: <CAHS8izO=MW1Hy0k0yjm4HbJ0P9F5_oOQieLvFA5T4SzBDdDP1w@mail.gmail.com>
+Subject: Re: [PATCH net-next v1 0/6] net: unify symmetric netmem and page_pool refcounting
+To: netdev-bot+sinfo@kernel.org
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-rdma@vger.kernel.org, bpf@vger.kernel.org, 
+	Ayush Sawal <ayush.sawal@chelsio.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Tariq Toukan <tariqt@nvidia.com>, 
+	Simon Horman <horms@kernel.org>, Steffen Klassert <steffen.klassert@secunet.com>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, Neal Cardwell <ncardwell@google.com>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, John Fastabend <john.fastabend@gmail.com>, 
+	Sabrina Dubroca <sd@queasysnail.net>, Eric Biggers <ebiggers@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Michael Grzeschik <mgr@kernel.org>, 
+	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, 
+	Petr Machata <petrm@nvidia.com>, Arend van Spriel <arend.vanspriel@broadcom.com>, 
+	Jakub Raczynski <j.raczynski@samsung.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 10, 2026 at 4:30=E2=80=AFAM Ehab Ababneh <ehab.ababneh@intel.co=
-m> wrote:
+On Sat, Oct 10, 2026 at 1:45=E2=80=AFAM <netdev-bot+sinfo@kernel.org> wrote=
+:
 >
-> From: Buddy Lumpkin <buddy.lumpkin@oracle.com>
+> Hi!
 >
-> Page replacement is handled in the Linux Kernel in one of two ways:
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
 >
-> 1) Asynchronously via kswapd
-> 2) Synchronously, via direct reclaim
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
 >
-> At page allocation time the allocating task is immediately given a page
-> from the zone free list allowing it to go right back to work doing
-> whatever it was doing; Probably directly or indirectly executing business
-> logic.
+>  - Whether the issue was actually triggered, or is only theoretical
+>    (e.g. found by code inspection). If it was triggered please include
+>    the symptoms, like the stack trace or error messages.
 >
-> Just prior to satisfying the allocation, free pages is checked to see if
-> it has reached the zone low watermark and if so, kswapd is awakened.
-> Kswapd will start scanning pages looking for inactive pages to evict to
-> make room for new page allocations. The work of kswapd allows tasks to
-> continue allocating memory from their respective zone free list without
-> incurring any delay.
+>  - What hardware the change was tested on. For driver fixes please
+>    mention the device (and if relevant firmware version) used for
+>    testing, or say that the change was not tested on real hardware.
 >
-> When the demand for free pages exceeds the rate that kswapd tasks can
-> supply them, page allocation works differently. Once the allocating task
-> finds that the number of free pages is at or below the zone min watermark=
-,
-> the task will no longer pull pages from the free list. Instead, the task
-> will run the same CPU-bound routines as kswapd to satisfy its own
-> allocation by scanning and evicting pages. This is called a direct reclai=
-m.
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
 >
-> The time spent performing a direct reclaim can be substantial, often
-> taking tens to hundreds of milliseconds for small order0 allocations to
-> half a second or more for order9 huge-page allocations. In fact, kswapd i=
-s
-> not actually required on a linux system. It exists for the sole purpose o=
-f
-> optimizing performance by preventing direct reclaims.
->
-> When memory shortfall is sufficient to trigger direct reclaims, they can
-> occur in any task that is running on the system. A single aggressive
-> memory allocating task can set the stage for collateral damage to occur i=
-n
-> small tasks that rarely allocate additional memory. Consider the impact o=
-f
-> injecting an additional 100ms of latency when nscd allocates memory to
-> facilitate caching of a DNS query.
->
-> The presence of direct reclaims 10 years ago was a fairly reliable
-> indicator that too much was being asked of a Linux system. Kswapd was
-> likely wasting time scanning pages that were ineligible for eviction.
-> Adding RAM or reducing the working set size would usually make the proble=
-m
-> go away. Since then hardware has evolved to bring a new struggle for
-> kswapd. Storage speeds have increased by orders of magnitude while CPU
-> clock speeds stayed the same or even slowed down in exchange for more
-> cores per package. This presents a throughput problem for a single
-> threaded kswapd that will get worse with each generation of new hardware.
->
-> Test Details
->
-> NOTE: The tests below were run with shadow entries disabled. See the
-> associated patch and cover letter for details
->
-> The tests below were designed with the assumption that a kswapd bottlenec=
-k
-> is best demonstrated using filesystem reads. This way, the inactive list
-> will be full of clean pages, simplifying the analysis and allowing kswapd
-> to achieve the highest possible steal rate. Maximum steal rates for kswap=
-d
-> are likely to be the same or lower for any other mix of page types on the
-> system.
->
-> Tests were run on a 2U Oracle X7-2L with 52 Intel Xeon Skylake 2GHz cores=
-,
-> 756GB of RAM and 8 x 3.6 TB NVMe Solid State Disk drives. Each drive has
-> an XFS file system mounted separately as /d0 through /d7. SSD drives
-> require multiple concurrent streams to show their potential, so I created
-> eleven 250GB zero-filled files on each drive so that I could test with
-> parallel reads.
->
-> The test script runs in multiple stages. At each stage, the number of dd
-> tasks run concurrently is increased by 2. I did not include all of the
-> test output for brevity.
->
-> During each stage dd tasks are launched to read from each drive in a roun=
-d
-> robin fashion until the specified number of tasks for the stage has been
-> reached. Then iostat, vmstat and top are started in the background with 1=
-0
-> second intervals. After five minutes, all of the dd tasks are killed and
-> the iostat, vmstat and top output is parsed in order to report the
-> following:
->
-> CPU consumption
-> - sy - aggregate kernel mode CPU consumption from vmstat output. The valu=
-e
->        doesn't tend to fluctuate much so I just grab the highest value.
->        Each sample is averaged over 10 seconds
-> - dd_cpu - for all of the dd tasks averaged across the top samples since
->            there is a lot of variation.
->
-> Throughput
-> - in Kbytes
-> - Command is iostat -x -d 10 -g total
->
-> This first test performs reads using O_DIRECT in order to show the maximu=
-m
-> throughput that can be obtained using these drives. It also demonstrates
-> how rapidly throughput scales as the number of dd tasks are increased.
->
-> The dd command for this test looks like this:
->
-> Command Used: dd iflag=3Ddirect if=3D/d${i}/$n of=3D/dev/null bs=3D4M
->
-> Test #1: Direct IO
-> dd sy dd_cpu throughput
-> 6  0  2.33   14726026.40
-> 10 1  2.95   19954974.80
-> 16 1  2.63   24419689.30
-> 22 1  2.63   25430303.20
-> 28 1  2.91   26026513.20
-> 34 1  2.53   26178618.00
-> 40 1  2.18   26239229.20
-> 46 1  1.91   26250550.40
-> 52 1  1.69   26251845.60
-> 58 1  1.54   26253205.60
-> 64 1  1.43   26253780.80
-> 70 1  1.31   26254154.80
-> 76 1  1.21   26253660.80
-> 82 1  1.12   26254214.80
-> 88 1  1.07   26253770.00
-> 90 1  1.04   26252406.40
->
-> Throughput was close to peak with only 22 dd tasks. Very little system CP=
-U
-> was consumed as expected as the drives DMA directly into the user address
-> space when using direct IO.
->
-> In this next test, the iflag=3Ddirect option is removed and we only run t=
-he
-> test until the pgscan_kswapd from /proc/vmstat starts to increment. At
-> that point metrics are parsed and reported and the pagecache contents are
-> dropped prior to the next test. Lather, rinse, repeat.
->
-> Test #2: standard file system IO, no page replacement
-> dd sy dd_cpu throughput
-> 6  2  28.78  5134316.40
-> 10 3  31.40  8051218.40
-> 16 5  34.73  11438106.80
-> 22 7  33.65  14140596.40
-> 28 8  31.24  16393455.20
-> 34 10 29.88  18219463.60
-> 40 11 28.33  19644159.60
-> 46 11 25.05  20802497.60
-> 52 13 26.92  22092370.00
-> 58 13 23.29  22884881.20
-> 64 14 23.12  23452248.80
-> 70 15 22.40  23916468.00
-> 76 16 22.06  24328737.20
-> 82 17 20.97  24718693.20
-> 88 16 18.57  25149404.40
-> 90 16 18.31  25245565.60
->
-> Each read has to pause after the buffer in kernel space is populated whil=
-e
-> those pages are added to the pagecache and copied into the user address
-> space. For this reason, more parallel streams are required to achieve pea=
-k
-> throughput. The copy operation consumes substantially more CPU than direc=
-t
-> IO as expected.
->
-> The next test measures throughput after kswapd starts running. This is th=
-e
-> same test only we wait for kswapd to wake up before we start collecting
-> metrics. The script actually keeps track of a few things that were not
-> mentioned earlier. It tracks direct reclaims and page scans by watching
-> the metrics in /proc/vmstat. CPU consumption for kswapd is tracked the
-> same way it is tracked for dd.
->
-> Since the test is 100% reads, you can assume that the page steal rate for
-> kswapd and direct reclaims is almost identical to the scan rate.
->
-> Test #3: 1 kswapd thread per node
-> dd sy dd_cpu kswapd0 kswapd1 throughput  dr    pgscan_kswapd pgscan_direc=
-t
-> 10 4  26.07  28.56   27.03   7355924.40  0     459316976     0
-> 16 7  34.94  69.33   69.66   10867895.20 0     872661643     0
-> 22 10 36.03  93.99   99.33   13130613.60 489   1037654473    11268334
-> 28 10 30.34  95.90   98.60   14601509.60 671   1182591373    15429142
-> 34 14 34.77  97.50   99.23   16468012.00 10850 1069005644    249839515
-> 40 17 36.32  91.49   97.11   17335987.60 18903 975417728     434467710
-> 46 19 38.40  90.54   91.61   17705394.40 25369 855737040     582427973
-> 52 22 40.88  83.97   83.70   17607680.40 31250 709532935     724282458
-> 58 25 40.89  82.19   80.14   17976905.60 35060 657796473     804117540
-> 64 28 41.77  73.49   75.20   18001910.00 39073 561813658     895289337
-> 70 33 45.51  63.78   64.39   17061897.20 44523 379465571     1020726436
-> 76 36 46.95  57.96   60.32   16964459.60 47717 291299464     1093172384
-> 82 39 47.16  55.43   56.16   16949956.00 49479 247071062     1134163008
-> 88 42 47.41  53.75   47.62   16930911.20 51521 195449924     1180442208
-> 90 43 47.18  51.40   50.59   16864428.00 51618 190758156     1183203901
->
-> In the previous test where kswapd was not involved, the system-wide kerne=
-l
-> mode CPU consumption with 90 dd tasks was 16%. In this test CPU consumpti=
-on
-> with 90 tasks is at 43%. With 52 cores, and two kswapd tasks (one per NUM=
-A
-> node), kswapd can only be responsible for a little over 4% of the increas=
-e.
-> The rest is likely caused by 51,618 direct reclaims that scanned 1.2
-> billion pages over the five minute time period of the test.
->
-> Same test, more kswapd tasks:
->
-> Test #4: 4 kswapd threads per node
-> dd sy dd_cpu kswapd0 kswapd1 throughput  dr    pgscan_kswapd pgscan_direc=
-t
-> 10 5  27.09  16.65   14.17   7842605.60  0     459105291     0
-> 16 10 37.12  26.02   24.85   11352920.40 15    920527796     358515
-> 22 11 36.94  37.13   35.82   13771869.60 0     1132169011     0
-> 28 13 35.23  48.43   46.86   16089746.00 0     1312902070     0
-> 34 15 33.37  53.02   55.69   18314856.40 0     1476169080     0
-> 40 19 35.90  69.60   64.41   19836126.80 0     1629999149     0
-> 46 22 36.82  88.55   57.20   20740216.40 0     1708478106     0
-> 52 24 34.38  93.76   68.34   21758352.00 0     1794055559     0
-> 58 24 30.51  79.20   82.33   22735594.00 0     1872794397     0
-> 64 26 30.21  97.12   76.73   23302203.60 176   1916593721     4206821
-> 70 33 32.92  92.91   92.87   23776588.00 3575  1817685086     85574159
-> 76 37 31.62  91.20   89.83   24308196.80 4752  1812262569     113981763
-> 82 29 25.53  93.23   92.33   24802791.20 306   2032093122     7350704
-> 88 43 37.12  76.18   77.01   25145694.40 20310 1253204719     487048202
-> 90 42 38.56  73.90   74.57   22516787.60 22774 1193637495     545463615
->
-> By increasing the number of kswapd threads, throughput increased by ~50%
-> while kernel mode CPU utilization decreased or stayed the same, likely du=
-e
-> to a decrease in the number of parallel tasks at any given time doing pag=
-e
-> replacement.
->
-> Signed-off-by: Buddy Lumpkin <buddy.lumpkin@oracle.com>
-> Signed-off-by: Ehab Ababneh <ehab.ababneh@intel.com>
-> (cherry picked from commit 9ca50cb821f07627d555d31311f1c296bcd415d0)
-> ---
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
 
-Hi Buddy, Ehab,
+I was reminded what I complicated mess skb frag accounting currently
+is when I looked at this patch:
 
-I'm not quite sure we want to increase the number of
-kswapd threads. It seems you want to reclaim memory more
-aggressively in the background to reduce direct reclaim.
-However, do we really need more kswapd threads when userspace
-can use other proactive reclamation approaches? For Android,
-we also have mechanisms like lmkd.
+[1] https://lore.kernel.org/netdev/xfrm-iptfs-pp_ref_count-underflow-v4-1-9=
+12fa72106f0@secunet.com/
 
-Also, if the bottleneck is aging or compression, we could consider
-something like `kcompressd` for asynchronous compression, which
-has been on hold for a while.
-https://lore.kernel.org/linux-mm/20250430082651.3152444-1-qun-wei.lin@media=
-tek.com/
 
-Or perhaps something like `kaged` for aging? Those could be much lighter
-than running multiple `kswapd` threads in parallel.
+And saw that the author was trying to write their own skb frag helper
+inside the driver because core didn't provide one that made sense :/
+code inspection + LLM written tests for accounting confirmed the
+issues. I worked with the LLM to fix the discovered issues. Not hit in
+production or reproduced organically. Only code inspection and
+artificial tests.
 
-Best Regards
-Barry
+--=20
+Thanks,
+Mina
