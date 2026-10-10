@@ -1,146 +1,249 @@
-Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com [209.85.167.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8031D26FD97
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 02:14:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.174
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791598470; cv=none; b=QeZ1gB+AxxNRHFGUJEKFFyzx7j8pcEtrt8SxVfIRU8AmPpAHkReygODUVimUwpGhzIyEN1mdmyMYTIClgnK2oP9hE3dpCYP3WtvAl2Yh5f15saEOSKN7FVqPILcFFoFfg5t4iEFfLZXT49mApHgE/2oYiqSrNuyb4+ZL3FmQUFY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791598470; c=relaxed/simple;
-	bh=8M5YOEIrXDD6XLd1ZsIBaFlISHd8WA2lKAFGHUrHgzo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o0lSoI5NE0umidABBs6tfZXlj3NIRg6qtBj2OLXJ1Hrsap80Cl2tzZeKn9a/pXx+LwYTFjBWc1ovKp9VH4m0+kMPDbCEpW7xjUmtu8BdRsjybDiuzfvhUoRjMyE1xGoeDN1RHpNFB3DmY57JAj/EzF9+UI9hkur5Kz1of2Z07hw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=a5PRAD4X; arc=none smtp.client-ip=209.85.167.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19ABC381EB6
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 02:14:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791598476; cv=fail; b=FENxr4cVhQDz1vanh+yw0rb+TEcFbhZCuMOqFJOLGY456hyN4lqaFpRGjKmkHkwkUZHUt0+mofQdftMgzV/0Iub6Y1Rmbk3WvCPM4KnjZyq/6bFHAhvtWbIUXtVr5fIUo68ivJQwqCrWhGoGmOAws4KX61E6mRe8cB5fSbRDlIw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791598476; c=relaxed/simple;
+	bh=ACL2PExxZnfVjPtsIbn2J3oVF3gQSfhllxugc/1aR70=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=iLEekKNIbBBVJ1hyM2PuRwaS+WPXUaE9ymlqgWNwz1Tcgv8e4F/M5FJAOSPBstlHhIMkuPnM0lZV3pELFmE2ONeiucrbZVE0kR/aM0m2t9mJDQ3OaOgu0mijjHXXNHUgdUYu3n861A3ecl4QdDBvN7hy6D7mKu2zuIZXLIqpSFg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MaGhEYkm; arc=fail smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="a5PRAD4X"
-Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-4f699fe49b3so309993b6e.3
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 19:14:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1791598468; x=1792203268; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ewsgbjqBMzM/54gVEY1eYtAsThNx/wBnYzgn18kV244=;
-        b=a5PRAD4X3iPG5iL2hThLNfvRl79MBO4SY0SxpYHKQcWc4AZHIJaK62S4tnsh+aLMZb
-         QrtBO4d5L1j5kCEfvIF0Odn11YXgiRL8wk2nSisTQ6uI8U5+eF3yCyGFIjUS0TKg0OIc
-         Txoj+pMkv1pHY4Kmw4pwAqstaz0bq7P+0s1kE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791598468; x=1792203268;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ewsgbjqBMzM/54gVEY1eYtAsThNx/wBnYzgn18kV244=;
-        b=zP4PCwOtX2FTF0dtP6Pw3o8v1ZV37QDx8hBmcWE0BDfo1uo4clUrvdxyV++PvLGoKU
-         ozm0Zp9VrZ2rYTPfGhoI41KgGjRnUK1KKLqJacexribkM+iwdVQME5ZVUH9Pmlr/mdIW
-         4ACZH47bjKMCgsOO9EYXgfAvvgJ/oZm9FHp7wA0qiVV6vuEJW2Cyn606gCFT4PF5Qqjj
-         +QWADwSFxwA1N+hbt0uGAd8uuiIB6CaVID3Dh2L+jU4A5/9ar+etTgJ0IqKczulIp5O3
-         50ajKZ2OFvyG9c3JtIvqFQVi6I322zRUmEyK/mwAYnmPq4hufnH3y5XyKL8ekG2IwplH
-         Kusw==
-X-Forwarded-Encrypted: i=1; AKwUvByH4LXGHzvqwyl6sLpQOxphMfObw15CDVa34Lc9aLmVnTFHWK8J2WBLwRd2Kcqzi7YBTvcgqHp/ddcS+Zs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIhMIAhmpJGAedhmKLitFn32u7vVTwBOcnZ+ZQ5/RI4GGpg3p0f
-	bqZoNREWvIrFY+HKQyV++ZiPn9a29jd1Sl2n857fQFYR+lxcQTh0hLyYZajKS0O2DgM=
-X-Gm-Gg: AYBFou3MAiZBr4kAkcpX+0/QjWFakgq1b0tYJuEb+X6LMuDhENxP7IOO0Mt6kc+r5ik
-	qLr74m2nZqYWXiAnNqbwq5fyrzM/niwXW44UdalSnz0HcggSFdPwH/YCvk3zN6mpo2yV2VOZ366
-	ujX9KgCDXIt7uwP9gFDezjT1KltjgkoBQI8P5Bxp3uVrjq/275Q8gK4LxTaRIRYDbolU8+F6csi
-	PYvvG/0cjH7NBLo5SwauzJ2q/HkoZaNhgKDVDztrk2fVrLpBjtwutPOU3vQLUZn2u04AiCKKPrr
-	gArJimIiQfgjJnLr9paAs/xNSW5FdfXaSzpSZ8l0hV0bkhvSKK27X/Asw7bpuzEZMwHgKyA0U1o
-	PsE6DjiOHDoG8dWcr6/uSyPeM8TFsQVrSsQ1PgUArNwhsGyoyQGMPC4cNgU9Rn7I4LS6w8a5QWI
-	sDcVtJDirgg931zaN8s1+D6uenBwLZ3XT10bszWBNZTAAX8MmT/p5uj8aQLn9Zv70npssgXl/qH
-	qSK/sa5a2rNmLUe6hgxv8ymT1s3MSU1uCPzTLcrv4BT+gK5ld6NVg==
-X-Received: by 2002:a05:6808:3384:b0:4b9:a8ac:489 with SMTP id 5614622812f47-50c52a4eb8cmr3292704b6e.39.1791598467997;
-        Fri, 09 Oct 2026 19:14:27 -0700 (PDT)
-Received: from com-75606 ([199.47.143.7])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-50c0c5fe916sm4211994b6e.1.2026.10.09.19.14.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 19:14:27 -0700 (PDT)
-Date: Fri, 9 Oct 2026 19:14:22 -0700
-From: Kyle Zeng <kylebot@openai.com>
-To: Zi Yan <ziy@nvidia.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Rik van Riel <riel@surriel.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>,
-	Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>,
-	stable@vger.kernel.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/rmap: don't discard lazyfree THPs at PMD level
-Message-ID: <asmffmSz9MSjxD04@com-75606>
-References: <20261009-lazyfree-stable-fix-v1-1-70997958ef8d@nvidia.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MaGhEYkm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791598475; x=1823134475;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=ACL2PExxZnfVjPtsIbn2J3oVF3gQSfhllxugc/1aR70=;
+  b=MaGhEYkm3BfUkzqGMnXuz4G2U/zcOxK6n3XexheHjpCnU0WbAVdotvSW
+   jzAGpQJyB2JG5c2mP+pZ3EA7bvMfDrrB+WTpTiMTfKRTB3G6KmH+RkXzO
+   8m1PUS7IL4WyGCix00bDlyzzq4/kWi36qRTWuJzw3Vim8GU50UgvSObye
+   wEpuU5FiXZQSRGZcZcKVW82yd9rPEjMOyA/ThQNRHHr6ePgjiEEZqUryK
+   E5HQCIvHLIFonbX02zTuFMn8jSO7i/46QFnQki3QJ550RFNbkc5tkbVse
+   DfNaSlAruGMuvL9BYVeUakpfaIRAl9zeQRFyy8eTEzwFkRb+7U0IszsdT
+   g==;
+X-CSE-ConnectionGUID: ZgzU6R/JRO+ZbJJznrbClw==
+X-CSE-MsgGUID: 8jcP+hc7QqSX4cy9BTZHdA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="299678"
+X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
+   d="scan'208";a="299678"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 19:14:34 -0700
+X-CSE-ConnectionGUID: FrWw01AGQa6BULPfH/DWtQ==
+X-CSE-MsgGUID: 0KbZiDfjRtuKc5rF6CrFfA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
+   d="scan'208";a="766867"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 19:14:34 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Fri, 9 Oct 2026 19:14:33 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Fri, 9 Oct 2026 19:14:33 -0700
+Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.65) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Fri, 9 Oct 2026 19:14:33 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=INbnAHId5xgll1Y4idg2Ch/lT1cSGfw+IsGCpKofIdvy5G+RvOzfp034riQdVNO05QqpO8CUGYnGFTLhTatL5+b5zv0ov2fS5y2kYnXWmIQFkz1LNYUGvV0ORlXSt9TtyyHmqY4lHRz2ewT9JB1fAQp1tvskuAoe8BD5A7g/rxoTniyhu4Q7IVMHtLoiqzkXwMXd93pNPv5rUMDGGnS5gcZQayICQGXCrle2sUAPosfpWVCLlMOwwtegqAEp9YAa8e1LPdU0LCuVPXGEa19GeTRx3ypBKd6xtEyuVxihumhCI29VCtY2TiQsZZ3Y8KDqz3cpZjuakdlQ51+s9L7tWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cLgaFy5oKxKIZTMjz19TvIwNoD3n9madLgvlh00YqII=;
+ b=c0TTFOWnLJxcD4OK3hvSaoiQ4gi2PqQTjsNcdGHc0ouXRUwYg4XjJAnKDZsh8SwhlSERGaOIF9GPSD+AwImTCyB7EeNwjhLbkB/v6G3q/Fh2p3h6CkYRL4sdBUYJlQpmMXceS219fN97H1KCo+Rpbzsr88TcXFErA8hnnbZVQqoPMq33ofyzOgEgPFkn7ldwXRhKYXEmWvQxKNQMTcK0D2yfdj4pxjpbTsnCYKgV78na449x4oRVlvPN9H0R/amSatrI+uIZwpIKn9y+1MVBRwFlnFU4C2FWPOVeDwrSHfQAqVliO+wjgnlLi1FzD1UwRBqQUGLcymjVRXBsFGcL5Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com (2603:10b6:f:fc02::9)
+ by CY8PR11MB7800.namprd11.prod.outlook.com (2603:10b6:930:72::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Sat, 10 Oct
+ 2026 02:14:30 +0000
+Received: from DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::6fbf:c112:d0a8:f1a8]) by DS4PPF0BAC23327.namprd11.prod.outlook.com
+ ([fe80::6fbf:c112:d0a8:f1a8%5]) with mapi id 15.21.0496.017; Sat, 10 Oct 2026
+ 02:14:30 +0000
+Date: Fri, 9 Oct 2026 19:14:21 -0700
+From: Alison Schofield <alison.schofield@intel.com>
+To: Kaitao Cheng <kaitao.cheng@linux.dev>
+CC: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
+	<david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
+	<liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport
+	<rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
+	<mhocko@suse.com>, Dan Williams <djbw@kernel.org>, Vishal Verma
+	<vishal.l.verma@intel.com>, Dave Jiang <dave.jiang@intel.com>, Ira Weiny
+	<iweiny@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+	<linux-mm@kvack.org>, <nvdimm@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, Kaitao Cheng <chengkaitao@kylinos.cn>, "Oscar
+ Salvador" <osalvador@suse.de>
+Subject: Re: [PATCH v2] nvdimm/pmem: remove test_and_clear_pmem_poison()
+Message-ID: <asmffUJ1gPDfaAvV@aschofie-mobl2.lan>
+References: <20260923055318.57485-1-kaitao.cheng@linux.dev>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260923055318.57485-1-kaitao.cheng@linux.dev>
+X-ClientProxiedBy: BY1P220CA0001.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:a03:59d::14) To DS4PPF0BAC23327.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009-lazyfree-stable-fix-v1-1-70997958ef8d@nvidia.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PPF0BAC23327:EE_|CY8PR11MB7800:EE_
+X-MS-Office365-Filtering-Correlation-Id: dde367bd-0f09-4f7d-f29c-08df267437b3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|7416014|10067099003|18002099003|22082099003|6133799003|261009223027099003|11063799006|260925021311599003|260925021911599003|260925022911599003|56012099006;
+X-Microsoft-Antispam-Message-Info: l1jsDAQ9zQoTfeRJznc8g3jj1NUPFR2CbB6V1W21XwFzrwJ0hX0ds4sX1PrnaNU4x24W3BCv8eUdhXEQDQv4BInQKLPLjDZYV/I7ouJOJQzIZ6MBdXXQJrjvoIXOxEulyyKTsYycXGPCfRoKrK3PtpjUfLYiwLNuRh331oM7OKfFUMFRvuHLmTfHZVQfWOsVK14g3impYo49VO7SIRKIKDmC+xLXsRajMA/WZKieR0wEijhCjzoH9ghBPcNV0LGZyH9wMUn+qRG6sRaAF+tuAzoaK38rDQ2oqJt0CW/gl5OB5kZOw4I3xNkZekotGzPPGjNb96b2nuUw5A28CRF5q7bXjRmVAmwJaI+hEBrRIeDBmhB+V9Ho7g1oVIb+Ka5MhTWKayPmLjmrPCPOGy6buGd5W3OWqlyHjftrjUruizNUvt4uDaYN9LsRhTZGpyW7Y9+wf1F/ilKUfl0aI3hM0dB/Zr7xBVzLBCDiKd0wLwxaiWLBjMPNvZDdlBhPpuQfAskU+/cUgP5QvhI57ewnIaY0YgOljjNh13EiL74f3atFtGlKuoksIGapJPMeDf/DQZn8R7Mxgcou26XdgFzXQFniFc3jkjG1WEb72ItTzdQp+atZwKpdiLAshRqu2mUb6jwk5nNItCORK4i5m/65g7KiY10+qvX9W/HboasMTTY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF0BAC23327.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(10067099003)(18002099003)(22082099003)(6133799003)(261009223027099003)(11063799006)(260925021311599003)(260925021911599003)(260925022911599003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?8QGKyixvmquL4x36byEtCxxrQ7Deqh8siJZjQKbsEXQZUL+/gtgU8opRRE0s?=
+ =?us-ascii?Q?kd8hDXMBhx63BISitZrPQEwqDJh5Wj5C957s7G7G0mov9njMnlUHkOzGwRJo?=
+ =?us-ascii?Q?SFDZJ+uRfTAn0350c6X4qRdjsc4UP/8Kk64oHlUHcP1bnG22ewdUMlq6PCMT?=
+ =?us-ascii?Q?Qa6CvessQLep7UEn68JhDOx8aKo4Vnj1mCXc635OPPUGaqx7tXQ55ewfN/7y?=
+ =?us-ascii?Q?DtUhJhMvYvwfcOVsN2ToIKCiMjgtfM/yRu/r1hejnzFYbFB87yI1ydVfv4uo?=
+ =?us-ascii?Q?v9ZY/5Iawb+idXFnepsC/9JR2BOpcMwsTjOusR9oiYBdhB0wWtnnOc7tYynZ?=
+ =?us-ascii?Q?cIz9wg+3ZMJ319XZi2vvd6ato7n2gV2aHcjB3waMCLmYdLPSzNHoHal3dh4p?=
+ =?us-ascii?Q?uduJ8Aekb+IfJuFw4Rfm4esTTm7S3Nw+0cVyb0ROILQWO25oNiiIZLxvvQsQ?=
+ =?us-ascii?Q?4ZO1zEEQDbMMGRgxJZnwBCu1rZ0MOIARaL36wawFTF2Yv5psf628pqqClhhM?=
+ =?us-ascii?Q?WZjZJEvaJIEzkk/56IvePEY2gkThdXxSNKWyUp4XkVzkEoAEt6Z3PY3qqjv+?=
+ =?us-ascii?Q?KOObdBcjpjWtDtbTAHtnDu+okW/c/CTIOUJdiHY0R/exXf13mQxm+CDVjjZ3?=
+ =?us-ascii?Q?GK6HzaVVHKev/wfbJ67+w9eBqr/qZbbE+HcwlP2gohqnBrNgmi4SM6TF3k0N?=
+ =?us-ascii?Q?NJS3XykXDo5UjOS6VyjABHkW805grjQKcNNrO9STZM1PXg829ntdaDM1tnDX?=
+ =?us-ascii?Q?FGoUChAoTwgpZT6YXcFMy/QJvijInQE4DC3Nam/mv4+5+YHNlmnS5nNKMCsR?=
+ =?us-ascii?Q?bZ0fj0Xqt7u9jXdcY0qTL7PBcy7FLrqaGxk0rkaYtzB3/v/LQwafG2/AJgZA?=
+ =?us-ascii?Q?3o5u31jJBo/ja9+M4i8OfRDDR7tA7yE4WIEZA44tb6PXtNHh1PVa/X/+ku7j?=
+ =?us-ascii?Q?kzzzFi/UiuCRr1uhK091YVjhGGbLoXoAgdPQFYrTel1kb4gFmRfmbh6EDgLB?=
+ =?us-ascii?Q?FDnbmDcIIcd6ND6oTHmn1Fmb58LZyH34STKRx9opPO/MN0dyB31CGPN1jDuP?=
+ =?us-ascii?Q?wpNaWhDrSHwuAq58WMiVRGj/TxiKJse7YGBmTKTTC4jMVAllmxvgKxgXArku?=
+ =?us-ascii?Q?sQ57ON/RlNKDQVtb/nQ+0vI6zqIZcqhzotSXy0zxkarmYMrBqSauSR6t1cD9?=
+ =?us-ascii?Q?ckY9+lb0G0Q1IFenUTJRVun6EHA13+l8pu61T28Db9ljI1Mm8rwAAwsPSVY4?=
+ =?us-ascii?Q?fphBvU7pCrS/kc+e7hcyk8Fe4vXqpJ4DMJRikdCQi7EIG9C6P+y8Wo3x/6H6?=
+ =?us-ascii?Q?lb41V4K7XXfP9j8AP19WIz6kLX0eTPmvVEhyJ/ny052aBBcRcWAgR7AemoLO?=
+ =?us-ascii?Q?FyjvUAHlUIdbGErH6mcer+Iq2RZZVBQB4UdRn0hPFf2A16l4qOM5OvratlkA?=
+ =?us-ascii?Q?Z8p3TWrLkylwjxOms60i3wOMfKc7eijGu6Jo02UH6tsxDIJKwapz+xyweNYB?=
+ =?us-ascii?Q?LpuDFpYm6RUlySYqzr7OOXgW3w1WAxyBmlQWh7y03MJwc2fEhIbFZ7/otdqE?=
+ =?us-ascii?Q?gGreORUYc8E7F3Jw9UtukUqb+r8sa0pxhBxDwHx5UbtMsRt3ltDUTtXLjt+z?=
+ =?us-ascii?Q?ml6ODjKW1Aw1Rgs+9xSoYj4Hec1lEPZHtq8O2jECRiSucLs9yiL7wECTc9oU?=
+ =?us-ascii?Q?6+srZwkz8PG3M3eBheCTXr2j7yNIpYgvUCnN6QhryQAvpBM7FvsvpJ1335o+?=
+ =?us-ascii?Q?C5di/nrVdp2xbsm/wj30Cu8iKHEwDmw=3D?=
+X-Exchange-RoutingPolicyChecked: C7tCDtwZc1VVVge/Dz/7YzuYraxq9cj+TTwW7DZCCiSACl2mWahAopZ+ZLz4xreyVePoncRCVTR4GwhffBumSxJ6CZCiVfgtxjQ3oK07+hqb470X/bJ0H1DJ3i9aVikrpohfYj5QVyzvh7zYrle4r3f/LtanruRx9oP6bLfZm1wRvd6IcXxXi736mQP5/9c3xn0GvDxrql9kHyCW5D8RO5NJHv5bi8zyriPOVsyrzcU/sXDkXuAe81RUA6iZlTkV8gVqs8qzYndtWsLw2MxSh17pbvMax9IMmr9pUkIbYbE/hEunicpdVKU7e6EQXIJgeNX89Lg7k1DTySOfLxQ+Sg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: dde367bd-0f09-4f7d-f29c-08df267437b3
+X-MS-Exchange-CrossTenant-AuthSource: DS4PPF0BAC23327.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2026 02:14:30.4332
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Tb1zQumAqmAjxWq5s975/z9+uTRs4yOgLNg03Kn1Yh9jWBfer/o6xS/GPCkbUu7D7spkdJ/QfWWDTt7DqebQez3hyNPAWfkgmPBufLzM9Hw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR11MB7800
+X-OriginatorOrg: intel.com
 
-On Fri, Oct 09, 2026 at 10:08:18PM -0400, Zi Yan wrote:
-> __discard_anon_folio_pmd_locked() clears a lazyfree THP PMD before it knows
-> whether the folio can be discarded, and restores it if the folio was
-> redirtied or has extra references. A concurrent munmap() or
-> MREMAP_DONTUNMAP skips the temporary none PMD and unlinks the VMA from its
-> anon_vma, so the folio stays mapped after the anon_vma is freed and a later
-> rmap walk uses the freed anon_vma.
+On Wed, Sep 23, 2026 at 01:53:18PM +0800, Kaitao Cheng wrote:
+> From: Kaitao Cheng <chengkaitao@kylinos.cn>
 > 
-> Using an invalidated PMD instead of a cleared one requires additional arch
-> code fixes. Instead, disable the PMD level discard of lazyfree THPs, as
-> before commit 735ecdfaf4e8 ("mm/vmscan: avoid split lazyfree THP during
-> shrink_folio_list()").
+> The pmem driver provides test_and_clear_pmem_poison() only to handle
+> the CONFIG_MEMORY_FAILURE dependency of TestClearPageHWPoison().
+> The wrapper has no other pmem-specific behavior.
 > 
-> Fixes: 735ecdfaf4e8 ("mm/vmscan: avoid split lazyfree THP during shrink_folio_list()")
-> Reported-by: Kyle Zeng <kylebot@openai.com>
-> Closes: https://lore.kernel.org/r/20261009165214.40212-2-kylebot@openai.com
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Zi Yan <ziy@nvidia.com>
+> Define the HWPoison test-and-change helpers to return false when
+> CONFIG_MEMORY_FAILURE is disabled.  This allows pmem to call
+> TestClearPageHWPoison() directly in all configurations.
+
+I see this merged here:
+https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git/commit/?h=mm-stable&id=2492d9c0afc02cebe8318155829e7d03bea617b8
+
+Still not sure how all that works, but I got an email saying merged, yet
+this list was not on the email thread.  
+
+
+> 
+> Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> Acked-by: Muchun Song <muchun.song@linux.dev>
+> Reviewed-by: Oscar Salvador <osalvador@suse.de>
 > ---
-> The proposed fix[1] requires additional arch code fixes[2]. Disable it
-> first for stable fix. The function will be re-enabled along with arch code
-> fixes.
+> Changes in v2 (David Hildenbrand, Oscar Salvador):
+> - squash patch#1 into patch#2.
 > 
-> Link: https://lore.kernel.org/all/20261009165214.40212-2-kylebot@openai.com/ [1]
-> Link: https://lore.kernel.org/all/DM0II2QHWWS1.2RXEJXC8S0101@nvidia.com/ [2]
+> Link to v1:
+> https://lore.kernel.org/all/20260903053535.17611-1-kaitao.cheng@linux.dev/
 > ---
->  mm/rmap.c | 11 -----------
->  1 file changed, 11 deletions(-)
+>  drivers/nvdimm/pmem.c      |  2 +-
+>  drivers/nvdimm/pmem.h      | 12 ------------
+>  include/linux/page-flags.h |  1 +
+>  3 files changed, 2 insertions(+), 13 deletions(-)
 > 
-> diff --git a/mm/rmap.c b/mm/rmap.c
-> index 805db93fe0428..1131b76bbbc28 100644
-> --- a/mm/rmap.c
-> +++ b/mm/rmap.c
-> @@ -2275,17 +2275,6 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
->  		}
+> diff --git a/drivers/nvdimm/pmem.c b/drivers/nvdimm/pmem.c
+> index 30a51c365ce8..5fb86595e8bd 100644
+> --- a/drivers/nvdimm/pmem.c
+> +++ b/drivers/nvdimm/pmem.c
+> @@ -80,7 +80,7 @@ static void pmem_mkpage_present(struct pmem_device *pmem, phys_addr_t offset,
+>  		 * here since we're in the driver I/O path and
+>  		 * outstanding I/O requests pin the dev_pagemap.
+>  		 */
+> -		if (test_and_clear_pmem_poison(page))
+> +		if (TestClearPageHWPoison(page))
+>  			clear_mce_nospec(pfn);
+>  	}
+>  }
+> diff --git a/drivers/nvdimm/pmem.h b/drivers/nvdimm/pmem.h
+> index a48509f90196..76870505dd79 100644
+> --- a/drivers/nvdimm/pmem.h
+> +++ b/drivers/nvdimm/pmem.h
+> @@ -1,7 +1,6 @@
+>  /* SPDX-License-Identifier: GPL-2.0 */
+>  #ifndef __NVDIMM_PMEM_H__
+>  #define __NVDIMM_PMEM_H__
+> -#include <linux/page-flags.h>
+>  #include <linux/badblocks.h>
+>  #include <linux/memremap.h>
+>  #include <linux/types.h>
+> @@ -31,15 +30,4 @@ long __pmem_direct_access(struct pmem_device *pmem, pgoff_t pgoff,
+>  		long nr_pages, enum dax_access_mode mode, void **kaddr,
+>  		unsigned long *pfn);
 >  
->  		if (!pvmw.pte) {
-> -			if (folio_test_lazyfree(folio)) {
-> -				if (unmap_huge_pmd_locked(vma, pvmw.address, pvmw.pmd, folio))
-> -					goto walk_done;
-> -				/*
-> -				 * unmap_huge_pmd_locked has either already marked
-> -				 * the folio as swap-backed or decided to retain it
-> -				 * due to GUP or speculative references.
-> -				 */
-> -				goto walk_abort;
-> -			}
-> -
->  			if (flags & TTU_SPLIT_HUGE_PMD) {
->  				/*
->  				 * We temporarily have to drop the PTL and
+> -#ifdef CONFIG_MEMORY_FAILURE
+> -static inline bool test_and_clear_pmem_poison(struct page *page)
+> -{
+> -	return TestClearPageHWPoison(page);
+> -}
+> -#else
+> -static inline bool test_and_clear_pmem_poison(struct page *page)
+> -{
+> -	return false;
+> -}
+> -#endif
+>  #endif /* __NVDIMM_PMEM_H__ */
+> diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
+> index ae2ebaed6d4d..3dc79c0c5adf 100644
+> --- a/include/linux/page-flags.h
+> +++ b/include/linux/page-flags.h
+> @@ -655,6 +655,7 @@ TESTSCFLAG(HWPoison, hwpoison, PF_ANY)
+>  #define __PG_HWPOISON (1UL << PG_hwpoison)
+>  #else
+>  PAGEFLAG_FALSE(HWPoison, hwpoison)
+> +TESTSCFLAG_FALSE(HWPoison, hwpoison)
+>  #define __PG_HWPOISON 0
+>  #endif
+>  
+> -- 
+> 2.54.0 (Apple Git-157)
 > 
-> ---
-> base-commit: 8b38ed9ab5b09c8ba168cbcc49524e9b380ee5c4
-> change-id: 20261009-lazyfree-stable-fix-67712b2049dd
-> 
-> Best regards,
-> --  
-> Yan, Zi
-> 
-
-Reviewed-by: Kyle Zeng <kylebot@openai.com>
