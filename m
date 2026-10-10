@@ -1,128 +1,143 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91D9F49D5B8
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 13:27:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791638863; cv=none; b=lBIj+8yFUAspZksXe6FCodFcJQ/4ByAqAQGWkm0+5G4GFmm01SxD6XnY1CsyA/krjiGwsmYKFbE5pdhoFl7dWdfo3uX5FB2AuR0ZTCF99enW0RDfCkrsDX5TGrgGGw2d/qUJZ1dQ4sq7P2OocfQ7JBJRbM60Zctu8G/9DnMXoP8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791638863; c=relaxed/simple;
-	bh=mtxITmcWvc3yGWXuvwVSycVUTwppjDUjTMGMhK5QZoc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KMd4kvZg6NxoGoqHDEV/y312uXT3/amigc8MZAeqc5zBVnH6k/nnIKhTWlxLHBTelj8oJ2OOd5B/KglVpMMo2LNsdMu20gVB/bUuR2MWfL4gT5xchu4XnfmGaDD5oQrWPnoxdgGUxJFjQKEyC/qsinv+vKnC+XW9YCR/u/3LZ3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso6401745e9.3
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 06:27:41 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 601EC491589
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 13:29:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791638968; cv=pass; b=RNCPeO2K3vplu7f6/X8S9faskMr3Izfn74OiXVFZcAsIv9wZL73+9vRjq+AVYuVyCMwm38W+z9v5uUSqLtb1VtQcsL7BhZ4V+A9RI3tE+id7Fdjew4JyTtvOK386uR4tJInzound9F20qlOFh6Bbv1THnZ3RblTB/G0pzEGlhqs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791638968; c=relaxed/simple;
+	bh=0mOLJ1qbIO4bHtL723mklyC/FW/EWWw0glxLKNa5KhQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qNSlfQBPcwoV3vo1vB9MctDNbISQ1sEWzIqbwDnCF/aOsSoUCwVz/pAviRrYzJI7qrftCwC6JJXk+bB7waL+1M2/GiT3EUdPd8+ksOCOUeY0Gh9Z5UOXLNiBekZQV1k8kEDzVBkGrjTmMCMnZbmj64d/VVFZPQl5hFXS70C/DhY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com; spf=pass smtp.mailfrom=futuring-girl.com; dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b=ai352XnO; arc=pass smtp.client-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=futuring-girl.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b="ai352XnO"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c29c6a3930bso81689166b.3
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 06:29:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791638965; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SrWw4evyvM9Bn02ssiNU0fRgYPD/uemd2NzyqXnBR4adKsIJ066VW2m6U42NSVtlxa
+         cfD4G5vodBN3kgc6/m6INtfoI1VqZfLNTEGi0Gp8XUyMP8VXkUesrmEj8mumTSimk7Gu
+         W+zipaaKvbjEtK/fxjnm7yOOPkxBNocojXV5yL0hKmjjgMiXcBIWD81JkzLTjTGavC0C
+         c50ZukEBA/bEihL91oheyxfYUYzeUmIL8XRpNrRNyfyOZAFG+fvnsIXULyr1ypeEkfHa
+         OYY39PcpeYc5PnZ8Gm8Xm3F0X3P6fstkhuIOLp7R5U+nPrS77RRq6oDS3W0GQzCCfvWL
+         FHpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6/nHQi/CMAK+j6F/l0YNH4Qaf56yMgapiWA9WJPD8E8=;
+        fh=j9sCHWC2hoFclbaTLFoDEAiWvebzA5W3CMFePDFAPLw=;
+        b=MbhyzQIutv3OGqGbe+lUxGBQ8Ng3TcsQ4HITLeGUFltegNngCbqhetgTP1una4rIGl
+         GgXJgM6UQzeYz+1UTTK6LmErJoNjoQooKLSWPM91XqL8toYL2/0IMLoxpmSNMgC66H88
+         /kuXDoxcKBTxlR5/jWeYEapyWNz0ExUUEaivEKHZnVevtXvXNjvlJOSakc8oWFiauXca
+         Kx8CyS0l9WbiD/NjnjL7DmXzdOYpUVnqpsOLC7E9yLNUM6mCADUeREd/azZQHbNx9CBQ
+         frZTrfI9//LklXt6MlTdMvcvfIZIY1QHvoHqadrA/XrxX89ymcE9QXOk8chLqQEDF2mt
+         Mr8A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=futuring-girl.com; s=google; t=1791638965; x=1792243765; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6/nHQi/CMAK+j6F/l0YNH4Qaf56yMgapiWA9WJPD8E8=;
+        b=ai352XnOj9oJad83EhHSowwm2A3/Nku9MCiipuxmkASHamPsdOIzYHxc2Pm0zQpAKR
+         ZIkh3ehe98ENou+5jWLJnIpd10hkzIdsKHZNifX2D7qlG6nHEzI1eT8Bqbklk5VFbcHQ
+         fUz0T8VPIfrNJgFN3y95ztAJdkTwGhhCjD5XTRiyeNLySFoN2zGKXJfuVWBbHUiiIQx0
+         gPWxb/fjjcjo/eNNhMY2Rnuf0qI3FF7pc0N10dE1fEjdc0OwlBpsHyjIZ6lZ1sogHMXT
+         /2ly1nHP5e3DyJnn9S3Jz2hwkNpB5ec2yzPMv0yN5GDGtyI4R//6hgC7pqg/8flElwe7
+         KYAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791638860; x=1792243660;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BP0D00lIkZpItx8yyC8l4SZFagNyd56ZgQAemQMRUvc=;
-        b=yvLNKl5JcxGmpwyGqJ5n56va0eiK9HmfgZ1ldpgBiBgMyYNTDGeMamDsJYOKNhL//m
-         qzSLPLUWCu//qiDr0urcO3b0DWHsMgmBRGMyjU7pT3Wxax0/pz6NJvW3iZOZfK7OgZnV
-         h6nuxVPpXP8lqfaYyIEMlLXdjBDdPwIQkd2gDdsvIpmOB40sx+bP+9UgxOnt+u8MB1am
-         I0d9ZFrh1xDQKH21lvGSlILblq2TrcorTxwQSDQZ2grW1VpsYdU4KBjlR5wdDxMg1ZWT
-         0ocVLq1uzVh0CFLXatmF2h3zNjDdfocS4bkDPZB0AWZqfbW13ZJSRCqqS9PZKfOe8mEr
-         /XNw==
-X-Gm-Message-State: AFq9FYIEXv2OjHq90aQlYpdHtPMaofnMGUPmnovSLNLSJ8ZOSHRB8WHO
-	j1gDy0tNmfUlYMgk5zZY+FJb+Kgt/jia6uFXBj4EaxuZ9x5jWTNOn+pj
-X-Gm-Gg: AYBFou0c/+YPbblpbnH9O2xyG+DhZu5+CRpIQYTjMjh0FyYMDY1brnc4km4B1KwvNf1
-	C16YCL2H6l+86ne3HBVfkDJEQvwlNNR1jV82yr3At0fZrwGafdZDEiDwTlMv+CdzNHJaUaHYhvq
-	YXxD1wgx3QI6Xhu5lLaD+u/iCOQYJdYvOP4JXa8Xw5k/wYuqIN2mxU38u/Uc3QEVzCQNRX2kq+X
-	AvltHRPMYUj59jk58iL1fQ+x0Zx6sIqmt01KtuZI95gQYUslYnvPret65EM9I6c2MOrixrLE4aX
-	I6rfD5Po8SKIsORihgQ5FoBd4vmWWmpbY+F1p1XLCkZzKPl2KqC2gk7u8MUUzUfDpCZs/94Er+5
-	2Aq31nz034/Kx1u3/Mj702UGuOjo5r5UrPfCgdlc1CytB3H7OdT6Rhnu9nz+ELs1nOMayTjEf6p
-	k80Njish9+GmKZ9ZhCkEDlPq9wWCDp1e+ZJNYjnmvxmo2VSc+LxaDNztc/v8Mkk3veMDOYmg96R
-	roTLn1SeStO3XC/Wdw1O+kQu1g=
-X-Received: by 2002:a05:600d:6413:10b0:4a1:88d7:4e6a with SMTP id 5b1f17b1804b1-4a19470eccamr21770965e9.27.1791638859558;
-        Sat, 10 Oct 2026 06:27:39 -0700 (PDT)
-Received: from white (bba-217-165-185-173.alshamil.net.ae. [217.165.185.173])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48db94e33c7sm9648731f8f.10.2026.10.10.06.27.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 06:27:39 -0700 (PDT)
-From: "Denis Efremov (Oracle)" <efremov@linux.com>
-To: linux-block@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	"Denis Efremov (Oracle)" <efremov@linux.com>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH] floppy: register the block major after the disks are added
-Date: Sat, 10 Oct 2026 17:27:05 +0400
-Message-ID: <20261010132705.1693690-1-efremov@linux.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1791638965; x=1792243765;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6/nHQi/CMAK+j6F/l0YNH4Qaf56yMgapiWA9WJPD8E8=;
+        b=c/QvQnT4XQpXi3yAav/s9ZDE9KlzQQwjMHMi5fhkmugp7sPaKxW8av+y73d6b9nYZC
+         iHVqZcN6gWwvpnLLDGiWO+ZJCg2HttskjYy8e5JLW7Z7rab5C+m5ol2SBKCfhL93GBkV
+         gahy57DVOlXnyGoqg2zYz00Hvqa1+bajJljjWgOGgSYBFco+kpkU0Wxmcski9bslnEey
+         ssK7xapLqXXOfnJUugUoap3woDbHWMfJchvFUvyO3+tf0wxDkuazd3wJvxcwzTl8c+WB
+         9sVM2OmhmGOXiIx4v+y3wTZU84vbn3I5DWneIxOeiyJT2uaMG+3oY84ZtZUzN9+JeAZj
+         /REA==
+X-Forwarded-Encrypted: i=1; AKwUvBxEXK3bSl/clhgEsPhk4wleHuHnTE2C4KnQNWGCAbYfVlMkB18lukPCRRF2h9BQZpoNWIDWT0oL0lM2xf4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKOVedkaW26Hpx92hDkLjZHyU+cwSUy4QLRlGsqX03O+0wuzfle
+	kr6F2WrHD+CJlH+nhCdueSH9MSM8b0hohIb34zqRBqBpDSMm2MSOeEqIsc6o70tjYa7PKGjthop
+	i0B3kwuXubylqK2vRxqqRqh9LZ+PDbmwsBigtn7cHsA==
+X-Gm-Gg: AYBFou1mreI3/L21O5ydwwm+1bps/3Z7/iFwSg1YLFBx7lv417N7cIKdbdwuPfhqSzp
+	95pkGBIL9SDkOfVR2sggg8Jy/cOEo9RUiG2ryaPzNrV9skLRLUso1L7Iyv5wz4cFFJt+5pDC/Fz
+	9I+MSVNgetJUTAna2PDAjAtjMv91cULUXuDLuI2ztU+s2KUj2ykEThSiwwb96VaIruzJwL6n9fE
+	tKdslWa03DjYlq3ajqnk014f/ko6ym6VUs0Vj5yy7q5kcXyihz7/mqxpizz3svlbSRBZtooXZ0q
+	QTBj8fNqKs0v7ZtEJMvyLRTGS7gWyJ4yVvDCYxsGevZLrEbHphcKxMM=
+X-Received: by 2002:a17:907:6e92:b0:c29:6400:ef8e with SMTP id
+ a640c23a62f3a-c31aa0098a2mr468624466b.42.1791638965252; Sat, 10 Oct 2026
+ 06:29:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261009140946.008206689@linuxfoundation.org>
+In-Reply-To: <20261009140946.008206689@linuxfoundation.org>
+From: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
+Date: Sat, 10 Oct 2026 22:29:08 +0900
+X-Gm-Features: AclHuK9jyG7nhFSraKVNersbzp_MigR0JEtHr1nx66h6cqyz_SecNiHhQNS9bdk
+Message-ID: <CAKL4bV57zkwfGiTzGvK5Ho9AWVJfMamrbzOctPh8RkNKZ3339Q@mail.gmail.com>
+Subject: Re: [PATCH 7.2 000/428] 7.2.10-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
+	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
+	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
+	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
+	achill@achill.org, sr@sladewatkins.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-do_floppy_init() registers the block major, and with it floppy_probe(),
-before it has detected the controllers and added disks[drive][0]. Once
-a controller is found, opening a device node for another media format
-makes floppy_probe() add disks[drive][type]. If init then fails, the
-error path removes only disks[drive][0] and frees the tag sets, leaving
-the probed disks registered on top of freed memory.
+Hi Greg
 
-add_disk() does not need the major, so register it last. floppy_probe()
-can then only run once init has succeeded.
+On Fri, Oct 9, 2026 at 11:24=E2=80=AFPM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 7.2.10 release.
+> There are 428 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Sun, 11 Oct 2026 14:08:23 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+>         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
+7.2.10-rc1.gz
+> or in the git tree and branch at:
+>         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
+-rc.git linux-7.2.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
+>
 
-Fixes: 302cfee15029 ("floppy: use a separate gendisk for each media format")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260708105703.747262-1-lgs201920130244%40gmail.com
-Signed-off-by: Denis Efremov (Oracle) <efremov@linux.com>
----
- drivers/block/floppy.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
+Linux version 7.2.10-rc1 tested.
 
-diff --git a/drivers/block/floppy.c b/drivers/block/floppy.c
-index f04397b8e381..23a7a0fa76f6 100644
---- a/drivers/block/floppy.c
-+++ b/drivers/block/floppy.c
-@@ -4602,13 +4602,9 @@ static int __init do_floppy_init(void)
- 		timer_setup(&motor_off_timer[drive], motor_off_callback, 0);
- 	}
- 
--	err = __register_blkdev(FLOPPY_MAJOR, "fd", floppy_probe);
--	if (err)
--		goto out_put_disk;
--
- 	err = platform_driver_register(&floppy_driver);
- 	if (err)
--		goto out_unreg_blkdev;
-+		goto out_put_disk;
- 
- 	for (i = 0; i < 256; i++)
- 		if (ITYPE(i))
-@@ -4733,6 +4729,14 @@ static int __init do_floppy_init(void)
- 			goto out_remove_drives;
- 	}
- 
-+	/*
-+	 * Register last: floppy_probe() adds disks for the other formats,
-+	 * which the error path below does not remove.
-+	 */
-+	err = __register_blkdev(FLOPPY_MAJOR, "fd", floppy_probe);
-+	if (err)
-+		goto out_remove_drives;
-+
- 	return 0;
- 
- out_remove_drives:
-@@ -4748,8 +4752,6 @@ static int __init do_floppy_init(void)
- 		floppy_release_irq_and_dma();
- out_unreg_driver:
- 	platform_driver_unregister(&floppy_driver);
--out_unreg_blkdev:
--	unregister_blkdev(FLOPPY_MAJOR, "fd");
- out_put_disk:
- 	destroy_workqueue(floppy_wq);
- 	for (drive = 0; drive < N_DRIVE; drive++) {
+Build successfully completed.
+Boot successfully completed.
+No dmesg regressions.
+Video output normal.
+Sound output normal.
 
-base-commit: 3857c2fe5449541e24afc5efdb0f81a8a8f9a3a0
--- 
-2.56.0
+Lenovo ThinkPad X1 Carbon Gen10(Intel i7-1260P(x86_64) arch linux)
 
+[    0.000000] Linux version 7.2.10-rc1rv-g77b730c57839
+(takeshi@ThinkPadX1Gen10J0764) (gcc (GCC) 16.2.1 20260810, GNU ld (GNU
+Binutils) 2.47) #1 SMP PREEMPT_DYNAMIC Sat Oct 10 21:48:22 JST 2026
+
+Tested-by: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
