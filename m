@@ -1,186 +1,142 @@
-Received: from sonic307-9.consmr.mail.ne1.yahoo.com (sonic307-9.consmr.mail.ne1.yahoo.com [66.163.190.32])
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D40793328FD
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 19:51:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.190.32
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AFB73F9263
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 19:52:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791661871; cv=none; b=kE+eYOvoeklCJrFmpIcaH3s+plfzu/vC9Guum1vJgYvW68/xDMooXTAu/oQvquKdCUfPNX+R38Mhwf5Jcqm7qHdZupLkIZ1Bkf3gz9cjcP6+fqRAOJ3+Zdln+19+xSczUpVx/9KOhxIYybk+0ziQ4qcyNV4E/HRP3AEq5gTAor4=
+	t=1791661934; cv=none; b=TcbcaFTOax5FE6f7SPrIknkZdwWDFsxV+28k2uz146pH10qJmXkajZvSzuoBndLvbSaEQlwbsnOpKuTH0uAq4LnSp5P891o/Lbv0A2O9nFPYaBrERaneotFu2Relv0XQf3PyJSC78zuOLbT5FyPWkOZ4S381ew8CsJBZZ12/D0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791661871; c=relaxed/simple;
-	bh=4is5Ve7tOSMT15/yh+C2OSoels3Gn6qO/pKrfJZlqhA=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
-	 In-Reply-To:Content-Type; b=OZ++E4Y2rpmMqGFh+oaKPoLZJ92nvwXoR4Gc8NpIQUCXzkU6w3zR1zqeYQQgmg4fbjzeBfftWHK8us1wab5ObL97rBo7Pzzg66fFm9fmsNT2GHUamI3rXzbrp31zKKaKGdkShXxxJHgZdqsnb98zvxJ+/6OUVzFsn/cnaaeu5rw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=PWJUMrSF; arc=none smtp.client-ip=66.163.190.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1791661934; c=relaxed/simple;
+	bh=dL4opDuSGM8SqBsN/dyfejmt4RUNeFM6kqBSJ8frFoo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=W9lPcIVBMT7MM+ee53+nTGFP5Zmd10nK8WC5cO6mQkdExQ7FuJYF8RAdaUuUW/+ll1jqfz08aN8xcMSWr0pgbaFH8IQrYcOvBWLEDzevNUxRThQfRGTgqv4NHL7XNe6Nt491B453xABg993f4KX28LX0ZR3modT0T0RJD2Ti+S4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aDt3vNJG; arc=none smtp.client-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="PWJUMrSF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791661863; bh=ulEjKq7CzK7yoNLvVbImGxxWIDzr79V25ZVIMHJtM4w=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=PWJUMrSFv5RyEUu+GLwICgY47fkqgMCri28sIDLX7qbJrhxZo7+xy6O0Gn6r13jtc6DXTY3P43l/OZNEFSy6Djxp5bR6r1d5oVrvGw4gVT+i33RVJHukBMe8f8hD909Iy3cSTD9t0dY18uXM1+bov9kL3l1ndekkVqhP3AdoTfn8sxOhE/swr9voSRBBSPfIguW/2hNVsp1P+EgmDOl/9wrs3ovWv3rMxNTFzoDadSwrxBletPr2hJwzA9yr3f9aOYMRGhk2OZoWaVm5fDx5Wa/rt9FZMBmQqCSdPPRtUvUgbAlNqKFo9/S3LhO85Z/fvH4YNS9sruDAtVqXQ2kG2Q==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791661863; bh=TR/Mvo4ncTQ0vza5wxd4dLA/JrLgvok7WDlwBrSwqWX=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=E002FiNQ5fDfkVKueAsCX0FahdXr0zOjEvtIHCfMrQi9VkY6cjDfOztFIZx6l8bCZe1eaGNiXdR+R/ueZWzviGOTP0mGbfIjAYRnWjeHUcJcQgG50rirbDhHDfTqki1sTtmNG3Vi/qv7+SCH7yQ/qkBfEXLwlFbVUvV/GmhQ0AxwvD365l+u7LMP+2iB/ZaTsaw09MquyTpnNVuUgWk/k3TsPnRNOxBC6+BE1yj99nGdg21BOlGyl8c2dZlcaBQwnAR8ULgQPgyjqZRP1HvXZTZKeM2YQevWN5M3UUgg0dlG0nDXZ+BUZWfRCsWNh1bZi0Jx6y/o5ZZb/s/FkLgkXg==
-X-YMail-OSG: 11JVnWcVM1mf8.ku3woZ2u8CimgqsMGAnSnNpWc88F.J6KDB4Qe587celqkUUlZ
- gGAyNYx3P0m9sQKnx1mEFqSzmSAxk7fIpT7hNRodZLCFMgS7FPzAk6w7ykYllG9fIn33e4iHkV1o
- 4KtdUg.i90jsbzMxMXLxZOd4y1kdyZ0Aa1buJWAQElTl0tocRLTnrrMcl3ajnA4Hm4LpErDCW5hN
- 6D9BYYrMvmyetj8S78fIFxt5_MSQ7ykZ3IJGoUegYnjab._0zmGbIxYzBPXuMTEC5TsnXjYvISXe
- xyf25F3yxDn2gcd1FmH9lfUcHZytMWix.Nq3X3n4xZ.xDPTc0MEYgvMAfL_wNx7ovipLmMX8FYbd
- mg.gPn1qbHk6jWP84Ido7iDxrdaoGY4vspY.4mBmzgtP26yWIhve.lBr31YjrV.56YtCzl9f6ttD
- wcGKMENscvAmwcV5OcwEnCmUGJLWwkH.215K0YUdg1fY6NK_34LDVUNOh1g6kuJljJa6_Pd.F4tY
- mrihBwIrhak4HVXiKyTK_H0WyCY0tSfK5Jxb4EI0ZxL.JaBbCsuP4fE4cUGZSktGfytSRjFIYgVi
- .p_BzYQmuo.72aFCzxgvuPzhMTXBpSSuAlPodbntYa8CS8pYQ7K3mwL0.1jOFKcLPwZUsYz26CD4
- GCN.Z3ChIpA3A5BAcl.zB6XGk6cPfcax2y4VEfS6wafMBVWGYyunVZXw8QlMSjIpaOIV40c.wc3V
- 3TD9YaDG2M9SL7O92ecGgArse2Vrs6sCD7jELJ3T154n.Sd2EJ4GuXhUwAbntaCdcbn.3Aylco19
- qoXj8M4Yl0zgQ.Rd9hw1S_Z1hcgS9V63x20UUc_TXSm8JbGeNMy4ZQKw6tEf2nwNWt8oCv94LpG4
- HfDldGjCr4Cgfb.ZnJy3sqXo8vFSR_oFIQb9Ogl67XJEjoVwqJIq40AoxtEl6dAhh_44e9DNSL7I
- 1__bVHw8gsM_dfxnjuw8fe6UjtTTAa3_8MmXs8bGWS.llLlmA90ev.9KMoqPzovaxnIDmrvJQ0y6
- Ivkt5juPmhdGiPi3dbWo9FQyacYkrljq_saFD7eVf5yNxTSC4iqfWa85xbMzAX8TLHhfI4._WXKa
- UkupHdhYlQAp4I60JQIK1p0grtmnt1zgr.bmCUdC3KA1argBFWa3skcvmb4IZNKL1wVUQQ9D3sfr
- DvsszWN_cmVYRf3GeOPFNCSNM3Yd_tjZjRrriK6djGJy909IAEsVEixftMILExdy6zJK6TJZ5vzr
- V1IG7AGuqPtYyUp9yofFq1nNB6g5nTFNhRuh6K1SbCNmShZmNeK39foG100gCSln89AOQBlb.Vjw
- Spi7_KLBpvr1u6Z7RxuPUXB1HBelRd1An9aKQzEWdR4Bs3AvLhp6tWXxAmt8NfvmCZoIarqATIQe
- VbFZqN8uiQOUiNrJYZhb_4cAbxBMaxAtwCa3TXmS50yJ35JFHIqL0mwrvjcx6u63QxlMSNMk6Efv
- .zR_6yH1L9BgkhBicwcMuWx8LPmrdbZrB7UOfJJeZRY8X3EznXZ0sGtposro5f5TdyUFZrNBYmTq
- PdQhn_vhAHTf1uEDJWEFQayPkuZAL3ZclqX8WVPB0FEWdNn0I49E_u5J1ESMoXTrP9xUI2MNS9dA
- waE0s8n0TTyUmd_HrLLkWwSW_X..wFexDZqXx3CYHynn1sw30C.OXF_VJaVuAA1.7UGTeCbiN.0I
- 02R9kihDtYd_IHZjExXyJpWAwA_oKN9sYQdNEUmttX8aTlMRLzSqd58E9I1LoOtvQwUDoH9lazn_
- xqmv_XsZRBT6RArqTw0I2514qzuHZeTmfkzXSevnOTXaOPGvFpgUHTceDD1Fied0E5bGOzyhyOJc
- cktZ7Sh4a35kjrTE70YEoitxO4RkZ4ONmZNlnuaFdD3kzWIzT5KDFQxenOrnzdSnCU6XvcL2FVvE
- RqBEhxQAF1.jdCymdHNRfox9kc903KRvELlNgyD14apkmHWFqrr_LoVveIIopC1tvAA7z8dp2k_2
- izuXT5Atk4qPl.P1lY.JOhvS4M7Sv5cp8Olj5ajCKlPLnu_9g2RBvlqCfgxx24wPWP6atnI.4bvK
- XUZX6Tzx3f0c.smBOEw41hy6lTo8DzgiwQDjJASCljDkn3AEenZLcqpB7Fbr5erFpgtHH2geuv.S
- JZf6xRioUyJVHizBYe.fDP2iBIF1L2AD8iIxtCH3itlW2x5fXkkXrhIgUzU4G0gD.nsV8KSW2sMU
- OKTPdMeIV_WMS1g6S9Au2anJfB9dvPFCF61P_2FpyPFTTsQwwyXSWLVYcLW6C2yLn9MQ8aHYcoM9
- qmeXqEOvCZMdQJW5rGw2g2cna.BiqNBi_qZ7MLQ--
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: cc370df5-6336-4c24-89e6-ab1b50b425ea
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic307.consmr.mail.ne1.yahoo.com with HTTP; Sat, 10 Oct 2026 19:51:03 +0000
-Received: by hermes--production-ir2-5dd9bf4598-c45bs (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 720aa7e155ad1e7cc0489d0905145b20;
-          Sat, 10 Oct 2026 19:40:44 +0000 (UTC)
-Message-ID: <2b619d04-a3d3-4905-8232-f69be8546fab@yahoo.com>
-Date: Sat, 10 Oct 2026 21:40:42 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aDt3vNJG"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-887beafb714so320017b3a.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 12:52:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791661932; x=1792266732; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OmemQ6H4HcfXPuin0N8xQGUXoQ66JkiD41KqXO9jNc4=;
+        b=aDt3vNJGT3YYlss6aN8p3sAngMYdT3gJ2u5Jm+ew26GLRk9jx0IBpKjahPDR0Mjj0e
+         X+pshDwj+NwsVJZtOJJLSlpzl93kgV8ENgLuR2J+It3oBOWwxFo+HUd+W1H8ZkUyjjLy
+         XFPukWNI6rPgUjmRlcsBCKwHcs3HwWWCnVNS4Gbp+gFmTHJRfwAdJGLuEYQZ66aDDrma
+         UmjcnyYastNFFxIqULxI44hHo7U2GPfpMDsEGXXqVMlLy1LYkOiKgV4mhfuywNGXx7qE
+         QNqpLCCG4vmM+PLYFtN3dFlbuPQlF3+67zopENQI+WzCOjCT1pxToach6V1ghzYx8H0B
+         XSXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791661932; x=1792266732;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OmemQ6H4HcfXPuin0N8xQGUXoQ66JkiD41KqXO9jNc4=;
+        b=MTN3oP1F43HkDY+pSLQUPPvqrsVKhOIeLoqT1tVJMKbksg4pE/HNTSSo0udSPxT284
+         IA9Q2q9bBRrRzzpi80/moInDEWbqrqhn80nkuoAdGD81mbBEP3wUTnkpDdW7CgtKC3dx
+         M4kSF9P7axmiNyGOWvWTy+J0uEPZhkbmyiPbZ4+K3Yi1ohsEpW+h3GwjcL3utgGy+PuH
+         WJBtuNPn4VKj67c4lRXP2bONlzKxX5zu83lLadBWhQ7tmGvLRSXSEsgD38yBfNWYp1Cs
+         6O60Tutj2U3aOci45MnXEx6vjsEVanc7vSrq1CPI88F0YnScxR+yUfS/rVIgoHt2ykZF
+         ObWg==
+X-Forwarded-Encrypted: i=1; AKwUvBxnbp3sAUY7z0Eh6HWoJi09w6ayWLJlOK1gHEEZxX98sEJS+qwguWC+g91HyBBEKVipheWkDYpe3wLPbAg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK10iE2PmvSOYAu6yriR6JYRCZ8WGtqDrFmHBkr5fdXvU3vZH53
+	1GcSLYlK6Uq+tsdvt6EMO4QCmY8M8Q+tY17EUx7xvuL/yBYAJuJ6qp6i
+X-Gm-Gg: AYBFou1Am9fFRoqF1yvsLc1HCVxtJyi65kJoxCNWH6OQFTC/WXsEpw32rSG9tOOwz9y
+	c8NKjiJgB/8sV7t2hRJpPzETku8m2nmpfmRxydQHUsVMbmSHmcZlNxW+MLepvS+W4TbR60B/OdM
+	NgbK6K+EBjiSqhiMm4zQgYL+Ev3o/nC0aHWnYnmpdYzIfNDmyxVBupKfhT6DzDA/DVxpsnNOcfa
+	6rtw+m2VUJDNi/pFgkqNGOhiFiGTX4viCcubXIPkpNsFQ9cWJnkmCHax2yhs38pU6UZWoNMkPuX
+	der6m91pYAOwF69h/WneHyCAYmlEft+xbbnFN8XasgvRzg5bE5oRnN5CXYJiNCuNo70aVcjiuSe
+	h/TVcZpTccSKtmIioLlhsVb9V8FO14SoDQVx150M3crHtLfnaOWJlhf/MB8TbHoyjm8EfKpm9FG
+	p0IM6RGGfwNREWtGlZMe7sk8bY4EnTrp9xpi9NCC1BeAxogfgjNyyw5sYhpgP6MjKbxxf0+xAm+
+	WPxDZHno77UyykY6t7JIOrPC5HFrnTfQBGzqblP/rnk8gmVxJi39yV5JHmd2BdEjF/BOHBdRpwy
+	xvgsdpB1eh3paJzfsyh2E462YuAN6verqw==
+X-Received: by 2002:a05:6a00:1f06:b0:881:d48e:7138 with SMTP id d2e1a72fcca58-897c43df755mr4695645b3a.4.1791661931668;
+        Sat, 10 Oct 2026 12:52:11 -0700 (PDT)
+Received: from DESKTOP-TJS95SS.tail460ce2.ts.net (114-38-131-92.dynamic-ip.hinet.net. [114.38.131.92])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-897fb87c459sm2153250b3a.50.2026.10.10.12.52.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 12:52:10 -0700 (PDT)
+From: Yuan-Hao Hsu <aa9736195201@gmail.com>
+To: Rik van Riel <riel@surriel.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Peter Xu <peterx@redhat.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	liam@infradead.org,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Aristeu Rozanski <aris@ruivo.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/gup: batch PTE-mapped large folios in gup_fast_pte_range()
+Date: Sun, 11 Oct 2026 03:52:02 +0800
+Message-ID: <20261010195202.689-1-aa9736195201@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <7dd4ec994502233cdc09fe5c4369adc89168d738.camel@surriel.com>
+References: <20260917083747.786-1-aa9736195201@gmail.com> <7dd4ec994502233cdc09fe5c4369adc89168d738.camel@surriel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH net-next v3 4/9] net: dsa: realtek: rtl8365mb: set RGMII mode
- for family D
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <e84d76ee-03df-49b0-8c9a-b289dfae8728@yahoo.com>
-Content-Language: pl
-In-Reply-To: <e84d76ee-03df-49b0-8c9a-b289dfae8728@yahoo.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Transfer-Encoding: 8bit
 
-On family D, RGMII on extension interface 1 needs two things that the
-other families do not: the EXT1 RGMII TX clock delay field in
-EXT_TXC_DLY (0x13f9, bits [5:3]) must be cleared, and the pin mux in
-the top-level configuration register must be set up.
+On Wed, 07 Oct 2026 06:47:06 -0400, Rik van Riel wrote:
+> Since this is lockless, the PTEs could change under
+> us between when we walk them in folio_pte_batch_flags()
+> and the batched try_grab_folio().
+>
+> Is that race condition safe, or do we need to re-check
+> afterward that:
+> 1) the ptes still point at the same folio, and/or
+> 2) the folio still spans the entire range, and was
+>    not split before we grabbed the refcount?
 
-The vendor RGMII setup for EXT1 clears the RGMII field of EXT_TXC_DLY
-(0x13f9, bits [5:3]) in addition to programming TXDELAY in RGMXF.
-Do the same. The init jam table writes 0x0090 to this register, which
-leaves the field at 2, so without the clear an extra TX delay would be
-applied on top of tx-internal-delay-ps. Clearing it makes
-tx-internal-delay-ps the only source of TX delay.
+It is safe, because the batch only runs after the first page of the
+run has gone through the unchanged per-page path: the folio reference
+is already held (and for FOLL_PIN the _pincount already raised, with
+the smp_mb__after_atomic() in try_grab_folio_fast()) before any of
+the other ptes is read.
 
-If the internal MAC4 block is not occupying extension 1, bind the
-RGMII/MII pins to MAC7. SerDes 1, which shares the pins, is always
-disabled.
+2) With that reference held the folio cannot be split: both
+__folio_split() and folio_split_unmapped() have to folio_ref_freeze()
+the folio to the expected count and back off with -EAGAIN otherwise.
+So folio_nr_pages() and page + i are stable for the scan.
 
-Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
----
- drivers/net/dsa/realtek/rtl8365mb_main.c | 50 ++++++++++++++++++++++++
- 1 file changed, 50 insertions(+)
+1) The per-page path re-checks the pte because it has to pin first
+and look at the pte second ("(1) pin, then (2) check pte" in the
+comment above gup_fast_pte_range()).  For the rest of the run that is
+already the order: each pte is read while the folio is held, so
+seeing it map page + i is the same state the per-page path is in
+right after its re-check.  A pte changing after that is the race
+GUP-fast accepts anyway: the other side clears the pte and then
+checks for a pin or an extra reference, both of which are per folio,
+so it sees ours.  try_grab_folio() only adds references to a folio we
+already hold and does not look at the ptes, so re-reading them after
+it would not tell us anything new.
 
-diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
-index 8f3295c..c15b88b 100644
---- a/drivers/net/dsa/realtek/rtl8365mb_main.c
-+++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
-@@ -332,6 +332,12 @@
- #define   RTL8365MB_SDS_OPTION_ARM_KEY		0x0249
- #define RTL8365MB_SDS_OPTION_REG		0x13C1
- 
-+#define RTL8365MB_D_SDS_MISC_MODE_FIELD_MASK		GENMASK(4, 0)
-+/* Shared "disable" encoding for both SDS_MISC's and SDS1_MISC0's
-+ * 5-bit mode fields.
-+ */
-+#define RTL8365MB_D_PORT_SDS_MODE_DISABLE		0x1f
-+
- /* Embedded DW8051 microcontroller control registers. The microcontroller
-  * can run firmware to manage the SerDes link, but this driver keeps it in
-  * reset and disabled: phylink already performs the link management that
-@@ -458,6 +464,20 @@
- #define   RTL8365MB_PORT_MISC_CFG_VLAN_EGRESS_MODE_MASK		GENMASK(5, 4)
- #define   RTL8365MB_PORT_MISC_CFG_CONGESTION_SUSTAIN_TIME_MASK	GENMASK(3, 0)
- 
-+/* EXT_TXC_DLY holds a 3-bit TX clock delay per external interface, for
-+ * RGMII ([2:0] EXT0, [5:3] EXT1, [8:6] EXT2) and separately for GMII.
-+ * Only the EXT1 RGMII field is used here, and it is cleared in RGMII
-+ * mode so that tx-internal-delay-ps is the only TX delay applied.
-+ */
-+#define RTL8365MB_D_REG_EXT_TXC_DLY				0x13f9
-+#define   RTL8365MB_D_EXT1_RGMII_TX_DLY_MASK			GENMASK(5, 3)
-+
-+#define RTL8365MB_D_REG_TOP_CON0				0x1d70
-+#define   RTL8365MB_D_MAC7_SEL_EXT1_MASK			BIT(13)
-+#define   RTL8365MB_D_MAC4_SEL_EXT1_MASK			BIT(12)
-+
-+#define RTL8365MB_D_REG_SDS1_MISC0				0x1d78
-+
- /**
-  * enum rtl8365mb_vlan_egress_mode - port VLAN egress mode
-  * @RTL8365MB_VLAN_EGRESS_MODE_ORIGINAL: follow untag mask in VLAN4k table entry
-@@ -1194,6 +1214,7 @@ static int rtl8365mb_ext_config_rgmii(struct realtek_priv *priv, int port,
- 	struct dsa_port *dp;
- 	int tx_delay = 0;
- 	int rx_delay = 0;
-+	u32 data;
- 	u32 val;
- 	int ret;
- 
-@@ -1263,6 +1284,35 @@ static int rtl8365mb_ext_config_rgmii(struct realtek_priv *priv, int port,
- 	if (ret)
- 		return ret;
- 
-+	if (rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D &&
-+	    extint->id == 1) {
-+		ret = regmap_update_bits(priv->map,
-+					 RTL8365MB_D_REG_EXT_TXC_DLY,
-+					 RTL8365MB_D_EXT1_RGMII_TX_DLY_MASK, 0);
-+		if (ret)
-+			return ret;
-+		/* Configure RGMII/MII mux to port 7 if UTP_PORT4 is not in
-+		 * RGMII mode
-+		 */
-+		ret = regmap_read(priv->map, RTL8365MB_D_REG_TOP_CON0, &data);
-+		if (ret)
-+			return ret;
-+		if ((data & RTL8365MB_D_MAC4_SEL_EXT1_MASK) == 0) {
-+			ret = regmap_update_bits(priv->map,
-+						 RTL8365MB_D_REG_TOP_CON0,
-+						 RTL8365MB_D_MAC7_SEL_EXT1_MASK,
-+						 RTL8365MB_D_MAC7_SEL_EXT1_MASK);
-+			if (ret)
-+				return ret;
-+		}
-+		ret = regmap_update_bits(priv->map,
-+					 RTL8365MB_D_REG_SDS1_MISC0,
-+					 RTL8365MB_D_SDS_MISC_MODE_FIELD_MASK,
-+					 RTL8365MB_D_PORT_SDS_MODE_DISABLE);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	return 0;
- }
- 
--- 
-2.53.0
+The pmd re-check after the grab is the batch's counterpart of the
+per-page pmd check for THP collapse (pmdp_collapse_flush() detaching
+the page table while it stays readable with interrupts off), same as
+in gup_fast_pmd_leaf(): if the pmd changed, the extra references are
+dropped and the next iteration bails out to the slow path.  The other
+early returns in gup_fast_pte_batch() happen before any extra
+reference is taken, so every bail-out leaves only the head page's
+reference.
 
+fork (write_protect_seq around the whole walk) and the read-only
+FOLL_PIN check (gup_must_unshare() per page, after the pte read) are
+unchanged from the per-page path.
+
+Yuan-Hao Hsu
