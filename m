@@ -1,99 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2323EC83F
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 13:03:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791637401; cv=none; b=MaJcL7oupfu2blssZyXowoLW5PTJvHeHr2Zqt5k5Wxziv/SDnqTxJ+tUzrkTULaVBME/IYRlgxY7Hzpd+/nw6K/fNHjzpqOq0lDr96FEHes11QpKF7tI0GxCqrMFUyBh4a/Qgg6SAnLzz8/e9jwwJvStyGfa7MYG2aXETHLN8gk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791637401; c=relaxed/simple;
-	bh=7Lm5esxq7xWFq8eptDp166CyZQ6XrNxWb4wYGABOMjw=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C281495041
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 13:05:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791637555; cv=pass; b=LgrWzpBb3A9scGPZYgvF4H4knbiI7M2amDrRPkrKenqFYfxDLOEvqmqwsz4lS2D1zy51RK75vL2xJos7/bVEEZKJOk2qO4vii4i7bYiw7hcp27xToO4nA4CGBeohpTEC809BnTqkVnuE2Xfvz177OMjFV7+NwUUowQ/pFe+qsfc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791637555; c=relaxed/simple;
+	bh=dUgv8qU2MJmYgliXxK0C5ED2Eb+oFUrhcbBUDF3fTq8=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZjN9PjRKYY8rRTsjS+c87eujyGVhADjiM7SHaL8BvTa3gp3usseXWkL9nXlX7fHkUyLPGDQCxTJ4mmS7WIB0TNFZG9EvN1a88eH4I7wS2rIQh+O6joeaz96V2fEPoPjBSLRGLMqL6THiHWAwKF3l8Q1QAO2i6s4Qbs33EEH38KQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lUsAWESn; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=Tj+u9fVOXge81UWFXrYZSSu/VKJ3nheT7TZ8KulMncZrqmUQqJE0A5X+dyF8JlVTOGRpnrcLiqnxcTCIvrVTlNK5ht64c/QLulFqWxa2AB8xrS+d9LjKlJALSwffFfU3KPxs2NgE7H+//MMoUw1xQQsRkay5CB3CSYLvpWpW1IU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M0x40FL4; arc=pass smtp.client-ip=209.85.128.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lUsAWESn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 498061F000FF
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 13:03:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791637400;
-	bh=oHHCIcBeSShU+Qb0oqsK5cg5vGoHvRNIIB1sW+b7OR8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=lUsAWESnLyQpQZwMHAbYTyZgSBY59fL8uVbGFYvFgGqnHXJ/XLwZe+oehMdPocWm1
-	 2fEn/zsNqjrp5xEIEs8uYwEgwWDiijsbnO7k7wq9npkWOXCVCnpt5iRhjw9kPNsE3v
-	 3OArfDqekPqJKg47RMwKCFBnXH2L7MQ8J2LqQll6iBy4q3anGvbRFlr5gT4K3bi+pU
-	 xw/uOZhVnxUsjaZk/JcOIoeEkVcn0PJ0qK1j48p8PhCM/8bYScmrNNCei1Z+X9T/3M
-	 vVPgHzZUscq8WhAvSxl5PX2hgHwAMM9EbVIVnvC9p8HPkVJhynaRGxBkgMLE/w/JFb
-	 vXDKx06ticcAQ==
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c2e26719a0fso58017966b.3
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 06:03:20 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzX5N+hbAY7H7qfg2v4ngfc9lTB5sGBkCzfXNDDvweOEXJoZ2gb6hpEe2sr/Wz/BqC8xZBhVnfKqJeQfYM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJoETnaxhagz81h2jlgT1KxAtEfUwE+aFohs+124oGQUbmRDHZu
-	cfH9pPypTtsLVBUkksv5aYHpuA5j+qbycR7pCSlJ7sUtn8OcJYdgU0tfvpl+RGk3LE71kZGSrVX
-	WXlH2sXV0WLEm8TxaiJjf9Ts/kO/c0wA=
-X-Received: by 2002:a17:907:3f8e:b0:c29:f5d5:5aa7 with SMTP id
- a640c23a62f3a-c31aa0c0ae8mr459865866b.49.1791637398836; Sat, 10 Oct 2026
- 06:03:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M0x40FL4"
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8ab8d96d02aso3878597b3.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 06:05:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791637552; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Bs6kaSgGdpCmIipItWd0HLZlXT469x8L69+eJ6uajEYJqbVn/1MHSmu6tqhygc6ZJc
+         WnQZMMiRYb41Y87Zrw2jHBiAzmUXf1t/sRwDKieJZbe9F5Gmz7IHeZyiTs068mLUz7Ny
+         I9p27BXy4sNE3OIJk+2qN5ocKvZ+BgLl9HiXFHCeYkXqhFOMyoqzZknrlI/ItVXtNzmE
+         9067UR04Re1b019FSriYSC5bxPSzNaSOsqmpSMov7ci4eNJbch7H70di6WfFSIlYS0bL
+         fpe8JjkMUhJYRHXoeQWhMnZI+P4ONLOui2ThsnlzTXpbPGxaf4p9ndPdBDG7SyQXY4ne
+         3ieA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=dUgv8qU2MJmYgliXxK0C5ED2Eb+oFUrhcbBUDF3fTq8=;
+        fh=KhFPGuaxVU2tkPxd7As5wLUGseWz5iIJGT+nX+6+svE=;
+        b=LpDWyxTdYahgz9NxIJdhKxN2qCLgcpoulMENnpGALrtYUyfY3jRM+oS1Qbaprs9kwV
+         vFQCUIZQPYlXTmw3WQ7KslJE8R8PZrtgEormlSvtlx7jSSUOpdqi9kxiv84ERL9NxoA/
+         /rLKtct3dZRbkD9RPk0lBcr1V9bSD0MHaenPDc/J9J/Lvj8Gd2QTVez9ppa8zYIQOGOy
+         0pdZ13skhGurMv29DR1Dgm8wKTEMJunkylM7Ou9UVBb+ekrl4+6I3d1UMONGyGQby0AK
+         KoSApNDAGHKfkLEsCUrVBmurE9jV8XFYz5oXExsZ/nNUpeglrPqWrvqxKRjmLBbwk9FH
+         DFgw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791637552; x=1792242352; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dUgv8qU2MJmYgliXxK0C5ED2Eb+oFUrhcbBUDF3fTq8=;
+        b=M0x40FL4KT+rZ1eE5DPHbZz2soVkDOSqunJttvG3BvfheaZskhed/N3TcpA2StibVH
+         qdLaBkG+3DW1XnkucEf8+8zDtAh8QXkhk2LGYafN/GO0pePFYn04Aqoggto2EOjuCvl4
+         3bk6HUy/lB9k3W8P2awRlaWHLrUzcebPBEGnTR3YdDsetnzQqO7Ms9lTBMn1AXZYKVQI
+         O8bqMNdNSSZFkokcUp3V/q3Y6hc+Ll1ffJFhVDtHobMq8xhvp2oyRtkf3qUW4jVqOa6N
+         P9IAPSGRaAk5v0LE/Tp4yE7xEm+Wij8zjLyoNKXWOX2NArQUYYPNbb5KULb16gWle8/w
+         xqlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791637552; x=1792242352;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dUgv8qU2MJmYgliXxK0C5ED2Eb+oFUrhcbBUDF3fTq8=;
+        b=KlBGafbhVyILnYAFlRWdBTm16j2zXiA9HfIGNShva9S7wBN9Jay8nNjIvB1l3MjBuO
+         IKHUzwEGmvchQjHk1HECE03jMq44HHCWo1j1y/SrBJKkKlFghqsLcm71Y3So2FFT1lio
+         CBS7BT051YbV3B2Q9J1GzA3VyYt16VOoKYpO5iXdAEeMxnODLhp4EFddTGs4vTWrf6/z
+         tjWNHY3OkmuYkfza80iN3q1EpoiFii4lZQOq9KGTJ1hnh4VLwYlU0erkjRQCw9UuXYtE
+         +2RbxwAHjYUOqU6eBvxUoVl0AFUnoRlfQp/m9Df4L9Nf6EOO2cUjBjj26wTAO4F2vlLV
+         wz6g==
+X-Forwarded-Encrypted: i=1; AKwUvBxm1wx9682uO/ZJ2HINEwx4VJMICucrDSN6O6uBXVs2UBwqgPepBbSear+XoSbx1PD8ei1JGcu9jkHa5o8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJWAeFtJc/hbJpd8D6uNc+oT+M/NBqm0Q002KHwS7exPxjk87qm
+	ixpzHU0Z8Mcoj/APDpxQqByH63AQRzJFRtYMykQuyAnKK/1CXrWZciFMRbv4i2QuVKAEHtiIr1A
+	1pLCD7edcbzBUvFoZNKWmq6nkXAuKs6oZajHf
+X-Gm-Gg: AYBFou0F761FlrWM+kgkyqsvFSvMGtrlN5tISbszw+yK8DgmOXoXZxro1VLHVq+YF5J
+	FPObyOPxxkkm3qRqcVrhWYCkxiNXkShSFhtxRgw2vx3bO9N1pJ6A9haGpue+ml0o3z0R+sb4r5X
+	eT6ici1MJIX1JwnzSoFYmPioX4DFZW7iGYej0U5d/Ez8lbKe940fy3wNs1b+aPg9TnpU26RO8Z/
+	PUduxxLDqNLvGpYuLROTNJi4Rx+GZJQQrQrP6Ge2PkFA3vzv3F8lnHJywJxeeQ1KQehfHxSec5t
+	Se1A0vmuwzXaS1vTCST/0s6LXm2XYzkJTHNZsuFxME33s+evOafeqBmP
+X-Received: by 2002:a05:690c:85:b0:882:31:3af9 with SMTP id
+ 00721157ae682-8b07ebe12aamr14950917b3.9.1791637552107; Sat, 10 Oct 2026
+ 06:05:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261010044420.4045884-1-hengyul@cs.unc.edu>
-In-Reply-To: <20261010044420.4045884-1-hengyul@cs.unc.edu>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Sat, 10 Oct 2026 22:03:06 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-VvD6NAZAvL9iVoc-mEvTeAkdfkrc7Aqc=z0U95-YoAw@mail.gmail.com>
-X-Gm-Features: AclHuK_DHQSHQ3JnZDFwVr6fPBcbPQrMYNLYq4gjvF1aZPeNJpTC54bDvAaAnBs
-Message-ID: <CAKYAXd-VvD6NAZAvL9iVoc-mEvTeAkdfkrc7Aqc=z0U95-YoAw@mail.gmail.com>
-Subject: Re: [PATCH] exfat: fix a large buffered write failing when the volume
- is nearly full
-To: Hengyu Liang <hengyul@cs.unc.edu>
-Cc: Sungjong Seo <sj1557.seo@samsung.com>, Yuezhang Mo <yuezhang.mo@sony.com>, exfat@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <6ac99eb9.6b935c14.1905ce.7c50SMTPIN_ADDED_MISSING@mx.google.com>
+In-Reply-To: <6ac99eb9.6b935c14.1905ce.7c50SMTPIN_ADDED_MISSING@mx.google.com>
+From: Luca Boccassi <luca.boccassi@gmail.com>
+Date: Sat, 10 Oct 2026 15:05:40 +0200
+X-Gm-Features: AclHuK_ZZxWO5VOmv-dijVsfp5Dirw-cleU_Ss5a_ua-hVf2p2vv9lQol9MPm7Y
+Message-ID: <CAMw=ZnTTUxO2ZCobEDTQUY7OZxmyJUQxg4DkhC9gTWXaDaK1dQ@mail.gmail.com>
+Subject: Re: Question about obtaining LUO session FD for non-systemd-managed service
+To: Chenghao Duan <duanchenghao@kylinos.cn>
+Cc: jianghaoran@kylinos.cn, avagin@openvz.org, linux-mm@kvack.org, 
+	kexec@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	systemd-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 10, 2026 at 1:44=E2=80=AFPM Hengyu Liang <hengyul@cs.unc.edu> w=
-rote:
+On Sat, 10 Oct 2026 at 04:11, Chenghao Duan <duanchenghao@kylinos.cn> wrote=
+:
 >
-> Commit 82a81a7352bc ("exfat: add iomap buffered I/O support") made a
-> buffered write map the whole range of the write in one step, so the
-> clusters for all of it are allocated at once.
+> Hi Luca,
 >
-> However, exfat_alloc_cluster() returns -ENOSPC when fewer clusters are
-> free than it is asked for. As of now, a write() that is larger than the
-> free space writes nothing and fails with ENOSPC, while it used to write
-> as much as fits and return a short count.
+> I watched your excellent presentation from the LPC conference in Prague.
 >
-> The issue can be reproduced with a 16M image made by mkfs.exfat that is
-> filled except for 256K:
+> I have a question I=E2=80=99d like to consult with you.
 >
->     mount -o loop /img /mnt
->     dd if=3D/dev/zero of=3D/mnt/hole bs=3D256k count=3D1
->     dd if=3D/dev/zero of=3D/mnt/fill bs=3D4k
->     rm /mnt/hole
->     dd if=3D/dev/zero of=3D/mnt/f bs=3D1M count=3D1
->     wc -c < /mnt/f
+> I am currently working on the `memfd_luo` feature in CRIU. My goal is to
+> leverage the LUO capability to store checkpoint images inside memfds.
+> After a kexec reboot, the image data will be retrieved directly from
+> memory instead of from disk.
 >
-> Before commit 82a81a7352bc ("exfat: add iomap buffered I/O support"),
-> the result is:
+> Here is my pull request on the CRIU GitHub repository:
+> https://github.com/checkpoint-restore/criu/pull/3152
 >
->     262144
+> In the PR discussion, avagin suggested using systemd as the CRIU daemon
+> to centrally manage LUO sessions and access to `/dev/liveupdate`. I have
+> watched your talk and read parts of the systemd source code.
 >
-> After that commit, the result is:
+> From my understanding, systemd currently provides a unit=E2=80=91based so=
+lution
+> where child processes can inherit LUO session file descriptors. However,
+> this approach requires the target service to run as a child of a systemd
+> unit. As far as I know, CRIU does not run as a systemd=E2=80=91managed se=
+rvice.
 >
->     0
+> So my question is: for services such as CRIU that are **not systemd=E2=80=
+=91managed
+> child services**, how can they obtain LUO=E2=80=91session=E2=80=91related=
+ file descriptors
+> managed by systemd?
 >
-> This patch will map a single cluster when the clusters for the whole
-> range cannot be allocated, so that the write goes on until the volume is
-> full. Direct I/O is not changed, it still fails without writing as it
-> did before that commit.
+> Thank you very much for reading this email. My knowledge of systemd is st=
+ill
+> limited, so please feel free to correct me if I have misunderstood anythi=
+ng.
 >
-> Fixes: 82a81a7352bc ("exfat: add iomap buffered I/O support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
-Applied it to #dev.
-Thanks!
+> Thanks & best regards,
+> Chenghao Duan <duanchenghao@kylinos.cn>
+
+Hi,
+
+At some point up in the stack, everything runs as a systemd unit, so
+it's only a question of figuring out in your setup how to pass the
+FD(s) up and down the stack.
