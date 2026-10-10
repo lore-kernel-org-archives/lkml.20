@@ -1,389 +1,199 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A45737F72D;
-	Sat, 10 Oct 2026 02:05:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2529381B0E
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 02:05:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791597912; cv=none; b=elp0QFQbrYMCzymsnt0+JsI1VIKhI5FdVYNdnmw4LUC2YtUDLXF0/3RMccysAxWcTRmaLY3h6q8HOzk2clTEYMlkjxYt4oT7oDFc7w2GjaAnOuz4TaUB+5CF0YkHZV3rGRgeZJhgG4Br2TbxCKvyvBWIwI6PduA+ih2FWlHR4Ik=
+	t=1791597930; cv=none; b=tj6vr5tU+Yt9zK0nz9Z5cOWpPUvf0j8Z8/9Fp++JHTxC/jddiFop5QSP4EOpEK5lw5fZwTzfQ4OpkIKpRohcE8zShSLGOEYgr2sNlfuOF/a2IF0KgCsFs746Omw9XNPvYAqiptt8xOKLD0gRHkH1Yyz10HhfYFr0zPaxeDuP9EE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791597912; c=relaxed/simple;
-	bh=9I23wXfeNydjEbABcHCnbMQ5LG3hAZhYYOwXKTc4oGM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Xd2Sqs3pRag0Zirk5JYckUN/nB82RhpHtRIu54sxhmt6uNfRQS6zMFATI8NQWQdCoVXYz2ygGtO2dyfqP+eVSe24vhU8sEQeNllVWvg9aNPaUq+moSs/uXW3Njv5VC47dhwnBujQuEn3anwvclPqSvvobQFwvLct3GE+NQy93WM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MVTnBAUR; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791597930; c=relaxed/simple;
+	bh=RtNJ+XWJK6eSr1fba8eizstY+FWi1d6ftiywfKe/zuM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Gt7UGxsV+Q78/lMJfJq2S3SEHuVWdOFjfeCT//4gFkmAdji1LHIroMoyIoFkx70kWlKvul+vncx03Kb1VnqlItoYeWMzxstRG6z0lspf+x9QFY8d9klSECtsnC4Ip3bWWEPEtfdj+LsbLLma/f7ivZTYpXHEUxULBg0H6vMGTN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IWUJIIxw; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=GlP00Rhx; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MVTnBAUR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791597911; x=1823133911;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=9I23wXfeNydjEbABcHCnbMQ5LG3hAZhYYOwXKTc4oGM=;
-  b=MVTnBAURyAAbJ/5NSM+bknYtKvxxexqE2o4/7oCX+jL3rV5k3tg8rWcj
-   +74NY9fWCJzB+7E0pDYAxc1jWjlDjnFmXncrkgxe56lEkjb0v6NGhaxtZ
-   1EF4X3XcqRYfWcfF6ypluPYV4sgbxIykn+drjKJg3SAt8PXMCIlNwtiZS
-   WQw5whRMDqiiHV5vk08X6GLdw0G9CLIugJqx27cLIerFqef5hxPFRmyrN
-   +L1TyqG4dssNM7Ah4AaRV46HvBWPRt43VlHuYOM5giJ/+otkc0w+AJu0S
-   vsNiQcbhAsMJ87uw7RYfMp/Hza6G//5dZ8/pfToPNMKJ7EXN+BPQfqMSk
-   g==;
-X-CSE-ConnectionGUID: HDyOqIwpR1mYwJNGE9b0HQ==
-X-CSE-MsgGUID: Q9g2N/rWRmm5M8h51X1c3A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="509849"
-X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
-   d="scan'208";a="509849"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 19:05:11 -0700
-X-CSE-ConnectionGUID: QQqejKl6SZC1Yv3uZ6HNuQ==
-X-CSE-MsgGUID: 3H1uBa4QR4uqaY5lBts9Cg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
-   d="scan'208";a="412298"
-Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 19:05:05 -0700
-Message-ID: <dc3ff4f6-0017-45ce-96c4-1e40d91cbfc4@linux.intel.com>
-Date: Sat, 10 Oct 2026 10:05:02 +0800
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IWUJIIxw";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="GlP00Rhx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791597927;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=w+tGYwl2znmnp8WIdQYcLZIZyvGyAsTyeavLHMYpyQU=;
+	b=IWUJIIxwdvJhwykkBFt1HgqrVHKdnFewyV1m+pZs5OVztoX+hT/ziO/0VOaXAeeACW2ROQ
+	4brxRI4VI2y7+IRz+b4l6TWT2ebdKDC95Q1nr3xkZz6gN3ouR2KbIiUxTWMjUgqQM7oKYW
+	ftxVUTmNxCBcQ/MVjLxfgTFDEGHl07k=
+Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com
+ [209.85.128.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-67-Wuf1n77HP-mnpvVtnv18Og-1; Sat, 10 Oct 2026 02:05:20 +0000
+X-MC-Unique: Wuf1n77HP-mnpvVtnv18Og-1
+X-Mimecast-MFC-AGG-ID: Wuf1n77HP-mnpvVtnv18Og_1791597920
+Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-8ae99a44bdbso2902107b3.3
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 19:05:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1791597920; x=1792202720; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=w+tGYwl2znmnp8WIdQYcLZIZyvGyAsTyeavLHMYpyQU=;
+        b=GlP00Rhx8xPUb8ZHOxxfO0ysVhk8FSK6yqso//2FS9EoMnRl6ZbxlRNMWJn92OuCdv
+         BvqOfquCWLSLGgKTKa/CnE/m/y2f9Av2d9iij9Ak6KXl9HFZC+HDKrlBRoQCiPMWVn7D
+         hRZsm3GjhoEGL0rQm/GI9AHpXcWy9KyKx1MmlzAM6QrQ4aeodbuA2uU3QR1a+iptz7nn
+         g7OJOj+v+otCVxBRJ/BJ0vNCdK8dKNPN7TRHi2vQMb0RbdaaVH4b/G49S91AgzqPoQ/I
+         oYDw3RWLJd9d/zczUYLHfOJrI1oT+aHgaFzr8KhxNvOL47GPOe1wQzpPGxTS7ukm8PYa
+         pUMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791597920; x=1792202720;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=w+tGYwl2znmnp8WIdQYcLZIZyvGyAsTyeavLHMYpyQU=;
+        b=RZaLDIPmhhav9YjZg8cId6TTVrcUqavfzWMSVXP6dVVKCAK3WznJzvQ9MxrkgFa4ZR
+         DRkOissrFPwJPwah9eylmQGyCJuhP7mtK4/qWUMLHEsu82s96T020o/UsCnFDzoZy5OU
+         q/ZOB+5SQJxSXZ+OyiWYUDysXDQzCE9nXIvbNijHKvRHaWmsR6Ci0tsScFDCEhQdO1zi
+         ndaUsapTLKZ6W+ljQrTsaqIdl6fu30UWj8AMzs8t2quvyyq3xmFOZ1ZSUN492mp7uxCm
+         AfeYxtAKrT7NttowXQ8sQIKh7qmMHa9dyCduMKjYDGyjmd13L4wDApb+J1kHHvHRC48D
+         wg/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw7xWlfwkP7UmPCh+kqUWVTE8lv3OHmjy+i+j0h2PbWOR/PNSqimVmIdUNnfn8D69iDfIO3E+59GzLXPHg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIP6mNhS+GCeTQW2hI3Kzv/aehLOiRp5WoH2YjiD0gBs3H/MB2Q
+	x9zr/m/515jgk1hU3+zoFiQqF6w7mVHBN1r9jlmqBDLEbia9YTfM2hg8eZ4j+EjgWNtnlZDb1Sa
+	pNm5rjvr5TWFkf258yLO5s8yses7WgOOQJJOQk0XgsfoX7F742V+ExXC/HGyLVdKnPw==
+X-Gm-Gg: AYBFou15nSNQBxjgKnkidLxoGxCGgKMh4DW6wk+KTmLJir7J3WeNhVCtYQttOmS52ey
+	9d4tTM40JrNE79HAB+TQrtBKq3fGlfuu6BuLpHF9CgN1A+tenU0hR7OPamz5stQ1fswhYtgI1Gt
+	289alEfrke5cIK6p5vC3inrYH3CZkun8asujCRTWzOZKKDWOHSn5b5i0uCjeFHFIBY1o3juH9y5
+	OTCl3Ns+kyADxb11FWf3G3aapCG4iq0EhjPbFM9AdxweP4itSkJVs3Ajndxiht/7OeW+9g3tZox
+	1SLQ4vqMKgPvSwfttEQN2Le2ylsoJPQXUd5Iyz94rCqZiAtTiS95
+X-Received: by 2002:a05:690c:4d81:b0:8ae:6740:999 with SMTP id 00721157ae682-8b07ed90a18mr10609297b3.20.1791597919950;
+        Fri, 09 Oct 2026 19:05:19 -0700 (PDT)
+X-Received: by 2002:a05:690c:4d81:b0:8ae:6740:999 with SMTP id 00721157ae682-8b07ed90a18mr10609237b3.20.1791597919575;
+        Fri, 09 Oct 2026 19:05:19 -0700 (PDT)
+Received: from rhdev ([2600:1700:f361:20bf::14c1])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b07ee8c257sm14463027b3.3.2026.10.09.19.05.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 19:05:18 -0700 (PDT)
+From: Jennifer Berringer <jberring@redhat.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Yixun Lan <dlan@kernel.org>
+Cc: devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Jennifer Berringer <jberring@redhat.com>
+Subject: [PATCH] riscv: dts: spacemit: enable USB2.0 controllers on Milk-V Jupiter
+Date: Fri,  9 Oct 2026 22:03:17 -0400
+Message-ID: <20261009-jupiter-usb2-v1-1-ab84a00d3b64@redhat.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 03/23] KVM: selftests: Initialize the TDX VM
-To: Lisa Wang <wyihan@google.com>
-Cc: Andrew Jones <ajones@ventanamicro.com>,
- Ackerley Tng <ackerleytng@google.com>, Chao Gao <chao.gao@intel.com>,
- Chenyi Qiang <chenyi.qiang@intel.com>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Erdem Aktas <erdemaktas@google.com>, Ira Weiny <iweiny@kernel.org>,
- Isaku Yamahata <isaku.yamahata@intel.com>, Kiryl Shutsemau <kas@kernel.org>,
- linux-kselftest@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
- "Pratik R. Sampat" <pratikrajesh.sampat@amd.com>,
- Reinette Chatre <reinette.chatre@intel.com>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- Roger Wang <runanwang@google.com>, Ryan Afranji <afranji@google.com>,
- Sagi Shahar <sagis@google.com>, Sean Christopherson <seanjc@google.com>,
- Shuah Khan <shuah@kernel.org>, Xiaoyao Li <xiaoyao.li@intel.com>,
- Oliver Upton <oupton@kernel.org>, Jeremiah McReynolds <jmcrey@google.com>,
- kvm@vger.kernel.org, linux-coco@lists.linux.dev,
- linux-kernel@vger.kernel.org, x86@kernel.org
-References: <20261001-tdx-selftests-v15-0-7c62a5d8a992@google.com>
- <20261001-tdx-selftests-v15-3-7c62a5d8a992@google.com>
-Content-Language: en-US
-From: Binbin Wu <binbin.wu@linux.intel.com>
-In-Reply-To: <20261001-tdx-selftests-v15-3-7c62a5d8a992@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Change-ID: 20261009-jupiter-usb2-b888e544520a
+Content-Transfer-Encoding: 8bit
 
-On 10/2/2026 3:37 AM, Lisa Wang wrote:
-> From: Sagi Shahar <sagis@google.com>
-> 
-> Add tdx_init_vm() to handle the mandatory VM-level initialization
-> sequence required for Intel TDX.
-> 
-> For TDX, the VM's CPUID configuration must be "sealed" during
-> KVM_TDX_INIT_VM before any vCPUs are created. This is necessary because
-> the TDX module does not allow the host to create and initialize any
-> vCPUs before the VM's CPUID configuration is accepted and sealed into
-> the TDCS.
-> 
-> Additionally, to satisfy the strict requirements of the TDH.MNG.INIT
-> SEAMCALL, the helper masks the host-supported CPUID
-                                     ^                                
-KVM-supported is more accurate
+On Milk-V Jupiter boards, usb2_0 is connected to a Type-C connector
+which cannot act as a power source. That port can act as USB host if
+connected to a self-powered hub.
 
-> (kvm_get_supported_cpuid()) against the "directly configurable"bits
-> reported by KVM_TDX_CAPABILITIES.
-> 
-> Co-developed-by: Isaku Yamahata <isaku.yamahata@intel.com>
-> Signed-off-by: Isaku Yamahata <isaku.yamahata@intel.com>
-> Co-developed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
-> Signed-off-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
-> Signed-off-by: Sagi Shahar <sagis@google.com>
-> Signed-off-by: Lisa Wang <wyihan@google.com>
-> Reviewed-by: Ira Weiny <ira.weiny@intel.com>
-> ---
->  tools/testing/selftests/kvm/Makefile.kvm           |   1 +
->  .../testing/selftests/kvm/include/x86/processor.h  |   2 +
->  .../selftests/kvm/include/x86/tdx/tdx_util.h       |  37 +++++++
->  tools/testing/selftests/kvm/lib/x86/processor.c    |  21 +++-
->  tools/testing/selftests/kvm/lib/x86/tdx/tdx_util.c | 121 +++++++++++++++++++++
->  5 files changed, 178 insertions(+), 4 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
-> index 239bc61ea384..8f514008daa2 100644
-> --- a/tools/testing/selftests/kvm/Makefile.kvm
-> +++ b/tools/testing/selftests/kvm/Makefile.kvm
-> @@ -28,6 +28,7 @@ LIBKVM_x86 += lib/x86/pmu.c
->  LIBKVM_x86 += lib/x86/processor.c
->  LIBKVM_x86 += lib/x86/sev.c
->  LIBKVM_x86 += lib/x86/svm.c
-> +LIBKVM_x86 += lib/x86/tdx/tdx_util.c
->  LIBKVM_x86 += lib/x86/ucall.c
->  LIBKVM_x86 += lib/x86/vmx.c
->  
-> diff --git a/tools/testing/selftests/kvm/include/x86/processor.h b/tools/testing/selftests/kvm/include/x86/processor.h
-> index ed50007e3504..08b7b194f213 100644
-> --- a/tools/testing/selftests/kvm/include/x86/processor.h
-> +++ b/tools/testing/selftests/kvm/include/x86/processor.h
-> @@ -1024,6 +1024,8 @@ static inline void vcpu_xcrs_set(struct kvm_vcpu *vcpu, struct kvm_xcrs *xcrs)
->  	vcpu_ioctl(vcpu, KVM_SET_XCRS, xcrs);
->  }
->  
-> +const struct kvm_cpuid_entry2 *__get_cpuid_entry(const struct kvm_cpuid2 *cpuid,
-> +						 u32 function, u32 index);
->  const struct kvm_cpuid_entry2 *get_cpuid_entry(const struct kvm_cpuid2 *cpuid,
->  					       u32 function, u32 index);
->  const struct kvm_cpuid2 *kvm_get_supported_cpuid(void);
-> diff --git a/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h b/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h
-> index f647e6ca6b34..571f7ce4b8fe 100644
-> --- a/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h
-> +++ b/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h
-> @@ -11,4 +11,41 @@ static inline bool is_tdx_vm(struct kvm_vm *vm)
->  	return vm->type == KVM_X86_TDX_VM;
->  }
->  
-> +/*
-> + * TDX ioctls
-> + * Use underscores to avoid collisions with struct member names.
-> + */
-> +#define __tdx_vm_ioctl(vm, cmd, _flags, arg, hw_err)			\
-> +({									\
-> +	u64 *__hw_err = (hw_err);					\
-> +	int r;								\
-> +									\
-> +	union {								\
-> +		struct kvm_tdx_cmd c;					\
-> +		unsigned long raw;					\
-> +	} tdx_cmd = { .c = {						\
-> +		.id = (cmd),						\
-> +		.flags = (u32)(_flags),					\
-> +		.data = (u64)(arg),					\
-> +	} };								\
-> +									\
-> +	r = __vm_ioctl(vm, KVM_MEMORY_ENCRYPT_OP, &tdx_cmd.raw);	\
-> +	if (__hw_err)							\
-> +		*__hw_err = tdx_cmd.c.hw_error;				\
-> +	r;								\
-> +})
-> +
-> +#define tdx_vm_ioctl(vm, cmd, flags, arg)				\
-> +({									\
-> +	u64 hw_error;							\
-> +	int ret = __tdx_vm_ioctl(vm, cmd, flags, arg, &hw_error);	\
-> +									\
-> +	TEST_ASSERT(!ret,						\
-> +		    "%s failed, rc: %d errno: %i (%s) hw_error: 0x%llx",\
-> +		    #cmd, ret, errno, strerror(errno),			\
-> +		    (unsigned long long)hw_error);			\
+usb2_1 has vbus output controlled by gpio 127 and is connected to a
+FE1.1s hub, which drives four ports: two rear Type-A receptacles and a
+9-pin header for two chassis ports.
 
-hw_error is already u64, why cast it to unsigned long long?
-TDX cases can only be done in x86-64, just use 0x%lx for u64? 
+Signed-off-by: Jennifer Berringer <jberring@redhat.com>
+---
+This patch depends on
+https://lore.kernel.org/spacemit/20261009-b4-spacemit-k1-usb2-v4-0-2d98e5324d9a@linux.spacemit.com/
 
-> +})
-> +
-> +void tdx_init_vm(struct kvm_vm *vm);
-> +
->  #endif /* SELFTESTS_TDX_TDX_UTIL_H */
-> diff --git a/tools/testing/selftests/kvm/lib/x86/processor.c b/tools/testing/selftests/kvm/lib/x86/processor.c
-> index 24395a8e654a..b87ba7d8538b 100644
-> --- a/tools/testing/selftests/kvm/lib/x86/processor.c
-> +++ b/tools/testing/selftests/kvm/lib/x86/processor.c
-> @@ -829,6 +829,9 @@ void kvm_arch_vm_post_create(struct kvm_vm *vm, unsigned int nr_vcpus)
->  		vm_sev_ioctl(vm, KVM_SEV_INIT2, &init);
->  	}
->  
-> +	if (is_tdx_vm(vm))
-> +		tdx_init_vm(vm);
-> +
->  	r = __vm_ioctl(vm, KVM_GET_TSC_KHZ, NULL);
->  	TEST_ASSERT(r > 0, "KVM_GET_TSC_KHZ did not provide a valid TSC frequency.");
->  	guest_tsc_khz = r;
-> @@ -1347,8 +1350,8 @@ void kvm_init_vm_address_properties(struct kvm_vm *vm)
->  	}
->  }
->  
-> -const struct kvm_cpuid_entry2 *get_cpuid_entry(const struct kvm_cpuid2 *cpuid,
-> -					       u32 function, u32 index)
-> +const struct kvm_cpuid_entry2 *__get_cpuid_entry(const struct kvm_cpuid2 *cpuid,
-> +						 u32 function, u32 index)
->  {
->  	int i;
->  
-> @@ -1358,11 +1361,21 @@ const struct kvm_cpuid_entry2 *get_cpuid_entry(const struct kvm_cpuid2 *cpuid,
->  			return &cpuid->entries[i];
->  	}
->  
-> -	TEST_FAIL("CPUID function 0x%x index 0x%x not found ", function, index);
-> -
->  	return NULL;
->  }
->  
-> +const struct kvm_cpuid_entry2 *get_cpuid_entry(const struct kvm_cpuid2 *cpuid,
-> +					       u32 function, u32 index)
-> +{
-> +	const struct kvm_cpuid_entry2 *entry;
-> +
-> +	entry = __get_cpuid_entry(cpuid, function, index);
-> +	if (!entry)
-> +		TEST_FAIL("CPUID function 0x%x index 0x%x not found ", function, index);
-> +
-> +	return entry;
-> +}
-> +
->  #define X86_HYPERCALL(inputs...)					\
->  ({									\
->  	u64 r;							\
-> diff --git a/tools/testing/selftests/kvm/lib/x86/tdx/tdx_util.c b/tools/testing/selftests/kvm/lib/x86/tdx/tdx_util.c
-> new file mode 100644
-> index 000000000000..3a8900ff2540
-> --- /dev/null
-> +++ b/tools/testing/selftests/kvm/lib/x86/tdx/tdx_util.c
-> @@ -0,0 +1,121 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +
-> +#include "processor.h"
-> +#include "tdx/tdx_util.h"
-> +
-> +static const struct kvm_tdx_capabilities *tdx_read_capabilities(struct kvm_vm *vm)
-> +{
-> +	static struct kvm_tdx_capabilities *tdx_cap;
-> +	int nr_cpuid_configs = 4;
-> +	int rc = -1;
-> +	int i;
-> +
-> +	if (tdx_cap)
-> +		return tdx_cap;
-> +
-> +	do {
-> +		nr_cpuid_configs *= 2;
-> +
-> +		tdx_cap = realloc(tdx_cap, sizeof(*tdx_cap) +
-> +					   (sizeof(struct kvm_cpuid_entry2) * nr_cpuid_configs));
-> +		TEST_ASSERT(tdx_cap,
-> +			    "Could not allocate memory for tdx capability nr_cpuid_configs %d\n",
+This conflicts with the Jupiter M1 patch set but can be applied on top
+of it if all instances of "k1-milkv-jupiter.dts" in this diff are
+replaced with "k1-milkv-jupiter-common.dtsi"
+---
+ arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts | 35 +++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
 
-Nit: Trailing newline in the message could be dropped.
+diff --git a/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts b/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
+index 635e95aad14a5..913c2170bf6a2 100644
+--- a/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
++++ b/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
+@@ -82,6 +82,16 @@ reg_vcc_5v: regulator-vcc-5v {
+ 		vin-supply = <&reg_dc_in>;
+ 	};
+ 
++	reg_usb2_vbus: regulator-usb2-vbus-5v {
++		compatible = "regulator-fixed";
++		regulator-name = "USB20_VBUS";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		vin-supply = <&reg_vcc_5v>;
++		gpio = <&gpio K1_GPIO(127) GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++	};
++
+ 	regulator-usb3-vbus-5v {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "USB30_VBUS";
+@@ -443,10 +453,35 @@ &uart0 {
+ 	status = "okay";
+ };
+ 
++&usbphy0 {
++	status = "okay";
++};
++
++&usbphy1 {
++	status = "okay";
++};
++
+ &usbphy2 {
+ 	status = "okay";
+ };
+ 
++&usb2_0 {
++	status = "okay";
++};
++
++&usb2_1 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++	vbus-supply = <&reg_usb2_vbus>;
++	status = "okay";
++
++	hub_2_1: hub@1 {
++		compatible = "usb1a40,0101";
++		reg = <1>;
++		vdd-supply = <&pcie_vcc_3v3>;
++	};
++};
++
+ &usb_dwc3 {
+ 	dr_mode = "host";
+ 	#address-cells = <1>;
 
+---
+base-commit: e5e04726cdd043e309677071ab1b65a4b18f422b
+change-id: 20261009-jupiter-usb2-b888e544520a
+prerequisite-change-id: 20260812-b4-spacemit-k1-usb2-97adfc283d58:v4
+prerequisite-patch-id: ccc56cd7363a39566f74b3628fbe2ccf01c76774
+prerequisite-patch-id: ee646b8712bc41793579b8abc30d8d3f616d36e7
+prerequisite-patch-id: 793abd51f18ae96cc2cbcb447721ca9ae1e6fa49
+prerequisite-patch-id: 67bf74a44fd81390c82c07921d808a58a5211fb7
+prerequisite-patch-id: 801c65013a1e55dfdbf3d3b061752ddb972afb18
+prerequisite-patch-id: 2321f949dcfb2609932da94cabc969812f11669f
+prerequisite-patch-id: 0843cac1ae192e99f2562f5ac882dfc4f9a10637
+prerequisite-patch-id: 7ce394f4284c628b7d6187d8ee555726c94675ad
 
-> +			    nr_cpuid_configs);
-> +
-> +		tdx_cap->cpuid.nent = nr_cpuid_configs;
-> +		rc = __tdx_vm_ioctl(vm, KVM_TDX_CAPABILITIES, 0, tdx_cap, NULL);
-> +	} while (rc < 0 && errno == E2BIG);
-> +
-> +	TEST_ASSERT(rc == 0, "KVM_TDX_CAPABILITIES failed: %d %d",
-> +		    rc, errno);
-> +
-> +	pr_debug("tdx_cap: supported_attrs: 0x%016llx\n"
-> +		 "tdx_cap: supported_xfam 0x%016llx\n",
-> +		 tdx_cap->supported_attrs, tdx_cap->supported_xfam);
-> +
-> +	for (i = 0; i < tdx_cap->cpuid.nent; i++) {
-> +		const struct kvm_cpuid_entry2 *config = &tdx_cap->cpuid.entries[i];
-> +
-> +		pr_debug("cpuid config[%d]: leaf 0x%x sub_leaf 0x%x eax 0x%08x ebx 0x%08x ecx 0x%08x edx 0x%08x\n",
-> +			 i, config->function, config->index,
-> +			 config->eax, config->ebx, config->ecx, config->edx);
-> +	}
-> +
-> +	return tdx_cap;
-> +}
-> +
-> +/*
-> + * Filter CPUID based on TDX supported capabilities
-> + *
-> + * Input Args:
-> + *   vm - Virtual Machine
-> + *   cpuid_data - CPUID fields to filter
-> + *
-> + * Output Args: None
-
-cpuid_data should be Input/Output Arg?
-
-I am not sure Input Args / Output Args / Return needed though.
-It seems the selftests code in kvm/x86 doesn't use this format.
-
-> + *
-> + * Return: None
-> + *
-> + * For each CPUID leaf, filter out unsupported bits based on the capabilities
-> + * reported by the TDX module
-
-KVM filters directly configurable features that it doesn't support.
-The capabilities reported are not the original version reported by the TDX module.
-
-the TDX module -> KVM ?
-
-> + */
-> +static void tdx_filter_cpuid(struct kvm_vm *vm,
-> +			     struct kvm_cpuid2 *cpuid_data)
-> +{
-> +	const struct kvm_tdx_capabilities *tdx_cap;
-> +	const struct kvm_cpuid_entry2 *config;
-> +	struct kvm_cpuid_entry2 *e;
-> +	int i;
-> +
-> +	tdx_cap = tdx_read_capabilities(vm);
-> +
-> +	i = 0;
-> +	while (i < cpuid_data->nent) {
-> +		e = cpuid_data->entries + i;
-> +		config = __get_cpuid_entry(&tdx_cap->cpuid, e->function, e->index);
-> +
-> +		if (!config) {
-> +			int left = cpuid_data->nent - i - 1;
-> +
-> +			if (left > 0)
-> +				memmove(cpuid_data->entries + i,
-> +					cpuid_data->entries + i + 1,
-> +					sizeof(*cpuid_data->entries) * left);
-> +			cpuid_data->nent--;
-> +			continue;
-> +		}
-> +
-> +		e->eax &= config->eax;
-> +		e->ebx &= config->ebx;
-> +		e->ecx &= config->ecx;
-> +		e->edx &= config->edx;
-> +
-> +		i++;
-> +	}
-> +}
-> +
-> +void tdx_init_vm(struct kvm_vm *vm)
-> +{
-> +	struct kvm_tdx_init_vm *init_vm;
-> +	const struct kvm_cpuid2 *tmp;
-> +	struct kvm_cpuid2 *cpuid;
-> +
-> +	tmp = kvm_get_supported_cpuid();
-> +
-> +	cpuid = allocate_kvm_cpuid2(tmp->nent);
-> +	memcpy(cpuid, tmp, kvm_cpuid2_size(tmp->nent));
-> +	tdx_filter_cpuid(vm, cpuid);
-> +
-> +	init_vm = calloc(1, sizeof(*init_vm) +
-> +			 sizeof(init_vm->cpuid.entries[0]) * cpuid->nent);
-> +	TEST_ASSERT(init_vm, "init_vm allocation failed");
-> +
-> +	memcpy(&init_vm->cpuid, cpuid, kvm_cpuid2_size(cpuid->nent));
-> +	free(cpuid);
-> +
-> +	init_vm->attributes = 0;
-> +	init_vm->xfam = 0;
-
-May be some comments for setting attributes and xfam to 0.
-Especially why the test doesn't need SEPT_VE_DISABLE?
-
-
-> +
-> +	tdx_vm_ioctl(vm, KVM_TDX_INIT_VM, 0, init_vm);
-> +
-> +	free(init_vm);
-> +}
-> 
+Best regards,
+-- 
+Jennifer Berringer <jberring@redhat.com>
 
