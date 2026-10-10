@@ -1,146 +1,291 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [194.59.206.189])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010044.outbound.protection.outlook.com [52.101.85.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 827E33955C1;
-	Sat, 10 Oct 2026 09:51:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.59.206.189
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791625906; cv=none; b=T+xGwoIsd4858J+Io0Mmme5bCdJhSp+ybHaoH/1tYWd/dIXUOGuRfxg85SiPejGbBzy5FFxXDyFJcpcz80F0HbFLqP2xCLizkOkZPyJir33fpT/vck2UpBUHnetocjB5KZ71CyhpK/ayg8oJphbeG7+EvDh9EOHqFYyBuS5B84o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791625906; c=relaxed/simple;
-	bh=opp8oHVhyNCR93d5n+rZmYHPcTGKbDwJyOeFvaKT8ps=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rpIHiEz6jIslWhKqoV3nF7EhRbOKOJaJOsXSlmyGC84OBXzT6QESey2APOuZ4+P6RekI0fpnwrTf+2jYMKp+9cyuloZLhHhbbsQQxMp1KQMlLqlVOJkNPxBKuaxKJEu5wNJii1zd459LdAb1jH4jEipnY4/P4CHQc7ifiINnbiE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=jIyD87qo; arc=none smtp.client-ip=194.59.206.189
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 407AF3B8D78
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 09:52:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791625940; cv=fail; b=qn9K3ctlL977oiO1CW3BMm6vp47ebIdGSKwh/X96x0JJx5eTbkorbnTkFjiJhaiV+ozpR5ls6dfi46jsVP4K6HXz08h9S1Qj+q60a0cX3AHZr9va5cE4P0bKCksV64g4W5c1Uq9jCCH0VmjDfa994SG9bL7s9WSBpKiNoxGQ564=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791625940; c=relaxed/simple;
+	bh=fBTEjnLLALljoaolUyXJUVMkl+2icqJoRRQ3euxDdaQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=ELQNPjWNUx+le+nQIKL5+IviyHOYMQNZAI+Ii+gqFlLGWq/eD7zEzO5VT6PTDK7GG5z4nK76gNCAbmaltTnA2XzWbVQ6L+qd9DpuPMJaNCrm277W0kl0qZdTUFaGuVTfonywXpz3qCdyyNxi/0QaMvhQKycO2hljDsqJJjGps3E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=m1M1FhTA; arc=fail smtp.client-ip=52.101.85.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="jIyD87qo"
-Received: from relay02-mors.netcup.net (localhost [127.0.0.1])
-	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4j1zJ14qYDz4CcM;
-	Sat, 10 Oct 2026 11:41:05 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1791625265;
-	bh=opp8oHVhyNCR93d5n+rZmYHPcTGKbDwJyOeFvaKT8ps=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=jIyD87qoeGUvy2eVvGOcqyZL+99TnSxrUAqozWokLCFKimpjGD06/roPDdjOv4GPt
-	 LcFf5y4wl3C2GydmVVNgkaUl8yKsqdTf68hhPBh7JZJM9hYYXZOF9fGOJe4Wl1U/y1
-	 uJEwFaNfvMba3dPg3YHMVMEScVfZdt007NoSOjV8F/3DOjJLtmUSk/kVLG7w/b4YTu
-	 brFK49OjVb+E/WL6U6LCAbwaRRANXQbgG8CljQA3GxyT7PUBCPZ1kpPmM9QI1Qu3FO
-	 jQInUU2jaeRGGv6DY9JBSoslDHiOb7vEeVYljH1h1MjRALFbCZztR7uZMJi5w9qPZi
-	 E7IfIq3lyHgeg==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by relay02-mors.netcup.net (Postfix) with ESMTPS id 4j1zJ146gZz7x6w;
-	Sat, 10 Oct 2026 11:41:05 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4j1zJ05DKlz8svW;
-	Sat, 10 Oct 2026 11:41:02 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id BAB395FB49;
-	Sat, 10 Oct 2026 11:40:57 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=linux@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <c3ce794d-1ac2-4ef3-9e5c-1e171bd77a89@leemhuis.info>
-Date: Sat, 10 Oct 2026 11:40:56 +0200
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="m1M1FhTA"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vr3MTBP7xXjP4B18H3coWJAovW/g8F22Apeol4wd9THfCDz/kQlns1yYHXy/TcjnqIu98n0TPYQXNdJoaDE9O7KM+r98mjGseFDs1DNXM/d1iLYWMM2M4gIFf/qoMHntmpptWcKKrNBIqaoN5lDCpE7ZTrpJFB5NOLTil3tgu47Tp0CL3E4DEe9GfXtpQ6wJiMYZ5SCV1MSQEuRtoHV6kJPZrdrBiNKmnZF2Obmg9GZzWsWZFEqRVSddLZ9r2EjgkImSUXrD9zETPsXnpJMI3gPj2lUawP59OBLoT/5+c1m0az5cJr/jvaDh6tf47YxM0NPgy3kUZI4tC+uDWXlzqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nhfFcTgeeUumQVZ5SVvDQKCiYw3A5EQIznTqfdCV7tI=;
+ b=BDjoiQKCIX3lblI5kqf2ibN3Z25IaRhshGdqW/Lfxv3ubkAeTdgnNz7/oE7DPwsoj5EVFZR+6f61oinrcQsN/JUK3x3rX5UgcqVWT5F767+AFmlWH0K1oMUohPQw467GIh0G+v2RHbTJ7aafsWH+tKfeoQrXHT4fgEqY0Olu7/ECmHQc/FLHw/GODn7KmewAf+3oZWMy1W9mmgllAnYWfArJG6WsWi8D0XRriLd8pF27RsrNfDkltdVFZ8qOXmCQj7WMQrR91B42GVgMPslTqW37xyR/jXISqZ8888Zw39TGOkpcj7Ie9E5/IqjBiibLNUyUQoWg76JdIZP5rjd/8g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nhfFcTgeeUumQVZ5SVvDQKCiYw3A5EQIznTqfdCV7tI=;
+ b=m1M1FhTACykJRAD2f86D3WyecSnlO2gmRKrr+dxw4wCGgGTdNIz+RPOfjLUUZ/ne2ndwd8EXoDvHuDi1rAnEJ9KqUVa6dJS6/cQbWQcf00rf45JpymbgsDcp5qM9WnnXX1j47ZEvC700f3XSeU5NlCV9Ce6McWv89Eu3304Xp6MKO2ByvMZQtDOmnVkMKtPP0MY/q4Id0LlGgBcqhm2LmS2E50NqySzBwNz9GtANlxqkZa4D2bM0DbXJnDfUrMSO3xpwq722Wxct2yvOoBaYPJMiILRsGGcjLQmdIIR/uWr6j7XRV86l1GJOZ6wbZjooin5GN7FdRwXDrG6DVu5hSg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
+ by CY8PR12MB7587.namprd12.prod.outlook.com (2603:10b6:930:9a::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Sat, 10 Oct
+ 2026 09:52:14 +0000
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0496.018; Sat, 10 Oct 2026
+ 09:52:11 +0000
+From: Andrea Righi <arighi@nvidia.com>
+To: Tejun Heo <tj@kernel.org>,
+	David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>
+Cc: sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH sched_ext/for-7.3-fixes] sched_ext: Don't leave balance callbacks queued across a pick retry
+Date: Sat, 10 Oct 2026 11:52:08 +0200
+Message-ID: <20261010095208.276806-1-arighi@nvidia.com>
+X-Mailer: git-send-email 2.56.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MI1PEPF00000AE5.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:298:1::4b3) To BL1PR12MB5174.namprd12.prod.outlook.com
+ (2603:10b6:208:31c::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] agents: add a skill to determine Fixes tags
-To: Sasha Levin <sashal@kernel.org>, workflows@vger.kernel.org,
- ksummit@lists.linux.dev
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, corbet@lwn.net,
- skhan@linuxfoundation.org, rdunlap@infradead.org, broonie@kernel.org,
- tytso@mit.edu, Linux kernel regressions list <regressions@lists.linux.dev>
-References: <cover.1791499378.git.sashal@kernel.org>
- <7fa126fd22b4449cf63a7045f7cd959e106fac87.1791499378.git.sashal@kernel.org>
-From: Thorsten Leemhuis <linux@leemhuis.info>
-Content-Language: de-DE, en-US
-Autocrypt: addr=linux@leemhuis.info; keydata=
- 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 MEK4
-In-Reply-To: 
- <7fa126fd22b4449cf63a7045f7cd959e106fac87.1791499378.git.sashal@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <179162525823.2787901.7623817167327795640@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: BAB395FB49
-X-NC-CID: welBqYu8cFJwe4FTKu6lRRT90+XB8MpoYFGu9dFGmz+AdRG2FHM=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|CY8PR12MB7587:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2b91b138-5247-454c-a814-08df26b427ce
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|11063799006|6133799003|56012099006|10067099003|261009223027099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	fRM40DYa4PVFw2FLo68mQfISC9fPMM8mZ21q1OEOk0944h4d4Yb++IhIuRJrjF55GuL3uzg7sWjOeNDPmK/6izarGM5ynjvUQS4RHCVmoL2j/452OuD2SYLqA2BaHQ7r4bbWYnaRoOKDhQBYw9SFpPBAF0EXVp1ejIwJYBewIYgMiwSdwptxV7yhKhTTTYo8BmT/jxuIA6IguBBWWBpz7Dhh+5MLG3/QYxS3kkTHlmTFCSoteUUtXGwyo5ZtN4x5b3T++7lsqkN2+6QtWRywLDOVKUUK6EhHIAXY6MJSuIk0Ir9UyH3dXS1zl4ebYPPwefaByLLYLL05ObUkuvhViz+2uokjdsjnQQrPUWDB/KucRAMAZGYoP4srOsZD+m8X+8q2d9n9e6QGIuBQ4P57TMSA4F3WGrCwu6/kFM4ZmOYiyADuSBWbjyw/z71Vzx3LVlHAktVnyot63gakYnVUeiswrpTZGnqOA6+WVZRC/qpYhtKWmVY1YkYstoHtBhZkfRLMBuELquH5F0dpVzQu1duXcJ3kD8sjMbKaimIW95uglNrO9dU2J8pe2VuOF6Uy5jq2hojdCifxUVAUbkmUWt71E3GDxrIPmSqvV5233dA/P9OpMFXA7jDQN2XGZflL5TtW4czX3AHqNURpsNvsR40hmK9yXDK7098X1tdyRNc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(11063799006)(6133799003)(56012099006)(10067099003)(261009223027099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?nGyH7KXoCUw0pAl09UzMnRdYN+v3tifgzRe//1ARYUkyz4DayGrfBU37RmFH?=
+ =?us-ascii?Q?a/pTjRe/qjouhGhyJRSPC129wOlWJ2unA9TiejkDidQo/ZLBxBFyG7F2Zoo4?=
+ =?us-ascii?Q?HHTVMvsas0RTzdCL3NZuTWRrMjXwAzVp0Ko4cNXDQFaQFnzDt0HP+lzMrvUE?=
+ =?us-ascii?Q?boeTjUjQrfJthlh3KTbBqNPRwdFf+YcgScuE12RTvE2KNBwwI5lTDgo29xZF?=
+ =?us-ascii?Q?8fAVGdnGikWqeG4qz2ACpPO0GXFiwEmE/tbFPrq5dNVq8HiyO5UmnwCumiW+?=
+ =?us-ascii?Q?4eaI2EdaFC5RIV7UauAniA1NvQLdxIxDe+loJXLJ/zKqtNeJnEz353s/4FUH?=
+ =?us-ascii?Q?IwKZ+StINEBq24BSAcrOWdA//1dl10nDFXSghBLgt5OrzVwaUwyoVMLQTkU0?=
+ =?us-ascii?Q?e36/NYrnWZTHiOQG84iDIoEOpzLWYvIBj0X1m37vv9NAF5HaL/HBs9EnBqnY?=
+ =?us-ascii?Q?xnFuEwayCu2Ry0Cy5x+Nr5zKvGi23ph6TEERumOXxgkbwMZYTrYKbWrrsOlC?=
+ =?us-ascii?Q?TjsqW0pO9CyVaMK5nYu4hgAmFov2wSfCTJAWr8ok+8XueAzu3lkxUoGFpe7Q?=
+ =?us-ascii?Q?XvSNLmOkgBmGZmlzp66z6VuEOoYaSEXzNSdaNILhEgColNTb73uxUKC9IVKW?=
+ =?us-ascii?Q?JgBX/XLVEFZXP+lZ03pd5TIiCAaAnv9sv9uCX/zzcl4LGqbtkvDV4+0E7QGe?=
+ =?us-ascii?Q?2hFeq8DIsjOrkvBumdXWAJvvJzipQ++fMD4zYgxIcPRM6ljLZ9gawAKWDA1W?=
+ =?us-ascii?Q?LMURMpST3p6YOWdhWj1lWJPZCQgU6xBUD9pADz7yAO7jabcUdbKSN1EhWdaE?=
+ =?us-ascii?Q?5vd1wfPouMWvrnyosxWU/csgfBGLn04Dmk9AMksVF51++aR3cgNPzcNLrW6s?=
+ =?us-ascii?Q?66gWMKEIXQ90DgSspps95OFR96QyuJZAjx78s9RZmCoDwFRBoqFmnmOmFopN?=
+ =?us-ascii?Q?jmXkJVfAJbzuBA/I8eV2iSoYzIeNpmDaLzHRTVe6n5NOECgqn/mLcypwxNPy?=
+ =?us-ascii?Q?eGOrFRHcsv9kcQv1+gZgbu4FshCc/qu5Jh5AetzAUd/wy9KhhxOz5vQLk2jt?=
+ =?us-ascii?Q?ByYBl76+drgS/cmtX5d6pcibfRBY/VNwA42NX5E7GjcQ86EAkJUL0NdTj75E?=
+ =?us-ascii?Q?/fJJvnXDN/TymDXzNga0R42wZ+sFwR2pjt5757O1ShcI8iiGSvRg4g7nMtiM?=
+ =?us-ascii?Q?c/9ZWI7EW7PwdcZ7TUMcF3jICzcPcer9Al/2OUUEBQ8o8gUuYkOtbGdz3iQx?=
+ =?us-ascii?Q?3y+D8jHkxJfO2PVNb98VGwvYaC+urf3TPYR+blefLElpLwDhRjRvxZRade5/?=
+ =?us-ascii?Q?7TiGNGAKskmkNV2+9BAyA45LpZHrv6mEj8N5zgWxrqzWAQW023jR+DJfpqEj?=
+ =?us-ascii?Q?s8kxevszDuZVvsfpa8tJE+ZDiJuqCP0x7Ly5UL/47bxEetIPgePSqL4Xl5V8?=
+ =?us-ascii?Q?T2RE7QwEmMhMwq0hk2545PdRKbobJ1AXsLdZknkrV/wlL7ONYY3gw5SXVWbc?=
+ =?us-ascii?Q?+wyCwZzk7/9t19aOfnb83RONyhcaJAmgLFwiQMZfCB3uHKXN8GTx3dxyMmqm?=
+ =?us-ascii?Q?lS04MG/OrhUc54z4DlP2n4SVRt+e/gD7J65KSsYMXo+LRU1OIVE8RvFoK/1z?=
+ =?us-ascii?Q?qfuZgBew2AV3zMYo6GZ70zk4NFP3uhE/KD9AEcKZjJ1Bwau3sxhfdPmmry7P?=
+ =?us-ascii?Q?3TwvEc/smST4/XZf9e9uMWZ20QzXwAQkNQ1JK+PHi7aSJF8+jvF85Fw75/G4?=
+ =?us-ascii?Q?p8pHERruJg=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b91b138-5247-454c-a814-08df26b427ce
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2026 09:52:11.6065
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mHkKnF+6h8W6uuei8drGiDqJExp+gw+UPPVLgIiE2OiayMkB+nJgRLTymO8UpJl1CUfX9YY5LBtGNFLFEV0COQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7587
 
-On 10/9/26 00:54, Sasha Levin wrote:
->
-> +A ``Fixes:`` tag identifies the commit that introduced the bug being fixed. [...]
+The dispatch path can request deferred work to be run from a balance
+callback and pick_task_scx() queues rq->scx.deferred_bal_cb right after
+dispatching. However, a balance callback must be consumed before the rq
+lock is released and pick_task_scx() is not necessarily the end of the
+pick:
 
-Sorry for partly hijacking this, but it seems appropriate while we are
-at it:
+ - it returns RETRY_TASK when a higher priority class task has been
+   enqueued while the dispatch had the rq lock released;
 
-What exactly is the right commit to specify when it comes to a
-regression caused by a change that exposed a way older bug? The change
-that exposed it? The change that introduced it in the first place? Both?
-I'd tend to "both", but I guess some people might consider this as too
-noisy.
+ - the dl_server pick can return NULL, in which case the lower classes
+   are picked next.
 
-I've seen occasional discussions about this and our docs for humans are
-a bit vague here:
+In both cases the callback stays queued while the core keeps picking,
+and the rq lock can be released again, either by prev_balance() or by
+another dispatch. For example, with an RT task as prev:
 
-Documentation/process/submitting-patches.rst says:
-""If your patch fixes a bug in a specific commit, e.g. you found an
-issue using git bisect, please use the ‘Fixes:’ tag with at least the
-first 12 characters of the SHA-1 ID, and the one line summary.
-[...]
-A Fixes: tag indicates that the patch fixes a bug in a previous commit.
-It is used to make it easy to determine where an issue originated""
+  __schedule()
+    __pick_next_task()
+      pick_task_scx()
+        dispatch_pick()
+          maybe_queue_balance_callback()    <- deferred_bal_cb queued
+        return RETRY_TASK
+      prev_balance()
+        balance_rt()
+          pull_rt_task()
+            double_lock_balance()           <- rq lock released
 
-And Documentation/process/5.Posting.rst says:
-""One tag is used to refer to earlier commits which introduced problems
-fixed by the patch:""
+Any CPU acquiring the rq lock in that window finds a pending balance
+callback and triggers the following warning in rq_pin_lock():
 
-Ciao, Thorsten
+  WARNING: kernel/sched/sched.h:1919 at rq_lock+0x7f/0xe0, CPU#10: stress-ng-sleep/533
+  CPU: 10 UID: 0 PID: 533 Comm: stress-ng-sleep Not tainted 7.2.0-rc6-virtme #61 PREEMPT(full)
+  Sched_ext: qmap (enabled+all)
+  Call Trace:
+   <IRQ>
+   try_to_wake_up+0x2c1/0x5c0
+   hrtimer_wakeup+0x22/0x30
+   __hrtimer_run_queues+0x1d5/0x350
+   hrtimer_interrupt+0x106/0x1e0
+   __sysvec_apic_timer_interrupt+0x6f/0x210
+   sysvec_apic_timer_interrupt+0x71/0x90
+   </IRQ>
+
+This can be reproduced running scx_qmap -I together with a SCHED_FIFO
+workload that frequently sleeps, e.g.:
+
+  $ vng -v --cpus 16 --memory 4G -- \
+      'tools/sched_ext/build/bin/scx_qmap -I >/dev/null & \
+       stress-ng --sleep 4 --sched fifo --sched-prio 1 -t 30 -q'
+
+Fix this by queueing the balance callbacks only when the pick is final.
+Otherwise, defer the pending work to the irq_work path, which doesn't
+depend on the current rq lock section and leave the kick sync wait
+pending for the next pick.
+
+Fixes: 4c95380701f5 ("sched/ext: Fold balance_scx() into pick_task_scx()")
+Cc: stable@vger.kernel.org # v6.19+
+Signed-off-by: Andrea Righi <arighi@nvidia.com>
+---
+ kernel/sched/ext/ext.c | 74 +++++++++++++++++++++++++++++-------------
+ 1 file changed, 51 insertions(+), 23 deletions(-)
+
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index ac8fe70a9fb6f..10b3b95f70a1b 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -3311,18 +3311,6 @@ static enum scx_dsp_verdict dispatch_pick(struct rq *rq, struct rq_flags *rf,
+ 	rq_unpin_lock(rq, rf);
+ 	verdict = dispatch_one(rq, prev);
+ 	rq_repin_lock(rq, rf);
+-	maybe_queue_balance_callback(rq);
+-
+-	/*
+-	 * Defer to a balance callback which can drop rq lock and enable IRQs.
+-	 * Waiting directly in the pick path would deadlock against CPUs sending
+-	 * us IPIs (e.g. TLB flushes) while we wait for them.
+-	 */
+-	if (unlikely(rq->scx.kick_sync_pending)) {
+-		rq->scx.kick_sync_pending = false;
+-		queue_balance_callback(rq, &rq->scx.kick_sync_bal_cb,
+-				       kick_sync_wait_bal_cb);
+-	}
+ 
+ 	return verdict;
+ }
+@@ -3349,16 +3337,8 @@ static enum scx_dsp_verdict dispatch_core_pick(struct rq *rq, struct rq_flags *r
+ 
+ 	verdict = dispatch_one(rq, prev);
+ 
+-	if (cpu_of(rq) == smp_processor_id()) {
+-		maybe_queue_balance_callback(rq);
+-
+-		/* see dispatch_pick() */
+-		if (unlikely(rq->scx.kick_sync_pending)) {
+-			rq->scx.kick_sync_pending = false;
+-			queue_balance_callback(rq, &rq->scx.kick_sync_bal_cb,
+-					       kick_sync_wait_bal_cb);
+-		}
+-	} else if (unlikely(rq->scx.flags & SCX_RQ_BAL_CB_PENDING)) {
++	if (cpu_of(rq) != smp_processor_id() &&
++	    unlikely(rq->scx.flags & SCX_RQ_BAL_CB_PENDING)) {
+ 		/*
+ 		 * Balance callbacks must run in the context that queued them,
+ 		 * so they can't be queued on another CPU's rq. Run the deferred
+@@ -3384,8 +3364,45 @@ static enum scx_dsp_verdict dispatch_core_pick(struct rq *rq, struct rq_flags *r
+ }
+ #endif	/* CONFIG_SCHED_CORE */
+ 
++/*
++ * Queue the balance callbacks requested by the dispatch path. Balance callbacks
++ * must stay queued only until the end of the current rq lock section, so they
++ * can be used only when the pick is @final. Otherwise, the core is going to
++ * retry or continue the pick, which may release the rq lock (e.g.,
++ * prev_balance() or another dispatch) and expose the queued callbacks to
++ * rq_pin_lock() on other CPUs. Punt the deferred work to irq_work in that case.
++ */
++static void pick_queue_balance_callbacks(struct rq *rq, bool final)
++{
++	lockdep_assert_rq_held(rq);
++
++	if (cpu_of(rq) != smp_processor_id())
++		return;
++
++	if (!final) {
++		if (rq->scx.flags & SCX_RQ_BAL_CB_PENDING) {
++			rq->scx.flags &= ~SCX_RQ_BAL_CB_PENDING;
++			schedule_deferred(rq);
++		}
++		return;
++	}
++
++	maybe_queue_balance_callback(rq);
++
++	/*
++	 * Defer to a balance callback which can drop rq lock and enable IRQs.
++	 * Waiting directly in the pick path would deadlock against CPUs sending
++	 * us IPIs (e.g., TLB flushes) while we wait for them.
++	 */
++	if (unlikely(rq->scx.kick_sync_pending)) {
++		rq->scx.kick_sync_pending = false;
++		queue_balance_callback(rq, &rq->scx.kick_sync_bal_cb,
++				       kick_sync_wait_bal_cb);
++	}
++}
++
+ static struct task_struct *
+-do_pick_task_scx(struct rq *rq, struct rq_flags *rf, bool force_scx)
++__do_pick_task_scx(struct rq *rq, struct rq_flags *rf, bool force_scx)
+ {
+ 	struct task_struct *prev = rq->curr;
+ 	enum scx_dsp_verdict verdict;
+@@ -3447,6 +3464,17 @@ do_pick_task_scx(struct rq *rq, struct rq_flags *rf, bool force_scx)
+ 	return p;
+ }
+ 
++static struct task_struct *
++do_pick_task_scx(struct rq *rq, struct rq_flags *rf, bool force_scx)
++{
++	struct task_struct *p = __do_pick_task_scx(rq, rf, force_scx);
++
++	/* after a NULL pick from the dl_server the lower classes still pick */
++	pick_queue_balance_callbacks(rq, p != RETRY_TASK && (p || !force_scx));
++
++	return p;
++}
++
+ static struct task_struct *pick_task_scx(struct rq *rq, struct rq_flags *rf)
+ {
+ 	return do_pick_task_scx(rq, rf, false);
+-- 
+2.56.0
+
