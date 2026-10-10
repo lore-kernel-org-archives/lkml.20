@@ -1,167 +1,185 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF48E36B920
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 05:33:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E36B26ED37;
+	Sat, 10 Oct 2026 05:35:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791610427; cv=none; b=itN3YRTSo9LR2P5yCBfbbCUhFfuSU/gdlhzEuPFcyS2ZzBuJHIuPcAnY15nCVqZA8pSIzvPNzeLzqiCz/A2QIN+R/dyZe4I2N3h0vo7qxS5ZUE0sby0yQQkGZYtG6ztDiHLydxl4yFyjdmwO3/S94w3KxtfT4tBaxqNO35TD4Y0=
+	t=1791610507; cv=none; b=IPc1l1xxPk7SznHw3ovWnv6dRiQXj/jk0Buz1FfUr19D7si1VErbWiBl3fe2OYr+V6jEtHAJsDaQiVbw45r9wW+FrQdSgvz9hkaaeRPtzukChKYxUpEzPXERoxbgTaFH2Zw8XvmwrjvXRHIizsMRztixHgZ2WM9ZkVTGQ8MvYqg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791610427; c=relaxed/simple;
-	bh=ki44rZqsHENfxwVaIlWsw0mriK3sPfARHJY4IeNij7o=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=cs7oL5nGSzFuJJYZgzXply8gbJcN8Ok7fAV6tyK5XqnDYm+fuT9ytIaZejnSmHSEy/zF8Iw+w/Pg3p6JV7AXYKtnTgRhP5sWg3UGRcdhDK+ChwWer2c0TG1e5SjTHEDAmY6nHEt3OMLPR+yhdkYNpO6BqRyF7OAarXhexyCRyMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YE7LAYmc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GARrECTm; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791610507; c=relaxed/simple;
+	bh=ZQDwxtggjEdB4DnE5Fo8yTwuShoD9K6UqEbpF93ZvGA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZnSr/yyFeH+suhck/U+/zWBrrg/pv3JI5r+RyGFQid8aPwZyDZlcujn4bBaspjePN0y/9Vp0+XXeTjA/wy/aTctqxCUcSJlK2A55yE2ALkNZ+BR9u2VoPZ1UN9PI7ZWtvTtDsyIKe7c1mWYcmeri0jY4ZRM/Q5l6crqfcGSYEtk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jLFi7gv+; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YE7LAYmc";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GARrECTm"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69A4BoqJ3207453
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 05:33:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=ihzh9krNeTK
-	98IzARF6nI43bHHUpOUKcTQlAoWpm/DM=; b=YE7LAYmcCTo88TujnZaF+ZJ1Mrx
-	X4sZ0y3CgpXlxtyvyse/p0u67xcdLMMH13CYJ+meD7Maf7whpr/87TBoaK5NBXdy
-	5dxahD0NmjQuCoArfxZoCxjlz18fyCGQfO4etJeaf6lzW3luJlqIzqaXKUSWmi8o
-	NGfbwk/tnWeZncbKYkJJkMVDb7tUkj3xQuQzug326MQOUCKqHsHn/nR4Px7Pb1mY
-	6HfXLuxthIJ6AqpG4HoBboezVec9yI7q1/kPQr4ZCm9NlWE8Wu6BAbqlW3KftTJV
-	/YhyhAKwqHp0KhzzAzEmoOhEDStbrjYh2FErmjRUR+iE/Bi2FsIEBiQ8oLg==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7e4e84y9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 05:33:45 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-86261e66700so219728b3a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 22:33:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791610425; x=1792215225; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ihzh9krNeTK98IzARF6nI43bHHUpOUKcTQlAoWpm/DM=;
-        b=GARrECTmT0Kjf8vvuuase8wg6Jvg4Bpi3iWEFOmq6H8xWAfE6XrTWK3NIhROiD5xCP
-         /il5exfHv/jTQwaMJgITaTynCBM/WMu84ldXctD4wThhvBMqLA2GTGtsHjuOnWhmKaJK
-         6CjlArmuhGawjVF5E1ECbyYUOo5HzkvSyx9fuXrHvg1w8pTaSHAmA/2gP4+L9zDvgZry
-         jJ4c1p2jAgVoVH73nPlPNyYdaQBsufDhmUqGVZJQ7PgJoQABmbpj3OaoDVhhO84lRSNn
-         Tz1Yj2WI0y7RM0qh3Sn/y+t3/XGIwzCB/aYn1eIIOx9W/nPtAWSD/ZtcLVT4VTjtwHJt
-         zK8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791610425; x=1792215225;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ihzh9krNeTK98IzARF6nI43bHHUpOUKcTQlAoWpm/DM=;
-        b=VFfWsMhWmieBaNlm1cXzSU8vHRvx4YwGRH3CTqfuBnRwzuyCJ/OmuxG2uZAb+3rv8X
-         QQfrrBFcQfwaedybNHy+95sObuYauaG2FJRjRShwBRRSpXaqskfhVDBRwLxpVZHoF8vE
-         6Xn/wlGTOUP1lMlSBz1H5iuhpcaG4HE4SfTB6msstsm8Q34NaPqr8C8muqvF7P4aJDoW
-         KzSRjtpMPHvdOXKT8C/LyjS9Bc9JHX2U3GkeLmHeZmlkQiUJxF3Zyz9tOH0hz4pV/NMC
-         LAaTl8bjLnwMeVh66tgTIhQ9XDhaTZpQtdlLN1axrSNkrSM8jw8I5AzbpSgdeo/QotLV
-         kOGg==
-X-Forwarded-Encrypted: i=1; AKwUvBwm9aJpkermRCdLNcbxqLsvfifhcTX/7xFz6Z/AobVY7RHBpw8ubV1zs9xMvzyfJGtd7sy5YImqdo4OMWA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJOLUnjC3oM4T9MuW7HCTAVX35Ck990hRMWl9dnkWgxzgVhub3z
-	c1m/UEIzs7GY7kLbpkXfBO/hm6KV9hn6IB04ASwdTf4Y2MHo7mK//kiBOQVpP0gUZ3BrHxZZot4
-	hxbGep0SHfo+dHhhVzytCjTVxUe60PBI1b79OqUqVhr2cu4nhhATpXLNpxbisunbxxPE=
-X-Gm-Gg: AYBFou2dAzXxzClqiTFgB7Pd1uhC0EElLJ/5/97wkv9JXEr0hdZt0Jq7WQA8QhUXrbj
-	7I3e8z/O5ZbTfL0XjoqY5RFU09H8HthRz9vln8nRcCteh0qdXMjXCeNv32BEkI2ag70E46dll6Z
-	RfdoCjLpmMCQYhikA/EOGTkQe6RcLCAFZhIMb0kUfOqgGsMMhdw6pInUp38RdSMuljQf9KKU2lL
-	5/icDjLpZT8OT8RZi1F+8w8A85kSwDdB0mJeQr6QCw7gusVhk7oERPmrqyenPAHUwaYgj3Bhtpz
-	ME3nybGnS7vFIsQXrAjkpDAP7BFRjgfw6NLp+kUd4RpCLUSYZd5hD3Nisft5A2PO/pLJwqvQyW8
-	QoASXgRJkk/0va+gXjp7N0xcVyKti+uE=
-X-Received: by 2002:a05:6a00:99f:b0:886:61e5:cfbd with SMTP id d2e1a72fcca58-897c79d7cc1mr3405934b3a.45.1791610424139;
-        Fri, 09 Oct 2026 22:33:44 -0700 (PDT)
-X-Received: by 2002:a05:6a00:99f:b0:886:61e5:cfbd with SMTP id d2e1a72fcca58-897c79d7cc1mr3405915b3a.45.1791610423647;
-        Fri, 09 Oct 2026 22:33:43 -0700 (PDT)
-Received: from hu-faisalh-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89928fd8469sm174028b3a.61.2026.10.09.22.33.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 22:33:43 -0700 (PDT)
-From: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
-To: Thinh.Nguyen@synopsys.com, gregkh@linuxfoundation.org,
-        mathias.nyman@intel.com, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, p.zabel@pengutronix.de,
-        wesley.cheng@oss.qualcomm.com
-Cc: sriram.dash@oss.qualcomm.com, jack.pham@oss.qualcomm.com,
-        krishna.kurapati@oss.qualcomm.com, shazad.hussain@oss.qualcomm.com,
-        linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Faisal Hassan <faisal.hassan@oss.qualcomm.com>
-Subject: [PATCH v3 7/7] usb: dwc3: qcom: Enable VBUS override at probe for default peripheral role
-Date: Sat, 10 Oct 2026 11:02:46 +0530
-Message-Id: <20261010053246.2991984-8-faisal.hassan@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261010053246.2991984-1-faisal.hassan@oss.qualcomm.com>
-References: <20261010053246.2991984-1-faisal.hassan@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jLFi7gv+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791610503; x=1823146503;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ZQDwxtggjEdB4DnE5Fo8yTwuShoD9K6UqEbpF93ZvGA=;
+  b=jLFi7gv+MpfnwQWXNixeEaZAHuDBKnR0QUhFPTUucFb2gAjMg6mvT7Fm
+   qBLBv37H3cwcjeqDRb7hK3G4YfKaNYJMRF7KV4FOfI3egypTemscD+BHA
+   /zOw5aCCBHpn6fSsmloVrbTKvYBV/seeRdlitE/zOtHIKcj8C5hQEqfRQ
+   4G5HibL2RXBtsr6y/LHcnCYgtANGp0axrNMjM0uI8T/glqV4fbPr60sCS
+   VdE/5DNYdwTjAl+EE3jJL7WLQnJJM2HX2outUBHVcB+gzi+i2oDov0IEv
+   JIt1kqA0XsBEiMerssn2vM5nsUcEWrnYXM4HLEnnRhxAyTqfAXkGtCVlU
+   w==;
+X-CSE-ConnectionGUID: niEB62R7RM6IJ2JZletgBQ==
+X-CSE-MsgGUID: /UPu85ovQX+6KBJg1S5l0w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="399620"
+X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
+   d="scan'208";a="399620"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 22:35:02 -0700
+X-CSE-ConnectionGUID: FFuVsC+YT+ayZAsUpNlXUQ==
+X-CSE-MsgGUID: oqITX/OdQpOR5wgdC8WQgQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
+   d="scan'208";a="459731"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa003.jf.intel.com with ESMTP; 09 Oct 2026 22:35:02 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xFPjW-000000006Xj-2vwY;
+	Sat, 10 Oct 2026 05:34:58 +0000
+Date: Sat, 10 Oct 2026 13:34:52 +0800
+From: kernel test robot <lkp@intel.com>
+To: Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, SimonP <simonp.git@mailbox.org>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] KVM: x86/mmu: Cope with the SS bit being set in #NPF
+ exit codes
+Message-ID: <202610101512.fYgKYoD8-lkp@intel.com>
+References: <20261009130450.361690-1-pbonzini@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEwMDAyMSBTYWx0ZWRfXzEZe3JnN0lGq
- SDDMT9+NadBWTPhj1lJUnmi4AXb3VAJvnujdBxOxEyGLzrNSFkTYoEny4lZv6kMegl7Nfk4b/7W
- HI8j4VdX+FQoqSBgcnDrmn+G/UiQtoSiILXnWJG0ziDhCsmf4QuB5vKM4oJQHFUzGr/yCEbFePc
- aUeBaykbSyDCVT9oZbOCMsCcM/UOJgfU+AORxi7qGZq7YDwXpwZVdzLU22EplLNlDcquZ4Wh9Ee
- LLo1sEHYzUAgrh/7yEUXX7evCsOLFYUzGW65hK/ZwhqWJUeiXR9WjjvPVcwcwb+2A7wkXU9Po9Z
- BDIX8jOn/DQKo61lRUp/oodeTP0ZKmsqROwWd8cuqewckIif9nz4MhXPB8/vx05miyr1ssvyxIf
- ihNwx5IR80OclrOzkMSR3H7IijKEQRsKuQAQ/BPzMw+cKdHirO1zXST2byISFb20jfsWh2Q4SN4
- 3oEEol2fJaJXzfBhjtA==
-X-Proofpoint-ORIG-GUID: HpPdzPA-T1U3vGZe05FPkYY7uZhgJ4OR
-X-Proofpoint-GUID: HpPdzPA-T1U3vGZe05FPkYY7uZhgJ4OR
-X-Authority-Analysis: v=2.4 cv=W5utxhWk c=1 sm=1 tr=0 ts=6ac9ce39 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=KL4VWcfqKbbHtFUGL8sA:9 a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEwMDAyMSBTYWx0ZWRfX7/UuzfSOTB/D
- a6Tb/bxHYCcaJnkFY9ugsiz2aLsppWM9oS49AIMnaha10VfLuhwyCwiIzc7Rqt6YbS//FW9yKVO
- uyt4nHyci1p3YItMtZPFltAd0tgtKz8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-10_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 phishscore=0 malwarescore=0 impostorscore=0
- bulkscore=0 suspectscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610100021
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009130450.361690-1-pbonzini@redhat.com>
 
-When the controller is in OTG mode with usb-role-switch and
-role-switch-default-mode set to peripheral, the role notifier never sees
-a transition at probe, so the QSCRATCH VBUS override is not programmed
-and the device never gets a session-valid indication.
+Hi Paolo,
 
-Enable the VBUS override at probe whenever the initial role is
-USB_ROLE_DEVICE.
+kernel test robot noticed the following build warnings:
 
-Validated on SA8255P with an HS host attached: 20 unbind/bind and 20
-suspend/resume iterations completed with no failures.
+[auto build test WARNING on kvm/queue]
+[also build test WARNING on kvm/next mst-vhost/linux-next linus/master v7.3-rc6 next-20261008]
+[cannot apply to kvm/linux-next]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Signed-off-by: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
----
- drivers/usb/dwc3/dwc3-qcom.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+url:    https://github.com/intel-lab-lkp/linux/commits/Paolo-Bonzini/KVM-x86-mmu-Cope-with-the-SS-bit-being-set-in-NPF-exit-codes/20261009-150450
+base:   https://git.kernel.org/pub/scm/virt/kvm/kvm.git queue
+patch link:    https://lore.kernel.org/r/20261009130450.361690-1-pbonzini%40redhat.com
+patch subject: [PATCH] KVM: x86/mmu: Cope with the SS bit being set in #NPF exit codes
+config: x86_64-randconfig-1016-20261010 (https://download.01.org/0day-ci/archive/20261010/202610101512.fYgKYoD8-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261010/202610101512.fYgKYoD8-lkp@intel.com/reproduce)
 
-diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
-index 0896a323bdda..92f1223f7b21 100644
---- a/drivers/usb/dwc3/dwc3-qcom.c
-+++ b/drivers/usb/dwc3/dwc3-qcom.c
-@@ -953,10 +953,12 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
- 		dwc3_qcom_vbus_override_enable(qcom, true);
- 	} else {
- 		if ((device_property_read_bool(dev, "usb-role-switch")) &&
--		    (usb_get_role_switch_default_mode(dev) == USB_DR_MODE_HOST))
-+		    (usb_get_role_switch_default_mode(dev) == USB_DR_MODE_HOST)) {
- 			qcom->current_role = USB_ROLE_HOST;
--		else
-+		} else {
- 			qcom->current_role = USB_ROLE_DEVICE;
-+			dwc3_qcom_vbus_override_enable(qcom, true);
-+		}
- 	}
- 
- 	qcom->dwc.glue_ops = &dwc3_qcom_glue_ops;
--- 
-2.34.1
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610101512.fYgKYoD8-lkp@intel.com/
 
+All warnings (new ones prefixed by >>):
+
+   In file included from arch/x86/kvm/mmu/mmu.c:5413:
+   arch/x86/kvm/mmu/paging_tmpl.h: In function 'ept_walk_addr_generic':
+>> arch/x86/kvm/mmu/paging_tmpl.h:331:19: warning: unused variable 'user_fault' [-Wunused-variable]
+     331 |         const int user_fault  = access & PFERR_USER_MASK;
+         |                   ^~~~~~~~~~
+   In file included from arch/x86/kvm/mmu/mmu.c:5417:
+   arch/x86/kvm/mmu/paging_tmpl.h: In function 'paging64_walk_addr_generic':
+>> arch/x86/kvm/mmu/paging_tmpl.h:331:19: warning: unused variable 'user_fault' [-Wunused-variable]
+     331 |         const int user_fault  = access & PFERR_USER_MASK;
+         |                   ^~~~~~~~~~
+   In file included from arch/x86/kvm/mmu/mmu.c:5421:
+   arch/x86/kvm/mmu/paging_tmpl.h: In function 'paging32_walk_addr_generic':
+>> arch/x86/kvm/mmu/paging_tmpl.h:331:19: warning: unused variable 'user_fault' [-Wunused-variable]
+     331 |         const int user_fault  = access & PFERR_USER_MASK;
+         |                   ^~~~~~~~~~
+
+
+vim +/user_fault +331 arch/x86/kvm/mmu/paging_tmpl.h
+
+be94f6b71067df4 arch/x86/kvm/paging_tmpl.h     Huaitong Han        2016-03-22  282  
+ac889bdd23df1ee arch/x86/kvm/mmu/paging_tmpl.h Paolo Bonzini       2026-05-10  283  static inline bool FNAME(is_last_gpte)(struct kvm_pagewalk *w,
+7cd138db5cae0da arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2021-06-22  284  				       unsigned int level, unsigned int gpte)
+7cd138db5cae0da arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2021-06-22  285  {
+7cd138db5cae0da arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2021-06-22  286  	/*
+7cd138db5cae0da arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2021-06-22  287  	 * For EPT and PAE paging (both variants), bit 7 is either reserved at
+7cd138db5cae0da arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2021-06-22  288  	 * all level or indicates a huge page (ignoring CR3/EPTP).  In either
+7cd138db5cae0da arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2021-06-22  289  	 * case, bit 7 being set terminates the walk.
+7cd138db5cae0da arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2021-06-22  290  	 */
+7cd138db5cae0da arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2021-06-22  291  #if PTTYPE == 32
+7cd138db5cae0da arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2021-06-22  292  	/*
+7cd138db5cae0da arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2021-06-22  293  	 * 32-bit paging requires special handling because bit 7 is ignored if
+7cd138db5cae0da arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2021-06-22  294  	 * CR4.PSE=0, not reserved.  Clear bit 7 in the gpte if the level is
+7cd138db5cae0da arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2021-06-22  295  	 * greater than the last level for which bit 7 is the PAGE_SIZE bit.
+7cd138db5cae0da arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2021-06-22  296  	 *
+7cd138db5cae0da arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2021-06-22  297  	 * The RHS has bit 7 set iff level < (2 + PSE).  If it is clear, bit 7
+7cd138db5cae0da arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2021-06-22  298  	 * is not reserved and does not indicate a large page at this level,
+7cd138db5cae0da arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2021-06-22  299  	 * so clear PT_PAGE_SIZE_MASK in gpte if that is the case.
+7cd138db5cae0da arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2021-06-22  300  	 */
+d869ff104efb1f2 arch/x86/kvm/mmu/paging_tmpl.h Paolo Bonzini       2026-05-11  301  	gpte &= level - (PT32_ROOT_LEVEL + w->cpu_role.ext.cr4_pse);
+7cd138db5cae0da arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2021-06-22  302  #endif
+7cd138db5cae0da arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2021-06-22  303  	/*
+7cd138db5cae0da arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2021-06-22  304  	 * PG_LEVEL_4K always terminates.  The RHS has bit 7 set
+7cd138db5cae0da arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2021-06-22  305  	 * iff level <= PG_LEVEL_4K, which for our purpose means
+7cd138db5cae0da arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2021-06-22  306  	 * level == PG_LEVEL_4K; set PT_PAGE_SIZE_MASK in gpte then.
+7cd138db5cae0da arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2021-06-22  307  	 */
+7cd138db5cae0da arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2021-06-22  308  	gpte |= level - PG_LEVEL_4K - 1;
+7cd138db5cae0da arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2021-06-22  309  
+7cd138db5cae0da arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2021-06-22  310  	return gpte & PT_PAGE_SIZE_MASK;
+7cd138db5cae0da arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2021-06-22  311  }
+ac79c978f173586 drivers/kvm/paging_tmpl.h      Avi Kivity          2007-01-05  312  /*
+736c291c9f36b07 arch/x86/kvm/mmu/paging_tmpl.h Sean Christopherson 2019-12-06  313   * Fetch a guest pte for a guest virtual address, or for an L2's GPA.
+ac79c978f173586 drivers/kvm/paging_tmpl.h      Avi Kivity          2007-01-05  314   */
+1e301feb079e8ee arch/x86/kvm/paging_tmpl.h     Joerg Roedel        2010-09-10  315  static int FNAME(walk_addr_generic)(struct guest_walker *walker,
+ac889bdd23df1ee arch/x86/kvm/mmu/paging_tmpl.h Paolo Bonzini       2026-05-10  316  				    struct kvm_vcpu *vcpu, struct kvm_pagewalk *w,
+5b22bbe717d9b96 arch/x86/kvm/mmu/paging_tmpl.h Lai Jiangshan       2022-03-11  317  				    gpa_t addr, u64 access)
+6aa8b732ca01c3d drivers/kvm/paging_tmpl.h      Avi Kivity          2006-12-10  318  {
+8cbc70696f149e4 arch/x86/kvm/paging_tmpl.h     Avi Kivity          2012-09-16  319  	int ret;
+42bf3f0a1f5a25b drivers/kvm/paging_tmpl.h      Avi Kivity          2007-10-17  320  	pt_element_t pte;
+3f649ab728cda80 arch/x86/kvm/mmu/paging_tmpl.h Kees Cook           2020-06-03  321  	pt_element_t __user *ptep_user;
+cea0f0e7ea54753 drivers/kvm/paging_tmpl.h      Avi Kivity          2007-01-05  322  	gfn_t table_gfn;
+0780516a18f87e8 arch/x86/kvm/paging_tmpl.h     Paolo Bonzini       2017-05-11  323  	u64 pt_access, pte_access;
+0780516a18f87e8 arch/x86/kvm/paging_tmpl.h     Paolo Bonzini       2017-05-11  324  	unsigned index, accessed_dirty, pte_pkey;
+5b22bbe717d9b96 arch/x86/kvm/mmu/paging_tmpl.h Lai Jiangshan       2022-03-11  325  	u64 nested_access;
+42bf3f0a1f5a25b drivers/kvm/paging_tmpl.h      Avi Kivity          2007-10-17  326  	gpa_t pte_gpa;
+86407bcb5c8320a arch/x86/kvm/paging_tmpl.h     Paolo Bonzini       2017-03-30  327  	bool have_ad;
+134291bf3cb434a arch/x86/kvm/paging_tmpl.h     Takuya Yoshikawa    2011-07-01  328  	int offset;
+0780516a18f87e8 arch/x86/kvm/paging_tmpl.h     Paolo Bonzini       2017-05-11  329  	u64 walk_nx_mask = 0;
+134291bf3cb434a arch/x86/kvm/paging_tmpl.h     Takuya Yoshikawa    2011-07-01  330  	const int write_fault = access & PFERR_WRITE_MASK;
+134291bf3cb434a arch/x86/kvm/paging_tmpl.h     Takuya Yoshikawa    2011-07-01 @331  	const int user_fault  = access & PFERR_USER_MASK;
+134291bf3cb434a arch/x86/kvm/paging_tmpl.h     Takuya Yoshikawa    2011-07-01  332  	const int fetch_fault = access & PFERR_FETCH_MASK;
+bb24edbb673f6f3 arch/x86/kvm/mmu/paging_tmpl.h Kevin Cheng         2026-05-22  333  	/*
+bb24edbb673f6f3 arch/x86/kvm/mmu/paging_tmpl.h Kevin Cheng         2026-05-22  334  	 * Note! Track the error_code that's common to legacy shadow paging
+bb24edbb673f6f3 arch/x86/kvm/mmu/paging_tmpl.h Kevin Cheng         2026-05-22  335  	 * and NPT shadow paging as a u16 to guard against unintentionally
+bb24edbb673f6f3 arch/x86/kvm/mmu/paging_tmpl.h Kevin Cheng         2026-05-22  336  	 * setting any of bits 63:16.  Architecturally, the #PF error code is
+bb24edbb673f6f3 arch/x86/kvm/mmu/paging_tmpl.h Kevin Cheng         2026-05-22  337  	 * 32 bits, and Intel CPUs don't support settings bits 31:16.
+bb24edbb673f6f3 arch/x86/kvm/mmu/paging_tmpl.h Kevin Cheng         2026-05-22  338  	 */
+134291bf3cb434a arch/x86/kvm/paging_tmpl.h     Takuya Yoshikawa    2011-07-01  339  	u16 errcode = 0;
+13d22b6aebb000a arch/x86/kvm/paging_tmpl.h     Avi Kivity          2012-09-12  340  	gpa_t real_gpa;
+13d22b6aebb000a arch/x86/kvm/paging_tmpl.h     Avi Kivity          2012-09-12  341  	gfn_t gfn;
+6aa8b732ca01c3d drivers/kvm/paging_tmpl.h      Avi Kivity          2006-12-10  342  
+6fbc277053836a4 arch/x86/kvm/paging_tmpl.h     Xiao Guangrong      2012-06-20  343  	trace_kvm_mmu_pagetable_walk(addr, access);
+92c1c1e85bdd72b arch/x86/kvm/paging_tmpl.h     Takuya Yoshikawa    2011-07-01  344  retry_walk:
+d869ff104efb1f2 arch/x86/kvm/mmu/paging_tmpl.h Paolo Bonzini       2026-05-11  345  	walker->level = w->cpu_role.base.level;
+d9af9341707f67c arch/x86/kvm/mmu/paging_tmpl.h Paolo Bonzini       2026-04-05  346  	pte           = kvm_mmu_get_guest_pgd(vcpu, w);
+d869ff104efb1f2 arch/x86/kvm/mmu/paging_tmpl.h Paolo Bonzini       2026-05-11  347  	have_ad       = PT_HAVE_ACCESSED_DIRTY(w);
+1e301feb079e8ee arch/x86/kvm/paging_tmpl.h     Joerg Roedel        2010-09-10  348  
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
