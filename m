@@ -1,75 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 120D2347FEC
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 23:08:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09DAD34DCC8
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 23:10:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791673740; cv=none; b=VqdOLFW7g9F0LBcCktBc8iv75lFotI7OTh+EmMDbS2hEfnSQ/msezTZPF56lvs1XEipyodt7uvgvDWL2Zjnw7XQ0uPDCyxUyViLpxbA35R5Z+M+tXB5LXAYAiDhMJSVSK7R8+qv/OJfX7l7FT1/L2MohsN2M90lzYP3Pb8584jY=
+	t=1791673828; cv=none; b=NeX60c3m8VANSdP/hTobIWthkgtSfU8uDheAKVkXA9uhNmxG+fPQKXpxxG7dy4+L+OQ88M3m6DM2PuEdaiIenhMjWl+kpk5jHBU1hP3/VS+bEu3ocIrulj48KyWJXqtLSrfGfRyTeWCvEn7rNBszqdbSGkQukJi/hxIR7eCJ39A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791673740; c=relaxed/simple;
-	bh=YnsaxkvYSmVBJbx+TXtv+AuajvqXUcz88gcYsHBVh6Y=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=XT3r1DBKrr8hpoxj5Olg9R3NVDNRbXWAMpC7rNH0SKeQy61s9CntWxiV1IKvBTCab6rulpfX6pMHyo6MlWAGzGV+4a2DXyumykFiUPwjv0A7LCop3cPTUcchbqitNy7ipFFcQW4meQ6Ikb1eNHxl4zhDu2IKyA4B8hlJAxioSqA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=f4v/YhLt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791673828; c=relaxed/simple;
+	bh=S5Yk9i5Uw4O3a4L26F9Dhe+pD2vL/083DG/Xe5+4P3A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l+9bRPDtGcfAaXC9X037prCFvY7mJ6j9xlVBK8rJ8uBDZncc3jUVmpOGTHhMUD20s702mCEmccvUeqNV1WtbO9oivHWoSbWov1kFahD9B8MfPDPXItR3+YO18vjmJi7gNNXnOEsQf9hoL5oO6Ta4gSiSZNIHi0KS5GOLW1vHG2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nN9cYXrq; arc=none smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="f4v/YhLt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D9E41F000FF;
-	Sat, 10 Oct 2026 23:08:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nN9cYXrq"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2db80fcdf8bso4333305ad.2
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 16:10:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791673739;
-	bh=rAXy/cK21ZmeHIqHlk18cF/HDJsVMpirRnzgaO3i4qo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=f4v/YhLtx13bm86tsULK8CBGPMecMSpR+qAduWLeb94ZfAD37o7gaj8gu/MM13rjD
-	 qqavHG9bGLie/HVhg0Aby7D7sxz5QM5zylu6sEG70mVnngKNrSRN1pH0sT6bFsbBzb
-	 aslhdG7rpBc+Xfj9UCXCCtYx69COkzxPb3cuVz9U=
-Date: Sat, 10 Oct 2026 16:08:58 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Tuo Li <islituo@gmail.com>
-Cc: linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] lib/test_meminit: handle kmem_cache_alloc() failure
-Message-Id: <20261010160858.453c904ce17dfa8868ba3f9b@linux-foundation.org>
-In-Reply-To: <20261009073040.2995938-1-islituo@gmail.com>
-References: <20261009073040.2995938-1-islituo@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=gmail.com; s=20251104; t=1791673826; x=1792278626; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vI2kBkECW5iZmYYSZT60CeuUy8PSWpfrPWMFdyyehWA=;
+        b=nN9cYXrq255tD9Aahm9RsHi+tbECrjSHxGqeYvjxXWO9iw45YcAYIMNBR1pzA/YLqm
+         WbX0JBDza97y+Cpo+ZLtYxAtcyaV/SZ7l8l1Afylg2SVCtaP1OV5wtBkRAT4q1LMN2dU
+         3w27CFVNO2PlB22zUTElTl3vMyhlLfAjL723UtCFFDsF7x5Dw5N4HoGO2ViIIFIBRdQ7
+         lgRB0KvVoLGFwFm8lrKpaEZ+5GiGiqn6K9xSAbci604OFbHIGW8u6XqdfMln6I1ESv2w
+         jcbTANXVtsevDQGPOTmU9nge62XFlXEZ7wKt+mNQ3eocE9BetstvzwbA9QDLBBcxeI3a
+         hdgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791673826; x=1792278626;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vI2kBkECW5iZmYYSZT60CeuUy8PSWpfrPWMFdyyehWA=;
+        b=qY+uwQl6DfH2hNh6Jz6Vquxf1JBFD6R9cx0o8AtpwqCPLiHy30K5HICnOM1NJQfIr5
+         S+v97NGerm4xN7ynpNyIBNmlVnkssgrAvOziAj9Sdr03rBxpmFghmqDRsbYfb14UeTZ8
+         dH8pJ7c5VztM6x/SPFsjCqTKdIUCrHS8KH4hvhsf7YqDZxIs1Vaw+kF5IXAQkgoaBlF6
+         qbUHezO4KXRtT0/nMBJ1P5U0idDnzcSRtr1I3oOgO8V0QKJTMj5XnYubKKW91W+uvbQU
+         1XEKlTS3LE3koXs1j5Qprh0snJJNtrxjMLksg2jk2h2fzUWrh7tZplmwfcTpikIGb0Oc
+         hBQg==
+X-Forwarded-Encrypted: i=1; AKwUvBzOnoFAh/Yc8lNj26lZqFWstAkgUhubusxgnszBcHlIsBFQ9+uUQUpkpHHkc7N7rLAY0mnpLBVwkxOv8hA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJOpqot3NdjgvU6Mb5uTfYmWmpWkMJsUucJj2y6kVtqlzaqN0GE
+	+pV0yEgQ4xJL3CsK7+71drtR6ZOhexzPeAWBH+GMGkMWDa70mtR6krOe
+X-Gm-Gg: AYBFou2WQZMeDUpxe2cA5/l0NjH2LMmNwltwmXRUCUFhXW7Jlu5h2RFZ/rSWK6cN91/
+	T1eD/oThifmyghEFL2MsOQJg2cCW0YiowX0AQgG3aWBbtB48H0PtN54uklCpdQREAdLS+r3t9NN
+	QeF9RBqDVENmmOtQbfU0RwD7kJ5j34PZvJt3A6wDBnPkQY/KSSVEM+XYjZgRmZe5z8nB7tXlQLN
+	UZAmxGP5/YgK8mGQTYunumJvIM0+FZ/w55BmrXC2bO61AqWhp3PeaNFglitAw/FyO60Y+YXPg8N
+	WyhV82KxzzyIhKa9cRA6gSY+IO+/5X4nkQAWkvKg6qpCbH3e8dTwigyZwl/JhUL/61W2Uu0RedT
+	RDVkiIBvmq4AUpOJS8hpXknQf0Qt0vBJnU5b2yhCk+KOSW8N8Kdj/IiaQt/RnTiIXRoEi7TrSLt
+	Y7uPQTr0oiEy/tMBHxS9K/F171adnv/Wj6s1Y2Y6A/oiWwhyrByKxSDV4oLSTMTjJ0ytE4JZlvj
+	d6HjpHZzz2phTbxnoDb7V2Ugas=
+X-Received: by 2002:a17:902:ce84:b0:2e6:5ef:abe9 with SMTP id d9443c01a7336-2e8429addfcmr42328485ad.37.1791673826108;
+        Sat, 10 Oct 2026 16:10:26 -0700 (PDT)
+Received: from d.home.yangfl.dn42 ([2a09:bac5:661c:1246::1d2:d1])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422e14f6sm26813065ad.69.2026.10.10.16.10.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 16:10:25 -0700 (PDT)
+From: David Yang <mmyangfl@gmail.com>
+To: netdev@vger.kernel.org
+Cc: David Yang <mmyangfl@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next] net: dsa: motorcomm: Do not do the redundant MIB clear
+Date: Sun, 11 Oct 2026 07:10:12 +0800
+Message-ID: <20261010231015.2600207-1-mmyangfl@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri,  9 Oct 2026 15:30:40 +0800 Tuo Li <islituo@gmail.com> wrote:
+The MIB clear in yt921x_chip_setup() is redundant: it runs right after
+hard reset of the hardware, which already zeroes MIB counters.
 
-> In do_kmem_cache_size(), kmem_cache_alloc() may fail and return NULL.
-> The returned pointer is subsequently passed to check_buf() and
-> fill_with_garbage_skip() without being checked, which may result in a
-> NULL pointer dereference.
-> 
-> Handle the allocation failure by marking the test as failed and
-> continuing with the next iteration.
-> 
-> ...
->
-> --- a/lib/test_meminit.c
-> +++ b/lib/test_meminit.c
-> @@ -241,6 +241,10 @@ static int __init do_kmem_cache_size(size_t size, bool want_ctor,
->  		}
->  
->  		buf = kmem_cache_alloc(c, alloc_mask);
-> +		if (!buf) {
-> +			fail = true;
-> +			continue;
-> +		}
->  		/* Check that buf is zeroed, if it must be. */
->  		fail |= check_buf(buf, size, want_ctor, want_rcu, want_zero);
->  		fill_with_garbage_skip(buf, size, want_ctor ? CTOR_BYTES : 0);
+It did not execute the right procedure either: ALL_PORT must be lifted
+from latched value before CLEAN is fired. It works only because the
+reset lifts the MIB control register (and counters altogether).
 
-Thanks, but we have an assumption that __init-time allocations cannot
-fail and so they don't need to be checked.  Because if they do fail,
-something has gone horribly wrong and this kernel cannot work and a
-later null-deref of "buf" is a suitable way of reporting this.
+Nor should we take care of it elsewhere: .port_setup() should not clear
+it, and .setup() runs at most once per registration, so per-port state
+is always freshly allocated by .port_setup().
 
+Signed-off-by: David Yang <mmyangfl@gmail.com>
+---
+ drivers/net/dsa/motorcomm/chip.c | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
+index 980d066a4bea..43e8af90ffc9 100644
+--- a/drivers/net/dsa/motorcomm/chip.c
++++ b/drivers/net/dsa/motorcomm/chip.c
+@@ -3996,12 +3996,6 @@ static int yt921x_chip_setup(struct yt921x_priv *priv)
+ 		return res;
+ #endif
+ 
+-	/* Clear MIB */
+-	ctrl = YT921X_MIB_CTRL_CLEAN | YT921X_MIB_CTRL_ALL_PORT;
+-	res = yt921x_reg_write(priv, YT921X_MIB_CTRL, ctrl);
+-	if (res)
+-		return res;
+-
+ 	/* Miscellaneous */
+ 	res = yt921x_reg_set_bits(priv, YT921X_SENSOR, YT921X_SENSOR_TEMP);
+ 	if (res)
+-- 
+2.53.0
 
