@@ -1,137 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDAAD41685B
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 20:42:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6D8359A81;
+	Sat, 10 Oct 2026 20:50:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791664945; cv=none; b=VpLN8MipQBzz5447lNUTIfCU0/OxtR/mRsnzKc5/f/z0sSCaDgMbNVFRgzA1J28cdCdXUtQlfyOahNxlrK/CkBJHI2Tghg0hs0GT4TFjxbfUkSh2jeEzCDHrZj7cdMBp7Ezfg9DxX4tjtMjeFQshnn7o/8RMGdyJkWRWYQDVsZU=
+	t=1791665447; cv=none; b=r/wER/q61OlA7rQmp6yoW4/yv2l72tGN3k+rh7dQg/Q6fpDGc2vXfll75YV80+zuTShuXvyQlNwpBM90gwJ/AUG/2e6fd2NcVOuP1JdiYqtMxlpMXph/bIdO3e95QEy9kDN/DZHbBb6c0CBuVF+LRvLMCH51SejoElEDF1pemQE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791664945; c=relaxed/simple;
-	bh=v1ymWsKW63A8MOrrRvFTmqsOaMqs2jH6fAtmQ+2ssag=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=P0dK/ClvZXVXmU+tfRwzPLDbzSlHT74mXtTLBOkK6YIzRgxyJJQPsGcypY2BaLKd/YjrcnZSbpUvFkD3nqwRA6kb7M2yHDjZhrC8llUt+9wWFWaJbf7+gMQ1JChc90bfAYOAqjdGVUT67R3d3fTIZ8jpU0MNzx/P8wKVVT0XT+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=RmLqUv8s; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791665447; c=relaxed/simple;
+	bh=rmVAilQeWkl5we9LBhjSiRFgWd6NY0cKWQ0ZYZHFwa4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=R2kcnzsQeYF7P7bwmFnWOIjuS6ouIPvLl0RwjcCQXC/DmCFsgIgVo9c3T2u4OTtjMwygZ7RbA23A84gfIaQSfw6OaK3DbarS3SEjQh1IFVmA6gL9RYS774Wp94FvEjtJlqY4aHHnQw//AV5bgtZgXxYbXgjJklGiVR44kPYOF+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Akl7m70R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="RmLqUv8s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04A691F000FF;
-	Sat, 10 Oct 2026 20:42:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791664943;
-	bh=KaeVwRqfGMljaxW8Ah6Cx9zT6uiRBSSC1dP0zE7Q/ko=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=RmLqUv8syW5KCaLrBRHaqB+hdxZmebnLFbyFQcAzsE8K8GyM/v72kmzM2p52+uyUk
-	 JY4X3rsdpU0z8m/Mytez5hAFfN73+lJQkTAJ2ZdwOIQwtDH7dUz67d2wNhBrUxR1xC
-	 zb3jPxE5vNJ3UNmy+gKrU8kH2wFXF/E3KA17J4EE=
-Date: Sat, 10 Oct 2026 13:42:22 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Muchun Song <songmuchun@bytedance.com>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, Mike Rapoport
- <rppt@kernel.org>, David Hildenbrand <david@kernel.org>, Michael Ellerman
- <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy
- <chleroy@kernel.org>, Ritesh Harjani <ritesh.list@gmail.com>, Shrikanth
- Hegde <sshegde@linux.ibm.com>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka
- <vbabka@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
- <mhocko@suse.com>, Qi Zheng <qi.zheng@linux.dev>, Lance Yang
- <lance.yang@linux.dev>, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, muchun.song@linux.dev
-Subject: Re: [PATCH v4 0/6] mm: Unify device DAX and HugeTLB vmemmap
- population paths
-Message-Id: <20261010134222.b6fdcb20d8fec5aaceab66ec@linux-foundation.org>
-In-Reply-To: <20261010075755.83339-1-songmuchun@bytedance.com>
-References: <20261010075755.83339-1-songmuchun@bytedance.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Akl7m70R"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 9652C1F000FF;
+	Sat, 10 Oct 2026 20:50:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791665446;
+	bh=X0Q45XJ4iggMQCr/4N98LuVD5wDJk4kXpIcHEMRsaWQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Akl7m70RmTXTcMnrP3KwETYDNh5Rboo51U1QZ5eQYSHe0vUr3E4YlyAzDpc/ZmDiU
+	 fDUy6LdruKbc3t/LZLmgIgTK0o7iLT3S1TJY1Y+IL1tjinMf2PsOB0H8H/reLlD8gA
+	 1F/nE9on5Hm5jHAzpd5lkb0MVjT3h2a+s6iILdd7rnb0bfevxIwMhfJHMKZGt/6bTr
+	 wPVnkGLWc6isXlnJUu+44+spE+QrztF2MsgFD/gpG0lPxOv8+tImnvP+opTfGKkTOo
+	 Fbr+xx72fbNL74hNQK9LuwQLhTAkdvhkJurpTuZcQ32c0k5MUmD5F9oY5K/NHPqA8J
+	 m+HkA5S953oFg==
+Date: Sat, 10 Oct 2026 23:50:42 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: dhowells@redhat.com, paul@paul-moore.com, jmorris@namei.org,
+	serge@hallyn.com, sergeh@kernel.org, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com, jjzuming@gmail.com
+Subject: Re: [PATCH v2] keys: Avoid the owner account dereference in named
+ keyring lookup
+Message-ID: <asqlIhgBFnybHIBT@kernel.org>
+References: <pm-key-management-objects-candidate-0002-v3-2baa8cad2bb554364e10@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <pm-key-management-objects-candidate-0002-v3-2baa8cad2bb554364e10@gmail.com>
 
-On Sat, 10 Oct 2026 15:57:49 +0800 Muchun Song <songmuchun@bytedance.com> wrote:
-
-> This v4 is based on mm-new commit d5207c6d152c, which contains v6 of
-> "mm: Switch device DAX to section-based vmemmap optimization" [1].
+On Fri, Oct 09, 2026 at 01:11:59PM +0800, Cen Zhang wrote:
+> Named keyring lookup must keep the storage containing the owner UID
+> alive through the namespace mapping check.  find_keyring_by_name()
+> reads keyring->user->uid under keyring_name_lock, but that lock protects
+> the keyring's name entry and allocation, not its separate key_user.
 > 
-> This series is split out from the earlier, larger series "mm: Generalize
-> HVO for HugeTLB and device DAX" [2]. While the parent series generalizes
-> vmemmap optimization across HugeTLB and device DAX, this subset addresses
-> a single, self-contained step: unifying their vmemmap population paths.
+> A named session-keyring join can overlap a privileged KEYCTL_CHOWN on
+> another CPU.  If the keyring holds the last reference to its old dynamic
+> key_user and the ownership transfer succeeds, the following ordering is
+> possible:
 > 
-> After the preceding Device DAX conversion, both HugeTLB and Device DAX
-> describe optimized vmemmap mappings through memory-section metadata and
-> use per-zone shared tail vmemmap pages. The generic code, however, still
-> carries a Device DAX-specific population flag and compound-page population
-> path, along with arguments and helpers needed only by that path.
+>     Named join                         Chown
+>     find_keyring_by_name()              keyctl_chown_key()
+>       read_lock(keyring_name_lock)       down_write(key->sem)
+>       load old keyring->user
+>                                          replace key->user and key->uid
+>                                          up_write(key->sem)
+>                                          key_put(key)
+>                                          key_user_put(old user): free
+>       read old user->uid
+>       read_unlock(keyring_name_lock)
 > 
-> This series first removes VMEMMAP_POPULATE_DAX and moves selection and
-> reference handling for the shared tail page into the common vmemmap
-> population path. It then removes the generic Device DAX-specific
-> compound-page population path and routes section vmemmap population
-> through vmemmap_populate(). The powerpc radix path continues to use its
-> architecture-specific compound-page population implementation for
-> optimizable sections.
+> Chown neither takes keyring_name_lock nor key_session_mutex, so it can
+> free the old account between the pointer load and the UID read.  The
+> lookup then reads freed memory even though the keyring itself is alive.
 > 
-> The remaining patches remove the unused ptpfn argument, open-code
-> vmemmap_populate_address() now that no caller needs its returned PTE, and
-> add a warning for inconsistent zone initialization of shared tail vmemmap
-> pages.
+> Use keyring->uid for the mapping check.  key_alloc() initializes this
+> inline owner UID and keyctl_chown_key() updates it on chown.
+> The existing name lock keeps its containing keyring allocated throughout
+> the check, so lookup no longer depends on the account's lifetime.  This
+> also matches the owner UID used by the permission check.
 > 
-> This is the fourth smaller step toward the broader HVO generalization.
-> After this series, HugeTLB and Device DAX use the same population model
-> instead of parallel generic paths, while powerpc keeps its
-> architecture-specific implementation.
+> KASAN report as below:
+> 
+>     BUG: KASAN: slab-use-after-free in find_keyring_by_name+0x577/0x5d0
+>     Read of size 4 at addr ffff8881128ae2ec by task keycase/500
+> 
+> Fixes: 2ea190d0a006 ("keys: skip keys from another user namespace")
+> Assisted-by: LLM
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> ---
+> Changes in v2:
+> - Trim the KASAN report to its two-line fault summary.
+> 
+> Link to v1: https://lore.kernel.org/r/pm-key-management-objects-candidate-0002-v2-dd6c20a1d92928b33ab7@gmail.com
+> 
+> diff --git a/security/keys/keyring.c b/security/keys/keyring.c
+> index 15bf4af8f28218ec3f12c97630d1c76939af7eca..46f774be72967a9bd16b0ddfdf323eda36edeff4 100644
+> --- a/security/keys/keyring.c
+> +++ b/security/keys/keyring.c
+> @@ -1158,7 +1158,7 @@ struct key *find_keyring_by_name(const char *name, bool uid_keyring)
+>  	 * grants Search permission and that hasn't been revoked
+>  	 */
+>  	list_for_each_entry(keyring, &ns->keyring_name_list, name_link) {
+> -		if (!kuid_has_mapping(ns, keyring->user->uid))
+> +		if (!kuid_has_mapping(ns, keyring->uid))
+>  			continue;
+>  
+>  		if (test_bit(KEY_FLAG_REVOKED, &keyring->flags))
 
-Thanks, I've updated mm-unstable to this version, including the -fix.
-
-> v4:
-> - Rebase onto mm-new commit d5207c6d152c, which contains v6 of the Device
->   DAX section-based vmemmap series.
-> - Factor the zone mismatch check into a local helper as suggested by Mike
->   Rapoport.
-> - Collect Reviewed-by tags from Lance Yang.
-
-Here's how v4 altered mm.git:
+Thanks.
 
 
- mm/mm_init.c |   17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
 
---- a/mm/mm_init.c~b
-+++ a/mm/mm_init.c
-@@ -593,6 +593,15 @@ out:
- 	node_states[N_MEMORY] = saved_node_state;
- }
- 
-+static inline void vmemmap_optimization_verify_zone(struct page *page)
-+{
-+	const unsigned int order = pfn_to_section_compound_order(page_to_pfn(page));
-+
-+	VM_WARN_ON_ONCE(vmemmap_optimizable_order(order) &&
-+			page_zone_id(page + VMEMMAP_OPTIMIZATION_NR_STRUCT_PAGES) !=
-+			page_zone_id(page));
-+}
-+
- void __meminit __init_single_page(struct page *page, unsigned long pfn,
- 				unsigned long zone, int nid)
- {
-@@ -609,9 +618,11 @@ void __meminit __init_single_page(struct
- 	if (!is_highmem_idx(zone))
- 		set_page_address(page, __va(pfn << PAGE_SHIFT));
- #endif
--	VM_WARN_ON_ONCE(vmemmap_optimizable_order(pfn_to_section_compound_order(pfn)) &&
--			page_zone_id(page + VMEMMAP_OPTIMIZATION_NR_STRUCT_PAGES) !=
--			page_zone_id(page));
-+	/*
-+	 * Shared tail struct pages are initialized during vmemmap population,
-+	 * before retained struct pages reach here.
-+	 */
-+	vmemmap_optimization_verify_zone(page);
- }
- 
- #ifdef CONFIG_NUMA
-_
-
+Br, Jarkko
