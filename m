@@ -1,205 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA0249503E;
-	Sat, 10 Oct 2026 11:52:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64B79400987
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 11:55:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791633150; cv=none; b=TYobMQnxZhCYzeF7SKMjlCZjZFE0lMVztvekBNcJTMBVHsgS8SWyDG8BUXl14KeWbMUoSSG6lM+2+wKHpD3MCIFWnhJCBFgKFFoP/OD6FR+sCgESGmsv/VzWefOigs9jyDS3gXSaVXus1mAnkXlZ29pAG+9Wk/e9KLjzV6uVOQ4=
+	t=1791633337; cv=none; b=g42+SzzOD9N+5CNqs8Gp30Yh+1kz+7TdIEOs+wlMYTMiqDjH5slsfFmHdczSAZaemgAIO9oBSb/klEnkiXLPJIuuU+21C6JF3vN8puCpb+b6lunoq5NfAvBgrrbYKZKl6yog8LH9R7Nh2IDQdftfAorP9W8BLH+457bXnjWT2J4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791633150; c=relaxed/simple;
-	bh=72t8ySfPLIAMt1BG7VcZRcY3TtGZAREt4OV2FdhCVHQ=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=uCggLJiSa9g24dyNcn4d5UUKGMj/moLdv3Qg0rHu3kCcowYsp0ew6DR5bZoNGfMRxVDZaLTP/nBFrSC3zERPtSi2NAkvIz/oFuC5LvgvyCg4uPhpCIccbTh2kpKBpY5Xpl/nFjoV3dsPg9UwXOtOxRF7e+qJU7lJ1DxGhk7GGYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NB10SM9d; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791633337; c=relaxed/simple;
+	bh=CgJGi+r8Zn0HQlnLBTlYbEY/OQ+fmOiyZD0n0A4qbSw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Z9CcdVqqYrhE2oYtoNe8u5WfiyqkrSdLAcih7xaKBNq++z+9ULWYP6byoa1xngrFITFAyuKbKTqctKSi0FiSKcaNDay9oup1ihtyRyo6jqTM5XQAWmZBPQKspJCYzT1bKVKpRaAZAnBNohpqzqGHFu9vOZyK9mNOYdbNExu4DpM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=OQRv2ISS; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NB10SM9d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FEE81F00893;
-	Sat, 10 Oct 2026 11:52:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791633148;
-	bh=jWljI0UWlys2ZLmdiSWG6rYFeY9ZHipJlKNgZEpzQHE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=NB10SM9dCduzb7IcIwGk7ncjY8TrM417j0jsMTay4J6b4Ya66z0EDHr+toGlfRCu8
-	 hPvAtUAT1wZNCTlbcQKxj9K3NqaHEC87428423/HtpxzDYnZlqnDkN/QJ3E/jX/Wgo
-	 pJp90VyIx1fJ3ZsVobdxc3dkIyJMtHv/OD8qiy3fZczXVlyWeBAXhXHlCUZzm4F8xo
-	 G2UFg9pLZoEIfHFopa4soM/WpC9WKo6rn4djnb/y0sLKfhuHJWOcMt3m6dHAegB68l
-	 Roh8KCkYzOCZ29cdVFvYNB+bm80Hh8+fJIEnocRQVq1ZhqC/tjNqhezu3h4noRWEOY
-	 JXzvPm2Uy3Jxg==
-Subject: Re: [PATCH] rxrpc: fix connection reference leak on aborted CHALLENGE
-From: netdev-bot+sashiko@kernel.org
-To: bsdhenrymartin@gmail.com
-Cc: dhowells@redhat.com, marc.dionne@auristor.com, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- linux-afs@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Sat, 10 Oct 2026 11:52:27 +0000
-Message-ID: <179163314765.434549.17950043539968457233@kernel.org>
-In-Reply-To: <20261009115003.3696517-1-bsdhenrymartin@gmail.com>
-References: <20261009115003.3696517-1-bsdhenrymartin@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="OQRv2ISS"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-39647aa9d52so275388a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 04:55:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1791633335; x=1792238135; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=X4UPkDBQVV7L4PDyWtNF9o8eWvpDhSzjJx3UHj11yEY=;
+        b=OQRv2ISS0T3VhyDweao/jQBg1AswtaeHxNdpWqLLZzWALFU9G9gBrGnFipN/YMybif
+         HgpCKFC1oPGUua+DN9fgOqtug+vaRtA6/sGrAQvL+U8RJPho70GLpVftt8EEhf11ZZp7
+         kot7QjadjCtdOJhu83XUr10mOE5OFEFLc9s+lMeAhqrqENa3czoNNaFIalb49XXSF0FF
+         ZVHUtnLzWIWiqZ4DPFmA+eYemUhwgwXpgJxssj1F5ZWqHV2mVcEYMMvqdL6Op3L2vwZE
+         vR1y4kvfrw0BNhujxBPnJaB8HbC/b+WhQNc54R74VD6m4dTDCedx7yFw9jF3EF+EE+N3
+         yfQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791633335; x=1792238135;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=X4UPkDBQVV7L4PDyWtNF9o8eWvpDhSzjJx3UHj11yEY=;
+        b=kjTx5SwiI8LCYj3y8Z+Jqmppv7vtBQVjbyeNYYz8SIObtZbBevl00mLMqYi5qLRMgG
+         xhJBRHews6erxBTqDkjBKpmP0pKJhCuFGVtyZcTnKSLjG8YTFhzTKvyJ8uwHkKuW4gya
+         K7eWIyOIL34KCZDNnyK7IfV1GK9WGgr+NXc8Q5T74ceX4FS7UGG8YfHQ3AIf6TaXoh6u
+         SwvSSI4PAm/RB2zvhiogCUJVYwQIaWfqdqKZ5MZPzCQ/M4RVZClRpxwdrxEnhfcAM4BT
+         gg9LoDvmuFTA7ZHdWiLP4JnqSNxQ3HOU+m81I8Fh3gkS/09CPbHGR+hDgEFYPReUIlrj
+         tZCA==
+X-Forwarded-Encrypted: i=1; AKwUvBxPshjZ6DyeapN3ktNPd5Rdkx9G9HLaAjZmgxirMhgPGAZrbm4masT7RdNtOtCyYNLIQNqv8ytiNBr4AIY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLh/7aajGVugeLrCdhVgEBTvUq7wU1fO3fzJ8ttY0v3kJBo2WFa
+	ReIkt6Wy/JQz9IIYiDFOk7qwUVJoXJVy09pZi4/5Tjrq0kK+I+zP+iGvYl3Hn2l836Y=
+X-Gm-Gg: AYBFou1Ye40BaGO2Ek3KDVjZs4cGb9Cya9skJoTPagsh6d7Xo5KRLBrsV00bLfhGrg+
+	l6q8taSsJtIDQtJ8Uq2wUWK7yQm/dsBR63MPWE43aqsl5E1PCQfkcIFnkITHul7J3fTvLKGFWCP
+	IwWiOwcr9N7i3b607jytw8b4Qtl3gZ7KbKbaUkOgIYtfrxjhiHdEaNwRMlnStsY7BasD76fApmQ
+	EkuDxMDnaayFN2/0q4AGwoTQWoY1fkIu9bP133yg4iQd0M23CQ7tMmi/eeIF+vKedgDsjZ0Eh47
+	etvcpwnMHBNCE3DzdKTs34YPDUCq5EW3sdnRHQ3Wm9LD6V0HilEJ1drun3mOuh01JonZEyl4SkE
+	94O/ohic4/7NrwJK9ouK4xMN2FLF1DwR7jy3PoNkaq38wbKR2pAk+wJNBRozNL8We9ylx1kBMXK
+	QoCb6U/6marulupZu5jMbnk4wG9AfSW1qeUCywOPvlzaN05NvpqzZwXx/8H9tzSR8eDfjYQzX60
+	B7LSe64bQE10upnOZ5M
+X-Received: by 2002:a17:90b:2d06:b0:3a7:cffb:8b8c with SMTP id 98e67ed59e1d1-3ab3ad0e976mr2419519a91.43.1791633334534;
+        Sat, 10 Oct 2026 04:55:34 -0700 (PDT)
+Received: from n232-176-004.byted.org ([36.110.163.103])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36ed040dsm9813293a91.6.2026.10.10.04.55.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 04:55:33 -0700 (PDT)
+From: Muchun Song <songmuchun@bytedance.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Lance Yang <lance.yang@linux.dev>,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Muchun Song <songmuchun@bytedance.com>,
+	muchun.song@linux.dev
+Subject: [PATCH] fixup! mm/mm_init: add zone mismatch warning during page init
+Date: Sat, 10 Oct 2026 19:55:23 +0800
+Message-ID: <20261010115523.4005071-1-songmuchun@bytedance.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261010075755.83339-7-songmuchun@bytedance.com>
+References: <20261010075755.83339-7-songmuchun@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Document the ordering of shared and retained struct page initialization.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 1
+Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+---
+ mm/mm_init.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The fix is incomplete.
-- [Low] The commit message overstates how the leak is triggered.
-
---
-
-rxrpc: fix connection reference leak on aborted CHALLENGE
-
-This patch drops the connection reference that rxrpc_post_challenge()
-stored in sp->chall.conn when rxrpc_process_event() returns early on an
-aborted connection. Without that put, the CHALLENGE skb gets freed while
-the reference is still held.
-
-> held, pinning the connection forever; a malicious server repeating
-> CHALLENGE-then-ABORT leaks one connection per packet.
-
-[Severity: Low]
-
-Is "one connection per packet" accurate? rxrpc_input_conn_packet() drops
-any CHALLENGE that arrives after the conn has been aborted:
-
-net/rxrpc/conn_event.c:rxrpc_input_conn_packet() {
-    ...
-	case RXRPC_PACKET_TYPE_CHALLENGE:
-		rxrpc_see_skb(skb, rxrpc_skb_see_oob_challenge);
-		if (rxrpc_is_conn_aborted(conn)) {
-			if (conn->completion == RXRPC_CALL_LOCALLY_ABORTED)
-				rxrpc_send_conn_abort(conn);
-			return true;
-		}
-    ...
-}
-
-The ABORT case also returns early for a conn that is already aborted.
-
-So the leak needs a race. The conn state has to become RXRPC_CONN_ABORTED
-after rxrpc_post_challenge() has queued the skb, but before the conn work
-runs rxrpc_process_event(). Even then, a given connection can be pinned
-only once.
-
-Could the commit message describe that window? The rate would be one
-pinned connection per client connection that hits the window, not one per
-packet.
-
-> diff --git a/net/rxrpc/conn_event.c b/net/rxrpc/conn_event.c
-> index 611c790bc6d0c..56503a05d5d7d 100644
-> --- a/net/rxrpc/conn_event.c
-> +++ b/net/rxrpc/conn_event.c
-> @@ -272,8 +272,20 @@ static int rxrpc_process_event(struct rxrpc_connection *conn,
->  	bool secured = false;
->  	int ret;
->  
-> -	if (conn->state == RXRPC_CONN_ABORTED)
-> +	if (conn->state == RXRPC_CONN_ABORTED) {
-> +		/*
-> +		 * Drop the ref taken by rxrpc_post_challenge() on this
-> +		 * CHALLENGE before bailing out: otherwise the skb is
-> +		 * released by the caller with the connection reference
-> +		 * still held, pinning the connection forever (leak).
-> +		 */
-> +		if (sp->chall.conn) {
-> +			sp->chall.conn = NULL;
-> +			rxrpc_put_connection(conn,
-> +					rxrpc_conn_put_challenge_input);
-> +		}
-
-[Severity: High]
-
-Is this the only way a CHALLENGE skb on conn->rx_queue can be discarded
-while it still holds the sp->chall.conn ref?
-
-This put only runs if the skb is actually dequeued and passed to
-rxrpc_process_event(). There seem to be ways for the skb to be left on
-conn->rx_queue without that happening.
-
-First, rxrpc_process_connection() skips the drain completely when
-__rxrpc_use_local() fails:
-
-net/rxrpc/conn_event.c:rxrpc_process_connection() {
-    ...
-	if (__rxrpc_use_local(conn->local, rxrpc_local_use_conn_work)) {
-		rxrpc_do_process_connection(conn);
-		rxrpc_unuse_local(conn->local, rxrpc_local_unuse_conn_work);
-	}
-}
-
-rxrpc_release_sock() calls flush_workqueue() before rxrpc_unuse_local().
-rxrpc_unuse_local() then drops active_users to 0 and calls kthread_stop(),
-but the I/O thread keeps draining local->rx_queue after that.
-
-rxkad has no challenge_to_recvmsg, so a CHALLENGE for an idle client conn
-goes straight onto the conn queue:
-
-rxrpc_post_challenge()
-    sp->chall.conn = rxrpc_get_connection(conn, ...);
-    rxrpc_post_packet_to_conn(conn, skb);
-        skb_queue_tail(&conn->rx_queue, skb);
-        rxrpc_queue_conn(conn, ...);
-
-The conn work then fails __rxrpc_use_local(), and the skb stays queued
-with its ref.
-
-Second, rxrpc_queue_conn() does not queue any work when conn->active is
-negative:
-
-net/rxrpc/conn_object.c:rxrpc_queue_conn() {
-	if (atomic_read(&conn->active) >= 0 &&
-	    rxrpc_queue_work(&conn->processor))
-		rxrpc_see_connection(conn, why);
-}
-
-Client conns reach -1 when they are discarded from the idle list.
-rxrpc_input_conn_packet() does not check for this before calling
-rxrpc_post_challenge().
-
-In both cases, the only remaining drain is rxrpc_purge_queue() in
-rxrpc_clean_up_connection(). That only runs after conn->ref reaches zero,
-which the queued skb's own ref prevents.
-
-Even if the purge did run, rxrpc_purge_queue() -> rxrpc_free_skb() does
-not drop sp->chall.conn. rxrpc_respond_to_oob() does drop it:
-
-	case RXRPC_OOB_CHALLENGE:
-		rxrpc_put_connection(sp->chall.conn, rxrpc_conn_put_oob);
-
-A client conn pinned this way is never removed from local->conn_ids. Could
-that trigger the BUG() in rxrpc_destroy_client_conn_ids() when
-rxrpc_destroy_local() runs? Or could it hang netns exit in
-rxrpc_destroy_all_connections(), which waits for rxnet->nr_conns to reach
-zero?
-
-Would a common helper that releases sp->chall.conn give a more complete
-fix? It would need to be used everywhere a conn-queued CHALLENGE skb is
-freed, including the conn->rx_queue purges.
-
-If not, the commit message's claim that this early return is "the
-remaining, still-open one" may need revising.
-
->  		return -ECONNABORTED;
-> +	}
->  
->  	_enter("{%d},{%u,%%%u},", conn->debug_id, sp->hdr.type, sp->hdr.serial);
->
-
+diff --git a/mm/mm_init.c b/mm/mm_init.c
+index 6deae33db882..4c17a892924d 100644
+--- a/mm/mm_init.c
++++ b/mm/mm_init.c
+@@ -618,6 +618,10 @@ void __meminit __init_single_page(struct page *page, unsigned long pfn,
+ 	if (!is_highmem_idx(zone))
+ 		set_page_address(page, __va(pfn << PAGE_SHIFT));
+ #endif
++	/*
++	 * Shared tail struct pages are initialized during vmemmap population,
++	 * before retained struct pages reach here.
++	 */
+ 	vmemmap_optimization_verify_zone(page);
+ }
+ 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261009115003.3696517-1-bsdhenrymartin%40gmail.com
+2.54.0
+
