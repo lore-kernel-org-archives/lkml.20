@@ -1,163 +1,185 @@
-Received: from mta1.migadu.com (out-179.mta1.migadu.com [95.215.58.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from a14-58.smtp-out.amazonses.com (a14-58.smtp-out.amazonses.com [54.240.14.58])
+	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C574B1D10
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 19:15:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA8384BAA0C;
+	Sat, 10 Oct 2026 19:15:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.240.14.58
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791659720; cv=none; b=XXr6HmF86BPs+a+m1UFBOj4nG8bA3fqVdlbK7JVMxmAa/4RKp4RcJgCYlfhcyCaxnqC7BZm3RLxxCiulYbn8ix03/Mv1VUTQ8Plaqc5L3umpIRqWYC9xql/n+s1/ZarcaE7andF/nn9hj/XP1XDRfWLRJLKPdSN9aszda9iSsmw=
+	t=1791659726; cv=none; b=WbhfbNY0RptHXaBCv485kPs38b5QrJBVgVZ7SnGGpqGeESsTv1SVXWO2DFs3tSKCJatwiuX99FS/NWXNM8yvGgp9b4ghGgpzENEqOZUQwGP8UUPS9fc8Dez10PwxfIDwy2l2LrAbdylTDRgASGfRVoV2+oc0rr/2DwrDYs5DD4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791659720; c=relaxed/simple;
-	bh=3NootzqI/O3+CC49sjVYixviyBMP0OLY4tolwLWBCqY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bnFfWX8C9pzUzZPyvUcENxgl4obNjKlF3/EmJrBubwt7yfrN1pknF1JwkscgAZU0vsPtvodBtbaDLedDutlUyBg46EQYWLgfKJrmbGej6TDQ7FTt0YM3CL0v/DX/WsgT+7d8P+IBXorABv9othEIU23yr4hQibr8zq7/zPgPWHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=WunxtgpF; arc=none smtp.client-ip=95.215.58.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791659726; c=relaxed/simple;
+	bh=uZghW09ekWYoJaATpd3YSaijIX3k0cAVXVF1c0qef9E=;
+	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Date:
+	 MIME-Version:Content-Type; b=up26LChD3bDvNuuaIzNsO6UFhN01phuK6PLn1VxgTD/IlMBtB55CssoH9171o0NmFJZJFQIhzKfkjEJMNJfSIUU0i5Ao5x565d8YX7Jff8Vqao1kkhKTKTEverHDgCXraG1sl5SKdaaNnGwgPCS0C45UxbmMWi+wIoLhwYYclU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nicolasfalesy.com; spf=pass smtp.mailfrom=send.nicolasfalesy.com; dkim=pass (1024-bit key) header.d=nicolasfalesy.com header.i=@nicolasfalesy.com header.b=L1FZa8An; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=g8qrX2MK; arc=none smtp.client-ip=54.240.14.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nicolasfalesy.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.nicolasfalesy.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="WunxtgpF"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=3NootzqI/O3+CC49sjVYixviyBMP0OLY4tolwLWBCqY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791659709; v=1; x=1792264509;
- b=WunxtgpFZosZ7b9DNfW0Qj51YCICbBdVdAQdiHvA5wqX5ocFetVODfW80KsFOnZNs6o8/SJn
- REXQdqQEHuoNkgafBfCDHZZ8LXuORi+4OJFWexepRO2FbQPcIncToxv9UWjZbz/RYwbKHvG71Yu
- PJqPK6LkkaSloM87xZ6ZRUkE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 585ebba4e45e8649;
-	Sat, 10 Oct 2026 19:15:06 +0000
-X-Mizu-Trace-ID: 585ebba4e45e8649
-X-Migadu-Flow: FLOW_OUT
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Johannes Weiner <hannes@cmpxchg.org>
-Cc: Tejun Heo <tj@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Meta kernel team <kernel-team@meta.com>,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] sched/psi: Remove the RCU wait from trigger destruction
-Date: Sat, 10 Oct 2026 12:15:00 -0700
-Message-ID: <20261010191500.3895736-1-shakeel.butt@linux.dev>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=nicolasfalesy.com header.i=@nicolasfalesy.com header.b="L1FZa8An";
+	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="g8qrX2MK"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
+	d=nicolasfalesy.com; t=1791659713;
+	h=In-Reply-To:References:From:To:Cc:Reply-To:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
+	bh=uZghW09ekWYoJaATpd3YSaijIX3k0cAVXVF1c0qef9E=;
+	b=L1FZa8An6AEXXJ2T1u4j8vcMrfXXHNCbq7GKrAeI8w4Fj+YgQOaD7TOPRhdtUDo8
+	Jp904axirpJk9K7SQFG7XsQPDs540cQ3tRsi9QqL48gzCB7ZVWNYZqo0t53Uk2Ircot
+	bL8HIC4Tj/p0LueXpsaj78uyZbuLBh1HsF+Unnco=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=224i4yxa5dv7c2xz3womw6peuasteono; d=amazonses.com; t=1791659713;
+	h=In-Reply-To:References:From:To:Cc:Reply-To:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
+	bh=uZghW09ekWYoJaATpd3YSaijIX3k0cAVXVF1c0qef9E=;
+	b=g8qrX2MK8Ec+MiXlpN+LhenRaIa6f3Jz3c+3UCE91yahCEu1z7yFT7HW3u2MyfCE
+	bY7lMa97Ns6xvPtNB8qqyReFOH8tWTMkTHrFfnV+Pwc+YjELfeeTscDdRDx7ZiBaaLv
+	ON5z5GrOOWMUWkfjrJMi+/lRuDn+uef+8SGaX92o=
+In-Reply-To:
+ <CAKYAXd9EkVrdKjsmcd96OFc7pf=2WA8KMUBhRPZROkUOdkV=SA@mail.gmail.com>
+References:
+ <010001a1222f66ba-0c745f29-d4fe-4862-93ff-1db2055b05fc-000000@email.amazonses.com>
+ <CAKYAXd9EkVrdKjsmcd96OFc7pf=2WA8KMUBhRPZROkUOdkV=SA@mail.gmail.com>
+From: Nicolas Falesy <nicolas@nicolasfalesy.com>
+To: linkinjeon@kernel.org, sj1557.seo@samsung.com
+Cc: yuezhang.mo@sony.com, exfat@lists.linux.dev, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	regressions@lists.linux.dev, hch@lst.de, djwong@kernel.org, 
+	nfalesy@gmail.com
+Reply-To: nfalesy@gmail.com
+Subject: [PATCH] exfat: clean stale bdev buffers of newly allocated
+ clusters
+Message-ID: <010001a1273da435-1b6e4385-3185-451f-821b-8d8723ba78d3-000000@email.amazonses.com>
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 10 Oct 2026 19:15:13 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Feedback-ID: :1.us-east-1.ab+1BOhI2G8lKXniYmrQtu8hqInlQv0hMf7S3fw6DdXZuhPmWRop4As2nYC+PvMCg/MeYgni+TDnIGoO6UR5+695Ups99kH4xr2cW/T33RKlxcJfmzZvDG+/D2zFM008PnQSMHraaQXnsyHltCPK4i0yAdm73tum8YqlC4670Nc=:1.us-east-1.QSNtDRXSTq9sAuvRl56h5mypgasnQ5yDLNpVzTnziu0=:AmazonSES
+X-SES-Outgoing: 2026.10.10-54.240.14.58
 
-In the Meta fleet, we found PSI trigger destruction waiting for an RCU
-grace period while holding kernfs node_mutex, blocking other users [1].
-File close and node drain hold this mutex while calling the release
-callback. Cgroup removal and disabling cgroup.pressure also hold
-cgroup_mutex during the drain.
+Directory entries are read and written through buffer_heads of the
+block device. Removing the entries of a directory dirties such a
+buffer. If the directory is then removed and its cluster is reused for
+file data before writeback, the stale buffer stays dirty in the block
+device mapping, and the next flush of the block device (fsync, syncfs
+or umount) writes it over the new file data. The file silently reads
+back with one sector replaced by the deleted directory entries.
 
-The wait was added by commit 0e94682b73bf ("psi: introduce psi monitor")
-to protect worker and trigger lookups. Commit 461daba06bdc
-("psi: eliminate kthread_worker from psi trigger scheduling mechanism")
-replaced the worker queue with a group timer. The scheduler now only
-checks whether rtpoll_task is NULL; it uses neither the task nor the
-trigger. Commit a06247c6804f ("psi: Fix uaf issue when psi trigger is
-destroyed while being polled") removed trigger replacement and polling's
-RCU lookup.
+This was harmless while file data went through exfat_get_block(), as
+__block_write_begin_int() and do_direct_IO() call clean_bdev_aliases()
+for newly allocated blocks. Since data I/O moved to iomap, nothing
+drops these buffers any more.
 
-Trigger lists are protected by mutexes. Proc poll/select entries are
-removed before their file references are dropped. eventpoll_release()
-removes epoll entries before the file release callback.
-Commit aff037078eca ("sched/psi: use kernfs polling functions for PSI
-trigger polling") moved cgroup polling to a kernfs waitqueue whose
-lifetime follows the file.
+Clean the aliases in exfat_alloc_cluster(), =
+once per contiguous run of
+allocated clusters. Doing it at allocation time =
+covers every path that
+allocates clusters: buffered and direct writes, and =
+also fallocate()
+and an extending truncate(), which allocate clusters =
+before the data is
+written, so the later iomap mapping does not see them as=
+ new.
 
-A late timer firing only wakes the group waitqueue. The system group is
-static, and commit 5457025fa8ca ("sched/psi: Shut down rtpoll_timer in
-psi_cgroup_free()") shuts down the cgroup timer before freeing the group.
-Cgroup reclamation already waits for scheduler readers.
+Tested on the exfat dev branch in a KVM guest with a reproducer that
+removes the entries of a directory, removes the directory and writes a
+file over its freed cluster: buffered with and without fsync, O_DIRECT,
+after fallocate(), after an extending ftruncate(), and with the freed
+cluster in the middle of a fragmented allocation. Without this patch
+every run corrupted the file (55/55); with it, none did (0/55). A churn
+test that creates, removes, preallocates and truncates directories and
+files, then runs fsck.exfat, is clean with and without the patch.
 
-Remove synchronize_rcu() from psi_trigger_destroy() and use
-rcu_access_pointer() for the worker NULL check. Keep kthread_stop()
-outside the trigger mutex.
-
-Tested trigger churn, notifications and cgroup removal in an 8-CPU VM
-with KASAN, lockdep, and full and lazy preemption. No warnings were found.
-
-Link: https://github.com/bpftrace/user-tools/tree/master/runnablelockmonitor [1]
-Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+Fixes: 82a81a7352bc ("exfat: add iomap buffered I/O support")
+Fixes: 867b9c96dc83 ("exfat: add iomap direct I/O support")
+Link: https://lore.kernel.org/all/010001a1222f66ba-0c745f29-d4fe-4862-93ff-=
+1db2055b05fc-000000@email.amazonses.com/
+Suggested-by: Namjae Jeon =
+<linkinjeon@kernel.org>
+Assisted-by: Claude-Opus-5.5
+Signed-off-by: Nicolas Falesy <nicolas@nicolasfalesy.com>
 ---
- kernel/sched/psi.c | 25 +++++--------------------
- 1 file changed, 5 insertions(+), 20 deletions(-)
+This replaces the candidate fix from my report. As Namjae suggested, the
+cleanup now happens in exfat_alloc_cluster(), so clusters preallocated
+by fallocate() or an extending truncate() are covered too; the old
+candidate still corrupted those cases in 10/10 runs each.
 
-diff --git a/kernel/sched/psi.c b/kernel/sched/psi.c
-index 4e152410653d..7c5381423334 100644
---- a/kernel/sched/psi.c
-+++ b/kernel/sched/psi.c
-@@ -626,8 +626,6 @@ static void init_rtpoll_triggers(struct psi_group *group, u64 now)
- static void psi_schedule_rtpoll_work(struct psi_group *group, unsigned long delay,
- 				   bool force)
- {
--	struct task_struct *task;
--
- 	/*
- 	 * atomic_xchg should be called even when !force to provide a
- 	 * full memory barrier (see the comment inside psi_rtpoll_work).
-@@ -635,19 +633,16 @@ static void psi_schedule_rtpoll_work(struct psi_group *group, unsigned long dela
- 	if (atomic_xchg(&group->rtpoll_scheduled, 1) && !force)
- 		return;
- 
--	rcu_read_lock();
--
--	task = rcu_dereference(group->rtpoll_task);
- 	/*
--	 * kworker might be NULL in case psi_trigger_destroy races with
--	 * psi_task_change (hotpath) which can't use locks
-+	 * Only test whether a worker is installed; do not dereference the task.
-+	 * A racing trigger destruction may leave the timer armed.
-+	 * psi_cgroup_free() shuts it down before freeing the group.
-+	 * The system PSI group is static.
- 	 */
--	if (likely(task))
-+	if (likely(rcu_access_pointer(group->rtpoll_task)))
- 		mod_timer(&group->rtpoll_timer, jiffies + delay);
- 	else
- 		atomic_set(&group->rtpoll_scheduled, 0);
--
--	rcu_read_unlock();
+Based on the exfat dev branch (513192ce3669). Not run: xfstests.
+
+ fs/exfat/fatent.c | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
+
+diff --git a/fs/exfat/fatent.c =
+b/fs/exfat/fatent.c
+index 3c8bdc131..9f4607fce 100644
+--- a/fs/exfat/fatent.c
++++ b/fs/exfat/fatent.c
+@@ -418,12 +418,28 @@ int =
+exfat_zeroed_cluster(struct inode *dir, unsigned int clu)
+ 	return 0;
  }
- 
- static void psi_rtpoll_work(struct psi_group *group)
-@@ -1488,22 +1483,12 @@ void psi_trigger_destroy(struct psi_trigger *t)
- 		mutex_unlock(&group->rtpoll_trigger_lock);
- 	}
- 
--	/*
--	 * Wait for psi_schedule_rtpoll_work RCU to complete its read-side
--	 * critical section before destroying the trigger and optionally the
--	 * rtpoll_task.
--	 */
--	synchronize_rcu();
- 	/*
- 	 * Stop kthread 'psimon' after releasing rtpoll_trigger_lock to prevent
- 	 * a deadlock while waiting for psi_rtpoll_work to acquire
- 	 * rtpoll_trigger_lock
- 	 */
- 	if (task_to_destroy) {
--		/*
--		 * After the RCU grace period has expired, the worker
--		 * can no longer be found through group->rtpoll_task.
--		 */
- 		kthread_stop(task_to_destroy);
- 		atomic_set(&group->rtpoll_scheduled, 0);
- 	}
--- 
-2.53.0-Meta
+=20
++/*
++ * Newly allocated clusters may still have dirty buffer_heads in =
+the block
++ * device mapping, e.g. the dentries of a directory that was =
+just removed.
++ * File data does not go through those buffers, so drop =
+them; otherwise a
++ * later flush of the block device writes them over the =
+new data.
++ */
++static void exfat_clean_bdev_aliases(struct super_block *sb=
+,
++				     unsigned int clu, unsigned int count)
++{
++	struct exfat_sb_info *sbi =3D EXFAT_SB(sb);
++
++	clean_bdev_aliases(sb->s_=
+bdev, exfat_cluster_to_sector(sbi, clu),
++			   (sector_t)count << =
+sbi->sect_per_clus_bits);
++}
++
+ int exfat_alloc_cluster(struct inode *inode=
+, unsigned int num_alloc,
+ 		struct exfat_chain *p_chain, bool sync_bmap, =
+bool contig)
+ {
+ 	int ret =3D -ENOSPC;
+ 	unsigned int total_cnt;
+ 	unsigned int hint_clu, new_clu, last_clu =3D EXFAT_EOF_CLUSTER;
++	unsigned int run_clu =3D EXFAT_EOF_CLUSTER, run_len =3D 0;
+ 	struct super_block *sb =3D inode->i_sb;
+ 	struct exfat_sb_info *sbi =3D =
+EXFAT_SB(sb);
+=20
+@@ -514,10 +530,21 @@ int exfat_alloc_cluster(struct =
+inode *inode, unsigned int num_alloc,
+ 		p_chain->size++;
+ 		sbi->used_clusters++;
+=20
++		/* clean stale buffers once per contiguous =
+run of clusters */
++		if (run_len && new_clu =3D=3D run_clu + run_len) {
++			run_len++;
++		} else {
++			if (run_len)
++				exfat_clean_bdev_aliases(s=
+b, run_clu, run_len);
++			run_clu =3D new_clu;
++			run_len =3D 1;
++		}
++
+ 		last_clu =3D new_clu;
+=20
+ 		if (p_chain->size =3D=3D num_alloc) {
+ done:
++			exfat_clean_bdev_aliases(sb, run_clu, run_len);
+ 			sbi->clu_srch_ptr =3D hint_clu;
+ 			ret =3D 0;
+ 			goto unlock;
+--=20
+2.55.0
 
