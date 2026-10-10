@@ -1,408 +1,221 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic313-9.consmr.mail.ne1.yahoo.com (sonic313-9.consmr.mail.ne1.yahoo.com [66.163.185.32])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7142D4BAA11;
-	Sat, 10 Oct 2026 19:39:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE64C4BB274
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 19:40:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.185.32
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791661201; cv=none; b=rwwT5UuNAUN7chIl2GQPJbIvOjlSIWCjQnThBPomSSyKIHNdXPGJhyTcrfG3wHLKKfeoYYi443n8DblixeyOTcnC6ONujqzgI5pGiRe4ZejzWfsGknCsn+7MSvaGZYPekprCoIb/gsNb+iU84h15azIsoI/j6j/2+g9LZBomkQQ=
+	t=1791661205; cv=none; b=W3Eul4Wc1scfuSOFw3QHJBtywzbbJsrVZpKpu+JMiQnTZdYwu3Zvvff+k1HB0RF8FHJ+oEqcGl7ccvg/MDa/MYV83Mm30DbsgFJEdI6uNBQFK7Hr604NVzBx5T8ga9P0gmoHo8qxVYEeOXiZGCDv3bmnq6upcqysqUvBio/k9YM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791661201; c=relaxed/simple;
-	bh=sYjvaxqxkFNdi4sUEvE6rYYUDtXPCWd+eilqePvbEh0=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=Wz5NKypLJHiTVna5IOawJ0UJ3QM1I0PpS5uZd0qo2yahLDCvgnmptY2NVIUQBXFrQyRCRfkC+X/8sVEKolCofW7Nf+U2pkUlYfQcNpx6sqoWJHJ+GJQCd9gKRjSiLMeamFzeCs1mRB79BA6EwROzYMSiZDp5juxE7JM1HELs2oA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=JNxlG5q+; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=KvMnCAF4; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1791661205; c=relaxed/simple;
+	bh=JoSAXVV7oUm1yecB46K+hgs8LDXZe1nY0EcgmE10ak4=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
+	 In-Reply-To:Content-Type; b=lnEaBbhI6DGdLr3wD9NzF4OTht1Bpq5AsjoPr6bp3a7x6mGsWEY0/4zpHtY1al9QZ4jL339UbOfHijW0LO+nXo9X2+VGQtq4zo9Gojj7hG7F2HoIiGPwtViREH9O7WMcGsapQ/XGNYCr7KoWwyC6u6B2pFByfx9C4fg+uz81Mk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=FORr6dEO; arc=none smtp.client-ip=66.163.185.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="JNxlG5q+";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="KvMnCAF4"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1791661165; bh=glVgjssUp8RzJlcBNAvMfzu
-	EupdUbllE30zizV0Qv2s=; b=JNxlG5q+Vb6Bf+aBowkruFikC/EozsMfnxiZcsXKnXVin3PheO
-	CIvIRriOvgYlpa+L9hSY5cDp1GcN+kTQIy0WXII47A6ptO5byxncBBWGBZUVTcD6PfYQs5CeHvd
-	XLlggHbK1tJYBTnFCswT/HRSs8fmoDfDnosqYoS9FawUdi32xhIEicisMVnEF+5yRsdwVpkVuN7
-	CsJuPB0wDOpJuJOtTs6Rm4ibT3pKYM/cHGpkYSip4Y0/TQuSMj35YSOhkwnRslgVtt4XpYBEzYR
-	G8ui78uNI0Zz3zpxw3NvRSIMaYaR15a+/djww229gf+rnOQ457i39nDo2D7uL54om+A==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1791661165; bh=glVgjssUp8RzJlcBNAvMfzu
-	EupdUbllE30zizV0Qv2s=; b=KvMnCAF4pu3RpwOl8QFr/Re/5oEHGo3s/6Ay8nRYCS5bHMs/tZ
-	ZnaKAA6iDX5LQJF9+q2dSky46iFp+7s2CSBg==;
-Date: Sat, 10 Oct 2026 20:39:26 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- "Paul E . McKenney" <paulmck@kernel.org>
-CC: linux-kernel@vger.kernel.org, Gary Guo <gary@garyguo.net>,
- Boqun Feng <boqun@kernel.org>, rcu@vger.kernel.org, lkmm@lists.linux.dev,
- Lian Wang <lianux.mm@gmail.com>, Kunwu Chan <kunwu.chan@gmail.com>
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_hazptr_v2_4/4=5D_hazptr=3A_Introduce_=22tr?=
- =?US-ASCII?Q?y_acquire=22_fast_path=2C_fallback_to_overflow_list?=
-In-Reply-To: <20261009182142.6311-5-mathieu.desnoyers@efficios.com>
-References: <20261009182142.6311-1-mathieu.desnoyers@efficios.com> <20261009182142.6311-5-mathieu.desnoyers@efficios.com>
-Message-ID: <C53DEBF5-555F-44A8-A11C-A15C83AAD341@mainlining.org>
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="FORr6dEO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791661195; bh=veuiUetz6HucRhYBzWQL1g7c0oLszHPzlq4NmMzuG8k=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=FORr6dEOleuO6Pi0r1tP9SyhmUdoQxcJaYDRgXC6NVd47hhCTbXCXijqdhIBB/fLvHTKVUueh0fLrmg5DPqxMbAzI56Ub5lLG5i0DyEioWG+6bVIduWj0zJSk+9GcGgZ2d9C63QPi8Tovj/1riz35ABQQF5l4AZqdqTuuVM0s7h/VzUh/77W4e/rqyGBFYB2fm31fu7MUbPt+RCg+p780aWw0FKsSidbVzjEPPayom73TZWmxPuVzw0F4CB4+HRc2HR1RmMDtvcw5WlqsTRzY4uUQd45+91yJlMC+e5qGYwUJYcw+DfjRjZ34QNZjqNzE2o0eDQ2i5UXa49GAXhQ7A==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791661195; bh=F54NJhgXWVL1AcAn7kt2VPPs8VP2Iiw6oMVnyaW7oo8=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=GPQX8CpO+gpunKemi4oL0lGa7GEHumqNneaXz145WQmKGDuKxsOfczm6QbO6ICHjKb3zvMS56dIQ1sxWjk8SHcabRBa1jxIFa1hBwMHxjdtdcZqqPOxOGuu/hDjsC82xyIqXuZo8kuuQGBTD0z8jl01BzVQBNXH7tjxTMmyS6E0l6N3kIPv98rNXkF/K1XV1fUkM5DYzJafguDJ2N4oaqs/4+pSG2Zsy46TZuktcO1uUlujkoMxNr8JI6tlyXh/rEgUh7JI5zizUedcQFrJRL76cKWV8iKqLkEYM/GkP8oQ4higMMll3Y7NLxnGxVv8IuX3KjkgXO1+QPNC8swzNYA==
+X-YMail-OSG: WzeL9_EVM1nJeyCNA2Y1oxQth8dsmL1YxjQzYSGy5bluznDDsLjaKzwmYUO43Ep
+ Nm9JRUsQ52UbVSpht0x5Dtu.Qn4jffXOK_vi7ECo6hSAHHdbmtUwh.zfaJXS.uGEi10znKvUIlsz
+ 605MzGda.Qx3ktr7Fg_SU5y7strVfjpZv77HbUcCTeS_BhjJLae5l2NMEnBqJkXzgATiiV7ZqgVe
+ cKqH.hUfAUGA6dFArHJDOr7wJjcx7fsde_7OkktcfoL3VaU7UQY416H5VdkD5.uxB8S3p0Bs2VOU
+ Y1xr3jdQnmqVfMyMqX8w6_Gp7ddXMQo5mwJfEeiB9CLkWIOov2luF8AAcPrfNiOPLsqXvghqwnSE
+ Zda0ubtMFJ6hz55SwVWKCEBPxg.PLfjljtXIT2uAbjgCOHGZU5iIAdqRjW2BUjdjo5HZtZ1w2eZY
+ YGcfMhcmK7lh_kn5Dg5GzJ8w1yHKfONV8hDEFXNG.wZiAMeyX6QLi_3WhP3iT1gz3HESu7KgKskh
+ n.6_yNZNTi64fzS30b3NAPR0x9xUo8qxAybhXcyOoDaij2i9InkWw7qUpSg6LFHMQa0JXNZIF6Jm
+ 4FvUQXzybJ8SVZVpTIpIsxbnUHjHsXHhwyAxfsA_ri466JQN8g6UQu725L1aNdFN.ckSPEU5R7ov
+ Fp7d1.9FyXmxgVfayfB9w9yPBcnsP3nrw9NoRpRjcbXb4H5NL_1.Z07Rx8g_fXwwAv.7kFznIRLl
+ c4CWA8i9mI9g3u6ybyJOYOUq9D_ETslmmYmcmb9bZ4ebn0hGFWxgKdJinhZ96zM92y53wiu4mHh0
+ _zXyG8g6i40gHsYc2DLXQTIZviqVxWrxk74aUu70qkiQnwytleQ0vucXCFgxxEl3Oo_XwUEX3t0E
+ oUYBzpZR1TLjRdk1xvQi_fmRTmaEmuxOSYhh_cW9i5Z_C0bulNIOT7SS86oKCpFal7oZScSsdN.3
+ RSZTqVJ36pt8Xo_T0Ze5BAtECKm1Xj1bc9rWbSmfewBgMoSkGaeE0oxaCQnghjP2HofMuaJbkcVO
+ UIeX5YvTsKM5s37rwuI66TzdlXeAxaftSXp5SJruEmOy7hyFUMwSYt4DA88hD6iOOPaFy8rnxIix
+ nmKxVctCpRLDCqe3A2RWjF.0bXSYxLB02BWZd4Vkw4Mh1TjEVKSuD20dzBqpKquk2BKj3m81ISxw
+ upIu4lrsswMS3w0BCp.PuwHuQ5cdlUYufydyUXd6T0IUe5NZQ13iloFnUwoAhcTN3XvprzLldG84
+ 3dBxmf_aa_5v3TurP7WU2LThHOJgFhLyYtYTgVnXALBdjmLPx2Z4BM9EFAATUPZsOwQL4V3vK_R4
+ jKSALJfkruL1C9qU.5tqFTp0ZcOjfGs6XTChO26JnJyQI_0Wa0QDtBlPh9iRe3p4IyItOS6Oi2fj
+ RPUUD3pBlTTP2qQl1MfmkpjmIH_nHVzEiyF0jFkRRhVnDJ3epwQIJVsRIHepCsOpP6SAn8aStj02
+ RZ60rU3iVwWDjmm3lSJXlFrUQSjEBns_2OVLaK4ItJJYqoCHk0DjujaLGdsSHQoonOaLXNqk1Uwc
+ uldGgBj8rEhtqngmaOtRcaC6Tdt.g4GzOAtbHE7DC9ecZvnStHDJ6EgDOkO3fQaF.3Bv_m4pMOk.
+ YswFY5FgxoDam248wUxo9395t3S11lnfVnrzzW2YGJRWF0Q404FzrJiAvdOeLXsghiw1VSCgC5rB
+ qAOT9LGmUT9F8F37aey6mtCeqlp6U7b7jNq_nstlZAql.hwnUgxpdLfx.h7buzZciZ2o2DBYLbZB
+ Sbj5NE_DpqsiinOjTyBRYwugjiUM1FGW0eSAMS7_pSl6Lp4SPeGMvl627vzceoGBIium3kLWaWxU
+ SA6M8hFeGQMklxKNb1mMqskfEAHzNqyB3qD192JBtBftYYKW8BFCcoJsoOnw.Miujg.jkKeHEHMy
+ Esgfj3TVZ33oRp8R9BCS2gvkesrZiFZdW2WYMFPG5vUrFvzon9lbnhVlf6mdQfLi5ZLHMrpEBnIN
+ McZl2TrrP0.2411pXFVSxvzFqDJv.hYvKongdKE_LZY960SOzj.lmgbZnkh1TVdLMV7RAosmEsEz
+ WXXuQnXGADVbeyYKdwgdU8VPk1J1zLdBghTRL8y7XxeJhQTJbdJRtyJcv0FZzsmcxnG3PN58xqaL
+ ASfoOfPpGSclmB4yE52WbTT6zS2czWGJyvfC2heozqfPvXc4DIlxx0ZoAag7mQUkF_9.CZrrM2.R
+ nkoUrXs98hd7PlvhtUwYmViHTgS0nS1BTZsdfHn13x3ic8ejCQ39AzTzXhKNRb59u5SOhnFZ.3eF
+ xzOjERgvpA_m_IXqX8YOcTBCGCBv52tyrACfMUbej
+X-Sonic-MF: <namiltd@yahoo.com>
+X-Sonic-ID: 3168e88c-c6f2-4b40-9882-000756f87ee0
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic313.consmr.mail.ne1.yahoo.com with HTTP; Sat, 10 Oct 2026 19:39:55 +0000
+Received: by hermes--production-ir2-5dd9bf4598-fvbwk (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID e34b5574416e385c7f8ad088ef1673d3;
+          Sat, 10 Oct 2026 19:39:53 +0000 (UTC)
+Message-ID: <d9773155-5e61-4b6e-b892-73668ca61fc8@yahoo.com>
+Date: Sat, 10 Oct 2026 21:39:51 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: [PATCH net-next v3 3/9] net: dsa: realtek: rtl8365mb: set speed for
+ family D
+From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <e84d76ee-03df-49b0-8c9a-b289dfae8728@yahoo.com>
+Content-Language: pl
+In-Reply-To: <e84d76ee-03df-49b0-8c9a-b289dfae8728@yahoo.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-On 9 October 2026 19:21:35 BST, Mathieu Desnoyers
-<mathieu.desnoyers@efficios.com> wrote:
->Introduce a "try acquire" hazard pointer fast path, which performs an
->early load of the address to store it into the hazard pointer slot, and
->then re-loads that address after a barrier to check whether it has
->changed meanwhile.
->
->On comparison failure, rather than re-try, guarantee forward progress by
->falling back to the __hazptr_acquire slow path on failure.
->
->The acquire slow path attempts a try-acquire for any available per-CPU
->slot. If that fails, it chains the backup slot into the overflow list,
->therefore guaranteeing forward progress for both hazard pointer
->read-side and synchronize:
->
->- Readers set the wildcard, and then proceed to set the more
->  specific address to replace the wildcard.
->
->- One synchronize alternates between two overflow list periods,
->  scanning each one while readers are added to the other period,
->  thus preventing a steady flow of readers from preventing
->  synchronize forward progress.
->
->With this change, the scan on per-CPU slots don't need to expect a
->wildcard anymore, because none can be produced by readers. Wildcards are
->only expected within overflow lists.
->
->Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
->Suggested-by: Gary Guo <gary@garyguo.net>
->Link: https://lore.kernel.org/lkmm/DLK9MW1N86KD.2GRWUAD2NX4FU@garyguo.net/
->Reviewed-by: Gary Guo <gary@garyguo.net>
+On family C hardware, forcing a 2.5 Gbps link speed requires relying
+strictly on the HSGMII SerDes configuration block, while forcing a dummy
+1 Gbps value inside the standard digital interface register. Family D
+introduces a dedicated hardware link speed value (5) for 2500M. The speed
+bitfield width has been expanded to 3 bits, splitting the most significant
+bit into a new separate register field (FORCE_SPEED2), which maps directly
+to a distinct per-port digital interface force layout.
 
-Hey, looks fine to me! 
+Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+---
+ drivers/net/dsa/realtek/rtl8365mb_main.c | 75 ++++++++++++++++++++----
+ 1 file changed, 62 insertions(+), 13 deletions(-)
 
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
+diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
+index 840db5a..8f3295c 100644
+--- a/drivers/net/dsa/realtek/rtl8365mb_main.c
++++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
+@@ -344,6 +344,7 @@
+ #define RTL8365MB_PORT_SPEED_10M	0
+ #define RTL8365MB_PORT_SPEED_100M	1
+ #define RTL8365MB_PORT_SPEED_1000M	2
++#define RTL8365MB_D_PORT_SPEED_2500M	5
+ 
+ /* External interface force configuration registers 0~2 */
+ #define RTL8365MB_DIGITAL_INTERFACE_FORCE_REG0		0x1310 /* EXT0 */
+@@ -361,6 +362,21 @@
+ #define   RTL8365MB_DIGITAL_INTERFACE_FORCE_LINK_MASK		BIT(4)
+ #define   RTL8365MB_DIGITAL_INTERFACE_FORCE_DUPLEX_MASK		BIT(2)
+ #define   RTL8365MB_DIGITAL_INTERFACE_FORCE_SPEED_MASK		GENMASK(1, 0)
++/* Width of the FORCE_SPEED field, bits[1:0] */
++#define   RTL8365MB_DIGITAL_INTERFACE_FORCE_SPEED_WIDTH		2
++
++/* bits[13:12]; bit 13 reserved, no defined speed value uses it yet */
++#define   RTL8365MB_D_DIGITAL_INTERFACE_FORCE_SPEED2_MASK	GENMASK(13, 12)
++
++#define RTL8365MB_D_DIGITAL_INTERFACE_FORCE_REG_BASE		0x12c0
++#define RTL8365MB_D_DIGITAL_INTERFACE_FORCE_REG(_port) \
++		(RTL8365MB_D_DIGITAL_INTERFACE_FORCE_REG_BASE + (_port))
++
++#define RTL8365MB_D_DIGITAL_INTERFACE_FORCE_EN_BASE		0x12c8
++#define RTL8365MB_D_DIGITAL_INTERFACE_FORCE_REG_EN(_port) \
++		(RTL8365MB_D_DIGITAL_INTERFACE_FORCE_EN_BASE + (_port))
++
++#define RTL8365MB_D_DIGITAL_INTERFACE_FORCE_EN_ALL_MASK	GENMASK(15, 0)
+ 
+ /* CPU port mask register - controls which ports are treated as CPU ports */
+ #define RTL8365MB_CPU_PORT_MASK_REG	0x1219
+@@ -1646,23 +1662,32 @@ static int rtl8365mb_ext_config_forcemode(struct realtek_priv *priv, int port,
+ 	u32 r_duplex;
+ 	u32 r_speed;
+ 	u32 r_link;
++	bool is_d;
+ 	int val;
+ 	int ret;
+ 
+ 	if (!extint)
+ 		return -ENODEV;
+ 
++	is_d = rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D;
+ 	if (link) {
+ 		/* Force the link up with the desired configuration */
+ 		r_link = 1;
+ 		r_rx_pause = rx_pause ? 1 : 0;
+ 		r_tx_pause = tx_pause ? 1 : 0;
+ 
+-		/* The speed field has no value for 2.5 Gbps: the rate is
+-		 * determined by the HSGMII SerDes configuration, and the
+-		 * vendor driver programs the 1 Gbps value here.
+-		 */
+-		if (speed == SPEED_2500 || speed == SPEED_1000) {
++		if (speed == SPEED_2500) {
++			if (is_d) {
++				r_speed = RTL8365MB_D_PORT_SPEED_2500M;
++			} else {
++				/* The speed field has no value for 2.5 Gbps:
++				 * the rate is determined by the HSGMII SerDes
++				 * configuration, and the vendor driver programs
++				 * the 1 Gbps value here.
++				 */
++				r_speed = RTL8365MB_PORT_SPEED_1000M;
++			}
++		} else if (speed == SPEED_1000) {
+ 			r_speed = RTL8365MB_PORT_SPEED_1000M;
+ 		} else if (speed == SPEED_100) {
+ 			r_speed = RTL8365MB_PORT_SPEED_100M;
+@@ -1692,20 +1717,44 @@ static int rtl8365mb_ext_config_forcemode(struct realtek_priv *priv, int port,
+ 		r_duplex = 0;
+ 	}
+ 
+-	val = FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_EN_MASK, 1) |
+-	      FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_TXPAUSE_MASK,
++	val = FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_TXPAUSE_MASK,
+ 			 r_tx_pause) |
+ 	      FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_RXPAUSE_MASK,
+ 			 r_rx_pause) |
+ 	      FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_LINK_MASK, r_link) |
+ 	      FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_DUPLEX_MASK,
+ 			 r_duplex) |
+-	      FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_SPEED_MASK, r_speed);
+-	ret = regmap_write(priv->map,
+-			   RTL8365MB_DIGITAL_INTERFACE_FORCE_REG(extint->id),
+-			   val);
+-	if (ret)
+-		return ret;
++	      FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_SPEED_MASK,
++			 r_speed &
++			 RTL8365MB_DIGITAL_INTERFACE_FORCE_SPEED_MASK);
++
++	if (is_d) {
++		/* Speed is 3 bits on family D: bits[1:0] go into FORCE_SPEED,
++		 * bit[2] goes into FORCE_SPEED2 (bit 12); only 2500M sets it,
++		 * bit 13 of the field is unused.
++		 */
++		val |= FIELD_PREP(RTL8365MB_D_DIGITAL_INTERFACE_FORCE_SPEED2_MASK,
++				  r_speed >>
++				  RTL8365MB_DIGITAL_INTERFACE_FORCE_SPEED_WIDTH);
++		ret = regmap_write(priv->map,
++				   RTL8365MB_D_DIGITAL_INTERFACE_FORCE_REG(port),
++				   val);
++		if (ret)
++			return ret;
++
++		ret = regmap_write(priv->map,
++				   RTL8365MB_D_DIGITAL_INTERFACE_FORCE_REG_EN(port),
++				   RTL8365MB_D_DIGITAL_INTERFACE_FORCE_EN_ALL_MASK);
++		if (ret)
++			return ret;
++	} else {
++		val |= FIELD_PREP(RTL8365MB_DIGITAL_INTERFACE_FORCE_EN_MASK, 1);
++		ret = regmap_write(priv->map,
++				   RTL8365MB_DIGITAL_INTERFACE_FORCE_REG(extint->id),
++				   val);
++		if (ret)
++			return ret;
++	}
+ 
+ 	return 0;
+ }
+-- 
+2.53.0
 
-(Well needed in my opinion)
-
->Cc: Paul E. McKenney <paulmck@kernel.org>
->Cc: Boqun Feng <boqun@kernel.org>
->Cc: Bradley Morgan <brads@mainlining.org>
->Cc: Gary Guo <gary@garyguo.net>
->Cc: <rcu@vger.kernel.org>
->Cc: <lkmm@lists.linux.dev>
->Cc: Lian Wang <lianux.mm@gmail.com>
->Cc: Kunwu Chan <kunwu.chan@gmail.com>
->---
-> include/linux/hazptr.h |  48 +++++++++++--------
-> kernel/hazptr.c        | 103 ++++++++++++++++++++---------------------
-> 2 files changed, 77 insertions(+), 74 deletions(-)
->
->diff --git a/include/linux/hazptr.h b/include/linux/hazptr.h
->index d1670121947a..df2aca9aa26b 100644
->--- a/include/linux/hazptr.h
->+++ b/include/linux/hazptr.h
->@@ -25,13 +25,11 @@
-> #include <linux/types.h>
-> #include <linux/cleanup.h>
-> #include <linux/sched.h>
->+#include <linux/ptreq.h>
-> 
-> /* 4 slots (each sizeof(hazptr_slot_item)) fit in a single 64-byte cache
-> line. */
-> #define NR_HAZPTR_PERCPU_SLOTS	4
-> 
->-/* The current hazard pointer wildcard. */
->-extern void *hazptr_wildcard;
->-
-> /*
->  * Hazard pointer slot.
->  */
->@@ -190,6 +188,31 @@ void hazptr_note_context_switch(void)
-> 	}
-> }
-> 
->+/* Try hazard pointer protection. */
->+static inline
->+void *__hazptr_try_acquire(struct hazptr_ctx *ctx, void * const *addr_p, struct hazptr_slot *slot)
->+{
->+	void *early_addr, *addr;
->+
->+	if (unlikely(slot->addr))
->+		return NULL;
->+	early_addr = READ_ONCE(*addr_p);	/* Early load. */
->+	WRITE_ONCE(slot->addr, early_addr);	/* Store B */
->+	/* Memory ordering: Store B before Load A. */
->+	smp_mb();
->+	addr = READ_ONCE(*addr_p);		/* Load A */
->+	/*
->+	 * Validate that address did not change between Early load and Load A.
->+	 * Use ptr_eq() to make sure that result from Load A is returned to the
->+	 * caller to preserve address dependency.
->+	 */
->+	if (unlikely(!ptr_eq(addr, early_addr))) {
->+		WRITE_ONCE(slot->addr, NULL);
->+		return NULL;
->+	}
->+	return addr;
->+}
->+
-> /**
->  * hazptr_acquire - Load pointer at address and protect with hazard pointer.
->  *
->@@ -245,24 +268,9 @@ void *hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
-> 	ctx->acquire_cpu = smp_processor_id();
-> 	ctx->acquire_caller = _THIS_IP_;
-> #endif
->-	if (unlikely(slot->addr))
->+	addr = __hazptr_try_acquire(ctx, addr_p, slot);
->+	if (unlikely(!addr))
-> 		return __hazptr_acquire(ctx, addr_p);
->-	WRITE_ONCE(slot->addr, READ_ONCE(hazptr_wildcard));	/* Store B */
->-
->-	/* Memory ordering: Store B before Load A. */
->-	smp_mb();
->-
->-	/*
->-	 * Load @addr_p after storing wildcard to the hazard pointer slot.
->-	 */
->-	addr = READ_ONCE(*addr_p);	/* Load A */
->-
->-	/*
->-	 * We don't care about ordering of Store C. It will simply
->-	 * replace the wildcard by a more specific address. If addr is
->-	 * NULL, we simply store NULL into the slot.
->-	 */
->-	WRITE_ONCE(slot->addr, addr);	/* Store C */
-> 	slot_item->ctx.ctx = ctx;
-> 	ctx->slot = slot;
-> 	return addr;
->diff --git a/kernel/hazptr.c b/kernel/hazptr.c
->index 13faa5ba7677..3ca73b56a5c2 100644
->--- a/kernel/hazptr.c
->+++ b/kernel/hazptr.c
->@@ -13,17 +13,9 @@
-> #include <linux/list.h>
-> #include <linux/export.h>
-> 
->-static DEFINE_MUTEX(hazptr_phase_lock);	/* Protect the wildcard and list phase flip. */
->+#define HAZPTR_WILDCARD	((void *) 1UL)
-> 
->-/*
->- * The current hazard pointer wildcard. Flips between 1UL and 2UL to guarantee
->- * hazptr_synchronize forward progress even with a steady stream of readers.
->- * This wildcard value is used by acquire to temporarily tag the per-CPU slots.
->- * This also affects the overflow list selection: the current list used by
->- * readers is array[(unsigned long) hazptr_wildcard - 1].
->- */
->-void *hazptr_wildcard = (void *) 1UL;
->-EXPORT_SYMBOL_GPL(hazptr_wildcard);
->+static DEFINE_MUTEX(hazptr_phase_lock);	/* Protect the list phase flip. */
-> 
-> /* The current overflow list phase. */
-> static unsigned int hazptr_overflow_list_phase;
->@@ -41,6 +33,10 @@ struct hazptr_overflow_list {
->  * successively iterates on both lists. Therefore, only list removals
->  * can cause the iteration to retry, and the number of removals is
->  * limited to the number of list elements.
->+ *
->+ * Due to the overflow list raw spin lock, the hazard pointer readers are
->+ * blocking, starvation-free with bounded waiting, assuming bounded critical
->+ * sections and no NMI or virtualization-induced holder preemption.
->  */
-> struct hazptr_overflow_list_flip {
-> 	struct hazptr_overflow_list array[2];
->@@ -51,26 +47,12 @@ static DEFINE_PER_CPU(struct hazptr_overflow_list_flip, percpu_overflow_list_fli
-> DEFINE_PER_CPU(struct hazptr_percpu_slots, hazptr_percpu_slots);
-> EXPORT_PER_CPU_SYMBOL_GPL(hazptr_percpu_slots);
-> 
->-static
->-void *flip_wildcard(void *wildcard)
->-{
->-	return ((unsigned long) wildcard == 1UL) ? (void *) 2UL : (void *) 1UL;
->-}
->-
-> static
-> unsigned int flip_list_phase(unsigned int phase)
-> {
-> 	return 1 - phase;
-> }
-> 
->-static
->-bool is_wildcard(void *addr)
->-{
->-	if ((unsigned long) addr == 1UL || (unsigned long) addr == 2UL)
->-		return true;
->-	return false;
->-}
->-
-> static
-> struct hazptr_slot *hazptr_get_free_percpu_slot(struct hazptr_ctx *ctx)
-> {
->@@ -96,16 +78,36 @@ struct hazptr_slot *hazptr_get_free_percpu_slot(struct hazptr_ctx *ctx)
->  */
-> void *__hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
-> {
->-	struct hazptr_slot *slot = hazptr_get_free_percpu_slot(ctx);
->+	struct hazptr_slot *slot;
-> 	void *addr;
-> 
-> 	/*
->-	 * If all the per-CPU slots are already in use, fallback
->-	 * to the backup slot.
->+	 * In case we are called due to nested use of hazard pointers,
->+	 * try a slot protection with per-CPU slots.
-> 	 */
->-	if (unlikely(!slot))
->-		slot = hazptr_chain_backup_slot(ctx);
->-	WRITE_ONCE(slot->addr, READ_ONCE(hazptr_wildcard));	/* Store B */
->+	slot = hazptr_get_free_percpu_slot(ctx);
->+	if (likely(slot)) {
->+		addr = __hazptr_try_acquire(ctx, addr_p, slot);
->+		if (addr) {
->+			ctx->slot = slot;
->+			return addr;
->+		}
->+	}
->+
->+	/*
->+	 * The backup slot overflow list guarantees forward progress of both
->+	 * hazard pointer readers and synchronize:
->+	 *
->+	 * - Readers set the wildcard, and then proceed to set the more
->+	 *   specific address to replace the wildcard.
->+	 *
->+	 * - One synchronize alternates between two overflow list periods,
->+	 *   scanning each one while readers are added to the other period,
->+	 *   thus preventing a steady flow of readers from preventing
->+	 *   synchronize forward progress.
->+	 */
->+	slot = hazptr_chain_backup_slot(ctx);
->+	WRITE_ONCE(slot->addr, HAZPTR_WILDCARD);	/* Store B */
-> 
-> 	/* Memory ordering: Store B before Load A. */
-> 	smp_mb();
->@@ -121,20 +123,21 @@ void *__hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
-> 	 * NULL, we simply store NULL into the slot.
-> 	 */
-> 	WRITE_ONCE(slot->addr, addr);	/* Store C */
->+
-> 	ctx->slot = slot;
->-	if (!addr && hazptr_slot_is_backup(ctx, slot))
->+	if (!addr)
-> 		hazptr_unchain_backup_slot(ctx);
-> 	return addr;
-> }
-> EXPORT_SYMBOL_GPL(__hazptr_acquire);
-> 
-> /*
->- * Perform piecewise iteration on overflow list waiting until "addr" is
->- * not present. Raw spinlock is released and taken between each list
->- * item and busy loop iteration. The overflow list generation is checked
->- * each time the lock is taken to validate that the list has not changed
->- * before resuming iteration or busy wait. If the generation has
->- * changed, retry the entire list traversal.
->+ * Perform piecewise iteration on overflow list waiting until "addr" and
->+ * wildcard are not present. Raw spinlock is released and taken between each
->+ * list item and busy loop iteration. The overflow list generation is checked
->+ * each time the lock is taken to validate that the list has not changed before
->+ * resuming iteration or busy wait. If the generation has changed, retry the
->+ * entire list traversal.
->  */
-> static
-> void hazptr_synchronize_overflow_list(struct hazptr_overflow_list
-> *overflow_list, void *addr)
->@@ -147,13 +150,11 @@ void hazptr_synchronize_overflow_list(struct hazptr_overflow_list *overflow_list
-> retry:
-> 	snapshot_gen = overflow_list->gen;
-> 	hlist_for_each_entry(backup_slot, &overflow_list->head, overflow_node) {
->-		/* Busy-wait if node is found. */
->+		/* Busy-wait if addr or wildcard are found. */
-> 		for (;;) {
-> 			void *load_addr = smp_load_acquire(&backup_slot->slot.addr);	/* Load B */
-> 
->-			/* We don't expect wildcards in overflow list. */
->-			WARN_ON_ONCE(is_wildcard(load_addr));
->-			if (load_addr != addr)
->+			if (load_addr != addr && load_addr != HAZPTR_WILDCARD)
-> 				break;
-> 			raw_spin_unlock_irqrestore(&overflow_list->lock, flags);
-> 			cpu_relax();
->@@ -174,7 +175,7 @@ void hazptr_synchronize_overflow_list(struct hazptr_overflow_list *overflow_list
-> }
-> 
-> static
->-void hazptr_synchronize_cpu_slots(int cpu, void *addr, void *scan_wildcard)
->+void hazptr_synchronize_cpu_slots(int cpu, void *addr)
-> {
-> 	struct hazptr_percpu_slots *percpu_slots = per_cpu_ptr(&hazptr_percpu_slots, cpu);
-> 	unsigned int idx;
->@@ -182,13 +183,13 @@ void hazptr_synchronize_cpu_slots(int cpu, void *addr, void *scan_wildcard)
-> 	for (idx = 0; idx < NR_HAZPTR_PERCPU_SLOTS; idx++) {
-> 		struct hazptr_slot_item *item = &percpu_slots->items[idx];
-> 
->-		/* Busy-wait if node is found. */
->-		smp_cond_load_acquire(&item->slot.addr, VAL != addr && VAL != scan_wildcard); /* Load B */
->+		/* Busy-wait if addr is found. */
->+		smp_cond_load_acquire(&item->slot.addr, VAL != addr); /* Load B */
-> 	}
-> }
-> 
-> static
->-void hazptr_scan_cpu_slots_period(void *addr, void *scan_wildcard)
->+void hazptr_scan_cpu_slots(void *addr)
-> {
-> 	int cpu;
-> 
->@@ -196,16 +197,13 @@ void hazptr_scan_cpu_slots_period(void *addr, void *scan_wildcard)
-> 	for_each_possible_cpu(cpu) {
-> 		/*
-> 		 * Scan CPU slots.
->-		 * Forward progress against recurring wildcards is guaranteed
->-		 * by scanning for one wildcard while new elements use the
->-		 * other wildcard value (1UL vs 2UL).
-> 		 * Forward progress against recurring single hazard pointer
-> 		 * values is guaranteed by the fact that a hazard pointer
-> 		 * is not reclaimed nor reused until the scan for that hazard
-> 		 * pointer completes, which prevents a steady flow of readers
-> 		 * to acquire that same hazard pointer value.
-> 		 */
->-		hazptr_synchronize_cpu_slots(cpu, addr, scan_wildcard);
->+		hazptr_synchronize_cpu_slots(cpu, addr);
-> 	}
-> }
-> 
->@@ -237,7 +235,6 @@ void hazptr_scan_overflow_list_period(void *addr, unsigned int scan_idx)
-> void hazptr_synchronize(void *addr)
-> {
-> 	unsigned int scan_list_phase;
->-	void *scan_wildcard;
-> 
-> 	/*
-> 	 * Busy-wait should only be done from preemptible context.
->@@ -251,16 +248,14 @@ void hazptr_synchronize(void *addr)
-> 	 */
-> 	if (!addr)
-> 		return;
->+
-> 	/* Memory ordering: Store A before Load B. */
-> 	smp_mb();
-> 
-> 	guard(mutex)(&hazptr_phase_lock);
-> 
-> 	/* Scan per-CPU slots. */
->-	scan_wildcard = flip_wildcard(hazptr_wildcard);
->-	hazptr_scan_cpu_slots_period(addr, scan_wildcard);
->-	WRITE_ONCE(hazptr_wildcard, scan_wildcard);			/* Flip the current wildcard. */
->-	hazptr_scan_cpu_slots_period(addr, flip_wildcard(scan_wildcard));
->+	hazptr_scan_cpu_slots(addr);
-> 
-> 	/*
-> 	 * Scan overflow lists *after* scanning per-CPU slots. See
->
-
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
