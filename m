@@ -1,87 +1,72 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F1D249E124
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 14:23:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48744330B01
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 14:25:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791642237; cv=none; b=iIwNujzkjAwLjBfqWQEr3++6Zzs+rgIaf6jx3Lcbko/IMPmWUJ0UAvzC99AQOnXItt52f5Ieu+AecDkuT6aNPI4xsUNB3W/jTkh+aB+YtNXtMRCXdk083vIB3QadUfT+KCPFBz2s9knaXniS+q0QMONqkn9aDLvdURpHa46SaL8=
+	t=1791642344; cv=none; b=ovyOmqw8ViORqDy274XnKyUwjr+vJNUsK0N8Bv8keBOFHdH56dz/S9A8xKkl/bAdU+bnXg2+vaCNXdb0LdnzTPe/OtPlVr/8KjT8+JCg51aZpHOjgU4EwKv2kLdlxhBfV2CHKdgDej6QVCRGr07ZugNiNDgV+ouFxfD5EihdsDE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791642237; c=relaxed/simple;
-	bh=L1eZIEVU/ofQte2gvNih6Bludiqn1MxT0tCVYZyJVP8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=aEgaq2iA7ZRwypuhnsy6WJhfm0WYr2nTagcxfQs8lo7RRed70S//AQfBtnsCfgYmg87tMDSE2xKPvDd7xO3mrbOOtQMNyCVGX3wg9ZRwZZPKF+7O3Odg9W8is3RTe3UivYWfo8TnzIM5pRHJNcTcgnkZEnPvjPzUfol/r7hWVH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SfgDWM3G; arc=none smtp.client-ip=209.85.214.176
+	s=arc-20240116; t=1791642344; c=relaxed/simple;
+	bh=kbdm4Ym5qJRwvrjOgxLqcG1Is4XjtEeKBnHu2aTQMFA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z+CWZGrqZH4a139+Pnp1XSd98RpUYK1bXMI4jhJ6k8LY2t6jv6vESpm5Yqlj6PbX6QFaJG2bqZbc6n5RYtLZlj4sg2Vrq9b6Ciy2oyucj6D4i+rmOYgHRdTpwnVNQzrqKk0vA5de9uD2HbF83PKtCxxGuwdtMavKzDBhJuseObs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LqNwofWc; arc=none smtp.client-ip=209.85.208.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SfgDWM3G"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e5fb79ce82so2992535ad.0
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 07:23:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LqNwofWc"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a0a4aa99bdso706889a12.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 07:25:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791642235; x=1792247035; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ow0+9kC3h+sUBY7u1HdgedXX1Au0fVpDxstdKdYipeg=;
-        b=SfgDWM3GC7fNatBSAVxB3HKeX1p4q50JUPDNDsu+BgaOEGlc0lM0fJTXi8Glw7HXsi
-         00EkUjhOhOaDsF4ComoFsEDymSQYu8+x2Fv8liFLrH4QRJ42WI/fQyz3zth3zh32AsuH
-         BaTjAIgGMmabCCSI6vlfJcoYHxzn3AxAlbI1P6paDgETNlnsouFYD//rFvRDFreq7Cod
-         3rPnx/DtC3STqEqKe4HW0+maUMiPhEWIOsoU/tOSOEwiITcwulzI2kwxi2FXkgNEN7ci
-         vWgx/q6SmmKf6MBzlNowbWBGaiOlpvyADqpz1StYNvM5C5a+y64wHxm0lXBluEXHcIxk
-         2sLQ==
+        d=gmail.com; s=20251104; t=1791642340; x=1792247140; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=b6gf4AvJGePyPCf6LwjuBFdxDT8Bmj/BNKhhCD6oh7A=;
+        b=LqNwofWcA+WfhdS++dxNxcXYBg7+UjcTR0QIy5IuzelNiUPfC5JPhgCps5DT3GqhEV
+         jX8F8e35Cv4G4FQZ0SBKslaHCP4d4EMszKF3mbiLCDbefzMVAUUKD6lSZ3VLaRpB6xo6
+         4G3ITLXs2vrj2XbryeEKhnO4jUtiRsmWfJPlCJ/CzFGvi82HsGgmoOPqdOOvsa6OWf5A
+         qTwBKLK3zkRMAch1OetcrLH/L/CaR5chBaMMSrsj+v+1OYhjHPveKfGKt1KqpbFRDY80
+         SBUTVnyLFT1GDxOTkiTefNygLHEDlZ7yOHgtyHOgJ+Z4YhazfFTs8TNdTuV2QKHxEgzu
+         i9aA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791642235; x=1792247035;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ow0+9kC3h+sUBY7u1HdgedXX1Au0fVpDxstdKdYipeg=;
-        b=lqapllVV1lT/ji/5TyOug3BmSk3zZU+z47h+W0DSGcajta0TVHiKXbSfC/G8cI7+VJ
-         IYvmldG/FoX7mbFmA+tEV2Mb45K9Aa34fLgoSDgOYRTMEdsRleThw3frhwK2lT7nJGje
-         CpBn/1/XvRFI2Tj09ugrxmjtesHyULDY3UqJz2tqG10wfKfwVhaMgJtM6XpcBqliond9
-         GHSQRtzAHZT6xjMDZ3LRLCctx4pA9RLXZUvhJ9cenXThYSIOAV0LrwkstRUnhmkqJGf8
-         9pbi1hxdBhGLXk00Xt/2BENCchLS0quS2cD/9F31XeFFKh2vuQAgzPOmFoKf5Hl/yvLj
-         Iddw==
-X-Forwarded-Encrypted: i=1; AKwUvByDd8i2C+1WgqqdZEVQNEJ7ZGT0yQWCKvk636tcSSXCxRMhS0UjyIM6uF/9a7kyLu36c1kOItq3M4Y7NFs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK6lHl0Yje9V/vQCAAH2D9MFKM1DeTW6myM6zH1OH8jQnQ1niuY
-	WDH5Y6MK+kGuc6UIEUdtwBgTw7q43Lh6oc4s/jQHdOvOycAW1C5AgCd+
-X-Gm-Gg: AYBFou1Rh32DYCtbIhCUE71yIOXgr6fSkD2sZzn+xkUqRs4h0EDn0RGQng6yT0agUbp
-	LREL6HvFseBpuSvNtfnVbHOxBUyDtz7s9c3dhrhr8xTB+/CxXu7vT9QujGFYB4ZOnaZix89QRgy
-	X9EYvfhm5hkEoczT+0Op8ZT+SZfvI3v+0fLi85Oo8COP+GuIGHA06M09T+F8rdDlWU2xHPkprD8
-	UuUgCEJzWz3uayUeleZc2zu2RESZy3GUzr7oU2S4W0YTDJ8rY72odkCl6udH2KNd+Fqmy9q+NKi
-	GQuAz83ySJ1wVf2KXWv9zLZbJEH/xKxbL7IaUuO7tm4KVHDBTvtxFdIukM5LDjhgMTYPNs8z4oY
-	VqArNvQZEmXdLxwVhO6ixo1HDs8k851EHYtYk5qdzzSTtye0vy4G44CAuJ3w5M9XheUaqnA7Vv4
-	3oxk+EioRHju8UuhvaTxOnP1hys1dJ6bYxLg2zeqzbQ6HbGlSDti6Ekf4Zhrmn3VXGnRMdpA==
-X-Received: by 2002:a17:902:dac2:b0:2e4:adb3:c776 with SMTP id d9443c01a7336-2e842bc0a1fmr42948105ad.24.1791642234303;
-        Sat, 10 Oct 2026 07:23:54 -0700 (PDT)
-Received: from gmail.com ([188.253.12.32])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e841a0401esm23676615ad.4.2026.10.10.07.23.46
+        d=1e100.net; s=20260707; t=1791642340; x=1792247140;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=b6gf4AvJGePyPCf6LwjuBFdxDT8Bmj/BNKhhCD6oh7A=;
+        b=wtv83laK8Hxo9lIcZelXQfWgYayoLJBYnOcL1jNWbVwwb9e7hs3bc9NoXhsCzoQc0C
+         XLJ6eqZCd70UjhYFfDLQau9ASPqHkbpVc94URFUsuLoOzDOKybz1dxrs7VX1/hueU5Y2
+         d6MHiO5pOmlPsqs39jiLtlQnwv84KT0zb5HHwPLgh7JLlewNt14Px/Vpo4dCor9969l+
+         rTwd1xX9iHqMy/Yjr0MAA+vIttrWwpfx60rTMk6xymHRetdurNECE6ctFGb9mKCupEHP
+         eBjP03+AP8WTEwcV3+MX8BdOCsS9kZZl1sqwJ/LLs8cerDbsmZOifPRUYkjHJbvZuZnd
+         z2zg==
+X-Forwarded-Encrypted: i=1; AKwUvBwW8fyDcAliXmTmTkEo289sCSPL/jTZo/XDILvfUu5nG+bnLCmxslv9h8fqH3b1G1y7f5zHuiEvnaASsI4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJRZ3AP50sRcjydbGtTrCGqHiXEeDf3+JAntc1FDJ/Kk3lwBsth
+	yxiP/8jsVS0k5U8rEQDApEmqjNH0o2TUzHqH+oHw211zR9MMniy071IL
+X-Gm-Gg: AYBFou1NoOJk2+318yBUKawpgPoZJWR8Dt+iiCGraULuvqQeBZKNlDiaEXkijGcSWCk
+	kOyIhfVs5NdQoGpji7fQf2oWp7h9AW9mrKJHQbPIGi5tnP5k63WMFKd8VobuYzvtJwyy5yz1eeE
+	taP/Wu2bxbiZttIyZvNAUD/uniBGTxvnhzbmt3VV3AAje+gRIFqczVIRiGLrjlWPQxsaT8qPcOm
+	/XCAXKVwRzm6dcK0EBdvM4GwpT5+WsYS1laX0MQ65+KhX8dOl+ywoWnQsSGn2GyWnuU/EY6Qo9u
+	U8PabtCn/gcawnoJ2nEpxmyFsRMynAnFJrg4JorWPkZXKdshKnpmkLEL1C50HfLgEUDbOVoQIU2
+	7+aXK3lVvTdpoZpUWU0dhWXryDk9/1sS3hHRUEgKG1OhF+PsZbSCUeW2mSyQ+NwoTyaDyyxtw4T
+	Lmxa56EHvYd5MeiNpUbR68aKEfEa2E3VN4HJZgnkxqdw3X5mmgdTxec9Mjmb/T32oC70OaJXaQA
+	toDrLM4WGHSW+Jl6htcounOIdGgbqlXT6HulT1U
+X-Received: by 2002:a05:6402:2350:b0:6aa:af44:3e8a with SMTP id 4fb4d7f45d1cf-6b17c25596dmr4500014a12.22.1791642340386;
+        Sat, 10 Oct 2026 07:25:40 -0700 (PDT)
+Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b179dfff40sm2635586a12.34.2026.10.10.07.25.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 07:23:51 -0700 (PDT)
-From: Jia Jia <physicalmtea@gmail.com>
-To: stefanha@redhat.com,
-	sgarzare@redhat.com,
-	netdev@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	kvm@vger.kernel.org
-Cc: mst@redhat.com,
-	jasowangio@gmail.com,
-	eperezma@redhat.com,
-	xuanzhuo@linux.alibaba.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
+        Sat, 10 Oct 2026 07:25:38 -0700 (PDT)
+From: Magnus Lindholm <linmag7@gmail.com>
+To: richard.henderson@linaro.org,
+	mattst88@gmail.com,
 	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	Jia Jia <physicalmtea@gmail.com>
-Subject: [PATCH net-next v2 5/5] vsock/virtio: defer RX readable notifications until batch unlock
-Date: Sat, 10 Oct 2026 22:22:47 +0800
-Message-Id: <20261010142247.99223-6-physicalmtea@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261010142247.99223-1-physicalmtea@gmail.com>
-References: <20261010142247.99223-1-physicalmtea@gmail.com>
+	linux-alpha@vger.kernel.org
+Cc: linmag7@gmail.com
+Subject: [PATCH v5 0/8] alpha: fix stale TLB translations breaking copy-on-write and writeback
+Date: Sat, 10 Oct 2026 16:24:26 +0200
+Message-ID: <20261010142533.974797-1-linmag7@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,407 +75,168 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-An RX batch can make a socket readable while the worker still owns its
-socket lock. Waking a reader at that point can make it immediately wait
-for the same lock.
+On Alpha, stale TLB translations can break copy-on-write and shared-mapping
+writeback: a multi-threaded process can lose its own stores, read data
+belonging to its child, or lose writes through a shared file mapping. The
+copy-on-write failures need more than one CPU; the writeback failure also
+happens on a uniprocessor.
 
-For the callback installed by sock_init_data(), record when the existing
-low-watermark condition is met and issue one notification after the batch
-releases the lock. Save the initial sock_def_readable() callback when the
-AF_VSOCK socket is created because virtio_transport_common can be built as
-a module and cannot refer to that unexported symbol directly.
+This is the first of two series, based on for-next at 33465f6ab697
+("alpha: support the remaining kernel compression formats"). Apply all
+eight patches here, then the two patches in "alpha: complete the direct-mm
+shootdown fixes" v4. There is no interleaving or external prerequisite for
+this first series.
 
-When sk_data_ready or sk_write_space no longer matches that initial
-callback, pass queued skbs to the current callback one skb at a time. The
-handoff stops if the callback is the default again or the queue does not
-shrink. After 64 successful callbacks, queue another bounded handoff if
-data remains. vsock_bpf_update_proto() schedules the same handoff so an
-attach or detach outside the worker still drains skbs already queued.
+Patch 1 moves here from v2 of the direct-switch series:
 
-Always deliver a coalesced write-space event to the saved default callback
-before sampling the callback state. A current replacement is invoked by
-the handoff as well, so a callback change cannot hide the native writer
-wakeup or pending sockmap work.
+  https://lore.kernel.org/linux-alpha/20261008195608.965266-2-linmag7@gmail.com/
 
-Sampling at batch finish takes sk_callback_lock once. The per-packet fast
-path still uses READ_ONCE() and does not take that lock. Control packets,
-state transitions, transport changes and non-batched sockets keep their
-existing behavior.
+It loads the context when switch_mm() is called directly for current,
+before kthread_use_mm() can reach the hook added by patch 2. This closes
+the dependency that previously required applying one patch from the other
+series first. Its functional code and Matt's review and test tags are
+unchanged; v5 expands its comment and changelog to name all three callers.
 
-Signed-off-by: Jia Jia <physicalmtea@gmail.com>
----
- include/linux/virtio_vsock.h            |   1 +
- include/net/af_vsock.h                  |   8 +-
- net/vmw_vsock/af_vsock.c                | 103 ++++++++++++++++++++++++
- net/vmw_vsock/virtio_transport_common.c |  73 ++++++++++++++---
- net/vmw_vsock/vsock_bpf.c               |   2 +
- 5 files changed, 174 insertions(+), 13 deletions(-)
+Patch 2 completes the deferred-ASN handshake from
+finish_arch_post_lock_switch(), including the first switch to a newly
+created task. Its old location after alpha_switch_to() was bypassed when
+a new task reached schedule_tail(), leaving asn_lock set.
 
-diff --git a/include/linux/virtio_vsock.h b/include/linux/virtio_vsock.h
-index 3a58120d9078..21a3460b940f 100644
---- a/include/linux/virtio_vsock.h
-+++ b/include/linux/virtio_vsock.h
-@@ -291,6 +291,7 @@ struct virtio_transport_rx_batch {
- 	struct sockaddr_vm src;
- 	struct sockaddr_vm dst;
- 	bool write_space_pending;
-+	bool data_ready_pending;
- };
- 
- void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
-diff --git a/include/net/af_vsock.h b/include/net/af_vsock.h
-index 9d8ae62209ed..86d6e6ba3d9d 100644
---- a/include/net/af_vsock.h
-+++ b/include/net/af_vsock.h
-@@ -63,8 +63,11 @@ struct vsock_sock {
- 	u32 peer_shutdown;
- 	bool sent_request;
- 	bool ignore_connecting_rst;
--	/* Initial callback, used to identify replacements. */
-+	/* Initial callbacks, used to identify replacements. */
-+	void (*default_data_ready)(struct sock *sk);
- 	void (*default_write_space)(struct sock *sk);
-+	struct delayed_work rx_cb_work;
-+	bool rx_cb_retried;
- 
- 	/* Protected by lock_sock(sk) */
- 	u64 buffer_size;
-@@ -80,6 +83,9 @@ s64 vsock_stream_has_data(struct vsock_sock *vsk);
- s64 vsock_stream_has_space(struct vsock_sock *vsk);
- struct sock *vsock_create_connected(struct sock *parent);
- void vsock_data_ready(struct sock *sk);
-+bool vsock_rx_cb_is_native(struct sock *sk);
-+void vsock_rx_callback_kick(struct sock *sk);
-+void vsock_rx_callback_handoff(struct sock *sk);
- 
- /**** TRANSPORT ****/
- 
-diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
-index fe7f49da6c4b..df6faee0bd37 100644
---- a/net/vmw_vsock/af_vsock.c
-+++ b/net/vmw_vsock/af_vsock.c
-@@ -931,6 +931,107 @@ static int __vsock_bind(struct sock *sk, struct sockaddr_vm *addr)
- 	return retval;
- }
- 
-+#define VSOCK_RX_CB_HANDOFF_MAX 64
-+
-+static void vsock_rx_callback_queue(struct sock *sk, unsigned long delay)
-+{
-+	struct vsock_sock *vsk = vsock_sk(sk);
-+
-+	sock_hold(sk);
-+	if (!schedule_delayed_work(&vsk->rx_cb_work, delay))
-+		sock_put(sk);
-+}
-+
-+void vsock_rx_callback_kick(struct sock *sk)
-+{
-+	vsock_rx_callback_queue(sk, 0);
-+}
-+
-+/* Caller holds sk_callback_lock. */
-+bool vsock_rx_cb_is_native(struct sock *sk)
-+{
-+	struct vsock_sock *vsk = vsock_sk(sk);
-+
-+	return READ_ONCE(sk->sk_prot) == sk->sk_prot_creator &&
-+	       READ_ONCE(sk->sk_data_ready) == vsk->default_data_ready &&
-+	       READ_ONCE(sk->sk_write_space) == vsk->default_write_space;
-+}
-+EXPORT_SYMBOL_GPL(vsock_rx_cb_is_native);
-+
-+/* Caller holds lock_sock(). */
-+void vsock_rx_callback_handoff(struct sock *sk)
-+{
-+	struct vsock_sock *vsk = vsock_sk(sk);
-+	void (*write_space)(struct sock *sk);
-+	void (*data_ready)(struct sock *sk);
-+	bool wrote = false;
-+	s64 before, after;
-+	int i;
-+
-+	if (sock_flag(sk, SOCK_DEAD) || !vsk->transport)
-+		return;
-+
-+	read_lock_bh(&sk->sk_callback_lock);
-+	data_ready = READ_ONCE(sk->sk_data_ready);
-+	if (READ_ONCE(sk->sk_prot) != sk->sk_prot_creator &&
-+	    data_ready == vsk->default_data_ready) {
-+		read_unlock_bh(&sk->sk_callback_lock);
-+		/*
-+		 * start_verdict publishes sk_data_ready after the proto swap.
-+		 * Retry once before treating this as a stable non-RX setup.
-+		 */
-+		if (!vsk->rx_cb_retried) {
-+			vsk->rx_cb_retried = true;
-+			vsock_rx_callback_queue(sk, 1);
-+			return;
-+		}
-+		vsk->rx_cb_retried = false;
-+		data_ready(sk);
-+		return;
-+	}
-+	read_unlock_bh(&sk->sk_callback_lock);
-+	vsk->rx_cb_retried = false;
-+
-+	for (i = 0; i < VSOCK_RX_CB_HANDOFF_MAX; i++) {
-+		read_lock_bh(&sk->sk_callback_lock);
-+		data_ready = READ_ONCE(sk->sk_data_ready);
-+		write_space = READ_ONCE(sk->sk_write_space);
-+		read_unlock_bh(&sk->sk_callback_lock);
-+
-+		if (!wrote && write_space != vsk->default_write_space) {
-+			write_space(sk);
-+			wrote = true;
-+		}
-+		if (data_ready == vsk->default_data_ready) {
-+			data_ready(sk);
-+			break;
-+		}
-+		before = vsock_stream_has_data(vsk);
-+		if (before <= 0)
-+			break;
-+		data_ready(sk);
-+		after = vsock_stream_has_data(vsk);
-+		if (after >= before)
-+			break;
-+		if (i == VSOCK_RX_CB_HANDOFF_MAX - 1 && after > 0)
-+			vsock_rx_callback_queue(sk, 0);
-+	}
-+}
-+EXPORT_SYMBOL_GPL(vsock_rx_callback_handoff);
-+
-+static void vsock_rx_callback_work(struct work_struct *work)
-+{
-+	struct vsock_sock *vsk = container_of(work, struct vsock_sock,
-+					      rx_cb_work.work);
-+	struct sock *sk = sk_vsock(vsk);
-+
-+	lock_sock(sk);
-+	if (!sock_flag(sk, SOCK_DEAD))
-+		vsock_rx_callback_handoff(sk);
-+	release_sock(sk);
-+	sock_put(sk);
-+}
-+
- static void vsock_connect_timeout(struct work_struct *work);
- 
- static struct sock *__vsock_create(struct net *net,
-@@ -958,6 +1059,7 @@ static struct sock *__vsock_create(struct net *net,
- 		sk->sk_type = type;
- 
- 	vsk = vsock_sk(sk);
-+	vsk->default_data_ready = sk->sk_data_ready;
- 	vsk->default_write_space = sk->sk_write_space;
- 	vsock_addr_init(&vsk->local_addr, VMADDR_CID_ANY, VMADDR_PORT_ANY);
- 	vsock_addr_init(&vsk->remote_addr, VMADDR_CID_ANY, VMADDR_PORT_ANY);
-@@ -976,6 +1078,7 @@ static struct sock *__vsock_create(struct net *net,
- 	WRITE_ONCE(vsk->peer_shutdown, 0);
- 	INIT_DELAYED_WORK(&vsk->connect_work, vsock_connect_timeout);
- 	INIT_DELAYED_WORK(&vsk->pending_work, vsock_pending_work);
-+	INIT_DELAYED_WORK(&vsk->rx_cb_work, vsock_rx_callback_work);
- 
- 	psk = parent ? vsock_sk(parent) : NULL;
- 	if (parent) {
-diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
-index f0398ae2200d..5499cd1d8a25 100644
---- a/net/vmw_vsock/virtio_transport_common.c
-+++ b/net/vmw_vsock/virtio_transport_common.c
-@@ -1583,10 +1583,12 @@ out:
- 
- static int
- virtio_transport_recv_connected(struct sock *sk,
--				struct sk_buff *skb)
-+				struct sk_buff *skb,
-+				bool *data_ready_pending)
- {
- 	struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
- 	struct vsock_sock *vsk = vsock_sk(sk);
-+	void (*data_ready)(struct sock *sk);
- 	int err = 0;
- 
- 	switch (le16_to_cpu(hdr->op)) {
-@@ -1602,7 +1604,23 @@ virtio_transport_recv_connected(struct sock *sk,
- 			vsock_remove_sock(vsk);
- 			break;
- 		}
--		vsock_data_ready(sk);
-+		if (!data_ready_pending) {
-+			vsock_data_ready(sk);
-+		} else {
-+			data_ready = READ_ONCE(sk->sk_data_ready);
-+			if (data_ready == vsk->default_data_ready) {
-+				if (!*data_ready_pending &&
-+				    (vsock_stream_has_data(vsk) >= sk->sk_rcvlowat ||
-+				     sock_flag(sk, SOCK_DONE)))
-+					*data_ready_pending = true;
-+			} else {
-+				/* Use the callback seen for this packet. */
-+				*data_ready_pending = false;
-+				if (vsock_stream_has_data(vsk) >= sk->sk_rcvlowat ||
-+				    sock_flag(sk, SOCK_DONE))
-+					data_ready(sk);
-+			}
-+		}
- 		return err;
- 	case VIRTIO_VSOCK_OP_CREDIT_REQUEST:
- 		virtio_transport_send_credit_update(vsk);
-@@ -1836,6 +1854,7 @@ struct virtio_transport_rx_pkt_ctx {
- 	const struct sockaddr_vm *dst;
- 	bool *batchable;
- 	struct virtio_transport_rx_batch *batch;
-+	bool defer_data_ready;
- };
- 
- static bool
-@@ -1909,7 +1928,9 @@ virtio_transport_recv_pkt_locked(struct virtio_transport *t,
- 		kfree_skb(skb);
- 		break;
- 	case TCP_ESTABLISHED:
--		virtio_transport_recv_connected(sk, skb);
-+		virtio_transport_recv_connected(sk, skb,
-+						ctx->defer_data_ready && ctx->batch ?
-+						&ctx->batch->data_ready_pending : NULL);
- 		break;
- 	case TCP_CLOSING:
- 		virtio_transport_recv_disconnecting(sk, skb);
-@@ -1978,33 +1999,45 @@ EXPORT_SYMBOL_GPL(virtio_transport_recv_pkt);
-  * Finish the RX batch.
-  * For a non-empty batch, the caller must hold the socket lock acquired with
-  * lock_sock(). This function releases the lock and the batch's lookup
-- * reference.
-- * An empty batch is a no-op.
-+ * reference. An empty batch is a no-op.
-  */
- void virtio_transport_rx_batch_finish(struct virtio_transport_rx_batch *batch)
- {
- 	bool write_space_pending = batch->write_space_pending;
--	void (*write_space)(struct sock *sk);
-+	bool data_ready_pending = batch->data_ready_pending;
- 	struct sock *sk = batch->sk;
- 	struct vsock_sock *vsk;
-+	bool native;
- 
- 	batch->sk = NULL;
- 	batch->pkts = 0;
- 	batch->bytes = 0;
- 	batch->net = NULL;
- 	batch->write_space_pending = false;
-+	batch->data_ready_pending = false;
- 
- 	if (!sk)
- 		return;
- 
--	if (write_space_pending) {
--		vsk = vsock_sk(sk);
-+	vsk = vsock_sk(sk);
-+	if (write_space_pending)
- 		vsk->default_write_space(sk);
--		write_space = READ_ONCE(sk->sk_write_space);
--		if (write_space != vsk->default_write_space)
--			write_space(sk);
-+
-+	read_lock_bh(&sk->sk_callback_lock);
-+	native = vsock_rx_cb_is_native(sk);
-+	read_unlock_bh(&sk->sk_callback_lock);
-+
-+	if (native) {
-+		release_sock(sk);
-+		if (data_ready_pending)
-+			vsk->default_data_ready(sk);
-+		sock_put(sk);
-+		return;
- 	}
- 
-+	if (write_space_pending || data_ready_pending)
-+		vsock_rx_callback_handoff(sk);
-+
- 	release_sock(sk);
- 	sock_put(sk);
- }
-@@ -2015,9 +2048,9 @@ void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
- 				     struct virtio_transport_rx_batch *batch)
- {
- 	struct virtio_vsock_hdr *hdr = virtio_vsock_hdr(skb);
-+	bool batchable, defer_data_ready, start_batch;
- 	struct virtio_transport_rx_pkt_ctx ctx;
- 	struct sockaddr_vm src, dst;
--	bool batchable, start_batch;
- 	struct sock *sk;
- 	bool free_pkt;
- 
-@@ -2038,6 +2071,17 @@ void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
- 		    vsock_addr_equals_addr(&batch->dst, &dst) &&
- 		    virtio_transport_recv_pkt_batchable(t, batch->sk)) {
- 			sk = batch->sk;
-+			defer_data_ready = READ_ONCE(sk->sk_data_ready) ==
-+					   vsock_sk(sk)->default_data_ready;
-+			if (unlikely(batch->data_ready_pending && !defer_data_ready)) {
-+				/*
-+				 * BPF map updates can replace callbacks while lock_sock()
-+				 * remains held. Finish the old notification first.
-+				 */
-+				virtio_transport_rx_batch_finish(batch);
-+				goto lookup;
-+			}
-+
- 			if (!skb_set_owner_sk_safe(skb, sk)) {
- 				WARN_ONCE(1, "receiving vsock socket has sk_refcnt == 0\n");
- 				virtio_transport_rx_batch_finish(batch);
-@@ -2051,6 +2095,7 @@ void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
- 				.dst = &dst,
- 				.batchable = &batchable,
- 				.batch = batch,
-+				.defer_data_ready = defer_data_ready,
- 			};
- 			free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk, &ctx);
- 
-@@ -2064,6 +2109,7 @@ void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
- 		virtio_transport_rx_batch_finish(batch);
- 	}
- 
-+lookup:
- 	sk = virtio_transport_recv_pkt_find_socket(skb, &src, &dst, net);
- 	if (!sk) {
- 		virtio_transport_rx_batch_finish(batch);
-@@ -2089,6 +2135,8 @@ void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
- 
- 	if (start_batch)
- 		batch->sk = sk;
-+	defer_data_ready = start_batch &&
-+		READ_ONCE(sk->sk_data_ready) == vsock_sk(sk)->default_data_ready;
- 
- 	ctx = (struct virtio_transport_rx_pkt_ctx) {
- 		.net = net,
-@@ -2096,6 +2144,7 @@ void virtio_transport_recv_pkt_batch(struct virtio_transport *t,
- 		.dst = &dst,
- 		.batchable = start_batch ? &batchable : NULL,
- 		.batch = start_batch ? batch : NULL,
-+		.defer_data_ready = defer_data_ready,
- 	};
- 	free_pkt = virtio_transport_recv_pkt_locked(t, skb, sk, &ctx);
- 	if (start_batch && batchable) {
-diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
-index 9049d2648646..7770a6c51dbe 100644
---- a/net/vmw_vsock/vsock_bpf.c
-+++ b/net/vmw_vsock/vsock_bpf.c
-@@ -154,6 +154,7 @@ int vsock_bpf_update_proto(struct sock *sk, struct sk_psock *psock, bool restore
- 	if (restore) {
- 		sk->sk_write_space = psock->saved_write_space;
- 		sock_replace_proto(sk, psock->sk_proto);
-+		vsock_rx_callback_kick(sk);
- 		return 0;
- 	}
- 
-@@ -166,6 +167,7 @@ int vsock_bpf_update_proto(struct sock *sk, struct sk_psock *psock, bool restore
- 
- 	vsock_bpf_check_needs_rebuild(psock->sk_proto);
- 	sock_replace_proto(sk, &vsock_bpf_prot);
-+	vsock_rx_callback_kick(sk);
- 	return 0;
- }
- 
+The hook runs after interrupts are enabled. Set need_new_asn whether
+switch_mm() reused or allocated an ASN, so a deferred IPI cannot leave
+a live hardware context with a zero slot. This is also required before
+the second series uses those slots to decide whether to skip shootdowns.
+Drop the preemptible() guard: Alpha has no kernel preemption and the
+direct-switch callers do not sleep before the hook, including when
+RCU_STRICT_GRACE_PERIOD enables PREEMPT_COUNT.
+
+Patches 3, 5 and 6 test current->mm before issuing targeted tbi(), since
+a lazy active_mm does not establish which ASN is actually loaded. Patches
+4, 7 and 8 retire the calling CPU's context when the local current-context
+test fails; smp_call_function() only visits the other CPUs.
+
+Patch 4 deliberately precedes patch 5. The missing else branch must be
+present before lazy callers are routed to it, so no intermediate commit
+loses their local invalidate. This matters on EV7 where a foreign-context
+tbi() appeared to work. The full-mm and icache callers retain their
+active_mm tests because those paths load a new context instead of using
+a targeted tbi(). The second series separately changes their IPI handlers
+to retire slots on lazy CPUs rather than keeping those slots visible.
+
+Testing
+
+The combined TLB v5 and MMU v4 stack passed cross-build checks with GCC
+15.0.1 for arch/alpha/kernel/, arch/alpha/mm/, kernel/sched/core.o and
+kernel/kthread.o: ALPHA_GENERIC SMP and UP with COMPACTION=n, and SMP
+with COMPACTION=y, RCU_STRICT_GRACE_PERIOD=y and PREEMPT_COUNT=y.
+Full ES40 kernel builds with COMPACTION=y and COMPACTION=n also passed.
+All ten patches
+pass checkpatch without warnings, and sequential application reproduces
+the committed trees at both series boundaries.
+
+The combined TLB v5 and MMU v4 stack also passed an ES40 SMP run with
+three CPUs online and COMPACTION=y: nine lost-store rounds, nine
+stale-read rounds and ten mkclean4 writeback rounds on ext4. Compaction
+ran throughout; pgmigrate_success increased by 7424. No new kernel
+warnings or errors were observed in the captured log. This exercises
+the migration path. A second boot with COMPACTION=n also passed nine
+lost-store, nine stale-read and ten writeback rounds, exercising the
+direct flush_tlb_page() writeback path. No new kernel warnings or errors
+were observed in that run either. UP was compile-tested only.
+The historical results below are from earlier revisions.
+
+Historical results from the earlier stale-TLB series, on an ES40,
+EV68AL (21264C) Tsunami with three CPUs, v7.2-rc2 and v7.2-rc6:
+
+                                      before          after
+  smoke test, stale-read check        7 of 9 rounds   0 of 9
+  lost stores                        11 of 40        0 of 400
+  writeback (mkclean4), SMP [*]       10 of 10        0 of 10
+  writeback (mkclean4), UP  [*]       every round     0 of 8
+  tst-malloc-fork-deadlock-
+    malloc-check                     8 of 10 fail    25/25 pass
+
+  [*] CONFIG_COMPACTION=n.
+
+alpha-cow-smoketest.c uses pthreads and forked children. Each thread owns
+its slot, and the main thread reads only after joining. Slots are 128
+bytes apart so threads share a page; writing once and reading repeatedly
+avoids hiding stale translations with another faulting write. It does
+not fail when restricted to one CPU.
+
+mkclean4.c exercises patches 4 and 5 together on SMP, and patch 6 on UP.
+It compares a small MAP_SHARED mapping with its backing file after
+background writeback, with the writer and flusher pinned to the same CPU
+on SMP. It needs root and COMPACTION=n. With COMPACTION=y, Alpha overrides
+ptep_clear_flush() to use migrate_flush_tlb_page(), so folio_mkclean() does
+not exercise flush_tlb_page(). Earlier unpatched COMPACTION=y runs passed
+103 rounds; separate regression runs under continuous compaction migrated
+368522 folios without failures.
+
+Matt's earlier ES47 (EV7) testing on v7.3-rc1 with one CPU online found no
+regressions in fork/COW, writeback and gdb breakpoint tests on SMP and UP
+builds. He could not reproduce the unpatched writeback failure despite
+counters showing foreign-context targeted invalidates. The fix rests on
+the tbi() contract, not on every implementation exhibiting the failure.
+
+Patches 7 and 8 still have no isolated reproducer. A gdb breakpoint
+exerciser covered patch 8's path for regressions. Matt suggested
+move_pages() on another process's hugetlb mapping, with the caller pinned
+to the CPU the target last ran on, as a possible reproducer for patch 7.
+That is unverified; the proposed hugetlb support is not in this base.
+
+Changes since v4:
+
+  - No functional changes; only comments, changelogs and review metadata.
+  - Drop stale Message-ID trailers from patches 1 and 3-8.
+  - Mention do_shoot_lazy_tlb() in patch 1's comment and changelog, and
+    explain that Alpha does not select MMU_LAZY_TLB_SHOOTDOWN.
+  - Clarify patch 2's hook comment: kthread_use_mm() can call it with
+    preemption enabled, but Alpha has no kernel preemption.
+  - Refer explicitly to patch 1 in patch 3's changelog.
+  - Rewrap patch 4's opening paragraph.
+  - Add Matt's Reviewed-by to patch 2 following his v4 review; retain
+    the existing tags on the other seven patches. Matt has now reviewed
+    the whole series and compile-tested v4 at every commit on SMP and UP.
+  - Update the companion-series reference to MMU v4.
+
+Changes since v3:
+
+  - Move the reviewed direct-load fix from MMU v2 to patch 1, making the
+    TLB and MMU series applicable in sequence.
+  - Drop the post-switch hook's preemptible() guard.
+  - Set need_new_asn on both reused and newly allocated ASN paths.
+  - Put the missing local flush_tlb_page() else branch before changing
+    the current->mm test, as requested by Matt.
+  - Rebase on for-next and update numbering and dependency descriptions.
+  - Mention the proposed hugetlb caller without claiming a new reproducer.
+  - Drop the old review tag from the materially changed hook patch;
+    retain tags on the other patches.
+
+Thanks to Matt Turner for the review and EV7 testing.
+
+v4: https://lore.kernel.org/linux-alpha/20261009210449.971057-1-linmag7@gmail.com/
+
+v3: https://lore.kernel.org/linux-alpha/20260923074903.862898-1-linmag7@gmail.com/
+
+Magnus Lindholm (8):
+  alpha: load the MMU context when switch_mm() switches the current task
+  alpha: run check_mmu_context() from finish_arch_post_lock_switch()
+  alpha: only use a targeted tbi() when the target mm is really current
+  alpha: invalidate the local context in flush_tlb_page()
+  alpha: fix the local TLB invalidate in flush_tlb_page()
+  alpha: fix the local TLB invalidate in the UP flush_tlb_page()
+  alpha: invalidate the local context in flush_tlb_mm()
+  alpha: invalidate the local context in flush_icache_user_page()
+
+ arch/alpha/include/asm/mmu_context.h | 28 +++++++++++++++++++++++++---
+ arch/alpha/include/asm/switch_to.h   |  1 -
+ arch/alpha/include/asm/tlbflush.h    |  3 ++-
+ arch/alpha/kernel/smp.c              | 15 +++++++++++++--
+ 4 files changed, 40 insertions(+), 7 deletions(-)
+
+
+base-commit: 33465f6ab697abceafd9a340067a544d551c4412
 -- 
-2.34.1
+2.43.0
 
