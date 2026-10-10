@@ -1,164 +1,87 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E987036D9F5;
-	Sat, 10 Oct 2026 23:40:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 329D52E7F39
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 23:44:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791675653; cv=none; b=VaeHYiPY+uODyOc0w9FggpEUjLqgzC8wn5nV2S6SZDt0QAQJ9SaHbtJByv7y0ZowY1UDVbJOgFEBEipuRBAFM70l1PZhgbXGC4zr6ZnJkJqMY6SX7rfwpJDTT5lg4foW7GMK5DA+ubv7fDG6ealOtobcheEkTZuz5bDsFIv8xrg=
+	t=1791675875; cv=none; b=aHadKWVgFK/9lcaDEiQjqOo77W+2LfIYrS3Y0piBDcL716WjntS5SXEU7gVVNLVC4Anz8FK+m6nAAFq+5I1vFod1d6ctIn6IaJNIAe1fGWW5yc1izfJ4gnX8yDz43KYyMZL6qCS4bKV0lOJ3t0YDtmBj3JQrHTXgsTz7Ubwfn08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791675653; c=relaxed/simple;
-	bh=3YcLR+Q/EgA5Cmhs8aVsptl4bJU1GLwsmsO2zStWZh8=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=O8A/pDeUmF816mR0S8sSOzlkoJ0tJcv51/c91UQXQwgkoZ/GGMt5H6bTdLtqALOvx9dUPKDjdBbnKSlL63McMZOWlyATlaavjvfdKYusZwPQFF2QRD2wzY6cFC8URQpmKCAzzneISkFeIzxiWIXu9JncgIuQpwtR/Qbz4i377yE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hVv4UE/Z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791675875; c=relaxed/simple;
+	bh=RejeptxEW9aw4nD40diWLzDMFh9O0A8MjN90Z/aWzPw=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=UDH5rH7HWcwstN76AIIf7K711jRhm6Akw37Dd9a33gHGefjKZpc4YOswxqbQpaz5J0bToYI9whqKkMHdcWGn/JEC7WNcz5u9Kw8Phz46OGL/cSjTAdWqRsHl1lkvupVROOAnm5QyU9ZniyrF3dj5gKvtU1nMbvHh15xI9YT8u8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IXLQ/Jp8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hVv4UE/Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 581BD1F000FF;
-	Sat, 10 Oct 2026 23:40:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IXLQ/Jp8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4E181F000FF;
+	Sat, 10 Oct 2026 23:44:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791675651;
-	bh=i6vUHfSfWpYSqu5mYd4dpZsW4QX/acyAYkDxfm22Fyk=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=hVv4UE/ZJiNq+7cNfViBS7srF6LefjYULWq2FFaSrBn/RKRnCoPuxoA8fvuqxmxWl
-	 7ROxqC/NFu/GhH22jzN2y978LVRFVH6NV6E0lAFT8I8mu0wdycYb1DNXO7KFkMNPTM
-	 KT4gwZ7ZF8aLgbpGmL4HiMlL1gYM9bTLJ/mPhTDet8/gn7GEzivGv1mZAEzFGBeu8f
-	 zymgUFB45lq/dEctA4W4sl25FN+fNl/vRflReyQh/r9KeJWKmKTHBBDR0JRvMWIs+7
-	 iceXRK4nBXMUvSEbxuZ/Q3ZnVkvRbeT/6N9eUE9i0WXOL92VpfzS+eqQzAj7R0mnlQ
-	 iYUy7K73FlTeQ==
-Content-Type: multipart/mixed; boundary="===============6577853072240553165=="
+	s=k20260515; t=1791675873;
+	bh=eeRFFWYz3sJFveuLFv6B8qZclKQNU1SgYyPsR1Nr5ro=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=IXLQ/Jp8w9X6Z47qQisiQ7S4MYxB/bdFsz5yyg3fAAX+aCMKlqucqz8lkb3+bJVv1
+	 HTaijcfrWyaj8fv5twf60mcdnJpM3wOVybjcBz6SpnCWq7rRDCltSRrd7hzy4zwJ2M
+	 41aQ5xZUfdB8jA+L/jqqk3yPkHiCDWh9SOhrMzsbFqhrVEthIaDkxAWGG6iTJWdlC8
+	 Wtt54yB4oo94OHtd26q/aNiZZc9iMAf1vxEQ1w3K9j2vb6HpERzckWfrzNMnAS1yMU
+	 /hYUFO6Cf14zj1Sdk1LwSgaEHD6lqMyLdJl616Hk4N/zF5+guJHJk7RYwXM/hsB/QY
+	 kumnqpPi9szpw==
+Message-ID: <0b7f00ae-29ca-48e4-83f8-eec0213e3535@kernel.org>
+Date: Sun, 11 Oct 2026 07:44:31 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <a1b29fc1533b362c07bdb93b2180a8ba199c1a9d09c3c26019ad63b3c9bdc3fd@mail.kernel.org>
-In-Reply-To: <20261010224902.1232178-6-arighi@nvidia.com>
-References: <20261010224902.1232178-6-arighi@nvidia.com>
-Subject: Re: [PATCH 5/5] selftests/bpf: Test two-way arena access with two guests
-From: bot+bpf-ci@kernel.org
-To: arighi@nvidia.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
-Cc: martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,john.fastabend@gmail.com,joshdon@google.com,vineethrp@google.com,balbirs@nvidia.com,skolothumtho@nvidia.com,himadrics@protonmail.com,royfru44@gmail.com,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Sat, 10 Oct 2026 23:40:49 +0000 (UTC)
-
---===============6577853072240553165==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, linux-erofs@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] MAINTAINERS: erofs: add dev branch to git tree entry
+To: xiang@kernel.org
+References: <20261010070623.1766952-1-chao@kernel.org>
+ <asqt-vM6LOPyqz_p@XiangdeMacBook-Pro.local>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <asqt-vM6LOPyqz_p@XiangdeMacBook-Pro.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-> selftests/bpf: Test two-way arena access with two guests
+On 10/11/26 05:28, Gao Xiang wrote:
+> On Sat, Oct 10, 2026 at 03:06:23PM +0800, Chao Yu wrote:
+>> From: Chao Yu <chao@kernel.org>
+>>
+>> The EROFS entry lists the git tree without a branch, so tools that
+>> derive a baseline from MAINTAINERS, e.g. sashiko, fall back to the
+>> remote HEAD, which points to master. master only moves at -rc1, so
+>> series developed against the dev branch fail to apply there.
+>>
+>> Name the dev branch explicitly, where erofs patches are queued.
+>>
+>> Signed-off-by: Chao Yu <chao@kernel.org>
+> 
+> Acked-by: Gao Xiang <xiang@kernel.org>
+> 
+> 
+> Hi Chao,
+> 
+> BTW, could we request sashiko folks adding erofs mailing list
+> to their review list as well?
+> 
+> Since some patch could not Cc LKML or fsdevel, but I guess
+> we need them to be reviewed by sashiko too.
 
-TL;DR:
-- Unconditional -lzstd in the new Makefile link rules may break the whole
-  selftests/bpf build where libzstd is missing
-- arena_kvm.py doesn't use ksft.py reporting (minor; results still counted)
+Xiang,
 
-> diff --git a/tools/testing/selftests/bpf/Makefile b/tools/testing/selftests/bpf/Makefile
-> index a22be7efd1fa..29fffa7857c1 100644
-> --- a/tools/testing/selftests/bpf/Makefile
-> +++ b/tools/testing/selftests/bpf/Makefile
+Agreed, let me submit a patch for erofs.
 
-[ ... ]
+Note that by default it's mute (it won't reply review comment back to anyone), so
+author or reviewer needs to check comments from sashiko in its UI (https://sashiko.dev/),
+but we can change the config if we want to receive review email from sashiko.
 
-> @@ -94,6 +100,25 @@ BPFTOOLDIR := $(TOOLSDIR)/bpf/bpftool
->  HOST_BPFOBJ := $(HOST_BUILD_DIR)/libbpf/libbpf.a
->  BPF_TARGET_ENDIAN:=$(if $(IS_LITTLE_ENDIAN),--target=bpfel,--target=bpfeb)
->  
-> +# These helpers are installed beside arena_kvm.py, including for OUTPUT=.
+Thanks,
 
-[ ... ]
+> 
+> Thanks,
+> Gao Xiang
 
-> +$(OUTPUT)/arena_kvm_guest-init: arena_kvm_guest.c arena_kvm_shared.h \
-> +		$(BPFOBJ) | $(OUTPUT)
-> +	$(call msg,BINARY,,$@)
-> +	$(Q)$(CC) $(CFLAGS) $(LDFLAGS) $< $(BPFOBJ) $(LDLIBS) -lzstd -o $@
-> +
-> +$(OUTPUT)/arena_kvm_host-runner: arena_kvm_host.c arena_kvm_shared.h \
-> +		$(BPFOBJ) | $(OUTPUT)
-> +	$(call msg,BINARY,,$@)
-> +	$(Q)$(CC) $(CFLAGS) $(LDFLAGS) $< $(BPFOBJ) $(LDLIBS) -lzstd -o $@
-> +
->  NON_CHECK_FEAT_TARGETS := clean docs-clean emit_tests
->  CHECK_FEAT := $(filter-out $(NON_CHECK_FEAT_TARGETS),$(or $(MAKECMDGOALS), "none"))
->  ifneq ($(CHECK_FEAT),)
-
-Is it intended to pass -lzstd unconditionally in these two link rules?
-
-Neither arena_kvm_guest.c nor arena_kvm_host.c includes a zstd header or
-calls into zstd, and no other userspace link line in selftests/bpf uses
--lzstd.  test_progs, for example, links with plain $(LDLIBS), which is
-$(LIBELF_LIBS) -lz -lrt -lpthread.
-
-Elsewhere in tools/, libzstd is optional.  bpftool only adds it when the
-feature-libelf-zstd probe passes, and libelf builds without zstd are a
-supported configuration.
-
-Both binaries are in TEST_GEN_FILES without a CLANG_CPUV4 or feature guard,
-and these link rules do not use $(call skip_on_fail,...).  On a host or
-sysroot that has libelf and zlib development files but no linkable libzstd,
-wouldn't 'make -C tools/testing/selftests/bpf' now fail with "cannot find
--lzstd", even with BPF_STRICT_BUILD=0?  That would block all of
-selftests/bpf, not just this test.
-
-Would dropping -lzstd be enough, since a dynamic libelf pulls in its own
-dependencies?  If it is needed for a static libelf, it could be made
-conditional the same way bpftool does it.
-
-> diff --git a/tools/testing/selftests/bpf/arena_kvm.py b/tools/testing/selftests/bpf/arena_kvm.py
-> new file mode 100755
-> index 000000000000..552bfcfb80ac
-> --- /dev/null
-> +++ b/tools/testing/selftests/bpf/arena_kvm.py
-> @@ -0,0 +1,448 @@
-
-[ ... ]
-
-> +KSFT_SKIP = 4
-
-[ ... ]
-
-> +        print(f"OK: two guests exchanged BPF values through arena slices {offsets}")
-
-[ ... ]
-
-> +def skip(reason):
-> +    print(f"SKIP: {reason}")
-> +    return KSFT_SKIP
-
-[ ... ]
-
-> +if __name__ == "__main__":
-
-[ ... ]
-
-> +        stop_children()
-> +    sys.exit(status)
-
-A subsystem guideline flags this as potentially concerning: a test that
-prints its own ad hoc result text and exits directly, instead of going
-through the kselftest reporting helpers.
-
-arena_kvm.py defines its own KSFT_SKIP, prints hand-written "SKIP: ..." and
-"OK: ..." lines, and then calls sys.exit(status) directly.
-tools/testing/selftests/kselftest/ksft.py provides KSFT_SKIP,
-test_result_pass(), test_result_skip(), test_result_fail(), exit_pass() and
-exit_fail(), and none of them are used here, so the output is not KTAP.
-
-Should this script report through ksft.py instead?
-
-For context, when the kselftest runner executes a TEST_PROGS entry, it
-prefixes the script's output with '# ' and turns the exit code into the TAP
-result line (exit 4 becomes '# SKIP'), so the one result this script
-produces is still counted correctly.  The other TEST_PROGS scripts in this
-directory (test_kmod.sh, test_xsk.sh, test_xdp_features.sh) also print their
-own results.  The guideline text is written about C test binaries and does
-not name the Python helper.
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/38093513563
---===============6577853072240553165==--
