@@ -1,136 +1,217 @@
-Received: from mta1.migadu.com (out-164.mta1.migadu.com [95.215.58.164])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-bc08.mail.infomaniak.ch (smtp-bc08.mail.infomaniak.ch [45.157.188.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8935331ED0
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 12:17:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.164
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A1DA34B1A6
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 12:20:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.188.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791634660; cv=none; b=mdTinEW+dcVI2HJ44pf6AZ+9syNsPEs32fJWdmZg48kZ6o2edwiCVVAxpJgbfCvwnAzpcGG8xiR35lbUd1kXT2B0BguJfSp2IHn799BcN3XbbVG8D92/6v7RnYkfHy0W17U1D/ya+tvP2wa/R5Gc2Yl+SxhEWLHrzrEHYcCcPQg=
+	t=1791634843; cv=none; b=lKYCC7C6Uvr9Uenb105/LeyJ9TZpm9IiouShRzNwyh8VjxxIm/fAQx21+I2JG+LxB7UnBBFG0MhxXziA8pjpLtYPuzjIS4qBBCUlhMT9r9zdUnkrjFgLkm3xjO+WIcMXCcy5LkHtPEtqlxxp4HffKFNORkRlccYNyswcEIaCojI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791634660; c=relaxed/simple;
-	bh=/oC5LqvhCIZWoE13YlrWBvbYvUdEQxoB6HLEhcwuDqo=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=ccaCiT6jkGiabUl2TTdf9eYDs/hCt+s4bFTT3GKtN/SLvECbO4QnltBKgoKGrXY201QBN/OjtRB5EzAcPSZ63mIOk8ifTRRw/jZ/1i8PiU0QLUDo6djpAIGca9g7DRn3LdZt2jRcWy6JYMpz4IR+hVYEAw+dOqJFcRSM7xF/0hM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=t2+nxAc8; arc=none smtp.client-ip=95.215.58.164
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791634843; c=relaxed/simple;
+	bh=idsWFdaV18owxyQKTWuesq8tc8fj4wX0xUezUBnU3bw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fMcGsurjZhYu+FsR2OpdSs6qcMrwvmopPyX1TX7L9TGO5lzToZSI/tPSTrt+8WJ6j4oFGzuIT60yFXrii/mzad+g5i7OiYWLZ5gFqy5b8nrMk2wG9T7TWZoLFx/8jVXolIhey7jRluM/6A3/KgsVLDvRnTgBpS8qghHlhr1cJjg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=etik.com; spf=pass smtp.mailfrom=etik.com; dkim=pass (1024-bit key) header.d=etik.com header.i=@etik.com header.b=TTGzBhhw; arc=none smtp.client-ip=45.157.188.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=etik.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etik.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="t2+nxAc8"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/oC5LqvhCIZWoE13YlrWBvbYvUdEQxoB6HLEhcwuDqo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791634655; v=1; x=1792239455;
- b=t2+nxAc8HwGfwSfMb3KLOB2GvhA8rtvxhQvSLPl9v87A7yHgrE2oRfE+UTKGSMiNIH8ApgI3
- a7KI10WnGMjlLO7J+6WvEW69ttVIH9J53U4gmWUCQCJnwgBKvXhQo9xV8+pIOZpEMeB2zGIcgo2
- 7+gDpe/tzdln+JOvFoam8c1M=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id cabab91e30cf1091;
-	Sat, 10 Oct 2026 12:17:35 +0000
-X-Mizu-Trace-ID: cabab91e30cf1091
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (1024-bit key) header.d=etik.com header.i=@etik.com header.b="TTGzBhhw"
+Received: from smtp-3-0000.mail.infomaniak.ch (unknown [IPv6:2001:1600:4:17::246b])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4j22cQ3JfgzYcn;
+	Sat, 10 Oct 2026 14:10:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=etik.com;
+	s=20210927; t=1791634230;
+	bh=J+48iWCghkVYJEQ+wIRDbVEk4gxMDcsHQqzQKdyIdV8=;
+	h=From:To:Cc:Subject:Date:From;
+	b=TTGzBhhwmZYgpjfK0GxLzpl4ZmKIDdxU2rUldumMnuMx5kttjIO3GeBLz1v2cKD6v
+	 EKY9w8amMrsvvG9LbM+38bRfRUZCyWjD2j0AzeViZAS47nBgm/RluEF6mAABgqSdIa
+	 F/KinuzGMS4VZ2+XmH10AZOaRRzHHgHmPCSI//jg=
+Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4j22cP2y5Jzw49;
+	Sat, 10 Oct 2026 14:10:29 +0200 (CEST)
+From: David Vornholt <dv@etik.com>
+To: heikki.krogerus@linux.intel.com,
+	gregkh@linuxfoundation.org
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	abhilash.k.v@intel.com,
+	David Vornholt <david@vornholt.online>,
+	stable@vger.kernel.org
+Subject: [PATCH] usb: typec: ucsi: Stop a power level change notification storm
+Date: Sat, 10 Oct 2026 14:10:26 +0200
+Message-ID: <20261010121026.84844-1-dv@etik.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Sat, 10 Oct 2026 12:17:31 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Zqiang" <qiang.zhang@linux.dev>
-Message-ID: <88e9dca361959a297f854200cba0c5c80d26877a@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH] tools/rcu: Add new APIs to rcu-updaters.sh
-To: "Joel Fernandes" <joelagnelf@nvidia.com>
-Cc: paulmck@kernel.org, frederic@kernel.org, neeraj.upadhyay@kernel.org,
- urezki@gmail.com, boqun@kernel.org, kunwu.chan@gmail.com,
- rcu@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <FCDF3652-74F1-4EA4-B39E-3F74F1EAF5B5@nvidia.com>
-References: <20261010083107.15086-1-qiang.zhang@linux.dev>
- <FCDF3652-74F1-4EA4-B39E-3F74F1EAF5B5@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Feedback-ID: :8e558a56fdab348:ham:123049f310c9d1d
+X-Infomaniak-Routing: alpha
 
->=20
->=20>=20
->=20> On Oct 10, 2026, at 4:31 AM, Zqiang <qiang.zhang@linux.dev> wrote:
-> >=20=20
->=20>  The following commit introduces some new APIs:
-> >=20=20
->=20>  commit 'dab06d6f9379 ("srcutree: Add an atomic Tree SRCU")'
-> >  commit '8df13f01608e ("rcu: Add full-sized polling for cond_sync_exp=
-_full()")'
-> >  commit 'd96c52fe4907 (rcu: Add polled expedited grace-period primiti=
-ves)'
-> >=20=20
->=20>  synchronize_srcu_atomic(), cond_synchronize_rcu_expedited() and
-> >  cond_synchronize_rcu_expedited_full().
-> >=20=20
->=20>  Sample output when running rcutorture:
-> >=20=20
->=20>  @counts[synchronize_srcu]: 48
-> >  @counts[synchronize_rcu_expedited]: 74
-> >  @counts[synchronize_rcu]: 102
-> >  @counts[poll_state_synchronize_rcu_full]: 443
-> >  @counts[call_rcu]: 2498
-> >  @counts[synchronize_srcu_atomic]: 8717
-> >  @counts[poll_state_synchronize_srcu]: 14849
-> >=20=20
->=20>  @counts[call_srcu]: 22
-> >  @counts[synchronize_rcu]: 103
-> >  @counts[start_poll_synchronize_rcu]: 1093
-> >  @counts[cond_synchronize_rcu_expedited]: 5339
-> >  @counts[cond_synchronize_rcu_expedited_full]: 5375
-> >  @counts[synchronize_rcu_expedited]: 8134
-> >  @counts[get_state_synchronize_rcu_full]: 17248
-> >  @counts[get_state_synchronize_rcu]: 17266
-> >  @counts[call_rcu]: 119168
-> >=20=20
->=20>  This commit therefore add thems to rcu-updaters.sh script.
-> >=20=20
->=20>  Signed-off-by: Zqiang <qiang.zhang@linux.dev>
-> >  ---
-> >=20
->=20Nice, Thanks!, Could you update the documentation too and include in =
-this series?
+From: David Vornholt <david@vornholt.online>
 
-Hi, Joel
+On a Lenovo ThinkPad X1 Carbon Gen 13 (BIOS N4BET78W 1.48, EC N4BHT61W
+1.41, UCSI 1.0) with an HP E273m monitor connected, the PPM keeps
+signaling a Negotiated Power Level Change although the power contract
+stays the same, and signals it again right after it has been
+acknowledged:
 
-I have already send patch for the Doc API update separately.
+  ucsi_connector_change: port1 status: change=0040, opmode=3,
+    connected=1, sourcing=0, partner_flags=2, partner_type=4,
+    request_data_obj=1304b12c, BC status=2
 
-Thanks
-Zqiang
+This repeats about seven times a second for as long as the monitor stays
+connected. Since commit a0d4618788f2 ("usb: typec: ucsi: Workaround for
+missed op_mode change"), every Negotiated Power Level Change is handled
+like a power operation mode change, so the driver reads the source PDOs
+again, checks the alternate modes and the connector capability, and
+registers the partner's PDOs again each time. Every UCSI command takes
+about 50 ms of EC transactions on this machine. The EC GPE fires about
+680 times a second, and irq/9-acpi and the kworkers keep a CPU busy.
+Skipping that work for an unchanged contract only brings the rate down
+to about 360 a second, because the PPM still signals every change and
+the driver still reads the connector status and acknowledges it.
 
->=20
->=20>=20
->=20> tools/rcu/rcu-updaters.sh | 3 +++
-> >  1 file changed, 3 insertions(+)
-> >=20=20
->=20>  diff --git a/tools/rcu/rcu-updaters.sh b/tools/rcu/rcu-updaters.sh
-> >  index 8a5df3f22550..a0f03a144f6a 100755
-> >  --- a/tools/rcu/rcu-updaters.sh
-> >  +++ b/tools/rcu/rcu-updaters.sh
-> >  @@ -34,6 +34,7 @@ bpftrace -e 'kprobe:kvfree_call_rcu,
-> >  kprobe:synchronize_rcu_tasks_trace,
-> >  kprobe:synchronize_srcu,
-> >  kprobe:synchronize_srcu_expedited,
-> >  + kprobe:synchronize_srcu_atomic,
-> >  kprobe:get_state_synchronize_rcu,
-> >  kprobe:get_state_synchronize_rcu_full,
-> >  kprobe:start_poll_synchronize_rcu,
-> >  @@ -44,6 +45,8 @@ bpftrace -e 'kprobe:kvfree_call_rcu,
-> >  kprobe:poll_state_synchronize_rcu_full,
-> >  kprobe:cond_synchronize_rcu,
-> >  kprobe:cond_synchronize_rcu_full,
-> >  + kprobe:cond_synchronize_rcu_expedited,
-> >  + kprobe:cond_synchronize_rcu_expedited_full,
-> >  kprobe:start_poll_synchronize_srcu,
-> >  kprobe:poll_state_synchronize_srcu,
-> >  kprobe:rcu_gp_init
-> >=20
->=20Ack on this patch.
->=20
->=20>=20
->=20> --
-> >  2.17.1
-> >
->
+Keep handling the notification as before when the power operation mode
+or the RDO changed, which the workaround for Dell's firmware relies on.
+Once the PPM has signaled it ten times in a row with the same PD
+contract, each within a second of the previous one, disable the
+notification with SET_NOTIFICATION_ENABLE and log it once. This PPM
+still reports the bit in the connector status change field, so a later
+contract change is handled with the next connector change it does
+signal. The notification stays disabled while the driver is bound,
+because resume and the reset path resend ucsi->ntfy.
+
+Also forget the RDO when the partner goes away, so that the first
+contract with the next partner counts as a new one.
+
+With this, the PPM signals ten changes after the monitor is connected,
+the driver disables the notification and the GPE rate drops to zero.
+The ports, the partner and its 5 V/3 A power supply stay registered.
+
+Fixes: c1b0bc2dabfa ("usb: typec: Add support for UCSI interface")
+Cc: stable@vger.kernel.org
+Signed-off-by: David Vornholt <david@vornholt.online>
+---
+
+Notes:
+    Claude Code, an AI coding assistant, found the cause while I was looking
+    into why irq/9-acpi kept a CPU busy, and wrote this patch and its
+    description.
+    
+    Tested: a port of this patch to v7.2.9 on the X1 Carbon Gen 13 with the
+    HP E273m. The ucsi trace events show ten connector changes about 100 ms
+    apart, one SET_NOTIFICATION_ENABLE and the warning, and no connector
+    changes after that. GPE 0x6E went from about 680/s to 0/s.
+    
+    This version against usb-linus is only compile-tested (x86_64 defconfig
+    with TYPEC_UCSI=m and UCSI_ACPI=m, W=1) and passes checkpatch --strict.
+    
+    Not tested: other PPMs, in particular Dell's that rely on a0d4618788f2;
+    other partners on this laptop; suspend and resume with the notification
+    disabled; sparse (the version available to me was too old).
+    
+    The patch applies as-is from v6.13 on, after 226ff2e681d0 ("usb: typec:
+    ucsi: Convert connector specific commands to bitmaps"). Older stable
+    trees need a backport.
+
+ drivers/usb/typec/ucsi/ucsi.c | 51 ++++++++++++++++++++++++++++++++++-
+ drivers/usb/typec/ucsi/ucsi.h |  2 ++
+ 2 files changed, 52 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
+index c1450639c..f2677875a 100644
+--- a/drivers/usb/typec/ucsi/ucsi.c
++++ b/drivers/usb/typec/ucsi/ucsi.c
+@@ -1254,6 +1254,51 @@ static void ucsi_pwr_opmode_change(struct ucsi_connector *con)
+ 	}
+ }
+ 
++/*
++ * Some PPMs keep signaling a Negotiated Power Level Change although the power
++ * contract stays the same, and signal it again as soon as it has been
++ * acknowledged, so the PPM and the driver keep each other busy for as long as
++ * the partner stays connected. Stop listening to the notification once the
++ * PPM has signaled it this many times in a row, each within a second of the
++ * previous one, without a new contract.
++ */
++#define UCSI_PWR_LEVEL_UNCHANGED_MAX	10
++
++static void ucsi_pwr_level_change(struct ucsi_connector *con)
++{
++	struct ucsi *ucsi = con->ucsi;
++	u64 ntfy;
++
++	if (UCSI_CONSTAT(con, PWR_OPMODE) != UCSI_CONSTAT_PWR_OPMODE_PD ||
++	    UCSI_CONSTAT(con, RDO) != con->rdo) {
++		con->pwr_level_unchanged = 0;
++		ucsi_pwr_opmode_change(con);
++		return;
++	}
++
++	/* Queued before the notification was disabled */
++	if (!(ucsi->ntfy & UCSI_ENABLE_NTFY_PWR_LEVEL_CHANGE))
++		return;
++
++	if (time_after(jiffies, con->pwr_level_change_time + HZ))
++		con->pwr_level_unchanged = 0;
++	con->pwr_level_change_time = jiffies;
++
++	if (++con->pwr_level_unchanged < UCSI_PWR_LEVEL_UNCHANGED_MAX) {
++		ucsi_pwr_opmode_change(con);
++		return;
++	}
++
++	ntfy = ucsi->ntfy & ~UCSI_ENABLE_NTFY_PWR_LEVEL_CHANGE;
++	if (ucsi_send_command(ucsi, UCSI_SET_NOTIFICATION_ENABLE | ntfy, NULL, 0) < 0)
++		return;
++
++	ucsi->ntfy = ntfy;
++	dev_warn(ucsi->dev,
++		 "con%d: Firmware bug: power level changes without a new contract, disabling the notification\n",
++		 con->num);
++}
++
+ static int ucsi_register_partner(struct ucsi_connector *con)
+ {
+ 	u8 pwr_opmode = UCSI_CONSTAT(con, PWR_OPMODE);
+@@ -1324,6 +1369,8 @@ static void ucsi_unregister_partner(struct ucsi_connector *con)
+ 	typec_unregister_partner(con->partner);
+ 	memset(&con->partner_identity, 0, sizeof(con->partner_identity));
+ 	con->partner = NULL;
++	con->rdo = 0;
++	con->pwr_level_unchanged = 0;
+ }
+ 
+ static void ucsi_partner_change(struct ucsi_connector *con)
+@@ -1514,8 +1561,10 @@ static void ucsi_handle_connector_change(struct work_struct *work)
+ 		}
+ 	}
+ 
+-	if (change & (UCSI_CONSTAT_POWER_OPMODE_CHANGE | UCSI_CONSTAT_POWER_LEVEL_CHANGE))
++	if (change & UCSI_CONSTAT_POWER_OPMODE_CHANGE)
+ 		ucsi_pwr_opmode_change(con);
++	else if (change & UCSI_CONSTAT_POWER_LEVEL_CHANGE)
++		ucsi_pwr_level_change(con);
+ 
+ 	if (con->partner && (change & UCSI_CONSTAT_PARTNER_CHANGE)) {
+ 		ucsi_partner_change(con);
+diff --git a/drivers/usb/typec/ucsi/ucsi.h b/drivers/usb/typec/ucsi/ucsi.h
+index dc594388d..0202788fe 100644
+--- a/drivers/usb/typec/ucsi/ucsi.h
++++ b/drivers/usb/typec/ucsi/ucsi.h
+@@ -554,6 +554,8 @@ struct ucsi_connector {
+ 	struct power_supply *psy;
+ 	struct power_supply_desc psy_desc;
+ 	u32 rdo;
++	unsigned long pwr_level_change_time;
++	unsigned int pwr_level_unchanged;
+ 	u32 src_pdos[PDO_MAX_OBJECTS];
+ 	int num_pdos;
+ 
+
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+-- 
+2.54.0
+
