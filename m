@@ -1,118 +1,69 @@
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49EC437B41B
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 06:15:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C73937B41B;
+	Sat, 10 Oct 2026 06:16:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791612931; cv=none; b=frnvGXI/AixeCRcYF3x/9Kmuw47d68la5vHXjIKVYSM0rp8xEMYWcw0vJEBCyCeaF1ZqBdwfQ/JYBFY6txG46fs4W+n3G0rBV6WSWm5XSRCS9C56gNIKKzCYU60BeSfnvcJYVEY3C5e9OkQrSrU/T9dDnTgMUy2lT4dvWrdHm48=
+	t=1791612974; cv=none; b=lvGqaYT0/A5YZmEds/m9yX2bvqw8q9redVrOrhWZKoXwwosBTDNWzLqbm6uGxC8iksdUpGd1rkGGQKXNdvSvhA06af96qR/v0agW+F6ivA/NjgxbdxXVXc6BWbJkctlxYVQQFYnBpR+ysPIdS00/Tdcd66bIkQfSxSaEMZg2OjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791612931; c=relaxed/simple;
-	bh=TwIv1NPnf52ZhmM9XXPm7/XDI2xCes9eFdq058g6a0c=;
+	s=arc-20240116; t=1791612974; c=relaxed/simple;
+	bh=jN/NZnSAuixYojm0NEwEUqLxz9MnsTNPus0rrTgpP0s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rFr/4qotF8WoZKH069IzL5U35jWEf4VmjcUYh2xRUCTrWc1wZS2ZgoI/r2+hOOS4aBAziD1ayjP4Qu8jyTdjrYMXAu/BVGodRMa7HJShEY5y908TvnrrExJXcfn9ZPBGoe6SAJcCvEtMQWhtCD+o7BuPqnFLkLXS4AidJWwotZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ReOM6zCU; arc=none smtp.client-ip=74.125.82.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=YlV7Ao7KLbXG1oJj7vwx4xXgwf8rUCXXPNzw4o8K0uFqowZGkJjam0yRl8chjtpLms1iFnZx/nvEU5r+2AaTBfYQd6HurUEqN4Y1kDQ49WZvmV3/0/G76V6yydsOAyUc2v7JKCSzP4ralNRqHFU4Vhvtd4izf5QZGtbuylCsC1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GLpj5mRE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ReOM6zCU"
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-154e9d2d979so343767c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 23:15:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791612929; x=1792217729; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TwIv1NPnf52ZhmM9XXPm7/XDI2xCes9eFdq058g6a0c=;
-        b=ReOM6zCUr1d/uLU0JtgRsmO4/DWvuivI6csPKx0XZl+y0MTlYovYnyNA3+heFaopnf
-         /u+ggKhLuKr8qNdLfhN/xeebnnRtXPcFIOfvlgBTU8/fsIgLYB8/KMZB8FDXBn1HTYPw
-         SOI6hG35a5aQJr4q1tIlpo9QM7flZ+49+NoWmy1OjCRuAy7JRn2RIWENbHzI0S20nLTn
-         RwIL81H+XoteWNXiBdcnpc9GhkDZ0mnpYq4XVo0aUQOs0w7ntZJoVwFFThKA2tzQ8W2k
-         BmClaZRPWDnfNEZa/Tf/cH4TzeEGn1lpQBxAkX1UyjwJA0XozOs9EJ7D9RfofETW/fvl
-         IV5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791612929; x=1792217729;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TwIv1NPnf52ZhmM9XXPm7/XDI2xCes9eFdq058g6a0c=;
-        b=BYEPG0aBJzLKRM2UgZdIZ4rIgMUm+1d4B2uth/vcUoIuFZdFLpsNB2K5da5heyMRPc
-         XQ7u9JBCCQGkN8ZWwX31wk6jGgjWrZk+J0GaH80V0RfI8v4tRfwnITqr1ILA5aJSb7go
-         PsjRXfabzJ0CxvGYi+risnByGPMOC8K20gPSit5aFEFK6qUrb2SGf5DukF8d1AkCrJgi
-         A7Vvr0eIipdaIjxTWKdkKwPTOWdRCbKat8if+M80vDZFB3UqCJySuIsALruPYp3nRWaK
-         axtBusnCm57LsUIgHRK/xinanIs3urtW72chyrWe06xf3h2mz3MWTMZ3UUfGhZWlFUc6
-         u73w==
-X-Forwarded-Encrypted: i=1; AKwUvByLHh+XXwYsVPuUk8gQ7L/JuaDU8YzGQll5suRWu5nt7dkz9XD5rNm0DQeM4a2Vsp9RUX5RVNxEmXRznho=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKF7fegJP2e5Bsus9wEyVvbvbLXBpG+E2JrlFy8iJ0UD2rAtNZr
-	YTn+ptSO7XSKCttWhV+52mY6/RnRaD565LSvuT6SlH/DV2IrjPFQWNLl
-X-Gm-Gg: AYBFou0ktGPv5ZJ/xx8dwCKufjF/B4YqW3nLtaBka+RfE7CZPXl8pgUvDgc+Thhg1vm
-	7HCAHEQWrV/ZTxtwsAfSekxbUbWyRut+rAnlp6bxUdV59LJVDHc8JJsNQ4XuBZ47D7vNcDhpIFC
-	6mBE+9YTfvV9FOiXroVYENr5/JyHXoNPnL9LSnRaE7CIDeQLZaRoQJTMPohTWEZm9gr3KmWEUvh
-	143TXcRvJMLPqotReaGS8IQ26KyEqPDng5oijR0sNOYL7fzVqjv0ZC3k67PxvMDXM0mkcR+eE+6
-	c6nyb7iT8D+KxKDzzumhe2StOl+uUCcupc/Zd3Jc3uG2/nmDnpXSNKDU8PJWG8WEoEhSuzA+EJ5
-	poj+wAs9nGZxIw4AHDJa0Dgh2JVlXPUY3PI649b7bWF/5EyWnMOX2W4BkIBGquwmF3fQEpWx8j7
-	fz2QcipmdWNxLp2nXD+W32Xdgo8J+xcTAxWBF6KUe0OFgLYrDsK3OcYXOqCj0O4A==
-X-Received: by 2002:a05:701b:2405:b0:155:734:9cc9 with SMTP id a92af1059eb24-16a131cf188mr4972254c88.16.1791612929280;
-        Fri, 09 Oct 2026 23:15:29 -0700 (PDT)
-Received: from ubuntu.. ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cacb5e9sm12663786eec.20.2026.10.09.23.15.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 23:15:28 -0700 (PDT)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-To: bot+bpf-ci@kernel.org,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Amery Hung <ameryhung@gmail.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Shuah Khan <shuah@kernel.org>
-Cc: martin.lau@kernel.org,
-	mason@kernel.org,
-	bpf@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH bpf-next] selftests/bpf: Wait for the struct_ops map to be freed in assoc_in_timer
-Date: Sat, 10 Oct 2026 14:15:21 +0800
-Message-ID: <20261010061521.390089-1-odys.yuan@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <7c1af496987bd30766e332358e26b3e1256fb0cdc72e2f0412ef0e116b0c5223@mail.kernel.org>
-References: <20261009-selftests-bpf-struct-ops-assoc-timer-v1-1-9a97a9b3d1db@gmail.com> <7c1af496987bd30766e332358e26b3e1256fb0cdc72e2f0412ef0e116b0c5223@mail.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GLpj5mRE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E839E1F000FF;
+	Sat, 10 Oct 2026 06:16:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791612972;
+	bh=oiuMH7HJW7pUIDP2dypKQpiG1IOqW77KjdCceXFbTmQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GLpj5mREnDQiGrUmE9cmH/hDrlO5ciZ1nhK3Q9/fiKjGmYVDNq/zp25ojo8/nsVPG
+	 T/OMagsjWhSyxWWxo5s21igqts6ttGXFj2Tf9Dfp6BnGzDkHfgtWoWzrfZh/PIgV0D
+	 SVFbfItuC3IaunElBGpOXTJbdcIHSeExoD1aJvJvGTZ0OvsMovi3rt2pnNNutHqE11
+	 0UGfp4U6SmFsacB5BEguUg+1Fo6P0/M/XSxnoATwfJiMJh8JT3Kh0IBi2hc4y00O/U
+	 c1EMWs3A6WU5wqGBUWEq45b35exTQYZRV4m7qJlfR81Nlgl0oy6XhkZaGOYl2vYaKe
+	 1OgQ2j3Gyi6NA==
+From: Sasha Levin <sashal@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>
+Cc: Sasha Levin <sashal@kernel.org>,
+	Johan Hovold <johan@kernel.org>,
+	linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hengyu Liang <hengyul@cs.unc.edu>
+Subject: Re: [PATCH] serial: core: fix TIOCSSERIAL and TIOCSERCONFIG on uninitialised ports
+Date: Sat, 10 Oct 2026 02:16:06 -0400
+Message-ID: <20261010021227-rc-0001@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261010034616.3915864-1-hengyul@cs.unc.edu>
+References: <20261010034616.3915864-1-hengyul@cs.unc.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 9, 2026 at 02:36 AM bot+bpf-ci@kernel.org wrote:
-> Should the late dissociation be fixed in bpf_struct_ops_map_free() instead
-> of only making the test wait longer, for example with a grace period after
-> bpf_struct_ops_map_dissoc_progs() or by dissociating before the call_rcu()?
->
-> If the flakiness started with 5db69b0fbdc8, is the Fixes: tag pointing at
-> the right commit?
+On Fri, Oct 09, 2026 at 11:46:16PM -0400, Hengyu Liang wrote:
+> Commit 8ca59f7baee7 ("serial: fix ioctl hangup race") made
+> uart_set_info() and uart_do_autoconfig() return -EIO when TTY_IO_ERROR
+> is set, so that they do not run on a port that has been hung up.
 
-Yes to both. With the window widened, a timer callback of the struct_ops
-prog returns into the freed trampoline and the kernel hits an int3 Oops,
-on the first run.
+Dropped 8ca59f7baee7 from the 7.2 queue along with the following dependency:
+  - serial: abort TIOCMIWAIT on hangup (eb35b73e1336), which needs it
 
-v2 [1] frees the map after a grace period that follows clearing the
-association, since dissociating before the call_rcu() would take a mutex
-where bpf_map_put() may run in softirq. It adds a test that catches the
-map being freed under a running .test_1, and keeps the test fix of v1
-with Fixes pointing at 5db69b0fbdc8.
+6.18 had already dropped both of them.
 
-[1] https://lore.kernel.org/r/20261010-selftests-bpf-struct-ops-assoc-timer-v2-0-d7a43896dbf1@gmail.com
+We will pick 8ca59f7baee7 back up together with your fix once that is in
+mainline.
 
+Thanks for the report.
+
+-- 
 Thanks,
-Qiliang
+Sasha
