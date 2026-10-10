@@ -1,281 +1,309 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010067.outbound.protection.outlook.com [52.101.84.67])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D91F3C1D4B;
-	Sat, 10 Oct 2026 03:09:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2263F18C933;
+	Sat, 10 Oct 2026 03:09:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.67
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791601749; cv=fail; b=mmPDkzQOxrHBRVdF0zacvSeuzoefZSYSCoc5mfzH04gLgwMXXF+ZYA7+Q+b7yhZdKaY+o6zA2rLRq+ihjXKqMniK8YKeEMztZOY7uj6fSK4B8JRmcW9HzJEjNXCB3M/qVTnxz0C3ts8tTq5RCGcF1sU8CcPrwCZt32btv3jtSyo=
+	t=1791601758; cv=fail; b=G3tPgKxTvPrvwcgbrj6OJw3NTJXFR0nFBkd4Fcjr09lvc2wtAqIXgJfvSK6SXcZ4TPBtsEtXKCvaoSHjPdHBSR1nlUfitcgEVkF3KT7xnV5SG7/jQqLSKGehtYm1/jL51KEQfvtdfphA+O2oA6pB3RJk8hQOuwvNtTlZ/efNg6c=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791601749; c=relaxed/simple;
-	bh=KsuM8Pl5wU28esI3R1fPDzJeq1lmZI3oBKL9PE6UPe8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=UyMzssMVIZQdU6psrz93GHcY/QWImAfungcIjD3i+XHxV1wbxMZ1uADvVOBj+QXv6N+em1y9pdvhainqQUTh1NqGXKSr+1vY96iff2v1Fgmg59bRoNqyvucMGPGht7xYM2sta4bm29c0ei62419wVd27ZOs8rcTsFt/PlrEe+Gs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=DNrW4bt9; dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b=RHOzQebt; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	s=arc-20240116; t=1791601758; c=relaxed/simple;
+	bh=MwpkoXkbkEhRdn7W1SZSjSnCv7ZIvEcZiwugm0pZgFA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=oPHpz0WJfWMM2zivEcZZbyTGoWg0qC+caZh6sJfQheiuijhAoQOSQTm8YByyrpvJUlOq/lwyeeH4WB6tf3rHeaMbgY6Y/ooHnhVo/CPSmRZ5WA4P7H/ctrk4sG7U0Qa3SPKlD6tdhMNxMMwGKtghSq4vtJu0p77ACzk80imBokI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=w4RR1WQe; arc=fail smtp.client-ip=52.101.84.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="DNrW4bt9";
-	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b="RHOzQebt"
-Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69A2gmt2073967;
-	Fri, 9 Oct 2026 22:08:54 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=EdOK9ZSFLC+61rJeeA+cw/Z6LXvj9fSs1/MOy3orK
-	PA=; b=DNrW4bt9jHk1IfQC0M1Fr1F3+ChdPy4OmwdAb2rRtOmu4tPrqplbPAyXV
-	nzuR10ED1xC5pJfnCNiM0gVJI89trcPK9WVGDINCCNWOtXSImhgAb9NuQV8I3O/a
-	JNG3tStMNz91Sa6JbJRT3abimd14caK9qSkCwK02S8YNE/wGli7yQr4/RtOmlDZp
-	13w6/m2Yywub8DZICglnto4md9pzqPAZMht4NLGKhm7WP08cPM2jFAvv7+AAJnaB
-	Sf1kA//TWZsoDSYls4j8ygfMETXdnwm/9RpF7ZjxEMddK1wg3c6xT8oG1pg98xzF
-	u4nkvIb4fDAwBRlNvKW5Kqtk881sQ==
-Received: from dm5pr21cu001.outbound.protection.outlook.com (mail-centralusazon11011045.outbound.protection.outlook.com [52.101.62.45])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4h74uj2c8d-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 09 Oct 2026 22:08:53 -0500 (CDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="w4RR1WQe"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KCgQ1+mMNYnUOQutUZ6P7CefApFwHhYu8N1c2sVDvmc36rMu38ZkSIrbbaOJVkO9aYHlo/iKpJpSQcbpOzZZ92mxunzDQ8JUbyBdAyfyAVaDWFAuEfXGcVFoaqg6/CE0P2RNaPDBSzW1GXjpbe7Nw2mKGK1tiEZDB5VE/wkGquHWN2eESiP3on6ieBeCYeKRrY4Rus5cliGZwSO7I2ZfbJnGLhtoOJNUzhBTL4uy1rIFMjldxDQGJg3ZjN67mf6PELDcBU+Mmg1ikNkY8AwOoGntKw6DiMDtEoem7Qa3MCj4/y4Bk6UW6//8gyUKidivzGDKlYODaZdtDfJWus8Qwg==
+ b=E4i8URGRb9AG4vcMj5DsjmXTCJuF0x9LWSF8YG2zY+p7f1Cg9fkqU8O5AXLegomVTmcDMhAruBB/atV5prRnRO9gp6CBNoxiXtEYm5UlvA1v6wr9R8rEjskIEwhIJ9cl7+18+Ae+wqrSK7pEKcJnXbufBxAXq+29zwT2Ug6UoWwdVi6Plt8lX0wIYJOzW1Vyv1STwT7KbqmuVY2cNMnD5RY3G4WJBpyTK+K0M8W9QA5vr7S1VIEBL8/pnlFVKl8lYlMwIhlPflKMarpbZAnguXASsQYSfsi0aC2c9o4JfGRsNfsRB2VjIyto8mJuSmUJWG8gCOpVsGOY0EauRQsPyg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EdOK9ZSFLC+61rJeeA+cw/Z6LXvj9fSs1/MOy3orKPA=;
- b=QBI7PYtsslv+2HMvKN8jxV7f5kttAkqTJlI0/QcMv2lBM+RyhaMq4SCToRtzXlGoatSzjZ87+ZNzXrHnzRIgNf/sfQTCXbTfvxAGSXXASCHnzCRSbcG0TAV/ofDEVcZbuhX5llXOjKbBTKgR04aevgZXT2jJDYPI3pgNLQ/NgqVMeskvmkcqusNxNcDfWioV9E5x4+j9YF4s7TkhRNdxEqev0I2Ci0EiLYp1OhYRP40blNrZSPai8vCAame3SL7yWrb3y39nt1LpFvlFp0PoRlFDaJVYPTOgINJjBEOTbUESqXUjRa4IKz3OQms9Y6nRmwUo18Pn95cHA807plbBRQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
+ bh=0Qlyl+qy6Dg3JizeY+hP7zBqik5/fvfu1LhZVcG84GY=;
+ b=uKFhdDEpDBeB8bkR2syX7VeQG+LKzQKkWmLuFQiXPqqdHYWBzHb965IfDkOfXbysurlmRrFvn5zObl6xLmJ2jaqyZqLGw0roFLZW6KYvnucV6zk0Q+M7v2XlhrN7ilueZMJ+15P6rVInzmkCml9LesaLiYQkFRtgM8sYH2raJjplHmNdgvoscHifGARi1bwD29isaWizzrVLgGSwB3MdqqRS2Dljgz4rlWtqO9muPwcD26f+LHXkICMlWCDyIYa09KKDgxIi8EuQSyRD18AiBrXMZjftHmyUp9+9ZUz3ruun27Skd3OmqGGk9nRTty3WjHkHf1GmUxh6uLZnc6vd4A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EdOK9ZSFLC+61rJeeA+cw/Z6LXvj9fSs1/MOy3orKPA=;
- b=RHOzQebt6RIkEpAWW7sSusFiLoX4+Jmvv8060t+f4YgoBzicc+OSmj1sJZeHAD07KzphQuYIFCbZeg4EswGqjPr8TfvBaogXfMrmX67dhPudYhptTLVnD3Wipms4U7FvTMO2KaueSvBXSul7Ilq2CYgEMM72oZ5HT+gahiLWDj8=
-Received: from PH0PR07CA0027.namprd07.prod.outlook.com (2603:10b6:510:5::32)
- by CH3PR10MB6740.namprd10.prod.outlook.com (2603:10b6:610:144::19) with
+ bh=0Qlyl+qy6Dg3JizeY+hP7zBqik5/fvfu1LhZVcG84GY=;
+ b=w4RR1WQeBRz0QG7gcgkC0KZ5w8pohPmscyDsj7UnwubXFldZTv66dmATAIXiXdirMVyM/SiEJbZWg+XfjB0J/8DgH2R1+bOVWq0sU3uT06ovUswy7RB2w5TIOr7Z1GcAzPqz6qntsxIxZu9sjKRitnYFSyqkr2u+NjNg8HVZKW02Kj/OdKoP6IFJlG4OCjwtmM82GKUrAkQCew6iKmD0AMdLbg5i0EpgJZMXSVUWmnYAPPxvWQkk47BFDrwEszetN0rorFFMlnuou66WedXBVikGIbWKTBnGlsCvFzkiFkKwJo2hm/hynrwPbQXpQxTpdR6k0ADm6dWF0VYQzFg0gA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by DU7PR04MB11092.eurprd04.prod.outlook.com (2603:10a6:10:5b2::6) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.5; Sat, 10 Oct
- 2026 03:08:07 +0000
-Received: from BY1PEPF00026967.namprd05.prod.outlook.com
- (2603:10b6:510:5:cafe::72) by PH0PR07CA0027.outlook.office365.com
- (2603:10b6:510:5::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Sat, 10
- Oct 2026 03:08:06 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.23.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- BY1PEPF00026967.mail.protection.outlook.com (10.167.244.151) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Sat, 10 Oct 2026 03:08:06 +0000
-Received: from DLEE215.ent.ti.com (157.170.170.118) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 9 Oct
- 2026 22:07:56 -0500
-Received: from DLEE211.ent.ti.com (157.170.170.113) by DLEE215.ent.ti.com
- (157.170.170.118) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 9 Oct
- 2026 22:07:56 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE211.ent.ti.com
- (157.170.170.113) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Fri, 9 Oct 2026 22:07:56 -0500
-Received: from [10.250.144.147] ([10.250.144.147])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 69A37qjU2324449;
-	Fri, 9 Oct 2026 22:07:53 -0500
-Message-ID: <24f08aa9-079a-42e1-80e6-3aa5e74e6e41@ti.com>
-Date: Fri, 9 Oct 2026 22:07:51 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.18; Sat, 10 Oct
+ 2026 03:09:12 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0496.015; Sat, 10 Oct 2026
+ 03:09:12 +0000
+Date: Fri, 9 Oct 2026 22:09:08 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Golla Nagendra <nagendra.golla@amd.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Kedareswara rao Appana <appana.durga.rao@xilinx.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michael Tretter <m.tretter@pengutronix.de>,
+	Harini Katakam <harini.katakam@amd.com>,
+	Shyam Pandey <radhey.shyam.pandey@amd.com>,
+	dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org, git@amd.com
+Subject: Re: [PATCH v4 1/6] dmaengine: zynqmp_dma: Use PM guard for
+ probe-time runtime PM reference
+Message-ID: <asmsVD1RP6FoMN9l@SMW015318>
+References: <20261009-adma-pm-fix-and-per-channel-reset-v4-0-55f5fe409c55@amd.com>
+ <20261009-adma-pm-fix-and-per-channel-reset-v4-1-55f5fe409c55@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009-adma-pm-fix-and-per-channel-reset-v4-1-55f5fe409c55@amd.com>
+X-ClientProxiedBy: AS4P189CA0036.EURP189.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5dd::7) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/7] ASoC: codec: pcm1681: Add optional SCK clock and
- runtime PM support
-To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
-        Shenghao Ding
-	<shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-        Baojun Xu
-	<baojun.xu@ti.com>, Liam Girdwood <lgirdwood@gmail.com>,
-        Mark Brown
-	<broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski
-	<krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela
-	<perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>, Srinivas Kandagatla
-	<srini@kernel.org>,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-CC: <linux-sound@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>
-References: <20261009-nord-asoc-driver-support-v3-v3-0-0c1897f21ccf@oss.qualcomm.com>
- <20261009-nord-asoc-driver-support-v3-v3-2-0c1897f21ccf@oss.qualcomm.com>
-Content-Language: en-US
-From: "Wang, Sen" <sen@ti.com>
-In-Reply-To: <20261009-nord-asoc-driver-support-v3-v3-2-0c1897f21ccf@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF00026967:EE_|CH3PR10MB6740:EE_
-X-MS-Office365-Filtering-Correlation-Id: fc4b4e4d-96aa-434e-7184-08df267bb4e7
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU7PR04MB11092:EE_
+X-MS-Office365-Filtering-Correlation-Id: a7c59ee9-25c1-4827-aa55-08df267bdbd0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|376014|82310400026|23010399003|7416014|921020|261009220027099003|261009223027099003|56012099006|10067099003|4143699003|18002099003|22082099003|261009223327099003|261009221227099003|261009221727099003;
+	BCL:0;ARA:13230040|376014|1800799024|7416014|366016|19092799006|23010399003|10067099003|22082099003|18002099003|56012099006|4143699003|11063799006|261009220027099003|261009223027099003|261009223327099003|261009221227099003|261009221727099003;
 X-Microsoft-Antispam-Message-Info:
-	5eEOiwWTRmElDtbFNPi/4rYIrw+F1boj7LFMvqIvHIrH5N/1v7wgdomys7vp31mahfn0xdMIsRA2xdYraUd2KxBKYTSipQfL1w4U8S//+aM5UybdcfSRgsIbZzS9/M+VgSwk3iSZRyV5NbBn4rIib5kIA6kgfhl+6w7CUB8gKeBvT6vuNM6PboqksbiSb49AAKCj7gNNdvufYlqvvhNDOcN78meIZSBdjCHF2DmYnvzgy5cJ9H8jaw8Ct0qqj+y4gTNxxiCVkEulnak6h8d9G3tuhO5feQDmMkKyBiaWbCObud+3qIrJo9vorGp4hShz2VM8RfqtqCr3utgxV4YLPmbY0vGYDPU2F1eFmolp+7MHNGLzCw9FFVYpBVp81od337cZBuIdYydATfP8Q9xgt0ApJ2+d50Z/3WGbLKN9I4iS2JYgXgV2PLyTmIuyas84EYzlgquhrEM4s9Gsfq1LaTR0bn6fnpX4JITQaWjGZTwmDeqKSnF/qjtSdTJs2VauXln1b0q7k/l87utIxPJlN7W81kupV2jQgjBPpa9/sMxFwfeNIApoCkyEXCXEb/QMf0SKDA17oh7EWKj7+eLU8eh7oHK5OzybAlp4TGJJsYMbLrwOlmQ7GR9mneDSpxTGucSB6APJWAnpxyN9NdHNX319lzq0FmQJF5vc/rTgy3RVUlOwQURYtTpDkwDZSPoZbGJbI+hrcyn+bF5DIbhscZ0h2gNuup3YCOpmcg9wVTuW2UAWAcQU9+KqRvTYH3L0
+	PZVjMPV4ZFhZEkKwhTPTM5oyA3u9zbju0As+5BhhX7RPsrBFvpllXm1Y+bCtTwwmvqmIWmRNNUURdVW4I+WZ7T/xHHalTKqW003pLBQAg/jmy/v3K+UcQtB6zrr6zRQ6zWQ5Xw9cB5GFOsZbdl3y8T/bAZQo8wURw3n+e0o5s6WqL7QscwxLfs8YWCgV+nUxIoqVBQ7K3VhzEkzhRnWHr6uUu4cHSf7K2MnJaaSVzp2KpFskTs0QrAlYwQyb2FbPw/0i4IenwV8hTOS+xN/iF9CiUONZyQ/mYPF4Pe7EMDvONWdtTI68vxx5JaaIg+qZZrzyLNPIx1mhOpc7q/OoVg6tdnV2DRlEPUyctvDJ6bADr67GTPyoi+bluopaOhmTAr+9bWOMYJtUCqHJKHS6kA1YQtYRFcAfbAzJhfgpw1YlXWRNLlFovHibEw3qw3/AuMLXwsDElQ8hmsrVPkKa5pndaTGnwujW+CtFpKYuQPed96q1iu61FLUDNohz5u3roL/vqPwrm/4peQxk6dKjXcdLLDiuVspfGy7oCiLA383FTSl5tHeFxUG/EgmFTtUR3eQEClFnwvd0EbPj/OvbJaeD80vo3cdh+MmagMvU2rvA8Diljr4Begw9Yp0iGDZPyOXF/bH+1zD3jTsVHuVtAgqQwoKKstvqMohTar0luAE=
 X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(23010399003)(7416014)(921020)(261009220027099003)(261009223027099003)(56012099006)(10067099003)(4143699003)(18002099003)(22082099003)(261009223327099003)(261009221227099003)(261009221727099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(366016)(19092799006)(23010399003)(10067099003)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006)(261009220027099003)(261009223027099003)(261009223327099003)(261009221227099003)(261009221727099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	e4EQV1xyzI/2VlldtUEHtxxFcGqOzyRn18DYpbgoOzyhwoeT+hKdwJK1jbpfy9jLn4oAOEk60SVViQ7Jo5oOGXlJoKEo+N483ih6pD7LEdukcn5TOfzcbubGIE3nPnzkUJHrw83p+nXMLky6i8MfOVjlKlUGY+B1b7BkH82GnXobg0r6mFgCutGCagDIAgJhjR7DwB/XMF2Y4xAsar0uM2TRWS+DG5cpu/Htg5t0pVxsXzEsvmQkNaqp0QEBPaGLJaFo9y4s4Fs1uy8hxjAruW8eDRD2Omi1iyAA65SvWKJNkKJPlT3XUbyYDIK4W5RuG9ExncuOGVzFWSANtAMxSzP5WBdcGh0s+qtljBfAYnYc3BkRBBbwLHYPpsRh4Hxx1hynow1jtwdtTY71wDIsjojzO6PA97n2zySzryinxgPaypXduUSvQxL+syb1dpHC
-X-Exchange-RoutingPolicyChecked:
-	EmX3uqXLdG/KAuthaC7wzvR8BK5/crLvNIArbiU69ry1mXAGsYA7a2MFv58X3gUnoKpyhG1vjfV/0T2GC1nzy2okJ8AwAB4eF1vE9vv6YXHSYC08xPHKgIpLbPAkTTZqU5v8YxQaJ8WGVia/fQQVYsMZv9O1K47JESWQoEamS5e+prWIWq0YrbrDNGhLsCWrsp1xvt3Na+kCZ4gdoRWstnlYNDVfCeEBHru0NbpH6wQaGMukb8ZZEMe21xhbspzO02BGC09e9lZpN0k6SMtlcBLpZNAy5eFWe1NoxfwKeVjT6iyOvQOQG8pkGPaw/bNdvhRcPqYFhF7Pa4dXdoOGqw==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2026 03:08:06.6500
+	=?us-ascii?Q?fVHmeRNzeq/Wkr0SnjUTkRCQxJM4kvoPZ8vpKQhEKugGB8OhqAtr2EXQCt9e?=
+ =?us-ascii?Q?xM0f7cND2s0GaWOpeKnXNs56rYRC6nXuDAW6+hGwfEyn3kuz1n2cJ96hj1tE?=
+ =?us-ascii?Q?83FcuSOau2T4NSv/9U7d6PgBD6Db9GbpYotBwway7Jnlq+W5FfXzAoQcR/Sp?=
+ =?us-ascii?Q?KWTbJnbP2VfFmNtsgOYuP1swVN3GUtcJI7d/IVQIzyGawqBl+JrBoOCzoZyS?=
+ =?us-ascii?Q?9/qx0iTDgPpxTfYxLaae40RofYzZNMZbXonPD2iD7Y47RGaFoBYg8b+H65vy?=
+ =?us-ascii?Q?Yj/FLjybED8Qi3r7khgNGDNDCdl6s63IREToRTnn8Hne6Sn57ibpmVAPlddy?=
+ =?us-ascii?Q?BsM8W+wrRF0SoeOL7jgFfOOhoGw5vgoAYCDOk1zU0tytbEP+EiCrDxVhcYDu?=
+ =?us-ascii?Q?Zkc/UZuTsc1JHBjvZS9X5qjRx72WcYfmKxwsnetv9rc8KtAg+MUXRWxWF3BC?=
+ =?us-ascii?Q?am9VhO8XlqOJX1pcyLBEN+3lYmhArawfkChHcgyqOGeEd7rAFPDw3n+LuAXs?=
+ =?us-ascii?Q?U6mwl+2OFpZvjpFUfykGWy1aNSWE24OtdGUun4mC4mDVOqxxdDXZzA79GRNx?=
+ =?us-ascii?Q?aTaoSZJuHXesrhNEqAWT6TM/nYb88VR3nB+YdyJXuhOCf0xC1Z3ENaDzwZ8p?=
+ =?us-ascii?Q?nUKndXUBnLTLaCo6FavlDzRGbuiNFKYdFXlSSjOkNgvIIqkNjkT1/EzYQRBa?=
+ =?us-ascii?Q?Jx/ZX4ECiWu98snHSRA7626rrI+j+Mo8FgGFnVDyNmiUK1xLLl9g53xWI4/H?=
+ =?us-ascii?Q?9afxvigA+N9BjgbGNY7vLBkfJxN498vI/2EcOuYmzLOZqMELWQFTyRw/W3g1?=
+ =?us-ascii?Q?0A3B29sCEV/tLxXASxUfUnZvSPmNMRY+ZcQioVn5sPcSgmrBdtb3y1wYYkdJ?=
+ =?us-ascii?Q?kvGyBHyfG0rNK2dImxRa6MdPj/z2oUFyFRha0CD3CjvjXt+h+pyEod5FC6Lu?=
+ =?us-ascii?Q?YpdxoSDtaVo3MzwzdbPHjhof1aITKXOd0s4/X+Fiem+TCiINSy0udIPg/Nu9?=
+ =?us-ascii?Q?JjSH4pOs+CKDHeBiL1kDZa6QI/i4Ik1DPhVdcSPT1Pu6SSjGBC+EAo2QDRaS?=
+ =?us-ascii?Q?ulm/tEZbhimdZHuDlsCapi+8wq+ui9sPTZdVEcup5Zj3Y166pYew/MvG/F2K?=
+ =?us-ascii?Q?ZpH0ejNtBVnz31oivMr4LMptjbQG95/61PwTP6L+OT3H3gSM9U3g6QsdaSQZ?=
+ =?us-ascii?Q?16YLbDJbGd0do3/RRBxTrd8VJ9QJjfuL+WmNZiCWzrQXKc0sF/00Wi7D1VxP?=
+ =?us-ascii?Q?25VUC84HsiwALCwOt7i8S+DcvLKhPhtvcThRYQDyFyjKrRkQxLCIvwuVVKMD?=
+ =?us-ascii?Q?5QpHHx92UmY4CUpK7QZPIq0M52hRpsKG03fHN2n6P5OIleyFOKNmMTQQhArE?=
+ =?us-ascii?Q?8Z+rNNMn9WL67DKArcfbE75O++3PP5rWoxd0Tam/SGYa8X94JPg8LlansMNu?=
+ =?us-ascii?Q?34tiPVXDwjV6pbBz9CI2h1OO6PzzJcJo3BnrpoVjNAzpJrNDB8FdQA2niwsV?=
+ =?us-ascii?Q?ZMySJfRf8kOYcDwCXPfG1NOR1Vr/s+1oh9SRQLUKpEkEkaYi0w9QcrmNY0Mu?=
+ =?us-ascii?Q?01wgd38IrJsmRQXiEqyQs+TiFaBj6nEYjltSBPb/z07sn0j3V9TX+XrtbsyN?=
+ =?us-ascii?Q?MSG82oLgXzIA4Depux8QtbDIVOod0CHmkzYRHNf232lQaVqnlhbB4eklDxPb?=
+ =?us-ascii?Q?6OFLNfZw7CE+6I2EBb02813jqs1Xe3Jt3PYN6IdX03Ggn2Sq1DIH6ZinVkNp?=
+ =?us-ascii?Q?SBGH2CoEeVEY0ayoXeILTi0OMFgAWXghQyxtEq9zqlxfkKFWoZhh?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7c59ee9-25c1-4827-aa55-08df267bdbd0
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2026 03:09:12.2134
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc4b4e4d-96aa-434e-7184-08df267bb4e7
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF00026967.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR10MB6740
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEwMDAxMiBTYWx0ZWRfXwncYrkE9ZGvx
- ReI6d5+ePCm5yyj1iYswuI59nB1NPxVU4taXUk9E1VnzK24Ysq3oDUF5pyrB+dtZamnaWJjIiOl
- 35ZOBZtPeGxk/anruYfsX/JCcPjHbyE/0wBCtBMFN63f0Y2OVvaXSjhTkPMqI5iBz+I/bpe1IVi
- ufdZIjxkNuSItof6rOPQ3WaOgAGKO9JfqYGFLFmc5oJY/gm5ozfEwj6SxQWFxTBCdGx27BAjXvz
- BmMUhn4VrV6SSVBfpTAJnXIPmKXVCjEfPgA6DYURMp2IgjJCwVo//QZekekeQp6aNTavW9ez7ht
- qJyxBzVC//RGE7D+t7xDtRGRiqHrPSxSwdo4bzmhzjVxDfnhPgacZAchcyknBakOP+pvLGTeQTL
- mBPDdZGNoFBrvZge3CCs0DQC/Jq1dTw3icozqwBMDkvj9+I2gGEUfGlbpRRfR9XLYVc7Fk9eaoZ
- 3Q4vojSmmtoA2xD/Mcw==
-X-Proofpoint-ORIG-GUID: aLEsj54nf36Rk4QQ-46IVY_0VQ1HDX4f
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEwMDAxMiBTYWx0ZWRfXxrcB5Wl3QBsA
- NvS5WJYPxFpuFJavPEWaIuv1ddeFCoFBobp4aUj/325B8n0/uHfoyOzENLXHx0qQzcElHlGmypk
- 1ajo6cctW6EyHh2jedB212SvztPbNxQ=
-X-Authority-Analysis: v=2.4 cv=B9AsQ+tM c=1 sm=1 tr=0 ts=6ac9ac45 cx=c_pps
- a=6S8oBaZAy1iJ2l9u/b2bLA==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s63m1ICgrNkA:10 a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=fPAWb5peG099m5CrUpKH:22 a=EUspDBNiAAAA:8
- a=P-c5Zunpq_BhUHJXe9oA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: aLEsj54nf36Rk4QQ-46IVY_0VQ1HDX4f
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-10_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 clxscore=1011 malwarescore=0 suspectscore=0
- spamscore=0 priorityscore=1501 bulkscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610100012
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mCN1iBUQ0g0XGMMyYQDUpDGKK4N00hVoS/+z24/MFlsZP35DuLrF+qOSVBuWD/SiaDr0kJ0K9mehe0WAZNsBge8lwdxyCgVEmN+pcPxeaJHmtqxPbtK6ASrbf9UyiAdC
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU7PR04MB11092
 
-On 10/9/2026 8:12 AM, Mohammad Rafi Shaik wrote:
-> The PCM1681 requires its SCK system clock to be running before register
-> access. On platforms where SCK is provided by a gateable clock, register
-> access may fail when the clock is disabled.
->   
-> Add support for an optional "sck" clock and enable it before accessing the
-> device. After enabling SCK, wait for the required 65536 system clock cycles
-> to allow the device to complete its internal reset sequence.
->   
-> Use runtime PM to manage SCK instead of keeping it enabled for the lifetime
-> of the device. Disable the clock during runtime suspend and restore it on
-> runtime resume. Use autosuspend to avoid unnecessary clock toggling between
-> closely spaced accesses.
->   
-> Since the device register state may be lost when SCK is disabled, enable
-> the regmap cache. Switch regmap to cache-only mode and mark the cache
-> dirty on runtime suspend, then synchronize the cached register state after
-> SCK is restored on runtime resume. Mark the zero-detect status register
-> volatile since it is updated by hardware.
->   
-> Drop idle_bias_on so that the component can reach SND_SOC_BIAS_OFF and
-> runtime suspend can gate SCK.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-
-Hi Mohammd, thanks for your patches.
-
+On Fri, Oct 09, 2026 at 09:30:10AM +0530, Golla Nagendra wrote:
+> Replace pm_runtime_resume_and_get() with the PM_RUNTIME_ACQUIRE_AUTOSUSPEND
+> guard to manage the probe-time runtime PM reference lifecycle. If the guard
+> acquire fails, fail probe immediately so a broken device is never
+> registered.
+>
+> When runtime PM is not enabled for the device, call
+> zynqmp_dma_runtime_resume() directly after pm_runtime_enable() to bring the
+> clocks up for probe.
+>
+> On probe failure after a successful guard acquire, drop the reference with
+> zynqmp_dma_probe_pm_put(), inhibit the guard destructor with
+> retain_and_null_ptr(), and gate the clocks through
+> zynqmp_dma_probe_fail(). When runtime PM is enabled,
+> zynqmp_dma_probe_pm_put() uses pm_runtime_put_sync_suspend(). When runtime
+> PM is not enabled for the device, balance the guard usage counter with
+> pm_runtime_put_noidle() and gate the clocks with
+> zynqmp_dma_runtime_suspend(). Runtime PM does not suspend a device that
+> is already disabled, so pair every direct zynqmp_dma_runtime_suspend()
+> call with pm_runtime_set_suspended() to keep the runtime PM status in
+> sync with the clocks.
+>
+> On probe success, release the probe-time reference with
+> pm_runtime_put_sync_autosuspend() when runtime PM is enabled for the
+> device. When runtime PM is not enabled for the device, balance the guard
+> usage counter with pm_runtime_put_noidle() only and leave the clocks
+> enabled so that later channel allocation can use the hardware. Inhibit the
+> guard destructor with retain_and_null_ptr(pm).
+>
+> Signed-off-by: Golla Nagendra <nagendra.golla@amd.com>
 > ---
->   sound/soc/codecs/pcm1681.c | 137 +++++++++++++++++++++++++++++++++++++++++++--
->   1 file changed, 131 insertions(+), 6 deletions(-)
-> 
-> diff --git a/sound/soc/codecs/pcm1681.c b/sound/soc/codecs/pcm1681.c
-> index 60fdbe5c4..a1ccf1edf 100644
-> --- a/sound/soc/codecs/pcm1681.c
-> +++ b/sound/soc/codecs/pcm1681.c
->   
->   
-> -	return devm_snd_soc_register_component(&client->dev,
-> -		&soc_component_dev_pcm1681,
-> -		&pcm1681_dai, 1);
-> +	ret = clk_prepare_enable(priv->sck);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to enable sck\n");
-> +
-> +	pcm1681_sck_settle(priv);
-> +
-> +	/* The clock is on, so hand the now-active device over to runtime PM */
-> +	pm_runtime_set_autosuspend_delay(dev, 100);
-> +	pm_runtime_use_autosuspend(dev);
-> +	pm_runtime_set_active(dev);
-> +	pm_runtime_enable(dev);
-> +	pm_runtime_idle(dev);
-
-For the sake of consistency let's add mark_last_busy first, so that 
-first suspend won't skip the delay.
-
-> +static void pcm1681_i2c_remove(struct i2c_client *client)
+>  drivers/dma/xilinx/zynqmp_dma.c | 68 ++++++++++++++++++++++++++++++-----------
+>  1 file changed, 50 insertions(+), 18 deletions(-)
+>
+> diff --git a/drivers/dma/xilinx/zynqmp_dma.c b/drivers/dma/xilinx/zynqmp_dma.c
+> index 3b7dfa53f972..a48106e404e7 100644
+> --- a/drivers/dma/xilinx/zynqmp_dma.c
+> +++ b/drivers/dma/xilinx/zynqmp_dma.c
+> @@ -18,6 +18,7 @@
+>  #include <linux/slab.h>
+>  #include <linux/clk.h>
+>  #include <linux/io-64-nonatomic-lo-hi.h>
+> +#include <linux/cleanup.h>
+>  #include <linux/pm_runtime.h>
+>
+>  #include "../dmaengine.h"
+> @@ -1077,6 +1078,29 @@ static const struct dev_pm_ops zynqmp_dma_dev_pm_ops = {
+>  			   zynqmp_dma_runtime_resume, NULL)
+>  };
+>
+> +static void zynqmp_dma_probe_pm_put(struct device *dev)
 > +{
-> +	struct pcm1681_private *priv = i2c_get_clientdata(client);
-> +	struct device *dev = &client->dev;
-> +
-> +	pm_runtime_dont_use_autosuspend(dev);
-> +	pm_runtime_disable(dev);
-> +	/* Runtime PM may already have gated the clock */
-> +	if (!pm_runtime_status_suspended(dev))
-> +		clk_disable_unprepare(priv->sck);
-> +	pm_runtime_set_suspended(dev);
+> +	if (pm_runtime_enabled(dev))
+> +		pm_runtime_put_sync_suspend(dev);
+> +	else
+> +		pm_runtime_put_noidle(dev);
 > +}
 > +
-
-Sashiko reported something valid here so please take a look at this.
-
-> +static int pcm1681_runtime_resume(struct device *dev)
+> +static int zynqmp_dma_probe_fail(struct zynqmp_dma_device *zdev, int ret)
 > +{
-> +	struct pcm1681_private *priv = dev_get_drvdata(dev);
-> +	int ret;
+> +	bool rpm_disabled = !pm_runtime_enabled(zdev->dev);
 > +
-> +	ret = clk_prepare_enable(priv->sck);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to enable sck: %d\n", ret);
-> +		return ret;
+> +	zynqmp_dma_chan_remove(zdev->chan);
+> +	zynqmp_dma_probe_pm_put(zdev->dev);
+> +	pm_runtime_disable(zdev->dev);
+> +	if (rpm_disabled || !pm_runtime_status_suspended(zdev->dev)) {
+> +		zynqmp_dma_runtime_suspend(zdev->dev);
+> +		pm_runtime_set_suspended(zdev->dev);
 > +	}
 > +
-> +	pcm1681_sck_settle(priv);
+> +	return ret;
+> +}
 > +
-> +	regcache_cache_only(priv->regmap, false);
-> +	ret = regcache_sync(priv->regmap);
+>  /**
+>   * zynqmp_dma_probe - Driver probe function
+>   * @pdev: Pointer to the platform_device structure
+> @@ -1087,7 +1111,7 @@ static int zynqmp_dma_probe(struct platform_device *pdev)
+>  {
+>  	struct zynqmp_dma_device *zdev;
+>  	struct dma_device *p;
+> -	int ret;
+> +	int ret, pm_err;
+>
+>  	zdev = devm_kzalloc(&pdev->dev, sizeof(*zdev), GFP_KERNEL);
+>  	if (!zdev)
+> @@ -1128,21 +1152,30 @@ static int zynqmp_dma_probe(struct platform_device *pdev)
+>  	pm_runtime_set_autosuspend_delay(zdev->dev, ZDMA_PM_TIMEOUT);
+>  	pm_runtime_use_autosuspend(zdev->dev);
+>  	pm_runtime_enable(zdev->dev);
+> -	ret = pm_runtime_resume_and_get(zdev->dev);
+> -	if (ret < 0) {
+> -		dev_err(&pdev->dev, "device wakeup failed.\n");
+> -		pm_runtime_disable(zdev->dev);
+> -	}
+>  	if (!pm_runtime_enabled(zdev->dev)) {
+>  		ret = zynqmp_dma_runtime_resume(zdev->dev);
+> -		if (ret)
+> +		if (ret) {
+> +			pm_runtime_disable(zdev->dev);
+>  			return ret;
+> +		}
+> +	}
+> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(zdev->dev, pm);
+> +	pm_err = PM_RUNTIME_ACQUIRE_ERR(&pm);
+> +	if (pm_err) {
+> +		retain_and_null_ptr(pm);
 
-I'm wondering if this would cause regression on existing boards without 
-SCK clock, since now regcache_sync writes from runtime resume at stream 
-open, before machine/CPU DAI startup or machine hw_params that may 
-enable SCK. Rather than writing in codec hw_params as before. Did/can 
-you try running your board with runtime PM but without the SCK and see 
-what it does?
+Not sure why need call retain_and_null_ptr() here, generally only need
+call retain_and_null_ptr() at success pass if you use want to keep
+runtime_pm active. at fail case, needn't do that.
 
-The SCK dt might not be optional afterall with runtime PM 
-enabled.Overall I think it's a cramped patch with runtime PM, regcache 
-enable and SCK clock support which are all major features and shall be 
-bisected individually, therefore can you decouple and have separate 
-patches instead?
+> +		pm_runtime_disable(zdev->dev);
 
-Best,
-Sen Wang
+If use devm_pm_runtime_enable(), needn't this one.
+
+> +		if (!pm_runtime_status_suspended(zdev->dev)) {
+> +			zynqmp_dma_runtime_suspend(zdev->dev);
+> +			pm_runtime_set_suspended(zdev->dev);
+> +		}
+> +		return dev_err_probe(&pdev->dev, pm_err, "device wakeup failed\n");
+>  	}
+>
+>  	ret = zynqmp_dma_chan_probe(zdev, pdev);
+>  	if (ret) {
+>  		dev_err_probe(&pdev->dev, ret, "Probing channel failed\n");
+> -		goto free_chan_resources;
+> +		retain_and_null_ptr(pm);
+> +		return zynqmp_dma_probe_fail(zdev, ret);
+>  	}
+>
+>  	p->dst_addr_widths = BIT(zdev->chan->bus_width / 8);
+> @@ -1151,7 +1184,8 @@ static int zynqmp_dma_probe(struct platform_device *pdev)
+>  	ret = dma_async_device_register(&zdev->common);
+>  	if (ret) {
+>  		dev_err(zdev->dev, "failed to register the dma device\n");
+> -		goto free_chan_resources;
+> +		retain_and_null_ptr(pm);
+> +		return zynqmp_dma_probe_fail(zdev, ret);
+>  	}
+>
+>  	ret = of_dma_controller_register(pdev->dev.of_node,
+> @@ -1159,19 +1193,17 @@ static int zynqmp_dma_probe(struct platform_device *pdev)
+>  	if (ret) {
+>  		dev_err_probe(&pdev->dev, ret, "Unable to register DMA to DT\n");
+>  		dma_async_device_unregister(&zdev->common);
+> -		goto free_chan_resources;
+> +		retain_and_null_ptr(pm);
+> +		return zynqmp_dma_probe_fail(zdev, ret);
+>  	}
+>
+> -	pm_runtime_put_sync_autosuspend(zdev->dev);
+> +	if (pm_runtime_enabled(zdev->dev))
+> +		pm_runtime_put_sync_autosuspend(zdev->dev);
+> +	else
+> +		pm_runtime_put_noidle(zdev->dev);
+> +	retain_and_null_ptr(pm);
+
+You mix use auto cleanup and pm_runtime_put_sync_autosuspen() and
+pm_runtime_put_noidle() to make code mess up.
+
+Frank
+>
+>  	return 0;
+> -
+> -free_chan_resources:
+> -	zynqmp_dma_chan_remove(zdev->chan);
+> -	if (!pm_runtime_enabled(zdev->dev))
+> -		zynqmp_dma_runtime_suspend(zdev->dev);
+> -	pm_runtime_disable(zdev->dev);
+> -	return ret;
+>  }
+>
+>  /**
+>
+> --
+> 2.43.7
+>
