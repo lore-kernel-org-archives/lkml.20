@@ -1,132 +1,132 @@
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBA5626FD97
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 04:52:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E986335C6B1;
+	Sat, 10 Oct 2026 04:54:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.97.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791607965; cv=none; b=gnyTdXCLHFrHGXxeaCfprAZY6WEkKyf6xWyTozTSOgBjSlzuCd2MnxV3JNK2AqI+2mLMpG/gNa9w4V116EQh4w038N5FF5/kF+MnAofkmNntcw2zFLu3XooyjaNqpcUh7sBV/5iqCnUuy9297FdNgP7/1D4Vw9UbSdR+pSJOfuY=
+	t=1791608074; cv=none; b=i16DNVP/eYQZuMpkOY10/o8zLM0ljPRnStvZeBn7tiL9K6Nrwy+mfmH9ZoimIbmeeOoET7dyysrAet2qO0fdPLA7y6H+sg/Vhv3CwlokapmpRRCregGGz5YjRwZQK6Qrmlc1XdturbCEtXz3ZKv5T+1NwAF/wjMfEGAFuTLGt5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791607965; c=relaxed/simple;
-	bh=indP8u5ErlDBlEbDJ73E7lpccIOnRAgGO3JQCr6tKuQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IjMDL2BN5VZyWoUyxY1K8hgm9CPBD8A1J8CUYIdLYSewa5KafKZV3tp/V8/J0vANPODNODCfJpBve/iQpP+E9gzZeIhBkShcBLq4ub/x2OVQOKKRwrGwPDFf0Dy+oA6lVnav0KtursISt7rS/LH3HVuDijkv/C5kzypjxmT7Tm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=m1sUtJMG; arc=none smtp.client-ip=209.85.160.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	s=arc-20240116; t=1791608074; c=relaxed/simple;
+	bh=X0DTaobSonI/q5DvhIzHNbQTaWz5tCaD+A7zHa+HedM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=tkdDLnMMJXi2L7aFgkvXQn+Ez4adwa1YBqZT1H10FbJr3hv1CHTZ6GVKGl40bAzwd08ffzvSUbyN+n/gCp6Y0LGeeVJWnSXAPGrwXt9VvT8Di+EvPTE1UQ6GIpAAQhP7NVhr6CZJEJi6svwDbjd4J8rqw8q2HP9IAKgLir6KgxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=0UBNmPTc; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=Xcyx1cZa; arc=none smtp.client-ip=23.88.97.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="m1sUtJMG"
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-5339733feb9so3465161cf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 21:52:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1791607962; x=1792212762; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6dcJoubrr5zFEKtQA78Ir1Mu8Xuoy77V/79B9yY3I7o=;
-        b=m1sUtJMGyBzEMeM+pRTWXLsSofS7AZ1sk0jFrVI+ZZ8pl65V8zTBGl0W7CgAVcleRA
-         InkkLKvmVitKiXkr/yjaM/5pNOxq6+It3IRduFubyHgDD3ZtZgOI+pVpO7uFWfWCsw8R
-         1CshHAfkB7/XwlOEm1x/5qcUqrNUpG3ocTiM1VkcJUrjlVoUTPq0hIGeuRzlmzGe+Get
-         Wo1jjcGafap5GiEZ2ZKKnUPPfNlaIxAazDmSvp7MFTp9iIbXu/jeUKGAY2dD+DmaT48T
-         HnRxpBG+vURU6uTDG2/djRr3tyRxiRvsxPTKcuT98pm2ijGnTHmjy6Wzg/pUNKpNQVUd
-         MgrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791607962; x=1792212762;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6dcJoubrr5zFEKtQA78Ir1Mu8Xuoy77V/79B9yY3I7o=;
-        b=b170BeKjcBrKPrRy/KNp32TnTASWCkbe3fMclTYan6XSB5PztbW3cIf1Ut3YgZSy/E
-         xCHWHjrJ3jLwia9DhvJIXwDIAevKb6HrYUX7B5odqETlD6YorK4PZm3nyWpUw+qgji38
-         Z0opdlrQdrAsP98WbXG9NHCrVH6GtzjtBcRwoRHD2Czb7VVmzm93kLtefVT6i5gnI15X
-         fxYvELOVx5Ia9pwdilHsVzo7E30etFp9gLPbjir/1U8jFk/ML/ugzsC4NklI+JyJoSmu
-         /my5dnAYtp85/O7dpiTFxcsRqQCrIKayhHhrGeWHbEHNiyHKfppjVCBhh+0X0ziT/lrs
-         3m8w==
-X-Forwarded-Encrypted: i=1; AKwUvBxj17lb2y8DAzXVBEOoVXhmAVmHyW9qk4qU3ZBEVmR+e6SJYlyCwqzK7gdJ6UaMoorRx0Ta5TWexfcFY7c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ2VpskK3oEzpKex4u6xoOwe4hGy9rndCcR1I9vGgxSzwbCPiAW
-	Xse7SxSDeufge9kisMo3d9meb8ScVKzYBcRTSOnybyykeWx8uYYlKPA6a3K9lV/GGg==
-X-Gm-Gg: AYBFou0OkbGdHtKBgHQS5/kLJgiVrvWAlYWs0Yu7yONMaDLsYYq/dHoW9HN+RFLggHg
-	S8ugs7vZ+oKXuDW8JGzxLVLyWPlNH9F9rxfOTWbZOa1zQUngraIL6Z6TBmo0UivaoIJM+3XR17z
-	TU0KHa//YOo8cRdTbPKdF3cTpvFKqkhfRR7L/SsQk8O5/XOL3+QsWSe9WW7XtoUYadnLBvNBoPa
-	eaOieHyWJFpAgdmWicC3Me8XB3ByFgHgnRsrsYsZSViUrv/8W2L3ekzOjxV+Q6WGQOo7ESEmktr
-	izGbXPYhojO4ChrlpnyvRfN+eUDLX2Ug876empdIuN5MRAm1gi1EnsgucdYRc+Hyu3jQ7WxmGOp
-	l03b84enhQypv5al99uaiAQ3PbMsD8ttej7BrS0T0q70OB21JC0XuN9X3HTq/xZqdZ0sdF7xtk9
-	DaYN37MjE9pUc8GReEITj6y599Tqaaru2Q5al6n4q1QFDoNxO7v4mjpKn7FcbrnfAPQ2QQQKQVK
-	EgqptPF6UBip1qlcQJoJg==
-X-Received: by 2002:ac8:5f49:0:b0:535:1a66:d406 with SMTP id d75a77b69052e-5359fb31582mr72152881cf.29.1791607961694;
-        Fri, 09 Oct 2026 21:52:41 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b5501750fsm36208786d6.14.2026.10.09.21.52.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 21:52:41 -0700 (PDT)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Cc: ntfs3@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] fs/ntfs3: restore the file size when fallocate() fails on a sparse file
-Date: Sat, 10 Oct 2026 00:52:06 -0400
-Message-ID: <20261010045206.4051041-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="0UBNmPTc";
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="Xcyx1cZa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1791608071;
+	bh=X0DTaobSonI/q5DvhIzHNbQTaWz5tCaD+A7zHa+HedM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=0UBNmPTc2OATmBt/qG/m1YsLCufQ6dNhRGMWPaT1xfWSfkC4ne9EXI9ksm/9smHFR
+	 kvIi4y5OnaQt0PH6Mb9tmTiEbk4ze8cqm7H3T3O+JxuJmLnWNp3v3ZQTe2uqucbPlA
+	 iHpimOzhXwLVTbe9EWy7IQ4RqV4kZ+cfjuKX3bKKzmg8rBUIdO4wN9TTjZYDo5cx97
+	 njZN89bPM7RCG55LfFMyUEPik8KC0/QlOdB/q5ueJto7f2VHwNg6EKq82uBBYbKbSY
+	 JDlE1C0VIVmeXei4cNP+wXzTrYWXzqeHKvRqXfZkMt6sWTBJWqIqxpK/TbI8ZtZjg2
+	 fnvDhOMtpzcZg==
+Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
+	id 58EE147582; Sat, 10 Oct 2026 04:54:31 +0000 (UTC)
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1791608068;
+	bh=X0DTaobSonI/q5DvhIzHNbQTaWz5tCaD+A7zHa+HedM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=Xcyx1cZawN2o+3cdMF4/JST7Mze9nWosDshIMron45rmLusFJT5Ecpib0r1CxU166
+	 J61bZnm5DLtNWBl0EfYyUXHDGa9Yka3di5ThwwcUxuckNtHQK5hEloVRbrjnI8+k9m
+	 cEIc3ObFZJUodI72ekZG6Ckk1mMEgTDEFh3PpmXC57B7Pp/fhAZA01KeK/hyHSeaP4
+	 QhVriae7mx3LnOwQsULQXtKjLYPeA5wuBnI7BUSy43QQL0GwF9+fBhVzjf5RaQmUcp
+	 QdxcqjYgekEY5Fd5ftZeBMRiLIU3Ez1aQwPX045+SprUDdqnh1K8sC4XYv1/lS6ZEN
+	 xltu+W6TkXKRw==
+Received: from AMDDesktop.lan (unknown [IPv6:2a00:6020:47a3:e800:271c:c6c5:9fde:77cb])
+	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 7BD7D47526;
+	Sat, 10 Oct 2026 04:54:28 +0000 (UTC)
+From: Birger Koblitz <mail@birger-koblitz.de>
+Date: Sat, 10 Oct 2026 06:54:23 +0200
+Subject: [PATCH net-next v19 01/13] phylink: Add phylink_mac_interrupt
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261010-ax88179a-v19-1-7475173cfb56@birger-koblitz.de>
+References: <20261010-ax88179a-v19-0-7475173cfb56@birger-koblitz.de>
+In-Reply-To: <20261010-ax88179a-v19-0-7475173cfb56@birger-koblitz.de>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Russell King <linux@armlinux.org.uk>, 
+ Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
+ Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
+ Eric Dumazet <edumazet@kernel.org>, Eric Dumazet <edumazet@kernel.org>
+Cc: linux-usb@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, 
+ Jianhui Xu <neuromoments@gmail.com>, 
+ Birger Koblitz <mail@birger-koblitz.de>, Nicolai Buchwitz <nb@tipi-net.de>
+X-Mailer: b4 0.14.2
 
-For a sparse file, ntfs_fallocate() first extends the file with
-ntfs_set_size() and then allocates the clusters of the range.
+Add the phylink_mac_interrupt() function to phylink, which
+passes a link-change interrupt received by the MAC to phylib.
+This function can be used by drivers which want to avoid
+polling the PHY and instead rely on an interrupt received by
+the MAC when a link-change happens.
 
-However, when this allocation fails, the function returns without
-putting the size back. As of now, a fallocate() that fails with ENOSPC
-still leaves the file at the requested size, with a part of the range
-allocated.
-
-The issue can be reproduced on a volume mounted with the sparse option:
-
-    truncate -s 16M img
-    mkntfs -F -q img
-    mount -t ntfs3 -o loop,sparse img /mnt
-    dd if=/dev/zero of=/mnt/hole bs=512k count=1
-    dd if=/dev/zero of=/mnt/fill bs=4k
-    sync
-    rm /mnt/hole
-    sync
-    fallocate -l 1M /mnt/f
-    ls -l /mnt/f
-    df -k /mnt
-
-The fallocate command fails with "No space left on device". Before this
-patch, /mnt/f is then 1048576 bytes long and the available space has
-dropped from 912K to 400K. After this patch, /mnt/f is empty and the
-available space is still 912K.
-
-This patch will set the size back when the allocation fails, with the
-call that FALLOC_FL_KEEP_SIZE already uses.
-
-Fixes: 4342306f0f0d ("fs/ntfs3: Add file operations and implementation")
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+Signed-off-by: Birger Koblitz <mail@birger-koblitz.de>
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
 ---
- fs/ntfs3/file.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/net/phy/phylink.c | 20 ++++++++++++++++++++
+ include/linux/phylink.h   |  1 +
+ 2 files changed, 21 insertions(+)
 
-diff --git a/fs/ntfs3/file.c b/fs/ntfs3/file.c
-index 95dfe6878860..98fb4116031b 100644
---- a/fs/ntfs3/file.c
-+++ b/fs/ntfs3/file.c
-@@ -673,8 +673,12 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t vbo, loff_t len)
- 				err = attr_data_get_block(ni, vcn, cend - vcn,
- 							  &lcn, &clen, &new,
- 							  true, NULL, false);
--				if (err)
-+				if (err) {
-+					/* Do not leave the file extended. */
-+					if (new_size > i_size)
-+						ntfs_set_size(inode, i_size);
- 					goto out;
-+				}
- 			}
- 		}
+diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+index a7d086cdc9b2516571bbcfbc3bf3fb37fc4bf6f4..a3ca7993eb7e0090941843194ca1b924cf8d9e89 100644
+--- a/drivers/net/phy/phylink.c
++++ b/drivers/net/phy/phylink.c
+@@ -1612,6 +1612,26 @@ static bool phylink_link_is_up(struct phylink *pl)
+ 	return pl->netdev ? netif_carrier_ok(pl->netdev) : pl->old_link_state;
+ }
  
++/**
++ * phylink_mac_interrupt() - wrapper for phy_mac_interrupt()
++ * @pl: a pointer to a &struct phylink returned from phylink_create()
++ *
++ * Passes a link-change interrupt received by the MAC to phylib.
++ * This function may be called in interrupt context, and therefore cannot take
++ * a mutex. However, it is safe to assume that the reference to phy does not
++ * disappear during the call, as only an SFP module may be unplugged to make a
++ * PHY disappear. SFP modules however do not support interrupts.
++ */
++void phylink_mac_interrupt(struct phylink *pl)
++{
++	struct phy_device *phy;
++
++	phy = pl->phydev;
++	if (phy)
++		phy_mac_interrupt(phy);
++}
++EXPORT_SYMBOL_GPL(phylink_mac_interrupt);
++
+ static void phylink_resolve(struct work_struct *w)
+ {
+ 	struct phylink *pl = container_of(w, struct phylink, resolve);
+diff --git a/include/linux/phylink.h b/include/linux/phylink.h
+index 3a88a69882a610afb868b55df6f6e77aea918649..a7b6294cc4a075bd2aaa43ed6484de17a6cb88b1 100644
+--- a/include/linux/phylink.h
++++ b/include/linux/phylink.h
+@@ -768,6 +768,7 @@ int phylink_ethtool_set_eee(struct phylink *link, struct ethtool_keee *eee);
+ int phylink_mii_ioctl(struct phylink *, struct ifreq *, int);
+ int phylink_speed_down(struct phylink *pl, bool sync);
+ int phylink_speed_up(struct phylink *pl);
++void phylink_mac_interrupt(struct phylink *pl);
+ 
+ #define phylink_zero(bm) \
+ 	bitmap_zero(bm, __ETHTOOL_LINK_MODE_MASK_NBITS)
+
 -- 
-2.53.0
+2.47.3
 
