@@ -1,113 +1,129 @@
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
+Received: from mail-oo2-f11.google.com (mail-oo2-f11.google.com [74.125.231.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9332F3264F9
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:13:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791620036; cv=pass; b=ZgqmgIhX0OVanhZQiXFRQ4CaLfXutwjRQz1ZOzsqQ/hmd63Dc1Tsk7rSGKzwTGloYCoWjKUhvO7Rrcs+UTjUSJzJSQPUJmRLJPBT0P7tweFEQiNllIyq4z24b1Dgf38cZs1EuNnL6VmP+gVPZrt9OaKEsTqcigPbCjMvUyNcwnA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791620036; c=relaxed/simple;
-	bh=v95mXYZS8OV/hddK/8aCeP00yH/oKndJ4AKBv1pvm/U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=A4QW1wYN3GeMADV+rC279kVeC0yBfvHyxrdEv07cMav3E9Zva1U/F22byZ/8+/dZrTD6hgSA3ZnwGfZHvTR1JSxhhWr4zdsEAKdDelAtaMwHUgVY0sCVdyUh6FeUJmqo78lA/DRe0FpwHfF+VnpeaERgUlRkSXFYTcAhtFYtHJA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cDPxHFpB; arc=pass smtp.client-ip=209.85.208.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEC27EECB
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:15:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.139
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791620124; cv=none; b=XomPKqTyZghl300bC0wg2hFBjzhpQeNm3OD5kUKBX1KvjnFr4O7q5nsRb3cIp2QzJ4yC9VN/0LolEKGksUEmLep3U5fTMvfY2aScXdlHVGUhYJk4OGw4BeIDFMs37e+y84ID61vj0MEueaeqt7YKVcnhnTEyCfzZaYYh3KUCJcE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791620124; c=relaxed/simple;
+	bh=Uf/oosQ/UAQy81xB9H7Rsx1eC7q8VdIACUuGXMPsPNM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DZnI9+UtwERy28rlv9LkVNMS2INIt7uZu95Bew1EbkCr9e5eGP0v+CYPfvdg7RS4/pHfPd/X4tpLUhQp63eO28c3f5pX3MChkjTvlvDHSgTLd6ky3tsjECpFIedCCQ8Ed9IOiFRgPIzBLvKXUOHxHRdzUA/k0uUpyt+cavIlt2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IfCRkZGK; arc=none smtp.client-ip=74.125.231.139
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cDPxHFpB"
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a9ad623098so4679981fa.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 01:13:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791620033; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mkVu/XBxVtR8DdJm4erbTnJosLZg63Ij/WEZRmKWlwpnJ8f5a1lq1fOrs0Dfp+hG9o
-         UyO7GsYDHTItz+OuqcdIGcfrS5jjm3DVaUARVz/zjB0mLGvrfpT5AmM7eok8VY3GBcs3
-         EGyQX/hW9+bqaSxq2OSuLJIQGmZTJvU455qsjiVf0sWacQudiB+t5ZtOjxbloZ/VGc5H
-         IHQ6DmSV4QB3mrQLRBcxvL927OyUShzmlo3yPWEpHsQCLQEAs8XTdJnFK7r9OGjFMkjc
-         BNCkACz6npX//7faToTM7XmfJBkqMBjsVSUIoMmoMS9KyW7PkCEgPD0caBcv1EP0k6dw
-         zLew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=v95mXYZS8OV/hddK/8aCeP00yH/oKndJ4AKBv1pvm/U=;
-        fh=OqEZh/t32tNBObERfnZPI9j2zRZS6IF36t18RLPIpCI=;
-        b=KuvKmCvsdu1G0vnPPW99ATlnzHxQ91RZxcp1T2UM0v4OzFrZEVl6121TS8mN4AfiLp
-         q3tbqiTkvlvbbvqoj5ItT+cXaG8/9Wc2U3Ekh7Z83ttZt1hhv1zJ80DQAed4vi6FPnGJ
-         JSAGVODPV2sv4aJZB/Co9fF9IZwSPZNEKkPluX1Vp47j3QqlHokMSHAWK2fsLZ7sREE3
-         3uPeCe0JfsEMtZjE2poGgcIFiuKc4fl3G8WLnPYdu+EUoHU0HHZJzbe+Y02HANSazWwy
-         oLM2JQiiOyoH+/bGd6CeIDXJdqWAaXFNyabh3IYVzN/uQOcym8rjl27F0UlX/zg5SErw
-         gykw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IfCRkZGK"
+Received: by mail-oo2-f11.google.com with SMTP id 006d021491bc7-6e55f7a1ce4so45057eaf.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 01:15:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791620033; x=1792224833; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=v95mXYZS8OV/hddK/8aCeP00yH/oKndJ4AKBv1pvm/U=;
-        b=cDPxHFpBELcnjvKXwPUyrO/hGqo7t1TKxGKuXajuq9+IyMeUGX5eMdp8UwUQR+aYEs
-         UHPFIfHz+q0JDufwle51VI+ov7K8NLJT68WGna6PItKu3/TkQ8Bdli9E1Av3bvEGd0nY
-         KOrbdisGlEfbODk61LDXwSdkmqR5T5WPwARdn3Ifnn6JEgTRwcV5SwtlJy2OLA+gTU77
-         ztmwUeH4Bm3o67CsbpXUMPxgCJJGRFO+KsnP1h7L6SQwk/X0D0v7JtMqTpnz5hvn5qk6
-         Ond1i+nYxi070k/r4V81XHACQ0aCAifFliavmGSCm4oTyQa0lmAVaYiQzDmmVsZDJEr6
-         402Q==
+        d=gmail.com; s=20251104; t=1791620121; x=1792224921; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/b9AkOusiOjPBsWU4XsABElpJcJY0c8yQLeU8F399Ww=;
+        b=IfCRkZGK1vl8aNQnmZ1Tz1GIj6Mqj6rmQZI7dheMnOJDLRDnedgS4oNz3mZiixGmi1
+         EGNlqzplQZsloPkDwaWOVYSL7sjHvi0MQKVrQI8/ceBKjkIIP/HZQZBZu0kqgl6tAPJS
+         yyfa5+umi0Pfi0PUFEbvKlLrQtEfkljIviODG8Gwm4pwFTQ72SqNeaZIW0VOzZ/1kWym
+         tVWb7+z0OQD9pAQICqvD+o91/jpPGFy41eK7W0ImOU4lE7aOyq6iL2KtzyRbgeU+w4UG
+         AxmHOwdwvbBMM63KQB71JMpX+3Hkhwc0VV83dO0QTToXAIM2QhrU7oMy+ex6124QCWd3
+         VM2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791620033; x=1792224833;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=v95mXYZS8OV/hddK/8aCeP00yH/oKndJ4AKBv1pvm/U=;
-        b=QASETE5An87azxS/qTtkFcNa2CS7pxXQviVbFWhF9keVglS6IttuENtoa3PHA1Cexq
-         d5HYKbQWaTio3wCxXbGZ4HnVv3CqW7/9eQh6znEVV72AgVgqv75oZh6qeS4PboGkfpuI
-         WeCpFCPCOmkIskKmijEe2mH7h/DEtzjUVscflr7OGROZbwtNp22XdkHykZRWEa5Nzv7B
-         EGEZSGoLqvoU8qSHYmIxFn0YPN8PKKbO1sSC92NIkWsGiSKZA+tyJBsRhVrUB6bDtQc/
-         JSbBi34ioiOebHJO3x88h+S1hbkEzOD/p0zD40Q71qZ6aMMfB6jP8CWE5deKzV/eECmn
-         Zdxg==
-X-Forwarded-Encrypted: i=1; AKwUvBzz/hnxOQfZBWivaPQDBjHYUok1J2WnmRKH6dvPrLxr6Pmsy6SGsaqcPXEEzbziivJO0LfO9kPed/u0JsQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYILbVUkcJ913ynyNpdwAzbZ5oTApNgWpn3pXibkMbNuLnRMRo9q
-	ujT9H9WlxwmKOThs7Z15ZwhkD8f5OrL4HzTXofPTcaoqdDc1c+m1l+GLJ3vYrM96jODoLJLxnq2
-	3g6KzSrymS7DZ0SsWrt9RgraFJ9P6SQw=
-X-Gm-Gg: AYBFou3CERF8BPqP5eyskECCf7eLRv3KKFSsMP+NVqWNlvFuExWVxJV5MzJkSQ0dsdr
-	0b4lXVzkVxUFSCSMeetN3r5rl2vnMeTJjbjaIBgLjEzhMvHalnDnjpqWhiJllShUxMw2DW6mYbY
-	LQkqvcV655lgShJm5S51wjcrQpXDCzN7ClFyUSRQsHHJxrleFae8XwEtqxvhWWSLiNlmXW3EuDz
-	gbC3cvjgcJLZiGiwiwleXfk7ckalq/KAsz6X8+6e3gTXz0Eydz4bJoXudvkuWB9k4z0QQm5/C7C
-	10W9ZWv+68JrInITcGlH33L1t7aL0wJRqrDRevTvTniUt2VfpH645CtPhg69HCQXwBQl3xTMbEg
-	iC5jH3tABl3rdHyrS2SPxzQwnRzJXH07xxU2dA9K6b3iP8Rv81pXzOoKTG+QpaWY+9d08XxUUM1
-	pOaKe0kiS3a1hStQ31GUM92CqmYpDbn9P2No4bty4=
-X-Received: by 2002:a05:651c:2221:b0:3a4:9e40:d7fb with SMTP id
- 38308e7fff4ca-3a9c53985d2mr10277901fa.7.1791620033148; Sat, 10 Oct 2026
- 01:13:53 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791620121; x=1792224921;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/b9AkOusiOjPBsWU4XsABElpJcJY0c8yQLeU8F399Ww=;
+        b=CwhbX1jIZUcT50vKhcB8j0TAndP0Z2s4eO27BKhhkL4Xsh1IJIdhh4MndpaJKF/4Ik
+         9hZhAqyiCN54m1xKD2oDRP7m/lQaUS0csJPzbzbj6xH4Q1E4MQfqeeZqqg/ox5qb1reE
+         rUhEHIgqxNg40hymFffnKDqrbrqMiAl2XeRsBZzkZjcc42KFsG6lKSSzFnDZuR0+HJAb
+         KocUPf0vGVU2+nEvkaYVQKE/qkxjvkgAOyB+ZA0FIAdy1qfCO+6yxJ5SRd3B85TUo3xB
+         wmtzoJaOSYM4XEtxKdaHHIN5VlT6zKJiZnRohED7r5RybUIjbuXbRRuunwjVQQ/whPH6
+         tyuA==
+X-Forwarded-Encrypted: i=1; AKwUvBxCLX0mU069A40e0oBSLPwSawx+Q+AtnF6HtoH/rWc+dbqDuMFG2zKWQW5PSJdzzvkx9xMA7DlMjOONqDw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIrkxb+9jfojB2R7QeUc+ZMJF4BAcxSFA/pu3+qvZLp77PXR+lV
+	Yfoh6SLzQ4xjuz6Zx3QsebJIt0G0DNdeptoH8Syd2ojZ+I0axnYfgj/n
+X-Gm-Gg: AYBFou1mDERa19w/xJUHeCVHTO6IuGvEZ8lSLtY2tV0amByrjHq7o8bdOQidrdNyjKi
+	8d5MmQJwkElg1GnxXhLxhOT9lAQJ3JN4NogpL/YetN6zfKFX3HFILEFu+hVn++zPok5SNbl/X7A
+	+DkLTO5nag1zTgAS3W7af6pMHh7iKkJWBVgfzaofHYQ9TnEZ16BW5QIsKtVnsFCgROuAHvGovW2
+	gSE5dw3/o2TT9xy2fUazyKTxvgRldnZPq12sycZ/NbbvlRySA/RKS8aBVP4nUmpFSCKmzwGRSNI
+	RVj7YrB1gusgA3seMpZGd9x+igtW+1ZBnn9S3SjHgXUHbxOqEYZukyN5WgU6aLAJAlRehhkg57T
+	WjcR2MPmjr4K7LwSA6+E7ns8NGh4uR79xZTGJFd5nX0JaWJGVDwbygQYW3ISjZWYSdtKy+nFdpW
+	6e/oVkp5o4ODNwUFBmYRxH7QH9sJ45B3bcRF0iVecRaL1LgTgIplq530zfNwYJf6N7jZvGx7C6C
+	rE7qv5NgPQt3YlXGikFP26KANEGiObcgaLT
+X-Received: by 2002:a05:6820:1ca7:b0:6dd:d08d:7900 with SMTP id 006d021491bc7-6ef0fbb6725mr3230261eaf.54.1791620120710;
+        Sat, 10 Oct 2026 01:15:20 -0700 (PDT)
+Received: from localhost.localdomain ([14.22.11.162])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8302f625a10sm4067822a34.0.2026.10.10.01.15.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 01:15:19 -0700 (PDT)
+From: Henry Martin <bsdhenrymartin@gmail.com>
+To: Allison Henderson <achender@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Cc: linux-rdma@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Henry Martin <bsdhenrymartin@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] rds: fix transport reference leak on rds_add_bound() failure
+Date: Sat, 10 Oct 2026 16:14:46 +0800
+Message-ID: <20261010081446.3112217-1-bsdhenrymartin@gmail.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009154526.43528-1-cenzhang@linux.microsoft.com>
-In-Reply-To: <20261009154526.43528-1-cenzhang@linux.microsoft.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Sat, 10 Oct 2026 11:13:15 +0300
-X-Gm-Features: AclHuK87hlToSKlaS86YJtsi34MGww0jdhpR8cjy__Mr0Dxl209enwY_IZs85Ms
-Message-ID: <CAHp75Vebzu0XHN0h_ehpmNfipzcR_7xS+Lavyd2beHUmR7t_7w@mail.gmail.com>
-Subject: Re: [PATCH] staging: fbtft: update outdated struct fbtft_ops comment
-To: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
-Cc: Andy Shevchenko <andy@kernel.org>, Greg KH <gregkh@linuxfoundation.org>, 
-	Hungyu Lin <dennylin0707@gmail.com>, dri-devel@lists.freedesktop.org, 
-	linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 9, 2026 at 6:45=E2=80=AFPM Cen Zhang (Microsoft)
-<cenzhang@linux.microsoft.com> wrote:
->
-> Correct struct fbtft_ops outdated kernel-doc comment: 1) update
-> field write_reg to write_register; 2) remove non-existing field
-> free_gpios.
+rds_bind() takes a module reference on the chosen transport via
+rds_trans_get_preferred().  If the subsequent rds_add_bound() fails,
+rs->rs_transport is reset to NULL without dropping the reference,
+and rds_release_sock() later only calls rds_trans_put() when
+rs_transport is non-NULL.
 
-Reviewed-by: Andy Shevchenko <andy@kernel.org>
+Every failed bind therefore leaks one rds_tcp module reference,
+unprivileged and unbounded: a few hundred failed binds (e.g. to
+port 1) make "rmmod rds_tcp" permanently impossible.  The reference
+was originally balanced because the failed bind left rs_transport
+in place for the release path; commit 05733434ee9a ("net/rds: Check
+laddr_check before calling it") added the NULL-out without the
+matching put.
 
---=20
-With Best Regards,
-Andy Shevchenko
+Drop the reference in the failure branch; rds_trans_put() already
+tolerates NULL.  The symmetric SO_RDS_TRANSPORT leak is covered by
+the same fix.
+
+This issue was discovered by Tencent CodeBuddy Security.
+
+Cc: stable@vger.kernel.org
+Fixes: 05733434ee9a ("net/rds: Check laddr_check before calling it")
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+---
+ net/rds/bind.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/net/rds/bind.c b/net/rds/bind.c
+index f800d920d9690..e4667b3128940 100644
+--- a/net/rds/bind.c
++++ b/net/rds/bind.c
+@@ -264,8 +264,10 @@ int rds_bind(struct socket *sock, struct sockaddr_unsized *uaddr, int addr_len)
+ 
+ 	sock_set_flag(sk, SOCK_RCU_FREE);
+ 	ret = rds_add_bound(rs, binding_addr, &port, scope_id);
+-	if (ret)
++	if (ret) {
++		rds_trans_put(rs->rs_transport);
+ 		rs->rs_transport = NULL;
++	}
+ 
+ out:
+ 	release_sock(sk);
+-- 
+2.43.7
+
