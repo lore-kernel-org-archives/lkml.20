@@ -1,135 +1,179 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f3.google.com (mail-lr2-f3.google.com [74.125.230.67])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C212C2E6CB8;
-	Sat, 10 Oct 2026 03:22:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791602524; cv=none; b=gRhJvdgh1i9LcQ4ealdZugxE1pHOJuCIthVVqvanzmZzPGrN8o7bK9enbzS47yxuEetcZyfsJsk6GuBzbtaA8oyHNWPfOZ5o7XPRAiE0ZA4haxtqEo2DBQq9HGnwy9PIerfplYEELOA6RsORgAaAezjUyrKBgCxFM7TDCHmo2ms=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791602524; c=relaxed/simple;
-	bh=iznYCBsnuDD7TtKTvWpvkkDtxuHJRApQbTM5v5Rs2d8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Xyrzd4hqcSilKy9mhvHlr8oUIRy/C3mJEAQtz18x2LD3L9XNdMeKOlLn4Dpta/SrB0aWBZm9QzgcXknun/f6ECHbKfl8P1/pkHec09S2yV48vbl9Ez+5mSUR/klfOvL9Y8zUVw0eYdo0itV6HeiFyDLPPWah7SN4oOofoi3zg4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=OOFFvlus; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C9D35B14E
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 03:23:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.67
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791602620; cv=pass; b=Er920NMumTSJ6mIES5x7XUO9LhL0D4jDupXAZ8YfKS2Ux0G3gFBIOj8uvc558a94WTAlDUQiK/MHkPDHAAKC1G8Z1ekFBVt5C4nUFauwwBVyw0F6GDv8WgE5ADQlL3AJpB8nMDleApvNTvAocqOfv5A1WX3gLumz2HyrZ946o+M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791602620; c=relaxed/simple;
+	bh=DilpxP77Wf5IGboFkUym9zfEMniRVTNtL7kIYRWXCaw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Zn/VNkguHs/dxfgBiB3TbPYsy08ep6u6DvDnEqWp6BjharnWqYoUGbzwG9pqWVsoDcBYSGHTuN7Odl7yDol1xATCI2R5bs2dWJ5EXZoAiSlc89pSLiJxHDxdJ+HJZyzwybdsz0mDbTYz7zCHQRETN7GbBanaE+U8VLzNmxXixm0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iy9l2wXq; arc=pass smtp.client-ip=74.125.230.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="OOFFvlus"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=nW
-	Lvz8pjTi2eJKYRDz83xjnrYXYS3iiNIjJCpfNJPd8=; b=OOFFvluspDZZ/BNTLO
-	1jRAxcQAWHLgAD/dpO1zO1bl5MjhhBPwTxz1Zj6g67CAs6vbE3ygwr2fcsF/CmVZ
-	xIKKL66wDCpwxxuX0EfU/ltWKmiEIi1N68W4MrEuEkQbH7KoyERO1DMRG8GdpFE2
-	+UZIK1tREjyc+yEAVMZzEG9pk=
-Received: from colol4bi5.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wCXb+Usr8lqH2_BDg--.64530S2;
-	Sat, 10 Oct 2026 11:21:18 +0800 (CST)
-From: Binbin Deng <18983559317@163.com>
-To: borisp@nvidia.com,
-	saeedm@nvidia.com,
-	leon@kernel.org,
-	tariqt@nvidia.com,
-	mbloch@nvidia.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	sd@queasysnail.net
-Cc: netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Binbin Deng <18983559317@163.com>
-Subject: [PATCH net v2] net: mlx5e: Fix use-after-free of the MACsec xarray entry on RX SC deletion
-Date: Sat, 10 Oct 2026 11:21:15 +0800
-Message-ID: <20261010032115.93545-1-18983559317@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iy9l2wXq"
+Received: by mail-lr2-f3.google.com with SMTP id 38308e7fff4ca-3a77d0dc26fso2697281fa.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 20:23:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791602617; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Hc5U/DvwK9k0qUlkwsFGnZmzJjxE/vhSx7YVsQLQEf1TdrudQDK1Q1CXWMihZhgk3c
+         k1O9ITTo+ReIRxUNGEMXXYX3UK3Do2FelTXAEtetlXDV/gje4VQqnfgGsHFfZLK6ecTU
+         TItv4DLncXJsPt29en2uR1Rx+RZMG4d1OOtSwAODD8yVY0fVj09dXMVPd6UkjcFXcXrQ
+         rLTwSw9x3+YslEH+woOq+J0VYlnUv6gWJ1A94RAimdq9dc5VtwDjjNu84e5QyXBgfEDu
+         FMCKWIuDKhw27HJG1sOVyhp1v8Jz4SakR1nJ1i5mrLMF2jSw/7uTr/z9eiVK/Aytqo0C
+         KViA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vieoj/AaG5T84Kvl4ASa8xKsULW9X7IG5LBpCgMJAnA=;
+        fh=FnIVoBnoShaz4T6tODMGrxbjaX9Jg8gCtYcS/YVD2f0=;
+        b=nYmH9my7uef4OsBpvB4k+ThraUd++q5ljQW86hjWhQXoKzfHp2SYDHLGPOQOBhm9NT
+         rr7Z8wXWTNgQP75EKJSC8GkPEJBt93VbeFvvxSPCdBvwGaHEErfyPWgbmAc99j+ItO+I
+         Q+oXwCe7LbPzKdLOH1EKTuDb2DzPVgsCFGVCbnbjGBBFiGfmilGLOa65WTfTgO7vwLoy
+         QNmso1y2TAiLDfyDHvhc5XfJXDT+16WVqVTYXa9BgsSnuFyLcZTuKODnYYUmF3EN8GVj
+         HMW09YR7n1QYP5Mq8IKyDJz07EthIH/eMc7NKdcGJ683rAJnv47ARnyxqE3sJBJlL1M/
+         gYnw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791602617; x=1792207417; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vieoj/AaG5T84Kvl4ASa8xKsULW9X7IG5LBpCgMJAnA=;
+        b=iy9l2wXqxs450eRlYYluXw+MWY1jZUo5eEy2HK9P7AhZRvHGzif8YV2/PI7V4uSMq4
+         zze9yMaEWfjG5aavLkL8YTBS2sTJF7nHf16ddDDulRdQP1p7JDSNbyN/hCwxdh7Mi3x2
+         o6oXlGFPcniIRo3RlexBjlk7INFFCPA5uOLhprd8YiP5SjWFFBH0zk7xt+U9VbTjkpRc
+         IhSzYfXvy+eU7FKtFc7EQ0wK94DfRBSwnG52EPZ1L83L+Rtru26xZKoQJAjlsMdw8uuX
+         cGn/d8nDMFicpHj8xYl9d1G9DPeP/d8b1PlxGbC9LhJ4WWVqe1QJj/sr20Bgtx2A7nFC
+         SqGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791602617; x=1792207417;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vieoj/AaG5T84Kvl4ASa8xKsULW9X7IG5LBpCgMJAnA=;
+        b=AsQA6VZUepngWyS5Kc7JtyOkl/79egbQGPbtyMXWD/wWr5u3QNpqfg6NXjl/Wt5ixt
+         meW5CvD0E/zpEuKAfobWy+gPDsg75oQEphYgMv8l6FUpmWfHtioWZviIYu91G1L5HlNI
+         W7InNCRYsQUxqjcM/yQIS9wBkBnzyNnw+QHvxrCS3qPZrsV4ZaIYhcroLUKxC8XKtABh
+         Rh7gy9IVy8rQMcx3rtv7GDuCDoh55+hR/VT0mTRSs8V7nn9ObGdRiXRQDg/QC9IjxU78
+         Dso0Mziky7BzetLp8ROG7rXjBCT1LR0D5a1kwYNpnPG6/aWaQOiWiLsgf1BpLJwvaZGP
+         +dJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxZONR2BUQCU67nnZZirjb50XUQ0l2iQimWb83zkC+RGGQzCqNuk8yADStxOTgTDdP4LB+RXJWtDtfywWg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIAIym1Os7p8nHkHFr/u77L0HckobcrtLELpLuDE9qEURnh0kvi
+	rf5RZUSoC++86Lt7NMdsHW8J9q4yR0Vixjp11KxvoxS6aF0LrWuVy4ezcO/EQqZq+kNuw9SCRZy
+	KVeNc55dkEEUG9cqPKNImPm6L6gb/kQo=
+X-Gm-Gg: AYBFou1LkOA5FJ6nGL5711wHfFng1qn8HYlGkJJst+0uCIEdOOxnDx5WxGuxW/elBe/
+	gO3gpdS+JBAJgVCvXlCaFDK3rUm0S7VBJtZ9HzkC+LLfqLR27KyPBESKT5WU0AIfRboLw9LTo7a
+	gJ2kZPT0KQsBsFugs6AQZlVtNVFJBLMTWgLGiwHcejg3XHYY/Q98Qv58hHKXK2mY7nC2dJr4eAw
+	6y1VYb9ataQ0ieI/soGfvDrUCuMrV/urtTfTvmenUb0QZTvpj6n9fBCtDDir6D+7ufgSu9V9sVh
+	QyaTXfUCdf1e/b64rReys9nBWmt+LIzNpcKxNntdCZixs1LdyVpDzQgI
+X-Received: by 2002:a2e:be0d:0:b0:3a9:707e:ad88 with SMTP id
+ 38308e7fff4ca-3a9c4eba34emr9355861fa.2.1791602617190; Fri, 09 Oct 2026
+ 20:23:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wCXb+Usr8lqH2_BDg--.64530S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxJw18XFyrAF13tF1rKrW7urg_yoW5tF15pa
-	yfJFW7CFykGry8XryxAa1xWw15ZrZ2qa43u3W5C3yfA3Z8Z3y0vFy8Gay09r90krWrC3ZI
-	vws29w47Xa15Gw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UoSoXUUUUU=
-X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC+w4E52rJry5ZvwAA3S
+References: <20261009080252.2805877-1-bsdhenrymartin@gmail.com> <CAKYAXd8MyiCVhdN_PaQ=aSEO3yYYQ-Qb-2TnC68o0_pbchM0mw@mail.gmail.com>
+In-Reply-To: <CAKYAXd8MyiCVhdN_PaQ=aSEO3yYYQ-Qb-2TnC68o0_pbchM0mw@mail.gmail.com>
+From: henry martin <bsdhenrymartin@gmail.com>
+Date: Sat, 10 Oct 2026 11:23:24 +0800
+X-Gm-Features: AclHuK-ClitBdOErynduKFQRc6WJDbowcHXBQ97nLFTy84wq9FJpNr2s6fS0Too
+Message-ID: <CAEnQdOrta-P0OptZ+6qCKGxHN00=fR71JhjdP1b75bS+3EMFyA@mail.gmail.com>
+Subject: Re: [PATCH] cifs: fix use-after-free of server info on
+ cifs_ses_add_channel error
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Paulo Alcantara <pc@manguebit.org>, Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
+	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>, 
+	Bharath SM <bharathsm@microsoft.com>, Steve French <stfrench@microsoft.com>, 
+	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-In macsec_del_rxsc_ctx(), the RX secure channel is torn down with:
+Hi Jeon,
 
-	list_del_rcu(&rx_sc->rx_sc_list_element);
-	xa_erase(&macsec->sc_xarray, rx_sc->sc_xarray_element->fs_id);
-	dst_release(&rx_sc->md_dst->dst);
-	kfree(rx_sc->sc_xarray_element);
-	kfree_rcu_mightsleep(rx_sc);
+You're right, thanks for catching that.  chan points into
+ses->chans[], so once chan_count is decremented under chan_lock a
+concurrent add_channel can reuse the slot and overwrite chan->server
+before the unlocked put reads it.
 
-The comment above the sequence claims that "xa_erase which uses rcu to
-sync" hides the RX SC from the data path, but this is not sufficient:
-the RCU protection of xarray covers only its internal nodes (making
-xa_load() safe against concurrent erase); it does not extend to the
-object pointed to by the entry value.  A reader that has already
-obtained the pointer from xa_load() is not covered by any grace period,
-and the bare kfree() releases the entry object immediately.
+v2 caches the pointer in a local under chan_lock and uses the cached
+pointer for both cifs_chan_clear_need_reconnect() and the final
+cifs_put_tcp_session(), so the reference we drop is always the one
+this error path took.
 
-The reader is mlx5e_macsec_offload_handle_rx_skb() in the NAPI RX
-path, which runs under rcu_read_lock() only:
+Regards,
+Henry
 
-	sc_xarray_element = xa_load(&macsec->sc_xarray, fs_id);
-	rx_sc = sc_xarray_element ? sc_xarray_element->rx_sc : NULL;
-
-An RCU read-side critical section protects only against deferred frees
-(call_rcu()/kfree_rcu()); it provides no protection against the
-immediate kfree() above.  If the NAPI reader loads the entry pointer
-and is then delayed while another CPU executes the deletion path, the
-subsequent read of sc_xarray_element->rx_sc dereferences freed memory.
-
-The path is reachable with CAP_NET_ADMIN while an RX SC has in-flight
-traffic: CQEs carrying the fs_id metadata can still arrive after the
-offload rule has been removed, so deleting an RX SC concurrently with
-reception can race the reader.
-
-Note that the same function already releases rx_sc itself via
-kfree_rcu_mightsleep(): the author was aware that this teardown needs a
-deferred free, but the intermediate entry object was missed.
-
-Fix this by adding an rcu_head to the entry object and releasing it
-with kfree_rcu().
-
-Found during a static-analysis-assisted audit: candidate sites were
-surfaced by a Coccinelle rule, and the reader/writer paths were
-confirmed by LLM-assisted (GLM-5.3) code inspection.  The issue was
-not observed at runtime; it is identified by code inspection only.
-
-Fixes: b7c9400cbc48 ("net/mlx5e: Implement MACsec Rx data path using MACsec skb_metadata_dst")
-Signed-off-by: Binbin Deng <18983559317@163.com>
----
- drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
-index daff53ba7d09..d4caa7affae6 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
-@@ -75,6 +75,7 @@ struct mlx5e_macsec_rx_sc;
- struct mlx5e_macsec_rx_sc_xarray_element {
- 	u32 fs_id;
- 	struct mlx5e_macsec_rx_sc *rx_sc;
-+	struct rcu_head rcu_head;
- };
- 
- struct mlx5e_macsec_rx_sc {
-@@ -839,7 +840,7 @@ static void macsec_del_rxsc_ctx(struct mlx5e_macsec *macsec, struct mlx5e_macsec
- 	list_del_rcu(&rx_sc->rx_sc_list_element);
- 	xa_erase(&macsec->sc_xarray, rx_sc->sc_xarray_element->fs_id);
- 	dst_release(&rx_sc->md_dst->dst);
--	kfree(rx_sc->sc_xarray_element);
-+	kfree_rcu(rx_sc->sc_xarray_element, rcu_head);
- 	kfree_rcu_mightsleep(rx_sc);
- }
- 
--- 
-2.43.0
-
+Namjae Jeon <linkinjeon@kernel.org> =E4=BA=8E2026=E5=B9=B410=E6=9C=889=E6=
+=97=A5=E5=91=A8=E4=BA=94 21:32=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Fri, Oct 9, 2026 at 5:03=E2=80=AFPM Henry Martin <bsdhenrymartin@gmail=
+.com> wrote:
+> >
+> > The error path of cifs_ses_add_channel() calls cifs_put_tcp_session()
+> > before cifs_chan_clear_need_reconnect().  The latter reaches
+> > cifs_ses_get_chan_index(), which dereferences server->terminate; if
+> > the put was the final reference, TCP_Server_Info is already freed and
+> > this is a use-after-free.  Same put-then-use pattern as the recently
+> > fixed sibling in commit 717e0a25036b6.
+> >
+> > Reorder: clear the reconnect bit and drop chan_count under chan_lock
+> > first, release the server reference last.
+> >
+> > This vulnerability was discovered by Tencent CodeBuddy Security.
+> >
+> > Cc: stable@vger.kernel.org
+> > Fixes: ee1d21794e55a ("cifs: handle when server stops supporting multic=
+hannel")
+> > Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+> > ---
+> >  fs/smb/client/sess.c | 12 +++++++++---
+> >  1 file changed, 9 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/fs/smb/client/sess.c b/fs/smb/client/sess.c
+> > index e095f41b5882..650c0f855a29 100644
+> > --- a/fs/smb/client/sess.c
+> > +++ b/fs/smb/client/sess.c
+> > @@ -626,12 +626,16 @@ cifs_ses_add_channel(struct cifs_ses *ses,
+> >
+> >  out:
+> >         if (rc && chan->server) {
+> > -               cifs_put_tcp_session(chan->server, 0);
+> > -
+> >                 spin_lock(&ses->chan_lock);
+> >
+> > -               /* we rely on all bits beyond chan_count to be clear */
+> > +               /* Clear the reconnect bitmask BEFORE dropping the serv=
+er
+> > +                * reference: cifs_ses_get_chan_index() dereferences
+> > +                * server->terminate, and cifs_put_tcp_session() may be=
+ the
+> > +                * final put that frees chan->server (use-after-free).
+> > +                */
+> >                 cifs_chan_clear_need_reconnect(ses, chan->server);
+> > +
+> > +               /* we rely on all bits beyond chan_count to be clear */
+> >                 ses->chan_count--;
+> >                 /*
+> >                  * chan_count should never reach 0 as at least the prim=
+ary
+> > @@ -639,6 +643,8 @@ cifs_ses_add_channel(struct cifs_ses *ses,
+> >                  */
+> >                 WARN_ON(ses->chan_count < 1);
+> >                 spin_unlock(&ses->chan_lock);
+> > +
+> > +               cifs_put_tcp_session(chan->server, 0);
+> As soon as the lock is released, a new channel can be added in the
+> slot indicated by the decremented chan_count. Then the final put will
+> act on the new channel. Please save the server pointer under chan_lock
+> and use that for cifs_put_tcp_session().
