@@ -1,180 +1,162 @@
-Received: from mout.web.de (mout.web.de [212.227.17.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0055370ADA;
-	Sat, 10 Oct 2026 10:15:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EB7F353A72
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 10:16:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791627340; cv=none; b=dm5IfXo1x9SrNrEPfpI/NKBN9i+sDIEKO3Wjw7hgo6YXJyPR7xNKuNACVKU1TXik2tfo8ovEA7+AKh6XpS/BTQ3Hqqv641mO7A79419fvzhZRV36FKbGelpNzA9yKO2PsfAvXOBAfYE3yJjvxbxFUjeL2l8paA/vtdbHzkq9OXM=
+	t=1791627403; cv=none; b=Yg9uvIsuiw36SXR0f8yzBJ5ADBtH2iwetjjCwDa6Oa+gJU/pxVr9g/WXu+7OU94hYXAcb/QeZXFS4KHjosC4vR/KKhojZvpGiPSgIXEV5MfEchakEWdmqcJvy9qJq5KTxCzDvF9y0szVIqV4GjyUy40CrxWvLWiGJQu45AYKCME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791627340; c=relaxed/simple;
-	bh=CT2wcfd5eT1AjNUmw8ae8nmJnk4euJcJ+Oy/84Q/nHI=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
-	 In-Reply-To:Content-Type; b=VxeE8bwlqqJmCZ8sN1ZKkYbE9HdidP/1X0AaP7Hw4hej2OufsDqSkQcm3BE5ST/KTuLby3L+5CxsxPMhN3IMdMCPkFhY/rHMWThB67GiD4PLDcyFg6njHRNFpWf9bLT6ahf4Mk3LxhS+9Xs8/n/jmOVyCMFl/YulH7Ac+l5hUYI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=OXwxxoJI; arc=none smtp.client-ip=212.227.17.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	s=arc-20240116; t=1791627403; c=relaxed/simple;
+	bh=e1njbT5bJi85eZxLY/530NAqny3vA2RxrG3AcqTroqM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=k/f4dKYJrIXndfqs681oIhDcVojHDRhr0O1wJ+Hn0GcUv/mFGA7XWJxI9S3ByBnbiHXwlwEPbunXXQZ5igGE2DJ2wjmZ6qDE4Drg7W7q2om5Q8GqToZbaRUAzCvsc7c1yXcZb7XL4gcUfzZgA90ZibwxcvbC63Gi1dEJw1iQGvg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FR1FfYT8; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="OXwxxoJI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1791627330; x=1792232130; i=markus.elfring@web.de;
-	bh=nGVFAV5wDMLh0+z1oQnfaJgCHGbiS8UnILd+HMf9YRo=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
-	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 cc:content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=OXwxxoJItTyetcB0pIAZP3TQHuGbPLZ9A/Z36G1SKUcOQqVbF7q4A21SdvtprbVf
-	 t5eibt1N/VZt3Ku7bLyn/18/dANgL3fHC1kcaBokaahFGLTZZZmBwigpW2YSbHZym
-	 PTXg3/ZIydH46TkTGo8DdKJWYi9puF3iaSnsykURHy1djXGiGZ0e70flov1dv9Yf7
-	 TqloJM1NPdf4Lrr8fVqIrHIbAFjocimiJOfs0Mfxc+S4F3spHSdjn/sJaFELcwQfF
-	 AcRuKx6QkQBlA7YaKb2ohK2Xgk/FIECcK4IbdNG0du8Nh1KHkrCfEdfHrcIZZfrEu
-	 qgKVap3RTxduqgkzdQ==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb106
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1M9qd5-1xLFPb0jp7-006Lmt; Sat, 10
- Oct 2026 12:15:30 +0200
-Message-ID: <9099b92c-d456-4dbf-95c7-dcb3f1004066@web.de>
-Date: Sat, 10 Oct 2026 12:15:10 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FR1FfYT8"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49d05d51553so2863905e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 03:16:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791627400; x=1792232200; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KFVRilLphheYZDM+G1ugCIoIXs4pytm2C1ieeD0EW20=;
+        b=FR1FfYT8YfmSQOC1Rkc7IdHGm8OO8r+6IwE34Ci01l39dqznbYJWn/THZWL/GkgHkL
+         GH7MkmEVQbKELGm1wgh1I+hMqp2v0bpTYlnYDDu0Qm9CJ+GcnqygjuI7Cn6OlT52SY1y
+         vKsIbpBT9vJznnJGfTx8xM+3vSCjhKGrjjwtWKyo2U/pMRuCqCv6J7AJxbdr6/FcTLdE
+         GJ/cErDO5MgQh6lfwOp0pUFkm2Sz0iub59bew6Hxt5PIihk1//4Zlr4zwGJtRp2xXlWt
+         8mSDqM1kCdhwXHIBNPNKfBcMDb6I24nQZ7GXJ5DPfw6vrq2boSCjZIC1S9rJMNsFN4HB
+         IEgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791627400; x=1792232200;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KFVRilLphheYZDM+G1ugCIoIXs4pytm2C1ieeD0EW20=;
+        b=Q/FZYlvGb+gnTRbAaZBvLTshcd+kLyqFA5qsLgl3++sBpqHwjSJJiIgm1MO/fDmjFX
+         kJUJE87rUBtDMSv+fCg+NFtOp8KHGPB0177AahYmw9+DqiqpUhi8iZSQK2KpItgBw9yt
+         wqM8mX/h0JJGtDqyU1j1g45nm0FZ548cou3hRusbPAnNyzSJH+RjiMDpkJP4jqD9/LXi
+         iOJI9dnOIpgwf6GfKQ7nqosf7dJUE/DAb0qR27ReiNwTwtgqKFHft/Fdoh6SX7TcxV2n
+         WQ5wq6rkDRpD2pVudELb8r1OMRCYzFt5ZtbU4waFPhJM+e6u+ALgDLbdeLGxKk0TbDXV
+         8gqA==
+X-Forwarded-Encrypted: i=1; AKwUvBzBelkAVlxRZ9EfSLPAFLuGwNWhULVqoacA3YSf9bfDAeByCKGb1g/9oaTlv325qsgxVhLAuNvppsthzgs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKU83MuGKGN1uDZC8HqSo6IluA2fhYhVbS+tC9aciBs/u7ND3Wb
+	vOPY+UUEk2X8Z1gW6XkaNm/kbfUQGifyV49JocjiMmmpA7SrcCH781ue
+X-Gm-Gg: AYBFou2n1g5x7zpkZpUlRtojvkpC66ZJ0T8ImTZNXErGhDNiaRqMXBplxgAot8nSdEx
+	QhroZJkc//gaGm9Od7zjzcuKzRlQpWkfxbmMXwPsfemmy8KqXCsL/ZfEWav+H3cvHcdt48laTEb
+	0DGffcMFIoRuovyFoJHWiNDnMSyYyXzhbg/VVeTvlFLp2Welk2xxtWSKEdE10lO+r3D7q37b3Ja
+	E+rtx+bB7i1KwecUDJB8O0b/E2F8jJtfN0/fCcGaKpLZm+qfsrurxZpvisY6h9+qfIBgIa5972A
+	wyTeVtEA7RhYihiiCALB/01fMDvyADApywiEuKJ8aJQ0Mplg/ZfPMTFEbgiyAaGdtDHTw0s7yc8
+	Bio3o5XY1H3IY9yHUPqBxW3vZgbr8YyLgfb11LbNk8MVEjzQB4sQ2aRSbU/eXCs7x94rVqz5lFh
+	v22uDSrwqXX8b15e+xjIOEecECLQvKjpvolVud1czDJaRXLIUbp5ERdPW6GSM=
+X-Received: by 2002:a05:600c:4593:b0:4a1:7ed5:99e8 with SMTP id 5b1f17b1804b1-4a18e49bffbmr90382875e9.22.1791627400129;
+        Sat, 10 Oct 2026 03:16:40 -0700 (PDT)
+Received: from ASUS ([85.105.252.11])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db98c38f4sm9417856f8f.27.2026.10.10.03.16.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 03:16:39 -0700 (PDT)
+From: Bartu Alev <bartualev@gmail.com>
+To: platform-driver-x86@vger.kernel.org
+Cc: ilpo.jarvinen@linux.intel.com,
+	hansg@kernel.org,
+	luke@ljones.dev,
+	denis.benato@linux.dev,
+	benato.denis96@gmail.com,
+	corentin.chary@gmail.com,
+	linux-api@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bartu Alev <bartualev@gmail.com>
+Subject: [PATCH v3 0/5] platform/x86: asus-wmi: TUF keyboard shutdown naming and RGB readback
+Date: Sat, 10 Oct 2026 13:15:56 +0300
+Message-ID: <20261010101601.888709-1-bartualev@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Douglas Anderson <dianders@chromium.org>,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- Jassi Brar <jassisinghbrar@gmail.com>
-Cc: LKML <linux-kernel@vger.kernel.org>,
- =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
- Brian Norris <briannorris@chromium.org>,
- Joonwon Kang <joonwonkang@google.com>, Lucas Wei <lucaswei@google.com>,
- Peter Griffin <peter.griffin@linaro.org>,
- Subhash Jadavani <sjadavani@google.com>,
- Tudor Ambarus <tudor.ambarus@linaro.org>
-References: <20260714152138.7.I5cef580a62c86ba6c3465ad336fa509afbdf1476@changeid>
-Subject: Re: [PATCH 7/7] mailbox: goog-mba: Introduce the goog-mba mailbox
- driver
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <20260714152138.7.I5cef580a62c86ba6c3465ad336fa509afbdf1476@changeid>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:K+UR+Z8X7vlyuCDoox+Xlhg7ghXE0THzJ+LtDCoFNfVMZ9/mlMi
- zTRP9QSZyKVp0QEmVZdsybpzKcQl+Zkdr3mwm3KCPm4PXAL3Aqa3+n/W4Yg+Y149i4mIgg5
- K06PDEc25NUg8WmzLeWy9F0J138vQ7V5E9o+XeZCVKpMefYM4554ULZuVD8zYYPtip5WET7
- Q7NBastEvefMwFvk7fMQA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:JNQ1aABJpnY=;/mBywpvpOF9d+PvXLVkC7vqY7+c
- 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
+Content-Transfer-Encoding: 8bit
 
-=E2=80=A6
-> +++ b/drivers/mailbox/goog-mba.c
-> @@ -0,0 +1,567 @@
-=E2=80=A6
-> +static int goog_mba_send_data(struct mbox_chan *chan, void *msg)
-> +{
-=E2=80=A6
-> +		spin_lock_irqsave(&goog_mbox->lock, flags);
-> +		out_of_space =3D payload_words &&
-> +			       (goog_mbox->outstanding_msgs >=3D
-> +				goog_mbox->msg_buffer_words / payload_words);
-> +		spin_unlock_irqrestore(&goog_mbox->lock, flags);
-=E2=80=A6
+This series fixes the name of the fourth TUF keyboard power state and
+makes the TUF keyboard RGB attributes readable.
 
-Under which circumstances would you become interested to apply a statement
-like =E2=80=9Cguard(spinlock_irqsave)(&goog_mbox->lock);=E2=80=9D?
-https://elixir.bootlin.com/linux/v7.3-rc6/source/include/linux/spinlock.h#=
-L642-L645
+The fourth flag of kbd_rgb_state was labelled "keyboard" and treated as
+a no-op since it was introduced.  In hardware it gates the backlight
+during the ACPI S5 power-off sequence: with the bit set the keyboard
+lights up white while the machine powers off, with the bit clear the
+machine powers off dark.  Patch 2 renames the field and carries a Fixes
+tag for stable.
 
-Regards,
-Markus
+The remaining patches prepare and add readback.  DSTS device 0x0010005B
+evaluates the DSDT method EC0.KBLS(), which returns a 16-byte snapshot
+of the EC's keyboard state: lighting mode, red, green and blue levels,
+animation speed, and the four power flags.  Both kbd_rgb_mode and
+kbd_rgb_state become readable and report the write format with the
+command word fixed at 1.
+
+Responses to the v2 review:
+
+Ilpo:
+- Documentation: patch 5 adds the missing ABI entries.
+- Errno: the helper already separates the cases.
+  asus_wmi_evaluate_method_buf() returns -EIO for a failed evaluation
+  and -ENODEV for an unsupported DEVID.  The readback keeps the
+  err < 0 ? err : -ENODEV normalization for the positive ACPI integers
+  that leak through, and the AML signature check returns -ENODEV as
+  well.
+- Named defines: patch 3 names the three speed codes and the four state
+  bits, and the decoding comments are gone.
+- Struct: patch 4 parses the status buffer through a packed struct.
+
+Denis:
+- DEVID naming: the write DEVID is now ASUS_WMI_DEVID_TUF_RGB_CMD
+  (patch 1) and the read DEVID is ASUS_WMI_DEVID_TUF_RGB_READ_STATUS,
+  as you suggested.
+- -ENODATA: asus_wmi_evaluate_method_buf() already returns -ENODATA for
+  empty buffers, so no extra handling was added.
+
+Provenance: the KBLS buffer layout and the speed-code semantics were
+recovered by static analysis of the EC firmware (ITE IT5570VG),
+assisted by an LLM-driven toolchain; the readback patch carries an
+Assisted-by tag.  Tested on a TUF Gaming A15 (FA507NV): the v2
+readback on kernel 7.2.6, and the S5 behaviour of the shutdown flag by
+A/B testing both values.
+
+Changes in v3, relative to v2:
+- split into five patches, one logical change each
+- renamed the write DEVID to ASUS_WMI_DEVID_TUF_RGB_CMD and the new one
+  to ASUS_WMI_DEVID_TUF_RGB_READ_STATUS, per Denis Benato
+- named the speed codes and the power state bits and dropped the
+  decoding comments
+- parse the status buffer through a packed struct
+- added the ABI documentation, with the attributes documented at their
+  real location under /sys/class/leds/asus::kbd_backlight/ and worded
+  for all laptops that expose the zonal RGB devices, not only TUF
+  models
+- added linux-api to Cc, which the earlier versions missed
+
+v2: https://lore.kernel.org/all/20260926005625.171560-1-bartualev@gmail.com/
+v1: https://lore.kernel.org/all/20260925200744.129714-1-bartualev@gmail.com/
+
+Bartu Alev (5):
+  platform/x86: asus-wmi: rename TUF RGB state DEVID to _CMD
+  platform/x86: asus-wmi: fix TUF keyboard power state shutdown naming
+  platform/x86: asus-wmi: name the TUF keyboard RGB state and speed
+    codes
+  platform/x86: asus-wmi: add TUF keyboard RGB readback support
+  Documentation/ABI: asus-wmi: document TUF keyboard RGB attributes
+
+ .../ABI/testing/sysfs-platform-asus-wmi       |  42 ++++++
+ drivers/platform/x86/asus-wmi.c               | 123 +++++++++++++++---
+ include/linux/platform_data/x86/asus-wmi.h    |   5 +-
+ 3 files changed, 153 insertions(+), 17 deletions(-)
+
+
+base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
+-- 
+2.56.0
+
