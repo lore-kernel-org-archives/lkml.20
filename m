@@ -1,179 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 329C2444713;
-	Sat, 10 Oct 2026 09:13:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 943B33EC819
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 09:14:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791623583; cv=none; b=jZ5SQFqJC3L7NbuF/ZMVIfw+TxUgZ+ifiH90CPw4AsEIjaRUyHGeTpBtxQu7rfn8aurtBoztqGYnh37C1QjL84WIcRzzoxna+RKtuD+p9UFbvlPo2BeAyxiAG8tRc/vYDaUK2w0YWvu7X0i1iXyqcKvSKuxgnaekjmsoJBoTQsA=
+	t=1791623695; cv=none; b=lhL3Vu3IH8Vd2fsZV+WAAfuUm3Js4ay8+sDoX7S+m+E4XOxciXtPKCgGSg0OFFvt0vIqeYsDGhEphJwiy2zdbJkGO/MToLLReq2e9VNMgqlpu8/RCc0o1GpLorPSGGZyWokQWI6hTHBrNvFC2+qP5ADyiq8OA7nxPg91quFWoeM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791623583; c=relaxed/simple;
-	bh=ND1giJhTP5OlB71Z5D8wkAfOiW7LSG4QZd78LP0fgiw=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=pfcHMaU5QlDjl/8JgCXEXA3dSIIA3MdrAegw/JdiLPaZazRONUnLx6/LAK0UPU6YwcQNYEq87qQUVgr4UdxS9ALVqJg/mZcMCRTeOUeoCTZOwrL68tA6p4pWsObv2+UmEVw37iPhCKWbSoqVY69ONR5r8L7J+La7PyN3KhW4GpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bn/wbT1P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791623695; c=relaxed/simple;
+	bh=lAM5b6+OIjaOvHNXh0hpCmmkd4xeYGS8UjTaFjairtI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ssSqVVwAkbEWFbX1uDkFTX70kpgeQtZl8eRq11cqsJjXohIBZyGvB3nn3uoAAigXCZ1EjJVd/D9a/KFLvmulcZ6uHeO0W4jV3SAEDygWIBYQGAA2NVTIWKainOcJ2E8Q5RxMgzXRUpTOWVZzvBrRzhRM6iB9uzVjiiWRw42HXLI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=ucwiudbi; arc=none smtp.client-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bn/wbT1P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 778C61F000FF;
-	Sat, 10 Oct 2026 09:12:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791623581;
-	bh=FUG+gz+C80r+8tdjKS4k5zRgWIFK6yUZeC4/dP/SevQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Bn/wbT1PZ6OSWE28WoX/9oUAZNC9n0jMK0jyqs1kbReTKXkDFtYNuNIzmb4sk3Kxz
-	 rZ7IOhUlrLVcb3IzciYrEbC5zBxk6FOFD4/w7kANaTk1Zb3Du+7SxKwSTnUawg2yhx
-	 9EqmaWS1Htahy+MlM5owxoIt6snurWFaMGRKfUGholAVtANPnbjl5OeQUGWAiXCXMc
-	 izctduhAx6bBzNbuyG1OJHsFR0rHqIMII+WPgb/hljsQAkCgB9jSFah4ZMFRMUv4bm
-	 Ejl1D85WnOmH0j2U/AcENAG7jkV18cKaitZ///5GPYytJgrUzPcy0aga+hFPvG2dDR
-	 HM+MyAtyFM4ZQ==
-Subject: Re: [PATCH net-next v2 7/7] selftests: net: getsockopt_iter: cover ip
- and ipv6
-From: netdev-bot+sashiko@kernel.org
-To: leitao@debian.org
-Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, ast@kernel.org,
- daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
- martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
- john.fastabend@gmail.com, sdf@fomichev.me, shuah@kernel.org,
- edumazet@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
- david.laight.linux@gmail.com, kernel-team@meta.com
-Date: Sat, 10 Oct 2026 09:12:58 +0000
-Message-ID: <179162357899.434549.5846968713018971046@kernel.org>
-In-Reply-To: <20261009-sockopt_expand_out_v2-v2-7-8ac08c469ecb@debian.org>
-References: <20261009-sockopt_expand_out_v2-v2-7-8ac08c469ecb@debian.org>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="ucwiudbi"
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3514e7cbbbaso997462eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 02:14:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791623691; x=1792228491; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2EcMVNGvoUCyg4a+/GXdBm3s3zoBcyX1bcILDBo8ZBg=;
+        b=ucwiudbiuFPxoRgwOxXDuOEodDaDRSx0nyKbvf8B1qyGkgprdWK+hLbdTf3ZBKZTbm
+         cYrMjHYIZnKEFk0gRt8cIpzI42i7hpxDEn8fky8NCfuQYaVIS6/CWyvn60uRXZ+kkbx/
+         U5hteBAdhzeUt8bZrDfRZCi190f2PYWeAJhLI+IAEyxfCZVv8TUH0tGVGplVCA/KIrz8
+         of/lGMGM0cziFRJ5Ah+ZgDOtr9V3xkOmXlWa8Y4isn3VoXg/RRpPivbHAta4hcUV0YYO
+         jol9yIF7cepBduV2u6WtzxXeNOfjIGZVInXYB1xbU4jgWlXYkwIZwISOIrH8B8VbUJHE
+         YU8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791623691; x=1792228491;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2EcMVNGvoUCyg4a+/GXdBm3s3zoBcyX1bcILDBo8ZBg=;
+        b=lnivKgwqsMXk0y/IWQYATORkm+q/HBTbU5Nk4Zl53KpZ+B2UA5QjuwDe/9Jp6LpYua
+         p8444kIXNSi6ilgGZdam9ITThzOjA231jIDYJ/9ehFfbEHNE1TbslVLcog+x3qmVbQ50
+         Z4AaAt7MZL0Z6J74GwdkjDCaq4tO8C7Ox78w69CD93vX9SW2HtDmgLpkuOQn1BP4LjRb
+         Ird3NLxkOHTIqIeYWOsM8RY3z6Z5dmB8C1mS9Wb8NMi5lZ65khpEMenWAekT9U9tY01P
+         STgPYknlbXrNDcOqfUMraUDfACuXm69QWgXcx/xSbXRjP8b8xOZs8laTXbwgNPI/JGqM
+         TE+A==
+X-Gm-Message-State: AFq9FYJxJ/q3wxxMEm541h3F6H1GQRWPEslhDZTjHb79kNesP5dZDi4j
+	25HHnXhxffGiSOkXC90nfYrGaRNlv8+8eDtNoNbc/SB9k/Ab41IxWUeUjG6ebCEyED0=
+X-Gm-Gg: AYBFou24Gh6Qlxx0nptgiBL/hwupq9hAuvwe9xqhzL7k/6Gh9v0a3EisSN96mF2+f4c
+	jEKfwmuhRfJxC/0OyeFbp2jN+hrhJUOLAHakhvs6ENMltn7hLjmMGYE5c7PMyhFIOhTCaUmNjVe
+	d5KpTTaYMmce+vSLAcg/UTyUOpC4vBp7tQgcfGhvzzG8tddFzKkCOGFh+4xKZKlT2fQ+3m6icDT
+	Xl0v3erhnNfClQGb4UJ5/3yp+GKa0P0Mnv4T0PjyCANxhW/Sz+rtBLwjZESNV68l9taiYuzFEPD
+	jF5XWyTXFetrzro9dVmteXKz3pzN7oKDlTL66kkI1AxcKEiZEVet3QJKO+p8Mles2at1t1MAMGI
+	CXMQFBrmo0/E0nMAutsHFV8jdSw0aCexf285v/xZLdsWT3W5BVy5xfFIxjdZM4tFEDJq3s10ruX
+	NEwADfHgsd4fpLM0MW7COFoNTWoxTq/nRzJ+I3y33BIdTO+zNbrYoT0arP78fDMkHjUcjbDfhDC
+	lAh7xzq4rfMHtxE3c2rKA==
+X-Received: by 2002:a05:7300:8803:b0:351:735e:2ef8 with SMTP id 5a478bee46e88-3537df50e9dmr6407629eec.7.1791623691332;
+        Sat, 10 Oct 2026 02:14:51 -0700 (PDT)
+Received: from localhost.localdomain ([2406:5900:1044:110c:c95f:28ac:324a:cdc3])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca1b53dsm12287561eec.6.2026.10.10.02.14.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 02:14:50 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Sathya Prakash <sathya.prakash@broadcom.com>,
+	Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
+	Suganath Prabu Subramani <suganath-prabu.subramani@broadcom.com>,
+	Ranjan Kumar <ranjan.kumar@broadcom.com>,
+	MPT-FusionLinux.pdl@broadcom.com,
+	linux-scsi@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Subject: [PATCH] scsi: mptfusion: reject events with a MsgLength outside the reply frame
+Date: Sat, 10 Oct 2026 18:14:32 +0900
+Message-ID: <20261010091432.1788497-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+mptsas_event_process() sizes the event payload from the reply header:
 
-Low priority / nit picks for your consideration:
+      event_data_sz = ((reply->MsgLength * 4) -
+          offsetof(EventNotificationReply_t, Data));
 
-- [Low] In tools/testing/selftests/net/getsockopt_iter.c, the ipv6
-  fixture's negative_optlen test only exercises IPV6_UNICAST_HOPS.
-- [Low] The new TEST_F(ip, mroute_wrong_type) needs CONFIG_IP_MROUTE: it
-  skips when /proc/net/ip_mr_vif is missing.
+MsgLength is an 8-bit field chosen by the controller firmware and is not
+validated on the way in; ProcessEventNotification() only looks at
+EventDataLength. event_data_sz is a signed int but is then used as a
+size_t in both the kzalloc() and the memcpy() that follow:
 
---
+      fw_event = kzalloc(sizeof(*fw_event) + event_data_sz, GFP_ATOMIC);
+      ...
+      memcpy(fw_event->event_data, reply->Data, event_data_sz);
 
-selftests: net: getsockopt_iter: cover ip and ipv6
+A MsgLength too small to cover the 28-byte reply header (MsgLength <= 6)
+makes event_data_sz negative; it sign-extends to a huge size_t, so the
+kzalloc() under-allocates and the memcpy() runs for ~2^64 bytes. A
+MsgLength larger than the reply frame makes the memcpy() read past the
+frame and leak up to ~940 bytes of the adjacent reply.
 
-This adds ip and ipv6 fixtures to getsockopt_iter. They check the
-returned length and errno for several buffer sizes, for the branches
-that answer empty, for an unknown optname, and for the MRT_*/MRT6_*
-options dispatched before the switch. The MRT tests skip when
-/proc/net/ip_mr_vif or /proc/net/ip6_mr_vif is missing.
+Reproduced under KASAN with a crafted EventNotificationReply (reply_sz
+0x50); MsgLength 255 over-reads the frame, MsgLength 4 wraps the length:
 
-> diff --git a/tools/testing/selftests/net/getsockopt_iter.c b/tools/testing/selftests/net/getsockopt_iter.c
-> index 6c2408df46123..252a46d44e522 100644
-> --- a/tools/testing/selftests/net/getsockopt_iter.c
-> +++ b/tools/testing/selftests/net/getsockopt_iter.c
+  BUG: KASAN: slab-out-of-bounds in mptsas_event_process [mptsas]
+  Read of size 992
+   which belongs to the cache kmalloc-96 of size 96
 
-[ ... ]
+  BUG: KASAN: out-of-bounds in mptsas_event_process [mptsas]
+  Read of size 18446744073709551604
 
-> +/* The MRT_* options are dispatched ahead of the rest of the switch and
-> + * want a raw IGMP socket. Without CONFIG_IP_MROUTE they are not
-> + * dispatched at all and the switch also answers ENOPROTOOPT, so the
-> + * config check has to come from somewhere other than this errno.
-> + */
-> +TEST_F(ip, mroute_wrong_type)
-> +{
-> +	socklen_t optlen = sizeof(int);
-> +	int val;
-> +
-> +	if (access("/proc/net/ip_mr_vif", F_OK))
-> +		SKIP(return, "CONFIG_IP_MROUTE disabled");
+reply points at a fixed MPT_REPLY_FRAME_SIZE frame, so a valid event has
+7 <= MsgLength <= ioc->reply_sz / 4. Compute event_data_sz before the
+switch and drop the event when MsgLength is outside that range, as
+mptsas_mgmt_done() and mptctl_reply() already bound it to ioc->reply_sz.
+Doing it before the switch also keeps a dropped BROADCAST_PRIMITIVE from
+leaving ioc->broadcast_aen_busy set.
 
-[Severity: Low]
-Should tools/testing/selftests/net/config also get CONFIG_IP_MROUTE=y?
+Fixes: 3eb0822c6740 ("[SCSI] mpt fusion: Firmware event implementation using seperate WorkQueue")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+ drivers/message/fusion/mptsas.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-The config fragment already has this line:
-
-    CONFIG_IPV6_MROUTE=y
-
-It has no CONFIG_IP_MROUTE entry, though, and nothing in net/ selects
-IP_MROUTE. So whether this test runs depends on the base config.
-x86_64 and i386 defconfig enable it, but arm64 defconfig does not. On
-an arm64 kselftest-merge build, /proc/net/ip_mr_vif is missing and
-ip.mroute_wrong_type always skips, while ipv6.mroute_wrong_type runs.
-
-The commit message says:
-
-    A kernel with CONFIG_IP_MROUTE or CONFIG_IPV6_MROUTE built in no
-    longer hides that regression behind a skip.
-
-With the current fragment, the selftest config only builds such a
-kernel for IPv6.
-
-> +
-> +	ASSERT_EQ(-1, getsockopt(self->fd, SOL_IP, MRT_VERSION, &val,
-> +				 &optlen));
-> +	ASSERT_EQ(EOPNOTSUPP, errno);
-> +}
-
-[ ... ]
-
-> +/* Unlike SOL_IP, a negative optlen has always behaved as 4 here. */
-> +TEST_F(ipv6, negative_optlen)
-> +{
-> +	socklen_t optlen = (socklen_t)-1;
-> +	int val = 0;
-> +
-> +	ASSERT_EQ(0, getsockopt(self->fd, SOL_IPV6, IPV6_UNICAST_HOPS, &val,
-> +				&optlen));
-
-[Severity: Low]
-Does this test cover the negative optlen change made earlier in this
-series?
-
-IPV6_UNICAST_HOPS is an int option. Before the series, it already
-turned a negative optlen into 4 through:
-
-    len = min_t(unsigned int, sizeof(int), len);
-
-The earlier patch "ipv6: treat a negative optlen as 4 in
-do_ipv6_getsockopt()" added this in ipv6_getsockopt() for every option:
-
-net/ipv6/ipv6_sockglue.c:ipv6_getsockopt() {
-    ...
-	/* Historic bug compatibility: the int options have always taken a
-	 * negative optlen as 4, so take it as 4 everywhere.
-	 */
-	if (len < 0)
-		len = 4;
-    ...
-}
-
-According to that patch's commit message, a negative optlen now cuts
-sticky headers such as IPV6_HOPOPTS to 4 bytes. It also makes
-IPV6_PATHMTU and IPV6_FLOWLABEL_MGR fail with -EINVAL.
-
-hopopts_roundtrip, hopopts_undersize_clamped and pathmtu_undersize all
-pass a positive optlen. If the clamp were removed or broken later,
-ipv6.negative_optlen would still pass.
-
-Could a negative optlen case be added for IPV6_HOPOPTS or IPV6_PATHMTU?
-
-Also, the kernel comment limits "always" to the int options. The
-comment above this test does not, so a reader may think SOL_IPV6 never
-changed how it handles a negative optlen. Could the comment say this
-only holds for the int options?
-
-> +	ASSERT_EQ(sizeof(int), optlen);
-> +	ASSERT_EQ(42, val);
-> +}
-
-[ ... ]
-
+diff --git a/drivers/message/fusion/mptsas.c b/drivers/message/fusion/mptsas.c
+index c362f09a8c555..1812b871c47ef 100644
+--- a/drivers/message/fusion/mptsas.c
++++ b/drivers/message/fusion/mptsas.c
+@@ -5009,6 +5009,18 @@ mptsas_event_process(MPT_ADAPTER *ioc, EventNotificationReply_t *reply)
+ 		return 0;
+ 
+ 	delay = msecs_to_jiffies(1);
++
++	/* Bound the firmware-chosen MsgLength to the reply frame: too small
++	 * underflows event_data_sz, too large over-reads the copy.
++	 */
++	event_data_sz = ((reply->MsgLength * 4) -
++	    offsetof(EventNotificationReply_t, Data));
++	if (event_data_sz < 0 || reply->MsgLength * 4 > ioc->reply_sz) {
++		printk(MYIOC_s_WARN_FMT "%s: bad MsgLength %u\n",
++		       ioc->name, __func__, reply->MsgLength);
++		return 0;
++	}
++
+ 	switch (event) {
+ 	case MPI_EVENT_SAS_BROADCAST_PRIMITIVE:
+ 	{
+@@ -5105,8 +5117,6 @@ mptsas_event_process(MPT_ADAPTER *ioc, EventNotificationReply_t *reply)
+ 		return 0;
+ 	}
+ 
+-	event_data_sz = ((reply->MsgLength * 4) -
+-	    offsetof(EventNotificationReply_t, Data));
+ 	fw_event = kzalloc(sizeof(*fw_event) + event_data_sz, GFP_ATOMIC);
+ 	if (!fw_event) {
+ 		printk(MYIOC_s_WARN_FMT "%s: failed at (line=%d)\n", ioc->name,
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261009-sockopt_expand_out_v2-v2-0-8ac08c469ecb%40debian.org
+2.43.0
+
