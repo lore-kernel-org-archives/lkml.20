@@ -1,112 +1,136 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EF343BB68F
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 16:01:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791648112; cv=none; b=LgYXqViW2XwvHJudFy9wX9ZcS8MuzxHCSDJqjXQFqNkQXhtk64buNSb/91C7X0i6E/JFiwgEb4yF1h6PPPU6XrwEF3ltMVZ13DLqCQRF1yLnlH4Xh6UJJWWXZKh40gzH7iwOtkb1lMZuCDIhL1IWonTgsRcLq7I/hKKCsbH2rD8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791648112; c=relaxed/simple;
-	bh=zTEIKTFLzHZXtE/A3+jk/VVlG2VZw/zJplZ3MmFf0cI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ye4qymWZ0oUAy8C8VJhvx4qW7VKf1NfIP3ruDGbPsX0o1WAdXcmMZlljETMu7wYunkhCEhSUyICWl3LETPYeFMiAq7UvSYkaIlwmqrLOIfKXoAvLWWtQQ8JslzZaPYVFUcQECcF5kHj/SwhO/8J9ocb/gDegNM4+nUNUbmksxT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=npTm5TEV; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37F4D374A1E
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 16:04:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=85.215.255.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791648246; cv=pass; b=IBGD/35A+F2RZkz+FTg6ckaPAcdzS0C6CtTorLCUJ+TugLIQQnhfxSFsQujeFh4kxD8h/pIUKQ28Ume9dAtfYvQPDiSvf/zktlNLVcGthUBPU29O3/NRNO7re1/26R3RTd3TFSdZdK6OW9gGzJS2dHntANWlYmSWplDpYXITJY8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791648246; c=relaxed/simple;
+	bh=0jFOKyrTlsyR/l5U9gLW4SzEpIFllXJgxTkqfgC040M=;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=Ei4+Ww+tQKTCUzQkf19ZsnqOLqWm+yxGEBlg+9etxPAEhIQpJgAEXfqwT/lXhOKTm9m/NtsKVqY0MgBrBcsr5BMZLVTS0i1QchGFYeRr36DajAOpCiP9+h73BnGYPTo/53tzkUEajvktXmi1f6v5a4nCd6LK36Da24zqsMmpOtg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xenosoft.de; spf=none smtp.mailfrom=xenosoft.de; dkim=pass (2048-bit key) header.d=xenosoft.de header.i=@xenosoft.de header.b=Frpi7HjM; dkim=permerror (0-bit key) header.d=xenosoft.de header.i=@xenosoft.de header.b=BC3njdNb; arc=pass smtp.client-ip=85.215.255.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xenosoft.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=xenosoft.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="npTm5TEV"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48afbd2c386so310696f8f.3
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 09:01:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791648109; x=1792252909; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MEIQwNWMcMY7HhQDtjEWtbdNYuCPb8sPCT17bZmYgvk=;
-        b=npTm5TEVWD0nmpjY9pVMJRTtKdSreUOgjWhlzXsl7ts1IujCYWa4EdocjF6wCNvIxC
-         +R2W5x/FJwGcn5kHgKpHD8Px26I2Pu57rV5xNjbzVM9riFXItyAbJ1KVQpdYNOUkcgVj
-         mCTvERjo1jZeCvtBr2/Oh7YU6H63Qev4/6UvJDHTV0IdZ0fpq1t5bgq99T5O1pO84RN8
-         cGMUqr2CDjguq6zCTttHHhLPe5bgajgvqhqsI7739UUenDl+XOo1j0Wl8cc5ASQkwJtf
-         cbgUhPQNCIXQRoSck7oxXmcvCuvf+a+m9Knjhlmj5MbHw89U9FFXqLpK3VuX9+qrlkGD
-         Xucg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791648109; x=1792252909;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MEIQwNWMcMY7HhQDtjEWtbdNYuCPb8sPCT17bZmYgvk=;
-        b=kv31KIHc8NKSEr1RuZE0Iy5dqULjxvXHmzpTWnxY8SNkgk+Ts6CwfuBRiUfogxDuFA
-         Ta5/MVGrlPn4YEQxanZ2LDlkFXT1dm0iOdOUPGAPVZiU/il/OP00arZJs3MbDi6hUC6A
-         R5LJZ/Nk0vqiD8opzrtYpVr3DhOi3Mg1xFHvEQxI1KQgoulBwhcVcrm5MYOzn6B7pCp6
-         KukCimYS2SssGoCEksIgrEUeUTLp/dQ5qVyG9Mzd+kQ6EHTrcW5vspaqgxNavvWLuDY8
-         mdQSoWWmzF7IzDZ8P/2todf8X+6xTjWtfVHjW9fSlmgIra2ToCbBk1ElfXi/ljARsIiV
-         9/zg==
-X-Forwarded-Encrypted: i=1; AKwUvBy8kNk6O7/TKw0JCxc4/cDGIUfcbTdXGjn41+iRcdjalWP7IYAsd/ZW6n3gtOdvUsGePrOMW2sbctXO2Lk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKFVryOfaoACc13TF8Wi5wo+zf5NsshhYe34NmcC1lNg7YivYO0
-	NEuYUESYVRBGmVsQWtlXCAD8dNEVZHPnJ9DOepIJuLYbVIiV80yy7Afj
-X-Gm-Gg: AYBFou3ZyGwenRjdVChZl25tG65tPy4yccx6oQpREcD4qy/haGiYyFeIee88n2z/pls
-	LeznVZd3RfR2IafnvvscV4PDj12B2KWV9FpPctwbnp4MxMHzKJ+Ybei+XvDc4LdWkCxEipg0E64
-	N5qOrmMUt1Ic8w9vE8rE0zZpAEdx62+gd1TxlYqrAlNSs0l8aeWVRgsEaRMjVDAVll/kwKPALNv
-	4vu8x7KyVSDQyswZFqXBGF9QE0wPwSSt/eY/07SOrtduxdCTQiXFJtgfMZmGZdLAq16C+97Xd95
-	9GDny9yA5VzvulbkVsGQECH7ftanyiVb5qYcip8BvE5Byq0tBqGybCjYm9O5qTmveI68xMiqR68
-	/UKy4UsYSXZUgm3XKrWgWPcC5DoYES/pgiHI8ecsMlaSu0RTdQMQw/1Au2GSqAqx9vnYX+RaQcK
-	57+jnuqCt/Z0gdcVWR1NMurQE/MqB431Bjql+VHOROb1Ef4yQwwKKrgN9kgOzTUoOXZw==
-X-Received: by 2002:a05:6000:184e:b0:488:8904:cf19 with SMTP id ffacd0b85a97d-48dbaceb60cmr10490477f8f.10.1791648108898;
-        Sat, 10 Oct 2026 09:01:48 -0700 (PDT)
-Received: from luca-vm.lan ([154.61.61.58])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9ac6a91sm8579603f8f.41.2026.10.10.09.01.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 09:01:48 -0700 (PDT)
-From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-To: linux-mediatek@lists.infradead.org
-Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH] clk: mediatek: clk-mt8173-apmixedsys: Invoke platform_set_drvdata on probe
-Date: Sat, 10 Oct 2026 18:01:30 +0200
-Message-ID: <20261010160134.112136-1-l.scorcia@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=xenosoft.de header.i=@xenosoft.de header.b="Frpi7HjM";
+	dkim=permerror (0-bit key) header.d=xenosoft.de header.i=@xenosoft.de header.b="BC3njdNb"
+ARC-Seal: i=1; a=rsa-sha256; t=1791648181; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=I0/tEQDH63gdnc/RHpijRQd2irgTXY2u5sdn4FaZWi/Bi4YDfmZLyu56EbJ7FxZtx1
+    va4juYfqzke8sMoTl90NpHsyNJDxVfIXGnla/UHcFo04dpRPuzjMON9SSR/BvMIs8B2Q
+    CaXljBwhyBFNfRVBcLM/OMoTTIUUuAzRjCeHAJPNXHijNEQ6zUqe5DPu2bPAUGc2Vakk
+    v3rpGp/3qSuU0G3dcJ82LtMmcx70noyjCNFVF3gZ/ET6jrJlp7qvbTkJnyGePET7rJSO
+    /5emxJnzcEv5xX9emf1uXN7nnO7qeFGXfR7DD7CtNj18pEUHon0z5xbNGsVfJrudtsZq
+    ISVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1791648181;
+    s=strato-dkim-0002; d=strato.com;
+    h=In-Reply-To:Date:Message-ID:From:References:Cc:To:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=8Dn09naFX34dB8eLy8oKRKU9r7nHmJhKKpa22bIqJYs=;
+    b=sAFroKuwVFLrJxOCGSLp+vyADD55tBJTELb6jXK46xgCxZnAjbm5/eOilaIWJ+nSJk
+    dS86GiZA4Zl/XWt4hfg2QNAd2WitIpL1DMCiaWm+x7ifOzxnfbNlQa93HSxV7aFtgYta
+    jJkiofONFNbQIogG2p8vhAQS+GLGhckBm3aYIkd1Zm+XLsUfGYog4T1tDKKyq+4KUori
+    BzICd6VGFJ9xEMyXfZ+sSObHWPpjzIn9GLYuNkzxfyV0Us4ujZF4L57E+vlUvIqtz6Jn
+    u0UY4uW6yypZAXs/rnalyiq70DFQVA6FdWsSpzC0sowD8NFfbEdrk50RRsnkV92peyh2
+    VqQw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1791648181;
+    s=strato-dkim-0002; d=xenosoft.de;
+    h=In-Reply-To:Date:Message-ID:From:References:Cc:To:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=8Dn09naFX34dB8eLy8oKRKU9r7nHmJhKKpa22bIqJYs=;
+    b=Frpi7HjM00W/fu4y5Vj5szP9PeuCe3/CewrtwPBJZ9FdD/RMnImDivVPF6FzwIxa3a
+    Ve4kSmUrWUG3Q+Yhv9Gr5SMiqJqz8U2F/OqoKsGST76Rw6y4Y1VaElX6obs8YKxF3TL2
+    GtPdkVeRHS9aLbtYODUXdNatzLU0MdK9ppBmL2GAzaxGv25PozTtv+2dfMONchzOqRq2
+    y0+0cllknQtsv9rpDbpBtfM3niYOgvFFJii4FgB2/loleIOhqFcNuWiOWFtvn81E0RLq
+    LQ2UIuEfv1DQkMRNo2KGMpSRHUumZtMnykV+agf/bty0cOg7OsLmXFSKBLZA0b8Lq6RG
+    JVMQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1791648181;
+    s=strato-dkim-0003; d=xenosoft.de;
+    h=In-Reply-To:Date:Message-ID:From:References:Cc:To:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=8Dn09naFX34dB8eLy8oKRKU9r7nHmJhKKpa22bIqJYs=;
+    b=BC3njdNbFvBiKxTqU7OxtDyrx9RW8QnUoDN4SmmDObwTIEO9owv2/fYnDvRjuhB9VQ
+    /pQsIWyb0XOWzkRXDQCw==
+X-RZG-AUTH: ":L2QefEenb+UdBJSdRCXu93KJ1bmSGnhMdmOod1DhGN0rBVhd9dFr4thIFiqT9BURIC+m7Xc="
+Received: from void-ppc.a-eon.tld
+    by smtp.strato.de (RZmta 55.6.2 DYNA|AUTH)
+    with ESMTPSA id e0463b29AG30iMc
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Sat, 10 Oct 2026 18:03:00 +0200 (CEST)
+Subject: Re: [PATCH] Connecting the SB600's i8259 controller rather in
+ pasemi's pci.c than in pasemi's setup.c.
+To: Philip Li <philip.li@intel.com>
+Cc: kernel test robot <lkp@intel.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ "(open list:LINUX FOR POWERPC \\(32-BIT AND 64-BIT\\))"
+ <linuxppc-dev@lists.ozlabs.org>, linux-kernel@vger.kernel.org,
+ oe-kbuild-all@lists.linux.dev, "R.T.Dickinson" <rtd2@xtra.co.nz>,
+ Darren Stevens <darren@stevens-zone.net>,
+ Damien Stewart <hypexed@yahoo.com.au>, Christian Zigotzky <info@xenosoft.de>
+References: <20260701125941.906-2-chzigotzky@xenosoft.de>
+ <202608142355.4AeDorvg-lkp@intel.com>
+ <5ad17e60-7c02-2cd9-7cad-0c14896b8f3d@xenosoft.de>
+ <aoFPwEi0iQRSmmSu@rli9-mobl>
+From: Christian Zigotzky <chzigotzky@xenosoft.de>
+Organization: A-EON Open Source
+Message-ID: <0a1c01c3-d50b-90eb-6736-16628ed18099@xenosoft.de>
+Date: Sat, 10 Oct 2026 18:02:59 +0200
+X-Mailer: BrassMonkey/34.3.2.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <aoFPwEi0iQRSmmSu@rli9-mobl>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The remove function for mt8173-apmixedsys needs drvdata to correctly
-unregister apmixedsys clocks, but the probe function never calls
-platform_set_drvdata. Add the missing call to platform_set_drvdata on
-probe success.
+On 08/16/2026 07:50 AM, Philip Li wrote:
+> On Sat, Aug 15, 2026 at 11:56:56AM +0200, Christian Zigotzky wrote:
+>> On 14/08/26 17:42, kernel test robot wrote:
+>>> Hi Christian,
+>>>
+>>> kernel test robot noticed the following build warnings:
+>>>
+>>> [auto build test WARNING on powerpc/next]
+>>> [also build test WARNING on powerpc/fixes linus/master v7.2-rc7
+>> next-20260813]
+>>> [If your patch is applied to the wrong git tree, kindly drop us a note.
+>>> And when submitting patch, we suggest to use '--base' as documented in
+>>> https://git-scm.com/docs/git-format-patch#_base_tree_information]
+>>>
+>>> url: https://github.com/intel-lab-lkp/linux/commits/Christian-Zigotzky/Connecting-the-SB600-s-i8259-controller-rather-in-pasemi-s-pci-c-than-in-pasemi-s-setup-c/20260813-054214
+>>>
+>>> All warnings (new ones prefixed by >>):
+>>>
+>>>>> arch/powerpc/platforms/pasemi/setup.c:217:6: warning: no previous
+>> prototype for function 'nemo_init_IRQ' [-Wmissing-prototypes]
+>>
+>> This is the old patch.
+> Sorry about this meaningless report, we will improve the bot to check
+> new patches to avoid such report.
+>
+When will the patch be integrated into the kernel? Would it be possible 
+to integrate the patch into kernel 7.4?
+Yesterday I adapted the patch for the stable long-term kernel 6.12.
 
-Fixes: 4c02c9af3cb9 ("clk: mediatek: mt8173: Break down clock drivers and allow module build")
-Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
----
-This issue was identified by Sashiko while I was working on the mt8167
-apmixedsys, but it is present on the current mt8173 driver too.
+Link to the patch for the kernel 6.12: 
+https://raw.githubusercontent.com/chzigotzky/kernels/refs/heads/6_12/patches/X1000/pas_pci_init_v6.patch
 
- drivers/clk/mediatek/clk-mt8173-apmixedsys.c | 2 ++
- 1 file changed, 2 insertions(+)
+-- Christian
 
-diff --git a/drivers/clk/mediatek/clk-mt8173-apmixedsys.c b/drivers/clk/mediatek/clk-mt8173-apmixedsys.c
-index d7d416172ab3..65dc4489a09c 100644
---- a/drivers/clk/mediatek/clk-mt8173-apmixedsys.c
-+++ b/drivers/clk/mediatek/clk-mt8173-apmixedsys.c
-@@ -179,6 +179,8 @@ static int clk_mt8173_apmixed_probe(struct platform_device *pdev)
- 	if (r)
- 		goto unregister_ref2usb;
- 
-+	platform_set_drvdata(pdev, clk_data);
-+
- 	return 0;
- 
- unregister_ref2usb:
 -- 
-2.43.0
+Sent with BrassMonkey 34.3.2.1 (https://github.com/chzigotzky/Web-Browsers-and-Suites-for-Linux-PPC/releases/tag/BrassMonkey_34.3.2.1)
 
