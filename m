@@ -1,36 +1,36 @@
-Received: from e234-57.smtp-out.ap-northeast-1.amazonses.com (e234-57.smtp-out.ap-northeast-1.amazonses.com [23.251.234.57])
+Received: from e234-50.smtp-out.ap-northeast-1.amazonses.com (e234-50.smtp-out.ap-northeast-1.amazonses.com [23.251.234.50])
 	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61B74582EF;
-	Sat, 10 Oct 2026 16:57:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.251.234.57
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF8EB358363;
+	Sat, 10 Oct 2026 16:57:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.251.234.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791651474; cv=none; b=s9yVS9vfC+2i37Xq6sPes9ExR7zrBgZ/gGo+wQhktA54IZrvv/BYiayXcpLjzd2reSK6tzwT+eKCByu4phgFqi5oA/impYdnPTweR8htW4TFQOzyKzYXAkY+ZH2DaZLRLIN45/+TaYPNUd8YQGzXagVjweI+fGJWiTNFMQMSn3I=
+	t=1791651472; cv=none; b=BdL3mHRIltpsSFystgZmdQrwxUks2YZ03y0P+1jZH9n45KXZPUQ4iPZg76aWOfVL05nNK5wXnXlhLH/qVhryVrqM3usCkgpN3QY1mX8Rg7nCUVqVDQPrLHLu6T8lVzOiENRJxfKSeLHQX1ZVz9YOZkenY4k+zkcb4WNnWl8h1Cs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791651474; c=relaxed/simple;
-	bh=R101s1JAm81QfOw00PtFuU3yhRQhQAZva33Ah/p0Lbg=;
+	s=arc-20240116; t=1791651472; c=relaxed/simple;
+	bh=gl9E/eULQsI1LLgxBgVzyQSgzI0ksL0gWplAmGF1MGk=;
 	h=In-Reply-To:From:To:Cc:Subject:Message-ID:Date:MIME-Version:
-	 Content-Type; b=Ey6wU8ezPKA6HjdvJPQF3mgWjsWcFBl77LBZ8mCr1CDxyugzLc1lT3kJWPtmPFfZBndeuhDXOODu8ElLktVKj+XJwcGrLG2s2J2gGT+OY0fXsBP8pgf94ewUYgclJdFbeHltn5+POF6rUUuzM6igzg9oBAu9jQu5hzgeyFuGFA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz; spf=pass smtp.mailfrom=send.fqwqf.xyz; dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b=ruxRkX/J; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=RRBx8yzg; arc=none smtp.client-ip=23.251.234.57
+	 Content-Type; b=sEzZ9QdazNom7SakcbzLzYJd6Ut3eFmz3PvDu5qbRxf6wmy5band7s4PAvFl5vpgFn+EN8lfpAF7ZNggO4g1GnCNZTGUMhH/3mVGd18MTRvQBi5SMbuWCX3HRCyUstYs1CSLd8inSE9pmltS5iOOyZ/lCZp7a/TKr0CkPYPZYRw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz; spf=pass smtp.mailfrom=send.fqwqf.xyz; dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b=stYssw6o; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=DrgM0Qyq; arc=none smtp.client-ip=23.251.234.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.fqwqf.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b="ruxRkX/J";
-	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="RRBx8yzg"
+	dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b="stYssw6o";
+	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="DrgM0Qyq"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
-	d=fqwqf.xyz; t=1791651471;
+	d=fqwqf.xyz; t=1791651469;
 	h=In-Reply-To:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
-	bh=R101s1JAm81QfOw00PtFuU3yhRQhQAZva33Ah/p0Lbg=;
-	b=ruxRkX/JiSyDV/SuBKfG4ouwheV5UFzjDZu5ycGQg5IxrW5YeDEBPGONF2QTQDVn
-	q/uDdqwcc29h1xBnjSEsrEYVt623ZSd0BvpvsB8zS8WWs6H31IIf0/Yk6T/snbxG5f2
-	Hwg5Qb9wJ7hdDGZTigoW5lZxq16NMWsBPL0CDnrc=
+	bh=gl9E/eULQsI1LLgxBgVzyQSgzI0ksL0gWplAmGF1MGk=;
+	b=stYssw6o2hHkim1nMyyZItARI+i1L0hV0oTW4AsfAtCL5W6tywEg3qwbmFGWRQRq
+	rN+5+1a/4Yw25UziGw3IHVS7oH8g1rHw1CXCFVLYwmAqixtikfOJfGvsciA1YjbF354
+	lKPV+EamYBZ2K9K+/Gq5fjvsXdxPC86GUsF1dq8E=
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1791651471;
+	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1791651469;
 	h=In-Reply-To:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
-	bh=R101s1JAm81QfOw00PtFuU3yhRQhQAZva33Ah/p0Lbg=;
-	b=RRBx8yzgP8QsRQP5rwsLiYYrRhlM4pA88X8hZakqJpqNGrl1tP6+rdZvJQr8KkAy
-	t0WSnurEq4G183AXg7Ahxc5EHBfkHmQlt1qZOYYmluA8nZ/L9YzXnBh5dirlT1hBpjN
-	9iXXSkEHETv8i45AbYuJ57XUuWwnfaYbuz6cCgRo=
+	bh=gl9E/eULQsI1LLgxBgVzyQSgzI0ksL0gWplAmGF1MGk=;
+	b=DrgM0QyqSYQr5OvXWA1CqTcpne3+ItcxgCrfUNGbtKI7+33ll3lJzhYL0n3Xcfvv
+	fUuAv5HquqDyVBiAmM4fM+t7FxZMssGKz5MBV0XG7KGJC4ulytqLDixOhY4EGldrgP3
+	1CvMc6DgGhOFz8Zfl5jiwCcofjJ8omvJ4X5kZFdc=
 In-Reply-To: <20261010165732.43465-1-fqwqf@fqwqf.xyz>
 X-Mailer: git-send-email 2.53.0
 From: fQwQf <fqwqf@fqwqf.xyz>
@@ -40,11 +40,10 @@ Cc: jikos@kernel.org, bentiss@kernel.org, dmitry.torokhov@gmail.com,
 	daleyo@gmail.com, broonie@kernel.org, linux-spi@vger.kernel.org, 
 	devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
 	conor+dt@kernel.org
-Subject: [RFC PATCH 6/6] HID: spi-hid: expose readiness for reset
- diagnostics
-Message-ID: <010601a126bfe036-2b296fdb-9206-47f7-9089-99c1d09b240e-000000@ap-northeast-1.amazonses.com>
+Subject: [RFC PATCH 2/6] HID: spi-hid: add spi-mem quad-SPI transfers
+Message-ID: <010601a126bfd85a-76e28d13-b16c-4026-b285-c2c874aa5c14-000000@ap-northeast-1.amazonses.com>
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 10 Oct 2026 16:57:51 +0000
+Date: Sat, 10 Oct 2026 16:57:49 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,124 +52,545 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Feedback-ID: :1.ap-northeast-1.6BGMgStFQE7EJYq5syaCRzdneEHVt/+DAaGDrqUmDs9QLO4/SllUBZ3fHvnZ8rcAX/3IjUyTRgi5JFZsWrikFHwlPJqCkqEMlxDFM4JXh+ycxH/J5Tudg5bGdz6h4331g1L1EFsGR8kuYNfGLsrxz4Nym4YXoPcZxeVkrHry4Zx21n8vEVLEjc7s+OCM8PU9:1.ap-northeast-1.DTXDV/V9GPBWozcllKo8innbNB2qs2O/3F8XZSzd9ZM=:AmazonSES
-X-SES-Outgoing: 2026.10.10-23.251.234.57
+X-SES-Outgoing: 2026.10.10-23.251.234.50
 
-Retain the read-only readiness status used to correlate descriptor
-refresh and hidraw reconnection with iptsd logs. Document it alongside
-the existing bus, regulator and device-reset counters.
+Use explicit opcode, address, dummy and data phases for the 1-4-4 reads
+and 1-4-4 writes used by the Romulus touchpad. Four quad dummy bytes
+provide the eight read dummy clocks. The output data phase excludes the
+opcode and address already supplied to spi-mem.
 
-Limit the Romulus maintenance entry to its binding and ABI documentation.
+Register the frontends =
+through spi-mem so controllers exposing memory
+operations can execute the =
+transactions. Single-lane devices retain
+their ordinary spi_sync/spi_write =
+transfers. Reject bus-width
+combinations this transport cannot encode.
+
+Only quad writes require the four-byte opcode/address prefix; preserve
+the existing short-write behavior for single-lane SPI.
+
+Controllers do not need mem_ops to bind these frontends. Single-lane
+transfers bypass spi_mem_exec_op(); for supported memory operations,
+spi-mem can fall back to ordinary SPI messages when mem_ops are absent.
+The new SPI_MEM Kconfig dependency remains required.
 
 Signed-off-by: Jizhou Tong <fqwqf@fqwqf.xyz>
 ---
- ...=
-/ABI/testing/sysfs-bus-spi-devices-spi-hid | 30 +++++++++++++++++++
- MAINTAINERS                                   |  7 +++++
- drivers/hid/spi-hid/spi-hid-core.c            | 11 +++++++
- 3 files changed, 48 insertions(+)
- create mode 100644 =
-Documentation/ABI/testing/sysfs-bus-spi-devices-spi-hid
+ drivers/hid/spi-hid/Kconf=
+ig        |  2 +-
+ drivers/hid/spi-hid/spi-hid-acpi.c | 28 ++++++-----
+ drivers/hid/spi-hid/spi-hid-core.c | 80 ++++++++++++++++++++++--------
+ drivers/hid/spi-hid/spi-hid-core.h |  1 +
+ drivers/hid/spi-hid/spi-hid-of.=
+c   | 35 ++++++-------
+ drivers/hid/spi-hid/spi-hid.h      |  6 +--
+ 6 files changed, 96 insertions(+), 56 deletions(-)
 
-diff --git a/Documentation/ABI/testing/sysfs-bus-spi-devices-spi-hid =
-b/Documentation/ABI/testing/sysfs-bus-spi-devices-spi-hid
-new file mode 100644
-index 0000000000000000000000000000000000000000..=
-5c55748a082e028a2fb7a0aadbde5d92eed50950
---- /dev/null
-+++ b/Documentation/ABI/testing/sysfs-bus-spi-devices-spi-hid
-@@ -0,0 +1,30 @@
-+What:		/sys/bus/spi/devices/.../ready
-+Date:		October 2026
-+Contact:	Jizhou Tong <fqwqf@fqwqf.xyz>
-+Description:
-+		Read-only generic HID SPI readiness: "ready" or "not ready".
-+		The device must be ready and opened before input is delivered.
-+
-+What:		/sys/bus/spi/devices/.../bus_error_count
-+Date:		October 2026
-+Contact:	Jizhou Tong <fqwqf@fqwqf.xyz>
-+Description:
-+		Read-only pair "COUNT (ERROR)". COUNT accumulates transport
-+		failures and invalid input headers since bind and may wrap.
-+		ERROR is the last such negative errno. The two fields are
-+		sampled independently. Unlike the previous downstream SL7
-+		driver, a successful transfer does not clear this counter.
-+
-+What:		/sys/bus/spi/devices/.../regulator_error_count
-+Date:		October 2026
-+Contact:	Jizhou Tong <fqwqf@fqwqf.xyz>
-+Description:
-+		Read-only pair "COUNT (ERROR)" of accumulated regulator
-+		failures and the last errno. Fields are sampled independently.
-+
-+What:		/sys/bus/spi/devices/.../device_initiated_reset_count
-+Date:		October 2026
-+Contact:	Jizhou Tong <fqwqf@fqwqf.xyz>
-+Description:
-+		Read-only unsigned count of reset responses processed while
-+		the generic HID ready flag was set. Starts at zero on bind.
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c52ec2d7d3c12ace1f6e2f6012a328=
-44bd8f364e..858ec47345400b0cf751e7c8cc13140b462c701a 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -11626,6 +11626,13 @@ L:	=
-linux-input@vger.kernel.org
- S:	Maintained
- F:	drivers/hid/hid-nvidia-shiel=
-d.c
+diff --git a/drivers/hid/spi-hid/Kconfig b/drivers/hid/spi-hid/Kconfig
+index 656dbda1c5d873e5bc6c87dda1fbe81460425d30..c84da18ab82819b019cd58a2d3e=
+b9a7b0f6417b0 100644
+--- a/drivers/hid/spi-hid/Kconfig
++++ b/drivers/hid/spi-hid/Kconfig
+@@ -6,7 +6,7 @@
+ menuconfig SPI_HID
+ 	tristate "SPI HID support"
+ 	default y
+-	depends on SPI
++	depends on SPI && SPI_MEM
 =20
-+HID OVER SPI ROMULUS13 INTEGRATION
-+M:	Jizhou Tong <fqwqf@fqwqf.=
-xyz>
-+L:	linux-input@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/ABI/testing/sysfs-bus-spi-devices-spi-hid
-+F:	Documentation/devicetree/bindings/input/microsoft,romulus13-touchpad.=
-yaml
-+
- HID PHOENIX RC FLIGHT CONTROLLER
- M:	Marcus Folkesson <marcus.=
-folkesson@gmail.com>
- L:	linux-input@vger.kernel.org
+ if SPI_HID
+=20
+diff --git =
+a/drivers/hid/spi-hid/spi-hid-acpi.c b/drivers/hid/spi-hid/spi-hid-acpi.c
+index a52cafe86c052f0ab8c4761c43355969eb689157..790342073e6f53d61a193429094=
+e965c7819aeda 100644
+--- a/drivers/hid/spi-hid/spi-hid-acpi.c
++++ b/drivers/hid/spi-hid/spi-hid-acpi.c
+@@ -194,8 +194,9 @@ static void =
+spi_hid_acpi_sleep_minimal_reset_delay(struct spihid_ops *ops)
+ 	fsleep(1000 * conf->minimal_reset_delay_ms);
+ }
+=20
+-static int spi_hid_acpi_probe(struct spi_device *spi)
++static int spi_hid_acpi_probe(struct spi_mem *mem)
+ {
++	struct spi_device *spi =3D mem->spi;
+ 	struct device *dev =3D &spi->dev;
+ 	struct acpi_device *adev;
+ 	struct spi_hid_acpi_config *config;
+@@ -232,7 +233,7 @@ static int spi_hid_acpi_probe(struct spi_device *spi)
+ 		return error;
+ 	}
+=20
+-	return spi_hid_core_probe(spi, &config->ops, =
+&config->property_conf);
++	return spi_hid_core_probe(mem, &config->ops, =
+&config->property_conf);
+ }
+=20
+ static const struct acpi_device_id =
+spi_hid_acpi_match[] =3D {
+@@ -242,20 +243,21 @@ static const struct =
+acpi_device_id spi_hid_acpi_match[] =3D {
+ };
+ MODULE_DEVICE_TABLE(acpi, =
+spi_hid_acpi_match);
+=20
+-static struct spi_driver spi_hid_acpi_driver =3D =
+{
+-	.driver =3D {
+-		.name	=3D "spi_hid_acpi",
+-		.owner	=3D THIS_MODULE,
+-		.pm	=3D &spi_hid_core_pm,
+-		.acpi_match_table =3D spi_hid_acpi_match,
+-		.probe_type =3D PROBE_PREFER_ASYNCHRONOUS,
+-		.dev_groups =3D =
+spi_hid_groups,
++static struct spi_mem_driver spi_hid_acpi_driver =3D {
++	.spidrv =3D {
++		.driver =3D {
++			.name =3D "spi_hid_acpi",
++			.pm =3D &spi_hid_core_pm,
++			.acpi_match_table =3D spi_hid_acpi_match,
++			.probe_type =3D PROBE_PREFER_ASYNCHRONOUS,
++			.dev_groups =3D =
+spi_hid_groups,
++		},
+ 	},
+-	.probe		=3D spi_hid_acpi_probe,
+-	.remove		=3D spi_hid_core_remove,
++	.probe =3D spi_hid_acpi_probe,
++	.remove =3D spi_hid_core_remove,
+ };
+=20
+-module_spi_driver(spi_hid_acpi_=
+driver);
++module_spi_mem_driver(spi_hid_acpi_driver);
+=20
+ MODULE_DESCRIPTION("HID over SPI ACPI transport driver");
+ MODULE_AUTHOR("Angela Czubak <aczubak@google.com>");
 diff --git a/drivers/hid/spi-hid/spi-hid-core.c b/drivers/hid/spi-hid/spi-h=
 id-core.c
-index bd27bc3ea34c5fa65a903dd204800dbdafe3a7bc..=
-167ee347588fd6248c647e8d970324e96d99d8a8 100644
+index 65a1cd2c72e8025f50a188e17afd2fa5b359abb1..=
+9d02c156fcd641e9c944c0dfe08b5aad57a97f6a 100644
 --- =
 a/drivers/hid/spi-hid/spi-hid-core.c
 +++ b/drivers/hid/spi-hid/spi-hid-core=
 .c
-@@ -1568,6 +1568,16 @@ static struct hid_ll_driver spi_hid_ll_driver =3D=
+@@ -216,7 +216,20 @@ static int spi_hid_input_sync(struct spi_hid *shid,=
+ void *buf, u16 length,
+ 				 shid->input_transfer[0].len,
+ 				 shid->input_transfer[1].rx_buf, 0, 0);
+=20
+-	error =3D =
+spi_sync(shid->spi, &shid->input_message);
++	if (shid->spi->mode & =
+SPI_RX_QUAD) {
++		struct spi_mem_op op =3D
++			SPI_MEM_OP(SPI_MEM_OP_CMD(sh=
+id->conf->read_opcode, 1),
++				   SPI_MEM_OP_ADDR(3, is_header ?
++					shid->conf->input_report_header_address :
++					=
+shid->conf->input_report_body_address, 4),
++				   SPI_MEM_OP_DUMMY(4, 4),
++				   SPI_MEM_OP_DATA_IN(length, rx, 4));
++
++		error =3D =
+spi_mem_exec_op(shid->mem, &op);
++		shid->input_message.status =3D error;
++	} else {
++		error =3D spi_sync(shid->spi, &shid->input_message);
++	}
+ 	if (error) {
+ 		dev_err(&shid->spi->dev, "Error starting sync transfer: =
+%d\n", error);
+ 		shid->bus_error_count++;
+@@ -232,11 +245,24 @@ static int=
+ spi_hid_output(struct spi_hid *shid, const void *buf, u16 length)
  {
- 	.raw_request =3D spi_hid_ll_raw_request,
+ 	int error;
+=20
+-	if (length > shid->xfer_size)
++	if (length > =
+shid->xfer_size ||
++	    ((shid->spi->mode & SPI_TX_QUAD) && length < 4))
+ 		return -EMSGSIZE;
+=20
+-	memcpy(shid->xfer_buf, buf, length);
+-	error =3D spi_write(shid->spi, shid->xfer_buf, length);
++	if (shid->spi->mode & SPI_TX_QUAD) {
++		struct spi_mem_op op =3D
++			SPI_MEM_OP(SPI_MEM_OP_CMD(shid->conf->write_opcode, 1),
++				   SPI_MEM_OP_ADDR(3, shid->conf->output_report_address, 4),
++				   SPI_MEM_OP_NO_DUMMY,
++				   SPI_MEM_OP_DATA_OUT(length - 4, =
+shid->xfer_buf, 4));
++
++		/* spi-mem supplies the opcode and address =
+outside the data phase. */
++		memcpy(shid->xfer_buf, (const u8 *)buf + 4, =
+length - 4);
++		error =3D spi_mem_exec_op(shid->mem, &op);
++	} else {
++		memcpy(shid->xfer_buf, buf, length);
++		error =3D spi_write(shid->spi, =
+shid->xfer_buf, length);
++	}
+=20
+ 	if (error) {
+ 		shid->bus_error_count++;
+@@ -1287,7 +1313,7 @@ static void spi_hid_find_max_report(struct hid_device=
+ *hid, u32 type,
+ static int spi_hid_ll_start(struct hid_device *hid)
+ {
+ 	struct spi_device *spi =3D hid->driver_data;
+-	struct spi_hid *shid =3D =
+spi_get_drvdata(spi);
++	struct spi_hid *shid =3D spi_mem_get_drvdata(spi_ge=
+t_drvdata(spi));
+ 	int error =3D 0;
+ 	/*
+ 	 * HID_MIN_BUFFER_SIZE is the =
+minimum transport buffer size, not a
+@@ -1319,7 +1345,7 @@ static void =
+spi_hid_ll_stop(struct hid_device *hid)
+ static int spi_hid_ll_open(struct =
+hid_device *hid)
+ {
+ 	struct spi_device *spi =3D hid->driver_data;
+-	struct spi_hid *shid =3D spi_get_drvdata(spi);
++	struct spi_hid *shid =3D=
+ spi_mem_get_drvdata(spi_get_drvdata(spi));
+=20
+ 	set_bit(SPI_HID_STARTED, =
+&shid->flags);
+ 	return 0;
+@@ -1328,7 +1354,7 @@ static int =
+spi_hid_ll_open(struct hid_device *hid)
+ static void =
+spi_hid_ll_close(struct hid_device *hid)
+ {
+ 	struct spi_device *spi =3D =
+hid->driver_data;
+-	struct spi_hid *shid =3D spi_get_drvdata(spi);
++	struct spi_hid *shid =3D spi_mem_get_drvdata(spi_get_drvdata(spi));
+=20
+ 	clear_bit(SPI_HID_STARTED, &shid->flags);
+ 	shid->reset_attempts =3D 0;
+@@ -1337,7 +1363,7 @@ static void spi_hid_ll_close(struct hid_device *hid)
+ static int spi_hid_ll_power(struct hid_device *hid, int level)
+ {
+ 	struct spi_device *spi =3D hid->driver_data;
+-	struct spi_hid *shid =3D =
+spi_get_drvdata(spi);
++	struct spi_hid *shid =3D spi_mem_get_drvdata(spi_ge=
+t_drvdata(spi));
+ 	int error =3D 0;
+=20
+ 	guard(mutex)(&shid->output_lock);
+@@ -1350,7 +1376,7 @@ static int spi_hid_ll_power(struct hid_device *hid, =
+int level)
+ static int spi_hid_ll_parse(struct hid_device *hid)
+ {
+ 	struct spi_device *spi =3D hid->driver_data;
+-	struct spi_hid *shid =3D =
+spi_get_drvdata(spi);
++	struct spi_hid *shid =3D spi_mem_get_drvdata(spi_ge=
+t_drvdata(spi));
+ 	struct device *dev =3D &spi->dev;
+ 	unsigned int rsize =3D shid->desc.report_descriptor_length;
+ 	int error, len;
+@@ -1395,7 +1421,7 @@ static int spi_hid_ll_output_report=
+(struct hid_device *hid, __u8 *buf,
+ 				    size_t len)
+ {
+ 	struct spi_device *spi =3D hid->driver_data;
+-	struct spi_hid *shid =3D =
+spi_get_drvdata(spi);
++	struct spi_hid *shid =3D spi_mem_get_drvdata(spi_ge=
+t_drvdata(spi));
+ 	struct device *dev =3D &spi->dev;
+ 	struct spi_hid_output_report report =3D {
+ 		.report_type =3D =
+OUTPUT_REPORT,
+@@ -1428,7 +1454,7 @@ static int spi_hid_ll_raw_request(stru=
+ct hid_device *hid,
+ 				  size_t len, unsigned char rtype, int reqtype)
+ {
+ 	struct spi_device *spi =3D hid->driver_data;
+-	struct spi_hid *shid =3D =
+spi_get_drvdata(spi);
++	struct spi_hid *shid =3D spi_mem_get_drvdata(spi_ge=
+t_drvdata(spi));
+ 	struct device *dev =3D &spi->dev;
+ 	int ret;
+=20
+@@ -1490,7 +1516,7 @@ static struct hid_ll_driver spi_hid_ll_driver =3D {
+ static ssize_t bus_error_count_show(struct device *dev,
+ 				    struct device_attribute *attr, char *buf)
+ {
+-	struct spi_hid *shid =3D dev_get_drvdata(dev);
++	struct spi_hid *shid =3D=
+ spi_mem_get_drvdata(dev_get_drvdata(dev));
+=20
+ 	return sysfs_emit(buf, =
+"%u (%d)\n",
+ 			  shid->bus_error_count, shid->bus_last_error);
+@@ -1501,7 +1527,7 @@ static ssize_t regulator_error_count_show(struct =
+device *dev,
+ 					  struct device_attribute *attr,
+ 					  char *buf)
+ {
+-	struct spi_hid *shid =3D dev_get_drvdata(dev);
++	struct spi_hid *shid =3D=
+ spi_mem_get_drvdata(dev_get_drvdata(dev));
+=20
+ 	return sysfs_emit(buf, =
+"%u (%d)\n",
+ 			  shid->regulator_error_count,
+@@ -1513,7 +1539,7 @@ =
+static ssize_t device_initiated_reset_count_show(struct device *dev,
+ 						 struct device_attribute *attr,
+ 						 char *buf)
+ {
+-	struct spi_hid *shid =3D dev_get_drvdata(dev);
++	struct spi_hid *shid =3D=
+ spi_mem_get_drvdata(dev_get_drvdata(dev));
+=20
+ 	return sysfs_emit(buf, =
+"%u\n", shid->dir_count);
+ }
+@@ -1644,9 +1670,10 @@ static int =
+spi_hid_register_panel_follower(struct spi_hid *shid)
+ 	return drm_panel_add_follower(dev, &shid->panel_follower);
+ }
+=20
+-int spi_hid_core_probe(struct spi_device *spi, struct spihid_ops *ops,
++int spi_hid_core_probe(struct spi_mem *mem, struct spihid_ops *ops,
+ 		       struct spi_hid_conf *conf)
+ {
++	struct spi_device *spi =3D =
+mem->spi;
+ 	struct device *dev =3D &spi->dev;
+ 	struct spi_hid *shid;
+ 	int error;
+@@ -1654,10 +1681,20 @@ int spi_hid_core_probe(struct =
+spi_device *spi, struct spihid_ops *ops,
+ 	if (spi->irq <=3D 0)
+ 		return dev_err_probe(dev, spi->irq ?: -EINVAL, "Missing IRQ\n");
+=20
++	if ((spi->mode & (SPI_RX_QUAD | SPI_TX_QUAD)) &&
++	    (spi->mode & =
+(SPI_RX_QUAD | SPI_TX_QUAD)) !=3D
++	    (SPI_RX_QUAD | SPI_TX_QUAD))
++		return dev_err_probe(dev, -EINVAL,
++				     "Quad mode needs four lanes=
+ in both directions\n");
++
++	if (spi->mode & (SPI_RX_DUAL | SPI_TX_DUAL | =
+SPI_RX_OCTAL | SPI_TX_OCTAL))
++		return dev_err_probe(dev, -EOPNOTSUPP, =
+"Unsupported SPI bus width\n");
++
+ 	shid =3D devm_kzalloc(dev, =
+sizeof(*shid), GFP_KERNEL);
+ 	if (!shid)
+ 		return -ENOMEM;
+=20
++	shid->mem =3D mem;
+ 	shid->spi =3D spi;
+ 	shid->power_state =3D =
+HIDSPI_OFF;
+ 	shid->ops =3D ops;
+@@ -1665,7 +1702,7 @@ int =
+spi_hid_core_probe(struct spi_device *spi, struct spihid_ops *ops,
+ 	set_bit(SPI_HID_RESET_PENDING, &shid->flags);
+ 	shid->is_panel_follower =
+=3D drm_is_panel_follower(&spi->dev);
+=20
+-	spi_set_drvdata(spi, shid);
++	spi_mem_set_drvdata(mem, shid);
+=20
+ 	/* Using now populated conf let's =
+pre-calculate the read approvals */
+ 	spi_hid_populate_read_approvals(shid-=
+>conf, shid->read_approval_header,
+@@ -1726,9 +1763,10 @@ int =
+spi_hid_core_probe(struct spi_device *spi, struct spihid_ops *ops,
+ }
+ EXPORT_SYMBOL_GPL(spi_hid_core_probe);
+=20
+-void spi_hid_core_remove(struc=
+t spi_device *spi)
++int spi_hid_core_remove(struct spi_mem *mem)
+ {
+-	struct spi_hid *shid =3D spi_get_drvdata(spi);
++	struct spi_device *spi =
+=3D mem->spi;
++	struct spi_hid *shid =3D spi_mem_get_drvdata(mem);
+ 	struct device *dev =3D &spi->dev;
+ 	int error;
+=20
+@@ -1753,12 +1791,14 @@ void spi_hid_core_remove(struct spi_device *spi)
+ 		if (error)
+ 			dev_err(dev, "failed to disable regulator\n");
+ 	}
++
++	return 0;
+ }
+ EXPORT_SYMBOL_GPL(spi_hid_core_remove);
+=20
+ static int spi_hid_core_pm_suspend(struct device *dev)
+ {
+-	struct spi_hid *shid =3D dev_get_drvdata(dev);
++	struct spi_hid *shid =3D=
+ spi_mem_get_drvdata(dev_get_drvdata(dev));
+=20
+ 	if =
+(shid->is_panel_follower)
+ 		return 0;
+@@ -1768,7 +1808,7 @@ static int =
+spi_hid_core_pm_suspend(struct device *dev)
+=20
+ static int =
+spi_hid_core_pm_resume(struct device *dev)
+ {
+-	struct spi_hid *shid =3D =
+dev_get_drvdata(dev);
++	struct spi_hid *shid =3D spi_mem_get_drvdata(dev_ge=
+t_drvdata(dev));
+=20
+ 	if (shid->is_panel_follower)
+ 		return 0;
+diff --git a/drivers/hid/spi-hid/spi-hid-core.h b/drivers/hid/spi-hid/spi-h=
+id-core.h
+index 9cbe2e57400443bd68056057d08f97c39c403a70..=
+554288dd17631edc1a503755b04170c04501bcb7 100644
+--- =
+a/drivers/hid/spi-hid/spi-hid-core.h
++++ b/drivers/hid/spi-hid/spi-hid-core=
+.h
+@@ -44,6 +44,7 @@ struct spi_hid_device_descriptor {
+=20
+ /* Driver context */
+ struct spi_hid {
++	struct spi_mem *mem;
+ 	void *xfer_alloc;
+ 	u8 *xfer_buf;
+ 	size_t xfer_size;
+diff --git a/drivers/hid/spi-hid/spi-hid-of.c b/drivers/hid/spi-hid/spi-hid=
+-of.c
+index 605edecc4f7ee0423c37f0960cd4974b04ab387c..=
+51bcb1a1b2a85480044c6514890f790e2930f523 100644
+--- =
+a/drivers/hid/spi-hid/spi-hid-of.c
++++ b/drivers/hid/spi-hid/spi-hid-of.c
+@@ -175,8 +175,9 @@ static void spi_hid_of_sleep_minimal_reset_delay(struct=
+ spihid_ops *ops)
+ 	fsleep(1000 * conf->timing_data->minimal_reset_delay_ms=
+);
+ }
+=20
+-static int spi_hid_of_probe(struct spi_device *spi)
++static int spi_hid_of_probe(struct spi_mem *mem)
+ {
++	struct spi_device *spi =3D mem->spi;
+ 	struct device *dev =3D &spi->dev;
+ 	struct spi_hid_of_config *config;
+ 	int error;
+@@ -197,16 +198,11 @@ =
+static int spi_hid_of_probe(struct spi_device *spi)
+ 	if (!config->timing_data)
+ 		config->timing_data =3D &timing_data;
+=20
+-	/*
+-	 * FIXME: multi-SPI not supported. Once it is, derive the
+-	 * HID-over-SPI flags from spi->mode.
+-	 */
+-
+ 	error =3D =
+spi_hid_of_populate_config(config, dev);
+ 	if (error)
+ 		return dev_err_probe(dev, error, "Unable to populate config data\n");
+=20
+-	return spi_hid_core_probe(spi, &config->ops, &config->property_conf);
++	return spi_hid_core_probe(mem, &config->ops, &config->property_conf);
+ }
+=20
+ static const struct of_device_id spi_hid_of_match[] =3D {
+@@ -222,21 +218,22 @@ static const struct spi_device_id =
+spi_hid_of_id_table[] =3D {
+ };
+ MODULE_DEVICE_TABLE(spi, =
+spi_hid_of_id_table);
+=20
+-static struct spi_driver spi_hid_of_driver =3D {
+-	.driver =3D {
+-		.name	=3D "spi_hid_of",
+-		.owner	=3D THIS_MODULE,
+-		.pm	=3D &spi_hid_core_pm,
+-		.of_match_table =3D spi_hid_of_match,
+-		.probe_type =3D PROBE_PREFER_ASYNCHRONOUS,
+-		.dev_groups =3D =
+spi_hid_groups,
++static struct spi_mem_driver spi_hid_of_driver =3D {
++	.spidrv =3D {
++		.driver =3D {
++			.name =3D "spi_hid_of",
++			.pm =3D &spi_hid_core_pm,
++			.of_match_table =3D spi_hid_of_match,
++			.probe_type =3D PROBE_PREFER_ASYNCHRONOUS,
++			.dev_groups =3D =
+spi_hid_groups,
++		},
++		.id_table =3D spi_hid_of_id_table,
+ 	},
+-	.probe		=3D spi_hid_of_probe,
+-	.remove		=3D spi_hid_core_remove,
+-	.id_table	=3D spi_hid_of_id_table,
++	.probe =3D spi_hid_of_probe,
++	.remove =3D spi_hid_core_remove,
  };
 =20
-+static ssize_t ready_show(struct device *dev,
-+			  struct =
-device_attribute *attr, char *buf)
-+{
-+	struct spi_hid *shid =3D =
-spi_mem_get_drvdata(dev_get_drvdata(dev));
-+
-+	return sysfs_emit(buf, =
-"%s\n", test_bit(SPI_HID_READY, &shid->flags) ?
-+			  "ready" : "not =
-ready");
-+}
-+static DEVICE_ATTR_RO(ready);
-+
- static ssize_t =
-bus_error_count_show(struct device *dev,
- 				    struct device_attribute =
-*attr, char *buf)
- {
-@@ -1601,6 +1611,7 @@ static ssize_t =
-device_initiated_reset_count_show(struct device *dev,
- static DEVICE_ATTR_RO(device_initiated_reset_count);
+-module_spi_driver(spi_hid_of_dr=
+iver);
++module_spi_mem_driver(spi_hid_of_driver);
 =20
- static struct attribute *spi_hid_attrs[] =3D {
-+	&dev_attr_ready.attr,
- 	&dev_attr_bus_error_count.attr,
- 	&dev_attr_regulator_error_count.attr,
- 	&dev_attr_device_initiated_reset_count.attr,
+ MODULE_DESCRIPTION("HID over SPI OF transport driver");
+ MODULE_AUTHOR("Dmitry Antipov <dmanti@microsoft.com>");
+diff --git a/drivers/hid/spi-hid/spi-hid.h b/drivers/hid/spi-hid/spi-hid.h
+index 17b2fdf192ed2cf40db0638874112c72595fdd6d..dd3a851777a22eefa9005dc6f7a=
+18bf62c5ac6b3 100644
+--- a/drivers/hid/spi-hid/spi-hid.h
++++ b/drivers/hid/spi-hid/spi-hid.h
+@@ -7,7 +7,7 @@
+ #ifndef SPI_HID_H
+ #define SPI_HID_H
+=20
+-#include <linux/spi/spi.h>
++#include =
+<linux/spi/spi-mem.h>
+ #include <linux/sysfs.h>
+=20
+ /* struct spi_hid_conf - Conf provided to the core */
+@@ -35,10 +35,10 @@ struct spihid_ops {
+ 	void (*sleep_minimal_reset_delay)=
+(struct spihid_ops *ops);
+ };
+=20
+-int spi_hid_core_probe(struct spi_device=
+ *spi, struct spihid_ops *ops,
++int spi_hid_core_probe(struct spi_mem *mem,=
+ struct spihid_ops *ops,
+ 		       struct spi_hid_conf *conf);
+=20
+-void spi_hid_core_remove(struct spi_device *spi);
++int =
+spi_hid_core_remove(struct spi_mem *mem);
+=20
+ extern const struct =
+attribute_group *spi_hid_groups[];
+ extern const struct dev_pm_ops =
+spi_hid_core_pm;
