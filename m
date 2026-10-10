@@ -1,206 +1,100 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFFC536197B;
-	Sat, 10 Oct 2026 04:31:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31BAD3612EE;
+	Sat, 10 Oct 2026 04:35:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791606710; cv=none; b=q6VtTBcANLgZy3Q6ff/uqUc40Boz8akXK2+++WyE1R79qmuIXcja+UwEL3+BCYCjojY/deERqcNJEDMnAM/lQ1AGcXqIkrEelALnd0yRPWNgBUYKvzOJ+MFRcT7DCuQeP6vxIBXDoUX3BAXwAM3CWTxz4pOsZ6R2lWeYqL63KOw=
+	t=1791606906; cv=none; b=kFEV3EpsVRlH6n3eNh0iHyIrTyAd/ouIF3uEtZvaq0/WkAVWtdeohs03JsfkroBf38Aox37R3zQTNIPHWL9kK3R1Eaph4CM5hYlKdqpLaVDiMR9HkVjDueXslcpO+Hvam004F1b79y5DKEAjHE8feBg6scntBhvcV1/bc18Zuoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791606710; c=relaxed/simple;
-	bh=i1mDO9OXtrByT870IBFcGqKn43mp18xmYd7LU6yt6yo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uNL05jE35Qq90vcdt+LUWWKq2eDP8wtbkbKRGVwpGQEefkt8NlUi4NIZzxFVDXR8X1FKqyvr5pTzyDbEtkp5SnKv3xCt7ibe+ZACr8Ogoy8QZ82jZHZrJ9Abl8YmM7M1qvFErWHVQxVyMNKPX4550qAVAA1Q1gx2/ijLWXTU/YM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=J30N+WdQ; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791606906; c=relaxed/simple;
+	bh=80rjkX/a1IzJ7fnM47AVZQsjw6x54D+aSaJzkJW9vig=;
+	h=From:To:Cc:Subject:Mime-Version:Content-Type:Date:Message-ID:
+	 References:In-Reply-To; b=mdcQe8Amh82rfC/LTFiohGuqyd9oaV1BgZCnSgeNkh/zK7Ciqddwn47M5N6ojB3PWzXA+76FzXDk0Ujjx2efoVLw78HxBDZZkFCP42NdTuQeYsOERvbwdIhEOyZzxcs7JUfyLg2VjBaWVjhU6pX5WqN17kGbC4ynrkkRArJP//M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=KKzBh8iB; arc=none smtp.client-ip=54.92.39.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="J30N+WdQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791606709; x=1823142709;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=i1mDO9OXtrByT870IBFcGqKn43mp18xmYd7LU6yt6yo=;
-  b=J30N+WdQuaPPhyTwuLAOD7vVYKNjPr6DqxgMGGphxtdZtwvOhcH+pCXR
-   EqtXsynePxClR7VJWzs5DLG4wen+h8b2/jDXLuI9SbgiMbAq3RrtHYgKB
-   LVmTC7d7b5G2G1B2UZhl2UGOj+fzo2lQxzjnrKXJIx//a2vKPvsRMhPCM
-   TnfEyNHt/onHPY5YvAucZT/ltPEI+UPy5t9JeL/5w9FUCunCsdOS/6E8q
-   U/kV4AdiSG3UEG25TcaDTHF1aZDk7YeQAQs9msmI5YNgbY6CkrTKWlQWE
-   WgQInPN5oKRzvnmZuB+t8r9pdpCThH5YKE6OrrN9tXHBn/X0XkC1gcP0P
-   A==;
-X-CSE-ConnectionGUID: 09Y1z9t9QSC7oATAU2SU0w==
-X-CSE-MsgGUID: QkCSbozaRQW9ThXLQvcfgg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="412230"
-X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
-   d="scan'208";a="412230"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 21:31:45 -0700
-X-CSE-ConnectionGUID: 14WZTIDARDSkC7L9mP/8sg==
-X-CSE-MsgGUID: 283OkiZjSSOF8+ljcBphgA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
-   d="scan'208";a="648064"
-Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 21:31:40 -0700
-Message-ID: <7b4c79cd-848f-4472-a528-a4259a7a6882@linux.intel.com>
-Date: Sat, 10 Oct 2026 12:31:36 +0800
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="KKzBh8iB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1791606866;
+	bh=80rjkX/a1IzJ7fnM47AVZQsjw6x54D+aSaJzkJW9vig=;
+	h=From:To:Subject:Mime-Version:Date:Message-ID;
+	b=KKzBh8iBMf+JdzEG/XyK6iCJOEIc7gadGiF16LdhC8IUkLgpAza6VRka2GmvdUl14
+	 2MXlwQqFJVGZri/0F+/d9QYUYbKZ1+dzdvYjcfUZ7XVl6hyQdvqPbSsG9tl49uPLhB
+	 TO99xUpJBecHh8CnTJ+MFAij2rN8WYUeF119QW2s=
+EX-QQ-RecipientCnt: 7
+X-QQ-GoodBg: 1
+X-QQ-SSF: 00400000000000F0
+X-QQ-FEAT: D4aqtcRDiqQnft7kyUuJbd/1GndRJklzmB5VJlBX//o=
+X-QQ-BUSINESS-ORIGIN: 2
+X-QQ-Originating-IP: HeilzH7BoGic1gszdDYTeuISgSGfIaB1/TNSPZD9Zwc=
+X-QQ-STYLE: 
+X-QQ-mid: lv3gz7b-6t1791606850teb1258f8
+From: "=?utf-8?B?V2VudGFvIEd1YW4=?=" <guanwentao@uniontech.com>
+To: "=?utf-8?B?5YWz5paH5rab?=" <guanwentao@uniontech.com>, "=?utf-8?B?U2FzaGEgTGV2aW4=?=" <sashal@kernel.org>, "=?utf-8?B?a2FydGlrZXk0MDY=?=" <kartikey406@gmail.com>
+Cc: "=?utf-8?B?am9oYW5uZXM=?=" <johannes@sipsolutions.net>, "=?utf-8?B?bGludXgtd2lyZWxlc3NAdmdlci5rZXJuZWwub3Jn?=" <linux-wireless@vger.kernel.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
+Subject: Re:[PATCH 6.6.y] wifi: cfg80211: release locks on error in cfg80211_wext_siwgenie()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 15/23] KVM: selftests: Call KVM_TDX_INIT_VCPU when
- creating a new TDX vcpu
-To: Lisa Wang <wyihan@google.com>
-Cc: Andrew Jones <ajones@ventanamicro.com>,
- Ackerley Tng <ackerleytng@google.com>, Chao Gao <chao.gao@intel.com>,
- Chenyi Qiang <chenyi.qiang@intel.com>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Erdem Aktas <erdemaktas@google.com>, Ira Weiny <iweiny@kernel.org>,
- Isaku Yamahata <isaku.yamahata@intel.com>, Kiryl Shutsemau <kas@kernel.org>,
- linux-kselftest@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
- "Pratik R. Sampat" <pratikrajesh.sampat@amd.com>,
- Reinette Chatre <reinette.chatre@intel.com>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- Roger Wang <runanwang@google.com>, Ryan Afranji <afranji@google.com>,
- Sagi Shahar <sagis@google.com>, Sean Christopherson <seanjc@google.com>,
- Shuah Khan <shuah@kernel.org>, Xiaoyao Li <xiaoyao.li@intel.com>,
- Oliver Upton <oupton@kernel.org>, Jeremiah McReynolds <jmcrey@google.com>,
- kvm@vger.kernel.org, linux-coco@lists.linux.dev,
- linux-kernel@vger.kernel.org, x86@kernel.org
-References: <20261001-tdx-selftests-v15-0-7c62a5d8a992@google.com>
- <20261001-tdx-selftests-v15-15-7c62a5d8a992@google.com>
-Content-Language: en-US
-From: Binbin Wu <binbin.wu@linux.intel.com>
-In-Reply-To: <20261001-tdx-selftests-v15-15-7c62a5d8a992@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Sat, 10 Oct 2026 12:34:10 +0800
+X-Priority: 3
+Message-ID: <tencent_54DE3A7910D4598F5676AE58@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <20261010043002.2919860-1-guanwentao@uniontech.com>
+In-Reply-To: <20261010043002.2919860-1-guanwentao@uniontech.com>
+X-QQ-ReplyHash: 2432166471
+X-BIZMAIL-ID: 12405904260231876868
+X-Address-Ticket:version=;type=;ticket_id=;id_list=;display_name=;session_id=;
+X-QQ-SENDSIZE: 520
+Received: from qq.com (unknown [127.0.0.1])
+	by smtp.qq.com (ESMTP) with SMTP
+	id ; Sat, 10 Oct 2026 12:34:11 +0800 (CST)
+Feedback-ID: lv:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: MpJmQ90V4eWUtzDiqQCTDN8l9mUVqmtQnxaiTtPId3jvUkv0wi7KVp9n
+	YPJBXlH5Yd15F6IcqychEcNgEyL7rIM3K0gCByxz3MapaljWJ/fR04DFg0ghxfhwOMUd696
+	riMuUujvxivN2vdosrujDeCWOnv9gLLgewZD3m1xGU6WXo6FLK249ITkh0CEf9ln4mh0xYd
+	l9QkMwwfrxz2uog/XGvsHzS6u634roz3SQ0mmR9p/JgXc4VVWTLhj9RAONXymAlAgHoipk4
+	JDnTQJGxJ0IDde7y4FlzDQDCGdm4DzH/54QSqOKVwrxqgRqfPFr1e8ToGa64rE4Q2iPN3vB
+	QYf9EULi5IaClLe6bZmfbotKTBBInEjG5VnQEok6sm17/7VaY5FNC0j7zJ8GqMfjG9+n3IU
+	+tOSX5jBY2oB8E9qncZHCVBTYnca/zTJSKKBx+QpAZz9CpXBZnqjnm45VUrsaU4TZH9Y45M
+	0nGBGRFTIPhsZ7xZORWxlrU5D1gWwrCRcUqREWPasNTCsAE+DnEuVObiCd42Z5nZEV39n0g
+	9nOksOcV1Ml3GO+fmHOJggUsD8V5uqtHzcsiDJ+AK9nbdUhx0AXKG8lNoxdqzqhIfQy2uYw
+	QTgBjD3I2PEHjv3fBY8+4CIYY7N1WcL4lv6igz5HFaN2/ueck3hGhMgiGrtIU2tsxjQ3+/e
+	bgOjrjDo68ISzQ95cEVW9m1jQNAn75MabtXe65IpRrQilS70y8q+GsHlAM7fpa7ZTkeToKV
+	75eY+57l6hZatZ3iKW8Fe7tdri9833AXD1133O8WF6I8UZQNEAdxGeJhwj4m63v3A/enWEd
+	LXl67zvNub2b45yZifblLGlULOoJ3kgRsORsCIBTvc86WEarB1FrB4W/E7U/BwtowMmIUtF
+	Hs2PJlHCpQQvOgOT1iWw86kJ0Dq9xx0Dlhp1x7kanMbRdnsPG2k6tMBv5FMk/cU0e7rxwMN
+	Zq3Y9Fygw+fcMSXJAZNioaIRJgUafjFafFUtr7nnrI2gpr/fIAp3roBPdXOdQo3AIKeLU5l
+	oPCqK8Y+R2t4VSQx4jCR1iGMsml9HpuPtkZ1kX0DE/r//+INQwDHmf9xqrjDD3N47SZsG0/
+	w==
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 
-On 10/2/2026 3:37 AM, Lisa Wang wrote:
-> From: Sagi Shahar <sagis@google.com>
-> 
-> TDX VMs need to issue the KVM_TDX_INIT_VCPU ioctl for each vcpu after
-> vcpu creation.
-> 
-> KVM_TDX_INIT_VCPU has a strict prerequisite for the CPUID state. To
-> satisfy this requirement, call KVM_TDX_GET_CPUID and KVM_SET_CPUID2 to
-> pull the CPUID configuration from the TDCS and commit it into KVM,
-> allowing KVM_TDX_INIT_VCPU to succeed.
-> 
-> Additionally, unlike tdx_vm_ioctl(), tdx_vcpu_ioctl() doesn't check
-> hw_error. KVM's vCPU-scoped TDX ioctl handlers don't propagate SEAMCALL
-> errors into hw_error: the error is handled in the kernel and only an
-> errno is returned. Checking the ioctl's return value and errno is
-> therefore sufficient.
-> 
-> Signed-off-by: Sagi Shahar <sagis@google.com>
-> Signed-off-by: Lisa Wang <wyihan@google.com>
-> ---
->  .../selftests/kvm/include/x86/tdx/tdx_util.h       | 20 +++++++++
->  tools/testing/selftests/kvm/lib/x86/processor.c    | 48 ++++++++++++++++++----
->  2 files changed, 60 insertions(+), 8 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h b/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h
-> index e529c587aeae..f5b2f32f2118 100644
-> --- a/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h
-> +++ b/tools/testing/selftests/kvm/include/x86/tdx/tdx_util.h
-> @@ -46,6 +46,26 @@ static inline bool is_tdx_vm(struct kvm_vm *vm)
->  		    (unsigned long long)hw_error);			\
->  })
->  
-> +#define __tdx_vcpu_ioctl(vcpu, cmd, _flags, arg)			\
-> +({									\
-> +	union {								\
-> +		struct kvm_tdx_cmd c;					\
-> +		unsigned long raw;					\
-> +	} tdx_cmd = { .c = {						\
-> +		.id = (cmd),						\
-> +		.flags = (u32)(_flags),					\
-> +		.data = (u64)(arg),					\
-> +	} };								\
-> +									\
-> +	__vcpu_ioctl(vcpu, KVM_MEMORY_ENCRYPT_OP, &tdx_cmd.raw);	\
-> +})
-> +
-> +#define tdx_vcpu_ioctl(vcpu, cmd, flags, arg)				\
-> +({									\
-> +	int ret = __tdx_vcpu_ioctl(vcpu, cmd, flags, arg);		\
-> +	TEST_ASSERT(!ret, "%s failed, errno: %d (%s)",			\
-> +		     #cmd, errno, strerror(errno));			\
-> +})
-
-tdx_vm_ioctl() prints ret, tdx_vcpu_ioctl() doesn't.
-Better to be consistent.
-
->  void tdx_init_vm(struct kvm_vm *vm);
->  void tdx_vm_setup_boot_code_region(struct kvm_vm *vm);
->  void tdx_vm_setup_boot_parameters_region(struct kvm_vm *vm, u32 nr_runnable_vcpus);
-> diff --git a/tools/testing/selftests/kvm/lib/x86/processor.c b/tools/testing/selftests/kvm/lib/x86/processor.c
-> index 4a753fb43007..4af9cbf3fabb 100644
-> --- a/tools/testing/selftests/kvm/lib/x86/processor.c
-> +++ b/tools/testing/selftests/kvm/lib/x86/processor.c
-> @@ -876,16 +876,48 @@ gva_t kvm_allocate_vcpu_stack(struct kvm_vm *vm)
->  		    "__vm_alloc() did not provide a page-aligned address");
->  	stack_gva -= 8;
->  
-> +	return stack_gva;
-> +}
-> +
-> +static void tdx_vcpu_init(struct kvm_vm *vm, struct kvm_vcpu *vcpu)
-> +{
-> +	struct kvm_cpuid2 *cpuid;
-> +
-> +	cpuid = allocate_kvm_cpuid2(MAX_NR_CPUID_ENTRIES);
-> +	tdx_vcpu_ioctl(vcpu, KVM_TDX_GET_CPUID, 0, cpuid);
-> +	vcpu_init_cpuid(vcpu, cpuid);
-> +	free(cpuid);
-> +	tdx_vcpu_ioctl(vcpu, KVM_TDX_INIT_VCPU, 0, NULL);
-> +}
-
-Should this function better to be in tdx_util.c, like other tdx specific helpers?
-
-> +
-> +struct kvm_vcpu *vm_arch_vcpu_add(struct kvm_vm *vm, u32 vcpu_id)
-> +{
-> +	struct kvm_mp_state mp_state;
-> +	struct kvm_vcpu *vcpu;
-> +	struct kvm_regs regs;
-> +
->  	vcpu = __vm_vcpu_add(vm, vcpu_id);
-> -	vcpu_init_cpuid(vcpu, kvm_get_supported_cpuid());
-> -	vcpu_init_sregs(vm, vcpu);
-> -	vcpu_init_xcrs(vm, vcpu);
->  
-> -	/* Setup guest general purpose registers */
-> -	vcpu_regs_get(vcpu, &regs);
-> -	regs.rflags = regs.rflags | 0x2;
-> -	regs.rsp = kvm_allocate_vcpu_stack(vm);
-> -	vcpu_regs_set(vcpu, &regs);
-> +	/*
-> +	 * Both kvm_get_supported_cpuid() (for legacy VMs) and KVM_TDX_GET_CPUID
-> +	 * (for TDX VMs) return VM-scoped CPUID. e.g. the APIC ID isn't
-> +	 * populated per vCPU. This is fine because KVM selftests don't
-> +	 * currently test CPUID topology enumeration.
-> +	 */
-> +	if (is_tdx_vm(vm)) {
-> +		tdx_vcpu_init(vm, vcpu);
-> +	} else {
-> +		vcpu_init_cpuid(vcpu, kvm_get_supported_cpuid());
-> +
-> +		vcpu_init_sregs(vm, vcpu);
-> +		vcpu_init_xcrs(vm, vcpu);
-> +
-> +		/* Setup guest general purpose registers */
-> +		vcpu_regs_get(vcpu, &regs);
-> +		regs.rflags = regs.rflags | 0x2;
-> +		regs.rsp = kvm_allocate_vcpu_stack(vm);
-> +		vcpu_regs_set(vcpu, &regs);
-> +	}
->  
->  	/* Setup the MP state */
->  	mp_state.mp_state = 0;
-> 
+U29ycnksIGl0IGlzIGZvciB2Ni42LjE1OC4gY2MgdGhlIHN0YWJsZSBsaXN0Lg0KDQpCUnMN
+CldlbnRhbyBHdWFuDQoNCj4gLS0tDQo+IG5ldC93aXJlbGVzcy93ZXh0LXNtZS5jIHwgNiAr
+KysrLS0NCj4gMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMo
+LSkNCj4gDQo+IGRpZmYgLS1naXQgYS9uZXQvd2lyZWxlc3Mvd2V4dC1zbWUuYyBiL25ldC93
+aXJlbGVzcy93ZXh0LXNtZS5jDQo+IGluZGV4IGNmYTkwM2ViMGU4MmYuLjBlN2MzMTRiZGVl
+ZjAgMTAwNjQ0DQo+IC0tLSBhL25ldC93aXJlbGVzcy93ZXh0LXNtZS5jDQo+ICsrKyBiL25l
+dC93aXJlbGVzcy93ZXh0LXNtZS5jDQo+IEBAIC0zNTQsOCArMzU0LDEwIEBAIGludCBjZmc4
+MDIxMV93ZXh0X3Npd2dlbmllKHN0cnVjdCBuZXRfZGV2aWNlICpkZXYsDQo+ICAgICAgICAg
+ICAgICAgICAgICAgICAgIC8qIG5vdGhpbmcgKi8NCj4gICAgICAgICAgICAgICAgIH0NCj4g
+IA0KPiAtICAgICAgICAgICAgICAgaWYgKCFmb3JfZWFjaF9lbGVtZW50X2NvbXBsZXRlZChl
+bGVtLCBleHRyYSwgaWVfbGVuKSkNCj4gLSAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJu
+IC1FSU5WQUw7DQo+ICsgICAgICAgICAgICAgICBpZiAoIWZvcl9lYWNoX2VsZW1lbnRfY29t
+cGxldGVkKGVsZW0sIGV4dHJhLCBpZV9sZW4pKSB7DQo+ICsgICAgICAgICAgICAgICAgICAg
+ICAgIGVyciA9IC1FSU5WQUw7DQo+ICsgICAgICAgICAgICAgICAgICAgICAgIGdvdG8gb3V0
+Ow0KPiArICAgICAgICAgICAgICAgfQ0KPiANCj4gICAgICAgICAgICAgICAgaWUgPSBrbWVt
+ZHVwKGV4dHJhLCBpZV9sZW4sIEdGUF9LRVJORUwpOw0KPiAgICAgICAgICAgICAgICAgaWYg
+KCFpZSkgew==
 
