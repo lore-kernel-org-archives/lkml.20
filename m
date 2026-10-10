@@ -1,126 +1,149 @@
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.7])
+Received: from mail-m118102.qiye.163.com (mail-m118102.qiye.163.com [115.236.118.102])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5324F3B8D78;
-	Sat, 10 Oct 2026 10:07:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97B3D30F819;
+	Sat, 10 Oct 2026 10:07:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.118.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791626853; cv=none; b=WtYSu+DJVz9dgcloEJPRe2An8pXysUdjp3pd2z1hjVDYpn7XCfF2FFcgNMTj8AM8jKVtczV1l2Bk93xbiuprQf8MElvxSttxClaEEoZNK/CzyZpseOeK2rbMGFtBNdeUAOnVvevT4w60mXlHFqYRD81avDgbM37XF1t3WDykM/I=
+	t=1791626853; cv=none; b=bpqstBjzB5GFjkeywu4IXAbFCCybTC7mTC4wgnflZEL6NN6VG5OYrWViDVOLzVXqsnWnoCDM7DVUkaajf9uSaboLlWpJ3/CcawekPBbcLXeORoOLXZT9BKVIsyrh/PbAuoihWsrgr5urTkugMX5wB7z1QMOg7dEhOhK4ZPk5UJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791626853; c=relaxed/simple;
-	bh=D7S2L30ialSsc3ylDJSIHW6xjUCGuwq2Qlozmd+ubSc=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=LNBcM6mnwnx5hFHH8Q5OOEAVIUsK0Q4x1ChSxluMVx1ZKFjlmVUK2S/KlKzMhehN7ZJ7U2KqzaKaRPyZoebUrDBrmIObOreDFB+Hb78ug5PWVwRcompLAanda/3BnDgQWlPVqxGR0ENcOVGwTHmRT7Td/aUPCdEgVXfNLWT48gk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=d48qZgmD; arc=none smtp.client-ip=220.197.31.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	bh=Wayv4Ajw2MYBb2/zludqSex+fzbEtxkQ7xSQ+/aicK4=;
+	h=From:To:Cc:Subject:Date:Message-Id; b=F17thlgcfbAh4XXp7tfJwJFSGjQKUGgA8P5uh7p4Hc2yaoqYvCNSLq6Ia2hW9ubmjPT9jgw5wkhBfaeqZLYybmG0OnZb5zu8IKPBPJxwPGHrwQpa5bVlwGhHNrlu8E4TINws/p/qUP3HwaidclUIKkbcErqiZBW3dNqzX4WwRo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=JkVxQK8V; arc=none smtp.client-ip=115.236.118.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="d48qZgmD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:From:Subject:To:
-	Content-Type; bh=A4y04JzxldO260/+1JjQhaM7OPWp1qTRLmXAqMl3EHU=;
-	b=d48qZgmD7kERcBnmME6e5d/+8X02i3aRnMPZ51by6aY+s0Mvxn6UmORGNrc14P
-	GAs5qG3Cxdpp6rmfM/ardD0xQCs5jKmZ0tHvp4pcDtdiSY6HGwsdQxO5Q6OoPBVc
-	qqu8kyMskMLqVaioNR3Z/WkUbk96NKBcA0a25t7oXN4SY=
-Message-ID: <e550befe-8399-4349-8b67-6a01367db165@126.com>
-Date: Sat, 10 Oct 2026 18:04:47 +0800
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="JkVxQK8V"
+Received: from localhost.localdomain (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 508f9b372;
+	Sat, 10 Oct 2026 18:02:07 +0800 (GMT+08:00)
+From: Shawn Lin <shawn.lin@rock-chips.com>
+To: Ulf Hansson <ulfh@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>
+Cc: linux-mmc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	Shawn Lin <shawn.lin@rock-chips.com>
+Subject: [PATCH] tty: serial: move sdio_uart from mmc/core to tty/serial
+Date: Sat, 10 Oct 2026 18:01:57 +0800
+Message-Id: <1791626517-18161-1-git-send-email-shawn.lin@rock-chips.com>
+X-Mailer: git-send-email 2.7.4
+X-HM-Tid: 0aa12543426203a4kunm685a0dbb9700e
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGktOS1YZGUpMSh5OGB
+	hITB1WFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=JkVxQK8V9+FgwbR2cLuC8PhpoC43nU2ohQwPt1nvtnklFdIpOUoIU6cvtpim2XGyfLnAg6xwZvP1gpJZbvqO5/ZhNqvnYMSiMPl/imgt1U6dNxSIJVq/HJkbFFel2ZnT0/oBeejTOxrRk6vnbYCf53WrwZ0cp3Y3KIQebISrpBE=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=a2Kq4on5A/+8+LrB8kwW5NvAdeankGNyxTEEWGV8OjA=;
+	h=date:mime-version:subject:message-id:from;
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Song Chen <chensong_2000@126.com>
-Subject: Re: [RFC PATCH v2 0/3] btrfs: add error injection support for
- checksum verification
-To: dsterba@suse.cz
-Cc: arnd@arndb.de, kees@kernel.org, clm@fb.com, dsterba@suse.com,
- linux@armlinux.org.uk, catalin.marinas@arm.com, will@kernel.org,
- guoren@kernel.org, kernel@xen0n.name, maddy@linux.ibm.com,
- mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org, pjw@kernel.org,
- palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, gor@linux.ibm.com,
- borntraeger@linux.ibm.com, agordeev@linux.ibm.com, svens@linux.ibm.com,
- tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
- jpoimboe@kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-csky@vger.kernel.org, loongarch@lists.linux.dev,
- linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
- linux-s390@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260724021229.47302-1-chensong_2000@126.com>
- <20260907161330.GX9053@suse.cz>
-Content-Language: en-US
-In-Reply-To: <20260907161330.GX9053@suse.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PikvCgDnz_jADcpqUfIkBQ--.28557S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Zw47Cw4xCFWkWw15Kr1kAFb_yoW8trW5pr
-	W8C3s3WrWrJrWxArsaya4Fv34Fkrs5W34UJFnrG34Ik3s3Za4kta1kK348u3W7ur48Gw17
-	Z3WDKr4kWr1UAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jDvtAUUUUU=
-X-CM-SenderInfo: xfkh02prqjsjqqqqqiyswou0bp/xtbBsgLAQGrKDcJ3nQAA31
 
-Hi David,
+sdio_uart is an SDIO function driver, not part of the MMC/SDIO core.
+Keeping it in drivers/mmc/core/ is misplaced: it registers to the SDIO
+bus (sdio_register_driver) and only uses the public SDIO API from
+include/linux/mmc/, with no dependency on any mmc core internals.
 
-If no maintainer else sees it and comments, i'm going to send a new 
-patch, only keep btrfs part and withdraw rest, and take care of sashiko 
-comments as well.
+Other SDIO function drivers live under their respective functional
+subsystem, e.g. the SDIO WiFi drivers are under drivers/net/wireless/.
+sdio_uart should likewise be placed under its functional subsystem, tty,
+just like the PCIe and I2C/SPI transport drivers (men_z135_uart,
+sc16is7xx, max310x) that live under drivers/tty/serial/.
 
-Please still find it, many thanks.
+Historically almost all changes to this driver were tty API changes
+(e.g. tty_operations adjustments, alloc_tty_driver removal), yet
+scripts/get_maintainer.pl never listed the TTY maintainers while the
+file lived under drivers/mmc/core/. Moving it under drivers/tty/serial/
+makes get_maintainer.pl report the proper TTY/serial maintainers and
+reviewers, which benefits future maintenance of this driver.
 
-Best regards,
+No functional change. The CONFIG_SDIO_UART symbol is intentionally kept
+unchanged to avoid breaking existing configs; the dependency is updated
+to 'TTY && MMC' accordingly.
 
-Song
+Signed-off-by: Shawn Lin <shawn.lin@rock-chips.com>
+---
 
+ drivers/mmc/core/Kconfig                     |  7 -------
+ drivers/mmc/core/Makefile                    |  1 -
+ drivers/tty/serial/Kconfig                   | 10 ++++++++++
+ drivers/tty/serial/Makefile                  |  1 +
+ drivers/{mmc/core => tty/serial}/sdio_uart.c |  0
+ 5 files changed, 11 insertions(+), 8 deletions(-)
+ rename drivers/{mmc/core => tty/serial}/sdio_uart.c (100%)
 
-
-在 2026/9/8 00:13, David Sterba 写道:
-> On Fri, Jul 24, 2026 at 10:12:26AM +0800, Song Chen wrote:
->> This patchset adds fault injection support for btrfs_data_csum_ok,
->> enabling controlled simulation of checksum mismatches to test btrfs
->> silent data corruption detection and reporting paths.
->>
->> The first patch extends the error injection framework with a new type,
->> EI_ETYPE_FALSE, which allows bool-returning functions to be overridden
->> with a false return value directly.
->>
->> The second patch marks btrfs_data_csum_ok with ALLOW_ERROR_INJECTION
->> using this new type.
->>
->> The third patch adds a parent field to fei_attr to allow fault injection
->> on a function only when called from a specific parent function.
->>
->> Song Chen (3):
->>    error-injection: Introduce EI_ETYPE_FALSE for fail_function
->>    btrfs: Allow error injection on btrfs_data_csum_ok
->>    error-injection: Introduce parent in fei_attr
-> 
-> I'm going through my mailbox and found this. No objections to add the
-> injection point to btrfs, but the rest is generic fault injection code
-> so I can't take it via btrfs tree without acks.
-> 
-> There are some sashiko comments (as replies in the thread [1]) and there
-> have been some changes to btrfs code too so the patchset needs a
-> refresh.
-> 
-> I see maintainers in CC, if somebody could please let us know how to
-> proceed.
-> 
-> [1] https://lore.kernel.org/all/20260724021229.47302-1-chensong_2000@126.com/
-> 
->>   arch/arm/lib/error-inject.c           |  6 ++
->>   arch/arm64/lib/error-inject.c         |  6 ++
->>   arch/csky/lib/error-inject.c          |  6 ++
->>   arch/loongarch/lib/error-inject.c     |  6 ++
->>   arch/powerpc/lib/error-inject.c       |  6 ++
->>   arch/riscv/lib/error-inject.c         |  6 ++
->>   arch/s390/lib/error-inject.c          |  6 ++
->>   arch/x86/lib/error-inject.c           |  6 ++
->>   fs/btrfs/inode.c                      |  1 +
->>   include/asm-generic/error-injection.h |  6 ++
->>   kernel/fail_function.c                | 98 ++++++++++++++++++++++++++-
->>   11 files changed, 152 insertions(+), 1 deletion(-)
-> 
-
+diff --git a/drivers/mmc/core/Kconfig b/drivers/mmc/core/Kconfig
+index 14d2ecb..03061b1 100644
+--- a/drivers/mmc/core/Kconfig
++++ b/drivers/mmc/core/Kconfig
+@@ -64,13 +64,6 @@ config MMC_BLOCK_MINORS
+ 
+ 	  If unsure, say 8 here.
+ 
+-config SDIO_UART
+-	tristate "SDIO UART/GPS class support"
+-	depends on TTY
+-	help
+-	  SDIO function driver for SDIO cards that implements the UART
+-	  class, as well as the GPS class which appears like a UART.
+-
+ config MMC_TEST
+ 	tristate "MMC host test driver"
+ 	help
+diff --git a/drivers/mmc/core/Makefile b/drivers/mmc/core/Makefile
+index 485b4f5..7d909f3 100644
+--- a/drivers/mmc/core/Makefile
++++ b/drivers/mmc/core/Makefile
+@@ -18,5 +18,4 @@ mmc_core-$(CONFIG_DEBUG_FS)	+= debugfs.o
+ obj-$(CONFIG_MMC_BLOCK)		+= mmc_block.o
+ mmc_block-objs			:= block.o queue.o
+ obj-$(CONFIG_MMC_TEST)		+= mmc_test.o
+-obj-$(CONFIG_SDIO_UART)		+= sdio_uart.o
+ mmc_core-$(CONFIG_MMC_CRYPTO)	+= crypto.o
+diff --git a/drivers/tty/serial/Kconfig b/drivers/tty/serial/Kconfig
+index bf680d2..3864cef 100644
+--- a/drivers/tty/serial/Kconfig
++++ b/drivers/tty/serial/Kconfig
+@@ -1387,6 +1387,16 @@ config SERIAL_MEN_Z135
+ 	  This driver can also be build as a module. If so, the module will be called
+ 	  men_z135_uart.ko
+ 
++config SDIO_UART
++	tristate "SDIO UART/GPS class support"
++	depends on TTY && MMC
++	help
++	  SDIO function driver for SDIO cards that implements the UART
++	  class, as well as the GPS class which appears like a UART.
++
++	  This driver can also be built as a module. If so, the module will
++	  be called sdio_uart.
++
+ config SERIAL_SPRD
+ 	tristate "Support for Spreadtrum serial"
+ 	select SERIAL_CORE
+diff --git a/drivers/tty/serial/Makefile b/drivers/tty/serial/Makefile
+index bba7b21..d63b126 100644
+--- a/drivers/tty/serial/Makefile
++++ b/drivers/tty/serial/Makefile
+@@ -77,6 +77,7 @@ obj-$(CONFIG_SERIAL_SCCNXP)		+= sccnxp.o
+ obj-$(CONFIG_SERIAL_SC16IS7XX)		+= sc16is7xx.o
+ obj-$(CONFIG_SERIAL_SC16IS7XX_SPI)	+= sc16is7xx_spi.o
+ obj-$(CONFIG_SERIAL_SC16IS7XX_I2C)	+= sc16is7xx_i2c.o
++obj-$(CONFIG_SDIO_UART)			+= sdio_uart.o
+ obj-$(CONFIG_SERIAL_SH_SCI)		+= sh-sci.o
+ obj-$(CONFIG_SERIAL_SIFIVE)		+= sifive.o
+ obj-$(CONFIG_SERIAL_SPRD)		+= sprd_serial.o
+diff --git a/drivers/mmc/core/sdio_uart.c b/drivers/tty/serial/sdio_uart.c
+similarity index 100%
+rename from drivers/mmc/core/sdio_uart.c
+rename to drivers/tty/serial/sdio_uart.c
+-- 
+2.7.4
 
