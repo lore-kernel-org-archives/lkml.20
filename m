@@ -1,555 +1,409 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A166364E98;
-	Sat, 10 Oct 2026 16:19:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9438D3AC17
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 16:21:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791649169; cv=none; b=MHIFuhvFRfVNZiGSk+GN9PoOyxdD9ok2Ikh1dpS25TC10DSDdRwopngDih8DImc6Tx8cqgOY0GtDJ/Lm64dH+YJbPg5jDHE5OWGRKtzicH424VxRIkThUqyAYYbV+55+KrtwCiPkXXnIjkNSP20Bc75sLck0voCveRDWVMJStU4=
+	t=1791649265; cv=none; b=BLTjnbP7OQ8OsKAFeVbkEu1rKgvqrIFCIsuS0U/CqPaUGCs9SJOXPgeGx4J09VCIq+Ln1eu8u0KDYCJmZjjBx2s56MuUx8ihlA5JVwPC4lExzqOhnOLJPWTVWgUlWdcr1axZrMRtw3GBqoeSAUv8bQL811GfT5JViYBOH8b/U88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791649169; c=relaxed/simple;
-	bh=5dQF9Pg1WkopPvZa6TTt9kGfaie6o9jvjL936ttECE4=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=YwKRelGJAmJsoODWscEmFuV+XRFthId5mXF2H2w5HAHuL1S8ONo7R1mUNbCrhhUkSn7T6ECWH2BS2x2AydGYTYdZkHCBAhcvvRmaRzMNzF+0pi5gECwMp0Jyjjz1U77GtpQgYAz/po6WbXyJdzcxIEqxogAAz+KXNKBzzOx34oc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UH7mjCDc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791649265; c=relaxed/simple;
+	bh=+QHbSFdGJ6vVLpUF7xybyfof9oQqRwUNeSgR1wtYWF8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=O/qlIOxPy2CSYpeRC16sXpjc3UzDy1YGF42ZlShZ9JSa7uEbhs9b+6Z1cmju3wgtUX+AWYrQpBGLVRb4A3azVgLozA9pBLlL+ydehZjGH/5pH4r9CsbKDLLfXf/wp7y1L5X2m9sFGZI8E9+qLgG9QXXR9XatKxWCL4V2yBwBe5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZH99EBbk; arc=none smtp.client-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UH7mjCDc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61BF61F0089D;
-	Sat, 10 Oct 2026 16:19:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791649168;
-	bh=dbIOY9a/wWkwz/NK2C4IYvBJE7FMl1IFTNljoJY28G0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=UH7mjCDcfyApAxZ0S5f45SRGQRnIf+fjrLEw17SQpyzn/cfcSwq/O/SKwwNkOsGtI
-	 t2pv8kfGN6tqjgZxjVtlbFtZAAhGoKBEc2mSt/Jg8jGZcPwf1EGwCFGvANQgTdtAVM
-	 xxO9N1VTaBmWHJOu5+lxEU+l1ZUfI9lP3erstawVADWx2hklIQGXMtfxYVxFzmK8lo
-	 3/px0Kly8YZJo5wBKZJVR0lF9iTxQhn+TTf3wIW63QKa89r/NXCYOHzBfrZ0wU8kXO
-	 kk5RnunGDxujzbkeVa+KnbCG6QZl01OmunEjWs19fiaiK+CRNSeQqhepo1Qa+aS0hD
-	 vOduonNCo0BhA==
-Subject: Re: [PATCH net-next v25 10/10] net: dsa: Add Airoha AN8855 5-Port
- Gigabit DSA Switch driver
-From: netdev-bot+sashiko@kernel.org
-To: ansuelsmth@gmail.com
-Cc: lee@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, olteanv@gmail.com, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, chester.a.unal@arinc9.com,
- daniel@makrotopia.org, hkallweit1@gmail.com, linux@armlinux.org.uk,
- horms@kernel.org, joey@tinyisr.com, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
- mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- andrew@lunn.ch
-Date: Sat, 10 Oct 2026 16:19:25 +0000
-Message-ID: <179164916590.434549.17520347329639701930@kernel.org>
-In-Reply-To: <20261009161102.38961-11-ansuelsmth@gmail.com>
-References: <20261009161102.38961-11-ansuelsmth@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZH99EBbk"
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3550c917fd3so985971eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 09:21:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791649263; x=1792254063; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Yijvi9zg0Pj6BOdFjk5FdPLKcBndaQKT70J63Zutecw=;
+        b=ZH99EBbk97T2lFCQ8S/K3rCZRWJskzmprZ+QLNzdPBEMmI55rxnKkJRc/VZTGp9zMI
+         21Co6nya/PcCXNkzosL/j5CyfaD8ZEGbcD5A3zC6BN01An9imZy9VaV82CMrsadRSgqg
+         gV1sMgwXFmie6Lxb937BectSm0mhK0AElyhu3r4ViyoglrwG5+FLBsmpe4kDOyQvmzfO
+         yTMef/QOxug1yFOVLKaRk4ekc1g7j6T/7JbxudwoUtz9qBaTA2Hh5wBXym/pCZ5BRgv9
+         nLMSMF7yRt9UJzHo4+85FXvl2rpBkws0b/hzX0Wo4RmeXejej57yeEnk3QxvZyoAUITi
+         GU2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791649263; x=1792254063;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Yijvi9zg0Pj6BOdFjk5FdPLKcBndaQKT70J63Zutecw=;
+        b=pWcEhXaucaiF3RdmslkdFe/RBzTo+SZyz+K/cqzK07/gb/no8OisMCuVEEk64WGDVr
+         u8GuBVDSfasOqQ0zQ0Hz+OUhCY6UEEno3NkVxhwnYCdFd8GEFuy2IIqThO/skm9sAcB3
+         rHHjClLhbOt9YPAWjAFTzmOiKgadwT5d9UpgyO/Gh+BejcRTh4F3Ls2xfkOzJnvv0J3V
+         UdRhif4dahJp25nZ5qvmVOifqS2kap9VCE1/t8VmHIbPJ3tE3QcnvbcPuQXxfFRcrfr3
+         iaNPa6YLQY8yC553W5RShSdWe5jYltZiw9267yZpVRDF6E28gBt62lh06e7f8KUYj9xN
+         uIMg==
+X-Forwarded-Encrypted: i=1; AKwUvBwCzlj9kUdBSeFUxQJBvWskJaQmcSHb4P0WYUFlQlf27R438pl6pbnK8R5M2HWydY46sDGrkV9IFhx6xNk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKui/7lFdISOH7zbiDBtX96iaUlO21Nii1rtrHCO9mVWln4eDw9
+	KnBz5MTByzjWwmSsYhJ1S4vRC/IW1EHYdOU2nSE4qdMdPnW4zRzbMcZH
+X-Gm-Gg: AYBFou3jIi2qga39rWrg0QYX3GOEGUl+hhoGBRjiylANSz9T6nK39dejOqzOhhx+tRG
+	6LWMZ0/Tihoj174o3xt0miMW+wiINX80B0xi4dnkzR44p7HQ4ngE0IqfIfpk41kPTYFTHc8fH5M
+	jFTfJQ1Jbr/XbTzC0ohCbHj3qZEG6Q42W3MSIXvN0PILZDSsNoegYyO7R4TyUY4J3izagcbuGQI
+	N7Gxi8G4KrEK4K+I3Wc4p7xQWaK2cBXJ1QEXy2sQm0TZrgYLt42TB+dkPGFeQ0EiGBOELFoCQ6N
+	Kd9+gUZV8UDbGzxJnaCOx+wEBDnyiJdI9PhasCCbJWHzfkONr9z/Q2AKYKnCTXYvsE0fCS7k0DS
+	hMnvRstB4j/8dhlJyPSH7AO4kjnS5pxVPDYK5/NFdR3qwQmALcktyupQGhtn0Cvl4jWrnZtjtZp
+	3tCyNGm91lm1rnqXUhOIHd7fJcdbANqYYjJuSq7aLFjcXnf877kvtUcUp3yUGg1fkhV7nwaVrGQ
+	TopWufRJfTVPGiKsw==
+X-Received: by 2002:a05:701b:260c:b0:144:f85a:a188 with SMTP id a92af1059eb24-16a56ab4575mr5965520c88.2.1791649262450;
+        Sat, 10 Oct 2026 09:21:02 -0700 (PDT)
+Received: from acer-nitro-anv15-41.. ([115.96.176.39])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a3f6186fsm15778622c88.14.2026.10.10.09.20.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 09:21:01 -0700 (PDT)
+From: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
+To: Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dan Williams <djbw@kernel.org>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Breno Leitao <leitao@debian.org>
+Cc: Ira Weiny <iweiny@kernel.org>,
+	Li Ming <ming.li@zohomail.com>,
+	Richard Cheng <icheng@nvidia.com>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Zi Yan <ziy@nvidia.com>,
+	linux-cxl@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	David Hildenbrand <david@kernel.org>,
+	Oscar Salvador <osalvador@suse.de>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Harry Yoo <harry@kernel.org>,
+	Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
+Subject: [RFC PATCH 0/5] cxl, mm: Keep device-reported poison out of the page allocator
+Date: Sat, 10 Oct 2026 21:50:08 +0530
+Message-ID: <20261010162017.62506-1-shaikhkamal2012@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-Thank you for your contribution! Sashiko AI review found 15 potential
-issue(s) to consider.
-
-Critical: 0 · High: 2 · Medium: 9 · Low: 4
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] an8855_port_enable() writes 0 to the port matrix instead of the
-  value it just computed.
-- [High] On AN8855 the shared VLAN code reads table entries back from the
-  write-data register.
-- [Medium] The patch makes the MT7530_ATC_INVALID check in
-  mt7530_lib_fdb_cmd() optional and gives AN8855 no replacement.
-- [Medium] an8855_port_change_mtu() calls mt7530_lib_port_change_mtu()
-  directly.
-- [Medium] an8855_set_mac_eee() rejects `tx_lpi_timer > 0xFFF`, a limit
-  copied from MT7530's 12-bit LPI_THRESH field.
-- [Medium] The SGMII 'PCS Init' block in an8855_pcs_config() is dead
-  code.
-- [Medium] an8855_port_fdb_dump() calls usleep_range(1000, 1500) for
-  every valid bank entry while it walks up to AN8855_NUM_FDB_RECORDS…
-- [Medium] In an8855_pcs_config(), the 'PLL - SDM' step applies
-  AN8855_RG_DA_QP_PLL_SDM_HREN_INTF to AN8855_PLL_CTRL_2, but the header…
-- [Medium] For SGMII without in-band negotiation, an8855_pcs_config()
-  always forces the PCS to 1000 Mb/s (AN8855_RG_LINK_MODE_P0_SPEED_1000…
-- [Medium] The new driver adds `ethtool -S` strings for counters that
-  already have standard uAPIs.
-- [Medium] net: dsa: an8855: missing mtu_enforcement_ingress flag allows
-  MTU violation
-- [Low] NET_DSA_AN8855 is declared with `depends on MFD_AIROHA_AN8855 ||
-  COMPILE_TEST` and does not select REGMAP.
-- [Low] The last RMON histogram bucket in an8855_rmon_ranges is { 1519,
-  AN8855_MAX_MTU }.
-- [Low] an8855_phylink_mac_link_up() initialises `u32 reg = 0`, ignores
-  the return value of `regmap_read(priv->regmap, AN8855_PMCR_P(port),…
-- [Low] an8855_port_fdb_dump() declares `u32 rsp;` without initialising
-  it and passes &rsp to mt7530_lib_fdb_cmd().
-
---
-
-net: dsa: Add Airoha AN8855 5-Port Gigabit DSA Switch driver
-
-This adds a DSA driver for the Airoha AN8855 5-port gigabit switch. It is
-built on the shared mt7530-lib helpers and has an SGMII/2500BASE-X PCS for
-the CPU port. mt7530-lib gains optional AN8855-specific regmap fields, and
-its ATC/VTCR invalid checks become optional.
-
-> diff --git a/drivers/net/dsa/mediatek/Kconfig b/drivers/net/dsa/mediatek/Kconfig
-> index 7b48300dca0c5..2799e78a86517 100644
-> --- a/drivers/net/dsa/mediatek/Kconfig
-> +++ b/drivers/net/dsa/mediatek/Kconfig
-> @@ -1,4 +1,14 @@
->  # SPDX-License-Identifier: GPL-2.0-only
-> +config NET_DSA_AN8855
-> +	tristate "Airoha AN8855 Ethernet switch support"
-> +	depends on MFD_AIROHA_AN8855 || COMPILE_TEST
-> +	depends on NET_DSA
-> +	select NET_DSA_MT7530_LIB
-> +	select NET_DSA_TAG_AIROHA
-
-[Severity: Low]
-Can REGMAP end up disabled with COMPILE_TEST=y and MFD_AIROHA_AN8855=n?
-NET_DSA_MT7530_LIB is a bare tristate, and REGMAP normally comes in
-because MFD_AIROHA_AN8855 selects it.
-
-struct reg_field, REG_FIELD() and devm_regmap_field_alloc() are declared
-only under CONFIG_REGMAP in include/linux/regmap.h, with no stubs. In
-that configuration an8855.c and mt7530-lib.c would fail to build.
-
-Should this also select REGMAP?
-
-> diff --git a/drivers/net/dsa/mediatek/an8855.c b/drivers/net/dsa/mediatek/an8855.c
-> new file mode 100644
-> index 0000000000000..22171cd885c70
-> --- /dev/null
-> +++ b/drivers/net/dsa/mediatek/an8855.c
-> @@ -0,0 +1,1765 @@
-
-[ ... ]
-
-> +	{ MT7530_VAWD_IVL_MAC, REG_FIELD(AN8855_VAWD0, 5, 5) },
-> +	{ MT7530_VAWD_EG_CON, REG_FIELD(AN8855_VAWD0, 11, 11) },
-> +	{ MT7530_VAWD_VTAG_EN, REG_FIELD(AN8855_VAWD0, 10, 10) },
-> +	{ MT7530_VAWD_PORT_MEM, REG_FIELD(AN8855_VAWD0, 26, 31) },
-> +	{ MT7530_VAWD_FID, REG_FIELD(AN8855_VAWD0, 1, 4) },
-> +	{ MT7530_VAWD_VLAN_VALID, REG_FIELD(AN8855_VAWD0, 0, 0) },
-> +	{ __MT7530_VAWD1, REG_FIELD(AN8855_VAWD0, 0, 31) },
-> +
-> +	{ MT7530_VAWD_ETAG, REG_FIELD(AN8855_VAWD0, 12, 23) },
-
-[Severity: High]
-After a VTCR read command, the shared VLAN code reads the entry back
-through these fields:
-
-- mt7530_hw_vlan_update() reads MT7530_VAWD_PORT_MEM for old_members.
-- mt7530_hw_vlan_del() checks MT7530_VAWD_VLAN_VALID.
-- mt7530_hw_vlan_add() does a read-modify-write of MT7530_VAWD_ETAG.
-
-All of these map to AN8855_VAWD0, which is the write-data register.
-an8855.h also defines a read-data register that nothing maps:
-
-/* Same register field of VAWD0 */
-#define AN8855_VARD0			0x10200618
-
-If MT7530_VTCR_RD_VID returns its result in VARD0, does the VLAN code
-read back whatever was last written to VAWD0 instead?
-
-For example, mt7530_lib_setup_vlan0() leaves PORT_MEM =
-MT7530_ALL_MEMBERS in VAWD0. A following bridge vlan add for another VID
-could then start from all members. Could deletes also take the
-invalid-entry path, or clear the wrong members?
-
-> +static const struct mt7530_mib_desc an8855_mib[] = {
-> +	MIB_DESC(MT7530_MIB_TX_DROP, -1, "TxDrop"),
-> +	MIB_DESC(MT7530_MIB_TX_CRC_ERR, -1, "TxCrcErr"),
-> +	MIB_DESC(MT7530_MIB_TX_COLLISION, -1, "TxCollision"),
-> +	MIB_DESC(AN8855_MIB_TX_OVERSIZE_DROP, -1, "TxOversizeDrop"),
-> +	MIB_DESC(AN8855_MIB_TX_BAD_PKT_BYTES_LOW,
-> +		 AN8855_MIB_TX_BAD_PKT_BYTES_HIGH, "TxBadPktBytes"),
-> +	MIB_DESC(MT7530_MIB_RX_DROP, -1, "RxDrop"),
-> +	MIB_DESC(MT7530_MIB_RX_FILTERING, -1, "RxFiltering"),
-> +	MIB_DESC(MT7530_MIB_RX_CRC_ERR, -1, "RxCrcErr"),
-
-[Severity: Medium]
-Several of these ethtool -S strings duplicate counters that already have
-standard interfaces:
-
-- "RxCrcErr" is FrameCheckSequenceErrors in ethtool_eth_mac_stats and
-  rx_crc_errors in rtnl_link_stats64.
-- "TxCollision" is collisions.
-- "RxDrop" and "TxDrop" are rx_dropped and tx_dropped.
-
-an8855_switch_ops also has no .get_stats64. mt7530.c fills
-rtnl_link_stats64 from the same field IDs in mt7530_get_stats64(). In
-addition, mt7530_lib_get_eth_mac_stats() does not fill
-FrameCheckSequenceErrors.
-
-Could these be reported through the standard interfaces rather than as
-driver-private strings?
-
-[ ... ]
-
-> +static int an8855_port_fdb_dump(struct dsa_switch *ds, int port,
-> +				dsa_fdb_dump_cb_t *cb, void *data)
-> +{
-> +	struct an8855_priv *priv = ds->priv;
-> +	int banks, count = 0;
-> +	u32 rsp;
-> +	int ret;
-> +	int i;
-> +
-> +	mutex_lock(&priv->reg_mutex);
-> +
-> +	/* Load search port */
-> +	ret = regmap_write(priv->regmap, AN8855_ATWD2,
-> +			   FIELD_PREP(AN8855_ATWD2_PORT, BIT(port)));
-> +	if (ret)
-> +		goto exit;
-> +	ret = mt7530_lib_fdb_cmd(&priv->lib_priv, MT7530_FDB_START,
-> +				 AN8855_FDB_MAT_MAC_PORT, &rsp);
-> +	if (ret < 0)
-> +		goto exit;
-> +
-> +	do {
-> +		/* From response get the number of banks to read, exit if 0 */
-> +		banks = FIELD_GET(AN8855_ATC_HIT, rsp);
-
-[Severity: Low]
-rsp is not initialised, and mt7530_lib_fdb_cmd() ignores the return value
-of the response read:
-
-	if (rsp)
-		regmap_field_read(priv->fields[__MT7530_ATC], rsp);
-
-	return 0;
-
-On a read error regmap_field_read() returns without writing *val. If that
-read fails after a successful BUSY poll, does this FIELD_GET() work on an
-indeterminate value?
-
-> +		if (!banks)
-> +			break;
-> +
-> +		/* Each banks have 4 entry */
-> +		for (i = 0; i < 4; i++) {
-> +			struct mt7530_fdb _fdb = {  };
-> +
-> +			count++;
-> +
-> +			/* Check if bank is present */
-> +			if (!(banks & BIT(i)))
-> +				continue;
-> +
-> +			/* Select bank entry index */
-> +			ret = regmap_write(priv->regmap, AN8855_ATRDS,
-> +					   FIELD_PREP(AN8855_ATRD_SEL, i));
-> +			if (ret)
-> +				break;
-> +			/* wait 1ms for the bank entry to be filled */
-> +			usleep_range(1000, 1500);
-> +			mt7530_lib_fdb_read(&priv->lib_priv, &_fdb);
-
-[Severity: Medium]
-This sleeps once per valid entry while walking up to
-AN8855_NUM_FDB_RECORDS (2048) slots. Each MT7530_FDB_NEXT can also poll
-ATC_BUSY for up to 20ms.
-
-All of this runs under priv->reg_mutex and rtnl_lock, because the
-PF_BRIDGE RTM_GETNEIGH dumpit (rtnl_fdb_dump) is not registered as
-unlocked.
-
-The dump needs no CAP_NET_ADMIN, and learning on bridged ports can fill
-the table. Could one unprivileged bridge fdb show hold rtnl for seconds?
-The walk also restarts from the beginning on every netlink continuation,
-so the delay would repeat each time.
-
-Is the per-entry 1ms sleep needed? The MT7530 dump does not have one.
-
-[ ... ]
-
-> +static int an8855_port_change_mtu(struct dsa_switch *ds, int port,
-> +				  int new_mtu)
-> +{
-> +	struct an8855_priv *priv = ds->priv;
-> +
-> +	return mt7530_lib_port_change_mtu(&priv->lib_priv, port, new_mtu);
-> +}
-
-[Severity: Medium]
-For jumbo frames, mt7530_lib_port_change_mtu() writes a linear KiB count:
-
-		regmap_field_write(priv->fields[MT7530_GMACCR_MAX_RX_JUMBO],
-				   DIV_ROUND_UP(length, 1024));
-
-The AN8855_MAX_RX_JUMBO_* defines in an8855.h describe a non-linear
-encoding: 0x0-0x2 = 2K, 0x3-0x9 = 3K-9K, 0xa = 12K, 0xb = 15K,
-0xc = 16K. AN8855_MAX_MTU allows frame lengths up to 15360.
-
-With that encoding, frame lengths of 9217-12288 bytes would be written as
-0xa-0xc (12K/15K/16K). Lengths of 12289-15360 bytes would be written as
-0xd-0xf, which are not defined. Is that intended? None of the
-AN8855_MAX_RX_JUMBO_* macros seem to be used.
-
-[ ... ]
-
-> +static const struct ethtool_rmon_hist_range an8855_rmon_ranges[] = {
-> +	{ 0, 64 },
-> +	{ 65, 127 },
-> +	{ 128, 255 },
-> +	{ 256, 511 },
-> +	{ 512, 1023 },
-> +	{ 1024, 1518 },
-> +	{ 1519, AN8855_MAX_MTU },
-> +	{}
-> +};
-
-[Severity: Low]
-AN8855_MAX_MTU is an L3 MTU: 15360 - ETH_HLEN - ETH_FCS_LEN -
-MTK_TAG_LEN = 15338. ethtool_rmon_hist_range bounds are frame lengths.
-Should the upper bound be the maximum frame length (15360) instead?
-
-[ ... ]
-
-> +static int an8855_port_enable(struct dsa_switch *ds, int port,
-> +			      struct phy_device *phy)
-> +{
-> +	struct dsa_port *dp = dsa_to_port(ds, port);
-> +	struct an8855_priv *priv = ds->priv;
-> +	int ret;
-> +
-> +	mutex_lock(&priv->reg_mutex);
-> +
-> +	/* Allow the user port gets connected to the cpu port and also
-> +	 * restore the port matrix if the port is the member of a certain
-> +	 * bridge.
-> +	 */
-> +	if (dsa_port_is_user(dp)) {
-> +		struct dsa_port *cpu_dp = dp->cpu_dp;
-> +
-> +		priv->ports[port].pm |= BIT(cpu_dp->index);
-> +	}
-> +	priv->ports[port].enable = true;
-> +	ret = regmap_fields_write(priv->lib_priv.fields[MT7530_PCR_MATRIX],
-> +				  port, 0);
-
-[Severity: High]
-Should this write priv->ports[port].pm instead of 0? The pm value
-computed just above is never used, so the port matrix is empty once the
-port is enabled.
-
-an8855_setup() sets AN8855_PORTMATRIX_P(user) to BIT(AN8855_CPU_PORT).
-dsa_user_open()->dsa_port_enable_rt()->an8855_port_enable() then
-overwrites it with 0.
-
-Would a standalone user port then be unable to forward to the CPU port
-until a bridge join or leave calls mt7530_update_port_member()?
-
-The same would happen in two other cases:
-
-- The CPU port's dsa_user_ports() matrix would be cleared when DSA
-  enables the CPU port.
-- A port that was bridged before it came up would lose its membership,
-  because mt7530_update_port_member() skips the write for disabled ports.
-
-For comparison, mt7530_port_enable() writes
-PCR_MATRIX(priv->ports[port].pm) at this point.
-
-[ ... ]
-
-> +static int an8855_set_mac_eee(struct dsa_switch *ds, int port,
-> +			      struct ethtool_keee *e)
-> +{
-> +	if (e->tx_lpi_timer > 0xFFF)
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Should an8855_setup() also set ds->mtu_enforcement_ingress?
-
-mt7530_lib_port_change_mtu() returns early for every port except the
-CPU port, because GMACCR is a single global RX length limit. It relies
-on DSA setting the CPU port MTU to the largest user port MTU, and
-programs that value into the switch.
-
-The per-port MTUs are therefore never enforced in hardware. Take two
-user ports in the same bridge with different MTUs. The port with the
-smaller MTU still accepts frames up to the largest configured MTU, so
-its own setting is silently ignored on ingress.
-
-ds->mtu_enforcement_ingress exists for switches that only have a
-global MRU. With it set, DSA normalizes the MTU of all bridged ports
-when one of them changes, so the global limit matches what every
-bridged port is configured for. The MT7530 setup path sets it for this
-reason.
-
-This could be set next to assisted_learning_on_cpu_port. Or is there
-something on AN8855 that enforces the per-port MTU that I am missing?
-
-[Severity: Medium]
-The 0xFFF limit matches MT7530's 12-bit LPI threshold. On AN8855 the
-timer field is AN8855_LPI_TXIDLE_THD_MASK, GENMASK(31, 14), in 2us units,
-and an8855_phylink_mac_enable_tx_lpi() already clamps the value to it.
-
-an8855_phylink_get_caps() takes lpi_timer_default from CKGCR. Its comment
-gives the default as 60ms, which is about 60000us.
-
-The resulting call sequence is:
-
-- phylink reports that default through get_eee.
-- ethnl_set_eee() keeps it unless the user passes tx-timer.
-- dsa_user_set_eee() then calls set_mac_eee() with it.
-
-Would any ethtool --set-eee on a user port, including eee off, fail with
--EINVAL unless it also passes tx-timer <= 4095?
-
-[ ... ]
-
-> +static void an8855_phylink_mac_link_up(struct phylink_config *config,
-> +				       struct phy_device *phydev, unsigned int mode,
-> +				       phy_interface_t interface, int speed,
-> +				       int duplex, bool tx_pause, bool rx_pause)
-> +{
-> +	struct dsa_port *dp = dsa_phylink_to_port(config);
-> +	struct an8855_priv *priv = dp->ds->priv;
-> +	int port = dp->index;
-> +	u32 reg = 0;
-> +
-> +	mutex_lock(&priv->reg_mutex);
-> +
-> +	regmap_read(priv->regmap, AN8855_PMCR_P(port), &reg);
-
-[Severity: Low]
-If this read fails, reg stays 0 and the later regmap_write() rebuilds
-PMCR from zero. Would that clear MAC_MODE, IFG_XMIT, BACKOFF/BACKPR and
-the EEE force bits set by mac_config and mac_enable_tx_lpi?
-
-Should the read error be checked before the register is written back?
-
-[ ... ]
-
-> +static int an8855_pcs_config(struct phylink_pcs *pcs, unsigned int neg_mode,
-> +			     phy_interface_t interface,
-> +			     const unsigned long *advertising,
-> +			     bool permit_pause_to_mac)
-> +{
-
-[ ... ]
-
-> +	/* PLL - SDM */
-> +	ret = regmap_update_bits(priv->regmap, AN8855_PLL_CTRL_2,
-> +				 AN8855_RG_DA_QP_PLL_SDM_HREN_INTF,
-> +				 FIELD_PREP(AN8855_RG_DA_QP_PLL_SDM_HREN_INTF, 0x0));
-
-[Severity: Medium]
-Is AN8855_PLL_CTRL_2 the right register here? an8855.h defines this field
-in AN8855_PLL_CTRL_4:
-
-#define AN8855_PLL_CTRL_4		0x1022e410
-#define   AN8855_RG_DA_QP_PLL_SDM_HREN_INTF GENMASK(4, 3)
-
-In AN8855_PLL_CTRL_2, bits 4:2 are AN8855_RG_DA_QP_PLL_BPA_INTF, and the
-earlier "PLL - LPF" step set that field to 0x5. Clearing bits 4:3 here
-would change BPA to 0x1 and leave the real SDM_HREN field untouched.
-
-[ ... ]
-
-> +	/* PCS Init */
-> +	if (interface == PHY_INTERFACE_MODE_SGMII &&
-> +	    neg_mode == PHYLINK_PCS_NEG_INBAND_DISABLED) {
-> +		ret = regmap_clear_bits(priv->regmap, AN8855_QP_DIG_MODE_CTRL_0,
-> +					AN8855_RG_SGMII_MODE | AN8855_RG_SGMII_AN_EN);
-
-[Severity: Medium]
-Can this branch ever run? For SGMII, phylink_pcs_neg_mode() returns
-either PHYLINK_PCS_NEG_INBAND_ENABLED or PHYLINK_PCS_NEG_OUTBAND.
-INBAND_DISABLED only comes from the Base-X without a PHY case.
-
-For SGMII fixed-link or PHY-managed links, SGMII_MODE and SGMII_AN_EN
-would then stay at their reset or previous value. The other branches in
-this function test neg_mode != PHYLINK_PCS_NEG_INBAND_ENABLED and set up
-forced mode, so the PCS would end up configured inconsistently.
-
-Should this condition also test neg_mode != PHYLINK_PCS_NEG_INBAND_ENABLED?
-
-[ ... ]
-
-> +	/* Force Speed with fixed-link or 2500base-x as doesn't support aneg */
-> +	if (interface == PHY_INTERFACE_MODE_2500BASEX ||
-> +	    neg_mode != PHYLINK_PCS_NEG_INBAND_ENABLED) {
-> +		if (interface == PHY_INTERFACE_MODE_2500BASEX)
-> +			val = AN8855_RG_LINK_MODE_P0_SPEED_2500;
-> +		else
-> +			val = AN8855_RG_LINK_MODE_P0_SPEED_1000;
-
-[Severity: Medium]
-For SGMII without in-band negotiation, this always forces the PCS to
-1000.
-
-an8855_phylink_get_caps() advertises MAC_10 | MAC_100 for port 5, and
-an8855_phylink_mac_link_up() programs PMCR for 10 or 100. an8855_pcs_ops
-has no .pcs_link_up to update the forced rate afterwards.
-
-Would a 10/100 out-of-band SGMII link on port 5 run with the MAC and the
-PCS at different rates?
-
-[ ... ]
-
-> diff --git a/drivers/net/dsa/mediatek/mt7530-lib.c b/drivers/net/dsa/mediatek/mt7530-lib.c
-> index 098dd45d3ee9f..4325768033325 100644
-> --- a/drivers/net/dsa/mediatek/mt7530-lib.c
-> +++ b/drivers/net/dsa/mediatek/mt7530-lib.c
-> @@ -423,9 +423,11 @@ int mt7530_lib_fdb_cmd(struct mt7530_lib_priv *priv, enum mt7530_fdb_cmd cmd,
->  		return ret;
->  	}
->  
-> -	regmap_field_read(priv->fields[MT7530_ATC_INVALID], &val);
-> -	if (cmd == MT7530_FDB_READ && val)
-> -		return -EINVAL;
-> +	if (priv->fields[MT7530_ATC_INVALID]) {
-> +		regmap_field_read(priv->fields[MT7530_ATC_INVALID], &val);
-> +		if (cmd == MT7530_FDB_READ && val)
-> +			return -EINVAL;
-> +	}
-
-[Severity: Medium]
-an8855_fields[] has no MT7530_ATC_INVALID entry. On AN8855 an
-MT7530_FDB_READ therefore returns 0 even when the lookup misses.
-
-mt7530_lib_port_mdb_add() and mt7530_lib_port_mdb_del() treat 0 as
-"entry exists":
-
-	if (!mt7530_lib_fdb_cmd(priv, MT7530_FDB_READ,
-				ATC_MAT_MACTAB, NULL)) {
-		regmap_field_read(priv->fields[MT7530_ATRD_PORT_MAP],
-				  &val);
-		port_mask = val;
-	}
-
-On a miss, could they merge whatever AN8855_ATRD3 still holds, for
-example data left by the last an8855_port_fdb_dump()? That could program
-a new group with ports that never joined it, or make mdb_del write a
-STATIC_ENT for a group that does not exist.
-
-The READ path also does not select the hit bank through AN8855_ATRDS, as
-the fdb dump does.
-
-AN8855 reports hits through AN8855_ATC_HIT. Should this check use that on
-AN8855 instead?
-
-The MT7530_VTCR_INVALID check in mt7530_vlan_cmd() was made optional in
-the same way.
-
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+A CXL memory device keeps its own poison list: the DPAs it knows to be
+bad. The list lives on the device, so it survives a host reboot, a power
+cycle, and moving the device to another host.
+
+Linux reads that list only when user space writes trigger_poison_list.
+Nothing reads it when a region is assembled, so with a device that
+already has poison:
+
+  1. the RAM region is assembled and dax/kmem onlines it;
+  2. every frame enters the buddy allocator, including the ones the
+     device would have named had anyone asked;
+  3. a task is handed one and reads it: machine check, memory_failure(),
+     SIGBUS.
+
+This series reads the poison list at region probe, before the range is
+onlined, and keeps the frames it covers out of the allocator. Nothing is
+unmapped or signalled, and no runtime path changes: the frames never
+enter the allocator, so this is not forwarding latent poison to
+memory_failure().
+
+Dependency
+==========
+
+This is built on Breno Leitao's hwpoison series [1], which keeps frames
+poisoned before a kexec out of the next kernel's allocator. The approach
+here, withholding frames as they are onlined rather than taking them
+back out later, follows [1]. [1] hooks __free_pages_core(), splits a
+block around its bad frames, and marks them with hwpoison_boot_page().
+Patch 4 adds a second source to that hook.
+
+The two cover different cases. [1] records frames in a bitmap spanning
+the RAM the EFI memory map describes. Memory hot-added after boot sits
+outside it, and CXL region memory is hot-added after boot. [1] also
+carries its record across kexec only, while the device's list survives
+reboot and migration.
+
+Applies on next-20260908 plus [1] v5. The num_poisoned_pages_inc()
+change agreed for v6 [2] does not touch these patches. Patches 1, 2 and
+5 touch only drivers/cxl; patches 3 and 4 touch mm.
+
+Design
+======
+
+Which records are withheld. A corrected error never reaches the poison
+list, so every record is uncorrectable. Only records with source
+Internal, a failure of the device's own media, are withheld. External
+poison was written by the host into healthy media and a rewrite recovers
+it; Injected poison comes from the Inject Poison test command. Withholding
+either would make a recoverable state permanent.
+
+No host-side storage. The device is the source of truth and is re-read
+on every probe. When a location is repaired (sPPR, sparing, hPPR) the
+device drops it from the list, and the next probe onlines the frame
+again. A record persisted by the host could not learn about the repair.
+
+Volatile ranges. CXL r3.2 8.2.9.8.4.1:
+
+  If the device does not support poison list for volatile ranges and any
+  location in the requested list maps to volatile, the device shall
+  return Invalid Physical Address.
+
+A device that returns it, or that has no Get Poison List at all, is
+onlined as today with nothing withheld. This is also the reason for the
+RAM -EFAULT tolerance poison_by_decoder() has carried, without a comment,
+since f0832a586396 ("cxl/region: Provide region info to the cxl_poison
+trace event").
+
+Incomplete lists. If the device reports overflow, the host stops at
+max_errors with more records pending, or a media scan is in progress,
+region probe fails rather than onlining on a partial list.
+
+Translation. Each record is mapped to the pages it covers through
+cxl_dpa_to_hpa(), including the extended linear cache alias. PFNs are
+collected in an xarray, which removes duplicates and keeps them sorted,
+then coalesced into ranges and registered once per region. The ranges
+are unregistered when the region is torn down.
+
+Out of scope: regions with normalized addressing, and PMEM regions
+converted to system RAM through device-dax.
+
+Patches
+=======
+
+1. Snapshot the full Get Poison List across continuations into a
+   caller-owned buffer, keeping overflow and scan-in-progress state.
+   Also bound the record count by the returned payload, and reject an
+   empty payload with More set.
+2. Factor the per-decoder query out of poison_by_decoder().
+3. Add a registry of PFN ranges known bad before online. Readers walk it
+   under RCU, since __free_pages_core() runs concurrently across nodes
+   during deferred init.
+4. Consult the registry from [1]'s free_poisoned_block() and
+   __free_pages_core().
+5. At RAM-region probe, read each decoder's list, translate, and
+   register before the DAX region is created.
+
+Testing
+=======
+
+QEMU 9.1.0, x86 q35, one 512 MiB volatile cxl-type3 device, 1-way
+region at 0x190000000.
+
+QMP cxl-inject-poison records poison as Internal. The kernel's debugfs
+inject_poison goes through the mailbox and records it as Injected, so
+both cases can be tested without a mock.
+
+Three 64-byte records were set up before the region was created:
+ 
+  DPA       Injected by         Source     Result after create-region
+  ---       -----------         ------     ----------------------------
+  0x100000  QMP                 Internal   withheld (PFN 0x190100)
+  0x200000  debugfs (mailbox)   Injected   not withheld, source filtered
+  0x300000  QMP, then cleared   -          not withheld, no longer listed
+ 
+create-region logged "withholding 1 frame(s) reported poisoned by the
+device", and HardwareCorrupted rose to 4 kB: one page, for the one
+Internal record.
+
+
+To reproduce:
+-------------------------
+1. T1 (Terminal 1): boot the guest
+vng --disable-kvm -v -r ./arch/x86/boot/bzImage \
+  --disable-microvm --memory 4G --cpus 4 \
+  --append "memhp_default_state=online_movable" \
+  --qemu-opts="-machine q35,cxl=on \
+    -object memory-backend-ram,id=vmem0,share=on,size=512M \
+    -device pxb-cxl,bus_nr=12,bus=pcie.0,id=cxl.1 \
+    -device cxl-rp,port=0,bus=cxl.1,id=rp0,chassis=0,slot=2 \
+    -device cxl-type3,bus=rp0,volatile-memdev=vmem0,id=cxl-vmem0 \
+    -M cxl-fmw.0.targets.0=cxl.1,cxl-fmw.0.size=4G \
+    -qmp unix:/tmp/qmp.sock,server=on,wait=off"
+	
+	
+2. T1(Terminal 1), in the guest as root: set up and check
+# mount -t debugfs none /sys/kernel/debug   2>/dev/null
+# mount -t tracefs none /sys/kernel/tracing 2>/dev/null
+# echo 1 > /sys/kernel/tracing/events/cxl/cxl_poison/enable
+# echo 'file drivers/cxl/core/region.c +p' > /sys/kernel/debug/dynamic_debug/control
+
+# cxl list -M -D -u                       
+
+[
+  {
+    "memdevs":[
+      {
+        "memdev":"mem0",
+        "ram_size":"512.00 MiB (536.87 MB)",
+        "serial":"0",
+        "host":"0000:0d:00.0",
+        "firmware_version":"BWFW VERSION 00",
+        "poison_injectable":true
+      }
+    ]
+  },
+  {
+    "root decoders":[
+      {
+        "decoder":"decoder0.0",
+        "resource":"0x190000000",
+        "size":"4.00 GiB (4.29 GB)",
+        "interleave_ways":1,
+        "max_available_extent":"4.00 GiB (4.29 GB)",
+        "pmem_capable":true,
+        "volatile_capable":true,
+        "accelmem_capable":true,
+        "qos_class":0,
+        "nr_targets":1
+      }
+    ]
+  }
+]
+
+
+
+3. T2, on the host: inject two Internal records over QMP(Qemu Machine Protocol) 
+
+
+$qmp() { printf '{"execute":"qmp_capabilities"}\n%s\n' "$1" | socat - UNIX-CONNECT:/tmp/qmp.sock; }
+
+$qmp '{"execute":"cxl-inject-poison","arguments":{"path":"/machine/peripheral/cxl-vmem0","start":1048576,"length":64}}'   # DPA 1 MB
+$qmp '{"execute":"cxl-inject-poison","arguments":{"path":"/machine/peripheral/cxl-vmem0","start":3145728,"length":64}}'   # DPA 3 MB
+
+4. T1: inject an Injected record, and clear one
+
+# ls /sys/kernel/debug/cxl/mem0/            
+clear_poison  dpamem  inject_poison
+
+# echo 0x200000 > /sys/kernel/debug/cxl/mem0/inject_poison
+# echo 0x300000 > /sys/kernel/debug/cxl/mem0/clear_poison
+
+
+5. T1: check the device’s list before creating a region
+
+# echo > /sys/kernel/tracing/trace
+# echo 1 > /sys/bus/cxl/devices/mem0/trigger_poison_list
+# cat /sys/kernel/tracing/trace
+# tracer: nop
+#
+# entries-in-buffer/entries-written: 2/2   #P:4
+#
+#                                _-----=> irqs-off/BH-disabled
+#                               / _----=> need-resched
+#                              | / _---=> hardirq/softirq
+#                              || / _--=> preempt-depth
+#                              ||| / _-=> migrate-disable
+#                              |||| /     delay
+#           TASK-PID     CPU#  |||||  TIMESTAMP  FUNCTION
+#              | |         |   |||||     |         |
+            bash-194     [001] .....   511.644231: cxl_poison: memdev=mem0 host=0000:0d:00.0 serial=0 trace_type=List region= region_uuid=00000000-0000-0000-0000-000000000000 hpa=0xffffffffffffffff hpa_alias0=0xffffffffffffffff dpa=0x200000 dpa_length=0x40 source=Injected flags= overflow_time=0
+            bash-194     [001] .....   511.644343: cxl_poison: memdev=mem0 host=0000:0d:00.0 serial=0 trace_type=List region= region_uuid=00000000-0000-0000-0000-000000000000 hpa=0xffffffffffffffff hpa_alias0=0xffffffffffffffff dpa=0x100000 dpa_length=0x40 source=Internal flags= overflow_time=0
+# cat /proc/iomem 
+190000000-28fffffff : CXL Window 0
+
+6. T1: create the region
+
+# cxl create-region -m -t ram -d decoder0.0 -w 1 mem0
+cxl region0: Bypassing cpu_cache_invalidate_memregion() for testing!
+cxl_region region0: withholding 1 frame(s) reported poisoned by the device --------------------> Withholding  1 frame 
+{
+  "region":"region0",
+  "resource":"0x190000000",
+  "size":"512.00 MiB (536.87 MB)",
+  "type":"ram",
+  "interleave_ways":1,
+  "interleave_granularity":256,
+  "decode_state":"commit",
+  "locked":false,
+  "mappings":[
+    {
+      "position":0,
+      "memdev":"mem0",
+      "decoder":"decoder2.0"
+    }
+  ],
+  "qos_class_mismatch":true
+}
+cxl region: cmd_create_region: created 1 region
+Fallback order for Node 0: 0 
+Built 1 zonelists, mobility grouping on.  Total pages: 1007394
+Policy zone: Normal
+
+# cat /proc/iomem
+
+190000000-28fffffff : CXL Window 0
+  190000000-1afffffff : region0
+    190000000-1afffffff : dax0.0
+      190000000-1afffffff : System RAM (kmem)
+
+512 MB is 0x20000000, so the region ends at 0x1afffffff
+
+./tools/mm/page-types -a 0x190000+0x20000 -b hwpoison -l
+offset	len	flags
+
+
+
+
+
+
+190100	1	___________________X_______________________
+
+
+             flags	page-count       MB  symbolic-flags			long-symbolic-flags
+0x0000000000080000	         1        0  ___________________X_______________________	hwpoison
+             total	         1        0
+
+
+7. T1: check exactly one frame is out of the allocator
+
+# grep HardwareCorrupted /proc/meminfo       
+HardwareCorrupted:     4 kB
+
+Not yet covered: interleaved regions, extended linear cache, poison
+list overflow, hot-remove of a block holding a withheld frame, and real
+hardware. I intend to cover these before a non-RFC posting.
+
+[1] https://lore.kernel.org/linux-cxl/20260915-hwpoison-kho-v5-0-3bc7a57bd503@debian.org/
+[2] https://lore.kernel.org/linux-cxl/arEz7lp9_nRGwHPm@gmail.com/
+
+Shaikh Kamaluddin (5):
+  cxl/mbox: Add Get Poison List snapshot support
+  cxl/region: Factor decoder poison-list retrieval
+  mm/memory-failure: Add a pre-online poison registry
+  mm/page_alloc: Keep pre-online poison out of the buddy allocator
+  cxl/region: Register device poison before exposing RAM
+
+ drivers/cxl/core/mbox.c        | 137 ++++++++++++-
+ drivers/cxl/core/region.c      | 363 ++++++++++++++++++++++++++++++++-
+ drivers/cxl/cxlmem.h           |  25 +++
+ include/linux/memory-failure.h |  92 +++++++++
+ mm/memory-failure.c            | 175 ++++++++++++++++
+ mm/page_alloc.c                |   8 +-
+ 6 files changed, 787 insertions(+), 13 deletions(-)
+
+
+base-commit: a9d7ced84989ec05be09b4b8428759ef60450a0f
+prerequisite-patch-id: fe9d44deb8ccc48c0311bc4131bdf733eb353b34
+prerequisite-patch-id: 4cabe6adb37cd8c218bd43c97970bc65f313b671
+prerequisite-patch-id: 52ad24bceedb9c03df167f10573166a1d97ba97d
+prerequisite-patch-id: 44bfbc8aa3c4b19593f7b0d466fbc0cb99b99f76
+prerequisite-patch-id: 2d344a5322ff07c7895a59d2425540a30e4e0630
+prerequisite-patch-id: e776f306dcbdda3f6972187ad1e43a62c2754890
+prerequisite-patch-id: 3ef887599e31ef973d6d9ca15d0462d55f5f0409
+prerequisite-patch-id: a23fe88ab4529b6a6669a991e15cf1631311391c
+prerequisite-patch-id: 111c69880ed0e148cdda285896c006e8d1fc98a8
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261009161102.38961-1-ansuelsmth%40gmail.com
+2.43.0
+
