@@ -1,137 +1,119 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F88322D785;
-	Sat, 10 Oct 2026 03:25:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791602751; cv=none; b=OnGvt4Wgpupimt+1hJxopWbasg86zohVUA4bAqK8gK4k8EH/oqo3B3iAmMEIenVNW1dG5trR709hN7K5mkQDIIowHGu7mkSJDAR4kC/Dr22EjNFyW3SprjJU2dcOmJk/z4Ic/2P/4lg3xq9ZmaenJriKRmbRj53LptwiCFOwDVY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791602751; c=relaxed/simple;
-	bh=HrGGaPk5vp1UuC4fkskhVxdsl59AtLEfPgSM3rIAhdQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Jg9Q1uHAdzNlfRAZvOvbdPczZxKQZ6s0FLfBUOgJB/7Uvuex+U3Z49IO3VPk4Qku7aeMqLtEC6yGKg5LLtBvd3zZwXlDJll/7bB0BQ1OSOe8NS4Qv651jCDium+knbmqDYxYU3qwfioF2u3O0JBhJ49rAm5720oWqlDcpOkI+R0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 41903f50c45a11f19a56ed5b684f684d-20261010
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:a8cda5dd-8f2f-4b56-a2f2-c4ac2c4fea6a,IP:0,U
-	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:3838abe37e352a973a1cc4bb182de6c6,BulkI
-	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
-	5|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
-	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 41903f50c45a11f19a56ed5b684f684d-20261010
-X-User: dengjie03@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <dengjie03@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 160459551; Sat, 10 Oct 2026 11:25:35 +0800
-From: Jie Deng <dengjie03@kylinos.cn>
-To: mathias.nyman@intel.com,
-	gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jie Deng <dengjie03@kylinos.cn>
-Subject: [PATCH] usb: xhci: Add XHCI_TT_SOFT_RETRY quirk for transaction errors on TT devices
-Date: Sat, 10 Oct 2026 11:25:18 +0800
-Message-Id: <20261010032518.2040608-1-dengjie03@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA4EE3C108B
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 03:26:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791602795; cv=pass; b=kd59Q60aAEHtnxh2za9wIHr42wKR9EDIMZT+vjBYWk/2AYHGDUF51BL7pMQ5VyjJAKY+cIonoqRb3PlhBg0CsWLCRBmOtfmavUBuRW48MGhBLJqCfIGYaoinNL2+KEaA5L1so6R0s77ecw4/2Ejy66FHbkB8MZ3WjiMgtC81X0Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791602795; c=relaxed/simple;
+	bh=gzk/Vqa98lLR1g14dUkoIDBfibZcPrZRHRXSu0c7M0U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=N61rFLFACwIhcyaMNQ/KuCjiN9xGOtAwDjwmjKA68hub9VpmdQ0x9qrrCYC3NesorCGoXKWBpyBhg3t3QB+RmJ8MRv9FVqqAnTmCcz24v7L1JTw691PFVuZ+nJTtEHWhWydM7hhWyJSv0SABiEFmsKRQejvp36pIxc/6/y1ItB0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o+xoK7Qm; arc=pass smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o+xoK7Qm"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2dd76b1361dso1669275ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 20:26:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791602794; cv=none;
+        d=google.com; s=arc-20260327;
+        b=G8z/Gvvde+XUeymtdbzBe15sz1ZsSxCpGQ4V5q0m3QizTi/9uvG5JUObbDQ2ls5xCO
+         X6uFsn25Qh1K6w3ybYymZy+r7PwY3MWzW4Rk1afgE5+DJG18wGqwDGgU5SjIx605+5WZ
+         EY4f7Er3qEMGVm82zvUNFewzZNZ1EmNEEtAJ/kUGZWRZaWxXih2ovEqPkFWznxN/X1Oq
+         KaFbqwMEBcalypkYIKjPwHnXbL5gei5vy/GcHO5DksaJxDcubxRx8bA9Eh2FgWmLodbz
+         8iHNdy79r4Ie13dh7pII9lctCqo8Z2ywVN9HAWe5/KK+FnG/aQQvMXpYmhjX4nW3stu6
+         pmSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=EKsZM7l4NZN5ZmLtu2TLLZnTaprdtKnTu1bdqdwiqrE=;
+        fh=fhDn4LBIcQf9cwKZkEMy/s44QD8jBybLUSFr3HCxOeY=;
+        b=iIPLDQvNzDHNdDRt3iqraTCZQ2WhGS/4xoIGsR7KphNxj2pecrkShPnzNXG01wBfDb
+         5jMz1nGJjgBLnAuTV/f+zbnlrMabPrBvjAOdOAFijPz8uweYy/uKHm9juRdOTN3FrsBz
+         0LuPBRRmSLOuaA6IVlh6+aoFDtkjHSJco9+CeT19D420qIwyMBxRgz1KbgSY21J6x1uW
+         ieyyAjlmD9S94e2ISslIXmEaP4sGojusZYYo8TjiBWZYwkafYQXyE2+kh591hOQ1CL5z
+         GkF8OgHgL/2TO1QEyVNMPTCBprPM10NQwLD/8biDjDy78iiUtsgZbyG1RAO+yc1M2rgX
+         RoMQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791602794; x=1792207594; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EKsZM7l4NZN5ZmLtu2TLLZnTaprdtKnTu1bdqdwiqrE=;
+        b=o+xoK7QmG4krG07EQs+M0HCVRFqFRW7EZb2N64bgOJpRzaW9FQGCfw43lySUj/pGKG
+         cxcXGiadMIXGN0LadcRDY2oGWFRsi8FHdNn1s47WIUYyKqZFfXPaA+VIg5B96ksVYADT
+         T1Y7jR3VsJriHQfuk0htMsH9BrvflcUKLT1K5OKNX2KXOesnMxNMSHPHM6zvsBFMZFYR
+         HT1QMH3pH1BO+Q2yW4E+a0tlXuipNGfPLq9tgPLynMmK6M8SqC0+YFCJZ91ToO5S/unE
+         0Z2IhDTxC21WQdtmX5eg2fAYnOQPlBhcMYfpgIx4OuiIArIY3W8k+nNU0Jivq1ajFSgD
+         grjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791602794; x=1792207594;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=EKsZM7l4NZN5ZmLtu2TLLZnTaprdtKnTu1bdqdwiqrE=;
+        b=Hqj5aN3XI9yCRtP9VsHmXumjyfSLjggDtdSs6JXpyIcdksAhobZV1FWUfLxwnmmjTx
+         YUozv5m3b4v0FalDcckjOyoodLJ0DwOctHUGfGQ2ZPOT7XZPfUUUemLik6JAk6F+m+d3
+         t6kfHBhhmzPN25z0JHGpxfG6U82WK21xmXFR8zd2dax2kdSu/aO+0NirCOESJgO64m/f
+         xolYM3Atbut2TGOK7CMwdfL+YzmKMvH32Lkklf2kZ2nB9rVni9VMzoHpDv6q7bcBy8Oh
+         AuL5x29u5H6Yzw0JZDvRW5Xs5YSHoceN3cpV/Wxxlbdhytj9q/HXmJ9I7G85itP96Dk0
+         UzVA==
+X-Forwarded-Encrypted: i=1; AKwUvBwIj+yyPNWua93xnnWaYQ9sJFlGerS8J3G9eZf7sa7tBRhI4+OYAwPLhdOVhOv6C/V1wKGJjJS8drwkl9A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLhr0l+lHCrPMnnERPq3TZ7xQFqzPa2Z251EGh1k8S0/5igduFl
+	p/8Hkudc0lGPTipTgelxhr6O6BSNrwiskhgVywA/0YSGtkoJA2XhXf9Yeplg01bsKyk7mwWuy9X
+	e/hI90KzKAMY+udNUdkHGjqS2Hg1rZew=
+X-Gm-Gg: AYBFou1c8A6tbJFWW0Ntgt+77fY3JJAfJH3ItQDGF9PNB4MW5yFAnVLgvPGe2UHP5ka
+	oMwquyU2cjijnYrdcEUrVza8BDc1xZ8Vmps4HeqPyRF4DP+SX/RL7ttDrgwNHD8urs7GgEn/D7m
+	G+xfZNfCPpS+tF/d0vhkfx4NPT+t+jTAshHqWPhKWMTF821iEiCwc9W2p4EuQyfQ4wBtHdNJRlu
+	aRRqqy60C1xcLXgWAtgs+tnuhXazQqnnz0Xe2Cn4zrQia4sX++JMuvJXESRm21zdSqAsWobL4m8
+	LFjo2c9YM7jDhs2INNGvehBjGckscAK623lvKCipN+TzBup6Ac5ZuIvWSrEFqwN/W/AQc1jEbf2
+	XQHPKwn3Rrm8Mr4x26QfhwlmDuQ3cjmjwlyCMwqMc9Ga1bcxYbfgMf86ohCI9Ce3eh6ZlVD94ny
+	63a8xfXkShXu5Y//VTB6WMFEAIYw==
+X-Received: by 2002:a17:902:e74f:b0:2e5:78b1:33fc with SMTP id
+ d9443c01a7336-2e842e061e4mr35918455ad.53.1791602794135; Fri, 09 Oct 2026
+ 20:26:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261009112634.33436-1-phucduc.bui@gmail.com> <202610100943.RQhhOoh8-lkp@intel.com>
+In-Reply-To: <202610100943.RQhhOoh8-lkp@intel.com>
+From: Bui Duc Phuc <phucduc.bui@gmail.com>
+Date: Sat, 10 Oct 2026 10:26:23 +0700
+X-Gm-Features: AclHuK-rwA97Wy1N3y57S1OeNaWlVpoAN-_YWwiNqheegjzdeSENPlryISm6gn0
+Message-ID: <CAABR9nEkjf8_dar1q4tYMgBTa0p7WzR9Qx1N4Nr_ECuNZ=hxEw@mail.gmail.com>
+Subject: Re: [PATCH] pinctrl: mcp23s08: Propagate reset GPIO errors
+To: kernel test robot <lkp@intel.com>
+Cc: Linus Walleij <linusw@kernel.org>, llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, 
+	Darian Biastoch <d.biastoch@gmail.com>, Andreas Kaessens <akaessens@gmail.com>, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Low-speed devices behind a high-speed hub on some xHCI controllers stop
-working after repeated lsusb -v: a transient USB transaction error on a
-bulk/interrupt endpoint is followed by a hard reset recovery where every
-command completes successfully (Reset EP with TSP=0 and Set TR Deq both
-return COMP_SUCCESS), but the first new split transaction issued after
-the restart fails again.  After two such cycles the hub reports a port
-connection change and the device drops off.
+> If you fix the issue in a separate patch/commit (i.e. not just a new version of
+> the same patch/commit), kindly add following tags
+> | Reported-by: kernel test robot <lkp@intel.com>
+> | Closes: https://lore.kernel.org/oe-kbuild-all/202610100943.RQhhOoh8-lkp@intel.com/
+>
+> All warnings (new ones prefixed by >>):
+>
+> >> drivers/pinctrl/pinctrl-mcp23s08.c:617:29: warning: variable 'ret' is uninitialized when used here [-Wuninitialized]
+>      617 |                 return dev_err_probe(dev, ret, "failed to get reset GPIO\n");
+>          |                                           ^~~
+>    drivers/pinctrl/pinctrl-mcp23s08.c:592:17: note: initialize the variable 'ret' to silence this warning
+>      592 |         int status, ret;
+>          |                        ^
+>          |                         = 0
+>    1 warning generated.
+>
 
-The affected silicon does not honor the xHCI spec (4.6.8) requirement
-that a Reset Endpoint command with TSP=0 "reset any USB2 split
-transaction state associated with the endpoint": the stale split state
-survives the reset, so the next split transaction carries the old
-transaction's identity and can never match the hub TT state, cleared
-or not.  The soft reset path (TSP=1), which per the spec maintains the
-split transaction state and retries the last transaction on the next
-doorbell, recovers these transient errors on the first retry.
+Thanks for the report.
 
-Add a XHCI_TT_SOFT_RETRY quirk: when set, bulk/interrupt endpoints
-behind a TT hub may use the existing soft retry machinery to retry a
-USB Transaction Error (completion code 4) in place instead of going
-through the hard reset path.  Platforms without the quirk keep the
-exact previous behavior.  Isochronous and control endpoints never
-enter this function, and the existing MAX_SOFT_RETRY bound still falls
-back to the hard reset path for persistent errors.  The quirk is meant
-to be set by platform code for controllers with this silicon bug; no
-in-tree platform code sets it yet.
-
-On the affected controller every error reports comp code 4 (USB
-Transaction Error), tt_info 0x301 and err_count 1, i.e. each in-place
-retry succeeds immediately and the fallback is never taken.
-
-Signed-off-by: Jie Deng <dengjie03@kylinos.cn>
----
- drivers/usb/host/xhci-ring.c | 14 +++++++++++++-
- drivers/usb/host/xhci.h      |  7 +++++++
- 2 files changed, 20 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
-index ec278a9f9540..46ac1a52f6ed 100644
---- a/drivers/usb/host/xhci-ring.c
-+++ b/drivers/usb/host/xhci-ring.c
-@@ -2540,9 +2540,21 @@ static void process_bulk_intr_td(struct xhci_hcd *xhci, struct xhci_virt_ep *ep,
- 		td->urb->actual_length = sum_trb_lengths(td, ep_trb);
- 		goto finish_td;
- 	case COMP_USB_TRANSACTION_ERROR:
-+		/*
-+		 * Devices behind a TT hub normally skip the soft retry: retrying
-+		 * a split transaction usually requires clearing the hub TT buffer
-+		 * first, so the hard reset path handles the error.  Controllers
-+		 * that cannot properly reset the split transaction state with a
-+		 * hard reset (XHCI_TT_SOFT_RETRY) recover these transient errors
-+		 * by retrying the same transaction in place instead.  The soft
-+		 * reset preserves the transfer state and the retry completes,
-+		 * while the hard reset path abandons the split, the first new
-+		 * split fails again and the low-speed link eventually collapses.
-+		 */
- 		if (xhci->quirks & XHCI_NO_SOFT_RETRY ||
- 		    (ep->err_count++ > MAX_SOFT_RETRY) ||
--		    le32_to_cpu(slot_ctx->tt_info) & TT_SLOT)
-+		    (le32_to_cpu(slot_ctx->tt_info) & TT_SLOT &&
-+		     !(xhci->quirks & XHCI_TT_SOFT_RETRY)))
- 			break;
- 
- 		td->status = 0;
-diff --git a/drivers/usb/host/xhci.h b/drivers/usb/host/xhci.h
-index c7bfa7f028d3..df4702c5e8a4 100644
---- a/drivers/usb/host/xhci.h
-+++ b/drivers/usb/host/xhci.h
-@@ -1647,6 +1647,13 @@ struct xhci_hcd {
- #define XHCI_CDNS_SCTX_QUIRK	BIT_ULL(48)
- #define XHCI_ETRON_HOST	BIT_ULL(49)
- #define XHCI_LIMIT_ENDPOINT_INTERVAL_9 BIT_ULL(50)
-+/*
-+ * Controller cannot reset the USB2 split transaction state with a Reset
-+ * Endpoint command (TSP=0) as required by xHCI spec 4.6.8.  Recover
-+ * transaction errors on devices behind a TT hub by soft retry (TSP=1)
-+ * instead of the hard reset path.
-+ */
-+#define XHCI_TT_SOFT_RETRY	BIT_ULL(51)
- 
- 	unsigned int		num_active_eps;
- 	unsigned int		limit_active_eps;
--- 
-2.25.1
-
+I also received a similar warning from the sashiko-reviews earlier.
+I'll return PTR_ERR(mcp->reset_gpio) in v2.
