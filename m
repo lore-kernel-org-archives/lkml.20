@@ -1,276 +1,148 @@
-Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F82844A708
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 11:23:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.123
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791631432; cv=none; b=ANXzhClZEvAhrZrDwQQyZwPFqM4vQFuTp9uKjjX7H5LFjaUhFIdwMLtsHNIcq2UHqmNOSntGZkmVe32PLxHmNpRmORmGNs05QKJMHVrwxsh+trNkdbMh6b4kmMeSbNdLOugK3Y3+3EQilhdGjjx+wuAOX1uvgfw7GKGQ0JjuarI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791631432; c=relaxed/simple;
-	bh=29EACdLxzYRratyDbeWoNXVIHRUiUVtnepkFCk69mzE=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=X5/7SuH6sBhRxy5i+i+QAldc+iWrC8kLaxcpsn5QEkrOEGiEO7dsF0IxZuaBVOIIBTd+yziXTKb3XEornYD+jrhJsKIhuYtohOqEM8YXcrGtK9rfXrL3Y41Ls/77ABGv8SFPuTWnKYeOhwx7bAq7dqHTqK/hqU9Sfd1ISXOcXNY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=Ci6dayoF; arc=none smtp.client-ip=109.224.244.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEEEE44F56D;
+	Sat, 10 Oct 2026 11:23:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791631436; cv=pass; b=NWOhWTMHGbwSG/qe0sIYWY8ujT0EnSJJBD5FP1Gxh07ARmbJYwFIBZCpYPm8T2BLrW4ptKriNtiSLcQ3igfo/rn5sLCllqQxmjo9muBBr68ztb9UmJ8KwgdBwNPanbdKXU9pOqkJh6SZGbc2gxVGsK+KBdkN/ERx1VbRFFI13yw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791631436; c=relaxed/simple;
+	bh=pJSOzAxuESSCHlMg0Yz+jQnIULz9WJc15TtLgcWELyM=;
+	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=R7mlMBJzBvSZ5awy6eE/Ug0/sBykJQ9q6RwjbWWpSlEzxEcdETt/Yv8c2R9k0QJMrYMe+ZGNzwnaDF8UJ4VnPCUc7kuQgAFBCWZyIkpN/j+k/iv5Aktz2Amv7Cl28MVotGZQSQbp+bUGxR7he5dlDLCPhs9pYP5j/PzzSQf0oI4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=Zp4dtU/I; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="Ci6dayoF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1791631421; x=1791890621;
-	bh=oo79LKWTx4aAtArHq4xXSoc7i/wEN7VwGdsWaQW6NV8=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=Ci6dayoFUMY/k81NymBOBaqSuC3q9llTEfP0Sh1/TyVzD0VdE/QJnnlpzaz2j7e+K
-	 hgk864ShChkLFGmLQkwf9CqHMIq8dNeNAfxxzn2Yqg7obJA9XI4DJtyXnxolUCIr5Y
-	 THfL5HTQyLigYecEPQop6RPkv3+BvH9rhyEqukKlI5WThxcNZW+GiwnUQt1puerxRj
-	 uCpXr0VBncgvXKPla3S9uLRjjNeSx33PWnp12Wdfoi++dtXXZ48oiXHosVNip8+qJc
-	 jmLSSNcNYDj/WTbynCKKFvwTqMsNHayJiYQzWkeo+IC/jV1maXaJrVNDkgIshY/vfd
-	 S6NbjfnkwwvIQ==
-Date: Sat, 10 Oct 2026 11:23:36 +0000
-To: Bjorn Andersson <andersson@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>
-From: Birk Skyum <birk.skyum@pm.me>
-Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [RFC PATCH] pinctrl: qcom: Restore the pin configuration after hibernation
-Message-ID: <179163141354.18006.80461347454353634@pm.me>
-Feedback-ID: 21326998:user:proton
-X-Pm-Message-ID: 9005c5cbff3375a4d0631500baca45f5b1b2f650
+	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="Zp4dtU/I"
+ARC-Seal: i=1; a=rsa-sha256; t=1791631425; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=FFhLq9qX0AU02BgR+sa+07l2K0P0WkAxhpAKHsbJBtmCVcu+J4u89Ve3M4/1JiByjvSQrXUYiem6UoksA7qubW4a5iamkK/yR0YRe3BQjQ6HscWn/vrwORU0vT6yA0LAS2ybi+eHCTV1R8/FO/amdQ/UMVygZbMIAkXW/rmRogI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791631425; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=dPQChoPlEadkoNfJGLN5purAAZBFCFsFppLh//R3MAg=; 
+	b=ByOZoOjiXe06LL5oGCaDkAK+xVYJ27lyYM2I8BBPx+/sYatshjswfvApkn4TXkujhPKPL1B7Di09jKsY9ZcQXAhFWbY7OAoIp5Ypud7MbxvJTteEbPkMB3m6OV2RhU0JVOyz5awoZdDQkWQ6tdI8XrxLYmikOh9dWmOmajrE/Oc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791631425;
+	s=zmail2048; d=rong.moe; i=i@rong.moe;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding:Date:Date:MIME-Version:Message-Id:Reply-To;
+	bh=dPQChoPlEadkoNfJGLN5purAAZBFCFsFppLh//R3MAg=;
+	b=Zp4dtU/INmgT3rM+g7iWUO9WM0wGjIp5pY56OIjg+CB7Jgfe13gcGZg7xJQRJH5v
+	m46QVFlCaj5DzFcr8ZIpdavZRbrGNSEgfYI5UZcCZL5tj6s/XoFyQrjuKXLDtUUZdzi
+	C7tDpjJjyXeglqgwpdVDT/AtypwmT2BCdfnn4NEMtGRKnbP5YgV9AOh64ADttEmBiw3
+	hqKP0CastmvGNWAbReYpNOkty3ohUZn6/lHSMcE1tGEY0vehrGeuPTWdIGxuqC/ZMPI
+	wLNg3gkozXLedk0lBPSJUUsY4L/Hda6FkdhGdZ8z4bfnPBXf4x6LSkbe2qYNGypbZ05
+	iRPsaPmQBg==
+Received: by smtp.zohomail.com with SMTPS id 1791631424467426.4797389495177;
+	Sat, 10 Oct 2026 04:23:44 -0700 (PDT)
+Message-ID: <48662921e0679d4d7dc81f65f4496d4db7dcd084.camel@rong.moe>
+Subject: Re: [PATCH v2 0/5] platform/x86: uniwill-laptop: Lightbar fixes
+From: Rong Zhang <i@rong.moe>
+To: Armin Wolf <W_Armin@gmx.de>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=
+	 <ilpo.jarvinen@linux.intel.com>, hansg@kernel.org
+Cc: wse@tuxedocomputers.com, platform-driver-x86@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+In-Reply-To: <3a55c989-f16e-40a5-bd2c-201d45c82c85@gmx.de>
+References: <20261007144101.323289-1-W_Armin@gmx.de>
+	 <179148110928.29028.17146158167227573018.b4-ty@b4>
+	 <3a55c989-f16e-40a5-bd2c-201d45c82c85@gmx.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 10 Oct 2026 19:18:35 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-10+b1 
+X-ZohoMailClient: External
 
-A hibernation image is restored after a power cycle. The TLMM registers
-then hold what the boot firmware and the kernel that loaded the image
-made of them. The restored kernel has the configuration it applied in
-memory only, and nothing writes it to the hardware again, so every pin
-that the loading kernel did not set up the same way stays wrong.
+Hi Armin, Ilpo,
 
-On a Lenovo Yoga Slim 7x (X1E80100) the Bluetooth and Wi-Fi enable lines
-are two of them. Their drivers are loaded from the root file system, so
-the kernel that loads the image never touches the pins. This is
-/sys/kernel/debug/gpio before the hibernation and after the resume:
+On Sat, 2026-10-10 at 03:22 +0200, Armin Wolf wrote:
+> Am 08.10.26 um 19:38 schrieb Ilpo J=C3=A4rvinen:
+>=20
+> > On Wed, 07 Oct 2026 16:38:53 +0200, Armin Wolf wrote:
+> >=20
+> > > This patch series mainly deals with various issues inside the code
+> > > responsible for controlling the lightbar on supported devices.
+> > >=20
+> > > The first patch utilizes the improved multicolor LED API to report
+> > > the correct brightness of the lightbar to userspace. The next two
+> > > patches fix issues discovered inside the code for controlling
+> > > animations, while the fourth patch fixes an issue with the naming
+> > > of the LEDs in general. The last patch also adds support for another
+> > > variant of the Intel NUC x15 laptop kit.
+> > >=20
+> > > [...]
+> > Thank you for your contribution, it has been applied to my local
+> > review-ilpo-next branch. Note it will show up in the public
+> > platform-drivers-x86/review-ilpo-next branch only once I've pushed my
+> > local branch there, which might take a while.
+>=20
+> Thank you :)
+>=20
+> I noticed that the LED next branch contains a commit that requires trigge=
+rs
+> to implement a new callback and prints a warning if this is not the case.
 
-  gpio116 : out low  func0 2mA no pull
-  gpio117 : out high func0 2mA no pull
+Whoops, I didn't realize there was another private trigger being added
+during the same cycle.
 
-  gpio116 : in  low  func0 2mA pull down
-  gpio117 : out high func0 16mA no pull
+I have some additional review comments on the implementation of the
+private trigger. See my reply to the relevant patch.
 
-The driver that owns gpio116 still believes it drives the line.
+>=20
+> Should i wait till the next cycle to send a patch implementing said callb=
+ack
+> or do you want to rebase for-next onto LED next?
 
-Save the control, output and interrupt configuration registers of every
-valid pin in freeze_noirq and write them back in restore_noirq, the
-output level first, so that a pin drives the right level from the
-moment it becomes an output. Enabling the raw interrupt status can
-latch an interrupt, so the status is cleared afterwards, as
-msm_gpio_irq_set_type() does.
+I would like to ask a similar question, too. The leds part of my series
+has been applied[1], leaving the pdx86 part waiting for further review or
+apply.
 
-msm_pinctrl_dev_pm_ops gets the two callbacks and x1e80100 starts using
-these ops. With that x1e80100 also gets their suspend and resume
-callbacks, which apply the sleep and default state of the controller's
-own pins where a board defines them.
+Ilpo, may I ask about your preference here? Would you prefer to merge LED
+next and apply the pdx86 part[2] of my series this cycle, or prefer to
+wait until the next cycle? If the latter is preferred, should I resubmit
+the series then?
 
-Signed-off-by: Birk Skyum <birk.skyum@pm.me>
----
-RFC because the two callbacks go into msm_pinctrl_dev_pm_ops, which the
-sc7180, sc7280, sdm845 and sm7150 drivers use as well, and I can only
-test x1e80100. If you would rather have this for x1e80100 alone, or
-done another way, I am happy to redo it.
+[1]: https://lore.kernel.org/all/179025272986.499136.14712876777665893306.b=
+4-ty@b4/
+[2]: https://lore.kernel.org/all/20260921-leds-trigger-hw-changed-v7-11-fe3=
+cdb6dec51@rong.moe/
 
-Tested on a Lenovo Yoga Slim 7x with Arch Linux ARM's v7.2 kernel plus
-this patch. The kernel also carried the PCI change in [1], without
-which this machine does not resume at all, the smp2p change in [2] and
-a GENI serial change that is not ready for the list. The patch is
-based on pinctrl/devel, where it builds without warnings (W=3D1,
-CONFIG_HIBERNATION=3Dy).
+Thanks,
+Rong
 
-- Without the patch, gpio116 and gpio117 come back as shown above
-  after a hibernation with a real power-off. With it, in four such
-  hibernations, the TLMM part of /sys/kernel/debug/gpio differs only
-  in the level read on two inputs (gpio93 and gpio153).
-- pm_test=3Dcore and test_resume pass.
-- A suspend (deep) and wake still works. On x1e80100 it now goes
-  through msm_pinctrl_suspend() and msm_pinctrl_resume().
-
-Not covered here: the LPASS LPI pin controller, whose pins also came
-back at their reset values after a hibernation.
-
-[1] https://lore.kernel.org/r/179157746908.73485.2343672865542690797@pm.me
-[2] https://lore.kernel.org/r/179158127177.70185.5691100900886332545@pm.me
-
- drivers/pinctrl/qcom/pinctrl-msm.c      | 106 +++++++++++++++++++++++-
- drivers/pinctrl/qcom/pinctrl-x1e80100.c |   1 +
- 2 files changed, 105 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/pinctrl/qcom/pinctrl-msm.c b/drivers/pinctrl/qcom/pinc=
-trl-msm.c
-index 27f06bbc1..fba8a4165 100644
---- a/drivers/pinctrl/qcom/pinctrl-msm.c
-+++ b/drivers/pinctrl/qcom/pinctrl-msm.c
-@@ -39,6 +39,14 @@
- #define MAX_NR_TILES 4
- #define PS_HOLD_OFFSET 0x820
-=20
-+/* Register values of one pin, kept across a hibernation. */
-+struct msm_pin_state {
-+=09u32 ctl;
-+=09u32 io;
-+=09u32 intr_cfg;
-+=09u32 intr_target;
-+};
-+
- /**
-  * struct msm_pinctrl - state for a pinctrl-msm device
-  * @dev:            device handle.
-@@ -58,6 +66,7 @@
-  * @soc:            Reference to soc_data of platform specific data.
-  * @regs:           Base addresses for the TLMM tiles.
-  * @phys_base:      Physical base address
-+ * @saved:          Pin registers kept while a hibernation image is taken.
-  */
- struct msm_pinctrl {
- =09struct device *dev;
-@@ -80,6 +89,8 @@ struct msm_pinctrl {
- =09const struct msm_pinctrl_soc_data *soc;
- =09void __iomem *regs[MAX_NR_TILES];
- =09u32 phys_base[MAX_NR_TILES];
-+
-+=09struct msm_pin_state *saved;
- };
-=20
- #define MSM_ACCESSOR(name) \
-@@ -1583,9 +1594,93 @@ static __maybe_unused int msm_pinctrl_resume(struct =
-device *dev)
- =09return pinctrl_force_default(pctrl->pctrl);
- }
-=20
--SIMPLE_DEV_PM_OPS(msm_pinctrl_dev_pm_ops, msm_pinctrl_suspend,
--=09=09  msm_pinctrl_resume);
-+static bool msm_pin_has_own_intr_target(struct msm_pinctrl *pctrl,
-+=09=09=09=09=09const struct msm_pingroup *g)
-+{
-+=09return !pctrl->intr_target_use_scm && g->intr_target_reg &&
-+=09       g->intr_target_reg !=3D g->intr_cfg_reg;
-+}
-+
-+/* Remember how the pins are set up when a hibernation image is taken. */
-+static int msm_pinctrl_freeze_noirq(struct device *dev)
-+{
-+=09struct msm_pinctrl *pctrl =3D dev_get_drvdata(dev);
-+=09const struct msm_pingroup *g;
-+=09struct msm_pin_state *s;
-+=09unsigned long flags;
-+=09unsigned int i;
-+
-+=09raw_spin_lock_irqsave(&pctrl->lock, flags);
-+=09for (i =3D 0; i < pctrl->chip.ngpio; i++) {
-+=09=09if (!gpiochip_line_is_valid(&pctrl->chip, i))
-+=09=09=09continue;
-+
-+=09=09g =3D &pctrl->soc->groups[i];
-+=09=09s =3D &pctrl->saved[i];
-+=09=09s->ctl =3D msm_readl_ctl(pctrl, g);
-+=09=09s->io =3D msm_readl_io(pctrl, g);
-+=09=09if (!g->intr_cfg_reg)
-+=09=09=09continue;
-+
-+=09=09s->intr_cfg =3D msm_readl_intr_cfg(pctrl, g);
-+=09=09if (msm_pin_has_own_intr_target(pctrl, g))
-+=09=09=09s->intr_target =3D msm_readl_intr_target(pctrl, g);
-+=09}
-+=09raw_spin_unlock_irqrestore(&pctrl->lock, flags);
-+
-+=09return 0;
-+}
-+
-+/*
-+ * The image is restored after a power cycle, when the pins are back at wh=
-at
-+ * the firmware and the kernel that loaded the image made of them. Nothing=
- else
-+ * writes the configuration again, so put back what was there.
-+ */
-+static int msm_pinctrl_restore_noirq(struct device *dev)
-+{
-+=09struct msm_pinctrl *pctrl =3D dev_get_drvdata(dev);
-+=09const struct msm_pingroup *g;
-+=09struct msm_pin_state *s;
-+=09unsigned long flags;
-+=09unsigned int i;
-+=09u32 val;
-+
-+=09raw_spin_lock_irqsave(&pctrl->lock, flags);
-+=09for (i =3D 0; i < pctrl->chip.ngpio; i++) {
-+=09=09if (!gpiochip_line_is_valid(&pctrl->chip, i))
-+=09=09=09continue;
-+
-+=09=09g =3D &pctrl->soc->groups[i];
-+=09=09s =3D &pctrl->saved[i];
-+
-+=09=09/* Set the level before the pin starts driving it. */
-+=09=09val =3D msm_readl_io(pctrl, g);
-+=09=09val &=3D ~BIT(g->out_bit);
-+=09=09val |=3D s->io & BIT(g->out_bit);
-+=09=09msm_writel_io(val, pctrl, g);
-+
-+=09=09msm_writel_ctl(s->ctl, pctrl, g);
-+=09=09if (!g->intr_cfg_reg)
-+=09=09=09continue;
-=20
-+=09=09if (msm_pin_has_own_intr_target(pctrl, g))
-+=09=09=09msm_writel_intr_target(s->intr_target, pctrl, g);
-+=09=09msm_writel_intr_cfg(s->intr_cfg, pctrl, g);
-+
-+=09=09/* Enabling the raw status can latch an interrupt. */
-+=09=09if (s->intr_cfg & BIT(g->intr_raw_status_bit))
-+=09=09=09msm_ack_intr_status(pctrl, g);
-+=09}
-+=09raw_spin_unlock_irqrestore(&pctrl->lock, flags);
-+
-+=09return 0;
-+}
-+
-+const struct dev_pm_ops msm_pinctrl_dev_pm_ops =3D {
-+=09SYSTEM_SLEEP_PM_OPS(msm_pinctrl_suspend, msm_pinctrl_resume)
-+=09.freeze_noirq =3D pm_sleep_ptr(msm_pinctrl_freeze_noirq),
-+=09.restore_noirq =3D pm_sleep_ptr(msm_pinctrl_restore_noirq),
-+};
- EXPORT_SYMBOL(msm_pinctrl_dev_pm_ops);
-=20
- int msm_pinctrl_probe(struct platform_device *pdev,
-@@ -1663,6 +1758,13 @@ int msm_pinctrl_probe(struct platform_device *pdev,
- =09if (ret)
- =09=09return ret;
-=20
-+=09if (IS_ENABLED(CONFIG_HIBERNATION)) {
-+=09=09pctrl->saved =3D devm_kcalloc(&pdev->dev, pctrl->chip.ngpio,
-+=09=09=09=09=09    sizeof(*pctrl->saved), GFP_KERNEL);
-+=09=09if (!pctrl->saved)
-+=09=09=09return -ENOMEM;
-+=09}
-+
- =09platform_set_drvdata(pdev, pctrl);
-=20
- =09dev_dbg(&pdev->dev, "Probed Qualcomm pinctrl driver\n");
-diff --git a/drivers/pinctrl/qcom/pinctrl-x1e80100.c b/drivers/pinctrl/qcom=
-/pinctrl-x1e80100.c
-index e4c0abcd9..bfe122fc7 100644
---- a/drivers/pinctrl/qcom/pinctrl-x1e80100.c
-+++ b/drivers/pinctrl/qcom/pinctrl-x1e80100.c
-@@ -1855,6 +1855,7 @@ static struct platform_driver x1e80100_pinctrl_driver=
- =3D {
- =09.driver =3D {
- =09=09.name =3D "x1e80100-tlmm",
- =09=09.of_match_table =3D x1e80100_pinctrl_of_match,
-+=09=09.pm =3D &msm_pinctrl_dev_pm_ops,
- =09},
- =09.probe =3D x1e80100_pinctrl_probe,
- };
---=20
-2.53.0
-
-
+>=20
+> Thanks,
+> Armin Wolf
+>=20
+> > FYI [if applicable to your patch], as per Linus' policy change, also
+> > fixes are mostly routed through for-next unless the fix is for a
+> > commit introduced in the most recent cycle or is clearly a regression
+> > fix.
+> >=20
+> > The list of commits applied:
+> > [1/5] platform/x86: uniwill-laptop: Report correct lightbar brightness
+> >        commit: de41d8b4d0dbb81c81cd99c245238d878a3e1951
+> > [2/5] platform/x86: uniwill-laptop: Implement rainbow animation as trig=
+ger
+> >        commit: 59e4e406b6c08ad41f3ad86db6d42b82d8539c12
+> > [3/5] platform/x86: uniwill-laptop: Fix breathing animation on Intel QC
+> >        commit: 969a3bfa474e35828e142d0160f393a97d9bf0ee
+> > [4/5] platform/x86: uniwill-laptop: Label multicolor LEDs correctly
+> >        commit: 42e6b269fc1134a3fcce57539034ee496e2c1344
+> > [5/5] platform/x86: uniwill-laptop: Extend support for the Intel NUC x1=
+5
+> >        commit: 7a159a14ce0f5d5a3c2f835f39986ec5539ae374
+> >=20
+> > --
+> >   i.
+> >=20
+> >=20
