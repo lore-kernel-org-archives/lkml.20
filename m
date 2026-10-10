@@ -1,101 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2940D2F12DA
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:34:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CB9532E121
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:35:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791621275; cv=none; b=GXHE+k5Rqke5Lk2wzdheURNxw7BhewaXjMKbpqZSoBtrksseeMvQjoPjM9lDsphV0hIlR2Y6c60DIx3N+oBL3h4wC7bcwfUY2ogvaTySSP24qo/9hFZdqSU8Ox0l+EnRhGZlm6Dsefipz/V77+IjV2+8rn9C/V6KsqJ9i7YSscw=
+	t=1791621314; cv=none; b=mWCrQKD70y4rNkpqhEOxGh87QXqIDy0w+0tJ5+m9T7On/PAsHJkRlw27f6Qk59x5ATIzPAAJ/Fzf4nzkYsdVKPbLKugOx0Cy7s3kfd73fikeGUcc1KXZsVjBTM1fIqilFS98iHonEyJvXn1QCxkcsfxKGJnUt1tbIaJ12lh+vR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791621275; c=relaxed/simple;
-	bh=TEwsiz8Ih8v3OgTNM9+K8zciWuPTlmI3xhjKYBAsVxU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sIdA4Dqp2rVSw8ZeZ5pSN/1+Ld1SLlh33IxeDHdIFZoBmYAnN8yuvTOw2z/YDOeapOBPHZUDRsjCzDkTnWx+Ps0Oqe4w4DoDxODgEsUn2ZKw1szcSLSKGhemoSgxKXs8RshoxHswur0y6t8mKNFhgjYiXMtZoY2eIDMJsSJJhQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PLwN4DSz; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PLwN4DSz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBED01F000FF
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:34:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791621272;
-	bh=TEwsiz8Ih8v3OgTNM9+K8zciWuPTlmI3xhjKYBAsVxU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=PLwN4DSz+MbyaaTzYh3u8g0wC64SUgovp4AoIBMOd9SPEdz6u2hARWRz9WWxijN3W
-	 UR/gBhkCVcaoSurICwD6lOfueyQ1oZ2YL/fguByVgHrNnJk273g7XAg5aZpW9gTjAP
-	 a52T4c2CYMI19kZmwnwKxgcWLElTYfyoI5JhXNXe97ZJim9HKFspf/2PpjFyGeuGZc
-	 6Lpal+n5DI+NdOkG017ggougwllBVdenoN/RA7SgrfWLwQGmCQMNiWZMy4w71z7mhg
-	 zMWKPVbWRrldNu0VUOzM10zQDv2XQdVsdPrBQsgr+8WUTi86qtvfBM2y8Jzdev5kQv
-	 uSGKriIjhFN7A==
-Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-48eee44b908so336947fac.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 01:34:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz27MH1U21BDFlnaS/iQTZBW/RZBQL+gpAUxt083kmx7jNOAPxsq8CEv9lCY+r/mUn7FP6uw8aoAshaDdg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJXvvtSk6hwTCOCO5Z7sE2omYhdhk69iLTBv04DC0sjefCmYCbe
-	HDY01BM0tLP52fqEQf3hj5XdIRT2nF580vYKcsEwhDe9Eg+mvevMEzRKRixLcwQ50aTPuZqFf2G
-	/RgeWQcpmijCxiaIx7Ar5ga1C8A4vqGM=
-X-Received: by 2002:a05:6870:8a08:b0:494:b8f4:9a14 with SMTP id
- 586e51a60fabf-4a2a8687b27mr3915629fac.6.1791621272059; Sat, 10 Oct 2026
- 01:34:32 -0700 (PDT)
+	s=arc-20240116; t=1791621314; c=relaxed/simple;
+	bh=zGTXdvUka6VvGbNqzYW14vdn2gkfCFwLPvPt6mWK5Fc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Mp+rX71IxXNgsXXHS8msU29rbe4o90VJ3yDS4yaXivURLzZZTunxYwDHz9c/88IMyXOxSsA+efVbr8NKME91C/QmL610BQhg6U5bkPaXuP+Dwpgmnv+cMtk53CPckZWMFEzfuhb6KMTB59CLThfUgeyRnt98E2+yaYnsWDgRCBc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=aayushk.dev; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=aayushk.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-35829219da8so368673eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 01:35:13 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791621312; x=1792226112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=n8x4yOZ8tD94FrPHmEsxfPkgylOx+K7J5FAPthoO4fQ=;
+        b=j8PEITId+x7NQ7T97URUbKOflEMMkHx/DI1y8gYlXL9KLEbO6aha2m2RZBoruPuUB6
+         j1Y2w77YP2k8ZSOY2Cgt9ngEFDYZlbxPauRgCpGClgfNo4yEOT+nPJ8EEN+Cahtmg2eO
+         +K/vif0d5qEqTS6MpbflZGQpPA9IoO7FwgB19exqw7CsbdfiCsIBsctEpxukOvU9h06t
+         kmf1/m/JfbE4UWGjHiqSTZw6ME17EdDaSv8NMO2MHr3B74bSFE7UnbzVaefH1PnSLMsP
+         20zfgXd6MYraDCA/LDu1XTXvnQh3mtK5Cw5K4/1ncnQCxsxFxChtwJmGU65lQ/HEyDD8
+         zpnA==
+X-Forwarded-Encrypted: i=1; AKwUvBzBMakeRNvjk5ME6twTUSgr3j0Z7ae72ceVrBIUbFvtwGUZJJRG2CN7Q44nlE3dcsdAYHesQH0fLC18Xp0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLSwXhGS0QMVmWHbhIsDcXfi7xaUzVJiyFPgyNpBPr4VCq6Dw+o
+	rioYTZSKAZjZIAhVI5l/JRmvw15hyutChrbkc6jJLHrjiHe2nVgPe2yc
+X-Gm-Gg: AYBFou2cDt9yGnRxI7RHCa3cIrthbKA6KpgZ6uDJMeGwSBD2Ow45mt7s7/ntd+BtaOQ
+	E6kCHIzZqXJXtHqzGyNywZRTiYqAbVVEK3lObnIm/BUwZb6cvs2PKUGh+9wgb8aLeGm10yXjmxx
+	iu+RPF1RrTbAARWE292hz9tzTQcnqQPlTMXinxIZ/+a3WQeW0EiOSasj0CskX7Chn7Ivj9qPWfI
+	tKxtxruQJhGKpxXaljt0w0038xasPF3sgZWSPORNiyoKBXvCb/myW0bcTJPNIOGAJxK+Zgd6r/W
+	V8Zcjz7/vCBp36fiVWRLWLy3MSd8RL+gmNQxpj/KB4qYA/4sEazYJG2I+t4J7JIY40T04Q7Khz2
+	75BUgaG/Rb2gZxX5M58ZWzCSq97cr+rfmeiQdA3tgnOzXP79SqMuQP1yKAlMjjozZWswwpLDh7z
+	ZJbOJVEAnYmOgXxduPpABpCqOBMvlEu/w8v5Q49Xoxs8485YLV320uRJPVaz8=
+X-Received: by 2002:a05:7300:c00c:10b0:34b:6f6c:2274 with SMTP id 5a478bee46e88-3536c4bde55mr7001287eec.5.1791621312296;
+        Sat, 10 Oct 2026 01:35:12 -0700 (PDT)
+Received: from linmach ([182.156.30.23])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c841579sm12689858eec.4.2026.10.10.01.35.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 01:35:11 -0700 (PDT)
+From: Aayush Kumar <code@aayushk.dev>
+To: Mark Brown <broonie@kernel.org>
+Cc: David Laight <david.laight.linux@gmail.com>,
+	linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aayush Kumar <aayushkmx@gmail.com>
+Subject: [PATCH v2 0/3] spi: use kstrtoul() and snprintf()
+Date: Sat, 10 Oct 2026 14:05:01 +0530
+Message-ID: <20261010083504.26261-1-code@aayushk.dev>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008011359.63727-2-kylebot@openai.com>
-In-Reply-To: <20261008011359.63727-2-kylebot@openai.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Sat, 10 Oct 2026 10:34:21 +0200
-X-Gmail-Original-Message-ID: <CAL4Wiip1pwoyjOsCV2e9Bx7UJWY2mt+J28F3pc8huPEEVkavvA@mail.gmail.com>
-X-Gm-Features: AclHuK9Y16wwCvAHyVouHe-_1ye9UA8IcdE1MMFK7IiU4cuP3BwSdjMWrWJExjQ
-Message-ID: <CAL4Wiip1pwoyjOsCV2e9Bx7UJWY2mt+J28F3pc8huPEEVkavvA@mail.gmail.com>
-Subject: Re: [PATCH net v2] netlink: avoid hashing the network namespace pointer
-To: Kyle Zeng <kylebot@openai.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, davem@davemloft.net, 
-	kuba@kernel.org, pabeni@redhat.com, outbounddisclosures@openai.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Le jeu. 8 oct. 2026 =C3=A0 03:14, Kyle Zeng <kylebot@openai.com> a =C3=A9cr=
-it :
->
-> The netlink rhashtable key includes a raw struct net pointer and a
-> user-controlled port ID. Both /proc/net/netlink and socket diagnostics
-> expose the table's bucket order. By binding and rebinding chosen
-> NETLINK_USERSOCK port IDs, an unprivileged reader can distinguish equal
-> buckets and recover the low bits of the Jenkins hash. Its 32-bit seed
-> and the limited set of kernel-image slides can then be searched offline
-> to recover the address of init_net.
->
-> Use the namespace's unique, non-address net_cookie in the comparison
-> key instead. It is assigned before the per-net initializers run and
-> remains unchanged for the namespace's lifetime. The lookup key and
-> object hash are still built by netlink_compare_arg_init(), keeping
-> lookup, insertion, removal and rehashing consistent while preserving
-> namespace separation. Neither public table walker needs to change.
->
-> Reading the socket's namespace cookie in netlink_compare() is safe
-> under RCU, including during namespace teardown. netlink_release()
-> removes the socket from the hash table and defers its final put with
-> call_rcu(). cleanup_net() runs the per-net exit methods and waits for
-> outstanding RCU callbacks with rcu_barrier() before freeing namespace
-> storage.
->
-> Unlike ns.ns_id, net_cookie is also available and initialized during
-> setup_net() in older stable kernels, making the change straightforward
-> to backport to v5.15 and later.
->
-> Fixes: c428ecd1a21f ("netlink: Move namespace into hash key")
-> Assisted-by: LLM
-> Signed-off-by: Kyle Zeng <kylebot@openai.com>
-> ---
->
-> Changes in v2:
-> - Use net_cookie for compatibility with older stable kernels.
-> - Name the key field net_cookie to avoid confusion with netns IDs.
-> - Explain the RCU lifetime of the socket and network namespace.
+From: Aayush Kumar <aayushkmx@gmail.com>
 
-Please next time add a Link to the prior version, and/or maybe give
-credits to reviewers ideas,
-this is something that humans care for.
+Replace simple_strtoul() with kstrtoul() and sprintf() with snprintf()
+in three SPI drivers.
 
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Signed-off-by: Aayush Kumar <aayushkmx@gmail.com>
+---
+Changes in v2:
+- Drop the two strcpy() -> strscpy() patches (David Laight).
+---
+
+Aayush Kumar (3):
+  spi: tle62x0: Use kstrtoul() instead of simple_strtoul()
+  spi: omap2-mcspi: Use snprintf() instead of sprintf()
+  spi: s3c64xx: Use snprintf() instead of sprintf()
+
+ drivers/spi/spi-omap2-mcspi.c | 6 ++++--
+ drivers/spi/spi-s3c64xx.c     | 3 ++-
+ drivers/spi/spi-tle62x0.c     | 6 +++---
+ 3 files changed, 9 insertions(+), 6 deletions(-)
+
+-- 
+2.56.0
+
