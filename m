@@ -1,143 +1,149 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B365414A2B
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 10:59:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F01E93D5C2C;
+	Sat, 10 Oct 2026 10:59:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791629957; cv=none; b=nbFVfydbnedBrMsJCLcLFeHyG4itfLWRHK7n3foeMZxQBHvxFVowWHkXV9evwtgWjR43EDAT7Z/0XQ4AcQ5y7aVSdyhcNoUsUQ7AQErNrhyRBoJGwb0H+0BRDDA8eTYtyGSRtQvEtKd4vpZWKYMBwrwfr/5lrgLtOR4N0qwOUGo=
+	t=1791629981; cv=none; b=hOGqvyRTogjkXZHz6oMSz2UdqidzJU9/IPFHfaS4k12D2OxRkAsUkfDvh9XJau+VobU/Oa1R2cG1WbMxAFlwVNTEaNGF9UvD5ENvuHFGyFFIeO4NBu45262R4xOErHY34hciFfMIVSEYZbbtbUGZSuZeO9bzL/MuCHLIas3Dtic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791629957; c=relaxed/simple;
-	bh=qqF/9hNJkZvz5igwPUH17BMZnyUc6DBPLiCg9tn2gMs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qoItPhRuYN8kDJA9J2gLcKTdyD0ZxALwD0OgXacHn32sRlanbG2sFachirGLTIjT6FspgnIPZrX2MEgIazSfXehzX0eDenTiJLkmwxlVrSIZ10svWiqUAUkIqwZeiGYjJB9D0yYszvpnNM6La8KHI3mcsCY8ZSkpmn48bnMWCLM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48870973bddso283317f8f.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 03:59:15 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791629952; x=1792234752;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RQBX2EsGilW7uIgdk0tYqFZ4ZqmuLdnOK0NA9yKXMRg=;
-        b=mw7vN/v7ICYuTbaZzHC8E+jjW62/A4/lPeIY45MKk6RkNc6ByjcI7w9uubgt5JOmvy
-         Z3XkuJXPj80OKP95UoHDcD/5TRdbSt8dvnK/O5MUQZ5+wcZdvXEY/VNRa23ChoRZ7BOj
-         YlV48uZ1V8s+ecs61qkb5iRLQ8jEzxOAPTCak/FkM/6PPUj+bCzlabg/yeu6P5Vm9ZV8
-         n5xNBHGpdhVF2RanQw3PtaEawdALvxOYJCjFpQ6zkJiFi85UempBtiWtP6tYf91rHIw5
-         NvUsSmwZSenzvoycRrfFJi0T5yBQ/tweucWuAIU5wMii6LXs4bSe2OBw7cBN3gqWV/GN
-         ehvQ==
-X-Forwarded-Encrypted: i=1; AKwUvByf1FeoR5dwQ9t4vkgy6RBA1jvkxoni8yIRsgxvr089O7h1Jnj7z/x8kT24qW4fSgIvE+d3cZTqjvpvgBc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK++Iive0QU6GPixmYmJDtA+YnwrZP0ExlH5vjh+en+0Dlyjqld
-	AqRJBR9mSOaGIMZ8WpynS7etJ86o17Ep7i+0+yr8189g0wZjmfylE1JH
-X-Gm-Gg: AYBFou3AoXTjlAG+arQZw/pczMWG0o1RhYhwwlHlXpNbD7Bg5eOcmI3OrDXy/5a6Ei1
-	rzXvyOQM+Ijo/riMaoTdSdr3NzNN64w0Ppwd3igTHmJ+z9bxU3ccDOBrNUD2XURm8Ckt40WAWbR
-	aL7W0Zxu+Bj3lUBc5Da9odDPaDL/K+MObj1GCZn22Lhddqg96blpvVzEkl6xxvqGj3cpeT1U35a
-	vdvft6CKulZMEefctqqmZ2vOPB2i7m8wEF5nraqCfQM6X9jUrKCucy2ZzylwrIWZQ04Wz4/i7CD
-	H3XOnQWw5YJD3o4hbsidY+d3E/ljMtA5SjNWP7Lt+j0T8EngigYS0ScPEqzf9Vddlh4kVDumeUl
-	g+bjcLvklKpmEoymzN0UVaFFk02tVVmCLuL3rS2G/yZuPtevt6p5ZeIaUZBQBwIQxLMGVL0SUmT
-	Hc51gTPjlQhhp0kHYe8gVe00SRxq1LohugGET6Xrw5cc3X7/PzikYQ/b6GCD38LzlFyaC2DFMeU
-	5csXxCTBJkoYqn/8bYk1US+M/JBmzlMnmU=
-X-Received: by 2002:a05:6000:2306:b0:488:8347:a110 with SMTP id ffacd0b85a97d-48dba9e6163mr7697023f8f.7.1791629951651;
-        Sat, 10 Oct 2026 03:59:11 -0700 (PDT)
-Received: from threads.localdomain ([84.70.176.222])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9ae17e9sm8709526f8f.57.2026.10.10.03.59.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 03:59:10 -0700 (PDT)
-From: Lucas Tanure <tanure@linux.com>
-To: xianwei.zhao@amlogic.com,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 7/8] arm64: dts: amlogic: t7: khadas-vim4: enable the ethernet port
-Date: Sat, 10 Oct 2026 11:58:59 +0100
-Message-ID: <20261010105900.247342-8-tanure@linux.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261010105900.247342-1-tanure@linux.com>
-References: <20261010105900.247342-1-tanure@linux.com>
+	s=arc-20240116; t=1791629981; c=relaxed/simple;
+	bh=VQPGLKU4ZcERvBsKVfD6o4PBgMZiueaDNlV4quWb24U=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=IP4Y6r4zOF58M4Ki8lnszTMQyYmtYWmvZ8Fv23mkktdjqqrarlXNVp7lJbzV3xQ/EGCOmoAnzkm4KLRdKHHWgpdQbpD6V1RWm327eQTzCoVUt3BFhgG6sRmdrOXiKV1TLHws3BbRQ50+W2R/p5fNd3JIK7nfewy8T0+ISyYkLjg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com; spf=pass smtp.mailfrom=zytor.com; dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b=hPVSAo5n; arc=none smtp.client-ip=198.137.202.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b="hPVSAo5n"
+Received: from ehlo.thunderbird.net ([161.30.201.13])
+	(authenticated bits=0)
+	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 69AAvKbj3525836
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+	Sat, 10 Oct 2026 03:57:31 -0700
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 69AAvKbj3525836
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2026092801; t=1791629861;
+	bh=VQPGLKU4ZcERvBsKVfD6o4PBgMZiueaDNlV4quWb24U=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=hPVSAo5nYsO6bSX/dzSGKEa5wUKn7v/TfReDU3MCb1WsX8WoQgfdBsSjPsL08UUdf
+	 MruQgbmAd65VfHFZWNSWM763ef3lvlBTZSPcks9Wi/iKSty1qDbyAK/1vV2myc8//a
+	 i+KK//TH4zwI6r61AKKo+wIQ4B/JxmzGZbwThJXwtNpxrQdMO6/9/HI5VSB8b3aFK2
+	 iWGBch5KtskJZSQ68Wp1WT2EZibVhL48NAviPICMtVHJupVoq9/HHYuK3KOyXb1Vhm
+	 Tgi4ecTULCUkRrCbhNWgZpo3rI3KRqmrbNcPAJ9SknhyzkvbfxBzZrdOT4WFeq6d1d
+	 HSh/TLkLIAlow==
+Date: Sat, 10 Oct 2026 12:55:23 +0200
+From: "H. Peter Anvin" <hpa@zytor.com>
+To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+        Tancred <alex@narraduct.com>,
+        Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+        linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+CC: Sebastian Andrzej Siewior <sebastian@breakpoint.cc>,
+        "Maciej W. Rozycki" <macro@orcam.me.uk>,
+        Bill Wendling <morbo@google.com>, Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        Ingo Molnar <mingo@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
+        Justin Stitt <justinstitt@google.com>,
+        Nathan Chancellor <nathan@kernel.org>, Neal Gompa <neal@gompa.dev>,
+        Nick Desaulniers <ndesaulniers@google.com>,
+        Richard Purdie <richard.purdie@linuxfoundation.org>,
+        Sam James <sam@gentoo.org>, Shuah Khan <shuah@kernel.org>,
+        Thomas Gleixner <tglx@kernel.org>,
+        =?ISO-8859-1?Q?Thomas_Wei=DFschuh?= <linux@weissschuh.net>,
+        Tomas Glozar <tglozar@kernel.org>, Willy Tarreau <w@1wt.eu>,
+        x86@kernel.org, Arnd Bergmann <arnd@arndb.de>
+Subject: Re: [PATCH v4 2/2] x86: Start removing X86_X32_ABI
+User-Agent: K-9 Mail for Android
+In-Reply-To: <6ab95ddaaa19f224b07a2001e03ec002ca2938e2.camel@physik.fu-berlin.de>
+References: <20261008-x32_removal-v4-0-d389a193c506@breakpoint.cc> <20261008-x32_removal-v4-2-d389a193c506@breakpoint.cc> <7f315c7a-0fd1-4f7e-93bb-703d4107aa5a@narraduct.com> <AEFD8F3A-0692-4090-B3F7-A6AD34A24819@zytor.com> <6ab95ddaaa19f224b07a2001e03ec002ca2938e2.camel@physik.fu-berlin.de>
+Message-ID: <62E0A358-541A-48EB-BD8A-9B61E5C26B72@zytor.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-The board carries a Realtek RTL8211F gigabit PHY on the external
-management bus, connected to the MAC over RGMII.
+On October 10, 2026 9:28:30 AM GMT+02:00, John Paul Adrian Glaubitz <glaubi=
+tz@physik=2Efu-berlin=2Ede> wrote:
+>On Sat, 2026-10-10 at 08:51 +0200, H=2E Peter Anvin wrote:
+>> On October 10, 2026 4:13:55 AM GMT+02:00, Tancred <alex@narraduct=2Ecom=
+> wrote:
+>> >=20
+>> >=20
+>> > On 10/8/26 03:07, Sebastian Andrzej Siewior wrote:
+>> > > where certain workloads widely
+>> > > move to x32 and use it exclusively=2E In the meantime Debian introd=
+uced a
+>> > > patch to disable x32 by default (so it has to be enabled at boot ti=
+me on
+>> > > the command line) because they are afraid of the increased attack
+>> > > surface=2E Fedora as far as I tell has X32 disabled (looking at 7=
+=2E0-rc5
+>> > > rpm in rawhide)=2E
+>> > >=20
+>> > > Since there is practically no real use for x32
+>> >=20
+>> > I only recently discovered x32 and built a Desktop (with all daemons =
+and utilities running 10-30% smaller and some a bit faster, with 64 bit lib=
+raries for eg=2E Firefox=2E) My experiment should definitely not decide any=
+thing, but how much real-world use would be sufficient to justify continued=
+ presence (more complex compat code)?
+>> >=20
+>> > If left behind a flag like Debian (like the 2014 proposal https://lor=
+e=2Ekernel=2Eorg/lkml/1415245982=2E3398=2E53=2Ecamel@decadent=2Eorg=2Euk/),=
+ there are no security risks so I understand the benefit is reduced code co=
+mplexity and maintenance burden=2E Older threads critiqued the implementati=
+on=2E What's the smallest kernel support which would keep 32-bit pointers p=
+ossible? Could a small design (eg=2E just 32-bit pointers on x86-64 with i3=
+86's type layout, so no 3rd compat case (cf=2E MIPS n32 and o32)) work?
+>> >=20
+>> > - Alex Alejandre
+>>=20
+>> The thing is, we don't actually know=2E Therefore, if we are to keep x3=
+2, we need ***real users*** to speak up ***now*** and explain why they are =
+using it and what the benefit to them is=2E With actual performance numbers=
+=2E
+>
+>Real users usually aren't subscribed to Linux kernel mailing lists=2E If =
+you want
+>to figure out whether anyone is using a certain kernel feature, you have =
+to ask
+>within the communities=2E
+>
+>In any case, we're still building Debian unstable for x32:
+>
+>https://buildd=2Edebian=2Eorg/status/architecture=2Ephp?a=3Dx32&suite=3Ds=
+id
+>
+>> Otherwise it is not worth maintaining, partly because it apparently int=
+erferes with the convergence of the 32-bit ABIs, and the handful of x32-spe=
+cific pieces of code do represent an additional attack surface=2E
+>
+>Aren't the attack surfaces disabled when x32 ABI support is turned off?
+>
+>> The desktop distros generally chafe under the 4 GB process limit, which=
+ means that an all-x32 desktop distro isn't very useful; having both x32 an=
+d x64 libraries defeats much of the x32 benefit, so the real use case is em=
+bedded or self-managed code bases=2E
+>
+>Well, you can also run x32 code inside a chroot or containers, can't you?
+>
+>> We are not going to go back in 2026 and redoing the *in retrospect* rat=
+her unfortunate choices made due to "Hinc Dictat Linus" early on (the origi=
+nal plan was to simply provide a fast way to access 32-bit syscalls from 64=
+-bit mode and let the evolution of the compat ABI deal with things like tim=
+e_t, but Linus objected to introducing a new ABI with 32-bit time_t, and at=
+ the time the time64_t interfaces were not yet there, so it ended up being =
+an ad hoc implementation=2E)
+>
+>Adrian
+>
 
-Enable the controller, hand it the ethernet pins and point it at the
-PHY. RGMII needs a delay on each of its two clocks, and on this board
-both come from inside the chips, not from the board traces. The PHY
-adds the one on receive. Its transmit delay does not work here, so the
-controller adds that one.
+That is why I said it also needs to be in the commit message=2E That way s=
+omeone can figure out why it is marked BROKEN=2E
 
-The PHY interrupt output is wired to GPIOH_6, so link changes are
-reported instead of polled. The PHY reset is an RC network on the
-board, not a SoC pin, so there is no reset line to describe.
-
-Assisted-by: LLM
-Signed-off-by: Lucas Tanure <tanure@linux.com>
----
- .../amlogic/amlogic-t7-a311d2-khadas-vim4.dts | 20 +++++++++++++++++++
- 1 file changed, 20 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
-index 0fa83362b417..c18bde02ac40 100644
---- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
-+++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
-@@ -14,6 +14,7 @@ / {
- 	compatible = "khadas,vim4", "amlogic,a311d2", "amlogic,t7";
- 
- 	aliases {
-+		ethernet0 = &ethmac;
- 		serial0 = &uart_a;
- 		mmc0 = &sd_emmc_c;
- 		mmc1 = &sd_emmc_b;
-@@ -256,6 +257,25 @@ xtal: xtal-clk {
- 	};
- };
- 
-+&ethmac {
-+	status = "okay";
-+	pinctrl-0 = <&eth_pins>, <&eth_rgmii_pins>;
-+	pinctrl-names = "default";
-+	phy-mode = "rgmii-id";
-+	phy-handle = <&external_phy>;
-+	tx-internal-delay-ps = <2000>;
-+};
-+
-+&ext_mdio {
-+	external_phy: ethernet-phy@0 {
-+		/* Realtek RTL8211FD-CG */
-+		reg = <0>;
-+
-+		interrupt-parent = <&gpio_intc>;
-+		interrupts = <GPIOH_6 IRQ_TYPE_LEVEL_LOW>;
-+	};
-+};
-+
- &i2c_m_ao_a {
- 	status = "okay";
- 	pinctrl-0 = <&i2c0_ao_d_pins>;
--- 
-2.56.0
-
+This is a last warning=2E
