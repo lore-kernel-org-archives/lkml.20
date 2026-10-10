@@ -1,93 +1,122 @@
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 965444B44D6
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 20:01:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791662492; cv=none; b=bzXCNGTiZ4qrLq8OnTOUE2jDgIK74fY+ONPUt+lWZEHta+75sjsSnoURDSGmax2f2SDcQ8hVds4sqSuyYHxwkJk7IS2lJK+8/0CjLUXxwI4frMdpSw5gbtUkfWQSGfgmglEkMyO5+HmudiaZDAo49uQIDsNV1yLMHpF8uimejjo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791662492; c=relaxed/simple;
-	bh=XRMulLqQ9lTxfpINJFkOFLsDuOIPnmi9UOaet3zqcRI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=a48luO1SOdBcX02U+bLi212omDD5WtZMrIMzdoL3rtWAdYc9A4y98H08XXNaWwrjGOwojACiLNuF/m3eTtFG1G6znsoLBFowQhmh7UGBhmy+/8P2VDkwakmzoQgU7Yw1h9OsvRrcUFuNmGrFvc03Hds6hvvaQ9IBpmBSXJmR68U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=maticrobots.com; spf=pass smtp.mailfrom=matician.com; dkim=pass (2048-bit key) header.d=maticrobots.com header.i=@maticrobots.com header.b=JMLdJ07s; arc=none smtp.client-ip=74.125.82.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=maticrobots.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=matician.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFD433264EF
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 20:05:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791662735; cv=pass; b=Giu36v4bdIRqBw6k7uPCEFqheTl6q5PIngd4u6QstcUrfpUQeT42zT5b38uxRSnxzLE5FW0/6rMLtKFMFiiWyfEqB9H5onILNkAlknqQMguptTdDaxU2A7bcfoQsNRH5jKgujeBOGX0yHeHlyQLWkrtOsskBuOnpX2S7iTtJf0A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791662735; c=relaxed/simple;
+	bh=ks60+6qU+UK7gaXO6jw0WhVNUVXMz5wDLFxByNVuv9E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nLfpkOnk6z/rfKwHLq14rI/HGoSsWKJkrBNg8Y9RVF6SRdvOdCdGAfdngd6YuRXyVOn7gDJ0ktpqyFDTYaOGBbHmqgZyOGg8r7P0wQ4+2n/RfnnE1g3MjX/6GL9h56tT9Wb/qQ1Dqe3aGruQlnoJxTpe5EVyajXR+PI+tt8+Sys=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=VffhjRea; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=maticrobots.com header.i=@maticrobots.com header.b="JMLdJ07s"
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-356b1e20700so1060885eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 13:01:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=maticrobots.com; s=google; t=1791662490; x=1792267290; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XRMulLqQ9lTxfpINJFkOFLsDuOIPnmi9UOaet3zqcRI=;
-        b=JMLdJ07stMbBRhiZGHaVO5NQ+s83usNAru/yE27GGgJTqoLMSGs1lFmtlXxTCaJ4cu
-         2+FhWZP7zYQ1iC6WAy0kdIgv+hxS76Kzog+rjp99ik2ihdEcZXQs9dfY/YWppvT+8/vh
-         j7kwo7GT1RkL1SJnSSDHe2v+LVHmV4qBezgwdArEMmdUBDfdY0VceNvZVYXlCe1Dq8aV
-         GP+zZWksBHOFECvfZE2Y/07ehzADC7KkhCI6Rz8eUGBvSJu/n1vFjZdZgBgCu7oj2sHx
-         2w3rtmZXbgMv4wHNVYc0pv09m6O7yJEVCpA7lZH5jXap2Jr4fZ8qOeh9Yx0DMjYL7tT9
-         pOlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791662490; x=1792267290;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XRMulLqQ9lTxfpINJFkOFLsDuOIPnmi9UOaet3zqcRI=;
-        b=KRRRk3EHr9AE2FrxXnyDQodXLLiOmgu+goLJLT8fwsrvYmx9XswraXQrutYiM3p3mh
-         sFfIckgIG4hUeUUeZFdFH8vOQBwT7YyiIHgiViAZhs27eHeA9Gim2hbbp06R8qA+CkKn
-         JnS+8tZLAxNzk3g9qK50ed++xOta4jkAFSp4iGa4SWZT+hrSEhGozM2gPjRBczaXaZsA
-         X1YqqEGJ4t/fOF552nCfKR36rXL7rz4RiWDQophxCOtRlC3GWV1IqG//cVPIOFNgX+d3
-         wBFnIDVm1Dlw0PeFXUspspc4msDR3enda0/wXxmEg0y8DXBmRbpoVanpKqPqWGIuHkNO
-         E84w==
-X-Forwarded-Encrypted: i=1; AKwUvBxqpWLYy0bKxrLyJB/zxxmyV1Tbo9VbtUYOD5GiCtnWkfMYjWgxdueUJ12zG3FRVBu8d25MMlKjrRk2BV8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIGgXBE5U47dBsHF3QZNCcgbAPRhoI6QcDDCXh7vVA66hMWoRG4
-	B0b9aMd4C+NJy+SQhnR8q5GZQRIUfJWmY7Q68BbWUTr90xUUo/X3Lp6aH4Pw7+jy170=
-X-Gm-Gg: AYBFou1ZvVhe9wHou6owYoAalpskIBSngSNp7N4yrj9Bf+Yj3EuM4br30VdJdhOFtGi
-	nx75HBFCCN0vrQrqwohySZWfMdMf9/vLV34vQTXMV7/OxSxHJi5EfKuENyQFLOcS+Ebcu4L4J8p
-	+1V6YSpTTg0BJjnkRqnIOknDMXKd4RTH8AMjNzliRwJxYV2jTAbz0ZVp0xdWh9rdtiyxvB1x6Fp
-	HMwIcFpoANcnxfGUw5IgaHpzl7y6OYjmBEIuqOTrcjhrUBuxokFI0da6KjrD1DKkBklW2xcS8q7
-	RxWgqhaWTKB5NectSh7LupeltPRWRi67JuUVEk8hFr5aDu6FCgC19W67+cRgFyYjcqrJmTMzW+A
-	sbNk+4pBVNCU9myRhYGViPLk5X9lIVxS1hzk/4K9Exj9xuXXd8t+/1bHQY2ybQY2PTX1ccUF0mT
-	7Ytq21uob55tax8jNZtGLDSThqzGCVW0VrwtBb0X9FTWk6gRKyvhybXHPg3DVtcbiBmnm9lUwMr
-	1RFYTBTNS6XsK4sdvv8dsfVu2weitrG7Bo1BnPcwYeQGBQm
-X-Received: by 2002:a05:7301:7d19:b0:353:7b3a:1c84 with SMTP id 5a478bee46e88-3537df7772fmr7765406eec.5.1791662489397;
-        Sat, 10 Oct 2026 13:01:29 -0700 (PDT)
-Received: from abeMaticDesktop.1020marsh.offices.matician.com ([2600:1700:471:807f:88c:2ee5:394c:5592])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c61eaa0sm20792549eec.0.2026.10.10.13.01.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 13:01:28 -0700 (PDT)
-From: Abraham Zukor <abe@maticrobots.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Abraham Zukor <abe@maticrobots.com>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	linux-spi@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] spi: tegra114: initialize native chip selects inactive
-Date: Sat, 10 Oct 2026 13:01:09 -0700
-Message-ID: <20261010200117.625169-1-abe@maticrobots.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260916020031.161347-1-abe@maticrobots.com>
-References: <20260826000517.631736-1-abe@maticrobots.com> <420de339-53d2-40d9-b04a-a54428450830@nvidia.com> <c6868d2a-f55f-4196-9914-f096420cbabc@sirena.org.uk> <20260916020031.161347-1-abe@maticrobots.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="VffhjRea"
+ARC-Seal: i=1; a=rsa-sha256; t=1791662715; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Y3EIQJhUWX0V9ut354Rom+PlvEyE7yN2/uNsW2QK+zD6OWZs8Q2af27/sXABVdap+26U7LeKRIYLdgIM3CWOEwmXb406j4vihYtHG/Ng/Qixo6Fg5UKjx8Tpmq95/WRasOQN/bFm8z4eQpbe/vJdhmDprYnwLeZTDwc3m9fUuQo=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791662715; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=86nH4rDPCAqx0bxA8LuKagPLnUL7JcTSpGdqaI2PTR0=; 
+	b=aVkszdlXQfgQFcSKLeNRqa+zJzxm/N2Wk5NboogKvqR5Cj7Ieiq4cge43EDdoha4JJUnNxkzb6mf6F4VlUh4f6FKjODSAv8CFvf8DrTE7JLYnheTqhKm+U3hk8APH3HvPz4t7V+pXMbVVxFwMUU7i4eRh9/7ftQrslAmDDgiDuQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791662715;
+	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=86nH4rDPCAqx0bxA8LuKagPLnUL7JcTSpGdqaI2PTR0=;
+	b=VffhjReaT5Y2JjqiyZnkGofHg5YS3ki8unGDYRb8rytUdxTjgZBcsXQboBySqZG2
+	xwf7ia/7gjw4/LIeV31ICdv3OmPNNb1TkP4CryNAnlclsC+ucg3JoNI4ZbM4UxQjCKB
+	amnvGrFhUqZH1+aD4ajCD1snxBWWWPOdrGckLGVU=
+Received: by smtp.zohomail.com with SMTPS id 1791662713047795.6206079359732;
+	Sat, 10 Oct 2026 13:05:13 -0700 (PDT)
+Message-ID: <3b853922-1d29-4d50-a3c3-64db18963ed5@collabora.com>
+Date: Sat, 10 Oct 2026 23:05:07 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/virtio: share one vbuf cache across all devices
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+ David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>
+Cc: Hillf Danton <hdanton@sina.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
+ <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
+ syzbot+1b129b44597a126d2d79@syzkaller.appspotmail.com
+References: <20261010150429.17036-1-ngocthang2710.1999@gmail.com>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20261010150429.17036-1-ngocthang2710.1999@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On Tue, Sep 15, 2026 at 07:00:28PM -0700, Abraham Zukor wrote:
-> My v3 needs adjusting for the first case. I will implement this as a v4
-> if no one sees an issue.
+On 10/10/26 18:04, Nguyen Ngoc Thang wrote:
+> virtio_gpu_alloc_vbufs() creates a kmem_cache with the fixed name
+> "virtio-gpu-vbufs" for every virtio-gpu device and destroys it from
+> virtio_gpu_release(), which only runs once the last drm_device
+> reference is dropped.
+> 
+> Two live virtio-gpu devices are enough to hit this: the second
+> kmem_cache_create() call finds the name already taken and
+> kmem_cache_sanity_check() WARNs. This reproduces at plain boot with
+> two "-device virtio-gpu-pci" on the QEMU command line, no sysfs
+> remove/rescan or held-open fd needed.
+> 
+>   kmem_cache of name 'virtio-gpu-vbufs' already exists
+>   WARNING: mm/slab_common.c:111 at __kmem_cache_create_args
+>   Call Trace:
+>    virtio_gpu_alloc_vbufs
+>    virtio_gpu_init
+>    virtio_gpu_probe
+>    ...
+> 
+> syzbot found the same WARNing through a different path: open an
+> fbdev node, then remove and rescan its PCI device over sysfs. The
+> drm_device reference the open fd holds delays virtio_gpu_release(),
+> so the old cache is still around when the rescan probes the device
+> again and calls virtio_gpu_alloc_vbufs() a second time.
+> 
+> Either way kmem_cache_create() still returns a valid (merged) cache,
+> so the device keeps working; the WARN is not a probe failure. But it
+> is a real defect: as the comment next to the check says, a duplicate
+> name "confuses slabtop, et al", and it is exactly what syzbot and
+> any panic_on_warn setup treat as a crash.
+> 
+> The vbuf size is the same for every device, so create the cache once
+> at module init and destroy it at module exit instead of per device.
+> 
+> Reported-by: syzbot+1b129b44597a126d2d79@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=1b129b44597a126d2d79
+> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+> ---
+> No Fixes: tag. I could not pin down which commit introduced the
+> dedicated per-device cache (dc5698e80cf7, the original driver commit,
+> still used a plain kzalloc() pool); happy to add the right one if
+> someone can point to it.
+> 
+> v3: back to one cache shared at module scope (Dmitry), not kzalloc()/
+>     kfree() (v2) -- kmem_cache keeps the allocation off the general
+>     kmalloc slabs for this latency-sensitive path. Commit message
+>     corrected: the duplicate-name WARN does not fail the probe (the
+>     cache still gets created, merged with the existing one), and the
+>     trigger is any two live virtio-gpu devices, not just the syzbot
 
-v4 is out with the change:
-https://lore.kernel.org/r/20261010195503.623287-1-abe@maticrobots.com
+I booted QEMU with two virtio-gpu devs, each created own kmem_cache and
+there is no warning.
+
+-- 
+Best regards,
+Dmitry
