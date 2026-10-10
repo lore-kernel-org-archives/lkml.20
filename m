@@ -1,124 +1,121 @@
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023077.outbound.protection.outlook.com [40.107.44.77])
+Received: from sender-pp-o91.zoho.in (sender-pp-o91.zoho.in [103.117.158.91])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E6636F8F0;
-	Sat, 10 Oct 2026 10:23:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5221535202E
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 10:23:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=103.117.158.91
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791627818; cv=fail; b=U4rJz0n6AI5G6auVLrORhtoBGiEgHUi9TK88gai7NCOPi6Hsv5J8FtAJnKIDLl/1zC5Fu+ReOG9xjKIWZkzHwMIPWbwpT9fQ2cJLcJz1zG2zpbVcpE1W5YH2WDLvy5kgYGx/NbMJ1VdxKOjuv6FSkkddRfzBmAbLWBDBC37CkeI=
+	t=1791627838; cv=pass; b=nfgQHYuLviTbwvobnPBgYq7U5WwD2GslwjOLTo4aDSIKGUZkbqWnnO6/K2cjEy1UatrIFkcLxpKdFE35Jo4O8CRJEsIcVMKX7a7wb051+7ctNgUhIFDD/vgUFaJS+dRBsFJ3xeATsO/q1RqGVPmfzlHpuwaVzNrQgh22FuGckk8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791627818; c=relaxed/simple;
-	bh=b4JSqlf5hgqzCvfs+x4BE5zqpYpkhZCeUOemlT0acAM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JMFXg6vxVYU6B7YW64abf0Eux3Q12POwEOQ5LAlomv6h8z0akzR171AzuEJzVHu5FJOctPB9SKYLXoEe29cUPyBUQv6l8R+BHZ2uRIgqlM8I9ZmWUgY260jpORUd+tEGm2V6ALSN1xH/x6xmpljzON8KCDuM8IqfMyEE4xNkjn4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=40.107.44.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gE4lKpoyFEsezVv+vgVfM5828iy+SCBd1pGVBdMUeogNOzV0zDqMTALuQXdJHYnJwcm1I1KJd2BadkFrFbdsrSZQKpFYDbKyo4YF2XIMKx3GU9+uUP2q7CtRW/3nQ+g+glltuG/VnehO+ABDAxZtYEXbHWKagqraUwF6GaRao8WeZCja1hO0rlzssJiMQI1QACQc1vySbBcgiqnnJDMetiBGWRmJYpR/JS8e/CRfeVfZGY60sKyWZi1vSNpYziXlk5J2j8LHMjvGlgZhO20G7F/uNFgx8HTcIBSbTzspogaZ0GULDsi8IpWrtKNQ2I0u7Mrgk0pMXC/BBLTEuQbyeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ra3VbxRGul4/Hd5snQVYiJUL80RvbxNJR4QpM1YiBCs=;
- b=jL71p2MsMFHFEw+dUe67yaC78wq+/Pp2Lj7PwALXODgU3Ql7MKf32YcNbOW1ySstvfwZ72FeDe8KjnAG76wiUjUVjECQS+UvcpO2UztGUN4pJPT87ry7mx0ljKV7GI+rW9AYgHXemc/vzGNkJAruJ9ICV/nEKVgJmqlHFHZAdMmu5AfCCQyHyC1VXt8Jw1pirHP6YZZRoH/zFpVeF2DfGDTZwT5TiPwZwYQPDnZS+v1lQEy12NqqYKCkqUqVgJFwqc1ERS4pIvx2sp2uGF+PzAC4hUQzot3ZzYAhMQ1eCd75kDkWJZdTEk8DxP7RwKag+Sd1EbPTvnjAczxQ4kCXPw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from SI3PR03CA0012.apcprd03.prod.outlook.com (2603:1096:4:297::12)
- by KL1PR06MB6346.apcprd06.prod.outlook.com (2603:1096:820:ec::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.19; Sat, 10 Oct
- 2026 10:23:30 +0000
-Received: from SG2PEPF000B66C9.apcprd03.prod.outlook.com
- (2603:1096:4:297:cafe::1e) by SI3PR03CA0012.outlook.office365.com
- (2603:1096:4:297::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Sat, 10
- Oct 2026 10:23:30 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- SG2PEPF000B66C9.mail.protection.outlook.com (10.167.240.20) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Sat, 10 Oct 2026 10:23:29 +0000
-Received: from ubuntu (unknown [172.20.64.99])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id A8947427E3A0;
-	Sat, 10 Oct 2026 18:23:28 +0800 (CST)
-Date: Sat, 10 Oct 2026 18:23:27 +0800
-From: Jelly Jia <Jelly.Jia@cixtech.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: vkoul@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, robin.murphy@arm.com,
-	devicetree@vger.kernel.org, Frank.Li@kernel.org,
-	cix-kernel-upstream@cixtech.com, dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/6] dt-bindings: dma: arm,dma-350: Document the CIX
- Sky1 integration
-Message-ID: <asoSH0CLbi7xmjP8@ubuntu>
-References: <20260907033404.596839-1-Jelly.Jia@cixtech.com>
- <20261009051846.1115962-1-Jelly.Jia@cixtech.com>
- <20261009051846.1115962-5-Jelly.Jia@cixtech.com>
- <20261009-e284e1844269292657604ec7@squawk>
+	s=arc-20240116; t=1791627838; c=relaxed/simple;
+	bh=kBXVdNLblXqhPKY+YKyZ2nfk6nagaESH81U5awSIZbg=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:Subject:MIME-Version:
+	 Content-Type; b=VJa9ptFGKhnnomalzwde7HM74QCagWdwaOtTbtMGPHzt2oxCV3fObhmRrjX8JIACsPmcCWZiG82qafhovdPbjqCcJrySmh070umt/hjRt92xtx3Y76Qqdmk2G2bJvratkIaOGlHi37hZWQPxoYFf8sO0r59quIAASY2aoHcAIn0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.in; spf=pass smtp.mailfrom=zohomail.in; dkim=pass (1024-bit key) header.d=zohomail.in header.i=linuxuser509@zohomail.in header.b=OYYSsvkv; arc=pass smtp.client-ip=103.117.158.91
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.in
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=zohomail.in header.i=linuxuser509@zohomail.in header.b="OYYSsvkv"
+ARC-Seal: i=1; a=rsa-sha256; t=1791627805; cv=none; 
+	d=zohomail.in; s=zohoarc; 
+	b=QLOPbYtfRQDP4XpjsKqXwQJuw5VlNN6iYZWSdXkatGEfU/MEszeEuLFqQbNgIg05CIxeAWZNlDJVNd5emf/sCp0OwOk+tQGu4A8Jn3Q9w7h3PCPnfdO7Ukh23f36pOlCeyNx5QGS8VSmq6veoyGdoaqbsiPCR5iesM/UzbqKlYo=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.in; s=zohoarc; 
+	t=1791627805; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Uj61p2nyqPz0X8L7bYck75AAjf/48Y9e7L9N7YT6+Fo=; 
+	b=Uvvg+8DOVYorLkCnxzL7K2WMmQMSEV9Kyk/V5la7XXrHeRQxRrz6pp/gM6u+7oLEILzL+jI+yBwnjCcf3yH6qiM7M3mPbGEILVMdc2uxid57oy/ArpYnMq6M8Yk+UqFHSw8bK0yvIlpfPIGFD7hF6kwzOFG1NLWwGen227ghUlo=
+ARC-Authentication-Results: i=1; mx.zohomail.in;
+	dkim=pass  header.i=zohomail.in;
+	spf=pass  smtp.mailfrom=linuxuser509@zohomail.in;
+	dmarc=pass header.from=<linuxuser509@zohomail.in>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791627805;
+	s=zoho; d=zohomail.in; i=linuxuser509@zohomail.in;
+	h=Date:Date:From:From:To:To:Cc:Cc:Message-ID:In-Reply-To:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=Uj61p2nyqPz0X8L7bYck75AAjf/48Y9e7L9N7YT6+Fo=;
+	b=OYYSsvkv0FDplasgwICze7IfE274MoSbQwM2nHuz6SVF4Q9lS1v1hl3U0yeLsDfQ
+	MmnagzcJ0YIhRJiY/ohFX98BxKCskD9CtWVxdD+ILFsOVNHRehSNjBTODtoLha02EJf
+	F/HdJckfq5u4jCWzn2tPp5Ww18zDfmyQRUuWCS3U=
+Received: from mail.zoho.in by mx.zoho.in
+	with SMTP id 1791627800352565.0157336159798; Sat, 10 Oct 2026 15:53:20 +0530 (IST)
+Received: from  [152.57.170.22] by mail.zoho.in
+	with HTTP;Sat, 10 Oct 2026 15:53:20 +0530 (IST)
+Date: Sat, 10 Oct 2026 15:53:20 +0530
+From: Ashwin Gundarapu <linuxuser509@zohomail.in>
+To: "intel-gfx" <intel-gfx@lists.freedesktop.org>
+Cc: "janinikula" <jani.nikula@linux.intel.com>,
+	"rodrigovivi" <rodrigo.vivi@intel.com>,
+	"joonaslahtinen" <joonas.lahtinen@linux.intel.com>,
+	"tursulin" <tursulin@ursulin.net>,
+	"dri-devel" <dri-devel@lists.freedesktop.org>,
+	"linux-kernel" <linux-kernel@vger.kernel.org>
+Message-ID: <1a12556af17.597a885f7429.8559089497420287597@zohomail.in>
+In-Reply-To: 
+Subject: [PATCH] drm/i915/sdvo: Remove disabled HDMI buffer dump code
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009-e284e1844269292657604ec7@squawk>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG2PEPF000B66C9:EE_|KL1PR06MB6346:EE_
-X-MS-Office365-Filtering-Correlation-Id: e3a154ad-727e-448d-8458-08df26b88768
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|23010399003|36860700016|1800799024|376014|7416014|18002099003|22082099003|10067099003|3023799007|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	hP3oF3yoazrukKFLyEGJ2QsM2wdv4oRuhzR1ZLX/UKJFJO+AOPosoVPDWdkdChaIoKpQOWlAMDlVzyL/pahMR7z9WXXvkN1JozXr0Be4Z7HCdAIn3qtMP6ElcSTtWALtUbemCS4Cl/mJlquqxF483i8rdBp7TrOQ8oq0mS613rjVAKPMpQ151gxzPGgmtE+qH6FckprQH99HIXYfdq4sSdNSAurgqf3PdGbJnuHw8K3we7CzfVLH+6UWDlw/RPpWWwtKcKCn0AyY2icnbYEiN8KH32h8NrYPN0Z0aCHU3ix/AigdeKDX3FTclGybx6kWxNRWbecvTr3aJuLbIdVn9nIp9khAPP3xy7H8ryVrIKHq3Vu0og6dy28gWJaj2I/Wjmv+7+ujbiE4crqxkylv/ZVAzvrWK4FTJfh3CUxViJalrU/gbxoK7rlSBYCkQTfFCGBYpn/8Ms39F7GtL/WV2mULB+08ZBxrNuTb0Cc/FQGFPhq8hJ9c+6iSDOpQMorHw+Ed61VEv8zQd6L7ORzv5m8hbmfObOgAZKe489sVlYhe5usmJHjsVhY/T4STom48GkdHXqJhX01lvWOtjGS3eqKxJbD+Xonprp3eTGJBWWHorxNjlJ8HpG8qeQf32/XwKoum2Y6Dl+pe2MhYRpZAyRbuvgxhD6FYt5et8BMDiTfi6Tn9JcwQRQe1+qwYQWtNVuZ7gzv/RKqQPiPr0nj0Xg==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(36860700016)(1800799024)(376014)(7416014)(18002099003)(22082099003)(10067099003)(3023799007)(4143699003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	/m9EHuf8m6T7cwjfzcLozRdWYgzw/ruxBIKj78kX6wjcJbLCct0vBY5BZF7ibE0CryxhDN7nUw0zVZ8PTkjnRA55bmLjndi23Ak2qkZJQ/ZdP4x/7Rbl4SeokT34OVFLCVAptBS1aHyUc0D9yEM8QGUns72yigctYmEpg7fTC4noYOtNTVNu7WniTZLeCmcpmQicDt1i/84aql7OlZLZSRVl8vWz8hRPKxtIwnWJnDGO7pe+Q8Jf0XHi5QwsOgF3h+KOjOju1EfsjjnUUfcN6QowFq2ETTc8Ty1MG7hcc1g5cgdq5nyD0DeG1WZqOxx+pM1nWy00BO18DwpZJG5hr+pKE7UyJwunsoS7SPN2MTOpYnUQUT5hYQgE0mhS8nddg3nLk4+2VZc1NSzJ22+RhuB5Q/APS+HFhh408YT8UIE+n7elzv8pvVeoQZ96q7D7
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2026 10:23:29.5833
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e3a154ad-727e-448d-8458-08df26b88768
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SG2PEPF000B66C9.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR06MB6346
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Importance: Medium
+User-Agent: Zoho Mail
+X-Mailer: Zoho Mail
 
-On Fri, Oct 09, 2026 at 04:31:26PM +0100, Conor Dooley wrote:
-> > +  cix,irq-router:
-> > +    $ref: /schemas/types.yaml#/definitions/phandle
-> > +    description:
-> > +      Syscon phandle for the CIX Sky1 subsystem register block that routes
-> > +      DMA-350 channel interrupts to the AP interrupt controller.
->
-> See comments on the driver for more on this, but I'm not convinced that
-> this should be in this node - especially if this thing controls other
-> device's routing too.
->
-> Thanks,
-> Conor.
+From cbebdc3b5dce2d4c0ce8c9b69c62b539fc77dce5 Mon Sep 17 00:00:00 2001
+From: Ashwin Gundarapu <linuxuser509@zohomail.in>
+Date: Sat, 10 Oct 2026 15:42:48 +0530
+Subject: [PATCH] drm/i915/sdvo: Remove disabled HDMI buffer dump code
 
-Agreed - v3 drops cix,irq-router from the binding completely. We plan
-to handle the interrupt gate as firmware/pre-Linux platform setup for
-v3, so the DMA node should not describe it. With the property gone, the
-CIX-specific conditional in allOf goes away as well, and the binding is
-back to the generic controller properties plus the CIX compatible. The
-corresponding driver changes are in my reply on the driver patch.
+Signed-off-by: Ashwin Gundarapu <linuxuser509@zohomail.in>
+---
+ drivers/gpu/drm/i915/display/intel_sdvo.c | 30 +----------------------
+ 1 file changed, 1 insertion(+), 29 deletions(-)
 
-Best regards,
-Jelly
+diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
+index 3075ef04df56..d9c6a620377e 100644
+--- a/drivers/gpu/drm/i915/display/intel_sdvo.c
++++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
+@@ -974,35 +974,7 @@ static bool intel_sdvo_get_hbuf_size(struct intel_sdvo *intel_sdvo,
+ 	return true;
+ }
+ 
+-#if 0
+-static void intel_sdvo_dump_hdmi_buf(struct intel_sdvo *intel_sdvo)
+-{
+-	int i, j;
+-	u8 set_buf_index[2];
+-	u8 av_split;
+-	u8 buf_size;
+-	u8 buf[48];
+-	u8 *pos;
+-
+-	intel_sdvo_get_value(encoder, SDVO_CMD_GET_HBUF_AV_SPLIT, &av_split, 1);
+-
+-	for (i = 0; i <= av_split; i++) {
+-		set_buf_index[0] = i; set_buf_index[1] = 0;
+-		intel_sdvo_write_cmd(encoder, SDVO_CMD_SET_HBUF_INDEX,
+-				     set_buf_index, 2);
+-		intel_sdvo_write_cmd(encoder, SDVO_CMD_GET_HBUF_INFO, NULL, 0);
+-		intel_sdvo_read_response(encoder, &buf_size, 1);
+-
+-		pos = buf;
+-		for (j = 0; j <= buf_size; j += 8) {
+-			intel_sdvo_write_cmd(encoder, SDVO_CMD_GET_HBUF_DATA,
+-					     NULL, 0);
+-			intel_sdvo_read_response(encoder, pos, 8);
+-			pos += 8;
+-		}
+-	}
+-}
+-#endif
++
+ 
+ static bool intel_sdvo_write_infoframe(struct intel_sdvo *intel_sdvo,
+ 				       unsigned int if_index, u8 tx_rate,
+-- 
+2.56.0
+
+
+
+
