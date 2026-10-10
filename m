@@ -1,172 +1,136 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 549F1298CC4;
-	Sat, 10 Oct 2026 03:32:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7232535C188
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 03:36:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791603169; cv=none; b=ds3PEd/QNd0kjCIW79I6FvVtqaAXLrYYR8B5eWsJ4a5VX1YjUZcTQt/kM1KAiwF6ckdhmhoZRKOqn2mJBegzW5yWKKHlxCPTd7gWOeEDmIEnYfB63gE3C275IopB6q+Y7HrTAeotbgsf96vLDCeWjr3Y+w1gQs8mqFsrWs4j4+c=
+	t=1791603393; cv=none; b=TakDSJgbBYyZKVD/IVJTqQtG9eQ9JChC23AAY8mQIQvhyF1zz4v1x3D8M27VGo98/ixvE8SSDdyD3t1/SvPodg0pTCe5OWdoUGT409HwcH64LmYSNcsxJiJXpAFMoHEmT7J5rN7//Lb6Eyw3mMngq4vb9HP5ldZPXyiTvJRs2B0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791603169; c=relaxed/simple;
-	bh=L1xvLFtuvT5GKWDgJ3c/DJEPvPiVYnbScbik8/+g7n0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Jg/f8Fj9oYhqZl+GB4H1RCaYeCNuhqys+QXVgoRw8eqb7xhLB1DT+kne46fqDxf783sG7/NZTNDWB+gzAut+fGVw5aLZOKBG22heUsZ7+pflRojeUDfdWXd6ZMXmo6av0t0BAH+iWs8jYAeu9q1yHDz8OuUNpxHeJ+FBtEQ73EY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QuN+CprY; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791603393; c=relaxed/simple;
+	bh=70YgM1Mt4Z5YsyjAZUstuPenINMCxDg+GnCsfmv86Gg=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=O+nzwMzJKH91mn5kuO2I4fLIlzzRPxIf07EduOPXX7y2KNTb4AIxzmzQhkcuzXwvgcTQYeBV6uhsPGuh28vpzmdYpnfLT0CuvZjOVueZ39qFWDSgkJIt7s2pnwNlc+3bopy0rn/Vy2apt5Y3/441yEkEMaokYL7apk1SgQYRpxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BAv4n9k7; arc=none smtp.client-ip=74.125.82.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QuN+CprY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791603169; x=1823139169;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=L1xvLFtuvT5GKWDgJ3c/DJEPvPiVYnbScbik8/+g7n0=;
-  b=QuN+CprYDK1kgcGcRUFzSUPCPVlz/u6v9Tzf+e9NpCWS0ENHeYJeqJmK
-   kl/XPB+jK3uy9jGKh01gKpOGEEzpAJlB0MTLOLyUIxneDrpiVYp6JP92O
-   SxUptgCZU21KvS4bbFEQ6+Yp+Oyd35QgIrX/6CkJApzQ7lzl4Kz3NkvsR
-   hK9Pm0tujlFYHvEMDWM6NUz6SwCQaLWAX3sWIlTLaV4zajij7kuvqUwDm
-   2XbmJUOLAvmEHRzAlzauwoupzNI9otXN74Rh6iSqjV1QLewGE+AU1FFnQ
-   6Y2TMCn7c7VGzJtY4q2vz0wEK0RAULZZYOrB1Voh6l/yrrd1GjwFw6Sw0
-   w==;
-X-CSE-ConnectionGUID: 5yvbENDaTWCn9BUJN7udOA==
-X-CSE-MsgGUID: nkv2gRXGRI+OoqfqqEtBAA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="404479"
-X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
-   d="scan'208";a="404479"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 20:32:48 -0700
-X-CSE-ConnectionGUID: 3lYJoxIFQmKA4unwBVQFlg==
-X-CSE-MsgGUID: h4ITtYXwQ3OYJZS+UVq/lA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
-   d="scan'208";a="2199563"
-Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 20:32:42 -0700
-Message-ID: <4d57c0f7-5ed9-4a1f-b401-a1072af5dd6c@linux.intel.com>
-Date: Sat, 10 Oct 2026 11:32:39 +0800
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BAv4n9k7"
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-147be78cd56so1409303c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 20:36:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791603391; x=1792208191; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=FN3jzVFTvR1bxiOc6QpulyJ81OKLo+adR8/+V0xSoVo=;
+        b=BAv4n9k7qo0iGS78shwAnpM0hJ0JrIvnLuJe+dQEzMYB1WdD13FKwuUtCLuiknAeY8
+         NY5CJqaRrlSGV3qcZGmIzkUAWHrJg9UQkrWOR9p5sDgEg5rPq5Kj/KYA3CJ1zmGUSVTN
+         W90ROwzX28DJFAby2WC7s7gKa4YPkysX7KmlZs8aRSLB+8mBQ08FmIu8rCiK4PT6cMUh
+         FFCo+2FlGR8he+DM4lohEJMbTvv9mkECL2U5CgqdWlgt35hi68lwSqwU92JC2hZTmdE5
+         yRDI9FRoQ1HfV/3AtUMauF15SxcXeRV82Bp9L2sN+/ovMtNPvgAeoCBs68+DmCenegfU
+         dc5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791603391; x=1792208191;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FN3jzVFTvR1bxiOc6QpulyJ81OKLo+adR8/+V0xSoVo=;
+        b=0lY79jiiK///9ALt4AE4XD4Tysv8jgL3SY5UNmaVJKoM8gqlp8u1gqGmqIImHXRy/l
+         k+nAJLH+JerqEqwnPKmMVNYQkxtIdOdX/WzXTR8AF5Be7ozU4KCoTHKC9QuLBtOTswDL
+         VLqCVaC1IU8njKdPtO0wRmrdVlw2EdoirLKjQbWupOCDmajYoITqzwzhzUyO3AaDrwJ5
+         EHE5JjH4JcQnJL+XxO6+tzuoaA95wK8SRAZpcsfiZn3GP+XoA8BHLzQKrajP/PmrJh+5
+         WTr0q/lh5MqaD0Z9QE/uCeSNMm3W0HVvlNXmnX4dL3viNGnChJPdNAaYF2sbS5vPEeKJ
+         ZFWA==
+X-Forwarded-Encrypted: i=1; AKwUvBxFXOmxkbq81BoaMIQpx0Mq3yV5Bj4D0VF5JuqEqlRERK+Cd1sNqaJ72OSpeuhBzWW4WzUaw94/oxco9I8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJCOzFOIiuAx1Arh63Sbr098grPE8f1Y5dMGNzCKfLbkycUQDxL
+	ijQdKD0TsDWCG9rzUsfdOurKEKxUFkvtTpGPTXO5mCLOL+kP5Wksp2pqBr2Q/Kbx59bLnVn6FJ8
+	0dezR3iSpJmkyojCWXdyBQHBhsg==
+X-Received: from dlep17-n2.prod.google.com ([2002:a05:701b:4591:20b0:14a:c841:ce30])
+ (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7022:e11:b0:145:3a5:d918 with SMTP id a92af1059eb24-16a640fd0admr7318681c88.33.1791603391029;
+ Fri, 09 Oct 2026 20:36:31 -0700 (PDT)
+Date: Sat, 10 Oct 2026 03:36:07 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 13/23] KVM: selftests: Support guest_memfd in-place
- conversion
-To: Lisa Wang <wyihan@google.com>
-Cc: Andrew Jones <ajones@ventanamicro.com>,
- Ackerley Tng <ackerleytng@google.com>, Chao Gao <chao.gao@intel.com>,
- Chenyi Qiang <chenyi.qiang@intel.com>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Erdem Aktas <erdemaktas@google.com>, Ira Weiny <iweiny@kernel.org>,
- Isaku Yamahata <isaku.yamahata@intel.com>, Kiryl Shutsemau <kas@kernel.org>,
- linux-kselftest@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
- "Pratik R. Sampat" <pratikrajesh.sampat@amd.com>,
- Reinette Chatre <reinette.chatre@intel.com>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- Roger Wang <runanwang@google.com>, Ryan Afranji <afranji@google.com>,
- Sagi Shahar <sagis@google.com>, Sean Christopherson <seanjc@google.com>,
- Shuah Khan <shuah@kernel.org>, Xiaoyao Li <xiaoyao.li@intel.com>,
- Oliver Upton <oupton@kernel.org>, Jeremiah McReynolds <jmcrey@google.com>,
- kvm@vger.kernel.org, linux-coco@lists.linux.dev,
- linux-kernel@vger.kernel.org, x86@kernel.org
-References: <20261001-tdx-selftests-v15-0-7c62a5d8a992@google.com>
- <20261001-tdx-selftests-v15-13-7c62a5d8a992@google.com>
-Content-Language: en-US
-From: Binbin Wu <binbin.wu@linux.intel.com>
-In-Reply-To: <20261001-tdx-selftests-v15-13-7c62a5d8a992@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+Message-ID: <20261010033630.1171692-1-almasrymina@google.com>
+Subject: [PATCH net-next v3 0/2] net: netmem: document design principles and
+ intended direction
+From: Mina Almasry <almasrymina@google.com>
+To: netdev@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+Cc: Mina Almasry <almasrymina@google.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Jesper Dangaard Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	John Fastabend <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, 
+	Luigi Rizzo <lrizzo@google.com>, "=?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?=" <bjorn@kernel.org>, 
+	Pavel Begunkov <asml.silence@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/2/2026 3:37 AM, Lisa Wang wrote:
-> With guest_memfd in-place conversion, the memory region can be set as
-> shared, eliminating the need for dual-backed memory.
-> 
-> By setting the region to shared initially, the KVM selftest framework
-> can populate the mmap()-ed guest_memfd memory just like any standard
-> memory provider.
-> 
-> For CoCo VMs, pages that need to be private are explicitly set to
-> private before executing the VM.
-> 
-> Signed-off-by: Lisa Wang <wyihan@google.com>
-> ---
->  tools/testing/selftests/kvm/lib/kvm_util.c         | 20 ++++++++++++++------
->  tools/testing/selftests/kvm/lib/x86/tdx/tdx_util.c |  6 +++++-
->  2 files changed, 19 insertions(+), 7 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/kvm/lib/kvm_util.c b/tools/testing/selftests/kvm/lib/kvm_util.c
-> index 7625908caf21..f474664b5d92 100644
-> --- a/tools/testing/selftests/kvm/lib/kvm_util.c
-> +++ b/tools/testing/selftests/kvm/lib/kvm_util.c
-> @@ -494,8 +494,10 @@ struct kvm_vm *__vm_create(struct vm_shape shape, u32 nr_runnable_vcpus,
->  	u64 nr_pages = vm_nr_pages_required(shape.mode, nr_runnable_vcpus,
->  						 nr_extra_pages);
->  	struct userspace_mem_region *slot0;
-> +	u64 gmem_flags = 0;
->  	struct kvm_vm *vm;
-> -	int i, flags;
-> +	int flags = 0;
-> +	int i;
->  
->  	kvm_set_files_rlimit(nr_runnable_vcpus);
->  
-> @@ -505,14 +507,20 @@ struct kvm_vm *__vm_create(struct vm_shape shape, u32 nr_runnable_vcpus,
->  	vm = ____vm_create(shape);
->  
->  	/*
-> -	 * Force GUEST_MEMFD for the primary memory region if necessary, e.g.
-> -	 * for CoCo VMs that require GUEST_MEMFD backed private memory.
-> +	 * Force GUEST_MEMFD for the primary memory region if necessary, and
-> +	 * initialize it as shared if in-place conversion is supported, so the
-> +	 * selftest framework can populate it exactly like other memory
-> +	 * providers.
->  	 */
-> -	flags = 0;
-> -	if (is_guest_memfd_required(shape))
-> +	if (is_guest_memfd_required(shape)) {
->  		flags |= KVM_MEM_GUEST_MEMFD;
-> +		if (kvm_has_gmem_attributes)
-> +			gmem_flags |= GUEST_MEMFD_FLAG_INIT_SHARED |
-> +				      GUEST_MEMFD_FLAG_MMAP;
-> +	}
->  
-> -	vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS, 0, 0, nr_pages, flags);
-> +	vm_mem_add(vm, VM_MEM_SRC_ANONYMOUS, 0, 0, nr_pages, flags,
-> +		   -1, 0, gmem_flags);
+Because the networking stack and drivers are only partially converted to
+netmem_ref and current memory providers only supply unreadable net_iovs,
+automated code review and analysis tools (such as LLMs) frequently infer
+the wrong architectural invariants from existing code. Specifically,
+they often assume that page_pool's struct page APIs are primary rather
+than legacy wrappers, that memory providers always imply net_iov, that
+net_iov is inherently unreadable, or that callers should branch on or
+downcast netmem_ref directly.
 
-This is common for both TDX and SNP, does it break SNP?
+Document the intended netmem, memory provider, page_pool, and skb
+fragment design principles concisely in the relevant headers, code
+comments, and netmem documentation so both developers and automated
+tools follow the intended abstractions. This series adds comments and
+documentation rather than performing a large refactor all at once, so
+that future incremental changes nudge the codebase in the intended
+direction.
+
+This reflects my mental model of the netmem, page_pool, and memory
+provider architecture; I welcome feedback and disagreements,
+particularly from major contributors to page_pool and memory providers.
+
+Cc: Luigi Rizzo <lrizzo@google.com>
+Cc: Bj=C3=B6rn T=C3=B6pel <bjorn@kernel.org>
+Cc: Stanislav Fomichev <sdf@fomichev.me>
+Cc: Pavel Begunkov <asml.silence@gmail.com>
+---
+v3:
+- Collect Reviewed-by/Acked-by tags from Bj=C3=B6rn, Pavel, and Stanislav.
+- Clarify skb fragment homogeneity rule: all frags in an skb must either
+  be struct page-backed or belong to the same memory provider instance
+  (Pavel Begunkov).
+- Link to v2: https://lore.kernel.org/netdev/20261008023030.1089616-1-almas=
+rymina@google.com/
+v2:
+- Document both current implementation status (memory providers currently
+  supply net_iov, and net_iov is currently unreadable) and target design
+  principles, and clarify that new code should generalize existing
+  limitations as much as possible (Stanislav Fomichev).
+- Link to v1: https://lore.kernel.org/netdev/20261005004958.3603059-1-almas=
+rymina@google.com/
+
+Mina Almasry (2):
+  net: netmem: document netmem and memory provider design in comments
+  docs: netmem: document netmem and memory provider design principles
+
+ Documentation/networking/netmem.rst     | 53 +++++++++++++++++++++++++
+ include/linux/skbuff.h                  |  6 +++
+ include/net/netmem.h                    | 30 +++++++++-----
+ include/net/page_pool/helpers.h         | 18 ++++++---
+ include/net/page_pool/memory_provider.h | 10 +++++
+ include/net/page_pool/types.h           |  6 +--
+ net/core/skbuff.c                       |  4 ++
+ 7 files changed, 109 insertions(+), 18 deletions(-)
 
 
->  	for (i = 0; i < NR_MEM_REGIONS; i++)
->  		vm->memslots[i] = 0;
->  
-> diff --git a/tools/testing/selftests/kvm/lib/x86/tdx/tdx_util.c b/tools/testing/selftests/kvm/lib/x86/tdx/tdx_util.c
-> index e348507a6be8..40ee9b1951c2 100644
-> --- a/tools/testing/selftests/kvm/lib/x86/tdx/tdx_util.c
-> +++ b/tools/testing/selftests/kvm/lib/x86/tdx/tdx_util.c
-> @@ -23,6 +23,8 @@ void tdx_vm_setup_boot_code_region(struct kvm_vm *vm)
->  	gpa_t gpa;
->  	u8 *hva;
->  
-> +	if (kvm_has_gmem_attributes)
-> +		gmem_flags |= GUEST_MEMFD_FLAG_INIT_SHARED | GUEST_MEMFD_FLAG_MMAP;
->  	vm_mem_add(vm, VM_MEM_SRC_SHMEM, alloc_gpa, TD_BOOT_CODE_SLOT,
->  		   nr_pages, KVM_MEM_GUEST_MEMFD, -1, 0, gmem_flags);
->  
-> @@ -44,9 +46,11 @@ void tdx_vm_setup_boot_parameters_region(struct kvm_vm *vm, u32 nr_runnable_vcpu
->  	size_t boot_params_size = sizeof(struct td_boot_parameters) +
->  		nr_runnable_vcpus * sizeof(struct td_per_vcpu_parameters);
->  	int npages = DIV_ROUND_UP(boot_params_size, PAGE_SIZE);
-> -	const u64 gmem_flags = 0;
-> +	u64 gmem_flags = 0;
->  	gpa_t gpa;
->  
-> +	if (kvm_has_gmem_attributes)
-> +		gmem_flags |= GUEST_MEMFD_FLAG_INIT_SHARED | GUEST_MEMFD_FLAG_MMAP;
->  	vm_mem_add(vm, VM_MEM_SRC_SHMEM, TD_BOOT_PARAMETERS_GPA,
->  		   TD_BOOT_PARAMETERS_SLOT, npages,
->  		   KVM_MEM_GUEST_MEMFD, -1, 0, gmem_flags);
-> 
+base-commit: d8674294aefef02266c4d47ad10131f1bffbe534
+--=20
+2.56.0.385.gd3acb90ef8-goog
 
