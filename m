@@ -1,317 +1,254 @@
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2954130D40D
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 17:16:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28728314B73;
+	Sat, 10 Oct 2026 17:19:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791652600; cv=none; b=r8iEIlbe23wok9PQc86kFD15kqF/x6KaQZTvSez21eSq8+X5EscwvsSF6nKqqsB3Y6JN6+lndDMvs0jX9tP5Z3I8DjtIKaBb0PBry2/dw38iqMXyhNW0wqirwtIdzZh0YjblXeoBY2sfy7yN7Xv4FN1t2lqVOZiKcXBRpC8Er28=
+	t=1791652772; cv=none; b=muFzg3/fDYi7Pug9eA6v6whqxk89MoidCWz2++gAcohCh6TaQIPjCjJjkeALlqfmBdzRkgrJ/XnYOp5tlT673BrR92W5rBzL4j/VdvPuLEBMZF4LCrztEu1CKV1BqqhNOlp4Vs2ubgTXiNdNbH+fM5gb0RfHCNNuVyW15opdkfY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791652600; c=relaxed/simple;
-	bh=qRQkoWyjxcoe8Yub8BihDAFoDQy3l0rzwTJat1+awQ8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uy5S9BCxzFZHWLoL6gDYsEb4BoJbvmvmxO8Jqaa0FjIiqZTyX3TTqVVU9mUKCICFO94rFL527VejaETBo5hzWTvyf0Yb1075GX26NiH44uscEN7WXEbi4E16fV/DbCzC6x7BxvooZ+JDjEmXBoQUzdlGECxVQ3Rk9lwYEjPTRIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NILsnqIG; arc=none smtp.client-ip=74.125.82.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791652772; c=relaxed/simple;
+	bh=q9Z4EYXrDrI41l+M3yWO5yBiyjGx+xnwHrS8Ev8zcSg=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=t8FjacV7r9ttE4HAzt6kEO6+daLLlrNovI/3nKXPmfdR4zL5XqK9wLzxsP4DamAFBpy1xAUwtGaYWwA9SAwYMe6Qv8bberXuB/N3ucBaP/Qcoc4eDG8AZLPfUwT70wbQbWQu/Gcru7Fnac0Auf4++r2girtZ7m8hZSdxa9fk2hY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=r14hjicm; arc=none smtp.client-ip=80.86.107.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NILsnqIG"
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-15354aa70e8so935944c88.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 10:16:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791652598; x=1792257398; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GK3+R5MVAxUhsJSrVfq+GrGUfD5s5v+zFwmql3xSieA=;
-        b=NILsnqIG6vlNxnu3GTrGXHl3xGccTuzKQuc4SP4NXr4EzvqLCD5UXguMk4m4n3pKcK
-         PRu2RfTTdeEZRtxJ5dkFYleCQh5Q2AZ0NPxNP0LgySMwOqmigSnEyUDZaMHrdBsSxNOX
-         iwucYZzhpWnO/lnqJ+uQS/pUFwGsu8dq/6F2xJuL8eG1R7SdrGAINWYv8Pqn64tPMYYK
-         qVmf8GznPyazOZmLfXeOl7wSnbx8cg/F6628rlcQG2Xu1QZjyjTO0GBx+llwUywrD3f2
-         M2fGSMl3ZV2EyWQGPAsIIuD4CSv81bB09ZzKuhJdX/rkPZPK4dNfAdBk/otACmYytE9J
-         3Uvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791652598; x=1792257398;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GK3+R5MVAxUhsJSrVfq+GrGUfD5s5v+zFwmql3xSieA=;
-        b=IJ6J1/EVX3+MoqkVR8xq+IUz3tpAHvX4VeZvBNVt5C27Sg3S9CSfW8NZEoV8Y+hVGR
-         mYO8FQfspXbjKZBv0mrCczrLYwu3T30ty1VE0/3O5O/IHZLskcammwIdTUXY3K53IF3a
-         M6qIXS2OXnu7O0ZI3XWWx2A6KtwmhbW+Ux+6iOjpQXifbbgz2j8HaxO9m+Hz53mmpPgu
-         6nV9YX7sdkS+BqFqkIqFLXjN5VYWeRGfQFYe2VfI42M+8GhHDJJjo73ewGLNFSUWALWg
-         ulYbq60EoQlp2g1fSgfRD85VsEoU3o90hDgbipW5TLOHGN73TbPf8wGcVrxhVLsDQjpy
-         bR2g==
-X-Forwarded-Encrypted: i=1; AKwUvBw7w/7XjJ/vqFNvosHSy+AA/GxieG9soQNBI/j0te2iqGmzGE0n6B7ya6iUNF0XnMw+SjcoF0EDjUylU8s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKhkR8ohRGdQuF5gg6WoThd6ayLvFXUO2X/EopkR+tasJh0Eezn
-	jC7CltLcKBsLFvnxfFnuy883bkizAhS2+Ey70uem+TYj3aXlmruhMScO
-X-Gm-Gg: AYBFou0zUfL3lQHW64Nww77kAiKqEZLITiJgp/JhcyfZ4G19XfTH1nbD5w2xEYlarDQ
-	G8uZjIBvu9hjgmIXFFeB0jnOGRP5MshNh3wia+PsiKkAaBtONQvFeBcrNlZMz0eOlTxpvPo1CNv
-	gsTg+2FBGALCnYL+wzkPCnJtI6cQSg8cxoI83u3oGGiQ3KXs/6zsKXzX+adfGGhTvV7z8p2yI8R
-	b/PiPgRavsvl1DgLE38ED1ePBQ+LcBNaFI3ywo2HA1VlLn4zHI2EguXHKkdk/P8MODqj6Xobbfi
-	S0D2Uw05PoigXOLYfSFs9SnWQNnwOSyWoCT02pSUU8WwFaA9r+es+XMOJPePgaj3kUbvPyuR9bl
-	G4XIc4Ft686ijObKtWFm8hZWHyqSQNM96Xo1eyAjfAfEGZCzoeaQQNxP6vJZMfl6y6JH/MuyX9A
-	tgAAOSn6gmfcgSOJjrT/TAuaMkdyO1EKTm2wjAer2MbgDuZ39bxnU58+W2hSRE0vzeRLBKm8aZx
-	Da/HIKUdstrpweuQrehQ3M7ixr2ZInLx6Zda/guathDq5fQJU9AM0oPbeLyzyLLcGQt6Dm+q9Cy
-	bNVyPqA+IVmySyjpT2dockrIoouqXFXf7caX9ma87XK0jnOL5vTLIuENfO0bvfI1NFGOGDpudkQ
-	a4S6ZjrV3EhnuDk8zfpiPZG4VDi4RLQVcJNJUwg4A69pOs5fhEo+c9aUaXVdrGT/f2GGtDiUPlo
-	KGCBplXvv1yzBzYVmxT2DS067QErBCjpM5Zrfl
-X-Received: by 2002:a05:7022:b0d4:b0:143:2984:6518 with SMTP id a92af1059eb24-16a612bc1e8mr7592771c88.39.1791652598002;
-        Sat, 10 Oct 2026 10:16:38 -0700 (PDT)
-Received: from localhost.localdomain (2001-b011-c00c-b850-f47a-b651-03fd-a578.dynamic-ip6.hinet.net. [2001:b011:c00c:b850:f47a:b651:3fd:a578])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a567aef5sm15344795c88.19.2026.10.10.10.16.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 10:16:37 -0700 (PDT)
-From: Ting-Han Hou <ue081723@gmail.com>
-To: Johan Hovold <johan@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ting-Han Hou <ue081723@gmail.com>,
-	syzbot+e69c25cf38a53d0cf64c@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] USB: serial: keyspan: fix control urb double submission
-Date: Sun, 11 Oct 2026 01:16:19 +0800
-Message-ID: <20261010171619.1709-1-ue081723@gmail.com>
-X-Mailer: git-send-email 2.52.0.windows.1
+	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="r14hjicm"
+Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
+	by mail.mindbit.ro (Postfix) with ESMTPSA id CCA54D1DB0;
+	Sat, 10 Oct 2026 20:19:26 +0300 (EEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro CCA54D1DB0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
+	s=default; t=1791652768;
+	bh=OO3R0JEy8s7XH8QUYHdYFOl9vj2bnIovxBu2rO5p+FE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=r14hjicmZ+9QCuFuYCnk5zm/r0sFS0fT0rHQGQa/bx0BUy7TlSf1Bz5Eh8hMH+tme
+	 DzB8BcInbbw2j3mlXTHdWyd+3Cnc4pSPG8lie8LNllTZ04jagglKhN0++8EL7v67Aq
+	 6gtXzxrnGnOFyLrOc9M1r7hDctMo41fWC1bO7nLuzQ8cMvX+kAY9LmT+ZYIqpRYN+R
+	 28IVm2adjJd4fFVDucC8S7jG+P5zY5ZFh63g1+2AxWFPZA6khiFL5XGYAyMa5pnByr
+	 lGwNry6xqR/G4tupdqdbZZzHxo90dZN3ZZi+yNXDbgjkntQQHXtnbdXdaLZ87+NqJG
+	 VzqdrdwATIvOA==
+Message-ID: <5e6d5d408e690e81ad82efdfb7d7fde2e20f24e3.camel@rendec.net>
+Subject: Re: [PATCH v4 4/8] irqchip/al-fic: switch to shared parent interrupt
+From: Radu Rendec <radu@rendec.net>
+To: Eliav Farber <farbere@amazon.com>, Thomas Gleixner <tglx@kernel.org>, 
+ Talel Shenhar <talel@amazon.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Sat, 10 Oct 2026 13:19:25 -0400
+In-Reply-To: <20261008090058.38591-5-farbere@amazon.com>
+References: <20261008090058.38591-1-farbere@amazon.com>
+	 <20261008090058.38591-5-farbere@amazon.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The control urbs used to send port configuration messages can be
-submitted concurrently from several contexts: open(), close(),
-dtr_rts(), set_termios() and break_ctl() run in process context under
-per-port or per-tty locks, while the outcont and glocont completion
-handlers resubmit when a resend has been requested. For the USA-49 and
-USA-67 message formats the control urb is also shared by all ports of
-the device.
-
-The send_setup() helpers check whether the urb is busy by comparing its
-status with -EINPROGRESS without any locking, so two callers can both
-find the urb idle and submit it. The second submission adds the urb to
-the endpoint urb list a second time, which corrupts the list and can
-lead to the host controller driver spinning forever with interrupts
-disabled when the endpoint is later flushed on disconnect:
-
-  list_add double add: new=ffff88800ce63818, prev=ffff88800ce63818, next=ffff88800be7c078.
-  WARNING: lib/list_debug.c:35 at __list_add_valid_or_report+0x157/0x200
-  Call Trace:
-   <IRQ>
-   usb_hcd_link_urb_to_ep+0x1c6/0x330
-   dummy_urb_enqueue+0x21c/0x750
-   usb_hcd_submit_urb+0x228/0x1c00
-   keyspan_usa67_send_setup.isra.0+0x531/0x710
-   __usb_hcd_giveback_urb+0x241/0x400
-   dummy_timer+0x1402/0x3470
-
-The urb->hcpriv check in usb_submit_urb() only catches a resubmission
-after the urb has been queued and does not prevent this.
-
-Serialise control message submission using a spinlock so that the busy
-check and the submission are atomic with respect to other callers.
-
-This was found while testing the reproducer for syzbot report
-5fabc1ae99ff40690d84 (a keyspan_close() use-after-free) under QEMU,
-which emulates a USA-28XG using raw-gadget and dummy_hcd. syzbot has
-also reported the same corruption from keyspan_usa49_send_setup().
-
-Tested under QEMU with that reproducer and DEBUG_LIST, KASAN and lockdep
-enabled: the list corruption was hit in 4 out of 38 20-minute runs
-without this patch and in none out of 36 runs with it. As the race is
-hard to hit, this is an indication rather than proof. Only the USA-67
-path is exercised by the reproducer; the other message formats have the
-same pattern but have not been tested.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: syzbot+e69c25cf38a53d0cf64c@syzkaller.appspotmail.com
-Link: https://syzkaller.appspot.com/bug?extid=e69c25cf38a53d0cf64c
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Ting-Han Hou <ue081723@gmail.com>
+On Thu, 2026-10-08 at 09:00 +0000, Eliav Farber wrote:
+> Until now the driver requested its parent interrupt using the chained IRQ
+> API (irq_set_chained_handler_and_data()), which only works when each
+> parent interrupt is wired to a single FIC instance.
+>=20
+> A FIC controller is built from groups, each described by its own DT node,
+> and the groups of one controller share that controller's output line
+> toward the parent. So a real devicetree has several FIC nodes on one
+> parent GIC SPI, and a chained handler can only be installed once per
+> parent. Cascading compounds this: an aggregating group collects several
+> peripherals' outputs onto the line above it.
+>=20
+> To support that, request the parent interrupt as a shared interrupt
+> (IRQF_SHARED) instead of installing a chained handler. The handler now ha=
+s
+> the standard irqreturn_t prototype and reports whether this instance had
+> anything pending, so the shared-IRQ core can tell which instance on the
+> line raised the interrupt. IRQF_NO_THREAD is set because the handler only
+> demultiplexes to the child domain and must not be forced-threaded; all
+> instances sharing a parent line agree on this flag, as the shared-IRQ cor=
+e
+> requires.
+>=20
+> The handler reads the group's cause register and returns IRQ_HANDLED when
+> any unmasked cause bit is set, IRQ_NONE otherwise. That is the signal the
+> shared-IRQ core needs - "did this instance's hardware raise the line" -
+> rather than the result of dispatching to the child domain.
+>=20
+> For that filter to be right, gc->mask_cache must be valid before the pare=
+nt
+> is requested. IRQ_GC_INIT_MASK_CACHE seeds it from the mask register only
+> on the first child mapping, and never at all for a group with no consumer
+> in the devicetree; until then the cache reads 0 and every latched cause b=
+it
+> passes the filter. Seed it from the value al_fic_wire_init() programmed a=
+nd
+> drop the flag; nothing can change the register in between, so the read
+> could only have returned that same value.
+>=20
+> request_irq() can fail, unlike irq_set_chained_handler_and_data(), so add
+> an error path for it. Set IRQ_DOMAIN_FLAG_DESTROY_GC on the domain after
+> creating it, so irq_domain_remove() tears the generic chips down too and
+> the single call suffices for both the chip-allocation and request_irq()
+> failure paths.
+>=20
+> Co-developed-by: Talel Shenhar <talel@amazon.com>
+> Signed-off-by: Talel Shenhar <talel@amazon.com>
+> Signed-off-by: Eliav Farber <farbere@amazon.com>
+> ---
+> v4:
+> =C2=A0- Seed gc->mask_cache before request_irq() and drop
+> =C2=A0=C2=A0 IRQ_GC_INIT_MASK_CACHE. The flag only seeds the cache on the=
+ first
+> =C2=A0=C2=A0 child mapping, which is too late once the handler is shared =
+and never
+> =C2=A0=C2=A0 happens for a group with no consumer in the devicetree. Foun=
+d by
+> =C2=A0=C2=A0 sashiko-bot on the v3 posting.
+> =C2=A0- Drop Radu Rendec's Reviewed-by, since the above is a functional
+> =C2=A0=C2=A0 change.
+> =C2=A0- The commit message no longer claims the domain-sized dispatch loo=
+p
+> =C2=A0=C2=A0 always succeeds; with the cache seeded, only mapped bits rea=
+ch it.
+>=20
+> v3:
+> =C2=A0- al_fic_irq_handler() no longer derives IRQ_HANDLED/IRQ_NONE from
+> =C2=A0=C2=A0 generic_handle_domain_irq(), whose return value only reports=
+ whether
+> =C2=A0=C2=A0 the hwirq to virq mapping succeeded - and since the loop ite=
+rates
+> =C2=A0=C2=A0 exactly NR_FIC_IRQS bits, which is the domain's own size, th=
+at mapping
+> =C2=A0=C2=A0 always succeeds. Return IRQ_HANDLED when the masked CAUSE sn=
+apshot is
+> =C2=A0=C2=A0 non-zero instead, which is the correct signal for a shared i=
+nterrupt.
+> =C2=A0- Set IRQ_DOMAIN_FLAG_DESTROY_GC on the domain and let
+> =C2=A0=C2=A0 irq_domain_remove() free the generic chips, instead of calli=
+ng
+> =C2=A0=C2=A0 irq_domain_remove_generic_chips() by hand. Both error paths =
+now go
+> =C2=A0=C2=A0 through one label. The invalid-free fix from v2 is unaffecte=
+d; only the
+> =C2=A0=C2=A0 teardown mechanism changed.
+> =C2=A0- Use of_node_full_name() in the request_irq() call.
+>=20
+> v2:
+> =C2=A0- Fix the request_irq() error path: v1 called irq_free_generic_chip=
+(gc),
+> =C2=A0=C2=A0 which is kfree(gc) on an interior pointer into the single al=
+location
+> =C2=A0=C2=A0 made by irq_domain_alloc_generic_chips() - an invalid free r=
+eachable
+> =C2=A0=C2=A0 when request_irq() fails at probe. Replace it with
+> =C2=A0=C2=A0 irq_domain_remove_generic_chips() before irq_domain_remove()=
+, and add a
+> =C2=A0=C2=A0 commit-message paragraph explaining the teardown ordering.
+> =C2=A0- Add Co-developed-by/Signed-off-by: Talel Shenhar.
+> =C2=A0- Reworded to state the hardware reason for the shared parent (the =
+groups
+> =C2=A0=C2=A0 of one controller share that controller's output line).
+>=20
+> =C2=A0drivers/irqchip/irq-al-fic.c | 38 +++++++++++++++++++++++++--------=
 ---
- drivers/usb/serial/keyspan.c | 29 ++++++++++++++++++++++++++++-
- 1 file changed, 28 insertions(+), 1 deletion(-)
+> =C2=A01 file changed, 27 insertions(+), 11 deletions(-)
+>=20
+> diff --git a/drivers/irqchip/irq-al-fic.c b/drivers/irqchip/irq-al-fic.c
+> index ee06d0123b7a..fda9c05a639f 100644
+> --- a/drivers/irqchip/irq-al-fic.c
+> +++ b/drivers/irqchip/irq-al-fic.c
+> @@ -4,9 +4,9 @@
+> =C2=A0 */
+> =C2=A0
+> =C2=A0#include <linux/bitfield.h>
+> +#include <linux/interrupt.h>
+> =C2=A0#include <linux/irq.h>
+> =C2=A0#include <linux/irqchip.h>
+> -#include <linux/irqchip/chained_irq.h>
+> =C2=A0#include <linux/irqdomain.h>
+> =C2=A0#include <linux/module.h>
+> =C2=A0#include <linux/of.h>
+> @@ -95,24 +95,21 @@ static int al_fic_irq_set_type(struct irq_data *data,=
+ unsigned int flow_type)
+> =C2=A0	return 0;
+> =C2=A0}
+> =C2=A0
+> -static void al_fic_irq_handler(struct irq_desc *desc)
+> +static irqreturn_t al_fic_irq_handler(int irq, void *data)
+> =C2=A0{
+> -	struct al_fic *fic =3D irq_desc_get_handler_data(desc);
+> +	struct al_fic *fic =3D data;
+> =C2=A0	struct irq_domain *domain =3D fic->domain;
+> -	struct irq_chip *irqchip =3D irq_desc_get_chip(desc);
+> =C2=A0	struct irq_chip_generic *gc =3D irq_get_domain_generic_chip(domain=
+, 0);
+> =C2=A0	unsigned long pending;
+> =C2=A0	u32 hwirq;
+> =C2=A0
+> -	chained_irq_enter(irqchip, desc);
+> -
+> =C2=A0	pending =3D readl_relaxed(fic->base + AL_FIC_CAUSE);
+> =C2=A0	pending &=3D ~gc->mask_cache;
+> =C2=A0
+> =C2=A0	for_each_set_bit(hwirq, &pending, NR_FIC_IRQS)
+> =C2=A0		generic_handle_domain_irq(domain, hwirq);
+> =C2=A0
+> -	chained_irq_exit(irqchip, desc);
+> +	return pending ? IRQ_HANDLED : IRQ_NONE;
+> =C2=A0}
+> =C2=A0
+> =C2=A0static int al_fic_irq_retrigger(struct irq_data *data)
+> @@ -140,11 +137,17 @@ static int al_fic_register(struct device_node *node=
+,
+> =C2=A0		return -ENOMEM;
+> =C2=A0	}
+> =C2=A0
+> +	/*
+> +	 * Let irq_domain_remove() free the generic chips on either error path
+> +	 * below, instead of calling irq_domain_remove_generic_chips() by hand.
+> +	 */
+> +	fic->domain->flags |=3D IRQ_DOMAIN_FLAG_DESTROY_GC;
+> +
+> =C2=A0	ret =3D irq_alloc_domain_generic_chips(fic->domain,
+> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0 NR_FIC_IRQS,
+> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0 1, of_node_full_name(fic->node),
+> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0 handle_level_irq,
+> -					=C2=A0=C2=A0=C2=A0=C2=A0 0, 0, IRQ_GC_INIT_MASK_CACHE);
+> +					=C2=A0=C2=A0=C2=A0=C2=A0 0, 0, 0);
+> =C2=A0	if (ret) {
+> =C2=A0		pr_err("fail to allocate generic chip (%d)\n", ret);
+> =C2=A0		goto err_domain_remove;
+> @@ -162,9 +165,22 @@ static int al_fic_register(struct device_node *node,
+> =C2=A0	gc->chip_types->chip.flags =3D IRQCHIP_SKIP_SET_WAKE;
+> =C2=A0	gc->private =3D fic;
+> =C2=A0
+> -	irq_set_chained_handler_and_data(fic->parent_irq,
+> -					 al_fic_irq_handler,
+> -					 fic);
+> +	/*
+> +	 * Seed the mask cache with the value al_fic_wire_init() programmed,
+> +	 * rather than having the generic chip read the register back on the
+> +	 * first child mapping: that is later than the parent is requested, and
+> +	 * never happens at all for a group with no consumer in the devicetree.
+> +	 */
+> +	gc->mask_cache =3D ~0U;
+> +
+> +	ret =3D request_irq(fic->parent_irq, al_fic_irq_handler,
+> +			=C2=A0 IRQF_NO_THREAD | IRQF_SHARED,
+> +			=C2=A0 of_node_full_name(fic->node), fic);
+> +	if (ret) {
+> +		pr_err("fail to request irq (%d)\n", ret);
+> +		goto err_domain_remove;
+> +	}
+> +
+> =C2=A0	return 0;
+> =C2=A0
+> =C2=A0err_domain_remove:
 
-diff --git a/drivers/usb/serial/keyspan.c b/drivers/usb/serial/keyspan.c
-index 4d3746c7a94e..84a428fc102a 100644
---- a/drivers/usb/serial/keyspan.c
-+++ b/drivers/usb/serial/keyspan.c
-@@ -537,7 +537,7 @@ struct keyspan_serial_private {
- 	struct urb	*indat_urb;
- 	char		*indat_buf;
- 
--	/* XXX this one probably will need a lock */
-+	spinlock_t	ctrl_lock;	/* serialises control urb submission */
- 	struct urb	*glocont_urb;
- 	char		*glocont_buf;
- 	char		*ctrl_buf;	/* for EP0 control message */
-@@ -2036,6 +2036,7 @@ static int keyspan_usa26_send_setup(struct usb_serial *serial,
- 	struct keyspan_port_private 		*p_priv;
- 	const struct keyspan_device_details	*d_details;
- 	struct urb				*this_urb;
-+	unsigned long				flags;
- 	int 					device_port, err;
- 
- 	dev_dbg(&port->dev, "%s reset=%d\n", __func__, reset_port);
-@@ -2056,11 +2057,14 @@ static int keyspan_usa26_send_setup(struct usb_serial *serial,
- 	dev_dbg(&port->dev, "%s - endpoint %x\n",
- 			__func__, usb_pipeendpoint(this_urb->pipe));
- 
-+	spin_lock_irqsave(&s_priv->ctrl_lock, flags);
-+
- 	/* Save reset port val for resend.
- 	   Don't overwrite resend for open/close condition. */
- 	if ((reset_port + 1) > p_priv->resend_cont)
- 		p_priv->resend_cont = reset_port + 1;
- 	if (this_urb->status == -EINPROGRESS) {
-+		spin_unlock_irqrestore(&s_priv->ctrl_lock, flags);
- 		/*  dev_dbg(&port->dev, "%s - already writing\n", __func__); */
- 		mdelay(5);
- 		return -1;
-@@ -2169,6 +2173,7 @@ static int keyspan_usa26_send_setup(struct usb_serial *serial,
- 	this_urb->transfer_buffer_length = sizeof(msg);
- 
- 	err = usb_submit_urb(this_urb, GFP_ATOMIC);
-+	spin_unlock_irqrestore(&s_priv->ctrl_lock, flags);
- 	if (err != 0)
- 		dev_dbg(&port->dev, "%s - usb_submit_urb(setup) failed (%d)\n", __func__, err);
- 	return 0;
-@@ -2183,6 +2188,7 @@ static int keyspan_usa28_send_setup(struct usb_serial *serial,
- 	struct keyspan_port_private 		*p_priv;
- 	const struct keyspan_device_details	*d_details;
- 	struct urb				*this_urb;
-+	unsigned long				flags;
- 	int 					device_port, err;
- 
- 	s_priv = usb_get_serial_data(serial);
-@@ -2197,11 +2203,14 @@ static int keyspan_usa28_send_setup(struct usb_serial *serial,
- 		return -1;
- 	}
- 
-+	spin_lock_irqsave(&s_priv->ctrl_lock, flags);
-+
- 	/* Save reset port val for resend.
- 	   Don't overwrite resend for open/close condition. */
- 	if ((reset_port + 1) > p_priv->resend_cont)
- 		p_priv->resend_cont = reset_port + 1;
- 	if (this_urb->status == -EINPROGRESS) {
-+		spin_unlock_irqrestore(&s_priv->ctrl_lock, flags);
- 		dev_dbg(&port->dev, "%s already writing\n", __func__);
- 		mdelay(5);
- 		return -1;
-@@ -2287,6 +2296,7 @@ static int keyspan_usa28_send_setup(struct usb_serial *serial,
- 	this_urb->transfer_buffer_length = sizeof(msg);
- 
- 	err = usb_submit_urb(this_urb, GFP_ATOMIC);
-+	spin_unlock_irqrestore(&s_priv->ctrl_lock, flags);
- 	if (err != 0)
- 		dev_dbg(&port->dev, "%s - usb_submit_urb(setup) failed\n", __func__);
- 
-@@ -2303,6 +2313,7 @@ static int keyspan_usa49_send_setup(struct usb_serial *serial,
- 	struct keyspan_port_private 		*p_priv;
- 	const struct keyspan_device_details	*d_details;
- 	struct urb				*this_urb;
-+	unsigned long				flags;
- 	int 					err, device_port;
- 
- 	s_priv = usb_get_serial_data(serial);
-@@ -2323,12 +2334,15 @@ static int keyspan_usa49_send_setup(struct usb_serial *serial,
- 	dev_dbg(&port->dev, "%s - endpoint %x (%d)\n",
- 		__func__, usb_pipeendpoint(this_urb->pipe), device_port);
- 
-+	spin_lock_irqsave(&s_priv->ctrl_lock, flags);
-+
- 	/* Save reset port val for resend.
- 	   Don't overwrite resend for open/close condition. */
- 	if ((reset_port + 1) > p_priv->resend_cont)
- 		p_priv->resend_cont = reset_port + 1;
- 
- 	if (this_urb->status == -EINPROGRESS) {
-+		spin_unlock_irqrestore(&s_priv->ctrl_lock, flags);
- 		/*  dev_dbg(&port->dev, "%s - already writing\n", __func__); */
- 		mdelay(5);
- 		return -1;
-@@ -2464,6 +2478,7 @@ static int keyspan_usa49_send_setup(struct usb_serial *serial,
- 		this_urb->transfer_buffer_length = sizeof(msg);
- 	}
- 	err = usb_submit_urb(this_urb, GFP_ATOMIC);
-+	spin_unlock_irqrestore(&s_priv->ctrl_lock, flags);
- 	if (err != 0)
- 		dev_dbg(&port->dev, "%s - usb_submit_urb(setup) failed (%d)\n", __func__, err);
- 
-@@ -2479,6 +2494,7 @@ static int keyspan_usa90_send_setup(struct usb_serial *serial,
- 	struct keyspan_port_private 		*p_priv;
- 	const struct keyspan_device_details	*d_details;
- 	struct urb				*this_urb;
-+	unsigned long				flags;
- 	int 					err;
- 	u8						prescaler;
- 
-@@ -2493,11 +2509,14 @@ static int keyspan_usa90_send_setup(struct usb_serial *serial,
- 		return -1;
- 	}
- 
-+	spin_lock_irqsave(&s_priv->ctrl_lock, flags);
-+
- 	/* Save reset port val for resend.
- 	   Don't overwrite resend for open/close condition. */
- 	if ((reset_port + 1) > p_priv->resend_cont)
- 		p_priv->resend_cont = reset_port + 1;
- 	if (this_urb->status == -EINPROGRESS) {
-+		spin_unlock_irqrestore(&s_priv->ctrl_lock, flags);
- 		dev_dbg(&port->dev, "%s already writing\n", __func__);
- 		mdelay(5);
- 		return -1;
-@@ -2595,6 +2614,7 @@ static int keyspan_usa90_send_setup(struct usb_serial *serial,
- 	this_urb->transfer_buffer_length = sizeof(msg);
- 
- 	err = usb_submit_urb(this_urb, GFP_ATOMIC);
-+	spin_unlock_irqrestore(&s_priv->ctrl_lock, flags);
- 	if (err != 0)
- 		dev_dbg(&port->dev, "%s - usb_submit_urb(setup) failed (%d)\n", __func__, err);
- 	return 0;
-@@ -2609,6 +2629,7 @@ static int keyspan_usa67_send_setup(struct usb_serial *serial,
- 	struct keyspan_port_private 		*p_priv;
- 	const struct keyspan_device_details	*d_details;
- 	struct urb				*this_urb;
-+	unsigned long				flags;
- 	int 					err, device_port;
- 
- 	s_priv = usb_get_serial_data(serial);
-@@ -2626,11 +2647,14 @@ static int keyspan_usa67_send_setup(struct usb_serial *serial,
- 		return -1;
- 	}
- 
-+	spin_lock_irqsave(&s_priv->ctrl_lock, flags);
-+
- 	/* Save reset port val for resend.
- 	   Don't overwrite resend for open/close condition. */
- 	if ((reset_port + 1) > p_priv->resend_cont)
- 		p_priv->resend_cont = reset_port + 1;
- 	if (this_urb->status == -EINPROGRESS) {
-+		spin_unlock_irqrestore(&s_priv->ctrl_lock, flags);
- 		/*  dev_dbg(&port->dev, "%s - already writing\n", __func__); */
- 		mdelay(5);
- 		return -1;
-@@ -2738,6 +2762,7 @@ static int keyspan_usa67_send_setup(struct usb_serial *serial,
- 	this_urb->transfer_buffer_length = sizeof(msg);
- 
- 	err = usb_submit_urb(this_urb, GFP_ATOMIC);
-+	spin_unlock_irqrestore(&s_priv->ctrl_lock, flags);
- 	if (err != 0)
- 		dev_dbg(&port->dev, "%s - usb_submit_urb(setup) failed (%d)\n", __func__, err);
- 	return 0;
-@@ -2795,6 +2820,8 @@ static int keyspan_startup(struct usb_serial *serial)
- 	if (!s_priv)
- 		return -ENOMEM;
- 
-+	spin_lock_init(&s_priv->ctrl_lock);
-+
- 	s_priv->instat_buf = kzalloc(INSTAT_BUFLEN, GFP_KERNEL);
- 	if (!s_priv->instat_buf)
- 		goto err_instat_buf;
--- 
-2.53.0
-
+Reviewed-by: Radu Rendec <radu@rendec.net>
