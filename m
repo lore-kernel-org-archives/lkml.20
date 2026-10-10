@@ -1,206 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 743223B14B6;
-	Sat, 10 Oct 2026 06:48:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDA1428B7EA;
+	Sat, 10 Oct 2026 06:52:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791614898; cv=none; b=u8K1gvycgCapd7SjE9dpLqoV4eXZq3RFefou+M0SFi5CRcgBULWS9FRF1nbAMvxdXW0hMR/TxEVbmO1j8t613ep+e23XS6rAMR7A7y9gbHQ9NR6JCaYqXXhQEG7wEvw9wkhafUzYhdb/8QPn8HpTjMTI6h02PYdzuUveaDP52go=
+	t=1791615150; cv=none; b=JKSItv9ZG3ov3SipbCscjI/mc/SjHRLI9qcDQcNzjjM6idG7x7uqHntWSHmVEdWEHxFmGobDlkpEe+SKmMlapI6hsP+vSTknOF9NpdeLFrhP2WNTbuOgONOSrjsJEWlgw9B61n7Iv3IpAM3YhGqFdoaVEi37b79J2oD4cpej+Cw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791614898; c=relaxed/simple;
-	bh=VRTb/pYULEEHCdxIZg0gT4jHoQ2nPNlXSNgYfoqLwMM=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=e9MpAMMgTbdvjkY5bawaR90eOiq34E+fxxMZuPYkOnvY14IWOsRW9Be+KUL83eCeTqPaFLUfQEa4mxu1TbflczgQJElPL7my9lbTWMvNYE9LI1D1HtAe2frWdHlwu46D2Rie8133ZaETNVS9qhCE0nepvXG2z8hh2ZxOrpnVbt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KoRb4pkU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791615150; c=relaxed/simple;
+	bh=Gbi6SFAjCtvXAIgPfIiBdeKs+atE7HsSQwa26RJssGc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WvBvV0lv5H5bORbZWbUSxvy8vL+9JIreLmI3UVlvPCdwgi1Mji1Ju1wqLmjUXABaf6ytGE3L2HOI9ND4veAxflSraKFUC4AXmT/dacMeZm8Xbjg6is972lWWM66hpeCufRduZj/YWT8B4XOCqXqiRmcADCWwb0+aBDSi18PyTzw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KEKmtWz7; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KoRb4pkU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8748C1F00893;
-	Sat, 10 Oct 2026 06:48:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791614897;
-	bh=/U6g6SLBamN5FG+y379vxnXGyZrvnoBRGRp9Or64MF8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=KoRb4pkU4mUN3M9ojpRZ8uSRAr7FC1gGbHXIG9rkB/EoPQgUBXnjK05bUavk738Mv
-	 4blwo+su9Y2w0TuSLjkfVd3dmq+kArWy29M/So7imfqXAPGELywhAixee5/yBsFrVR
-	 orjZojDQcZizB4tPsY9Y6DvjA0EQXwbUaaOXj52oCDEtp/F+Z/D3bCf8HDyg8UIL3G
-	 lotRdBnpTDuWjcu7j/8XWPsJxI8PK51CB7+FGGr4O2lHFPAf6iHuoQaPZanRxjZffK
-	 yHLXsOwweU+EVZa+R9u77rmdaz4i5ZIToBKXAm+/SOCsBIouDh2FABktYxB0MVSO16
-	 ipVkjvlTJ4j1Q==
-Subject: Re: [PATCH 5/5] can: peak_usb: harden PCAN-USB message validation
-From: netdev-bot+sashiko@kernel.org
-To: stephane.grosjean@free.fr
-Cc: mkl@pengutronix.de, mailhol@kernel.org, error27@gmail.com,
- wg@grandegger.com, linux-can@vger.kernel.org, linux-kernel@vger.kernel.org,
- s.grosjean@peak-system.fr, kuba@kernel.org
-Date: Sat, 10 Oct 2026 06:48:16 +0000
-Message-ID: <179161489603.1406898.16835414270803468559@kernel.org>
-In-Reply-To:
- <20261008-canfd_check_channel_idx-v1-5-0a3bb82f4e09@peak-system.fr>
-References:
- <20261008-canfd_check_channel_idx-v1-5-0a3bb82f4e09@peak-system.fr>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KEKmtWz7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791615149; x=1823151149;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=Gbi6SFAjCtvXAIgPfIiBdeKs+atE7HsSQwa26RJssGc=;
+  b=KEKmtWz7HdVdaQ3JoDOkTRPbOLfxENxwCp5Mr2nRAIovQhTHuADgPPeM
+   MTWVlP2g8DOHMldfGwIStSPtU9fYPtrHHrG6R/GFdXaY5pRgGDZDz/swz
+   pc87p8Hy0f4QOD98xoEQ1yzKa2f4dInk+PT2J9YQ7+MUVfhPO15QSmigY
+   zIQrXhiWhPBpXLH2Nrhx8VwgrfqJQvilOBmYHFTjdHAVpoGZx1TpSqNZI
+   B8P1ZS8oTrGzNvBDkD/D81FLKHS8GZD64q6Px2091KqcaigpCLvicX/9d
+   V11qrhht2roEmL34xQEHhaJFXT2EYpGkGdEh0pcLr2Y8NKKrP6dAjrAU6
+   Q==;
+X-CSE-ConnectionGUID: 4wUP0QmORQqN0BXw2tuWiA==
+X-CSE-MsgGUID: AefNCr95QXiod8Wt54NfBg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="414002"
+X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
+   d="scan'208";a="414002"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 23:52:28 -0700
+X-CSE-ConnectionGUID: yDVySbpMSaac64jOG9rtiQ==
+X-CSE-MsgGUID: P9aXaF++SryqIPqk2Y82BA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
+   d="scan'208";a="574047"
+Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 23:52:22 -0700
+Message-ID: <cf9de0e9-e2e5-415f-a0f3-9613cbbcd5b8@linux.intel.com>
+Date: Sat, 10 Oct 2026 14:52:20 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v15 21/23] KVM: selftests: Add support for per-VM ucall
+ ops on x86
+To: Lisa Wang <wyihan@google.com>
+Cc: Andrew Jones <ajones@ventanamicro.com>,
+ Ackerley Tng <ackerleytng@google.com>, Chao Gao <chao.gao@intel.com>,
+ Chenyi Qiang <chenyi.qiang@intel.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Erdem Aktas <erdemaktas@google.com>, Ira Weiny <iweiny@kernel.org>,
+ Isaku Yamahata <isaku.yamahata@intel.com>, Kiryl Shutsemau <kas@kernel.org>,
+ linux-kselftest@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
+ "Pratik R. Sampat" <pratikrajesh.sampat@amd.com>,
+ Reinette Chatre <reinette.chatre@intel.com>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ Roger Wang <runanwang@google.com>, Ryan Afranji <afranji@google.com>,
+ Sagi Shahar <sagis@google.com>, Sean Christopherson <seanjc@google.com>,
+ Shuah Khan <shuah@kernel.org>, Xiaoyao Li <xiaoyao.li@intel.com>,
+ Oliver Upton <oupton@kernel.org>, Jeremiah McReynolds <jmcrey@google.com>,
+ kvm@vger.kernel.org, linux-coco@lists.linux.dev,
+ linux-kernel@vger.kernel.org, x86@kernel.org
+References: <20261001-tdx-selftests-v15-0-7c62a5d8a992@google.com>
+ <20261001-tdx-selftests-v15-21-7c62a5d8a992@google.com>
+Content-Language: en-US
+From: Binbin Wu <binbin.wu@linux.intel.com>
+In-Reply-To: <20261001-tdx-selftests-v15-21-7c62a5d8a992@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
-
-Critical: 0 · High: 1 · Medium: 0 (1) · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The fix is incomplete: the PCAN_USB_REC_BUSEVT status record
-  still allows an out-of-bounds read.
-
-Pre-existing issues:
-- [Medium] The encoder and decoder disagree about the SRR 'client private
-  id' byte on RTR frames.
-
---
-
-can: peak_usb: harden PCAN-USB message validation
-
-This commit adds bounds checks to the PCAN-USB RX parser. In
-pcan_usb_decode_data() the SRR client private id byte is now checked
-against mc->end before it is skipped. In pcan_usb_decode_msg() the
-status/len byte is now checked against mc->end before it is read.
-
-> diff --git a/drivers/net/can/usb/peak_usb/pcan_usb.c b/drivers/net/can/usb/peak_usb/pcan_usb.c
-> index 169c00d93463c..56ddd134bae0f 100644
-> --- a/drivers/net/can/usb/peak_usb/pcan_usb.c
-> +++ b/drivers/net/can/usb/peak_usb/pcan_usb.c
-> @@ -696,8 +696,11 @@ static int pcan_usb_decode_data(struct pcan_usb_msg_context *mc, u8 status_len)
->  		mc->ptr += rec_len;
+On 10/2/2026 3:37 AM, Lisa Wang wrote:
+> From: Sean Christopherson <seanjc@google.com>
+> 
+> Add a layer of indirection to x86's ucall infrastructure to allow wiring up
+> a different set of {do,get}_ucall() operations for TDX VMs.  TDX can't use
+> port I/O (at least, not robustly), as the TDX ABI doesn't allow the guest
+> to share arbitrary register state with the host on a PIO exit, and the PIO
+> data payload is limited to 4 bytes, i.e. would potentially truncate the
+> address of the per-ucall structure.
+> 
+> No functional change intended, as the ops are still hardwired to the common
+> x86 ucall functions.
+> 
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> Signed-off-by: Lisa Wang <wyihan@google.com>
+> ---
+>  tools/testing/selftests/kvm/include/x86/ucall.h |  6 +-----
+>  tools/testing/selftests/kvm/lib/x86/ucall.c     | 27 +++++++++++++++++++++++--
+>  2 files changed, 26 insertions(+), 7 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/kvm/include/x86/ucall.h b/tools/testing/selftests/kvm/include/x86/ucall.h
+> index 0e4950041e3e..3639f03a4da9 100644
+> --- a/tools/testing/selftests/kvm/include/x86/ucall.h
+> +++ b/tools/testing/selftests/kvm/include/x86/ucall.h
+> @@ -2,12 +2,8 @@
+>  #ifndef SELFTEST_KVM_UCALL_H
+>  #define SELFTEST_KVM_UCALL_H
 >  
->  		/* Ignore next byte (client private id) if SRR bit is set */
-> -		if (can_id_flags & PCAN_USB_TX_SRR)
-> +		if (can_id_flags & PCAN_USB_TX_SRR) {
-> +			if ((mc->ptr + 1) > mc->end)
-> +				goto decode_failed;
->  			mc->ptr++;
-> +		}
+> -#include "kvm_util.h"
+> +#include "linux/kvm.h"
 
-[Severity: Medium]
-This is a pre-existing issue, but do the encoder and decoder agree on the
-SRR private id byte for RTR frames?
+Nit:
+#include <linux/kvm.h>
 
-When CAN_CTRLMODE_LOOPBACK is set, pcan_usb_encode_msg() sets
-PCAN_USB_TX_SRR. It then appends the writer id outside the non-RTR data
-block:
+[...]
 
-	/* can data */
-	if (!(cf->can_id & CAN_RTR_FLAG)) {
-		memcpy(pc, cf->data, cf->len);
-		pc += cf->len;
-	}
-
-	/* SRR bit needs a writer id (useless here) */
-	if (can_id_flags & PCAN_USB_TX_SRR)
-		*pc++ = 0x80;
-
-pcan_usb_decode_data() only skips that byte, and now checks its bounds,
-in the non-RTR else branch.
-
-Suppose the firmware echoes a self-received RTR frame with the private id
-byte, as the TX layout suggests. Could the RX cursor then fall one byte
-behind? In that case the private id byte would be parsed as the next
-record's status/len byte, and the rest of the URB would be misparsed or
-rejected with -EINVAL.
-
-The code doesn't document whether the firmware includes that byte for
-RTR echoes. This dates from the earlier SRR handling (3a7939495ce8) and
-is not an out-of-bounds access.
-
->  
->  		/* update statistics */
->  		mc->netdev->stats.rx_bytes += cf->len;
-> @@ -733,14 +736,19 @@ static int pcan_usb_decode_msg(struct peak_usb_device *dev, u8 *ibuf, u32 lbuf)
->  	int err;
->  
->  	for (err = 0; mc.rec_idx < mc.rec_cnt && !err; mc.rec_idx++) {
-> -		u8 sl = *mc.ptr++;
-> -
-> -		/* handle status and error frames here */
-> -		if (sl & PCAN_USB_STATUSLEN_INTERNAL) {
-> -			err = pcan_usb_decode_status(&mc, sl);
-> -		/* handle normal can frames here */
-> +		/* check if status_len byte can be read next */
-> +		if (mc.ptr >= mc.end) {
-> +			err = -EINVAL;
->  		} else {
-> -			err = pcan_usb_decode_data(&mc, sl);
-> +			u8 sl = *mc.ptr++;
 > +
-> +			/* handle status and error frames here */
-> +			if (sl & PCAN_USB_STATUSLEN_INTERNAL) {
-> +				err = pcan_usb_decode_status(&mc, sl);
+> +void ucall_arch_do_ucall(gva_t uc)
+> +{
+> +	return ucall_x86_ops.do_ucall(uc);
 
-[Severity: High]
-The commit message says the patch rejects malformed buffers "whose
-contents would otherwise lead to accesses outside the received USB data
-area". Can a PCAN_USB_REC_BUSEVT status record still read past mc->end?
+return should be dropped.
 
-Before dispatch, pcan_usb_decode_status() only checks that the f and n
-bytes are in bounds:
+> +}
+> +
+> +void *ucall_arch_get_ucall(struct kvm_vcpu *vcpu)
+> +{
+> +	return ucall_x86_ops.get_ucall(vcpu);
+> +}
+> 
 
-	if ((mc->ptr + 2) > mc->end)
-		return -EINVAL;
-
-	f = mc->ptr[PCAN_USB_CMD_FUNC];
-	n = mc->ptr[PCAN_USB_CMD_NUM];
-	mc->ptr += PCAN_USB_CMD_ARGS;
-
-After this, mc->ptr can equal mc->end. Now take a record where:
-
-  - PCAN_USB_STATUSLEN_TIMESTAMP is clear
-  - f is PCAN_USB_REC_BUSEVT
-  - n is PCAN_USB_ERR_CNT_DEC or PCAN_USB_ERR_CNT_INC
-
-pcan_usb_handle_bus_evt() then reads two bytes with no check against
-mc->end:
-
-		pdev->bec.rxerr = mc->ptr[1];
-		pdev->bec.txerr = mc->ptr[2];
-
-pcan_usb_decode_status() does have a later check:
-
-	if ((mc->ptr + rec_len) > mc->end)
-		return -EINVAL;
-
-But that check only runs after these reads. It also uses the DLC nibble
-supplied by the device, which can be 0.
-
-peak_usb_start() allocates the RX buffer as
-kmalloc(dev->adapter->rx_buffer_size), and PCAN_USB_RX_BUFFER_SIZE is 64.
-Say a 64-byte transfer ends with the 3-byte BUSEVT header
-{0x40, 0x05, 0x00} at offsets 61 to 63. Wouldn't mc->ptr[1] and
-mc->ptr[2] then be buf[65] and buf[66], past the slab object? For shorter
-transfers, the same reads would return stale bytes from earlier URBs.
-
-These values are stored in pdev->bec. pcan_usb_get_berr_counter() returns
-them to userspace, and pcan_usb_decode_error() copies them into error
-frames:
-
-			cf->data[6] = mc->pdev->bec.txerr;
-			cf->data[7] = mc->pdev->bec.rxerr;
-
-Does the fix also need a check like this in pcan_usb_handle_bus_evt(),
-before the reads?
-
-	if (mc->ptr + 3 > mc->end)
-		return -EINVAL;
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261008-canfd_check_channel_idx-v1-0-0a3bb82f4e09%40peak-system.fr
