@@ -1,85 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 067CE2AEF5;
-	Sat, 10 Oct 2026 21:08:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFC2336F8F2;
+	Sat, 10 Oct 2026 21:08:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791666528; cv=none; b=DmqyjiD8kY8IwVz+Plr/JiS6UD1jFdEkmFXAPrqWsj0FQza/m1SdQ2ealV/vJM00JMVLR1f85ZfMwV2PwgH5jZpOOeQfCZQHfl/DuOG5iTNj96wLRD3ZYm21mNxXV17V997mc7qTs/yTf0wSDpXOCUp52hybDOpzrnQI9bueN3o=
+	t=1791666535; cv=none; b=OIJymuXXaGPZMn4+r2VKX9IKIBtrQL7955KjjlhSvbzNGNYJjs6n0HU2Jagt6IxZ3I2OTB6uiQ8tbEHYzSKZoL97uX6geM4Ylv/GQpyjPswyxTfUfGHIPsWGiOmSFwcnJJYOcOCxGUFJaxn/B+Le7A5MKi43XTLsojHuU3sf9gw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791666528; c=relaxed/simple;
-	bh=zR0MYiMtWR4J634UzrSDQI+HARueQIp2D1/bgzkzGqQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lkuaXILxw+r4csLrzMTabLhJ9IFHYgeEl4m+JN2AdjiKMUXHe4ZYyjqbwIa+M3haDERTuzZzQ08woXOjzP7alHpFA7oLtmOIFV+0kakG5e/+1PH1jxTmc1AhxmXulr5OKvoxI1Daan400dsiOCxq6srBhbQyDf4gawJDIjSwXyY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xkci/2C0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791666535; c=relaxed/simple;
+	bh=ZQfrfZgYIIj+xriL1FdNEdy5OlnVY6TsC114SX0ZFcg=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=rBhrKLxdG8Xp0gFb7dFfQcJmT8Oyg32y+1fihVEVkrtwB2z9S2oIbv/bVE/MMHFetgfLqwbkNIPGGqPJbg9ktllacCXsw2qfPJ7I/FoRpyiGIGmdkma2ligg/Eej84QHMkPCOH+8YjSBwmkq4+S3JtI5am3A7cYEtaHfUJ0YPQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jkb2MuQA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xkci/2C0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85C841F000FF;
-	Sat, 10 Oct 2026 21:08:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jkb2MuQA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA1EE1F00893;
+	Sat, 10 Oct 2026 21:08:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791666527;
-	bh=fq7htODWvxFwI100NAeKvMIRizcluxexsgRn9rBQlIo=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=Xkci/2C0ILcP8o4Lctbpf0DHnhR6I9TMXrcFT6kpMmjc7hkH/NHCXkYVJomQf28MI
-	 1xjDSzoGh2+u/JubTW/bE8IE8T9FnXK3Jk3wd/49gldwPhs7LRLoJBR2n0T6wR9uJv
-	 kl6fh9bKjKpAJhk5wfZXrIRoKObucR5xDG1vMAqTIj9/kz5+OgdJUbesrUYLvEvcxp
-	 5DuQPoZ4geW+NFv1v9+iL39df/nUCf3aQrJj2rZJ1i30hMLaD5vWx9Dyy97HndSZfI
-	 O9C3IXWLIhZskFazXbIN1ZQHagxr7CjeVj17EXwRVWqK4ctIatiYBBacnodZhz0r1q
-	 zYby9v131yQKg==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 46C83CE397D; Sat, 10 Oct 2026 14:08:47 -0700 (PDT)
-Date: Sat, 10 Oct 2026 14:08:47 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Manuel Ebner <manuelebnerli@mailbox.org>,
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] kbuild: Mark the kernel image gzip recipes as
- recursive
-Message-ID: <757de98f-2c40-44d2-ba1a-80507c1807d8@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261009062722.i.253-kees@kernel.org>
- <20261009062733.3119731-1-kees@kernel.org>
- <7fa8e996-d015-4f8d-a197-3f8901e0b31a@paulmck-laptop>
- <202610091923.FE842614D4@keescook>
- <7109f423-7249-49fb-a923-2824711fe197@paulmck-laptop>
- <20261010082817.eddb2f-kees@kernel.org>
+	s=k20260515; t=1791666534;
+	bh=Gg9Odpb8GX+VeBeKSAWzFWr3ml/oqtZsY52TKxyJ/uE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Jkb2MuQAuJ1Pz6JOzk+ygeI+etUm1u9nK5CvAclVt6EB6u+G6aUY68luMDcuAK4EG
+	 dPBeR7yZbDv0EprhH9Ej0uLVZFp52zC6LoPvx9SWHW1rnJCUEE6hpdBwSCMQD3c9uB
+	 lpQO0kbA13VQU2FkSZ7nr6W3bLf4wg+3geQEWckIovXSqTqkWuc0oH3n8jvLDz3HJm
+	 ST9P8IZRTE/ghBnBdJBFKq1vpTStZPnKQYNNFEOSTXk4vCXX3OLtV61chDOh269Cfj
+	 hdDXncB2d6zLma22OyRNn3x2ABxpbi8I6oT0StnpWmMDmofZRJR503xlQ9Qfxfmf2K
+	 8kku0+izwDFCA==
+Subject: Re: [PATCH net v2 2/3] amt: make pre-query report drops visible
+From: netdev-bot+sashiko@kernel.org
+To: omar@blockcast.net
+Cc: ap420073@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, horms@kernel.org
+Date: Sat, 10 Oct 2026 21:08:53 +0000
+Message-ID: <179166653324.434549.3763843215808008320@kernel.org>
+In-Reply-To: <20261009201455.1904698-3-omar@blockcast.net>
+References: <20261009201455.1904698-3-omar@blockcast.net>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261010082817.eddb2f-kees@kernel.org>
 
-On Sat, Oct 10, 2026 at 01:28:50AM -0700, Kees Cook wrote:
-> On Fri, Oct 09, 2026 at 09:27:57PM -0700, Paul E. McKenney wrote:
-> > 			foreground	background
-> > 			-next	Fix	-next	Fix
-> >
-> > 	make -jN	Bug	Good	Bug	Good
-> >
-> > 	kvm.sh [1]	Bug	Bug	Bug	Bug
-> >
-> > [1] tools/testing/selftests/rcutorture/bin/kvm.sh --build-only --allcpus --configs TREE02 --trust-make
-> 
-> Thanks for the details! IIUC, the difference is the config, not
-> foreground vs background. kvm-build.sh adds CONFIG_INITRAMFS_SOURCE,
-> which is compressed with gzip by default. The usr/Makefile target picks
-> that compressor through a variable, so v1 missed it. Your plain "make
-> -jN" builds probably had no built-in initramfs, so the kernel image was
-> the only place where pigz ran, which v1 did cover.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-I don't feel quite so bad for not having any idea why running "make"
-from kvm.sh would make a difference.  ;-)
+Low priority / nit picks for your consideration:
 
-> Hopefully v2 has all the missed targets fixed now:
-> https://lore.kernel.org/lkml/20261010081910.stay.092-kees@kernel.org/T/#m3b466b33f835119bfbd0c1b3c48d2a8a87f31691
+- [Low] The commit message's protocol explanation is wrong.
 
-It does work for me, thank you very much!!!
+--
 
-							Thanx, Paul
+amt: make pre-query report drops visible
+
+In gateway mode, amt_dev_xmit() drops an IGMP or MLD report when no
+Membership Query has arrived yet for that family. This commit adds a
+family-specific netdev_dbg() message before that drop. The drop path
+itself is unchanged and still increments tx_dropped.
+
+> A gateway cannot forward an IGMP or MLD report until it has received the
+> relay's Membership Query for that family. The query supplies the nonce and
+> interval echoed by the Membership Update, so dropping an early report is
+> required, but doing so silently leaves operators with a dark multicast path
+> and no indication why the join never happened.
+
+[Severity: Low]
+Is "The query supplies the nonce and interval echoed by the Membership
+Update" accurate? The code doesn't seem to match it.
+
+The gateway generates the nonce itself in amt_event_send_request():
+
+drivers/net/amt.c:amt_event_send_request() {
+    ...
+		get_random_bytes(&amt->nonce, sizeof(__be32));
+    ...
+}
+
+amt_membership_query_handler() only checks the nonce against that value.
+>From the Query it stores the response MAC and the query interval:
+
+drivers/net/amt.c:amt_membership_query_handler() {
+    ...
+	if (amtmq->nonce != amt->nonce)
+		return true;
+
+	response_mac = amtmq->response_mac;
+    ...
+		WRITE_ONCE(amt->ready4, true);
+		amt->mac = response_mac;
+		amt->req_cnt = 0;
+		amt->qi = ihv3->qqic;
+    ...
+}
+
+amt_send_membership_update() echoes only the nonce and the response MAC.
+amt->qi is not part of the Update:
+
+drivers/net/amt.c:amt_send_membership_update() {
+    ...
+	amtmu->nonce		= amt->nonce;
+	amtmu->response_mac	= amt->mac;
+    ...
+}
+
+So the state the Update needs from the relay's Query is the response
+MAC, not the nonce or the interval. Could the commit message say that
+instead?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261009201455.1904698-1-omar%40blockcast.net
