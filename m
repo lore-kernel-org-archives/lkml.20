@@ -1,155 +1,178 @@
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+Received: from mta1.migadu.com (out-151.mta1.migadu.com [95.215.58.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C3233750CF
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:35:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791621359; cv=pass; b=fGtYI7JXWcz2JNbtRBDH4rOGNp9UlkVKIRmxhwHq2Hy3b8h2uh8KmUnRmgvK/qosQlEzUkqv2aUnJliN979wYvYQJzUZlm+zvA3y/xWFPKE+3Tw7mBZOolI2pamZifNTzNQIC5IwN5KZA61j6aFFyR4D6tVJxDxUYq6+YfTMAQU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791621359; c=relaxed/simple;
-	bh=+Ah0iXSrbj/vIWOgcYS601AF8sHPjPNavmOfnknsgk8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DuyMbOJVkEUrCaxusU8cqAKD3LUS6AOKDnW+892572WgvlDMKbn/XGJDwKNvdBin+uMeCaVqLrrxjBIe20jHDnfKN97V0Owoho/jijzSgW4FsiYmrWceXCMOUXcHQvpyYfqmPzNq/dz7mP4iRLLaDjrBoTCGW3/PF9x6rAnP40A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TlPELZ6s; arc=pass smtp.client-ip=74.125.82.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC5D03803D6
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:36:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.151
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791621370; cv=none; b=R4MrlaV4dLkgDf3K+zzaQXIBz6YsumLo/qlkJm6OZGzHkt0mcyiaHeXnyEvs0E2sRjdDhTuFrYg8loNbQMZYI0x65ZYsCkhxbH/lTqU+G0pOHfWIvF/o7r2lA+hShWeHKpbuQlKGcju2oA9BtviLV6/Cj6UotRN6P6OlJ7s7Dck=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791621370; c=relaxed/simple;
+	bh=/RC+izwEEYy8ZXvE6WOHCJ7ZNBYqaR8RFs6URHqTudY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LIEHJwfOLtCmd/wLQbGYuBVYE9Yt4N/AsvbDn8ag5OCoVn7Yi2Z2ndCYgRUVaR7/Z9yaokvBgQ41WRWor2Xan/YfD+/AxA7Ew2A3h3YUPlgUB/zYD8Io4e2uCMzGVpnX9FrgjObVug+rZjhmAyj1SPFM98jE46hU+BZKl1Sv3mg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=GedrZ0qo; arc=none smtp.client-ip=95.215.58.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TlPELZ6s"
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-33c2520ad38so950387eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 01:35:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791621357; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SjwETBpJFbGmBSDmzfdGn2eIQCrhjnfEydWADwqUDBIm0sDNzAfPTceAeYhLYocTE/
-         re7+BTnEAMCd2QzV33TxAekQVPldGMureKugdIn2FY1DYL0kmjlH/ngB8tRe8Mq7TLgc
-         +0IAonq1GmzyECAjzQ6hdHSPZL2swfRwQU9pRjkXPF8Dw8Vum+eW314iwgm63UVj9Z6X
-         WKaZDB1Ga29AxahCdP6nur/dShcK/Wcq8X4GNAMjNVvw620GDHNF41Txyr4xgQPYLdi1
-         xnTnEuf7w64YdCDH4Za37ZRFHXQN5LX3fPVPcp0dyq1aoKDcT+B3xfD3eFAJxPAmpYzn
-         biEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=MjeVPOBrZxZk8zOp/qAcB3ja6M2cpy7hSuGh4PvxsM8=;
-        fh=VunCmyt/J3raMWjoUYFP2ajx1N9qbk/ad4ZOwAyLKoY=;
-        b=HTP5V2iP7v+owmd15+eogMgU//t7nCZrpyWyzv3eay+3knE4noOpFwYMi8coC8dUMg
-         eF8jNBWkCHOPPrpW1tj+VmrueyDhvbOqrLYZYONvTc+UdJ75ZoTxR+5sB3t07TA5UXk3
-         klLIcSa+j9ibvasyxpl5oaIOM3Y+2CHTGxON4P18Yv1RySWTHvxh/xitSzUxJzLArpZ7
-         lU60mM6aOdEcPhF81Gfwy+WmjsEz0M7h3q7Cl3ldxgn0wGZgcEInBik7Xx7nU1rsDdEc
-         E9sSvvHX41slkyTI7NNtJZG9I2KwJ2BpVRH5yMEA/7qa1cL2PZglXk5HKvJoOQ6kyUdz
-         /bxw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791621357; x=1792226157; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MjeVPOBrZxZk8zOp/qAcB3ja6M2cpy7hSuGh4PvxsM8=;
-        b=TlPELZ6spcRhrnsiajkHguyuT87k9gYOAxxhFxBbeUh4LCU9Ljuwi4xeNM+PP15qS/
-         PBy9vjx1tR/LojKenoL3Eqi1+3r/FhOal13WvNjWwMUBO4DQR2lDmZiS9Qo3qJ2e/4P6
-         Lu9YP3pqSb4q7U+ifLBQV8i4yKC8KWHGZVv4fOBUUHWo8oLQusE8UogmMHMcG6z5dSYx
-         vrrLfzpp8funNiW9EofTkdcTMnwBD6nZfMOm3tD1xgbKKGhFaSb8hb1SmP3IO5uUjPSX
-         0lyxAOmuqjs3OlflNb+fODP8icALqqBNBJDy2UaFLpa2GgZM1C/JnFLIQSQFvE6Cs6MJ
-         H2HQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791621357; x=1792226157;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=MjeVPOBrZxZk8zOp/qAcB3ja6M2cpy7hSuGh4PvxsM8=;
-        b=CtAdJXFFAQeMsVBkKmsBhP+nS/GJ5OGYb0wMjbQQwxhC/rFJkUxHFDftHlEZs5rY91
-         yr2xSqP0LCHogVWeLwuzI3D3tTNl+skEV0zleXIyY+mfWr8bEf6hbhTm4k7GtFewJlkU
-         gz2Gpm9lmTqt/fGgAApFiy/TWwswjd64Pwraz7mBxik0Mjax4Wbrq9JCv9uT2g5qWIvR
-         g1Hs619wNE0uubtkaK58FdqBfxAk1t3GD70sfDH/kjdykKuZNKqp3uC/zWUGoJA85OND
-         yxJbYcsg45sWfko7RBlVxh3mCyyRmNR8lF+VBJiMWmW1y6NTJOAL4wQgPtLafz/ca3ul
-         YaoA==
-X-Forwarded-Encrypted: i=1; AKwUvBwPxHUMfwBDx5cAEAwFtzPVviE8MVk4H17PZHFE55jPiSJk3i1BD8KhWI0FzJHEGXG+2+OAnpcj6X+ceaY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIhA+0dntGthWkV5BVh0yz/tergHsEUqbzG2esbiGBgwq21p8m2
-	7asf30XULc8enEd5PjpypvHrgJyzeyMdu031l57zlGKs0OBRafK07S3ZldjtIxFS10KR6MHsPKu
-	0IHOiQHMzsG8t+H0o/319f09NI6a+3xE=
-X-Gm-Gg: AYBFou0UVwNfU05hCOCZ1xNhr3kC8EIsDxUt3Q3faF8ZvIHTUt2rcJ+BRXjyENQRLlm
-	Ruu8Ax3q+NG5M1Muw4obe6X70RrjKCnEbszQsE9GP6oseDU+62Qx4YnG0zGieyqbDJ0ukkBjQYr
-	wSM1fQk5b9tfq7VpbdJoiqGcP3HAZ9/WvpipTXaj0d22/8esGZ8gFMKzw/yYYlIqTE0VcVKq1Al
-	Q/dRCw6KH2LYwpABldZpeN8/koWh4Jya+CGR3d4pvd4T86izndoUM4YLnmxuNXA+LEK+I0rOE+i
-	+EcnzfD648HHHJuwge4UoVEYyQ8Be3WxHugXIDTcKgceOsjKE0hrfGyMiQ==
-X-Received: by 2002:a05:701b:4349:b0:15c:20b8:796e with SMTP id
- a92af1059eb24-16a5f112b00mr5539162c88.22.1791621356878; Sat, 10 Oct 2026
- 01:35:56 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="GedrZ0qo"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=/RC+izwEEYy8ZXvE6WOHCJ7ZNBYqaR8RFs6URHqTudY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791621363; v=1; x=1792226163;
+ b=GedrZ0qoPV7WD3EYE661u5OPJwvgyiOKYyTTetYQDCIYrEQJAmWjG86J2Ccyn27cx8B/qK+S
+ 5QZUPWr1POkSxmS5F5xSQWVrZPtWWml34ngb9g2w+Wk5Oc1FzgNpVe1dUho9lSuSYcwDcGQoRP1
+ q0S2Wp/1ic5OBfC9uwfokt5w=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 765dd94070c37712;
+	Sat, 10 Oct 2026 08:36:03 +0000
+X-Mizu-Trace-ID: 765dd94070c37712
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <331b4e40-8d0c-4333-b2b6-b81e4c4b2e17@linux.dev>
+Date: Sat, 10 Oct 2026 16:35:53 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260919235145.48273-1-marcus.yu.56@gmail.com>
- <20260919235145.48273-3-marcus.yu.56@gmail.com> <arVqTWVw-eIZEcrR@ashevche-desk.local>
-In-Reply-To: <arVqTWVw-eIZEcrR@ashevche-desk.local>
-From: Chang Yu <marcus.yu.56@gmail.com>
-Date: Sat, 10 Oct 2026 16:35:41 +0800
-X-Gm-Features: AclHuK_Pdn5Y5rSwaHJD0Cqyy5Aqi9sXQlyXeocnYHJYtBTpz7Q3w3982yGkDko
-Message-ID: <CAJSHAZWqWjtfmZu8yL=7e1T46CQ9YmY+LRdVmqFetqPOhsF6rA@mail.gmail.com>
-Subject: Re: [PATCH v5 2/2] iio: light: add AS7343 multi-spectral sensor driver
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Chang Yu <marcus.yu.56@gmail.com>, Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Shi Hao <i.shihao.999@gmail.com>, Joshua Crofts <joshua.crofts1@gmail.com>, 
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] mm/compaction: skip folios containing hwpoisoned
+ pages
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Yuanhe Shu <xiangzao@linux.alibaba.com>, akpm@linux-foundation.org
+Cc: vbabka@kernel.org, linmiaohe@huawei.com, nao.horiguchi@gmail.com,
+ ziy@nvidia.com, ying.huang@linux.alibaba.com, wangkefeng.wang@huawei.com,
+ tujinjiang@huawei.com, mgorman@techsingularity.net, chengkaitao@kylinos.cn,
+ muchun.song@linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20260928105805.1215770-1-xiangzao@linux.alibaba.com>
+ <20260928105805.1215770-2-xiangzao@linux.alibaba.com>
+ <99cbd960-439d-4672-aba9-6b49697db8b3@kernel.org>
+From: Kaitao Cheng <kaitao.cheng@linux.dev>
+In-Reply-To: <99cbd960-439d-4672-aba9-6b49697db8b3@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 24, 2026 at 09:22:05PM +0300, Andy Shevchenko wrote:
-> On Sat, Sep 19, 2026 at 04:51:45PM -0700, Chang Yu wrote:
-> > Add a driver for the AMS AS7343 14-channel multi-spectral sensor.
-> >
-> > The AS7343 is a 14-channel spectral sensor featuring 11 visible
-> > channels, 1 near-infrared channel, 1 clear channel (VIS), and 1
-> > flicker detection channel.
-> >
-> > The driver exposes 12 spectral channels (11 visible light and 1
-> > near-infrared) via sysfs. Runtime PM is implemented to stop
-> > measurements when the device is suspended or torn down. Power is
-> > never cut (PON=1 always) to preserve register values.
-> >
-> > Future patches will add configurable gain and integration time,
-> > interrupt support, buffered reads, VIS channel, and flicker
-> > detection.
->
-> ...
->
-> > +#include <linux/build_bug.h>
->
-> This is unusual to meet...
->
-> ...
->
-> > +static inline u8 as7343_atime_steps(unsigned int step)
-> > +{
-> > +   BUILD_BUG_ON(step < 1 || step > 256);
->
-> How is this any useful? The step == 1 gives the result 0, the step 256,
-> 255 respectively. This covers the whole range of the returned variable
-> (u8).
->
-> > +   return step - 1;
-> > +}
-> > +
-> > +static inline u16 as7343_astep_x2780ns(unsigned int n)
-> > +{
-> > +   BUILD_BUG_ON(n < 1 || n > 65535);
-> > +   return n - 1;
-> > +}
->
-> Ditto.
->
-> ...
->
-> TL;DR: I do not see anything meaningful from these BUILD_BUG_ON():s.
-> It's not a problem if the result gives just wrapped-up value. Or is it?
->
-For now just letting them wrap back up is fine. The values are hard coded
-so it's unlikely to happen anyways. But since these are going to be
-configurable by the user in the future, I'll make these into runtime checks
-as per Jonathan's advice so that we have a way to tell the user that they
-are doing something wrong.
+
+
+在 2026/9/28 20:12, David Hildenbrand (Arm) 写道:
+> On 9/28/26 12:58, Yuanhe Shu wrote:
+>> memory_failure() sets PG_hwpoison on the error page before it manages
+>> to pin the folio via get_hwpoison_page().  Compaction running on
+>> another CPU can isolate that same folio in the meantime, so
+>> HWPoisonHandlable() then fails on !PageLRU(), the retry loop in
+>> get_any_page() exhausts itself and memory_failure() gives up with
+>> MF_IGNORED - while compaction still has the folio on its
+>> migratepages list, flagged PG_hwpoison.
+>>
+>> Nothing stops compaction from migrating such a folio afterwards.
+>> The corrupted data is copied into a fresh folio that carries no
+>> poison marker, and no hwpoison PTE entry is installed on the way
+>> back: the userspace mapping is silently redirected to the corrupted
+>> copy and no SIGBUS is ever delivered.
+>>
+>> Note that a large folio with a PG_hwpoisoned subpage can also sit on
+>> the LRU without any race at all, via the THP-split-failure path of
+>> memory_failure() (kill_procs_now() + MF_MSG_UNSPLIT_THP).  Guarding
+>> compaction is therefore needed regardless of how the race in
+>> memory_failure() itself might be addressed.
+>>
+>> folio_mc_copy() does not close this hole: it only detects corruption
+>> at copy time and only where ARCH_HAS_COPY_MC is implemented (x86_64
+>> and PPC64; elsewhere copy_mc_highpage() degrades to a plain copy).
+> 
+> Then they should implement it.
+> 
+>> Software-injected poison - what MADV_HWPOISON and the hwpoison-inject
+>> interface produce, and what tests and fuzzers exercise - never traps
+>> during the copy on any architecture.  
+> 
+> And these are debug interfaces, why do we care?
+> 
+>> An isolation-time check avoids
+>> the migration entirely, on all architectures and for both real and
+>> simulated poison.
+> 
+> It's racy. See the link below.
+
+Could we recheck PG_hwpoison on the source page after folio_mc_copy()
+completes, but before the mapping is transferred, and abort migration
+if the flag is set? This would prevent PG_hwpoison from being lost
+after migration.
+
+Completely closing the race window by modifying the arch-specific
+copy_mc_to_kernel() implementation would presumably also require
+corresponding hardware and architectural capabilities, which does
+not seem very practical.
+
+>> The check itself is two flag tests on the head page (PG_hwpoison
+>> and the folio-level has_hwpoisoned marker), not a walk over
+>> subpages.
+>>
+>> Neither page reclaim nor memory hotplug lets such a folio be
+>> copied into a fresh one: reclaim unmaps the poisoned order-0 page,
+>> and skips the hwpoisoned large folios it cannot safely unmap, in
+>> shrink_folio_list()
+>> commit 1b0449544c64 ("mm/vmscan: don't try to reclaim hwpoison folio")
+>> commit 9f1e8cd0b7c4 ("mm/vmscan: fix hwpoisoned large folio handling in shrink_folio_list")
+>> while memory hotplug refuses to migrate them in do_migrate_range()
+>> commit 5f5ee52d4f58 ("mm/hwpoison: introduce folio_contain_hwpoisoned_page() helper").
+>> Skip them in compaction as well, for the same reason reclaim settled
+>> on skipping: the UCE is rare and a race with compaction is rarer
+>> still, so skipping is enough, and a later memory_failure() will
+>> handle the folio if the UCE is triggered again - while a migrated
+>> folio would silently propagate the corruption instead.
+>>
+>> Deterministic validation on v7.3-rc4-75-g62f4c998b297: order-4
+>> mTHP folios were brought into the stable "large, on LRU,
+>> PG_hwpoisoned subpage" state by pinning a sibling subpage with
+>> vmsplice and injecting MADV_HWPOISON on another subpage, which
+>> makes memory_failure() take the THP-split-failure path; after
+>> triggering compaction, /proc/kpageflags shows which poisoned
+>> folios moved.  The unpatched kernel migrated 16/16 poisoned
+>> folios and 16/16 clean controls in the same pageblocks; with
+>> this patch, 0/16 poisoned folios were migrated while their
+>> controls still migrated 16/16.
+> 
+> 
+> Was any of this written by an LLM?
+> 
+>>
+>> Soft offline is not affected: it only sets the poison marker after
+>> its own migration has succeeded.
+>>
+>> Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
+>> ---
+>>  mm/compaction.c | 8 ++++++++
+>>  1 file changed, 8 insertions(+)
+>>
+>> diff --git a/mm/compaction.c b/mm/compaction.c
+>> index a049415512c6..491adcbc5313 100644
+>> --- a/mm/compaction.c
+>> +++ b/mm/compaction.c
+>> @@ -1093,6 +1093,14 @@ isolate_migratepages_block(struct compact_control *cc, unsigned long low_pfn,
+>>  		if (unlikely(!folio))
+>>  			goto isolate_fail;
+>>  
+>> +		/*
+>> +		 * Migrating would copy the corrupted data into a fresh
+>> +		 * folio with no poison marker; skip, as memory hotplug
+>> +		 * refuses to migrate such folios for the same reason.
+>> +		 */
+>> +		if (folio_contain_hwpoisoned_page(folio))
+>> +			goto isolate_fail_put;
+>> +
+>>  		/*
+>>  		 * Migration will fail if an anonymous page is pinned in memory,
+>>  		 * so avoid taking lru_lock and isolating it unnecessarily in an
+> 
+> See
+> 
+> https://lore.kernel.org/linux-mm/20260707090136.52904-1-kaitao.cheng@linux.dev/
+> 
+
+-- 
+Thanks
+Kaitao Cheng
+
