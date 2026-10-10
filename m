@@ -1,220 +1,194 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBCED353A8C
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 07:58:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36200374E45;
+	Sat, 10 Oct 2026 07:58:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791619123; cv=none; b=IH++p9dH7bo1uCM2Ufgn8oPKpGBYihg+ck3xl3KzsDg4yCWEGxlM7go+4T+pER8hd7AjjHwyhFy0wy3J2IUNc4s9n6mz25qLmQ4rQ8ox6fYHIL6IHhOyBDHvp7j+jE4Uq2/jh7M5D03WqXFd9G91hJY2ZW6jclRyvHkc7MAzmF8=
+	t=1791619125; cv=none; b=QjauhwAmqs3u7C6N4vH2lDP1onXWEH7cLi5eEhEijbkIGw/4OP3u+D/AW2n8nZeBm1DUe/jLsXUxlnR5ufv7jCZMoNS9/RrNqmuglKnbDOaQgEnybiuf+oDxTycfqXWK8vRXZ8kZ+xkuI32fMMs+eVYS8jzKLkHzhZMEpv6NnCA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791619123; c=relaxed/simple;
-	bh=SRv7aofTwuhejRQFqCXZAqcOJ/ms4jJmArMHkuZUyMA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PLjBFCzM1JVXBbhcV9/372wcHMMJ82eH2+SiOweXO+bK6NcNXXvGzHT+hg/UGDc5s2tJqIWc33pDbFlGIkoR/CKt5D54JIijYLmF+mxeMx4n23aG8eoutkcEinZQL2CsSr77sUx11XGds9GLGBX1VRGeumBGN1orqVLuju+MNow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=AzgjNwL6; arc=none smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1791619125; c=relaxed/simple;
+	bh=gaodNQ6TZpIzPXXdpEG/fED04Bq2L2tZ5OM+UFFzmXM=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=o8JKb5k2GPHfP5p3qFLbxCSMF2mxfD9PCTuLwMt4UKOuwxeWqkBRSCRVnpbPosZAdzz3W2SNGPxO9nU5MUVhnpwjxc2jymZgEzp0mILXoAgj2vDFMeHiWHkgEfmzdr+ZalVrZTOyUFyia2zl2x1MHPKbQb+Kj3H9bKzc9d/KvB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ymhybdta; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="AzgjNwL6"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3a80d1c98f5so230380a91.0
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 00:58:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1791619121; x=1792223921; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ma837HBXIsXlkZZedCno7jR/Be5/TxFOjn4ZcgPZXQ8=;
-        b=AzgjNwL6Wkdx5p9fJu1C0KMtn1R1BSGDgJd1BNpFEj5BjmZzqrHN14gEBkdj035sok
-         hEEjKiRJvZgvNLpzygG7/MHWfN6CgNJVhIZ/7dRDA5nWC7mpLoWy9JuWI2/xwKXu4PwH
-         f1+IkRc95nVCka9LJHSPWad7hZtrGd7mJ4bKBc25bXglEHvaihzcitzQv64oFdhpqELB
-         WOiNIhal2ECwvEBSqqxNb6Hf3jM1sGi6IuVs7h5jHPFSClacnzxfezjpfyUUPuagowpR
-         Kok8uLwlgLgdHRJjb8RSL4U3Gqw665Yt0zDL6R+xdqggK9W56s0ZwM4z75WGUmfN0AaQ
-         siww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791619121; x=1792223921;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ma837HBXIsXlkZZedCno7jR/Be5/TxFOjn4ZcgPZXQ8=;
-        b=C1pniIYX3SAusmfKC4bYNZzskbv4Zop95TSI7s7QNX1WX/YT+YBUiWty0g9BTAYWjT
-         RGyW6pi2BFFfxvv/v9BpX2IAX9dlu2h7SwGCx4hJFsR8cIf+or2Jfkq08LkpE5pY0X+W
-         6wpTBN1mX11rPPuoz8rmO1j40fjwXQQMtLaoXBCjBLLgVdorUeGHz88s1T0GqQsZ7LpV
-         9VwjNUt1LuU9qZBU3KWBucZ+zQuv8/uXnW2fENkEZNUtTlpgD9cSt4Dwwvs5on/IfGTK
-         s2P1VmcHc2vPF6ToreJM9dlu5HfBTQTBZ7hkPyLKNeZ+bCtRKsNU5hmA7fokSIWLV/kw
-         h8Hg==
-X-Forwarded-Encrypted: i=1; AKwUvBz7/os59XBk0it3mFothh2BIcjLKYgLMPf86dUojYONNBLkNsX9Ez2VtgnnohuMAe7R8mDZMYhpRP3/lFc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLKkgbjRat8CrQj64srzuj54M7APW46Fio6ZPiaRIWSDTKswMzN
-	nQuulitTPGbT2M+cc4SZD8YIuiraFYwbU9oRU8ribMiX7v6/RyRxpEa3sN/7NAue51Y=
-X-Gm-Gg: AYBFou1sMd2WkWKlVYrIsKwNQ1ctQsujL4Ye50u2mCGH2ZSLuSSfx/+4dsYLcabFRZD
-	VEjyqb8pDHoUkl2ePWJWMwkHdQif8Icw0ksffvc8p52e/tDusvllTniPePYoQP/+4545oH7ludH
-	jgB52acS3SRkV2rBtvC0GsJ7kqCPNpgCHPoGXhElsIP1eBb6nYC39g2HW/l6PjiXhiAyimot0H4
-	hxEbqU5/r6TGXVVLVRosfMZYLs9ZlVlC6m5ff55CsrVa2FHPx2ME2cwV0I7IlNiCXbh8ZGF4L00
-	RHjZv9FLCfGTbbxH8BNCKMbDfg5YTubPf5uArYaYFSzDk3OEX7GGfTvcT9xIVxLGfGeqtUx394a
-	vlyFIeUOioh4VEfHdbOQSZP11Z3OZpxmJcnDgLMUkefjjpLfezP/xxmR7ClhP0CcQsdJa6JRVEo
-	zN1DKyUD40706In8fKNGjznyqEHgrwQgkky4ocqhnv8NVoLalTmfDJyi+81e2JNat9HqKluYQwI
-	0lOfwDHgwW7FL26Rq2HVw/8W/t5/dlkOU0+wMzvDIoLMZXRtA==
-X-Received: by 2002:a17:90b:1d4f:b0:3a4:fe48:d410 with SMTP id 98e67ed59e1d1-3ab3a954001mr3617692a91.30.1791619121000;
-        Sat, 10 Oct 2026 00:58:41 -0700 (PDT)
-Received: from G6L4RL2QG9.bytedance.net ([139.177.225.249])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab57c05724sm3473569a91.4.2026.10.10.00.58.32
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 10 Oct 2026 00:58:40 -0700 (PDT)
-From: Muchun Song <songmuchun@bytedance.com>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>
-Cc: Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Lance Yang <lance.yang@linux.dev>,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Muchun Song <songmuchun@bytedance.com>,
-	muchun.song@linux.dev
-Subject: [PATCH v4 2/6] mm/sparse-vmemmap: support device DAX in common vmemmap path
-Date: Sat, 10 Oct 2026 15:57:51 +0800
-Message-ID: <20261010075755.83339-3-songmuchun@bytedance.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261010075755.83339-1-songmuchun@bytedance.com>
-References: <20261010075755.83339-1-songmuchun@bytedance.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ymhybdta"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF7E91F0089C;
+	Sat, 10 Oct 2026 07:58:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791619122;
+	bh=rXXN7CZA9gj1tcxRjpkZYvL+dI2FoEDYFptk7kHaLZA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=YmhybdtaRUIHbIb5vD9pHxA0xsZ4prl8WULoMJWmNXsdb9birad1LjABETHldC5/9
+	 +SPRqFRggsfu/U0vG86OdoyBIaK/rSDU8oCdEWYumxaUZrX8xajLBVieJsSbbPPqKT
+	 QSBSSw7UkITx5pLTWf1T4iweiR/9sgDcjzqFfd+PJwlYKHUC4NXd4xnX3zwn6+HFgQ
+	 vYIMRU+fVqnDN+mil7m0BtkHokHD/RBgYEnn6tYss3ZgI+YA3DwyUgv3BdGcsvNQyM
+	 PHvmNCSEjsfzY81d/pru4JNV78HUGwCiL05Cv8pys3v/KHszNqLJR51n2Gl+Siattm
+	 MrDTFamDdJUzQ==
+Subject:
+ Re: [PATCH net-next v2 3/6] net: ftgmac100: Enable AST2700 RMII support
+From: netdev-bot+sashiko@kernel.org
+To: jacky_chou@aspeedtech.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
+ pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ ratbert@faraday-tech.com, edumazet@kernel.org, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Sat, 10 Oct 2026 07:58:41 +0000
+Message-ID: <179161912142.434549.11654088107444095991@kernel.org>
+In-Reply-To: <20261006-support_ast2700-v2-3-36de51fb8066@aspeedtech.com>
+References: <20261006-support_ast2700-v2-3-36de51fb8066@aspeedtech.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The common vmemmap population path cannot yet handle optimized Device DAX
-mappings on its own. It uses pfn_to_zone() to find the shared tail page,
-but Device DAX populates its vmemmap at runtime before the ZONE_DEVICE span
-is initialized.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Teach the common path to use device_zone() for runtime optimized vmemmap
-population while retaining pfn_to_zone() for early boot. This allows the
-same path to support both early boot mappings and Device DAX.
+Critical: 0 · High: 1 (1) · Medium: 0 · Low: 0
 
-The backing PFN supplied by the Device DAX-specific population path is no
-longer used, allowing the redundant lookup and population code to be
-removed later.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Acked-by: Qi Zheng <qi.zheng@linux.dev>
----
-v4:
-- Collect Reviewed-by from Lance Yang
+- [High] net: ftgmac100: NULL pointer dereference in ftgmac100_start_hw()
+  on missing PHY
 
-v3:
-- Collect Acked-by from Qi Zheng
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the patch
+  copies it.
 
-v2:
-- Expand comments around slab initialization to explain zone lookup and
-  page refcounting (suggested by Qi Zheng)
----
- mm/sparse-vmemmap.c | 64 +++++++++++++++++++++++++--------------------
- 1 file changed, 35 insertions(+), 29 deletions(-)
+--
 
-diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
-index b23efff80137..62327ac15206 100644
---- a/mm/sparse-vmemmap.c
-+++ b/mm/sparse-vmemmap.c
-@@ -241,18 +241,43 @@ static __meminit void *vmemmap_alloc_pte(unsigned long pfn, int node,
- 	struct page *page;
- 	const unsigned int order = pfn_to_section_compound_order(pfn);
- 
--	/*
--	 * Device DAX still relies on vmemmap_populate_compound_pages() for
--	 * head/first-tail allocation and tail-page reuse.
--	 */
- 	if (!vmemmap_optimizable_pfn(pfn))
- 		return vmemmap_alloc_block_buf(PAGE_SIZE, node, altmap);
- 
--	zone = pfn_to_zone(pfn, node);
-+	/*
-+	 * Before slab is available, vmemmap optimization is used for early
-+	 * system RAM, whose zone can be determined from the PFN.
-+	 *
-+	 * Once slab is available, only ZONE_DEVICE memory reaches this
-+	 * optimized population path. Its zone span has not been initialized
-+	 * while its vmemmap is being populated, so pfn_to_zone() cannot be
-+	 * used. Obtain ZONE_DEVICE directly from the node instead.
-+	 */
-+	zone = slab_is_available() ? device_zone(node) : pfn_to_zone(pfn, node);
- 	page = vmemmap_shared_tail_page(order, zone);
- 	if (!page)
- 		return NULL;
- 
-+	/*
-+	 * During early vmemmap population, the shared tail vmemmap backing
-+	 * page is allocated from memblock before its struct page can safely
-+	 * participate in page refcounting. Therefore, no reference can be
-+	 * held for each shared PTE mapping, and the mappings must be unshared
-+	 * before the vmemmap is depopulated.
-+	 *
-+	 * Once slab is available, the shared backing page is allocated from
-+	 * the buddy allocator and can be refcounted. Hold one reference for
-+	 * each shared PTE mapping. The architecture vmemmap teardown drops
-+	 * the reference through __free_pages() when removing the mapping,
-+	 * preventing the backing page from being freed while it is shared.
-+	 *
-+	 * The backing page may be shared by enough PTE mappings to exhaust
-+	 * the positive range of its reference count. Stop populating the
-+	 * vmemmap if another reference cannot be acquired.
-+	 */
-+	if (slab_is_available() && !try_get_page(page))
-+		return NULL;
-+
- 	return page_address(page);
- }
- 
-@@ -264,31 +289,12 @@ static pte_t * __meminit vmemmap_pte_populate(pmd_t *pmd, unsigned long addr, in
- 
- 	if (pte_none(ptep_get(pte))) {
- 		pte_t entry;
-+		void *p = vmemmap_alloc_pte(pfn, node, altmap);
- 
--		if (ptpfn == (unsigned long)-1) {
--			void *p = vmemmap_alloc_pte(pfn, node, altmap);
--
--			if (!p)
--				return NULL;
--			ptpfn = PHYS_PFN(__pa(p));
--		} else {
--			/*
--			 * When a PTE/PMD entry is freed from the init_mm
--			 * there's a free_pages() call to this page allocated
--			 * above. Thus this try_get_page() is paired with the
--			 * put_page_testzero() on the freeing path.
--			 * This can only called by certain ZONE_DEVICE path,
--			 * and through vmemmap_populate_compound_pages() when
--			 * slab is available.
--			 *
--			 * Use try_get_page() to prevent the shared page refcount
--			 * from overflowing.
--			 */
--			if (slab_is_available() &&
--			    !try_get_page(pfn_to_page(ptpfn)))
--				return NULL;
--		}
--		entry = pfn_pte(ptpfn, PAGE_KERNEL);
-+		if (!p)
-+			return NULL;
-+
-+		entry = pfn_pte(PHYS_PFN(__pa(p)), PAGE_KERNEL);
- 		set_pte_at(&init_mm, addr, pte, entry);
- 	} else if (WARN_ON_ONCE(vmemmap_optimizable_pfn(pfn)))
- 		return NULL;
+net: ftgmac100: Enable AST2700 RMII support
+
+This commit adds a FTGMAC100_QUIRK_RMII_ENABLE match-data quirk for
+AST2700. ftgmac100_start_hw() uses the quirk to set the new
+FTGMAC100_MACCR_RMII_ENABLE bit when the attached PHY uses RMII.
+
+> diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
+> index 67b1fa464a421..b835472da3604 100644
+> --- a/drivers/net/ethernet/faraday/ftgmac100.c
+> +++ b/drivers/net/ethernet/faraday/ftgmac100.c
+
+[ ... ]
+
+> @@ -355,6 +359,7 @@ static void ftgmac100_init_hw(struct ftgmac100 *priv)
+>  static void ftgmac100_start_hw(struct ftgmac100 *priv)
+>  {
+>  	u32 maccr = ioread32(priv->base + FTGMAC100_OFFSET_MACCR);
+> +	struct phy_device *phydev = priv->netdev->phydev;
+>  
+>  	/* Keep the original GMAC and FAST bits */
+>  	maccr &= (FTGMAC100_MACCR_FAST_MODE | FTGMAC100_MACCR_GIGA_MODE);
+> @@ -383,6 +388,11 @@ static void ftgmac100_start_hw(struct ftgmac100 *priv)
+>  	if (priv->netdev->features & NETIF_F_HW_VLAN_CTAG_RX)
+>  		maccr |= FTGMAC100_MACCR_RM_VLAN;
+>  
+> +	if ((priv->quirks & FTGMAC100_QUIRK_RMII_ENABLE) &&
+> +	    phydev->interface == PHY_INTERFACE_MODE_RMII) {
+
+[Severity: High]
+Can phydev be NULL here?
+
+ftgmac100_probe_dt() returns 0 without attaching a PHY when the node
+has an mdio child but no phy-handle, fixed-link or use-ncsi property.
+of_phy_get_and_connect() is skipped in that case. The
+ftgmac100_mii_probe() fallback is skipped too, because the mdio child
+exists. Probe then registers the netdev with netdev->phydev still NULL.
+
+The rest of the driver treats a missing PHY as a valid state. For
+example, ftgmac100_open() and ftgmac100_stop() test netdev->phydev
+before using it. This check reads phydev->interface whenever the quirk
+is set, and ftgmac100_match_data_ast2700 always sets it. On such a
+board, bringing the interface up would oops via ftgmac100_init_all()
+-> ftgmac100_start_hw(). The MAC restart in ftgmac100_poll() and
+ftgmac100_set_rx_mode() reach the same code.
+
+ftgmac100_reset_and_config_mac() already does the same unchecked
+priv->netdev->phydev->interface read on Aspeed parts. It runs before
+ftgmac100_start_hw() on open, so that site may oops first today. This
+is still a second dereference that depends only on the quirk bit. The
+quirk is meant to be reused by later controllers, which may not set
+is_aspeed.
+
+The later patch requiring phy-mode on AST2700 only changes
+ftgmac100_mii_probe(). This path never reaches that function, so
+nothing in the series closes the gap.
+
+Could phydev be checked for NULL here and in
+ftgmac100_reset_and_config_mac()? Or should probe fail on AST2700 when
+no PHY ends up attached?
+
+[Severity: High]
+This is a pre-existing issue, but this new check repeats it. Can phydev be
+NULL here?
+
+ftgmac100_reset_and_config_mac() already dereferences phydev the same way,
+without a check, for every Aspeed MAC. That code came from commit
+af350ee72e9dda:
+
+    if (priv->is_aspeed && priv->netdev->phydev->interface == PHY_INTERFACE_MODE_RMII) {
+
+The faraday,ftgmac100.yaml schema seems to allow a node that has an mdio
+child but no phy-handle, fixed-link or use-ncsi. For such a node,
+ftgmac100_probe_dt() skips of_phy_get_and_connect(). Because the mdio child
+is present, it also skips the ftgmac100_mii_probe() fallback:
+
+    if (!ftgmac100_has_child_node(np, "mdio")) {
+        ...
+        err = ftgmac100_mii_probe(netdev);
+        ...
+    }
+
+    return 0;
+
+Probe then registers the netdev with no PHY attached.
+
+Other parts of the driver accept a NULL phydev, for example
+ftgmac100_open():
+
+    if (netdev->phydev) {
+        /* If we have a PHY, start polling */
+        phy_start(netdev->phydev);
+
+ftgmac100_open()->ftgmac100_reset_and_config_mac() dereferences phydev
+before that check, though, so the oops happens there on ndo_open.
+ftgmac100_reset() takes the same path.
+
+On AST2700, every caller of ftgmac100_start_hw() runs after
+ftgmac100_reset_and_config_mac(). That covers ftgmac100_init_all(),
+ftgmac100_poll() via need_mac_restart, and ftgmac100_set_rx_mode(). So the
+new site does not add a crash on its own.
+
+It does add a second unchecked read that depends only on the quirk bit, and
+AST2700 always sets that bit. A future controller that sets the quirk
+without is_aspeed would crash here.
+
+Later patches in the series leave both sites unchecked. "net: ftgmac100:
+Require phy-mode for AST2700" only changes ftgmac100_mii_probe(), and this
+path never reaches that function.
+
+Could phydev be checked for NULL at both sites? Another option would be to
+fail probe on Aspeed parts when no PHY gets attached.
+
+> +		maccr |= FTGMAC100_MACCR_RMII_ENABLE;
+> +	}
+> +
+>  	/* Hit the HW */
+>  	iowrite32(maccr, priv->base + FTGMAC100_OFFSET_MACCR);
+>  }
+
+[ ... ]
+
 -- 
-2.54.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261006-support_ast2700-v2-0-36de51fb8066%40aspeedtech.com
