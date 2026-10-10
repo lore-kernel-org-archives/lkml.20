@@ -1,206 +1,143 @@
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AD943C0613
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 03:36:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C90935C188;
+	Sat, 10 Oct 2026 03:37:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791603397; cv=none; b=h2ngtzeozgLe/NsFH9fDgRca/Rh7ASkemYXCDiCUOMxOgBkU8qy+0v4I4FKHnfklaxT03r4EHI9t9G8DTRe2/BQFYxZGKgpZI9oC03EVfvFbkI226WeGGJPrMGe0yGTg07p65W0UslCAi+utfhQ4V3I8xVO0dXwpE20OaK6g/to=
+	t=1791603461; cv=none; b=cunMKApEV8xDU6fUMDOViNQVZhgAmleLHpZ0bCeDh94mC7xyjkzyjPoTv63b2eq5URkgWBUDMbBsBF/ZtFDRpmFrVeiVa0k/HBG7KkHOsal2bcubbkWFACDLJalO92UpsRzn4jilL2gb45j6QtovHzDuem8S5hvRxLGRBPvLu0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791603397; c=relaxed/simple;
-	bh=59RRrGspd5iUtNZ1bAJjKiLsiHSiAQJ2Y5SqHeIZ5z8=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Kk7Bt67rd2bf3MIqkXtGjx8Fpj5Z9NzHqvPf56/+dM9XpivR0iC6mNXVYgyRg6o81WhF0ebQNvc2TrnVksxi3VC3zYAgPkUS5ERXYWzUXAqCF+aW7snmC3txK68FKqc/VGcNWBG7+X0qG1YlCzjLbWufvOs18YidfpJh0Olfq/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=G58X8FhI; arc=none smtp.client-ip=74.125.82.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
+	s=arc-20240116; t=1791603461; c=relaxed/simple;
+	bh=qLuq52sVyaXL0hZV+8p1iXM+i+inClZIOaaolKSt/uM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GI7tGdkz6QSRFpXD2k6nrkeQHVzxwLRH5C0FbSjReAFy1Ea8x2Orsk80duxGip2OApvPYbq9EdrQh64C9Rh3Lj3OvHrj101K7QBQKHXKn1AQufplw7RQZTE9qCznaWQtjzS5KTTi+rMacykVi1I1MSAe40UjcaIMZZLW7koWAX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=mXCrTGPY; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="G58X8FhI"
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-33713e5e6daso494009eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 20:36:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791603394; x=1792208194; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=M2GB1ttRU2va4gCDaGhpGqvhJfE04jyHCmKo6H7UcmI=;
-        b=G58X8FhI1xzxpbOxwe9sYgNID7CzN3dOuZzdQEaBvHC960gBGRzD24X2VK6HQq3Sm7
-         ZlXRcMw4R6c0h1gyQpkocAn2oMxdEeAXldMr/i1AeMGfoyU6sPr7OVYnCZUjfmSe5Eni
-         8jswRqadq1ky2aYtkanixRgNGqb7ttu8fyp7e0lbgFf2sBebkgfb4lBLTw4/8rzbtdqJ
-         hv33M+g//KXHOu0MJQBqmt95BnR2yaimKDBfKTKNCms27zrA+wc1b2pMK+IcPAHS9mB0
-         sIrV+rTDQyDqg8p/Bs7adHaTUxzG78rTvibqSW7IuGjBYFab+h8JOwXaKoEHXiQvnPEN
-         fmiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791603394; x=1792208194;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=M2GB1ttRU2va4gCDaGhpGqvhJfE04jyHCmKo6H7UcmI=;
-        b=kJ+T07bvHA7fsolDtIr70eha13kLvWMhRULm9Z4R6OIt/o1NR8t8Sutz5fHHt5xZ1N
-         LemORxr7cJliHsg+ltJ0ohvERX84QQ+1hqmBhoyEqYNngzn1JWOEGKn5H+nJiTCwntW2
-         z6lPPi2H8X1xs/Nlbw1tVjsOlUOM+4wBCu9QR0OOtChSlmF5GQYvtlY3en3MqWdoZ1Il
-         WBMkSDbgnT4JltYQnSA0A0fwTDDtHtY4dtnRCZN0Wm8hIaRkmBhNasBzpJowyqZH/B4N
-         QUdsgTx6Zone7n3K9u9evVdPUNxu7fAAyhzCqztB5tAObO4cVmY6YM21u5d/9zv8Js3/
-         wBUg==
-X-Forwarded-Encrypted: i=1; AKwUvBzmZv9ml15oz8TwRUU54+NMk3jmiODiiBfv/m1J5KNaoX+Qy7aLPi7UNJIgAy03xN+xCzezWGwNeOOUjv4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ8ZXX6k16CkBOSCsK5V633ieqyR3/dr8zTPEp1Jl9Oc5uNytSa
-	mOcXwhZe9YWQouauYBqk8lqV1xatq5SJd6GX1GXvF09kiPkCXJ8DbWGQXrrec7higgijLo/K2sL
-	xyq6BF2kpXiAFirls4CTbRFoW6A==
-X-Received: from dyos4.prod.google.com ([2002:a05:7300:6c84:b0:351:5945:17bc])
- (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7300:6c9e:b0:33c:e82:70c9 with SMTP id 5a478bee46e88-3537e252b4fmr7095741eec.32.1791603393362;
- Fri, 09 Oct 2026 20:36:33 -0700 (PDT)
-Date: Sat, 10 Oct 2026 03:36:09 +0000
-In-Reply-To: <20261010033630.1171692-1-almasrymina@google.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="mXCrTGPY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=lO
+	/QH7ZRnkZvoesH5huRieOf4VJUe/ytN8DPICc2Gx8=; b=mXCrTGPYUgZSTJMdM+
+	jhw4bky8qDanUQ2EJ19eMI1CWD1bh9eaKf5pY2NPWqB//nNk0SE1dBYTW+1hseFM
+	DycN2lPq00zIi2KBaWBonsO2qJPkeoLUgJcIs7R3VP1SLqGQnYIij9lUd/A/gEQS
+	7VxWuUm7h+9QKi7jySYbJ7foY=
+Received: from LAPTOP-BJS5C4G0 (unknown [])
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgAHxLj5sslqgLLEDQ--.65101S2;
+	Sat, 10 Oct 2026 11:37:30 +0800 (CST)
+From: Heyang Tan <thy15333007817@163.com>
+To: linux-wireless@vger.kernel.org
+Cc: chunkeey@googlemail.com,
+	linux-kernel@vger.kernel.org,
+	Christian Lamparter <chunkeey@gmail.com>
+Subject: [PATCH v3] p54: validate firmware record lengths
+Date: Sat, 10 Oct 2026 11:37:24 +0800
+Message-ID: <20261010033724.1924-1-thy15333007817@163.com>
+X-Mailer: git-send-email 2.51.0.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261010033630.1171692-1-almasrymina@google.com>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261010033630.1171692-3-almasrymina@google.com>
-Subject: [PATCH net-next v3 2/2] docs: netmem: document netmem and memory
- provider design principles
-From: Mina Almasry <almasrymina@google.com>
-To: netdev@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-Cc: Mina Almasry <almasrymina@google.com>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Jesper Dangaard Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	John Fastabend <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, 
-	Luigi Rizzo <lrizzo@google.com>, "=?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?=" <bjorn@kernel.org>, 
-	Pavel Begunkov <asml.silence@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PSgvCgAHxLj5sslqgLLEDQ--.65101S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGr13WFy7tw4Duw4DJFWfAFb_yoW5urW5pF
+	Wj9ay3JFWDC3W3X3s5Jrs7AFW5Ja1fJFW7XFy0q3ZxWF13Ar1Fq34YyFWkZwn0krySy3ya
+	krWUta17CF4DAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UiNV9UUUUU=
+X-CM-SenderInfo: 5wk1ikatttiiixyrlqqrwthudrp/xtbC4Rr3oWrJsvridwAA3T
 
-Add a Design Principles section to Documentation/networking/netmem.rst
-covering the netmem_ref abstraction, the prohibition on direct
-downcasting in callers, decoupling memory providers from net_iov,
-decoupling net_iov from unreadability, delegating provider/type logic to
-memory_provider_ops and netmem helpers, and the rule against mixing skb
-fragment memory sources.
+The p54 firmware parser accesses component ID and component version
+records without checking that their lengths cover the fields being read.
+A malformed record can therefore make the parser read past the record.
 
-Cc: Luigi Rizzo <lrizzo@google.com>
-Signed-off-by: Mina Almasry <almasrymina@google.com>
-Reviewed-by: Bj=C3=B6rn T=C3=B6pel <bjorn@kernel.org>
-Reviewed-by: Pavel Begunkov <asml.silence@gmail.com>
-Acked-by: Stanislav Fomichev <sdf@fomichev.me>
+Validate the component ID and component version record lengths before
+accessing their data. The descriptor record is also checked against the
+shortest descriptor length found in the supported firmware images.
+
+Reject descriptor values that underflow the RX offset or produce an empty
+RX range before updating the driver state.
+
+Assisted-by: LLM Codex
+Tested-by: Christian Lamparter <chunkeey@gmail.com>
+Signed-off-by: Heyang Tan <thy15333007817@163.com>
 ---
-v3:
-- Collect Reviewed-by/Acked-by tags from Bj=C3=B6rn, Pavel, and Stanislav.
-- Clarify item 5: all frags in an skb must either be struct page-backed
-  or belong to the same memory provider instance (Pavel Begunkov).
-- Link to v2: https://lore.kernel.org/netdev/20261008023030.1089616-1-almas=
-rymina@google.com/
-v2:
-- Document both current implementation status (mp returns net_iov,
-  net_iov is unreadable) and target design principles in items 2 & 3,
-  and note that new code should generalize existing limitations as much
-  as possible (Stanislav Fomichev).
-- Link to v1: https://lore.kernel.org/netdev/20261005004958.3603059-1-almas=
-rymina@google.com/
----
- Documentation/networking/netmem.rst | 53 +++++++++++++++++++++++++++++
- 1 file changed, 53 insertions(+)
+Changes in v3:
+- Simplify the component ID length check to its one-word format.
+- Use a local bootrec_comp_ver pointer for version record access.
+- Express the 24-byte version minimum as six 32-bit words.
 
-diff --git a/Documentation/networking/netmem.rst b/Documentation/networking=
-/netmem.rst
-index 217869d1108dd..6871dcdd700cc 100644
---- a/Documentation/networking/netmem.rst
-+++ b/Documentation/networking/netmem.rst
-@@ -19,6 +19,59 @@ Benefits of Netmem :
- * Simplified Development: Drivers interact with a consistent API,
-   regardless of the underlying memory implementation.
-=20
-+Design Principles
-+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ drivers/net/wireless/intersil/p54/fwio.c | 45 ++++++++++++++++++++----
+ 1 file changed, 39 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/net/wireless/intersil/p54/fwio.c b/drivers/net/wireless/intersil/p54/fwio.c
+index a3d9053f043c..b19d054441b8 100644
+--- a/drivers/net/wireless/intersil/p54/fwio.c
++++ b/drivers/net/wireless/intersil/p54/fwio.c
+@@ -52,6 +52,12 @@ int p54_parse_firmware(struct ieee80211_hw *dev, const struct firmware *fw)
+ 		u32 code = le32_to_cpu(bootrec->code);
+ 		switch (code) {
+ 		case BR_CODE_COMPONENT_ID:
++			if (len != 1) {
++				wiphy_err(priv->hw->wiphy,
++					  "firmware component ID has invalid length\n");
++				return -EINVAL;
++			}
 +
-+Memory providers (or the default ``page_pool`` allocator) allocate underly=
-ing
-+memory (``struct net_iov`` or ``struct page``), cast it to ``netmem_ref``,=
- and
-+supply it to ``page_pool``. The ``page_pool``, drivers, and networking sta=
-ck
-+operate on ``netmem_ref`` as the abstract type. Existing ``page_pool`` API=
-s
-+that allocate or free ``struct page`` are legacy compatibility wrappers fo=
-r
-+drivers that do not yet support ``netmem_ref``. Code that is not yet
-+``netmem``-aware should be converted to ``netmem_ref`` unless it will neve=
-r
-+need to support ``netmem``.
+ 			priv->fw_interface = be32_to_cpup((__be32 *)
+ 					     bootrec->data);
+ 			switch (priv->fw_interface) {
+@@ -71,17 +77,44 @@ int p54_parse_firmware(struct ieee80211_hw *dev, const struct firmware *fw)
+ 				return -ENODEV;
+ 			}
+ 			break;
+-		case BR_CODE_COMPONENT_VERSION:
++		case BR_CODE_COMPONENT_VERSION: {
++			struct bootrec_comp_ver *desc =
++				(struct bootrec_comp_ver *)bootrec->data;
 +
-+1. **Operate on netmem_ref, do not downcast**: ``page_pool``, drivers, and=
- the
-+   core networking stack should deal with ``netmem_ref`` rather than
-+   ``struct net_iov`` or ``struct page``. Downcasting ``netmem_ref`` to
-+   ``struct net_iov`` or ``struct page`` is not allowed unless a code path
-+   strictly cannot function without knowing the underlying memory type (fo=
-r
-+   example, ``kmap_local_page()``). In those cases, to keep call sites sim=
-ple,
-+   add a ``netmem`` helper that performs the operation on behalf of the ca=
-ller,
-+   cleanly handles all ``net_iov`` and ``page`` cases, and returns an erro=
-r if
-+   the ``netmem`` type cannot support the requested operation.
++			if (len < 6) {
++				wiphy_err(priv->hw->wiphy,
++					  "firmware component version is too short\n");
++				return -EINVAL;
++			}
 +
-+2. **Decouple memory providers from net_iov**: Memory providers are not
-+   architecturally limited to ``struct net_iov``; a memory provider that r=
-eturns
-+   ``struct page``-backed ``netmem_ref``\ s to upper layers is allowed. To=
-day,
-+   in-tree memory providers only supply ``struct net_iov`` and some existi=
-ng
-+   code still reflects that limitation, but new code must not assume that =
-using
-+   a memory provider implies ``net_iov`` memory and should, as much as pos=
-sible,
-+   generalize existing limitations to match the design principles.
+ 			/* 24 bytes should be enough for all firmwares */
+-			if (strnlen((unsigned char *) bootrec->data, 24) < 24)
+-				fw_version = (unsigned char *) bootrec->data;
++			if (strnlen(desc->fw_version, sizeof(desc->fw_version)) <
++			    sizeof(desc->fw_version))
++				fw_version = (unsigned char *)desc->fw_version;
+ 			break;
++		}
+ 		case BR_CODE_DESCR: {
+ 			struct bootrec_desc *desc =
+ 				(struct bootrec_desc *)bootrec->data;
+-			priv->rx_start = le32_to_cpu(desc->rx_start);
+-			/* FIXME add sanity checking */
+-			priv->rx_end = le32_to_cpu(desc->rx_end) - 0x3500;
++			u32 rx_start, rx_end;
 +
-+3. **Decouple net_iov from unreadability**: ``struct net_iov`` is flexible=
- and
-+   has no inherent restrictions; it may represent either CPU-readable or
-+   unreadable memory. Today, in-tree ``net_iov`` implementations are unrea=
-dable
-+   by the CPU (``netmem_address()`` returns ``NULL``) and some existing co=
-de
-+   still reflects that limitation, but new code must not assume ``net_iov`=
-`
-+   implies unreadable memory (check readability via ``netmem_address()`` o=
-r
-+   ``skb_frags_readable()`` instead) and should, as much as possible, gene=
-ralize
-+   existing limitations to match the design principles.
++			/* 0xa is the shortest descriptor in supported firmware. */
++			if (len < 0xa) {
++				wiphy_err(priv->hw->wiphy,
++					  "firmware descriptor is too short\n");
++				return -EINVAL;
++			}
 +
-+4. **Delegate complexity to the lowest layer**: Each layer must respect it=
-s
-+   abstraction boundary. ``page_pool`` must not implement per-memory-provi=
-der
-+   custom logic in its main code; instead, it delegates provider-specific
-+   handling to ``struct memory_provider_ops``. Similarly, core networking =
-code
-+   should avoid per-``netmem``-type branching and instead delegate operati=
-ons
-+   to ``netmem`` helpers that handle the underlying memory type.
++			rx_start = le32_to_cpu(desc->rx_start);
++			rx_end = le32_to_cpu(desc->rx_end);
++			if (rx_end < 0x3500 || rx_end - 0x3500 <= rx_start) {
++				wiphy_err(priv->hw->wiphy,
++					  "firmware descriptor has invalid RX range\n");
++				return -EINVAL;
++			}
 +
-+5. **Do not mix skb fragment memory sources**: All ``frags[]`` in an
-+   ``sk_buff`` must either be ``struct page``-backed or belong to the same
-+   memory provider instance (for example, the same ``devmem`` binding or
-+   ``io_uring`` area). Mixing ``struct page`` and memory-provider fragment=
-s,
-+   or mixing fragments from different memory providers within a single
-+   ``sk_buff``, is not allowed (including when coalescing ``sk_buff``\ s).
-+
- Driver RX Requirements
- =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-=20
---=20
-2.56.0.385.gd3acb90ef8-goog
++			priv->rx_start = rx_start;
++			priv->rx_end = rx_end - 0x3500;
+ 			priv->headroom = desc->headroom;
+ 			priv->tailroom = desc->tailroom;
+ 			priv->privacy_caps = desc->privacy_caps;
+-- 
+2.34.1
 
