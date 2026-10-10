@@ -1,190 +1,361 @@
-Received: from mout.web.de (mout.web.de [212.227.15.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8036230F55F;
-	Sat, 10 Oct 2026 18:10:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0015936921E
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 18:11:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791655830; cv=none; b=VEda1XYB0JV/10HoPdY+61UAAedFNAwBr/An31klmuI4j644pcSeZYm94PWQAnPiW9SdIqZaaFC4cqeAUmNpcUowcMj7cn44c7oyUCejwpf3W/rODRxYAOSzMvOeL2WANQvpRJH1vfEqo7X2adOUCMSTtxXY/B7mAyPgUbyYM2o=
+	t=1791655918; cv=none; b=tdukVajj88w2VcVjGuI+OeN5lM/POMbm2neQ76t+ESvg7m5hCl7BCEwef9Ko8lOBL0/f1MnGvBwAitLDh4UXNgyraiqNDVIFfpEDVMfQ/piD3it+LINuz7aQNPmDXU6tVn2f6eTGK9HFMemoDQMNEW6dG3uGeWaPHM7nbtjiOlo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791655830; c=relaxed/simple;
-	bh=2MFCa2g9mR833mpA1ZLv3Jrd+zAYbkQUEzEhWw1N9Ro=;
-	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=L8BFgbxTdy2SAyw99NNc2OFvGUZydXZjAaSbcrqzLLaiB411yeIB0tEWu2AjcbANrHYzi1/wQiu6lZuF8X0KeoUlJ3wh/4gIwcUb80i13RsYJhnMEySjSFqms/uVMewm9CHxBlvFTw0odGD2P3vBT0FrE4L+7egmnqL1QIAUOO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=gAvShXXH; arc=none smtp.client-ip=212.227.15.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	s=arc-20240116; t=1791655918; c=relaxed/simple;
+	bh=wkVRrTpMgE+KPh0cRYiSGUFQ7jFRVYybu/LGXoBlcn0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aBn9WjweKqlK9Ex+qb8MhyW07CkSqus+UvvSw44bDIUQxfS11v2zb+XKerhQd4fRzYZVcHz32kRBaMM6DQ14CwnUGobFCYcCUu/CeeFjkNzViRH4BPbV7M32kOLxTgC+niVHRQOn+qWPUzIk4MLhAwd0nLK+7yllsMjTRUrQXys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=nyrI8VH+; arc=none smtp.client-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="gAvShXXH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1791655822; x=1792260622; i=markus.elfring@web.de;
-	bh=DmjZgOLOOOv4Ct+7ez2dPb31Ctn48nINPgNlWtcXtbY=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:From:
-	 Subject:Content-Type:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=gAvShXXHvoh/HLWGEQQqS1+IlCU7pwO/HfhkIpmN13xvnchPH4LB7NVqkPd2hr+T
-	 DFZmBY+TLvzDUCD8M31uiUI9XqQQ5yH+3rfBLZ+AMjoPSz//wrmZ+Suh65oRs5As2
-	 ZxW336FCP/LmfJFbTddc6EYtCBX/Flm4oRGib1o0n7H+a4uFOrhIJuu+Jo9ewYgKF
-	 Gvc8t4ylVYnYVF2ou3kscusbcx36xbi3X3q4k7nKMOmMyu4rhqGAS9tKz+qPOXMtx
-	 1rkUQRf8hxQizNH1XkFl+wpMXnOkjnxmJC/EfRLa1h2XVU0DxonsBt3/Xmt2ppZuq
-	 EnWGlfUIKeFs3OdnvA==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb005
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1MFs1z-1xRMRN2SWV-007Opn; Sat, 10
- Oct 2026 20:10:22 +0200
-Message-ID: <3906d06e-50cf-4230-a29e-939a1ac04e07@web.de>
-Date: Sat, 10 Oct 2026 20:10:18 +0200
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="nyrI8VH+"
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so1120648eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 11:11:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791655915; x=1792260715; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mUtw2tzDbt+OyXccbgY+BLRCZ5+kc31wvweZfcNZPV8=;
+        b=nyrI8VH+MZdarO7pe3RFEUb6+qx8Y/RwLuIAWcj8Rgan2tV74vBvX+j113WgYHm2NO
+         qeN9UsPBL/feYTZjjkloR9SdxntD6zcguhBN7v5m1vw77ZP3xbLxscV3A0QunVHLBOCL
+         d8eL11O6Lhe+BlGP/FmgZyN1EkS/kTqzvkxgkKylvUVl6ePl0wMYoE5hi/eQ5ChphvkY
+         kD4PLVEWWp/BZ3CJb3LRLyKPQIloewnHzNz9WEkrT+8z01nPH5uSGvaEA+1NRwWleP3F
+         9laieGGXdw0r7ByTVlntGpZToTXWxPrTylhNyL3yrbAwWLpEOUxwkbcoVSOSouHbc4jJ
+         RKWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791655915; x=1792260715;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mUtw2tzDbt+OyXccbgY+BLRCZ5+kc31wvweZfcNZPV8=;
+        b=YnMntoigbwIw4qIOdNsHx4PGxJWHc9YGmt59yF1pIJpqSdgBzpWcmLts12SnNM3ULg
+         SUn40kbAzQ0DNsfTYV0H8IWaIGuJwFjn47i6O4jzXzSUpgvh/gpcTc2AWVn7Rakkt/7x
+         oXG9e36TT4S7EkmAFtlQuQQr+q6xhpygJPbSHu4EQ2R4GILrmwCqmxqvudKCLScMvUoO
+         CzmxscDByJ1hlYPmCCZzl0wstC8d32epGAGjBY7NI5jmRrk/8Km4t2fGqTpZa5hcF5/g
+         lSkARNS1UZHGV2U2qotwRzrXtDJqkNnhGmmnBQOw9E70gBnUJtY25EpBJmc+nonJInNi
+         AsLw==
+X-Forwarded-Encrypted: i=1; AKwUvBxpiqKU4qMfslaqtCADQFGu10s8XybMgPjbSKQ/RNf7k6npTdSgTv9bu6LV1zH4ovtagBwJJsSC2srfI9Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ0NSddYw0zwGHyI/jJI9NveMbNx8jZUwjht97Rm52hfJaEz6x6
+	qAenXs3Arm8QOdFTQeGOWTWduzp0tTu/uthBOnFgkkBbdS2oPNgeJd8gz89RGqjYYAw=
+X-Gm-Gg: AYBFou2nbDURR7PaIDHmSopnU/k7gGe4Ahl8ozqxh2KgPXMSDkgPJB+8liFZvXCw5YF
+	lmBBwgZD/1TyKszqfQfuZQJcNqno7okRF6QmDpb1jjrg0iYb/4KiX4yvVElTluYA0QqL7o1OxbY
+	pM9psHa4VFRDNVExjL726uOOv1T+rq1k3d5R+UMtRtfUdYY/GqZ/GTyhul5HaDYVqUP3NAtUs3q
+	jTdmS20VbIlC6YiIgL+Rx02x1jYI7Kx6yw5ooiywT9nvmUW6rFM36F3gMKrVeKF+2lsPmuNUjk/
+	TZRETrXeYFM9yimD9Oz69+ZAFwNHrijPYOQBSTFnE+3XQ2IJOwGNXRHPS7Iww6Iwol3mgQoXTlS
+	BUGH2+LblXWtxnCj+7KOu5q6Fbe0GtnKNAIPpVWx+ROYXkvD9281JdCBRzf8U9/iIQLSlxs/aPJ
+	3wi0vgVYMVJ8SwhKlQg1scODyVbYGEoJaM42RDuIVDA2WqO5wguL3IvOaeeYy5AQmFTMkcwUOl2
+	b3+3DD0l/fhoZFPqIFXY9Y=
+X-Received: by 2002:a05:693c:66db:20b0:353:8287:4fd6 with SMTP id 5a478bee46e88-35382875256mr5981121eec.9.1791655914608;
+        Sat, 10 Oct 2026 11:11:54 -0700 (PDT)
+Received: from localhost.localdomain ([2406:5900:1044:110c:9657:9541:a576:7d2f])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cacb61asm17939027eec.21.2026.10.10.11.11.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 11:11:54 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Nilesh Javali <njavali@marvell.com>,
+	Manish Rangankar <mrangankar@marvell.com>,
+	GR-QLogic-Storage-Upstream@marvell.com,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K . Petersen" <mkp@kernel.org>,
+	linux-scsi@vger.kernel.org
+Cc: Mike Christie <michael.christie@oracle.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Subject: [PATCH] scsi: qla4xxx: bound the ISP83xx reset template to its buffer
+Date: Sun, 11 Oct 2026 03:11:38 +0900
+Message-ID: <20261010181139.1911817-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-GB, de-DE
-To: linux-fsdevel@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Mateusz Guzik <mjguzik@gmail.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org,
- Nikolaos Karaolidis <nick@karaolidis.com>
-From: Markus Elfring <Markus.Elfring@web.de>
-Subject: [PATCH] fs: Use common code in wait_on_new_inode()
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:Uz3fnnJuNouJDAtxkIZbR86+e+U3nEcpvAB/UeZrwyOLUsOGiAO
- 5M2lY0lUdwGCYksLZDxh2yTaIAgyeff/iRhjkNe1sOF6f73l+6KwP2heDNZ2MbvO/TpvqqP
- WJAJ+Vkoh5fTPsC8jMhtcxSiFjDuk1ODQcpgM+To8X5ZceWkDnPk/ui+72ayQ6AmXqQdlWI
- N8PYQXb4cIBrQhXoOkoNA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:0boYX8hPweo=;aNe9cyemGK4uEWD5S22N1m95YQ8
- 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
- QXYTeW7ZmAk2M8d+A==
+Content-Transfer-Encoding: 8bit
 
-From: Markus Elfring <elfring@users.sourceforge.net>
-Date: Sat, 10 Oct 2026 20:00:18 +0200
+qla4_83xx_read_reset_template() reads the reset template out of the
+adapter flash into a fixed buffer:
 
-Use an additional label so that a statement can be better reused
-at the end of this function implementation.
+	ha->reset_tmplt.buff = vmalloc(QLA83XX_RESTART_TEMPLATE_SIZE);
 
-Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
-=2D--
- fs/inode.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+It then takes the template length from the header it just read and uses
+it to size the second flash read:
 
-diff --git a/fs/inode.c b/fs/inode.c
-index 702f2d5ef459..f4699866a73b 100644
-=2D-- a/fs/inode.c
-+++ b/fs/inode.c
-@@ -529,10 +529,8 @@ void wait_on_new_inode(struct inode *inode)
- 	struct wait_queue_head *wq_head;
-=20
- 	spin_lock(&inode->i_lock);
--	if (!(inode_state_read(inode) & I_NEW)) {
--		spin_unlock(&inode->i_lock);
--		return;
--	}
-+	if (!(inode_state_read(inode) & I_NEW))
-+		goto unlock;
-=20
- 	wq_head =3D inode_bit_waitqueue(&wqe, inode, __I_NEW);
- 	for (;;) {
-@@ -545,6 +543,7 @@ void wait_on_new_inode(struct inode *inode)
+	tmplt_hdr_def_size = (ha->reset_tmplt.hdr->size -
+	    ha->reset_tmplt.hdr->hdr_size) / sizeof(uint32_t);
+	ret_val = qla4_83xx_flash_read_u32(ha, addr, p_buff,
+	                                   tmplt_hdr_def_size);
+
+hdr->size is a 16-bit field supplied by the flash contents and nothing
+bounds it: QLA83XX_RESTART_TEMPLATE_SIZE appears only at the allocation
+and is never compared against anything. qla4_83xx_flash_read_u32() walks
+its word count storing one dword at a time with no end check, so a
+template claiming a size larger than the 8192-byte buffer stores up to
+~57 KB past it with flash-chosen contents. The checksum test runs after
+the copy and cannot prevent this.
+
+  BUG: KASAN: vmalloc-out-of-bounds in qla4_83xx_flash_read_u32 [qla4xxx]
+  Write of size 4 at addr ffffc90000057000 by task init/1
+
+qla4_83xx_process_reset_template() then walks the template with
+hdr->entries as the loop bound and each entry's own size as the stride,
+and the per-opcode handlers read hdr->count items from an entry. These
+values all come from flash and none is checked against the end of the
+template, so processing a crafted template reads past the buffer:
+
+  BUG: KASAN: vmalloc-out-of-bounds in qla4_83xx_process_reset_template [qla4xxx]
+  Read of size 4 at addr ffffc90000057004 by task init/1
+
+A read-modify-write entry adds one more: its 8-bit index_a flash value
+subscripts reset_tmplt.array[], which holds QLA83XX_MAX_RESET_SEQ_ENTRIES
+(16) entries inside struct scsi_qla_host. Only 404 bytes follow the
+array in that structure, so an index of 101 or more reads past the
+allocation:
+
+  BUG: KASAN: slab-out-of-bounds in qla4_83xx_rmw_crb_reg [qla4xxx]
+  Read of size 4 at addr ffff88810644aa28 by task init/1
+
+Bound the template size to the buffer before the copy, keep the entry
+walk and each handler's item loop inside the template, and reject an
+out-of-range array index.
+
+While here, fix the state the error path leaves behind. It frees the
+buffer without clearing the pointer, so qla4xxx_free_adapter() frees it
+a second time on remove, and hdr is assigned before the header is
+validated, so it keeps pointing into the freed buffer and a later
+adapter reset dereferences it in qla4_83xx_process_reset_template().
+Clear the template state on the error path and refuse to walk a
+template that is not there.
+
+Fixes: 6e7b429259fc0 ("[SCSI] qla4xxx: Added support for ISP83XX")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+ drivers/scsi/qla4xxx/ql4_83xx.c | 82 +++++++++++++++++++++++++++++----
+ 1 file changed, 74 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/scsi/qla4xxx/ql4_83xx.c b/drivers/scsi/qla4xxx/ql4_83xx.c
+index db41d90a5b6e9..7fbcc4e85b26a 100644
+--- a/drivers/scsi/qla4xxx/ql4_83xx.c
++++ b/drivers/scsi/qla4xxx/ql4_83xx.c
+@@ -773,7 +773,7 @@ static int qla4_83xx_reset_seq_checksum_test(struct scsi_qla_host *ha)
+ void qla4_83xx_read_reset_template(struct scsi_qla_host *ha)
+ {
+ 	uint8_t *p_buff;
+-	uint32_t addr, tmplt_hdr_def_size, tmplt_hdr_size;
++	uint32_t addr, tmplt_hdr_def_size, tmplt_hdr_size, tmplt_size;
+ 	uint32_t ret_val;
+ 
+ 	ha->reset_tmplt.seq_error = 0;
+@@ -815,6 +815,19 @@ void qla4_83xx_read_reset_template(struct scsi_qla_host *ha)
+ 		goto exit_read_template_error;
  	}
- 	finish_wait(wq_head, &wqe.wq_entry);
- 	WARN_ON(inode_state_read(inode) & I_NEW);
-+unlock:
- 	spin_unlock(&inode->i_lock);
- }
- EXPORT_SYMBOL(wait_on_new_inode);
-=2D-=20
-2.56.0
+ 
++	/* The template size is chosen by the flash contents and nothing has
++	 * bounded it yet, so a template claiming to be larger than the buffer
++	 * would make the read below store past the end of it.  The integrity
++	 * check runs after the copy and cannot prevent that.
++	 */
++	tmplt_size = le16_to_cpu(ha->reset_tmplt.hdr->size);
++	if (tmplt_size > QLA83XX_RESTART_TEMPLATE_SIZE ||
++	    tmplt_size < le16_to_cpu(ha->reset_tmplt.hdr->hdr_size)) {
++		ql4_printk(KERN_ERR, ha, "%s: Template size %u is invalid\n",
++			   __func__, tmplt_size);
++		goto exit_read_template_error;
++	}
++
+ 	addr = QLA83XX_RESET_TEMPLATE_ADDR + ha->reset_tmplt.hdr->hdr_size;
+ 	p_buff = ha->reset_tmplt.buff + ha->reset_tmplt.hdr->hdr_size;
+ 	tmplt_hdr_def_size = (ha->reset_tmplt.hdr->size -
+@@ -856,6 +869,11 @@ void qla4_83xx_read_reset_template(struct scsi_qla_host *ha)
+ 
+ exit_read_template_error:
+ 	vfree(ha->reset_tmplt.buff);
++	ha->reset_tmplt.buff = NULL;
++	ha->reset_tmplt.hdr = NULL;
++	ha->reset_tmplt.init_offset = NULL;
++	ha->reset_tmplt.start_offset = NULL;
++	ha->reset_tmplt.stop_offset = NULL;
+ 
+ exit_read_reset_template:
+ 	return;
+@@ -894,6 +912,13 @@ static void qla4_83xx_rmw_crb_reg(struct scsi_qla_host *ha, uint32_t raddr,
+ {
+ 	uint32_t value;
+ 
++	if (p_rmw_hdr->index_a >= QLA83XX_MAX_RESET_SEQ_ENTRIES) {
++		ql4_printk(KERN_ERR, ha, "%s: Invalid array index %u\n",
++			   __func__, p_rmw_hdr->index_a);
++		ha->reset_tmplt.seq_error++;
++		return;
++	}
++
+ 	if (p_rmw_hdr->index_a)
+ 		value = ha->reset_tmplt.array[p_rmw_hdr->index_a];
+ 	else
+@@ -914,12 +939,14 @@ static void qla4_83xx_write_list(struct scsi_qla_host *ha,
+ 				 struct qla4_83xx_reset_entry_hdr *p_hdr)
+ {
+ 	struct qla4_83xx_entry *p_entry;
++	char *p_end = (char *)p_hdr + le16_to_cpu(p_hdr->size);
+ 	uint32_t i;
+ 
+ 	p_entry = (struct qla4_83xx_entry *)
+ 		  ((char *)p_hdr + sizeof(struct qla4_83xx_reset_entry_hdr));
+ 
+-	for (i = 0; i < p_hdr->count; i++, p_entry++) {
++	for (i = 0; i < le16_to_cpu(p_hdr->count) &&
++	     (char *)(p_entry + 1) <= p_end; i++, p_entry++) {
+ 		qla4_83xx_wr_reg_indirect(ha, p_entry->arg1, p_entry->arg2);
+ 		if (p_hdr->delay)
+ 			udelay((uint32_t)(p_hdr->delay));
+@@ -930,12 +957,14 @@ static void qla4_83xx_read_write_list(struct scsi_qla_host *ha,
+ 				      struct qla4_83xx_reset_entry_hdr *p_hdr)
+ {
+ 	struct qla4_83xx_entry *p_entry;
++	char *p_end = (char *)p_hdr + le16_to_cpu(p_hdr->size);
+ 	uint32_t i;
+ 
+ 	p_entry = (struct qla4_83xx_entry *)
+ 		  ((char *)p_hdr + sizeof(struct qla4_83xx_reset_entry_hdr));
+ 
+-	for (i = 0; i < p_hdr->count; i++, p_entry++) {
++	for (i = 0; i < le16_to_cpu(p_hdr->count) &&
++	     (char *)(p_entry + 1) <= p_end; i++, p_entry++) {
+ 		qla4_83xx_read_write_crb_reg(ha, p_entry->arg1, p_entry->arg2);
+ 		if (p_hdr->delay)
+ 			udelay((uint32_t)(p_hdr->delay));
+@@ -948,6 +977,7 @@ static void qla4_83xx_poll_list(struct scsi_qla_host *ha,
+ 	long delay;
+ 	struct qla4_83xx_entry *p_entry;
+ 	struct qla4_83xx_poll *p_poll;
++	char *p_end = (char *)p_hdr + le16_to_cpu(p_hdr->size);
+ 	uint32_t i;
+ 	uint32_t value;
+ 
+@@ -961,13 +991,15 @@ static void qla4_83xx_poll_list(struct scsi_qla_host *ha,
+ 
+ 	delay = (long)p_hdr->delay;
+ 	if (!delay) {
+-		for (i = 0; i < p_hdr->count; i++, p_entry++) {
++		for (i = 0; i < le16_to_cpu(p_hdr->count) &&
++		     (char *)(p_entry + 1) <= p_end; i++, p_entry++) {
+ 			qla4_83xx_poll_reg(ha, p_entry->arg1, delay,
+ 					   p_poll->test_mask,
+ 					   p_poll->test_value);
+ 		}
+ 	} else {
+-		for (i = 0; i < p_hdr->count; i++, p_entry++) {
++		for (i = 0; i < le16_to_cpu(p_hdr->count) &&
++		     (char *)(p_entry + 1) <= p_end; i++, p_entry++) {
+ 			if (qla4_83xx_poll_reg(ha, p_entry->arg1, delay,
+ 					       p_poll->test_mask,
+ 					       p_poll->test_value)) {
+@@ -986,6 +1018,7 @@ static void qla4_83xx_poll_write_list(struct scsi_qla_host *ha,
+ 	long delay;
+ 	struct qla4_83xx_quad_entry *p_entry;
+ 	struct qla4_83xx_poll *p_poll;
++	char *p_end = (char *)p_hdr + le16_to_cpu(p_hdr->size);
+ 	uint32_t i;
+ 
+ 	p_poll = (struct qla4_83xx_poll *)
+@@ -994,7 +1027,8 @@ static void qla4_83xx_poll_write_list(struct scsi_qla_host *ha,
+ 		  ((char *)p_poll + sizeof(struct qla4_83xx_poll));
+ 	delay = (long)p_hdr->delay;
+ 
+-	for (i = 0; i < p_hdr->count; i++, p_entry++) {
++	for (i = 0; i < le16_to_cpu(p_hdr->count) &&
++	     (char *)(p_entry + 1) <= p_end; i++, p_entry++) {
+ 		qla4_83xx_wr_reg_indirect(ha, p_entry->dr_addr,
+ 					  p_entry->dr_value);
+ 		qla4_83xx_wr_reg_indirect(ha, p_entry->ar_addr,
+@@ -1017,6 +1051,7 @@ static void qla4_83xx_read_modify_write(struct scsi_qla_host *ha,
+ {
+ 	struct qla4_83xx_entry *p_entry;
+ 	struct qla4_83xx_rmw *p_rmw_hdr;
++	char *p_end = (char *)p_hdr + le16_to_cpu(p_hdr->size);
+ 	uint32_t i;
+ 
+ 	p_rmw_hdr = (struct qla4_83xx_rmw *)
+@@ -1024,7 +1059,8 @@ static void qla4_83xx_read_modify_write(struct scsi_qla_host *ha,
+ 	p_entry = (struct qla4_83xx_entry *)
+ 		  ((char *)p_rmw_hdr + sizeof(struct qla4_83xx_rmw));
+ 
+-	for (i = 0; i < p_hdr->count; i++, p_entry++) {
++	for (i = 0; i < le16_to_cpu(p_hdr->count) &&
++	     (char *)(p_entry + 1) <= p_end; i++, p_entry++) {
+ 		qla4_83xx_rmw_crb_reg(ha, p_entry->arg1, p_entry->arg2,
+ 				      p_rmw_hdr);
+ 		if (p_hdr->delay)
+@@ -1046,6 +1082,7 @@ static void qla4_83xx_poll_read_list(struct scsi_qla_host *ha,
+ 	int index;
+ 	struct qla4_83xx_quad_entry *p_entry;
+ 	struct qla4_83xx_poll *p_poll;
++	char *p_end = (char *)p_hdr + le16_to_cpu(p_hdr->size);
+ 	uint32_t i;
+ 	uint32_t value;
+ 
+@@ -1055,7 +1092,8 @@ static void qla4_83xx_poll_read_list(struct scsi_qla_host *ha,
+ 		  ((char *)p_poll + sizeof(struct qla4_83xx_poll));
+ 	delay = (long)p_hdr->delay;
+ 
+-	for (i = 0; i < p_hdr->count; i++, p_entry++) {
++	for (i = 0; i < le16_to_cpu(p_hdr->count) &&
++	     (char *)(p_entry + 1) <= p_end; i++, p_entry++) {
+ 		qla4_83xx_wr_reg_indirect(ha, p_entry->ar_addr,
+ 					  p_entry->ar_value);
+ 		if (delay) {
+@@ -1117,15 +1155,43 @@ static void qla4_83xx_process_reset_template(struct scsi_qla_host *ha,
+ 	int index, entries;
+ 	struct qla4_83xx_reset_entry_hdr *p_hdr;
+ 	char *p_entry = p_buff;
++	char *p_end;
++
++	if (!ha->reset_tmplt.buff || !ha->reset_tmplt.hdr || !p_buff) {
++		ql4_printk(KERN_ERR, ha, "%s: No valid reset template\n",
++			   __func__);
++		return;
++	}
+ 
+ 	ha->reset_tmplt.seq_end = 0;
+ 	ha->reset_tmplt.template_end = 0;
+ 	entries = ha->reset_tmplt.hdr->entries;
+ 	index = ha->reset_tmplt.seq_index;
++	p_end = (char *)ha->reset_tmplt.buff +
++		le16_to_cpu(ha->reset_tmplt.hdr->size);
+ 
+ 	for (; (!ha->reset_tmplt.seq_end) && (index  < entries); index++) {
+ 
++		/* Both the entry count and each entry size come from flash,
++		 * so stop rather than walk past the end of the template.
++		 */
++		if (p_entry < (char *)ha->reset_tmplt.buff ||
++		    p_entry + sizeof(*p_hdr) > p_end) {
++			ql4_printk(KERN_ERR, ha, "%s: Entry %d is outside the template\n",
++				   __func__, index);
++			ha->reset_tmplt.seq_error++;
++			break;
++		}
++
+ 		p_hdr = (struct qla4_83xx_reset_entry_hdr *)p_entry;
++		if (le16_to_cpu(p_hdr->size) < sizeof(*p_hdr) ||
++		    p_entry + le16_to_cpu(p_hdr->size) > p_end) {
++			ql4_printk(KERN_ERR, ha, "%s: Entry %d size %u is outside the template\n",
++				   __func__, index, le16_to_cpu(p_hdr->size));
++			ha->reset_tmplt.seq_error++;
++			break;
++		}
++
+ 		switch (p_hdr->cmd) {
+ 		case OPCODE_NOP:
+ 			break;
+-- 
+2.43.0
 
