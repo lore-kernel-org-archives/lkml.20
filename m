@@ -1,216 +1,107 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dfw-s06.nixihost.com (dfw-s06.nixihost.com [104.225.208.28])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8204F39A808
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 02:31:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 046412EEE65;
+	Sat, 10 Oct 2026 02:32:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.225.208.28
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791599515; cv=none; b=WRViO7trUld4h4s5vYPxRlBWn+buuXmRhBW7vpvGFT/D9ZeDlv1DO7KnsNv0s4ub9/HhIsHtiYYbcD2WCNuq9wOaw6d8GN0vmgRlmjdIJMhBQf6CqFTH2QXe5e9n6XbJHTzSzkk5BXBm6u2Ubh7pGtlZONNQA0TzaIwPgixRCbg=
+	t=1791599523; cv=none; b=rtrQCDsYikn6AVxts+dTzTnpT3pjucjxQMvbyLa5sD6TVkaf1/7iD8LF7gyqlSqk7Iyg4YPP8I3YW2Ry6UsqeARpTh29KUhQ4WPMjL0HfJnPW1vgSzI5RTsRXZM3EXZJmbG+Sv56cVd6y6ZU9lNMHQ/HjDSd/g9njXzzep+HqmE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791599515; c=relaxed/simple;
-	bh=Wsfe86TYaGANkos5Or/r/Ovy9nBCe20RY2SVazy8WIQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jOKBptZ59Kp9cJmsgjO1eC/yKXRJ+w19hPtxvugZ73g9E6d5gPi18/TnYhUcVsx4bdIR4XfnG4inBODyAPTRRb8sEXqwy1JjMyUUbo8PECrVdGlu9BRDfcnYY+co9eVWK3Syyl+OwAtcY2bDdAOkSswDhjX3jjLnIb0NZBdIIwE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=WmWw5wNs; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1791599523; c=relaxed/simple;
+	bh=TEJgGKxTTijidTOW6khy8tqoI++706EcOQMURrW0noY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JO+vW9T2b3DIaLMX+mkJ6HS17i1jUYUZlqgtz7efG5cULKoJacbbmAnzrTMhyLMCH5iREqA9lts3j+TNEst3kk1hvoF9DhheVx9asArJSrCkjmUzMUC9tLO4p6Ig44zzGL4Tm2nIEmTocljU9vxu6bu5AVkCdkDP4i6TSVwOs+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narraduct.com; spf=pass smtp.mailfrom=narraduct.com; dkim=pass (2048-bit key) header.d=narraduct.com header.i=@narraduct.com header.b=OZfPdXCH; arc=none smtp.client-ip=104.225.208.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=narraduct.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=narraduct.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="WmWw5wNs"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2db33db4de9so10395ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 19:31:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791599509; x=1792204309; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3rzKQ4RjsXxN/zYQ6wEGpTgXALdkb/UwVP3kYDgAqNA=;
-        b=WmWw5wNsqZpB+8WRWeSe9liypog9W0ar/G38tuDgxJe+NVyjQmP5Mp93bmNtCPmt2V
-         zlzLYuOYH89h9xXqvkId35MN4g5pHOXgHgQZr0n2/onbS1GqR/xFwmnvO0k+tILObkeY
-         2ewKyizq2n9M6mCCXQNn3zrNl/Hxe75ZwODTYsNfOrwNoHOXnStIZlNGmc0pH978Ckvm
-         gVznEuKnIU9zddP8q6QcD+q4oYv/K6IRcOSoAdnC7/9ePj/W5k0wwXtBtZZjDk6yLGPt
-         OeH6yn9VIhZ4VX/vBZEEtXoJaPIhUh2dcuT0YQQuQrZpvF78OZ4StS+v/iij4dlD5Ie9
-         c/Ww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791599509; x=1792204309;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=3rzKQ4RjsXxN/zYQ6wEGpTgXALdkb/UwVP3kYDgAqNA=;
-        b=M0BdwCZhyR/u1klCafFppxD+KBjvk5b7645uIOQgKiFmEfxfCDjoelH5FUEpMcYWDr
-         5ZCDHXHQ1j3RarGNEmzkr382C0TuWcbkiAbKXmZ4wiE9Iy9e8mde3apgGaKv4l5phrW5
-         Xs2jb+040SczcIrcP6pXlg/VK189zdnk5qsehtc92eXmgtAJbZBnE7SCacvScOdfqGpB
-         4auhSBnHUGVwAoT4xrqf1LeWE8CU/sWTT6p/WtfspNICRz1Pzj2VpNgGCwpjlv6mR56j
-         dAv7ImaffsHc80ZSP0K5RAMWkFD6ISaD0SGmxO0uQ+n9Paztr4zMkpsDpnLK6VmmZBAt
-         QTxA==
-X-Forwarded-Encrypted: i=1; AKwUvBwFV7pb1fHqEUZwqarZ/8cCaVQwLh2iGR7p/IKTNL5sPZc2q/q9aZIEZ9TgqhRjq+EjG4pqencoY1IOgi8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK5frT9rk9tVPjCh0sy6dHToS+gLX3w9xiZ9Mh01JmaVaygsDat
-	GYT3q0E/vrWs+nuokgDVZHjfRzgnCKquRsjYTvUFFTEg0uehx1YdNV2kB4agAnPqLw==
-X-Gm-Gg: AYBFou3FDa/KbighF5ocM13snTc6F2MEYndZscxgQVsnOve+oE0L0iZIkXHVZuKHFhP
-	93jlByMhMaheHusKFmhpZ5fyCqs5gSgJfZBYqeAnFCX0RKxlBU2N51xdR299EAbw+PCKCKpNGhz
-	lOeBDRE0YGbRqvDZFCXbnNzcMFQpEUvV15LdMmKZIc1Se7houd1BxedrZPFG+liUpw9f1Vv0Shp
-	Y7XaIOkOLXm2hJHocyISaJ8MHLb8/D+6xitRoe9n2cbAfVREhkUzaFzDJHaUBU/QfyaqqRukYsN
-	wSvwLcEYgODe6FjGKX6MOl9j5JzPHlgyHdR9hDsg/xl9jiUho6CO7DtP9WA3I+HZW52xcD3LgpJ
-	rTDbtTM8NnhR0NZUjimHU4LD45JhU+7Y7UycyapW1+D5jmNHaGLIrvexFSQLV622WO4WCkHkkVS
-	Y1vtVt8vrJoCY/QiBjYnAd2Isg9eukFi50CFOH+DCGijq/64Gfu4dQbs/j+cSulzPG8AJbhqu4j
-	YLfiMPqdV9TjrfMLCUjsvEe7ZGQyWgY6Ak9jJ6eitsXCoT/+VhC17tBH7Tksoux0LQ=
-X-Received: by 2002:a17:903:15c3:b0:2e6:1917:fd with SMTP id d9443c01a7336-2e87e2bb07amr579615ad.7.1791599507817;
-        Fri, 09 Oct 2026 19:31:47 -0700 (PDT)
-Received: from google.com (163.1.145.34.bc.googleusercontent.com. [34.145.1.163])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38b9633fsm7435279a91.6.2026.10.09.19.31.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 19:31:46 -0700 (PDT)
-Date: Sat, 10 Oct 2026 02:31:42 +0000
-From: Samiullah Khawaja <skhawaja@google.com>
-To: Baolu Lu <baolu.lu@linux.intel.com>
-Cc: David Woodhouse <dwmw2@infradead.org>, Joerg Roedel <joro@8bytes.org>, 
-	Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, 
-	Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Pranjal Shrivastava <praan@google.com>, 
-	Vipin Sharma <vipinsh@google.com>
-Subject: Re: [PATCH v5 13/18] iommu/vt-d: Preserve PASID table of preserved
- device
-Message-ID: <asmeX0tryM-fR-d_@google.com>
-References: <20260921004834.2601285-1-skhawaja@google.com>
- <20260921004834.2601285-14-skhawaja@google.com>
- <f48258bb-df50-43bb-9141-433601d885a2@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=narraduct.com header.i=@narraduct.com header.b="OZfPdXCH"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=narraduct.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=eRxQq/LgFPSsn689kVMjYiXabeDQdmIjxrIxdVG75uI=; b=OZfPdXCH/+hz
+	AJIPIsvdJ9AhqrUAQpmSAS8BRkE4Zbl8LA+yodXFzxFB0srFZ1NS1C0uuL5k2PPuWaU9ZaPElN7+a
+	PN2bJ4c1qeFxtRem3mppHFeTMq/HewpwXO/PQD3T/ebySJjAYgeGaQoT+ngz9HdFCBWwcq8b0GdHQ
+	e41n7I5OrnuTLGzehBTba04Y/6MHi6GwrrAydHnu3OYB9G0Ev8RJmksmn6BsBl9kdhr5t5P4nx5XF
+	ovEC7JqoWRUm2jv8iWKERd6YFrqRiAa1SgkMpdisOd/mLZa3uYWg+NWUSQ91R1L9TATjKR5YPxcWM
+	uhc3b1jIR44mUI3OQlsqlA==;
+Received: from [189.217.94.218] (port=50244 helo=[192.168.68.120])
+	by dfw-s06.nixihost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100.1)
+	(envelope-from <alex@narraduct.com>)
+	id 1xFMb7-00000000Y6t-1t7S;
+	Fri, 09 Oct 2026 21:14:05 -0500
+Message-ID: <7f315c7a-0fd1-4f7e-93bb-703d4107aa5a@narraduct.com>
+Date: Fri, 9 Oct 2026 20:13:55 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <f48258bb-df50-43bb-9141-433601d885a2@linux.intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] x86: Start removing X86_X32_ABI
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Cc: Sebastian Andrzej Siewior <sebastian@breakpoint.cc>,
+ "H. Peter Anvin" <hpa@zytor.com>, "Maciej W. Rozycki" <macro@orcam.me.uk>,
+ Bill Wendling <morbo@google.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@redhat.com>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Jonathan Corbet <corbet@lwn.net>, Justin Stitt <justinstitt@google.com>,
+ Nathan Chancellor <nathan@kernel.org>, Neal Gompa <neal@gompa.dev>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Richard Purdie <richard.purdie@linuxfoundation.org>,
+ Sam James <sam@gentoo.org>, Shuah Khan <shuah@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?=
+ <linux@weissschuh.net>, Tomas Glozar <tglozar@kernel.org>,
+ Willy Tarreau <w@1wt.eu>, x86@kernel.org, Arnd Bergmann <arnd@arndb.de>
+References: <20261008-x32_removal-v4-0-d389a193c506@breakpoint.cc>
+ <20261008-x32_removal-v4-2-d389a193c506@breakpoint.cc>
+Content-Language: en-US
+From: Tancred <alex@narraduct.com>
+In-Reply-To: <20261008-x32_removal-v4-2-d389a193c506@breakpoint.cc>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - dfw-s06.nixihost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - narraduct.com
+X-Get-Message-Sender-Via: dfw-s06.nixihost.com: authenticated_id: alex@narraduct.com
+X-Authenticated-Sender: dfw-s06.nixihost.com: alex@narraduct.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Fri, Oct 09, 2026 at 11:38:57AM +0800, Baolu Lu wrote:
->On 9/21/2026 8:48 AM, Samiullah Khawaja wrote:
->>In scalable mode the PASID table is used to fetch the io page tables.
->>Preserve and restore the PASID table of the preserved devices.
->>
->>Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
->>---
->>  drivers/iommu/intel/liveupdate.c | 141 +++++++++++++++++++++++++++++--
->>  drivers/iommu/intel/pasid.c      |  10 ++-
->>  drivers/iommu/intel/pasid.h      |   8 ++
->>  include/linux/kho/abi/iommu.h    |  17 ++++
->>  4 files changed, 169 insertions(+), 7 deletions(-)
->
->Should this patch come before patch 12/18, which restores the device’s
->domain attachment?
 
-Agreed. I will move it before the patch that restores the device's
-domain attachment.
->
->>
 
-[snip]
+On 10/8/26 03:07, Sebastian Andrzej Siewior wrote:
+> where certain workloads widely
+> move to x32 and use it exclusively. In the meantime Debian introduced a
+> patch to disable x32 by default (so it has to be enabled at boot time on
+> the command line) because they are afraid of the increased attack
+> surface. Fedora as far as I tell has X32 disabled (looking at 7.0-rc5
+> rpm in rawhide).
+> 
+> Since there is practically no real use for x32
 
->>diff --git a/drivers/iommu/intel/pasid.c b/drivers/iommu/intel/pasid.c
->>index e4f24d3f19a6..59cc69383799 100644
->>--- a/drivers/iommu/intel/pasid.c
->>+++ b/drivers/iommu/intel/pasid.c
->>@@ -13,6 +13,7 @@
->>  #include <linux/cpufeature.h>
->>  #include <linux/dmar.h>
->>  #include <linux/iommu.h>
->>+#include <linux/iommu-liveupdate.h>
->>  #include <linux/memory.h>
->>  #include <linux/pci.h>
->>  #include <linux/pci-ats.h>
->>@@ -60,8 +61,13 @@ int intel_pasid_alloc_table(struct device *dev)
->>  	size = max_pasid >> (PASID_PDE_SHIFT - 3);
->>  	order = size ? get_order(size) : 0;
->>-	dir = iommu_alloc_pages_node_sz(info->iommu->node, GFP_KERNEL,
->>-					1 << (order + PAGE_SHIFT));
->>+
->>+	max_pasid = 1 << (order + PAGE_SHIFT + 3);
->>+	if (dev_iommu_restored_state(dev))
->>+		dir = intel_pasid_restore_table(dev, max_pasid);
->>+	else
->>+		dir = iommu_alloc_pages_node_sz(info->iommu->node, GFP_KERNEL,
->>+						1 << (order + PAGE_SHIFT));
->
->This restores only the PASID table pages. The PASID table is eventually
->installed in the context entry during probe_device:
->
->        if (sm_supported(iommu) && !dev_is_real_dma_subdevice(dev)) {
->                ret = intel_pasid_alloc_table(dev);
->                if (ret) {
->                        dev_err(dev, "PASID table allocation failed\n");
->                        goto clear_rbtree;
->                }
->
->                if (!context_copied(iommu, info->bus, info->devfn)) {
->                        ret = intel_pasid_setup_sm_context(dev);
->                        if (ret)
->                                goto free_table;
->                }
->        }
->
->For a restored PASID table, the call to intel_pasid_setup_sm_context()
->should be skipped. Instead, it should check whether the preserved pasid
->table is compatible with the new kernel environment.
+I only recently discovered x32 and built a Desktop (with all daemons and 
+utilities running 10-30% smaller and some a bit faster, with 64 bit 
+libraries for eg. Firefox.) My experiment should definitely not decide 
+anything, but how much real-world use would be sufficient to justify 
+continued presence (more complex compat code)?
 
-I will skip the setup call here, but the compatibility check is done in
-the intel_pasid_restore_table(). The command line configuration and
-other things can be verified during iommu unit restore as you pointed
-out in the other patch.
->
->>  	if (!dir) {
->>  		kfree(pasid_table);
->>  		return -ENOMEM;
->>diff --git a/include/linux/kho/abi/iommu.h b/include/linux/kho/abi/iommu.h
+If left behind a flag like Debian (like the 2014 proposal 
+https://lore.kernel.org/lkml/1415245982.3398.53.camel@decadent.org.uk/), 
+there are no security risks so I understand the benefit is reduced code 
+complexity and maintenance burden. Older threads critiqued the 
+implementation. What's the smallest kernel support which would keep 
+32-bit pointers possible? Could a small design (eg. just 32-bit pointers 
+on x86-64 with i386's type layout, so no 3rd compat case (cf. MIPS n32 
+and o32)) work?
 
-[snip]
-
->>index 5aaa29da6832..308cd83fd3e3 100644
->>--- a/include/linux/kho/abi/iommu.h
->>+++ b/include/linux/kho/abi/iommu.h
->>@@ -129,6 +129,19 @@ struct iommu_dev_map_ser {
->>  	u64 iommu_phys;
->>  } __packed;
->>+/**
->>+ * struct iommu_device_intel_ser - Intel specific state of serialized device
->>+ * @restored: Whether the device state is restored
->>+ * @pasid_table: Physical address of pasid table
->>+ * @max_pasid: Maximum supported pasid
->>+ */
->>+struct iommu_device_intel_ser {
->>+	u8 restored;
->>+	u8 padding[7];
->>+	u64 pasid_table;
->>+	u64 max_pasid;
->>+} __packed;
->>+
->>  /**
->>   * struct iommu_device_ser - Serialized state of a device
->>   * @hdr: Common object header
->>@@ -136,6 +149,7 @@ struct iommu_dev_map_ser {
->>   * @pci_domain_nr: PCI domain number
->>   * @dma_owner_token: Token to identify the DMA owner of this device
->>   * @domain_iommu_ser: Domain and IOMMU mapping
->>+ * @intel: Intel specific serialization data
->>   */
->>  struct iommu_device_ser {
->>  	struct iommu_hdr_ser hdr;
->>@@ -143,6 +157,9 @@ struct iommu_device_ser {
->>  	u32 pci_domain_nr;
->>  	u64 dma_owner_token;
->>  	struct iommu_dev_map_ser domain_iommu_ser;
->>+	union {
->>+		struct iommu_device_intel_ser intel;
->>+	};
->>  } __packed;
->>  /* There are maximum 256 buses, so maximum 512 context tables */
->
->Thanks,
->baolu
-
-Thanks,
-Sami
+- Alex Alejandre
