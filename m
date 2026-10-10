@@ -1,241 +1,194 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F814399350;
-	Sat, 10 Oct 2026 22:55:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0973B36A017
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 22:57:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791672930; cv=none; b=dLFqhuKb8KD/yI1RnnKaIyYFJQGj+e4dFj3u1MjTuMhv22kd5+hdl31ngUS+JYr4OMvW6w0evTVgcS7qeSXHlAdBTLCmTQ9L6yKgHUyhOxqPdF5gE1xfog1pCjEJUB7LUQB2rhKTZCl/y6zmtZ324oebKgvHDkPfNy+5OA1N5Ig=
+	t=1791673026; cv=none; b=AC99hCX27JslXkd2EINQ8FjDt31PegkBS+K8Hr5Y8BdBS4G6sHC2neze+xBUrd2rBariEbnjBAxK2utC9LmrRwmgnGnomn2J8SVbms3mWpPN1p81BGemK8Ta2uLIcGrwYS8mlSRMevQpN+mn2EB9eTpPYCmVRLDu9Anyp3Lf0T4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791672930; c=relaxed/simple;
-	bh=Ersv1rRitKQ1BXXKj4ddDkK2o0lks/h/Lj6mQfbqD1I=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Sm92Og7jsZUTrnKcPv9/gGgmgidMkeBjt3RjHKZIElrYCWbFIAs2mZ8JxEoF6kQN+VQX+GKF+jHYgATjIUXJcobynbyBi51KcvpwaighR5/oSY1NR0RuZLRsAPpAoJYIQmbXAqB5eK3WkBaiYn+tgL7MaxsYyQsy23MTY806swQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kq8djmns; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791673026; c=relaxed/simple;
+	bh=v9xElfPDtUKLBbAOUyC6WEp4xXa0Taz+orpIfsa4F2k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QoyHxQitsxxPLmaaCUMt6WTomwu7VIzy2jYmBeP3HWUtcpoJp0Fcx1VIvzTFnZyhm341qxfqMzuL6eAY+aZy9Csr2rgel0k3YGsmglgjYusEdYIG+2L+ZNEFdqktETewDcvDJaZz8lJ/LLKdxgD59rUgzdO6tbCPOjDkcHtLqG0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k4hV3XB0; arc=none smtp.client-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kq8djmns"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A23A1F00893;
-	Sat, 10 Oct 2026 22:55:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791672929;
-	bh=oSbAjsO8Daqmc/FHcAs+zGQUdudv8Ra7/x/JNn6yMTM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Kq8djmnsmf4jj23iPktlohHumQtiDII60OdQOvppce/h5/U0wmCjHIC3LhDDyJouC
-	 fJCh/zaeSU4aS1MExxge0jA857MGzoswoNNpsSbbR+0VXWJBn2pkXU6K5zc5KiEvLh
-	 Nr2/sXXzqQwgDVBhRD9gVQdHEJ38xgB938YpA93cQnHEhoi8tTBTo94LhOCBiQdnKz
-	 l4eayN8rDeNu+YD4yDfCIFiClkKEGuhJ4wDHQGrfU/Dfz3cqq9QNvgEjJRo3J6oi34
-	 WutRx7wgte+R/KXB/jg0vhynQLa8YZ+PspZJqqXlNtI1MYxT2eb8+Cf/Fo63cAEaJG
-	 9lDzjVrw58kog==
-Subject: Re: [PATCH net] ipv6: fix fib6 walker UAF on NLM_F_REPLACE
-From: netdev-bot+sashiko@kernel.org
-To: cenzhang@linux.microsoft.com
-Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- mazziesaccount@gmail.com, greearb@candelatech.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- AutonomousCodeSecurity@microsoft.com, tgopinath@linux.microsoft.com
-Date: Sat, 10 Oct 2026 22:55:27 +0000
-Message-ID: <179167292799.434549.17886083109176424564@kernel.org>
-In-Reply-To: <20261009225142.47005-1-cenzhang@linux.microsoft.com>
-References: <20261009225142.47005-1-cenzhang@linux.microsoft.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k4hV3XB0"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-88bd2b44f3aso319411b3a.0
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 15:57:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791673023; x=1792277823; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ch8jJvcOl0DuSm2wf0+1Uy+KIAeGMYwyi2l0FK4u8IM=;
+        b=k4hV3XB0n7HKRnRRBlNcsms4eFbcoBicAczlCBdu7tF3omduleLqeRJ0Tn/cKgjGLw
+         8fvPT+O8Wwy5C1282XYk26GVDcULGccr3sdcHeJl816B1fzHbTgU+XF+3mGE4kjpGzHa
+         gQQ4B3WpaSgCYbrD1UqtFL98ney19hcSxbdnWGdjWANGGarqWwyRN+5dV2DB655ZsKO6
+         rsLdNYOtiWvy0crmsP16Uev8VU1gykhCflFq0CHJqj0VrSXnXj3zdSLoG6/6jxA2aG2O
+         bn2kdwcs03gcwEB1Qux3bHmCjPO5RWoK28FAgDB635EyrDD+1k5l0w0iIW9o8Ryq0WR8
+         6ZtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791673023; x=1792277823;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ch8jJvcOl0DuSm2wf0+1Uy+KIAeGMYwyi2l0FK4u8IM=;
+        b=gCckJfqI1A7xTmd21NY7sTNVndJpHU2Z1Dsderl9lAlj5/PS6JFnzZsXoIrA2qll24
+         GaUqn8GCabGgZaTcW0TXo5JOdN+airMrby203B86fvua0V2MP75kenlqbipokeXM5b2s
+         XZxj0Bsy4a6artFShuTyqrSEJ8Mne2o/IjoizpJ9Mg2wxr0Som+JBQVMRFUQBXtbOpsH
+         WoCLqrnRBI53NWU7Sx+cHycLp+WFEB9LNb/ardV2EY6kCkTgQqb+T2nqmfH8dls6304D
+         hVy76CuYnwn2pTe6okedVtSrzDmTybmDgkmVMwsPFz7sbRZ1kmAdhUsvsA/8IS3BnMy5
+         lkkw==
+X-Forwarded-Encrypted: i=1; AKwUvBwrFHACJlFUThWNoNORU4K/PEM5tUYxF5X210GPeihE8gp1HPBfxaii1ELtpD+4m6P6eS9DTbA5YoyMEM8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKk+o6BR7wDngzqGA6jRi8MdNqmyTC5izDhQdEbi1V04WXI+c6k
+	1Lpjf+l3A8OescNFiAV5+lsGtyUKL/F1ThEcfE8BoZYw5pchy1AYXL5J
+X-Gm-Gg: AYBFou3oSro+2eO3kOnwjgzp8C/P/lgrgbElxMv+Hs78YirL9P4fBV4PouPGKo1GBHT
+	cvA27ohFu0B9Ox+m6Lz8tagLyuhjV0Lxkf/ii7zEXQNiNwXcLfgw7/ltIOgn1U8EEfq1EFbaJ9k
+	Zb/0fOxNqvm07W3e02QFmofTXdgXUsOHC/0lwtwM7qTwAO2nZ1GSoh5+u0qLisrwN3OMTWTc5Ha
+	vJsgJWFXeXiJR/n8ZGIdIcJgy/dkYT1SduCqAdcPVbJIchxMOezLD/S2v//QOmi6A58UltqrRb6
+	cdgc2r9y9mj/25VWUYo9RVP1J6EGzxYq/YM6QBbC4jtM7+NkUMwgGwqU03uHQFzhfSQT4+XXdJ+
+	4sZHQYofr4Om82fWx95P+e0SWu0zYdTRCja/VXy1xuputl4owFRWDwbPvrg7P7rv+3aBt0QPnZf
+	+4vQMTMwZmyBtXh2PmZ/wNdipE/lpkQ+mRHTpYg5YR8hDftoDDwV56k5ZtD/7juihMh/OhQCxeg
+	DYNoxQYCg/fTnelcpWPqX0YGXxA
+X-Received: by 2002:a05:6a21:398f:b0:3dd:85a9:55a3 with SMTP id adf61e73a8af0-3e16bee802emr5923819637.37.1791673023130;
+        Sat, 10 Oct 2026 15:57:03 -0700 (PDT)
+Received: from cxlqual.. ([220.120.90.131])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d9e07329sm2603662a12.5.2026.10.10.15.56.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 15:57:02 -0700 (PDT)
+From: Anisa Su <anisa.su887@gmail.com>
+X-Google-Original-From: Anisa Su <anisa.su@samsung.com>
+To: linux-cxl@vger.kernel.org
+Cc: nvdimm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Ira Weiny <iweiny@kernel.org>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Fan Ni <nifan.cxl@gmail.com>,
+	Li Ming <ming.li@zohomail.com>,
+	Benjamin Cheatham <benjamin.cheatham@amd.com>,
+	Gregory Price <gourry@gourry.net>,
+	Richard Cheng <icheng@nvidia.com>,
+	Anisa Su <anisa.su@samsung.com>
+Subject: [PATCH v16 0/8] DCD Prep Series
+Date: Sun, 11 Oct 2026 07:54:51 +0900
+Message-ID: <20261010225852.10727-1-anisa.su@samsung.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+These are the first eight patches of the Dynamic Capacity Device (DCD)
+series. They set up: DCD enumeration, CDAT handling for DC partitions,
+the event interrupt plumbing, a preparatory refactor, and
+documentation of the DPA partition layout. They stand alone and keep DCD
+disabled. They are not dependent on the rest of the series.
+Patch 1 detects the 48h command set and then leaves mds->dcd_supported
+false. The flag is only turned on by the series that adds DCD event
+handling, so every DCD specific path added here is shut off at runtime:
+cxl_configure_dcd() never runs, no DC partition is created, no DCD
+interrupt is armed, and the CXL_PARTMODE_DYNAMIC_RAM paths are
+unreachable. The intent is to land the enumeration and plumbing while
+the extent to DAX pipeline is still under review.
 
-Critical: 0 · High: 0 · Medium: 2 (1) · Low: 0
+Based on v7.3-rc6
+v15: https://lore.kernel.org/linux-cxl/20261007201828.952-1-anisa.su@samsung.com/
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+v15 -> v16 Changes:
+===================
+A quick respin:
 
-- [Medium] fib6_walkers_skip_rt() (net/ipv6/ip6_fib.c:95-113) is
-  documented as moving walkers that rest on @rt to the next route.
-- [Medium] In the NLM_F_REPLACE branch of fib6_add_rt2node()
-  (net/ipv6/ip6_fib.c:1338-1342) the new route rt takes over iter's slot…
+ - Patch 2: cxl_configure_dcd() took Identify Total Capacity as the end
+   of static capacity, but Total Capacity is only required to be >=
+   ram + pmem. The static end now comes from the last static partition's end dpa
+   +1 instead of info->size. Check that DC starts from there. (Richard).
 
-Pre-existing issues:
-- [Medium] When a dump resumes and the sernum has changed,
-  fib6_dump_table() (net/ipv6/ip6_fib.c:632-638) writes w->state =…
+ - Patch 3: dsmas_entry.qos_class initialized as CXL_QOS_CLASS_INVALID, so a
+   DSMAS entry that is skipped for lack of DSLBIS, or whose QTG lookup
+   fails, no longer reaches update_perf_entry() with qos_class 0, which
+   is a valid class. (Sashiko).
+   
+   The DSMAD handle check now checks handle > U8_MAX instead of
+   handle & ~0xFF (Dave).
 
---
+ - Patch 6: when the DCD vector cannot be requested, tell the device
+   not to use the vector: dcd_settings is cleared with
+   Set Event Interrupt Policy, so a device does not keep signalling a
+   vector with no handler while the
+   host considers DCD off.  The Set command is re-factored into a new helper
+   cxl_event_set_int_policy() (Richard).
+   
+All other patches are unchanged.
+I kept the review tags on patch 3, since the changes are minimal and
+dropped tags from 2 and 6.
 
-ipv6: fix fib6 walker UAF on NLM_F_REPLACE
+Patch organization
+==================
+ 1-3: enumerate DCD command support, read the DC configuration, and pick
+      up DSMAS data for DC partitions.
+ 4-6: split event msgnum configuration from irq setup, factor out the
+      interrupt policy check, then configure the DCD event interrupt.
+   7: preparatory refactor -- enforce partition order while collapsing
+      the ram/pmem specific partition helpers into one.
+   8: document the DPA partition layout the previous patches enforce,
+      and where Linux is stricter than the specification.
 
-This patch moves the walker adjustment out of fib6_del_route() into a new
-helper, fib6_walkers_skip_rt(). The helper is also called from the
-NLM_F_REPLACE branch of fib6_add_rt2node() for the replaced route and for
-each removed ECMP sibling. The goal is to keep an RTM_GETROUTE dump from
-resuming on a freed fib6_info when the fn_sernum check is bypassed.
+Testing
+=======
+This series leaves mds->dcd_supported false on purpose, so
+cxl_configure_dcd(), cxl_dev_dc_identify() and cxl_dc_check() are
+unreachable at runtime as posted. The tests below are done with the rest
+of the series on top, otherwise testing would not yield any meaningful
+results.
 
-> diff --git a/net/ipv6/ip6_fib.c b/net/ipv6/ip6_fib.c
-> index 9ff761962b45c..a5699809fe049 100644
-> --- a/net/ipv6/ip6_fib.c
-> +++ b/net/ipv6/ip6_fib.c
-> @@ -89,6 +89,29 @@ static void fib6_walker_unlink(struct net *net, struct fib6_walker *w)
+HW:
+Tested add and release of one 2G tagged extent on a DCD with a sharable
+partition, driven from the system's BMC with FM-API Initiate Dynamic
+Capacity Add / Release over MCTP, to confirm the DCD interrupt
+configuration and the DSMAS attributes are read properly. The device
+is sharable, so an add without a tag and sequence number is refused.
 
-[ ... ]
 
-> +/* Move the walkers resting on @rt to the next route, or up the tree if
-> + * @rt is the last one.  Called with tb6_lock held.
-> + */
-> +static void fib6_walkers_skip_rt(struct net *net, struct fib6_info *rt)
-> +{
+cxl_test:
+ndctl cxl test suite
+16 of 17 pass, cxl-features.sh skips for lack of FWCTL
 
-[ ... ]
+Anisa Su (1):
+  Documentation/cxl: Document DPA partition layout and ordering rules
 
-> +	read_lock(&net->ipv6.fib6_walker_lock);
-> +	FOR_WALKERS(net, w) {
-> +		if (w->state == FWS_C && w->leaf == rt) {
-> +			pr_debug("walker %p adjusted by unlink of %p\n", w, rt);
-> +			w->leaf = next;
+Ira Weiny (7):
+  cxl/mbox: Flag support for Dynamic Capacity Devices (DCD)
+  cxl/mem: Read dynamic capacity configuration from the device
+  cxl/cdat: Gather DSMAS data for DCD partitions
+  cxl/events: Split event msgnum configuration from irq setup
+  cxl/pci: Factor out interrupt policy check
+  cxl/mem: Configure dynamic capacity interrupts
+  cxl/core: Enforce partition order/simplify partition calls
 
-[Severity: Medium]
-Should w->skip_in_node be reset here too?
+ .../driver-api/cxl/linux/cxl-driver.rst       |  35 +++
+ Documentation/driver-api/cxl/maturity-map.rst |   4 +
+ drivers/cxl/core/cdat.c                       |  99 +++++-
+ drivers/cxl/core/hdm.c                        |  24 +-
+ drivers/cxl/core/mbox.c                       | 285 ++++++++++++++++++
+ drivers/cxl/core/memdev.c                     | 100 ++++--
+ drivers/cxl/cxl.h                             |  14 +-
+ drivers/cxl/cxlmem.h                          |  88 +++++-
+ drivers/cxl/mem.c                             |   2 +-
+ drivers/cxl/pci.c                             | 207 ++++++++++---
+ include/cxl/cxl.h                             |  29 +-
+ tools/testing/cxl/test/mem.c                  |   2 +-
+ 12 files changed, 792 insertions(+), 97 deletions(-)
 
-This moves the walker to a different route, but w->skip_in_node still
-holds the number of entries already sent for the old route.
-fib6_dump_node() keeps that count per w->leaf:
 
-net/ipv6/ip6_fib.c:fib6_dump_node() {
-    ...
-		res = rt6_dump_route(rt, w->args, w->skip_in_node);
-		if (res >= 0) {
-			/* Frame is full, suspend walking */
-			w->leaf = rt;
-			...
-			w->skip_in_node += res;
-    ...
-}
-
-fib6_dump_table() clears it only on a sernum mismatch. When the sernum
-matches, it does just this:
-
-		} else
-			w->skip = 0;
-
-Suppose the dump paused partway through the exceptions of route R
-(skip_in_node >= 1), and R is then removed through this helper. The
-resumed dump calls rt6_dump_route() on R->fib6_next with the stale skip:
-
-net/ipv6/route.c:rt6_dump_route() {
-    ...
-	if (filter->dump_routes) {
-		if (skip) {
-			skip--;
-		} else {
-			if (rt6_fill_node(net, arg->skb, rt, NULL, NULL, NULL,
-    ...
-}
-
-That drops the next route's own RTM_NEWROUTE message, and the leftover
-skip hides its first exceptions. In the FWS_U case, the first route of a
-later node is dropped instead. NLM_F_DUMP_INTR is not set in either case.
-
-With this patch, the same thing can happen for a replaced route and for
-each removed ECMP sibling in fib6_add_rt2node(). That needs the resume to
-go through the fn_sernum == -1 collision described in the commit message.
-
-fib6_del() does not bump the root sernum, so the delete path behaved this
-way on a normal resume even before the code was moved out of
-fib6_del_route().
-
-Would adding w->skip_in_node = 0 where w->leaf is reassigned make the
-helper match its comment?
-
-> +			if (!next)
-> +				w->state = FWS_U;
-
-[Severity: Medium]
-This is a pre-existing issue and was not introduced by this patch, but can
-this store race with the lockless walker reset in fib6_dump_table()?
-
-When the sernum has changed, fib6_dump_table() resets the walker before it
-takes tb6_lock. The walker is still linked on net->ipv6.fib6_walkers at
-that point:
-
-net/ipv6/ip6_fib.c:fib6_dump_table() {
-    ...
-		if (cb->args[5] != sernum) {
-			/* Begin at the root if the tree changed */
-			cb->args[5] = sernum;
-			w->state = FWS_INIT;
-			w->node = w->root;
-			w->skip = w->count;
-			w->skip_in_node = 0;
-		} else
-			w->skip = 0;
-
-		spin_lock_bh(&table->tb6_lock);
-    ...
-}
-
-At the same time, this helper holds only tb6_lock and
-read_lock(fib6_walker_lock), and it can still see w->state == FWS_C and
-w->leaf == rt.
-
-If its FWS_U store lands after the FWS_INIT store, fib6_walk_continue()
-starts at w->root in state FWS_U:
-
-		case FWS_U:
-			if (fn == w->root)
-				return 0;
-
-The rest of the table is then silently left out of the dump, with no
-NLM_F_DUMP_INTR.
-
-The same race already existed with fib6_del_route() as the writer. This
-patch adds the replace paths in fib6_add_rt2node() as more writers. I don't
-see a use-after-free here, because FWS_INIT and FWS_U do not dereference
-w->leaf.
-
-[ ... ]
-
-> @@ -1315,6 +1338,7 @@ static int fib6_add_rt2node(struct fib6_node *fn, struct fib6_info *rt,
->  		fib6_info_hold(rt);
->  		rcu_assign_pointer(rt->fib6_node, fn);
->  		rt->fib6_next = iter->fib6_next;
-> +		fib6_walkers_skip_rt(info->nl_net, iter);
->  		rcu_assign_pointer(*ins, rt);
-
-[Severity: Medium]
-Can a resumed dump skip the replacement route rt here?
-
-In this branch, rt takes over iter's slot in the leaf list. The helper
-treats that as a deletion. It moves walkers on iter to iter->fib6_next,
-which comes after rt, or sets FWS_U if iter was the last route in the
-node.
-
-fib6_dump_node() leaves w->leaf on the route it hadn't finished. In the
-common case, the pause happened at rt6_fill_node() of iter itself with
-skip_in_node == 0, so nothing from iter has been sent yet.
-
-Suppose the dump then resumes on the sernum-match path (the
-fn_sernum == -1 case from the commit message). fib6_dump_node() starts at
-w->leaf and never visits rt. The dump then contains neither the old route
-nor its replacement for that prefix and metric, and NLM_F_DUMP_INTR is not
-set.
-
-On the sernum-mismatch path, the node is walked again from fn->leaf and rt
-is dumped, so the two resume paths give different results.
-
-The ECMP sibling loop further down looks fine, since those routes really
-are removed.
-
-For the replaced slot itself, would pointing walkers on iter at rt (and
-clearing skip_in_node) keep the replacement in the dump?
-
-[ ... ]
-
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261009225142.47005-1-cenzhang%40linux.microsoft.com
+2.43.0
+
