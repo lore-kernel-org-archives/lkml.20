@@ -1,106 +1,110 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E1E04B8291
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 19:45:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 235D538F64E;
+	Sat, 10 Oct 2026 19:45:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791661507; cv=none; b=Rg3Vifk0W/1X3W/H8jDuYBD4kgnAmqkGHdHsa52DTj/qWjf8ASVi1jaRPX+kE+pyQsKTq0QSBjlv8mb9IDhe32d2+zxMa32WOEuEQhl3nEBi9CEpJGeGUZqyNLddRjsIBuRB2OPngVzMHaW6uNgmj+nKWi/vo1l0PidnoyAmbQA=
+	t=1791661552; cv=none; b=F7pwYo3/FPRL5sDNwHGbJR9ADziH6v5RN4t4D2ZOLkI7pKIXvTI9esEM2/L3fuMGM9ZuM3lawIMXUvaIKRxck72S+MXmu1XLi2KkqmXo1Goh8+t6ggsFlf88hi0XOYyyPVPZ0jz3ZUQaZt4P3uacyGPm9Hmrrw0kknd4zQ7/thg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791661507; c=relaxed/simple;
-	bh=jBWuGD2YqZU0E2e6O/mVHlk6Lcec7KbBe/dsJotPZqY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qUYWUfCfcKSNNeQKcLS4hGBA0OTfCfB7+V/p0O7hLlJ9xxVSp9yBsQsfvrTyBo5+VY5dXY71y/SMyLde5dQQQXmU/TvpTtR21Et1BpoDsn/0Pv0hQZL9kzxwTds45++Z/2Z3cAYGGmeR5kOYn6v85zIDV2rk+NPX4U8J/SqwIz8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=SxVrH9Ug; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
+	s=arc-20240116; t=1791661552; c=relaxed/simple;
+	bh=ZQA+UGeOpmsIvKDIwLxf/GJRNePdvN2NiMqcQ08Pks8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=co+fLj2GnGZUq6CFZp4YboIP9CFHnlKR4E6Rwn0+jcPRnXPDN1+phBXZw6ppOGaxbUswio8eRoLF44PpPE3WTgj0Om496jYi/T3y5bbecAB/OF2t15/PIMW8EvE73Gjw8xTlRWiEOV5UvVFnz9yYoelJpc226WBTESfhqX9y9No=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=NtlXGB2z; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="SxVrH9Ug"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a168355946so3918275e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 12:45:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1791661504; x=1792266304; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jBWuGD2YqZU0E2e6O/mVHlk6Lcec7KbBe/dsJotPZqY=;
-        b=SxVrH9UgkmgMBmm71be1Hp9yPkJh6wNDiKPmxnCijnMEjXuFHFR5Rtjp/kvOWRZ1B2
-         nzpNXW9gDxdiu/vMImTJinNWOYuoinCzdMNyLdBrS37Z/R3bO/gLy6FZb0AkCaGgBBzf
-         Vsz7BHi9Mp3EOT/10OULKgeRheq5AUHPyKVJT01CUJRtP8c2iKPm0S79GVv5CH0alGB5
-         jkh7Fk22tibJtNJsRpzQoFop2wW9uQj+VkZRLASSPza9eh+5QKlLLOxHtNDAkJhAGbaL
-         9JTVzJx0giyBaCd0S/aLOAfnL4dcNpQDkPtDK0pHECcV5+2b0soeK+ULDsmxBcj9fQip
-         CSpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791661504; x=1792266304;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jBWuGD2YqZU0E2e6O/mVHlk6Lcec7KbBe/dsJotPZqY=;
-        b=RObriyXEV/MIhg9hwLyYHsiYdNup1X774fGCZEYd2wJxQ73YxiE5ZvTazwgW8QrzC5
-         TVyvXlCLdVTFNCE9Qv6gpSEx1x/gEfCtr46t3380Y+o2Es3wwWRtMC92lCkkitg+WarL
-         3dkmHbOdA6y6bF/ArUw1HG9KMnIe/39eoUtn798+3jWhqEt0L2stQP5Ynnr+x4fUuRQu
-         p1Nq3E1uQdtf68T+5zza5wfguTX1qQhQ8/nGTJVpO2hUhPBLTa7/9sP7bIWkezmNTbIu
-         w959P8j/7LPzhLNIYiCxdnBFKcLRzIVn6XwHU76KOj1e31nup/EITuykYm70zALUXnfP
-         l6TA==
-X-Forwarded-Encrypted: i=1; AKwUvByQ2YSmxbyOpYWsoVgD3tMby7fjOpizXuV0p99XAYOJ37KNqTVQHi4Hmkb5RY9lmKK5nP4w6RT42nil2rU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKmEFQ28LJsf85tSFKOEHfHyTLDF02gFn9BF9lSrCJjVSi+KAm1
-	3XY3Ih9PYB4naW4XoAVZbTGnd37mNs9TrGcF6tP6fjDyCAt3kOliWXyreyu/BnvQ1jM=
-X-Gm-Gg: AYBFou28cEvwu3zqp+bZhFMwqBBznFK5dxq3RG39SB6KCpptZgci8CarUSHPY4zWXPJ
-	FJENWPeCKdh405QfoFF/Ltda0XpyiySDMGAlrs8EKqtfhgDdBStOx2srZIEG3c6odszCQellkAK
-	1xZUzYGf7e5yL+cn6TCsBPx45uUB5cYAUTh2/z54AtFhkpGh6NzEDWMe39T0+BAhLsWBx0DAPZB
-	SqXV/FZaGNSwNhG7a7RWh1Hz0/E/g887QMuwFsc+uwgmFvDhvB4QzyVP08RWw8b6ePOHaI46RrD
-	UzEL/xW3jr6kzswUeY7+oiL4CjnoPl0wxg9Xw3IALD2lrCOMtJz2GaWftOGWjX1LWysfKDsze9W
-	pWfrF6wt6cnGvd8xA5qrISiTM9XJVY8pqxnyvb8QPh20h7a1qDlzqVkzqJcu04KO4IOUhRSSE5Q
-	gDsC76gDW7CKDUypl9eDn5mYLggLumt/VDToRXGEdXBe9G+lW5ksRkqQoQNu4c
-X-Received: by 2002:a05:600c:3b0a:b0:4a0:1e68:d28d with SMTP id 5b1f17b1804b1-4a18e4a177cmr99986885e9.6.1791661504056;
-        Sat, 10 Oct 2026 12:45:04 -0700 (PDT)
-Received: from remote-01 ([84.17.55.225])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf35930sm151457265e9.13.2026.10.10.12.45.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 12:45:03 -0700 (PDT)
-From: Aleksei Sviridkin <f@lex.la>
-To: Russell King <linux@armlinux.org.uk>
-Cc: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	netdev@vger.kernel.org,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Woojung Huh <woojung.huh@microchip.com>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>
-Subject: Re: [PATCH net-next v5 4/4] net: phy: make an unbind wait for the attached consumer to detach
-Date: Sat, 10 Oct 2026 22:44:58 +0300
-Message-ID: <20261010194458.2943738-1-f@lex.la>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261009180551.1234107-5-f@lex.la>
-References: <20261009180551.1234107-5-f@lex.la>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="NtlXGB2z"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 3156440E03BE;
+	Sat, 10 Oct 2026 19:45:47 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id w-LaY5QRolKJ; Sat, 10 Oct 2026 19:45:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1791661537; bh=mXRiDOsjBGT9aPzVeIlvnBf2bqdjcsKrL2pwp5FX8u4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=NtlXGB2zI1Tp8ML/9s+L4WmD4SskcKXDb7xA2UEOSjQhjmuiplx2ne1+UzlvSK3NT
+	 4TQRjxp5fbh1Qu4P3EQmjqwgAEYaimfZKz9YN4dbIXJUxrOBAZ+6ye6oC8l2Ro6ae7
+	 5v62SYa0b+RDzkQ6m3cfh8ytEDUSmdPAPTBcTyqug/9+d067qSWxGFIcVynen6r+oy
+	 zM3qJPr0wV/w16kor8jJXnTD16rhuMRbr4vbYDkbe23/A/ywspbqOjytbUzti9Yj/N
+	 dAVDNiQcrGWr5/LPJM+EFeyrGgv8jxbyXm4zkA7hYOUra98b3oDIMmCwG1PmyNdGir
+	 YkodN1DzAbJFSkIlJ5wFNc0EENcGH1/hi/GHFHPWBiC+BbGtB3n6jPyx9+yuPazdAu
+	 0aajcH1abQqiX9wcgIDl6d9e8FRWwFE5qdCqq2jpwHRTUVLAGlA8LwaVaaxcH8Alog
+	 vP/mriUp+86o5fLsVLlpVcUR1Fq5DveHk1slS6Q+MSUhntUtqn1VhC7jbyARFK4oGt
+	 ER0hAa29b4Xa7PETteud0bL4bVdoWnSoBxcSDZZV5sD6gRKGEOEPQ4ePSKhF2o6Rty
+	 AobwbsvH9QoigkOB5gWmO3O+Im+8/yNBbK2IuFI/FZ2m04nqGUoeou3cAbbG11bexR
+	 G94QgDodOyZJg6LVhnX5NUvo=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 87D0C40E0488;
+	Sat, 10 Oct 2026 19:45:23 +0000 (UTC)
+Date: Sat, 10 Oct 2026 12:45:19 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Luiz Capitulino <luizcap@redhat.com>
+Cc: x86@kernel.org, tglx@kernel.org, mingo@redhat.com,
+	dave.hansen@linux.intel.com, hpa@zytor.com,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	corbet@lwn.net, rppt@kernel.org, blum@kernel.org, david@kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH v3] x86/corruption-check: Remove the BIOS memory
+ corruption check feature
+Message-ID: <20261010194519.GAasqVz2brXiOLegQi@fat_crate.local>
+References: <20261010153604.1885381-1-luizcap@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261010153604.1885381-1-luizcap@redhat.com>
 
-Russell,
+On Sat, Oct 10, 2026 at 11:36:04AM -0400, Luiz Capitulino wrote:
+> By default, the BIOS memory corruption check works by reserving the
+> first 64 KiB physical area from memblock, zeroing it and then scanning it
+> periodically.
+> 
+> However, this functionality has been broken in its default configuration
+> since v5.13 by two commits:
+> 
+> - Commit a799c2bd29d1 ("x86/setup: Consolidate early memory reservations").
+>   Moved trim_low_memory_range() into early_reserve_memory(), which runs
+>   earlier in setup_arch(), causing the first 64 KiB to be reserved (when
+>   CONFIG_X86_RESERVE_LOW=64) before setup_bios_corruption_check() runs
+> 
+> - Commit f1d4d47c5851 ("x86/setup: Always reserve the first 1M of RAM").
+>   Hardcodes the reservation of the first 64 KiB early in
+>   early_reserve_memory()
+> 
+> It might be possible to get the default case to work by allowing
+> setup_bios_corruption_check() to run first, but it's just not worth it
+> given that the kernel will never access the first 64 KiB area anyway.
+> 
+> Lastly, note that it's possible to get the corruption check to work with
+> a different region by passing memory_corruption_check_size=. However,
+> the main goal of the feature was to check the first 64 KiB. Besides,
+> the region picked will be almost random as setup_bios_corruption_check()
+> will pick a region by size.
 
-Sashiko's review of this patch showed that waiting in phy_remove() for
-the consumer to detach can hang: on the unbinding thread itself through
-device links, and with the device lock held across reboot and suspend.
+And?
 
-For v6 I would rather not wait. phy_remove() would call back into the
-consumer under rtnl, and phylink would answer with
-phylink_disconnect_phy(), the path it already takes when an SFP module
-with a PHY goes away. Consumers without the callback keep today's
-behaviour.
+Do I want this or should it be fixed or the first 64K are not worth it to
+check or...?
 
-Is a callback from phylib into phylink like this acceptable to you, or
-would you rather see it shaped differently?
+That whole "rationale" is not really clear to me. Yes, it is broken,
+apparently. So let's remove it but we might get it work still... So which is
+it and why?
 
-Aleksei
+-- 
+Regards/Gruss,
+    Boris.
 
-pw-bot: cr
+https://people.kernel.org/tglx/notes-about-netiquette
