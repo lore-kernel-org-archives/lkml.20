@@ -1,46 +1,46 @@
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD0E442135;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ABF041F5E6;
 	Sat, 10 Oct 2026 11:14:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791630875; cv=none; b=ef2lImB7H7e3QYV6P9nU0Ovk4y9C3Xn85EqMBN9lXAwGSLtaV527h813jZMpcExHvWpro5fP+Fxzi3XxFZKIL+8xes099KZP5We8WzcxEfw40aeZCxCFX9v5cxI1E873NfOHOIcoOrCULCLTvHLCB4Q2cSRkEqAZsi2G86UYUGA=
+	t=1791630875; cv=none; b=bTAyo7GRF10xv03Cvc6ku3804IC/EhexWYUZxc0fjt/E1mOqsFOmcCQiMIqAcLatFgk12A4I8XbcytKzi6CPBom6gvHvuPsF3CkmnU13sX0ud2PDNDy9iPTOiy6DHAhIpUZ64GXgj5aCTIO45SM6gb78DKg+MnfRRplAGrv85iQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791630875; c=relaxed/simple;
-	bh=7VgJKvnUntriWlL59nprpD46gbRgZ6OoBf66bdvPB7k=;
+	bh=PMKFO8O9EPvAmTDE0ZDFaz/3SyCndAd/kG1QNXNpqKs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qGHz2qQv50t/DpyedgtHjYAkhLyej858Ndo0VLi1Tlz/NZ7rK5DPnPn76vV/9YzEJWuMvPz+HiAPHckHc19uoGBXkMWLA/KEmkESpb+AAVV5vRacFiJTC5u68cSKxf7/FaWKat4vXW945xla1jegT+7InHfqb1YaJddU4mofuWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=kZtjQvAH; arc=none smtp.client-ip=185.11.138.130
+	 MIME-Version:Content-Type; b=k/qc7pOQZbfTJVhaovwdCvpQxt5Ub6DYYcz0BIlN9GQiWrlVBmgdGWKvxWqMDKodKN2T1dWQlWLWmDvX7AzYhGqhccF0dF9gjRY0bvpq9qOrHIciUKG3y4f1Kv7uNgUL7ZTH5fNL4pwyjlq0MtvDzlNYpoZSrvQ9SpXO5qXk+MM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=eHpJ7Nei; arc=none smtp.client-ip=185.11.138.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="kZtjQvAH"
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="eHpJ7Nei"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
 	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=rRvOqyoa2yGlfCD6zElvclBcIrUaBdOVdd/2GnBR7tE=; b=kZtjQvAHyRZZBrt4oeO+HQ/QE6
-	G9ydsbXj8mzw6jrGPOqfpRYADvpDHhXfzFi8f3VAz0k3vwRpKdDL1DDTIUEI47XQm1t/M207MGE79
-	1G+Txy9UIBNtO0QNnSaYO51Peok7ZRo44gvUAkk8+JmPsWsShHr8ZX+xue0j/x1yakt1ZNPBfmLcM
-	RnsQwfsuqpnhTW6BzLUiH9H4J7El3uwHi45C0c7WzhZsVQ1C+G8xbesRu2Md+wFco5/WeXMF+6cyr
-	kG6ya5n0lAa34vvlJFpvc37N6WED9dsO+MQBL636rHRLtUDhdU9S1iLrobuovQDZfqgUdVDIOgSNo
-	fF5ohTqg==;
+	bh=Ksxmdb4yA1kWZOUC249F66a5/hkdvLmy1j/hlKj2+08=; b=eHpJ7Neiep8sLffC/RolmkM650
+	NifNLXRHCMbuWXxfrWJhg1p8V46EVUXMonAw0caFg2iUQTwJq91AmfPIVfNMGKKT6JFCXs8odTH2z
+	Y9HcG/z0pGSHqUN/MDgiER0MvhWOg5z1bFWZXStpblSwC8VWBFFwpsUrhKj5O5GrZgxuaq/MoDodu
+	6HPfuYiqPcHUWo5bogIGOedwnUWfKE0trBMu0UaSVGAZ0Gk6bxGdTSQLTaoviX8eksi7RpYy6ue0O
+	+fWdEBTVl+rSOwpqm/MMzT4PPWKakeczs4sYFTNmDR1hDKQeQqDf8t16m/GRikGVkfwpI+0cKDLov
+	F9Y1FGpw==;
 From: Heiko Stuebner <heiko@sntech.de>
-To: Chukun Pan <amadeus@jmu.edu.cn>
+To: Igor Velkov <iav@iav.lv>
 Cc: Heiko Stuebner <heiko@sntech.de>,
 	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/1] arm64: dts: rockchip: remove FRL GPIO for 100ASK DshanPi A1
-Date: Sat, 10 Oct 2026 13:14:09 +0200
-Message-ID: <179163084343.3536058.11998324830928383594.b4-ty@sntech.de>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: rockchip: Add the fan tachometers to Kobol Helios64
+Date: Sat, 10 Oct 2026 13:14:10 +0200
+Message-ID: <179163084342.3536058.13031584006257921159.b4-ty@sntech.de>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261010100000.2236931-1-amadeus@jmu.edu.cn>
-References: <20261010100000.2236931-1-amadeus@jmu.edu.cn>
+In-Reply-To: <20261006-helios64-fan-tach-v1-1-1c87e72d42b2@iav.lv>
+References: <20261006-helios64-fan-tach-v1-1-1c87e72d42b2@iav.lv>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,18 +51,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Sat, 10 Oct 2026 18:00:00 +0800, Chukun Pan wrote:
-> According to the schematic [1], the 100ASK DshanPi A1 board does not
-> have an hdmi_tx_on_h pin, so removed the non-existent FRL GPIO.
+On Tue, 06 Oct 2026 07:48:58 +0300, Igor Velkov wrote:
+> The tachometer outputs of both fan connectors reach the SoC through
+> open-drain buffers, on GPIO4_C5 for P7 and GPIO4_C7 for P6, but the fan
+> nodes do not describe them. pwm-fan therefore registers no fan1_input.
 > 
-> [1] https://dl.100ask.net/Hardware/MPU/RK3576-DshanPi-A1/DshanPi-A1-RK3576-SCH_V1.1.pdf
+> Describe each line as the fan's interrupt. The board pulls both lines
+> up, so configure the pins without internal bias.
 > 
-> 
+> [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: rockchip: remove FRL GPIO for 100ASK DshanPi A1
-      commit: 99feb764fa6c3b260e03903f5d30e15428fedc08
+[1/1] arm64: dts: rockchip: Add the fan tachometers to Kobol Helios64
+      commit: fc411363b8231315e5260662bac5223636321983
 
 Best regards,
 -- 
