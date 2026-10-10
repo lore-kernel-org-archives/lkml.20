@@ -1,655 +1,189 @@
-Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AECD374E42
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 04:59:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8059A340A57
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 05:00:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791608370; cv=none; b=HNj0x66uPpOJHnmbGEKCv2R1/IPsfY2nqQTfkXSRch+CjKdHSattxyamfyJPjrU8/Rws01NW3NutjZ9H8igk/pscPKY3s58iEbhpO6QwKmhhmwwLaci4ntFEmjsienBFkxAy3IUe2cRVlJ/bwyb9WM6Kd8L/qn3gBfSWOMt0vzE=
+	t=1791608440; cv=none; b=jiMjZ7cZ6tGic1g1f38+H3IJ8utIIjm16QSJLsQSHsI0SZazAP1Gj3Te1fw4iCLQ2QS1NsH68Uy70rT9S0Cc6bUS6bHY9qDcR4BCdEqxU/607f8QRw/1R8o5Zfz8UydCXlDYRHCs36kwf18tADuhK4BikXFKJ43hOjdZI0SPhhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791608370; c=relaxed/simple;
-	bh=wzvBy4+hGjQb46lTWpENFNaUkzAsyC1/q9CjPSCkgbg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oxr/Z9XBwMu5G2IgTmZLvOz/2Uhn+7usl5dR2fAs2HsyKfFOfEjIql+ifYCoNLMegBZkgRUhk04E9CySYfRKvx4kBpxKnoGTjOL8fqlqi0Wk1ORtJISQigbaIksz05+FBQvhHR5WuabXTRxzTjBgPpOTqMAACtQHCflyZIWKB/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca; spf=pass smtp.mailfrom=metarealtyinc.ca; dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b=x3jz6OSZ; arc=none smtp.client-ip=209.85.219.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=metarealtyinc.ca
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="x3jz6OSZ"
-Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-917aca1aee5so6552086d6.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 21:59:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1791608367; x=1792213167; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=o1/XnKTmsftFlQo19pGJWTvRZqFhlw6zopFj80j84GI=;
-        b=x3jz6OSZD7ABuLTFSSfal5MwnniPSANATTmhGiJEpqVfifNWxYdVeEELyibMZqDue0
-         89G6fnpA7MXMYrjXlGlrnVEfBZ1dwdGm2udGLzBh+2+KCTlAYnVlsJ5/MLOX+EYIH4Oi
-         PgkGpQBmgZ2WNgpG10AALMZEiGzGWd8acIfNAZdzPBTuR3CsPGjIBgXysvvZZocjHSmO
-         ANjM+ntU9FAWn7HI+Zo2XFC6zQauw5B+lwlc1zd75oaXgCRnxCqYT5Z9f84Yco1VI1j4
-         olOyVybeaesR9GUYWwqleFCsAgircdYeVLHU2AvU4fj/SdQXhawYo8mFaH3u50DAwLV9
-         hdSg==
+	s=arc-20240116; t=1791608440; c=relaxed/simple;
+	bh=6lbDcEEQzMxUZanUbIXWQQRvNAzNlU06Z/mHfBfNw8I=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=UevHx4talpeaODA5xjERgPrDElXJ7cw06THQDaQdhztg7hiYk+6qfHZL/6aBFz9a1PrnHttzv0Pa4cwnuQwKR5qSkw0lIZyzmlXP7qUTEi+ZjTgFHZTC0AYa2FTB+gyA28Xe8eTasaF4odJChdSe9QdUTqpQqi3GJWNMx+3TSBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4c7f887ac6bso709417b6e.3
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 22:00:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791608367; x=1792213167;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=o1/XnKTmsftFlQo19pGJWTvRZqFhlw6zopFj80j84GI=;
-        b=Q+b6JH7RR2Q/msZPClous+XEOAWEHH9mWrgvuq700cOEGEb3GJxvvwd4GGEW9ZZNbs
-         Qg1jYOAEgPyH8jbop4B/EApOy0khFKrHv6pw9xGN6eAfveCFh8VLO5WPpjCoQ3bVmUqs
-         YL5XFboQKK3dtrRmJDXyDZxuTSNwTarUf6Jbo8w6nyqSLqtj3lT7ZiFznn4aGXmt/7yZ
-         YDat75U8aBr5ACi7a/T7PhQLUBbPrUvFlvlR+8EU3+0i/SbQlNdWt+ikEz46QLya9h/n
-         41lK0+8d3AKvY3lg/u6mOqCtpIvKJ5n0lvXToOII6Sl0qIpvXVb4fk+Er8QZXzQQ68iJ
-         eOYg==
-X-Forwarded-Encrypted: i=1; AKwUvBwJQHk9dLoMsJ/yqLvoc9FS87Tqm9hMVPFP0Kh7Gt4GCMeQIRR0COglsBVonp76a0d8SwAOEEYFtrnFZWI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJdBKt3Uvx1CZPZxsmLlbBQ1kBAEuEGF/yax/+dT+HcKecfLCGE
-	WQGvzoeIrdJ4tD2n54VNfbCjvE7+EFngiA9hMw9QYwAPxsoeznpPcx8TynkMqw/CGxQ=
-X-Gm-Gg: AYBFou1WtiBJaO6UYUxU/DDLWs0JCBRSFScP1/+RtJUan8q85gZAmDtaIjie35nyUYn
-	GHIFBvl5qQ08fApZ3DZJDt8O24VZpdxRja+FHbV/eedDfvnKU1vWFT3WQN7B1xlqj3ezZPZxIrN
-	X/sY7MUbPj/HgeM0CsbJs9uwyI7ox8C+4Rzc0p6OQhVnaGphnBZnqQ9LrSzUr0p8xVqFO8K+0ay
-	t5X6NSAMDAC35HNq6GVE6yqduNuk/EaKsRTEi+tbZwefMkZToNicaYvPd/H21nTJ1HJ2kEWRBlE
-	FvZj3dnRfXozrNLK9VTvwDL84os7xYjMPIM3kx4ysdW0QdWcwFIjv8z34aofKQ4sTA+G0hzFVgz
-	HcbzjyqvmCe2O+aiJ9TnRC2knafiNi/7l2NTAHjqfrgQ8a2ez0iuX/YIZRdasJic2HLXMAPq/b4
-	/LiSTHWiGhKP3jOYkjNNBlYlYVOa9jIal/koKFeHX1FiHaqh9iPjFxPBC/89uJECSylbj1epOrD
-	/6Z4RYcmPoEkvvfFdT3xms7Y2scqyZ60hV1aMwK8IsInZnX3mA7tedqGEsIM2GWg9aR1ZfDcmM6
-	gpiva8jQj08Dn6BSuR+SNnpliXkVwPtswtr41xTt9P/pOQlM4EjHz2tqchcAXYQ7R6fgiOJ6L4C
-	jv3I=
-X-Received: by 2002:a05:6214:5a04:b0:919:8478:e89e with SMTP id 6a1803df08f44-91b554b7664mr67155396d6.14.1791608367073;
-        Fri, 09 Oct 2026 21:59:27 -0700 (PDT)
-Received: from jake-laptop ([153.67.39.44])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b550887ebsm35827736d6.33.2026.10.09.21.59.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 21:59:26 -0700 (PDT)
-From: Jake Steinman <j@metarealtyinc.ca>
-To: Ramshouriesh R <rshouriesh@gmail.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Bingbu Cao <bingbu.cao@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] media: i2c: hm1092: Add ACPI enumeration and the 19.2 MHz configuration
-Date: Sat, 10 Oct 2026 00:59:21 -0400
-Message-ID: <b0d32a3b82eca233652f878b7ca91e4dc2d8e863.1791608336.git.j@metarealtyinc.ca>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <cover.1791608336.git.j@metarealtyinc.ca>
-References: <20260801-hm1092-driver-v6-0-5979f223748a@gmail.com> <cover.1791608336.git.j@metarealtyinc.ca>
+        d=1e100.net; s=20260707; t=1791608437; x=1792213237;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=us6ScB89JOPz+Y6KklNmPbHFhs0MEllFJihi/ZoHtfw=;
+        b=HGmFaUNzpFjQkWz1c6tPGUJxYwfhiR51VRrXsNo1JxxuLYQWRDObZoD4Dwmnh/UvhG
+         x9+GB4auYmMXfel36Va/hZNBUt70pyTQ9GqLB1rStXRspOoqjA8M/bAI2cOjQbybpqro
+         ZgYkL9MqIwZk0yFl4UBFVq3yYjTRYwiiirx9lEOScTsykaK4zIIS7gRdVFgR987XSZDL
+         TJt4M6q3oYx7GaErzZPhHyLi9qixWvC6D3sxbd7ctafKKKSnlzqyv3DvvGDFNyoMU5M0
+         m+wxbZFn+HpoQsjciKK6sa2h72PrJjuqPcpRr5pkBlfUzL0WHMT6dC4JRdasbaiRwPTp
+         sj0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxia5NRFHEScZWISKyFDMNQDszJDn4jIODa1XfJ3VpQGLFjNZb3CLalAj1H0y2qxvM4nVpcw/scIvvvavc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKH1pBYB+zPUIGkWHwQsOmI/cQ4i7MhIjAm13F7ZVVDcb7Kb2s4
+	X66etl1fRSaeH8a15swK2MrciSQKm/16q8Wf6r3KsmUSSqQH3og2dQ8rEIoTFmnUNuJptGF2Its
+	ZTHXRa51Phcxvn/sdtqsxPHZ1lV5YkooCoYfr2FeatlZSNbIvylokvazt3MM=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:c3ee:b0:4e8:92e5:db5b with SMTP id
+ 5614622812f47-50c5b4648camr4475500b6e.54.1791608437351; Fri, 09 Oct 2026
+ 22:00:37 -0700 (PDT)
+Date: Fri, 09 Oct 2026 22:00:37 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac9c675.a150a118.27e199.0024.GAE@google.com>
+Subject: [syzbot] [net?] INFO: trying to register non-static key in neigh_periodic_work
+From: syzbot <syzbot+2f98196f4b99dca2b979@syzkaller.appspotmail.com>
+To: davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, 
+	kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+	pabeni@redhat.com, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-The HM1092 is also the IR camera of Intel IPU6/IPU7 laptops. There it is
-enumerated through ACPI as HIMX1092 and clocked at 19.2 MHz rather than
-24 MHz. The driver cannot bind on those machines: it has no ACPI match
-table and probe rejects any external clock other than 24 MHz.
+Hello,
 
-Turn the single fixed mode into a table of configurations selected by
-the external clock rate, each with its own init sequence, link
-frequency, timings, readout window and exposure default. Add the
-configuration the vendor Windows driver uses on the Intel platforms:
-648x368, HTS 1620, VTS 740, with the PLL pre-divider at 10 and the
-multiplier at 94, giving 19200000 * 94 / 10 = 180480000 Hz.
+syzbot found the following issue on:
 
-ipu-bridge lists both 180000000 and 180480000 for this sensor, so
-matching any menu entry against the endpoint is no longer enough. Check
-that the endpoint offers the link frequency of the selected
-configuration.
+HEAD commit:    71c3e5409eef Merge remote-tracking branch 'will/for-next/p..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
+console output: https://syzkaller.appspot.com/x/log.txt?x=15ae21c9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=c7205f05c11fb4dd
+dashboard link: https://syzkaller.appspot.com/bug?extid=2f98196f4b99dca2b979
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+userspace arch: arm64
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1305400d580000
 
-The 24 MHz configuration is unchanged: same init sequence, timings,
-controls and defaults.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/20ff6159ce99/disk-71c3e540.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/1d6172672705/vmlinux-71c3e540.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/923d5e083e1b/Image-71c3e540.gz.xz
 
-Tested on a Dell XPS 16 DA16260 (Panther Lake, IPU7, 19.2 MHz clock
-from INT3472): the sensor binds on CSI-2 port 2, streams 648x368 at
-link frequency 180480000 and the exposure control changes the image
-level. The 24 MHz configuration is compile-tested only.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+2f98196f4b99dca2b979@syzkaller.appspotmail.com
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Jake Steinman <j@metarealtyinc.ca>
+INFO: trying to register non-static key.
+The code is fine but needs lockdep annotation, or maybe
+you didn't initialize this object before use?
+turning off the locking correctness validator.
+CPU: 0 UID: 0 PID: 3103 Comm: kworker/u8:8 Not tainted syzkaller #0 PREEMPT 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/14/2026
+Workqueue: events_power_efficient neigh_periodic_work
+Call trace:
+ show_stack+0x2c/0x3c arch/arm64/kernel/stacktrace.c:499 (C)
+ __dump_stack+0x30/0x40 lib/dump_stack.c:94
+ dump_stack_lvl+0xd8/0x12c lib/dump_stack.c:120
+ dump_stack+0x1c/0x28 lib/dump_stack.c:129
+ assign_lock_key+0xcc/0xdc kernel/locking/lockdep.c:1028
+ register_lock_class+0xf8/0x31c kernel/locking/lockdep.c:1343
+ __lock_acquire+0x140/0x2b08 kernel/locking/lockdep.c:5162
+ lock_acquire+0x13c/0x320 kernel/locking/lockdep.c:5942
+ __raw_write_lock include/linux/rwlock_api_smp.h:229 [inline]
+ _raw_write_lock+0x48/0x60 kernel/locking/spinlock.c:335
+ neigh_periodic_work+0x3bc/0x9ec net/core/neighbour.c:1004
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3479
+ worker_thread+0x798/0xbd0 kernel/workqueue.c:3560
+ kthread+0x304/0x3d4 kernel/kthread.c:436
+ ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:854
+bridge_slave_1: left allmulticast mode
+bridge_slave_1: left promiscuous mode
+bridge0: port 2(bridge_slave_1) entered disabled state
+bridge_slave_0: left allmulticast mode
+bridge_slave_0: left promiscuous mode
+bridge0: port 1(bridge_slave_0) entered disabled state
+Unable to handle kernel paging request at virtual address dfff800000000009
+KASAN: null-ptr-deref in range [0x0000000000000048-0x000000000000004f]
+Mem abort info:
+  ESR = 0x0000000096000005
+  EC = 0x25: DABT (current EL), IL = 32 bits
+  SET = 0, FnV = 0
+  EA = 0, S1PTW = 0
+  FSC = 0x05: level 1 translation fault
+Data abort info:
+  ISV = 0, ISS = 0x00000005, ISS2 = 0x00000000
+  CM = 0, WnR = 0, TnD = 0, TagAccess = 0
+  GCS = 0, Overlay = 0, DirtyBit = 0
+[dfff800000000009] address between user and kernel address ranges
+Internal error: Oops: 0000000096000005 [#1]  SMP
+Modules linked in:
+CPU: 1 UID: 0 PID: 3103 Comm: kworker/u8:8 Not tainted syzkaller #0 PREEMPT 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/14/2026
+Workqueue: netns cleanup_net
+pstate: 83400005 (Nzcv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
+pc : qdisc_reset+0xec/0x594 net/sched/sch_generic.c:1078
+lr : trace_qdisc_reset include/trace/events/qdisc.h:128 [inline]
+lr : qdisc_reset+0xdc/0x594 net/sched/sch_generic.c:1076
+sp : ffff80009a317510
+x29: ffff80009a317520 x28: 1fffe00018cc50ad x27: ffff0000c6628568
+x26: 0000000000000003 x25: ffff0000c9624800 x24: ffff0000c6628018
+x23: 0000000000000000 x22: dfff800000000000 x21: ffff800088a77ec8
+x20: 0000000000000048 x19: ffff0000c9624818 x18: 1fffe00035bd7428
+x17: 0000000000000003 x16: ffff800088a77000 x15: ffff800088b27700
+x14: ffff0001adeba14c x13: 0000000000000001 x12: 0000000000000004
+x11: ffff700013462e98 x10: 0000000000000003 x9 : 0000000000000200
+x8 : 0000000000000009 x7 : 0000000000000000 x6 : ffff800084df21d4
+x5 : 0000000000000000 x4 : 0000000000000001 x3 : ffff800084def98c
+x2 : 0000000000000002 x1 : ffff0000cde31d80 x0 : 0000000000000000
+Call trace:
+ qdisc_reset+0xec/0x594 net/sched/sch_generic.c:1078 (P)
+ dev_reset_queue+0x10c/0x1f0 include/net/sch_generic.h:756
+ netdev_for_each_tx_queue include/linux/netdevice.h:2752 [inline]
+ dev_deactivate_many+0x490/0x9d0 net/sched/sch_generic.c:1394
+ __dev_close_many+0x178/0x648 net/core/dev.c:1782
+ netif_close_many+0x1d8/0x51c net/core/dev.c:1824
+ unregister_netdevice_many_notify+0x740/0x1760 net/core/dev.c:12530
+ unregister_netdevice_many+0x28/0x38 net/core/dev.c:12632
+ ops_exit_rtnl_list net/core/net_namespace.c:188 [inline]
+ ops_undo_list+0x32c/0x81c net/core/net_namespace.c:249
+ cleanup_net+0x474/0x6c4 net/core/net_namespace.c:706
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3479
+ worker_thread+0x798/0xbd0 kernel/workqueue.c:3560
+ kthread+0x304/0x3d4 kernel/kthread.c:436
+ ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:854
+Code: 14000002 96e12f3e 910122f4 d343fe88 (38766908) 
+---[ end trace 0000000000000000 ]---
+----------------
+Code disassembly (best guess):
+   0:	14000002 	b	0x8
+   4:	96e12f3e 	bl	0xfffffffffb84bcfc
+   8:	910122f4 	add	x20, x23, #0x48
+   c:	d343fe88 	lsr	x8, x20, #3
+* 10:	38766908 	ldrb	w8, [x8, x22] <-- trapping instruction
+
+
 ---
- drivers/media/i2c/hm1092.c | 363 ++++++++++++++++++++++++++++++++-----
- 1 file changed, 317 insertions(+), 46 deletions(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/drivers/media/i2c/hm1092.c b/drivers/media/i2c/hm1092.c
-index eb3607a..ed6e14b 100644
---- a/drivers/media/i2c/hm1092.c
-+++ b/drivers/media/i2c/hm1092.c
-@@ -9,6 +9,7 @@
- #include <linux/delay.h>
- #include <linux/gpio/consumer.h>
- #include <linux/i2c.h>
-+#include <linux/mod_devicetable.h>
- #include <linux/module.h>
- #include <linux/pm_runtime.h>
- #include <linux/regulator/consumer.h>
-@@ -20,15 +21,19 @@
- /*
-  * CSI-2 D-PHY link frequency (DDR, i.e. half the per-lane bit rate).
-  *
-- * The vendor Windows configuration supplies a 24 MHz EXTCLK and programs the
-- * MIPI PLL pre-divider to 12 (0x030d = 0x0c) and multiplier to 90
-- * (0x030f = 0x5a):
-- *   link freq  = 24000000 * 90 / 12          = 180000000
-- *   bit rate   = link freq * 2               = 360000000 bps
-- *   pixel_rate = bit rate * 1 lane / 10 bpp  = 36000000 pixels/s
-+ * Two vendor Windows configurations are known. Each pairs an EXTCLK rate with
-+ * its own MIPI PLL pre-divider (0x030d) and multiplier (0x030f):
-+ *
-+ *   24 MHz EXTCLK, pre-divider 12, multiplier 90 (Qualcomm):
-+ *     link freq  = 24000000 * 90 / 12          = 180000000
-+ *     pixel_rate = link freq * 2 * 1 lane / 10 = 36000000 pixels/s
-+ *
-+ *   19.2 MHz EXTCLK, pre-divider 10, multiplier 94 (Intel IPU):
-+ *     link freq  = 19200000 * 94 / 10          = 180480000
-+ *     pixel_rate = link freq * 2 * 1 lane / 10 = 36096000 pixels/s
-  */
--#define HM1092_LINK_FREQ		180000000ULL
--#define HM1092_MCLK			24000000
-+#define HM1092_LINK_FREQ_180MHZ		180000000ULL
-+#define HM1092_LINK_FREQ_180P48MHZ	180480000ULL
- #define HM1092_BITS_PER_SAMPLE		10
- 
- #define HM1092_REG_STREAM		CCI_REG8(0x0100)
-@@ -41,16 +46,14 @@
- /*
-  * Exposure is a 16-bit value in lines and analogue gain an 8-bit register.
-  * The register layout is not documented publicly; it was recovered from the
-- * vendor Windows driver. The exposure default (500) was selected from
-- * illuminated hardware tests and is also programmed by the init sequence at
-- * 0x0202/0x0203.
-+ * vendor Windows driver. The exposure default is per mode and matches what
-+ * that mode's init sequence programs at 0x0202/0x0203.
-  */
- #define HM1092_REG_EXPOSURE_H		CCI_REG8(0x0202)
- #define HM1092_REG_EXPOSURE_L		CCI_REG8(0x0203)
- #define HM1092_EXPOSURE_MIN		2
- #define HM1092_EXPOSURE_MARGIN		21
- #define HM1092_EXPOSURE_STEP		1
--#define HM1092_EXPOSURE_DEFAULT		500
- 
- #define HM1092_REG_ANALOGUE_GAIN	CCI_REG8(0x0205)
- #define HM1092_ANALOGUE_GAIN_MIN	0
-@@ -72,9 +75,9 @@
- /*
-  * Pixel array geometry. The vendor specifies a 1280x720 active array; the
-  * full array including the surrounding dummy/optical-black pixels is 1296x736
-- * (8 pixels of margin on each side). The single fixed mode reads a window out
-- * of the active array (X_ADDR [0x0030..0x04ad], Y_ADDR [0x0008..0x02d5]);
-- * subsequent internal processing produces the 560x360 output.
-+ * (8 pixels of margin on each side). Each mode reads a fixed window out of
-+ * the array (X_ADDR/Y_ADDR registers 0x0344..0x034b, reported as the crop
-+ * rectangle); subsequent internal processing produces the output size.
-  */
- #define HM1092_NATIVE_WIDTH		1296U
- #define HM1092_NATIVE_HEIGHT		736U
-@@ -82,12 +85,8 @@
- #define HM1092_ACTIVE_TOP		8U
- #define HM1092_ACTIVE_WIDTH		1280U
- #define HM1092_ACTIVE_HEIGHT		720U
--#define HM1092_CROP_LEFT		48U
--#define HM1092_CROP_TOP			8U
--#define HM1092_CROP_WIDTH		1150U
--#define HM1092_CROP_HEIGHT		718U
- 
--static const struct cci_reg_sequence hm1092_init_regs[] = {
-+static const struct cci_reg_sequence hm1092_560x360_regs[] = {
- 	{ CCI_REG8(0x0103), 0x00 },
- 	{ CCI_REG8(0x030a), 0x05 },
- 	{ CCI_REG8(0x030d), 0x0c },
-@@ -275,18 +274,265 @@ static const struct cci_reg_sequence hm1092_init_regs[] = {
- 	{ CCI_REG8(0x0037), 0x30 },
- };
- 
-+/*
-+ * Init sequence used with a 19.2 MHz EXTCLK, as found on Intel IPU laptops
-+ * where the sensor is described in ACPI as HIMX1092. Recovered from the
-+ * vendor Windows driver for those platforms; kept in the order that driver
-+ * issues it, including its repeated writes.
-+ */
-+static const struct cci_reg_sequence hm1092_648x368_regs[] = {
-+	{ CCI_REG8(0x0100), 0x00 },
-+	{ CCI_REG8(0x0103), 0x00 },
-+	{ CCI_REG8(0x0000), 0x00 },
-+	{ CCI_REG8(0x0101), 0x00 },
-+	{ CCI_REG8(0x0202), 0x02 },
-+	{ CCI_REG8(0x0203), 0xe5 },
-+	{ CCI_REG8(0x0307), 0x00 },
-+	{ CCI_REG8(0x0309), 0x01 },
-+	{ CCI_REG8(0x030a), 0x05 },
-+	{ CCI_REG8(0x030d), 0x0a },
-+	{ CCI_REG8(0x030f), 0x5e },
-+	{ CCI_REG8(0x0310), 0x00 },
-+	{ CCI_REG8(0x0340), 0x03 },
-+	{ CCI_REG8(0x0341), 0x1e },
-+	{ CCI_REG8(0x0342), 0x05 },
-+	{ CCI_REG8(0x0343), 0xe4 },
-+	{ CCI_REG8(0x0350), 0x53 },
-+	{ CCI_REG8(0x0387), 0x01 },
-+	{ CCI_REG8(0x3110), 0x02 },
-+	{ CCI_REG8(0x3735), 0xe2 },
-+	{ CCI_REG8(0x3704), 0x04 },
-+	{ CCI_REG8(0x4001), 0x00 },
-+	{ CCI_REG8(0x4002), 0x2b },
-+	{ CCI_REG8(0x4024), 0x40 },
-+	{ CCI_REG8(0x4131), 0x01 },
-+	{ CCI_REG8(0x4132), 0x20 },
-+	{ CCI_REG8(0x4265), 0x02 },
-+	{ CCI_REG8(0x4b04), 0x01 },
-+	{ CCI_REG8(0x4b0e), 0x0e },
-+	{ CCI_REG8(0x4b18), 0x00 },
-+	{ CCI_REG8(0x4b20), 0x9e },
-+	{ CCI_REG8(0x4b31), 0x06 },
-+	{ CCI_REG8(0x4b3b), 0x02 },
-+	{ CCI_REG8(0x4b3e), 0x00 },
-+	{ CCI_REG8(0x4b44), 0x0c },
-+	{ CCI_REG8(0x4b45), 0x01 },
-+	{ CCI_REG8(0x4b47), 0x00 },
-+	{ CCI_REG8(0x5004), 0x40 },
-+	{ CCI_REG8(0x5005), 0x28 },
-+	{ CCI_REG8(0x5006), 0x40 },
-+	{ CCI_REG8(0x5007), 0x28 },
-+	{ CCI_REG8(0x5010), 0x20 },
-+	{ CCI_REG8(0x5011), 0x00 },
-+	{ CCI_REG8(0x5013), 0x03 },
-+	{ CCI_REG8(0x5015), 0xb3 },
-+	{ CCI_REG8(0x501d), 0x4c },
-+	{ CCI_REG8(0x5098), 0x00 },
-+	{ CCI_REG8(0x5099), 0x11 },
-+	{ CCI_REG8(0x509b), 0x03 },
-+	{ CCI_REG8(0x50a0), 0x30 },
-+	{ CCI_REG8(0x50a2), 0x0b },
-+	{ CCI_REG8(0x50a6), 0x00 },
-+	{ CCI_REG8(0x50a7), 0x00 },
-+	{ CCI_REG8(0x50aa), 0x22 },
-+	{ CCI_REG8(0x50ab), 0x07 },
-+	{ CCI_REG8(0x50ac), 0x24 },
-+	{ CCI_REG8(0x50ad), 0x07 },
-+	{ CCI_REG8(0x50ae), 0x20 },
-+	{ CCI_REG8(0x50af), 0x40 },
-+	{ CCI_REG8(0x50b3), 0x04 },
-+	{ CCI_REG8(0x50b4), 0x00 },
-+	{ CCI_REG8(0x50b7), 0x00 },
-+	{ CCI_REG8(0x50b8), 0x70 },
-+	{ CCI_REG8(0x50b9), 0xff },
-+	{ CCI_REG8(0x50ba), 0xff },
-+	{ CCI_REG8(0x50bb), 0x14 },
-+	{ CCI_REG8(0x50cb), 0x21 },
-+	{ CCI_REG8(0x50d5), 0xe0 },
-+	{ CCI_REG8(0x50d7), 0x12 },
-+	{ CCI_REG8(0x50dd), 0x00 },
-+	{ CCI_REG8(0x50e8), 0x00 },
-+	{ CCI_REG8(0x50ea), 0x74 },
-+	{ CCI_REG8(0x50fa), 0x02 },
-+	{ CCI_REG8(0x5100), 0x03 },
-+	{ CCI_REG8(0x5101), 0x13 },
-+	{ CCI_REG8(0x5102), 0x23 },
-+	{ CCI_REG8(0x5103), 0x33 },
-+	{ CCI_REG8(0x5104), 0x43 },
-+	{ CCI_REG8(0x5105), 0x42 },
-+	{ CCI_REG8(0x5106), 0x40 },
-+	{ CCI_REG8(0x5118), 0x00 },
-+	{ CCI_REG8(0x5119), 0x00 },
-+	{ CCI_REG8(0x511a), 0x00 },
-+	{ CCI_REG8(0x511b), 0x00 },
-+	{ CCI_REG8(0x511c), 0x00 },
-+	{ CCI_REG8(0x511d), 0x00 },
-+	{ CCI_REG8(0x511e), 0x00 },
-+	{ CCI_REG8(0x5130), 0x13 },
-+	{ CCI_REG8(0x5131), 0x23 },
-+	{ CCI_REG8(0x5132), 0x33 },
-+	{ CCI_REG8(0x5133), 0x43 },
-+	{ CCI_REG8(0x5134), 0x42 },
-+	{ CCI_REG8(0x5135), 0x40 },
-+	{ CCI_REG8(0x5136), 0x40 },
-+	{ CCI_REG8(0x5148), 0x01 },
-+	{ CCI_REG8(0x5149), 0x01 },
-+	{ CCI_REG8(0x514a), 0x01 },
-+	{ CCI_REG8(0x514b), 0x01 },
-+	{ CCI_REG8(0x514c), 0x01 },
-+	{ CCI_REG8(0x514d), 0x01 },
-+	{ CCI_REG8(0x514e), 0x01 },
-+	{ CCI_REG8(0x51c0), 0x00 },
-+	{ CCI_REG8(0x51c1), 0x81 },
-+	{ CCI_REG8(0x51c2), 0xec },
-+	{ CCI_REG8(0x51c3), 0x00 },
-+	{ CCI_REG8(0x51c4), 0x55 },
-+	{ CCI_REG8(0x51c5), 0x44 },
-+	{ CCI_REG8(0x51c6), 0x00 },
-+	{ CCI_REG8(0x51c7), 0x81 },
-+	{ CCI_REG8(0x51c8), 0xec },
-+	{ CCI_REG8(0x51c9), 0x00 },
-+	{ CCI_REG8(0x51ca), 0x55 },
-+	{ CCI_REG8(0x51cb), 0x24 },
-+	{ CCI_REG8(0x51cc), 0x00 },
-+	{ CCI_REG8(0x51cd), 0x81 },
-+	{ CCI_REG8(0x51ce), 0xec },
-+	{ CCI_REG8(0x51cf), 0x00 },
-+	{ CCI_REG8(0x51d0), 0x54 },
-+	{ CCI_REG8(0x51d1), 0x24 },
-+	{ CCI_REG8(0x51d2), 0x00 },
-+	{ CCI_REG8(0x51d3), 0x81 },
-+	{ CCI_REG8(0x51d4), 0xec },
-+	{ CCI_REG8(0x51d5), 0x00 },
-+	{ CCI_REG8(0x51d6), 0x53 },
-+	{ CCI_REG8(0x51d7), 0x14 },
-+	{ CCI_REG8(0x51d8), 0x00 },
-+	{ CCI_REG8(0x51d9), 0x81 },
-+	{ CCI_REG8(0x51da), 0xec },
-+	{ CCI_REG8(0x51db), 0x00 },
-+	{ CCI_REG8(0x51dc), 0x53 },
-+	{ CCI_REG8(0x51dd), 0x14 },
-+	{ CCI_REG8(0x51e0), 0x09 },
-+	{ CCI_REG8(0x51e1), 0x03 },
-+	{ CCI_REG8(0x51e2), 0x04 },
-+	{ CCI_REG8(0x51e3), 0x03 },
-+	{ CCI_REG8(0x51e4), 0x08 },
-+	{ CCI_REG8(0x51e5), 0x07 },
-+	{ CCI_REG8(0x51e6), 0x08 },
-+	{ CCI_REG8(0x51e7), 0x07 },
-+	{ CCI_REG8(0x51e8), 0x04 },
-+	{ CCI_REG8(0x51e9), 0x46 },
-+	{ CCI_REG8(0x51ea), 0x43 },
-+	{ CCI_REG8(0x51eb), 0x62 },
-+	{ CCI_REG8(0x51ec), 0x61 },
-+	{ CCI_REG8(0x51ed), 0x00 },
-+	{ CCI_REG8(0x51ee), 0x00 },
-+	{ CCI_REG8(0x5200), 0x60 },
-+	{ CCI_REG8(0x5201), 0x80 },
-+	{ CCI_REG8(0x5202), 0x00 },
-+	{ CCI_REG8(0x5203), 0x01 },
-+	{ CCI_REG8(0x5206), 0x80 },
-+	{ CCI_REG8(0x5208), 0x0b },
-+	{ CCI_REG8(0x5209), 0x0c },
-+	{ CCI_REG8(0x520c), 0x15 },
-+	{ CCI_REG8(0x520d), 0x40 },
-+	{ CCI_REG8(0x5214), 0x28 },
-+	{ CCI_REG8(0x5215), 0x04 },
-+	{ CCI_REG8(0x5216), 0x02 },
-+	{ CCI_REG8(0x5217), 0x01 },
-+	{ CCI_REG8(0x5218), 0x07 },
-+	{ CCI_REG8(0x521e), 0x01 },
-+	{ CCI_REG8(0x5282), 0xff },
-+	{ CCI_REG8(0x5283), 0x03 },
-+	{ CCI_REG8(0x0202), 0x01 },
-+	{ CCI_REG8(0x0203), 0x68 },
-+	{ CCI_REG8(0x0340), 0x02 },
-+	{ CCI_REG8(0x0341), 0xe4 },
-+	{ CCI_REG8(0x0342), 0x06 },
-+	{ CCI_REG8(0x0343), 0x54 },
-+	{ CCI_REG8(0x0344), 0x00 },
-+	{ CCI_REG8(0x0345), 0x00 },
-+	{ CCI_REG8(0x0346), 0x00 },
-+	{ CCI_REG8(0x0347), 0x00 },
-+	{ CCI_REG8(0x0348), 0x05 },
-+	{ CCI_REG8(0x0349), 0x0d },
-+	{ CCI_REG8(0x034a), 0x02 },
-+	{ CCI_REG8(0x034b), 0xdd },
-+	{ CCI_REG8(0x034c), 0x02 },
-+	{ CCI_REG8(0x034d), 0x88 },
-+	{ CCI_REG8(0x034e), 0x01 },
-+	{ CCI_REG8(0x034f), 0x70 },
-+	{ CCI_REG8(0x0383), 0x00 },
-+	{ CCI_REG8(0x0387), 0x10 },
-+	{ CCI_REG8(0x0390), 0x03 },
-+	{ CCI_REG8(0x4800), 0xac },
-+	{ CCI_REG8(0x0104), 0x01 },
-+	{ CCI_REG8(0x0104), 0x00 },
-+	{ CCI_REG8(0x4801), 0xae },
-+	{ CCI_REG8(0x4b20), 0x9e },
-+	{ CCI_REG8(0x0101), 0x03 },
-+};
-+
-+/**
-+ * struct hm1092_mode - sensor configuration, selected by the EXTCLK rate
-+ * @mclk: EXTCLK rate the init sequence programs the PLL for
-+ * @link_freq_index: index into hm1092_link_freq_menu
-+ * @width: output width
-+ * @height: output height
-+ * @hts: horizontal total size, 0x0342/0x0343
-+ * @vts: vertical total size, 0x0340/0x0341
-+ * @exposure_def: exposure programmed by the init sequence
-+ * @crop: readout window on the pixel array
-+ * @regs: init sequence
-+ * @num_regs: number of entries in @regs
-+ */
- struct hm1092_mode {
-+	unsigned long mclk;
-+	unsigned int link_freq_index;
- 	u32 width;
- 	u32 height;
- 	u32 hts;
- 	u32 vts;
-+	u32 exposure_def;
-+	struct v4l2_rect crop;
-+	const struct cci_reg_sequence *regs;
-+	unsigned int num_regs;
- };
- 
--static const struct hm1092_mode hm1092_mode_560x360 = {
--	.width = 560,
--	.height = 360,
--	.hts = 0x0650,
--	.vts = 0x02ee,
-+static const struct hm1092_mode hm1092_modes[] = {
-+	{
-+		.mclk = 24000000,
-+		.link_freq_index = 0,
-+		.width = 560,
-+		.height = 360,
-+		.hts = 0x0650,
-+		.vts = 0x02ee,
-+		.exposure_def = 500,
-+		.crop = {
-+			.left = 48,
-+			.top = 8,
-+			.width = 1150,
-+			.height = 718,
-+		},
-+		.regs = hm1092_560x360_regs,
-+		.num_regs = ARRAY_SIZE(hm1092_560x360_regs),
-+	}, {
-+		.mclk = 19200000,
-+		.link_freq_index = 1,
-+		.width = 648,
-+		.height = 368,
-+		.hts = 0x0654,
-+		.vts = 0x02e4,
-+		.exposure_def = 360,
-+		.crop = {
-+			.left = 0,
-+			.top = 0,
-+			.width = 1294,
-+			.height = 734,
-+		},
-+		.regs = hm1092_648x368_regs,
-+		.num_regs = ARRAY_SIZE(hm1092_648x368_regs),
-+	},
- };
- 
- static const char * const hm1092_supply_names[] = {
-@@ -309,7 +555,8 @@ static const char * const hm1092_test_pattern_menu[] = {
- };
- 
- static const s64 hm1092_link_freq_menu[] = {
--	HM1092_LINK_FREQ,
-+	HM1092_LINK_FREQ_180MHZ,
-+	HM1092_LINK_FREQ_180P48MHZ,
- };
- 
- struct hm1092 {
-@@ -326,6 +573,7 @@ struct hm1092 {
- 	struct v4l2_ctrl *hblank;
- 	struct v4l2_ctrl *vblank;
- 	struct v4l2_ctrl *exposure;
-+	const struct hm1092_mode *mode;
- 	u8 mipi_lanes;
- };
- 
-@@ -398,7 +646,7 @@ static const struct v4l2_ctrl_ops hm1092_ctrl_ops = {
- static int hm1092_init_controls(struct hm1092 *hm1092)
- {
- 	struct v4l2_ctrl_handler *ctrl_hdlr = &hm1092->ctrl_handler;
--	const struct hm1092_mode *mode = &hm1092_mode_560x360;
-+	const struct hm1092_mode *mode = hm1092->mode;
- 	struct v4l2_fwnode_device_properties props;
- 	s64 hblank, pixel_rate;
- 	int ret;
-@@ -412,11 +660,12 @@ static int hm1092_init_controls(struct hm1092 *hm1092)
- 	hm1092->link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr,
- 						   &hm1092_ctrl_ops,
- 						   V4L2_CID_LINK_FREQ,
--						   0, 0,
-+						   ARRAY_SIZE(hm1092_link_freq_menu) - 1,
-+						   mode->link_freq_index,
- 						   hm1092_link_freq_menu);
- 
--	pixel_rate = div_u64(HM1092_LINK_FREQ * 2 * hm1092->mipi_lanes,
--			     HM1092_BITS_PER_SAMPLE);
-+	pixel_rate = div_u64(hm1092_link_freq_menu[mode->link_freq_index] * 2 *
-+			     hm1092->mipi_lanes, HM1092_BITS_PER_SAMPLE);
- 	hm1092->pixel_rate = v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
- 					       V4L2_CID_PIXEL_RATE, 0,
- 					       pixel_rate, 1, pixel_rate);
-@@ -438,7 +687,7 @@ static int hm1092_init_controls(struct hm1092 *hm1092)
- 					     mode->vts -
- 					     HM1092_EXPOSURE_MARGIN,
- 					     HM1092_EXPOSURE_STEP,
--					     HM1092_EXPOSURE_DEFAULT);
-+					     mode->exposure_def);
- 
- 	v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
- 			  V4L2_CID_ANALOGUE_GAIN,
-@@ -480,10 +729,11 @@ err_free:
- 	return ret;
- }
- 
--static void hm1092_update_pad_format(struct v4l2_mbus_framefmt *fmt)
-+static void hm1092_update_pad_format(const struct hm1092_mode *mode,
-+				     struct v4l2_mbus_framefmt *fmt)
- {
--	fmt->width = hm1092_mode_560x360.width;
--	fmt->height = hm1092_mode_560x360.height;
-+	fmt->width = mode->width;
-+	fmt->height = mode->height;
- 	fmt->code = MEDIA_BUS_FMT_Y10_1X10;
- 	fmt->field = V4L2_FIELD_NONE;
- 	fmt->colorspace = V4L2_COLORSPACE_RAW;
-@@ -503,8 +753,8 @@ static int hm1092_enable_streams(struct v4l2_subdev *sd,
- 	if (ret)
- 		return ret;
- 
--	ret = cci_multi_reg_write(hm1092->regmap, hm1092_init_regs,
--				  ARRAY_SIZE(hm1092_init_regs), NULL);
-+	ret = cci_multi_reg_write(hm1092->regmap, hm1092->mode->regs,
-+				  hm1092->mode->num_regs, NULL);
- 	if (ret) {
- 		dev_err(hm1092->dev, "failed to write init registers\n");
- 		goto out;
-@@ -556,16 +806,18 @@ static int hm1092_enum_frame_size(struct v4l2_subdev *sd,
- 				  struct v4l2_subdev_state *state,
- 				  struct v4l2_subdev_frame_size_enum *fse)
- {
-+	const struct hm1092_mode *mode = to_hm1092(sd)->mode;
-+
- 	if (fse->index)
- 		return -EINVAL;
- 
- 	if (fse->code != MEDIA_BUS_FMT_Y10_1X10)
- 		return -EINVAL;
- 
--	fse->min_width = hm1092_mode_560x360.width;
--	fse->max_width = hm1092_mode_560x360.width;
--	fse->min_height = hm1092_mode_560x360.height;
--	fse->max_height = hm1092_mode_560x360.height;
-+	fse->min_width = mode->width;
-+	fse->max_width = mode->width;
-+	fse->min_height = mode->height;
-+	fse->max_height = mode->height;
- 
- 	return 0;
- }
-@@ -576,10 +828,7 @@ static int hm1092_get_selection(struct v4l2_subdev *sd,
- {
- 	switch (sel->target) {
- 	case V4L2_SEL_TGT_CROP:
--		sel->r.left = HM1092_CROP_LEFT;
--		sel->r.top = HM1092_CROP_TOP;
--		sel->r.width = HM1092_CROP_WIDTH;
--		sel->r.height = HM1092_CROP_HEIGHT;
-+		sel->r = to_hm1092(sd)->mode->crop;
- 		return 0;
- 	case V4L2_SEL_TGT_CROP_DEFAULT:
- 	case V4L2_SEL_TGT_CROP_BOUNDS:
-@@ -602,7 +851,8 @@ static int hm1092_get_selection(struct v4l2_subdev *sd,
- static int hm1092_init_state(struct v4l2_subdev *sd,
- 			     struct v4l2_subdev_state *state)
- {
--	hm1092_update_pad_format(v4l2_subdev_state_get_format(state, 0));
-+	hm1092_update_pad_format(to_hm1092(sd)->mode,
-+				 v4l2_subdev_state_get_format(state, 0));
- 
- 	return 0;
- }
-@@ -663,6 +913,14 @@ static int hm1092_check_hwcfg(struct hm1092 *hm1092)
- 	if (ret)
- 		goto out;
- 
-+	if (!(link_freq_bitmap & BIT(hm1092->mode->link_freq_index))) {
-+		ret = dev_err_probe(dev, -EINVAL,
-+				    "link frequency %lld not available for a %lu Hz external clock\n",
-+				    hm1092_link_freq_menu[hm1092->mode->link_freq_index],
-+				    hm1092->mode->mclk);
-+		goto out;
-+	}
-+
- 	if (bus_cfg.bus.mipi_csi2.num_data_lanes != 1) {
- 		ret = dev_err_probe(dev, -EINVAL,
- 				    "only 1 data lane is supported, got %u\n",
-@@ -775,7 +1033,13 @@ static int hm1092_probe(struct i2c_client *client)
- 				     "failed to get imaging clock\n");
- 
- 	freq = clk_get_rate(hm1092->img_clk);
--	if (freq != HM1092_MCLK)
-+	for (unsigned int i = 0; i < ARRAY_SIZE(hm1092_modes); i++) {
-+		if (hm1092_modes[i].mclk == freq) {
-+			hm1092->mode = &hm1092_modes[i];
-+			break;
-+		}
-+	}
-+	if (!hm1092->mode)
- 		return dev_err_probe(hm1092->dev, -EINVAL,
- 				     "external clock %lu is not supported\n",
- 				     freq);
-@@ -841,6 +1105,12 @@ err_ctrls:
- static DEFINE_RUNTIME_DEV_PM_OPS(hm1092_pm_ops, hm1092_power_off,
- 				 hm1092_power_on, NULL);
- 
-+static const struct acpi_device_id hm1092_acpi_ids[] = {
-+	{ "HIMX1092" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(acpi, hm1092_acpi_ids);
-+
- static const struct of_device_id hm1092_of_match[] = {
- 	{ .compatible = "himax,hm1092" },
- 	{ /* sentinel */ }
-@@ -851,6 +1121,7 @@ static struct i2c_driver hm1092_i2c_driver = {
- 	.driver = {
- 		.name = "hm1092",
- 		.pm = pm_ptr(&hm1092_pm_ops),
-+		.acpi_match_table = hm1092_acpi_ids,
- 		.of_match_table = hm1092_of_match,
- 	},
- 	.probe = hm1092_probe,
--- 
-2.56.0
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
