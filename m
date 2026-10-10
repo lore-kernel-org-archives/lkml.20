@@ -1,181 +1,117 @@
-Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD9BE3290A6
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 04:18:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791605898; cv=pass; b=VWMgPQt4HiWmXnyVuTQiUbCr6K91ZbtA3u7q3FZs821hFu3O0OnZ5b9TWxH/4c4w1WvXtyWGJ8+UvpliwIcNUWi8V8JU8bkaCdmBya/s7MrVpO6YmIkFCy+aCmDaltX7R4JzFN1XPhdRxuyYX4X/NamEjqJXGcel5QG13PydIS8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791605898; c=relaxed/simple;
-	bh=KYy6VegmlTUaxOe7PFlSpF96TjgUY4FSEQt4j5zRT20=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MEIwIxi9iTnVilJomhPAuXuDEJ5O7TZQhqYa4AK1kCNox3vqHdJ7pDMO7Pp3HzRL+xUvNdUuhfTtf90RknqY+Jv6HdMTzVOZlY7eWJINhuYnNbxi6P1hbWxaJYCt1fakHLZ+LTja2FbcklwWJ6HwygGt5i5NTPnt59Ka9oNNNk8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OxwPN3z2; arc=pass smtp.client-ip=209.85.161.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B714141A8F;
+	Sat, 10 Oct 2026 04:28:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791606485; cv=none; b=gPNfKUNtGLE/I3AZwc4DjgaknnaaHoK5ySSY2xTmEIirSawI1bbvTNKU19x3+p/M021FeD9qXwrJPn2UwckMaMPud4ERJPWdffpUJubWFUDYmSItt519+co4SloZYWVZfzpmCjnNcZ3bnFNJmYPFBtCRgh6mfqGSYLAVncId4XI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791606485; c=relaxed/simple;
+	bh=3j6zC3yNNLKKlS4tHjMo8CG6k7/vUvb1qfD125GWCWo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rMbO0OdWTj8CmqkBpMAjM6qfbVgltbgQh8qKdr4I8tybC5yzNb/qHDeKjQpk80UdBoqea2wB0Ft8SD5331roZ+fFiARzYUNg2EBrHenZWw68ppkItNbJk5HtlpJauYnFnpSvS64zNWQYSxuD2DMewyj0WVSrzvoczNz2oV3rrto=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FhgAS3VM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OxwPN3z2"
-Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6df5e315bd1so304767eaf.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 21:18:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791605895; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ncNCLqvmDECB5BsIjA3wOxZXeZf6uEugCfbHN+3G9BM13j16/I0WI0cn3mTasZ5ZxP
-         jaPG0IjrhXGMEGbkg7PC+zw0G2EGVoXmqJ0Uu9fcApIYMVh5MOVqv5vpBZhUEcfotIYK
-         md4hzQk6M3P6B6drjVbpga9BsgrAuY8B4GEe+2miWCL5Kp4Wd5FWJQ8Fj77VtxsC8QAn
-         XRrQjfFkj9wwAjka+bUD1cK7qS9o9E7LSSkNvY1rzKzmM+dkUzn9f5F766MiWzrcdxUO
-         QF2aGUU9fglJhADiHTG+XN5oqh+YCjHzlS2MW+fjovlcbWzsIICJAkrxXIt86vdazzyK
-         zaYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Ew33P9923AzoJpuAktLckP37GCcxC9qHFUOjrnQW1Ik=;
-        fh=HHByedXzQyz2gAJ2j3Uqc4Ypg5IyVKOopoZTPeyBNeU=;
-        b=D6P+AGrhgHW5hhYvNk9SIjN8n/a/R0LhoBGb1+Ml3GuundRH07WjNkwlKVwFg7njra
-         +NFv7I1AmohxAOV/GbiG2iv9oqVDNC97gpWKdNMDT/S9ecBF+j424emXgTvhQy6yXcuc
-         oN090rHAi96i1BR4fajv0tgJ/hRxxPzzWnTZKNu16bltIspFcl2COpxAbYXEH9N3+aUD
-         KRzRCLL4U3F8Jc0SgFGXNWBChVTR9oKgrQ/i5xDc9bvmo+Qn9VVa9NrtMKQIy+z5VFRd
-         hFgn9ELXq+HAIHEFwW3vUxRsXM5NnHAYso8KnyFcCjaDUwejCm3/r2W3W30at2j6cgX9
-         +OiQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791605895; x=1792210695; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ew33P9923AzoJpuAktLckP37GCcxC9qHFUOjrnQW1Ik=;
-        b=OxwPN3z2Qz8oUwvwhqV8qNluN4gvU/XIaloMEhRouQnKBX5awGvC1nhoxLjPFyIQ7u
-         DV3EiJm9Ieqo4hI0bJ/MF6sbCni4DbDsLnE7s8oAWWXxzD4FXfhyk3JfNMA0vvJuRUQn
-         DbjnHf5C5cI67mieFz1E36SjXNwSYq5u9iby+wu9S54Op6T1sIn54U8o4l/dEiqW7UuQ
-         nGgOsf1drkrgL0CRVP1/ZgUY0Gkbe6zGIyk3wWzdCVQbL4jkQn7FH3nI7Nf6NTBrQTNf
-         YdmDsbc1lfhFlsFBEObW4MODgwE+CAj0WcyV2RadszbAc0Hbd7I7rAL6D2R1x6b5CFTf
-         8j/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791605895; x=1792210695;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ew33P9923AzoJpuAktLckP37GCcxC9qHFUOjrnQW1Ik=;
-        b=UlcgbvcDPS4+2kQBVxBzmgTNuIy6v0QK5ZMBKwGNIbW8UBNHvPdJauCA+dGKIJpMAS
-         Gr0XEqQGnfa33gsvgOWobfiSDdBc/BO6mwxIaocqVCC4hsqvpYgNtOzPWTmNxiycl+Hq
-         0csIw0UwxOCpZmXjsudov4qce59iO9nWnsWYov8MtLlIg1OGkCd8Tamnkb73yU1A9kST
-         O0pfHfCyChUTseGFuva9voCcPadXQTAjWrX1RTlKw4a/lVumtQlvAv4THN1XkoEddXQZ
-         yC/NX3hPGOlkEmSQos3Th/V9Dbbo4j3tDWxB5vCTivyycJCF/IyrfMngtM9eRiUxfD59
-         JcSg==
-X-Forwarded-Encrypted: i=1; AKwUvBzHV/QcimWtBMPb19kO822X4vONh0SHFQfiRIKLN7oMo0QF980G+L0WaqqdW+72SezPZnMFt2vv3NmfkAM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLNqFny/IAoGkOpASYA8q13NBx4Rrt0Z6Pg+f76FfgQR2eVvxJK
-	RRbQr6oXlP7yEspNrUVAQ9RxUDsWTaP+IrI5u9h3U8ILHvlygEt+YKDI6TSsq07GG1TT9lgSv4h
-	vwfKGnzCJmLjhkgu/SI8oobNaDtLQbZo=
-X-Gm-Gg: AYBFou0k8Xe2+BF6i4eK/6obx4eU1S8BMKwTfqj+sniKEY8ZnCCAhNdtogU+eFbRh4d
-	rJs9lt8rAT0L62jwR20OuAWtySjWAszTEwdrNFbJPJL9zjqWVWOBw2U2NBIH4qFrqJKtQHj4Lwx
-	PI7peCQ7c4e/S+VogZ03Z3F3upvoIbYA3CY18MriOv+qTwSuM72WkVWUdYkgOxg6sTsphVMGB7g
-	hDW8L6Zwf4mhldC7CpPe1SrLjD/VMU/cb7aoYNqGr9PIVjSVMyoKhb7vKFSMfmtDUCSvY1+yLOv
-	LjxhjQagEhm9d68nMaVJdqszdAP9mKcWo+Ka4iv9AfPLkiispYuQ35I+xj6MpAG5ToYGUCCudCp
-	AKqXpzjEdOHgePUY48ZnHUyW71kQ5TMXYIcbyIr3ruFYHgAi7I8faAQ0=
-X-Received: by 2002:a05:6820:984:b0:6e2:3d8b:a01c with SMTP id
- 006d021491bc7-6ef0e9dc2d0mr2797147eaf.19.1791605895411; Fri, 09 Oct 2026
- 21:18:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FhgAS3VM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 557D91F000FF;
+	Sat, 10 Oct 2026 04:28:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791606483;
+	bh=iZL6ZGq/sH6FQ2+lQwW0mbAwkaTK2sy5z75N5rEUJko=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=FhgAS3VMYp0SV2Nn2IdCFG01bZhUw1nMZpJvmrvq+qk4TWgmVdgNGy6UXOEn5cfvX
+	 vdwuVmkoe9gdYQuE3pLdqXLWsIu2brSAxJtux2S5CzmJemCwdiy+LNj28V6TdvrbBm
+	 O/W4sq9CGJMtqkzUdNFDfCypvB9oaYQnWEKucgSpsBVEzixT9ZMqPM2cfix1NMPXNz
+	 dgRlscJZ2Bh7MQam79oWLzgU0lY045wL2oXJlHbDpVJ1fkb+zhg8eRStUgY8fNxh4c
+	 JY6t/7eER2iha2Z8UV8cdhS9ZLopAZeOddb5Crb5zo1jyBgGA+6tQhQtI84uijGQVt
+	 O3rD0DFFaFmQw==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id F4098CE0D77; Fri,  9 Oct 2026 21:27:57 -0700 (PDT)
+Date: Fri, 9 Oct 2026 21:27:57 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Kees Cook <kees@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Manuel Ebner <manuelebnerli@mailbox.org>,
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] kbuild: Mark the kernel image gzip recipes as
+ recursive
+Message-ID: <7109f423-7249-49fb-a923-2824711fe197@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261009062722.i.253-kees@kernel.org>
+ <20261009062733.3119731-1-kees@kernel.org>
+ <7fa8e996-d015-4f8d-a197-3f8901e0b31a@paulmck-laptop>
+ <202610091923.FE842614D4@keescook>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261001-bug-block-elevator-init-quiesce-v1-1-5c85fa0ec59b@gmail.com>
-In-Reply-To: <20261001-bug-block-elevator-init-quiesce-v1-1-5c85fa0ec59b@gmail.com>
-From: Ming Lei <tom.leiming@gmail.com>
-Date: Fri, 9 Oct 2026 23:18:04 -0500
-X-Gm-Features: AclHuK_aaavcIOhZXQjbCJpj_zTwHfB7pXCx3pPddER2n9m6mNEdfh2htsXEqCI
-Message-ID: <CACVXFVNVC4cBuL6gFMMo+FktZnXdy18YJ-Wu81NqNfW7E4_6WA@mail.gmail.com>
-Subject: Re: [PATCH] block: don't quiesce the queue when setting the default elevator
-To: Qiliang Yuan <odys.yuan@gmail.com>
-Cc: Jens Axboe <axboe@kernel.dk>, Nilay Shroff <nilay@linux.ibm.com>, Hannes Reinecke <hare@suse.de>, 
-	Ming Lei <ming.lei@redhat.com>, linux-block@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <202610091923.FE842614D4@keescook>
 
-On Wed, Sep 30, 2026 at 10:12=E2=80=AFPM Qiliang Yuan <odys.yuan@gmail.com>=
- wrote:
->
-> elevator_set_default() runs from blk_register_queue() while the disk is
-> still being added: the block device is not visible yet and uevents are
-> suppressed, so no file system I/O can be issued. elevator_change()
-> freezes the queue and cancels the dispatch work before switching, which
-> is enough to drain dispatch activity from passthrough requests, as the
-> comment in elevator_change() already states.
->
-> elevator_switch() still quiesces the queue unconditionally, though, so
-> every disk added with a default elevator waits for an RCU grace period.
-> Commit 245a489e81e1 ("block: avoid to quiesce queue in
-> elevator_init_mq") had removed this wait from the default elevator
-> setup, and it came back when that setup was folded into
-> elevator_change().
->
-> The wait is paid in full by callers that add disks one at a time. ublk
-> adds the disk of a single-queue device from START_DEV, which takes 7.7ms
-> at p50 in a 16 vCPU KVM guest, most of it in blk_mq_quiesce_queue()
-> called from elevator_set_default().
->
-> Skip quiescing in elevator_switch() when setting the default elevator.
->
-> ublk null target, 1000 single-queue devices created one by one:
->
->                      before      after
->   START_DEV p50      7.74ms     0.68ms
->   START_DEV p99     14.61ms     1.32ms
->   devices/s             114        971
->
-> Fixes: 1e44bedbc921 ("block: unifying elevator change")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
-> ---
->  block/elevator.c | 7 +++++--
->  block/elevator.h | 2 ++
->  2 files changed, 7 insertions(+), 2 deletions(-)
->
-> diff --git a/block/elevator.c b/block/elevator.c
-> index 2161b6eea680c..da9ba70ac9321 100644
-> --- a/block/elevator.c
-> +++ b/block/elevator.c
-> @@ -573,7 +573,8 @@ static int elevator_switch(struct request_queue *q, s=
-truct elv_change_ctx *ctx)
->                         return -EINVAL;
->         }
->
-> -       blk_mq_quiesce_queue(q);
-> +       if (!ctx->no_quiesce)
-> +               blk_mq_quiesce_queue(q);
->
->         if (q->elevator) {
->                 ctx->old =3D q->elevator;
-> @@ -594,7 +595,8 @@ static int elevator_switch(struct request_queue *q, s=
-truct elv_change_ctx *ctx)
->         blk_add_trace_msg(q, "elv switch: %s", ctx->name);
->
->  out_unfreeze:
-> -       blk_mq_unquiesce_queue(q);
-> +       if (!ctx->no_quiesce)
-> +               blk_mq_unquiesce_queue(q);
->
->         if (ret) {
->                 pr_warn("elv: switch to \"%s\" failed, falling back to \"=
-none\"\n",
-> @@ -731,6 +733,7 @@ void elevator_set_default(struct request_queue *q)
->         struct elv_change_ctx ctx =3D {
->                 .name =3D "mq-deadline",
->                 .no_uevent =3D true,
-> +               .no_quiesce =3D true,
->         };
->         int err;
+On Fri, Oct 09, 2026 at 07:25:42PM -0700, Kees Cook wrote:
+> On Fri, Oct 09, 2026 at 08:51:18AM -0700, Paul E. McKenney wrote:
+> > On Thu, Oct 08, 2026 at 11:27:30PM -0700, Kees Cook wrote:
+> > > Since commit 48ebe1cbbeb51 ("kbuild: compress the kernel with pigz if
+> > > available"), cmd_gzip runs pigz through scripts/jobserver-exec, which
+> > > takes the job slots make has free. GNU Make passes the jobserver pipe
+> > > only to recipes it treats as recursive, but leaves --jobserver-auth in
+> > > MAKEFLAGS for all of them. The make 4.3 in CentOS Stream 9 also hides
+> > > the pipe in sub-makes (a backport of the fix for GNU Make bug 58232), so
+> > > jobserver-exec cannot open it, runs pigz on one thread, and prints:
+> > > 
+> > >   WARNING: Unable to reopen jobserver read-side pipe: FileNotFoundError(2, 'No such file or directory')
+> > > 
+> > > Mark the gzip recipes as recursive with "+", as commit ecab4115c44cc
+> > > ("kbuild: mark `rustc` (and others) invocations as recursive") did for
+> > > rustc. As with those, "make -n" now runs them.
+> > > 
+> > > Tested ARCH=x86_64 and ARCH=arm64 defconfig with GNU Make 4.3 plus
+> > > CentOS Stream 9's make-4.3-cloexec.patch, GCC 16.2.0, and -j64: without
+> > > this change the warning appears and pigz runs with "-p 1"; with it there
+> > > is no warning, and pigz runs with "-p 54" and "-p 64".
+> > 
+> > Thank you, Kees!
+> > 
+> > My initial test of this patch (using rcutorture) still showed the failure.
+> 
+> Oh! So the patch didn't fix it for you?
+> 
+> > I am running GCC 11.5.0 and without any patches to "make".  I take it
+> > that I need to find and apply CentOS Stream 9's make-4.3-cloexec.patch?
+> > 
+> > But if I use "make -j" instead of rcutorture, this patch does work fine.
+> > Even with "make -j632".
+> 
+> Without rcutorture was "make -jNN" broken for you without this patch?
+> 
+> > I put rcutorture in the background using nohup and full redirection,
+> > but "nohup make -j632 > /tmp/Make.out 2>&1 < /dev/null &" works just
+> > fine.  And running rcutorture in the foreground still fails.
+> > 
+> > Very strange.
+> 
+> O_O It only breaks ... when backgrounded? Oh my. Okay, I will try to
+> figure that out.
 
-Looks good given elevator_set_default() is only called on new added disk,
+Apologies, let me present my results in a more organized fashion:
 
-Reviewed-by: Ming Lei <tom.leiming@gmail.com>
+			foreground	background
+			-next	Fix	-next	Fix
 
+	make -jN	Bug	Good	Bug	Good
 
+	kvm.sh [1]	Bug	Bug	Bug	Bug
 
-Thanks,
-Ming Lei
+[1] tools/testing/selftests/rcutorture/bin/kvm.sh --build-only --allcpus --configs TREE02 --trust-make
+
+Here, -next is next-20261008, and Fix is with your patch on it.
+
+Just as mystifying to me, to be honest!
+
+							Thanx, Paul
