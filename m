@@ -1,63 +1,62 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E76749552B
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 11:55:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3857F48EC90
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 11:55:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791633356; cv=none; b=bwgoWCMXUYlnPCp5mPt5M+PfOmxBddgEL3OQTi78hMPt0Vypv/lv1M9I2FLT0lpQ1cRR26cUJpPXPuhvlS7EoRzXrTLeTewf437MTyIKW6ev93rr1sz/tGcucP1rXF+Af8HdniIKL7siqCh467+IgxPWZyX9HlqF5kS4Eoqqeus=
+	t=1791633356; cv=none; b=szrbfQ8cWtLmxKD+1GlZ2YzzGGerPQNFlVd41uBXWC4V62Kc7+ElEx615hzrHpzfzXXwWB2FRF1icEHDS3B2G0ZMFxFbp9oqt3rNypIClJi7QQ6FAGGXI4tEiRHpzVB+DS3J+hL5SiHzQ0NcPVQO96lnJBZkpFo8KUDpBGQP+MM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791633356; c=relaxed/simple;
-	bh=hzNGQdqo0pXTvPO8VPsWheGz6KN6mriYPP9WqpOJOz4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iNJNG6EIIo9QTN3FUI76Q7GgUfdU8lqVmgHOB8YbjzIPWkentJpCb0RaHoeNFTWkM7T/4noIXatauOs6GKs35w6Ob3pKVYXX06uiOVVwHCOlJ1N9Nt9ZouUF90uju8CAoP9Vxcdbo9cflTGK2oRend0VdjfJ5ap/A9y6vlR5ACs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FOQGvfY8; arc=none smtp.client-ip=209.85.221.48
+	bh=rvRwgHQvg5JZ1LUtLcvpMJdT9FYkYz/WGufe4EYyt6s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q6HqaAQBw+R3FdFELYWIuwPHQTeFKk72ted60enJIYVne4zT2C4jPgIYE8Yz/Q++zmaeDeW+rBcj1C4oE4RlmKd4bF/tHwCdkBrcvf6o2rSIi+IdBcQuIZey/XJjXP3WXGOgV+G2DOmyfVT42knGQFKH3CY/YSeg0TWO/vSeA2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X/uLWFKb; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FOQGvfY8"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso311769f8f.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 04:55:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X/uLWFKb"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a061a13884so4860025e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 04:55:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791633353; x=1792238153; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yWSkHUKka7QH4eH23AR+aM1Gs2nsmpiVfZDP2dicIho=;
-        b=FOQGvfY8s2HZ/yapuh+TiT5T6OIfVz65KaDu6YLdZeptyDhzkYMo6MSyPblNSmZya+
-         hvH/nVWliZeHYMhdj3lT84oTZ+bQePMPFc3oJd2aERvkhe97xB/aiJ3ZP7ArRl2Hjmuv
-         UdsgwSQYCFOfwYhrqy/lLcWMhm9BoeiyvT72YQvQNeoaUD5LFSV4dTlre3pXt7NttThL
-         YMbEtzH103TclLEWwCecnHUwx8840B1ASvziGEkf+HCOsKQ1QdQfdxV7RMcMxalyOWqL
-         v3iztROlU8lr2JJqJ7IqgT3qlBXlDy6aIQoFojQ3x/6MJI0pWc0DuXJBiVac6CPOMo5y
-         ReWQ==
+        d=gmail.com; s=20251104; t=1791633348; x=1792238148; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MUGs28pjyaKV6mm7T8DFRVWF7FBLghSbmcUfgUOr8K0=;
+        b=X/uLWFKbu+/TRM+hrDw4HzQYRKaf20P5Gr7PXI4ImcUAd09UQJ5rhaQt3DmOl1xtpr
+         YW7fnABdmvlyapQJCPQsOk0TZy4qEZf349NoRhc2sAQnxuAcIjIS03s5cQWvI9yMrkUd
+         GPuuaaMIkvDP4q9wxa4Lrw8PijPl9P3qnypWIZNRqno7C1QSTmzeFddgDbDbSYuQrmp+
+         sSh8LCeuMlV1OGT1hjgHW/5IXFH8q2WzouXTBiYhsIwTBrOVq9T0SP9P6/DHaVI2ye/J
+         UcQt45qq6RH95KxhVaDDPoPfEQ1/Rve9s4lrph4OuVJlUgrrog8tuIC99ndMLGx+oxkw
+         MXDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791633353; x=1792238153;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yWSkHUKka7QH4eH23AR+aM1Gs2nsmpiVfZDP2dicIho=;
-        b=ERrFatAzCi3+QQugGCS94WDxWQspU8SPFKU+1LuZC2fJBV2sXTJgfzys8el6j4w0WU
-         lepMHIKqlk5bamGAwtvrE/DC0iA4861/KFc41IPhb9cyES2HVMQ/SsqT5pYwXRhGDs6Z
-         IyM9RpccQiusw82q6FqJtB8UIgF4B1kkAzMcnPlUdc6yTiIjKwCFhRAbrbJel6J4nuKa
-         7lBDqxUUDER5IpXVT3bj3DRzFEPWqgvq7lv4t86Fcrb8mZb0mcw2SS/l6dOZolmVJzAp
-         c01OtiMAO+b/DLLjSjMCzfbuc+ObyPPrC2MbFnRqwmTqMbsfYGgRmPgAxcOabhGpcb7h
-         Wm0A==
-X-Forwarded-Encrypted: i=1; AKwUvByr1K9qwl9gbxvpLmjMBDhxASE3mXOalaWG50WOoa0AdpOY1s0zXibnEgMWpzsLD6kX3pTF/KwCG/XXDNI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKfxbCxxjhS2Ttlc2KIqBW4UNPg8MKywq8O48JaXE+JICIf1aev
-	ONrAdBY+6M2lfgiU8BkDIEgKhOFObWBpBZHxTO7yuGWohh+q+Vad9m/hAoAA1lsr
-X-Gm-Gg: AYBFou3OLMd6F8ca6ZxKRQUB7+TZbtmGRhj4kI/7P+XCSg13o/ZscT1IFcvYII6Dups
-	AmVmp39+EOfon7bUk6ul8toRXWOC6ocr1T1hqQUG7RiFRTfVLBKOXnA5Tn7YV9c3W/nP0OLZdTX
-	EutnQnl8fLxIrIqejXYOFtDvKsIlxwjujUnZRa5+djsaKs0am50COBfp81y2n6jLMVQ06fUcJZQ
-	zU06st0SvhY0clQghsNfwzq5noBlPWeXcDIHNs3ZjmqtJzEHW0c6A7bvzB0dpRIdb7bInTKujoB
-	c9TeUeknZPLbGuk5bA4sD88qvuB0OQMSATK6/hrcE15KeBZzi7ny/yuR3uGseKqmm5i7SQHA0f1
-	GEaZ00w5sVTrp0v0o1Zm3rSHEWnRRz3cCEOVCu+i4DYQCP/N9MFf5uqUH2u5IVjjQiw7fW6wbiE
-	qlqb8BPRkNaL+4E8TV4pd/lHOIBrNunjAxxCgD136PLINCOSBtgKfZG2cOIuMrHvpPrw==
-X-Received: by 2002:a5d:444d:0:b0:48b:fdd:fbe4 with SMTP id ffacd0b85a97d-48dba9c7d29mr7028135f8f.21.1791633352509;
-        Sat, 10 Oct 2026 04:55:52 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791633348; x=1792238148;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MUGs28pjyaKV6mm7T8DFRVWF7FBLghSbmcUfgUOr8K0=;
+        b=dpGd7UJCPPIbOufiSk4vM19DbHyDyjBVQxvoNc9EPPxmECIiNQLRmzyLJR1dDICht1
+         65LhXxOc6++1lpRzn+0UGAWrLYtpeGo8ZvhMIfeHoUPXX7PX1I8egAkK0UjQmKC3tU4N
+         BjVGrEK4KFzXNNpmwPHr06VrKDahs/BQG1oqRSG9oJrRfGpaXcZ50JiMX4v52oUpWjqN
+         0irXgBNerDIfq8LuIZu5BOI6xwMRXzhaMYAm5fvclMU6XANnaC2i6McfffYAtR1e3U5b
+         57CHUo0QpxJApRmZJoVgwpf/XobICVbj7SFwb2i3Ke9mdnJfYLGQGkeVlRM/fyEoIOkb
+         B7PQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzawZLhWyF7BfdGZj1QtCKW88/+94uMeYjXwLbHM/9BKWk5FXcXx51QZ7U4WQP5j0cXyJTCj+AFNGbKGLo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKmvBLJm74JB+exCAlyzDmT7z+e3h64rFcO9sipL11ZBrgVRU0A
+	GJUb7SQtFyaEia4NIukSpzs2jF4FExlp46Tfmcv/uaPFXW9tGKOTstC8
+X-Gm-Gg: AYBFou1aMgqA9ruBTR9mJdmaoFlVzKOWU4qit0C+rvKeZqK3BxkkZF1ssToe4LCyOVj
+	C4UFL3HYmOffJOLo6I9ilJLCQ7n9zPMsuEwjg2EoD4rwts1ZaEQDzd92cbfYIFM3gHP/Oe+/73n
+	iuO0SIbIl9ZgYhNW6qI/R5zZJi3yk37w72fIlWN+E1GxbnLo9bLmsA6osroIxhPgqCoAZ/Tybhm
+	H2BZwYV6h8IcylePzXGhoPcUCOWk32sVRjuShv7F2aK+5kNpbHKEmW0cZIYJMkaIPPxj8J9NHMe
+	chvLMdoK96HnnBCrhrEqKhxldAkbjFfFoAa35QbB13Akh3mKt+EAPvuhFdAaosboCqlCX8Qxim5
+	domxn1UEEJG1vTbNR7yvL56MHtLbtO0IDWLGbKPya1vuoO317tgUbiawjH7qZ4ZsMWcSQDGH5xC
+	OKfeTrkMJ0VAl5KBwyOppl2D7Sf4X3JR0ki/8D9xFN/IRN+7ABEd7VgVPSzlE6fJNkdcfnmoXtI
+	a2dWw==
+X-Received: by 2002:a05:600c:4e01:b0:49f:ce78:3567 with SMTP id 5b1f17b1804b1-4a18e4afc3amr83354515e9.24.1791633348096;
+        Sat, 10 Oct 2026 04:55:48 -0700 (PDT)
 Received: from luca-vm.lan ([154.61.61.58])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9aca657sm8746340f8f.43.2026.10.10.04.55.51
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9aca657sm8746340f8f.43.2026.10.10.04.55.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 04:55:52 -0700 (PDT)
+        Sat, 10 Oct 2026 04:55:47 -0700 (PDT)
 From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 To: linux-mediatek@lists.infradead.org
 Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
@@ -88,12 +87,10 @@ Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	linux-clk@vger.kernel.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH 1/7] dt-bindings: mediatek: hdmi-phy: Add compatible for mt8167
-Date: Sat, 10 Oct 2026 13:54:01 +0200
-Message-ID: <20261010115539.9237-2-l.scorcia@gmail.com>
+Subject: [PATCH 0/7] Add support for Mediatek mt8167 HDMI display output
+Date: Sat, 10 Oct 2026 13:54:00 +0200
+Message-ID: <20261010115539.9237-1-l.scorcia@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261010115539.9237-1-l.scorcia@gmail.com>
-References: <20261010115539.9237-1-l.scorcia@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -102,26 +99,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The hdmi-phy for the MediaTek mt8167 SoC is not compatible with any of
-the existing hdmi-phy. Add a separate compatible to describe it.
+The MediaTek mt8167 SoC supports HDMI output via a dedicated HDMI PHY
+driven by the DPI1 display block.
 
-Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
----
- Documentation/devicetree/bindings/phy/mediatek,hdmi-phy.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Support for HDMI output was partially upstreamed in 2021, but is currently
+not functional as it's missing its HDMI PHY driver. The HDMI PHY is
+apparently similar to the mt2701 one, but some differences in timings and
+in the initialization sequence are better expressed with a separate driver.
 
-diff --git a/Documentation/devicetree/bindings/phy/mediatek,hdmi-phy.yaml b/Documentation/devicetree/bindings/phy/mediatek,hdmi-phy.yaml
-index ac93069f4801..f0c8ea2c72b1 100644
---- a/Documentation/devicetree/bindings/phy/mediatek,hdmi-phy.yaml
-+++ b/Documentation/devicetree/bindings/phy/mediatek,hdmi-phy.yaml
-@@ -31,6 +31,7 @@ properties:
-               - mediatek,mt8188-hdmi-phy
-           - const: mediatek,mt8195-hdmi-phy
-       - const: mediatek,mt2701-hdmi-phy
-+      - const: mediatek,mt8167-hdmi-phy
-       - const: mediatek,mt8173-hdmi-phy
-       - const: mediatek,mt8195-hdmi-phy
- 
+* Patch 1, 2 add support for the HDMI PHY.
+
+In addition to the HDMI PHY, a few fixes are required here and there to
+actually get HDMI output.
+
+* Patch 3: Some of the HDMI registers are mapped into the apmixedsys
+  syscon. Since they are manipulated inside the HDMI PHY driver, we change
+  the apmixedsys memory map to non exclusive by switching it from
+  devm_platform_ioremap_resource to of_iomap. This approach was copied
+  from mt8173 apmixedsys syscon.
+
+* Patch 4: Since the DPI1 interface is hardwired to the HDMI PHY, it is
+  appropriate for the HDMI PHY to control the DPI1 clocks. There is no
+  effect on DPI0 clocks as they're completely separate.
+
+* Patch 5: Some MediaTek SoCs require a supervisor call to enable HDMI
+  output. mt8167 is not one of those.
+
+* Patch 6: In the common path for mt2701/mt8167, a register operation that
+  is meant to enable the HDMI_PSECUR_EN bit is actually touching some
+  other bits that are set by later operations anyway. The patch makes
+  more explicit the intent of the operation by setting only the necessary
+  bit.
+
+* Patch 7: Adds the device tree nodes to the mt8167 dtsi. Since DPI1
+  is hardwired to HDMI it is possible to bind the input port of the HDMI
+  node to the output port of DPI1, but the patch that adds the DPI nodes
+  to the DTSI [1] has not been picked up yet, so we leave it disconnected
+  for now.
+
+The series was tested at all supported resolutions on the Sony PlayStation
+Classic Mini.
+
+[1] https://lore.kernel.org/linux-mediatek/20260921113914.779393-5-l.scorcia@gmail.com/
+
+Luca Leonardo Scorcia (7):
+  dt-bindings: mediatek: hdmi-phy: Add compatible for mt8167
+  phy: mediatek: hdmi: Add support for mt8167
+  clk: mediatek: mt8167: Map apmixedsys iomem as shared
+  clk: mediatek: mt8167: Correct HDMI-related clock definitions
+  drm/mediatek: mtk_hdmi: Set tz_disabled for mt8167
+  drm/mediatek: mtk_hdmi: Improve the secure output bit toggle
+  arm64: dts: mediatek: mt8167: Add HDMI display nodes
+
+ .../bindings/phy/mediatek,hdmi-phy.yaml       |   1 +
+ arch/arm64/boot/dts/mediatek/mt8167.dtsi      |  62 +++++
+ drivers/clk/mediatek/clk-mt8167-apmixedsys.c  |  26 ++-
+ drivers/clk/mediatek/clk-mt8167.c             |   6 +-
+ drivers/gpu/drm/mediatek/mtk_hdmi.c           |   3 +-
+ drivers/gpu/drm/mediatek/mtk_hdmi_regs.h      |   1 +
+ drivers/phy/mediatek/Makefile                 |   1 +
+ drivers/phy/mediatek/phy-mtk-hdmi-mt8167.c    | 217 ++++++++++++++++++
+ drivers/phy/mediatek/phy-mtk-hdmi.c           |   3 +
+ drivers/phy/mediatek/phy-mtk-hdmi.h           |   1 +
+ 10 files changed, 314 insertions(+), 7 deletions(-)
+ create mode 100644 drivers/phy/mediatek/phy-mtk-hdmi-mt8167.c
+
+
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
 -- 
 2.43.0
 
