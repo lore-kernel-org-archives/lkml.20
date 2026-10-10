@@ -1,64 +1,64 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD3C13C063A
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 15:56:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE383F8246
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 15:56:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791647792; cv=none; b=T1Y4tJZCJeb0ZKYXPIrpET4PzGwFQuE5iJcn4I6Be+obshI5SAU1L/mKdEFhNSwn3js0RTBGp1DQyVS/4KFHbDUj9gcFzxf7n2o3mKKfPN+4/j5pTI3PmGy6OLjyDK79JiRRK9VYebhPE0uNJFz1GB6sm7J4YBYyECa6vyudQfo=
+	t=1791647793; cv=none; b=QPESpUSIxnm2FGCYKkW9WPMKONjI6SSYbxXrOf+HixU97SP1eoI6dzv8A2jIdDuRAQFLtNi+WmENiXHa189mqczcL3Slz9+XsUZsUa30hyGomR+ls27RsDkxYKlahlf4K0NQ+0gLNkbv4gyRMVMu9V/CmHTMkHCWPcT9hc2jRwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791647792; c=relaxed/simple;
-	bh=WKnLYgOjHsP4cA0eTco663J9nqhRW+AAiA2GG7Nvls0=;
+	s=arc-20240116; t=1791647793; c=relaxed/simple;
+	bh=npdWyanDV8QDZz7RLjwAwospzvkB0oAb68MAX+mIyeA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QM829DXTZoZweyJXcbHAlzWyBYGWLdEmLfeGORobdhfP+MqOQlSjmhVYhBqNzPznR/wdmDHxPYzr3/0/djdhIwyxdSxXwZ/iGJy7DHT+dX7KDOi8e03OMv2lzT8X6N0ZJPaoZiFdVQ9zDmi7OtE8ZCwHyxLH7bkY/98OG+TYQpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PBuZEVGj; arc=none smtp.client-ip=209.85.221.53
+	 MIME-Version; b=PQ/ffCFRzBL1siF9rcSxePvE9ZbW9BYLjHh2BuaYR7wyUnk/fEs713kAz1tmzt+TFQPaRjujrtQQmJoGWAMDYhfsuDyuXbL4NnzrhggjNhsxW11WEEaRgtwfWWLfpSbXAkZQqpF1uI4nv7Cq21MKOIkvQWInyUxha+xPJewH4o0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J7+k3SpE; arc=none smtp.client-ip=209.85.128.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PBuZEVGj"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48afe75f055so599999f8f.2
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:56:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J7+k3SpE"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a16c1608faso9027375e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:56:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791647789; x=1792252589; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791647790; x=1792252590; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yWkFAN8xiOdJ/DDEcDTiPY7n4+mNufjxnR1mpIq8leg=;
-        b=PBuZEVGjTf8h15GBD3gzCktnrjiB/Fhix2eELwyX8qLxGd6c5Kd3fRpPbMgG+iz2Rk
-         fJm/n+lfeqC9Z9J/s6Yq0ofoG89EEsYT8CiXZWqzpkusyiXtnbK68zjsneQUZnCDn6Xy
-         FKAGepjXWKQZfyiWGD+kl58wSvVtj3mK5yo4863a7J4CNR8ZkmT2SXSf1nFHbbYMgKIr
-         Jm2O1x9q9NxrzWt5EFt/aDY5CFZ5heBI8DsyB704RqBuy/UOoBgBTpkHUJqQJ13RVk41
-         nSHwcoNPHHd+9+OzIcY4aSUl2XJbSLhoHdteCFMGXjPJFFPCIvrvTZ8w0gx6V+P4Yi+c
-         zGsg==
+        bh=PFJSf5/KGtnTTz/mkLnowALQmtn8ybSGn7v3oqfC7EQ=;
+        b=J7+k3SpEredF11zGCuGHKryB6vcz44IpKHcR2Qm2XMsXu7JsvbetNyjbcm/Xt/zGot
+         AgEFLhs7exQ5tUA9ARaXRMWD4gXvZ7ac2claB05pXey/bvEpvRaS+AGaaQboqz/0rf4A
+         N2+5AV3sFWW6niDkxOVXAjhgLiK0G8sj90KprQNakl53qX52WFvXmkpA8zRYy39Jza+t
+         m5DCv1MbejpR3vn+m21tbCmOOIUjxnpAGABMvd9Jk6XOGUuGZcMRkRL7k7eREQN3mdGf
+         +dq8XTjF1XTAVrrYSFOkQ7RRH5DEwUsRexBQEd/ffTHvFBCN2PwoyAOre+RUWKLVspzp
+         LPaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791647789; x=1792252589;
+        d=1e100.net; s=20260707; t=1791647790; x=1792252590;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yWkFAN8xiOdJ/DDEcDTiPY7n4+mNufjxnR1mpIq8leg=;
-        b=j0jQL/ICKYw6VUPh7RDjHMIe6ZXyO5Sh5rQYsy5pXmYL+7uIm/dKzlKR9EX0U7P8D6
-         Vev1jETCGFKHF/9JbrnPD0EOCpZZLG/3rtcwi07Me4LDcjgYHogvqhMNlYR0Xkf3yEqY
-         CgkoZSlbI8gSONk3GsbMrFBeMGuQOwGxSBNLEjDmGdPVvGc8KVc8vuJMTrfcMce6Jq7o
-         NblvOPvsOhOoPYgja99K8b46pGclm9DCQwDv7XObHviTNlxScP2Pp9+TzMNG58ef1HzF
-         fLIYGDJ1i+ZKb09c/gHGZ5JN/aimlSgW+vpeNRWJigL0m3Okd0QeZdSGhSDc1uaaNlmy
-         p3JA==
-X-Forwarded-Encrypted: i=1; AKwUvBxlFXdP+QZ03iGSs26OKTHn20oRQ3lSNkW3FtPy4EdvCqJ/pz+7DpefYw+n0p2oPOKEmTCyE0Rjs7VlEtY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKPMHN3IpGXsvt224lQBiRsWVso9EVvxAHbgbqsUmsgWYdOlar/
-	Qw4PmGytDwkeSDBgoRoIipMF9VYCRaombByGGnvDsdASrTPcDqicX/o=
-X-Gm-Gg: AYBFou0wzdJMrRts6P+uKnIp+ZJOvj5LaArNbCMhGrKfnjXVMor8KmG6WMymwIyB+qg
-	CuJgU8DD63d/c103Z93ssjCdXbdclWwadDzVeW7lvxT4V7jlDl9W4czimpO2kAxMlbu7NtkkjdN
-	eHltJ4MM2S5PXgGh1btiwBnvjeXKEatTr10bL1j5ej1pPp3TZmm9SShb3Y9xvnlmXpJgdZj+pEF
-	idy5cxhEIYZD1TXsYl2c/iZAw2P4rmUcWDgB8cDlhmptu3YIgGSsBKGj9R5INSpP4ifGUEHkohb
-	l3wnDtb5RROxMev7U96vdPq0DJB2ANLEek+2gAOhxFydm82QWpg6gWOnNbx7N1+uPzoZ7lrtOzh
-	SUzroUeEW2BWIRqyMyHA1DC0FrlxDkErO9WmxY9xGyHfdB+Rsl3BTAi/rppJrF4gZyQXy0arpRF
-	Ero/47UGyhFPSpYBUyGtg39e4EJx28AzW5TlD6HjGbPW4VLuWtZKz08MikTx5KZCCpmzdUwIvzt
-	C2UVXgp7rKmKpDH3nsHxFetRfMYpS2lmumwbAZmUYN7kYYQUioVwTU=
-X-Received: by 2002:a05:600c:4e41:b0:49f:c1a1:5222 with SMTP id 5b1f17b1804b1-4a18e4d80bdmr93705125e9.33.1791647788532;
-        Sat, 10 Oct 2026 08:56:28 -0700 (PDT)
+        bh=PFJSf5/KGtnTTz/mkLnowALQmtn8ybSGn7v3oqfC7EQ=;
+        b=ejAMpWK/R2X2HyDn3v902OHozueI3n0Pot2Pp4YMXSA+igsJYq9ZAPBs0d22Qgv8+3
+         FF4w5T79Us6ptQfkeTv6nzWVQO/hkbBN6RI5s9cQm6lFAbTlmjmWlQkr7W28HphdNone
+         anHz4pEoe9AYwfn06NdlQODFzYRU5OtwBF0F1rmnt0aZYp4GOH7RFNyiSMF1+42T4BcG
+         DcgH0B09H7f2mVzFZKTkXBBUY+uSFyf/URbbDzlzYCm+RzjHqLBhohHWUDoKDpwVdHGn
+         DktsaIZaj9SvrCMJeTSOrot5QMy9fE/1wnm02DbytxfR0KBImzmS2bvywREEZDod/lUT
+         dSog==
+X-Forwarded-Encrypted: i=1; AKwUvByXIzGkFVA6pc2mxsqaONZFnRutPdO0BOGMaH6KPpZ5inqJXt8U3iWcQNMqrfJEtfHvYxr59nycYXdnU6Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJOaEgiRQ+4WdM3r01lcBW/ORQWwuuC+mzoTt7C/zhQPuoQtOb1
+	smtG+oX7CgxWDwNuw52M0sJewJse89vi3CB9TFGu+6yfGr18cDvYDWE=
+X-Gm-Gg: AYBFou3bTKtiYXzmgH8G+Mrc6nPqLU3dxd1xpVlOFgT72QjPwiHTB7HD8I4mY0XfMTB
+	WeWnP54a9ZISU+hOT5fbEx3Z3bp2HEiqoAwNxbSBZ0w/SskhCP0XEaZrlYu7sFFi77FNWaC+oAK
+	y6VmMB5ZSKCw5nXEDCPOfojBx0a5mGY2Dh8prdHYcxv+BM0Q2mhQofcrFAq8YtN1j6vJqDtV9Oz
+	VtxYgrU7cyw8X+1FyALKskr8vuViUlZtNQFleWqBf/8a0cWs5gvLfzkU22Qx0nRXUq1j1WMKQXm
+	qrsxzaYoML65cxnSD462NwUj9OwgcCz2QjU3pFEJJxJ13ka8h05XhETVSTPIN26lRSzkgqTG2de
+	cErv9gjLtFAXjCSD/7ufnFcdU1T4pmSU00JcQPxt0XmFJ5HmjZFHGvM61P11gSnFbmU9c6oIffM
+	z9v9JzTJ69t7HjgxISiBCAhPIOeMY8x2gmZPMBcs3N9GC+r8PRzI5N6LXdSQ7Ap8kZlexNhV65Z
+	bwhZK1oe2rRqhI81ofAf7wemCXbqLF5kDL2hFhSTzBgP9SOoNQKQM2w
+X-Received: by 2002:a05:600c:8b78:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-4a18e4837f2mr91486795e9.5.1791647789702;
+        Sat, 10 Oct 2026 08:56:29 -0700 (PDT)
 Received: from surface.. (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf3e044sm138023065e9.14.2026.10.10.08.56.27
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf3e044sm138023065e9.14.2026.10.10.08.56.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 08:56:28 -0700 (PDT)
+        Sat, 10 Oct 2026 08:56:29 -0700 (PDT)
 From: "D. Manresa" <dmanresa@gmail.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Hans de Goede <johannes.goede@oss.qualcomm.com>,
@@ -67,9 +67,9 @@ Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Fernando Rimoli <fernandorimoli11@gmail.com>,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 1/2] media: ipu-bridge: don't reference the module image from software nodes
-Date: Sat, 10 Oct 2026 17:56:25 +0200
-Message-ID: <20261010155626.2766298-2-dmanresa@gmail.com>
+Subject: [PATCH v4 2/2] media: ipu-bridge: reuse the software nodes on rebind
+Date: Sat, 10 Oct 2026 17:56:26 +0200
+Message-ID: <20261010155626.2766298-3-dmanresa@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261010155626.2766298-1-dmanresa@gmail.com>
 References: <20261010155626.2766298-1-dmanresa@gmail.com>
@@ -81,94 +81,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The software nodes the bridge registers are deliberately never
-unregistered, so that a later rebind can reuse them. Nothing reachable
-from them may therefore point into the module image, but two properties
-still do: the "link-frequencies" values point at cfg->link_freqs in
-ipu_supported_sensors[], and the "lens-focus" property name is a string
-literal.
+The software nodes are deliberately never unregistered so that a rebind
+can reuse them, but ipu_bridge_init() only takes that path when the IPU
+kept its secondary fwnode link. Removing and re-scanning the IPU PCI
+device clears that link, so the next probe tries to register the IPU HID
+node again and fails:
 
-Both dangle once the module is unloaded. Re-probing sensor drivers then
-read poisoned link frequencies from the surviving nodes and fail:
+  sysfs: cannot create duplicate filename '/kernel/software_nodes/INT343E'
+  intel-ipu6 0000:00:05.0: Failed to register the IPU HID node
+  intel-ipu6: probe of 0000:00:05.0 failed with error -17
 
-  ov5693: supported link freq 419200000 not found
+after which the cameras are unusable until reboot.
 
-Copy both into struct ipu_sensor, where the other property names and
-values already live.
+Look the registered node up instead and restore the device's secondary
+fwnode.
 
 Assisted-by: LLM
 Fixes: 803abec64ef9 ("media: ipu3-cio2: Add cio2-bridge to ipu3-cio2 driver")
-Fixes: 68b9bcc8a534 ("media: ipu3-cio2: Add support for instantiating i2c-clients for VCMs")
 Signed-off-by: D. Manresa <dmanresa@gmail.com>
 ---
- drivers/media/pci/intel/ipu-bridge.c | 12 +++++++++---
- include/media/ipu-bridge.h           |  6 ++++++
- 2 files changed, 15 insertions(+), 3 deletions(-)
+ drivers/media/pci/intel/ipu-bridge.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
 diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index 3739c4a..aea4699 100644
+index aea4699..a77ea60 100644
 --- a/drivers/media/pci/intel/ipu-bridge.c
 +++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -290,6 +290,7 @@ static const struct ipu_property_names prop_names = {
- 	.remote_endpoint = "remote-endpoint",
- 	.link_frequencies = "link-frequencies",
- 	.clock_noncontinuous = "clock-noncontinuous",
-+	.lens_focus = "lens-focus",
- };
+@@ -1098,6 +1098,7 @@ static DEFINE_MUTEX(ipu_bridge_mutex);
+ int ipu_bridge_init(struct device *dev,
+ 		    ipu_parse_sensor_fwnode_t parse_sensor_fwnode)
+ {
++	const struct software_node *ipu_node;
+ 	struct fwnode_handle *fwnode;
+ 	struct ipu_bridge *bridge;
+ 	unsigned int i;
+@@ -1108,6 +1109,22 @@ int ipu_bridge_init(struct device *dev,
+ 	if (!ipu_bridge_check_fwnode_graph(dev_fwnode(dev)))
+ 		return 0;
  
- static const char * const ipu_vcm_types[] = {
-@@ -623,7 +624,8 @@ static void ipu_bridge_create_fwnode_properties(
- 		sensor->vcm_ref[0] =
- 			SOFTWARE_NODE_REFERENCE(&sensor->swnodes[SWNODE_VCM]);
- 		sensor->dev_properties[3] =
--			PROPERTY_ENTRY_REF_ARRAY("lens-focus", sensor->vcm_ref);
-+			PROPERTY_ENTRY_REF_ARRAY(names->lens_focus,
-+						 sensor->vcm_ref);
- 	}
- 
- 	sensor->ep_properties[IPU_BRIDGE_NEXT_PROPERTY(i, EP_BUS_TYPE)] =
-@@ -636,11 +638,15 @@ static void ipu_bridge_create_fwnode_properties(
- 		PROPERTY_ENTRY_REF_ARRAY(names->remote_endpoint,
- 					 sensor->local_ref);
- 
--	if (cfg->nr_link_freqs > 0)
-+	if (cfg->nr_link_freqs > 0) {
-+		memcpy(sensor->link_freqs, cfg->link_freqs,
-+		       cfg->nr_link_freqs * sizeof(*sensor->link_freqs));
-+
- 		sensor->ep_properties[IPU_BRIDGE_NEXT_PROPERTY(i, EP_LINK_FREQUENCIES)] =
- 			PROPERTY_ENTRY_U64_ARRAY_LEN(names->link_frequencies,
--						     cfg->link_freqs,
-+						     sensor->link_freqs,
- 						     cfg->nr_link_freqs);
-+	}
- 
- 	if (cfg->flags & IPU_BR_FL_CSI2_CLK_NONCONTINUOUS)
- 		sensor->ep_properties[IPU_BRIDGE_NEXT_PROPERTY(i, EP_CLOCK_NONCONTINUOUS)] =
-diff --git a/include/media/ipu-bridge.h b/include/media/ipu-bridge.h
-index 3ef94c2..7c89fb6 100644
---- a/include/media/ipu-bridge.h
-+++ b/include/media/ipu-bridge.h
-@@ -136,6 +136,7 @@ struct ipu_property_names {
- 	char remote_endpoint[16];
- 	char link_frequencies[17];
- 	char clock_noncontinuous[20];
-+	char lens_focus[11];
- };
- 
- struct ipu_node_names {
-@@ -178,6 +179,11 @@ struct ipu_sensor {
- 	const char *vcm_type;
- 
- 	struct ipu_property_names prop_names;
 +	/*
-+	 * The registered software nodes outlive the module, so the property
-+	 * values they point at must not live in it.
++	 * The nodes registered by a previous bind are still there, but the
++	 * PCI remove/rescan cycle dropped the IPU's secondary fwnode link to
++	 * them. Registering them again would fail with -EEXIST, so reuse
++	 * them and restore just that link.
 +	 */
-+	u64 link_freqs[MAX_NUM_LINK_FREQS];
- 	struct property_entry ep_properties[IPU_BRIDGE_EP_NUM_ENTRIES];
- 	struct property_entry dev_properties[5];
- 	struct property_entry ipu_properties[3];
++	ipu_node = software_node_find_by_name(NULL, IPU_HID);
++	if (ipu_node) {
++		fwnode = software_node_fwnode(ipu_node);
++		set_secondary_fwnode(dev, fwnode);
++		/* The node is never unregistered, no reference is needed. */
++		fwnode_handle_put(fwnode);
++		dev_dbg(dev, "Reusing the previously registered software nodes\n");
++		return 0;
++	}
++
+ 	if (!ipu_bridge_ivsc_is_ready())
+ 		return dev_err_probe(dev, -EPROBE_DEFER,
+ 				     "waiting for IVSC to become ready\n");
 -- 
 2.43.0
 
