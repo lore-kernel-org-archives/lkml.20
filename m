@@ -1,178 +1,134 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 015491FF7C7;
-	Sat, 10 Oct 2026 01:14:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0356182D6
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 01:15:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791594856; cv=none; b=S9zvqg1jfbaQe5aBkrDu7JoPdTy8SSySybR0O8knx+kGIKSkeyo5WUFvTptIq7yZMxhVahYtrPHLv8ZBF2TzckLWCkZKt0c7YkLXf6gjFFIeTE/a/mQzGpKlITqBDnRRBQZxKjJ/i+zCACus/Oc0JoiZUkBPmNFHrY4iHHFe/jk=
+	t=1791594943; cv=none; b=WTtWVO/c0+GNHulDZeMNgonNYyqrQ5vAK9spwndRB1Z1MLWx+JkJ+CubEa16aG/FBAfwUMbVruSdg4qRgu54v1zU9ap0SOBtDyo/ujf902n4v1/e0FMxAk5EPXzrT+G7l7p03N+KM+Bui0Q+3vzNiFlISY5cNqqtWnbQqrRnKCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791594856; c=relaxed/simple;
-	bh=wWi1fYkDfEMTATllQGmVnSdpixloEtWsRLbg8D3c0CA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H557mdemHU/+HOsonLOX6s9X1kYDbp+CXRnYtOA1B9tVdxtqV44Buzu6Rh7qugHi+c8ohCDxfcy0c7FIvkN0LvQ0GY0Nz/xTMI9A79ggn/b0VC4BoKQVTCn6bNE+5jxKMis+rOpx27tvoTrYt6ml+tSf5MhljV6uq7vMiiEKR8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KDkqYl5O; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791594943; c=relaxed/simple;
+	bh=kAQSa5nX8c2ZUsjtBGBsyQqzHcCk8AYEH5rCND9zqgA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eGgJeAnRciNYBFgDhEYpQrsJwoqXG7fR2noHKk+UN2vYNlySC+ZV8+5FcSgVb4lp71cz+dEKC8vEq6LC9UE5pig6EsJuuBwyStFpL0m99NtE6D+fmxUfju5s7gNv+PlYKuDby6BHMmTUGRHe3o/vPb9P8VGBlq0RBWzD6QOacdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=HYNCjt+I; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KDkqYl5O"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791594855; x=1823130855;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=wWi1fYkDfEMTATllQGmVnSdpixloEtWsRLbg8D3c0CA=;
-  b=KDkqYl5OtatMRDaVq4Lia2DnC/aTrjO0jg+7VbA7Z7xRxyt+ku5sY0QI
-   Ei9iCSmUKTbzAfTKI0j5DpvUXlIGuPZziG5kKuWup04VFGC3bhieym278
-   fFE3R7A1xOcRKYRvEWk33rAu0oJBHtxHCVnvum4kh/ngZHJu/Ir0ygqs0
-   znMM22yptgtPZL0vq3uX++mPEOO0MfciEUg5BQuH74JMY0az+9ZIkKVB2
-   4yrsg6qosbJOVUnZsxHaovRs+UlLXont1+8UoIUyY6ZEZUGtZkpq9cB6m
-   0lKerP/ZDLvKqQ5qy7U/ekEE/bEl7ERCHRfH/Tw8/hxIFY3H8GVfrat9Z
-   g==;
-X-CSE-ConnectionGUID: f3myjKmHTqGvmz4vG0XzLQ==
-X-CSE-MsgGUID: f1cSIbHNSla6c768jP4qUg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="405943"
-X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
-   d="scan'208";a="405943"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 18:14:14 -0700
-X-CSE-ConnectionGUID: chpxsJ+ETrWnsIo+xkBV6g==
-X-CSE-MsgGUID: Dau6AiOOQPuK5q7NyBoScg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
-   d="scan'208";a="434275"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa003.jf.intel.com with ESMTP; 09 Oct 2026 18:14:11 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xFLf6-000000006MY-3LSv;
-	Sat, 10 Oct 2026 01:14:08 +0000
-Date: Sat, 10 Oct 2026 09:13:29 +0800
-From: kernel test robot <lkp@intel.com>
-To: Linlin Zhang <linlin.zhang@oss.qualcomm.com>, mst@redhat.com,
-	jasowangio@gmail.com, axboe@kernel.dk, ebiggers@kernel.org,
-	stefanha@redhat.com
-Cc: oe-kbuild-all@lists.linux.dev, pbonzini@redhat.com, eperezma@redhat.com,
-	xuanzhuo@linux.alibaba.com, virtualization@lists.linux.dev,
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] virtio_blk: Add control virtqueue support
-Message-ID: <202610100905.au1oY0vX-lkp@intel.com>
-References: <20261009041727.3170811-2-linlin.zhang@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="HYNCjt+I"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=1nkt/IUnTzUP0aQ9S7LfugyfQPM1afnAt6355T3gwhQ=;
+	b=HYNCjt+I9iAfr14TPe2VXVDYzowsbQSRF/75a/EJx833ljlpCLQmybhSlgA9Yv
+	yoc3abYtEUy0dmfIFNHOtWs5FockPzBLHB9gxzMqso82GaeTIZUoxh3Ru77SoZh6
+	+RjcBro6RFnHPU7VNqJ/ADNr5vQEW+oj6aYLK/DPTmqX8=
+Received: from [IPV6:2409:8900:1ec6:e6c:f7a8:8f42:dbce:ca48] (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wDnT1KmkclqRsKpDg--.15446S2;
+	Sat, 10 Oct 2026 09:15:20 +0800 (CST)
+Message-ID: <915d6e3d-64c2-446c-bd47-281cddb4c742@163.com>
+Date: Sat, 10 Oct 2026 09:15:18 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009041727.3170811-2-linlin.zhang@oss.qualcomm.com>
-
-Hi Linlin,
-
-kernel test robot noticed the following build warnings:
-
-[auto build test WARNING on axboe/for-next]
-[also build test WARNING on mst-vhost/linux-next linus/master v7.3-rc6 next-20261008]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Linlin-Zhang/virtio_blk-Add-control-virtqueue-support/20261008-211713
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux.git for-next
-patch link:    https://lore.kernel.org/r/20261009041727.3170811-2-linlin.zhang%40oss.qualcomm.com
-patch subject: [PATCH v4 1/2] virtio_blk: Add control virtqueue support
-config: x86_64-defconfig (https://download.01.org/0day-ci/archive/20261010/202610100905.au1oY0vX-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261010/202610100905.au1oY0vX-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610100905.au1oY0vX-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> drivers/block/virtio_blk.c:1000:12: warning: 'virtblk_ctrl_vq_request' defined but not used [-Wunused-function]
-    1000 | static int virtblk_ctrl_vq_request(struct virtio_blk *vblk,
-         |            ^~~~~~~~~~~~~~~~~~~~~~~
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ntfs: widen the sub-block offsets in ntfs_decompress()
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>,
+ Namjae Jeon <linkinjeon@kernel.org>, Hyunchul Lee <hyc.lee@gmail.com>
+Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Zhan Xusheng <zhanxusheng@xiaomi.com>
+References: <20261009075523.3135206-1-zhanxusheng@xiaomi.com>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <20261009075523.3135206-1-zhanxusheng@xiaomi.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnT1KmkclqRsKpDg--.15446S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWF4kCw1kWFWkZr17uFy3urg_yoW5Aw1rpF
+	47CF1Yk3yrGr4xWFs7KFs5t347C395Jw4UGr4qy3sxZws8WwnagF1kKrW8Gw1ru393Awsr
+	ZF4qvF98Aay3tFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UxWrtUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6QibZmrJkag2ZgAA3W
 
 
-vim +/virtblk_ctrl_vq_request +1000 drivers/block/virtio_blk.c
 
-   998	
-   999	/* Submit a control-queue request and wait for completion. */
-> 1000	static int virtblk_ctrl_vq_request(struct virtio_blk *vblk,
-  1001					    struct virtblk_ctrl_request *creq,
-  1002					    struct scatterlist *sgs[],
-  1003					    unsigned int out_sgs, unsigned int in_sgs)
-  1004	{
-  1005		struct virtblk_ctrl_completion *comp;
-  1006		unsigned long flags;
-  1007		int err;
-  1008	
-  1009		/*
-  1010		 * GFP_NOIO: this may be reached on the bio-submission path
-  1011		 * (memory reclaim writing back dirty pages to this same device),
-  1012		 * so GFP_KERNEL could self-deadlock.
-  1013		 */
-  1014		comp = kmalloc_obj(*comp, GFP_NOIO);
-  1015		if (!comp)
-  1016			return -ENOMEM;
-  1017		init_completion(&comp->done);
-  1018		comp->abandoned = false;
-  1019	
-  1020		mutex_lock(&vblk->ctrl_vq.mutex);
-  1021		creq->compl = comp;
-  1022	
-  1023		spin_lock_irqsave(&vblk->ctrl_vq.lock, flags);
-  1024		if (vblk->ctrl_vq.dead) {
-  1025			spin_unlock_irqrestore(&vblk->ctrl_vq.lock, flags);
-  1026			mutex_unlock(&vblk->ctrl_vq.mutex);
-  1027			kfree(comp);
-  1028			creq->compl = NULL;
-  1029			return -ENODEV;
-  1030		}
-  1031		err = virtqueue_add_sgs(vblk->ctrl_vq.vq, sgs, out_sgs, in_sgs, creq, GFP_ATOMIC);
-  1032		if (!err) {
-  1033			vblk->ctrl_vq.inflight++;
-  1034			virtqueue_kick(vblk->ctrl_vq.vq);
-  1035		}
-  1036		spin_unlock_irqrestore(&vblk->ctrl_vq.lock, flags);
-  1037		if (err) {
-  1038			mutex_unlock(&vblk->ctrl_vq.mutex);
-  1039			kfree(comp);
-  1040			creq->compl = NULL;
-  1041			return err;
-  1042		}
-  1043	
-  1044		if (wait_for_completion_timeout(&comp->done, VIRTBLK_CTRL_VQ_TIMEOUT)) {
-  1045			mutex_unlock(&vblk->ctrl_vq.mutex);
-  1046			kfree(comp);
-  1047			creq->compl = NULL;
-  1048			return 0;
-  1049		}
-  1050	
-  1051		/*
-  1052		 * The host hasn't responded within the timeout. @creq is still
-  1053		 * owned by the device, so don't touch its DMA-target fields or
-  1054		 * free it here. Mark it abandoned and hand ownership of both @creq
-  1055		 * and @comp to whichever of virtblk_ctrlq_callback() or
-  1056		 * virtblk_ctrl_vq_drain() retrieves the buffer later; unlock the
-  1057		 * mutex so subsequent requests aren't serialized behind an
-  1058		 * unresponsive host.
-  1059		 */
-  1060		spin_lock_irqsave(&vblk->ctrl_vq.lock, flags);
-  1061		comp->abandoned = true;
-  1062		spin_unlock_irqrestore(&vblk->ctrl_vq.lock, flags);
-  1063		mutex_unlock(&vblk->ctrl_vq.mutex);
-  1064	
-  1065		dev_warn(&vblk->vdev->dev,
-  1066			 "control queue request timed out, abandoning\n");
-  1067		return -ETIMEDOUT;
-  1068	}
-  1069	
+在 2026/10/9 15:55, Zhan Xusheng 写道:
+> ntfs_decompress() tracks where the current sub-block starts and ends
+> inside the destination page with two u16s:
+> 
+> 	u16 do_sb_start;
+> 	u16 do_sb_end;
+> 	...
+> 	do_sb_start = *dest_ofs;
+> 	do_sb_end = do_sb_start + NTFS_SB_SIZE;
+> 
+> *dest_ofs is an int page offset masked with ~PAGE_MASK, and
+> NTFS_SB_SIZE is 0x1000, so do_sb_end needs PAGE_SIZE + 0xfff of range.
+> That exceeds u16 once PAGE_SIZE reaches 0x10000: the last sub-block of a
+> page starts at 0xf000 and do_sb_end wraps from 0x10000 to 0.
+> 
+> The zero-fill that pads a short sub-block then computes a negative
+> length:
+> 
+> 	if (dp_addr < dp_sb_end) {
+> 		int nr_bytes = do_sb_end - *dest_ofs;
+> 
+> 		memset(dp_addr, 0, nr_bytes);
+> 
+> A sub-block made only of symbol tokens reaches this without consulting
+> do_sb_end on the way, because that path just does
+> 
+> 	*dp_addr++ = *cb++;
+> 	++*dest_ofs;
+> 
+> and is bounded by dp_addr against dp_sb_end.  With do_sb_start at 0xf000
+> and eight literal bytes emitted, nr_bytes is -61448 and the memset()
+> runs for 18446744073709490168 bytes.
+> 
+> Getting there is cheap: fifteen sub-blocks of eleven bytes each advance
+> *dest_ofs to 0xf000, since the same zero-fill pads each of them out to
+> 0x1000 while do_sb_end is still exact, and the sixteenth one triggers
+> the wrap.  A compression block is 0x10000 bytes with 4 KiB clusters and
+> the fixed compression unit of 4, so all sixteen fit with room to spare.
+> 
+> Phrase tokens are bounded against do_sb_end and so return -EOVERFLOW
+> instead, and the
+> 
+> 	if (*dest_index == dest_max_index && do_sb_end > dest_max_ofs)
+> 
+> check at the top of the sub-block stops firing for the same reason.
+> 
+> Use int for both, matching *dest_ofs and dest_max_ofs.  The narrow type
+> came in with the original import and survived the removal and revert of
+> the driver.
+> 
+> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> Fixes: 1e9ea7e04472 ("Revert "fs: Remove NTFS classic"")
+> ---
+>   fs/ntfs/compress.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/ntfs/compress.c b/fs/ntfs/compress.c
+> index 075b57fc1de61..82c7c7d290737 100644
+> --- a/fs/ntfs/compress.c
+> +++ b/fs/ntfs/compress.c
+> @@ -182,8 +182,8 @@ static int ntfs_decompress(struct page *dest_pages[], int completed_pages[],
+>   	u8 *dp_addr;		/* Current pointer into dp. */
+>   	u8 *dp_sb_start;	/* Start of current sub-block in dp. */
+>   	u8 *dp_sb_end;		/* End of current sb in dp (dp_sb_start + NTFS_SB_SIZE). */
+> -	u16 do_sb_start;	/* @dest_ofs when starting this sub-block. */
+> -	u16 do_sb_end;		/* @dest_ofs of end of this sb (do_sb_start + NTFS_SB_SIZE). */
+> +	int do_sb_start;	/* @dest_ofs when starting this sub-block. */
+> +	int do_sb_end;		/* @dest_ofs of end of this sb (do_sb_start + NTFS_SB_SIZE). */
+>   
+>   	/* Variables for tag and token parsing. */
+>   	u8 tag;			/* Current tag. */
+> 
+> base-commit: 6c377d19d4a5116d9bec5203aa3c6c11523e7898
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Looks good to me.
+
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+
