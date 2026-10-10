@@ -1,56 +1,56 @@
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03E7D3B9931
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 02:55:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13DB43C0A17
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 02:55:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791600938; cv=none; b=LXWhPKTEhv2CRFfs1ooaPJxLaBxlbMRrXDaW1BbasOD20GPInwSHaWqadR9F0izwybRlriP1pkgUAfyZ45CVcOJNmRfg/aicIRqRlHu1mBBJL4KYvCvW4p/vlymkXGc9ksaD6Az/rSRp5uhyqSTI5NzKunIzz2IDUSGUQPpXrDY=
+	t=1791600944; cv=none; b=bijs4qtcTaQjkqvXKZvHyk8McgRTG3Pg4JsUQ8GIIXQkYuODESHfPJ/fRHzEMcDeY5P0+6haiCz6GsuZxM6SO3pEMDU7iGF42frwO2Byc3QpHOeW2azDflhOx/0gh9geF3Q6U4zWdGdXxHTGXDSt5Hghl4FZcHdDHyuF/Tu4FJw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791600938; c=relaxed/simple;
-	bh=m+Mjxb/29vdzUvc5ogJYjmIGi17G3aWI7jnfQo/2FDY=;
+	s=arc-20240116; t=1791600944; c=relaxed/simple;
+	bh=j1TaTyk/OTL5zdMp08SYdA2Dlge6Yv09Zs+4VMdCb4A=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=OJNG1eELvC7k3eovcHCLk4uhJrFjeAN9n5amHTK1P02L7clZjqBdq8J161thNHnBfGTYERPn3mxwHJ8RWis/qwn2+LE0UrZptXBkre7brJcf+g3DZW5DeAHZLGqSW5r8TCC1Ar2pyeNq3dSCyL9k3v0mixiGUuSikQPoXzuZCVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=iXe+DHD9; arc=none smtp.client-ip=74.125.82.200
+	 To:Cc:Content-Type; b=PMKevYld38DNawNvv3y532gN9IF8RzFeulaJ/+rdrz+kDpBbkhkPaa9PlkU5iNGdJ6VnavHU/JH0OulVjO9tnZaQIv3K4+HjTVwx4q7DTxBm9DXaBwYxwQ29Vdb0ZaSxCS4diyjRtbDnUxR/0DtkrHkgoF4PtTtczHkB/pgcs0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=v5r3+EZh; arc=none smtp.client-ip=74.125.82.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="iXe+DHD9"
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-358856e5105so307763eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 19:55:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="v5r3+EZh"
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3510d0baf63so1036559eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 19:55:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791600936; x=1792205736; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1791600937; x=1792205737; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=87muJ1tbWnWvEna277XYC9fNu6butp/C0K6k1Uhxmjg=;
-        b=iXe+DHD90N0cZ9WGdJERbzj0ZJDmFwixzFOseBfJLXWNTc2oZrLr1VYU1ghDozybAb
-         bp6VMLg2FnhXNnILx++p1s+NjcERurzT565RKa7ApPAhQ2ETjsySjWkiVF16aq5Im0+J
-         mE+lCJ/ZZAHgAgrfkO+t6DeqglvFmK3LNDM+UXT9wQLCN+EbBQMrrQNy7JIpV+0973Qz
-         ahHydmr2C4Rh2j0aE6nCAiQTdkZ02ouAgVLwwFgwgyy035F9H+62upVGj50z7536eyEK
-         cHPjWIxOBI+la9sj2paKKtW0jco3sAT6XxhgPRkGvOBGgZx6tigBPZZtzgI1+ws0lFKV
-         NSHg==
+        bh=CnXvDkHRygIjqcgALHUWN066KUbjGPQJV9Mzd8woTCg=;
+        b=v5r3+EZhy2NbxbsLo7UscqDc/GlsklNmUqAiWUa2REy/k5pA4mxIhHPE4icMxf9ZLh
+         UQI1ZNAehjJCibFvwi4yDXE8XD4rFBo3kPfyOibe52lGPepUonBRefkcN3LoAN8bkZ1j
+         SPAEqAWgvo9+jwatMULyUH9Cl6PTpZQYJkuGOC/rBKFHGEjOb3NH6bngTNVEMEwCFJc9
+         BZI9PrTf2NTIAQYBKHaqgn9cnys2+CLsEQoSjkg4ddk2O5brQpMYwYXa8ywwLUXdexBk
+         kqdW78H21/8kXwN8HwRUOvTxHJx6QXTGVusRA1bXwgBIGDWzVJH8pQKpG2aGY/MzLrDV
+         boHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791600936; x=1792205736;
+        d=1e100.net; s=20260707; t=1791600937; x=1792205737;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=87muJ1tbWnWvEna277XYC9fNu6butp/C0K6k1Uhxmjg=;
-        b=O+2esJZf2UW7FpnSW0AapS+DWrC3cheirzs/SOAPCXqr+tx0dq8Z/dpoSXnzH/C7dG
-         FSysMtYgnyPrbzKFO2x5FgZBF7zzmtOuPoRfqQSJ+IgCCH+TlE4qDi0DU4bmvYLBSR+X
-         So/Tkgtq9lDnWBZyF/YQoo/UKz4hZWjeFZwuMT/5QRya6kLjVECjFXp8yNnyS9C16LBS
-         NbykYeM4s9QSLeAmW/7RQYFCAFtYADEBXarAp1Nv9/SC1ShjhjENJGxpgmn713SEcNMz
-         vo5FwG1ooZnX5U4D+8D1/AsBtixXgxGgiAaWv8I4HUzp3rqqSSSk5JuMFY8pA5ybq0WP
-         UOGA==
-X-Forwarded-Encrypted: i=1; AKwUvBxR0BUSLlmFKEBMzNvg8nbRnHx7EdzOmVZ3sTPhmwKPwaIQDEfsIf3N7IBetajIkpgMPwTcm99OqxKDcLY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJeRiFdRcG2OCYIDJCz0kKT5oLa9gqfB3d8PC4X9rTi+zDpKTx
-	rPAyivhZIn0OeMUw+gTzU1bqy6X1cxCtz6V71p3uJ0QPc/pdXCP0ks115J61rgk547whSvE5iF0
-	9akNeLrJgl/h/XTcsNOYXsVFIJQ==
-X-Received: from dycrm15.prod.google.com ([2002:a05:693c:2a0f:b0:355:e5a8:715f])
+        bh=CnXvDkHRygIjqcgALHUWN066KUbjGPQJV9Mzd8woTCg=;
+        b=BO3B9ONdXY7lhajAyEJpzTY7cVdcrZjcFG/9jnWiqFEy0aHuPtLlQizL8OG0NXk3pi
+         KVyt/M+cLeQLQWA9mkpgJmMN6ykSfnTdemXs0G6tX08UvDEfcd+mAZ+luD6lfPashWyH
+         JkQBeAaXXbh6GvGTqAWK5u8EAuzIU8lZwFLg1W8EB4XHrfUqvboDvlk23KbA4xuMMxyR
+         9tSxdKEGCU2spXeS7zNRMP+TSiE8EJsSt/Za9ebDjCBRdfbGcHZH0ah+/j+D2W6CAslP
+         FvlS0LlPM/KPO1Z8eChpRSXoMM0BJH7vVHnK8VgI516h90LoDZYsXQ/n/lfASZYavQ96
+         J2qg==
+X-Forwarded-Encrypted: i=1; AKwUvBw9TpPAe7IeaH/N/2mu9irO76ucsNawcbtHaV3aOyvNoUe1z/TWM69FQfNWGhMRTHUm5sJD9IvQfGMmdp8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKrjHBNXpXsnwqaiKV1OYPbttdOHxnkfETfc0YHFJ+BtZ89UlGB
+	CkFQ+kTI73JKRegk4+byONgg58bwxOObK9fhZFEljeQ5+ihlKRdp06spP4byrTxCmDwtX4L6fCD
+	WkGzdXHfZlslUHH2BMfeJdLbHJg==
+X-Received: from dldyr2-n1.prod.google.com ([2002:a05:701b:4502:10b0:149:37d9:7f80])
  (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:693c:26c7:b0:34e:2b79:3ca0 with SMTP id 5a478bee46e88-3537df8cecbmr5165163eec.13.1791600935744;
- Fri, 09 Oct 2026 19:55:35 -0700 (PDT)
-Date: Sat, 10 Oct 2026 02:55:14 +0000
+ 2002:a05:7022:170a:b0:15f:28e1:7c7d with SMTP id a92af1059eb24-16a61d5c4f6mr4133922c88.42.1791600936843;
+ Fri, 09 Oct 2026 19:55:36 -0700 (PDT)
+Date: Sat, 10 Oct 2026 02:55:15 +0000
 In-Reply-To: <20261010025532.839559-1-almasrymina@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261010025532.839559-1-almasrymina@google.com>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261010025532.839559-3-almasrymina@google.com>
-Subject: [PATCH net v1 2/4] net: devmem: detach TX bindings on NETDEV_UNREGISTER
+Message-ID: <20261010025532.839559-4-almasrymina@google.com>
+Subject: [PATCH net v1 3/4] netdevsim: support devmem RX and TX bindings
 From: Mina Almasry <almasrymina@google.com>
 To: Jakub Kicinski <kuba@kernel.org>, Mina Almasry <almasrymina@google.com>, David Wei <dw@davidwei.uk>, 
 	Pavel Begunkov <asml.silence@gmail.com>, Taehee Yoo <ap420073@gmail.com>, 
@@ -77,139 +77,98 @@ Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>
 	Kaifeng Wang <kaifengw@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-TX devmem bindings (NETDEV_CMD_BIND_TX) have no bound RX queues, so
-mp_dmabuf_devmem_uninstall() never runs when binding->dev or
-binding->vdev unregisters. As a result, binding->dev and binding->vdev
-dangle pointing to freed struct net_device memory, and the dma_buf
-remains attached and mapped after device removal.
+Set a 64-bit DMA mask on nsim_bus_dev, enable NETMEM_TX_DMA on the
+netdevsim net_device, and configure page_pool instances with
+PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV | PP_FLAG_ALLOW_UNREADABLE_NETMEM
+and queue_idx so devmem bind-rx and bind-tx netlink operations can be
+tested against netdevsim in software selftests.
 
-Closing the netlink socket after netdev unregistration dereferences the
-freed struct net_device in netdev_nl_sock_priv_destroy():
-
-  BUG: unable to handle page fault for address: ffff88824ca9b000
-  Oops: Oops: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:netdev_nl_sock_priv_destroy+0xbd/0x1e0
-  Call Trace:
-   genl_release+0xf5/0x190
-   netlink_release+0xd01/0x18d0
-   __sock_release+0xb0/0x270
-   sock_close+0x18/0x20
-
-Add net_devmem_dev_unregister() called on NETDEV_UNREGISTER:
-- When binding->dev (the physical DMA-capable device) unregisters,
-  erase the binding ID, clear both binding->dev and binding->vdev, wait
-  for in-flight RCU/TX readers via synchronize_net(), and unmap the
-  dma_buf under binding->lock.
-- When only binding->vdev (virtual device) unregisters while
-  binding->dev lives, only clear binding->vdev so no new TX sends match
-  the virtual device while allowing in-flight TX packets on binding->dev
-  to finish DMA safely.
-
-Fixes: bd61848900bf ("net: devmem: Implement TX path")
-Fixes: 1abe839b34ae ("net: devmem: support TX over NETMEM_TX_NO_DMA devices")
-Cc: Kaiyuan Zhang <kaiyuanz@google.com>
-Cc: Stanislav Fomichev <sdf@fomichev.me>
-Cc: Bobby Eshleman <bobbyeshleman@meta.com>
 Cc: Tariq Toukan <tariqt@nvidia.com>
 Cc: Kaifeng Wang <kaifengw@google.com>
 Signed-off-by: Mina Almasry <almasrymina@google.com>
 ---
- net/core/devmem.c      | 45 ++++++++++++++++++++++++++++++++++++++++++
- net/core/devmem.h      |  5 +++++
- net/core/netdev-genl.c |  1 +
- 3 files changed, 51 insertions(+)
+ drivers/net/netdevsim/bus.c    |  1 +
+ drivers/net/netdevsim/netdev.c | 21 +++++++++++++++------
+ 2 files changed, 16 insertions(+), 6 deletions(-)
 
-diff --git a/net/core/devmem.c b/net/core/devmem.c
-index 5e4070b82df44..da7b3e8abaa13 100644
---- a/net/core/devmem.c
-+++ b/net/core/devmem.c
-@@ -169,6 +169,51 @@ void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding)
- 	percpu_ref_kill(&binding->ref);
+diff --git a/drivers/net/netdevsim/bus.c b/drivers/net/netdevsim/bus.c
+index 5c55c308487b4..f87f5e037b6fb 100644
+--- a/drivers/net/netdevsim/bus.c
++++ b/drivers/net/netdevsim/bus.c
+@@ -462,6 +462,7 @@ nsim_bus_dev_new(unsigned int id, unsigned int port_count, unsigned int num_queu
+ 	nsim_bus_dev->port_count = port_count;
+ 	nsim_bus_dev->num_queues = num_queues;
+ 	nsim_bus_dev->initial_net = current->nsproxy->net_ns;
++	dma_coerce_mask_and_coherent(&nsim_bus_dev->dev, DMA_BIT_MASK(64));
+ 	/* Disallow using nsim_bus_dev */
+ 	smp_store_release(&nsim_bus_dev->init, false);
+ 
+diff --git a/drivers/net/netdevsim/netdev.c b/drivers/net/netdevsim/netdev.c
+index b4a99f3ceac60..4415dc01c610b 100644
+--- a/drivers/net/netdevsim/netdev.c
++++ b/drivers/net/netdevsim/netdev.c
+@@ -414,16 +414,22 @@ static int nsim_poll(struct napi_struct *napi, int budget)
+ 	return done;
  }
  
-+void net_devmem_dev_unregister(struct net_device *dev)
-+{
-+	struct net_devmem_dmabuf_binding *binding;
-+	unsigned long xa_idx;
-+
-+	rcu_read_lock();
-+	xa_for_each(&net_devmem_dmabuf_bindings, xa_idx, binding) {
-+		if (!percpu_ref_tryget(&binding->ref))
-+			continue;
-+		rcu_read_unlock();
-+
-+		if (xa_empty(&binding->bound_rxqs)) {
-+			if (READ_ONCE(binding->dev) == dev) {
-+				xa_erase(&net_devmem_dmabuf_bindings,
-+					 binding->id);
-+
-+				mutex_lock(&binding->lock);
-+				WRITE_ONCE(binding->dev, NULL);
-+				WRITE_ONCE(binding->vdev, NULL);
-+				mutex_unlock(&binding->lock);
-+
-+				/* Ensure no tx net_devmem_lookup_dmabuf() or
-+				 * validate_xmit_unreadable_skb() are in flight
-+				 * after detach.
-+				 */
-+				synchronize_net();
-+
-+				mutex_lock(&binding->lock);
-+				net_devmem_dmabuf_binding_unmap(binding);
-+				mutex_unlock(&binding->lock);
-+			} else if (READ_ONCE(binding->vdev) == dev) {
-+				mutex_lock(&binding->lock);
-+				WRITE_ONCE(binding->vdev, NULL);
-+				mutex_unlock(&binding->lock);
-+
-+				synchronize_net();
-+			}
-+		}
-+
-+		net_devmem_dmabuf_binding_put(binding);
-+		rcu_read_lock();
-+	}
-+	rcu_read_unlock();
-+}
-+
- int net_devmem_bind_dmabuf_to_queue(struct net_device *dev, u32 rxq_idx,
- 				    struct net_devmem_dmabuf_binding *binding,
- 				    struct netlink_ext_ack *extack)
-diff --git a/net/core/devmem.h b/net/core/devmem.h
-index 4a293a7d1149c..b572013d602c7 100644
---- a/net/core/devmem.h
-+++ b/net/core/devmem.h
-@@ -100,6 +100,7 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
- 		       struct netlink_ext_ack *extack);
- struct net_devmem_dmabuf_binding *net_devmem_lookup_dmabuf(u32 id);
- void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding);
-+void net_devmem_dev_unregister(struct net_device *dev);
- int net_devmem_bind_dmabuf_to_queue(struct net_device *dev, u32 rxq_idx,
- 				    struct net_devmem_dmabuf_binding *binding,
- 				    struct netlink_ext_ack *extack);
-@@ -196,6 +197,10 @@ net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding)
+-static int nsim_create_page_pool(struct page_pool **p, struct napi_struct *napi)
++static int nsim_create_page_pool(struct net_device *dev, struct page_pool **p,
++				 struct napi_struct *napi, int idx)
  {
- }
++	struct netdevsim *ns = netdev_priv(dev);
+ 	struct page_pool_params params = {
+ 		.order = 0,
+ 		.pool_size = NSIM_RING_SIZE,
++		.flags = PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV |
++			 PP_FLAG_ALLOW_UNREADABLE_NETMEM,
++		.max_len = PAGE_SIZE,
+ 		.nid = NUMA_NO_NODE,
+-		.dev = &napi->dev->dev,
++		.dev = &ns->nsim_bus_dev->dev,
+ 		.napi = napi,
+ 		.dma_dir = DMA_BIDIRECTIONAL,
+-		.netdev = napi->dev,
++		.netdev = dev,
++		.queue_idx = idx,
+ 	};
+ 	struct page_pool *pool;
  
-+static inline void net_devmem_dev_unregister(struct net_device *dev)
-+{
-+}
-+
- static inline int
- net_devmem_bind_dmabuf_to_queue(struct net_device *dev, u32 rxq_idx,
- 				struct net_devmem_dmabuf_binding *binding,
-diff --git a/net/core/netdev-genl.c b/net/core/netdev-genl.c
-index 33b9f4eb9565a..5bfcd513fb0e8 100644
---- a/net/core/netdev-genl.c
-+++ b/net/core/netdev-genl.c
-@@ -1487,6 +1487,7 @@ static int netdev_genl_netdevice_event(struct notifier_block *nb,
- 		netdev_unlock_full_to_ops(netdev);
- 		break;
- 	case NETDEV_UNREGISTER:
-+		net_devmem_dev_unregister(netdev);
- 		netdev_lock(netdev);
- 		netdev_genl_dev_notify(netdev, NETDEV_CMD_DEV_DEL_NTF);
- 		netdev_unlock(netdev);
+@@ -450,7 +456,7 @@ static int nsim_init_napi(struct netdevsim *ns)
+ 	for (i = 0; i < dev->num_rx_queues; i++) {
+ 		rq = ns->rq[i];
+ 
+-		err = nsim_create_page_pool(&rq->page_pool, &rq->napi);
++		err = nsim_create_page_pool(dev, &rq->page_pool, &rq->napi, i);
+ 		if (err)
+ 			goto err_pp_destroy;
+ 	}
+@@ -762,14 +768,16 @@ nsim_queue_mem_alloc(struct net_device *dev,
+ 	if (ns->rq_reset_mode == 1) {
+ 		if (!netif_running(ns->netdev))
+ 			return -ENETDOWN;
+-		return nsim_create_page_pool(&qmem->pp, &ns->rq[idx]->napi);
++		return nsim_create_page_pool(dev, &qmem->pp,
++					     &ns->rq[idx]->napi, idx);
+ 	}
+ 
+ 	qmem->rq = nsim_queue_alloc();
+ 	if (!qmem->rq)
+ 		return -ENOMEM;
+ 
+-	err = nsim_create_page_pool(&qmem->rq->page_pool, &qmem->rq->napi);
++	err = nsim_create_page_pool(dev, &qmem->rq->page_pool, &qmem->rq->napi,
++				    idx);
+ 	if (err)
+ 		goto err_free;
+ 
+@@ -1051,6 +1059,7 @@ static int nsim_init_netdevsim(struct netdevsim *ns)
+ 	ns->netdev->netdev_ops = &nsim_netdev_ops;
+ 	ns->netdev->stat_ops = &nsim_stat_ops;
+ 	ns->netdev->queue_mgmt_ops = &nsim_queue_mgmt_ops;
++	ns->netdev->netmem_tx = NETMEM_TX_DMA;
+ 	netdev_lockdep_set_classes(ns->netdev);
+ 
+ 	err = nsim_udp_tunnels_info_create(ns->nsim_dev, ns->netdev);
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
