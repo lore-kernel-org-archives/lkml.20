@@ -1,145 +1,107 @@
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C281495041
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 13:05:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF3194A7C8C
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 13:08:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.169
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791637555; cv=pass; b=LgrWzpBb3A9scGPZYgvF4H4knbiI7M2amDrRPkrKenqFYfxDLOEvqmqwsz4lS2D1zy51RK75vL2xJos7/bVEEZKJOk2qO4vii4i7bYiw7hcp27xToO4nA4CGBeohpTEC809BnTqkVnuE2Xfvz177OMjFV7+NwUUowQ/pFe+qsfc=
+	t=1791637688; cv=pass; b=Ha/A82ivB4zbCl12b+i+k8NDOBI05J/nvd3AtQAMjH1t0aRJweW2NF4wMtjdyJXHF73Dj2yrmcJCGM/otBZwSvxyI1eiIHm1N5M6iyy5wIxxG+Mlfp8No0ZXIV/jkA0250Gj00lFbaKpJNQ4WTgSpmciGnw1ZSsoCnacLs+JX4U=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791637555; c=relaxed/simple;
-	bh=dUgv8qU2MJmYgliXxK0C5ED2Eb+oFUrhcbBUDF3fTq8=;
+	s=arc-20240116; t=1791637688; c=relaxed/simple;
+	bh=Peoepvw/CV4v2nNzhaOWVLf6PtcCki7ZSzzGuOeWGYs=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Tj+u9fVOXge81UWFXrYZSSu/VKJ3nheT7TZ8KulMncZrqmUQqJE0A5X+dyF8JlVTOGRpnrcLiqnxcTCIvrVTlNK5ht64c/QLulFqWxa2AB8xrS+d9LjKlJALSwffFfU3KPxs2NgE7H+//MMoUw1xQQsRkay5CB3CSYLvpWpW1IU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M0x40FL4; arc=pass smtp.client-ip=209.85.128.171
+	 To:Cc:Content-Type; b=iFucjT0YC1si/EFZ7bDhjG/Zhz3iti/vNZEBFE2NFkmgKR3sIy7zUqlv75wMPJYCN4qQwdKeoFtmLSdeJ/jNg/JNUitYOaLN6CcWQTko8b2vhAiRZUV8a7pJ7eWuAnYw8oS1/7nAmGgef/Es7EoYTg7fktU/6NQFqbOUOZAVldI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GFtnxtnM; arc=pass smtp.client-ip=209.85.208.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M0x40FL4"
-Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8ab8d96d02aso3878597b3.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 06:05:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791637552; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GFtnxtnM"
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3a777d4f321so6002821fa.0
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 06:08:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791637685; cv=none;
         d=google.com; s=arc-20260327;
-        b=Bs6kaSgGdpCmIipItWd0HLZlXT469x8L69+eJ6uajEYJqbVn/1MHSmu6tqhygc6ZJc
-         WnQZMMiRYb41Y87Zrw2jHBiAzmUXf1t/sRwDKieJZbe9F5Gmz7IHeZyiTs068mLUz7Ny
-         I9p27BXy4sNE3OIJk+2qN5ocKvZ+BgLl9HiXFHCeYkXqhFOMyoqzZknrlI/ItVXtNzmE
-         9067UR04Re1b019FSriYSC5bxPSzNaSOsqmpSMov7ci4eNJbch7H70di6WfFSIlYS0bL
-         fpe8JjkMUhJYRHXoeQWhMnZI+P4ONLOui2ThsnlzTXpbPGxaf4p9ndPdBDG7SyQXY4ne
-         3ieA==
+        b=poOL9Uv6TMVF4Di3TamYlIo9EP2n0pbCzp6c6wAHBp87VRZnojapRE9BZjQQBTEsDx
+         Rm2S2iWJEWtMMfoxZ+z0j8wHEUOxZXSbSFvFmfrLkVe1l+bakVokD81LSKzh9Het4z8f
+         V4LXqBsr22uWviiu+ReM+tRnLqgnTu/g/JuH5RrKusF2Jew/SG12/16PGngNsEEm45vn
+         iaFEHEJD93MNp5ZN+LZH2bMuWB4oUK6RTjOT15jXjl3IprVFHioVkGlEDHnyB1D5oixH
+         GekUiKKs2YTqhJ0u53zNKA0qwo9YDajfPBtEDUr0Z95He8BUXXdU8rgTDiNnZx7U2+Iu
+         LnFA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=dUgv8qU2MJmYgliXxK0C5ED2Eb+oFUrhcbBUDF3fTq8=;
-        fh=KhFPGuaxVU2tkPxd7As5wLUGseWz5iIJGT+nX+6+svE=;
-        b=LpDWyxTdYahgz9NxIJdhKxN2qCLgcpoulMENnpGALrtYUyfY3jRM+oS1Qbaprs9kwV
-         vFQCUIZQPYlXTmw3WQ7KslJE8R8PZrtgEormlSvtlx7jSSUOpdqi9kxiv84ERL9NxoA/
-         /rLKtct3dZRbkD9RPk0lBcr1V9bSD0MHaenPDc/J9J/Lvj8Gd2QTVez9ppa8zYIQOGOy
-         0pdZ13skhGurMv29DR1Dgm8wKTEMJunkylM7Ou9UVBb+ekrl4+6I3d1UMONGyGQby0AK
-         KoSApNDAGHKfkLEsCUrVBmurE9jV8XFYz5oXExsZ/nNUpeglrPqWrvqxKRjmLBbwk9FH
-         DFgw==;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=Peoepvw/CV4v2nNzhaOWVLf6PtcCki7ZSzzGuOeWGYs=;
+        fh=JQNHKZ5D7sg6GNWaJZ5e4Po7bkRBkD+W1H/3fHU8OYI=;
+        b=eD7adVYsIixphKp828YVB40HfxidhnAkw9bOWrlHNSolOmmevhlLgknDPs1AxcnLtR
+         zjW9bJTwxIipJrzNLSw3B8z9p82GLUp4nqpGIE5a8X2bCNWBcVmiGrC2YzzjETw5ZzIL
+         FrlgQ1hd80e9wR0MMk68ZMnuUEWyltKhKz2uIVAuNd9TkgPy2MyqmkylNM84pmKOSaj+
+         On3mF+vND7peMsZyKjKNmhclyP1bCN4eu3ul/IZPts1470LJmH3Eb7niD5PdQPJrvZSS
+         s1MoyXhlP6s5wcdJnNFqR2GReNgrlYXDZAhjqFOzuMOvf1C1yxfWoQmaPJUHOuHXB+l4
+         acZg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791637552; x=1792242352; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dUgv8qU2MJmYgliXxK0C5ED2Eb+oFUrhcbBUDF3fTq8=;
-        b=M0x40FL4KT+rZ1eE5DPHbZz2soVkDOSqunJttvG3BvfheaZskhed/N3TcpA2StibVH
-         qdLaBkG+3DW1XnkucEf8+8zDtAh8QXkhk2LGYafN/GO0pePFYn04Aqoggto2EOjuCvl4
-         3bk6HUy/lB9k3W8P2awRlaWHLrUzcebPBEGnTR3YdDsetnzQqO7Ms9lTBMn1AXZYKVQI
-         O8bqMNdNSSZFkokcUp3V/q3Y6hc+Ll1ffJFhVDtHobMq8xhvp2oyRtkf3qUW4jVqOa6N
-         P9IAPSGRaAk5v0LE/Tp4yE7xEm+Wij8zjLyoNKXWOX2NArQUYYPNbb5KULb16gWle8/w
-         xqlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791637552; x=1792242352;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1791637685; x=1792242485; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dUgv8qU2MJmYgliXxK0C5ED2Eb+oFUrhcbBUDF3fTq8=;
-        b=KlBGafbhVyILnYAFlRWdBTm16j2zXiA9HfIGNShva9S7wBN9Jay8nNjIvB1l3MjBuO
-         IKHUzwEGmvchQjHk1HECE03jMq44HHCWo1j1y/SrBJKkKlFghqsLcm71Y3So2FFT1lio
-         CBS7BT051YbV3B2Q9J1GzA3VyYt16VOoKYpO5iXdAEeMxnODLhp4EFddTGs4vTWrf6/z
-         tjWNHY3OkmuYkfza80iN3q1EpoiFii4lZQOq9KGTJ1hnh4VLwYlU0erkjRQCw9UuXYtE
-         +2RbxwAHjYUOqU6eBvxUoVl0AFUnoRlfQp/m9Df4L9Nf6EOO2cUjBjj26wTAO4F2vlLV
-         wz6g==
-X-Forwarded-Encrypted: i=1; AKwUvBxm1wx9682uO/ZJ2HINEwx4VJMICucrDSN6O6uBXVs2UBwqgPepBbSear+XoSbx1PD8ei1JGcu9jkHa5o8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJWAeFtJc/hbJpd8D6uNc+oT+M/NBqm0Q002KHwS7exPxjk87qm
-	ixpzHU0Z8Mcoj/APDpxQqByH63AQRzJFRtYMykQuyAnKK/1CXrWZciFMRbv4i2QuVKAEHtiIr1A
-	1pLCD7edcbzBUvFoZNKWmq6nkXAuKs6oZajHf
-X-Gm-Gg: AYBFou0F761FlrWM+kgkyqsvFSvMGtrlN5tISbszw+yK8DgmOXoXZxro1VLHVq+YF5J
-	FPObyOPxxkkm3qRqcVrhWYCkxiNXkShSFhtxRgw2vx3bO9N1pJ6A9haGpue+ml0o3z0R+sb4r5X
-	eT6ici1MJIX1JwnzSoFYmPioX4DFZW7iGYej0U5d/Ez8lbKe940fy3wNs1b+aPg9TnpU26RO8Z/
-	PUduxxLDqNLvGpYuLROTNJi4Rx+GZJQQrQrP6Ge2PkFA3vzv3F8lnHJywJxeeQ1KQehfHxSec5t
-	Se1A0vmuwzXaS1vTCST/0s6LXm2XYzkJTHNZsuFxME33s+evOafeqBmP
-X-Received: by 2002:a05:690c:85:b0:882:31:3af9 with SMTP id
- 00721157ae682-8b07ebe12aamr14950917b3.9.1791637552107; Sat, 10 Oct 2026
- 06:05:52 -0700 (PDT)
+        bh=Peoepvw/CV4v2nNzhaOWVLf6PtcCki7ZSzzGuOeWGYs=;
+        b=GFtnxtnMvNaq4SJ1WOB/2/nknKlK/HIOBMPtnwnullEMOFW50Ww9QBWYCmB7X+EGIm
+         pSLQif0Qbv3ZdpFrntpTwOaGWMdG2C2o0JkHvV8sXZbSN4R8XnWffx3vOLx9Dwokeqbo
+         RDvwQ5hWGi4WdxmfelLKMloPxsce1/vqYNjqYxy507UttrM7ivmtQ86x9kDDa1k/sZoz
+         tAZO3IZWS6q7oTC041c3vaFT/UaYF0XMJmFX4Ni9CfgYrAWUdyoE+/YprAdKvfUG9Sy3
+         t3Cu2WHAEEx/gI2LXBurteS1cJLERNUo02TzfcKj6ZsXzVAnsbbIT/u8w9dCMfKb64iT
+         dd2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791637685; x=1792242485;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Peoepvw/CV4v2nNzhaOWVLf6PtcCki7ZSzzGuOeWGYs=;
+        b=Vg9daG4dLmjYhGCYSMMvzVPuOC68MsjoAeGhPyrbDX47bW2oXcGJCuvfqFygpFsFLe
+         ploJtyH9131YLpeywCP4/6QhbFkU+qnJqJ0fboY5x5akIf/+4dfVHYEHjqmN8M7+PZU2
+         JGYJwUCH0sEejBu9tg9lqV4aD4dmAdSCTd03CQO0V4/njEALwOHyCbOnWG1NmXMRoz+0
+         WfhpHcfXGrUnneMS67oSmmXVtwGN249FCqwVlor/mhxJPPSKLb3WykdfdMRSfOumWooF
+         gBGXXx4pfcipVJwE/ai1Av4zIR2Ex6xcorrUQ7DzvUV+Jmz6qXOy6f8c6No+fdpoisby
+         5rOw==
+X-Forwarded-Encrypted: i=1; AKwUvByIK/fTfOLnUDFjIrq/YRklEc4/iyhjQRMT+ZjZ2PlR7TkVsSGNsMkfnfD7MRiXLW/pRp+qCwfZ75tPcdI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKx6WGFKqV9Y+YqlHKDMooA/tRJyTpH7TU++Ojcug2ohMplQx3W
+	yDs/KtUofRQe6P0/URU0HSD8WwsPd/k4R4Mnur8Y/Gort6hJr3y+FOews+3tGH8GA2zDczqLY85
+	IzMtAjnQHlQ4+2REt+Eot022h4uz9zRmqLF99cA4=
+X-Gm-Gg: AYBFou0Ft+K+iTXY8Jqw2wyzvDSrVvnrBgT5B69TmUtyyz1pd7ge4f1iMTjf9vqfBj9
+	LJ5YRZNyryFuSFkDq5ZN4lP9e27c1B+62ydmq/+0QiU/Rv8rHjEKaONR4PUKwQPVRn1cqzH3KBJ
+	zg5ahdvmSZr9+BdjjN0ebmQ3YeITgC9GBBKpRQ2H/Y+jaOYf6gSxV+PTHIEMh1M0msBp5cCr2cg
+	7l+zDuCFKrx8eBGdeyLqtRaMR34s9+7dEAdrveCBUFpIZtP1VLIt+5vcuCc/kzwm+T/YWPWOsx1
+	M5fGgr69/ptG4oZJUT5aBF/m5pTGszEkZR/XxLBx1Nw4j22ytJSo3ugJBXW+mh7JPfJXLGmsa9L
+	SwxbcfuD93drHClWK7+gtm4SrqIKU3JgVjbl/fOVrWbxe
+X-Received: by 2002:a05:651c:54d:b0:3a4:8913:a259 with SMTP id
+ 38308e7fff4ca-3a9c56def06mr10678081fa.29.1791637684541; Sat, 10 Oct 2026
+ 06:08:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <6ac99eb9.6b935c14.1905ce.7c50SMTPIN_ADDED_MISSING@mx.google.com>
-In-Reply-To: <6ac99eb9.6b935c14.1905ce.7c50SMTPIN_ADDED_MISSING@mx.google.com>
-From: Luca Boccassi <luca.boccassi@gmail.com>
-Date: Sat, 10 Oct 2026 15:05:40 +0200
-X-Gm-Features: AclHuK_ZZxWO5VOmv-dijVsfp5Dirw-cleU_Ss5a_ua-hVf2p2vv9lQol9MPm7Y
-Message-ID: <CAMw=ZnTTUxO2ZCobEDTQUY7OZxmyJUQxg4DkhC9gTWXaDaK1dQ@mail.gmail.com>
-Subject: Re: Question about obtaining LUO session FD for non-systemd-managed service
-To: Chenghao Duan <duanchenghao@kylinos.cn>
-Cc: jianghaoran@kylinos.cn, avagin@openvz.org, linux-mm@kvack.org, 
-	kexec@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	systemd-devel@lists.freedesktop.org
+References: <20261007115821.11332-2-sigefriedhyy@gmail.com> <179154712848.434549.1887332518398499959@kernel.org>
+In-Reply-To: <179154712848.434549.1887332518398499959@kernel.org>
+From: Yuyang Huang <sigefriedhyy@gmail.com>
+Date: Sat, 10 Oct 2026 22:07:54 +0900
+X-Gm-Features: AclHuK-XNxBmVqaX_AVuTKFXpvUqvVpdQ0iJJw8t3L0zVc4v9El00m3OF_1B3Gs
+Message-ID: <CA+7S2v+hTzSacfnSJi4V2A-oj5woKA+0ffOA2cY1-7iC_LDX8w@mail.gmail.com>
+Subject: Re: [PATCH net-next v10 1/6] netlink: specs: rt-addr: fix the type of target-netnsid
+To: netdev-bot+sashiko@kernel.org
+Cc: ajay.kathat@microchip.com, aleksandr.loktionov@intel.com, 
+	andrew+netdev@lunn.ch, claudiu.beznea@tuxon.dev, davem@davemloft.net, 
+	dsahern@kernel.org, donald.hunter@gmail.com, edumazet@google.com, 
+	idosch@nvidia.com, jacob.e.keller@intel.com, kuba@kernel.org, 
+	johannes@sipsolutions.net, kees@kernel.org, kory.maincent@bootlin.com, 
+	kuniyu@google.com, nicolas.dichtel@6wind.com, nickgarlis@gmail.com, 
+	pabeni@redhat.com, sd@queasysnail.net, shuah@kernel.org, horms@kernel.org, 
+	sdf.kernel@gmail.com, vadim.fedorenko@linux.dev, willemb@google.com, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-wireless@vger.kernel.org, netdev@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sat, 10 Oct 2026 at 04:11, Chenghao Duan <duanchenghao@kylinos.cn> wrote=
-:
->
-> Hi Luca,
->
-> I watched your excellent presentation from the LPC conference in Prague.
->
-> I have a question I=E2=80=99d like to consult with you.
->
-> I am currently working on the `memfd_luo` feature in CRIU. My goal is to
-> leverage the LUO capability to store checkpoint images inside memfds.
-> After a kexec reboot, the image data will be retrieved directly from
-> memory instead of from disk.
->
-> Here is my pull request on the CRIU GitHub repository:
-> https://github.com/checkpoint-restore/criu/pull/3152
->
-> In the PR discussion, avagin suggested using systemd as the CRIU daemon
-> to centrally manage LUO sessions and access to `/dev/liveupdate`. I have
-> watched your talk and read parts of the systemd source code.
->
-> From my understanding, systemd currently provides a unit=E2=80=91based so=
-lution
-> where child processes can inherit LUO session file descriptors. However,
-> this approach requires the target service to run as a child of a systemd
-> unit. As far as I know, CRIU does not run as a systemd=E2=80=91managed se=
-rvice.
->
-> So my question is: for services such as CRIU that are **not systemd=E2=80=
-=91managed
-> child services**, how can they obtain LUO=E2=80=91session=E2=80=91related=
- file descriptors
-> managed by systemd?
->
-> Thank you very much for reading this email. My knowledge of systemd is st=
-ill
-> limited, so please feel free to correct me if I have misunderstood anythi=
-ng.
->
-> Thanks & best regards,
-> Chenghao Duan <duanchenghao@kylinos.cn>
+> Should this have a Fixes: tag?
 
-Hi,
-
-At some point up in the stack, everything runs as a systemd unit, so
-it's only a question of figuring out in your setup how to pass the
-FD(s) up and down the stack.
+It is working as intended, already discussed in the previous patch review.
