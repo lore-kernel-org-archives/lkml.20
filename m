@@ -1,80 +1,57 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31B5C485CE4
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 11:16:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32E4B485CE4
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 11:18:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791630988; cv=none; b=BjDNnPdDG9GfqKs9ti+z3cmhSFU2Kn+Tu+HvVDjxrQx0F5rKVHwliZAQf0Wl63K95TkbopmtzJCtCMldBTRzfBJUm2tDUUiiY84XlTSwcQgNCUgus/DTKm76R0JQPuJ6nju/WCTIx4opx7VVfhv4rjeoTOpArfoCzAD/rZtxtfU=
+	t=1791631137; cv=none; b=sme9PaELCLue26wjYCafEW0RysF4e49G7pJDatI8QbU+i53o/FuOf85Li7n8kS4lXf0UkXNGYprAgZnSNEWiFzJTPqkyx65dqEKi7vLmvHP8DeFlPM/ZEdhhHPQd7bRMJ7r0Q9bXN33rOCPnBfSIDeJ+L3B9TkaQT5PPOdi/BSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791630988; c=relaxed/simple;
-	bh=/5Oi2072IZTW9Sep4QfMQSOeOUIc6twtDr99qv5q8m4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DG1Ipi+V6i+aIWPqA2MlBni/wYJt79bOXeuDSKZOa/YL31nuwwCw4sQ8lH8d8604kaqQRXNAq6kmLAiAXGa64nwQKV3SniDclgP0NpcHEpODAB1M5tu3Y/TOlO+IKIaIv7ClfD+INfgs9xSVaFlWWcalGcwMGM2hXnGehIJ1iH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Owqr1yRj; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791631137; c=relaxed/simple;
+	bh=GtR97k52fW24BvTxl7zSOu6cuY5tK107uL87nymf4ts=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=ahdFqG44uo6hyUuuGItbRKzn5EMHuUm2tc6cZ5FFS/X4GTFDaT08gLVS6CMuugX4HSXYWyH9YJT+Dm3V53A3dOf6mJSX272pz2HkYdwgxHRSci8lxGQl7e4FCol/0p7h7XTXMLojIeIcMqBtvg0XdvabZQX4U7oqTyO85Ai+110=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=xZ0VYWq2; arc=none smtp.client-ip=115.124.30.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Owqr1yRj"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3a706146559so283656a91.2
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 04:16:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791630984; x=1792235784; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=K03SRXp+zEhkNZF4oA4RdcIxXLxbmgWgRn2FFsyVA0c=;
-        b=Owqr1yRjIJKNds3bbkiHEgLm6jD/2w8QqqI56WmpqLYPi/YRf77Xl+EyCLMbI8rML4
-         3AL01YLwEZyWkzLN0QxQ/gIO/kNCUTF60lSVpb5R6RJ8q0LOjvQIMuvA/jyNRBmsGwnz
-         kQEEswzH7NAjsaRFA1vOTzSF8iN6iPJ58PaAHqgDJWxlKFFuO2pUEElR9jPRUmnwUADF
-         ApCQZyoEQJJK0EaJR02lD7oaOlvv+GQ4MVAcVRT9IhTwbglloGx5Lv95TSyiK+lU+7si
-         uFDacXEC5RKF1mUPbjqkJySLYjypI6SseaA/ltivqxL7V/2K82olW0q2o6XU1knwjFGY
-         Z1OQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791630984; x=1792235784;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=K03SRXp+zEhkNZF4oA4RdcIxXLxbmgWgRn2FFsyVA0c=;
-        b=P3TFssMMlaV2NW2vAbhP2iEvSzgXiEBR7K+xDIDnPocy+ttWNByxtCInKNxRVDLoev
-         9nTXTY+cuuXUIU7im/zPyKyNsM1xt8vj7qrThxg6ghLCoIgV8Bh+KxyQV9jeTVdx9hZO
-         95rbi3CcQOyvZnhVtGTTKRhugNFIGPN3D1JUAcr2jqt2S+12dlNzmcScAyEy0nf5PYzK
-         t+RlMYdgHTClBhbMeNMHBDNfh21QksXkERzo/WJczPf0b6YWdYWSPQ4ikFaYMpY6w74o
-         ljiVzgYvVzlNxCAAOVIAlWXG0VWMXgSs+vyurx1MtPtbKriepqjEYe0HlQzJGWo1Dolp
-         bntw==
-X-Forwarded-Encrypted: i=1; AKwUvBzvIu/b6fu461guFjUOETwOLPOLRpCpiwKlgj26xe6oFD3CPTx8bOsJ4oxk6wRQ4tJWMBT3XYuy8Ef5rxY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIKHh8MIc49N9dg9YAiYhSE9N80ubsMcLoa1xPVtiad3bIOJfMj
-	MN+PLaXnPl5jvShbtBWXoAAZR3Sc+TXVlIHSh5uwuouBfU2BwiYEXmCS
-X-Gm-Gg: AYBFou0QGeN84HXptYn1KUozHBlmbIoshO6wfBmgPgORvR588w5hsVaAPbMk1OlS2ub
-	lviaU/cEGARkdlmheYGhn28eSRXHzqE83bKsKEyr6lVLvONsLwueBZLjaHJOxyfZyiF7XiCPI3H
-	/4rbAPI341v2A7z4Dt72pQamEKWt+9Oa2xai/sXdKK8gEvt++P5SZNdP5H4qmU1y0l98nPsLlc3
-	MrVrgGC5BmuBkCTyb/u0SyylQbsQQJX3AMexvTC/pEX13R/CyANi4w5+BGg75hYVW+9xnLhNxRP
-	QzYcjDbFmehMXzm1UxZYmfg/jy14zTFQu/oJb3z9ujkGhuoPYKYtrZA8yKVKeZ0mUMQtJ+TMrEc
-	VW4apHfvjJOSA3Db2/6YQGLszJWYr2drM8hWNYKejunPCgavj0Mp9vhlkt/U22CQR+3WXDCsIzV
-	WQv+KNMDQSdkxXmJVSzouJdaGqcBKYgDVZzG1VW8B3fTj4a7QSjeRGj/iL0VcPtKJVidRLIA==
-X-Received: by 2002:a17:90b:4d85:b0:3a4:c946:9f4e with SMTP id 98e67ed59e1d1-3ab3acdc386mr3626687a91.58.1791630984205;
-        Sat, 10 Oct 2026 04:16:24 -0700 (PDT)
-Received: from localhost.localdomain ([2a05:dfc1:8bc4:feda::10])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36ca1e04sm8054932a91.1.2026.10.10.04.16.18
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 10 Oct 2026 04:16:22 -0700 (PDT)
-From: Jemmy Wong <jemmywong512@gmail.com>
-To: Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Tim Chen <tim.c.chen@linux.intel.com>
-Cc: Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Chen Yu <yu.c.chen@intel.com>,
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="xZ0VYWq2"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1791631122; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=uj4FOYScpotQbXUx+KxSCAB7RY2odrIAyrg6q0KBZbw=;
+	b=xZ0VYWq2c9ktXWkvPzaMwb7zWyaheGwHl9LUpV610Nb20GO8+KGT8Bk6EBSLUOfMB6mTpZM18ufr+8PnEXWkw73soZ7xq1m2bC4uPWKC2rTGVnop03ziCt4f/kCTwy4myPXeHie2RUrnpuOn/P5kdu/F3e0qEo32PUr1xaECB4Y=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=20;SR=0;TI=SMTPD_---0XCVxUq2_1791631118;
+Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XCVxUq2_1791631118 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Sat, 10 Oct 2026 19:18:40 +0800
+From: fangyu.yu@linux.alibaba.com
+To: gong.shuai@sanechips.com.cn
+Cc: alex@ghiti.fr,
+	andrew.jones@oss.qualcomm.com,
+	aou@eecs.berkeley.edu,
+	fangyu.yu@linux.alibaba.com,
+	gsh517025@gmail.com,
+	guoren@kernel.org,
+	iommu@lists.linux.dev,
+	jgg@nvidia.com,
+	jgg@ziepe.ca,
+	joro@8bytes.org,
+	kvm-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Jemmy Wong <jemmywong512@gmail.com>
-Subject: [PATCH v2] sched/cache: Remove the old cache group footprint on exec
-Date: Sat, 10 Oct 2026 19:16:12 +0800
-Message-ID: <20261010111612.31345-1-jemmywong512@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	linux-riscv@lists.infradead.org,
+	palmer@dabbelt.com,
+	pjw@kernel.org,
+	robin.murphy@arm.com,
+	tomasz.jeznach@linux.dev,
+	will@kernel.org,
+	zong.li@sifive.com
+Subject: Re: [RFC PATCH 1/3] iommu/riscv: Add guest IMSIC GPA mapping helpers
+Date: Sat, 10 Oct 2026 19:18:37 +0800
+Message-Id: <20261010111837.15424-1-fangyu.yu@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <202610090853.6998rsRH081065@mse-db.zte.com.cn>
+References: <202610090853.6998rsRH081065@mse-db.zte.com.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,138 +60,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Exec replaces the task's cache group before resetting its NUMA fault
-statistics, but only the exit path subtracts the task's contribution
-from the old group's footprint.
+>Hi Fangyu,
+>
+>> From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+>>
+>> IOMMU implementations without the MSI_FLAT capability translate MSI
+>> writes through the second-stage page table, so IRQ forwarding on them
+>> will need guest IMSIC pages mapped into the second-stage domain.
+>>
+>> Add an xarray to the MSI table that tracks the HPA installed for each
+>> mapped guest IMSIC GPA, and two helpers for use with the MSI table lock
+>> held: riscv_iommu_msi_table_map_gpa() installs the initial 4 KiB
+>> mapping, and riscv_iommu_msi_table_replace_gpa_leaf() atomically swaps
+>> the leaf PTE's PFN when a vCPU's VS-file host page moves, rejecting
+>> leaves that do not map the expected old HPA.
+>>
+>> Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+>> ---
+>>  drivers/iommu/riscv/iommu.c | 94 +++++++++++++++++++++++++++++++++++++
+>>  drivers/iommu/riscv/iommu.h | 12 +++++
+>>  2 files changed, 106 insertions(+)
+>>
+>> diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
+>> index e2e77469ea3c..48fc57d6409c 100644
+>> --- a/drivers/iommu/riscv/iommu.c
+>> +++ b/drivers/iommu/riscv/iommu.c
+>> @@ -24,6 +24,7 @@
+>>  #include <linux/moduleparam.h>
+>>  #include <linux/mutex.h>
+>>  #include <linux/pci.h>
+>> +#include <linux/pgtable.h>
+>>  #include <linux/generic_pt/iommu.h>
+>>
+>>  #include "../dma-iommu.h"
+>> @@ -1217,6 +1218,92 @@ void riscv_iommu_msi_table_inval_all(struct riscv_iommu_msi_table *msi_table)
+>>  	riscv_iommu_iotlb_inval(domain, &gather);
+>>  }
+>>
+>> +int riscv_iommu_msi_table_map_gpa(struct riscv_iommu_msi_table *msi_table,
+>> +				  dma_addr_t gpa, phys_addr_t hpa)
+>> +{
+>> +	struct riscv_iommu_domain *domain =
+>> +		container_of(msi_table, struct riscv_iommu_domain, msi_table);
+>> +	const int prot = IOMMU_WRITE | IOMMU_NOEXEC | IOMMU_MMIO;
+>> +
+>> +	/* Guest IMSIC GPA mapping only exists in second-stage translations. */
+>> +	if (!domain->gscid)
+>> +		return -EOPNOTSUPP;
+>> +
+>> +	return iommu_map(&domain->domain, gpa, hpa, IMSIC_MMIO_PAGE_SZ, prot,
+>> +			 GFP_ATOMIC);
+>> +}
+>> +
+>> +int riscv_iommu_msi_table_replace_gpa_leaf(struct riscv_iommu_msi_table *msi_table,
+>> +					   dma_addr_t gpa, phys_addr_t old_hpa,
+>> +					   phys_addr_t new_hpa)
+>
+>
+>This might fit better inside generic_pt rather than in the driver,
+>since it walks the page tables on its own and duplicates things
+>the library already owns, like the per-level index widths, the
+>x4 root size, and the PTE layout.
+>
+>I recently tried something very similar, and doing this inside
+>generic_pt turned out to be quite feasible (only a quick experiment,
+>not cleaned up for posting).
+>
 
-Although de_thread() removes other members of the executing task's
-thread group, tasks sharing the mm through CLONE_VM without CLONE_THREAD
-(e.g., vfork()) can retain the old mm and cache group. The executing
-task's contribution then remains without further updates or decay,
-potentially suppressing cache-aware aggregation through the LLC
-capacity check.
+Hi Shuai,
 
-A vfork child rarely accumulates NUMA faults before exec because NUMA
-scanning starts late. The issue mainly concerns longer-lived CLONE_VM
-tasks that accumulate NUMA faults and later exec. This issue was found
-by code inspection, not a workload reproducer.
+Thanks for the review. I agree the driver shouldn't carry format
+knowledge that belongs to the library, but I think this particular
+operation doesn't fit generic_pt.
 
-Factor the existing footprint subtraction into a helper and use it when
-leaving a cache group on both exec and exit. Subtract before dropping the
-old group reference, preserving the existing underflow protection.
-Document that exec must subtract the contribution before
-task_numa_free() resets p->total_numa_faults.
+This is not a generic page-table operation. It is a special
+requirement of RISC-V IOMMU IRQ forwarding (irqbypass) on
+implementations without an MSI page table: the guest IMSIC GPA
+must be mapped into the second-stage domain, and when a vCPU's
+VS-file host page migrates, its leaf must be replaced atomically.
+Because a device may write an MSI at any moment, unmap + map
+would fault. This operation is driven by the IRQ forwarding
+state machine, and because I don't see another generic_pt format
+sharing this flow, I think these helpers would be better placed
+outside generic_pt. I plan to move them into iommu-ir.c so the
+feature-scoped code stays together.
 
-Fixes: b636fef85bda ("sched/cache: Introduce task_struct->sched_cache_grp to fix UAF")
-Signed-off-by: Jemmy Wong <jemmywong512@gmail.com>
-Reviewed-by: Tim Chen <tim.c.chen@linux.intel.com>
+Thanks,
+Fangyu
 
----
-
-v1: https://lore.kernel.org/all/20261009151215.62878-1-jemmywong512@gmail.com/
-
-Changes in v2:
-- Mention vfork() and that a vfork child rarely accumulates NUMA faults
-  before exec. The leak mainly matters for longer-lived CLONE_VM tasks.
-  Note that this was found by code inspection.
-- Add a Fixes: tag.
-- Comment that footprint subtraction must stay ahead of task_numa_free()
-  in bprm_execve(), and that nothing enforces that order.
-- Add Reviewed-by: Tim Chen.
-
- kernel/sched/fair.c | 55 +++++++++++++++++++++++++++------------------
- 1 file changed, 33 insertions(+), 22 deletions(-)
-
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 57360f5cdde4..719a3fc3651f 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -1771,6 +1771,25 @@ void sched_cache_fork_cleanup(struct task_struct *p)
- 	RCU_INIT_POINTER(p->sched_cache_grp, NULL);
- }
-
-+static void sched_cache_footprint_sub(struct sched_cache_group *grp,
-+				      struct task_struct *p)
-+{
-+#ifdef CONFIG_NUMA_BALANCING
-+	/*
-+	 * Remove this task's contribution when it leaves the group, either
-+	 * through exit or exec. Other thread groups sharing the old mm can
-+	 * keep the group alive after exec resets this task's NUMA statistics.
-+	 * Unlocked for performance; clamp to avoid underflow.
-+	 */
-+	if (grp && p->total_numa_faults) {
-+		unsigned long fp = READ_ONCE(grp->footprint);
-+		unsigned long sub = min(fp, p->total_numa_faults);
-+
-+		WRITE_ONCE(grp->footprint, fp - sub);
-+	}
-+#endif
-+}
-+
- void sched_cache_exec_mmap(struct task_struct *p, struct mm_struct *mm)
- {
- 	struct sched_cache_group *old;
-@@ -1778,8 +1797,13 @@ void sched_cache_exec_mmap(struct task_struct *p, struct mm_struct *mm)
- 	/*
- 	 * Acquire the new reference before publishing the pointer, then drop
- 	 * the old one. @p is current and the only writer of its own pointer.
-+	 *
-+	 * Footprint subtraction must stay ahead of task_numa_free() in
-+	 * bprm_execve(), which clears p->total_numa_faults. Nothing here
-+	 * enforces that order.
- 	 */
- 	old = sched_cache_replace_grp(p, sched_cache_group_get(mm->sched_cache_grp));
-+	sched_cache_footprint_sub(old, p);
- 	sched_cache_group_put(old);
- }
-
-@@ -1787,19 +1811,7 @@ void sched_cache_exit_mm(struct task_struct *p)
- {
- 	struct sched_cache_group *grp = sched_cache_replace_grp(p, NULL);
-
--#ifdef CONFIG_NUMA_BALANCING
--	/*
--	 * Subtract this task's footprint from the group before dropping the
--	 * reference, so the group footprint converges as its threads exit.
--	 * Unlocked for performance; clamp to avoid underflow.
--	 */
--	if (grp && p->total_numa_faults) {
--		unsigned long fp = READ_ONCE(grp->footprint);
--		unsigned long sub = min(fp, p->total_numa_faults);
--
--		WRITE_ONCE(grp->footprint, fp - sub);
--	}
--#endif
-+	sched_cache_footprint_sub(grp, p);
- 	sched_cache_group_put(grp);
- }
-
-@@ -3975,16 +3987,15 @@ static void task_numa_placement(struct task_struct *p)
- 			 * sharing this mm. Acceptable since footprint is a
- 			 * heuristic and occasional lost updates are tolerable.
- 			 *
--			 * If a task exits, its corresponding footprint must
--			 * be subtracted from p->sched_cache_grp->footprint,
--			 * otherwise the footprint will not converge: the
--			 * exiting thread's footprint remains unchanged/undecayed.
--			 * See exit_mm().
-+			 * If a task leaves its cache group through exit or exec,
-+			 * its contribution must be subtracted from the old group's
-+			 * footprint. Otherwise, that contribution remains
-+			 * unchanged/undecayed while other tasks keep the group alive.
-+			 * See sched_cache_footprint_sub().
- 			 *
--			 * Lost updates and unsynchronized subtraction
--			 * in exit_mm() can cause footprint + diff to
--			 * go negative. Clamp to zero to prevent the
--			 * unsigned footprint from wrapping.
-+			 * Lost updates and unsynchronized subtraction on exit or
-+			 * exec can cause footprint + diff to go negative. Clamp
-+			 * to zero to prevent the unsigned footprint from wrapping.
- 			 */
- 			scoped_guard(rcu) {
- 				grp = rcu_dereference(p->sched_cache_grp);
---
-2.54.0 (Apple Git-157)
-
+>Thanks,
+>Shuai
