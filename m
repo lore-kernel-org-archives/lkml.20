@@ -1,58 +1,58 @@
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CA573AF674
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:35:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C06AE2989B5
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:35:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791621317; cv=none; b=ew83kqz982p7m4OTC9kAdBquieCoFCwiG8VKkWaw2hLomA1JqDOBrCRg5r7XojVrfyl0zfSVMqFwvKfpv/AtOIf9BCotkBSm7VVskPZTBEeo60fcx58JdCAAo8El9QExMDmQ6BIg9mBIFk/Ef8Qzsfuhek2sRbv0YPYDsgrCLgE=
+	t=1791621321; cv=none; b=KAtecAZMIdJaS5XC4r7/73WqpwE2PB7eEeKTSl6iB8HZymil1mwcRVF/kbBwP60FVJNzYOTueyi2ryHq1hWsmaG5aBSUJFtg1NdYAIW8whnYr2wblXMcRxgk+UsL917OEMAkLs0Pg70AsM8+ctwZzLtKkEApWNGQOeY+I++fWIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791621317; c=relaxed/simple;
-	bh=UXN9VOFvMq7+7VebCjYri7BEGJJ1i9z2lzXas/g8iW4=;
+	s=arc-20240116; t=1791621321; c=relaxed/simple;
+	bh=1kRF5VOmfeAPBhGf6I8e3OR35yHYRa7vHOBMANSzLvo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CuS11hSPRLTln+k7R1ynEUd+TIn4lxtpxoyRbxeh1DF9B12ORCZcYA/JmIqlnwbskmLT/rOXRYeGkjjtRCv9J3FVQklGMESf2mAgl2pkeGCm3TG7jsY3/bz6hhB4UkPbRkzh/8V/aybtzX43IavxwiiGpGbyOO9WIksxSdhynGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=aayushk.dev; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.82.178
+	 MIME-Version; b=KgnMtm11qC4HYdYcRoVIt8/7/bROD0lEmWSf6JSWDNE+q6vSGm2R2wzo318Sf2ePT+i2x5XFuWdappVXHoQQBz6WSCMmWxR3S+DwZWIuhfGJuR+243XIevI9tVDL13uUTdIMAJPku8VrFL4uxkrDc7tDM7QqOrX0QZ7iRZGgK7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=aayushk.dev; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.82.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=aayushk.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-351767ef18cso1464607eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 01:35:15 -0700 (PDT)
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-33c2520ad38so949736eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 01:35:18 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791621315; x=1792226115;
+        d=1e100.net; s=20260707; t=1791621318; x=1792226118;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SfwL6+ph0bSPFTbhiSeYF7NW6xzqMXdnkaVOG+wTVF4=;
-        b=LPITnV47fWMW8ie+6FcIDppfZRRgilM97MRoFEwRLrwL/tuh/7b6f5pYsgv6rWgqLE
-         Vbf8LW4hC37AK2+oM8TmOBaef04egYRZHw7RvzY7U8xsNspm8Zoa/klyufUN5bYyR98I
-         ibHG/DxtEFZhNWgdPEhXmoSlGXZfwL5laisyHVaDt3JedbyrgzfL1nYhx3eBM/+r36xP
-         P6CNkAGtI1FmT/Oc5UFkYJP6zxTvCKomJQ4GHrPrPQUgMwjGMcruVEjqVb99bm/H6/1H
-         Mz88svUAE7zSiix5J57bQ/S2jj2xQJKn6BKNB1dA8hwW10ypMPjz6Kj9pfl6FcJDe2Vb
-         Q3ew==
-X-Forwarded-Encrypted: i=1; AKwUvBzLIv+DnJheoQjKqjiWMt4F2B1LBX44UuQCDNIyyLkU4EQf9uqRZcLpSlpKAWoSsupulxEMdJeERik08J0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLSOfJ9Xuk/iTpNLsTv4x2HYvDrpbx2SsWSSevRKVN2+ki44zSx
-	QQKukxz+xgeCI40B0Utb1dxOwnGHesQFRv8JJXydI2ilOk3WyPYpFxlk
-X-Gm-Gg: AYBFou1sPO85NXxEsXqB7GdyWSI6mIqkcneDg0I65v5+4yCndQlzJoPus8c+rUyjiTx
-	ZXbz3OWOx9y84My7ykvomdn4BvHu9p/sj3VvXW6XMmqjrSpBnyl9E0J7M54cKtfKy61Nf/qkgiB
-	hSWt2z4qNMsoT8fZeAKsH3SIt7dVjmd1j5+EZAdnEIHQ+kDyzBKPHuui8CPHhXx0OprHru5f9Yx
-	fb/l++Fjo5fTpep7Uk0QQsBwzT69NEVPtK+AcWvyhvGDMqlGrub0S5SuOJymsSKinkM1B5fzjHn
-	Tay3quF4TjK6D4YTZk5N/VxPYGoz3yUBvDxJSV2K/Yqa71sQ5iiETfKPfxlABU3MTp9ohf7OFov
-	+8UhDlZiJn65fEK8ghhXA7gvgj4FUHnIRFwJin8Vgj5wbg1DwaBJUNoXD+GPqIeUC75WP6cwWA0
-	Fh9G4vOxGPtMnHmTk+4Vs2ETlRcNFAdu/W2bdupcrztYyyueLaNuDcsM3322kIHH8JD0E9w3U=
-X-Received: by 2002:a05:7301:9f0e:b0:353:417e:aad3 with SMTP id 5a478bee46e88-3537e069fa1mr7792003eec.33.1791621314998;
-        Sat, 10 Oct 2026 01:35:14 -0700 (PDT)
+        bh=vd6PvYub55DkYTK4Z2RMOKatSjX+x4KShfXJLN8v41I=;
+        b=Y/t7ztiA5BpK+M6hLOQo1jiLKApECkUqka6XvJ8Fw/q/PlCPuNZuBuxFOuXLLs4zXf
+         eShivEUeB/Lj842Lc0wS/+cEjQDIgf6yoe0zbJrAu5i6+KMbq00VaLV4QwNuo5+OYj44
+         ngAyvzIeM6QiyqL43K9Hy+uOSaSpNS246ef5IdXXKNPIUaBgpPwrA41rpnn9gaH1szOY
+         9KJPYdkcCw61pwUZrishgCjznP/zH/2IiawllFsBCUPwLQ5np8dL+tQ4l2FOKW0WQzgq
+         gd2m5XYzkUIvhwhUvt+hQX3lVARg4UyXT+gm3+hSP0BiIEhXkMuH7EKpC//kjBkNTDJL
+         TMIw==
+X-Forwarded-Encrypted: i=1; AKwUvByk8ip6U6rWnSq3OlvYGGcTdXRe2H0gBjpdNLemLAg25rgCu1FfVroqe+jZBtppYvm1JaX76n6dPuVEC0o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ0n/qmjoZCj/bFAnUdXLEchJvjHbknYp7YDjQpxUu+YJqhFsEc
+	MQH3zFmKWLQjiRBnlbPj2YIbKfiPYfOaA7K3xVK4WaN2bof+z2V6OJXj
+X-Gm-Gg: AYBFou2Ba7d7pnlS5Z50O0B5nUBhtwK/U5XzGekGoqGBySo/qLyocEkzaKIGjyjowVq
+	givp3eMnc/qGtR8VT/50r3tpWYc6AwNFa7T15L0lQhdOCdMVm0S6rBg/YScGC8KHtCQFnSfQTg3
+	4urgYwqEc3/V6YLjP98JxSLYKlEY5fQL2kxo+u6fvz4+s3uQPEBRwLi8+5ePTK3wVT7wHKek7fS
+	a7SPB98ZnTjwZZy9ndJcAnL4xI96SzmO3GojzZJhSKh9dHHWGLpj/klmLJABy86nKCcK4URzTXg
+	gBY8zSpiThD/Ci+gPw4NSm6lzt/FN9VtWBoTiAxZ0iMjRJEYt1eJboMin+/UI72SKyIcP+UgHrE
+	6bvLgiAHbGevZ/vkMwsIHDQq1/CzbnBlJ1B7i7/Wkgzq1LH1yYEtzNItRCr2ok4O3vGFWwtDvt3
+	DJxqiQJRi5G8JMnBH9+M8Wl/jqp2FaeL02Eovqil8IUH9FIx5eUZMRaHIB398=
+X-Received: by 2002:a05:7301:1629:b0:356:9345:9da6 with SMTP id 5a478bee46e88-3569345a800mr3369002eec.2.1791621317730;
+        Sat, 10 Oct 2026 01:35:17 -0700 (PDT)
 Received: from linmach ([182.156.30.23])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c841579sm12689858eec.4.2026.10.10.01.35.12
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c841579sm12689858eec.4.2026.10.10.01.35.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 01:35:14 -0700 (PDT)
+        Sat, 10 Oct 2026 01:35:17 -0700 (PDT)
 From: Aayush Kumar <code@aayushk.dev>
 To: Mark Brown <broonie@kernel.org>
 Cc: David Laight <david.laight.linux@gmail.com>,
 	linux-spi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Aayush Kumar <aayushkmx@gmail.com>
-Subject: [PATCH v2 1/3] spi: tle62x0: Use kstrtoul() instead of simple_strtoul()
-Date: Sat, 10 Oct 2026 14:05:02 +0530
-Message-ID: <20261010083504.26261-2-code@aayushk.dev>
+Subject: [PATCH v2 2/3] spi: omap2-mcspi: Use snprintf() instead of sprintf()
+Date: Sat, 10 Oct 2026 14:05:03 +0530
+Message-ID: <20261010083504.26261-3-code@aayushk.dev>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261010083504.26261-1-code@aayushk.dev>
 References: <20261010083504.26261-1-code@aayushk.dev>
@@ -66,32 +66,31 @@ Content-Transfer-Encoding: 8bit
 
 From: Aayush Kumar <aayushkmx@gmail.com>
 
-Use the recommended kstrtoul() instead of the deprecated
-simple_strtoul(). Check the return value and reject invalid values.
+Use snprintf() instead of sprintf() to avoid potential buffer
+overflows when formatting DMA channel names.
 
 Signed-off-by: Aayush Kumar <aayushkmx@gmail.com>
 ---
- drivers/spi/spi-tle62x0.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/spi/spi-omap2-mcspi.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/spi/spi-tle62x0.c b/drivers/spi/spi-tle62x0.c
-index dd8bfb3f3..986d78ab4 100644
---- a/drivers/spi/spi-tle62x0.c
-+++ b/drivers/spi/spi-tle62x0.c
-@@ -151,10 +151,10 @@ static ssize_t tle62x0_gpio_store(struct device *dev,
- 	struct tle62x0_state *st = dev_get_drvdata(dev);
- 	int gpio_num = to_gpio_num(attr);
- 	unsigned long val;
--	char *endp;
-+	int ret;
+diff --git a/drivers/spi/spi-omap2-mcspi.c b/drivers/spi/spi-omap2-mcspi.c
+index a3355147f..311ee0ca9 100644
+--- a/drivers/spi/spi-omap2-mcspi.c
++++ b/drivers/spi/spi-omap2-mcspi.c
+@@ -1544,8 +1544,10 @@ static int omap2_mcspi_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
  
--	val = simple_strtoul(buf, &endp, 0);
--	if (buf == endp)
-+	ret = kstrtoul(buf, 0, &val);
-+	if (ret)
- 		return -EINVAL;
+ 	for (i = 0; i < ctlr->num_chipselect; i++) {
+-		sprintf(mcspi->dma_channels[i].dma_rx_ch_name, "rx%d", i);
+-		sprintf(mcspi->dma_channels[i].dma_tx_ch_name, "tx%d", i);
++		snprintf(mcspi->dma_channels[i].dma_rx_ch_name,
++			 sizeof(mcspi->dma_channels[i].dma_rx_ch_name), "rx%d", i);
++		snprintf(mcspi->dma_channels[i].dma_tx_ch_name,
++			 sizeof(mcspi->dma_channels[i].dma_tx_ch_name), "tx%d", i);
  
- 	dev_dbg(dev, "setting gpio %d to %ld\n", gpio_num, val);
+ 		status = omap2_mcspi_request_dma(mcspi,
+ 						 &mcspi->dma_channels[i]);
 -- 
 2.56.0
 
