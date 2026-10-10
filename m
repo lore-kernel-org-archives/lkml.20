@@ -1,36 +1,36 @@
-Received: from e234-50.smtp-out.ap-northeast-1.amazonses.com (e234-50.smtp-out.ap-northeast-1.amazonses.com [23.251.234.50])
+Received: from e234-56.smtp-out.ap-northeast-1.amazonses.com (e234-56.smtp-out.ap-northeast-1.amazonses.com [23.251.234.56])
 	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B2EB43785C;
-	Sat, 10 Oct 2026 16:57:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.251.234.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DC083BE163;
+	Sat, 10 Oct 2026 16:57:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.251.234.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791651467; cv=none; b=ldvvUhRNqxhD++x3KJENklZzbejUO7/9up6f4QuCaBNKjZknPRrm6/m2NPcg0ZUWFxzH5/iaEM2La/TU0fvA9+QFPh4Un/pmuDygXAlN6SXLE8o391llQSDFXvt/ynCZ08EmSrbUI6MSW6xwcTDiFPPVPPeMg8xKSa3wTX+xaPE=
+	t=1791651472; cv=none; b=EHpnwi5vMEsCHM+BhPt1KJrPWK7JzqhWuDBLRdwwIQSWmUfQOGc/r1zIpQzyNUk9eGlaw80EfwfsyCpY65MauNFnGBZmCky12HdgkkOlmZGiGRpLnaziRvObgy4SzPp6lowTLnvM2hF0jLOlB8GLHVc7AiOrpcGyj0QeshzIBG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791651467; c=relaxed/simple;
-	bh=aksgV1pX7hZ75DsQ7q58lK5Wc84k8iWogcZMZ1IW2mM=;
+	s=arc-20240116; t=1791651472; c=relaxed/simple;
+	bh=kXbIf5/9xYmnmT6dcocndnvXtyd4N64Gcj+PHJdrnls=;
 	h=In-Reply-To:From:To:Cc:Subject:Message-ID:Date:MIME-Version:
-	 Content-Type; b=risRYiHSAc7XHkNysGETgrVr9ETHx+rUvKN8qdkPSTJt4PoOWl2MqprhCY7sJ2DLgbRdAlLG0TGiaIpu42rTB+ezZ4j5oDStnKxWw44qTi7WGrdaKrxM5Dgpfel4yrn8T3vFt2ZLMJEhvzO2/r/24Eoh4men3CitZeRHtI0Sq1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz; spf=pass smtp.mailfrom=send.fqwqf.xyz; dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b=Ok3+472x; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=q8k61AG2; arc=none smtp.client-ip=23.251.234.50
+	 Content-Type; b=ZQbpfQejFjMHaE1mpqaLkRPZwNTcdjAvc/Mhifw9MW8A1xtm/37PuNY7keJpSVik5sZbxrWEiYeTMjhhlbhT7XPc1T3sat5OMttLrC+Yjgg/G8LVBvcc7y5yVJlbgr6ies2TupQtzAY6OJyXYhtqfkOq2gOkku76bjZoV/ceAUs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz; spf=pass smtp.mailfrom=send.fqwqf.xyz; dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b=gQvWL9OO; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=FJ8W8NYh; arc=none smtp.client-ip=23.251.234.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.fqwqf.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b="Ok3+472x";
-	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="q8k61AG2"
+	dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b="gQvWL9OO";
+	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="FJ8W8NYh"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
-	d=fqwqf.xyz; t=1791651464;
+	d=fqwqf.xyz; t=1791651470;
 	h=In-Reply-To:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
-	bh=aksgV1pX7hZ75DsQ7q58lK5Wc84k8iWogcZMZ1IW2mM=;
-	b=Ok3+472xoXFQJZmMIBydn6FiCvdjsYxKUneE2/Tp3S1EOcwM31x+97wu6KTrFE6V
-	lRnPk9VMJgiKvBYGH4zTF4NJu1D3zZY7r/pxDZo2Ew8LOWFaM9PBcs+pO0Ng13WbSql
-	PESMlCTUhj6pl54LKVEx8p9XA7t/0ygF2RBv+ThQ=
+	bh=kXbIf5/9xYmnmT6dcocndnvXtyd4N64Gcj+PHJdrnls=;
+	b=gQvWL9OOAB2qh/hHv9D+NjSzchNmhUajfCHbmmSk03Tl8yySkdzK9bwYDWGDAx5L
+	a3kNZJd3jBa8YNvid5x2snqtGaB8noXHMONFo532vJGapFH4q5+vWHpDBg65zOld3KS
+	HnmFHckK8ZI2g6YI/TIMtx3jF6PjAcwvAjiBTcAg=
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1791651464;
+	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1791651470;
 	h=In-Reply-To:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
-	bh=aksgV1pX7hZ75DsQ7q58lK5Wc84k8iWogcZMZ1IW2mM=;
-	b=q8k61AG27fpaLxmE7a80Ga+K8beKzjuJgV9z8oeJ7uNOhYnLM5FnpKQOIW1EVPKA
-	8OJ/l2i2KCZzufJahliRaZTs+t4/WfVxKREnAOIoibBlbsKifzdvAgUDvPzYiXGr2TU
-	heIpGQdqRCRy/nip/yKEbLurrmxZKWaifBriKilU=
+	bh=kXbIf5/9xYmnmT6dcocndnvXtyd4N64Gcj+PHJdrnls=;
+	b=FJ8W8NYhpZZXwS04P/XZVs/BOq40ZznP2NW3qexJBhUq/2F2WBNVi0djwWI8Up1x
+	xduIY/NKJf8W3NVJ25JVthlrwP5BhUKRuIeV4sK+se363V/tKXcgrOuXrz4OKvyaB2W
+	5cdnERYVBDfMEvSJlQr8T3JwOhlMaK/vjMGb5YJ0=
 In-Reply-To: <20261010165732.43465-1-fqwqf@fqwqf.xyz>
 X-Mailer: git-send-email 2.53.0
 From: fQwQf <fqwqf@fqwqf.xyz>
@@ -40,11 +40,11 @@ Cc: jikos@kernel.org, bentiss@kernel.org, dmitry.torokhov@gmail.com,
 	daleyo@gmail.com, broonie@kernel.org, linux-spi@vger.kernel.org, 
 	devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
 	conor+dt@kernel.org
-Subject: [RFC PATCH 1/6] HID: spi-hid: isolate DMA transfers from protocol
- buffers
-Message-ID: <010601a126bfc294-77d164c8-ffab-4893-9e80-ef000188ca3d-000000@ap-northeast-1.amazonses.com>
+Subject: [RFC PATCH 4/6] dt-bindings: input: describe the Romulus13 QSPI
+ touchpad
+Message-ID: <010601a126bfdb39-6c28068c-cb45-4a6f-873f-99f26b812505-000000@ap-northeast-1.amazonses.com>
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 10 Oct 2026 16:57:43 +0000
+Date: Sat, 10 Oct 2026 16:57:50 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,143 +53,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Feedback-ID: :1.ap-northeast-1.6BGMgStFQE7EJYq5syaCRzdneEHVt/+DAaGDrqUmDs9QLO4/SllUBZ3fHvnZ8rcAX/3IjUyTRgi5JFZsWrikFHwlPJqCkqEMlxDFM4JXh+ycxH/J5Tudg5bGdz6h4331g1L1EFsGR8kuYNfGLsrxz4Nym4YXoPcZxeVkrHry4Zx21n8vEVLEjc7s+OCM8PU9:1.ap-northeast-1.DTXDV/V9GPBWozcllKo8innbNB2qs2O/3F8XZSzd9ZM=:AmazonSES
-X-SES-Outgoing: 2026.10.10-23.251.234.50
+X-SES-Outgoing: 2026.10.10-23.251.234.56
 
-The body starts four bytes into the input buffer. Receiving DMA directly
-into it can share a cache line with the header and does not meet
-controllers that require aligned DMA buffers. Use separate aligned TX
-and RX regions under io_lock, and copy received data only after a
-successful transfer. Keep protocol parsing buffers away from streaming
-DMA.
-
-Overallocate the managed storage and align the DMA view explicitly to
-ARCH_DMA_MINALIGN, keeping the allocation base for realloc/free. Publish
-the new transfer capacity only after allocation succeeds.
+Describe the fixed-address HID-over-SPI touchpad on Surface Laptop 7
+13.8-inch, with quad address/data transfers, an active-low reset and a 5
+V supply.
 
 Signed-off-by: Jizhou Tong <fqwqf@fqwqf.xyz>
 ---
- drivers/hid/spi-hid/spi-h=
-id-core.c | 33 ++++++++++++++++++++++++------
- drivers/hid/spi-hid/spi-hid-=
-core.h |  3 +++
- 2 files changed, 30 insertions(+), 6 deletions(-)
+ .../input/microsoft,romulus13-touchpad.yaml   | 86 +++++++++++++++++++
+ 1 file changed, 86 insertions(+)
+ create mode 100644 =
+Documentation/devicetree/bindings/input/microsoft,romulus13-touchpad.yaml
 
-diff --git a/drivers/hid/spi-hid/spi-hid-core.c b/drivers/hid/spi-hid/spi-h=
-id-core.c
-index 0046dfdd82677bb55c5a0b6742cdfaa8fec224c6..=
-65a1cd2c72e8025f50a188e17afd2fa5b359abb1 100644
---- =
-a/drivers/hid/spi-hid/spi-hid-core.c
-+++ b/drivers/hid/spi-hid/spi-hid-core=
-.c
-@@ -193,14 +193,19 @@ static void spi_hid_populate_output_header(u8 *buf=
-,
- static int spi_hid_input_sync(struct spi_hid *shid, void *buf, u16 =
-length,
- 			      bool is_header)
- {
-+	u8 *rx =3D shid->xfer_buf + =
-ARCH_DMA_MINALIGN;
- 	int error;
-=20
--	shid->input_transfer[0].tx_buf =3D =
-is_header ?
--					 shid->read_approval_header :
--					 =
-shid->read_approval_body;
-+	if (length > shid->xfer_size - =
-ARCH_DMA_MINALIGN)
-+		return -EMSGSIZE;
+diff --git a/Documentation/devicetree/bindings/input/microsoft,=
+romulus13-touchpad.yaml b/Documentation/devicetree/bindings/input/microsoft=
+,romulus13-touchpad.yaml
+new file mode 100644
+index =
+0000000000000000000000000000000000000000..88e4664c56e7fb1c3f9f5949a3ded2f9d=
+7070604
+--- /dev/null
++++ b/Documentation/devicetree/bindings/input/microso=
+ft,romulus13-touchpad.yaml
+@@ -0,0 +1,86 @@
++# SPDX-License-Identifier: =
+(GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.=
+org/schemas/input/microsoft,romulus13-touchpad.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+	memcpy(shid->xfer_buf, =
-is_header ? shid->read_approval_header :
-+					 shid->read_approval_body,
-+	       SPI_HID_READ_APPROVAL_LEN);
-+	shid->input_transfer[0].tx_buf =3D =
-shid->xfer_buf;
- 	shid->input_transfer[0].len =3D SPI_HID_READ_APPROVAL_LEN=
-;
-=20
--	shid->input_transfer[1].rx_buf =3D buf;
-+	shid->input_transfer[1].=
-rx_buf =3D rx;
- 	shid->input_transfer[1].len =3D length;
-=20
- 	spi_message_init_with_transfers(&shid->input_message,
-@@ -219,6 +224,7 @@ static int spi_hid_input_sync(struct spi_hid *shid, =
-void *buf, u16 length,
- 		return error;
- 	}
-=20
-+	memcpy(buf, rx, length);
- 	return 0;
- }
-=20
-@@ -226,7 +232,11 @@ static int spi_hid_output(struct =
-spi_hid *shid, const void *buf, u16 length)
- {
- 	int error;
-=20
--	error =3D spi_write(shid->spi, buf, length);
-+	if (length > =
-shid->xfer_size)
-+		return -EMSGSIZE;
++title: Microsoft Surface Laptop 7 13.8-inch QSPI touchpad
 +
-+	memcpy(shid->xfer_buf, buf, =
-length);
-+	error =3D spi_write(shid->spi, shid->xfer_buf, length);
-=20
- 	if (error) {
- 		shid->bus_error_count++;
-@@ -1210,6 +1220,7 @@ static int=
- spi_hid_alloc_buffers(struct spi_hid *shid, size_t report_size)
- 	int inbufsize =3D round_up(sizeof(shid->input->header) +
- 				 sizeof(shid->input->body) + report_size, 4);
- 	int outbufsize =3D =
-round_up(sizeof(shid->output->header) + report_size, 4);
-+	size_t xfer_size;
- 	void *tmp;
-=20
- 	tmp =3D devm_krealloc(dev, =
-shid->output, outbufsize, GFP_KERNEL | __GFP_ZERO);
-@@ -1227,8 +1238,18 @@ static int spi_hid_alloc_buffers(struct spi_hid =
-*shid, size_t report_size)
- 		return -ENOMEM;
- 	shid->response =3D tmp;
-=20
--	if (!shid->output || !shid->input || !shid->response)
-+	/* io_lock serializes the separate, DMA-aligned TX and RX regions. */
-+	xfer_size =3D ALIGN(max(inbufsize, outbufsize), ARCH_DMA_MINALIGN) +
-+		    ARCH_DMA_MINALIGN;
-+	/* Keep ownership separate from the explicitly =
-aligned DMA view. */
-+	tmp =3D devm_krealloc(dev, shid->xfer_alloc,
-+			    xfer_size + ARCH_DMA_MINALIGN - 1,
-+			    GFP_KERNEL | =
-__GFP_ZERO);
-+	if (!tmp)
- 		return -ENOMEM;
-+	shid->xfer_alloc =3D tmp;
-+	shid->xfer_buf =3D PTR_ALIGN(tmp, ARCH_DMA_MINALIGN);
-+	shid->xfer_size =3D xfer_size;
-=20
- 	shid->bufsize =3D report_size;
-=20
-diff --git a/drivers/hid/spi-hid/spi-hid-core.h b/drivers/hid/spi-hid/spi-h=
-id-core.h
-index 631897dd9e8a2f7a7c0ca29a5ae6e79e83e12579..=
-9cbe2e57400443bd68056057d08f97c39c403a70 100644
---- =
-a/drivers/hid/spi-hid/spi-hid-core.h
-+++ b/drivers/hid/spi-hid/spi-hid-core=
-.h
-@@ -44,6 +44,9 @@ struct spi_hid_device_descriptor {
-=20
- /* Driver context */
- struct spi_hid {
-+	void *xfer_alloc;
-+	u8 *xfer_buf;
-+	size_t xfer_size;
- 	struct spi_device	*spi;	/* spi device. */
- 	struct hid_device	*hid;	/* pointer to corresponding HID dev. */
-=20
++maintainers:
++  - Jizhou Tong <fqwqf@fqwqf.xyz>
++
++description:
++  The touchpad on the =
+13.8-inch Surface Laptop 7 uses the HID SPI v3
++  protocol over a quad SPI =
+connection. Its supply and board reset states
++  must be controlled during =
+initialization and recovery.
++
++allOf:
++  - $ref: /schemas/spi/spi-peripher=
+al-props.yaml#
++
++properties:
++  compatible:
++    const: microsoft,=
+romulus13-touchpad
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  vdd-supply:
++    description: Touchpad 5 V supply.
++
++  spi-max-frequency:
++    maximum: 20000000
++
++  spi-rx-bus-width:
++    items:
++      - const: 4
++
++  spi-tx-bus-width:
++    items:
++      - const: 4
++
++  reset-gpios:
++    maxItems: 1
++    description: Active-low touchpad reset.
++
++  pinctrl-0: true
++
++  pinctrl-names:
++    items:
++      - const: default
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - vdd-supply
++  - spi-rx-bus-width
++  - spi-tx-bus-width
++  - reset-gpios
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include =
+<dt-bindings/interrupt-controller/irq.h>
++    #include =
+<dt-bindings/gpio/gpio.h>
++
++    spi {
++        #address-cells =3D <1>;
++        #size-cells =3D <0>;
++
++        touchpad@0 {
++            compatible =3D "microsoft,romulus13-touchpad";
++            reg =3D <0>;
++            spi-max-frequency =3D <20000000>;
++            spi-rx-bus-width =3D <4>;
++            spi-tx-bus-width =3D =
+<4>;
++            interrupts-extended =3D <&tlmm 3 IRQ_TYPE_LEVEL_LOW>;
++            vdd-supply =3D <&vreg_ts_5p0>;
++            reset-gpios =3D =
+<&tlmm 120 GPIO_ACTIVE_LOW>;
++            pinctrl-0 =3D <&touchpad_reset>;
++            pinctrl-names =3D "default";
++        };
++    };
