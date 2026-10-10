@@ -1,140 +1,164 @@
-Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m3282.qiye.163.com (mail-m3282.qiye.163.com [220.197.32.82])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B96541D62E
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 07:15:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCFE4339B3D;
+	Sat, 10 Oct 2026 07:15:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.82
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791616503; cv=none; b=IttiwRNPC3HLCabNv0ds965rcEMeViswv6uQMEpLx5H8z9T7L06RYA8gVUz7pY/DGeTlRL3KoM7mwWLfc8SAZZ2nvxyCpTfqoh7jZtxEt+bcGfqEM/XxsE6vQ5NeAGuut9zMHdonoJzzwN36DLaeUUXVelNp0vD1zkdAPEOr9YU=
+	t=1791616535; cv=none; b=huOh+vjPYheF2jaqAY9I39DGI8c++BKr03SEWF0f+KlbDxq0km6w8HOaHC7vWRm4mfCbWSpo89Zkwp3YtESqgt2Getkb94K5ygJVW6gdIoSrSjDdijkhxd7Yge5n6Yzim2vtdDW05loTD2okkv1zCh5MmA8YaTWR0oHqwYO49Cs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791616503; c=relaxed/simple;
-	bh=AgqPawQLsHErmF3nORcLRMqaINWXlnncdcFbCC+PyuM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=GL4EY9AWeC5W/tDhTMBWlEOfXYg7jpBFGMddKh2b71X4YdqhB4YVudg71xXIMq8Nq/VYstb0fKezATIpiIVh4Lc6iW2KC05D9Uotz5i1xIJLvIFXn/SFVVFPK6XIzvbK8GRNLQfqQoGRWXvYW1AUfOoOi6T446UPqeUjT80odFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hFPkPhfP; arc=none smtp.client-ip=74.125.227.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791616535; c=relaxed/simple;
+	bh=8UhtiJiYJ6IUOaCkzx9Qo/Ikis6bCPd3jFzR45eQanM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OU+V9qxM2TFiTzrkarQY4aTS7J2SmwiGX1KiM+Bu4552MTj8CJZ+/jvToobSbiHbQ345GrLF3Km0vPx3/8aM49SdV9ZdLqQZg6BnYQ1NMLrrvfPX/yZho33Btiw7VQGWQmEbejMRcuyVR85Fhpqhly/iy5kQkVLSHKm/zpBF1Nk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=i94VClHp; arc=none smtp.client-ip=220.197.32.82
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hFPkPhfP"
-Received: by mail-pj2-f8.google.com with SMTP id d9443c01a7336-2e609985789so1778535ad.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 00:15:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791616501; x=1792221301; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=959yGHgkihQFutwKGlb/mZ/n3GWGE1NHJJyd2mFaKLM=;
-        b=hFPkPhfPPbuxbfmY7+UwzIgq2K24FnV234YTzI7oMUeoLiKdFvr2fbqgMNA9AV/J63
-         71Yl5lR2eDogeslFMEExZK/d5P05Fbgvh+geXlzDJi5aK/OFUkBTGkjTX074pEVCh1W2
-         SfRIQDel5oBxebzV57evUBJBhhFdUcSmbVUEhBx3Udk0FO/Vn3QsptPM9NSVNUPXompM
-         Zso/2/l3331o77ZgTWLkJ5Nql23omuylNPYuZJMSCAKreABHHMPUW3sz84DgLBD+mwFN
-         mperSALlX+xvzcyD2POj7B9J6cKDJq0dFjSqK+Ix5yFIC0qG2CqywzB6yvjgTkkgyvXF
-         svRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791616501; x=1792221301;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=959yGHgkihQFutwKGlb/mZ/n3GWGE1NHJJyd2mFaKLM=;
-        b=rloU39irrq4PKB8V/N3rSDsYEmxQrPpBfgDTZu5HhoyVyMsye8s/5hm46WAsyEE5Xm
-         2+yzUc+2Mgj7748Hn5VK7mj+or2Zi3kyWmYa6iQo7QjhxJD+61Rlz/lOMkAqof4cr9jG
-         gk7f1eZRrDpkFAurdl+cX8qGvqP2Pd58/7aXWFZsS3IjRKItmFeV4BXI3+ToFfrAjmPn
-         NGa6G2wGc8S/lkS0EvGMormON3xMtppImXCE3tC0sM4c4fj/KE552GlNbKdoC8njnsxI
-         SaUwYdGd3JPJhME2eR57pmFvu5vLqxdyaohndKMMXbJcL7o7mBlGkv7yHbCPAljgApw9
-         pyWQ==
-X-Gm-Message-State: AFq9FYJYffriTAoh1LK1Q759YxDbDFx1p05buXvOGNy6w3s2fa5foS9S
-	wPDXugE+hPhpZyaXRAgqPIfwTcaYiEehEy9zuzvgIzQ6PgTPIP4S2jrGyEdkxGDiXeRgVs4E
-X-Gm-Gg: AYBFou36QLZAAK4G6Lmupuf4WH38hsT4GgIacxGHqDHOSLl1gDW2vUVpA5ricFUG1Kw
-	/WgyQBMkU6cvlANHtgXEg6Fl+XOuniaNePmPIeMPLeFYO1CI+SPMoDO/cBc7XDPE1y8EBAEOYYB
-	Kt3Lh1224peikOFtEzuREGaCRVdBqhHkRgEhqxSHjTEQ7EQWSEnCj0xXX3w3HEXCp5M9/kNRUL7
-	w/aIDjAxRryBtxNbOft2P0HZhFtwvSQTQ+zMZ6TYu/jlMGS8hwjwJI9zrdPuR0lC5dQT5lF20gD
-	Y1z528iOS+1S41h6lfGyq6aU9xXt4X9BwaYerQ3AF0sFFECqVsSJmFJ3mMXbJgE0dexVtk0RNGa
-	I1EmsmNh3+Fm96YhBXDUB1TsjBZBFtoUh/Jxzj4g+oyt5eBwf7SzAKar/JFY7Sq4GkI5Ih0B0xJ
-	eB689uzIfFaPRMJRtVykoKk27QzG2GzS/g/a+6Epa/Asqk6i198QNENKmrZj6XGcQbjkpYT79MT
-	UaRKQP2J+K/hj4vO2gS554Q7Z07bQhYefkCLY0pGu77VtQkuVIYpLqNV7chmuI=
-X-Received: by 2002:a17:902:e88a:b0:2e3:1776:278f with SMTP id d9443c01a7336-2e842bcd141mr39945135ad.42.1791616501197;
-        Sat, 10 Oct 2026 00:15:01 -0700 (PDT)
-Received: from localhost (ec2-18-183-150-125.ap-northeast-1.compute.amazonaws.com. [18.183.150.125])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8421b15ffsm20468025ad.36.2026.10.10.00.15.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 00:15:00 -0700 (PDT)
-From: jianyungao89@gmail.com
-To: linux-kernel@vger.kernel.org
-Cc: Jianyun Gao <jianyungao89@gmail.com>,
-	stable@vger.kernel.org,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Dan Williams <djbw@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Goldwyn Rodrigues <rgoldwyn@suse.com>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Shiyang Ruan <ruansy.fnst@fujitsu.com>,
-	linux-fsdevel@vger.kernel.org (open list:FILESYSTEMS (VFS and infrastructure)),
-	nvdimm@lists.linux.dev (open list:FILESYSTEM DIRECT ACCESS (DAX))
-Subject: [PATCH] dax: fix wrong size passed to dax_iomap_direct_access() in dax_range_compare_iter()
-Date: Sat, 10 Oct 2026 15:14:53 +0800
-Message-Id: <20261010071453.6028-1-jianyungao89@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="i94VClHp"
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 50844c1f1;
+	Sat, 10 Oct 2026 10:39:17 +0800 (GMT+08:00)
+Message-ID: <82df3bec-7734-4d84-9e20-a563e6231aa9@rock-chips.com>
+Date: Sat, 10 Oct 2026 10:39:15 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 03/20] drm/bridge-connector: Attach max bpc for
+ non-HDMI bridges
+To: Xilin Wu <sophon@radxa.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Igor Paunovic <royalnet026@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, dragon@radxa.com,
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+References: <20261009-msm-dp-hdr10-v2-0-1835d4966da3@radxa.com>
+ <20261009-msm-dp-hdr10-v2-3-1835d4966da3@radxa.com>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <20261009-msm-dp-hdr10-v2-3-1835d4966da3@radxa.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa123add66203a7kunm2ab09db81359c42
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDQ0pOVhhNSkpDTE5LGUxLTVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQkxVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=i94VClHpmYbPXhra1VFNUWbroJUdigk/oWp50gX7ervPys3K2s89uJ6im7uYzB+K9Mxa0lfSSxWf283hIRmL3nwSXVFQmawBo3cLD/gvMowHXWjivohlyoUWXk+3x5MmP+uXkfggUtHMpXew44L7yTW2oTI2X/HnWu3BM3ghnJg=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=5z0sWq1xdiTzWPgicaSELr86K89CYKpEepP4VhiG/1g=;
+	h=date:mime-version:subject:message-id:from;
 
-From: Jianyun Gao <jianyungao89@gmail.com>
+Hi Xilin,
 
-dax_range_compare_iter() passes ALIGN(pos + len, PAGE_SIZE) as the size
-argument to dax_iomap_direct_access(), but this is an absolute file
-offset rather than a length. This causes the underlying
-dax_direct_access() to request a massively inflated nr_pages via
-PHYS_PFN(size), leading to unnecessarily large access ranges and
-potential spurious -EHWPOISON from driver badblock scans.
+On 10/9/2026 11:15 AM, Xilin Wu wrote:
+> Allow non-HDMI bridges to advertise their output bit-depth limit through
+> max_bpc. Attach the max bpc property when the lowest reported limit in the
+> chain exceeds 8, ignoring bridges that do not report a limit. This lets
+> DP drivers expose deep-color support without attaching the property in
+> their connector initialization code.
+> 
+> Use a lower bound of 6 for DP and eDP, which support 6 bpc RGB output, and
+> 8 for other connector types. Keep the existing HDMI registration path.
+> The property can be attached before connector state allocation; the
+> atomic state helper initializes its default when state is created.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Xilin Wu <sophon@radxa.com>
+> ---
+>  drivers/gpu/drm/display/drm_bridge_connector.c | 18 ++++++++++++++++++
+>  include/drm/drm_bridge.h                       | 11 ++++++++---
+>  2 files changed, 26 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+> index 8b54069fa53a..be2e08a3694a 100644
+> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
+> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+> @@ -825,6 +825,7 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+>  	struct drm_bridge *panel_bridge __free(drm_bridge_put) = NULL;
+>  	unsigned int supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444);
+>  	unsigned int max_bpc = 8;
+> +	unsigned int chain_max_bpc = 0;
+>  	bool support_hdcp = false;
+>  	int connector_type;
+>  	int ret;
+> @@ -985,6 +986,10 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+>  			panel_bridge = drm_bridge_get(bridge);
+>  		}
+>  
+> +		if (bridge->max_bpc)
+> +			chain_max_bpc = chain_max_bpc ?
+> +				min(chain_max_bpc, bridge->max_bpc) : bridge->max_bpc;
+> +
 
-Fix by computing the correct aligned size:
-  ALIGN(len + (pos & ~PAGE_MASK), PAGE_SIZE)
+The check on chain_max_bpc here doesn't seem to make any sense.
 
-which accounts for the page-in-page offset of pos, matching the pattern
-used in dax_iomap_copy_around().
 
-Fixes: 6f7db3894ae2 ("fsdax: dedup file range to use a compare function")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
----
- fs/dax.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+>  		if (bridge->support_hdcp)
+>  			support_hdcp = true;
+>  	}
+> @@ -1026,6 +1031,19 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+>  					  connector_type, ddc);
+>  		if (ret)
+>  			return ERR_PTR(ret);
+> +
+> +		if (chain_max_bpc > 8) {
+> +			unsigned int min_bpc = 8;
+> +
+> +			if (connector_type == DRM_MODE_CONNECTOR_DisplayPort ||
+> +			    connector_type == DRM_MODE_CONNECTOR_eDP)
+> +				min_bpc = 6;
+> +
+> +			ret = drm_connector_attach_max_bpc_property(connector, min_bpc,
+> +								    chain_max_bpc);
+> +			if (ret)
+> +				return ERR_PTR(ret);
+> +		}
+>  	}
+>  
+>  	if (bridge_connector->bridge_hdmi_audio ||
+> diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+> index 58fff047f43b..01ad1878149e 100644
+> --- a/include/drm/drm_bridge.h
+> +++ b/include/drm/drm_bridge.h
+> @@ -1089,9 +1089,14 @@ struct drm_bridge {
+>  	unsigned int supported_formats;
+>  
+>  	/**
+> -	 * @max_bpc: Maximum bits per char the HDMI bridge supports. Allowed
+> -	 * values are 8, 10 and 12. This is only relevant if
+> -	 * @DRM_BRIDGE_OP_HDMI is set.
+> +	 * @max_bpc: Maximum bits per color component the bridge supports.
+> +	 * Zero means that the bridge does not report a limit. For HDMI bridges
+> +	 * with @DRM_BRIDGE_OP_HDMI set, allowed values are 8, 10 and 12.
+> +	 *
+> +	 * For non-HDMI connectors, drm_bridge_connector_init() attaches the
+> +	 * max bpc property when the lowest nonzero limit in the bridge chain
+> +	 * exceeds 8. Bridges remain responsible for validating configurations
+> +	 * against any limits not reported here.
+>  	 */
+>  	unsigned int max_bpc;
+>  
+> 
 
-diff --git a/fs/dax.c b/fs/dax.c
-index 6ba50142eeb2..213b1c9e197c 100644
---- a/fs/dax.c
-+++ b/fs/dax.c
-@@ -2197,6 +2197,7 @@ static int dax_range_compare_iter(struct iomap_iter *it_src,
- 	const struct iomap *dmap = &it_dest->iomap;
- 	loff_t pos1 = it_src->pos, pos2 = it_dest->pos;
- 	void *saddr, *daddr;
-+	size_t size1, size2;
- 	int id, ret;
- 
- 	len = min(len, min(smap->length, dmap->length));
-@@ -2212,13 +2213,13 @@ static int dax_range_compare_iter(struct iomap_iter *it_src,
- 	}
- 
- 	id = dax_read_lock();
--	ret = dax_iomap_direct_access(smap, pos1, ALIGN(pos1 + len, PAGE_SIZE),
--				      &saddr, NULL);
-+	size1 = ALIGN(len + (pos1 & ~PAGE_MASK), PAGE_SIZE);
-+	ret = dax_iomap_direct_access(smap, pos1, size1, &saddr, NULL);
- 	if (ret < 0)
- 		goto out_unlock;
- 
--	ret = dax_iomap_direct_access(dmap, pos2, ALIGN(pos2 + len, PAGE_SIZE),
--				      &daddr, NULL);
-+	size2 = ALIGN(len + (pos2 & ~PAGE_MASK), PAGE_SIZE);
-+	ret = dax_iomap_direct_access(dmap, pos2, size2, &daddr, NULL);
- 	if (ret < 0)
- 		goto out_unlock;
- 
 -- 
-2.34.1
-
+Best, 
+Chaoyi
