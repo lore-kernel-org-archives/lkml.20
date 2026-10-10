@@ -1,88 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26DF83932E6;
-	Sat, 10 Oct 2026 10:01:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 118262652A2;
+	Sat, 10 Oct 2026 10:02:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.187.6.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791626493; cv=none; b=qbkm8S5YukASPJayhRZXTlCJC2EYYe4mHEpYvpBnbVvGEUhaI9yv9ok+LslyfGvzWqaXEuXqhHwPAEFwlyE3VUMhmprW/EHkLj78dzAXBHknRWlgdGGN+AlPgN2o9NgXYfQW1gFPK+ezDWclAxvol94TyXz9GtNUbtbud8pRfxE=
+	t=1791626546; cv=none; b=rEsHJYHLUAtCJpDzGMjaPSII8+HlIrP23dxbpH+yuGN0NYt3tiCslOzmBK/YOZPugWrcjr0o5b58m8+kwxaYyry0c9ynTCenpV/cr16B7KgOVX3M8ERxNJqfeqY+7Zur7oSp46VDV90PmD3rT6MR81UEmKe7nVzghVX8uS0l8mk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791626493; c=relaxed/simple;
-	bh=ZYRlipbPY8RAWD8fBo6czk6TDpS55BrQGDnKoUlam78=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CA/1qkj7ltZ6lIQsQYxSrrgQSv+20zrqfRsog6lmLnSFBHde7Oz8P4LTs59ei0DLL3pGHsahvRsZ6S62yp8gWb1MlrPJnxNfC1zpLTi6jfMJVtDbqfr/bMUpbEpJai2kTcvGbshS69K1IbtCH2rVa8DFPrJi78tnlp/pF7Oz4u4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CXv0u/LL; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CXv0u/LL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE3A51F000FF;
-	Sat, 10 Oct 2026 10:01:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791626492;
-	bh=yxghfkk9ZcOzzHrH4POV+dHpr3b3+ZDhOKp5XX6zWMA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CXv0u/LLebHMF6g/2GK3TvCGBelT7PPH0HIRnflCf6AZ0lVwkZgTWwxvuQI+s9qMo
-	 ft7jV7D8Qxva2ItzH/MkbLDHDEbO0hANLYn5fxEXZ55ukUHdB0mGreeyNQb0gRBVoX
-	 GvDcmGzAlIjOGHFlErUh2IZlaV8eljjni7igTE2vwGw9kUGtTtHVU7D7lYZifyzzve
-	 4z5Diw9TikIM7l4mmswNF7YEcDdBlTEZfcWirr61J0mPjYl9O4asyE/fZMh9ABnACS
-	 hQuaEnLI0zSjN74PdduIr5wdHA9UxKRrDlhcwOf6tR/zJArMSWXwVbnieyTVkKv2i+
-	 bB5D41vN0Gm3w==
-Date: Sat, 10 Oct 2026 12:01:26 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>, linux-mm@kvack.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Saravana Kannan <saravanak@kernel.org>,
-	Oreoluwa Babatunde <quic_obabatun@quicinc.com>,
-	Wandun <chenwandun1@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH 2/2] of: reserved_mem: allocate and map the reserved_mem
- array early
-Message-ID: <asoM9sKML-7BIEOY@kernel.org>
-References: <20261008094125.3197971-1-m.szyprowski@samsung.com>
- <CGME20261008094130eucas1p1120c66c914aa2b93fa3d7e6e494e7eea@eucas1p1.samsung.com>
- <20261008094125.3197971-3-m.szyprowski@samsung.com>
- <20261008140515.GB183998-robh@kernel.org>
+	s=arc-20240116; t=1791626546; c=relaxed/simple;
+	bh=IMrmOgZabUK0WGVlDHkR/u5wBMroTUgziCMch07aPXU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YoYZeAjrLDrqlybAIhraxyRYlSpYuwbtrwfu3LgtQU+PmG3WFyLEteEmQ79RMrPCvoHyaFi2czPHbGmvyIqh+JOKpI3O8r0CpkWxQSW4gbbdY6BgyEfy2ysr0FWgImqe9IP4RB7g5rt9T0LhhU/7tEALd+/JQaxCNtehpHcEcY4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phytium.com.cn; spf=pass smtp.mailfrom=phytium.com.cn; arc=none smtp.client-ip=52.187.6.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phytium.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytium.com.cn
+Received: from prodtpl.icoremail.net (unknown [10.12.1.20])
+	by hzbj-icmmx-6 (Coremail) with UTF8SMTP id AQAAfwC3Dd0cDcpqktCoAA--.47164S2;
+	Sat, 10 Oct 2026 18:02:04 +0800 (CST)
+Received: from phytium.com.cn (unknown [218.76.62.144])
+	by mail (Coremail) with SMTP id AQAAf8DwS3IbDcpqpynqAA--.62344S3;
+	Sat, 10 Oct 2026 18:02:03 +0800 (CST)
+From: xiong yining <xiongyining1480@phytium.com.cn>
+To: "Rafael J . Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	Shuah Khan <shuah@kernel.org>
+Cc: linux-pm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	chenbaozi@phytium.com.cn,
+	xiong yining <xiongyining1480@phytium.com.cn>
+Subject: [PATCH] selftests: cpufreq: stop CPU hotplug loop after cpufreq update test
+Date: Sat, 10 Oct 2026 18:01:48 +0800
+Message-Id: <20261010100148.297720-1-xiongyining1480@phytium.com.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261008140515.GB183998-robh@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:AQAAf8DwS3IbDcpqpynqAA--.62344S3
+X-CM-SenderInfo: x0lr0wp1lqx0bjrumio6sk53xlxphulrpou0/1tbiAQAECmrJQM0EVQAhsR
+Authentication-Results: hzbj-icmmx-6; spf=neutral smtp.mail=xiongyinin
+	g1480@phytium.com.cn;
+X-Coremail-Antispam: 1Uk129KBjvJXoW7Zr4xur4UAFWftF1DWFW3Wrg_yoW8Cw47pF
+	WrGw48tr1IkFyqyws3J34UXrWrJan3AFW7ur4aqr1Svwn8JF90vFySgr17XryakFZ8XrWr
+	Z34vy3WI9F1UArJanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUj1kv1TuYvTs0mT0YCTnIWj
+	DUYxn0WfASr-VFAU7a7-sFnT9fnUUIcSsGvfJ3UbIYCTnIWIevJa73UjIFyTuYvj4RJUUU
+	UUUUU
 
-On Thu, Oct 08, 2026 at 09:05:15AM -0500, Rob Herring wrote:
-> On Thu, Oct 08, 2026 at 11:41:23AM +0200, Marek Szyprowski wrote:
-> > Get rid of the static, limited-size reserved_mem array and replace it
-> > with array allocated by memblock_alloc_raw() and accessed through a
-> > temporary early_memremap() mapping. Such mapping is needed for some
-> > architectures (like ARM64), where linear map is not yet available during
-> > early boot scan. Having a single, writeable array with all reserved
-> > regions removes the need to perform two step initialization introduced
-> > by commit 8a6e02d0c00e ("of: reserved_mem: Restructure how the reserved
-> > memory regions are processed"), so all regions can be processed
-> > directly during the early scan again.
-> > 
-> > Suggested-by: Mike Rapoport <rppt@kernel.org>
-> > Link: https://lore.kernel.org/all/asc6brs_g0ky0wOM@kernel.org/
-> > Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
-> 
-> Assisted-by: LLM
-> 
-> is the new way...
+Original test uses a fixed 5000 iteration loop to trigger CPU hotplug
+for verifying cpufreq synchronization between CPU hotplug and sysfs
+writes.
 
-Probably not any more :)
+Two issues exist:
+1. Background hotplug task keeps running after test completes, causing
+redundant CPU on/offline operations.
+2. When cpufreq frequency setup is slow, the hotplug loop may exit
+before frequency updates finish, which breaks test purpose.
 
-https://lore.kernel.org/all/20261009083137.3-1-sashal@kernel.org/
+Introduce a file-based stop flag to control the infinite hotplug loop.
+After all cpufreq updates complete, create the stop flag file and
+wait for the hotplug task to exit.
+
+This makes hotplug run only during cpufreq sysfs write test,
+align with test objective.
+
+Signed-off-by: xiong yining <xiongyining1480@phytium.com.cn>
+---
+ tools/testing/selftests/cpufreq/special-tests.sh | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/tools/testing/selftests/cpufreq/special-tests.sh b/tools/testing/selftests/cpufreq/special-tests.sh
+index e87ed7c8e5e5..14530c1b8d25 100755
+--- a/tools/testing/selftests/cpufreq/special-tests.sh
++++ b/tools/testing/selftests/cpufreq/special-tests.sh
+@@ -97,14 +97,20 @@ governor_race()
+ hotplug_with_updates_cpu()
+ {
+ 	local filepath="$CPUROOT/$1/cpufreq"
++	local stop_flag="/tmp/stop_hotplug_$1"
++	rm -f "$stop_flag"
  
-> > Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
-> > ---
-> >  drivers/of/fdt.c             |   3 -
-> >  drivers/of/of_private.h      |   2 -
-> >  drivers/of/of_reserved_mem.c | 251 ++++++++++++++---------------------
-> >  3 files changed, 96 insertions(+), 160 deletions(-)
+ 	# switch to ondemand
+ 	__switch_governor_for_cpu $1 "ondemand"
+ 
+-	for i in `seq 1 5000`
++	while true
+ 	do
++		if [ -f "$stop_flag" ]; then
++			break
++		fi
+ 		reboot_cpu $1
+ 	done &
++	local hotplug_pid=$!
+ 
+ 	local freqs=$(cat $filepath/scaling_available_frequencies)
+ 	local oldfreq=$(cat $filepath/scaling_min_freq)
+@@ -117,6 +123,10 @@ hotplug_with_updates_cpu()
+ 		done
+ 	done
+ 
++	touch "$stop_flag"
++	wait $hotplug_pid
++	rm -f "$stop_flag"
++
+ 	# restore old freq
+ 	echo $oldfreq > $filepath/scaling_min_freq
+ }
 
+base-commit: 28924df2a08f440c73991b83028032c901de2ae4
 -- 
-Sincerely yours,
-Mike.
+2.34.1
+
