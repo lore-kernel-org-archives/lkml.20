@@ -1,64 +1,64 @@
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B98499F1F
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 12:22:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C0648A8D3
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 12:22:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791634925; cv=none; b=DTeKvFFLCUxFVHryUPBuOQru2DjiIk44FPuK2v7VtBy6aoBqTsRjRtZ+pOc1BEU3Ez6FlPbFQQw/DcedFppbE7fd5kthadctCG95JQoT0UdhpSJjZsAA0f9gGbF7Jph0q7H9G7huPqEn7pC0oAjpRZGFmesWQr0mAVoHCKaXWFY=
+	t=1791634929; cv=none; b=fZaU+q4+qfKLlV7BuYpJoxUUP2TfaySfNrF+qGzPiiw8jnsC5VPj3so6Z0dKLQAtpvhZC/LTRf1Eocv+bueniyPIzX4//3wrH7/x95aBIAKgGe+dBdRry245M4QDhvOoMWJ/Nw3CkrqEro0BvOFyX5xyh26KZjbcWdFd33+TVCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791634925; c=relaxed/simple;
-	bh=+UGbdLyx4utn96b2/xcf+Uh+5Imv/crlNjbSTvZzmmw=;
+	s=arc-20240116; t=1791634929; c=relaxed/simple;
+	bh=OQBXMXTlhy1CovXj6ndFCC7fPIXVPzECjvtJukEq3LI=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=I7f/X+nsgE8QyOCcrhyXaMH4D4OTyRFsZMEY0IQFgG3RNC11cRixotioeft6cfO9SK8KsPwJYSoas3VZT7VpS63083ymXGSRxO6VSUldU6iCAqYQp5bCJSTyZLRiSKN9PqB4eZ4IpljQdpRkE4KTWR2Cuwr/AgCG4uzON0sdMho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d9bfurnj; arc=none smtp.client-ip=74.125.82.42
+	 MIME-Version; b=ljaRn4UfaflQgyQ4FTYmmUw/lBnST+TtVDbYKAYIiEO1Z7gXjzVqnFzIoCTVrIcI3emFQyXdqFrDDJMi1Ec8vw5+lMLnc2fvquTVr0KhYN03nAS/gBIwEu48gR+0cxV9+yAO1xjB5L0rqHTDvMe9TiRwGyeEuRaFq5bqwGht7BQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z9rTUIX1; arc=none smtp.client-ip=74.125.82.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d9bfurnj"
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-141395927feso967190c88.0
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 05:22:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z9rTUIX1"
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-15354aa70e8so531024c88.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 05:22:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791634924; x=1792239724; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791634928; x=1792239728; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CaO3MyXW3zZwT9bgT7JpMqD2h92koUbOcIHQ/S1CmUA=;
-        b=d9bfurnjWRO3Gf7br7KDWj8n7+N3nvrWlhwZtirsaU+COP9+F6YcaVM1p8FA3vWdcc
-         zVLTMkWpMJc6SjQAhAH4URIlPZp58OXu3nS8ZEotY2EcuUvfWQo3D6ExHlGQCCBUP+9R
-         La3RtI6dw1XQaiEI97IzYJlPf1l9avXzLoAekJEKHYQFxGCecL4VBO0mGb+ojpKUafNQ
-         UH0Oj+lHwPpajpBdWzCvtZYY3v2G9PpoeYC5SobqNRUVJCrF9Wr1DXzQ7BF5VxOnehar
-         JL+QR4L8+xZ3iP1fo5i/VhFegJ3N3az7RuRqQnUhWx6VRmQfXRxELnsXHNSxKU/c3i6d
-         qljQ==
+        bh=OQBXMXTlhy1CovXj6ndFCC7fPIXVPzECjvtJukEq3LI=;
+        b=Z9rTUIX13ri6kw4vGwQhshwPLD5UzKLTLMsd+tOM/hwG9raOLkP7MejEUzgCo3krVZ
+         Bc9QxWzTlcNQqDWqMGxbVZFrZll3bhyHMyl0aGaUkYG5uLEQehcWK9mW1FQUJLq68+eI
+         J8IPj7qznFCkCGPmjVo3XtR0NnyRy8iTkYcBbe1zSc5y+94VR81Bb0arRTGcEpemx70L
+         /4IESH3SttIItlC9rEs8XVPspkqhcMumv2WQF6MP+twUGIDC+J+8ShhqxyQ1brbbgzBg
+         t1dCR3ZQpwb2mZCkiSM99PR0MpRSY6QZNHxV/g5GnYvwdELZUpQo8mX4mvGVz+ixK9mR
+         6fPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791634924; x=1792239724;
+        d=1e100.net; s=20260707; t=1791634928; x=1792239728;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CaO3MyXW3zZwT9bgT7JpMqD2h92koUbOcIHQ/S1CmUA=;
-        b=rb1lhZ1bzBBdULMpNtd11YSpd0Htx9BMMrGdj/pg9nLfNNSrCjE8tAaVlDrlC8xPVD
-         GmEoS4iauw2ZN+Hg+fmEkAeVTsFXrhe8Wl4AFP6Mh1uibfTaP3WqVnlJFqYi1Hw2no6H
-         s7AuqTl5vP5tKzfDy0Hmm/swZ1QIM59KnMWyXfCRo4z79jpsgmgVA+DTpfQ8NSOX57PF
-         aBDxqpuSSpdG6I35wJgVcMSAFugJysAjydaXLC+ym3Li/eWpZ8EhnvuXgqN1+Gxid3Ic
-         aPD9srVbq0eyZU14DieE/163osHmXaaKPiJOilQ4lvTIUhM+MJc4LezDSHmSrIcG8WiQ
-         iVyw==
-X-Forwarded-Encrypted: i=1; AKwUvBxQobpLpGHZ+fjnEH0DYkBCN8+y16lxyfOJ7Kevya+qCjiQUhlsvfcE1hBN8t9C7tqnWxhCAKaKVIruZ+0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ6bpv0EFi0KdS4Ws0BM4Of7vPWEaux5+K22r3XXYyClX5DpPC0
-	5gMyYbFC3oYn0SZHXUAdG71xJWa/oJl+bLhtX7x1ZSPSmkP7zIOprfRE
-X-Gm-Gg: AYBFou1YZk1nDHK7WXJlQUoeS1huNOibdPPPXjo+v5s+OIMfQwYH83ZeaejBexiG2gi
-	Rpt/kqcyH0vMFeicAV1jGTNKVdAwxorraM6lvTQWkeIdUSEnAm6O6mjbSEl/HOndBlRK3cVqGY/
-	m23utRUaRWpM1hQPw/perqpvXONBByxSE2BQe+Wx9QJN8fUtBxAi4ocHFhGRLP712rlcG3sNBbb
-	2g1deBDtF7b6/4571acPr/t6slwABYm5xFhPDaMpvn0IbBbwKXlu+KEcI0dTJ0kq/grtLPvRhkX
-	iNNlknEQuTzCsfk/Ug8aYopWrL4qJ9lWQP7V8exFP8FRrjNgXmTSxa9qVkK26QMUAhym6xLvAHe
-	Epsh1JM+cSdURUOismDGPG8zCUnBhK8Ono5U/NdPFhX0BtWbe7jXWEk0BIwO3osWY8nwHMPdt5T
-	IqZlnav/QeGKwlGdsO16qtE3whGGnlcc0Op4BOXS6UA2QL58w/7GLWXtxrr5EyaVXCegDBUYLL9
-	UF9UL5llMVfnpfjPcI30nCoirayBpCU1ESkvrYskxLQccRz8IP77WJV46VIAxWvR1XcY+A=
-X-Received: by 2002:a05:7022:1581:b0:167:5402:dc96 with SMTP id a92af1059eb24-16a606260e9mr7991587c88.33.1791634923685;
-        Sat, 10 Oct 2026 05:22:03 -0700 (PDT)
+        bh=OQBXMXTlhy1CovXj6ndFCC7fPIXVPzECjvtJukEq3LI=;
+        b=0++xq6XHy1ev1vVLugO+PbTZziqxQ9By9Jtu7/W+wUywPTwYsGXFG8omlE0VHIGGR9
+         kahAZFFNedMwttKz5GBocspPqWeAyqVKsaZBhRG8FmtTKckdd1GSV1esefwmmdNftjhO
+         6ThMM5N+da7cFJ+UarVuL20YgPffPNyqtfIY8v23DCLZFyVvVCEpLqrrgrhlIjB2eIpB
+         JLpUW5+XM2QwYWxF9UdFexN3pN30EDKriwVQszufqNF0WbNo/P/VAwn9GTcICjiixl5C
+         IVQD5jSkhvyDnNYlLkROuCcF5HFK2a1KIjsOxCy3l1uW794JQAZVeKE8oujBbhjOb4ed
+         9Mmw==
+X-Forwarded-Encrypted: i=1; AKwUvBw4ExhMFwLVI9kq+N6TrEu6809uiMWOyzlvcveCXyvwQ/XTOVacM3JHeiPhA4s/ARiKEUqfynBiNrMTOh4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIIsCKWh8PdN8DcT3kZriGTMHlqGqFthzWG9VRJnou/pgUCPcV2
+	ZQTDId4LQhYPxTOdBvk0cm9weUl2+zohllWUHZenixRi5UeTdeDP15y7
+X-Gm-Gg: AYBFou3zgy7jmmALhw8Kyab1OUUYt/SKMJlkt51t8ph9yoLVEk/ZUjqa39eA40hVXHp
+	DOdRnSe/xsYbC1QqpGGuwtaZCYbm/HWpQOGBcD51UCVhWcRbnyhN4xLI2oaGPAZp3yF18VpcM+2
+	daHUK2Qudgit6oEILSNa85xMOh8Zv830HUyPRPgcCQKoU2ks+cMA8fyislXRbdQ5qc6mBFwX2RV
+	NDqyDkVni48P7ro2YvNYoBhnaRJrEquUy0hoRE52n7lKXjYplbvcgzZeTQLNeRGvJbi2pKxbU9m
+	AMhMrNCwz2a3R0Q2ZKCqMt6oRQZfAKfPETGg72Sn9zUvriT2X/e9SeGzTWq2qS+FaHAZyJiodLM
+	xV4csdUhS6mXO1Fh/WMVXjMO3lbEmdfQuCpx1//y4wr8o665vYFdj05H9YMuxsKkw84YVSAHijV
+	D5kkob6a8Cd+xroeWQyLHZLiVTPkyNCGd//nNsvzxQufTeqV8YOGXFbFchKXNtpqyr2wLnE+q6C
+	UMoL1iBr+fMYxdGRsKqr2zn1ziICiOQuzHC+/UsbaTshqoJvvErsb2ge+eQ
+X-Received: by 2002:a05:7022:3a88:b0:14a:88ce:74fb with SMTP id a92af1059eb24-16a61d5c320mr8327477c88.45.1791634927663;
+        Sat, 10 Oct 2026 05:22:07 -0700 (PDT)
 Received: from pve-server.rlab ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a1becf08sm15401816c88.5.2026.10.10.05.21.59
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a1becf08sm15401816c88.5.2026.10.10.05.22.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 05:22:02 -0700 (PDT)
+        Sat, 10 Oct 2026 05:22:06 -0700 (PDT)
 From: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
 To: linuxppc-dev@lists.ozlabs.org
 Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
@@ -68,9 +68,9 @@ Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
 	Shrikanth Hegde <sshegde@linux.ibm.com>,
 	linux-kernel@vger.kernel.org,
 	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-Subject: [RFC 3/4] powerpc: Wire memfd_secret syscall
-Date: Sat, 10 Oct 2026 17:51:11 +0530
-Message-Id: <4b0d9e39b98f2684d03ee1365b3651492ddf7081.1791608423.git.ritesh.list@gmail.com>
+Subject: [RFC 4/4] selftests: mm: Enable memfd_secret for powerpc
+Date: Sat, 10 Oct 2026 17:51:12 +0530
+Message-Id: <80c52d3311e732619c0c339b4a03e92859ba98a1.1791608423.git.ritesh.list@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1791608423.git.ritesh.list@gmail.com>
 References: <cover.1791608423.git.ritesh.list@gmail.com>
@@ -82,30 +82,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Wire the memfd_secret syscall. Currently this is only implemented for
-Book3S64 radix. On every other PowerPC configuration, either
-ARCH_HAS_SET_DIRECT_MAP is not enabled in Kconfig, or
-can_set_direct_map() returns false because the configuration is not
-supported. The syscall checks for that and returns -ENOSYS.
+Now that we have the needed support on PowerPC Book3s64 for
+memfd_secret, enable the necessary selftests for the same.
 
 Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
 ---
- arch/powerpc/kernel/syscalls/syscall.tbl | 2 +-
+ tools/testing/selftests/mm/Makefile | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/powerpc/kernel/syscalls/syscall.tbl b/arch/powerpc/kernel/syscalls/syscall.tbl
-index cfbb70039ff0..81677fdd0d05 100644
---- a/arch/powerpc/kernel/syscalls/syscall.tbl
-+++ b/arch/powerpc/kernel/syscalls/syscall.tbl
-@@ -537,7 +537,7 @@
- 444	common	landlock_create_ruleset		sys_landlock_create_ruleset
- 445	common	landlock_add_rule		sys_landlock_add_rule
- 446	common	landlock_restrict_self		sys_landlock_restrict_self
--# 447 reserved for memfd_secret
-+447	common	memfd_secret			sys_memfd_secret
- 448	common	process_mrelease		sys_process_mrelease
- 449	common  futex_waitv                     sys_futex_waitv
- 450 	nospu	set_mempolicy_home_node		sys_set_mempolicy_home_node
--- 
+diff --git a/tools/testing/selftests/mm/Makefile b/tools/testing/selftests/mm/Makefile
+index 2d5366196e30..3ada7f5f4151 100644
+--- a/tools/testing/selftests/mm/Makefile
++++ b/tools/testing/selftests/mm/Makefile
+@@ -70,7 +70,7 @@ TEST_GEN_FILES += khugepaged
+ TEST_GEN_FILES += madv_populate
+ TEST_GEN_FILES += map_fixed_noreplace
+ TEST_GEN_FILES += map_populate
+-ifneq (,$(filter $(ARCH),arm64 riscv riscv64 x86 x86_64 loongarch32 loongarch64))
++ifneq (,$(filter $(ARCH),arm64 riscv riscv64 x86 x86_64 loongarch32 loongarch64 powerpc))
+ TEST_GEN_FILES += memfd_secret
+ endif
+ TEST_GEN_FILES += memory-failure
+--
 2.39.5
 
