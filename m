@@ -1,142 +1,186 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B17EC3AC17;
-	Sat, 10 Oct 2026 16:19:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1C0D3AC17;
+	Sat, 10 Oct 2026 16:19:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791649146; cv=none; b=tspkmonrdCP4H2+BA0doDUec7yiA6GFNkdeclPPVbW7rabNGNgsR1cZk2Y3/Du0UPRizjeax+AmvdH6qcuBCw8Tj1Fmt+x4fN6jBEi96COQmoWxXViIpmOL9ppJTv5jvjnfjtT5kCzG7I+eCXtByYQXihllrjgils00Hb+hLuxI=
+	t=1791649155; cv=none; b=CJuuhEB/DKktm5M5UIpJS23Q+oWVxUOVEYFjcCGS8IYiwDTXhLa4eUlA3MEHmukZXujJYZcLsIBiDcWrJq83w6sPo29uMnl+wOx/Uex3R5gV6mm+/O+d6EtJNs/7mPOMkvErf/RzvlLczSrAMLm7+Mc9+17gsHylqon2S8ptrU4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791649146; c=relaxed/simple;
-	bh=fGo0ENJUfeMBImXgrDZx5qB9HxEPo7FMx1opDzrkJo4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jKSOUjvRaCGdY5z9rExl6gHNSt3QVC4R2QAh+g+QvrgNPi9+9jUGHkR1UaF9BGC3Y0V3BsKA87+NFoDZspsHSCMHlNNObxnyHhWZmKRnna4452Mf0HP7bgCHBctEAhlrU0QAZ34aRhusc7GRj2qvu0cq5upG30OZXSaFErMBdl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=ksl6Ix34; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1791649155; c=relaxed/simple;
+	bh=+fHLo+j3qpzzfXFVyeWgHauJcN1Z9yX5wJNAPPfd21Y=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=sy1E+ZEUdZjm0WSdKXuPU8hKRbABMPVtFgVgOLlF/1oJXME9Id3fObhUHsoWNIi3CtMrIeHBi5nBEefhGqTlGRFKnH0EkcBulqoqnspWXrKr4qxHOlJQCmKdKG7Xr3/UlWDZxdxQ8zgA/C6LkyRKE7e4oIsyFH942tQ5RwTw1F8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GA5hs3b3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="ksl6Ix34"
-Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 77C8A807C7;
-	Sat, 10 Oct 2026 18:19:01 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id 47OIXOBtmTSa; Sat, 10 Oct 2026 18:19:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1791649140; bh=fGo0ENJUfeMBImXgrDZx5qB9HxEPo7FMx1opDzrkJo4=;
-	h=From:To:Cc:Subject:Date;
-	b=ksl6Ix34rrtexVNLWo/x4C1BwXveXOnYtRd/rcTti0GrXYjcPQIJdtjZts8pyw6Mf
-	 j6hXgopOc9nnBeRRU5oM5EuAZaMK+sSIN024pxl3alr7gLN/FhMvSNCNkkP+wOFKDt
-	 53j07cv2zRiFRtxb8hZn+q/gAFBO6BLdRVTT+SApNQz9pcptk7jIdDsw1AY36cPkBo
-	 rYTsgYT/u8lKTFa3zWr3NoOnrfoFxOR6c8Vmo0HTMZSnyQvPfLv979R3Xpwjt+G1Mb
-	 SD9xdftlHszViZxnrkzHT6yMWH0U4kc+456X/Vf6akN+JBbze0CcRN6laB8K9Zqnsr
-	 VV0x/2u+U0Kdw==
-From: Rustam Adilov <adilov@disroot.org>
-To: Tony Lindgren <tony@atomide.com>,
-	Haojian Zhuang <haojian.zhuang@linaro.org>,
-	Linus Walleij <linusw@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-omap@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Rustam Adilov <adilov@disroot.org>
-Subject: [PATCH] pinctrl: single: add big endian support
-Date: Sat, 10 Oct 2026 21:15:44 +0500
-Message-ID: <20261010161545.62959-1-adilov@disroot.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GA5hs3b3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A9CC1F00893;
+	Sat, 10 Oct 2026 16:19:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791649154;
+	bh=Yn2lBah6xI+UynibkzP0mMoar1PQ6rju9miwSdYL3cg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=GA5hs3b3tl0ADvVrI8j6CezxXK0m12HIsRI3rRPXOqkJXU9fY1lkvyNRTEJQJi7JZ
+	 600cNvV1uBU6k7EPoOeh2OONUWKy9UrHbrhXRBTeH9OnyWRJnySnmKAU8HgvgvBwLP
+	 rQQOK+/DsLSBflUoYj5s/kWtjGce7ac6kFjwW2M1s/vaJaUUsbLieApTm/DB4eC1x1
+	 IDYLO+UA9Q8AYPRhK97cJiPUR8PzrLNL2Nyr7f9x9+89nCN9Rg4TAlUXzUDXba4AtQ
+	 qnku2AOCkOGUrKC241nomPniShwmPjgXwGcOjnICITRdSc/KEeVS+BWSqVAX6W3QLY
+	 0MGhUuL3E89Dg==
+Subject: Re: [PATCH net-next v25 02/10] dt-bindings: net: Document support for
+ AN8855 Switch Internal PHY
+From: netdev-bot+sashiko@kernel.org
+To: ansuelsmth@gmail.com
+Cc: lee@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, olteanv@gmail.com, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, chester.a.unal@arinc9.com,
+ daniel@makrotopia.org, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ horms@kernel.org, joey@tinyisr.com, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
+ mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ andrew@lunn.ch
+Date: Sat, 10 Oct 2026 16:19:12 +0000
+Message-ID: <179164915210.434549.18428989361576378283@kernel.org>
+In-Reply-To: <20261009161102.38961-3-ansuelsmth@gmail.com>
+References: <20261009161102.38961-3-ansuelsmth@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add support for big endian pin controllers by taking into account
-a big-endian device tree property.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-This is needed on big endian MIPS platforms like RTL930X, RTL931X
-and RTL9607C who use pinctrl-single, because when SWAP_IO_SPACE is
-enabled, the mmio accessors in pinctrl-single perform a byte swap.
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-Signed-off-by: Rustam Adilov <adilov@disroot.org>
----
- drivers/pinctrl/pinctrl-single.c | 41 ++++++++++++++++++++++++++++----
- 1 file changed, 37 insertions(+), 4 deletions(-)
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-diff --git a/drivers/pinctrl/pinctrl-single.c b/drivers/pinctrl/pinctrl-single.c
-index e0eb7240a985..001a0c157d6a 100644
---- a/drivers/pinctrl/pinctrl-single.c
-+++ b/drivers/pinctrl/pinctrl-single.c
-@@ -265,6 +265,26 @@ static void pcs_writel(unsigned int val, void __iomem *reg)
- 	writel(val, reg);
- }
- 
-+static unsigned int pcs_readw_be(void __iomem *reg)
-+{
-+	return readw_be(reg);
-+}
-+
-+static unsigned int pcs_readl_be(void __iomem *reg)
-+{
-+	return readl_be(reg);
-+}
-+
-+static void pcs_writew_be(unsigned int val, void __iomem *reg)
-+{
-+	writew_be(val, reg);
-+}
-+
-+static void pcs_writel_be(unsigned int val, void __iomem *reg)
-+{
-+	writel_be(val, reg);
-+}
-+
- static unsigned int pcs_pin_reg_offset_get(struct pcs_device *pcs,
- 					   unsigned int pin)
- {
-@@ -1785,6 +1805,7 @@ static int pcs_probe(struct platform_device *pdev)
- 	struct resource *res;
- 	struct pcs_device *pcs;
- 	const struct pcs_soc_data *soc;
-+	bool byte_be;
- 	int ret;
- 
- 	soc = of_device_get_match_data(&pdev->dev);
-@@ -1860,18 +1881,30 @@ static int pcs_probe(struct platform_device *pdev)
- 
- 	platform_set_drvdata(pdev, pcs);
- 
-+	byte_be = device_is_big_endian(pcs->dev);
-+
- 	switch (pcs->width) {
- 	case 8:
- 		pcs->read = pcs_readb;
- 		pcs->write = pcs_writeb;
- 		break;
- 	case 16:
--		pcs->read = pcs_readw;
--		pcs->write = pcs_writew;
-+		if (byte_be) {
-+			pcs->read = pcs_readw_be;
-+			pcs->write = pcs_writew_be;
-+		} else {
-+			pcs->read = pcs_readw;
-+			pcs->write = pcs_writew;
-+		}
- 		break;
- 	case 32:
--		pcs->read = pcs_readl;
--		pcs->write = pcs_writel;
-+		if (byte_be) {
-+			pcs->read = pcs_readl_be;
-+			pcs->write = pcs_writel_be;
-+		} else {
-+			pcs->read = pcs_readl;
-+			pcs->write = pcs_writel;
-+		}
- 		break;
- 	default:
- 		break;
+- [Medium] In the example of
+  Documentation/devicetree/bindings/net/airoha,an8855-phy.yaml, both PHY…
+- [Low] In the example of
+  Documentation/devicetree/bindings/net/airoha,an8855-phy.yaml,…
+
+--
+
+dt-bindings: net: Document support for AN8855 Switch Internal PHY
+
+This adds a YAML binding for the internal PHYs of the Airoha AN8855
+5-port Gigabit Switch. These PHYs are exposed on the MDIO bus. The binding
+also lets each PHY node reference the SoC eFUSE NVMEM cells (tx_a..tx_d)
+used for calibration.
+
+> diff --git a/Documentation/devicetree/bindings/net/airoha,an8855-phy.yaml b/Documentation/devicetree/bindings/net/airoha,an8855-phy.yaml
+> new file mode 100644
+> index 0000000000000..d2f86116badf4
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/airoha,an8855-phy.yaml
+> @@ -0,0 +1,83 @@
+
+[ ... ]
+
+> +examples:
+> +  - |
+> +    mdio {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        ethernet-phy@1 {
+> +            compatible = "ethernet-phy-idc0ff.0410",
+> +                         "ethernet-phy-ieee802.3-c45";
+
+[Severity: Medium]
+Should this be "ethernet-phy-ieee802.3-c22" (or just the ID compatible)?
+The same applies to ethernet-phy@2 below.
+
+Later in the series, an8855_core_probe() in drivers/mfd/airoha-an8855.c
+registers each internal PHY on a bus created by
+devm_mdio_regmap_register(). That bus only provides C22 accessors:
+
+drivers/net/mdio/mdio-regmap.c:devm_mdio_regmap_register() {
+    ...
+    mii->read = mdio_regmap_read_c22;
+    mii->write = mdio_regmap_write_c22;
+    ...
+}
+
+When the c45 compatible is present, fwnode_mdiobus_register_phy() ignores
+the explicit c0ff.0410 ID and forces Clause 45 probing:
+
+    is_c45 = fwnode_device_is_compatible(child, "ethernet-phy-ieee802.3-c45");
+    if (is_c45 || fwnode_get_phy_id(child, &phy_id))
+        phy = get_phy_device(bus, addr, is_c45);
+
+bus->read_c45 is NULL, so __mdiobus_c45_read() returns -EOPNOTSUPP. The
+call chain is:
+
+get_phy_device()->get_phy_c45_ids()->get_phy_c45_devs_in_pkg()
+
+and get_phy_c45_ids() turns that error into -EIO. an8855_core_probe()
+treats a fwnode_mdiobus_register_phy() failure as fatal
+(goto err_put_fwnodes). So a DT copied from this example would make the
+whole AN8855 MFD fail to probe, and neither the switch nor the eFUSE
+device would be created.
+
+The PHY driver later in the series (drivers/net/phy/air_an8855.c) also
+uses C22 paged access, and the MFD binding in the same series
+("dt-bindings: mfd: Document support for Airoha AN8855 Switch SoC") uses
+"ethernet-phy-ieee802.3-c22" for these same PHYs. ethernet-phy.yaml
+accepts both strings, so dt_binding_check won't flag the mismatch.
+
+> +
+> +            reg = <1>;
+> +        };
+> +
+> +        ethernet-phy@2 {
+> +            compatible = "ethernet-phy-idc0ff.0410",
+> +                         "ethernet-phy-ieee802.3-c45";
+> +
+> +            reg = <2>;
+> +
+> +            nvmem-cells = <&shift_sel_port0_tx_a>,
+> +                          <&shift_sel_port0_tx_b>,
+> +                          <&shift_sel_port0_tx_c>,
+> +                          <&shift_sel_port0_tx_d>;
+
+[Severity: Low]
+Is the PHY at reg 2 meant to use port 0's calibration cells here? In this
+example ethernet-phy@1 has no cells and ethernet-phy@2 uses
+shift_sel_port0_tx_*.
+
+The MFD binding later in the series maps them differently:
+ethernet-phy@1 (internal_phy1) uses shift_sel_port0_tx_*, ethernet-phy@2
+(internal_phy2) uses shift_sel_port1_tx_*, port@0 is internal_phy1 and
+port@1 is internal_phy2.
+
+an8855_phy_bus_register() computes the port from the address:
+
+    phy_offset = addr - priv->switch_addr;
+    if (phy_offset >= AN8855_MAX_PHY_PORT)
+        return -EINVAL;
+
+So when both reg 1 and reg 2 are present, the PHY at reg 2 can't be
+port 0.
+
+air_an8855.c reads tx_a..tx_d in an8855_probe() and writes them into the
+VEND1 R50OHM_RSEL registers in an8855_config_init(). A DTS copied from this
+example would put port 0's trim on a different PHY and leave the port 0 PHY
+uncalibrated.
+
+Would it make sense to match the MFD example, with port0 cells on
+ethernet-phy@1 and port1 cells on ethernet-phy@2?
+
+> +            nvmem-cell-names = "tx_a", "tx_b", "tx_c", "tx_d";
+> +        };
+> +    };
+
 -- 
-2.56.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261009161102.38961-1-ansuelsmth%40gmail.com
