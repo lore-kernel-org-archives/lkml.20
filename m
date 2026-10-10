@@ -1,159 +1,148 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012004.outbound.protection.outlook.com [40.107.200.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 617EF2F1FDF
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 07:37:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.4
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791617830; cv=fail; b=HkD6DiMGjCZxSSrPpD5tg8pXSmjUgsAACNvGfmjnkrS3aggKvD4/YMiLeJqpGbYYbZX0Y1eDgQTQosH+EFBBU0GJDDX52HNi0DqRNZNPwrFxd4ZFqdndJrOI7qydNaW+T+bOgWf9QzABt94OJTluBMhYHqaqIvrNbqUFDA8MxVo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791617830; c=relaxed/simple;
-	bh=NWzt/wyJSs/F+r4tbuxnQBOyYbldVhCDTt+gpSyfpuc=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=E42o5Oj1vE0XacqJs78FxRRhXQap1LNUSLpwhbIHNMmR0S7wWowTJXDn7N+qjZ/ULWDAugZeSmt3aXBS6tAzQ9Yiwg5mksxS3+YEwODzqdo7mLewetCKKmmvZ0RU2cgyk+MVhVMYgG/OyLOQKYj1MJE/OF0g8KZxc9IeSUSR2qU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=svkhDxSw; arc=fail smtp.client-ip=40.107.200.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DF7F2F851
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 07:37:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791617842; cv=none; b=BpxTeN9sKH7Yz9K4sTVbxfIxf5KdfgvGnCrr1y4ekb8cePhzLrFMDCIn4XI7Ejv4sVlD7dASo0A/B5rZnkBMeqwnWFwlQxJ2h65eyOgDpNJof5wB1DW9dGE24LO5G2e7VwGc8ywxbynCeqaNyyO1/+/Pg2N2ZsJk9pgYANbCEJA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791617842; c=relaxed/simple;
+	bh=g2wX7a2vYqi5wvxOvzOLMPjNjOgfOcbFit6oOKZwrwY=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=HMQUpZgaPX7KCfJRtxZA8uzvq+hvJ6QYgeQHH63LW7VayYq3PZH6BZgHm1HhEgmQHF44huPHKNH0PT4h42IJ9VoeUXDs5Ma6/Fr2Ur1d0+LYSjhdT+V21wxopI68CnznuX5EmS7mGSDPtXrwvjwsfuLhdyQ2oGkUPJh5w5twujQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b1VjOGHi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="svkhDxSw"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YiynAwJdLWrvJ868MuzELiUsGT8VR30Bu1nDTYWRYH5iParFf31nNJRJ00lDNVKwWV2+IBlJP4e7KV2vZdk5p6WF9K/lrtuxp4e3H5LHfCIF0MpLwmtbVJUhg/x7b/h9LEG2TjyL56Bfh2ZGrD7HD6+xr/F1GeUTvejE5/uiOL9whRzEm5U5cyxSZKqmdYnAxbv5WyYkaMxCRzRlNcufp4RrXw2gb+V2yzv7pYLfraok8lG64wg5aOK4ZPRIOV3csAURbrHRWBI010vFZN6AOvtgA6oWoxcFPeYHaHOdRofbzut1Ab11wQYy0rNXzRD6O8E89r/MGCSdEFrOSaqW6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JuSXVrJeC/D4Ih8/nUlqpqX2jdz7Zc/ANsKREwH7ysI=;
- b=pyPSEzgIPBwjLFWNy2+fx1lUVZSAoxY2AIWgWRihPM9OoFtChReaJwfBI2zwxjQV0vaEo1wtT2yLqwmNJznMczHuyv+/Ua9mnlUtZZnfQis1TwmNHcPvRNkZV2nLQ8PlRpl75kZnJNbLVZ3T7kMul5EF9twFFjBzbOVCzXz3YvOkNCq/I6ki4SDJncgItyxMQBn54XOdKfrlXGfFPGj4UwaK6fxSze5EZVOb8WVS3n0ft2p9y3inOvHvzDWjrNlu3BjpGE4yyri8Mc5zjYjeRmX4lTuHAvXPyjXnCI6porKqyJ2Ko8OHiNKzoAU5Z7hFjPC66mlkd7ZsJC3YpR3lBg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JuSXVrJeC/D4Ih8/nUlqpqX2jdz7Zc/ANsKREwH7ysI=;
- b=svkhDxSwPLKRC4N7gi+RsIjUS5QmK1aPOVhd6cHP3FInyozg+73Qo0u2gWb+wIuhYP1vRGGdagxkwOXFK1Q0V130T/80xOnKiV7JAQVkrCZbffaZyPMcbnU3kI5SpUHLjsC66TAcUHJnHb+vp0R11cpGb8dArlGJqtsc6ub6aLc=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
- by DM6PR12MB4042.namprd12.prod.outlook.com (2603:10b6:5:215::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Sat, 10 Oct
- 2026 07:37:05 +0000
-Received: from CY8PR12MB7170.namprd12.prod.outlook.com
- ([fe80::7565:bdd3:383a:de5f]) by CY8PR12MB7170.namprd12.prod.outlook.com
- ([fe80::7565:bdd3:383a:de5f%3]) with mapi id 15.21.0496.010; Sat, 10 Oct 2026
- 07:37:04 +0000
-Message-ID: <f1437a1e-387c-4eac-a5dd-e1fe42a444ff@amd.com>
-Date: Sat, 10 Oct 2026 15:36:52 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v9 3/4] drm/virtio: implement userptr resource support
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Cc: gurchetansingh@chromium.org, olvaffe@gmail.com, Ray.Huang@amd.com,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org, odaki@rsg.ci.i.u-tokyo.ac.jp,
- airlied@redhat.com, kraxel@redhat.com
-References: <20260924095556.1326164-1-honghuan@amd.com>
- <20260924095556.1326164-4-honghuan@amd.com>
- <f2e66335-5538-442f-80ad-94626a66b4d0@collabora.com>
- <f0c5d61a-d4bd-4f92-aba9-50c67cef74c6@collabora.com>
-Content-Language: en-US
-From: "Huang, Honglei" <honghuan@amd.com>
-In-Reply-To: <f0c5d61a-d4bd-4f92-aba9-50c67cef74c6@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: TPYP295CA0050.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:7d0:8::12) To CY8PR12MB7170.namprd12.prod.outlook.com
- (2603:10b6:930:5a::18)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b1VjOGHi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C62B71F000FF;
+	Sat, 10 Oct 2026 07:37:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791617840;
+	bh=5XbZZqJRmmZ/LFvu5kMHlzZA0oahdFNUV1rYwMv2suY=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=b1VjOGHi4EjnwFrW/B2RnJd/v5fcIr6As2XRK1F7oYNTUCddi6wjdJ6awrLpLNvjk
+	 7Q8jnI8EqbALMHQ5gAh6ARozGS8/jWEGMj4WqygcR55GvRewjXDghypOTQgBbWH7kP
+	 N70Mj3ADwOjyjzh/8JX10PySrPcaQSlyhdJTmc3+Kib5Vncl24jFNEDKs7U0AxqeKN
+	 bXeb01qId1WUP6bpU4DhP5yfDhHMDhJJ7C/pKqZET6tgpqwG6euNq/C2zbJ9g4mSnd
+	 TpW67NFlvo+KqazMZmZvkeuF2cqMCwWMFc+mTxP/Of8Qsb3FmrI6xW3Dtvor5B6P+r
+	 hvWjNRZTA5nuw==
+Message-ID: <99957074-c89a-44c4-a86d-f65e7dc85024@kernel.org>
+Date: Sat, 10 Oct 2026 15:37:18 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PR12MB7170:EE_|DM6PR12MB4042:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4c9e334c-91fe-43bb-85f7-08df26a147c6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|10067099003|18002099003|22082099003|4143699003|11063799006|56012099006|5023799004;
-X-Microsoft-Antispam-Message-Info:
-	FsxDwyDDoLHDSYEiDa3xa1fUP2yrdHbntiICDCGQf2nU2TNdKXXlJE2Aa8W+wBsTtrcKLbnh5rrFcR6BH4f34a6JQc++S4CTs4KApLB1ZA+Ttno8VDnj7sWWpjq/QG3z9hA60yjdlpOg5F4DFfWPbA+wezEHMtPfog4jUt3LMdE+C2SSAdb02KejHjvTC61gtmT6tzuF+hhYWj+6FgzjkbdJyu5ISlZMtdQNqhaSjHQhi0zIxhmivQvcp/g+GU0RXF5VYVHRrEwi2Bd5UxOcUG6rLjpG0yRHbNIHW7jScnB/IcZXfIvRezzK0yWn38fgr+yRbs2rifwOrKm/6+oz19CeqzvrPIBfUw0MarvXiJTc2mCysY2Wfc+N1lTkij8uLH6+xUUQYw3J6rIWK7ZaOM/MphC3A73ugJMh7aal1/wPROo8NGwQpKfZ/Z6gKrjom479hMBhz46eubqOUiL7l4DPxwx7uvBG8a7VXsH4m16LxDbXVe6Nyznjw0phcnr4vY+3INBgsT3+LHc5kM+X3yM40CPPujCbUjyl7LNI49YMx/BikCVZOxmaI9YAVOr11F94fp4+dGjBTE+22QhyteYrNbG81ZrRQVBztpQjsbBGnQuoxx5l9Yo/2nG8uXFWfiEsC8nPj4kgMQ2XVbrdgf1rCQoIlB2bZwyQvGe75Tc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7170.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(10067099003)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006)(5023799004);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Rjl4cnZVNGxyVW4vT3JOcnkwV0lvSm1YOThNSXhiVGFWai8yR3I1SEMyb0dM?=
- =?utf-8?B?ZDdzRTczd2hzK29NVnpiRHBrKytRcXhpMWoveEl6RUR4QUlIdUs4Vmg5dmJI?=
- =?utf-8?B?cWtwc25QMXZUYnN5SHJSd0dTZURhV3VJWlM5cmpKd1N2dThrZ0xxTVJwYzQx?=
- =?utf-8?B?U2Y4RmcwZ3BtK2xCclVXU3pZTzBNMVpoQU1iMytQQzBUbUpFaXJURjhYOHE0?=
- =?utf-8?B?Slk3UXpGbEhSdkRjSFdNU0VMNUdXRDFZS1ovQTJuUE1OejZDUUEwZFVyMnJK?=
- =?utf-8?B?NGJBUUhEQlBmUmRZUVVYZmNDMXRlVDJrRnh3V0tHbEd0ejVTYjJxWkJ3dmJo?=
- =?utf-8?B?Zkd3cVZQOXJTZ0M0TXZJOVFnMndJVTZSYlRaTGJEYlFDclp2czRGcFg0bjlC?=
- =?utf-8?B?a1E3WlJ3TzJFOUpyT0M2SUZpUUZaTkJDelkxWnNiaStPOFdEWnpzWW45QXhC?=
- =?utf-8?B?Q09obEJKaFdPcXNma3djNzNqV2k3UDBteUdFdlhaM21zcUFRTEVYS2ZydHU1?=
- =?utf-8?B?QzZnQzBWOVBuZkI3K3RJUkNNa1JJQ1RTa1VVRFUxSko3aTNMeFVuZGNEZmwy?=
- =?utf-8?B?dXhvbGtyZ3JLQVhRMXhiVS9Ec3lkQlNuU21ZeWdQZ0ZmUHNNcWQ5eFpZVmNO?=
- =?utf-8?B?RTY0MnlWdkhIeHFVdUd4Lyt2cGc1NjZQSi9sRzYrZHFCMWxzVW8wK0Roekcw?=
- =?utf-8?B?RzlHVFhKNHF5NUd0akJLSjZvS2tSbkxxbUE1bTFKaWJuRVpCQ05HL3dUcGw2?=
- =?utf-8?B?TXV0WGloRHBvQXZPRGg0UjQ5TUhvQTdyZHc4VkhLWTBLd0pzWHVXWTBJeFcz?=
- =?utf-8?B?bGhnSlhPYTNLZm5ORkdIdE4zNnRKbk9HL1RobVJmK1JCMEttY1F0Y3NFYThC?=
- =?utf-8?B?M0Nud0tlLzl4ZE9FTng0TXAxWmFOOXExYzhDcWxNQmVKUkQ5RWVzT3pSNjFk?=
- =?utf-8?B?aXptMC9ybkNsWklFSUNjcjVZZklaelpBMXhORUVwZ1cwNGNaNFNEcmRXNUFv?=
- =?utf-8?B?WDlPaDF0WVpsM3ZXMERDZTBlSXBGYWZqMmROdzVOM3ZoSUk2OXlOZXZLSjFF?=
- =?utf-8?B?czExMXFmZWtQMFovVXZMK3Joa3prb3JCQ3NpRHhGUWEybmZRa3BiQXdzME4v?=
- =?utf-8?B?RjJLUzUvbnIwZTZCcU9paTBNa29BcmxFMFdvTlA3UWRZWXBwbVNqY0RCNE5o?=
- =?utf-8?B?NE5WRlhLMXFnaUpld094aVIvT1JHMGxFb216YkNSVXU1ZFdWNmU2TktuOVl4?=
- =?utf-8?B?citmMEdxSXJDRTdJdWVCSUVZVlFmc2VFOTMrYXRGdk5mY1MzZFpwQTZ1ZTl0?=
- =?utf-8?B?R1ZpaGdleDVVM0JJOHJaRlA2clRtTGFaRGpMN2dsQjhzRUd3UWRTaVhScmVy?=
- =?utf-8?B?NHZyVSsrNXcrdHpjRlNYdXJGblZHWEwvZ3FFc2R5NjVXQ3g0YzFYeVgxWHpt?=
- =?utf-8?B?MlhBamRIL3d3UEdwTGZzRHBLdUk5MXBXOEFYZmZ0VEtWSXhkcWMzMjlKbDRq?=
- =?utf-8?B?d1NrOW50d3FXMEpjMDE4SjAvdkEzMEhCN1ZNQm1pSHpBTTBpMVVxWEVWU2JY?=
- =?utf-8?B?VFVkQ1l1Y3ZDTE0zRk9CREI2NjhJN0pYOWxLR3pJWnRGNmIyc2tUbXpnUVpZ?=
- =?utf-8?B?TlhFeHFvdFI5M011UmdPVThtVGVtWmFmV2lHdWJ6cDFGYWpnL3dpV2RQWkJR?=
- =?utf-8?B?TGRPNTlEUHpqeTltRmsreVhPRUowUVlnZ0RxWDBERktuc1k1OGttenltMnh1?=
- =?utf-8?B?THZ2eXZWREh1bm9wVGVFQitnWXMwczByRC84T2NycWwveGpZd21pUkcyaVVZ?=
- =?utf-8?B?MUZ6T1JnWTl4emZmeWFQWm92MHlJSUFrUjl0L1E0aUVDcWFVcUF5RGNmQ0R6?=
- =?utf-8?B?NWVZcWhuQkNlQ2pMTGZjV0IwSlZRYTYyclEwc1NvNWdlQ3hNVlY4bTJUcW5l?=
- =?utf-8?B?YWNVbXU3Uy9tOUM5dDZ3Zm52dVFJeTdtZUcxRk9VWEZEaUh5QllrZWNMSVds?=
- =?utf-8?B?cnhaY2Z5eDFJa09sUVhLOGxKM1d2VEt3N0NJWko4eFk4OFlqSm5GS2N2dEdY?=
- =?utf-8?B?YktiVWFjdm1sTlZERkF2ejExMjc4bmZMVmRnOW53bnE3VWp5VXdybVA1Q2Fx?=
- =?utf-8?B?eTVjZU14V3hNUmNlTWxYR1luSWczdmVpWEMrTm1WcVpKcG1sUHVHOGVwR2JZ?=
- =?utf-8?B?bmhPVStiakxxS081T2xhTDFnRDl0WHR4TkM2VUJLRzBwa2Uyd3RRWktaL2RD?=
- =?utf-8?B?b1QrSVhMSTZzaC9DK3lhaDFmcVUyd3ExYlNaUFBVeXBJeUNMVUZQTUsrY1dH?=
- =?utf-8?Q?AJnD5AM6lRIvQJQtjx?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4c9e334c-91fe-43bb-85f7-08df26a147c6
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7170.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2026 07:37:04.8570
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: COiaj4hdSD9TxJldpRcqtF5CcMp3qnay0ugJ+cgReswsJDAyChTF8yH+QDKamzkDaaEx9MqIXzkYp2gSaZLskg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4042
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, Daeho Jeong <daehojeong@google.com>, stable@kernel.org
+Subject: Re: [f2fs-dev] [PATCH v2] f2fs: disallow mmap write and
+ data-modifying fallocate on atomic files
+To: Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, kernel-team@android.com
+References: <20261010024133.2444761-1-daeho43@gmail.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20261010024133.2444761-1-daeho43@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
-
-On 10/10/2026 2:46 AM, Dmitry Osipenko wrote:
-> 09.10.2026 21:38, Dmitry Osipenko пишет:
->> 24.09.2026 12:55, Honglei Huang пишет:
->>> +	mm = current->mm;
->>> +	mmgrab(mm);
->>> +	lock_limit = rlimit(RLIMIT_MEMLOCK) >> PAGE_SHIFT;
->>> +	new_pinned = atomic64_add_return(userptr->npages, &mm->pinned_vm);
->>> +	if (new_pinned < 0 ||
->>> +	    (new_pinned > lock_limit && !capable(CAP_IPC_LOCK))) {
->>> +		atomic64_sub(userptr->npages, &mm->pinned_vm)
->>
->> At a quick glance over other kernel code touching pinned_vm, nobody else
->> check for new_pinned < 0 and then doing atomic64_sub() for the negative
->> value will be incorrect.
-> Though no, negative will restore pinned_vm. Still neg looks confusing
-> and shouldn't be needed as such overflow shouldn't be possible.
+On 10/10/26 10:41, Daeho Jeong wrote:
+> From: Daeho Jeong <daehojeong@google.com>
 > 
+> Stores through a shared writable mapping and fallocate with
+> FALLOC_FL_PUNCH_HOLE, FALLOC_FL_ZERO_RANGE, FALLOC_FL_COLLAPSE_RANGE or
+> FALLOC_FL_INSERT_RANGE do not go through ->write_begin, so they bypass
+> the COW inode and modify the original inode directly. Reject them while
+> the file is in atomic write mode, as fallocate already does for pinned
+> and compressed files. A write fault gets SIGBUS and fallocate gets
+> -EOPNOTSUPP.
+> 
+> fallocate without these flags only preallocates blocks and stays
+> allowed.
+> 
+> f2fs_vm_page_mkwrite() cannot take inode_lock, so check the flag under
+> invalidate_lock, and hold invalidate_lock in
+> f2fs_ioc_start_atomic_write() from the flush until the flag is set.
+> Otherwise a fault could check the flag, then start_atomic_write could
+> flush and set the flag, and the fault would dirty the folio afterwards.
+> 
+> Cc: stable@kernel.org
+> Fixes: 3db1de0e582c ("f2fs: change the current atomic write way")
+> Signed-off-by: Daeho Jeong <daehojeong@google.com>
 
+Daeho,
 
-Got it will remove this check in next version
+Please take a look at https://sashiko.dev/#/patchset/20261010024133.2444761-1-daeho43%40gmail.com
 
-Regards,
-Honglei
+I think we need to apply this after ("f2fs: remove mappedtodisk flag usage in mmap write path")
+
+More details are in my comments on this patch:
+https://lore.kernel.org/linux-f2fs-devel/496b913c-eb81-4fa8-be72-c6a06a10aba2@kernel.org/
+
+Otherwise it looks good to me.
+
+Reviewed-by: Chao Yu <chao@kernel.org>
+
+Thanks,
+
+> ---
+> v2: serialize atomic flag check in f2fs_vm_page_mkwrite().
+> ---
+>  fs/f2fs/file.c | 20 ++++++++++++++++++--
+>  1 file changed, 18 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+> index ef4d218e694..7020b3e8940 100644
+> --- a/fs/f2fs/file.c
+> +++ b/fs/f2fs/file.c
+> @@ -187,6 +187,17 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+>  	file_update_time(vmf->vma->vm_file);
+>  	filemap_invalidate_lock_shared(inode->i_mapping);
+>  
+> +	/*
+> +	 * mmap stores bypass the COW inode and would break atomicity. Check
+> +	 * under invalidate_lock: f2fs_ioc_start_atomic_write() holds it while
+> +	 * flushing dirty folios and setting FI_ATOMIC_FILE, so either it sees
+> +	 * our dirty folio and writes it back, or we see the flag.
+> +	 */
+> +	if (unlikely(f2fs_is_atomic_file(inode))) {
+> +		err = -EOPNOTSUPP;
+> +		goto out_sem;
+> +	}
+> +
+>  	folio_lock(folio);
+>  	if (unlikely(folio->mapping != inode->i_mapping ||
+>  			folio_pos(folio) > i_size_read(inode) ||
+> @@ -2113,9 +2124,11 @@ static long f2fs_fallocate(struct file *file, int mode,
+>  
+>  	/*
+>  	 * Pinned file should not support partial truncation since the block
+> -	 * can be used by applications.
+> +	 * can be used by applications. Atomic files should not either, since
+> +	 * these modify the original inode directly and break atomicity.
+>  	 */
+> -	if ((f2fs_compressed_file(inode) || f2fs_is_pinned_file(inode)) &&
+> +	if ((f2fs_compressed_file(inode) || f2fs_is_pinned_file(inode) ||
+> +	     f2fs_is_atomic_file(inode)) &&
+>  		(mode & (FALLOC_FL_PUNCH_HOLE | FALLOC_FL_COLLAPSE_RANGE |
+>  			FALLOC_FL_ZERO_RANGE | FALLOC_FL_INSERT_RANGE))) {
+>  		ret = -EOPNOTSUPP;
+> @@ -2403,6 +2416,8 @@ static int f2fs_ioc_start_atomic_write(struct file *filp, bool truncate)
+>  
+>  	f2fs_down_write(&fi->i_gc_rwsem[WRITE]);
+>  	f2fs_down_write(&fi->i_gc_rwsem[READ]);
+> +	/* serialize with f2fs_vm_page_mkwrite(), see the comment there */
+> +	filemap_invalidate_lock(inode->i_mapping);
+>  
+>  	/*
+>  	 * Should wait end_io to count F2FS_WB_CP_DATA correctly by
+> @@ -2458,6 +2473,7 @@ static int f2fs_ioc_start_atomic_write(struct file *filp, bool truncate)
+>  	f2fs_i_size_write(fi->cow_inode, isize);
+>  
+>  out_unlock:
+> +	filemap_invalidate_unlock(inode->i_mapping);
+>  	f2fs_up_write(&fi->i_gc_rwsem[READ]);
+>  	f2fs_up_write(&fi->i_gc_rwsem[WRITE]);
+>  	if (ret)
+
