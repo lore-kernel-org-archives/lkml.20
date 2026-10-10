@@ -1,104 +1,196 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E336E374187;
-	Sat, 10 Oct 2026 08:48:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39F923D47C2
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:48:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791622083; cv=none; b=oa6xqxHG0etq+R95a5W445uasYTeXj/v+UkfPHgJDyOCcXWOyULW6C8Og4OKHSSgOepwZdRJpyRIIyQ/OmuKaBc4oAPVlZ6eODcxv/4n+58RrAUgNkp8EqFdTda0uAjdi4dv+2BUQJLC9ErVbf721n0cnDGVVD4/oYcrfyXUD7U=
+	t=1791622144; cv=none; b=AKyCT2TK6yn7qG10L4rD7Janeb1zzKtbWAoYYjQH6zHxnCtQSK5JRgX6pa9EcBOnwY3W9v57p7bTtbLodWBub+uL8OeAI3EdPdkTA6LUeMyUxI4giloaNHm5sw6a8SfqzuIwwC/9js8WkfHJiQjEEP0BiCcbNzS/D+TGcKhFGwI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791622083; c=relaxed/simple;
-	bh=ls/4e4TTxmpeeTi/kMhBzjBeeG2J8NUVdjBhBVpVSn8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZAWP+eom7Qq0AoNKNUSeuuU5ym4unfT0rC93TVMCWVztSumorxmfuC8DPfU2VBRSpe5PSOOl8Ttu2I4Sby1wX/NclulJ3eRVHYW9+SfCpuzdjt39Fn8LN57FHoNtVeOdBANQunoQHki/+97Ubm/1nXX/uux8chVil2P3t3n/ACQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a+QntHaB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791622144; c=relaxed/simple;
+	bh=K4ZxKk79pvRWrYuuRjzAj/xtXo/3o1M9VNlFqX+ZUbE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tWg7RQxNv+9YTtHLaVBFsf5boSJUeU4ds7y0YekdQs0UPwFh4XDJ3eiIoyPDlgNovk+pYNKzwb67APl3k6BLM069kfpy7sLdTcr/8xTTOxvdXQspl6m0rEH9nQFHnZShI7wokXo9gSxOZM7dqAX37SNFxOgl52IZNiPzEQOpY+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=Hqd6h2sW; arc=none smtp.client-ip=115.124.30.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a+QntHaB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93D321F000FF;
-	Sat, 10 Oct 2026 08:47:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791622082;
-	bh=9aAKNdFlAWIBUhCteIbdgam8eQs/tWYWWSOa0TvAgNk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=a+QntHaBhv0z8VDbqJJkqrAwEbrFgBRg9/Xdm5ENmSUmHKoLcSJ8FMMZ1gUr4vKt2
-	 kGmnMkcNDCeDjoev+XtP9mnEW/W3AbTtLQlms8kGI99KHAiN8gB4Ms0D0wlymWzpY3
-	 A9bZ3rVrc8o9I5DkUPZn69Dq+TWk/7MmKxXr0QQB+04WP/nEaGg0ZWk5RR+xz+Bss8
-	 7j/ghcFbgoFQw9puG4IAQz8wyGEuft4Vd85CchZXZtPtCYMZJC3Cw2LlLaQBeKgVQW
-	 LkWEQNOgeGNWM1wyUpEfoQkQoV3dm7cHU5Fl9S+m6qv4N2Kw4TOV+2TKCNPET8VLZ9
-	 VReZAo7MXRnpw==
-Date: Sat, 10 Oct 2026 10:47:52 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: David Matlack <dmatlack@google.com>
-Cc: kexec@lists.infradead.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-pci@vger.kernel.org,
-	Adithya Jayachandran <ajayachandra@nvidia.com>,
-	Alexander Graf <graf@amazon.com>,
-	Alex Williamson <alex@shazbot.org>,
-	Bjorn Helgaas <bhelgaas@google.com>, Chris Li <chrisl@kernel.org>,
-	David Rientjes <rientjes@google.com>,
-	Jacob Pan <jacob.pan@linux.microsoft.com>,
-	Jason Gunthorpe <jgg@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Josh Hilke <jrhilke@google.com>,
-	Leon Romanovsky <leonro@nvidia.com>, Lukas Wunner <lukas@wunner.de>,
-	Parav Pandit <parav@nvidia.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pranjal Shrivastava <praan@google.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Saeed Mahameed <saeedm@nvidia.com>,
-	Samiullah Khawaja <skhawaja@google.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Vipin Sharma <vipinsh@google.com>, William Tu <witu@nvidia.com>,
-	Yi Liu <yi.l.liu@intel.com>
-Subject: Re: [PATCH v9 03/13] PCI: liveupdate: Track incoming preserved PCI
- devices
-Message-ID: <asn7uP123pDkdkSm@kernel.org>
-References: <20260918200640.887030-1-dmatlack@google.com>
- <20260918200640.887030-4-dmatlack@google.com>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Hqd6h2sW"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1791622124; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=b2y2N7FeKcJ8D9RR9jlgBCmtkAzLlNngU7OyifZ+Avg=;
+	b=Hqd6h2sW5tOyjB3GTmIAARzTw1J644wLPnXs4EwuBhA5o4NvYdpOEZgK2ApZt4j9ZwYd/JVPwpduZMFWvbNN0vlXdqUE+2oahO8Zj1g6MHFiw7NkykYdLqD8q3GNYZya6EZlbZbB3H7yxzQnBSHjzsD04s83onrAhogQbd2bTrc=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XCVjsiu_1791622122;
+Received: from 30.221.145.85(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XCVjsiu_1791622122 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Sat, 10 Oct 2026 16:48:42 +0800
+Message-ID: <9227ec1d-0de0-4e43-830c-fc60d5f8b2c8@linux.alibaba.com>
+Date: Sat, 10 Oct 2026 16:48:41 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918200640.887030-4-dmatlack@google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ocfs2/dlm: Serialize recovery list teardown with debug
+ reads
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: mark@fasheh.com, jlbec@evilplan.org, kees@kernel.org, jack@suse.cz,
+ rppt@kernel.org, hexlabsecurity@proton.me, sunil.mushran@oracle.com,
+ akpm@linux-foundation.org, Heming Zhao <heming.zhao@suse.com>,
+ ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ baijiaju1990@gmail.com, jjzuming@gmail.com
+References: <pm-ocfs2-objects-candidate-0049-v2-a5d5091b8900dc3f9849@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <pm-ocfs2-objects-candidate-0049-v2-a5d5091b8900dc3f9849@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi David,
 
-On Fri, Sep 18, 2026 at 08:06:29PM +0000, David Matlack wrote:
-> During PCI enumeration, the previous kernel might have passed state about
-> devices that were preserved across kexec. The PCI core needs to fetch
-> this state to identify which devices are "incoming" and require special
-> handling.
+
+On 10/9/26 6:01 PM, Cen Zhang wrote:
+> Recovery participant records must remain alive while debug_state_print()
+> walks reco.node_data and formats their fields. The formatter holds
+> dlm->spinlock, but dlm_destroy_recovery_area() detaches the list under
+> dlm_reco_state_lock and frees the records without taking dlm->spinlock.
 > 
-> Add pci_liveupdate_setup_device() which is called during device setup
-> to fetch the serialized state (struct pci_ser) from the Live Update
-> Orchestrator. The first time this happens, pci_flb_retrieve() will run
-> and convert the array of pci_dev_ser structs into an xarray so that it
-> can be looked up efficiently.
-
-...
-
-> diff --git a/drivers/pci/Kconfig b/drivers/pci/Kconfig
-> index 3781e2b5f095..8af20f558086 100644
-> --- a/drivers/pci/Kconfig
-> +++ b/drivers/pci/Kconfig
-> @@ -273,7 +273,7 @@ config VGA_ARB_MAX_GPUS
+> When a recovery master finishes recovering a dead node, a concurrent
+> open of the domain's dlm_state file can reach the participant list after
+> the master's last dlm->spinlock section. The following ordering is
+> possible:
+> 
+>     Debugfs open                      Recovery thread
+>     debug_state_print()
+>       lock dlm->spinlock
+>       select participant
+>                                       dlm_destroy_recovery_area()
+>                                         lock dlm_reco_state_lock
+>                                         detach participant list
+>                                         unlock dlm_reco_state_lock
+>                                         kfree(participant)
+>       read node->state/node_num
+>       unlock dlm->spinlock
+> 
+> The field read or the next list iteration then accesses freed memory.
+> Debugfs removal protects the domain lifetime, but session completion
+> leaves the file installed, so it does not drain this open callback.
+> 
+> Take dlm->spinlock around the existing locked list detachment. A debug
+> reader must now finish before detachment, and later readers see an empty
+> list. Keep the frees outside both locks. This also covers cleanup after
+> partial allocation failure in dlm_init_recovery_area().
+> 
+> KASAN report as below:
+> 
+>     BUG: KASAN: slab-use-after-free in debug_state_open+0x1169/0x12d0
+>     Read of size 4 at addr ffff88810662ef80 by task dlm-state-stres/896
+> 
+>     CPU: 1 UID: 0 PID: 896 Comm: dlm-state-stres Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
+>     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+>     Call Trace:
+>      <TASK>
+>      dump_stack_lvl+0x93/0xd0
+>      print_report+0xce/0x630
+>      ? debug_state_open+0x1169/0x12d0
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __virt_addr_valid+0x20e/0x420
+>      ? debug_state_open+0x1169/0x12d0
+>      kasan_report+0xe0/0x110
+>      ? debug_state_open+0x1169/0x12d0
+>      debug_state_open+0x1169/0x12d0
+>      ? __pfx_debug_state_open+0x10/0x10
+>      full_proxy_open_regular+0x193/0x310
+>      do_dentry_open+0x595/0x12d0
+>      ? __pfx_full_proxy_open_regular+0x10/0x10
+>      vfs_open_consume+0xd1/0x400
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      path_openat+0x18d0/0x2020
+>      ? __pfx_path_openat+0x10/0x10
+>      do_file_open+0x21e/0x470
+>      ? __pfx_do_file_open+0x10/0x10
+>      ? _raw_spin_unlock+0x23/0x40
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? alloc_fd+0x3a6/0x6b0
+>      do_sys_openat2+0xf4/0x1b0
+>      ? __pfx_do_sys_openat2+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __fput+0x5b5/0xa60
+>      __x64_sys_openat+0x136/0x1e0
+>      ? __pfx___x64_sys_openat+0x10/0x10
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>     [Register dump omitted.]
+>      </TASK>
+> 
+>     Allocated by task 880:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      __kasan_kmalloc+0xaa/0xb0
+>      __kmalloc_cache_noprof+0x28d/0x610
+>      dlm_remaster_locks+0x147/0x1d90
+>      dlm_do_recovery+0xde1/0x1580
+>      dlm_recovery_thread+0x109/0x300
+>      kthread+0x351/0x460
+>      ret_from_fork+0x659/0x940
+>      ret_from_fork_asm+0x1a/0x30
+> 
+>     Freed by task 880:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      kasan_save_free_info+0x3b/0x60
+>      __kasan_slab_free+0x5f/0x80
+>      kfree+0x308/0x580
+>      dlm_destroy_recovery_area+0x285/0x460
+>      dlm_remaster_locks+0x17c4/0x1d90
+>      dlm_do_recovery+0xde1/0x1580
+>      dlm_recovery_thread+0x109/0x300
+>      kthread+0x351/0x460
+>      ret_from_fork+0x659/0x940
+>      ret_from_fork_asm+0x1a/0x30
+> 
+>     The buggy address belongs to the object at ffff88810662ef80
+>      which belongs to the cache kmalloc-32 of size 32
+>     The buggy address is located 0 bytes inside of
+>      freed 32-byte region [ffff88810662ef80, ffff88810662efa0)
+> 
+>     [Page and memory-state dumps omitted.]
+> 
+> Fixes: 007dce53a29c ("ocfs2/dlm: Dump the dlm state in a debugfs file")
+> Assisted-by: LLM
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> ---
+> 
+> diff --git a/fs/ocfs2/dlm/dlmrecovery.c b/fs/ocfs2/dlm/dlmrecovery.c
+> index 9d4a2695b9594d1ad8bd60de9cec8ee701355f09..5719c2b88e4292cff38e26b10b29c8a4a0deccda 100644
+> --- a/fs/ocfs2/dlm/dlmrecovery.c
+> +++ b/fs/ocfs2/dlm/dlmrecovery.c
+> @@ -764,9 +764,12 @@ static void dlm_destroy_recovery_area(struct dlm_ctxt *dlm)
+>  	struct dlm_reco_node_data *ndata, *next;
+>  	LIST_HEAD(tmplist);
 >  
->  config PCI_LIVEUPDATE
->  	bool "PCI Live Update Support"
-> -	depends on PCI && LIVEUPDATE
-> +	depends on PCI && LIVEUPDATE && 64BIT
+> +	/* Serialize list detachment with debug_state_print(). */
+> +	spin_lock(&dlm->spinlock);
+>  	spin_lock(&dlm_reco_state_lock);
+>  	list_splice_init(&dlm->reco.node_data, &tmplist);
+>  	spin_unlock(&dlm_reco_state_lock);
+> +	spin_unlock(&dlm->spinlock);
+>  
 
-This could have been there from the first patch, no? :)
+The race looks real.
 
->  	help
->  	  Enable PCI core support for preserving PCI devices across Live
->  	  Update. This, in combination with support in a device's driver,
+But I don't want to involve dlm->spinlock for list dlm->reco.node_data.
+While dlm_reco_state_lock is the designed lock to protect list
+dlm->reco.node_data.
 
--- 
-Sincerely yours,
-Mike.
+So why not add the dlm_reco_state_lock in debug_state_print()? This
+can keep consitent with all other places that access list
+dlm->reco.node_data.
+
+Also it seems also fixes the potential list_add_tail() race in
+dlm_init_recovery_area().
+
+Thanks,
+Joseph
+
