@@ -1,65 +1,65 @@
-Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C150534DCC8
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 04:59:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B62737BE78
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 04:59:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791608368; cv=none; b=jfrC8387bjGuYIwGAMEV3kkqFzpi5wDaNOSklRmN703u9vjXLZ09sKwwUIdL7uKrS0yWUhe7f2eN+t5UjHq3oo1BoLmPFgyg6/vleLMh7wbhwacB90JxeYNKCMdwFpip1Niygy0FlsFKKLfbnCQtNwD9Ul6ysfhHIYFZsflkjzE=
+	t=1791608372; cv=none; b=KQxsMIuySc+dnJZ78ULImFOI7bPne6d0vJYyfeN3dS3E6RWBZlxakGIfL6e5aPCevxbBRg5tWMLBEQz+GXHNwpyoqqezQp4v1HZkDjrZk1pUiNwBoBqU3CJMWGVcKVRWNE8zxZVrI+wXmzVbTQIsMKw6hfaoFD7hJJRWICnrqsc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791608368; c=relaxed/simple;
-	bh=P7yCH5kYXrmTKOJ0FGZzZuy+blQgstUKAmh/g+oX51s=;
+	s=arc-20240116; t=1791608372; c=relaxed/simple;
+	bh=j1wmvJil2lJCCEi5mxhSqR7Ez4QAqAByUVbsg+6GTDU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IuPyHiHU0TYXpSdUizs3+pCX2srap9YFjwyT3rGsmEHtQwRhGZnd5lhpioT4ouqHj/3nXHpJtAQgQqlcDx9LsP1fFk9BiSjiKSlNOhxFY6q0MM+DyJMVoAsETvn8Vpbaa8FgUGp5NmKaJgJni3666N1Q1ICaJfl33UM58NpYmsw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca; spf=pass smtp.mailfrom=metarealtyinc.ca; dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b=ncNbsusu; arc=none smtp.client-ip=209.85.219.50
+	 MIME-Version; b=dE7CoiREEeGM3HQ+Q4cebSmZOdiR3Uog4/OVgSDUgeq66dMqHAewjlVqkrkgNPIrf8BNqDQS4O59mR+CXPvwZtjeI0dASZLDipcBSqWuK+C0x5eo4VJJ2C6xP3ZxIZ8jlvWX1+fW1t2lkCduzLMtrHhEVj2aNV7/7lLkAxCmSZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca; spf=pass smtp.mailfrom=metarealtyinc.ca; dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b=pFZCTpWv; arc=none smtp.client-ip=209.85.160.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=metarealtyinc.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="ncNbsusu"
-Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-917b78dfe30so7699396d6.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 21:59:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="pFZCTpWv"
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-533861a59b8so4411031cf.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 21:59:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1791608365; x=1792213165; darn=vger.kernel.org;
+        d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1791608369; x=1792213169; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8nRDOlvFA2YLyiFZW2o7vc4YCb0RwgsJ9ji12ZBwLmc=;
-        b=ncNbsusu7y+0/8uWqVIiOntLT/54Az/z+wnfEmqhHHpJyAZ3/WQzXQ6wcBAnqOU5C8
-         mjxK7KJuCrBPKYj++Un1y+/uO2v9VfByLOwPPEJorxl+w4njSQG/OA1xKKHqYOoDlX+b
-         OGro8H+/vrYLmahe7fJ/I1BuaeqGWLLUWg+P+b5yGTYtMQmejNSO0nyZwHYrQN5I9CUQ
-         +e3e5otVB50XgEa5QmwV1j/+VuiWRb5djsV5LYl6BG0kBoWmDd0qpUZ5FMucXkAZqRZM
-         +A0ckSzeNkuSHRhB+UQttiOvFBJRG4pNzp/qK4rep9nHkYJXUMsL9l/Szvfl5EK6gE1K
-         q19Q==
+        bh=kal90amSbaRMY1YFdpgEyggfZOCC11kFyumtrLhWcfo=;
+        b=pFZCTpWvRMtopITeZQ7Io+V4zVnTmqJnsEVf3MtroJMRImZFtEX3LxHHmuFX+gah9o
+         wo13nUFj+GRH1g69AxJ2S2GoCLwHGJfoVvLBCsnlT8fPBOG979dW61BZ3uO3NdEjz/cu
+         sxJzsaNA3Ig39JeQyyySIrJSnow5hWdz3IbpfD+9HRD2Nzw6AWBiLkuJRaQ0nA8D/scw
+         9vR0unSbxtvGwjZdv7RAvttERgNtK2lz7i6JmcB8DUS/pf7KlAgHAYkQ8bLk716yO3UE
+         kRuclhRn1WHTHl/0OguV9QJz0Rkv9qU3hjm2XA7SGc2tGx0xcxvvuiTA0HoAO/+9znFE
+         BcDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791608365; x=1792213165;
+        d=1e100.net; s=20260707; t=1791608369; x=1792213169;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8nRDOlvFA2YLyiFZW2o7vc4YCb0RwgsJ9ji12ZBwLmc=;
-        b=QjDMc6JPlRge7PMtq2XYEkNjz7zWGT1BVYVmeTBy8M5IL1rGLH4jXFU64G7mNpoFoU
-         AD3rWoz4aqd+mzETt1mfL5o66aM4RCJVNiQxLwmpRM30VAY3rNlgBH/+3pI9qJhdfJVq
-         7EhZY8upL+nycvdaBntU6Sy5on3JXbq3GkwhydDF2V8R7dob3bTwLrbYVvsG/QIuoSQx
-         o+fOocyZ+1+T7489BcPQRbHergRXcDAqDx4A9qyMSncmRi74YbYbw6x/4D393r9isX+j
-         PaR/vm08CWF/dCxMPorbjpfwvt0LYp+AwaX7M1hN2vzLq5ao0qJaxzTXfd31vZeqgLYq
-         9P1g==
-X-Forwarded-Encrypted: i=1; AKwUvBzqH6eWBnozi0xuKZJh58jsLrNARMJZk9TtHQdg4+2veiuKQxGrAv+XiyRmCHP5zUR49qE76rXCtCoo8jk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIZ3YVwcBeh5sd0i2Ad/6G0cSRAHMuo7DUWftb8IbNohrcsdfAu
-	U1y43Rj/X7g9p07kRoT2J7RyVkQle/icqJi5MP+algHAntKVrmC4rKJd6bcY15hNhD4=
-X-Gm-Gg: AYBFou2I7JWPj5tndf4qyjs6DJjoF2Hhpws5DxmqPxNxFRVGc0RCrDzCooDjYc3+FNS
-	f6OLxAeococxLngma177PlFZNzHSn4yXEqDjTr27fJvMbNOhNX0aFFVBBKWMIs+3gp9YN0NmcmX
-	AiUk98rpNn2p3ioXIlPvmlhlpQN9/ANHGEV7bjw2zUcLr7ms1OkT59faIHiA2hVvwXRP/yhyhxz
-	9l8sU2B2chtX9gBLS7Ci8UiLieKKxPRzjzbFuiN263jQnkGX16EcYQ/Smc7LIKjm3pbRA99CZE3
-	rRkCw2z7JnNP6SS/trWyA86HUHrwllvBLtSW/4LVVo/7jocOoTgSumNQvAvbvZvWjr6D5LA/PkY
-	ki5ttxsXZiWYJ4TWgFJlZ/owIts43KN+wnMcp6YDmx/HuYlWglptVf/WkJ1iT5vH182YHI9o1R+
-	fgUAX3FTYeBbnHh3T/ZdMAS1CqPUekf5Yk0pIiUgnKwdSccZFdQt172r6ZR6/BjDuqrDtFp2uQ7
-	TKpQ0iJp5ERQ9INOZ8t7UtwX9qDhLuFBFnHab0/IYlEuQjkKOM3gRBqZ0WK++7k2lIShLL+vxH0
-	Hi+ml0W2ml2tCOKswSIqR7ED04beITppOexSC/zSs52eKi371LY3emUF1uEG32HUcYOa
-X-Received: by 2002:a05:620a:261d:b0:93e:49eb:a274 with SMTP id af79cd13be357-93ebd225724mr641879885a.23.1791608365448;
-        Fri, 09 Oct 2026 21:59:25 -0700 (PDT)
+        bh=kal90amSbaRMY1YFdpgEyggfZOCC11kFyumtrLhWcfo=;
+        b=Au37RM1nojhkovY6SnzVl8gTOp0Bhy+PVNQWnARdgqn494v3jzpbsOhAISS2jfE9o9
+         EM5uK1Gx+HNf1qvqH+6qADuKO7XofUQggJdgpQoI7rd5gku7nCA+mqN4QmQGeoTAsYv+
+         FPgjzaC4gDvZKprJP1g6ToYzajsL5jHfH5iXewYeUU6/HwZfx1BT51hzR8LLi7IuLhtQ
+         cY+hxoKOO48Nw78Vv0cM2KEq/YdCztLm3YkRilZ99MA4mChm25Txm7OEOzyVPmR/zvqu
+         7g9OW/WD2ofpWgNR4QKYDPW+W8umWvDzHJq7JwB1+FKkxu8ysblz7njWjUge3SbM829R
+         rcGw==
+X-Forwarded-Encrypted: i=1; AKwUvBx1kN+DFoOoogEPMj0uuiCtcGnrahbJPGZi5ET62ZsXybFJh+WPNo517uOxcFN2syrfygnOih3F6F1ssEM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLxqHe4mOUPs4hWoZiMihj9FLEnF/NBOaEMMujVugvpN/Yc8tre
+	GI4jeRF5iTLwhBDgQcBkjXjI+hT5+n/fuSkBlAuLMlqPJVz55qTCLzEa1sUUhSfM4hU=
+X-Gm-Gg: AYBFou1ifWkV0x1bVu8LJzDVCC2sdLV6z7rak5qCVQ2XSJ7V/5hWX9oXRxDhPWZppmX
+	1y768rMXZunULuYnm0EVyRpXd2OYHUNekK71/fuKq0jWkRzOCntRED9r4VaV/bdrtt0U5pCrMtk
+	f9I6q42enyZJtxkouG6mIRQkRlJOxj/IQBrFu7aTIQI4wCwp7ec5mkanOpBcCGE0FK7AH1WOw3h
+	L9LPH+caLC8jgN3IlzUk3tJr+eKz4yN2EmQoKUI2E8tfR6TB40Qkvu4ghk4JXxy/cfSpYqOLnIt
+	dvBvzz3PhrV2gczSQH63fo2M7k21bRP9ENTLwf93Xfb6BfBqx4NVGQl2I28vqXpo6Ke+iTBMRKw
+	8YJI6B+s+gIHYZh1DzYP6BOAIFk8Zqux/MyMt0PWZF6h0FF9eYq0K8AwbtlU//TbCws+E23XCMi
+	uSYeTYd9Dkq18hoc9627nLbfzFugEjpY8t6qGp/cpSERxicmmkxMNdvmUGlCO0MiT/ls05+OD0H
+	HSOa4avA9bXsAbWQEzpb5Pjk3GeBDryNjc+iSZFLrM6XBKwL7rOIp7hvpLIVxvoPVNgmoDjQyEj
+	QpsXAN1ozlaTzzOscSZ6b/FWefQi3POXFLJgs6+wvLe51FFccvjpCXTbeZbDjUj/z8cQ6Q==
+X-Received: by 2002:a05:622a:1e12:b0:532:c057:9564 with SMTP id d75a77b69052e-5359fab3627mr63226981cf.23.1791608369574;
+        Fri, 09 Oct 2026 21:59:29 -0700 (PDT)
 Received: from jake-laptop ([153.67.39.44])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b550887ebsm35827736d6.33.2026.10.09.21.59.23
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b550887ebsm35827736d6.33.2026.10.09.21.59.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 21:59:24 -0700 (PDT)
+        Fri, 09 Oct 2026 21:59:29 -0700 (PDT)
 From: Jake Steinman <j@metarealtyinc.ca>
 To: Ramshouriesh R <rshouriesh@gmail.com>,
 	Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -73,12 +73,12 @@ Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	linux-media@vger.kernel.org,
 	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] media: hm1092: Intel IPU (ACPI) support on top of v6
-Date: Sat, 10 Oct 2026 00:59:20 -0400
-Message-ID: <cover.1791608336.git.j@metarealtyinc.ca>
+Subject: [PATCH 2/2] media: staging/ipu7: Add 10-bit greyscale capture formats
+Date: Sat, 10 Oct 2026 00:59:22 -0400
+Message-ID: <5423f57000600f27626ff785f80f94d3e7ad1106.1791608336.git.j@metarealtyinc.ca>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20260801-hm1092-driver-v6-0-5979f223748a@gmail.com>
-References: <20260801-hm1092-driver-v6-0-5979f223748a@gmail.com>
+In-Reply-To: <cover.1791608336.git.j@metarealtyinc.ca>
+References: <20260801-hm1092-driver-v6-0-5979f223748a@gmail.com> <cover.1791608336.git.j@metarealtyinc.ca>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,61 +87,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Ramshouriesh, Sakari,
+The CSI-2 receiver sub-device accepts MEDIA_BUS_FMT_Y10_1X10, but the
+capture nodes have no pixel format that maps to it. Link validation
+between the receiver and the capture node therefore always fails for a
+monochrome sensor and nothing can be captured from it.
 
-These two patches make the HM1092 usable on Intel IPU laptops, where the
-sensor is described in ACPI as HIMX1092. They apply on top of
-"[PATCH v6 0/2] media: Add Himax HM1092 mono NIR sensor driver".
+Add V4L2_PIX_FMT_Y10 and V4L2_PIX_FMT_Y10P. They use the same firmware
+frame formats as the unpacked and packed 10-bit Bayer formats, as the
+ipu6 driver already does.
 
-Patch 1 is for the sensor driver. v6 cannot bind on x86: there is no
-ACPI match table, the 19.2 MHz clock these machines supply is rejected,
-and the only mode is the 24 MHz one. The patch selects the configuration
-from the clock rate and adds the 19.2 MHz / 648x368 / 180.48 MHz one.
-The 24 MHz path is functionally unchanged. Ramshouriesh, feel free to
-fold it into a v7 if you prefer that to a follow-up.
+Tested on Panther Lake with a Himax HM1092: both formats capture
+648x368 frames, with 1344 and 832 bytes per line.
 
-Patch 2 is independent of the sensor. The IPU7 capture nodes have no
-pixel format for MEDIA_BUS_FMT_Y10_1X10, so no monochrome sensor can be
-captured, whatever its driver.
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Jake Steinman <j@metarealtyinc.ca>
+---
+ drivers/staging/media/ipu7/ipu7-isys-video.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Tested together on a Dell XPS 16 DA16260 (Panther Lake), kernel
-7.3-rc5, with the ipu-bridge entry that is already in media/next:
-
-  intel_ipu7_isys.isys intel_ipu7.isys.40: bind hm1092 17-0024 nlanes is 1 port is 2
-
-  link_frequency  180480000
-  pixel_rate      36096000
-  exposure        min=2 max=719 default=360
-
-  Y10   648x368, 1344 bytes per line, 10 frames, 4945920 bytes
-  Y10P  648x368,  832 bytes per line, 10 frames, 3061760 bytes
-
-  exposure 100: mean level  59
-  exposure 700: mean level 198
-
-Two things worth knowing when reviewing patch 1:
-
-- The 19.2 MHz configuration reads X 0..1293 and Y 0..733, which is the
-  full 1296x736 array including the dummy border. That is what the
-  vendor sequence programs, so the crop rectangle reports it as is, and
-  it lies outside the 1280x720 crop bounds v6 defines. I left the
-  bounds alone. Say if you would rather have them widened.
-
-- The 24 MHz configuration is compile-tested only here. I have no
-  devicetree hardware with this sensor.
-
-Regards,
-Jake
-
-Jake Steinman (2):
-  media: i2c: hm1092: Add ACPI enumeration and the 19.2 MHz
-    configuration
-  media: staging/ipu7: Add 10-bit greyscale capture formats
-
- drivers/media/i2c/hm1092.c                   | 363 ++++++++++++++++---
- drivers/staging/media/ipu7/ipu7-isys-video.c |   4 +
- 2 files changed, 321 insertions(+), 46 deletions(-)
-
+diff --git a/drivers/staging/media/ipu7/ipu7-isys-video.c b/drivers/staging/media/ipu7/ipu7-isys-video.c
+index 8c67308..8a7c2af 100644
+--- a/drivers/staging/media/ipu7/ipu7-isys-video.c
++++ b/drivers/staging/media/ipu7/ipu7-isys-video.c
+@@ -54,6 +54,8 @@ const struct ipu7_isys_pixelformat ipu7_isys_pfmts[] = {
+ 	 IPU_INSYS_FRAME_FORMAT_RAW16},
+ 	{V4L2_PIX_FMT_SRGGB10, 16, 10, MEDIA_BUS_FMT_SRGGB10_1X10,
+ 	 IPU_INSYS_FRAME_FORMAT_RAW16},
++	{V4L2_PIX_FMT_Y10, 16, 10, MEDIA_BUS_FMT_Y10_1X10,
++	 IPU_INSYS_FRAME_FORMAT_RAW16},
+ 	{V4L2_PIX_FMT_SBGGR8, 8, 8, MEDIA_BUS_FMT_SBGGR8_1X8,
+ 	 IPU_INSYS_FRAME_FORMAT_RAW8},
+ 	{V4L2_PIX_FMT_SGBRG8, 8, 8, MEDIA_BUS_FMT_SGBRG8_1X8,
+@@ -78,6 +80,8 @@ const struct ipu7_isys_pixelformat ipu7_isys_pfmts[] = {
+ 	 IPU_INSYS_FRAME_FORMAT_RAW10},
+ 	{V4L2_PIX_FMT_SRGGB10P, 10, 10, MEDIA_BUS_FMT_SRGGB10_1X10,
+ 	 IPU_INSYS_FRAME_FORMAT_RAW10},
++	{V4L2_PIX_FMT_Y10P, 10, 10, MEDIA_BUS_FMT_Y10_1X10,
++	 IPU_INSYS_FRAME_FORMAT_RAW10},
+ 	{V4L2_PIX_FMT_UYVY, 16, 16, MEDIA_BUS_FMT_UYVY8_1X16,
+ 	 IPU_INSYS_FRAME_FORMAT_UYVY},
+ 	{V4L2_PIX_FMT_YUYV, 16, 16, MEDIA_BUS_FMT_YUYV8_1X16,
 -- 
 2.56.0
 
