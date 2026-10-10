@@ -1,106 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-97.mta1.migadu.com [95.215.58.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B88423998A6;
-	Sat, 10 Oct 2026 09:30:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7693343A7FD
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 09:33:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791624632; cv=none; b=M9onbWj6vLA4abhnheA7H3lmzsN9J5Va6vVykrODHz7LueFPqDtZlP8Ax3Q2BQoEGfsJjfEPA8HGtVvXDARRIrd5TtsxjUMjMW8zHtUC7XjqSkw6tN8D4HMM8WPirFQytExM6aFqiqfVJLmBQT/1+wVtWu2kcLyS5Q+kZVRYrbk=
+	t=1791624803; cv=none; b=PaR+cMZvUaGpY5T9IkCSIUI0szWT4X23ZC/ce/qYIU3uD2GHNVpTTNOzDEP7+c7GJlIPHdfj5dnq9cAfutW6+PhBqKn8mHDEnHv1YyrT+r7FsgQOpQAp3HsMoeCdNwVGaNUmiN54rPeZJN0Fod01FuimzR15f0yVYFQfp+Fjcg4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791624632; c=relaxed/simple;
-	bh=FPWTtZnRa/XbFRcpNgUFJ2yRAoGZbSTq3vkG/aBIgAs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IixlfEd6wwyUtx4EB/Bt27VFdp3w5KjiYTwNx9RlsGdbRfto3eKHQ3ce+g6+yY3J+f84Le7Rmbv3rwKM/1aKxvJfW2Z+IdnwcyzuUhRO4SBgr8DGfklO8rxXCvGTKYMMHxAjauXN5+bO95CmSSWOkleXRUHlA1mgBxS2+AGw5VE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VNEAqFUT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791624803; c=relaxed/simple;
+	bh=PJo4tkODSAwLEOEkEK57eCbPFUflApjAg2dMJ+9QYw8=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=UrvnNV+2J1XsSHIYzRX7cRD+Aa13vMdFA1cmSv/1/l9RnkDwwrTOQM5hSerW4SsDwYOUGeiAnxzBGh8YBa60DHOjCY1XPGl3CyGeui7da7ySFK7kZ1sFsy8v/B8QAP5U8DCuBrZUZGSUXskUW6SwcCLA4YGYGxTy9vq5JZAkuwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OyPnlKQX; arc=none smtp.client-ip=95.215.58.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VNEAqFUT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1165A1F00893;
-	Sat, 10 Oct 2026 09:30:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791624631;
-	bh=/+Vxq1o02mDWR1BNJWOLcsj18DVs283fdRVapx4nsXQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VNEAqFUTMQek7CuGdGDawVNRARU5W+S89JEu9ORpuE2mrcglPIUbPwjcDAR7xcMHG
-	 n+BtKu1qLFE1AgHte/9/5d/dRDT/4TSgxi4my5/zXbZ+GejYYFBMGJ8uLHBEC4r718
-	 bDtGeUl9kPy4x+USV2utU2uUc6uMbLMAdYTy5W3pFJvakvlYiJHc3mcPllMm7ncRtW
-	 NlRMjpB6p08omkcpG6MKU/Ns9Z84ipc5xWrbSvWZ3VIb7JlMKYWcggXnAproFt6f/u
-	 Y/YhegpJoUKWxInNFDco0NINblZU1VA6lsEa0l5U3FerWclWJsnC4g8wSkFQPeE4y2
-	 fF+D/NDfvO0jA==
-Date: Sat, 10 Oct 2026 11:30:28 +0200
-From: Vinod Koul <vkoul@kernel.org>
-To: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
-Cc: Brian Masney <masneyb@kernel.org>, Brian Masney <bmasney@redhat.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Felix Fietkau <nbd@nbd.name>,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] clk: en7523: Add support for selecting SCU serdes
-Message-ID: <asoFtO0sw6DnTJ6K@parshuram>
-References: <20260915125226.20579-1-ansuelsmth@gmail.com>
- <179000484817.707534.5059164498545591038.b4-ty@b4>
- <CA+_ehUzrL9qHe92tE0CeaOMAD1LXGuK79t5mZGv+bp2sCas_sA@mail.gmail.com>
- <asZD79RRF4u5OJdn@x1g10>
- <askXRONt8Si264ve@x1g10>
- <CA+_ehUw7374O63trsUORkfMbhMJqiXn_WkC_KL+hTDnLAa2=Gg@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OyPnlKQX"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=PJo4tkODSAwLEOEkEK57eCbPFUflApjAg2dMJ+9QYw8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791624797; v=1; x=1792229597;
+ b=OyPnlKQXDU0GjsJLx16l/N7aNyV8TV32uB9UZukrSCGkeF5RGj1NCuGGupG39RNppVPtQ5oN
+ koTlLvsrJdtPj2rdeTmh+Tkf1ycbtOZ/cj0LLQ3sQemFmRfdKOU0jgiJ613ClP4P1Y1fShzIAWH
+ IWs1Ig2eykQZ8GcgtKNfDXvc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ae1b224da00926d1;
+	Sat, 10 Oct 2026 09:33:16 +0000
+X-Mizu-Trace-ID: ae1b224da00926d1
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CA+_ehUw7374O63trsUORkfMbhMJqiXn_WkC_KL+hTDnLAa2=Gg@mail.gmail.com>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH v4 6/6] mm/mm_init: add zone mismatch warning during page
+ init
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261010075755.83339-7-songmuchun@bytedance.com>
+Date: Sat, 10 Oct 2026 17:32:59 +0800
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Mike Rapoport <rppt@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R . Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>,
+ Qi Zheng <qi.zheng@linux.dev>,
+ Lance Yang <lance.yang@linux.dev>,
+ linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <434B0573-BF18-4413-9BDF-C5873CC13206@linux.dev>
+References: <20261010075755.83339-1-songmuchun@bytedance.com>
+ <20261010075755.83339-7-songmuchun@bytedance.com>
+To: Muchun Song <songmuchun@bytedance.com>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-On 09-10-26, 19:22, Christian Marangi (Ansuel) wrote:
 
-> > > >
-> > > > is it possible to have a stable branch/signed tag for phy subsystem?
-> > > > Commit 11952173d8a180ac05641775f80bd6946327478f is needed
-> > > > to permit correct compilation of a airoha usb phy driver.
-> > >
-> > > Yes. I'll have to rebase the clk-next tree but it's no big deal.
-> > >
-> > > I'm at Linux Plumbers right now and I'll send out an immutable tag in a
-> > > day or two.
-> >
-> > I looked into creating an immutable branch, however as I mentioned it's
-> > going to require rebasing clk-next (actually clk-pile). I'm willing to
-> > do that, however I realized after I sent my last email that the laptop
-> > I'm working on right now in Europe only has access to my kernel.org
-> > account. So I'd have to rebase all of the prior commits and add my korg
-> > Signed-off-by since it's going to change the committer on lots of
-> > commits from my Red Hat to korg account.  I don't want to do that.
-> >
-> > Given that we're this close to the merge window, I'd like to avoid any
-> > kind of risky operations on the tree this close to assembling a pull for
-> > Linus. If I can be convinced this is particularly pressing for v7.4 I'm
-> > willing to entertain the request, but I wouldn't be able to do it until
-> > Monday when I'm back in the US.
 
-I would be on same lines. Considering we are _very_ close to merge
-windows, I would be very hesitant to rebase my tree
-> >
-> 
-> Thanks a lot for the effort. No, no need to hurry on this.
-> 
-> It was ideal to have as it's currently blocking 2 other driver for
-> submission but it's not worth to cause all these rebase and resign.
-> 
-> If minimal changes are possible, it's totally ok to wait for Monday.
-> 
-> If not possible, then rc1 it is.
+> On Oct 10, 2026, at 15:57, Muchun Song <songmuchun@bytedance.com> =
+wrote:
+>=20
+> For vmemmap-optimized sections, tail struct pages may be backed by
+> shared vmemmap pages. Those shared pages must carry the same page zone
+> ID as the struct pages initialized for the section.
+>=20
+> Warn in __init_single_page() if the shared tail page has a different
+> page_zone_id(), which would indicate inconsistent initialization.
 
-Yes lets postpone this to rc1.
+Please ignore Sashiko's report [1], both are false positive. It didn't
+realize that shared vmemmap pages are initialized early before =
+__init_single_page().
 
-Also, in future it is strongly recommended that people request folks for
-immutable tags when patches are picked (ideally mention in cover) so
-that dependencies are taken care of.
+[1] =
+https://sashiko.dev/#/patchset/20261010075755.83339-1-songmuchun%40bytedan=
+ce.com?part=3D6
 
-Thanks
--- 
-~Vinod
+Thanks.=
