@@ -1,160 +1,152 @@
-Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50CB836B932
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 07:31:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75057381C4;
+	Sat, 10 Oct 2026 07:33:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791617507; cv=none; b=R716f+EDpYNb20lXmluue968UyQL5qZ08abPyx98lcHndczVPbdiMI3h9kA3OEB99KRnIe6fGIl/DRn852HMr9zSqHkDsgMnsJdz3gt1vCyXSWJLkTetYb7OgQT84Xq+89smV6iC7hT1sM8TQ2CGmtXBY0wJ10ogqJwl+LUgitE=
+	t=1791617614; cv=none; b=igVaEJdKmy3jHzoSMCqziU/WAuri2L+ifnVwpgh//oLItiqjTuslczf7k2llwpDSDV9eVrN7RqeeTi1W5SXie3fwGE2gHm+WZDQzXWbiIJH20sHfwTdL7eigsntcGXROEveYIRLf5jzLON4ABBFxkG+nSDKNQvqJeO3MWti6vHI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791617507; c=relaxed/simple;
-	bh=Sk+YEE6RhtCnMSZ9XmdIy9B3iFVIZ/w+u+UC0S5g7bY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NTClahlrKgicU7guNBIyVNHUF9tn7MoIzVhHOavjKShbXIy9j38VLjEks6y4iDtk+9h3nLMaSC/AwdkYOjqbZmHguswxE2/IGQrv6dkiIdKYCWzUpyYgWuTtNL/WgYVAPBLgXtTmq1T2Zsck2QdSzl9PhlULL9G5HQXozq3mXeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f0gBFRxB; arc=none smtp.client-ip=74.125.227.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791617614; c=relaxed/simple;
+	bh=GKPQLYHgPhr0xMzDC5riZ8+OBSue8Yjv7P3BvUk1Cjg=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=cvzw5octAWAXR6/uUUcE2ojfdDT20OKVWdqeIn1ZLi8kI96QoPdbIjZJhsOdNpd/dTvLzomAaGChM5VCvR/WKQAqFmYqAKNWSs098m1EnacTWWo3SDGHAKtWRiHG0ubZwdE8I10hzy2ldArXLfoESuwEEGqnd0F4n+vdEwhko6E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=XsgnrXt4; arc=none smtp.client-ip=130.133.4.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f0gBFRxB"
-Received: by mail-pj2-f5.google.com with SMTP id 98e67ed59e1d1-3a7adbf1b3fso120440a91.0
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 00:31:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791617505; x=1792222305; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Gt+VmyNWTGnkgPMPZ6xk7DUg2EVMBLgEkZCEB+aUV5s=;
-        b=f0gBFRxB88I8d8niA1kvBbiP7PCSDOU+ZxLf3ZJsAhtbvjRodLrKN6AM2GLngncf1g
-         PJgR3cONJRgILmKGYWmnaS6dSdgOSxABWZ9N4nfvFPw/5Shimu4OL6KMWLwszBDpCOv4
-         u53Y/yqDDitn+Wya6X/mAMxgAK9nAYLYklgyr8H0DwO25p4b0t5ZhBgtUB/+ITnf+cnY
-         XK2Lp3hMlcrQSBfad9Wr3JTe5TNRV+PCYAz7JYTOjlUIiYwgKaoDohW//lXK18BRybni
-         y6FwUHqdLcreW79q2LWXZPu1GiCC6kHwuZP6H0FoqXMLuSOHKu4QFQA2XmkXZ4dyrbNa
-         od4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791617505; x=1792222305;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Gt+VmyNWTGnkgPMPZ6xk7DUg2EVMBLgEkZCEB+aUV5s=;
-        b=Uyp/RZ0Yx7kw71wkzdPlYq5h72HzBM5b798VHF84/LVmSsOh8re8A/+cUftdtpEegT
-         WYJvndfV5Qf0RrEhBV7ErMUqJR0v0REzc5stnCH0Hu3v+Trcl4FVrqOTsz9cf6vZw5EL
-         RD9v+oW7etPd4Q56ZOf25Z8kZ7++NOhXD1kMOSUSF0zZYbRxEKKtgkHwBV4HvLDbvKm9
-         Ae+5fAqmZCgCiVe3oBKIB0nCKcAlVPWlXsI/690WPEgD1NXUNv46qavA5E6vOChduaJr
-         8ElCNeE9ZxHIYMh49QgDTaMRlQ3qOlMu1pIyFGc5DBp4gh3OqORo9+VfsME0s7OCsuav
-         Nqhg==
-X-Forwarded-Encrypted: i=1; AKwUvByrcU3WSUgeOtx7Hx3bs2ZY2KBlt0Hlgs+9yb6qtNQaR9oYqnc0KAXffNJOoc6l5q7HIAM1D+46hoXL7Tc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJVN2FD1VWhIhtjT9DPW5Nzplm/2KVndJdQyX2NIVSpFaUtkbM8
-	kwW/ZmprB8SXa7XJ+j9r0PE71yhBAZHxCXRsma4A0+L74nMmpdbEjwfK
-X-Gm-Gg: AYBFou0YylX/864nUqDIdbuWFiXDRASLIAiH9A0bBkloe0LDjEN9XfS6Q086MZOWAGW
-	OMrn0ea8lEh8tLRB7P1fA0A2uxrdrfom7Pi4mlkH94t4AKmxcZ7BveVntHLnZbJeHQ6ykmHVtn7
-	giVU5+DYlmEqX5Bo8cSBhf38gYbxLWMhzT5vM/itNurV+dtoIznMMbSFuKgoq5MQRMJlFBmcqHB
-	0t9JUEN6XNBLbDyXzlh7sZHYKqHhWfj7gc6Oo6X58AjdW4SK7TzObOu7nMPVG5U1CRuyU0CU8B8
-	jwgcLzFmbpdAtogl7dxw08ZLgmIbagKqVkdLz6rKgAvh7cZL9XbNUUwxRxLykDFnhTjSHZk3B5L
-	m4x7QNv7ZmxFOJBcc6c4630MBnQXYEBLrYK4VT8mO1alHTxkw6G70V/rX5ISdjJdiA3QjG1jvu/
-	+swqRuQpefuL78Trv3X9HlvfxJFUvYQdckVBgO0lQLbLK4mIW0lO1Wj+r04CsSmSniqDIDq6Ih8
-	KfrbdsiGh58qOnu
-X-Received: by 2002:a17:90b:52:b0:3aa:f2c4:12e7 with SMTP id 98e67ed59e1d1-3ab3a7474dfmr3614097a91.20.1791617504599;
-        Sat, 10 Oct 2026 00:31:44 -0700 (PDT)
-Received: from LAPTOP-QJLDGQ2L.localdomain ([112.224.13.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38b9639bsm6795955a91.4.2026.10.10.00.31.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 00:31:44 -0700 (PDT)
-From: Boyan Liu <yymhvert@gmail.com>
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	co+98d7de09cd94fec5@bugs.sh,
-	Boyan Liu <yymhvert@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] udp: Fix out-of-bounds read with unset mac header in unexpected GSO path
-Date: Sat, 10 Oct 2026 15:30:15 +0800
-Message-ID: <20261010073015.7665-1-yymhvert@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="XsgnrXt4"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=teqaia83Ord3oLShXQ9VqNIYfVBNpiZYGph0SbHqQqQ=; t=1791617611;
+	x=1792222411; b=XsgnrXt4zDNSR9nXDPEy5XovRcq4yVyf/msM7n5wngSHSy3YfnvM7sblqs0WX
+	j9Lweb3/ZFtzxjJEBWmdLBlsPuBS+0YO24MXPsCI0vpmnyw1UL0Iq+WIgF0u+xnmoyTYDykaOMoXV
+	SGntPFdNpEz7ZTAMgJQhR5GXeLPjyMKnZlAf54UGmPiT85CPspQV1RpwOmSUoztjB+/lSMlpjYDz3
+	t2Ne82See02y0nv+rfnkp8rdyUZ/CC9N2qGr5+JqMSKR6ZUaHp0iHz9W2ZQuBaAar6sO+mDyYO9mv
+	PxeFnndJ9LMi36H3COfARJ5pjEDp3Q2Ylt0ucIoAeDZchbbTCw==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.100)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1xFRVQ-00000002eEW-2cO9; Sat, 10 Oct 2026 09:28:32 +0200
+Received: from dynamic-077-183-246-238.77.183.pool.telefonica.de ([77.183.246.238] helo=suse-laptop.fritz.box)
+          by inpost2.zedat.fu-berlin.de (Exim 4.100)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1xFRVQ-00000002Hil-1T1n; Sat, 10 Oct 2026 09:28:32 +0200
+Message-ID: <6ab95ddaaa19f224b07a2001e03ec002ca2938e2.camel@physik.fu-berlin.de>
+Subject: Re: [PATCH v4 2/2] x86: Start removing X86_X32_ABI
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: "H. Peter Anvin" <hpa@zytor.com>, Tancred <alex@narraduct.com>, 
+ Sebastian Andrzej Siewior
+	 <bigeasy@linutronix.de>, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org
+Cc: Sebastian Andrzej Siewior <sebastian@breakpoint.cc>, "Maciej W. Rozycki"
+	 <macro@orcam.me.uk>, Bill Wendling <morbo@google.com>, Borislav Petkov	
+ <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar	
+ <mingo@redhat.com>, Jonathan Corbet <corbet@lwn.net>, Justin Stitt	
+ <justinstitt@google.com>, Nathan Chancellor <nathan@kernel.org>, Neal Gompa
+	 <neal@gompa.dev>, Nick Desaulniers <ndesaulniers@google.com>, Richard
+ Purdie	 <richard.purdie@linuxfoundation.org>, Sam James <sam@gentoo.org>,
+ Shuah Khan	 <shuah@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Thomas
+ =?ISO-8859-1?Q?Wei=DFschuh?=	 <linux@weissschuh.net>, Tomas Glozar
+ <tglozar@kernel.org>, Willy Tarreau	 <w@1wt.eu>, x86@kernel.org, Arnd
+ Bergmann <arnd@arndb.de>
+Date: Sat, 10 Oct 2026 09:28:30 +0200
+In-Reply-To: <AEFD8F3A-0692-4090-B3F7-A6AD34A24819@zytor.com>
+References: <20261008-x32_removal-v4-0-d389a193c506@breakpoint.cc>
+	 <20261008-x32_removal-v4-2-d389a193c506@breakpoint.cc>
+	 <7f315c7a-0fd1-4f7e-93bb-703d4107aa5a@narraduct.com>
+	 <AEFD8F3A-0692-4090-B3F7-A6AD34A24819@zytor.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-udp_queue_rcv_skb() and udpv6_queue_rcv_skb() re-segment an
-unexpected GSO packet after restoring skb->data to the mac
-header with __skb_push(skb, -skb_mac_offset(skb)), assuming
-the mac header is valid.
+On Sat, 2026-10-10 at 08:51 +0200, H. Peter Anvin wrote:
+> On October 10, 2026 4:13:55 AM GMT+02:00, Tancred <alex@narraduct.com> wr=
+ote:
+> >=20
+> >=20
+> > On 10/8/26 03:07, Sebastian Andrzej Siewior wrote:
+> > > where certain workloads widely
+> > > move to x32 and use it exclusively. In the meantime Debian introduced=
+ a
+> > > patch to disable x32 by default (so it has to be enabled at boot time=
+ on
+> > > the command line) because they are afraid of the increased attack
+> > > surface. Fedora as far as I tell has X32 disabled (looking at 7.0-rc5
+> > > rpm in rawhide).
+> > >=20
+> > > Since there is practically no real use for x32
+> >=20
+> > I only recently discovered x32 and built a Desktop (with all daemons an=
+d utilities running 10-30% smaller and some a bit faster, with 64 bit libra=
+ries for eg. Firefox.) My experiment should definitely not decide anything,=
+ but how much real-world use would be sufficient to justify continued prese=
+nce (more complex compat code)?
+> >=20
+> > If left behind a flag like Debian (like the 2014 proposal https://lore.=
+kernel.org/lkml/1415245982.3398.53.camel@decadent.org.uk/), there are no se=
+curity risks so I understand the benefit is reduced code complexity and mai=
+ntenance burden. Older threads critiqued the implementation. What's the sma=
+llest kernel support which would keep 32-bit pointers possible? Could a sma=
+ll design (eg. just 32-bit pointers on x86-64 with i386's type layout, so n=
+o 3rd compat case (cf. MIPS n32 and o32)) work?
+> >=20
+> > - Alex Alejandre
+>=20
+> The thing is, we don't actually know. Therefore, if we are to keep x32, w=
+e need ***real users*** to speak up ***now*** and explain why they are usin=
+g it and what the benefit to them is. With actual performance numbers.
 
-SRv6 End.DT4/End.DT6 VRF decapsulation calls
-skb_unset_mac_header(). iptunnel_pull_offloads() can leave an
-inner UDP GSO type (SKB_GSO_UDP_L4 or SKB_GSO_FRAGLIST)
-behind, so a socket that does not accept that GRO type runs
-the unexpected GSO path with mac_header == 0xffff.
-skb_mac_offset() then returns a large positive value, which
-the unsigned __skb_push() argument turns into a huge length:
-skb->data moves far outside the buffer and skb->len is
-corrupted, so segmentation reads out of bounds:
+Real users usually aren't subscribed to Linux kernel mailing lists. If you =
+want
+to figure out whether anyone is using a certain kernel feature, you have to=
+ ask
+within the communities.
 
-    BUG: KASAN: slab-out-of-bounds in inet_gso_segment (net/ipv4/af_inet.c:1383)
-    Read of size 1 at addr ffff88800da7ffff by task exploit/149
-    Call Trace:
-     inet_gso_segment (net/ipv4/af_inet.c:1383)
-     skb_mac_gso_segment (net/core/gso.c:53)
-     __skb_gso_segment (net/core/gso.c:124)
-     udp_queue_rcv_skb (net/ipv4/udp.c:2476 net/ipv4/udp.c:2466)
-     udp_unicast_rcv_skb (net/ipv4/udp.c:2620)
-     ip_local_deliver (net/ipv4/ip_input.c:262)
-     seg6_local_input_core (net/ipv6/seg6_local.c:1640)
-     lwtunnel_input (net/core/lwtunnel.c:465)
-     ipv6_rcv (net/ipv6/ip6_input.c:351)
+In any case, we're still building Debian unstable for x32:
 
-__skb_gso_segment() resets the mac header to wherever
-skb->data points, so the push target only needs to be a valid
-header start. Fall back to the network header when the mac
-header was never set.
+https://buildd.debian.org/status/architecture.php?a=3Dx32&suite=3Dsid
 
-Fixes: cf329aa42b66 ("udp: cope with UDP GRO packet misdirection")
-Cc: stable@vger.kernel.org
-Reported-by: co+98d7de09cd94fec5@bugs.sh
-Signed-off-by: Boyan Liu <yymhvert@gmail.com>
----
- net/ipv4/udp.c | 5 ++++-
- net/ipv6/udp.c | 5 ++++-
- 2 files changed, 8 insertions(+), 2 deletions(-)
+> Otherwise it is not worth maintaining, partly because it apparently inter=
+feres with the convergence of the 32-bit ABIs, and the handful of x32-speci=
+fic pieces of code do represent an additional attack surface.
 
-diff --git a/net/ipv4/udp.c b/net/ipv4/udp.c
-index bb8cfc62c..fe5a23f1c 100644
---- a/net/ipv4/udp.c
-+++ b/net/ipv4/udp.c
-@@ -2441,7 +2441,10 @@ static int udp_queue_rcv_skb(struct sock *sk, struct sk_buff *skb)
- 		return udp_queue_rcv_one_skb(sk, skb);
- 
- 	BUILD_BUG_ON(sizeof(struct udp_skb_cb) > SKB_GSO_CB_OFFSET);
--	__skb_push(skb, -skb_mac_offset(skb));
-+	if (skb_mac_header_was_set(skb))
-+		__skb_push(skb, -skb_mac_offset(skb));
-+	else
-+		__skb_push(skb, -skb_network_offset(skb));
- 	segs = udp_rcv_segment(sk, skb, true);
- 	skb_list_walk_safe(segs, skb, next) {
- 		__skb_pull(skb, skb_transport_offset(skb));
-diff --git a/net/ipv6/udp.c b/net/ipv6/udp.c
-index 93478d1ad..8db4e2869 100644
---- a/net/ipv6/udp.c
-+++ b/net/ipv6/udp.c
-@@ -895,7 +895,10 @@ static int udpv6_queue_rcv_skb(struct sock *sk, struct sk_buff *skb)
- 	if (likely(!udp_unexpected_gso(sk, skb)))
- 		return udpv6_queue_rcv_one_skb(sk, skb);
- 
--	__skb_push(skb, -skb_mac_offset(skb));
-+	if (skb_mac_header_was_set(skb))
-+		__skb_push(skb, -skb_mac_offset(skb));
-+	else
-+		__skb_push(skb, -skb_network_offset(skb));
- 	segs = udp_rcv_segment(sk, skb, false);
- 	skb_list_walk_safe(segs, skb, next) {
- 		__skb_pull(skb, skb_transport_offset(skb));
--- 
-2.43.0
+Aren't the attack surfaces disabled when x32 ABI support is turned off?
 
+> The desktop distros generally chafe under the 4 GB process limit, which m=
+eans that an all-x32 desktop distro isn't very useful; having both x32 and =
+x64 libraries defeats much of the x32 benefit, so the real use case is embe=
+dded or self-managed code bases.
+
+Well, you can also run x32 code inside a chroot or containers, can't you?
+
+> We are not going to go back in 2026 and redoing the *in retrospect* rathe=
+r unfortunate choices made due to "Hinc Dictat Linus" early on (the origina=
+l plan was to simply provide a fast way to access 32-bit syscalls from 64-b=
+it mode and let the evolution of the compat ABI deal with things like time_=
+t, but Linus objected to introducing a new ABI with 32-bit time_t, and at t=
+he time the time64_t interfaces were not yet there, so it ended up being an=
+ ad hoc implementation.)
+
+Adrian
+
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
