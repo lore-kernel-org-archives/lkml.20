@@ -1,193 +1,146 @@
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+Received: from mta0.migadu.com (out-236.mta0.migadu.com [91.218.175.236])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB949270EC3
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 05:11:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9046373BEC
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 05:12:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.236
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791609098; cv=none; b=EgWsWk3QRfbowopjf/6YnPJPf/WKgQ9tJOyLPtJkzNb0JIR05TX03tKHljl8ETLCiD36WfiMzw+DWalxhKSxIhWdlidNDgoWwwe5LyFLJCMcM6VlVk8LjZK9il4iZazkL3Mk9AqLWQxZ3Auqe+nPh+L8cai1ZYc7mQGsPFGPXiY=
+	t=1791609142; cv=none; b=MOjXIWBE5r8s86rGQKwFK2D1AgR2xSrYZhSaJwN/hhHN6hJwnEbHX5pHuKvZf3mTzerS5oYCg3329rkvcD6RbWqiLWnnGZT0kkmkBWyUy3uVW1gWY9edaUmEsFsuUKG9n/qhVIfrv856PyeWmJ2KjnHWN73JHbkdhyslo1MjaKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791609098; c=relaxed/simple;
-	bh=MPMOwI0vvc3InXLYmyscm1qhTxNxhoj3Og1mIRJVW3w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y8n+1JllhnTT0BNirK/cE+OQpvckWlChf344/Z4Nvwq0YJ4c2j3aWI2IMd1NvlUZzo1Deyp5ppV0SKAVFVfYG51l6Zd/3shn3fjYSYHgKP+UFzH4J2l7Yw+CrhaWw4HlkODARBAJAxvooSLAHznU3C7if8XOa5hGO/LnNhKYrH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=MIrQUGQm; arc=none smtp.client-ip=74.125.82.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1791609142; c=relaxed/simple;
+	bh=HkTvJBnAIE0ZS4t3l1CJ6+YMsi7vy8/ugr2w69S/OBY=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=b2q5yu8HNc8XjD83DieCR9Co8GrZfiY+3mF4Tv0t+ZsEHTGjAOAUpg1/8a9Hm3HJhHYLDTlzzuTndbd4Y4Z/vDUhdaRwpfZeHglokU2nqiNeK88f4QAs/qA4SuC0u8SNownb8yzc1ok9Ltrg9vwKCE9fBeaJulgQqweYl3W++ec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cTAfOgS0; arc=none smtp.client-ip=91.218.175.236
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="MIrQUGQm"
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-15168a20b47so291303c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 22:11:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1791609095; x=1792213895; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EPzUTBNIsG1vnWSfHU0KClPEm42wHLDDcUKF5FSqaVc=;
-        b=MIrQUGQmn1voPhPxsYHh+FVhHCvL6u0DNJWUTSgGPauArowvGdvRDvnc8ZLjFMccUb
-         amFixag0+zpNQQraVOq0msl0A34p8yTvF0lgNk60eO8d8rrsFQO9lNDyBOuIRFtgxQ5p
-         VDh07T4dNosr4ajAGtU86HjCiPdzlrGhwKZFlN0mpa5sjqos6kG05YgZmk1pqpTWwNSH
-         L6HEEIOOfNVQczTkpPjOOwMcbj+4amxlULNAcBGMD560wLKECi1RAWD6gZgnLtiVFY2D
-         iS+qRoNf39Uzi7yQWRqaquVN2+JOlwCiKDGGJTTYKkI0lWvYN/9Fg0rgAwSQxb3m1/Vh
-         gkFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791609095; x=1792213895;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EPzUTBNIsG1vnWSfHU0KClPEm42wHLDDcUKF5FSqaVc=;
-        b=0sa9Tjp0iJxRpNxCtUcQQm79ZBPoImn+YlWFoBwJpYa72bNPwVt8Fc2i49LHVd2oU7
-         PT43DlJZorVlUUX0wmSkRKBd8LCmd2A4aUebVn7YCfVak0w5/N4nbKkQGqIFvd7mqxxW
-         144caTy4krgHTzCIzlfYK1lVPrMCBMb8MKqN47V5PWd+bZnl38NuA5j1DP6rAb9yMmvy
-         VMuSldBAlxGKmT/zXamCMCBHdkqiwNcvxHE2FxuIdwXwZiHIVYGfH1WlW6Vv86LtNevg
-         1O3jdNr2jKqFc1xT7YbkPciuwwS46Mv/nkf540WIXeLLxJpoTr8+vntQFhCotSQLT6GL
-         /5Dg==
-X-Forwarded-Encrypted: i=1; AKwUvBxE4CwT0lSC74aUuW+jjiP6yihO2lFESzDCcksfHLxGktOTCsGuf9HVOqfyPNP3pwtUjG4yCq4NSC8nx9Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJLkYPWMVqONISVrWtyNnC1v9tuIpADv4k2LijWz34xLEfw45Qr
-	eYUu1G/Ku4qXlbkyPmcWY9qa/YfTOG4LQhLxojahO3hE+2gsxupBs7K0xlZWF1Li+jo=
-X-Gm-Gg: AYBFou0yOhb7fO70li7rkc5dcg2wwUD2KbpaG8FekAgz3buGQbfa1iomXfRMVgDqEBt
-	tSb5eTb4/UOwunQvLokn4U2x3lJYueHu1LjNN8RY/ny3lrqBMH0Rv7b71CqUTPXPacMxfvSxleP
-	e5lKyRkY3Ssm+wUocQPl44nCTNLykRq/i3xUxU8MgXX3H8WOFff0tjfmR4y7RGf/wpoY5+lms7A
-	fblYqXsXSS5Ff2AMmcZbdRhheDr8oxyvAnl/5h2/gLj3BLXzXow1Wi7qfkv9wRtRwrNX6io6mTO
-	185v/NNdxi+6JoFgHKgNhDthcJeHvFbPCZznY1U3Gr98fNFhg9oOTg9AdHryAcM5ifuSGK4euen
-	JaNEJ2Qb4tqBiNaNGG+SZ9HSYCf7RFnUyk3l4z9G/uHnFjPVP0hSlbArL9xQAMrT8vB8fBfsXsP
-	uZLxuRQO8yjEF3axJGPcVjcKip24OfHQJmQ2ggw4YrkevpARz9I2M6WVu4W83+tg6q49mwD5jrL
-	OEv6S1/06y1yvTjUlNQKKqY3Vzz1KNMPeuaf1SAIxq7OsgJsZRlg6IGGgFrmtTT+xZKPW4=
-X-Received: by 2002:a05:7022:7f0b:b0:14f:4b01:40a1 with SMTP id a92af1059eb24-16a4f627a7cmr5226042c88.0.1791609094685;
-        Fri, 09 Oct 2026 22:11:34 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:fc0d:3183:3e45:a830])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a1becf08sm11181963c88.5.2026.10.09.22.11.33
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 09 Oct 2026 22:11:34 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
-	Kalle Valo <kvalo@kernel.org>,
-	Jeff Johnson <jjohnson@kernel.org>,
-	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
-	Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
-	ath12k@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 6.12.y] wifi: ath12k: fix reusing m3 memory
-Date: Sat, 10 Oct 2026 01:11:29 -0400
-Message-ID: <20261010051129.14918-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cTAfOgS0"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=HkTvJBnAIE0ZS4t3l1CJ6+YMsi7vy8/ugr2w69S/OBY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791609137; v=1; x=1792213937;
+ b=cTAfOgS0fTtSt7e7QjdoBBL069Fi7tMpmbwUTn/QqvkOQZ41ZZ+3msXWO10R8eAQtHFhptJv
+ EskLdPfKJay6WX7V4ZqYHHuo/Jj5x2AJTELD/k7cKMLxuVh4rkjdXzvoaVRMuHyedDzwZ4G1PVM
+ 2Xp9IGcLRTeCe83yxMGzNhyM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7bb1c1c289ae0b48;
+	Sat, 10 Oct 2026 05:12:17 +0000
+X-Mizu-Trace-ID: 7bb1c1c289ae0b48
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH 1/4] x86/mm: fix missing pgtable destructor for vmemmap
+ tables
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <bd47fc12-f1cf-4994-8b42-45fc68944072@intel.com>
+Date: Sat, 10 Oct 2026 13:11:57 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ akpm@linux-foundation.org,
+ linux-mm@kvack.org,
+ stable@vger.kernel.org,
+ david@kernel.org,
+ osalvador@suse.de,
+ dave.hansen@linux.intel.com,
+ luto@kernel.org,
+ peterz@infradead.org,
+ tglx@kernel.org,
+ mingo@redhat.com,
+ bp@alien8.de,
+ x86@kernel.org,
+ hpa@zytor.com,
+ catalin.marinas@arm.com,
+ will@kernel.org,
+ mark.rutland@arm.com,
+ linux-arm-kernel@lists.infradead.org,
+ pjw@kernel.org,
+ palmer@dabbelt.com,
+ aou@eecs.berkeley.edu,
+ alex@ghiti.fr,
+ linux-riscv@lists.infradead.org,
+ agordeev@linux.ibm.com,
+ kevin.brodsky@arm.com,
+ bjorn@rivosinc.com,
+ apopple@nvidia.com,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 7bit
+Message-Id: <AD5E5149-5786-4E46-A7C0-995088282179@linux.dev>
+References: <20261008073021.2512665-1-songmuchun@bytedance.com>
+ <20261008073021.2512665-2-songmuchun@bytedance.com>
+ <bd47fc12-f1cf-4994-8b42-45fc68944072@intel.com>
+To: Dave Hansen <dave.hansen@intel.com>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-From: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
 
-[ Upstream commit 00575bb44b2c2aa53d0a768de2b80c9c1af0174d ]
 
-During firmware recovery or suspend/resume, m3 memory could be reused if
-the size of the new m3 binary is equal to or less than that of the
-existing memory. There will be issues for the latter case, since
-m3_mem->size will be updated with a smaller value and this value is
-eventually used in the free path, where the original total size should be
-used instead.
+> On Oct 10, 2026, at 04:54, Dave Hansen <dave.hansen@intel.com> wrote:
+> 
+> On 10/8/26 00:30, Muchun Song wrote:
+>> Since commit 49f599666420 ("mm: call ctor/dtor for kernel PTEs"),
+>> pte_alloc_one_kernel() runs the page-table constructor for kernel PTE
+>> tables.
+>> 
+>> HugeTLB vmemmap optimization uses pte_alloc_one_kernel() when splitting
+>> a PMD. Restoring the vmemmap backing pages does not collapse the PTE
+>> table, so a later memory hot-remove eventually frees that table through
+>> free_pagetable(). That path currently calls pagetable_free() directly
+>> without decrementing NR_PAGETABLE.
+>> 
+>> Use PageTable() to identify constructor-backed tables and run the
+>> matching destructor before freeing them. Keep reserved and
+>> constructor-free tables on their existing paths. This also prepares
+>> vmemmap teardown for generic runtime allocations through the normal
+>> pgalloc helpers.
+> 
+> Could you please take some time and trim the bits out of this changelog
+> that the LLM inserted but that are not super relevant? For instance, I'm
+> not sure what the first paragraph is trying to say. It is apparently
+> missing some context.
+> 
+> FWIW, I really don't like the LLM changelogs on their own. They almost
+> inevitably need human editing to make them usable. I really, really
+> expect humans that are sending x86 patches to spend some human
+> brainpower on them. In fact, I expect folks with:
+> 
+> Assisted-by: LLM
+> 
+> to be sending _impeccable_ changelogs in v1 because their LLM saved them
+> so much time that they can spend gobs on their changelogs. More than
+> ever. ;)
 
-To fix it, add a new member in m3_mem_region structure to track the original
-memory size and use it in free path.
+I agree with the general point that LLM output needs to be carefully
+checked by the submitter rather than adopted as-is.
 
-Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.1.c5-00302-QCAHMTSWPL_V1.0_V2.0_SILICONZ-1.115823.3
+However, I think the first paragraph is relevant. It is intended to
+provide background: commit 49f599666420 changed the behavior of
+pte_alloc_one_kernel and should be canditate for Fixes tag. The second
+paragraph then explains that HVO depends on pte_alloc_one_kernel, so
+that change also affected HVO behavior. The third paragraph describes
+the fix. So the changelog does have a coherent structure, even if it
+can be trimmed.
 
-[ Backport to 6.12.y: drop the copyright-line hunks, which do not apply
-  to 6.12.y. The code changes are the same as upstream. ]
+Of course. I just wanted to explain that I did review the LLM-generated
+content, and that I did not simply leave it unchecked.
 
-Fixes: 05090ae82f44 ("wifi: ath12k: check M3 buffer size as well whey trying to reuse it")
-Signed-off-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
-Reviewed-by: Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>
-Link: https://patch.msgid.link/20251029-ath12k-fix-m3-reuse-v1-1-69225bacfc5d@oss.qualcomm.com
-Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-Hi Greg, Sasha, and ath12k maintainers,
+> 
+> Oh, and it's an x86 crime that we have:
+> 
+> free_pagetable()
+> and
+> pagetable_free()
+> 
+> Any work that makes that coherent would be much appreciated.
 
-Please queue this for 6.12.y.
-
-6.12.y has the bug this fixes. When a smaller M3 image is loaded into a
-reused buffer, m3_mem->size shrinks to the new image length, and that
-length is later passed to dma_free_coherent() instead of the size that
-was allocated. The patch also fixes the allocation-failure message, which
-reads fw->size even though fw is NULL when the M3 image comes from
-firmware-N.bin.
-
-The fix is already in 6.18.y and 7.2.y.
-
-Testing: applies to v6.12.112 and on top of the current 6.12 stable
-queue. An x86_64 allmodconfig build with CONFIG_WERROR=y is clean, and
-ath12k also builds cleanly with W=1. I tested the M3 load and free
-functions in userspace with firmware and DMA stubs under ASan/UBSan. I
-did not test on ath12k hardware.
-
-An LLM helped prepare, build, and test this backport. I reviewed the
-results.
+Maybe rename free_pagetable to free_hotplug_pgtable_page in
+a separate cleanup patch?
 
 Thanks,
-Artem Dinaburg
+Muchun
 
- drivers/net/wireless/ath/ath12k/qmi.c | 9 ++++++---
- drivers/net/wireless/ath/ath12k/qmi.h | 3 +++
- 2 files changed, 9 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/wireless/ath/ath12k/qmi.c b/drivers/net/wireless/ath/ath12k/qmi.c
-index b93ce9f87f61..5b02d1d76a36 100644
---- a/drivers/net/wireless/ath/ath12k/qmi.c
-+++ b/drivers/net/wireless/ath/ath12k/qmi.c
-@@ -2724,9 +2724,10 @@ static void ath12k_qmi_m3_free(struct ath12k_base *ab)
- 	if (!m3_mem->vaddr)
- 		return;
- 
--	dma_free_coherent(ab->dev, m3_mem->size,
-+	dma_free_coherent(ab->dev, m3_mem->total_size,
- 			  m3_mem->vaddr, m3_mem->paddr);
- 	m3_mem->vaddr = NULL;
-+	m3_mem->total_size = 0;
- 	m3_mem->size = 0;
- }
- 
-@@ -2762,7 +2763,7 @@ static int ath12k_qmi_m3_load(struct ath12k_base *ab)
- 
- 	/* In recovery/resume cases, M3 buffer is not freed, try to reuse that */
- 	if (m3_mem->vaddr) {
--		if (m3_mem->size >= m3_len)
-+		if (m3_mem->total_size >= m3_len)
- 			goto skip_m3_alloc;
- 
- 		/* Old buffer is too small, free and reallocate */
-@@ -2774,11 +2775,13 @@ static int ath12k_qmi_m3_load(struct ath12k_base *ab)
- 					   GFP_KERNEL);
- 	if (!m3_mem->vaddr) {
- 		ath12k_err(ab, "failed to allocate memory for M3 with size %zu\n",
--			   fw->size);
-+			   m3_len);
- 		ret = -ENOMEM;
- 		goto out;
- 	}
- 
-+	m3_mem->total_size = m3_len;
-+
- skip_m3_alloc:
- 	memcpy(m3_mem->vaddr, m3_data, m3_len);
- 	m3_mem->size = m3_len;
-diff --git a/drivers/net/wireless/ath/ath12k/qmi.h b/drivers/net/wireless/ath/ath12k/qmi.h
-index 0dfcbd8cb59b..e9eb186441cc 100644
---- a/drivers/net/wireless/ath/ath12k/qmi.h
-+++ b/drivers/net/wireless/ath/ath12k/qmi.h
-@@ -118,6 +118,9 @@ struct target_info {
- };
- 
- struct m3_mem_region {
-+	/* total memory allocated */
-+	u32 total_size;
-+	/* actual memory being used */
- 	u32 size;
- 	dma_addr_t paddr;
- 	void *vaddr;
