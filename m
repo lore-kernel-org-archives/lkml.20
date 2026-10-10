@@ -1,129 +1,178 @@
-Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 267CD3D1A8E;
-	Sat, 10 Oct 2026 06:55:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3646C3DB339
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 06:55:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791615317; cv=none; b=EDb0LIghkqwEAEA/F2qjd8VCSR2T8uKlmtAgGf5u0McoKTMnMmPpG/+h2BAr1XlsecoDhnI3eOd4o24vSy5JemqfY/YffilNLzgfLxq3ZhE4M3VVfIb5MhFJNoPnXA/z4OdrRmTqfa81IprIqOyamDrygcIlwuuWwAuxW7sVfbU=
+	t=1791615322; cv=none; b=PPpGESG/it6Hp7BSb+Z+AqCfUdiFhSQBAdhmMYysl6DFI2GRy6cE/C5iQi3MKDMeghXSHBCcPty4uMZeLjWfHiGeEq0cfBRDFA6eNDF6ZtFX6J4QYxzTV9YwEEIfNliTu69g2IKQ2zciYlaIxupyyTXdw10lTjvw5swcsa8D73I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791615317; c=relaxed/simple;
-	bh=dds94h2tCpUAEqZmdvAVHIAH3c44CSGmgK9M0PtEawc=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=C8slQpBdB7iGDAZaRrFqruKP8I6AeTFtH3KjfvCFe0fwHgLUzRT/euVOUF6c+amPrruwDUMR/TCldV1gACjw0kFKhyqAA3rXUatW5WB6KArjuxWtO67ilbXRX7atFSzWDSZjpSu5+wQxFXRj2UoWzGoduUuul2C/xP+P0IzJdCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com; spf=pass smtp.mailfrom=zytor.com; dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b=oq/zBHgi; arc=none smtp.client-ip=198.137.202.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
+	s=arc-20240116; t=1791615322; c=relaxed/simple;
+	bh=N/moG7D9OviUmWFrdyyxRnoldPlo6k5RA0k/Zye2yns=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=AiVYzCnRy4RHMEiQdWg8vV1g6dU2HQF7dow9J6iO9IrQ4CR0pCa+fmNxJhq/vY2WzJaaVCAnKk/F96Ai3x+qe8B9Y95JhC+9th2G7f4pND/7JYwpc1TOb76wU44yKUG2t+qnGcV12BRHG1FzQmZ8h4AWzClDjIRQ4ZOSEhaeBm0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JMTQugoH; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b="oq/zBHgi"
-Received: from ehlo.thunderbird.net ([172.59.192.99])
-	(authenticated bits=0)
-	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 69A6qu8k3096797
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
-	Fri, 9 Oct 2026 23:52:58 -0700
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 69A6qu8k3096797
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2026092801; t=1791615180;
-	bh=gIbyT1LJ8E+Wsr69yQQkhxyJsSBPI7cWD8OlwVgQw4M=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=oq/zBHgiCjdM3u/+7hEQB9sYTGpxgP2hcwAA4i0Ad9GWnoQM/ylfGB0Eo07g1tCjM
-	 FQuaSulokt8wZ0Ng41RA5blYNTh/lqIAm41rIMOy9cyFFcDcRR0IUhDYmCQANeI8yR
-	 1df1ok8DAJI3yo4CzOe4MYfzX/3cIl+Zn/e6mXGpkmLDa0wkrhR94wPJL04IKaNUip
-	 La8idiwmqfUdESxcQqaTUEfIyqk+GJoN7HlPwJndzuplRdL4/B5Gx6/azMVU+wXA5b
-	 fcHbhb/5D/B6YLLRepLIccB8y79PsI+faAgwpebkkkYKXgI+TdYtJtxAjjENNguzQM
-	 wm18eOzLL3rag==
-Date: Sat, 10 Oct 2026 08:38:23 +0200
-From: "H. Peter Anvin" <hpa@zytor.com>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-        linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-CC: Sebastian Andrzej Siewior <sebastian@breakpoint.cc>,
-        "Maciej W. Rozycki" <macro@orcam.me.uk>,
-        Bill Wendling <morbo@google.com>, Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        Ingo Molnar <mingo@redhat.com>,
-        John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Justin Stitt <justinstitt@google.com>,
-        Nathan Chancellor <nathan@kernel.org>, Neal Gompa <neal@gompa.dev>,
-        Nick Desaulniers <ndesaulniers@google.com>,
-        Richard Purdie <richard.purdie@linuxfoundation.org>,
-        Sam James <sam@gentoo.org>, Shuah Khan <shuah@kernel.org>,
-        Thomas Gleixner <tglx@kernel.org>,
-        =?ISO-8859-1?Q?Thomas_Wei=DFschuh?= <linux@weissschuh.net>,
-        Tomas Glozar <tglozar@kernel.org>, Willy Tarreau <w@1wt.eu>,
-        x86@kernel.org, Arnd Bergmann <arnd@arndb.de>
-Subject: Re: [PATCH v4 2/2] x86: Start removing X86_X32_ABI
-User-Agent: K-9 Mail for Android
-In-Reply-To: <20261008-x32_removal-v4-2-d389a193c506@breakpoint.cc>
-References: <20261008-x32_removal-v4-0-d389a193c506@breakpoint.cc> <20261008-x32_removal-v4-2-d389a193c506@breakpoint.cc>
-Message-ID: <C64A956C-15BE-483F-ACA4-0E9A56699A61@zytor.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JMTQugoH"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48b0946c2c2so203008f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 23:55:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791615319; x=1792220119; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3AVqi9fExl9fa9tq7hzL0SK6VcTdqG2rmyMeegGqrkE=;
+        b=JMTQugoH42iFDFtzOiNQh593RYvAo6GLbJG+9u26QP38lto04uRrjNRiYt32Mea6G6
+         fBLQEVKxtjZREPsXDNfopmJ2vzXO2K2gBwJOi6P2wdIJlQ/Y23XR4XnP9DM8xwncmzKT
+         MsWEzw52R63hMgGPAYUVvr1Rl3h+SW/M1htzSxIHaNop0LMNItWuRiETucRS9Rz2eUdz
+         dne0FqTO8tSnTV9vLk1hnJdug3qTvUlwm+BGGZ6GDK4I29ZIpOVYPM9vPhirKGXr/5kD
+         /xSLNyQtguRzSdYxuYaPJhDxzm7nZL/bLfreB4l/11+p+pNpqV/Os0+lVgCWCgmkzxIC
+         54LA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791615319; x=1792220119;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3AVqi9fExl9fa9tq7hzL0SK6VcTdqG2rmyMeegGqrkE=;
+        b=KuF9zNtF1DmpJH6YqJJd0nh5GyrUbcQvbrB/FziVheBLOBE9UxaAGpeC2Pxo1or0o5
+         hqpUyUozKFMEVd7N2Apdo/aHj66JQXvQa2IaO8A65r5wpiZYoGOPF7hND8p892A9/QyI
+         yfFgLSUkAd55/V7y4bDYUkL4jQkd0SeKfsii7+0epq0+IHsrj7JdgAvH6k6Iu+VhrjRF
+         LSb2btAmxXrivi22LuaXwL1VRqmL9qAPQidrYJuilUTXB4qo1YkhySpjh3ooi8tIkURf
+         YfF5gwnsZ5dHsZawL2JEelYksdy9Q4KPOLE0JwPngjhnx+JGYE36JAivephBNrsO+9G6
+         ePgg==
+X-Forwarded-Encrypted: i=1; AKwUvBzS/yu36K+ZWDAAazV/+9mBqtLtigTUlK+xY1tSRHYCxEIN0XjwdHdbRDkOzHSmooupv1uLzojYyYqJisk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLdLLOh1D24m1W47FNbp0YhPHxQXXx4mYBe0ecuCMATrY5vknZc
+	kAr5mAY7qtfEKgnLIWM4zYZel70C3htH3Rc1A2MyCK+dlzuQnHGun9W5/Y/eEel7
+X-Gm-Gg: AYBFou0NNGWPAVHvUrh3sZm9fODirHL7VVKIOGn0s4qD17AjI6ob9y0fX1W7jwleGUQ
+	vuJPbdtWFt83cvbje3A0hBB/O6uSapbIZptAzI9ev24CHbgTl9dNzbROrPHfbipadKg95xg0wOB
+	wulfuLw+DwjzTEuMjTntnFreSz4ZJbJuZEiAZzK02tdJ2y5/84fEN4pTNvrQKkkBJ9pCvgXLL/L
+	3TToYjs5mOjbmgXQLbzB3d4aqJq2vg+an4lfGU04bpr8IfuMh72y2qbvRYSg9eyfyQRgiCtwOLY
+	I/UfmGhFOy+7kCEUI/jcsuzrmkL2wxOfWry29GP9qqZSPJp8A7Ie4LyZ2cbpRDaunnbuzQNMy6u
+	AGfKb8u3vVH70OUz+rkAlrRozgNJ7I1vURWRr7Q25+WPwTmYBFM0LAstxSems5dUQJ2o39iEZFX
+	rQGdG7V1UWyA7XJj90ME3hYEbg1KpOW1Dz1nA72ecJlIjQj1HFR+3uagL5/bL1TL2IPZglevJx1
+	4K1i5rcy3qKK+LWLVpu0+07GqHJVMmDv+s/tz9j/kgaLzdS3JpXlLfjKUfjgcVN516c7O1p6S7J
+	/no2oDem8wUuu55R1mCGiamx82jeW6SP2BzX2gcIeJSltCw4p/XnS19LySxFSI0GTE1sTGGRBFE
+	=
+X-Received: by 2002:a05:6000:40dd:b0:487:72f:fb41 with SMTP id ffacd0b85a97d-48dbace8754mr8021343f8f.39.1791615319107;
+        Fri, 09 Oct 2026 23:55:19 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-9d3f-0d01-48c7-5d76-0ec6-9dac.310.pool.telefonica.de. [2a02:3100:9d3f:d01:48c7:5d76:ec6:9dac])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db946323bsm8691754f8f.2.2026.10.09.23.55.17
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 09 Oct 2026 23:55:18 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Thomas Gleixner <tglx@kernel.org>,
+	John Stultz <jstultz@google.com>,
+	Stephen Boyd <sboyd@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Miroslav Lichvar <mlichvar@redhat.com>,
+	Jiri Wiesner <jwiesner@suse.de>,
+	Daniel J Blueman <daniel@quora.org>,
+	regressions@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [REGRESSION] clocksource: delayed watchdog can mark TSC unstable
+Date: Sat, 10 Oct 2026 08:55:09 +0200
+Message-Id: <20261010065509.72916-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On October 8, 2026 11:07:43 AM GMT+02:00, Sebastian Andrzej Siewior <bigeas=
-y@linutronix=2Ede> wrote:
->From: Sebastian Andrzej Siewior <sebastian@breakpoint=2Ecc>
->
->From: Sebastian Andrzej Siewior <bigeasy@linutronix=2Ede>
->
->The x32 ABI was introduced in v3=2E4 to leverage the additional registers
->which were available on x86_64 but not on i386 while keeping the smaller
->32bit pointers=2E
->
->This did not take off=2E The memory usage usually knows no limit and the
->better performance did not reach a point where certain workloads widely
->move to x32 and use it exclusively=2E In the meantime Debian introduced a
->patch to disable x32 by default (so it has to be enabled at boot time on
->the command line) because they are afraid of the increased attack
->surface=2E Fedora as far as I tell has X32 disabled (looking at 7=2E0-rc5
->rpm in rawhide)=2E
->
->The syscall range >512 used by x32 can not be reused because on earlier
->kernels (before v5=2E4 with x32 enabled, see commit 6365b842aae4
->("x86/syscalls: Split the x32 syscalls into their own table") it is not
->obvious if the syscall is for x86-64 and not implemented or meant for
->x32=2E
->What can be removed are the special compat cases due to different
->alignment=2E
->
->Since there is practically no real use for x32, start removing it by
->marking the symbol as BROKEN so it is not possible to enable by default=
-=2E
->It will remain around in the last LTS kernel of this year and then it
->will be removed=2E
->
->Acked-by: Arnd Bergmann <arnd@arndb=2Ede>
->Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix=2Ede>
->---
-> arch/x86/Kconfig | 2 +-
-> 1 file changed, 1 insertion(+), 1 deletion(-)
->
->diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
->index 15fd9ec5ecacb=2E=2E21a6863e14e7a 100644
->--- a/arch/x86/Kconfig
->+++ b/arch/x86/Kconfig
->@@ -3104,7 +3104,7 @@ config IA32_EMULATION_DEFAULT_DISABLED
->=20
-> config X86_X32_ABI
-> 	bool "x32 ABI for 64-bit mode"
->-	depends on X86_64
->+	depends on X86_64 && BROKEN
-> 	# llvm-objcopy does not convert x86_64 =2Enote=2Egnu=2Eproperty or
-> 	# compressed debug sections to x86_x32 properly:
-> 	# https://github=2Ecom/ClangBuiltLinux/linux/issues/514
->
+Since the watchdog rewrite in v7.1, the TSC can be marked unstable
+after a delayed watchdog run under QEMU TCG. Without injected stalls,
+this happened on 5 of 12 boots on a loaded host and 0 of 6 on an idle
+host.
 
-I want to make one change to this=2E=20
+The delayed run re-arms the timer with an expiry already in the past.
+The watchdog then runs again almost immediately and rejects the TSC
+based on a roughly 75 us measurement interval.
 
-The commit message states this as a fait accompli, but what it should say =
-is:=20
+#regzbot introduced: 763aacf86f1b
 
-** If you have a legitimate use case for x32, this is your last chance to =
-speak up=2E Otherwise it will=2E=2E=2E **
+v7.3-rc5, 4 vCPUs, after vCPU 0 was stopped for 0.8 s:
+
+  clocksource: Marking clocksource tsc unstable due to frequency skew
+  clocksource: Watchdog                    hpet interval:            74940ns
+  clocksource: Clocksource                  tsc interval:            74251ns
+  clocksource: Switched to clocksource hpet
+
+The intervals are 75 us, not the 500 ms watchdog period. A function
+trace of clocksource_watchdog() from the same boot:
+
+  busybox-79 [000] ..s1. 15.168486: clocksource_watchdog <-call_timer_fn
+  busybox-79 [000] .Ns.. 16.269726: clocksource_watchdog <-call_timer_fn
+  busybox-79 [000] .Ns.. 16.269820: clocksource_watchdog <-call_timer_fn
+
+The second call came 1.10 s after the first, the third 94 us after the
+second. Re-arming with expires += WATCHDOG_INTERVAL leaves the next
+expiry in the past when a run is more than one interval late.
+
+For a 75 us interval, the 500 ppm allowance is only about 37 ns, plus
+the readout time. The measured difference was 689 ns.
+
+Before 763aacf86f1b an interval above WATCHDOG_INTERVAL_MAX_NS was
+skipped with "Long readout interval, skipping watchdog check" and the
+timer re-armed from jiffies, so there was no immediate second run, and
+the skew was compared against a fixed margin of at least
+2 * WATCHDOG_MAX_SKEW. The rewrite dropped both.
+
+Reproducer: a v7.3-rc5 guest with allnoconfig plus the fragment below,
+4 vCPUs, qemu-system-x86_64 -accel tcg, the HPET as watchdog.
+PTRACE_ATTACH on the "CPU 0/TCG" thread for 0.8 s, detach, six times
+12 s apart. The TSC was marked unstable on the first stall in 2 of 2
+runs. Stopping the whole QEMU process did not reproduce it. The guest
+clocks stopped with it.
+
+The same stall against other kernels, same config:
+
+                                        TSC marked unstable
+  v7.3-rc5                                   2 of 2 runs
+  v7.3-rc5 + the check below                 0 of 2
+  763aacf86f1b (the rewrite)                 3 of 4
+  763aacf86f1b^                              0 of 2
+  v7.0                                       0 of 2
+
+763aacf86f1b^ and v7.0 print the "Long readout interval" line for the
+same stalls and keep the TSC. 763aacf86f1b marked it unstable on a
+170 us window, hpet 169720 ns against tsc 168974 ns.
+
+The added check in watchdog_check_freq() skips the frequency check and
+resets the watchdog when the measured interval is shorter than a quarter
+of the period:
+
+	if (max_delta < WATCHDOG_INTERVAL * TICK_NSEC / 4)
+		goto reset;
+
+Re-arming from jiffies instead of from the previous expiry would avoid
+the second run altogether.
+
+An LLM agent helped me with the test setup and the trace analysis. I ran
+the tests and checked the results.
+
+The relevant part of the config fragment on top of allnoconfig:
+  CONFIG_64BIT=y
+  CONFIG_EXPERT=y
+  CONFIG_SMP=y
+  CONFIG_NR_CPUS=4
+  CONFIG_PREEMPT=y
+  CONFIG_HIGH_RES_TIMERS=y
+  CONFIG_NO_HZ_FULL=y
+  CONFIG_HZ_250=y
+  CONFIG_ACPI=y
+  CONFIG_PCI=y
+  CONFIG_VIRTIO_PCI=y
+  CONFIG_VIRTIO_CONSOLE=y
+  CONFIG_BLK_DEV_INITRD=y
+  CONFIG_SERIAL_8250=y
+  CONFIG_SERIAL_8250_CONSOLE=y
+  CONFIG_FTRACE=y
+  CONFIG_FUNCTION_TRACER=y
+  CONFIG_IRQ_TIME_ACCOUNTING=y
+  CONFIG_PROVE_LOCKING=y
+  CONFIG_DEBUG_PREEMPT=y
+
+Thanks,
+Karl
