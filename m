@@ -1,144 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA455455607;
-	Sat, 10 Oct 2026 11:25:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05AB637AA96
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 11:25:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791631540; cv=none; b=DfEHEZP5koNoSgcTXKGIBq8cBUHoV4d4z7AuxxFyRaU5voE1iykq9DBDjBh34kicxynDr5NFHtwuhVJhpa/XG00jVj6+Tmr97g3SuHPM7hoQetNIkhuy3DUw16PEEtLzQpA90XLIGJMAcC9gXpSTuGdhSF5zaVHKQ4fc5cGWF7w=
+	t=1791631550; cv=none; b=VlJIznSl/NnkR9AMXEdAFAB9MbFtKbfruBv5WyIzoFh9LGTaJW6GUDsluz8XaivjjhYD5SQZXfl8ZfcmSQtB1/IDN2w0qWMLiS7/8OvrZU2V20d4ehV3yya2gvGluJBUToGEYKg2XNeESlxfF4sdf75NDv4RsHkOppuzllRti9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791631540; c=relaxed/simple;
-	bh=YzqLPw7XgcjHjtBA3K7qVaKgKH+F5SwiMXFMpixd7WE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XyMU6GDkgIej78WKbwQmUU6Oy4T5mt1S0Uw1GOFRjoqHtAfBAMGEmO5uvTYoGfTRlJVx4IfCEmztgQf+7/Ne5DlDASsmTs0h54MJrrqoQGZnBPGj8W/wHy5FpYf0bhG80sLOGEoJx/BKAq0Flt8jTjhje+T/6mDMtLEVGwGCAVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EkWDQV81; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791631550; c=relaxed/simple;
+	bh=+/svH6Yt3TVOaA2Dmeuofm5tgchOQ23jAXlNQeiT4FY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k1XbuZN3qQuKeqtks3/LtRrzGLh/m+yMDmcEoGBasyriP6TMu5KqGKpDspTGIy4xc9ZnDtPziwWqQC/hFeHVYAMRXpjYT2wCVOMZd7XYbsBAm4UJxMu6kfhTJbbKCoOWK/dhplvG7FB0FlgH1pTFweTVta836Hmo8G6O1mnvYE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=a5kHxj13; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EkWDQV81"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 534C41F000FF;
-	Sat, 10 Oct 2026 11:25:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791631534;
-	bh=sfY+uRPXEdWtjLqcJybNaXUFUCXdQfre4GQZmBn9q+I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EkWDQV81ES1DiWJ9wSkZqMiad1XbLcb+RmAxG+yGosD++Z9VE7utgqi/C0E6ywBAb
-	 4catZUSGzeCgoVPyQxCr6pCW8wEivmFgEFnU035MinLtih4EeRS3rhtEHLj8r7GnUc
-	 om7VFblNFyKl6KXVPSi7bnEDwAESnVlGDHzQ0hMipKXbGPcC1Y36uU7lleuYL8q6ch
-	 WjNs05xmUrZLhGxQCDsigiACvl1BEyM6Ld0FCd8LPxOeyCAfHioObUjaTlpk0ODQ/5
-	 1rZYzzexcGr+N53mcDK0zUSwYpc4X/nEUhaLuMAhpJhLrzh4rbOpaKwFLesIriJ6Po
-	 c1a0Y2R5sJ2Yw==
-Date: Sat, 10 Oct 2026 16:55:28 +0530
-From: Sumit Garg <sumit.garg@kernel.org>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: Jorge Ramirez <jorge.ramirez@oss.qualcomm.com>, andersson@kernel.org,
-	mathieu.poirier@linaro.org, konrad.dybcio@oss.qualcomm.com,
-	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] remoteproc: qcom: pas: pass no resource table when the
- firmware has none
-Message-ID: <asogqMMvsGTTmHr1@sumit-xelite>
-Mail-Followup-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-	Jorge Ramirez <jorge.ramirez@oss.qualcomm.com>,
-	andersson@kernel.org, mathieu.poirier@linaro.org,
-	konrad.dybcio@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261005125411.2151326-1-jorge.ramirez@oss.qualcomm.com>
- <20261005161224.umj6zzov57tifv7v@hu-mojha-hyd.qualcomm.com>
- <asQQJNOd_p9acgT1@RAMIREZO.na.qualcomm.com>
- <20261006100344.piyiffp6rwvt3w2s@hu-mojha-hyd.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="a5kHxj13"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3a706146559so286341a91.2
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 04:25:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1791631548; x=1792236348; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=P0oeUsShMWj3bJ1nudJ9ra0uDTnpz7SXDogBWHR7tfw=;
+        b=a5kHxj13xWUBAg0t1ZNPDLbWodXHYpqAKjm5c8oxoVCN8CrlHKjiwHrV+bXeLXqcMA
+         mk6o+z84diFN1C6OI5YsbfkAjLEa+KNd8UHFvYj3KWN+c44KGOEQ+LxxcADk2Fu9te/Z
+         mw2ag8ZxzxKyvDHj4yVCRMuzp7RrFjE3kfW4UW0Pjvo7og9+2s+ksFw0IbJtbjbLpeb1
+         mcKJhEG32SJDrvnzokGt3G633vKVGTTE+eHBuK2wlgcsPdTLrtwZmaipV/y4wEuVwtWn
+         ftGFsAsVai1BN7b4sB+aYgVm2Rw+c79KpKbLFO63xlofx1UHAnQH8LtzzT415koA6cgH
+         Jaig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791631548; x=1792236348;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P0oeUsShMWj3bJ1nudJ9ra0uDTnpz7SXDogBWHR7tfw=;
+        b=v3u6C97rKUhMY0Uk3vyQBtGI2Q7dmZSu345hTU9sg4wXIt4m0BR0TTalNwneN4G+kb
+         PkJUIiDGMheyOLPOvKIjn+oFJReWZ577DBks3KaSwi+2lP69hC/tPlbfnoT2TTwPYcH/
+         dPZKeEtZHk30enFvjlCo8X1rum2rzcM/7MK+ByQ6LtIZF0Rv5r8MB8+s4k1j2pPyN6Jr
+         mgugA5VtetkXjEBWX8j4KGpIHOpWCq4ZZTRmICvv2fTNlKjWV4R2YKvRtvVp19T8Q4ww
+         rP+OA7Q/VSHdAvxKfgpcXDv71UnXQgm+InmkUZvZtZouPNFeJygmf+CdlATNAtHFyDWi
+         LfwA==
+X-Forwarded-Encrypted: i=1; AKwUvBzB+51Rh8Mtwyz5Ta9iJ8Gr47VEFvfhHX8zH//aOFIiEdVwr3BDhRDBJvVD3zx4sXcdARGQG6pAlzUYG7k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIPojAn0YwtZ5qVFKEwbyQ57vUiiSRtHO6xTV4vV+jCamk4DQUm
+	XSIR5oPvVguD6D4e6kTTS60gHCagT5MYu4wUaY9QbqmwakEsdRLFP+uQYv+D2bwkmb0=
+X-Gm-Gg: AYBFou0ofPwagLTAjJ3OSActYHM3XbQYxrtvVJ0BMl+HQ+KMcZuta7ujFIMFEir2IaV
+	I9Pg9A4lROaIfj6ASWcq7eS7Bs616LVMWTji9GaJ0Shrbzmwr1ygyiezci5hvNOZSCt8tvcv7sK
+	l4yMuF4OkXgVk13wlc/lIjm87UT9CyRswNKIjXcqvSIojC9BGZur2Uh6GA+mMxKiuxN3i2GxXog
+	p9m1zOgArWGmEatHN4MPgwOgb37qdmE19YkjvtCZgJRIcKkPwfdTi0183QuME4khJcKyd2Qmzj7
+	tv2SJLF2WYQf8xvPfo6JbEDmYHvSaEqNdDGiVhhNTSO+E6ik+/2urstju7pJhdOUl4yqpQTlYqt
+	IyYysoU9IRluT1Abk+coddmKftq18JER4VAaCQNHz5dVT6UNiDeEc8Q57TkiRaR0YrsWt7yVUwz
+	/AsGpFJFEuTaqoqCVbeu+U+eSnJlJjp58Dnb3Euetqp21H6yOYI1xV0iKeM5aObpiVize7hMGGd
+	oRKBIU/VvEFPLfrAtJ1MBNTdfoMgj8vE6DUwg==
+X-Received: by 2002:a17:90b:3a48:b0:39d:f6a6:60d8 with SMTP id 98e67ed59e1d1-3ab3a33db57mr4120069a91.3.1791631547298;
+        Sat, 10 Oct 2026 04:25:47 -0700 (PDT)
+Received: from G6L4RL2QG9.bytedance.net ([139.177.225.249])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab3690474esm7900233a91.0.2026.10.10.04.25.37
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 10 Oct 2026 04:25:45 -0700 (PDT)
+From: Muchun Song <songmuchun@bytedance.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>,
+	Oscar Salvador <osalvador@suse.de>,
+	Dave Hansen <dave.hansen@intel.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	=?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@rivosinc.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Kevin Brodsky <kevin.brodsky@arm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	linux-mm@kvack.org,
+	linux-riscv@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Muchun Song <muchun.song@linux.dev>,
+	Muchun Song <songmuchun@bytedance.com>
+Subject: [PATCH v2 0/4] mm: Fix page-table teardown during memory hot-remove
+Date: Sat, 10 Oct 2026 19:24:53 +0800
+Message-ID: <20261010112457.49485-1-songmuchun@bytedance.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20261006100344.piyiffp6rwvt3w2s@hu-mojha-hyd.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-Hey Mukesh,
+Memory hot-remove can free page-table pages allocated through paths with
+different constructor state. Some paths run the page-table constructor,
+while generic sparse-vmemmap population may not. The x86, RISC-V, and
+arm64 teardown paths did not handle that distinction consistently,
+leaving constructor/destructor accounting unbalanced.
 
-On Tue, 06 Oct 2026 at 15:33:44 +0530, Mukesh Ojha wrote:
->On Mon, Oct 05, 2026 at 11:01:24PM +0200, Jorge Ramirez wrote:
->> On 05/10/26 21:42:24, Mukesh Ojha wrote:
->> > On Mon, Oct 05, 2026 at 02:54:00PM +0200, Jorge Ramirez-Ortiz wrote:
->> > > The firmware resource table is passed to the PAS backend even when the
->> > > firmware carries none. This only works on the first boot, while the
->> > > cached pointer and its size are both zero.
->> > >
->> > > Stopping the remote processor, or failing to start it, frees the cached
->> > > table and clears the pointer but leaves the size set. The next start
->> > > then pairs a NULL table with a non-zero size.
->> > >
->> > > The SCM backend substitutes an empty table and hides the problem. The
->> > > TEE backend copies from the NULL pointer:
->> > >
->> > >   remoteproc remoteproc2: powering up cdsp
->> > >   pc : __pi_memcpy_generic+0x110/0x22c
->> > >   lr : qcom_pas_tee_get_rsc_table+0xf4/0x25c
->> > >   Call trace:
->> > >    __pi_memcpy_generic+0x110/0x22c (P)
->> > >    qcom_pas_get_rsc_table+0x38/0x60
->> > >    qcom_pas_parse_firmware+0xa0/0x100
->> > >    rproc_boot+0x2d4/0x380
->> > >    state_store+0x40/0x100
->> > >
->> > > Fixes: a4584bff63c8 ("remoteproc: pas: Extend parse_fw callback to fetch resources via SMC call")
->> > > Signed-off-by: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>
->> > > ---
->> > >  drivers/remoteproc/qcom_q6v5_pas.c | 11 ++++++-----
->> > >  1 file changed, 6 insertions(+), 5 deletions(-)
->> > >
->> > > diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
->> > > index a005546c265d..e871e03ba794 100644
->> > > --- a/drivers/remoteproc/qcom_q6v5_pas.c
->> > > +++ b/drivers/remoteproc/qcom_q6v5_pas.c
->> > > @@ -463,7 +463,7 @@ static int qcom_pas_parse_firmware(struct rproc *rproc, const struct firmware *f
->> > >  	struct resource_table *table = NULL;
->> > >  	size_t output_rt_size;
->> > >  	void *output_rt;
->> > > -	size_t table_sz;
->> > > +	size_t table_sz = 0;
->> > >  	int ret;
->> > >
->> > >  	ret = qcom_register_dump_segments(rproc, fw);
->> > > @@ -476,11 +476,12 @@ static int qcom_pas_parse_firmware(struct rproc *rproc, const struct firmware *f
->> > >  		return 0;
->> > >
->> > >  	ret = rproc_elf_load_rsc_table(rproc, fw);
->> > > -	if (ret)
->> > > +	if (ret) {
->> > >  		dev_dbg(&rproc->dev, "Failed to load resource table from firmware\n");
->> > > -
->> > > -	table = rproc->table_ptr;
->> > > -	table_sz = rproc->table_sz;
->> > > +	} else {
->> > > +		table = rproc->table_ptr;
->> > > +		table_sz = rproc->table_sz;
->> > > +	}
->> >
->> >
->> > Earlier code was intentional please read the comment below.. /**...*/
->> >
->>
->> AFAICS the comments say that the call might pass NULL and zero as input
->> resources. And this patch does exactly that - it doesnt allow NULL and
->> non-zero.
->>
->> did I miss something?
->
->No, you did not miss anything.. I just wanted to highlight that I
->did not keep else statement in my initial implementation
->intentionally and relied table_ptr and size will be NULL on
->failure of rproc_elf_load_rsc_table()..
+Make pagetable_free() test PageTable() and run the destructor only when
+the constructor initialized the page. The RISC-V and arm64 fixes then
+use this common helper for their memory-hot-remove paths.
 
-Looks like you still haven't understood the problem this patch is trying
-to solve. It's the PIL restart sequence where the table_ptr is NULL and
-size being passed as non-zero which is incorrect from caller point of
-view.
+The architecture fixes depend on the common MM change in patch 1, so
+this remains a single series. I expect it to go through the MM tree,
+with review or acks from the relevant architecture maintainers.
 
-The backend will surely error out in this case. On a restart you again
-have to pass the table_ptr as NULL with size as 0 to fetch the resource
-table again. Surely we don't want the backend to hide errors on client
-part here.
+Changes since v1:
+- Move the destructor decision from x86 into pagetable_free(), as
+  suggested by David Hildenbrand.
+- Use pagetable_free() for non-reserved RISC-V page-table pages and
+  simplify reserved-page handling.
+- Collect David Hildenbrand's Acked-by on the RISC-V PUD fix.
+- Use pagetable_free() for arm64 intermediate page-table pages, as
+  suggested by David Hildenbrand.
+- Trim and update the commit messages, as requested by Dave Hansen.
 
--Sumit
+Muchun Song (4):
+  mm: fix missing page-table destructor in pagetable_free()
+  riscv/mm: fix hotplug page-table destructor handling
+  riscv/mm: fix missing destructor for hotplug PUD tables
+  arm64/mm: fix destructor for unconstructed hotplug page tables
+
+ arch/arm64/mm/mmu.c  |  3 +--
+ arch/riscv/mm/init.c | 32 +++++++++++++-------------------
+ include/linux/mm.h   | 37 ++++++++++++++++++++-----------------
+ 3 files changed, 34 insertions(+), 38 deletions(-)
+
+
+base-commit: 8b38ed9ab5b09c8ba168cbcc49524e9b380ee5c4
+-- 
+2.54.0
+
