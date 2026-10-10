@@ -1,160 +1,162 @@
-Received: from proxmox-new.maurer-it.com (proxmox-new.maurer-it.com [94.136.29.106])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B32C2EEE65;
-	Sat, 10 Oct 2026 19:30:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=94.136.29.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89E244B3373
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 19:32:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791660659; cv=none; b=g4pk6e+X8nwma+w+1y22LInQLLM+wOmprzXopA3sv2sC9jYp/MYjoh7g3yul+y1flN77fBLvLA6/zIYSVDBHfNwihs9+rNnnMPXbMwYA48oVQ11sLQjSqKRyhtc/UmSPYTNDOwS/V7JJPG9eWcSv8c+jcgW5K3c5YLRHCtmuU90=
+	t=1791660725; cv=none; b=So7XUBbxmfVTKzCCtMZCg3rViMdrvKN8pQs4628yFDEJMHiR+cIkbg5tPKcPxhVQ66kv8piNmu7CEla1OG0ZGfuQo3R3yhhmjIEJkgbgvwlKXGPM62s+iPqWIjScd0/Siq0ctoR7FRj1B7icxC48MHPdI4aDwkcP/yLeWn09e8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791660659; c=relaxed/simple;
-	bh=kk+VoJEcW3YCdNKSLtTJRN+To5JsBzDfQyaW0H+Prbw=;
-	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=ooaCbvHxEBekRWuS2tmDOUOIMEyjYV3dEbXbI0q8soI2L9pCRXMXczQxphnj4MoGRTA6dbMd9P0p7N6btTzfhS+McSoIpWqxrSNkuren55fl9H+eBSrJ1/0zgS6DmKeOCwm77VwRYH1vvTaip2VbuVbNQuKWhInsmAWz5uZP/Oo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com; spf=pass smtp.mailfrom=proxmox.com; arc=none smtp.client-ip=94.136.29.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proxmox.com
-Received: from proxmox-new.maurer-it.com (localhost.localdomain [127.0.0.1])
-	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id CD9EE47B5F;
-	Sat, 10 Oct 2026 21:30:47 +0200 (CEST)
-Message-ID: <7cc824c4-632d-49df-ae5e-cfcbb5bf76ad@proxmox.com>
-Date: Sun, 11 Oct 2026 06:30:40 +1100
+	s=arc-20240116; t=1791660725; c=relaxed/simple;
+	bh=F1D4iukY4nyVTtimKuBfEcunfvHRFpiZ1VWWXmphPtI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HrRpVkQ7CepeCxnViOjhPiW5/P4dbVjfOz4+WnyInbVeqHYGN0PqWSDb2QPm8czggZWQxRgxuioVINHN2ifv8ZNgukN7u+ti0Mln5PP0hz2we0YVPUG4LS7BHXA8n8D0tRLHlnIByPlcMxLos2r7BGpUqONKE8E1QxW/s+/E098=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rBizblaz; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rBizblaz"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a1635f7c89so7204845e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 12:32:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791660722; x=1792265522; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HpFsl06GKj3/HmCfxz07Pc541DBxtIMKfhoqnvBoI6I=;
+        b=rBizblazRS4sAo7J/4dBuvgGncpW/xwWmXvlaTHKYyMAzAku5JdRDe+CupFAE2QAM9
+         +PICZkCfiot6wbQeEpMd5TYN+16J6OEhobKd/a7qdiO6XCcUG5QsDRA4NAEuihjM3M6W
+         f5VkQN2p5ZAZYbm/cv+EU7NW0yBeGZp2LyrYsCsjLb0R49HXLCmGKs4HnyFC++SJPePs
+         TsxS9W13NHmhCoo6xbjNuru2dz6v2OWqI2LK4n0Jh1wdObnSlSNoU3s7Tkpd0Titac/+
+         mQ2dDGweIm0MeLxenpDAnP5hTE1foY3BG3hovLxvd9AzyvQs0RI9/V37QCdBMT/B39Xg
+         vsQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791660722; x=1792265522;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HpFsl06GKj3/HmCfxz07Pc541DBxtIMKfhoqnvBoI6I=;
+        b=wfzqVkKc1y6VWESX1XgsRjTDofPwk3N9SDU+4D2wqCfG0L85LuJmdZHyDyXCsdyzrN
+         V1brHtRlMKz4TDsX7oH6rKDh+5MbPtldpPPKoqh6LCF06Go9hJH7gmSfwwzE3+Dgc6we
+         d29D6pFbYlSG/6TDujdYypaOQFscQY76psOwJal3dwqb+lHTw1hrQn7eNgC5asM+i34P
+         UE3aa2AoZUggBfJsMzuHEWVfRu1cpdEAUt8ZEANSiAoIE0AJt4WZSRtEofn+JYNu/IVx
+         nOt3DZ7WigoB6niadPWE+tb8Ww2pBQXtqQW1f3bohnES47Un/nDasihX2m42N1IRzBqg
+         6Bsg==
+X-Forwarded-Encrypted: i=1; AKwUvBykx/PgQixjvAUJvF4EQWiaeccCn8nVci8qpw0I/5S5Gp9D9dordaTDdKFRVhjdbR2AUYCh6SFSU8dGCEk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJaVk1LSF0Kphr5Cx/5ozRgMbiGQRWVPX6A1GTXQNxrxaN2XKtk
+	2yUBNIP6R164RPfHfK3KtLf0+fhHPSmare8qTWKABBtUhdY0lhFaHofq
+X-Gm-Gg: AYBFou1ETuRj51uM52CwD6+9K3kAUbiZDF7k4GxAaKo7M9pMjyJosU+TqHlMHGN579F
+	J6F+yJWpSzi+ncJnvDUPBdx2hYdwe9sHtXrEejoqDCJzK3VSmNB7P4e+G0EWySVxlb/GAKE74VJ
+	o7Qd6BgqGA6C+I6wHkk62ViXvo5LEMD7u+nOJ94f9PryfgcqNEj9K7Q3eRMsPumfCUSExbmeRnj
+	c2CdO09a7M+bCAUeGc0nCLkSaOfYQh69Sp03BvM3CyiGSE/1LwSiwu8xPgyEyRsqLN9gv4hA0kR
+	/2Ga7KWywGWI0i5JMyOVCova+KuscA5QfJkeFuTCUDYHgyuCNcdK2CUb5vc729+mqGkMMpKGmjN
+	8QpCDEBJz3KLVY16Sz6MUeDFkW0DrgLNrrfHAB4HfSpQZcEZCWlCPy5+Rku0gqvqwoIgCkgUv+L
+	4cEZRwsTAa1ETatKrgJ9AyE+O6r208O7Bj2HOxBef4Y2F5BiICo3un4jWh5NsQ+iRpIUniNuCdr
+	xWbHQCGdHH6CDOzI6OJAmqkpqjHEJCn1m46pGvtSf5vkSRrjkrOmEYpUgWoCPU10XBPeibIb2nS
+	aTMkH9UImEGGs6ccP5qLJg==
+X-Received: by 2002:a05:600c:4f92:b0:4a1:6dc3:f5e2 with SMTP id 5b1f17b1804b1-4a18e4f6668mr94394465e9.33.1791660721428;
+        Sat, 10 Oct 2026 12:32:01 -0700 (PDT)
+Received: from omarchy ([2a02:ff0:1e10:93f:ce47:40ff:fef1:ce77])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18e4a3b4asm279544955e9.5.2026.10.10.12.32.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 12:32:01 -0700 (PDT)
+From: Abdurrahman Karadag <abdurrahmankaradag19@gmail.com>
+To: linux-wireless@vger.kernel.org
+Cc: pkshih@realtek.com,
+	linux-kernel@vger.kernel.org,
+	rtl8821cerfe2@gmail.com
+Subject: [PATCH rtw-next v2] wifi: rtw88: pci: wake the TX queues when the rings are reset
+Date: Sat, 10 Oct 2026 22:31:36 +0300
+Message-ID: <20261010193136.294816-1-abdurrahmankaradag19@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: stable@vger.kernel.org
-Cc: regressions@lists.linux.dev, Chuck Lever <cel@kernel.org>,
- Jeff Layton <jlayton@kernel.org>, linux-nfs@vger.kernel.org,
- linux-kernel@vger.kernel.org
-From: Lubos Rendek <l.rendek@proxmox.com>
-Subject: [REGRESSION] 7.2.4: nfsd sends CB_OFFLOAD with all-zero stateid,
- async NFSv4.2 COPY never completes
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Bm-Milter-Handled: 55990f41-d878-4baa-be0a-ee34c49e34d2
-X-Bm-Transport-Timestamp: 1791660646761
+Content-Transfer-Encoding: 8bit
 
-Since 7.2.4, an NFSv4.2 server-side COPY between two exports of a Linux
-NFS server never completes, because nfsd sends CB_OFFLOAD with an
-all-zero stateid.
+When a TX ring fills, rtw_pci_tx_write() stops the mac80211 queue and
+records that in ring->queue_stopped, which is cleared only by the
+completion loop in rtw_pci_tx_isr(). Resetting the rings rewinds the
+indices, so nothing that was in flight can complete and run that loop,
+and the queue stays stopped over a ring that is now empty.
+ieee80211_restart_hw() does not release that stop either, because
+ieee80211_reconfig() wakes only IEEE80211_QUEUE_STOP_REASON_SUSPEND.
 
-The client sends COPY, the server answers with a copy stateid, does the
-copy in the background and then reports completion in CB_OFFLOAD, but
-with a zeroed stateid. The client cannot match it to its pending COPY,
-so cp(1) waits in nfs42_proc_copy until killed, while the data is
-complete on the server. Nothing is logged on the server. This is a
-stable-only regression: mainline is fine.
+Release those queues where the reset happens. The stop side is the one
+that matters: rtw_fw_recovery() reaches rtw_pci_dma_release() through
+rtw_enter_ips() before it calls ieee80211_restart_hw(), so that is
+where a queue stopped before the crash is still stopped. By the time
+rtw_pci_setup() runs the flag is already clear.
 
-Details:
+Wake all the queues, but only if at least one ring had filled. This
+cannot tell one DRIVER stop from another: rtw_pci_io_err_detected() and
+the hardware scan paths in fw.c stop every queue with the same
+IEEE80211_QUEUE_STOP_REASON_DRIVER, which mac80211 keeps as a single
+non-refcounted slot per queue. Gating on ring->queue_stopped at least
+keeps the resets that stopped nothing out of it.
 
-Tested with kernel.org kernels, all built with the same config, no
-out-of-tree modules, untainted:
+On an RTL8821CE, a BE ring held until rtw_pci_tx_write() stopped its
+queue did not come back from the restart. The ring itself was reset -
+0x3a8 read 0x00000000 and REG_TXPAUSE was clear again - but BE's
+mac80211 stop reason still read 0x1 three minutes later and TX never
+resumed. With this patch it reads 0x0 and TX resumes within 2 s. The
+ring was filled by writing REG_TXPAUSE 0x0f from debugfs under load,
+and rtw_fw_recovery() was called from a debug build.
 
-  7.2.3      works  (3 of 3)
-  7.2.4      hangs  (3 of 3)
-  7.2.9      hangs  (2 of 2)
-  6.18.55    hangs
-  7.3-rc6    works  (mainline)
-  6.12.112   copies synchronously here (128 x 4 MiB COPY, no
-             CB_OFFLOAD), so this reproducer does not reach the
-             async path
+Signed-off-by: Abdurrahman Karadag <abdurrahmankaradag19@gmail.com>
+---
+v2:
+ - wake with ieee80211_wake_queues() instead of recording and replaying
+   per-ring queue mappings (Ping-Ke Shih)
+ - drop the Fixes tag: the bug only bites once a recovery path exists,
+   which the blamed commit predates (Ping-Ke Shih)
+ - cut the commit message down to why and how (Ping-Ke Shih)
+ - say which of the two reset call sites fires during recovery, and
+   that the measured stall was induced from debugfs
+ - patch 2 of the v1 series is dropped rather than resent, while the
+   cause of the stall is still open
 
-Stateid in the COPY reply vs. in CB_OFFLOAD, from captures on the
-server:
+v1: https://lore.kernel.org/linux-wireless/20261002231013.11792-1-abdurrahmankaradag19@gmail.com/
 
-  kernel   COPY reply                  CB_OFFLOAD
-  7.2.3    1 3456c76a717bdc2100000000  1 3456c76a717bdc2100000000
-  7.2.4    1 ef54c76a2dcf760401000000  0 000000000000000000000000
-  7.3-rc6  1 13efc76a9308445405000000  1 13efc76a9308445405000000
-  6.18.55  1 1011c86a7674335600000000  0 000000000000000000000000
+ drivers/net/wireless/realtek/rtw88/pci.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-Cause, from reading the source: in 7.2.4, nfsd4_copy() duplicates the
-copy into async_copy before the copy stateid exists:
+diff --git a/drivers/net/wireless/realtek/rtw88/pci.c b/drivers/net/wireless/realtek/rtw88/pci.c
+index 66d2e5f..4d3524e 100644
+--- a/drivers/net/wireless/realtek/rtw88/pci.c
++++ b/drivers/net/wireless/realtek/rtw88/pci.c
+@@ -475,7 +475,29 @@ static void rtw_pci_reset_buf_desc(struct rtw_dev *rtwdev)
+ 
+ static void rtw_pci_reset_trx_ring(struct rtw_dev *rtwdev)
+ {
++	struct rtw_pci *rtwpci = (struct rtw_pci *)rtwdev->priv;
++	enum rtw_tx_queue_type queue;
++	bool wake = false;
++
+ 	rtw_pci_reset_buf_desc(rtwdev);
++
++	/*
++	 * The indices are back at zero, so nothing that was in flight can
++	 * complete and reach the wake in rtw_pci_tx_isr(); a queue stopped
++	 * when its ring filled would stay stopped for good. Only wake when
++	 * that happened: the stop reason is shared with the AER and scan
++	 * paths, which wake the queues again themselves.
++	 */
++	for (queue = 0; queue < RTK_MAX_TX_QUEUE_NUM; queue++) {
++		if (!rtwpci->tx_rings[queue].queue_stopped)
++			continue;
++
++		rtwpci->tx_rings[queue].queue_stopped = false;
++		wake = true;
++	}
++
++	if (wake)
++		ieee80211_wake_queues(rtwdev->hw);
+ }
+ 
+ static void rtw_pci_enable_interrupt(struct rtw_dev *rtwdev,
+-- 
+2.55.0
 
-    dup_copy_fields(copy, async_copy);
-
-    if (!nfs4_init_copy_state(nn, async_copy))
-        goto out_dec_async_copy_err;
-    memcpy(&result->cb_stateid, &async_copy->cp_stateid.cs_stid,
-        sizeof(result->cb_stateid));
-
-So the COPY reply gets the stateid, but async_copy->cp_res.cb_stateid
-stays zero, and nfsd4_send_cb_offload() builds the callback from
-async_copy->cp_res. 7.2.3 set up the stateid before dup_copy_fields().
-Mainline writes cb_stateid before duplicating, with the comment "dup
-after writing cb_stateid; duplicating first would leave the callback
-stateid zeroed."
-
-7.2.4 took six patches of the "nfsd: copy offload fixes" series, but
-not its restructuring patches. The reordering most likely came with:
-
-  14b978e8d05c ("nfsd: fix stale s2s_cp_stateids IDR entry for async COPY")
-
-which is d0beaee498e1 upstream. Mainline gets the right order with
-f307b4f7ed17 ("nfsd: split nfsd4_copy into transient and durable async
-copy objects"), which is not in any 7.2.y release. Not bisected. The
-same patches are in 6.18.50/6.18.51 (6.18.55 tested bad) and
-6.12.109/6.12.111.
-
-For confirmation, this minimal change on top of 7.2.4 makes the
-reproducer work here: the COPY stays async, and CB_OFFLOAD carries the
-same stateid as the COPY reply. It is only a lab test, not a proposed
-fix:
-
---- a/fs/nfsd/nfs4proc.c
-+++ b/fs/nfsd/nfs4proc.c
-@@ -2238,6 +2238,8 @@
- 			goto out_dec_async_copy_err;
- 		memcpy(&result->cb_stateid, &async_copy->cp_stateid.cs_stid,
- 			sizeof(result->cb_stateid));
-+		memcpy(&async_copy->cp_res.cb_stateid, &async_copy->cp_stateid.cs_stid,
-+		       sizeof(async_copy->cp_res.cb_stateid));
- 		if ((READ_ONCE(copy->nf_dst->nf_file->f_mode) &
- 			       FMODE_NOCMTIME) != 0)
- 			async_copy->attr_update = true;
-
-Reproducer:
-
-  Server: two exports on two separate ext4 filesystems (also seen with
-  two ZFS datasets on a distribution kernel):
-
-    /srv/e1  <client>(rw,sync,no_subtree_check)
-    /srv/e2  <client>(rw,sync,no_subtree_check)
-
-  Client:
-
-    mount -t nfs -o vers=4 <server>:/srv/e1 /mnt/share1
-    mount -t nfs -o vers=4 <server>:/srv/e2 /mnt/share2
-    dd if=/dev/urandom of=/mnt/share1/big.bin bs=1M count=512
-    cp /mnt/share1/big.bin /mnt/share2/
-
-  cp blocks in nfs42_proc_copy, /mnt/share2/big.bin stays at 0 bytes
-  on the client. With vers=4.1 (no COPY) the copy works.
-
-Environment:
-
-  Server: x86_64 QEMU/KVM guest, Debian 13 (trixie) userspace
-    Linux version 7.2.4-stock (gcc (Debian 14.2.0-19) 14.2.0,
-    GNU ld (GNU Binutils for Debian) 2.44) #1 SMP PREEMPT_DYNAMIC
-  Client: Debian 13, 6.12.107+deb13-amd64
-
-  The 7.2.3 and 7.2.4 configs are identical apart from the version
-  line; the same config gives a working kernel on 7.2.3 and 7.3-rc6.
-
-  .config (7.2.4): https://bugzilla.proxmox.com/attachment.cgi?id=2161
-  dmesg (7.2.4):   https://bugzilla.proxmox.com/attachment.cgi?id=2162
-  captures:        https://bugzilla.proxmox.com/attachment.cgi?id=2160
-  full history:    https://bugzilla.proxmox.com/show_bug.cgi?id=8121
-
-First seen by a Proxmox VE user on its 7.0.14-20 kernel, which includes
-these stable patches.
-
-#regzbot introduced: v7.2.3..v7.2.4
-
-Thanks,
-Lubos Rendek
-
+base-commit: 83de3a16c7b37064a59305040ba9b0f93b832794
