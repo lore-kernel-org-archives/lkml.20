@@ -1,71 +1,43 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4ED33CE4B9
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 06:54:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B021041834D;
+	Sat, 10 Oct 2026 06:54:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791615287; cv=none; b=OX/ERqbE2y3viB/PZkdSPbg0oy36lPsiU4M6WhqMr7MQvNdXpe7/3802iMyM6IYAnYlcfArXsavGKj3RNa0uss6lm2X/IyBpZRQnMi0MsC5duHZJ6N63GH5JKpS+gbWzSwPQqh2BKPLqiMka5XvcohBcFtq5ipUr4P6h2scxUrk=
+	t=1791615288; cv=none; b=o5QDp6pU4grdP0+QrL62ZngPDpNH0WavHI2tA7CCVnp5gVE1UZMoZ+O9Y9FmjD1ZJNHmqBiegmqvallCymIBWHKFJshyo5f9FphnD6g1RmC+/qwRvbha+8oK6G02GeGpz+WcGPa/76CiTgjIEgeZd97AchVRIo0cAS7T//4soMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791615287; c=relaxed/simple;
-	bh=sfjXwrCLUFpqa0F5rhC8QwgJp7yKmgMaW7v/NSN0evc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q0nniTy+/DB3u7IocgqeHLIy3aphL58tuMhAQX5V0a+1N3M+xJ2QLOueS2+WNSJCBRnITglOZbKc3VmJ4CBEGTa8LME28ZFLtjozdj1BhibFz9xvEAyVhXy75GmqITJQrmF5qhkcOzkctxBcIPYGeUkmjb7DgvAnGsXdDF/WS3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kxx2zuCX; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791615288; c=relaxed/simple;
+	bh=8eAKSR8uoa2qvNQKY6PXNHVSk6jBrzGtU1C0QgG5huw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pJ5s1gnNI22u5/ifP1YX6Srp0GnqR/Ba24cLfputo/NrH9posxedqQAIfPasvqQRIL5yA+mRoVBEPSUwkcAIFzjhoz+pwJ7W7jg9aVLvGcoNDPI5FqOpauF38/adQdzIC+bcZm68E8DQu8H7UB5bNMCIdeY+/3XQV0RmNn/7eeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=R7wpAUQT; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kxx2zuCX"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-398a4dcf289so156442a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 23:54:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791615285; x=1792220085; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dSyfVGop6O0UsffgvjiWEIMMvzYiB5cagcZXil/wW1o=;
-        b=kxx2zuCXTcq+X8Fvz0pp3N7mtEuRv0zHM+tKlnc4U+FXbPxOcOeX+ka5y3gzKVDANl
-         Uo2ZSciVpaLYlfVJSE99g8BJ1zUxWav5N0Uqouopy6E9vuzjVMeAMPTveJWmPjPaal8J
-         zcObmdwajA4ND/MuqdkKH2cUpTd8lexKRr6+eYI4riGMDJAcR1jdEiU1N/zW+hpuENDt
-         D965jBixK27vIV8SYm7zb5+T+LRKZ7OJ1GShehUVen1bcM2nziXn5nc3MRdRAzfibC3o
-         o+RRDLvkF4qwecIz/7MCZeZK7m+AWnQ8Ag8pdJO1ejgEiny3YCyawfeeXgN+4N/D5azK
-         1eeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791615285; x=1792220085;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dSyfVGop6O0UsffgvjiWEIMMvzYiB5cagcZXil/wW1o=;
-        b=JqJ1T6nt7nOCDw5jouU41ImexWFb2YJV3KDrywpU8u7/7ku3AlSyt6EDzuGY9nqnyW
-         84W+twzixmQx41tfk8ZV7cPnqtwQKb9SIteSnkALaRpJLhy4DOfqylaVNUv3cbxO+0Cr
-         lpgaEGd66YqND7F1xJQQ0OAs3GNcJmIIHyhA6XpbHCrK9UnKKAAMKJ5NeA6/VVp3w/lS
-         HC1W2jVy+D20jC4/eRgWufK34XCkS1lNPcGV5nFjkHxssB09X7gGKiQJzrhzB1yyeaA2
-         8OGziFa3C8eEwzTDCIRJqjjotpwsxtftORoz6nZjsi5Zs249SK5DFyW/12RJ9M0tbIMr
-         y8bQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzfRxv4HWKinn4he2Gt27CV4MfcNcgj8uU4sfE/N5YU4JV4X0Pz4svgJivZ8bieS7t0fn2DUEHNFXmKdNQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKXP+1rLas2iVkfs7nvZOf0LT+GDP48R7BrEno4zmgj2LwUqA4R
-	xTd2ounY6nRXsEP+CHjHr8Jbj3xT1LqiIWEdAasXJ1VxEuDpIciKtYzN9VSvEJSO
-X-Gm-Gg: AYBFou3KOTdfTvqErwXQBl1ioIJuln3MPp1G6sSqZoWV6+zgmWMf0TSBB3Ys3HUI3Lg
-	NiWahyk1ZQ6UcLnaiKiNmD2OR+pIKW4cn2fOeZqxoDL9O/sjWsL4vLr8xSz7smhU9RwR45I8mvd
-	1wzjY230OFYW3ZV/Up+0Z+0qlDakRxA/fZePN6BDsGmbtGEcnZFJaf17g0Bd0BNdH3VCmrPQ0fi
-	zBi9pvvUXc8m2a4K3GBEpXFg3xxrc+SYUFf6pfmEl78FgWerJYK6CKZyH9VK3DFkcqrSbZY0K6Y
-	HEbOUhJwVQIF5uKMXPQne1tQYLuy1QpfMes8YRPpUivzJx52JWaS51vGT5j4UmaH62oCmwkHExC
-	sJHNBdew5SLdic2A8HkjkYsU9DnI5QkP2bobkeFoKv3E77xibXuKcZCf94kFZR5ENYlVvtJhyKr
-	ICNq9UQMO93iLHGhhPmVd01b7zxPw7OLSTqQGYtS7vTCkef8dcoCjoxAcRDEr5bIiaQfKMYh3BT
-	u7fCt44Tgbs46oN/TwvLQnG14tTFR9D+kmNZiAvM2zVTZ/s0Ftay/K4i7ktUrMoFkL9Y3/9H0Zy
-	bzjsWz0KGuR9kwurr382ALR96KlY874IWtEzl/oNAmVQikl/
-X-Received: by 2002:a17:90b:3c8c:b0:3a4:967c:6947 with SMTP id 98e67ed59e1d1-3ab3a99b4d0mr3172803a91.21.1791615285209;
-        Fri, 09 Oct 2026 23:54:45 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38b981b9sm6801595a91.5.2026.10.09.23.54.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 23:54:43 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-mips@vger.kernel.org
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] MIPS: lib: prefetch ahead in csum_partial()
-Date: Fri,  9 Oct 2026 23:54:42 -0700
-Message-ID: <20261010065442.23780-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="R7wpAUQT"
+Received: by linux.microsoft.com (Postfix, from userid 1186)
+	id 2E01E20B7171; Fri,  9 Oct 2026 23:54:43 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 2E01E20B7171
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1791615284;
+	bh=zQJckXSx2B/R1Mj4Oqq4h8fv4ke2Yyk9rGNZLkVhO0w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=R7wpAUQTdCzhy6FGXsNgeANcFBashhFmFka2TtqQyP9xBetwQkfILj2OBRV1o8F0h
+	 vt/e6WP3/7Qp+mUIJPp+dSOLHX1Duy8n++bNWQN+miRDeEpBX7shoTf2sPO0lPF4yH
+	 kR8lHIs4ICtd4nYNdicPlzZVjmxKytDcK6u13/sw=
+From: Konstantin Taranov <kotaranov@linux.microsoft.com>
+To: kotaranov@microsoft.com,
+	snsanghvi@microsoft.com,
+	longli@microsoft.com,
+	jgg@ziepe.ca,
+	leon@kernel.org
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH rdma-next v4 10/10] RDMA/mana_ib: Drain kernel receive and send queues
+Date: Fri,  9 Oct 2026 23:54:43 -0700
+Message-ID: <20261010065443.3554193-11-kotaranov@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20261010065443.3554193-1-kotaranov@linux.microsoft.com>
+References: <20261010065443.3554193-1-kotaranov@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,62 +46,159 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-csum_partial() reads every byte of the buffer once. Cores like the 74K
-have no hardware prefetcher, so every cache line is a demand miss, and
-after a non-coherent DMA the received data is never in the cache. With
-GRO enabled, validating the checksum of forwarded TCP traffic made
-csum_partial() the top entry in the profile on a BCM4716 (74Kc at
-480 MHz, no L2, ~80 cycles per DRAM miss): 13-16% of all cycles.
+From: Konstantin Taranov <kotaranov@microsoft.com>
 
-Prefetch the 128 byte block two iterations ahead in the main loop.
-Unlike memcpy(), which disables prefetching on DMA_NONCOHERENT
-entirely, only prefetch blocks that lie inside the buffer: the 74K does
-not need a post-DMA invalidate, so a line prefetched past the end could
-belong to a buffer the device is still writing, and the CPU would later
-read the stale copy.
+Implement the core drain callbacks by moving the QP to ERR, posting a
+completion-bearing marker, and waiting until that marker is flushed.
 
-On an Asus RT-N16 (BCM4716, bgmac, single TCP stream unless noted,
-iperf3 median of 3, A/B in the same boot by toggling the prefetch,
-two rounds each):
-
-                       without      with      (Mbit/s)
-  local rx / tx        220 / 194    243 / 212
-  routed up / down     169 / 140    187 / 154
-  routed, 4 streams    65 / 79      69 / 84
-  flow offload bidir   253          292
-
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Signed-off-by: Konstantin Taranov <kotaranov@microsoft.com>
 ---
- arch/mips/lib/csum_partial.S | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+v2:
+- Limit the drain callbacks to RC QPs.
+- Skip completion callbacks for IB_POLL_DIRECT and retain direct polling.
 
-diff --git a/arch/mips/lib/csum_partial.S b/arch/mips/lib/csum_partial.S
-index 3d2ff4118d79..f0ec47259ef4 100644
---- a/arch/mips/lib/csum_partial.S
-+++ b/arch/mips/lib/csum_partial.S
-@@ -190,6 +190,21 @@ EXPORT_SYMBOL(csum_partial)
- 	 andi	t2, a1, 0x40
+ drivers/infiniband/hw/mana/device.c  |   2 +
+ drivers/infiniband/hw/mana/mana_ib.h |   2 +
+ drivers/infiniband/hw/mana/qp.c      | 103 +++++++++++++++++++++++++++
+ 3 files changed, 107 insertions(+)
+
+diff --git a/drivers/infiniband/hw/mana/device.c b/drivers/infiniband/hw/mana/device.c
+index cdaada7f6e8a..07c7fe678ff7 100644
+--- a/drivers/infiniband/hw/mana/device.c
++++ b/drivers/infiniband/hw/mana/device.c
+@@ -38,6 +38,8 @@ static const struct ib_device_ops mana_ib_dev_ops = {
+ 	.destroy_rwq_ind_table = mana_ib_destroy_rwq_ind_table,
+ 	.destroy_wq = mana_ib_destroy_wq,
+ 	.disassociate_ucontext = mana_ib_disassociate_ucontext,
++	.drain_rq = mana_ib_drain_rq,
++	.drain_sq = mana_ib_drain_sq,
+ 	.get_dma_mr = mana_ib_get_dma_mr,
+ 	.get_link_layer = mana_ib_get_link_layer,
+ 	.get_port_immutable = mana_ib_get_port_immutable,
+diff --git a/drivers/infiniband/hw/mana/mana_ib.h b/drivers/infiniband/hw/mana/mana_ib.h
+index 2fbb1c662d93..97cd5193fcb5 100644
+--- a/drivers/infiniband/hw/mana/mana_ib.h
++++ b/drivers/infiniband/hw/mana/mana_ib.h
+@@ -1061,6 +1061,8 @@ int mana_ib_post_recv(struct ib_qp *ibqp, const struct ib_recv_wr *wr,
+ int mana_ib_post_send(struct ib_qp *ibqp, const struct ib_send_wr *wr,
+ 		      const struct ib_send_wr **bad_wr);
  
- .Lmove_128bytes:
-+#ifdef CONFIG_CPU_HAS_PREFETCH
-+	/*
-+	 * Fetch the block two iterations ahead, but only while it lies
-+	 * inside the buffer: on non-coherent systems a line prefetched
-+	 * past the end could belong to a buffer the device still owns.
-+	 */
-+	sltiu	t5, t8, 3
-+	bnez	t5, 2f
-+	 nop
-+	pref	0, 0x100(src)
-+	pref	0, 0x120(src)
-+	pref	0, 0x140(src)
-+	pref	0, 0x160(src)
-+2:
-+#endif
- 	CSUM_BIGCHUNK(src, 0x00, sum, t0, t1, t3, t4)
- 	CSUM_BIGCHUNK(src, 0x20, sum, t0, t1, t3, t4)
- 	CSUM_BIGCHUNK(src, 0x40, sum, t0, t1, t3, t4)
--- 
-2.56.0
++void mana_ib_drain_sq(struct ib_qp *ibqp);
++void mana_ib_drain_rq(struct ib_qp *ibqp);
+ void mana_drain_gsi_sqs(struct mana_ib_dev *mdev);
+ int mana_ib_poll_cq(struct ib_cq *ibcq, int num_entries, struct ib_wc *wc);
+ int mana_ib_arm_cq(struct ib_cq *ibcq, enum ib_cq_notify_flags flags);
+diff --git a/drivers/infiniband/hw/mana/qp.c b/drivers/infiniband/hw/mana/qp.c
+index 3158d41db709..23ae87212ad8 100644
+--- a/drivers/infiniband/hw/mana/qp.c
++++ b/drivers/infiniband/hw/mana/qp.c
+@@ -1338,3 +1338,106 @@ int mana_ib_destroy_qp(struct ib_qp *ibqp, struct ib_udata *udata)
+ 
+ 	return -ENOENT;
+ }
++
++struct mana_ib_drain_cqe {
++	struct ib_cqe cqe;
++	struct completion done;
++};
++
++static void mana_ib_drain_qp_done(struct ib_cq *cq, struct ib_wc *wc)
++{
++	struct mana_ib_drain_cqe *cqe = container_of(wc->wr_cqe,
++						     struct mana_ib_drain_cqe,
++						     cqe);
++	complete(&cqe->done);
++}
++
++void mana_ib_drain_sq(struct ib_qp *ibqp)
++{
++	struct ib_qp_attr attr = { .qp_state = IB_QPS_ERR };
++	struct mana_ib_drain_cqe sdrain;
++	struct ib_rdma_wr swr = {
++		.wr = {
++			.next = NULL,
++			.wr_cqe = &sdrain.cqe,
++			.opcode = IB_WR_SEND,
++		},
++	};
++	const struct ib_send_wr *bad_swr;
++	struct ib_cq *cq = ibqp->send_cq;
++	int ret;
++
++	if (ibqp->qp_type != IB_QPT_RC) {
++		ibdev_err(ibqp->device, "SQ drain is only supported for RC QPs (type %u)\n",
++			  ibqp->qp_type);
++		return;
++	}
++
++	ret = ib_modify_qp(ibqp, &attr, IB_QP_STATE);
++	if (ret) {
++		ibdev_err(ibqp->device, "Failed to drain SQ: modify QP returned %d\n", ret);
++		return;
++	}
++
++	sdrain.cqe.done = mana_ib_drain_qp_done;
++	init_completion(&sdrain.done);
++
++	ret = ib_post_send(ibqp, &swr.wr, &bad_swr);
++	if (ret) {
++		ibdev_err(ibqp->device, "Failed to post SQ drain WR: %d\n", ret);
++		return;
++	}
++
++	if (cq->poll_ctx != IB_POLL_DIRECT && cq->comp_handler)
++		cq->comp_handler(cq, cq->cq_context);
++
++	if (cq->poll_ctx == IB_POLL_DIRECT) {
++		while (!wait_for_completion_timeout(&sdrain.done, HZ / 10))
++			ib_process_cq_direct(cq, -1);
++	} else {
++		wait_for_completion(&sdrain.done);
++	}
++}
++
++void mana_ib_drain_rq(struct ib_qp *ibqp)
++{
++	struct ib_qp_attr attr = { .qp_state = IB_QPS_ERR };
++	struct mana_ib_drain_cqe rdrain;
++	struct ib_recv_wr rwr = {
++		.next = NULL,
++		.wr_cqe = &rdrain.cqe,
++	};
++	struct ib_cq *cq = ibqp->recv_cq;
++	int ret;
++
++	if (ibqp->qp_type != IB_QPT_RC) {
++		ibdev_err(ibqp->device, "RQ drain is only supported for RC QPs (type %u)\n",
++			  ibqp->qp_type);
++		return;
++	}
++
++	ret = ib_modify_qp(ibqp, &attr, IB_QP_STATE);
++	if (ret) {
++		ibdev_err(ibqp->device, "Failed to drain RQ: modify QP returned %d\n", ret);
++		return;
++	}
++
++	rdrain.cqe.done = mana_ib_drain_qp_done;
++	init_completion(&rdrain.done);
++
++	ret = ib_post_recv(ibqp, &rwr, NULL);
++	if (ret) {
++		ibdev_err(ibqp->device, "Failed to post RQ drain WR: %d\n", ret);
++		return;
++	}
++
++	if (cq->poll_ctx != IB_POLL_DIRECT && cq->comp_handler)
++		cq->comp_handler(cq, cq->cq_context);
++
++	if (cq->poll_ctx == IB_POLL_DIRECT) {
++		while (!wait_for_completion_timeout(&rdrain.done, HZ / 10))
++			ib_process_cq_direct(cq, -1);
++	} else {
++		wait_for_completion(&rdrain.done);
++	}
++}
 
+-- 
+2.43.0
