@@ -1,94 +1,98 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD2F4371D1E
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 13:47:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D76C21E097;
+	Sat, 10 Oct 2026 13:48:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791640052; cv=none; b=EXUMXPo31OHdrz+mLSHu+ReoKpexa/uZ+w4f654Z+XL2WLqHOFpC1AwJ8ns19lFBe01waFO0VuCbc5/qkyN94G8h66mXvD8mSxTfZDHusOjB1jn2LD+c7ZmjEdW+C4gBdCX3YWKFA+KX8XC6DaH+cPQcj7qU53ZbTVG3GGOHzYo=
+	t=1791640116; cv=none; b=OcU4sm3vF7Iblm6TrEBc7X9LOd0rrWoWaJ42/erW9XgvHX02yNOWzzd58Bbf4qRc5Uo3/dFyarN6gKt8uqvUEbYYPhmbd2I2NiG/kbNcMLr13yhQLf8tpenpMFtbtkZsTq6WCwh6zRXBoPpx2mJ1dLcFWGq84mIzc77I9U2q9L0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791640052; c=relaxed/simple;
-	bh=cQbUomhM1env3fJf0eF+5VFZ8Qjd1pmHZIJowGj5XeM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=l83vJbMAG1VaDipq4nCLssMeICgSD1qQjDpnGFCcZG4uGwvBRpXtHmzJvgur3ls3jGvR+w8of7lWkm9M2RKpEGm5A4ki9UQzX6vlaiqGO1QKu72oaIFuyb1cZXedMd6k6WmO3Xr+yUxhw0usdskLxjgGozmSQpCS1TOWqnwSrVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Ltgkjj+I; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791640116; c=relaxed/simple;
+	bh=7ndRupAvhrm5NU6PjjNtzH5uxOCZ7UEDmhJMtQ/ew/8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NMnjqWpOEJxT25DQWVtYrUnA2zxMJejKH7uRsTO48BJFS4KrUddYOhbY6rTXXZP2QhFyz1qG4SvJcZvW5nX8Ww5liUseGM/IReESiu4Vuk0Jj6b0XfjBBoJijHnEkkjW2Q6eVwHLYyqykpn36F9gjHkhxpncMGIZknlsoVuAZ1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kchg4uY4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Ltgkjj+I"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
-	Content-Type; bh=vimSJXC3w8/Z7/4ChsrH+qCBDI8SD/MEZ7aapKBWh9I=;
-	b=Ltgkjj+I7NyHGU6CXuLNcppDCtfK8FwsAXoOkP2bXx1RaXNM3/uva3p0rYNjmF
-	ayuowce6cMf9elyZQyo9wCPCwle57WHj2fjsZt+qzZizG4HN4jiKu4YiBOiNIP9c
-	cQikOAJuk28O0EWwObmveF3MigSYv7b48x1CbIJi+llOk=
-Received: from E480.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wDXbhndQcpqGhmSDg--.42458S2;
-	Sat, 10 Oct 2026 21:47:14 +0800 (CST)
-From: Andy Yan <andyshrk@163.com>
-To: linux-kernel@vger.kernel.org
-Cc: Andy Yan <andyshrk@163.com>
-Subject: [PATCH] MAINTAINERS: update my email address
-Date: Sat, 10 Oct 2026 21:46:48 +0800
-Message-ID: <20261010134705.2131-1-andyshrk@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kchg4uY4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 657C41F000FF;
+	Sat, 10 Oct 2026 13:48:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791640115;
+	bh=K9A8u5qFlvlQI2A8aU7UIzO52F42UzFC4ZL8I8LaFBk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kchg4uY4rubNcwl9P0NUJC4L+ZOdtvi1f7O1QAnMxx+M2naLHBsupJ3EV9hfwuhIU
+	 KehFkwCAWmf0pFnZdUeuFD96m9vF0iDOM8i0j1hs3Tvt4W0yyl/SpB8h53Fbh+tJID
+	 OA9aKBI9pjrqgvZZDWNxjqDEOpHQ4/oG5b8ot6F/NWFrQ7IjDtzC6se3/q9OVCqbcf
+	 iub46LA6ktd0Rs+xjKQgEW6yJx+Cgo4CdhurVwtltNlNsDs/+U5RmzDRfraQt9xfc/
+	 B4ZY0kD4XMfs1iaKmJjG5WuvfxH1AV6uGcTbgHdAYaNQpTOPORF92cA6pmlORhYpw4
+	 vpsfWwBFZTbaQ==
+Date: Sat, 10 Oct 2026 14:48:29 +0100
+From: Nathan Chancellor <nathan@kernel.org>
+To: Kees Cook <kees@kernel.org>
+Cc: Nicolas Schier <nsc@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+	Manuel Ebner <manuelebnerli@mailbox.org>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	"Paul E . McKenney" <paulmck@kernel.org>,
+	Nicolas Schier <n.schier@fritz.com>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] kbuild: Give jobserver-exec recipes the jobserver
+Message-ID: <20261010134829.GB1853402@ax162>
+References: <20261010081910.stay.092-kees@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXbhndQcpqGhmSDg--.42458S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7try3WF4kXF1rWF4UWr45KFg_yoW8XF4xpr
-	WxCF95Cry8WF4Yqr48K3ZFkFn8A3Z7C3W293y7K3Z2yF1Ygr15t3sYka1UG3WDXF18ua15
-	tr93Wr13ua1xZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUUwIhUUUUU=
-X-CM-SenderInfo: 5dqg52xkunqiywtou0bp/xtbCxQTWNWrKQeTRDwAA35
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261010081910.stay.092-kees@kernel.org>
 
-Switch my contact address to andyshrk@163.com
+On Sat, Oct 10, 2026 at 01:19:09AM -0700, Kees Cook wrote:
+> Hi!
+> 
+> Paul reported a build failure on CentOS Stream 9 with linux-next[1]: the
+> kernel builds, but scripts/jobserver-exec prints
+> 
+>   WARNING: Unable to reopen jobserver read-side pipe: FileNotFoundError(2, 'No such file or directory')
+> 
+> and rcutorture's build check counts the "Error" in that line. CentOS's
+> make 4.3 carries a backport of the fix for GNU Make bug 58232, so
+> sub-makes, like the top-level make, give the jobserver pipe only to
+> recipes marked recursive, while MAKEFLAGS still names it. The new pigz
+> steps (1/2), for the kernel image, the built-in initramfs, and the other
+> gzip rules, and the older Clang LTO initcall ordering step (2/2) run
+> jobserver-exec from recipes without "+", so pigz gets one thread and the
+> initcall script caps its children at the CPU count instead of the free
+> job slots. Mark these recipes recursive, as was done for rustc.
+> 
+> Thanks!
+> 
+> -Kees
+> 
+>  v2:
+>  - 1/2: also mark the gzip rules that choose gzip through a variable,
+>    including the built-in initramfs in usr/Makefile, which rcutorture's
+>    kvm.sh builds and v1 missed (Paul)
+>  - 1/2: update the gzip entry in Documentation/kbuild/makefiles.rst
+>    (Nicolas)
+>  - 2/2: cite Masahiro's earlier version of this change and say when the
+>    script gets more than one archive (Nicolas)
+>  - v1..v2 diff: https://git.kernel.org/pub/scm/linux/kernel/git/kees/linux.git/diff/?id=dev/next-20261001/pigz-recursive/v2&id2=dev/next-20261001/pigz-recursive/v1
+>  v1: https://lore.kernel.org/all/20261009062722.i.253-kees@kernel.org/
+> 
+> [1] https://lore.kernel.org/all/0ddb5e5e-f801-444c-aa98-0cfe814a3026@paulmck-laptop/
+> 
+> Kees Cook (2):
+>   kbuild: Mark the gzip recipes as recursive
+>   kbuild: Mark the initcall ordering recipe as recursive
 
-Signed-off-by: Andy Yan <andyshrk@163.com>
----
-
- MAINTAINERS | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index f53047aa8d3c..17410260baa0 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8575,7 +8575,7 @@ F:	Documentation/devicetree/bindings/display/panel/synaptics,r63353.yaml
- F:	drivers/gpu/drm/panel/panel-synaptics-r63353.c
- 
- DRM DRIVER FOR SYNOPSYS DESIGNWARE DISPLAYPORT BRIDGE
--M:	Andy Yan <andy.yan@rock-chips.com>
-+M:	Andy Yan <andyshrk@163.com>
- S:	Maintained
- T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
- F:	Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
-@@ -8928,7 +8928,7 @@ F:	include/linux/platform_data/shmob_drm.h
- DRM DRIVERS FOR ROCKCHIP
- M:	Sandy Huang <hjc@rock-chips.com>
- M:	Heiko Stübner <heiko@sntech.de>
--M:	Andy Yan <andy.yan@rock-chips.com>
-+M:	Andy Yan <andyshrk@163.com>
- L:	dri-devel@lists.freedesktop.org
- L:	linux-rockchip@lists.infradead.org
- S:	Maintained
-@@ -12883,7 +12883,7 @@ S:	Maintained
- F:	drivers/power/supply/ip5xxx_power.c
- 
- INNOSILICON HDMI BRIDGE DRIVER
--M:	Andy Yan <andy.yan@rock-chips.com>
-+M:	Andy Yan <andyshrk@163.com>
- L:	dri-devel@lists.freedesktop.org
- S:	Maintained
- T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
----
-base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
-branch: master
+I've kicked these into -next, I will formally apply them to
+kbuild-next-speedups once Paul can confirm that it resolves his
+regression. Thanks a lot for the assist here!
 
 -- 
-2.43.0
-
+Cheers,
+Nathan
