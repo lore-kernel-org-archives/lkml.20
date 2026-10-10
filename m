@@ -1,79 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FD0F414DCA
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 07:06:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 550693E5A27;
+	Sat, 10 Oct 2026 07:09:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791616001; cv=none; b=iFkj2KoCzQ98PBybJ84IUmrr3Mu9WjkHviGyL91mjfVOdyrP+C+xTCs7JAQbFsFANBN7U+cKZVvfCgjnPq6q1cqpS9U3Zs37OIvu1zdJ+anTc2hJ9n/L1JP0YgKpAVl3lr5+7aJUsRmbnJUCi+i5JylPg9bbR2IAqN7K7bBiong=
+	t=1791616181; cv=none; b=TEdqtoDLcruxcyddxcTr4dNTRwh4qTCJJKgNw0Aa8sePIwpnZZPZzQIUAk0RXcrhnh1/6kq3zmKgt8bh4qhjPKGUmCUhLAZqcTyWthC0Jk6gy6IPJ0L6s3d2tTwkY0QCxFTJAn48YmT6IYtqfxMvx7d4iS+KMy7Xfspz+MR8duA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791616001; c=relaxed/simple;
-	bh=0w4mStVhxJBNt5V5WsEgux7l/W9KHeoC5murt7H3MiU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SAkjRQ55PFea4GbMr5CW6Z8hfMlFzhWVkEOemEMgTE829OYLZUyYP7pvol6Tvoq84mPEM8dIeQBJFVsIXOOKimmjrfZApRcsZxeLiyQ3HIKv4SGA9auZaN9fev0Cr9QdJaA5Wf9arYsoHGd9eHYa4dXLkjsN+JOmAzXmoUURu9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YEJksbD7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791616181; c=relaxed/simple;
+	bh=DxOA3K04TdGKgV9RBzwq7NMB042SfZvdvrNpiga7nYU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=rj391t3qz9GQZ/vm4uhpbtnRxzAGUP9KEcEKdrySVYPzb+KyVT+D8IlGiFW1HaYkm1bOsWIAIEN1ALivKg9TkO6O5o9zB41CvPLZQk37JKy3rYkya+MYt4ltV5LCh2+c7Z/3zzvV7g4H/vUsppCdfMZ+bjk4zpKoaNKrOvMvZ9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qq+cTGBw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YEJksbD7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A93FA1F00893;
-	Sat, 10 Oct 2026 07:06:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qq+cTGBw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84E201F000FF;
+	Sat, 10 Oct 2026 07:09:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791616000;
-	bh=Suzf8PCRnkauEGFkBM6f+/nSdAYzije1adxZPO+1Hvw=;
-	h=From:To:Cc:Subject:Date;
-	b=YEJksbD737KiIJ3DHjtl8X8VgDFniow81R+lnSWCbirvFR0+9HrrMM0yC5hkJn1N2
-	 MnihZN7sy1Lpn4sX3fTqt8KKsc5HdCL5rddTPeDag3lTyJbEKs6z8mmMR4apWjdb6i
-	 8c8ONZi9ZfgFs4bVrYGLXKIFE7aoe6tu2XDN/D+wK+5k5+rWOipsTk2G3FkjCX8jaF
-	 c0nceMI89x44CX2Ss07KvwGQdRRhpWpTbzwBqx7+aiVfFIAaeqFd/u5AK6lPiZe5kD
-	 3D5+o7Zvx9Sij8ZATxCoZLpGaNx9HnD4Afzp5lFe1QIYR5GkQemjXUnyTpeqsQxl/d
-	 6RnmqYV9iDgNQ==
-From: Chao Yu <chao@kernel.org>
-To: xiang@kernel.org
-Cc: linux-erofs@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	Yue Hu <zbestahu@gmail.com>,
-	Jeffle Xu <jefflexu@linux.alibaba.com>,
-	Sandeep Dhavale <dhavale@google.com>,
-	Hongbo Li <lihongbo22@huawei.com>,
-	Chunhai Guo <guochunhai@vivo.com>,
-	Chao Yu <chao@kernel.org>
-Subject: [PATCH] MAINTAINERS: erofs: add dev branch to git tree entry
-Date: Sat, 10 Oct 2026 15:06:23 +0800
-Message-ID: <20261010070623.1766952-1-chao@kernel.org>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+	s=k20260515; t=1791616180;
+	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Qq+cTGBwGzB7yl8zWq2y1dTbGtBy3zBMbZtQfp84M/oTCFnprL1OA5e+ozjxNJcCG
+	 23kFhjOFE2Z26kNnOy78n4ASGfGOTe5viA5IKS1iTY0MLcPjJyLKExQ2FnJyqjEwmG
+	 y8XmsDNguCJMVqsCvaBXu278Nin0kpzRLJl0CDr2vhUuS8Lc2fd6VO/F6L/oLUpQ6S
+	 R1isfBrx43agP0mhdeFKoSuH/ek/f9CbtvV0yCYVg3HN46mw0YrNMQlirFOdmvzOBi
+	 6H3Y34k0HtPgjr2msNXyQZ2pXx9McH18RuI6yscOz/Ws0Hgd9RvQxdUjVpGIj5kgBc
+	 8ETucUG+/k1pA==
+From: netdev-bot+sinfo@kernel.org
+To: Rosen Penev <rosenp@gmail.com>
+Cc: netdev@vger.kernel.org,
+ =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Felix Fietkau <nbd@openwrt.org>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: bgmac: clear TX slots when freeing the ring
+Date: Sat, 10 Oct 2026 07:09:38 +0000
+Message-ID: <179161617899.2527009.14522666109345593776@kernel.org>
+In-Reply-To: <20261010070418.84457-1-rosenp@gmail.com>
+References: <20261010070418.84457-1-rosenp@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Chao Yu <chao@kernel.org>
+Hi!
 
-The EROFS entry lists the git tree without a branch, so tools that
-derive a baseline from MAINTAINERS, e.g. sashiko, fall back to the
-remote HEAD, which points to master. master only moves at -rc1, so
-series developed against the dev branch fail to apply there.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Name the dev branch explicitly, where erofs patches are queued.
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-Signed-off-by: Chao Yu <chao@kernel.org>
----
- MAINTAINERS | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 068beaa035ac..63c8de75ada9 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -9690,7 +9690,7 @@ R:	Chunhai Guo <guochunhai@vivo.com>
- L:	linux-erofs@lists.ozlabs.org
- S:	Maintained
- W:	https://erofs.docs.kernel.org
--T:	git git://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs.git
-+T:	git git://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs.git dev
- F:	Documentation/ABI/testing/sysfs-fs-erofs
- F:	Documentation/filesystems/erofs.rst
- F:	fs/erofs/
--- 
-2.49.0
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
 
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
