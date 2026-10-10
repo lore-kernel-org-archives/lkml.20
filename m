@@ -1,155 +1,192 @@
-Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D63C364E80
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 01:29:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA4D6378D93
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 01:31:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791595773; cv=none; b=Fcn16vRLCdBO/qw7gDNgdhT9fDPj2jzppryVfBkjBqxkKsvntnlrBnDjR6L9TJYbzaSfCqAcH6gxKsB/syv5eBEeimmN4RZwmx6bf+eBGpDO2xFcExkkfcd5unG2myi1CdvFKlizeKU3BkEis1S9C7yNzl/V/tl4NinTxQJ28oQ=
+	t=1791595895; cv=none; b=K9tszOigQcbKyjJz2NvoOtPvG+68oteubZwPxHa4fqTa/CtO0I9azmpc/k4VTjcXC9BB2gZdRI0yhFLSrPXCTD9aN18ZrM3MXRIETiWnOZZRbzZadGqk0nh92tbLT3NIa7InJy4vFhmslhmsvhP6rmu4CBPtlsQ7ZHV5aBjStzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791595773; c=relaxed/simple;
-	bh=vEeyZK4V2ruIVySEM/dMdyR5+TQdeGGjWW/3XKHIbQg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GSjigruE/KS+On9jgDSt0R6g1p0lisU0vMe7o84o++vE3SaBcYcUh3iILr21fLm8dhh73Znr07LNHLlAmIvMVfRfVLnUCZvcqpat8q6u9CtJ+MmCEbvO3Ddl+G8wzUnrUmB+K552kuJc76WROQ1dPK7YfHdmNCNyOOQljTKt8pk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=YEqeCnO8; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=DBeb+BrY; arc=none smtp.client-ip=202.12.124.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+	s=arc-20240116; t=1791595895; c=relaxed/simple;
+	bh=9Oj3OO0PoA8FvwZ8xVp9kH5Qf5qqRHi54PdwaQelYms=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=lwcFYaauVWW4S7G6JP57zJbCPnrLvOBtNIwVL8ZONm9pXf9DrbkRhceN98vAeShdfagxxvvvDKE6I/9uy07iZ3AsR4OG1uteTu95CkXLw8G/FgD/Crh+1MaMgf2oZomOxoHB3ZGqTn4+0fM4/t0Qfh3/JACucpY3fJttDnEJehU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AQAxz723; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CqzknxU/; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="YEqeCnO8";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="DBeb+BrY"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.stl.internal (Postfix) with ESMTP id 55A3D1D000B5
-	for <linux-kernel@vger.kernel.org>; Fri,  9 Oct 2026 21:29:29 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Fri, 09 Oct 2026 21:29:29 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1791595769; x=
-	1791682169; bh=lSdz4YHJZ/2yYplaxkwQEUwAKKNGrpZKu1XPqVEivTQ=; b=Y
-	EqeCnO8Wh6AudiJU+v1z9JUecXCnEMB3xv2aa242Ls/MEF+dyhckz3pGFlJKO+hh
-	+YrkkqfriLgY1csP7UsUa/my9UdN4bLrY13qKpNy8qeeANktjMMpTjS1oC/yD/7s
-	fOYH8LjWUE/DZfCu8SpZcIOxr4QiDUXowJ5GlKU0sgZOO078Ejfx5ry26msiH08P
-	OZn3OWyGqYSFl2l6qdBEpODGBMKgMqMGPKUOpvTuref7k7p6SAuAszjQgxe3UKOJ
-	BTwO1jDvyu1T++9VgUUdZaSEFhBi5gLVLXk5cAvcdLHn8QOJ5iatmgBYPM7D+ROG
-	2Jm5sffhXPqajl8SZrDAg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1791595769; x=1791682169; bh=lSdz4YHJZ/2yYplaxkwQEUwAKKNGrpZKu1X
-	PqVEivTQ=; b=DBeb+BrYNY9xBn08WSrV0IDpR8JwRoFdTBHXbgsUvFqNsu+WPy/
-	7stWWba+n3W9T0ZVBGWsRWCwwpr5BBK6/01ZOHDGjmPOTLDluJZQLqTjHiYNGnGJ
-	Puiu7U7EIowIaam7+wEpxF2GBIu/8psVrTH0V7F+T+wpGg6t7QHxSmRWN3BO2eia
-	J9Iy6lvbK2wjT31YMQk4BP6GfHDpZE81Zf/PbHZk11+0Kjn5ZIUj6AYf0Ikp5dqr
-	913vCZ4NOdFSPwc+reCYNxfYBpCH8sZAdNmmiat/lFL76BPzDesQPeo0Y9v/kTxy
-	WkNPROL1otT7j428WWJKBHbo9dgW9mXf48w==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=sakamocchi.jp a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791595769; d=sakamocchi.jp;
-	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:jsRaIX+UQEy/lP6DZSh31yawaj3U1A9BiZExRSzLNL31h/H
-	q6yIdAaAbwQe8+E+GVdb6yEBjcYcTpIa5FLz63GLH4HhYiwWFE85K5ijTJP4sMY0
-	Fpv/oCDiWp3d34uXuNB/24FH2th0HpShdRacrNFS1G9bfz+JwynmxsAwEwb7O2Ur
-	UP1P6LhyXAd0XXyp092F0rOqujTTAuC3WA4IhRvqUPBl3i7aPy5zSJRoFAPdNaVW
-	mYDt1u/1oEIP2yG/18NIIK7OgnyU1reUb7HmrXGsYfVhe3pZqITjTxYncIbQDFFR
-	9p5ZjgU7pdjpJFdaiDSFZh1KH+IqNrw46r3JwLw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,mail-followup-to,message-id,mime-version,references,
-	subject,to;
-Message-Instance: m=1; h=sha256:WmGlklgFXmGhzQdzX+PkM/HCjd1Nf7Ddrw2x2ruJWx8=:vEeyZK4V2ruIVySEM/dMdyR5+TQdeGGjWW/3XKHIbQg=;
-X-ME-Sender: <xms:-JTJargPiKRSgLBZG9BcRVeXt3ytkYQH0lq1GMT0lOYDtCvJXYAfQg>
-    <xme:-JTJal9KiIFxQKA2UvslijsyHaNM2KSz7JSmLbW9xcagRoAS273uUd1RMc4hwfaKG
-    Icmk_2tbRy1K7g2FBEBfgDWLUeajMcVGEdSq9nY8DDpKYR65SwkaOZN>
-X-ME-Received: <xmr:-JTJaiqCM3XNY-BnN4uO8QJEGhE11CiIA8qdjK4vXpjB-O6MCepFCJYBOJdIPb0HeHgY6R2k8OHI6jPr9_y7R55LBTmhiQ>
-X-ME-Proxy-Cause: dmFkZTF439oUElHXdKlvqnskIeCIgFsYSztpkaZ31beVfWNqgijPD7knRieV6Pfd4x2Ffv
-    HLiw40oeApdO9lAps4G4K+POwF0KBX9QpVUrTnPkFPSTpZNOYffJyVnRyO2rZbyTdTqKbI
-    MeVECSkZ+d8D5TO0uxzaeUMN07YSpyoSnKSjdfXzYE5F7Kemahw/nKVGvRitH5P2/kXeoM
-    lQKt0N78ksp2cMfKTkzE1TCiHGPX8Bi+udqga75IP0cEbAmiWSFD1Mb2wGRzRGTn0ZnD1G
-    yDT9glYAhBsJSy69M/60c/aX0/FTqK7QPLjgZ0Tvo/FLfMukQykApjXQ+qggkbK3u5XbOV
-    lSkJBifytY0q43yPwFSxqCO98Rl8FYfWrlTkMU4CSPgLLiPa7Yiwe4XvoUnVV0rfotulew
-    0RwSF1seMkCXXRlgBKuEDOzL9OIc5wczI0Nz/7enVxQvU2h8o38OKErDxl9lzymLNtAE+A
-    fMbnN8F2JZqrlhc4pkRQEAQLhMA8zNZit/FhlOnMVorALjxEhwDG0HqNrKuVOSBafVNbFU
-    DPinuQGwEwEbN7el3ky2LQYP1gCNmN6GNgmxATS1yjEdqP3+jnHWzbWDCXCwmCcXikeNl0
-    GkNyZ2eHPZEx+nLNJcStpIWspAn4zAItU1q8V+RXdu5hS0JJ+hjluE4qRuGw
-X-ME-Proxy: <xmx:-JTJak8TMDZLip2ig90PYzZ8pmhuyRwERDEPuzYv_eEZquUOMerGuQ>
-    <xmx:-JTJamXlOW4SF7o7BaI7TjDH5ntdXnvOY3dkIA5c8wDegkv0pXpS8Q>
-    <xmx:-JTJaqBhrbMB_IEF2Y4winhEUDymmC-T8a3UYP1ovhpCTLtIxmG81A>
-    <xmx:-JTJanxZhjpQStAxHu_4F02-GlBL8v16Z5GGJae7Sr3qI_xKyuVUxQ>
-    <xmx:-ZTJahXAw1ccPvKp8oUnR1NrHU-TJM-xoXd4xhk1iO_mfHD32VVhu8CW>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 9 Oct 2026 21:29:27 -0400 (EDT)
-Date: Sat, 10 Oct 2026 10:29:25 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: linux1394-devel@lists.sourceforge.net
-Cc: linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/5] firewire: core: make execution context
- assumptions explicit
-Message-ID: <20261010012925.GA300419@sakamocchi.jp>
-Mail-Followup-To: linux1394-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org
-References: <20261009121048.282982-1-o-takashi@sakamocchi.jp>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AQAxz723";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CqzknxU/"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 699NKp9W3186883
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 01:31:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	nhKP/nvNUspfn8Zy7OHsWTm/Pieq02Mp5rrslHg/DSs=; b=AQAxz7236qI1puhx
+	L7I2zsr1Rl88YB2Lh9nbUF5lStsmJfKBibLUQ83vH2/Dp/jK815yh4CO5kDzrGvI
+	PTvtejdMWSX/Ik0cwON9Lmz03h0Qm0t/5GZVcTlh2UDYy035pjMHMol1EUj3+IRu
+	um+JG5K3BOJKNgeZ507vSgEHlzVmHFik0UptH1sjM3/uhFVnyhEGZkSDJJRSmYgy
+	5Y+Rl/8C1TFux+EoaePJl07OLTznBFxUvvBOdqAmi9Xsx2kuqsw+piVnAx9vVa/+
+	FiG287qPDQtyR3qUT0GIUWiZRc2W9Fmgd3XGL0QNHjp8K+exZHAjKA5ZYe+qHIjI
+	IIBk+A==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h74t89c3n-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 01:31:32 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3552883bd19so1112998eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 18:31:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791595891; x=1792200691; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nhKP/nvNUspfn8Zy7OHsWTm/Pieq02Mp5rrslHg/DSs=;
+        b=CqzknxU/wPKUq2CvBOoox1ExQq1J3/TSINCq+OAORScOuFP9xxAsVZjR+lEladumbH
+         rDgBl5BYdio7EDVX2Ry5CZNUapbvfsakz0j6EjBaLHhML0n0CDRaaICPHAXzAbSxmzWT
+         bzDRjgY6upQTUw8HSR3MLLte+b5K86dLHr09kS+qylwMSNmV2sYy7gn5hT62Sn7N5j8G
+         tDtUYaiBjS8QVhL0SjO4HqhhRJrfBdL22cr8meMGU6mkQpMMz0aY9bWEQu0+j99oAcyc
+         3Hh4tWWIDw6JpLOgiq9GJwB9HixytNb3OSuJqcPNpncEnxyRGreRqq4mwJ1KkQ+21/fI
+         7h3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791595891; x=1792200691;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=nhKP/nvNUspfn8Zy7OHsWTm/Pieq02Mp5rrslHg/DSs=;
+        b=iUXdmvv5tqmL+lEuL4h3qaqd0R7AOc3LFJ0Koy5xTrburf+RQUghdapCvTWy5B6DGa
+         QGdammHsQec6b1dRSd1qm0AFFF4OZEli+1x/omNPafpiBW6/F/xFyLU5ginUf2NEQRnt
+         c8q2+6dfe2zoNxQq1y/ZNey478k+aJpuvypj3pkfUYZcDlyQ8nUuEyrIbSaEqRkHVsPc
+         7SNJIeSTXODEJ9kViLRA8zME8imTEeI3xCFkZYhHo5JOZjlFv4Zl9NesYjxT+HhO7Pgz
+         Ct7l5xzrQ4htrByr2ssml3ydtJoOaRZ8cnnwsthqJsSwkutcJmUWaIqXUhq2FXVx1AkD
+         hzmA==
+X-Forwarded-Encrypted: i=1; AKwUvBzqWdyrZATvtPmPSwt+DTiKojNUHn2F52WGkpYPAOMKtcX7PqkryEIMPzID11xssdY7A6Nr4WgaRouYOvA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJAvxk0td7EnxrrXmkOvRZqanLUHK3ozP1GH4dRA0EI4F98eWdz
+	ojDBbj4UgAAZVZH6RFVJ3n2zMi6EkYb1P2uRSRUSn/xOnkf7FKfuQ3QF+pwaf2YJ01+Q8Ll1ZNY
+	ofsvT4EJ3J1suXDFJYnKcU7b98nFazzyTjwyr8G3cELxcQGUHsulqGpykxXwGpNwPKWc=
+X-Gm-Gg: AYBFou1HBN1/zn/7a/TVS5i3sy/vmxh7jIsnGdY7vIkMF1Pez6RnLg2n+uqjAUQPQxK
+	Mj8S9om/yuAPVxvyjjMKkP3xtPr7XW8kCOtazW9i5SG0oAYqHIcp3Yod6xkIV/zXZbgWtMpnCPa
+	bGgwbcAHZG/Lv17XlBZyEbzpVmdo72B3YXt5xMb0sDfpsqLjdbW0wN9aXDyq9uqPP1WycRU/68u
+	9HgkZj3g9lyzqJ+re2fJ5M7xAef9eVLfdAGFVPfxX9GJNg4jUlP9tss0SNucNxdUV1VRgr79Svn
+	onwhvMvwyRGwZL0vU6d7vJq0y3M8nNlcScLRT4OJYIX6E8FwKFAqSzjVRYAglsLUDurBRJm2/X7
+	1ITDOa7Yv1gHMU28X5ZG9J69WUUToEhg5l5uh64YVQ4vP+bgjsLqIjKqsEg==
+X-Received: by 2002:a05:693c:87c4:10b0:356:4b46:9393 with SMTP id 5a478bee46e88-3564b46940amr2348014eec.24.1791595891234;
+        Fri, 09 Oct 2026 18:31:31 -0700 (PDT)
+X-Received: by 2002:a05:693c:87c4:10b0:356:4b46:9393 with SMTP id 5a478bee46e88-3564b46940amr2347977eec.24.1791595890583;
+        Fri, 09 Oct 2026 18:31:30 -0700 (PDT)
+Received: from [192.168.1.20] (33.sub-75-218-193.myvzw.com. [75.218.193.33])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-353814b556esm9483336eec.18.2026.10.09.18.31.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 09 Oct 2026 18:31:30 -0700 (PDT)
+Message-ID: <2e271ffa-99b7-4c1f-9d17-96242a51d22b@oss.qualcomm.com>
+Date: Fri, 9 Oct 2026 18:31:28 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009121048.282982-1-o-takashi@sakamocchi.jp>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/5] wifi: ath10k: avoid IDR mutation during TX cleanup
+To: Jiale Yao <yaojiale02@163.com>, Jeff Johnson <jjohnson@kernel.org>,
+        Michal Kazior <michal.kazior@tieto.com>,
+        Kalle Valo
+ <kvalo@qca.qualcomm.com>, linux-wireless@vger.kernel.org,
+        ath10k@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261003092104.520135-1-yaojiale02@163.com>
+ <20261003092104.520135-2-yaojiale02@163.com>
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20261003092104.520135-2-yaojiale02@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEwMDAwNSBTYWx0ZWRfX+8HGcSVlWb2Q
+ zi68anTDwDzVm8eDMhzAz7X97/7L6TZi+PT01HDeZf5v87VQT7Y6w3mu1uUl8CCnBc2EWwujqb2
+ spw3dRrXy+cQWaM4PsPB7OXlqLZOdMI=
+X-Proofpoint-ORIG-GUID: 4-mftoBF0WZCnPIvIk1qiuRIUze-nW_m
+X-Authority-Analysis: v=2.4 cv=D9jSufRj c=1 sm=1 tr=0 ts=6ac99574 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=AnolQpdaNwb4XK4FG+QP+g==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=Byx-y9mGAAAA:8 a=vxfaGprF530-xfLAvAgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-GUID: 4-mftoBF0WZCnPIvIk1qiuRIUze-nW_m
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEwMDAwNSBTYWx0ZWRfX5PYwYs7CjgUS
+ EHXW+rLIS3bdQu7yXkfttQWxeUFVv1oszexAk4rBV0hxMjvzsKr9RKXXGkunfsNnFkrpgjWoiOB
+ wXEtQL4uxf2v5zNlIw7F5kzcyJTpeJxDibPXyUDyFKP84Ce1kyzvhix2r224BjnoekQEVjhm0Kj
+ woxOiv/5AxLDC9Vm/4tfBjnprRvxUNYeOlEmaZ5xy8Rs1fTHx5QOtTzJsROndCX8eDkV36PeElN
+ v6NuqL95Dkps+pmNvC4z1gmGFlj32w0ISCR8LoT0n2lsScV1jZMNSVuTw9bEK8MEbbx5HoJ5hc/
+ eVB4hdyR+uu03fbgm3prg6xe+c+4l1oUJPnKpMNo/jcoBHVLHrHfo7Zz6iE2AzgSytw8cRuGISM
+ z3wmk5N+kLLT1ZAfwXAKe4Y8DHd1kDI75SI+RCgpaFGmTFYPqvJVH7WZ0HX7zcHm+L5roMjSsZI
+ LDP8TDmVQjtqSUtWmHw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-09_07,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 malwarescore=0 phishscore=0 impostorscore=0 bulkscore=0
+ suspectscore=0 clxscore=1015 priorityscore=1501 adultscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610100005
 
-Hi,
-
-On Fri, Oct 09, 2026 at 09:10:43PM +0900, Takashi Sakamoto wrote:
-> Hi,
+On 10/3/2026 2:20 AM, Jiale Yao wrote:
+> ath10k_htt_flush_tx_queue() walks pending_tx with idr_for_each().
+> Its callback calls ath10k_txrx_tx_unref(), which removes the current
+> entry from pending_tx through ath10k_htt_tx_free_msdu_id().
 > 
-> This series is take 2 of the previous series[1].
+> idr_for_each() keeps radix-tree iterator state across the callback.
+> Removing the current entry can therefore invalidate that state and
+> make the remaining walk unsafe.
 > 
-> Recent code changes have guaranteed the execution contexts of several
-> functions in the transaction layer. Based on this, this series adds
-> might_sleep() calls where appropriate. It also adds sparse annotations
-> and lockdep checks for several locks to document the expected locking
-> context and help detect incorrect locking behavior.
+> Use idr_for_each_entry(), which starts a fresh lookup after each
+> callback.  The current entry can then be removed safely, while the
+> following idr_destroy() continues to release the IDR itself.
 > 
-> Chanes from v1:
-> * drop a patch to arrange spinlock usages for reconsideration
+> Fixes: 89d6d83565e9 ("ath10k: use idr api for msdu_ids")
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
+> ---
+>  drivers/net/wireless/ath/ath10k/htt_tx.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
 > 
-> [1] https://lore.kernel.org/lkml/20261008234432.251412-1-o-takashi@sakamocchi.jp/
-> 
-> 
-> Takashi Sakamoto (5):
->   firewire: core: add might_sleep() checks
->   firewire: core: use sparse annotations and lockdep checks for
->     transaction lock
->   firewire: core: use sparse annotations and lockdep checks for topology
->     map lock
->   firewire: core: use sparse annotations and lockdep checks for split
->     timeout lock
->   firewire: core: narrow the card lock scope when accessing node_id
-> 
->  drivers/firewire/core-topology.c    |  3 ++
->  drivers/firewire/core-transaction.c | 70 ++++++++++++++++++++++++++---
->  2 files changed, 66 insertions(+), 7 deletions(-)
+> diff --git a/drivers/net/wireless/ath/ath10k/htt_tx.c b/drivers/net/wireless/ath/ath10k/htt_tx.c
+> index e46f579d745d..9993c5a2f96c 100644
+> --- a/drivers/net/wireless/ath/ath10k/htt_tx.c
+> +++ b/drivers/net/wireless/ath/ath10k/htt_tx.c
+> @@ -535,8 +535,13 @@ void ath10k_htt_tx_destroy(struct ath10k_htt *htt)
+>  
+>  static void ath10k_htt_flush_tx_queue(struct ath10k_htt *htt)
+>  {
+> +	struct sk_buff *msdu;
+> +	int msdu_id;
+> +
+>  	ath10k_htc_stop_hl(htt->ar);
+> -	idr_for_each(&htt->pending_tx, ath10k_htt_tx_clean_up_pending, htt->ar);
+> +
+> +	idr_for_each_entry(&htt->pending_tx, msdu, msdu_id)
+> +		ath10k_htt_tx_clean_up_pending(msdu_id, msdu, htt->ar);
 
-I realized that Sparse nowadays seems to be excluded from in-kernel
-context analysis[1]. Clang took over this function with more sophisticated
-features.
+my review agent notes:
+**Actionable issue:** `ath10k_htt_tx_clean_up_pending` retains its old
+`idr_for_each`-callback signature even though it's now called directly:
 
-Let me work for refining this series with Compiler-based Context
-Analysis[2].
+```c
+static int ath10k_htt_tx_clean_up_pending(int msdu_id, void *skb, void *ctx)
+```
 
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=5b63d0ae94cc
-[2] https://docs.kernel.org/dev-tools/context-analysis.html
+The `skb` parameter is completely unused inside the function — it's not
+read anywhere. Since this is a `static` function no longer used as a
+callback, the signature should be cleaned up in the same patch:
 
+- Remove the unused `void *skb` parameter
+- Change `void *ctx` to `struct ath10k *ar`
+- Make the return type `void` (the `return 0` is vestigial)
 
-Regards
+As-is, the call site `ath10k_htt_tx_clean_up_pending(msdu_id, msdu, htt->ar)`
+passes `msdu` as a `void *` that the callee silently discards — confusing
+for future readers.
 
-Takashi Sakamoto
+>  }
+>  
+>  void ath10k_htt_tx_stop(struct ath10k_htt *htt)
+
