@@ -1,82 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8D41E0DD8
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 21:17:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A38D2D1F40
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 21:17:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791667034; cv=none; b=rzdceAYKc+J4LFzNwAKoi6rsIZBIg5L7kA1Tu1gIDIDq1ECwOtnDrN1s9dqyllkF8ocxHA7sGStDpgfOtVI9H+uGooKVMPAOFr8MQJyqm5MSS83BWTfls4IVX40mGDLnqb35lobdiXfNdneX6xBIX0gI5KP86LylQrDH5HDL7ZE=
+	t=1791667070; cv=none; b=ee8g/16iCdhiDZT1PzrN2w+Mw7xo8yeCAolKOAAQOdkvg1rWI9HmRVy/oOn/BpqZw2eB3by6dlUDJ4wCkx3OiDHVHD/pihmKUtyzLj24Kza4bdJrjx5X52Z0LZom3gVI+zaARTqx18R7+eQM85eolJaK6/oZo2UGcBlenuWnuIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791667034; c=relaxed/simple;
-	bh=6iiabgbJSSyG/pyja3OmwqGFhZ60hun1d+bHgTGnL/4=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=YNVuYJyQMN/uzshnJYOmAYCOOqCoTNPuue4wDDEic8EzoClXUKctRnRU+R/AmyCWxPxuTxvGiJRMvpI65lkVYvjzMVu4AOqDLotPYzqiQilPbO5S5Ybwsu/azUcFVmwzgZbYVI+dnRjFM+9nhILerFFt0LI6i6N4FL0wYP3tB8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=l45LIZ/3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791667070; c=relaxed/simple;
+	bh=sX/IOUyiNB9UW/7dJN3j8/EJO8eTtlYJpH2gKUP+csI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DIohbmVCCC+nukJa70ndfRWCPbhvJq5N8qh8Vo11OiZIOErI1g5B3IpKYJJmunL409BDNtRcsIrSQF33XE8uaiO+GUXEYp4RoqEXKSoGtkZZubaTSdW6Pe4Tru6eOZCCeEH+/zQdbwxV3lX8Vff3CsCJcXI4CZ5DkvbGDff5o0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=BHVHClLg; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="l45LIZ/3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 278961F000FF;
-	Sat, 10 Oct 2026 21:17:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="BHVHClLg"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a16c399641so7819725e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 14:17:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791667033;
-	bh=SGbUFSuaUrBJY/CKBm2b4LnsbB2Ht0VGwA82HHvjOeU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=l45LIZ/3j8ZhFv+AfVXuLc4eWvvAyogiUppvD/1GkCswuToHbKfpl5Cp8wwATYoFo
-	 is9qc1mvPC/cqy+YweKzZn19o3IRsdR1AmKT5lrunTy4YOwyvHTSpFA/IswlLuDXMk
-	 i1VAdodt71uBR3Pse6qBamJeUvKZEZIzceUmW+Zg=
-Date: Sat, 10 Oct 2026 14:17:12 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Ting-Han Hou <ue081723@gmail.com>
-Cc: Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham
- <kbingham@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] scripts/gdb: Fix radix tree lookup pointer handling
-Message-Id: <20261010141712.2db4491436e30110ccb5a25e@linux-foundation.org>
-In-Reply-To: <CA+NtrhTyE4J-C2=hSUXYc+NJBsQeYvbwJb+-ROHE1QQP-_gYzg@mail.gmail.com>
-References: <CA+NtrhTyE4J-C2=hSUXYc+NJBsQeYvbwJb+-ROHE1QQP-_gYzg@mail.gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=suse.com; s=google; t=1791667067; x=1792271867; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fSwyFmQWlZ7A/ReGcJEYV2ZxqTqob7BeqZTXwEelfWg=;
+        b=BHVHClLgRW20gb9bJhhc0Pubgh1nsJSvLTvybYd3N4PuOfMkwZLHz9GrcJke0x0d4Y
+         Fd5eMXK5FYNNxZoU90xIdnEA4lDhrKrE0KnaUlfV09T2++gHl6yfQB5xZVAj7i/nXbKJ
+         1DmWGpS3IG9Ou0++oBVbRrhZQl4v5Hhp7Yw4Yhqxqcj0GJK8GmfUQBkVSP/xw2JFgNxc
+         tJ0lk1QT994ZOKlnytufnhrq2JUFbfK33XmWOMUy5a43+jaXPDYH1mh6pv8+/jFF1i+9
+         nk3VyCfn5fyTQllX9r1L/IT+ySSE/JKM/4WGESxtppdLW759DibuPAkvtS5EuMyr9GmA
+         w6ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791667067; x=1792271867;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fSwyFmQWlZ7A/ReGcJEYV2ZxqTqob7BeqZTXwEelfWg=;
+        b=WDi/ZjWXzyWzT3ppNNIGX+jtuTjZ0yxyRgGHgCj1SXn6Y3ZNqw1WY05uYY1ES5Qw9t
+         dOS16ZfW0lLJcHAkh88Zzjx3GeXZs6vKeZPFe/tomcXUQN0UrSPqAUdsBUBFmr6oyMb6
+         swyz+0jkCv6dfSQIzP2uPlyxncptN5olM6Jz82o6KLD4CL3Um6c+bDI59VxyxSWGVqIS
+         YyMiO21XSuhAQFTrSTO8L4uEmZqvLgY3jYMSQS+8wqUOmMH5OgLae/kU4T+ou8ajCOrt
+         EwfhAcg5naRBtCjlUcH+NvuOohJZb6uDvkr7J/w3+ovt4/7LLi43OSLK8+WEDPSxtN7+
+         eEmQ==
+X-Forwarded-Encrypted: i=1; AKwUvByXj/ctPeAQFW6205H724ap1o4x7S4JlQCidBVfa5jbuWTeti5bsww8M6unoWq+hkSm8ashBqxF4E8OQrM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJKToN1/hErQyRTlw5KAZyN+IeIFlnIA3WjxblIoxYIvSU9jXpE
+	5ewJgJ4fYy6yv8TSCWmWI7SuyS3huyR8Iise8A1jFVCFf1I22cYNlUWP6TRtBuQ4fyGx1K/zMFo
+	e4LoblZU1sQ==
+X-Gm-Gg: AYBFou2SbVOFxoW39Jaj9HyIczjF+dgO/PvppuAgafedGsC7l4E0oM5Ho0HaFY2+Etp
+	kKYaKs436ik2S1zmVYgc5zWqhJncYg//2OmSpVQUgAUSSx3WzwURj9PGv5OFyCTu5M2IOp7Aq1C
+	V7Ozeu7Tlqw9K6r+f3Ot2i1fmK8yX91JZKO+6GNSo8vFyazP+yRca93hq8FBmpaG2tPh2ptPSY7
+	OaU12EXI2OZTIt0PKJOpyS2AgHeTSg1ab5RHuZQtt6boWecxPZ2NYDiXCnrgtLdFuk+wnrMVTHJ
+	kRFZ4zEDe/xED8OXEfKBOAZK9H//y1ZgL44RsDPr9sAb4Z6jKZhykGZym+AHDMtIKBUzGdp1K+x
+	nUaV4DEl+kVjq1mmDGX97/O2a+xJF8lHS/Jx2HJKJ0Fa0AYHzfGCvRp00sj+0Wa4L7zhaLhx+mq
+	IRwdNdS3xOs0ZFT5jYV9h7/1TVwJubznoDxP9JQzXu5LaGCsYCQR/5py0rqMPnXsM=
+X-Received: by 2002:a05:600c:5397:b0:4a1:7ba9:da2c with SMTP id 5b1f17b1804b1-4a18e4a7cacmr101542395e9.25.1791667067286;
+        Sat, 10 Oct 2026 14:17:47 -0700 (PDT)
+Received: from [172.16.0.229] ([159.196.52.54])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab32c0f59bsm5921472a91.0.2026.10.10.14.17.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 10 Oct 2026 14:17:46 -0700 (PDT)
+Message-ID: <41987a33-f2dd-4ffe-b35f-d669d36dbcfe@suse.com>
+Date: Sun, 11 Oct 2026 07:47:39 +1030
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] btrfs: fix chattr failing on nodatasum files that have
+ the compress flag
+To: Hengyu Liang <hengyul@cs.unc.edu>, David Sterba <dsterba@suse.com>
+Cc: Chris Mason <mason@kernel.org>, Filipe Manana <fdmanana@suse.com>,
+ linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261010105425.165104-1-hengyul@cs.unc.edu>
+Content-Language: en-US
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJqqw0NBQkUl/JeAAoJEMI9kfOh
+ Jf6o/xYH/3AaWnGSq58XnY/T3/YYjr6g+TUZxa7MPyiYTELNpNlvmNlbtbAL0nW0LNvkeiqf
+ SmYA+xkwY4RbxnZYQK0H5iv2w1eqa9qqFZb4bIBRmTapu26GEEkpad0W0ZhoSPMO8bV2Bwkf
+ YdtPZQLaeUKvHZqNqBKnmtRLQj2Cgy3kuXX3bEGvWjzUOxPUSCj/S++JWBewMdMBPT62vZM0
+ 3156gfn5mHA94s2p+NFJoWkERY+JPTMu9NISkpD7yuGhXN88qd/aqD0RrlhxvKsrQogdPwn9
+ vP18FGG3CRlHtOvOLVoY5NKSOWTDc+o+8t2XEETFTGbKYTcqeTzi4SxhvBLtTinOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
+ cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
+ qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
+ /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
+ o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
+ JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
+In-Reply-To: <20261010105425.165104-1-hengyul@cs.unc.edu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, 7 Oct 2026 02:31:24 -0700 Ting-Han Hou <ue081723@gmail.com> wrote:
 
-> lookup() casts each slot to a pointer to a node pointer and then
-> dereferences it. Since the slot already contains an entry pointer,
-> this reads the entry's contents as another pointer instead of
-> returning the entry itself.
+
+在 2026/10/10 21:24, Hengyu Liang 写道:
+> Commit cf1afec09e9f ("btrfs: validate properties before setting them")
+> made btrfs_set_prop() validate a property before setting it. For the
+> compression property, the validation fails with -EINVAL when the inode
+> has NODATASUM.
 > 
-> Internal entries also need their tag bits removed before descending
-> to the next node.
+> However, a file created on a filesystem mounted with nodatasum has
+> NODATASUM and still inherits the compress flag from its directory, and
+> btrfs_fileattr_set() sets the compression property whenever the new
+> flags include FS_COMPR_FL. As of now, chattr fails on such a file, even
+> when it only changes another flag.
 > 
-> Return non-internal entries directly and use entry_to_node() when
-> descending through internal entries. Remove the explicit shift
-> counter, as traversal now follows the entry type.
+> The issue can be reproduced with:
 > 
-> Fixes: b7235d6bb516 ("scripts/gdb: add a Radix Tree Parser")
-> Assisted-by: LLM
-> Signed-off-by: Ting-Han Hou <ue081723@gmail.com>
+>      mkfs.btrfs -f /dev/sdb
+>      mount -o nodatasum /dev/sdb /mnt
+>      mkdir /mnt/dir
+>      chattr +c /mnt/dir
+>      touch /mnt/dir/file
+>      chattr +A /mnt/dir/file
+> 
+> Before commit cf1afec09e9f ("btrfs: validate properties before setting
+> them"), the last command succeeds.
+> 
+> After that commit, it fails with EINVAL.
+
+Explain the reason why it fails.
+
+> 
+> This patch will make btrfs_fileattr_set() set the compression property
+> only when the inode can be compressed.
+> 
+> Fixes: cf1afec09e9f ("btrfs: validate properties before setting them")
+> Cc: stable@vger.kernel.org # 7.2+
+> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
 > ---
-> Tested with GDB 15.1 against standalone GCC-built C fixtures using the
-> xarray/xa_node field layout, with XA_CHUNK_SHIFT=4 and 6. These are
-> synthetic debugger fixtures, not a booted kernel or a kernel core dump.
+>   fs/btrfs/ioctl.c | 7 ++++++-
+>   1 file changed, 6 insertions(+), 1 deletion(-)
 > 
-> Before the fix, a one-level lookup returned the payload 0x12345678
-> instead of its address; a two-level lookup missed a populated slot.
-> After the fix, all 33 checks passed for each slot configuration (66
-> total), including empty/direct roots, one- to three-level trees,
-> zero-filled payloads, value entries, absent/out-of-range indices,
-> struct/pointer roots, and the GDB convenience function.
-> 
-> This does not test multi-index entries or concurrent updates/retry
-> entries. The change is limited to the debugger lookup helper.
+> diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+> index 52aab510aea0..347509043f2e 100644
+> --- a/fs/btrfs/ioctl.c
+> +++ b/fs/btrfs/ioctl.c
+> @@ -421,7 +421,12 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
+>   	if (IS_ERR(trans))
+>   		return PTR_ERR(trans);
+>   
+> -	if (comp) {
+> +	/*
+> +	 * An inode with NODATASUM can not be compressed but can still have the
+> +	 * compress flag, inherited from its parent directory. Setting the
+> +	 * property fails validation for such an inode, so leave it unset.
+> +	 */
 
-Thanks.  Sashiko expressed a concern:
-	https://sashiko.dev/#/patchset/CA+NtrhTyE4J-C2=hSUXYc+NJBsQeYvbwJb+-ROHE1QQP-_gYzg@mail.gmail.com
+This is very LLM-like, and very LLM's objective-oriented behavior.
+Disclose it first.
 
-your other patch doesn't apply due to word-wrapping.
+Secondly it just slightly do nothing, which is not the expected behavior.
 
-Please turn these into a 2-patch series.
+Furthermore, this introduced another layer of exceptions.
+
+For regular mount options, -o nodatasum,compress, the later compress 
+will override the nodatasum.
+
+So when setting compress in the first place, the NODATASUM/NODATACOW 
+flag should be cleared.
+
+> +	if (comp && btrfs_inode_can_compress(inode)) {
+>   		ret = btrfs_set_prop(trans, inode, "btrfs.compression",
+>   				     comp, strlen(comp), 0);
+>   		if (ret)
+
