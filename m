@@ -1,207 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F4414A8FC0;
-	Sat, 10 Oct 2026 12:41:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35E044A7CAC
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 12:49:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791636100; cv=none; b=hpbUg93vImCY6DiUo4kAauw1F2sobrx/ATRAl2BLUg/BmqEyUJ9gWNKlHaawDFIk8CZZw8IWBUxo/Sbq7EcBQAKKXytSQJlHHrZJwmoOvTHiW21+rcaUINwRmDqVx9H+TYwE5TxVxeOpOIE3qFzb/k5xM+Y9H4QjY1JtfB54TeQ=
+	t=1791636586; cv=none; b=UKt57q3lXlpjwwXLn52RcbtVKCW8tFzCqxMEVsI/QZJzH2T6uD3picn5LXgLodrLZc4B8J656C0w2abzAjlg/lQUPJiiYMH9Q3y9m5q1naBLnIaAGIkt11GwR/ZWO0LcRyCliF1W/6Ao9sLaY1Knj3z8mrX1Bsy9CcoU/xfEV6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791636100; c=relaxed/simple;
-	bh=DOWLk2KPhGuBqGjqbbjZhS/X5KEgI8YhdKCMda6sp3I=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=tuCRCgtMRylp80Tef3Lh47xoWM8ZFPa/WumbJWYbBaKLHzzxI3wLiAd/Ss098W065nplVHXZxuFpCty/FCj3KEWyNTjk5d+NKJJGMmBpcptdLElkaFsl5xJvwTREG4pJNG2Ia392lOrawo9dCZr+WR/wPNt/m6sXYcWw9IREJrU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ULzQbh4v; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791636586; c=relaxed/simple;
+	bh=1kvBvnU1XqG+LB+Mu/IPw77rDx6+TGEn8znDEATvlDI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KAKP0PrJF2jaaWTlpEUB7yog2HLLpj5ARr2n8/DVvn8UJYuX5XFajW4VozmUuTTX/QW8NrkDHNShmt7qcYy90IPFcNK9h927f6QToI87I5CSoTTzBMOL8porUAoks76XK3/KM5TbsMtbLxhPAIc+qDvg9KP4luitcXq/XK2ik8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RoSbUdH4; arc=none smtp.client-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ULzQbh4v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30EBA1F00893;
-	Sat, 10 Oct 2026 12:41:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791636096;
-	bh=zeJbWA0x80spfrEHaqYLJB//IGbEAAErNMgbYI6cTIQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ULzQbh4v/YnfTiq0mLmW60Swx3+waIjQXLq1r6YI6oe4tZYnKADiVYrKDLhu+AqeS
-	 scY5snJ/dr2FqY4tVtcnP7Yxme0nDESaS9xNSLerlK30HVnde1euGRt7LJHA1PVOlR
-	 rsbFgFwKU05djcPO4ciUCGHiUhbDfkbrXy3hGuqgllGbPkv7GzgUdbHFiIGOJ7uH/N
-	 xGLu964B+Ve5PTuxM1unHbm2sBPHveBySV9Lqy2zlTnLst2HviHer+szScWVb7Skpl
-	 9Itgnr4L1eYl+wy12ejIwjjjX+h4VG75yMBsVzkwcIbrqwUy6nFFh+QvZ26mxEZxtf
-	 9jEIgWMKeaEig==
-Subject: Re: [PATCH net-next 12/13] selftests: net: add amt_v6.sh for an IPv6
- outer transport
-From: netdev-bot+sashiko@kernel.org
-To: omar@blockcast.net
-Cc: ap420073@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, shuah@kernel.org,
- horms@kernel.org, netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Sat, 10 Oct 2026 12:41:35 +0000
-Message-ID: <179163609571.434549.12748049029587713249@kernel.org>
-In-Reply-To: <20261009122426.551178-13-omar@blockcast.net>
-References: <20261009122426.551178-13-omar@blockcast.net>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RoSbUdH4"
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1517bda04a0so227910c88.0
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 05:49:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791636582; x=1792241382; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mthh0Sv1VUOW5+w7XlTGMrRo8ZjYlLW2iXmgZOV9P4Y=;
+        b=RoSbUdH4+RXXvTNxJDmJgROevcokfEtlhB+kRQDpI+mDuR9erirySRkE/TvTdTxvMv
+         g6ML8zVCrDcUP3LjLYz3g/8GVhBbeWrdDwrhmLZeUVmrfWiI/BQ7Q26qN+dkHkCPm5d2
+         Es4AlUBW4zsjfIkwjDIILA0TeyIWk/o6nKGaq1fu8+/bHVhe09Zzlw8BtP63/SLwbvX2
+         sGyx1MatHGVAxMMlYGiQR20QBF++ggBoNoW7jG/XtCXuHa9KgYFoZRW1EaXgCMJD9yKB
+         e/Q14BIPpq34wFWkxS+bRiscL9OgrORZHjpikBI93v/wiNFj8zxAYVKRZg1VwIoCyYzK
+         eOCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791636582; x=1792241382;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mthh0Sv1VUOW5+w7XlTGMrRo8ZjYlLW2iXmgZOV9P4Y=;
+        b=bCtsmTyiMHcfUgBTh3sL6sUEaLidT2YTt5sJQqs+kDH/TMR0cbN7u+zdJBJp24eZog
+         mK9OzjB1DwGTxPVF70yrH16hmkiV0zQatuFo4DMMyoN5SX3DMvlXHHT3zrPaIYUIdOQ6
+         THwc2FZ3WJdveQb69vYgqExTlEQ8zI8V951ZPkAzqjFg835DWVBtLD8AW/1+wRoVp7aF
+         wLELJNIjL38dhxQ3GOPKaCLSKAqjlItDk2AmDqIe5tFy/+I2HVq584+IJlLT8rj1MmAl
+         yl70JIgw/Somc3W09+X74n9b/piw/cgqQld5H3g8WaNoP3Ghf0nFHhbzLnt+tEj8rUPB
+         Zksw==
+X-Forwarded-Encrypted: i=1; AKwUvBy7O9lvwO1NJjR6gSqwwIyvrVkDGflAGz94j3JTCGOqgGhFHiAyjUWTiMSWhMV7k09nhLfJl1g7lCHEytc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKPPmHRYhYeX4ijryoKmAyAiAdDrrSNLvPjHMZNnTLLwJ+xbl63
+	NWkGV6oWapq5InGSxMPtsByOHpl6+EHpbSJd4W0t+cKQ300mFVNozN0s
+X-Gm-Gg: AYBFou1Pn4VSYf+p5Lxl3Z5k5N9KV45rtmvcx4+CzKNy0dwBJvNErHCweBHq/GKoS/i
+	SCqgD/tisMw22zsncjr21QuCXAT67N1IF+I2k5CrA2ZjeeiV0MLTs9cG2eZfwfYucYvTEh3H1jQ
+	QYUEe8CHkqw3KDPyokiCDoCreQxxAPBl4Jrg6ZfpdjEWi51snSy14AEzdGlq/Cgbc0iVKPiuqIL
+	0pvWW+siE/vaj52g3tAooj9IXsN6AF5bis59OGnu6XTYLBZV4PaV4310+UK6PVNCMeghbfLa/Sy
+	SeBQTHoeRfizbMqizA0s/bIfYJOZY3zph9MHXlwlBW4zRaIeAgZOxqFFWBMM4vzeF1g1VlM43Mx
+	bNTxIIlBQb/ZCrgZwfOgtdDOFDJGCQMVYqNmJhbsC0/+9Zn/4bMfW0n/u4QzIV3jtjq3Vw8vdKf
+	AMiHQKtj9ORb/oQ+I9yakv2gpP+fWeUs3cU2AxgNnQefNbFDGvOxj7bbazf6ESEADH3Ite4h4j/
+	ZiYb92bjAbCzf2KJfzUkDQrbTk=
+X-Received: by 2002:a05:7022:3a81:b0:14c:efa5:ee7 with SMTP id a92af1059eb24-16a5afe51b5mr6320260c88.14.1791636582095;
+        Sat, 10 Oct 2026 05:49:42 -0700 (PDT)
+Received: from chitransh.. ([2401:4900:c920:95f0:34f7:c1ca:5f91:2fb9])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a6021e49sm14204812c88.20.2026.10.10.05.49.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 05:49:41 -0700 (PDT)
+From: chitranshmandhaniya@gmail.com
+To: hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	rafael@kernel.org
+Cc: lenb@kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chitransh_Mandhaniya@dell.com
+Subject: [PATCH v5] ACPI: video: force native backlight on Dell OptiPlex AIO 7410 35W
+Date: Sat, 10 Oct 2026 18:18:30 +0530
+Message-ID: <20261010124830.116750-1-chitranshmandhaniya@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261009072401.52509-1-chitranshmandhaniya@gmail.com>
+References: <20261009072401.52509-1-chitranshmandhaniya@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+From: Chitransh Mandhaniya <Chitransh_Mandhaniya@dell.com>
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+The Dell OptiPlex AIO 7410 35W (board 01KP8D) declares DELL0501 in its
+ACPI DSDT (status = 0x0F) even though no UART scalar board is physically
+present. This causes acpi_video_get_backlight_type() to return
+acpi_backlight_dell_uart, which makes i915 skip registering
+intel_backlight. The dell-uart-backlight driver then times out talking
+to the absent board and the probe fails, leaving the machine with zero
+backlight control.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+A BIOS update fixes this on some models (e.g. OptiPlex 7420, board
+0914RT) by setting DELL0501 _STA to 0, but Dell has not shipped a
+corrected BIOS for the 7410 even in the latest release (1.37.0,
+2026-05-28).
 
-- [Medium] disc_answer() in tools/testing/selftests/net/amt_v6.sh (lines
-  269-292) ignores two exit statuses.
-- [Low] In tools/testing/selftests/net/amt_v6.sh, the `*"IPv6 support is
-  disabled"*` branch in probe_v6_relay() (line 117) can never run.
+Add a DMI quirk to force native backlight on this model so that i915
+registers intel_backlight and brightness control works out of the box.
 
---
+Tested on:
+  - OptiPlex AIO 7410 35W (01KP8D, BIOS 1.37.0) -- confirmed
+    acpi_backlight=native produces working intel_backlight (raw,
+    max=96000), DMI quirk has the same effect.
+  - OptiPlex AIO 7420 35W (0914RT, BIOS 1.27.0) -- DELL0501 absent in
+    updated BIOS, intel_backlight works natively (no regression).
 
-selftests: net: add amt_v6.sh for an IPv6 outer transport
+Signed-off-by: Chitransh Mandhaniya <Chitransh_Mandhaniya@dell.com>
+---
+ drivers/acpi/video_detect.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-This adds amt_v6.sh, a variant of amt.sh where the gateways and the relay
-run AMT over IPv6, with two extra gateways on the outer link. It covers
-discovery, IPv4 and IPv6 multicast forwarding, the tunnel limit, tunnel MTU
-handling, zero UDP checksum handling, Discovery sent to ff02::1, and link
-down/up. It also enables CONFIG_IP_MROUTE in the net selftest config.
-
-> diff --git a/tools/testing/selftests/net/amt_v6.sh b/tools/testing/selftests/net/amt_v6.sh
-> new file mode 100755
-> index 0000000000000..d2732945a3c7b
-> --- /dev/null
-> +++ b/tools/testing/selftests/net/amt_v6.sh
-> @@ -0,0 +1,535 @@
-
-[ ... ]
-
-> +setup_links()
-> +{
-> +	local ns
-> +
-> +	# No DAD: the relay sources its MLD General Query from amtr's
-> +	# link-local address, which must not be tentative when it is sent.
-> +	for ns in "$LISTENER" "$GATEWAY" "$GATEWAY2" "$GATEWAY3" "$RELAY" \
-> +		  "$SOURCE"; do
-> +		ip netns exec "$ns" sysctl -wq \
-> +			net.ipv6.conf.all.accept_dad=0 \
-> +			net.ipv6.conf.default.accept_dad=0
-> +	done
-
-[ ... ]
-
-> +probe_v6_relay()
-> +{
-> +	local err got
-> +
-> +	if ! err=$(ip -n "$RELAY" link add amtprobe type amt mode relay \
-> +		   local "$RELAY6" dev br_gw 2>&1); then
-> +		case "$err" in
-> +		*"Local attribute is required"*|*"expected rather than"*|\
-> +		*"IPv6 address in an IPv4 attribute"*|\
-> +		*"IPv6 support is disabled"*)
-> +			echo "SKIP: no IPv6 AMT support: $err"
-> +			exit "$ksft_skip"
-> +			;;
-
-[Severity: Low]
-
-Can the "IPv6 support is disabled" branch ever match?
-
-In drivers/net/amt.c, amt_validate() returns that extack only when
-CONFIG_IPV6 is off:
-
-    if (data[IFLA_AMT_LOCAL_IP6] && !IS_ENABLED(CONFIG_IPV6)) {
-        NL_SET_ERR_MSG_ATTR(extack, data[IFLA_AMT_LOCAL_IP6],
-                            "IPv6 support is disabled");
-
-On a kernel like that, the script never gets to the probe. The main body
-runs setup_links() under the ERR trap before probe_v6_relay() runs:
-
-    set -E
-    trap 'setup_fail $LINENO' ERR
-    setup_links
-    trap - ERR
-    probe_v6_relay
-
-setup_links() starts with the net.ipv6.conf.*.accept_dad sysctl writes
-quoted above, then adds IPv6 addresses. Without IPv6, those commands fail,
-and setup_fail() exits with ksft_fail.
-
-The commit message says:
-
-    A probe creates a throwaway IPv6 relay first and skips only when the
-    kernel or iproute2 cannot create one
-
-Would a kernel built without CONFIG_IPV6 report FAIL here rather than the
-intended SKIP? The net selftest config sets CONFIG_IPV6=y, so this only
-affects configurations that don't use it.
-
-[ ... ]
-
-> +disc_answer()
-> +{
-> +	local dst=$1 filter=$2 opts=${3:-} pid i rc log
-> +	local to="UDP6-SENDTO:[$dst]:2268,sourceport=40000"
-> +
-> +	log=$(mktemp)
-> +	ip netns exec "$GATEWAY" timeout 6 \
-> +		tcpdump -nni gw_relay -c 1 "$filter" > /dev/null 2> "$log" &
-> +	pid=$!
-> +	# Send nothing before the capture is live, or a missed packet would
-> +	# pass the negative check.
-> +	busywait 5000 grep -q "listening on" "$log"
-> +	# Type 1 (Relay Discovery), version 0, then a nonce.
-> +	for i in 1 2 3; do
-> +		printf '\x01\x00\x00\x00\x12\x34\x56\x78' |
-> +			ip netns exec "$GATEWAY" socat -u - \
-> +			"$to,so-bindtodevice=gw_relay$opts"
-> +		sleep 0.5
-> +	done
-> +	wait "$pid"
-> +	rc=$?
-> +	rm -f "$log"
-> +	return "$rc"
-> +}
-
-[Severity: Medium]
-
-Can test_mcast_discovery() pass its negative check when no Discovery was
-ever captured or sent?
-
-The exit status of busywait is thrown away, and loopy_wait() in lib.sh
-returns 1 on timeout. The status of each socat send is thrown away too.
-
-The function returns only tcpdump's status. That status is non-zero when
-no matching packet was seen (124 from timeout 6), and also when tcpdump
-itself failed (1).
-
-test_mcast_discovery() then does:
-
-    disc_answer ff02::1 "udp and src port 2268 and dst port 40000"
-    check_fail $? "the relay answered a Discovery sent to ff02::1"
-
-So if the capture isn't live within 5 seconds, tcpdump fails to start, or
-the send to ff02::1 fails, the check records a pass. This is the case the
-comment above the busywait says must not happen.
-
-The unicast positive control runs its own tcpdump and its own send. It
-doesn't show that the second capture went live or that the ff02::1 send
-worked.
-
-test_zero_relay() calls disc_answer() in the same way, though its
-Udp6InCsumErrors check limits the effect there.
-
-Should disc_answer() return a separate failure when the busywait or the
-socat sends fail, so the negative checks can tell that apart from no reply?
-
+diff --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c
+index e3b69f876d24..1af14e04e597 100644
+--- a/drivers/acpi/video_detect.c
++++ b/drivers/acpi/video_detect.c
+@@ -883,6 +883,14 @@ static const struct dmi_system_id video_detect_dmi_table[] = {
+ 		DMI_MATCH(DMI_PRODUCT_NAME, "OptiPlex 7770 AIO"),
+ 		},
+ 	},
++	{
++	 .callback = video_detect_force_native,
++	 /* Dell OptiPlex AIO 7410 35W */
++	 .matches = {
++		DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
++		DMI_MATCH(DMI_PRODUCT_NAME, "OptiPlex AIO 7410 35W"),
++		},
++	},
+ 
+ 	/*
+ 	 * Models which have nvidia-ec-wmi support, but should not use it.
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261009122426.551178-1-omar%40blockcast.net
+2.43.0
+
