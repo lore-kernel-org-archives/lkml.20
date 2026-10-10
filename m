@@ -1,130 +1,193 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D0828B7EA;
-	Sat, 10 Oct 2026 05:07:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB949270EC3
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 05:11:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791608864; cv=none; b=ZabzS8lzVwDhzzhrXP6GR1uGnSH1uhwbQLodRlYpcoVP3kib4R2NaYIxn0KjOLjMbVT+cYpE4ggh9r9Pbq/af+cHKqSzxjqqX95QoskxyMAHip8bz5mRjpCxtbY0YgvlkRwEgoNCNRaQWvmCFv4gvrfW1jPbiyvLRMXdvCMWoUk=
+	t=1791609098; cv=none; b=EgWsWk3QRfbowopjf/6YnPJPf/WKgQ9tJOyLPtJkzNb0JIR05TX03tKHljl8ETLCiD36WfiMzw+DWalxhKSxIhWdlidNDgoWwwe5LyFLJCMcM6VlVk8LjZK9il4iZazkL3Mk9AqLWQxZ3Auqe+nPh+L8cai1ZYc7mQGsPFGPXiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791608864; c=relaxed/simple;
-	bh=lJWK4OJfGMepDxYAS/ax0chVHA3aBeIdMPdHZLLbZGI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aTX2OPp7YlJ8C/ZgUA8ixSpe9qcvyfjHzYJRByXdzQz9XT0JMGbhw70qxG4WC94IMjRs+bExy/kVnmFeHjp0lkwDcQTYAlqH2tQJ8ARoPRCgpz4Inbu74iIQBY4WCkUy5IlTFvsD1idER1ENtOKyFm1buWsaBFy04Uu6/g5TdSk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a6wvMquQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791609098; c=relaxed/simple;
+	bh=MPMOwI0vvc3InXLYmyscm1qhTxNxhoj3Og1mIRJVW3w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y8n+1JllhnTT0BNirK/cE+OQpvckWlChf344/Z4Nvwq0YJ4c2j3aWI2IMd1NvlUZzo1Deyp5ppV0SKAVFVfYG51l6Zd/3shn3fjYSYHgKP+UFzH4J2l7Yw+CrhaWw4HlkODARBAJAxvooSLAHznU3C7if8XOa5hGO/LnNhKYrH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=MIrQUGQm; arc=none smtp.client-ip=74.125.82.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a6wvMquQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E8181F000FF;
-	Sat, 10 Oct 2026 05:07:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791608863;
-	bh=FN3Qs5oxJT4JGR6GGOANgppDV98lCujbNX/7L+5VtPs=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=a6wvMquQhZKO84eDRfsZb8q2nnMTDqhVRMzCz6vbfGclLauc7SZnu9gZ+P4DYVUoX
-	 8Vf7YRxn1UDUMMBjyM+23qYRPcm+NbCFt2/DdGlW9LEkihKBbsqw2zIRf1EUIXSEGl
-	 Qhp/h2hN3xPkpA+1Zc3ZhDGHswmPPkNoCZ1g/cTneO12K6Cco8gubm8K+I58MJG0Ud
-	 0ZegAN+lTSaBJJPESpMKz5KZL9zELcxH9i4S+O5bCE2EiTeUDo5JhuJr9NmpmSL2k+
-	 VDSNcxnT45dfo0Val6uwVgYPxl0WjDy6TjHuNr/dpnMh4Y/uu58n5V0UclttwqThsh
-	 LF0C2mLzuffJA==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 2C08DCE0D77; Fri,  9 Oct 2026 22:07:43 -0700 (PDT)
-Date: Fri, 9 Oct 2026 22:07:43 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Manuel Ebner <manuelebnerli@mailbox.org>,
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] kbuild: Mark the kernel image gzip recipes as
- recursive
-Message-ID: <6f077bd6-3919-43d3-a683-15156253330b@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261009062722.i.253-kees@kernel.org>
- <20261009062733.3119731-1-kees@kernel.org>
- <7fa8e996-d015-4f8d-a197-3f8901e0b31a@paulmck-laptop>
- <202610091923.FE842614D4@keescook>
- <7109f423-7249-49fb-a923-2824711fe197@paulmck-laptop>
- <202610092145.5247B47@keescook>
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="MIrQUGQm"
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-15168a20b47so291303c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 22:11:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1791609095; x=1792213895; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EPzUTBNIsG1vnWSfHU0KClPEm42wHLDDcUKF5FSqaVc=;
+        b=MIrQUGQmn1voPhPxsYHh+FVhHCvL6u0DNJWUTSgGPauArowvGdvRDvnc8ZLjFMccUb
+         amFixag0+zpNQQraVOq0msl0A34p8yTvF0lgNk60eO8d8rrsFQO9lNDyBOuIRFtgxQ5p
+         VDh07T4dNosr4ajAGtU86HjCiPdzlrGhwKZFlN0mpa5sjqos6kG05YgZmk1pqpTWwNSH
+         L6HEEIOOfNVQczTkpPjOOwMcbj+4amxlULNAcBGMD560wLKECi1RAWD6gZgnLtiVFY2D
+         iS+qRoNf39Uzi7yQWRqaquVN2+JOlwCiKDGGJTTYKkI0lWvYN/9Fg0rgAwSQxb3m1/Vh
+         gkFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791609095; x=1792213895;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EPzUTBNIsG1vnWSfHU0KClPEm42wHLDDcUKF5FSqaVc=;
+        b=0sa9Tjp0iJxRpNxCtUcQQm79ZBPoImn+YlWFoBwJpYa72bNPwVt8Fc2i49LHVd2oU7
+         PT43DlJZorVlUUX0wmSkRKBd8LCmd2A4aUebVn7YCfVak0w5/N4nbKkQGqIFvd7mqxxW
+         144caTy4krgHTzCIzlfYK1lVPrMCBMb8MKqN47V5PWd+bZnl38NuA5j1DP6rAb9yMmvy
+         VMuSldBAlxGKmT/zXamCMCBHdkqiwNcvxHE2FxuIdwXwZiHIVYGfH1WlW6Vv86LtNevg
+         1O3jdNr2jKqFc1xT7YbkPciuwwS46Mv/nkf540WIXeLLxJpoTr8+vntQFhCotSQLT6GL
+         /5Dg==
+X-Forwarded-Encrypted: i=1; AKwUvBxE4CwT0lSC74aUuW+jjiP6yihO2lFESzDCcksfHLxGktOTCsGuf9HVOqfyPNP3pwtUjG4yCq4NSC8nx9Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJLkYPWMVqONISVrWtyNnC1v9tuIpADv4k2LijWz34xLEfw45Qr
+	eYUu1G/Ku4qXlbkyPmcWY9qa/YfTOG4LQhLxojahO3hE+2gsxupBs7K0xlZWF1Li+jo=
+X-Gm-Gg: AYBFou0yOhb7fO70li7rkc5dcg2wwUD2KbpaG8FekAgz3buGQbfa1iomXfRMVgDqEBt
+	tSb5eTb4/UOwunQvLokn4U2x3lJYueHu1LjNN8RY/ny3lrqBMH0Rv7b71CqUTPXPacMxfvSxleP
+	e5lKyRkY3Ssm+wUocQPl44nCTNLykRq/i3xUxU8MgXX3H8WOFff0tjfmR4y7RGf/wpoY5+lms7A
+	fblYqXsXSS5Ff2AMmcZbdRhheDr8oxyvAnl/5h2/gLj3BLXzXow1Wi7qfkv9wRtRwrNX6io6mTO
+	185v/NNdxi+6JoFgHKgNhDthcJeHvFbPCZznY1U3Gr98fNFhg9oOTg9AdHryAcM5ifuSGK4euen
+	JaNEJ2Qb4tqBiNaNGG+SZ9HSYCf7RFnUyk3l4z9G/uHnFjPVP0hSlbArL9xQAMrT8vB8fBfsXsP
+	uZLxuRQO8yjEF3axJGPcVjcKip24OfHQJmQ2ggw4YrkevpARz9I2M6WVu4W83+tg6q49mwD5jrL
+	OEv6S1/06y1yvTjUlNQKKqY3Vzz1KNMPeuaf1SAIxq7OsgJsZRlg6IGGgFrmtTT+xZKPW4=
+X-Received: by 2002:a05:7022:7f0b:b0:14f:4b01:40a1 with SMTP id a92af1059eb24-16a4f627a7cmr5226042c88.0.1791609094685;
+        Fri, 09 Oct 2026 22:11:34 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:fc0d:3183:3e45:a830])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a1becf08sm11181963c88.5.2026.10.09.22.11.33
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 09 Oct 2026 22:11:34 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
+	Kalle Valo <kvalo@kernel.org>,
+	Jeff Johnson <jjohnson@kernel.org>,
+	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+	Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
+	ath12k@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 6.12.y] wifi: ath12k: fix reusing m3 memory
+Date: Sat, 10 Oct 2026 01:11:29 -0400
+Message-ID: <20261010051129.14918-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <202610092145.5247B47@keescook>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 09, 2026 at 09:46:47PM -0700, Kees Cook wrote:
-> On Fri, Oct 09, 2026 at 09:27:57PM -0700, Paul E. McKenney wrote:
-> > On Fri, Oct 09, 2026 at 07:25:42PM -0700, Kees Cook wrote:
-> > > On Fri, Oct 09, 2026 at 08:51:18AM -0700, Paul E. McKenney wrote:
-> > > > On Thu, Oct 08, 2026 at 11:27:30PM -0700, Kees Cook wrote:
-> > > > > Since commit 48ebe1cbbeb51 ("kbuild: compress the kernel with pigz if
-> > > > > available"), cmd_gzip runs pigz through scripts/jobserver-exec, which
-> > > > > takes the job slots make has free. GNU Make passes the jobserver pipe
-> > > > > only to recipes it treats as recursive, but leaves --jobserver-auth in
-> > > > > MAKEFLAGS for all of them. The make 4.3 in CentOS Stream 9 also hides
-> > > > > the pipe in sub-makes (a backport of the fix for GNU Make bug 58232), so
-> > > > > jobserver-exec cannot open it, runs pigz on one thread, and prints:
-> > > > > 
-> > > > >   WARNING: Unable to reopen jobserver read-side pipe: FileNotFoundError(2, 'No such file or directory')
-> > > > > 
-> > > > > Mark the gzip recipes as recursive with "+", as commit ecab4115c44cc
-> > > > > ("kbuild: mark `rustc` (and others) invocations as recursive") did for
-> > > > > rustc. As with those, "make -n" now runs them.
-> > > > > 
-> > > > > Tested ARCH=x86_64 and ARCH=arm64 defconfig with GNU Make 4.3 plus
-> > > > > CentOS Stream 9's make-4.3-cloexec.patch, GCC 16.2.0, and -j64: without
-> > > > > this change the warning appears and pigz runs with "-p 1"; with it there
-> > > > > is no warning, and pigz runs with "-p 54" and "-p 64".
-> > > > 
-> > > > Thank you, Kees!
-> > > > 
-> > > > My initial test of this patch (using rcutorture) still showed the failure.
-> > > 
-> > > Oh! So the patch didn't fix it for you?
-> > > 
-> > > > I am running GCC 11.5.0 and without any patches to "make".  I take it
-> > > > that I need to find and apply CentOS Stream 9's make-4.3-cloexec.patch?
-> > > > 
-> > > > But if I use "make -j" instead of rcutorture, this patch does work fine.
-> > > > Even with "make -j632".
-> > > 
-> > > Without rcutorture was "make -jNN" broken for you without this patch?
-> > > 
-> > > > I put rcutorture in the background using nohup and full redirection,
-> > > > but "nohup make -j632 > /tmp/Make.out 2>&1 < /dev/null &" works just
-> > > > fine.  And running rcutorture in the foreground still fails.
-> > > > 
-> > > > Very strange.
-> > > 
-> > > O_O It only breaks ... when backgrounded? Oh my. Okay, I will try to
-> > > figure that out.
-> > 
-> > Apologies, let me present my results in a more organized fashion:
-> > 
-> > 			foreground	background
-> > 			-next	Fix	-next	Fix
-> > 
-> > 	make -jN	Bug	Good	Bug	Good
-> > 
-> > 	kvm.sh [1]	Bug	Bug	Bug	Bug
-> > 
-> > [1] tools/testing/selftests/rcutorture/bin/kvm.sh --build-only --allcpus --configs TREE02 --trust-make
-> > 
-> > Here, -next is next-20261008, and Fix is with your patch on it.
-> > 
-> > Just as mystifying to me, to be honest!
-> 
-> Ah, I think I found it, but I'm not sure why kvm.sh tripped it but bare
-> "make" didn't. I missed the non-literal forms:
-> 
-> 	$(call if_changed,$(compress-y))
-> 
-> I'll send a v2 with docs updated too.
+From: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
 
-Done for the day, but I will test tomorrow.  Again, thank you!
+[ Upstream commit 00575bb44b2c2aa53d0a768de2b80c9c1af0174d ]
 
-							Thanx, Paul
+During firmware recovery or suspend/resume, m3 memory could be reused if
+the size of the new m3 binary is equal to or less than that of the
+existing memory. There will be issues for the latter case, since
+m3_mem->size will be updated with a smaller value and this value is
+eventually used in the free path, where the original total size should be
+used instead.
+
+To fix it, add a new member in m3_mem_region structure to track the original
+memory size and use it in free path.
+
+Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.1.c5-00302-QCAHMTSWPL_V1.0_V2.0_SILICONZ-1.115823.3
+
+[ Backport to 6.12.y: drop the copyright-line hunks, which do not apply
+  to 6.12.y. The code changes are the same as upstream. ]
+
+Fixes: 05090ae82f44 ("wifi: ath12k: check M3 buffer size as well whey trying to reuse it")
+Signed-off-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+Reviewed-by: Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>
+Link: https://patch.msgid.link/20251029-ath12k-fix-m3-reuse-v1-1-69225bacfc5d@oss.qualcomm.com
+Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Assisted-by: LLM
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+Hi Greg, Sasha, and ath12k maintainers,
+
+Please queue this for 6.12.y.
+
+6.12.y has the bug this fixes. When a smaller M3 image is loaded into a
+reused buffer, m3_mem->size shrinks to the new image length, and that
+length is later passed to dma_free_coherent() instead of the size that
+was allocated. The patch also fixes the allocation-failure message, which
+reads fw->size even though fw is NULL when the M3 image comes from
+firmware-N.bin.
+
+The fix is already in 6.18.y and 7.2.y.
+
+Testing: applies to v6.12.112 and on top of the current 6.12 stable
+queue. An x86_64 allmodconfig build with CONFIG_WERROR=y is clean, and
+ath12k also builds cleanly with W=1. I tested the M3 load and free
+functions in userspace with firmware and DMA stubs under ASan/UBSan. I
+did not test on ath12k hardware.
+
+An LLM helped prepare, build, and test this backport. I reviewed the
+results.
+
+Thanks,
+Artem Dinaburg
+
+ drivers/net/wireless/ath/ath12k/qmi.c | 9 ++++++---
+ drivers/net/wireless/ath/ath12k/qmi.h | 3 +++
+ 2 files changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/wireless/ath/ath12k/qmi.c b/drivers/net/wireless/ath/ath12k/qmi.c
+index b93ce9f87f61..5b02d1d76a36 100644
+--- a/drivers/net/wireless/ath/ath12k/qmi.c
++++ b/drivers/net/wireless/ath/ath12k/qmi.c
+@@ -2724,9 +2724,10 @@ static void ath12k_qmi_m3_free(struct ath12k_base *ab)
+ 	if (!m3_mem->vaddr)
+ 		return;
+ 
+-	dma_free_coherent(ab->dev, m3_mem->size,
++	dma_free_coherent(ab->dev, m3_mem->total_size,
+ 			  m3_mem->vaddr, m3_mem->paddr);
+ 	m3_mem->vaddr = NULL;
++	m3_mem->total_size = 0;
+ 	m3_mem->size = 0;
+ }
+ 
+@@ -2762,7 +2763,7 @@ static int ath12k_qmi_m3_load(struct ath12k_base *ab)
+ 
+ 	/* In recovery/resume cases, M3 buffer is not freed, try to reuse that */
+ 	if (m3_mem->vaddr) {
+-		if (m3_mem->size >= m3_len)
++		if (m3_mem->total_size >= m3_len)
+ 			goto skip_m3_alloc;
+ 
+ 		/* Old buffer is too small, free and reallocate */
+@@ -2774,11 +2775,13 @@ static int ath12k_qmi_m3_load(struct ath12k_base *ab)
+ 					   GFP_KERNEL);
+ 	if (!m3_mem->vaddr) {
+ 		ath12k_err(ab, "failed to allocate memory for M3 with size %zu\n",
+-			   fw->size);
++			   m3_len);
+ 		ret = -ENOMEM;
+ 		goto out;
+ 	}
+ 
++	m3_mem->total_size = m3_len;
++
+ skip_m3_alloc:
+ 	memcpy(m3_mem->vaddr, m3_data, m3_len);
+ 	m3_mem->size = m3_len;
+diff --git a/drivers/net/wireless/ath/ath12k/qmi.h b/drivers/net/wireless/ath/ath12k/qmi.h
+index 0dfcbd8cb59b..e9eb186441cc 100644
+--- a/drivers/net/wireless/ath/ath12k/qmi.h
++++ b/drivers/net/wireless/ath/ath12k/qmi.h
+@@ -118,6 +118,9 @@ struct target_info {
+ };
+ 
+ struct m3_mem_region {
++	/* total memory allocated */
++	u32 total_size;
++	/* actual memory being used */
+ 	u32 size;
+ 	dma_addr_t paddr;
+ 	void *vaddr;
