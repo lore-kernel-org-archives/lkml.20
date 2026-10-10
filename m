@@ -1,81 +1,79 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A701749503B
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 11:31:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C681E3ED3CF
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 11:34:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791631887; cv=none; b=H+APmptWwyNMcgohMbZAekdxi9q/BIhBwaEw+aWjCnSQHb/1JTZkNfjeMirDFUERZ9t5hhp+5RjHZoEpiAtvwZwskC7qmNLSDbrga7/fj/t5pjEibA6q39bYNAM+eQIBtIFaVjewY4u5KKMlGY8u5bk5FmOL0ytOoUnQjQwVwPU=
+	t=1791632077; cv=none; b=Cve9mZ/pl4uXsPerJV1IioKSMPusybu4+MzTdXsMMYK91Om6bj5YTT/pQP2PxiTfUa/W154rIe+xhi9WYlRBSP5e5i6TmOmMYA7NyZqTzAnap+LKmWpq50wHN5pcy9JDnpV+pDfeUFk6qRYbRs4fSwIrjVelyHQrKSmDm3q9msg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791631887; c=relaxed/simple;
-	bh=Es+dBV7DIZIeEMX6pKpx1DQ3lWrpAte1IyrZLYZ2vJ0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UtpP6GRfkSleCdx96kyz47Zff4DSrOViW0iYca+IIua1bUaq9qq23r1hPJSCLjM0nyygdSQhtsximM3CRia1jjW28u1zrnKE9fU8YkzBiWBBv8bXzjnyhNzehbllB40fU1qSts/ttWEhKlVTM3nnhh8LNdv2Q9e+IYNDoiiTFE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZSnd7Upb; arc=none smtp.client-ip=209.85.128.54
+	s=arc-20240116; t=1791632077; c=relaxed/simple;
+	bh=/+TlNSm7QXTIJcMEubRH6RaGeI8wyqw+u3J0glsRWso=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ovCnkkYjAncoqPi9U3pCowsMLrVn0cxOxbrM30Woh4LrXgdOAp02+ax/vuSGhy/ikL+waNx/saDlppMEaPYh9gSRaPB4rbBO0NYt+5Bg8YEsYFiXkGhlUp3NzEICN9x+ySnvFvrgDq/brd07frwgN+6mSo7GYkgOWh67N88fsAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZDF2uO4S; arc=none smtp.client-ip=209.85.214.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZSnd7Upb"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a1635f7c89so5278365e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 04:31:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZDF2uO4S"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e836252e1dso4153695ad.3
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 04:34:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791631885; x=1792236685; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Es+dBV7DIZIeEMX6pKpx1DQ3lWrpAte1IyrZLYZ2vJ0=;
-        b=ZSnd7UpbfCXgZqmFdH7yiOsV5Op7IkwIarhwClaWT2TKvXPxl52KnmclpSBeMehD3W
-         3ztxGtskF17bKD1Fgnn8kQfPEPxVzKPmBVYsu5u3Hv9JuXMSAw4kHWl9tmfBP9hgPfFq
-         S3tZoD6EJVlB0aVCma7ajJW1W7kvnwOdjJQ8lQWzjtMuZqBu5xEIM+dguSRHJSNia6y9
-         j/2ZGEh5tlRHcCgapyeikF8qJ0J1CXxAcGjcWJ6xHAbyqwej3pu73pNlATVuaTI27R8h
-         /pFMcBjNxWQnsn/Z2wXK79BLjNZf3W150w8qpxHNG1s4PifQlmWRpFV3kG/I9Qx4eXts
-         Shkg==
+        d=gmail.com; s=20251104; t=1791632076; x=1792236876; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=247L/iosYBVll1NKUHDCcHocrA60iOndQJiYeXqSeDs=;
+        b=ZDF2uO4SNuUEw6miN5SehPbYOzjwxcpAEMia7ZC0R8O4355yadnLixAa2Y1DiiRbU0
+         4Pbqo3quqXLCXF59395HAwTbNvTg6XG161VWdulnM5D+lWootIQWHfrCe03jWeiZFcxy
+         rX7RPv8ntbx9DuNAnemUEIt56GEGf6ibHUQTBUpKFuPhL5b9v+jyAzOsVfK8xuI/aw4y
+         XWuRcSk2T9wdnksvcqnKmZiursMX2EhYuDqVMqwTuiEj2x3dvBK3DTWhCzKgNr0zKbr7
+         NmOsVXrRjwRMnClsXKE6vOaaxVaS2ZrsAlqzL2H8qdeum3w8BVfiCjcUhCjayZgsit97
+         cUkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791631885; x=1792236685;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Es+dBV7DIZIeEMX6pKpx1DQ3lWrpAte1IyrZLYZ2vJ0=;
-        b=MwHIcY0JkvPs3I0LY7oaaDdBhMQvnv01FUsw32/jRJEgQ3mB95MwMId8NzpwW00jIh
-         HU2YP07cK4vWr3i+k8egolbDBruB7w6KXiz2PkptSpQkmyH1gOHTKyXDyV2DoDZCIOSz
-         KR6czyrYoZcSnsyZZr0XX/hKknzVZVGOAjP4kCCfJzlplSPnwG33N/SSN12ZWdT5eAUX
-         P3M8OkVNY0ra5ffmMC/eeDWR3E9jkfS7JtHyzyzdi2klBHS+QGSPos5TITCi9pQyg6yr
-         PVQVzBQLIqdg9g5VNFMlNtYTrQTC8VoG+Sy78Z5koPHHaoip62uyHRhS+sO1vadMuEvM
-         PTvg==
-X-Forwarded-Encrypted: i=1; AKwUvByicazJJjqHrxAbS3MDnJTqNCYbgc3N0ZjPN/zTE9gnmnL0iPqsLdxANU1+nEHparM7sBXOh0vfW83ftLk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLyRhi3MgHhazGdgoXS2y8RoC84P1oHlDMoSQJVMhmB9LobmU/o
-	TkcFwSlqmGOHB1LpO0AL1AWe6RT6wZH2ugcGMXloLFHSBqJSCGPeWql+
-X-Gm-Gg: AYBFou1jmt4UOT298gKM7He+/KHPSxxi/tOZ/X0JkPFyd8zc4GtT9wOjVNDjYgVPLSq
-	8WsfmFNq3x5ZUvCMDajs9MnJbwi+uUArFjyRxmw509bpQb/qHT2NLMk6jsSVtcBeKkwqTqmjsg2
-	fGJsDTI1M+PHfgbyScpS+92GMOkpGNPkuiW2ACOheUNXwCdjwY+NmwqmHKYgSHW6OMY0fsSGVlK
-	2G9JzRhZPuQv18gteKsz/YBqssv1hF3zFfbxwd49Gh+7XucJCF2dCzFPZz9W/svF0B4RGHmhQYy
-	/o1VqzslZRhuwnQf2+Wehs/zzcIhdnySO/3F7rVzN44YLt1dB7BCEab6HqSEl5/eEZvpj0+yXgo
-	A7BLTpbQRy5k4z9+9kUNHn6IWah9abFI6DYBkVsY6fSE+ItkPZYpIoVO4/6tYstDqN9MeFMCd57
-	OtLjtcIccYV5hF0HmGYtL+rDikK0Tx4VAe5/bG76YxVDTVfoUM2V4BN6HKyccbwJ+zVXMrAal/Y
-	AlZ86+N1eKbYPh25XycrAgPpeGRihiGMV7excGPUGlScUY=
-X-Received: by 2002:a05:600c:4f46:b0:49f:cbf1:e77b with SMTP id 5b1f17b1804b1-4a18e4a5355mr105108215e9.10.1791631884527;
-        Sat, 10 Oct 2026 04:31:24 -0700 (PDT)
-Received: from Cachy-OS (159.red-83-38-226.dynamicip.rima-tde.net. [83.38.226.159])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf2e0dbsm133458045e9.11.2026.10.10.04.31.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 04:31:24 -0700 (PDT)
-From: German Pablo Lindo <germanpapulindez@gmail.com>
-To: lsa.uz@pm.me
-Cc: dan.scally@ideasonboard.com,
-	dev@berg.pm,
-	hansg@kernel.org,
+        d=1e100.net; s=20260707; t=1791632076; x=1792236876;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=247L/iosYBVll1NKUHDCcHocrA60iOndQJiYeXqSeDs=;
+        b=1Lec7HZJrvqvcQUlnUQs2Sa+LWIYmF0oeoBzEjj4Uq+3zcDZkHvnZxu27byB0wwDuI
+         Kj8mxrDUQMuKzS4jQRxspBBg3K+1QLb6I2LRECKHHBuCHjjXRnpghkMDhY26FsHWaNKZ
+         XqdZ80Ll8cEOYJoC0iWIAnXaOEH31BujVMjZrIL6LwphRQbg4LIovLmjYT/UXwY5X2QT
+         5aQGFa72HK88ZroyNZeJ0z3TsTPYXZVBGCOPqX/jhe4qGkrUiLAQf/LlV5eGX4OIL2GQ
+         XngjQZSLhUp8TNiN1Y8j9ASBtjmxHqrqyxbKxiDVnAa38+F+DKThy5MeC0WkDExq0Xjz
+         hFpg==
+X-Forwarded-Encrypted: i=1; AKwUvBxhdoDPvX0A9+2ZZMp7VN0QnnfkSaiG9vHIJpmLYNjcCRC6vv7sQddoMReLuU0ULA26/gO1pGACrEiGmbU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIeNaxqlIamX1tLxDka47qQgZ857aXFNGkGaV9M27AKTEUkyL+W
+	aA0m6f70/9kagkrDLX2kIHzIZFN676Hg8VByGDcAbaUb75oSG/9Wen+5
+X-Gm-Gg: AYBFou3ead/Qr2NYmLCyctkN8c1GsPxV736Y6Lt+VCbjSMWgVStITGh51QxSSyo2h6o
+	mfQT+Ssi3RBKIzFfLhLS2AjhVOeV0O9KPS/FLyz6rc/LIPTsj62RxByB0WBPESrsCitgiAjNa8q
+	+MYZhj9ueGiXSEG8frHbtYS9/mXBjUlGjNOhyUHeLLDs1YwO0fyyVAnbzr+YWRM688uD2fjJ0EV
+	swKr6cmZyI4lfLTtM8SACGrr+O9TLGuUM2EpyE0CrXrWX2mgik5nanXRFpfFxHhMJNxmaRJ2lMV
+	iN5d7+TasKx121yU4bMRK32UyzyKcxc/Ax280P8KuRab64WRQEnfLsXJoLHLOtYhy3KIHmFB1+h
+	XW+2E2pYE98Ay1Ux0EQ+PPRPdzEFtVSdAb2z7EX83P5gDizN5LQSlPX9bWFnhMQAW0Nc585O0Vr
+	sbqdjbSKvAZU6cKSTVBHmepg1hOit6XqIWoTpMrJSkVUX5NOAxf3XqjludHjxf8a+ui3dz1g==
+X-Received: by 2002:a17:902:fc4e:b0:2dd:c170:2d4d with SMTP id d9443c01a7336-2e842abcb40mr45997035ad.24.1791632076141;
+        Sat, 10 Oct 2026 04:34:36 -0700 (PDT)
+Received: from localhost.localdomain ([2a05:dfc1:8bc4:feda::11])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e854375642sm17557525ad.57.2026.10.10.04.34.30
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 10 Oct 2026 04:34:34 -0700 (PDT)
+From: Jemmy Wong <jemmywong512@gmail.com>
+To: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Tim Chen <tim.c.chen@linux.intel.com>
+Cc: Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
 	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	mchehab@kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	sakari.ailus@linux.intel.com,
-	German Pablo Lindo <germanpapulindez@gmail.com>
-Subject: Test for [PATCH v3] media: i2c: ov13858: add regulator, clock and reset GPIO handling
-Date: Sat, 10 Oct 2026 13:30:55 +0200
-Message-ID: <20261010113055.31715-1-germanpapulindez@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20260831130312.26296-1-lsa.uz@pm.me>
-References: <20260831130312.26296-1-lsa.uz@pm.me>
+	Jemmy Wong <jemmywong512@gmail.com>
+Subject: [PATCH] sched/cache: Avoid publishing partial LLC utilization
+Date: Sat, 10 Oct 2026 19:34:25 +0800
+Message-ID: <20261010113425.34829-1-jemmywong512@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,6 +82,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-As discussed in https://lore.kernel.org/linux-media/20260913144127.17995-1-germanpapulindez@gmail.com/ this patch is necessary for the proper functioning of the camera ov13858 but not the only one needed for this camera to work
+update_sg_lb_stats() sums utilization over the CPUs in both
+sched_group_span(group) and env->cpus, but takes capacity from
+group->sgc->capacity for the whole group. record_sg_llc_stats()
+publishes both.
 
-Tested-by: German Pablo Lindo <germanpapulindez@gmail.com>
+Rejecting an all-affinity-pinned source runqueue removes that CPU from
+env->cpus and retries group selection. The retry can publish the
+partial utilization with the full capacity. On a two-CPU LLC this
+replaces 1800/2048 with 900/2048.
+
+can_migrate_llc() then treats a busy preferred LLC as having spare
+capacity. More tasks can aggregate into it, migrations out can be
+blocked, and two busy LLCs may not fall back to generic balancing.
+This increases CPU contention and task latency. Found by inspection.
+
+Publish either shared LLC statistic only when env->cpus covers the
+whole group. A partial scan keeps the previous complete snapshot;
+other groups still refresh. Load balancing still uses the
+affinity-filtered statistics.
+
+The same window exists during CPU hotplug. env->cpus drops a CPU at
+set_cpu_active(false), but the group span and sgc->capacity still
+include it until cpuset_cpu_inactive() rebuilds the domains. Keeping
+the previous snapshot avoids the mismatched publish. After the rebuild,
+the next periodic balance records both statistics again.
+
+Signed-off-by: Jemmy Wong <jemmywong512@gmail.com>
+---
+ kernel/sched/fair.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index aa4a7d22d1df..a98a62f729d4 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -12121,6 +12121,13 @@ static void record_sg_llc_stats(struct lb_env *env,
+ 	if (env->sd->child != rcu_dereference_all(per_cpu(sd_llc, env->dst_cpu)))
+ 		return;
+
++	/*
++	 * Affinity retries can remove CPUs from env->cpus. Do not publish
++	 * partial utilization against the capacity of the whole group.
++	 */
++	if (!cpumask_subset(sched_group_span(group), env->cpus))
++		return;
++
+ 	/*
+ 	 * At this point we know this group spans a LLC domain.
+ 	 * Record the statistic of this group in its corresponding
+--
+2.25.1
