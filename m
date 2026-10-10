@@ -1,132 +1,136 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mta1.migadu.com (out-164.mta1.migadu.com [95.215.58.164])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6D403EC82B
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 12:16:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791634613; cv=pass; b=Vj8iD+2Og7wbivCs63SUhMxQSPCut4w7qTUworWPW8POF9gjdAHJ9KDKIg4lrOT6b+ZKMYFVXDyTCKIX9httyASKYZtVUp8JWc/IGBGOERv9o52WoP4X1uuoYA49yluzT1U1VwI6dOR2w4Uf+teDNK6uTtBfLKQsK9vlwX7lOrg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791634613; c=relaxed/simple;
-	bh=ZGJygfgJ1vZiogBEUmUhMjrRiIMouFDNzOqzYt/kMEQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NZz5D/+NAUiInwtYm0VpF14urKMc7/+lUiPHqmC2d/8vIrbqe2/45LusvzZJvfk/lFQB/ZMtPTkoM0ejT2Oj6qj0kZqJH/97qrXqIQvzhOyKg5z0+rMF+qSstunooQTO2IyZxbdSgXk5j66g0TT4L9+YRoVKb+xQtwyqmYoP9EE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=SLzotch2; arc=pass smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8935331ED0
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 12:17:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.164
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791634660; cv=none; b=mdTinEW+dcVI2HJ44pf6AZ+9syNsPEs32fJWdmZg48kZ6o2edwiCVVAxpJgbfCvwnAzpcGG8xiR35lbUd1kXT2B0BguJfSp2IHn799BcN3XbbVG8D92/6v7RnYkfHy0W17U1D/ya+tvP2wa/R5Gc2Yl+SxhEWLHrzrEHYcCcPQg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791634660; c=relaxed/simple;
+	bh=/oC5LqvhCIZWoE13YlrWBvbYvUdEQxoB6HLEhcwuDqo=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=ccaCiT6jkGiabUl2TTdf9eYDs/hCt+s4bFTT3GKtN/SLvECbO4QnltBKgoKGrXY201QBN/OjtRB5EzAcPSZ63mIOk8ifTRRw/jZ/1i8PiU0QLUDo6djpAIGca9g7DRn3LdZt2jRcWy6JYMpz4IR+hVYEAw+dOqJFcRSM7xF/0hM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=t2+nxAc8; arc=none smtp.client-ip=95.215.58.164
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="SLzotch2"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a026611b2cso8275e9.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 05:16:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791634610; cv=none;
-        d=google.com; s=arc-20260327;
-        b=UWifPmG7bto3FQSir+C0/2499rLOcX/5/WgF5b3R9qt5I0VJWBAT9r9FcfsjZpvHzD
-         N0s9dXfUP4ZbW/YFgwD9CzLlG5dA1zprJ+Qm0TmBqsNmtj5Cprr9zPRi4eDQb7kvzZNh
-         IoDnSow3A49BLC4j6FZusZkkwbIfKpFE5qw+7uD/bs83KHQfEaRwJ6bx9yhd4meAvbd1
-         uUzNNal1FRD7q0FEyq6sDH81jTmtxoJkOTy2ZDifBtTSLiQ3WrpKbDPhSgN6MrqTHZNL
-         xcfH+BSEJ/TlEuADuIhOrPzJIFmscBuFF/JP0oi10U6MztU/9eHP6XCGkvkCFp7Nb+Q8
-         IByQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ZGJygfgJ1vZiogBEUmUhMjrRiIMouFDNzOqzYt/kMEQ=;
-        fh=Fd+ETls680/qvAM8pmvaVT4+LlUxEGJ9D4VKNGolIsM=;
-        b=W+Z57UfxyUTTns7nViDO2j+q9JsqA+TsjT+7I8sS07KSXJUrAJG1i1kvtuqgvrE0no
-         zWDe3jlNx5pkI2ZYd9mevfiqeFAcwN396+AxtPzG7d4RmvFwCg719Ey3qyYCIVaeLZXN
-         hSgufRN4WV0tpJgn0qXQbm3/9pNlQZ+uP3mPr+VRLogMC0hSpJfdkAv1FlCse+4blPZG
-         Tcixr6jhrOR1DlIPo7xmLEk1YO4VbYZjWJZYs0R9OPo45ymJTpDYLnQQFA9PaUmSS0k4
-         M5jURBhogfiIi+RfSOGGR9jaCBnBK87xSwGN4t77D9o3wZgUWTF5Ua4aMVQlZ45cT5w8
-         mK6w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791634610; x=1792239410; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZGJygfgJ1vZiogBEUmUhMjrRiIMouFDNzOqzYt/kMEQ=;
-        b=SLzotch267cSplIFK/3jOGd2uYZhN2LkMIowWcOp2gwgO8AfsKn45zcr0lLMYeW+NH
-         /XcTIARa8COLG6FrUJIn5H5ZynRIoKUPPcOejFhIJCM3pb6LNaMKoFPDBwtPNaDDEhLV
-         4yHDHF4wXgQmZtp+g0avsyh6UmpteQxwzs9je44ybM2qydvCFEPGgT6P7LMA2+6FD2vd
-         83vJXIJZ5PdSwJB1NtvOy3vqts1q9HskoOq0XJDLhJHYTzqcCbQjAyMfBP3O/ahEJDw/
-         t58CusoJuXmpGU8sMqK3wDIqFOJdg7OHbWQYIWKJ8sPqw/a/7LcRYIHejnp587v7Kb48
-         lddg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791634610; x=1792239410;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZGJygfgJ1vZiogBEUmUhMjrRiIMouFDNzOqzYt/kMEQ=;
-        b=yqwd5se2i2Uob5S9dRzxzUlJBd76HNwhO9MkCOz3xK/NhelwdN6tkbQYYI98EqOKTX
-         sJRyhr5a7DUeI7CooF1xHDvT895/diYOtY+1e5RZyjUDeeD9L7iTXUBlKInhVByta2+y
-         8USyDAPp+XFnumuKSYfvbfgUub9PmeOMNPGracfmqub6A1jGr/BTYzbzNeitzPp80zzr
-         3st1+3331kBFDO+bIP+6IM5f/eNbKFzW9NIZmHSd8j/RHDZVCNwDYaY2ehjXJ+gqaMSg
-         qW3YSruFqKgvq0uCr0VDoN7M4W8GBL3aKxzRZ3lKi6nReiXqTPvlG1G0PabUH+6nLe5/
-         1YkQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwAMrb7kfN4zxSKodkeNkGGkhsXheCsOAu94pmorZmQovE2ghBs+IVNr/acziWqvc19Dhpor7Ig9xSaQos=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK8EYLrLey1YKoqv3oMCTaYOiiG268DWqBH6UQfskAqrdLyaIki
-	bB5f2i1UpfdT9jEq5G6gJWt+Pm8j19PcAfj11Kc3Tz2g83ddWDxYasHPPLQO9jb1S3h6RJqMBxJ
-	0stAgFMZQKfap9OB2iR3rb8+slZYtFkI4HgK1O8AK
-X-Gm-Gg: AYBFou3JKUJ0AOGFSMqcyXOyNumB4gbbVu/i+Uj4MDkSXoTq4Xe2X3Fxvw0VFAB5Xbf
-	GuKaRpei8fEujShxH4xZJRU0SIjPOeabFRvqhwpFSDDh0m+oUjFqK88gyAw1ItEJHsT50JRPnn8
-	k4J1tkYPVjRaf7H7/9hUFGT5/beuPX43mkbdZz4hIpn49Lb3fHxFtlC25YsGHrcAIjn8FVe45Qh
-	qSHHBPrvrWh0hICh+860KS/idv0PV+6k532cJbSa2ZuKa9z7F7ozoJzyG1Phv2t5/dKjSAjzYe5
-	y3uDMCpADZelCwypGO6SY67dNnpw+IjKT0q7veqqfDUILhpj+TeDn+btzYWnl5Y7BIX15/zm/ha
-	xdc/J5xDo4E8=
-X-Received: by 2002:a05:600c:a10e:b0:4a1:80d4:55ce with SMTP id
- 5b1f17b1804b1-4a195b30c84mr305755e9.4.1791634609468; Sat, 10 Oct 2026
- 05:16:49 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="t2+nxAc8"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=/oC5LqvhCIZWoE13YlrWBvbYvUdEQxoB6HLEhcwuDqo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791634655; v=1; x=1792239455;
+ b=t2+nxAc8HwGfwSfMb3KLOB2GvhA8rtvxhQvSLPl9v87A7yHgrE2oRfE+UTKGSMiNIH8ApgI3
+ a7KI10WnGMjlLO7J+6WvEW69ttVIH9J53U4gmWUCQCJnwgBKvXhQo9xV8+pIOZpEMeB2zGIcgo2
+ 7+gDpe/tzdln+JOvFoam8c1M=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id cabab91e30cf1091;
+	Sat, 10 Oct 2026 12:17:35 +0000
+X-Mizu-Trace-ID: cabab91e30cf1091
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009-selftests-bpf-dmabuf-iter-unnamed-v1-1-962ee94f7a5e@gmail.com>
- <CABdmKX2VHqWrPb2O3Uqdccx=nP66gECU0kVc=4tZdGqSEZvuGQ@mail.gmail.com> <20261010025252.3716641-1-odys.yuan@gmail.com>
-In-Reply-To: <20261010025252.3716641-1-odys.yuan@gmail.com>
-From: "T.J. Mercier" <tjmercier@google.com>
-Date: Sat, 10 Oct 2026 05:16:37 -0700
-X-Gm-Features: AclHuK-buTBub6GSvkPbrPC0OJrukJaaCD5TTns2vZsTz9QpTX-JSgssQ-hs3Wg
-Message-ID: <CABdmKX2CkaBzSqeaDHYUC594wiwjJ0edjZyGp6uSD+5GeDk_zA@mail.gmail.com>
-Subject: Re: [PATCH bpf-next] selftests/bpf: Accept unnamed dma-bufs in the
- dmabuf_iter default test
-To: Qiliang Yuan <odys.yuan@gmail.com>
-Cc: Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Date: Sat, 10 Oct 2026 12:17:31 +0000
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
+From: "Zqiang" <qiang.zhang@linux.dev>
+Message-ID: <88e9dca361959a297f854200cba0c5c80d26877a@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH] tools/rcu: Add new APIs to rcu-updaters.sh
+To: "Joel Fernandes" <joelagnelf@nvidia.com>
+Cc: paulmck@kernel.org, frederic@kernel.org, neeraj.upadhyay@kernel.org,
+ urezki@gmail.com, boqun@kernel.org, kunwu.chan@gmail.com,
+ rcu@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <FCDF3652-74F1-4EA4-B39E-3F74F1EAF5B5@nvidia.com>
+References: <20261010083107.15086-1-qiang.zhang@linux.dev>
+ <FCDF3652-74F1-4EA4-B39E-3F74F1EAF5B5@nvidia.com>
 
-On Fri, Oct 9, 2026 at 7:53=E2=80=AFPM Qiliang Yuan <odys.yuan@gmail.com> w=
-rote:
->
-> On Fri, Oct 9, 2026 at 5:07 PM T.J. Mercier <tjmercier@google.com> wrote:
-> > Hi Qiliang, are you running this locally instead of with:
-> > tools/testing/selftests/bpf/vmtest.sh -- ./test_progs?
->
-> Yes, I ran ./test_progs directly in a Debian testing VM, not through
-> vmtest.sh. The VM runs a GNOME desktop on virtio-gpu, and gnome-shell,
-> mutter-x11-frames and ibus-x11 each hold a 4 KiB udmabuf without a name
-> (their fdinfo shows exp_name udmabuf and no name line). As the
-> iterator walks every dma-buf in the system, default_iter fails on such
-> a machine before it gets to the two buffers it created. The minimal VM
-> of vmtest.sh has no such buffers, so it doesn't show up there.
->
-> The subtest only checks its own two buffers, so skipping over the name
-> of any other buffer seemed safer than relying on all of them having
-> one.
->
-> Thanks,
-> Qiliang
+>=20
+>=20>=20
+>=20> On Oct 10, 2026, at 4:31 AM, Zqiang <qiang.zhang@linux.dev> wrote:
+> >=20=20
+>=20>  The following commit introduces some new APIs:
+> >=20=20
+>=20>  commit 'dab06d6f9379 ("srcutree: Add an atomic Tree SRCU")'
+> >  commit '8df13f01608e ("rcu: Add full-sized polling for cond_sync_exp=
+_full()")'
+> >  commit 'd96c52fe4907 (rcu: Add polled expedited grace-period primiti=
+ves)'
+> >=20=20
+>=20>  synchronize_srcu_atomic(), cond_synchronize_rcu_expedited() and
+> >  cond_synchronize_rcu_expedited_full().
+> >=20=20
+>=20>  Sample output when running rcutorture:
+> >=20=20
+>=20>  @counts[synchronize_srcu]: 48
+> >  @counts[synchronize_rcu_expedited]: 74
+> >  @counts[synchronize_rcu]: 102
+> >  @counts[poll_state_synchronize_rcu_full]: 443
+> >  @counts[call_rcu]: 2498
+> >  @counts[synchronize_srcu_atomic]: 8717
+> >  @counts[poll_state_synchronize_srcu]: 14849
+> >=20=20
+>=20>  @counts[call_srcu]: 22
+> >  @counts[synchronize_rcu]: 103
+> >  @counts[start_poll_synchronize_rcu]: 1093
+> >  @counts[cond_synchronize_rcu_expedited]: 5339
+> >  @counts[cond_synchronize_rcu_expedited_full]: 5375
+> >  @counts[synchronize_rcu_expedited]: 8134
+> >  @counts[get_state_synchronize_rcu_full]: 17248
+> >  @counts[get_state_synchronize_rcu]: 17266
+> >  @counts[call_rcu]: 119168
+> >=20=20
+>=20>  This commit therefore add thems to rcu-updaters.sh script.
+> >=20=20
+>=20>  Signed-off-by: Zqiang <qiang.zhang@linux.dev>
+> >  ---
+> >=20
+>=20Nice, Thanks!, Could you update the documentation too and include in =
+this series?
 
-Thanks for the explanation and the fix.
+Hi, Joel
 
-Reviewed-by: T.J. Mercier <tjmercier@google.com>
+I have already send patch for the Doc API update separately.
+
+Thanks
+Zqiang
+
+>=20
+>=20>=20
+>=20> tools/rcu/rcu-updaters.sh | 3 +++
+> >  1 file changed, 3 insertions(+)
+> >=20=20
+>=20>  diff --git a/tools/rcu/rcu-updaters.sh b/tools/rcu/rcu-updaters.sh
+> >  index 8a5df3f22550..a0f03a144f6a 100755
+> >  --- a/tools/rcu/rcu-updaters.sh
+> >  +++ b/tools/rcu/rcu-updaters.sh
+> >  @@ -34,6 +34,7 @@ bpftrace -e 'kprobe:kvfree_call_rcu,
+> >  kprobe:synchronize_rcu_tasks_trace,
+> >  kprobe:synchronize_srcu,
+> >  kprobe:synchronize_srcu_expedited,
+> >  + kprobe:synchronize_srcu_atomic,
+> >  kprobe:get_state_synchronize_rcu,
+> >  kprobe:get_state_synchronize_rcu_full,
+> >  kprobe:start_poll_synchronize_rcu,
+> >  @@ -44,6 +45,8 @@ bpftrace -e 'kprobe:kvfree_call_rcu,
+> >  kprobe:poll_state_synchronize_rcu_full,
+> >  kprobe:cond_synchronize_rcu,
+> >  kprobe:cond_synchronize_rcu_full,
+> >  + kprobe:cond_synchronize_rcu_expedited,
+> >  + kprobe:cond_synchronize_rcu_expedited_full,
+> >  kprobe:start_poll_synchronize_srcu,
+> >  kprobe:poll_state_synchronize_srcu,
+> >  kprobe:rcu_gp_init
+> >=20
+>=20Ack on this patch.
+>=20
+>=20>=20
+>=20> --
+> >  2.17.1
+> >
+>
