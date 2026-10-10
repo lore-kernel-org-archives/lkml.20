@@ -1,140 +1,196 @@
-Received: from mx.eu-west-1.pants-on.net (mx.eu-west-1.pants-on.net [52.48.52.25])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77E62456E17
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 11:04:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.48.52.25
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791630288; cv=fail; b=S6eTwIVuHZK5ismi+JowmtbbevL6cnVYt1cVrQKMDAF4op6aIX7I6zLb0WfGT9nGpg7WsxdOOqLoQycfZXJk/hW4NBeP9RLpv7jVEQoSfAZNIrC8WN49ay0M5BUi8UR+N57AFs7v6BXg+jMOIv7rkXIuyWqKEDyV+dZKqxeuRKY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791630288; c=relaxed/simple;
-	bh=PA0gpYuL9Sc0pQpb0IG7wfO/HdsgcPxep78OwUvAZmU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=s3lxOD/Uh3AQFbxwfkYI+2yy27czEu2PJdKx0eSaREKjM88d2uyF6OquG8AbJeSSYA8AsfkZJdy9ljwrsr892QKHUc3sLIQFrnm18zyiSKq59kB8QI/Co4BE6wa9UO1G0eObMEEpWsonONolh087DntBZs09GaZJcnolpzL5wyg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=jacquin.bzh; spf=pass smtp.mailfrom=jacquin.bzh; dkim=pass (2048-bit key) header.d=jacquin.bzh header.i=@jacquin.bzh header.b=CciMffOH; arc=fail smtp.client-ip=52.48.52.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=jacquin.bzh
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jacquin.bzh
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5F784499B0;
+	Sat, 10 Oct 2026 11:10:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791630631; cv=none; b=mFEQEaaY6we+nPVKq0vZD2PtbjY0o3LF49+68ZfyqbSYcYXPex2+W9xzqlUVpbc3TCPz0GPDX5CBj7eYhheLsoohoxNNzfO/PjzBeUZEnnK3ro5cbqCpmiHN52Ehb9oujGzswfEWsNOzAcIA+s2ESeMeRwx6BSXFvOyKx6Vlr3Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791630631; c=relaxed/simple;
+	bh=rTigTA+TXOrSSMlYEvZpjU1jNY0paKo9G95Y5OZMkzM=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=nUSIn4ZkFPmVQmGEfALP6VWxzeVnslkxNXpXtIl3/qYfZ36ZA10oTuINVbcUpGXpPBgQOJzr6KoWDDo/0qyASE18vhJZeMdhMrgdD2l5e+MfUMMgqJtpi6dKqUeeCXsZ4y0djlmzQKJrkmfSI+g0Tf5Dj36EZ/D/cLSNgAAFEao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TzapVNJb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jacquin.bzh header.i=@jacquin.bzh header.b="CciMffOH"
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=mx.eu-west-1.pants-on.net; s=20240827.rsa; t=1791630286;
-	 b=ILCNhpm3sghXtZzkdN49XuZpu4lRqR8OLoSiDJey7RGbtjq57VDBFNzezMR0hf7pv30mg9IITu
-	  NyMxHUHzPVzGwJTs2nKXCsjddUuJszwZADARYMKbNFpjl5zPYrxBF4XLO3EeC4jIjfYi5PcymM
-	  V0wZjssk0H2Lhh500l6EEMCM1Acd66w4yG+l3tX+Tc996DN9J+ZR48lkH3OUJGuQK7e7RdRzJE
-	  f8iEfYWq8aYVJ9J+gsfidjZdxxD+T1Tp13okOw4V3fDDrJ4Om9juSQxqwC/rtX5brHMOBtbfDA
-	  aS57LOCLI9+yOPDZBszcyP38l+sBvegKSjt69yJ7eJe/lw==;
-ARC-Authentication-Results: i=1; mx.eu-west-1.pants-on.net; smtp.remote-ip=2001:470:1b3f:100:c143:c31c:85e6:efd7;
-	iprev=fail smtp.remote-ip=2001:470:1b3f:100:c143:c31c:85e6:efd7;
-	auth=pass (LOGIN) smtp.auth=bertrand@jacquin.bzh
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=mx.eu-west-1.pants-on.net; s=20240827.rsa; t=1791630286; x=1794308686;
-	bh=PA0gpYuL9Sc0pQpb0IG7wfO/HdsgcPxep78OwUvAZmU=;
-	h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:Cc:To:From:
-	  DKIM-Signature;
-	b=MXODmuUPfz3PGS7c89UWQkTndZWP4XXQwKAZUQd8eLvoFJSj4rU9FYoUdFplfcKovsdic+jsdF
-	  4tMSpgwrkmLesjZBPCUCuhN7p5oEcU7K71k1GDZ/78kCqp2W+2XHtETPQkcTpuJ9QrSXqT8Kiw
-	  9XgqOzmLiwZEomo59m6mqnwTvhpnsyrBnkjQWYeXMnyJLCGIVajCX5/T3W+OdauH3usMcdVN4Q
-	  TRICWRlq+OAvRKMB18BvMiph3CE51awLvfzcxTUUOYKDFVvB+nfrTW1ltWAFKRxigfzNzeJrBO
-	  lCjhqgc+Y/+ZEWORK+URLNvEvD5yMlaqRgFwo3FTtI1HRg==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=jacquin.bzh
-	; s=20240222.rsa; h=BIMI-Selector:Content-Transfer-Encoding:MIME-Version:
-	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive:Author;
-	bh=PS3ypG6/V5TKHBrClzMCRNtxHOfvTt2g3hC576rf8ds=; i=@jacquin.bzh; t=1791630286
-	; x=1794308686; b=CciMffOHIEEsHmMu7LZ3elC0By/Jn3nWbfcmXodbYJu0goZfGtochOPLAiE
-	QVWvtgJG2UYAbxRdik/FALDFaqtv4nRQ/2zJ0zsR886p2BFOkcexM72yeMm4pLdDUadyf+ya8CwDc
-	5g3kMGBPpnFKR1xEcfP+u1VAdT2BOirm1fmqztpQMA/MelR0CCmzEy2xXaUB121HTwdeA7wr4TszZ
-	Nn5cq2Oggja9VaIWt1s7zzd0lx7l5/PuPFmAHnKGKWhVIWPo4yMlYDe5zVY6LFy67ZC4uPy7vghTu
-	MOjNlawJh3YRZ0GErnWPtewjXzwA6MmEfZIC4NPUcW8msJ3bBkMQ==;
-Authentication-Results: mx.eu-west-1.pants-on.net;
-	iprev=fail smtp.remote-ip=2001:470:1b3f:100:c143:c31c:85e6:efd7;
-	auth=pass (LOGIN) smtp.auth=bertrand@jacquin.bzh
-Received: from [2001:470:1b3f:100:c143:c31c:85e6:efd7] (port=17080 helo=lady-voodoo.lan)
-	by mx.eu-west-1.pants-on.net
-	with ESMTPSA (TLS1.3:TLS_AES_256_GCM_SHA384:256)
-	id 1xFUsd-00000000yGf-14lP; Sat, 10 Oct 2026 11:04:43 +0000
-From: Bertrand Jacquin <bertrand@jacquin.bzh>
-To: heikki.krogerus@linux.intel.com,
-	gregkh@linuxfoundation.org
-Cc: venkat.jayaraman@intel.com,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] usb: typec: ucsi: Fix NULL pointer dereference in power level debugfs
-Date: Sat, 10 Oct 2026 13:03:57 +0100
-Message-ID: <20261010120357.4937-1-bertrand@jacquin.bzh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TzapVNJb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD7DB1F000FF;
+	Sat, 10 Oct 2026 11:10:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791630629;
+	bh=Bl8EQ0HDuwZrFWdMlAeqYGgCcRak8zmNT8lvOCoraA8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=TzapVNJb8cL+QBbQt2HlXcLjnP2xtmcTws+NHgNxlt6nN9DtCe6ILPObgSKGdX47G
+	 93avWH6SE/DkO5wUPAF12dVCUzyaCSFxYUtmJaXdmWUvosKma3uvlibiyffm5NDamq
+	 cgxSOIKR1jqzAwab2BJ8stwJcdZGK4dAjPmnIe5TJgdcP9aw0AhDvldFTiR9fQCz77
+	 NYFSuDHc5FJwjeA+d08bi7IqgHyoJqtYY10mocEQnourw4VCNoYXfOpZmVRknK0tyz
+	 CZF8qOQn2U9b1RI7qC4vbPnhBsjq8wqgkeEvNL68T7+SsjpxOnilgKFHK6tI2fTML5
+	 9JOikgyypOutg==
+Subject: Re: [PATCH net] net: bcmgenet: unshare the skb before writing the
+ control block
+From: netdev-bot+sashiko@kernel.org
+To: nb@tipi-net.de
+Cc: opendmb@gmail.com, florian.fainelli@broadcom.com,
+ bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Sat, 10 Oct 2026 11:10:28 +0000
+Message-ID: <179163062814.434549.7207251041859249341@kernel.org>
+In-Reply-To: <20261009-nb-genet-shared-skb-net-v1-1-c6d0a841977d@tipi-net.de>
+References: <20261009-nb-genet-shared-skb-net-v1-1-c6d0a841977d@tipi-net.de>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-BIMI-Selector: v=BIMI1; s=default;
 
-ucsi_register() creates the debugfs entries right away, but
-ucsi->connector is only set by ucsi_init(), which runs later from
-ucsi->work and only publishes the connectors once the PPM has been
-reset and all ports are registered. Until then, or for good if init
-fails, ucsi->connector is NULL, yet the peak_current, avg_current and
-vbus_voltage show callbacks dereference it unconditionally.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-On an Intel NUC13ANKi5 whose PPM never answers when CONFIG_ACPI_EC=n,
-reading those files after the failed init oopses:
+Critical: 0 · High: 0 (1) · Medium: 1 · Low: 0
 
-  ucsi_acpi USBC000:00: error -ETIMEDOUT: PPM init failed
-  BUG: kernel NULL pointer dereference, address: 000000000000045c
-  #PF: supervisor read access in kernel mode
-  RIP: 0010:ucsi_debugfs_register+0x291/0x420 [typec_ucsi]
-  Call Trace:
-   <TASK>
-   seq_read_iter+0x1e4/0x4c0
-   seq_read+0x12b/0x160
-   full_proxy_read+0x9a/0x1f0
-   vfs_read+0xba/0x320
-   ksys_read+0x74/0x110
-   do_syscall_64+0x79/0x240
-   entry_SYSCALL_64_after_hwframe+0x71/0x79
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Return -ENODEV from those callbacks while no connector is available.
+- [Medium] The new skb_share_check() failure branch in bcmgenet_xmit()
+  (drivers/net/ethernet/broadcom/genet/bcmgenet.c:2159-2164) jumps to…
 
-Fixes: c851b71fd6cd ("usb: typec: ucsi: Add support for READ_POWER_LEVEL command")
-Cc: stable@vger.kernel.org
-Signed-off-by: Bertrand Jacquin <bertrand@jacquin.bzh>
----
- drivers/usb/typec/ucsi/debugfs.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but
+  bcmgenet_timeout()…
 
-diff --git a/drivers/usb/typec/ucsi/debugfs.c b/drivers/usb/typec/ucsi/debugfs.c
-index 77a0dd75edd3..911a151ac16a 100644
---- a/drivers/usb/typec/ucsi/debugfs.c
-+++ b/drivers/usb/typec/ucsi/debugfs.c
-@@ -92,6 +92,9 @@ static int ucsi_peak_curr_show(struct seq_file *m, void *v)
- {
- 	struct ucsi *ucsi = m->private;
- 
-+	if (!ucsi->connector)
-+		return -ENODEV;
-+
- 	seq_printf(m, "%u mA\n", ucsi->connector->peak_current);
- 	return 0;
- }
-@@ -101,6 +104,9 @@ static int ucsi_avg_curr_show(struct seq_file *m, void *v)
- {
- 	struct ucsi *ucsi = m->private;
- 
-+	if (!ucsi->connector)
-+		return -ENODEV;
-+
- 	seq_printf(m, "%u mA\n", ucsi->connector->avg_current);
- 	return 0;
- }
-@@ -110,6 +116,9 @@ static int ucsi_vbus_volt_show(struct seq_file *m, void *v)
- {
- 	struct ucsi *ucsi = m->private;
- 
-+	if (!ucsi->connector)
-+		return -ENODEV;
-+
- 	seq_printf(m, "%u mV\n", ucsi->connector->vbus_voltage);
- 	return 0;
- }
+--
+
+net: bcmgenet: unshare the skb before writing the control block
+
+bcmgenet_xmit() keeps first_cb, last_cb and bytes_sent in the skb control
+block and reads them back when the transmit completes. A shared skb that
+is resubmitted while it is still in the ring overwrites that state, and
+BQL then stalls the queue. The patch calls skb_share_check() before the
+control block is written, so each transmit works on its own skb.
+
+> diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+> index e8908916558b1..f4cfbff49a1b8 100644
+> --- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+> +++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+> @@ -2153,6 +2153,16 @@ static netdev_tx_t bcmgenet_xmit(struct sk_buff *skb, struct net_device *dev)
+>  		goto out;
+>  	}
+>  
+> +	/* We store Tx state in the control block, so the skb must not be
+> +	 * shared, but ether_setup() leaves IFF_TX_SKB_SHARING set.
+> +	 */
+> +	skb = skb_share_check(skb, GFP_ATOMIC);
+> +	if (!skb) {
+> +		BCMGENET_STATS64_INC((&ring->stats64), dropped);
+> +		ret = NETDEV_TX_OK;
+> +		goto out;
+
+[Severity: Medium]
+If the GFP_ATOMIC clone fails on the last skb of an xmit_more batch, do
+the descriptors queued by the earlier calls in that batch get handed to
+the hardware?
+
+The only TDMA_PROD_INDEX doorbell write in bcmgenet_xmit() is on the
+success path, and the out label comes right after it:
+
+	if (!netdev_xmit_more() || netif_xmit_stopped(txq))
+		/* Packets are ready, update producer index */
+		bcmgenet_tdma_ring_writel(priv, ring->index,
+					  ring->prod_index, TDMA_PROD_INDEX);
+out:
+	spin_unlock(&ring->lock);
+
+The earlier calls in the batch already advanced ring->prod_index and
+called netdev_tx_sent_queue(), and they left the doorbell write to the
+last packet. When that last packet takes this goto out, the skb is freed,
+NETDEV_TX_OK is returned, and the hardware is never told about the
+earlier descriptors.
+
+pktgen_xmit() in M_START_XMIT mode with burst > 1 can hit this path. The
+skb is always shared there, so every call goes through the clone:
+
+	if (skb_shared)
+		refcount_add(burst, &pkt_dev->skb->users);
+
+xmit_more:
+	ret = netdev_start_xmit(pkt_dev->skb, odev, txq, --burst > 0);
+
+The final call runs with more == false. pktgen counts NETDEV_TX_OK as
+done and does not retry it.
+
+Those frames then sit unsent in the ring, and BQL inflight stays
+nonzero, until a later transmit on the same ring writes the doorbell. The
+queue is not stopped in that state, so dev_watchdog will not recover it
+either.
+
+The existing exits for a bcmgenet_add_tsb() failure and a DMA map failure
+have the same pattern. Would it make sense to write the doorbell on the
+drop paths when !netdev_xmit_more()?
+
+> +	}
+> +
+>  	/* Retain how many bytes will be sent on the wire, without TSB inserted
+>  	 * by transmit checksum offload
+>  	 */
+
+[Severity: High]
+This is a pre-existing issue, not one introduced by this patch, but it
+involves the same ring->stats64.syncp that the new dropped increment
+uses.
+
+bcmgenet_timeout() updates ring->stats64 without holding ring->lock:
+
+drivers/net/ethernet/broadcom/genet/bcmgenet.c:bcmgenet_timeout() {
+    ...
+	bcmgenet_tx_reclaim(dev, ring, true);
+
+	/* Re-enable the TX interrupt for this ring */
+	bcmgenet_intrl2_1_writel(priv, 1 << txqueue, INTRL2_CPU_MASK_CLEAR);
+
+	txq_trans_cond_update(txq);
+
+	BCMGENET_STATS64_INC((&ring->stats64), errors);
+    ...
+}
+
+By that point bcmgenet_tx_reclaim() has already taken and dropped
+spin_lock_bh(&ring->lock), and the ring's TX interrupt is unmasked again.
+
+All the other writers of this syncp run under ring->lock. That includes
+__bcmgenet_tx_reclaim() called from bcmgenet_tx_poll():
+
+	spin_lock(&ring->lock);
+	work_done = __bcmgenet_tx_reclaim(ring->priv->dev, ring);
+
+which does:
+
+	u64_stats_update_begin(&stats->syncp);
+	u64_stats_add(&stats->packets, pkts_compl);
+	u64_stats_add(&stats->bytes, bytes_compl);
+	u64_stats_update_end(&stats->syncp);
+
+The watchdog holds netif_tx_lock, which keeps ndo_start_xmit out. It does
+not keep TX NAPI out, and NAPI is not disabled here.
+
+On 32-bit SMP kernels, u64_stats_update_begin() does a plain,
+non-atomic seqcount increment. If bcmgenet_timeout() and
+bcmgenet_tx_poll() interleave on two CPUs, one of the increments can be
+lost and the sequence stays odd for good.
+
+If that happens, bcmgenet_get_stats64() would spin forever in
+u64_stats_fetch_begin(). Stats readers that hold RTNL, such as
+rtnl_fill_ifinfo() callers, would hang with it.
+
+Could the errors increment be done under ring->lock? Either wrap it in
+spin_lock_bh(&ring->lock) or move it inside bcmgenet_tx_reclaim().
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261009-nb-genet-shared-skb-net-v1-1-c6d0a841977d%40tipi-net.de
