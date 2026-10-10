@@ -1,181 +1,186 @@
-Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic307-9.consmr.mail.ne1.yahoo.com (sonic307-9.consmr.mail.ne1.yahoo.com [66.163.190.32])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E01E2F1FDE
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 19:48:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D40793328FD
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 19:51:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.190.32
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791661717; cv=none; b=p2qeOJmdnpsw2ltOEP2NQs13/JpEhiefhE4Uqy38ODljfrIr7Ih6sHgfcTM0aeuMJuqtjPsyI7b4fsPI1tT2ZZyPcsvSaBteWNPL75YIZoVBwzK4H8iqZZqh8flbQM3/1geCVC88E+dnBOUbyjUjCIlzfPnA3YPwUTm0Yc1DLbY=
+	t=1791661871; cv=none; b=kE+eYOvoeklCJrFmpIcaH3s+plfzu/vC9Guum1vJgYvW68/xDMooXTAu/oQvquKdCUfPNX+R38Mhwf5Jcqm7qHdZupLkIZ1Bkf3gz9cjcP6+fqRAOJ3+Zdln+19+xSczUpVx/9KOhxIYybk+0ziQ4qcyNV4E/HRP3AEq5gTAor4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791661717; c=relaxed/simple;
-	bh=Ip47nGqRYuZ9uP7eugq6vHsOVJqhA+tGe0zMcvunU2E=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GTKb3nCh7fk9QI6nQghWE8R/Qq7+5x6LyL3J9jrbOqqX/KDGHCqRbmIJ/xdqISd+3mCxkcWnx1AD8HbYGI8MOd6sU2GcHPNCKEtMKtFq7K2h+Vz95MquWjMZyFLg+kQ1P8gSiSxgT07bZ+M6cSkxx523OEDpLncYxwSOFtoXoOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=dFjhU9BB; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=IOsIZFY5; arc=none smtp.client-ip=202.12.124.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	s=arc-20240116; t=1791661871; c=relaxed/simple;
+	bh=4is5Ve7tOSMT15/yh+C2OSoels3Gn6qO/pKrfJZlqhA=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
+	 In-Reply-To:Content-Type; b=OZ++E4Y2rpmMqGFh+oaKPoLZJ92nvwXoR4Gc8NpIQUCXzkU6w3zR1zqeYQQgmg4fbjzeBfftWHK8us1wab5ObL97rBo7Pzzg66fFm9fmsNT2GHUamI3rXzbrp31zKKaKGdkShXxxJHgZdqsnb98zvxJ+/6OUVzFsn/cnaaeu5rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=PWJUMrSF; arc=none smtp.client-ip=66.163.190.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="dFjhU9BB";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="IOsIZFY5"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.stl.internal (Postfix) with ESMTP id 5373A1D000C9
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 15:48:33 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Sat, 10 Oct 2026 15:48:33 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1791661710;
-	 x=1791748110; bh=Mpk8tuq3ZKdRKx7sF2neLgFdiyY8Y71+3ELpGFZGVYQ=; b=
-	dFjhU9BBSsq+SYwRuKmXvJizGAnywZFi1/eB+IKWaddlzr93Ws03rn6hyWP6jAIX
-	L0biiWksuNjaF9MYD3/kOScHXYROWWDVTXy70r0MygraMjJ2Yy1G0DgovEwekKWb
-	2AAYxcvQhU4PFf0aX4rEcaD1vlvtgHS790qySd+VYh9DlkykLblCdKNUCIAt2BbW
-	qdKiiv8Q+dS56f00S7YOeIe5ulQX5a8DTq+5NEBXlszoVIkTOGNN0B2datVSMO58
-	Kfmp82CpqzpZw9e63VcxkZz5Yss4XnTEFYgF9bexeBLnifzlwQuLsugQM1dN9Ihc
-	TDJTIxC+g/pEwe454q4zhQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791661710; x=
-	1791748110; bh=Mpk8tuq3ZKdRKx7sF2neLgFdiyY8Y71+3ELpGFZGVYQ=; b=I
-	OsIZFY58VCST4QRZs3KHsRpq/uen9aRCRa8z2t6KyVsNTNOzImTeMnHyiJWIvxaJ
-	6eMtCdzv0nZHk56e4BGvnTTiXXRAygnlewv3+22cXLyvp7ssUluomO7vZ1PrLZJe
-	y1rrcOrxm1r8o6gajhFsE6FZMjSz8ONvLvbDdr3FaHxrcZQy8zAGye/EXoJUjU1t
-	c8fVgqo64Ep47EaSAVYIwg1mxTWbIFQ72fQTYB68MuUJKC488UvfF4GyAYpugkou
-	mJJkE95yEDsO1aitkpgWq7+kmi1UNh3JhEyxVSvUx51G5Fu39EPiLm0+Mh9MpT2/
-	Jqt/wCU+97H+0Vl7d2ccA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=shazbot.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791661710; d=shazbot.org;
-	mf=PGFsZXhAc2hhemJvdC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:h3/jqIabXiXRQ6IBob0oGHuLW4bLv03thPjm4f3++YreEZo
-	jwvTrcq28lvKnITj9p3t/BpMYVh64SY+u4ZnpyrK+alm0x0YjhiAS/rlGwJZ+xCA
-	n9m3d5WzYN74laLPS7B1pm25RtPeeMV2te6UQD6GTCYh9NEcgxCcLcm+jJ0uj/Y9
-	EgOQLMOl5Y8fQn4Pbkchm1DXmnvDEQeDCUhnw+cIJ0n+ABCVn44b+RfRIPVIUk+n
-	Jt/zx6sWBveKPeUvy4ELPXmOKTrY7U16Gs4v1uGqr5i+KXyRl62eqy6LspEn/e2q
-	QrXJyYUzrH7arGI5rUnc1aWlvVe3vMOSkRwp9iQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:JQECRrIdci2KqkwXkXpU46/1WsnESaEY885b570AcOU=:Ip47nGqRYuZ9uP7eugq6vHsOVJqhA+tGe0zMcvunU2E=;
-X-ME-Sender: <xms:jZbKam3LnieqAYm0CkTRcJiGlwhkuyqX6KdbH2lUw7Cm5nXmXlCDNw>
-    <xme:jZbKaqY8rjX0jTnexfrsqKJpqCSwrtSvItTnrZ4mTPkxV_wyMwbqibzgvFQm5eHcx
-    bW1_nEA4QSKFHj7C_XyYNJqf8crjo8pR-NdTzdLSk6E-TaVEMgL1YI>
-X-ME-Received: <xmr:jZbKajj7493WMz4bJ9mvht12sRfpSln34-cmd9GQXbvAqh56-Y5gYnDUGt5Rsg>
-X-ME-Proxy-Cause: dmFkZTGZTlwi8RbFEdb3MRZvUXZMBGNIKNyjY6VEepwpFmCKfXHuxsMoE+NyeflJwrIBhH
-    IOz8Q+AH2x3zxMRSqt/OhPnXZXQhEh8JP+XiW5lxSXWl9nmxYWaL8Tiw9zab7V8YTLFCxO
-    oE6Nd7TBUZklfkBpYEE3+OkCaPfS+Hi2LfcIXGZtE8Rnufb5CTEBTX2C6KD/Txqnpp2suU
-    UdDB/Cc4Vvhxcvm5tCrFeLr2WhDzqG/Yr8r3a7BK0dgvJFczwSOcCmWfnVwkk4+2/mRTyo
-    NCaPQ6SZt1qbWh6n/nWeTPORAaaabRggJeVzaLpx7q49ZRVQpchYcnvlFzZgtP0b2hywBN
-    +2YlZG7EESVGKvez3+5GF07nOO8Su7Vf2oYHqeDaAQ/cqodAS5VXgUmVdJZHH72JX5yTx4
-    0oIxpS00m9JQ4BRNhqBcwLFU1c2UkoQXvgSsmtOlvjK8o+KZRrVYhBSmWtzpXRmdqVm3Nn
-    oVazj5QFHfk0HEkBDUjnL3EuNbufHBzKGOq5HsSmY4axPMBdlhzNA1/ew0zIbvG7EFfQ7/
-    /KVwfYdY84AJZLssQ3VHm8h20j7yc8W4V/RtJkLSOQxUqS5z/jxbfwlKRRRPAozJoeaefw
-    NPoXFelxKjHYNPoiESHmZjCtMmoNsie89aLgrv1YRM9cR8Q1J1Q6zU2T8rvw
-X-ME-Proxy: <xmx:jZbKaqjuISDcq9ZlOAlMS52RWsyY63tvtTkoquijc6wW762u_4cp4A>
-    <xmx:jZbKagAr4yOdSBuKxZ8edWGIsexj0fEvxYUXipShdHyt0idTTwGkRA>
-    <xmx:jZbKai8WyB9d03bD3JijSsuI_bMTOFV7RBnGpE-8gbCfgty8IxJvvg>
-    <xmx:jZbKapDvMVY4HrsLGCiUDtTNHmOaRN6-N-ZNpR9dlc2QqMKzV5Knyw>
-    <xmx:jpbKauew5nhyOsnavNOIn9pdNfOHnqPPDvisgAizHdXOE0xuGqRdFyiB>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 10 Oct 2026 15:48:28 -0400 (EDT)
-Date: Sat, 10 Oct 2026 13:48:26 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Simon Song <xinmengs@nvidia.com>
-Cc: <jgg@nvidia.com>, <dakr@kernel.org>, <acourbot@nvidia.com>,
- <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
- <jhubbard@nvidia.com>, <ecourtney@nvidia.com>, <cjia@nvidia.com>,
- <smitra@nvidia.com>, <kjaju@nvidia.com>, <alkumar@nvidia.com>,
- <ankita@nvidia.com>, <aniketa@nvidia.com>, <kwankhede@nvidia.com>,
- <targupta@nvidia.com>, <linux-kernel@vger.kernel.org>,
- <kvm@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
- alex@shazbot.org
-Subject: Re: [PATCH v3 0/1] vfio/pci: Give drivers control of PCI
- driver_data
-Message-ID: <20261010134826.55364f0f@shazbot.org>
-In-Reply-To: <20261005184236.1946167-1-xinmengs@nvidia.com>
-References: <20261005184236.1946167-1-xinmengs@nvidia.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="PWJUMrSF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791661863; bh=ulEjKq7CzK7yoNLvVbImGxxWIDzr79V25ZVIMHJtM4w=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=PWJUMrSFv5RyEUu+GLwICgY47fkqgMCri28sIDLX7qbJrhxZo7+xy6O0Gn6r13jtc6DXTY3P43l/OZNEFSy6Djxp5bR6r1d5oVrvGw4gVT+i33RVJHukBMe8f8hD909Iy3cSTD9t0dY18uXM1+bov9kL3l1ndekkVqhP3AdoTfn8sxOhE/swr9voSRBBSPfIguW/2hNVsp1P+EgmDOl/9wrs3ovWv3rMxNTFzoDadSwrxBletPr2hJwzA9yr3f9aOYMRGhk2OZoWaVm5fDx5Wa/rt9FZMBmQqCSdPPRtUvUgbAlNqKFo9/S3LhO85Z/fvH4YNS9sruDAtVqXQ2kG2Q==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791661863; bh=TR/Mvo4ncTQ0vza5wxd4dLA/JrLgvok7WDlwBrSwqWX=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=E002FiNQ5fDfkVKueAsCX0FahdXr0zOjEvtIHCfMrQi9VkY6cjDfOztFIZx6l8bCZe1eaGNiXdR+R/ueZWzviGOTP0mGbfIjAYRnWjeHUcJcQgG50rirbDhHDfTqki1sTtmNG3Vi/qv7+SCH7yQ/qkBfEXLwlFbVUvV/GmhQ0AxwvD365l+u7LMP+2iB/ZaTsaw09MquyTpnNVuUgWk/k3TsPnRNOxBC6+BE1yj99nGdg21BOlGyl8c2dZlcaBQwnAR8ULgQPgyjqZRP1HvXZTZKeM2YQevWN5M3UUgg0dlG0nDXZ+BUZWfRCsWNh1bZi0Jx6y/o5ZZb/s/FkLgkXg==
+X-YMail-OSG: 11JVnWcVM1mf8.ku3woZ2u8CimgqsMGAnSnNpWc88F.J6KDB4Qe587celqkUUlZ
+ gGAyNYx3P0m9sQKnx1mEFqSzmSAxk7fIpT7hNRodZLCFMgS7FPzAk6w7ykYllG9fIn33e4iHkV1o
+ 4KtdUg.i90jsbzMxMXLxZOd4y1kdyZ0Aa1buJWAQElTl0tocRLTnrrMcl3ajnA4Hm4LpErDCW5hN
+ 6D9BYYrMvmyetj8S78fIFxt5_MSQ7ykZ3IJGoUegYnjab._0zmGbIxYzBPXuMTEC5TsnXjYvISXe
+ xyf25F3yxDn2gcd1FmH9lfUcHZytMWix.Nq3X3n4xZ.xDPTc0MEYgvMAfL_wNx7ovipLmMX8FYbd
+ mg.gPn1qbHk6jWP84Ido7iDxrdaoGY4vspY.4mBmzgtP26yWIhve.lBr31YjrV.56YtCzl9f6ttD
+ wcGKMENscvAmwcV5OcwEnCmUGJLWwkH.215K0YUdg1fY6NK_34LDVUNOh1g6kuJljJa6_Pd.F4tY
+ mrihBwIrhak4HVXiKyTK_H0WyCY0tSfK5Jxb4EI0ZxL.JaBbCsuP4fE4cUGZSktGfytSRjFIYgVi
+ .p_BzYQmuo.72aFCzxgvuPzhMTXBpSSuAlPodbntYa8CS8pYQ7K3mwL0.1jOFKcLPwZUsYz26CD4
+ GCN.Z3ChIpA3A5BAcl.zB6XGk6cPfcax2y4VEfS6wafMBVWGYyunVZXw8QlMSjIpaOIV40c.wc3V
+ 3TD9YaDG2M9SL7O92ecGgArse2Vrs6sCD7jELJ3T154n.Sd2EJ4GuXhUwAbntaCdcbn.3Aylco19
+ qoXj8M4Yl0zgQ.Rd9hw1S_Z1hcgS9V63x20UUc_TXSm8JbGeNMy4ZQKw6tEf2nwNWt8oCv94LpG4
+ HfDldGjCr4Cgfb.ZnJy3sqXo8vFSR_oFIQb9Ogl67XJEjoVwqJIq40AoxtEl6dAhh_44e9DNSL7I
+ 1__bVHw8gsM_dfxnjuw8fe6UjtTTAa3_8MmXs8bGWS.llLlmA90ev.9KMoqPzovaxnIDmrvJQ0y6
+ Ivkt5juPmhdGiPi3dbWo9FQyacYkrljq_saFD7eVf5yNxTSC4iqfWa85xbMzAX8TLHhfI4._WXKa
+ UkupHdhYlQAp4I60JQIK1p0grtmnt1zgr.bmCUdC3KA1argBFWa3skcvmb4IZNKL1wVUQQ9D3sfr
+ DvsszWN_cmVYRf3GeOPFNCSNM3Yd_tjZjRrriK6djGJy909IAEsVEixftMILExdy6zJK6TJZ5vzr
+ V1IG7AGuqPtYyUp9yofFq1nNB6g5nTFNhRuh6K1SbCNmShZmNeK39foG100gCSln89AOQBlb.Vjw
+ Spi7_KLBpvr1u6Z7RxuPUXB1HBelRd1An9aKQzEWdR4Bs3AvLhp6tWXxAmt8NfvmCZoIarqATIQe
+ VbFZqN8uiQOUiNrJYZhb_4cAbxBMaxAtwCa3TXmS50yJ35JFHIqL0mwrvjcx6u63QxlMSNMk6Efv
+ .zR_6yH1L9BgkhBicwcMuWx8LPmrdbZrB7UOfJJeZRY8X3EznXZ0sGtposro5f5TdyUFZrNBYmTq
+ PdQhn_vhAHTf1uEDJWEFQayPkuZAL3ZclqX8WVPB0FEWdNn0I49E_u5J1ESMoXTrP9xUI2MNS9dA
+ waE0s8n0TTyUmd_HrLLkWwSW_X..wFexDZqXx3CYHynn1sw30C.OXF_VJaVuAA1.7UGTeCbiN.0I
+ 02R9kihDtYd_IHZjExXyJpWAwA_oKN9sYQdNEUmttX8aTlMRLzSqd58E9I1LoOtvQwUDoH9lazn_
+ xqmv_XsZRBT6RArqTw0I2514qzuHZeTmfkzXSevnOTXaOPGvFpgUHTceDD1Fied0E5bGOzyhyOJc
+ cktZ7Sh4a35kjrTE70YEoitxO4RkZ4ONmZNlnuaFdD3kzWIzT5KDFQxenOrnzdSnCU6XvcL2FVvE
+ RqBEhxQAF1.jdCymdHNRfox9kc903KRvELlNgyD14apkmHWFqrr_LoVveIIopC1tvAA7z8dp2k_2
+ izuXT5Atk4qPl.P1lY.JOhvS4M7Sv5cp8Olj5ajCKlPLnu_9g2RBvlqCfgxx24wPWP6atnI.4bvK
+ XUZX6Tzx3f0c.smBOEw41hy6lTo8DzgiwQDjJASCljDkn3AEenZLcqpB7Fbr5erFpgtHH2geuv.S
+ JZf6xRioUyJVHizBYe.fDP2iBIF1L2AD8iIxtCH3itlW2x5fXkkXrhIgUzU4G0gD.nsV8KSW2sMU
+ OKTPdMeIV_WMS1g6S9Au2anJfB9dvPFCF61P_2FpyPFTTsQwwyXSWLVYcLW6C2yLn9MQ8aHYcoM9
+ qmeXqEOvCZMdQJW5rGw2g2cna.BiqNBi_qZ7MLQ--
+X-Sonic-MF: <namiltd@yahoo.com>
+X-Sonic-ID: cc370df5-6336-4c24-89e6-ab1b50b425ea
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic307.consmr.mail.ne1.yahoo.com with HTTP; Sat, 10 Oct 2026 19:51:03 +0000
+Received: by hermes--production-ir2-5dd9bf4598-c45bs (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 720aa7e155ad1e7cc0489d0905145b20;
+          Sat, 10 Oct 2026 19:40:44 +0000 (UTC)
+Message-ID: <2b619d04-a3d3-4905-8232-f69be8546fab@yahoo.com>
+Date: Sat, 10 Oct 2026 21:40:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: [PATCH net-next v3 4/9] net: dsa: realtek: rtl8365mb: set RGMII mode
+ for family D
+From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
+ davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <e84d76ee-03df-49b0-8c9a-b289dfae8728@yahoo.com>
+Content-Language: pl
+In-Reply-To: <e84d76ee-03df-49b0-8c9a-b289dfae8728@yahoo.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-On Mon, 5 Oct 2026 11:42:35 -0700
-Simon Song <xinmengs@nvidia.com> wrote:
+On family D, RGMII on extension interface 1 needs two things that the
+other families do not: the EXT1 RGMII TX clock delay field in
+EXT_TXC_DLY (0x13f9, bits [5:3]) must be cleared, and the pin mux in
+the top-level configuration register must be set up.
 
-> Hi all,
-> 
-> This patch lets VFIO PCI variant drivers store their private structures
-> in PCI driver_data, removing the requirement that it point directly to
-> struct vfio_pci_core_device. This also accommodates the typed driver data
-> used by the Rust PCI infrastructure, as discussed for the proposed Rust
-> NVIDIA vGPU VFIO driver [1].
-> 
-> Runtime PM and AER helpers receive an explicit vfio_pci_core_device
-> pointer. VFIO_PCI_CORE_DEFINE_CALLBACKS() generates per-driver wrappers
-> that retrieve the driver's private data and pass its embedded core device
-> to these helpers. Each driver installs its own PM ops table.
-> 
-> VGA initialization selects the decode callback in vfio_pci_vga_init()
-> based on vfio_vga_disabled(vdev). Both callbacks use pci_dev directly and
-> do not depend on driver_data.
-> 
-> Changes since v2 [2]:
-> - Drop the unused pci_channel_state_t argument from the core AER helper
->   and its callers, preserving the PCI callback signature (Danilo).
-> - Wrap each driver's PM ops pointer with pm_ptr() so unused tables can
->   be removed when CONFIG_PM=n (Sashiko).
-> 
-> Changes since v1:
-> - Extend VFIO_PCI_CORE_DEFINE_CALLBACKS() to accept the driver's private
->   structure type and the member containing vfio_pci_core_device.
-> - Store each variant driver's private structure in PCI driver_data.
-> - Select the VGA decode callback in the core and retain the one-argument
->   vfio_pci_core_register_device() interface.
-> 
-> [1] https://lore.kernel.org/all/DLFD2ZDSK9YQ.3A4R66G8UJMD8@kernel.org/
-> [2] https://lore.kernel.org/r/20260930143641.4160785-1-xinmengs@nvidia.com/
-> 
-> Thanks,
-> Simon
-> 
-> Simon Song (1):
->   vfio/pci: Remove the core dependency on driver data
-> 
->  .../vfio/pci/hisilicon/hisi_acc_vfio_pci.c    | 27 ++++----
->  drivers/vfio/pci/ism/main.c                   | 19 +++---
->  drivers/vfio/pci/mlx5/main.c                  | 13 ++--
->  drivers/vfio/pci/nvgrace-gpu/main.c           | 19 +++---
->  drivers/vfio/pci/pds/pci_drv.c                |  8 ++-
->  drivers/vfio/pci/pds/vfio_dev.c               |  5 +-
->  drivers/vfio/pci/qat/main.c                   | 12 ++--
->  drivers/vfio/pci/vfio_pci.c                   | 33 +++++++++-
->  drivers/vfio/pci/vfio_pci_core.c              | 61 +++++++------------
->  drivers/vfio/pci/virtio/main.c                |  8 ++-
->  drivers/vfio/pci/xe/main.c                    |  8 ++-
->  include/linux/vfio_pci_core.h                 | 41 ++++++++++++-
->  12 files changed, 159 insertions(+), 95 deletions(-)
-> 
+The vendor RGMII setup for EXT1 clears the RGMII field of EXT_TXC_DLY
+(0x13f9, bits [5:3]) in addition to programming TXDELAY in RGMXF.
+Do the same. The init jam table writes 0x0090 to this register, which
+leaves the field at 2, so without the clear an extra TX delay would be
+applied on top of tx-internal-delay-ps. Clearing it makes
+tx-internal-delay-ps the only source of TX delay.
 
-I pulled in Dave's topic/pci-vgaarb-rework-2026-10-01, which gives us
-93d41424caf7.  The vfio_pci_core_device is now registered with the vga
-client so we no longer need to derive anything from the pci_dev.  This
-makes all the VGA changes here unnecessary.
+If the internal MAC4 block is not occupying extension 1, bind the
+RGMII/MII pins to MAC7. SerDes 1, which shares the pins, is always
+disabled.
 
-Applied to vfio next branch for v7.4 with the VGA chunks (shown in
-the discussion thread) and commit log paragraph describing them dropped.
-Thanks,
+Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+---
+ drivers/net/dsa/realtek/rtl8365mb_main.c | 50 ++++++++++++++++++++++++
+ 1 file changed, 50 insertions(+)
 
-Alex
+diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
+index 8f3295c..c15b88b 100644
+--- a/drivers/net/dsa/realtek/rtl8365mb_main.c
++++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
+@@ -332,6 +332,12 @@
+ #define   RTL8365MB_SDS_OPTION_ARM_KEY		0x0249
+ #define RTL8365MB_SDS_OPTION_REG		0x13C1
+ 
++#define RTL8365MB_D_SDS_MISC_MODE_FIELD_MASK		GENMASK(4, 0)
++/* Shared "disable" encoding for both SDS_MISC's and SDS1_MISC0's
++ * 5-bit mode fields.
++ */
++#define RTL8365MB_D_PORT_SDS_MODE_DISABLE		0x1f
++
+ /* Embedded DW8051 microcontroller control registers. The microcontroller
+  * can run firmware to manage the SerDes link, but this driver keeps it in
+  * reset and disabled: phylink already performs the link management that
+@@ -458,6 +464,20 @@
+ #define   RTL8365MB_PORT_MISC_CFG_VLAN_EGRESS_MODE_MASK		GENMASK(5, 4)
+ #define   RTL8365MB_PORT_MISC_CFG_CONGESTION_SUSTAIN_TIME_MASK	GENMASK(3, 0)
+ 
++/* EXT_TXC_DLY holds a 3-bit TX clock delay per external interface, for
++ * RGMII ([2:0] EXT0, [5:3] EXT1, [8:6] EXT2) and separately for GMII.
++ * Only the EXT1 RGMII field is used here, and it is cleared in RGMII
++ * mode so that tx-internal-delay-ps is the only TX delay applied.
++ */
++#define RTL8365MB_D_REG_EXT_TXC_DLY				0x13f9
++#define   RTL8365MB_D_EXT1_RGMII_TX_DLY_MASK			GENMASK(5, 3)
++
++#define RTL8365MB_D_REG_TOP_CON0				0x1d70
++#define   RTL8365MB_D_MAC7_SEL_EXT1_MASK			BIT(13)
++#define   RTL8365MB_D_MAC4_SEL_EXT1_MASK			BIT(12)
++
++#define RTL8365MB_D_REG_SDS1_MISC0				0x1d78
++
+ /**
+  * enum rtl8365mb_vlan_egress_mode - port VLAN egress mode
+  * @RTL8365MB_VLAN_EGRESS_MODE_ORIGINAL: follow untag mask in VLAN4k table entry
+@@ -1194,6 +1214,7 @@ static int rtl8365mb_ext_config_rgmii(struct realtek_priv *priv, int port,
+ 	struct dsa_port *dp;
+ 	int tx_delay = 0;
+ 	int rx_delay = 0;
++	u32 data;
+ 	u32 val;
+ 	int ret;
+ 
+@@ -1263,6 +1284,35 @@ static int rtl8365mb_ext_config_rgmii(struct realtek_priv *priv, int port,
+ 	if (ret)
+ 		return ret;
+ 
++	if (rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D &&
++	    extint->id == 1) {
++		ret = regmap_update_bits(priv->map,
++					 RTL8365MB_D_REG_EXT_TXC_DLY,
++					 RTL8365MB_D_EXT1_RGMII_TX_DLY_MASK, 0);
++		if (ret)
++			return ret;
++		/* Configure RGMII/MII mux to port 7 if UTP_PORT4 is not in
++		 * RGMII mode
++		 */
++		ret = regmap_read(priv->map, RTL8365MB_D_REG_TOP_CON0, &data);
++		if (ret)
++			return ret;
++		if ((data & RTL8365MB_D_MAC4_SEL_EXT1_MASK) == 0) {
++			ret = regmap_update_bits(priv->map,
++						 RTL8365MB_D_REG_TOP_CON0,
++						 RTL8365MB_D_MAC7_SEL_EXT1_MASK,
++						 RTL8365MB_D_MAC7_SEL_EXT1_MASK);
++			if (ret)
++				return ret;
++		}
++		ret = regmap_update_bits(priv->map,
++					 RTL8365MB_D_REG_SDS1_MISC0,
++					 RTL8365MB_D_SDS_MISC_MODE_FIELD_MASK,
++					 RTL8365MB_D_PORT_SDS_MODE_DISABLE);
++		if (ret)
++			return ret;
++	}
++
+ 	return 0;
+ }
+ 
+-- 
+2.53.0
+
