@@ -1,108 +1,152 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A7372ECE86
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 07:05:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA2253655F5
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 07:06:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791615954; cv=none; b=T71i+IQizLaA++rA1fijCFEQ5v+UEu1E+yxTB60QR3ybDBIS/dXm3P929eE8uJuosxZkbOSIq0RNqCl1mhrlsGd3uI+vR5wRlDx7O4pJR9uAcd5PN6JZltKiPJ9QhxqQ3jxZU7JyZ4IsSvL0MAF3xXeyuV+4sEY8wNsN8a+iBqM=
+	t=1791615999; cv=none; b=NUnz4HsLnrt1lfd3XXquOKYeLrWt7IZVlh+ikJbJpvC0DcvvqvYHvuPKB0gos7+seiBj7OLswhks9yyE4VnWSk8L0lpNBGuxVUawe6bIOAUqKB9tVpF8kjh3x5SDDvGWPaRzex0z1z17t24XsxvDXKM3uwnvrRBYsbXrwJ6IjM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791615954; c=relaxed/simple;
-	bh=JMKAvhIXCNUjIDcumQ07uQ6ytuxwQvAU0JuO97CiZgg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Y7+zYlL5aBw+gNrqR1lL6EG3aS+oZzD0JmZQdPz6x5MnaoipkPuraKEKSXlMqmknWxrbfcL9MmQ6B8DeT2uRfQ2ux1whXnpVZ9EZW276iUyHvJg2WUHy2deHfXsk3AxofgVI1sBCLckBtbOQ/wrjalwGzFaHPKNWd/4IpnZh2is=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HxcfU1+k; arc=none smtp.client-ip=209.85.221.53
+	s=arc-20240116; t=1791615999; c=relaxed/simple;
+	bh=6I0EPpmwpmvUzUOUBPqtUUg6dmVPu3NOT1khsU1IydY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iM0TY7WV7qiqjJlHStQfgNb8TKEwvhTPv9BOd+MiTtNheZWPEvQf+YQ+w2V0wJmGyOQ0N2ty8jtYCcPE7Ypbh8nnKIGyY5REM1NCrv9erl+bvKRAPkFCfsYv9upJsTCe1e72Q08lYGTJmcFxYkpS4G8kahoxwq/X6Q4Ef1RBNZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pjns0fgh; arc=none smtp.client-ip=209.85.215.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HxcfU1+k"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48b060ec084so222237f8f.0
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 00:05:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pjns0fgh"
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cd1e069cb19so241892a12.0
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 00:06:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791615951; x=1792220751; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=M9cNNicW0o/hRO92NlnGJ2pji8f57gDd+YVFwHh22Sk=;
-        b=HxcfU1+kFifjL4FwBpqnR3SP4fU7IVhK7AMgJ+vFB5YO1heTATpr6yWcwkFxR3wp4i
-         AjqeHkCDyUVPG3/Uqs5HFkvttghiCm1xpjh6gWA8AnPL8ZZEomUwvgaxYFwnAS9yAsG1
-         Ef+6Z2H51B+6++lbrXKKIAg/Ns5PAiGz9lKx2tqvSH8Xk6pG/KJQ4igdp6NcDlFhLKDh
-         qlE/qVC6zsJaZK8OTVdwjUbySZQCnomU0n0lZEYSGUZgHTF/zUeKKnNNQggYsZjV3yjY
-         yei3W/Nwdgq7u68uRiqtEGr0e7Xd4tMagdIA0tpscz0VPyJmos26SwQvVks73fJHExiT
-         cyjQ==
+        d=gmail.com; s=20251104; t=1791615998; x=1792220798; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bbsPZfGBd2rav72sK74P9etUlxxSzGjQ86YpqChNaKk=;
+        b=Pjns0fgh/arPzBIJtcbAXrvEXd8AvaZptX0ce3WwJiHrL0tGI9EMdk2jgK+WqpAlvm
+         in1kQ2CVLoQ5hstrv57aKu4c+yVCJDuWPD01bq2/1+5D83qRtSQoEwadphe6WV7pr9m3
+         QEhQ95G0O+4W38WjeA0Y1ZwiuYC3wK2AHGNjQiu7rdnYj660U76KLpEzOOvkmB+HiU6i
+         kVHsN+wyzMNjxT0ZzFucEP1tZ6TsALIUrClnn7+NiS+KM0UGkzA3BavgfP74oWtBJT4f
+         hDn6R6D8Dtg3V0qEYAhZH2WtaQ+ssU2I2y8rtGI5jDPP7pOcyMjYRZb25wbPG5SarXPG
+         tNDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791615951; x=1792220751;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=M9cNNicW0o/hRO92NlnGJ2pji8f57gDd+YVFwHh22Sk=;
-        b=I/Bkg6i43G66XNC4KqbBM5E8iTx16Op0tzSGeYIDHqmAqvsDKLf7BvUpn96DrBVAFw
-         SGu+oO5OlkChz1d6mPbG0ypxTu5HN3keL4wvAJ3DvFa4bY+mBJj0ljqNdrXhyodJ2pfE
-         Cg02JmsRjOCQ5umsZ8mS5Hm74rXlVfvX36XrD+Y8gDpOSV5TH6lPbv+Mfct3sKDfri7P
-         3v4JK492+qImFicJxnrMpDvS3yBOIWPo+N58vO98ZOmixeM73zojV5KuAvttt9k22pJl
-         4Fba47hHL7edJ4k+uNtbdW5D8+RtosjXfzfWN01VEG3Vm9m5gDeU0hX/ABXNJiRn/tsv
-         vlHg==
-X-Forwarded-Encrypted: i=1; AKwUvBz8ovTEtOno3lxAOynddS47B+XrvEqOnNis7KwG4rlwC40Ai5M68J/uYUOWKxthPcfFzlcGmrMK0F5Pu+Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKMg5Zk44DDRpRwf7rQkY09ifhvJMce96WFfy1XUl5DiY1UhLX9
-	hFqXwhTgQ7DyudLKik/EnXVsHRNHfWKQuEXWYV/RzawDB1Oj15gWRBne
-X-Gm-Gg: AYBFou0SQuLlEf9c5tBeL1HyenaPOoSVqS+Kp+Z6Wsvm3UqKoXYO7McXFIX1dlY9/vE
-	PMlByUc7lX0LKa/NM9WGFYkBQqcff7/wT5VzfWXrHCvdvc8lCNwVEzoxwIYkrJJOCQBSp2nmXxf
-	ZWowXs4Mql5x7j+XRWR1+Xatwqt+cYGUDg4ou3PxsW5vkUG00M/CsRvtnjBo2nHCjdP4AVg7Mjg
-	jGSEECtx0pAvE9owzNBF74NHZ4EXAXjGeXT0U/dk4ynly/obIWOGb1LKFnKkI4GfcXJZDbgWGbb
-	mrfsUx9kY1Fdd1Hvajw5R3DAITZiV5quxJC1SurG1e68cAhafxr/tr7n9RVYoXUnEcKBOTmKo5G
-	rzwll0+0kD1QaMlKez3Z7Gely/cSE6lA25dN2lqTKBmQYwDDxoYX8L72GwV6p7PA+VUtN+AqLMA
-	Lku6d1YxSSXs7JlTUj6ltpGzYzO1lciiwtxwTidMLZ/vzIgQXxU1qULLaxYAnz+OudB1K4bBGqh
-	3ag37I0JC9YW8YPAgAMjN90QGtTK2vZOLt+VTJlx7ihhrqUiFI3q7VNt6KMbIfK4jZcGigXCBCR
-	E+WDNix0SrraT7hFjyof7N6rwr0NnZXvuSqIUS99keX08GLRnEjmLjN/apEsVYHs8V2rPXnGavM
-	ywcB0mk3aJVzg4i5eDidlJkInW57EiDXgTMXETVwBRVpT15o=
-X-Received: by 2002:a05:6000:4308:b0:488:823d:5060 with SMTP id ffacd0b85a97d-48dbacf1667mr7353088f8f.48.1791615951135;
-        Sat, 10 Oct 2026 00:05:51 -0700 (PDT)
-Received: from systembl0wer ([2001:718:1202:45:4bf3:6161:9f6f:60cb])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9adf5e6sm7449823f8f.56.2026.10.10.00.05.50
+        d=1e100.net; s=20260707; t=1791615998; x=1792220798;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bbsPZfGBd2rav72sK74P9etUlxxSzGjQ86YpqChNaKk=;
+        b=W/K+QlQ7dRZ6az9+XrKzpJ5y0p/BcpTUnAdOMZpF2V+k/eRUYNWHJcXdSEeLCLkEaE
+         aC+9rlTcOIETFrmcMHb2Vqzlh46SmXOQgzYx6Eafs1vclydy8QPGVERgNnwLtUZyBfM0
+         bXEHeUPf238dHfldlsgddQd8SSF6Znyr40/T/yOwGfPm7ivYxhBQbareXqNVLLKeNv+m
+         sRUsNYy1n7dDa472gD5ZAqg7rbgVn7FBLC4WLcdS0/OR7IyMXA34Dn85jtYiEJjvEs+m
+         oRA7fOozacJmChmK7EQmxKHy5yUvE8y4KgNSiwkptvsTz1ol+8wh2uMaoDc+OOL61LRb
+         1pQA==
+X-Forwarded-Encrypted: i=1; AKwUvByOIwpiffHc+Zs0Cwd065c+r15PmzQlHgq96bXQ6AtM/OQTivIbWhzp1KLs4txCjxc46tByhvVaCO0F0Dg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK0myElFKRuNr44ewARbs2Jq4ORTsUiNnFay+S7kDQrLI1mKqv+
+	zKPFzR8eN8do+4RfJTjTej5AciCqAG1rNDvaAsgQcgaxb71vwi6uEl/kw1Mna+UE
+X-Gm-Gg: AYBFou2bmUNs34wZYTeAaMpVt2B6kPg/L2LWKP58JBfLjb9mkaozGxgbPunOcfTqdPk
+	GRSzS0F7jxnK8axz7GofxDr5zD0G/RCcH9ATZ6FsOxIF4aqfkNJqXoYqpE6L2oV3Xro09UGNNVN
+	iqMZmW6+xeAAJkLrcQNxTcA37cgEIF4hrVfSpStztpezkIyeS611S88xRSLHKCd4W9YI+EJI8DW
+	l1rlDRMQCfYj6G+sbTevccWZ4qLnKZ2i0Sx020hQR/vg20Aylu03DE/qoTYnsg6e1kmEMOA0qxQ
+	Q4s063GWTvvSDQWn3WShY0eNCs02emhPUvMBdeGOEMLDIC4P6uj+MzQvsbTKbaJ5tFpwq0K6RtW
+	CJAhyVSwJRRGdRb0rGMUD2pCRdbV6U6BIsFsVwNSFwwyU6Krk1iwVMg5ZFhsaUbOjbb/7lhUZpg
+	15YMBhqM4i/b4UnKqWQhb8Ceo92GDnl6W+sBFGceKF2kcplpCTl6MyMf+oLqECtH6ifLdk1I5BW
+	SIlh7d0RuRPCcIQ+58hGy3tS1iXTKZJqNPafdE6lPCOdvzWH3X7kR4tkXrWCQq4T93zmStHuYAn
+	iPgXXWwTlAIcd2o1e3ioemuhT2FeEXEg0bZlPAbgHSCyp3fj
+X-Received: by 2002:a17:90b:3bc7:b0:3a8:5fb7:669b with SMTP id 98e67ed59e1d1-3ab3a97cd4emr3375779a91.61.1791615998049;
+        Sat, 10 Oct 2026 00:06:38 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab37163e21sm7955662a91.14.2026.10.10.00.06.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 00:05:51 -0700 (PDT)
-Date: Sat, 10 Oct 2026 09:05:48 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Andrei Stancovici via B4 Relay
- <devnull+andrei.stancovici.analog.com@kernel.org>
-Cc: andrei.stancovici@analog.com, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Liam
- Beguin <liambeguin@gmail.com>, linux@analog.com, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/6] iio: adc: ltc2497: add LTC2493 support
-Message-ID: <20261010090548.789cb699@systembl0wer>
-In-Reply-To: <20261009-submission-ltc2493-support-v1-v1-2-3dad1d4b152a@analog.com>
-References: <20261009-submission-ltc2493-support-v1-v1-0-3dad1d4b152a@analog.com>
-	<20261009-submission-ltc2493-support-v1-v1-2-3dad1d4b152a@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+        Sat, 10 Oct 2026 00:06:36 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: netdev@vger.kernel.org
+Cc: =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net-next] net: bgmac: use the NAPI skb cache
+Date: Sat, 10 Oct 2026 00:06:35 -0700
+Message-ID: <20261010070635.97759-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Fri, 09 Oct 2026 11:43:35 +0300
-Andrei Stancovici via B4 Relay <devnull+andrei.stancovici.analog.com@kernel.org> wrote:
+Allocate RX skb heads with napi_build_skb() and free completed TX skbs
+with napi_consume_skb(). Both run from the NAPI poll, so the heads are
+recycled through the per-CPU NAPI cache and freed in bulk instead of
+going through the slab allocator for every packet. The recycled heads
+are usually still in the cache, which matters on the small cores bgmac
+is found on.
 
-> From: Andrei Stancovici <andrei.stancovici@analog.com>
-> 
-> The LTC2493 is the 4-channel member of the LTC2499 family: 4 single-ended
-> inputs or 2 differential pairs, with the same command format and 24-bit
-> result. Add it with its own channel table.
-> 
-> Datasheet: https://www.analog.com/media/en/technical-documentation/data-sheets/2493fe.pdf
-> Signed-off-by: Andrei Stancovici <andrei.stancovici@analog.com>
-> ---
+On an Asus RT-N16 (BCM4716, 74Kc at 480 MHz, single TCP stream unless
+noted, iperf3 median of 3, A/B in the same boot, two rounds each):
 
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+                         before       after     (Mbit/s)
+  local rx / tx          242 / 210    251 / 213
+  routed down            154          156
+  routed, 4 streams      69 / 83      71 / 85
 
+Routed upload and software flow offload were unchanged within noise.
+
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/net/ethernet/broadcom/bgmac.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/net/ethernet/broadcom/bgmac.c b/drivers/net/ethernet/broadcom/bgmac.c
+index f40fde1d6bce..df2f0a87cbfd 100644
+--- a/drivers/net/ethernet/broadcom/bgmac.c
++++ b/drivers/net/ethernet/broadcom/bgmac.c
+@@ -229,7 +229,8 @@ static netdev_tx_t bgmac_dma_tx_add(struct bgmac *bgmac,
+ }
+ 
+ /* Free transmitted packets */
+-static void bgmac_dma_tx_free(struct bgmac *bgmac, struct bgmac_dma_ring *ring)
++static void bgmac_dma_tx_free(struct bgmac *bgmac, struct bgmac_dma_ring *ring,
++			      int budget)
+ {
+ 	struct device *dma_dev = bgmac->dma_dev;
+ 	int empty_slot;
+@@ -269,7 +270,7 @@ static void bgmac_dma_tx_free(struct bgmac *bgmac, struct bgmac_dma_ring *ring)
+ 			pkts_compl++;
+ 
+ 			/* Free memory! :) */
+-			dev_kfree_skb(slot->skb);
++			napi_consume_skb(slot->skb, budget);
+ 			slot->skb = NULL;
+ 		}
+ 
+@@ -465,9 +466,9 @@ static int bgmac_dma_rx_read(struct bgmac *bgmac, struct bgmac_dma_ring *ring,
+ 			/* Omit CRC. */
+ 			len -= ETH_FCS_LEN;
+ 
+-			skb = build_skb(buf, BGMAC_RX_ALLOC_SIZE);
++			skb = napi_build_skb(buf, BGMAC_RX_ALLOC_SIZE);
+ 			if (unlikely(!skb)) {
+-				netdev_err(bgmac->net_dev, "build_skb failed\n");
++				netdev_err(bgmac->net_dev, "napi_build_skb failed\n");
+ 				put_page(virt_to_head_page(buf));
+ 				bgmac->net_dev->stats.rx_errors++;
+ 				break;
+@@ -1157,7 +1158,7 @@ static int bgmac_poll(struct napi_struct *napi, int weight)
+ 	/* Ack */
+ 	bgmac_write(bgmac, BGMAC_INT_STATUS, ~0);
+ 
+-	bgmac_dma_tx_free(bgmac, &bgmac->tx_ring[0]);
++	bgmac_dma_tx_free(bgmac, &bgmac->tx_ring[0], weight);
+ 	handled += bgmac_dma_rx_read(bgmac, &bgmac->rx_ring[0], weight);
+ 
+ 	/* Poll again if more events arrived in the meantime */
 -- 
-Kind regards,
-Joshua Crofts
+2.56.0
+
