@@ -1,121 +1,137 @@
-Received: from sender-pp-o91.zoho.in (sender-pp-o91.zoho.in [103.117.158.91])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5221535202E
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 10:23:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=103.117.158.91
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791627838; cv=pass; b=nfgQHYuLviTbwvobnPBgYq7U5WwD2GslwjOLTo4aDSIKGUZkbqWnnO6/K2cjEy1UatrIFkcLxpKdFE35Jo4O8CRJEsIcVMKX7a7wb051+7ctNgUhIFDD/vgUFaJS+dRBsFJ3xeATsO/q1RqGVPmfzlHpuwaVzNrQgh22FuGckk8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791627838; c=relaxed/simple;
-	bh=kBXVdNLblXqhPKY+YKyZ2nfk6nagaESH81U5awSIZbg=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:Subject:MIME-Version:
-	 Content-Type; b=VJa9ptFGKhnnomalzwde7HM74QCagWdwaOtTbtMGPHzt2oxCV3fObhmRrjX8JIACsPmcCWZiG82qafhovdPbjqCcJrySmh070umt/hjRt92xtx3Y76Qqdmk2G2bJvratkIaOGlHi37hZWQPxoYFf8sO0r59quIAASY2aoHcAIn0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.in; spf=pass smtp.mailfrom=zohomail.in; dkim=pass (1024-bit key) header.d=zohomail.in header.i=linuxuser509@zohomail.in header.b=OYYSsvkv; arc=pass smtp.client-ip=103.117.158.91
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.in
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 168FC255F52;
+	Sat, 10 Oct 2026 10:25:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791627907; cv=none; b=L3TLRbRVQincptgrxMpkIo+Q6lSIOUjypzC7OgzM2ONspn7IL1utXtQsxPgDSxFGhvG+O97xiiHW2zdFuKDDo4Ni/f4mw6cSoX9vc+dTb7WP2yyASsuH/ZyCgDNOlBrwHYohHRp3KPzLGVyLE8ReQ1b0gY+6h2fdHb35kj5YmMo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791627907; c=relaxed/simple;
+	bh=I3KH1o842MU1hc5uI6sgSimt4viWp1SeNLRIp7pJsnI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=HlKHFupDJk6SmDbNUp20Cv5MtIZXz4HbI72gN9ZCeOYLOgazaPemg1/bPBR8cWak/o0nR6iVTE6BoZDJp+omcvMUN79iGsijd6mNYhPBzWCQ/Vn2pIwbL6J4KR25mx1c20TmPT2c198tk+Z7aNqDxWdvd8pwkQ+hsJiT3w6MJ/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ee8j85H4; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=zohomail.in header.i=linuxuser509@zohomail.in header.b="OYYSsvkv"
-ARC-Seal: i=1; a=rsa-sha256; t=1791627805; cv=none; 
-	d=zohomail.in; s=zohoarc; 
-	b=QLOPbYtfRQDP4XpjsKqXwQJuw5VlNN6iYZWSdXkatGEfU/MEszeEuLFqQbNgIg05CIxeAWZNlDJVNd5emf/sCp0OwOk+tQGu4A8Jn3Q9w7h3PCPnfdO7Ukh23f36pOlCeyNx5QGS8VSmq6veoyGdoaqbsiPCR5iesM/UzbqKlYo=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.in; s=zohoarc; 
-	t=1791627805; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Uj61p2nyqPz0X8L7bYck75AAjf/48Y9e7L9N7YT6+Fo=; 
-	b=Uvvg+8DOVYorLkCnxzL7K2WMmQMSEV9Kyk/V5la7XXrHeRQxRrz6pp/gM6u+7oLEILzL+jI+yBwnjCcf3yH6qiM7M3mPbGEILVMdc2uxid57oy/ArpYnMq6M8Yk+UqFHSw8bK0yvIlpfPIGFD7hF6kwzOFG1NLWwGen227ghUlo=
-ARC-Authentication-Results: i=1; mx.zohomail.in;
-	dkim=pass  header.i=zohomail.in;
-	spf=pass  smtp.mailfrom=linuxuser509@zohomail.in;
-	dmarc=pass header.from=<linuxuser509@zohomail.in>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791627805;
-	s=zoho; d=zohomail.in; i=linuxuser509@zohomail.in;
-	h=Date:Date:From:From:To:To:Cc:Cc:Message-ID:In-Reply-To:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=Uj61p2nyqPz0X8L7bYck75AAjf/48Y9e7L9N7YT6+Fo=;
-	b=OYYSsvkv0FDplasgwICze7IfE274MoSbQwM2nHuz6SVF4Q9lS1v1hl3U0yeLsDfQ
-	MmnagzcJ0YIhRJiY/ohFX98BxKCskD9CtWVxdD+ILFsOVNHRehSNjBTODtoLha02EJf
-	F/HdJckfq5u4jCWzn2tPp5Ww18zDfmyQRUuWCS3U=
-Received: from mail.zoho.in by mx.zoho.in
-	with SMTP id 1791627800352565.0157336159798; Sat, 10 Oct 2026 15:53:20 +0530 (IST)
-Received: from  [152.57.170.22] by mail.zoho.in
-	with HTTP;Sat, 10 Oct 2026 15:53:20 +0530 (IST)
-Date: Sat, 10 Oct 2026 15:53:20 +0530
-From: Ashwin Gundarapu <linuxuser509@zohomail.in>
-To: "intel-gfx" <intel-gfx@lists.freedesktop.org>
-Cc: "janinikula" <jani.nikula@linux.intel.com>,
-	"rodrigovivi" <rodrigo.vivi@intel.com>,
-	"joonaslahtinen" <joonas.lahtinen@linux.intel.com>,
-	"tursulin" <tursulin@ursulin.net>,
-	"dri-devel" <dri-devel@lists.freedesktop.org>,
-	"linux-kernel" <linux-kernel@vger.kernel.org>
-Message-ID: <1a12556af17.597a885f7429.8559089497420287597@zohomail.in>
-In-Reply-To: 
-Subject: [PATCH] drm/i915/sdvo: Remove disabled HDMI buffer dump code
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ee8j85H4"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C4F3EC2BCB9;
+	Sat, 10 Oct 2026 10:25:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791627906;
+	bh=I3KH1o842MU1hc5uI6sgSimt4viWp1SeNLRIp7pJsnI=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=ee8j85H4KTBvo5D2iWQUqzslqD28BiclTELW2VvjL6mgnp94XzPCX5ek3nhth5ors
+	 XoyPvhxfJLQhxcENNxrMBEZGesdX0vsqTbrjQze0Wcn0lG4TBy7L2TOPLkEehP7F63
+	 qh1hZR/jgtjWtzI7aytvlkWu7jEjcwmZJzIDFRDB2Y6FIFD0UzJcy+Bqq8P33YeWA5
+	 pTomzjOQJ0rBvaFXrUE2EqyfeZTPuSwcMOJwDr4A419GVjfYhAtxlyiycazXvzXv/7
+	 ZfoLIiV8LReX8BY8VpVOPFev+DjK7YJvcb3UhEkDDd1WzVtKTk2/75WoMg00MFtuMh
+	 MAyXX2EicBAaQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A1F93CA9EBE;
+	Sat, 10 Oct 2026 10:25:06 +0000 (UTC)
+From: Federico Amedeo Izzo via B4 Relay <devnull+federico.izzo.pro@kernel.org>
+Date: Sat, 10 Oct 2026 12:24:43 +0200
+Subject: [PATCH] ASoC: codecs: aw88261: expose hardware mute control
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Importance: Medium
-User-Agent: Zoho Mail
-X-Mailer: Zoho Mail
+Message-Id: <20261010-aw88261-hardware-mute-v1-1-d0befedd3b4c@izzo.pro>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMMQ6DMAyF4asgz1iKM7TAVSoGh7jFlaCVQwAJc
+ fem7fa+4f0HJDGVBF11gMmqSV9zAdUVDCPPD0GNxeCdv5Ajh7w1TZk4ssWNTXDKi2B79RRbohC
+ YoXzfJnfdf91b/3fK4SnD8o3BeX4Ast8XQnkAAAA=
+X-Change-ID: 20261010-aw88261-hardware-mute-9721d911bbaa
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: Val Packett <val@packett.cool>, Luca Weiss <luca.weiss@fairphone.com>, 
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
+ Federico Amedeo Izzo <federico@izzo.pro>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791627905; l=2467;
+ i=federico@izzo.pro; s=20251017; h=from:subject:message-id;
+ bh=BYKelzy2Ps55yjmnOFm7JWNbifFBGV5GETpncVeWvFY=;
+ b=M+g3tCFx03KoL5rCw3LD9LmwSCGb4Zrxy1QS/Fj6EbKtg09aENr05n7vFGwxaHl9dQIWtYpqj
+ CaosaU6S4kuBIfsJn650s2XbgKkkuyWiCPNfdlFFZ+p1d7E1nQHd2d8
+X-Developer-Key: i=federico@izzo.pro; a=ed25519;
+ pk=XfmNfpH48k8jLbId5NKrp0yoKoFb/uLjr97qIxBImBw=
+X-Endpoint-Received: by B4 Relay for federico@izzo.pro/20251017 with
+ auth_id=544
+X-Original-From: Federico Amedeo Izzo <federico@izzo.pro>
+Reply-To: federico@izzo.pro
 
-From cbebdc3b5dce2d4c0ce8c9b69c62b539fc77dce5 Mon Sep 17 00:00:00 2001
-From: Ashwin Gundarapu <linuxuser509@zohomail.in>
-Date: Sat, 10 Oct 2026 15:42:48 +0530
-Subject: [PATCH] drm/i915/sdvo: Remove disabled HDMI buffer dump code
+From: Federico Amedeo Izzo <federico@izzo.pro>
 
-Signed-off-by: Ashwin Gundarapu <linuxuser509@zohomail.in>
+When the aw88261 speaker volume is set to 0, it becomes very quiet but
+still audible. This causes echo during phone calls on motorola-dubai, as
+the bottom speaker output is getting picked up by the bottom microphone.
+
+Expose the aw88261 hardware mute functionality as a Playback Switch
+control. The new control can be used in a UCM profile to disable the
+bottom speaker during phone calls and greatly reduce the echo.
+
+Signed-off-by: Federico Amedeo Izzo <federico@izzo.pro>
 ---
- drivers/gpu/drm/i915/display/intel_sdvo.c | 30 +----------------------
- 1 file changed, 1 insertion(+), 29 deletions(-)
+ sound/soc/codecs/aw88261.c | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
-index 3075ef04df56..d9c6a620377e 100644
---- a/drivers/gpu/drm/i915/display/intel_sdvo.c
-+++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
-@@ -974,35 +974,7 @@ static bool intel_sdvo_get_hbuf_size(struct intel_sdvo *intel_sdvo,
- 	return true;
+diff --git a/sound/soc/codecs/aw88261.c b/sound/soc/codecs/aw88261.c
+index 8671069f4c18..7303dc9eb4e0 100644
+--- a/sound/soc/codecs/aw88261.c
++++ b/sound/soc/codecs/aw88261.c
+@@ -1014,6 +1014,33 @@ static int aw88261_volume_set(struct snd_kcontrol *kcontrol,
+ 	return 0;
  }
  
--#if 0
--static void intel_sdvo_dump_hdmi_buf(struct intel_sdvo *intel_sdvo)
--{
--	int i, j;
--	u8 set_buf_index[2];
--	u8 av_split;
--	u8 buf_size;
--	u8 buf[48];
--	u8 *pos;
--
--	intel_sdvo_get_value(encoder, SDVO_CMD_GET_HBUF_AV_SPLIT, &av_split, 1);
--
--	for (i = 0; i <= av_split; i++) {
--		set_buf_index[0] = i; set_buf_index[1] = 0;
--		intel_sdvo_write_cmd(encoder, SDVO_CMD_SET_HBUF_INDEX,
--				     set_buf_index, 2);
--		intel_sdvo_write_cmd(encoder, SDVO_CMD_GET_HBUF_INFO, NULL, 0);
--		intel_sdvo_read_response(encoder, &buf_size, 1);
--
--		pos = buf;
--		for (j = 0; j <= buf_size; j += 8) {
--			intel_sdvo_write_cmd(encoder, SDVO_CMD_GET_HBUF_DATA,
--					     NULL, 0);
--			intel_sdvo_read_response(encoder, pos, 8);
--			pos += 8;
--		}
--	}
--}
--#endif
++static int aw88261_mute_get(struct snd_kcontrol *kcontrol,
++				struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *codec = snd_kcontrol_chip(kcontrol);
++	struct aw88261 *aw88261 = snd_soc_component_get_drvdata(codec);
 +
- 
- static bool intel_sdvo_write_infoframe(struct intel_sdvo *intel_sdvo,
- 				       unsigned int if_index, u8 tx_rate,
--- 
-2.56.0
++	ucontrol->value.integer.value[0] = !aw88261->mute_st;
++	return 0;
++}
++
++static int aw88261_mute_put(struct snd_kcontrol *kcontrol,
++				struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *codec = snd_kcontrol_chip(kcontrol);
++	struct aw88261 *aw88261 = snd_soc_component_get_drvdata(codec);
++	bool mute = !ucontrol->value.integer.value[0];
++
++	if (aw88261->mute_st == mute)
++		return 0;
++
++	aw88261->mute_st = mute;
++	if (aw88261->aw_pa->status == AW88261_DEV_PW_ON)
++		aw88261_dev_mute(aw88261->aw_pa, mute);
++
++	return 1;
++}
++
+ /*
+  * The field contains 4 bits in units of 6dB + 6 bits in units of 0.125dB
+  * which is too precise for TLV (!) so we have to multiply the scale by 2.
+@@ -1026,6 +1053,8 @@ static const struct snd_kcontrol_new aw88261_controls[] = {
+ 	SOC_SINGLE_EXT_TLV("PCM Playback Volume", AW88261_SYSCTRL2_REG,
+ 		6, AW88261_CTL_MAX_VOL, 1,
+ 		aw88261_volume_get, aw88261_volume_set, volume_tlv),
++	SOC_SINGLE_EXT("Playback Switch", 0, 0, 1, 0,
++		aw88261_mute_get, aw88261_mute_put),
+ 	AW88261_PROFILE_EXT("Profile Set", aw88261_profile_info,
+ 		aw88261_profile_get, aw88261_profile_set),
+ };
 
+---
+base-commit: becb95e45ef0dda9ffb35156d909d3da7a2789c3
+change-id: 20261010-aw88261-hardware-mute-9721d911bbaa
 
+Best regards,
+--  
+Federico Amedeo Izzo <federico@izzo.pro>
 
 
