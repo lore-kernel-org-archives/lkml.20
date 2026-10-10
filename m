@@ -1,152 +1,144 @@
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f9.google.com (mail-oi2-f9.google.com [74.125.231.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75057381C4;
-	Sat, 10 Oct 2026 07:33:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2361533F5A7
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 07:35:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791617614; cv=none; b=igVaEJdKmy3jHzoSMCqziU/WAuri2L+ifnVwpgh//oLItiqjTuslczf7k2llwpDSDV9eVrN7RqeeTi1W5SXie3fwGE2gHm+WZDQzXWbiIJH20sHfwTdL7eigsntcGXROEveYIRLf5jzLON4ABBFxkG+nSDKNQvqJeO3MWti6vHI=
+	t=1791617756; cv=none; b=bVWL7IaOzdyozYpu/ucInyUzUmLELve1KKgK3FJGzmXTGMXsSb0BwUvBYxPpxcbPwBpkIR+Y7i1JP7p5fIEydUOflbxADdFbhkpUbJam/eLr/Vpcx5Mq7aM3PWbEPr7INx06Kio9zvfpsaCV7wuftJmiweEiVdSVnrrA1EB/M/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791617614; c=relaxed/simple;
-	bh=GKPQLYHgPhr0xMzDC5riZ8+OBSue8Yjv7P3BvUk1Cjg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=cvzw5octAWAXR6/uUUcE2ojfdDT20OKVWdqeIn1ZLi8kI96QoPdbIjZJhsOdNpd/dTvLzomAaGChM5VCvR/WKQAqFmYqAKNWSs098m1EnacTWWo3SDGHAKtWRiHG0ubZwdE8I10hzy2ldArXLfoESuwEEGqnd0F4n+vdEwhko6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=XsgnrXt4; arc=none smtp.client-ip=130.133.4.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+	s=arc-20240116; t=1791617756; c=relaxed/simple;
+	bh=TVIiJVHskzSYIEzDey9M0ArbAY2a1BkeAfEePyu89P0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=aJ9ZZHejAVs9ol+vEn5BpmIVlYH2mccFf6n0PbXTpxL4hDfQ1S18GWgwtkoTcPvAFzjaWSSg8QVhcmsclM+GlihRNQD25UJ+ltdDXm16osSE7BZPwm5czs0yhwutzV1iSluyvg0Nwfdl4IErSu0rVCSjAyOc5Z7hoLyeXVGhYZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XW8/KhOV; arc=none smtp.client-ip=74.125.231.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="XsgnrXt4"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=teqaia83Ord3oLShXQ9VqNIYfVBNpiZYGph0SbHqQqQ=; t=1791617611;
-	x=1792222411; b=XsgnrXt4zDNSR9nXDPEy5XovRcq4yVyf/msM7n5wngSHSy3YfnvM7sblqs0WX
-	j9Lweb3/ZFtzxjJEBWmdLBlsPuBS+0YO24MXPsCI0vpmnyw1UL0Iq+WIgF0u+xnmoyTYDykaOMoXV
-	SGntPFdNpEz7ZTAMgJQhR5GXeLPjyMKnZlAf54UGmPiT85CPspQV1RpwOmSUoztjB+/lSMlpjYDz3
-	t2Ne82See02y0nv+rfnkp8rdyUZ/CC9N2qGr5+JqMSKR6ZUaHp0iHz9W2ZQuBaAar6sO+mDyYO9mv
-	PxeFnndJ9LMi36H3COfARJ5pjEDp3Q2Ylt0ucIoAeDZchbbTCw==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.100)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1xFRVQ-00000002eEW-2cO9; Sat, 10 Oct 2026 09:28:32 +0200
-Received: from dynamic-077-183-246-238.77.183.pool.telefonica.de ([77.183.246.238] helo=suse-laptop.fritz.box)
-          by inpost2.zedat.fu-berlin.de (Exim 4.100)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1xFRVQ-00000002Hil-1T1n; Sat, 10 Oct 2026 09:28:32 +0200
-Message-ID: <6ab95ddaaa19f224b07a2001e03ec002ca2938e2.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH v4 2/2] x86: Start removing X86_X32_ABI
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: "H. Peter Anvin" <hpa@zytor.com>, Tancred <alex@narraduct.com>, 
- Sebastian Andrzej Siewior
-	 <bigeasy@linutronix.de>, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org
-Cc: Sebastian Andrzej Siewior <sebastian@breakpoint.cc>, "Maciej W. Rozycki"
-	 <macro@orcam.me.uk>, Bill Wendling <morbo@google.com>, Borislav Petkov	
- <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar	
- <mingo@redhat.com>, Jonathan Corbet <corbet@lwn.net>, Justin Stitt	
- <justinstitt@google.com>, Nathan Chancellor <nathan@kernel.org>, Neal Gompa
-	 <neal@gompa.dev>, Nick Desaulniers <ndesaulniers@google.com>, Richard
- Purdie	 <richard.purdie@linuxfoundation.org>, Sam James <sam@gentoo.org>,
- Shuah Khan	 <shuah@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Thomas
- =?ISO-8859-1?Q?Wei=DFschuh?=	 <linux@weissschuh.net>, Tomas Glozar
- <tglozar@kernel.org>, Willy Tarreau	 <w@1wt.eu>, x86@kernel.org, Arnd
- Bergmann <arnd@arndb.de>
-Date: Sat, 10 Oct 2026 09:28:30 +0200
-In-Reply-To: <AEFD8F3A-0692-4090-B3F7-A6AD34A24819@zytor.com>
-References: <20261008-x32_removal-v4-0-d389a193c506@breakpoint.cc>
-	 <20261008-x32_removal-v4-2-d389a193c506@breakpoint.cc>
-	 <7f315c7a-0fd1-4f7e-93bb-703d4107aa5a@narraduct.com>
-	 <AEFD8F3A-0692-4090-B3F7-A6AD34A24819@zytor.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XW8/KhOV"
+Received: by mail-oi2-f9.google.com with SMTP id 5614622812f47-4f47feb5a15so79562b6e.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 00:35:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791617754; x=1792222554; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mpcc7xlu2/Y07yx6InZaddKVM8WwydxkM9aORRslbW0=;
+        b=XW8/KhOVwpRa2CNtHq/mwytnsopj6hQe6A/T0RqZ30BWFjzgAhTTUm82k8EJR0Yqfq
+         v4NuyJQkS54UY9Sdvtwvta4LYEHFhzf62tiywClCEwk70X1pH1XsnOj5Onc2C0pmLEKC
+         w3DVLk/JCFht7NG9W744/mhHMWBMY+NKXh/ZKMYqlgv4V0xNy+vokqPrGrNAOVsNCvj7
+         lgCZodGGjM/YCM39gz2OOXzuBicO/qMXBXqNVDzIZDwoZEG1jxH/1axIQj0+wIUww9tc
+         pvcRMKR9Q3YGeAhh7MAQbestpZjxZe8KWbzSTGAXms1rj9L3NxpoM59BC+3ydz3CO8c7
+         8Olw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791617754; x=1792222554;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mpcc7xlu2/Y07yx6InZaddKVM8WwydxkM9aORRslbW0=;
+        b=I42XGJXxACA+M6NHZANTrDUm+qdBh3HtyNASY3OrRV6MBbFKoyrfbnOrTL+7KXWztj
+         WjgDruFBH7oIkVNW8Rs85vpgKAwb0wsvCA0rhcbztDxA5mJIAqvXbrUR7Gq627dnBIXp
+         H1Jxxi1v05K/3OR+IPtR8RW9VzbOQmIXskxl9DPjkZMk8yNLyidoeL1sU44hiOjIJ9aZ
+         gyWkLEp57BxWqY4Be4wtrtCpH9HDkJ5mXcHebLKSX5OPgWMELtwXEmW1NfHJDe3sxFxi
+         nKSJOw9VeDoVmEVAyZnEPAEKZYx8zOznSpNHBuH7SocobvEKS9nzjuTpD8800SRwH2/L
+         PywA==
+X-Forwarded-Encrypted: i=1; AKwUvByrw89zCNwXLXKupNA8/a6AyEK2sm/onkkPYZ0mXnqRUJH0Gt1rRUDRhIkYVMi1t+1DBTNoNrnzrLIjgCk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKt3qxxjEB+McpaVXeHH9JFNBo+/UfozfuHipc3uPsj+VNvlEcT
+	iPOUVrXTJa+3nN5W9relLkMbecyg1OsdQiegnyop+6QlSDjmLiz2bVqU
+X-Gm-Gg: AYBFou3I0YBOV0k/DgZ75oPnzj0FudOMMzLNHL55VrJO1blRHhoGkwu2g6O7gRhbaKk
+	aeu6ou0rNRP9UzTrQoviAhQE4dkJEL4MjF1ofOonhDp7HDiHI6CZHMqoYrCmpSOmYKF0g7qpFmr
+	MvP9Yzj/+1TBmK1qIIf1BJhmXrWLIFqM0R5oVL+vR7U1w3OMAx9ebKcuYYZs8lze5LInSUhwdrn
+	qvE+7Xc1nLmZZY+dd7EmKLqq2QiXJkR/YZwKQi5t/8o6nhEzZEgvKWb4YMbHjIa+76ykyarM510
+	wcsGrzaXUU69PvglrtT2pm92bdvflXJvj+9U6QsHZP3MN+FHrtmtVz0Tzsny5FyUOiw8Tq9gLQB
+	/Wcu4SN2TNhYao8OzHECaJkz2a2Xv9guU0gnWVduiUOgXkyPUNsJQ7kxnpCdRnnojJx1I+lxaj8
+	EQPYI8HkhnWYvnkxD7vYesKNq6+Uq6aZBFePtL78QK10oHleOFD6eDgAZ54VX4Xtkiv/HCzJkju
+	dcqMzaPPG30HGEs3HwZelo9vK7u5rgXi8wzlA==
+X-Received: by 2002:a05:6808:4f6c:b0:4c2:5ac:7f9e with SMTP id 5614622812f47-50c54177a49mr3775147b6e.43.1791617753910;
+        Sat, 10 Oct 2026 00:35:53 -0700 (PDT)
+Received: from localhost.localdomain ([14.116.239.36])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-50c16755587sm4618243b6e.5.2026.10.10.00.35.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 00:35:52 -0700 (PDT)
+From: Henry Martin <bsdhenrymartin@gmail.com>
+To: Ilya Dryomov <idryomov@gmail.com>,
+	Alex Markuze <amarkuze@redhat.com>,
+	Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: ceph-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Henry Martin <bsdhenrymartin@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] libceph: fix client panic on MDS message with data but no data items
+Date: Sat, 10 Oct 2026 15:35:41 +0800
+Message-ID: <20261010073543.2912416-1-bsdhenrymartin@gmail.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, 2026-10-10 at 08:51 +0200, H. Peter Anvin wrote:
-> On October 10, 2026 4:13:55 AM GMT+02:00, Tancred <alex@narraduct.com> wr=
-ote:
-> >=20
-> >=20
-> > On 10/8/26 03:07, Sebastian Andrzej Siewior wrote:
-> > > where certain workloads widely
-> > > move to x32 and use it exclusively. In the meantime Debian introduced=
- a
-> > > patch to disable x32 by default (so it has to be enabled at boot time=
- on
-> > > the command line) because they are afraid of the increased attack
-> > > surface. Fedora as far as I tell has X32 disabled (looking at 7.0-rc5
-> > > rpm in rawhide).
-> > >=20
-> > > Since there is practically no real use for x32
-> >=20
-> > I only recently discovered x32 and built a Desktop (with all daemons an=
-d utilities running 10-30% smaller and some a bit faster, with 64 bit libra=
-ries for eg. Firefox.) My experiment should definitely not decide anything,=
- but how much real-world use would be sufficient to justify continued prese=
-nce (more complex compat code)?
-> >=20
-> > If left behind a flag like Debian (like the 2014 proposal https://lore.=
-kernel.org/lkml/1415245982.3398.53.camel@decadent.org.uk/), there are no se=
-curity risks so I understand the benefit is reduced code complexity and mai=
-ntenance burden. Older threads critiqued the implementation. What's the sma=
-llest kernel support which would keep 32-bit pointers possible? Could a sma=
-ll design (eg. just 32-bit pointers on x86-64 with i386's type layout, so n=
-o 3rd compat case (cf. MIPS n32 and o32)) work?
-> >=20
-> > - Alex Alejandre
->=20
-> The thing is, we don't actually know. Therefore, if we are to keep x32, w=
-e need ***real users*** to speak up ***now*** and explain why they are usin=
-g it and what the benefit to them is. With actual performance numbers.
+mds_alloc_msg() allocates MDS->client messages with zero data items,
+and nothing validates the on-wire data length against that: messenger
+v1 calls prepare_message_data() whenever data_len is non-zero, and
+messenger v2 unconditionally calls ceph_msg_data_cursor_init() from
+prepare_read_data().  Both reach ceph_msg_data_cursor_init(), which
+does BUG_ON(!msg->num_data_items) — a malicious or compromised MDS
+can remotely panic any connected client (kernel denial of service) by
+setting a non-zero data_len on any message type that carries no data
+payload.
 
-Real users usually aren't subscribed to Linux kernel mailing lists. If you =
-want
-to figure out whether anyone is using a certain kernel feature, you have to=
- ask
-within the communities.
+No legitimate MDS->client message carries data items (OSD messages
+with data_len > 0 always attach items; MON/MDS control messages
+carry none), so rejecting the combination is a pure protocol
+violation check.  Turn the latent BUG_ON into a connection error
+(-EPROTO, error_msg set) on both protocol versions.
 
-In any case, we're still building Debian unstable for x32:
+This issue was discovered by Tencent CodeBuddy Security.
 
-https://buildd.debian.org/status/architecture.php?a=3Dx32&suite=3Dsid
+Cc: stable@vger.kernel.org
+Fixes: 0d9c1ab3be4c ("libceph: preallocate message data items")
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+---
+ net/ceph/messenger_v1.c | 7 ++++++-
+ net/ceph/messenger_v2.c | 4 ++++
+ 2 files changed, 10 insertions(+), 1 deletion(-)
 
-> Otherwise it is not worth maintaining, partly because it apparently inter=
-feres with the convergence of the 32-bit ABIs, and the handful of x32-speci=
-fic pieces of code do represent an additional attack surface.
+diff --git a/net/ceph/messenger_v1.c b/net/ceph/messenger_v1.c
+index c9e002d963190..d0978c9031a16 100644
+--- a/net/ceph/messenger_v1.c
++++ b/net/ceph/messenger_v1.c
+@@ -1226,8 +1226,13 @@ static int read_partial_message(struct ceph_connection *con)
+ 
+ 		/* prepare for data payload, if any */
+ 
+-		if (data_len)
++		if (data_len) {
++			if (!con->in_msg->num_data_items) {
++				con->error_msg = "message carries data but msg has no data items";
++				return -EPROTO;
++			}
+ 			prepare_message_data(con->in_msg, data_len);
++		}
+ 	}
+ 
+ 	/* front */
+diff --git a/net/ceph/messenger_v2.c b/net/ceph/messenger_v2.c
+index b323b61e70239..9ad43214bf984 100644
+--- a/net/ceph/messenger_v2.c
++++ b/net/ceph/messenger_v2.c
+@@ -1834,6 +1834,10 @@ static int prepare_read_data(struct ceph_connection *con)
+ 	struct bio_vec bv;
+ 
+ 	con->in_data_crc = -1;
++	if (!con->in_msg->num_data_items) {
++		con->error_msg = "frame carries data but msg has no data items";
++		return -EPROTO;
++	}
+ 	ceph_msg_data_cursor_init(&con->v2.in_cursor, con->in_msg,
+ 				  data_len(con->in_msg));
+ 
+-- 
+2.43.7
 
-Aren't the attack surfaces disabled when x32 ABI support is turned off?
-
-> The desktop distros generally chafe under the 4 GB process limit, which m=
-eans that an all-x32 desktop distro isn't very useful; having both x32 and =
-x64 libraries defeats much of the x32 benefit, so the real use case is embe=
-dded or self-managed code bases.
-
-Well, you can also run x32 code inside a chroot or containers, can't you?
-
-> We are not going to go back in 2026 and redoing the *in retrospect* rathe=
-r unfortunate choices made due to "Hinc Dictat Linus" early on (the origina=
-l plan was to simply provide a fast way to access 32-bit syscalls from 64-b=
-it mode and let the evolution of the compat ABI deal with things like time_=
-t, but Linus objected to introducing a new ABI with 32-bit time_t, and at t=
-he time the time64_t interfaces were not yet there, so it ended up being an=
- ad hoc implementation.)
-
-Adrian
-
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
