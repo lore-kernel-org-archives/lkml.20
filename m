@@ -1,109 +1,139 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE01B3195FE;
-	Sat, 10 Oct 2026 08:04:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0C8A346ADB;
+	Sat, 10 Oct 2026 08:04:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791619474; cv=none; b=jySFDHqoKHWnslStx6P7WsPOqX+dkZ/13hCwS3jTDQbOpFQ5yOQUf8K8uHM2HGUaf3hePQ2cUq4TBOXQ54xxV7Rez7xVUFQlu5P4w3xjRQ5cpeADGjuSJzsGbz88XhDu2Wmzbs7YbLymlPXw8T5MGqsSfToe/TzhDF+VKDk/rN0=
+	t=1791619478; cv=none; b=jtJoerohMoQDcaPWELXVaVF3ICYkq735pcftj610vrXKC1ZBt82CHf+gj1vGHNyKjWhFIJziRah3jdiis924avnr6SCzI6Ma1w3W1H+nc6W9UZ1fMaPiFFRWGsix2Ep5xdntVXFT1e0dZQuobQlhtcMz5RkeJOFUdnGDZvRXuFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791619474; c=relaxed/simple;
-	bh=FOCnO8A2EDjQBoj+wu1pSmCIH57OkwFfDi0QKGtaBWc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=R8HoTy5CJ4NPeKxqD458yOaPTkLReKWxyk9fFv50iVYoVoV8/R46GUTpiZHSWU/LYEQfGxTIZ536g7AfqE3SuCHVSgSf9q28puhX+wPEMhimJ9ZpNqMrldPhU3sJJ4mnW+r/cCzFeul9WePGaJD1M87CdznNPZZHWaVOkPiQ1Qk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=GFrL7Oix; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791619478; c=relaxed/simple;
+	bh=wcuKDl9n3YPbs37qWKjHjBKUuJeC+wKns9oihP1W544=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=orNv7B7eA67BhRRUKNri2icfB1x4Bn8Xdd+41zLH4H48WKZpD9sIXXfd9LIQuPvlCYbUEpAupHO21MWT4ufgYcU9x1Y4JmeKCGOVMRR/HjoPMPR0yG6UahEOLI/XzAsYRiLLm1UlHkVLIXWpp1Bx8OlA7yfBI5p56IMIr9jvgaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=g8fGslmL; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=O9Fri3bz; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=g8fGslmL; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=O9Fri3bz; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="GFrL7Oix"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=kb
-	o772QCvVvwyXS3sX1OmHqoYdmeSvUBrSBmlEGOwEY=; b=GFrL7OixgNhhz4/p8Y
-	D7B5S065c0gKE6i/U++F2db9QFdBAmoWHi2MweBx5VnBUIzhIogB+HE55FvAvagF
-	UmM0oPM8YRYJ7E9tNzEDV3wca3gWcOAxliz2RXdp5TaM8JMBeHLA+HyZ4OlkUvX/
-	+77rCEER8TLnHE6GfjIEdqh8Y=
-Received: from colol4bi5.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3Arpu8clq9V6LDg--.26020S2;
-	Sat, 10 Oct 2026 16:03:58 +0800 (CST)
-From: Binbin Deng <18983559317@163.com>
-To: mcgrof@kernel.org,
-	petr.pavlu@suse.com,
-	da.gomez@kernel.org,
-	samitolvanen@google.com,
-	atomlin@atomlin.com
-Cc: linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Binbin Deng <18983559317@163.com>
-Subject: [PATCH module v2] module: Fix uninitialized count read of unloaded taint tracking record
-Date: Sat, 10 Oct 2026 16:03:56 +0800
-Message-ID: <20261010080356.6596-1-18983559317@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="g8fGslmL";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="O9Fri3bz";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="g8fGslmL";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="O9Fri3bz"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 8071521BC2;
+	Sat, 10 Oct 2026 08:04:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791619474; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9CKdKGoIx7Ap8w/SDss5FvOqIkiWXMx7l0nAxq8yLOc=;
+	b=g8fGslmLxnVu4wOYBavFpMNs8kTHS2kygwhlxDaQbLtkrG4WLWeGdZSeCFUQP4LUJjVpQq
+	A1SNGfmC6qpehnKUwnWvJN7jLR5lFweNdflqqtN5QhNmT6/i8NHm6APgR4KkbkkDzbEEDB
+	zXmLZUZxVJvrHKGFGd/Vwf4BmvOJL7I=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791619474;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9CKdKGoIx7Ap8w/SDss5FvOqIkiWXMx7l0nAxq8yLOc=;
+	b=O9Fri3bzVHEh8ySO2f/MHje1EBrqIz4fjb/pXb8Net8cdA1tgjfrPFuipAqE09g8CcM/Ew
+	xx2A29DjyPbcssBQ==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791619474; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9CKdKGoIx7Ap8w/SDss5FvOqIkiWXMx7l0nAxq8yLOc=;
+	b=g8fGslmLxnVu4wOYBavFpMNs8kTHS2kygwhlxDaQbLtkrG4WLWeGdZSeCFUQP4LUJjVpQq
+	A1SNGfmC6qpehnKUwnWvJN7jLR5lFweNdflqqtN5QhNmT6/i8NHm6APgR4KkbkkDzbEEDB
+	zXmLZUZxVJvrHKGFGd/Vwf4BmvOJL7I=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791619474;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9CKdKGoIx7Ap8w/SDss5FvOqIkiWXMx7l0nAxq8yLOc=;
+	b=O9Fri3bzVHEh8ySO2f/MHje1EBrqIz4fjb/pXb8Net8cdA1tgjfrPFuipAqE09g8CcM/Ew
+	xx2A29DjyPbcssBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 49CC7133F6;
+	Sat, 10 Oct 2026 08:04:34 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id rATdB5LxyWrhTwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sat, 10 Oct 2026 08:04:34 +0000
+Date: Sat, 10 Oct 2026 10:04:33 +0200
+Message-ID: <87ld86j81a.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: linux-sound@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/5] ALSA: line6: Fix handling of zero-length capture packets
+In-Reply-To: <20261009133341.440917-2-tiwai@suse.de>
+References: <20261009133341.440917-1-tiwai@suse.de>
+	<20261009133341.440917-2-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3Arpu8clq9V6LDg--.26020S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tw17tF43Ar4rGr45Kw1rJFb_yoW8Kry7pr
-	W5JrWDXrs8ArZ7Aay8Z3W5W345JrW5AF4YgF98Ga4fZrnFqFsFkaySqF1Y9a4F9ryY93WU
-	tF4I9w13GFyDAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Uc0eXUUUUU=
-X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC4A6kiGrJ8W6epwAA3H
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCPT_COUNT_TWO(0.00)[2];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_NONE(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -3.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-try_add_tainted_module() allocates the tracking record without zeroing
-it and initializes the fields in this order:
+On Fri, 09 Oct 2026 15:33:35 +0200,
+Takashi Iwai wrote:
+> 
+> The LINE6 playback engine assumes that line6pcm->prev_fsize=0
+> indicates that there was no input packet to be processed, and
+> synthesizes the frames.  But, when a capture stream receives a
+> zero-length (or a very small size) packet, it sets 0 to prev_fsize,
+> while playback engine still believes it's for synthesis, hence it
+> tries to copy the larger data than the actual input data.
+> 
+> As prev_fsize=0 can't be a good indication for "no input", change the
+> meaning slightly: now prev_fsize=-1 means no input, while prev_fsize=0
+> means it's a zero-length packet.
+> 
+> As a result, the outgoing packet length can be also zero, so the
+> corresponding check is dropped, too; otherwise the outgoing URB will
+> be lost.
+> 
+> Fixes: 1027f476f507 ("staging: line6: sync with upstream")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> ---
+> v1->v2: drop the zero urb length check code, too
 
-	mod_taint = kmalloc_obj(*mod_taint);
-	strscpy(mod_taint->name, mod->name, MODULE_NAME_LEN);
-	mod_taint->taints = mod->taints;
-	list_add_rcu(&mod_taint->list, &unloaded_tainted_modules);
-	mod_taint->count = 1;
+Hm, still this one looks tricky and can't cover the full cases, as it
+seems.  So I dropped this from the series for reconsideration for now.
 
-The record is published by list_add_rcu() before the count field is
-written.  The readers, unloaded_tainted_modules_seq_show() (debugfs,
-under rcu_read_lock()) and print_unloaded_tainted_modules() (panic
-path, under guard(rcu)), traverse the list under RCU and read
-mod_taint->count.  module_mutex, which the writer holds, does not
-exclude RCU readers.
 
-A reader that observes the new node between the list_add_rcu() and
-the count store reads an uninitialized u64 left over from previous
-slab use.  This is a data race and leaks kernel heap residue through
-the debugfs file and the panic message.
-
-The race window is two adjacent instructions; it is reachable when a
-tainted module is unloaded (rmmod) concurrently with a read of
-/sys/kernel/debug/module/unloaded_tainted, or with the module list
-printout of an oops on another CPU.
-
-Fix this by initializing count before the record is published.
-
-Found during a static-analysis-assisted audit: candidate sites were
-surfaced by a Coccinelle rule, and the reader/writer paths were
-confirmed by LLM-assisted (GLM-5.3) code inspection.  The issue was
-not observed at runtime; it is identified by code inspection only.
-
-Fixes: 99bd9956551b ("module: Introduce module unload taint tracking")
-Signed-off-by: Binbin Deng <18983559317@163.com>
----
- kernel/module/tracking.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/kernel/module/tracking.c b/kernel/module/tracking.c
-index 9033ff54c4e2..9e8902600c32 100644
---- a/kernel/module/tracking.c
-+++ b/kernel/module/tracking.c
-@@ -38,8 +38,8 @@ int try_add_tainted_module(struct module *mod)
- 		return -ENOMEM;
- 	strscpy(mod_taint->name, mod->name, MODULE_NAME_LEN);
- 	mod_taint->taints = mod->taints;
--	list_add_rcu(&mod_taint->list, &unloaded_tainted_modules);
- 	mod_taint->count = 1;
-+	list_add_rcu(&mod_taint->list, &unloaded_tainted_modules);
- out:
- 	return 0;
- }
--- 
-2.43.0
-
+Takashi
