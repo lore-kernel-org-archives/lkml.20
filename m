@@ -1,241 +1,303 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 396653BED32;
-	Sat, 10 Oct 2026 05:14:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791609265; cv=fail; b=I+6yrBMXNadIpu3OONIdh6CAfsZr4FXxqiP/BNppBN2hDwLZnMzqdAMS7Nlkf8+sSRtHDjOzuDrhvVWkEpZrRgcaxOPZJBwah3lGIkd/rgJYMLSZgclJCgKqJUcjnXjzlkD8ZPrOdxYtQYQYmOBW5jCPNzAmlte7zZZndsQjekM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791609265; c=relaxed/simple;
-	bh=ac34U44tVIyIbzs1mO2wlx/kBVW0x39FVzsaMfY/+hA=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=DdtHtntuDke40F/deospSCM+940ZLirpTONidHo9QzNbmAYrA0lcRgukQoUOfVq+CyzuqUlbl0hYe+PQRQz+jzFuKoDIA/W4iNf+mf0Gi9XHKAtgWK4WffRlUWh44rV+TdtFAkAbgNAMuxItwy3P3MnJCWpC9leJzk/TYFcc0ww=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OQrtZnZh; arc=fail smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A18263E1203;
+	Sat, 10 Oct 2026 05:14:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791609275; cv=none; b=o+xa45FkV9DxE0IRmYbJKtWWWvQp8NfGgiFJXWOe7BQ4uClxjAGDkXkX7cm/rC7TzwCywzrxoOwULQXaF7BsPFPvLqmlLeFauy+hc89FrQ9RZfKiONKirikE24uy38mx/V+Yo2kDKP6NWRgtfxBa3h2UbE5knjOLVxhFJRkTUjU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791609275; c=relaxed/simple;
+	bh=pN9t2PDFcay+swSFhK9WSQCtKQZomMLgkPsruGN8dOI=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=HnNMY/JPb+Wdhmqb1h9q6s8ZUeoPABUHF1420Zv4mLw00XkE39j1JDMsiQkSHSQA9++BKGdio7zCEJoKrOv9m2C2WC+NCMtx/B+9EDfapHuvNXPwJg76zQxSK2IB6fDuMh4Lw16x3TD7j+NogBtPVhvv2LK2pdWyjJ9aOjjmK6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YANM/1Pz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OQrtZnZh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791609264; x=1823145264;
-  h=date:from:to:cc:subject:message-id:reply-to:references:
-   in-reply-to:mime-version;
-  bh=ac34U44tVIyIbzs1mO2wlx/kBVW0x39FVzsaMfY/+hA=;
-  b=OQrtZnZhZLo8O1cKdpB9IIMkJTM0zQ4B1qhi+AZS8U99gDuoBCjRHoDD
-   /kINv56kfIrYG/9L6vL2TdbyVLVScOl4+iq1Zt6+Ch7hkDV8vZiY7687N
-   f/kUimrP56oCdNc/fDjmXXlALKmQJuifeVxQqzkbsl2hxTS1WqPeMNRqu
-   9vkQ6qQiguGR8zg+0i+cJsh3T7RbJ67a1GowCqERDAyG8Z1n564iagfMF
-   4vpfur3oho/rKPJVgwUbrLN/onieEV5F1ahpoWiY5RgSumhYthVhmw2KS
-   XWyknO49FqrmsJmHChcOEdEocrwiyhuQEVZ6t3YHhsXiWad67GSWpMWPQ
-   w==;
-X-CSE-ConnectionGUID: uOuGn+E+T/6pRiIj07a/Dw==
-X-CSE-MsgGUID: 2RjQmtTwRbKSDKom9VFq9w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="398928"
-X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
-   d="scan'208";a="398928"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 22:14:23 -0700
-X-CSE-ConnectionGUID: lbkkj7mYS4+86U9WWvzNqw==
-X-CSE-MsgGUID: s2dAuFqvSj+fCtnY5aXaqw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
-   d="scan'208";a="474238"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 22:14:23 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 9 Oct 2026 22:14:21 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Fri, 9 Oct 2026 22:14:21 -0700
-Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.71) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Fri, 9 Oct 2026 22:14:21 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=B9XXI5Igj9vkr8ajV+weNcoLafrgEpRGHtQn44L/wiS/9Nh63Del6+vl1i7C82KgZ9/o60JWI/N5GHt0a/GPdojYNpamjbEo9QbsimESgMw6QwAFRlKZrWCqle6xc8RVC0YXNerioRZ3iprVrC0KYX6eAFEAL7AglQwN4sZgJyoC4AljnKJ+yGH28eiY81SofTFKbNArrZ61COV+eBFeojDOLbBbAh00X2feltI4wFujSnb2SGuDdnEoUzrNkPNFrOzi9kg1sgaJwFKe/N+I44t1hYJZ2o28vjlLX13h/5rVk46efXTC8YvZ/gI/IJ0IeogLPgblgn+oYWQPkHilFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6IxXoIhIgRkGnDNY2cNMztXgI/+wupGMYQFzUx/5UdQ=;
- b=UkBupSi8S34uIwe7ZVZZvmE/cwgZHIh+mRg1KDZPoMsOrSDn7Lu6R5T1zIeEkHfl3Hlhdvj49BV6ih49Px9530TxtrcFRfHmZLKZrHkwSmaE01VqF1Pf8moENgC4Sw45LPKuNRFiY0h67zd3wdzJgYI135uFJtrB6MieKQ6gnVmyENpklyRvlG8aYva2P6H/BqcN7kZr5iPk2js8aiiDpQAv6rC8vjeqaLVlSBBEtptBSQqN0+scBiLBpv7BBYCH9l0/RuBDdHz9q94bjgq87ewNliaXSjdPhlAxBNLytumLz/OoUeAVn9mGQqcN3kWiGAKFfXQB/VcYdWnjYlWZJQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM6PR11MB3243.namprd11.prod.outlook.com (2603:10b6:5:e::19) by
- MW4PR11MB7032.namprd11.prod.outlook.com (2603:10b6:303:227::5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.18; Sat, 10 Oct 2026 05:14:11 +0000
-Received: from DM6PR11MB3243.namprd11.prod.outlook.com
- ([fe80::6c83:d3c:7952:3ee1]) by DM6PR11MB3243.namprd11.prod.outlook.com
- ([fe80::6c83:d3c:7952:3ee1%4]) with mapi id 15.21.0496.015; Sat, 10 Oct 2026
- 05:14:11 +0000
-Date: Sat, 10 Oct 2026 13:13:21 +0800
-From: Yan Zhao <yan.y.zhao@intel.com>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-CC: "Du, Fan" <fan.du@intel.com>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
-	"Huang, Kai" <kai.huang@intel.com>, "Li, Xiaoyao" <xiaoyao.li@intel.com>,
-	"Hansen, Dave" <dave.hansen@intel.com>, "thomas.lendacky@amd.com"
-	<thomas.lendacky@amd.com>, "tabba@google.com" <tabba@google.com>,
-	"vbabka@suse.cz" <vbabka@suse.cz>, "david@kernel.org" <david@kernel.org>,
-	"michael.roth@amd.com" <michael.roth@amd.com>, "binbin.wu@linux.intel.com"
-	<binbin.wu@linux.intel.com>, "seanjc@google.com" <seanjc@google.com>,
-	"pbonzini@redhat.com" <pbonzini@redhat.com>, "Peng, Chao P"
-	<chao.p.peng@intel.com>, "ackerleytng@google.com" <ackerleytng@google.com>,
-	"kas@kernel.org" <kas@kernel.org>, "nik.borisov@suse.com"
-	<nik.borisov@suse.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "sagis@google.com" <sagis@google.com>,
-	"Annapurve, Vishal" <vannapurve@google.com>, "Chen, Farrah"
-	<farrah.chen@intel.com>, "Gao, Chao" <chao.gao@intel.com>,
-	"francescolavra.fl@gmail.com" <francescolavra.fl@gmail.com>, "Miao, Jun"
-	<jun.miao@intel.com>, "jgross@suse.com" <jgross@suse.com>,
-	"pgonda@google.com" <pgonda@google.com>, "x86@kernel.org" <x86@kernel.org>
-Subject: Re: [PATCH v4 08/17] KVM: TDX: Adjust the topup count of DPAMT page
- pairs for splitting S-EPT
-Message-ID: <asnJcZsKdDzgaYzc@yzhao56-desk.sh.intel.com>
-Reply-To: Yan Zhao <yan.y.zhao@intel.com>
-References: <20260928090729.15468-1-yan.y.zhao@intel.com>
- <20260928091035.15599-1-yan.y.zhao@intel.com>
- <6ac2a1ffc4a860e71e63c068b33dc7644e65401b.camel@intel.com>
- <e126bda86263fc4d6af53112eec01a95da48570f.camel@intel.com>
- <asivFAotV10NIZQL@yzhao56-desk.sh.intel.com>
- <594befb577b9142dc0c90b7be5bb65888a3a2523.camel@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <594befb577b9142dc0c90b7be5bb65888a3a2523.camel@intel.com>
-X-ClientProxiedBy: SI1PR02CA0030.apcprd02.prod.outlook.com
- (2603:1096:4:1f4::8) To DM6PR11MB3243.namprd11.prod.outlook.com
- (2603:10b6:5:e::19)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YANM/1Pz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A33F1F00893;
+	Sat, 10 Oct 2026 05:14:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791609262;
+	bh=XEDncQJ2vAr3ongMM47iV3oJ8k6OD6imbwFP96rj22w=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=YANM/1PzHrnW16XezCJ2MHl86pwCoKbBeCMGdUE8ltYm1ff3d81uQS8VDOk2pM/ci
+	 JEOxSv2p/1pHB3b2MZjNH0+vy5DXV08DplE9v2ZFjAjJ/vI4omzJ6HZsYF9qRcQM5H
+	 hgHSfP+UCaC+wnDWP3TMFdDbyrSfS+3I9L2Z/lYBd63plCFFEYX7j0Xi8kN4NsKZE6
+	 BTgy6JXNRSP6zeM461Al6iR0N9wV9/V98LqRgwEZo8eKKdPkgNjKo6Z2Skp3VMQ8RB
+	 7JEZRQq4Jn9201x4vtP43LWRkpkfXmjVY4r4B4o4QZ/T+RhAWr1LlqTS/HeUFcMRpj
+	 oGtgjd8cyGiRw==
+Subject: Re: [PATCH net-next v2 8/8] net: dsa: realtek: rtl8365mb: re-latch
+ the family D SerDes
+From: netdev-bot+sashiko@kernel.org
+To: namiltd@yahoo.com
+Cc: linusw@kernel.org, alsi@bang-olufsen.dk, andrew@lunn.ch, olteanv@gmail.com,
+ kuba@kernel.org, davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+ linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Sat, 10 Oct 2026 05:14:20 +0000
+Message-ID: <179160926094.434549.13782287411357981619@kernel.org>
+In-Reply-To: <af4b65e2-0fd0-4bb7-b34b-d64ec0f91955@yahoo.com>
+References: <af4b65e2-0fd0-4bb7-b34b-d64ec0f91955@yahoo.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR11MB3243:EE_|MW4PR11MB7032:EE_
-X-MS-Office365-Filtering-Correlation-Id: 686d010f-9add-4934-4079-08df268d5171
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|11063799006|56012099006|4143699003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: nsZrdw0bDerou8Z+H857QTnCvflKuuwkMJTmqghbxB/zvluxOspjfqDgC3dk5vMbm+Uec15FkV84gJU2qDUO071AscjC6mc1Eq8WHhxu6vIyIFCWmjmX2jGVSQLmGYlEAN+xR1XBtjWR5uc3xgrnHjZYaffFu+S8P/C6vCq2ALAiKGdpFncviBHs0nxVdkSb2Lp5aMHfYn4M8sBHC1FE2PxEBngn+nGC6TehsEEDrQ8ThcFjeu0jMwjCS+Lbt20T8Ngn55T9hOSi7pBvM5tbFivsj1nF18u51LRb4fgzoRziDQqG0C7SvDlV16WxCbPP0n8DFB/huZAhwA152ctrH6YiYpMd+nYbc9v74AXwz/OyB03hQd3awfEDJFnCUm4PocTfMFqZDrx2aBhTe8xHBfrNYzBUWdnaUKHHVxF7vi3zLIawBG5lZ2zk/X60j0p4HbO1kCKmiKMgoha7hd2NtVIWWnVu+bFCTPTamwPr7vLYTdQoO/g7up3RVOleAab/+XyyRasQ1uwg1JuQSde6TC/R64VZEsTtUFWrCcvHcelKjLtut3wA4YnIUuh9akalq7tgcDNiD/8BKIw7Yhpof6FPR+9we5u3vi6yzoXEziIpQq/jUmbr7WPXqGsoqnqD5o18J/v3lQJZONBhMSUpT2kJSNH2R9sWoHdIevVsUIw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR11MB3243.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(11063799006)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?fvq6B9yXsUMkiRbnXiXGj+R8GELafhSCRYn40obFb+Uaz1AtfyOO/TCWoCOk?=
- =?us-ascii?Q?DmOes8vBhFC5WZW9+zMTpDvHdiJ+DsFOLo6Rs3uRzCSmVu6ftMlt2d+t/SXu?=
- =?us-ascii?Q?hBOYKf19BovseEtKTlEkslq3eHNRdHpgMKPY6/n6yk3BE6PuFz4Tmhw8pKGj?=
- =?us-ascii?Q?YY6yWlauzk6UPIq4fUAcNywc6a7KzhliT0LNhg+Uopr3uQPhPciMX8ueq1KA?=
- =?us-ascii?Q?E84tHqzlLhVopeM2POB3S1Ngeror0owSiE8JGrOV/b1mSlk07fviDFXWdM62?=
- =?us-ascii?Q?RVpUdC3uxiM5nXEM8lGt8nOnkN1oYFeOcq6PIuxvKc3W+jMdpW8xGPvVKMWi?=
- =?us-ascii?Q?/jdugMgLSBBaJiB45Hc4tcj76Vq5jS6zoXgEBOZ97QIPXOZLBIdzHnS1rFPh?=
- =?us-ascii?Q?aVz7NLEYXpWFIFexAVS6+dOn2aP4a+6XrSvP/+qjNbkDzdFetT4BDRZk1lhe?=
- =?us-ascii?Q?yaTCXMe94AXQVDC9whd4pptEbWK+nd3skgeiJgpfECwzY1XVRLjvqnlh/fcd?=
- =?us-ascii?Q?1zF7mA+2icPOsV+ZxaaxQRGcWnXk57VmVlaiuc6hjlHDHvBNGa8c2SuUSArU?=
- =?us-ascii?Q?z1e7u9gZISix6c5tSMYoKxJuAavVMfHjMqNlYeJ/9CXhaYdYhoTshye5Z8PJ?=
- =?us-ascii?Q?eBdBVqKP5548kBu5ED6RcXFzzLyhhAzkr58gBF6/LyWzb/hS4/r0L9ktOFKK?=
- =?us-ascii?Q?UUFOONfGJoSWokgnTfiEUZA2LqV1zwiPPQW+kcd/seItW8nM7MrG5JBfdJXr?=
- =?us-ascii?Q?FN2C3unfCqeYhI+1B4sqWRVBVSSeACKHK5EXOyGj1y5kjJLbU0hNMn7PhNFv?=
- =?us-ascii?Q?DD+Z3KLmmBLc/bFlTarCFY5Q1u9V8JBIgcdKWV2KTRkalzF6tNjORGn0Z9sM?=
- =?us-ascii?Q?uubYtNKzG8MobDJKMYrv39HiWjdjTXpOo+6RTVtvjrdx1FJ/GqNIeZ6JbDY8?=
- =?us-ascii?Q?ttCJwM6bxoNmmo8MfD5hGpR515gRFK+rlpVqW3CAWlSHtTWdAhV8gx/pklR9?=
- =?us-ascii?Q?VWoH4ggsmKY0pWG1Ym1RvcQxL52XJzSX+qIe5KLLI/ZMjwp134wp8eqfeiTk?=
- =?us-ascii?Q?gPRfUQKPfZQYcFmRCXc0iFaCJ9BCpx4CVEr6XmYO4yiQ57ZbUi0NQ0BfkHHe?=
- =?us-ascii?Q?6o9AJI9vrUFyu4G4NrdgQl1h35aAEMFZZHD0RA5l0KD7BwpJvSs1A8Hp/ck8?=
- =?us-ascii?Q?CuqsEl5xXrOMrlfhi+XjGvIJma/7gGbVnKHhzMEV7K6xVfK4kHFAfA88D8MP?=
- =?us-ascii?Q?DKelVthz9Tv+j/VItNWUy2ibU6gl/eUzn6AFTVcM1M2BJYrj5d5rj2UY0483?=
- =?us-ascii?Q?ctDlOu/oYQxKQRhdp4dpcJ+30YMZzUsHGtZACdKbxVc+Edipq5oX+M+Z9z2x?=
- =?us-ascii?Q?jm7kBCcvUeb8UGLYM1L5KDfDVImk7+kNEEidQo7ZcjHT9ULINO2Rl2NcjBo0?=
- =?us-ascii?Q?mzTb3d0sALqU63cJrud11KXQPcOQviWsBWu0krq4lcw0/j9Y/FLY9sAtpw3f?=
- =?us-ascii?Q?hvJ4vCR2IMr5QZPCFtRH68Njgu+OeQcfddhpM0li9MrmcSVfxnPedZ4aq1+t?=
- =?us-ascii?Q?oQot9NxFxpNm4jeuP/rac/fYqRuf4tjq66JmLfeM9udzG+g3D58kVl81vHB7?=
- =?us-ascii?Q?zvrIPc9Jf5oYp/UAHzDZSLDTjrJfYNFqOnp3zJE5i2YYbJugekjaZqOQM5A7?=
- =?us-ascii?Q?jK+TbW6Azw88llbqC4jGq75qMtc7gjJxf5QkbjtQHstZV2v1p1XItYSd/+4/?=
- =?us-ascii?Q?R5wkSko2XA=3D=3D?=
-X-Exchange-RoutingPolicyChecked: FhuEyH/QpcJAVVVBhxYOrK2nYDCTLrrTc5pEAMcmLCYD6wRqv1vrx2ZZqbuAplSyNaNlTmIT+Iek0JORKXfev+RuQhpJwgPQAV1Chv5/PJgccESqCU3ksDZ5RPbW7jS9usu47Cv7i3Gccf3oo5w1Z8MbBN74g4okzAWsgQxNkUTKhkDEJbvgrwWnx6tflgBl0lojvU88VVwixuS6AVSrbb95tBwaRRrbi4Lqk25Tb03HPKfojduZd0fnQEfuX+WxowrK/25Nun8CAynJ0ddZYHyEE+5/5F7NdnLIApXXHdV6O6AQHwswDB+VytUPhPcr9CNOWuptd/qS6/0fgmU8jA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 686d010f-9add-4934-4079-08df268d5171
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB3243.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2026 05:14:11.4465
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: n8Afv5ls2OKMcxNZoh+Blqzi9o7qs9QwCt8k+fnfspSZjc08D8yJOYiob0lq8HqnAEHs00q2LSAPjiGvr23yIQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB7032
-X-OriginatorOrg: intel.com
 
-On Sat, Oct 10, 2026 at 06:12:19AM +0800, Edgecombe, Rick P wrote:
-> On Fri, 2026-10-09 at 17:08 +0800, Yan Zhao wrote:
-> > On Thu, Oct 08, 2026 at 09:16:12AM +0800, Edgecombe, Rick P wrote:
-> > > On Wed, 2026-10-07 at 15:47 -0700, Rick Edgecombe wrote:
-> > > > Another idea, change the op to be:
-> > > > int topup_external_cache(struct kvm_vcpu *vcpu, bool root, bool private_page,
-> > > > int min_nr_spts);
-> > > > 
-> > > > Normal topup can set:
-> > > > root=true
-> > > > private_page=true
-> > > > min_nr_spts = PT64_ROOT_MAX_LEVEL - 1
-> > > > 
-> > > > Then we can calculate exactly what we need. And even better, the existing code
-> > > > won't nee a comment to explain the weirdness.
-> > > 
-> > > Actually since this gets a struct kvm arg later in the series, maybe we could
-> > > just have two ops. One for topping up from a fault and another for a split.
-> > Hmm, no? That would make the min_nr_spts arg meaningless.
-> > Reusing the topping up op for the fault also scales better, e.g., it could
-> > support splitting under the fault path in the future.
-> 
-> I don't see how min_nr_spts is meaningless. What do you mean?
-> 
-> Let me spell it out a bit more. For a fault it would have math like this:
-> 
-> int topup(bool root, bool private_page, int nr_extra_spts)
-> {
-> 	add_to_cache(private_page + nr_extra_spts)
-> }
-> 
-> For fault:
-> topup(true, true, PT64_ROOT_MAX_LEVEL - 1)
-> 
-> For split:
-> topup(false, false, 1)
-Hmm, having the caller perform the -1 calculation gives me some hesitation.
-The meaning of nr_extra_spts is not straightforward, though it seems to mean the
-number of spts excluding the root.
+Thank you for your contribution! Sashiko AI review found 5 potential
+issue(s) to consider.
 
-private_page arg should be unnecessary, since the split path also needs to
-allocate DPAMT pages for the guest private page.
+Critical: 0 · High: 0 · Medium: 2 · Low: 3
 
-> Why have root as a separate arg even though it is never used? Because it makes
-> the logic make sense from code KVM.
-What about:
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-int topup(bool has_root, int nr_spts)
-{
- 	add_to_cache(nr_spts + (has_root ? -1 : 0) + 1);
-}
+- [Medium] Nothing ties the lifetime or scope of the family D sds_relatch
+  work to phylink.
+- [Medium] The shutdown path never cancels sds_relatch.
+- [Low] Two statements in the commit message do not match the code.
+- [Low] Series ordering: the family D SerDes PCS support added by the
+  previous commit in this series ('net: dsa: realtek: rtl8365mb: add…
+- [Low] If the park write in rtl8365mb_sds_relatch_work() succeeds but
+  the restore write fails, the SDS_MISC mode field is left at DISABLE…
 
-For fault:
-topup(true, PT64_ROOT_MAX_LEVEL)
+--
 
-For split:
-topup(false, 1)
+net: dsa: realtek: rtl8365mb: re-latch the family D SerDes
 
-> > Besides, I actually introduced a separate cache and op for split in v3,
-> > https://lore.kernel.org/all/20260106102345.25261-1-yan.y.zhao@intel.com.
-> > Sean merged the cache/op for split with the cache/op for fault in
-> > DPAMT+Hugepage v5.
-> 
-> Yea, but he didn't have any big assumptions in it like this. It was way simpler.
-Since the re-insertion solution looks good to you, it should be not be too
-complex now :)
+This patch adds a delayed work for family D chips. The work drives
+DISABLE -> mode edges on SDS_MISC until the SerDes receiver latches, then
+re-checks the link every 10 seconds, re-arming itself each time. It also
+adds an sds_lock mutex around the SDS_INDACS indirect access window and the
+SDS_MISC accesses, and cancels the work in pcs_config() and teardown().
 
-Given that the fault path theoretically also needs to address the root-only -1
-calculation issue, having split and fault share the same op seems reasonable?
+> The family D receiver latches on the DISABLE -> HSGMII edge in SDS_MISC
+> rather than on the value, and it will not latch until the MAC at the
+> other end of the trunk has brought its own half of the link up. If it
+> does not latch, the trunk reports 2.5Gbps/Full on both sides but moves
+> no frames: the CPU MAC transmits, the switch CPU port counts no octets,
+> and there are no CRC, alignment or FIFO errors.
+
+[Severity: Low]
+Does this mean the previous patch in the series ("net: dsa: realtek:
+rtl8365mb: add family D SDS13 PCS support") leaves a family D 2500base-x
+CPU trunk that reports link up but passes no frames?
+
+Family D support is new in this series, so this is not a regression of
+existing behaviour. However, a bisect that lands between the two commits
+would get a non-working CPU port on family D boards.
+
+Could the two be folded together, or could the dependency at least be
+mentioned in the commit message?
+
+[ ... ]
+
+> Each attempt (park for 20 ms, then restore the target mode) is
+> performed by a short work: sleeping is not permitted in the PCS ops,
+> and the work also serializes against pcs_config() re-runs, which
+> cancel it.
+
+[ ... ]
+
+> The work now accesses the shared SDS_INDACS ADR/CMD/DATA window and
+> SDS_MISC concurrently with the PCS and MAC link_up paths and
+> pcs_get_state(), so those accesses are serialized by a new sds_lock.
+
+[Severity: Low]
+Are these two statements accurate?
+
+PCS ops run in sleepable process context under phylink's state_mutex.
+rtl8365mb_pcs_config() already sleeps in its regmap I/O and in the
+regmap_read_poll_timeout() in rtl8365mb_sds_read(). This patch also adds
+cancel_delayed_work_sync() and mutex_lock() calls to pcs_config(). The
+real reason for the work item looks like the need to keep retrying for
+seconds after pcs_config() returns.
+
+On family D, rtl8365mb_pcs_link_up() returns before it touches SDS_MISC:
+
+	if (rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D)
+		return;
+
+The SDS_MISC update in rtl8365mb_phylink_mac_link_up() is guarded by:
+
+	if (rtl8365mb_interface_is_serdes(interface) &&
+	    rtl8365mb_get_family(priv) != RTL8365MB_FAMILY_D) {
+
+The SDS_MISC read in rtl8365mb_pcs_get_state() comes after the is_d early
+return. All three accesses therefore run only on family C, where the work
+is never initialised.
+
+Only the SDS_INDACS window and the pcs_config() SDS_MISC update are shared
+with the work. Could the commit message say that instead?
+
+> diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
+> index 4cad90f5c0181..eb71c89945c16 100644
+> --- a/drivers/net/dsa/realtek/rtl8365mb_main.c
+> +++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
+
+[ ... ]
+
+> @@ -1669,8 +1722,140 @@ static int rtl8365mb_pcs_config(struct phylink_pcs *pcs, unsigned int neg_mode,
+>  	val &= ~RTL8365MB_SDS_NWAY_EN_MASK;
+>  	val |= RTL8365MB_SDS_NWAY_RESTART_MASK;
+>  
+> -	return rtl8365mb_sds_write(priv, sds_index,
+> -				   RTL8365MB_SDS_REG_NWAY, val);
+> +	ret = rtl8365mb_sds_write(priv, sds_index,
+> +				  RTL8365MB_SDS_REG_NWAY, val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (is_d) {
+> +		/* Start a new re-latch episode and kick off the first attempt;
+> +		 * see rtl8365mb_sds_relatch_work() for why this cannot wait
+> +		 * for phylink to ask again.
+> +		 */
+> +		WRITE_ONCE(mb->sds_relatch_count, 1);
+> +		schedule_delayed_work(&mb->sds_relatch, 0);
+> +	}
+
+[Severity: Medium]
+Is the lifetime of this work tied to phylink in any way?
+
+The work is scheduled for every family D SerDes pcs_config(), whatever the
+interface (SGMII or 2500base-x) and neg_mode.
+rtl8365mb_phylink_mac_config() accepts both MLO_AN_PHY and MLO_AN_FIXED.
+Once started, the work re-arms itself on every exit through the rearm
+label.
+
+Only the next pcs_config() or rtl8365mb_teardown() cancels it.
+rtl8365mb_pcs_ops has no .pcs_disable, so the phylink_pcs_disable() call
+in phylink_stop() (and in phylink_major_config() when the PCS changes) has
+no effect here. rtl8365mb_phylink_mac_link_down() only cancels
+p->mib_work.
+
+As an example, take a family D SerDes port wired as a user port to an
+SGMII PHY, and set the port down. Would the work then keep reading the SDS
+link status and log "SerDes link lost outside a reconfiguration"? It would
+then park SDS_MISC for 20 ms every second for 15 seconds, log "SerDes did
+not latch", and park every 10 seconds for as long as the port stays down.
+
+The comment above rtl8365mb_sds_relatch_work() refers to "this fixed-link
+port", and the work itself says "nothing re-runs pcs_config() for a
+fixed-link port". Nothing in the code checks for a fixed link, though. The
+commit message also only justifies the DISABLE -> mode edge for HSGMII on
+a fixed-link CPU trunk.
+
+Is the same behaviour correct for SGMII and for PHY-mode ports? Should the
+work also be stopped from a .pcs_disable callback or from the link-down
+path?
+
+[ ... ]
+
+> +	mutex_lock(&mb->sds_lock);
+> +	ret = regmap_update_bits(priv->map, RTL8365MB_SDS_MISC_REG,
+> +				 RTL8365MB_D_SDS_MISC_CFG_MASK, park);
+> +	mutex_unlock(&mb->sds_lock);
+> +	if (ret) {
+> +		dev_err_ratelimited(priv->dev,
+> +				    "failed to park SDS_MISC: %pe\n",
+> +				    ERR_PTR(ret));
+> +		goto rearm;
+> +	}
+> +
+> +	usleep_range(20000, 21000);
+> +
+> +	mutex_lock(&mb->sds_lock);
+> +	ret = regmap_update_bits(priv->map, RTL8365MB_SDS_MISC_REG,
+> +				 RTL8365MB_D_SDS_MISC_CFG_MASK,
+> +				 READ_ONCE(mb->sds_misc_target_val));
+> +	mutex_unlock(&mb->sds_lock);
+> +	if (ret) {
+> +		dev_err_ratelimited(priv->dev,
+> +				    "failed to restore SDS_MISC: %pe\n",
+> +				    ERR_PTR(ret));
+> +		goto rearm;
+> +	}
+
+[Severity: Low]
+If the park write succeeds but this restore write fails, is the SDS_MISC
+mode field left at DISABLE with nothing recording that?
+
+The next run reads the link status bit and sees 0, because the SerDes is
+disabled. It treats that as the far end not being up yet. If the failure
+happened on the last in-budget attempt, the next run is the report-only
+pass:
+
+	} else if (attempts == RTL8365MB_D_SDS_RELATCH_MAX_TRIES + 1) {
+		WRITE_ONCE(mb->sds_relatch_count, attempts + 1);
+		dev_warn(priv->dev,
+			 "SerDes did not latch after %u re-latch attempts; ...
+		delay = RTL8365MB_D_SDS_HEALTHCHECK_INTERVAL;
+		goto rearm;
+	}
+
+That pass does not write SDS_MISC. The SerDes would then stay disabled for
+about 11 seconds, and the log message would blame the far end.
+
+If rtl8365mb_teardown() cancels the work in this window, nothing restores
+the target mode at all.
+
+Would it make sense to retry the restore here, or re-arm with a short
+delay?
+
+[ ... ]
+
+> @@ -3514,6 +3709,10 @@ static int rtl8365mb_setup(struct dsa_switch *ds)
+>  static void rtl8365mb_teardown(struct dsa_switch *ds)
+>  {
+>  	struct realtek_priv *priv = ds->priv;
+> +	struct rtl8365mb *mb = priv->chip_data;
+> +
+> +	if (rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D)
+> +		cancel_delayed_work_sync(&mb->sds_relatch);
+>  
+>  	rtl8365mb_stats_teardown(priv);
+>  	rtl8365mb_irq_teardown(priv);
+
+[Severity: Medium]
+Is this the only place the work gets cancelled at end of life?
+
+Once pcs_config() has run, the work always re-arms itself. The .shutdown
+path never reaches rtl8365mb_teardown():
+
+realtek_{mdio,smi}_shutdown()
+  rtl83xx_shutdown()
+    dsa_switch_shutdown(ds);
+    dev_set_drvdata(priv->dev, NULL);
+
+dsa_switch_shutdown() only closes the conduits and unlinks the uppers. It
+does not call ds->ops->teardown. Because drvdata has been cleared, a later
+realtek_mdio_remove() returns early:
+
+	if (!priv)
+		return;
+
+The rtl83xx_shutdown() kernel-doc says this can happen if the parent bus
+implements its own .shutdown() as .remove(). In that case devres frees
+priv while sds_relatch is still armed. mb is freed with it, because
+rtl83xx_probe() allocates chip_data in the same devm_kzalloc() block, and
+sds_lock is devm_mutex_init()'d.
+
+Can the next run of rtl8365mb_sds_relatch_work() then dereference the
+freed mb->priv, mb->sds_lock and priv->map?
+
+Even without an unbind, the work keeps issuing SDS reads and SDS_MISC
+park/restore writes over MDIO/SMI after the switch has been shut down for
+reboot.
+
+The CPU port mib_work already has the same gap at shutdown. This patch
+adds a second work that re-arms itself indefinitely and also writes
+hardware state.
+
+Should the shutdown path cancel sds_relatch as well?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/28382f3f-03c1-4606-9b11-86f118abeafe%40yahoo.com
