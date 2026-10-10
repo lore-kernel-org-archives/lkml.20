@@ -1,84 +1,91 @@
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 234F82E1F0E
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 23:33:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EB9629A309;
+	Sat, 10 Oct 2026 23:34:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791675241; cv=none; b=ebkoF24srpebzpT3SIRZZph/ymZFF6YPQ3q+M+pQsPrjGttpT+cSBt6nD8GQrFcafuOR2Cno6ZGT7x/QrnyZnXshAYIMgjcaYR6rr02Git/NAY1vGdjw3jX8951qzPUjt/mf0743trQYOFDaDJjlIm5gmEH9RxdFHaa8+F+T2HY=
+	t=1791675268; cv=none; b=R4s+HKN9ezYfTXM8f9PBYFiG8OsElyTqQlOUN9nV6BZbRUYF6HvkohUqBNrzO5s3tQTf/YuqCB0RNlcTgiRKjXoqcPLncZ92EOmIT/fDShhFlCncFV6Db7DgZ2jE3Ts7YzNa5tmLuU/MZqRDtg0bZoavADe8XtE8KmIx2QPjzk0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791675241; c=relaxed/simple;
-	bh=yfWzQB6qYGFnzcB63JH1GEVfFCx9VawYO44p1JaFqY4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WxbOT73fv4yxILUPTDj8nAuR8NCvRPjSq3rIsinVl1Xtoj20YbSo6A0OCagUW1a3+6NfEtXrFOu4FS4unegnkrdAfdbETMNTOczLznKrNP2vnZMNc/RfYLVzar0GpCF7kVv9T3k7yxiKA6OJHW3Ek28ugi3yS2iZt7p9bu+wbLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; dkim=pass (2048-bit key) header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.b=nCcL1IRK; arc=none smtp.client-ip=128.30.2.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+	s=arc-20240116; t=1791675268; c=relaxed/simple;
+	bh=mqr2DucTjbu0bs7sbqDpdV7OH22B3xf1jCn2d9tBbh4=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=DdW60NqZmXXxc/Yo/cE9bTs9rzBzSxGJsWk84XgcDa/9jLIm8fArFZEq/THl11F2F+jvTGiYTqhbtSKU1lBs3WP/nPZIV6tymteyrYzpsote0XDU+iaDOBOTHUCoprS3Y3y6AnBubiLzh97Jyz48ygXo34ySX0ZfCnZBAwK/JIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=zwWGGp2k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.b="nCcL1IRK"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=outgoing.csail.mit.edu; s=test20231205; h=Content-Transfer-Encoding:
-	Content-Type:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:
-	MIME-Version:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=XUJnoizHqRjV2lEHRvMaIyHFuZqZCjH0FTOcKYJEFGU=; t=1791675240; x=1792539240; 
-	b=nCcL1IRKN53eQWqwq3FKVUqZ9DltGNAfJOvpeGkVGLNqCmJ5zd2/jaKhThrxP+YQKS82aWpcU12
-	2+R0+XGv/Bq28JES+wBzT2jrdcKL8xW/dSCWZ2vnrF9DXhR3Tnfc2zUIl/Op8oySk7X7d66cp8Z2E
-	mO4NQwYOIB4et0H0eiiJPoeT0NZxKR+IGPfGEskYO53jYXVeNK1rs6kxPU4cVnk1bB8k4zJ1+jzM/
-	lMfYc00a50xlzFCqxlSuDRaHi2sWkaiGpzEohrPBqfMAf0o56i3hMmZ8t+GikJD9iVuf8S7TMqnR4
-	6UAyPRA5WZeRIQKbPoS6AOjLJ7fKM2HElvuQ==;
-Received: from mail-dy1-f169.google.com ([74.125.82.169])
-	by outgoing2021.csail.mit.edu with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xFgZj-007q4r-0H
-	for linux-kernel@vger.kernel.org;
-	Sat, 10 Oct 2026 19:33:59 -0400
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-351767ef18cso2902127eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 16:33:58 -0700 (PDT)
-X-Gm-Message-State: AFq9FYIJDm3d01W2vx9VqYACmBGTfamCUsbNx6+ivTsx7IjYCdofAciP
-	MIYa19JG4TekwY+06JrSSVEQaQFGh/FW6sZCHBfAFUAdIGjVYQCvZPpu9YbUnaf/9irtLRbfaB/
-	if/gafvh284rjxFCxGlsjVj3/j+TZm7g=
-X-Received: by 2002:a05:701b:241a:b0:164:475f:1a07 with SMTP id
- a92af1059eb24-16a55f1e60bmr7781779c88.1.1791675237998; Sat, 10 Oct 2026
- 16:33:57 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="zwWGGp2k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 361F71F000FF;
+	Sat, 10 Oct 2026 23:34:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1791675266;
+	bh=9iwVIi3c0U4zKOpJ4o30r2BRWj2wDRlxr8fMDYx77J4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=zwWGGp2kK0YOnhzmyLuH3f4IiXgcpl+jaXWjRByBb/EfkueQ/QL7t0AZL2Fin9Qd+
+	 I/WIrpgkwSreowYqJK2gW4UWlg+wrT2hLF5sbxQvOll68GPlAt28+Ell8K9iNWrBXS
+	 fkRgwwvCmKqJu6sfup5xPj5/lkXIH30O2/7DrL9M=
+Date: Sat, 10 Oct 2026 16:34:25 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Nicolas Schier <nsc@kernel.org>
+Cc: Jim Cromie <jim.cromie@gmail.com>, Nathan Chancellor
+ <nathan@kernel.org>, Denis Benato <denis.benato@linux.dev>,
+ linux-kbuild@vger.kernel.org, thomas.weissschuh@linutronix.de,
+ chewi@gentoo.org, abelvesa@kernel.org, linux-kernel@vger.kernel.org, Kees
+ Cook <kees@kernel.org>
+Subject: Re: [PATCH] kallsyms: copy constants from __KERNEL__ to user, drop
+ the inclusion
+Message-Id: <20261010163425.b291248543a3423e2a445e14@linux-foundation.org>
+In-Reply-To: <179157208243.362135.3553274020133646760.b4-review@b4>
+References: <20261008-fix-kallsyms-v1-1-3339fdac2ab3@gmail.com>
+	<179157208243.362135.3553274020133646760.b4-review@b4>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261009051857.758182-1-nickolai@csail.mit.edu> <20261010162558.62abcd2ec967b009d0cb3bbb@linux-foundation.org>
-In-Reply-To: <20261010162558.62abcd2ec967b009d0cb3bbb@linux-foundation.org>
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Date: Sat, 10 Oct 2026 19:33:46 -0400
-X-Gmail-Original-Message-ID: <CADGQE7G-PAiJ2W8uhFO_-e9GGtEPey=drfSqLfWdxXDys3mJNg@mail.gmail.com>
-X-Gm-Features: AclHuK8NTVPdGlZpNuys5-JYOCzxE3B81f4B5GgR965MyMgqHe7NumhALMGGqqk
-Message-ID: <CADGQE7G-PAiJ2W8uhFO_-e9GGtEPey=drfSqLfWdxXDys3mJNg@mail.gmail.com>
-Subject: Re: [PATCH] lib/plist: fix plist_requeue() shortcut inserting the
- node at the list head
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	I Hsin Cheng <richard120310@gmail.com>, Ching-Chun Huang <jserv@ccns.ncku.edu.tw>, 
-	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sat, Oct 10, 2026 at 7:26=E2=80=AFPM Andrew Morton <akpm@linux-foundatio=
-n.org> wrote:
-> I recently queued a fix for this problem from Alex:
->         https://lore.kernel.org/20260903222456.1881786-1-handyhandyman.ad=
-am@gmail.com
->
-> The two patches are rather different.  Please review Alex's change and
-> and let us know of any alterations/improvements which you see.
+On Fri, 09 Oct 2026 20:54:42 +0200 Nicolas Schier <nsc@kernel.org> wrote:
 
-This patch is equivalent; I don't see any reason to prefer my fix
-(except for the test case that might be helpful in catching
-regressions).
+> > commit 4fafd1165b33 replaced hardcoded values which determine marker
+> > array size, with new values that accelerate symbol-name lookups.
+> > These symbols are needed in user-space to generate the lookup tables,
+> > and in kernel to read the generated table.
+> > 
+> > To avoid 2-defns problem, they were added to a kernel header (with
+> > ifdef guards) and included by scripts/kallsyms.c.  But that creates
+> > packaging problems elsewhere, so just add the 2nd defns, with an
+> > explicit comment about the user-kernel coupling.
+> > 
+> > Fixes: 4fafd1165b33 ("kallsyms: increase marker density to 16:1 to accelerate lookups")
+> > 
+> > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+> > ---
 
-Thanks,
+Thanks, I added this as a to-be-squashed-later fix against "kallsyms:
+increase marker density to 16:1 to accelerate lookups".
 
-Nickolai.
+btw, I have recorded some question marks about this series:
+
+https://lore.kernel.org/20260929221330.72cd1de4@pumpkin
+https://lore.kernel.org/20260930132109.260597-1-david.laight.linux@gmail.com
+https://lore.kernel.org/20260930101307.4477e264@pumpkin
+
+and I'd like to get those crossed off before proceeding.
+
+> FTR: Please keep trailers in a single trailer block, otherwise that will
+> probably break some common tooling (cp. e.g. git-interpret-trailers).
+> 
+> Is the commit ID correct?  In mm-nonmm-unstable I find
+> e2c2904abf71d0144f37844fde7dffe8b814a44f instead.
+
+mm-unstable is "unstable".  It rebases more than once per day so lookup
+by hash doesn't work.
+
+	git log --oneline | grep "kallsyms increase marker density to 16:1 to accelerate lookups"
+
+works for me.
+
+
