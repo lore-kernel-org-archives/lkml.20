@@ -1,129 +1,129 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C60354705E
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 14:26:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7417378824
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 14:26:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791642366; cv=none; b=o/YO/YDfRxfTHfTPjnPV4wJfeK/wZRclEk2TG4y/7WvMe4lIjPA4aG/2QDnnZNOeRU9VW56rzGUoeWa/463wjGvdA07S0aYNhaVf/sZAlNQfQ9CAKETxSJR7s23tdwFVGozjp3wKpahEtI8R1ZErwxbmTOiWhkzcPA/2hZtnKTE=
+	t=1791642398; cv=none; b=QHJSlS4UJDrTut14RJj0qNzEsvsVa8Ehx4WA9CHSO24Ye4jy7mlJIdWt2tuKaTgHsrtnPvbMjcebBeLR1TAphKwsmjPDhwvg4fva6N3JZK+voDlCjH/oRKQOzSURjQHfQZN3QFkjgdCHp9TyaGf7b6LgKKK3L+WNKUIlWkP/F/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791642366; c=relaxed/simple;
-	bh=o4/QakPrunlwH4+UeYVVLEHPsvh/uElL+9OeE2y1nUs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=q5EZtv+/7vLNIJ9hpPD+AlDIG7Gw38Wa60BBA5u0lVsQ4mIdfmQTBzC+Xvf/TEVKEm51brSJ/CY86Wgm5xZLv0cSwdVRN2APhKXiz3x4IRdGo2Yi/Y8GQcGmsvxMa9DUBf7tvt4iHSpc97LD7lDVds0fGLvDnWF1ejkhBou1PGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IAyEGIyq; arc=none smtp.client-ip=209.85.208.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791642398; c=relaxed/simple;
+	bh=gFXGxYoVq1eMBW//EzzFu9LL6AhPjbOiHn7p+q5UgD4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H7xp1pPa7bW4jsciEyg70FIQz6P+E9Df9dklCrych08KIu3G3rVBjg2L342/ZguMLuaEu9nJJUXdPP1CWxJwzCp9zybfySvbsdR7arfUOGkoeUQRdQ80JimF0vxYUOLXsWtLcUdf8mJjJ+d1BRRkCPpEDYtO9PgD4dnpMAg8ICc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=QEhkLMzw; arc=none smtp.client-ip=209.85.160.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IAyEGIyq"
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6a9bd4db6ccso695274a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 07:26:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="QEhkLMzw"
+Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-53391022dc0so7601951cf.2
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 07:26:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791642362; x=1792247162; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=F7L40EAbnIhHyrYuzeYb9zTU0QWMZbUjoIPPndxqWSw=;
-        b=IAyEGIyqkCRD/VWxTmVyyNgTyG4zaOuUlexdPM2BSlIWPFFYPNcM7LC/ZSBBqMJqxy
-         iK7tt8udx1w+Ql23zpcjcK2VATVESP4flCAFrWg7CZc5rt/TDg6RSnphpZ1NJbYYpIF/
-         DrQR9+I6r4ACVDQ52RMoTzXpO3ij8YcqdwRbuP163JCvH8GlesyKXDMffyVVheKtVXnQ
-         +r8wmDrMJcvtyUIkSReBX+eoV9SxWfMtVLo+JBUa/3LPbiXXxjMiDjN3p41s+TCDNpi+
-         Jxzr5OJqH2uNN++Z5/6Og+zOcj2HOtM/imSrVYneK912lKCP5DIwFGgW1w7q4Wc2p8qI
-         BssQ==
+        d=gourry.net; s=google; t=1791642395; x=1792247195; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Sud4Kk2KOGUwm2j68I0efec0mWQp36Kh5Z34rJLtTPs=;
+        b=QEhkLMzwqK5bxeEUxww+PD0JymZI7vxjOOl2BJQp5mQ09V7vKjt9M+6XvgnzOI0eTG
+         9pOUpXy3UPI9cFGS6cP1z/Hi9UgT9B1AvX9jQHQpge6jkDLRl55tOffaWSSLHeUCWuz9
+         68z+HatypAnrylIQ4lHWzVPGrr4ggjNkib51KTdQ8025e47Zfxue36WdCY3avfermHby
+         xCRcUPDh++c48tcn2SSIQ4OqHUgq4cWkCp1bYdWZL80dmCs/2k9SyFhF2B+awz+L26qi
+         UBwGoy4QRcD1dyDje3dRX2zTaMA5Kz7CI+iuqkt2N0UJfTu8EhkuyuCdELlHvtVss9Dg
+         WeQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791642362; x=1792247162;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=F7L40EAbnIhHyrYuzeYb9zTU0QWMZbUjoIPPndxqWSw=;
-        b=bnzXcXltE9q87v7cZ8A+OiK0XCSdX0AeXprIYuMgqdW/P+750zclS17xW+LDVwnHoZ
-         FXVIXNUezh4uJMoxTqp7cs05EnKsoOWYhOfytDZtWctwP7RJwUuQNCDfS/K4389x6JJ6
-         YrBtA/ckygGNvLCgx19M3hddCxxuFg6cX4r8M566DpEnUF2pWMRMnUbzbyKl2BIQht8R
-         TtUXJt3w+KQ4Q3L0kKBJP04BlZrFt6+5urshl3Rn+A6WBexLkJPzzoKeXx9qDQtI/Bid
-         jqd10CO2KxCSCgZVM9ncl5iY7IEZcHq7tXswPWyeddyyFPxHsK8QiLca8Kca40NZG3+X
-         yXbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz54YJ4HXlPXdBDTD8oqj0kDQFsbnW8ke7zLxHK1ZtREOwv2vZrSXqodjmc9m8gd2rBfGQJpk2kt5xUotM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJL2V/jBqQjGwlgxdJ5bYXclfclfiXDjL4mtl6TnpGMC+ADOtsd
-	nX+I5oTtpUXCKYQfdMcPN7rz8DJB7qOCp3hlhoM+i4943YrKU5wE8B3UsAb6+plJ
-X-Gm-Gg: AYBFou2op3/SKFudp//5Y1ayYYUkMoZGLKxsYSlwN5vem9tbXSfNg98zsEKTKJZiruQ
-	28F5IuNLyOzhGMRTeKmArfPNb7FptEOois7hl5o3GBzVWZUa7AmpdzskvxYojwJfCB54N2XsF8R
-	Gr5xNo0w+zN8US6dgicHGtNWdnz9tX8q7NBx+kRkMX2kuMBFluo4sl3Fbtmp30k0UaEyVwccj0I
-	tDvWhs//JCb7IXoNAaLDehbLA9spQKT5j0J/xAqxBPeBQUmmJ8IODKS1hjXS58L09BOObqr4S+d
-	yY9f57qTXUUr9uMWy9TEI8E+h2Hf4/Lt7QtoYeibA1vaYNKQNVGVyPm2ZZPStmFBE3Efht6YbPp
-	0QOaOs7Y40WZukDJC52tE97+fFya25a8+lmLNxKjJrJJzbgBmXU/YS6Sw9bWk8H9RsXjVifq/Rm
-	OUpGvuB5fvmLe+7O9z2PilreBcYp3RqGOp+hD9UjrQMQlJQ+CgmzMc6NT1dX7OHVyjrlo1KyiYo
-	IrpxvzF7QCFW8KbMIAyITEvkr9VuFUhq+AY26h3
-X-Received: by 2002:a05:6402:50c8:b0:6a9:946a:d085 with SMTP id 4fb4d7f45d1cf-6b17c2b1ademr4491217a12.19.1791642362505;
-        Sat, 10 Oct 2026 07:26:02 -0700 (PDT)
-Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b179dfff40sm2635586a12.34.2026.10.10.07.25.59
+        d=1e100.net; s=20260707; t=1791642395; x=1792247195;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Sud4Kk2KOGUwm2j68I0efec0mWQp36Kh5Z34rJLtTPs=;
+        b=CsAFWOFf5UDEr+PqItHArfHG9EddgX39KIml+HN0YiJRTOO0UB9BFG+v4nHQl9re4g
+         Buj9Ejd4elvr+pex2l6FC6t9KP+Qo154HARv0uXBtrFfs7D167w1JpdDi9ld0ozJOL2Q
+         APlvh/se29GoPLEtYHL3gqS2AFuMrAwAVs6Q7pFBiGWrKrsTF4N0jMJWzNYEYuccOVla
+         qqKacbmnP9t09V7Z+c+R/zwKvpH81kRueUns5gAl71UHR+AGiOjX6VdwoNzUXv8njjHM
+         i1yNKdx938d//cji2R2UBPPmJ1B2ji7qCMcFMC++9tjHO8FSqbRfoEQfZCCiDyTiLa86
+         RXiw==
+X-Forwarded-Encrypted: i=1; AKwUvBwqsQarqjYR8RAw87oOyAizt0ra2V4Ub6F5xr0s7fN+0z/PL47WYO924sm8CtQ7LfdqH6/vR8tqNazkGjI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKT2hEpPNUuPE6UNe4QLiXNCQYyxwvcTFdk5P+qrwsjMMmZcQhi
+	XZhFnWAXUb/RO0e0xgK0kVSGF7Ybk285S471pAHhJLelKIGBqfm1rgmmwmENZEhZxzU=
+X-Gm-Gg: AYBFou0l74aUTVFSJE/9eNvAaE/Xht753KAEr0rnGgjsF/OerKnnQZRhigDQGfZA2yT
+	9momTy0LZ58LtDDv0RwarBW3BhMOKKZMsCd6XNmegawNQ/LzmPueyDuc05SGXcE6poxYwQb1RTQ
+	eILXJ6HPTRIP1Zfi2eOTpXJzbtl/+JdYE8gtUUiLU2BJIrtUsoPxWg3tBUIySeC8T6mB9UB04Hc
+	TK0z9o8g9E2CBjzc/exPRmsib6iCqySxnSXHpCyiEG8rxuW32H/X/BUhkkt6wMBZvgqbUxQodYk
+	Eu6STk7MfnmvgtW3SaDZP/6J7bRtKdyhsDxK0fQFrt0HfykSHNa7H/SkajP5oWHWwx8W2hUbsLG
+	xxC7RE8pc0PVdfMo3O8ugRq6a9eI5TQ9BjouBx2krSbHCfgSMH3Xi+o7glDOwxC0wcEHgxsCODz
+	Orve0ryg8F6HOqG7a5J9skqHXJPvJjrfRFzaeMaOvnhsLDNw4TD3azq31IG/S4ROTBx0RZnbHlg
+	ltn7V60rc+Vxf/eyUsdgciRnYwnj2UHcWm9RcIttP+aYAYdsxIMhiA=
+X-Received: by 2002:a05:622a:4d93:b0:534:b7d1:cd1c with SMTP id d75a77b69052e-5359f498f75mr87118251cf.8.1791642395448;
+        Sat, 10 Oct 2026 07:26:35 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b79a186sm41486481cf.20.2026.10.10.07.26.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 07:26:01 -0700 (PDT)
-From: Magnus Lindholm <linmag7@gmail.com>
-To: richard.henderson@linaro.org,
-	mattst88@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-alpha@vger.kernel.org
-Cc: linmag7@gmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH v5 8/8] alpha: invalidate the local context in flush_icache_user_page()
-Date: Sat, 10 Oct 2026 16:24:34 +0200
-Message-ID: <20261010142533.974797-9-linmag7@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261010142533.974797-1-linmag7@gmail.com>
-References: <20261010142533.974797-1-linmag7@gmail.com>
+        Sat, 10 Oct 2026 07:26:35 -0700 (PDT)
+Date: Sat, 10 Oct 2026 10:26:33 -0400
+From: Gregory Price <gourry@gourry.net>
+To: albin_yang@163.com
+Cc: akpm@linux-foundation.org, liam@infradead.org, ljs@kernel.org, 
+	david@kernel.org, vbabka@kernel.org, jannh@google.com, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, albinwyang@tencent.com
+Subject: Re: [PATCH] mm/madvise: add cond_resched() in THP branch of
+ madvise_cold_or_pageout_pte_range()
+Message-ID: <aspKmWIrOzNjiP-t@gourry-fedora-PF4VCD3F>
+References: <20261010024042.4070048-1-albin_yang@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261010024042.4070048-1-albin_yang@163.com>
 
-flush_icache_user_page() has the same caller-CPU omission that the
-previous patch fixed in flush_tlb_mm(): when the target mm is not the
-calling CPU's active_mm nothing happens locally, and smp_call_function()
-handles only the other CPUs, so this CPU may later reuse the old ASN
-together with the translations it still holds.
+On Sat, Oct 10, 2026 at 10:40:42AM +0800, albin_yang@163.com wrote:
+> From: Wei Yang <albinwyang@tencent.com>
+> 
+> Crash log:
+>   watchdog: BUG: soft lockup - CPU#63 stuck for 23s! [stress-ng-vm:1665914]
+>   ...
+>   Call trace:
+>   pmdp_invalidate+0x48/0x68
+>   madvise_cold_or_pageout_pte_range+0x84c/0xb00
+>   walk_pmd_range.isra.0+0x1ac/0x3b0
+>   walk_pud_range+0x120/0x190
+>   walk_pgd_range+0x170/0x1b8
+>   __walk_page_range+0x184/0x198
+>   walk_page_range_vma+0x94/0x128
+>   madvise_cold+0xd8/0x198
+>   madvise_vma_behavior+0x234/0x638
+>   madvise_walk_vmas.constprop.0+0xdc/0x210
+>   madvise_do_behavior+0xa8/0x328
+>   do_madvise+0xd8/0x140
+>   __arm64_sys_madvise+0x2c/0xe0
+> 
+> Signed-off-by: Wei Yang <albinwyang@tencent.com>
+> ---
+>  mm/madvise.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/mm/madvise.c b/mm/madvise.c
+> index eeee82cf2b3f..0755e6d99757 100644
+> --- a/mm/madvise.c
+> +++ b/mm/madvise.c
+> @@ -450,6 +450,7 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+>  		spin_unlock(ptl);
+>  		if (pageout)
+>  			reclaim_pages(&folio_list);
+> +		cond_resched();
+>  		return 0;
+>  	}
+> 
 
-This matters here in particular because the function exists for
-operating on another process's mappings: the comment above it describes
-setting breakpoints through ptrace, and access_remote_vm() reaches it
-through copy_to_user_page(). The calling CPU is therefore often running
-something other than the target mm.
+This same improvement came naturally from refactoring the entire
+function into a proper pagewalk structure:
 
-As in flush_tlb_mm(), the uniprocessor implementation in
-asm/cacheflush.h already has the missing case.
+https://lore.kernel.org/linux-mm/20260922235830.2350770-10-gourry@gourry.net/
 
-No imb() is needed, here or in ipi_flush_icache_page(). Alpha's
-user-space I-cache flush works by allocating a new ASN rather than by
-invalidating the I-cache: the entries stay, but they are tagged with the
-old ASN and can no longer match. An imb() is only required when the ASN
-space wraps and numbers are reused, and __get_new_mm_context() already
-does one in that case.
+this function is really nasty.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Reviewed-by: Matt Turner <mattst88@gmail.com>
-Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
----
- arch/alpha/kernel/smp.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/arch/alpha/kernel/smp.c b/arch/alpha/kernel/smp.c
-index 988e397b0b8a..e21bc3920bec 100644
---- a/arch/alpha/kernel/smp.c
-+++ b/arch/alpha/kernel/smp.c
-@@ -758,6 +758,9 @@ flush_icache_user_page(struct vm_area_struct *vma, struct page *page,
- 			preempt_enable();
- 			return;
- 		}
-+	} else {
-+		/* smp_call_function() does not call back into this CPU.  */
-+		flush_tlb_other(mm);
- 	}
- 
- 	smp_call_function(ipi_flush_icache_page, mm, 1);
--- 
-2.43.0
-
+~Gregory
