@@ -1,240 +1,124 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18C062264B0;
-	Sat, 10 Oct 2026 08:06:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B9A0331A48;
+	Sat, 10 Oct 2026 08:07:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791619615; cv=none; b=ZDuQ07kl3yk+cWHOcqE4V9cavCdmZO/lhFVMhxHbRHsin3/XwmNevnNxuf7+KABYxy+N9QCsu52xL+zceUBNkYbEURkepes94wJJEj8mzAtORnQnO6bjFDaNmvBHzf+lg/uTdXOCCB5Ik79a07OjZ9Yn493Sh4hGyPcwDxaaWV4=
+	t=1791619656; cv=none; b=bPa9KQnNlgTxaXvVomW6NLM3KAC2HPZSPn+Ej2/HIb9yEuu2WxqhoX5Fl66uvIOI6hLIsrSLDR9PYXUmJh29hz5B9amf6N6IHXz1gJHFj8356UK7jhgKBVALpfj52MhSjSfUzGPyriLeKPX6g1LFOzlFapzu8zlx9o+ifIN+X9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791619615; c=relaxed/simple;
-	bh=iibjHXPO+QLA4yLVWV6BmwEABqeG4Fff21pNtY4WMgU=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JWJJxY+5XjmggJmn6wTkvl2FgAalWABKWHXYNHjMs+7lCenTgGVtt/ryGpen5/83qFNiCTB8cafW801skAb7fGB+ceWmpVmWMd/LyU4VYQ6eV/Xdahvp/e9bVxmsQNFdk+9LWekgBkMb0LoOubEKLWV4gXyTNjxhmOTjRZC/b34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=C2VIpPPZ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=2hp348lD; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=C2VIpPPZ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=2hp348lD; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791619656; c=relaxed/simple;
+	bh=vu3p4W7aAj9mh53qXhauZbdrOSKYuhqaGHIB/OebTVg=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WhY+pq5JLrJL+uTNfQW87tHhxBaeNQ4u0GkVnBnHQzbCcvfHHO4qx6V9pTxHRdvUnQOQV7OXGnlOAj7uA12cakxA6F2o5LVU6KZyLDjWzLfQDTYQrBrj4iS5eXdMCH8snvj42r38BdvvWksCLQCo0NntDtkig2QEL08NdxPTIuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=ZzwzWNUg; arc=none smtp.client-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="C2VIpPPZ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="2hp348lD";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="C2VIpPPZ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="2hp348lD"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 0795F1F388;
-	Sat, 10 Oct 2026 08:06:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791619612; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+S3XawEzZ7TtaapbLTzPBAs3qLufioy1iwkxr/Ly7GQ=;
-	b=C2VIpPPZmAsbeGwPg0GySgBy0bdupRO94cVAm8ha4+iKFXl/j2pLC7ZgltINvavJ+IqikP
-	KA750nIlST7D3r+iraILtZSEgKfI+gyP27leWjmwAimbjSWRA5q7+y3rPewrbgPFeuJmh5
-	8EI+nVlKXlOv5iDuxH+V4Au86LsdV1E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791619612;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+S3XawEzZ7TtaapbLTzPBAs3qLufioy1iwkxr/Ly7GQ=;
-	b=2hp348lD3EaDJ8WUA59hzusvpXRivzieT0iT/TMxdo/pDBMOhH7JXv2HVepRd/ItKYf5ly
-	bijQg9dd4YYAkwAQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=C2VIpPPZ;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=2hp348lD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791619612; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+S3XawEzZ7TtaapbLTzPBAs3qLufioy1iwkxr/Ly7GQ=;
-	b=C2VIpPPZmAsbeGwPg0GySgBy0bdupRO94cVAm8ha4+iKFXl/j2pLC7ZgltINvavJ+IqikP
-	KA750nIlST7D3r+iraILtZSEgKfI+gyP27leWjmwAimbjSWRA5q7+y3rPewrbgPFeuJmh5
-	8EI+nVlKXlOv5iDuxH+V4Au86LsdV1E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791619612;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+S3XawEzZ7TtaapbLTzPBAs3qLufioy1iwkxr/Ly7GQ=;
-	b=2hp348lD3EaDJ8WUA59hzusvpXRivzieT0iT/TMxdo/pDBMOhH7JXv2HVepRd/ItKYf5ly
-	bijQg9dd4YYAkwAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B12FE133F6;
-	Sat, 10 Oct 2026 08:06:51 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id aIOdIRvyyWqRUgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sat, 10 Oct 2026 08:06:51 +0000
-Date: Sat, 10 Oct 2026 10:06:51 +0200
-Message-ID: <87jynqj7xg.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: songxiebing <songxiebing@kylinos.cn>
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] ALSA: hda: Reset response counter when a verb times out
-In-Reply-To: <20261010022932.407742-1-songxiebing@kylinos.cn>
-References: <20261009034040.379171-1-songxiebing@kylinos.cn>
-	<20261010022932.407742-1-songxiebing@kylinos.cn>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="ZzwzWNUg"
+X-UUID: a197539ec48111f1b1788b6acf885367-20261010
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=2Q9o8X67cLcd5wpuB8jLL9VwIWbBM83PwmCeCDKeN9I=;
+	b=ZzwzWNUgFfyJdjXyqb61zo7C4mxdqvlqkKSvl4d4S9QmdzKh4+Lclud4OzBOf+AdKTlbUmdKocDGjVZ2DvMB/khFzhaDytWx2YennmohhlM4f4R97CSFTvZFKwutWfwQVnCWOY0d+cTuJkvUsISIaPIl5JY1xC6QcZIhKZqDEJo=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.20,REQID:b7855261-9ec1-48ea-9cf2-ff8a91140058,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:291e20b,CLOUDID:6c882e95-3103-4fdb-b79c-08de0e281a5d,B
+	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
+	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,
+	OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: a197539ec48111f1b1788b6acf885367-20261010
+Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by mailgw01.mediatek.com
+	(envelope-from <kyrie.wu@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 55151695; Sat, 10 Oct 2026 16:07:26 +0800
+Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Sat, 10 Oct 2026 16:07:25 +0800
+Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
+ mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Sat, 10 Oct 2026 16:07:24 +0800
+From: Kyrie Wu <kyrie.wu@mediatek.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>, Bin Liu <bin.liu@mediatek.com>,
+	kyrie wu <kyrie.wu@mediatek.corp-partner.google.com>, Hans Verkuil
+	<hverkuil@kernel.org>, irui wang <irui.wang@mediatek.com>, Nicolas Dufresne
+	<nicolas.dufresne@collabora.com>, <linux-media@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
+CC: Kyrie Wu <kyrie.wu@mediatek.com>
+Subject: [PATCH v18 03/13] media: mediatek: jpeg: fix buffer structure size and layout
+Date: Sat, 10 Oct 2026 16:07:07 +0800
+Message-ID: <70578cea826dc419f3d754f1288eafca2cdd331f.1791614327.git.kyrie.wu@mediatek.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1791614327.git.kyrie.wu@mediatek.com>
+References: <cover.1791614327.git.kyrie.wu@mediatek.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 0795F1F388
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_TRACE(0.00)[suse.de:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[kylinos.cn:email,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
-X-Spam-Flag: NO
-X-Spam-Score: -3.51
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 
-On Sat, 10 Oct 2026 04:29:32 +0200,
-songxiebing wrote:
-> 
-> From: Bob Song <songxiebing@kylinos.cn>
-> 
-> On some controllers the HDA link reports a verb timeout and the driver
-> falls back to polling mode.  After that, every subsequent verb sent to
-> that codec address keeps timing out (roughly one second per verb), while
-> the hardware itself looks perfectly healthy: the RIRB write pointer keeps
-> advancing, interrupts are still delivered, and verbs that carry no reply
-> payload -- notably writes -- still take effect on the codec.
-> 
-> The reason is that bus->rirb.cmds[addr] is incremented for every verb and
-> only decremented in snd_hdac_bus_update_rirb() when a matching RIRB
-> response is read, without any rollback for a response that never arrives.
-> A controller that cannot fall back to the single-command mode
-> (chip->fallback_to_single_cmd == 0, e.g. the ACPI platform, Tegra and CIX
-> controllers) returns an error right away and never performs the bus reset
-> that would reinitialize CORB/RIRB and clear the counter, so a single lost
-> response leaves bus->rirb.cmds[addr] non-zero forever.  Each following
-> verb then still gets one response that only brings the count back to the
-> stale baseline of 1, and snd_hdac_bus_get_response() keeps timing out even
-> though the codec answers normally.
-> 
-> Handle it in the core helper snd_hdac_bus_exec_verb_unlocked(): whenever
-> get_response() reports an error, reset the pending counter for the codec
-> address, so a late response is simply treated as a spurious response and
-> the following verbs recover.  Doing it here covers all HD-audio
-> controllers instead of relying on each controller's fallback setting.
-> 
-> Add a small helper snd_hdac_bus_reset_response_counter() for this.
-> 
-> Signed-off-by: Bob Song <songxiebing@kylinos.cn>
-> ---
-> Changes in v2:
-> - Move the fix from azx_rirb_get_response() in the HDA controller helper
->   into the HD-audio core (snd_hdac_bus_exec_verb_unlocked()), as suggested
->   by Takashi Iwai, so that it covers all HD-audio controllers and not only
->   the ones using the shared azx helper.
-> - Add the snd_hdac_bus_reset_response_counter() helper instead of
->   open-coding the counter reset.
-> 
->  include/sound/hdaudio.h     |  2 ++
->  sound/hda/core/bus.c        |  6 +++++-
->  sound/hda/core/controller.c | 20 ++++++++++++++++++++
->  3 files changed, 27 insertions(+), 1 deletion(-)
-> 
-> diff --git a/include/sound/hdaudio.h b/include/sound/hdaudio.h
-> index aa994d6e6d35..b0fbb61fa093 100644
-> --- a/include/sound/hdaudio.h
-> +++ b/include/sound/hdaudio.h
-> @@ -398,6 +398,8 @@ void snd_hdac_codec_link_down(struct hdac_device *codec);
->  int snd_hdac_bus_send_cmd(struct hdac_bus *bus, unsigned int val);
->  int snd_hdac_bus_get_response(struct hdac_bus *bus, unsigned int addr,
->  			      unsigned int *res);
-> +void snd_hdac_bus_reset_response_counter(struct hdac_bus *bus,
-> +					 unsigned int addr);
->  int snd_hdac_bus_parse_capabilities(struct hdac_bus *bus);
->  
->  bool snd_hdac_bus_init_chip(struct hdac_bus *bus, bool full_reset);
-> diff --git a/sound/hda/core/bus.c b/sound/hda/core/bus.c
-> index 81498f1e413e..ecc4b7a780a4 100644
-> --- a/sound/hda/core/bus.c
-> +++ b/sound/hda/core/bus.c
-> @@ -121,11 +121,15 @@ int snd_hdac_bus_exec_verb_unlocked(struct hdac_bus *bus, unsigned int addr,
->  			break;
->  		/* process pending verbs */
->  		err = bus->ops->get_response(bus, addr, &tmp);
-> -		if (err)
-> +		if (err) {
-> +			snd_hdac_bus_reset_response_counter(bus, addr);
->  			break;
-> +		}
->  	}
->  	if (!err && res) {
->  		err = bus->ops->get_response(bus, addr, res);
-> +		if (err)
-> +			snd_hdac_bus_reset_response_counter(bus, addr);
->  		trace_hda_get_response(bus, addr, *res);
->  	}
->  	return err;
-> diff --git a/sound/hda/core/controller.c b/sound/hda/core/controller.c
-> index 78855ac357c6..1babc5109049 100644
-> --- a/sound/hda/core/controller.c
-> +++ b/sound/hda/core/controller.c
-> @@ -396,6 +396,26 @@ int snd_hdac_bus_get_response(struct hdac_bus *bus, unsigned int addr,
->  }
->  EXPORT_SYMBOL_GPL(snd_hdac_bus_get_response);
->  
-> +/**
-> + * snd_hdac_bus_reset_response_counter - reset the pending response count
-> + * @bus: HD-audio core bus
-> + * @addr: codec address
-> + *
-> + * Drop the number of commands that are still waiting for a response from
-> + * the given codec address.  This is called when a verb is known to be dead,
-> + * e.g. after a response timeout, so that a lost response won't leave the
-> + * counter non-zero forever and block all later verbs to the same codec.
-> + */
-> +void snd_hdac_bus_reset_response_counter(struct hdac_bus *bus, unsigned int addr)
-> +{
-> +	if (addr >= HDA_MAX_CODECS)
-> +		return;
-> +
-> +	guard(spinlock_irq)(&bus->reg_lock);
-> +	bus->rirb.cmds[addr] = 0;
-> +}
-> +EXPORT_SYMBOL_GPL(snd_hdac_bus_reset_response_counter);
+Updates the `buf_struct_size` in the JPEG driver to use the correct
+structure `mtk_jpeg_src_buf` instead of `v4l2_m2m_buffer`, ensuring
+proper handling of source buffers. The previous buffer size led to
+mismatches and potential issues during video buffer handling.
 
-Do we need to expose a symbol?  It's used in hda-core, and both bus.c
-and controller.c are compiled together into it.
-Let's avoid unneeded exports until really needed.
+Moves `frame_num` in the `mtk_jpeg_src_buf` structure to align with
+other members appropriately. The first field of the driver-specific
+buffer structure must be the subsystem-specificstruct
+(vb2_v4l2_buffer in the case of V4L2).
 
+Fixes: 5fb1c2361e56 ("mtk-jpegenc: add jpeg encode worker interface")
+Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+---
+ drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c | 2 +-
+ drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-thanks,
+diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+index 3413570..7856a55 100644
+--- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
++++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+@@ -1092,7 +1092,7 @@ static int mtk_jpeg_queue_init(void *priv, struct vb2_queue *src_vq,
+ 	dst_vq->type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
+ 	dst_vq->io_modes = VB2_DMABUF | VB2_MMAP;
+ 	dst_vq->drv_priv = ctx;
+-	dst_vq->buf_struct_size = sizeof(struct v4l2_m2m_buffer);
++	dst_vq->buf_struct_size = sizeof(struct mtk_jpeg_src_buf);
+ 	dst_vq->ops = jpeg->variant->qops;
+ 	dst_vq->mem_ops = &vb2_dma_contig_memops;
+ 	dst_vq->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_COPY;
+diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.h b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.h
+index 6be5cf3..148fd41 100644
+--- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.h
++++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.h
+@@ -85,10 +85,10 @@ struct mtk_jpeg_variant {
+ };
+ 
+ struct mtk_jpeg_src_buf {
+-	u32 frame_num;
+ 	struct vb2_v4l2_buffer b;
+ 	struct list_head list;
+ 	u32 bs_size;
++	u32 frame_num;
+ 	struct mtk_jpeg_dec_param dec_param;
+ 
+ 	struct mtk_jpeg_ctx *curr_ctx;
+-- 
+2.51.0.windows.2
 
-Takashi
