@@ -1,254 +1,142 @@
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28728314B73;
-	Sat, 10 Oct 2026 17:19:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5200A331202
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 17:21:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791652772; cv=none; b=muFzg3/fDYi7Pug9eA6v6whqxk89MoidCWz2++gAcohCh6TaQIPjCjJjkeALlqfmBdzRkgrJ/XnYOp5tlT673BrR92W5rBzL4j/VdvPuLEBMZF4LCrztEu1CKV1BqqhNOlp4Vs2ubgTXiNdNbH+fM5gb0RfHCNNuVyW15opdkfY=
+	t=1791652908; cv=none; b=Bxr4TmsIdWDdlNvC8s5tvNVmvdX0J8x3enGO+ogyJ0EE+6qsb8v1UqhAqmJkeV78B0sUT89+XKk8IJ+JvjYTVqOc/ctMJeppccAreic5YbOFBbpn2vQRkz15tyvyU010/1OskhOqNoKn+wjL9zVbhFVcLo9kpfNoevJqvPm9EKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791652772; c=relaxed/simple;
-	bh=q9Z4EYXrDrI41l+M3yWO5yBiyjGx+xnwHrS8Ev8zcSg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=t8FjacV7r9ttE4HAzt6kEO6+daLLlrNovI/3nKXPmfdR4zL5XqK9wLzxsP4DamAFBpy1xAUwtGaYWwA9SAwYMe6Qv8bberXuB/N3ucBaP/Qcoc4eDG8AZLPfUwT70wbQbWQu/Gcru7Fnac0Auf4++r2girtZ7m8hZSdxa9fk2hY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=r14hjicm; arc=none smtp.client-ip=80.86.107.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+	s=arc-20240116; t=1791652908; c=relaxed/simple;
+	bh=QDzKbGVhT0iQaMhfqVz+PDxyGNf4k2FWJsrJ6MN3ESA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LxybQ/XESE+QBTpmby6+Kgn+7O4ZgmmdKtCG/WuTA/UIxiGr4+7xTxOhoGowQ1eSCeAcuHuxtNReaYOiysk0PKhYqMrsxSjRC8ArWKxvg51WuJyE6Jx8D56njqjGHZG0PSWela6mFR7uQt22QD8U2dr8/8mJ9BzyOcg1GYik+/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CeKhzGay; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="r14hjicm"
-Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id CCA54D1DB0;
-	Sat, 10 Oct 2026 20:19:26 +0300 (EEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro CCA54D1DB0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1791652768;
-	bh=OO3R0JEy8s7XH8QUYHdYFOl9vj2bnIovxBu2rO5p+FE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=r14hjicmZ+9QCuFuYCnk5zm/r0sFS0fT0rHQGQa/bx0BUy7TlSf1Bz5Eh8hMH+tme
-	 DzB8BcInbbw2j3mlXTHdWyd+3Cnc4pSPG8lie8LNllTZ04jagglKhN0++8EL7v67Aq
-	 6gtXzxrnGnOFyLrOc9M1r7hDctMo41fWC1bO7nLuzQ8cMvX+kAY9LmT+ZYIqpRYN+R
-	 28IVm2adjJd4fFVDucC8S7jG+P5zY5ZFh63g1+2AxWFPZA6khiFL5XGYAyMa5pnByr
-	 lGwNry6xqR/G4tupdqdbZZzHxo90dZN3ZZi+yNXDbgjkntQQHXtnbdXdaLZ87+NqJG
-	 VzqdrdwATIvOA==
-Message-ID: <5e6d5d408e690e81ad82efdfb7d7fde2e20f24e3.camel@rendec.net>
-Subject: Re: [PATCH v4 4/8] irqchip/al-fic: switch to shared parent interrupt
-From: Radu Rendec <radu@rendec.net>
-To: Eliav Farber <farbere@amazon.com>, Thomas Gleixner <tglx@kernel.org>, 
- Talel Shenhar <talel@amazon.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Sat, 10 Oct 2026 13:19:25 -0400
-In-Reply-To: <20261008090058.38591-5-farbere@amazon.com>
-References: <20261008090058.38591-1-farbere@amazon.com>
-	 <20261008090058.38591-5-farbere@amazon.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CeKhzGay"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a1698ea378so5681545e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 10:21:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791652904; x=1792257704; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qzwaUnI7IRPLhxyFnbCvNhosRBqBfqx+J3GlDpy+vjk=;
+        b=CeKhzGay8bytaVTO9QG+Tr7MTkNlzdlqi+kkHgxRSDu6TUX0KJrFb7UMWO9AWQjZBv
+         a8RFdVo7nMijv5OhnNVovSeRtdbZHSf070O7H4oZlOPJ8W62exBEub1GPJgywWsmslgv
+         TasaKkGRwUc7emRlbR85qzzG+l0NpC9fCRAB14V+vNxXvq0ITW9GVA6QsS/Nf4e08ywC
+         xa7PhacFeXheUBhsTH+/G5WaqdTLmz7lJSlo2IWeKR8jt6FP9p8rdtq7m4T66lXYVXKU
+         TDeCOSQ06Dy/yGvqtzC8MWIHMg1gUFRzq/w9gL3HgNYBT5xnW0ge6FBE7oKbwFMDAKZ7
+         4Z0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791652904; x=1792257704;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qzwaUnI7IRPLhxyFnbCvNhosRBqBfqx+J3GlDpy+vjk=;
+        b=w1/wWKhPB+EknKQh5Fgsiip/bWIkeas8Sl4shFhI/M2K0itopdNY7Ke+3MrUVs/DhR
+         HbOKXa+NuUWbkxT8uj/kTv3nIivxXq+AN+687acRb3QAPboGfuD4OeaaynWH6ukGoPCD
+         679IStT7U4Bd18QpDwf95qONNYl3cZoTmpKmVKZGHFcrqh3P7Ct1QDzVARaKbLdpt9VK
+         5E7SCpua7IKX1nbUwTfeHj1GDxYWmDJMPrFgyU6G0LV/yXJjRekDK9tMmsKfwcWx2zIP
+         dgEJ3W6SLsa44O/6PZzgqDAtQNrJNvxboWQ2xZuxFJdqFGgYoRaQUR/2IXY5e6sFrbt0
+         GSCQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwF042GtUEfjM2KRwCdJBKYf42dIsy/b6tmNInzunE5O3I1zeVHC7C5UU5I56iUspz60HwF3oV3rzpMEIk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLNqMhZXJqnUMtMX0spGwNIIUm1xrpisPJbVFJ7SvpTU+iPjo+D
+	M3qrH6VUXmWAUED31HRH4yQi/DXpNfdsJ+5UeSExjVswwkLs1vZ7y16AzwKLVtxN
+X-Gm-Gg: AYBFou2A0m5gw4PjPi3F3EK5T35OGDeNsOGtFWyhrxuWiFgGAPOT73xtPz7xABqKq3U
+	whcRAFFZLv+7JQ988TPQ3RLww7zYMR2LcjDdPIGl53porY/FsKLG3V5NwXnHMC5uY0lx11h3NT3
+	CyKAddkET+Im/iYH1lnRSi5G/8Ds6u0y1ym6D8tDAmxNnQ4iw98BNm3RBZrEayTBBqGSNMPkp3R
+	Zoq95nItbZ2Pv15hC9MyatR33KLgsvxOJNjcTCDEm81ZCLelZdDFDDjLDokNgZE2KcwwE32sGQy
+	HrIOKIWvt2MHXIwIZ+wnCNuTniuK0gqXCxwPbgdXWrursjXBjuAG2eFtp/nWGjqjFj4mbNrJAa4
+	7WCV96WlM4FIhBs3ADzfqJR8nhh5DweTdO90EPoYT7EihUCg0xS6Ma1HI1XsKKDWZCdANd03D6f
+	vok3eYPDjXSHte8nFjc8bYTa6z9TZBr2qjERajOUHkOtmANF7wda+WgrGnGRkwdlboiauzkBPF6
+	Baq3TwNsCD8GnPG2FgfkE+WLCx+dGZogUYcNV/LqGC4dtOo8bKVUPlHFCkPuT4svo28A1wDYIg2
+	07NfUkC1vMH+Oqu6
+X-Received: by 2002:a05:600c:3e8c:b0:49e:6861:50f7 with SMTP id 5b1f17b1804b1-4a18e49d251mr95380695e9.5.1791652904195;
+        Sat, 10 Oct 2026 10:21:44 -0700 (PDT)
+Received: from center.jhjvjihww5qejoy14qwv1cc4td.frax.internal.cloudapp.net ([131.189.143.225])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18c85009csm114159655e9.2.2026.10.10.10.21.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 10:21:43 -0700 (PDT)
+From: Orgad Shaneh <orgads@gmail.com>
+To: miquel.raynal@bootlin.com,
+	richard@nod.at,
+	vigneshr@ti.com,
+	tsbogend@alpha.franken.de
+Cc: linux-mtd@lists.infradead.org,
+	linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linusw@kernel.org,
+	kaloz@openwrt.org,
+	ulli.kroll@googlemail.com,
+	john@phrozen.org,
+	nico@fluxnic.net,
+	dwmw2@infradead.org,
+	corbet@lwn.net,
+	linux-doc@vger.kernel.org
+Subject: [PATCH 0/3] mtd: point() for cfi_cmdset_0002, on simple maps only
+Date: Sat, 10 Oct 2026 17:21:39 +0000
+Message-ID: <20261010172142.2138956-1-orgads@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2026-10-08 at 09:00 +0000, Eliav Farber wrote:
-> Until now the driver requested its parent interrupt using the chained IRQ
-> API (irq_set_chained_handler_and_data()), which only works when each
-> parent interrupt is wired to a single FIC instance.
->=20
-> A FIC controller is built from groups, each described by its own DT node,
-> and the groups of one controller share that controller's output line
-> toward the parent. So a real devicetree has several FIC nodes on one
-> parent GIC SPI, and a chained handler can only be installed once per
-> parent. Cascading compounds this: an aggregating group collects several
-> peripherals' outputs onto the line above it.
->=20
-> To support that, request the parent interrupt as a shared interrupt
-> (IRQF_SHARED) instead of installing a chained handler. The handler now ha=
-s
-> the standard irqreturn_t prototype and reports whether this instance had
-> anything pending, so the shared-IRQ core can tell which instance on the
-> line raised the interrupt. IRQF_NO_THREAD is set because the handler only
-> demultiplexes to the child domain and must not be forced-threaded; all
-> instances sharing a parent line agree on this flag, as the shared-IRQ cor=
-e
-> requires.
->=20
-> The handler reads the group's cause register and returns IRQ_HANDLED when
-> any unmasked cause bit is set, IRQ_NONE otherwise. That is the signal the
-> shared-IRQ core needs - "did this instance's hardware raise the line" -
-> rather than the result of dispatching to the child domain.
->=20
-> For that filter to be right, gc->mask_cache must be valid before the pare=
-nt
-> is requested. IRQ_GC_INIT_MASK_CACHE seeds it from the mask register only
-> on the first child mapping, and never at all for a group with no consumer
-> in the devicetree; until then the cache reads 0 and every latched cause b=
-it
-> passes the filter. Seed it from the value al_fic_wire_init() programmed a=
-nd
-> drop the flag; nothing can change the register in between, so the read
-> could only have returned that same value.
->=20
-> request_irq() can fail, unlike irq_set_chained_handler_and_data(), so add
-> an error path for it. Set IRQ_DOMAIN_FLAG_DESTROY_GC on the domain after
-> creating it, so irq_domain_remove() tears the generic chips down too and
-> the single call suffices for both the chip-allocation and request_irq()
-> failure paths.
->=20
-> Co-developed-by: Talel Shenhar <talel@amazon.com>
-> Signed-off-by: Talel Shenhar <talel@amazon.com>
-> Signed-off-by: Eliav Farber <farbere@amazon.com>
-> ---
-> v4:
-> =C2=A0- Seed gc->mask_cache before request_irq() and drop
-> =C2=A0=C2=A0 IRQ_GC_INIT_MASK_CACHE. The flag only seeds the cache on the=
- first
-> =C2=A0=C2=A0 child mapping, which is too late once the handler is shared =
-and never
-> =C2=A0=C2=A0 happens for a group with no consumer in the devicetree. Foun=
-d by
-> =C2=A0=C2=A0 sashiko-bot on the v3 posting.
-> =C2=A0- Drop Radu Rendec's Reviewed-by, since the above is a functional
-> =C2=A0=C2=A0 change.
-> =C2=A0- The commit message no longer claims the domain-sized dispatch loo=
-p
-> =C2=A0=C2=A0 always succeeds; with the cache seeded, only mapped bits rea=
-ch it.
->=20
-> v3:
-> =C2=A0- al_fic_irq_handler() no longer derives IRQ_HANDLED/IRQ_NONE from
-> =C2=A0=C2=A0 generic_handle_domain_irq(), whose return value only reports=
- whether
-> =C2=A0=C2=A0 the hwirq to virq mapping succeeded - and since the loop ite=
-rates
-> =C2=A0=C2=A0 exactly NR_FIC_IRQS bits, which is the domain's own size, th=
-at mapping
-> =C2=A0=C2=A0 always succeeds. Return IRQ_HANDLED when the masked CAUSE sn=
-apshot is
-> =C2=A0=C2=A0 non-zero instead, which is the correct signal for a shared i=
-nterrupt.
-> =C2=A0- Set IRQ_DOMAIN_FLAG_DESTROY_GC on the domain and let
-> =C2=A0=C2=A0 irq_domain_remove() free the generic chips, instead of calli=
-ng
-> =C2=A0=C2=A0 irq_domain_remove_generic_chips() by hand. Both error paths =
-now go
-> =C2=A0=C2=A0 through one label. The invalid-free fix from v2 is unaffecte=
-d; only the
-> =C2=A0=C2=A0 teardown mechanism changed.
-> =C2=A0- Use of_node_full_name() in the request_irq() call.
->=20
-> v2:
-> =C2=A0- Fix the request_irq() error path: v1 called irq_free_generic_chip=
-(gc),
-> =C2=A0=C2=A0 which is kfree(gc) on an interior pointer into the single al=
-location
-> =C2=A0=C2=A0 made by irq_domain_alloc_generic_chips() - an invalid free r=
-eachable
-> =C2=A0=C2=A0 when request_irq() fails at probe. Replace it with
-> =C2=A0=C2=A0 irq_domain_remove_generic_chips() before irq_domain_remove()=
-, and add a
-> =C2=A0=C2=A0 commit-message paragraph explaining the teardown ordering.
-> =C2=A0- Add Co-developed-by/Signed-off-by: Talel Shenhar.
-> =C2=A0- Reworded to state the hardware reason for the shared parent (the =
-groups
-> =C2=A0=C2=A0 of one controller share that controller's output line).
->=20
-> =C2=A0drivers/irqchip/irq-al-fic.c | 38 +++++++++++++++++++++++++--------=
----
-> =C2=A01 file changed, 27 insertions(+), 11 deletions(-)
->=20
-> diff --git a/drivers/irqchip/irq-al-fic.c b/drivers/irqchip/irq-al-fic.c
-> index ee06d0123b7a..fda9c05a639f 100644
-> --- a/drivers/irqchip/irq-al-fic.c
-> +++ b/drivers/irqchip/irq-al-fic.c
-> @@ -4,9 +4,9 @@
-> =C2=A0 */
-> =C2=A0
-> =C2=A0#include <linux/bitfield.h>
-> +#include <linux/interrupt.h>
-> =C2=A0#include <linux/irq.h>
-> =C2=A0#include <linux/irqchip.h>
-> -#include <linux/irqchip/chained_irq.h>
-> =C2=A0#include <linux/irqdomain.h>
-> =C2=A0#include <linux/module.h>
-> =C2=A0#include <linux/of.h>
-> @@ -95,24 +95,21 @@ static int al_fic_irq_set_type(struct irq_data *data,=
- unsigned int flow_type)
-> =C2=A0	return 0;
-> =C2=A0}
-> =C2=A0
-> -static void al_fic_irq_handler(struct irq_desc *desc)
-> +static irqreturn_t al_fic_irq_handler(int irq, void *data)
-> =C2=A0{
-> -	struct al_fic *fic =3D irq_desc_get_handler_data(desc);
-> +	struct al_fic *fic =3D data;
-> =C2=A0	struct irq_domain *domain =3D fic->domain;
-> -	struct irq_chip *irqchip =3D irq_desc_get_chip(desc);
-> =C2=A0	struct irq_chip_generic *gc =3D irq_get_domain_generic_chip(domain=
-, 0);
-> =C2=A0	unsigned long pending;
-> =C2=A0	u32 hwirq;
-> =C2=A0
-> -	chained_irq_enter(irqchip, desc);
-> -
-> =C2=A0	pending =3D readl_relaxed(fic->base + AL_FIC_CAUSE);
-> =C2=A0	pending &=3D ~gc->mask_cache;
-> =C2=A0
-> =C2=A0	for_each_set_bit(hwirq, &pending, NR_FIC_IRQS)
-> =C2=A0		generic_handle_domain_irq(domain, hwirq);
-> =C2=A0
-> -	chained_irq_exit(irqchip, desc);
-> +	return pending ? IRQ_HANDLED : IRQ_NONE;
-> =C2=A0}
-> =C2=A0
-> =C2=A0static int al_fic_irq_retrigger(struct irq_data *data)
-> @@ -140,11 +137,17 @@ static int al_fic_register(struct device_node *node=
-,
-> =C2=A0		return -ENOMEM;
-> =C2=A0	}
-> =C2=A0
-> +	/*
-> +	 * Let irq_domain_remove() free the generic chips on either error path
-> +	 * below, instead of calling irq_domain_remove_generic_chips() by hand.
-> +	 */
-> +	fic->domain->flags |=3D IRQ_DOMAIN_FLAG_DESTROY_GC;
-> +
-> =C2=A0	ret =3D irq_alloc_domain_generic_chips(fic->domain,
-> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0 NR_FIC_IRQS,
-> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0 1, of_node_full_name(fic->node),
-> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0 handle_level_irq,
-> -					=C2=A0=C2=A0=C2=A0=C2=A0 0, 0, IRQ_GC_INIT_MASK_CACHE);
-> +					=C2=A0=C2=A0=C2=A0=C2=A0 0, 0, 0);
-> =C2=A0	if (ret) {
-> =C2=A0		pr_err("fail to allocate generic chip (%d)\n", ret);
-> =C2=A0		goto err_domain_remove;
-> @@ -162,9 +165,22 @@ static int al_fic_register(struct device_node *node,
-> =C2=A0	gc->chip_types->chip.flags =3D IRQCHIP_SKIP_SET_WAKE;
-> =C2=A0	gc->private =3D fic;
-> =C2=A0
-> -	irq_set_chained_handler_and_data(fic->parent_irq,
-> -					 al_fic_irq_handler,
-> -					 fic);
-> +	/*
-> +	 * Seed the mask cache with the value al_fic_wire_init() programmed,
-> +	 * rather than having the generic chip read the register back on the
-> +	 * first child mapping: that is later than the parent is requested, and
-> +	 * never happens at all for a group with no consumer in the devicetree.
-> +	 */
-> +	gc->mask_cache =3D ~0U;
-> +
-> +	ret =3D request_irq(fic->parent_irq, al_fic_irq_handler,
-> +			=C2=A0 IRQF_NO_THREAD | IRQF_SHARED,
-> +			=C2=A0 of_node_full_name(fic->node), fic);
-> +	if (ret) {
-> +		pr_err("fail to request irq (%d)\n", ret);
-> +		goto err_domain_remove;
-> +	}
-> +
-> =C2=A0	return 0;
-> =C2=A0
-> =C2=A0err_domain_remove:
+jffs2 scans a flash in place through mtd_point() when the chip driver
+offers it, and copies every used eraseblock through mtd_read()
+otherwise. cfi_cmdset_0002 never had point(), so every jffs2 mount on
+an AMD-style NOR copies the whole used area. On an Octeon CN6635 board
+with a 100 MB jffs2 partition on an 8-bit M29EW that takes 15-30 s at
+every boot.
 
-Reviewed-by: Radu Rendec <radu@rendec.net>
+1/3 tightens the existing gate first. map_is_linear() only checks for
+a physical address, so cfi_cmdset_0001 already points at maps whose
+own accessors swap bytes (IXP4xx), switch pins (Gemini) or lock the
+bus (lantiq). The new map_is_simple() also requires the simple
+accessors.
+
+2/3 adds point()/unpoint() to cfi_cmdset_0002 behind the same gate,
+modeled on cfi_cmdset_0001, and lists it in the cramfs documentation.
+
+3/3 lets the Octeon flash map use the simple accessors when no eMMC
+host shares its boot bus. Without it, 2/3 changes nothing on Octeon.
+It builds without 1/3 and 2/3 but only pays off once they are in, so
+taking all three through mtd with an ack from Thomas seems simplest.
+
+Tested on that board with 7.2.9: the mount drops to 0.6-0.8 s. The
+md5s of the images on the jffs2 partition held across reboots and
+across ten 8 MB write/delete rounds. The series applies to v7.3-rc4
+and to mtd/next.
+
+Separately, for the MTD maintainers to judge: the write-buffer count
+truncation that cfc5ebc9540e ("mtd: cfi_cmdset_0002: cap the
+write-buffer chunk at 256 bytes on an x8 device") fixed in
+cfi_cmdset_0002 has two siblings. do_write_buffer() in cfi_cmdset_0001
+writes CMD(words) and the one in cfi_cmdset_0020 writes
+CMD(len / map_bankwidth(map) - 1). On an x8 device CMD() keeps only
+the low 8 bits of the count in each device lane, so a write buffer
+larger than 256 bytes per device would be programmed with a truncated
+count. I have no x8 Intel or ST part to test on, so I have not touched
+either; I do not know whether such a part exists.
+
+Orgad Shaneh (3):
+  mtd: maps: only point() maps read through the simple accessors
+  mtd: cfi_cmdset_0002: implement point() for simple linear maps
+  MIPS: Octeon: flash: use the simple map accessors without a shared
+    eMMC
+
+ Documentation/filesystems/cramfs.rst  |  11 +-
+ arch/mips/cavium-octeon/flash_setup.c |  37 +++++-
+ drivers/mtd/chips/cfi_cmdset_0001.c   |   2 +-
+ drivers/mtd/chips/cfi_cmdset_0002.c   | 156 +++++++++++++++++++++++++-
+ drivers/mtd/maps/map_funcs.c          |  12 ++
+ include/linux/mtd/map.h               |   2 +
+ 6 files changed, 207 insertions(+), 13 deletions(-)
+
+--
+2.53.0
+
