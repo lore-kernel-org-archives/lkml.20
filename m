@@ -1,145 +1,91 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87F23377AB6
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 14:02:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6FF737C0FC;
+	Sat, 10 Oct 2026 14:05:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791640955; cv=none; b=TxWH68YdAAqBrIW+dU385Z+HrB+aUsiJ6Oo2qBcbW0dT34Z28gDrcUkrsyiWmCKnAaYAufUZBKdvmiS32a83TDtf9Yu1UYq9AKr8PGrKnRnmiIQ71EZ+OOBQ5rjE+TMAYucudaE7Q9p+KT+/UdZZaDn3jA7wyZrspRHZMJWJo2M=
+	t=1791641146; cv=none; b=ZezQtOZZmVZD7MX1oCOi6+qcybgNxN68mqodclIWG65VuK2xTA4yP6vCpEVBkASBBiK726ePhdLADElQXHqHJQItL0vrf0PVJu1Ntc+Q8U5cUnr4ViRFHS6oRTCAT0nyQ7mDgorj1jx7kbBgrXNXcSiE5ra8b7NiGPPi8p0cqw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791640955; c=relaxed/simple;
-	bh=1nn/gxCVP607cWus+kYr5yIsKr+fX0D4lXIQhCvbtzw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MJCyhXAhThND87r9ni+LtFYl9VLBUgPRSiAcNRrif73wgW1W0JIbOVwiqlWiZHX9MCHFFS2NptOt72wkCL1nK/vMbSK9+1BsSH6pIdlrLpTC7KEVRdTDpUVHZS07wBupSzzvmCNee/wFB/U4guxPxQAY2S/6k5f4YgwdhpqbmoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qDSQdYr2; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791641146; c=relaxed/simple;
+	bh=7/6D07oY3BQvUronBIxd6DIvspYz2npT2JrCk8e+Zes=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kljUztY3ZnDoMK/0rD3xdNAzUC/+c+XiJ40Gxgzs2rHzIfbYzjXBxjlyvIKAa8Bl+Rb3XOtlzSYs8DzGWjNxlwFsRjItSN5UwaCbi5HMMZJPH1ECWtWtM/SMbaotG6rVaUzjw/UZCTg74Yr5+2Ufk7+fyk46ycEA4YF5OtjSvUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hpsFX85s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qDSQdYr2"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-487048857f6so594739f8f.3
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 07:02:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791640950; x=1792245750; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7F23FNsErj3fpOWKD/UF72cX4yQCCC/yv71F53gfj74=;
-        b=qDSQdYr2Z/+mdWr5U9bMM5gDAIS4cjZD0yDeCyIfsFfHYpIe/gYGLc/dT9OQDe5ZyM
-         pr1zGnzEzFNtrH3AraRLJ6Ba7MLXvgw8eAvI2boZA1c+xLYps7STj05CZ2fsPMO1pFEs
-         nXqebZNvonbBefAXm8QHluLwoyANWBzBWD2LAoyzeIuVMJRSXsczb6rAIB2iefqSw1e+
-         QadP+/LKkS0pvPI4VX4T5PfEo0OuISIWLLWf+iqvMkOG29pP1YKP9igsoEcRVEjjDIyV
-         K3PQn1aap2b2S6seVp+UJo6X/+taOuJZj0PqkoCpHWbR1SQkTGsaOB1LGjaoGFe+MiDC
-         H1wA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791640950; x=1792245750;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7F23FNsErj3fpOWKD/UF72cX4yQCCC/yv71F53gfj74=;
-        b=gkt3GFZxx9qeOHiU3v12YEzrFnWJqeB/Sgn5lWhsXBoNwonZEflpwpJyAZyegDuWVn
-         qgBNHiRXGRHbPvru6QUk9jXX9SQKKWdRBxShubx0IfzaPqPY33wsvSWXZ8/WRK6rV9LF
-         eFKLqiDk9cUTvBG91/WZKTM/jXoefHHtqldICYqSsrP58La+CN4+JkO/qpmNxXotYFlC
-         6vKfqowu87l5dO0lCoXLhQ3CL65Yms6uGZgbFc+sSyemQicX9+NJ52cBLh6EjSX02EiO
-         K9+lBXAB7UixUIRgbWguIFE/ssH0A19mNnvYb8eO20Cwv+VOFtY9ZuCTXPgY6hzYZwbI
-         j8MA==
-X-Forwarded-Encrypted: i=1; AKwUvBwrIziBumCc3QNsHKWuozEEJ7SruGvmkZs/UDMDOkUohy26tzqHtFNXNauelR5IVxD/RQ/zWuC3ZHkKY3w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK21K/XIPy9kV4pqRwHEzrl1+45EcA6xfADkQ/QtXxrgva7hWV3
-	ZFall6s11Z3OkN64dqxwANLBHD+1JverHQEnci+oj6lhZndj33wXV/S0ZukhMA==
-X-Gm-Gg: AYBFou35cq8ig2+eIv8Md76gpwHSvw8goEUgKC7Q9zsZsTL/tFirrLPdtGnrLXPZ5UZ
-	EhGS26rHjNGAwZFWrxKjc7BttWwk0sd8DD8C91X+gGxWyfrRoMXlhRYAzI/2tVRYSVf2U4ypVFI
-	vKyumMgIKBufEe1sHl9s0+oytrYvT18Qf+nYBPYVCOQnDPBYyZ2HVRgfmN2qwDQeRNjCnjMi8o8
-	q9+w9/Z0lr5Khej24V4P4j4VWYJAqSUpgWf5/mSp9/Rutv3sPhsSVM0piAJnU1KOaTt4xgP9o29
-	6ZcGGn58HZBUiMCiaEmeBMmfXa3jR0s2BUjCd6cSAfOi/1bA+m3V9ZARc9vhmdAvXHG32ozWTuN
-	26/jgny+rbsewHZopwksYB3iB1BYT3tmSnOmrGiGZnrwfQ0AfrsOd2IFUd5m8zU5PIfP7mFQGXd
-	I7CB59weCl4ivw6d8D2VTeqvWUa1zZqAJSjIe3QLRrY0MIpaeC7io/KSf9+0XJGoykB2XqFn0aU
-	Db5ZvuwJYYxTNUnGpY78Dt7F4yRBq9UX+kyhAKKzeeG/8wZgfBU6sjAQCZUz2IBZpnEgFgR7OpW
-	+yZPER+7P7AMgm50sxlfyJwNXfY8SsQzSgj4IJL9d5UEVfT/
-X-Received: by 2002:a5d:6992:0:b0:48c:49bd:62df with SMTP id ffacd0b85a97d-48dba77d1ddmr7509477f8f.1.1791640950478;
-        Sat, 10 Oct 2026 07:02:30 -0700 (PDT)
-Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c? ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9463499sm8727077f8f.3.2026.10.10.07.02.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 10 Oct 2026 07:02:29 -0700 (PDT)
-Message-ID: <12d8d2fc-6b3a-432f-b27d-e27bea01d697@gmail.com>
-Date: Sat, 10 Oct 2026 15:02:26 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hpsFX85s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AE1E1F000FF;
+	Sat, 10 Oct 2026 14:05:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791641145;
+	bh=GyknJpqFfggtxhblqqqi57Fv191t8GDatIYjjn2u/JA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hpsFX85sisLmYIOVIujbckkjWQzvbR4VG8YU5nv2hZcP0Unh0CDMZFlk357+cKfaa
+	 hNP2TOAljwO6WpvQm9jP2erAvKMCCXI50eB7DXDrDD54HaU4uo5Yx7mgnFO7QoBxYw
+	 zGuhfmwht0TbRxtGPYQzuSCSGrgPVMttq6lum+USoB+3BSMjY0nsg0KWyOqa7Gh608
+	 0K/4kZyGAbL/gURVxQZ4NobN0uEQRRkIfHuKi/IH7Ba1U3ivMjZyhNo99skTPvXnRp
+	 ddX+4bv49B/7OZrkNpzsWf77HD2ydvM8kVuWlF8j6RC+AlWTNBqV6SN9l8ogD0fqFf
+	 vY4FIYCwuek5A==
+Date: Sat, 10 Oct 2026 15:05:41 +0100
+From: Simon Horman <horms@kernel.org>
+To: Linkui Xiao <xiaolinkui@126.com>
+Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com,
+	intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Linkui Xiao <xiaolinkui@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH iwl-net v3 3/3] ice: free the VF MSI-X vectors when VF
+ start fails
+Message-ID: <20261010140541.GQ83879@horms.kernel.org>
+References: <20261008125754.3520773-1-xiaolinkui@126.com>
+ <20261008125754.3520773-4-xiaolinkui@126.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v1 1/4] net: devmem: unmap dma_buf synchronously on
- queue uninstall
-To: Mina Almasry <almasrymina@google.com>, Jakub Kicinski <kuba@kernel.org>,
- David Wei <dw@davidwei.uk>, Taehee Yoo <ap420073@gmail.com>,
- Stanislav Fomichev <sdf@fomichev.me>, Paolo Abeni <pabeni@redhat.com>,
- Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman
- <bobbyeshleman@meta.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Nikolay Aleksandrov <razor@blackwall.org>, Tariq Toukan <tariqt@nvidia.com>,
- Kaifeng Wang <kaifengw@google.com>
-References: <20261010025532.839559-1-almasrymina@google.com>
- <20261010025532.839559-2-almasrymina@google.com>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <20261010025532.839559-2-almasrymina@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008125754.3520773-4-xiaolinkui@126.com>
 
-On 10/10/26 03:55, Mina Almasry wrote:
-> When a bound net_device is unregistered while userspace still holds a
-> netlink or TCP socket reference on a devmem binding,
-> mp_dmabuf_devmem_uninstall() clears binding->dev to NULL so
-> netdev_nl_sock_priv_destroy() will not touch the unregistered
-> net_device, but leaves the dma_buf attachment mapped until
-> __net_devmem_dmabuf_binding_free() runs later on socket close.
+On Thu, Oct 08, 2026 at 08:57:54PM +0800, Linkui Xiao wrote:
+> From: Linkui Xiao <xiaolinkui@kylinos.cn>
 > 
-> Because dma_buf_attach() does not take a reference on dma_dev, device
-> removal frees dma_dev while the attachment is still mapped. Closing the
-> netlink socket afterwards triggers a slab use-after-free in
-> dma_unmap_sg_attrs():
+> ice_init_vf_vsi_res() reserves vf->num_msix vectors out of
+> pf->virt_irq_tracker with ice_virt_get_irqs() as its very first step,
+> but neither of the two error paths below it gives them back. A NULL
+> from ice_vf_vsi_setup() returns -ENOMEM straight away, and the
+> release_vsi label only releases the VSI.
 > 
->    BUG: KASAN: slab-use-after-free in dma_unmap_sg_attrs+0x76/0x2b0
->    Read of size 8 at addr ffff88810fae64b0 by task kworker/3:1/53
->    Workqueue: events __net_devmem_dmabuf_binding_free
->    Call Trace:
->     dma_unmap_sg_attrs+0x76/0x2b0
->     unmap_udmabuf+0x8e/0x100
->     dma_buf_unmap_attachment+0x145/0x330
->     dma_buf_unmap_attachment_unlocked+0x96/0x130
->     __net_devmem_dmabuf_binding_free+0x156/0x2e0
->    Freed by task 9:
->     kfree+0x1b8/0x550
->     nsim_bus_dev_release+0xe/0x60
->     device_release+0xcf/0x250
+> ice_start_vfs() leaks the same vectors. Its teardown loop undoes the
+> queue mappings and the VF VSI of the VFs it already started, and the
+> eswitch attach failure path releases the VSI of the VF it is working
+> on, but neither calls ice_virt_free_irqs(). The caller then runs
+> ice_free_vf_entries(), which drops the last reference on every VF, so
+> nothing further down the error path can release the reservation
+> either.
 > 
-> Add net_devmem_dmabuf_binding_unmap() serialized under binding->lock
-> and null out binding->sgt and binding->attachment after unmapping so
-> unmapping is idempotent across queue uninstall and deferred binding
-> destruction. Call it synchronously when the last bound RX queue is
-> uninstalled in mp_dmabuf_devmem_uninstall().
+> The tracker bitmap is only freed in ice_deinit_virt_irq_tracker(), so
+> the leaked vectors stay reserved for the whole lifetime of the driver
+> instance. Every failed "echo N > sriov_numvfs" permanently shrinks the
+> pool that ice_set_per_vf_res() divides up, and after enough retries
+> ice_virt_get_irqs() fails with -ENOENT for good even though the
+> hardware vectors are idle. ice_dis_vf_mappings() meanwhile re-points
+> GLINT_VECT2FUNC of exactly those vectors back at the PF while the
+> bitmap still books them to the VF.
 > 
-> Fixes: f8350a4358fc ("net: page_pool: add a mp hook to unregister_netdevice*")
+> Release the vectors on all three paths, the way ice_free_vfs() does
+> for a VF that is torn down normally.
+> 
+> Found by code inspection of the VF setup and teardown error paths. It
+> was not triggered and no stack trace or error message was observed.
+> Compile-tested only, not run on hardware.
+> 
+> Fixes: 4d38cb44bd32 ("ice: manage VFs MSI-X using resource tracking")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
 
-It looks more like 170aafe35cb98e0f3fbacb446ea86389fbce22ea
-("netdev: support binding dma-buf to netdevice"). The one in the
-tag didn't do anything interesting.
-
-The fix looks good as well, might be a good idea to clear
-net_iov's dma_addr as well.
-
-Reviewed-by: Pavel Begunkov <asml.silence@gmail.com>
-
--- 
-Pavel Begunkov
+Reviewed-by: Simon Horman <horms@kernel.org>
 
