@@ -1,65 +1,65 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FA374A99A3
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 13:00:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 015F74AA01C
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 13:00:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791637246; cv=none; b=lrv3ujFI5yufGY3Q+KMYthX4igbiQcduz2zeXj00gkLgZN4n6x+GFB8q350oWTKsSz6UqmmzMYsE3hWKP33N/U/1+qh2YOYBcAPgl8wxqhahqMC/hj4Oy7GRBbwp89RzSmYriYjkbx/CXBFgV/3IAN9DfnhrKM0Qqazujppu1Ao=
+	t=1791637247; cv=none; b=KBxAt7xqYaJ0gvEihOipDmpBVMAhXYKpfs64WeabNho9+f5Tp+zgdO9Ts0F3OJKBPak7XzeDwNSb78oI1eqqQ3NKHbk9a9YHmikv1Kr158BzSj54IJYqtJqWLJWdZN8ESVoSAF4IoTKiOQaKuRBBp/ocCEX/i5RS3HGUcbtI7uY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791637246; c=relaxed/simple;
-	bh=HdygoRF6oEk1SkwGhEtVhXOCKvExlr02A9uruapDZTc=;
+	s=arc-20240116; t=1791637247; c=relaxed/simple;
+	bh=2Iq5URQh8j2cslcdrK0rHb5Ovhb0ZDxTNezfsgzf7F4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=am259PjNfu4yO+BMnkraTcz6AGBaaRgj9kDIoIWR6Ad2jcGryEHTSfN/pt9kqw2e91KR8GOIg7Ty/kGs91oFLQx3fPrCY5879j4TXLaRspkx804HhnDYNWVy+3bOAL7FF7fxm/utP3eUKAdv7O+DXkKEcPl/yrHvYI0a/98AGDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E4jaYpr7; arc=none smtp.client-ip=209.85.128.42
+	 MIME-Version; b=rG2VJ5I4VovgjqGmqg6uPoZhI9L6xeYrXCpx03LxlS1QPS+psN6h88/Dw+1Z/ZaklOUO/nQIYyyIhP6H6Q60UpxGbs/oM61kg/TOy6LlVrCm+h2CnqcoqpnNPhCxtbskM8xc7FSPeGIEII59p9NfexGDtUo87o4b+9UcJRagqes=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HQoKGILb; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E4jaYpr7"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4956869750eso4450575e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 06:00:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HQoKGILb"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a1880e1bf1so5476935e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 06:00:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791637239; x=1792242039; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791637242; x=1792242042; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fGFpiejSGpOIzstNVckwDDSyChSy7GVC4iVpGtXgDOE=;
-        b=E4jaYpr7OBgzFcwimWa8Mb5mwkCGoT0Z12NTki549AC1SLeSJA4fm6sPRLKJ9gLuQE
-         pR+Q5ZLsRsH3crZDR9ENSb8zNzkW31NwKJ4w8juRksUBzy5Pr1Ehw69pzVS7Nk08mfSd
-         wxrPqGXp+F0UdvhdrDiXFaB0g6SJaR9xC5jhwJkKzplTYswBA0E64MOb9JCZqZOBMQc9
-         qeIo0y/fVTsoL08Cx0GglZstNjV0WFabdXlz92wYqsCJa7ovKelpOgP6rL4NjQCI6PI0
-         TGSMdMICXliU/SQ0duG7KSWOkvkqQAWZuZgg/SVcKCUCAB927DnLUP2srfVHlZEBSc3D
-         V9OA==
+        bh=eZRXuafeSGm7SScy7RMeNaydNiquq0qtlWJM32llwhM=;
+        b=HQoKGILb6dCVDFNnZdynmwig+/qTr+oECPl8e6x5mOIRMJLrSlQYRO4oaUUJVNjCoK
+         Ve8K/Fmze5Bbtcm6qfd4O9P7HzwogRzQQ3aPnpgVZHYUXgoMi48O7H6PbjVa4A2itkaD
+         UTwB/sexWVnrH9tO7Xw+pBk8g3U6t9HfTbKTdjUNsAoRoLq7M5xSfsumyNX85gnJXsrl
+         L/5L2rDjimjeU0c0rrMbvjA23TcP3JjBOOdLZUi5wZUBZK9x4nPTf2xXXQ1OAYG2zo4n
+         4RCmeEU4PLRz+i4EPsRYn0di0a2P7dQ6zMai1cfO6O4tLJcAhhFcDEQ5kR6kK18mTSpV
+         VCyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791637239; x=1792242039;
+        d=1e100.net; s=20260707; t=1791637242; x=1792242042;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fGFpiejSGpOIzstNVckwDDSyChSy7GVC4iVpGtXgDOE=;
-        b=in7UaPxfffDsF4B7QQJvIEaXR0cgs5PNeoMdm10+6/4i7r3wAtpsZxkrsFi1BVRZ2S
-         dl48tUx1dFK2pmlYWdKhJGqjOUIld7qVRhS2O55GNfERlK97NKo2G1KyiM1vwmqlLqQm
-         mP4E1TOzef6QLZeMvUsvmoCovjZzhD2VAu0D8tQWuqDDu7Iz79U+pfAWGnIgw8VutcEF
-         KdKHB62yPE+g+c4ZjFPhSRrfkZTLvRB5ejDnJp0wkcafCTxSf2fR3nVm9gP1p7PG4j19
-         AkfH1HQsL79v4xc1wuyolZFaqEj3IRwBYxgU316xTLQ3duXxKqAFpfPR5oxZ6IU8edwh
-         HrAg==
-X-Forwarded-Encrypted: i=1; AKwUvBwGXxfL/NPHs8DSagm0K2hrev5CJNCb1Jksd8ryfXwA34ToxJoBktaCV9drUwc5yRsjCBKnE67ef48Uteo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLy1X9ZhEW29BdqV5Qt5DmTEFrM5lLHnEIE+l90lT5ugpnkmEMM
-	rXjEUwQX7nQk2FtKGo0JhHhw0L0XuMlJgAWUVIPiF/0gKFUpgM+HRZiI
-X-Gm-Gg: AYBFou1GS0rSRiTPTKe0Lug8gXZ7mvxBWcUBO37ggEuNz2/5ts/sgX+Ox4tcrUAbVDr
-	tfauyWUkn7T6FJaFuiE7f4Ns75WKShLLNVbKgJZQI4i1KPFYdh7YqxN0hnlG+JigkClDcBgPc0z
-	Od8zm9wbLUWXw4dxGCOYnIZ4g+gfnuMJN0fCfwJZYZvn/u/gffkDEmP1Gbzh89XwCRyZq0tU+Od
-	a1bMToBW0iSthsVcB+i/yFRE0B9Uj0ySFl59Asy6p+FJ63T6ScZ0fy7+yzSfcwlig8Hwbs/cqjh
-	OHEc61NueCCNJp1NuIIZZ0SBAyGcoxzpsZPfMFZQDpKt9ruey5Re79jOpV8GkX+mlow7ZyIqUao
-	ez2U5a7iD/OxHrbPwuO594gXaZMiCDUulf1ZWNyX+YE5/FRvfYfKUochoH9e7bjCJfql5v8fULS
-	efbGFBWekg8CUMY51Gax+m3PPUywnRxrOz+cl/hymSP/r74dBpYz4yXOphzOqWlCechsmDbDu4l
-	B87ujIBrXL3X3FLKFZOWGVQMrzxvxL6CF+x6LKFFkWx9dikzLFYkpGHI37lg26iqFMap7xcG45Q
-	uUgtGEOXcwX3KjCGGM4/1njqdK2jsbfzoTn0g8AEDF/dLsjZQFu+8OuQkMN4Kg==
-X-Received: by 2002:a05:600c:4f14:b0:4a0:89:6727 with SMTP id 5b1f17b1804b1-4a18e4adc5cmr88069255e9.16.1791637238622;
-        Sat, 10 Oct 2026 06:00:38 -0700 (PDT)
+        bh=eZRXuafeSGm7SScy7RMeNaydNiquq0qtlWJM32llwhM=;
+        b=VX+c7onqLVZfTohqNvRw0gOQ9L7aeEMK8S/dQ4MNCgfPTC3rdeKN0Mw+iTh4Pg6iYW
+         1Zu0pLyt3Q0R30v98IfYpEEdc4j8oLbwGjCuRc9uOsq7OfAsi42vFXuTJ05WQ2yhrsPH
+         jHGOaY7X2/AZumBeePFQ4VsUPqBCgdr/iG0WKB4R106vOSEglFWWWrA2MLaTCRJlSfBT
+         AUZzCRI9xDdAjX3JeaRiQi8z5xx7jzuitTpbEEfTIGLhfxLVyeYjmbaLY9oTAOYhIqWQ
+         D71buofdB+uFsYmSfzK5KttUmqKFSsmJ04fNDi2UU9BAOJWk9IJ77VTZz4IdUzefOGje
+         hlRw==
+X-Forwarded-Encrypted: i=1; AKwUvBzkVJ28lIo+0OnKZJlqdRZzW1mjQncIoyJAG38r0RIJREcY/6+LzOiI5GWuMLz1ocYpMjo11cPuIYeMUkI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZB95+/m1fueNP7x6yZCB/8tQKVHlshKTf5uV7yw2L4+kXp6k9
+	V5zbsH+dMr9O59wla1UVHndiClXqG/KLcMnbgDal68GCLUiHWlIOyk3M
+X-Gm-Gg: AYBFou0httmZTi0a+B6+/pb7QWAZGAXnOKQ4Hf4Lo3fCbPGaGprWx0jk1PcifnQz34b
+	+JOEAYFHDCWsi2wVAH7ALxEzD1crnKgx1QHVRo6GbaMaVXDEu9v+UCnQkYm8KFLUwyxcrpTWVaz
+	IQWVtN6y9zMG0KP91Zi5ii8HnfQNANHIHOZTZu/9EHMxPQFtPg3iBJdfDo88Wh0giSbvqwTVq+L
+	3JCQd+oD56JUvAH+CFfOkDyKttiv0L7Z/NjiDijhESAJwKTl8Ob1V0q/mA6dC1P9eZpb9SYS2jY
+	AyBe+uLOeL5zmdGcU9C4CHnHeVVqqFPrgSqlbUSJ7jlH2Se8+1JSTOSEgPmXZXAlFKQp9vffy8C
+	oisc7WuB2rWBqApJAHlficP2ha9IK2g6jViVD4OYVpx87G2rovYjgwapkVGNohH4bAw6mVocCSF
+	7FcMbHFyaj40X+Xsk18YWZdyURU9I38xDU5fE77iisQsNbf8UNexiDB51xDHZb0y5VR0jszQYpH
+	3upV0PSJgd8LykzxOxksECNz09vwb4AWiPmBATmd+ju1QRbX8M/QbbHQEmJLdgxlFmG14+XGaBk
+	0/dJtL22KkfviF2KWm4oOkDnU2uCegjgrdqTg0eNRAicQpLFPrjDj8fvU9chng==
+X-Received: by 2002:a05:600c:4ecb:b0:4a1:76c9:5408 with SMTP id 5b1f17b1804b1-4a18e4a510emr95532245e9.11.1791637241030;
+        Sat, 10 Oct 2026 06:00:41 -0700 (PDT)
 Received: from navid-pc ([2a01:4b00:a856:6220::a11])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a190c49d5csm162309975e9.3.2026.10.10.06.00.37
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a190c49d5csm162309975e9.3.2026.10.10.06.00.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 06:00:38 -0700 (PDT)
+        Sat, 10 Oct 2026 06:00:40 -0700 (PDT)
 From: Navid Ghahremani <ghahramani.navid@gmail.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: devicetree@vger.kernel.org,
@@ -70,9 +70,9 @@ Cc: devicetree@vger.kernel.org,
 	robh@kernel.org,
 	krzk@kernel.org,
 	Navid Ghahremani <ghahramani.navid@gmail.com>
-Subject: [PATCH 09/24] gpio: Add ZTE ZX279128S GPIO driver
-Date: Sat, 10 Oct 2026 13:59:47 +0100
-Message-ID: <20261010130024.177503-10-ghahramani.navid@gmail.com>
+Subject: [PATCH 12/24] dt-bindings: PCI: Add ZTE ZX279128S host controller
+Date: Sat, 10 Oct 2026 13:59:50 +0100
+Message-ID: <20261010130024.177503-13-ghahramani.navid@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261010130024.177503-1-ghahramani.navid@gmail.com>
 References: <20261010130024.177503-1-ghahramani.navid@gmail.com>
@@ -84,136 +84,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Expose the six banks using the generic GPIO implementation and enable
-the register clock before accessing the bank.
+Describe both DesignWare hosts, the two control syscons and the shared
+Wi-Fi reset lines. The shared-resource model remains an RFC question.
 
 Assisted-by: LLM
 Signed-off-by: Navid Ghahremani <ghahramani.navid@gmail.com>
 ---
- drivers/gpio/Kconfig          | 12 ++++++
- drivers/gpio/Makefile         |  1 +
- drivers/gpio/gpio-zx279128s.c | 78 +++++++++++++++++++++++++++++++++++
- 3 files changed, 91 insertions(+)
- create mode 100644 drivers/gpio/gpio-zx279128s.c
+ .../bindings/pci/zte,zx279128s-pcie.yaml      | 97 +++++++++++++++++++
+ 1 file changed, 97 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/pci/zte,zx279128s-pcie.yaml
 
-diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
-index a48586bb8e..3ae51a3c10 100644
---- a/drivers/gpio/Kconfig
-+++ b/drivers/gpio/Kconfig
-@@ -902,6 +902,18 @@ config GPIO_ZEVIO
- 	help
- 	  Say yes here to support the GPIO controller in LSI ZEVIO SoCs.
- 
-+config GPIO_ZX279128S
-+	tristate "ZTE zx279128s GPIO support"
-+	depends on ARCH_ZTE || COMPILE_TEST
-+	select GPIO_GENERIC
-+	help
-+	  Say yes here to support the GPIO controller of the ZTE zx279128s
-+	  SoC. It has several banks of 16 lines each, which boards such as
-+	  the ZTE ZXHN H3600 use for LEDs, buttons and reset lines.
-+
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called gpio-zx279128s.
-+
- config GPIO_ZYNQ
- 	tristate "Xilinx Zynq GPIO support"
- 	depends on ARCH_ZYNQ || ARCH_ZYNQMP || COMPILE_TEST
-diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
-index dc9e6d643b..a57ed7ec71 100644
---- a/drivers/gpio/Makefile
-+++ b/drivers/gpio/Makefile
-@@ -223,5 +223,6 @@ obj-$(CONFIG_GPIO_XLP)			+= gpio-xlp.o
- obj-$(CONFIG_GPIO_XRA1403)		+= gpio-xra1403.o
- obj-$(CONFIG_GPIO_XTENSA)		+= gpio-xtensa.o
- obj-$(CONFIG_GPIO_ZEVIO)		+= gpio-zevio.o
-+obj-$(CONFIG_GPIO_ZX279128S)		+= gpio-zx279128s.o
- obj-$(CONFIG_GPIO_ZYNQ)			+= gpio-zynq.o
- obj-$(CONFIG_GPIO_ZYNQMP_MODEPIN)	+= gpio-zynqmp-modepin.o
-diff --git a/drivers/gpio/gpio-zx279128s.c b/drivers/gpio/gpio-zx279128s.c
+diff --git a/Documentation/devicetree/bindings/pci/zte,zx279128s-pcie.yaml b/Documentation/devicetree/bindings/pci/zte,zx279128s-pcie.yaml
 new file mode 100644
-index 0000000000..8f37b908bb
+index 0000000000..57a4e96610
 --- /dev/null
-+++ b/drivers/gpio/gpio-zx279128s.c
-@@ -0,0 +1,78 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * ZTE zx279128s GPIO controller
-+ *
-+ * Copyright (C) 2026 Navid Ghahremani <ghahramani.navid@gmail.com>
-+ */
++++ b/Documentation/devicetree/bindings/pci/zte,zx279128s-pcie.yaml
+@@ -0,0 +1,97 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pci/zte,zx279128s-pcie.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+#include <linux/clk.h>
-+#include <linux/err.h>
-+#include <linux/gpio/driver.h>
-+#include <linux/gpio/generic.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
++title: ZTE zx279128s PCIe host controller
 +
-+/*
-+ * Each bank has 16 lines, one bit per line in each register. The registers
-+ * at 0x04-0x10 and 0x28-0x34 control the interrupts, which are not supported
-+ * yet.
-+ */
-+#define ZX279128S_GPIO_DIR	0x00	/* 1: output */
-+#define ZX279128S_GPIO_DATA	0x14	/* line level */
-+#define ZX279128S_GPIO_SET	0x18	/* write 1: drive high */
-+#define ZX279128S_GPIO_CLEAR	0x1c	/* write 1: drive low */
++maintainers:
++  - Navid Ghahremani <ghahramani.navid@gmail.com>
 +
-+static int zx279128s_gpio_probe(struct platform_device *pdev)
-+{
-+	struct gpio_generic_chip_config config = { };
-+	struct device *dev = &pdev->dev;
-+	struct gpio_generic_chip *chip;
-+	void __iomem *base;
-+	struct clk *clk;
-+	int ret;
++description:
++  The ZTE zx279128s has two PCIe host controllers based on the Synopsys
++  DesignWare PCIe IP, each with one lane. Their clocks, resets and PHYs are
++  controlled through the SoC's Top CRM blocks.
 +
-+	chip = devm_kzalloc(dev, sizeof(*chip), GFP_KERNEL);
-+	if (!chip)
-+		return -ENOMEM;
++allOf:
++  - $ref: /schemas/pci/snps,dw-pcie.yaml#
 +
-+	base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(base))
-+		return PTR_ERR(base);
++properties:
++  compatible:
++    const: zte,zx279128s-pcie
 +
-+	clk = devm_clk_get_enabled(dev, NULL);
-+	if (IS_ERR(clk))
-+		return dev_err_probe(dev, PTR_ERR(clk), "failed to get the clock\n");
++  reg:
++    items:
++      - description: Data Bus Interface (DBI) registers
++      - description: Controller wrapper registers
++      - description: PCIe configuration space region
 +
-+	config.dev = dev;
-+	config.sz = 2;
-+	config.dat = base + ZX279128S_GPIO_DATA;
-+	config.set = base + ZX279128S_GPIO_SET;
-+	config.clr = base + ZX279128S_GPIO_CLEAR;
-+	config.dirout = base + ZX279128S_GPIO_DIR;
++  reg-names:
++    items:
++      - const: dbi
++      - const: ctrl
++      - const: config
 +
-+	ret = gpio_generic_chip_init(chip, &config);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to set up the GPIO chip\n");
++  interrupts:
++    maxItems: 1
 +
-+	return devm_gpiochip_add_data(dev, &chip->gc, NULL);
-+}
++  zte,crm:
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    description: The two Top CRM syscons that hold the clock, reset and PHY
++      controls of this controller.
++    items:
++      - items:
++          - description: phandle to Top CRM 1
++      - items:
++          - description: phandle to Top CRM 2
 +
-+static const struct of_device_id zx279128s_gpio_of_match[] = {
-+	{ .compatible = "zte,zx279128s-gpio" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, zx279128s_gpio_of_match);
++  reset-gpios:
++    maxItems: 1
++    description: Board reset line. A device connected to both controllers
++      (the MT7915 Wi-Fi chip of the ZTE ZXHN H3600) has its lines listed in
++      both nodes; the first controller to start resets and releases it.
 +
-+static struct platform_driver zx279128s_gpio_driver = {
-+	.probe = zx279128s_gpio_probe,
-+	.driver = {
-+		.name = "zx279128s-gpio",
-+		.of_match_table = zx279128s_gpio_of_match,
-+	},
-+};
-+module_platform_driver(zx279128s_gpio_driver);
++  enable-gpios:
++    maxItems: 1
++    description: Second board line that is driven together with reset-gpios.
 +
-+MODULE_AUTHOR("Navid Ghahremani <ghahramani.navid@gmail.com>");
-+MODULE_DESCRIPTION("ZTE zx279128s GPIO controller driver");
-+MODULE_LICENSE("GPL");
++required:
++  - reg
++  - reg-names
++  - interrupts
++  - '#interrupt-cells'
++  - interrupt-map
++  - interrupt-map-mask
++  - zte,crm
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    pcie@f000000 {
++        compatible = "zte,zx279128s-pcie";
++        reg = <0x0f000000 0x4000>,
++              <0x09500000 0x1000>,
++              <0x1c000000 0x200000>;
++        reg-names = "dbi", "ctrl", "config";
++        #address-cells = <3>;
++        #size-cells = <2>;
++        device_type = "pci";
++        bus-range = <0x00 0xff>;
++        ranges = <0x82000000 0 0x10000000 0x10000000 0 0x08000000>;
++        interrupts = <GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>;
++        #interrupt-cells = <1>;
++        interrupt-map-mask = <0 0 0 7>;
++        interrupt-map = <0 0 0 1 &gic GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>,
++                        <0 0 0 2 &gic GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>,
++                        <0 0 0 3 &gic GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>,
++                        <0 0 0 4 &gic GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>;
++        linux,pci-domain = <0>;
++        zte,crm = <&topcrm>, <&crm2>;
++        reset-gpios = <&gpio3 5 GPIO_ACTIVE_LOW>;
++        enable-gpios = <&gpio3 7 GPIO_ACTIVE_HIGH>;
++    };
 -- 
 2.55.0
 
