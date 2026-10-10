@@ -1,226 +1,236 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D497D30DD22;
-	Sat, 10 Oct 2026 19:05:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.135.77
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791659136; cv=fail; b=OgeAU76GtqwjhjpGQnFUUN1te+tO1sKkRamZgJKdltNdhJsY2R8/KeIYlF8Dl9iU5MeJtop6lmJ1t6yPo3Xg4/AsHmUGBP57rc3NW2wq5KNRwA+YfN2Eh6SGvMFyZ4ilz3l2zcL0fh1v5xfzHbxQU5C6+eUErq7B2+aUCg7m30A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791659136; c=relaxed/simple;
-	bh=zBMfZLjRL7NuFRM6veD62mEHHGGJQ9d9kfh07euXsE8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=JVsfOJXV7VYDEnaL+xZ2cE+Xf1i1mwMKGZ2ylwS8bPstg4ZgdCVtLnBWOXrqXJFvd9YOQvy5Is3OiKIRcPBoVCQtCPIY8N4GKT2vsDGW2oCmkAwsxhQdePYMWXMYG8ttSV/n4O5CaMMSC5LAbWTU2U1RkQRQBRda2uY/ZlBQizE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.b=KY4kdGZR; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=tKdkcc+Q; arc=fail smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D986030DD22;
+	Sat, 10 Oct 2026 19:07:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791659253; cv=none; b=LnaYbWJGyyCaizNY9n9xS3FnEJikxrRGwSfUKbBisRGvt9OS8vKXZtwNZ63OwNBMEH0BE9EIGjeYUg+dmTCdYY9RhVKGuIL+nu6atZ+w6J2T7ZHtR4KJHweEjZNlIzl/cb39Ci0afy6o75x+u71Mh02Bj06SNyKpOIK/WWDlTP8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791659253; c=relaxed/simple;
+	bh=MkfaOB+HNsQ6PRGnLpf3rwGakN3w42IIMHKMeQojOh8=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=lm27wSS/EZwhKIyZIfjsMf6ymGHqoDcBEyTFrQUQ9KKMOL4BAgqVQmCKwqP2pM/NzZ7uj4cr2Px36YtVwB59etI4aXEqM6nZuQ3GlJX7T/48/+rEeJmuTOuttyQapmn/EONio6W/+tcfK70XPrxdtpTzId+QB5NHTqN34QDnvSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PuqSgrP2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.b="KY4kdGZR";
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="tKdkcc+Q"
-Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69AIhKFc1442284;
-	Sat, 10 Oct 2026 15:05:03 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=DKIM; bh=GwbQJSCj27RGFWB5GPEN9kZj6S6XA
-	/PJFBCM3xqN6mM=; b=KY4kdGZR9g1YxkiVrKm6KAOuItebJvBiKYhzeyvqGqMI0
-	swVwGPKIdlmBmBnIRcH/TP1EwbA4stik7Y2kBpSwerGwbtfXjlijvB/fuj1V73Bz
-	AVo1tm0gE5MMZNKer9a3llPYjbLs4QeVubihFjvFKqo08pSBAvzB31nBpfNo3F/4
-	ejQ3xdCz2rFYmhJBXVEGRThTgyE8Rpaqj3yqiOGVpS21BJFOrR5dnRDHbCa2L6KN
-	SI6XgMWv6i9WHxc1WGj7mi0mlzqcxPYkTBl9Z+Ri/WzoYWIizr+TdTNRJb6li39U
-	tTmHqtQOBEt1MoV6CXC56mI/ehGeNeTE5cRTS8+JQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=DKIM; bh=GwbQJSCj27RGFWB5GPEN9kZj6S6XA
-	/PJFBCM3xqN6mM=; b=tKdkcc+QsJO/lNTZ94iG8XIjNo2G8nkoDb2A2NnHigLeO
-	xVeTbOMwvU2OCVgZqlUJt6ezTNntl3y2M3MnUiAFbcTyl4yD7nequZX0iaenmG1q
-	Gw11AS5LdH7F7k8j7U0vH+5jXtmy86664WHsULe2SgF9fB9co70zDdazhwr2iayi
-	1OnPRR0neU72uJWfiCSOTPGPNIpIBw1WscY/AwQifVWalbDkzX/K+85ds8CeyrHQ
-	G/jb7xSlXugjSjUPmJArkQatvr9YR6UAbXLnzIS2cpNyNHpq/6mrmVebIG2cLJRp
-	CGmRyuP7eth9cw8XF++jFGZM7AQw/hCJ8fmdIAYCA==
-Received: from dm5pr21cu001.outbound.protection.outlook.com (mail-centralusazon11011015.outbound.protection.outlook.com [52.101.62.15])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4h7j92jbdw-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sat, 10 Oct 2026 15:05:02 -0400 (EDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DRmnjSC8/DJXV+s5hLf0Pyw231QuWWZC4WRuRUjXC0o1UHq+s+je4kNbUSOJ/57QgXTGYZxLNF8yIws+l5uI2h9pa5eNNWK7tlWLHxAJdKpSvQg+KR+2bV+MblrV1lS3h05xghv4z1WbbK/AyWaWVv0h8K+WZJSBOFBn4rdS7AsGATfvFRknAwgfiDb5/MYFBaJiaSYM3WYTPy9s2UYIYtCK3iemKMO4KxBdGowHH3bC87VyEVtrfsxEJwwpG0e82AYETVxv97e8qBB37uhMq9CkV7imEA0uHoR52y4N48fipXVLciQ7UTe9bEf02ZKWZvqiiUve3JKKzl9dzwvSHg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GwbQJSCj27RGFWB5GPEN9kZj6S6XA/PJFBCM3xqN6mM=;
- b=Dx98pCDPWEKRFPSPnnnuVwWo00/+ScIEbozWHWjaLrVzbIv03sVKzTxMNEJ+hNLitu2oJRehUIoo/T6yNpu7adbTq4TBhOi1k7+KxbcAjvjryAH1hYzxSxd1x1px0zAuLJ8wifdNBOC7sTRXLZmUqfd7S/UnDUON13NdrMJ3yiDc/TTR/Ci3yPmDiuAE+kW6MS5DqtLwy4R9lQbUHtR9NkrfJ3rX3rlER5uH5ELW4f3r8TidE0ZYPcs3GC/mCL7AfYLtvk2f97xYpLsV5tYJ+hGwu36w+5ARpixmxTsEB2UgiELktzdySDMOdgGGe8vteTCRusXZrOzuf3VzhEujhA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
- dkim=pass header.d=analog.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=analog.com;
-Received: from DM4PR03MB5981.namprd03.prod.outlook.com (2603:10b6:5:388::24)
- by PH7PR03MB7047.namprd03.prod.outlook.com (2603:10b6:510:2b0::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Sat, 10 Oct
- 2026 19:03:59 +0000
-Received: from DM4PR03MB5981.namprd03.prod.outlook.com
- ([fe80::7af0:3071:4d42:63ed]) by DM4PR03MB5981.namprd03.prod.outlook.com
- ([fe80::7af0:3071:4d42:63ed%5]) with mapi id 15.21.0496.018; Sat, 10 Oct 2026
- 19:03:59 +0000
-Date: Sat, 10 Oct 2026 21:03:54 +0200
-From: Alvin =?utf-8?Q?=C5=A0ipraga?= <alvin.sipraga@analog.com>
-To: shengjiu.wang@oss.nxp.com
-Cc: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
-        p.zabel@pengutronix.de, kuninori.morimoto.gx@renesas.com,
-        linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ASoC: ak4458: Check reset status after deassert
-Message-ID: <asqIvOi1iQrIkB3w@analog.com>
-References: <20261010084058.2365291-1-shengjiu.wang@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261010084058.2365291-1-shengjiu.wang@oss.nxp.com>
-X-ClientProxiedBy: FR2P281CA0182.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9f::10) To DM4PR03MB5981.namprd03.prod.outlook.com
- (2603:10b6:5:388::24)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PuqSgrP2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 844EC1F000FF;
+	Sat, 10 Oct 2026 19:07:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791659251;
+	bh=oLV5y1NWd/GkDDfQ5x0zNqxU7r1TMAdmIJbGfZBHcPw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=PuqSgrP2U/nbn9VxjkhIRDl2eOe80yccb1pnxPjV5MVGpvuwSAy3Hn82ukeR5zsTC
+	 eceX6EBFGjwiydAIWbMkjr7M0f37X5ySek0FtgANlVSIdeRwV208WG2mFWS0pHcAIy
+	 rBoZz/ZDDW/PU089BdR52R2iO3q1a1xnPjJX5ncj2O34IWrhfULkcgHRMCXxSrSbtB
+	 Jhy+E9E3zUych+2HYaVjnKzVMBVKIOkgNQIT/bMDW83l76FjbF89Pve0TnyyKDdl7J
+	 vnlhPrMD85rG9Apv51l/EtSh93fnmHvnjlILMS34KaT9SMzJ7dUvffsSQI84m7dpTl
+	 7JPeJ28LRvfAA==
+Subject:
+ Re: [PATCH net-next v5 2/4] net: phy: put the driver module the attach took
+From: netdev-bot+sashiko@kernel.org
+To: f@lex.la
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, linux-kernel@vger.kernel.org,
+ f.fainelli@gmail.com, woojung.huh@microchip.com, vladimir.oltean@nxp.com,
+ maxime.chevallier@bootlin.com
+Date: Sat, 10 Oct 2026 19:07:29 +0000
+Message-ID: <179165924997.434549.9959775460791598020@kernel.org>
+In-Reply-To: <20261009180551.1234107-3-f@lex.la>
+References: <20261009180551.1234107-3-f@lex.la>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR03MB5981:EE_|PH7PR03MB7047:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3635e443-1bf5-451f-f3fb-08df27013cbe
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|22082099003|18002099003|56012099006|10067099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	lbwMkOyIHEPXgoWBDB+n7elyL6TSFlQiBHf2YLaaWK7poxZ12KHfYYgYp7XlA113l36SSKO/EzjUO5rFjHjQkWcwfwWS97NqvQwA1ViGpCifiNygz7eYPAVwSJ230KORQWbxR2/g8jqvw24AnCINKoXzcMZfnqSeRUYJTvRxxtVEImSW8m8ySsyDPqGcdD6ObewCggRzf3qjTsqmZyhw8pXqMy2gtEMu5ivmrikTKVedqOmyVwW+UFCe34G/PaJh52WsxeHkWYCxd9fducrfkRijX0f8gEbtXQsaAZKN2CafwpG3FARg7ZOLaYZsMmQEXsTmfE2sonUoMaYdTlKSNMl0wJYsLJ014yi7B1pYpcY/j5naaX1fmEEMS+N3n5LJS+rd1dmNidMiNU9TxGfnUomgad6WdK4LFvjP5C2rah00fOx11wLYVRP93doqiJrC7oK2JH2JwspytWc7b/xK4zvnZq/9i1KQienED4wNg2XjH8vf1sj4fg4vjRYP0P5PLoLtt5lgFKgVrua7IEqDX91H7AFtuflLx6CN1yxS1jzeCzL6H6fCiBWEVsXfjal98pnziY45g4nd0EFoFKbYvg1fHtkAiGKZKQjQ8LdN7/OXxD8rovS41eZDWAHs4tm6kQ59+FsVqXywfSzTEoKOKw7EJC8HJC+WivtYabizsXU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR03MB5981.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(22082099003)(18002099003)(56012099006)(10067099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TUJOUFAyTmtubEhaK2wwZ2FVZUxCUElrbGFicDVVK20rT1JDOUxrVmk5RG9K?=
- =?utf-8?B?Rk5JTHl0M2JxbFJVMkdIcHlTekdxRDI5SHNUVXJHWmFDUlMwdW4wcWZNb0Uv?=
- =?utf-8?B?Q05QYWpYekROWDhoYTZlbkszdngwbmRYUGhhMXlLdWMwRFBWVncxSm04SWx2?=
- =?utf-8?B?bHFidEFNaE1vd210R0VwVHQ5Y3pFelZQazZHbnEralFGKzRKb0tLZmQyOWcz?=
- =?utf-8?B?R0tPMmlacllEYmpFWExCc0hFQ01BeFVta2lsLzc0MXRJR2c2dzViYzdzVCta?=
- =?utf-8?B?V0g1U09UankzbGFLQ2tlZ2creVduYjNNbXVxOU1ERFZCWjNucmRkYzJpZmt6?=
- =?utf-8?B?Q2ZScjFzWTVwek9EK294UCtiSnpDeFhuMUFNTUhScVlxMUs5Qm9xYklEcFNs?=
- =?utf-8?B?NjM2bS9ybHo5aGVJUVZUd3E2WnhKVHVVNUtDT0dWRitmMmV6VUYyOXJPOVhv?=
- =?utf-8?B?VDV5cTNlTXN1SzErZk9ZMDZ4cVFwUFZrUG9VR3JqcmdDZEtKNklRdm9sRENy?=
- =?utf-8?B?MklKSzgwSER5SVRxVHE5c3JreTNIeGcybEhzYlpQSS96Skc1UTBTSmFDc0hn?=
- =?utf-8?B?VUpqaVBIQ3FWM2RTZU5hU0h1RWd4enJOOFVBSExydWFxbTdvZXhpNXJoVEx1?=
- =?utf-8?B?WWNaeWJtWS82bnp5TWtyVkxBZ2htN3FDRTlUVElaSWRrcmVETElLdVp1Y1p5?=
- =?utf-8?B?SEh5UmFxQi9QaGpNSjUrdkluNm1KL1YzR1BycXZjNlZ4dFdSZEcya1FCd1RG?=
- =?utf-8?B?aFplOFIxUXFwQmdLdkRlQXh6MWsxNHRlVEhwbmV0UjNJeTFZeFRXVUIzNzZp?=
- =?utf-8?B?YTlsMWZrNzVJMlhzT3cxU0U0eFQ2NlVJak4wbFlMMWt3cXhnWHY5QmpPNzZr?=
- =?utf-8?B?WENvSlE1WGZYeW1sK2wzK1JWQ3J1TUVCYVFhVmpxM1FjemhZd2pkQnUvWGlj?=
- =?utf-8?B?a1BEcGhxcnFqbUw5WlZOOGNnMGFtbnlSUTlISG9PMWt4djBGSzhpU09scVJL?=
- =?utf-8?B?QVFlMnphMGRNaUVCS1hiZjhuTjNJZDIwb1lDRTd0UmZGeVFSWGEwM084dVI3?=
- =?utf-8?B?U2FGMFJKUXBKRUtiTlVwWDFGMmhuUjI0end4YXgyQXBoMzNqeUFPSGpoTUc0?=
- =?utf-8?B?UEo3MXBiTE5ES0VEeTYzeGRSYTN6eC9ybEVJczlpazg2UG1qQTdSYU9PY2NP?=
- =?utf-8?B?YTIrV0hYZSthZXZraGlnY09CLzlRbFAxQW5tNjZqZHVqWGd1ZXQvL29kczlY?=
- =?utf-8?B?aFBOdkEwclNTcDNEL1YvV0N2S2pmSm01b2tiNCtPQ3A4a0tvWUZQT1FYMy9K?=
- =?utf-8?B?MXRzN1J5Vjg0MGttci9UV3Izb0lFeTF4Y2xiWnVjdGVZRFRBZkNzMnUzaGZP?=
- =?utf-8?B?ajJsbnVGaERtdk9OQjcwc0pNVXh0cVpvTE9CZ0FxN0YxT2I2QWtWem8xZE50?=
- =?utf-8?B?SUhtRHh5M2owZkVmOU5uZHhKZ2JMakdLTkJlVHd2ZEcxT0hDL0NSS3loMHdm?=
- =?utf-8?B?SnBkNDBYTElYc3czOGNsTmhzN3BIeHdIZ3ZmWC9aQk5vMUhyeTFKbFRoakwr?=
- =?utf-8?B?MGtYMXVLNFRYcnJ4R2VSYkNhbVBTbXg4dXY0cFRVVy9IbXk4akRtNjhTcGJE?=
- =?utf-8?B?L3JKbGNFT1VQWVU5U0hHZmZEbHNaY0NIbW12Uk9SbnNNaHVpSWdsVFJLWTg0?=
- =?utf-8?B?RkFlT1BRQ09GeG5NTHVScFFmajdNbm1XVDNlM1ZsaC9vWWJIWnFNK3BBUlgy?=
- =?utf-8?B?WnI2eEZUUjJxeDhCQ1hwL3BPSlR3MUJSRWpoeWkzWkFCMTBUTUMxYVc2WDhj?=
- =?utf-8?B?NHk1SEJFdTUwSGhqaDlYTGF3dTc3U1VIY20ySFliZzl4QVhqUktLN2RKMDh3?=
- =?utf-8?B?Tzl4dEh6TldxOWdVdjVOeE9wZU41WkgrUmV1djREYjQzZU1IblpISVhhSXVt?=
- =?utf-8?B?aVJMb1MwV3BlUG5KMmcrcHBCZTBCTWtibHMrUXN5QzVkZ255ZXA3WmtFeWJF?=
- =?utf-8?B?ZzlFbXZOTkg5L2NxclRjcGdiVTN5dFh4Mk5RdDV5SnNGbmU3dVViY2orM3Vr?=
- =?utf-8?B?Nmk3b0dRTlJvQWt0SWVhem1rQTNNdjZpZ2l2ZXNPeXlFc0VWa0pUYjM2ZVlP?=
- =?utf-8?B?cUExNFg3aHdOQ3VOWmxBNG5IZjFpZkNzWHM1YWllbUgxeEVlcVFPNE9QNGdH?=
- =?utf-8?B?UjVwVVo2bTZQeWVySTBIYVhuNjcwWWs4N0pHajh6YWpCd1NESDdGV1YxWlp1?=
- =?utf-8?B?YndkNXpWU3d6Q3lCcUN5My9WZ1VCLzF1cWxQYUI3b2JhaG15MXF0SmFXTExC?=
- =?utf-8?B?aVZxZ0VydjZEZTgvUnVHcXVERmFkZkpVRWRMcVVZTjdzdG5tb29oQT09?=
-X-Exchange-RoutingPolicyChecked:
-	u3VPxYILXhHBiY1rvftavjtDDadmteOW8r2CAx8G9w2PrxI40afUTi4PeKeTaWvNzCD6L434JcvpevNV+OnKG77uoXxBIwJq+nMB2r40GF3SGvQ8P1Qc4yHl1WJThHdhO5Mbo7Zv/Wkoj51wo7YzvoLfq3V5/iNVaIKersjZfn2VZe4jHK+INlG1Lhu7KH2ru9Y/iF4AFVVrDzeJCCO3fY4lP8PXk3DUxghB45vq73Ux6oBfk2RqyzzaVY81uboMxHtSsKVecxfP62XcyLULpnjmH2PnF6AetA6w+aYJ+BECLOZpRzTGgxwcCZ6WdEze6piVZafQVM441ORt/C84Rw==
-X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3635e443-1bf5-451f-f3fb-08df27013cbe
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR03MB5981.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2026 19:03:59.1729
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0GBkJbWKiYpwT4oNb66CK3Owewi29ORw4wZ2wC0kZ6DoCy2ABnG3pAG/w+xyfkOE8ogjV8X+w2ueJ9fSYdK1pHXczAulbT1sQurQeHwUxRw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR03MB7047
-X-Proofpoint-GUID: PvWpzZ7i-Ku9RTnwf_o_t8dy4rlYA06B
-X-Proofpoint-ORIG-GUID: PvWpzZ7i-Ku9RTnwf_o_t8dy4rlYA06B
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEwMDA3NSBTYWx0ZWRfX8RyDTBiltrGd
- PsmtsIIpRc6Jkl857TrdHdP8lXAPLajSoPM9FsYCEEQz6VsWMGUOaaYE3azd+ZRtZB6jh4sdP+i
- BeuU/C9BBtOAbAaF8Ha5q61lZHSiPy3/iggcu7V1KcCB/vx9NN+y
-X-Authority-Analysis: v=2.4 cv=R9eWitRX c=1 sm=1 tr=0 ts=6aca8c5e cx=c_pps
- a=+kBkz34/1DjdJIz+AnMsKg==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
- a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
- a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=M51BFTxLslgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22 a=Z0pTeXoby7EwIRygza74:22
- a=8AirrxEcAAAA:8 a=hLaThcydWDM4CuMEj6UA:9 a=QEXdDO2ut3YA:10
- a=ST-jHhOKWsTCqRlWije3:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEwMDA3NSBTYWx0ZWRfX0iaCaClAY8a4
- aeilpLLRFQwRwOpS5mKYfWT9uNk1ig5RVUYkMnmh/0EvvHl97an7mizyU7vvOr7mJ4olBdxB9TI
- ZyoDg4sPDoZUgjhEpnZEx2dLH4KAsw023s9K7bGqb24oY9+B16shLogrUO3TSSooBxXpcExcJ0q
- FmRIZyzY89QWmkVBPM8ug31AOsWibcCXYMIBMWCy72ESYFIKi30othIOZ0Q9YBWvs/3a5Mfk8dj
- oO6ZrxOKuhPkh9K0C9VFNMrED4GGfkmiN3HSRUsHFfn/NIpYu8nkzplzpJxToNO9AhvXKKEDHrd
- RQqdNNjr20CoZRjc+He0kx36MUNaGgQnnSE6EKR0e3+/wpKF6/oHp7DqRCpJKTQ5l9YmOMzKMaX
- xLOaIzOy/k+rC6GAeA+H2Po04iWgUbQWG5BWjxp/lVtlso98qJ1VoBQLn5g9KSrCqdalTXRijH8
- VKbd+OHMUxWltWYlkLg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-10_04,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 spamscore=0 suspectscore=0 bulkscore=0
- adultscore=0 lowpriorityscore=0 phishscore=0 clxscore=1011 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610100075
 
-On Sat, Oct 10, 2026 at 04:40:58PM +0800, shengjiu.wang@oss.nxp.com wrote:
-> From: Shengjiu Wang <shengjiu.wang@nxp.com>
-> 
-> The reset line of the ak4458 can be shared, for example when two ak4458
-> devices use the same reset GPIO. In that case the two codecs may call
-> reset_control_deassert() concurrently from their runtime resume paths.
-> 
-> Only the first caller performs the actual hardware deassert, which may
-> sleep (for example a GPIO-expander based reset controller). A second
-> caller merely increments the shared deassert count and returns
-> immediately, so it can continue while the first caller's .deassert() has
-> not finished releasing the line yet, leaving the device still in reset.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-This seems like something that should be fixed in the reset controller
-framework. In fact the issue you describe seems to contradict the
-documentation of reset_control_deassert():
+Critical: 0 · High: 0 · Medium: 1 (1) · Low: 1
 
-/**
- * reset_control_deassert - deasserts the reset line
- * @rstc: reset controller
- *
- * After calling this function, the reset is guaranteed to be deasserted.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-^ (1) seems not to be the case as you have found
+- [Medium] At this commit, `phydev->drv_owner` is read and written with
+  no lock.
+- [Low] The commit body does not say what this patch depends on.
 
- * Consumers must not use reset_control_reset on shared reset lines when
- * reset_control_(de)assert has been used.
+Pre-existing issues:
+- [Medium] In `phy_attach_direct()` (drivers/net/phy/phy_device.c),
+  `d->driver` is tested at line 1825 (`if (!d->driver)`) and…
 
-^ (2) isn't this rule also being broken in the suspend/resume path of
-      this driver?
+--
 
- *
- * If rstc is NULL it is an optional reset and the function will just
- * return 0.
- */
-int reset_control_deassert(struct reset_control *rstc)
-...
+net: phy: put the driver module the attach took
 
+This commit stores the PHY driver module pinned by phy_attach_direct() in
+a new field, phydev->drv_owner. phy_detach_internal() and the attach error
+path now release that stored module instead of reading d->driver again.
+The goal is to stop skipping the put, or putting the wrong module, when
+the PHY driver is unbound while the PHY is attached.
 
-(1) being fixed in the framework would solve your problem.
+> Fixes: cafe8df8b9bc ("net: phy: Fix lack of reference count on PHY driver")
 
-But (2) seems a bit more intractable. Shared reset GPIOs have always
-been a pain... I wonder if there is a better approach?
+[Severity: Low]
+Should the commit message say which other patches this one depends on?
+Because of the Fixes: tag, stable tooling could pick up this patch by
+itself. Its correctness seems to depend on two other patches in the
+series:
 
-Kind regards,
-Alvin
+  "net: phy: refuse a second attach before touching the PHY", which needs
+  to be applied first.
+
+  "net: phy: serialise attach and detach with PHY driver bind and
+  unbind", which closes a leak this patch leaves open (see below).
+
+The only place this is mentioned is the v5 changelog below the --- line:
+
+  "On its own, this patch can still leak a reference when one consumer
+  attaches while another detaches the same PHY. Patch 3 closes that."
+
+That text is dropped when the patch is applied.
+
+Without the first patch, the baseline phy_attach_direct() still reaches
+the drv_owner store on a PHY that is already attached. Its
+if (phydev->attached_dev) test only runs after try_module_get():
+
+phy_attach_direct()      /* second attach, same PHY */
+    try_module_get(A);
+    phydev->drv_owner = A;
+    if (phydev->attached_dev) goto error;
+    phy_detach_internal()
+        module_put(phydev->drv_owner);    /* puts A */
+        phydev->drv_owner = NULL;
+
+When the first consumer later calls phy_detach(), it does
+module_put(NULL), so A is left with an extra reference that is never
+dropped. The baseline also allows a second attach without a netdev
+(DSA-style), and that overwrites the slot in the same way.
+
+This patch's hunks don't overlap the first patch's hunks, so it applies
+cleanly without it. Could the body name the companion commits, or could
+the series be reordered or squashed?
+
+> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
+> index 6bc9cdb7fa699..68691c487eee5 100644
+> --- a/drivers/net/phy/phy_device.c
+> +++ b/drivers/net/phy/phy_device.c
+> @@ -1728,8 +1728,8 @@ static void phy_detach_internal(struct phy_device *phydev, bool notify_bus)
+>  	phydev->phy_link_change = NULL;
+>  	phydev->phylink = NULL;
+>  
+> -	if (phydev->mdio.dev.driver)
+> -		module_put(phydev->mdio.dev.driver->owner);
+> +	module_put(phydev->drv_owner);
+> +	phydev->drv_owner = NULL;
+
+[Severity: Medium]
+Can a concurrent attach lose its module reference here, or have it put on
+the wrong module? At this commit, phydev->drv_owner is read and written
+without any lock.
+
+Setting phydev->phy_link_change = NULL opens the unlocked "already
+attached" test in phy_attach_direct() before this module_put() runs:
+
+phy_attach_direct() {
+    ...
+	if (phydev->phy_link_change) {
+		phydev_err(phydev, "PHY already attached\n");
+    ...
+	phydev->drv_owner = drv_owner;
+    ...
+}
+
+So a second consumer that attaches in that window can store its owner in
+the slot this detach is about to read and clear:
+
+CPU1 (detach #1)                    CPU2 (attach #2)
+phy_detach_internal()
+  phydev->phy_link_change = NULL;
+                                    phy_attach_direct()
+                                      phy_link_change test passes
+                                      try_module_get(X);
+                                      phydev->drv_owner = X;
+  module_put(phydev->drv_owner);
+  phydev->drv_owner = NULL;
+
+If X is the same driver A, detach #1 puts A and then its NULL store wipes
+out attach #2's record. Attach #2's later detach puts NULL, so A leaks a
+reference.
+
+Now suppose A was unbound and driver B bound while the PHY was attached.
+Detach #1 then puts B, which it never pinned, and A leaks. Attach #2 is
+using B but holds no reference on it. Could B be unloaded while attach #2
+is still using it?
+
+If attach #2 then fails through goto error, phy_detach_internal() may
+read drv_owner == B again and put B a second time. The error_module_put
+path also reads phydev->drv_owner instead of the local drv_owner.
+
+This looks like the "put lands on a module that was never pinned" case
+the commit message describes, and the v5 changelog mentions the gap.
+
+Later in the series, "net: phy: serialise attach and detach with PHY
+driver bind and unbind" appears to close it:
+
+  phy_attach_direct() holds bind_lock from before the phy_link_change
+  test until after the drv_owner store.
+
+  phy_detach_internal() clears phy_link_change, saves and clears
+  drv_owner, and clears attached in a single bind_lock section, then
+  calls module_put() on the saved value.
+
+[ ... ]
+
+> @@ -1830,11 +1831,13 @@ int phy_attach_direct(struct net_device *dev, struct phy_device *phydev,
+>  		phydev->is_genphy_driven = 1;
+>  	}
+>  
+> -	if (!try_module_get(d->driver->owner)) {
+> +	drv_owner = d->driver->owner;
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but can d->driver change
+between the earlier if (!d->driver) test in phy_attach_direct() and this
+dereference?
+
+phy_attach_direct() doesn't hold device_lock(d), and at this commit
+nothing else blocks a driver core unbind. A sysfs unbind, or
+driver_unregister() at module exit, can run at the same time:
+
+__device_release_driver()
+    phy_remove()
+    dev->driver = NULL;
+
+Could that cause a NULL dereference of ->owner here? Could it instead
+read ->owner from the driver struct of a module that is being freed?
+
+The old try_module_get(d->driver->owner) had the same check-then-
+dereference pattern, so the race predates this patch.
+
+"net: phy: serialise attach and detach with PHY driver bind and unbind",
+later in the series, appears to close it. It holds phydev->bind_lock from
+before the d->driver test through try_module_get(), and returns -EAGAIN
+when d->driver is set but phydev->bound is not.
+
+> +	if (!try_module_get(drv_owner)) {
+>  		phydev_err(phydev, "failed to get the device driver module\n");
+>  		err = -EIO;
+>  		goto error_put_device;
+>  	}
+> +	phydev->drv_owner = drv_owner;
+>  
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261009180551.1234107-1-f%40lex.la
