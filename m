@@ -1,309 +1,193 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010067.outbound.protection.outlook.com [52.101.84.67])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2263F18C933;
-	Sat, 10 Oct 2026 03:09:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.67
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791601758; cv=fail; b=G3tPgKxTvPrvwcgbrj6OJw3NTJXFR0nFBkd4Fcjr09lvc2wtAqIXgJfvSK6SXcZ4TPBtsEtXKCvaoSHjPdHBSR1nlUfitcgEVkF3KT7xnV5SG7/jQqLSKGehtYm1/jL51KEQfvtdfphA+O2oA6pB3RJk8hQOuwvNtTlZ/efNg6c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791601758; c=relaxed/simple;
-	bh=MwpkoXkbkEhRdn7W1SZSjSnCv7ZIvEcZiwugm0pZgFA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=oPHpz0WJfWMM2zivEcZZbyTGoWg0qC+caZh6sJfQheiuijhAoQOSQTm8YByyrpvJUlOq/lwyeeH4WB6tf3rHeaMbgY6Y/ooHnhVo/CPSmRZ5WA4P7H/ctrk4sG7U0Qa3SPKlD6tdhMNxMMwGKtghSq4vtJu0p77ACzk80imBokI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=w4RR1WQe; arc=fail smtp.client-ip=52.101.84.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F5122E92BA
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 03:09:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791601795; cv=none; b=N56pYOYwmNe7b8VbenXK+Vfe0ofZ+55ouIu+LhpGb1ya+VZ6kS/rhM+cr8WGNCsYa/4u5cH7CApNhgCI4UtSeci7VviYCjC6A1xV5hJtPpKQ8mTx3fY3lY/fBsAKNvEFspkqEqpvLqT+ZEqzHxDUjuo4/P9OEYNu4p07Vopvgz8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791601795; c=relaxed/simple;
+	bh=Ghd0wm04oM39lziSj4fh+/vpJn4GVJA16s7+0SDrdCU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=guNZblUy+BZquHToQRjpRSMoIT+77U0cC22XqW44tPKdzL3cAOg76RyK/vpovdin29SqnWoSVjQsGc+QJRHUvQY95zNAtNi8UutQ8oBL/kFcyVZQHAdgj2mj8zh/f6fjTSg3zJpQm7TAUSyKRQz9ZLE/+fuk+WSj4YLstHKJiIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=J4QC11GH; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="w4RR1WQe"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=E4i8URGRb9AG4vcMj5DsjmXTCJuF0x9LWSF8YG2zY+p7f1Cg9fkqU8O5AXLegomVTmcDMhAruBB/atV5prRnRO9gp6CBNoxiXtEYm5UlvA1v6wr9R8rEjskIEwhIJ9cl7+18+Ae+wqrSK7pEKcJnXbufBxAXq+29zwT2Ug6UoWwdVi6Plt8lX0wIYJOzW1Vyv1STwT7KbqmuVY2cNMnD5RY3G4WJBpyTK+K0M8W9QA5vr7S1VIEBL8/pnlFVKl8lYlMwIhlPflKMarpbZAnguXASsQYSfsi0aC2c9o4JfGRsNfsRB2VjIyto8mJuSmUJWG8gCOpVsGOY0EauRQsPyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0Qlyl+qy6Dg3JizeY+hP7zBqik5/fvfu1LhZVcG84GY=;
- b=uKFhdDEpDBeB8bkR2syX7VeQG+LKzQKkWmLuFQiXPqqdHYWBzHb965IfDkOfXbysurlmRrFvn5zObl6xLmJ2jaqyZqLGw0roFLZW6KYvnucV6zk0Q+M7v2XlhrN7ilueZMJ+15P6rVInzmkCml9LesaLiYQkFRtgM8sYH2raJjplHmNdgvoscHifGARi1bwD29isaWizzrVLgGSwB3MdqqRS2Dljgz4rlWtqO9muPwcD26f+LHXkICMlWCDyIYa09KKDgxIi8EuQSyRD18AiBrXMZjftHmyUp9+9ZUz3ruun27Skd3OmqGGk9nRTty3WjHkHf1GmUxh6uLZnc6vd4A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0Qlyl+qy6Dg3JizeY+hP7zBqik5/fvfu1LhZVcG84GY=;
- b=w4RR1WQeBRz0QG7gcgkC0KZ5w8pohPmscyDsj7UnwubXFldZTv66dmATAIXiXdirMVyM/SiEJbZWg+XfjB0J/8DgH2R1+bOVWq0sU3uT06ovUswy7RB2w5TIOr7Z1GcAzPqz6qntsxIxZu9sjKRitnYFSyqkr2u+NjNg8HVZKW02Kj/OdKoP6IFJlG4OCjwtmM82GKUrAkQCew6iKmD0AMdLbg5i0EpgJZMXSVUWmnYAPPxvWQkk47BFDrwEszetN0rorFFMlnuou66WedXBVikGIbWKTBnGlsCvFzkiFkKwJo2hm/hynrwPbQXpQxTpdR6k0ADm6dWF0VYQzFg0gA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DU7PR04MB11092.eurprd04.prod.outlook.com (2603:10a6:10:5b2::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.18; Sat, 10 Oct
- 2026 03:09:12 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0496.015; Sat, 10 Oct 2026
- 03:09:12 +0000
-Date: Fri, 9 Oct 2026 22:09:08 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Golla Nagendra <nagendra.golla@amd.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Michal Simek <michal.simek@amd.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Kedareswara rao Appana <appana.durga.rao@xilinx.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Michael Tretter <m.tretter@pengutronix.de>,
-	Harini Katakam <harini.katakam@amd.com>,
-	Shyam Pandey <radhey.shyam.pandey@amd.com>,
-	dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org, git@amd.com
-Subject: Re: [PATCH v4 1/6] dmaengine: zynqmp_dma: Use PM guard for
- probe-time runtime PM reference
-Message-ID: <asmsVD1RP6FoMN9l@SMW015318>
-References: <20261009-adma-pm-fix-and-per-channel-reset-v4-0-55f5fe409c55@amd.com>
- <20261009-adma-pm-fix-and-per-channel-reset-v4-1-55f5fe409c55@amd.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009-adma-pm-fix-and-per-channel-reset-v4-1-55f5fe409c55@amd.com>
-X-ClientProxiedBy: AS4P189CA0036.EURP189.PROD.OUTLOOK.COM
- (2603:10a6:20b:5dd::7) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="J4QC11GH"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso92439a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 20:09:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791601791; x=1792206591; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=O9ffS901nFKZuAxdPugpS24TqdbsPBH7oWbzs6G6Zpg=;
+        b=J4QC11GHpci4C+cvxxOI/mHRxTchp2jv8kBs5rdKzhVXsBRVeRA2epgzhlg8KRfib6
+         6EOHc234Vj0oZzW9YTUbBBJeZ62cV626vBntzKj4L3t7MJLehHTkImuxYIOJfZ72TwD/
+         WIrY/jUhX9anR0PEoKF1cyK4hzShMm7H6leckJszyVs1Q5b2TnpolyID682zreDbUC6J
+         93BrR66hKyf0AVLsphJFYEYDdsYTkrLzVXPAl1fGfxEE0DnxxFHMWZdEv6Grl5fMhnJv
+         37eIBqmxSxdC25LszdTncb1OEb22JHjhqLFLH2ZSixIjKU2eLaYV7ZlpczR+M9ertmI8
+         lXtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791601791; x=1792206591;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=O9ffS901nFKZuAxdPugpS24TqdbsPBH7oWbzs6G6Zpg=;
+        b=omR1SQzhZniZAu+5ETemYKo72rx5dp3ajuLHLmVom2bfSgoZ9XHPHUaCJ57RNXRbaI
+         g6RWAMcl1lviu6xs/xUydr5ghb4OlX9LPk0ty9HBKBD2r+YtOWMuh+gsVGFqb5H0cxAX
+         jORuIkmcJYh9WnguSY/tmbBI/Ppx09wuhIKUPKYJ9R+Ke/MJUBWlKR+p+kJqD0D63wR7
+         bfhgwgSLuu3W5hCBUaCVy3dbIQSj06Z3AUY/rnC0kbJeOy2pp9yWJz9cgtAU6TpFuidq
+         ThRYHwycY0hK7p5BE335HM4LflZ+jlgCoF6NLPxZusxl+R13CsjEUtrWBTeRzIC59eg9
+         6QyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwNkDRENXLxrt2dXJudlgtgcH0WcsI45koXrl4eGUBG5c18RGQaXxOHduhzscR++TR3jIuy+Kare/IoleA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKmYYrvugFSXIII8chLAXX/xcKH+cYKLE3OEaq7hRZfVax//EeZ
+	2Crr8PY7lYJMBgjkOClVPBufPBgsIhvn+9hyCVUBl0xKkrJU0nIOAowuBbnaGaEuc18=
+X-Gm-Gg: AYBFou01FTGAWUiSPYg3peoQ3877Lk3DD84eQP+ZnpXInbXQxyH15U9ViNoZNgo9rDs
+	Nix51fUq+0tV2k7LXjQkNFqrz7Eh6XcBA8LqubWBQbu8SwtEQVz4pAnDkcNACu2Y4bAnlcdifG4
+	ZoF+i3pCKmiJN4qPM6gpIUUKdqewyLTRitB3sGay2FZWDNThLjr2Nmd8wc6oDJ1WappX7Ds/1j1
+	cElqmrbwnSfjDyWZXZjxfXQl0vYHZvcvVhwD30R59ry6y2OwsoESOOiQAwwwjv4yP4j29vY2MXc
+	vJeHWDwKmUnUv7IIoPhQ/eT2vj3zXdcNhzLrop0jV4/Ps3CkPgih+SiLpGmlj+SjRuif4/BtbDu
+	F5nRtKORBT/OyHXuPC1Uh6BTE0ss3RHaL/96yQZ7yFLa2n2izDTa9USjUA/asZppytSx9CJEsFE
+	EyqHaSzENPehfiJOdnGWu+6nPhAjsSOTS/Rn/08zArM+KNuj3GOyA3pv8xuBLaKK3cLKDVlnspO
+	U0c4PqjpnoeXNKXKtsUwMz9RnUGkUcI
+X-Received: by 2002:a17:90b:52:b0:3a8:c0cd:57df with SMTP id 98e67ed59e1d1-3ab3a747d07mr3439160a91.11.1791601791427;
+        Fri, 09 Oct 2026 20:09:51 -0700 (PDT)
+Received: from localhost.localdomain ([2406:5900:1044:110c:c95f:28ac:324a:cdc3])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3da05caaesm1840096a12.32.2026.10.09.20.09.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 20:09:51 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Fan Gong <gongfan1@huawei.com>,
+	netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Xin Guo <guoxin09@huawei.com>,
+	Gur Stavi <gur.stavi@huawei.com>,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Subject: [PATCH net] hinic3: bound the Rx fragment count to MAX_SKB_FRAGS
+Date: Sat, 10 Oct 2026 12:09:01 +0900
+Message-ID: <20261010030901.1712792-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU7PR04MB11092:EE_
-X-MS-Office365-Filtering-Correlation-Id: a7c59ee9-25c1-4827-aa55-08df267bdbd0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|7416014|366016|19092799006|23010399003|10067099003|22082099003|18002099003|56012099006|4143699003|11063799006|261009220027099003|261009223027099003|261009223327099003|261009221227099003|261009221727099003;
-X-Microsoft-Antispam-Message-Info:
-	PZVjMPV4ZFhZEkKwhTPTM5oyA3u9zbju0As+5BhhX7RPsrBFvpllXm1Y+bCtTwwmvqmIWmRNNUURdVW4I+WZ7T/xHHalTKqW003pLBQAg/jmy/v3K+UcQtB6zrr6zRQ6zWQ5Xw9cB5GFOsZbdl3y8T/bAZQo8wURw3n+e0o5s6WqL7QscwxLfs8YWCgV+nUxIoqVBQ7K3VhzEkzhRnWHr6uUu4cHSf7K2MnJaaSVzp2KpFskTs0QrAlYwQyb2FbPw/0i4IenwV8hTOS+xN/iF9CiUONZyQ/mYPF4Pe7EMDvONWdtTI68vxx5JaaIg+qZZrzyLNPIx1mhOpc7q/OoVg6tdnV2DRlEPUyctvDJ6bADr67GTPyoi+bluopaOhmTAr+9bWOMYJtUCqHJKHS6kA1YQtYRFcAfbAzJhfgpw1YlXWRNLlFovHibEw3qw3/AuMLXwsDElQ8hmsrVPkKa5pndaTGnwujW+CtFpKYuQPed96q1iu61FLUDNohz5u3roL/vqPwrm/4peQxk6dKjXcdLLDiuVspfGy7oCiLA383FTSl5tHeFxUG/EgmFTtUR3eQEClFnwvd0EbPj/OvbJaeD80vo3cdh+MmagMvU2rvA8Diljr4Begw9Yp0iGDZPyOXF/bH+1zD3jTsVHuVtAgqQwoKKstvqMohTar0luAE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(366016)(19092799006)(23010399003)(10067099003)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006)(261009220027099003)(261009223027099003)(261009223327099003)(261009221227099003)(261009221727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?fVHmeRNzeq/Wkr0SnjUTkRCQxJM4kvoPZ8vpKQhEKugGB8OhqAtr2EXQCt9e?=
- =?us-ascii?Q?xM0f7cND2s0GaWOpeKnXNs56rYRC6nXuDAW6+hGwfEyn3kuz1n2cJ96hj1tE?=
- =?us-ascii?Q?83FcuSOau2T4NSv/9U7d6PgBD6Db9GbpYotBwway7Jnlq+W5FfXzAoQcR/Sp?=
- =?us-ascii?Q?KWTbJnbP2VfFmNtsgOYuP1swVN3GUtcJI7d/IVQIzyGawqBl+JrBoOCzoZyS?=
- =?us-ascii?Q?9/qx0iTDgPpxTfYxLaae40RofYzZNMZbXonPD2iD7Y47RGaFoBYg8b+H65vy?=
- =?us-ascii?Q?Yj/FLjybED8Qi3r7khgNGDNDCdl6s63IREToRTnn8Hne6Sn57ibpmVAPlddy?=
- =?us-ascii?Q?BsM8W+wrRF0SoeOL7jgFfOOhoGw5vgoAYCDOk1zU0tytbEP+EiCrDxVhcYDu?=
- =?us-ascii?Q?Zkc/UZuTsc1JHBjvZS9X5qjRx72WcYfmKxwsnetv9rc8KtAg+MUXRWxWF3BC?=
- =?us-ascii?Q?am9VhO8XlqOJX1pcyLBEN+3lYmhArawfkChHcgyqOGeEd7rAFPDw3n+LuAXs?=
- =?us-ascii?Q?U6mwl+2OFpZvjpFUfykGWy1aNSWE24OtdGUun4mC4mDVOqxxdDXZzA79GRNx?=
- =?us-ascii?Q?aTaoSZJuHXesrhNEqAWT6TM/nYb88VR3nB+YdyJXuhOCf0xC1Z3ENaDzwZ8p?=
- =?us-ascii?Q?nUKndXUBnLTLaCo6FavlDzRGbuiNFKYdFXlSSjOkNgvIIqkNjkT1/EzYQRBa?=
- =?us-ascii?Q?Jx/ZX4ECiWu98snHSRA7626rrI+j+Mo8FgGFnVDyNmiUK1xLLl9g53xWI4/H?=
- =?us-ascii?Q?9afxvigA+N9BjgbGNY7vLBkfJxN498vI/2EcOuYmzLOZqMELWQFTyRw/W3g1?=
- =?us-ascii?Q?0A3B29sCEV/tLxXASxUfUnZvSPmNMRY+ZcQioVn5sPcSgmrBdtb3y1wYYkdJ?=
- =?us-ascii?Q?kvGyBHyfG0rNK2dImxRa6MdPj/z2oUFyFRha0CD3CjvjXt+h+pyEod5FC6Lu?=
- =?us-ascii?Q?YpdxoSDtaVo3MzwzdbPHjhof1aITKXOd0s4/X+Fiem+TCiINSy0udIPg/Nu9?=
- =?us-ascii?Q?JjSH4pOs+CKDHeBiL1kDZa6QI/i4Ik1DPhVdcSPT1Pu6SSjGBC+EAo2QDRaS?=
- =?us-ascii?Q?ulm/tEZbhimdZHuDlsCapi+8wq+ui9sPTZdVEcup5Zj3Y166pYew/MvG/F2K?=
- =?us-ascii?Q?ZpH0ejNtBVnz31oivMr4LMptjbQG95/61PwTP6L+OT3H3gSM9U3g6QsdaSQZ?=
- =?us-ascii?Q?16YLbDJbGd0do3/RRBxTrd8VJ9QJjfuL+WmNZiCWzrQXKc0sF/00Wi7D1VxP?=
- =?us-ascii?Q?25VUC84HsiwALCwOt7i8S+DcvLKhPhtvcThRYQDyFyjKrRkQxLCIvwuVVKMD?=
- =?us-ascii?Q?5QpHHx92UmY4CUpK7QZPIq0M52hRpsKG03fHN2n6P5OIleyFOKNmMTQQhArE?=
- =?us-ascii?Q?8Z+rNNMn9WL67DKArcfbE75O++3PP5rWoxd0Tam/SGYa8X94JPg8LlansMNu?=
- =?us-ascii?Q?34tiPVXDwjV6pbBz9CI2h1OO6PzzJcJo3BnrpoVjNAzpJrNDB8FdQA2niwsV?=
- =?us-ascii?Q?ZMySJfRf8kOYcDwCXPfG1NOR1Vr/s+1oh9SRQLUKpEkEkaYi0w9QcrmNY0Mu?=
- =?us-ascii?Q?01wgd38IrJsmRQXiEqyQs+TiFaBj6nEYjltSBPb/z07sn0j3V9TX+XrtbsyN?=
- =?us-ascii?Q?MSG82oLgXzIA4Depux8QtbDIVOod0CHmkzYRHNf232lQaVqnlhbB4eklDxPb?=
- =?us-ascii?Q?6OFLNfZw7CE+6I2EBb02813jqs1Xe3Jt3PYN6IdX03Ggn2Sq1DIH6ZinVkNp?=
- =?us-ascii?Q?SBGH2CoEeVEY0ayoXeILTi0OMFgAWXghQyxtEq9zqlxfkKFWoZhh?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a7c59ee9-25c1-4827-aa55-08df267bdbd0
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2026 03:09:12.2134
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mCN1iBUQ0g0XGMMyYQDUpDGKK4N00hVoS/+z24/MFlsZP35DuLrF+qOSVBuWD/SiaDr0kJ0K9mehe0WAZNsBge8lwdxyCgVEmN+pcPxeaJHmtqxPbtK6ASrbf9UyiAdC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU7PR04MB11092
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 09, 2026 at 09:30:10AM +0530, Golla Nagendra wrote:
-> Replace pm_runtime_resume_and_get() with the PM_RUNTIME_ACQUIRE_AUTOSUSPEND
-> guard to manage the probe-time runtime PM reference lifecycle. If the guard
-> acquire fails, fail probe immediately so a broken device is never
-> registered.
->
-> When runtime PM is not enabled for the device, call
-> zynqmp_dma_runtime_resume() directly after pm_runtime_enable() to bring the
-> clocks up for probe.
->
-> On probe failure after a successful guard acquire, drop the reference with
-> zynqmp_dma_probe_pm_put(), inhibit the guard destructor with
-> retain_and_null_ptr(), and gate the clocks through
-> zynqmp_dma_probe_fail(). When runtime PM is enabled,
-> zynqmp_dma_probe_pm_put() uses pm_runtime_put_sync_suspend(). When runtime
-> PM is not enabled for the device, balance the guard usage counter with
-> pm_runtime_put_noidle() and gate the clocks with
-> zynqmp_dma_runtime_suspend(). Runtime PM does not suspend a device that
-> is already disabled, so pair every direct zynqmp_dma_runtime_suspend()
-> call with pm_runtime_set_suspended() to keep the runtime PM status in
-> sync with the clocks.
->
-> On probe success, release the probe-time reference with
-> pm_runtime_put_sync_autosuspend() when runtime PM is enabled for the
-> device. When runtime PM is not enabled for the device, balance the guard
-> usage counter with pm_runtime_put_noidle() only and leave the clocks
-> enabled so that later channel allocation can use the hardware. Inhibit the
-> guard destructor with retain_and_null_ptr(pm).
->
-> Signed-off-by: Golla Nagendra <nagendra.golla@amd.com>
-> ---
->  drivers/dma/xilinx/zynqmp_dma.c | 68 ++++++++++++++++++++++++++++++-----------
->  1 file changed, 50 insertions(+), 18 deletions(-)
->
-> diff --git a/drivers/dma/xilinx/zynqmp_dma.c b/drivers/dma/xilinx/zynqmp_dma.c
-> index 3b7dfa53f972..a48106e404e7 100644
-> --- a/drivers/dma/xilinx/zynqmp_dma.c
-> +++ b/drivers/dma/xilinx/zynqmp_dma.c
-> @@ -18,6 +18,7 @@
->  #include <linux/slab.h>
->  #include <linux/clk.h>
->  #include <linux/io-64-nonatomic-lo-hi.h>
-> +#include <linux/cleanup.h>
->  #include <linux/pm_runtime.h>
->
->  #include "../dmaengine.h"
-> @@ -1077,6 +1078,29 @@ static const struct dev_pm_ops zynqmp_dma_dev_pm_ops = {
->  			   zynqmp_dma_runtime_resume, NULL)
->  };
->
-> +static void zynqmp_dma_probe_pm_put(struct device *dev)
-> +{
-> +	if (pm_runtime_enabled(dev))
-> +		pm_runtime_put_sync_suspend(dev);
-> +	else
-> +		pm_runtime_put_noidle(dev);
-> +}
-> +
-> +static int zynqmp_dma_probe_fail(struct zynqmp_dma_device *zdev, int ret)
-> +{
-> +	bool rpm_disabled = !pm_runtime_enabled(zdev->dev);
-> +
-> +	zynqmp_dma_chan_remove(zdev->chan);
-> +	zynqmp_dma_probe_pm_put(zdev->dev);
-> +	pm_runtime_disable(zdev->dev);
-> +	if (rpm_disabled || !pm_runtime_status_suspended(zdev->dev)) {
-> +		zynqmp_dma_runtime_suspend(zdev->dev);
-> +		pm_runtime_set_suspended(zdev->dev);
-> +	}
-> +
-> +	return ret;
-> +}
-> +
->  /**
->   * zynqmp_dma_probe - Driver probe function
->   * @pdev: Pointer to the platform_device structure
-> @@ -1087,7 +1111,7 @@ static int zynqmp_dma_probe(struct platform_device *pdev)
->  {
->  	struct zynqmp_dma_device *zdev;
->  	struct dma_device *p;
-> -	int ret;
-> +	int ret, pm_err;
->
->  	zdev = devm_kzalloc(&pdev->dev, sizeof(*zdev), GFP_KERNEL);
->  	if (!zdev)
-> @@ -1128,21 +1152,30 @@ static int zynqmp_dma_probe(struct platform_device *pdev)
->  	pm_runtime_set_autosuspend_delay(zdev->dev, ZDMA_PM_TIMEOUT);
->  	pm_runtime_use_autosuspend(zdev->dev);
->  	pm_runtime_enable(zdev->dev);
-> -	ret = pm_runtime_resume_and_get(zdev->dev);
-> -	if (ret < 0) {
-> -		dev_err(&pdev->dev, "device wakeup failed.\n");
-> -		pm_runtime_disable(zdev->dev);
-> -	}
->  	if (!pm_runtime_enabled(zdev->dev)) {
->  		ret = zynqmp_dma_runtime_resume(zdev->dev);
-> -		if (ret)
-> +		if (ret) {
-> +			pm_runtime_disable(zdev->dev);
->  			return ret;
-> +		}
-> +	}
-> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(zdev->dev, pm);
-> +	pm_err = PM_RUNTIME_ACQUIRE_ERR(&pm);
-> +	if (pm_err) {
-> +		retain_and_null_ptr(pm);
+hinic3_rx_poll() takes the packet length from the Rx completion
+descriptor and turns it into a fragment count:
 
-Not sure why need call retain_and_null_ptr() here, generally only need
-call retain_and_null_ptr() at success pass if you use want to keep
-runtime_pm active. at fail case, needn't do that.
+      pkt_len = RQ_CQE_SGE_GET(vlan_len, LEN);
+      sge_num = pkt_len >> rxq->buf_len_shift ...
 
-> +		pm_runtime_disable(zdev->dev);
+RQ_CQE_SGE_LEN_MASK is a 16-bit field, so pkt_len is up to 65535 and
+sge_num up to 32 with the default 2048-byte buffers.  packaging_skb()
+then calls skb_add_rx_frag() sge_num times without checking the count
+against MAX_SKB_FRAGS, so a device reporting a length above
+MAX_SKB_FRAGS * buf_len writes fragment descriptors past the end of the
+skb's shared info array.
 
-If use devm_pm_runtime_enable(), needn't this one.
+Driving the receive path with an out-of-range length reports under
+KASAN:
 
-> +		if (!pm_runtime_status_suspended(zdev->dev)) {
-> +			zynqmp_dma_runtime_suspend(zdev->dev);
-> +			pm_runtime_set_suspended(zdev->dev);
-> +		}
-> +		return dev_err_probe(&pdev->dev, pm_err, "device wakeup failed\n");
->  	}
->
->  	ret = zynqmp_dma_chan_probe(zdev, pdev);
->  	if (ret) {
->  		dev_err_probe(&pdev->dev, ret, "Probing channel failed\n");
-> -		goto free_chan_resources;
-> +		retain_and_null_ptr(pm);
-> +		return zynqmp_dma_probe_fail(zdev, ret);
->  	}
->
->  	p->dst_addr_widths = BIT(zdev->chan->bus_width / 8);
-> @@ -1151,7 +1184,8 @@ static int zynqmp_dma_probe(struct platform_device *pdev)
->  	ret = dma_async_device_register(&zdev->common);
->  	if (ret) {
->  		dev_err(zdev->dev, "failed to register the dma device\n");
-> -		goto free_chan_resources;
-> +		retain_and_null_ptr(pm);
-> +		return zynqmp_dma_probe_fail(zdev, ret);
->  	}
->
->  	ret = of_dma_controller_register(pdev->dev.of_node,
-> @@ -1159,19 +1193,17 @@ static int zynqmp_dma_probe(struct platform_device *pdev)
->  	if (ret) {
->  		dev_err_probe(&pdev->dev, ret, "Unable to register DMA to DT\n");
->  		dma_async_device_unregister(&zdev->common);
-> -		goto free_chan_resources;
-> +		retain_and_null_ptr(pm);
-> +		return zynqmp_dma_probe_fail(zdev, ret);
->  	}
->
-> -	pm_runtime_put_sync_autosuspend(zdev->dev);
-> +	if (pm_runtime_enabled(zdev->dev))
-> +		pm_runtime_put_sync_autosuspend(zdev->dev);
-> +	else
-> +		pm_runtime_put_noidle(zdev->dev);
-> +	retain_and_null_ptr(pm);
+      BUG: KASAN: slab-out-of-bounds in hinic3_fetch_rx_buffer [hinic3]
+      Write of size 8 ...
+      The buggy address belongs to the object ...
+       which belongs to the cache skbuff_small_head of size 704
 
-You mix use auto cleanup and pm_runtime_put_sync_autosuspen() and
-pm_runtime_put_noidle() to make code mess up.
+The length is chosen by the device and an skb cannot hold more than
+MAX_SKB_FRAGS fragments, so drop a frame that needs more instead of
+overrunning the array.  The buffers it claimed are already posted on the
+ring, so return them to the page pool and advance the consumer index
+over them to keep it in step with the device.
 
-Frank
->
->  	return 0;
-> -
-> -free_chan_resources:
-> -	zynqmp_dma_chan_remove(zdev->chan);
-> -	if (!pm_runtime_enabled(zdev->dev))
-> -		zynqmp_dma_runtime_suspend(zdev->dev);
-> -	pm_runtime_disable(zdev->dev);
-> -	return ret;
->  }
->
->  /**
->
-> --
-> 2.43.7
->
+Fixes: 17fcb3dc12bb ("hinic3: module initialization and tx/rx logic")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+ .../net/ethernet/huawei/hinic3/hinic3_rx.c    | 42 +++++++++++++++++--
+ 1 file changed, 39 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c b/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c
+index 309ab59013797..974dab51fa425 100644
+--- a/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c
++++ b/drivers/net/ethernet/huawei/hinic3/hinic3_rx.c
+@@ -275,6 +275,34 @@ static u32 hinic3_get_sge_num(struct hinic3_rxq *rxq, u32 pkt_len)
+ 	return sge_num;
+ }
+ 
++/* The device reported a frame that needs more fragments than an skb can
++ * carry.  Give the buffers it claimed back to the pool and advance the ring
++ * over them, so the consumer index stays in step with the device.
++ */
++static void hinic3_discard_rx_pkt(struct hinic3_rxq *rxq, u32 sge_num)
++{
++	u32 sw_ci = rxq->cons_idx & rxq->q_mask;
++	u32 i;
++
++	for (i = 0; i < sge_num; i++) {
++		struct hinic3_rx_info *rx_info = &rxq->rx_info[sw_ci];
++
++		if (rx_info->page) {
++			page_pool_put_full_page(rxq->page_pool, rx_info->page,
++						false);
++			rx_info->page = NULL;
++		}
++		sw_ci = (sw_ci + 1) & rxq->q_mask;
++	}
++
++	rxq->cons_idx += sge_num;
++	rxq->delta += sge_num;
++
++	u64_stats_update_begin(&rxq->rxq_stats.syncp);
++	rxq->rxq_stats.dropped++;
++	u64_stats_update_end(&rxq->rxq_stats.syncp);
++}
++
+ static struct sk_buff *hinic3_fetch_rx_buffer(struct hinic3_rxq *rxq,
+ 					      u32 pkt_len)
+ {
+@@ -553,7 +581,7 @@ int hinic3_configure_rxqs(struct net_device *netdev, u16 num_rq,
+ int hinic3_rx_poll(struct hinic3_rxq *rxq, int budget)
+ {
+ 	struct hinic3_nic_dev *nic_dev = netdev_priv(rxq->netdev);
+-	u32 sw_ci, status, pkt_len, vlan_len;
++	u32 sw_ci, status, pkt_len, vlan_len, sge_num;
+ 	struct hinic3_rq_cqe *rx_cqe;
+ 	u32 num_wqe = 0;
+ 	int nr_pkts = 0;
+@@ -571,13 +599,21 @@ int hinic3_rx_poll(struct hinic3_rxq *rxq, int budget)
+ 
+ 		vlan_len = le32_to_cpu(rx_cqe->vlan_len);
+ 		pkt_len = RQ_CQE_SGE_GET(vlan_len, LEN);
+-		if (recv_one_pkt(rxq, rx_cqe, pkt_len, vlan_len, status))
++
++		/* The length is chosen by the device and an skb can only hold
++		 * MAX_SKB_FRAGS fragments, so a longer frame has to be dropped
++		 * rather than overrun the fragment array.
++		 */
++		sge_num = hinic3_get_sge_num(rxq, pkt_len);
++		if (unlikely(sge_num > MAX_SKB_FRAGS))
++			hinic3_discard_rx_pkt(rxq, sge_num);
++		else if (recv_one_pkt(rxq, rx_cqe, pkt_len, vlan_len, status))
+ 			break;
+ 
+ 		nr_pkts++;
+ 		num_lro = RQ_CQE_STATUS_GET(status, NUM_LRO);
+ 		if (num_lro)
+-			num_wqe += hinic3_get_sge_num(rxq, pkt_len);
++			num_wqe += sge_num;
+ 
+ 		rx_cqe->status = 0;
+ 
+-- 
+2.43.0
+
