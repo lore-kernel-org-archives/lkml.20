@@ -1,121 +1,133 @@
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDA093D5C2C
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 13:40:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791639612; cv=pass; b=n8mgVL3mz+GkTy+8bnC7O07g8IGYQAUTkRBSnWS+0qJd4p/ZmJdABjzojbQ+oPf4zEywV12tirSXw/1ymRbuRQN7dHAcE1Ss9qXFWSjDmOg5iZSRaKU3bnnzIiEc1DStIPKcxhOgbGPj3ejv4ORA2ZYbLfPTYuhPG6taThqproo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791639612; c=relaxed/simple;
-	bh=iYqhoVZ+Jyml4P0MGYzZBl9up/LYhbapQ8gAv8jGngA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Uv1Kqzxuoa4ZoQo5/PP9YzpmpQNFMTtzLOWFUUdeXn2/Vwvl/9N3V3oV5DtlVgJMDRtRVCpvII3T6Jk8032DvfQI4DDjlfS/YR9NMYkIxN/JYsG8ueecQXAib/jr8x0bt55XX7AhqQYKT6Xkdww0tfM8JwPLENBXK3I1NptUrz0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZXAZ9GWq; arc=pass smtp.client-ip=209.85.167.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FFA727AC57;
+	Sat, 10 Oct 2026 13:40:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791639619; cv=none; b=PxsBguyh7mXdAD6251gLeJziesoN249yy4DIWblYDlxEs/mX7Ti/Qdugp0iB1iSO+xt7p5f56bQZIxus4gXl0+Lch8UmzXYlkggc8YPnkKog/+Jm8rXknI/RKsXjwnBxl2rjUBWIjOHWpQv+H5xUcxj0pFO7FlL1TKThan1phyU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791639619; c=relaxed/simple;
+	bh=lsJp2MvV8H1OhJPMQuMPbt3GdpR+wKAf5nyiZ6ILN34=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=KC8nilO4x4RVISmhcrSB8DECotOW9XmvATjQlcDK6n5rPfGFgJnhcuGVI4P+6IilKBClndj6iYVTCavj17dGtesKFe0psHfkV59lelVk/nmhi5OGUUV51I+OVehAGlk1RDn7CXTd64wu3izX0fn3xKsJw6Bo/vkzL6gZ9bAJ3Pw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MW+o7Ge2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZXAZ9GWq"
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5bc18f54abbso434177e87.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 06:40:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791639609; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TjbxpdPiUmoyfehj6ND/bH+RzdDRW2FNy77SWDANPGKDoC3LXR6ATL/84oTXg+LEkd
-         GCZMj+QFXA6pRjBT/P+fl07MK2SgGd6S8XcdiDb+E7Gj+gj5SSjqrJONaeTlp6iTQ6v8
-         G5eqWFmzO6Xy9msKbcEbU2uga/qoWjYqjIJ7xN1od+SiRiA4E2k152BRWB9TQ0U1W77A
-         mBDQbTU4mawM0CJi83gM7WWZl+H4t3w6uyod5FasaLU01ez3oa3PX/jhhTE4BmRBIt+4
-         jKeqUIER/HRGvK5cbGyX3ZhEFYM0n/nAbZ3/KiF/iYJfxTTbVRbLaaGWSDvkq+fcPlt5
-         3/OQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=1OMPvqt3i2+F+trWLfv914nMC+RGH+n0BOpujrLH77w=;
-        fh=I57sL+hHxBnewfroymLfp12usuJ050mMiS+J9rmSN5Y=;
-        b=G5PqBAM232PfdZKLjTWo58NL8pmWntyoX4tUrGWBZqDWrpMe7oMlNBI/hQg/orzmrI
-         gGVvNAvlXQcl3avkieOkjnjlLCA1//j+/Yz6muFKmckBBHZ/a+tPCIRpHHkr9qMbUm90
-         2je5k830N92I3rywXEwrTCehm0e97eFbPkf5HnhuNhFN8Sezb+McN1NDiLY5gl6Ez9KG
-         TXfADD4VVP6JylsS3VplJZO8BBGvpzN0kZNFNz5jW/1zXTtvW1zib/J015AiCRxn5Rgb
-         01QN8bQZ7ysL7hqc8Ty6KSVTFK9mkKDc8X6Kysgp5jwUG0uI0wkXTYkGdyy5KdnhsfDn
-         2Aag==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791639609; x=1792244409; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1OMPvqt3i2+F+trWLfv914nMC+RGH+n0BOpujrLH77w=;
-        b=ZXAZ9GWq2w2N/D2wWSTnlOkfEAe51ltRLDrYbuiULJDm7BKDbfNcqJWB0jDk7LsJjM
-         zpSXQMq21iq+Uq4i8loxLMWjHSNKMJN5vv3+jzIc+STsBnF0cIELEho0GZTiYEOR4jsi
-         3J9Rs9gsSPM63oCfE135zN/SgdVq9hbvy2yta4oTJ1JHo1HNhDajWflXmGiG8XLuDl69
-         HGSLHWTR9gUOvDtkqc6O58y8bw44wmUW5ejuuNyf0AV4OrrVqWK48M92yJDeGDYzsTGe
-         UECbrTh73toJRj+3j/J+SuN3rtW6enoSZ7iIctMYVc6JKYEbsu6meBwLNhxeWVVF97ec
-         brkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791639609; x=1792244409;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1OMPvqt3i2+F+trWLfv914nMC+RGH+n0BOpujrLH77w=;
-        b=Sh494MxuhkqH4+474yyF38KPZDJNg6MY9iAGluHJ2GDjEqgLMXr1VAR7bTCjbHwpp0
-         NwUoLw9p+Xn2QKrZk61EkTWM6lpm8RZWGJParAx4SS1lB9kwTVzsL9w24W+CiLidDlWO
-         D8AhOe9nziS2C7ERsmN0WeQX5KDNP5Kn24S/YEVY/zuWjekOZ7q20c+PRhwshOKoQ4/i
-         0ZEVo3NeT6V8IiickAXuFrWIL3iXiZlrlvdSySw2xhc9VsRrg0OvQerQf//bepV53K2u
-         bO+E2C5QPplTV9ei46KI7h70LsLsFWs0gDBo/YQkJLuJr74rZdaeVIsGItnYfWIe5ocl
-         jJ5w==
-X-Forwarded-Encrypted: i=1; AKwUvByRY7kO+2trtyqBZ26vxSEjncm76qY138Ixr2FlslPUkwu9OOvquPZ0a3U1+LCwgaoB6YQUG6BgCKhyLHg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJdYI+MevFGVemngam/kreT1mtogwCWCvtYVcDJD3B7sROIw2KZ
-	P8zEeuH46/PD0ZLox38gmrqS4gzFfmpHqXPvT+6qqickpZtMmn1njeXrmbq35q2lZ3qVqEPwYMG
-	wzPpmfjTt9N5Uzk/GD2qa2ebqx4hHwVY=
-X-Gm-Gg: AYBFou2euIFwP48eD+3kaEDtV2u1jMyhL/4Sx2KZ8755tbnOwf+ahfXaRputC1xKIvK
-	FFRBwBt8IciKog/eak/jKrWM98rmcsT5OVgIAMuQJ8iPpSU9CVF82lkjjqJsSb5J8jijQ/QOIk0
-	c8klw5aS9RtgWE11Vrk9kqS/NH7GaCw4TGs6h8/YIjgfI6iqgwRNv4f1Sz6ZKfRDP7hb8sBNC2H
-	WTxtIEQlIJV8wOZKjx2fnSzLdjgja9WVdliF2h5kineRgHvFGbbYNJQX2QgE1s/BCh3d6oGikoZ
-	8IQZL+eSnotVEVw2y3PmvFDiyrZITRdOzSyhwvI8LAr9f1wFkxlwm3NzSjMI9bR0/9c9e/Epr6Q
-	MoxPwuDItERs5rMii9BAmDGpiUM61Qafrknl68N+v0y18
-X-Received: by 2002:a05:651c:54d:b0:3a9:7f37:9bbc with SMTP id
- 38308e7fff4ca-3a9c535761amr10525921fa.11.1791639608635; Sat, 10 Oct 2026
- 06:40:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MW+o7Ge2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4DA71F000FF;
+	Sat, 10 Oct 2026 13:40:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791639618;
+	bh=Io44OKtN8L9s20sxzd0rilXBdNQoIbjjjTAYFAepx/w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MW+o7Ge29PerOGxb14B0X9AefCQ/ejSI8q/f+0jfu/GxHBzlOOkubHRyHnjlYwkQE
+	 +Y/3QogWD4tmDUYPi65jf9A86vvCK06LhPX/YH4LP32st9wqjokWuYeFsYCtTCWKIx
+	 fPL5LXXPrVIZyq1e4RjOtJZTYhuDGxoB8zLq6PuCfHPYsg8gg+GA24b2yqVVso3D8R
+	 6xpPoKtG0P8cPcag1pU/OuzsdRM+14x0FQNUt6CJiHVSnTuSN6WKwdqi2OA/wvY6im
+	 oQ4rLgn4OGZNsWng7UvakLZmijI3nSOUjywMOvpFX8dnF2qC5fyk/V7jhi/Ls/sHMp
+	 LpwYcWkO7UOJg==
+Message-ID: <sashiko-outbox-166588@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] PM: QoS: Add a sysfs CPU latency request with a
+ boot-time value
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Roman Kagan" <rkagan@amazon.de>, "Pavel Machek" <pavel@kernel.org>, "Jonathan
+ Corbet" <corbet@lwn.net>, "Len Brown" <lenb@kernel.org>, "Christian Loehle" <christian.loehle@arm.com>, "Randy
+ Dunlap" <rdunlap@infradead.org>, "Daniel Lezcano" <daniel.lezcano@kernel.org>, "Rafael
+ J. Wysocki" <rafael@kernel.org>, "Shuah Khan" <skhan@linuxfoundation.org>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, nh-open-source@amazon.com, "Mike
+ Rapoport" <rppt@kernel.org>, kexec@lists.infradead.org, "Pasha Tatashin" <pasha.tatashin@soleen.com>, "Pratyush
+ Yadav" <pratyush@kernel.org>, linux-doc@vger.kernel.org
+In-Reply-To: <20261010-b4-cpuidle-shallow-v2-1-adede7dd9077@amazon.de>
+References: <20261010-b4-cpuidle-shallow-v2-1-adede7dd9077@amazon.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 10 Oct 2026 13:40:16 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261007115821.11332-5-sigefriedhyy@gmail.com> <179154713266.434549.3119718667275543634@kernel.org>
-In-Reply-To: <179154713266.434549.3119718667275543634@kernel.org>
-From: Yuyang Huang <sigefriedhyy@gmail.com>
-Date: Sat, 10 Oct 2026 22:39:57 +0900
-X-Gm-Features: AclHuK-8lTLLnkYqyGO4ub-KfSnA41bLKl_MgKWzh-nerGwP6xbhIB0UlOeiU2Q
-Message-ID: <CA+7S2vJEYr7sbRqf=QdURN+gLp=5aaRGXG3iprA5Rz4-sEqj3w@mail.gmail.com>
-Subject: Re: [PATCH net-next v10 4/6] net: add AF_PACKET multicast dumps
-To: netdev-bot+sashiko@kernel.org
-Cc: ajay.kathat@microchip.com, aleksandr.loktionov@intel.com, 
-	andrew+netdev@lunn.ch, claudiu.beznea@tuxon.dev, davem@davemloft.net, 
-	dsahern@kernel.org, donald.hunter@gmail.com, edumazet@google.com, 
-	idosch@nvidia.com, jacob.e.keller@intel.com, kuba@kernel.org, 
-	johannes@sipsolutions.net, kees@kernel.org, kory.maincent@bootlin.com, 
-	kuniyu@google.com, nicolas.dichtel@6wind.com, nickgarlis@gmail.com, 
-	pabeni@redhat.com, sd@queasysnail.net, shuah@kernel.org, horms@kernel.org, 
-	sdf.kernel@gmail.com, vadim.fedorenko@linux.dev, willemb@google.com, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-wireless@vger.kernel.org, netdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-> - [Medium] dev_mc_dump() (net/core/dev_addr_lists.c) calls
->   nl_dump_check_consistent(cb, nlmsg_hdr(skb)) once at the end of every=
-=E2=80=A6
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] locking: data race on req->node.prio in cpu_latency_qos_update_requ=
+est
+--
 
-> - [Medium] dev_mc_dump() reads the generation (cb->seq =3D
->   dev_mc_base_seq()) only after the walk, once dev_mc_dump_dev() has=E2=
-=80=A6
+commit d19f16780c138f4d33dfa7e439454d2244724233
+Author: Roman Kagan <rkagan@amazon.de>
 
-Both are real and are the same problem as reported on patch 3, will fix in =
-v11.
+PM: QoS: Add a sysfs CPU latency request with a boot-time value
 
-> - [Low] At this commit, Documentation/netlink/specs/rt-addr.yaml is not
->   updated for the new AF_PACKET RTM_GETMULTICAST dump.
+This commit adds a CPU latency limit requested by user space for all CPUs,
+exposed via a sysfs attribute. It operates similarly to the per-CPU resume
+latency request but acts as a single PM QoS request shared by the entire
+user space.
 
-This is done in the same patch series.
+Link: https://patch.msgid.link/20261008-b4-cpuidle-shallow-v1-1-c19e71127b1=
+4@amazon.de
+
+> diff --git a/kernel/power/qos.c b/kernel/power/qos.c
+> index 1944dbeb0d4c9..f381361939079 100644
+> --- a/kernel/power/qos.c
+> +++ b/kernel/power/qos.c
+
+[ ... ]
+
+> +static ssize_t pm_qos_cpu_latency_us_show(struct device *dev,
+> +					  struct device_attribute *attr,
+> +					  char *buf)
+> +{
+> +	s32 value =3D READ_ONCE(cpu_latency_qos_sysfs_req.node.prio);
+> +
+> +	if (value =3D=3D 0)
+> +		return sysfs_emit(buf, "n/a\n");
+> +	if (value =3D=3D PM_QOS_CPU_LATENCY_DEFAULT_VALUE)
+> +		value =3D 0;
+> +
+> +	return sysfs_emit(buf, "%d\n", value);
+> +}
+> +
+> +static ssize_t pm_qos_cpu_latency_us_store(struct device *dev,
+> +					   struct device_attribute *attr,
+> +					   const char *buf, size_t n)
+> +{
+> +	s32 value;
+> +	int ret;
+> +
+> +	ret =3D cpu_latency_qos_parse(buf, &value);
+> +	if (ret)
+> +		return ret;
+> +
+> +	cpu_latency_qos_update_request(&cpu_latency_qos_sysfs_req, value);
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+[Severity: Low]
+Can concurrent writes to this sysfs attribute trigger a data race?
+
+This calls cpu_latency_qos_update_request() on the globally shared
+cpu_latency_qos_sysfs_req object without external locking. Inside
+cpu_latency_qos_update_request(), there is a fast-path check:
+
+    if (new_value =3D=3D req->node.prio)
+        return;
+
+This performs a plain lockless read of req->node.prio, which concurrently
+races with modifications under pm_qos_lock via plist_node_init() in
+pm_qos_update_target().
+
+The pm_qos_cpu_latency_us_show() function correctly uses READ_ONCE() for
+this field, but the plain read on the update fast-path could cause KCSAN
+warnings or undefined behavior if multiple threads write to the sysfs
+attribute simultaneously.
+
+> +
+> +	return n;
+> +}
+> +
+> +static DEVICE_ATTR_RW(pm_qos_cpu_latency_us);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261010-b4-cpuidle=
+-shallow-v2-1-adede7dd9077@amazon.de?part=3D1
