@@ -1,105 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE9561A38F9;
-	Sat, 10 Oct 2026 17:32:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F966270EC3
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 17:34:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791653527; cv=none; b=h6I34QPNZ/CSUc1v4nAbtyoLzCgJyZtMcKm01p6IeZjDR5FdsXAxafDz6BFCRPA02UXS354MZpC0/ZpyoJPTaGHJ+Vt6n4YZ7YduXUssIZMyteebnEAUKnmYAoPmA4hHtFu2Bn3Lq5ZtUADIzqyYKv+cjm4wAUx8gWot4D/6uAU=
+	t=1791653663; cv=none; b=IHAxCArpwVAuf4upOD29g6iWnog6oC1Vp5gWktfNJvivzUihLbjS/2kWEaYw+pTg33iU98lHsEjlGuJEwo4nkgUoi0SQ5TwNL8wkYSZMpJ/3yr8+evYT78KyM2R3ZThz1uf8qVCcy4UwibCZ/rFB/esCpWE+m7dPhxXtuFtVXNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791653527; c=relaxed/simple;
-	bh=g5wXzyRKjRO7EDueR6svTDpzjwrDKZ9xDhYyiHBcpVs=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=fMB0bdvslQPUnNgA+v8Cx0EgTifmjpJYuOpkXBJpcGf3A8/0ytvmq+QdODDDnRP0S9NRiJtp3aXTCa8mhHTj55YV4cPu7+gafLbgEdm7wEIe4b9+zKhHGSztf/2i3iQ1pOo0d0G46kxvBfm2Q1AzbTUavmQbLoAe6FlmEQUL1Gw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aPjwLqH7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791653663; c=relaxed/simple;
+	bh=OjHzPdNJ+pQiEPNpWziSA3gVqzu3L6a5yw7oinbcFek=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=sm2izICUhCRaLWfV7NlsHPpQnSCZo+gUbEhz7VgouZ5js6nhRhO67S+H8SqGa1cA6fmY/3LXVhaGjIekM/zSuPyhQYKrb2kSDY/i7hxbMerZ/aG0s8t0RS8/Fnuz6R7qWYMnXQEPPNwUna5YOoBVfg2xDc+NHyyhMQo5EGaZuCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WFQg55xQ; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aPjwLqH7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 402E51F000FF;
-	Sat, 10 Oct 2026 17:32:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791653526;
-	bh=IUWT7DJ5VKwNdScNJZ8XESSRx4a5ok3hMOTtULGo01c=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aPjwLqH7egSTzP1IkBPDk2TlfLdFTZdgB55PDKqpN1nkbztn5M6kEUVZXb3nKloLg
-	 jxL61pFl8oKn7Mn8Hb0wMIKmhmRs4hj21xUkGNSh7/e+Z24AS0lBcv/RkePkZaPCTO
-	 i6uT7shFGhXDdWrhrPceSx857jgMV0Tk1k1XZfAvP9dJUm3eIKuuiXZx9XIwBD9aIf
-	 5C/g92ER491xKjr5V6rF65IBatxFdEio7Yce4jCr9EMtWzVoUbDdv2qngluQrq9MMM
-	 eO2tl0hr6LmbXlroecDhljh6eT6GsRvzlX543jP7mKq+GzdRbyWZpIOgTncJTVr0p/
-	 hfBKLbw4XrN8w==
-Message-ID: <sashiko-outbox-166778@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] MIPS: Octeon: flash: use the simple map accessors
- without a shared eMMC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com, "Orgad
- Shaneh" <orgads@gmail.com>, tsbogend@alpha.franken.de
-Cc: dwmw2@infradead.org, ulli.kroll@googlemail.com, corbet@lwn.net, kaloz@openwrt.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linusw@kernel.org, nico@fluxnic.net, linux-mtd@lists.infradead.org, linux-mips@vger.kernel.org, john@phrozen.org
-In-Reply-To: <20261010172142.2138956-4-orgads@gmail.com>
-References: <20261010172142.2138956-1-orgads@gmail.com>
- <20261010172142.2138956-4-orgads@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 10 Oct 2026 17:32:04 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WFQg55xQ"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49fbb2acc90so3992275e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 10:34:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791653660; x=1792258460; darn=vger.kernel.org;
+        h=content-type:mime-version:references:in-reply-to:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oKRu7HdNzVMsiadoCAYqAnivQppIsxxdbnjlkOxlUeM=;
+        b=WFQg55xQCl7JlY4/i8gDC5WBvNoGOzewQVJSe8i45ElYV0JRUhvLIA9l0UkC2285NL
+         ICdViaiXnmuU5LI6KfPPI5o+NSACBMV9ReoUjiDv4eYFa0RfRLDXrUO9O79Cvpb3lKyj
+         9DF51quh/sM8ug9b1lcQtqNUf+Chz681owExOMBf9YLfpMD2aUtyAgLVmUE1rIpw9Xjx
+         MJXbBJ6feklI1jooOACu1EvWFi6DXlNUfm9h+X9PVLiDv8Y0Ueze8K8mdBnfgaIqDi8h
+         dr0CtTNdGP6j37MtlWZrlI9MGSmzpEAQb8sTz3gOv7tCdYp/+pka8bdP/n4erEv/s7LO
+         A0aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791653660; x=1792258460;
+        h=content-type:mime-version:references:in-reply-to:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oKRu7HdNzVMsiadoCAYqAnivQppIsxxdbnjlkOxlUeM=;
+        b=xTcyHppbnC3w0brHmeh9O8a1JnjqIG4CQpmFuQo0APapBts5VH1jWwCNvfsxBGhCcQ
+         ZeLJpdUAJhRUX7sFUZYSpvdhjGiymyULqfrCokAD4Oqxo6i3erOAysxJzafDUePBGlW/
+         zENXbN8QWZzUyh0DXwTbAxnvAlklHD9sD5cA1nqWYiIgJBmXG7DfiQ5m4Q3YbW40VzZu
+         V9qQSRbrZpXHNl2wjAkrXwDWt+itUsvplYLIlA3vTUhHL4o0baP+fAm7QGW3ViQLlrdC
+         JUgsuDn3XX8s5gAqPL5Sl3g1xnBssFUiChNRV62VpesOLSVZQkSYBcFstydxUGUiukt4
+         3sxQ==
+X-Forwarded-Encrypted: i=1; AKwUvByAyB/JSKUXBVF9QhumttJGzuwQwQC/r3Ugkj7reJRF7z+RPBBDL0iWTk04CHgcWxnr9KgxJOPN6AR8JKM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKx4WupwsCMQD8yaoVN3bZETf1Jz1pu2O5aT+vJ/y+u6YpAfllw
+	oMVAGsWjCx5Pyhya9Y8BJY+4xFRTv8MNog32t8W3L7P2M+DZGPNzUstG
+X-Gm-Gg: AYBFou02iovsdnooQUTEYHbHtKK0FH+ijtz5b3GDMdiI73dYsgf32uKQEJfLG4nR6Sl
+	6XJ3GfL+TuCv2nnHMbX5m4LsA0H/tcKXQlsInoBzwFiF4QaC7m/UyrQTGMefYpYFHric4Op4nVj
+	h1NF+rcfACVAvEewArVxt2H1F6hY2Q24+VvMsV60art+vFcysnYZZJXLteKraRLbNXgBiyzBxXV
+	CAZ/Uj1vIwC/ne2wuI56dDRzcO6bPTig++cNehD/bAD9gbEiuBA3fwS5srZLrOrTL9OaJ/1loD/
+	4255iqAnCRIwA5onr94lkF34oGQl3SU0Kol84oL+vAdRWYU7d5TqY0f8LDHviDrhpGmz0JPPj76
+	x50sJuZ9PZXebjJp2NrYRfkEb3+U0cbM6p//+9wzRU2S6sHFNWwS/kVCQZIPfH7MsaZoPY6JV7m
+	9/KfYAkRYA+wfIxLf0xNc5ivsYlTwPCOY/nxtdTkIrPLmsmTEgHwn5Qbwn6Zes/7XR3/PcK/kGa
+	3aJnaQ5wrVS02CEfy5XAukMofZzbdr7xbI9V17IMWgHvcduJdMYLTUPba5f0+3vx9u9
+X-Received: by 2002:a05:600c:8b04:b0:4a0:1e37:ae41 with SMTP id 5b1f17b1804b1-4a18e4d67edmr95276415e9.24.1791653659818;
+        Sat, 10 Oct 2026 10:34:19 -0700 (PDT)
+Received: from silicon.doe.home (178.165.167.132.wireless.dyn.drei.com. [178.165.167.132])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bea0f1csm225253335e9.9.2026.10.10.10.34.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 10:34:18 -0700 (PDT)
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+To: Navid Ghahremani <ghahramani.navid@gmail.com>,
+ linux-arm-kernel@lists.infradead.org, Arnd Bergmann <arnd@arndb.de>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>
+Subject:
+ Re: [PATCH 05/24] ARM: zte: Add ZX279128S platform and CPU hotplug support
+Date: Sat, 10 Oct 2026 19:34:13 +0200
+Message-ID: <R4jkIz-qRYm8QZxlEgQNPQ@gmail.com>
+In-Reply-To: <b6dc1056-63d9-412b-8abb-a032dae83d46@app.fastmail.com>
+References:
+ <20261010130024.177503-1-ghahramani.navid@gmail.com>
+ <20261010130024.177503-6-ghahramani.navid@gmail.com>
+ <b6dc1056-63d9-412b-8abb-a032dae83d46@app.fastmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; boundary="nextPartHDvldZc3SQG5Th3laDZZWQ";
+ micalg="pgp-sha256"; protocol="application/pgp-signature"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] mips: cavium-octeon: global state corruption on multiple flash pro=
-bes
---
+--nextPartHDvldZc3SQG5Th3laDZZWQ
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+Date: Sat, 10 Oct 2026 19:34:13 +0200
+Message-ID: <R4jkIz-qRYm8QZxlEgQNPQ@gmail.com>
+In-Reply-To: <b6dc1056-63d9-412b-8abb-a032dae83d46@app.fastmail.com>
+MIME-Version: 1.0
 
-commit 9e242ec4162d9c7c06bd10d98f2bbfb32869d150
-Author: Orgad Shaneh <orgads@gmail.com>
+Hi Arnd, Navid,
 
-MIPS: Octeon: flash: use the simple map accessors without a shared eMMC
+Am Samstag, 10. Oktober 2026, 16:13:47 Mitteleurop=C3=A4ische Sommerzeit sc=
+hrieb=20
+Arnd Bergmann:
+> Since this is really the same platform, I would expect to have a single
+> maintainer or team of maintainers. Since Stefan is already established
+> here, I would ask you to work with him first on reviewing the code and
+> deciding how the two of you split the responsibilities going forward,
+> but I don't think that having two separate platforms with separate
+> maintainers is going to work.
 
-This patch updates the Cavium Octeon flash setup to use simple map accessors
-when there is no shared eMMC host on the boot bus. It also changes the flash
-bank width check to fail and unmap the memory if unsupported, rather than
-just warning.
+I am open to co-maintainership of the ZTE zx platform, especially for thing=
+s=20
+where I don't have hardware access.
 
-> diff --git a/arch/mips/cavium-octeon/flash_setup.c b/arch/mips/cavium-oct=
-eon/flash_setup.c
-> index 3395acde4d60a..28fbe3d15c956 100644
-> --- a/arch/mips/cavium-octeon/flash_setup.c
-> +++ b/arch/mips/cavium-octeon/flash_setup.c
-[ ... ]
-> @@ -102,11 +113,26 @@ static int octeon_flash_probe(struct platform_devic=
-e *pdev)
->  		flash_map.virt =3D ioremap(flash_map.phys, flash_map.size);
->  		pr_notice("Bootbus flash: Setting flash for %luMB flash at "
->  			  "0x%08llx\n", flash_map.size >> 20, flash_map.phys);
-> -		WARN_ON(!map_bankwidth_supported(flash_map.bankwidth));
-> -		flash_map.read =3D octeon_flash_map_read;
-> -		flash_map.write =3D octeon_flash_map_write;
-> -		flash_map.copy_from =3D octeon_flash_map_copy_from;
-> -		flash_map.copy_to =3D octeon_flash_map_copy_to;
-> +		if (!map_bankwidth_supported(flash_map.bankwidth)) {
-> +			pr_err("Unsupported flash bank width %d\n",
-> +			       flash_map.bankwidth);
-> +			iounmap(flash_map.virt);
-> +			return -EINVAL;
-> +		}
+I am away from home in the next 3 weeks, but  I hope to have time to review=
+=20
+the submission this weekend.
 
-[Severity: High]
-Since flash_map is a static global structure, what happens if there are
-multiple flash devices probed sequentially?
+Cheers,
+Stefan
 
-The line just above this block unconditionally overwrites flash_map.virt
-with a new ioremap() on each probe, which appears to leak the previous
-mapping and corrupt the state of any already-registered MTD device.
+--nextPartHDvldZc3SQG5Th3laDZZWQ
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
 
-If octeon_flash_probe() executes a second time and fails the bank width che=
-ck
-here, it calls iounmap(flash_map.virt) and returns an error. Does this unmap
-operation turn the first successfully probed MTD device's shared reference
-into a dangling pointer, leading to an invalid memory access when the first
-device is accessed?
+-----BEGIN PGP SIGNATURE-----
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261010172142.2138=
-956-1-orgads@gmail.com?part=3D3
+iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmrKdxUbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMywyAAoJED0TvMhUTxoi6kkP/RG6WnFV5gj1JCoG6Q9f
+ICCEtnIljgeZva2tToM2fAt9qUZIRikEM9uAGBZPei7hdRw+ZXsS3fTqSO0FDUe/
+/xfq7VVNyJsg+ZwPbVblrMT9sz2Bh0375uzmKLZjaCulV+X4iDBjRI53f5wZIRGT
+2lVBkqRtLY878ohMFCLsz9xYeXabFk04pSTTrzs0mjBHx+54t+9otTeWZEGOrdL+
+8P5GYr/5+GiUq9Jz42Ljf1FRSE144h5A+uUhmV8jK4TI/Xb35zOcePtrvPNqPlGn
+UqdvU3zyTdwDiNCD65sWJY2aybvBnwqo5F8Lo/zOJLy0wQgk6prGH9F/T99jOfz5
+UTuQZOd8i4QTvaTO+f6LJ83Tz8MYVJlPgU/FZ7I5JgwWqROjZNpFigxWMf52HKoY
+qaMbAEy7IPpjQiwwkq1fONLG5aTsBzqcMF+Ag6uEDd909g/+0QF9pOZfuwn22R9q
+yt2UwnehepuDAugH4WRvc3MU/80vtAEYvqFD7yNcD6bCRLqZ7swa3LRrTctsa2hd
+Ued585nUL/8fBWoxUYMv5eHdZDaCXH9nzZTq7RnDihHpYXbBFu5yPJG1E52Qr7hX
+HrnQ3xCxkyEsnUptAZDaYBELBgDqNSB01TsbwSSkhMZDuNEV4N1VWedM2BF8F8R3
+uc0b/CW9PV6gQClt6S7P8ZwC
+=xuKY
+-----END PGP SIGNATURE-----
+
+--nextPartHDvldZc3SQG5Th3laDZZWQ--
+
+
+
