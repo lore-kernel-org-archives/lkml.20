@@ -1,124 +1,69 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BC91400996;
-	Sat, 10 Oct 2026 11:10:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD0E442135;
+	Sat, 10 Oct 2026 11:14:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791630636; cv=none; b=SRv7oBgLwBno1SGpKfAVdt9p1N+8JfEpvDskOIkWM9sPOSmgF2+KJ6NGtB2mZ2ZqelKyYpuW/09FlPmk5+p03J6A9pd84JIp+3JOJCMXYTA4GFFmGISXVzyHAT/i3erieYqlTehNw1/7oB07Q1/j2EQHP0OcThdy1oMJ5QedSpk=
+	t=1791630875; cv=none; b=ef2lImB7H7e3QYV6P9nU0Ovk4y9C3Xn85EqMBN9lXAwGSLtaV527h813jZMpcExHvWpro5fP+Fxzi3XxFZKIL+8xes099KZP5We8WzcxEfw40aeZCxCFX9v5cxI1E873NfOHOIcoOrCULCLTvHLCB4Q2cSRkEqAZsi2G86UYUGA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791630636; c=relaxed/simple;
-	bh=uGYpgQXj/ZDKjyztj2YLm6hq9MFUMSK7bVj1ORY4fS4=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ow42nBP3A3QBo0tTRIm53/zQGXP00PTY3zFdfq0jEYPHFkRKbPSkwg2U7pfJKt5S98oWF14ux3cErp7OSEIsVN1o9KFTdePXMSdDHAPBsgT1d4XrH2yBUaS6dKeU+fZjTC4kPAuc22FQki8LuyyLVbBaVqy+8iBEBymLQasULtI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tbe02Vz5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791630875; c=relaxed/simple;
+	bh=7VgJKvnUntriWlL59nprpD46gbRgZ6OoBf66bdvPB7k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qGHz2qQv50t/DpyedgtHjYAkhLyej858Ndo0VLi1Tlz/NZ7rK5DPnPn76vV/9YzEJWuMvPz+HiAPHckHc19uoGBXkMWLA/KEmkESpb+AAVV5vRacFiJTC5u68cSKxf7/FaWKat4vXW945xla1jegT+7InHfqb1YaJddU4mofuWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=kZtjQvAH; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tbe02Vz5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C99C51F000FF;
-	Sat, 10 Oct 2026 11:10:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791630633;
-	bh=yy/aE7bL88JUeWLGWq8Z4A6u4H8Q4cX7fVUebItHTGM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Tbe02Vz50K0GO8HexwXiHTgLG5Xz03HYD6bU2VIsuWbZ07W2JRiptR6/ZvCSLVGK7
-	 MynFDKdkb8ecxn7V9B5jA6aenGsBq4e/V1bJ3xqq6uKaXWMlFg86qnV0Y7AWXmeseC
-	 NBWrBlD+4huIUYo0lGonq1jEAue0+2dKtfXM/qluGrfmVNPbM0CiJaBNJvaYOXFZp2
-	 CWfcfvycnBP9Nu6Szmex1LqKdUtcMKIrPJn7bc3H3A1YbTGPFs+LzQmobPti4d+vj1
-	 kDnGms+rqR+ewc9/ZU1kt1Y3PhGPXtMWHKLqaAR+zWbMZfIhqxXL65ULgPhhCS0nHX
-	 DyoGRaOS7rr0g==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xFUyF-00000001L2v-1Zu7;
-	Sat, 10 Oct 2026 11:10:31 +0000
-Date: Sat, 10 Oct 2026 12:10:30 +0100
-Message-ID: <864iet3j6h.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Myria Sarvay <myrialsarvay@gmail.com>
-Cc: Michael Reeves <michael.reeves077@gmail.com>,
-	Oliver Upton <oupton@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Yureka Lilian <yureka@cyberchaos.dev>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="kZtjQvAH"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=rRvOqyoa2yGlfCD6zElvclBcIrUaBdOVdd/2GnBR7tE=; b=kZtjQvAHyRZZBrt4oeO+HQ/QE6
+	G9ydsbXj8mzw6jrGPOqfpRYADvpDHhXfzFi8f3VAz0k3vwRpKdDL1DDTIUEI47XQm1t/M207MGE79
+	1G+Txy9UIBNtO0QNnSaYO51Peok7ZRo44gvUAkk8+JmPsWsShHr8ZX+xue0j/x1yakt1ZNPBfmLcM
+	RnsQwfsuqpnhTW6BzLUiH9H4J7El3uwHi45C0c7WzhZsVQ1C+G8xbesRu2Md+wFco5/WeXMF+6cyr
+	kG6ya5n0lAa34vvlJFpvc37N6WED9dsO+MQBL636rHRLtUDhdU9S1iLrobuovQDZfqgUdVDIOgSNo
+	fF5ohTqg==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Chukun Pan <amadeus@jmu.edu.cn>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	Sven Peter <sven@kernel.org>,
-	Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>,
-	asahi@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] arm64: Apply existing Apple CPU workarounds to M3 and M4
-In-Reply-To: <asoZWBEEEsFD5Qrn@macbookair>
-References: <20261008-apple-m3-m4-kvm-v1-0-7bb4cbf3d63b@gmail.com>
-	<20261008-apple-m3-m4-kvm-v1-2-7bb4cbf3d63b@gmail.com>
-	<86cxtk2utm.wl-maz@kernel.org>
-	<CANpmGNv4uYRLALMLKZn-HJwTiqJO90Fx23DOO7K7d-PfSWn=2w@mail.gmail.com>
-	<86bj932ssc.wl-maz@kernel.org>
-	<asoZWBEEEsFD5Qrn@macbookair>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/1] arm64: dts: rockchip: remove FRL GPIO for 100ASK DshanPi A1
+Date: Sat, 10 Oct 2026 13:14:09 +0200
+Message-ID: <179163084343.3536058.11998324830928383594.b4-ty@sntech.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261010100000.2236931-1-amadeus@jmu.edu.cn>
+References: <20261010100000.2236931-1-amadeus@jmu.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: myrialsarvay@gmail.com, michael.reeves077@gmail.com, oupton@kernel.org, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, yureka@cyberchaos.dev, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, sven@kernel.org, j@jannau.net, neal@gompa.dev, asahi@lists.linux.dev, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Sat, 10 Oct 2026 11:54:16 +0100,
-Myria Sarvay <myrialsarvay@gmail.com> wrote:
+
+On Sat, 10 Oct 2026 18:00:00 +0800, Chukun Pan wrote:
+> According to the schematic [1], the 100ASK DshanPi A1 board does not
+> have an hdmi_tx_on_h pin, so removed the non-existent FRL GPIO.
 > 
-> Hi Marc,
+> [1] https://dl.100ask.net/Hardware/MPU/RK3576-DshanPi-A1/DshanPi-A1-RK3576-SCH_V1.1.pdf
 > 
-> (Resending because I forgot to reply all, sorry Marc)
 > 
-> On Fri, Oct 09, 2026 at 09:16:03AM +0100, Marc Zyngier wrote:
-> > On Fri, 09 Oct 2026 01:03:57 +0100,
-> > Michael Reeves <michael.reeves077@gmail.com> wrote:
-> > > 
-> > > > I can provide the binary (and a few scripts) to test this easily.
-> > > > Should they have been fixed, we can always create a second
-> > > > implementation list to cover the PMU.
-> > > 
-> > > Can you please send that so we can try? That would be much
-> > > appreciated, thank you.
-> > 
-> > I've sent you (and Yureka) details over IRC. If you need help with
-> > setting things up, let me know directly.
-> > 
-> > Thanks,
-> > 
-> > 	M.
-> > 
-> > -- 
-> > Without deviation from the norm, progress is not possible.
-> 
-> I've tested the patches on my M3 Max (t6031-j514c), and without these
-> patches, it SErrors, and with them (and including the M3/M4 MIDRs in
-> the has_vgic_v3 list in arch/arm64/kernel/cpufeature.c) it doesn't
-> SError, and the iso boots correctly to a login getty.
 
-Thanks for letting me know.
+Applied, thanks!
 
-When you post v2 to fix the has_vgic_v3 list, please collect the
-details of what this was tested on in the cover letter, it may become
-useful in the future.
+[1/1] arm64: dts: rockchip: remove FRL GPIO for 100ASK DshanPi A1
+      commit: 99feb764fa6c3b260e03903f5d30e15428fedc08
 
-Cheers,
-
-	M.
-
+Best regards,
 -- 
-Without deviation from the norm, progress is not possible.
+Heiko Stuebner <heiko@sntech.de>
