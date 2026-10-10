@@ -1,170 +1,530 @@
-Received: from mail-dy2-f4.google.com (mail-dy2-f4.google.com [74.125.229.4])
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B94C547059
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 00:10:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.4
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791591030; cv=pass; b=KNyJnXpdXXmtcmoF3pftiAJJdXLcJqnstmffCfqT1KdypIjesLDWCrlhmpLnIW6AFUE1ETT/c/Fs4IugjMLEeFA36CfxeXFUCujpYnuzI0tdiEICzbZQYAo4MysUO81pw0evHbmfWtDr4ihE+rgLewSCsTAuTmcXWvoJg61/QaE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791591030; c=relaxed/simple;
-	bh=VDF3hQxEsXwOOEKMR7uFIu2BM583vjfhY7iLbnx2e6Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=D4BSci3I1wZCpbg+WGU06CVqPeauiAgoLodRanu3ynWbyRrafLS8H+oSPkp9mehmx2u5/jQqxuLWaYHmLE0vwO3EDmqi5vLEhjFLuL5zaBApUT9qqkandQ1nEFz7is6tzhMYL3i8z1ilanmm6iWoxZpciWu8jlNSUlw23fip2TE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tAb0lZ2t; arc=pass smtp.client-ip=74.125.229.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79DF427473
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 00:10:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791591045; cv=none; b=YPtvdlgo47Lhx7g/8FSig3BX0ycrIX5Npg+4h5IAClF9todcP2W12xkznWmuwTOJ/d7V56G4/z/KdZFvKLoLUs3bPQXTMb3DmVl58jQiumFlWpLYpj1lnek0iXdd9j6tupUkWi+9A/+3Njf8uVDzSo5sPiOwnjg5iIfUCwUr3AQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791591045; c=relaxed/simple;
+	bh=PZDn9A4S4W/Ns7KtN8jiqNjpMsMEpf0Zn5SIfwuuFEQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dT2xKmUsCDudL9pwa7h/736YbBbVsczZiOY4YQzfCClA2mZ3a/Gfca9NTnCm5N3L+z2HWa2AMFWEuYVUA+x4PArDoj0/rdWDIVb5DwFmgcXJjRPiGHT0Fjv+kH7eh2RBtAB34oZwa8mTO9u814bF/BexJ2Vc8eSuvVmBgOHUvdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=bXwauKyN; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tAb0lZ2t"
-Received: by mail-dy2-f4.google.com with SMTP id 5a478bee46e88-3535936351fso211367eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 17:10:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791591028; cv=none;
-        d=google.com; s=arc-20260327;
-        b=saKdZVw1eltNp5qrpHhLmePDncVsWdrhqt7ibbVqweg5FLenx257U3pb+JvMh43iFN
-         dKG0C7bCM7AfKXpS/TY9vLo7xMEoQkdIZZM1EwwluW/Anw9AzcC/qT4Nx1SRpFMB+BdV
-         4rQcLO5WCVS7nfS9rRdFBo++koflPi4nnudjZW6Z3c2jC+zIL9TacfPR/6ccFh4BB0Uz
-         lMev1PhNklU2p/h8W1LXY0KIfmDExc92JOAvtPIbFlWWz8yWzwmKGS8ENsoclwrPwiep
-         YujjyM1zfmFeF2t9gWxQ0EfFKu8KpPdHrQRZ2XYDPMGjQ509MpxNZOABGDobMwqYVXi6
-         Uiww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=cR/CPJKG3NoiCnDGVGJZMEP7USNRf/dhi11bwg0wPvE=;
-        fh=EDzo4WYFOAeu+GJREutpuGUQk4OAgQT9r+xKde5EBEk=;
-        b=NImbxBjl9t+loqgT97tsT4BfvaF+vnH7LReuN5GqopgIYLLwoXibnkbT9ps2sIIC1V
-         PyzHC0ou95Fld3stMtYd0T7qieq7IIxrIx5zJFfVAlVdyLvQwJ8SsBeB+U3wzb2YoBsz
-         cWrJpr2cd9dzu+RYyJ3c8BjQloB63YoYzmX7SaDizC99CvNf/fu39dTvg6g034oJtINS
-         xaqG79CVhauFRNeSBDw3nhzfAna9JcfFQ9zgHBYyG1+tstVsHkpJAx9RGiMb9EsUULsd
-         l9k+pMhg0GYEs8YFCrinPrZtKfi+YT3QrXDbbG11nyqOyZkB8V2gxXAk/Y/JVFEATwA0
-         /KGA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="bXwauKyN"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2db33db4de9so7605ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 17:10:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791591028; x=1792195828; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=google.com; s=20251104; t=1791591043; x=1792195843; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=cR/CPJKG3NoiCnDGVGJZMEP7USNRf/dhi11bwg0wPvE=;
-        b=tAb0lZ2tx6u8SLh3zO/dNMo5WZ7CTdCJkpLGr4TlttMSyGyZ8mX+2vsxUGGPNVcq5M
-         h9EvltQw0Qese8SCZ68BmiTcmNqsFmdiPlz53EkZiiEKqFqip9fkOrVx4a8tU5ydUaEf
-         yye54pRrLyF3p48MJMWFaR0H9cTxeYRAiyF0NuHdXSDGxMq5NNcH1hlAgM49CPfseeoH
-         LAK7ClrhayZlhhTf3NfaraX3p4O/Q7dYWuhsxlPQoLL5VuVTqmslwWbMMO4boP8wESWR
-         Nsn1oPzFukTg0GgELloX0HWTh8QxxvgmQKKexFVXAAJwLZQNPn6NZtdmTttH72Se3fGx
-         1/6w==
+        bh=w4KRkkp0W32oMcIhnTbZjHrMVPNDCUZkNJk5uoEA924=;
+        b=bXwauKyNRR0eWCygGVOHAekPgHLkWVwkngC+xmEKWBWl/UWowytVkqv55NjAvfxXkp
+         UEoH3m1PrLnikVBxoj0SBM4ytWaxN+xhb+JRO8SeJWvecm/Fa8Ss3ZEIurCvBuy/+E9S
+         csTpPYf/sqKrtDH9CsmjBfwGxhQiH8mWnmLXmisULWZPZXlD0zFDqhiYWp0LjScFs4SK
+         y/gFN7q5rw70s2NLUD8HzyeZZQieJx13mVZ4Ee7XrNiUpZXKnzluJiSCL3QRHz0GCIRf
+         +u0nZtGemu1ElThdxChr2hs7jgAhX5lM5zs6IB6zCFdREXZSnDOTeUxUh0XgJBT6TH1P
+         32oQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791591028; x=1792195828;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1791591043; x=1792195843;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=cR/CPJKG3NoiCnDGVGJZMEP7USNRf/dhi11bwg0wPvE=;
-        b=aKJm4+p37mE/mMCeL731eLHoIQsZ+Bt1JXGTc5DKx71HJ+8EtyEtAxGvchJXYE2ave
-         jmbhWTvMBmcO/ME3BDH564Wnq+oAWBDxJS2cjvG4qU0HSV6hzQYA7mAI1we4bEBoA/uF
-         rwbWwK6uym66bmtJIHmewKVXipfdryHyJ+uAvUm7/b9eHuXKoYyCYNxZKb59Qp6KthHM
-         TdC5U9CSIcr/OZo/azopf03yJ7a7di6arlnt07j7FBSkeGQhXGJwqrkS9hNkH8SVMraN
-         hLUonsKYC+0KTHd6N+tBKWspceh+vAhlwqCwowPVDHrbv9b4TE21BkCbYCStsqDgyLIB
-         b/fg==
-X-Forwarded-Encrypted: i=1; AKwUvBwwobDuOYk4rpFlYKahlCJhaCt9HPSnF/muE7C2varbb0X8QgRkgLOstC7Uzl/PSEBHUAM7QGqdA9Wzm5s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ8v/hZgx0Z1xQosfJvXR9ykw3MOBMkPtSW4rcFx4lnP/MC1HLC
-	qSoBzmzr7/Gx5GSsD62P1NkYmSPmHFc/WRsb78QLXwuxd/RwuIJgAmKFAJ2w0po74Yg7TeTgvfl
-	StE6zDal2B2f0F9aKOI8mfLnrSqiWZQ==
-X-Gm-Gg: AYBFou1FGRfHAhAwX3UyuLTiCvG2Jijd5j1GxIEnFRfx0X8RCN3kTLpZu18Wt49paSU
-	dgV2QRvTkz+g1udc2vLGQUkHYUNnq2h3fSAJjWL0SvWepvQqlnb+lSvz2aXZExf7PgorMrVHKFj
-	BA0tEEPLeZR+LRCUAWecK1uopFjAzew7gAYYgdJgbyKs3x74UbqFYHOljC7swc1kmgpEgaehMRZ
-	KRpIliPoLHzOLTa5lhdsWvqLkblQm9BK04oUlFNgV8vp6KKDw3c0i7lHe2MriEg/u/Z6YCkHEZ0
-	V51QLJzkYHWranISZxXX6SjT3C5N37NTq0EK570UdApi3OhtC04uj/bD
-X-Received: by 2002:a05:701b:2607:b0:144:f096:4dd1 with SMTP id
- a92af1059eb24-16a611c76a1mr3960393c88.41.1791591028199; Fri, 09 Oct 2026
- 17:10:28 -0700 (PDT)
+        bh=w4KRkkp0W32oMcIhnTbZjHrMVPNDCUZkNJk5uoEA924=;
+        b=MGG8PqXaOl9/vJR02FDuN7gSoaVe/uIvRGvLsur19+uCpvcfYLfrMk2AsPUjZwqzrf
+         kbL+iW0zgMqSrDfmGhvSBWXvXodz+1naObievD8exiyRLfRTBy15SHa3Qxi/TMdV45Q1
+         Bf3AecktNsHDtNl3NxYl6ZtMA7UCSfABSpMfgOfiSviT7Ak0rVPK1Odh2V7QcXEd/y1q
+         vRrHlpuS0axEQCoECEsbjszq6uHWp+cdc2bgIqigZuJrAiGQjuAHm9TfF0V6W8iDJQFt
+         6dp4YTmKteiUXxTl1tAXGtIFQ6x4JUehYLHvzj1Qvnsd7hsp92fApqq5azNv13lau6oJ
+         lWyA==
+X-Forwarded-Encrypted: i=1; AKwUvBxusgeo8Slr1zzAV+/WgMn/zm0RC1Ql5FtNoujKGyew56BoEw/lII+y0pz2Tyfh9glsTyCUgZTxliVu3HI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLwpvqACG3ziNHBzAPMT/QgZl3FmBtHW0V3lM0SilTnAHJpMXam
+	L2PZhl9HLkSFc9kDkubN3Lg+Fcxr2sPNiUna5jqt6HbaLuvf+VwDENqbzcLTHiLMKg==
+X-Gm-Gg: AYBFou3VP/ssz/3hDxIOLhRYkbHkCQE2N36SXjq5m9Lws2A1KcJsnOU1JOxl8c500b/
+	2zUjJ+EKQE7cKYeuCelh1S34Yw0uYoumZo4uIYCCllKCt5MKbgk7myuBMvzKiIZ7hK2LQj+gL01
+	kUzLC4rznccWrJ6f27lTr1ONXuizPchVPLJ8WJGOGRBqc5vh8xiBA5UPABraywrAviG7ZnlRpIM
+	r9nl3c84AGpzjZ6o32wQ2L3flOFlsHyiFpBwmifKcceIYudSmz0icUyBqqFokaLQlcafdnLZpTf
+	9zV7RCFLvUTx9mhdn/pEdwrgerwwZH0lxwDoqY9uwoqqqRzKNbf+mGNmgBOfwoyGInT0dmMOUIt
+	3jCcNgkTb35xlNfHgCvfO9YAgzfacibJrtleXdPbYuGYuLbJWtkp8fa9KeFS66wixFH2dlWFsAV
+	wlYHVp4110FD3P6Gb4QZ+ItPMnfN2XfTCHaKMd7amtGrJaww3KgTsNMZ+dDxNIUDBQOFmeY27ys
+	nr/g9XnI9J9pOnppOSsRmiOoiXKLrDFNgqumMyutSKQFlAPTJRFHcP/5DFVtPhuc+1G
+X-Received: by 2002:a17:902:cf0e:b0:2e6:f400:5655 with SMTP id d9443c01a7336-2e87b9c037fmr819115ad.3.1791591042168;
+        Fri, 09 Oct 2026 17:10:42 -0700 (PDT)
+Received: from google.com (163.1.145.34.bc.googleusercontent.com. [34.145.1.163])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab37817414sm6239947a91.2.2026.10.09.17.10.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 17:10:41 -0700 (PDT)
+Date: Sat, 10 Oct 2026 00:10:38 +0000
+From: Samiullah Khawaja <skhawaja@google.com>
+To: Baolu Lu <baolu.lu@linux.intel.com>
+Cc: David Woodhouse <dwmw2@infradead.org>, Joerg Roedel <joro@8bytes.org>, 
+	Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, 
+	Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Pranjal Shrivastava <praan@google.com>, 
+	Vipin Sharma <vipinsh@google.com>
+Subject: Re: [PATCH v5 07/18] iommu/vt-d: Implement device and iommu
+ preserve/unpreserve ops
+Message-ID: <asfkCdcIBopkNyie@google.com>
+References: <20260921004834.2601285-1-skhawaja@google.com>
+ <20260921004834.2601285-8-skhawaja@google.com>
+ <04136ffd-de06-470c-8bbd-c7cf651feeb8@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261003202727.3673-1-ravis.opensrc@gmail.com> <20261004080110.37328-1-sj@kernel.org>
-In-Reply-To: <20261004080110.37328-1-sj@kernel.org>
-From: Ravi Jonnalagadda <ravis.opensrc@gmail.com>
-Date: Fri, 9 Oct 2026 17:10:16 -0700
-X-Gm-Features: AclHuK9iErDpI0ky8YsjjXHUJ1Bhqg2BvHDmttXO2gzSECAslgV1ytghZLxTEaM
-Message-ID: <CALa+Y17H55dp07Td7oqhDPq0TmuWHFB9DNcXNZ91Su_di2vhnA@mail.gmail.com>
-Subject: Re: [PATCH] mm/damon: add damos_node_eligible_mem_bp tracepoint
-To: SJ Park <sj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, damon@lists.linux.dev, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Bijan Tabatabai <bijan311@gmail.com>, Ajay Joshi <ajayjoshi@micron.com>, 
-	Honggyu Kim <honggyu.kim@sk.com>, Yunjeong Mun <yunjeong.mun@sk.com>, 
-	Akinobu Mita <akinobu.mita@gmail.com>, Lian Wang <lianux.mm@gmail.com>, 
-	Kunwu Chan <kunwu.chan@linux.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <04136ffd-de06-470c-8bbd-c7cf651feeb8@linux.intel.com>
 
-On Sun, Oct 4, 2026 at 1:01=E2=80=AFAM SJ Park <sj@kernel.org> wrote:
+On Thu, Oct 08, 2026 at 03:54:10PM +0800, Baolu Lu wrote:
+>On 9/21/26 08:48, Samiullah Khawaja wrote:
+>>Add implementation of the device and iommu preservation in a separate
+>>file. Also set the device and iommu preserve/unpreserve ops in the
+>>struct iommu_ops.
+>>
+>>Preservation is refused for devices where ATS is supported. Carrying an
+>>active ATS configuration across kexec would require adopting the ATS
+>>state in the PCI core and in the context entries, and handling the
+>>disable-to-enable, enable-to-disable and STU mismatch cases for a live
+>>device.
+>>
+>>Note that the preserved iommu root table, context table and device pasid
+>>table will need cleanup as devices do not go through the release flow
+>>during kexec. So the stale entries need to be removed during shutdown.
+>>This is done in the next commit.
+>>
+>>Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+>>---
+>>  MAINTAINERS                      |   8 ++
+>>  drivers/iommu/intel/Makefile     |   1 +
+>>  drivers/iommu/intel/iommu.c      |   9 +-
+>>  drivers/iommu/intel/iommu.h      |  13 ++
+>>  drivers/iommu/intel/liveupdate.c | 232 +++++++++++++++++++++++++++++++
+>>  include/linux/kho/abi/iommu.h    |  24 ++++
+>>  6 files changed, 285 insertions(+), 2 deletions(-)
+>>  create mode 100644 drivers/iommu/intel/liveupdate.c
+>>
+>>diff --git a/MAINTAINERS b/MAINTAINERS
+>>index 2114b50412ee..ae6df95dc398 100644
+>>--- a/MAINTAINERS
+>>+++ b/MAINTAINERS
+>>@@ -13220,6 +13220,14 @@ S:	Supported
+>>  T:	git git://git.kernel.org/pub/scm/linux/kernel/git/iommu/linux.git
+>>  F:	drivers/iommu/intel/
+>>+INTEL IOMMU LIVEUPDATE (VT-d)
+>>+M:	Samiullah Khawaja <skhawaja@google.com>
+>>+M:	Lu Baolu <baolu.lu@linux.intel.com>
+>>+L:	iommu@lists.linux.dev
+>>+S:	Maintained
+>>+T:	git git://git.kernel.org/pub/scm/linux/kernel/git/iommu/linux.git
+>>+F:	drivers/iommu/intel/liveupdate.c
+>>+
+>>  INTEL IPU3 CSI-2 CIO2 DRIVER
+>>  M:	Yong Zhi <yong.zhi@intel.com>
+>>  M:	Sakari Ailus <sakari.ailus@linux.intel.com>
+>>diff --git a/drivers/iommu/intel/Makefile b/drivers/iommu/intel/Makefile
+>>index ada651c4a01b..d38fc101bc35 100644
+>>--- a/drivers/iommu/intel/Makefile
+>>+++ b/drivers/iommu/intel/Makefile
+>>@@ -6,3 +6,4 @@ obj-$(CONFIG_INTEL_IOMMU_DEBUGFS) += debugfs.o
+>>  obj-$(CONFIG_INTEL_IOMMU_SVM) += svm.o
+>>  obj-$(CONFIG_IRQ_REMAP) += irq_remapping.o
+>>  obj-$(CONFIG_INTEL_IOMMU_PERF_EVENTS) += perfmon.o
+>>+obj-$(CONFIG_IOMMU_LIVEUPDATE) += liveupdate.o
+>>diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
+>>index 2e3b3ab216f8..4bfc2f173010 100644
+>>--- a/drivers/iommu/intel/iommu.c
+>>+++ b/drivers/iommu/intel/iommu.c
+>>@@ -16,6 +16,7 @@
+>>  #include <linux/crash_dump.h>
+>>  #include <linux/dma-direct.h>
+>>  #include <linux/dmi.h>
+>>+#include <linux/iommu-liveupdate.h>
+>>  #include <linux/memory.h>
+>>  #include <linux/pci.h>
+>>  #include <linux/pci-ats.h>
+>>@@ -58,8 +59,6 @@ static int rwbf_quirk;
+>>   */
+>>  int intel_iommu_tboot_noforce;
+>>-#define ROOT_ENTRY_NR (VTD_PAGE_SIZE/sizeof(struct root_entry))
+>>-
+>>  /*
+>>   * Take a root_entry and return the Lower Context Table Pointer (LCTP)
+>>   * if marked present.
+>>@@ -3961,6 +3960,12 @@ const struct iommu_ops intel_iommu_ops = {
+>>  	.is_attach_deferred	= intel_iommu_is_attach_deferred,
+>>  	.def_domain_type	= device_def_domain_type,
+>>  	.page_response		= intel_iommu_page_response,
+>>+#ifdef CONFIG_IOMMU_LIVEUPDATE
+>>+	.preserve_device	= intel_iommu_preserve_device,
+>>+	.unpreserve_device	= intel_iommu_unpreserve_device,
+>>+	.preserve		= intel_iommu_preserve,
+>>+	.unpreserve		= intel_iommu_unpreserve,
+>>+#endif
+>>  };
+>>  static void quirk_iommu_igfx(struct pci_dev *dev)
+>>diff --git a/drivers/iommu/intel/iommu.h b/drivers/iommu/intel/iommu.h
+>>index 23dbe6c24439..785057236e7c 100644
+>>--- a/drivers/iommu/intel/iommu.h
+>>+++ b/drivers/iommu/intel/iommu.h
+>>@@ -552,6 +552,8 @@ struct root_entry {
+>>  	u64     hi;
+>>  };
+>>+#define ROOT_ENTRY_NR (VTD_PAGE_SIZE / sizeof(struct root_entry))
+>>+
+>>  /*
+>>   * low 64 bits:
+>>   * 0: present
+>>@@ -1296,6 +1298,17 @@ static inline int iopf_for_domain_replace(struct iommu_domain *new,
+>>  	return 0;
+>>  }
+>>+#ifdef CONFIG_IOMMU_LIVEUPDATE
+>>+int intel_iommu_preserve_device(struct device *dev,
+>>+				struct iommu_device_ser *device_ser);
+>>+void intel_iommu_unpreserve_device(struct device *dev,
+>>+				   struct iommu_device_ser *device_ser);
+>>+int intel_iommu_preserve(struct iommu_device *iommu,
+>>+			 struct iommu_hw_ser *iommu_ser);
+>>+void intel_iommu_unpreserve(struct iommu_device *iommu,
+>>+			    struct iommu_hw_ser *iommu_ser);
+>>+#endif
+>>+
+>>  #ifdef CONFIG_INTEL_IOMMU_SVM
+>>  void intel_svm_check(struct intel_iommu *iommu);
+>>  struct iommu_domain *intel_svm_domain_alloc(struct device *dev,
+>>diff --git a/drivers/iommu/intel/liveupdate.c b/drivers/iommu/intel/liveupdate.c
+>>new file mode 100644
+>>index 000000000000..0837bb889fed
+>>--- /dev/null
+>>+++ b/drivers/iommu/intel/liveupdate.c
+>>@@ -0,0 +1,232 @@
+>>+// SPDX-License-Identifier: GPL-2.0-only
+>>+
+>>+/*
+>>+ * Copyright (C) 2026, Google LLC
+>>+ * Author: Samiullah Khawaja <skhawaja@google.com>
+>>+ */
+>>+
+>>+#define pr_fmt(fmt)    "DMAR: liveupdate: " fmt
+>>+
+>>+#include <linux/kexec_handover.h>
+>>+#include <linux/liveupdate.h>
+>>+#include <linux/iommu-liveupdate.h>
+>>+#include <linux/module.h>
+>>+#include <linux/pci.h>
+>>+
+>>+#include "iommu.h"
+>>+#include "../iommu-pages.h"
+>>+
+>>+/* 2 tables per bus in scalable mode with upper table at odd bit */
+>>+#define CONTEXT_TABLE_PRESERVED_BIT(bus, devfn) (((bus) << 1) + ((devfn) >> 7))
+>>+static bool is_context_table_preserved(struct intel_iommu *iommu,
+>>+				       struct iommu_hw_ser *ser,
+>>+				       u8 bus, u8 devfn)
+>>+{
+>>+	return test_bit(CONTEXT_TABLE_PRESERVED_BIT(bus, devfn),
+>>+			(unsigned long *)&ser->intel.context_tables_bitmap[0]);
+>>+}
+>>+
+>>+static void unpreserve_context_table(struct intel_iommu *iommu,
+>>+				     struct iommu_hw_ser *ser,
+>>+				     u8 bus, u8 devfn)
+>>+{
+>>+	struct context_entry *context;
+>>+
+>>+	/*
+>>+	 * In the Intel IOMMU driver, context tables are never freed once they
+>>+	 * are allocated during runtime, as they can be shared across multiple
+>>+	 * devices. So taking the iommu lock here to protect against concurrent
+>>+	 * allocations inside iommu_context_addr() should be enough. Once the
+>>+	 * address is read, it is safe to use it without holding the lock.
+>>+	 */
+>>+	spin_lock(&iommu->lock);
+>>+	context = iommu_context_addr(iommu, bus, devfn, 0);
+>>+	spin_unlock(&iommu->lock);
+>>+	if (context && is_context_table_preserved(iommu, ser, bus, devfn)) {
+>>+		iommu_unpreserve_pages(context);
+>>+		clear_bit(CONTEXT_TABLE_PRESERVED_BIT(bus, devfn),
+>>+			  (unsigned long *)&ser->intel.context_tables_bitmap[0]);
+>>+	}
+>>+}
+>>+
+>>+static int preserve_context_table(struct intel_iommu *iommu,
+>>+				  struct iommu_hw_ser *ser,
+>>+				  u8 bus, u8 devfn)
+>>+{
+>>+	struct context_entry *context;
+>>+	int ret;
+>>+
+>>+	spin_lock(&iommu->lock);
+>>+	context = iommu_context_addr(iommu, bus, devfn, 0);
+>>+	spin_unlock(&iommu->lock);
+>>+
+>>+	/*
+>>+	 * Intel IOMMU context tables are never freed by the driver once
+>>+	 * allocated. It is safe to access the context pointer outside of the
+>>+	 * iommu->lock.
+>>+	 */
+>>+	if (context && !is_context_table_preserved(iommu, ser, bus, devfn)) {
+>>+		ret = iommu_preserve_pages(context);
+>>+		if (ret)
+>>+			return ret;
+>>+
+>>+		set_bit(CONTEXT_TABLE_PRESERVED_BIT(bus, devfn),
+>>+			(unsigned long *)&ser->intel.context_tables_bitmap[0]);
+>>+	}
+>>+
+>>+	return 0;
+>>+}
+>>+
+>>+static void unpreserve_iommu_context_tables(struct intel_iommu *iommu,
+>>+					    struct iommu_hw_ser *ser)
+>>+{
+>>+	int i;
+>>+
+>>+	for (i = 0; i < ROOT_ENTRY_NR; i++) {
+>>+		unpreserve_context_table(iommu, ser, i, 0);
+>>+
+>>+		if (!sm_supported(iommu))
+>>+			continue;
+>>+
+>>+		unpreserve_context_table(iommu, ser, i, 0x80);
+>>+	}
+>>+}
+>>+
+>>+static int preserve_iommu_context_tables(struct device_domain_info *info)
+>>+{
+>>+	struct iommu_hw_ser *iommu_ser;
+>>+	struct intel_iommu *iommu;
+>>+	int ret;
+>>+	int i;
+>>+
+>>+	/* IOMMU for this device should already preserved.*/
+>>+	iommu = info->iommu;
+>>+	iommu_ser = iommu_preserved_state(&iommu->iommu);
+>>+	if (!iommu_ser)
+>>+		return -EINVAL;
+>>+
+>>+	/*
+>>+	 * We could do preservation of context tables only for the bus of this
+>>+	 * device, but these devices can have PCI aliases, so context tables for
+>>+	 * those will also require preservation. Also unpreserve would require
+>>+	 * some kind of refcounting where the context table will only be
+>>+	 * unpreserved when the last device associated with it is unpreserved.
+>>+	 *
+>>+	 * This introduces unnecessary complication with minimum benefits as the
+>>+	 * unpreserved context tables will probably be recreated by the next
+>>+	 * kernel as these are all active devices. We follow simpler approach by
+>>+	 * just preserving the currently active context tables.
+>>+	 */
+>>+	for (i = 0; i < ROOT_ENTRY_NR; i++) {
+>>+		ret = preserve_context_table(iommu, iommu_ser, i, 0);
+>>+		if (ret)
+>>+			return ret;
+>>+
+>>+		if (!sm_supported(iommu))
+>>+			continue;
+>>+
+>>+		ret = preserve_context_table(iommu, iommu_ser, i, 0x80);
+>>+		if (ret)
+>>+			return ret;
+>>+	}
 >
-> Hi Ravi,
->
-> On Sat,  3 Oct 2026 13:27:27 -0700 Ravi Jonnalagadda <ravis.opensrc@gmail=
-.com> wrote:
->
-> > Add a tracepoint for DAMOS_QUOTA_NODE_ELIGIBLE_MEM_BP quota goal
-> > evaluation.  The tracepoint fires once per quota-score computation when
-> > the goal metric is DAMOS_QUOTA_NODE_ELIGIBLE_MEM_BP, exposing
-> > context_idx, scheme_idx, nid, target_value, and current_value.
-> > current_value is reported as the quota tuning sees it, after the goal's
-> > complement setting is applied.
-> >
-> > The DAMOS_QUOTA_NODE_ELIGIBLE_MEM_BP metric expresses node memory
-> > occupancy as basis points of eligible bytes.  This information is not
-> > exposed through any existing external interface (perf stat, /proc, or
-> > sysfs), so the tracepoint is the only way for userspace to observe the
-> > target and current eligible-memory basis point values at quota-scoring
-> > time.
->
-> Thank you for this patch!
->
-> We have damos_esz tracepoint.  Have you considered using it?  It doesn't =
-expose
-> the current value, though.  I thought it wouldn't be real problem in most
-> cases, but I can show it could be problematic for node_eligible_mem_bp ca=
-se, as
-> the metric value is not straightforward to see without using DAMON.
+>This checks and then sets bits in context_tables_bitmap with no lock
+>covering both steps. iommu_preserve_device() is serialized by
+>&flb_obj->lock, so it might be worth adding a lockdep_assert_held() or
+>at least a comment to explain this?
 
-Hi SJ,
-
-Yes, with the temporal goal tuner, damos_esz only
-tells whether the goal is met, not how close current_value is to
-target_value, and damo needs that to know when a step has settled.
-
+Sounds good. The lock is private to the iommu core, so the driver cannot
+do lockdep_assert_held() on it. I will add a comment to clarify this.
 >
-> If you really need to know the current_value, I'm open to add a new trace=
-point.
-> But I think it has no reason to make it only eligible_mem_bp specific.  H=
-ow
-> about adding more general purpose tracepoint, and/or update the current_v=
-alue
-> file [1] under the goal sysfs directory to show the current current_value=
- for
-> all goal types?
+>>+
+>>+	return 0;
+>>+}
+>>+
+>>+/**
+>>+ * intel_iommu_preserve_device() - Intel IOMMU callback to preserve device state
+>>+ * @dev: Target device
+>>+ * @device_ser: Struct to populate with serialized device state
+>>+ *
+>>+ * Return: 0 on success, or negative error code.
+>>+ */
+>>+int intel_iommu_preserve_device(struct device *dev,
+>>+				struct iommu_device_ser *device_ser)
+>>+{
+>>+	struct device_domain_info *info = dev_iommu_priv_get(dev);
+>>+	int ret;
+>>+
+>>+	if (!dev_is_pci(dev)) {
+>>+		dev_err(dev, "Cannot preserve non-PCI device\n");
+>>+		return -EOPNOTSUPP;
+>>+	}
+>>+
+>>+	if (dev_is_real_dma_subdevice(dev))
+>>+		return -EOPNOTSUPP;
+>>+
+>>+	if (!info || !info->domain)
+>>+		return -EINVAL;
+>>+
+>>+	if (info->ats_supported)
+>>+		return -EOPNOTSUPP;
 >
+>This might be overkill. Could 'supported but disabled' be allowed? If
+>that's allowed, checking 'info->ats_enabled' would be better.
 
-Agreed, nothing in it needs to be specific to node_eligible_mem_bp.  I
-will rework it as a general quota goal tracepoint, emitted for each goal
-evaluation with the goal's metric, target_value and current_value, the
-node id for the node metrics, and the memcg id for the memcg metrics.
+I thought about that, but the context entry is set up based on
+info->ats_supported, so the preserved context entry still has DTE set
+even if ATS is disabled on the device. If the next kernel does not
+support ATS, then ats_supported would be out of sync with the preserved
+context entry. I think it is better to handle both supported/enabled
+together in a follow-up after ATS adoption support is added on the PCI
+side.
+>>+
+>>+	ret = preserve_iommu_context_tables(info);
+>>+	if (ret)
+>>+		return ret;
+>
+>Considering that this driver always preserves all active context
+>entries, does it make more sense to move preserve_iommu_context_tables()
+>to intel_iommu_preserve()?
 
-I would leave the current_value file as it is for now.  It would need a
-stats update command or refresh_ms to stay current, and damo wants every
-evaluation as it happens, which the tracepoint gives it.
+intel_iommu_preserve() is only called once per IOMMU, when the first
+device behind it is preserved. New context tables can be allocated after
+that when new devices are added/probed, so this needs to be here so the
+context tables of any device preserved later are also preserved.  If it
+is moved to intel_iommu_preserve(), the context tables allocated later
+will not be preserved. I will add a comment to clarify this.
+>
+>>+
+>>+	device_ser->domain_iommu_ser.attachment_id = domain_id_iommu(info->domain,
+>>+								     info->iommu);
+>>+	return 0;
+>>+}
+>>+
+>>+/**
+>>+ * intel_iommu_unpreserve_device() - Intel IOMMU callback to unpreserve device state
+>>+ * @dev: Target device
+>>+ * @device_ser: Struct containing serialized device state
+>>+ */
+>>+void intel_iommu_unpreserve_device(struct device *dev,
+>>+				   struct iommu_device_ser *device_ser)
+>>+{
+>>+	/*
+>>+	 * The context tables preserved during device preservation, in the
+>>+	 * preserve_device() callback, might be shared with other devices, so
+>>+	 * those are unpreserved in the iommu unpreserve() callback. So this
+>>+	 * callback is kept empty.
+>>+	 *
+>>+	 * Once device PASID tables are preserved, the unpreservation of PASID
+>>+	 * tables will be added here.
+>>+	 */
+>>+}
+>>+
+>>+/**
+>>+ * intel_iommu_preserve() - Intel IOMMU callback to preserve hardware state
+>>+ * @iommu_dev: Generic IOMMU device handle
+>>+ * @ser: Struct to populate with serialized hardware state
+>>+ *
+>>+ * Return: 0 on success, or negative error code.
+>>+ */
+>>+int intel_iommu_preserve(struct iommu_device *iommu_dev,
+>>+			 struct iommu_hw_ser *ser)
+>>+{
+>>+	struct intel_iommu *iommu;
+>>+	int ret;
+>>+
+>>+	iommu = container_of(iommu_dev, struct intel_iommu, iommu);
+>>+
+>>+	ret = iommu_preserve_pages(iommu->root_entry);
+>>+	if (ret)
+>>+		return ret;
+>>+
+>>+	ser->intel.phys_addr = iommu->reg_phys;
+>>+	ser->intel.root_table = __pa(iommu->root_entry);
+>>+	ser->type = IOMMU_INTEL;
+>>+	ser->token = ser->intel.phys_addr;
+>>+
+>>+	return 0;
+>>+}
+>>+
+>>+/**
+>>+ * intel_iommu_unpreserve() - Intel IOMMU callback to unpreserve hardware state
+>>+ * @iommu_dev: Generic IOMMU device handle
+>>+ * @ser: Struct containing serialized hardware state
+>>+ */
+>>+void intel_iommu_unpreserve(struct iommu_device *iommu_dev,
+>>+			    struct iommu_hw_ser *ser)
+>>+{
+>>+	struct intel_iommu *iommu;
+>>+
+>>+	iommu = container_of(iommu_dev, struct intel_iommu, iommu);
+>>+
+>>+	unpreserve_iommu_context_tables(iommu, ser);
+>>+	iommu_unpreserve_pages(iommu->root_entry);
+>>+}
+>>diff --git a/include/linux/kho/abi/iommu.h b/include/linux/kho/abi/iommu.h
+>>index aa42085409e5..5aaa29da6832 100644
+>>--- a/include/linux/kho/abi/iommu.h
+>>+++ b/include/linux/kho/abi/iommu.h
+>>@@ -81,6 +81,7 @@
+>>   */
+>>  enum iommu_type_ser {
+>>  	IOMMU_INVALID,
+>>+	IOMMU_INTEL,
+>>  };
+>>  #define IOMMU_SER_FLAG_DELETED	(1 << 0)
+>>@@ -144,16 +145,39 @@ struct iommu_device_ser {
+>>  	struct iommu_dev_map_ser domain_iommu_ser;
+>>  } __packed;
+>>+/* There are maximum 256 buses, so maximum 512 context tables */
+>>+#define VTD_PRESERVED_BITMAP_LONGS  DIV_ROUND_UP(512, BITS_PER_LONG_LONG)
+>>+
+>>+/**
+>>+ * struct iommu_intel_ser - Serialized state of an Intel IOMMU instance
+>>+ * @restored: Whether IOMMU state is restored
+>>+ * @phys_addr: Physical address of the IOMMU register base
+>>+ * @root_table: Physical address of the root entry table
+>>+ * @context_tables_bitmap: Bitmap representing the context tables that are
+>>+ * preserved.
+>>+ */
+>>+struct iommu_intel_ser {
+>>+	u8 restored;
+>>+	u8 padding[7];
+>>+	u64 phys_addr;
+>>+	u64 root_table;
+>>+	u64 context_tables_bitmap[VTD_PRESERVED_BITMAP_LONGS];
+>>+};
+>>+
+>>  /**
+>>   * struct iommu_hw_ser - Serialized state of an IOMMU instance
+>>   * @hdr: Common object header
+>>   * @token: Unique token for the IOMMU
+>>   * @type: IOMMU type serialized state belongs to
+>>+ * @intel: Intel specific serialization data
+>>   */
+>>  struct iommu_hw_ser {
+>>  	struct iommu_hdr_ser hdr;
+>>  	u64 token;
+>>  	u64 type;
+>>+	union {
+>>+		struct iommu_intel_ser intel;
+>>+	};
+>>  } __packed;
+>>  /**
+>
+>Thanks,
+>baolu
 
 Thanks,
-Ravi.
-
-> [1] https://origin.kernel.org/doc/html/latest/admin-guide/mm/damon/usage.=
-html#sysfs-schemes-quota-goals
->
->
-> Thanks,
-> SJ
->
-> [...]
+Sam
