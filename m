@@ -1,215 +1,222 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B6504AAC50;
-	Sat, 10 Oct 2026 15:11:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BA4A43DED4
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 15:11:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791645063; cv=none; b=QqwIUWW5IFBRl+O5mn8xbQk+pDybnmd01BFA7UFS9bllVxsRDNvhWuVAX0I3FqfKU74lw3uEOV/MN1q3Xd7QV7jTwOb10XEHs57FoUCWr2OkVcFDquzeEolGlsSJAcP/ZqP00QvOF+OHwYF6YCzRsGLcrlKDkOmtlK4P7+Z1S+4=
+	t=1791645091; cv=none; b=moaHPs2+NCUgjFXkff6OZKgI8Sgl5K356JtUtPGOHMs+OnWdUi3QdxDvUFNc3fDvPBr5/7DHD+/sHCZ8A5usJSOXnTw6EGzx0gHyO7dEHClHtdhGkp3L4iqg73anDKGuoSIqpcidcTc2+dYo91dWe6WQJhC8RiFJmoIQExROqQQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791645063; c=relaxed/simple;
-	bh=uMSWYYLd+3dC5c6o7LkwY2x7NK5YiNjOd8P0A2Khoys=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=oWNHf9NkfMjbkrRn7TzHh9oux6Nae+bnO6eb7DnIDAO47wIGFa42C5iMLL9hNy+z/QcAGKdASa0u5ulj3SLiVdZajDoXftD6UxkydEuxcoiO9kr1osPUaQlHQo5hsC670ECl57r/QyYbBDsZDVSd2cwp3XQi673zJr7s2Upocok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UcmA2JOW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791645091; c=relaxed/simple;
+	bh=ySFMmnG03VyCVo++5cjAql0XF8iCPLMUx2K9YgY79NU=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=N3OV7MHu+Z1lHo9LGoXd4uqCw7JzTXlfd+N6DUijdLgOPBrbxPqo7JapRXWgehYefLJ1ywuZvuzAraKsfA5YrvDY2rUQ2P8cLY8i7LhWYyvhK6Mk4Qad2zCUHNflG8Tz2e6OF7DFHPYwFQuPFEYxB2F5jxWlhQMpqc5J2bimYXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jKvUJhTG; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UcmA2JOW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 312E51F000FF;
-	Sat, 10 Oct 2026 15:11:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791645062;
-	bh=XHqIJq78TPh3CMoZn8eT46bz2UXEjv2uCG2uaAz+oRo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=UcmA2JOW7GZF07D9cRKdH83D4Exa25SGk/szOAEwHpgE8vaLdHswjiBwHNUrM5oHq
-	 e0UIqL7MwkXy0ABWxrZVHpS9R/LLsmYxLP82+ojftAjg8kYuLFrd0moCaEDgQbtWQv
-	 ED4CT7jjMFo//3oenBf7WPCy4f5OB/kdv+7Bv2SdPbV6lzfR3t3fSkYWMkjUBC4meM
-	 YEfitWZYyKWBhDLmQwfRHGfvaPQb1nQQ2iyuqWssV0AThefP2w6Omr3bUjHIqB2hqX
-	 huuNon+6WqYFNyTQUj66iLoWTwCNZ53g6d3nc/V1mlJfF3QlRg4YZNsTtojB5s9kR4
-	 yM2clIuxh2gLA==
-Subject: Re: [PATCH net-next 5/5] net: mdio: bcm-unimac: implement timestamped
- MDIO writes
-From: netdev-bot+sashiko@kernel.org
-To: jjc@jclark.com
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, andrew+netdev@lunn.ch, hkallweit1@gmail.com,
- richardcochran@gmail.com, florian.fainelli@broadcom.com, opendmb@gmail.com,
- nb@tipi-net.de, theo.lebrun@bootlin.com, linux@armlinux.org.uk,
- conor.dooley@microchip.com, bcm-kernel-feedback-list@broadcom.com,
- tglx@kernel.org, mlichvar@redhat.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Sat, 10 Oct 2026 15:11:00 +0000
-Message-ID: <179164506067.434549.2658464555254529067@kernel.org>
-In-Reply-To: <20261009143506.2507607-6-jjc@jclark.com>
-References: <20261009143506.2507607-6-jjc@jclark.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jKvUJhTG"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2e81738d24eso5293545ad.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:11:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791645088; x=1792249888; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9X+Q9LbgNCTDZTRZJ4kWRD2cLuOCk5g/aCYKk+DvIeA=;
+        b=jKvUJhTGOLbJEYN+x1680kwoKvwO7EYhQ3UkbcI3stii8ZdTcOzYfd7C8bPatkqX1q
+         CPTvZTh4G9K2Di0RnMhdGmV1U2VH2bvPdTawde6PYvF4bzV7ad9qmVw5TZI6j/NT12Mq
+         tT7+cdy1YKJ1ZVbTnPJc3Wwk7VMN1yEF/4dWlJnWxgCQvElFRAOKSOensPGpkSWkm3tJ
+         356Z3Ys3aZMybSAcXD3J/3wf1dylg6Vdjg2D0vHzIUsOY1apBNDb1m8RPFRviD83wT+7
+         rrBBgp7rRLMZiDi1SZeLA9NkBvkwmPKm+PV35x3GSTp9R/lRmCdIlwSQ7uL40USOLO/f
+         g07Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791645088; x=1792249888;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9X+Q9LbgNCTDZTRZJ4kWRD2cLuOCk5g/aCYKk+DvIeA=;
+        b=Kkrxp2nZzyoB6bOphleuWDVdwzi2qG39OlXcINGykLoHeBmVoxG8pzoUrxbu3Qtv9H
+         2lhGtxClBlPZAhlvTdLKastav1IHktY3qiNXvjTxhbbZoKBYSPoJsZZTiY34mgHM2B09
+         vdEINhT3jClga+oarmXNIkwZiNFwDnqCdEsUA6DfVFTxwCc0O5AmJHdcc+wuy1OOkWRq
+         wNNp2JEGA5lfz1JfI28l5sy3d+78uhwXmE82WGsHs1J4S9JAa43/haF+HTZGQEdowIJO
+         IPbS6aFStikBpLyKykzTZObda3VywSkLQFpuxdugQV4lwpPw29yNg8/NtCU2R6PZD6kt
+         4lZg==
+X-Gm-Message-State: AFq9FYJfu+VsSMA196yXmsynGbedGvtAsGJ5HxhOxpACBBQ5zte9uPbA
+	5LRuy3+vCavBPvr5SlcvzeIXIoQcdLY8j+QlmkEx0PMEUB0DXzc3ivQb1XAyt+P8
+X-Gm-Gg: AYBFou3H8aDOzsKLIPoGTnuceuZGFTB1+KXWgM1LswO/qQc+uaFmKpsyX+EM40x50zp
+	ZmkdX1kav5uTfwMnVlyqeEvKPg7B7amUWc2CtMVrILudk7WqV8slUm7vYwrpLKihbd8tsi9oDZO
+	qPPq0Fw9GIdrzPImgxq8sjV+kte47J0AbRoj2KgC4ajGEtMIUuZUXIZUsxj0sEdjs1gNXFyfvYC
+	OcIN2KqBUKRJm3twT0onphjyVNEcF3ksVwSuChMGqAueQoxJZsMeIPMO1vadn+JJjxYnx+sQV6l
+	He9GubFPP6Q5eG4q7TVORZyA8nsNbMC0jS63UBz8lLmiTqc60NlOdipKK9glvks4r1fMk4hWjDv
+	ud9THvFkR23naoP2woRuEsQVvaaGqC4Z2rkZuQFYIdhZnv4/MOyCaxn2a+Es2mDNPQpWaMB9xMJ
+	Wpy305FbAyefjejcRK4DZFJx8wS8i/DOQxSBuVckEi0xEZV0711pICJ9WWX7c0Xl4O12oF
+X-Received: by 2002:a17:902:f789:b0:2e2:e61d:85ec with SMTP id d9443c01a7336-2e842f34e0cmr40929785ad.54.1791645088257;
+        Sat, 10 Oct 2026 08:11:28 -0700 (PDT)
+Received: from gmail.com ([154.91.42.88])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422e4eb2sm24087245ad.74.2026.10.10.08.11.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 08:11:27 -0700 (PDT)
+Date: Sat, 10 Oct 2026 15:11:22 +0000
+From: Zuo An <zuoan.penguin@gmail.com>
+To: linux-kbuild@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] kconfig: show number of search results in search UI
+Message-ID: <aspVmnam3QL_DRYV@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+When searching for symbols in nconfig/menuconfig, the search
+results popup will now display a count of the results
+in the title bar, e.g. "Search Results (42)".
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+This helps the user to gauge the number of matches quickly and
+refine their search if needed, rather than having to scroll down
+by an indefinite amount (especially for nconfig's UI which lacks
+a display of the scrolling progress).
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Signed-off-by: Zuo An <zuoan.penguin@gmail.com>
+---
+ scripts/kconfig/lkc_proto.h |  2 +-
+ scripts/kconfig/mconf.c     | 10 ++++++++--
+ scripts/kconfig/nconf.c     | 10 ++++++++--
+ scripts/kconfig/qconf.cc    |  2 +-
+ scripts/kconfig/symbol.c    |  4 +++-
+ 5 files changed, 21 insertions(+), 7 deletions(-)
 
-- [Medium] Two things in the timestamped-write path are only known to
-  hold on BCM2711, but the patch applies them to every UniMAC/GENET/ASP…
-- [Low] The driver now uses two different reference rates for the same
-  BCM2711 MDIO block.
-
---
-
-net: mdio: bcm-unimac: implement timestamped MDIO writes
-
-This adds a write_sts implementation to the UniMAC MDIO driver. It takes
-system timestamps around the MDIO command start and shifts them by 63.5
-to 64.5 MDC periods, computed from the reference rate and the MDC
-divider. When no clock is present on BCM2711 GENET, it uses a hardcoded
-200 MHz reference rate.
-
-> diff --git a/drivers/net/mdio/mdio-bcm-unimac.c b/drivers/net/mdio/mdio-bcm-unimac.c
-> index 31e396cc9fbf2..e1ae806d1a84e 100644
-> --- a/drivers/net/mdio/mdio-bcm-unimac.c
-> +++ b/drivers/net/mdio/mdio-bcm-unimac.c
-
-[ ... ]
-
-> @@ -127,10 +150,41 @@ static int unimac_mdio_read(struct mii_bus *bus, int phy_id, int reg)
->  	return ret;
->  }
->  
-> -static int unimac_mdio_write(struct mii_bus *bus, int phy_id,
-> -			     int reg, u16 val)
-> +static int unimac_mdio_sts_delays(struct unimac_mdio_priv *priv,
-> +				  u64 *pre_ns, u64 *post_ns)
-> +{
-
-[ ... ]
-
-> +	config = unimac_mdio_readl(priv, MDIO_CFG);
-> +	if (config & MDIO_SUPP_PREAMBLE)
-> +		return -EIO;
-> +	divisor = 2 * (((config >> MDIO_CLK_DIV_SHIFT) & MDIO_CLK_DIV_MASK) + 1);
-> +	/* On BCM2711 the MDC divider runs freely, so the MDC edge that
-> +	 * clocks the last bit of a write comes 63.5 to 64.5 periods after
-> +	 * the command start.
-> +	 */
-> +	*pre_ns = div64_ul(127ULL * divisor * NSEC_PER_SEC,
-> +			   2 * priv->mdio_ref_rate);
-> +	*post_ns = div64_ul(129ULL * divisor * NSEC_PER_SEC +
-> +			    2 * priv->mdio_ref_rate - 1,
-> +			    2 * priv->mdio_ref_rate);
-
-[Severity: Medium]
-The comment says the 63.5 to 64.5 period model comes from BCM2711. Does
-it also hold on other UniMAC, GENET and ASP MDIO controllers?
-
-unimac_mdio_init_sts() turns on write_sts for any controller where
-clk_get_rate() is non-zero and MDIO_SUPP_PREAMBLE is clear. The
-bcm2711-genet-v5 compatible check only supplies a missing rate. It
-doesn't limit the model to BCM2711:
-
-	priv->mdio_ref_rate = clk_get_rate(priv->clk);
-	...
-	if (!priv->mdio_ref_rate)
-		return false;
-	...
-	return !(config & MDIO_SUPP_PREAMBLE);
-
-Two setups that the bindings allow reach this path:
-
-- A standalone UniMAC or ASP MDIO node with a clocks property.
-  unimac_mdio_probe() picks it up with devm_clk_get_optional(), and
-  brcm,unimac-mdio.yaml allows clocks.
-
-- A GENET node with the "enet" main clock, which bcmgenet_mii_register()
-  passes as ppd.clk.
-
-In the GENET case, is the main clock really the MDC divider's reference?
-A wrong rate moves both bounds by about 64 times the period error. For
-example, 250 MHz instead of 200 MHz at divider 9 shifts them by about
-1.6 us, while the window is only about one MDC period wide.
-
-On those parts the start-to-edge latency or the reference rate could
-differ. The [pre, post] interval would then miss the real edge without
-any warning.
-
-Would that break the mii_bus.write_sts contract in include/linux/phy.h?
-It says "Set only if timestamps can always be provided". It would also
-make PTP_SYS_OFFSET_EXTENDED report wrong PHC offsets with no error.
-
-No in-tree DT gives GENET or UniMAC a clock today, so in-tree only
-BCM2711 enables this. Could write_sts be limited to BCM2711 until other
-variants have been measured?
-
-Also, the note below the --- line says the model is assumed for every
-UniMAC, but that note is dropped when the patch is applied.
-
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> @@ -234,6 +307,30 @@ static int unimac_mdio_clk_set(struct unimac_mdio_priv *priv)
->  	return ret;
->  }
->  
-> +static bool unimac_mdio_init_sts(struct unimac_mdio_priv *priv,
-> +				 struct device *dev)
-> +{
-> +	u32 config;
-> +
-> +	/* The reference rate is fixed, so read it once. */
-> +	priv->mdio_ref_rate = clk_get_rate(priv->clk);
-> +	/* BCM2711's 200 MHz GENET reference clock is not described in DT. */
-> +	if (!priv->mdio_ref_rate && dev->parent &&
-> +	    of_device_is_compatible(dev->parent->of_node,
-> +				    "brcm,bcm2711-genet-v5"))
-> +		priv->mdio_ref_rate = 200000000;
-
-[Severity: Low]
-This sets a 200 MHz reference rate for BCM2711. But
-unimac_mdio_clk_set() runs straight after this in unimac_mdio_probe(),
-and again from unimac_mdio_resume(). It still assumes 250 MHz for the
-same hardware:
-
-	rate = clk_get_rate(priv->clk);
-	if (!rate)
-		rate = 250000000;
-
-	div = (rate / (2 * priv->clk_freq)) - 1;
-
-bcm2711-rpi-400.dts sets clock-frequency = <1950000> on &genet_mdio. So
-clk_set programs div = 250000000 / 3900000 - 1 = 63.
-
-If 200 MHz is right, MDC then runs at 200 MHz / 128, about 1.56 MHz,
-instead of the 1.95 MHz that was requested. The correct divider would be
-50.
-
-The timestamps stay consistent, because unimac_mdio_sts_delays() reads
-the divider back from MDIO_CFG. The MDC mis-programming also existed
-before this patch.
-
-Still, the file now has two different reference rates for the same
-block. Should unimac_mdio_clk_set() use priv->mdio_ref_rate when it is
-set?
-
-> +
-> +	if (!priv->mdio_ref_rate)
-> +		return false;
-
-[ ... ]
-
+diff --git a/scripts/kconfig/lkc_proto.h b/scripts/kconfig/lkc_proto.h
+index 8914b4e8f2a8..224acc142769 100644
+--- a/scripts/kconfig/lkc_proto.h
++++ b/scripts/kconfig/lkc_proto.h
+@@ -21,7 +21,7 @@ bool conf_errors(void);
+ struct symbol * sym_lookup(const char *name, int flags);
+ struct symbol * sym_find(const char *name);
+ void print_symbol_for_listconfig(struct symbol *sym);
+-struct symbol ** sym_re_search(const char *pattern);
++struct symbol ** sym_re_search(const char *pattern, int *sym_cnt);
+ const char * sym_type_name(enum symbol_type type);
+ void sym_calc_value(struct symbol *sym);
+ bool sym_dep_errors(void);
+diff --git a/scripts/kconfig/mconf.c b/scripts/kconfig/mconf.c
+index b8b7bba84a65..f37c3f8e1f4d 100644
+--- a/scripts/kconfig/mconf.c
++++ b/scripts/kconfig/mconf.c
+@@ -384,8 +384,10 @@ static void show_help(struct menu *menu)
+ static void search_conf(void)
+ {
+ 	struct symbol **sym_arr;
++	int sym_cnt;
+ 	struct gstr res;
+ 	struct gstr title;
++	struct gstr res_title;
+ 	char *dialog_input;
+ 	int dres, vscroll = 0, hscroll = 0;
+ 	bool again;
+@@ -422,7 +424,7 @@ static void search_conf(void)
+ 	stpart.text = str_get(&sttext);
+ 	list_add_tail(&stpart.entries, &trail);
+ 
+-	sym_arr = sym_re_search(dialog_input);
++	sym_arr = sym_re_search(dialog_input, &sym_cnt);
+ 	do {
+ 		LIST_HEAD(head);
+ 		struct search_data data = {
+@@ -433,9 +435,13 @@ static void search_conf(void)
+ 		jump_key_char = 0;
+ 		res = get_relations_str(sym_arr, &head);
+ 		set_subtitle();
+-		dres = show_textbox_ext("Search Results", str_get(&res), 0, 0,
++
++		res_title = str_new();
++		str_printf(&res_title, "Search Results (%d)", sym_cnt);
++		dres = show_textbox_ext(str_get(&res_title), str_get(&res), 0, 0,
+ 					&vscroll, &hscroll,
+ 					handle_search_keys, &data);
++
+ 		again = false;
+ 		if (dres >= '1' && dres <= '9') {
+ 			assert(data.target != NULL);
+diff --git a/scripts/kconfig/nconf.c b/scripts/kconfig/nconf.c
+index 521700ed7152..e3b25940b931 100644
+--- a/scripts/kconfig/nconf.c
++++ b/scripts/kconfig/nconf.c
+@@ -700,8 +700,10 @@ static int do_exit(void)
+ static void search_conf(void)
+ {
+ 	struct symbol **sym_arr;
++	int sym_cnt;
+ 	struct gstr res;
+ 	struct gstr title;
++	struct gstr res_title;
+ 	char *dialog_input;
+ 	int dres, vscroll = 0, hscroll = 0;
+ 	bool again;
+@@ -732,7 +734,7 @@ static void search_conf(void)
+ 	if (strncasecmp(dialog_input_result, CONFIG_, strlen(CONFIG_)) == 0)
+ 		dialog_input += strlen(CONFIG_);
+ 
+-	sym_arr = sym_re_search(dialog_input);
++	sym_arr = sym_re_search(dialog_input, &sym_cnt);
+ 
+ 	do {
+ 		LIST_HEAD(head);
+@@ -742,10 +744,14 @@ static void search_conf(void)
+ 		};
+ 		jump_key_char = 0;
+ 		res = get_relations_str(sym_arr, &head);
++
++		res_title = str_new();
++		str_printf(&res_title, "Search Results (%d)", sym_cnt);
+ 		dres = show_scroll_win_ext(main_window,
+-				"Search Results", str_get(&res),
++				str_get(&res_title), str_get(&res),
+ 				&vscroll, &hscroll,
+ 				handle_search_keys, &data);
++
+ 		again = false;
+ 		if (dres >= '1' && dres <= '9') {
+ 			assert(data.target != NULL);
+diff --git a/scripts/kconfig/qconf.cc b/scripts/kconfig/qconf.cc
+index b02ead7a3f98..8f51dc55226d 100644
+--- a/scripts/kconfig/qconf.cc
++++ b/scripts/kconfig/qconf.cc
+@@ -1245,7 +1245,7 @@ void ConfigSearchWindow::search(void)
+ 	list->clear();
+ 	info->clear();
+ 
+-	result = sym_re_search(editField->text().toLatin1());
++	result = sym_re_search(editField->text().toLatin1(), nullptr);
+ 	if (!result)
+ 		return;
+ 	for (p = result; *p; p++) {
+diff --git a/scripts/kconfig/symbol.c b/scripts/kconfig/symbol.c
+index 7e81b3676ee9..31f927bd563a 100644
+--- a/scripts/kconfig/symbol.c
++++ b/scripts/kconfig/symbol.c
+@@ -1020,7 +1020,7 @@ static int sym_rel_comp(const void *sym1, const void *sym2)
+ 	return strcmp(s1->sym->name, s2->sym->name);
+ }
+ 
+-struct symbol **sym_re_search(const char *pattern)
++struct symbol **sym_re_search(const char *pattern, int *sym_cnt)
+ {
+ 	struct symbol *sym, **sym_arr = NULL;
+ 	struct sym_match *sym_match_arr = NULL;
+@@ -1065,6 +1065,8 @@ struct symbol **sym_re_search(const char *pattern)
+ 			sym_arr[i] = sym_match_arr[i].sym;
+ 		sym_arr[cnt] = NULL;
+ 	}
++	if (sym_cnt)
++		*sym_cnt = cnt;
+ sym_re_search_free:
+ 	/* sym_match_arr can be NULL if no match, but free(NULL) is OK */
+ 	free(sym_match_arr);
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261009143506.2507607-1-jjc%40jclark.com
+2.56.0
+
