@@ -1,65 +1,65 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC7B74AA028
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 13:00:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD92E4AA3F3
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 13:00:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791637250; cv=none; b=jc1rTDWv2+uzOFgL8ZOwQwkB50ydbWxX3p6yN9ul9pmLvQKz8/1Nf62u7N9wMkU4J8zN+2Avt23DHQyheruXT/A8ewAF69DmybOxqsrGdofJ9bIpGVbcyTfyUoPBJJB6HODz9+LoFijTUu2y0zUa1xZNl0VqYmDEZyC3b+jr1ac=
+	t=1791637250; cv=none; b=Fg3zBsJ3XsYsFEew2e+XixEZmFFiKyoaAxTP0SCND3ReS/TAr81ABgUwYpoVZ8OrnSgzU1bq3UxYYSr10wQMGuj57v2Q7xWEFHiPK2Uez1bpp5I6jU6V+ah+CzbTK3498cb+YrStVBnR8MaDCWYOSWJRYGdxgFfs/sTadx+3Vfs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791637250; c=relaxed/simple;
-	bh=QJZVtdKmhkFlg+fowDlyB5mJJYCvltiDUGuMuER60vk=;
+	bh=YUSr1ObjN9s8cDS2Aj+ho9ixFRu5/jWUlDZQu3cdp5g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AQ9BVXsl6bVUmALEN8FnSdmTiwf40vBIm6Qjwn7/agGYCfrmnFBlFFO/HqaGnwESZ4WxG34gWAvnD4b9BNcEOj2Gu3TqgKQQMWdMdH1X7G/pSKDCMW+nSPcrVaY4rQTRAsUxxGZD1zmhDTqs7GYaC83nvp6OJ5rKX2ve6+eA7SA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fsxDnMpW; arc=none smtp.client-ip=209.85.128.46
+	 MIME-Version; b=s/+3mpUxd2pHJWRBQDOAGV7/kdWWNycjTwg4PaJC/AiDmHDtDK/803MnZYGSNLwc54ijeBQWVv/gjSH/txB/7f3dE7EmjnQSOtt2HHMt21f0FMyQ6T1v0tWf5lQhevTClKV/ztLO8W3NU5qNJhCDDxSsFDIV2DLPLpVTNndgxVY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NymcRu7P; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fsxDnMpW"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a1682bff3cso2764135e9.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 06:00:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NymcRu7P"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a172eb31f0so4290095e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 06:00:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791637244; x=1792242044; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791637245; x=1792242045; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/ON0MFr8eOk4lIfhGI46AGmWJn585om57WClZUKBxXg=;
-        b=fsxDnMpWjmYaBLe11IROX/gK0mFtZ8YWVDivDeJTcVl3SjuFu4HpJMuvftuirdEP8/
-         2asO+iZN38NoNb14dq1TTgUyXqP2wyNPDrIlReZcX2amsrCaturaelWN65dJrsy4asnf
-         gBLpvvgQNgRwZ6Vn2VaimfrnCn+T2ZZHmHL1lJXpRzkGdW5Qp2pPhht93PJB4azZvDfk
-         mjsKI0Ny2QJSpHuG5pItrn88LskR/UTomP15MpC2p9xRAcYFs7J9Cb1785AwO5bx28aQ
-         xatpUtj0IJzSP8zNnmd24CqfMYk4cTSP3WnL6pVcErFDEoHrKDUXDasnm+oCxzIOoUJd
-         S40g==
+        bh=5mcYJeikhf+1cs7oxJAYDuJWMVU6PVHgHphuyMhrcPo=;
+        b=NymcRu7PSYOAfMyaLc3bDmOlU6fxJnGgQfUQL17XIgt+I8L/C4Uq3LAEW0oLT/YxZY
+         N8Cjmk+u+V5HNx930Ss6bU8kSIObltRslQNZ69ljAbwF/y/3bzKctAjgXeBkKGULkRi6
+         SQSyaElZa4Le+2Uwtq6YC4Vo/v1Qd+/ssKlQ39K6grDMaz+P9T4mZ5SBEwfFuLiNKoCJ
+         w0JFItKqhjqZWQ/zoGq8u29Artkf739zkefdpEY0DNkYH+Bw/bgWKXuG1kPkyg9uUFEm
+         5fFEOWUB8DFDR/l7mzFAjEB8Oa5YPR7aNik/8Wo36InjQbuAcEHeTq13QGZDxGAfgz7j
+         qQQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791637244; x=1792242044;
+        d=1e100.net; s=20260707; t=1791637245; x=1792242045;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/ON0MFr8eOk4lIfhGI46AGmWJn585om57WClZUKBxXg=;
-        b=v6KlsM2dEh4ti7KeKleC2VykjJduTQBmezHeKVAN1O1CQ47CFjblq238kTmszBzd/h
-         2VTt2kXWgPHti9NgW5iLy5Cu65aLYN7u+P/2FmoFOrGgMKWqWDhGm/lr6WGxhQCXAOPb
-         Yqy28tTUUou1gB11dXdUWhSlq/P1HHScAJIAH2hnOsElbMWbHFFA17jDWhUc9d6r7blx
-         rwe8cQFwKXgIU3zJH1bOAjTPED4QIHVrYe2oIngVchWAAZPv+Ohh8zm4tbUojb3Y+HNS
-         XIhLWzb/N1r2m5byxnN8rA6ycxzXJZaywDWX9dC60vT17b2q4PyV5decrCAxO+dXiRDE
-         S67A==
-X-Forwarded-Encrypted: i=1; AKwUvBy9M2TxT/qyQHyPJEei8otv33TktRtEfkU3DLL7FHfB7w2bEVFqKl75VKAaG3hbhrmwNCmA6vKsysR2WHw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK3JdJtDlBRlkwXSQu/I585p0wy4gBBrUFNq97TPQCpIf/CfANp
-	1i9G2KVBPCp+pQKrXmIRtldW9B8OJbYcYkoHlTZ9WeGXyxatj9TbVJ6P
-X-Gm-Gg: AYBFou1gxQ/1ifmeUmb/L4cnp4wZDpALrrp2SKlhEm+rijG3eRpdzKsXj21axatjNDJ
-	iG/buzOXkC7zMZLyfZecXRoXX1ZqWXIS90NyaXKGe6dmBUXT+vjrXVJAskP5/3nZRbbmEPwfR81
-	b9NBykbQXZP+H+UIQGjx9HUNCxns52SN+7dJrl0oXQHEaNRZs1M9q5xvAGtDE2fnBu5pD3RA9NU
-	q4bB3NLwVCkyNXIZPj8GB6z8+kAIjacNGUDLjqrlOdExqi2VBZVjIXKT0iWlSfa8La5r9LRn2ku
-	9qbFU8shDvK7ZO8qPxNt0npX50BPNJwhqwpJ8yKhBiLr1rzVHT0+2jn2XQmrSW5ZanvyZkXjeow
-	5S4KvepBZmLzw1yXbZKrFG3n9HK+SZgzsNOWAzK7jHPKt3Udjn8T4P+8BOATy/NIzUHUceaiP8X
-	7DwNL+8vMAozd92/OuiLNP9VrJYHuSSa4DbZ4vqgE0oWhwnkusPdqsGNW+bm9I4lvtqZvfR7EZq
-	jql6k82rITiOgPS50DzSL52ldINYOZpkrQFpqyR9OfeUostF/iGAxcr3W2CPbBnlkVZXOiTX+cm
-	mH8hk4LpElLBq43mTZ72HZiqS4jKB7d4HUmec+TKoUt5wjvyz0iBL5rej2th6Vo=
-X-Received: by 2002:a05:600c:3b8b:b0:4a1:811c:8078 with SMTP id 5b1f17b1804b1-4a18e4a7cfcmr108085995e9.26.1791637243732;
-        Sat, 10 Oct 2026 06:00:43 -0700 (PDT)
+        bh=5mcYJeikhf+1cs7oxJAYDuJWMVU6PVHgHphuyMhrcPo=;
+        b=Bc+rPwLECZDjA/gVug6gc+tT2Ce8CS0qTLOrZJzapMmFXFchcjGSEIKVq6DkB+x9dL
+         bF8L4QUYTlen6Jwaqi2HTSlTaiD0iaZBJye+PvnB/B50Uf747rk86pgORPW8iCkmJMcO
+         KH5NP3aQB5pdmNTSZlVPUvuEPZyJ/IgjnsQ0lUR79jHFlLXk61SBC/2DCtYXoMvUpsHr
+         Io+agia2WaM3SN+UvUPHLGrgxKF62XNcp30thHGyJTKbzXecP3OOfUSxANIIqRbb6pFg
+         KxlMO9iF7nop0+oRJywk033+UmJp0mH0JDtyhLUsqTN4E2RxRetihimY4WtKpNxIozXU
+         NfJg==
+X-Forwarded-Encrypted: i=1; AKwUvByFevuVi1bUcmBkPoaTvO3my4YTy+7YTbtjVE9c4j+VAz/GdLXQlx9Al3cl8Wl04ovp2ilcwaapHSJTeg0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJcnPX3nJSdI1CpXeSV6FqgXVPQ3IBF02KNZkGnPQ4wEeBjunCp
+	rbd1ZxYOgqyTci8BHYkcSuzojUEtFukQ7BIeHzGTMl7weoLyVdqR30A+
+X-Gm-Gg: AYBFou1w/V16maRf3IVI527p/iXULAQdjJKRQelGW0k1/9rJLm6Et6Uvtdhv3p/7uAK
+	RzymSHG/A2TbbXNPv5kKWdiq7Im+bbTD1CSP+5vQ8PuFIef88HuB2IdOjf5c9DgCFSTkLPRbuO6
+	GumnKFekMeVhprSzDNT/ROZGQXMeI3LG0pf04SfhpTvcDmWJz0Q0ODRv0PTPJ7hv62dSzWucPbq
+	KEJScOaUNYT8xNys7vFtnBa8slKnu93Sea7yKs9QYdDz9tzAwx7PHiOrqLZipI5NJAZzAXtgD3x
+	BHv0LTBAs4m73ICvUcvJy313YlC1yE8tS72H35pIXcTieQVhXqWzI+A+lF+Gp9O/q9yJxi9KNvQ
+	FgPTXzXhTZbAFbaaRWnwe7zPL/sKVqC/3WhZ6ot5u8e23LUaI+tAqqkBRiDE0RDKkMX5EohXZB/
+	fniuDlqgt/15FSbDzkVdVD9HczhSEagNceFKwjFeWVdSK48sTZLXiuu4djq6Z4ty7CUiWlQjzto
+	Q83EyPGJvKdCXzJljngGKkWZt0cBZ0oUSHc/vjp/HrjgVAtphR6uA5aIlp2PJpkLnUZYX6zHe+1
+	1EgQXSdRkwgQtUUrI+fW+o1yrJrT47w4qCoxlPLL9zeSEk7inOEWq3iBwqhuPQ==
+X-Received: by 2002:a05:600c:c176:b0:4a0:c2a:485e with SMTP id 5b1f17b1804b1-4a18e4dce0cmr88467255e9.33.1791637244608;
+        Sat, 10 Oct 2026 06:00:44 -0700 (PDT)
 Received: from navid-pc ([2a01:4b00:a856:6220::a11])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a190c49d5csm162309975e9.3.2026.10.10.06.00.42
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a190c49d5csm162309975e9.3.2026.10.10.06.00.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 06:00:43 -0700 (PDT)
+        Sat, 10 Oct 2026 06:00:44 -0700 (PDT)
 From: Navid Ghahremani <ghahramani.navid@gmail.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: devicetree@vger.kernel.org,
@@ -70,9 +70,9 @@ Cc: devicetree@vger.kernel.org,
 	robh@kernel.org,
 	krzk@kernel.org,
 	Navid Ghahremani <ghahramani.navid@gmail.com>
-Subject: [PATCH 15/24] net: mdio: Add ZTE ZX279128S MDIO controller
-Date: Sat, 10 Oct 2026 13:59:53 +0100
-Message-ID: <20261010130024.177503-16-ghahramani.navid@gmail.com>
+Subject: [PATCH 16/24] net: phy: Add Sanechips ZX5201 PHY support
+Date: Sat, 10 Oct 2026 13:59:54 +0100
+Message-ID: <20261010130024.177503-17-ghahramani.navid@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261010130024.177503-1-ghahramani.navid@gmail.com>
 References: <20261010130024.177503-1-ghahramani.navid@gmail.com>
@@ -84,215 +84,207 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Provide bounded Clause 22 transactions and managed clock and MDIO-bus
-registration.
+Initialize the external WAN PHY and its SerDes path; generic PHY support
+handles negotiation.
 
 Assisted-by: LLM
 Signed-off-by: Navid Ghahremani <ghahramani.navid@gmail.com>
 ---
- drivers/net/mdio/Kconfig          |  11 +++
- drivers/net/mdio/Makefile         |   1 +
- drivers/net/mdio/mdio-zx279128s.c | 158 ++++++++++++++++++++++++++++++
- 3 files changed, 170 insertions(+)
- create mode 100644 drivers/net/mdio/mdio-zx279128s.c
+ drivers/net/phy/Kconfig     |   8 ++
+ drivers/net/phy/Makefile    |   1 +
+ drivers/net/phy/sanechips.c | 153 ++++++++++++++++++++++++++++++++++++
+ 3 files changed, 162 insertions(+)
+ create mode 100644 drivers/net/phy/sanechips.c
 
-diff --git a/drivers/net/mdio/Kconfig b/drivers/net/mdio/Kconfig
-index a05229838c..59812a082a 100644
---- a/drivers/net/mdio/Kconfig
-+++ b/drivers/net/mdio/Kconfig
-@@ -199,6 +199,17 @@ config MDIO_THUNDER
- 	  ThunderX SoCs when the MDIO bus device appears as a PCI
- 	  device.
+diff --git a/drivers/net/phy/Kconfig b/drivers/net/phy/Kconfig
+index b4ef927fd4..63620fdfc4 100644
+--- a/drivers/net/phy/Kconfig
++++ b/drivers/net/phy/Kconfig
+@@ -416,6 +416,14 @@ config ROCKCHIP_PHY
+ 	help
+ 	  Currently supports the integrated Ethernet PHY.
  
-+config MDIO_ZX279128S
-+	tristate "ZTE zx279128s MDIO bus controller"
-+	depends on ARCH_ZTE || COMPILE_TEST
-+	depends on HAS_IOMEM && OF_MDIO
++config SANECHIPS_PHY
++	tristate "Sanechips Ethernet PHYs"
 +	help
-+	  This driver supports the MDIO controller of the ZTE zx279128s
-+	  SoC. It reaches the PHYs of the integrated switch and, on boards
-+	  such as the ZTE ZXHN H3600, an external PHY.
++	  Currently supports the Sanechips ZX5201 PHY, which the ZTE ZXHN
++	  H3600 uses for its WAN port. The driver sets the PHY up so that
++	  its SerDes interface passes traffic; everything else is handled
++	  by the generic PHY code.
 +
-+	  To compile this driver as a module, choose M here.
-+
- menu "MDIO Multiplexers"
- 
- config MDIO_BUS_MUX
-diff --git a/drivers/net/mdio/Makefile b/drivers/net/mdio/Makefile
-index 0485867460..ce21e1496c 100644
---- a/drivers/net/mdio/Makefile
-+++ b/drivers/net/mdio/Makefile
-@@ -26,6 +26,7 @@ obj-$(CONFIG_MDIO_REGMAP)		+= mdio-regmap.o
- obj-$(CONFIG_MDIO_SUN4I)		+= mdio-sun4i.o
- obj-$(CONFIG_MDIO_THUNDER)		+= mdio-thunder.o
- obj-$(CONFIG_MDIO_XGENE)		+= mdio-xgene.o
-+obj-$(CONFIG_MDIO_ZX279128S)		+= mdio-zx279128s.o
- 
- obj-$(CONFIG_MDIO_BUS_MUX)		+= mdio-mux.o
- obj-$(CONFIG_MDIO_BUS_MUX_BCM6368)	+= mdio-mux-bcm6368.o
-diff --git a/drivers/net/mdio/mdio-zx279128s.c b/drivers/net/mdio/mdio-zx279128s.c
+ config SMSC_PHY
+ 	tristate "SMSC PHYs"
+ 	select CRC16
+diff --git a/drivers/net/phy/Makefile b/drivers/net/phy/Makefile
+index 25c4a3c242..666309f7d0 100644
+--- a/drivers/net/phy/Makefile
++++ b/drivers/net/phy/Makefile
+@@ -97,6 +97,7 @@ obj-$(CONFIG_QSEMI_PHY)		+= qsemi.o
+ obj-$(CONFIG_REALTEK_PHY)	+= realtek/
+ obj-$(CONFIG_RENESAS_PHY)	+= uPD60620.o
+ obj-$(CONFIG_ROCKCHIP_PHY)	+= rockchip.o
++obj-$(CONFIG_SANECHIPS_PHY)	+= sanechips.o
+ obj-$(CONFIG_SMSC_PHY)		+= smsc.o
+ obj-$(CONFIG_STE10XP)		+= ste10Xp.o
+ obj-$(CONFIG_TERANETICS_PHY)	+= teranetics.o
+diff --git a/drivers/net/phy/sanechips.c b/drivers/net/phy/sanechips.c
 new file mode 100644
-index 0000000000..4c4a9ada68
+index 0000000000..bb5129b2bb
 --- /dev/null
-+++ b/drivers/net/mdio/mdio-zx279128s.c
-@@ -0,0 +1,158 @@
++++ b/drivers/net/phy/sanechips.c
+@@ -0,0 +1,153 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/*
-+ * ZTE zx279128s MDIO controller
++ * Sanechips ZX5201 Ethernet PHY
++ *
++ * The ZX5201 answers on two MDIO addresses: the copper PHY on its own
++ * address and its MAC-side SerDes interface on the next one. The copper PHY
++ * uses the standard registers and the generic PHY code; this driver only adds
++ * the setup that the PHY needs before it passes traffic. The values come from
++ * the vendor firmware of the ZTE ZXHN H3600, and most of them are not
++ * documented.
 + *
 + * Copyright (C) 2026 Navid Ghahremani <ghahramani.navid@gmail.com>
 + */
 +
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/clk.h>
-+#include <linux/err.h>
-+#include <linux/io.h>
-+#include <linux/iopoll.h>
 +#include <linux/mod_devicetable.h>
 +#include <linux/module.h>
-+#include <linux/of_mdio.h>
 +#include <linux/phy.h>
-+#include <linux/platform_device.h>
 +
-+#define ZX_MDIO_DATA_WR		0x04
-+#define ZX_MDIO_DATA_RD		0x08
-+#define ZX_MDIO_CFG		0x0c
-+#define ZX_MDIO_STATUS		0x10
-+#define  ZX_MDIO_STATUS_DONE	BIT(0)
-+#define ZX_MDIO_CMD		0x14
-+#define  ZX_MDIO_CMD_REG	GENMASK(4, 0)
-+#define  ZX_MDIO_CMD_ADDR	GENMASK(9, 5)
-+#define  ZX_MDIO_CMD_WR		BIT(10)
-+#define  ZX_MDIO_CMD_RD		BIT(11)
-+#define  ZX_MDIO_CMD_CLK_DIV	BIT(12)
-+#define  ZX_MDIO_CMD_BIT13	BIT(13)
-+#define  ZX_MDIO_CMD_START	BIT(14)
-+#define  ZX_MDIO_CMD_BIT15	BIT(15)
++#define PHY_ID_ZX5201		0x84b95011
 +
-+#define ZX_MDIO_POLL_US		10
-+#define ZX_MDIO_TIMEOUT_US	2000
++/* Copper PHY vendor registers */
++#define ZX5201_REG18		18
++#define ZX5201_EXT_ADDR		16	/* extended register access: address */
++#define ZX5201_EXT_DATA		17	/* extended register access: data */
++#define ZX5201_REG29		29
 +
-+struct zx279128s_mdio {
-+	void __iomem *base;
-+};
++/*
++ * SerDes interface registers, at the PHY's MDIO address + 1. The names are
++ * a best guess from the way the vendor firmware uses them.
++ */
++#define ZX5201_SDS_WDATA_LO	16
++#define ZX5201_SDS_WDATA_HI	17
++#define ZX5201_SDS_CMD		18
++#define ZX5201_SDS_RDATA_LO	20
++#define ZX5201_SDS_RDATA_HI	21
++#define ZX5201_SDS_REG22	22
++#define ZX5201_SDS_REG27	27
 +
-+static int zx279128s_mdio_xfer(struct mii_bus *bus, u32 op, int addr,
-+			       int regnum, u16 data)
++static int zx5201_sds_read(struct phy_device *phydev, u32 regnum)
 +{
-+	struct zx279128s_mdio *priv = bus->priv;
-+	void __iomem *base = priv->base;
-+	u32 cmd, val;
++	return mdiobus_read(phydev->mdio.bus, phydev->mdio.addr + 1, regnum);
++}
++
++static int zx5201_sds_write(struct phy_device *phydev, u32 regnum, u16 val)
++{
++	return mdiobus_write(phydev->mdio.bus, phydev->mdio.addr + 1, regnum,
++			     val);
++}
++
++static int zx5201_ext_write(struct phy_device *phydev, u16 reg, u16 val)
++{
 +	int ret;
 +
-+	/* Clear the previous command and its status */
-+	writel(readl(base + ZX_MDIO_CMD) & ~ZX_MDIO_CMD_START,
-+	       base + ZX_MDIO_CMD);
-+	writel(0, base + ZX_MDIO_STATUS);
-+
-+	cmd = readl(base + ZX_MDIO_CMD);
-+	cmd &= ~(ZX_MDIO_CMD_WR | ZX_MDIO_CMD_RD | ZX_MDIO_CMD_ADDR |
-+		 ZX_MDIO_CMD_REG);
-+	cmd |= op | FIELD_PREP(ZX_MDIO_CMD_ADDR, addr) |
-+	       FIELD_PREP(ZX_MDIO_CMD_REG, regnum);
-+
-+	if (op == ZX_MDIO_CMD_WR)
-+		writel(data, base + ZX_MDIO_DATA_WR);
-+	writel(cmd | ZX_MDIO_CMD_START, base + ZX_MDIO_CMD);
-+
-+	ret = readl_poll_timeout(base + ZX_MDIO_STATUS, val,
-+				 val & ZX_MDIO_STATUS_DONE, ZX_MDIO_POLL_US,
-+				 ZX_MDIO_TIMEOUT_US);
-+	if (ret) {
-+		dev_err_ratelimited(&bus->dev, "timeout (addr %d, reg %d)\n",
-+				    addr, regnum);
++	ret = phy_write(phydev, ZX5201_EXT_ADDR, reg);
++	if (ret)
 +		return ret;
-+	}
 +
-+	writel(0, base + ZX_MDIO_STATUS);
-+	writel(readl(base + ZX_MDIO_CMD) & ~ZX_MDIO_CMD_START,
-+	       base + ZX_MDIO_CMD);
++	return phy_write(phydev, ZX5201_EXT_DATA, val);
++}
++
++static int zx5201_config_init(struct phy_device *phydev)
++{
++	static const u16 led_regs[] = { 0xb409, 0xb407, 0xb406, 0xb408 };
++	int ret, lo, hi, i;
++
++	ret = phy_write(phydev, ZX5201_REG18, 0x8402);
++	if (ret)
++		return ret;
++
++	ret = zx5201_sds_write(phydev, ZX5201_SDS_REG22, 0x0a0f);
++	if (ret)
++		return ret;
++
++	ret = zx5201_sds_write(phydev, ZX5201_SDS_REG27, 0x0800);
++	if (ret)
++		return ret;
++
++	ret = phy_write(phydev, ZX5201_REG29, 0x0355);
++	if (ret)
++		return ret;
++
++	ret = zx5201_ext_write(phydev, 0xb62d, 0x0006);
++	if (ret)
++		return ret;
++
++	/*
++	 * This looks like an indirect read-modify-write of SerDes register 4:
++	 * read it, set bits 9-13 of its high half (bits 25-29 of the register)
++	 * to 0b10100, and write it back.
++	 */
++	ret = zx5201_sds_write(phydev, ZX5201_SDS_CMD, 0x0004);
++	if (ret)
++		return ret;
++
++	hi = zx5201_sds_read(phydev, ZX5201_SDS_RDATA_HI);
++	if (hi < 0)
++		return hi;
++
++	lo = zx5201_sds_read(phydev, ZX5201_SDS_RDATA_LO);
++	if (lo < 0)
++		return lo;
++
++	ret = zx5201_sds_write(phydev, ZX5201_SDS_WDATA_HI,
++			       (hi & 0xc1ff) | 0x2800);
++	if (ret)
++		return ret;
++
++	ret = zx5201_sds_write(phydev, ZX5201_SDS_WDATA_LO, lo);
++	if (ret)
++		return ret;
++
++	ret = zx5201_sds_write(phydev, ZX5201_SDS_CMD, 0x0204);
++	if (ret)
++		return ret;
++
++	ret = zx5201_sds_read(phydev, ZX5201_SDS_REG22);
++	if (ret < 0)
++		return ret;
++
++	ret = zx5201_sds_write(phydev, ZX5201_SDS_REG22, (ret & 0xfff3) | 0x0004);
++	if (ret)
++		return ret;
++
++	/* LED control registers, all cleared as the vendor firmware does */
++	for (i = 0; i < ARRAY_SIZE(led_regs); i++) {
++		ret = zx5201_ext_write(phydev, led_regs[i], 0);
++		if (ret)
++			return ret;
++	}
 +
 +	return 0;
 +}
 +
-+static int zx279128s_mdio_read(struct mii_bus *bus, int addr, int regnum)
-+{
-+	struct zx279128s_mdio *priv = bus->priv;
-+	int ret;
-+
-+	ret = zx279128s_mdio_xfer(bus, ZX_MDIO_CMD_RD, addr, regnum, 0);
-+	if (ret)
-+		return ret;
-+
-+	return readl(priv->base + ZX_MDIO_DATA_RD) & 0xffff;
-+}
-+
-+static int zx279128s_mdio_write(struct mii_bus *bus, int addr, int regnum,
-+				u16 val)
-+{
-+	return zx279128s_mdio_xfer(bus, ZX_MDIO_CMD_WR, addr, regnum, val);
-+}
-+
-+static int zx279128s_mdio_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct zx279128s_mdio *priv;
-+	struct mii_bus *bus;
-+	struct clk *clk;
-+	u32 val;
-+
-+	bus = devm_mdiobus_alloc_size(dev, sizeof(*priv));
-+	if (!bus)
-+		return -ENOMEM;
-+
-+	priv = bus->priv;
-+	priv->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(priv->base))
-+		return PTR_ERR(priv->base);
-+
-+	clk = devm_clk_get_enabled(dev, "pclk");
-+	if (IS_ERR(clk))
-+		return dev_err_probe(dev, PTR_ERR(clk),
-+				     "failed to get the register clock\n");
-+	clk = devm_clk_get_enabled(dev, "wclk");
-+	if (IS_ERR(clk))
-+		return dev_err_probe(dev, PTR_ERR(clk),
-+				     "failed to get the work clock\n");
-+
-+	val = readl(priv->base + ZX_MDIO_CMD);
-+	val &= ~(ZX_MDIO_CMD_START | ZX_MDIO_CMD_BIT15 | ZX_MDIO_CMD_BIT13);
-+	val |= ZX_MDIO_CMD_CLK_DIV;
-+	writel(val, priv->base + ZX_MDIO_CMD);
-+	writel(0, priv->base + ZX_MDIO_STATUS);
-+	writel(0, priv->base + ZX_MDIO_CFG);
-+
-+	bus->name = "zx279128s-mdio";
-+	bus->read = zx279128s_mdio_read;
-+	bus->write = zx279128s_mdio_write;
-+	snprintf(bus->id, MII_BUS_ID_SIZE, "%s", dev_name(dev));
-+	bus->parent = dev;
-+
-+	return devm_of_mdiobus_register(dev, bus, dev->of_node);
-+}
-+
-+static const struct of_device_id zx279128s_mdio_of_match[] = {
-+	{ .compatible = "zte,zx279128s-mdio" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, zx279128s_mdio_of_match);
-+
-+static struct platform_driver zx279128s_mdio_driver = {
-+	.probe = zx279128s_mdio_probe,
-+	.driver = {
-+		.name = "zx279128s-mdio",
-+		.of_match_table = zx279128s_mdio_of_match,
++static struct phy_driver sanechips_phy_driver[] = {
++	{
++		PHY_ID_MATCH_EXACT(PHY_ID_ZX5201),
++		.name		= "Sanechips ZX5201",
++		.config_init	= zx5201_config_init,
++		.suspend	= genphy_suspend,
++		.resume		= genphy_resume,
 +	},
 +};
-+module_platform_driver(zx279128s_mdio_driver);
++module_phy_driver(sanechips_phy_driver);
++
++static const struct mdio_device_id __maybe_unused sanechips_phy_tbl[] = {
++	{ PHY_ID_MATCH_EXACT(PHY_ID_ZX5201) },
++	{ }
++};
++MODULE_DEVICE_TABLE(mdio, sanechips_phy_tbl);
 +
 +MODULE_AUTHOR("Navid Ghahremani <ghahramani.navid@gmail.com>");
-+MODULE_DESCRIPTION("ZTE zx279128s MDIO controller driver");
++MODULE_DESCRIPTION("Sanechips Ethernet PHY driver");
 +MODULE_LICENSE("GPL");
 -- 
 2.55.0
