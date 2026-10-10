@@ -1,161 +1,73 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A30B4973A9
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 12:06:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC9E848F030;
+	Sat, 10 Oct 2026 12:10:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791633997; cv=none; b=mIs4894whk37UFtnwCCRXfi+XZ90j01dSg1TQKdh7jzF3wyY8J35uqweXELvsQNahJCJdVgYzbmjH52+91n70aCLlXr+iAwij+IFq8Cr25xt0WZjNCqqX8iHlwsQKpNnixge5QNS7sjR5KywM2GSpBZjlV3hM2qFFiixRNC12ZM=
+	t=1791634235; cv=none; b=lV2PeTkBqnNZimNXZEkTpLrhrJDCNg+KqRQQOEuYq9OvDv5zImAPV7kiJvYQHhaZZnh9jE51T9TYPJjmasJH01uu+F4DOdN6w5C4Q6CvfHCFJZD9eLyZkxofd+cDkeb0mel6LZgeMTgvH/blYFwUS2IYPWIxG7fOgOOt83hlN9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791633997; c=relaxed/simple;
-	bh=c6R/HMX9UdwvshKUArbM+BShOO0B0p0jNJq4Z1oLlXQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=ra5DogLs3MSvVe/xkaNLDV+vm9OrB0rz4CUFy2PXoLQH332SjrExxd8JxLePTgzAktfAD+bdO+51jFtMBAwheIYeTBteVmC6usH8OfN4xGf66mgcGtsDeh9vlX9/eO59X8WCGvBiiK+0VsCO8wHQk/21vwd1aOhmQgpwON36eQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XBQ7+Qik; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791634235; c=relaxed/simple;
+	bh=N4eY/Dct2dXl9PC9hcrqn8Gy/VtoQuhJBMjBpTU7nBM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AHF1YRE9oO61UvWbUDin/Ca1M1wt52B8BNugvkQRvFSQ32j5fBGRfXtjtWN1RZkwG/v4qLyBQ2v17BUwXlfg8gtI7v3hBKF4O9QY/V6q1sEm9BhxN2Ng1u0pW6RP84xWSUEuhEnCMJcbpow16yTKTXWJQeY07CJqCpJd/op1iiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=VTWpHr+K; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XBQ7+Qik"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a16aaf2067so7304365e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 05:06:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791633992; x=1792238792; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Pf93fAStQFQmMPyWTZnqmgHvVU3/s2D82vsfqUoiRMc=;
-        b=XBQ7+QikmVoz/PJOWWWMLXAUastRMEGijjmpTay0t1cOOZTBbdWC8NUpv6s1p3ApVJ
-         q5LT56oeBWKAblerx3D62ci7iltlvfJq7Md9LwMDlypNsMakftbkspyrCYl+q9JA5fUY
-         aFrjC/Kc/hqDWUb6VPSnHyIcMtWWSdaAb2YBILO3z+BMYis9f8MpSc39FdHySN+zLUBQ
-         dvHxwEKMeYRtSBFbPlAznipLNblDs1lOkFPLiPY6b3Vt1OM/aFfujRXjTdGyST5cfKLK
-         NC93FYs9RrD+zvs8oz//UQouIifuxlotjigxMdsPFBjp2jrGLbxD8HnhNMn4w/T9sPMF
-         XqMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791633992; x=1792238792;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Pf93fAStQFQmMPyWTZnqmgHvVU3/s2D82vsfqUoiRMc=;
-        b=AFjM5TdjaT8ziUqSdSjaUih8ZmCGB3SDTGM7YV66qDjY/stCN2LlrqYS29VWmaWapW
-         i9hvF6IhG/I1Mx4S+m1qTnFM3zbFIY7bcbSz6mFL8WqOH1gvfvORaon8Osmh68qMD+lU
-         hhiQG2ajlTbSD/V9aCWBIngqHaCNafDR6UYLvolYpCP7j2hddGyfyLxGwJ9Y6Ni9dSa6
-         YlSzeoQKO69J3dW8+03gQOTmGRGOP++1dRwq3JcJJobVOlah7D2C2yFI08TRzYAZhE3k
-         MLntGERBw1R0Rz0xYxSon/MBa6acTFGxU2QJFgoMXv2ROzklSY6+I+FqzZI7NCxzlrkZ
-         b1DA==
-X-Forwarded-Encrypted: i=1; AKwUvBxiIb+t/rLUnkmN5nG75OHutuT9FN+VfVL/xXzTFcYUjMzfrtNToVDMJ5SrnNIIdf6O1cdyntBAfl+J4pk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIdFxy2s7TWW28H1cL+MTol+gqp5l/plyNTUw5bXI672Yfc6Yw4
-	MgLmdtY2xmo4XFwlpzQv2izNcKxlSU/tVrl3MFNl7YyTq0tFlcGR3nf/
-X-Gm-Gg: AYBFou3wq91rMHNzaYw3GDsuR1asdKD2rNJwr7oeRl3qCHdDUvhd1+u8wauViAJ69x6
-	mJCk0SS25snf8BBf5HFCSuvms5JvHzkzJ9LXdviRJeVi5BeqAvOTbvRxeRBRA4KxPE1rry/ie1S
-	+d0wrepUeCffxnAVclorYrho+9PRWnzu3bc+PJWlekHiY67BldJ3RYBl8QAchryO3cn49opJTU4
-	WYQEQilH9QrvVp1vlD/MMjicTJkYL/Gljc8MtOf2JLcXMyKd8ANAlGtR5oJY/PzU6/jTTLwwuvL
-	BiS/BKJYnGEU4Jo9pwTbC3oXAwz2VnNmEuH7Mpj+ji+noyU+Q2hofbOpZ/jsmj6Kq20cvLmLAW+
-	kIu2JiCWfurB4/Wd81/BEhQzpzAHqWofQ7DPs2jgd/BpVSmsChp5fjgHrRe2VHSSgGu/RnQhVjs
-	pOjDTBUFCTjKxDPGdfQmbYYy4Z87VbT49EnywYI7VgeSxnoIY1zQ9mbYJ6/zgmBZDIiE/k9LBuO
-	e2cppapQ6s9ChnB0iFg8L9cZ4xoamJNd0AcSuleB8Nov6TFjmJ91mg5fG225aq78NZjQ3Qy9rFr
-	Ie+nbQn5mjJDjOxWEbu87RVCnImAahBUHTh3lc1Wbu3Z7jm4LAdBP7VOddgYOVCL0OOYpoZ88WY
-	=
-X-Received: by 2002:a05:600c:8209:b0:4a0:2375:dc1a with SMTP id 5b1f17b1804b1-4a18e4cb771mr86143615e9.21.1791633992086;
-        Sat, 10 Oct 2026 05:06:32 -0700 (PDT)
-Received: from imx93-evk.localdomain (dynamic-2a02-3100-9d3f-0d01-48c7-5d76-0ec6-9dac.310.pool.telefonica.de. [2a02:3100:9d3f:d01:48c7:5d76:ec6:9dac])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18beabbd0sm150904195e9.12.2026.10.10.05.06.29
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 10 Oct 2026 05:06:30 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: stable@vger.kernel.org
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Mukul Sikka <mukul.sikka@broadcom.com>,
-	Keerthana K <keerthana.kalyanasundaram@broadcom.com>,
-	Stefano Brivio <sbrivio@redhat.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Brennan Lamoreaux <brennan.lamoreaux@broadcom.com>,
-	Bin Lan <lanbincn@139.com>,
-	XiaoHua Wang <561399680@139.com>,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="VTWpHr+K"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=i3Qo4vQuldjoeK8jA2JAjzxfTebhX5t9oUEQ8z+qotY=; b=VTWpHr+KtF39azVyZIek20nMIY
+	+FnSybPUCNY+P86lTxWZKiDvVoUwLAQfs86PABO9X1B6OA5CBTgAWjQ9+ulq4vwWyuQtvBciOf5LC
+	kQQIkOM0c5qYIq8rzgd8YqPou+h6GbyQBtdVugkuW6ZySR0nuBbzlh2HX6eWidtzNIdNdmgvYFZN6
+	/u+bXQdBMsX59PrLoiu98t0F5ZebvgkL7k07zhOZLPZxTGtBuRKjOn+agpb8hYSsb9W13Ij4PKH8C
+	Y4B3yZzR6abkNMZd6Mn8LzTVRmnhl2pfOAqAw/KrMbFIA+tvHuLqMTjz6lbbxgIlcO896HHQffzaZ
+	0bXg6tSA==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Chukun Pan <amadeus@jmu.edu.cn>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y v2] netfilter: nft_set_pipapo: restore cloned mapping table memcg accounting
-Date: Sat, 10 Oct 2026 14:06:24 +0200
-Message-Id: <20261010120624.4946-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] arm64: dts: rockchip: Add Radxa E54C
+Date: Sat, 10 Oct 2026 14:10:21 +0200
+Message-ID: <179163420722.3552553.10756820019323228213.b4-ty@sntech.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260820100020.3370385-1-amadeus@jmu.edu.cn>
+References: <20260820100020.3370385-1-amadeus@jmu.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-The 6.1.y backport of commit 69e687cea79f
-("netfilter: nf_tables: missing objects with no memcg accounting")
-changed the pipapo_clone() mapping-table allocation to
-GFP_KERNEL_ACCOUNT.
 
-The later stable backport of commit 07ace0bbe03b ("netfilter:
-nft_set_pipapo: do not rely on ZERO_SIZE_PTR") rewrote this allocation
-and changed the flag back to GFP_KERNEL. Upstream applied the
-ZERO_SIZE_PTR change before the memcg accounting change and retains
-GFP_KERNEL_ACCOUNT after both.
+On Thu, 20 Aug 2026 18:00:18 +0800, Chukun Pan wrote:
+> This series requires the following commit in Linux v7.2 to make the
+> switch work: https://github.com/torvalds/linux/commit/9da2c8672f77
+> 
+> There was a conflict between eMMC and SPI Flash, so the unmounted
+> eMMC was disabled. The schematic can be found below:
+> https://dl.radxa.com/e/e54c/hw/radxa_e54c_v1.2_schematic.pdf
+> 
+> [...]
 
-nft_pipapo_deactivate() clones a populated set before looking up an
-element to delete. If the element is absent, priv->dirty remains false
-and the clone is retained. Its mapping tables therefore remain allocated
-without being charged to the requesting memory cgroup.
+Applied, thanks!
 
-Restore GFP_KERNEL_ACCOUNT for the cloned mapping table.
+[1/2] dt-bindings: arm: rockchip: Add Radxa E54C
+      commit: 49b9e84fcd80bcc16f78ad8386b83f76f61f3a4d
+[2/2] arm64: dts: rockchip: Add Radxa E54C
+      commit: ae965b9856f033145e292b0c29082a26bcc45efd
 
-Fixes: a4983e89e3b1 ("netfilter: nft_set_pipapo: do not rely on ZERO_SIZE_PTR")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-Changes in v2:
-- Split the combined 6.1.y/6.6.y submission into one email per branch.
-- Keep only the Fixes tag for this branch.
-- Refresh the diff against 6.1.189; the code change is unchanged.
-- Add fresh build, runtime and matched A/B results for this branch.
-
-Original submission:
-https://lore.kernel.org/r/20260831194905.45045-1-kmehltretter@gmail.com/
-
-Testing on 6.1.189: built a minimal x86_64 kernel with GCC 15.2.0
-and booted it in QEMU with CONFIG_MEMCG=y. A 64-element two-field
-interval set passed creation, lookup, update, rollback, deletion, flush
-and reuse checks.
-
-Matched unpatched and patched boots used the same kernel configuration
-and initramfs. During a normal update from a memory cgroup, both cloned
-mapping-table allocations (512 bytes each) had accounted=false without
-the patch. With the patch, both used GFP_KERNEL_ACCOUNT and had
-accounted=true. Both variants passed normal set operations without
-kernel warnings.
-
-Earlier A/B testing on 6.1.186 and 6.6.155 measured 524,288 additional
-charged bytes for the cloned mapping tables of a 32,768-element two-field
-set. An unmodified 6.12.107 control already accounted that allocation.
-
- net/netfilter/nft_set_pipapo.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/net/netfilter/nft_set_pipapo.c b/net/netfilter/nft_set_pipapo.c
-index 4b37c6684bff..456779003f58 100644
---- a/net/netfilter/nft_set_pipapo.c
-+++ b/net/netfilter/nft_set_pipapo.c
-@@ -1466,7 +1466,7 @@ static struct nft_pipapo_match *pipapo_clone(struct nft_pipapo_match *old)
- 				goto out_mt;
- 
- 			dst->mt = kvmalloc_array(src->rules, sizeof(*src->mt),
--						 GFP_KERNEL);
-+						 GFP_KERNEL_ACCOUNT);
- 			if (!dst->mt)
- 				goto out_mt;
- 
+Best regards,
+-- 
+Heiko Stuebner <heiko@sntech.de>
