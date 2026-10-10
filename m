@@ -1,152 +1,126 @@
-Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32E4B485CE4
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 11:18:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 063F5448BB2;
+	Sat, 10 Oct 2026 11:22:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791631137; cv=none; b=sme9PaELCLue26wjYCafEW0RysF4e49G7pJDatI8QbU+i53o/FuOf85Li7n8kS4lXf0UkXNGYprAgZnSNEWiFzJTPqkyx65dqEKi7vLmvHP8DeFlPM/ZEdhhHPQd7bRMJ7r0Q9bXN33rOCPnBfSIDeJ+L3B9TkaQT5PPOdi/BSw=
+	t=1791631381; cv=none; b=jC60tkW6zX5388JU9hCjNbeY4YhfWbw5mPcit1NkzljwUo25+8zUwiw2mham+jGc59bxKjbaNZ7VFeqK5RYDPkfUP0VAZ048KwT8muHdYg0hyRCAEL+mltqG8P3+dti2EZS1iYywBO00OnEkOpJf82Haui9VsiJFCINKO1mEayA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791631137; c=relaxed/simple;
-	bh=GtR97k52fW24BvTxl7zSOu6cuY5tK107uL87nymf4ts=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=ahdFqG44uo6hyUuuGItbRKzn5EMHuUm2tc6cZ5FFS/X4GTFDaT08gLVS6CMuugX4HSXYWyH9YJT+Dm3V53A3dOf6mJSX272pz2HkYdwgxHRSci8lxGQl7e4FCol/0p7h7XTXMLojIeIcMqBtvg0XdvabZQX4U7oqTyO85Ai+110=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=xZ0VYWq2; arc=none smtp.client-ip=115.124.30.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1791631381; c=relaxed/simple;
+	bh=yq06gb0eXsDx/gH9qwR8GI+QZyLQnTTfQDDJVACsECc=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=bLuZ1NImjHc0jX/939QDNjx19gTUAnlaHFtMAjGe+XM6b+fHg4kryjjNMgZb3Y0eXjWgo30vlBMTN0CjiZ/im29v2jsuZ60YoQY3HvUhbPztgZmY8AxwKikofV95mLgT8sW+5WiL2OaBL8AQpK68HP9zL5hTBuunufKV/o0C8f0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=khVw7Jzi; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=fj0WwaQH; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=a7gEalz5; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=zAyj6kwi; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="xZ0VYWq2"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791631122; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=uj4FOYScpotQbXUx+KxSCAB7RY2odrIAyrg6q0KBZbw=;
-	b=xZ0VYWq2c9ktXWkvPzaMwb7zWyaheGwHl9LUpV610Nb20GO8+KGT8Bk6EBSLUOfMB6mTpZM18ufr+8PnEXWkw73soZ7xq1m2bC4uPWKC2rTGVnop03ziCt4f/kCTwy4myPXeHie2RUrnpuOn/P5kdu/F3e0qEo32PUr1xaECB4Y=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=20;SR=0;TI=SMTPD_---0XCVxUq2_1791631118;
-Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XCVxUq2_1791631118 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Sat, 10 Oct 2026 19:18:40 +0800
-From: fangyu.yu@linux.alibaba.com
-To: gong.shuai@sanechips.com.cn
-Cc: alex@ghiti.fr,
-	andrew.jones@oss.qualcomm.com,
-	aou@eecs.berkeley.edu,
-	fangyu.yu@linux.alibaba.com,
-	gsh517025@gmail.com,
-	guoren@kernel.org,
-	iommu@lists.linux.dev,
-	jgg@nvidia.com,
-	jgg@ziepe.ca,
-	joro@8bytes.org,
-	kvm-riscv@lists.infradead.org,
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="khVw7Jzi";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="fj0WwaQH";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="a7gEalz5";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="zAyj6kwi"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id F084E1F457;
+	Sat, 10 Oct 2026 11:22:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791631378; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ta2rtPC82IMMiP2UgG8+lUtvBagABP45FPdlCMloucE=;
+	b=khVw7JziJlLNqML0S0UPnjTyU9M7KXzHczrrxsBTetKW9fKFSsqVkKKDkpSwlBjulnIEAi
+	SPMqTt2LSMqzU8FtO9i65bm8ys502wYKKhb6bDvoiDR6948uBzdjpf2ybYFC7axYVpjve3
+	R8crp9wnV/bF2uTbRuYP6CtcI9ACudY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791631378;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ta2rtPC82IMMiP2UgG8+lUtvBagABP45FPdlCMloucE=;
+	b=fj0WwaQHpoQWhJVD01n/n2nUDU6ixtdIw6uHE3WW5Ep4w22HGg9bdBv181T6gbu2AKjGB4
+	wFDfhKaHu4+VSPAA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791631377; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ta2rtPC82IMMiP2UgG8+lUtvBagABP45FPdlCMloucE=;
+	b=a7gEalz5KZXTkXe4MuEG6duycOKRGfSDBFF9evJB/cHGzbEMDHUlYUUm/F0DHf+ao922n7
+	bm3HY2HMD7mhfegKMRztzse8qHAH7BkNuEWJIpfsb1fYj/+e2AJ5eGA+W5fimCNLNiryN9
+	JGDFIXzfcPit3D9WKh1NW0+00YRRpsA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791631377;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ta2rtPC82IMMiP2UgG8+lUtvBagABP45FPdlCMloucE=;
+	b=zAyj6kwiy6bvPOrVqUpqsZ6SlFa4D89wjZgkZfj0sP6NEzc0NuzSmOv9kQrAod2utm0Uou
+	mRwqmV8V39wKvBCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AA7E21326D;
+	Sat, 10 Oct 2026 11:22:57 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id ZhdSIBEgymqlFwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sat, 10 Oct 2026 11:22:57 +0000
+Date: Sat, 10 Oct 2026 13:22:57 +0200
+Message-ID: <871p9xkdf2.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Marco Giunta <marco_giunta@outlook.it>
+Cc: tiwai@suse.com,
 	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	palmer@dabbelt.com,
-	pjw@kernel.org,
-	robin.murphy@arm.com,
-	tomasz.jeznach@linux.dev,
-	will@kernel.org,
-	zong.li@sifive.com
-Subject: Re: [RFC PATCH 1/3] iommu/riscv: Add guest IMSIC GPA mapping helpers
-Date: Sat, 10 Oct 2026 19:18:37 +0800
-Message-Id: <20261010111837.15424-1-fangyu.yu@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <202610090853.6998rsRH081065@mse-db.zte.com.cn>
-References: <202610090853.6998rsRH081065@mse-db.zte.com.cn>
+	linux-sound@vger.kernel.org,
+	perex@perex.cz
+Subject: Re: [PATCH] ALSA: hda/scodec: imply SERIAL_MULTI_INSTANTIATE for AW88399
+In-Reply-To: <SN6PR19MB2303021FB731E4B20F2283B1FC912@SN6PR19MB2303.namprd19.prod.outlook.com>
+References: <SN6PR19MB2303BF65050B51AE7217BB9AFCBD2@SN6PR19MB2303.namprd19.prod.outlook.com>
+	<SN6PR19MB2303021FB731E4B20F2283B1FC912@SN6PR19MB2303.namprd19.prod.outlook.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	FREEMAIL_TO(0.00)[outlook.it];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[outlook.it];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -3.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
->Hi Fangyu,
->
->> From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
->>
->> IOMMU implementations without the MSI_FLAT capability translate MSI
->> writes through the second-stage page table, so IRQ forwarding on them
->> will need guest IMSIC pages mapped into the second-stage domain.
->>
->> Add an xarray to the MSI table that tracks the HPA installed for each
->> mapped guest IMSIC GPA, and two helpers for use with the MSI table lock
->> held: riscv_iommu_msi_table_map_gpa() installs the initial 4 KiB
->> mapping, and riscv_iommu_msi_table_replace_gpa_leaf() atomically swaps
->> the leaf PTE's PFN when a vCPU's VS-file host page moves, rejecting
->> leaves that do not map the expected old HPA.
->>
->> Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
->> ---
->>  drivers/iommu/riscv/iommu.c | 94 +++++++++++++++++++++++++++++++++++++
->>  drivers/iommu/riscv/iommu.h | 12 +++++
->>  2 files changed, 106 insertions(+)
->>
->> diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
->> index e2e77469ea3c..48fc57d6409c 100644
->> --- a/drivers/iommu/riscv/iommu.c
->> +++ b/drivers/iommu/riscv/iommu.c
->> @@ -24,6 +24,7 @@
->>  #include <linux/moduleparam.h>
->>  #include <linux/mutex.h>
->>  #include <linux/pci.h>
->> +#include <linux/pgtable.h>
->>  #include <linux/generic_pt/iommu.h>
->>
->>  #include "../dma-iommu.h"
->> @@ -1217,6 +1218,92 @@ void riscv_iommu_msi_table_inval_all(struct riscv_iommu_msi_table *msi_table)
->>  	riscv_iommu_iotlb_inval(domain, &gather);
->>  }
->>
->> +int riscv_iommu_msi_table_map_gpa(struct riscv_iommu_msi_table *msi_table,
->> +				  dma_addr_t gpa, phys_addr_t hpa)
->> +{
->> +	struct riscv_iommu_domain *domain =
->> +		container_of(msi_table, struct riscv_iommu_domain, msi_table);
->> +	const int prot = IOMMU_WRITE | IOMMU_NOEXEC | IOMMU_MMIO;
->> +
->> +	/* Guest IMSIC GPA mapping only exists in second-stage translations. */
->> +	if (!domain->gscid)
->> +		return -EOPNOTSUPP;
->> +
->> +	return iommu_map(&domain->domain, gpa, hpa, IMSIC_MMIO_PAGE_SZ, prot,
->> +			 GFP_ATOMIC);
->> +}
->> +
->> +int riscv_iommu_msi_table_replace_gpa_leaf(struct riscv_iommu_msi_table *msi_table,
->> +					   dma_addr_t gpa, phys_addr_t old_hpa,
->> +					   phys_addr_t new_hpa)
->
->
->This might fit better inside generic_pt rather than in the driver,
->since it walks the page tables on its own and duplicates things
->the library already owns, like the per-level index widths, the
->x4 root size, and the PTE layout.
->
->I recently tried something very similar, and doing this inside
->generic_pt turned out to be quite feasible (only a quick experiment,
->not cleaned up for posting).
->
+On Sat, 10 Oct 2026 11:44:18 +0200,
+Marco Giunta wrote:
+> 
+> Hi Takashi,
+> friendly ping on this one-liner (I forgot to include it in the original
+> driver submission and it's been bothering me ever since).
 
-Hi Shuai,
+Applied to for-next branch now.  Thanks.
 
-Thanks for the review. I agree the driver shouldn't carry format
-knowledge that belongs to the library, but I think this particular
-operation doesn't fit generic_pt.
 
-This is not a generic page-table operation. It is a special
-requirement of RISC-V IOMMU IRQ forwarding (irqbypass) on
-implementations without an MSI page table: the guest IMSIC GPA
-must be mapped into the second-stage domain, and when a vCPU's
-VS-file host page migrates, its leaf must be replaced atomically.
-Because a device may write an MSI at any moment, unmap + map
-would fault. This operation is driven by the IRQ forwarding
-state machine, and because I don't see another generic_pt format
-sharing this flow, I think these helpers would be better placed
-outside generic_pt. I plan to move them into iommu-ir.c so the
-feature-scoped code stays together.
-
-Thanks,
-Fangyu
-
->Thanks,
->Shuai
+Takashi
