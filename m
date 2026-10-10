@@ -1,208 +1,216 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013050.outbound.protection.outlook.com [52.101.72.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 286243921ED;
-	Sat, 10 Oct 2026 02:30:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791599458; cv=fail; b=TB4B7s6OcUmfgwkXAktLZ7kI+T9/B7wI0XvRrS1sjBCvNKRkSS7JVynHAj15LABcTrFaRruvlszlEs7IDuy9pLKcoPeOYZUEgcgkqMjmRcNvTlMJQ2yhFsdfu8ZEvxtPzg08zzEwQX+CKpLYbvZEVzr6XdV/BT9sgnMcBC9smgw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791599458; c=relaxed/simple;
-	bh=tF3sFYd3gtYFHwtY9kMZOjO7HY4NYv2CEDKmxr0pBT0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=t1MUUTW+jYKLXBDH1ytrlyoq+cZxbrKeE9Vod0CggyIXzBE/EP2KoQWiDSvMUOOIpfDiWWCj6sVW9c6/Jgyy1WySm8nyqt8B0js/8LJJHRuwU9qY8fkXCep6rRxZPzewKADwQRSArYoPqpTHJnL73oxxa/921SipIkfk+H7mMoQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=udTjv4Un; arc=fail smtp.client-ip=52.101.72.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8204F39A808
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 02:31:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791599515; cv=none; b=WRViO7trUld4h4s5vYPxRlBWn+buuXmRhBW7vpvGFT/D9ZeDlv1DO7KnsNv0s4ub9/HhIsHtiYYbcD2WCNuq9wOaw6d8GN0vmgRlmjdIJMhBQf6CqFTH2QXe5e9n6XbJHTzSzkk5BXBm6u2Ubh7pGtlZONNQA0TzaIwPgixRCbg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791599515; c=relaxed/simple;
+	bh=Wsfe86TYaGANkos5Or/r/Ovy9nBCe20RY2SVazy8WIQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jOKBptZ59Kp9cJmsgjO1eC/yKXRJ+w19hPtxvugZ73g9E6d5gPi18/TnYhUcVsx4bdIR4XfnG4inBODyAPTRRb8sEXqwy1JjMyUUbo8PECrVdGlu9BRDfcnYY+co9eVWK3Syyl+OwAtcY2bDdAOkSswDhjX3jjLnIb0NZBdIIwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=WmWw5wNs; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="udTjv4Un"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C/uTxrZa1mvuBHyytuctVIW56QhlCRokVcxAH9e0PFKYxY5Md6JfFru+oeYAxpTWI/4TxRm4GUB+gzVkvCGD3+qqpvUAZ7tlZd7y35GpmGv7ehyA4MRTu4jVI7kSySuUuNlCYOGDwSAWao5hM4PnutSGDT8ecGHNdqYpohSwlWQLhSl4licVXxxBRDas2L6IXoWssCYSJlQH54cNNN5QUKJVZ45MzNwv9XoHc6Iq9L0xxjk1nzTHamXTrJYPDvDk5ytU25hbKBrG1eVo16yvKmIxYdHyk/fDMEmc8pqT6P3YB+Cs2KvCsgV3NPIcDYN6UhOADIeXFLlaDv6NXiJtMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RvgoCeub70DcLSpRZ7dy0U6IHPdhhrxPrl1fULs0buc=;
- b=vS63HC327Wy1JEbmiXOxapgLyYkG1cg+NZA967OsPgVbpS8++AiNx6hn4coQ/lyU6bGGfUrKms6t8E4nwRjz5yu2Zk2yt6ueRp4kZDIa+BQMTWB0sjBgpEy/37f5LNqC58S4XyBlM/aL/VOxfdnt/xCLzRWkVrJaX45Z06pwKkjMo4Mbgqk9H+1QhhcULe6RmdDqjiJ+WNVlNtrESjpS7+hvDXmYSAd02BKGyM5HBKZgrbidP9pnYqld5OoL//DECofQ2peizqtISnwk0ZNjlhrwvVhb+AY9MLjvoh5k7jGN+bqU3KQSWoDYHnUO8Q0EFNCz0wNYshhtd8osOvf9SQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RvgoCeub70DcLSpRZ7dy0U6IHPdhhrxPrl1fULs0buc=;
- b=udTjv4UnbpOYj0G3AjudnOqTwtf6ug8UedWhhoNawtFm2MgXKqRaGUx4NtGV92/A7NpGz5ZiATD0eNa/UJiZVzcOciBOWBcGF8vZ4VIRbplZ7ExPyno1svmMoTrU5VWIk4fMk6NkwOEQdsk9mw+ZJYvJ9FkeG1wNAhGYMV5Nnlsjwx2W5FZ8OSrqwPoIXVkcBajEAVAgwuGkcH96PU1Z3FCKLidchP/SCD+0HRRLdN3W59gN4cohV4nO+hig+kkWDmOhXvxLDA1n4TXzn/PAZth5NI11eF1Na78ysbA5ixjYFmxHSb4pYKu1TZHHvR0erJnarHDLL16lEzEQki5eYg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AS5PR04MB9855.eurprd04.prod.outlook.com (2603:10a6:20b:652::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Sat, 10 Oct
- 2026 02:30:52 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0496.015; Sat, 10 Oct 2026
- 02:30:52 +0000
-Date: Fri, 9 Oct 2026 21:30:49 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH] dmaengine: ste_dma40: Preserve the LCPA I/O address space
-Message-ID: <asmjWVMGZCD2-o0N@SMW015318>
-References: <20261010-dma40-smatch-fix-v1-1-26ca10043957@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261010-dma40-smatch-fix-v1-1-26ca10043957@kernel.org>
-X-ClientProxiedBy: AM0PR10CA0021.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:208:17c::31) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="WmWw5wNs"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2db33db4de9so10395ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 19:31:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791599509; x=1792204309; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3rzKQ4RjsXxN/zYQ6wEGpTgXALdkb/UwVP3kYDgAqNA=;
+        b=WmWw5wNsqZpB+8WRWeSe9liypog9W0ar/G38tuDgxJe+NVyjQmP5Mp93bmNtCPmt2V
+         zlzLYuOYH89h9xXqvkId35MN4g5pHOXgHgQZr0n2/onbS1GqR/xFwmnvO0k+tILObkeY
+         2ewKyizq2n9M6mCCXQNn3zrNl/Hxe75ZwODTYsNfOrwNoHOXnStIZlNGmc0pH978Ckvm
+         gVznEuKnIU9zddP8q6QcD+q4oYv/K6IRcOSoAdnC7/9ePj/W5k0wwXtBtZZjDk6yLGPt
+         OeH6yn9VIhZ4VX/vBZEEtXoJaPIhUh2dcuT0YQQuQrZpvF78OZ4StS+v/iij4dlD5Ie9
+         c/Ww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791599509; x=1792204309;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=3rzKQ4RjsXxN/zYQ6wEGpTgXALdkb/UwVP3kYDgAqNA=;
+        b=M0BdwCZhyR/u1klCafFppxD+KBjvk5b7645uIOQgKiFmEfxfCDjoelH5FUEpMcYWDr
+         5ZCDHXHQ1j3RarGNEmzkr382C0TuWcbkiAbKXmZ4wiE9Iy9e8mde3apgGaKv4l5phrW5
+         Xs2jb+040SczcIrcP6pXlg/VK189zdnk5qsehtc92eXmgtAJbZBnE7SCacvScOdfqGpB
+         4auhSBnHUGVwAoT4xrqf1LeWE8CU/sWTT6p/WtfspNICRz1Pzj2VpNgGCwpjlv6mR56j
+         dAv7ImaffsHc80ZSP0K5RAMWkFD6ISaD0SGmxO0uQ+n9Paztr4zMkpsDpnLK6VmmZBAt
+         QTxA==
+X-Forwarded-Encrypted: i=1; AKwUvBwFV7pb1fHqEUZwqarZ/8cCaVQwLh2iGR7p/IKTNL5sPZc2q/q9aZIEZ9TgqhRjq+EjG4pqencoY1IOgi8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5frT9rk9tVPjCh0sy6dHToS+gLX3w9xiZ9Mh01JmaVaygsDat
+	GYT3q0E/vrWs+nuokgDVZHjfRzgnCKquRsjYTvUFFTEg0uehx1YdNV2kB4agAnPqLw==
+X-Gm-Gg: AYBFou3FDa/KbighF5ocM13snTc6F2MEYndZscxgQVsnOve+oE0L0iZIkXHVZuKHFhP
+	93jlByMhMaheHusKFmhpZ5fyCqs5gSgJfZBYqeAnFCX0RKxlBU2N51xdR299EAbw+PCKCKpNGhz
+	lOeBDRE0YGbRqvDZFCXbnNzcMFQpEUvV15LdMmKZIc1Se7houd1BxedrZPFG+liUpw9f1Vv0Shp
+	Y7XaIOkOLXm2hJHocyISaJ8MHLb8/D+6xitRoe9n2cbAfVREhkUzaFzDJHaUBU/QfyaqqRukYsN
+	wSvwLcEYgODe6FjGKX6MOl9j5JzPHlgyHdR9hDsg/xl9jiUho6CO7DtP9WA3I+HZW52xcD3LgpJ
+	rTDbtTM8NnhR0NZUjimHU4LD45JhU+7Y7UycyapW1+D5jmNHaGLIrvexFSQLV622WO4WCkHkkVS
+	Y1vtVt8vrJoCY/QiBjYnAd2Isg9eukFi50CFOH+DCGijq/64Gfu4dQbs/j+cSulzPG8AJbhqu4j
+	YLfiMPqdV9TjrfMLCUjsvEe7ZGQyWgY6Ak9jJ6eitsXCoT/+VhC17tBH7Tksoux0LQ=
+X-Received: by 2002:a17:903:15c3:b0:2e6:1917:fd with SMTP id d9443c01a7336-2e87e2bb07amr579615ad.7.1791599507817;
+        Fri, 09 Oct 2026 19:31:47 -0700 (PDT)
+Received: from google.com (163.1.145.34.bc.googleusercontent.com. [34.145.1.163])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38b9633fsm7435279a91.6.2026.10.09.19.31.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 19:31:46 -0700 (PDT)
+Date: Sat, 10 Oct 2026 02:31:42 +0000
+From: Samiullah Khawaja <skhawaja@google.com>
+To: Baolu Lu <baolu.lu@linux.intel.com>
+Cc: David Woodhouse <dwmw2@infradead.org>, Joerg Roedel <joro@8bytes.org>, 
+	Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, 
+	Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Pranjal Shrivastava <praan@google.com>, 
+	Vipin Sharma <vipinsh@google.com>
+Subject: Re: [PATCH v5 13/18] iommu/vt-d: Preserve PASID table of preserved
+ device
+Message-ID: <asmeX0tryM-fR-d_@google.com>
+References: <20260921004834.2601285-1-skhawaja@google.com>
+ <20260921004834.2601285-14-skhawaja@google.com>
+ <f48258bb-df50-43bb-9141-433601d885a2@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS5PR04MB9855:EE_
-X-MS-Office365-Filtering-Correlation-Id: 74f3cc26-3461-44a1-6cfd-08df26768125
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|19092799006|10067099003|56012099006|6133799003|261009223027099003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	oPxxR7OpIhyZuXjKmtsj2a/DcQX1/1IxG44o1HnqAGKpwZbrikyGrF6Hru6OgfQTML4b/jHsylrt+dftOgxCFJaoNa2YzVUMNLvlDPgZwpB0rh9/D5zqq6R1JANE0H3vtEMuUpV8//ot7DcuBarLtYvWdTmfMwwlCK90RaX2vwBJauCw3fsYEk9N3SKyjM1bUDXnZSbTJDjNHLltfu0D5J8FR6/P75F1hPvEaP+nbaCHNDY4DIU7lpiARfrYYFKRv13aNmZO1LPr9j77Y8WtOBII6O8iHNqix2iTlvK+bw2Wo3QnGoIlhFP8Yp/myyDrkTETUmrxqye4PLHJgvXWZxJngzJfFmJ3Ohnm24Zl9rxBsbZKSyRKeSp4V9bD8ztMYBa11Py+k/ejCsa5M2rMOgNSvucBc/DFKDbKl9HP9xqlBlO1Uyp6VGg5dBXDz3zNahfBLDd4RRHSCY0CNr6nPT05byj99f1mkL7mhI7tMTPOikz9dNGArAsIhPK6AAZRDVS16VQIKeB9KyMe59qCPuE8r3QEAOCwAOuG01NPz8V/kriQvhu5sA2TCMLIAqyDSGf4If93bdL0UjoOOEygU5SEbvCP48+LeYAfwiLc6v6ZleiTV4+AeX+I9WDRgnpY
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(19092799006)(10067099003)(56012099006)(6133799003)(261009223027099003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?d3bUdUiqbX5gmdVXqo1k3LrkvmoYHq5Eb80ueFuCxDrZ4YV9s8u0VqcN3BxM?=
- =?us-ascii?Q?8TRKt6vQUHJZ5OJBELyoRvTiQs+EUrNQ1r+OguuBt4GFBrY+egqO2RZQBl13?=
- =?us-ascii?Q?59Ub//Mmbaq87+XD/dOgjFcr6jfMAvnMAmH+kgz7WFYtpfll+4Ygx00/5ToM?=
- =?us-ascii?Q?0RVujVQmQquP0Jannl7CqItQmBKsPBpEcgvhQnzdPQRmFJgaEkJ+VZl9Z0ZQ?=
- =?us-ascii?Q?XPaoo7B41ImS8cxN2NnhZ1UtjRBGG9zXK0PiRH/go7w4hs9JcxQ9kG4ZRlBc?=
- =?us-ascii?Q?cLfHsbS0FuK5gcP1rJB+QwWOUqXviigdz4bJufm6bjtRKg3IAnhFBbl7dbq3?=
- =?us-ascii?Q?NEKRLautPM25mYTirAuIECe0BoRf8t7X57GmmkY7oSz1WKkvZNz7lm7G+4Dt?=
- =?us-ascii?Q?oGUKa+Xca9vcw8nT5BkECtwaMf3YznHolVZ4U4LdNMGTibEmmCx+4HW5oID/?=
- =?us-ascii?Q?NSnZPSPv6LCuZ+FKmxZZmRCpAht71zcj18G3uyr3tUIUMt5xDgCdQifw3nKS?=
- =?us-ascii?Q?vSgXEKJWHQC+hkHZb5175Gmtt7Es/zIDt5gL/rn0GABviO+o3l8EUn+SZ+sb?=
- =?us-ascii?Q?znazSH39cCbD2chDrzWKk/cRHGrusifVU/z8zDONAL3TWNVpF+zlhz2CldrG?=
- =?us-ascii?Q?QQSudoRfd0DZjMh8TcpzHs23MIjm1WLTMucXR9fTp/C0Z6sYOJGAXXC9Okbw?=
- =?us-ascii?Q?vZt3EHpdcADkrvHHFUa+VLDPlCRvb+bTnEBlvjzwTlIk0cIuLyubWkyJo4Em?=
- =?us-ascii?Q?5JI+Bk7YNyhF667EuFGbkGdjl9wBgQ0gLan0ApTHGUS8xMHpZMORUNq11ZFC?=
- =?us-ascii?Q?OF0AXgjBg6ms7Jdm6yWfZQf6f3kdKDiGnAFCICLbht3Bw67RJQKXYJsSp08G?=
- =?us-ascii?Q?66WkeoccQn+pW4XcYvLHaiw+fjGc7pQUfgjK6ZwYE38MDPwY222Bls3Bpnv1?=
- =?us-ascii?Q?+TmilJvz4ps8Bb2BjXjRisIZztEFuGEexRHzE2IdyHE5RFuHElJxrJ4cGR9w?=
- =?us-ascii?Q?iOIiImvtIHnq9xQh+9P/vNEQVRuOZnGSX4FMWVhhXEglAG6mFKoO+a/DoLkA?=
- =?us-ascii?Q?v0f5/fDYfnVhCPwwiVGTz1By7LF4hT6gFJabt/JkkuOtGOCNM23me/7GC8Ox?=
- =?us-ascii?Q?EBCIGJoo+HGnZRJmWXqcPCwCL/5XDUsKMitSXvumTni0sryy9D7jkCaAP/8n?=
- =?us-ascii?Q?KeYinEV7lMkkrvSfjRw2J3iUud1hmmBJ52N6IO1GRpscx9B5ADrJZ2K30uK/?=
- =?us-ascii?Q?+l9U1OQ568jKbMaEXsUqyGLsdFghkIwAaHx589MDG+5dJgYAYmJrL4zH/SlD?=
- =?us-ascii?Q?96u6cHjG7O7XZIMfs569XUagB8K0w1M6drSuwsCzYUDMWt5BrfBzL5EshJMl?=
- =?us-ascii?Q?PRcQcMPQx/gnFn1qHdoKRnZM9c5tzuzbbGzhVjk+NbARktgNTmM71pZc3BBP?=
- =?us-ascii?Q?PjRTBsRMZ8p5WhDcwcqvEOXDXn0hBLTxEPK4fwyS4P+kmbYPyguBOfGL24GD?=
- =?us-ascii?Q?RPGyPxy8qrjcHS9G9pU/pcnyz3fsuNlwODIquZPRd5SCmI/I+2F+9y6l9FGS?=
- =?us-ascii?Q?6Ofv1plBiKBJiN9cTgctaF6BJEtDA9u3FtaqkDP+Ze8yA9EIqRZDfUcslOcS?=
- =?us-ascii?Q?rAIJOenLOihqpJgd49fJR6BXE1YpAYQAs80uezWqU99iQJ9Hr5JpdQBvH++Z?=
- =?us-ascii?Q?QcnzJRhTDUTItnAXB2tSVckRznKhNCw8NG419kYk5PUOLN/hUfFl8s/ky0lg?=
- =?us-ascii?Q?6j+c40sK/p8yYuAju8MyMubARtGSl/1P1YpHKRjOiLi7/OuVB5p5?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 74f3cc26-3461-44a1-6cfd-08df26768125
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2026 02:30:52.6226
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: a/L0wHX/NPWEIM9UiiNhSuwfzYHBKBjaoOZwf6r65/XT+oPfwwxmGvu2Nc4ibytB0XDelqx8wIRRw7eMITMeYFCAyvAayspjhkfT7JCBhpW/sYT4v+ZGZvUjky+koaz7
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS5PR04MB9855
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <f48258bb-df50-43bb-9141-433601d885a2@linux.intel.com>
 
-On Sat, Oct 10, 2026 at 12:58:53AM +0200, Linus Walleij wrote:
-> The LCPA area is mapped with devm_ioremap(), but lcpa_base and the
-> per-channel lcpa pointer lack __iomem annotations. This loses the I/O
-> address space and makes sparse warn when d40_current_addr() assigns
-> LCPA register addresses to its __iomem pointers.
+On Fri, Oct 09, 2026 at 11:38:57AM +0800, Baolu Lu wrote:
+>On 9/21/2026 8:48 AM, Samiullah Khawaja wrote:
+>>In scalable mode the PASID table is used to fetch the io page tables.
+>>Preserve and restore the PASID table of the preserved devices.
+>>
+>>Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+>>---
+>>  drivers/iommu/intel/liveupdate.c | 141 +++++++++++++++++++++++++++++--
+>>  drivers/iommu/intel/pasid.c      |  10 ++-
+>>  drivers/iommu/intel/pasid.h      |   8 ++
+>>  include/linux/kho/abi/iommu.h    |  17 ++++
+>>  4 files changed, 169 insertions(+), 7 deletions(-)
 >
-> Annotate both pointers and the LCPA argument of d40_log_lli_lcpa_write()
-> to preserve the I/O address space from the mapping to the register
-> accessors. This also fixes the existing LCPA read and write warnings
-> without changing the generated code.
->
-> Fixes: c80edceff29e ("dmaengine: ste_dma40: Fix cyclic transfer residue")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202610090216.pjMRxhRL-lkp@intel.com/
-> Assisted-by: LLM
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
-> ---
+>Should this patch come before patch 12/18, which restores the device’s
+>domain attachment?
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Agreed. I will move it before the patch that restores the device's
+domain attachment.
+>
+>>
 
->  drivers/dma/ste_dma40.c    | 4 ++--
->  drivers/dma/ste_dma40_ll.c | 8 ++++----
->  drivers/dma/ste_dma40_ll.h | 2 +-
->  3 files changed, 7 insertions(+), 7 deletions(-)
+[snip]
+
+>>diff --git a/drivers/iommu/intel/pasid.c b/drivers/iommu/intel/pasid.c
+>>index e4f24d3f19a6..59cc69383799 100644
+>>--- a/drivers/iommu/intel/pasid.c
+>>+++ b/drivers/iommu/intel/pasid.c
+>>@@ -13,6 +13,7 @@
+>>  #include <linux/cpufeature.h>
+>>  #include <linux/dmar.h>
+>>  #include <linux/iommu.h>
+>>+#include <linux/iommu-liveupdate.h>
+>>  #include <linux/memory.h>
+>>  #include <linux/pci.h>
+>>  #include <linux/pci-ats.h>
+>>@@ -60,8 +61,13 @@ int intel_pasid_alloc_table(struct device *dev)
+>>  	size = max_pasid >> (PASID_PDE_SHIFT - 3);
+>>  	order = size ? get_order(size) : 0;
+>>-	dir = iommu_alloc_pages_node_sz(info->iommu->node, GFP_KERNEL,
+>>-					1 << (order + PAGE_SHIFT));
+>>+
+>>+	max_pasid = 1 << (order + PAGE_SHIFT + 3);
+>>+	if (dev_iommu_restored_state(dev))
+>>+		dir = intel_pasid_restore_table(dev, max_pasid);
+>>+	else
+>>+		dir = iommu_alloc_pages_node_sz(info->iommu->node, GFP_KERNEL,
+>>+						1 << (order + PAGE_SHIFT));
 >
-> diff --git a/drivers/dma/ste_dma40.c b/drivers/dma/ste_dma40.c
-> index d3cc2c512ccf..74dd4cbdc3c0 100644
-> --- a/drivers/dma/ste_dma40.c
-> +++ b/drivers/dma/ste_dma40.c
-> @@ -509,7 +509,7 @@ struct d40_chan {
->  	u32				 src_def_cfg;
->  	u32				 dst_def_cfg;
->  	struct d40_def_lcsp		 log_def;
-> -	struct d40_log_lli_full		*lcpa;
-> +	struct d40_log_lli_full __iomem	*lcpa;
->  	/* Runtime reconfiguration */
->  	dma_addr_t			runtime_addr;
->  	enum dma_transfer_direction	runtime_direction;
-> @@ -617,7 +617,7 @@ struct d40_base {
->  	/* Physical half channels */
->  	struct d40_phy_res		 *phy_res;
->  	struct d40_lcla_pool		  lcla_pool;
-> -	void				 *lcpa_base;
-> +	void __iomem			 *lcpa_base;
->  	dma_addr_t			  phy_lcpa;
->  	resource_size_t			  lcpa_size;
->  	struct kmem_cache		 *desc_slab;
-> diff --git a/drivers/dma/ste_dma40_ll.c b/drivers/dma/ste_dma40_ll.c
-> index 4c489b126cb2..3be7f5b1abb0 100644
-> --- a/drivers/dma/ste_dma40_ll.c
-> +++ b/drivers/dma/ste_dma40_ll.c
-> @@ -333,10 +333,10 @@ static void d40_log_lli_link(struct d40_log_lli *lli_dst,
->  		(dlos << D40_MEM_LCSP1_SLOS_POS);
->  }
+>This restores only the PASID table pages. The PASID table is eventually
+>installed in the context entry during probe_device:
 >
-> -void d40_log_lli_lcpa_write(struct d40_log_lli_full *lcpa,
-> -			   struct d40_log_lli *lli_dst,
-> -			   struct d40_log_lli *lli_src,
-> -			   int next, unsigned int flags)
-> +void d40_log_lli_lcpa_write(struct d40_log_lli_full __iomem *lcpa,
-> +			    struct d40_log_lli *lli_dst,
-> +			    struct d40_log_lli *lli_src,
-> +			    int next, unsigned int flags)
->  {
->  	d40_log_lli_link(lli_dst, lli_src, next, flags);
+>        if (sm_supported(iommu) && !dev_is_real_dma_subdevice(dev)) {
+>                ret = intel_pasid_alloc_table(dev);
+>                if (ret) {
+>                        dev_err(dev, "PASID table allocation failed\n");
+>                        goto clear_rbtree;
+>                }
 >
-> diff --git a/drivers/dma/ste_dma40_ll.h b/drivers/dma/ste_dma40_ll.h
-> index 55090cb31057..ca9d07649361 100644
-> --- a/drivers/dma/ste_dma40_ll.h
-> +++ b/drivers/dma/ste_dma40_ll.h
-> @@ -455,7 +455,7 @@ int d40_log_sg_to_lli(struct scatterlist *sg,
->  		      u32 lcsp13, /* src or dst*/
->  		      u32 data_width1, u32 data_width2);
+>                if (!context_copied(iommu, info->bus, info->devfn)) {
+>                        ret = intel_pasid_setup_sm_context(dev);
+>                        if (ret)
+>                                goto free_table;
+>                }
+>        }
 >
-> -void d40_log_lli_lcpa_write(struct d40_log_lli_full *lcpa,
-> +void d40_log_lli_lcpa_write(struct d40_log_lli_full __iomem *lcpa,
->  			    struct d40_log_lli *lli_dst,
->  			    struct d40_log_lli *lli_src,
->  			    int next, unsigned int flags);
+>For a restored PASID table, the call to intel_pasid_setup_sm_context()
+>should be skipped. Instead, it should check whether the preserved pasid
+>table is compatible with the new kernel environment.
+
+I will skip the setup call here, but the compatibility check is done in
+the intel_pasid_restore_table(). The command line configuration and
+other things can be verified during iommu unit restore as you pointed
+out in the other patch.
 >
-> ---
-> base-commit: 511afae96d89847f753fcab6b3a597f0281be9d5
-> change-id: 20261010-dma40-smatch-fix-42fce06d4f25
+>>  	if (!dir) {
+>>  		kfree(pasid_table);
+>>  		return -ENOMEM;
+>>diff --git a/include/linux/kho/abi/iommu.h b/include/linux/kho/abi/iommu.h
+
+[snip]
+
+>>index 5aaa29da6832..308cd83fd3e3 100644
+>>--- a/include/linux/kho/abi/iommu.h
+>>+++ b/include/linux/kho/abi/iommu.h
+>>@@ -129,6 +129,19 @@ struct iommu_dev_map_ser {
+>>  	u64 iommu_phys;
+>>  } __packed;
+>>+/**
+>>+ * struct iommu_device_intel_ser - Intel specific state of serialized device
+>>+ * @restored: Whether the device state is restored
+>>+ * @pasid_table: Physical address of pasid table
+>>+ * @max_pasid: Maximum supported pasid
+>>+ */
+>>+struct iommu_device_intel_ser {
+>>+	u8 restored;
+>>+	u8 padding[7];
+>>+	u64 pasid_table;
+>>+	u64 max_pasid;
+>>+} __packed;
+>>+
+>>  /**
+>>   * struct iommu_device_ser - Serialized state of a device
+>>   * @hdr: Common object header
+>>@@ -136,6 +149,7 @@ struct iommu_dev_map_ser {
+>>   * @pci_domain_nr: PCI domain number
+>>   * @dma_owner_token: Token to identify the DMA owner of this device
+>>   * @domain_iommu_ser: Domain and IOMMU mapping
+>>+ * @intel: Intel specific serialization data
+>>   */
+>>  struct iommu_device_ser {
+>>  	struct iommu_hdr_ser hdr;
+>>@@ -143,6 +157,9 @@ struct iommu_device_ser {
+>>  	u32 pci_domain_nr;
+>>  	u64 dma_owner_token;
+>>  	struct iommu_dev_map_ser domain_iommu_ser;
+>>+	union {
+>>+		struct iommu_device_intel_ser intel;
+>>+	};
+>>  } __packed;
+>>  /* There are maximum 256 buses, so maximum 512 context tables */
 >
-> Best regards,
-> --
-> Linus Walleij <linusw@kernel.org>
->
+>Thanks,
+>baolu
+
+Thanks,
+Sami
