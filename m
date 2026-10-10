@@ -1,135 +1,126 @@
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFBA440D590
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 10:51:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34E3E3195FE
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 10:54:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791629497; cv=none; b=B0E+iKhC5Mso04gMWfbrFLrN/RoqUQ6NrDGDXheow190bIX4oFpjv3LzIYqYKWepAJQ79+DeY/VudcC4kBp+6tkXRomAmuQ5/k0X0XMIoOC1RM/xn1WXz18Gt8ZC63psmpgojczHxcMMLlP9ZUAJKS5DPV8W2X9iuCzdyC01gWM=
+	t=1791629667; cv=none; b=YKeweTTYpNZfvqdOE73rpAJzUEUkrMVyx3YEOPVz8jWCui87swLtP6Zjsm+OOzOa7lXrxtgXuAxi2UzP6ecN0tQ8humwnDSxQDVGudvlgOF9PYt1+jlm/0SYGuLQiqZBmxRblRIDaLeNrOsuAmbpFN3H8kFAgmy1l3xe8quvVoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791629497; c=relaxed/simple;
-	bh=Gz4FI65CD3FE4kIFuCVPHP9zbFGBTeTZJWQ3zjzPm/k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K3Vc3iT8TZTmE4VKgHBrI3KMco7cnJfL95bBgmozWzK6F+DqoLqOBaaHNQnL+w8NFPfPgid6ZY9OfrMXmO4LL13lC7RsbyRsAbHNO0a6zwuSrKlpAFaqLzSnGXJPBDsXlj7INzFvf/2hpWD5asZ1nsu0GO/iyimHk0UI9d7Uuzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XkPpLnu5; arc=none smtp.client-ip=209.85.218.44
+	s=arc-20240116; t=1791629667; c=relaxed/simple;
+	bh=4W6Za8zSDAqEPJR7i+x9GYTAmuRutHQ2CObwAK+Xt9Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=be2TwAAkANfM4lnDK0kVQdmt4tx1U3DFr346bNOqzmU70cef+Er/lLuy0WHb7jHMDTFBRM6wXtEyQbEqUtqqM8saANjaTfjtoTj0bfmEzXy2FYTBq9jnAe8jl+WXyhCCYQNsqxXdhoMVcrzlwj+dhOcr8WGUyqRBZ2+Hul/IUC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OZaVbemD; arc=none smtp.client-ip=209.85.210.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XkPpLnu5"
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c2acc1e170cso95985066b.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 03:51:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OZaVbemD"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-88bd2b44f3aso200451b3a.0
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 03:54:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791629488; x=1792234288; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/LHNp9A6zwMofA5wnyNlSQnfkRqOMomjAFoxyV+7B4A=;
-        b=XkPpLnu5/lLg5iUxVuXyeUsaKN7EmRZVLpPAl3etWzD8jJsZHajbeHxbiYMpEd5lv3
-         PK5qwfnR7bHiR4nVdgvB714Q6bpjjTROV9yapjzdVXAXXfJj8JfcIkZjmtcR31mAPNll
-         H7vf+FLUJ39WekBGZ+yrWcXsnwnKH+GOHGL5Kf8HAyK1qoLViT/nDDvLZZ1aQSB5MnRP
-         emnisGCgvjrq8fJ4nJrQ3ieHer+zGDzsolbL5HuTEUjczHvFTe7Yo0qHEWbdl7KJUWJH
-         V0n3DEqiVRiQlNz9WIpoEE1K4C/KyqCvscoOVexZ26J/44S2QeJUUesL8EUQ7Q+bWgJJ
-         3fZQ==
+        d=gmail.com; s=20251104; t=1791629665; x=1792234465; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=khKL+0SYs5dkK1+NiD4FsLQAnzmLgGQHJt1q1DjIuc8=;
+        b=OZaVbemDAkhPiEJJHZpoS5nbWbMAjZmkEA4Dc7cpjANX+y2gy8ibUPFjV27Yw2Gqcr
+         LG7ADy4XS9CF8RDvdKZG1lRkifDipHZv7ydwEJTq3bTuoV0Df19WkCcF0a1ErrCE86rL
+         4e7pGe9KNtASyD//rFKVtKUOX+CFj2q2c47lBkL8Oz+AX8u1ij+kTy+ILUKyZaqsxbHS
+         DBEOf+7CEMahRVXXZmOL7WYLn79jrnf/KJTqs++L5Z9pw6syV/zsB0ZlkR8jwfnGh9qg
+         t9k9ZpWE90BIdsNSWKO8ecpwdzDLKkNX00xR2Yx6TNUUQCrNQE86cUnGiSbS2fTVwUkT
+         WvAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791629488; x=1792234288;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/LHNp9A6zwMofA5wnyNlSQnfkRqOMomjAFoxyV+7B4A=;
-        b=jDZ6mfmeMcQ8TvnhxTnFDxF6QnDWM52H9xa+3mrcaDQpwu5FFxOkdFmdnbeXUOrlI3
-         nX135PzLfp+ojuq4xrG7ZJz2K50TqW8677irqfKQ+0S/sTNugRBhYnWaWbC7WbmfKxzM
-         z3mVs9wejBqyLMTS2HyAS1GwkS+8XxsIxvQpvdwnGPHnMuszaWosU0EklCoeiPyLkRp2
-         dHQskiMFU2rr8NjNmmR9EVQy47TejX2bwyarBXgQp7F2v6cKhvIcZhGzk3GzlZnAYoZy
-         ryfIFoD4Qwo2vzq7IBbMeplpigQ/sedo5GlFrXki+glxWN4dhHTGmIF2fBb+4kBac7nf
-         f5Gw==
-X-Forwarded-Encrypted: i=1; AKwUvBy8wzbdTr/EMD1xvJqystgk5aqqOV2HHHdwSj7IU8v5TD1tXMmkfH48bcyOoPJ3yB2F/7tyklW4JNUgnYo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKlxvfVe8ZI5Fpi3ZfnDRcNpFgoaHYhAkcgA8zq75/mVkPI1HN6
-	vj5EJWo+nYW5qK/QbATkpBU8IT5yraqwqcZuJ7P9giOCa3QZLAnOk+qA
-X-Gm-Gg: AYBFou2FAb5vhF0++aHCePMcnif16v3gEe1n3f2Pzzw6sjbkLGvUQ4Ied15ZHZFXDUX
-	jcYVtChPWgU4eEOzdIZOue7unMwKrKM5nmye5WpXkDu0QH9+JtdpH/NQ9H1bfido39RivoLHYac
-	hTDRixoeLO24FolKQwdqCtiSSHM7uZhB5c7rrHls5MCAW3YNbx0nJ3+bBjBW7DjL6Ww4WaFMPNq
-	2HuS/g7MS7hww4D1kwmYVhhk1RZuV3qeKBwuoRyTyTioxApruKZmc4bw8xyoMpQhDfnHaPjSWAs
-	BAqS2XqHg/wWzN6gztwxBVaqUFN5JFr1XySM3G2Y2lqlHl6+qS8Au+DTGEiIw1mwbJsMnq2tEvb
-	9uXm/pFrrqisJUVRPV6ZJkVL0DsJ3m6Al2VsBe6ifDUAiGPv6fwD9t5HG4CZ+GcUmqcWtNg9k4o
-	34K04IJp++0fYUm8y3oKbkfa288TE6T1mHe1V8zuV7xoVWi4zyHUDh6NINJVboSTJ0SMJnLi4Zf
-	lBBQ+xLO5nXH3gbbjwJFilnow/73gugDSkbMcUAHKnIs0EERIUK62faU2YxFhYOmw7fKV7tTpBw
-	uX0=
-X-Received: by 2002:a17:907:9707:b0:c2b:7672:8e29 with SMTP id a640c23a62f3a-c31a9fcf4aemr440278766b.16.1791629488280;
-        Sat, 10 Oct 2026 03:51:28 -0700 (PDT)
-Received: from localhost.localdomain (87-205-122-125.dynamic.inetia.pl. [87.205.122.125])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9766743sm229984566b.4.2026.10.10.03.51.27
+        d=1e100.net; s=20260707; t=1791629665; x=1792234465;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=khKL+0SYs5dkK1+NiD4FsLQAnzmLgGQHJt1q1DjIuc8=;
+        b=oOJWtQ+VWy6ErVi1B2ArzxmBbEPtZDmqAxGb4Pn5EqU6izRJzeFsEshqwFCRdjEkRr
+         cUcjcQPDcQS4tm4VO5c8Ci6m3tyQAH4neNLevzF6G9qaXeFhqLklHipfneP/OjzsKVTe
+         aX4lTdFcg1LysAHMC6hwimX5z27EUOjY5+ZPyIpII6NzW2g66qXGPFpLwUS4xU97sNRG
+         FhF0ZfVKzHaJkStBlY3FIDVvT2zdxh2qCt+9YZHqFMDHpFGwgv1lHn3DjiD+of4bPYNm
+         745d+liEuE0SAnQLXv1hxm3vvmWGUc4enjkm5Y2b8lvEFUKWvPEMgVar8yy0cFIsebFW
+         cMlQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxKTYy+I6Dc0SHTfxUQMZmPBMcD+Wf8v+fbKTnVS/zFiwqbvZwBoxzUUOG2CbE/fSNLJNfnf/4dggYrzhs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKVEOQdWuNOS5r0iSABC2YT0AyzyrfVWmLvUCKdm9JD0k9wh2nC
+	Vt5oZ0jEQsFc76xh5Iv5ozNXnTtFA/W4X+Kdu52Mn7SzDV5kZdPgE4rd
+X-Gm-Gg: AYBFou0606W50ed8MzMmuoXq6FOw0+ZN8ysYx/PHD+ifHBfa4ivSrbVg/QplRkGKTnp
+	8chzWN8bbQsVrJ3rSFeR2JDF/dzjXL9LKj7anT2b8gBav6zrjauUgVc8ryOjBV/1HXLvp5lvZFE
+	eWX2C6CmwTHGgemLZCJpFKlWAZtwi7XbMK8gNVn3vhj8GskjUCNqR7TjH36WIw8MeocnxYt3ia9
+	693Cr0Ds37x3WtH+X11UCf7CV4wuBVHjC6hwKpZpO8XBTx2DdTxmPy7zYV53DkeMiOtkq1f+HyY
+	HYucqMx1CJvKIMhmTqSCtvoINodzl72lm9gq3jWk9tz/V8BjGuaOQNK+udWeqOoC/tZ2vE/SBt4
+	avOZ5hZsYmUJU8yEAkEFdY/2/0EslwMaEqDrQh7MzpzASZWxLIkala+BBAMAd0sEMirA590zD9p
+	UugnJEqUHamHjpLHkwHdiAN8Nt4+sTqAcLbcnuR3MeO0yOL27YLdTnMjpjptONYOWSNCY23a1k7
+	ufax9TVDI2TZWaxfBEtTk/Zb01MThAADRvshPvoGFpnfw==
+X-Received: by 2002:a05:6a21:485:b0:3e0:de4c:71ef with SMTP id adf61e73a8af0-3e16bfcd468mr3602361637.58.1791629665376;
+        Sat, 10 Oct 2026 03:54:25 -0700 (PDT)
+Received: from macbookair (n114-72-148-25.mit21.act.optusnet.com.au. [114.72.148.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c4996be6sm2203965b3a.58.2026.10.10.03.54.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 03:51:27 -0700 (PDT)
-From: illofspeed <volvo.mail@gmail.com>
-To: dm-devel@lists.linux.dev
-Cc: agk@redhat.com,
-	snitzer@kernel.org,
-	mpatocka@redhat.com,
-	bmarzins@redhat.com,
-	hare@suse.de,
-	dlemoal@kernel.org,
+        Sat, 10 Oct 2026 03:54:24 -0700 (PDT)
+Date: Sat, 10 Oct 2026 21:54:16 +1100
+From: Myria Sarvay <myrialsarvay@gmail.com>
+To: Marc Zyngier <maz@kernel.org>
+Cc: Michael Reeves <michael.reeves077@gmail.com>,
+	Oliver Upton <oupton@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Yureka Lilian <yureka@cyberchaos.dev>,
+	Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+	Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+	Neal Gompa <neal@gompa.dev>, asahi@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] dm zoned: keep polling for idle reclaim after a reclaim pass
-Date: Sat, 10 Oct 2026 12:51:22 +0200
-Message-ID: <20261010105122.398-4-volvo.mail@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261010105122.398-1-volvo.mail@gmail.com>
-References: <20261010105122.398-1-volvo.mail@gmail.com>
+Subject: Re: [PATCH 2/2] arm64: Apply existing Apple CPU workarounds to M3
+ and M4
+Message-ID: <asoZWBEEEsFD5Qrn@macbookair>
+References: <20261008-apple-m3-m4-kvm-v1-0-7bb4cbf3d63b@gmail.com>
+ <20261008-apple-m3-m4-kvm-v1-2-7bb4cbf3d63b@gmail.com>
+ <86cxtk2utm.wl-maz@kernel.org>
+ <CANpmGNv4uYRLALMLKZn-HJwTiqJO90Fx23DOO7K7d-PfSWn=2w@mail.gmail.com>
+ <86bj932ssc.wl-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <86bj932ssc.wl-maz@kernel.org>
 
-dmz_reclaim_work() re-arms its DMZ_IDLE_PERIOD poll only when
-dmz_should_reclaim() returns false at the start of a pass. After a pass
-it calls dmz_schedule_reclaim(), which queues the work only if reclaim
-is needed right now. When a pass ends while the target is still busy and
-has enough free zones, nothing is queued at all. Once the target goes
-idle, nothing re-evaluates dmz_should_reclaim() until new I/O arrives or
-user space sends a "reclaim" message, so the random or cache zones that
-filled up under load stay full.
+Hi Marc,
 
-Seen on md RAID5 members on 27 TB host-managed drives: after heavy
-writes the random zones stayed full for hours on idle targets; the
-workaround was a timer sending "dmsetup message <dev> 0 reclaim". With
-this patch the emptied and filled zones were reclaimed within minutes of
-the targets going idle, without the timer.
+(Resending because I forgot to reply all, sorry Marc)
 
-After a pass, requeue the work immediately if reclaim is still needed,
-otherwise re-arm the idle poll.
+On Fri, Oct 09, 2026 at 09:16:03AM +0100, Marc Zyngier wrote:
+> On Fri, 09 Oct 2026 01:03:57 +0100,
+> Michael Reeves <michael.reeves077@gmail.com> wrote:
+> > 
+> > > I can provide the binary (and a few scripts) to test this easily.
+> > > Should they have been fixed, we can always create a second
+> > > implementation list to cover the PMU.
+> > 
+> > Can you please send that so we can try? That would be much
+> > appreciated, thank you.
+> 
+> I've sent you (and Yureka) details over IRC. If you need help with
+> setting things up, let me know directly.
+> 
+> Thanks,
+> 
+> 	M.
+> 
+> -- 
+> Without deviation from the norm, progress is not possible.
 
-Fixes: 3b1a94c88b79 ("dm zoned: drive-managed zoned block device target")
-Assisted-by: LLM
-Signed-off-by: illofspeed <volvo.mail@gmail.com>
----
- drivers/md/dm-zoned-reclaim.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/md/dm-zoned-reclaim.c b/drivers/md/dm-zoned-reclaim.c
-index 2bcc163d209..7feb2628bd0 100644
---- a/drivers/md/dm-zoned-reclaim.c
-+++ b/drivers/md/dm-zoned-reclaim.c
-@@ -557,7 +557,16 @@ static void dmz_reclaim_work(struct work_struct *work)
- 		}
- 	}
- 
--	dmz_schedule_reclaim(zrc);
-+	/*
-+	 * Keep the worker alive: when a pass ends while the target is busy
-+	 * with enough free zones, dmz_schedule_reclaim() queues nothing and
-+	 * the idle poll is never re-armed, so zones filled under load are not
-+	 * reclaimed once the target goes idle.
-+	 */
-+	if (dmz_should_reclaim(zrc, dmz_reclaim_percentage(zrc)))
-+		mod_delayed_work(zrc->wq, &zrc->work, 0);
-+	else
-+		mod_delayed_work(zrc->wq, &zrc->work, DMZ_IDLE_PERIOD);
- }
- 
- /*
--- 
-2.43.0
+I've tested the patches on my M3 Max (t6031-j514c), and without these
+patches, it SErrors, and with them (and including the M3/M4 MIDRs in
+the has_vgic_v3 list in arch/arm64/kernel/cpufeature.c) it doesn't
+SError, and the iso boots correctly to a login getty.
 
