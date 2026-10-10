@@ -1,78 +1,68 @@
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EB372D8378
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 01:49:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D7E52D8378;
+	Sat, 10 Oct 2026 01:50:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791596995; cv=none; b=rOgQcLLNMUVgPcO5bPl1gsU3bKY+CVZKjl9Qlc69DjPOu0QdbkhCKVkwji2OmWhXEiNfi5lMDbt7y5AqqtQKQWU/cW/tx213Zo1l8ISgFOUzmOKlfi2aavX8kP1VWy+aJER2Sg9emfTzqFlKe7DTIPVH9gx2a6ADJddsWMXxWUU=
+	t=1791597022; cv=none; b=IWM58IW3ooor5nk3mrdkBjT8Kt2WwX1Z2HcRpQo59gnIZ2MfHuIaeETO3vwE+us/LFeo5guVvx6KXhFBui98q4v0+4kZyPd+GfdI2Jz1GFpf0XDZxBMuq6gseOMCZBQe42XYXJysIOKjJcxfSZT1bmByNoT2U5i4uUiX59DoQkc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791596995; c=relaxed/simple;
-	bh=W8wqps2u7akJN+4Ig9t6psXDckfkXSUUQ2f8o0U8UZE=;
+	s=arc-20240116; t=1791597022; c=relaxed/simple;
+	bh=Xr7BFcuPfN5hxzlUU0KILbgM3T/srUjFVBe8YW5OnqI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qDpFTrDz2vcUazF1V60zi0T5SMsTMfH9krcH7A88mCenlH6jfSo/R9GfoHWhzKff+FSPJs8BQk2CaY60moLnw9whJwBPrTC/83gfQ4D3bh95DIsueHffS76gfb/UH1SqO9FiU9WXmMK564v+OAoKfG76dK7COrWqT+XN3tAWUaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=h0rv50zN; arc=none smtp.client-ip=209.85.222.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	 Content-Type:Content-Disposition:In-Reply-To; b=PrEDw+hjk6yr1Qr4tCpnPgf7zLLd9C0eC9pBnYuRxgTscpZHozG7912Dw9efv5Ud4ZngLDspCI8ZI/6Hs91IbUWAWiCkSgEcbQ+u/VuLmFUHpWs32al8YcKMofVZDjJL4KXXzwUKiRyIVoZvvmIDpNpbQq4pbtCDC1Lcb085jsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FBlf4ieH; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="h0rv50zN"
-Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93e6eb77f0bso24919185a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 18:49:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1791596993; x=1792201793; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HX/UZz27MsL/V4wPwo8QU7r3MDtmRSA6wmc9p+u+eaw=;
-        b=h0rv50zNK7QcikP3OMWR9EdOF2nwETLIZmWWrZ7fAA831dFE8Vyefmcech8nSkLGf0
-         CRkGUfgaEjRjAVSpjZ/ThMl+LT4g7dsIx7bOAxtHY0Xhr2d73OqVWQY/sJaI1QLw17W5
-         WUiFVUwol05yUlIGOhOPVqESG0Nd9ORb40InwqJ1W6vK0jIZfDEXW/YVTpB3BbuRSJlS
-         8Ww/cynKNshbsqR8an72oczLqAQz+hUcGefw/4VQfOSw5KpADuLGK/tFr56z1PZXGLu9
-         mSce69P4jdeB4pYXlBqoO4MwMPBF7r8L/zbfZl6BEWi6RZfYCwl0Uza1l+YuZqZt5WkO
-         XmTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791596993; x=1792201793;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HX/UZz27MsL/V4wPwo8QU7r3MDtmRSA6wmc9p+u+eaw=;
-        b=DY3rqgliC5NoZUAqNj+v6m46QQw4B0Zc3w/gv9KfK+KKkVeeFNhbbLAeIZwfaa5NKk
-         tRsGLQme+tuQR1rzkBlLCuuID+9hdrbmATAdRtzOtV8XKKiUDzfTaZwJLmemdjCf6wrO
-         OySNL2rzoa5cJCdWE+SFU3Euh8yR4Ln8OS+GwywzpsSbpWtkDdb+fa7RtSpoV1FsikBm
-         M236QS3XGic9RgNoAGBMPxzz5R9WMGYfqq8BpTbIlaj8QgYeShXOgjclqndXaxFD9GIT
-         HYTazKGnWdVLofzsUv6sHJ4kqzs6ZE5j8QT2AjnSNDJax3k8w66v9dmQFWCjWnemsIvy
-         PHGw==
-X-Forwarded-Encrypted: i=1; AKwUvBxzqXWEcqjELwkz4XZynI/WkR6H+VBUaz3nzbuJfdDPr+7USWeZQpqo3ADwuZwzrBEh2vdTLlRkXflkGvg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIfEkm9ZeLbDeUzdsHw3J1xeaKuNK1Z2LJs25d9kPSWOMDJD+3Y
-	rZVsrieLTaRNAXEa2FM0FsdodoIwa8QZKrTFgXmv5IJsHpKANOUYuQxcQCJyVh2PMQ==
-X-Gm-Gg: AYBFou2CgnDDhLJ8xOT0n0I7/CGE2/S79NjTJ5a+SpTaqJHug6vev13LdPf1GplEF9K
-	gAqgRUhfetrtHYY7gcEVTTFHZ8Xv9oQ3vzvsIXot6+pa9oW9nw8QcwKU9CwgzSOmmfQPH+qcD1K
-	znxv0eJNX0/JNFGN6N2PIC5bHF8zniTgTlrHCdSMROYeEwpkowPD0PSanir0DaAbXtxU91fBpfH
-	SKHPakk2/Z4jKwcIa/2tKLsoGKc082+LP7LLy+6hc704hxyoQby3c5DMArb3Ksiz3WsWJ5paRIt
-	eZnJm+FDkoqtaaY3CrrSk5k/dP2c609+sxJ5bRNPxSvQBPb1XBeT7asfg366X0YkX+0y4XRpQrk
-	neJ7bNYo+6quhh8U/MGzY1FZsK/uCke5G7rokpHfxJ5NY2GkLbWRQ76rXN+cXwnoB4HSAGmTmK6
-	ztx3K+Ue8IV0xi9py85Sv3pPODrzX/XtMY2pTsH+IO/FkrtiIR7tv5N0nxx12cN15yc6EorkI=
-X-Received: by 2002:a05:620a:6cc3:b0:93c:6028:6d2b with SMTP id af79cd13be357-93ebd208cf0mr636124685a.43.1791596993106;
-        Fri, 09 Oct 2026 18:49:53 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::1b7d])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb98c5633sm316485585a.35.2026.10.09.18.49.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 18:49:52 -0700 (PDT)
-Date: Fri, 9 Oct 2026 21:49:49 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: mosafer <mohsafer@gmail.com>
-Cc: dakr@kernel.org, driver-core@lists.linux.dev,
-	gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org, rafael@kernel.org,
-	stable@vger.kernel.org,
-	syzbot+863936f50214e843ae0c@syzkaller.appspotmail.com,
-	khiemtranzo532001@gmail.com
-Subject: Re: [PATCH v2] driver core: complete deferred binds when
- drivers_autoprobe is off
-Message-ID: <0cc7fb74-aa32-427e-a931-dcbac7ffdcf9@rowland.harvard.edu>
-References: <DM06HWVAFSOW.2F050J0BT27TK@kernel.org>
- <20261009182239.283329-1-mosafer@node0.quickhttpnode15.cloudfaas-pg0.wisc.cloudlab.us>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FBlf4ieH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791597020; x=1823133020;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Xr7BFcuPfN5hxzlUU0KILbgM3T/srUjFVBe8YW5OnqI=;
+  b=FBlf4ieHH6/fngSmvOhMHw/KS33K/du0QybiYC4ayo6Izozl34OL4Uek
+   vrLb8s3BaLodXvq2pSoKRNrwB5bjUT8U1hWK0sdz94CV4gp9h7GMpVr4v
+   zQ37cnb/5f322VIBexjsuaEQbzDomJ+9lrfM7UhVYKH/vl9X1vqI9/xy6
+   Kc8yU5EYTUrWIUam27BCf8LsXCJ+QNtjUDTb4ig5V2wLoTlqTlc7Md/Xh
+   trndQAfd+rWemf+lmtdTxtM8uXt353dtX6fE+uu91kTAedSZQlI6aRYkx
+   JLMfthopPsMAz4j4AYDCr21GRQeDe/DcUupfotXKsnpsLjHtbLOttRPgl
+   g==;
+X-CSE-ConnectionGUID: 4xJGBB0MQyCYbI1csaSwdw==
+X-CSE-MsgGUID: 9zlf/ehJSS2Zw8T9/cIRPg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="392486"
+X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
+   d="scan'208";a="392486"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 18:50:20 -0700
+X-CSE-ConnectionGUID: sDLi4PEASumchOCUfOXSpg==
+X-CSE-MsgGUID: m2EQ6+o0RkuxgBM+z9aDvQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
+   d="scan'208";a="802347"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa006.fm.intel.com with ESMTP; 09 Oct 2026 18:50:18 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xFME2-000000006Og-2tcr;
+	Sat, 10 Oct 2026 01:50:14 +0000
+Date: Sat, 10 Oct 2026 09:49:44 +0800
+From: kernel test robot <lkp@intel.com>
+To: Marek Szyprowski <m.szyprowski@samsung.com>, linux-mm@kvack.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Mike Rapoport <rppt@kernel.org>, Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Oreoluwa Babatunde <oreoluwa.babatunde@oss.qualcomm.com>,
+	Wandun <chenwandun1@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Linux Memory Management List <linux-mm@kvack.org>
+Subject: Re: [PATCH v2 2/2] of: reserved_mem: allocate and map the
+ reserved_mem array early
+Message-ID: <202610100950.LlAi30cT-lkp@intel.com>
+References: <20261008152403.766439-3-m.szyprowski@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,49 +71,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261009182239.283329-1-mosafer@node0.quickhttpnode15.cloudfaas-pg0.wisc.cloudlab.us>
+In-Reply-To: <20261008152403.766439-3-m.szyprowski@samsung.com>
 
-On Fri, Oct 09, 2026 at 01:22:39PM -0500, mosafer wrote:
-> On Fri Oct 9, Danilo Krummrich wrote:
-> > We've recently had another patch to fix up cases where dev->driver is
-> > pre-assigned. Please see [1] and the corresponding thread.
-> >
-> > IIRC, there was no reasons the remaining users can't just use a proper
-> > match() callback instead, so we don't have to worry about those edge
-> > cases in the future.
-> 
-> Thanks for the pointer.
-> 
-> I had not seen Kien's series; looking at it now, we are attacking the
-> same half-claimed state from opposite ends: his patch makes the release
-> path tolerant of it (skip klist_remove() when the device is not bound),
-> while mine makes the deferred bind that usb_driver_claim_interface()
-> promises actually complete when drivers_autoprobe is off, so the
-> half-claimed state never arises.  If the direction is to remove the
-> pre-assigned dev->driver users entirely via proper match() callbacks,
-> I'm happy for that to supersede this fix -- I'd be glad to help with
-> the USB side of that conversion, as I now know the claim/bind/teardown
-> paths in detail.
-> 
-> Until such a conversion lands, though, the window is still open in
-> current releases (syzbot hits it, and any userspace writing
-> drivers_autoprobe races it), and pre-assignment is not only USB:
-> drivers/w1/, drivers/phy/tegra/xusb.c and
-> drivers/mailbox/zynqmp-ipi-mailbox.c pre-assign dev->driver the same
-> way today.
-> 
-> So please treat this as: whichever of Kien's guard, this bind-side
-> fix, or the match() conversion you want as the canonical answer, this
-> patch is yours to drop or pick -- but happy to have your steer before
-> it evolves further.
+Hi Marek,
 
-IMO, we do not want the system to limp along forever with the device in 
-this "half-bound" state.  Claiming an interface should cause the driver 
-core to create a real binding at some point in the near future.
+kernel test robot noticed the following build errors:
 
-This should happen even without automatic probing.  For example, if both 
-interfaces are unbound and the user writes one of them to the driver's 
-"bind" sysfs attribute, both interfaces should end up bound to the 
-driver after only a short delay.
+[auto build test ERROR on robh/for-next]
+[also build test ERROR on linus/master v7.3-rc6 next-20261008]
+[cannot apply to linux-review/Marek-Szyprowski/of-reserved_mem-group-allocation-helpers-together/20261008-114122]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Alan Stern
+url:    https://github.com/intel-lab-lkp/linux/commits/Marek-Szyprowski/of-reserved_mem-group-allocation-helpers-together/20261008-172400
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/robh/linux.git for-next
+patch link:    https://lore.kernel.org/r/20261008152403.766439-3-m.szyprowski%40samsung.com
+patch subject: [PATCH v2 2/2] of: reserved_mem: allocate and map the reserved_mem array early
+config: sparc64-randconfig-1001-20261009 (https://download.01.org/0day-ci/archive/20261010/202610100950.LlAi30cT-lkp@intel.com/config)
+compiler: clang version 21.1.8 (https://github.com/llvm/llvm-project 2078da43e25a4623cab2d0d60decddf709aaea28)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261010/202610100950.LlAi30cT-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610100950.LlAi30cT-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/of/of_reserved_mem.c:27:10: fatal error: 'asm/early_ioremap.h' file not found
+      27 | #include <asm/early_ioremap.h>
+         |          ^~~~~~~~~~~~~~~~~~~~~
+   1 error generated.
+
+
+vim +27 drivers/of/of_reserved_mem.c
+
+    13	
+    14	#include <linux/err.h>
+    15	#include <linux/ioport.h>
+    16	#include <linux/libfdt.h>
+    17	#include <linux/of.h>
+    18	#include <linux/of_fdt.h>
+    19	#include <linux/of_platform.h>
+    20	#include <linux/mm.h>
+    21	#include <linux/sizes.h>
+    22	#include <linux/of_reserved_mem.h>
+    23	#include <linux/sort.h>
+    24	#include <linux/slab.h>
+    25	#include <linux/memblock.h>
+    26	#include <linux/kmemleak.h>
+  > 27	#include <asm/early_ioremap.h>
+    28	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
