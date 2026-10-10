@@ -1,466 +1,407 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9D0E2877E8
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 01:58:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CCD631E826
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 01:59:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791597511; cv=none; b=EZxgMirYt97jynxYjdjjaqKQepGSDnMaTjiL0HufjlwP/hMGPR7lDdMqNTT7KVsrc+wtviQknZ4LFkl0MrbMbysy9H4auGLIMw79iCF75b4/AYEkBBFpyF57XBGoLwvQ6rXOGF2nZ0VS+xpT1azFUTJ8l19+XehS70JpUhonhNk=
+	t=1791597570; cv=none; b=KkTmjG6Sf9qEk/H+UjxA30D0bO2wZk5gLHlfIuVGDYbT0TZKM8ZlAwwCdqpRK/MUXWhcWVGeptuX4/sXiOcbtvE77fAQfC1glOU0eKDRovPhkIqjwoMdw6m9x+jW03Ck53R+hsB4F/dLtQC5inYLMw9xpotgcxvPf64ZxVmK0EU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791597511; c=relaxed/simple;
-	bh=xPIPpJ/LPdzWJUyfrcRd+WQOom000RG2r9Joqzd9rI4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WixLNEPZZUuFMj28ZTaDfbAB72wepKwimGQXb1BZAtLdFlpUdxjoa7dsZfszmjPy4hIusf8Y+s7L4VfBbwUjLPWrSjG3M7NJex/qxTp4soIVOD2NVhX4UEM0PILHMe+G+XvVDep40699MvCgQxdr3OfLBfaDVkO7LyeSHZMoWMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=D8TwssC2; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="D8TwssC2"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2db33db4de9so9755ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 18:58:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791597509; x=1792202309; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=z81fDu3igV0vcLPfVDZMEj7VAfH/V/82fC4dwENKIik=;
-        b=D8TwssC2gTHGlI1hXXrBbD/dzpakgtl/pIGIk8opv0VIWVjDKaxs5EdiPIOo4kQk6Z
-         Ws4KS/7usy8eQnOD/9dSl2mgi03RB/LW+p5eapO/e5NQssBocpT7ruba5kZOXshTx/aX
-         hRQAK/47fV47a0N5aGLTbb3i+EtAQSjIG/E1eZiKTgjzv5RsOyR80OAev+tu6wa12AUL
-         3qCs0X+4gCfFi3xur9zGXHMundMXBJGg/bPStbpWtdyC7IJ97LI6lrZWJ8s09izWFK4g
-         QBv1eHXtiDflEfsIXL4KRNz1TaGpBrwREa3uzbumiMLfVW/GHhI7AtYyVCtvMYnqZtz2
-         R/Iw==
+	s=arc-20240116; t=1791597570; c=relaxed/simple;
+	bh=Rc8svLto+d9O8qXEArOwJzBOa6PwkNib40me6KQVss8=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=M4aREqMzFSRb1UXUkRLFCTxjxfJSTjw/SC5Sw/7uozZfF70x6EF2psFHz3amA1NsZXK3HmSdu07XohCDTQUGvCGrLCZWsNkD/1/i2p9a5vl2EvUFianeH6rQ61QWYqbhNztfvy0bKtrYQVH3tquomX7DpzFFDTM32JvJ1k4qVI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4f9b643ae53so368933b6e.3
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 18:59:28 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791597509; x=1792202309;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z81fDu3igV0vcLPfVDZMEj7VAfH/V/82fC4dwENKIik=;
-        b=tWXld0Xv4VCZEgPdDHgn+XwYBZVDza1sWbWtfTdJYIZLcJXzjGnT4E0OiCtT+hpVyP
-         HwhUPqNkS3+ckuM1dR67ZjmuReCjsUe8I/bkcnPkWsCKaffpj5qPkcFue7HcbI6yiORS
-         c5hvivQHejiTcsyrg6qIs+WRLRGx+7/5kBrk1PgREOtlv1vqGCA/dZqiH3vEyygJspga
-         hmmXDYpgdSl+p8Xuums7MAt+o5r5mBzDVj8g3mbux+UWvF6KIXBl9wwY7GBl0VeHDT02
-         B9NdG4ELFcPWZHf8mi8sUomUezpHFIaOCqWNxcJ2YPaf4jIExXHpqS6Vhoepow1+Tcha
-         K0wg==
-X-Forwarded-Encrypted: i=1; AKwUvBybHLlaql8XyXWUIwEzRamA+rc9t9Di0KycV5IB0GXEUyNSfUQZDx33/Caw00+/8jUxsnNQKwobroZHJLI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKiXXrOqjQuYr8k6N036fHWoOtawgxnHMWqUbcrDEaR4QGs4+Eg
-	e0hO9QZe1Fkovdf1mHUWoSQu6QQLkNCVEZDlzGwiWR/hsRcsIiY6ytvsjClfGbgrWQ==
-X-Gm-Gg: AYBFou2xCuopWrLHGd0MAFUiZvtOeBGvdhu/RaDikj0VCOcJ9WdRsjDB2fw7uYI8ajH
-	r6BPcvWuFD1tELlu0AN81Yl+q9vcGyOYMAvaAUH2Ix+DQqcRCw/R2Nnrj0JnPtz4NCAtImFk+wX
-	IFieOXRiZeO1aTdfsHn6y6RYTQOb/ruOf5snOKRxCaIWF1J4D6ik+Gmyp68by31QBC95WwMWhNC
-	0pC6d4NIMYxJJQDn4kYINlpJy8TQYNolsonj3jH/vMzA08xx83VDxQiJ2DErajozHC7uk+CWJMS
-	I6y/S1Rf0hTmOp7HGeB/XC+ToPpyk5SZvzfltxsiG0ZnpWc2vtWiKRYcoUhqs+cHanA/BiMBDmX
-	gZGjvp6ujkEKmuctIpVDR93EfGTwpENuvx4mY6mAbLwaWvsFOdo79QA/XxQKxUrIqPW6SmFairN
-	3iMb+Dm6mRHBs63jewCblLmVR/dOgMtLRXeVihcZaSLT39b12bcl+eCQM5Jd4x7xUBCiIytlBVf
-	igUyVq4zK/fVKI7wdscbTeoKXfqcGGoJQV2YRlXTQSAQQayBpoprFBsid9gZgbQ82+5SaVWLcRS
-	6QY=
-X-Received: by 2002:a17:902:e812:b0:2c7:f688:f22f with SMTP id d9443c01a7336-2e87e2d0534mr528555ad.13.1791597508516;
-        Fri, 09 Oct 2026 18:58:28 -0700 (PDT)
-Received: from google.com (163.1.145.34.bc.googleusercontent.com. [34.145.1.163])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896a518e6absm1781181b3a.0.2026.10.09.18.58.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 18:58:26 -0700 (PDT)
-Date: Sat, 10 Oct 2026 01:58:22 +0000
-From: Samiullah Khawaja <skhawaja@google.com>
-To: Baolu Lu <baolu.lu@linux.intel.com>
-Cc: David Woodhouse <dwmw2@infradead.org>, Joerg Roedel <joro@8bytes.org>, 
-	Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, 
-	Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Pranjal Shrivastava <praan@google.com>, 
-	Vipin Sharma <vipinsh@google.com>
-Subject: Re: [PATCH v5 10/18] iommu/vt-d: Restore IOMMU state and reclaimed
- domain ids
-Message-ID: <asmHoJcu68ztLuz0@google.com>
-References: <20260921004834.2601285-1-skhawaja@google.com>
- <20260921004834.2601285-11-skhawaja@google.com>
- <2f42037f-b7b8-4ced-a945-d1d12eb70249@linux.intel.com>
+        d=1e100.net; s=20260707; t=1791597568; x=1792202368;
+        h=content-transfer-encoding:content-type:to:from:subject:message-id
+         :in-reply-to:date:mime-version:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8omd+2bsZqJfTjrr/Zk69yQmoKtMkDPpX7BYeeILf/c=;
+        b=vY7Xnis0JJ/IqpHz3/dHc+cmUEUx3ALkD/42cU3WbJhn0r5Hqc/bK7CPd9FqjcElb7
+         3Yim7+oSmpTFmseFJhGwkGSRaoIyCIclnL4xAVCtDgnUOfxxz3WAtKAwL6eAvSl6tfbk
+         e4yUi7zOu5LYUXpyNv+bB3MU22xjw/QEjDj/1aFNmGRkHKS54p8/55iuwOK2WUgMY+Km
+         Tl9TqyvovaqSmypNER1t07DKZ6+0YeKeJR80e0+vEJL0qoR03S+TLZJ+yI8PdZg0mLdw
+         u5D6KeqOz/XfEA2UUfA5pIrvrXV8Y4oPyv2pEdZVPWNb1oYNV/JNCggDpihJDZ5QENfv
+         Hu0g==
+X-Forwarded-Encrypted: i=1; AKwUvBwOCvT4pY6mz1NcnqE2oLirP9nFi4/iRPdCbQLXwQu4h3LYRCkPCcCk8W9atbpWjpScYNtTWEs7Z7C7/RE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIOt12jL0+o9HnX+50xmt01EmEO313+QzB3GE9enspNLif78Th4
+	j1A0Vji4NdbL4hbgMEbKB2NCVBr9LI9Zynsr3NklWy3TN+Ng1r5wg4f9obgFyLz5R9d++tVdkmg
+	oik5E9f20MTpTGbKTr/91CSop4kmBq+R0GZgLAqfmqD/bUjapxKlnJ4FWzPw=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <2f42037f-b7b8-4ced-a945-d1d12eb70249@linux.intel.com>
+X-Received: by 2002:a05:6808:138c:b0:4e5:2f2e:45b4 with SMTP id
+ 5614622812f47-50c4e681484mr3422688b6e.21.1791597568007; Fri, 09 Oct 2026
+ 18:59:28 -0700 (PDT)
+Date: Fri, 09 Oct 2026 18:59:27 -0700
+In-Reply-To: <6aa9b9b7.f81106d8.2ab401.006f.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac99bff.8cdf6287.1eb53.006f.GAE@google.com>
+Subject: Re: [syzbot] [wireguard?] BUG: workqueue lockup in wg_packet_decrypt_worker
+From: syzbot <syzbot+d0d2f1a65f45b319d25d@syzkaller.appspotmail.com>
+To: Jason@zx2c4.com, andrew@lunn.ch, catalin.marinas@arm.com, 
+	davem@davemloft.net, edumazet@google.com, jason@zx2c4.com, kuba@kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	mark.rutland@arm.com, netdev@vger.kernel.org, pabeni@redhat.com, 
+	syzkaller-bugs@googlegroups.com, will@kernel.org, wireguard@lists.zx2c4.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 09, 2026 at 09:44:31AM +0800, Baolu Lu wrote:
->On 9/21/26 08:48, Samiullah Khawaja wrote:
->>During boot fetch the preserved state of IOMMU unit and if found then
->>restore the state.
->>
->>- Reuse the root_table that was preserved in the previous kernel.
->>- Reclaim the domain ids of the preserved domains for each preserved
->>   devices so these are not acquired by another domain.
->>
->>Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
->>---
->>  drivers/iommu/intel/iommu.c      | 111 +++++++++++++++++++------------
->>  drivers/iommu/intel/iommu.h      |   7 ++
->>  drivers/iommu/intel/liveupdate.c |  79 ++++++++++++++++++++++
->>  3 files changed, 154 insertions(+), 43 deletions(-)
->>
->>diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
->>index 474c926172c5..c5044e834337 100644
->>--- a/drivers/iommu/intel/iommu.c
->>+++ b/drivers/iommu/intel/iommu.c
->>@@ -987,28 +987,30 @@ static void iommu_disable_translation(struct intel_iommu *iommu)
->>  	raw_spin_unlock_irqrestore(&iommu->register_lock, flag);
->>  }
->>-static void disable_dmar_iommu(struct intel_iommu *iommu)
->>+static void release_dmar_iommu(struct intel_iommu *iommu)
->
->Can we put the code refactor in a separate patch? Mixing it with a
->feature patch makes it hard for review.
->
+syzbot has found a reproducer for the following issue on:
 
-Sure, I will move it to a separate patch.
->
->>  {
->>-	/*
->>-	 * All iommu domains must have been detached from the devices,
->>-	 * hence there should be no domain IDs in use.
->>-	 */
->>-	if (WARN_ON(!ida_is_empty(&iommu->domain_ida)))
->>-		return;
->>+	struct iommu_hw_ser *iommu_ser;
->>-	if (iommu->gcmd & DMA_GCMD_TE)
->>-		iommu_disable_translation(iommu);
->>-}
->>+	iommu_ser = iommu_get_preserved_data(iommu->reg_phys, IOMMU_INTEL);
->>+	if (!iommu_ser) {
+HEAD commit:    71c3e5409eef Merge remote-tracking branch 'will/for-next/p.=
+.
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.g=
+it for-kernelci
+console output: https://syzkaller.appspot.com/x/log.txt?x=3D13fb40a5580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=3D42bd821301b4274=
+2
+dashboard link: https://syzkaller.appspot.com/bug?extid=3Dd0d2f1a65f45b319d=
+25d
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-=
+1~exp1~20260613092250.77), Debian LLD 22.1.8
+userspace arch: arm64
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=3D171efa8e58000=
+0
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=3D1030649c580000
 
-Thinking about this, failure when restoring a preserved iommu should be
-considered fatal as the preserved devices attached to this preserved
-iommu may continue to DMA using preserved mappings. The PCI core doesn't
-preserve the driver binding so a preserved device can end up with a non
-vfio-pci driver. Even disabling translation here is worse as the device
-will continue to DMA using the IOVAs that will be treated as physical
-addresses, causing memory corruption. I will treat this as fatal and add
-a comment to explain.
->>+		/*
->>+		 * All iommu domains must have been detached from the devices,
->>+		 * hence there should be no domain IDs in use.
->>+		 */
->>+		WARN_ON(!ida_is_empty(&iommu->domain_ida));
->>+
->>+		if ((iommu->gcmd & DMA_GCMD_TE))
->>+			iommu_disable_translation(iommu);
->>+	}
->>-static void free_dmar_iommu(struct intel_iommu *iommu)
->>-{
->>  	if (iommu->copied_tables) {
->>  		bitmap_free(iommu->copied_tables);
->>  		iommu->copied_tables = NULL;
->>  	}
->>-	/* free context mapping */
->>-	free_context_table(iommu);
->>+	/* free context mapping if there is no serialized state. */
->>+	if (!iommu_ser)
->>+		free_context_table(iommu);
->>  	if (ecap_prs(iommu->ecap))
->>  		intel_iommu_finish_prq(iommu);
->>@@ -1632,12 +1634,19 @@ static int copy_translation_tables(struct intel_iommu *iommu)
->>  static int __init init_dmars(void)
->>  {
->>+	struct iommu_hw_ser *iommu_ser;
->>  	struct dmar_drhd_unit *drhd;
->>  	struct intel_iommu *iommu;
->>  	int ret;
->>  	for_each_iommu(iommu, drhd) {
->>+		iommu_ser = iommu_get_preserved_data(iommu->reg_phys, IOMMU_INTEL);
->>  		if (drhd->ignored) {
->>+			if (WARN_ON(iommu_ser)) {
->>+				ret = -EINVAL;
->>+				goto free_iommu;
->>+			}
->>+
->>  			iommu_disable_translation(iommu);
->>  			continue;
->>  		}
->>@@ -1655,7 +1664,9 @@ static int __init init_dmars(void)
->>  		}
->>  		intel_iommu_init_qi(iommu);
->>-		init_translation_status(iommu);
->>+
->>+		if (!iommu_ser)
->>+			init_translation_status(iommu);
->>  		if (translation_pre_enabled(iommu) && !is_kdump_kernel()) {
->>  			iommu_disable_translation(iommu);
->>@@ -1664,14 +1675,18 @@ static int __init init_dmars(void)
->>  				iommu->name);
->>  		}
->>-		/*
->>-		 * TBD:
->>-		 * we could share the same root & context tables
->>-		 * among all IOMMU's. Need to Split it later.
->>-		 */
->>-		ret = iommu_alloc_root_entry(iommu);
->>-		if (ret)
->>-			goto free_iommu;
->>+		if (iommu_ser) {
->>+			intel_iommu_liveupdate_restore_root_table(iommu, iommu_ser);
->>+		} else {
->>+			/*
->>+			 * TBD:
->>+			 * we could share the same root & context tables
->>+			 * among all IOMMU's. Need to Split it later.
->>+			 */
->>+			ret = iommu_alloc_root_entry(iommu);
->>+			if (ret)
->>+				goto free_iommu;
->>+		}
->>  		if (translation_pre_enabled(iommu)) {
->>  			pr_info("Translation already enabled - trying to copy translation structures\n");
->>@@ -1707,7 +1722,10 @@ static int __init init_dmars(void)
->>  	 */
->>  	for_each_active_iommu(iommu, drhd) {
->>  		iommu_flush_write_buffer(iommu);
->>-		iommu_set_root_entry(iommu);
->>+
->>+		iommu_ser = iommu_get_preserved_data(iommu->reg_phys, IOMMU_INTEL);
->>+		if (!iommu_ser)
->>+			iommu_set_root_entry(iommu);
->>  	}
->>  	check_tylersburg_isoch();
->>@@ -1752,10 +1770,8 @@ static int __init init_dmars(void)
->>  	return 0;
->>  free_iommu:
->>-	for_each_active_iommu(iommu, drhd) {
->>-		disable_dmar_iommu(iommu);
->>-		free_dmar_iommu(iommu);
->>-	}
->>+	for_each_active_iommu(iommu, drhd)
->>+		release_dmar_iommu(iommu);
->>  	return ret;
->>  }
->>@@ -2136,17 +2152,28 @@ int dmar_parse_one_satc(struct acpi_dmar_header *hdr, void *arg)
->>  static int intel_iommu_add(struct dmar_drhd_unit *dmaru)
->>  {
->>  	struct intel_iommu *iommu = dmaru->iommu;
->>+	struct iommu_hw_ser *iommu_ser;
->>  	int ret;
->>+	/* Use IOMMU HW unit MMIO base to identify the preserved state. */
->>+	iommu_ser = iommu_get_preserved_data(iommu->reg_phys, IOMMU_INTEL);
->>+
->>  	/*
->>  	 * Disable translation if already enabled prior to OS handover.
->>  	 */
->>-	if (iommu->gcmd & DMA_GCMD_TE)
->>+	if (!iommu_ser && iommu->gcmd & DMA_GCMD_TE)
->>  		iommu_disable_translation(iommu);
->>-	ret = iommu_alloc_root_entry(iommu);
->>-	if (ret)
->>-		goto out;
->>+	if (iommu_ser) {
->>+		if (WARN_ON(dmaru->ignored))
->>+			return -EINVAL;
->>+
->>+		intel_iommu_liveupdate_restore_root_table(iommu, iommu_ser);
->>+	} else {
->>+		ret = iommu_alloc_root_entry(iommu);
->>+		if (ret)
->>+			goto out;
->>+	}
->>  	intel_svm_check(iommu);
->>@@ -2165,23 +2192,23 @@ static int intel_iommu_add(struct dmar_drhd_unit *dmaru)
->>  	if (ecap_prs(iommu->ecap)) {
->>  		ret = intel_iommu_enable_prq(iommu);
->>  		if (ret)
->>-			goto disable_iommu;
->>+			goto out;
->>  	}
->>  	ret = dmar_set_interrupt(iommu);
->>  	if (ret)
->>-		goto disable_iommu;
->>+		goto out;
->>+
->>+	if (!iommu_ser)
->>+		iommu_set_root_entry(iommu);
->>-	iommu_set_root_entry(iommu);
->>  	iommu_enable_translation(iommu);
->>  	iommu_disable_protect_mem_regions(iommu);
->>  	return 0;
->>-disable_iommu:
->>-	disable_dmar_iommu(iommu);
->>  out:
->>-	free_dmar_iommu(iommu);
->>+	release_dmar_iommu(iommu);
->>  	return ret;
->>  }
->>@@ -2195,12 +2222,10 @@ int dmar_iommu_hotplug(struct dmar_drhd_unit *dmaru, bool insert)
->>  	if (iommu == NULL)
->>  		return -EINVAL;
->>-	if (insert) {
->>+	if (insert)
->>  		ret = intel_iommu_add(dmaru);
->>-	} else {
->>-		disable_dmar_iommu(iommu);
->>-		free_dmar_iommu(iommu);
->>-	}
->>+	else
->>+		release_dmar_iommu(iommu);
->>  	return ret;
->>  }
->>diff --git a/drivers/iommu/intel/iommu.h b/drivers/iommu/intel/iommu.h
->>index 4feb5bd76b18..3a2cb08c0ac1 100644
->>--- a/drivers/iommu/intel/iommu.h
->>+++ b/drivers/iommu/intel/iommu.h
->>@@ -1308,10 +1308,17 @@ int intel_iommu_preserve(struct iommu_device *iommu,
->>  void intel_iommu_unpreserve(struct iommu_device *iommu,
->>  			    struct iommu_hw_ser *iommu_ser);
->>  void clear_unpreserved_context_entries(struct intel_iommu *iommu);
->>+void intel_iommu_liveupdate_restore_root_table(struct intel_iommu *iommu,
->>+					       struct iommu_hw_ser *iommu_ser);
->>  #else
->>  static inline void clear_unpreserved_context_entries(struct intel_iommu *iommu)
->>  {
->>  }
->>+
->>+static inline void intel_iommu_liveupdate_restore_root_table(struct intel_iommu *iommu,
->>+							     struct iommu_hw_ser *iommu_ser)
->>+{
->>+}
->>  #endif
->>  #ifdef CONFIG_INTEL_IOMMU_SVM
->>diff --git a/drivers/iommu/intel/liveupdate.c b/drivers/iommu/intel/liveupdate.c
->>index 501dc0e9cc0a..c9e553379683 100644
->>--- a/drivers/iommu/intel/liveupdate.c
->>+++ b/drivers/iommu/intel/liveupdate.c
->>@@ -272,6 +272,85 @@ static int preserve_iommu_context_tables(struct device_domain_info *info)
->>  	return 0;
->>  }
->>+static void restore_iommu_context(struct intel_iommu *iommu)
->>+{
->>+	struct context_entry *context;
->>+	int i;
->>+
->>+	for (i = 0; i < ROOT_ENTRY_NR; i++) {
->>+		context = iommu_context_addr(iommu, i, 0, 0);
->>+		if (context)
->>+			iommu_restore_pages(virt_to_phys(context));
->
->Why not use the serialized context_tables_bitmap as the source of truth,
->and check it against the present bits?
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/7596ece97a32/disk-=
+71c3e540.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/4d2c36351098/vmlinux-=
+71c3e540.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/396ce0b85b3c/Ima=
+ge-71c3e540.gz.xz
 
-Sounds good. The root entries of the unpreserved context tables are
-cleared during shutdown, so the present bits should match the bitmap. I
-will use the context_tables_bitmap and check it against the present
-bits.
->
->>+
->>+		if (!sm_supported(iommu))
->>+			continue;
->>+
->>+		context = iommu_context_addr(iommu, i, 0x80, 0);
->>+		if (context)
->>+			iommu_restore_pages(virt_to_phys(context));
->>+	}
->>+}
->>+
->>+static int _restore_used_domain_ids(struct iommu_device_ser *ser, void *arg)
->>+{
->>+	int id = ser->domain_iommu_ser.attachment_id;
->>+	struct iommu_hw_ser *iommu_hw_ser;
->>+	struct intel_iommu *iommu = arg;
->>+	int ret;
->>+
->>+	if (WARN_ON(!ser->domain_iommu_ser.iommu_phys))
->>+		return 0;
->>+
->>+	iommu_hw_ser = phys_to_virt(ser->domain_iommu_ser.iommu_phys);
->>+	if (iommu_hw_ser->type != IOMMU_INTEL)
->>+		return 0;
->>+
->>+	/* Only allocate domain ID from associated IOMMU HW unit */
->>+	if (iommu_hw_ser->intel.phys_addr != iommu->reg_phys)
->>+		return 0;
->>+
->>+	guard(mutex)(&iommu->did_lock);
->>+
->>+	/*
->>+	 * The domain IDs are reclaimed while the IOMMU HW unit is being
->>+	 * restored and not registered with the IOMMU core. So if the ID already
->>+	 * exists, it is safe to assume that a preserved device sharing the same
->>+	 * domain ID reclaimed it.
->>+	 */
->>+	if (ida_exists(&iommu->domain_ida, id))
->>+		return 0;
->>+
->>+	ret = ida_alloc_range(&iommu->domain_ida, id, id, GFP_KERNEL);
->>+	if (ret < 0)
->>+		return ret;
->
->Commit 12a2ea2d91be ("iommu/vt-d: Handle DID reservation errors when
->copying context tables") on the iommu/next branch introduced a new
->helper named reserve_domain_id() for reserving a domain ID inherited
->from the previous kernel. Could it be reused here?
+IMPORTANT: if you fix the issue, please add the following tag to the commit=
+:
+Reported-by: syzbot+d0d2f1a65f45b319d25d@syzkaller.appspotmail.com
 
-Sure, I will rebase this on top of iommu/next plus dependencies and use
-reserve_domain_id().
->
->>+
->>+	return 0;
->>+}
->>+
->>+/**
->>+ * intel_iommu_liveupdate_restore_root_table() - Restore root table and reclaim domain IDs
->>+ * @iommu: Target IOMMU
->>+ * @iommu_ser: Serialized IOMMU hardware state from previous kernel
->>+ *
->>+ * Restores the preserved root table and context tables for the IOMMU hardware
->>+ * instance across Live Update, and reclaims all domain IDs previously allocated
->>+ * to preserved devices so they are not reused.
->>+ */
->>+void intel_iommu_liveupdate_restore_root_table(struct intel_iommu *iommu,
->>+					       struct iommu_hw_ser *iommu_ser)
->>+{
->
->This restores the preserved root table without checking the new
->environment. Is it possible that kexec has a different kernel command
->line (say intel_iommu=sm_off) for the new kernel than the previous
->kernel? sm_supported(iommu) will then return a value different from the
->real hardware configuration.
+bridge0: received packet on veth1_to_bridge with own address as source addr=
+ess (addr:aa:aa:aa:aa:aa:0c, vlan:0)
+bridge0: received packet on bridge_slave_1 with own address as source addre=
+ss (addr:aa:aa:aa:aa:aa:1c, vlan:0)
+BUG: workqueue lockup - pool cpus=3D0 node=3D0 flags=3D0x2 nice=3D0 stuck f=
+or 58s!
+Showing busy workqueues and worker pools:
+workqueue events: flags=3D0x100
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x2 nice=3D0 active=3D12 refcnt=3D13
+    in-flight: 4802:switchdev_deferred_process_work for 64s ,9:request_firm=
+ware_work_func for 147s ,4923:drm_fb_helper_damage_work for 58s ,10:nsim_fi=
+b_event_work for 68s
+    pending: 2*ovs_dp_masks_rebalance, 2*nsim_dev_hwstats_traffic_work, psi=
+_avgs_work, drm_fb_helper_damage_work, vmstat_shepherd, free_obj_work
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D3 refcnt=3D4
+    in-flight: 26:free_ipc for 13s
+    pending: nsim_dev_hwstats_traffic_work, psi_avgs_work
+workqueue events_unbound: flags=3D0x2
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D4 refcnt=3D5
+    in-flight: 4976:cfg80211_wiphy_work for 110s cfg80211_wiphy_work ,1204:=
+cfg80211_wiphy_work for 114s cfg80211_wiphy_work
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D12 refcnt=3D13
+    in-flight: 240:cfg80211_wiphy_work for 48s ,14:cfg80211_wiphy_work for =
+112s cfg80211_wiphy_work ,4979:nsim_dev_trap_report_work for 0s ,48:nsim_de=
+v_trap_report_work for 0s ,1190:cfg80211_wiphy_work for 105s cfg80211_wiphy=
+_work ,4980:nsim_dev_trap_report_work for 0s ,4978:macvlan_process_broadcas=
+t for 3s
+    pending: flush_memcg_stats_dwork, nsim_dev_trap_report_work, toggle_all=
+ocation_gate
+workqueue events_power_efficient: flags=3D0x82
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D5 refcnt=3D6
+    in-flight: 3700:neigh_periodic_work for 36s
+    pending: 2*neigh_managed_work, fb_flashcursor, gc_worker
+workqueue rcu_gp: flags=3D0x108
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x2 nice=3D0 active=3D1 refcnt=3D4 MAYDA=
+Y
+    pending: srcu_invoke_callbacks
+workqueue netns: flags=3D0x6000a
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D4
+    in-flight: 12:cleanup_net for 116s
+workqueue mm_percpu_wq: flags=3D0x108
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x2 nice=3D0 active=3D1 refcnt=3D4 MAYDA=
+Y
+    pending: vmstat_update
+workqueue writeback: flags=3D0x4a
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D2
+    in-flight: 59:wb_workfn for 111s
+workqueue mld: flags=3D0x40108
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x2 nice=3D0 active=3D1 refcnt=3D55 MAYD=
+AY
+    pending: mld_dad_work
+    inactive: mld_dad_work, 3*mld_ifc_work, mld_dad_work, 5*mld_ifc_work, 2=
+*mld_dad_work, mld_ifc_work, mld_dad_work, 3*mld_ifc_work, mld_dad_work, 9*=
+mld_ifc_work, 25*mld_dad_work
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D79 MAYD=
+AY
+    in-flight: 1495:mld_ifc_work for 0s
+    inactive: mld_ifc_work, mld_dad_work, mld_ifc_work, 3*mld_dad_work, 4*m=
+ld_ifc_work, 2*mld_dad_work, mld_ifc_work, 2*mld_dad_work, mld_ifc_work, ml=
+d_dad_work, mld_ifc_work, 2*mld_dad_work, 4*mld_ifc_work, mld_dad_work, 4*m=
+ld_ifc_work, 2*mld_dad_work, 4*mld_ifc_work, 3*mld_dad_work, 4*mld_ifc_work=
+, 4*mld_dad_work, 4*mld_ifc_work, mld_dad_work, 4*mld_ifc_work, mld_dad_wor=
+k, 3*mld_ifc_work, 2*mld_dad_work, 4*mld_ifc_work, 10*mld_dad_work
+workqueue ipv6_addrconf: flags=3D0x6000a
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D222 MAYDAY
+    in-flight: 2825(RESCUER):addrconf_dad_work for 64s
+    inactive: 215*addrconf_dad_work, addrconf_verify_work
+workqueue bat_events: flags=3D0x6000a
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D50 MAYDAY
+    in-flight: 2857(RESCUER):batadv_tt_purge for 1s
+    pending: mayday_cursor_func
+    inactive: batadv_mcast_mla_update, 2*batadv_iv_send_outstanding_bat_ogm=
+_packet, 4*batadv_mcast_mla_update, batadv_iv_send_outstanding_bat_ogm_pack=
+et, batadv_purge_orig, 9*batadv_iv_send_outstanding_bat_ogm_packet, batadv_=
+mcast_mla_update, 3*batadv_purge_orig, 4*batadv_iv_send_outstanding_bat_ogm=
+_packet, 2*batadv_purge_orig, batadv_dat_purge, batadv_bla_periodic_work, b=
+atadv_dat_purge, batadv_bla_periodic_work, batadv_dat_purge, batadv_bla_per=
+iodic_work, batadv_dat_purge, batadv_bla_periodic_work, batadv_dat_purge, b=
+atadv_bla_periodic_work, batadv_dat_purge, batadv_bla_periodic_work, 4*bata=
+dv_tt_purge
+workqueue wg-kex-wg0: flags=3D0x124
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x2 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_receive_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
+    in-flight: 24:wg_packet_handshake_receive_worker for 1s
+workqueue wg-crypt-wg0: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x2 nice=3D0 active=3D3 refcnt=3D6 MAYDA=
+Y
+    pending: wg_packet_encrypt_worker, wg_packet_tx_worker, wg_packet_decry=
+pt_worker
+workqueue wg-crypt-wg1: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x2 nice=3D0 active=3D3 refcnt=3D6 MAYDA=
+Y
+    pending: wg_packet_encrypt_worker, wg_packet_decrypt_worker, wg_packet_=
+tx_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D3 MAYDA=
+Y
+    pending: wg_packet_decrypt_worker
+workqueue wg-kex-wg2: flags=3D0x124
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x2 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_receive_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_receive_worker
+workqueue wg-crypt-wg2: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x2 nice=3D0 active=3D4 refcnt=3D7 MAYDA=
+Y
+    in-flight: 4811:wg_packet_decrypt_worker for 64s wg_packet_decrypt_work=
+er
+    pending: wg_packet_encrypt_worker, wg_packet_tx_worker
+workqueue wg-kex-wg0: flags=3D0x6
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_send_worker
+workqueue wg-crypt-wg0: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x2 nice=3D0 active=3D4 refcnt=3D7 MAYDA=
+Y
+    in-flight: 4471:wg_packet_decrypt_worker for 63s
+    pending: wg_packet_decrypt_worker, wg_packet_encrypt_worker, wg_packet_=
+tx_worker
+workqueue wg-kex-wg0: flags=3D0x124
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x2 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_receive_worker
+workqueue wg-kex-wg0: flags=3D0x6
+  pwq 8: cpus=3D0-1 flags=3D0x6 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_send_worker
+workqueue wg-crypt-wg0: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x2 nice=3D0 active=3D3 refcnt=3D6 MAYDA=
+Y
+    pending: wg_packet_encrypt_worker, wg_packet_decrypt_worker, wg_packet_=
+tx_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D1 refcnt=3D3 MAYDA=
+Y
+    pending: wg_packet_decrypt_worker
+workqueue wg-crypt-wg1: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x2 nice=3D0 active=3D3 refcnt=3D6 MAYDA=
+Y
+    pending: wg_packet_decrypt_worker, wg_packet_encrypt_worker, wg_packet_=
+tx_worker
+workqueue wg-kex-wg1: flags=3D0x124
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x2 nice=3D0 active=3D1 refcnt=3D2
+    pending: wg_packet_handshake_receive_worker
+workqueue wg-crypt-wg1: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x2 nice=3D0 active=3D3 refcnt=3D6 MAYDA=
+Y
+    pending: wg_packet_decrypt_worker, wg_packet_encrypt_worker, wg_packet_=
+tx_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D4 MAYDA=
+Y
+    pending: wg_packet_decrypt_worker, wg_packet_tx_worker
+workqueue wg-crypt-wg2: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x2 nice=3D0 active=3D3 refcnt=3D6 MAYDA=
+Y
+    pending: wg_packet_decrypt_worker, wg_packet_encrypt_worker, wg_packet_=
+tx_worker
+workqueue wg-kex-wg2: flags=3D0x124
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x2 nice=3D0 active=3D2 refcnt=3D3
+    in-flight: 4977:wg_packet_handshake_receive_worker for 107s wg_packet_h=
+andshake_receive_worker
+  pwq 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 active=3D2 refcnt=3D3
+    in-flight: 1496:wg_packet_handshake_receive_worker for 12s wg_packet_ha=
+ndshake_receive_worker
+workqueue wg-crypt-wg2: flags=3D0x128
+  pwq 2: cpus=3D0 node=3D0 flags=3D0x2 nice=3D0 active=3D3 refcnt=3D6 MAYDA=
+Y
+    pending: wg_packet_tx_worker, wg_packet_decrypt_worker, wg_packet_encry=
+pt_worker
+pool 2: cpus=3D0 node=3D0 flags=3D0x2 nice=3D0 hung=3D58s workers=3D8 manag=
+er: 1091
+pool 6: cpus=3D1 node=3D0 flags=3D0x0 nice=3D0 hung=3D0s workers=3D7 idle: =
+4930 866 4981
+pool 8: cpus=3D0-1 flags=3D0x6 nice=3D0 hung=3D0s workers=3D13 manager: 40
+Showing backtraces of busy workers in stalled worker pools:
+pool 2:
+task:kworker/0:5     state:R  running task     stack:0     pid:4811  tgid:4=
+811  ppid:2      task_flags:0x4208060 flags:0x20000010
+Workqueue: wg-crypt-wg2 wg_packet_decrypt_worker
+Call trace:
+ __switch_to+0x2b4/0x6e4 arch/arm64/kernel/process.c:775 (T)
+ context_switch kernel/sched/core.c:5533 [inline]
+ __schedule+0x135c/0x2b00 kernel/sched/core.c:7284
+ preempt_schedule_common+0xd4/0x190 kernel/sched/core.c:7463
+ preempt_schedule+0x60/0x78 kernel/sched/core.c:7487
+ __local_bh_enable_ip+0x16c/0x234 kernel/softirq.c:480
+ local_bh_enable include/linux/bottom_half.h:33 [inline]
+ put_cpu_fpsimd_context arch/arm64/kernel/fpsimd.c:251 [inline]
+ kernel_neon_begin+0x29c/0x400 arch/arm64/kernel/fpsimd.c:1924
+ class_ksimd_constructor arch/arm64/include/asm/simd.h:48 [inline]
+ poly1305_blocks+0x110/0x204 lib/crypto/arm64/poly1305.h:30
+ poly1305_update+0x168/0x39c lib/crypto/poly1305.c:59
+ chacha20poly1305_crypt_sg_inplace+0x888/0xc30 lib/crypto/chacha20poly1305.=
+c:304
+ chacha20poly1305_decrypt_sg_inplace+0x6c/0x94 lib/crypto/chacha20poly1305.=
+c:353
+ decrypt_packet drivers/net/wireguard/receive.c:278 [inline]
+ wg_packet_decrypt_worker+0x490/0xa00 drivers/net/wireguard/receive.c:501
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3479
+ worker_thread+0x798/0xbd0 kernel/workqueue.c:3560
+ kthread+0x304/0x3d4 kernel/kthread.c:436
+ ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:854
+pool 2:
+task:kworker/0:7     state:R  running task     stack:0     pid:4977  tgid:4=
+977  ppid:2      task_flags:0x4208060 flags:0x20000010
+Workqueue: wg-kex-wg2 wg_packet_handshake_receive_worker
+Call trace:
+ __switch_to+0x2b4/0x6e4 arch/arm64/kernel/process.c:775 (T)
+ context_switch kernel/sched/core.c:5533 [inline]
+ __schedule+0x135c/0x2b00 kernel/sched/core.c:7284
+ preempt_schedule_common+0xd4/0x190 kernel/sched/core.c:7463
+ preempt_schedule+0x60/0x78 kernel/sched/core.c:7487
+ __local_bh_enable_ip+0x16c/0x234 kernel/softirq.c:480
+ local_bh_enable include/linux/bottom_half.h:33 [inline]
+ put_cpu_fpsimd_context arch/arm64/kernel/fpsimd.c:251 [inline]
+ kernel_neon_begin+0x29c/0x400 arch/arm64/kernel/fpsimd.c:1924
+ class_ksimd_constructor arch/arm64/include/asm/simd.h:48 [inline]
+ poly1305_blocks+0x110/0x204 lib/crypto/arm64/poly1305.h:30
+ poly1305_update+0x168/0x39c lib/crypto/poly1305.c:59
+ __chacha20poly1305_decrypt+0x240/0x39c lib/crypto/chacha20poly1305.c:151
+ chacha20poly1305_decrypt+0x238/0x5e4 lib/crypto/chacha20poly1305.c:186
+ message_decrypt+0x50/0x90 drivers/net/wireguard/noise.c:477
+ wg_noise_handshake_consume_initiation+0x1a0/0x53c drivers/net/wireguard/no=
+ise.c:612
+ wg_receive_handshake_packet drivers/net/wireguard/receive.c:144 [inline]
+ wg_packet_handshake_receive_worker+0x54c/0xcf8 drivers/net/wireguard/recei=
+ve.c:213
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3479
+ worker_thread+0x798/0xbd0 kernel/workqueue.c:3560
+ kthread+0x304/0x3d4 kernel/kthread.c:436
+ ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:854
+pool 2:
+task:kworker/0:6     state:R  running task     stack:0     pid:4923  tgid:4=
+923  ppid:2      task_flags:0x4208060 flags:0x00000010
+Workqueue: events drm_fb_helper_damage_work
+Call trace:
+ __switch_to+0x2b4/0x6e4 arch/arm64/kernel/process.c:775 (T)
+ context_switch kernel/sched/core.c:5533 [inline]
+ __schedule+0x135c/0x2b00 kernel/sched/core.c:7284
+ __schedule_loop kernel/sched/core.c:7361 [inline]
+ schedule+0x13c/0x20c kernel/sched/core.c:7376
+ schedule_timeout+0x13c/0x28c kernel/time/sleep_timeout.c:99
+ drm_crtc_wait_one_vblank+0x19c/0x440 drivers/gpu/drm/drm_vblank.c:1325
+ drm_client_modeset_wait_for_vblank+0xc4/0xec drivers/gpu/drm/drm_client_mo=
+deset.c:1331
+ drm_fb_helper_fb_dirty drivers/gpu/drm/drm_fb_helper.c:327 [inline]
+ drm_fb_helper_damage_work+0x520/0xbc0 drivers/gpu/drm/drm_fb_helper.c:365
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3479
+ worker_thread+0x798/0xbd0 kernel/workqueue.c:3560
+ kthread+0x304/0x3d4 kernel/kthread.c:436
+ ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:854
+pool 2:
+task:kworker/0:1     state:R  running task     stack:0     pid:10    tgid:1=
+0    ppid:2      task_flags:0x4208060 flags:0x00000010
+Workqueue: events nsim_fib_event_work
+Call trace:
+ __switch_to+0x2b4/0x6e4 arch/arm64/kernel/process.c:775 (T)
+ context_switch kernel/sched/core.c:5533 [inline]
+ __schedule+0x135c/0x2b00 kernel/sched/core.c:7284
+ __schedule_loop kernel/sched/core.c:7361 [inline]
+ schedule+0x13c/0x20c kernel/sched/core.c:7376
+ schedule_timeout+0x13c/0x28c kernel/time/sleep_timeout.c:99
+ schedule_timeout_uninterruptible+0x78/0xbc kernel/time/sleep_timeout.c:158
+ msleep+0x3c/0x68 kernel/time/sleep_timeout.c:318
+ nsim_fib6_rt_add drivers/net/netdevsim/fib.c:693 [inline]
+ nsim_fib6_rt_insert drivers/net/netdevsim/fib.c:759 [inline]
+ nsim_fib6_event drivers/net/netdevsim/fib.c:856 [inline]
+ nsim_fib_event+0x57a0/0x60c4 drivers/net/netdevsim/fib.c:889
+ nsim_fib_event_work+0x1d8/0x320 drivers/net/netdevsim/fib.c:1493
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3479
+ worker_thread+0x798/0xbd0 kernel/workqueue.c:3560
+ kthread+0x304/0x3d4 kernel/kthread.c:436
+ ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:854
+pool 2:
+task:kworker/0:3     state:R  running task     stack:0     pid:4471  tgid:4=
+471  ppid:2      task_flags:0x4208060 flags:0x00000010
+Workqueue: wg-crypt-wg0 wg_packet_decrypt_worker
+Call trace:
+ __switch_to+0x2b4/0x6e4 arch/arm64/kernel/process.c:775 (T)
+ context_switch kernel/sched/core.c:5533 [inline]
+ __schedule+0x135c/0x2b00 kernel/sched/core.c:7284
+ preempt_schedule_common+0xd4/0x190 kernel/sched/core.c:7463
+ preempt_schedule+0x60/0x78 kernel/sched/core.c:7487
+ __local_bh_enable_ip+0x16c/0x234 kernel/softirq.c:480
+ __raw_spin_unlock_bh include/linux/spinlock_api_smp.h:237 [inline]
+ _raw_spin_unlock_bh+0x3c/0x4c kernel/locking/spinlock.c:245
+ spin_unlock_bh include/linux/spinlock.h:407 [inline]
+ ptr_ring_consume_bh include/linux/ptr_ring.h:399 [inline]
+ wg_packet_decrypt_worker+0x254/0xa00 drivers/net/wireguard/receive.c:499
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3479
+ worker_thread+0x798/0xbd0 kernel/workqueue.c:3560
+ kthread+0x304/0x3d4 kernel/kthread.c:436
+ ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:854
+net_ratelimit: 70318 callbacks suppressed
+bridge0: received packet on bridge_slave_1 with own address as source addre=
+ss (addr:aa:aa:aa:aa:aa:0c, vlan:0)
+bridge0: received packet on bridge_slave_1 with own address as source addre=
+ss (addr:aa:aa:aa:aa:aa:0c, vlan:0)
+bridge0: received packet on bridge_slave_1 with own address as source addre=
+ss (addr:aa:aa:aa:aa:aa:1c, vlan:0)
+bridge0: received packet on bridge_slave_1 with own address as source addre=
+ss (addr:aa:aa:aa:aa:aa:0c, vlan:0)
+bridge0: received packet on veth1_to_bridge with own address as source addr=
+ess (addr:aa:aa:aa:aa:aa:0c, vlan:0)
+bridge0: received packet on bridge_slave_1 with own address as source addre=
+ss (addr:aa:aa:aa:aa:aa:1c, vlan:0)
+bridge0: received packet on bridge_slave_1 with own address as source addre=
+ss (addr:aa:aa:aa:aa:aa:0c, vlan:0)
+bridge0: received packet on bridge_slave_1 with own address as source addre=
+ss (addr:aa:aa:aa:aa:aa:0c, vlan:0)
+bridge0: received packet on bridge_slave_1 with own address as source addre=
+ss (addr:aa:aa:aa:aa:aa:1c, vlan:0)
 
-Agreed. I will add sanity checks to handle these.
->
->>+	if (!iommu_ser->intel.restored)
->>+		iommu_restore_pages(iommu_ser->intel.root_table);
->>+
->>+	iommu->root_entry = __va(iommu_ser->intel.root_table);
->
->Why does the above line execute no matter the value of
->iommu_ser->intel.restored? It would be more readable if the code looked
->like...
->
->	if (iommu_ser->intel.restored)
->		return;
->
->	iommu_restore_pages(iommu_ser->intel.root_table);
->	... ...
->
->Or I overlooked anything?
 
-Good point. I will update this.
->
->>+
->>+	if (!iommu_ser->intel.restored)
->>+		restore_iommu_context(iommu);
->>+
->>+	iommu_ser->intel.restored = 1;
->>+	BUG_ON(iommu_for_each_preserved_device(_restore_used_domain_ids, iommu));
->>+}
->>+
->>  /**
->>   * intel_iommu_preserve_device() - Intel IOMMU callback to preserve device state
->>   * @dev: Target device
->
->Thanks,
->baolu
-
-Thanks,
-Sami
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
