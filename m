@@ -1,120 +1,83 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20EF21FE471;
-	Sat, 10 Oct 2026 07:45:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC95B35C689;
+	Sat, 10 Oct 2026 07:49:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791618347; cv=none; b=r/Mzm4jSUEnGSTF3W26tpOvNpCNuBDQlxcbw7ZZJRTtksA9l/QivSVIHfwRyIfQYSoeCK8P+Q/pC4H1NLVE58kvEXrreliGSlHcbwkKUakaw2VGlOXAjpk8CiT1W1xsaeghoBMbPekUxSR3ei/nUHECNBYiVASjnitoaK54pBlM=
+	t=1791618570; cv=none; b=rs7HSSEBjqCDsP01a42oiOf0k3f3Ft3aJW5H1ah2T29mZEseueWg2dVZJW5GN9VHccsKgiyMn0cHfRRxvx7HGE7uSaSYcXZ3NMN/9Hsragp/kcl8AtiLcohz214zuXK0bbe1nrZMPA14vFaO1cNGfJLLRgt728+M7W44Or4LwCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791618347; c=relaxed/simple;
-	bh=T+Z00RH3HIxelQRmyMXv776EBhq38v2IrgliGcUP9iA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EGx3QM2hb9vTKFSUO5W+wabyBUKVbiJ71BvtWehwyfog05Ed7DbfgE9EuDFdBhKdLX9IAeFyB6l/VoOI1heU8uTW76Q1T6Tnzk6GRCHqQDf7IToCIXYbqbIVSJGWtsA6Fd7tRS8+GXlJ0ITwoST4UNSKtf15lchlt84YzADp34s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Ehd87S22; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791618570; c=relaxed/simple;
+	bh=Klv/b8Pwn+UQ6/vgV9gS2oVr25CHb2D8ssMW8T8Khwg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rTe+IhfyGnozCHZCC2wqrCAyWLKOVIEdl/M5DlKwZYLYpNA3JrqFSJ+avSyEQnArrLgL/7GiaVG0d0R/8TE3x192xIJFwuf5MLopY9zghad14XkgzFKyyiGDJOqn+xsgnxO9qySKP91xJulVAjXGuqCkkTtSRxeyJ3LfOTV7fJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PXBWjvUh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Ehd87S22"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=wa
-	cfHBcFH1tmaxMAaJaDd5DCKfunSWSOW0nEYzna8Hw=; b=Ehd87S225WX9XrxSBY
-	Bore4b0nP8kMZMMmd+lC8cxB9CXwHVuMzaoNgy3WD0uqwWxJY+0ygxMNSq4z7l8q
-	+2sSWIQizYR67YL4GnFSkGMf/Xal598+s7lYGA3LsS8JZBrMvzvJx8orRr7gU2sb
-	qFqUkYcVmzYPDLzDqd7f2O9i8=
-Received: from nec8-i7 (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgDXX+Tr7Mlq0R5VDw--.36602S2;
-	Sat, 10 Oct 2026 15:44:44 +0800 (CST)
-From: chenyuan_fl@163.com
-To: bpf@vger.kernel.org
-Cc: qmo@kernel.org,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	laoar.shao@gmail.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] bpftool: Fix out-of-bounds read in kprobe_multi link info dump
-Date: Sat, 10 Oct 2026 15:44:35 +0800
-Message-ID: <20261010074435.1415234-1-chenyuan_fl@163.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PXBWjvUh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FD0C1F000FF;
+	Sat, 10 Oct 2026 07:49:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791618567;
+	bh=5ynVKQSt5j+tv0i8SaXGizvaTG/NkoVM6iQofe2hs5c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PXBWjvUhladbytSLMwh9PC/wq+rNCQIKJ4AvK3fDNMZwofmWJXbaMwYsczYex4B28
+	 9988Srn/fsjN5ibQtJhRgPgUcAnuefpg+oS4RrM35q9Wv2cAiAwzNH+rHhnkq7hzPS
+	 ehoIEu8t77lmacTstkFSaP3TlJUdsqVUOB5pnJPgZQU6rCFFOJMH6oKywLaVffHxDM
+	 5vZ6Ep5O1UpvGWpQ+rSLqc4XkfUnddGPkbIFCWPtDaw7BFg+NYdJF1MQ5ct2idMR8o
+	 OjOMgnNE4qaftOb985z+uhMU0Ed24yoM6ApQBz23iqPOHa8zBLfXbHebgJxUGJg2sz
+	 X9Lt+OXa0uUAg==
+Date: Sat, 10 Oct 2026 08:49:22 +0100
+From: Simon Horman <horms@kernel.org>
+To: Kyle Zeng <kylebot@openai.com>
+Cc: netdev-bot+sinfo@kernel.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, davem@davemloft.net,
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+	outbounddisclosures@openai.com
+Subject: Re: [PATCH net v2] netlink: avoid hashing the network namespace
+ pointer
+Message-ID: <20261010074922.GM83879@horms.kernel.org>
+References: <20261008011359.63727-2-kylebot@openai.com>
+ <179142234633.2527009.9314976849845433713@kernel.org>
+ <asbwfr5yXmeOQ-hT@com-75606>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgDXX+Tr7Mlq0R5VDw--.36602S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ury7ZFW8GFyxKF45XFWrKrg_yoW8uFy3pa
-	n8tw45KFs5XF15ur17Aa1rWFWYvFs7ZrWrCFy7Gw17Zrn8JFn0vFnrKFW0vF13urn5t3yU
-	Arnxury3ZFWfZ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jnb18UUUUU=
-X-CM-SenderInfo: xfkh05pxdqswro6rljoofrz/xtbC5QyDQWrJ7OzDTQAA3G
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <asbwfr5yXmeOQ-hT@com-75606>
 
-From: Yuan Chen <chenyuan@kylinos.cn>
+On Wed, Oct 07, 2026 at 06:23:10PM -0700, Kyle Zeng wrote:
+> On Thu, Oct 08, 2026 at 01:19:06AM +0000, netdev-bot+sinfo@kernel.org wrote:
+> > Hi!
+> > 
+> > This is an automated message. This series looks like a fix, but its
+> > commit messages seem to be missing some information:
+> > 
+> >  - How the issue was discovered, e.g. hit in production, hit during
+> >    development, syzbot report, manual code inspection, LLM or static
+> >    analysis tool scan.
+> > 
+> >  - Whether the issue was actually triggered, or is only theoretical
+> >    (e.g. found by code inspection). If it was triggered please include
+> >    the symptoms, like the stack trace or error messages.
+> > 
+> > Please do not repost the series just to address the above. Instead,
+> > reply to this email with the missing information, so that reviewers
+> > can take it into account. If the series needs another revision for
+> > other reasons, please include the information in the commit messages
+> > then.
+> > 
+> > The evaluation is done by an LLM so it may be wrong, if you think
+> > that is the case please reply and explain.
+> 
+> I have a PoC for this issue, the symptom of the issue is kernel
+> information leak.
 
-show_kprobe_multi_{plain,json}() walk the sorted kallsyms array against
-the sorted addr/cookie array with j as a cursor into the latter. The
-loop terminating condition is checked after the cursor has already been
-used to access the array:
+Thanks for the extra information.
+And the updates in v2.
 
-    if (j++ == info->kprobe_multi.count)
-            break;
-
-After all count entries have been printed, j has been bumped to count,
-but the loop keeps running and dereferences data[count] -- one element
-past the end of the calloc(count, sizeof(*data)) allocation -- while
-comparing every remaining kallsyms symbol. If the out-of-bounds value
-happens to match a symbol address, a bogus entry with a garbage
-addr/cookie pair is printed to boot.
-
-Fix the off-by-one by advancing the cursor before the comparison, so the
-loop terminates as soon as the last entry has been printed.
-
-Verified with an ASAN build of bpftool against a live kprobe_multi link
-of 3 symbols:
-
-  before: ERROR: AddressSanitizer: heap-buffer-overflow READ of size 8
-          at link.c:860 (show_kprobe_multi_plain) and link.c:352
-          (show_kprobe_multi_json), 0 bytes after the 48-byte
-          get_addr_cookie_array() allocation
-  after:  clean output, no ASAN report
-
-Fixes: edd7f49bb884 ("bpftool: Show kprobe_multi link info")
-Signed-off-by: Yuan Chen <chenyuan@kylinos.cn>
----
- tools/bpf/bpftool/link.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/tools/bpf/bpftool/link.c b/tools/bpf/bpftool/link.c
-index 088d1d206065..5cffa2d283b4 100644
---- a/tools/bpf/bpftool/link.c
-+++ b/tools/bpf/bpftool/link.c
-@@ -364,7 +364,7 @@ show_kprobe_multi_json(struct bpf_link_info *info, json_writer_t *wtr)
- 		}
- 		jsonw_uint_field(json_wtr, "cookie", data[j].cookie);
- 		jsonw_end_object(json_wtr);
--		if (j++ == info->kprobe_multi.count)
-+		if (++j == info->kprobe_multi.count)
- 			break;
- 	}
- 	jsonw_end_array(json_wtr);
-@@ -867,7 +867,7 @@ static void show_kprobe_multi_plain(struct bpf_link_info *info)
- 		else
- 			printf("  ");
- 
--		if (j++ == info->kprobe_multi.count)
-+		if (++j == info->kprobe_multi.count)
- 			break;
- 	}
- error:
--- 
-2.54.0
+Reviewed-by: Simon Horman <horms@kernel.org>
 
