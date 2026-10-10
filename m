@@ -1,258 +1,4854 @@
-Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.10])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2138391855;
-	Sat, 10 Oct 2026 15:42:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.56.87.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791646942; cv=pass; b=jUmoWcfGDR0mjrVLzuvz1AsV4bLIx7EFu4wO2CjhhN6B1SXJcdIqt7nx2u/CgOtdEfem0HtnMYqFBea905ihxf8UafPO0zuHYerR41VsXU9zuSabNjdnvSsCrIA29JTNumdz80CMfXFRUMUAuC83NfJRs6nMT5GsqKV/qseRF6w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791646942; c=relaxed/simple;
-	bh=G/OKeLmUWq8XNZVrSYvyQfTZ6ban05soFIZh4gJaGRM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=EfhrBgMyT4Y5bmITas2JOTLABrE4aTWICrE+NWFNA+NvWfGUYzAGPWcZhCgzeUtFEBErgTdwrebNv0PKcV0oTERjo9xSpZtinQM6BdJh/Ke4OyGOWBLLDZnultOzvlmS0tDd0L1brsN1VWHf+HO6Aq7wc3RGEIIsHI7IAfIPK2s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it; spf=pass smtp.mailfrom=valla.it; dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b=amXbXulD; dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b=Ybx5PHDt; arc=pass smtp.client-ip=185.56.87.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96C703B38A9
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 15:41:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791646911; cv=none; b=QcjfaX25Fx0yrEvY1qZrR/8SvmSNxvw7efvRxKHqWVnFo+ZgwYLsUESbMm9KfJxVQEw6U1XvZm2dphl6nqS/NgPm32iz+XRv9PD3/T4wnu41KX99PY2npcgOVrvSwDA4M3+yGZEBu1vwwqesj599hKpEKN6xdwcM9tPKsNo2CEo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791646911; c=relaxed/simple;
+	bh=QmC9Xx2QzLeS5hMj16PhGkPFLxGjX2KE3go0s0RfAaM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=DhwPXYFA2YGZabHn5oQefGJ3s3CoMzI1O5D+FDUtw7iL/NibW0e2yCaZtj/Q5NvOUKoXj60hk3SPgFuFfSj1n79XMS7VslhgNOZ+a/NfUlT5UwjXGos0sPiKoe0Kg0Ys5AfQ35tekTByglNQO9Wk3qd+14FoUx+3/fEAJpz6NdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EerJgU2W; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fgGwnDrK; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b="amXbXulD";
-	dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b="Ybx5PHDt"
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-1b4f.prod.antispam.mailspamprotection.com; s=arckey; t=1791646940;
-	 b=NSenzHtE+bFdkzKLmUhvgS23wge2fDGst8ofpj1z7iBV7A/28CqPaMNm+DPSDSr+L+65anRJZB
-	  MsJG175d65V+zEKhm719r6fVwKFu5wy1tjRq7RjTnCVcql+WH0gd8rghsdAugpbl1aTBreotFm
-	  k1c04pSu3t1wXDK+XRgoY+eT6d/vzMvo6gFD9rQw8VskKrtb/PwVR02LwhGHkx7RPR9PpizF1t
-	  pcYdKFTj6Ag35mlyIQkINVsi9F67T3Kk0Yoda6O0tfOvOKExAMfXdCya6jJpxJa/Jofxh7arrN
-	  2UJ8jMpwtBMNJ4Yc5gXHhN968/Y0qh73I65X7iHliUf8Rg==;
-ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-1b4f.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-1b4f.prod.antispam.mailspamprotection.com; s=arckey; t=1791646940;
-	bh=G/OKeLmUWq8XNZVrSYvyQfTZ6ban05soFIZh4gJaGRM=;
-	h=Cc:To:In-Reply-To:References:Message-ID:Content-Transfer-Encoding:
-	  Content-Type:MIME-Version:Subject:Date:From:DKIM-Signature:DKIM-Signature;
-	b=qIH8g1oHhp+kEPkSV+kd8PLzjACcp/dEhlsUhx43ugNfWhyFG5zjPNV51QPjXX4cRsvNtDJNqD
-	  oshWTn2cBX99Fw2bfMA9oksQzeVCkHvqgpCMCntdyDbD3TnBApM0oq1bk9FkGWDRrx8gIACTu9
-	  RrJGQhBjLouPcULAklETIMWHFXmQ8xp3oRpetuuvejP4oxv4FWDNdj2Lsvfu0r8+bgArmb7Bue
-	  dpR4mm86gXS8tK+8chsqV1txUc5I0afVIuw6Du4xTtXimoGxxnek7Hh1zz5gPPyVjskI+pL4md
-	  /09+5hOsPitnNy5o3vuYxljvYHu9BTwg+Sd7Vz0RiChs4Q==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
-	:Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject
-	:Date:From:Reply-To:List-Unsubscribe;
-	bh=r8Q35m5UzMWo96o5MKoadXXHZygvFsh5M7Klex1adxE=; b=amXbXulDi+LA0dJBfR6TZkLwvQ
-	g/80m1mv/kPdJTqSgxZe6irJgIkIUPnlJMW0wuK7+BLNHQb7lNCnQHBAtCVcaGZJuoPqntEB+N8wC
-	IslOOpMC2J+47WWI/ovuuQk/tG1xKTPSGMYnlnXCGCS3w+tb2vixI9EFtgfOqNft+K7Y=;
-Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
-	by instance-europe-west4-1b4f.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xFYt0-0000000Bm4h-0yNN;
-	Sat, 10 Oct 2026 15:21:22 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
-	s=default; h=Cc:To:Subject:Date:From:list-help:list-unsubscribe:
-	list-subscribe:list-post:list-owner:list-archive;
-	bh=r8Q35m5UzMWo96o5MKoadXXHZygvFsh5M7Klex1adxE=; b=Ybx5PHDtp16X1KufWyeFzcmTZA
-	zA/YLOOtp2djg5macd0+CRoOgFyjdcosNmyM/dF6/JJTW0XQgoEjM36nkp+v8nkg3lREpFRreywyF
-	nd7Fn12vXsD3Xsxq9R04Wqtv/PrLo0UGXODdK3+7Lsn+Hz7bUN8YRSphWbYAMQE1xV88=;
-Received: from [79.22.26.204] (port=62594 helo=[192.168.178.158])
-	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xFYsv-00000000AgQ-2xgv;
-	Sat, 10 Oct 2026 15:21:17 +0000
-From: Francesco Valla <francesco@valla.it>
-Date: Sat, 10 Oct 2026 17:21:06 +0200
-Subject: [PATCH 1/3] remoteproc: virtio: add vdev_to_rsc() helper
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EerJgU2W";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fgGwnDrK"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69AFPXn53709927
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 15:41:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=rGARvgS+FIX
+	YNm647a1235AwCCuHEJ9ZUxREGCQYG0s=; b=EerJgU2WlaOVdCLqTALNaBPtHDg
+	bOSaRsq9es6It8890E2HHsO2Y763rk+UwTS9PsZMX5BW2A7MrOXbS187qv4wVaXB
+	tYtwwaLClr+NEz/ye43Aqc/U7weHjgcFwVHjUQ41Prk42WM356Xu0yQ3lFZ1UTCl
+	v40z8EiGm+i1uSbxQ//xWYGG+ihdoC3N4DPapKdJupm8o2Wb2Kpz40FLgg0nDWxQ
+	eiwH2G262I1eLoJc3xenpafJgBwitvB//dI7Le3qV6xdxihw35lzuPfuMQ+l2X34
+	VZLZwNFz9v5AOFYH+Pl8r8mXMq87Su/l9omOXBH9pBC5xpe+FNh0h4wR8Og==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7ehjh659-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 15:41:42 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-39b77130a7fso784308a91.2
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:41:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791646902; x=1792251702; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rGARvgS+FIXYNm647a1235AwCCuHEJ9ZUxREGCQYG0s=;
+        b=fgGwnDrKB8Rur3D5jefZbDFO7Q/so0Q9f6ldhZROHCbBEH6M2P5vk97pOnhKCd5ZOT
+         GaA40G3xnLrn7xmn2yP70UkLjp4Mr7EMskqcQQPuUodXk0iDcYqfHEsK/fMoHokEwfx0
+         ngO/Edow8WD/r1P7l/U4fRYK4FJ/vbgcY+riGD6IRlCb2bQZCDnP9rvvq+NRPz/2viTu
+         APFoaKjD4By5rn0yEb8ZJyRaFkIrwda0EOQJDDqFyyWlP3Yz8laQdaYk5EPkoHiHnX4s
+         bj8qBzU7PqH4Hs3lLVrVDNVnToCTbqb8pKMQ3uk9+XJnYoGI/E18PdpFo7/erxX+rVaX
+         1hRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791646902; x=1792251702;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rGARvgS+FIXYNm647a1235AwCCuHEJ9ZUxREGCQYG0s=;
+        b=TQyio233UPsyX3PhmeW3HYadCzRgVf6IHTARDI8mcneFkpLSUyvqvG892KcB/RLtBN
+         OXJlvfqCZaxya9MSSgdKZWrx1y8P7V3LwNSUWkO+cti06I8leSu5oDIU4mQjoe5gT9xn
+         rAyFVISJTjeBqC3fKnfiuMG2GN9dAj2J1CO8UatFEaFDC0KGVnlNyNVTHYwAPz4/+mPa
+         L1yndLDIQ0/B6VfZcGNFbyhMyvxkLZNZ5riPsoPqdnlBddKWsr287mokzRqHBmAQNz4S
+         T9ckgQmP7k1ynvf3lLYGRemYOeBSmoh1fMpqgJFVils42Ea5/N8BIw37Z0NdLrJUOwbi
+         wDcQ==
+X-Forwarded-Encrypted: i=1; AKwUvBymcxquAcOKeWxR0x5iVSStaPIItWWyqrPMAY6gDOnPQMiZTwfFVXxLsFh5i2xQ39KFiqGSRAWZzAn0UuA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJU+7bWjIXOzo4YRnNJMqPUoyT4LpfbtlpKflOMWRTrxh2jAbwF
+	GL625TnKJg+GLuUpPk1DYeQbWBlRBAhG/u3P80896wdMaEPA6Voz2dwLa9VEvfhJjuSUwidj7sS
+	rFrNuVGDqMSv8N71pMocOuGvQLR2NUJeJaL5I3jOoQAfNvH0m0vW6Hts2lHKeESH6Ig4=
+X-Gm-Gg: AYBFou2RMmct/h//yjls2q4VBKqPF1iu1qRz0wsaL3EzF0ksIwBkq1C6k2c3+Nf8ELr
+	UmwQYO49/DBn3HdNGemT1wVk/O/ULNQ3HxJuO87NbIWNyYdtp+wa+oG6caaos4w5ZcD8LYuzfwg
+	Mjb+N6sf93+7pF0R5Nmrmdou4ubPAS11DICYbzFfRFnefGzOZzJeueY1r2tdgn+USxophSaHaC4
+	44QKp2aD1ui1cExyn/zEunmW0QiX1blHTa+1t4c5sAFEZgfaeVk1Cxv5SV1yB4ZXO5KkXUb0R06
+	BMvJPtC31Eqrhl9rdXKAMS9Zv0zrZioclct8tfU0pl6+oCBP7UIBYT4gbjjHIY3B0VblFeKTbRg
+	CssfNuZ6WNSrdRrULQlpXzHTJjebhlqVPyILPnQ9sU3zQzRpl
+X-Received: by 2002:a17:90b:1d03:b0:39e:345b:3322 with SMTP id 98e67ed59e1d1-3ab3a60f97emr4079097a91.23.1791646900255;
+        Sat, 10 Oct 2026 08:41:40 -0700 (PDT)
+X-Received: by 2002:a17:90b:1d03:b0:39e:345b:3322 with SMTP id 98e67ed59e1d1-3ab3a60f97emr4079060a91.23.1791646898667;
+        Sat, 10 Oct 2026 08:41:38 -0700 (PDT)
+Received: from localhost (c-67-168-198-145.hsd1.or.comcast.net. [67.168.198.145])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36f73e7fsm9074505a91.0.2026.10.10.08.41.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 08:41:38 -0700 (PDT)
+From: Rob Clark <robin.clark@oss.qualcomm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v2 2/2] drm/msm/a6xx: Split out a7xx/a8xx device tables
+Date: Sat, 10 Oct 2026 08:41:20 -0700
+Message-ID: <20261010154125.726149-3-robin.clark@oss.qualcomm.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261010154125.726149-1-robin.clark@oss.qualcomm.com>
+References: <20261010154125.726149-1-robin.clark@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261010-remoteproc_rework-v1-1-cc30dc34d866@valla.it>
-References: <20261010-remoteproc_rework-v1-0-cc30dc34d866@valla.it>
-In-Reply-To: <20261010-remoteproc_rework-v1-0-cc30dc34d866@valla.it>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Francesco Valla <francesco@valla.it>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5179; i=francesco@valla.it;
- h=from:subject:message-id; bh=G/OKeLmUWq8XNZVrSYvyQfTZ6ban05soFIZh4gJaGRM=;
- b=owGbwMvMwCX2aH1OUIzHTgbG02pJDFmnwt80mL/rr/58vfF//RGri2Yck9cIrFu5oDw+kjvjl
- vcXRv9zHaUsDGJcDLJiiiwh627c2zPX/FvaBsZHMHNYmUCGMHBxCsBEgnczMpzvX1n3J/XjfvVn
- 9yy2XXvP8HfVI4sFNe/vH1iUJFxuel2JkWHS6jd2r5Smc814EN2+nfvKik0zlVduNJp167HX36n
- 7XetZAA==
-X-Developer-Key: i=francesco@valla.it; a=openpgp;
- fpr=CC70CBC9AA13257C6CCED8669601767CA07CA0EA
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - esm19.siteground.biz
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - valla.it
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-SGantispam-id: a83b1d5d129e9501beb18bfeb25ab6d1
-X-AntiAbuse: ID - a83b1d5d129e9501beb18bfeb25ab6d1
-AntiSpam-DLS: false
-AntiSpam-DLSP: 
-AntiSpam-DLSRS: 
-AntiSpam-TS: 1.0
-CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
-CFBL-Feedback-ID: 1xFYt0-0000000Bm4h-0yNN-feedback@antispam.mailspamprotection.com
-Authentication-Results: outgoing.instance-europe-west4-1b4f.prod.antispam.mailspamprotection.com;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEwMDA2MiBTYWx0ZWRfX5FaD5yx/S50G
+ QK13ulGBOyAi8VCxT5IbBysT3CGUUAV9bStPEZ2rHtI5PJmQ3SXjpS0jM0jqhxn06H+tSMnif1y
+ zF7Vepg0DDFkv1VQKXimGb2FL1LJnFzH96hVTO+Yo7HYZwjaqyEVhTLzuKTnmIUQ5rKFtoWC/gJ
+ 6CASqUtVy3KGkTyTRn3IrcytxvA+fFLIzg+i3s2hYYHW0OnCLXbCjlc/F+yIq+OOQq6SrNzabPD
+ Vzo2aqboqzw+0GbMLJyVQCn8rbzVwFomlywC28GyaNV/eii7Y7ly6oRMERTCg8iE9EP2V6z/imU
+ lyG6nKPgWmon1wMfaf19A/Q83sbYUDm0LSvyX0E1dkVegXsuXkNXJFvJMLjU/MGv0k+IzWWAh+t
+ QXEeLg0R1si8w8x4Hx79qP9SB68yB7s56RvaTMjIrbB5BplWTcuOOEYbVos9OxgKCtI7wwSeNeH
+ HTWhqnbu+quwbEvSu0w==
+X-Proofpoint-ORIG-GUID: Hw0zXZcPz7XYI6vT04qYHyQUpFRGToLx
+X-Authority-Analysis: v=2.4 cv=MpTHeGae c=1 sm=1 tr=0 ts=6aca5cb6 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=pGLkceISAAAA:8 a=b1ow0xheJs5NLghqIfEA:9 a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-GUID: Hw0zXZcPz7XYI6vT04qYHyQUpFRGToLx
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEwMDA2MiBTYWx0ZWRfX6QrQB1qjsLgh
+ M+IVgXyjkA9P719DbVZ8mn4pymwoOMmllR/z+dtva9Plq4EaM+FaWy+VENzkrmLYFOng+sADxPe
+ Afn7J2mfZJexmwu7Mz2k7t1PMZrpVvk=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-10_03,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0 spamscore=0 adultscore=0 bulkscore=0
+ suspectscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610100062
 
-Instead of repeating the table+offset math in every function that needs
-to access the resource linked to a vdev, add a simple helper function
-for that to simplify the code a bit.
+This way we can start including generated tables for a8xx GPU snapshot
+in the device table (without having conflicts with earlier gens if we
+eventually try to retrofit this approach, or later gens in the future).
 
-No functional changes.
-
-Signed-off-by: Francesco Valla <francesco@valla.it>
+Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
 ---
- drivers/remoteproc/remoteproc_virtio.c | 54 +++++++++++++---------------------
- 1 file changed, 20 insertions(+), 34 deletions(-)
+ drivers/gpu/drm/msm/Makefile              |    2 +
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 2310 ---------------------
+ drivers/gpu/drm/msm/adreno/a7xx_catalog.c |  502 +++++
+ drivers/gpu/drm/msm/adreno/a8xx_catalog.c | 1846 ++++++++++++++++
+ 4 files changed, 2350 insertions(+), 2310 deletions(-)
+ create mode 100644 drivers/gpu/drm/msm/adreno/a7xx_catalog.c
+ create mode 100644 drivers/gpu/drm/msm/adreno/a8xx_catalog.c
 
-diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
-index d5e9ff045a28..dcafdfa7eab6 100644
---- a/drivers/remoteproc/remoteproc_virtio.c
-+++ b/drivers/remoteproc/remoteproc_virtio.c
-@@ -61,6 +61,16 @@ static  struct rproc *vdev_to_rproc(struct virtio_device *vdev)
- 	return rvdev->rproc;
- }
+diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+index 0b8f2cafed19..1e246616f83f 100644
+--- a/drivers/gpu/drm/msm/Makefile
++++ b/drivers/gpu/drm/msm/Makefile
+@@ -24,6 +24,8 @@ adreno-y := \
+ 	adreno/a6xx_gmu.o \
+ 	adreno/a6xx_hfi.o \
+ 	adreno/a6xx_preempt.o \
++	adreno/a7xx_catalog.o \
++	adreno/a8xx_catalog.o \
+ 	adreno/a8xx_gpu.o \
+ 	adreno/a8xx_preempt.o \
  
-+static struct fw_rsc_vdev *vdev_to_rsc(struct virtio_device *vdev)
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+index b44b0fd916aa..4ef2bd6e7ad2 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+@@ -9,7 +9,6 @@
+ #include "adreno_gpu.h"
+ #include "a6xx_gpu.h"
+ #include "a6xx.xml.h"
+-#include "a6xx_gmu.xml.h"
+ 
+ static const struct adreno_reglist a612_hwcg[] = {
+ 	{REG_A6XX_RBBM_CLOCK_CNTL_SP0, 0x22222222},
+@@ -1216,2319 +1215,10 @@ static const struct adreno_info a6xx_gpus[] = {
+ };
+ DECLARE_ADRENO_GPULIST(a6xx);
+ 
+-static const struct adreno_reglist a730_hwcg[] = {
+-	{ REG_A6XX_RBBM_CLOCK_CNTL_SP0, 0x02222222 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL2_SP0, 0x02022222 },
+-	{ REG_A6XX_RBBM_CLOCK_HYST_SP0, 0x0000f3cf },
+-	{ REG_A6XX_RBBM_CLOCK_DELAY_SP0, 0x00000080 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL_TP0, 0x22222220 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL2_TP0, 0x22222222 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL3_TP0, 0x22220222 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL4_TP0, 0x00222222 },
+-	{ REG_A6XX_RBBM_CLOCK_HYST_TP0, 0x77777777 },
+-	{ REG_A6XX_RBBM_CLOCK_HYST2_TP0, 0x77777777 },
+-	{ REG_A6XX_RBBM_CLOCK_HYST3_TP0, 0x77777777 },
+-	{ REG_A6XX_RBBM_CLOCK_HYST4_TP0, 0x00077777 },
+-	{ REG_A6XX_RBBM_CLOCK_DELAY_TP0, 0x11111111 },
+-	{ REG_A6XX_RBBM_CLOCK_DELAY2_TP0, 0x11111111 },
+-	{ REG_A6XX_RBBM_CLOCK_DELAY3_TP0, 0x11111111 },
+-	{ REG_A6XX_RBBM_CLOCK_DELAY4_TP0, 0x00011111 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL_UCHE, 0x22222222 },
+-	{ REG_A6XX_RBBM_CLOCK_HYST_UCHE, 0x00000004 },
+-	{ REG_A6XX_RBBM_CLOCK_DELAY_UCHE, 0x00000002 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL_RB0, 0x22222222 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL2_RB0, 0x01002222 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL_CCU0, 0x00002220 },
+-	{ REG_A6XX_RBBM_CLOCK_HYST_RB_CCU0, 0x44000f00 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL_RAC, 0x25222022 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL2_RAC, 0x00555555 },
+-	{ REG_A6XX_RBBM_CLOCK_DELAY_RAC, 0x00000011 },
+-	{ REG_A6XX_RBBM_CLOCK_HYST_RAC, 0x00440044 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL_TSE_RAS_RBBM, 0x04222222 },
+-	{ REG_A7XX_RBBM_CLOCK_MODE2_GRAS, 0x00000222 },
+-	{ REG_A7XX_RBBM_CLOCK_MODE_BV_GRAS, 0x00222222 },
+-	{ REG_A6XX_RBBM_CLOCK_MODE_GPC, 0x02222223 },
+-	{ REG_A6XX_RBBM_CLOCK_MODE_VFD, 0x00002222 },
+-	{ REG_A7XX_RBBM_CLOCK_MODE_BV_GPC, 0x00222222 },
+-	{ REG_A7XX_RBBM_CLOCK_MODE_BV_VFD, 0x00002222 },
+-	{ REG_A6XX_RBBM_CLOCK_HYST_TSE_RAS_RBBM, 0x00000000 },
+-	{ REG_A6XX_RBBM_CLOCK_HYST_GPC, 0x04104004 },
+-	{ REG_A6XX_RBBM_CLOCK_HYST_VFD, 0x00000000 },
+-	{ REG_A6XX_RBBM_CLOCK_DELAY_TSE_RAS_RBBM, 0x00004000 },
+-	{ REG_A6XX_RBBM_CLOCK_DELAY_GPC, 0x00000200 },
+-	{ REG_A6XX_RBBM_CLOCK_DELAY_VFD, 0x00002222 },
+-	{ REG_A6XX_RBBM_CLOCK_MODE_HLSQ, 0x00002222 },
+-	{ REG_A6XX_RBBM_CLOCK_DELAY_HLSQ, 0x00000000 },
+-	{ REG_A6XX_RBBM_CLOCK_HYST_HLSQ, 0x00000000 },
+-	{ REG_A6XX_RBBM_CLOCK_DELAY_HLSQ_2, 0x00000002 },
+-	{ REG_A7XX_RBBM_CLOCK_MODE_BV_LRZ, 0x55555552 },
+-	{ REG_A7XX_RBBM_CLOCK_MODE_CP, 0x00000223 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL, 0x8aa8aa82 },
+-	{ REG_A6XX_RBBM_ISDB_CNT, 0x00000182 },
+-	{ REG_A6XX_RBBM_RAC_THRESHOLD_CNT, 0x00000000 },
+-	{ REG_A6XX_RBBM_SP_HYST_CNT, 0x00000000 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL_GMU_GX, 0x00000222 },
+-	{ REG_A6XX_RBBM_CLOCK_DELAY_GMU_GX, 0x00000111 },
+-	{ REG_A6XX_RBBM_CLOCK_HYST_GMU_GX, 0x00000555 },
+-	{},
+-};
+-
+-static const struct adreno_reglist a740_hwcg[] = {
+-	{ REG_A6XX_RBBM_CLOCK_CNTL_SP0, 0x02222222 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL2_SP0, 0x22022222 },
+-	{ REG_A6XX_RBBM_CLOCK_HYST_SP0, 0x003cf3cf },
+-	{ REG_A6XX_RBBM_CLOCK_DELAY_SP0, 0x00000080 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL_TP0, 0x22222220 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL2_TP0, 0x22222222 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL3_TP0, 0x22222222 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL4_TP0, 0x00222222 },
+-	{ REG_A6XX_RBBM_CLOCK_HYST_TP0, 0x77777777 },
+-	{ REG_A6XX_RBBM_CLOCK_HYST2_TP0, 0x77777777 },
+-	{ REG_A6XX_RBBM_CLOCK_HYST3_TP0, 0x77777777 },
+-	{ REG_A6XX_RBBM_CLOCK_HYST4_TP0, 0x00077777 },
+-	{ REG_A6XX_RBBM_CLOCK_DELAY_TP0, 0x11111111 },
+-	{ REG_A6XX_RBBM_CLOCK_DELAY2_TP0, 0x11111111 },
+-	{ REG_A6XX_RBBM_CLOCK_DELAY3_TP0, 0x11111111 },
+-	{ REG_A6XX_RBBM_CLOCK_DELAY4_TP0, 0x00011111 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL_UCHE, 0x22222222 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL2_UCHE, 0x00222222 },
+-	{ REG_A6XX_RBBM_CLOCK_HYST_UCHE, 0x00000444 },
+-	{ REG_A6XX_RBBM_CLOCK_DELAY_UCHE, 0x00000222 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL_RB0, 0x22222222 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL2_RB0, 0x01002222 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL_CCU0, 0x00002220 },
+-	{ REG_A6XX_RBBM_CLOCK_HYST_RB_CCU0, 0x44000f00 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL_RAC, 0x25222022 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL2_RAC, 0x00555555 },
+-	{ REG_A6XX_RBBM_CLOCK_DELAY_RAC, 0x00000011 },
+-	{ REG_A6XX_RBBM_CLOCK_HYST_RAC, 0x00440044 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL_TSE_RAS_RBBM, 0x04222222 },
+-	{ REG_A7XX_RBBM_CLOCK_MODE2_GRAS, 0x00000222 },
+-	{ REG_A7XX_RBBM_CLOCK_MODE_BV_GRAS, 0x00222222 },
+-	{ REG_A6XX_RBBM_CLOCK_MODE_GPC, 0x02222223 },
+-	{ REG_A6XX_RBBM_CLOCK_MODE_VFD, 0x00222222 },
+-	{ REG_A7XX_RBBM_CLOCK_MODE_BV_GPC, 0x00222222 },
+-	{ REG_A7XX_RBBM_CLOCK_MODE_BV_VFD, 0x00002222 },
+-	{ REG_A6XX_RBBM_CLOCK_HYST_TSE_RAS_RBBM, 0x00000000 },
+-	{ REG_A6XX_RBBM_CLOCK_HYST_GPC, 0x04104004 },
+-	{ REG_A6XX_RBBM_CLOCK_HYST_VFD, 0x00000000 },
+-	{ REG_A6XX_RBBM_CLOCK_DELAY_TSE_RAS_RBBM, 0x00000000 },
+-	{ REG_A6XX_RBBM_CLOCK_DELAY_GPC, 0x00000200 },
+-	{ REG_A6XX_RBBM_CLOCK_DELAY_VFD, 0x00000000 },
+-	{ REG_A6XX_RBBM_CLOCK_MODE_HLSQ, 0x00002222 },
+-	{ REG_A6XX_RBBM_CLOCK_DELAY_HLSQ, 0x00000000 },
+-	{ REG_A6XX_RBBM_CLOCK_HYST_HLSQ, 0x00000000 },
+-	{ REG_A7XX_RBBM_CLOCK_MODE_BV_LRZ, 0x55555552 },
+-	{ REG_A7XX_RBBM_CLOCK_HYST2_VFD, 0x00000000 },
+-	{ REG_A7XX_RBBM_CLOCK_MODE_CP, 0x00000222 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL, 0x8aa8aa82 },
+-	{ REG_A6XX_RBBM_ISDB_CNT, 0x00000182 },
+-	{ REG_A6XX_RBBM_RAC_THRESHOLD_CNT, 0x00000000 },
+-	{ REG_A6XX_RBBM_SP_HYST_CNT, 0x00000000 },
+-	{ REG_A6XX_RBBM_CLOCK_CNTL_GMU_GX, 0x00000222 },
+-	{ REG_A6XX_RBBM_CLOCK_DELAY_GMU_GX, 0x00000111 },
+-	{ REG_A6XX_RBBM_CLOCK_HYST_GMU_GX, 0x00000555 },
+-	{},
+-};
+-
+-static const u32 a730_protect_regs[] = {
+-	A6XX_PROTECT_RDONLY(0x00000, 0x04ff),
+-	A6XX_PROTECT_RDONLY(0x0050b, 0x0058),
+-	A6XX_PROTECT_NORDWR(0x0050e, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x00510, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x00534, 0x0000),
+-	A6XX_PROTECT_RDONLY(0x005fb, 0x009d),
+-	A6XX_PROTECT_NORDWR(0x00699, 0x01e9),
+-	A6XX_PROTECT_NORDWR(0x008a0, 0x0008),
+-	A6XX_PROTECT_NORDWR(0x008ab, 0x0024),
+-	/* 0x008d0-0x008dd and 0x008e0-0x008e6 are unprotected on purpose for tools like perfetto */
+-	A6XX_PROTECT_NORDWR(0x008de, 0x0001),
+-	A6XX_PROTECT_RDONLY(0x008e7, 0x014b),
+-	A6XX_PROTECT_NORDWR(0x00900, 0x004d),
+-	A6XX_PROTECT_NORDWR(0x0098d, 0x00b2),
+-	A6XX_PROTECT_NORDWR(0x00a41, 0x01be),
+-	A6XX_PROTECT_NORDWR(0x00df0, 0x0001),
+-	A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x00e07, 0x0008),
+-	A6XX_PROTECT_NORDWR(0x03c00, 0x00c3),
+-	A6XX_PROTECT_RDONLY(0x03cc4, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x08630, 0x01cf),
+-	A6XX_PROTECT_NORDWR(0x08e00, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x08e08, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x08e50, 0x001f),
+-	A6XX_PROTECT_NORDWR(0x08e80, 0x0280),
+-	A6XX_PROTECT_NORDWR(0x09624, 0x01db),
+-	A6XX_PROTECT_NORDWR(0x09e40, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x09e64, 0x000d),
+-	A6XX_PROTECT_NORDWR(0x09e78, 0x0187),
+-	A6XX_PROTECT_NORDWR(0x0a630, 0x01cf),
+-	A6XX_PROTECT_NORDWR(0x0ae02, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x0ae50, 0x000f),
+-	A6XX_PROTECT_NORDWR(0x0ae66, 0x0003),
+-	A6XX_PROTECT_NORDWR(0x0ae6f, 0x0003),
+-	A6XX_PROTECT_NORDWR(0x0b604, 0x0003),
+-	A6XX_PROTECT_NORDWR(0x0ec00, 0x0fff),
+-	A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x18400, 0x0053),
+-	A6XX_PROTECT_RDONLY(0x18454, 0x0004),
+-	A6XX_PROTECT_NORDWR(0x18459, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x1a459, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x1c459, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x1f400, 0x0443),
+-	A6XX_PROTECT_RDONLY(0x1f844, 0x007b),
+-	A6XX_PROTECT_NORDWR(0x1f860, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x1f878, 0x002a),
+-	/* CP_PROTECT_REG[45, 46] are left untouched! */
+-	0,
+-	0,
+-	A6XX_PROTECT_NORDWR(0x1f8c0, 0x00000),
+-};
+-DECLARE_ADRENO_PROTECT(a730_protect, 48);
+-
+-static const uint32_t a7xx_pwrup_reglist_regs[] = {
+-	REG_A6XX_UCHE_TRAP_BASE,
+-	REG_A6XX_UCHE_TRAP_BASE + 1,
+-	REG_A6XX_UCHE_WRITE_THRU_BASE,
+-	REG_A6XX_UCHE_WRITE_THRU_BASE + 1,
+-	REG_A6XX_UCHE_GMEM_RANGE_MIN,
+-	REG_A6XX_UCHE_GMEM_RANGE_MIN + 1,
+-	REG_A6XX_UCHE_GMEM_RANGE_MAX,
+-	REG_A6XX_UCHE_GMEM_RANGE_MAX + 1,
+-	REG_A6XX_UCHE_CACHE_WAYS,
+-	REG_A6XX_UCHE_MODE_CNTL,
+-	REG_A6XX_RB_NC_MODE_CNTL,
+-	REG_A6XX_RB_CMP_DBG_ECO_CNTL,
+-	REG_A6XX_RB_CONTEXT_SWITCH_GMEM_SAVE_RESTORE_ENABLE,
+-	REG_A6XX_UCHE_GBIF_GX_CONFIG,
+-	REG_A6XX_UCHE_CLIENT_PF,
+-	REG_A6XX_TPL1_DBG_ECO_CNTL1,
+-};
+-
+-DECLARE_ADRENO_REGLIST_LIST(a7xx_pwrup_reglist);
+-
+-/* Applicable for X185, A750 */
+-static const u32 a750_ifpc_reglist_regs[] = {
+-	REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE(0),
+-	REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE(1),
+-	REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE(2),
+-	REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE(3),
+-	REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE(4),
+-	REG_A6XX_RBBM_PERFCTR_CNTL,
+-	REG_A6XX_TPL1_NC_MODE_CNTL,
+-	REG_A6XX_SP_NC_MODE_CNTL,
+-	REG_A6XX_CP_DBG_ECO_CNTL,
+-	REG_A6XX_CP_PROTECT_CNTL,
+-	REG_A6XX_CP_PROTECT(0),
+-	REG_A6XX_CP_PROTECT(1),
+-	REG_A6XX_CP_PROTECT(2),
+-	REG_A6XX_CP_PROTECT(3),
+-	REG_A6XX_CP_PROTECT(4),
+-	REG_A6XX_CP_PROTECT(5),
+-	REG_A6XX_CP_PROTECT(6),
+-	REG_A6XX_CP_PROTECT(7),
+-	REG_A6XX_CP_PROTECT(8),
+-	REG_A6XX_CP_PROTECT(9),
+-	REG_A6XX_CP_PROTECT(10),
+-	REG_A6XX_CP_PROTECT(11),
+-	REG_A6XX_CP_PROTECT(12),
+-	REG_A6XX_CP_PROTECT(13),
+-	REG_A6XX_CP_PROTECT(14),
+-	REG_A6XX_CP_PROTECT(15),
+-	REG_A6XX_CP_PROTECT(16),
+-	REG_A6XX_CP_PROTECT(17),
+-	REG_A6XX_CP_PROTECT(18),
+-	REG_A6XX_CP_PROTECT(19),
+-	REG_A6XX_CP_PROTECT(20),
+-	REG_A6XX_CP_PROTECT(21),
+-	REG_A6XX_CP_PROTECT(22),
+-	REG_A6XX_CP_PROTECT(23),
+-	REG_A6XX_CP_PROTECT(24),
+-	REG_A6XX_CP_PROTECT(25),
+-	REG_A6XX_CP_PROTECT(26),
+-	REG_A6XX_CP_PROTECT(27),
+-	REG_A6XX_CP_PROTECT(28),
+-	REG_A6XX_CP_PROTECT(29),
+-	REG_A6XX_CP_PROTECT(30),
+-	REG_A6XX_CP_PROTECT(31),
+-	REG_A6XX_CP_PROTECT(32),
+-	REG_A6XX_CP_PROTECT(33),
+-	REG_A6XX_CP_PROTECT(34),
+-	REG_A6XX_CP_PROTECT(35),
+-	REG_A6XX_CP_PROTECT(36),
+-	REG_A6XX_CP_PROTECT(37),
+-	REG_A6XX_CP_PROTECT(38),
+-	REG_A6XX_CP_PROTECT(39),
+-	REG_A6XX_CP_PROTECT(40),
+-	REG_A6XX_CP_PROTECT(41),
+-	REG_A6XX_CP_PROTECT(42),
+-	REG_A6XX_CP_PROTECT(43),
+-	REG_A6XX_CP_PROTECT(44),
+-	REG_A6XX_CP_PROTECT(45),
+-	REG_A6XX_CP_PROTECT(46),
+-	REG_A6XX_CP_PROTECT(47),
+-};
+-
+-DECLARE_ADRENO_REGLIST_LIST(a750_ifpc_reglist);
+-
+-static const struct adreno_reglist_pipe a7xx_dyn_pwrup_reglist_regs[] = {
+-	{ REG_A7XX_GRAS_NC_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-};
+-
+-DECLARE_ADRENO_REGLIST_PIPE_LIST(a7xx_dyn_pwrup_reglist);
+-
+-static const struct adreno_info a7xx_gpus[] = {
+-	{
+-		.chip_ids = ADRENO_CHIP_IDS(0x07030001),
+-		.family = ADRENO_7XX_GEN1,
+-		.fw = {
+-			[ADRENO_FW_SQE] = "a730_sqe.fw",
+-			[ADRENO_FW_GMU] = "gmu_gen70000.bin",
+-		},
+-		.gmem = SZ_2M,
+-		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+-		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
+-			  ADRENO_QUIRK_HAS_HW_APRIV |
+-			  ADRENO_QUIRK_PREEMPTION,
+-		.funcs = &a7xx_gpu_funcs,
+-		.zapfw = "a730_zap.mdt",
+-		.a6xx = &(const struct a6xx_info) {
+-			.hwcg = a730_hwcg,
+-			.protect = &a730_protect,
+-			.pwrup_reglist = &a7xx_pwrup_reglist,
+-			.dyn_pwrup_reglist = &a7xx_dyn_pwrup_reglist,
+-			.gbif_cx = a640_gbif,
+-			.gmu_cgc_mode = 0x00020000,
+-		},
+-		.preempt_record_size = 2860 * SZ_1K,
+-	}, {
+-		.chip_ids = ADRENO_CHIP_IDS(0x43020100),
+-		.family = ADRENO_7XX_GEN1,
+-		.fw = {
+-			[ADRENO_FW_SQE] = "qcom/gen71700_sqe.fw",
+-			[ADRENO_FW_GMU] = "qcom/gen71700_gmu.bin",
+-		},
+-		.gmem = SZ_1M,
+-		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+-		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
+-			  ADRENO_QUIRK_HAS_HW_APRIV |
+-			  ADRENO_QUIRK_PREEMPTION,
+-		.funcs = &a7xx_gpu_funcs,
+-		.a6xx = &(const struct a6xx_info) {
+-			.hwcg = a730_hwcg,
+-			.protect = &a730_protect,
+-			.pwrup_reglist = &a7xx_pwrup_reglist,
+-			.dyn_pwrup_reglist = &a7xx_dyn_pwrup_reglist,
+-			.gbif_cx = a640_gbif,
+-			.gmu_chipid = 0x07110000,
+-			.gmu_cgc_mode = 0x00020000,
+-			.bcms = (const struct a6xx_bcm[]) {
+-				{ .name = "SH0", .buswidth = 16 },
+-				{ .name = "MC0", .buswidth = 4 },
+-				{
+-					.name = "ACV",
+-					.fixed = true,
+-					.perfmode = BIT(3),
+-					.perfmode_bw = 16500000,
+-				},
+-				{ /* sentinel */ },
+-			},
+-		},
+-		.preempt_record_size = 1536 * SZ_1K,
+-	}, {
+-		.chip_ids = ADRENO_CHIP_IDS(0x43050a01), /* "C510v2" */
+-		.family = ADRENO_7XX_GEN2,
+-		.fw = {
+-			[ADRENO_FW_SQE] = "a740_sqe.fw",
+-			[ADRENO_FW_GMU] = "gmu_gen70200.bin",
+-		},
+-		.gmem = 3 * SZ_1M,
+-		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+-		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
+-			  ADRENO_QUIRK_HAS_HW_APRIV |
+-			  ADRENO_QUIRK_PREEMPTION,
+-		.funcs = &a7xx_gpu_funcs,
+-		.zapfw = "a740_zap.mdt",
+-		.a6xx = &(const struct a6xx_info) {
+-			.hwcg = a740_hwcg,
+-			.protect = &a730_protect,
+-			.pwrup_reglist = &a7xx_pwrup_reglist,
+-			.dyn_pwrup_reglist = &a7xx_dyn_pwrup_reglist,
+-			.gbif_cx = a640_gbif,
+-			.gmu_chipid = 0x7020100,
+-			.gmu_cgc_mode = 0x00020202,
+-			.bcms = (const struct a6xx_bcm[]) {
+-				{ .name = "SH0", .buswidth = 16 },
+-				{ .name = "MC0", .buswidth = 4 },
+-				{
+-					.name = "ACV",
+-					.fixed = true,
+-					.perfmode = BIT(3),
+-					.perfmode_bw = 16500000,
+-				},
+-				{ /* sentinel */ },
+-			},
+-		},
+-		.preempt_record_size = 4192 * SZ_1K,
+-	}, {
+-		.chip_ids = ADRENO_CHIP_IDS(0x43050c01), /* "C512v2" */
+-		.family = ADRENO_7XX_GEN2,
+-		.fw = {
+-			[ADRENO_FW_SQE] = "gen70500_sqe.fw",
+-			[ADRENO_FW_GMU] = "gen70500_gmu.bin",
+-		},
+-		.gmem = 3 * SZ_1M,
+-		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+-		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
+-			  ADRENO_QUIRK_HAS_HW_APRIV |
+-			  ADRENO_QUIRK_PREEMPTION |
+-			  ADRENO_QUIRK_IFPC,
+-		.funcs = &a7xx_gpu_funcs,
+-		.a6xx = &(const struct a6xx_info) {
+-			.hwcg = a740_hwcg,
+-			.protect = &a730_protect,
+-			.pwrup_reglist = &a7xx_pwrup_reglist,
+-			.dyn_pwrup_reglist = &a7xx_dyn_pwrup_reglist,
+-			.ifpc_reglist = &a750_ifpc_reglist,
+-			.gbif_cx = a640_gbif,
+-			.gmu_chipid = 0x7050001,
+-			.gmu_cgc_mode = 0x00020202,
+-			.bcms = (const struct a6xx_bcm[]) {
+-				{ .name = "SH0", .buswidth = 16 },
+-				{ .name = "MC0", .buswidth = 4 },
+-				{
+-					.name = "ACV",
+-					.fixed = true,
+-					.perfmode = BIT(3),
+-					.perfmode_bw = 16500000,
+-				},
+-				{ /* sentinel */ },
+-			},
+-		},
+-		.preempt_record_size = 4192 * SZ_1K,
+-		.speedbins = ADRENO_SPEEDBINS(
+-			{ 0,	0 },
+-			{ 59,	1 },
+-			{ 7,	2 },
+-			{ 232,	3 },
+-			{ 146,	4 },
+-		),
+-	}, {
+-		.chip_ids = ADRENO_CHIP_IDS(0x43051401), /* "C520v2" */
+-		.family = ADRENO_7XX_GEN3,
+-		.fw = {
+-			[ADRENO_FW_SQE] = "gen70900_sqe.fw",
+-			[ADRENO_FW_GMU] = "gmu_gen70900.bin",
+-		},
+-		.gmem = 3 * SZ_1M,
+-		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+-		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
+-			  ADRENO_QUIRK_HAS_HW_APRIV |
+-			  ADRENO_QUIRK_PREEMPTION |
+-			  ADRENO_QUIRK_IFPC,
+-		.funcs = &a7xx_gpu_funcs,
+-		.zapfw = "gen70900_zap.mbn",
+-		.a6xx = &(const struct a6xx_info) {
+-			.protect = &a730_protect,
+-			.pwrup_reglist = &a7xx_pwrup_reglist,
+-			.dyn_pwrup_reglist = &a7xx_dyn_pwrup_reglist,
+-			.ifpc_reglist = &a750_ifpc_reglist,
+-			.gbif_cx = a640_gbif,
+-			.gmu_chipid = 0x7090100,
+-			.gmu_cgc_mode = 0x00020202,
+-			.bcms = (const struct a6xx_bcm[]) {
+-				{ .name = "SH0", .buswidth = 16 },
+-				{ .name = "MC0", .buswidth = 4 },
+-				{
+-					.name = "ACV",
+-					.fixed = true,
+-					.perfmode = BIT(2),
+-					.perfmode_bw = 10687500,
+-				},
+-				{ /* sentinel */ },
+-			},
+-		},
+-		.preempt_record_size = 3572 * SZ_1K,
+-	}, {
+-		.chip_ids = ADRENO_CHIP_IDS(0x43030c00),
+-		.family = ADRENO_7XX_GEN2,
+-		.fw = {
+-			[ADRENO_FW_SQE] = "gen71500_sqe.fw",
+-			[ADRENO_FW_GMU] = "gen71500_gmu.bin",
+-		},
+-		.gmem = SZ_1M + SZ_512K,
+-		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+-		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
+-			  ADRENO_QUIRK_HAS_HW_APRIV |
+-			  ADRENO_QUIRK_PREEMPTION,
+-		.funcs = &a7xx_gpu_funcs,
+-		.a6xx = &(const struct a6xx_info) {
+-			.hwcg = a740_hwcg,
+-			.protect = &a730_protect,
+-			.pwrup_reglist = &a7xx_pwrup_reglist,
+-			.dyn_pwrup_reglist = &a7xx_dyn_pwrup_reglist,
+-			.gbif_cx = a640_gbif,
+-			.gmu_chipid = 0x70f0000,
+-			.gmu_cgc_mode = 0x00020222,
+-			.bcms = (const struct a6xx_bcm[]) {
+-				{ .name = "SH0", .buswidth = 16 },
+-				{ .name = "MC0", .buswidth = 4 },
+-				{
+-					.name = "ACV",
+-					.fixed = true,
+-					.perfmode = BIT(3),
+-					.perfmode_bw = 16500000,
+-				},
+-				{ /* sentinel */ },
+-			},
+-		},
+-		.preempt_record_size = 4192 * SZ_1K,
+-		.speedbins = ADRENO_SPEEDBINS(
+-			{ 0,   0 },
+-			{ 294, 1 },
+-			{ 263, 2 },
+-			{ 233, 3 },
+-			{ 141, 4 },
+-		),
+-	}
+-};
+-DECLARE_ADRENO_GPULIST(a7xx);
+-
+-static const struct adreno_reglist_pipe a830_nonctxt_regs[] = {
+-	{ REG_A8XX_CP_SMMU_STREAM_ID_LPAC, 0x00000101, BIT(PIPE_NONE) },
+-	{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0x00000800, BIT(PIPE_BR) | BIT(PIPE_BV) },
+-	{ REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0x00000001, BIT(PIPE_BR) | BIT(PIPE_BV) },
+-	{ REG_A8XX_PC_VIS_STREAM_CNTL, 0x10010000, BIT(PIPE_BR) | BIT(PIPE_BV) },
+-	{ REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0x00000002, BIT(PIPE_BR) | BIT(PIPE_BV) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_1, 0x00000003, BIT(PIPE_BR) | BIT(PIPE_BV) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_2, 0x00000200, BIT(PIPE_BR) | BIT(PIPE_BV) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_3, 0x00400000, BIT(PIPE_BR) | BIT(PIPE_BV) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_4, 0x00500050, BIT(PIPE_BR) | BIT(PIPE_BV) },
+-	/* Configure GBIF GX registers */
+-	{ REG_A8XX_UCHE_GBIF_GX_CONFIG, 0x010240e0, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_GBIF_CLIENT_QOS_CNTL, 0x22122212, BIT(PIPE_NONE) },
+-	/* Enable full concurrent resolve and unresolves */
+-	{ REG_A7XX_RB_CCU_CNTL, 0x00000068, BIT(PIPE_BR) },
+-	/* Partially enable perf clear, Disable DINT to c/z be data forwarding */
+-	{ REG_A7XX_RB_CCU_DBG_ECO_CNTL, 0x00002200, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_GC_GMEM_PROTECT, 0x0c000000, BIT(PIPE_BR) },
+-	/* Configure number of outstanding transactions to 32 */
+-	{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0x00000007, BIT(PIPE_BR) },
+-	/* Configure UCHE request time out to 16 cycles for CCU/UCHE arbitration */
+-	{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0x00004000, BIT(PIPE_BR) },
+-	{ REG_A8XX_RBBM_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_SLICE_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL, 0x00000030, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL2, 0x00000030, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_CGC_P2S_CNTL, 0x00000040, BIT(PIPE_NONE) },
+-	/* Enable contribution of all shader stages to SP perfcounters */
+-	{ REG_A6XX_SP_PERFCTR_SHADER_MASK, 0x0000003f, BIT(PIPE_NONE) },
+-	/*
+-	 * BIT(26): Limit the number of wave-slots for Eviction buffer to 1 per ALU GRP
+-	 * BIT(30): Disable LPAC auto-promotion
+-	 */
+-	{ REG_A7XX_SP_CHICKEN_BITS_1, BIT(26) | BIT(30), BIT(PIPE_NONE) },
+-	/*
+-	 * BIT(22): Disable PS out of order retire
+-	 * BIT(23): Enable half wave mode and MM instruction src&dst is half precision
+-	 */
+-	{ REG_A7XX_SP_CHICKEN_BITS_2, BIT(22) | BIT(23), BIT(PIPE_NONE) },
+-	{ REG_A7XX_SP_CHICKEN_BITS_3, 0x00300000, BIT(PIPE_NONE) },
+-	{ REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP, 0x00000080,  BIT(PIPE_NONE) },
+-	{ REG_A6XX_TPL1_DBG_ECO_CNTL, 0x10000000, BIT(PIPE_NONE) },
+-	/* Enable cubemap small miplevel optimization settings */
+-	/* BIT(26): Disable final clamp for bicubic filtering */
+-	{ REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x04000724, BIT(PIPE_NONE) },
+-	/* Disable tag bank id hashing */
+-	{ REG_A6XX_UCHE_MODE_CNTL, 0x00080000, BIT(PIPE_NONE) },
+-	{ REG_A8XX_UCHE_CCHE_MODE_CNTL, 0x00001000, BIT(PIPE_NONE) },
+-	/* Limit gmem number of ways for GMEM requests in each set */
+-	{ REG_A8XX_UCHE_CCHE_CACHE_WAYS, 0x00000800, BIT(PIPE_NONE)},
+-	/* Disable write slow pointer in data phase queue */
+-	{ REG_A8XX_UCHE_HW_DBG_CNTL, BIT(8), BIT(PIPE_NONE) },
+-	/* Configure UCHE to CCU switchthreshold timeout cycles */
+-	{ REG_A8XX_UCHE_VARB_IDLE_TIMEOUT, 0x00000020, BIT(PIPE_NONE) },
+-	{ REG_A7XX_VFD_DBG_ECO_CNTL, 0x00008000, BIT(PIPE_BR) | BIT(PIPE_BV) },
+-	{ REG_A8XX_VFD_CB_BV_THRESHOLD, 0x00500050, BIT(PIPE_BR) | BIT(PIPE_BV) },
+-	{ REG_A8XX_VFD_CB_BR_THRESHOLD, 0x00600060, BIT(PIPE_BR) | BIT(PIPE_BV) },
+-	{ REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0x00200020, BIT(PIPE_BR) | BIT(PIPE_BV) },
+-	{ REG_A8XX_VFD_CB_LP_REQ_CNT, 0x00100020, BIT(PIPE_BR) | BIT(PIPE_BV) },
+-	{ REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0x00000001, BIT(PIPE_BR) | BIT(PIPE_BV) },
+-	/* Disable redundant tile data optimization */
+-	{ REG_A8XX_VSC_KMD_DBG_ECO_CNTL, BIT(11), BIT(PIPE_NONE)},
+-	{ },
+-};
+-
+-static const u32 a830_protect_regs[] = {
+-	A6XX_PROTECT_RDONLY(0x00000, 0x03a3),
+-	A6XX_PROTECT_RDONLY(0x003b4, 0x008b),
+-	A6XX_PROTECT_NORDWR(0x00440, 0x001f),
+-	A6XX_PROTECT_RDONLY(0x00580, 0x005f),
+-	A6XX_PROTECT_NORDWR(0x005e0, 0x011f),
+-	A6XX_PROTECT_RDONLY(0x0074a, 0x0005),
+-	A6XX_PROTECT_RDONLY(0x00759, 0x0026),
+-	A6XX_PROTECT_RDONLY(0x00789, 0x0000),
+-	A6XX_PROTECT_RDONLY(0x0078c, 0x0013),
+-	A6XX_PROTECT_NORDWR(0x00800, 0x0029),
+-	A6XX_PROTECT_NORDWR(0x00837, 0x00af),
+-	A6XX_PROTECT_RDONLY(0x008e7, 0x00c9),
+-	A6XX_PROTECT_NORDWR(0x008ec, 0x00c3),
+-	A6XX_PROTECT_NORDWR(0x009b1, 0x0250),
+-	A6XX_PROTECT_RDONLY(0x00ce0, 0x0001),
+-	A6XX_PROTECT_RDONLY(0x00df0, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x00df1, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x00e03, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x03c00, 0x00c5),
+-	A6XX_PROTECT_RDONLY(0x03cc6, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x08600, 0x01ff),
+-	A6XX_PROTECT_NORDWR(0x08e00, 0x00ff),
+-	A6XX_PROTECT_RDONLY(0x08f00, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x08f01, 0x01be),
+-	A6XX_PROTECT_NORDWR(0x09600, 0x01ff),
+-	A6XX_PROTECT_RDONLY(0x0981a, 0x02e5),
+-	A6XX_PROTECT_NORDWR(0x09e00, 0x01ff),
+-	A6XX_PROTECT_NORDWR(0x0a600, 0x01ff),
+-	A6XX_PROTECT_NORDWR(0x0ae00, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x0ae02, 0x0004),
+-	A6XX_PROTECT_NORDWR(0x0ae08, 0x0006),
+-	A6XX_PROTECT_NORDWR(0x0ae10, 0x036f),
+-	A6XX_PROTECT_NORDWR(0x0b600, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x0dc00, 0x1fff),
+-	A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x18400, 0x003f),
+-	A6XX_PROTECT_RDONLY(0x18440, 0x013f),
+-	A6XX_PROTECT_NORDWR(0x18580, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x1b400, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x1f400, 0x0477),
+-	A6XX_PROTECT_RDONLY(0x1f878, 0x0787),
+-	A6XX_PROTECT_NORDWR(0x1f930, 0x0329),
+-	A6XX_PROTECT_NORDWR(0x20000, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x27800, 0x007f),
+-	A6XX_PROTECT_RDONLY(0x27880, 0x0381),
+-	A6XX_PROTECT_NORDWR(0x27882, 0x0001),
+-	A6XX_PROTECT_NORDWR(0x27c02, 0x0000),
+-};
+-DECLARE_ADRENO_PROTECT(a830_protect, 64);
+-
+-static const u32 a830_pwrup_reglist_regs[] = {
+-	REG_A6XX_UCHE_MODE_CNTL,
+-	REG_A8XX_UCHE_VARB_IDLE_TIMEOUT,
+-	REG_A8XX_UCHE_GBIF_GX_CONFIG,
+-	REG_A8XX_UCHE_CACHE_WAYS,
+-	REG_A8XX_UCHE_CCHE_MODE_CNTL,
+-	REG_A8XX_UCHE_CCHE_CACHE_WAYS,
+-	REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN,
+-	REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN + 1,
+-	REG_A8XX_UCHE_CCHE_LPAC_GMEM_RANGE_MIN,
+-	REG_A8XX_UCHE_CCHE_LPAC_GMEM_RANGE_MIN + 1,
+-	REG_A8XX_UCHE_CCHE_TRAP_BASE,
+-	REG_A8XX_UCHE_CCHE_TRAP_BASE + 1,
+-	REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE,
+-	REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE + 1,
+-	REG_A8XX_UCHE_HW_DBG_CNTL,
+-	REG_A8XX_UCHE_WRITE_THRU_BASE,
+-	REG_A8XX_UCHE_WRITE_THRU_BASE + 1,
+-	REG_A8XX_UCHE_TRAP_BASE,
+-	REG_A8XX_UCHE_TRAP_BASE + 1,
+-	REG_A8XX_UCHE_CLIENT_PF,
+-	REG_A8XX_VSC_KMD_DBG_ECO_CNTL,
+-	REG_A8XX_RB_CMP_NC_MODE_CNTL,
+-	REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP,
+-	REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN,
+-	REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN + 1,
+-	REG_A7XX_SP_READ_SEL,
+-	REG_A6XX_TPL1_NC_MODE_CNTL,
+-	REG_A6XX_TPL1_DBG_ECO_CNTL,
+-	REG_A6XX_TPL1_DBG_ECO_CNTL1,
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(0),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(1),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(2),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(3),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(4),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(5),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(6),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(7),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(8),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(9),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(10),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(11),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(12),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(13),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(14),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(15),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(16),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(17),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(18),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(19),
+-};
+-DECLARE_ADRENO_REGLIST_LIST(a830_pwrup_reglist);
+-
+-static const u32 a830_ifpc_reglist_regs[] = {
+-	REG_A8XX_RBBM_NC_MODE_CNTL,
+-	REG_A8XX_RBBM_SLICE_INTERFACE_HANG_INT_CNTL,
+-	REG_A8XX_RBBM_SLICE_NC_MODE_CNTL,
+-	REG_A6XX_SP_NC_MODE_CNTL,
+-	REG_A8XX_SP_HLSQ_LPAC_GMEM_RANGE_MIN,
+-	REG_A8XX_SP_HLSQ_LPAC_GMEM_RANGE_MIN + 1,
+-	REG_A7XX_SP_CHICKEN_BITS_1,
+-	REG_A7XX_SP_CHICKEN_BITS_2,
+-	REG_A7XX_SP_CHICKEN_BITS_3,
+-	REG_A6XX_SP_PERFCTR_SHADER_MASK,
+-	REG_A7XX_SP_HLSQ_DBG_ECO_CNTL,
+-	REG_A8XX_CP_INTERRUPT_STATUS_MASK_GLOBAL,
+-	REG_A8XX_RBBM_PERFCTR_CNTL,
+-	REG_A8XX_CP_PROTECT_GLOBAL(0),
+-	REG_A8XX_CP_PROTECT_GLOBAL(1),
+-	REG_A8XX_CP_PROTECT_GLOBAL(2),
+-	REG_A8XX_CP_PROTECT_GLOBAL(3),
+-	REG_A8XX_CP_PROTECT_GLOBAL(4),
+-	REG_A8XX_CP_PROTECT_GLOBAL(5),
+-	REG_A8XX_CP_PROTECT_GLOBAL(6),
+-	REG_A8XX_CP_PROTECT_GLOBAL(7),
+-	REG_A8XX_CP_PROTECT_GLOBAL(8),
+-	REG_A8XX_CP_PROTECT_GLOBAL(9),
+-	REG_A8XX_CP_PROTECT_GLOBAL(10),
+-	REG_A8XX_CP_PROTECT_GLOBAL(11),
+-	REG_A8XX_CP_PROTECT_GLOBAL(12),
+-	REG_A8XX_CP_PROTECT_GLOBAL(13),
+-	REG_A8XX_CP_PROTECT_GLOBAL(14),
+-	REG_A8XX_CP_PROTECT_GLOBAL(15),
+-	REG_A8XX_CP_PROTECT_GLOBAL(16),
+-	REG_A8XX_CP_PROTECT_GLOBAL(17),
+-	REG_A8XX_CP_PROTECT_GLOBAL(18),
+-	REG_A8XX_CP_PROTECT_GLOBAL(19),
+-	REG_A8XX_CP_PROTECT_GLOBAL(20),
+-	REG_A8XX_CP_PROTECT_GLOBAL(21),
+-	REG_A8XX_CP_PROTECT_GLOBAL(22),
+-	REG_A8XX_CP_PROTECT_GLOBAL(23),
+-	REG_A8XX_CP_PROTECT_GLOBAL(24),
+-	REG_A8XX_CP_PROTECT_GLOBAL(25),
+-	REG_A8XX_CP_PROTECT_GLOBAL(26),
+-	REG_A8XX_CP_PROTECT_GLOBAL(27),
+-	REG_A8XX_CP_PROTECT_GLOBAL(28),
+-	REG_A8XX_CP_PROTECT_GLOBAL(29),
+-	REG_A8XX_CP_PROTECT_GLOBAL(30),
+-	REG_A8XX_CP_PROTECT_GLOBAL(31),
+-	REG_A8XX_CP_PROTECT_GLOBAL(32),
+-	REG_A8XX_CP_PROTECT_GLOBAL(33),
+-	REG_A8XX_CP_PROTECT_GLOBAL(34),
+-	REG_A8XX_CP_PROTECT_GLOBAL(35),
+-	REG_A8XX_CP_PROTECT_GLOBAL(36),
+-	REG_A8XX_CP_PROTECT_GLOBAL(37),
+-	REG_A8XX_CP_PROTECT_GLOBAL(38),
+-	REG_A8XX_CP_PROTECT_GLOBAL(39),
+-	REG_A8XX_CP_PROTECT_GLOBAL(40),
+-	REG_A8XX_CP_PROTECT_GLOBAL(41),
+-	REG_A8XX_CP_PROTECT_GLOBAL(42),
+-	REG_A8XX_CP_PROTECT_GLOBAL(43),
+-	REG_A8XX_CP_PROTECT_GLOBAL(44),
+-	REG_A8XX_CP_PROTECT_GLOBAL(45),
+-	REG_A8XX_CP_PROTECT_GLOBAL(46),
+-	REG_A8XX_CP_PROTECT_GLOBAL(47),
+-	REG_A8XX_CP_PROTECT_GLOBAL(48),
+-	REG_A8XX_CP_PROTECT_GLOBAL(49),
+-	REG_A8XX_CP_PROTECT_GLOBAL(50),
+-	REG_A8XX_CP_PROTECT_GLOBAL(51),
+-	REG_A8XX_CP_PROTECT_GLOBAL(52),
+-	REG_A8XX_CP_PROTECT_GLOBAL(53),
+-	REG_A8XX_CP_PROTECT_GLOBAL(54),
+-	REG_A8XX_CP_PROTECT_GLOBAL(55),
+-	REG_A8XX_CP_PROTECT_GLOBAL(56),
+-	REG_A8XX_CP_PROTECT_GLOBAL(57),
+-	REG_A8XX_CP_PROTECT_GLOBAL(58),
+-	REG_A8XX_CP_PROTECT_GLOBAL(59),
+-	REG_A8XX_CP_PROTECT_GLOBAL(60),
+-	REG_A8XX_CP_PROTECT_GLOBAL(61),
+-	REG_A8XX_CP_PROTECT_GLOBAL(62),
+-	REG_A8XX_CP_PROTECT_GLOBAL(63),
+-};
+-DECLARE_ADRENO_REGLIST_LIST(a830_ifpc_reglist);
+-
+-static const struct adreno_reglist_pipe a830_dyn_pwrup_reglist_regs[] = {
+-	{ REG_A8XX_CP_HW_FAULT_STATUS_MASK_PIPE, 0, BIT(PIPE_BR) |
+-		BIT(PIPE_BV) | BIT(PIPE_LPAC) | BIT(PIPE_AQE0) |
+-		BIT(PIPE_AQE1) | BIT(PIPE_DDE_BR) | BIT(PIPE_DDE_BV) },
+-	{ REG_A8XX_CP_INTERRUPT_STATUS_MASK_PIPE, 0, BIT(PIPE_BR) |
+-		BIT(PIPE_BV) | BIT(PIPE_LPAC) | BIT(PIPE_AQE0) |
+-		BIT(PIPE_AQE1) | BIT(PIPE_DDE_BR) | BIT(PIPE_DDE_BV) },
+-	{ REG_A8XX_CP_PROTECT_CNTL_PIPE, 0, BIT(PIPE_BR) | BIT(PIPE_BV) | BIT(PIPE_LPAC) },
+-	{ REG_A8XX_CP_PROTECT_PIPE(15), 0, BIT(PIPE_BR) | BIT(PIPE_BV) | BIT(PIPE_LPAC) },
+-	{ REG_A8XX_GRAS_TSEFE_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_GRAS_NC_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A7XX_RB_CCU_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A7XX_RB_CCU_DBG_ECO_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_CCU_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_CMP_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_GC_GMEM_PROTECT, 0, BIT(PIPE_BR) },
+-	{ REG_A6XX_RB_CONTEXT_SWITCH_GMEM_SAVE_RESTORE_ENABLE, 0, BIT(PIPE_BR) },
+-	{ REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_1, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_2, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_3, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_4, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
+-	{ REG_A8XX_PC_VIS_STREAM_CNTL, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
+-	{ REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
+-	{ REG_A8XX_VFD_CB_BV_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BR_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_LP_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A7XX_VFD_DBG_ECO_CNTL, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
+-	{ },
+-};
+-DECLARE_ADRENO_REGLIST_PIPE_LIST(a830_dyn_pwrup_reglist);
+-
+-static const struct adreno_reglist_pipe x285_nonctxt_regs[] = {
+-	{ REG_A8XX_CP_SMMU_STREAM_ID_LPAC, 0x00000101, BIT(PIPE_NONE) },
+-	{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0x00000800, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_GRAS_TSEFE_DBG_ECO_CNTL, 0x00200000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_VIS_STREAM_CNTL, 0x10010000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0x00000002, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_1, 0x00000003, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_2, 0x00000200, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_3, 0x00500000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_4, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_GC_GMEM_PROTECT, 0x15000000, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0x00000007, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0x00004000, BIT(PIPE_BR) },
+-	{ REG_A8XX_RBBM_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_SLICE_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL, 0x00000030, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL2, 0x00000030, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_INTERFACE_HANG_INT_CNTL, 0x0fffffff, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_GBIF_CLIENT_QOS_CNTL, 0x22122212, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_CGC_P2S_CNTL, 0x00000040, BIT(PIPE_NONE) },
+-	{ REG_A7XX_SP_CHICKEN_BITS_2, 0x00820800, BIT(PIPE_NONE) },
+-	{ REG_A7XX_SP_CHICKEN_BITS_3, 0x00300000, BIT(PIPE_NONE) },
+-	{ REG_A6XX_SP_PERFCTR_SHADER_MASK, 0x0000003f, BIT(PIPE_NONE) },
+-	/* Disable CS dead batch merge */
+-	{ REG_A7XX_SP_HLSQ_DBG_ECO_CNTL_2, BIT(31), BIT(PIPE_NONE) },
+-	{ REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP, 0x00000080, BIT(PIPE_NONE) },
+-	{ REG_A7XX_SP_READ_SEL, 0x0001ff00, BIT(PIPE_NONE) },
+-	{ REG_A6XX_TPL1_DBG_ECO_CNTL, 0x10000000, BIT(PIPE_NONE) },
+-	/* BIT(26): Disable final clamp for bicubic filtering */
+-	{ REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x04000720, BIT(PIPE_NONE) },
+-	{ REG_A6XX_UCHE_MODE_CNTL, 0x80080000, BIT(PIPE_NONE) },
+-	{ REG_A8XX_UCHE_CCHE_MODE_CNTL, 0x00001000, BIT(PIPE_NONE) },
+-	{ REG_A8XX_UCHE_CCHE_CACHE_WAYS, 0x00000800, BIT(PIPE_NONE) },
+-	{ REG_A8XX_UCHE_GBIF_GX_CONFIG, 0x010240e0, BIT(PIPE_NONE) },
+-	{ REG_A8XX_UCHE_VARB_IDLE_TIMEOUT, 0x00000020, BIT(PIPE_NONE) },
+-	{ REG_A7XX_VFD_DBG_ECO_CNTL, 0x00008000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BV_THRESHOLD, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BR_THRESHOLD, 0x00600060, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0x00200020, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_LP_REQ_CNT, 0x00000020, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ },
+-};
+-
+-static const u32 x285_protect_regs[] = {
+-	A6XX_PROTECT_RDONLY(0x00008, 0x039b),
+-	A6XX_PROTECT_RDONLY(0x003b4, 0x008b),
+-	A6XX_PROTECT_NORDWR(0x00440, 0x001f),
+-	A6XX_PROTECT_RDONLY(0x00580, 0x005f),
+-	A6XX_PROTECT_NORDWR(0x005e0, 0x011f),
+-	A6XX_PROTECT_RDONLY(0x0074a, 0x0005),
+-	A6XX_PROTECT_RDONLY(0x00759, 0x0026),
+-	A6XX_PROTECT_RDONLY(0x00789, 0x0000),
+-	A6XX_PROTECT_RDONLY(0x0078c, 0x0013),
+-	A6XX_PROTECT_NORDWR(0x00800, 0x0029),
+-	A6XX_PROTECT_NORDWR(0x0082c, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x00837, 0x00af),
+-	A6XX_PROTECT_RDONLY(0x008e7, 0x00c9),
+-	A6XX_PROTECT_NORDWR(0x008ec, 0x00c3),
+-	A6XX_PROTECT_NORDWR(0x009b1, 0x0250),
+-	A6XX_PROTECT_RDONLY(0x00ce0, 0x0001),
+-	A6XX_PROTECT_RDONLY(0x00df0, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x00df1, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x00e03, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x03c00, 0x00c5),
+-	A6XX_PROTECT_RDONLY(0x03cc6, 0x0039),
+-	A6XX_PROTECT_NORDWR(0x03d00, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x08600, 0x01ff),
+-	A6XX_PROTECT_NORDWR(0x08e00, 0x00ff),
+-	A6XX_PROTECT_RDONLY(0x08f00, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x08f01, 0x01be),
+-	A6XX_PROTECT_NORDWR(0x09600, 0x01ff),
+-	A6XX_PROTECT_RDONLY(0x0981a, 0x02e5),
+-	A6XX_PROTECT_NORDWR(0x09e00, 0x01ff),
+-	A6XX_PROTECT_NORDWR(0x0a600, 0x01ff),
+-	A6XX_PROTECT_NORDWR(0x0a82e, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x0ae00, 0x0006),
+-	A6XX_PROTECT_NORDWR(0x0ae08, 0x0006),
+-	A6XX_PROTECT_NORDWR(0x0ae10, 0x00bf),
+-	A6XX_PROTECT_RDONLY(0x0aed0, 0x002f),
+-	A6XX_PROTECT_NORDWR(0x0af00, 0x027f),
+-	A6XX_PROTECT_NORDWR(0x0b600, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x0dc00, 0x1fff),
+-	A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x18400, 0x003f),
+-	A6XX_PROTECT_RDONLY(0x18440, 0x013f),
+-	A6XX_PROTECT_NORDWR(0x18580, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x1b400, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x1f400, 0x0477),
+-	A6XX_PROTECT_RDONLY(0x1f878, 0x0507),
+-	A6XX_PROTECT_NORDWR(0x1f930, 0x0329),
+-	A6XX_PROTECT_NORDWR(0x1fd80, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x27800, 0x007f),
+-	A6XX_PROTECT_RDONLY(0x27880, 0x0385),
+-	A6XX_PROTECT_NORDWR(0x27882, 0x000a),
+-	A6XX_PROTECT_NORDWR(0x27c06, 0x0000),
+-};
+-
+-DECLARE_ADRENO_PROTECT(x285_protect, 15);
+-
+-static const struct adreno_reglist_pipe x285_dyn_pwrup_reglist_regs[] = {
+-	{ REG_A8XX_GRAS_TSEFE_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_GRAS_NC_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_1, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_2, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_3, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_4, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_VIS_STREAM_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A7XX_RB_CCU_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A7XX_RB_CCU_DBG_ECO_CNTL, 0, BIT(PIPE_BR)},
+-	{ REG_A8XX_RB_CCU_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_CMP_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A6XX_RB_RBP_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A7XX_VFD_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BV_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BR_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_LP_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_CP_HW_FAULT_STATUS_MASK_PIPE, 0, BIT(PIPE_BR) |
+-		BIT(PIPE_BV) | BIT(PIPE_LPAC) | BIT(PIPE_AQE0) |
+-		BIT(PIPE_AQE1) | BIT(PIPE_DDE_BR) | BIT(PIPE_DDE_BV) },
+-	{ REG_A8XX_CP_INTERRUPT_STATUS_MASK_PIPE, 0, BIT(PIPE_BR) |
+-		BIT(PIPE_BV) | BIT(PIPE_LPAC) | BIT(PIPE_AQE0) |
+-		BIT(PIPE_AQE1) | BIT(PIPE_DDE_BR) | BIT(PIPE_DDE_BV) },
+-	{ REG_A8XX_CP_PROTECT_CNTL_PIPE, 0, BIT(PIPE_BR) | BIT(PIPE_BV) | BIT(PIPE_LPAC)},
+-	{ REG_A8XX_CP_PROTECT_PIPE(15), 0, BIT(PIPE_BR) | BIT(PIPE_BV) | BIT(PIPE_LPAC) },
+-	{ REG_A8XX_RB_GC_GMEM_PROTECT, 0, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_LPAC_GMEM_PROTECT, 0, BIT(PIPE_BR) },
+-	{ REG_A6XX_RB_CONTEXT_SWITCH_GMEM_SAVE_RESTORE_ENABLE, 0, BIT(PIPE_BR) },
+-};
+-DECLARE_ADRENO_REGLIST_PIPE_LIST(x285_dyn_pwrup_reglist);
+-
+-static const struct adreno_reglist_pipe a810_nonctxt_regs[] = {
+-	{ REG_A8XX_CP_SMMU_STREAM_ID_LPAC, 0x00000101, BIT(PIPE_NONE) },
+-	{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0x00f80800, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_VIS_STREAM_CNTL, 0x10010000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0x00000002, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_1, 0x00000003, BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_1, 0x00000023, BIT(PIPE_BV) }, /* Avoid partial waves at VFD */
+-	{ REG_A8XX_PC_CHICKEN_BITS_2, 0x00000200, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_3, 0x00500000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_4, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A7XX_RB_CCU_CNTL, 0x00000068, BIT(PIPE_BR) },
+-	/* Partially enable perf clear, Disable DINT to c/z be data forwarding */
+-	{ REG_A7XX_RB_CCU_DBG_ECO_CNTL, 0x00002200, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0x00000007, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0x00004000, BIT(PIPE_BR) },
+-	{ REG_A8XX_RBBM_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_SLICE_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL, 0x00000030, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL2, 0x00000030, BIT(PIPE_NONE) },
+-	{ REG_A8XX_UCHE_GBIF_GX_CONFIG, 0x010240e0, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_GBIF_CLIENT_QOS_CNTL, 0x22122212, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_CGC_P2S_CNTL, 0x00000040, BIT(PIPE_NONE) },
+-	/*
+-	 * BIT(22): Disable PS out of order retire
+-	 * BIT(23): Enable half wave mode and MM instruction src&dst is half precision
+-	 */
+-	{ REG_A7XX_SP_CHICKEN_BITS_2, BIT(22) | BIT(23), BIT(PIPE_NONE) },
+-	{ REG_A7XX_SP_CHICKEN_BITS_3, 0x00300000, BIT(PIPE_NONE) },
+-	{ REG_A6XX_SP_PERFCTR_SHADER_MASK, 0x0000003f, BIT(PIPE_NONE) },
+-	{ REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP, 0x00000080, BIT(PIPE_NONE) },
+-	{ REG_A6XX_TPL1_DBG_ECO_CNTL, 0x10100000, BIT(PIPE_NONE) },
+-	{ REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x04000724, BIT(PIPE_NONE) },
+-	{ REG_A6XX_UCHE_MODE_CNTL, 0x00020000, BIT(PIPE_NONE) },
+-	{ REG_A8XX_UCHE_CCHE_MODE_CNTL, 0x00001000, BIT(PIPE_NONE) },
+-	{ REG_A8XX_UCHE_CCHE_CACHE_WAYS, 0x00000800, BIT(PIPE_NONE) },
+-	/* Disable write slow pointer in data phase queue */
+-	{ REG_A8XX_UCHE_HW_DBG_CNTL, BIT(8), BIT(PIPE_NONE) },
+-	{ REG_A8XX_UCHE_VARB_IDLE_TIMEOUT, 0x00000020, BIT(PIPE_NONE) },
+-	{ REG_A7XX_VFD_DBG_ECO_CNTL, 0x00008000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BV_THRESHOLD, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BR_THRESHOLD, 0x00600060, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0x00200020, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_LP_REQ_CNT, 0x00100020, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_GC_GMEM_PROTECT, 0x00900000, BIT(PIPE_BR) },
+-	{ },
+-};
+-
+-static const u32 a810_protect_regs[] = {
+-	A6XX_PROTECT_RDONLY(0x00000, 0x03a3),
+-	A6XX_PROTECT_RDONLY(0x003b4, 0x008b),
+-	A6XX_PROTECT_NORDWR(0x00440, 0x001f),
+-	A6XX_PROTECT_RDONLY(0x00580, 0x005f),
+-	A6XX_PROTECT_NORDWR(0x005e0, 0x011f),
+-	A6XX_PROTECT_RDONLY(0x0074a, 0x0005),
+-	A6XX_PROTECT_RDONLY(0x00759, 0x0026),
+-	A6XX_PROTECT_RDONLY(0x00789, 0x0000),
+-	A6XX_PROTECT_RDONLY(0x0078c, 0x0013),
+-	A6XX_PROTECT_NORDWR(0x00800, 0x0029),
+-	A6XX_PROTECT_NORDWR(0x00837, 0x00af),
+-	A6XX_PROTECT_RDONLY(0x008e7, 0x00c9),
+-	A6XX_PROTECT_NORDWR(0x008ec, 0x00c3),
+-	A6XX_PROTECT_NORDWR(0x009b1, 0x0250),
+-	A6XX_PROTECT_RDONLY(0x00ce0, 0x0001),
+-	A6XX_PROTECT_RDONLY(0x00df0, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x00df1, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x00e03, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x03c00, 0x00c5),
+-	A6XX_PROTECT_RDONLY(0x03cc6, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x08600, 0x01ff),
+-	A6XX_PROTECT_NORDWR(0x08e00, 0x00ff),
+-	A6XX_PROTECT_RDONLY(0x08f00, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x08f01, 0x01be),
+-	A6XX_PROTECT_NORDWR(0x09600, 0x01ff),
+-	A6XX_PROTECT_RDONLY(0x0981a, 0x02e5),
+-	A6XX_PROTECT_NORDWR(0x09e00, 0x01ff),
+-	A6XX_PROTECT_NORDWR(0x0a600, 0x01ff),
+-	A6XX_PROTECT_NORDWR(0x0ae00, 0x0006),
+-	A6XX_PROTECT_NORDWR(0x0ae08, 0x0006),
+-	A6XX_PROTECT_NORDWR(0x0ae10, 0x036f),
+-	A6XX_PROTECT_NORDWR(0x0b600, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x0dc00, 0x1fff),
+-	A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x18400, 0x003f),
+-	A6XX_PROTECT_RDONLY(0x18440, 0x013f),
+-	A6XX_PROTECT_NORDWR(0x18580, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x1b400, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x1f400, 0x0477),
+-	A6XX_PROTECT_RDONLY(0x1f878, 0x0787),
+-	A6XX_PROTECT_NORDWR(0x1f930, 0x0329),
+-	A6XX_PROTECT_NORDWR(0x20000, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x27800, 0x007f),
+-	A6XX_PROTECT_RDONLY(0x27880, 0x0381),
+-	A6XX_PROTECT_NORDWR(0x27882, 0x0001),
+-	A6XX_PROTECT_NORDWR(0x27c02, 0x0000),
+-};
+-DECLARE_ADRENO_PROTECT(a810_protect, 64);
+-
+-static const uint32_t a810_pwrup_reglist_regs[] = {
+-	REG_A6XX_UCHE_MODE_CNTL,
+-	REG_A8XX_UCHE_VARB_IDLE_TIMEOUT,
+-	REG_A8XX_UCHE_GBIF_GX_CONFIG,
+-	REG_A8XX_UCHE_CACHE_WAYS,
+-	REG_A8XX_UCHE_CCHE_MODE_CNTL,
+-	REG_A8XX_UCHE_CCHE_CACHE_WAYS,
+-	REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN,
+-	REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN + 1,
+-	REG_A8XX_UCHE_CCHE_TRAP_BASE,
+-	REG_A8XX_UCHE_CCHE_TRAP_BASE + 1,
+-	REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE,
+-	REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE + 1,
+-	REG_A8XX_UCHE_HW_DBG_CNTL,
+-	REG_A8XX_UCHE_WRITE_THRU_BASE,
+-	REG_A8XX_UCHE_WRITE_THRU_BASE + 1,
+-	REG_A8XX_UCHE_TRAP_BASE,
+-	REG_A8XX_UCHE_TRAP_BASE + 1,
+-	REG_A8XX_UCHE_CLIENT_PF,
+-	REG_A8XX_RB_CMP_NC_MODE_CNTL,
+-	REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP,
+-	REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN,
+-	REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN + 1,
+-	REG_A7XX_SP_READ_SEL,
+-	REG_A6XX_TPL1_NC_MODE_CNTL,
+-	REG_A6XX_TPL1_DBG_ECO_CNTL,
+-	REG_A6XX_TPL1_DBG_ECO_CNTL1,
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(1),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(2),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(3),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(4),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(5),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(6),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(7),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(8),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(9),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(10),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(11),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(12),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(13),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(14),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(15),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(16),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(17),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(18),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(19),
+-};
+-DECLARE_ADRENO_REGLIST_LIST(a810_pwrup_reglist);
+-
+-static const u32 a810_ifpc_reglist_regs[] = {
+-	REG_A8XX_RBBM_NC_MODE_CNTL,
+-	REG_A8XX_RBBM_PERFCTR_CNTL,
+-	REG_A8XX_RBBM_SLICE_INTERFACE_HANG_INT_CNTL,
+-	REG_A8XX_RBBM_SLICE_NC_MODE_CNTL,
+-	REG_A6XX_SP_NC_MODE_CNTL,
+-	REG_A7XX_SP_CHICKEN_BITS_2,
+-	REG_A7XX_SP_CHICKEN_BITS_3,
+-	REG_A6XX_SP_PERFCTR_SHADER_MASK,
+-	REG_A8XX_CP_PROTECT_GLOBAL(0),
+-	REG_A8XX_CP_PROTECT_GLOBAL(1),
+-	REG_A8XX_CP_PROTECT_GLOBAL(2),
+-	REG_A8XX_CP_PROTECT_GLOBAL(3),
+-	REG_A8XX_CP_PROTECT_GLOBAL(4),
+-	REG_A8XX_CP_PROTECT_GLOBAL(5),
+-	REG_A8XX_CP_PROTECT_GLOBAL(6),
+-	REG_A8XX_CP_PROTECT_GLOBAL(7),
+-	REG_A8XX_CP_PROTECT_GLOBAL(8),
+-	REG_A8XX_CP_PROTECT_GLOBAL(9),
+-	REG_A8XX_CP_PROTECT_GLOBAL(10),
+-	REG_A8XX_CP_PROTECT_GLOBAL(11),
+-	REG_A8XX_CP_PROTECT_GLOBAL(12),
+-	REG_A8XX_CP_PROTECT_GLOBAL(13),
+-	REG_A8XX_CP_PROTECT_GLOBAL(14),
+-	REG_A8XX_CP_PROTECT_GLOBAL(15),
+-	REG_A8XX_CP_PROTECT_GLOBAL(16),
+-	REG_A8XX_CP_PROTECT_GLOBAL(17),
+-	REG_A8XX_CP_PROTECT_GLOBAL(18),
+-	REG_A8XX_CP_PROTECT_GLOBAL(19),
+-	REG_A8XX_CP_PROTECT_GLOBAL(20),
+-	REG_A8XX_CP_PROTECT_GLOBAL(21),
+-	REG_A8XX_CP_PROTECT_GLOBAL(22),
+-	REG_A8XX_CP_PROTECT_GLOBAL(23),
+-	REG_A8XX_CP_PROTECT_GLOBAL(24),
+-	REG_A8XX_CP_PROTECT_GLOBAL(25),
+-	REG_A8XX_CP_PROTECT_GLOBAL(26),
+-	REG_A8XX_CP_PROTECT_GLOBAL(27),
+-	REG_A8XX_CP_PROTECT_GLOBAL(28),
+-	REG_A8XX_CP_PROTECT_GLOBAL(29),
+-	REG_A8XX_CP_PROTECT_GLOBAL(30),
+-	REG_A8XX_CP_PROTECT_GLOBAL(31),
+-	REG_A8XX_CP_PROTECT_GLOBAL(32),
+-	REG_A8XX_CP_PROTECT_GLOBAL(33),
+-	REG_A8XX_CP_PROTECT_GLOBAL(34),
+-	REG_A8XX_CP_PROTECT_GLOBAL(35),
+-	REG_A8XX_CP_PROTECT_GLOBAL(36),
+-	REG_A8XX_CP_PROTECT_GLOBAL(37),
+-	REG_A8XX_CP_PROTECT_GLOBAL(38),
+-	REG_A8XX_CP_PROTECT_GLOBAL(39),
+-	REG_A8XX_CP_PROTECT_GLOBAL(40),
+-	REG_A8XX_CP_PROTECT_GLOBAL(41),
+-	REG_A8XX_CP_PROTECT_GLOBAL(42),
+-	REG_A8XX_CP_PROTECT_GLOBAL(43),
+-	REG_A8XX_CP_PROTECT_GLOBAL(44),
+-	REG_A8XX_CP_PROTECT_GLOBAL(45),
+-	REG_A8XX_CP_PROTECT_GLOBAL(46),
+-	REG_A8XX_CP_PROTECT_GLOBAL(47),
+-	REG_A8XX_CP_PROTECT_GLOBAL(48),
+-	REG_A8XX_CP_PROTECT_GLOBAL(49),
+-	REG_A8XX_CP_PROTECT_GLOBAL(50),
+-	REG_A8XX_CP_PROTECT_GLOBAL(51),
+-	REG_A8XX_CP_PROTECT_GLOBAL(52),
+-	REG_A8XX_CP_PROTECT_GLOBAL(53),
+-	REG_A8XX_CP_PROTECT_GLOBAL(54),
+-	REG_A8XX_CP_PROTECT_GLOBAL(55),
+-	REG_A8XX_CP_PROTECT_GLOBAL(56),
+-	REG_A8XX_CP_PROTECT_GLOBAL(57),
+-	REG_A8XX_CP_PROTECT_GLOBAL(58),
+-	REG_A8XX_CP_PROTECT_GLOBAL(59),
+-	REG_A8XX_CP_PROTECT_GLOBAL(60),
+-	REG_A8XX_CP_PROTECT_GLOBAL(61),
+-	REG_A8XX_CP_PROTECT_GLOBAL(62),
+-	REG_A8XX_CP_PROTECT_GLOBAL(63),
+-};
+-DECLARE_ADRENO_REGLIST_LIST(a810_ifpc_reglist);
+-
+-static const struct adreno_reglist_pipe a810_dyn_pwrup_reglist_regs[] = {
+-	{ REG_A8XX_CP_PROTECT_CNTL_PIPE, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
+-	{ REG_A8XX_CP_PROTECT_PIPE(15), 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
+-	{ REG_A8XX_GRAS_TSEFE_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_GRAS_NC_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A7XX_RB_CCU_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A7XX_RB_CCU_DBG_ECO_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_CCU_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_CMP_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_GC_GMEM_PROTECT, 0, BIT(PIPE_BR) },
+-	{ REG_A6XX_RB_CONTEXT_SWITCH_GMEM_SAVE_RESTORE_ENABLE, 0, BIT(PIPE_BR) },
+-	{ REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_1, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_2, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_3, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_4, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
+-	{ REG_A8XX_PC_VIS_STREAM_CNTL, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
+-	{ REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
+-	{ REG_A8XX_VFD_CB_BV_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BR_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_LP_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A7XX_VFD_DBG_ECO_CNTL, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
+-};
+-DECLARE_ADRENO_REGLIST_PIPE_LIST(a810_dyn_pwrup_reglist);
+-
+-static const struct a6xx_hfi_clx_table_v2_cmd x285_clx_tbl = {
+-	.version = (2 << 16) | 1,
+-	.domain = {
+-		/* GX DOMAIN */
+-		{
+-			.data = CLX_DATA(60, 11, 0, 1),
+-			.clxt = 0,
+-			.clxh = 0,
+-			.urg_mode = 1,
+-			.lkg_en = 0,
+-			.curr_budget = 100,
+-		},
+-		/* MXG DOMAIN */
+-		{
+-			.data = CLX_DATA(60, 3, 1, 1),
+-			.clxt = 0,
+-			.clxh = 0,
+-			.urg_mode = 1,
+-			.lkg_en = 0,
+-			.curr_budget = 100,
+-		},
+-	},
+-};
+-
+-struct a6xx_hfi_limits_tbl x285_limits_tbl[] = {
+-	{
+-		.feature_id = GMU_MIT_IFF,
+-		.domain = GMU_GX_DOMAIN,
+-		.feature_rev = 0,
+-		.cfg = {
+-			.enable = 1,
+-			.msg_path = 0,
+-			.lkg_en = 0,
+-			.mode = 0,
+-			.sid = 12,
+-			.mit_time = 5,
+-			.curr_limit = 18000,
+-		},
+-	},
+-	{
+-		.feature_id = GMU_MIT_IFF,
+-		.domain = GMU_MX_DOMAIN,
+-		.feature_rev = 0,
+-		.cfg = {
+-			.enable = 1,
+-			.msg_path = 0,
+-			.lkg_en = 0,
+-			.mode = 0,
+-			.sid = 18,
+-			.mit_time = 2000,
+-			.curr_limit = 6000,
+-		},
+-	},
+-	{
+-		.feature_id = GMU_MIT_PCLX,
+-		.domain = GMU_GX_DOMAIN,
+-		.feature_rev = 0,
+-		.cfg = {
+-			.enable = 1,
+-			.msg_path = 0,
+-			.lkg_en = 0,
+-			.mode = 0,
+-			.sid = 6,
+-			.mit_time = 3,
+-			.curr_limit = 66000,
+-		},
+-	},
+-	{
+-		.feature_id = GMU_MIT_PCLX,
+-		.domain = GMU_MX_DOMAIN,
+-		.feature_rev = 0,
+-		.cfg = {
+-			.enable = 0,
+-			.msg_path = 0,
+-			.lkg_en = 0,
+-			.mode = 0,
+-			.sid = 6,
+-			.mit_time = 3,
+-			.curr_limit = 18000,
+-		},
+-	},
+-};
+-DECLARE_ADRENO_LIMITS_TABLE(x285_limits);
+-
+-static const struct adreno_reglist_pipe a840_nonctxt_regs[] = {
+-	{ REG_A8XX_CP_SMMU_STREAM_ID_LPAC, 0x00000101, BIT(PIPE_NONE) },
+-	{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0x00000800, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_GRAS_TSEFE_DBG_ECO_CNTL, 0x00200000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_VIS_STREAM_CNTL, 0x10010000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0x00000002, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_1, 0x00000003, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_2, 0x00000200, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_3, 0x00500000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_4, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	/* Disable Dead Draw Merge scheme on RB-HLSQ */
+-	{ REG_A6XX_RB_RBP_CNTL, BIT(5), BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A7XX_RB_CCU_CNTL, 0x00000068, BIT(PIPE_BR) },
+-	/* Partially enable perf clear, Disable DINT to c/z be data forwarding */
+-	{ REG_A7XX_RB_CCU_DBG_ECO_CNTL, 0x00002200, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_GC_GMEM_PROTECT, 0x12000000, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0x00000007, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0x00004000, BIT(PIPE_BR) },
+-	{ REG_A8XX_RBBM_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_SLICE_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_POWER_UP_RESET_SW_OVERRIDE, 0x70809060, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_POWER_UP_RESET_SW_BV_OVERRIDE, 0x30000000, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL, 0x00000030, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL2, 0x00000030, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_INTERFACE_HANG_INT_CNTL, 0x0fffffff, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_GBIF_CLIENT_QOS_CNTL, 0x22122212, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_CGC_P2S_CNTL, 0x00000040, BIT(PIPE_NONE) },
+-	/* Disable mode_switch optimization in UMAS */
+-	{ REG_A6XX_SP_CHICKEN_BITS, BIT(24) | BIT(26), BIT(PIPE_NONE) },
+-	/* Disable LPAC large-LM mode */
+-	{ REG_A8XX_SP_SS_CHICKEN_BITS_0, BIT(3), BIT(PIPE_NONE) },
+-	/* Disable PS out of order retire */
+-	{ REG_A7XX_SP_CHICKEN_BITS_2, 0x00c21800, BIT(PIPE_NONE) },
+-	{ REG_A7XX_SP_CHICKEN_BITS_3, 0x00300000, BIT(PIPE_NONE) },
+-	/* Disable SP2TP info attribute */
+-	{ REG_A8XX_SP_CHICKEN_BITS_4, 0x00000002, BIT(PIPE_NONE) },
+-	{ REG_A6XX_SP_PERFCTR_SHADER_MASK, 0x0000003f, BIT(PIPE_NONE) },
+-	{ REG_A7XX_SP_HLSQ_DBG_ECO_CNTL, BIT(14), BIT(PIPE_NONE) },
+-	/* Ignore HLSQ shared constant feedback from SP */
+-	{ REG_A7XX_SP_HLSQ_DBG_ECO_CNTL_1, BIT(17), BIT(PIPE_NONE) },
+-	/* Disable CS dead batch merge */
+-	{ REG_A7XX_SP_HLSQ_DBG_ECO_CNTL_2, BIT(24), BIT(PIPE_NONE) },
+-	{ REG_A8XX_SP_HLSQ_DBG_ECO_CNTL_3, BIT(7), BIT(PIPE_NONE) },
+-	{ REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP, 0x00000080, BIT(PIPE_NONE) },
+-	{ REG_A7XX_SP_READ_SEL, 0x0001ff00, BIT(PIPE_NONE) },
+-	{ REG_A6XX_TPL1_DBG_ECO_CNTL, 0x10100000, BIT(PIPE_NONE) },
+-	/* BIT(26): Disable final clamp for bicubic filtering */
+-	{ REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x04000720, BIT(PIPE_NONE) },
+-	{ REG_A6XX_UCHE_MODE_CNTL, 0x80080000, BIT(PIPE_NONE) },
+-	{ REG_A8XX_UCHE_CCHE_MODE_CNTL, 0x00001000, BIT(PIPE_NONE) },
+-	{ REG_A8XX_UCHE_CCHE_CACHE_WAYS, 0x00000800, BIT(PIPE_NONE) },
+-	{ REG_A8XX_UCHE_GBIF_GX_CONFIG, 0x010240e0, BIT(PIPE_NONE) },
+-	{ REG_A8XX_UCHE_VARB_IDLE_TIMEOUT, 0x00000020, BIT(PIPE_NONE) },
+-	{ REG_A7XX_VFD_DBG_ECO_CNTL, 0x00008000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BV_THRESHOLD, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BR_THRESHOLD, 0x00600060, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0x00200020, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_LP_REQ_CNT, 0x00000020, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ },
+-};
+-
+-static const u32 a840_protect_regs[] = {
+-	A6XX_PROTECT_RDONLY(0x00008, 0x039b),
+-	A6XX_PROTECT_RDONLY(0x003b4, 0x008b),
+-	A6XX_PROTECT_NORDWR(0x00440, 0x001f),
+-	A6XX_PROTECT_RDONLY(0x00580, 0x005f),
+-	A6XX_PROTECT_NORDWR(0x005e0, 0x011f),
+-	A6XX_PROTECT_RDONLY(0x0074a, 0x0005),
+-	A6XX_PROTECT_RDONLY(0x00759, 0x001b),
+-	A6XX_PROTECT_NORDWR(0x00775, 0x000a),
+-	A6XX_PROTECT_RDONLY(0x00789, 0x0000),
+-	A6XX_PROTECT_RDONLY(0x0078c, 0x0013),
+-	A6XX_PROTECT_NORDWR(0x00800, 0x0029),
+-	A6XX_PROTECT_NORDWR(0x00837, 0x00af),
+-	A6XX_PROTECT_RDONLY(0x008e7, 0x00c9),
+-	A6XX_PROTECT_NORDWR(0x008ec, 0x00c3),
+-	A6XX_PROTECT_NORDWR(0x009b1, 0x0250),
+-	A6XX_PROTECT_NORDWR(0x00c07, 0x0008),
+-	A6XX_PROTECT_RDONLY(0x00ce0, 0x0001),
+-	A6XX_PROTECT_RDONLY(0x00df0, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x00df1, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x00e03, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x03c00, 0x00c5),
+-	A6XX_PROTECT_RDONLY(0x03cc6, 0x0039),
+-	A6XX_PROTECT_NORDWR(0x03d00, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x08600, 0x01ff),
+-	A6XX_PROTECT_NORDWR(0x08e00, 0x00ff),
+-	A6XX_PROTECT_RDONLY(0x08f00, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x08f01, 0x01be),
+-	A6XX_PROTECT_NORDWR(0x09600, 0x01ff),
+-	A6XX_PROTECT_RDONLY(0x0981a, 0x02e5),
+-	A6XX_PROTECT_NORDWR(0x09e00, 0x01ff),
+-	A6XX_PROTECT_NORDWR(0x0a600, 0x01ff),
+-	A6XX_PROTECT_NORDWR(0x0a82e, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x0ae00, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x0ae02, 0x0004),
+-	A6XX_PROTECT_NORDWR(0x0ae08, 0x0006),
+-	A6XX_PROTECT_NORDWR(0x0ae10, 0x00bf),
+-	A6XX_PROTECT_RDONLY(0x0aed0, 0x002f),
+-	A6XX_PROTECT_NORDWR(0x0af00, 0x027f),
+-	A6XX_PROTECT_NORDWR(0x0b600, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x0dc00, 0x1fff),
+-	A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x18400, 0x003f),
+-	A6XX_PROTECT_RDONLY(0x18440, 0x013f),
+-	A6XX_PROTECT_NORDWR(0x18580, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x1b400, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x1f400, 0x0477),
+-	A6XX_PROTECT_RDONLY(0x1f878, 0x0507),
+-	A6XX_PROTECT_NORDWR(0x1f930, 0x0329),
+-	A6XX_PROTECT_NORDWR(0x1fd80, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x27800, 0x007f),
+-	A6XX_PROTECT_RDONLY(0x27880, 0x0385),
+-	A6XX_PROTECT_NORDWR(0x27882, 0x0009),
+-	A6XX_PROTECT_NORDWR(0x27c06, 0x0000),
+-};
+-DECLARE_ADRENO_PROTECT(a840_protect, 15);
+-
+-static const struct adreno_reglist a840_gbif[] = {
+-	{ REG_A6XX_GBIF_QSB_SIDE0, 0x00071e20 },
+-	{ REG_A6XX_GBIF_QSB_SIDE1, 0x00071e20 },
+-	{ REG_A6XX_GBIF_QSB_SIDE2, 0x00071e20 },
+-	{ REG_A6XX_GBIF_QSB_SIDE3, 0x00071e20 },
+-	{ REG_A6XX_GBIF_CX_CONFIG, 0x20023000 },
+-	{ },
+-};
+-
+-static const uint32_t a840_pwrup_reglist_regs[] = {
+-	REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP,
+-	REG_A7XX_SP_READ_SEL,
+-	REG_A6XX_UCHE_MODE_CNTL,
+-	REG_A8XX_UCHE_VARB_IDLE_TIMEOUT,
+-	REG_A8XX_UCHE_GBIF_GX_CONFIG,
+-	REG_A8XX_UCHE_CCHE_MODE_CNTL,
+-	REG_A8XX_UCHE_CCHE_CACHE_WAYS,
+-	REG_A8XX_UCHE_CACHE_WAYS,
+-	REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN,
+-	REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN + 1,
+-	REG_A8XX_UCHE_CCHE_LPAC_GMEM_RANGE_MIN,
+-	REG_A8XX_UCHE_CCHE_LPAC_GMEM_RANGE_MIN + 1,
+-	REG_A8XX_UCHE_CCHE_TRAP_BASE,
+-	REG_A8XX_UCHE_CCHE_TRAP_BASE + 1,
+-	REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE,
+-	REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE + 1,
+-	REG_A8XX_UCHE_HW_DBG_CNTL,
+-	REG_A8XX_UCHE_WRITE_THRU_BASE,
+-	REG_A8XX_UCHE_WRITE_THRU_BASE + 1,
+-	REG_A8XX_UCHE_TRAP_BASE,
+-	REG_A8XX_UCHE_TRAP_BASE + 1,
+-	REG_A8XX_UCHE_CLIENT_PF,
+-	REG_A8XX_RB_CMP_NC_MODE_CNTL,
+-	REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN,
+-	REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN + 1,
+-	REG_A6XX_TPL1_NC_MODE_CNTL,
+-	REG_A6XX_TPL1_DBG_ECO_CNTL,
+-	REG_A6XX_TPL1_DBG_ECO_CNTL1,
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(0),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(1),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(2),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(3),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(4),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(5),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(6),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(7),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(8),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(9),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(10),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(11),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(12),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(13),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(14),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(15),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(16),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(17),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(18),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(19),
+-};
+-DECLARE_ADRENO_REGLIST_LIST(a840_pwrup_reglist);
+-
+-static const u32 a840_ifpc_reglist_regs[] = {
+-	REG_A8XX_RBBM_NC_MODE_CNTL,
+-	REG_A8XX_RBBM_SLICE_NC_MODE_CNTL,
+-	REG_A6XX_SP_NC_MODE_CNTL,
+-	REG_A6XX_SP_CHICKEN_BITS,
+-	REG_A8XX_SP_SS_CHICKEN_BITS_0,
+-	REG_A7XX_SP_CHICKEN_BITS_1,
+-	REG_A7XX_SP_CHICKEN_BITS_2,
+-	REG_A7XX_SP_CHICKEN_BITS_3,
+-	REG_A8XX_SP_CHICKEN_BITS_4,
+-	REG_A6XX_SP_PERFCTR_SHADER_MASK,
+-	REG_A8XX_RBBM_SLICE_PERFCTR_CNTL,
+-	REG_A8XX_RBBM_SLICE_INTERFACE_HANG_INT_CNTL,
+-	REG_A7XX_SP_HLSQ_DBG_ECO_CNTL,
+-	REG_A7XX_SP_HLSQ_DBG_ECO_CNTL_1,
+-	REG_A7XX_SP_HLSQ_DBG_ECO_CNTL_2,
+-	REG_A8XX_SP_HLSQ_DBG_ECO_CNTL_3,
+-	REG_A8XX_SP_HLSQ_LPAC_GMEM_RANGE_MIN,
+-	REG_A8XX_SP_HLSQ_LPAC_GMEM_RANGE_MIN + 1,
+-	REG_A8XX_CP_INTERRUPT_STATUS_MASK_GLOBAL,
+-	REG_A8XX_RBBM_PERFCTR_CNTL,
+-	REG_A8XX_CP_PROTECT_GLOBAL(0),
+-	REG_A8XX_CP_PROTECT_GLOBAL(1),
+-	REG_A8XX_CP_PROTECT_GLOBAL(2),
+-	REG_A8XX_CP_PROTECT_GLOBAL(3),
+-	REG_A8XX_CP_PROTECT_GLOBAL(4),
+-	REG_A8XX_CP_PROTECT_GLOBAL(5),
+-	REG_A8XX_CP_PROTECT_GLOBAL(6),
+-	REG_A8XX_CP_PROTECT_GLOBAL(7),
+-	REG_A8XX_CP_PROTECT_GLOBAL(8),
+-	REG_A8XX_CP_PROTECT_GLOBAL(9),
+-	REG_A8XX_CP_PROTECT_GLOBAL(10),
+-	REG_A8XX_CP_PROTECT_GLOBAL(11),
+-	REG_A8XX_CP_PROTECT_GLOBAL(12),
+-	REG_A8XX_CP_PROTECT_GLOBAL(13),
+-	REG_A8XX_CP_PROTECT_GLOBAL(14),
+-	REG_A8XX_CP_PROTECT_GLOBAL(15),
+-	REG_A8XX_CP_PROTECT_GLOBAL(16),
+-	REG_A8XX_CP_PROTECT_GLOBAL(17),
+-	REG_A8XX_CP_PROTECT_GLOBAL(18),
+-	REG_A8XX_CP_PROTECT_GLOBAL(19),
+-	REG_A8XX_CP_PROTECT_GLOBAL(20),
+-	REG_A8XX_CP_PROTECT_GLOBAL(21),
+-	REG_A8XX_CP_PROTECT_GLOBAL(22),
+-	REG_A8XX_CP_PROTECT_GLOBAL(23),
+-	REG_A8XX_CP_PROTECT_GLOBAL(24),
+-	REG_A8XX_CP_PROTECT_GLOBAL(25),
+-	REG_A8XX_CP_PROTECT_GLOBAL(26),
+-	REG_A8XX_CP_PROTECT_GLOBAL(27),
+-	REG_A8XX_CP_PROTECT_GLOBAL(28),
+-	REG_A8XX_CP_PROTECT_GLOBAL(29),
+-	REG_A8XX_CP_PROTECT_GLOBAL(30),
+-	REG_A8XX_CP_PROTECT_GLOBAL(31),
+-	REG_A8XX_CP_PROTECT_GLOBAL(32),
+-	REG_A8XX_CP_PROTECT_GLOBAL(33),
+-	REG_A8XX_CP_PROTECT_GLOBAL(34),
+-	REG_A8XX_CP_PROTECT_GLOBAL(35),
+-	REG_A8XX_CP_PROTECT_GLOBAL(36),
+-	REG_A8XX_CP_PROTECT_GLOBAL(37),
+-	REG_A8XX_CP_PROTECT_GLOBAL(38),
+-	REG_A8XX_CP_PROTECT_GLOBAL(39),
+-	REG_A8XX_CP_PROTECT_GLOBAL(40),
+-	REG_A8XX_CP_PROTECT_GLOBAL(41),
+-	REG_A8XX_CP_PROTECT_GLOBAL(42),
+-	REG_A8XX_CP_PROTECT_GLOBAL(43),
+-	REG_A8XX_CP_PROTECT_GLOBAL(44),
+-	REG_A8XX_CP_PROTECT_GLOBAL(45),
+-	REG_A8XX_CP_PROTECT_GLOBAL(46),
+-	REG_A8XX_CP_PROTECT_GLOBAL(47),
+-	REG_A8XX_CP_PROTECT_GLOBAL(48),
+-	REG_A8XX_CP_PROTECT_GLOBAL(49),
+-	REG_A8XX_CP_PROTECT_GLOBAL(50),
+-	REG_A8XX_CP_PROTECT_GLOBAL(51),
+-	REG_A8XX_CP_PROTECT_GLOBAL(52),
+-	REG_A8XX_CP_PROTECT_GLOBAL(53),
+-	REG_A8XX_CP_PROTECT_GLOBAL(54),
+-	REG_A8XX_CP_PROTECT_GLOBAL(55),
+-	REG_A8XX_CP_PROTECT_GLOBAL(56),
+-	REG_A8XX_CP_PROTECT_GLOBAL(57),
+-	REG_A8XX_CP_PROTECT_GLOBAL(58),
+-	REG_A8XX_CP_PROTECT_GLOBAL(59),
+-	REG_A8XX_CP_PROTECT_GLOBAL(60),
+-	REG_A8XX_CP_PROTECT_GLOBAL(61),
+-	REG_A8XX_CP_PROTECT_GLOBAL(62),
+-	REG_A8XX_CP_PROTECT_GLOBAL(63),
+-};
+-DECLARE_ADRENO_REGLIST_LIST(a840_ifpc_reglist);
+-
+-static const struct adreno_reglist_pipe a840_dyn_pwrup_reglist_regs[] = {
+-	{ REG_A8XX_GRAS_TSEFE_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_GRAS_NC_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_1, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_2, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_3, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_4, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_VIS_STREAM_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A7XX_RB_CCU_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A7XX_RB_CCU_DBG_ECO_CNTL, 0, BIT(PIPE_BR)},
+-	{ REG_A8XX_RB_CCU_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_CMP_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A6XX_RB_RBP_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A6XX_RB_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A7XX_VFD_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BV_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BR_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_LP_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_CP_HW_FAULT_STATUS_MASK_PIPE, 0, BIT(PIPE_BR) |
+-		BIT(PIPE_BV) | BIT(PIPE_LPAC) | BIT(PIPE_AQE0) |
+-		BIT(PIPE_AQE1) | BIT(PIPE_DDE_BR) | BIT(PIPE_DDE_BV) },
+-	{ REG_A8XX_CP_INTERRUPT_STATUS_MASK_PIPE, 0, BIT(PIPE_BR) |
+-		BIT(PIPE_BV) | BIT(PIPE_LPAC) | BIT(PIPE_AQE0) |
+-		BIT(PIPE_AQE1) | BIT(PIPE_DDE_BR) | BIT(PIPE_DDE_BV) },
+-	{ REG_A8XX_CP_PROTECT_CNTL_PIPE, 0, BIT(PIPE_BR) | BIT(PIPE_BV) | BIT(PIPE_LPAC)},
+-	{ REG_A8XX_CP_PROTECT_PIPE(15), 0, BIT(PIPE_BR) | BIT(PIPE_BV) | BIT(PIPE_LPAC) },
+-	{ REG_A8XX_RB_GC_GMEM_PROTECT, 0, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_LPAC_GMEM_PROTECT, 0, BIT(PIPE_BR) },
+-	{ REG_A6XX_RB_CONTEXT_SWITCH_GMEM_SAVE_RESTORE_ENABLE, 0, BIT(PIPE_BR) },
+-};
+-DECLARE_ADRENO_REGLIST_PIPE_LIST(a840_dyn_pwrup_reglist);
+-
+-static const struct a6xx_hfi_clx_table_v2_cmd a840_clx_tbl = {
+-	.version = (2 << 16) | 1,
+-	.domain = {
+-		/* GX DOMAIN */
+-		{
+-			.data = CLX_DATA(60, 5, 1, 1),
+-			.clxt = 0,
+-			.clxh = 0,
+-			.urg_mode = 1,
+-			.lkg_en = 0,
+-			.curr_budget = 100,
+-		},
+-		/* MXG DOMAIN */
+-		{
+-			.data = CLX_DATA(60, 1, 1, 1),
+-			.clxt = 0,
+-			.clxh = 0,
+-			.urg_mode = 1,
+-			.lkg_en = 0,
+-			.curr_budget = 50,
+-		},
+-	},
+-};
+-
+-struct a6xx_hfi_limits_tbl a840_limits_tbl[] = {
+-	{
+-		.feature_id = GMU_MIT_IFF,
+-		.domain = GMU_GX_DOMAIN,
+-		.feature_rev = 0,
+-		.cfg = {
+-			.enable = 1,
+-			.msg_path = 0,
+-			.lkg_en = 0,
+-			.mode = 0,
+-			.sid = 12,
+-			.mit_time = 5,
+-			.curr_limit = 6000,
+-		},
+-	},
+-	{
+-		.feature_id = GMU_MIT_IFF,
+-		.domain = GMU_MX_DOMAIN,
+-		.feature_rev = 0,
+-		.cfg = {
+-			.enable = 1,
+-			.msg_path = 0,
+-			.lkg_en = 0,
+-			.mode = 0,
+-			.sid = 9,
+-			.mit_time = 2000,
+-			.curr_limit = 6000,
+-		},
+-	},
+-	{
+-		.feature_id = GMU_MIT_PCLX,
+-		.domain = GMU_GX_DOMAIN,
+-		.feature_rev = 0,
+-		.cfg = {
+-			.enable = 1,
+-			.msg_path = 0,
+-			.lkg_en = 0,
+-			.mode = 0,
+-			.sid = 7,
+-			.mit_time = 3,
+-			.curr_limit = 30000,
+-		},
+-	},
+-	{
+-		.feature_id = GMU_MIT_PCLX,
+-		.domain = GMU_MX_DOMAIN,
+-		.feature_rev = 0,
+-		.cfg = {
+-			.enable = 0,
+-			.msg_path = 0,
+-			.lkg_en = 0,
+-			.mode = 0,
+-			.sid = 7,
+-			.mit_time = 3,
+-			.curr_limit = 6000,
+-		},
+-	},
+-};
+-DECLARE_ADRENO_LIMITS_TABLE(a840_limits);
+-
+-static const struct adreno_reglist_pipe a845_nonctxt_regs[] = {
+-	{ REG_A8XX_CP_SMMU_STREAM_ID_LPAC, 0x00000101, BIT(PIPE_NONE) },
+-	{ REG_A8XX_CP_MULTIDRAW_CNTL, 0x00000001, BIT(PIPE_NONE) },
+-	{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0x01000800, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_GRAS_TSEFE_DBG_ECO_CNTL, 0x00200000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_VIS_STREAM_CNTL, 0x10010000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0x00000002, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_1, 0x00000803, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_2, 0x00000200, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_3, 0x00400000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_4, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_5, BIT(28) | BIT(30), BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A7XX_RB_CCU_CNTL, 0x00000068, BIT(PIPE_BR) },
+-	{ REG_A7XX_RB_CCU_DBG_ECO_CNTL, BIT(10) | BIT(9), BIT(PIPE_BR) },
+-	{ REG_A6XX_RB_DBG_ECO_CNTL, BIT(17), BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_GC_GMEM_PROTECT, 0x0C000000, BIT(PIPE_BR) },
+-	{ REG_A6XX_RB_RBP_CNTL, BIT(5) | BIT(6), BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0x00000007, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0x00004000, BIT(PIPE_BR) },
+-	{ REG_A8XX_RBBM_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_SLICE_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_SLICE_PERFCTR_CNTL, BIT(0), BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_POWER_UP_RESET_SW_OVERRIDE, 0x70809060, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_POWER_UP_RESET_SW_BV_OVERRIDE, 0x30000000, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL, 0x00000030, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL2, 0x00000030, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_GBIF_CLIENT_QOS_CNTL, 0x22122212, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_CGC_P2S_CNTL, 0x00000040, BIT(PIPE_NONE) },
+-	{ REG_A6XX_SP_CHICKEN_BITS, BIT(24), BIT(PIPE_NONE) },
+-	{ REG_A7XX_SP_CHICKEN_BITS_2, 0x00820800, BIT(PIPE_NONE) },
+-	{ REG_A7XX_SP_CHICKEN_BITS_3, 0x00300000, BIT(PIPE_NONE) },
+-	{ REG_A8XX_SP_CHICKEN_BITS_5, BIT(3), BIT(PIPE_NONE) },
+-	{ REG_A6XX_SP_PERFCTR_SHADER_MASK, 0x0000003f, BIT(PIPE_NONE) },
+-	{ REG_A7XX_SP_HLSQ_DBG_ECO_CNTL, 0x04000000, BIT(PIPE_NONE) },
+-	{ REG_A7XX_SP_HLSQ_DBG_ECO_CNTL_1, BIT(17), BIT(PIPE_NONE) },
+-	{ REG_A8XX_SP_HLSQ_DBG_ECO_CNTL_3, BIT(1), BIT(PIPE_NONE) },
+-	{ REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP, 0x00000080, BIT(PIPE_NONE) },
+-	{ REG_A7XX_SP_READ_SEL, 0x0001ff00, BIT(PIPE_NONE) },
+-	{ REG_A8XX_SP_L0_PERF_TUNE, 0x00000024, BIT(PIPE_NONE) },
+-	{ REG_A6XX_TPL1_DBG_ECO_CNTL, 0x10100000, BIT(PIPE_NONE) },
+-	{ REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x00000720, BIT(PIPE_NONE) },
+-	{ REG_A6XX_UCHE_MODE_CNTL, 0x80080000, BIT(PIPE_NONE) },
+-	{ REG_A8XX_UCHE_CCHE_MODE_CNTL, 0x00001000, BIT(PIPE_NONE) },
+-	{ REG_A8XX_UCHE_DBG_ECO_CNTL_0, BIT(31), BIT(PIPE_NONE) },
+-	{ REG_A8XX_UCHE_HW_DBG_CNTL, 0x01410000, BIT(PIPE_NONE) },
+-	{ REG_A8XX_UCHE_CCHE_CACHE_WAYS, 0x00000800, BIT(PIPE_NONE) },
+-	{ REG_A8XX_UCHE_GBIF_GX_CONFIG, 0x010240e0, BIT(PIPE_NONE) },
+-	{ REG_A8XX_UCHE_VARB_IDLE_TIMEOUT, 0x00000020, BIT(PIPE_NONE) },
+-	{ REG_A7XX_VFD_DBG_ECO_CNTL, 0x00008000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BV_THRESHOLD, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BR_THRESHOLD, 0x00600060, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0x00200020, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_LP_REQ_CNT, 0x00080020, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VSC_VISIBILITY_FLUSH_CNTL, 0x00080004, BIT(PIPE_NONE) },
+-	{ },
+-};
+-
+-static const struct adreno_reglist_pipe a850_nonctxt_regs[] = {
+-	{ REG_A8XX_CP_SMMU_STREAM_ID_LPAC, 0x00000101, BIT(PIPE_NONE) },
+-	{ REG_A8XX_CP_MULTIDRAW_CNTL, 0x00000001, BIT(PIPE_NONE) },
+-	{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0x01000800, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_GRAS_TSEFE_DBG_ECO_CNTL, 0x00200000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_VIS_STREAM_CNTL, 0x10010000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0x00000002, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_1, 0x00000003, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_2, 0x00000200, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_3, 0x00400000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_4, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_5, BIT(28), BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A7XX_RB_CCU_CNTL, 0x00000068, BIT(PIPE_BR) },
+-	{ REG_A7XX_RB_CCU_DBG_ECO_CNTL, BIT(10) | BIT(9), BIT(PIPE_BR) },
+-	{ REG_A6XX_RB_DBG_ECO_CNTL, BIT(17), BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_GC_GMEM_PROTECT, 0x12000000, BIT(PIPE_BR) },
+-	{ REG_A6XX_RB_RBP_CNTL, BIT(5) | BIT(6), BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0x00000007, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0x00004000, BIT(PIPE_BR) },
+-	{ REG_A8XX_RBBM_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_SLICE_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_SLICE_PERFCTR_CNTL, BIT(0), BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_POWER_UP_RESET_SW_OVERRIDE, 0x70809060, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_POWER_UP_RESET_SW_BV_OVERRIDE, 0x30000000, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL, 0x00000030, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL2, 0x00000030, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_GBIF_CLIENT_QOS_CNTL, 0x22122212, BIT(PIPE_NONE) },
+-	{ REG_A8XX_RBBM_CGC_P2S_CNTL, 0x00000040, BIT(PIPE_NONE) },
+-	{ REG_A6XX_SP_CHICKEN_BITS, BIT(24), BIT(PIPE_NONE) },
+-	{ REG_A7XX_SP_CHICKEN_BITS_2, 0x00820800, BIT(PIPE_NONE) },
+-	{ REG_A7XX_SP_CHICKEN_BITS_3, 0x00300000, BIT(PIPE_NONE) },
+-	{ REG_A8XX_SP_CHICKEN_BITS_5, BIT(3), BIT(PIPE_NONE) },
+-	{ REG_A6XX_SP_PERFCTR_SHADER_MASK, 0x0000003f, BIT(PIPE_NONE) },
+-	{ REG_A7XX_SP_HLSQ_DBG_ECO_CNTL, 0x04000000, BIT(PIPE_NONE) },
+-	{ REG_A7XX_SP_HLSQ_DBG_ECO_CNTL_1, BIT(17), BIT(PIPE_NONE) },
+-	{ REG_A8XX_SP_HLSQ_DBG_ECO_CNTL_3, BIT(1), BIT(PIPE_NONE) },
+-	{ REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP, 0x00000080, BIT(PIPE_NONE) },
+-	{ REG_A7XX_SP_READ_SEL, 0x0001ff00, BIT(PIPE_NONE) },
+-	{ REG_A8XX_SP_L0_PERF_TUNE, 0x00000024, BIT(PIPE_NONE) },
+-	{ REG_A6XX_TPL1_DBG_ECO_CNTL, 0x10100000, BIT(PIPE_NONE) },
+-	{ REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x00000720, BIT(PIPE_NONE) },
+-	{ REG_A6XX_UCHE_MODE_CNTL, 0x80080000, BIT(PIPE_NONE) },
+-	{ REG_A8XX_UCHE_CCHE_MODE_CNTL, 0x00001000, BIT(PIPE_NONE) },
+-	{ REG_A8XX_UCHE_DBG_ECO_CNTL_0, BIT(31), BIT(PIPE_NONE) },
+-	{ REG_A8XX_UCHE_HW_DBG_CNTL, 0x01410000, BIT(PIPE_NONE) },
+-	{ REG_A8XX_UCHE_CCHE_CACHE_WAYS, 0x00000800, BIT(PIPE_NONE) },
+-	{ REG_A8XX_UCHE_GBIF_GX_CONFIG, 0x010240e0, BIT(PIPE_NONE) },
+-	{ REG_A8XX_UCHE_VARB_IDLE_TIMEOUT, 0x00000020, BIT(PIPE_NONE) },
+-	{ REG_A7XX_VFD_DBG_ECO_CNTL, 0x00008000, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BV_THRESHOLD, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BR_THRESHOLD, 0x00600060, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0x00200020, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_LP_REQ_CNT, 0x00080020, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VSC_VISIBILITY_FLUSH_CNTL, 0x00080004, BIT(PIPE_NONE) },
+-	{ },
+-};
+-
+-static const u32 a850_protect_regs[] = {
+-	A6XX_PROTECT_RDONLY(0x00008, 0x039b),
+-	A6XX_PROTECT_RDONLY(0x003b4, 0x008b),
+-	A6XX_PROTECT_NORDWR(0x00440, 0x001f),
+-	A6XX_PROTECT_RDONLY(0x00580, 0x005f),
+-	A6XX_PROTECT_NORDWR(0x005e0, 0x011f),
+-	A6XX_PROTECT_RDONLY(0x0074a, 0x0005),
+-	A6XX_PROTECT_RDONLY(0x00759, 0x001b),
+-	A6XX_PROTECT_NORDWR(0x00775, 0x000a),
+-	A6XX_PROTECT_RDONLY(0x00789, 0x0000),
+-	A6XX_PROTECT_RDONLY(0x0078c, 0x0013),
+-	A6XX_PROTECT_NORDWR(0x00800, 0x0029),
+-	A6XX_PROTECT_NORDWR(0x00837, 0x00af),
+-	A6XX_PROTECT_RDONLY(0x008e7, 0x00c9),
+-	A6XX_PROTECT_NORDWR(0x008ec, 0x00c3),
+-	A6XX_PROTECT_NORDWR(0x009b1, 0x0250),
+-	A6XX_PROTECT_NORDWR(0x00c07, 0x0008),
+-	A6XX_PROTECT_RDONLY(0x00ce0, 0x0001),
+-	A6XX_PROTECT_RDONLY(0x00df0, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x00df1, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x00df5, 0x0003),
+-	A6XX_PROTECT_RDONLY(0x00df9, 0x0007),
+-	A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x00e03, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x03c00, 0x00c5),
+-	A6XX_PROTECT_RDONLY(0x03cc6, 0x0039),
+-	A6XX_PROTECT_NORDWR(0x03d00, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x08600, 0x01ff),
+-	A6XX_PROTECT_NORDWR(0x08e00, 0x00ff),
+-	A6XX_PROTECT_RDONLY(0x08f00, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x08f01, 0x01be),
+-	A6XX_PROTECT_NORDWR(0x09600, 0x01ff),
+-	A6XX_PROTECT_RDONLY(0x0981a, 0x02e5),
+-	A6XX_PROTECT_NORDWR(0x09e00, 0x01ff),
+-	A6XX_PROTECT_NORDWR(0x0a600, 0x01ff),
+-	A6XX_PROTECT_NORDWR(0x0a82e, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x0ae00, 0x0000),
+-	A6XX_PROTECT_NORDWR(0x0ae02, 0x0004),
+-	A6XX_PROTECT_NORDWR(0x0ae08, 0x0006),
+-	A6XX_PROTECT_NORDWR(0x0ae10, 0x00bf),
+-	A6XX_PROTECT_RDONLY(0x0aed0, 0x002f),
+-	A6XX_PROTECT_NORDWR(0x0af00, 0x027f),
+-	A6XX_PROTECT_NORDWR(0x0b600, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x0dc00, 0x1fff),
+-	A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x18400, 0x003f),
+-	A6XX_PROTECT_RDONLY(0x18440, 0x013f),
+-	A6XX_PROTECT_NORDWR(0x18580, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x1ac00, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x1cc00, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x1f400, 0x0477),
+-	A6XX_PROTECT_RDONLY(0x1f878, 0x0507),
+-	A6XX_PROTECT_NORDWR(0x1f930, 0x0329),
+-	A6XX_PROTECT_NORDWR(0x1fd80, 0x1fff),
+-	A6XX_PROTECT_NORDWR(0x27800, 0x007f),
+-	A6XX_PROTECT_RDONLY(0x27880, 0x0385),
+-	A6XX_PROTECT_NORDWR(0x27882, 0x0035),
+-	A6XX_PROTECT_NORDWR(0x27c06, 0x0000),
+-};
+-DECLARE_ADRENO_PROTECT(a850_protect, 15);
+-
+-static const u32 a850_pwrup_reglist_regs[] = {
+-	REG_A8XX_RB_CMP_NC_MODE_CNTL,
+-	REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN,
+-	REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN + 1,
+-	REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP,
+-	REG_A7XX_SP_READ_SEL,
+-	REG_A8XX_CP_MULTIDRAW_CNTL,
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(0),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(1),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(2),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(3),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(4),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(5),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(6),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(7),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(8),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(9),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(10),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(11),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(12),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(13),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(14),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(15),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(16),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(17),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(18),
+-	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(19),
+-	REG_A6XX_TPL1_DBG_ECO_CNTL,
+-	REG_A6XX_TPL1_DBG_ECO_CNTL1,
+-	REG_A6XX_TPL1_NC_MODE_CNTL,
+-	REG_A6XX_UCHE_MODE_CNTL,
+-	REG_A8XX_UCHE_CCHE_MODE_CNTL,
+-	REG_A8XX_UCHE_HW_DBG_CNTL,
+-	REG_A8XX_UCHE_CCHE_CACHE_WAYS,
+-	REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN,
+-	REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN + 1,
+-	REG_A8XX_UCHE_CCHE_LPAC_GMEM_RANGE_MIN,
+-	REG_A8XX_UCHE_CCHE_LPAC_GMEM_RANGE_MIN + 1,
+-	REG_A8XX_UCHE_CCHE_TRAP_BASE,
+-	REG_A8XX_UCHE_CCHE_TRAP_BASE + 1,
+-	REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE,
+-	REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE + 1,
+-	REG_A8XX_UCHE_CLIENT_PF,
+-	REG_A8XX_UCHE_DBG_ECO_CNTL_0,
+-	REG_A8XX_UCHE_GBIF_GX_CONFIG,
+-	REG_A8XX_UCHE_TRAP_BASE,
+-	REG_A8XX_UCHE_TRAP_BASE + 1,
+-	REG_A8XX_UCHE_VARB_IDLE_TIMEOUT,
+-	REG_A8XX_UCHE_WRITE_THRU_BASE,
+-	REG_A8XX_UCHE_WRITE_THRU_BASE + 1,
+-	REG_A8XX_VSC_VISIBILITY_FLUSH_CNTL,
+-};
+-DECLARE_ADRENO_REGLIST_LIST(a850_pwrup_reglist);
+-
+-static const u32 a850_ifpc_reglist_regs[] = {
+-	REG_A8XX_CP_INTERRUPT_STATUS_MASK_GLOBAL,
+-	REG_A8XX_RBBM_NC_MODE_CNTL,
+-	REG_A8XX_RBBM_SLICE_INTERFACE_HANG_INT_CNTL,
+-	REG_A8XX_RBBM_SLICE_NC_MODE_CNTL,
+-	REG_A8XX_RBBM_SLICE_PERFCTR_CNTL,
+-	REG_A6XX_SP_CHICKEN_BITS,
+-	REG_A7XX_SP_CHICKEN_BITS_2,
+-	REG_A7XX_SP_CHICKEN_BITS_3,
+-	REG_A8XX_SP_CHICKEN_BITS_5,
+-	REG_A7XX_SP_HLSQ_DBG_ECO_CNTL,
+-	REG_A7XX_SP_HLSQ_DBG_ECO_CNTL_1,
+-	REG_A8XX_SP_HLSQ_DBG_ECO_CNTL_3,
+-	REG_A8XX_SP_HLSQ_LPAC_GMEM_RANGE_MIN,
+-	REG_A8XX_SP_HLSQ_LPAC_GMEM_RANGE_MIN + 1,
+-	REG_A6XX_SP_NC_MODE_CNTL,
+-	REG_A6XX_SP_PERFCTR_SHADER_MASK,
+-	REG_A8XX_SP_L0_PERF_TUNE,
+-	REG_A8XX_CP_PROTECT_GLOBAL(0),
+-	REG_A8XX_CP_PROTECT_GLOBAL(1),
+-	REG_A8XX_CP_PROTECT_GLOBAL(2),
+-	REG_A8XX_CP_PROTECT_GLOBAL(3),
+-	REG_A8XX_CP_PROTECT_GLOBAL(4),
+-	REG_A8XX_CP_PROTECT_GLOBAL(5),
+-	REG_A8XX_CP_PROTECT_GLOBAL(6),
+-	REG_A8XX_CP_PROTECT_GLOBAL(7),
+-	REG_A8XX_CP_PROTECT_GLOBAL(8),
+-	REG_A8XX_CP_PROTECT_GLOBAL(9),
+-	REG_A8XX_CP_PROTECT_GLOBAL(10),
+-	REG_A8XX_CP_PROTECT_GLOBAL(11),
+-	REG_A8XX_CP_PROTECT_GLOBAL(12),
+-	REG_A8XX_CP_PROTECT_GLOBAL(13),
+-	REG_A8XX_CP_PROTECT_GLOBAL(14),
+-	REG_A8XX_CP_PROTECT_GLOBAL(15),
+-	REG_A8XX_CP_PROTECT_GLOBAL(16),
+-	REG_A8XX_CP_PROTECT_GLOBAL(17),
+-	REG_A8XX_CP_PROTECT_GLOBAL(18),
+-	REG_A8XX_CP_PROTECT_GLOBAL(19),
+-	REG_A8XX_CP_PROTECT_GLOBAL(20),
+-	REG_A8XX_CP_PROTECT_GLOBAL(21),
+-	REG_A8XX_CP_PROTECT_GLOBAL(22),
+-	REG_A8XX_CP_PROTECT_GLOBAL(23),
+-	REG_A8XX_CP_PROTECT_GLOBAL(24),
+-	REG_A8XX_CP_PROTECT_GLOBAL(25),
+-	REG_A8XX_CP_PROTECT_GLOBAL(26),
+-	REG_A8XX_CP_PROTECT_GLOBAL(27),
+-	REG_A8XX_CP_PROTECT_GLOBAL(28),
+-	REG_A8XX_CP_PROTECT_GLOBAL(29),
+-	REG_A8XX_CP_PROTECT_GLOBAL(30),
+-	REG_A8XX_CP_PROTECT_GLOBAL(31),
+-	REG_A8XX_CP_PROTECT_GLOBAL(32),
+-	REG_A8XX_CP_PROTECT_GLOBAL(33),
+-	REG_A8XX_CP_PROTECT_GLOBAL(34),
+-	REG_A8XX_CP_PROTECT_GLOBAL(35),
+-	REG_A8XX_CP_PROTECT_GLOBAL(36),
+-	REG_A8XX_CP_PROTECT_GLOBAL(37),
+-	REG_A8XX_CP_PROTECT_GLOBAL(38),
+-	REG_A8XX_CP_PROTECT_GLOBAL(39),
+-	REG_A8XX_CP_PROTECT_GLOBAL(40),
+-	REG_A8XX_CP_PROTECT_GLOBAL(41),
+-	REG_A8XX_CP_PROTECT_GLOBAL(42),
+-	REG_A8XX_CP_PROTECT_GLOBAL(43),
+-	REG_A8XX_CP_PROTECT_GLOBAL(44),
+-	REG_A8XX_CP_PROTECT_GLOBAL(45),
+-	REG_A8XX_CP_PROTECT_GLOBAL(46),
+-	REG_A8XX_CP_PROTECT_GLOBAL(47),
+-	REG_A8XX_CP_PROTECT_GLOBAL(48),
+-	REG_A8XX_CP_PROTECT_GLOBAL(49),
+-	REG_A8XX_CP_PROTECT_GLOBAL(50),
+-	REG_A8XX_CP_PROTECT_GLOBAL(51),
+-	REG_A8XX_CP_PROTECT_GLOBAL(52),
+-	REG_A8XX_CP_PROTECT_GLOBAL(53),
+-	REG_A8XX_CP_PROTECT_GLOBAL(54),
+-	REG_A8XX_CP_PROTECT_GLOBAL(55),
+-	REG_A8XX_CP_PROTECT_GLOBAL(63),
+-};
+-DECLARE_ADRENO_REGLIST_LIST(a850_ifpc_reglist);
+-
+-static const struct adreno_reglist a850_gbif[] = {
+-	{ REG_A6XX_GBIF_QSB_SIDE0, 0x00071e20 },
+-	{ REG_A6XX_GBIF_QSB_SIDE1, 0x00071e20 },
+-	{ REG_A6XX_GBIF_QSB_SIDE2, 0x00071e20 },
+-	{ REG_A6XX_GBIF_QSB_SIDE3, 0x00071e20 },
+-	{ REG_A6XX_GBIF_CX_CONFIG, 0x20023020 },
+-	{ },
+-};
+-
+-static const struct adreno_reglist_pipe a850_dyn_pwrup_reglist_regs[] = {
+-	{ REG_A8XX_GRAS_TSEFE_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_GRAS_NC_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_1, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_2, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_3, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_4, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CHICKEN_BITS_5, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_PC_VIS_STREAM_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A7XX_RB_CCU_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A7XX_RB_CCU_DBG_ECO_CNTL, 0, BIT(PIPE_BR)},
+-	{ REG_A8XX_RB_CCU_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_CMP_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A6XX_RB_RBP_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A6XX_RB_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0, BIT(PIPE_BR) },
+-	{ REG_A7XX_VFD_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BV_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BR_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VFD_CB_LP_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
+-	{ REG_A8XX_CP_HW_FAULT_STATUS_MASK_PIPE, 0, BIT(PIPE_BR) |
+-		BIT(PIPE_BV) | BIT(PIPE_LPAC) | BIT(PIPE_AQE0) |
+-		BIT(PIPE_AQE1) | BIT(PIPE_DDE_BR) | BIT(PIPE_DDE_BV) },
+-	{ REG_A8XX_CP_INTERRUPT_STATUS_MASK_PIPE, 0, BIT(PIPE_BR) |
+-		BIT(PIPE_BV) | BIT(PIPE_LPAC) | BIT(PIPE_AQE0) |
+-		BIT(PIPE_AQE1) | BIT(PIPE_DDE_BR) | BIT(PIPE_DDE_BV) },
+-	{ REG_A8XX_CP_PROTECT_CNTL_PIPE, 0, BIT(PIPE_BR) | BIT(PIPE_BV) | BIT(PIPE_LPAC) },
+-	{ REG_A8XX_CP_PROTECT_PIPE(15), 0, BIT(PIPE_BR) | BIT(PIPE_BV) | BIT(PIPE_LPAC) },
+-	{ REG_A8XX_RB_GC_GMEM_PROTECT, 0, BIT(PIPE_BR) },
+-	{ REG_A8XX_RB_LPAC_GMEM_PROTECT, 0, BIT(PIPE_BR) },
+-	{ REG_A6XX_RB_CONTEXT_SWITCH_GMEM_SAVE_RESTORE_ENABLE, 0, BIT(PIPE_BR) },
+-};
+-DECLARE_ADRENO_REGLIST_PIPE_LIST(a850_dyn_pwrup_reglist);
+-
+-static const struct adreno_info a8xx_gpus[] = {
+-	{
+-		.chip_ids = ADRENO_CHIP_IDS(0x44050001),
+-		.family = ADRENO_8XX_GEN1,
+-		.fw = {
+-			[ADRENO_FW_SQE] = "gen80000_sqe.fw",
+-			[ADRENO_FW_GMU] = "gen80000_gmu.bin",
+-			[ADRENO_FW_AQE] = "gen80000_aqe.fw",
+-		},
+-		.gmem = 12 * SZ_1M,
+-		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+-		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
+-			  ADRENO_QUIRK_HAS_HW_APRIV |
+-			  ADRENO_QUIRK_PREEMPTION |
+-			  ADRENO_QUIRK_IFPC,
+-		.funcs = &a8xx_gpu_funcs,
+-		.a6xx = &(const struct a6xx_info) {
+-			.protect = &a830_protect,
+-			.nonctxt_reglist = a830_nonctxt_regs,
+-			.pwrup_reglist = &a830_pwrup_reglist,
+-			.dyn_pwrup_reglist = &a830_dyn_pwrup_reglist,
+-			.ifpc_reglist = &a830_ifpc_reglist,
+-			.gbif_cx = a840_gbif,
+-			.max_slices = 3,
+-			.gmu_chipid = 0x8000100,
+-			.bcms = (const struct a6xx_bcm[]) {
+-				{ .name = "SH0", .buswidth = 16 },
+-				{ .name = "MC0", .buswidth = 4 },
+-				{
+-					.name = "ACV",
+-					.fixed = true,
+-					.perfmode = BIT(2),
+-					.perfmode_bw = 10687500,
+-				},
+-				{ /* sentinel */ },
+-			},
+-		},
+-		.preempt_record_size = 13536 * SZ_1K,
+-		.speedbins = ADRENO_SPEEDBINS(
+-			{ 0,   0 },
+-			{ 252, 0 },
+-			{ 242, 1 },
+-			{ 232, 2 },
+-			{ 221, 3 },
+-			{ 190, 4 },
+-		),
+-	}, {
+-		.chip_ids = ADRENO_CHIP_IDS(0x44070001),
+-		.family = ADRENO_8XX_GEN2,
+-		.fw = {
+-			[ADRENO_FW_SQE] = "gen80100_sqe.fw",
+-			[ADRENO_FW_GMU] = "gen80100_gmu.bin",
+-		},
+-		.gmem = 21 * SZ_1M,
+-		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+-		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
+-			  ADRENO_QUIRK_HAS_HW_APRIV |
+-			  ADRENO_QUIRK_PREEMPTION |
+-			  ADRENO_QUIRK_SOFTFUSE,
+-		.funcs = &a8xx_gpu_funcs,
+-		.a6xx = &(const struct a6xx_info) {
+-			.protect = &x285_protect,
+-			.nonctxt_reglist = x285_nonctxt_regs,
+-			.pwrup_reglist = &a840_pwrup_reglist,
+-			.dyn_pwrup_reglist = &x285_dyn_pwrup_reglist,
+-			.ifpc_reglist = &a840_ifpc_reglist,
+-			.gbif_cx = a840_gbif,
+-			.max_slices = 4,
+-			.gmu_chipid = 0x8010100,
+-			.bcms = (const struct a6xx_bcm[]) {
+-				{ .name = "SH0", .buswidth = 16 },
+-				{ .name = "MC0", .buswidth = 4 },
+-				{
+-					.name = "ACV",
+-					.fixed = true,
+-					.perfmode = BIT(2),
+-					.perfmode_bw = 16500000,
+-				},
+-				{ /* sentinel */ },
+-			},
+-			.clx_tbl = &x285_clx_tbl,
+-			.limits_tbl = &x285_limits,
+-		},
+-		.speedbins = ADRENO_SPEEDBINS(
+-			{ 0,   0 },
+-			{ 388, 1 },
+-			{ 357, 2 },
+-			{ 284, 3 },
+-		),
+-	}, {
+-		.chip_ids = ADRENO_CHIP_IDS(0x44050a01),
+-		.family = ADRENO_8XX_GEN2,
+-		.fw = {
+-			[ADRENO_FW_SQE] = "gen80200_sqe.fw",
+-			[ADRENO_FW_GMU] = "gen80200_gmu.bin",
+-			[ADRENO_FW_AQE] = "gen80200_aqe.fw",
+-		},
+-		.gmem = 18 * SZ_1M,
+-		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+-		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
+-			  ADRENO_QUIRK_HAS_HW_APRIV |
+-			  ADRENO_QUIRK_PREEMPTION |
+-			  ADRENO_QUIRK_IFPC,
+-		.funcs = &a8xx_gpu_funcs,
+-		.a6xx = &(const struct a6xx_info) {
+-			.protect = &a840_protect,
+-			.nonctxt_reglist = a840_nonctxt_regs,
+-			.pwrup_reglist = &a840_pwrup_reglist,
+-			.dyn_pwrup_reglist = &a840_dyn_pwrup_reglist,
+-			.ifpc_reglist = &a840_ifpc_reglist,
+-			.gbif_cx = a840_gbif,
+-			.max_slices = 3,
+-			.gmu_chipid = 0x8020100,
+-			.bcms = (const struct a6xx_bcm[]) {
+-				{ .name = "SH0", .buswidth = 16 },
+-				{ .name = "MC0", .buswidth = 4 },
+-				{
+-					.name = "ACV",
+-					.fixed = true,
+-					.perfmode = BIT(2),
+-					.perfmode_bw = 10687500,
+-				},
+-				{ /* sentinel */ },
+-			},
+-			.clx_tbl = &a840_clx_tbl,
+-			.limits_tbl = &a840_limits,
+-		},
+-		.preempt_record_size = 19708 * SZ_1K,
+-		.speedbins = ADRENO_SPEEDBINS(
+-			{ 0,   0 },
+-			{ 273, 1 },
+-			{ 252, 2 },
+-			{ 221, 3 },
+-		),
+-	}, {
+-		.chip_ids = ADRENO_CHIP_IDS(0x44010000),
+-		.family = ADRENO_8XX_GEN1,
+-		.fw = {
+-			[ADRENO_FW_SQE] = "gen80300_sqe.fw",
+-			[ADRENO_FW_GMU] = "gen80300_gmu.bin",
+-		},
+-		.gmem = SZ_512K + SZ_64K,
+-		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+-		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
+-			  ADRENO_QUIRK_HAS_HW_APRIV |
+-			  ADRENO_QUIRK_PREEMPTION |
+-			  ADRENO_QUIRK_IFPC,
+-		.funcs = &a8xx_gpu_funcs,
+-		.zapfw = "gen80300_zap.mbn",
+-		.a6xx = &(const struct a6xx_info) {
+-			.protect = &a810_protect,
+-			.nonctxt_reglist = a810_nonctxt_regs,
+-			.pwrup_reglist = &a810_pwrup_reglist,
+-			.dyn_pwrup_reglist = &a810_dyn_pwrup_reglist,
+-			.ifpc_reglist = &a810_ifpc_reglist,
+-			.gbif_cx = a840_gbif,
+-			.max_slices = 1,
+-			.gmu_chipid = 0x8030000,
+-			.bcms = (const struct a6xx_bcm[]) {
+-				{ .name = "SH0", .buswidth = 16 },
+-				{ .name = "MC0", .buswidth = 4 },
+-				{
+-					.name = "ACV",
+-					.fixed = true,
+-					.perfmode = BIT(2),
+-					.perfmode_bw = 10687500,
+-				},
+-				{ /* sentinel */ },
+-			},
+-		},
+-		.preempt_record_size = 4558 * SZ_1K,
+-		.speedbins = ADRENO_SPEEDBINS(
+-			{ 0,   0 },
+-			{ 242, 1 },
+-			{ 221, 2 },
+-		),
+-	}, {
+-		.chip_ids = ADRENO_CHIP_IDS(0x44060000),
+-		.family = ADRENO_8XX_GEN2,
+-		.fw = {
+-			[ADRENO_FW_SQE] = "gen80100_sqe.fw",
+-			[ADRENO_FW_GMU] = "gen80100_gmu.bin",
+-			[ADRENO_FW_AQE] = "gen80100_aqe.fw",
+-		},
+-		.gmem = 15 * SZ_1M + SZ_512K + SZ_256K,
+-		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+-		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
+-			  ADRENO_QUIRK_HAS_HW_APRIV |
+-			  ADRENO_QUIRK_PREEMPTION |
+-			  ADRENO_QUIRK_SOFTFUSE,
+-		.funcs = &a8xx_gpu_funcs,
+-		.a6xx = &(const struct a6xx_info) {
+-			.protect = &x285_protect,
+-			.nonctxt_reglist = x285_nonctxt_regs,
+-			.pwrup_reglist = &a840_pwrup_reglist,
+-			.dyn_pwrup_reglist = &x285_dyn_pwrup_reglist,
+-			.ifpc_reglist = &a840_ifpc_reglist,
+-			.gbif_cx = a840_gbif,
+-			.max_slices = 3,
+-			.gmu_chipid = 0x80a0000,
+-			.bcms = (const struct a6xx_bcm[]) {
+-				{ .name = "SH0", .buswidth = 16 },
+-				{ .name = "MC0", .buswidth = 4 },
+-				{
+-					.name = "ACV",
+-					.fixed = true,
+-					.perfmode = BIT(2),
+-					.perfmode_bw = 16500000,
+-				},
+-				{ /* sentinel */ },
+-			},
+-		},
+-		.speedbins = ADRENO_SPEEDBINS(
+-			{ 0,   0 },
+-			{ 388, 1 },
+-			{ 357, 2 },
+-			{ 284, 3 },
+-		),
+-	}, {
+-		.chip_ids = ADRENO_CHIP_IDS(0x44041400),
+-		.family = ADRENO_8XX_GEN2,
+-		.fw = {
+-			[ADRENO_FW_SQE] = "gen81100_sqe.fw",
+-			[ADRENO_FW_GMU] = "gen81400_gmu.bin",
+-			[ADRENO_FW_AQE] = "gen81100_aqe.fw",
+-		},
+-		.gmem = 12 * SZ_1M,
+-		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+-		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
+-			  ADRENO_QUIRK_HAS_HW_APRIV |
+-			  ADRENO_QUIRK_PREEMPTION |
+-			  ADRENO_QUIRK_IFPC,
+-		.funcs = &a8xx_gpu_funcs,
+-		.a6xx = &(const struct a6xx_info) {
+-			.protect = &a850_protect,
+-			.nonctxt_reglist = a845_nonctxt_regs,
+-			.pwrup_reglist = &a850_pwrup_reglist,
+-			.dyn_pwrup_reglist = &a850_dyn_pwrup_reglist,
+-			.ifpc_reglist = &a850_ifpc_reglist,
+-			.gbif_cx = a850_gbif,
+-			.max_slices = 3,
+-			.gmu_chipid = 0x80e0000,
+-			.thinmem_config = 14,
+-			.bcms = (const struct a6xx_bcm[]) {
+-				{ .name = "SH0", .buswidth = 32 },
+-				{ .name = "MC0", .buswidth = 4 },
+-				{
+-					.name = "ACV",
+-					.fixed = true,
+-					.perfmode = BIT(2),
+-					.perfmode_bw = 16500000,
+-				},
+-				{ /* sentinel */ },
+-			},
+-		},
+-		.preempt_record_size = 13564 * SZ_1K,
+-		.speedbins = ADRENO_SPEEDBINS(
+-			{ 0, 0 },
+-			{ 0xd8, 0 },
+-			{ 0x11c, 1 },
+-		),
+-	}, {
+-		.chip_ids = ADRENO_CHIP_IDS(0x44051401),
+-		.family = ADRENO_8XX_GEN2,
+-		.fw = {
+-			[ADRENO_FW_SQE] = "gen81100_sqe.fw",
+-			[ADRENO_FW_GMU] = "gen81100_gmu.bin",
+-			[ADRENO_FW_AQE] = "gen81100_aqe.fw",
+-		},
+-		.gmem = 18 * SZ_1M,
+-		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
+-		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
+-			  ADRENO_QUIRK_HAS_HW_APRIV |
+-			  ADRENO_QUIRK_PREEMPTION |
+-			  ADRENO_QUIRK_IFPC,
+-		.funcs = &a8xx_gpu_funcs,
+-		.a6xx = &(const struct a6xx_info) {
+-			.protect = &a850_protect,
+-			.nonctxt_reglist = a850_nonctxt_regs,
+-			.pwrup_reglist = &a850_pwrup_reglist,
+-			.dyn_pwrup_reglist = &a850_dyn_pwrup_reglist,
+-			.ifpc_reglist = &a850_ifpc_reglist,
+-			.gbif_cx = a850_gbif,
+-			.max_slices = 3,
+-			.gmu_chipid = 0x80b0100,
+-			.thinmem_config = 14,
+-			.bcms = (const struct a6xx_bcm[]) {
+-				{ .name = "SH0", .buswidth = 32 },
+-				{ .name = "MC0", .buswidth = 4 },
+-				{
+-					.name = "ACV",
+-					.fixed = true,
+-					.perfmode = BIT(2),
+-					.perfmode_bw = 16500000,
+-				},
+-				{ /* sentinel */ },
+-			},
+-		},
+-		.preempt_record_size = 19708 * SZ_1K,
+-		.speedbins = ADRENO_SPEEDBINS(
+-			{ 0, 0 },
+-			{ 284, 2 },
+-			{ 216, 3 },
+-		),
+-	}
+-};
+-
+-DECLARE_ADRENO_GPULIST(a8xx);
+-
+ static inline __always_unused void __build_asserts(void)
+ {
+ 	BUILD_BUG_ON(a630_protect.count > a630_protect.count_max);
+ 	BUILD_BUG_ON(a650_protect.count > a650_protect.count_max);
+ 	BUILD_BUG_ON(a660_protect.count > a660_protect.count_max);
+ 	BUILD_BUG_ON(a690_protect.count > a690_protect.count_max);
+-	BUILD_BUG_ON(a730_protect.count > a730_protect.count_max);
+-	BUILD_BUG_ON(a810_protect.count > a810_protect.count_max);
+-	BUILD_BUG_ON(a830_protect.count > a830_protect.count_max);
+ }
+diff --git a/drivers/gpu/drm/msm/adreno/a7xx_catalog.c b/drivers/gpu/drm/msm/adreno/a7xx_catalog.c
+new file mode 100644
+index 000000000000..6f704898cea6
+--- /dev/null
++++ b/drivers/gpu/drm/msm/adreno/a7xx_catalog.c
+@@ -0,0 +1,502 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (C) 2013-2014 Red Hat
++ * Author: Rob Clark <robdclark@gmail.com>
++ *
++ * Copyright (c) 2014,2017 The Linux Foundation. All rights reserved.
++ */
++
++#include "adreno_gpu.h"
++#include "a6xx_gpu.h"
++#include "a6xx.xml.h"
++
++/* gbif reglist is same as a640: */
++static const struct adreno_reglist a640_gbif[] = {
++	{ REG_A6XX_GBIF_QSB_SIDE0, 0x00071620 },
++	{ REG_A6XX_GBIF_QSB_SIDE1, 0x00071620 },
++	{ REG_A6XX_GBIF_QSB_SIDE2, 0x00071620 },
++	{ REG_A6XX_GBIF_QSB_SIDE3, 0x00071620 },
++	{ },
++};
++
++static const struct adreno_reglist a730_hwcg[] = {
++	{ REG_A6XX_RBBM_CLOCK_CNTL_SP0, 0x02222222 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL2_SP0, 0x02022222 },
++	{ REG_A6XX_RBBM_CLOCK_HYST_SP0, 0x0000f3cf },
++	{ REG_A6XX_RBBM_CLOCK_DELAY_SP0, 0x00000080 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL_TP0, 0x22222220 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL2_TP0, 0x22222222 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL3_TP0, 0x22220222 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL4_TP0, 0x00222222 },
++	{ REG_A6XX_RBBM_CLOCK_HYST_TP0, 0x77777777 },
++	{ REG_A6XX_RBBM_CLOCK_HYST2_TP0, 0x77777777 },
++	{ REG_A6XX_RBBM_CLOCK_HYST3_TP0, 0x77777777 },
++	{ REG_A6XX_RBBM_CLOCK_HYST4_TP0, 0x00077777 },
++	{ REG_A6XX_RBBM_CLOCK_DELAY_TP0, 0x11111111 },
++	{ REG_A6XX_RBBM_CLOCK_DELAY2_TP0, 0x11111111 },
++	{ REG_A6XX_RBBM_CLOCK_DELAY3_TP0, 0x11111111 },
++	{ REG_A6XX_RBBM_CLOCK_DELAY4_TP0, 0x00011111 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL_UCHE, 0x22222222 },
++	{ REG_A6XX_RBBM_CLOCK_HYST_UCHE, 0x00000004 },
++	{ REG_A6XX_RBBM_CLOCK_DELAY_UCHE, 0x00000002 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL_RB0, 0x22222222 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL2_RB0, 0x01002222 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL_CCU0, 0x00002220 },
++	{ REG_A6XX_RBBM_CLOCK_HYST_RB_CCU0, 0x44000f00 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL_RAC, 0x25222022 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL2_RAC, 0x00555555 },
++	{ REG_A6XX_RBBM_CLOCK_DELAY_RAC, 0x00000011 },
++	{ REG_A6XX_RBBM_CLOCK_HYST_RAC, 0x00440044 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL_TSE_RAS_RBBM, 0x04222222 },
++	{ REG_A7XX_RBBM_CLOCK_MODE2_GRAS, 0x00000222 },
++	{ REG_A7XX_RBBM_CLOCK_MODE_BV_GRAS, 0x00222222 },
++	{ REG_A6XX_RBBM_CLOCK_MODE_GPC, 0x02222223 },
++	{ REG_A6XX_RBBM_CLOCK_MODE_VFD, 0x00002222 },
++	{ REG_A7XX_RBBM_CLOCK_MODE_BV_GPC, 0x00222222 },
++	{ REG_A7XX_RBBM_CLOCK_MODE_BV_VFD, 0x00002222 },
++	{ REG_A6XX_RBBM_CLOCK_HYST_TSE_RAS_RBBM, 0x00000000 },
++	{ REG_A6XX_RBBM_CLOCK_HYST_GPC, 0x04104004 },
++	{ REG_A6XX_RBBM_CLOCK_HYST_VFD, 0x00000000 },
++	{ REG_A6XX_RBBM_CLOCK_DELAY_TSE_RAS_RBBM, 0x00004000 },
++	{ REG_A6XX_RBBM_CLOCK_DELAY_GPC, 0x00000200 },
++	{ REG_A6XX_RBBM_CLOCK_DELAY_VFD, 0x00002222 },
++	{ REG_A6XX_RBBM_CLOCK_MODE_HLSQ, 0x00002222 },
++	{ REG_A6XX_RBBM_CLOCK_DELAY_HLSQ, 0x00000000 },
++	{ REG_A6XX_RBBM_CLOCK_HYST_HLSQ, 0x00000000 },
++	{ REG_A6XX_RBBM_CLOCK_DELAY_HLSQ_2, 0x00000002 },
++	{ REG_A7XX_RBBM_CLOCK_MODE_BV_LRZ, 0x55555552 },
++	{ REG_A7XX_RBBM_CLOCK_MODE_CP, 0x00000223 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL, 0x8aa8aa82 },
++	{ REG_A6XX_RBBM_ISDB_CNT, 0x00000182 },
++	{ REG_A6XX_RBBM_RAC_THRESHOLD_CNT, 0x00000000 },
++	{ REG_A6XX_RBBM_SP_HYST_CNT, 0x00000000 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL_GMU_GX, 0x00000222 },
++	{ REG_A6XX_RBBM_CLOCK_DELAY_GMU_GX, 0x00000111 },
++	{ REG_A6XX_RBBM_CLOCK_HYST_GMU_GX, 0x00000555 },
++	{},
++};
++
++static const struct adreno_reglist a740_hwcg[] = {
++	{ REG_A6XX_RBBM_CLOCK_CNTL_SP0, 0x02222222 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL2_SP0, 0x22022222 },
++	{ REG_A6XX_RBBM_CLOCK_HYST_SP0, 0x003cf3cf },
++	{ REG_A6XX_RBBM_CLOCK_DELAY_SP0, 0x00000080 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL_TP0, 0x22222220 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL2_TP0, 0x22222222 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL3_TP0, 0x22222222 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL4_TP0, 0x00222222 },
++	{ REG_A6XX_RBBM_CLOCK_HYST_TP0, 0x77777777 },
++	{ REG_A6XX_RBBM_CLOCK_HYST2_TP0, 0x77777777 },
++	{ REG_A6XX_RBBM_CLOCK_HYST3_TP0, 0x77777777 },
++	{ REG_A6XX_RBBM_CLOCK_HYST4_TP0, 0x00077777 },
++	{ REG_A6XX_RBBM_CLOCK_DELAY_TP0, 0x11111111 },
++	{ REG_A6XX_RBBM_CLOCK_DELAY2_TP0, 0x11111111 },
++	{ REG_A6XX_RBBM_CLOCK_DELAY3_TP0, 0x11111111 },
++	{ REG_A6XX_RBBM_CLOCK_DELAY4_TP0, 0x00011111 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL_UCHE, 0x22222222 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL2_UCHE, 0x00222222 },
++	{ REG_A6XX_RBBM_CLOCK_HYST_UCHE, 0x00000444 },
++	{ REG_A6XX_RBBM_CLOCK_DELAY_UCHE, 0x00000222 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL_RB0, 0x22222222 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL2_RB0, 0x01002222 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL_CCU0, 0x00002220 },
++	{ REG_A6XX_RBBM_CLOCK_HYST_RB_CCU0, 0x44000f00 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL_RAC, 0x25222022 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL2_RAC, 0x00555555 },
++	{ REG_A6XX_RBBM_CLOCK_DELAY_RAC, 0x00000011 },
++	{ REG_A6XX_RBBM_CLOCK_HYST_RAC, 0x00440044 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL_TSE_RAS_RBBM, 0x04222222 },
++	{ REG_A7XX_RBBM_CLOCK_MODE2_GRAS, 0x00000222 },
++	{ REG_A7XX_RBBM_CLOCK_MODE_BV_GRAS, 0x00222222 },
++	{ REG_A6XX_RBBM_CLOCK_MODE_GPC, 0x02222223 },
++	{ REG_A6XX_RBBM_CLOCK_MODE_VFD, 0x00222222 },
++	{ REG_A7XX_RBBM_CLOCK_MODE_BV_GPC, 0x00222222 },
++	{ REG_A7XX_RBBM_CLOCK_MODE_BV_VFD, 0x00002222 },
++	{ REG_A6XX_RBBM_CLOCK_HYST_TSE_RAS_RBBM, 0x00000000 },
++	{ REG_A6XX_RBBM_CLOCK_HYST_GPC, 0x04104004 },
++	{ REG_A6XX_RBBM_CLOCK_HYST_VFD, 0x00000000 },
++	{ REG_A6XX_RBBM_CLOCK_DELAY_TSE_RAS_RBBM, 0x00000000 },
++	{ REG_A6XX_RBBM_CLOCK_DELAY_GPC, 0x00000200 },
++	{ REG_A6XX_RBBM_CLOCK_DELAY_VFD, 0x00000000 },
++	{ REG_A6XX_RBBM_CLOCK_MODE_HLSQ, 0x00002222 },
++	{ REG_A6XX_RBBM_CLOCK_DELAY_HLSQ, 0x00000000 },
++	{ REG_A6XX_RBBM_CLOCK_HYST_HLSQ, 0x00000000 },
++	{ REG_A7XX_RBBM_CLOCK_MODE_BV_LRZ, 0x55555552 },
++	{ REG_A7XX_RBBM_CLOCK_HYST2_VFD, 0x00000000 },
++	{ REG_A7XX_RBBM_CLOCK_MODE_CP, 0x00000222 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL, 0x8aa8aa82 },
++	{ REG_A6XX_RBBM_ISDB_CNT, 0x00000182 },
++	{ REG_A6XX_RBBM_RAC_THRESHOLD_CNT, 0x00000000 },
++	{ REG_A6XX_RBBM_SP_HYST_CNT, 0x00000000 },
++	{ REG_A6XX_RBBM_CLOCK_CNTL_GMU_GX, 0x00000222 },
++	{ REG_A6XX_RBBM_CLOCK_DELAY_GMU_GX, 0x00000111 },
++	{ REG_A6XX_RBBM_CLOCK_HYST_GMU_GX, 0x00000555 },
++	{},
++};
++
++static const u32 a730_protect_regs[] = {
++	A6XX_PROTECT_RDONLY(0x00000, 0x04ff),
++	A6XX_PROTECT_RDONLY(0x0050b, 0x0058),
++	A6XX_PROTECT_NORDWR(0x0050e, 0x0000),
++	A6XX_PROTECT_NORDWR(0x00510, 0x0000),
++	A6XX_PROTECT_NORDWR(0x00534, 0x0000),
++	A6XX_PROTECT_RDONLY(0x005fb, 0x009d),
++	A6XX_PROTECT_NORDWR(0x00699, 0x01e9),
++	A6XX_PROTECT_NORDWR(0x008a0, 0x0008),
++	A6XX_PROTECT_NORDWR(0x008ab, 0x0024),
++	/* 0x008d0-0x008dd and 0x008e0-0x008e6 are unprotected on purpose for tools like perfetto */
++	A6XX_PROTECT_NORDWR(0x008de, 0x0001),
++	A6XX_PROTECT_RDONLY(0x008e7, 0x014b),
++	A6XX_PROTECT_NORDWR(0x00900, 0x004d),
++	A6XX_PROTECT_NORDWR(0x0098d, 0x00b2),
++	A6XX_PROTECT_NORDWR(0x00a41, 0x01be),
++	A6XX_PROTECT_NORDWR(0x00df0, 0x0001),
++	A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
++	A6XX_PROTECT_NORDWR(0x00e07, 0x0008),
++	A6XX_PROTECT_NORDWR(0x03c00, 0x00c3),
++	A6XX_PROTECT_RDONLY(0x03cc4, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x08630, 0x01cf),
++	A6XX_PROTECT_NORDWR(0x08e00, 0x0000),
++	A6XX_PROTECT_NORDWR(0x08e08, 0x0000),
++	A6XX_PROTECT_NORDWR(0x08e50, 0x001f),
++	A6XX_PROTECT_NORDWR(0x08e80, 0x0280),
++	A6XX_PROTECT_NORDWR(0x09624, 0x01db),
++	A6XX_PROTECT_NORDWR(0x09e40, 0x0000),
++	A6XX_PROTECT_NORDWR(0x09e64, 0x000d),
++	A6XX_PROTECT_NORDWR(0x09e78, 0x0187),
++	A6XX_PROTECT_NORDWR(0x0a630, 0x01cf),
++	A6XX_PROTECT_NORDWR(0x0ae02, 0x0000),
++	A6XX_PROTECT_NORDWR(0x0ae50, 0x000f),
++	A6XX_PROTECT_NORDWR(0x0ae66, 0x0003),
++	A6XX_PROTECT_NORDWR(0x0ae6f, 0x0003),
++	A6XX_PROTECT_NORDWR(0x0b604, 0x0003),
++	A6XX_PROTECT_NORDWR(0x0ec00, 0x0fff),
++	A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x18400, 0x0053),
++	A6XX_PROTECT_RDONLY(0x18454, 0x0004),
++	A6XX_PROTECT_NORDWR(0x18459, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x1a459, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x1c459, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x1f400, 0x0443),
++	A6XX_PROTECT_RDONLY(0x1f844, 0x007b),
++	A6XX_PROTECT_NORDWR(0x1f860, 0x0000),
++	A6XX_PROTECT_NORDWR(0x1f878, 0x002a),
++	/* CP_PROTECT_REG[45, 46] are left untouched! */
++	0,
++	0,
++	A6XX_PROTECT_NORDWR(0x1f8c0, 0x00000),
++};
++DECLARE_ADRENO_PROTECT(a730_protect, 48);
++
++static const uint32_t a7xx_pwrup_reglist_regs[] = {
++	REG_A6XX_UCHE_TRAP_BASE,
++	REG_A6XX_UCHE_TRAP_BASE + 1,
++	REG_A6XX_UCHE_WRITE_THRU_BASE,
++	REG_A6XX_UCHE_WRITE_THRU_BASE + 1,
++	REG_A6XX_UCHE_GMEM_RANGE_MIN,
++	REG_A6XX_UCHE_GMEM_RANGE_MIN + 1,
++	REG_A6XX_UCHE_GMEM_RANGE_MAX,
++	REG_A6XX_UCHE_GMEM_RANGE_MAX + 1,
++	REG_A6XX_UCHE_CACHE_WAYS,
++	REG_A6XX_UCHE_MODE_CNTL,
++	REG_A6XX_RB_NC_MODE_CNTL,
++	REG_A6XX_RB_CMP_DBG_ECO_CNTL,
++	REG_A6XX_RB_CONTEXT_SWITCH_GMEM_SAVE_RESTORE_ENABLE,
++	REG_A6XX_UCHE_GBIF_GX_CONFIG,
++	REG_A6XX_UCHE_CLIENT_PF,
++	REG_A6XX_TPL1_DBG_ECO_CNTL1,
++};
++
++DECLARE_ADRENO_REGLIST_LIST(a7xx_pwrup_reglist);
++
++/* Applicable for X185, A750 */
++static const u32 a750_ifpc_reglist_regs[] = {
++	REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE(0),
++	REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE(1),
++	REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE(2),
++	REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE(3),
++	REG_A6XX_TPL1_BICUBIC_WEIGHTS_TABLE(4),
++	REG_A6XX_RBBM_PERFCTR_CNTL,
++	REG_A6XX_TPL1_NC_MODE_CNTL,
++	REG_A6XX_SP_NC_MODE_CNTL,
++	REG_A6XX_CP_DBG_ECO_CNTL,
++	REG_A6XX_CP_PROTECT_CNTL,
++	REG_A6XX_CP_PROTECT(0),
++	REG_A6XX_CP_PROTECT(1),
++	REG_A6XX_CP_PROTECT(2),
++	REG_A6XX_CP_PROTECT(3),
++	REG_A6XX_CP_PROTECT(4),
++	REG_A6XX_CP_PROTECT(5),
++	REG_A6XX_CP_PROTECT(6),
++	REG_A6XX_CP_PROTECT(7),
++	REG_A6XX_CP_PROTECT(8),
++	REG_A6XX_CP_PROTECT(9),
++	REG_A6XX_CP_PROTECT(10),
++	REG_A6XX_CP_PROTECT(11),
++	REG_A6XX_CP_PROTECT(12),
++	REG_A6XX_CP_PROTECT(13),
++	REG_A6XX_CP_PROTECT(14),
++	REG_A6XX_CP_PROTECT(15),
++	REG_A6XX_CP_PROTECT(16),
++	REG_A6XX_CP_PROTECT(17),
++	REG_A6XX_CP_PROTECT(18),
++	REG_A6XX_CP_PROTECT(19),
++	REG_A6XX_CP_PROTECT(20),
++	REG_A6XX_CP_PROTECT(21),
++	REG_A6XX_CP_PROTECT(22),
++	REG_A6XX_CP_PROTECT(23),
++	REG_A6XX_CP_PROTECT(24),
++	REG_A6XX_CP_PROTECT(25),
++	REG_A6XX_CP_PROTECT(26),
++	REG_A6XX_CP_PROTECT(27),
++	REG_A6XX_CP_PROTECT(28),
++	REG_A6XX_CP_PROTECT(29),
++	REG_A6XX_CP_PROTECT(30),
++	REG_A6XX_CP_PROTECT(31),
++	REG_A6XX_CP_PROTECT(32),
++	REG_A6XX_CP_PROTECT(33),
++	REG_A6XX_CP_PROTECT(34),
++	REG_A6XX_CP_PROTECT(35),
++	REG_A6XX_CP_PROTECT(36),
++	REG_A6XX_CP_PROTECT(37),
++	REG_A6XX_CP_PROTECT(38),
++	REG_A6XX_CP_PROTECT(39),
++	REG_A6XX_CP_PROTECT(40),
++	REG_A6XX_CP_PROTECT(41),
++	REG_A6XX_CP_PROTECT(42),
++	REG_A6XX_CP_PROTECT(43),
++	REG_A6XX_CP_PROTECT(44),
++	REG_A6XX_CP_PROTECT(45),
++	REG_A6XX_CP_PROTECT(46),
++	REG_A6XX_CP_PROTECT(47),
++};
++
++DECLARE_ADRENO_REGLIST_LIST(a750_ifpc_reglist);
++
++static const struct adreno_reglist_pipe a7xx_dyn_pwrup_reglist_regs[] = {
++	{ REG_A7XX_GRAS_NC_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++};
++
++DECLARE_ADRENO_REGLIST_PIPE_LIST(a7xx_dyn_pwrup_reglist);
++
++static const struct adreno_info a7xx_gpus[] = {
++	{
++		.chip_ids = ADRENO_CHIP_IDS(0x07030001),
++		.family = ADRENO_7XX_GEN1,
++		.fw = {
++			[ADRENO_FW_SQE] = "a730_sqe.fw",
++			[ADRENO_FW_GMU] = "gmu_gen70000.bin",
++		},
++		.gmem = SZ_2M,
++		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
++		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
++			  ADRENO_QUIRK_HAS_HW_APRIV |
++			  ADRENO_QUIRK_PREEMPTION,
++		.funcs = &a7xx_gpu_funcs,
++		.zapfw = "a730_zap.mdt",
++		.a6xx = &(const struct a6xx_info) {
++			.hwcg = a730_hwcg,
++			.protect = &a730_protect,
++			.pwrup_reglist = &a7xx_pwrup_reglist,
++			.dyn_pwrup_reglist = &a7xx_dyn_pwrup_reglist,
++			.gbif_cx = a640_gbif,
++			.gmu_cgc_mode = 0x00020000,
++		},
++		.preempt_record_size = 2860 * SZ_1K,
++	}, {
++		.chip_ids = ADRENO_CHIP_IDS(0x43020100),
++		.family = ADRENO_7XX_GEN1,
++		.fw = {
++			[ADRENO_FW_SQE] = "qcom/gen71700_sqe.fw",
++			[ADRENO_FW_GMU] = "qcom/gen71700_gmu.bin",
++		},
++		.gmem = SZ_1M,
++		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
++		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
++			  ADRENO_QUIRK_HAS_HW_APRIV |
++			  ADRENO_QUIRK_PREEMPTION,
++		.funcs = &a7xx_gpu_funcs,
++		.a6xx = &(const struct a6xx_info) {
++			.hwcg = a730_hwcg,
++			.protect = &a730_protect,
++			.pwrup_reglist = &a7xx_pwrup_reglist,
++			.dyn_pwrup_reglist = &a7xx_dyn_pwrup_reglist,
++			.gbif_cx = a640_gbif,
++			.gmu_chipid = 0x07110000,
++			.gmu_cgc_mode = 0x00020000,
++			.bcms = (const struct a6xx_bcm[]) {
++				{ .name = "SH0", .buswidth = 16 },
++				{ .name = "MC0", .buswidth = 4 },
++				{
++					.name = "ACV",
++					.fixed = true,
++					.perfmode = BIT(3),
++					.perfmode_bw = 16500000,
++				},
++				{ /* sentinel */ },
++			},
++		},
++		.preempt_record_size = 1536 * SZ_1K,
++	}, {
++		.chip_ids = ADRENO_CHIP_IDS(0x43050a01), /* "C510v2" */
++		.family = ADRENO_7XX_GEN2,
++		.fw = {
++			[ADRENO_FW_SQE] = "a740_sqe.fw",
++			[ADRENO_FW_GMU] = "gmu_gen70200.bin",
++		},
++		.gmem = 3 * SZ_1M,
++		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
++		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
++			  ADRENO_QUIRK_HAS_HW_APRIV |
++			  ADRENO_QUIRK_PREEMPTION,
++		.funcs = &a7xx_gpu_funcs,
++		.zapfw = "a740_zap.mdt",
++		.a6xx = &(const struct a6xx_info) {
++			.hwcg = a740_hwcg,
++			.protect = &a730_protect,
++			.pwrup_reglist = &a7xx_pwrup_reglist,
++			.dyn_pwrup_reglist = &a7xx_dyn_pwrup_reglist,
++			.gbif_cx = a640_gbif,
++			.gmu_chipid = 0x7020100,
++			.gmu_cgc_mode = 0x00020202,
++			.bcms = (const struct a6xx_bcm[]) {
++				{ .name = "SH0", .buswidth = 16 },
++				{ .name = "MC0", .buswidth = 4 },
++				{
++					.name = "ACV",
++					.fixed = true,
++					.perfmode = BIT(3),
++					.perfmode_bw = 16500000,
++				},
++				{ /* sentinel */ },
++			},
++		},
++		.preempt_record_size = 4192 * SZ_1K,
++	}, {
++		.chip_ids = ADRENO_CHIP_IDS(0x43050c01), /* "C512v2" */
++		.family = ADRENO_7XX_GEN2,
++		.fw = {
++			[ADRENO_FW_SQE] = "gen70500_sqe.fw",
++			[ADRENO_FW_GMU] = "gen70500_gmu.bin",
++		},
++		.gmem = 3 * SZ_1M,
++		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
++		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
++			  ADRENO_QUIRK_HAS_HW_APRIV |
++			  ADRENO_QUIRK_PREEMPTION |
++			  ADRENO_QUIRK_IFPC,
++		.funcs = &a7xx_gpu_funcs,
++		.a6xx = &(const struct a6xx_info) {
++			.hwcg = a740_hwcg,
++			.protect = &a730_protect,
++			.pwrup_reglist = &a7xx_pwrup_reglist,
++			.dyn_pwrup_reglist = &a7xx_dyn_pwrup_reglist,
++			.ifpc_reglist = &a750_ifpc_reglist,
++			.gbif_cx = a640_gbif,
++			.gmu_chipid = 0x7050001,
++			.gmu_cgc_mode = 0x00020202,
++			.bcms = (const struct a6xx_bcm[]) {
++				{ .name = "SH0", .buswidth = 16 },
++				{ .name = "MC0", .buswidth = 4 },
++				{
++					.name = "ACV",
++					.fixed = true,
++					.perfmode = BIT(3),
++					.perfmode_bw = 16500000,
++				},
++				{ /* sentinel */ },
++			},
++		},
++		.preempt_record_size = 4192 * SZ_1K,
++		.speedbins = ADRENO_SPEEDBINS(
++			{ 0,	0 },
++			{ 59,	1 },
++			{ 7,	2 },
++			{ 232,	3 },
++			{ 146,	4 },
++		),
++	}, {
++		.chip_ids = ADRENO_CHIP_IDS(0x43051401), /* "C520v2" */
++		.family = ADRENO_7XX_GEN3,
++		.fw = {
++			[ADRENO_FW_SQE] = "gen70900_sqe.fw",
++			[ADRENO_FW_GMU] = "gmu_gen70900.bin",
++		},
++		.gmem = 3 * SZ_1M,
++		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
++		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
++			  ADRENO_QUIRK_HAS_HW_APRIV |
++			  ADRENO_QUIRK_PREEMPTION |
++			  ADRENO_QUIRK_IFPC,
++		.funcs = &a7xx_gpu_funcs,
++		.zapfw = "gen70900_zap.mbn",
++		.a6xx = &(const struct a6xx_info) {
++			.protect = &a730_protect,
++			.pwrup_reglist = &a7xx_pwrup_reglist,
++			.dyn_pwrup_reglist = &a7xx_dyn_pwrup_reglist,
++			.ifpc_reglist = &a750_ifpc_reglist,
++			.gbif_cx = a640_gbif,
++			.gmu_chipid = 0x7090100,
++			.gmu_cgc_mode = 0x00020202,
++			.bcms = (const struct a6xx_bcm[]) {
++				{ .name = "SH0", .buswidth = 16 },
++				{ .name = "MC0", .buswidth = 4 },
++				{
++					.name = "ACV",
++					.fixed = true,
++					.perfmode = BIT(2),
++					.perfmode_bw = 10687500,
++				},
++				{ /* sentinel */ },
++			},
++		},
++		.preempt_record_size = 3572 * SZ_1K,
++	}, {
++		.chip_ids = ADRENO_CHIP_IDS(0x43030c00),
++		.family = ADRENO_7XX_GEN2,
++		.fw = {
++			[ADRENO_FW_SQE] = "gen71500_sqe.fw",
++			[ADRENO_FW_GMU] = "gen71500_gmu.bin",
++		},
++		.gmem = SZ_1M + SZ_512K,
++		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
++		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
++			  ADRENO_QUIRK_HAS_HW_APRIV |
++			  ADRENO_QUIRK_PREEMPTION,
++		.funcs = &a7xx_gpu_funcs,
++		.a6xx = &(const struct a6xx_info) {
++			.hwcg = a740_hwcg,
++			.protect = &a730_protect,
++			.pwrup_reglist = &a7xx_pwrup_reglist,
++			.dyn_pwrup_reglist = &a7xx_dyn_pwrup_reglist,
++			.gbif_cx = a640_gbif,
++			.gmu_chipid = 0x70f0000,
++			.gmu_cgc_mode = 0x00020222,
++			.bcms = (const struct a6xx_bcm[]) {
++				{ .name = "SH0", .buswidth = 16 },
++				{ .name = "MC0", .buswidth = 4 },
++				{
++					.name = "ACV",
++					.fixed = true,
++					.perfmode = BIT(3),
++					.perfmode_bw = 16500000,
++				},
++				{ /* sentinel */ },
++			},
++		},
++		.preempt_record_size = 4192 * SZ_1K,
++		.speedbins = ADRENO_SPEEDBINS(
++			{ 0,   0 },
++			{ 294, 1 },
++			{ 263, 2 },
++			{ 233, 3 },
++			{ 141, 4 },
++		),
++	}
++};
++DECLARE_ADRENO_GPULIST(a7xx);
++
++static inline __always_unused void __build_asserts(void)
 +{
-+	struct rproc_vdev *rvdev = vdev_to_rvdev(vdev);
-+	struct fw_rsc_vdev *rsc;
-+
-+	rsc = (void *)rvdev->rproc->table_ptr + rvdev->rsc_offset;
-+
-+	return rsc;
++	BUILD_BUG_ON(a730_protect.count > a730_protect.count_max);
 +}
+diff --git a/drivers/gpu/drm/msm/adreno/a8xx_catalog.c b/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
+new file mode 100644
+index 000000000000..55a805ab438c
+--- /dev/null
++++ b/drivers/gpu/drm/msm/adreno/a8xx_catalog.c
+@@ -0,0 +1,1846 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (C) 2013-2014 Red Hat
++ * Author: Rob Clark <robdclark@gmail.com>
++ *
++ * Copyright (c) 2014,2017 The Linux Foundation. All rights reserved.
++ */
 +
- /* kick the remote processor, and let it know which virtqueue to poke at */
- static bool rproc_virtio_notify(struct virtqueue *vq)
- {
-@@ -107,10 +117,10 @@ static struct virtqueue *rp_find_vq(struct virtio_device *vdev,
- {
- 	struct rproc_vdev *rvdev = vdev_to_rvdev(vdev);
- 	struct rproc *rproc = vdev_to_rproc(vdev);
-+	struct fw_rsc_vdev *rsc = vdev_to_rsc(vdev);
- 	struct device *dev = &rproc->dev;
- 	struct rproc_mem_entry *mem;
- 	struct rproc_vring *rvring;
--	struct fw_rsc_vdev *rsc;
- 	struct virtqueue *vq;
- 	void *addr;
- 	int num, size;
-@@ -157,7 +167,6 @@ static struct virtqueue *rp_find_vq(struct virtio_device *vdev,
- 	vq->priv = rvring;
- 
- 	/* Update vring in resource table */
--	rsc = (void *)rproc->table_ptr + rvdev->rsc_offset;
- 	rsc->vring[id].da = mem->da;
- 
- 	return vq;
-@@ -212,20 +221,14 @@ static int rproc_virtio_find_vqs(struct virtio_device *vdev, unsigned int nvqs,
- 
- static u8 rproc_virtio_get_status(struct virtio_device *vdev)
- {
--	struct rproc_vdev *rvdev = vdev_to_rvdev(vdev);
--	struct fw_rsc_vdev *rsc;
--
--	rsc = (void *)rvdev->rproc->table_ptr + rvdev->rsc_offset;
-+	struct fw_rsc_vdev *rsc = vdev_to_rsc(vdev);
- 
- 	return rsc->status;
- }
- 
- static void rproc_virtio_set_status(struct virtio_device *vdev, u8 status)
- {
--	struct rproc_vdev *rvdev = vdev_to_rvdev(vdev);
--	struct fw_rsc_vdev *rsc;
--
--	rsc = (void *)rvdev->rproc->table_ptr + rvdev->rsc_offset;
-+	struct fw_rsc_vdev *rsc = vdev_to_rsc(vdev);
- 
- 	rsc->status = status;
- 	dev_dbg(&vdev->dev, "status: %d\n", status);
-@@ -233,10 +236,7 @@ static void rproc_virtio_set_status(struct virtio_device *vdev, u8 status)
- 
- static void rproc_virtio_reset(struct virtio_device *vdev)
- {
--	struct rproc_vdev *rvdev = vdev_to_rvdev(vdev);
--	struct fw_rsc_vdev *rsc;
--
--	rsc = (void *)rvdev->rproc->table_ptr + rvdev->rsc_offset;
-+	struct fw_rsc_vdev *rsc = vdev_to_rsc(vdev);
- 
- 	rsc->status = 0;
- 	dev_dbg(&vdev->dev, "reset !\n");
-@@ -245,10 +245,7 @@ static void rproc_virtio_reset(struct virtio_device *vdev)
- /* provide the vdev features as retrieved from the firmware */
- static u64 rproc_virtio_get_features(struct virtio_device *vdev)
- {
--	struct rproc_vdev *rvdev = vdev_to_rvdev(vdev);
--	struct fw_rsc_vdev *rsc;
--
--	rsc = (void *)rvdev->rproc->table_ptr + rvdev->rsc_offset;
-+	struct fw_rsc_vdev *rsc = vdev_to_rsc(vdev);
- 
- 	return rsc->dfeatures;
- }
-@@ -265,10 +262,7 @@ static void rproc_transport_features(struct virtio_device *vdev)
- 
- static int rproc_virtio_finalize_features(struct virtio_device *vdev)
- {
--	struct rproc_vdev *rvdev = vdev_to_rvdev(vdev);
--	struct fw_rsc_vdev *rsc;
--
--	rsc = (void *)rvdev->rproc->table_ptr + rvdev->rsc_offset;
-+	struct fw_rsc_vdev *rsc = vdev_to_rsc(vdev);
- 
- 	/* Give virtio_ring a chance to accept features */
- 	vring_transport_features(vdev);
-@@ -291,12 +285,8 @@ static int rproc_virtio_finalize_features(struct virtio_device *vdev)
- static void rproc_virtio_get(struct virtio_device *vdev, unsigned int offset,
- 			     void *buf, unsigned int len)
- {
--	struct rproc_vdev *rvdev = vdev_to_rvdev(vdev);
--	struct fw_rsc_vdev *rsc;
--	void *cfg;
--
--	rsc = (void *)rvdev->rproc->table_ptr + rvdev->rsc_offset;
--	cfg = &rsc->vring[rsc->num_of_vrings];
-+	struct fw_rsc_vdev *rsc = vdev_to_rsc(vdev);
-+	void *cfg = &rsc->vring[rsc->num_of_vrings];
- 
- 	if (offset + len > rsc->config_len || offset + len < len) {
- 		dev_err(&vdev->dev, "rproc_virtio_get: access out of bounds\n");
-@@ -309,12 +299,8 @@ static void rproc_virtio_get(struct virtio_device *vdev, unsigned int offset,
- static void rproc_virtio_set(struct virtio_device *vdev, unsigned int offset,
- 			     const void *buf, unsigned int len)
- {
--	struct rproc_vdev *rvdev = vdev_to_rvdev(vdev);
--	struct fw_rsc_vdev *rsc;
--	void *cfg;
--
--	rsc = (void *)rvdev->rproc->table_ptr + rvdev->rsc_offset;
--	cfg = &rsc->vring[rsc->num_of_vrings];
-+	struct fw_rsc_vdev *rsc = vdev_to_rsc(vdev);
-+	void *cfg = &rsc->vring[rsc->num_of_vrings];
- 
- 	if (offset + len > rsc->config_len || offset + len < len) {
- 		dev_err(&vdev->dev, "rproc_virtio_set: access out of bounds\n");
-
++#include "adreno_gpu.h"
++#include "a6xx_gpu.h"
++#include "a6xx.xml.h"
++
++static const struct adreno_reglist_pipe a830_nonctxt_regs[] = {
++	{ REG_A8XX_CP_SMMU_STREAM_ID_LPAC, 0x00000101, BIT(PIPE_NONE) },
++	{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0x00000800, BIT(PIPE_BR) | BIT(PIPE_BV) },
++	{ REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0x00000001, BIT(PIPE_BR) | BIT(PIPE_BV) },
++	{ REG_A8XX_PC_VIS_STREAM_CNTL, 0x10010000, BIT(PIPE_BR) | BIT(PIPE_BV) },
++	{ REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0x00000002, BIT(PIPE_BR) | BIT(PIPE_BV) },
++	{ REG_A8XX_PC_CHICKEN_BITS_1, 0x00000003, BIT(PIPE_BR) | BIT(PIPE_BV) },
++	{ REG_A8XX_PC_CHICKEN_BITS_2, 0x00000200, BIT(PIPE_BR) | BIT(PIPE_BV) },
++	{ REG_A8XX_PC_CHICKEN_BITS_3, 0x00400000, BIT(PIPE_BR) | BIT(PIPE_BV) },
++	{ REG_A8XX_PC_CHICKEN_BITS_4, 0x00500050, BIT(PIPE_BR) | BIT(PIPE_BV) },
++	/* Configure GBIF GX registers */
++	{ REG_A8XX_UCHE_GBIF_GX_CONFIG, 0x010240e0, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_GBIF_CLIENT_QOS_CNTL, 0x22122212, BIT(PIPE_NONE) },
++	/* Enable full concurrent resolve and unresolves */
++	{ REG_A7XX_RB_CCU_CNTL, 0x00000068, BIT(PIPE_BR) },
++	/* Partially enable perf clear, Disable DINT to c/z be data forwarding */
++	{ REG_A7XX_RB_CCU_DBG_ECO_CNTL, 0x00002200, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_GC_GMEM_PROTECT, 0x0c000000, BIT(PIPE_BR) },
++	/* Configure number of outstanding transactions to 32 */
++	{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0x00000007, BIT(PIPE_BR) },
++	/* Configure UCHE request time out to 16 cycles for CCU/UCHE arbitration */
++	{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0x00004000, BIT(PIPE_BR) },
++	{ REG_A8XX_RBBM_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_SLICE_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL, 0x00000030, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL2, 0x00000030, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_CGC_P2S_CNTL, 0x00000040, BIT(PIPE_NONE) },
++	/* Enable contribution of all shader stages to SP perfcounters */
++	{ REG_A6XX_SP_PERFCTR_SHADER_MASK, 0x0000003f, BIT(PIPE_NONE) },
++	/*
++	 * BIT(26): Limit the number of wave-slots for Eviction buffer to 1 per ALU GRP
++	 * BIT(30): Disable LPAC auto-promotion
++	 */
++	{ REG_A7XX_SP_CHICKEN_BITS_1, BIT(26) | BIT(30), BIT(PIPE_NONE) },
++	/*
++	 * BIT(22): Disable PS out of order retire
++	 * BIT(23): Enable half wave mode and MM instruction src&dst is half precision
++	 */
++	{ REG_A7XX_SP_CHICKEN_BITS_2, BIT(22) | BIT(23), BIT(PIPE_NONE) },
++	{ REG_A7XX_SP_CHICKEN_BITS_3, 0x00300000, BIT(PIPE_NONE) },
++	{ REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP, 0x00000080,  BIT(PIPE_NONE) },
++	{ REG_A6XX_TPL1_DBG_ECO_CNTL, 0x10000000, BIT(PIPE_NONE) },
++	/* Enable cubemap small miplevel optimization settings */
++	/* BIT(26): Disable final clamp for bicubic filtering */
++	{ REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x04000724, BIT(PIPE_NONE) },
++	/* Disable tag bank id hashing */
++	{ REG_A6XX_UCHE_MODE_CNTL, 0x00080000, BIT(PIPE_NONE) },
++	{ REG_A8XX_UCHE_CCHE_MODE_CNTL, 0x00001000, BIT(PIPE_NONE) },
++	/* Limit gmem number of ways for GMEM requests in each set */
++	{ REG_A8XX_UCHE_CCHE_CACHE_WAYS, 0x00000800, BIT(PIPE_NONE)},
++	/* Disable write slow pointer in data phase queue */
++	{ REG_A8XX_UCHE_HW_DBG_CNTL, BIT(8), BIT(PIPE_NONE) },
++	/* Configure UCHE to CCU switchthreshold timeout cycles */
++	{ REG_A8XX_UCHE_VARB_IDLE_TIMEOUT, 0x00000020, BIT(PIPE_NONE) },
++	{ REG_A7XX_VFD_DBG_ECO_CNTL, 0x00008000, BIT(PIPE_BR) | BIT(PIPE_BV) },
++	{ REG_A8XX_VFD_CB_BV_THRESHOLD, 0x00500050, BIT(PIPE_BR) | BIT(PIPE_BV) },
++	{ REG_A8XX_VFD_CB_BR_THRESHOLD, 0x00600060, BIT(PIPE_BR) | BIT(PIPE_BV) },
++	{ REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0x00200020, BIT(PIPE_BR) | BIT(PIPE_BV) },
++	{ REG_A8XX_VFD_CB_LP_REQ_CNT, 0x00100020, BIT(PIPE_BR) | BIT(PIPE_BV) },
++	{ REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0x00000001, BIT(PIPE_BR) | BIT(PIPE_BV) },
++	/* Disable redundant tile data optimization */
++	{ REG_A8XX_VSC_KMD_DBG_ECO_CNTL, BIT(11), BIT(PIPE_NONE)},
++	{ },
++};
++
++static const u32 a830_protect_regs[] = {
++	A6XX_PROTECT_RDONLY(0x00000, 0x03a3),
++	A6XX_PROTECT_RDONLY(0x003b4, 0x008b),
++	A6XX_PROTECT_NORDWR(0x00440, 0x001f),
++	A6XX_PROTECT_RDONLY(0x00580, 0x005f),
++	A6XX_PROTECT_NORDWR(0x005e0, 0x011f),
++	A6XX_PROTECT_RDONLY(0x0074a, 0x0005),
++	A6XX_PROTECT_RDONLY(0x00759, 0x0026),
++	A6XX_PROTECT_RDONLY(0x00789, 0x0000),
++	A6XX_PROTECT_RDONLY(0x0078c, 0x0013),
++	A6XX_PROTECT_NORDWR(0x00800, 0x0029),
++	A6XX_PROTECT_NORDWR(0x00837, 0x00af),
++	A6XX_PROTECT_RDONLY(0x008e7, 0x00c9),
++	A6XX_PROTECT_NORDWR(0x008ec, 0x00c3),
++	A6XX_PROTECT_NORDWR(0x009b1, 0x0250),
++	A6XX_PROTECT_RDONLY(0x00ce0, 0x0001),
++	A6XX_PROTECT_RDONLY(0x00df0, 0x0000),
++	A6XX_PROTECT_NORDWR(0x00df1, 0x0000),
++	A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
++	A6XX_PROTECT_NORDWR(0x00e03, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x03c00, 0x00c5),
++	A6XX_PROTECT_RDONLY(0x03cc6, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x08600, 0x01ff),
++	A6XX_PROTECT_NORDWR(0x08e00, 0x00ff),
++	A6XX_PROTECT_RDONLY(0x08f00, 0x0000),
++	A6XX_PROTECT_NORDWR(0x08f01, 0x01be),
++	A6XX_PROTECT_NORDWR(0x09600, 0x01ff),
++	A6XX_PROTECT_RDONLY(0x0981a, 0x02e5),
++	A6XX_PROTECT_NORDWR(0x09e00, 0x01ff),
++	A6XX_PROTECT_NORDWR(0x0a600, 0x01ff),
++	A6XX_PROTECT_NORDWR(0x0ae00, 0x0000),
++	A6XX_PROTECT_NORDWR(0x0ae02, 0x0004),
++	A6XX_PROTECT_NORDWR(0x0ae08, 0x0006),
++	A6XX_PROTECT_NORDWR(0x0ae10, 0x036f),
++	A6XX_PROTECT_NORDWR(0x0b600, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x0dc00, 0x1fff),
++	A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x18400, 0x003f),
++	A6XX_PROTECT_RDONLY(0x18440, 0x013f),
++	A6XX_PROTECT_NORDWR(0x18580, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x1b400, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x1f400, 0x0477),
++	A6XX_PROTECT_RDONLY(0x1f878, 0x0787),
++	A6XX_PROTECT_NORDWR(0x1f930, 0x0329),
++	A6XX_PROTECT_NORDWR(0x20000, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x27800, 0x007f),
++	A6XX_PROTECT_RDONLY(0x27880, 0x0381),
++	A6XX_PROTECT_NORDWR(0x27882, 0x0001),
++	A6XX_PROTECT_NORDWR(0x27c02, 0x0000),
++};
++DECLARE_ADRENO_PROTECT(a830_protect, 64);
++
++static const u32 a830_pwrup_reglist_regs[] = {
++	REG_A6XX_UCHE_MODE_CNTL,
++	REG_A8XX_UCHE_VARB_IDLE_TIMEOUT,
++	REG_A8XX_UCHE_GBIF_GX_CONFIG,
++	REG_A8XX_UCHE_CACHE_WAYS,
++	REG_A8XX_UCHE_CCHE_MODE_CNTL,
++	REG_A8XX_UCHE_CCHE_CACHE_WAYS,
++	REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN,
++	REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN + 1,
++	REG_A8XX_UCHE_CCHE_LPAC_GMEM_RANGE_MIN,
++	REG_A8XX_UCHE_CCHE_LPAC_GMEM_RANGE_MIN + 1,
++	REG_A8XX_UCHE_CCHE_TRAP_BASE,
++	REG_A8XX_UCHE_CCHE_TRAP_BASE + 1,
++	REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE,
++	REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE + 1,
++	REG_A8XX_UCHE_HW_DBG_CNTL,
++	REG_A8XX_UCHE_WRITE_THRU_BASE,
++	REG_A8XX_UCHE_WRITE_THRU_BASE + 1,
++	REG_A8XX_UCHE_TRAP_BASE,
++	REG_A8XX_UCHE_TRAP_BASE + 1,
++	REG_A8XX_UCHE_CLIENT_PF,
++	REG_A8XX_VSC_KMD_DBG_ECO_CNTL,
++	REG_A8XX_RB_CMP_NC_MODE_CNTL,
++	REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP,
++	REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN,
++	REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN + 1,
++	REG_A7XX_SP_READ_SEL,
++	REG_A6XX_TPL1_NC_MODE_CNTL,
++	REG_A6XX_TPL1_DBG_ECO_CNTL,
++	REG_A6XX_TPL1_DBG_ECO_CNTL1,
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(0),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(1),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(2),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(3),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(4),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(5),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(6),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(7),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(8),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(9),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(10),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(11),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(12),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(13),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(14),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(15),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(16),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(17),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(18),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(19),
++};
++DECLARE_ADRENO_REGLIST_LIST(a830_pwrup_reglist);
++
++static const u32 a830_ifpc_reglist_regs[] = {
++	REG_A8XX_RBBM_NC_MODE_CNTL,
++	REG_A8XX_RBBM_SLICE_INTERFACE_HANG_INT_CNTL,
++	REG_A8XX_RBBM_SLICE_NC_MODE_CNTL,
++	REG_A6XX_SP_NC_MODE_CNTL,
++	REG_A8XX_SP_HLSQ_LPAC_GMEM_RANGE_MIN,
++	REG_A8XX_SP_HLSQ_LPAC_GMEM_RANGE_MIN + 1,
++	REG_A7XX_SP_CHICKEN_BITS_1,
++	REG_A7XX_SP_CHICKEN_BITS_2,
++	REG_A7XX_SP_CHICKEN_BITS_3,
++	REG_A6XX_SP_PERFCTR_SHADER_MASK,
++	REG_A7XX_SP_HLSQ_DBG_ECO_CNTL,
++	REG_A8XX_CP_INTERRUPT_STATUS_MASK_GLOBAL,
++	REG_A8XX_RBBM_PERFCTR_CNTL,
++	REG_A8XX_CP_PROTECT_GLOBAL(0),
++	REG_A8XX_CP_PROTECT_GLOBAL(1),
++	REG_A8XX_CP_PROTECT_GLOBAL(2),
++	REG_A8XX_CP_PROTECT_GLOBAL(3),
++	REG_A8XX_CP_PROTECT_GLOBAL(4),
++	REG_A8XX_CP_PROTECT_GLOBAL(5),
++	REG_A8XX_CP_PROTECT_GLOBAL(6),
++	REG_A8XX_CP_PROTECT_GLOBAL(7),
++	REG_A8XX_CP_PROTECT_GLOBAL(8),
++	REG_A8XX_CP_PROTECT_GLOBAL(9),
++	REG_A8XX_CP_PROTECT_GLOBAL(10),
++	REG_A8XX_CP_PROTECT_GLOBAL(11),
++	REG_A8XX_CP_PROTECT_GLOBAL(12),
++	REG_A8XX_CP_PROTECT_GLOBAL(13),
++	REG_A8XX_CP_PROTECT_GLOBAL(14),
++	REG_A8XX_CP_PROTECT_GLOBAL(15),
++	REG_A8XX_CP_PROTECT_GLOBAL(16),
++	REG_A8XX_CP_PROTECT_GLOBAL(17),
++	REG_A8XX_CP_PROTECT_GLOBAL(18),
++	REG_A8XX_CP_PROTECT_GLOBAL(19),
++	REG_A8XX_CP_PROTECT_GLOBAL(20),
++	REG_A8XX_CP_PROTECT_GLOBAL(21),
++	REG_A8XX_CP_PROTECT_GLOBAL(22),
++	REG_A8XX_CP_PROTECT_GLOBAL(23),
++	REG_A8XX_CP_PROTECT_GLOBAL(24),
++	REG_A8XX_CP_PROTECT_GLOBAL(25),
++	REG_A8XX_CP_PROTECT_GLOBAL(26),
++	REG_A8XX_CP_PROTECT_GLOBAL(27),
++	REG_A8XX_CP_PROTECT_GLOBAL(28),
++	REG_A8XX_CP_PROTECT_GLOBAL(29),
++	REG_A8XX_CP_PROTECT_GLOBAL(30),
++	REG_A8XX_CP_PROTECT_GLOBAL(31),
++	REG_A8XX_CP_PROTECT_GLOBAL(32),
++	REG_A8XX_CP_PROTECT_GLOBAL(33),
++	REG_A8XX_CP_PROTECT_GLOBAL(34),
++	REG_A8XX_CP_PROTECT_GLOBAL(35),
++	REG_A8XX_CP_PROTECT_GLOBAL(36),
++	REG_A8XX_CP_PROTECT_GLOBAL(37),
++	REG_A8XX_CP_PROTECT_GLOBAL(38),
++	REG_A8XX_CP_PROTECT_GLOBAL(39),
++	REG_A8XX_CP_PROTECT_GLOBAL(40),
++	REG_A8XX_CP_PROTECT_GLOBAL(41),
++	REG_A8XX_CP_PROTECT_GLOBAL(42),
++	REG_A8XX_CP_PROTECT_GLOBAL(43),
++	REG_A8XX_CP_PROTECT_GLOBAL(44),
++	REG_A8XX_CP_PROTECT_GLOBAL(45),
++	REG_A8XX_CP_PROTECT_GLOBAL(46),
++	REG_A8XX_CP_PROTECT_GLOBAL(47),
++	REG_A8XX_CP_PROTECT_GLOBAL(48),
++	REG_A8XX_CP_PROTECT_GLOBAL(49),
++	REG_A8XX_CP_PROTECT_GLOBAL(50),
++	REG_A8XX_CP_PROTECT_GLOBAL(51),
++	REG_A8XX_CP_PROTECT_GLOBAL(52),
++	REG_A8XX_CP_PROTECT_GLOBAL(53),
++	REG_A8XX_CP_PROTECT_GLOBAL(54),
++	REG_A8XX_CP_PROTECT_GLOBAL(55),
++	REG_A8XX_CP_PROTECT_GLOBAL(56),
++	REG_A8XX_CP_PROTECT_GLOBAL(57),
++	REG_A8XX_CP_PROTECT_GLOBAL(58),
++	REG_A8XX_CP_PROTECT_GLOBAL(59),
++	REG_A8XX_CP_PROTECT_GLOBAL(60),
++	REG_A8XX_CP_PROTECT_GLOBAL(61),
++	REG_A8XX_CP_PROTECT_GLOBAL(62),
++	REG_A8XX_CP_PROTECT_GLOBAL(63),
++};
++DECLARE_ADRENO_REGLIST_LIST(a830_ifpc_reglist);
++
++static const struct adreno_reglist_pipe a830_dyn_pwrup_reglist_regs[] = {
++	{ REG_A8XX_CP_HW_FAULT_STATUS_MASK_PIPE, 0, BIT(PIPE_BR) |
++		BIT(PIPE_BV) | BIT(PIPE_LPAC) | BIT(PIPE_AQE0) |
++		BIT(PIPE_AQE1) | BIT(PIPE_DDE_BR) | BIT(PIPE_DDE_BV) },
++	{ REG_A8XX_CP_INTERRUPT_STATUS_MASK_PIPE, 0, BIT(PIPE_BR) |
++		BIT(PIPE_BV) | BIT(PIPE_LPAC) | BIT(PIPE_AQE0) |
++		BIT(PIPE_AQE1) | BIT(PIPE_DDE_BR) | BIT(PIPE_DDE_BV) },
++	{ REG_A8XX_CP_PROTECT_CNTL_PIPE, 0, BIT(PIPE_BR) | BIT(PIPE_BV) | BIT(PIPE_LPAC) },
++	{ REG_A8XX_CP_PROTECT_PIPE(15), 0, BIT(PIPE_BR) | BIT(PIPE_BV) | BIT(PIPE_LPAC) },
++	{ REG_A8XX_GRAS_TSEFE_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_GRAS_NC_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A7XX_RB_CCU_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A7XX_RB_CCU_DBG_ECO_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_CCU_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_CMP_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_GC_GMEM_PROTECT, 0, BIT(PIPE_BR) },
++	{ REG_A6XX_RB_CONTEXT_SWITCH_GMEM_SAVE_RESTORE_ENABLE, 0, BIT(PIPE_BR) },
++	{ REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_1, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_2, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_3, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_4, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
++	{ REG_A8XX_PC_VIS_STREAM_CNTL, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
++	{ REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
++	{ REG_A8XX_VFD_CB_BV_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BR_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_LP_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A7XX_VFD_DBG_ECO_CNTL, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
++	{ },
++};
++DECLARE_ADRENO_REGLIST_PIPE_LIST(a830_dyn_pwrup_reglist);
++
++static const struct adreno_reglist_pipe x285_nonctxt_regs[] = {
++	{ REG_A8XX_CP_SMMU_STREAM_ID_LPAC, 0x00000101, BIT(PIPE_NONE) },
++	{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0x00000800, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_GRAS_TSEFE_DBG_ECO_CNTL, 0x00200000, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_VIS_STREAM_CNTL, 0x10010000, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0x00000002, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_1, 0x00000003, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_2, 0x00000200, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_3, 0x00500000, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_4, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_RB_GC_GMEM_PROTECT, 0x15000000, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0x00000007, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0x00004000, BIT(PIPE_BR) },
++	{ REG_A8XX_RBBM_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_SLICE_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL, 0x00000030, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL2, 0x00000030, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_INTERFACE_HANG_INT_CNTL, 0x0fffffff, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_GBIF_CLIENT_QOS_CNTL, 0x22122212, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_CGC_P2S_CNTL, 0x00000040, BIT(PIPE_NONE) },
++	{ REG_A7XX_SP_CHICKEN_BITS_2, 0x00820800, BIT(PIPE_NONE) },
++	{ REG_A7XX_SP_CHICKEN_BITS_3, 0x00300000, BIT(PIPE_NONE) },
++	{ REG_A6XX_SP_PERFCTR_SHADER_MASK, 0x0000003f, BIT(PIPE_NONE) },
++	/* Disable CS dead batch merge */
++	{ REG_A7XX_SP_HLSQ_DBG_ECO_CNTL_2, BIT(31), BIT(PIPE_NONE) },
++	{ REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP, 0x00000080, BIT(PIPE_NONE) },
++	{ REG_A7XX_SP_READ_SEL, 0x0001ff00, BIT(PIPE_NONE) },
++	{ REG_A6XX_TPL1_DBG_ECO_CNTL, 0x10000000, BIT(PIPE_NONE) },
++	/* BIT(26): Disable final clamp for bicubic filtering */
++	{ REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x04000720, BIT(PIPE_NONE) },
++	{ REG_A6XX_UCHE_MODE_CNTL, 0x80080000, BIT(PIPE_NONE) },
++	{ REG_A8XX_UCHE_CCHE_MODE_CNTL, 0x00001000, BIT(PIPE_NONE) },
++	{ REG_A8XX_UCHE_CCHE_CACHE_WAYS, 0x00000800, BIT(PIPE_NONE) },
++	{ REG_A8XX_UCHE_GBIF_GX_CONFIG, 0x010240e0, BIT(PIPE_NONE) },
++	{ REG_A8XX_UCHE_VARB_IDLE_TIMEOUT, 0x00000020, BIT(PIPE_NONE) },
++	{ REG_A7XX_VFD_DBG_ECO_CNTL, 0x00008000, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BV_THRESHOLD, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BR_THRESHOLD, 0x00600060, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0x00200020, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_LP_REQ_CNT, 0x00000020, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ },
++};
++
++static const u32 x285_protect_regs[] = {
++	A6XX_PROTECT_RDONLY(0x00008, 0x039b),
++	A6XX_PROTECT_RDONLY(0x003b4, 0x008b),
++	A6XX_PROTECT_NORDWR(0x00440, 0x001f),
++	A6XX_PROTECT_RDONLY(0x00580, 0x005f),
++	A6XX_PROTECT_NORDWR(0x005e0, 0x011f),
++	A6XX_PROTECT_RDONLY(0x0074a, 0x0005),
++	A6XX_PROTECT_RDONLY(0x00759, 0x0026),
++	A6XX_PROTECT_RDONLY(0x00789, 0x0000),
++	A6XX_PROTECT_RDONLY(0x0078c, 0x0013),
++	A6XX_PROTECT_NORDWR(0x00800, 0x0029),
++	A6XX_PROTECT_NORDWR(0x0082c, 0x0000),
++	A6XX_PROTECT_NORDWR(0x00837, 0x00af),
++	A6XX_PROTECT_RDONLY(0x008e7, 0x00c9),
++	A6XX_PROTECT_NORDWR(0x008ec, 0x00c3),
++	A6XX_PROTECT_NORDWR(0x009b1, 0x0250),
++	A6XX_PROTECT_RDONLY(0x00ce0, 0x0001),
++	A6XX_PROTECT_RDONLY(0x00df0, 0x0000),
++	A6XX_PROTECT_NORDWR(0x00df1, 0x0000),
++	A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
++	A6XX_PROTECT_NORDWR(0x00e03, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x03c00, 0x00c5),
++	A6XX_PROTECT_RDONLY(0x03cc6, 0x0039),
++	A6XX_PROTECT_NORDWR(0x03d00, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x08600, 0x01ff),
++	A6XX_PROTECT_NORDWR(0x08e00, 0x00ff),
++	A6XX_PROTECT_RDONLY(0x08f00, 0x0000),
++	A6XX_PROTECT_NORDWR(0x08f01, 0x01be),
++	A6XX_PROTECT_NORDWR(0x09600, 0x01ff),
++	A6XX_PROTECT_RDONLY(0x0981a, 0x02e5),
++	A6XX_PROTECT_NORDWR(0x09e00, 0x01ff),
++	A6XX_PROTECT_NORDWR(0x0a600, 0x01ff),
++	A6XX_PROTECT_NORDWR(0x0a82e, 0x0000),
++	A6XX_PROTECT_NORDWR(0x0ae00, 0x0006),
++	A6XX_PROTECT_NORDWR(0x0ae08, 0x0006),
++	A6XX_PROTECT_NORDWR(0x0ae10, 0x00bf),
++	A6XX_PROTECT_RDONLY(0x0aed0, 0x002f),
++	A6XX_PROTECT_NORDWR(0x0af00, 0x027f),
++	A6XX_PROTECT_NORDWR(0x0b600, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x0dc00, 0x1fff),
++	A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x18400, 0x003f),
++	A6XX_PROTECT_RDONLY(0x18440, 0x013f),
++	A6XX_PROTECT_NORDWR(0x18580, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x1b400, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x1f400, 0x0477),
++	A6XX_PROTECT_RDONLY(0x1f878, 0x0507),
++	A6XX_PROTECT_NORDWR(0x1f930, 0x0329),
++	A6XX_PROTECT_NORDWR(0x1fd80, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x27800, 0x007f),
++	A6XX_PROTECT_RDONLY(0x27880, 0x0385),
++	A6XX_PROTECT_NORDWR(0x27882, 0x000a),
++	A6XX_PROTECT_NORDWR(0x27c06, 0x0000),
++};
++
++DECLARE_ADRENO_PROTECT(x285_protect, 15);
++
++static const struct adreno_reglist_pipe x285_dyn_pwrup_reglist_regs[] = {
++	{ REG_A8XX_GRAS_TSEFE_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_GRAS_NC_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_1, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_2, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_3, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_4, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_VIS_STREAM_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A7XX_RB_CCU_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A7XX_RB_CCU_DBG_ECO_CNTL, 0, BIT(PIPE_BR)},
++	{ REG_A8XX_RB_CCU_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_CMP_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A6XX_RB_RBP_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A7XX_VFD_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BV_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BR_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_LP_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_CP_HW_FAULT_STATUS_MASK_PIPE, 0, BIT(PIPE_BR) |
++		BIT(PIPE_BV) | BIT(PIPE_LPAC) | BIT(PIPE_AQE0) |
++		BIT(PIPE_AQE1) | BIT(PIPE_DDE_BR) | BIT(PIPE_DDE_BV) },
++	{ REG_A8XX_CP_INTERRUPT_STATUS_MASK_PIPE, 0, BIT(PIPE_BR) |
++		BIT(PIPE_BV) | BIT(PIPE_LPAC) | BIT(PIPE_AQE0) |
++		BIT(PIPE_AQE1) | BIT(PIPE_DDE_BR) | BIT(PIPE_DDE_BV) },
++	{ REG_A8XX_CP_PROTECT_CNTL_PIPE, 0, BIT(PIPE_BR) | BIT(PIPE_BV) | BIT(PIPE_LPAC)},
++	{ REG_A8XX_CP_PROTECT_PIPE(15), 0, BIT(PIPE_BR) | BIT(PIPE_BV) | BIT(PIPE_LPAC) },
++	{ REG_A8XX_RB_GC_GMEM_PROTECT, 0, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_LPAC_GMEM_PROTECT, 0, BIT(PIPE_BR) },
++	{ REG_A6XX_RB_CONTEXT_SWITCH_GMEM_SAVE_RESTORE_ENABLE, 0, BIT(PIPE_BR) },
++};
++DECLARE_ADRENO_REGLIST_PIPE_LIST(x285_dyn_pwrup_reglist);
++
++static const struct adreno_reglist_pipe a810_nonctxt_regs[] = {
++	{ REG_A8XX_CP_SMMU_STREAM_ID_LPAC, 0x00000101, BIT(PIPE_NONE) },
++	{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0x00f80800, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_VIS_STREAM_CNTL, 0x10010000, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0x00000002, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_1, 0x00000003, BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_1, 0x00000023, BIT(PIPE_BV) }, /* Avoid partial waves at VFD */
++	{ REG_A8XX_PC_CHICKEN_BITS_2, 0x00000200, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_3, 0x00500000, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_4, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A7XX_RB_CCU_CNTL, 0x00000068, BIT(PIPE_BR) },
++	/* Partially enable perf clear, Disable DINT to c/z be data forwarding */
++	{ REG_A7XX_RB_CCU_DBG_ECO_CNTL, 0x00002200, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0x00000007, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0x00004000, BIT(PIPE_BR) },
++	{ REG_A8XX_RBBM_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_SLICE_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL, 0x00000030, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL2, 0x00000030, BIT(PIPE_NONE) },
++	{ REG_A8XX_UCHE_GBIF_GX_CONFIG, 0x010240e0, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_GBIF_CLIENT_QOS_CNTL, 0x22122212, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_CGC_P2S_CNTL, 0x00000040, BIT(PIPE_NONE) },
++	/*
++	 * BIT(22): Disable PS out of order retire
++	 * BIT(23): Enable half wave mode and MM instruction src&dst is half precision
++	 */
++	{ REG_A7XX_SP_CHICKEN_BITS_2, BIT(22) | BIT(23), BIT(PIPE_NONE) },
++	{ REG_A7XX_SP_CHICKEN_BITS_3, 0x00300000, BIT(PIPE_NONE) },
++	{ REG_A6XX_SP_PERFCTR_SHADER_MASK, 0x0000003f, BIT(PIPE_NONE) },
++	{ REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP, 0x00000080, BIT(PIPE_NONE) },
++	{ REG_A6XX_TPL1_DBG_ECO_CNTL, 0x10100000, BIT(PIPE_NONE) },
++	{ REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x04000724, BIT(PIPE_NONE) },
++	{ REG_A6XX_UCHE_MODE_CNTL, 0x00020000, BIT(PIPE_NONE) },
++	{ REG_A8XX_UCHE_CCHE_MODE_CNTL, 0x00001000, BIT(PIPE_NONE) },
++	{ REG_A8XX_UCHE_CCHE_CACHE_WAYS, 0x00000800, BIT(PIPE_NONE) },
++	/* Disable write slow pointer in data phase queue */
++	{ REG_A8XX_UCHE_HW_DBG_CNTL, BIT(8), BIT(PIPE_NONE) },
++	{ REG_A8XX_UCHE_VARB_IDLE_TIMEOUT, 0x00000020, BIT(PIPE_NONE) },
++	{ REG_A7XX_VFD_DBG_ECO_CNTL, 0x00008000, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BV_THRESHOLD, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BR_THRESHOLD, 0x00600060, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0x00200020, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_LP_REQ_CNT, 0x00100020, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_RB_GC_GMEM_PROTECT, 0x00900000, BIT(PIPE_BR) },
++	{ },
++};
++
++static const u32 a810_protect_regs[] = {
++	A6XX_PROTECT_RDONLY(0x00000, 0x03a3),
++	A6XX_PROTECT_RDONLY(0x003b4, 0x008b),
++	A6XX_PROTECT_NORDWR(0x00440, 0x001f),
++	A6XX_PROTECT_RDONLY(0x00580, 0x005f),
++	A6XX_PROTECT_NORDWR(0x005e0, 0x011f),
++	A6XX_PROTECT_RDONLY(0x0074a, 0x0005),
++	A6XX_PROTECT_RDONLY(0x00759, 0x0026),
++	A6XX_PROTECT_RDONLY(0x00789, 0x0000),
++	A6XX_PROTECT_RDONLY(0x0078c, 0x0013),
++	A6XX_PROTECT_NORDWR(0x00800, 0x0029),
++	A6XX_PROTECT_NORDWR(0x00837, 0x00af),
++	A6XX_PROTECT_RDONLY(0x008e7, 0x00c9),
++	A6XX_PROTECT_NORDWR(0x008ec, 0x00c3),
++	A6XX_PROTECT_NORDWR(0x009b1, 0x0250),
++	A6XX_PROTECT_RDONLY(0x00ce0, 0x0001),
++	A6XX_PROTECT_RDONLY(0x00df0, 0x0000),
++	A6XX_PROTECT_NORDWR(0x00df1, 0x0000),
++	A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
++	A6XX_PROTECT_NORDWR(0x00e03, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x03c00, 0x00c5),
++	A6XX_PROTECT_RDONLY(0x03cc6, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x08600, 0x01ff),
++	A6XX_PROTECT_NORDWR(0x08e00, 0x00ff),
++	A6XX_PROTECT_RDONLY(0x08f00, 0x0000),
++	A6XX_PROTECT_NORDWR(0x08f01, 0x01be),
++	A6XX_PROTECT_NORDWR(0x09600, 0x01ff),
++	A6XX_PROTECT_RDONLY(0x0981a, 0x02e5),
++	A6XX_PROTECT_NORDWR(0x09e00, 0x01ff),
++	A6XX_PROTECT_NORDWR(0x0a600, 0x01ff),
++	A6XX_PROTECT_NORDWR(0x0ae00, 0x0006),
++	A6XX_PROTECT_NORDWR(0x0ae08, 0x0006),
++	A6XX_PROTECT_NORDWR(0x0ae10, 0x036f),
++	A6XX_PROTECT_NORDWR(0x0b600, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x0dc00, 0x1fff),
++	A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x18400, 0x003f),
++	A6XX_PROTECT_RDONLY(0x18440, 0x013f),
++	A6XX_PROTECT_NORDWR(0x18580, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x1b400, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x1f400, 0x0477),
++	A6XX_PROTECT_RDONLY(0x1f878, 0x0787),
++	A6XX_PROTECT_NORDWR(0x1f930, 0x0329),
++	A6XX_PROTECT_NORDWR(0x20000, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x27800, 0x007f),
++	A6XX_PROTECT_RDONLY(0x27880, 0x0381),
++	A6XX_PROTECT_NORDWR(0x27882, 0x0001),
++	A6XX_PROTECT_NORDWR(0x27c02, 0x0000),
++};
++DECLARE_ADRENO_PROTECT(a810_protect, 64);
++
++static const uint32_t a810_pwrup_reglist_regs[] = {
++	REG_A6XX_UCHE_MODE_CNTL,
++	REG_A8XX_UCHE_VARB_IDLE_TIMEOUT,
++	REG_A8XX_UCHE_GBIF_GX_CONFIG,
++	REG_A8XX_UCHE_CACHE_WAYS,
++	REG_A8XX_UCHE_CCHE_MODE_CNTL,
++	REG_A8XX_UCHE_CCHE_CACHE_WAYS,
++	REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN,
++	REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN + 1,
++	REG_A8XX_UCHE_CCHE_TRAP_BASE,
++	REG_A8XX_UCHE_CCHE_TRAP_BASE + 1,
++	REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE,
++	REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE + 1,
++	REG_A8XX_UCHE_HW_DBG_CNTL,
++	REG_A8XX_UCHE_WRITE_THRU_BASE,
++	REG_A8XX_UCHE_WRITE_THRU_BASE + 1,
++	REG_A8XX_UCHE_TRAP_BASE,
++	REG_A8XX_UCHE_TRAP_BASE + 1,
++	REG_A8XX_UCHE_CLIENT_PF,
++	REG_A8XX_RB_CMP_NC_MODE_CNTL,
++	REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP,
++	REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN,
++	REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN + 1,
++	REG_A7XX_SP_READ_SEL,
++	REG_A6XX_TPL1_NC_MODE_CNTL,
++	REG_A6XX_TPL1_DBG_ECO_CNTL,
++	REG_A6XX_TPL1_DBG_ECO_CNTL1,
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(1),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(2),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(3),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(4),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(5),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(6),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(7),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(8),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(9),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(10),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(11),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(12),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(13),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(14),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(15),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(16),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(17),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(18),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(19),
++};
++DECLARE_ADRENO_REGLIST_LIST(a810_pwrup_reglist);
++
++static const u32 a810_ifpc_reglist_regs[] = {
++	REG_A8XX_RBBM_NC_MODE_CNTL,
++	REG_A8XX_RBBM_PERFCTR_CNTL,
++	REG_A8XX_RBBM_SLICE_INTERFACE_HANG_INT_CNTL,
++	REG_A8XX_RBBM_SLICE_NC_MODE_CNTL,
++	REG_A6XX_SP_NC_MODE_CNTL,
++	REG_A7XX_SP_CHICKEN_BITS_2,
++	REG_A7XX_SP_CHICKEN_BITS_3,
++	REG_A6XX_SP_PERFCTR_SHADER_MASK,
++	REG_A8XX_CP_PROTECT_GLOBAL(0),
++	REG_A8XX_CP_PROTECT_GLOBAL(1),
++	REG_A8XX_CP_PROTECT_GLOBAL(2),
++	REG_A8XX_CP_PROTECT_GLOBAL(3),
++	REG_A8XX_CP_PROTECT_GLOBAL(4),
++	REG_A8XX_CP_PROTECT_GLOBAL(5),
++	REG_A8XX_CP_PROTECT_GLOBAL(6),
++	REG_A8XX_CP_PROTECT_GLOBAL(7),
++	REG_A8XX_CP_PROTECT_GLOBAL(8),
++	REG_A8XX_CP_PROTECT_GLOBAL(9),
++	REG_A8XX_CP_PROTECT_GLOBAL(10),
++	REG_A8XX_CP_PROTECT_GLOBAL(11),
++	REG_A8XX_CP_PROTECT_GLOBAL(12),
++	REG_A8XX_CP_PROTECT_GLOBAL(13),
++	REG_A8XX_CP_PROTECT_GLOBAL(14),
++	REG_A8XX_CP_PROTECT_GLOBAL(15),
++	REG_A8XX_CP_PROTECT_GLOBAL(16),
++	REG_A8XX_CP_PROTECT_GLOBAL(17),
++	REG_A8XX_CP_PROTECT_GLOBAL(18),
++	REG_A8XX_CP_PROTECT_GLOBAL(19),
++	REG_A8XX_CP_PROTECT_GLOBAL(20),
++	REG_A8XX_CP_PROTECT_GLOBAL(21),
++	REG_A8XX_CP_PROTECT_GLOBAL(22),
++	REG_A8XX_CP_PROTECT_GLOBAL(23),
++	REG_A8XX_CP_PROTECT_GLOBAL(24),
++	REG_A8XX_CP_PROTECT_GLOBAL(25),
++	REG_A8XX_CP_PROTECT_GLOBAL(26),
++	REG_A8XX_CP_PROTECT_GLOBAL(27),
++	REG_A8XX_CP_PROTECT_GLOBAL(28),
++	REG_A8XX_CP_PROTECT_GLOBAL(29),
++	REG_A8XX_CP_PROTECT_GLOBAL(30),
++	REG_A8XX_CP_PROTECT_GLOBAL(31),
++	REG_A8XX_CP_PROTECT_GLOBAL(32),
++	REG_A8XX_CP_PROTECT_GLOBAL(33),
++	REG_A8XX_CP_PROTECT_GLOBAL(34),
++	REG_A8XX_CP_PROTECT_GLOBAL(35),
++	REG_A8XX_CP_PROTECT_GLOBAL(36),
++	REG_A8XX_CP_PROTECT_GLOBAL(37),
++	REG_A8XX_CP_PROTECT_GLOBAL(38),
++	REG_A8XX_CP_PROTECT_GLOBAL(39),
++	REG_A8XX_CP_PROTECT_GLOBAL(40),
++	REG_A8XX_CP_PROTECT_GLOBAL(41),
++	REG_A8XX_CP_PROTECT_GLOBAL(42),
++	REG_A8XX_CP_PROTECT_GLOBAL(43),
++	REG_A8XX_CP_PROTECT_GLOBAL(44),
++	REG_A8XX_CP_PROTECT_GLOBAL(45),
++	REG_A8XX_CP_PROTECT_GLOBAL(46),
++	REG_A8XX_CP_PROTECT_GLOBAL(47),
++	REG_A8XX_CP_PROTECT_GLOBAL(48),
++	REG_A8XX_CP_PROTECT_GLOBAL(49),
++	REG_A8XX_CP_PROTECT_GLOBAL(50),
++	REG_A8XX_CP_PROTECT_GLOBAL(51),
++	REG_A8XX_CP_PROTECT_GLOBAL(52),
++	REG_A8XX_CP_PROTECT_GLOBAL(53),
++	REG_A8XX_CP_PROTECT_GLOBAL(54),
++	REG_A8XX_CP_PROTECT_GLOBAL(55),
++	REG_A8XX_CP_PROTECT_GLOBAL(56),
++	REG_A8XX_CP_PROTECT_GLOBAL(57),
++	REG_A8XX_CP_PROTECT_GLOBAL(58),
++	REG_A8XX_CP_PROTECT_GLOBAL(59),
++	REG_A8XX_CP_PROTECT_GLOBAL(60),
++	REG_A8XX_CP_PROTECT_GLOBAL(61),
++	REG_A8XX_CP_PROTECT_GLOBAL(62),
++	REG_A8XX_CP_PROTECT_GLOBAL(63),
++};
++DECLARE_ADRENO_REGLIST_LIST(a810_ifpc_reglist);
++
++static const struct adreno_reglist_pipe a810_dyn_pwrup_reglist_regs[] = {
++	{ REG_A8XX_CP_PROTECT_CNTL_PIPE, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
++	{ REG_A8XX_CP_PROTECT_PIPE(15), 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
++	{ REG_A8XX_GRAS_TSEFE_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_GRAS_NC_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A7XX_RB_CCU_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A7XX_RB_CCU_DBG_ECO_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_CCU_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_CMP_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_GC_GMEM_PROTECT, 0, BIT(PIPE_BR) },
++	{ REG_A6XX_RB_CONTEXT_SWITCH_GMEM_SAVE_RESTORE_ENABLE, 0, BIT(PIPE_BR) },
++	{ REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_1, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_2, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_3, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_4, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
++	{ REG_A8XX_PC_VIS_STREAM_CNTL, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
++	{ REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
++	{ REG_A8XX_VFD_CB_BV_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BR_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_LP_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A7XX_VFD_DBG_ECO_CNTL, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
++};
++DECLARE_ADRENO_REGLIST_PIPE_LIST(a810_dyn_pwrup_reglist);
++
++static const struct a6xx_hfi_clx_table_v2_cmd x285_clx_tbl = {
++	.version = (2 << 16) | 1,
++	.domain = {
++		/* GX DOMAIN */
++		{
++			.data = CLX_DATA(60, 11, 0, 1),
++			.clxt = 0,
++			.clxh = 0,
++			.urg_mode = 1,
++			.lkg_en = 0,
++			.curr_budget = 100,
++		},
++		/* MXG DOMAIN */
++		{
++			.data = CLX_DATA(60, 3, 1, 1),
++			.clxt = 0,
++			.clxh = 0,
++			.urg_mode = 1,
++			.lkg_en = 0,
++			.curr_budget = 100,
++		},
++	},
++};
++
++struct a6xx_hfi_limits_tbl x285_limits_tbl[] = {
++	{
++		.feature_id = GMU_MIT_IFF,
++		.domain = GMU_GX_DOMAIN,
++		.feature_rev = 0,
++		.cfg = {
++			.enable = 1,
++			.msg_path = 0,
++			.lkg_en = 0,
++			.mode = 0,
++			.sid = 12,
++			.mit_time = 5,
++			.curr_limit = 18000,
++		},
++	},
++	{
++		.feature_id = GMU_MIT_IFF,
++		.domain = GMU_MX_DOMAIN,
++		.feature_rev = 0,
++		.cfg = {
++			.enable = 1,
++			.msg_path = 0,
++			.lkg_en = 0,
++			.mode = 0,
++			.sid = 18,
++			.mit_time = 2000,
++			.curr_limit = 6000,
++		},
++	},
++	{
++		.feature_id = GMU_MIT_PCLX,
++		.domain = GMU_GX_DOMAIN,
++		.feature_rev = 0,
++		.cfg = {
++			.enable = 1,
++			.msg_path = 0,
++			.lkg_en = 0,
++			.mode = 0,
++			.sid = 6,
++			.mit_time = 3,
++			.curr_limit = 66000,
++		},
++	},
++	{
++		.feature_id = GMU_MIT_PCLX,
++		.domain = GMU_MX_DOMAIN,
++		.feature_rev = 0,
++		.cfg = {
++			.enable = 0,
++			.msg_path = 0,
++			.lkg_en = 0,
++			.mode = 0,
++			.sid = 6,
++			.mit_time = 3,
++			.curr_limit = 18000,
++		},
++	},
++};
++DECLARE_ADRENO_LIMITS_TABLE(x285_limits);
++
++static const struct adreno_reglist_pipe a840_nonctxt_regs[] = {
++	{ REG_A8XX_CP_SMMU_STREAM_ID_LPAC, 0x00000101, BIT(PIPE_NONE) },
++	{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0x00000800, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_GRAS_TSEFE_DBG_ECO_CNTL, 0x00200000, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_VIS_STREAM_CNTL, 0x10010000, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0x00000002, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_1, 0x00000003, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_2, 0x00000200, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_3, 0x00500000, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_4, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	/* Disable Dead Draw Merge scheme on RB-HLSQ */
++	{ REG_A6XX_RB_RBP_CNTL, BIT(5), BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A7XX_RB_CCU_CNTL, 0x00000068, BIT(PIPE_BR) },
++	/* Partially enable perf clear, Disable DINT to c/z be data forwarding */
++	{ REG_A7XX_RB_CCU_DBG_ECO_CNTL, 0x00002200, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_GC_GMEM_PROTECT, 0x12000000, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0x00000007, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0x00004000, BIT(PIPE_BR) },
++	{ REG_A8XX_RBBM_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_SLICE_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_POWER_UP_RESET_SW_OVERRIDE, 0x70809060, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_POWER_UP_RESET_SW_BV_OVERRIDE, 0x30000000, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL, 0x00000030, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL2, 0x00000030, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_INTERFACE_HANG_INT_CNTL, 0x0fffffff, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_GBIF_CLIENT_QOS_CNTL, 0x22122212, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_CGC_P2S_CNTL, 0x00000040, BIT(PIPE_NONE) },
++	/* Disable mode_switch optimization in UMAS */
++	{ REG_A6XX_SP_CHICKEN_BITS, BIT(24) | BIT(26), BIT(PIPE_NONE) },
++	/* Disable LPAC large-LM mode */
++	{ REG_A8XX_SP_SS_CHICKEN_BITS_0, BIT(3), BIT(PIPE_NONE) },
++	/* Disable PS out of order retire */
++	{ REG_A7XX_SP_CHICKEN_BITS_2, 0x00c21800, BIT(PIPE_NONE) },
++	{ REG_A7XX_SP_CHICKEN_BITS_3, 0x00300000, BIT(PIPE_NONE) },
++	/* Disable SP2TP info attribute */
++	{ REG_A8XX_SP_CHICKEN_BITS_4, 0x00000002, BIT(PIPE_NONE) },
++	{ REG_A6XX_SP_PERFCTR_SHADER_MASK, 0x0000003f, BIT(PIPE_NONE) },
++	{ REG_A7XX_SP_HLSQ_DBG_ECO_CNTL, BIT(14), BIT(PIPE_NONE) },
++	/* Ignore HLSQ shared constant feedback from SP */
++	{ REG_A7XX_SP_HLSQ_DBG_ECO_CNTL_1, BIT(17), BIT(PIPE_NONE) },
++	/* Disable CS dead batch merge */
++	{ REG_A7XX_SP_HLSQ_DBG_ECO_CNTL_2, BIT(24), BIT(PIPE_NONE) },
++	{ REG_A8XX_SP_HLSQ_DBG_ECO_CNTL_3, BIT(7), BIT(PIPE_NONE) },
++	{ REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP, 0x00000080, BIT(PIPE_NONE) },
++	{ REG_A7XX_SP_READ_SEL, 0x0001ff00, BIT(PIPE_NONE) },
++	{ REG_A6XX_TPL1_DBG_ECO_CNTL, 0x10100000, BIT(PIPE_NONE) },
++	/* BIT(26): Disable final clamp for bicubic filtering */
++	{ REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x04000720, BIT(PIPE_NONE) },
++	{ REG_A6XX_UCHE_MODE_CNTL, 0x80080000, BIT(PIPE_NONE) },
++	{ REG_A8XX_UCHE_CCHE_MODE_CNTL, 0x00001000, BIT(PIPE_NONE) },
++	{ REG_A8XX_UCHE_CCHE_CACHE_WAYS, 0x00000800, BIT(PIPE_NONE) },
++	{ REG_A8XX_UCHE_GBIF_GX_CONFIG, 0x010240e0, BIT(PIPE_NONE) },
++	{ REG_A8XX_UCHE_VARB_IDLE_TIMEOUT, 0x00000020, BIT(PIPE_NONE) },
++	{ REG_A7XX_VFD_DBG_ECO_CNTL, 0x00008000, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BV_THRESHOLD, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BR_THRESHOLD, 0x00600060, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0x00200020, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_LP_REQ_CNT, 0x00000020, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ },
++};
++
++static const u32 a840_protect_regs[] = {
++	A6XX_PROTECT_RDONLY(0x00008, 0x039b),
++	A6XX_PROTECT_RDONLY(0x003b4, 0x008b),
++	A6XX_PROTECT_NORDWR(0x00440, 0x001f),
++	A6XX_PROTECT_RDONLY(0x00580, 0x005f),
++	A6XX_PROTECT_NORDWR(0x005e0, 0x011f),
++	A6XX_PROTECT_RDONLY(0x0074a, 0x0005),
++	A6XX_PROTECT_RDONLY(0x00759, 0x001b),
++	A6XX_PROTECT_NORDWR(0x00775, 0x000a),
++	A6XX_PROTECT_RDONLY(0x00789, 0x0000),
++	A6XX_PROTECT_RDONLY(0x0078c, 0x0013),
++	A6XX_PROTECT_NORDWR(0x00800, 0x0029),
++	A6XX_PROTECT_NORDWR(0x00837, 0x00af),
++	A6XX_PROTECT_RDONLY(0x008e7, 0x00c9),
++	A6XX_PROTECT_NORDWR(0x008ec, 0x00c3),
++	A6XX_PROTECT_NORDWR(0x009b1, 0x0250),
++	A6XX_PROTECT_NORDWR(0x00c07, 0x0008),
++	A6XX_PROTECT_RDONLY(0x00ce0, 0x0001),
++	A6XX_PROTECT_RDONLY(0x00df0, 0x0000),
++	A6XX_PROTECT_NORDWR(0x00df1, 0x0000),
++	A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
++	A6XX_PROTECT_NORDWR(0x00e03, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x03c00, 0x00c5),
++	A6XX_PROTECT_RDONLY(0x03cc6, 0x0039),
++	A6XX_PROTECT_NORDWR(0x03d00, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x08600, 0x01ff),
++	A6XX_PROTECT_NORDWR(0x08e00, 0x00ff),
++	A6XX_PROTECT_RDONLY(0x08f00, 0x0000),
++	A6XX_PROTECT_NORDWR(0x08f01, 0x01be),
++	A6XX_PROTECT_NORDWR(0x09600, 0x01ff),
++	A6XX_PROTECT_RDONLY(0x0981a, 0x02e5),
++	A6XX_PROTECT_NORDWR(0x09e00, 0x01ff),
++	A6XX_PROTECT_NORDWR(0x0a600, 0x01ff),
++	A6XX_PROTECT_NORDWR(0x0a82e, 0x0000),
++	A6XX_PROTECT_NORDWR(0x0ae00, 0x0000),
++	A6XX_PROTECT_NORDWR(0x0ae02, 0x0004),
++	A6XX_PROTECT_NORDWR(0x0ae08, 0x0006),
++	A6XX_PROTECT_NORDWR(0x0ae10, 0x00bf),
++	A6XX_PROTECT_RDONLY(0x0aed0, 0x002f),
++	A6XX_PROTECT_NORDWR(0x0af00, 0x027f),
++	A6XX_PROTECT_NORDWR(0x0b600, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x0dc00, 0x1fff),
++	A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x18400, 0x003f),
++	A6XX_PROTECT_RDONLY(0x18440, 0x013f),
++	A6XX_PROTECT_NORDWR(0x18580, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x1b400, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x1f400, 0x0477),
++	A6XX_PROTECT_RDONLY(0x1f878, 0x0507),
++	A6XX_PROTECT_NORDWR(0x1f930, 0x0329),
++	A6XX_PROTECT_NORDWR(0x1fd80, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x27800, 0x007f),
++	A6XX_PROTECT_RDONLY(0x27880, 0x0385),
++	A6XX_PROTECT_NORDWR(0x27882, 0x0009),
++	A6XX_PROTECT_NORDWR(0x27c06, 0x0000),
++};
++DECLARE_ADRENO_PROTECT(a840_protect, 15);
++
++static const struct adreno_reglist a840_gbif[] = {
++	{ REG_A6XX_GBIF_QSB_SIDE0, 0x00071e20 },
++	{ REG_A6XX_GBIF_QSB_SIDE1, 0x00071e20 },
++	{ REG_A6XX_GBIF_QSB_SIDE2, 0x00071e20 },
++	{ REG_A6XX_GBIF_QSB_SIDE3, 0x00071e20 },
++	{ REG_A6XX_GBIF_CX_CONFIG, 0x20023000 },
++	{ },
++};
++
++static const uint32_t a840_pwrup_reglist_regs[] = {
++	REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP,
++	REG_A7XX_SP_READ_SEL,
++	REG_A6XX_UCHE_MODE_CNTL,
++	REG_A8XX_UCHE_VARB_IDLE_TIMEOUT,
++	REG_A8XX_UCHE_GBIF_GX_CONFIG,
++	REG_A8XX_UCHE_CCHE_MODE_CNTL,
++	REG_A8XX_UCHE_CCHE_CACHE_WAYS,
++	REG_A8XX_UCHE_CACHE_WAYS,
++	REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN,
++	REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN + 1,
++	REG_A8XX_UCHE_CCHE_LPAC_GMEM_RANGE_MIN,
++	REG_A8XX_UCHE_CCHE_LPAC_GMEM_RANGE_MIN + 1,
++	REG_A8XX_UCHE_CCHE_TRAP_BASE,
++	REG_A8XX_UCHE_CCHE_TRAP_BASE + 1,
++	REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE,
++	REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE + 1,
++	REG_A8XX_UCHE_HW_DBG_CNTL,
++	REG_A8XX_UCHE_WRITE_THRU_BASE,
++	REG_A8XX_UCHE_WRITE_THRU_BASE + 1,
++	REG_A8XX_UCHE_TRAP_BASE,
++	REG_A8XX_UCHE_TRAP_BASE + 1,
++	REG_A8XX_UCHE_CLIENT_PF,
++	REG_A8XX_RB_CMP_NC_MODE_CNTL,
++	REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN,
++	REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN + 1,
++	REG_A6XX_TPL1_NC_MODE_CNTL,
++	REG_A6XX_TPL1_DBG_ECO_CNTL,
++	REG_A6XX_TPL1_DBG_ECO_CNTL1,
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(0),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(1),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(2),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(3),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(4),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(5),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(6),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(7),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(8),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(9),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(10),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(11),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(12),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(13),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(14),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(15),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(16),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(17),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(18),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(19),
++};
++DECLARE_ADRENO_REGLIST_LIST(a840_pwrup_reglist);
++
++static const u32 a840_ifpc_reglist_regs[] = {
++	REG_A8XX_RBBM_NC_MODE_CNTL,
++	REG_A8XX_RBBM_SLICE_NC_MODE_CNTL,
++	REG_A6XX_SP_NC_MODE_CNTL,
++	REG_A6XX_SP_CHICKEN_BITS,
++	REG_A8XX_SP_SS_CHICKEN_BITS_0,
++	REG_A7XX_SP_CHICKEN_BITS_1,
++	REG_A7XX_SP_CHICKEN_BITS_2,
++	REG_A7XX_SP_CHICKEN_BITS_3,
++	REG_A8XX_SP_CHICKEN_BITS_4,
++	REG_A6XX_SP_PERFCTR_SHADER_MASK,
++	REG_A8XX_RBBM_SLICE_PERFCTR_CNTL,
++	REG_A8XX_RBBM_SLICE_INTERFACE_HANG_INT_CNTL,
++	REG_A7XX_SP_HLSQ_DBG_ECO_CNTL,
++	REG_A7XX_SP_HLSQ_DBG_ECO_CNTL_1,
++	REG_A7XX_SP_HLSQ_DBG_ECO_CNTL_2,
++	REG_A8XX_SP_HLSQ_DBG_ECO_CNTL_3,
++	REG_A8XX_SP_HLSQ_LPAC_GMEM_RANGE_MIN,
++	REG_A8XX_SP_HLSQ_LPAC_GMEM_RANGE_MIN + 1,
++	REG_A8XX_CP_INTERRUPT_STATUS_MASK_GLOBAL,
++	REG_A8XX_RBBM_PERFCTR_CNTL,
++	REG_A8XX_CP_PROTECT_GLOBAL(0),
++	REG_A8XX_CP_PROTECT_GLOBAL(1),
++	REG_A8XX_CP_PROTECT_GLOBAL(2),
++	REG_A8XX_CP_PROTECT_GLOBAL(3),
++	REG_A8XX_CP_PROTECT_GLOBAL(4),
++	REG_A8XX_CP_PROTECT_GLOBAL(5),
++	REG_A8XX_CP_PROTECT_GLOBAL(6),
++	REG_A8XX_CP_PROTECT_GLOBAL(7),
++	REG_A8XX_CP_PROTECT_GLOBAL(8),
++	REG_A8XX_CP_PROTECT_GLOBAL(9),
++	REG_A8XX_CP_PROTECT_GLOBAL(10),
++	REG_A8XX_CP_PROTECT_GLOBAL(11),
++	REG_A8XX_CP_PROTECT_GLOBAL(12),
++	REG_A8XX_CP_PROTECT_GLOBAL(13),
++	REG_A8XX_CP_PROTECT_GLOBAL(14),
++	REG_A8XX_CP_PROTECT_GLOBAL(15),
++	REG_A8XX_CP_PROTECT_GLOBAL(16),
++	REG_A8XX_CP_PROTECT_GLOBAL(17),
++	REG_A8XX_CP_PROTECT_GLOBAL(18),
++	REG_A8XX_CP_PROTECT_GLOBAL(19),
++	REG_A8XX_CP_PROTECT_GLOBAL(20),
++	REG_A8XX_CP_PROTECT_GLOBAL(21),
++	REG_A8XX_CP_PROTECT_GLOBAL(22),
++	REG_A8XX_CP_PROTECT_GLOBAL(23),
++	REG_A8XX_CP_PROTECT_GLOBAL(24),
++	REG_A8XX_CP_PROTECT_GLOBAL(25),
++	REG_A8XX_CP_PROTECT_GLOBAL(26),
++	REG_A8XX_CP_PROTECT_GLOBAL(27),
++	REG_A8XX_CP_PROTECT_GLOBAL(28),
++	REG_A8XX_CP_PROTECT_GLOBAL(29),
++	REG_A8XX_CP_PROTECT_GLOBAL(30),
++	REG_A8XX_CP_PROTECT_GLOBAL(31),
++	REG_A8XX_CP_PROTECT_GLOBAL(32),
++	REG_A8XX_CP_PROTECT_GLOBAL(33),
++	REG_A8XX_CP_PROTECT_GLOBAL(34),
++	REG_A8XX_CP_PROTECT_GLOBAL(35),
++	REG_A8XX_CP_PROTECT_GLOBAL(36),
++	REG_A8XX_CP_PROTECT_GLOBAL(37),
++	REG_A8XX_CP_PROTECT_GLOBAL(38),
++	REG_A8XX_CP_PROTECT_GLOBAL(39),
++	REG_A8XX_CP_PROTECT_GLOBAL(40),
++	REG_A8XX_CP_PROTECT_GLOBAL(41),
++	REG_A8XX_CP_PROTECT_GLOBAL(42),
++	REG_A8XX_CP_PROTECT_GLOBAL(43),
++	REG_A8XX_CP_PROTECT_GLOBAL(44),
++	REG_A8XX_CP_PROTECT_GLOBAL(45),
++	REG_A8XX_CP_PROTECT_GLOBAL(46),
++	REG_A8XX_CP_PROTECT_GLOBAL(47),
++	REG_A8XX_CP_PROTECT_GLOBAL(48),
++	REG_A8XX_CP_PROTECT_GLOBAL(49),
++	REG_A8XX_CP_PROTECT_GLOBAL(50),
++	REG_A8XX_CP_PROTECT_GLOBAL(51),
++	REG_A8XX_CP_PROTECT_GLOBAL(52),
++	REG_A8XX_CP_PROTECT_GLOBAL(53),
++	REG_A8XX_CP_PROTECT_GLOBAL(54),
++	REG_A8XX_CP_PROTECT_GLOBAL(55),
++	REG_A8XX_CP_PROTECT_GLOBAL(56),
++	REG_A8XX_CP_PROTECT_GLOBAL(57),
++	REG_A8XX_CP_PROTECT_GLOBAL(58),
++	REG_A8XX_CP_PROTECT_GLOBAL(59),
++	REG_A8XX_CP_PROTECT_GLOBAL(60),
++	REG_A8XX_CP_PROTECT_GLOBAL(61),
++	REG_A8XX_CP_PROTECT_GLOBAL(62),
++	REG_A8XX_CP_PROTECT_GLOBAL(63),
++};
++DECLARE_ADRENO_REGLIST_LIST(a840_ifpc_reglist);
++
++static const struct adreno_reglist_pipe a840_dyn_pwrup_reglist_regs[] = {
++	{ REG_A8XX_GRAS_TSEFE_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_GRAS_NC_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_1, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_2, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_3, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_4, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_VIS_STREAM_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A7XX_RB_CCU_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A7XX_RB_CCU_DBG_ECO_CNTL, 0, BIT(PIPE_BR)},
++	{ REG_A8XX_RB_CCU_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_CMP_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A6XX_RB_RBP_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A6XX_RB_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A7XX_VFD_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BV_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BR_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_LP_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_CP_HW_FAULT_STATUS_MASK_PIPE, 0, BIT(PIPE_BR) |
++		BIT(PIPE_BV) | BIT(PIPE_LPAC) | BIT(PIPE_AQE0) |
++		BIT(PIPE_AQE1) | BIT(PIPE_DDE_BR) | BIT(PIPE_DDE_BV) },
++	{ REG_A8XX_CP_INTERRUPT_STATUS_MASK_PIPE, 0, BIT(PIPE_BR) |
++		BIT(PIPE_BV) | BIT(PIPE_LPAC) | BIT(PIPE_AQE0) |
++		BIT(PIPE_AQE1) | BIT(PIPE_DDE_BR) | BIT(PIPE_DDE_BV) },
++	{ REG_A8XX_CP_PROTECT_CNTL_PIPE, 0, BIT(PIPE_BR) | BIT(PIPE_BV) | BIT(PIPE_LPAC)},
++	{ REG_A8XX_CP_PROTECT_PIPE(15), 0, BIT(PIPE_BR) | BIT(PIPE_BV) | BIT(PIPE_LPAC) },
++	{ REG_A8XX_RB_GC_GMEM_PROTECT, 0, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_LPAC_GMEM_PROTECT, 0, BIT(PIPE_BR) },
++	{ REG_A6XX_RB_CONTEXT_SWITCH_GMEM_SAVE_RESTORE_ENABLE, 0, BIT(PIPE_BR) },
++};
++DECLARE_ADRENO_REGLIST_PIPE_LIST(a840_dyn_pwrup_reglist);
++
++static const struct a6xx_hfi_clx_table_v2_cmd a840_clx_tbl = {
++	.version = (2 << 16) | 1,
++	.domain = {
++		/* GX DOMAIN */
++		{
++			.data = CLX_DATA(60, 5, 1, 1),
++			.clxt = 0,
++			.clxh = 0,
++			.urg_mode = 1,
++			.lkg_en = 0,
++			.curr_budget = 100,
++		},
++		/* MXG DOMAIN */
++		{
++			.data = CLX_DATA(60, 1, 1, 1),
++			.clxt = 0,
++			.clxh = 0,
++			.urg_mode = 1,
++			.lkg_en = 0,
++			.curr_budget = 50,
++		},
++	},
++};
++
++struct a6xx_hfi_limits_tbl a840_limits_tbl[] = {
++	{
++		.feature_id = GMU_MIT_IFF,
++		.domain = GMU_GX_DOMAIN,
++		.feature_rev = 0,
++		.cfg = {
++			.enable = 1,
++			.msg_path = 0,
++			.lkg_en = 0,
++			.mode = 0,
++			.sid = 12,
++			.mit_time = 5,
++			.curr_limit = 6000,
++		},
++	},
++	{
++		.feature_id = GMU_MIT_IFF,
++		.domain = GMU_MX_DOMAIN,
++		.feature_rev = 0,
++		.cfg = {
++			.enable = 1,
++			.msg_path = 0,
++			.lkg_en = 0,
++			.mode = 0,
++			.sid = 9,
++			.mit_time = 2000,
++			.curr_limit = 6000,
++		},
++	},
++	{
++		.feature_id = GMU_MIT_PCLX,
++		.domain = GMU_GX_DOMAIN,
++		.feature_rev = 0,
++		.cfg = {
++			.enable = 1,
++			.msg_path = 0,
++			.lkg_en = 0,
++			.mode = 0,
++			.sid = 7,
++			.mit_time = 3,
++			.curr_limit = 30000,
++		},
++	},
++	{
++		.feature_id = GMU_MIT_PCLX,
++		.domain = GMU_MX_DOMAIN,
++		.feature_rev = 0,
++		.cfg = {
++			.enable = 0,
++			.msg_path = 0,
++			.lkg_en = 0,
++			.mode = 0,
++			.sid = 7,
++			.mit_time = 3,
++			.curr_limit = 6000,
++		},
++	},
++};
++DECLARE_ADRENO_LIMITS_TABLE(a840_limits);
++
++static const struct adreno_reglist_pipe a845_nonctxt_regs[] = {
++	{ REG_A8XX_CP_SMMU_STREAM_ID_LPAC, 0x00000101, BIT(PIPE_NONE) },
++	{ REG_A8XX_CP_MULTIDRAW_CNTL, 0x00000001, BIT(PIPE_NONE) },
++	{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0x01000800, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_GRAS_TSEFE_DBG_ECO_CNTL, 0x00200000, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_VIS_STREAM_CNTL, 0x10010000, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0x00000002, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_1, 0x00000803, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_2, 0x00000200, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_3, 0x00400000, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_4, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_5, BIT(28) | BIT(30), BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A7XX_RB_CCU_CNTL, 0x00000068, BIT(PIPE_BR) },
++	{ REG_A7XX_RB_CCU_DBG_ECO_CNTL, BIT(10) | BIT(9), BIT(PIPE_BR) },
++	{ REG_A6XX_RB_DBG_ECO_CNTL, BIT(17), BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_RB_GC_GMEM_PROTECT, 0x0C000000, BIT(PIPE_BR) },
++	{ REG_A6XX_RB_RBP_CNTL, BIT(5) | BIT(6), BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0x00000007, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0x00004000, BIT(PIPE_BR) },
++	{ REG_A8XX_RBBM_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_SLICE_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_SLICE_PERFCTR_CNTL, BIT(0), BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_POWER_UP_RESET_SW_OVERRIDE, 0x70809060, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_POWER_UP_RESET_SW_BV_OVERRIDE, 0x30000000, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL, 0x00000030, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL2, 0x00000030, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_GBIF_CLIENT_QOS_CNTL, 0x22122212, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_CGC_P2S_CNTL, 0x00000040, BIT(PIPE_NONE) },
++	{ REG_A6XX_SP_CHICKEN_BITS, BIT(24), BIT(PIPE_NONE) },
++	{ REG_A7XX_SP_CHICKEN_BITS_2, 0x00820800, BIT(PIPE_NONE) },
++	{ REG_A7XX_SP_CHICKEN_BITS_3, 0x00300000, BIT(PIPE_NONE) },
++	{ REG_A8XX_SP_CHICKEN_BITS_5, BIT(3), BIT(PIPE_NONE) },
++	{ REG_A6XX_SP_PERFCTR_SHADER_MASK, 0x0000003f, BIT(PIPE_NONE) },
++	{ REG_A7XX_SP_HLSQ_DBG_ECO_CNTL, 0x04000000, BIT(PIPE_NONE) },
++	{ REG_A7XX_SP_HLSQ_DBG_ECO_CNTL_1, BIT(17), BIT(PIPE_NONE) },
++	{ REG_A8XX_SP_HLSQ_DBG_ECO_CNTL_3, BIT(1), BIT(PIPE_NONE) },
++	{ REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP, 0x00000080, BIT(PIPE_NONE) },
++	{ REG_A7XX_SP_READ_SEL, 0x0001ff00, BIT(PIPE_NONE) },
++	{ REG_A8XX_SP_L0_PERF_TUNE, 0x00000024, BIT(PIPE_NONE) },
++	{ REG_A6XX_TPL1_DBG_ECO_CNTL, 0x10100000, BIT(PIPE_NONE) },
++	{ REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x00000720, BIT(PIPE_NONE) },
++	{ REG_A6XX_UCHE_MODE_CNTL, 0x80080000, BIT(PIPE_NONE) },
++	{ REG_A8XX_UCHE_CCHE_MODE_CNTL, 0x00001000, BIT(PIPE_NONE) },
++	{ REG_A8XX_UCHE_DBG_ECO_CNTL_0, BIT(31), BIT(PIPE_NONE) },
++	{ REG_A8XX_UCHE_HW_DBG_CNTL, 0x01410000, BIT(PIPE_NONE) },
++	{ REG_A8XX_UCHE_CCHE_CACHE_WAYS, 0x00000800, BIT(PIPE_NONE) },
++	{ REG_A8XX_UCHE_GBIF_GX_CONFIG, 0x010240e0, BIT(PIPE_NONE) },
++	{ REG_A8XX_UCHE_VARB_IDLE_TIMEOUT, 0x00000020, BIT(PIPE_NONE) },
++	{ REG_A7XX_VFD_DBG_ECO_CNTL, 0x00008000, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BV_THRESHOLD, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BR_THRESHOLD, 0x00600060, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0x00200020, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_LP_REQ_CNT, 0x00080020, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VSC_VISIBILITY_FLUSH_CNTL, 0x00080004, BIT(PIPE_NONE) },
++	{ },
++};
++
++static const struct adreno_reglist_pipe a850_nonctxt_regs[] = {
++	{ REG_A8XX_CP_SMMU_STREAM_ID_LPAC, 0x00000101, BIT(PIPE_NONE) },
++	{ REG_A8XX_CP_MULTIDRAW_CNTL, 0x00000001, BIT(PIPE_NONE) },
++	{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0x01000800, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_GRAS_TSEFE_DBG_ECO_CNTL, 0x00200000, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_VIS_STREAM_CNTL, 0x10010000, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0x00000002, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_1, 0x00000003, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_2, 0x00000200, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_3, 0x00400000, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_4, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_5, BIT(28), BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A7XX_RB_CCU_CNTL, 0x00000068, BIT(PIPE_BR) },
++	{ REG_A7XX_RB_CCU_DBG_ECO_CNTL, BIT(10) | BIT(9), BIT(PIPE_BR) },
++	{ REG_A6XX_RB_DBG_ECO_CNTL, BIT(17), BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_RB_GC_GMEM_PROTECT, 0x12000000, BIT(PIPE_BR) },
++	{ REG_A6XX_RB_RBP_CNTL, BIT(5) | BIT(6), BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0x00000007, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0x00004000, BIT(PIPE_BR) },
++	{ REG_A8XX_RBBM_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_SLICE_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_SLICE_PERFCTR_CNTL, BIT(0), BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_POWER_UP_RESET_SW_OVERRIDE, 0x70809060, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_POWER_UP_RESET_SW_BV_OVERRIDE, 0x30000000, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL, 0x00000030, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL2, 0x00000030, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_GBIF_CLIENT_QOS_CNTL, 0x22122212, BIT(PIPE_NONE) },
++	{ REG_A8XX_RBBM_CGC_P2S_CNTL, 0x00000040, BIT(PIPE_NONE) },
++	{ REG_A6XX_SP_CHICKEN_BITS, BIT(24), BIT(PIPE_NONE) },
++	{ REG_A7XX_SP_CHICKEN_BITS_2, 0x00820800, BIT(PIPE_NONE) },
++	{ REG_A7XX_SP_CHICKEN_BITS_3, 0x00300000, BIT(PIPE_NONE) },
++	{ REG_A8XX_SP_CHICKEN_BITS_5, BIT(3), BIT(PIPE_NONE) },
++	{ REG_A6XX_SP_PERFCTR_SHADER_MASK, 0x0000003f, BIT(PIPE_NONE) },
++	{ REG_A7XX_SP_HLSQ_DBG_ECO_CNTL, 0x04000000, BIT(PIPE_NONE) },
++	{ REG_A7XX_SP_HLSQ_DBG_ECO_CNTL_1, BIT(17), BIT(PIPE_NONE) },
++	{ REG_A8XX_SP_HLSQ_DBG_ECO_CNTL_3, BIT(1), BIT(PIPE_NONE) },
++	{ REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP, 0x00000080, BIT(PIPE_NONE) },
++	{ REG_A7XX_SP_READ_SEL, 0x0001ff00, BIT(PIPE_NONE) },
++	{ REG_A8XX_SP_L0_PERF_TUNE, 0x00000024, BIT(PIPE_NONE) },
++	{ REG_A6XX_TPL1_DBG_ECO_CNTL, 0x10100000, BIT(PIPE_NONE) },
++	{ REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x00000720, BIT(PIPE_NONE) },
++	{ REG_A6XX_UCHE_MODE_CNTL, 0x80080000, BIT(PIPE_NONE) },
++	{ REG_A8XX_UCHE_CCHE_MODE_CNTL, 0x00001000, BIT(PIPE_NONE) },
++	{ REG_A8XX_UCHE_DBG_ECO_CNTL_0, BIT(31), BIT(PIPE_NONE) },
++	{ REG_A8XX_UCHE_HW_DBG_CNTL, 0x01410000, BIT(PIPE_NONE) },
++	{ REG_A8XX_UCHE_CCHE_CACHE_WAYS, 0x00000800, BIT(PIPE_NONE) },
++	{ REG_A8XX_UCHE_GBIF_GX_CONFIG, 0x010240e0, BIT(PIPE_NONE) },
++	{ REG_A8XX_UCHE_VARB_IDLE_TIMEOUT, 0x00000020, BIT(PIPE_NONE) },
++	{ REG_A7XX_VFD_DBG_ECO_CNTL, 0x00008000, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BV_THRESHOLD, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BR_THRESHOLD, 0x00600060, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0x00200020, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_LP_REQ_CNT, 0x00080020, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VSC_VISIBILITY_FLUSH_CNTL, 0x00080004, BIT(PIPE_NONE) },
++	{ },
++};
++
++static const u32 a850_protect_regs[] = {
++	A6XX_PROTECT_RDONLY(0x00008, 0x039b),
++	A6XX_PROTECT_RDONLY(0x003b4, 0x008b),
++	A6XX_PROTECT_NORDWR(0x00440, 0x001f),
++	A6XX_PROTECT_RDONLY(0x00580, 0x005f),
++	A6XX_PROTECT_NORDWR(0x005e0, 0x011f),
++	A6XX_PROTECT_RDONLY(0x0074a, 0x0005),
++	A6XX_PROTECT_RDONLY(0x00759, 0x001b),
++	A6XX_PROTECT_NORDWR(0x00775, 0x000a),
++	A6XX_PROTECT_RDONLY(0x00789, 0x0000),
++	A6XX_PROTECT_RDONLY(0x0078c, 0x0013),
++	A6XX_PROTECT_NORDWR(0x00800, 0x0029),
++	A6XX_PROTECT_NORDWR(0x00837, 0x00af),
++	A6XX_PROTECT_RDONLY(0x008e7, 0x00c9),
++	A6XX_PROTECT_NORDWR(0x008ec, 0x00c3),
++	A6XX_PROTECT_NORDWR(0x009b1, 0x0250),
++	A6XX_PROTECT_NORDWR(0x00c07, 0x0008),
++	A6XX_PROTECT_RDONLY(0x00ce0, 0x0001),
++	A6XX_PROTECT_RDONLY(0x00df0, 0x0000),
++	A6XX_PROTECT_NORDWR(0x00df1, 0x0000),
++	A6XX_PROTECT_NORDWR(0x00df5, 0x0003),
++	A6XX_PROTECT_RDONLY(0x00df9, 0x0007),
++	A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
++	A6XX_PROTECT_NORDWR(0x00e03, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x03c00, 0x00c5),
++	A6XX_PROTECT_RDONLY(0x03cc6, 0x0039),
++	A6XX_PROTECT_NORDWR(0x03d00, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x08600, 0x01ff),
++	A6XX_PROTECT_NORDWR(0x08e00, 0x00ff),
++	A6XX_PROTECT_RDONLY(0x08f00, 0x0000),
++	A6XX_PROTECT_NORDWR(0x08f01, 0x01be),
++	A6XX_PROTECT_NORDWR(0x09600, 0x01ff),
++	A6XX_PROTECT_RDONLY(0x0981a, 0x02e5),
++	A6XX_PROTECT_NORDWR(0x09e00, 0x01ff),
++	A6XX_PROTECT_NORDWR(0x0a600, 0x01ff),
++	A6XX_PROTECT_NORDWR(0x0a82e, 0x0000),
++	A6XX_PROTECT_NORDWR(0x0ae00, 0x0000),
++	A6XX_PROTECT_NORDWR(0x0ae02, 0x0004),
++	A6XX_PROTECT_NORDWR(0x0ae08, 0x0006),
++	A6XX_PROTECT_NORDWR(0x0ae10, 0x00bf),
++	A6XX_PROTECT_RDONLY(0x0aed0, 0x002f),
++	A6XX_PROTECT_NORDWR(0x0af00, 0x027f),
++	A6XX_PROTECT_NORDWR(0x0b600, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x0dc00, 0x1fff),
++	A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x18400, 0x003f),
++	A6XX_PROTECT_RDONLY(0x18440, 0x013f),
++	A6XX_PROTECT_NORDWR(0x18580, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x1ac00, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x1cc00, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x1f400, 0x0477),
++	A6XX_PROTECT_RDONLY(0x1f878, 0x0507),
++	A6XX_PROTECT_NORDWR(0x1f930, 0x0329),
++	A6XX_PROTECT_NORDWR(0x1fd80, 0x1fff),
++	A6XX_PROTECT_NORDWR(0x27800, 0x007f),
++	A6XX_PROTECT_RDONLY(0x27880, 0x0385),
++	A6XX_PROTECT_NORDWR(0x27882, 0x0035),
++	A6XX_PROTECT_NORDWR(0x27c06, 0x0000),
++};
++DECLARE_ADRENO_PROTECT(a850_protect, 15);
++
++static const u32 a850_pwrup_reglist_regs[] = {
++	REG_A8XX_RB_CMP_NC_MODE_CNTL,
++	REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN,
++	REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN + 1,
++	REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP,
++	REG_A7XX_SP_READ_SEL,
++	REG_A8XX_CP_MULTIDRAW_CNTL,
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(0),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(1),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(2),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(3),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(4),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(5),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(6),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(7),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(8),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(9),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(10),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(11),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(12),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(13),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(14),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(15),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(16),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(17),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(18),
++	REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(19),
++	REG_A6XX_TPL1_DBG_ECO_CNTL,
++	REG_A6XX_TPL1_DBG_ECO_CNTL1,
++	REG_A6XX_TPL1_NC_MODE_CNTL,
++	REG_A6XX_UCHE_MODE_CNTL,
++	REG_A8XX_UCHE_CCHE_MODE_CNTL,
++	REG_A8XX_UCHE_HW_DBG_CNTL,
++	REG_A8XX_UCHE_CCHE_CACHE_WAYS,
++	REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN,
++	REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN + 1,
++	REG_A8XX_UCHE_CCHE_LPAC_GMEM_RANGE_MIN,
++	REG_A8XX_UCHE_CCHE_LPAC_GMEM_RANGE_MIN + 1,
++	REG_A8XX_UCHE_CCHE_TRAP_BASE,
++	REG_A8XX_UCHE_CCHE_TRAP_BASE + 1,
++	REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE,
++	REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE + 1,
++	REG_A8XX_UCHE_CLIENT_PF,
++	REG_A8XX_UCHE_DBG_ECO_CNTL_0,
++	REG_A8XX_UCHE_GBIF_GX_CONFIG,
++	REG_A8XX_UCHE_TRAP_BASE,
++	REG_A8XX_UCHE_TRAP_BASE + 1,
++	REG_A8XX_UCHE_VARB_IDLE_TIMEOUT,
++	REG_A8XX_UCHE_WRITE_THRU_BASE,
++	REG_A8XX_UCHE_WRITE_THRU_BASE + 1,
++	REG_A8XX_VSC_VISIBILITY_FLUSH_CNTL,
++};
++DECLARE_ADRENO_REGLIST_LIST(a850_pwrup_reglist);
++
++static const u32 a850_ifpc_reglist_regs[] = {
++	REG_A8XX_CP_INTERRUPT_STATUS_MASK_GLOBAL,
++	REG_A8XX_RBBM_NC_MODE_CNTL,
++	REG_A8XX_RBBM_SLICE_INTERFACE_HANG_INT_CNTL,
++	REG_A8XX_RBBM_SLICE_NC_MODE_CNTL,
++	REG_A8XX_RBBM_SLICE_PERFCTR_CNTL,
++	REG_A6XX_SP_CHICKEN_BITS,
++	REG_A7XX_SP_CHICKEN_BITS_2,
++	REG_A7XX_SP_CHICKEN_BITS_3,
++	REG_A8XX_SP_CHICKEN_BITS_5,
++	REG_A7XX_SP_HLSQ_DBG_ECO_CNTL,
++	REG_A7XX_SP_HLSQ_DBG_ECO_CNTL_1,
++	REG_A8XX_SP_HLSQ_DBG_ECO_CNTL_3,
++	REG_A8XX_SP_HLSQ_LPAC_GMEM_RANGE_MIN,
++	REG_A8XX_SP_HLSQ_LPAC_GMEM_RANGE_MIN + 1,
++	REG_A6XX_SP_NC_MODE_CNTL,
++	REG_A6XX_SP_PERFCTR_SHADER_MASK,
++	REG_A8XX_SP_L0_PERF_TUNE,
++	REG_A8XX_CP_PROTECT_GLOBAL(0),
++	REG_A8XX_CP_PROTECT_GLOBAL(1),
++	REG_A8XX_CP_PROTECT_GLOBAL(2),
++	REG_A8XX_CP_PROTECT_GLOBAL(3),
++	REG_A8XX_CP_PROTECT_GLOBAL(4),
++	REG_A8XX_CP_PROTECT_GLOBAL(5),
++	REG_A8XX_CP_PROTECT_GLOBAL(6),
++	REG_A8XX_CP_PROTECT_GLOBAL(7),
++	REG_A8XX_CP_PROTECT_GLOBAL(8),
++	REG_A8XX_CP_PROTECT_GLOBAL(9),
++	REG_A8XX_CP_PROTECT_GLOBAL(10),
++	REG_A8XX_CP_PROTECT_GLOBAL(11),
++	REG_A8XX_CP_PROTECT_GLOBAL(12),
++	REG_A8XX_CP_PROTECT_GLOBAL(13),
++	REG_A8XX_CP_PROTECT_GLOBAL(14),
++	REG_A8XX_CP_PROTECT_GLOBAL(15),
++	REG_A8XX_CP_PROTECT_GLOBAL(16),
++	REG_A8XX_CP_PROTECT_GLOBAL(17),
++	REG_A8XX_CP_PROTECT_GLOBAL(18),
++	REG_A8XX_CP_PROTECT_GLOBAL(19),
++	REG_A8XX_CP_PROTECT_GLOBAL(20),
++	REG_A8XX_CP_PROTECT_GLOBAL(21),
++	REG_A8XX_CP_PROTECT_GLOBAL(22),
++	REG_A8XX_CP_PROTECT_GLOBAL(23),
++	REG_A8XX_CP_PROTECT_GLOBAL(24),
++	REG_A8XX_CP_PROTECT_GLOBAL(25),
++	REG_A8XX_CP_PROTECT_GLOBAL(26),
++	REG_A8XX_CP_PROTECT_GLOBAL(27),
++	REG_A8XX_CP_PROTECT_GLOBAL(28),
++	REG_A8XX_CP_PROTECT_GLOBAL(29),
++	REG_A8XX_CP_PROTECT_GLOBAL(30),
++	REG_A8XX_CP_PROTECT_GLOBAL(31),
++	REG_A8XX_CP_PROTECT_GLOBAL(32),
++	REG_A8XX_CP_PROTECT_GLOBAL(33),
++	REG_A8XX_CP_PROTECT_GLOBAL(34),
++	REG_A8XX_CP_PROTECT_GLOBAL(35),
++	REG_A8XX_CP_PROTECT_GLOBAL(36),
++	REG_A8XX_CP_PROTECT_GLOBAL(37),
++	REG_A8XX_CP_PROTECT_GLOBAL(38),
++	REG_A8XX_CP_PROTECT_GLOBAL(39),
++	REG_A8XX_CP_PROTECT_GLOBAL(40),
++	REG_A8XX_CP_PROTECT_GLOBAL(41),
++	REG_A8XX_CP_PROTECT_GLOBAL(42),
++	REG_A8XX_CP_PROTECT_GLOBAL(43),
++	REG_A8XX_CP_PROTECT_GLOBAL(44),
++	REG_A8XX_CP_PROTECT_GLOBAL(45),
++	REG_A8XX_CP_PROTECT_GLOBAL(46),
++	REG_A8XX_CP_PROTECT_GLOBAL(47),
++	REG_A8XX_CP_PROTECT_GLOBAL(48),
++	REG_A8XX_CP_PROTECT_GLOBAL(49),
++	REG_A8XX_CP_PROTECT_GLOBAL(50),
++	REG_A8XX_CP_PROTECT_GLOBAL(51),
++	REG_A8XX_CP_PROTECT_GLOBAL(52),
++	REG_A8XX_CP_PROTECT_GLOBAL(53),
++	REG_A8XX_CP_PROTECT_GLOBAL(54),
++	REG_A8XX_CP_PROTECT_GLOBAL(55),
++	REG_A8XX_CP_PROTECT_GLOBAL(63),
++};
++DECLARE_ADRENO_REGLIST_LIST(a850_ifpc_reglist);
++
++static const struct adreno_reglist a850_gbif[] = {
++	{ REG_A6XX_GBIF_QSB_SIDE0, 0x00071e20 },
++	{ REG_A6XX_GBIF_QSB_SIDE1, 0x00071e20 },
++	{ REG_A6XX_GBIF_QSB_SIDE2, 0x00071e20 },
++	{ REG_A6XX_GBIF_QSB_SIDE3, 0x00071e20 },
++	{ REG_A6XX_GBIF_CX_CONFIG, 0x20023020 },
++	{ },
++};
++
++static const struct adreno_reglist_pipe a850_dyn_pwrup_reglist_regs[] = {
++	{ REG_A8XX_GRAS_TSEFE_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_GRAS_NC_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_1, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_2, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_3, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_4, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CHICKEN_BITS_5, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_PC_VIS_STREAM_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A7XX_RB_CCU_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A7XX_RB_CCU_DBG_ECO_CNTL, 0, BIT(PIPE_BR)},
++	{ REG_A8XX_RB_CCU_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_CMP_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A6XX_RB_RBP_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A6XX_RB_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0, BIT(PIPE_BR) },
++	{ REG_A7XX_VFD_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BV_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BR_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VFD_CB_LP_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
++	{ REG_A8XX_CP_HW_FAULT_STATUS_MASK_PIPE, 0, BIT(PIPE_BR) |
++		BIT(PIPE_BV) | BIT(PIPE_LPAC) | BIT(PIPE_AQE0) |
++		BIT(PIPE_AQE1) | BIT(PIPE_DDE_BR) | BIT(PIPE_DDE_BV) },
++	{ REG_A8XX_CP_INTERRUPT_STATUS_MASK_PIPE, 0, BIT(PIPE_BR) |
++		BIT(PIPE_BV) | BIT(PIPE_LPAC) | BIT(PIPE_AQE0) |
++		BIT(PIPE_AQE1) | BIT(PIPE_DDE_BR) | BIT(PIPE_DDE_BV) },
++	{ REG_A8XX_CP_PROTECT_CNTL_PIPE, 0, BIT(PIPE_BR) | BIT(PIPE_BV) | BIT(PIPE_LPAC) },
++	{ REG_A8XX_CP_PROTECT_PIPE(15), 0, BIT(PIPE_BR) | BIT(PIPE_BV) | BIT(PIPE_LPAC) },
++	{ REG_A8XX_RB_GC_GMEM_PROTECT, 0, BIT(PIPE_BR) },
++	{ REG_A8XX_RB_LPAC_GMEM_PROTECT, 0, BIT(PIPE_BR) },
++	{ REG_A6XX_RB_CONTEXT_SWITCH_GMEM_SAVE_RESTORE_ENABLE, 0, BIT(PIPE_BR) },
++};
++DECLARE_ADRENO_REGLIST_PIPE_LIST(a850_dyn_pwrup_reglist);
++
++static const struct adreno_info a8xx_gpus[] = {
++	{
++		.chip_ids = ADRENO_CHIP_IDS(0x44050001),
++		.family = ADRENO_8XX_GEN1,
++		.fw = {
++			[ADRENO_FW_SQE] = "gen80000_sqe.fw",
++			[ADRENO_FW_GMU] = "gen80000_gmu.bin",
++			[ADRENO_FW_AQE] = "gen80000_aqe.fw",
++		},
++		.gmem = 12 * SZ_1M,
++		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
++		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
++			  ADRENO_QUIRK_HAS_HW_APRIV |
++			  ADRENO_QUIRK_PREEMPTION |
++			  ADRENO_QUIRK_IFPC,
++		.funcs = &a8xx_gpu_funcs,
++		.a6xx = &(const struct a6xx_info) {
++			.protect = &a830_protect,
++			.nonctxt_reglist = a830_nonctxt_regs,
++			.pwrup_reglist = &a830_pwrup_reglist,
++			.dyn_pwrup_reglist = &a830_dyn_pwrup_reglist,
++			.ifpc_reglist = &a830_ifpc_reglist,
++			.gbif_cx = a840_gbif,
++			.max_slices = 3,
++			.gmu_chipid = 0x8000100,
++			.bcms = (const struct a6xx_bcm[]) {
++				{ .name = "SH0", .buswidth = 16 },
++				{ .name = "MC0", .buswidth = 4 },
++				{
++					.name = "ACV",
++					.fixed = true,
++					.perfmode = BIT(2),
++					.perfmode_bw = 10687500,
++				},
++				{ /* sentinel */ },
++			},
++		},
++		.preempt_record_size = 13536 * SZ_1K,
++		.speedbins = ADRENO_SPEEDBINS(
++			{ 0,   0 },
++			{ 252, 0 },
++			{ 242, 1 },
++			{ 232, 2 },
++			{ 221, 3 },
++			{ 190, 4 },
++		),
++	}, {
++		.chip_ids = ADRENO_CHIP_IDS(0x44070001),
++		.family = ADRENO_8XX_GEN2,
++		.fw = {
++			[ADRENO_FW_SQE] = "gen80100_sqe.fw",
++			[ADRENO_FW_GMU] = "gen80100_gmu.bin",
++		},
++		.gmem = 21 * SZ_1M,
++		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
++		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
++			  ADRENO_QUIRK_HAS_HW_APRIV |
++			  ADRENO_QUIRK_PREEMPTION |
++			  ADRENO_QUIRK_SOFTFUSE,
++		.funcs = &a8xx_gpu_funcs,
++		.a6xx = &(const struct a6xx_info) {
++			.protect = &x285_protect,
++			.nonctxt_reglist = x285_nonctxt_regs,
++			.pwrup_reglist = &a840_pwrup_reglist,
++			.dyn_pwrup_reglist = &x285_dyn_pwrup_reglist,
++			.ifpc_reglist = &a840_ifpc_reglist,
++			.gbif_cx = a840_gbif,
++			.max_slices = 4,
++			.gmu_chipid = 0x8010100,
++			.bcms = (const struct a6xx_bcm[]) {
++				{ .name = "SH0", .buswidth = 16 },
++				{ .name = "MC0", .buswidth = 4 },
++				{
++					.name = "ACV",
++					.fixed = true,
++					.perfmode = BIT(2),
++					.perfmode_bw = 16500000,
++				},
++				{ /* sentinel */ },
++			},
++			.clx_tbl = &x285_clx_tbl,
++			.limits_tbl = &x285_limits,
++		},
++		.speedbins = ADRENO_SPEEDBINS(
++			{ 0,   0 },
++			{ 388, 1 },
++			{ 357, 2 },
++			{ 284, 3 },
++		),
++	}, {
++		.chip_ids = ADRENO_CHIP_IDS(0x44050a01),
++		.family = ADRENO_8XX_GEN2,
++		.fw = {
++			[ADRENO_FW_SQE] = "gen80200_sqe.fw",
++			[ADRENO_FW_GMU] = "gen80200_gmu.bin",
++			[ADRENO_FW_AQE] = "gen80200_aqe.fw",
++		},
++		.gmem = 18 * SZ_1M,
++		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
++		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
++			  ADRENO_QUIRK_HAS_HW_APRIV |
++			  ADRENO_QUIRK_PREEMPTION |
++			  ADRENO_QUIRK_IFPC,
++		.funcs = &a8xx_gpu_funcs,
++		.a6xx = &(const struct a6xx_info) {
++			.protect = &a840_protect,
++			.nonctxt_reglist = a840_nonctxt_regs,
++			.pwrup_reglist = &a840_pwrup_reglist,
++			.dyn_pwrup_reglist = &a840_dyn_pwrup_reglist,
++			.ifpc_reglist = &a840_ifpc_reglist,
++			.gbif_cx = a840_gbif,
++			.max_slices = 3,
++			.gmu_chipid = 0x8020100,
++			.bcms = (const struct a6xx_bcm[]) {
++				{ .name = "SH0", .buswidth = 16 },
++				{ .name = "MC0", .buswidth = 4 },
++				{
++					.name = "ACV",
++					.fixed = true,
++					.perfmode = BIT(2),
++					.perfmode_bw = 10687500,
++				},
++				{ /* sentinel */ },
++			},
++			.clx_tbl = &a840_clx_tbl,
++			.limits_tbl = &a840_limits,
++		},
++		.preempt_record_size = 19708 * SZ_1K,
++		.speedbins = ADRENO_SPEEDBINS(
++			{ 0,   0 },
++			{ 273, 1 },
++			{ 252, 2 },
++			{ 221, 3 },
++		),
++	}, {
++		.chip_ids = ADRENO_CHIP_IDS(0x44010000),
++		.family = ADRENO_8XX_GEN1,
++		.fw = {
++			[ADRENO_FW_SQE] = "gen80300_sqe.fw",
++			[ADRENO_FW_GMU] = "gen80300_gmu.bin",
++		},
++		.gmem = SZ_512K + SZ_64K,
++		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
++		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
++			  ADRENO_QUIRK_HAS_HW_APRIV |
++			  ADRENO_QUIRK_PREEMPTION |
++			  ADRENO_QUIRK_IFPC,
++		.funcs = &a8xx_gpu_funcs,
++		.zapfw = "gen80300_zap.mbn",
++		.a6xx = &(const struct a6xx_info) {
++			.protect = &a810_protect,
++			.nonctxt_reglist = a810_nonctxt_regs,
++			.pwrup_reglist = &a810_pwrup_reglist,
++			.dyn_pwrup_reglist = &a810_dyn_pwrup_reglist,
++			.ifpc_reglist = &a810_ifpc_reglist,
++			.gbif_cx = a840_gbif,
++			.max_slices = 1,
++			.gmu_chipid = 0x8030000,
++			.bcms = (const struct a6xx_bcm[]) {
++				{ .name = "SH0", .buswidth = 16 },
++				{ .name = "MC0", .buswidth = 4 },
++				{
++					.name = "ACV",
++					.fixed = true,
++					.perfmode = BIT(2),
++					.perfmode_bw = 10687500,
++				},
++				{ /* sentinel */ },
++			},
++		},
++		.preempt_record_size = 4558 * SZ_1K,
++		.speedbins = ADRENO_SPEEDBINS(
++			{ 0,   0 },
++			{ 242, 1 },
++			{ 221, 2 },
++		),
++	}, {
++		.chip_ids = ADRENO_CHIP_IDS(0x44060000),
++		.family = ADRENO_8XX_GEN2,
++		.fw = {
++			[ADRENO_FW_SQE] = "gen80100_sqe.fw",
++			[ADRENO_FW_GMU] = "gen80100_gmu.bin",
++			[ADRENO_FW_AQE] = "gen80100_aqe.fw",
++		},
++		.gmem = 15 * SZ_1M + SZ_512K + SZ_256K,
++		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
++		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
++			  ADRENO_QUIRK_HAS_HW_APRIV |
++			  ADRENO_QUIRK_PREEMPTION |
++			  ADRENO_QUIRK_SOFTFUSE,
++		.funcs = &a8xx_gpu_funcs,
++		.a6xx = &(const struct a6xx_info) {
++			.protect = &x285_protect,
++			.nonctxt_reglist = x285_nonctxt_regs,
++			.pwrup_reglist = &a840_pwrup_reglist,
++			.dyn_pwrup_reglist = &x285_dyn_pwrup_reglist,
++			.ifpc_reglist = &a840_ifpc_reglist,
++			.gbif_cx = a840_gbif,
++			.max_slices = 3,
++			.gmu_chipid = 0x80a0000,
++			.bcms = (const struct a6xx_bcm[]) {
++				{ .name = "SH0", .buswidth = 16 },
++				{ .name = "MC0", .buswidth = 4 },
++				{
++					.name = "ACV",
++					.fixed = true,
++					.perfmode = BIT(2),
++					.perfmode_bw = 16500000,
++				},
++				{ /* sentinel */ },
++			},
++		},
++		.speedbins = ADRENO_SPEEDBINS(
++			{ 0,   0 },
++			{ 388, 1 },
++			{ 357, 2 },
++			{ 284, 3 },
++		),
++	}, {
++		.chip_ids = ADRENO_CHIP_IDS(0x44041400),
++		.family = ADRENO_8XX_GEN2,
++		.fw = {
++			[ADRENO_FW_SQE] = "gen81100_sqe.fw",
++			[ADRENO_FW_GMU] = "gen81400_gmu.bin",
++			[ADRENO_FW_AQE] = "gen81100_aqe.fw",
++		},
++		.gmem = 12 * SZ_1M,
++		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
++		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
++			  ADRENO_QUIRK_HAS_HW_APRIV |
++			  ADRENO_QUIRK_PREEMPTION |
++			  ADRENO_QUIRK_IFPC,
++		.funcs = &a8xx_gpu_funcs,
++		.a6xx = &(const struct a6xx_info) {
++			.protect = &a850_protect,
++			.nonctxt_reglist = a845_nonctxt_regs,
++			.pwrup_reglist = &a850_pwrup_reglist,
++			.dyn_pwrup_reglist = &a850_dyn_pwrup_reglist,
++			.ifpc_reglist = &a850_ifpc_reglist,
++			.gbif_cx = a850_gbif,
++			.max_slices = 3,
++			.gmu_chipid = 0x80e0000,
++			.thinmem_config = 14,
++			.bcms = (const struct a6xx_bcm[]) {
++				{ .name = "SH0", .buswidth = 32 },
++				{ .name = "MC0", .buswidth = 4 },
++				{
++					.name = "ACV",
++					.fixed = true,
++					.perfmode = BIT(2),
++					.perfmode_bw = 16500000,
++				},
++				{ /* sentinel */ },
++			},
++		},
++		.preempt_record_size = 13564 * SZ_1K,
++		.speedbins = ADRENO_SPEEDBINS(
++			{ 0, 0 },
++			{ 0xd8, 0 },
++			{ 0x11c, 1 },
++		),
++	}, {
++		.chip_ids = ADRENO_CHIP_IDS(0x44051401),
++		.family = ADRENO_8XX_GEN2,
++		.fw = {
++			[ADRENO_FW_SQE] = "gen81100_sqe.fw",
++			[ADRENO_FW_GMU] = "gen81100_gmu.bin",
++			[ADRENO_FW_AQE] = "gen81100_aqe.fw",
++		},
++		.gmem = 18 * SZ_1M,
++		.inactive_period = DRM_MSM_INACTIVE_PERIOD,
++		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
++			  ADRENO_QUIRK_HAS_HW_APRIV |
++			  ADRENO_QUIRK_PREEMPTION |
++			  ADRENO_QUIRK_IFPC,
++		.funcs = &a8xx_gpu_funcs,
++		.a6xx = &(const struct a6xx_info) {
++			.protect = &a850_protect,
++			.nonctxt_reglist = a850_nonctxt_regs,
++			.pwrup_reglist = &a850_pwrup_reglist,
++			.dyn_pwrup_reglist = &a850_dyn_pwrup_reglist,
++			.ifpc_reglist = &a850_ifpc_reglist,
++			.gbif_cx = a850_gbif,
++			.max_slices = 3,
++			.gmu_chipid = 0x80b0100,
++			.thinmem_config = 14,
++			.bcms = (const struct a6xx_bcm[]) {
++				{ .name = "SH0", .buswidth = 32 },
++				{ .name = "MC0", .buswidth = 4 },
++				{
++					.name = "ACV",
++					.fixed = true,
++					.perfmode = BIT(2),
++					.perfmode_bw = 16500000,
++				},
++				{ /* sentinel */ },
++			},
++		},
++		.preempt_record_size = 19708 * SZ_1K,
++		.speedbins = ADRENO_SPEEDBINS(
++			{ 0, 0 },
++			{ 284, 2 },
++			{ 216, 3 },
++		),
++	}
++};
++
++DECLARE_ADRENO_GPULIST(a8xx);
++
++static inline __always_unused void __build_asserts(void)
++{
++	BUILD_BUG_ON(a810_protect.count > a810_protect.count_max);
++	BUILD_BUG_ON(a830_protect.count > a830_protect.count_max);
++}
 -- 
-2.56.0
+2.55.0
 
