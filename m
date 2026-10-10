@@ -1,100 +1,107 @@
-Received: from mta0.migadu.com (out-119.mta0.migadu.com [91.218.175.119])
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A09FD3B4E95
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 06:17:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.119
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B953DB339
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 06:20:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791613035; cv=none; b=YFcXxvR7B2dNfUxDDOp3lPXybYfgvwIRKFHE3T23k70GAButxTs0uEgZ5MwrzYlZZzVzIGZECzQKThORjl1YqnI6sPqHfanPqYKOne6abMEkh9YhGDbjZvG+f8/TJO7TeBwtczWCmVMTEPaJxbfUxgdfUXfPcE+5marlyAoca9E=
+	t=1791613259; cv=none; b=P3rGlZ4p/fyGeRATC7y6gC+XgkyMnj0b3WQeMQrH/AsFCPabk3pRCQzhEypqfFNEp/++0C/eTcqKn/D2MQD4nsqn4QyVpl1yKieCfEUeOCN2ZnUSNnZoy5ojylze9JbLIERafa4MUw0bx9e9j6+8ZNhyMuBG/3Wte9rMrhExFAM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791613035; c=relaxed/simple;
-	bh=2iFrwRhGd22kGBX3plIzfM8HTJAXORhzt8v2vENuhao=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=pMP1eckpsWSNQyzOpc3YrZGgmAUPCBtW0SkLueY4b3CGTbs0XlzWNKW0rU63DPAmlmFOMZsJ6oQDnMDFZzrSwRZXPn7LYJZJ3sPgGwiETt5AnRi03v92BcGmc2z8T2F/0JzV1iqJwwM5WOJKf13N+5fjrVNNHZsmWbhgf74eg0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=EH7A6W03; arc=none smtp.client-ip=91.218.175.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791613259; c=relaxed/simple;
+	bh=tF57zidWZwWz8hIOotoZx9jwOMzu5EtZU1vKiJE6pKY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XdNDMRbv0emlp1U4dQB7ZHyyM+qE6vAlluwcDoTBXHvKHnRFbj3ns7a0fjy37SN7o8ZP4FqfIr9SzGbNtRZvImcySRgwpUohPhQ54Sy4luhRhVo0CVFL/vaq19gpucg6+/I+uErS35ApXRGDVuPzthB93X4N9xOEq/Iqw7+ZZH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ip0UGn9w; arc=none smtp.client-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="EH7A6W03"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=2iFrwRhGd22kGBX3plIzfM8HTJAXORhzt8v2vENuhao=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791613027; v=1; x=1792217827;
- b=EH7A6W03USb7rxuQ4vd7+WEkPEVUgUfHU3MisX9xaISHtjIbtzM3nt4UeLOK7naO/m996Kws
- ROKjsNUMKIPRZinLaWp8dwfs4WPgGdmfVG1x0A4DOT49/H3dGIlXm+G0TdLhjpt8bLqMRTex4zi
- yNWngX6ALYpeYveynJSUXKxI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e87895b60daedb89;
-	Sat, 10 Oct 2026 06:17:06 +0000
-X-Mizu-Trace-ID: e87895b60daedb89
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ip0UGn9w"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-ccc7a6070b4so142046a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 23:20:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791613256; x=1792218056; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tF57zidWZwWz8hIOotoZx9jwOMzu5EtZU1vKiJE6pKY=;
+        b=ip0UGn9wZfNJ0oel9b9UB18IJILq2ODa5gcehD9jE4ZEYAdW5Cf+HKemijYyuOjhuw
+         wbf5T1snBXusb7qSdM4+jxAZgztX4vBVd6pRmLKFZzQMuN73p8cNN+NWAMGp9XNoH+2d
+         oCkx6sG1yvVafLgl/eAbFFQWBl+lXDARS8rw3dSMlTESZjgXTghAru7q3ooXnVCkGv4l
+         traJZMzH/BipOYHBSH2SNY7EX00e2dimvoLU7op4ejaRBPZoOalpxY6v0FUSiPxIAdT7
+         f5FMr9Z9RRYKPJBQSaHWRyqO65zkqgszvNQdZKS6tdHvIfh8hmJJQwBi4z4MY5QWHycU
+         pQCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791613256; x=1792218056;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tF57zidWZwWz8hIOotoZx9jwOMzu5EtZU1vKiJE6pKY=;
+        b=eRXPcl/6pfv0WDNLa4vY7LTPFK1v+KcvsRjqvbXuJgg7AwUhUcDCqL5qbhu3Ykn7wu
+         Q4LHfg+B20TlxVFrh0uyYgV7C5zhs4e2r+6P8uESl/VDYnBm9ZuXzb/Oizzp8t7FTIkg
+         iNI01TQEvN0MGlCb7X7UWA8DILfbwGTkdZuXfJgt0Xy3qCqQtsYoAGqn9qml/m0jYtTq
+         g6M/08ANlzjAkk+w62qQCgDrrNkYhVxppUEI4daKsLl10zQeWVTe91RatvD1U2s1CVIj
+         Kd0bB7HmLZ8GDSxBtVhWihGf5BVtt2YotUMvJvqeJtMWEhuOH4cp4Zs3e5qLnMkV2i4R
+         tArg==
+X-Forwarded-Encrypted: i=1; AKwUvBzjUP4zmALEYwGkgUZX3mJSlHI0SvbBc7ypYbhMRIxd3Z2L/sB3h2qRXVOaRHSiM3bVxHSy02rXM6bYOl4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLxYz6HXU96Q9Hcy5CQJe0RUSOv/jGPBDSW7yXSZPF6g5z6w9nj
+	zyX4h66sBgqc7AkKSVJPoNg0cq825xVUns0y60ZcfehbP+8ofQxzESxF
+X-Gm-Gg: AYBFou24FT2Prdi+gqyh4xDiBMXIw5ZUaIOhzP0KFKAyvre/5wUKvTSnA5X1bWWVgqH
+	YANR9AN4lcg/WhrCM9agLXxBnLie6XWUIiGLyYlv3avBKTcZ0hWpqCKcWgT1FpXNNWndEonETgx
+	ZGGLT+5m2S+M4l+bfENiGXn7CzGPF2EkLja5UkmBDXLA7XMG5PjLLNjpcgcRpfENu5YT1TlHZhq
+	3OZji1OJLNNITgykGF6PrhO4SvNRXQL3HxFOrl/D26hfqjrXFR0NV/3UoW33TnP8xX91e/tanxu
+	ORN2sFn4RSDaWVd14MiO5vQbodXvrmmUd9ckV5P0wUPb1ySKXIXEfoCeMXAJIpC8xfAcw/toVqP
+	d+qg0ICIz4S7CpY5iBGKndtRufOE5OoBnfEkAypCVLr+SWMLCZY6kTDoHIMP7Ji+1f0whNDNxxa
+	6IneNhahAMTJ6m2QHh5KUFKcCD+i9Pd9183Qy8v8CyZV8/vPLXZZgLeJtbnPbrBqtm+7IzZFNc9
+	hypF1pvEoUF6T9Vf7wiwWfviXdJWeRKhnWA4I7Cqfs1EVJTJQHSCl4SUD71eCfRBC9Mu6iqXfOW
+	lRP1jWF4bpNKgvg+3gsGPW0=
+X-Received: by 2002:a17:90b:4a90:b0:3a0:d79d:b6bf with SMTP id 98e67ed59e1d1-3ab3a90e590mr2805853a91.20.1791613256121;
+        Fri, 09 Oct 2026 23:20:56 -0700 (PDT)
+Received: from Inspiron5409 (61-228-80-139.dynamic-ip.hinet.net. [61.228.80.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38ddac6dsm6418243a91.7.2026.10.09.23.20.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 23:20:55 -0700 (PDT)
+From: Jianhui Xu <neuromoments@gmail.com>
+To: mail@birger-koblitz.de
+Cc: andrew+netdev@lunn.ch,
+	andrew@lunn.ch,
+	chenhuacai@kernel.org,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	hkallweit1@gmail.com,
+	kernel@xen0n.name,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux@armlinux.org.uk,
+	loongarch@lists.linux.dev,
+	nb@tipi-net.de,
+	netdev@vger.kernel.org,
+	neuromoments@gmail.com,
+	pabeni@redhat.com
+Subject: Re: [PATCH v19 0/13] ax88179_178a: Add support for AX88179A-based chips
+Date: Sat, 10 Oct 2026 14:20:47 +0800
+Message-ID: <20261010062047.399148-1-neuromoments@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261010-ax88179a-v19-0-7475173cfb56@birger-koblitz.de>
+References: <20261010-ax88179a-v19-0-7475173cfb56@birger-koblitz.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Sat, 10 Oct 2026 06:17:06 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <0b059e24d8c9b870b3db90d2f001a293896753d8@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH] wifi: rtw88: 8723b: avoid converting RX SNR twice
-To: "Hungyu Lin" <dennylin0707@gmail.com>, pkshih@realtek.com
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- rtl8821cerfe2@gmail.com, straube.linux@gmail.com, "Hungyu Lin"
- <dennylin0707@gmail.com>
-In-Reply-To: <20261010013249.35584-1-dennylin0707@gmail.com>
-References: <20261010013249.35584-1-dennylin0707@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-October 10, 2026 at 3:32 AM, "Hungyu Lin" <dennylin0707@gmail.com> wrote:
+Hi Birger,
 
+I tested the v19 series on my AX88179B adapter, rerunning all the
+previously described tests.
 
->=20
->=20rtw8723b_query_phy_status_ofdm() already divides the PHY SNR report b=
-y
-> two when filling pkt_stat->rx_snr. Shifting it again when copying it to
-> dm_info->rx_snr halves the value shown in diagnostics and used for the
-> average SNR.
->=20
->=20Copy the converted value directly.
->=20
->=20Fixes: d726c70ce082 ("wifi: rtw88: 8723b: add the RTL8723B chip drive=
-r")
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-> ---
->  drivers/net/wireless/realtek/rtw88/rtw8723b.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
->=20diff --git a/drivers/net/wireless/realtek/rtw88/rtw8723b.c b/drivers/=
-net/wireless/realtek/rtw88/rtw8723b.c
-> index 8bb9c03d769c..197add7cc110 100644
-> --- a/drivers/net/wireless/realtek/rtw88/rtw8723b.c
-> +++ b/drivers/net/wireless/realtek/rtw88/rtw8723b.c
-> @@ -1291,7 +1291,7 @@ static void rtw8723b_query_phy_status_ofdm(struct=
- rtw_dev *rtwdev, void *phy_raw
->=20=20
->=20 dm_info->curr_rx_rate =3D pkt_stat->rate;
->  dm_info->rssi[RF_PATH_A] =3D pkt_stat->rssi;
-> - dm_info->rx_snr[RF_PATH_A] =3D pkt_stat->rx_snr[RF_PATH_A] >> 1;
-> + dm_info->rx_snr[RF_PATH_A] =3D pkt_stat->rx_snr[RF_PATH_A];
->  dm_info->cfo_tail[RF_PATH_A] =3D (pkt_stat->cfo_tail[RF_PATH_A] * 5) >=
-> 1;
->=20=20
->=20 val_s8 =3D (s8)pkt_stat->rx_evm[RF_PATH_A];
->
+The previously observed VLAN-filter failure did not reproduce, and no
+carrier or RX failures were observed in the test. No confirmed driver
+regressions were found in the tested scenarios.
 
-For consistency, please do it the other way round: drop the /2 when
-filling pkt_stat->rx_snr and keep the shift on the dm_info line.
-rtw8723d.c, rtw8822b.c, rtw8822c.c and rtw8814a.c all store the raw repor=
-t
-and shift it once.
+Tested-by: Jianhui Xu <neuromoments@gmail.com>
 
-Also, rtw8703b.c has the same double conversion in query_phy_status_ofdm(=
-).
-That one is upstream, so a patch for it would be welcome.
-
-Best regards,
-Luka Gejak
+Thanks,
+Jianhui
