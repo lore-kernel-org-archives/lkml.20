@@ -1,71 +1,71 @@
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6413E2EEE67
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 18:00:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BEDD364953
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 18:00:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791655236; cv=none; b=lRRJkOQ2hyBmovL3aL+ePGfWjCKktfpyMZbCKqieBzqLP10PIh8/ZQbOIGsBKobiLo/Ab9Nb/1Gs57L/9cUaGpSL+J8GY3hAtVK7MbigmjSQEqel5obH40Vj5zgkjdFYGsL3EaNNIy6xFjYiPFCgCCTsvDw6hFT01izyAYFtGSE=
+	t=1791655239; cv=none; b=YpLxTurH8RWZMjuWmeoigmvS8iFtppiqGxyq1PJihrsxCc6RhIbrHgEcqzeV1GbOMh8SqwWxwRJdcLiE5s1qsCqhovUhRdYer2IDkXzh7w7ch1+FqGKKC00/blixYMRrUPfQO4Jt+/6L6RnYgtijIatSDkEWPuw/CT2BxMTEUtY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791655236; c=relaxed/simple;
-	bh=nq2M5xW2fxIZLcvXpCROZkWVmTxCmiexhtFVPMX+4E0=;
+	s=arc-20240116; t=1791655239; c=relaxed/simple;
+	bh=HKNFGbq4hl6l1XCi+rbyPW4Y1sM4o0fwhPUb0NjJSmg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eE5Cqtgfo/iwOVCDOEAhFBoZbc5ttHxwqM0zAf+9s4UD8ZiKgLGSyXLRRXiKHYCAduTys9MK3/lKAnne3NlgEMOAXwV4ocN/XLhx4cBrXBR9ZrhLVVJUts5tnlPpGkp5oOpjoc5Fash92GR8n9PDf6+f8Rv9eJJmfQ53snFLwI8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=voidship.net; spf=pass smtp.mailfrom=voidship.net; dkim=pass (2048-bit key) header.d=voidship-net.20251104.gappssmtp.com header.i=@voidship-net.20251104.gappssmtp.com header.b=YpXlvaBC; arc=none smtp.client-ip=209.85.219.54
+	 MIME-Version; b=YMD1My2MLOwtL3jIuCRnWFdamvMMMZmx3I9s4Dg0xeOxDeKVSNf+6gBbBI0GtsjNgIK8gPVbCXO+DDILm4wHS/4NDP/PMDsF0rbtNGzZD9kWO6Hq28IBo5uL2dZI2D+a/iMe9SnKEb+mzjIPkaPad9Fcdt4Ot2418qvQjRK7WKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=voidship.net; spf=pass smtp.mailfrom=voidship.net; dkim=pass (2048-bit key) header.d=voidship-net.20251104.gappssmtp.com header.i=@voidship-net.20251104.gappssmtp.com header.b=oLjWxJ8P; arc=none smtp.client-ip=209.85.222.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=voidship.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=voidship.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=voidship-net.20251104.gappssmtp.com header.i=@voidship-net.20251104.gappssmtp.com header.b="YpXlvaBC"
-Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-917a97b39e8so13656246d6.3
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 11:00:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=voidship-net.20251104.gappssmtp.com header.i=@voidship-net.20251104.gappssmtp.com header.b="oLjWxJ8P"
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-93cb9e9405fso30770585a.2
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 11:00:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=voidship-net.20251104.gappssmtp.com; s=20251104; t=1791655234; x=1792260034; darn=vger.kernel.org;
+        d=voidship-net.20251104.gappssmtp.com; s=20251104; t=1791655235; x=1792260035; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NC4wjVkYj33ouDrpIw20yvXN7Xm00WRsU6XHf7agKPU=;
-        b=YpXlvaBC1A5EKqmYm0q/OIPNzdVvbAMR+XAou8fr0GKQ0C4puZKgyltoIuMwg18ZKB
-         nb4O5PjrJsm/8jLycysEoXaFEY5xKjTJBMGS/n/P01gXUrxvucQHWDJ/wudDTpAT5uC4
-         0x6PQY9ZIvIdfYUOcry9QAfzrzxp0pca4UoimtKLqeb8kiBChYNwKoef0oIp4o1WUpI/
-         2DmpUZwYlY+gRpzU9vrUkK7YiPOkzRSFGs4StOLuQlX1EJkjmpX6C7blKmusgUQJ/KRC
-         Ifj9j0xLcxJIl4rajrYtV9Jh7SeDW5h6bNp/oqaEb9HTYgpPn1vWV4wSeYWry2T4slvD
-         XtAw==
+        bh=rhyWv1q8Cylrw41L9C5HKTLmJIGVyEWTeHoTYQ/THAY=;
+        b=oLjWxJ8P8qPf/rGidOVX//Sa5cIdAu4Ikjq2AT6L0VmqTR/kxEczwKShH5xdLNBuW1
+         lQ6VcoURxkjSmgw9dxEoXW3lFfbrcBHQSbkUIqf+u2UiSybR9gt53WxgIHscQEyInhcx
+         E1ZoI5yHm1k966549oDmUQSmo1l36l8/PFpps0ux9Mbg1hDdSvrvX/43WuMOTlZmJ4Cp
+         /jyWfTEMyz41mJNO7CJdIuwmhEQ6/lLNaZqnzZDfQ/CxaD1PHMc/RvhByaToH3D5RRrl
+         rR0Gak5tIFiffhMmuDakHpimz1HED9XGDGc97YsA/6iusNtRDiS/CAt0Q+ZsLUN1Nsaf
+         CoMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791655234; x=1792260034;
+        d=1e100.net; s=20260707; t=1791655235; x=1792260035;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NC4wjVkYj33ouDrpIw20yvXN7Xm00WRsU6XHf7agKPU=;
-        b=dG+w20VFMSMcMrtBDkJXIn4QsB24EtUczvwAtYHFnd+LoPNrX099mr6oP/mQabMmvv
-         aithl3QmmeFqOXe6Nu02T8z7EW6CBU5k+f0zu4wnUQe6e2WphzKmQGlL6TpDTo/JnQYc
-         /zADqJzd/5LH2/0QC2kvX3tsmi3tNDvONBg7FACKGLic4+XcgTxoJiS0z1ykUxuaDQuN
-         etzWpQjWjMZ3YivHeCFBCExV6ZSV5p3zBT6mM3F0tlUgjLN8gxjN+cRYQkRbcsNsNUS2
-         ZKeinVXx/NvM7W3ZgMmTNV/uXQ/kg9BGkxPuAL6SkMm6fKN3aj9a7NdqRRNDMlBN6UgB
-         syPA==
-X-Forwarded-Encrypted: i=1; AKwUvByrnT3S7IWM2JcxCn6aIAPHlXS/kSAEggVZpYpGCR9fW0/GrN3kFgZLwcm6z9GP5owjIdR3HW6u3SQmLtA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKgIBdjHv4DRsf/TQ4HCUlZwEsVqyOlrrPBxaOGZFkmfIPu7sid
-	oCoMcim+glmaQYr0/iZjpb+SnatOY5rlhAxYDiYOUOuiazCaJGsZNQgJiDW+nvrZhcg=
-X-Gm-Gg: AYBFou0ZhSqZdfvidM3d4VzKJqatBGx1MYstWp5r3GDm0ZuOVqtRPOV/ZBltmd6Kr+N
-	4gkVc6Y1JURTRXlzRsTwNWUXbuzVYr/s+YsslW31HRIQTdjLpjx2di8jM7OZwR0SKUz1UAfKTJx
-	wTCVCXMz7oiZxTqENcRI6GKfZlNnhdOIKQcPEoWT76Ip5p3zUbQ39+7g6BZtxKso6QU0szvdEGJ
-	kyiEbB56CIVQqvWtPqPez3aykqMVBj55o0Aw18jhXs5SNbfCHIvjJcCWhIFQAx2nst5rnuFIv7V
-	JwfWx9M6vHEhtpEQtW3zv6iFEnFsY0o9yzgnyVNuiU/qMIC6BSiRVG8+Uahoggz/gbvSTFIqQV4
-	to6ykKkFljIPp1eDlBin0aeTC8lQ56ALRIw4X6igfhHVaEFc9sbNlsmP1a9X8LKTHvtYlW96jhd
-	7AvRVIkf42LTWZ3dUb37rIbNdh3ul4CjJ+8WcKjpzRdvx7gNSumDu8y/8bs1iIxNaC+weVHWqR2
-	3sxo/fpZLVHr8FeO9BtLJOCX1CP1WEaaf76gjBD
-X-Received: by 2002:ad4:5c69:0:b0:919:8358:a18d with SMTP id 6a1803df08f44-91b554c3186mr100818906d6.13.1791655234205;
-        Sat, 10 Oct 2026 11:00:34 -0700 (PDT)
+        bh=rhyWv1q8Cylrw41L9C5HKTLmJIGVyEWTeHoTYQ/THAY=;
+        b=wL7BIEIo8ena+fWVO/s9vqhTUwJnt/lEYcLloxdeB8UNd8CB/3homDkGB1QlWT4afn
+         WaNKpWO8ow81TK+uQQg91QFYvC/3rNwoCLecwsosajbaWRDCA9vf3JnP7W+2+xVmzkZW
+         HjtVY8z3kWByukAMdBwioyZhVobTKfEBohKv9bcBDBmuR1YrdLvX03MPzfs3nZMwoV9g
+         i21gvzxqrK7l0ZwbtOomy80kT3rKTrCnOVDFCyDk0iSXmacqfC64RUgsnRPyF/N6nHPj
+         w09WCNKXRc+H2M4Wf1NpAK+yZhnj1CDOJsLoLdgDYDifDixUaX1oJNNMUQWhqT48ThhC
+         7AVg==
+X-Forwarded-Encrypted: i=1; AKwUvBzRPq83U1ul84N5S3J8KWCBWHZR82vpzK+/1BRs2fEpiaepMJwvYoxK2tGcsfToxZIYTbyG5iG97jEnBSM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKRamNafRZNB+jc1tNwh+Tns10jXneAbu7D+BV9qW61pb8QeL7p
+	kl93Ook3FRz68R8jqO7n1kqq2WM/6PjfulLmyD+Cm1bYbisF3kR07DaOVKqJCobfrVw=
+X-Gm-Gg: AYBFou1DtsW+rOAKOr6n3Yl8fvG6TTRz7hJcRNfkF1J1AL+lwgdeaATJGXBsVwd/EZu
+	R/sbtGS9VIFIPrpVElNISttfVgdAtLoZK8mIElv/MUe/ibPQJ4+ekB8d6l272GHVE/duttU2cA8
+	SyaxHLOUJT6BsODANNvwLtX3WXF0MYPdAaDX+IsBoZp8L1Eubl+hsW6peQ+rxIEtGASkyLROH7i
+	+/ySkDesmicboSLY2tVJp8BN8K80Iq0LSaRVlq2QvEEAZAiogh8cBzKgxfZDv9/ofWrPKh9a0J5
+	bPOPToU9IT+TM56M+EN+ll4fy/7VP1t5ZkbFVFImsjFpLbspFpepjqqtQgkSiES2BtsO7ailMEL
+	dhZsRDDwfQJssc4OwiyGJ/I8JGBvMtNp6RABguLqckymU24ZK+WvsCtTwccKpHgegRMkNQxAdGJ
+	wwSMkZusn+iDMuJbz7eDvFxNAhd2IEO2w8XUevEOzzs9GhJUoa+dkV8gbwea5atjb63Rtbz6jik
+	6JnZTaOqJmmD1Hfb6r7Gls47gOLb/ebDdWIcBx9
+X-Received: by 2002:a05:620a:199a:b0:93c:746d:7c72 with SMTP id af79cd13be357-93ebd29a3b1mr859393885a.64.1791655235084;
+        Sat, 10 Oct 2026 11:00:35 -0700 (PDT)
 Received: from boomzilla (dynamic-acs-24-101-237-49.zoominternet.net. [24.101.237.49])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b550175e3sm50339326d6.11.2026.10.10.11.00.33
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b550175e3sm50339326d6.11.2026.10.10.11.00.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 11:00:33 -0700 (PDT)
+        Sat, 10 Oct 2026 11:00:34 -0700 (PDT)
 From: Karlos Abel <kabel@voidship.net>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 Cc: linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] Input: discard pre-registration events before attaching handlers
-Date: Sat, 10 Oct 2026 14:00:30 -0400
-Message-ID: <20261010180031.7-2-kabel@voidship.net>
+Subject: [PATCH 2/2] Input: test state seeding across device registration
+Date: Sat, 10 Oct 2026 14:00:31 -0400
+Message-ID: <20261010180031.7-3-kabel@voidship.net>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261010180031.7-1-kabel@voidship.net>
 References: <20261010180031.7-1-kabel@voidship.net>
@@ -77,46 +77,208 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-input_event() permits drivers to seed switch and absolute-axis state
-before registration without delivering those events to input handlers.
-After event-buffer allocation moved to input_allocate_device(), such
-initialization events can remain queued across input_register_device()
-when the buffer does not need resizing.
+Add KUnit coverage for input events used to initialize device state before
+registration. Register a handler for a virtual switch/LED device, seed a
+switch before input_register_device(), and inject a later LED update and
+SYN_REPORT. Verify that the initial state is retained without replaying
+its event or reusing its timestamp, and that a real later change arrives.
 
-A later injected LED event followed by SYN_REPORT then delivers the old
-switch event to newly attached handlers. This was observed with the
-initial SW_RFKILL_ALL event from thinkpad_acpi on a ThinkPad T14 Gen 6:
-an LED update replayed the initial radio-switch event after registration.
-Registration can also leave a pre-registration timestamp attached to the
-first real event packet, including when the event buffer is resized.
+Exercise both the original event buffer and registration with a larger
+buffer. Also verify preservation and subsequent delivery of absolute-axis
+state in the resizing case. Use SW_DOCK to avoid real radio operations.
 
-Clear the pending event count and monotonic timestamp under event_lock
-before attaching handlers. Keep the switch and absolute-axis state that
-was seeded by those events. Resetting the monotonic timestamp follows the
-existing flush path and lets the next packet obtain a fresh timestamp.
+These tests depend on the preceding pre-registration event fix. Against
+the unpatched input core, the non-resizing case delivers one stale switch
+event and both cases retain the initialization timestamp. Both tests pass
+with the fix, together with the four existing input-core tests.
 
-Fixes: 0cd587735205 ("Input: preallocate memory to hold event values")
-Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Karlos Abel <kabel@voidship.net>
 ---
- drivers/input/input.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/input/tests/input_test.c | 168 +++++++++++++++++++++++++++++++
+ 1 file changed, 168 insertions(+)
 
-diff --git a/drivers/input/input.c b/drivers/input/input.c
-index 01c91fec9..d59d62caa 100644
---- a/drivers/input/input.c
-+++ b/drivers/input/input.c
-@@ -2445,6 +2445,12 @@ int input_register_device(struct input_dev *dev)
+diff --git a/drivers/input/tests/input_test.c b/drivers/input/tests/input_test.c
+index e105ce71a..889d9e7ec 100644
+--- a/drivers/input/tests/input_test.c
++++ b/drivers/input/tests/input_test.c
+@@ -161,11 +161,179 @@ static void input_test_grab(struct kunit *test)
+ 	input_put_device(input_dev);
+ }
  
- 	error = -EINTR;
- 	scoped_cond_guard(mutex_intr, goto err_device_del, &input_mutex) {
-+		/* Keep seeded state, but do not replay pre-registration events. */
-+		scoped_guard(spinlock_irq, &dev->event_lock) {
-+			dev->num_vals = 0;
-+			dev->timestamp[INPUT_CLK_MONO] = ktime_set(0, 0);
-+		}
++struct input_seed_test {
++	struct input_dev *dev;
++	struct input_handler handler;
++	struct input_handle handle;
++	unsigned int switch_events;
++	unsigned int abs_events;
++	ktime_t led_timestamp;
++	bool connected;
++};
 +
- 		list_add_tail(&dev->node, &input_dev_list);
++static void input_seed_event(struct input_handle *handle, unsigned int type,
++			     unsigned int code, int value)
++{
++	struct input_seed_test *seed = handle->private;
++
++	if (type == EV_SW && code == SW_DOCK)
++		seed->switch_events++;
++	if (type == EV_ABS && code == ABS_X)
++		seed->abs_events++;
++	if (type == EV_LED && code == LED_NUML)
++		seed->led_timestamp = input_get_timestamp(handle->dev)[INPUT_CLK_MONO];
++}
++
++static bool input_seed_match(struct input_handler *handler,
++			     struct input_dev *dev)
++{
++	struct input_seed_test *seed = container_of(handler, struct input_seed_test,
++						  handler);
++
++	return seed->dev == dev;
++}
++
++static int input_seed_connect(struct input_handler *handler,
++			      struct input_dev *dev,
++			      const struct input_device_id *id)
++{
++	struct input_seed_test *seed = container_of(handler, struct input_seed_test,
++						  handler);
++	int error;
++
++	seed->handle.dev = dev;
++	seed->handle.handler = handler;
++	seed->handle.name = "input-seed-test";
++	seed->handle.private = seed;
++	error = input_register_handle(&seed->handle);
++	if (error)
++		return error;
++
++	error = input_open_device(&seed->handle);
++	if (error) {
++		input_unregister_handle(&seed->handle);
++		return error;
++	}
++
++	seed->connected = true;
++	return 0;
++}
++
++static void input_seed_disconnect(struct input_handle *handle)
++{
++	input_close_device(handle);
++	input_unregister_handle(handle);
++}
++
++static const struct input_device_id input_seed_ids[] = {
++	{ .flags = INPUT_DEVICE_ID_MATCH_BUS, .bustype = BUS_VIRTUAL },
++	{ }
++};
++
++static void input_test_seed_events(struct kunit *test, bool resize)
++{
++	const ktime_t seed_timestamp = ktime_set(123456, 789);
++	struct input_seed_test *seed;
++	int error;
++
++	seed = kunit_kzalloc(test, sizeof(*seed), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, seed);
++	seed->dev = input_allocate_device();
++	KUNIT_ASSERT_NOT_NULL(test, seed->dev);
++
++	seed->dev->name = "Input pre-registration events";
++	seed->dev->id.bustype = BUS_VIRTUAL;
++	input_set_capability(seed->dev, EV_SW, SW_DOCK);
++	input_set_capability(seed->dev, EV_LED, LED_NUML);
++	/* An ABS axis also raises the estimated event-buffer size. */
++	if (resize) {
++		input_set_abs_params(seed->dev, ABS_X, 0, 100, 0, 0);
++		seed->dev->hint_events_per_packet = 128;
++	}
++
++	seed->handler.event = input_seed_event;
++	seed->handler.match = input_seed_match;
++	seed->handler.connect = input_seed_connect;
++	seed->handler.disconnect = input_seed_disconnect;
++	seed->handler.name = "input-seed-test";
++	seed->handler.id_table = input_seed_ids;
++	error = input_register_handler(&seed->handler);
++	KUNIT_EXPECT_EQ(test, error, 0);
++	if (error)
++		goto free_device;
++
++	/* Initialize state before registration, without a SYN_REPORT. */
++	input_set_timestamp(seed->dev, seed_timestamp);
++	input_report_switch(seed->dev, SW_DOCK, 1);
++	if (resize)
++		input_report_abs(seed->dev, ABS_X, 42);
++	error = input_register_device(seed->dev);
++	KUNIT_EXPECT_EQ(test, error, 0);
++	if (error)
++		goto unregister_handler;
++
++	KUNIT_EXPECT_TRUE(test, seed->connected);
++	if (!seed->connected)
++		goto unregister_device;
++
++	KUNIT_EXPECT_TRUE(test, test_bit(SW_DOCK, seed->dev->sw));
++	if (resize)
++		KUNIT_EXPECT_EQ(test, input_abs_get_val(seed->dev, ABS_X), 42);
++	KUNIT_EXPECT_EQ(test, seed->switch_events, 0);
++	KUNIT_EXPECT_EQ(test, seed->abs_events, 0);
++
++	/* A later LED write must not replay the initialization events. */
++	input_inject_event(&seed->handle, EV_LED, LED_NUML, 1);
++	input_inject_event(&seed->handle, EV_SYN, SYN_REPORT, 0);
++	KUNIT_EXPECT_EQ(test, seed->switch_events, 0);
++	KUNIT_EXPECT_EQ(test, seed->abs_events, 0);
++	KUNIT_EXPECT_NE(test, seed->led_timestamp, seed_timestamp);
++	KUNIT_EXPECT_NE(test, seed->led_timestamp, ktime_set(0, 0));
++
++	/* Genuine post-registration state changes must still be delivered. */
++	seed->switch_events = 0;
++	seed->abs_events = 0;
++	input_report_switch(seed->dev, SW_DOCK, 0);
++	if (resize)
++		input_report_abs(seed->dev, ABS_X, 77);
++	input_sync(seed->dev);
++	KUNIT_EXPECT_EQ(test, seed->switch_events, 1);
++	KUNIT_EXPECT_EQ(test, seed->abs_events, resize ? 1 : 0);
++	KUNIT_EXPECT_FALSE(test, test_bit(SW_DOCK, seed->dev->sw));
++	if (resize)
++		KUNIT_EXPECT_EQ(test, input_abs_get_val(seed->dev, ABS_X), 77);
++	input_inject_event(&seed->handle, EV_SYN, SYN_REPORT, 0);
++	KUNIT_EXPECT_EQ(test, seed->switch_events, 1);
++	KUNIT_EXPECT_EQ(test, seed->abs_events, resize ? 1 : 0);
++
++unregister_device:
++	input_unregister_device(seed->dev);
++	input_unregister_handler(&seed->handler);
++	return;
++
++unregister_handler:
++	input_unregister_handler(&seed->handler);
++free_device:
++	input_free_device(seed->dev);
++}
++
++static void input_test_seed(struct kunit *test)
++{
++	input_test_seed_events(test, false);
++}
++
++static void input_test_seed_resize(struct kunit *test)
++{
++	input_test_seed_events(test, true);
++}
++
+ static struct kunit_case input_tests[] = {
+ 	KUNIT_CASE(input_test_polling),
+ 	KUNIT_CASE(input_test_timestamp),
+ 	KUNIT_CASE(input_test_match_device_id),
+ 	KUNIT_CASE(input_test_grab),
++	KUNIT_CASE(input_test_seed),
++	KUNIT_CASE(input_test_seed_resize),
+ 	{ /* sentinel */ }
+ };
  
- 		list_for_each_entry(handler, &input_handler_list, node)
