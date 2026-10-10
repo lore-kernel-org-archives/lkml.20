@@ -1,103 +1,129 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A12CF3B2D0B;
-	Sat, 10 Oct 2026 16:59:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B653C9EE5;
+	Sat, 10 Oct 2026 16:59:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791651579; cv=none; b=ZCiXJ8mgiXBY4buewOydC3yQtsdGa8MsiexLmQrws3N1ZSWM1vafBfA1CGDc1xancpTgGyw0RWEBuF6BbF54pZLrO5HpfbXqFr0MCfpx3FLxPU3uX9WNkF4WQ9jA7ZDNN3bp2cNEMdGtvzIqurnKjm/MSWAQbNuSuHSRu7bJy7A=
+	t=1791651591; cv=none; b=TVS8C6qO8OgO0c38kvx3aPOv2Aeo1JHpzD8Vo6QmtY60aYTvrK0/FvPH4U/tgl0bEIk5CFmAhQV+05I/sdkZd6y1DGB4YLyrrgZWCKEn97Ejq5twlSz5Ib0nFD8KvMkLpXaiF/CchXP4DkAQRm3ZxZ/HXkmpM4fbuWSmnkwXyPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791651579; c=relaxed/simple;
-	bh=Wc0a+mXNNhZfdKgzwWdQVOGoT9u4FAMY9yGFHnO9GQs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ibQwhMWiv1hezj4ryDOp2mTaeMpV6R+3Wu86VFzwbzfUcfUk2A1uvY5p2g7errBcUgp9LybYzH+q+GHSHHT936h6QXMJgAiaHemBAmLJX4SpEz4iJnkYrzyJbgY7O82YNBi/iGw76ybPnXIi/he0coFWMIR2cq8o1uDASZQOD1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hGMt/kyG; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791651591; c=relaxed/simple;
+	bh=8F7wkeiLXCmvIHB5hgWuGPoSDpqbd5Xc3K0BMKDdzpQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=XBFZcN1muyDm+dq4TrfaRcFhyMfl0gMzjeQH4zbCSlCoUdcyiaMBmqjDPYMh82owkyhWm1AukNrAdWzmz6ZB4MIUmxIFqL/RJMG2VUvYTOdG4NcRtQJqVrV9wZf7faxtFkM5LTZaDoA9882Ab2xA0YryscnU/JXk1f1izzGqjVY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=T1j59MlI; arc=none smtp.client-ip=195.39.247.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hGMt/kyG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791651578; x=1823187578;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Wc0a+mXNNhZfdKgzwWdQVOGoT9u4FAMY9yGFHnO9GQs=;
-  b=hGMt/kyGFCwdlzjwjcSsJ+9AZn1mF8ay2C/70nbtoLvegTH87NyOHImU
-   6yeddUvzeFhl8RNffumEFiO2Cwt3lbzoTGsQt0FaTd7R3uHcsGsa147Zd
-   Fb88cT/eVhyw5avdfhbbdONOJFw20uC86nnj495td8Bk2iKA2gaOH0vZy
-   boFAmtGRE27K81OB5txoREa0eblYw2dpOPe4gSe3kY2BQAyysQGBcyBhe
-   +GtQb2eaTWaAj5eZQrw1MLdhXBHhJv7Bw9PE08eDv/1Y1oVMKSeTxGFh8
-   LFBR9Q/9B3iZsBcrh+6EI9CUWQ4HTIr7oeHSH15gAfT7VbFeYZIt0nGKr
-   g==;
-X-CSE-ConnectionGUID: v6ayu+l+S9WkusURVC1yYQ==
-X-CSE-MsgGUID: 3mMDFO8oTPezLfGmciXTQA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11931"; a="301491"
-X-IronPort-AV: E=Sophos;i="6.27,150,1787036400"; 
-   d="scan'208";a="301491"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Oct 2026 09:59:37 -0700
-X-CSE-ConnectionGUID: dLaGOM1gSHmrmFhoKsDQSQ==
-X-CSE-MsgGUID: Qp+PzNnXRse/RNtTwuavQg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,150,1787036400"; 
-   d="scan'208";a="631713"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by fmviesa004.fm.intel.com with ESMTP; 10 Oct 2026 09:59:32 -0700
-Date: Sun, 11 Oct 2026 00:56:02 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Cc: "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"x86@kernel.org" <x86@kernel.org>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
-	"Li, Xiaoyao" <xiaoyao.li@intel.com>,
-	"Hansen, Dave" <dave.hansen@intel.com>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"baolu.lu@linux.intel.com" <baolu.lu@linux.intel.com>,
-	"Hunter, Adrian" <adrian.hunter@intel.com>,
-	"tony.lindgren@linux.intel.com" <tony.lindgren@linux.intel.com>,
-	"kas@kernel.org" <kas@kernel.org>, "Xu, Yilun" <yilun.xu@intel.com>,
-	"artem.bityutskiy@linux.intel.com" <artem.bityutskiy@linux.intel.com>,
-	"nik.borisov@suse.com" <nik.borisov@suse.com>,
-	"Mehta, Sohil" <sohil.mehta@intel.com>,
-	"Duan, Zhenzhong" <zhenzhong.duan@intel.com>,
-	"Gao, Chao" <chao.gao@intel.com>,
-	"Fang, Peter" <peter.fang@intel.com>,
-	"Maloor, Kishen" <kishen.maloor@intel.com>
-Subject: Re: [PATCH v3 4/6] x86/virt/tdx: Make TDX module initialize the
- extensions
-Message-ID: <aspuIg3Oeaw1LWZ1@yilunxu-OptiPlex-7050>
-References: <20261006-tdx-module-ext-v3-0-db52cb05b918@linux.intel.com>
- <20261006-tdx-module-ext-v3-4-db52cb05b918@linux.intel.com>
- <1b142a6d4f4714796027876e765c0c27ae770eab.camel@intel.com>
+	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="T1j59MlI"
+From: Yureka Lilian <yureka@cyberchaos.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
+	s=mail; t=1791651587;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=fLXZZ1L151t45JkonBfBOtO5v8S6SRCwNhIl/Wras5E=;
+	b=T1j59MlIQ02HMioEi8fSfn3jZTsHeZ22K09+7AWoJocubbDHljKcCSKRRhuhZrJo8cT9dg
+	Bv6Kq6bxwDmCgsXblNc7hrQNX4dQKY5hbxaxlBMMKVTi5NA/Fke1E9wfx1DoYzinamUEkO
+	ZM2QMKbpBMmatJxF1MdvGh3nZ2uAzoo=
+Subject: [PATCH 00/10] Initial Apple Silicon M4 Pro/Max device trees and
+ dt-bindings
+Date: Sat, 10 Oct 2026 18:59:21 +0200
+Message-Id: <20261010-apple-m4-pro-max-initial-devicetrees-v1-0-781fb3f2d9f6@cyberchaos.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1b142a6d4f4714796027876e765c0c27ae770eab.camel@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNwQ6CMBCE4Vche3aTUoyir2I4LGXQNVCathoSw
+ rtb9fgd5p+NEqIi0bXaKOKtSRdfUB8qcg/xd7AOxWSNPdXGXFhCmMDzkUNceJaV1WtWmXgoa4c
+ cgcSu6W0zylnaFlRSIWLU9Xdz6/5Or/4Jl79t2vcPRsMu4ogAAAA=
+X-Change-ID: 20261009-apple-m4-pro-max-initial-devicetrees-c3b23fa7a88e
+To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Neal Gompa <neal@gompa.dev>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Radu Rendec <radu@rendec.net>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ Hector Martin <marcan@marcan.st>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Sasha Finkelstein <k@chaosmail.tech>, Linus Walleij <linusw@kernel.org>, 
+ Mark Kettenis <kettenis@openbsd.org>, Andi Shyti <andi.shyti@kernel.org>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org, 
+ Yureka Lilian <yureka@cyberchaos.dev>, Florian Klink <flokli@flokli.de>
 
-On Fri, Oct 09, 2026 at 07:03:08PM +0000, Edgecombe, Rick P wrote:
-> On Tue, 2026-10-06 at 01:41 +0800, Xu Yilun wrote:
-> > TDX module extensions need memory for their execution environment
-> > to serve SEAMCALL leafs. Several add-on features depend on the
-> > extensions to execute their SEAMCALL leafs.
-> 
-> Can we get a little more about what this SEAMCALL is actually doing? To be able
-> to reason about how long it will take. Obviously it does nothing now, but when
-> we enable the fist extension.
+Hi,
 
-Good to me. I re-wrote a new version:
+This series adds initial device trees and dt-bindings for the Apple
+Silicon devices using the M4 Pro/Max (t6040/t6041) SoCs.
 
-    TDX module extensions use kernel-gifted memory for their execution
-    environment to serve SEAMCALL leafs. Several add-on features depend on
-    the extensions to execute their SEAMCALL leafs.
+This series covers only a minimal amount of hardware, which is useful
+as a basis for future developments. The hardware added here has remained
+largely unchanged between the M3 and M4 generations.
 
-    After providing all required memory to the TDX module, initialize TDX
-    module extensions via TDH.EXT.INIT. This is a time-consuming process,
-    during which the TDX module loads its internal extension image into this
-    memory and builds the execution environment. Once initialized, those
-    add-on features can use their SEAMCALL leafs normally.
+The dt-bindings changes should be mostly boring (in a good way!). The
+device trees themselves are roughly organized into the MacBook Pro
+models on one side (t604x-j614-j616) and the Mac mini and Mac Studio on
+the other side (t604x-j575-j773). I'm hoping to re-use these dtsi files
+for the M5 Pro/Max versions of these machines in the future.
+I applied some version of dt-check-style formatting to all new files
+with the exception of the generated pmgr nodes.
+
+Merge strategy:
+Since there are no actual driver changes, we'd prefer to merge the
+dt-bindings changes through the apple-soc tree once Acked by the
+respective maintainers.
+
+Thanks,
+
+Yureka
+
+Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+---
+Yureka Lilian (10):
+      dt-bindings: watchdog: apple,wdt: Add t6041 compatible
+      dt-bindings: interrupt-controller: apple,aic2: Add t6041 compatible
+      dt-bindings: arm: cpus: Add Apple M4 Pro/Max CPU core compatibles
+      dt-bindings: arm: power: apple,pmgr-pwrstate: Add t6041 compatible
+      dt-bindings: arm: apple: apple,pmgr: Add t6041 compatible
+      dt-bindings: pwm: apple,s5l-fpwm: Add t6041 compatible
+      dt-bindings: pinctrl: apple,pinctrl: Add t6041 compatible
+      dt-bindings: i2c: apple,i2c: Add t6041 compatible
+      dt-bindings: arm: apple: Add M4 Pro/Max based devices
+      arm64: dts: apple: Add minimal t604x (M4 Pro/Max) device trees
+
+ Documentation/devicetree/bindings/arm/apple.yaml   |   26 +
+ .../devicetree/bindings/arm/apple/apple,pmgr.yaml  |    1 +
+ Documentation/devicetree/bindings/arm/cpus.yaml    |    2 +
+ .../devicetree/bindings/i2c/apple,i2c.yaml         |    1 +
+ .../bindings/interrupt-controller/apple,aic2.yaml  |    3 +
+ .../devicetree/bindings/pinctrl/apple,pinctrl.yaml |    1 +
+ .../bindings/power/apple,pmgr-pwrstate.yaml        |    1 +
+ .../devicetree/bindings/pwm/apple,s5l-fpwm.yaml    |    1 +
+ .../devicetree/bindings/watchdog/apple,wdt.yaml    |    1 +
+ arch/arm64/boot/dts/apple/Makefile                 |    6 +
+ arch/arm64/boot/dts/apple/t6040-j614s.dts          |   24 +
+ arch/arm64/boot/dts/apple/t6040-j616s.dts          |   24 +
+ arch/arm64/boot/dts/apple/t6040-j773s.dts          |   28 +
+ arch/arm64/boot/dts/apple/t6040.dtsi               |   65 +
+ arch/arm64/boot/dts/apple/t6041-j575c.dts          |   22 +
+ arch/arm64/boot/dts/apple/t6041-j614c.dts          |   18 +
+ arch/arm64/boot/dts/apple/t6041-j616c.dts          |   18 +
+ arch/arm64/boot/dts/apple/t6041-pmgr.dtsi          | 2297 ++++++++++++++++++++
+ arch/arm64/boot/dts/apple/t6041.dtsi               |  713 ++++++
+ arch/arm64/boot/dts/apple/t604x-j575-j773.dtsi     |   47 +
+ arch/arm64/boot/dts/apple/t604x-j614-j616.dtsi     |   65 +
+ 21 files changed, 3364 insertions(+)
+---
+base-commit: a8ac6027e82415f431bbba49ab535c44f2edaf4d
+change-id: 20261009-apple-m4-pro-max-initial-devicetrees-c3b23fa7a88e
+
+Best regards,
+--  
+Yureka Lilian <yureka@cyberchaos.dev>
+
