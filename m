@@ -1,95 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F241D2F746D;
-	Sat, 10 Oct 2026 13:45:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0FA03515CD;
+	Sat, 10 Oct 2026 13:45:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791639928; cv=none; b=uosdJXUxwCyp2tPmMDaleaZzaHQVzXBf2c4BSg3/p8pGsRgn4j/Fwdi71/o3JIFd8gMm1AyXUzItvp3SziO7VH+h3WTXgS5Q7GV31AmRMqaCthjwMwU1fC85clVnfnvScFGDO3rpsqsidDa1Ec3YTYvvSFLGmRsQaYvfAo7aGic=
+	t=1791639937; cv=none; b=JVdjl3pfDqaWpbE0gNPkH3mIwLMdUM/Pb5VXPUCS8f7gV+pHFrHQdNtj1/peCZz/BEOkh0lsf/orKUrcX9USW3UPSMuiMHApbiPMim+yXyV4M5/tn8YX+yYooM+ZMlcMj6RjPjDDODHJpov5DlktBCKruRwbWUuUMbbHLPsRmB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791639928; c=relaxed/simple;
-	bh=gbL11+W9Q35aQMHTPYqZJmyCA5BPZEsxaoCaFRF7joM=;
+	s=arc-20240116; t=1791639937; c=relaxed/simple;
+	bh=ym2Zzvw3LJt6VG0b/1J0g+H6sSy5Icu1B9BdR7mkcc8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ni/GnLIvi4cWIlKRl3hmBTSCNzQ8qbkkHaNixnaGM5KuK3lBJvR+MM0du5b/NEIkEKnUsm/6TKTqDNNzHCFGUAQnUDoDPxxa4/WhMVvIXqD+JK21fg6CdD1+rRapYU3fg64sz4ss5xDTaiv31jVSRcj9TnOdRI/8vmy2iPfSX+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZqqPL+98; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=mpTgPqhNmMob378Ca/2MtfHBOMa/nRcXI6+UPuLCpERCoM2tAfBiLj1wKyOa7aBORVB7nQWJ9PYBJvYXKRFxihoZIAdo1WPQ2vFtc2Fu0QgasqrjqUBkoZSaUIAoNdn/vd0VKMVMwz/x0Wj9TojSZUpT9WegcXTE+f+J65tgbUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cxf1u295; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZqqPL+98"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 080BA1F000FF;
-	Sat, 10 Oct 2026 13:45:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cxf1u295"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E8431F000FF;
+	Sat, 10 Oct 2026 13:45:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791639927;
-	bh=6p3Q4UHmLA/FAIeBYxvX1+VG/3q8uw0L4WRoUdkA3tQ=;
+	s=k20260515; t=1791639936;
+	bh=4dN/mCtTBXYJ2pasLy+uq66Ba+EYdlz12Wgok4NPMsI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZqqPL+983fpFFL11OLJkyQykEMherA5fB7vOAqZxWc6dyEQIoFbmgFgSY1KucttoU
-	 T24q3tSxwns6N6czNuXOZZRbqdW8IqLfN206sQT2OlEQlJH+VhdpOXiUf4IsJEo/gD
-	 RGz3QEJ1GzB6bLG5iqIxd3/THWjfVK4NoGqnXyRq54/eu56yGMPH7DXVnCLM0y3ggY
-	 vLSzaooXS2yQE7zjSw/gQym5ysJMHBor1U7nnIGeLDJ2zQpz0DsM6Th91ie9/AELt0
-	 eCDS+VyaPw4UmKha61Ngvpzmk62VeT6nz8NSccYkTAxVslUT+zg8FmJUMGw+CmUBsA
-	 gfCAa4s5QhTMg==
-Date: Sat, 10 Oct 2026 15:45:22 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Oleg Keri <okerixx@gmail.com>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>, 
-	Robert Foss <rfoss@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] i2c: qcom-cci: skip core clock rates the clock cannot
- provide
-Message-ID: <aspA3ZawIVWJ3iLL@zenone.zhora.eu>
-References: <20261008230725.3228-1-okerixx@gmail.com>
+	b=Cxf1u295b8s5o6wBwMxRCtC68LIhvpfDQqaL/e77DWMfI9ZK+osFTgv4QwVRzbjea
+	 rSD/Xihfr8DSYO3ofgcl1EUDBnHwlUAPws3SIBR0UgXr/Pgo0Bsn+Zb8w3BjPIvUJC
+	 r2MXaFpLIQKl9T7zlQTTh6Ejbpr9MnnUEiuwBe/qyplxvtNDzQaUljX/t47myoTDlg
+	 oabkjxIlyxRxBLVYtOqOwU3qsayJwowErGAv9knMu0mQGjs/ptXr3V13PH2aeaal2S
+	 b47pU13NZN65n2F6qCoiBEJXac4nBfY789q/LfG13KA6RZUMc7E045foC0epMJEyvP
+	 GbR/4NT25MTrw==
+Date: Sat, 10 Oct 2026 09:45:24 -0400
+From: Sasha Levin <sashal@kernel.org>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Thorsten Leemhuis <linux@leemhuis.info>, workflows@vger.kernel.org,
+	ksummit@lists.linux.dev, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, corbet@lwn.net,
+	skhan@linuxfoundation.org, rdunlap@infradead.org,
+	broonie@kernel.org, tytso@mit.edu,
+	Linux kernel regressions list <regressions@lists.linux.dev>
+Subject: Re: [PATCH 2/2] agents: add a skill to determine Fixes tags
+Message-ID: <aspBdHTZxEVA8Cbl@laps>
+References: <cover.1791499378.git.sashal@kernel.org>
+ <7fa126fd22b4449cf63a7045f7cd959e106fac87.1791499378.git.sashal@kernel.org>
+ <c3ce794d-1ac2-4ef3-9e5c-1e171bd77a89@leemhuis.info>
+ <20261010063228-mutt-send-email-mst@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="d5ivrq7i7uo4ncbp"
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Disposition: inline
-In-Reply-To: <20261008230725.3228-1-okerixx@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261010063228-mutt-send-email-mst@kernel.org>
 
+On Sat, Oct 10, 2026 at 06:33:05AM -0400, Michael S. Tsirkin wrote:
+>On Sat, Oct 10, 2026 at 11:40:56AM +0200, Thorsten Leemhuis wrote:
+>> On 10/9/26 00:54, Sasha Levin wrote:
+>> >
+>> > +A ``Fixes:`` tag identifies the commit that introduced the bug being fixed. [...]
+>>
+>> Sorry for partly hijacking this, but it seems appropriate while we are
+>> at it:
+>>
+>> What exactly is the right commit to specify when it comes to a
+>> regression caused by a change that exposed a way older bug? The change
+>> that exposed it? The change that introduced it in the first place? Both?
+>> I'd tend to "both", but I guess some people might consider this as too
+>> noisy.
+>>
+>> I've seen occasional discussions about this and our docs for humans are
+>> a bit vague here:
+>>
+>> Documentation/process/submitting-patches.rst says:
+>> ""If your patch fixes a bug in a specific commit, e.g. you found an
+>> issue using git bisect, please use the ‘Fixes:’ tag with at least the
+>> first 12 characters of the SHA-1 ID, and the one line summary.
+>> [...]
+>> A Fixes: tag indicates that the patch fixes a bug in a previous commit.
+>> It is used to make it easy to determine where an issue originated""
+>>
+>> And Documentation/process/5.Posting.rst says:
+>> ""One tag is used to refer to earlier commits which introduced problems
+>> fixed by the patch:""
+>>
+>> Ciao, Thorsten
+>
+>I'd say the one exposed it. this way it is useful to answer
+>the question "do i need this fix".
 
---d5ivrq7i7uo4ncbp
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] i2c: qcom-cci: skip core clock rates the clock cannot
- provide
-MIME-Version: 1.0
+I'd suggest the original commit that introduced the issue, or if you really
+want to - add two Fixes: tags.
 
-Hi Oleg,
+My reasoning is that if there were holes around the reachability of the issue
+in the past, we want to land the fix on all relevant trees, rather than just
+the ones affected by the most recent case that enabled it to happen.
 
-On Fri, Oct 09, 2026 at 01:07:25AM +0200, Oleg Keri wrote:
-> cci_get_required_rate() picks the lowest rate that has timings for every
-> active master, but never checks that the CCI clock can run at it. On
-> glymur, sm8750 and kaanapali the CCI clock table has no 19.2 MHz entry,
-> so the request rounds up to 30 MHz or 37.5 MHz, the timing lookup for
-> the running rate fails and the controller does not probe:
->=20
->   i2c-qcom-cci ac16000.cci: CCI clock is not at expected 19200000 Hz
->   i2c-qcom-cci ac16000.cci: no timing for mode 1 at CCI clock 30000000 Hz
->   i2c-qcom-cci ac16000.cci: probe with driver i2c-qcom-cci failed with er=
-ror -95
->=20
-> Only consider rates clk_round_rate() can deliver exactly. Glymur then
-> runs its CCI at 37.5 MHz, which has timings for every mode.
->=20
-> Fixes: fa1eb3af12fa ("i2c: qcom-cci: Enforce the required CCI clock rate")
-> Signed-off-by: Oleg Keri <okerixx@gmail.com>
+For example, let's say an issue was introduced in v6.5 and was reachable by one
+codepath. Later, in v6.7, we refactored some code and made is issue benign by
+removing the only codepath that could reach it. Even later, a new commit in
+v7.0 made the issue reachable again.
 
-pushed to i2c/i2c.
+If our Fixes: tag points to the v7.0 re-introduction, then we will miss the
+backport to the v6.6 tree.
 
+-- 
 Thanks,
-Andi
-
---d5ivrq7i7uo4ncbp
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQScDfrjQa34uOld1VLaeAVmJtMtbgUCaspBcgAKCRDaeAVmJtMt
-brrDAQDqwo1/KEp6XQyTV0vNjk9XrnYAGFDVSKuHg8VPlx0ZiAD/ZPUp0SAYPWwt
-SlMC60uksRZHy05hJXmz58D0ouEffQ8=
-=T79F
------END PGP SIGNATURE-----
-
---d5ivrq7i7uo4ncbp--
+Sasha
