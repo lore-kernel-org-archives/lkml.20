@@ -1,106 +1,181 @@
-Received: from sonic312-24.consmr.mail.ne1.yahoo.com (sonic312-24.consmr.mail.ne1.yahoo.com [66.163.191.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FCA73A9610
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 19:48:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.191.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E01E2F1FDE
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 19:48:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791661711; cv=none; b=BzwKQjqAxkz0eNTlUH19ThMtyiyn9NiviaGBMvAf6u+1TdVqtpe4FLRBQcEAi0F25v4qxVaWKWYE3yTbbqwnfIbmrpa7idVOBYE7QYOXc75csC2w0rtYRpe52hJgObxD0S+CAhwq5DyCPpEGBnJvlcuv3ngx4vGQYL45+nePGJk=
+	t=1791661717; cv=none; b=p2qeOJmdnpsw2ltOEP2NQs13/JpEhiefhE4Uqy38ODljfrIr7Ih6sHgfcTM0aeuMJuqtjPsyI7b4fsPI1tT2ZZyPcsvSaBteWNPL75YIZoVBwzK4H8iqZZqh8flbQM3/1geCVC88E+dnBOUbyjUjCIlzfPnA3YPwUTm0Yc1DLbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791661711; c=relaxed/simple;
-	bh=+JB7XipNzNz0wtFVDnLNPGI3XOSve9ZpgoYDsQHWHUQ=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
-	 In-Reply-To:Content-Type; b=KgFG1bYkRxe40s5HfBI8suyvqBXklW9s0BHTwqVJV0wYOG8DBdAyvMQ6GSTeHL0eo7dv6nSejYxF/ZLQ6Zi/ADvkreVK96c7a5Vif0GysPsbLMHXVXxpT12WPLh9t6WhA99z6o/PegXQXW9SoNUCA3dVffRqJu9wyECTTs4KNyY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=ibMbDbX4; arc=none smtp.client-ip=66.163.191.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1791661717; c=relaxed/simple;
+	bh=Ip47nGqRYuZ9uP7eugq6vHsOVJqhA+tGe0zMcvunU2E=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=GTKb3nCh7fk9QI6nQghWE8R/Qq7+5x6LyL3J9jrbOqqX/KDGHCqRbmIJ/xdqISd+3mCxkcWnx1AD8HbYGI8MOd6sU2GcHPNCKEtMKtFq7K2h+Vz95MquWjMZyFLg+kQ1P8gSiSxgT07bZ+M6cSkxx523OEDpLncYxwSOFtoXoOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=dFjhU9BB; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=IOsIZFY5; arc=none smtp.client-ip=202.12.124.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="ibMbDbX4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791661709; bh=mdzHawn+hXQOM+WR+wXD1MUKW+eXjZjdraUQsrIoH/U=; h=Date:Subject:From:To:References:In-Reply-To:From:Subject:Reply-To; b=ibMbDbX4v96MMK1CuK79DpocdP04inIGlsdFJmUQwzG0EnuHwd3k+usgWCMwUq96b9L4cAioQwWaTSYa0O22G0Dd+SOoFoxTekay2QnDkGwUS24xCkwzAGtKrcbUFIUZb57x8lssIWgB/13bwXXxxbdpRWwY1vf/FvS3q1mo3sOENXTO+R4TytNE/4jUIg3Z97tXuPlZnnQPPZFh362cS84DzJ3fti2DyO/TfN4TVRp73BgaZYqAyiCUhtQ3TGLIhyTcuRZvm9iN6YftADbBPZYYkI7RffwRZpGczk9ANeNpjWhXwMeMy9nH4ZeR1IoORhjzQ0vSZ/tsPzzZ0s3meQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791661709; bh=IR/0U5zjhmWlFu/GIFDeShnzOobZCQ8uan+BOHR3cZy=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=gsdwCjjwlz093VWKRqNmKWxoHm3W7sYOfYKpotjX0jk/NH4LGuJ1YX33dnvp5vy1lADE1lpn8nAfuzUsm8KDt4AI7DHsaNDd3EY5r/idrdxj6WTh+GR8ZsSaQ2osk+xBbdz4gcu5QvhXnsdVlvrIyG4kxIWZx9HxrqH4P3f6xVZuD9PlXnW6PVMiceoVPUHBZEyGjeBqnrTLAnFw0o8W4Vj3r2i5z/7Uhj3GTCsqdH7uzHvk+t/sI3za+mIcx1mJFE4zKVm0lRenKWk1FPh49q9Qjwphl8mGbtwHa6oFSO524Fh+i8unQfY1gLyh1Cmjzs28qezkB+rtlkymFqH1AQ==
-X-YMail-OSG: BHDcElwVM1mDIQEqJvTZ_L234VmFNe.lWTkKqQ2H8YqxITdNFVUx8sPTsGuyVYL
- 6A4uvlgoQlBA3GhimN6nf2Uivuj_0n4xLqVNAC.LHviZTl5sGVMfT_GYB1E_jzCizHQmJ1n0naAp
- zOlsEiJ4QUrqsVrNl1WXdpKfCZ1UlpQZ4hPLFYLoGxNX7GDQcqWdA.BcRAwWHZ.2VxmTw0m31MCo
- GhldtiBLMeT1wMlDxA1HpCXZMqH98Gg0IDc9db2tzAIoktVwGOnL3tv53U.7vL_2fH8RcNauSXRR
- arXvlOuNcfhq18RmMmA74DmejpNe_e2nxmzkYIcAZVt3RU9K213b3F5aKXeU4egLyEiMILEB5OJN
- 1ZDVC09uqlVvwSwXJAmFH_34HWXjQSbpjjSTx8WgfibdC8tvvWocaBak9emWjigj.cBEVMYpz37n
- eLme8oWQlVPCQdEvVE7nDwbesqjXczZpU09vXbHcFgurfcgXZUnZ9fYIuxflprUDm0l6zQsrNyy3
- SGUdd0GtYZBZ7LRS41g0hzPnuwDmvWuk6BT6gs4shbCb2fQORqiGIj55dsScdvkBu7I0WuBS_B2S
- b5OWwyxG27YUrEuc0Hf4mOklzJ0evYziJUoy.RNr8s0N7utpw86Y7df7DrwcEH0xztUxrD6aZ0LJ
- nTjGB3ueU45Yd.oxfOYGAVUvc4O3XGakki5GyjLQdNM7hYz_FaU4Vmk0VdrOgVK4Ss6951vI_Cpp
- r5jJtGlAh9F7SC5i15.l8SdygkEKU4TlCLaYvzh_YMkzaUoR735N20kfinFvjB1fPkhZh.qxmKCd
- DyjV2uKrnIZ7c81i24X9ZSeFAmaqS.hM39VEWZw52ywMgACfXKhMhRaHMP2ciAp9LJ2awXSuw7ix
- YOQfX5uyMNeB54NPUBuUN9USu5T.OWp08t3TlegGSAqGTkcBRVNc5NdghXJQPWngfLZiOEgwzlPk
- SHRhXPhbbxbemqnP95f.zK0bAtByED6OO4LT7ZLGMnYbP.T3oaVGgNYUwAKuLXpOv6a1VMx.O775
- ISDviUD202zJnh7TK2ADCF7Bn4D9pTIQd6EIlAGT5vj8muGuK_lVQ2jLCmJ9Z9nG.gi2sULy9pfO
- ReIGZRJ3j40BsZg.0RqVe5uQFPCOrSyRxETU336No1bYefhSTThrRuknLqXF1YRPnY4deAzLLuKg
- kTfXCJnFCebnyA.0swWFzPRJFIcUNf2DGocXw9RQa8fpbKUEGBqCXyAag90h.Vfm23CpdT8AqfKR
- pRTxmT6Y6wOn1qvWDXlLMjAACxzXrkX_isKMOWEvzb60VkgxH81m3hXG14r4RrV5R.9cLD44e1dD
- uvtkS.EbvlsAly3t4ad6Nt40TeI7zmp_YEk1vmJIz.2Fkr6x34H4QyvzB8w9NHJUujZ6Gu3Rkir7
- np0jIl6gI7JCZA9y_f4MTEK7LyQNFFYJJSeK0YGrbUDad4hv73P2QN8MSNWW6Nb9X.2QKS9wozfa
- Pp5CnxPUXo2nEH6fj6VDC3IkeE68XcqqKg1XppkdaPQnGPxZbXPkWEfC39iyRKobxAyJZ750Pzgs
- 9qrSMB1X6ghsjYz1.KcCRGfiX0CRuWoHvQsziwz4y5G0ybd.qft56285P0RDeQ3INP.eni8JzLqq
- y_ZPjiE2cHRAWtcY2dG4PK9LvAwyvHFlrrEL6e1zgLsu_bXyHgEWLQ4ySrFnW6Mn1T4JBW7XGp4z
- rqf9egfExs0czcITCAL.klKYCiNXNh6sFwZrOeZ_RgSzF4M.YP2_fLuk6H.yhlLYYBqtPQyGKJ8b
- 0OTenijXSp4IhdHEvAzl3rYuhlWjBDJYeeO7vLaHeHh5IFP5rgGtdN_DYeyxYuGP7zXhYbIZQ88w
- XU2UnmRsBRI0v5aUO132ZmvJ8KID2H_Zhoge0AFGxwkLId1G1NHwFsFsbV12TQBLt2bYiLn15NYz
- jWiciCitTmTgnVKRgiKDyzVSNnxwoFh_.sNfCo9b4_s_cZ8GAKWP1ocbwtJYgfC36Bem6GdqeLzD
- 4uR1Gv2w_lhdVESOcTnsq6el3O5UBNYnlambBsbzfpyQp1lHYubbIFYMSCp_RCW5ppSdQfXW56wZ
- 2I8tEGM5ZmsN1k0_HPkeWepNfxl0F9iHy4TUwzv_x0A25k8zDQq2C9kYt_9WbxFI.4cQsQ6ihqvj
- 6tIoxE3vxwVHATSMeDeBzWhUd96Qk52bIpYjFDXPuGksLhtvB.KG94lEEeuixxEciQiNIVgTPwfc
- ZVZrOJ5gbbJiGjAtJJ4cWGf3uH.jmVEaBOnseMdOinVIzfQ1zaaUb.66hok0a1LKCB568iWydnqs
- BibX_rhv1u2XNnQmztxTbJNIFRBf2P2dvvbvaYP0-
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: db21b006-e687-4f9a-bf24-171c5034c38f
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic312.consmr.mail.ne1.yahoo.com with HTTP; Sat, 10 Oct 2026 19:48:29 +0000
-Received: by hermes--production-ir2-5dd9bf4598-lsjm6 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 2e1f61bd0a4759a889456ca9d87e0635;
-          Sat, 10 Oct 2026 19:38:12 +0000 (UTC)
-Message-ID: <e3f96c51-f454-4544-881e-80a02f9ae9f8@yahoo.com>
-Date: Sat, 10 Oct 2026 21:38:09 +0200
+	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="dFjhU9BB";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="IOsIZFY5"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.stl.internal (Postfix) with ESMTP id 5373A1D000C9
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 15:48:33 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Sat, 10 Oct 2026 15:48:33 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1791661710;
+	 x=1791748110; bh=Mpk8tuq3ZKdRKx7sF2neLgFdiyY8Y71+3ELpGFZGVYQ=; b=
+	dFjhU9BBSsq+SYwRuKmXvJizGAnywZFi1/eB+IKWaddlzr93Ws03rn6hyWP6jAIX
+	L0biiWksuNjaF9MYD3/kOScHXYROWWDVTXy70r0MygraMjJ2Yy1G0DgovEwekKWb
+	2AAYxcvQhU4PFf0aX4rEcaD1vlvtgHS790qySd+VYh9DlkykLblCdKNUCIAt2BbW
+	qdKiiv8Q+dS56f00S7YOeIe5ulQX5a8DTq+5NEBXlszoVIkTOGNN0B2datVSMO58
+	Kfmp82CpqzpZw9e63VcxkZz5Yss4XnTEFYgF9bexeBLnifzlwQuLsugQM1dN9Ihc
+	TDJTIxC+g/pEwe454q4zhQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791661710; x=
+	1791748110; bh=Mpk8tuq3ZKdRKx7sF2neLgFdiyY8Y71+3ELpGFZGVYQ=; b=I
+	OsIZFY58VCST4QRZs3KHsRpq/uen9aRCRa8z2t6KyVsNTNOzImTeMnHyiJWIvxaJ
+	6eMtCdzv0nZHk56e4BGvnTTiXXRAygnlewv3+22cXLyvp7ssUluomO7vZ1PrLZJe
+	y1rrcOrxm1r8o6gajhFsE6FZMjSz8ONvLvbDdr3FaHxrcZQy8zAGye/EXoJUjU1t
+	c8fVgqo64Ep47EaSAVYIwg1mxTWbIFQ72fQTYB68MuUJKC488UvfF4GyAYpugkou
+	mJJkE95yEDsO1aitkpgWq7+kmi1UNh3JhEyxVSvUx51G5Fu39EPiLm0+Mh9MpT2/
+	Jqt/wCU+97H+0Vl7d2ccA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=shazbot.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791661710; d=shazbot.org;
+	mf=PGFsZXhAc2hhemJvdC5vcmc+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:h3/jqIabXiXRQ6IBob0oGHuLW4bLv03thPjm4f3++YreEZo
+	jwvTrcq28lvKnITj9p3t/BpMYVh64SY+u4ZnpyrK+alm0x0YjhiAS/rlGwJZ+xCA
+	n9m3d5WzYN74laLPS7B1pm25RtPeeMV2te6UQD6GTCYh9NEcgxCcLcm+jJ0uj/Y9
+	EgOQLMOl5Y8fQn4Pbkchm1DXmnvDEQeDCUhnw+cIJ0n+ABCVn44b+RfRIPVIUk+n
+	Jt/zx6sWBveKPeUvy4ELPXmOKTrY7U16Gs4v1uGqr5i+KXyRl62eqy6LspEn/e2q
+	QrXJyYUzrH7arGI5rUnc1aWlvVe3vMOSkRwp9iQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:JQECRrIdci2KqkwXkXpU46/1WsnESaEY885b570AcOU=:Ip47nGqRYuZ9uP7eugq6vHsOVJqhA+tGe0zMcvunU2E=;
+X-ME-Sender: <xms:jZbKam3LnieqAYm0CkTRcJiGlwhkuyqX6KdbH2lUw7Cm5nXmXlCDNw>
+    <xme:jZbKaqY8rjX0jTnexfrsqKJpqCSwrtSvItTnrZ4mTPkxV_wyMwbqibzgvFQm5eHcx
+    bW1_nEA4QSKFHj7C_XyYNJqf8crjo8pR-NdTzdLSk6E-TaVEMgL1YI>
+X-ME-Received: <xmr:jZbKajj7493WMz4bJ9mvht12sRfpSln34-cmd9GQXbvAqh56-Y5gYnDUGt5Rsg>
+X-ME-Proxy-Cause: dmFkZTGZTlwi8RbFEdb3MRZvUXZMBGNIKNyjY6VEepwpFmCKfXHuxsMoE+NyeflJwrIBhH
+    IOz8Q+AH2x3zxMRSqt/OhPnXZXQhEh8JP+XiW5lxSXWl9nmxYWaL8Tiw9zab7V8YTLFCxO
+    oE6Nd7TBUZklfkBpYEE3+OkCaPfS+Hi2LfcIXGZtE8Rnufb5CTEBTX2C6KD/Txqnpp2suU
+    UdDB/Cc4Vvhxcvm5tCrFeLr2WhDzqG/Yr8r3a7BK0dgvJFczwSOcCmWfnVwkk4+2/mRTyo
+    NCaPQ6SZt1qbWh6n/nWeTPORAaaabRggJeVzaLpx7q49ZRVQpchYcnvlFzZgtP0b2hywBN
+    +2YlZG7EESVGKvez3+5GF07nOO8Su7Vf2oYHqeDaAQ/cqodAS5VXgUmVdJZHH72JX5yTx4
+    0oIxpS00m9JQ4BRNhqBcwLFU1c2UkoQXvgSsmtOlvjK8o+KZRrVYhBSmWtzpXRmdqVm3Nn
+    oVazj5QFHfk0HEkBDUjnL3EuNbufHBzKGOq5HsSmY4axPMBdlhzNA1/ew0zIbvG7EFfQ7/
+    /KVwfYdY84AJZLssQ3VHm8h20j7yc8W4V/RtJkLSOQxUqS5z/jxbfwlKRRRPAozJoeaefw
+    NPoXFelxKjHYNPoiESHmZjCtMmoNsie89aLgrv1YRM9cR8Q1J1Q6zU2T8rvw
+X-ME-Proxy: <xmx:jZbKaqjuISDcq9ZlOAlMS52RWsyY63tvtTkoquijc6wW762u_4cp4A>
+    <xmx:jZbKagAr4yOdSBuKxZ8edWGIsexj0fEvxYUXipShdHyt0idTTwGkRA>
+    <xmx:jZbKai8WyB9d03bD3JijSsuI_bMTOFV7RBnGpE-8gbCfgty8IxJvvg>
+    <xmx:jZbKapDvMVY4HrsLGCiUDtTNHmOaRN6-N-ZNpR9dlc2QqMKzV5Knyw>
+    <xmx:jpbKauew5nhyOsnavNOIn9pdNfOHnqPPDvisgAizHdXOE0xuGqRdFyiB>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 10 Oct 2026 15:48:28 -0400 (EDT)
+Date: Sat, 10 Oct 2026 13:48:26 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: Simon Song <xinmengs@nvidia.com>
+Cc: <jgg@nvidia.com>, <dakr@kernel.org>, <acourbot@nvidia.com>,
+ <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
+ <jhubbard@nvidia.com>, <ecourtney@nvidia.com>, <cjia@nvidia.com>,
+ <smitra@nvidia.com>, <kjaju@nvidia.com>, <alkumar@nvidia.com>,
+ <ankita@nvidia.com>, <aniketa@nvidia.com>, <kwankhede@nvidia.com>,
+ <targupta@nvidia.com>, <linux-kernel@vger.kernel.org>,
+ <kvm@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
+ alex@shazbot.org
+Subject: Re: [PATCH v3 0/1] vfio/pci: Give drivers control of PCI
+ driver_data
+Message-ID: <20261010134826.55364f0f@shazbot.org>
+In-Reply-To: <20261005184236.1946167-1-xinmengs@nvidia.com>
+References: <20261005184236.1946167-1-xinmengs@nvidia.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH net-next v3 1/9] dt-bindings: net: dsa: realtek: add
- RTL8367S-VB
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-To: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <e84d76ee-03df-49b0-8c9a-b289dfae8728@yahoo.com>
-Content-Language: pl
-In-Reply-To: <e84d76ee-03df-49b0-8c9a-b289dfae8728@yahoo.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-The RTL8367S-VB (chip ID 0x6642) is supported by the rtl8365mb driver.
-Like the other models in the family, it is identified by its chip ID
-register, so it does not need a compatible string of its own. List it
-under realtek,rtl8365mb.
+On Mon, 5 Oct 2026 11:42:35 -0700
+Simon Song <xinmengs@nvidia.com> wrote:
 
-Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
----
- Documentation/devicetree/bindings/net/dsa/realtek.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> Hi all,
+> 
+> This patch lets VFIO PCI variant drivers store their private structures
+> in PCI driver_data, removing the requirement that it point directly to
+> struct vfio_pci_core_device. This also accommodates the typed driver data
+> used by the Rust PCI infrastructure, as discussed for the proposed Rust
+> NVIDIA vGPU VFIO driver [1].
+> 
+> Runtime PM and AER helpers receive an explicit vfio_pci_core_device
+> pointer. VFIO_PCI_CORE_DEFINE_CALLBACKS() generates per-driver wrappers
+> that retrieve the driver's private data and pass its embedded core device
+> to these helpers. Each driver installs its own PM ops table.
+> 
+> VGA initialization selects the decode callback in vfio_pci_vga_init()
+> based on vfio_vga_disabled(vdev). Both callbacks use pci_dev directly and
+> do not depend on driver_data.
+> 
+> Changes since v2 [2]:
+> - Drop the unused pci_channel_state_t argument from the core AER helper
+>   and its callers, preserving the PCI callback signature (Danilo).
+> - Wrap each driver's PM ops pointer with pm_ptr() so unused tables can
+>   be removed when CONFIG_PM=n (Sashiko).
+> 
+> Changes since v1:
+> - Extend VFIO_PCI_CORE_DEFINE_CALLBACKS() to accept the driver's private
+>   structure type and the member containing vfio_pci_core_device.
+> - Store each variant driver's private structure in PCI driver_data.
+> - Select the VGA decode callback in the core and retain the one-argument
+>   vfio_pci_core_register_device() interface.
+> 
+> [1] https://lore.kernel.org/all/DLFD2ZDSK9YQ.3A4R66G8UJMD8@kernel.org/
+> [2] https://lore.kernel.org/r/20260930143641.4160785-1-xinmengs@nvidia.com/
+> 
+> Thanks,
+> Simon
+> 
+> Simon Song (1):
+>   vfio/pci: Remove the core dependency on driver data
+> 
+>  .../vfio/pci/hisilicon/hisi_acc_vfio_pci.c    | 27 ++++----
+>  drivers/vfio/pci/ism/main.c                   | 19 +++---
+>  drivers/vfio/pci/mlx5/main.c                  | 13 ++--
+>  drivers/vfio/pci/nvgrace-gpu/main.c           | 19 +++---
+>  drivers/vfio/pci/pds/pci_drv.c                |  8 ++-
+>  drivers/vfio/pci/pds/vfio_dev.c               |  5 +-
+>  drivers/vfio/pci/qat/main.c                   | 12 ++--
+>  drivers/vfio/pci/vfio_pci.c                   | 33 +++++++++-
+>  drivers/vfio/pci/vfio_pci_core.c              | 61 +++++++------------
+>  drivers/vfio/pci/virtio/main.c                |  8 ++-
+>  drivers/vfio/pci/xe/main.c                    |  8 ++-
+>  include/linux/vfio_pci_core.h                 | 41 ++++++++++++-
+>  12 files changed, 159 insertions(+), 95 deletions(-)
+> 
 
-diff --git a/Documentation/devicetree/bindings/net/dsa/realtek.yaml b/Documentation/devicetree/bindings/net/dsa/realtek.yaml
-index 473facd..ca775f6 100644
---- a/Documentation/devicetree/bindings/net/dsa/realtek.yaml
-+++ b/Documentation/devicetree/bindings/net/dsa/realtek.yaml
-@@ -43,7 +43,7 @@ properties:
-       realtek,rtl8365mb:
-         Use with models RTL8363NB, RTL8363NB-VB, RTL8363SC, RTL8363SC-VB,
-         RTL8364NB, RTL8364NB-VB, RTL8365MB, RTL8366SC, RTL8367RB-VB, RTL8367S,
--        RTL8367SB, RTL8370MB, RTL8310SR
-+        RTL8367S-VB, RTL8367SB, RTL8370MB, RTL8310SR
-       realtek,rtl8366rb:
-         Use with models RTL8366RB, RTL8366S
- 
--- 
-2.53.0
+I pulled in Dave's topic/pci-vgaarb-rework-2026-10-01, which gives us
+93d41424caf7.  The vfio_pci_core_device is now registered with the vga
+client so we no longer need to derive anything from the pci_dev.  This
+makes all the VGA changes here unnecessary.
 
+Applied to vfio next branch for v7.4 with the VGA chunks (shown in
+the discussion thread) and commit log paragraph describing them dropped.
+Thanks,
+
+Alex
