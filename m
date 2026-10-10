@@ -1,196 +1,142 @@
-Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f2.google.com (mail-oo2-f2.google.com [74.125.231.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39F923D47C2
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:48:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16E623C9890
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:50:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791622144; cv=none; b=AKyCT2TK6yn7qG10L4rD7Janeb1zzKtbWAoYYjQH6zHxnCtQSK5JRgX6pa9EcBOnwY3W9v57p7bTtbLodWBub+uL8OeAI3EdPdkTA6LUeMyUxI4giloaNHm5sw6a8SfqzuIwwC/9js8WkfHJiQjEEP0BiCcbNzS/D+TGcKhFGwI=
+	t=1791622219; cv=none; b=q74OKlADz+0/bJverdSo0ZUuRDZy51Z2HfFoxK/oUxgv25ylySC02cScMstIwlk/Cm+AyjF0wRvMBK3ci0/iNdRSRwUuYS8qWjtjkgjeO4LizUrjxDmcCmftg471j/Kktg+8wgq0abtDzW61/RM6GMd4AciQ/NsNF6agnc5w2bw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791622144; c=relaxed/simple;
-	bh=K4ZxKk79pvRWrYuuRjzAj/xtXo/3o1M9VNlFqX+ZUbE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tWg7RQxNv+9YTtHLaVBFsf5boSJUeU4ds7y0YekdQs0UPwFh4XDJ3eiIoyPDlgNovk+pYNKzwb67APl3k6BLM069kfpy7sLdTcr/8xTTOxvdXQspl6m0rEH9nQFHnZShI7wokXo9gSxOZM7dqAX37SNFxOgl52IZNiPzEQOpY+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=Hqd6h2sW; arc=none smtp.client-ip=115.124.30.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1791622219; c=relaxed/simple;
+	bh=dBpu91GhGp71AhjQrBoWYb2hnyV7FaxIHcjPH1PEfvQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Bccjjt8bDlYFJUycAWvtjEt2emqxGrnm1un4nRIIo/R4csVsEoVZpQ3E44d3H9KOXvu2odvdW58W7irzmAszENF7lsdqPVQT8IG4tbhh3aEe40KnebumK/Wn8CmfwJSBRFZVzTOAkzTvLidQpWyMVuEbLoruDXAmqFL9hDPJuHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m8jzfYGa; arc=none smtp.client-ip=74.125.231.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Hqd6h2sW"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791622124; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=b2y2N7FeKcJ8D9RR9jlgBCmtkAzLlNngU7OyifZ+Avg=;
-	b=Hqd6h2sW5tOyjB3GTmIAARzTw1J644wLPnXs4EwuBhA5o4NvYdpOEZgK2ApZt4j9ZwYd/JVPwpduZMFWvbNN0vlXdqUE+2oahO8Zj1g6MHFiw7NkykYdLqD8q3GNYZya6EZlbZbB3H7yxzQnBSHjzsD04s83onrAhogQbd2bTrc=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XCVjsiu_1791622122;
-Received: from 30.221.145.85(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XCVjsiu_1791622122 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Sat, 10 Oct 2026 16:48:42 +0800
-Message-ID: <9227ec1d-0de0-4e43-830c-fc60d5f8b2c8@linux.alibaba.com>
-Date: Sat, 10 Oct 2026 16:48:41 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m8jzfYGa"
+Received: by mail-oo2-f2.google.com with SMTP id 46e09a7af769-824f4032704so152745a34.0
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 01:50:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791622217; x=1792227017; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0AzRHZlsZ/kgam4CoQL/YmVx0Bb+p0rC1CfcNC+r3us=;
+        b=m8jzfYGamQk+j9hdrbtaz8f+MPQq+bfSmP3btpbh1BkppDnFb7EHmFYSrRK0gt9Kfg
+         mZTD7gyiYLojvRCkOtLZmBJDfxB2fuaRAF+BzfMPtOXEbkZDYMpHcjRi0BBcMpHwqBhX
+         UAjMiVKAO25slOYDvZYSr5JIk5/tUN/CSoZlVLWANNGKWNt57Ku26/WWpkSneVQzEYMA
+         6ceBf4cnUjeKw8esDKzsqTdceAhDre7fRkWaZpJ4GqjvD+pNNF1YcNPxANRcCvBkYwN6
+         u5vHb1qkITtHXFoQxdMqQXki/uPjKySE4MUVJ3LsfVFVrru0avn4+93G7C37aUQzHZ9k
+         sY/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791622217; x=1792227017;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0AzRHZlsZ/kgam4CoQL/YmVx0Bb+p0rC1CfcNC+r3us=;
+        b=W69EOe2zKCp1oGsn6jV0iiymWeSrh8MpbRiQPxtS7oKVJjwZkmBHXYZP07DaFHsY7O
+         9MMJ0No7BOk2K7QJtA1Tm80NUZnWslDBHVydWvUfXkGhB0P9137eEwygcQOoAbHs+jxy
+         zKdjopYfiapjxjDajg5L5kmsn4IYDOvGR1R92f+0NAZ1NX/yF9mSyi+57nzItHrFCHee
+         7O0UlmK4utSBFOA2Ev+Juts2q41hhERzp1rJsq1vkH+u+X7oRPeA5KDjAnjCPMOH9h7G
+         IrRwj2cdcej+or8zQiIAVoQITn/aIy9SFUndmiOeU9KKonfZVGKJovFgh1oISXMLMUyR
+         CBFA==
+X-Forwarded-Encrypted: i=1; AKwUvBzln9hOIShxjkQP5OPeoRyGfxljIEE+vsVfrSYywOf1GwdZ2NYCSb+z3DpHEDDlONLlVTuQUsEFLupdIqk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIIcLSsNIK5oLRHJzO3iKXo/E+M6wERPaS/gx9mCoI8WjfwHgCc
+	eMAxF89LgrqmSOceOVIS9+TSUnGPLP70mWi102megzw/Z6PBqzoE7Hxl
+X-Gm-Gg: AYBFou1F12bjtspMp0+SguPo6oO5WKH8Ui+yrqmBLtaRd/Vc9x/2H2hQW2ylREcO6e0
+	W/MNNwFfnYOvycDqmHC6STCsPQDQaS1SllaAWb3GlY5Ru5s8A+BJgJ4WdlY/aMyfoY4JYLnfr4f
+	5Aq0Dvhe192afWE70Usto7JuDYgIt53hZ2G98otTyD6xssr9EJj5rl/sHLVKffNt4fYQkid6qos
+	LjlYCdrnZDcw1/Wo8oavneUIlWU4Qg0OqcEa+s/RbEK/1Fj5C0RPUUNFSvYt2+HgWEYHY8Va5Eb
+	GFmDdlVV/eb85F8aMdNtWMLJ7MhE0ZjCvHHLA7XUB4ShVrYoVEe7fwoPwddwluiDATS28k+W7zm
+	dPhAPeqQN+EgYFbmgu6zHuhfUNDS97xpcAHqYvM+b52P8PAPPG8oj5y5SfL0uAhjo2KppDHZvKa
+	f2DVOIMvnnD2Acg0F4ke+Rzce/b3oGfcC0MWUeorTvDT/GhpMMqCGEjVL+lkACthfRewRZnFuBM
+	Axa/zbbg8VRcpeiP22pigC2mNgeIlBbn9BmUw==
+X-Received: by 2002:a05:6820:4dec:b0:6d8:462d:2737 with SMTP id 006d021491bc7-6ef0e8dded8mr2517883eaf.27.1791622216750;
+        Sat, 10 Oct 2026 01:50:16 -0700 (PDT)
+Received: from localhost.localdomain ([14.116.239.34])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6eef6e22b46sm4037577eaf.0.2026.10.10.01.50.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 01:50:14 -0700 (PDT)
+From: Henry Martin <bsdhenrymartin@gmail.com>
+To: Vladimir Oltean <vladimir.oltean@nxp.com>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Henry Martin <bsdhenrymartin@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] ipconfig: fix use-after-free of device list after ic_close_devs()
+Date: Sat, 10 Oct 2026 16:49:58 +0800
+Message-ID: <20261010085003.3261587-1-bsdhenrymartin@gmail.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ocfs2/dlm: Serialize recovery list teardown with debug
- reads
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: mark@fasheh.com, jlbec@evilplan.org, kees@kernel.org, jack@suse.cz,
- rppt@kernel.org, hexlabsecurity@proton.me, sunil.mushran@oracle.com,
- akpm@linux-foundation.org, Heming Zhao <heming.zhao@suse.com>,
- ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
- baijiaju1990@gmail.com, jjzuming@gmail.com
-References: <pm-ocfs2-objects-candidate-0049-v2-a5d5091b8900dc3f9849@gmail.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <pm-ocfs2-objects-candidate-0049-v2-a5d5091b8900dc3f9849@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+ic_close_devs() kfree()s every ic_device node but leaves the static
+ic_first_dev and ic_dev pointers dangling behind.  When a DHCP
+negotiation gets an OFFER but never the matching ACK, ic_bootp_recv()
+accepts the OFFER and records ic_dev = <list node>, the round times
+out and ic_close_devs() frees the whole list — node included.  The
+next failed retry round runs ic_close_devs() once more, evaluating
 
+    selected_dev = ic_dev ? ic_dev->dev : NULL;
 
-On 10/9/26 6:01 PM, Cen Zhang wrote:
-> Recovery participant records must remain alive while debug_state_print()
-> walks reco.node_data and formats their fields. The formatter holds
-> dlm->spinlock, but dlm_destroy_recovery_area() detaches the list under
-> dlm_reco_state_lock and frees the records without taking dlm->spinlock.
-> 
-> When a recovery master finishes recovering a dead node, a concurrent
-> open of the domain's dlm_state file can reach the participant list after
-> the master's last dlm->spinlock section. The following ordering is
-> possible:
-> 
->     Debugfs open                      Recovery thread
->     debug_state_print()
->       lock dlm->spinlock
->       select participant
->                                       dlm_destroy_recovery_area()
->                                         lock dlm_reco_state_lock
->                                         detach participant list
->                                         unlock dlm_reco_state_lock
->                                         kfree(participant)
->       read node->state/node_num
->       unlock dlm->spinlock
-> 
-> The field read or the next list iteration then accesses freed memory.
-> Debugfs removal protects the domain lifetime, but session completion
-> leaves the file installed, so it does not drain this open callback.
-> 
-> Take dlm->spinlock around the existing locked list detachment. A debug
-> reader must now finish before detachment, and later readers see an empty
-> list. Keep the frees outside both locks. This also covers cleanup after
-> partial allocation failure in dlm_init_recovery_area().
-> 
-> KASAN report as below:
-> 
->     BUG: KASAN: slab-use-after-free in debug_state_open+0x1169/0x12d0
->     Read of size 4 at addr ffff88810662ef80 by task dlm-state-stres/896
-> 
->     CPU: 1 UID: 0 PID: 896 Comm: dlm-state-stres Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
->     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
->     Call Trace:
->      <TASK>
->      dump_stack_lvl+0x93/0xd0
->      print_report+0xce/0x630
->      ? debug_state_open+0x1169/0x12d0
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __virt_addr_valid+0x20e/0x420
->      ? debug_state_open+0x1169/0x12d0
->      kasan_report+0xe0/0x110
->      ? debug_state_open+0x1169/0x12d0
->      debug_state_open+0x1169/0x12d0
->      ? __pfx_debug_state_open+0x10/0x10
->      full_proxy_open_regular+0x193/0x310
->      do_dentry_open+0x595/0x12d0
->      ? __pfx_full_proxy_open_regular+0x10/0x10
->      vfs_open_consume+0xd1/0x400
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      path_openat+0x18d0/0x2020
->      ? __pfx_path_openat+0x10/0x10
->      do_file_open+0x21e/0x470
->      ? __pfx_do_file_open+0x10/0x10
->      ? _raw_spin_unlock+0x23/0x40
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? alloc_fd+0x3a6/0x6b0
->      do_sys_openat2+0xf4/0x1b0
->      ? __pfx_do_sys_openat2+0x10/0x10
->      ? srso_alias_return_thunk+0x5/0xfbef5
->      ? __fput+0x5b5/0xa60
->      __x64_sys_openat+0x136/0x1e0
->      ? __pfx___x64_sys_openat+0x10/0x10
->      do_syscall_64+0x114/0x620
->      entry_SYSCALL_64_after_hwframe+0x77/0x7f
->     [Register dump omitted.]
->      </TASK>
-> 
->     Allocated by task 880:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      __kasan_kmalloc+0xaa/0xb0
->      __kmalloc_cache_noprof+0x28d/0x610
->      dlm_remaster_locks+0x147/0x1d90
->      dlm_do_recovery+0xde1/0x1580
->      dlm_recovery_thread+0x109/0x300
->      kthread+0x351/0x460
->      ret_from_fork+0x659/0x940
->      ret_from_fork_asm+0x1a/0x30
-> 
->     Freed by task 880:
->      kasan_save_stack+0x33/0x60
->      kasan_save_track+0x14/0x30
->      kasan_save_free_info+0x3b/0x60
->      __kasan_slab_free+0x5f/0x80
->      kfree+0x308/0x580
->      dlm_destroy_recovery_area+0x285/0x460
->      dlm_remaster_locks+0x17c4/0x1d90
->      dlm_do_recovery+0xde1/0x1580
->      dlm_recovery_thread+0x109/0x300
->      kthread+0x351/0x460
->      ret_from_fork+0x659/0x940
->      ret_from_fork_asm+0x1a/0x30
-> 
->     The buggy address belongs to the object at ffff88810662ef80
->      which belongs to the cache kmalloc-32 of size 32
->     The buggy address is located 0 bytes inside of
->      freed 32-byte region [ffff88810662ef80, ffff88810662efa0)
-> 
->     [Page and memory-state dumps omitted.]
-> 
-> Fixes: 007dce53a29c ("ocfs2/dlm: Dump the dlm state in a debugfs file")
-> Assisted-by: LLM
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-> ---
-> 
-> diff --git a/fs/ocfs2/dlm/dlmrecovery.c b/fs/ocfs2/dlm/dlmrecovery.c
-> index 9d4a2695b9594d1ad8bd60de9cec8ee701355f09..5719c2b88e4292cff38e26b10b29c8a4a0deccda 100644
-> --- a/fs/ocfs2/dlm/dlmrecovery.c
-> +++ b/fs/ocfs2/dlm/dlmrecovery.c
-> @@ -764,9 +764,12 @@ static void dlm_destroy_recovery_area(struct dlm_ctxt *dlm)
->  	struct dlm_reco_node_data *ndata, *next;
->  	LIST_HEAD(tmplist);
->  
-> +	/* Serialize list detachment with debug_state_print(). */
-> +	spin_lock(&dlm->spinlock);
->  	spin_lock(&dlm_reco_state_lock);
->  	list_splice_init(&dlm->reco.node_data, &tmplist);
->  	spin_unlock(&dlm_reco_state_lock);
-> +	spin_unlock(&dlm->spinlock);
->  
+against the freed ic_device — an 8-byte use-after-free read.
 
-The race looks real.
+KASAN confirms:
 
-But I don't want to involve dlm->spinlock for list dlm->reco.node_data.
-While dlm_reco_state_lock is the designed lock to protect list
-dlm->reco.node_data.
+  BUG: KASAN: slab-use-after-free in ic_close_devs+0x214/0x220
+  Read of size 8
+    ic_close_devs    <- ip_auto_config
+  Allocated by: ip_auto_config (ic_open_devs)
+  Freed by:      ic_close_devs <- ip_auto_config
 
-So why not add the dlm_reco_state_lock in debug_state_print()? This
-can keep consitent with all other places that access list
-dlm->reco.node_data.
+NULL both pointers after the free loop so retry rounds take the
+clean empty-list path.
 
-Also it seems also fixes the potential list_add_tail() race in
-dlm_init_recovery_area().
+This memory-safety issue was discovered by Tencent CodeBuddy Security.
 
-Thanks,
-Joseph
+Cc: stable@vger.kernel.org
+Fixes: 46acf7bdbc72 ("Revert "net: ipv4: handle DSA enabled master network devices"")
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+---
+Changes in v2:
+ - Fixes: tag corrected to the commit that introduced the ic_dev->dev
+   dereference that makes this a UAF (46acf7bdbc72); in 2.6.12 ic_dev
+   was a struct net_device * that was only compared, never dereferenced.
+ - Code comment in ic_close_devs() dropped per review.
+ - Message reduced to the memory-safety mechanism (no vulnerability
+   framing).
+
+ net/ipv4/ipconfig.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/net/ipv4/ipconfig.c b/net/ipv4/ipconfig.c
+index 1b8585404a41..ac4851e59c3b 100644
+--- a/net/ipv4/ipconfig.c
++++ b/net/ipv4/ipconfig.c
+@@ -346,6 +346,9 @@ static void __init ic_close_devs(void)
+ 		kfree(d);
+ 	}
+ 	rtnl_unlock();
++
++	ic_first_dev = NULL;
++	ic_dev = NULL;
+ }
+
+ /*
+--
+2.43.7
 
