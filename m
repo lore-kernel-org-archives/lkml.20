@@ -1,163 +1,220 @@
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB20F3603D8
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 04:55:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791608125; cv=pass; b=Tp9yrAWJXbyAdOAc1c+cu39NU/Ya6b8QnEPizwfpaNDxI+aFV6SJ1CYuvSB/4IzDR91HdnDXDRAdpUCYssOnn1YUj1Z00Ld7v9IzQTHPzK/o+AztudZCe0l9s5OdX4iNxMyR9KEsAgAak80bao2eaYAQ4e9WS6i9Eb8XVozlVvY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791608125; c=relaxed/simple;
-	bh=WREEaBO3wyuO0PkwVpYRwppAg95V9MsB8RMw+210RtE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Gh4tQDFpOuJ2ZRZG37os5gSrRK6wisMnql6zMaGVyGWLzZKGeanMfJI3bPi+itVaZR8f/4FrUzuQoCAit6LQn3P8UkwY3T1Y3o473VuJGurxXw5LRE2JVR+beTt6QXaMkeGFqImDC9HNyJNm8WDadBHDHyrblDuki3RT4K6vxKk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com; spf=pass smtp.mailfrom=jclark.com; dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b=TIGcEqlY; arc=pass smtp.client-ip=209.85.219.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jclark.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EB46372EDD;
+	Sat, 10 Oct 2026 04:58:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791608333; cv=none; b=Ti5qpcTZUFwvjdX2LOECJi8GdJurPt3yBmL+yCXkH8RnFXuO7N5kfHnoFGSVhDel4a+6lQhPQUDBue3rKUGD/Ntbcb1fDnagNEN30cOYigdToUhD1MxnCB2LHgnmiuQ49Ww1R0dEGoLwB6lGYiREXYce4WBarcsSLzMvtEyzHuI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791608333; c=relaxed/simple;
+	bh=wPLfCe6T+S/gCrFoE2GfzPMLJXw739UlhNUlKDcz5Qo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sCcCBfFfrV4AjFLkILJkVVLz9l6k90RrsVGeIi9gaC+yLecNiTHC2Utp9MJ+8fhxEkLIHnn+no+06dk3dhY225TnXL9Rm3B0R6+CYLJM5KAsZgoV2EHJyxTubUFt8BYechaTq2UOBb7carCH8IAyt3JzFUJYMX+5KULmyrydFW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Xouw0ooQ; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b="TIGcEqlY"
-Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-9179dd18658so6462926d6.2
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 21:55:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791608122; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mJs4SvtdxSVRiPEke1OsFDaRO2eMFzZBuoSkGHjUp1cdTYYzwGaqv4Ix6ik08ovxcW
-         XafYQ+NHS6e/7xyAT+7PFx7h8ZlEXBqfyPIfijrLFI78BQN7wrWUzeeSlPRAhUXNlWkD
-         33vOJavG+6QQJTQ4v0IUeM21eaeRzfcy9UBcTBnR5krVXXKlJ5DFMcIhjnKABv7ws42X
-         mi3EvUTMQL2i2CZbTgjOuKzEGkqomN6HARdCchTfFD7KL8yCK/rHCTrchyA1hGi/cTtn
-         Fam1wvrXkfVLC5/N2hjTukQHMfsHSj2JlYdKz1zDigkAB0ybpv/w9QBh8yRdCX16LRs4
-         EWrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DDnyXEwh0IPh3IBNd6Tys59aT8lq3I7fvJJG+sKA6io=;
-        fh=0v5KNfe10QOdoBnSkTuLP/DIeJuFXj6goRcfOZurvUw=;
-        b=esX21Y6YnXjzc1UEB9s1c4Pa0z+JtPneK00BwNbzsaB0ltTPfMw2kM+yy3FR9nDobL
-         t/U4HbUPsSgH4YHFyP3vYytO1XYFkA+USNgJ1QAC3Pk9EqUka0ml7EP4PuJ3brTZoEMU
-         /ZWQYpcB68qSpwZNG6X20vriM0JQWYKedqYbdsif0lY/oPd9ehjjKK0ICDxOjRb7b6Ww
-         hHq3eq24HZCOxZsUCjkVxrG0dBmO2xEaCF5BcJ1z0+UmBwyJGsZeIjtwHVCW0bGSiNQ5
-         NXne+pWcAQlEYETZ54hGzjpmtfW71uNz6mk5ij0hS+9XCpYrR5aNGTyDVAwYOTD0cEKk
-         q1WQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jclark-com.20251104.gappssmtp.com; s=20251104; t=1791608122; x=1792212922; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DDnyXEwh0IPh3IBNd6Tys59aT8lq3I7fvJJG+sKA6io=;
-        b=TIGcEqlYRBMz35qZyoQrAXMxTklE3YE8eLBrbYPqDjfV1qAPthG1XgXSq+zY1u3/wr
-         VCVdVQRnfB87706UnWyaftxFGhNYvTqSFjGXpNi4bH+1ZuQlFOCs+i1F1+FD4b7zlrhw
-         mzRC6kw86vhODAkWbfx9Stbtgb8ZhsYbDiV99gkY7eY6K7FghBTxuWtf/JulMF14BtWg
-         x4JERqw2nJmDRSyuULDRNUg0p9s0dBOzRWkPrj0Fyzwp1fKP6vNlrIQs0VrScsu5H3xA
-         DSbNtloxaLT0HaQoigk0RG9n7+EQ5MC/TxJ1fc4y+apuHR/hXyySaLWwjKf6GjUF33iH
-         Lyrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791608122; x=1792212922;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DDnyXEwh0IPh3IBNd6Tys59aT8lq3I7fvJJG+sKA6io=;
-        b=jCQtHQYj3h0yxnHsIcevVkdoVverWaj6OcSMUpqcC3+l+9q3WrxwPgm7ZERtguook9
-         LP6LBSezXktKol1SQPPsfUomrITgCN0glTn5Imz/8uPjtMf4DHYhvRKRLx9BBW0AKwm1
-         pApVLLeOJYXVMdQPz1WH8TOTQ/jGnmdvWGUWr9lNy4RM7PdEMRbIcrWGGIBKQGKbpFrc
-         baOxUbx1Fvc5qjzOX4ylfJoTlgS9sRdpti9LNk/I0njXXw1pTSus/fVZL96N4dubH8uP
-         wrjkgz//vYoxQ+cCR2TCRSwsUGjF8r1uLZ0EJWd9Wc+tLB9UTRWEGpP4sPwe9V1DKFlU
-         LjQw==
-X-Forwarded-Encrypted: i=1; AKwUvBww3X5Jv6TOEsLNyT3WD+KwSrrWraXxVa86Z+c9wz0lBTgpWukA/NT6TGFPonS15uSzLusO7kcQedfXy34=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJmkqs9dx+PFrCPubOHc2CWuKGc9YUdlJ69f6VYoOZsU/ju5ADg
-	rb0S4ZyF82JRyI9qIX5h0hWxv4U3mkmKI0+RDuCKw3OPxUj45kNt1xZkMM26Ob/nF5kVB3iLb9R
-	ii9iH5gZRJ+Dsp+20NUiwpxvhKDgTJuQS9LOrA45o
-X-Gm-Gg: AYBFou2E2fXcz/Pg40BktYWQh1qLi18lg3JyWzdrj4eZot0T1ik5tUlR3nzKxr3jsRl
-	CvFXLF3dhG2/HGpDr/KRi7Up1MVEYlGPpq84D83MP1VJBnnCUEX55jODnP5gA9T9F8mktW/BfUv
-	G9Y7koiPvr+jzMqVF7+Vk4v2dkxpycSMKBL4AWZSibWNeQtzy+1Y6PLo3YEOaKvbv7Libj25Hxi
-	sQm3z/mqYVvyQkFz0W/GpIPpHCM/Degg+DTpHhKC9+LtQeFYFSvcxAhxljwh5+/jn2Z1bbnQzVm
-	eCOPqiLHdUWu7lXVyGXJIr2djShiBWy/FBjJurKpDAxxIDS7xEmKACk=
-X-Received: by 2002:a05:6214:4892:b0:91b:5d3a:4fc8 with SMTP id
- 6a1803df08f44-91b5d3a54f6mr48923646d6.53.1791608122459; Fri, 09 Oct 2026
- 21:55:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Xouw0ooQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791608332; x=1823144332;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=wPLfCe6T+S/gCrFoE2GfzPMLJXw739UlhNUlKDcz5Qo=;
+  b=Xouw0ooQCD+gpCVToIy+q3e30HTH9N2Hj8qucDomCrC9pxk+XteEbd/I
+   Nrvc65CUFWCDIcX2E/iS214ZCtqwnrRidpgH0W6rapi6OA3Y1TO+ToKL/
+   c382H5TYXyLoginOJxaOcDi7jEb3KSujc9A1BCpdZG6ydt/NYT4u6UK9n
+   fIyBgOTE2fmUlU4oUUFS5dJctffPKz4GigICsGPa0YP2tz04gV1FrGz5t
+   8/h5HosaGXSkaAMZUYmQ+pRnkLwfotSd6mWa1gqVeRK+y9YkLxJIvbkCm
+   bc8FryfJ3wS/0ecQG2hBOEF/zejBOtpb9+CEVEO0ONO2jn3mUG5k4Ei4q
+   g==;
+X-CSE-ConnectionGUID: Z0ac+qITQ0CSAT+x85JzCg==
+X-CSE-MsgGUID: Ts70k95VSa2Bye8vnaTldQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="419635"
+X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
+   d="scan'208";a="419635"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 21:58:51 -0700
+X-CSE-ConnectionGUID: aNlxjUvIR1K9yDLAbMhm9A==
+X-CSE-MsgGUID: ob+7cjSZQbqK+04lE0pgWw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
+   d="scan'208";a="926771"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa010.jf.intel.com with ESMTP; 09 Oct 2026 21:58:49 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xFPAT-000000006VZ-2EwS;
+	Sat, 10 Oct 2026 04:58:45 +0000
+Date: Sat, 10 Oct 2026 12:58:11 +0800
+From: kernel test robot <lkp@intel.com>
+To: Linlin Zhang <linlin.zhang@oss.qualcomm.com>, mst@redhat.com,
+	jasowangio@gmail.com, axboe@kernel.dk, ebiggers@kernel.org,
+	stefanha@redhat.com
+Cc: oe-kbuild-all@lists.linux.dev, pbonzini@redhat.com, eperezma@redhat.com,
+	xuanzhuo@linux.alibaba.com, virtualization@lists.linux.dev,
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] virtio_blk: add inline encryption support
+Message-ID: <202610101218.PA25qZJG-lkp@intel.com>
+References: <20261009041727.3170811-3-linlin.zhang@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009143506.2507607-1-jjc@jclark.com>
-In-Reply-To: <20261009143506.2507607-1-jjc@jclark.com>
-From: James Clark <jjc@jclark.com>
-Date: Sat, 10 Oct 2026 11:55:11 +0700
-X-Gm-Features: AclHuK92W5KEhXwmOMjG-I1AS-dLGfSZLwWpXYD9HwLtHLi9Ykczkj9wj7-sDHw
-Message-ID: <CANz3_EazbYUY8-RqSAcdESmriFgt-xJFQjj=bEnjW6iBp5DoRA@mail.gmail.com>
-Subject: Re: [PATCH net-next 0/5] net: mdio: add timestamped MDIO writes for
- PHY gettimex64
-To: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	Heiner Kallweit <hkallweit1@gmail.com>, Richard Cochran <richardcochran@gmail.com>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, Doug Berger <opendmb@gmail.com>, 
-	Nicolai Buchwitz <nb@tipi-net.de>, =?UTF-8?B?VGjDqW8gTGVicnVu?= <theo.lebrun@bootlin.com>
-Cc: Russell King <linux@armlinux.org.uk>, Conor Dooley <conor.dooley@microchip.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Miroslav Lichvar <mlichvar@redhat.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Andrew Lunn <andrew@lunn.ch>, h.feurstein@gmail.com, olteanv@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009041727.3170811-3-linlin.zhang@oss.qualcomm.com>
 
-On Fri, Oct 9, 2026 at 9:35=E2=80=AFPM James Clark <jjc@jclark.com> wrote:
+Hi Linlin,
 
->  Some PHYs have a PTP hardware clock (PHC) that is
-> read over MDIO and sometimes multiple MDIO transfers are needed to read
-> the clock.
-...
-> This series introduces a new MDIO operation that allows PHY drivers to
-> ask MDIO bus drivers to compute a bracket for the completion of an MDIO
-> write transfer.
+kernel test robot noticed the following build errors:
 
-I have just become aware of an earlier discussion of a similar
-problem, in 2019, about the PHC of mv88e6xxx switches:
+[auto build test ERROR on axboe/for-next]
+[also build test ERROR on mst-vhost/linux-next linus/master v7.3-rc6 next-20261008]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-https://lore.kernel.org/all/20190805082642.12873-1-hubert.feurstein@vahle.a=
-t/
+url:    https://github.com/intel-lab-lkp/linux/commits/Linlin-Zhang/virtio_blk-Add-control-virtqueue-support/20261008-211713
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux.git for-next
+patch link:    https://lore.kernel.org/r/20261009041727.3170811-3-linlin.zhang%40oss.qualcomm.com
+patch subject: [PATCH v4 2/2] virtio_blk: add inline encryption support
+config: x86_64-defconfig (https://download.01.org/0day-ci/archive/20261010/202610101218.PA25qZJG-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261010/202610101218.PA25qZJG-lkp@intel.com/reproduce)
 
-In the relevant respects the situation is the same as with the BCM
-PHY: the PHC is read over MDIO with several transfers, and one write
-fixes the moment at which the clock is sampled. Richard and Andrew
-suggested taking the system timestamps in the MDIO bus driver, around
-that write, and Hubert Feurstein posted a series implementing this:
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610101218.PA25qZJG-lkp@intel.com/
 
-v1: https://lore.kernel.org/r/20190816163157.25314-1-h.feurstein@gmail.com
-v2: https://lore.kernel.org/r/20190819172827.9550-1-hubert.feurstein@vahle.=
-at
-v3: https://lore.kernel.org/r/20190820084833.6019-1-hubert.feurstein@vahle.=
-at
+All errors (new ones prefixed by >>):
 
-Like Hubert's v2 and v3, this series shifts the timestamps to allow
-for the time the transfer takes. The discussion of that raised some
-points, two of which this series already addresses. First, the meaning
-of the timestamps returned by the MDIO core operation is clear: they
-bound the end of the MDIO write transfer. Second, the bus driver uses
-a lower and an upper bound on the transfer time, including the
-preamble, which have been measured on hardware. The lower and upper
-timestamps taken around the start of the transfer are shifted
-separately, so that the returned bounds are guaranteed to contain the
-end of the transfer.
+   drivers/block/virtio_blk.c: In function 'virtblk_setup_cmd':
+>> drivers/block/virtio_blk.c:414:61: error: 'struct request' has no member named 'crypt_keyslot'
+     414 |                                 blk_crypto_keyslot_index(req->crypt_keyslot));
+         |                                                             ^~
+>> drivers/block/virtio_blk.c:417:58: error: 'struct request' has no member named 'crypt_ctx'
+     417 |                                 cpu_to_virtio64(vdev, req->crypt_ctx->bc_dun[i]);
+         |                                                          ^~
+   drivers/block/virtio_blk.c: At top level:
+   drivers/block/virtio_blk.c:1066:12: warning: 'virtblk_ctrl_vq_request' defined but not used [-Wunused-function]
+    1066 | static int virtblk_ctrl_vq_request(struct virtio_blk *vblk,
+         |            ^~~~~~~~~~~~~~~~~~~~~~~
 
-The third point is the delay between the end of the transfer and the
-device acting on the write, which I raised in the notes to patch 2. I
-am making end-to-end measurements to establish a bound for this delay,
-and I plan that in v2, in the absence of definitive data from
-Broadcom, the PHY driver will shift post_ts by that bound.
 
-This series also differs in having a write_sts operation, rather than
-an sts pointer in struct mii_bus. This allows the bus driver to
-compute the transfer time bounds at each call, from the same divider
-and clock rate that it uses to set the MDC speed. Unlike Andrew's
-suggestion, there is no fallback in the core, because a bus driver's
-write may return before the transfer has completed.
+vim +414 drivers/block/virtio_blk.c
 
-The earlier discussion also raised interrupts arriving between the
-timestamps and the write, and the latency of the posted write. In this
-series, the bus drivers take the timestamps with local interrupts
-disabled, and flush the posted write before taking the upper
-timestamp.
+   318	
+   319	static blk_status_t virtblk_setup_cmd(struct virtio_device *vdev,
+   320					      struct request *req,
+   321					      struct virtblk_req *vbr)
+   322	{
+   323		size_t in_hdr_len = sizeof(vbr->in_hdr.status);
+   324		bool unmap = false;
+   325		u32 type;
+   326		u64 sector = 0;
+   327		int i;
+   328	
+   329		if (!IS_ENABLED(CONFIG_BLK_DEV_ZONED) && op_is_zone_mgmt(req_op(req)))
+   330			return BLK_STS_NOTSUPP;
+   331	
+   332		/* Set fields for all request types */
+   333		vbr->out_hdr.base.ioprio = cpu_to_virtio32(vdev, req_get_ioprio(req));
+   334	
+   335		switch (req_op(req)) {
+   336		case REQ_OP_READ:
+   337			if (is_crypto_request(req))
+   338				type = VIRTIO_BLK_T_CRYPTO_IN;
+   339			else
+   340				type = VIRTIO_BLK_T_IN;
+   341			sector = blk_rq_pos(req);
+   342			break;
+   343		case REQ_OP_WRITE:
+   344			if (is_crypto_request(req))
+   345				type = VIRTIO_BLK_T_CRYPTO_OUT;
+   346			else
+   347				type = VIRTIO_BLK_T_OUT;
+   348			sector = blk_rq_pos(req);
+   349			break;
+   350		case REQ_OP_FLUSH:
+   351			type = VIRTIO_BLK_T_FLUSH;
+   352			break;
+   353		case REQ_OP_DISCARD:
+   354			type = VIRTIO_BLK_T_DISCARD;
+   355			break;
+   356		case REQ_OP_WRITE_ZEROES:
+   357			type = VIRTIO_BLK_T_WRITE_ZEROES;
+   358			unmap = !(req->cmd_flags & REQ_NOUNMAP);
+   359			break;
+   360		case REQ_OP_SECURE_ERASE:
+   361			type = VIRTIO_BLK_T_SECURE_ERASE;
+   362			break;
+   363		case REQ_OP_ZONE_OPEN:
+   364			type = VIRTIO_BLK_T_ZONE_OPEN;
+   365			sector = blk_rq_pos(req);
+   366			break;
+   367		case REQ_OP_ZONE_CLOSE:
+   368			type = VIRTIO_BLK_T_ZONE_CLOSE;
+   369			sector = blk_rq_pos(req);
+   370			break;
+   371		case REQ_OP_ZONE_FINISH:
+   372			type = VIRTIO_BLK_T_ZONE_FINISH;
+   373			sector = blk_rq_pos(req);
+   374			break;
+   375		case REQ_OP_ZONE_APPEND:
+   376			type = VIRTIO_BLK_T_ZONE_APPEND;
+   377			sector = blk_rq_pos(req);
+   378			in_hdr_len = sizeof(vbr->in_hdr.zone_append);
+   379			break;
+   380		case REQ_OP_ZONE_RESET:
+   381			type = VIRTIO_BLK_T_ZONE_RESET;
+   382			sector = blk_rq_pos(req);
+   383			break;
+   384		case REQ_OP_ZONE_RESET_ALL:
+   385			type = VIRTIO_BLK_T_ZONE_RESET_ALL;
+   386			break;
+   387		case REQ_OP_DRV_IN:
+   388			/*
+   389			 * Out header has already been prepared by the caller (virtblk_get_id()
+   390			 * or virtblk_submit_zone_report()), nothing to do here.
+   391			 */
+   392			return 0;
+   393		default:
+   394			WARN_ON_ONCE(1);
+   395			return BLK_STS_IOERR;
+   396		}
+   397	
+   398		/* Set fields for non-REQ_OP_DRV_IN request types */
+   399		vbr->in_hdr_len = in_hdr_len;
+   400		vbr->out_hdr.base.type = cpu_to_virtio32(vdev, type);
+   401		vbr->out_hdr.base.sector = cpu_to_virtio64(vdev, sector);
+   402	
+   403		if (type == VIRTIO_BLK_T_DISCARD || type == VIRTIO_BLK_T_WRITE_ZEROES ||
+   404		    type == VIRTIO_BLK_T_SECURE_ERASE) {
+   405			if (virtblk_setup_discard_write_zeroes_erase(req, unmap))
+   406				return BLK_STS_RESOURCE;
+   407		}
+   408	
+   409		if (type == VIRTIO_BLK_T_CRYPTO_IN || type == VIRTIO_BLK_T_CRYPTO_OUT) {
+   410			memset(&vbr->out_hdr.crypto_append.msg, 0,
+   411				sizeof(vbr->out_hdr.crypto_append.msg));
+   412			vbr->out_hdr.crypto_append.msg.slot =
+   413				cpu_to_virtio32(vdev,
+ > 414					blk_crypto_keyslot_index(req->crypt_keyslot));
+   415			for (i = 0; i < ARRAY_SIZE(vbr->out_hdr.crypto_append.msg.dun); i++) {
+   416				vbr->out_hdr.crypto_append.msg.dun[i] =
+ > 417					cpu_to_virtio64(vdev, req->crypt_ctx->bc_dun[i]);
+   418			}
+   419		}
+   420	
+   421		return 0;
+   422	}
+   423	
 
-James
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
