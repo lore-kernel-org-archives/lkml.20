@@ -1,55 +1,79 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E571443C15;
-	Sat, 10 Oct 2026 16:05:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31B2533F8C4
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 16:16:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791648350; cv=none; b=BjGsezaVUq3zdCGoBrjFxK3qVco1/dgLRURaNddhhR2UAmjaBxg34rpr2iJkcz/w9Mzelj/Gt8SNXi7dj6q297tYxiKJ6W2fsC5wsc0NcZ2AI3zpThh27clsoDn5T+93OzylALHmaMMMEA776CX9WAeXTM3BrBHDyK6fWvkUqk0=
+	t=1791648979; cv=none; b=uk8X9m2JnX3vMxB3dyIyA5+9zrF2LvS0BN430T2W6lRmfW+3YI1PjsDnuoldM7KD+2siTGvvRMYD042F6jVxEr5FzlDo/emPHMcNteUEWrJE+Uv0nrkBTaAFk4v5m9A7l9HYkKljbFyLl4xHMW7+MJHy+hZfKdk1C1J6oEuHXL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791648350; c=relaxed/simple;
-	bh=6UcIkbnFq9fPBTy73wLR0JYg0rnziSCx0xmWEO54ALQ=;
+	s=arc-20240116; t=1791648979; c=relaxed/simple;
+	bh=ufd8rhV80UCqkXKJ/U/urcXuErq0bBJ18B91X+bAywA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ez23sHLYLx4Lj4TBGLF4v3lrQeawv/Mj1LRXm9/3aiYg2Gr7eRNqPGmxJUP5f6Qaboiib3Wb9xm3hPMSIssAkGMGsJzx9Obibhhz+ymsSwavztgTJUEKl2qUr+3CTDRJgiyL5XN22275oyOl8BzRieBNIFrbwd3kxmrqmT0ErG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Pzk7UOWP; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	 MIME-Version; b=b64XuWXp8eFbTUeBrcn17e16asNbKl80AZcTOkA/A3CKUtm5HWZVNq4z3PuBSWfVT3ae7C6A/+3rh0J93fNAmsO0UN2oOAdg1ZU3if0Uk1XtgxIRT0sDTji0nEt//df6ESzPtFEfciS0cLpDzZoEeI3+UCGIwbFDCZtD+0tV3EE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rvjEa8yf; arc=none smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Pzk7UOWP"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4j27ql3dzvzMlCg;
-	Sat, 10 Oct 2026 18:05:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1791648339;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9GaXQLuaNtYwcE0I6WuUTmrjF1Wc9eZrySop6U9Or/s=;
-	b=Pzk7UOWPGfd/HBao4Wp1UEz467ZxW+aZVzJFRWMChQ4ehDKWQCJV9Nd/XiJNTWgYOVtePD
-	jDSSTx1JI6WDGWf0qUUN5DBtl2eXpu2YKGktgnPp+Zu6q14kB02X9GCkBlNYJg9I8MOStu
-	r6jydHX6lGPwxJ8uidXf3ocxGy7pc2H+aAc6q/qop/Oq2flASgFpyhHwWqwWrA2uymcJTi
-	lmD63uR7fbbnFJJjfVQohHNnEc09q+3seiH39DCWUONoi8hgtJ3AeBaOQC3QgChAXzUvD9
-	HoJ/N3njSsJvGBUDN4sNGBjmIw+cL2LTijPsOjvCmodzonDFy55SrhjTZYtV1Q==
-From: Alexander Gruhlke <gruhlke@mailbox.org>
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Lukas Wunner <lukas@wunner.de>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Alex Williamson <alex@shazbot.org>,
-	Hui Wang <hui.wang@canonical.com>,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev,
-	Alexander Gruhlke <gruhlke@mailbox.org>
-Subject: [PATCH 2/2] PCI: Wait for readiness after FLR even with Immediate Readiness
-Date: Sat, 10 Oct 2026 18:05:29 +0200
-Message-ID: <20261010160529.27974-3-gruhlke@mailbox.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261010160529.27974-1-gruhlke@mailbox.org>
-References: <20261010160529.27974-1-gruhlke@mailbox.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rvjEa8yf"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c2a4e013a44so103970866b.2
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 09:16:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791648976; x=1792253776; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3XWf/RWrFZXj82yePfTV0/gqexEn/Us7le/SNtuaxG0=;
+        b=rvjEa8yfTqzQCH5uDJKXNr1T2dv35336lqEoxMFEazb0rIhybSoMwfJKgF98RpRXJM
+         9J6WJ+TTGGkg9dVjNl4AUlaJWVptjRXlRv33bc31ksnPmlA3mIZe8orPOvkZpRpUH4nx
+         j9/3xEpE7819d+lOO/BmTE5vN9jqBjXaATJPLzf7kGl7+Tz5NJxcSvagW1nUZYUBsXkB
+         k78HJ9rH8xYegWTA0rqyb1lx6GhiSm1AO8JOkt0PezcLHi4dH37HXypZ69sDWBorqhF7
+         jQrhhbscXrxMkU0YIvMh8jdlEBKdapsMxijDYekibPZMU0oZDQX9q4aWMIwqqbuVYxIq
+         KWEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791648976; x=1792253776;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3XWf/RWrFZXj82yePfTV0/gqexEn/Us7le/SNtuaxG0=;
+        b=qpGSW7mnq1RGg/fZWD2W033XVsdyiWS9tQm95AXCTYosbydXr0otLNu6UB7VnymUsO
+         2rPxTerTYCgNiCtGYw71qdEZDqMysjz/ELc/46lt7rSmst2RRt1rf6Xy65fvMm7xtDpL
+         3jtOgnucJd8nzlzx0sJLT77esUoqhO7XgRh3sCO/Tb+/BDtZ1Bl8Nr6nDGLEoXph+HAR
+         A+dPNx9QDz052HadZMXVDFmET/GRh3OWlZ/dWNVvPDJmaqK+xn411DeRYbinfAgYtU8k
+         zXyi4SdVxj3yejrGwJ8Sk6TlLbh8kH7Mri8vxeRbK3uPxeiJkTjnn2kf3VOs9OlcvSqH
+         4gNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzpjs/Ti6OPV73+ZLEI+Uxg/BBBgC+H7Jw7+597IACrUtxz9Uaytvr1AzPZTjRF76YxzVz1PUiInqdYOc4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIve5xzdT3MFyXzCmTWxk6L8j4kOhUkVv9nvXKjiLPcS936vwh+
+	63qVYYVBzPPeKzIb+iKIg8H638i77QwHudVPwlpvzohkYZEDMbhtUD3jWMrW0Bv03lI=
+X-Gm-Gg: AYBFou0eE+vmAJWvpwkxuWGkjicbrxG+nyzG2JTQoLXYzp3WzAUPoqLiqfiBvhvDpZQ
+	L/tU6CRhcePa/GrXLM+m5INrt9Q9KPXfjIZpT+BVr+cofNBnBer/mXGrd7TFc0rR+7zO4gMIRm8
+	W+rwYmlWkxsHX1Ugq2xj04fOIbbfXax4YU/oFjJITuNSEsJGEB898jsZI1leKs5C8baDfmQE2D7
+	Koi4x4gUZzdejeQ21L6kRwStNdY3Ke1eWb/Rre78etba+xiyj6udUkEG/5f5eeoqk1bZU/0pt9k
+	wjdPjsHTlDrP5Lm1ucFfLw7qF5X9h12zR0/y4YYlugChjiGcNqFdxhllHDv7aiompYzL8gKRfP3
+	GvbVcNUyPyCYGH1h5YaOlxEWxlhUCUmJLFCv+FJFpNFWTDRleQQmHvOzEEmoO2d8r3RwpQXEtbO
+	hdU/jHi3TdPXDRQ/kliLfZYX6LcqbrG7itddUG1rjggI3eKTeLAlxmwJzF+ccfGvcdiGo/uqIB7
+	YSjFRd/5qaQQYRYbmVqm241FV/YCzusJyc7HOI+99LxNe3A
+X-Received: by 2002:a17:907:8d8d:b0:c26:306f:289b with SMTP id a640c23a62f3a-c31a9b0b097mr464030466b.13.1791648976036;
+        Sat, 10 Oct 2026 09:16:16 -0700 (PDT)
+Received: from localhost.localdomain (87-205-122-125.dynamic.inetia.pl. [87.205.122.125])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9a74bd7sm261422066b.37.2026.10.10.09.16.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 09:16:15 -0700 (PDT)
+From: illofspeed <illofspeed@gmail.com>
+To: dm-devel@lists.linux.dev
+Cc: agk@redhat.com,
+	snitzer@kernel.org,
+	mpatocka@redhat.com,
+	bmarzins@redhat.com,
+	hare@suse.de,
+	dlemoal@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/3] dm zoned: back off when reclaim finds no destination zone
+Date: Sat, 10 Oct 2026 18:16:11 +0200
+Message-ID: <20261010161613.396-2-illofspeed@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261010161613.396-1-illofspeed@gmail.com>
+References: <20261010161613.396-1-illofspeed@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,73 +81,47 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: fc8530650e1a6f708d8
-X-MBO-RS-META: dj87rz77ehqwf1rf488uqh5e4p74jwjm
 
-pcie_flr() and pci_af_flr() skip pci_dev_wait() if the device advertises
-Immediate Readiness.  Since commit 10baa9b4df40 ("PCI: Drop unnecessary
-retries when restoring BARs"), the subsequent config restore isn't
-retried, so it is lost if the device isn't ready after all.
+When dmz_do_reclaim() fails with -ENOSPC because no free zone is
+available to copy the data into, dmz_reclaim_work() still ends with
+dmz_schedule_reclaim(). If the target is idle, dmz_should_reclaim()
+keeps returning true, the work is queued again with no delay and the
+worker spins on the same failing pass.
 
-The Samsung 990 PRO [144d:a80c] advertises Immediate Readiness but
-returns ~0 for 1-7 ms after FLR, which breaks VFIO passthrough.  Keep
-skipping the 100 ms delay, but call pci_dev_wait().
+Re-arm the idle poll instead, so that reclaim is retried after
+DMZ_IDLE_PERIOD. The next patch makes -ENOSPC the expected result when
+an idle target has random zones but no free sequential zone.
 
-Fixes: 10baa9b4df40 ("PCI: Drop unnecessary retries when restoring BARs")
-Link: https://bbs.archlinux.org/viewtopic.php?id=314833
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Alexander Gruhlke <gruhlke@mailbox.org>
+Tested on a 7.2.6 kernel as an out-of-tree dm-zoned module, together
+with the next two patches, on emulated host-managed drives (tcmu-runner
+ZBC handler) and on three 27 TB host-managed drives used as md RAID5
+members.
+
+Assisted-by: LLM
+Signed-off-by: illofspeed <illofspeed@gmail.com>
 ---
- drivers/pci/pci.c | 14 ++++----------
- 1 file changed, 4 insertions(+), 10 deletions(-)
+ drivers/md/dm-zoned-reclaim.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index 26be5d1ca9..59856e3fdf 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -4379,18 +4379,15 @@ int pcie_flr(struct pci_dev *dev)
+diff --git a/drivers/md/dm-zoned-reclaim.c b/drivers/md/dm-zoned-reclaim.c
+index c041413c729..315f0da99f3 100644
+--- a/drivers/md/dm-zoned-reclaim.c
++++ b/drivers/md/dm-zoned-reclaim.c
+@@ -540,6 +540,14 @@ static void dmz_reclaim_work(struct work_struct *work)
+ 	if (ret && ret != -EINTR) {
+ 		if (!dmz_check_dev(zmd))
+ 			return;
++		if (ret == -ENOSPC) {
++			/*
++			 * No zone to copy into: nothing can progress now.
++			 * Rescheduling immediately would spin; poll instead.
++			 */
++			mod_delayed_work(zrc->wq, &zrc->work, DMZ_IDLE_PERIOD);
++			return;
++		}
+ 	}
  
- 	pcie_capability_set_word(dev, PCI_EXP_DEVCTL, PCI_EXP_DEVCTL_BCR_FLR);
- 
--	if (dev->imm_ready)
--		goto done;
--
- 	/*
- 	 * Per PCIe r4.0, sec 6.6.2, a device must complete an FLR within
- 	 * 100ms, but may silently discard requests while the FLR is in
- 	 * progress.  Wait 100ms before trying to access the device.
- 	 */
--	msleep(100);
-+	if (!dev->imm_ready)
-+		msleep(100);
- 
- 	ret = pci_dev_wait(dev, "FLR", PCIE_RESET_READY_POLL_MS);
--done:
- 	pci_dev_reset_iommu_done(dev);
- 	return ret;
- }
-@@ -4456,19 +4453,16 @@ static int pci_af_flr(struct pci_dev *dev, bool probe)
- 
- 	pci_write_config_byte(dev, pos + PCI_AF_CTRL, PCI_AF_CTRL_FLR);
- 
--	if (dev->imm_ready)
--		goto done;
--
- 	/*
- 	 * Per Advanced Capabilities for Conventional PCI ECN, 13 April 2006,
- 	 * updated 27 July 2006; a device must complete an FLR within
- 	 * 100ms, but may silently discard requests while the FLR is in
- 	 * progress.  Wait 100ms before trying to access the device.
- 	 */
--	msleep(100);
-+	if (!dev->imm_ready)
-+		msleep(100);
- 
- 	ret = pci_dev_wait(dev, "AF_FLR", PCIE_RESET_READY_POLL_MS);
--done:
- 	pci_dev_reset_iommu_done(dev);
- 	return ret;
- }
+ 	dmz_schedule_reclaim(zrc);
 -- 
-2.56.0
+2.43.0
 
