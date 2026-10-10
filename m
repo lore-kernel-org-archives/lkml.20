@@ -1,162 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C896136F911;
-	Sat, 10 Oct 2026 07:12:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B96541D62E
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 07:15:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791616369; cv=none; b=mWg+/FYcRdtCzvtqlM2wqZF1eFzCghgMYjJA2ve4xrYunq1x0WXBQzaNNRPij/+tixgk4kKWk8NbZuPWeCB3V2H99CTL3ZNhObRvfAzLFp+9bldXZwY30YIkehVWNHnZpwL5aRHv+e5OolAwvw4qsiLk4oD0mjzWB4AN47vuoa4=
+	t=1791616503; cv=none; b=IttiwRNPC3HLCabNv0ds965rcEMeViswv6uQMEpLx5H8z9T7L06RYA8gVUz7pY/DGeTlRL3KoM7mwWLfc8SAZZ2nvxyCpTfqoh7jZtxEt+bcGfqEM/XxsE6vQ5NeAGuut9zMHdonoJzzwN36DLaeUUXVelNp0vD1zkdAPEOr9YU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791616369; c=relaxed/simple;
-	bh=RhAjYseecgmquDdNkSU+RBLZLf9ZvOzPVrFTM8UdEhI=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=E+Tm0fEVvbbqtF92FuR/fEFiqmVdRoifMDJFliMUQD4qQlKtqXHlAI24Cb3TN7Zlid7UCcknUWQtCcjmSp31KJu9ataMx/rcdN4Afjmuf/71ZSIhafE7n8xZi+xP3y9+ZtnrByxuIl26jXXXwT7/L75WJukSKdvl4CAlt2ZFn38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YNC84y/l; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791616503; c=relaxed/simple;
+	bh=AgqPawQLsHErmF3nORcLRMqaINWXlnncdcFbCC+PyuM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=GL4EY9AWeC5W/tDhTMBWlEOfXYg7jpBFGMddKh2b71X4YdqhB4YVudg71xXIMq8Nq/VYstb0fKezATIpiIVh4Lc6iW2KC05D9Uotz5i1xIJLvIFXn/SFVVFPK6XIzvbK8GRNLQfqQoGRWXvYW1AUfOoOi6T446UPqeUjT80odFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hFPkPhfP; arc=none smtp.client-ip=74.125.227.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YNC84y/l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EBEA1F000FF;
-	Sat, 10 Oct 2026 07:12:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791616368;
-	bh=QMcgnnuWgqpbS2VoYj7i+y0eQKVMONCmXNCk4hNAjoM=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=YNC84y/lmQV5ndDsmGdJW70Oj+7t80giQMLxNGmVDFey2oVsrGz0c5tQwatXGiCCl
-	 Hj54RY4/SoFDbwCnfbwA3WtsUnGbiBeNxyKQrRJK8BCMCOZ7nmzbbTw5kSpHft3xtX
-	 OzIkUThGW76okfhTTqxIHHGPSLrugXT1RCIF2Pup14U0q76qua0t2xrR2GcT7hy3UW
-	 kMoWrDvZGh9jZ5aywnAWEJiX9hyFCt2RIf8WdfVI2SX5rQrLxfnwk/PQdmv4qbACH+
-	 vbjRo+udCVN7ledr3LWCVnGsfU2CShj50xVEAbY1OG4ZkVwrJVgVyK07oFm8sXsgHn
-	 Zc8WuE5E6kKOQ==
-Content-Type: multipart/mixed; boundary="===============1321710191781011159=="
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hFPkPhfP"
+Received: by mail-pj2-f8.google.com with SMTP id d9443c01a7336-2e609985789so1778535ad.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 00:15:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791616501; x=1792221301; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=959yGHgkihQFutwKGlb/mZ/n3GWGE1NHJJyd2mFaKLM=;
+        b=hFPkPhfPPbuxbfmY7+UwzIgq2K24FnV234YTzI7oMUeoLiKdFvr2fbqgMNA9AV/J63
+         71Yl5lR2eDogeslFMEExZK/d5P05Fbgvh+geXlzDJi5aK/OFUkBTGkjTX074pEVCh1W2
+         SfRIQDel5oBxebzV57evUBJBhhFdUcSmbVUEhBx3Udk0FO/Vn3QsptPM9NSVNUPXompM
+         Zso/2/l3331o77ZgTWLkJ5Nql23omuylNPYuZJMSCAKreABHHMPUW3sz84DgLBD+mwFN
+         mperSALlX+xvzcyD2POj7B9J6cKDJq0dFjSqK+Ix5yFIC0qG2CqywzB6yvjgTkkgyvXF
+         svRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791616501; x=1792221301;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=959yGHgkihQFutwKGlb/mZ/n3GWGE1NHJJyd2mFaKLM=;
+        b=rloU39irrq4PKB8V/N3rSDsYEmxQrPpBfgDTZu5HhoyVyMsye8s/5hm46WAsyEE5Xm
+         2+yzUc+2Mgj7748Hn5VK7mj+or2Zi3kyWmYa6iQo7QjhxJD+61Rlz/lOMkAqof4cr9jG
+         gk7f1eZRrDpkFAurdl+cX8qGvqP2Pd58/7aXWFZsS3IjRKItmFeV4BXI3+ToFfrAjmPn
+         NGa6G2wGc8S/lkS0EvGMormON3xMtppImXCE3tC0sM4c4fj/KE552GlNbKdoC8njnsxI
+         SaUwYdGd3JPJhME2eR57pmFvu5vLqxdyaohndKMMXbJcL7o7mBlGkv7yHbCPAljgApw9
+         pyWQ==
+X-Gm-Message-State: AFq9FYJYffriTAoh1LK1Q759YxDbDFx1p05buXvOGNy6w3s2fa5foS9S
+	wPDXugE+hPhpZyaXRAgqPIfwTcaYiEehEy9zuzvgIzQ6PgTPIP4S2jrGyEdkxGDiXeRgVs4E
+X-Gm-Gg: AYBFou36QLZAAK4G6Lmupuf4WH38hsT4GgIacxGHqDHOSLl1gDW2vUVpA5ricFUG1Kw
+	/WgyQBMkU6cvlANHtgXEg6Fl+XOuniaNePmPIeMPLeFYO1CI+SPMoDO/cBc7XDPE1y8EBAEOYYB
+	Kt3Lh1224peikOFtEzuREGaCRVdBqhHkRgEhqxSHjTEQ7EQWSEnCj0xXX3w3HEXCp5M9/kNRUL7
+	w/aIDjAxRryBtxNbOft2P0HZhFtwvSQTQ+zMZ6TYu/jlMGS8hwjwJI9zrdPuR0lC5dQT5lF20gD
+	Y1z528iOS+1S41h6lfGyq6aU9xXt4X9BwaYerQ3AF0sFFECqVsSJmFJ3mMXbJgE0dexVtk0RNGa
+	I1EmsmNh3+Fm96YhBXDUB1TsjBZBFtoUh/Jxzj4g+oyt5eBwf7SzAKar/JFY7Sq4GkI5Ih0B0xJ
+	eB689uzIfFaPRMJRtVykoKk27QzG2GzS/g/a+6Epa/Asqk6i198QNENKmrZj6XGcQbjkpYT79MT
+	UaRKQP2J+K/hj4vO2gS554Q7Z07bQhYefkCLY0pGu77VtQkuVIYpLqNV7chmuI=
+X-Received: by 2002:a17:902:e88a:b0:2e3:1776:278f with SMTP id d9443c01a7336-2e842bcd141mr39945135ad.42.1791616501197;
+        Sat, 10 Oct 2026 00:15:01 -0700 (PDT)
+Received: from localhost (ec2-18-183-150-125.ap-northeast-1.compute.amazonaws.com. [18.183.150.125])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8421b15ffsm20468025ad.36.2026.10.10.00.15.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 00:15:00 -0700 (PDT)
+From: jianyungao89@gmail.com
+To: linux-kernel@vger.kernel.org
+Cc: Jianyun Gao <jianyungao89@gmail.com>,
+	stable@vger.kernel.org,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Dan Williams <djbw@kernel.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Goldwyn Rodrigues <rgoldwyn@suse.com>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Shiyang Ruan <ruansy.fnst@fujitsu.com>,
+	linux-fsdevel@vger.kernel.org (open list:FILESYSTEMS (VFS and infrastructure)),
+	nvdimm@lists.linux.dev (open list:FILESYSTEM DIRECT ACCESS (DAX))
+Subject: [PATCH] dax: fix wrong size passed to dax_iomap_direct_access() in dax_range_compare_iter()
+Date: Sat, 10 Oct 2026 15:14:53 +0800
+Message-Id: <20261010071453.6028-1-jianyungao89@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <9588d40e70791e4231860ceda453a8fa80c46a5c841107ab59ad0ca7c5d03c38@mail.kernel.org>
-In-Reply-To: <20261010-selftests-bpf-struct-ops-assoc-timer-v2-1-d7a43896dbf1@gmail.com>
-References: <20261010-selftests-bpf-struct-ops-assoc-timer-v2-1-d7a43896dbf1@gmail.com>
-Subject: Re: [PATCH bpf-next v2 1/3] bpf: Defer freeing a struct_ops map until its progs are done
-From: bot+bpf-ci@kernel.org
-To: odys.yuan@gmail.com,andrii@kernel.org,eddyz87@gmail.com,ihor.solodrai@linux.dev,ast@kernel.org,daniel@iogearbox.net,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,shuah@kernel.org,ameryhung@gmail.com
-Cc: bpf@vger.kernel.org,linux-kselftest@vger.kernel.org,linux-kernel@vger.kernel.org,odys.yuan@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Sat, 10 Oct 2026 07:12:46 +0000 (UTC)
+Content-Transfer-Encoding: 8bit
 
---===============1321710191781011159==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+From: Jianyun Gao <jianyungao89@gmail.com>
 
-> bpf: Defer freeing a struct_ops map until its progs are done
+dax_range_compare_iter() passes ALIGN(pos + len, PAGE_SIZE) as the size
+argument to dax_iomap_direct_access(), but this is an absolute file
+offset rather than a length. This causes the underlying
+dax_direct_access() to request a massively inflated nr_pages via
+PHYS_PFN(size), leading to unnecessarily large access ranges and
+potential spurious -EHWPOISON from driver badblock scans.
 
-TL;DR: Possible use-after-free of struct_ops kdata/trampoline: the deferred
-free uses call_rcu(), which doesn't wait for rcu_read_lock_trace readers
-(bpf_wq, task_work, sleepable progs); always using call_rcu_tasks_trace() may
-fix it.
+Fix by computing the correct aligned size:
+  ALIGN(len + (pos & ~PAGE_MASK), PAGE_SIZE)
 
-> diff --git a/kernel/bpf/bpf_struct_ops.c b/kernel/bpf/bpf_struct_ops.c
-> --- a/kernel/bpf/bpf_struct_ops.c
-> +++ b/kernel/bpf/bpf_struct_ops.c
+which accounts for the page-in-page offset of pos, matching the pattern
+used in dax_iomap_copy_around().
 
-[ ... ]
-
-> @@ -1050,7 +1070,15 @@ static void bpf_struct_ops_map_free(struct bpf_map *map)
->  	if (tasks_rcu && IS_ENABLED(CONFIG_TASKS_RCU))
->  		synchronize_rcu_tasks();
->
-> -	__bpf_struct_ops_map_free(map);
-> +	/*
-> +	 * A prog may have read the association before it was cleared above,
-> +	 * e.g. from a timer callback, and may still be running the struct_ops.
-> +	 * Free the map only after a grace period that waits for such a prog.
-> +	 */
-> +	if (map->free_after_mult_rcu_gp)
-> +		call_rcu_tasks_trace(&st_map->free_rcu, bpf_struct_ops_map_free_rcu_gp);
-> +	else
-> +		call_rcu(&st_map->free_rcu, bpf_struct_ops_map_free_rcu_gp);
-                ^^^^
-
-Does this grace period wait for every reader of the association?
-
-The commit message says the grace period is "a tasks trace one if the progs
-of the map may sleep", but the code does not look at whether the progs may
-sleep.  It tests map->free_after_mult_rcu_gp, which is copied from
-st_ops->free_after_mult_rcu_gp in bpf_struct_ops_map_alloc().  git grep
-finds no in-tree struct_ops that sets that flag (bpf_tcp_ca only sets
-free_after_tasks_rcu_gp), so every in-tree struct_ops map, including
-bpf_testmod's multi_st_ops and sched_ext, takes the call_rcu() branch.
-
-bpf_prog_get_assoc_struct_ops() reads aux->st_ops_assoc under
-bpf_rcu_lock_held(), which also accepts rcu_read_lock_trace().  Async
-callbacks of a struct_ops prog run with only that lock held:
-
-  static void bpf_wq_work(struct work_struct *work)
-  {
-      ...
-      rcu_read_lock_trace();
-      migrate_disable();
-      callback_fn((u64)(long)map, (u64)(long)key, (u64)(long)value, 0, 0);
-      migrate_enable();
-      rcu_read_unlock_trace();
-  }
-
-bpf_task_work_callback() works the same way (guard(rcu_tasks_trace)() plus
-migrate_disable()), and is_async_cb_sleepable() in verifier.c says "bpf_wq
-and bpf_task_work callbacks are always sleepable".  The bpf_wq kfuncs are
-in common_btf_ids, which is registered for BPF_PROG_TYPE_UNSPEC, and
-bpf_kfunc_multi_st_ops_test_1_assoc() is registered for
-BPF_PROG_TYPE_STRUCT_OPS.
-
-Can this sequence occur on a CONFIG_PREEMPT_RCU kernel, with the
-st_ops_assoc_in_timer_free test written with bpf_wq_start() instead of
-bpf_timer_start()?
-
-kworker (bpf_wq_work, rcu_read_lock_trace only)
-    st_ops = bpf_prog_get_assoc_struct_ops(aux)
-        -> &S->kvalue.data
-    <preempted, or after __bpf_prog_exit()'s rcu_read_unlock() in the
-     trampoline tail>
-
-free path
-    bpf_map_put(S) -> ... -> bpf_struct_ops_map_free()
-        dissoc_progs();
-        call_rcu(&st_map->free_rcu)
-    GP ends: this reader is not an RCU reader
-    bpf_struct_ops_map_free_rcu_gp() -> queue_work()
-        __bpf_struct_ops_map_free()
-            bpf_struct_ops_map_free_image();
-            bpf_map_area_free(st_map)
-
-kworker
-    st_ops->test_1(args)    <- reads freed kdata, or returns into the
-                               freed trampoline
-
-sched_ext looks affected the same way, since scx_prog_sched() reads
-ops->priv from the kdata that bpf_prog_get_assoc_struct_ops() returns.
-
-struct_ops progs take no reference on the map when they are associated;
-bpf_prog_assoc_struct_ops() calls bpf_map_inc() only for non-struct_ops
-progs.  So the grace period here is the only thing keeping the map alive,
-and call_rcu() does not wait for rcu_read_lock_trace() sections.
-
-This also seems to fix less than the code before the Fixes: commit.  Before
-5db69b0fbdc8, bpf_struct_ops_map_free() ran
-synchronize_rcu_mult(call_rcu, call_rcu_tasks) after the dissoc, which also
-waited for preempted tasks and so covered the trampoline tail for these
-preemptible readers.
-
-Since 57b23c0f612d ("bpf: Retire rcu_trace_implies_rcu_gp()") a tasks trace
-grace period implies a regular RCU grace period.  Would always using
-call_rcu_tasks_trace() here cover all of the readers: BH (bpf_timer), plain
-RCU, and tasks trace (bpf_wq, bpf_task_work, sleepable progs)?
-
-The two later commits in the series (49210cd1ca6f and 17c1f2ff6e23) only
-change selftests and do not address this.
-
-
+Fixes: 6f7db3894ae2 ("fsdax: dedup file range to use a compare function")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
 ---
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+ fs/dax.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/38031235772
---===============1321710191781011159==--
+diff --git a/fs/dax.c b/fs/dax.c
+index 6ba50142eeb2..213b1c9e197c 100644
+--- a/fs/dax.c
++++ b/fs/dax.c
+@@ -2197,6 +2197,7 @@ static int dax_range_compare_iter(struct iomap_iter *it_src,
+ 	const struct iomap *dmap = &it_dest->iomap;
+ 	loff_t pos1 = it_src->pos, pos2 = it_dest->pos;
+ 	void *saddr, *daddr;
++	size_t size1, size2;
+ 	int id, ret;
+ 
+ 	len = min(len, min(smap->length, dmap->length));
+@@ -2212,13 +2213,13 @@ static int dax_range_compare_iter(struct iomap_iter *it_src,
+ 	}
+ 
+ 	id = dax_read_lock();
+-	ret = dax_iomap_direct_access(smap, pos1, ALIGN(pos1 + len, PAGE_SIZE),
+-				      &saddr, NULL);
++	size1 = ALIGN(len + (pos1 & ~PAGE_MASK), PAGE_SIZE);
++	ret = dax_iomap_direct_access(smap, pos1, size1, &saddr, NULL);
+ 	if (ret < 0)
+ 		goto out_unlock;
+ 
+-	ret = dax_iomap_direct_access(dmap, pos2, ALIGN(pos2 + len, PAGE_SIZE),
+-				      &daddr, NULL);
++	size2 = ALIGN(len + (pos2 & ~PAGE_MASK), PAGE_SIZE);
++	ret = dax_iomap_direct_access(dmap, pos2, size2, &daddr, NULL);
+ 	if (ret < 0)
+ 		goto out_unlock;
+ 
+-- 
+2.34.1
+
