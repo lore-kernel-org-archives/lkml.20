@@ -1,78 +1,50 @@
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF8B2749DC
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 02:29:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F6E2D7DD7;
+	Sat, 10 Oct 2026 02:29:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791599350; cv=none; b=JE8RP0deKcN+Uc4ZZAtWuBDV/sCiO6lBw6HRQK3I/g5E5BASZujjRXPeTbCG8fLofl2DzFxg+xpk+FukcYfkYJsQZdp3N3hwP3t07bs7jbMJFPZTeNJ7aU935r4dLA/tRK5LLYJrSzX9OBUx2l9gAxkJ4K4rnJdLqWaFNoRBzek=
+	t=1791599384; cv=none; b=ptr3Sh/4E9hmatFIZsYqV/zRscNrUj3x8782txpbQQH0DcROVJ+NOQE80+3b5ivwj0zP3WjDN6VEEI+CcxkaGpY3aSPRZyATkJjBB33EcWQDV/6+BMANM3fbf6doElLqqCNwl1Ef65g33Neyfg8N3oTHz5LJbhLVQsGVF0ZZHlE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791599350; c=relaxed/simple;
-	bh=Jcy2MJFiM2JTjAV8HXPccmB5E7MpEkzAs8cy45JZFKw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qUvGh7LsyoLkE2BNFard6w9W8xNP4FMNFEu8SmXqSKbitrieyLLlMI+kaSh4sgtio0VlQKOjEffgYcgrFg9EKD8zFRTCCIyuquxDPbuQ0DELmch64PSL71Bu6OkVsfnpjvetNHK3Ij+9MsplLB8ygKmYfd1YjpR6FOWl/vym2Qk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BjHXDMJ3; arc=none smtp.client-ip=209.85.221.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BjHXDMJ3"
-Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5e3e525cf4bso254010e0c.1
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 19:29:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791599347; x=1792204147; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Jcy2MJFiM2JTjAV8HXPccmB5E7MpEkzAs8cy45JZFKw=;
-        b=BjHXDMJ3g128oxC2PX22D1kwaYSevb98UW8qD8tXWQoRUr9ndaAZxR0isPDsiy10Ch
-         kmJZra21j50UKDor/jCPlDed8jSxnhxUMV3eCmXjjVlNGRpkOrM9hM7Ons9EzvO5dRjq
-         XI+voSZ9xkgVDZVKrz/qZA8ynWK2cbvQKDIXApT14zYjkoghQUMwj0OszFAQN4sf7Vfd
-         ghO50dODh2qK01RiMQNXTAyFHcCYaNsHAVA9Q7IdFPpfUdijpNOa0Aaxk6pjNRMisnO7
-         N9mGAbU7cV48O5qiD2NOiXe+10IoZyeZufnJpXVP7j/5CNq2T016otnxU3uk8r2aKN5H
-         EqZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791599348; x=1792204148;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Jcy2MJFiM2JTjAV8HXPccmB5E7MpEkzAs8cy45JZFKw=;
-        b=gE/Vfin6yFlQDL+fHt1aYk+ElFSaeqDgujNqlIjugVj0Uo98+BNpfA0Q5wRz+/IRNg
-         NogRxmIPbgn80dxLCdIbcX8AdgP6KSYq6XRm33+hROBIYkwFDChmVCVUAyAbvhP/c5yF
-         3I75V3Ay4aNNs0jyKas0Bv7/g+6xSqIW8C3UAotpPIhCsco4G9EelAbiGIYCdMWkFtLj
-         34a/yuQC9vlZaA0iIfElmNzffV7cqDPO1Re6GixrF+BleCM9J0mkKrPv8eyGD7bdxd0+
-         DZxDEHC0Uh709bohF++P4ySzS/7xb+NeYnUGMni2+mMKFY/+mmJbUKB2iyXzLo2/UgmG
-         RDEg==
-X-Forwarded-Encrypted: i=1; AKwUvByoygsfMm9IIej/r4ix9qiSqudLHYv0mEIdpHU0J82TqFzPwKCbalnQz/cY2pvHg+5rjcmKvveVDuFGxzg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL1i3n4u+QB9YwRtf3rWk9goyt6T3CLhm16Ph6l1ybQpwsXYenY
-	v5UOyA25CzRPa6HBTfTcYHyhFDPI+ixi2kdBtHfLERODnhuswUvIitBq
-X-Gm-Gg: AYBFou0DhNsIwlcvOVTBmmtUURFZVZj23sMwtV61w4dYfpBMnfTJG42l0fjOa+cpo4Q
-	Cv6mNW8L+qDfTrs5rcvYn1Asi8Ise6+WctWw5/XSH+dZ0TsZHHUqjOdkWaZIRmBb6/2a+3GFFex
-	rErbf/w7k4lxFF0fdAsU/xhCeoRXmZljtvgeRebew0Y2OI8At6LJyq44ivk10tJJu/VcehEboTs
-	4hy57S3HsBwuZZwKNsNMByzEUKFMtkVXGqGuddcTN08TyBs3tv4YmeHN1BI28w5UJo+gnJwqFhj
-	f6YxXMD+QtpkEV8MF6o99D7/1QwkO+Qe0fkti2yR5jDf1CSTComeWM2BjPGzc6HUTO5fYNcIj4H
-	tRqV+wQKParQosIZQrrRdZtTCS+Y0QKGBM+oFMw4yqiHYsVJzn0Z1Dnb7Rr2DycB2kPPhlFGQkS
-	3aR7Y/7lcD3cRAv6Gif4zXjyhW1qaSjOXV/Ndn7nvgXEpdXrE+kgRbNFmNpLxqs5A=
-X-Received: by 2002:a05:6102:50ac:b0:7b3:4199:2de2 with SMTP id ada2fe7eead31-7cb378f67b3mr1454780137.35.1791599347617;
-        Fri, 09 Oct 2026 19:29:07 -0700 (PDT)
-Received: from beelink.. ([187.13.210.57])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5e91cbf5d1fsm3021672e0c.14.2026.10.09.19.29.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 19:29:07 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: Paritosh Potukuchi <paritoshpotukuchi@gmail.com>
-Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
-	linux-usb@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	s=arc-20240116; t=1791599384; c=relaxed/simple;
+	bh=p/AACk+gvq0IVBEua9PtwypAEskG9ILUkXZdByX+c3w=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=pIqzBLp2USPjtJ2+FohhUPC0lJbCqoM3SR+aCZXuyKUbXN7Eux9raETwww3uPSgt1bObKLA5fUAU0krsPpI8dHC8mfwnxHvRz76MPdn2xhRqCGAhJ/5CvrqOgmtkyw2Tx92yGn8dFgEL/rxlaBDZGMdvbIyZDjg2mkt+8+tPvWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 6f2b81acc45211f19a56ed5b684f684d-20261010
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:637b99c3-5277-4ab6-8873-d785297fa820,IP:0,U
+	RL:0,TC:0,Content:0,EDM:-20,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-20
+X-CID-META: VersionHash:7db8b62,CLOUDID:4f0640e5a45d1dd99c8abd0177fe9ff1,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
+	9,EDM:-19|2|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:
+	0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 6f2b81acc45211f19a56ed5b684f684d-20261010
+X-User: songxiebing@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <songxiebing@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 103726592; Sat, 10 Oct 2026 10:29:35 +0800
+From: songxiebing <songxiebing@kylinos.cn>
+To: tiwai@suse.com,
+	perex@perex.cz
+Cc: linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com,
-	syzbot+debc5c305403f180c01c@syzkaller.appspotmail.com,
-	Paritosh Potukuchi <paritosh.potukuchi@amd.com>
-Subject: Re: [PATCH] usb: gadget: f_uac1: fix ac_header_desc in descriptor lists
-Date: Fri,  9 Oct 2026 23:28:56 -0300
-Message-ID: <20261010022858.3270406-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261001075808.2156188-1-paritoshpotukuchi@gmail.com>
-References: <20261001075808.2156188-1-paritoshpotukuchi@gmail.com>
+	songxiebing@kylinos.cn
+Subject: [PATCH v2] ALSA: hda: Reset response counter when a verb times out
+Date: Sat, 10 Oct 2026 10:29:32 +0800
+Message-Id: <20261010022932.407742-1-songxiebing@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261009034040.379171-1-songxiebing@kylinos.cn>
+References: <20261009034040.379171-1-songxiebing@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,30 +53,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 01, 2026 at 07:58:08AM +0000, Paritosh Potukuchi wrote:
-> Store ac_header_desc instead of &ac_header_desc in both
-> f_audio_desc and f_audio_ss_desc.
+From: Bob Song <songxiebing@kylinos.cn>
 
-This doesn't build. f_audio_desc[] and f_audio_ss_desc[] are file-scope
-arrays, so their initializers must be constant expressions.
-&ac_header_desc is an address constant and is fine; ac_header_desc reads
-the value of a mutable pointer, which is not a constant expression, so
-both changed entries fail with "initializer element is not constant".
+On some controllers the HDA link reports a verb timeout and the driver
+falls back to polling mode.  After that, every subsequent verb sent to
+that codec address keeps timing out (roughly one second per verb), while
+the hardware itself looks perfectly healthy: the RIRB write pointer keeps
+advancing, interrupts are still delivered, and verbs that carry no reply
+payload -- notably writes -- still take effect on the codec.
 
-It also touches the array that isn't the problem. f_audio_desc[] (FS/HS)
-is rebuilt entry by entry in afunc_bind() after the descriptor is
-allocated, so its static initializer never reaches the core. The entry
-that does reach the core unchanged is in f_audio_ss_desc[] (SS/SSP),
-which is never rebuilt -- that is where &ac_header_desc is handed to
-usb_copy_descriptors() and the pointer variable itself gets read as a
-descriptor header.
+The reason is that bus->rirb.cmds[addr] is incremented for every verb and
+only decremented in snd_hdac_bus_update_rirb() when a matching RIRB
+response is read, without any rollback for a response that never arrives.
+A controller that cannot fall back to the single-command mode
+(chip->fallback_to_single_cmd == 0, e.g. the ACPI platform, Tegra and CIX
+controllers) returns an error right away and never performs the bus reset
+that would reinitialize CORB/RIRB and clear the counter, so a single lost
+response leaves bus->rirb.cmds[addr] non-zero forever.  Each following
+verb then still gets one response that only brings the count back to the
+stale baseline of 1, and snd_hdac_bus_get_response() keeps timing out even
+though the codec answers normally.
 
-So the fix belongs at run time rather than in the static initializer:
-the f_audio_ss_desc[] AC-header slot needs to be set from ac_header_desc
-after build_ac_header_desc() succeeds and before
-usb_assign_descriptors(), the same way f_audio_desc[] is already built.
-(Putting ac_header_desc in the static initializer would capture NULL
-anyway, since it is only allocated in afunc_bind().)
+Handle it in the core helper snd_hdac_bus_exec_verb_unlocked(): whenever
+get_response() reports an error, reset the pending counter for the codec
+address, so a late response is simply treated as a spurious response and
+the following verbs recover.  Doing it here covers all HD-audio
+controllers instead of relying on each controller's fallback setting.
 
-Thanks,
-Aldo
+Add a small helper snd_hdac_bus_reset_response_counter() for this.
+
+Signed-off-by: Bob Song <songxiebing@kylinos.cn>
+---
+Changes in v2:
+- Move the fix from azx_rirb_get_response() in the HDA controller helper
+  into the HD-audio core (snd_hdac_bus_exec_verb_unlocked()), as suggested
+  by Takashi Iwai, so that it covers all HD-audio controllers and not only
+  the ones using the shared azx helper.
+- Add the snd_hdac_bus_reset_response_counter() helper instead of
+  open-coding the counter reset.
+
+ include/sound/hdaudio.h     |  2 ++
+ sound/hda/core/bus.c        |  6 +++++-
+ sound/hda/core/controller.c | 20 ++++++++++++++++++++
+ 3 files changed, 27 insertions(+), 1 deletion(-)
+
+diff --git a/include/sound/hdaudio.h b/include/sound/hdaudio.h
+index aa994d6e6d35..b0fbb61fa093 100644
+--- a/include/sound/hdaudio.h
++++ b/include/sound/hdaudio.h
+@@ -398,6 +398,8 @@ void snd_hdac_codec_link_down(struct hdac_device *codec);
+ int snd_hdac_bus_send_cmd(struct hdac_bus *bus, unsigned int val);
+ int snd_hdac_bus_get_response(struct hdac_bus *bus, unsigned int addr,
+ 			      unsigned int *res);
++void snd_hdac_bus_reset_response_counter(struct hdac_bus *bus,
++					 unsigned int addr);
+ int snd_hdac_bus_parse_capabilities(struct hdac_bus *bus);
+ 
+ bool snd_hdac_bus_init_chip(struct hdac_bus *bus, bool full_reset);
+diff --git a/sound/hda/core/bus.c b/sound/hda/core/bus.c
+index 81498f1e413e..ecc4b7a780a4 100644
+--- a/sound/hda/core/bus.c
++++ b/sound/hda/core/bus.c
+@@ -121,11 +121,15 @@ int snd_hdac_bus_exec_verb_unlocked(struct hdac_bus *bus, unsigned int addr,
+ 			break;
+ 		/* process pending verbs */
+ 		err = bus->ops->get_response(bus, addr, &tmp);
+-		if (err)
++		if (err) {
++			snd_hdac_bus_reset_response_counter(bus, addr);
+ 			break;
++		}
+ 	}
+ 	if (!err && res) {
+ 		err = bus->ops->get_response(bus, addr, res);
++		if (err)
++			snd_hdac_bus_reset_response_counter(bus, addr);
+ 		trace_hda_get_response(bus, addr, *res);
+ 	}
+ 	return err;
+diff --git a/sound/hda/core/controller.c b/sound/hda/core/controller.c
+index 78855ac357c6..1babc5109049 100644
+--- a/sound/hda/core/controller.c
++++ b/sound/hda/core/controller.c
+@@ -396,6 +396,26 @@ int snd_hdac_bus_get_response(struct hdac_bus *bus, unsigned int addr,
+ }
+ EXPORT_SYMBOL_GPL(snd_hdac_bus_get_response);
+ 
++/**
++ * snd_hdac_bus_reset_response_counter - reset the pending response count
++ * @bus: HD-audio core bus
++ * @addr: codec address
++ *
++ * Drop the number of commands that are still waiting for a response from
++ * the given codec address.  This is called when a verb is known to be dead,
++ * e.g. after a response timeout, so that a lost response won't leave the
++ * counter non-zero forever and block all later verbs to the same codec.
++ */
++void snd_hdac_bus_reset_response_counter(struct hdac_bus *bus, unsigned int addr)
++{
++	if (addr >= HDA_MAX_CODECS)
++		return;
++
++	guard(spinlock_irq)(&bus->reg_lock);
++	bus->rirb.cmds[addr] = 0;
++}
++EXPORT_SYMBOL_GPL(snd_hdac_bus_reset_response_counter);
++
+ #define HDAC_MAX_CAPS 10
+ /**
+  * snd_hdac_bus_parse_capabilities - parse capability structure
+-- 
+2.25.1
+
