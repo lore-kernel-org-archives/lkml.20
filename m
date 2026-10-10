@@ -1,125 +1,84 @@
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C30E01D7E5C
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 23:33:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791675231; cv=pass; b=RA7XYCPgmy+DKP2I+ZJDXg9F1XaYYJ05aVVh8YgOCKqZduY8p8Z3RWSHxvBBTpnHjXIkNXLg7SAxogcHTmt41GfoUvZJiLEg5WtMAMy3Y0k+gQMcH3PWAzkkk6UJuQDUdeBHwiZAQGUv1YB4tvhZVXCB9GujyJeAHX46aSRh9yE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791675231; c=relaxed/simple;
-	bh=8FrkyLXgZ5G0GaTgVylroaVCXzg1tp/UUKvMV38p9V8=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 234F82E1F0E
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 23:33:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791675241; cv=none; b=ebkoF24srpebzpT3SIRZZph/ymZFF6YPQ3q+M+pQsPrjGttpT+cSBt6nD8GQrFcafuOR2Cno6ZGT7x/QrnyZnXshAYIMgjcaYR6rr02Git/NAY1vGdjw3jX8951qzPUjt/mf0743trQYOFDaDJjlIm5gmEH9RxdFHaa8+F+T2HY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791675241; c=relaxed/simple;
+	bh=yfWzQB6qYGFnzcB63JH1GEVfFCx9VawYO44p1JaFqY4=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jEGiJ3qtZccRfTwxmDfYr5YEjdFGzsnguLrEZxw/INxtmRTtFiXLyzsO6DK+B2OuCer1TpHofZgy4zavKVqfLF9ZVNTLFC01xe1xWiUvHUaIoQsIheT7LS9/QqS0GRQgyMe+4ubMjt+zLtVqpomDzPHjrXOI3+raqY0FGrJHX1c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s7ryLHYz; arc=pass smtp.client-ip=209.85.167.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=WxbOT73fv4yxILUPTDj8nAuR8NCvRPjSq3rIsinVl1Xtoj20YbSo6A0OCagUW1a3+6NfEtXrFOu4FS4unegnkrdAfdbETMNTOczLznKrNP2vnZMNc/RfYLVzar0GpCF7kVv9T3k7yxiKA6OJHW3Ek28ugi3yS2iZt7p9bu+wbLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; dkim=pass (2048-bit key) header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.b=nCcL1IRK; arc=none smtp.client-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s7ryLHYz"
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5bcb3726952so570372e87.3
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 16:33:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791675228; cv=none;
-        d=google.com; s=arc-20260327;
-        b=g9XQSHKJxT2lWGySRzOJX+EHnIbCEr3FNfasfEnE2DbWg8oZCtfOq1h/N94gcbq3yb
-         MXkaIAiv3238eijuYlc+BnrvRgt0hm0A8td5ed9b8tK493+BU7FwHbvdYs8q5stpLIc8
-         k2WEvet4w9Z4ctwNFxAw4MDvs/t8Wubws7LgpC4AlXyZWx2CSaZMnZNk2BAmUV3REhIN
-         nG8lzeJl82OzvNtyfm7xfhlRYeAlRphzAX/7udhAMGPGBfVR8W0jPhK7cJ3aIofPC8cU
-         /rXjWe8fzUQ7HnTcLJ7tA6sSrWPc8O1+LEBWIcpiAQlIzA3ueNZkQGSr5E/nqlYXNu5i
-         UcDg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=8FrkyLXgZ5G0GaTgVylroaVCXzg1tp/UUKvMV38p9V8=;
-        fh=ycfbZcHWhBpzua82CcDA1/+Kp1jV7kfLOF3+gaEDjIg=;
-        b=B5B4DcvRj6op0YxeiLyjUDA5a/LbA/W4r+20bGr7VrjWhppJhRTPuyiqB2nlV9DoTe
-         dKYDEeq0I7ModJn4aHSqq1enKujHvP5MKW8WeB7VTzgBcEZ5ov7+DNZlD2LUcnRb5NWx
-         vnGH5RMI8159ISczdck4M2I7cDrIzwAyw7B2F0o30G1ZS5aBaWG/4gHxxYlBO7tKw64K
-         5EHY26n3NEYJoFGTRb2lStBSofuB2v+zCO5gdWlRbrrU7WlckWrX7ekXbD531llu1HCB
-         UvElhTqzE0/byopTpT5cU39t+K1nzF6OFP5NZItr9k+2khrhLLeYZ7H+T6K3j/78c4JG
-         tsGQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791675228; x=1792280028; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8FrkyLXgZ5G0GaTgVylroaVCXzg1tp/UUKvMV38p9V8=;
-        b=s7ryLHYzJDdUyioofoZmnKcvWkpEQw6om8V2CilIkHDWfXHS7ggq6Vklq1hwhWfyIo
-         M93PSo0K0W1GZhsPtNYdjOiopCOfO3nSOluOUdaUmhqevye9nUPbJbYaUDKvz806L7Kc
-         WAYe5xnnKun65EsqRmHoi0Bz3hfDNcQf0YwH8+OzIWbOiekYlyTYepYnyx2QSLZ95dg4
-         e1gaM+VIOx0T/TDAyLMMaTH4tzldt39+GrTFFUfdBg2QCmGc7PuV9JDz+CZGrtefFrIs
-         kpAauDPej3qwcdIj7OZeQMTw+D1oftGf/q69FLQfaWSLODVm2WD3PIyHzunUa77tP3sD
-         KfjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791675228; x=1792280028;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=8FrkyLXgZ5G0GaTgVylroaVCXzg1tp/UUKvMV38p9V8=;
-        b=vtR3bkPI8uZmiw0TqIyDd0KO9vQVG6jZA0n7oodS6NvbZ+UZa47ocY4rkdbdQKkK4n
-         A5H+R3vIBxQPdlm9VxEQYUIjOThW/8ETxER4FkYbhnKna27ZJdkFl67PLy0KYEvb+UQ8
-         TLpVtwUC+6fRPNHyNoTBp77q3J6p0IRNT6Jgr046dOmrVC/JCTMJKJ7jKfw0P7/gy6q4
-         BzUk/N8hKmDhBspCypu1gu3E26UJSqxNhR5sJAMV8XJAEVP7uS7yi3iX0bz+lmER1xgB
-         BZidEyeJmSJ4OcIJQmwlUlymOe3qaTV3MrFZLfGIvs+e06ODJ4MymRSbfrP5Rfh9l+op
-         xmFg==
-X-Forwarded-Encrypted: i=1; AKwUvByPd0+Xr5J35XRKn5b+GqIqb0VxgBHElKwmbq/XmWC6Ifa4+WREBN5HbQPf73dCAOGKW8TEiLeRv13GBVY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLdjWmZ99PzyaM7o2tYj3b3PJQKCQuVIh/YHHOLFSO9Hujlbh8W
-	OKEvj5Y8w1Sc+HZfzWwaodYQzNKRt1En6i86obyM+ACDjJ5Jt0krI8nQjhRSvrLmWnq32g4xiEE
-	U38QYch/NveCbFlK6QaxOoGAekx4HsqI=
-X-Gm-Gg: AYBFou0Lk3AS5hLczNzzgGR8krb6pMvVdQmgou8tgbYm6ZauSACG3f6BpUernh2Wq3x
-	rLEI+bv6Ai34erq1WEPt8pcvLFLtg/jFoqbkmHm8HQ+OFJz1RR0tAKHdWFb7kfYiHqd1JJdXIxc
-	+bDXwHo3UotOXU+gRujH3UpHPw5AqrIU62kIn5eyrqzJI1GL9SL4JkORMzzdxu4RgD+1CqZLdmm
-	quuD2Y9gQfpCBg4ij3CbwdKC2ai3UnbTmFx+BoXvmyplmKWgA9hctpc5YBgg3VNzT88zhZM0xr4
-	nuBSmE6Q6mlJ+uYnNeIIMp7Rbk0tJDdVeQ7RX+KkSwsk5beAi0QQPl8yjvUVxf3kqCRKISCI8vT
-	kVQ2OZ2zbXgI7+L2vXmNwSRasXvsucT/s/2KJrwtO9xCNA3xLotxOLei2mo/vHp9wdQKjEqo=
-X-Received: by 2002:a05:6512:2305:b0:5ba:418e:9913 with SMTP id
- 2adb3069b0e04-5bcde8d8363mr1735148e87.62.1791675227528; Sat, 10 Oct 2026
- 16:33:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.b="nCcL1IRK"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=outgoing.csail.mit.edu; s=test20231205; h=Content-Transfer-Encoding:
+	Content-Type:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:
+	MIME-Version:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
+	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=XUJnoizHqRjV2lEHRvMaIyHFuZqZCjH0FTOcKYJEFGU=; t=1791675240; x=1792539240; 
+	b=nCcL1IRKN53eQWqwq3FKVUqZ9DltGNAfJOvpeGkVGLNqCmJ5zd2/jaKhThrxP+YQKS82aWpcU12
+	2+R0+XGv/Bq28JES+wBzT2jrdcKL8xW/dSCWZ2vnrF9DXhR3Tnfc2zUIl/Op8oySk7X7d66cp8Z2E
+	mO4NQwYOIB4et0H0eiiJPoeT0NZxKR+IGPfGEskYO53jYXVeNK1rs6kxPU4cVnk1bB8k4zJ1+jzM/
+	lMfYc00a50xlzFCqxlSuDRaHi2sWkaiGpzEohrPBqfMAf0o56i3hMmZ8t+GikJD9iVuf8S7TMqnR4
+	6UAyPRA5WZeRIQKbPoS6AOjLJ7fKM2HElvuQ==;
+Received: from mail-dy1-f169.google.com ([74.125.82.169])
+	by outgoing2021.csail.mit.edu with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xFgZj-007q4r-0H
+	for linux-kernel@vger.kernel.org;
+	Sat, 10 Oct 2026 19:33:59 -0400
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-351767ef18cso2902127eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 16:33:58 -0700 (PDT)
+X-Gm-Message-State: AFq9FYIJDm3d01W2vx9VqYACmBGTfamCUsbNx6+ivTsx7IjYCdofAciP
+	MIYa19JG4TekwY+06JrSSVEQaQFGh/FW6sZCHBfAFUAdIGjVYQCvZPpu9YbUnaf/9irtLRbfaB/
+	if/gafvh284rjxFCxGlsjVj3/j+TZm7g=
+X-Received: by 2002:a05:701b:241a:b0:164:475f:1a07 with SMTP id
+ a92af1059eb24-16a55f1e60bmr7781779c88.1.1791675237998; Sat, 10 Oct 2026
+ 16:33:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261010144621.974850-1-linmag7@gmail.com>
-In-Reply-To: <20261010144621.974850-1-linmag7@gmail.com>
-From: Matt Turner <mattst88@gmail.com>
-Date: Sat, 10 Oct 2026 19:33:35 -0400
-X-Gm-Features: AclHuK_hLuowc_DKwILHBXlzx8Yc5uOUD_EuiTSAw_i_NewrbdFnoYRkbLyriZg
-Message-ID: <CAEdQ38H2vCGo6EHqSJwQdNNdKuMHvTKyDWrey9vxvg-K6BnGbA@mail.gmail.com>
-Subject: Re: [PATCH v4 0/2] alpha: complete the direct-mm shootdown fixes
-To: Magnus Lindholm <linmag7@gmail.com>
-Cc: richard.henderson@linaro.org, linux-kernel@vger.kernel.org, 
-	linux-alpha@vger.kernel.org
+References: <20261009051857.758182-1-nickolai@csail.mit.edu> <20261010162558.62abcd2ec967b009d0cb3bbb@linux-foundation.org>
+In-Reply-To: <20261010162558.62abcd2ec967b009d0cb3bbb@linux-foundation.org>
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Date: Sat, 10 Oct 2026 19:33:46 -0400
+X-Gmail-Original-Message-ID: <CADGQE7G-PAiJ2W8uhFO_-e9GGtEPey=drfSqLfWdxXDys3mJNg@mail.gmail.com>
+X-Gm-Features: AclHuK8NTVPdGlZpNuys5-JYOCzxE3B81f4B5GgR965MyMgqHe7NumhALMGGqqk
+Message-ID: <CADGQE7G-PAiJ2W8uhFO_-e9GGtEPey=drfSqLfWdxXDys3mJNg@mail.gmail.com>
+Subject: Re: [PATCH] lib/plist: fix plist_requeue() shortcut inserting the
+ node at the list head
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	I Hsin Cheng <richard120310@gmail.com>, Ching-Chun Huang <jserv@ccns.ncku.edu.tw>, 
+	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 10, 2026 at 16:33 +0200, Magnus Lindholm wrote:
-> This is the second of two series. Apply all eight patches of "alpha: fix
-> stale TLB translations breaking copy-on-write and writeback" v4 first,
-> then these two patches. The base-commit and prerequisite-patch-id lines
-> below describe that ordering from for-next at 33465f6ab697.
+On Sat, Oct 10, 2026 at 7:26=E2=80=AFPM Andrew Morton <akpm@linux-foundatio=
+n.org> wrote:
+> I recently queued a fix for this problem from Alex:
+>         https://lore.kernel.org/20260903222456.1881786-1-handyhandyman.ad=
+am@gmail.com
+>
+> The two patches are rather different.  Please review Alex's change and
+> and let us know of any alterations/improvements which you see.
 
-The first two prerequisite-patch-id lines (d194ee1170a4, 17df30a2da26) do
-not match what is in for-next. for-next carries the v5 versions of "load
-the MMU context when switch_mm() switches the current task" and "run
-check_mmu_context() from finish_arch_post_lock_switch()". The other six
-match, and both patches here apply unchanged on top, so this only matters
-to someone following the cover letter literally.
+This patch is equivalent; I don't see any reason to prefer my fix
+(except for the test case that might be helpful in catching
+regressions).
 
-> Fresh fork-throughput measurements and an SMP run under compaction are
-> still pending for this revision. Targeted Alpha SMP, UP and SMP with
-> compaction builds passed, as did a full ES40 CONFIG_COMPACTION=y build.
+Thanks,
 
-Thanks for being explicit about this. The current->mm test in
-ipi_flush_mm_and_page() is the one change in v4 that no run has
-exercised, and the series is in for-next already. I would like to see an
-SMP soak with CONFIG_COMPACTION=y and compaction actually triggered
-before this goes further.
-
-I went through v4 again and both tags stand. In particular I checked
-that the only caller reaching the ev5_switch_mm() store is
-context_switch(); kthread_use_mm(), sched_force_init_mm() and
-idle_task_exit() all pass current and take the __load_new_mm_context()
-branch, so the arch_spin_unlock() argument covers every publication from
-that store. Two small comments on patch 2.
+Nickolai.
