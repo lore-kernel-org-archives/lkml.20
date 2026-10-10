@@ -1,49 +1,48 @@
-Received: from e234-50.smtp-out.ap-northeast-1.amazonses.com (e234-50.smtp-out.ap-northeast-1.amazonses.com [23.251.234.50])
+Received: from e234-52.smtp-out.ap-northeast-1.amazonses.com (e234-52.smtp-out.ap-northeast-1.amazonses.com [23.251.234.52])
 	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3683C3CCA13;
-	Sat, 10 Oct 2026 09:23:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.251.234.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAD2E3DD84C;
+	Sat, 10 Oct 2026 09:23:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.251.234.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791624190; cv=none; b=gwAvGid1pg50S+GpNusTomSEJC4Rm3UAQTYx4b6IkEw0UlTEvu0qxsbNPL10l6qCTreYKrlG17QMC7FLFmMgdQnGn2CHZGhK40C+dFlfV7p+1ka+rCKZSv1rWCMPW1X2/VHETp+r7pqp9JOJdLJXDLArSJkjgwbZaeHJpWOTlFs=
+	t=1791624197; cv=none; b=Tfuc+M5sf52z3utjWpiNspUffLwhJGE3smmJOFImyYwxCqYWhPQrN1TpQSp0i/8scOTRHQO4QQsejWww0SFf42XP8TWGyxnfpN0acSBMxhz6zDlXM1/Y3q6gDnJyrlC6Uxx8r6Aw7Ec0bKn6QiVl2tUyViOpZi23sV6YgXMdao0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791624190; c=relaxed/simple;
-	bh=WcS12FKrdlFSIcQ4KMS899yzlWjA/PYmc+UZ1jpVTGI=;
+	s=arc-20240116; t=1791624197; c=relaxed/simple;
+	bh=35UXQOKsSUyzUmRm4QXI64G7KT0RcraqiIbU8K3I6e8=;
 	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Date:
-	 MIME-Version:Content-Type; b=HKz6/JeWxziZsRz1/mrS+TdGLTaEhswPHJFuPGpUa0EZ/pMT9buszZ+o98UdAC8iqMxoh9JAzA2ZGeTyFgTccmPcdszfM9TRYtY6XeZxsHfynMVR1o99OYx892UF6y24wPIc1P1aJahJTY0daciGf2MefzQGCXOfrsa59ys+eAI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz; spf=pass smtp.mailfrom=send.fqwqf.xyz; dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b=5qbYEBiy; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=UougfNFs; arc=none smtp.client-ip=23.251.234.50
+	 MIME-Version:Content-Type; b=PyaIT3vOBcSVd1th3vc7hCnDWY5rKwhNus0sYyDggLpOROFQozelI6jmTs+fTED0Ci+LwbMhzyq8WFeVepWxcX1J55jDBnjhdQCB63/QMOpYTdX3Txlf1iXyvgXWxoeafNQ7HcoHrItJ6MCm6oLgXxp2cy1zy8/TdRyLEGxKsrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz; spf=pass smtp.mailfrom=send.fqwqf.xyz; dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b=HFgyheHQ; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=qaFA8rNc; arc=none smtp.client-ip=23.251.234.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.fqwqf.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b="5qbYEBiy";
-	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="UougfNFs"
+	dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b="HFgyheHQ";
+	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="qaFA8rNc"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
-	d=fqwqf.xyz; t=1791624187;
+	d=fqwqf.xyz; t=1791624193;
 	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
-	bh=WcS12FKrdlFSIcQ4KMS899yzlWjA/PYmc+UZ1jpVTGI=;
-	b=5qbYEBiyVliEgQFK7I6IpeLVNTtuGD618t+PCKtCbNoROAL3wbiHM/2gm9DQ9SgN
-	Gl3/GO7kExFmdqjtTlms8VqTBrAshvDFdxHXCpu6HbPlxNHzTUbggDb/lwaiZQinfRq
-	a7WtB1URc8CHZJ+4eljMFEXCmQOOlk7v5cM2uKus=
+	bh=35UXQOKsSUyzUmRm4QXI64G7KT0RcraqiIbU8K3I6e8=;
+	b=HFgyheHQf/u8ixsbfD5H0wq9/H0tYn39TNGD21NqTT5AkKePhV1n4VhQjwH0F+1b
+	ZMjTRgIaTlHGDCuMVY4X7b6aejIENJhxnyN9rCpR+MlqEkErtbYQPieCJzwe4U+o5VY
+	LhWqJg3vh67qyas9VhKJuomhvARTF7ES4qNpo7PA=
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1791624187;
+	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1791624193;
 	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
-	bh=WcS12FKrdlFSIcQ4KMS899yzlWjA/PYmc+UZ1jpVTGI=;
-	b=UougfNFsGGOE4snXWUt40twCe8I+ibGsrKly3sUPOykBinGptBK44lc8fJfo2XH8
-	zu2wHoQrGezDtCYSZ9Ax5h2aHWM/pcX+rTNv86bAv3F4cXxiGQpBHCvlDWqat5nhVN6
-	ZgYK0vjF5Or/Ou+e34AvrzqMyn39gQIt9r9htzGo=
-In-Reply-To: <20261010092257.768685-1-fqwqf@fqwqf.xyz>
-References: <20261010092257.768685-1-fqwqf@fqwqf.xyz>
+	bh=35UXQOKsSUyzUmRm4QXI64G7KT0RcraqiIbU8K3I6e8=;
+	b=qaFA8rNcRUzvPj/hVtOXa+88q8kmmI3x47kv4+DJ6jgX/IOc4K8e0TVJjqT6Mr91
+	2y+w2AiXf6gs5k9R8jJK1k5rUk7lth0ayCTqxoFB4NmKAK2F0ufk5mu024qvVqPzGhN
+	URXsrk5tBFTfNNnOXFUsWsVDdGGwLKKGVzV9oFpU=
+In-Reply-To: <20260918221832.323751-2-pm@petermarshall.ca>
+References: <20260918221832.323751-2-pm@petermarshall.ca>
 X-Mailer: git-send-email 2.53.0
 From: fQwQf <fqwqf@fqwqf.xyz>
-To: sakari.ailus@linux.intel.com, benjamin.mugnier@foss.st.com, 
-	sylvain.petinot@foss.st.com
-Cc: mchehab@kernel.org, hverkuil@kernel.org, linux-media@vger.kernel.org, 
+To: Peter Marshall <pm@petermarshall.ca>
+Cc: benjamin.mugnier@foss.st.com, sakari.ailus@linux.intel.com, 
+	sylvain.petinot@foss.st.com, linux-media@vger.kernel.org, 
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] media: i2c: vd55g1: stop streaming after an
- exposure read error
-Message-ID: <010601a1251f8ead-dacd1a65-e2ee-4d6e-9a5a-383c35b0631d-000000@ap-northeast-1.amazonses.com>
+Subject: [PATCH] media: i2c: vd55g1: correct VD55G0 register access widths
+Message-ID: <010601a1251fa584-0a1ee46a-7513-47e2-8591-3d203253ebc6-000000@ap-northeast-1.amazonses.com>
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 10 Oct 2026 09:23:07 +0000
+Date: Sat, 10 Oct 2026 09:23:13 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,54 +51,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Feedback-ID: :1.ap-northeast-1.6BGMgStFQE7EJYq5syaCRzdneEHVt/+DAaGDrqUmDs9QLO4/SllUBZ3fHvnZ8rcAX/3IjUyTRgi5JFZsWrikFHwlPJqCkqEMlxDFM4JXh+ycxH/J5Tudg5bGdz6h4331g1L1EFsGR8kuYNfGLsrxz4Nym4YXoPcZxeVkrHry4Zx21n8vEVLEjc7s+OCM8PU9:1.ap-northeast-1.DTXDV/V9GPBWozcllKo8innbNB2qs2O/3F8XZSzd9ZM=:AmazonSES
-X-SES-Outgoing: 2026.10.10-23.251.234.50
+X-SES-Outgoing: 2026.10.10-23.251.234.52
 
-Stream-off saves exposure settings for the next automatic-exposure cold
-start. If that read fails, its error is passed to the subsequent CCI
-operations, which skip accesses when the error accumulator is nonzero.
-The sensor stop command is therefore never issued, although the runtime
-PM reference is released.
+The VD55G0 frame length at 0x0458 and cold-start coarse exposure at
+0x042e are 16-bit registers. The current 32-bit writes also overwrite
+the vertical start at 0x045a and cold-start analogue gain at 0x0430,
+respectively. Use 16-bit accesses to preserve those adjacent registers.
 
-Log the exposure snapshot failure separately and=
- clear the accumulator
-before stopping the sensor. Treat the optional =
-snapshot failure as a
-warning: a successful stop returns success, while a =
-stop failure is
-returned to the caller. Completing stream shutdown takes =
-precedence
-over saving exposure settings for the next start.
+The applied analogue gain at 0x0066 is an 8-bit register. Reading it
+as 16 bits also includes the next byte in the reported gain value.
+Use the access widths from the ST reference driver for all three.
 
-Signed-off-by: Jizhou Tong <fqwqf@fqwqf.xyz>
+Link: https://github.com/STMicroelectronics/vd55g0-linux-driver/blob/a05627=
+b0f6d8775aa54b6fa306e91f425f2cbf9e/vd55g0.c
+Signed-off-by: Jizhou Tong =
+<fqwqf@fqwqf.xyz>
 ---
-Fault-injection harness:
-https://gist.github.com/fQwQf/60bd12627e06b10a2fc159e545f85dae/7b21a7d3a1b6=
-76a0e4cdaba06168ede09a2949e3
+Incremental fix for your VD55G0 support series:
+https://lore.kernel.org/all/20260918221832.323751-2-pm@petermarshall.ca/
 
- drivers/media/i2c/vd55g1.c | 5 +++++
- 1 file changed, 5 insertions(+)
+The same register definitions are still present in your
+vd55g0-camera-support-v2-9 branch at 4a04accd5f68.
+
+Validation: ARM64 W=3D1 driver-object build; descriptor checks against the
+ST reference driver and emulated adjacent-register/gain-read tests.
+IR capture has been used on SL7 with this fix in the downstream stack.
+
+ drivers/media/i2c/vd55g1.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 =
+deletions(-)
 
 diff --git a/drivers/media/i2c/vd55g1.c =
 b/drivers/media/i2c/vd55g1.c
-index 78e4aebfdd3b24b867ea4d077dc1b676c4a595da=
-..c0839593460a55d4ef91dfc85e0b9b476fbb34d7 100644
---- =
-a/drivers/media/i2c/vd55g1.c
+index 1a93e0fde5..b20f086f25 100644
+--- a/drivers/media/i2c/vd55g1.c
 +++ b/drivers/media/i2c/vd55g1.c
-@@ -1190,6 +1190,11 @@ static int vd55g1_disable_streams(struct v4l2_subdev=
- *sd,
-=20
- 	/* Retrieve Expo cluster to enable coldstart of AE */
- 	ret =3D vd55g1_read_expo_cluster(sensor);
-+	if (ret)
-+		dev_warn(sensor->dev, "Failed to save exposure: %d\n", ret);
-+
-+	/* A failed exposure read must not prevent the stop command. */
-+	ret =3D 0;
-=20
- 	vd55g1_write(sensor, VD55G1_REG_STREAMING, =
-VD55G1_STREAMING_STOP_STREAM,
- 		     &ret);
+@@ -182,10 +182,10 @@ static const int vd55g0_reg_map[REG_MAX_INDEX] =3D {
+ 	[REG_MANUAL_DIGITAL_GAIN_CH2] =3D CCI_REG16_LE(0x0454),
+ 	[REG_MANUAL_DIGITAL_GAIN_CH3] =3D CCI_REG16_LE(0x0456),
+ 	[REG_APPLIED_COARSE_EXPOSURE] =3D CCI_REG16_LE(0x0064),
+-	[REG_APPLIED_ANALOG_GAIN] =3D CCI_REG16_LE(0x0066),
++	[REG_APPLIED_ANALOG_GAIN] =3D CCI_REG8(0x0066),
+ 	=
+[REG_APPLIED_DIGITAL_GAIN] =3D CCI_REG16_LE(0x0068),
+ 	[REG_AE_FORCE_COLDSTART] =3D CCI_REG8(0x042c),
+-	[REG_AE_COLDSTART_COARSE=
+_EXPOSURE] =3D CCI_REG32_LE(0x042e),
++	[REG_AE_COLDSTART_COARSE_EXPOSURE] =
+=3D CCI_REG16_LE(0x042e),
+ 	[REG_NEXT_CTX] =3D CCI_REG16_LE(0x0478),
+ 	[REG_EXPOSURE_MAX_COARSE] =3D CCI_REG16_LE(0x096c),
+ 	[REG_CTX_REPEAT_COUNT_CTX0] =3D CCI_REG16_LE(0x0476),
+@@ -194,7 +194,7 @@ static const int vd55g0_reg_map[REG_MAX_INDEX] =3D {
+ 	/* Context properties */
+ 	[REG_CTX_STRIDE] =3D 0x30,
+ 	[REG_CTX_EXP_MODE] =3D CCI_REG8(0x044c),
+-	[REG_CTX_FRAME_LENGTH] =3D =
+CCI_REG32_LE(0x0458),
++	[REG_CTX_FRAME_LENGTH] =3D CCI_REG16_LE(0x0458),
+ 	[REG_CTX_X_START] =3D CCI_REG16_LE(0x045e),
+ 	[REG_CTX_X_END] =3D =
+CCI_REG16_LE(0x0460),
+ 	[REG_CTX_Y_START] =3D CCI_REG16_LE(0x0462),
 --=20
 2.53.0
 
