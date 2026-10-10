@@ -1,212 +1,128 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98AD937CD33
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 22:12:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6507737DAAD
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 22:14:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.44
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791670371; cv=pass; b=HgwvLIAXKDbX4HFWpPhzSjeLx/PpYMe1dhibaIUYZv1IetCON894OfyWY34csLA9Z7awKSL7lAimPSsmo1jIYyeU1UdULHteojp1Fd+JJ/0pBdOzQQKd9Aj18SBH2qqQIsbxfEsbsoXPhfmw28IYxmDsviNRglYvId0/KOc+Rko=
+	t=1791670455; cv=pass; b=Tl6fMC3fj81om8LhSkVh8QZ5qwf9SFsjb23j9CjuREl8TlM2Gjz2Xhp3JAFqm1gsoSps8bcE3f1U6vdaB2I5MFXBIh92aQr3UjY0aw+sgiQtgRYPNIIKKDmBH2Df0Rb+parXH+qOyhmOqZp8f2XNu4p33nG43AZS5s6ErKRA/84=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791670371; c=relaxed/simple;
-	bh=Xo2ytTYRV+4VyZ/TTMQIOOJseVL7WvyAFkzn/p1Vm/o=;
+	s=arc-20240116; t=1791670455; c=relaxed/simple;
+	bh=CBxiUJ5zCN5x3bulAKsga+lnv9YLj+R4wsUCpY3zfcA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MLRrOQSgshHnNrP6mHbKp7rQUFOLbwVKmjphJTf2wRZ0qduhHFrGW9xDBRWouKcPAGnYQp3GpNuxOy1OOx6tTO4dXh5FsTtBz26BVlesmcvOKfUabbOQATcLKZhPN9EGux7gFWRgc96h1MeYQJxAkMIjYr5BjrMtscllVuQERlw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=BTcreY6s; arc=pass smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	 To:Cc:Content-Type; b=G5lUTp8L/n7avbIMHhModkRSxaEw+ZIC2AYpAYuP5Jzp09FkqapTnxqOcwKW1g4mwC4FxOVx58qgjTe0QM2OtJ0T1QaEU8QT2mYtJPJlxNz3BcdTtSSQL9JFlhffzOcKF2jJDUM4X5W2+aqhfI2cu2alxDkTX5IuxjCJ6k9Z3Zc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=LMJDMsK3; arc=pass smtp.client-ip=74.125.224.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="BTcreY6s"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4956869750eso6189995e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 15:12:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791670367; cv=none;
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="LMJDMsK3"
+Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-677dbe051d4so650853d50.0
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 15:14:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791670453; cv=none;
         d=google.com; s=arc-20260327;
-        b=Ii3/cTHNvP2SxUXnWP8mQVOG9t3c351frPmLblB9x1V4HgJr5nfw3vdRV+uEzOOOF7
-         tJjwbP0/8DpuXIICx3VhXdZTnXIalgz0Jk3rfvnMTPfU5mv6l7Gz8lmRhU16RLodWCa7
-         kauBVLxbzs3qsso19eNnZ6FMPTRgzaqyUQMCYLAKtCPMjKv0XaDRCCqg5gTUBJSlKQt5
-         HPOYhEDHEcA1P2oW8j9I5o7eJYDsKQj2JJGv2HI24AMr9syd0WOSwwmnDs9eTTCyV/LO
-         4GWqKkOmKgqBVgzH+9ndSE/MrOwjCNZzLFEoMYmSAPHrfcjc/HnrN9ltXta3xKA9glOw
-         Xuyw==
+        b=Ln1//Wgt+QNSLIyavr0VW0tQM5zkCteTUce19/60K9p10gefC1Xxdvdmf9oDw/1yZS
+         2GQZG9wWnOr45wysddD4ID4/yEa9/9f6KowirQqj10PogWhVLoK5Hj7ukxorcxyZHdUo
+         QPmcijZgROMcySJcp5SsN9NM8VOPMttKSakhHvsYZTowbE4+5j4OVO98SVtyQlBe5h5P
+         8iWHyGV4JOkkpLjvqHZ8t8m1obAiehlu7+1/qB12PPwZ17ZtNU1xbD2u7WB//hdx3KIE
+         zL1fgFDwKgVfQEHhgzlVYcQOU9mcGtqcTjftIC2FWVxCAf04ZQ7R7P8RN4MQr3MUvmvS
+         tmlw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=H+VN5tKtCiqk2vj42K2JLyib5t34/kw/B6UEZE9FdAo=;
-        fh=oMZG8ecoNWPixGBGik86wTr3JrIqtSp0CPclkNdbVrY=;
-        b=oPMhYmXsu0rZV+yd6CB0tebMuo1x5F7dLlhv86WBgpfEqurkOMbCyI3cyFqnhEED7d
-         myLsGYT92uWRayaix+eg+3YOCpO1BmU9ejexiSAuJlLobv7/Ar6JLljWfO9OhcCk7BRt
-         iA+Wprf11mXanm394JBEEXIXFyMYHzxrLBEIs4YvZoIch24zz+2+gCAhqTJ1b6Hb8vd7
-         VdfYx0WUL1wycE1I7IKxCJgV0Tc9Sgf33jhFSNuumu32I0h6fOQ0aOLxHkzhtlox8TXY
-         zzNeQsoD+S+LFJfbFyh4pgso1KR+jLwbi+EGdwns4kojjSI8U1UHLOYFiR5h6CxsNlJY
-         eDkw==;
+        bh=zVgQ1vCIGkE4+/FMfnHlA+BYK3hVjeRnxeI7/qrvVC0=;
+        fh=3k3lPUmX9TKDT8ldMbZWAggauuJcOv3tkJnUEF/v8M0=;
+        b=GhFcjd9RE22tVRxlxLHFMbR1n5CNmAoQbwI4eBaM2ceT4wKn1anMBIX8x++rBoywVM
+         VemrGwRhOardqOCmLu/hpJSmQoAFxEQDeKziIsjcTc+w160jjmdAQW7D0NK0gPjzBvuY
+         chOcoyRyJCZMEZ61aZ3H70xTvLcX5T/lM1wyWnS8tVWznucxtjAqWSI7kKNb/3kblIBY
+         fPZEfMwFDujFdPV8hKuxKz51G9M1RBTfut3QVbiPdpoQpvvA3kYkWOF4HtH347JJWeMP
+         o+J7Qrh2UzNm3+zADdTqWSWnbt4dcu9WF+9AhU64TiyC3IV8OxGpyK2Isxmd06TcWLhV
+         tGhg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1791670367; x=1792275167; darn=vger.kernel.org;
+        d=googlemail.com; s=20251104; t=1791670453; x=1792275253; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=H+VN5tKtCiqk2vj42K2JLyib5t34/kw/B6UEZE9FdAo=;
-        b=BTcreY6sPFbxcNaec3sXkjbSp18pbasJi1imwwGGMJnqc5JVuGsom0mjdNksv/9iiL
-         nw7xvwGXrFAlJwu1IxscaHLZYMR0ODZiWcB1dHHwcCs2RN+kjTAkXUhzu3LWRIlLffLQ
-         pmeqpdeS7vIHSTTXVIL3MR3+Sbtn52YnR27x9CSWqvKVYXEdlE+xECO4SovesjJvSwN6
-         tfAu6y7KGw8yI38IefpH483TvH0WSzYZtTI4bzOLHR5abnqBQ4PwW72mxkmHxIzLsw95
-         3r75Ag6Bey7lWXniP01V2dEepRfVtE/O0tojOJB15t8POOMHUvw6hAqW9srIWdBxnykP
-         pSTQ==
+        bh=zVgQ1vCIGkE4+/FMfnHlA+BYK3hVjeRnxeI7/qrvVC0=;
+        b=LMJDMsK3242JizWdooZ9/eHhzyuX3Ai2xdG4ZnIknTQuUyKJuboJyIIhzPlolYIjZm
+         I0UXMG2rmCsMMMAyzXwgLbUvjuH4Ei9dUQFr7T0vdnRv2xwzZXZlw+xx0YFyYPh0iGqo
+         vePTnFi++VpqeVW1y+l64pdfF4t5R/nC0Ry92eyL3BHP9ULB9hyGCCgyiwgXQm6Q9KSN
+         99NgUEMW3ke8b+ZaN0apnZPoEtO3pS3VItx6Rchy4KUCD9OWO2oUduq+3OEnA1vHqFxa
+         AvgDgZ9ULBHgtnB52ovIxiNuTVWfSKJ+bFeqpSmTsZqD8nyknnIcVKfzmAx3fllieLBP
+         XvLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791670367; x=1792275167;
+        d=1e100.net; s=20260707; t=1791670453; x=1792275253;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=H+VN5tKtCiqk2vj42K2JLyib5t34/kw/B6UEZE9FdAo=;
-        b=uRNOQvH02+d2UggsysgMG5ENszZ/8yABZYH6LEazpFMoFyHY1g6csg1NciahEclWfz
-         /3ysAppqADPUgunbdxoulvp3+pgBGbfs2/zo/pzadeHNmM4o7xeRFEu7yg8lRDgIL3OO
-         ti3E15zviPw5RsCkMUoHdgwI6QcB8L03wLl6oxdMbBSy/MZ0nHTJXxP3xlzf7DkPUbdT
-         dnCg8713Ac0x+RNarpT5/FUKyU/aRksU21hF4BCpdfoY84h5SgZvVgOYWUk6FCsyqbU7
-         y4Ez/1VAqkNH2588HwRIaHVgl4RcbMS6Je2Olo4xp7wuBqPL9maBqdNw5Xca9dh3Ic7L
-         pONw==
-X-Forwarded-Encrypted: i=1; AKwUvBwhS2k6odoUpgtkgCwlf0F1vFuCVsi5jPsJhWB+DjCweYFzRmrIW2cSEvSRiU+6iilfRTUZd64CoI4M4ho=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIzEcH0RCqjEpKGFDvyxjxSU6X/uXD+sldeROhidAPwNR6sqDc5
-	ED9jms4cDSGpAecXChGZiuI31/mEgoQgNfBE6URUEJ3RDYNKRkH4lfPmhfVEm56iQ0pwXtRszLV
-	ytZWCpL/TnIHF5HmhpAX42CpiSbJC0vbjAz7M7qLFfQ==
-X-Gm-Gg: AYBFou2r1C8N7R6rx9NFx2sjPEy0J+et6EgI3qcSuFKFahdEiNoG1Xtnl2wSz+sas9y
-	/O/xM5MgQp3yZHBu1ShazYJNwxAkputd5kETRVk9j48D34L6gA5ykkNhUgBCwrTp5YgkZuulLP0
-	qU+4JViPOWXOb+yi2bWEXux/905Gtznh9IRNc6SaKiZtmTeVmH6BU5V/kFH5f9VtvH7rym8/8c5
-	ibj3dm9/DmyO9U3OsUx9VoR/TA5Dlu2uMMRlkT/T7EfrUGPHquRFqkS+U06wWLC0x7jvlWT/OCV
-	eOS3uM+DRupkEz25F2yXz5Zkcy//ozRRfPUxH6s1NNYvLvXl/BNod6GT8KGF0WUMyMQCYRwM/U4
-	idzI1B7rxIuerCHFWRTnI0y/V+F3ZHk90CUqPcD0JFI7veA==
-X-Received: by 2002:a05:600c:3b1a:b0:49c:fa20:cbfd with SMTP id
- 5b1f17b1804b1-4a18e4b91f8mr99455835e9.20.1791670366714; Sat, 10 Oct 2026
- 15:12:46 -0700 (PDT)
+        bh=zVgQ1vCIGkE4+/FMfnHlA+BYK3hVjeRnxeI7/qrvVC0=;
+        b=q5CzngKk/QPdAU4H1TCu+PUFklPt6fmShX/7RgQg5SIikKpCJVjhHU236cHhClROkp
+         2dk8Pzslwh4cpqOmAaZ21R9sH66taTcaFA7sIhBCOWUkXHAy7Nn8U9nEp6zzEL31/obK
+         FbMmQe4nPPvgyO78HCT7HURM6B85buQaYNUsoEahkTJK2owLZkOJG9PFxg82fYn4jG0w
+         4MM7ABua7peKogdYMB0zXTW6YW4ij7jzRYpdi2UPtYaH1XgNIIAuBJnm2BVokYpUNXUl
+         ninSNK9Ua1RxjCQDDI2B1Mbdcuk0XVIPq/HAqkiQjQ6KzMNTNq1OaZmIQXWocd4kuU3O
+         D8pg==
+X-Forwarded-Encrypted: i=1; AKwUvBxqfeq4zaiZcjeFENfNLXBTI7C0Lh+4UOVmRyMUsz/BT2Xy1XZygpH4Nr6pCqgl2JG6Lv6WEJJAjkOAUqU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIAW1TLP7n9paHNZHm86SxBn6BbmzDWvfdfa8U+96372uOGDDjj
+	ntLyYvv2rcno3tPKXKEQLK7KKULRDh2iksZZo1yFxmmrEG/Z/aD5RVvdxmGMb1UEGIWe0W8oEMr
+	CkBlT3d2nz24jyVl5/QsHr9EkGEZhIPA=
+X-Gm-Gg: AYBFou1zC8fN1mTQSP4pNteADu7bDVQzesnMh2Y9IoR5W5SWu+piCqglz+vwKFQV42c
+	OxNIMFSWSdBIC/LliyhrhDZPH63kJqgiY9yyZYSrOks9XF/DOPMdXaOiG1JNofvY3ILmRLIq3X3
+	DEnfaV5qkE09WMF/4VhNJbXAXZT+mIjt9Qbn94FRzELD9lwOuKlg/IsW9BNmFNmgcrE6qchoS4o
+	B7TTy9yHbQOwoNuRBe48zAhl2Q0vztRypyPHdoAwFteZkTU3hlukBOoMAScNFk+XD9X0ZMuz983
+	NAjepJicPTHm1RecRxLLJIJQ8HcyOlK1UT/P81ZxHZNh2YyyaS9cEdk8uumMfvDD7Cyqeh2FgcG
+	qzCEQMAqfWgSD
+X-Received: by 2002:a05:690e:803:20b0:676:9240:d69c with SMTP id
+ 956f58d0204a3-67936275489mr1125092d50.91.1791670453112; Sat, 10 Oct 2026
+ 15:14:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008192048.98833-1-artem@trailofbits.com> <askqkXhBORyXr-v9@mit.edu>
-In-Reply-To: <askqkXhBORyXr-v9@mit.edu>
-From: Artem Dinaburg <artem@trailofbits.com>
-Date: Sat, 10 Oct 2026 18:12:10 -0400
-X-Gm-Features: AclHuK9w-SV7bZxUS95KqilGQ0lekR2ZEntvX6s-OMlV71Zq2btNf8sGNIbe5Hw
-Message-ID: <CAP3zxaC92rwQNCpuK_tXR9THQOecVoZwxg8ZUgYt=0iKiMsuxg@mail.gmail.com>
-Subject: Re: [PATCH 6.6.y 0/2] jbd2: backport CVE-2026-89566, CVE-2026-89567
-To: Theodore Tso <tytso@mit.edu>
-Cc: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Sasha Levin <sashal@kernel.org>, Max Kellermann <max.kellermann@ionos.com>, 
-	Zhang Yi <yi.zhang@huawei.com>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
-	linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261010105900.247342-1-tanure@linux.com> <20261010105900.247342-3-tanure@linux.com>
+In-Reply-To: <20261010105900.247342-3-tanure@linux.com>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Sun, 11 Oct 2026 00:14:02 +0200
+X-Gm-Features: AclHuK8gB-tkTlpSxcPTOLR3EaTkCZhRdAGo-iA2p3YlqPx-9RYK-GDsrGLBxVo
+Message-ID: <CAFBinCA7rPu0obv+2aadxqkzMYKmd1+DLJgRe6y418v0QrwSSg@mail.gmail.com>
+Subject: Re: [PATCH v3 2/8] dt-bindings: net: amlogic,meson-dwmac: add amlogic,t7-dwmac
+To: Lucas Tanure <tanure@linux.com>
+Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Jerome Brunet <jbrunet@baylibre.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Ted,
+Hi Lucas,
 
-Thanks for pointing us to xfstests and gce-xfstests. We had not
-included this regression coverage in our validation, and we appreciate
-you explaining both the testing approach and the stable-rc review
-process.
+On Sat, Oct 10, 2026 at 12:59=E2=80=AFPM Lucas Tanure <tanure@linux.com> wr=
+ote:
+[...]
+> +        # The TX delay is a quarter of the RGMII clock period per step,
+> +        # which is 2ns at 1Gbit/s.
+> +        tx-internal-delay-ps:
+> +          enum: [0, 2000, 4000, 6000]
+> +          default: 0
+Is 0 a valid value? Let's say we have:
+    phy-mode =3D "rgmii-id";
+    tx-internal-delay-ps =3D <0>
+    rx-internal-delay-ps =3D <0>;
+According to patch 8 this means: MAC is responsible for adding the
+delays - but it doesn't add any delays.
+I'm not sure if this patch (removing 0 from the enum) or patch 8 need updat=
+ing.
 
-We are going to start including filesystem regression testing to our
-backport checks, and started your recommended ext4/all, XFS/4k and
-Btrfs/4k auto matrix locally under QEMU/KVM.
 
-Our initial unpatched/patched runs showed some differences in both
-directions. We cannot yet attribute those to the series, so we have
-paused the patched comparison and are running three complete
-iterations on the same unpatched baseline to assess repeatability.
-
-We will follow up once we have firmer results.
-
-Thanks,
-Artem Dinaburg
-
-On Fri, Oct 9, 2026 at 2:30=E2=80=AFPM Theodore Tso <tytso@mit.edu> wrote:
->
-> On Thu, Oct 08, 2026 at 03:20:44PM -0500, Artem Dinaburg wrote:
-> > Hi Greg, Sasha, and maintainers,
-> >
-> > I'm working through the smaller CVE backports still missing from 6.6.y.
-> > These 2 upstream changes belong together for CVE-2026-89566,
-> > CVE-2026-89567. They must be applied in this order because the later ch=
-ange
-> > depends on or completes the earlier one.
->
-> Note that some of the 6.1 and 6.6 LTS backports in the past have
-> caused ext4 test regressions.  Since I don't have the time to track
-> down said ext4 regressiions (the last one took a week of my time,
-> because bisects are painful, and even after I bisected it down to the
-> guilty commit, figuring out out to safely revert it also took a lot of
-> time), I've largely given up on those LTS releases.
->
-> In addition, many corporate security folks are advising that it's
-> Simply Not Safe to use an LTS as old as 6.6, because even if you are
-> trying to address the 6.6 ext4 CVE's, there are plenty of other CVE's
-> that don't necessarily get backported, leaving those older LTS kernels
-> vulnerable.  But if you do have a real business need to use 6.6 LTS,
-> would you be interested in taking over managing the 6.6 ext4 stable
-> backports?
->
-> It's a lot easier to revert ext4 patches if the regressions are noted
-> promptly, and so the easist way to do this would be to use
-> gce-xfstests[1].   I can send you the results of running:
->
->     gce-xfstests ltm -c ext4/all,xfs/4k,btrfs/4k -g auto --repo stable-rc=
-.git --watch linux-6.6.y
->
-> ... or you can run it yourself if you like.
->
-> [1] https://thunk.org/gce-xfstests
-> [2] https://github.com/tytso/xfstests-bld/tree/master/Documentation/gce-x=
-fstests.md
->
-> If you see failures in the latest stable-rc.git which are not in
-> previous test runs, then promply send a note (within 48 hours) to the
-> stable maintainers asking them to drop all of the ext4 and jbd2
-> patches that were sent to the latest stable-rc.  You can then spend
-> time, at your leisure, figuring out which of the ext4/jbd2 patches
-> caused the regressions, and then either fix them up or skip them and
-> send the rest to the stable maintainers.
->
-> If you see test regressions which *also* impact the xfs and btrfs
-> trees, then it's likely that the bug is in the vfs and mm backported
-> patches, so there won't be a need to request that the ext4 patches get
-> dropped from the stable-rc --- but if there is a test regression
-> impacting ext4, xfs, and btrfs, and you want to use 6.6 in production,
-> this might still be an issue for your company.
->
-> > The complete series is already present in 6.12.y, 6.18.y, and 7.2.y.
-> > These fixes also affect 6.1.y, which will need a separate backport; thi=
-s
-> > series is only for 6.6.y.
-> >
-> > Could you please consider this series for 6.6.y?
->
-> If you haven't tried running xfstests to verify that your patches
-> don't cause any regressions, I strongly recommend it.  I won't NAK the
-> patches if you haven't, but that's because in my personal opinion, I
-> strongly recommend **against** using 6.1 and 6.6, and I've given up
-> trying to provide any ext4 support for 6.1 and 6.6 --- I just don't
-> have the time.  I barely have the time to pay attention to 6.12 and
-> 6.18 LTS kernels, and those are only best efforts on my part.
->
-> Cheers,
->
->                                                 - Ted
->
-> P.S.  And if anyone would like to volunteer to be the ext4 stable
-> maintainers for 6.12 and 6.18 (and 7.3 or 7.4 when the next LTS is
-> declared) they would have my undying gratitude.  :-) And the newer LTS
-> kerenls should be much less work than the older LTS kernels, since the
-> chances for regressions (and the work involved in trying to track down
-> the regressions) are much less.
->
-> P.P.S.  It's because of the risk of regressions than XFS has opted out
-> from LTS backports.  A few years back, a few companies (including my
-> own) contributed engineering resources to test XFS patches and only
-> sending patches that were verified to not cause regressions to the LTS
-> kernels.  Unfortunately, all of the companies decided it wasn't worth
-> the SWE costs, and so the XFS stable backports project collapsed.  I
-> am happy to help provide the VM resources for a future XFS stable
-> backports effort, since the VM costs are relatively modest.  It's the
-> SWE time which is significant burden, whether it's coming out of
-> company funded time, or out of volunteer time late at night or on
-> weekends....
+Best regards,
+Martin
