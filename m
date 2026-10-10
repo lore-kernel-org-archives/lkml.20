@@ -1,129 +1,219 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F1043785D
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 09:15:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 261AD1FBC8C
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 09:16:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791623730; cv=none; b=Q3reEbA7VuRffSzCJNYwznXhS3B58VhwPDH3tIUH5Tv0dhzUeKosxhoD59qMrdOPvjOfSkMjh8YPn1G8HlD7Sr9HcJFL0njqf4AUd7NXbTneNZrZWtHU0FgqKTfoZUbOT0ySvzLxOtrhy9YLqnjfFS4PDGJ2Ob/Om6Y2zj0ThbE=
+	t=1791623814; cv=none; b=jSUTzQ1h1Rr5jntmtIR9bxnCbcbVEacvCdTNBBJ0ZWR6CPq/2ply9x+xFGdyzsrv8OFrIfkT8TscPJVbiyuNCkQGHK2NU23WFhdtxPereJQn81VSgag+AD+mFjWi0xmMBHXFwdiPdjqY+aeYEGfQM0gJGxsaPm5ja2+LPy8mEE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791623730; c=relaxed/simple;
-	bh=pMBstT9/Xhd7MIwl1B19jAdAsHKIbsnScIIiwKmVBc8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=egY4ye4VYUtg9NJ64yWezBjrCEZki99MTUh6T9VGDt1/j3q+mUNZMrzCIkoC6u7DMnifAmuLvuU0bOUagw6lg8qbUbvuhBv4sIm5HRBwnxo37UjZoesrKuhZDLdLFI5AiLr57HviOEePgAtL+xhpzqYAUFK9yf1wn6B/1Fxa9kg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gTD3CkkT; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791623814; c=relaxed/simple;
+	bh=26f9vS9ZqT4zzaBLJMhopaILCcL/YIkV08ebrTJF/vc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ESSt+TZ5/ziZ45pW2PsdMKNRT6OY5+D2p0FyJBtLVLuRL+lTBAgP2DZCy/zWNVHEh8Os125WWg7dg2ZkwWCH+Im0Sf0a8aC5eJLvy+eAwbU4Gc5Lgk5PJJSwAzoToYQM0jtg4GdC5uvuOB5dxy6hdf7HXOeFwIyuCAVU9OFhLLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=LlQh2E4z; arc=none smtp.client-ip=209.85.208.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gTD3CkkT"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a02753c04fso2487815e9.3
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 02:15:28 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="LlQh2E4z"
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6af9a90e4bbso496760a12.0
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 02:16:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791623727; x=1792228527; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ORCsaPkxBXAIwv8e2nVnJgx67e0gWCZdbaFEBMdQuEI=;
-        b=gTD3CkkTXhmUCku4Aet0xs78MwE85y4wAtcB2ASSVV3f4Qy3hbtcZrt1tyCgCqVHjn
-         MgZzzyRiC2IGNb4ltSH3qvpo19RAIgmKL/y9UXFHVX1yM3lHbFfg5E1juiqKrc7XsoLX
-         sT2YUanD4ghCa4ZsCe17bn6Dd+6d8XsfDemhCFYjCkEoIo/G0z7p/WHAkVcTkYeIxuts
-         7BVkdmI7AaE5ReK5+r1NLhsZQvMRYZd5cR01YSeNhJ+9dZf8cZL92Rw7EA7w8BOr9Jyj
-         NxtAI06DUM3rDzBdXwcEn9S6z+vQS7155CVRBjWcPw4m32PbeFncObMIOHix+xW3hEPQ
-         vUWw==
+        d=chromium.org; s=google; t=1791623811; x=1792228611; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7T5vK42CKAAeKGAbtMXBKyH6AjLD+rScPsMFR15QqdY=;
+        b=LlQh2E4zO+GcRJfnSd7BrztCa+glWR2QF0yCPKfp0D+n2+kuI4MuMa/5ctATT9bmRu
+         jNw1a/34U9AeF0WYbUcxZwTLh/Ms2sHTdJFzndHHrNLogUosONMduVP9ZDN39ZJc+8Q2
+         8jvwVpZIEs31iSb76hLW9PKyEdxgmyLz35r5w=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791623727; x=1792228527;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ORCsaPkxBXAIwv8e2nVnJgx67e0gWCZdbaFEBMdQuEI=;
-        b=gHNxk0uMX+447vpht4KZLOGTCv3lMt6hkRCW6jb2WrrU2yPeyyT5aiQ+kuJMsK6Kp7
-         cTRvJTiKAap53rrfwTYdwGsP7H8UbsEQ9CY6wMDELs3zoeBwChFACrFZ3elOedh9/R5E
-         rzpiiv9n4y3ZkYHLyq5MZlcgH+RxUyck/BWM5yPqpLhu+69h28iYfMDWD+U7uk/kjh1r
-         TVxLq7GRQmAyILAuR4azQbxPjPnnjMGaVQfMSWJLCwpsDgu1GsaHBM1XXF4GqDw/jdAO
-         rbieprLPh3oWcIVd1obqGCPw+Ik31/ufDXRXzasr3MdR+O5qzh7J/RWtfKHZOr71WXta
-         VRIA==
-X-Forwarded-Encrypted: i=1; AKwUvBxdj78Y0Wc0EnpGYRX4VXWQdG/6I7IYh2Ys2DUvGiyvmUFF9INIR0Z2oyq+03ZQnV6FLsfzEZGAxrG/r8M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKl35RZtCqjPIYAvnLRk6sGohHHzz6AOsLLh9Fct0A9DOdVmvwu
-	EL4AcH5sWLcRFruAzBuZ+yYO1dIrl/OGiwR5FLVit35aLMXpmDlxosNk
-X-Gm-Gg: AYBFou246HKCVVRgeczAzGiMHObaxc7EPDlBHKSe7GPaccL7/KzWubb5382puHF3cQ/
-	4YuOy04Y32InKs6dKcPpUOyuv6OWq8vke+TuAxtDWIDCFP0sEel/nwh2oi8HkamjG4PvAowFC2J
-	PPXZGaZveZAqBc3nM+g6koMe+nLrrn1Ho5JDfjyOp/pi71EaEwrzz952eOm4az2IEOMoy2BTSnD
-	vAMpHpiRDx7PsR9Z8E2mV7rOI2vTOXzwHIOG4wRqPy1TeQWTllWRf1BpETJDvCy4PkSqOmrYgn5
-	HUW7qeHiIcno7tM4XAUW30rw5hGwZtgyHtXHjVuA0aNZtQTT6C6TsaI2cwcb7Pvd/6pFUE8SABj
-	eLPVp8R/vxplO6lf5Pf0TgS5GjP2eHobZUkM95rkgcdho3GxUfEo0xq1/Gl4jtg28UOfkXa8Pw1
-	z/W6GPYBI7sQzzv0ReSNHxj9t4QSWuRgfVxSTGakHUrU8nVBEXJnyKGEBOZC73s0/ndtEmUZUvb
-	3N0P8xIz0OGOYLUnkvQVQU7Nfc=
-X-Received: by 2002:a05:600c:4747:b0:4a1:80d8:aed0 with SMTP id 5b1f17b1804b1-4a18e4a9862mr85422695e9.15.1791623726602;
-        Sat, 10 Oct 2026 02:15:26 -0700 (PDT)
-Received: from ekulyk (78-80-42-240.customers.tmcz.cz. [78.80.42.240])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18c198134sm118773235e9.15.2026.10.10.02.15.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 02:15:26 -0700 (PDT)
-From: Eduard Kulyk <kulikeduard89@gmail.com>
-To: j@metarealtyinc.ca
-Cc: Ramshouriesh R <rshouriesh@gmail.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Bingbu Cao <bingbu.cao@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] media: i2c: hm1092: Add ACPI enumeration and the 19.2 MHz configuration
-Date: Sat, 10 Oct 2026 11:15:24 +0200
-Message-ID: <20261010091524.1390879-1-kulikeduard89@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <b0d32a3b82eca233652f878b7ca91e4dc2d8e863.1791608336.git.j@metarealtyinc.ca>
-References: <cover.1791608336.git.j@metarealtyinc.ca> <b0d32a3b82eca233652f878b7ca91e4dc2d8e863.1791608336.git.j@metarealtyinc.ca>
+        d=1e100.net; s=20260707; t=1791623811; x=1792228611;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7T5vK42CKAAeKGAbtMXBKyH6AjLD+rScPsMFR15QqdY=;
+        b=vzK8ufWN38nr95RUZ3dYKn9A/1ZEsM/cCbOhlmze3pGJ7Vm30bYzQFa+We4baq6Yuk
+         dLBI0pHVg/18CyY6Shkg7TOXBW6hMTavqCiZ5CPNiH8K0roERB8xnSaOD/GBwxrB9BgY
+         AqF9/XL9pUnYDQcnVdpv2Rl/89WXBSsHH3HSmqiz/HGx9n1Ukubm0D2mdZgYsKX4mv0h
+         kTm0g3U+zZGm/K/fX8I1TgFiyda5becgQC5o7sHCH/4JeLwmR3pgj9QFvy5mwgais4VZ
+         qPnfHwvuelVLiRsO5MzOjMaPm4bplPKFof8+668R6CXWTnqhWC/te8+oSjfP3FmqfP0n
+         aB5w==
+X-Forwarded-Encrypted: i=1; AKwUvByDC6Mcur1s/6biV/6QnwvBxn50vnt/JZkKgkJvOmfE1s/xsTkcbac8ndP5tqY4kzO+MG8kvHoBjtLReMo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJg6xPt9oAV16ricQgwSX2Z0e1Ed8ixdJbdTRWEU2Mgknl981wL
+	AoQklB52yPXNSptxDZnvDzDEOOIJu10hVgHHFON+nmqK4w1i+jH+JCRrn4gmk/WxKoLhZyin5gp
+	3nQ8=
+X-Gm-Gg: AYBFou38coVqqXDWt9VPe7hCqBKGHIg2FPShOtunAw4bGDPlYnWKEPq1xK4OSViR87N
+	irpP7K3wEYcqyUpVGlwYw3wREh5BvaPRyZcWVjnDtJfBwtg0Q0GrmcOyKZKdTMoIYMdpV/jO53/
+	55IzoW1G7M24Qkxz/JzuWuGNvvVcWPvE1cF7yQZnRY+lMbgrty2cT3ljStl3zp6pYjgYjCNmIiU
+	6Wby2jtHqcR8uo6HaKHfT13zp7YTWJhxE5USV4YGGHv8CuHOIogJrd4r/flzuewDKccTy8LQcIl
+	VuRtv0RSsVQi89RYMubwWeOn2S3c9UvPlNF/TWpsNTHvUPh2S+KOHglM6QK6cAi0Jf3CROvxEz7
+	gzX2XmdYDp3wUTIJMatAbzaBAK+mJHEQjetXNyDrEQPwvQlfb2f6HPWgGncmvQf8xPwU7z245hJ
+	lQM7OoKAvqMf16TDF1mRHSYVH9YhTcBG+ZlAqMLFrvhVz7Q8vEICFqJycIsp5B9T6O8XullC/Nz
+	qYHDeWWAMve9DRDllqvcVRBtVJQXVFORtveU6NCou4vKky8
+X-Received: by 2002:a17:907:e0d8:b0:c33:62c0:d8c5 with SMTP id a640c23a62f3a-c3362c1566cmr7962166b.12.1791623811178;
+        Sat, 10 Oct 2026 02:16:51 -0700 (PDT)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com. [209.85.128.49])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31b8c4b407sm183143966b.0.2026.10.10.02.16.49
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 10 Oct 2026 02:16:49 -0700 (PDT)
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a180fbeef5so4408315e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 02:16:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByJ965irv7ZBsxgiGN/TttKEdzKnpf2M1sMqlef5qffHgFOfJdgu3fJ7PnO/SGlFrXFHwQIubamFs7IuK8=@vger.kernel.org
+X-Received: by 2002:a05:600c:19c8:b0:4a1:7bae:d80a with SMTP id
+ 5b1f17b1804b1-4a18e47ad49mr89287935e9.9.1791623808250; Sat, 10 Oct 2026
+ 02:16:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260714222338.2965707-1-dianders@chromium.org>
+ <CAD=FV=X-fAJp=EG_yTAg+QQgNYRCt25947oHGHZuq-FEyirK0g@mail.gmail.com>
+ <CABb+yY2CH5A1ixfX9czgtEwsP95FN-2JVzN_wmRDRNsSuZY5PQ@mail.gmail.com>
+ <CAD=FV=XiguzS7nH1sE=BkXt+7G6-hhqyz5u3sjc4zAA9H7KqJg@mail.gmail.com>
+ <CABb+yY2_AvcnaTDmpL8gP4H2_Pp3HddrtNr5gvL4GCW2DPPvOw@mail.gmail.com>
+ <CAD=FV=VzJCb1nz+q5EZ33G5U6KZM_tXi8snL=KbUM3C5yymG4g@mail.gmail.com>
+ <CABb+yY2omp+g13UgZfiKWLux9J1P+=ed0U3F8AhS0iQK=kpN8w@mail.gmail.com>
+ <CAD=FV=WA2wFbk0=qFE0aZs9E5jg-EXzcrkPCk6VOMhbDroOQCw@mail.gmail.com>
+ <CABb+yY0W+244qaXqHdfEq9XFuQXBez7PVcDNrKooV9cFS8TS_Q@mail.gmail.com>
+ <CAD=FV=VW2h1zWDYWQ6LknX3O+3=EY665jde35Ly+UQzuscXy=Q@mail.gmail.com>
+ <CABb+yY2Cc9YGKb0ej7CZ_LQLw-iMQOtcAwLPier+X2ej1fWcJQ@mail.gmail.com>
+ <CAD=FV=U1DAuDN4eR_hZ2bbGoGkgkszDLPUDiosxh1aKg7Y1T=A@mail.gmail.com>
+ <CABb+yY3n3QmxTPOyAuHz9JkOKbhRqKok+24THc_JfdxwzROWDw@mail.gmail.com>
+ <CAD=FV=XGka_QqGt5iK53vU704ZsvCrXUWvJ9ewo1=TCiepfz-g@mail.gmail.com>
+ <b1f088eb-7c77-4079-9b05-20729fcfd612@kernel.org> <CAD=FV=VSSEZykDpu48XVwDzNWKAhZjsPm3PNweTqeHv_DxiykQ@mail.gmail.com>
+ <CABb+yY0yaXZX7=0L8Tt5P4u-GTX=unmgBMePoNTVQ5BHKzLM3g@mail.gmail.com>
+In-Reply-To: <CABb+yY0yaXZX7=0L8Tt5P4u-GTX=unmgBMePoNTVQ5BHKzLM3g@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Sat, 10 Oct 2026 02:16:35 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=WUw70BjakAWsbtJ-qnGGXB7vo8x7G939_jeyGKagVWyg@mail.gmail.com>
+X-Gm-Features: AclHuK_QaW90rrHDoR3w9K6oMhgGdn--oULAhnah8n8uC4OdTYJMsL3yEKTzFlM
+Message-ID: <CAD=FV=WUw70BjakAWsbtJ-qnGGXB7vo8x7G939_jeyGKagVWyg@mail.gmail.com>
+Subject: Re: [PATCH 7/7] mailbox: goog-mba: Introduce the goog-mba mailbox driver
+To: Jassi Brar <jassisinghbrar@gmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Saravana Kannan <saravanak@kernel.org>, Joonwon Kang <joonwonkang@google.com>, 
+	Subhash Jadavani <sjadavani@google.com>, Tudor Ambarus <tudor.ambarus@linaro.org>, 
+	Lucas Wei <lucaswei@google.com>, Brian Norris <briannorris@chromium.org>, 
+	Peter Griffin <peter.griffin@linaro.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-samsung-soc@vger.kernel.org, 
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Jake,
+Hi,
 
-Tested v6 plus this patch on a Dell Latitude 7350 (Meteor Lake, IPU6),
-kernel 7.2.3, with an out-of-tree ipu-bridge that has the HIMX1092
-entry. Patch 2 is not needed there, IPU6 already has Y10.
+On Fri, Oct 9, 2026 at 8:43=E2=80=AFAM Jassi Brar <jassisinghbrar@gmail.com=
+> wrote:
+>
+> Hi Doug,
+>
+> On Fri, Oct 9, 2026 at 3:42=E2=80=AFAM Doug Anderson <dianders@chromium.o=
+rg> wrote:
+> > > >
+> > > >   for (i =3D 0; i < mbox->num_chans; i++) {
+> > > >     if (!mbox->chans[i].cl)
+> > > >       return &mbox->chans[i];
+> > > >   }
+> > > >
+> > > >   return ERR_PTR(-EBUSY);
+> > > > }
+> > > > ```
+> > > >
+> > > > Then the client loops around and requests the same channel over and
+> > > > over again until it gets -EBUSY? Like:
+> > > >
+> > > > ```C
+> > > > for (i =3D 0; i < FIFO_MAX; i++) {
+> > > >   client
+> > > >   chan[i] =3D mbox_request_channel(client[i], TX_CHAN);
+> > > >   if (IS_ERR(chan[i]) && PTR_ERR(chan[i]) =3D=3D -EBUSY)
+> > > >     break;
+> > > > }
+> > > > fifo_depth =3D i;
+> > > > ```
+> > > >
+> > > > I _guess_ that works, but it still feels like a bit of a hack to me=
+.
+> > > > You said you were worried about people abusing the "has_queue" API.
+> > > > The above feels like it's abusing the "fw_xlate" API, turning it fr=
+om
+> > > > something that is normally a "lookup" into an allocator function.
+> > > >
+> > > > +Rob, Saravana, and devicetree@vger.kernel.org. DT folks: is the ab=
+ove
+> > > > something that looks right to you?
+> > >
+> > > There is no allocation in your xlate code above, so this is not that
+> > > terrible as we talked on LPC.
+> > >
+> > > >
+> > > >
+> > > > I researched whether other upstream drivers use of_xlate() /
+> > > > fw_xlate() as an "allocator" like this. I did find "exynos-mailbox,=
+"
+> > > > which appears to be doing something similar. However, upon deeper
+> > > > digging it seems like "exynos-mailbox" isn't using this dynamic
+> > > > allocation for any compelling reason. It looks like, really,
+> > > > "exynos-mailbox" should just be returning one channel. The client
+> > > > (exynos-acpm) could just use the same channel for everything since:
+> > > > * It actually gets the _real_ channel ID out of the data.
+> > > > * It doesn't care about txdone.
+> > > > * All it does is ring a doorbell and there's no queueing.
+> > > >
+> > > >
+> > > > In any case, if using fw_xlate() as an allocator is truly the only =
+way
+> > > > to proceed, I'll finish my prototype and send a v2, but I'm still
+> > >
+> > > Why fw_xlate() would be an allocator? Can you extend your code to sho=
+w that?
+> > >
+> > > I think doing any allocation in xlate() is calls is fundamentally wro=
+ng.
+> > > These should not modify the state of the device, so no allocations, n=
+o
+> > > device_link_add() etc.
+> >
+> > It's not _calling_ an allocator, it _is_ an allocator. It is walking
+> > through the array of channels and returning the first free one. Then
+> > that free channel is "allocated" to the client.
+> >
+> You mean _assigned_.
+> Allocation means when there are some resources reserved that must be
+> released at some point later .... which is what the mailbox controller
+> driver does in probe() and remove().
+> In xlate() the platform just decides which channel to assign to the
+> incoming request -- some platforms take the hint from device-tree,
+> your platform has flexibility and can simply assign the first free
+> found.
 
-The sensor binds as hm1092 i2c-HIMX1092:00 and streams Y10 648x368
-(1344 bytes per line) through IPU6 CSI2 4 at link frequency 180480000.
+In this case, mbox_request_channel() plus the fw_xlate() seem to me to
+act like an allocator. There is a pool of channels and each call
+allocates one. mbox_release_channel() releases the channel. This is in
+contrast to normal cases where fw_xlate() always returns the same
+channel. Sure, I guess in that case it still "allocates" that one
+slot, but that feels more like someone requesting/reserving a channel
+rather than allocating the next free channel.
 
-- v4l2-compliance 1.32.0 on the subdev: 46 tests, 0 failures,
-  0 warnings
-- 300 frames at 30.11 fps, 20 start/stop cycles without errors
-- runtime PM: suspended when idle, active while streaming
-- streams again after s2idle suspend/resume
-- exposure and analogue gain behave as expected (analogue gain
-  0/32/64/128/255 gives mean levels 16/31/45/73/113)
-- IR flood LED (INT3472) off/on/off at exposure 700: mean levels
-  9/117/9, clean IR image with the LED on
-- the crop rectangle reads (0,0)/1294x734 against bounds
-  (8,8)/1280x720, as you described
+...but I guess the root of the problem is that it just seems
+unexpected to me that fw_xlate() is taking the same input "fw_node"
+and then is returning different mailboxes.
 
-One issue, which I think comes from v6 rather than this patch:
-digital_gain is advertised as 256..4095, but only the low 10 bits
-seem to take effect. At exposure 100:
+If this is what everyone wants then I agree that it can work. I just
+want to confirm since it doesn't feel very clean to me.
 
-  256  -> 15     1024 -> 8 (black frame)
-  512  -> 22     1280 -> 15
-  768  -> 29     2048 -> 8 (black frame)
-  1023 -> 36     4095 -> 35
 
-So 1024 behaves like 0 and 1280 like 256. Perhaps the maximum should
-be 0x3ff, but I don't have the datasheet to confirm.
+> I will try to explain in detail your questions in your last post, but
+> I am still not convinced you need to modify the api.
 
-Thanks a lot for your work on this. If you need anything else tested on
-this machine, feel free to contact me.
+Sure, anything you can do to clarify is appreciated! I'd love to be
+able to send a v2 and move forward, but I don't want to do so while
+things are still unresolved.
 
-Tested-by: Eduard Kulyk <kulikeduard89@gmail.com> # Dell Latitude 7350 (IPU6)
-
-Regards,
-Eduard
+-Doug
