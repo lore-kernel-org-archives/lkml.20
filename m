@@ -1,138 +1,149 @@
-Received: from mail-oi2-f10.google.com (mail-oi2-f10.google.com [74.125.231.202])
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AB3D36B90E
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:11:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.202
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791619874; cv=none; b=DwVERLhfii35jCyBzeaYgr/4uf23+CHYY1IeTzGWGNXpk6gFGxae8dMF/rbgrNq3eULcRKcwYJmQXhyR0vhp1/EospK0WpS4LS/AqZizy34OnzRWaqM+NxcvQr20pypOn5zjBxsinXV5gIgRdjsRJgaFF7qJsibW+/0ibKgcEps=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791619874; c=relaxed/simple;
-	bh=2VHfLRIfl//L6nxU1RLK9B1KHUYa2JWZ2ZmYu7rexyw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tklmZ69CKhqofTDJD0iXtKdJUDjWpDPve/DedznMd3XatwW8H5dBX/Igl38Ibe4waSu8feyxnvZ534rx4uoN74YfW9WuKYqjsMbXat+1FHTBkraLCaC1O/n37P958OTePpHrkeqooMPIq4iYlvp2kLGp3uZ7X90rFEENQsb4Ieg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jb3fzCN+; arc=none smtp.client-ip=74.125.231.202
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95B7936F8E5
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:11:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791619881; cv=pass; b=EjLH7NmVNU+cQnAoalMz25yk4mrw+wjnyOXRhq/gfMryxEBes+MwyXx60TosPtjXkxWXcLa2TLPddvan/WVKuO056a0k6rrmerZTtLdzQBKdaO5DhZYtuuI7OALl+u2jcvmqqez7JGSFhvYMgySO+7ucANqSCXWiipw67Yw+sYU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791619881; c=relaxed/simple;
+	bh=3Y/fF6+yWSNp7n7WrJyW9ic7hhZX15xNpxqUx5k4mho=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FdUOTuYE45ahh62puYyU0b9IaRpR6CoQ/+HYlwRIoE64kphPt9FyQdTMGJN76PKY/6fSnCFgMwDbvKMYspv5S+wVvm+Yzte4L2Psd6s6GSQHOVx/2QI5bcmJp20etA9TwZHS+hUYau0eOSgehtzEfuVf37/lbDNfnLdmFWnVPlQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NgKg0Osd; arc=pass smtp.client-ip=209.85.218.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jb3fzCN+"
-Received: by mail-oi2-f10.google.com with SMTP id 5614622812f47-4fbb45fdb46so247340b6e.0
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 01:11:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NgKg0Osd"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c31988fc977so86571266b.2
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 01:11:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791619878; cv=none;
+        d=google.com; s=arc-20260327;
+        b=X927Dz7a9+BhkqUr+lvxiM1KVyUWFqhq8vzoleXbNvNpr1ya2XAi957OWFIeiLQ66A
+         9WWSGTMynw0wE9EfEgBJIGkf3vBpXsAn3ffk7XDcJ9K7feu/NOsompkrDvz0twKYnmiw
+         FedcC1XQtKq5bUqsEhcZ4AoYrdykRYwOJrkI05PcDvbwPKxG79hKEFIuiq3tLkfBSVfu
+         vARJBlkreBNpb57RZf+xhwCoBRWQ4bfxaIhcnydw2WfDSTwZ/yl37WumOLZPL1PZV5sp
+         eX0VR9MQFttroowg13vT+79gO/J/wkUnwYJb5xjQIK4U1ylq1KMu5Oi+M7iOgTWptMki
+         1yjw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=3Y/fF6+yWSNp7n7WrJyW9ic7hhZX15xNpxqUx5k4mho=;
+        fh=e8damtCHh3IWc8Jnn5KwLyNNtH7qw7GbZePI766EPOE=;
+        b=oTKRppwqE6YAXQFhGHLyz71axUuVHsfzrdCV1Lk9SCGpYZZ1h95sL884CR+0NsC4Xu
+         MSMkSrJnhWLuj7IwF7DcZsm9LCQmgoJjsctvTfC8tApDmnyqItTMf5jNwukRL++Sctfa
+         7seT5KiA5Ols65Gh5MonXVOWCuPU8rQf+7+Xorj1T4ChlTMs8AfML/8BlcSWlPZw2PWj
+         e4eLWiuw8cQoJNdstyN9WiGM2ZLkna1Uf17myt7dGB7VomOlRIcFUZqRvd0hrPIyEsT+
+         hpFcJVxM8pd1+JLsbUDvmyzA/duarwY3t/5aIHbnLV7BikLfDvw5LmTGWsSKpiQiGuxA
+         w2aQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791619870; x=1792224670; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z2ha4Gusp7rfS5qI3QalwE3wIPhVWRGc9MjXkvhjipc=;
-        b=Jb3fzCN+1u67WcTkWNcAS5Xt7W/MizVEZBG/JWcrNs6QLexxMmLMkEvISO2YHHGAdv
-         ws0Rp6GIOcMUf63lnQ0rW8IhrgXKupdwgYztAMS92h9jP6sr2+p+TTK9JJHhRzHW6Zrg
-         Zi5BmFFkIZ/yJ40qfo2bkicmLhXb44k6s4rjQ6q5A3ig7aR+MrnkY5/WSnSOzAJ/kH+J
-         r7DtEaa0ae9GLSQ473kwxmOR99wcKzubCsb2pnE0OSISa1XMK1+alcj6oLsn37R5SnM0
-         6U6HphuawkaVbswyy5a8CdSXXKhuoz3/gLmwEDMglk8Qp3Fb5crrdJD+5vJl9Q4NDSv4
-         ZZJQ==
+        d=gmail.com; s=20251104; t=1791619878; x=1792224678; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3Y/fF6+yWSNp7n7WrJyW9ic7hhZX15xNpxqUx5k4mho=;
+        b=NgKg0OsdU/Za3gEPX3nXLxLPAOaH+SfzqxcRzsVU18uNYiDCWR1QnMU+xloBEpCIxV
+         jU0PRb0KvDF9OdduOT+qKILQZhhu1IYBLkyPOmmVCaB7rFX1mbP+7nOgBFonLGdsbIQH
+         USaA3JSnk7cK4ANbASBr0LvZcGA2Z6X7aqomFySr9SS1c00PviIF8DSK/Ygfv998sk4n
+         1bfdlBbwdpHE/8Vaw4ZS/P6A4vY5VujyM1npVj1KeLEDLhkJs+pMDrkBS6lqQsq5vqcZ
+         VbvaIgoZhfCZ+JlfMouPpK25GB+Jy6lPP+XTTtOJI7avI/R+FvqPyaKhm9j+E3i8D/vL
+         UdMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791619870; x=1792224670;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Z2ha4Gusp7rfS5qI3QalwE3wIPhVWRGc9MjXkvhjipc=;
-        b=zn2fzsR5yGLyvoQjQd6ex4swr5fT5yChFkCSKnPcOP8fbHUcr5EI50Lhrt6aSSMKUP
-         V5GtGpx9tYgHHgTB3l9L1tKCZwDtUvCY+IeKOGTTHOMsrni2wETft1MbqayLC6P64wCT
-         l5Zgo1wmJ/bLNhXf36WHB4XwtPRjpP7kZyUOnkhGYpq0wVwC2UM+7iJjL9Nw9H9fy1DU
-         MMPzTDqQN7fYma4B2k+7bjOw8XaUWL7gXCFM4V3VgixisBa8ZGpMJlJ1RX3w3tAP0Szo
-         wn2yd/6enDxRZddyUE7sdfs2/B1qHgTgpb8AfJfWTM/BtQQcRh7ytULyJtSFQNUQyR7x
-         bC/g==
-X-Forwarded-Encrypted: i=1; AKwUvBwS6yx58pHiRdkH+mMig/+XoBMJt94yFkgn1Jie57sZ+bLzwt5Q20LCBWHdmuAt15mZ2xWj9tkv5MJJE0A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI/Jth0zKNyqHk3FpEdsmDqBIQ+D+lrOF/46KfZ9aF37qDqqgI9
-	a4niXLEO81GRHgHIPAXR56pSll/hFqOwK6RuivhFmtLXq9jU/shb1yXC
-X-Gm-Gg: AYBFou2cXnL5V23Y/eBu+/3YVZ6KGFzUMsPO8oC/f7YOIcq9yxuwInH9/xsXasbkYzF
-	J6FngS+FFeq1hsM/sYo8q/TCmTTdEEoZqQ/w4mTmxAk8v/gMYV7ZRQcHLIow+RdrD+RA8VrYd5R
-	eWp42i0n1HR0mizGkjze8LYdvRL2XZYhV+rS+co+j8pGSNwVtjSSI8lL5S+wSqNQEAVEfF5FaZo
-	9tWNwusqduoN0dFrUKxgSBkr2q/WAtxACOwRgWHUNruwgwYlF8LCxDtiEsu7GPoCh8mJtRKDwNc
-	tzUI59k3lrabjahVmCMKAeShPX8Y6F1TTIqUqYaGe7ewWra8AWF28Zn1F3UpvgS2bmmc1MF+gbV
-	IrkM1U9sDTIkJ6sYIOf85YGsn9jXnmFJwhHtayX6zzuRXhYR9bBuOCFQZVCtpQuz8BLaP+AMv7C
-	S01SziShfzp3id4/I/kLo7oxTEUFvlbtcDjfLTBvSKV3Q44irC/PwYGuuyCqIpMaqBOcDsKdBmr
-	4ryt31y9HgUMoPxDD8PFK2gruaHgAqMuQWyb3bnpMci9nz1
-X-Received: by 2002:a05:6808:f8c:b0:4c1:f40e:b697 with SMTP id 5614622812f47-50c56bf8ed8mr3581941b6e.38.1791619870362;
-        Sat, 10 Oct 2026 01:11:10 -0700 (PDT)
-Received: from localhost.localdomain ([14.116.239.38])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-50c16755587sm4665356b6e.5.2026.10.10.01.11.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 01:11:08 -0700 (PDT)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: David Airlie <airlied@redhat.com>,
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Chia-I Wu <olvaffe@gmail.com>,
-	Gurchetan Singh <gurchetansingh@chromium.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Simona Vetter <simona@ffwll.ch>,
-	Junrui Luo <moonafterrain@outlook.com>
-Cc: dri-devel@lists.freedesktop.org,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/virtio: reject mappable HOST3D blobs without host-visible memory
-Date: Sat, 10 Oct 2026 16:10:59 +0800
-Message-ID: <20261010081059.3096312-1-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.43.7
+        d=1e100.net; s=20260707; t=1791619878; x=1792224678;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3Y/fF6+yWSNp7n7WrJyW9ic7hhZX15xNpxqUx5k4mho=;
+        b=LfgzrZqIFERU4ifPxOWbk2Yk/zKWwkZMhKixr6bsIRmcSsKVRBHCngDwZCIkvl1u5g
+         +nus5C/3ddRkQ6IJdeZ/1TKbtouHqJuImc6O9KSGmjqiXHAiuJ1q5WrNDNY3SMILGrbM
+         ENPJBRYCHlaUMRu+Gv4HKOctVHr6XzPeIWktQEXmeVz0Hc+er78D/e0sLF8FFRYfhbeG
+         /lM5UYgFioQVq1w1pZs6mxZ+ldHPdGUKYUloI35TizVjHexCe0+afTMzzvXIZHmFvgfE
+         ZqLyUj7neY/J3W2wKS3Nvk6Uxo3CY3R4zcU3TqrvE+SRbVbimLgtLf8vh67+5GVGCqXC
+         T/yA==
+X-Forwarded-Encrypted: i=1; AKwUvByYFUJPwUm8iRu/7KBa8viRgSVQrPP4MvOrIUlsl8fyNJKDrNyE+3Ly/hav07QySurRM3XK3fcE5sm4Ph4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIHHI0DyXAzBpw8vAEo62YAiRQ0Ekire0Lb1a+SnnIedshyaL3m
+	7IHTfZaOetWpPZbb6RWxrGKWlt0H5881zWgBtxP4iG1PIgMBEywzadXkCZ/l3gUQlDivP3BvMCK
+	7mMuOaXvKyCGfp3OLd6FdjHQ/mnYIqTw+ol/mjdOmRg==
+X-Gm-Gg: AYBFou0Q3j4c9zOK8ND/9Fh+CYdm9crJWray2vSwBkZPUmugDBWOVzzpS531umDEvKa
+	ShGJ4VRk9FUYTwukD0sg7RoQ0rUQt9eYzR0uEJe8Ug0pFT/USKzvbHNOkhuh1kzNaWtPFDPcOid
+	td04lR0LvERXuaJAelsuMWofFtZTnvjEVey93YDQaVRV6N9Lz4f6tY1kp5CZ1zTPa/KwEJXJxpJ
+	TYJ2gVizZlZ+qofQYwlFWx8Pnq4FhOqmiG2i2HegxPyilKxkyGi7sWfV6wUvdJ8TBoUvCsb5v3M
+	Faxzoy2SjSmH+yg7ZHdtM8YRdKZGd4+rW4wMsNX5/1OIflv/oWRyWekaf94LlkFZCMff/N9FwzV
+	Un425C6XGE7IU3WqTzT6jKvm1yIrnPdMnaG5YhdzxdPek8zcE3hsA6XOFhOD3VuB3C8cUyqGxE1
+	7W35jmnm4Phfd/bNMJMnPzTsHbaWkHytfLBXugH/k=
+X-Received: by 2002:a17:907:d0b:b0:c2a:f439:f028 with SMTP id
+ a640c23a62f3a-c31aa062933mr436250066b.24.1791619877631; Sat, 10 Oct 2026
+ 01:11:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261008-aspeed-vuart-v1-1-d2be17c99cd7@phil.gs>
+ <CAHp75VdiO9tPX2vLqsX2-omNvs-YjkWWD-HOiqyDSzpJrrZ_5w@mail.gmail.com> <60996F21-A12C-4FCC-9D5E-9D188A4ADBEA@phil.gs>
+In-Reply-To: <60996F21-A12C-4FCC-9D5E-9D188A4ADBEA@phil.gs>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Sat, 10 Oct 2026 11:10:41 +0300
+X-Gm-Features: AclHuK-dIO95E4MKMHhfgONiaVmppwEdlr0lng2Exqtg0ehIlNhsjdfo0t3-x7w
+Message-ID: <CAHp75VdmMwXRQFKLG8c4yAsVA5=eFZA3jagtMGb-qVswcQ88Wg@mail.gmail.com>
+Subject: Re: [PATCH] serial: 8250_pci: Add support for ASPEED BMC VUARTs over PCIe
+To: Phil Rosenthal <phil@phil.gs>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Corey Minyard <corey@minyard.net>, 
+	"openipmi-developer@lists.sourceforge.net" <openipmi-developer@lists.sourceforge.net>, 
+	Andy Shevchenko <andy@kernel.org>, Joel Stanley <joel@jms.id.au>, 
+	Andrew Jeffery <andrew@codeconstruct.com.au>, Ryan Chen <ryan_chen@aspeedtech.com>, 
+	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>, Ninad Palsule <ninad@linux.ibm.com>, 
+	Andrew Lunn <andrew@lunn.ch>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-virtio_gpu_resource_create_blob_ioctl() -> verify_blob() validates
-blob flags, memory type, context and alignment, but never checks
-VIRTGPU_BLOB_FLAG_USE_MAPPABLE against vgdev->has_host_visible.
+On Fri, Oct 9, 2026 at 4:45=E2=80=AFPM Phil Rosenthal <phil@phil.gs> wrote:
+> > On Oct 9, 2026, at 4:57=E2=80=AFAM, Andy Shevchenko <andy.shevchenko@gm=
+ail.com> wrote:
+> >
+> > There is already a driver for this 8250_aspeed_vuart.c. Please, do not
+> > add new quirks to 8250_pci.c.
+>
+> Thanks for the review.
+>
+> As far as I can tell, 8250_aspeed_vuart.c drives the other end of the
+> VUART. It is an OF platform driver (aspeed,ast2400-vuart and
+> aspeed,ast2500-vuart) for Linux running on the BMC itself: it depends on
+> ARCH_ASPEED, has no PCI ID table, and programs the BMC-side GCRA/GCRB
+> registers (VUART enable, host SIRQ routing), which the host cannot
+> reach.
+>
+> This patch is for the host side. There the VUART appears as 16550
+> registers in BAR1 of the BMC's PCIe function (1a03:2402), and nothing
+> binds that function today,
 
-For blob_mem == VIRTGPU_BLOB_MEM_HOST3D the blob is created via
-virtio_gpu_vram_create(), and on a device without host-visible
-memory (plain virtio-gpu-pci,blob=on with no hostmem) the failure
-comes too late: the GEM object has been allocated, a host resource
-id taken and the create_blob command issued when
-virtio_gpu_vram_map() returns -EINVAL, and the cleanup calls
-virtio_gpu_vram_free(), which is a no-op while bo->created is still
-false (the host response has not been processed yet).  Every such
-blob creation permanently leaks the vram object and its resource
-id; /dev/dri/renderD* is reachable by unprivileged users.
+In the comments to the patch you told that ipmi_si matches it.
 
-Guest-backed blobs (VIRTGPU_BLOB_MEM_GUEST and
-VIRTGPU_BLOB_MEM_HOST3D_GUEST) mmap through the shmem path and do
-not need host-visible memory, so only the HOST3D case is rejected.
+> so SOL goes quiet once Linux starts. I don't
+> see a way to reuse 8250_aspeed_vuart.c for it, but please correct me if
+> I'm missing something.
+>
+> Understood about 8250_pci.c. Would a separate driver be acceptable,
+> e.g. drivers/tty/serial/8250/8250_aspeed_pci.c using 8250_pcilib, along
+> the lines of 8250_pericom.c? It would do the same as this patch: find
+> the VUARTs the BMC has enabled in BAR1 and register them as polled
+> ports. If that works for you, I'll send it as v2.
 
-Commit 036d28db1818a ("drm/virtio: release the GEM object on
-virtio_gpu_vram_create() errors") fixed the sibling error paths but
-missed this one.  Reject the impossible combination at ioctl entry,
-making the failure mode unreachable.
+What has Pericom to do with all this?
 
-This issue was discovered by Tencent CodeBuddy Security.
+...
 
-Cc: stable@vger.kernel.org
-Fixes: 16845c5d5409 ("drm/virtio: implement blob resources: implement vram object")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
----
- drivers/gpu/drm/virtio/virtgpu_ioctl.c | 5 +++++
- 1 file changed, 5 insertions(+)
+I will look into this deeper when I return from the LPC 2026 trip, but
+what you are doing sounds really wrong.
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-index 81e70a12b3569..e3edade4a62dd 100644
---- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-@@ -533,6 +533,11 @@ static int verify_blob(struct virtio_gpu_device *vgdev,
- 			return -EINVAL;
- 	}
- 
-+	if ((rc_blob->blob_flags & VIRTGPU_BLOB_FLAG_USE_MAPPABLE) &&
-+	    rc_blob->blob_mem == VIRTGPU_BLOB_MEM_HOST3D &&
-+	    !vgdev->has_host_visible)
-+		return -EINVAL;
-+
- 	params->blob_mem = rc_blob->blob_mem;
- 	params->size = rc_blob->size;
- 	params->blob = true;
--- 
-2.43.7
+--=20
+With Best Regards,
+Andy Shevchenko
