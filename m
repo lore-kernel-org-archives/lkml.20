@@ -1,80 +1,86 @@
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
+Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 059D441D100
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 07:00:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADE42360EF5
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 07:00:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791615626; cv=none; b=VDg5yuk2sG09zDVw09n71Xq60rOJr71UbGlD5XHSOGWLdtNwztNe6ez1Lcqf7u8jCqmsliBEqVOuq/STOpogIegJjrngtjmnHqpJTuzdofVFhosshu8CqzMQ8cx+u8FK4VKfYKGIyF4PJ5VaqR0qLQ+y9BCT9huHUcLzZjMEsLg=
+	t=1791615659; cv=none; b=iy1EXssz9I/niO7+YqRMW13hgmMZ5BdOtM1kTqWRGk+XLqZ3j+Et4u1bs/FhldgIbtApkwrX1VwexCvyXdBHUzSk/2D+YsfGxSHTPEJvLKK5RheQHcwKT9ZjBZeSRb3rw4ZTeBUyTdKjzXCK50l1jypFzibcxGpgMW7RT69l17k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791615626; c=relaxed/simple;
-	bh=8IIOLp8HmP/1FMc8TjQtm9EBJOp6xCL+BgDmTSDVmCQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dfdKTEVGfv8cJ2FuHUo0PwLV7aRLSTEkKNKGS6b8bmGKxNfOT5K7nJmzY6O+Px6lIJjdbfK/9uJB32zJdggSTXBcZBEVPsFbkRxOxHOaqLl42HzBCFWguy6uRg5JirQFOqXTR4JIIOtoGcgjokxSc5lSqk1hh2VT+n0Hx5WmBa8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FxBDCKNt; arc=none smtp.client-ip=209.85.222.174
+	s=arc-20240116; t=1791615659; c=relaxed/simple;
+	bh=F/o+CB+c764IJjLKKJ/Vq/hAsz/74K7FVfCJHTirPPI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=I6ibJ12poWMfOb5mqn47cVn19EyvQWc6tBhOw9WGoWrx5So85fOJByx7rqTT7wPQwFokaDQiZcxyZleNOKvdPSPbQAJbiV9SWS4hFN66PjhNSLwZpmzQY5HRAMWLqjp13L21F+8SonbUb10gMGYyhnYppks64p+0XOb9vnku55I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cD+zYDZs; arc=none smtp.client-ip=209.85.219.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FxBDCKNt"
-Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-93e6f83f0bbso37137885a.2
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 00:00:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cD+zYDZs"
+Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-91957ec418cso6173736d6.2
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 00:00:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791615614; x=1792220414; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9KWMZeGSt6Sclu0APv7UoNRsk9ZWQDxjh7jcyuIeeac=;
-        b=FxBDCKNtG+d5nOeEKLotnJmsxI9dAawd12hY50m0vgRR6xy7yToSgDPfcKikSE+SZv
-         RBmjkEoLJAM1avD79b7D7HyI+WBpfWJR3kZQJTGTW1wEf5VreQB3uu6/qiw0fibUyl+U
-         vWIhIdQlTfucgg1wjk9mXwbpKFr4h/oIUTHRG6q7JrXKtpJEq19nXstdPXfo/OTe2OJl
-         4Q/IyICJWhTNzl03UsyFwzjW9i2qo/5esbiqH451mVNMXhGJWjhm+8LvhaHAD2sHJx8K
-         yx57hNtUm+0C+slUDACJozV6kBYAEuLbraYXaVkmeI/Z27YdC8DB00RaMWNDYv4Q1Sa7
-         O/yg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791615614; x=1792220414;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791615657; x=1792220457; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9KWMZeGSt6Sclu0APv7UoNRsk9ZWQDxjh7jcyuIeeac=;
-        b=ggGrl2tmo0waVPhsw4nO7mOSuAzSQaCUYlDYa8tLgAxBw0+nnk6qcEuNgbOdYbWGQn
-         3AvvZzwdTtFDYWFkk0TvT7B2IzWWH5HDiAyrBXXoXbpBQ1L8NglE+aUDDoKLIAGSXseh
-         EDrhiHuXRnDJRSXJxJGx3tkoPld51xN3PYQCEpVy9PwUdWw/7yUvuTK4ZY5W85fjhDkJ
-         7Be2AGoYp4HsFlIRwyfvJGjYy8XzWj/KHWMxieZ66IIG2ow4ikZVqt+iNKFe8Y8gSZlO
-         dn/KviMXREC/+ffqaSUG76NH4SFmafcawXTF1JXKeyGNPDEbL8c+nxKMAmwQBPBKgfCx
-         ojTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwD62CrzeKgs7vVHp1+76clX1Vy9k7Juj13PwzjsCrKg95cBWxAxv0cmFZmB6cISc8TlaUs04ZBrZeSiVk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLQkH9yWfZ4P4YzDA+d+Tn5e0185F41eq9RFsP4gD19uaqeumul
-	NHsm0KqvA/j6ZvNzRmBLC25wypZrHzs2+Hu/N7xaEGHJLNJ3QZ3+LaWp
-X-Gm-Gg: AYBFou1mDyz2hXAKDzzIb0roAlLZYE+/O6iJqoVux+1GHIL9aRAKfJKFXIe3b+r3YkM
-	1t5ecDVusW2sPTXXx/w/fqUMVFENblRwrXNK7z2X3VQxMNlKfhEkp2ZOQcVXVmgj1+CQ2UQmBnp
-	j9O5FXObN8g0tjiQ5Kzfwl7nsIic9epeocbaZNa+xski/fAdhzTQRVQF74NTJQ7Qv9h4YVw4vKH
-	h3S9ER5Tjwt7shs+gZN/cCEP70wu/w7VU1obODlhycqiC/JiOk7cKYDEfxLKtaUa67NUDTBuPFl
-	lGUEtwddXZ+yjjzu1ktMghnaQyIBDv7aCHeHKBasx5PtjIa4AesqcmtLe32WuFfQ8790wOzdGnW
-	OTqhAgN54GGkTi5lbrq6iLinzjiUUC+SItqve01AOYGpBOPK95i/cHugRXMHxYMrj25k24wD4z1
-	WlCbAwzAfxfVeDtSMg/YpcT8H8LrYsnPNoJQ6fHpuTcvJ/dVAQ8x81lUfMuGLVRdQZJzffwi245
-	3co/9NuujjC94cb77WkXb0QXCu1MnBrJGrZvWuNAne9N8pt23tDuHgyY2fIf1/vj99335eKOQTW
-	Ec5j3VXuCPpU2MaDI9ELYTGqA3uPDq0qOvNyPRJIJ6FEBbhB
-X-Received: by 2002:a05:620a:4689:b0:93c:70da:e45e with SMTP id af79cd13be357-93ebd223c74mr676339985a.36.1791615614335;
-        Sat, 10 Oct 2026 00:00:14 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b550447fcsm37923866d6.21.2026.10.10.00.00.12
+        bh=rBFXJ6vukRDHY7fGAWooctn5jSYzAGKP6c4NuLaCWJM=;
+        b=cD+zYDZsEqV+yqW6aJGFK5e8H2qGSBuLbnPZAizUChJpB7jSWV9hWQNr6dsDOTWh62
+         jkJ9wnlkW2jfnAJo4zipaHKD7NBhVHB/j1JgM/lHnfOG30LmDJubhQUA7QQLwu5sRfg3
+         tmbfnnZ2RB77HkFmqCUqLrEHSnenORv4PRR/8pgfcLID1Tzo+iJNTJGwDxP1iaj8cGFB
+         V0SsnYgNwp9MDh6OHMEl7SJ3+fnvwEe+iljH8E9Kh/yVU/RGUFOmoF0D4PCICbjYQPvk
+         5EcIiDf972lOiIdmH0FpSby3tbIwDILlQKFUMm1m9wqZzhBqvBiH3WjuvKdPCfpHasHU
+         Mv1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791615657; x=1792220457;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rBFXJ6vukRDHY7fGAWooctn5jSYzAGKP6c4NuLaCWJM=;
+        b=yN8AlilUZT8IRmc9BPadjJnSKxmKXt6zsAJJmgTs6KNlRyYy0HzzJ6PPFa0GdlYs2q
+         k0pH9UfqMFPv1XUsK5yEXIbN9bhfnIfYvztwhsFXYtAg0aMVd2zmpELXuIt9P6tAHUzV
+         o9s8hCawFvYZ3QxHaMznAbAxz4JH7QmN6JJS5pE23T+JUjZcoWXXGC5yqYKeXBogiNkc
+         WqgSydnbkO7o5P6d0XpKp17rhiz5sFXqerbRCDCnepti40EoarbCVwVlIa1E2AxL0ojj
+         jKiSiqvM/dY/KjP45qICStYZp8Kcb/xKGrVWDIAjEicq+8XEV6fWEm4mMc1Q8GdZbw1S
+         jBFA==
+X-Forwarded-Encrypted: i=1; AKwUvBzMecuxtkUr0lraDJ60c89/R5/m+Pj5iNyS8D0IRqtjQxQ6QSF5DXb2wzb2V5MKwpc/NmQvAQhFOBhwvdE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJU6tTr91llO5lzOvNccJsUgCWjxIN02zoS5H0wVGh3ubfyVQ/
+	Jmp17tEFL2u7b5HmgfPYWVKfBmUGwkk2uHPy9alzO2NU4hPtFNYPV8jv
+X-Gm-Gg: AYBFou2j5lWTojIVCCYbp3DcMeNtSMQMSvAk2R03Iv1XOpRojfUpDUq/xfheWpnSrzr
+	0WX/RmWjT9vaIVXRrUPUrai8PhaiWW6z22tNkYD10IuYqKrmbRV1fp6PhemW22hoErFJYMkcUJk
+	NB9uwibJoNGGVheMgu13Vn6rrbxeJIOdrK56EAnkfM9G0yxzyQ+II4B5LbXKNF6wO2CgQ5dgGDm
+	mWDE9XPx5zVt+aEC1VnQnUCkIcs8Dua3jzZX/UOBlZZNvARCkYSn/rmy0w4vPIrRXKOtw8DRQcz
+	HfA/S8bHRjTlXrq5XIpJgXXwYadck10oBe1rM7iF0M+1463vxFWvf48tvHHlu5UJXGZIVfjq06p
+	DTwXYKAoDTeKUumY1ipwqQ9yKWJauVp8F/gOPDNmSUTgMGpa9aW2LNExg9omRbRQ6mzHIRIjWJw
+	F/vDMYA+40kcUXaeSRB41WN8TXv0+wPk0hJAJ8eWqICBXUpLBCV19xVNwwlnjaUoQqX64hb2aLw
+	LvAUic2m6p61d8NMm1sWeebMWpu1xdvwqPd4r0uF1eaZh5dTDG75RqgPbBVVkSxdqGmvtmyobQC
+	RTaKGH8OrGYAqo4n60UE6PpAIQjFlrCd0luWpstOAzUqV9H7cdcmjy9DgqTZmNXvi2izPw95LLQ
+	np4qALrGNDNPvnlqMwUQ5d6FiIAicmGakGmlL0uR9FkL2bjqGrDtGvP/voNZElx40D0paBPW3/J
+	c8b7lon7e/39FznwwnyeUE3kPtNgCF
+X-Received: by 2002:ad4:5aee:0:b0:917:9ce0:b6d6 with SMTP id 6a1803df08f44-91b557bf438mr70044036d6.42.1791615657428;
+        Sat, 10 Oct 2026 00:00:57 -0700 (PDT)
+Received: from node0.quickhttpnode15.cloudfaas-pg0.wisc.cloudlab.us ([128.105.144.50])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b55082d87sm38108606d6.29.2026.10.10.00.00.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 00:00:13 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: netdev@vger.kernel.org
-Cc: =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Jon Mason <jon.mason@broadcom.com>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Joey Zhong <zhongx@broadcom.com>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH net] net: bgmac: enable interrupts only after NAPI is ready
-Date: Sat, 10 Oct 2026 00:00:11 -0700
-Message-ID: <20261010070011.60403-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        Sat, 10 Oct 2026 00:00:55 -0700 (PDT)
+From: mosafer <mohsafer@gmail.com>
+X-Google-Original-From: mosafer <mosafer@node0.quickhttpnode15.cloudfaas-pg0.wisc.cloudlab.us>
+To: stern@rowland.harvard.edu
+Cc: dakr@kernel.org,
+	driver-core@lists.linux.dev,
+	gregkh@linuxfoundation.org,
+	khiemtranzo532001@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	mohsafer@gmail.com,
+	rafael@kernel.org,
+	stable@vger.kernel.org,
+	syzbot+863936f50214e843ae0c@syzkaller.appspotmail.com
+Subject: Re: [PATCH v2] driver core: complete deferred binds when drivers_autoprobe is off
+Date: Sat, 10 Oct 2026 02:00:39 -0500
+Message-Id: <20261010070039.288392-1-mosafer@node0.quickhttpnode15.cloudfaas-pg0.wisc.cloudlab.us>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <0cc7fb74-aa32-427e-a931-dcbac7ffdcf9@rowland.harvard.edu>
+References: <0cc7fb74-aa32-427e-a931-dcbac7ffdcf9@rowland.harvard.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,70 +89,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-bgmac_open() calls bgmac_chip_init(), which unmasks the interrupts and
-enables the MAC receiver, before request_irq() and napi_enable().
-bgmac_enet_resume() also enables NAPI only after bgmac_chip_init().
+On Fri, Oct 09, 2026 at 09:49:49PM -0400, Alan Stern wrote:
+> IMO, we do not want the system to limp along forever with the device in 
+> this "half-bound" state.  Claiming an interface should cause the driver 
+> core to create a real binding at some point in the near future.
+> 
+> This should happen even without automatic probing.  For example, if both 
+> interfaces are unbound and the user writes one of them to the driver's 
+> "bind" sysfs attribute, both interfaces should end up bound to the 
+> driver after only a short delay.
 
-When frames arrive in that window, the first RX interrupt masks all
-interrupts in bgmac_interrupt() and calls napi_schedule() on a NAPI
-instance that is still disabled, so nothing is scheduled. Nothing
-unmasks the interrupts again, the RX ring fills up and the interface
-stays deaf until it is brought down and up without traffic.
+Agreed --- that invariant is exactly what this patch restores.
+drivers_autoprobe is meant to suppress automatic *matching* against the
+bus's driver list; it should not cancel a bind that a driver already
+initiated by claiming the interface.  With the patch,
+usb_driver_claim_interface()'s promise ("let the future device_add()
+bind it") is kept at device_add() time regardless of the knob: the
+deferred bind completes through device_bind_driver() under the device
+lock, so the interface ends up really bound, not half-bound.
 
-On an Asus RT-N16 (BCM4716) a single "ip link set eth0 down/up" while
-a host sends UDP to the router left INT_MASK at 0, INT_STATUS with RX
-pending and the RX DMA idle on a full ring, with the RX packet and
-interrupt counters no longer moving. With this change, 10 of 10 such
-cycles recovered on their own.
+To your example: when the claimed interface is already registered,
+usb_driver_claim_interface() binds it immediately --- it checks
+device_is_registered() and calls device_bind_driver() inline --- so
+the manual "bind" attribute case works today and is unaffected by this
+patch.  The one case where the invariant was broken, and the case the
+patch fixes, is a claim made while the sibling interface is not yet
+registered and the autoprobe knob happens to be off at its
+device_add(): the core silently dropped the promised completion, and
+the interface stayed registered with dev->driver set but never bound.
+That state is beyond repair from userspace too: writing the interface
+to the driver's "bind" attribute cannot complete it --- with
+dev->driver pre-assigned, __driver_probe_device() returns -EBUSY (or
+the attribute path rejects the device if it does not match the
+driver's id table), so interface teardown was the only way out --- and
+it oopsed.
 
-Request the IRQ and enable NAPI before the chip is initialized.
+The patch keeps the knob's meaning for devices with no claiming
+driver: bus-wide matching is still skipped when autoprobe is off (the
+check now sits inside __device_attach(), evaluated under the device
+lock, per the review-bot finding on v1).  On the reproducer that means
+the previously-crashing window now ends with a completed bind instead
+of an oops, while matching stays suppressed for all the other devices
+registered while the knob is off.
 
-Fixes: dd4544f05469 ("bgmac: driver for GBit MAC core on BCMA bus")
-Fixes: f3537b3494c0 ("net: ethernet: bgmac: driver power manangement")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- drivers/net/ethernet/broadcom/bgmac.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+If you would rather the same invariant be implemented with a
+different mechanism, say the word and I will respin.
 
-diff --git a/drivers/net/ethernet/broadcom/bgmac.c b/drivers/net/ethernet/broadcom/bgmac.c
-index 427a096e5ad4..20df9c8ab055 100644
---- a/drivers/net/ethernet/broadcom/bgmac.c
-+++ b/drivers/net/ethernet/broadcom/bgmac.c
-@@ -1183,9 +1183,6 @@ static int bgmac_open(struct net_device *net_dev)
- 	if (err)
- 		return err;
- 
--	/* Specs say about reclaiming rings here, but we do that in DMA init */
--	bgmac_chip_init(bgmac);
--
- 	err = request_irq(bgmac->irq, bgmac_interrupt, IRQF_SHARED,
- 			  net_dev->name, net_dev);
- 	if (err < 0) {
-@@ -1195,6 +1192,9 @@ static int bgmac_open(struct net_device *net_dev)
- 	}
- 	napi_enable(&bgmac->napi);
- 
-+	/* Specs say about reclaiming rings here, but we do that in DMA init */
-+	bgmac_chip_init(bgmac);
-+
- 	phy_start(net_dev->phydev);
- 
- 	netif_start_queue(net_dev);
-@@ -1608,10 +1608,10 @@ int bgmac_enet_resume(struct bgmac *bgmac)
- 	if (rc)
- 		return rc;
- 
--	bgmac_chip_init(bgmac);
--
- 	napi_enable(&bgmac->napi);
- 
-+	bgmac_chip_init(bgmac);
-+
- 	netif_tx_lock(bgmac->net_dev);
- 	netif_device_attach(bgmac->net_dev);
- 	netif_tx_unlock(bgmac->net_dev);
--- 
-2.56.0
-
+Thanks for taking a look,
+Mohammad Mosafer
