@@ -1,147 +1,193 @@
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3567F3F825B
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 11:57:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF69D43F4CD;
+	Sat, 10 Oct 2026 12:05:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791633452; cv=none; b=KMGb2xOCGUk6RjPpwGoXvAlss8Zkh32KxVpfpK4xCVsc5maxXywjgcqKYL0c+eeotp1UdnLmKhzBrwJErUs9sLpyK0hcT/HALmWvLgsvu79hYYmNQFhdmmWEEBcYqXh3Y2pALwSGr1xRCq2b0tsl6QLSd/FQaA82noD78X1JOLE=
+	t=1791633911; cv=none; b=S2mgYqp6eoNg8ktK9BapLrK36+bidkTdWUVuqufpm04nBTy45nvL6OnPnoiNvCa1Aoge718N+lSSPUtDNofi19gVl4fCh0lCg0GRc0f+kaTym74kh5GSYsvxk+dFFsZ52kwsR/7kbiudTm1SDM3GkinI1ECLzDwycogg9zf5wuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791633452; c=relaxed/simple;
-	bh=IPHKDzjbFgM3zlhg6leD9uSe5AtAZXl5V+tpFvZLAvU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VG3OqGLfkQ2jfnsI6JubVoYTVgCKZDYK7BH6rfjbEAGn1KZkDNnANf8o8O2WDMv2or0mlGidilJIoQpzx45wpJgGOM/Z5w3grZMX35wEnMu25B8+9KRAg1SMxG6oQksZDL2FTgRJZjJWw7bffOlpKm4sU8hs6782J+l28F9eBlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=crqiOGaU; arc=none smtp.client-ip=209.85.218.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791633911; c=relaxed/simple;
+	bh=LV76hanCtGbq66WDd0KmJh0c6OSg+R26YUz63OQmRqU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dze+I47EOWCnSyTdI8t5e+7oIsISaSWW8e4afZyCEetldQU+FN+MemTsmHiqtDkWrzQ0ihoggjGORKCFHr7L7rdy9iGBZLTaqKcMBnq2tTYR+SXbAfeFQmkwo+z1kt3VwIirFnS8DhahI+sY/Rf/WH+XQSl1W5ikVfgKZY33yqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LgAjdzX5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="crqiOGaU"
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c2acc1e170cso100478966b.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 04:57:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791633449; x=1792238249; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=imQ1BTY49pJIiAbK6CLYEgMI91fldvadbFKmtskRHBI=;
-        b=crqiOGaUpKoyFGRI/7IiEBWgcx6zToUD4CM/l5VShsPgIkZAnk7OJz2UID3tql4YhW
-         KmpYHA4I96gS0lE0nz2Mq4oZooirN72YAor/cNMUQTTk93t77qctYXofMI9udpUOq0X9
-         8njlUCFS2QLI5HXKvEof5GEqezFAGKKy7UK4mQWtPTYv/RELqyAqJe5VQsyfUaKKgAUT
-         QMIgrwoA5zg6sO496NDllbfzPgDpqOGRViuhO8EyLPRlw/MuVLEG2CNVKb+57NfjPIJy
-         9p9GCC0eA9K1j826PGkhey2alSODfNTV573TK+UTy2Zx+f6kSlIqMy+x+2RfRY4fEMnY
-         bALw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791633449; x=1792238249;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=imQ1BTY49pJIiAbK6CLYEgMI91fldvadbFKmtskRHBI=;
-        b=zQ7n8OqxN17me+/8rkQmhLKRWKWQYnj8V0mevro2ifnoWdTx2TVZXFFkHG4b0xElW6
-         9L6wS5NJn18jdp5F5FAt35l62kFTswilawnck5jiMO5l1ufFBTH65RAzQ52jqQc69YSZ
-         N4o9EXJbp0eXDftzfiY9kQi1A93AB4nxrg/2TXLqPnf40W2jGtoyKS+sWI8eTVdqFTZS
-         HQmS/p02X5v4F9k+u8bwDom10cK5HKL+DMp+a2PU+8dfkZyePwxp5FjL4YB1VN6koXTa
-         JtCFZqLOXrXmgEMEvK4de/nzq1a8gxDqgC/vfJKmU3aTZKMUd/SW5S4ihu6hjNd1b7JF
-         z5PQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzq5MNtmsrOer56oIZSK2yYbhoaotFfGC0UC1y+Ehs7KcqP4hs+E74i7SoG00LiErAq+NxU1lOhMpou24U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJsq0wrNN2AhNu21qIHe4BifIUkjFE750xTPfFeo8phE6/ObTsu
-	NcKjvaZccxGY1y1ALEcFk/otbswzh6Qth1soW0UcKaUhJpmyAJ6W7IB2
-X-Gm-Gg: AYBFou1vftOTkTRPH57UFzR3c3GGxYwebt03NShVPBYqeTu30TCc7nhgqZAneoM8jdp
-	DarDKWUtezLcSVm5B3eahC+deziAtc7ToXpBJnXbPngee40G8wQHCBGQPf4AL+7ezWxqshLoy41
-	awLW1lTzs/EGiIHZNrFscIm9QVq+qs1VCt+0HR/ndahLEWVVRKZxVae7RwmbeObZt4X1MUaAjBL
-	2r1yz5lNZWCwPZ+s+myasyzBgWyLEHLBjOLnQJLP/p4RulFdQGukJpTyDPbP7anxXPyMy3/yqFa
-	tZeiE0gpgIaLFNywtp+iuX35fEwB4bs+wFdO31BXlN01uFbrY+RCrI+9G4fA/VrBf8H89BnBy7D
-	Cn9yQrnPRTnOKzRltr8lV0i9XOIGrvVUFhdxO3bWP6T747tAY8Q3RMpZDIUzP7dRF1+ekFzgdib
-	CdDsopRD2+1pYRZ+pddj5/fnvTJuOf4WagsxI8ezVeLLFPC+MPBVX6+t7TWhvAmnYhdPTQVafi9
-	1r+lrNcyIXkSDb1NuXSy03KuvQrcD3QM6eYCPuaUf3A8ImLVzTGmTzaMggiHp0zbcCG8uhEj0id
-	uHwKaw==
-X-Received: by 2002:a17:907:c60e:20b0:c31:e958:408c with SMTP id a640c23a62f3a-c31e9584622mr235493266b.38.1791633449130;
-        Sat, 10 Oct 2026 04:57:29 -0700 (PDT)
-Received: from localhost.localdomain (host-188-122-3-146.finemedia.com.pl. [188.122.3.146])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9a3bbeesm236359966b.18.2026.10.10.04.57.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 04:57:28 -0700 (PDT)
-From: illofspeed <volvo.mail@gmail.com>
-To: linux-ide@vger.kernel.org
-Cc: dlemoal@kernel.org,
-	cassel@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ata: libahci: re-enable FBS after error handling on a port multiplier
-Date: Sat, 10 Oct 2026 13:57:27 +0200
-Message-ID: <20261010115727.401-1-volvo.mail@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LgAjdzX5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CF411F000FF;
+	Sat, 10 Oct 2026 12:05:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791633910;
+	bh=kS+nMjnSb1CQO1si9eIk4JdEe+ZVXEFm+JCmyhtB+vU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LgAjdzX5yDgTPYrZXpYehZ3TNSyHlYeedIsxOoDbwuARrAYeiP1ZCEn24G3iQ1TP8
+	 m7wqiCKboxiyWSCP/4rW0VhB1JJOYzSDie/PrCe/nS8R2Z/hGw9svQhntXYlR/Ml4n
+	 Wa112y/p3HT8YQoPeqzuB8HQrqYGKA8SzfnYRTvti/XIBoWzY2ME9Pi+nMETMi8Fso
+	 6dLHP/7SJlePSVnenIE+kKRVIfuO+GQJnsfcjdZeixI7UXidM8xe09b/8kRb9/F1MM
+	 oPpskZZ7Tzyy8tErMqpYbMsKj3bJuuGhf9nXq5m61SuPCJsTF5C/fWc8059bLprRph
+	 Cp3aHlD6498Cw==
+Date: Sat, 10 Oct 2026 19:45:08 +0800
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Cc: linux-riscv@lists.infradead.org, pjw@kernel.org, palmer@dabbelt.com,
+	aou@eecs.berkeley.edu, alex@ghiti.fr, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] riscv: Fix icache flush being skipped for a second mm
+ mapping an exec folio
+Message-ID: <asolRA3vLbKEZ1Wm@xhacker>
+References: <20261009221957.760606-1-nickolai@csail.mit.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261009221957.760606-1-nickolai@csail.mit.edu>
 
-ahci_do_softreset() disables FBS before resetting a device behind a port
-multiplier, as required by AHCI 1.2 section 9.3.9, and re-enables it only
-when that softreset succeeds. If it fails, for example because a
-hot-plugged drive is still spinning up ("softreset failed (device not
-ready)"), EH escalates to a hardreset of the PMP link, and nothing turns
-FBS back on: only ahci_pmp_attach() does, which runs at the next boot.
-The port keeps working with command-based switching until then.
+On Fri, Oct 09, 2026 at 06:19:57PM -0400, Nickolai Zeldovich wrote:
+> Since commit 01261e24cfab ("riscv: Only flush the mm icache when
+> setting an exec pte"), flush_icache_pte() flushes only the icache of
+> the harts that run the faulting mm (with a deferred fence.i for the
+> harts it migrates to later), but it still sets the folio-wide
+> PG_dcache_clean bit. The bit is then read as "no hart holds stale
+> instructions for this folio", which a per-mm flush does not establish.
+> 
+> So when a folio that was written through the page cache is mapped
+> executable first by mm A on hart X and then by a different mm B on a
+> hart Y outside A's cpumask, B gets no flush on Y and executes whatever
+> Y's icache still holds for those physical lines, e.g. the page's
+> previous contents. Before that commit, flush_icache_all() covered this
+> case.
 
-Seen on a Marvell 88SE9235 (1b4b:9235) with Marvell 88SM9705 port
-multipliers (1b4b:9705, in a Synology DX1222 expansion unit): after
-hot-plugging a drive, the kernel logged "FBS is disabled" followed by
-"softreset failed (device not ready)" and a PMP hardreset, and never
-"FBS is enabled" again (twice, on two different ports).
+Good catch!
 
-At the end of ahci_error_handler(), re-enable FBS if a PMP is still
-attached and FBS is supported but disabled.
+> 
+> Reproducer: a parent pinned to hart 0 and a child pinned to hart 3
+> share a file. The parent writes text "T1" with write(2), the child
+> mmap()s it PROT_EXEC and runs it (priming hart 3's icache with T1),
+> then unmaps it. The parent writes text "T2", maps it executable and
+> runs it (per-mm flush of hart 0 only, bit set). The child maps the
+> file executable again and runs it: no flush on hart 3, and the child
+> executes T1. On a StarFive JH7110 (VisionFive 2, non-coherent icache)
+> running v7.3-rc6, 149 of 150 iterations over three hart pairs execute
+> stale instructions. A control run that executes fence.i in the child
+> before the last mapping gets 0 of 50.
 
-Tested on 7.2.6 with the patch built as an out-of-tree libahci (the stock
-ahci module binds to it, symbol CRCs are unchanged). Hot-plugging a drive
-into a free port of the multiplier then logged "FBS is disabled",
-"softreset failed (device not ready)" and a PMP hardreset, followed by
-"re-enabling FBS after error handling" and "FBS is enabled". Afterwards
-two other drives behind the same multiplier read 259 + 259 MB/s in
-parallel (O_DIRECT, 4 MiB blocks), against 268 MB/s for one drive alone,
-so their commands overlap again.
+I guess the reproducer is just a simple c program.
+It would be helpful if you can paste the reproducer code into the commit
+msg as well.
+> 
+> Keep the per-mm flush and make the skip decision per mm instead:
+> count the flushes that set the bit in a global generation, and let
+> every mm remember the generation of its own last flush taken in
+> flush_icache_pte(). An mm whose generation lags cannot trust any bit
+> set since, so it flushes its own harts once (local fence.i, IPIs only
+> to the harts currently running it, deferred fence.i for the rest) and
+> catches up. No global flush is issued, nothing happens while no new
+> executable folio is written, and the cost is bounded by one
+> flush_icache_mm() per mm per generation bump.
+> 
+> With the fix the reproducer executes 0 of 150 stale iterations on the
+> same board. The function-call IPI counters stay at a few hundred per
+> hart for the whole boot plus 200 iterations, i.e. the IPI savings of
+> the per-mm flush are kept.
+> 
+> Tested on the JH7110 with v7.3-rc6 and this patch; not tested on
+> 32-bit. The bug does not reproduce under QEMU TCG, which invalidates
+> translated code on page writes.
+> 
+> Fixes: 01261e24cfab ("riscv: Only flush the mm icache when setting an exec pte")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+> ---
+>  arch/riscv/include/asm/mmu.h         |  2 ++
+>  arch/riscv/include/asm/mmu_context.h |  1 +
+>  arch/riscv/mm/cacheflush.c           | 20 ++++++++++++++++++++
+>  3 files changed, 23 insertions(+)
+> 
+> diff --git a/arch/riscv/include/asm/mmu.h b/arch/riscv/include/asm/mmu.h
+> index cf8e6eac77d5..e0e7a310151c 100644
+> --- a/arch/riscv/include/asm/mmu.h
+> +++ b/arch/riscv/include/asm/mmu.h
+> @@ -21,6 +21,8 @@ typedef struct {
+>  	cpumask_t icache_stale_mask;
+>  	/* Force local icache flush on all migrations. */
+>  	bool force_icache_flush;
+> +	/* icache_folio_gen at this mm's last flush in flush_icache_pte(). */
+> +	u64 icache_gen;
+>  #endif
+>  #ifdef CONFIG_BINFMT_ELF_FDPIC
+>  	unsigned long exec_fdpic_loadmap;
+> diff --git a/arch/riscv/include/asm/mmu_context.h b/arch/riscv/include/asm/mmu_context.h
+> index dbf27a78df6c..cc0f7f65ec8b 100644
+> --- a/arch/riscv/include/asm/mmu_context.h
+> +++ b/arch/riscv/include/asm/mmu_context.h
+> @@ -32,6 +32,7 @@ static inline int init_new_context(struct task_struct *tsk,
+>  {
+>  #ifdef CONFIG_MMU
+>  	atomic_long_set(&mm->context.id, 0);
+> +	mm->context.icache_gen = 0;
+>  #endif
+>  	if (IS_ENABLED(CONFIG_RISCV_ISA_SUPM))
+>  		clear_bit(MM_CONTEXT_LOCK_PMLEN, &mm->context.flags);
+> diff --git a/arch/riscv/mm/cacheflush.c b/arch/riscv/mm/cacheflush.c
+> index f8ead7cb7c7d..880c210dbfec 100644
+> --- a/arch/riscv/mm/cacheflush.c
+> +++ b/arch/riscv/mm/cacheflush.c
+> @@ -97,13 +97,33 @@ void flush_icache_mm(struct mm_struct *mm, bool local)
+>  #endif /* CONFIG_SMP */
+>  
+>  #ifdef CONFIG_MMU
+> +/*
+> + * PG_dcache_clean is folio-wide, but flush_icache_mm() only reaches the
+> + * harts of one mm.  Count the flushes that set the bit; an mm whose
+> + * generation lags cannot trust a bit set since its own last flush, so it
+> + * flushes its harts once before relying on it.
+> + */
+> +static atomic64_t icache_folio_gen = ATOMIC64_INIT(0);
+> +
+>  void flush_icache_pte(struct mm_struct *mm, pte_t pte)
+>  {
+>  	struct folio *folio = page_folio(pte_page(pte));
+> +	u64 gen;
+>  
+>  	if (!test_bit(PG_dcache_clean, &folio->flags.f)) {
+> +		gen = atomic64_inc_return(&icache_folio_gen);
 
-Fixes: 89dafa20f3da ("ahci: disabled FBS prior to issuing software reset")
-Assisted-by: LLM
-Signed-off-by: illofspeed <volvo.mail@gmail.com>
----
+Per the commit msg, the bug can only be reproduced on SMP
+platforms, so this fix unconditionally brings non-necessary
+overhead to UP.
 
-Notes:
-    The controller is passed through (VFIO) to a KVM guest; the tested kernel is the
-    guest's. The two earlier occurrences without the patch were on ata8 and ata10 of the
-    same controller; this test was on ata7.
+>  		flush_icache_mm(mm, false);
+> +		WRITE_ONCE(mm->context.icache_gen, gen);
 
- drivers/ata/libahci.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+Since icache_gen is u64, this is not atomic I guess. I'm
+not sure whether this is safe on RV32.
 
-diff --git a/drivers/ata/libahci.c b/drivers/ata/libahci.c
-index 08ab56e9556..6f374fd79f5 100644
---- a/drivers/ata/libahci.c
-+++ b/drivers/ata/libahci.c
-@@ -2233,6 +2233,23 @@ void ahci_error_handler(struct ata_port *ap)
- 
- 	sata_pmp_error_handler(ap);
- 
-+	/*
-+	 * ahci_do_softreset() turns FBS off before resetting a fan-out link
-+	 * and turns it back on only if that reset succeeds. When it fails
-+	 * (e.g. a hot-plugged drive is still spinning up), EH escalates to a
-+	 * PMP hardreset, which never re-enables FBS, so the port would keep
-+	 * command-based switching until the PMP is attached again (reboot).
-+	 * Restore FBS once recovery is done and the PMP is still attached.
-+	 */
-+	if (sata_pmp_attached(ap) && ata_dev_enabled(ap->link.device)) {
-+		struct ahci_port_priv *pp = ap->private_data;
-+
-+		if (pp->fbs_supported && !pp->fbs_enabled) {
-+			ata_port_info(ap, "re-enabling FBS after error handling\n");
-+			ahci_enable_fbs(ap);
-+		}
-+	}
-+
- 	if (!ata_dev_enabled(ap->link.device))
- 		hpriv->stop_engine(ap);
- }
--- 
-2.43.0
+>  		set_bit(PG_dcache_clean, &folio->flags.f);
+> +		return;
+> +	}
+> +
+> +	/* Pairs with the fully ordered atomic64_inc_return() above. */
+> +	smp_rmb();
+> +	gen = atomic64_read(&icache_folio_gen);
+> +	if (unlikely(READ_ONCE(mm->context.icache_gen) != gen)) {
 
+see above, READ_ONCE a u64 on RV32 isn't atomic operation, is
+there any possiblity there's a race between WRITE_ONCE and READ_ONCE?
+> +		flush_icache_mm(mm, false);
+> +		WRITE_ONCE(mm->context.icache_gen, gen);
+>  	}
+>  }
+>  #endif /* CONFIG_MMU */
+> -- 
+> 2.56.0
+> 
+> 
+> _______________________________________________
+> linux-riscv mailing list
+> linux-riscv@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-riscv
