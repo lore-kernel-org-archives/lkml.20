@@ -1,115 +1,105 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EBA13603D5
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:19:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2972A3546FF
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:19:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791620364; cv=none; b=dritVGf79AW/6DACuJc3TsihTRt5lcqwzjISd7bq7AKAUNi9+sWiU1bgmWLOZV2Ops9jH0O2dAK12nLHYWzWitFiD63fSZfbtpXosMb5nsbq9CHkapUKEsZajvy23FsMuLpNdpVgdvOOjFldUZVp2UXv9lPDXU26KT3nHyzqALQ=
+	t=1791620366; cv=none; b=nDHz7Juj5l0cadIAns5enZ+B9mcWtfM+BYrNnQYxIDpo8S1jkEebGf4tSz/rPt/5LUlO8sYPSi5/+FFM6qs5o7q8DJZzPsf2GNXMbkF9PmccHr9D2srpHeOfUbU3f9HJU4MFyTHymMqje8NC/F69dDLfbsi/B41kM7n4+6QC28I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791620364; c=relaxed/simple;
-	bh=0nIngpZp+inShOASYSj886fWfbkUeZYjBtrsY8Usq7k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B+MdyITMLPQHAQ0cALWorD1/df9c4vjoNDbpWm/799TXWuFiFjz7s0CIjd2OXU9F160ZeCrYdVZGBNDr+ea7g6O4Re9TibN+1Va6U1IsPRJyTmk/UZAC9hnqYAZHbS2VhSAzgss97fzquGCfVd3GyWDAjMzwYd4bVrYHrME1BSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bV3Fr2PU; arc=none smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791620366; c=relaxed/simple;
+	bh=0jQnUQZ6GYmOkEjU/hu8xUsDNPSKN8MBlsFXFo/Rdt0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cD6U8SpdfoU6WBfJxVrbRcUlBGAdmPLZ33vmSdIIFMHRutrWZSz9hie3uq1NiPUrRPqKpBA/ViehfILIdF7Yv5z+Bp6HAbQXdkQlcK9pZ17sCIOow27VjD0rxnVU8YM02R0f1P6D2dMPyLid36qLCZK9zNGRytXMkZ8AN/qGSl8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WxEche/l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bV3Fr2PU"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ab9268d90eso93745a91.3
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 01:19:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791620356; x=1792225156; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6k52INFfuvMm/tjJwSTAbKQML/NWkmAz6TpJUNRMaqY=;
-        b=bV3Fr2PUmixZ6BhEY/znWdntjnSZwEiZUWaANPbSpvmnMg6VsG73BKTq1kk5H9itjN
-         CmJtUY+B1BDalspG0GEuxmZMu16ZMU4bdpVALzlKWHoiW3K8WQ/PAb20PmMZed/Z9OMb
-         hRjtDkOYHj/sWkNK2wqJFEAOsp5J5fHzYmhMaQuEioMwQloTmbmog2TrL8ti1K/k4TET
-         3BfZa/FmjevvI182MCgrjFXqUYkWJrl55Lao5vtEJSeinORdKqAzTSVjjPDprb/2otR+
-         dpXcyMbDi4irc+Ji9WniOItPigCuNphXGa98HfBPADPCzb1/nMVkQcOcHqJYqotoHE5f
-         lp1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791620356; x=1792225156;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6k52INFfuvMm/tjJwSTAbKQML/NWkmAz6TpJUNRMaqY=;
-        b=wPZzF4WJB9u5mcev6fvq7tLfFf51AMZqZY5qwZ1AIfFFYCzoIzbBYETzdLNMJWdGKR
-         Mk8eAiHfXkfQCR9LjHIMSqIP2L6BUG/JT9NSbVhFkUShzjAdFRSdLmJd/RiesMmbVAbB
-         ue8wG2vI0ZGPVDTO6GExnIjep/reRlQXR4E48BcD8aKMOwXOauVpgYP+3KHYPZHjks0g
-         kTgDDWFZUB+CAwq0XNgwzJcd1bZE1WlBupBCeeCQmVkwzkZEr22aUsMBMQRvYHs117Sh
-         2YfrmuLpJaVk3oXhqG+kBUOfjvPeYEKo/buTCz8DjF5BgEgg8Wfy643kAIj0DfUl0o3h
-         Q6tg==
-X-Forwarded-Encrypted: i=1; AKwUvBxlDfjyCCjxlyOVTXkAxH4k7CM/xOdfRkv2Z2FFYhPBGkTCl6Fq0+/zdL/i2oxB6hYtpkajQ2xsJg4pwN4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKZPDo2cKJ1adQV500fxai6J1qTGvzMXAmDXgh+ESFkc/C6cmLf
-	vUweIpCtVjbDi/6RhJKCN2nyOhKuanhwfE5p+jQahez71AQ4cvWXoXnW
-X-Gm-Gg: AYBFou28cemZcZTeMEu5Ra2DJYX7pPI0TXyjD1yiCXZVAX80Q/q4QfcATDK06J4yBNK
-	tERZntsc1fN4Et9mBOoSjTCWGskYQIjcTV8/8YmvZRdMDyC+IFEtK9BniAbM7HjBsc9qV9yEeSd
-	QDz28ol+IFC/CVuvsaZG+H1OP9Trr8E6Dd8fAr9KwAuUgDOJqZZjlhBvLKjjV34wMwgP9HeLoeW
-	ua5GvaEGAzJiJlrrHaWj57a1uHPHABartKuT8wtwbVWNNVOhRnu04bSb8C44npvYGdw2iKRZXpj
-	bcO//0kWOGnZDP2SB22b4n01MfS8W7jqMaTtbgA1oMW/bufpSgtlFQWlSP26chMO8Q2iSq4G0xj
-	ySHi0mMbCxhm6S1k467YmqOJMfL1LOohQWrhba9ZrQa2lPhRhH37QO4/v4MAbmUfL5aT6p6DhV0
-	nNum4+8U7dK3RUe2/YxO3mXAUTEY4Gor3WnEKaLogX+j0cV3XjWFyS1aPpaxL0Ltsd8HVTUsI9y
-	3uEI5c=
-X-Received: by 2002:a17:90b:2886:b0:3a6:fec5:c186 with SMTP id 98e67ed59e1d1-3ab3acf7535mr3661751a91.46.1791620355561;
-        Sat, 10 Oct 2026 01:19:15 -0700 (PDT)
-Received: from arch.localdomain ([161.33.202.10])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36ed0332sm7744574a91.3.2026.10.10.01.19.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 01:19:15 -0700 (PDT)
-From: Jun Yan <jerrysteve1101@gmail.com>
-To: MyungJoo Ham <myungjoo.ham@samsung.com>,
-	Chanwoo Choi <cw00.choi@samsung.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Michael Auchter <michael.auchter@ni.com>
-Cc: Jun Yan <jerrysteve1101@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH] dt-bindings: extcon: tusb320: add SGM7220 fallback compatible
-Date: Sat, 10 Oct 2026 16:19:06 +0800
-Message-ID: <20261010081907.479226-1-jerrysteve1101@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WxEche/l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 741DA1F0089F
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 08:19:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791620360;
+	bh=a9vcN5JkECAkVJNOQThJPXP1vaehPftc9ECVJHZpd08=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=WxEche/lEUDz6jUn0sLV8ZxYgjaj2t6pVfrGwVvoHyyMDFmmtWPHu5jlWhHqFe77x
+	 nxdY8oYMKsELpCWQKI7IGdVd05gm49Ad/i0DGPeADyD7UHUk0gwyP157NL72WZNtAO
+	 foo6IEQrC4tbTf7NyC7bik3vRj1nF7uOnS5/KajONYgGqkrwacK7MYH4DN66NJ/Gdo
+	 cGhWyE81SA/S7Ic5k6DLukuPSHkGlO4wfAEfc9aqaUAlewkzDeyFOcEZvvQsz+JrON
+	 O558gQt7JUvjqM7iZQRpPLd2FdiX6zG5qx2uOxxWnPEsJtHa1p6b1xEAw71YQpZSYE
+	 a3zi5FTxTA6Kg==
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93e6eb77f0bso42648985a.3
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 01:19:20 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxpkUDn0MtiCnTRBQxqk8lAB+96XzHHrwdL6MoGOb+lnkHS93vqBXrpWx7zWwaqWw+uuxQZ7xeivHw99+w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK1u79SjDKzxYi8NLZuE9ZPGxGQ13vz6+rJ2rcyaqyq+BNFNSa8
+	+jqgOl57hz2prC22sv4tTKTvbfwWwzw7cdci/R50y4/g7D0O2Of68sr2jPTMfOsgVSSB3xraE93
+	z/2onjk/JwlsGCq/mwx6KSZbpzFa4+7U=
+X-Received: by 2002:a05:620a:3726:b0:93c:7948:6e84 with SMTP id
+ af79cd13be357-93ebd23a637mr713801685a.52.1791620359703; Sat, 10 Oct 2026
+ 01:19:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <SJ1PR11MB6105E073723CFEEE8C8EDBF48C832@SJ1PR11MB6105.namprd11.prod.outlook.com>
+ <cover.1791577417.git.ehab.ababneh@intel.com>
+In-Reply-To: <cover.1791577417.git.ehab.ababneh@intel.com>
+From: Barry Song <baohua@kernel.org>
+Date: Sat, 10 Oct 2026 16:19:08 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4wmSL7i4EPLWLKhDD6J=1TywBi5EYYDxp=SvOuXdmLGjg@mail.gmail.com>
+X-Gm-Features: AclHuK_GyqhJzFU674x9sTXMJsFNi6PizF-xomQhw66ySxZ6AOmNeI0WZYrAWlc
+Message-ID: <CAGsJ_4wmSL7i4EPLWLKhDD6J=1TywBi5EYYDxp=SvOuXdmLGjg@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 0/5] mm/vmscan: adaptive multi-threaded kswapd for
+ NUMA-aware reclaim
+To: Ehab Ababneh <ehab.ababneh@intel.com>
+Cc: ziy@nvidia.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	buddy.lumpkin@oracle.com, akpm@linux-foundation.org, kasong@tencent.com, 
+	qi.zheng@linux.dev, shakeel.butt@linux.dev, axelrasmussen@google.com, 
+	yuanchu@google.com, weixugc@google.com, david@kernel.org, ljs@kernel.org, 
+	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
+	mhocko@suse.com, jackmanb@google.com, hannes@cmpxchg.org, 
+	baoquan.he@linux.dev, baolin.wang@linux.alibaba.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The SGM7220 is register-compatible with the TI TUSB320, even reporting
-the same device ID, so it can be described in a device tree using
-ti,tusb320 as the fallback compatible string.
+On Sat, Oct 10, 2026 at 4:30=E2=80=AFAM Ehab Ababneh <ehab.ababneh@intel.co=
+m> wrote:
+>
+> This is a follow-up to the RFC for adaptive multi-threaded kswapd
+> on NUMA. It handles concurrent MGLRU aging, adjusts wakeups to node
+> CPU load, and scales the hopeless threshold for multiple workers.
+>
+> Under memory pressure, an lruvec can end up with only two MGLRU
+> generations. That leaves an older and a younger cohort, a bit like
+> inactive and active LRU lists, though MGLRU tracks age differently.
+>
+> Regarding the concerns raised in review:
+> - In the updated Cassandra comparison, four kswapd threads reduced p99
+>   latency from 6.5 ms to 3.35 ms (about 49%) and increased throughput by
+>   10.3%. We believe the latency gain comes from the reclaim design,
+>   not from changes to LRU locking.
+> - This newer result compares four kswapd threads with one. The earlier
+>   7.3% throughput result was measured with eight threads.
+>
+> We also saw periods with zero file scans. The MIN_NR_GENS guard may
+> contribute: when only two generations remain, it makes scan_folios()
+> return without scanning the oldest one. This patch tests whether letting
+> kswapd scan that generation helps reclaim progress. The current traces
+> do not tie the zero-scan events to the same lruvec, so this remains a
+> hypothesis; more per-lruvec tracing is needed to compare it with lock
+> contention.
 
-Link: https://www.sg-micro.com/rect/assets/bec47c84-84b4-4015-8d61-9433e0d76583/SGM7220.pdf
-Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
----
- .../bindings/extcon/extcon-usbc-tusb320.yaml           | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+Hi Ehab,
 
-diff --git a/Documentation/devicetree/bindings/extcon/extcon-usbc-tusb320.yaml b/Documentation/devicetree/bindings/extcon/extcon-usbc-tusb320.yaml
-index 126107dd57b1..f88486c2fb09 100644
---- a/Documentation/devicetree/bindings/extcon/extcon-usbc-tusb320.yaml
-+++ b/Documentation/devicetree/bindings/extcon/extcon-usbc-tusb320.yaml
-@@ -11,9 +11,13 @@ maintainers:
- 
- properties:
-   compatible:
--    enum:
--      - ti,tusb320
--      - ti,tusb320l
-+    oneOf:
-+      - enum:
-+          - ti,tusb320
-+          - ti,tusb320l
-+      - items:
-+          - const: sgmicro,sgm7220
-+          - const: ti,tusb320
- 
-   reg:
-     maxItems: 1
--- 
-2.56.0
+There is a patchset under development by Kairui, me and gaofei:
 
+https://git.kernel.org/pub/scm/linux/kernel/git/baohua/linux.git/log/?h=3Dk=
+airui_scanbalance_0.3
+
+which allows reclamation after we arrive MIN_NR_GENS.
+
+This might fix your problem. Hopefully, we can find some time next
+week to send it out.
+
+Thanks
+Barry
