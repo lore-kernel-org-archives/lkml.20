@@ -1,134 +1,116 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8E47175A68;
-	Sat, 10 Oct 2026 01:11:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93EAD1FF7C7
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 01:13:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791594677; cv=none; b=Y787kgeOYGh0ZkxD712DJyOQcMxj7i7E/hmNDdm+edIzXk614Up+kBv7BeIkVSXtjz+bLriKtWzh4UpvqKTEMzeTYvU0/p+NgjKYvruJ9jFUWR2G6cPTlc3hKPCZhsbpQlVWPbUVAUoOK0sIvOBaRqz3AHwI5KXbtMEGD6OtaII=
+	t=1791594782; cv=none; b=UIhtRVZABI/qRITr/lLvGuJ3gblN/qmw3Ko/rPvXC4sHxVGvaRM4H0mYGjXhUTjZHCoEPIdSrwKlmTt3ZqlI9GCetoFFM9AJsZcOsaP1RE0kyE+IsSSmgDOgcf35yPaaBknfLAjhmyOFqdzyxPcpV7ql9FlhXhkAU9gOffiKl3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791594677; c=relaxed/simple;
-	bh=UErRGcKL/uGrCfi/20f2xr+wm/BTrybHItYVUX6mDxs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=odbFu0WH6oLk1dWUoKW5eIXCqXLz8DbLM1FVqeQE7VKBub/ETDG5HZcKTaw6zm1v1tD2y3xeKrBhEoJIWnzMOWptCKHujvum97q3NAVm7mfHP1eThpynXFFOluP4YgudPKd51EDZKhc6BhcJzaj8nDSgpdL61fqit74yegV8Nw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZM0ddwry; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791594782; c=relaxed/simple;
+	bh=9XEP69e9AS1aJwPfVE0uTrVJO7fAgLNTiuKcJbwcmXU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GjJey61/72aOLyka6+g2ExlfQ4WjtjpHtXdaeFQrv+pvkfMyhiGMPE295Mv9NcHkPqEiPaCeCOz0Imlacs9bxzi/X+sim8bAByufJC+OBA/4Bq3J1GONq88iwSL10gDY5J2lTWeg3JwHoN5li7+YwpFfGRxsLBBOMUCVVpReNcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WOqQyVcr; arc=none smtp.client-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZM0ddwry"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791594676; x=1823130676;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=UErRGcKL/uGrCfi/20f2xr+wm/BTrybHItYVUX6mDxs=;
-  b=ZM0ddwry+9gMr5s+mi88tP6EVd7dIHkMW0fLKe3u0NNpiw4QR6kAutI/
-   ppbCaQFHB05/tlTIwHblXcw2zAiYI7cpbRsUWIKAycqj4pWRnRVG+Q1S9
-   u8NYc25ODqYkfTaFLGSwlIWjdPXHaSDCNFUm+K8mGfJXCUqemsX3RzcMV
-   fDd7U+G4RsUBMFotOnQpg62j9Hf1sknK5e6SRJwrTPlhibm7/Fde+ZoZa
-   q1SFGbY3gRE7BlSn5veV9fAUDmTHnBgN+KYQ+DQJ+jB3qhSvO/2uj3Zsw
-   KUA5RsQ6sHM4CIyhK9NFy08YmUX4XbXxt0JwaKIU7Ju2+tKOWXpK9KJF3
-   A==;
-X-CSE-ConnectionGUID: KepNQ5PvRaedQ+xBE7MkOA==
-X-CSE-MsgGUID: QIWuanScTNGYNea6j4x84w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="403079"
-X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
-   d="scan'208";a="403079"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 18:11:16 -0700
-X-CSE-ConnectionGUID: yhgaFlczRx+LLewp7pWV7A==
-X-CSE-MsgGUID: tA/mBHqkTdaAJHZfKHMDAQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
-   d="scan'208";a="892557"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa010.fm.intel.com with ESMTP; 09 Oct 2026 18:11:12 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xFLcC-000000006MQ-2rJh;
-	Sat, 10 Oct 2026 01:11:08 +0000
-Date: Sat, 10 Oct 2026 09:11:08 +0800
-From: kernel test robot <lkp@intel.com>
-To: Naresh Maramaina <naresh.maramaina@oss.qualcomm.com>,
-	konrad.dybcio@oss.qualcomm.com, Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-arm-msm@vger.kernel.org,
-	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-	Aniket Randive <aniket.randive@oss.qualcomm.com>,
-	chandana.chiluveru@oss.qualcomm.com,
-	jyothi.seerapu@oss.qualcomm.com, praveen.talari@oss.qualcomm.com,
-	Naresh Maramaina <naresh.maramaina@oss.qualcomm.com>
-Subject: Re: [PATCH 4/4] tty: serial: qcom_geni_serial: Add GPI DMA support
-Message-ID: <202610100800.CCtA9f8L-lkp@intel.com>
-References: <20261009-add-gpi-dma-support-for-uart-v1-4-c69e728df686@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WOqQyVcr"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-88b5f43cb8aso58649b3a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 18:13:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791594780; x=1792199580; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IO1BNe26oBM4Wu77xirUP/cAXWt8h3ep4ZfstecuGpI=;
+        b=WOqQyVcrzLiC1vZlsYAMwZNMjfDPoqAqG0/Y7u+r/eCATOhhnsECAGJ7TNPbuKqnes
+         pJ6aa2UgL18CQswryfM9EDwW73Z4b4uze/ZKjH7tb1tk7BPzpW3B/2XB2JT/d443XQ0M
+         BalK54gatxhh18lgxFOV2BOLXmj8d2X4rEueXd5WBiBh88+Ux2/w6nreAt2T1JFewj4N
+         HGfvMlr84OhNlP26f16zByoeuiOM6l46mowJ9NI65I3fMVNlVnfIEfy11dU+iDmHmfAm
+         7yn6gdnDeSyidZH56eAm7wra7fLk2xwjpSVgIRWP6yjB0gT4+7/oWj3irpvCub4rqVzz
+         34dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791594780; x=1792199580;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IO1BNe26oBM4Wu77xirUP/cAXWt8h3ep4ZfstecuGpI=;
+        b=XA953T9hS2yOwD9+jql+YANBBKZtmQiEpD3CiDE1rSfBYunBJrke2XvpKQWYN9+0KZ
+         FyRK+BYtJGdgWYz1c2MTVPTn7tGJrksHbK2bcLuYTF14vQjq/VB47q7790AjcEmmfcep
+         x2zv26TTplC9Tmd24Nc26ucbAAiRmO6Y0lo90D4l3jjIzLNrJbbKLGiJtbNJ9Kt5NDEA
+         gHqmgLT9yFiGRrA5eoivdiiBlGpmPFbKduSfDwMdxopsbr3UDXQCCn8x39kTGZmda6aD
+         znEEUfHq4Wxpagg6UMr93z9NmTcRpF40t+iizsqDYdCnWsLP6mqGRGHCswsGeZ9XlARe
+         ubgw==
+X-Forwarded-Encrypted: i=1; AKwUvBwAAapTj0ZIGUi0THPMASxPz0v+f/GlgZwHDxfbzKo+uRcDrh6iUxWS/V+EjbQNs4LUR2Xvzt6lXf13PoY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJXclPfoqTKFJ3Rfzzcg5ZXAH6g3eySNkXzo1wrmB2j/OjxFOmG
+	VrA25rSsTOtvDUlaNOBvClUNkVULDF6Eh+13VVm9OocsnxsSTukGOzdL
+X-Gm-Gg: AYBFou2sW+LdLKWFRwbyFzjCg7wtGD5crr6zcbs9WmrQqdEvEJqTXSrECqzoT1F5Evm
+	XTI5WObIkaEs36aPAx4QEPpf63hYmqAKnJIskHaBNydVv93LghFiUVgJ0oBJ/7TFIbVanpP9zCy
+	js2flpHMAxQjxOH5e7utNpoiJrQbzN+kjgt7EWyLqPiFmgdFu8vdvUAjozsrRAgrWdfjR4w6xtx
+	zDYIGf0P4HwcFnMs18V6K98zNPI0T2QA6gqYeLkSbhp+d6fxlTeL5MM5dD2VUtPICdHvmFKwK8D
+	W6mBJkyzk8aE+ftXs7aQX92ZQRlAotRqP9Rgwqq8jXgozR+qt8VZE3Fz27uJ7XDCFm1qEwQfHp5
+	BGqGMi5s5BQXEpu3BiOHO1/7I4Ik7FBw2j5TPtwMrbj+jWkcqPM2NvDy8X1k2dSSXbI/VhmypkU
+	zQaso2tTlLA4TEN+ijnlShtXni+/LxZ26No5Ca49xAk+Og76ySEBmSg34MsK46HChdvOfa1qAas
+	rAxVhud4rL6njHSAVMCbfB9bm09klDiFIhKdxgB+vUGFNj7n5IMAidHY6j5iSh6zdiWbjsfZNG6
+	nAYQ01YtOOUNxSTOb8pQTZYNFNNUPawJOipzfHNK7v4M9IJF
+X-Received: by 2002:a05:6a00:3306:b0:882:2195:5a72 with SMTP id d2e1a72fcca58-897c82b00b0mr3173996b3a.46.1791594780355;
+        Fri, 09 Oct 2026 18:13:00 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8985a414614sm1139749b3a.51.2026.10.09.18.12.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 18:12:59 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-mips@vger.kernel.org
+Cc: =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] firmware: bcm47xx_nvram: don't warn when NVRAM is already copied
+Date: Fri,  9 Oct 2026 18:12:58 -0700
+Message-ID: <20261010011258.1059235-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009-add-gpi-dma-support-for-uart-v1-4-c69e728df686@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Naresh,
+On MIPS BCM47xx the arch code copies NVRAM very early, because the
+board detection and several drivers need it before platform drivers
+probe. With a device tree, the brcm_nvram nvmem driver then passes the
+same NVRAM to bcm47xx_nvram_init_from_iomem(), which warns on every
+boot:
 
-kernel test robot noticed the following build warnings:
+  nvram already initialized
 
-[auto build test WARNING on aac26bee2287c88af5be5a5ff96d783b19a28790]
+The same can happen on ARM when the MTD fallback reads NVRAM before
+brcm_nvram probes. In both cases the existing copy is the right one,
+so log this at debug level. bcm47xx_nvram_find_and_copy(), used by the
+early init, keeps its warning.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Naresh-Maramaina/dmaengine-qcom-gpi-Add-UART-transfer-support/20261009-122753
-base:   aac26bee2287c88af5be5a5ff96d783b19a28790
-patch link:    https://lore.kernel.org/r/20261009-add-gpi-dma-support-for-uart-v1-4-c69e728df686%40oss.qualcomm.com
-patch subject: [PATCH 4/4] tty: serial: qcom_geni_serial: Add GPI DMA support
-config: arc-allmodconfig (https://download.01.org/0day-ci/archive/20261010/202610100800.CCtA9f8L-lkp@intel.com/config)
-compiler: arc-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261010/202610100800.CCtA9f8L-lkp@intel.com/reproduce)
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/firmware/broadcom/bcm47xx_nvram.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610100800.CCtA9f8L-lkp@intel.com/
+diff --git a/drivers/firmware/broadcom/bcm47xx_nvram.c b/drivers/firmware/broadcom/bcm47xx_nvram.c
+index 0ea5206be4c9..3609e1356065 100644
+--- a/drivers/firmware/broadcom/bcm47xx_nvram.c
++++ b/drivers/firmware/broadcom/bcm47xx_nvram.c
+@@ -112,8 +112,12 @@ static int bcm47xx_nvram_find_and_copy(void __iomem *flash_start, size_t res_siz
+ 
+ int bcm47xx_nvram_init_from_iomem(void __iomem *nvram_start, size_t res_size)
+ {
++	/*
++	 * The arch code on MIPS (and the MTD fallback) may have copied the
++	 * NVRAM before the nvmem driver probes. That copy is used.
++	 */
+ 	if (nvram_len) {
+-		pr_warn("nvram already initialized\n");
++		pr_debug("nvram already initialized\n");
+ 		return -EEXIST;
+ 	}
+ 
+-- 
+2.56.0
 
-All warnings (new ones prefixed by >>):
-
-   drivers/tty/serial/qcom_geni_serial.c: In function 'qcom_geni_serial_gpi_tx_unmap':
->> drivers/tty/serial/qcom_geni_serial.c:1424:29: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
-    1424 |         port->tx_dma_addr = (dma_addr_t)NULL;
-         |                             ^
-   drivers/tty/serial/qcom_geni_serial.c: In function 'qcom_geni_serial_gpi_tx_xfer_work':
-   drivers/tty/serial/qcom_geni_serial.c:1613:37: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
-    1613 |                 port->tx_dma_addr = (dma_addr_t)NULL;
-         |                                     ^
-   drivers/tty/serial/qcom_geni_serial.c: In function 'qcom_geni_serial_unprepare_gpi_rx_dma':
-   drivers/tty/serial/qcom_geni_serial.c:1670:47: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
-    1670 |                         gpi->rx_dma_addr[i] = (dma_addr_t)NULL;
-         |                                               ^
-
-
-vim +1424 drivers/tty/serial/qcom_geni_serial.c
-
-  1414	
-  1415	static void qcom_geni_serial_gpi_tx_unmap(struct qcom_geni_serial_port *port)
-  1416	{
-  1417		struct qcom_geni_serial_gpi *gpi = port->gpi;
-  1418	
-  1419		if (!port->tx_dma_addr)
-  1420			return;
-  1421	
-  1422		dma_unmap_single(port->se.dev->parent, port->tx_dma_addr,
-  1423				 gpi->xmit_size, DMA_TO_DEVICE);
-> 1424		port->tx_dma_addr = (dma_addr_t)NULL;
-  1425	}
-  1426	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
