@@ -1,216 +1,233 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE97B367B71;
-	Sat, 10 Oct 2026 06:38:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E557361941
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 06:38:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.114
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791614290; cv=none; b=qOhCXAg48iklixfy+8oS0JhXVF803XBZ/uV0cy7QIQSK1DF94RFCX2360405heJWp2QpaD4KW/92J5Ll/4wh8xEnynq6cR3/kMyOd2cnz65Ol28eMulYemd/U02jXe7+0PBMkkDna+IS1cv2DO4SlHfgA+1raiPP3B77S122mO8=
+	t=1791614291; cv=none; b=biUaFQmMdSKxHFV6JXG6YS1YNqyxKPeTUf4q3d5ps6ZVwV+/B7kV70LVMsAAvcnWrGrxhrcu2d82F2TAHNt8Z9ArwmY3Kssva/3II3GuPgqe/6yp4XeajTG0G+74xOYRYpOLrcmSuBVCtaWRP4xomrntiZduIpALKL3OA8C8bSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791614290; c=relaxed/simple;
-	bh=/vWqq2pzVcl36tqUoXWHORtS0JmaGOIn8ZMWpYs7zRs=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=s0QNM1pbWSGK0pKL/oRYdmWNsKhh5Jp3PALW9ZVqLzCoKG90Liq1mbHdryUK6eLtHMOobbffhYCfpQUj2xsjmHQVIBjjCdiMD40gFi+biwSR4FuZHtTUDtg1PbFWELLoXo92hnlQykVO/vlF5cUra87uko3AAHinh6RFV0s61mo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ScY9z2HB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791614291; c=relaxed/simple;
+	bh=IwNVA5MWxOp1T+zTfUF5AynSJgR8CBfD+8rEqNe2b3k=;
+	h=Date:References:Message-Id:Content-Type:Subject:Mime-Version:
+	 In-Reply-To:To:Cc:From; b=tvMuSwXvvxkjQywMXko+LxFNhNDzGAChA7naj6VxCZrXa2kPZz0YxhWE9sqXO+6PJ6/Q8eo/GZiPh2EuZ46uXcANAGlwiBOfEWwht0by79ghIWdydv91M0f/NlKtKAXCYDJW5DnX24hc3k/89IV+py8iRzWDFHRSc13Tehm+DYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=jB9Fyvqd; arc=none smtp.client-ip=209.127.230.114
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ScY9z2HB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16C791F000FF;
-	Sat, 10 Oct 2026 06:38:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791614288;
-	bh=fEEO3v1L3zz+tLSI6RWGQzmGcrPEPkcaUTB011Qb2S8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ScY9z2HBS55TpFj0u/jp+mgxV3kvlpmSRjNnJwhT3vxjz8n5PtBJ8QmYav7gk2kzV
-	 h77fGdHtwleuZ2hxt0u2JOzixIaQMHxGc925jqJHriq1HQK6Fk3zJRvUmm6ylPrzcE
-	 rKV4NAV9HezJ4JfjBJ4T8hhR928JS+ZngCDDvPb5pc68ELbwgJdHDrB0OFMewp+vZZ
-	 kHV830Bw9MtvSSfkATSMZUMUt+6QiaJU2WARDy0nejQ1UiZLQOGYqxMK54umdc1mdi
-	 orUC0LbKopG+05P3fo2bDJecwAU0uajwwuWr+4IUCRI+KZ5wbFjHoUJrgZdJTCeWuZ
-	 5UxLPTPMZldGA==
-Subject:
- Re: [PATCH] net: tcp: fix fraglist GRO flushing on alternating TCP PSH flag
-From: netdev-bot+sashiko@kernel.org
-To: shiming.cheng@mediatek.com
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, willemb@google.com,
- daniel.zahka@gmail.com, alice@isovalent.com, sd@queasysnail.net,
- eilaimemedsnaimel@gmail.com, imv4bel@gmail.com, nbd@nbd.name,
- dsahern@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- stable@vger.kernel.org, steffen.klassert@secunet.com
-Date: Sat, 10 Oct 2026 06:38:06 +0000
-Message-ID: <179161428655.434549.7066789783316941855@kernel.org>
-In-Reply-To: <20261009060319.6229-1-shiming.cheng@mediatek.com>
-References: <20261009060319.6229-1-shiming.cheng@mediatek.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="jB9Fyvqd"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1791614283; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=gEZ9kNVs3FLih4w7q04wSSL1EKEuCKqTB4w9IOg1y2w=;
+ b=jB9Fyvqd6RqyhpSdW85SivXeemIVq79I9saxVi3UJu53GQ0pI96qZ777rOu7u9uzdrZznE
+ /PxzxZ0GLwuK24xoS0HRbWV4zyCdN13vf1MTeZNUaU8wbR2iLOuGBYmumL2YYx7o1DWHPi
+ 4R9mteazauYa5Rr5peZLWU4M212GWJtJHL23L0ikiuq0tx5jHdQXrQa0Bu1q2hA0TPhMvg
+ TivyHRv18083Gh0Vzxbe6wfYAGNXvhNRICVezdcb8RmQfbCN4ahLrnIQvFmKAo1SpYZZd3
+ 9fk6EwY7YUirQ3G6ccTlGFqdu3Ba4Okxw1SvlgcD6+U6IpvcXh7YOdzIrINhKw==
+Date: Sat, 10 Oct 2026 14:37:46 +0800
+References: <20260930064308.58159-1-lizhe.67@bytedance.com> <arzVaC2IYkqSb0_U@gmail.com> <9a7c026e-f5f2-40e0-84aa-919c988cc136@bytedance.com> <2b4571c5-8e51-4c91-9d88-11929f200875@kernel.org> <asjVUa6XBZ8ti-0_@gremlin> <70ea8ee6-6fc5-4209-8cee-362da37f5035@kernel.org>
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+Message-Id: <ab1577d2-a9ce-41db-a632-8e25652dab31@bytedance.com>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH] mm/hugetlb: avoid recursive i_mmap_rwsem in PMD sharing
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+X-Lms-Return-Path: <lba+26ac9dd49+177b18+vger.kernel.org+lizhe.67@bytedance.com>
+In-Reply-To: <70ea8ee6-6fc5-4209-8cee-362da37f5035@kernel.org>
+User-Agent: Mozilla Thunderbird
+To: "David Hildenbrand (Arm)" <david@kernel.org>, 
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
+	<akpm@linux-foundation.org>, <muchun.song@linux.dev>, 
+	<osalvador@suse.de>, <linux-mm@kvack.org>, 
+	<linux-kernel@vger.kernel.org>
+From: "Li Zhe" <lizhe.67@bytedance.com>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+On 10/10/26 2:05 AM, David Hildenbrand (Arm) wrote:
+> On 10/9/26 13:52, Lorenzo Stoakes (ARM) wrote:
+>> On Mon, Oct 05, 2026 at 11:25:01AM +0200, David Hildenbrand (Arm) wrote:
+>>>> David mentioned that Oscar was planning to send a proper fix for this
+>>>> issue, so I will wait for that patch instead of moving forward with this
+>>>> trylock fallback approach.
+>>> @Lorenzo, if Oscar is too busy, I guess we can paste the overall idea for the
+>>> fix here as well (publicly)?
+>> Yeah I don't see why not! I don't think there's anything that needs to be
+>> private here.
+> Li, see below, can you work with the below?
 
-Critical: 0 · High: 2 · Medium: 1 · Low: 0
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Thanks for the patch. I tested it with my original mremap reproducer, and
+I can no longer reproduce the hung task.
 
-- [High] Forwarded TCP FIN/PSH can be dropped from the wire when a
-  fraglist GRO skb falls back to tcp_gso_segment()/skb_segment().
-- [High] FIN/PSH in a fraglist tail segment is invisible to netfilter,
-  conntrack, flowtable, tc and BPF, which all read only the aggregate's…
-- [Medium] The commit message calls the removed check 'redundant' and
-  only discusses PSH.
+I also checked the hugetlb_change_protection() / uffd-wp path Jose
+mentioned. That path can reach hugetlb_change_protection() and
+huge_pte_alloc(), but it does not enter huge_pmd_share(), because
+VM_UFFD_WP makes want_pmd_share() return false via
+uffd_disable_huge_pmd_share().
 
---
+My understanding of your patch is that we preallocate the destination
+hugetlb page tables before taking the mapping's i_mmap_rwsem in write
+mode. Then, while holding i_mmap_rwsem, we only walk the preallocated
+destination PTEs and move the source huge PTEs over. This avoids calling
+huge_pte_alloc(), and therefore huge_pmd_share(), while already holding
+i_mmap_rwsem for write.
 
-net: tcp: fix fraglist GRO flushing on alternating TCP PSH flag
+Does that match your intended direction? If so, I will go through the
+details and make sure there are no issues, then send a v2 based on this
+approach.
 
-This patch removes the unmasked TCP flag word comparison from the is_flist
-branch of tcp_gro_receive(). Segments whose PSH/FIN flags differ from the
-held packet can then be appended to a fraglist GRO skb. The goal is to stop
-premature flushes when a sender alternates [ACK] and [PSH, ACK] segments
-in forwarding and tethering setups.
+Thanks,
+Zhe
 
-> This redundant check causes premature flushing on any incoming PSH packet,
-> shattering aggregation and increasing softirq overhead.
-
-[ ... ]
-
-> a single fraglist, and are safely flushed together upon encountering the
-> PSH flag at `out_check_final`, preserving the required TCP push semantics.
-
-[Severity: Medium]
-Is the removed check really redundant? Commit 8d95dc474f85 ("net: add code
-for TCP fraglist GRO") added it to the is_flist branch on purpose.
-
-The general path can mask FIN|PSH out of its first comparison only because
-it later ORs those flags into the held packet's header:
-
-    tcp_flag_word(th2) |= flags & (TCP_FLAG_FIN | TCP_FLAG_PSH);
-
-The is_flist branch jumps to out_check_final before it reaches that line.
-So the unmasked comparison was what kept every fraglist member's flags
-identical to the head's.
-
-The removal also relaxes FIN, not only PSH. Data-carrying FIN segments,
-such as the last segment of a response, can now join a fraglist. The
-commit message doesn't mention this.
-
-The claim that push semantics are preserved seems to hold only when the
-skb goes through skb_segment_list(). Could the commit message describe the
-FIN change and the cases raised in the comments on the diff below?
-
-> diff --git a/net/ipv4/tcp_offload.c b/net/ipv4/tcp_offload.c
-> index e74d99ca9face..54b40ec95a080 100644
-> --- a/net/ipv4/tcp_offload.c
-> +++ b/net/ipv4/tcp_offload.c
-> @@ -328,7 +328,6 @@ struct sk_buff *tcp_gro_receive(struct list_head *head, struct sk_buff *skb,
->  	flush |= skb_cmp_decrypted(p, skb);
->  
->  	if (unlikely(NAPI_GRO_CB(p)->is_flist)) {
-> -		flush |= (__force int)(flags ^ tcp_flag_word(th2));
-
-[Severity: High]
-Can this drop a forwarded FIN or PSH from the wire?
-
-Without this check, skb_gro_receive_list() links an in-sequence [PSH, ACK]
-or [FIN, ACK] data segment into the held skb's frag_list. The is_flist
-branch then jumps to out_check_final. That skips the only place where
-FIN/PSH reach the head header:
-
-    tcp_flag_word(th2) |= flags & (TCP_FLAG_FIN | TCP_FLAG_PSH);
-
-tcp4_gro_complete() and tcp6_gro_complete() return early for is_flist.
-The head can't carry FIN/PSH itself, because out_check_final would have
-flushed it. So the head header has neither flag, while the last frag_list
-member has them.
-
-tcp4_gso_segment() uses __tcp4_gso_segment_list() only when the geometry
-still matches and SKB_GSO_DODGY is clear:
-
-    if ((skb_pagelen(skb) - th->doff * 4 == skb_shinfo(skb)->gso_size) &&
-        !(skb_shinfo(skb)->gso_type & SKB_GSO_DODGY))
-        return __tcp4_gso_segment_list(skb, features);
-
-Otherwise it falls back to tcp_gso_segment()->skb_segment(). That path
-copies head_skb's headers, TCP flags included, into every segment.
-
-tcp_gso_segment() then clears fin/psh on every segment except the last:
-
-    while (skb->next) {
-        th->fin = th->psh = 0;
-
-The last segment keeps the head's flags, which never had FIN/PSH.
-tcp6_gso_segment() has the same fallback.
-
-These can trigger the fallback on forwarded traffic:
-
-  bpf_skb_proto_4_to_6() and bpf_skb_proto_6_to_4(), reached through
-  bpf_skb_change_proto() (for example CLAT/464xlat when tethering), set
-  SKB_GSO_DODGY on GSO skbs.
-
-  bpf_skb_net_grow() and bpf_skb_net_shrink() set SKB_GSO_DODGY.
-  bpf_skb_net_grow() can also linearize frag_list skbs when
-  BPF_F_ADJ_ROOM_FIXED_GSO is not set.
-
-  Any pull or linearize that changes the geometry has the same effect,
-  for example skb_ensure_writable(skb, skb->len) in NAT mangling.
-
-In those cases the receiver doesn't get the FIN until the sender
-retransmits it, and PSH is silently cleared.
-
-A fraglist skb redirected to a local TCP socket after GRO (DNAT/TPROXY) is
-also parsed from the head header only. TCP has nothing like UDP's
-local-delivery fraglist handling, so the FIN would be missed there too.
-
-ORing the tail's flags into th2 in the is_flist branch doesn't seem to fix
-this. skb_segment_list() emits the head skb with its own TCP header, so the
-first segment would then carry a spurious FIN/PSH.
-
-[Severity: High]
-Does this also hide the tail's FIN/PSH from netfilter, conntrack,
-flowtable, tc and BPF? All of these read only the aggregate's head header
-before segmentation.
-
-In conntrack, get_conntrack_index() only checks the head's tcph->fin, so
-the FIN transition never fires. tcp_in_window() computes:
-
-    end = segment_seq_plus_len(seq, skb->len, dataoff, tcph);
-
-skb->len covers all of the fraglist payload. The +1 for FIN is missing,
-because tcph is the head header. The peer's ACK of the FIN then hits:
-
-    if (!before(sack, receiver->td_end + 1))
-        return nf_tcp_store_invalid(ct, sender, log, NFCT_TCP_INVALID,
-                                    NF_TCP_LOG_ACK_OVER, receiver->td_end + 1);
-
-That ACK is classified invalid, and so are the peer's own FIN and the
-final ACK. A typical "ct state invalid drop" rule would then drop the
-teardown packets. Without such a rule, the entry stays ESTABLISHED instead
-of moving to FIN_WAIT/CLOSE_WAIT.
-
-In the flowtable, nf_flow_state_check() reads fin/rst only from the head
-header, so NF_FLOW_CLOSING is never set for the offloaded flow.
-
-tcp_mt() in xt_tcpudp and the nft tcp flags match also read only the head
-header, so a FORWARD rule that matches FIN or PSH won't fire.
-skb_segment_list() copies only the MAC header from the head and keeps each
-member's own TCP header. The FIN/PSH therefore still goes out on the wire
-and bypasses that policy.
-
-Before this patch, the unmasked comparison guaranteed that the head header
-described every member of the fraglist.
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261009060319.6229-1-shiming.cheng%40mediatek.com
+>
+>
+> ----8<----
+>  From 9e1c0676ea6c9cbcabf91cd8badf81a9d88fd3ef Mon Sep 17 00:00:00 2001
+> From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+> Date: Wed, 29 Jul 2026 18:33:08 +0100
+> Subject: [PATCH] fix
+>
+> ---
+>   mm/hugetlb.c | 103 +++++++++++++++++++++++++++++++++++++++------------
+>   1 file changed, 79 insertions(+), 24 deletions(-)
+>
+> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+> index e93c4d2456aa..88ff2c4ad483 100644
+> --- a/mm/hugetlb.c
+> +++ b/mm/hugetlb.c
+> @@ -5077,6 +5077,79 @@ static void move_huge_pte(struct vm_area_struct *vma, unsigned long old_addr,
+>   	spin_unlock(dst_ptl);
+>   }
+>
+> +/* Returns last address processed */
+> +static unsigned long prealloc_or_move_page_tables(struct vm_area_struct *vma,
+> +		struct vm_area_struct *new_vma, unsigned long old_addr,
+> +		unsigned long new_addr, unsigned long len, unsigned long sz,
+> +		unsigned long last_addr_mask, struct mmu_gather *tlb,
+> +		bool is_prealloc)
+> +{
+> +	unsigned long old_end = old_addr + len;
+> +	struct hstate *h = hstate_vma(vma);
+> +	struct mm_struct *mm = vma->vm_mm;
+> +	pte_t *src_pte, *dst_pte;
+> +
+> +	hugetlb_vma_assert_locked(vma);
+> +
+> +	for (; old_addr < old_end; old_addr += sz, new_addr += sz) {
+> +		src_pte = hugetlb_walk(vma, old_addr, sz);
+> +		if (!src_pte) {
+> +			old_addr |= last_addr_mask;
+> +			new_addr |= last_addr_mask;
+> +			continue;
+> +		}
+> +		if (huge_pte_none(huge_ptep_get(mm, old_addr, src_pte)))
+> +			continue;
+> +
+> +		if (is_prealloc) {
+> +			if (!huge_pte_alloc(mm, new_vma, new_addr, sz))
+> +				break;
+> +			continue;
+> +		}
+> +
+> +		if (huge_pmd_unshare(tlb, vma, old_addr, src_pte)) {
+> +			old_addr |= last_addr_mask;
+> +			new_addr |= last_addr_mask;
+> +			continue;
+> +		}
+> +
+> +		dst_pte = hugetlb_walk(new_vma, new_addr, sz);
+> +		if (!dst_pte)
+> +			break;
+> +
+> +		move_huge_pte(vma, old_addr, new_addr, src_pte, dst_pte, sz);
+> +		tlb_remove_huge_tlb_entry(h, tlb, src_pte, old_addr);
+> +	}
+> +
+> +	return old_addr;
+> +}
+> +
+> +/* Returns true if preallocation succeeded across range, otherwise false. */
+> +static bool prealloc_hugetlb_page_tables(struct vm_area_struct *vma,
+> +		struct vm_area_struct *new_vma, unsigned long old_addr,
+> +		unsigned long new_addr, unsigned long len, unsigned long sz,
+> +		unsigned long last_addr_mask)
+> +{
+> +	unsigned long old_end = old_addr + len;
+> +	unsigned long addr_end;
+> +
+> +	addr_end = prealloc_or_move_page_tables(vma, new_vma, old_addr, new_addr,
+> +			len, sz, last_addr_mask, NULL, /*is_prealloc=*/true);
+> +
+> +	return addr_end >= old_end;
+> +}
+> +
+> +/* Returns last processed address. */
+> +static unsigned long __move_hugetlb_page_tables(struct vm_area_struct *vma,
+> +		struct vm_area_struct *new_vma, unsigned long old_addr,
+> +		unsigned long new_addr, unsigned long len, unsigned long sz,
+> +		unsigned long last_addr_mask, struct mmu_gather *tlb)
+> +{
+> +	i_mmap_assert_write_locked(vma->vm_file->f_mapping);
+> +	return prealloc_or_move_page_tables(vma, new_vma, old_addr, new_addr,
+> +			len, sz, last_addr_mask, tlb, /*is_prealloc=*/false);
+> +}
+> +
+>   int move_hugetlb_page_tables(struct vm_area_struct *vma,
+>   			     struct vm_area_struct *new_vma,
+>   			     unsigned long old_addr, unsigned long new_addr,
+> @@ -5088,9 +5161,9 @@ int move_hugetlb_page_tables(struct vm_area_struct *vma,
+>   	struct mm_struct *mm = vma->vm_mm;
+>   	unsigned long old_end = old_addr + len;
+>   	unsigned long last_addr_mask;
+> -	pte_t *src_pte, *dst_pte;
+>   	struct mmu_notifier_range range;
+>   	struct mmu_gather tlb;
+> +	bool preallocated;
+>
+>   	mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, 0, mm, old_addr,
+>   				old_end);
+> @@ -5106,30 +5179,12 @@ int move_hugetlb_page_tables(struct vm_area_struct *vma,
+>   	last_addr_mask = hugetlb_mask_last_page(h);
+>   	/* Prevent race with file truncation */
+>   	hugetlb_vma_lock_write(vma);
+> +	preallocated = prealloc_hugetlb_page_tables(vma, new_vma, old_addr,
+> +			new_addr, len, sz, last_addr_mask);
+>   	i_mmap_lock_write(mapping);
+> -	for (; old_addr < old_end; old_addr += sz, new_addr += sz) {
+> -		src_pte = hugetlb_walk(vma, old_addr, sz);
+> -		if (!src_pte) {
+> -			old_addr |= last_addr_mask;
+> -			new_addr |= last_addr_mask;
+> -			continue;
+> -		}
+> -		if (huge_pte_none(huge_ptep_get(mm, old_addr, src_pte)))
+> -			continue;
+> -
+> -		if (huge_pmd_unshare(&tlb, vma, old_addr, src_pte)) {
+> -			old_addr |= last_addr_mask;
+> -			new_addr |= last_addr_mask;
+> -			continue;
+> -		}
+> -
+> -		dst_pte = huge_pte_alloc(mm, new_vma, new_addr, sz);
+> -		if (!dst_pte)
+> -			break;
+> -
+> -		move_huge_pte(vma, old_addr, new_addr, src_pte, dst_pte, sz);
+> -		tlb_remove_huge_tlb_entry(h, &tlb, src_pte, old_addr);
+> -	}
+> +	if (preallocated)
+> +		old_addr = __move_hugetlb_page_tables(vma, new_vma, old_addr,
+> +			new_addr, len, sz, last_addr_mask, &tlb);
+>
+>   	tlb_flush_mmu_tlbonly(&tlb);
+>   	huge_pmd_unshare_flush(&tlb, vma);
+> --
+> 2.55.0
