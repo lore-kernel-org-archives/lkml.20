@@ -1,37 +1,36 @@
 Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F6994519A1;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F7684519BE;
 	Sat, 10 Oct 2026 09:43:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.81.229.115
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791625429; cv=none; b=lg7ms+3QROQd2T6m4Tx1/t7LFhoM9WrbO+hJfccHyAxLmCy+pJ3A5654Z0bd8/Rfl7aOh8GpkJeueHqDXppOFKVmwvgqV63WP4EQ28eHrxqljqDGqc/vgYw4bm1P4qhVBOmgZWGvIpvumyso4qZ9eN987CUarSaJzeTF/fuGJpU=
+	t=1791625430; cv=none; b=ce8FIHYI4fCmf7MuFgNWGF12SBj6BTOB7i766Pr8jxtjQ5ZDY0aHNrf8tk/maOKALa6VvOYijzeMN0vyCU/LL3xGrfBdn12ka3lq5y7xBkABmEZEFbJ90qx9uNH4YLbBeWa2OA4zdrrJ84WOllX8EkqxAuYecExAt0JoYK21cZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791625429; c=relaxed/simple;
-	bh=hSa4L+QWc2uDvx/tqmkiTHw4LQoP2Kt3Eb1meqwGiAc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hM0nJW6MJrTd5PIyULNzmDit8C1+08ED99mJFOnGJhGC+/je5Gj9KJbJ9JG1cGR9R7suQ90sTm7RzVJ1m0IGpc2FYfGZblq7VvQjtcDf04Vhjy8oeFnfGBJi5My2P1H6gHNDy2u2tCxmhOziDYR6nTRTVFB+VaXKA8ZrjA1kVV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=HC+LZM4d; arc=none smtp.client-ip=77.81.229.115
+	s=arc-20240116; t=1791625430; c=relaxed/simple;
+	bh=/PD6alR7DUWYk4t2a+kPIYDcsnEnHTrN8iihdKX/W4c=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Ed9bCFa9tSa6yBKwfQN7pbzGfy34oca8VSSJIJop/yEFI1OwYkapFcjoyhUJyrd5v8HJNMHjkUHjHC87O5Pe2ZGHWho9DXWOC4a2acDDYo1+LWnN9sdxU8n0x/ayi6wAX0BhYBLqRLNvvuxi3zpicA6swlK4+8TEtKGIwgY9Y30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=eaMQ5fIl; arc=none smtp.client-ip=77.81.229.115
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="HC+LZM4d"
-Received: by chaosmail.tech (Postfix) id 94BD91CC3B9;
-	Sat, 10 Oct 2026 09:38:05 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="eaMQ5fIl"
+Received: by chaosmail.tech (Postfix) id C27A41CBD7C;
+	Sat, 10 Oct 2026 09:38:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
-	s=mail; t=1791625086;
+	s=mail; t=1791625085;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mkRk1b0acKcNtNb5LGbx/EpjtFCkjlQU51LIog+QBM0=;
-	b=HC+LZM4dYfGd8D6lih2rnmfy5ULP2O+7DJZgB4ZBrZgihlv6WLp+LWN9Eo8OZsfXpdSMsN
-	D1H8q3YSEmzS+pzJiZ+5FrqOGERGxpowIYj/5RCMVJfC1rFLmBA3MQ/xjtBiO8z1Ezv5dG
-	nh7sXDOEGzjzkihUqKDDkqEghXG9kBk=
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=NXFSX1tYzI/FTd2hCg5Erv2WCZYus2tVWPl2LBEfLNU=;
+	b=eaMQ5fIlUhNHn1vQKIqZhwSpbTws7dN39Z2CrB8qHNDhOxnFwOPWX2Eiur5fLBO553IKyx
+	+Y0BKxvPpdGaBR9nB8zAHpIGD8cFQCtB7LVRlzWr5rfLhmOCVUvY79W0mUpNJdzo9Kfovf
+	pO5eE1kh+Drw6AfoArXIPnO9ipBVQic=
 From: Sasha Finkelstein <k@chaosmail.tech>
-Date: Sat, 10 Oct 2026 11:37:55 +0200
-Subject: [PATCH RESEND v7 1/3] dt-bindings: usb: tps6598x: Add
- sn201202x/ACE3
+Subject: [PATCH RESEND v7 0/3] usb: typec: tipd: Add sn201202x (ACE3)
+ support
+Date: Sat, 10 Oct 2026 11:37:54 +0200
+Message-Id: <20261010-tipd-ace3-v7-0-317218a96c01@chaosmail.tech>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,9 +39,6 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261010-tipd-ace3-v7-1-317218a96c01@chaosmail.tech>
-References: <20261010-tipd-ace3-v7-0-317218a96c01@chaosmail.tech>
-In-Reply-To: <20261010-tipd-ace3-v7-0-317218a96c01@chaosmail.tech>
 To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -50,122 +46,81 @@ To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
  Heikki Krogerus <heikki.krogerus@linux.intel.com>
 Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
  linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Sasha Finkelstein <k@chaosmail.tech>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791625084; l=3481;
+ linux-kernel@vger.kernel.org, Sasha Finkelstein <k@chaosmail.tech>, 
+ Alyssa Milburn <amilburn@zall.org>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791625084; l=2924;
  i=k@chaosmail.tech; s=20241124; h=from:subject:message-id;
- bh=hSa4L+QWc2uDvx/tqmkiTHw4LQoP2Kt3Eb1meqwGiAc=;
- b=3sE9VFqok7hPqDR4glc4T5rxGsoKkGlSnB9Cs6TXcXoEDRpSdUgRpNouzw7cWZWUzUeLmajyK
- uoYJd+TUSuiBf4Fl0TE8H0nqc2aTw22Td9jmByEmm0cevMWJ34pshL2
+ bh=/PD6alR7DUWYk4t2a+kPIYDcsnEnHTrN8iihdKX/W4c=;
+ b=znqKSXBLYU/J6o6zvMgMp8zxd8SuNRmjlx/QYH7+4TbYZWH9APeHkzC6MBblNstWHqnn3bnHL
+ JE4xaii85d0DmRkN0uKaW9s4vvLfLu/TXwe7fGZnExEO7ab//k8NbYD
 X-Developer-Key: i=k@chaosmail.tech; a=ed25519;
  pk=aSkp1PdZ+eF4jpMO6oLvz/YfT5XkBUneWwyhQrOgmsU=
 
-A variant of tps6598x that is attached to a SPMI bus and is found on
-Apple devices starting from the M3 series
+Add support for sn201202x (a.k.a ACE3), an Apple-specific tps6598x
+variant that wraps the tps6598x core register set with a SPMI based
+regmap-like protocol, first appearing in Apple M3 devices. This series
+first makes the core parts bus-agnostic, and then adds the new SPMI
+interface as a custom regmap implementation.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+To simplify the merge strategy, the device tree entries will be sent
+in a future patch series.
+
 Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
 ---
- Documentation/devicetree/bindings/usb/apple,sn201202x.yaml | 78 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- MAINTAINERS                                                |  1 +
- 2 files changed, 79 insertions(+)
+Changes in v7:
+- Rebase on usb-testing
+- Link to v6: https://patch.msgid.link/20260826-tipd-ace3-v6-0-e919f39a93a2@chaosmail.tech
 
-diff --git a/Documentation/devicetree/bindings/usb/apple,sn201202x.yaml b/Documentation/devicetree/bindings/usb/apple,sn201202x.yaml
-new file mode 100644
-index 000000000000..133a71bbedb7
---- /dev/null
-+++ b/Documentation/devicetree/bindings/usb/apple,sn201202x.yaml
-@@ -0,0 +1,78 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/usb/apple,sn201202x.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments sn201202x Type-C Power Delivery controller
-+
-+maintainers:
-+  - Sasha Finkelstein <k@chaosmail.tech>
-+
-+description: |
-+  Texas Instruments sn201202x Type-C Power Delivery controller
-+
-+  A variant of tps6598x controller also known as Apple ACE3
-+  present on hardware with Apple SoCs starting from the M3.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - apple,sn201202x
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    items:
-+      - description: Primary irq used for tps6598x events
-+      - description: Logical register selection completed
-+      - description: Standby command completed
-+      - description: Wakeup command completed
-+
-+  interrupt-names:
-+    items:
-+      - const: irq
-+      - const: select
-+      - const: sleep
-+      - const: wake
-+
-+  connector:
-+    $ref: /schemas/connector/usb-connector.yaml#
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - interrupt-names
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/spmi/spmi.h>
-+    spmi {
-+        #address-cells = <2>;
-+        #size-cells = <0>;
-+        usb-pd@c {
-+            compatible = "apple,sn201202x";
-+            reg = <0xc SPMI_USID>;
-+            interrupts = <11 IRQ_TYPE_EDGE_RISING>,
-+                         <13 IRQ_TYPE_EDGE_RISING>,
-+                         <17 IRQ_TYPE_EDGE_RISING>,
-+                         <19 IRQ_TYPE_EDGE_RISING>;
-+            interrupt-names = "irq", "select", "sleep", "wake";
-+
-+            connector {
-+                compatible = "usb-c-connector";
-+                label = "USB-C";
-+
-+                port {
-+                    typec_ep: endpoint {
-+                        remote-endpoint = <&otg_ep>;
-+                    };
-+                };
-+            };
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 6215fcb07770..ba4274ed9c79 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -2659,6 +2659,7 @@ F:	Documentation/devicetree/bindings/soc/apple/apple,t6000-pmgr-misc.yaml
- F:	Documentation/devicetree/bindings/spi/apple,spi.yaml
- F:	Documentation/devicetree/bindings/spmi/apple,spmi.yaml
- F:	Documentation/devicetree/bindings/usb/apple,dwc3.yaml
-+F:	Documentation/devicetree/bindings/usb/apple,sn201202x.yaml
- F:	Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
- F:	Documentation/hwmon/macsmc-hwmon.rst
- F:	arch/arm64/boot/dts/apple/
+Changes in v6:
+- Fix rebase issues
+- Link to v5: https://patch.msgid.link/20260821-tipd-ace3-v5-0-3244ed3bdc3f@chaosmail.tech
 
+Changes in v5:
+- Rebase on usb-next
+- Link to v4: https://patch.msgid.link/20260806-tipd-ace3-v4-0-79855b150914@chaosmail.tech
+
+Changes in v4:
+- Unexport variant data
+- One more debugfs-safety fix
+- Link to v3: https://patch.msgid.link/20260801-tipd-ace3-v3-0-8332f2eca4fc@chaosmail.tech
+
+Changes in v3:
+- Restore accidentally deleted static
+- Fix building with tracepoints
+- Sleep the device on failed probe
+- Link to v2: https://patch.msgid.link/20260727-tipd-ace3-v2-0-1345957bd635@chaosmail.tech
+
+Changes in v2:
+- Use a -core module instead of building everything twice
+- Fix completion handling
+- Make regmaps debugfs-safe
+- Link to v1: https://patch.msgid.link/20260725-tipd-ace3-v1-0-73202d36138a@chaosmail.tech
+
+---
+Alyssa Milburn (1):
+      usb: typec: tipd: Factor out i2c specifics
+
+Sasha Finkelstein (2):
+      dt-bindings: usb: tps6598x: Add sn201202x/ACE3
+      usb: typec: tipd: Add sn201202x support
+
+ Documentation/devicetree/bindings/usb/apple,sn201202x.yaml |  78 +++++++++++++++++++++++++++++++
+ MAINTAINERS                                                |   2 +
+ drivers/usb/typec/Makefile                                 |   1 +
+ drivers/usb/typec/tipd/Kconfig                             |  20 +++++++-
+ drivers/usb/typec/tipd/Makefile                            |  14 ++++--
+ drivers/usb/typec/tipd/core.c                              | 247 +++++++++++++++++++++++--------------------------------------------------------------------------
+ drivers/usb/typec/tipd/i2c.c                               | 107 ++++++++++++++++++++++++++++++++++++++++++
+ drivers/usb/typec/tipd/spmi.c                              | 300 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ drivers/usb/typec/tipd/tps6598x.h                          | 132 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 9 files changed, 705 insertions(+), 196 deletions(-)
+---
+base-commit: bbed88f72dbbb960080282de3b90ca0933fa6226
+change-id: 20260725-tipd-ace3-090bf570ef59
+
+Best regards,
+--
+Sasha Finkelstein <k@chaosmail.tech>
 -- 
-2.56.0
+Sasha Finkelstein <k@chaosmail.tech>
 
