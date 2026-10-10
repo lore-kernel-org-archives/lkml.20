@@ -1,79 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE0085FDA7
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 23:48:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDAC83515F8;
+	Sat, 10 Oct 2026 23:49:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791676118; cv=none; b=kVYZV6WSEsZkRZalU33INlCh2czM/f7ZxrwnMNa1ueoAuO+kiijNffF7XvyNO4UnX73MJNUFEiq/hf3yQ1hBp8HIUT/kTRPlYQa5keGOKVngTAlIq/+vQcz+nG3ziH4Y9+p/8c1ctKFxeulRRJZ2ouUtx0zuiH8gp0Ds/kuJXSA=
+	t=1791676146; cv=none; b=kOILhq9twz5fXPq3dEfmyRV6r3d7co7zAObAH/qcfPlBqNRpET9ZnbUxWrZJivcvLWoNsPR49DXK8NHEjUGuCjgMNIzDhYYXrjUcVRE1/023DyqXpISQYly20r6NszZ/JuLt5610R1Z/h5xDwJrOWQDlLMUM60+BHhaRhKBpOOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791676118; c=relaxed/simple;
-	bh=J97Qb34XTPXUWZwwWoSCRUb48BZb3Kp523yR4FLJgss=;
-	h=From:To:Cc:Subject:Date:Message-Id; b=Kngdu8ntTBxJBV939f/xnbtEFcp0C2pxhcsKABu16sJh5Aqt5kkPnGzjVtzYuGkHct9ej57QsjZbFqypFRCmDnXKLvpvJeiwvojAfkMMzK/wjaCctyNl1vh8QAIjM0FwH98i1kIsGlrQ8IsXN+CfN02Xs+YXklf9rVDKWEBwoz8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EstaSF7I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791676146; c=relaxed/simple;
+	bh=ooKKyB0KMmCNKUQqmZjL81mRjZXOhIio7iD0gVATbfc=;
+	h=From:To:Cc:Subject:Date:Message-Id; b=K62HYBcPkf+hSjVTaTrz89sHF8gbI7CFX1TYK09XfUSty8dtAtV6zXEacjypQ6mGQVeYIulNyJ4gacFcSvj2Aby1Kvzg5Kc8FsOJ3ZyaMcs2e07Wq/Pj7yarU6ZRdAEIUDwpw4oP9lmJftwfzRq60U/HFpFT/AnHkQt8+Vobi1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q5EbhWs6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EstaSF7I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 368511F000FF;
-	Sat, 10 Oct 2026 23:48:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q5EbhWs6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 993C11F000FF;
+	Sat, 10 Oct 2026 23:49:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791676117;
-	bh=VLeTmpzjiaGT5Z5LD/PY+WXI5pNj8dEL23mKqEJoCHA=;
+	s=k20260515; t=1791676145;
+	bh=Vooiol8LU+tE2xufAlGshDUNPhgzUs2Jv23oVx7VuIo=;
 	h=From:To:Cc:Subject:Date;
-	b=EstaSF7IZG+NviRMAtHIqNCNKaesCo4K5VIlBR3qavGw9uerEb9CXt+AiGsMbpJ90
-	 Dv1PnLOtN6JCDcaw1NnvCSBAOltIZerga3WzgsQ2wN5F/HN73iOjPWVn/Td+juDCoC
-	 oqYbsH17WhCAXZD5t8BtT64RaEbjmpET3+oJR3DbWzVTuevQqVAx8etYOKgKXSkUha
-	 YZyE3y24BeMF/4+8Pb+5guoLZTVCRgqal+JymvPm+eWvWDPldF6oJoInuPp/t9QffH
-	 hKcRx+Ly+6DlWPri7J33x+uI9L/dCotc9i39EU32QJOQnkD8T7A9qC433wXIejNnno
-	 azhvDnPscRUlA==
+	b=Q5EbhWs601Z8SARBSxxR72Vc7vbWpgQ7UigBJcfjE3GIvIDj82cDM1YCGi5BzIxhx
+	 EgHGdw6B3YxLYT2vIErVuFaF7BHVWESTzP5nfWh9Zns5dvv4mkVamwdIYCBTLI9JuW
+	 z6bsQssqXMvk5BoaSINHr8MF3+/oSYqOy/ucuoGjQKmpeiR+ixJ5VzlWB2ERXUhYbL
+	 4xti09MM44V4ECmyX/65f9AXXI1+/2dS5ukZ2DOn1dlZ3gDLGfmu25ohdiALlTIqsC
+	 LRtLe1nyRkstwjsUdIdTcHSok9q3GWkYCOJ+asmDGE9JtWQwiRgZ0LoM7o0HBJwToF
+	 zz5QqsRhWjNtw==
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 6C7001AC57D0; Sun, 11 Oct 2026 00:48:34 +0100 (BST)
+	id 606031AC57D0; Sun, 11 Oct 2026 00:49:03 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>
-Subject: [GIT PULL] regulator fixes for v7.3-rc6
-Date: Sun, 11 Oct 2026 00:48:12 +0100
-Message-Id: <20261010234834.6C7001AC57D0@finisterre.sirena.org.uk>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>
+Subject: [GIT PULL] SPI fixes for v7.3-rc6
+Date: Sun, 11 Oct 2026 00:48:39 +0100
+Message-Id: <20261010234903.606031AC57D0@finisterre.sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 
-The following changes since commit 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e:
+The following changes since commit 3d743adf090cd4c9a2120c1e02b0482e88aa0d2d:
 
-  Linux 7.3-rc5 (2026-09-27 13:55:01 -0700)
+  spi: fsl-qspi: Reprogram the clock rate when the operation frequency changes (2026-09-17 19:46:29 +0100)
 
 are available in the Git repository at:
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git tags/regulator-fix-v7.3-rc6
+  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git tags/spi-fix-v7.3-rc6
 
-for you to fetch changes up to 28c2388ee24cdbefbcc458fa41ef7bffaaa1cc83:
+for you to fetch changes up to 00765a3467b992d0eb56704a28887256317eb4bd:
 
-  regulator: ltc3676: don't read the write-only HRST and CLIRQ registers (2026-10-06 17:59:42 +0200)
-
-----------------------------------------------------------------
-regulator: Fixes for v7.3
-
-There's a couple of core fixes here, there were a couple of issues with
-of_regulator_bulk_get_all() not behaving consistently with the other
-bulk regulator APIs which caused memory leaks and error handling issues
-in users.  We also have a of fairly standard driver specific fixes.
+  spi: dt-bindings: snps,dw-apb-ssi: Add Synaptics sl2610 spi (2026-10-08 09:51:12 +0200)
 
 ----------------------------------------------------------------
-Abhishek Ojha (1):
-      regulator: ltc3676: don't read the write-only HRST and CLIRQ registers
+spi: Fixes for v7.3
 
-Alexey Charkov (2):
-      regulator: of: fill in supply names in of_regulator_bulk_get_all()
-      regulator: of: state who owns the array from of_regulator_bulk_get_all()
+A small collection of driver specific fixes, plus a new device ID in the
+DesignWare device tree binding.  One of the sg2044 fixes which enforces
+clock limits properly is more critical than average since getting them
+wrong might lead to data corruption.
 
-Mark Brown (1):
-      regulator: of: Fixes to of_regulator_bulk_get_all()
+----------------------------------------------------------------
+Haibo Chen (1):
+      spi: spi-nxp-fspi: exit stop mode before waiting for DLL lock
 
-Ridham Khurana (1):
-      regulator: tps6594-regulator: Fix n_linear_ranges for TPS65224 BUCK2-4
+Han Gao (2):
+      spi: sg2044-nor: Return transfer errors
+      spi: sg2044-nor: Honor SPI clock limits
 
- drivers/regulator/ltc3676.c           | 15 ++++++++++++---
- drivers/regulator/of_regulator.c      | 29 ++++++++++++++++++++++-------
- drivers/regulator/tps6594-regulator.c |  6 +++---
- 3 files changed, 37 insertions(+), 13 deletions(-)
+Jisheng Zhang (1):
+      spi: dt-bindings: snps,dw-apb-ssi: Add Synaptics sl2610 spi
+
+Miquel Raynal (1):
+      spi: cadence-qspi: Fix status polling with octal DTR chips
+
+ .../devicetree/bindings/spi/snps,dw-apb-ssi.yaml   |  1 +
+ drivers/spi/spi-cadence-quadspi.c                  |  3 +-
+ drivers/spi/spi-nxp-fspi.c                         | 22 +++++----
+ drivers/spi/spi-sg2044-nor.c                       | 56 ++++++++++++++++++----
+ 4 files changed, 64 insertions(+), 18 deletions(-)
