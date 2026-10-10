@@ -1,62 +1,64 @@
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B8D431E826
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 16:16:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D77433D6F7
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 16:16:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791648979; cv=none; b=PGsiTZFllohLdH+SNSdTb1loqBhmJZ97srmZBbtwqsVMX3zw6AD4GBiWSYzN97ajgBHeDybRveBqo+sr/+/omJMKyCi8NGU99PZ5+14XT0hNzEX0J1+/h13KygPveo0YHtjbsxiAYwc+NjvAk7BGasXfEelsqHnkt8MAAk2OHJE=
+	t=1791648980; cv=none; b=UcplABP4W2cXQI8Cc5L9Bh5/HekjESMG5N5c4sIC8Z2e/9yJ2DGua7tczocEn1bcRTpM0Q3Mmj4sLWLWDATEBRTZQtq01Jm4CdkxcnmxXKOOk4ctxd6LEOYKiNkz6nmhAcJlWGn5r7WMPUHUTwQ2SuwTkTbw6vsRhiqbU0ffeus=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791648979; c=relaxed/simple;
-	bh=16YEyXk/B0TCzFsLgGwxCmx1xaDVwjamLfZgiX5djC8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gpRRcxUpIqQxPdsKwYhWekJWrhAw86oaiq7Q98rccg/5YjUpe9fBVbaZje7Y5VOSkMMP1D1uDcGgjHfp82BPW2M6E42i4x4k141IpWxlXY2Wb+GZeF5opbjKfEn0hQsUr2daFUo8z6vVRD7PK1DIjoAcmoG6O8Dq5EqkgP2Z29M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HqsHlYbn; arc=none smtp.client-ip=209.85.218.48
+	s=arc-20240116; t=1791648980; c=relaxed/simple;
+	bh=03OF+1Ek6lttvtzebwu1i3h0wWO50Z4SqmRyzg8h1DY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JdEpSSWsdFj8zXE6PYHJfRulUaAPZu+13v2i7FmMBBJpeBLU1GrdKvyVwY1QF5riyNqlrXwMzLJofTtBzr2lTwbeaXgD9sO5aWaw9mTtS8d7E1W2uZt/sG3djrjGJwir2bXy5EBaGAr174GgNKp/jy7X+fyWnzTDSAGCkfEreec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DMDHm4RF; arc=none smtp.client-ip=209.85.218.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HqsHlYbn"
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c2e5e801487so125990266b.3
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 09:16:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DMDHm4RF"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c2e6df2742cso110731466b.2
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 09:16:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791648975; x=1792253775; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SaD8+619tQtKAuJuh7WJ/qRr66QK9jKC/1Y9XhlPbJs=;
-        b=HqsHlYbnKbCHrIUskvnYIcuv3KrerwHrTaM/lU26JVYUAJMSKhItZ7JRK4ovlHL5J9
-         XnAcxJE+g0KgdRbmXFNXvKtpOotzCV7kwHYfE3dpozclkks0ZWezF1raZoo+AHvo4lWc
-         1jD+fHh7vd5zjGTPLtLynO6Lxm0coDjKcFWxLCgPrz4IfbQ+GXU02Ph12iiIicoT1zmR
-         MPyINWYfUbDpQipO4fRbzxQ6+IaWsSXWuRNILoqBoQSlygc57riALHFu5B+S3B8VMt6J
-         DrQyvhswqN9FeZTdVGqNR5V1oO4xTFOtIEd+yWQ40LEYHNCbD+jkGYNnnS9eIAqDIf0q
-         w1GA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791648975; x=1792253775;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791648977; x=1792253777; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SaD8+619tQtKAuJuh7WJ/qRr66QK9jKC/1Y9XhlPbJs=;
-        b=SZNWhV3tOMtGF+bZvwCexGoQkHIEQ61UNZVvBSK6qFJkTf1HYPe6G8c5yOB1HrTcx+
-         nZyPrkf9AftyVZylfYiR9vEepvbQ+zZ0XeuJo5LN4MKX3rVEFrsTn7z0qIbSEUg90Ubv
-         Y/YOSDnVhVsy5kiZvytgOlddOwrb3vFn1f7da7JkuDMRSnpXk5KwJiS0YRaAdiIcNHOn
-         mGfcsUpSYeDSzC8MDrByqsfLakwUpUzyulGjgmqvduhdBHnYm+y+0hkNhI0pU8rxemYn
-         8ZL5O10ITwu6Yj1ICPCuwhoqE/rZAdkSRGDZgZqRhgUFAS10O//gwskfxDAjCgtWVW+5
-         dPjA==
-X-Forwarded-Encrypted: i=1; AKwUvBw7TJV3FfVnttkH7ym5XZkPL6ZAFtBbgEiqVb2YiUSDDJZYYgS5MPnGQXBrinV3I5J3OEJNZMmtXrdRuwo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIKv8nBJg5cNRzgY3te6is71Wcy6/6HDa3icoRBfvQ6a3FdDnYL
-	f8rkJw7Y8vsMjXr0ET+Imz6IZ3l+JNgsi5ZY7b5mlC1Ep2OewpiLbQsr4VOE8tdyDuBhrA==
-X-Gm-Gg: AYBFou1NTrRdtjJ/ZJwmTnJV+gvHtk0tHZoySrcWeSgXPCO8UIW/R8PlMYSD+aLPpoe
-	2atCCJtv+WoiveUOlDE11x5ir+B5/bYyBqj5oFWIHikZ2GDBEdK4uEVFxat0q0BJjGOsEk6kYki
-	PuCUr+a2D5UmluxXZwQ78EabfvjP9cDvufS81DTxyGHboUod9J22K+Zk7HWlkfvfZqA0Ju4YRNg
-	hirBJ/qUcDYpGo0cbhtweFVgNXiIqGyj3w2c5ohQepmXOoaHHXBB8GUWUEX3N0T6+GfLVmHFFs6
-	RtKWv8/war67lwLRr+NgjT3lN8ZvOm4iTPd67EscFvvpRBKzB1cN7xQhWmXhLg7T/DRWCOZheMS
-	fkFdHm/KcPRpxlFhJjjUjMKN1wYOyK6OASefKVYFhnR0EfMhxxZSTx1l8SsphvF5YIIWJ6EjQxZ
-	ozy7HVVAYecoq1IOEiP47aSsqT1mYUzQTt0jHjVYKPc52U9Xcyh8S8GtjmmIwIwqfJPwv3edINh
-	oCqeP1Fu/jA+3eaQnMIb+WegAw/dDOBKpycgwRIQKOSKtQ=
-X-Received: by 2002:a17:907:c0b:b0:c29:5215:b2d2 with SMTP id a640c23a62f3a-c31aa016eb5mr575858866b.23.1791648975142;
-        Sat, 10 Oct 2026 09:16:15 -0700 (PDT)
+        bh=DFZZRv/P/W173y8m2SUZ2LX6mxqwcOiMdvmZTNTtqnY=;
+        b=DMDHm4RFnYOAmtbhi/yGnknGF4wuTQY4tr7fPx4fnm2YJ8FdKC8npYHVEwN18+QGXd
+         7e2EyP4f45q6JFBCzvR0GYTNSlLhGDJ765jNMLXbjOMGsO30d617kDzHYSYZJDcJTVun
+         MAvAKUNjE9Dz4XSkLZi27AaeVRlwzo9/6GJgIMubAY8Hn3jH4GP/nsQzYtomJiyt/GZ+
+         C1my30w+UzBmiPPDLr6U5JlLMBiVYkPYtd15vh9YmPqyHL57B0e1gAR88/AAteMOp0Me
+         ibDT2gyqX6jrhBMZVfVQ6e5/N++C94E9q3VT+yRLfBO7DsYsMOnwMUkq3TW7zTsMbrsD
+         xztg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791648977; x=1792253777;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DFZZRv/P/W173y8m2SUZ2LX6mxqwcOiMdvmZTNTtqnY=;
+        b=Fi9yR/7zRQ4/UVnsXDeC323qMsqJJeGi8hJPz9uPcDs5AlGmUGHhg8g/DfiObx8++B
+         HcMe5PieFU/WG4neV9fmLWkiO/SW3ZOwY0ax36NR7kasd7jJiMD5GRHTdzv9geQsaYmh
+         s5lPbuN+32HqbVfLUTpM5o89ndkoUBfsr8qA5TQMYHvGDRSY0yEb9xlRRAFxsxpyIWPC
+         Xb2RP0HFDy6+w3yU98aWeYKDmjrVCEFxl3sAJSE5RZBueLQayVTyDEgJ8knECn0YlFyO
+         vTbumGOQsmCb3ZqfcwhNgfiqen2IFzAqtvi4pL69jBcsgsKRkCCEM4VjMQHSTLFD5iW5
+         +Dhg==
+X-Forwarded-Encrypted: i=1; AKwUvByfYn6490BiElz3TycD6ChinkwVHK51ZAecuaGNdAseTfD6KyCi0Dokbk7X36PLFrEWlTCMZ4eEtnpdTKA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIBlSefZBlYgU7S+QU4ew/eiHpvIxWNNibTCvnygzo6O7GkUYtd
+	QtNEAorgMRr5PK8M5eSS6LoFD/6b3pyfgQN6gx0EAiUMwNNzMMSCqHZf
+X-Gm-Gg: AYBFou0k/ZfPyyi/y8mgaUqYYI870h8IeGMq1EirFh+o0ok2mdI7YSEiEEK0AQH1joj
+	g/N87VmNc+9vG4/houXLbYFVcj3AzK1FiZHP88/6W9F6LR18z0L3fv65QRtw0xmthJB3tSDArDl
+	HUIWjaFIJVihyxVlmzmAgJV1H9b6RdzYp8bLRYwNqP6bywkYKSWGQiKzGM8yBCJ3eM2aiLmP1k8
+	h8cYIpcYBBSY23YwU/rj4o1IpPHVAAZh8LzZLYY9ak4NzxlDt/D+ZRr+FiW4J2LS7krYpFxDDhT
+	OB1wLSYV+nTS9WKqyMcmW/B1efxW+YWHIuGVetfYE3BgV62hnwJLJ9z1jIWC3mkE8btV24NJChM
+	10fxIdJ6o413WluyvkHUmLxV0koHTvb47lPje8XsQnjDTEEdXqSpw3KE0iwlfalMbs4RusyOASB
+	JAoLQ5ufUXCG+mUulnPxpl1nVLTfMqONvM2llrlgcDEao14Mp3nleRPIbfG69k3CFsyoa9iAhu2
+	Gp7beVhktaZ54OLY9iYdIoa3GlW3Bl7PwkKRefa/0WIhlw=
+X-Received: by 2002:a17:907:dab:b0:c2d:fade:e089 with SMTP id a640c23a62f3a-c31a96de49dmr544110966b.0.1791648977074;
+        Sat, 10 Oct 2026 09:16:17 -0700 (PDT)
 Received: from localhost.localdomain (87-205-122-125.dynamic.inetia.pl. [87.205.122.125])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9a74bd7sm261422066b.37.2026.10.10.09.16.14
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9a74bd7sm261422066b.37.2026.10.10.09.16.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 09:16:14 -0700 (PDT)
+        Sat, 10 Oct 2026 09:16:16 -0700 (PDT)
 From: illofspeed <illofspeed@gmail.com>
 To: dm-devel@lists.linux.dev
 Cc: agk@redhat.com,
@@ -66,10 +68,12 @@ Cc: agk@redhat.com,
 	hare@suse.de,
 	dlemoal@kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/3] dm zoned: fix two idle reclaim problems
-Date: Sat, 10 Oct 2026 18:16:10 +0200
-Message-ID: <20261010161613.396-1-illofspeed@gmail.com>
+Subject: [PATCH v2 2/3] dm zoned: do not reclaim a random zone into another random zone
+Date: Sat, 10 Oct 2026 18:16:12 +0200
+Message-ID: <20261010161613.396-3-illofspeed@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261010161613.396-1-illofspeed@gmail.com>
+References: <20261010161613.396-1-illofspeed@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,58 +82,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-v2: no code changes. The only change is my author address: v1 went out on
-2026-10-10 from my previous address. Please apply this version instead of v1.
+dmz_reclaim_rnd_data() falls back to a random destination zone when no
+free sequential zone is available and the target has cache zones. When
+the target is idle and the cache zone list is empty,
+dmz_get_rnd_zone_for_reclaim() selects random zones of the zoned device
+as well, so a random zone is then copied into another random zone. That
+frees nothing: the next pass picks the next random zone and copies it
+again, for as long as the target stays idle.
 
-These patches fix two problems in dm-zoned's reclaim worker, found while
-running md RAID5 on three dm-zoned targets on 27 TB host-managed SMR drives
-(WD Ultrastar DC HC680), each target with a regular cache device.
+Seen on a two-device target (256 GiB regular cache device plus a 27 TB
+host-managed drive) used as an md RAID5 member: after a full rebuild
+every chunk was mapped and no sequential zone was free, and the idle
+drive read and wrote about 72 MB/s each without pause for hours while
+the free zone counters in "dmsetup status" did not change. Reproduced on
+emulated host-managed drives (tcmu-runner ZBC handler): 340 MB/s of
+copying on an idle target, 0 MB/s with this patch.
 
-1. On a target with cache zones and no free sequential zone, an idle
-   target keeps copying random zones into other random zones, forever
-   (patch 2; patch 1 makes the resulting -ENOSPC back off instead of
-   spinning). After a full md rebuild every chunk is mapped, so this
-   happens right after a rebuild: the idle member read and wrote about
-   72 MB/s nonstop for hours.
+Only allow the random-zone fallback when the zone being reclaimed is a
+cache zone: moving it to the zoned device still frees cache space.
 
-2. After a reclaim pass that ends while the target is busy, the idle poll
-   is never re-armed, so zones filled under load are not reclaimed when the
-   target goes idle (patch 3). Users notice it as "the buffer never drains";
-   the workaround has been a timer sending "dmsetup message <dev> 0 reclaim".
+Fixes: c5c788595292 ("dm zoned: start reclaim with sequential zones")
+Assisted-by: LLM
+Signed-off-by: illofspeed <illofspeed@gmail.com>
+---
+ drivers/md/dm-zoned-reclaim.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-Testing: the three patches were built as an out-of-tree dm-zoned module for
-7.2.6 (the changed code is identical in current master) and tested
-- on emulated host-managed drives (tcmu-runner ZBC handler) in a VM: the
-  idle copy loop reproduced with the stock module (340 MB/s on an idle
-  target, zone counters unchanged), 0 MB/s with the patches;
-- on the three real drives since 2026-10-05: crash test, three 1.5 TiB
-  write benchmarks, and eight conversions between single-device and
-  cache-device layouts; emptied zones were reclaimed within minutes of the
-  targets going idle without the reclaim timer.
-- with a reproducer that needs no special hardware (scsi_debug zbc=managed,
-  64 MiB zones, plus a 1 GiB loop cache device): stock module ~600 MB/s of
-  read+write on the idle target with unchanged zone counters, patched
-  module 0 MB/s:
-  https://github.com/illofspeed/synology-host-managed-smr/tree/main/repro
-Not done: a test on current master itself (only 7.2.6), and a rebuild onto a
-cached member with the patches (the first problem was seen after a rebuild
-with the stock module).
-
-Related, not addressed here: the double-free in dmz_load_sb() reported on
-dm-devel on 2026-05-30.
-
-The problems were found and the patches written with the help of an AI
-coding assistant (hence Assisted-by); the analysis, the tests on real
-hardware and this description were reviewed by me.
-
-illofspeed (3):
-  dm zoned: back off when reclaim finds no destination zone
-  dm zoned: do not reclaim a random zone into another random zone
-  dm zoned: keep polling for idle reclaim after a reclaim pass
-
- drivers/md/dm-zoned-reclaim.c | 28 ++++++++++++++++++++++++++--
- 1 file changed, 26 insertions(+), 2 deletions(-)
-
+diff --git a/drivers/md/dm-zoned-reclaim.c b/drivers/md/dm-zoned-reclaim.c
+index 315f0da99f3..2bcc163d209 100644
+--- a/drivers/md/dm-zoned-reclaim.c
++++ b/drivers/md/dm-zoned-reclaim.c
+@@ -288,7 +288,14 @@ static int dmz_reclaim_rnd_data(struct dmz_reclaim *zrc, struct dm_zone *dzone)
+ again:
+ 	szone = dmz_alloc_zone(zmd, zrc->dev_idx,
+ 			       alloc_flags | DMZ_ALLOC_RECLAIM);
+-	if (!szone && alloc_flags == DMZ_ALLOC_SEQ && dmz_nr_cache_zones(zmd)) {
++	/*
++	 * Without a free sequential zone, moving a cache zone into a random
++	 * zone of the zoned device still frees cache space. Moving a random
++	 * zone into another random zone gains nothing, and when the target
++	 * is idle it repeats forever. Only fall back for cache zones.
++	 */
++	if (!szone && alloc_flags == DMZ_ALLOC_SEQ && dmz_nr_cache_zones(zmd) &&
++	    dmz_is_cache(dzone)) {
+ 		alloc_flags = DMZ_ALLOC_RND;
+ 		goto again;
+ 	}
 -- 
-2.47.3
+2.43.0
 
