@@ -1,50 +1,52 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A63D23BD06;
-	Sat, 10 Oct 2026 07:20:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D617421251
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 07:21:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791616822; cv=none; b=YTfEaV7svNVlYZR3kUDuLRPtFfo3yWhXCe2jLcnobmyMgmCdqhqaqChBMOkJdMHPybJkx2fvB3c3GhNHU7j7LW/p1TkpnFrD3F4dsnaS1Mfv5RDqnJb02gD9QRLhzmGl0W/uww3oGKXPec7OlBBNM3SJ1kioXZOu/uUlsxbCORY=
+	t=1791616872; cv=none; b=tHqoK+/AQ8MQYf6223Cuwt6Z42eX0fRZGwjmd1PRkh/N7LHyQtsGmmQCrs2IRi7xqJ/sHXJCCRSFSsg5iZsyKIfpTkr5fy0Yivc+894CJQ7UCwH/4xLkxoJ1Yk8vGsZFcN1tiHymqUsyB4D5T3TNkj+clUfWERpQgZmdx/bJEv4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791616822; c=relaxed/simple;
-	bh=SxZahj2M0pkILz+8LQ66ut8KQqmDtMw1YA4+sXd3cRA=;
+	s=arc-20240116; t=1791616872; c=relaxed/simple;
+	bh=4Jyhsg8tONGiU2+o7ZYzh4JKA2+hVw7bZNNIAvqA9Yc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LDlj6pvsywC7l43trUHthuvPkpmwCXk0BdbF2T5vTTMjfrXADpReho60hFg9sdptblIL9nik0TJJ1za10xPY73zNlsq33h6DVB2hKE4lUpo/rGXy/pf+ol66hI2xDZg00j0ulp6dxdXbPX6/5XZ8TqRq7oFLwLZGi03R+4h+ZUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Sc1N6Wch; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 In-Reply-To:Content-Type; b=NmfgQ8RE83zjxjM05sImYUQ848RoXeIEk/89KwBxuazp1/Ky3DBzC/q60KQYW+mpACz7tvEfNyKB5jrFq/vwOY8kOqTiusXjxCsw78WP3rH7Xi+W1F9RRysXw3/4Me4C0f7ST2wZjCmcQTAeUo8mlQsXuqXIDHyngXtwKP2Z/jg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=BDK4RQR5; arc=none smtp.client-ip=35.89.44.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Sc1N6Wch"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791616819; x=1823152819;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=SxZahj2M0pkILz+8LQ66ut8KQqmDtMw1YA4+sXd3cRA=;
-  b=Sc1N6WchdYZOtyAaOAeJwbA74I9N5yy/Y4L13jflN4VEIzoUS/v+meqr
-   PKfOrQHxRTEtZnWccdWoXtw4TDEfEomlVKDEU9xtn6oupdk0NMomm5F7l
-   z/71158gIxq4Y0WgJa59DeKepKHok7boht+gOWF+jzw1Sg12Ob05w/ghk
-   rqtufLodjDmf97kF0L1fZUG4c1MLHYt3FqLQZ28ik1VndYinIT6U8TFRZ
-   acEDeGgLbk+SBakABmcn2Z0IQJybI2ue5YGl9UYXxdUyl+x5O6z6IrLh2
-   hObOi63PmpPqzcxX/3d01iNZuAEKOe/Xn/Mds7KH2iRnTxfBCS/n9HEvT
-   w==;
-X-CSE-ConnectionGUID: nQCThWgoQn6O8+eDPlZ3XQ==
-X-CSE-MsgGUID: 9gIN8NN0RGGS6ahbKzrteA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="310013"
-X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
-   d="scan'208";a="310013"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Oct 2026 00:20:19 -0700
-X-CSE-ConnectionGUID: kSgZJGy7R/KW+R6dNA8sMQ==
-X-CSE-MsgGUID: oEunnaLkR2iQtAsvJmKL1Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
-   d="scan'208";a="468770"
-Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Oct 2026 00:20:14 -0700
-Message-ID: <7ad0011c-6f8a-4a76-aaec-f73b76bbc517@linux.intel.com>
-Date: Sat, 10 Oct 2026 15:20:10 +0800
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="BDK4RQR5"
+Received: from eig-obgw-5006b.ext.cloudfilter.net ([10.0.29.217])
+	by cmsmtp with ESMTPS
+	id FKVQxfIxuusRSFRMixoM29; Sat, 10 Oct 2026 07:19:32 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id FRMhxRLOJQr2oFRMixM8jG; Sat, 10 Oct 2026 07:19:32 +0000
+X-Authority-Analysis: v=2.4 cv=C67pyRP+ c=1 sm=1 tr=0 ts=6ac9e704
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=49j0FZ7RFL9ueZfULrUA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=cqIuIlqTxJG9piS4zYBvcWa+FVCUM3JqjM1i6LfyJa8=; b=BDK4RQR5d+1D0cVUztCLBr8Zn9
+	M0hdHanMiCoMrzJ1QFxblB8yKjJkobAiaDVNgYaWdzVecF03qGr9zE6KS6yIQ7kqGSg4fhBGVRFCU
+	huL8FotZPPeSFKAgsrW5g89fT9Ojjbh3T5d+RCvwkn4U9EEYu2q1B71H7C3O0vQnOVcSCM5E2xXp+
+	4tjP5tDtpzF+Fm7epTVwaDNYjJJO/C1SxF6sC/zRh8jLiSMV3xNm9X1kGVDw+uUeFV1wHP41cYi8M
+	lFCxHhLJltgSrbE1yrEcyDjagvbee/bvBxaPXJdAp+dLcyPxayhDaSgNaB08BMf5mYWAggCeqOx8B
+	tQIiqXQQ==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:57730 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100.1)
+	(envelope-from <re@w6rz.net>)
+	id 1xFRMh-00000001XSv-08i0;
+	Sat, 10 Oct 2026 01:19:31 -0600
+Message-ID: <baef05a1-7153-4243-8f14-c1e0ec4b76bd@w6rz.net>
+Date: Sat, 10 Oct 2026 00:19:29 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,142 +54,62 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 22/23] KVM: selftests: Add support for TDX ucalls, via
- TDVMCALL_REPORT_FATAL_ERROR
-To: Lisa Wang <wyihan@google.com>
-Cc: Andrew Jones <ajones@ventanamicro.com>,
- Ackerley Tng <ackerleytng@google.com>, Chao Gao <chao.gao@intel.com>,
- Chenyi Qiang <chenyi.qiang@intel.com>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Erdem Aktas <erdemaktas@google.com>, Ira Weiny <iweiny@kernel.org>,
- Isaku Yamahata <isaku.yamahata@intel.com>, Kiryl Shutsemau <kas@kernel.org>,
- linux-kselftest@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
- "Pratik R. Sampat" <pratikrajesh.sampat@amd.com>,
- Reinette Chatre <reinette.chatre@intel.com>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- Roger Wang <runanwang@google.com>, Ryan Afranji <afranji@google.com>,
- Sagi Shahar <sagis@google.com>, Sean Christopherson <seanjc@google.com>,
- Shuah Khan <shuah@kernel.org>, Xiaoyao Li <xiaoyao.li@intel.com>,
- Oliver Upton <oupton@kernel.org>, Jeremiah McReynolds <jmcrey@google.com>,
- kvm@vger.kernel.org, linux-coco@lists.linux.dev,
- linux-kernel@vger.kernel.org, x86@kernel.org
-References: <20261001-tdx-selftests-v15-0-7c62a5d8a992@google.com>
- <20261001-tdx-selftests-v15-22-7c62a5d8a992@google.com>
+Subject: Re: [PATCH 7.2 000/428] 7.2.10-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261009140946.008206689@linuxfoundation.org>
 Content-Language: en-US
-From: Binbin Wu <binbin.wu@linux.intel.com>
-In-Reply-To: <20261001-tdx-selftests-v15-22-7c62a5d8a992@google.com>
-Content-Type: text/plain; charset=UTF-8
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20261009140946.008206689@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1xFRMh-00000001XSv-08i0
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:57730
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 17
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfPc7PjU4RCehY8gVYvLSgyqJeYakHDBnB9QvgJ4fwEGu0WF2Gqptz1zvzZk/NvDTrHMSb7GTNINY1KoTxS3rt12B3uEilox6K2VwJYXZgTp9EQkVpV6O
+ dWEClz9AnUYDsUGiIlau3yZpDV6Q9EPsJ6XtLqvuN/FoJXt3cnkPDlrGaIv30g+npONxPPh8tFNYOKwIQbZO0qWuk74syEPLAGA=
 
+On 10/9/26 07:05, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.10 release.
+> There are 428 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Sun, 11 Oct 2026 14:08:23 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.10-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-On 10/2/2026 3:37 AM, Lisa Wang wrote:
-> From: Sean Christopherson <seanjc@google.com>
-> 
-> Add support for doing ucalls on TDX by abusing TDVMCALL_REPORT_FATAL_ERROR
-> to pass the address of the payload to the host.  The "fatal error" TDVMCALL
-> is perfectly suited for passing information to host userspace, is both the
-                                                                  ^
-                                                                 as
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-> TDX Module and KVM allow the guest to pass (almost) all registers to the
-> host, i.e. provide enough of a data payload to make a collision with a real
-> fatal error practically impossible.
-> 
-> TDX can't use port I/O, as the TDX ABI doesn't allow the guest to share
-> arbitrary register state with the host on a port I/O exit, and the port I/O
-> data payload is limited to 4 bytes, i.e. would potentially truncate the
-> ucall address.
-> 
-> Alternatively, TDX could use MMIO, but using a magic emulated MMIO address
-> is fragile (see the TODO in __vm_create()), especially for TDX since TDX
-> doesn't support read-only memslots, i.e. doesn't have line of sight towards
-> addressing the TODO.  E.g. TDX could hardcode the address to something that
-> is all but guaranteed to be unused on x86, e.g. the I/O APIC base address
-> or the HPET address, but that doesn't truly address the fragility concerns,
-> and it's ugly because ucall_arch_init() would completely ignore the passed
-> in @mmio_gpa despite obviously utilizing emulated MMIO.
-> 
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> Signed-off-by: Lisa Wang <wyihan@google.com>
-
-Also one nit below.
-
-otherwise,
-Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-
-> ---
->  tools/testing/selftests/kvm/include/x86/tdx/tdx.h |  7 ++++++
->  tools/testing/selftests/kvm/lib/x86/ucall.c       | 27 ++++++++++++++++++++++-
->  2 files changed, 33 insertions(+), 1 deletion(-)
-> 
-> diff --git a/tools/testing/selftests/kvm/include/x86/tdx/tdx.h b/tools/testing/selftests/kvm/include/x86/tdx/tdx.h
-> index d41a1efc8a63..9982aaaba885 100644
-> --- a/tools/testing/selftests/kvm/include/x86/tdx/tdx.h
-> +++ b/tools/testing/selftests/kvm/include/x86/tdx/tdx.h
-> @@ -4,6 +4,13 @@
->  
->  #include <linux/types.h>
->  
-> +/* TDX hypercall Leaf IDs */
-> +#define TDVMCALL_GET_TD_VM_CALL_INFO		0x10000
-> +#define TDVMCALL_MAP_GPA			0x10001
-> +#define TDVMCALL_GET_QUOTE			0x10002
-> +#define TDVMCALL_REPORT_FATAL_ERROR		0x10003
-> +#define TDVMCALL_SETUP_EVENT_NOTIFY_INTERRUPT	0x10004
-> +
->  u64 __tdvmcall(u64 fn, u64 r12, u64 r13, u64 r14, u64 r15);
->  
->  #endif /* SELFTEST_KVM_TDX_TDX_H */
-> diff --git a/tools/testing/selftests/kvm/lib/x86/ucall.c b/tools/testing/selftests/kvm/lib/x86/ucall.c
-> index c003df3c7b8a..c1cd32d68464 100644
-> --- a/tools/testing/selftests/kvm/lib/x86/ucall.c
-> +++ b/tools/testing/selftests/kvm/lib/x86/ucall.c
-> @@ -5,8 +5,28 @@
->   * Copyright (C) 2018, Red Hat, Inc.
->   */
->  #include "kvm_util.h"
-> +#include "tdx/tdx.h"
-> +#include "tdx/tdx_util.h"
->  
-> -#define UCALL_PIO_PORT ((u16)0x1000)
-> +#define UCALL_PIO_PORT		((u16)0x1000)
-> +#define UCALL_TDX_MAGIC		0xabacadabaULL
-> +
-> +static void ucall_tdx_do_ucall(gva_t uc)
-> +{
-> +	__tdvmcall(TDVMCALL_REPORT_FATAL_ERROR, UCALL_TDX_MAGIC, uc, 0, 0);
-> +}
-> +
-> +static void *ucall_tdx_get_ucall(struct kvm_vcpu *vcpu)
-> +{
-> +	struct kvm_run *run = vcpu->run;
-> +
-> +	if (run->exit_reason == KVM_EXIT_SYSTEM_EVENT &&
-> +	    run->system_event.type == KVM_SYSTEM_EVENT_TDX_FATAL &&
-> +	    run->system_event.data[12] == UCALL_TDX_MAGIC)
-> +		return (void *)(run->system_event.data[13]);
-
-Nit:
-It's more readable to have comment for data[12] and data[13] to
-indicate they are the R12 and R13 passed.
-
-> +
-> +	return NULL;
-> +}
->  
->  static void ucall_x86_do_ucall(gva_t uc)
->  {
-> @@ -37,6 +57,11 @@ static struct {
->  
->  void ucall_arch_init(struct kvm_vm *vm, gpa_t mmio_gpa)
->  {
-> +	if (is_tdx_vm(vm)) {
-> +		ucall_x86_ops.do_ucall = ucall_tdx_do_ucall;
-> +		ucall_x86_ops.get_ucall = ucall_tdx_get_ucall;
-> +	}
-> +
->  	sync_global_to_guest(vm, ucall_x86_ops);
->  }
->  
-> 
+Tested-by: Ron Economos <re@w6rz.net>
 
