@@ -1,35 +1,53 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 118262652A2;
-	Sat, 10 Oct 2026 10:02:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.187.6.220
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8699C443C07
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 10:02:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791626546; cv=none; b=rEsHJYHLUAtCJpDzGMjaPSII8+HlIrP23dxbpH+yuGN0NYt3tiCslOzmBK/YOZPugWrcjr0o5b58m8+kwxaYyry0c9ynTCenpV/cr16B7KgOVX3M8ERxNJqfeqY+7Zur7oSp46VDV90PmD3rT6MR81UEmKe7nVzghVX8uS0l8mk=
+	t=1791626567; cv=none; b=b7MOLtB3NE3ZwM2ZVGTwlQs3eAvxU9gdDvPiCo0RMNaZGb1JfFyIvUXGyL37c9gIKlejecVZiGnGbcy2bkfjnK1g9+lA23BEG3r/k/R+IBfSYFqAzei5IJHJ5qMmY0Gw581/ecrS7siMLSrHMptk0816FeEVDZAk0ixTCmZoUrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791626546; c=relaxed/simple;
-	bh=IMrmOgZabUK0WGVlDHkR/u5wBMroTUgziCMch07aPXU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YoYZeAjrLDrqlybAIhraxyRYlSpYuwbtrwfu3LgtQU+PmG3WFyLEteEmQ79RMrPCvoHyaFi2czPHbGmvyIqh+JOKpI3O8r0CpkWxQSW4gbbdY6BgyEfy2ysr0FWgImqe9IP4RB7g5rt9T0LhhU/7tEALd+/JQaxCNtehpHcEcY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phytium.com.cn; spf=pass smtp.mailfrom=phytium.com.cn; arc=none smtp.client-ip=52.187.6.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phytium.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytium.com.cn
-Received: from prodtpl.icoremail.net (unknown [10.12.1.20])
-	by hzbj-icmmx-6 (Coremail) with UTF8SMTP id AQAAfwC3Dd0cDcpqktCoAA--.47164S2;
+	s=arc-20240116; t=1791626567; c=relaxed/simple;
+	bh=IAeS8NxXplIVsmuZslXz2eJVUeag8wtoTM9uiTXFm28=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=n2aActhE0ZqLDSeOzkEvJhJoJPaxTHYvI+vow3cS2Q/WIaproxVOP9o/T+u+/m7OVQKSj5LqflLo2Izh13k3mFZCa8JyWn6fbSairrGNvoqifMfsoImlzpqeRawRspO32NYl2M2yIlNRL9GolrJXqCIbH0RaNW5H/FmRvlRgNYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=bQEg4Mzv; arc=none smtp.client-ip=117.135.210.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="bQEg4Mzv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=yo
+	uus/0MWr200AhumZ5bukgeONt49YRtQSAKCUYXfRQ=; b=bQEg4Mzv79VLKtzjbO
+	4T6S/I+eT5XLJ/IN1xcnvVwG3H9jCDTJ7t5Y1Vc/kMmi6lHk8LYtdDBkBNlEPNiV
+	7mO6mC8qHmf+85dsk4SQzDzjDOFI8RpFHn+4p6fp7KwfUCRGODiv9Ymx3ne78nIt
+	eZNQd4OUIRGBrY+LSn8GFdosA=
+Received: from nzzhao-ThinkCentre-M760t.mioffice.cn (unknown [])
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3914aDcpqFxmnAw--.19359S2;
 	Sat, 10 Oct 2026 18:02:04 +0800 (CST)
-Received: from phytium.com.cn (unknown [218.76.62.144])
-	by mail (Coremail) with SMTP id AQAAf8DwS3IbDcpqpynqAA--.62344S3;
-	Sat, 10 Oct 2026 18:02:03 +0800 (CST)
-From: xiong yining <xiongyining1480@phytium.com.cn>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Shuah Khan <shuah@kernel.org>
-Cc: linux-pm@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
+From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+To: daeho43@gmail.com
+Cc: chao@kernel.org,
+	David.Hildenbrand@arm.com,
+	Dev.Jain@arm.com,
+	Ryan.Roberts@arm.com,
+	baohua@kernel.org,
+	daehojeong@google.com,
+	jaegeuk@kernel.org,
+	jyescas@google.com,
+	kaleshsingh@google.com,
+	linux-f2fs-devel@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
-	chenbaozi@phytium.com.cn,
-	xiong yining <xiongyining1480@phytium.com.cn>
-Subject: [PATCH] selftests: cpufreq: stop CPU hotplug loop after cpufreq update test
-Date: Sat, 10 Oct 2026 18:01:48 +0800
-Message-Id: <20261010100148.297720-1-xiongyining1480@phytium.com.cn>
-X-Mailer: git-send-email 2.34.1
+	lipengfei28@xiaomi.com,
+	nzzhao@126.com,
+	zhangbo56@xiaomi.com,
+	zhaonanzhe@xiaomi.com
+Subject: Re: [f2fs-dev] [PATCH v3 03/17] f2fs: support regular file buffered writes on large folios
+Date: Sat, 10 Oct 2026 18:02:02 +0800
+Message-ID: <20261010100202.1431895-1-zhaonanzhe@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CACOAw_wmA_=kVvyu1m7XbVUpUt6J9BZeW=zqHFkD-+Lt3Gtz3g@mail.gmail.com>
+References: <CACOAw_wmA_=kVvyu1m7XbVUpUt6J9BZeW=zqHFkD-+Lt3Gtz3g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,77 +55,23 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:AQAAf8DwS3IbDcpqpynqAA--.62344S3
-X-CM-SenderInfo: x0lr0wp1lqx0bjrumio6sk53xlxphulrpou0/1tbiAQAECmrJQM0EVQAhsR
-Authentication-Results: hzbj-icmmx-6; spf=neutral smtp.mail=xiongyinin
-	g1480@phytium.com.cn;
-X-Coremail-Antispam: 1Uk129KBjvJXoW7Zr4xur4UAFWftF1DWFW3Wrg_yoW8Cw47pF
-	WrGw48tr1IkFyqyws3J34UXrWrJan3AFW7ur4aqr1Svwn8JF90vFySgr17XryakFZ8XrWr
-	Z34vy3WI9F1UArJanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUj1kv1TuYvTs0mT0YCTnIWj
-	DUYxn0WfASr-VFAU7a7-sFnT9fnUUIcSsGvfJ3UbIYCTnIWIevJa73UjIFyTuYvj4RJUUU
-	UUUUU
+X-CM-TRANSID:_____wD3914aDcpqFxmnAw--.19359S2
+X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUnLvKUUUUU
+Sender: nzzhao@126.com
+X-CM-SenderInfo: xq22xtbr6rjloofrz/xtbBohyXZ2rKDRz+mgAA3b
 
-Original test uses a fixed 5000 iteration loop to trigger CPU hotplug
-for verifying cpufreq synchronization between CPU hotplug and sysfs
-writes.
+Thanks for pointing out!
 
-Two issues exist:
-1. Background hotplug task keeps running after test completes, causing
-redundant CPU on/offline operations.
-2. When cpufreq frequency setup is slow, the hotplug loop may exit
-before frequency updates finish, which breaks test purpose.
+I choosed the design to let prepare_large_folio_write_begin() and
+prepare_large_folio_atomic_write_begin() complete the read IO internally
+to keep the code easy to implement, so I have to call them after the
+f2fs_folio_wait_writeback() in f2fs_write_begin().
 
-Introduce a file-based stop flag to control the infinite hotplug loop.
-After all cpufreq updates complete, create the stop flag file and
-wait for the hotplug task to exit.
+I'm going to add the writeback wait after re-locking the folio in
+f2fs_folio_may_unlock_balance_fs().  For order-0, one more f2fs_folio_wait_writeback
+probably doesn't matter much, right?
 
-This makes hotplug run only during cpufreq sysfs write test,
-align with test objective.
-
-Signed-off-by: xiong yining <xiongyining1480@phytium.com.cn>
----
- tools/testing/selftests/cpufreq/special-tests.sh | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
-
-diff --git a/tools/testing/selftests/cpufreq/special-tests.sh b/tools/testing/selftests/cpufreq/special-tests.sh
-index e87ed7c8e5e5..14530c1b8d25 100755
---- a/tools/testing/selftests/cpufreq/special-tests.sh
-+++ b/tools/testing/selftests/cpufreq/special-tests.sh
-@@ -97,14 +97,20 @@ governor_race()
- hotplug_with_updates_cpu()
- {
- 	local filepath="$CPUROOT/$1/cpufreq"
-+	local stop_flag="/tmp/stop_hotplug_$1"
-+	rm -f "$stop_flag"
- 
- 	# switch to ondemand
- 	__switch_governor_for_cpu $1 "ondemand"
- 
--	for i in `seq 1 5000`
-+	while true
- 	do
-+		if [ -f "$stop_flag" ]; then
-+			break
-+		fi
- 		reboot_cpu $1
- 	done &
-+	local hotplug_pid=$!
- 
- 	local freqs=$(cat $filepath/scaling_available_frequencies)
- 	local oldfreq=$(cat $filepath/scaling_min_freq)
-@@ -117,6 +123,10 @@ hotplug_with_updates_cpu()
- 		done
- 	done
- 
-+	touch "$stop_flag"
-+	wait $hotplug_pid
-+	rm -f "$stop_flag"
-+
- 	# restore old freq
- 	echo $oldfreq > $filepath/scaling_min_freq
- }
-
-base-commit: 28924df2a08f440c73991b83028032c901de2ae4
--- 
-2.34.1
+Thanks,
+Nanzhe
 
