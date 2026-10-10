@@ -1,157 +1,135 @@
-Received: from flow-a6-smtp.messagingengine.com (flow-a6-smtp.messagingengine.com [103.168.172.141])
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazolkn19013086.outbound.protection.outlook.com [52.103.7.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64E2243CE6A
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 09:56:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791626212; cv=none; b=jMWtyGXiO1EhIIWrD2crMqllaVFet/TjVfmq/uJz2zdHcWKuS2te6cACd3ZPqbcqER3nhOyJN0I+RoaIsU1/wlI/WDudwuAQikdn8OsLl5UrX4gaCgvd576U2cs+M73VEDu38xLqqcePYVF1N1XgSP/ixOJE8Cv37Tmn9Rc76rU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791626212; c=relaxed/simple;
-	bh=EQwaIVpYCg5E5ydBQbytU/MGSRUfC1bWM8MHkwd4dos=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PfEoam4HZZL9n61/NyfWnz+PT3IVngzlVJLb7qPXGZOAiYrynko+6aPnScxzyGmS2XpwfWZdPEwEYUb7gurlWhdj5fB1vzgZZGhRExAbK1ya6Xvei/CBmG3XTgAg8PAEdGFDIgoa9O1150aT+U3glENvWdM42+IyaOrtljdrzOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=Y1+Hn8nr; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=jrVT+kSw; arc=none smtp.client-ip=103.168.172.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 695BC43DEC3;
+	Sat, 10 Oct 2026 09:56:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.7.86
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791626213; cv=fail; b=YZWeGBW7vvIOXxSR7P0DNeYIc40H0KqlOi0bHVb06dJw12FawsJUFvmRvQ8xDqUW34m0s4kn5jKp7WmB2+EisA3/8JR6y6Q10remJkY0VxhuorT167UuOZciWuHCZVKmRiXivNjSGCYWaOkTKc1ywhp+MtJoXAn7WxxVhWp8zUE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791626213; c=relaxed/simple;
+	bh=MMafh3HWlibMe8SKjLc1apboQBkVO8LHwGC2nKA0Dyk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ponHedVF+dbUtwF3fBtwEddK6PAUeD37jIkYIVJFfV0NG2/Xq6+TUjvIEaZcCDOoIP1h4NPvbSmGnXBB4uo22/mMZ87J/0lqM24iPiAY2CmmsUvv2s+0/Tyuwt9FZOBya6QJG3dfYj6YOBDwQF9z4U2sv9xX+30cjcxsBPZpYXw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.it; spf=pass smtp.mailfrom=outlook.it; dkim=pass (2048-bit key) header.d=OUTLOOK.IT header.i=@OUTLOOK.IT header.b=VGkSk/F5; arc=fail smtp.client-ip=52.103.7.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="Y1+Hn8nr";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="jrVT+kSw"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailflow.phl.internal (Postfix) with ESMTP id 6EDCF1380098
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 05:56:50 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Sat, 10 Oct 2026 05:56:50 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm2; t=1791626210; x=1791633410; bh=nJReIR9tSV
-	8zwZOy58+KzaQBNhO7VbvAAXc7HpRGYro=; b=Y1+Hn8nrpp064xV6sAge7A9fhD
-	W6cPOm7upOkqGcSpfSC4tjBfkLZbcSsQ/PbBdUS+tMD/p7KobLcSmNmwckVWbvqO
-	FQgPGZHyRSi9LSU5nb4/JyJK3R6pHdUHYstO5fan21HH+izFiZoiaIaAJ+GlQw2R
-	Z4HCT9f2fmMFn+CisWC0FimYj+paxB+hm49CU7Pej4vIMvKtUGQZTdANGlRdt+qR
-	oBm+WpJL8K832xAp8DH/cfkrVW1A7ym+805RHxohQ1/znN3oB6BzAXk5SeU41ZcQ
-	4o4iUirKE3shoFgWMIsbMh2ms0Vzx5eaLv8BP1tgFi1sxi4fDiuSKt4kVSLw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1791626210; x=1791633410; bh=nJReIR9tSV8zwZOy58+KzaQBNhO7VbvAAXc
-	7HpRGYro=; b=jrVT+kSwdWYpLuwFHG9QHLj3s/VpEgHbvn66esiWcvMt1MQTwB/
-	dKnT4hJ3xhwCSBGvKwVP6K5tW2xuv0I95UD3qJwGUzRxpAGnzhXPAezWNvyFpksl
-	6SPTWHc1uz2SOOqHz9lDZA1TvLeGAOoM71KDqD+wwhtyKKpGdJ/MynGqS3v5gOPg
-	Mx6YAvngqot5If3nWo7PAD0Pvx5bdG/6Z668zHBHqG2ypR669cmAEAtvRC7oW+qE
-	cAsSgQGGN+jelmQN1iVU2C5JuGBT3wAFd52kwuCWX1Aw++YwCiS1DGQhWFpfQxuH
-	239a7RpBRN5tU+CGkbi5BPi2hMaUkkMXXcg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=kroah.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791626210; d=kroah.com;
-	mf=PGdyZWdAa3JvYWguY29tPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:mm3tJ34ivWGQGX1EOHzMKr3S4Qg3xG2AK9BBavOAybur8Hr
-	oSZsQtZvwp9UqNlx1FdbleZ2fqawAqsDwMYzOrgdjkwU7PCzRPlL9Gb9mQGOie0k
-	g+APBQSJDBRzHvmTT4Uz9YpQKHYrTcO0AiMU6RuvUA9WHocyaSrHQ+vPn8+YbTOJ
-	HfvFbIdXcO+7mAnDDR9iFcq/z9/P9l7H2tRpH+rxjF1u+KQxP2lD/AY9iktJmWp9
-	4PThSfjsNjb1eHJAMumMtrYyPOIPLgH6240W3v1raIkuet3NkRdOmkgvHw/eTwkH
-	PBk3UFOh37nOYQNKkjuwllgrVCGa/9uFMQz9rRg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:dx36ySUIPjOF8JZnX0c0xgk6+9g6Jwnh6Uao7zqga6w=:EQwaIVpYCg5E5ydBQbytU/MGSRUfC1bWM8MHkwd4dos=;
-X-ME-Sender: <xms:4QvKauiHLPn4eVXalp1mor1b_mEOJ5zbdN6Ab_DSdZIr-lfG-WHzIg>
-    <xme:4QvKaiWSyejddYyH-GIHxYoWg7LWs0joWqSiAGr30pBwacaRVuRbEW6IbmgqUHPNf
-    gJKc7uoi1s9IORCdmLQtZfGlw0IVdd-30WqdByUKxrmzcZUYfk>
-X-ME-Received: <xmr:4QvKah5mzv1qds_FTzF48aw5fJT0YeaMpMPRZvsMvxsD9jgCtPT-ldRuGTPmq6QmpMvBOjDz-WhDkT5V6EuUT7nlpuj88NdoZVQyRHQ2xyk>
-X-ME-Proxy-Cause: dmFkZTGNwFotM+MERPG7jwl/03lTN6Lvym52gvNwntgQ9yPA1rs2/HESVaUYydqavpJNTa
-    4jDJPfayYKNrO+uNFu5P8MxBVZOPlUifNdd1B8EShhlMxxqQ6tdo1HvlwpN4RvOJ97eYPW
-    ubQCD5XOADVJBw6yNerhcYSXhABUthZo8s6xILymRleoxS2ZJHI56Rt/T0XIKMmNXtRAKU
-    FVffDP0WJY5BsT2RB0J31Qiv8yL4tyAgjfn3ZKh2e+qRBTthb0V6PynXEw3c/FcA+nUlhf
-    xBH64Y7gU9X/hYHRb8S3CmFyDXJi7LNf9XC/g6sPKEoRlaMIOGgyT0qQuNJJKDxv9LT3NC
-    F9cZnnsljeWuGbfitECMa5nMFXCE7wX0dhdNdRP5VZanKwncmCN7l5AqxAdtoxlGKkadYi
-    ihNifPcTEl+1d8C490YOTlIdZ3QiIpMNiKUCzQAP/x5w372El/bFS3UxCMza2RQlZJVJ5y
-    b2G6Twzzp3l9gCVsJa5Zx7kebQkQp2ooFw+/+wC18igLHrpAUIvvMFzy8deWhqw5tthKBP
-    u7OWHLexdIMcPExY6qnBCyglBl1/h+g1qFa5qpWI0N/uX4xZeBnFhKapVeN0VaVsQs9Mb7
-    S0+2ypT1/PHPXqQx5L1fXd90vbJ45XAmCUbJmX6zc1nZ1w8a4xLwa/vc0ucA
-X-ME-Proxy: <xmx:4QvKaqcYgLZBkQZY8RBBR5_45rbklwyLopweAya9ChSFZdP4MVtiOw>
-    <xmx:4QvKavvSc4vYAhiLnzn_o5KejXU6q692Z3pZWTQC2bWH7OwaJEkmsw>
-    <xmx:4QvKaiiaFuk8NF4Q-oF0m_m9pY00H3ItsjfXllgVZR_tPJHVKy8sZg>
-    <xmx:4QvKag6Z1NLzALCDHQ1hSqPHkUDoKYAxKml3qQgXnIWBewr00p4s6Q>
-    <xmx:4gvKasNjp-JnMOY4xx_f0z8PRk-6YxljNDwCl1YFFOWeeTWEZAj5gjDp>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 10 Oct 2026 05:56:48 -0400 (EDT)
-Date: Sat, 10 Oct 2026 11:56:45 +0200
-From: Greg KH <greg@kroah.com>
-To: AmirHossein HajiMohammadi <info@hajimohammadi.net>,
-	David Miller <davem@davemloft.net>,
-	Franco Hector Hugo Montenegro <franco.montenegro.ruke@gmail.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Wireless <linux-wireless@vger.kernel.org>,
-	Hungyu Lin <dennylin0707@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Leonardo Martins Martins <dev.lmmrtns@gmail.com>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Luka Gejak <luka.gejak@linux.dev>,
-	Networking <netdev@vger.kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>, Ping-Ke Shih <pkshih@realtek.com>,
-	Rishik Yechuri <epicrishik@gmail.com>,
-	Rishik Yechuri <rishik.yechuri.code@gmail.com>,
-	Rishik Yechuri <rishikyechuri@protonmail.com>,
-	Siho Kim <siho93.kim@gmail.com>,
-	Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
-Subject: Re: linux-next: manual merge of the staging tree with the
- wireless-next tree
-Message-ID: <2026101032-negotiate-overbid-c704@gregkh>
-References: <aslfIkFxsc9oIqku@sirena.co.uk>
+	dkim=pass (2048-bit key) header.d=OUTLOOK.IT header.i=@OUTLOOK.IT header.b="VGkSk/F5"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Gb0yq7ByOeM19GIxv0gvUXn/gfwuLkvnGwLhv68vEPPtxUDa1O+2mHA5KDn0qbxlmKl0iKm/NUsANAaNhVwVN7XujG0CQqw8Uto4JcWX5SEPOynMz3Ttdm4HKY6HDskC5BJ6u33TLK04MhaXvhN7/HUukzbX2T7QOsGMuvGX0M+4mltWreqHlI+D2lzyhKB7Z0rrgl24MFr1n76Qjq1GWV2i4GKat6dPvUk2aaLzwHiPj3/AsAGTdG4lrFK0G4cK4sWZYVNd0tif7pM5ilCjd2C4dDxMmtgkkwRHXDZbJPz1HXIkG65a6aT5bF1ZUVhXfV3A9V/j6eNPgiDjJaCIuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MMafh3HWlibMe8SKjLc1apboQBkVO8LHwGC2nKA0Dyk=;
+ b=XsKFHWbxKjgOt/XVxM1ZdrUtbpKtbsq2nCrTTORYc+onQDT7H9oiVrybppOHIqI1H0XmIwPx3zqmHTfRgogqnbJ4z97S4vWK/mOyl4hYNQTAzj/8c1HdPMQ7FaScCvqbKctBZLuPfmBG5iCB7equPyvc+t3XcNEHKW9s1x1izZB0BQ7Y/XYRy+LNhsmX+BNm62gP+JyI6Gx/fh7p4o/eKYOJUMA6VxxoMOxoSdXzfx2Qz8ISRWpY4inDuHssWeImqM9O3VHx91OMy/mMJyw+mkbUSd+Fmm1EI6Qf3g9Bl6Yj51jSU2dm1aMHwKSVh3aRTNcsm6onlb0ryldh3/Pt0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=OUTLOOK.IT;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MMafh3HWlibMe8SKjLc1apboQBkVO8LHwGC2nKA0Dyk=;
+ b=VGkSk/F56PZTVpdVJUi0P3f4dKK6IipmHy0Rn7c7MdoSj9qoxIkCHLfbuTKpHJGxeKgvYoIUipR8sZdkcjndFvaFzt3IIwJogcypJWnYQ29gO1zwYhYQUEwta9Gq05h5HwSqhc9GNC8Z0wzelg1ZN++osbY82gRjHLyO8j9lVwuy9hi5p1CnWE3m9TyddklykVKn7LJh10kfnXQwtYjeCYBAmL1jJ6EAJVY6j1AhMy6dVyhOKQbs+STHt8DURH0MNXt9AgtKBSz+0gS4f3XWrEDo/lmXfLg+qqybqZyOap22aXymt43oWozo4ClUbZ8I7WjlZjiEQtG+K7MnZ5eEzw==
+Received: from SN6PR19MB2303.namprd19.prod.outlook.com (2603:10b6:805:56::19)
+ by SA0PR19MB4192.namprd19.prod.outlook.com (2603:10b6:806:8c::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Sat, 10 Oct
+ 2026 09:56:50 +0000
+Received: from SN6PR19MB2303.namprd19.prod.outlook.com
+ ([fe80::805c:7f80:c69f:876a]) by SN6PR19MB2303.namprd19.prod.outlook.com
+ ([fe80::805c:7f80:c69f:876a%6]) with mapi id 15.21.0496.015; Sat, 10 Oct 2026
+ 09:56:50 +0000
+From: Marco Giunta <marco_giunta@outlook.it>
+To: tiwai@suse.com
+Cc: marco_giunta@outlook.it,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	perex@perex.cz
+Subject: Re: [PATCH] MAINTAINERS: add entry for AW88399 HDA side codec driver
+Date: Sat, 10 Oct 2026 11:56:41 +0200
+Message-ID:
+ <SN6PR19MB2303FD862C95299D7F386F0BFC912@SN6PR19MB2303.namprd19.prod.outlook.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <SN6PR19MB23036B2EBA9AD55D12961FA0FC822@SN6PR19MB2303.namprd19.prod.outlook.com>
+References: <SN6PR19MB23036B2EBA9AD55D12961FA0FC822@SN6PR19MB2303.namprd19.prod.outlook.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MI2PEPF00000B8D.ITAP293.PROD.OUTLOOK.COM
+ (2603:10a6:298:1::414) To SN6PR19MB2303.namprd19.prod.outlook.com
+ (2603:10b6:805:56::19)
+X-Microsoft-Original-Message-ID:
+ <20261010095641.21487-1-marco_giunta@outlook.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aslfIkFxsc9oIqku@sirena.co.uk>
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN6PR19MB2303:EE_|SA0PR19MB4192:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b8bcc95-05c8-424f-8cba-08df26b4ce13
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|8060799015|260925184616899003|15080799012|5072599009|23021999003|51005399006|25010399006|19110799012|24021099003|440099028|3412199025|40105399003|2607281247196008|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?kEOvzJS+/VR6OtLUs7UGPV675LCsRWAmGuhQzJ1TzXYidrklyvF14AuuFO8v?=
+ =?us-ascii?Q?i1oC8tIW0EAxM80xSQa11w4R66VEMAFfDjwyIn68bTDr6Mz9TP21xsx2xFCp?=
+ =?us-ascii?Q?XMKYS41b7+170GUykRe3Ce+5Wx0n5pv17CKGXoH+iM6q8hOT7u/DGiS5Pu4v?=
+ =?us-ascii?Q?pwmIa5sG5S9w2l4xdmZ8kq4s24WzFNpkzHF1vZDp+0hQJ0uhnGUeothI4dbh?=
+ =?us-ascii?Q?O868EmeLNeXvuKPS2e28aRJi3Wcig6hExNmIxe0YdTjqsAM9TTr1Zd4eLFdu?=
+ =?us-ascii?Q?TydpCEbWVbaqf3rRy1jV1itfQL83rOme1eg3nYCUuizW0joIygWVz9pfffnc?=
+ =?us-ascii?Q?+rKU1WtC1oDO9dyKcn2N2ya7tljH6SibmKp8OeWYt9kKDaLYr8vepYzDYyyp?=
+ =?us-ascii?Q?I7Nc7JCIO/fzPrB/Md7eTA7RDiyqCUG8CMXwYw/bsN0pOGORtrUn2URd/GxU?=
+ =?us-ascii?Q?2xenCU+Bn7A3Bm2RdtRp4w0pvGpP/94AbO4TXi8Wk8KRvkZR+0OSEWLIuiX5?=
+ =?us-ascii?Q?Z/7rzwxltSMMvqxorq0W9zqvm8HshhXXaeKbhXXuGJW5zLBasr9K6wa9yy4X?=
+ =?us-ascii?Q?KyqswbZ61/JoQPNwUUxRtC7zSyBOk5VM9/GCuXto6EOt1cXtmdNbdWitGqas?=
+ =?us-ascii?Q?uc2rxXgxSauW4yY2ccghCJJwksznvvvpvftP1lOwiunLgJ8XCz0cbMt/2pkF?=
+ =?us-ascii?Q?LfhFj/fk31d/E058o+srEdOy7/Z4R2tFnvXg4gwLc8noHYEqPCYjnr+L0L5y?=
+ =?us-ascii?Q?hHxb8MQ3hKWKCTtmShu53GxTRIIcjR2De40M1mTT0xFh/cMFrDJiPmekOB2J?=
+ =?us-ascii?Q?RCQlphvNK7vBJKw78XVI0q3/Fuy6j3QIeJoQORc49hruFAHhGJN5kNO9gUjO?=
+ =?us-ascii?Q?/HJtBjwFZARgeQPNaf7ZCcMcYx8cBK4YmFzVyyR4xrW/SDnTKFeoYJmuODJr?=
+ =?us-ascii?Q?vL6JVruwMQXVckJyd7WZTA=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?/4jTpSJHJx07XsG9PtClFyjioNWxdZLm5c9XTX6/zCXrW33F0x0s80kycAJp?=
+ =?us-ascii?Q?eQPhbc3LgPhw3lyfoRz09KhFEMOPpqw8ItrSs34R2danuuoMDMyewGdYIqPG?=
+ =?us-ascii?Q?U5dPbqmTr4Kf6PJ9dmyIlLPRABie4lfNH1Cb0TAZwXw6WwN/WlMRsq0h7wZy?=
+ =?us-ascii?Q?cnVIDKZzTT3vHuqxGnqusAodL4YEAs7P0NIHUSr0pZIMyrEU6aJ7R987fq8N?=
+ =?us-ascii?Q?MBJB3JNs6cIvw69bLjCFDsi5acJyzdRR6ElKxqZRz//PPORtFNRWcmXoxfrq?=
+ =?us-ascii?Q?Y8HKFMwNLcvwUEW863lShlBI/5+/yZkxePIPUYIVyJUP9U9a04HxZlLrrkTB?=
+ =?us-ascii?Q?xPl7Bg2DHouA4xB9PExt2kIgcvw8S4WqiOKlUMS0wQwTxqCmZ7Eyf8a0RDF8?=
+ =?us-ascii?Q?R7WSWnlNvsQL8LWzozwkPY7OutbYxKXlXB5tBydCYmyV+e9OxwFV9eTYzklD?=
+ =?us-ascii?Q?HRa3GWPels3Cp6zpOQyFpj8P3MqkK1McDyHn2Cdde8rW4c6g0JkEO0ze8Esf?=
+ =?us-ascii?Q?ksPYC7DWeecFYanR4iIcXmoB8iAEYT3rN43t8zVpZYM2RTuJ78sl3hOVxr68?=
+ =?us-ascii?Q?Wa6cu3YtgI6LbcPYQDH5W266SutXac2RywijYfRbWvVGqC/lRu4KQ1fujRG7?=
+ =?us-ascii?Q?kXF+AjDpuwxbo8MluAdp1rNFAi+IrxPWdfUshcGCxumkar0+osW+EoUVzAuN?=
+ =?us-ascii?Q?5qYsJpL5LJ1gU7LPYnRun4fcMyUW6gpZ+avHdvUiWL+lyZiN1pDmUBY193eK?=
+ =?us-ascii?Q?/Hp4DTo86nkzVcZNw7f9GYXvlyBG0IqjuTyzr2G0jQaJhbEdLbNio56P8IxK?=
+ =?us-ascii?Q?6dMxXIb5gkCWanXHzQ4qPy3Q8lrxbvni1z1v2flxrYbCIbJE7Sz+qqklynik?=
+ =?us-ascii?Q?fNayp/Gg+kbTC6RWNQB4Mm4FJZ3lAJGEIhIaeB5YFxBSTK2uvrBm8xoaGQ9t?=
+ =?us-ascii?Q?QaBMKSgvO6HBP148quoAyh0SuxowvxG0U+04DjpJ2MCojHCVVBKr/FPuwEQK?=
+ =?us-ascii?Q?ZNbyQomBXOvcZUMk6B63B629LrzP8z0V2BZA0YUmAFbXtJX974jNtw5cs/y7?=
+ =?us-ascii?Q?kRmmFAUePsIpf+98jPXgaoS59agWtHPFFjcsxU4b8HllYo6m2lC+hR0RYlpW?=
+ =?us-ascii?Q?OYyekUMvk9TaUGrp1N7a7iyo/h7UTfy+Y+E2BK8xgrf3g1+xLQmfDNQr+5lx?=
+ =?us-ascii?Q?t759aPKGIJaAvw13A5CgzRwjscyFG3ALvTM6FnF0KGbD/s3S9nWFLuxsPdhk?=
+ =?us-ascii?Q?ZRbvOc8RdUFFn5EcuxwlhGqzqn8SBmTZcBeQ/x8w6/ZmSACaao0mtToFFG0h?=
+ =?us-ascii?Q?1Aba3j4okKmJlL/ni14c5JsMxytDEZxdtDeJqGRnBsR1LWY7rW3QmmGAa4zw?=
+ =?us-ascii?Q?fIrpL6Ts/irLLuvFfP1LzZXcUA0u?=
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-990eb.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b8bcc95-05c8-424f-8cba-08df26b4ce13
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR19MB2303.namprd19.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2026 09:56:50.7133
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR19MB4192
 
-On Fri, Oct 09, 2026 at 11:39:46PM +0200, Mark Brown wrote:
-> Hi all,
-> 
-> Today's linux-next merge of the staging tree got a conflict in:
-> 
->   drivers/staging/rtl8723bs/
-> 
-> between commit:
-> 
->   c520f3af7df42 ("staging: rtl8723bs: remove the obsolete driver")
-> 
-> from the net-next tree and commits:
-> 
->   dbc2fa996f446 ("staging: rtl8723bs: Remove manual ifname allocation")
->   eb903412616ff ("staging: rtl8723bs: make rtl8723_dequeue_writeport() return bool")
->   94f8dd8b96b03 ("staging: rtl8723bs: remove unused monitor interface name")
->   0e5058a181451 ("staging: rtl8723bs: rename PHY_ConvertTxPowerLimitToPowerIndex()")
->   36d9b855cf944 ("staging: rtl8723bs: make xmitframe_swencrypt() return void")
->   18a42264074ae ("staging: rtl8723bs: remove unnecessary parentheses around prframe->u.hdr.list")
->   6b4405c0f6001 ("staging: rtl8723bs: align function parameters in aes_decipher")
->   2268c1bf1a861 ("Staging: rtl8723bs: fixed camel case coding style issue.")
->   bbcc68a61f3be ("staging: rtl8723bs: fix block comment style")
-> 
-> et al from the staging tree.
-> 
-> I fixed it up (see below) and can carry the fix as necessary. This
-> is now fixed as far as linux-next is concerned, but any non trivial
-> conflicts should be mentioned to your upstream maintainer when your tree
-> is submitted for merging.  You may also want to consider cooperating
-> with the maintainer of the conflicting tree to minimise any particularly
-> complex conflicts.
-> 
-> (deleted the files)
+Hi Takashi,
+second friendly ping on the other thing I forgot to add in the original
+driver submission.
 
-Yes, deleting all of this is fine, thanks!
-
-greg k-h
+Thanks,
+Marco
