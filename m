@@ -1,70 +1,87 @@
-Received: from mail-4317.protonmail.ch (mail-4317.protonmail.ch [185.70.43.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4CF83AEB35
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 15:07:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36C8F3A4F30;
+	Sat, 10 Oct 2026 15:10:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791644829; cv=none; b=Yu1M6K12dNw53n2zsL1evzY6VK8jhAyiZCweTa/b5C8qf9qEFjJhAytYWygbYV4kdGRLqmN1s59rryolkRAREaHt9Ow5Mn16xIVA7jI/Qx/3W3ZPatT62bMOq8MI1NqjtuahL60KqzoaCF4clcq484Yoju6lbjSCRwCiFo2LeLs=
+	t=1791645008; cv=none; b=i4qUgv8CtOXkv5HhPiOQU+9pFXIjbFkF3RFv4y8IAo52hoJFT8vt5e4VUVFxJiDDocLwZHaS6zkbnlp6nDelYLU4e0qX9au/rE6sQ6YNCBswIuRPbJVNyxub3lCyHW0egyOHQdgYeBsO4znN/u6589teC2ZPIrOhQnrlBdqgylE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791644829; c=relaxed/simple;
-	bh=/b1Vcj7w40bsAmKhOSi3kSUq/xNeq13MvQWcDEUImrc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JSaHcMQ+vWlkzy+EBgNUx7vxZuBrfGMi/NyH5AzzKqoTCjb/ecEtwkhiP9c8Bou59Oaa0nnkrTR1XINhLblqB7qkkPQTxSJ6XBGLWwSASuUn6w0zO+c74um7eM2QpVSTNhykfLEfsqkhTO4T809aOTxyCdd3nBP9SmyhRD1xN7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ironrobin.net; spf=pass smtp.mailfrom=ironrobin.net; dkim=pass (2048-bit key) header.d=ironrobin.net header.i=@ironrobin.net header.b=jDFbn2F0; arc=none smtp.client-ip=185.70.43.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ironrobin.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ironrobin.net
+	s=arc-20240116; t=1791645008; c=relaxed/simple;
+	bh=7TzmRUknXQSJrq9WJMQRYRamiQx4i6DwhPve3C9Gzi4=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=Few3P7A8GH/u8nl/ey7V2eIPsGqBme1g6cvLDyNQsVr8u+azmFevLcxysv3A3ejeEGDBHh/hSLf1E6OMRup6nGBgi73dD3zJKtJpQ/vKsAKL0Pm/XDhC6rDrD6Pcl0yGhJCK955z2ELt2FFEvLbVZD5OzRmLTgTVTLv19KHeIqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XgRvk6hy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ironrobin.net header.i=@ironrobin.net header.b="jDFbn2F0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ironrobin.net;
-	s=protonmail3; t=1791644822; x=1791904022;
-	bh=/b1Vcj7w40bsAmKhOSi3kSUq/xNeq13MvQWcDEUImrc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=jDFbn2F0sUYoNcuxCaqoPmCJlaEF1uXdTkSR1mUxLxk7LC22BIEz9AeUIsQy6dHux
-	 5qPm7OotNuGYu2u+ZrMvcMqWhaQZlJzfU01GYsRo+dUfkhvVnvqGvJe6ksE1MEGejs
-	 5Wy0CS2IpOwWJEd+jDCzF8LtF/1XzlGzLdiiPeL3ATAMWLWfzD+o3y4Dga2ISkdmlJ
-	 48tW0CzjlWQZOSGqPQf/qQQmP+0rOmlQi/9A8O7CKpxAXM/oDQbrMfEKKO9kB/zPjN
-	 LdRXLMxVcMflfBJ7Lu98veCu7e+yQ+OoKgcaZMKrmXkbb9rqRKzS4YXG8ue1FD1A/k
-	 6UNSc27HXinNg==
-Date: Sat, 10 Oct 2026 15:06:59 +0000
-To: Stephan Gerhold <stephan.gerhold@linaro.org>
-From: Alex R <alex@ironrobin.net>
-Cc: Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Steev Klimaszewski <threeway@gmail.com>, platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/3] platform: arm64: Add Lenovo ThinkPad X13s EC driver
-Message-ID: <1dfc1b67-3bcd-409f-9a9a-d9061abe76c9@ironrobin.net>
-In-Reply-To: <asNZw4mFy_xOmCVD@linaro.org>
-References: <20261002154231.31376-1-alex@ironrobin.net> <20261002154231.31376-3-alex@ironrobin.net> <asNZw4mFy_xOmCVD@linaro.org>
-Feedback-ID: 54785507:user:proton
-X-Pm-Message-ID: 8175722ec708fc249ed3657dccd9f24220f59fb0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XgRvk6hy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07B7B1F000FF;
+	Sat, 10 Oct 2026 15:10:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791645007;
+	bh=jdRqn0CteQ8ui9tg7Wb1RJhtBeZiOr+dZgR8ULZBbjc=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=XgRvk6hyb7XLEne/8laQzOCK2H32X7IGWq2ONyNb3O5aZ2/Ol1LlhNf9+kzwcM9jO
+	 rMFwa+02/jltfu4hVpsnyzxFb2WnXzAitKGKdza8BJLXMI68yC81agWI4wJvihx5wR
+	 neYxkSgVHVyPSRVkn4PkJM6Ig4ApVXLCNTA0hNHNMg82L5P3s8FXzuzELKF7+rJ4He
+	 7JbwQcP9NT+eZ+abMS8B/9GcVHGdNDoTliSIuhyXqO7vfyTqrmSydZmkuRrbChFKlF
+	 a8wH5Fh3mu5Ibk3Yb8lj+CCdGpHlmFUZ+Ero08agROQfhmgqFhaevfpISJ78ZCf6IR
+	 00i5jLpMHhQAA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F140B380DBDA;
+	Sat, 10 Oct 2026 15:10:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH bpf v2 0/2] bpf: test_run: Fix false -EBADMSG with
+ BPF_F_TEST_SKB_CHECKSUM_COMPLETE
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179164500577.1749710.5161743070579518895.git-patchwork-notify@kernel.org>
+Date: Sat, 10 Oct 2026 15:10:05 +0000
+References: <20261009174755.22026-1-skokovmaksimevg@gmail.com>
+In-Reply-To: <20261009174755.22026-1-skokovmaksimevg@gmail.com>
+To: Maxim Skokov <skokovmaksimevg@gmail.com>
+Cc: bpf@vger.kernel.org, ast@kernel.org, daniel@iogearbox.net,
+ andrii@kernel.org, martin.lau@linux.dev, eddyz87@gmail.com, song@kernel.org,
+ yonghong.song@linux.dev, jolsa@kernel.org, memxor@gmail.com,
+ emil@etsalapatis.com, ihor.solodrai@linux.dev, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ shuah@kernel.org, vadim.fedorenko@linux.dev, netdev@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
 
+Hello:
 
+This series was applied to bpf/bpf-next.git (master)
+by Alexei Starovoitov <ast@kernel.org>:
 
-On 10/5/26 3:03 AM, Stephan Gerhold wrote:
-> I'm mostly just curious, is the input/hotkey functionality in the T14s
-> EC driver not relevant for the X13s or did you omit it because you don't
-> need it and/or to keep the initial driver more simple? It seems to be
-> present in the X13s ACPI similar to the T14s.
+On Fri,  9 Oct 2026 20:47:46 +0300 you wrote:
+> BPF_PROG_TEST_RUN with BPF_F_TEST_SKB_CHECKSUM_COMPLETE returns -EBADMSG
+> for correct tc programs that call bpf_skb_change_tail(). The helper
+> moves the skb to CHECKSUM_NONE and leaves skb->csum stale, but the
+> post-run check added by commit a3cfe84cca28 ("bpf: Add CHECKSUM_COMPLETE
+> to bpf test progs") still compares against it.
+> 
+> Patch 1 only does the check while the skb is still CHECKSUM_COMPLETE.
+> Patch 2 adds selftests for a trim, a grow followed by a write, and a
+> negative case that keeps the skb CHECKSUM_COMPLETE with a stale
+> skb->csum.
+> 
+> [...]
 
-The X13s does have EC-generated hotkey events similar to the T14s.
-I left the input functionality out intentionally to keep the initial
-driver focused on keyboard-backlight control and power management.
+Here is the summary with links:
+  - [bpf,v2,1/2] bpf: test_run: Fix false -EBADMSG after skb leaves CHECKSUM_COMPLETE
+    https://git.kernel.org/bpf/bpf-next/c/36edb1c7738d
+  - [bpf,v2,2/2] selftests/bpf: Cover test_run csum validation after bpf_skb_change_tail()
+    https://git.kernel.org/bpf/bpf-next/c/2e6be13e8ca4
 
-I've identified several X13s event codes in the ACPI DSDT, including
-the programmable F12 key and call-control keys. I think it makes sense
-to add input support as a follow-up once the event mappings and
-expected behavior have been verified on hardware.
-
-Thanks,
-Alex
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
