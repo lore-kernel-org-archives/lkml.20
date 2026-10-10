@@ -1,312 +1,153 @@
-Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.0])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1692547059;
-	Sat, 10 Oct 2026 12:53:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.56.87.0
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791636821; cv=pass; b=c5EIld6Y5YZvveX2WDR+jVcPXNnvxiVMJ1neOYt1l5gsfdvx4+l1qFTBIaboBKQIloZir34AgYariUwzkpL+WUDdtNRkOHB832esJR9TovVuJVJzEoXT9FI1EVsIxUCmwl1Ho7qp5WseQmJKrbYGWAlxREpX9nhzec8MD0wJfNU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791636821; c=relaxed/simple;
-	bh=TloiGb9LcjiPJPFSG2XTLgeNMAlw0y3F26oR4V/bRq0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lCdYJb4cnvVb47LElVYoHR7hStqMh39ah0t+HtD0Bfy9aFB/w8euAWLhd88tSjJVlJi8sFUSWhNLwhab2zToOjC07Py5GnmEODp0f9QXqcYcHhzDO+oR4VlHmjZ0H29OTjR5Ttp2bWdkVtZSmiAGreUrg9AroJXYv7k3eap0WEc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it; spf=pass smtp.mailfrom=valla.it; dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b=sMWlFLyG; dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b=GX50AT9r; arc=pass smtp.client-ip=185.56.87.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD2EF48823C
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 12:56:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791637021; cv=none; b=BPyrkEHmJdKWKyqmOVSXwHRnrYotTcHouJ7i8mu+PxN02C4CZTm9SkNS+6d02tfIpHTjDOGgtvfRDBwkEYOwR4OFuB4eTE0OOlX+yKeId0HBccV+443ZhGAe25oH9PHRAr7so6nY8SnUWa7t9dxqihLTemYD4BGSpPH+MF6UjYc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791637021; c=relaxed/simple;
+	bh=W/UEILEHedjWzea26aThXcgblmNjNpWx4V4u/V5lw4k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MEeH3wmFaJc6WJHNJTGoJFfyiF7ikwAfLw7Rt6roE9f0XuQYlhntqRgxXmNzSgO4JobE9m2mkheLFcvx29dlFZVRQl+gdZ/vSaqJLADtUFYtlPetQ3OQkGAdYbBS/THuzdCfmlzkKDwTxp5VWg+klZbcaRMc2n1UMUvUMA6NJBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FJk1JCwX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EjG8JNKh; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b="sMWlFLyG";
-	dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b="GX50AT9r"
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-jgww.prod.antispam.mailspamprotection.com; s=arckey; t=1791636819;
-	 b=YaexAuqCzz+M9u9gNO0ReKutIufsNgFCEf1b+UCm8rO7zkV3yAu+dnNhw+txp9RgAUpm8GxDmr
-	  lbyAgmM2bwKmM2ianps8B/6boLHY9HMJJ4THXHVV+8Kk4N3zevdWnxYJYzykpVZONcQ+HYQ7PB
-	  FJ7IRQxjofyVpV5E1xkDLS1fkJ9MZNF21tRKONOBOp0smolu2/yYGn/Mz6958q6RgtaJqbBIVI
-	  nIcriKfsoJGvRGWcqKkWAKidCycr9UYXSGHDH+JXKcUqG5imMUpdV221gukj8ZIkaQtIpxC0O7
-	  gzkSy1+rJox7EZp277VdIFkqg+3KHqdIv2c86Bfl+wR2QQ==;
-ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-jgww.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-jgww.prod.antispam.mailspamprotection.com; s=arckey; t=1791636819;
-	bh=TloiGb9LcjiPJPFSG2XTLgeNMAlw0y3F26oR4V/bRq0=;
-	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:
-	  From:Date:DKIM-Signature:DKIM-Signature;
-	b=XMJJJuUUZLq3S5ayy7hrzuXgefA70Qm0iBVV9skTSTSxdD1+QdjYyf24xiWMo/MNxHAAEZC+15
-	  Tu6I/+nSwQmiSIPBNbvLrNHbo5JbAbwQZVtPhI0kW/4kd82m3+fi6gOAH77KXukF94EmD7dks9
-	  nTwNe3horK54GgPWL1Kt2vEqFgseelTpwgB2rmuT0T3HAKxBC7E8YQATA/PAaXM+Iszyn9FbQH
-	  JpwskSv86wqupQowOTHxCqwG4DIm2zCbEuCTs606MakKefnMEb9fK1l4P//Wf7j/X6MnBPYmz5
-	  5bhAtnMHzgCrP/EO7VzjhuBns2VphoiWNwi7bKmD7gV3uA==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
-	:Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	List-Unsubscribe:Content-Transfer-Encoding;
-	bh=0nDbcmvw++nIvZl2eKTAuF6jIVwbx2iXREQ2mn7C9RI=; b=sMWlFLyG1VSRiPqaS5Nihz+ALM
-	lkxuJjNiB9fKSddGo9vN28Ri4HL1brS7fPDCgsxvqG/wuTGreGX+ehYVKRkH0NccY6IXR49NBGku6
-	wAfCyaW6D9c/Gfo8flZdc/o/3PHNUx0gZ23HTRrGzVuxFrMPnD9Ssb8RYqwca0YBNpCA=;
-Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
-	by instance-europe-west4-jgww.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xFW8i-0000000HA0X-2yRc;
-	Sat, 10 Oct 2026 12:25:25 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
-	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
-	list-subscribe:list-post:list-owner:list-archive;
-	bh=0nDbcmvw++nIvZl2eKTAuF6jIVwbx2iXREQ2mn7C9RI=; b=GX50AT9rmahSgmb1EoN0MuGfp2
-	VwjzweppWraRBrFEsxLy0KNiD/JhU02ZkQQDjp+iVeJB60AIIWJ843/trGpC8rREWvkdhyIRLqh4G
-	svhWp4Y9ks7lQ6+9njx1T73eTYqqWpNAhAf9ziuqNZh2hValmvdS9mp2xrD+p1wMp3X0=;
-Received: from [79.22.26.204] (port=60194 helo=bywater)
-	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xFW8Q-000000004lR-2XJG;
-	Sat, 10 Oct 2026 12:25:06 +0000
-Date: Sat, 10 Oct 2026 14:25:04 +0200
-From: Francesco Valla <francesco@valla.it>
-To: Peng Fan <peng.fan@oss.nxp.com>
-Cc: Mathieu Poirier <mathieu.poirier@linaro.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Robin Murphy <robin.murphy@arm.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	virtualization@lists.linux.dev, imx@lists.linux.dev, iommu@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH RFC 12/12] PoC: arm64: dts: imx93-11x11-frdm: add
- multiple vdevs
-Message-ID: <asonWC5ENWZJ1-3B@bywater>
-References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
- <20260916-remoteproc_virtio_map-v1-12-dac8c5eb4aa9@valla.it>
- <arKiOCGrWAKyc-bc@p14s>
- <arLawAw6kgFT2e0W@bywater>
- <arP06mWDehsIDh5s@p14s>
- <arP5AvA51GHrI8aN@bywater>
- <ashtOTx/xhTsMnQ3@shlinux89>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FJk1JCwX";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EjG8JNKh"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69ACUXpB3787048
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 12:56:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	DdqTfmxv7RjX7a6pYYeAcFMXK1tEr0dFq6vCwkdGz5A=; b=FJk1JCwXsNzxLxct
+	4QIM4TwGSLRWJ+olwZ2yWHHIoln3g6Y2jeMLmBqmVKBYDmIX3cozXxhZAdDSHLNp
+	LxnyO+jgEUqY0CX3WJ1b0dPZoj9awMVdqWbRSoIIQIianSN7IVgHdXub4Q3i2yd2
+	2MQ+VZ384Jvpq8kJgCerM6AxEJHHAR9IKNKEg6DOEVzxfwz5ADAGfs6+UohDnE6L
+	pB1+eCbvYUCrO3LII2vFrPdUHa7haSpl7zi+QCPKsD61BazHAZMtW1BXbVPGZUBk
+	66FfaEE8QYrHYRTWP0K3UQB4WUNbFvnFea3bWJxmsGkrcozf9DDjxIryuB+c/pLj
+	ZaAnoQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7dr7gyqc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 12:56:58 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93e49a1d3b1so143338085a.2
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 05:56:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791637018; x=1792241818; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DdqTfmxv7RjX7a6pYYeAcFMXK1tEr0dFq6vCwkdGz5A=;
+        b=EjG8JNKhxhpw4QR42vSFCIdPfmzluMofsKpvyvOYvIzeGskQG20BATMzRaDEmltf2g
+         NOLKHq3noYPyFK/LY+pXLO+vuSETvXp4XJj6mkAUPfqz7L3rWEaZs06qWPqIcRB1tFvl
+         8W9Gnn+tPYPmUAILGeQl5/aYNWuvPEppYw40z4/l03wqX14AmAM+NBPlQHRN8wm2z4LR
+         RzCN9js+RnO1njgE/IClmI5W4oYyMV/sbuEN0WWJ0UKmLgENPPc6NU13+omEzQGsUMO/
+         x+ZYyZH5osJSU+8i/ZhN3dmQWfBo++pjwGIkhwa2NqvvkZNFQOuqW+RdMAInydcKliHF
+         CmtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791637018; x=1792241818;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DdqTfmxv7RjX7a6pYYeAcFMXK1tEr0dFq6vCwkdGz5A=;
+        b=frCgFiTXEIzARr6ZXLhHmP2ocfhSCle99HZ1NMwg29TupCoCyT8LVmY7/jPZZj0VK5
+         NtTuSimF14SY2ug+gb0jMb8SktyebLSzp9LrZrlYxhhez1T8381llHqlN5SLW4xAmoCC
+         TpMO1HvcKhL7lvN57uZbnZnIF91f4QWLfMZCfaRie+9b/U5ZoVyUArDbwu4r6Few34fb
+         /l9OXcpvhe1N9/H/9AKG6tume5FvGPZY42nLH4pHjJ04V0q9xw57m0ldwdV3bkgeTbGT
+         oKc2g8cSGhHwH3jS/ZT9jJQWB9cLZjhY3WctcWRqVhUZFxX2q/AQ5/MPN9Of/3cScD/0
+         Yc8Q==
+X-Forwarded-Encrypted: i=1; AKwUvByxIuJ5Cnyga24MKgyAWOIhgJ8xqufWPeloinMtot/G/MLtLgAg9uEO5XKCplZiDaKOHnpgLGEKjvRlqA8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL7bPL8n/w6HIpsHFvOqd/T7zTmGpi+23/QMkaA+Hdu2sSNBj4M
+	LjUhZp7n9C7Nq5Bc+B1K+XI60iZPYbLFI/ou5nAlFrti1edQsfpIzpHEJPPwgCo6cCUCRPvka78
+	r1ndmYQbbqF/cE/j/UYlHBVKh50wPZuoH06BQjK/3qpiC3dyiEuGt8gvE1WhFZg/f3sU=
+X-Gm-Gg: AYBFou1bDlrRZAJbODpnqLCAJ1kb7G1bNKKlNTm/T1C/LwP1TMoqldsrVxayEIlIE6N
+	0KEzQYlvLHCO552kanrUWKAbtGnSgzFqPQrrf2gpR7hdlDjAvTkaCDwDn2GQwFbVt1J92Tzd1UV
+	Rq0r0F3iCi9P7xXDc4kIPwgCX6/wmnaqxCJSLDibwxgkhVq3aEusEh5+1/HsOfutgQofBIfm4yU
+	yMXQdLttDipuUPtXcYYGeFx1sZcAmPpLvsOD5lJr/PJzF43lyRqFxrbEXjf4cBWGGviUsPDevAL
+	4nID9azBI97OLiuB2rwCNfIWKzNhSSXiX91pKEyRH+TPtqE0s78WQDLhrWxWL1WeYQSOl0FopnE
+	lAEMgLX7aPF9CtWdPSjg5FR5X8H+UHadfAhPSdGgTqWhHU9TY+37wVsoc8p7MbeAnpfAkCNQNxu
+	BVSaPWucYKYf6rXjRp
+X-Received: by 2002:a05:620a:3947:b0:92e:8310:7369 with SMTP id af79cd13be357-93ebd248de4mr824665385a.37.1791637017877;
+        Sat, 10 Oct 2026 05:56:57 -0700 (PDT)
+X-Received: by 2002:a05:620a:3947:b0:92e:8310:7369 with SMTP id af79cd13be357-93ebd248de4mr824660085a.37.1791637017012;
+        Sat, 10 Oct 2026 05:56:57 -0700 (PDT)
+Received: from brgl-qcom.local (2a02-8440-350e-a8a7-dac7-41db-afca-de74.rev.sfr.net. [2a02:8440:350e:a8a7:dac7:41db:afca:de74])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db97ce3aasm9014383f8f.21.2026.10.10.05.56.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 05:56:55 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: andersson@kernel.org, linusw@kernel.org, brgl@kernel.org,
+        Joonhoe Kim <26rote@gmail.com>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        konrad.dybcio@oss.qualcomm.com, jingyi.wang@oss.qualcomm.com,
+        linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] pinctrl: qcom: kaanapali: add the I2C strong pull-up bit
+Date: Sat, 10 Oct 2026 14:56:52 +0200
+Message-ID: <179163700869.6835.2267810663519966879.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261007124001.1724-1-26rote@gmail.com>
+References: <20261007124001.1724-1-26rote@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ashtOTx/xhTsMnQ3@shlinux89>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - esm19.siteground.biz
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - valla.it
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-SGantispam-id: 3b1a822e156a60a577a97f3ff3c5b731
-X-AntiAbuse: ID - 3b1a822e156a60a577a97f3ff3c5b731
-AntiSpam-DLS: false
-AntiSpam-DLSP: 
-AntiSpam-DLSRS: 
-AntiSpam-TS: 1.0
-CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
-CFBL-Feedback-ID: 1xFW8i-0000000HA0X-2yRc-feedback@antispam.mailspamprotection.com
-Authentication-Results: outgoing.instance-europe-west4-jgww.prod.antispam.mailspamprotection.com;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: sAtXQL3y7bwaoBQgTQEKJRBKDSvTFiA9
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEwMDA1MSBTYWx0ZWRfXziY1JmM8mPhp
+ q+JccT4+D3jz/1TpAXwYDHZ0t1r53FKHHBiqJd2sCBTl5Pk5E23vJd7cg1ACGshkf/GD3w0G1fS
+ hvo/0RJDZPlscx18RkMyYEf+/gjy/Yo=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEwMDA1MSBTYWx0ZWRfX12lk4/sYiB9c
+ 0Rz9itwf7t7YD07IB/CWd1ZFsZPfWJV6udy/WTIYMgKuU6/cIFd6R2m17tnnwfuYDyUp2fRoKod
+ POs0zlMoFXu1tZQaRXGU+RBxs29uQ9FhSAk1W5EF49VOV36fXCIsfFstv4Ktouxc+I8vroy6KUF
+ zjDfL+htOmvCgC2dhEZUJNShG0V9GlijvKw1Pcs0TuLPYFYQZnDRjIPV01gvNE1kP//GqIWHzus
+ LVMss6CEqMdT6A2zv4rx5FYmk/Ao9013TESRt2c6WdA8/y2PpAHr9sSmRP273i98WN6IXqjxNyS
+ uedtOdfCXLvF7DI/BADp6EgwoFilnJmsOE6VO0wpD+AOCqJzBUbhbkeVIPfM6CDVK1t2U37A1wM
+ vPPDdX2XNJIvRP0qsXgDKvo3MSjFMm+k3oiUaRji6vbLFZE5QRcI5Xjki7K++fEdKyYlvnWQTFj
+ LnCniPAlWir1ccSB3OA==
+X-Proofpoint-GUID: sAtXQL3y7bwaoBQgTQEKJRBKDSvTFiA9
+X-Authority-Analysis: v=2.4 cv=asknmiZV c=1 sm=1 tr=0 ts=6aca361a cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=buVoV1uq8FEZNaAFP7gA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-10_02,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 priorityscore=1501 phishscore=0 spamscore=0 adultscore=0
+ impostorscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610100051
 
-Hello Peng,
 
-On Fri, Oct 09, 2026 at 12:27:37PM +0800, Peng Fan wrote:
-> On Wed, Sep 23, 2026 at 08:42:23PM +0200, Francesco Valla wrote:
-> >On Wed, Sep 23, 2026 at 09:48:58AM -0600, Mathieu Poirier wrote:
-> >> On Tue, Sep 22, 2026 at 10:19:48PM +0200, Francesco Valla wrote:
-> >> > On Tue, Sep 22, 2026 at 09:43:52AM -0600, Mathieu Poirier wrote:
-> >> > > On Wed, Sep 16, 2026 at 11:10:57PM +0200, Francesco Valla wrote:
-> >> > > > Add rings for multiple vdevs, as well as the required virtio nodes for
-> >> > > > I2C, SPI and GPIO functionalities. On top of that, add example
-> >> > > > peripherals using all of them.
-> >> > > > 
-> >> > > > NOTE: this is a Proof-Of-Concept, not meant to be integrated!
-> >> > > > 
-> >> > > > Signed-off-by: Francesco Valla <francesco@valla.it>
-> >> > > > ---
-> >> > > >  arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts | 128 +++++++++++++++++++--
-> >> > > >  1 file changed, 119 insertions(+), 9 deletions(-)
-> >> > > > 
-> >> > > > diff --git a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
-> >> > > > index bd14ba28690c..dfa3b122ac5f 100644
-> >> > > > --- a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
-> >> > > > +++ b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
-> >> > > > @@ -53,6 +53,32 @@ button-k3 {
-> >> > > >  		};
-> >> > > >  	};
-> >> > > >  
-> >> > > > +	gpio-keys-virtio {
-> >> > > > +		compatible = "gpio-keys-polled";
-> >> > > > +		poll-interval = <100>;
-> >> > > > +
-> >> > > > +		button-v1 {
-> >> > > > +			label = "Button V1";
-> >> > > > +			linux,code = <BTN_3>;
-> >> > > > +			gpios = <&v_gpio 23 GPIO_ACTIVE_LOW>;
-> >> > > > +		};
-> >> > > > +
-> >> > > > +		button-v2 {
-> >> > > > +			label = "Button V2";
-> >> > > > +			linux,code = <BTN_4>;
-> >> > > > +			gpios = <&v_gpio 24 GPIO_ACTIVE_LOW>;
-> >> > > > +		};
-> >> > > > +	};
-> >> > > > +
-> >> > > > +	leds {
-> >> > > > +		compatible = "gpio-leds";
-> >> > > > +
-> >> > > > +		led {
-> >> > > > +			gpios = <&v_gpio 18 GPIO_ACTIVE_HIGH>;
-> >> > > > +			label = "LED V";
-> >> > > > +		};
-> >> > > > +	};
-> >> > > > +
-> >> > > >  	reg_usdhc2_vmmc: regulator-usdhc2 {
-> >> > > >  		compatible = "regulator-fixed";
-> >> > > >  		off-on-delay-us = <12000>;
-> >> > > > @@ -89,11 +115,6 @@ linux,cma {
-> >> > > >  			linux,cma-default;
-> >> > > >  		};
-> >> > > >  
-> >> > > > -		rsc_table: rsc-table@2021e000 {
-> >> > > > -			reg = <0 0x2021e000 0 0x1000>;
-> >> > > > -			no-map;
-> >> > > > -		};
-> >> > > > -
-> >> > > 
-> >> > > Why is the resource table removed?  There is no mention of that in the
-> >> > > changelog...
-> >> > >
-> >> > 
-> >> > You are obviously right, the commit message here should have been a
-> >> > poem, not a form of hermetic poetry. My bad.
-> >> > 
-> >> > The resource table here is causing problems with how Zephyr is managing
-> >> > it at its side. If it is kept in a separate memory location and copied
-> >> > there at runtime by the remote processor firmware during its startup
-> >> > (which is the current Zephyr behavior), then there might be a race
-> >> > condition when the aforesaid firmware is loaded and started by Linux
-> >> > *and* at least one of the vdev drivers (here including rpmsg_bus) is
-> >> > built-in. In this case, the copy of the resource table done by the
-> >> > remote processor might - depending on the async execution of the two
-> >> > processors - overwrite the status bit set by the Linux driver:
-> >> > 
-> >> >   Firmware load and startup (echo start > /sys/.../state)
-> >> >                            |
-> >> > 			   |
-> >> > 			   V
-> >> >   The vdev devices get registered (by register_virtio_device())
-> >> >                            |
-> >> > 			   |
-> >> > 			   V
-> >> >   If a driver is built-in, it probes and sets the vdev status
-> >> >   inside the resource table @rsc-table.
-> >> >                            .
-> >> > 			   . (in the mean time)
-> >> > 			   .
-> >> >   The remote processor starts up and copies the resource table from its
-> >> >   dedicated section to @rsc-table.
-> >> > 
-> >> > Depending on the system load and the complexity of the firmware, the two
-> >> > operations can happen in whatever sequence, causing a race condition.
-> >> 
-> >> This would happen regardless of this patchset.
-> >>
-> >
-> >Correct, *if* the remote processor is copying the resource table to a
-> >specific location and expects the host to use that. On Zephyr (which is
-> >clearly outside the scope here) this can be enabled through the
-> >CONFIG_OPENAMP_COPY_RSC_TABLE option. I am keeping that disabled, and
-> >removing the rsc-table node here.
-> >
-> >I am planning to reason on this and propose a proper fix in a separate
-> >patchset.
+On Wed, 07 Oct 2026 21:40:01 +0900, Joonhoe Kim wrote:
+> The Kaanapali TLMM has the I2C pull-up control in bit 13 of the pin
+> config register, like SM8550, SM8650 and X1E80100, but the driver does
+> not describe it, so "bias-pull-up = <2200>" cannot select the strong
+> pull-up.
 > 
-> The previous workaround for this was to add a delay in start function.
+> The downstream kernel sets it on the camera CCI pins (config 0x2007).
+> On a Lenovo TB323FU tablet, with only the weak pull-up every CCI
+> transfer on the two sensor buses times out; with bit 13 set the sensors
+> answer and their chip IDs read correctly.
 > 
-> https://lore.kernel.org/all/20221102112451.128110-1-peng.fan@oss.nxp.com/
-> https://lore.kernel.org/linux-remoteproc/20230707232444.374431-1-marex@denx.de/
->
+> [...]
 
-That would *kind of* work, but it's clearly unfit for upstream.
+Applied, thanks!
 
-> >
-> >> > 
-> >> > This is somewhat masked if vdev drivers are built as modules, as the
-> >> > devices does not probe immediately but only after the modules have been
-> >> > loaded, giving the remote processor time to start. Note that this is not
-> >> > a solution! but a workaround.
-> >> > 
-> >> > If the rsc-table node is not there, the startup logic falls back to the
-> >> > classic rproc_elf_find_loaded_rsc_table().
-> >> 
-> >> We can't remove @rsc-table to make a problem go away.  
-> >> 
-> >
-> >I need to re-take a look at the NXP SDK to understand what's the real
-> >purpose of having the rsc-table here. Judging from the commit message
-> >that introduced support for such facility [1], it seems the SDK is not
-> >really using it.
-> >
-> >Maybe someone from NXP can comment on this?
-> 
-> Linux needs to parse resource table to setup vring. When RPROC(remote processor)
-> is booted by ROM or System Manager, there is no elf for Linux to use, so a
-> pre-defined address is used rsc-table.
-> 
+[1/1] pinctrl: qcom: kaanapali: add the I2C strong pull-up bit
+      https://git.kernel.org/brgl/c/1df7f369075d7e8f7794981995a5103f1963bab7
 
-Yes, that's clear, or it wouldn't know where to find the resource table. 
-
-> 
-> If RPROC is booted by Linux using remoteproc, rsc-table in DT is not needed.
-> But RPROC is not aware it is booted by ROM, U-Boot, Linux. So it will always
-> publish the resource table to rsc-table address.
-> 
-> And we need one DTB/Image to support mutiple boot cases.
-> 
-
-That's also clear. However, current setup for i.MX93 platforms is not
-really working for the Linux+Zephyr case, or at least not in all
-conditions.
-
-If the firmware is loaded and started by the Linux kernel, the resource
-table is copied to the rsc-table address before the CM33 is started.
-However, at the beginning of its boot process, the CM33 itself will
-clear its DTCM memory [1] to avoid ECC failures, actually overriding the
-resource table the Linux kernel just wrote there. (Note that I linked
-only the Zephyr case, but the official NXP SDK has a similar routine).
-
-Regardless of what the CM33 does after (i.e., even if it copies the
-resource table to the same location), it will lose any update the Linux
-kernel did in the mean time to the resource table. If e.g. the
-virtio_rpmsg_bus module is built-in, the readiness of the rpmsg
-stack at Linux side will be lost most of the times.
-
-This is probably working fine for firmwares based on the rpmsg-lite
-library by NXP, which AFAICT doesn't use the status bits found inside
-the resource table, but it's interfering with the way the OpenAMP stack
-works.
-
-ATM I do not have a solution to propose. I'm still thinking about it.
-In the mean time, I decided to load and boot the CM33 firmware before
-the Linux kernel starts.
-
-> Hope this explains.
-> 
-> Regards
-> Peng
-
-Thank you!
-
-Regards,
-Francesco
-
-[1] https://github.com/zephyrproject-rtos/zephyr/blob/main/soc/nxp/imx/imx9/imx93/m33/imx93_m33_startup.S#L18
-
+Best regards,
+-- 
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
