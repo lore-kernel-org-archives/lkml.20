@@ -1,124 +1,172 @@
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 966B943D508
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 11:35:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01C9143DED4;
+	Sat, 10 Oct 2026 11:35:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791632136; cv=none; b=dDZLB1/ud8QHOZq6GjxtPNL4gQcBwYOxy0FCwvbUOPGz9vFjqPGNiHEqekTterbpDUpneRvfz3jqoHZs8scXo0pJ60xXPYU1K+80P9WFwkWmOYrAMUwRHWtcKX8kd8EN/UlPfN8O/LnLnOvG4rQKC7chHX6aHFBN5GxYZuYMuMo=
+	t=1791632152; cv=none; b=nmMckzv/Y7N92hrhrSjxrb00ARDV4S0INzfjfJqOuY7DAyQkIdYHORYUCAEMYHOUO6NYT1jkdXz3zxzY/I/6Bx3WJnjrXErm36xisQxPcm31+Y8DIx1yLH2VG29s5dFiw8lQJp+PoNYN6S4kKI+j3Z4sAxt7W6tsWQr082J5Eng=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791632136; c=relaxed/simple;
-	bh=/itNkXNH1JxfAtbgLYU43ReT1lu9d2Vv6u4JiAK4MLo=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=jZcYA2pFdHHILCR3BgaFRcpF5rO8i2Qhqp2TJwFIW9gIC00aJkjsoIEQ6IKQVVv2f2lMOZAO+Tf+r6YcNmP/4SoIwT7ZkLUmCVZpT1eL1bTn2Fj30Ei8XMLxtcLW7S2apim5IeqEkZRbkNH6ypM8tPyx7q/ko/aISi6K1vcd9uc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=IQstWvGz; arc=none smtp.client-ip=109.224.244.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="IQstWvGz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1791632130; x=1791891330;
-	bh=u/XyS0fFwdXSO/nAyUmGOgyVOEMZmfrG8b3gOmGgnns=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=IQstWvGzGoGHE9qtWPZKn15AgkUBc9Y37IAtSf7cXw5Wjym8pRqR8Olw8iw7I7ZBo
-	 BLXGUajVCl/Jej5bolpLBedu25L8K5ve/STNLIx6Zdl4HiPOWU34W9ux3nMupyAlVe
-	 WwwRI0J7SfK0dQ4UE5ARATUqJ3tLdJQyNBVevj6X8Gy0DGQceSlRDbJPpYdjgkozGf
-	 9hfUvAmQC1qaNLGs9hnlk9WTna/B46xWP9KtjmTU3cDx6ZOOZubjKwm0uZJIzCDE+6
-	 9edbf9voQHuFWdqtDMCtrruPDLGApA3oNJzzg3mMj5C9eEQJ1jh5DS4Gqmvo9W8euN
-	 dK79ioPKjC+ew==
-Date: Sat, 10 Oct 2026 11:35:26 +0000
-To: Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-From: Birk Skyum <birk.skyum@pm.me>
-Cc: linux-bluetooth@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] Bluetooth: hci_qca: Reset the in-band sleep state on power off
-Message-ID: <179163212446.46972.2306254853726299632@pm.me>
-Feedback-ID: 21326998:user:proton
-X-Pm-Message-ID: 884b30a7e7cc678a90e94af3bff0cc6b2f0676a5
+	s=arc-20240116; t=1791632152; c=relaxed/simple;
+	bh=CN+SEydKJGRVb0h/yu3dlJNzUjVmrArfG2gLA9h74Xs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cQRrwfKoGIkW9qdqlzJNGMkJTMGq1U4A1QDUgWNOPvw3WIuBCnzZAQgyFY+uxgGLie8y6sTZi0WHMqJqSfxdUeAYdW6osI+iuED3oh2XQdVB1sjxjgWpFZhx4t4IqEGZ01tNdmou15UA3fMOtwmIB/upYr3KBqWhP09gunLSeeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+Received: from escalante.csail.mit.edu ([128.52.128.198])
+	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xFVMV-005f7g-FD;
+	Sat, 10 Oct 2026 07:35:35 -0400
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+To: linux-riscv@lists.infradead.org
+Cc: pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: [PATCH v2] riscv: Fix icache flush being skipped for a second mm mapping an exec folio
+Date: Sat, 10 Oct 2026 07:35:35 -0400
+Message-ID: <20261010113535.763451-1-nickolai@csail.mit.edu>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261009221957.760606-1-nickolai@csail.mit.edu>
+References: <20261009221957.760606-1-nickolai@csail.mit.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-qca_power_off() cuts the power of the controller but leaves the host
-side of the in-band sleep (IBS) protocol as it was. tx_ibs_state and
-rx_ibs_state are initialised in qca_open() only, so a controller that
-qca_setup() powers on again meets whatever state the last session ended
-in.
+Since commit 01261e24cfab ("riscv: Only flush the mm icache when
+setting an exec pte"), flush_icache_pte() flushes only the icache of
+the harts that run the faulting mm (with a deferred fence.i for the
+harts it migrates to later), but it still sets the folio-wide
+PG_dcache_clean bit. The bit is then read as "no hart holds stale
+instructions for this folio", which a per-mm flush does not establish.
 
-If that state is HCI_IBS_TX_WAKING, the host is waiting for a wake
-acknowledgment, and qca_hci_shutdown() has deleted the timer that
-sends the wake indication again. The setup still works, because frames
-bypass IBS while QCA_IBS_DISABLED is set. Once the flag is cleared,
-qca_enqueue() puts every frame on tx_wait_q and nothing takes it off:
+So when a folio that was written through the page cache is mapped
+executable first by mm A on hart X and then by a different mm B on a
+hart Y outside A's cpumask, B gets no flush on Y and executes whatever
+Y's icache still holds for those physical lines, e.g. the page's
+previous contents. Before that commit, flush_icache_all() covered this
+case.
 
-  Bluetooth: hci0: QCA setup on UART is completed
-  Bluetooth: hci0: Opcode 0x0c03 failed: -110
+Reproducer: a parent pinned to hart 0 and a child pinned to hart 3
+share a file. The parent writes text "T1" with write(2), the child
+mmap()s it PROT_EXEC and runs it (priming hart 3's icache with T1),
+then unmaps it. The parent writes text "T2", maps it executable and
+runs it (per-mm flush of hart 0 only, bit set). The child maps the
+file executable again and runs it: no flush on hart 3, and the child
+executes T1. On a StarFive JH7110 (VisionFive 2, non-coherent icache)
+running v7.3-rc6, 149 of 150 iterations over three hart pairs execute
+stale instructions. A control run that executes fence.i in the child
+before the last mapping gets 0 of 50.
 
-A restore from hibernation gets there on a Lenovo Yoga Slim 7x
-(WCN7850). The controller has been through a power cycle, while the
-restored kernel holds the state from before the image was taken. Its
-wake indications go unanswered, the commands behind them time out, and
-the core closes the device and sets it up again. From then on
-tx_ibs_state reads 1 in debugfs and Bluetooth stays dead until hci_uart
-is reloaded.
+Keep the per-mm flush and make the skip decision per mm instead:
+count the flushes that set the bit in a global generation, and let
+every mm remember the generation of its own last flush taken in
+flush_icache_pte(). An mm whose generation lags cannot trust any bit
+set since, so it flushes its own harts once (local fence.i, IPIs only
+to the harts currently running it, deferred fence.i for the rest) and
+catches up. No global flush is issued, nothing happens while no new
+executable folio is written, and the cost is bounded by one
+flush_icache_mm() per mm per generation bump.
 
-When the controller loses power, put both sides back to asleep, which
-is where qca_open() starts, and stop the two IBS timers.
+With the fix the reproducer executes 0 of 150 stale iterations on the
+same board. The function-call IPI counters stay at a few hundred per
+hart for the whole boot plus 200 iterations, i.e. the IPI savings of
+the per-mm flush are kept.
 
-Signed-off-by: Birk Skyum <birk.skyum@pm.me>
+Tested on the JH7110 with v7.3-rc6 and this patch; not tested on
+32-bit. The bug does not reproduce under QEMU TCG, which invalidates
+translated code on page writes.
+
+Fixes: 01261e24cfab ("riscv: Only flush the mm icache when setting an exec pte")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
 ---
-Tested on a Lenovo Yoga Slim 7x with Arch Linux ARM's v7.2 kernel and
-hci_uart rebuilt with this change. qca_open(), qca_enqueue() and
-qca_hci_shutdown() are the same there as in bluetooth-next, which this
-is based on and where it builds without warnings (W=3D1).
 
-Each run is a fresh boot, a hibernation with a real power-off and a
-resume, with Bluetooth powered before it:
+Notes:
+    v2: move icache_gen out of the CONFIG_SMP block of mm_context_t; v1 did
+        not build with CONFIG_SMP=n (riscv allnoconfig and a randconfig),
+        as reported by the kernel test robot <lkp@intel.com>.
 
-- Without the patch Bluetooth is dead afterwards in four runs out of
-  four, with the log above. In the one run where I read it, debugfs
-  showed tx_ibs_state=3D1, ibs_sent_wakes=3D109 and ibs_recv_wake_acks=3D8.
-- With the patch it is powered again by itself in two runs out of two,
-  about 20 seconds after the resume. The log shows a failed version
-  read and "Retry BT power ON:0" before a setup that works. In the run
-  where I read it, debugfs showed tx_ibs_state=3D0 afterwards.
-- Powering the controller off and on with bluetoothctl still works.
+ arch/riscv/include/asm/mmu.h         |  2 ++
+ arch/riscv/include/asm/mmu_context.h |  1 +
+ arch/riscv/mm/cacheflush.c           | 20 ++++++++++++++++++++
+ 3 files changed, 23 insertions(+)
 
-The 20 seconds are the commands that time out before the core gives up
-on the old session. This patch does not change that part.
+diff --git a/arch/riscv/include/asm/mmu.h b/arch/riscv/include/asm/mmu.h
+index cf8e6eac77d5..03348e36ea29 100644
+--- a/arch/riscv/include/asm/mmu.h
++++ b/arch/riscv/include/asm/mmu.h
+@@ -14,6 +14,8 @@ typedef struct {
+ 	unsigned long	end_brk;
+ #else
+ 	atomic_long_t id;
++	/* icache_folio_gen at this mm's last flush in flush_icache_pte(). */
++	u64 icache_gen;
+ #endif
+ 	void *vdso;
+ #ifdef CONFIG_SMP
+diff --git a/arch/riscv/include/asm/mmu_context.h b/arch/riscv/include/asm/mmu_context.h
+index dbf27a78df6c..cc0f7f65ec8b 100644
+--- a/arch/riscv/include/asm/mmu_context.h
++++ b/arch/riscv/include/asm/mmu_context.h
+@@ -32,6 +32,7 @@ static inline int init_new_context(struct task_struct *tsk,
+ {
+ #ifdef CONFIG_MMU
+ 	atomic_long_set(&mm->context.id, 0);
++	mm->context.icache_gen = 0;
+ #endif
+ 	if (IS_ENABLED(CONFIG_RISCV_ISA_SUPM))
+ 		clear_bit(MM_CONTEXT_LOCK_PMLEN, &mm->context.flags);
+diff --git a/arch/riscv/mm/cacheflush.c b/arch/riscv/mm/cacheflush.c
+index f8ead7cb7c7d..880c210dbfec 100644
+--- a/arch/riscv/mm/cacheflush.c
++++ b/arch/riscv/mm/cacheflush.c
+@@ -97,13 +97,33 @@ void flush_icache_mm(struct mm_struct *mm, bool local)
+ #endif /* CONFIG_SMP */
+ 
+ #ifdef CONFIG_MMU
++/*
++ * PG_dcache_clean is folio-wide, but flush_icache_mm() only reaches the
++ * harts of one mm.  Count the flushes that set the bit; an mm whose
++ * generation lags cannot trust a bit set since its own last flush, so it
++ * flushes its harts once before relying on it.
++ */
++static atomic64_t icache_folio_gen = ATOMIC64_INIT(0);
++
+ void flush_icache_pte(struct mm_struct *mm, pte_t pte)
+ {
+ 	struct folio *folio = page_folio(pte_page(pte));
++	u64 gen;
+ 
+ 	if (!test_bit(PG_dcache_clean, &folio->flags.f)) {
++		gen = atomic64_inc_return(&icache_folio_gen);
+ 		flush_icache_mm(mm, false);
++		WRITE_ONCE(mm->context.icache_gen, gen);
+ 		set_bit(PG_dcache_clean, &folio->flags.f);
++		return;
++	}
++
++	/* Pairs with the fully ordered atomic64_inc_return() above. */
++	smp_rmb();
++	gen = atomic64_read(&icache_folio_gen);
++	if (unlikely(READ_ONCE(mm->context.icache_gen) != gen)) {
++		flush_icache_mm(mm, false);
++		WRITE_ONCE(mm->context.icache_gen, gen);
+ 	}
+ }
+ #endif /* CONFIG_MMU */
 
-The kernel also carried the hibernation changes in [1], [2] and [3],
-without which this machine does not get this far, and a GENI serial
-change that is not ready for the list.
-
-[1] https://lore.kernel.org/r/179157746908.73485.2343672865542690797@pm.me
-[2] https://lore.kernel.org/r/179158127177.70185.5691100900886332545@pm.me
-[3] https://lore.kernel.org/r/179163141354.18006.80461347454353634@pm.me
-
- drivers/bluetooth/hci_qca.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
-index 7089e9b63..19a75faba 100644
---- a/drivers/bluetooth/hci_qca.c
-+++ b/drivers/bluetooth/hci_qca.c
-@@ -2235,6 +2235,11 @@ static void qca_power_off(struct hci_uart *hu)
- =09spin_lock_irqsave(&qca->hci_ibs_lock, flags);
- =09set_bit(QCA_IBS_DISABLED, &qca->flags);
- =09qca_flush(hu);
-+=09/* A controller that loses power is asleep when it comes back. */
-+=09timer_delete(&qca->wake_retrans_timer);
-+=09timer_delete(&qca->tx_idle_timer);
-+=09qca->tx_ibs_state =3D HCI_IBS_TX_ASLEEP;
-+=09qca->rx_ibs_state =3D HCI_IBS_RX_ASLEEP;
- =09spin_unlock_irqrestore(&qca->hci_ibs_lock, flags);
-=20
- =09/* Non-serdev device usually is powered by external power
---=20
+base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
+-- 
 2.56.0
-
 
