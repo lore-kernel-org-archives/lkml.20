@@ -1,191 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-179.mta1.migadu.com [95.215.58.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB114B405E;
-	Sat, 10 Oct 2026 19:10:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C574B1D10
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 19:15:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791659450; cv=none; b=o1vzufUdlLV5d92YBz+Z9mPf/VQgAnjreg5ZlYvde1EqW8v+GaDIJ6EzjKedcCmVY3yT14H8KK41wE2Fc2DPnY0niHnKj8c5fmdG9gPd9L+b0fprvCTzbr0exf+t0b9KZRYFAJqPV1GNXgejIzG3dExezqdtACdtuZzdafbAJC4=
+	t=1791659720; cv=none; b=XXr6HmF86BPs+a+m1UFBOj4nG8bA3fqVdlbK7JVMxmAa/4RKp4RcJgCYlfhcyCaxnqC7BZm3RLxxCiulYbn8ix03/Mv1VUTQ8Plaqc5L3umpIRqWYC9xql/n+s1/ZarcaE7andF/nn9hj/XP1XDRfWLRJLKPdSN9aszda9iSsmw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791659450; c=relaxed/simple;
-	bh=WqKq3/IcrYMSEUaGps9jVmezFTk/Mk9m7vKwDCQpAts=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=VGDuLwOHFFWmwmokR8+JRv9AI64ZHB27iDXVOheIeyBuCUfe6xkZqUpQVODblgCQEEVkh9ld0vgci4rHUy4gdolDbFxuICEb6NBlCYDqw2i74F95dW+G7felINCUocOdoZ0i6NqKpG8onUC+iV4+E7d1qY8bfuXJ3xlzWGK5lIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fKDZ0ntX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791659720; c=relaxed/simple;
+	bh=3NootzqI/O3+CC49sjVYixviyBMP0OLY4tolwLWBCqY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bnFfWX8C9pzUzZPyvUcENxgl4obNjKlF3/EmJrBubwt7yfrN1pknF1JwkscgAZU0vsPtvodBtbaDLedDutlUyBg46EQYWLgfKJrmbGej6TDQ7FTt0YM3CL0v/DX/WsgT+7d8P+IBXorABv9othEIU23yr4hQibr8zq7/zPgPWHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=WunxtgpF; arc=none smtp.client-ip=95.215.58.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fKDZ0ntX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 263E61F00893;
-	Sat, 10 Oct 2026 19:10:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791659449;
-	bh=pwcAo7dHSCw8nV9+0txmx3BX+wsRNt71MBoq9JyGCtw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=fKDZ0ntXNmYEY5osq3GCI09sE4Tlci8NNOZ8S4AetYpFNFp1Fg7vMP1v/zygUYh7C
-	 lnC9dtF4ai7P1hUBtHMAmJnxYSTR5EnTJ0A+7qOd374QT3nOUFAjlBD7BV/pq5IsOm
-	 KpOoyWUE/6SWHlQrcNx6rT9s86VJt3xIa2aveFTKgr2/OhxDX9NX+YeXsgGU8ylUmT
-	 tSMrWHK3p3EmGrPVlCMRMjczFb/8TL9aAtieCZpJ9c1AytYDSElDqFYqjxcKxK9DsL
-	 WziJerZWc0DP0j9b5pSLK4Bb0mdphE2ZWgBIAYt784peeVW57czB6nfFGC5Akqd7JP
-	 jY29EprJycnzQ==
-Subject: Re: [PATCH net 2/2] sfc: ptp: avoid racing PPS timestamp updates
-From: netdev-bot+sashiko@kernel.org
-To: alex.austin@amd.com
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, bhutchings@solarflare.com,
- davem@davemloft.net, ecree.xilinx@gmail.com, edumazet@kernel.org,
- kuba@kernel.org, linux-kernel@vger.kernel.org, linux-net-drivers@amd.com,
- pabeni@redhat.com, richardcochran@gmail.com, smhodgson@solarflare.com,
- alucero@amd.com, pieter.jansen-van-vuuren@amd.com, alucerop@amd.com
-Date: Sat, 10 Oct 2026 19:10:47 +0000
-Message-ID: <179165944766.434549.14678251542382712038@kernel.org>
-In-Reply-To: <20261009183240.1898762-3-alex.austin@amd.com>
-References: <20261009183240.1898762-3-alex.austin@amd.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="WunxtgpF"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=3NootzqI/O3+CC49sjVYixviyBMP0OLY4tolwLWBCqY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791659709; v=1; x=1792264509;
+ b=WunxtgpFZosZ7b9DNfW0Qj51YCICbBdVdAQdiHvA5wqX5ocFetVODfW80KsFOnZNs6o8/SJn
+ REXQdqQEHuoNkgafBfCDHZZ8LXuORi+4OJFWexepRO2FbQPcIncToxv9UWjZbz/RYwbKHvG71Yu
+ PJqPK6LkkaSloM87xZ6ZRUkE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 585ebba4e45e8649;
+	Sat, 10 Oct 2026 19:15:06 +0000
+X-Mizu-Trace-ID: 585ebba4e45e8649
+X-Migadu-Flow: FLOW_OUT
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Johannes Weiner <hannes@cmpxchg.org>
+Cc: Tejun Heo <tj@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Meta kernel team <kernel-team@meta.com>,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] sched/psi: Remove the RCU wait from trigger destruction
+Date: Sat, 10 Oct 2026 12:15:00 -0700
+Message-ID: <20261010191500.3895736-1-shakeel.butt@linux.dev>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+In the Meta fleet, we found PSI trigger destruction waiting for an RCU
+grace period while holding kernfs node_mutex, blocking other users [1].
+File close and node drain hold this mutex while calling the release
+callback. Cgroup removal and disabling cgroup.pressure also hold
+cgroup_mutex during the drain.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0 (1)
+The wait was added by commit 0e94682b73bf ("psi: introduce psi monitor")
+to protect worker and trigger lookups. Commit 461daba06bdc
+("psi: eliminate kthread_worker from psi trigger scheduling mechanism")
+replaced the worker queue with a group timer. The scheduler now only
+checks whether rtpoll_task is NULL; it uses neither the task nor the
+trigger. Commit a06247c6804f ("psi: Fix uaf issue when psi trigger is
+destroyed while being polled") removed trigger replacement and polling's
+RCU lookup.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Trigger lists are protected by mutexes. Proc poll/select entries are
+removed before their file references are dropped. eventpoll_release()
+removes epoll entries before the file release callback.
+Commit aff037078eca ("sched/psi: use kernfs polling functions for PSI
+trigger polling") moved cgroup polling to a kernfs waitqueue whose
+lifetime follows the file.
 
-- [Medium] The Siena PTP driver still has the PPS timestamp race that
-  this patch fixes in sfc.
+A late timer firing only wakes the group waitqueue. The system group is
+static, and commit 5457025fa8ca ("sched/psi: Shut down rtpoll_timer in
+psi_cgroup_free()") shuts down the cgroup timer before freeing the group.
+Cgroup reclamation already waits for scheduler readers.
 
-Pre-existing issues:
-- [Low] The comment above efx_ptp_process_times() in
-  drivers/net/ethernet/sfc/ptp.c (lines 909-916) says the function will…
+Remove synchronize_rcu() from psi_trigger_destroy() and use
+rcu_access_pointer() for the worker NULL check. Keep kthread_stop()
+outside the trigger mutex.
 
---
+Tested trigger churn, notifications and cgroup removal in an 8-CPU VM
+with KASAN, lockdep, and full and lazy preemption. No warnings were found.
 
-sfc: ptp: avoid racing PPS timestamp updates
+Link: https://github.com/bpftrace/user-tools/tree/master/runnablelockmonitor [1]
+Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+---
+ kernel/sched/psi.c | 25 +++++--------------------
+ 1 file changed, 5 insertions(+), 20 deletions(-)
 
-This patch removes the shared host_time_pps field from struct
-efx_ptp_data in the sfc driver. The computed PPS timestamp is now returned
-through a caller-owned struct efx_ptp_sync_result. efx_ptp_pps_worker()
-uses a stack-local result, and efx_ptp_change_mode() passes NULL.
-
-> diff --git a/drivers/net/ethernet/sfc/ptp.c b/drivers/net/ethernet/sfc/ptp.c
-> index ac9951fee5ddd..103df1f8fa92d 100644
-> --- a/drivers/net/ethernet/sfc/ptp.c
-> +++ b/drivers/net/ethernet/sfc/ptp.c
-
-[ ... ]
-
-> @@ -911,7 +917,8 @@ static void efx_ptp_read_timeset(MCDI_DECLARE_STRUCT_PTR(data),
->  static int
->  efx_ptp_process_times(struct efx_nic *efx, MCDI_DECLARE_STRUCT_PTR(synch_buf),
->  		      size_t response_length,
-> -		      const struct pps_event_time *last_time)
-> +		      const struct pps_event_time *last_time,
-> +		      struct efx_ptp_sync_result *result)
->  {
-
-[Severity: Low]
-This isn't a bug introduced by this patch, but the comment above
-efx_ptp_process_times() doesn't match what the function does:
-
- * Extract times from returned results, and establish the minimum value
- * seen.  The minimum value represents the "best" possible time and events
- * too much greater than this are rejected - the machine is, perhaps, too
- * busy.
-
-The loop never computes an observed minimum. It checks each reading
-against SYNCHRONISATION_GRANULARITY_NS, MAX_SYNCHRONISATION_NS and
-ptp->min_synchronisation_ns, and every reading that passes updates
-last_good:
-
-		} else if (corrected < ptp->min_synchronisation_ns) {
-			++ptp->undersize_sync_windows;
-		} else {
-			ngood++;
-			last_good = i;
-		}
-
-When several readings pass, the function uses the last one, not the one
-with the smallest window.
-
-Could the comment be updated to describe the fixed thresholds and the
-last-good selection?
-
-[ ... ]
-
-> @@ -1494,14 +1506,15 @@ static void efx_ptp_pps_worker(struct work_struct *work)
->  {
->  	struct efx_ptp_data *ptp =
->  		container_of(work, struct efx_ptp_data, pps_work);
-> +	struct efx_ptp_sync_result result = {};
->  	struct efx_nic *efx = ptp->efx;
->  	struct ptp_clock_event ptp_evt;
->  
-> -	if (efx_ptp_synchronize(efx, PTP_SYNC_ATTEMPTS))
-> +	if (efx_ptp_synchronize(efx, PTP_SYNC_ATTEMPTS, &result))
->  		return;
->  
->  	ptp_evt.type = PTP_CLOCK_PPSUSR;
-> -	ptp_evt.pps_times = ptp->host_time_pps;
-> +	ptp_evt.pps_times = result.host_time_pps;
->  	ptp_clock_event(ptp->phc_clock, &ptp_evt);
->  }
-
-[Severity: Medium]
-Does the Siena driver still have the same race?
-
-drivers/net/ethernet/sfc/siena/ptp.c is a near copy of this file. It still
-keeps host_time_pps as a shared field in its struct efx_ptp_data.
-
-Its efx_ptp_process_times() writes that field on every successful
-synchronization:
-
-drivers/net/ethernet/sfc/siena/ptp.c:efx_ptp_process_times() {
-    ...
-	/* Set PPS timestamp to match NIC top of second */
-	ptp->host_time_pps = *last_time;
-	pps_sub_ts(&ptp->host_time_pps, delta);
-    ...
-}
-
-Its efx_ptp_pps_worker() copies the field after the synchronization
-returns:
-
-drivers/net/ethernet/sfc/siena/ptp.c:efx_ptp_pps_worker() {
-    ...
-	if (efx_ptp_synchronize(efx, PTP_SYNC_ATTEMPTS))
-		return;
-
-	ptp_evt.type = PTP_CLOCK_PPSUSR;
-	ptp_evt.pps_times = ptp->host_time_pps;
-    ...
-}
-
-The SIOCSHWTSTAMP path can rewrite the field at the same time:
-
-efx_siena_ptp_change_mode()
-    efx_ptp_synchronize(efx, PTP_SYNC_ATTEMPTS * 2)
-        efx_ptp_process_times()
-            ptp->host_time_pps = *last_time;
-
-The Siena efx_ptp_synchronize() also takes no lock, because siena/ptp.c
-has no phc_lock. So Siena has neither the serialization from "sfc: ptp:
-serialize host and MC synchronization transactions" nor the caller-owned
-result added here. Concurrent synchronizations can overwrite ptp->timeset[]
-and host_time_pps while the worker reads them.
-
-Both copies come from the Fixes: commit 7c236c43b838, and the commit
-message does not mention Siena.
-
-Should siena/ptp.c get the same fix, either in this patch or as a
-follow-up?
-
+diff --git a/kernel/sched/psi.c b/kernel/sched/psi.c
+index 4e152410653d..7c5381423334 100644
+--- a/kernel/sched/psi.c
++++ b/kernel/sched/psi.c
+@@ -626,8 +626,6 @@ static void init_rtpoll_triggers(struct psi_group *group, u64 now)
+ static void psi_schedule_rtpoll_work(struct psi_group *group, unsigned long delay,
+ 				   bool force)
+ {
+-	struct task_struct *task;
+-
+ 	/*
+ 	 * atomic_xchg should be called even when !force to provide a
+ 	 * full memory barrier (see the comment inside psi_rtpoll_work).
+@@ -635,19 +633,16 @@ static void psi_schedule_rtpoll_work(struct psi_group *group, unsigned long dela
+ 	if (atomic_xchg(&group->rtpoll_scheduled, 1) && !force)
+ 		return;
+ 
+-	rcu_read_lock();
+-
+-	task = rcu_dereference(group->rtpoll_task);
+ 	/*
+-	 * kworker might be NULL in case psi_trigger_destroy races with
+-	 * psi_task_change (hotpath) which can't use locks
++	 * Only test whether a worker is installed; do not dereference the task.
++	 * A racing trigger destruction may leave the timer armed.
++	 * psi_cgroup_free() shuts it down before freeing the group.
++	 * The system PSI group is static.
+ 	 */
+-	if (likely(task))
++	if (likely(rcu_access_pointer(group->rtpoll_task)))
+ 		mod_timer(&group->rtpoll_timer, jiffies + delay);
+ 	else
+ 		atomic_set(&group->rtpoll_scheduled, 0);
+-
+-	rcu_read_unlock();
+ }
+ 
+ static void psi_rtpoll_work(struct psi_group *group)
+@@ -1488,22 +1483,12 @@ void psi_trigger_destroy(struct psi_trigger *t)
+ 		mutex_unlock(&group->rtpoll_trigger_lock);
+ 	}
+ 
+-	/*
+-	 * Wait for psi_schedule_rtpoll_work RCU to complete its read-side
+-	 * critical section before destroying the trigger and optionally the
+-	 * rtpoll_task.
+-	 */
+-	synchronize_rcu();
+ 	/*
+ 	 * Stop kthread 'psimon' after releasing rtpoll_trigger_lock to prevent
+ 	 * a deadlock while waiting for psi_rtpoll_work to acquire
+ 	 * rtpoll_trigger_lock
+ 	 */
+ 	if (task_to_destroy) {
+-		/*
+-		 * After the RCU grace period has expired, the worker
+-		 * can no longer be found through group->rtpoll_task.
+-		 */
+ 		kthread_stop(task_to_destroy);
+ 		atomic_set(&group->rtpoll_scheduled, 0);
+ 	}
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261009183240.1898762-1-alex.austin%40amd.com
+2.53.0-Meta
+
