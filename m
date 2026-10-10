@@ -1,65 +1,65 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC6A34AA00A
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 13:00:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 403364ABBA6
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 13:00:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791637250; cv=none; b=ko1oMGbbaY5W5/XqL5b2gNJ5ur4qS862vI9npLK2MNcvxLXhibn9t4R0qsK3FEgF+2Of17d+UPo508lpN+Abyk3pssg+q6L4ohTdHTGvotw409MkaML2UBlCxOmHq5DCfVJL5ZVfBDL1pCkdnB/0eniOglLMdQoO1zuWOIPzhww=
+	t=1791637253; cv=none; b=HqyPEf6ldadsC7h+YD68B7pbBSKHIsSIIlmGG/AuOcjc5v1ajv4GwHIEU0J+Ca6NcxRmkUnrm+q5iT9bqK0EUaggdmHn00iGtPX/1ZG0Rl0JM5x9dovSOADCBhZTimfP+Yo6rY7/SRPeO9DdRNkMLYVzxNXOaaxVsfkYcH2GiX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791637250; c=relaxed/simple;
-	bh=77c7UnCccfHa1aAfyhYwJPWZ4BWK6udNMPxSr+0Ojnk=;
+	s=arc-20240116; t=1791637253; c=relaxed/simple;
+	bh=KzFdJz0JEiDE6J+NmGPWd3CUy6jb9pVuVonyxEMIaIM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uNeUJMwrAtBuaWzaUMaIy+ChXcT55WLdLaJbPcZdM1AnbLHipKN9azeAlGbnjkwUf3GHclInF+UJ9Ow1dHpCyu/UBZW/XcIhoPcOP+0USfowbmhgKL+Bc1akE5MLDhs36h62CeTs6icftKlUwPk0dIcGsWKkeY14tr/WK6L7xLc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UphkloBf; arc=none smtp.client-ip=209.85.128.44
+	 MIME-Version; b=hS7q7XQYMrfMW9IPghtrrLBEGbgVwAtSptVnyTdI8FtW8gSg0wmdbYeIXHneiZTQpocMKXWeXwbaswQp69XDOJbY6abpugGoXm0OePdfXDSKmbttMpZTv+QtfhXu2ruN4G6O84waB32qsthT2Enj9zTLis06XCEQlkUkR2L0V/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NBeCd6Ta; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UphkloBf"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a16c1608faso8146465e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 06:00:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NBeCd6Ta"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a17baef589so4250535e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 06:00:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791637242; x=1792242042; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791637248; x=1792242048; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3kvHqxbcxxXje2oonPX+fzWNLx9A+z/O6oQCqym9uUI=;
-        b=UphkloBfDhFVay/8FZfEAWXX0LlQvFL8KHsUX0uaOi89Lj7mdmw8csqrSkhVE+Ck3k
-         QAes6zO1/AmagM8KAfH6G61amajzrV9f4xu80wA2Y4k291daD8+SeZBskxhdXsH+nucB
-         EstKZFimN5+SHZOL66oeCIeUPakqM63bINGG3OqMgjKnzv1IGPnWdCr+XmNBxmZcuksT
-         ZY2ukC/DOPaPcaAGFYNhpLuxRmTZCkt/H/ZioHCxXkjmJJ8Dzok3vN5ILYbu1w/J4Ex6
-         yajK9AzKHRtIt88xPUXlZmrduKnFTcIjQ2J7bviMCeJZbzVl5xkq9HpL+bFxUdcUZ6eK
-         NLmw==
+        bh=beY1WFS40yvbsQcUt+5SMeOgj/o0k85KRXnrr700oe8=;
+        b=NBeCd6TagN/dKumfqNtQLbglQl7BwpbAscvLBvcaV4XdKU3gX5H5sK4QrrLkhlIn+w
+         Rt9hOP9mTco1327U0JWzWKdAIODfk9pqWyR0VMSroNebH2F4+oW2IBygWT7TDFAiHtCV
+         fGGu+wVahJtvDxKnYl2wfhzxd8l9EwfMWTikBfi2nykY5u1hlrIUvrL+DBtlLADB0tLH
+         IBgBOeg5sbaCP18Bl/zrCsw366WePTulHEcq5yPHtQehkvXFQgQl1R9AWun4KUn7jqMh
+         kos82Z/eMZBWKtzhEwXtwl7RSZv4iLZnFnzWasgZslmdvOaG9wPUGoB9IaBMv+KpdS0W
+         Dd1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791637242; x=1792242042;
+        d=1e100.net; s=20260707; t=1791637248; x=1792242048;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3kvHqxbcxxXje2oonPX+fzWNLx9A+z/O6oQCqym9uUI=;
-        b=kxYH0qbM9c+PhxIEUjWS4bVo0l9AExA5kBriSQoCrQN2On7zG8rNkcUcMEclodWKe2
-         +vxU9dQ3rc2nrph9qo/T0RcfSV38E+Q3l2DCYgLMBNs/MyqhTwYmvykotFpLkJ1I2yKf
-         VEnumTRC6o2PUlKizpSsOnYdJiF5yCVlc2PNDWzZDqlg/sQaL+MOlH+p4EakTJhUNOTv
-         RuhhUYfwxfaKn32iOMdT4GborOQ08kHakVq+5g6/pKF8c8vIHVDWOjOmwPyL591sODSV
-         /H6SZHOGdNcvrylAjdDVBq54RkOiXV9lC5y58VRqs5h5Soe+dX4e2vprFtTsHNJVyVJl
-         crGg==
-X-Forwarded-Encrypted: i=1; AKwUvBxnYr4jsKd5mZOUAX2XWl1C6XhWmemMn4MbwXWdT7GoBaWeazUNHj46Q9P/PW0u6Cuf8s1eAw4Jo0ysXGE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ8jWAi6xPOatThJBWb6+d2zrQyeTQ7dBq/neCXMYxDtC3QMVa/
-	l8s3uDTPCpQX19oV157QBL9VG9a2hvNcrzzhZHb29V0oEQEhSZSQ8uiU
-X-Gm-Gg: AYBFou3oC9t3CgKn9hGu44TqLJbttwshL+IbxhddLD8zvQA2CvkNX6+pmZ0rpf4gZYh
-	noMrdgg0DQTn3jzBqAq4UZFd/s4M06kTPPqwqiXeRUYRoOLQ2bbQCniPIsAveMuPXIyjH0qpcda
-	DcAUeiutzy4IZrvk+uKb0p5rticYwZVh5On6HAsmypmjylEepqK4pO/sensjCaVNuUru8E32dQI
-	DnS5+UaqoquVpS3yAS0DcACtGQf+BHXibDgRzpQxHQZojETUIdjdD0myo4ZtyDN4ZB1WWkg/Qy1
-	OMfAuHbfHHyZMQgsIHsHDZbjtGNHuoyI6pEClsivpKgdWDNCFLR1+n/6otDcSvTLB1z8dnDZvQx
-	7MR20N+lq2aeSOnFqkhhtYJRAE1V8RXPND98hbrJHkk3k47MYqqf/3iydzJO4VrQu879lqpQ9QB
-	k0JG6CfVwrWCC5zhkFMZm0LQySuXaq4DphSk+xClTHK3H82pxHJXYA037AVa+9k+frbz1Yv8vXB
-	RuuuYFQ9spI/2A9hJdEzquWyUTeGAUSo3gX3nqeNSf+ff3tRuz+BbQBYvOlUvcjkDoUvyy5uapX
-	xI5UM4I/02hwRZlzmmkk0XTjfvyVGg5vZeOA1JgVxDHxtkoiJhLiklLdNOKWCgZ9uj/mX/Ce
-X-Received: by 2002:a05:600c:c10e:b0:4a1:93fd:913 with SMTP id 5b1f17b1804b1-4a193fd0ad6mr30014775e9.10.1791637242022;
-        Sat, 10 Oct 2026 06:00:42 -0700 (PDT)
+        bh=beY1WFS40yvbsQcUt+5SMeOgj/o0k85KRXnrr700oe8=;
+        b=uBxkZJq/mU70KUGwPL6emY9o0i0ck9bnUn8kexQoFznVzNzV31azn3bgVHkti36DAP
+         z8Za8h/AcyMTdVAdYWMolQ76dGAnmU4OmdIteXRPdZ6Ezkvcj+Zln5l+DacJg4MK/M5Z
+         V4JlunsbxES9EdEGTg3lQsSNxAJdRCkqvF4DoXxjPsHDfEViZChRrIHrm4kVJoKGvPUF
+         C18ArqKGLfa2ryESIBD1mthUr7gFTHb2wING+2HOd+GTpujprvIpUSy26l8SYwlUEWBN
+         d7Gtsd2IYLP6OWvpv7nbzOEQsTwJ3GaMN2LC2T4zslkJyKrW8kdWdbRP3TIdTJqku9kF
+         aHDg==
+X-Forwarded-Encrypted: i=1; AKwUvBwlU2dgGOVK9CcUfrQY1CcsjP1wDGEDkwHYP3DWWZIsO8SpHbgUCB8KDirIhMZ7EUQRKTwKYK8jniST1Nw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKG0/Ivyo/4I5Cl6+BQkUTq9t5XbjXkxPjnYEnS7UYSLhojmTbB
+	JijoRpPDrYdXeSZbqfGkGfK+AUIdwZ6VadNG3m9MHE+AAA1zTiMDczsT
+X-Gm-Gg: AYBFou3uBHEowp8TjQPFeWwJPNNQtQ9CD4OQ3040NIT7Oo9cXWLxOQUaOONpKR+TUKL
+	5Fv6GzM+z53hh5R0nVrwcfN5K2Y0os0ErkUTzqD4QscCNLC4nmA8tk/RD8iW5YkSSeWQtzRngFC
+	JgMNtUAsUJy0REYgdv7rU6InfS9Thh0wQ+YBek5g3zV7zowa3e4/wLIYQELBSzaoUMw6MHK5ioF
+	jCM+aFZzSHm39vV87gz4MfNHjpmwDgefholTNIYZyHHKPOa8Vp3qjpXOxaJEA7dkqt3nIo1c+1+
+	ZqWaFFN3lJE9fa+VTrtdL3NUpksuR5NlPVQizqc0MgLs+wznn394LO14lhu0A2LNDoq3/lInH0o
+	dIJM/cCNZ503GBNm34nq17FI6P7xb3cHUCra2nVJBrHQqxNJJVJz0bbkUph0gjHpKmXUM5h+H1+
+	U+hGxeA7mjmmIhZP0YLlZH17V0YdS+PEs5kNVxvfnRQQbpGKZWyBUZxMM/RyO1kgSxw86vrHZuT
+	5XlOGHUfzLxvsjg52tA2bzifMVdeBiCb56ZuLlkXSL0va2u4AV9bNGk1MValbob8KIDNpx7gmC7
+	k2EhaAUq5WtzuYIQHDE/pALQkORWSiuzM4QYpDzoSnD7OhnnCbWzcLMBFcR6dA==
+X-Received: by 2002:a05:600c:4e02:b0:4a1:7428:8195 with SMTP id 5b1f17b1804b1-4a18e4aa2c2mr95937505e9.29.1791637248037;
+        Sat, 10 Oct 2026 06:00:48 -0700 (PDT)
 Received: from navid-pc ([2a01:4b00:a856:6220::a11])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a190c49d5csm162309975e9.3.2026.10.10.06.00.41
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a190c49d5csm162309975e9.3.2026.10.10.06.00.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 06:00:41 -0700 (PDT)
+        Sat, 10 Oct 2026 06:00:47 -0700 (PDT)
 From: Navid Ghahremani <ghahramani.navid@gmail.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: devicetree@vger.kernel.org,
@@ -70,9 +70,9 @@ Cc: devicetree@vger.kernel.org,
 	robh@kernel.org,
 	krzk@kernel.org,
 	Navid Ghahremani <ghahramani.navid@gmail.com>
-Subject: [PATCH 13/24] PCI: dwc: Add ZTE ZX279128S host controller driver
-Date: Sat, 10 Oct 2026 13:59:51 +0100
-Message-ID: <20261010130024.177503-14-ghahramani.navid@gmail.com>
+Subject: [PATCH 20/24] spi: Add ZTE ZX279128S SPI flash controller
+Date: Sat, 10 Oct 2026 13:59:58 +0100
+Message-ID: <20261010130024.177503-21-ghahramani.navid@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261010130024.177503-1-ghahramani.navid@gmail.com>
 References: <20261010130024.177503-1-ghahramani.navid@gmail.com>
@@ -84,380 +84,414 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Bring up both controller links using the verified vendor sequence and
-shared board reset. Propagate CRM/GPIO failures and retain the tested
-Gen1/INTx configuration.
+Execute bounded SPI-memory operations through the controller FIFO. Honor
+device and operation clock limits through the CRPM divider and cap the
+validated maximum at 50 MHz.
 
 Assisted-by: LLM
 Signed-off-by: Navid Ghahremani <ghahramani.navid@gmail.com>
 ---
- drivers/pci/controller/dwc/Kconfig          |  12 +
- drivers/pci/controller/dwc/Makefile         |   1 +
- drivers/pci/controller/dwc/pcie-zx279128s.c | 322 ++++++++++++++++++++
- 3 files changed, 335 insertions(+)
- create mode 100644 drivers/pci/controller/dwc/pcie-zx279128s.c
+ drivers/spi/Kconfig               |  13 ++
+ drivers/spi/Makefile              |   1 +
+ drivers/spi/spi-zx279128s-spifc.c | 353 ++++++++++++++++++++++++++++++
+ 3 files changed, 367 insertions(+)
+ create mode 100644 drivers/spi/spi-zx279128s-spifc.c
 
-diff --git a/drivers/pci/controller/dwc/Kconfig b/drivers/pci/controller/dwc/Kconfig
-index dcfbe7e229..511f59d079 100644
---- a/drivers/pci/controller/dwc/Kconfig
-+++ b/drivers/pci/controller/dwc/Kconfig
-@@ -577,4 +577,16 @@ config PCIE_ULTRARISC
- 	  By default, this symbol is enabled when ARCH_ULTRARISC is active,
- 	  requiring no further configuration on that platform.
+diff --git a/drivers/spi/Kconfig b/drivers/spi/Kconfig
+index a0f37e2df7..f40fbbb181 100644
+--- a/drivers/spi/Kconfig
++++ b/drivers/spi/Kconfig
+@@ -1320,6 +1320,19 @@ config SPI_XTENSA_XTFPGA
+ 	  16 bit words in SPI mode 0, automatically asserting CS on transfer
+ 	  start and deasserting on end.
  
-+config PCIE_ZX279128S
-+	bool "ZTE zx279128s PCIe controller"
++config SPI_ZX279128S_SPIFC
++	tristate "ZTE zx279128s SPI flash controller"
 +	depends on ARCH_ZTE || COMPILE_TEST
-+	depends on PCI_MSI
-+	select MFD_SYSCON
-+	select PCIE_DW_HOST
++	depends on OF && HAS_IOMEM
++	depends on SPI_MEM
 +	help
-+	  Say Y here to enable support for the two PCIe host controllers of
-+	  the ZTE zx279128s SoC. They are based on the Synopsys DesignWare
-+	  PCIe IP. On the ZTE ZXHN H3600 they connect the MT7915 Wi-Fi chip.
-+	  The driver only supports legacy INTx interrupts.
++	  This enables support for the SPI flash controller of the ZTE
++	  zx279128s SoC, through which it reaches its boot flash (a SPI
++	  NAND on the ZTE ZXHN H3600).
 +
- endmenu
-diff --git a/drivers/pci/controller/dwc/Makefile b/drivers/pci/controller/dwc/Makefile
-index d4f88cfc62..379198ebd6 100644
---- a/drivers/pci/controller/dwc/Makefile
-+++ b/drivers/pci/controller/dwc/Makefile
-@@ -35,6 +35,7 @@ obj-$(CONFIG_PCIE_TEGRA194) += pcie-tegra194.o
- obj-$(CONFIG_PCIE_UNIPHIER) += pcie-uniphier.o
- obj-$(CONFIG_PCIE_UNIPHIER_EP) += pcie-uniphier-ep.o
- obj-$(CONFIG_PCIE_VISCONTI_HOST) += pcie-visconti.o
-+obj-$(CONFIG_PCIE_ZX279128S) += pcie-zx279128s.o
- obj-$(CONFIG_PCIE_RCAR_GEN4) += pcie-rcar-gen4.o
- obj-$(CONFIG_PCIE_SPACEMIT_K1) += pcie-spacemit-k1.o
- obj-$(CONFIG_PCIE_STM32_HOST) += pcie-stm32.o
-diff --git a/drivers/pci/controller/dwc/pcie-zx279128s.c b/drivers/pci/controller/dwc/pcie-zx279128s.c
++	  This driver does not support generic SPI. It only implements the
++	  spi-mem interface.
++
+ config SPI_ZYNQ_QSPI
+ 	tristate "Xilinx Zynq QSPI controller"
+ 	depends on ARCH_ZYNQ || COMPILE_TEST
+diff --git a/drivers/spi/Makefile b/drivers/spi/Makefile
+index a18814fbde..fc93fcc991 100644
+--- a/drivers/spi/Makefile
++++ b/drivers/spi/Makefile
+@@ -170,6 +170,7 @@ obj-$(CONFIG_SPI_XCOMM)		+= spi-xcomm.o
+ obj-$(CONFIG_SPI_XILINX)		+= spi-xilinx.o
+ obj-$(CONFIG_SPI_XLP)			+= spi-xlp.o
+ obj-$(CONFIG_SPI_XTENSA_XTFPGA)		+= spi-xtensa-xtfpga.o
++obj-$(CONFIG_SPI_ZX279128S_SPIFC)	+= spi-zx279128s-spifc.o
+ obj-$(CONFIG_SPI_ZYNQ_QSPI)		+= spi-zynq-qspi.o
+ obj-$(CONFIG_SPI_ZYNQMP_GQSPI)		+= spi-zynqmp-gqspi.o
+ obj-$(CONFIG_SPI_AMD)			+= spi-amd.o spi-amd-pci.o
+diff --git a/drivers/spi/spi-zx279128s-spifc.c b/drivers/spi/spi-zx279128s-spifc.c
 new file mode 100644
-index 0000000000..3559beb35a
+index 0000000000..12aa22baf8
 --- /dev/null
-+++ b/drivers/pci/controller/dwc/pcie-zx279128s.c
-@@ -0,0 +1,322 @@
++++ b/drivers/spi/spi-zx279128s-spifc.c
+@@ -0,0 +1,353 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/*
-+ * ZTE zx279128s PCIe host controller
-+ *
-+ * The SoC has two DesignWare PCIe controllers with one lane each. Their
-+ * clocks, resets and PHYs are controlled through the Top CRM (clock and reset
-+ * module) blocks, and a pin state from the pin mux is applied before probe.
-+ * The register sequence comes from the vendor firmware, and the meaning of
-+ * most of its bits is not documented.
++ * ZTE zx279128s SPI flash controller (SPIFC)
 + *
 + * Copyright (C) 2026 Navid Ghahremani <ghahramani.navid@gmail.com>
++ *
++ * The controller runs one flash operation at a time: the driver writes the
++ * opcode, the address, a description of the operation's phases and the data
++ * length, and starts it. Data passes through a 32-bit FIFO. The command and
++ * address phases always use one line; the data phase can use one, two or
++ * four. The register layout comes from the vendor boot loader's table of
++ * flash operations.
 + */
 +
 +#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/delay.h>
-+#include <linux/err.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/init.h>
++#include <linux/clk.h>
 +#include <linux/io.h>
-+#include <linux/mfd/syscon.h>
++#include <linux/iopoll.h>
++#include <linux/minmax.h>
 +#include <linux/mod_devicetable.h>
-+#include <linux/mutex.h>
-+#include <linux/of.h>
-+#include <linux/pci.h>
++#include <linux/module.h>
 +#include <linux/platform_device.h>
-+#include <linux/regmap.h>
++#include <linux/spi/spi.h>
++#include <linux/spi/spi-mem.h>
++#include <linux/string.h>
 +
-+#include "pcie-designware.h"
++#define SPIFC_TRIGGER		0x04
++#define  SPIFC_TRIGGER_START	BIT(0)
++#define SPIFC_ACK		0x08
++#define  SPIFC_ACK_DONE		BIT(0)	/* written while _BUSY is clear */
++#define  SPIFC_ACK_BUSY		BIT(1)
++#define SPIFC_XFER_CFG		0x0c
++#define  SPIFC_XFER_CFG_BITS	0x1c440	/* set before every operation */
++#define SPIFC_FMT0		0x10	/* the phases of the operation */
++#define  SPIFC_FMT0_DATA_OUT	BIT(0)
++#define  SPIFC_FMT0_DATA_IN	BIT(1)
++#define  SPIFC_FMT0_DUMMY	BIT(2)
++#define  SPIFC_FMT0_ADDR	BIT(4)
++#define SPIFC_FMT1		0x14	/* and their sizes */
++#define  SPIFC_FMT1_DATA_LINES	GENMASK(2, 0)
++#define   SPIFC_LINES_1		0
++#define   SPIFC_LINES_2		4
++#define   SPIFC_LINES_4		5
++#define  SPIFC_FMT1_ADDR_BYTES	GENMASK(6, 5)	/* bytes - 1 */
++#define  SPIFC_FMT1_DUMMY_BYTES	GENMASK(15, 12)
++#define SPIFC_LEN		0x18	/* data bytes - 1 */
++#define SPIFC_ADDR		0x1c
++#define SPIFC_OPCODE		0x20
++#define SPIFC_TIMING		0x24
++#define  SPIFC_TIMING_SAMPLE	GENMASK(17, 16)
++#define SPIFC_STATUS		0x2c
++#define  SPIFC_STATUS_DONE	BIT(0)
++#define SPIFC_BURST		0x30
++#define  SPIFC_BURST_VAL	0x3f
++#define SPIFC_FIFO_STATUS	0x34
++#define  SPIFC_FIFO_RX_AVAIL	GENMASK(12, 8)
++#define  SPIFC_FIFO_TX_FREE	GENMASK(20, 16)
++#define SPIFC_FIFO_DATA		0x38
 +
-+/* Top CRM 1: PHY and PLL controls */
-+#define CRM1_PHY_CTRL		0x008
-+#define CRM1_MISC		0x024
-+#define CRM1_MISC_BIT26		BIT(26)
-+#define CRM1_PHY1_CAL0		0x1b0
-+#define CRM1_PHY1_CAL1		0x1b4
++#define SPIFC_MAX_DATA		4096
++#define SPIFC_TIMEOUT_US	20000
 +
-+/* Top CRM 2: clocks and resets */
-+#define CRM2_CLK		0x070
-+#define CRM2_RST		0x074
-+#define CRM2_RST_ALL		0x3f
-+
-+/* Controller wrapper ("ctrl" registers) */
-+#define CTRL_CFG		0x000
-+#define CTRL_CFG_EN		BIT(5)
-+#define CTRL_STATUS		0x0dc
-+#define CTRL_STATUS_LTSSM	GENMASK(22, 17)
-+#define CTRL_LTSSM_L0		0x11
-+
-+enum { ZX_CRM1, ZX_CRM2, ZX_NUM_CRM };
-+
-+/* The CRM bits of one controller, which is identified by its ctrl address */
-+struct zx279128s_pcie_port {
-+	resource_size_t ctrl_addr;
-+	u32 clk_on;		/* CRM2_CLK bits set first */
-+	u32 clk_off;		/* CRM2_CLK bit cleared at the end */
-+	u32 phy_on[3];		/* CRM1_PHY_CTRL bits, set in this order */
-+	bool phy_cal;		/* write the CRM1_PHY1_CAL values */
-+	u32 rst;		/* CRM2_RST bit */
++struct zx_spifc {
++	void __iomem *base;
++	struct clk *wclk;
++	unsigned long speed_hz;
 +};
 +
-+static const struct zx279128s_pcie_port zx279128s_pcie_ports[] = {
-+	{
-+		.ctrl_addr = 0x09500000,
-+		.clk_on = 0xb5,
-+		.clk_off = BIT(8),
-+		.phy_on = { BIT(15), BIT(13), BIT(14) },
-+		.rst = BIT(0),
-+	}, {
-+		.ctrl_addr = 0x09600000,
-+		.clk_on = 0x1aa00,
-+		.clk_off = BIT(17),
-+		.phy_on = { BIT(27), BIT(25), BIT(26) },
-+		.phy_cal = true,
-+		.rst = BIT(3),
-+	},
-+};
-+
-+struct zx279128s_pcie {
-+	struct dw_pcie pci;
-+	void __iomem *ctrl;
-+	struct regmap *crm[ZX_NUM_CRM];
-+	const struct zx279128s_pcie_port *port;
-+	struct gpio_desc *reset;
-+	struct gpio_desc *enable;
-+};
-+
-+#define to_zx279128s_pcie(x)	container_of(x, struct zx279128s_pcie, pci)
-+
-+/* The board reset lines are shared by both controllers, see host_init */
-+static DEFINE_MUTEX(zx279128s_board_lock);
-+static bool zx279128s_board_released;
-+
-+/* Limit the link to 2.5 GT/s and retrain it, as the vendor firmware does */
-+static void zx279128s_pcie_force_gen1(struct dw_pcie *pci)
++static void zx_spifc_ack(struct zx_spifc *spifc)
 +{
-+	u8 cap = dw_pcie_find_capability(pci, PCI_CAP_ID_EXP);
-+	u32 val;
++	u32 val = readl(spifc->base + SPIFC_ACK);
 +
-+	if (WARN_ON(!cap))
-+		return;
-+
-+	dw_pcie_dbi_ro_wr_en(pci);
-+
-+	val = dw_pcie_readl_dbi(pci, cap + PCI_EXP_LNKCTL2);
-+	val &= ~PCI_EXP_LNKCTL2_TLS;
-+	val |= PCI_EXP_LNKCTL2_TLS_2_5GT;
-+	dw_pcie_writel_dbi(pci, cap + PCI_EXP_LNKCTL2, val);
-+
-+	val = dw_pcie_readl_dbi(pci, cap + PCI_EXP_LNKCTL);
-+	dw_pcie_writel_dbi(pci, cap + PCI_EXP_LNKCTL, val | PCI_EXP_LNKCTL_RL);
-+
-+	dw_pcie_dbi_ro_wr_dis(pci);
++	if (!(val & SPIFC_ACK_BUSY))
++		writel(val | SPIFC_ACK_DONE, spifc->base + SPIFC_ACK);
 +}
 +
-+static int zx279128s_pcie_init_crm(struct zx279128s_pcie *pcie)
++static void zx_spifc_start(struct zx_spifc *spifc)
 +{
-+	const struct zx279128s_pcie_port *port = pcie->port;
-+	struct regmap *crm1 = pcie->crm[ZX_CRM1];
-+	struct regmap *crm2 = pcie->crm[ZX_CRM2];
-+	int ret, i;
++	writel(readl(spifc->base + SPIFC_TRIGGER) | SPIFC_TRIGGER_START,
++	       spifc->base + SPIFC_TRIGGER);
++}
 +
-+	/* Ungate the clocks */
-+	ret = regmap_write_bits(crm2, CRM2_CLK, port->clk_on, port->clk_on);
-+	if (ret)
-+		return ret;
-+	fsleep(50);
++static int zx_spifc_wait_fifo(struct zx_spifc *spifc, u32 mask)
++{
++	u32 val;
 +
-+	/* Power up the PHY and its PLL */
-+	for (i = 0; i < ARRAY_SIZE(port->phy_on); i++) {
-+		ret = regmap_write_bits(crm1, CRM1_PHY_CTRL, port->phy_on[i],
-+					port->phy_on[i]);
++	return readl_poll_timeout_atomic(spifc->base + SPIFC_FIFO_STATUS, val,
++					 val & mask, 1, SPIFC_TIMEOUT_US);
++}
++
++static int zx_spifc_read_fifo(struct zx_spifc *spifc, u8 *buf,
++			      unsigned int len)
++{
++	unsigned int i;
++	u32 word;
++	int ret;
++
++	for (i = 0; i < len; i += 4) {
++		ret = zx_spifc_wait_fifo(spifc, SPIFC_FIFO_RX_AVAIL);
 +		if (ret)
 +			return ret;
-+		fsleep(50);
++		word = readl(spifc->base + SPIFC_FIFO_DATA);
++		memcpy(buf + i, &word, min(4U, len - i));
++	}
 +
-+		if (i == 0 && port->phy_cal) {
-+			ret = regmap_write(crm1, CRM1_PHY1_CAL1, 0x00202d5a);
-+			if (ret)
-+				return ret;
-+			ret = regmap_write(crm1, CRM1_PHY1_CAL0, 0x0046c24a);
++	return 0;
++}
++
++/* Preload the FIFO, start the operation, then keep the FIFO filled */
++static int zx_spifc_write_fifo(struct zx_spifc *spifc, const u8 *buf,
++			       unsigned int len)
++{
++	unsigned int i = 0;
++	bool started = false;
++	u32 word;
++	int ret;
++
++	while (i < len) {
++		if (!(readl(spifc->base + SPIFC_FIFO_STATUS) &
++		      SPIFC_FIFO_TX_FREE)) {
++			if (!started) {
++				zx_spifc_start(spifc);
++				started = true;
++			}
++			ret = zx_spifc_wait_fifo(spifc, SPIFC_FIFO_TX_FREE);
 +			if (ret)
 +				return ret;
 +		}
++		word = 0;
++		memcpy(&word, buf + i, min(4U, len - i));
++		writel(word, spifc->base + SPIFC_FIFO_DATA);
++		i += 4;
 +	}
 +
-+	ret = regmap_write_bits(crm2, CRM2_RST, port->rst, 0);
-+	if (ret)
-+		return ret;
-+	fsleep(50);
++	if (!started)
++		zx_spifc_start(spifc);
 +
-+	ret = regmap_write_bits(crm1, CRM1_MISC, CRM1_MISC_BIT26, 0);
-+	if (ret)
-+		return ret;
-+	fsleep(50);
-+
-+	ret = regmap_write_bits(crm2, CRM2_RST, port->rst, port->rst);
-+	if (ret)
-+		return ret;
-+	ret = regmap_write_bits(crm2, CRM2_CLK, port->clk_off, 0);
-+	if (ret)
-+		return ret;
-+
-+	return regmap_write(crm2, CRM2_RST, CRM2_RST_ALL);
++	return 0;
 +}
 +
-+static int zx279128s_pcie_host_init(struct dw_pcie_rp *pp)
++static u32 zx_spifc_lines(u8 buswidth)
 +{
-+	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
-+	struct zx279128s_pcie *pcie = to_zx279128s_pcie(pci);
++	switch (buswidth) {
++	case 4:
++		return SPIFC_LINES_4;
++	case 2:
++		return SPIFC_LINES_2;
++	default:
++		return SPIFC_LINES_1;
++	}
++}
++
++/* The CRPM divider must never round above the flash's frequency limit. */
++static int zx_spifc_set_speed(struct zx_spifc *spifc, unsigned int max_hz)
++{
++	unsigned long rate;
++	long rounded;
 +	int ret;
 +
-+	/*
-+	 * The board lines reset a device that can sit behind both controllers
-+	 * (the MT7915 of the H3600 uses both). The first controller to start
-+	 * resets and releases it; the second must not reset it again.
-+	 */
-+	mutex_lock(&zx279128s_board_lock);
-+	if (!zx279128s_board_released && (pcie->reset || pcie->enable)) {
-+		ret = gpiod_direction_output(pcie->reset, 1);
-+		if (ret)
-+			goto err_unlock;
-+		ret = gpiod_direction_output(pcie->enable, 0);
-+		if (ret)
-+			goto err_unlock;
-+		msleep(100);
-+		ret = gpiod_set_value_cansleep(pcie->reset, 0);
-+		if (ret)
-+			goto err_unlock;
-+		ret = gpiod_set_value_cansleep(pcie->enable, 1);
-+		if (ret)
-+			goto err_unlock;
-+		msleep(200);
-+		zx279128s_board_released = true;
-+	}
-+	mutex_unlock(&zx279128s_board_lock);
++	if (!max_hz)
++		return -EINVAL;
++	if (spifc->speed_hz == max_hz)
++		return 0;
 +
-+	ret = zx279128s_pcie_init_crm(pcie);
++	rounded = clk_round_rate(spifc->wclk, max_hz);
++	if (rounded < 0)
++		return rounded;
++	if (!rounded || rounded > max_hz)
++		return -EINVAL;
++
++	ret = clk_set_rate(spifc->wclk, rounded);
 +	if (ret)
-+		return dev_err_probe(pci->dev, ret, "failed to initialize CRM\n");
-+
-+	/* Enable the controller, which starts link training */
-+	writel(readl(pcie->ctrl + CTRL_CFG) | CTRL_CFG_EN, pcie->ctrl + CTRL_CFG);
-+
-+	zx279128s_pcie_force_gen1(pci);
++		return ret;
++	rate = clk_get_rate(spifc->wclk);
++	if (!rate || rate > max_hz)
++		return -EINVAL;
++	spifc->speed_hz = rate;
 +
 +	return 0;
-+
-+err_unlock:
-+	mutex_unlock(&zx279128s_board_lock);
-+	return dev_err_probe(pci->dev, ret, "failed to drive the board GPIOs\n");
 +}
 +
-+/*
-+ * The Wi-Fi on the H3600 uses legacy INTx interrupts. Providing msi_init
-+ * keeps the DWC core from setting up its internal MSI controller, which has
-+ * not been tested on this SoC.
-+ */
-+static int zx279128s_pcie_msi_init(struct dw_pcie_rp *pp)
++static int zx_spifc_setup(struct spi_device *spi)
 +{
++	struct zx_spifc *spifc = spi_controller_get_devdata(spi->controller);
++
++	return zx_spifc_set_speed(spifc, spi->max_speed_hz);
++}
++
++static int zx_spifc_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
++{
++	struct zx_spifc *spifc = spi_controller_get_devdata(mem->spi->controller);
++	void __iomem *base = spifc->base;
++	u32 fmt0 = 0, fmt1 = 0, val;
++	int ret;
++
++	ret = zx_spifc_set_speed(spifc, op->max_freq ?: mem->spi->max_speed_hz);
++	if (ret)
++		return ret;
++
++	if (op->addr.nbytes) {
++		fmt0 |= SPIFC_FMT0_ADDR;
++		fmt1 |= FIELD_PREP(SPIFC_FMT1_ADDR_BYTES, op->addr.nbytes - 1);
++	}
++	if (op->dummy.nbytes) {
++		fmt0 |= SPIFC_FMT0_DUMMY;
++		fmt1 |= FIELD_PREP(SPIFC_FMT1_DUMMY_BYTES, op->dummy.nbytes);
++	}
++	if (op->data.nbytes) {
++		fmt0 |= op->data.dir == SPI_MEM_DATA_IN ? SPIFC_FMT0_DATA_IN :
++							  SPIFC_FMT0_DATA_OUT;
++		fmt1 |= FIELD_PREP(SPIFC_FMT1_DATA_LINES,
++				   zx_spifc_lines(op->data.buswidth));
++	}
++
++	zx_spifc_ack(spifc);
++	writel(op->cmd.opcode, base + SPIFC_OPCODE);
++	writel(fmt0, base + SPIFC_FMT0);
++	writel(fmt1, base + SPIFC_FMT1);
++	writel(op->data.nbytes ? op->data.nbytes - 1 : 0, base + SPIFC_LEN);
++	writel(op->addr.nbytes ? op->addr.val : 0, base + SPIFC_ADDR);
++	writel(readl(base + SPIFC_XFER_CFG) | SPIFC_XFER_CFG_BITS,
++	       base + SPIFC_XFER_CFG);
++	writel(SPIFC_BURST_VAL, base + SPIFC_BURST);
++
++	if (op->data.nbytes && op->data.dir == SPI_MEM_DATA_OUT) {
++		ret = zx_spifc_write_fifo(spifc, op->data.buf.out,
++					  op->data.nbytes);
++	} else {
++		zx_spifc_start(spifc);
++		ret = 0;
++		if (op->data.nbytes)
++			ret = zx_spifc_read_fifo(spifc, op->data.buf.in,
++						 op->data.nbytes);
++	}
++
++	if (!ret)
++		ret = readl_poll_timeout_atomic(base + SPIFC_STATUS, val,
++						val & SPIFC_STATUS_DONE, 1,
++						SPIFC_TIMEOUT_US);
++	zx_spifc_ack(spifc);
++
++	return ret;
++}
++
++static bool zx_spifc_supports_op(struct spi_mem *mem,
++				 const struct spi_mem_op *op)
++{
++	if (!spi_mem_default_supports_op(mem, op))
++		return false;
++
++	/* Command and address are always on one line */
++	if (op->cmd.nbytes != 1 || op->cmd.buswidth != 1)
++		return false;
++	if (op->addr.nbytes > 3 || (op->addr.nbytes && op->addr.buswidth != 1))
++		return false;
++	if (op->dummy.nbytes > 15 ||
++	    (op->dummy.nbytes && op->dummy.buswidth != 1))
++		return false;
++
++	/* The vendor code programs on one or four lines, never two */
++	if (op->data.nbytes && op->data.dir == SPI_MEM_DATA_OUT &&
++	    op->data.buswidth == 2)
++		return false;
++
++	return true;
++}
++
++static int zx_spifc_adjust_op_size(struct spi_mem *mem, struct spi_mem_op *op)
++{
++	op->data.nbytes = min(op->data.nbytes, SPIFC_MAX_DATA);
++
 +	return 0;
 +}
 +
-+static const struct dw_pcie_host_ops zx279128s_pcie_host_ops = {
-+	.init = zx279128s_pcie_host_init,
-+	.msi_init = zx279128s_pcie_msi_init,
++static const struct spi_controller_mem_caps zx_spifc_mem_caps = {
++	.per_op_freq = true,
 +};
 +
-+static int zx279128s_pcie_start_link(struct dw_pcie *pci)
-+{
-+	zx279128s_pcie_force_gen1(pci);
-+
-+	return 0;
-+}
-+
-+static bool zx279128s_pcie_link_up(struct dw_pcie *pci)
-+{
-+	struct zx279128s_pcie *pcie = to_zx279128s_pcie(pci);
-+	u32 val = readl(pcie->ctrl + CTRL_STATUS);
-+
-+	return FIELD_GET(CTRL_STATUS_LTSSM, val) == CTRL_LTSSM_L0;
-+}
-+
-+static const struct dw_pcie_ops zx279128s_pcie_ops = {
-+	.link_up = zx279128s_pcie_link_up,
-+	.start_link = zx279128s_pcie_start_link,
++static const struct spi_controller_mem_ops zx_spifc_mem_ops = {
++	.adjust_op_size = zx_spifc_adjust_op_size,
++	.supports_op = zx_spifc_supports_op,
++	.exec_op = zx_spifc_exec_op,
 +};
 +
-+static int zx279128s_pcie_probe(struct platform_device *pdev)
++static int zx_spifc_probe(struct platform_device *pdev)
 +{
 +	struct device *dev = &pdev->dev;
-+	struct zx279128s_pcie *pcie;
-+	struct device_node *np;
-+	struct resource *res;
-+	int i;
++	struct spi_controller *ctlr;
++	struct zx_spifc *spifc;
++	struct clk *clk;
++	long min_hz;
++	u32 val;
 +
-+	pcie = devm_kzalloc(dev, sizeof(*pcie), GFP_KERNEL);
-+	if (!pcie)
++	ctlr = devm_spi_alloc_host(dev, sizeof(*spifc));
++	if (!ctlr)
 +		return -ENOMEM;
++	spifc = spi_controller_get_devdata(ctlr);
 +
-+	pcie->pci.dev = dev;
-+	pcie->pci.ops = &zx279128s_pcie_ops;
-+	pcie->pci.pp.ops = &zx279128s_pcie_host_ops;
++	spifc->base = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(spifc->base))
++		return PTR_ERR(spifc->base);
 +
-+	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "ctrl");
-+	pcie->ctrl = devm_ioremap_resource(dev, res);
-+	if (IS_ERR(pcie->ctrl))
-+		return PTR_ERR(pcie->ctrl);
++	clk = devm_clk_get_enabled(dev, "pclk");
++	if (IS_ERR(clk))
++		return dev_err_probe(dev, PTR_ERR(clk),
++				     "failed to get the register clock\n");
++	spifc->wclk = devm_clk_get_enabled(dev, "wclk");
++	if (IS_ERR(spifc->wclk))
++		return dev_err_probe(dev, PTR_ERR(spifc->wclk),
++				     "failed to get the work clock\n");
 +
-+	for (i = 0; i < ARRAY_SIZE(zx279128s_pcie_ports); i++)
-+		if (zx279128s_pcie_ports[i].ctrl_addr == res->start)
-+			pcie->port = &zx279128s_pcie_ports[i];
-+	if (!pcie->port)
-+		return dev_err_probe(dev, -EINVAL, "unknown controller at %pR\n",
-+				     res);
++	min_hz = clk_round_rate(spifc->wclk, 1);
++	if (min_hz <= 0)
++		return dev_err_probe(dev, min_hz ?: -EINVAL,
++				     "invalid minimum work clock rate\n");
 +
-+	for (i = 0; i < ZX_NUM_CRM; i++) {
-+		np = of_parse_phandle(dev->of_node, "zte,crm", i);
-+		if (!np)
-+			return dev_err_probe(dev, -EINVAL,
-+					     "missing Top CRM %d\n", i + 1);
++	/* The data sampling point, as the boot loader sets it */
++	val = readl(spifc->base + SPIFC_TIMING);
++	val &= ~SPIFC_TIMING_SAMPLE;
++	val |= FIELD_PREP(SPIFC_TIMING_SAMPLE, 1);
++	writel(val, spifc->base + SPIFC_TIMING);
 +
-+		pcie->crm[i] = syscon_node_to_regmap(np);
-+		of_node_put(np);
-+		if (IS_ERR(pcie->crm[i]))
-+			return dev_err_probe(dev, PTR_ERR(pcie->crm[i]),
-+					     "failed to get Top CRM %d\n", i + 1);
-+	}
++	ctlr->mode_bits = SPI_RX_DUAL | SPI_RX_QUAD | SPI_TX_QUAD;
++	ctlr->mem_ops = &zx_spifc_mem_ops;
++	ctlr->mem_caps = &zx_spifc_mem_caps;
++	ctlr->setup = zx_spifc_setup;
++	ctlr->min_speed_hz = min_hz;
++	/* Faster rates have not been validated on this controller. */
++	ctlr->max_speed_hz = 50000000;
++	ctlr->num_chipselect = 1;
++	ctlr->dev.of_node = dev->of_node;
 +
-+	/*
-+	 * Shared with the other controller: take the lines as they are, so
-+	 * that a late probe can't reset a device the other one already uses.
-+	 */
-+	pcie->reset = devm_gpiod_get_optional(dev, "reset",
-+					      GPIOD_ASIS | GPIOD_FLAGS_BIT_NONEXCLUSIVE);
-+	if (IS_ERR(pcie->reset))
-+		return dev_err_probe(dev, PTR_ERR(pcie->reset),
-+				     "failed to get the reset GPIO\n");
-+
-+	pcie->enable = devm_gpiod_get_optional(dev, "enable",
-+					       GPIOD_ASIS | GPIOD_FLAGS_BIT_NONEXCLUSIVE);
-+	if (IS_ERR(pcie->enable))
-+		return dev_err_probe(dev, PTR_ERR(pcie->enable),
-+				     "failed to get the enable GPIO\n");
-+
-+	return dw_pcie_host_init(&pcie->pci.pp);
++	return devm_spi_register_controller(dev, ctlr);
 +}
 +
-+static const struct of_device_id zx279128s_pcie_of_match[] = {
-+	{ .compatible = "zte,zx279128s-pcie" },
++static const struct of_device_id zx_spifc_of_match[] = {
++	{ .compatible = "zte,zx279128s-spifc" },
 +	{ }
 +};
++MODULE_DEVICE_TABLE(of, zx_spifc_of_match);
 +
-+static struct platform_driver zx279128s_pcie_driver = {
-+	.probe = zx279128s_pcie_probe,
++static struct platform_driver zx_spifc_driver = {
++	.probe = zx_spifc_probe,
 +	.driver = {
-+		.name = "zx279128s-pcie",
-+		.of_match_table = zx279128s_pcie_of_match,
-+		.suppress_bind_attrs = true,
++		.name = "zx279128s-spifc",
++		.of_match_table = zx_spifc_of_match,
 +	},
 +};
-+builtin_platform_driver(zx279128s_pcie_driver);
++module_platform_driver(zx_spifc_driver);
++
++MODULE_AUTHOR("Navid Ghahremani <ghahramani.navid@gmail.com>");
++MODULE_DESCRIPTION("ZTE zx279128s SPI flash controller driver");
++MODULE_LICENSE("GPL");
 -- 
 2.55.0
 
