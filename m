@@ -1,71 +1,104 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-212.mta0.migadu.com [91.218.175.212])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ABF041F5E6;
-	Sat, 10 Oct 2026 11:14:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 052AC40B38C
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 11:14:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.212
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791630875; cv=none; b=bTAyo7GRF10xv03Cvc6ku3804IC/EhexWYUZxc0fjt/E1mOqsFOmcCQiMIqAcLatFgk12A4I8XbcytKzi6CPBom6gvHvuPsF3CkmnU13sX0ud2PDNDy9iPTOiy6DHAhIpUZ64GXgj5aCTIO45SM6gb78DKg+MnfRRplAGrv85iQ=
+	t=1791630878; cv=none; b=N4VHLIAK5Kne5N1Phw83hmY/1FFs0FGryX2925wsUYH5UP4XARULlJ7qVcfhAv4batoLzxPev5eMydNbEC0MrJX68NwpF1u5Nnlk+y9XD9Tdg2k1yRXaQBnUtVycyFAHwG3yplxys1obTHnOnqjMnaCVoENYwg28FlP+59owchQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791630875; c=relaxed/simple;
-	bh=PMKFO8O9EPvAmTDE0ZDFaz/3SyCndAd/kG1QNXNpqKs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=k/qc7pOQZbfTJVhaovwdCvpQxt5Ub6DYYcz0BIlN9GQiWrlVBmgdGWKvxWqMDKodKN2T1dWQlWLWmDvX7AzYhGqhccF0dF9gjRY0bvpq9qOrHIciUKG3y4f1Kv7uNgUL7ZTH5fNL4pwyjlq0MtvDzlNYpoZSrvQ9SpXO5qXk+MM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=eHpJ7Nei; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1791630878; c=relaxed/simple;
+	bh=yn4p2s9JivjvBTqbIsK6tSDnIq73X7zd5BQ9ePHoMnI=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=UnEouWt1rWWfooy+uWsAT88O3ti6DEZ5B7b2sX4BLdnCUAgfpq0p2csUQpBRrMDjdEfqP2MrgIA+QW77fz9QhQLs8fYAIU+nd+GFcGx9iTVVKG7sH8GmOtSyVi6g5YQ+//EM4oQ3wjaFL2HwxfZkcfWEOrhXjrlUnI7dWTnhIME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=XkvEz/FM; arc=none smtp.client-ip=91.218.175.212
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="eHpJ7Nei"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=Ksxmdb4yA1kWZOUC249F66a5/hkdvLmy1j/hlKj2+08=; b=eHpJ7Neiep8sLffC/RolmkM650
-	NifNLXRHCMbuWXxfrWJhg1p8V46EVUXMonAw0caFg2iUQTwJq91AmfPIVfNMGKKT6JFCXs8odTH2z
-	Y9HcG/z0pGSHqUN/MDgiER0MvhWOg5z1bFWZXStpblSwC8VWBFFwpsUrhKj5O5GrZgxuaq/MoDodu
-	6HPfuYiqPcHUWo5bogIGOedwnUWfKE0trBMu0UaSVGAZ0Gk6bxGdTSQLTaoviX8eksi7RpYy6ue0O
-	+fWdEBTVl+rSOwpqm/MMzT4PPWKakeczs4sYFTNmDR1hDKQeQqDf8t16m/GRikGVkfwpI+0cKDLov
-	F9Y1FGpw==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Igor Velkov <iav@iav.lv>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: rockchip: Add the fan tachometers to Kobol Helios64
-Date: Sat, 10 Oct 2026 13:14:10 +0200
-Message-ID: <179163084342.3536058.13031584006257921159.b4-ty@sntech.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261006-helios64-fan-tach-v1-1-1c87e72d42b2@iav.lv>
-References: <20261006-helios64-fan-tach-v1-1-1c87e72d42b2@iav.lv>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="XkvEz/FM"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=yn4p2s9JivjvBTqbIsK6tSDnIq73X7zd5BQ9ePHoMnI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791630872; v=1; x=1792235672;
+ b=XkvEz/FM5/D9yAV3zvtso4HqPuiP4eXF/G6dx2bR1zg4buWnzPeJxMTxSU16wl79sSqguJBI
+ kECoJmQdPlbQWbf6NY5nrIUY5vhV8zcvLs9lkudJk6UQbXSqYBkG37GFO/DpRyOlp2VxraD1NXJ
+ lpY/cRu0B34MBwfk6Vt823tU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1c509de7a57eaea1;
+	Sat, 10 Oct 2026 11:14:32 +0000
+X-Mizu-Trace-ID: 1c509de7a57eaea1
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Date: Sat, 10 Oct 2026 11:14:32 +0000
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <ce5a3b408acc48642aa31866df39630aec7792f6@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH v2] wifi: rtw88: 8723b: avoid converting RX SNR twice
+To: "Hungyu Lin" <dennylin0707@gmail.com>, pkshih@realtek.com
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ rtl8821cerfe2@gmail.com, straube.linux@gmail.com, "Hungyu Lin"
+ <dennylin0707@gmail.com>
+In-Reply-To: <3c89d2ac770c659eacd532134c89b4725be9ab97.1791627615.git.dennylin0707@gmail.com>
+References: <3c89d2ac770c659eacd532134c89b4725be9ab97.1791627615.git.dennylin0707@gmail.com>
+
+October 10, 2026 at 12:47 PM, "Hungyu Lin" <dennylin0707@gmail.com mailto=
+:dennylin0707@gmail.com?to=3D%22Hungyu%20Lin%22%20%3Cdennylin0707%40gmail=
+.com%3E > wrote:
 
 
-On Tue, 06 Oct 2026 07:48:58 +0300, Igor Velkov wrote:
-> The tachometer outputs of both fan connectors reach the SoC through
-> open-drain buffers, on GPIO4_C5 for P7 and GPIO4_C7 for P6, but the fan
-> nodes do not describe them. pwm-fan therefore registers no fan1_input.
-> 
-> Describe each line as the fan's interrupt. The board pulls both lines
-> up, so configure the pins without internal bias.
-> 
-> [...]
+>=20
+>=20rtw8723b_query_phy_status_ofdm() divides the SNR report by two when
+> filling pkt_stat->rx_snr, then shifts it again when updating
+> dm_info->rx_snr. This halves the SNR used for diagnostics and average
+> statistics.
+>=20
+>=20Store the raw report in pkt_stat->rx_snr and convert it only when
+> updating dm_info->rx_snr, as the other chip drivers do.
+>=20
+>=20Fixes: d726c70ce082 ("wifi: rtw88: 8723b: add the RTL8723B chip drive=
+r")
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 
-Applied, thanks!
+Ping-Ke should fixes tag be present here if this commit isn't in
+mainline yet?
 
-[1/1] arm64: dts: rockchip: Add the fan tachometers to Kobol Helios64
-      commit: fc411363b8231315e5260662bac5223636321983
+> ---
+> Changes in v2:
+> - Store the raw SNR report in pkt_stat->rx_snr and keep the shift when
+>  updating dm_info->rx_snr.
+>=20
+>=20 drivers/net/wireless/realtek/rtw88/rtw8723b.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+>=20diff --git a/drivers/net/wireless/realtek/rtw88/rtw8723b.c b/drivers/=
+net/wireless/realtek/rtw88/rtw8723b.c
+> index 8bb9c03d769c..18bd2b108ccb 100644
+> --- a/drivers/net/wireless/realtek/rtw88/rtw8723b.c
+> +++ b/drivers/net/wireless/realtek/rtw88/rtw8723b.c
+> @@ -1280,7 +1280,7 @@ static void rtw8723b_query_phy_status_ofdm(struct=
+ rtw_dev *rtwdev, void *phy_raw
+>  pkt_stat->rx_power[RF_PATH_A] =3D (val_s8 * 2) - 110;
+>=20=20
+>=20 pkt_stat->rssi =3D rtw_phy_rf_power_2_rssi(pkt_stat->rx_power, 1);
+> - pkt_stat->rx_snr[RF_PATH_A] =3D (s8)(phy_status->path_rxsnr[RF_PATH_A=
+] / 2);
+> + pkt_stat->rx_snr[RF_PATH_A] =3D phy_status->path_rxsnr[RF_PATH_A];
+>=20=20
+>=20 /* signal power reported by HW */
+>  val_s8 =3D phy_status->cck_sig_qual_ofdm_pwdb_all >> 1;
+>
+
+Either way change looks good to me.
+
+Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
 
 Best regards,
--- 
-Heiko Stuebner <heiko@sntech.de>
+Luka Gejak
