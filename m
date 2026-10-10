@@ -1,153 +1,164 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from sender6-pp-o94.zoho.com (sender6-pp-o94.zoho.com [165.173.180.94])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD2EF48823C
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 12:56:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791637021; cv=none; b=BPyrkEHmJdKWKyqmOVSXwHRnrYotTcHouJ7i8mu+PxN02C4CZTm9SkNS+6d02tfIpHTjDOGgtvfRDBwkEYOwR4OFuB4eTE0OOlX+yKeId0HBccV+443ZhGAe25oH9PHRAr7so6nY8SnUWa7t9dxqihLTemYD4BGSpPH+MF6UjYc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791637021; c=relaxed/simple;
-	bh=W/UEILEHedjWzea26aThXcgblmNjNpWx4V4u/V5lw4k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MEeH3wmFaJc6WJHNJTGoJFfyiF7ikwAfLw7Rt6roE9f0XuQYlhntqRgxXmNzSgO4JobE9m2mkheLFcvx29dlFZVRQl+gdZ/vSaqJLADtUFYtlPetQ3OQkGAdYbBS/THuzdCfmlzkKDwTxp5VWg+klZbcaRMc2n1UMUvUMA6NJBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FJk1JCwX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EjG8JNKh; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D53A45DF47
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 12:58:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.94
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791637093; cv=pass; b=FMyuKAA7z8LI4FHnvbSV8IQPltOzYyWViY6H+rdQP2qcHyNYicOuWgPkp6z7p4k8chdBAZiC5eDxhOGQ1VmC/MHB2wOs1/bC3drS3dpsMA6u/m6EBAAjaUPPMgmrNutzzYAt6LqBj7dYA1hR1YgYfCKJQhnkXg6800RMhD1MnYo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791637093; c=relaxed/simple;
+	bh=wrZhGUsiiNXQ4Gchr0k7BiEOVJ+TlRZFa4sBS+Eepa8=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=YHzVtHoTzsZxVxvsP4wuvspF7hMibXasiwSoONbzsFwKFrco7xdNR6pJJ594EVfMLKhTNxsytsfC0nbEa6xXySkAsVj6J2KEk0XU+Jzezhm8tk04tenzPSKoCqDGKSskal1zKZo1qeUrFedHBmZnU3MAJLPstbYtcl+oCK2o8eo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=kingxukai@zohomail.com header.b=ABn7qr+E; arc=pass smtp.client-ip=165.173.180.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FJk1JCwX";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EjG8JNKh"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69ACUXpB3787048
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 12:56:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	DdqTfmxv7RjX7a6pYYeAcFMXK1tEr0dFq6vCwkdGz5A=; b=FJk1JCwXsNzxLxct
-	4QIM4TwGSLRWJ+olwZ2yWHHIoln3g6Y2jeMLmBqmVKBYDmIX3cozXxhZAdDSHLNp
-	LxnyO+jgEUqY0CX3WJ1b0dPZoj9awMVdqWbRSoIIQIianSN7IVgHdXub4Q3i2yd2
-	2MQ+VZ384Jvpq8kJgCerM6AxEJHHAR9IKNKEg6DOEVzxfwz5ADAGfs6+UohDnE6L
-	pB1+eCbvYUCrO3LII2vFrPdUHa7haSpl7zi+QCPKsD61BazHAZMtW1BXbVPGZUBk
-	66FfaEE8QYrHYRTWP0K3UQB4WUNbFvnFea3bWJxmsGkrcozf9DDjxIryuB+c/pLj
-	ZaAnoQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7dr7gyqc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 12:56:58 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93e49a1d3b1so143338085a.2
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 05:56:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791637018; x=1792241818; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DdqTfmxv7RjX7a6pYYeAcFMXK1tEr0dFq6vCwkdGz5A=;
-        b=EjG8JNKhxhpw4QR42vSFCIdPfmzluMofsKpvyvOYvIzeGskQG20BATMzRaDEmltf2g
-         NOLKHq3noYPyFK/LY+pXLO+vuSETvXp4XJj6mkAUPfqz7L3rWEaZs06qWPqIcRB1tFvl
-         8W9Gnn+tPYPmUAILGeQl5/aYNWuvPEppYw40z4/l03wqX14AmAM+NBPlQHRN8wm2z4LR
-         RzCN9js+RnO1njgE/IClmI5W4oYyMV/sbuEN0WWJ0UKmLgENPPc6NU13+omEzQGsUMO/
-         x+ZYyZH5osJSU+8i/ZhN3dmQWfBo++pjwGIkhwa2NqvvkZNFQOuqW+RdMAInydcKliHF
-         CmtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791637018; x=1792241818;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DdqTfmxv7RjX7a6pYYeAcFMXK1tEr0dFq6vCwkdGz5A=;
-        b=frCgFiTXEIzARr6ZXLhHmP2ocfhSCle99HZ1NMwg29TupCoCyT8LVmY7/jPZZj0VK5
-         NtTuSimF14SY2ug+gb0jMb8SktyebLSzp9LrZrlYxhhez1T8381llHqlN5SLW4xAmoCC
-         TpMO1HvcKhL7lvN57uZbnZnIF91f4QWLfMZCfaRie+9b/U5ZoVyUArDbwu4r6Few34fb
-         /l9OXcpvhe1N9/H/9AKG6tume5FvGPZY42nLH4pHjJ04V0q9xw57m0ldwdV3bkgeTbGT
-         oKc2g8cSGhHwH3jS/ZT9jJQWB9cLZjhY3WctcWRqVhUZFxX2q/AQ5/MPN9Of/3cScD/0
-         Yc8Q==
-X-Forwarded-Encrypted: i=1; AKwUvByxIuJ5Cnyga24MKgyAWOIhgJ8xqufWPeloinMtot/G/MLtLgAg9uEO5XKCplZiDaKOHnpgLGEKjvRlqA8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL7bPL8n/w6HIpsHFvOqd/T7zTmGpi+23/QMkaA+Hdu2sSNBj4M
-	LjUhZp7n9C7Nq5Bc+B1K+XI60iZPYbLFI/ou5nAlFrti1edQsfpIzpHEJPPwgCo6cCUCRPvka78
-	r1ndmYQbbqF/cE/j/UYlHBVKh50wPZuoH06BQjK/3qpiC3dyiEuGt8gvE1WhFZg/f3sU=
-X-Gm-Gg: AYBFou1bDlrRZAJbODpnqLCAJ1kb7G1bNKKlNTm/T1C/LwP1TMoqldsrVxayEIlIE6N
-	0KEzQYlvLHCO552kanrUWKAbtGnSgzFqPQrrf2gpR7hdlDjAvTkaCDwDn2GQwFbVt1J92Tzd1UV
-	Rq0r0F3iCi9P7xXDc4kIPwgCX6/wmnaqxCJSLDibwxgkhVq3aEusEh5+1/HsOfutgQofBIfm4yU
-	yMXQdLttDipuUPtXcYYGeFx1sZcAmPpLvsOD5lJr/PJzF43lyRqFxrbEXjf4cBWGGviUsPDevAL
-	4nID9azBI97OLiuB2rwCNfIWKzNhSSXiX91pKEyRH+TPtqE0s78WQDLhrWxWL1WeYQSOl0FopnE
-	lAEMgLX7aPF9CtWdPSjg5FR5X8H+UHadfAhPSdGgTqWhHU9TY+37wVsoc8p7MbeAnpfAkCNQNxu
-	BVSaPWucYKYf6rXjRp
-X-Received: by 2002:a05:620a:3947:b0:92e:8310:7369 with SMTP id af79cd13be357-93ebd248de4mr824665385a.37.1791637017877;
-        Sat, 10 Oct 2026 05:56:57 -0700 (PDT)
-X-Received: by 2002:a05:620a:3947:b0:92e:8310:7369 with SMTP id af79cd13be357-93ebd248de4mr824660085a.37.1791637017012;
-        Sat, 10 Oct 2026 05:56:57 -0700 (PDT)
-Received: from brgl-qcom.local (2a02-8440-350e-a8a7-dac7-41db-afca-de74.rev.sfr.net. [2a02:8440:350e:a8a7:dac7:41db:afca:de74])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db97ce3aasm9014383f8f.21.2026.10.10.05.56.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 05:56:55 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: andersson@kernel.org, linusw@kernel.org, brgl@kernel.org,
-        Joonhoe Kim <26rote@gmail.com>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        konrad.dybcio@oss.qualcomm.com, jingyi.wang@oss.qualcomm.com,
-        linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] pinctrl: qcom: kaanapali: add the I2C strong pull-up bit
-Date: Sat, 10 Oct 2026 14:56:52 +0200
-Message-ID: <179163700869.6835.2267810663519966879.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261007124001.1724-1-26rote@gmail.com>
-References: <20261007124001.1724-1-26rote@gmail.com>
+	dkim=pass (1024-bit key) header.d=zohomail.com header.i=kingxukai@zohomail.com header.b="ABn7qr+E"
+ARC-Seal: i=1; a=rsa-sha256; t=1791637065; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Jb6sd5qHme/lI/8iCoG0AQbQ98TeUFmUPQAA1bg0+BKomXO4b05CXX66HuhjsJ3wqMEg1vDGXk9m1HrFT+abUxDp7ZzxWFJRTmxV0l5wXbm2c3wJRoLoWRhB4gTgyn61zTKTf+f0+d3OngtD3lIEQ2Yr2uTNwtX2PtMtmaViVXQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791637065; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=w8X3j8YkiU5UbqKNTiwAj+5Bv7i4u7iPRErRQP5qoz4=; 
+	b=iT6FYAjd7jd+CQKpcDrUL+UBJEhWfuc56Tbk3bpusXlYsrbpjlO1Jnt3LE/RR5on2QqrfPdxHTPSHvZ4nmaDF87G78n9uWB8bJ9YiQyFkv0FfhJx+IRIuqyIUsNSqYoiGYbWD0W1CcM8aZReI3RSrK/eNJMPw8oT1bEIhHbNDZk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=zohomail.com;
+	spf=pass  smtp.mailfrom=kingxukai@zohomail.com;
+	dmarc=pass header.from=<kingxukai@zohomail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791637065;
+	s=zm2022; d=zohomail.com; i=kingxukai@zohomail.com;
+	h=Message-ID:Date:Date:MIME-Version:From:From:Subject:Subject:To:To:Cc:Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
+	bh=w8X3j8YkiU5UbqKNTiwAj+5Bv7i4u7iPRErRQP5qoz4=;
+	b=ABn7qr+ECpc3BP7u8RBrlyK49bGk5k1m7H001F8ZNHcMaZN0R1p9ZEXNY7HtfNX7
+	c+MlwPtsG4DN+WYOv01QxACKL/+ft8q7aBkmsr6p9gJK2r6xjLA2GKTFmdqB9hg1N7Z
+	Y+B5NJA6HfcWvdH6S9LgMnM6lX4hPyb48lN9Uq98=
+Received: by smtp.zohomail.com with SMTPS id 1791637062640939.5974684213551;
+	Sat, 10 Oct 2026 05:57:42 -0700 (PDT)
+Message-ID: <0fe8a0fe-68f5-467b-be82-cf631e00fd87@zohomail.com>
+Date: Sat, 10 Oct 2026 20:57:32 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+From: Xukai Wang <kingxukai@zohomail.com>
+Subject: Re: [PATCH RFC v3] sched/proxy: Defer donor commit until after proxy
+ resolution
+To: Ingo Molnar <mingo@redhat.com>, John Stultz <jstultz@google.com>,
+ Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: linux-kernel@vger.kernel.org
+References: <20260827-sched-proxy-v3-1-1af63ac5ae56@zohomail.com>
+Content-Language: en-US
+In-Reply-To: <20260827-sched-proxy-v3-1-1af63ac5ae56@zohomail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: sAtXQL3y7bwaoBQgTQEKJRBKDSvTFiA9
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEwMDA1MSBTYWx0ZWRfXziY1JmM8mPhp
- q+JccT4+D3jz/1TpAXwYDHZ0t1r53FKHHBiqJd2sCBTl5Pk5E23vJd7cg1ACGshkf/GD3w0G1fS
- hvo/0RJDZPlscx18RkMyYEf+/gjy/Yo=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEwMDA1MSBTYWx0ZWRfX12lk4/sYiB9c
- 0Rz9itwf7t7YD07IB/CWd1ZFsZPfWJV6udy/WTIYMgKuU6/cIFd6R2m17tnnwfuYDyUp2fRoKod
- POs0zlMoFXu1tZQaRXGU+RBxs29uQ9FhSAk1W5EF49VOV36fXCIsfFstv4Ktouxc+I8vroy6KUF
- zjDfL+htOmvCgC2dhEZUJNShG0V9GlijvKw1Pcs0TuLPYFYQZnDRjIPV01gvNE1kP//GqIWHzus
- LVMss6CEqMdT6A2zv4rx5FYmk/Ao9013TESRt2c6WdA8/y2PpAHr9sSmRP273i98WN6IXqjxNyS
- uedtOdfCXLvF7DI/BADp6EgwoFilnJmsOE6VO0wpD+AOCqJzBUbhbkeVIPfM6CDVK1t2U37A1wM
- vPPDdX2XNJIvRP0qsXgDKvo3MSjFMm+k3oiUaRji6vbLFZE5QRcI5Xjki7K++fEdKyYlvnWQTFj
- LnCniPAlWir1ccSB3OA==
-X-Proofpoint-GUID: sAtXQL3y7bwaoBQgTQEKJRBKDSvTFiA9
-X-Authority-Analysis: v=2.4 cv=asknmiZV c=1 sm=1 tr=0 ts=6aca361a cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=buVoV1uq8FEZNaAFP7gA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-10_02,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 phishscore=0 spamscore=0 adultscore=0
- impostorscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610100051
+Feedback-ID: zu08011227d64cbb048e3a95216d9c056c0000cb62a0ce78bd8140efb47b35fd5287a8e14f2044a2e03a3c4e:ZohoMail
+X-Zoho-CM-AccountID: 2ee5dd3c83366259b2ba1e9826250ffebed1ef2dd213857d649ad25aba73b429
+X-ZohoMailClient: External
+
+Hi Prateek, John, all,
+
+Quick ping on the v3 defer-donor-commit patch. Following up on John's
+questions from the v2 review -- specifically what the real impact of this
+change is and whether it's measurable -- I've collected targeted
+measurements of the put_prev_set_next_task() overhead on the donor commit
+path.
+
+1. Test setup
+
+I ran John's priority-inversion-demo workload [1] 3 times per kernel on a
+bare-metal x86 system.
+
+I instrumented the two scheduling-class callbacks invoked by
+put_prev_set_next_task() on the donor commit path:
+
+/* around put_prev_task() */
+t0 = local_clock();
+prev->sched_class->put_prev_task(...);
+t1 = local_clock();
+
+put_calls++;
+put_total_ns += t1 - t0;
+
+/* around set_next_task() */
+t0 = local_clock();
+next->sched_class->set_next_task(...);
+t1 = local_clock();
+
+set_calls++;
+set_total_ns += t1 - t0;
+
+I also calibrated the overhead of an empty local_clock() pair (minimum
+15ns observed on this machine) and subtracted that per-call from the
+measured totals.
+
+t0 = local_clock();
+t1 = local_clock();
+
+The adjusted times below subtract that value once per measured callback:
+
+adjusted_total = raw_total - nr_calls * 15 ns
+
+2. Results
+2.1 callback invocations
+
+Combined across 3 runs:
+
+                  Baseline    v3 patch
+  put_prev_task   49037       8968
+  set_next_task   49037       8968
+
+That is an 81.7% reduction in scheduling-class callback invocations
+from the donor commit path.
 
 
-On Wed, 07 Oct 2026 21:40:01 +0900, Joonhoe Kim wrote:
-> The Kaanapali TLMM has the I2C pull-up control in bit 13 of the pin
-> config register, like SM8550, SM8650 and X1E80100, but the driver does
-> not describe it, so "bias-pull-up = <2200>" cannot select the strong
-> pull-up.
-> 
-> The downstream kernel sets it on the camera CCI pins (config 0x2007).
-> On a Lenovo TB323FU tablet, with only the weak pull-up every CCI
-> transfer on the two sensor buses times out; with bit 13 set the sensors
-> answer and their chip IDs read correctly.
-> 
-> [...]
+2.2 callback execution time
 
-Applied, thanks!
+Adjusted total time spent in these callbacks per workload run:
 
-[1/1] pinctrl: qcom: kaanapali: add the I2C strong pull-up bit
-      https://git.kernel.org/brgl/c/1df7f369075d7e8f7794981995a5103f1963bab7
+            Baseline    v3 patch
+  Run 1     11.131 ms   2.361 ms
+  Run 2     11.157 ms   2.548 ms
+  Run 3     11.578 ms   2.642 ms
+  Average   ~11.29 ms   ~2.52 ms
 
-Best regards,
--- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+For reference, a single idle -> fair transition (the common case in these
+runs) costs ~0.69 µs on baseline:
+  put_prev_task(idle):  142-154 ns
+  set_next_task(fair):  503-557 ns
+
+3.End-to-End latency
+
+I also ran uninstrumented kernels to check full workload end-to-end
+impact. I did not observe a consistent stable shift:
+  p99  latency: ~5.00 ms on both baseline and v3
+  p999 latency: ~9.00 ms on both baseline and v3
+
+The reduction above amounts to about 8.8 ms of scheduling-class callback
+time per workload run. This local reduction did not translate into a
+stable end-to-end latency shift in this workload.
+
+So the measurable effect is at the donor commit point itself: deferring
+the commit reduced the number of put_prev_task()/set_next_task() callback
+invocations by 81.7%, with the measured callback time at that point
+dropping from about 11.29 ms to 2.52 ms per workload run.
+
+Separately from the measured cost, this also places the scheduling-class
+state commit after the donor has survived proxy resolution, rather than
+committing state for a candidate that may subsequently be abandoned.
+
+I'd appreciate your thoughts on whether these measurements address the
+concern from v2, and whether there are any changes you'd like to see for
+v4.
+
+LINK: https://github.com/johnstultz-work/priority-inversion-demo [1]
+
