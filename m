@@ -1,148 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DF7F2F851
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 07:37:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 183583630B0;
+	Sat, 10 Oct 2026 07:37:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791617842; cv=none; b=BpxTeN9sKH7Yz9K4sTVbxfIxf5KdfgvGnCrr1y4ekb8cePhzLrFMDCIn4XI7Ejv4sVlD7dASo0A/B5rZnkBMeqwnWFwlQxJ2h65eyOgDpNJof5wB1DW9dGE24LO5G2e7VwGc8ywxbynCeqaNyyO1/+/Pg2N2ZsJk9pgYANbCEJA=
+	t=1791617876; cv=none; b=Vvc+CVxKeEVVR2QbcHqRjd/okBjFv2UjFMt1i7jhv+rFM8TmUanZxl7PRujrxoGEvdPXq70W9lv3zPFZzQ3n/cxTYKmtMsJ1SiQI8TE/ZY9sfS5w+htlH9WnA5yRMzt1JZdHyqIISIl0XvCtBe4b3+I6Nx3A0HAv5OEMjS1Ah/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791617842; c=relaxed/simple;
-	bh=g2wX7a2vYqi5wvxOvzOLMPjNjOgfOcbFit6oOKZwrwY=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=HMQUpZgaPX7KCfJRtxZA8uzvq+hvJ6QYgeQHH63LW7VayYq3PZH6BZgHm1HhEgmQHF44huPHKNH0PT4h42IJ9VoeUXDs5Ma6/Fr2Ur1d0+LYSjhdT+V21wxopI68CnznuX5EmS7mGSDPtXrwvjwsfuLhdyQ2oGkUPJh5w5twujQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b1VjOGHi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791617876; c=relaxed/simple;
+	bh=81zzneQkm9DlTp2+i9sm+Fq6tE2dxkQHQWLTPITQrYE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LCYs8lSoDBYeaDL5IYukCBORZEuK1Hmjf1O5BeOjIzig4adLwf7ifLYc0tSmDqLF8bbqcOZsK6lxlpTeJxJ9SVU7vqDTry8c8iv2YiZOEOBWevGkQfSu2DLC6Rkh+Fp3llmAbddaLr0LXTnuY8YD7Ol//ke13a1U5FrWNlU+Uew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=la0eLuY3; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b1VjOGHi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C62B71F000FF;
-	Sat, 10 Oct 2026 07:37:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791617840;
-	bh=5XbZZqJRmmZ/LFvu5kMHlzZA0oahdFNUV1rYwMv2suY=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=b1VjOGHi4EjnwFrW/B2RnJd/v5fcIr6As2XRK1F7oYNTUCddi6wjdJ6awrLpLNvjk
-	 7Q8jnI8EqbALMHQ5gAh6ARozGS8/jWEGMj4WqygcR55GvRewjXDghypOTQgBbWH7kP
-	 N70Mj3ADwOjyjzh/8JX10PySrPcaQSlyhdJTmc3+Kib5Vncl24jFNEDKs7U0AxqeKN
-	 bXeb01qId1WUP6bpU4DhP5yfDhHMDhJJ7C/pKqZET6tgpqwG6euNq/C2zbJ9g4mSnd
-	 TpW67NFlvo+KqazMZmZvkeuF2cqMCwWMFc+mTxP/Of8Qsb3FmrI6xW3Dtvor5B6P+r
-	 hvWjNRZTA5nuw==
-Message-ID: <99957074-c89a-44c4-a86d-f65e7dc85024@kernel.org>
-Date: Sat, 10 Oct 2026 15:37:18 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="la0eLuY3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791617874; x=1823153874;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=81zzneQkm9DlTp2+i9sm+Fq6tE2dxkQHQWLTPITQrYE=;
+  b=la0eLuY3bHbtYD8iu+JakZJWeke36IoFb7FiusRiQYihcEXVD96YrOgz
+   rWZbOSaCBrbD8QltULiendX9bSIGxDxYyUU6+sOsLOxPEt3FHwQca31PY
+   RFIQ0zk6BHrzx7YsmZYbpLfVLoyu05kq5n3PEN6zCZjQMJZjrEq1+W8RG
+   w3N8JpaLU/V445mo5hZSAR7Mqzv7VTuutQwP5QKlQYPfX4cpYOdqK/OKJ
+   KPuPNkU8GbI115XuBe2JnsXqYc6F4Fm+x0C09BSq2OXtTf9yTQPxsxC+r
+   HJ1rpUdzC5pC43v6SGSBJdEi2Bsx5i+eJ4Xm8Su9TLOWDGO/dopflCCZU
+   g==;
+X-CSE-ConnectionGUID: /ZeYLwlxQme+IHf1EKBVAA==
+X-CSE-MsgGUID: 80aI/LisQcGYHBNHtk1I9g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="315253"
+X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
+   d="scan'208";a="315253"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Oct 2026 00:37:51 -0700
+X-CSE-ConnectionGUID: MVngr4iYR46NYRTVANZLzA==
+X-CSE-MsgGUID: dk+EyF3nRXm9B3HDHcseyA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
+   d="scan'208";a="571998"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa004.fm.intel.com with ESMTP; 10 Oct 2026 00:37:48 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xFReL-000000006z9-2hTs;
+	Sat, 10 Oct 2026 07:37:45 +0000
+Date: Sat, 10 Oct 2026 15:37:41 +0800
+From: kernel test robot <lkp@intel.com>
+To: Christian Marangi <ansuelsmth@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev
+Subject: Re: [PATCH v3 2/2] ASoC: airoha: Add support for AN7581 PCM driver
+Message-ID: <202610101524.PIlCqVIG-lkp@intel.com>
+References: <20261009111334.23522-3-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, Daeho Jeong <daehojeong@google.com>, stable@kernel.org
-Subject: Re: [f2fs-dev] [PATCH v2] f2fs: disallow mmap write and
- data-modifying fallocate on atomic files
-To: Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, kernel-team@android.com
-References: <20261010024133.2444761-1-daeho43@gmail.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20261010024133.2444761-1-daeho43@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009111334.23522-3-ansuelsmth@gmail.com>
 
-On 10/10/26 10:41, Daeho Jeong wrote:
-> From: Daeho Jeong <daehojeong@google.com>
-> 
-> Stores through a shared writable mapping and fallocate with
-> FALLOC_FL_PUNCH_HOLE, FALLOC_FL_ZERO_RANGE, FALLOC_FL_COLLAPSE_RANGE or
-> FALLOC_FL_INSERT_RANGE do not go through ->write_begin, so they bypass
-> the COW inode and modify the original inode directly. Reject them while
-> the file is in atomic write mode, as fallocate already does for pinned
-> and compressed files. A write fault gets SIGBUS and fallocate gets
-> -EOPNOTSUPP.
-> 
-> fallocate without these flags only preallocates blocks and stays
-> allowed.
-> 
-> f2fs_vm_page_mkwrite() cannot take inode_lock, so check the flag under
-> invalidate_lock, and hold invalidate_lock in
-> f2fs_ioc_start_atomic_write() from the flush until the flag is set.
-> Otherwise a fault could check the flag, then start_atomic_write could
-> flush and set the flag, and the fault would dirty the folio afterwards.
-> 
-> Cc: stable@kernel.org
-> Fixes: 3db1de0e582c ("f2fs: change the current atomic write way")
-> Signed-off-by: Daeho Jeong <daehojeong@google.com>
+Hi Christian,
 
-Daeho,
+kernel test robot noticed the following build errors:
 
-Please take a look at https://sashiko.dev/#/patchset/20261010024133.2444761-1-daeho43%40gmail.com
+[auto build test ERROR on broonie-sound/for-next]
+[also build test ERROR on next-20261009]
+[cannot apply to linus/master v7.3-rc6]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-I think we need to apply this after ("f2fs: remove mappedtodisk flag usage in mmap write path")
+url:    https://github.com/intel-lab-lkp/linux/commits/Christian-Marangi/ASoC-dt-bindings-airoha-Add-AN7581-PCM-controller/20261009-131331
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+patch link:    https://lore.kernel.org/r/20261009111334.23522-3-ansuelsmth%40gmail.com
+patch subject: [PATCH v3 2/2] ASoC: airoha: Add support for AN7581 PCM driver
+config: hexagon-allmodconfig (https://download.01.org/0day-ci/archive/20261010/202610101524.PIlCqVIG-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 242243a5814307de825db3428662d67b064e2cbc)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261010/202610101524.PIlCqVIG-lkp@intel.com/reproduce)
 
-More details are in my comments on this patch:
-https://lore.kernel.org/linux-f2fs-devel/496b913c-eb81-4fa8-be72-c6a06a10aba2@kernel.org/
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610101524.PIlCqVIG-lkp@intel.com/
 
-Otherwise it looks good to me.
+All errors (new ones prefixed by >>):
 
-Reviewed-by: Chao Yu <chao@kernel.org>
+>> sound/soc/airoha/an7581-pcm.c:618:3: error: field designator 'pcm_construct' does not refer to any field in type 'const struct snd_soc_component_driver'
+     618 |         .pcm_construct = an7581_pcm_new,
+         |         ~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   sound/soc/airoha/an7581-pcm.c:778:14: warning: unused variable 'connection_type' [-Wunused-variable]
+     778 |         const char *connection_type;
+         |                     ^~~~~~~~~~~~~~~
+   1 warning and 1 error generated.
 
-Thanks,
 
-> ---
-> v2: serialize atomic flag check in f2fs_vm_page_mkwrite().
-> ---
->  fs/f2fs/file.c | 20 ++++++++++++++++++--
->  1 file changed, 18 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-> index ef4d218e694..7020b3e8940 100644
-> --- a/fs/f2fs/file.c
-> +++ b/fs/f2fs/file.c
-> @@ -187,6 +187,17 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
->  	file_update_time(vmf->vma->vm_file);
->  	filemap_invalidate_lock_shared(inode->i_mapping);
->  
-> +	/*
-> +	 * mmap stores bypass the COW inode and would break atomicity. Check
-> +	 * under invalidate_lock: f2fs_ioc_start_atomic_write() holds it while
-> +	 * flushing dirty folios and setting FI_ATOMIC_FILE, so either it sees
-> +	 * our dirty folio and writes it back, or we see the flag.
-> +	 */
-> +	if (unlikely(f2fs_is_atomic_file(inode))) {
-> +		err = -EOPNOTSUPP;
-> +		goto out_sem;
-> +	}
-> +
->  	folio_lock(folio);
->  	if (unlikely(folio->mapping != inode->i_mapping ||
->  			folio_pos(folio) > i_size_read(inode) ||
-> @@ -2113,9 +2124,11 @@ static long f2fs_fallocate(struct file *file, int mode,
->  
->  	/*
->  	 * Pinned file should not support partial truncation since the block
-> -	 * can be used by applications.
-> +	 * can be used by applications. Atomic files should not either, since
-> +	 * these modify the original inode directly and break atomicity.
->  	 */
-> -	if ((f2fs_compressed_file(inode) || f2fs_is_pinned_file(inode)) &&
-> +	if ((f2fs_compressed_file(inode) || f2fs_is_pinned_file(inode) ||
-> +	     f2fs_is_atomic_file(inode)) &&
->  		(mode & (FALLOC_FL_PUNCH_HOLE | FALLOC_FL_COLLAPSE_RANGE |
->  			FALLOC_FL_ZERO_RANGE | FALLOC_FL_INSERT_RANGE))) {
->  		ret = -EOPNOTSUPP;
-> @@ -2403,6 +2416,8 @@ static int f2fs_ioc_start_atomic_write(struct file *filp, bool truncate)
->  
->  	f2fs_down_write(&fi->i_gc_rwsem[WRITE]);
->  	f2fs_down_write(&fi->i_gc_rwsem[READ]);
-> +	/* serialize with f2fs_vm_page_mkwrite(), see the comment there */
-> +	filemap_invalidate_lock(inode->i_mapping);
->  
->  	/*
->  	 * Should wait end_io to count F2FS_WB_CP_DATA correctly by
-> @@ -2458,6 +2473,7 @@ static int f2fs_ioc_start_atomic_write(struct file *filp, bool truncate)
->  	f2fs_i_size_write(fi->cow_inode, isize);
->  
->  out_unlock:
-> +	filemap_invalidate_unlock(inode->i_mapping);
->  	f2fs_up_write(&fi->i_gc_rwsem[READ]);
->  	f2fs_up_write(&fi->i_gc_rwsem[WRITE]);
->  	if (ret)
+vim +618 sound/soc/airoha/an7581-pcm.c
 
+   614	
+   615	static const struct snd_soc_component_driver an7581_pcm_platform = {
+   616		.name = "an7581-pcm-audio",
+   617		.pointer = an7581_pcm_pointer,
+ > 618		.pcm_construct = an7581_pcm_new,
+   619	};
+   620	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
