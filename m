@@ -1,135 +1,232 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E61D7415F2B;
-	Sat, 10 Oct 2026 06:38:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CB5F3DC4CE;
+	Sat, 10 Oct 2026 06:38:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791614299; cv=none; b=iInAiTuXZO8/uj5fpohnuSl7P3perIhDyWY+TMbyeLtKQs69vGx/mDC3eNPczgDZsqeSo0qBU5gbSdk+0AxY6gRZkPFCTOhFTrxjTe9DkV3BKSqZjTbhCmSkNfOtrGY/GmUiTt/Wm+vD7kCbBRQPLFsuJB5yBCi5qGHgCyEzs4M=
+	t=1791614342; cv=none; b=lZeEIvoNwjGRcYocxd/4gutM4qFbopjqcEpWyVQB2NrYSwOWotIbc0IaKc7LNNaIceAhN9fg/+uD9Waf9Cp9MzumA6PkFxc/Sv4QGXhIVxEoCUkEYxK+kwhpQ/7Dc2BA+JXVcd1G0546I8ilkPN7yuRTWmRkXbMwhtOv6CyRbnM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791614299; c=relaxed/simple;
-	bh=FRkbyicEgHvVn+9maphnvTU+dFbi1rgBLTqcvHIHWLs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=QbC4cestBBF7lmjDXrshbCrgvc1qi0AmQJSiXdYFiLAT5mQ41oAZnF5P9JLGVdBfykgn7SGrCCUKaOZpfL3L5d57JOZPJrdtEpAN9/g7pQQ5KOMpqKgaGSzTMgyxx/6tUUBdOOBmZA2zV9EG5BwxkR9FF9gTUogo7lrvV1Xzf/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nGDBEUaR; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nGDBEUaR"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 86A2DC2BCC7;
-	Sat, 10 Oct 2026 06:38:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791614298;
-	bh=FRkbyicEgHvVn+9maphnvTU+dFbi1rgBLTqcvHIHWLs=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=nGDBEUaRVR/T8TvqJBEPis7RLQe5JREuUNTZO0G66PDo2mGiVuvTs07RY3Tls5d5R
-	 tTaUVZUgmTk6CAlyTorJ2IvRL1hE94VqBbimW5JA0ZNERO85DzARvhSLbz9mAIRCuM
-	 Uwo8glDIkKX/of1vN0kAQpbMPmjOfPFKYtwui37nNsEpHbsWij0oFJ9S18OIFjn7KX
-	 HZ5lC227FYOlLF/i51QNrt1JSxd4zOKyAdOX5wvH8NTk7ZcBh9AtGt/7TY5vqROfFc
-	 GwS1NzIEL03isM98ZpTME0lNaAeWHlLBDErGkDYBhFxa+4giqgBkj0pDMQZ04D1mdc
-	 TOx65Ly5fnlRQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 62D96CA6017;
-	Sat, 10 Oct 2026 06:38:18 +0000 (UTC)
-From: =?utf-8?q?Mert_Erdo=C4=9Fan_via_B4_Relay?= <devnull+mrterdo75.gmail.com@kernel.org>
-Date: Sat, 10 Oct 2026 09:38:10 +0300
-Subject: [PATCH] platform/x86: hp-wmi: Add Victus 16-e0xxx board 88EE
- support
+	s=arc-20240116; t=1791614342; c=relaxed/simple;
+	bh=sbfm5i/deI8940dzfdbWaeuO9SzmcWaMp8G1ZCg3Bfw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=YUN03xDuvX3JrykwbJDeATEtHYI+I2fyzH2ldtZsGtpwU/0/RsVZYFYwfLJWgg60ZGrF4VBUkW7c2N7dmoDs4J1uczHv87iZJiAUnBs4J6L9slYBNoTDMoj3472Ad/6M+gc7sodfPRY2c9alwtQ1p0chWKj+da+r49kQEPTY654=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.127])
+	by APP-01 (Coremail) with SMTP id qwCowAD3ye1q3clq+e5uCg--.39007S2;
+	Sat, 10 Oct 2026 14:38:35 +0800 (CST)
+Message-ID: <58550960f484cc419d19e693b9efa5b03982cc22.camel@iscas.ac.cn>
+Subject: Re: [PATCH 2/2] drm/loongson: Handle buffer mapping failures when
+ clearing a BO
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Evanshenf
+	 <archwse@gmail.com>, dri-devel@lists.freedesktop.org, Natalie Vock
+	 <natalie.vock@gmx.de>, "Paneer Selvam, Arunpravin"
+	 <Arunpravin.PaneerSelvam@amd.com>
+Cc: Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>, 
+ Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>, Xi
+ Ruoyao <xry111@xry111.site>, Sui Jingfeng <suijingfeng@loongson.cn>,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org, Huang Rui	
+ <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, Matthew Brost	
+ <matthew.brost@intel.com>
+Date: Sat, 10 Oct 2026 14:38:34 +0800
+In-Reply-To: <2b0d0a02-99a5-447a-8e3f-6154b2660425@amd.com>
+References: <20261003093415.e64386de1e64-1-archwse@gmail.com>
+	 <20261003093415.902f89244043-2-archwse@gmail.com>
+	 <f25629d4aa3c0132275b0a798e1491119fa8d502.camel@iscas.ac.cn>
+	 <2b0d0a02-99a5-447a-8e3f-6154b2660425@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261010-hp-wmi-victus-88ee-v1-1-e2200686bc2b@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/12NzU7DMBAGXyXymUVeJ/6LEOI9UA+2s2kX4bbES
- UCq+u44DSduO9K3MzdRaGIqom9uYqKVC1/OFfCpEekUzkcCHioLJZVBiRJOV/jODCuneSngHBG
- gHZXr3KA624r6eJ1o5J+H9P2wc1niB6V5M/0tJvpaam3eZyJTKeFR65uXPSbt/1hQBlYE3C5tQ
- sLOS/d2zIE/n9Mlv27qGApBhcxz33g3ytYro0k7qTwOmqwJiFFJq3SHY4yYWt+Kw/3+C8AFNnU
- LAQAA
-X-Change-ID: 20261010-hp-wmi-victus-88ee-17f2848d2473
-To: Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Ege_Kundak=C3=A7=C4=B1o=C4=9Flu?= <egekun67@gmail.com>, 
- =?utf-8?q?Mert_Erdo=C4=9Fan?= <mrterdo75@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791614297; l=2781;
- i=mrterdo75@gmail.com; s=20261007; h=from:subject:message-id;
- bh=krMjwVPvW4p6J7pzdTxvOgoD3/uAh2OaFLpfxtDbAN0=;
- b=i8Bz2jidRj5j39v1cloaOrkqxqI3DRXdZVN9wBBGCS8B2mmdvWNW3YLlwvYnEdaVHhrp4D2N4
- kOIBIo3qQadC6USbVfi/tcXgvlMKO5QDLMVE7v+7B1KTCan+AKM3iZh
-X-Developer-Key: i=mrterdo75@gmail.com; a=ed25519;
- pk=bUOfewdT6wnBK6cWdxYDgGaI8ee0+BwtzPbg982vJP8=
-X-Endpoint-Received: by B4 Relay for mrterdo75@gmail.com/20261007 with
- auth_id=1127
-X-Original-From: =?utf-8?q?Mert_Erdo=C4=9Fan?= <mrterdo75@gmail.com>
-Reply-To: mrterdo75@gmail.com
+X-CM-TRANSID:qwCowAD3ye1q3clq+e5uCg--.39007S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3GF45uw1fZrykXrW3ur4DJwb_yoW7Xr4rpr
+	ZxAa4jkrWDXrnFkrnFqa4kC3WSka4Sgr17WFW5Ja4rW39Fyr1UWF15WFWDuF9rZF17Ar42
+	vrn3Ganxu3Z0v37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+	c7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr
+	1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE
+	14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7
+	IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
+	87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
+	IFyTuYvjxUqiFxDUUUU
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-From: Mert Erdoğan <mrterdo75@gmail.com>
+=E5=9C=A8 2026-10-09=E4=BA=94=E7=9A=84 16:14 +0200=EF=BC=8CChristian K=C3=
+=B6nig=E5=86=99=E9=81=93=EF=BC=9A
+> On 10/9/26 15:50, Icenowy Zheng wrote:
+> > =E5=9C=A8 2026-10-03=E5=85=AD=E7=9A=84 09:34 +0000=EF=BC=8CEvanshenf=E5=
+=86=99=E9=81=93=EF=BC=9A
+> > > lsdc_bo_clear() ignores the return value from lsdc_bo_kmap() and
+> > > writes
+> > > to lbo->kptr unconditionally. When the first mapping of a newly
+> > > allocated
+> > > buffer fails, kptr is still NULL and the subsequent memset
+> > > accesses
+> > > it.
+> > >=20
+> > > Return the mapping error without touching the buffer and
+> > > propagate it
+> > > from lsdc_gem_object_create(). Install the GEM object functions
+> > > before
+> > > clearing so that drm_gem_object_put() can release the buffer
+> > > correctly
+> > > on failure. Do not add the failed object to the tracking list or
+> > > return
+> > > an uncleared buffer to the caller.
+> > >=20
+> > > Imported buffers still skip clearing, and successfully mapped
+> > > buffers
+> > > are cleared and unmapped as before.
+> > >=20
+> > > Tested on LS7A2000 with a one-shot range error in ttm_bo_kmap().
+> > > Its
+> > > -EINVAL return reached userspace, the object was destroyed once,
+> > > and
+> > > no GEM handle was published. Normal
+> > > create/map/zero/write/read/close
+> > > cycles passed, with the tracked BO count and VRAM usage
+> > > unchanged.
+> > >=20
+> > > AI assistance was used for the lifetime analysis, fix, fault-
+> > > injection
+> > > tools, build and test execution.
+> > >=20
+> > > Fixes: f39db26c5428 ("drm: Add kms driver for loongson display
+> > > controller")
+> > > Cc: stable@vger.kernel.org
+> > > Assisted-by: LLM
+> > > Signed-off-by: Evanshenf <archwse@gmail.com>
 
-The HP Victus 16-e0xxx (board 88EE) is not in any of the Omen or Victus
-board lists, so it falls back to the generic thermal profile handling
-and the GPU cTGP offset is never enabled.
+I'm going to accept this patch now.
 
-Its DSDT handles the 0x20008 type 0x1A query like the 8A26 one: the
-mode is stored in the EC register at offset 0x95, which is what the
-Victus path reads back, and cTGP is enabled in performance mode. Add
-88EE to victus_thermal_profile_boards and update the comment above the
-list, which only mentioned the Victus 16-d.
+```
+Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+```
 
-Ege Kundakçıoğlu tested this on a Victus 16-e0xxx (BIOS F.27, RTX 3060
-Laptop GPU). With the unpatched module the GPU power limit stays at
-80 W in the balanced, performance and quiet profiles. With this patch
-performance gives 95 W, balanced 80 W and quiet 30 W, the EC register
-at 0x95 matches the selected profile, and in performance the limit is
-back at 95 W after unplugging and replugging AC.
+Although I may prefer to remove the clearing routine in the future.
 
-Unlike on 8A26, the 0x1A query only sets cTGP here. Dynamic Boost (the
-NPCF DTGP flag) reads back as 0, as the only WMI query that sets it is
-0x22, which the Victus path does not send. The GPU still reaches its
-95 W maximum, and the tester sees the same maximum on Windows.
+Thanks,
+Icenowy
 
-This patch was prepared with an AI coding agent (Claude Code, using
-Claude Opus 5.5). It checked the DSDT, wrote the change and the test
-script. Ege ran the test on the laptop and I checked the results.
-
-Tested-by: Ege Kundakçıoğlu <egekun67@gmail.com>
-Assisted-by: claude-opus-5-5
-Signed-off-by: Mert Erdoğan <mrterdo75@gmail.com>
----
-This applies on top of my pending 8A26 patch for the same board list:
-https://lore.kernel.org/r/20261007-hp-wmi-victus-8a26-v1-1-8a256ac14908@gmail.com
-
-Before this patch the owner of the laptop enabled cTGP with an
-acpi_call workaround sending the same 0x1A query in performance mode.
----
- drivers/platform/x86/hp/hp-wmi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
-index 15f1e9f63..1c16a0656 100644
---- a/drivers/platform/x86/hp/hp-wmi.c
-+++ b/drivers/platform/x86/hp/hp-wmi.c
-@@ -230,8 +230,9 @@ static const char * const omen_timed_thermal_profile_boards[] = {
- 	"8BAD",
- };
- 
--/* DMI Board names of Victus 16-d laptops */
-+/* DMI Board names of Victus 16-d and 16-e laptops */
- static const char * const victus_thermal_profile_boards[] = {
-+	"88EE",
- 	"88F8",
- 	"8A25",
- 	"8A26",
-
----
-base-commit: 98f039265e580291d5e76a11b2072541fbb1c393
-change-id: 20261010-hp-wmi-victus-88ee-17f2848d2473
-prerequisite-message-id: <20261007-hp-wmi-victus-8a26-v1-1-8a256ac14908@gmail.com>
-prerequisite-patch-id: 3f4190ae015c5cfc0c87dd8b3f7829a95effb9cb
-
-Best regards,
---  
-Mert Erdoğan <mrterdo75@gmail.com>
-
+> > > ---
+> > > =C2=A0drivers/gpu/drm/loongson/lsdc_gem.c | 12 ++++++++----
+> > > =C2=A0drivers/gpu/drm/loongson/lsdc_ttm.c | 10 ++++++++--
+> > > =C2=A0drivers/gpu/drm/loongson/lsdc_ttm.h |=C2=A0 2 +-
+> > > =C2=A03 files changed, 17 insertions(+), 7 deletions(-)
+> > >=20
+> > > diff --git a/drivers/gpu/drm/loongson/lsdc_gem.c
+> > > b/drivers/gpu/drm/loongson/lsdc_gem.c
+> > > index 2fb0348..9eba4e1 100644
+> > > --- a/drivers/gpu/drm/loongson/lsdc_gem.c
+> > > +++ b/drivers/gpu/drm/loongson/lsdc_gem.c
+> > > @@ -157,14 +157,18 @@ struct drm_gem_object
+> > > *lsdc_gem_object_create(struct drm_device *ddev,
+> > > =C2=A0		return ERR_PTR(ret);
+> > > =C2=A0	}
+> > > =C2=A0
+> > > +	gobj =3D &lbo->tbo.base;
+> > > +	gobj->funcs =3D &lsdc_gem_object_funcs;
+> > > +
+> > > =C2=A0	if (!sg) {
+> > > =C2=A0		/* VRAM is filled with random data */
+> > > -		lsdc_bo_clear(lbo);
+> > > +		ret =3D lsdc_bo_clear(lbo);
+> > > +		if (ret) {
+> > > +			drm_gem_object_put(gobj);
+> > > +			return ERR_PTR(ret);
+> > > +		}
+> > > =C2=A0	}
+> > > =C2=A0
+> > > -	gobj =3D &lbo->tbo.base;
+> > > -	gobj->funcs =3D &lsdc_gem_object_funcs;
+> > > -
+> > > =C2=A0	/* tracking the BOs we created */
+> > > =C2=A0	mutex_lock(&ldev->gem.mutex);
+> > > =C2=A0	list_add_tail(&lbo->list, &ldev->gem.objects);
+> > > diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.c
+> > > b/drivers/gpu/drm/loongson/lsdc_ttm.c
+> > > index 88536e2..7b30dea 100644
+> > > --- a/drivers/gpu/drm/loongson/lsdc_ttm.c
+> > > +++ b/drivers/gpu/drm/loongson/lsdc_ttm.c
+> > > @@ -388,9 +388,13 @@ void lsdc_bo_kunmap(struct lsdc_bo *lbo)
+> > > =C2=A0	ttm_bo_kunmap(&lbo->kmap);
+> > > =C2=A0}
+> > > =C2=A0
+> > > -void lsdc_bo_clear(struct lsdc_bo *lbo)
+> > > +int lsdc_bo_clear(struct lsdc_bo *lbo)
+> > > =C2=A0{
+> > > -	lsdc_bo_kmap(lbo);
+> > > +	int ret;
+> > > +
+> > > +	ret =3D lsdc_bo_kmap(lbo);
+> > > +	if (ret)
+> > > +		return ret;
+> > > =C2=A0
+> > > =C2=A0	if (lbo->is_iomem)
+> > > =C2=A0		memset_io((void __iomem *)lbo->kptr, 0, lbo-
+> > > >size);
+> > > @@ -398,6 +402,8 @@ void lsdc_bo_clear(struct lsdc_bo *lbo)
+> > > =C2=A0		memset(lbo->kptr, 0, lbo->size);
+> > > =C2=A0
+> > > =C2=A0	lsdc_bo_kunmap(lbo);
+> > > +
+> > > +	return 0;
+> > > =C2=A0}
+> > > =C2=A0
+> > > =C2=A0int lsdc_bo_evict_vram(struct drm_device *ddev)
+> >=20
+> > Well I currently don't know whether the clearing is meaningful...
+> >=20
+> > It seems that drm_gem_vram_helper doesn't do this.
+> >=20
+> > Cc'ing TTM maintainers for an answer.
+>=20
+> Natalie and Arun are TTM maintainers now, but I will try to answer
+> here as well.
+>=20
+> OpenGL doesn't necessarily require clearing of VRAM nor isolation of
+> VRAM data between processes.
+>=20
+> So it is up to the driver if they want this or not. Classically a lot
+> of drivers didn't clear VRAM allocations until explicitely asked.
+>=20
+> But if you clear the memory you should have proper error handling and
+> a kmap/vmap can fail at any time for multiple reasons.
+>=20
+> Regards,
+> Christian.
+>=20
+> >=20
+> > Thanks,
+> > Icenowy
+> >=20
+> > > diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.h
+> > > b/drivers/gpu/drm/loongson/lsdc_ttm.h
+> > > index 843e147..df47d9b 100644
+> > > --- a/drivers/gpu/drm/loongson/lsdc_ttm.h
+> > > +++ b/drivers/gpu/drm/loongson/lsdc_ttm.h
+> > > @@ -89,7 +89,7 @@ size_t lsdc_bo_size(struct lsdc_bo *lbo);
+> > > =C2=A0
+> > > =C2=A0int lsdc_bo_kmap(struct lsdc_bo *lbo);
+> > > =C2=A0void lsdc_bo_kunmap(struct lsdc_bo *lbo);
+> > > -void lsdc_bo_clear(struct lsdc_bo *lbo);
+> > > +int lsdc_bo_clear(struct lsdc_bo *lbo);
+> > > =C2=A0
+> > > =C2=A0int lsdc_bo_evict_vram(struct drm_device *ddev);
+> > > =C2=A0
+> >=20
 
