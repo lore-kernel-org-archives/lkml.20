@@ -1,489 +1,181 @@
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31E9D23BD06
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 04:14:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791605648; cv=none; b=O9tH6VEKDs8lA/dC43Wp6aafIH+Xyhy75nWQ73d8IdxYvbsTk9+Vyi7nu9PtTmGkhLbTR4443bVx4TSesSp7Y0vJki0uQ+hfHmxWH1QuDw5aSiWDSrAu7w3Le3nwazOd0PMPkFG+hQdVwmoE+T4XdAZ8f03rMxPW20PUve8GWHc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791605648; c=relaxed/simple;
-	bh=JnVvdMfpBPPUr5tVd75daKFqhtnA/9EVpACfnPpUU7E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GLXohYbh3XpJutkIO/QSjpQNvV0VXw579GcQbLjwWm2w+/2wQ9lsHYyjizlIewlHtPeBhVONP2KW3dzf1LBKegJtkbkseB9np4sZoalnZSYNDPbzTjSXFrsn7lb9yXj4ZlBiwgpJIV9CNSSqrpPdZZX4wZn0+bcB9tP0aSIpUao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LAzdrHiX; arc=none smtp.client-ip=74.125.82.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD9BE3290A6
+	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 04:18:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791605898; cv=pass; b=VWMgPQt4HiWmXnyVuTQiUbCr6K91ZbtA3u7q3FZs821hFu3O0OnZ5b9TWxH/4c4w1WvXtyWGJ8+UvpliwIcNUWi8V8JU8bkaCdmBya/s7MrVpO6YmIkFCy+aCmDaltX7R4JzFN1XPhdRxuyYX4X/NamEjqJXGcel5QG13PydIS8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791605898; c=relaxed/simple;
+	bh=KYy6VegmlTUaxOe7PFlSpF96TjgUY4FSEQt4j5zRT20=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MEIwIxi9iTnVilJomhPAuXuDEJ5O7TZQhqYa4AK1kCNox3vqHdJ7pDMO7Pp3HzRL+xUvNdUuhfTtf90RknqY+Jv6HdMTzVOZlY7eWJINhuYnNbxi6P1hbWxaJYCt1fakHLZ+LTja2FbcklwWJ6HwygGt5i5NTPnt59Ka9oNNNk8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OxwPN3z2; arc=pass smtp.client-ip=209.85.161.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LAzdrHiX"
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-30b6dad2382so697470eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 21:14:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OxwPN3z2"
+Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6df5e315bd1so304767eaf.2
+        for <linux-kernel@vger.kernel.org>; Fri, 09 Oct 2026 21:18:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791605895; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ncNCLqvmDECB5BsIjA3wOxZXeZf6uEugCfbHN+3G9BM13j16/I0WI0cn3mTasZ5ZxP
+         jaPG0IjrhXGMEGbkg7PC+zw0G2EGVoXmqJ0Uu9fcApIYMVh5MOVqv5vpBZhUEcfotIYK
+         md4hzQk6M3P6B6drjVbpga9BsgrAuY8B4GEe+2miWCL5Kp4Wd5FWJQ8Fj77VtxsC8QAn
+         XRrQjfFkj9wwAjka+bUD1cK7qS9o9E7LSSkNvY1rzKzmM+dkUzn9f5F766MiWzrcdxUO
+         QF2aGUU9fglJhADiHTG+XN5oqh+YCjHzlS2MW+fjovlcbWzsIICJAkrxXIt86vdazzyK
+         zaYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Ew33P9923AzoJpuAktLckP37GCcxC9qHFUOjrnQW1Ik=;
+        fh=HHByedXzQyz2gAJ2j3Uqc4Ypg5IyVKOopoZTPeyBNeU=;
+        b=D6P+AGrhgHW5hhYvNk9SIjN8n/a/R0LhoBGb1+Ml3GuundRH07WjNkwlKVwFg7njra
+         +NFv7I1AmohxAOV/GbiG2iv9oqVDNC97gpWKdNMDT/S9ecBF+j424emXgTvhQy6yXcuc
+         oN090rHAi96i1BR4fajv0tgJ/hRxxPzzWnTZKNu16bltIspFcl2COpxAbYXEH9N3+aUD
+         KRzRCLL4U3F8Jc0SgFGXNWBChVTR9oKgrQ/i5xDc9bvmo+Qn9VVa9NrtMKQIy+z5VFRd
+         hFgn9ELXq+HAIHEFwW3vUxRsXM5NnHAYso8KnyFcCjaDUwejCm3/r2W3W30at2j6cgX9
+         +OiQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791605646; x=1792210446; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=U29RvRLHyGcXDwNGcPQ+8ouOOS53sOjL9OYSY+u0Obk=;
-        b=LAzdrHiXIyOAkrKrSCY1lQ3GkcPXGkKBeDLEqv44q49fZ3Xxz1RjdmCcPFbMK6DEzY
-         WkQ1+s5/kk9Wd544wp/VX6MxLOOmDX4qeVsJam5P1EHTR/0clX5HjEFeuLueaDRwGGZF
-         DqdyK9aQPrjZZ2u0+4wLxWB2o4RsUbN1sgWAfJOtNYkQJqac1tKTM0n8TM54htFswTJ6
-         +Dkwm1GpMAtOVDAXrSX9qQ3/Lc3PtS0FJrQvF2C7VNHAyKqghQsm5QGnrNC0mT8Y/OCJ
-         W5DgBOwpX8cxW2i4rP2VXNrOMWbJOZ/Rk1MQm8xt2PQY1JRC4Pjp0kXavHY2FuL7fSYE
-         B4Aw==
+        d=gmail.com; s=20251104; t=1791605895; x=1792210695; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ew33P9923AzoJpuAktLckP37GCcxC9qHFUOjrnQW1Ik=;
+        b=OxwPN3z2Qz8oUwvwhqV8qNluN4gvU/XIaloMEhRouQnKBX5awGvC1nhoxLjPFyIQ7u
+         DV3EiJm9Ieqo4hI0bJ/MF6sbCni4DbDsLnE7s8oAWWXxzD4FXfhyk3JfNMA0vvJuRUQn
+         DbjnHf5C5cI67mieFz1E36SjXNwSYq5u9iby+wu9S54Op6T1sIn54U8o4l/dEiqW7UuQ
+         nGgOsf1drkrgL0CRVP1/ZgUY0Gkbe6zGIyk3wWzdCVQbL4jkQn7FH3nI7Nf6NTBrQTNf
+         YdmDsbc1lfhFlsFBEObW4MODgwE+CAj0WcyV2RadszbAc0Hbd7I7rAL6D2R1x6b5CFTf
+         8j/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791605646; x=1792210446;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=U29RvRLHyGcXDwNGcPQ+8ouOOS53sOjL9OYSY+u0Obk=;
-        b=qLZ6oiRgV5FFUVvpvLR2IiZETCoPHoNNd/jaq8M8gv2iUSxRutlNIRET7cfM6RnYz8
-         +EfDiO8dQF8juXnNlDDQs+uRFMEuHz3AmRypkiG5TxNM095jVzDY4t7IJME7UWKdH+zx
-         Rg3KO7hYOxTR1yQ9KNRnRh88X57QzsYl25xND/Y+/3XdyqQ3dgvcwFXCelQkIJ93w/AE
-         LdIy6+kvorQd+F3j9Mhb9HY4BL8a0UWZ96XLF5DydubuIz+4xa5To6j1joFF+GgIdtDa
-         yzhSYu2iF4C3ISm3rVa+5LTg5QnAUe+S6CBdeJEYzXdSIpPi51JuA8Bm5GYIYI7ZA3kn
-         hQXg==
-X-Gm-Message-State: AFq9FYLZibyMqIdl0/IQzpLXjOD9utPO2hZQt3+xvWU51r3rrci1G5ng
-	IF0ZwFnHmsWbw0ExnLLgTdORxUrYVcLtwbmgT1KQXFkaaFdNZ5UdAzyaftw0FJ1s
-X-Gm-Gg: AYBFou3AMmCt85xorcyHGWQURb2P8he/feQfxs6/55siLgN6f0x9gKnRu082+MkFFLo
-	eDLPq/efXid9p+qb2JAWX1e3sNi83taPyrQcYpgbEiI3S/SSbA4VjOY8VRStgcVA0Z6EdOeFRxV
-	HFCDRQxOMgfq2dINqFyzyBWGcgu4+hDhz5ZA4mhgp/DH+lRC4tArqeVhHodz7ty4V/9yF/abl62
-	vquzl0JuxwDZIhtIlXHkxnXJilSD2UkyUSARRcwjBvyF+GbwdRQ7tNJugoA1La6f2B8ZpPEJfur
-	NrJI+EzigOFibaZ+xi9yhh0gsgP6FdQhsDyXQasc/iuuV1uh6J3/yamWJx22oFgs/YNZeogTobD
-	eWafiPsIFYAjviHGSOQVivu6FRvFQaopmO7jJbA0VVia9uPfNRMsoo8ebp6ZIFDjGtIXQ7NlFWI
-	b7BxkLvv/qU5oYfjlHylfBSTmzUtm0BGCXdWevV392jaIi/sxBwKzlLg19OyLqQIp732JrASbSJ
-	ODGXLjXEc0duO7Fj1too/fwD4DLuLtGryhRcE5KtzJWMaNPUySsOP0NJuBe5PqN
-X-Received: by 2002:a05:7300:828a:b0:34c:d1f2:b552 with SMTP id 5a478bee46e88-3537dedaa87mr5045346eec.4.1791605645612;
-        Fri, 09 Oct 2026 21:14:05 -0700 (PDT)
-Received: from seppy ([2600:8800:206:8e00::5a4f])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca67b21sm10649471eec.11.2026.10.09.21.14.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 21:14:05 -0700 (PDT)
-From: Ethan Jimmy <duhxu0@gmail.com>
-To: linux@roeck-us.net,
-	linux-hwmon@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Ethan Jimmy <duhxu0@gmail.com>
-Subject: [PATCH] hwmon: (acer-aspire14-ec) Add driver for Acer Aspire 14 52MT and 52M fan
-Date: Fri,  9 Oct 2026 21:13:13 -0700
-Message-ID: <20261010041313.34153-1-duhxu0@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1791605895; x=1792210695;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ew33P9923AzoJpuAktLckP37GCcxC9qHFUOjrnQW1Ik=;
+        b=UlcgbvcDPS4+2kQBVxBzmgTNuIy6v0QK5ZMBKwGNIbW8UBNHvPdJauCA+dGKIJpMAS
+         Gr0XEqQGnfa33gsvgOWobfiSDdBc/BO6mwxIaocqVCC4hsqvpYgNtOzPWTmNxiycl+Hq
+         0csIw0UwxOCpZmXjsudov4qce59iO9nWnsWYov8MtLlIg1OGkCd8Tamnkb73yU1A9kST
+         O0pfHfCyChUTseGFuva9voCcPadXQTAjWrX1RTlKw4a/lVumtQlvAv4THN1XkoEddXQZ
+         yC/NX3hPGOlkEmSQos3Th/V9Dbbo4j3tDWxB5vCTivyycJCF/IyrfMngtM9eRiUxfD59
+         JcSg==
+X-Forwarded-Encrypted: i=1; AKwUvBzHV/QcimWtBMPb19kO822X4vONh0SHFQfiRIKLN7oMo0QF980G+L0WaqqdW+72SezPZnMFt2vv3NmfkAM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLNqFny/IAoGkOpASYA8q13NBx4Rrt0Z6Pg+f76FfgQR2eVvxJK
+	RRbQr6oXlP7yEspNrUVAQ9RxUDsWTaP+IrI5u9h3U8ILHvlygEt+YKDI6TSsq07GG1TT9lgSv4h
+	vwfKGnzCJmLjhkgu/SI8oobNaDtLQbZo=
+X-Gm-Gg: AYBFou0k8Xe2+BF6i4eK/6obx4eU1S8BMKwTfqj+sniKEY8ZnCCAhNdtogU+eFbRh4d
+	rJs9lt8rAT0L62jwR20OuAWtySjWAszTEwdrNFbJPJL9zjqWVWOBw2U2NBIH4qFrqJKtQHj4Lwx
+	PI7peCQ7c4e/S+VogZ03Z3F3upvoIbYA3CY18MriOv+qTwSuM72WkVWUdYkgOxg6sTsphVMGB7g
+	hDW8L6Zwf4mhldC7CpPe1SrLjD/VMU/cb7aoYNqGr9PIVjSVMyoKhb7vKFSMfmtDUCSvY1+yLOv
+	LjxhjQagEhm9d68nMaVJdqszdAP9mKcWo+Ka4iv9AfPLkiispYuQ35I+xj6MpAG5ToYGUCCudCp
+	AKqXpzjEdOHgePUY48ZnHUyW71kQ5TMXYIcbyIr3ruFYHgAi7I8faAQ0=
+X-Received: by 2002:a05:6820:984:b0:6e2:3d8b:a01c with SMTP id
+ 006d021491bc7-6ef0e9dc2d0mr2797147eaf.19.1791605895411; Fri, 09 Oct 2026
+ 21:18:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261001-bug-block-elevator-init-quiesce-v1-1-5c85fa0ec59b@gmail.com>
+In-Reply-To: <20261001-bug-block-elevator-init-quiesce-v1-1-5c85fa0ec59b@gmail.com>
+From: Ming Lei <tom.leiming@gmail.com>
+Date: Fri, 9 Oct 2026 23:18:04 -0500
+X-Gm-Features: AclHuK_aaavcIOhZXQjbCJpj_zTwHfB7pXCx3pPddER2n9m6mNEdfh2htsXEqCI
+Message-ID: <CACVXFVNVC4cBuL6gFMMo+FktZnXdy18YJ-Wu81NqNfW7E4_6WA@mail.gmail.com>
+Subject: Re: [PATCH] block: don't quiesce the queue when setting the default elevator
+To: Qiliang Yuan <odys.yuan@gmail.com>
+Cc: Jens Axboe <axboe@kernel.dk>, Nilay Shroff <nilay@linux.ibm.com>, Hannes Reinecke <hare@suse.de>, 
+	Ming Lei <ming.lei@redhat.com>, linux-block@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The Aspire A14-52M and A14-52MT expose fan speed through an I2C HID
-embedded controller that also serves the keyboard. The same product id
-is used by other Acer keyboards, so the driver binds only when DMI
-matches these two models.
+On Wed, Sep 30, 2026 at 10:12=E2=80=AFPM Qiliang Yuan <odys.yuan@gmail.com>=
+ wrote:
+>
+> elevator_set_default() runs from blk_register_queue() while the disk is
+> still being added: the block device is not visible yet and uevents are
+> suppressed, so no file system I/O can be issued. elevator_change()
+> freezes the queue and cancels the dispatch work before switching, which
+> is enough to drain dispatch activity from passthrough requests, as the
+> comment in elevator_change() already states.
+>
+> elevator_switch() still quiesces the queue unconditionally, though, so
+> every disk added with a default elevator waits for an RCU grace period.
+> Commit 245a489e81e1 ("block: avoid to quiesce queue in
+> elevator_init_mq") had removed this wait from the default elevator
+> setup, and it came back when that setup was folded into
+> elevator_change().
+>
+> The wait is paid in full by callers that add disks one at a time. ublk
+> adds the disk of a single-queue device from START_DEV, which takes 7.7ms
+> at p50 in a 16 vCPU KVM guest, most of it in blk_mq_quiesce_queue()
+> called from elevator_set_default().
+>
+> Skip quiescing in elevator_switch() when setting the default elevator.
+>
+> ublk null target, 1000 single-queue devices created one by one:
+>
+>                      before      after
+>   START_DEV p50      7.74ms     0.68ms
+>   START_DEV p99     14.61ms     1.32ms
+>   devices/s             114        971
+>
+> Fixes: 1e44bedbc921 ("block: unifying elevator change")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+> ---
+>  block/elevator.c | 7 +++++--
+>  block/elevator.h | 2 ++
+>  2 files changed, 7 insertions(+), 2 deletions(-)
+>
+> diff --git a/block/elevator.c b/block/elevator.c
+> index 2161b6eea680c..da9ba70ac9321 100644
+> --- a/block/elevator.c
+> +++ b/block/elevator.c
+> @@ -573,7 +573,8 @@ static int elevator_switch(struct request_queue *q, s=
+truct elv_change_ctx *ctx)
+>                         return -EINVAL;
+>         }
+>
+> -       blk_mq_quiesce_queue(q);
+> +       if (!ctx->no_quiesce)
+> +               blk_mq_quiesce_queue(q);
+>
+>         if (q->elevator) {
+>                 ctx->old =3D q->elevator;
+> @@ -594,7 +595,8 @@ static int elevator_switch(struct request_queue *q, s=
+truct elv_change_ctx *ctx)
+>         blk_add_trace_msg(q, "elv switch: %s", ctx->name);
+>
+>  out_unfreeze:
+> -       blk_mq_unquiesce_queue(q);
+> +       if (!ctx->no_quiesce)
+> +               blk_mq_unquiesce_queue(q);
+>
+>         if (ret) {
+>                 pr_warn("elv: switch to \"%s\" failed, falling back to \"=
+none\"\n",
+> @@ -731,6 +733,7 @@ void elevator_set_default(struct request_queue *q)
+>         struct elv_change_ctx ctx =3D {
+>                 .name =3D "mq-deadline",
+>                 .no_uevent =3D true,
+> +               .no_quiesce =3D true,
+>         };
+>         int err;
 
-Signed-off-by: Ethan Jimmy <duhxu0@gmail.com>
----
- Documentation/hwmon/acer-aspire14-ec.rst |  38 ++++
- Documentation/hwmon/index.rst            |   1 +
- MAINTAINERS                              |   8 +
- drivers/hwmon/Kconfig                    |  20 ++
- drivers/hwmon/Makefile                   |   1 +
- drivers/hwmon/acer-aspire14-ec.c         | 270 +++++++++++++++++++++++
- 6 files changed, 338 insertions(+)
- create mode 100644 Documentation/hwmon/acer-aspire14-ec.rst
- create mode 100644 drivers/hwmon/acer-aspire14-ec.c
+Looks good given elevator_set_default() is only called on new added disk,
 
-diff --git a/Documentation/hwmon/acer-aspire14-ec.rst b/Documentation/hwmon/acer-aspire14-ec.rst
-new file mode 100644
-index 000000000000..73acfb181c39
---- /dev/null
-+++ b/Documentation/hwmon/acer-aspire14-ec.rst
-@@ -0,0 +1,38 @@
-+.. SPDX-License-Identifier: GPL-2.0-or-later
-+
-+Kernel driver acer-aspire14-ec
-+==============================
-+
-+Supported chips:
-+
-+  * Acer Aspire 14 AI 52MT/52M embedded controller
-+
-+    Prefix: 'aspire14_ec'
-+
-+    Addresses scanned: none
-+
-+    Datasheet: unavailable
-+
-+Author: Ethan Jimmy <duhxu0@gmail.com>
-+
-+Description
-+-----------
-+
-+This driver monitors the fan on the Acer Aspire 14 AI (Aspire A14-52M
-+and A14-52MT). The embedded controller is an I2C HID device (vendor
-+0x1025, product 0x174b) that also provides the keyboard.
-+
-+The device is autodetected on those models. The same product id is used
-+by other Acer keyboards; those machines stay with hid-generic. On the
-+Aspire A14-52M and A14-52MT this driver provides both the keyboard and
-+the fan sensor.
-+
-+Fan speed is reported in RPM through the standard hwmon attribute
-+``fan1_input``. The driver does not change fan speed.
-+
-+Sysfs entries
-+-------------
-+
-+======================= ======================================================
-+fan1_input		Fan speed in RPM
-+======================= ======================================================
-diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
-index 199ca79621e9..9dd16e6ddabd 100644
---- a/Documentation/hwmon/index.rst
-+++ b/Documentation/hwmon/index.rst
-@@ -22,6 +22,7 @@ Hardware Monitoring Kernel Drivers
-    abituguru
-    abituguru3
-    acbel-fsg032
-+   acer-aspire14-ec
-    acpi_power_meter
-    ad7314
-    adc128d818
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 5ad12c57ca5f..b944f77c7a71 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -262,6 +262,14 @@ L:	linux-gpio@vger.kernel.org
- S:	Maintained
- F:	drivers/gpio/gpio-pcie-idio-24.c
- 
-+ACER ASPIRE 14 AI (A14-52M, A14-52MT) EC FAN DRIVER
-+M:	Ethan Jimmy <duhxu0@gmail.com>
-+L:	linux-hwmon@vger.kernel.org
-+L:	linux-input@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/hwmon/acer-aspire14-ec.rst
-+F:	drivers/hwmon/acer-aspire14-ec.c
-+
- ACER ASPIRE ONE TEMPERATURE AND FAN DRIVER
- M:	Peter Kaestle <peter@piie.net>
- L:	platform-driver-x86@vger.kernel.org
-diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-index 18c682e1a475..84e9e9c115a1 100644
---- a/drivers/hwmon/Kconfig
-+++ b/drivers/hwmon/Kconfig
-@@ -67,6 +67,26 @@ config SENSORS_ABITUGURU3
- 	  This driver can also be built as a module. If so, the module
- 	  will be called abituguru3.
- 
-+config SENSORS_ACER_ASPIRE14_EC
-+	tristate "Acer Aspire 14 AI EC fan sensor"
-+	depends on HID
-+	depends on X86 || COMPILE_TEST
-+	depends on DMI || COMPILE_TEST
-+	depends on I2C_HID_ACPI || I2C_HID_OF || COMPILE_TEST
-+	help
-+	  If you say yes here you get support for reading the fan
-+	  speed from the embedded controller on the Acer Aspire 14 AI
-+	  (Aspire A14-52M and A14-52MT). The controller is an I2C HID
-+	  device (vendor 0x1025, product 0x174b) that also provides the
-+	  keyboard. Fan speed is read-only.
-+
-+	  The same product id is used by other Acer keyboards. This driver
-+	  registers only on the Aspire A14-52M and A14-52MT, where it also
-+	  provides the keyboard. Other machines stay with hid-generic.
-+
-+	  This driver can also be built as a module. If so, the module
-+	  will be called acer-aspire14-ec.
-+
- config SENSORS_SMPRO
- 	tristate "Ampere's Altra SMpro hardware monitoring driver"
- 	depends on MFD_SMPRO
-diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
-index d4c345ed7261..ac5cec462c81 100644
---- a/drivers/hwmon/Makefile
-+++ b/drivers/hwmon/Makefile
-@@ -27,6 +27,7 @@ obj-$(CONFIG_SENSORS_W83791D)	+= w83791d.o
- 
- obj-$(CONFIG_SENSORS_ABITUGURU)	+= abituguru.o
- obj-$(CONFIG_SENSORS_ABITUGURU3)+= abituguru3.o
-+obj-$(CONFIG_SENSORS_ACER_ASPIRE14_EC) += acer-aspire14-ec.o
- obj-$(CONFIG_SENSORS_AD7314)	+= ad7314.o
- obj-$(CONFIG_SENSORS_AD7414)	+= ad7414.o
- obj-$(CONFIG_SENSORS_AD7418)	+= ad7418.o
-diff --git a/drivers/hwmon/acer-aspire14-ec.c b/drivers/hwmon/acer-aspire14-ec.c
-new file mode 100644
-index 000000000000..9d100f2a0b80
---- /dev/null
-+++ b/drivers/hwmon/acer-aspire14-ec.c
-@@ -0,0 +1,270 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Hwmon driver for the Acer Aspire 14 AI embedded controller.
-+ *
-+ * Author: Ethan Jimmy <duhxu0@gmail.com>
-+ *
-+ * On the Aspire A14-52M and A14-52MT the EC is an I2C HID device
-+ * (vendor 0x1025, product 0x174b) that also serves the keyboard. The same
-+ * product id is used by other Acer keyboards. The HID driver is registered
-+ * only when DMI matches these models, so those machines stay with hid-generic.
-+ * 
-+ * Fan speed is read with one feature report: A0 00 A0 08 00 02 02. The
-+ * reply carries a little-endian status word, command id, and RPM.
-+ */
-+
-+#include <linux/dmi.h>
-+#include <linux/hid.h>
-+#include <linux/hwmon.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/string.h>
-+#include <linux/unaligned.h>
-+
-+#define ACER_ASPIRE14_VID		0x1025
-+#define ACER_ASPIRE14_PID		0x174b
-+#define ACER_ASPIRE14_REPORT_ID		0xa0
-+#define ACER_ASPIRE14_PREFIX		0xa0
-+#define ACER_ASPIRE14_CMD_MARK		0x02
-+#define ACER_ASPIRE14_RPM_OFFSET	8
-+#define ACER_ASPIRE14_MIN_REPLY		(ACER_ASPIRE14_RPM_OFFSET + sizeof(u16))
-+#define ACER_ASPIRE14_STATUS_OK		0xe000
-+#define ACER_ASPIRE14_CMD_FAN_RPM	0x0008
-+
-+struct acer_aspire14_data {
-+	struct hid_device *hdev;
-+	struct device *hwmon_dev;
-+	struct mutex lock; /* protects buf across feature report I/O */
-+	u8 *buf;
-+	u32 report_len;
-+};
-+
-+static int acer_aspire14_fan_rpm(struct acer_aspire14_data *data, long *val)
-+{
-+	u16 status, command_id;
-+	int ret;
-+
-+	mutex_lock(&data->lock);
-+
-+	memset(data->buf, 0, data->report_len);
-+	data->buf[0] = ACER_ASPIRE14_REPORT_ID;
-+	data->buf[2] = ACER_ASPIRE14_PREFIX;
-+	put_unaligned_le16(ACER_ASPIRE14_CMD_FAN_RPM, &data->buf[3]);
-+	data->buf[5] = ACER_ASPIRE14_CMD_MARK;
-+	data->buf[6] = ACER_ASPIRE14_CMD_MARK;
-+
-+	ret = hid_hw_raw_request(data->hdev, ACER_ASPIRE14_REPORT_ID,
-+				 data->buf, data->report_len,
-+				 HID_FEATURE_REPORT, HID_REQ_SET_REPORT);
-+	if (ret < 0)
-+		goto unlock;
-+	if (!ret) {
-+		ret = -EIO;
-+		goto unlock;
-+	}
-+
-+	memset(data->buf, 0, data->report_len);
-+	data->buf[0] = ACER_ASPIRE14_REPORT_ID;
-+	ret = hid_hw_raw_request(data->hdev, ACER_ASPIRE14_REPORT_ID,
-+				 data->buf, data->report_len,
-+				 HID_FEATURE_REPORT, HID_REQ_GET_REPORT);
-+	if (ret < 0)
-+		goto unlock;
-+	if (ret < ACER_ASPIRE14_MIN_REPLY) {
-+		ret = -EIO;
-+		goto unlock;
-+	}
-+
-+	status = get_unaligned_le16(&data->buf[1]);
-+	command_id = get_unaligned_le16(&data->buf[3]);
-+	if (status != ACER_ASPIRE14_STATUS_OK ||
-+	    command_id != ACER_ASPIRE14_CMD_FAN_RPM) {
-+		ret = -EIO;
-+		goto unlock;
-+	}
-+
-+	*val = get_unaligned_le16(&data->buf[ACER_ASPIRE14_RPM_OFFSET]);
-+	ret = 0;
-+
-+unlock:
-+	mutex_unlock(&data->lock);
-+	return ret;
-+}
-+
-+static int acer_aspire14_read(struct device *dev, enum hwmon_sensor_types type,
-+			      u32 attr, int channel, long *val)
-+{
-+	struct acer_aspire14_data *data = dev_get_drvdata(dev);
-+
-+	if (type != hwmon_fan || attr != hwmon_fan_input || channel != 0)
-+		return -EOPNOTSUPP;
-+
-+	return acer_aspire14_fan_rpm(data, val);
-+}
-+
-+static umode_t acer_aspire14_is_visible(const void *drvdata,
-+					enum hwmon_sensor_types type,
-+					u32 attr, int channel)
-+{
-+	if (type == hwmon_fan && attr == hwmon_fan_input && channel == 0)
-+		return 0444;
-+
-+	return 0;
-+}
-+
-+static const struct hwmon_channel_info *const acer_aspire14_info[] = {
-+	HWMON_CHANNEL_INFO(fan, HWMON_F_INPUT),
-+	NULL
-+};
-+
-+static const struct hwmon_ops acer_aspire14_ops = {
-+	.is_visible = acer_aspire14_is_visible,
-+	.read = acer_aspire14_read,
-+};
-+
-+static const struct hwmon_chip_info acer_aspire14_chip_info = {
-+	.ops = &acer_aspire14_ops,
-+	.info = acer_aspire14_info,
-+};
-+
-+static const struct dmi_system_id acer_aspire14_dmi_table[] = {
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Aspire A14-52M"),
-+		},
-+	},
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Aspire A14-52MT"),
-+		},
-+	},
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(dmi, acer_aspire14_dmi_table);
-+
-+static u32 acer_aspire14_fan_report_len(struct hid_device *hdev)
-+{
-+	struct hid_report *report;
-+	u32 len;
-+
-+	report = hdev->report_enum[HID_FEATURE_REPORT].report_id_hash[ACER_ASPIRE14_REPORT_ID];
-+	if (!report)
-+		return 0;
-+
-+	len = hid_report_len(report);
-+	if (len < ACER_ASPIRE14_MIN_REPLY || len > HID_MAX_BUFFER_SIZE)
-+		return 0;
-+
-+	return len;
-+}
-+
-+static int acer_aspire14_probe(struct hid_device *hdev,
-+			       const struct hid_device_id *id)
-+{
-+	struct acer_aspire14_data *data;
-+	struct device *hwmon_dev;
-+	long rpm;
-+	u32 report_len;
-+	int ret;
-+
-+	hdev->quirks |= HID_QUIRK_INPUT_PER_APP;
-+
-+	ret = hid_parse(hdev);
-+	if (ret)
-+		return ret;
-+
-+	ret = hid_hw_start(hdev, HID_CONNECT_DEFAULT | HID_CONNECT_DRIVER);
-+	if (ret)
-+		return ret;
-+
-+	report_len = acer_aspire14_fan_report_len(hdev);
-+	if (!report_len)
-+		return 0;
-+
-+	data = devm_kzalloc(&hdev->dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return 0;
-+
-+	data->buf = devm_kzalloc(&hdev->dev, report_len, GFP_KERNEL);
-+	if (!data->buf)
-+		return 0;
-+	data->report_len = report_len;
-+
-+	ret = devm_mutex_init(&hdev->dev, &data->lock);
-+	if (ret) {
-+		hid_warn(hdev, "failed to init mutex: %d\n", ret);
-+		return 0;
-+	}
-+
-+	data->hdev = hdev;
-+	hid_set_drvdata(hdev, data);
-+
-+	ret = acer_aspire14_fan_rpm(data, &rpm);
-+	if (ret)
-+		hid_dbg(hdev, "fan report failed: %d\n", ret);
-+	else
-+		hid_dbg(hdev, "initial fan speed %ld RPM\n", rpm);
-+
-+	hwmon_dev = hwmon_device_register_with_info(&hdev->dev, "aspire14_ec",
-+						    data, &acer_aspire14_chip_info,
-+						    NULL);
-+	if (IS_ERR(hwmon_dev)) {
-+		hid_warn(hdev, "failed to register hwmon: %pe\n", hwmon_dev);
-+		return 0;
-+	}
-+	data->hwmon_dev = hwmon_dev;
-+
-+	return 0;
-+}
-+
-+static void acer_aspire14_remove(struct hid_device *hdev)
-+{
-+	struct acer_aspire14_data *data = hid_get_drvdata(hdev);
-+
-+	if (data && data->hwmon_dev)
-+		hwmon_device_unregister(data->hwmon_dev);
-+	hid_hw_stop(hdev);
-+}
-+
-+static int acer_aspire14_reset_resume(struct hid_device *hdev)
-+{
-+	if (hdev->claimed & HID_CLAIMED_INPUT)
-+		hidinput_reset_resume(hdev);
-+
-+	return 0;
-+}
-+
-+static const struct hid_device_id acer_aspire14_id_table[] = {
-+	{ HID_I2C_DEVICE(ACER_ASPIRE14_VID, ACER_ASPIRE14_PID) },
-+	{ }
-+};
-+
-+static struct hid_driver acer_aspire14_driver = {
-+	.name = "acer-aspire14-ec",
-+	.id_table = acer_aspire14_id_table,
-+	.probe = acer_aspire14_probe,
-+	.remove = acer_aspire14_remove,
-+	.reset_resume = acer_aspire14_reset_resume,
-+};
-+
-+static int __init acer_aspire14_init(void)
-+{
-+	if (!dmi_check_system(acer_aspire14_dmi_table))
-+		return -ENODEV;
-+
-+	return hid_register_driver(&acer_aspire14_driver);
-+}
-+
-+static void __exit acer_aspire14_exit(void)
-+{
-+	hid_unregister_driver(&acer_aspire14_driver);
-+}
-+
-+module_init(acer_aspire14_init);
-+module_exit(acer_aspire14_exit);
-+
-+MODULE_AUTHOR("Ethan Jimmy <duhxu0@gmail.com>");
-+MODULE_DESCRIPTION("Acer Aspire 14 AI EC fan driver");
-+MODULE_LICENSE("GPL");
--- 
-2.56.0
+Reviewed-by: Ming Lei <tom.leiming@gmail.com>
 
+
+
+Thanks,
+Ming Lei
