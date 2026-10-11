@@ -1,131 +1,240 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BD862EEE65
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 03:37:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A1E2EEE65;
+	Sun, 11 Oct 2026 03:38:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791689867; cv=none; b=fxstfbG0vR4Ns4U0bN+9eQLXe8FP0lbVNYmujVyuyKuN7qLYBfqyWkqpfyUt2E6bTQeN3lQz5UCv2eP7W3WiGyKkS1qnxE3d1dS/pIIp/aYG9ar5mv0rInOY509WougeOrA6sngkBBjGbXVaPujNEQqNui6roLJFFT0R5yYWxas=
+	t=1791689899; cv=none; b=Obmse/WL8K3W/H7v49sQ6ahXvqBlwpxwApuHrhO0bZWW2zdb8mOcqEOJi/U2++HkAoH8dYNnPAwhKQnI0NXucDuRR80pq7d71Ky3PSDiCKPe8f34r9Wcs/VJgkA1YtO9Z0yIuksNyOBqApt75HZJyJKS0y4tEjMicEfoq2z94sU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791689867; c=relaxed/simple;
-	bh=WL9TgnhpQEvY90Ll4HmdAvQl1G42rWomuaVXMzpGasQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FjRQaHx7Sgx6v9ZwV2hqIeUE9onSNuroYFlOMcB4/Xuo2LCjK4KddhWRXDymANZdt4lEO6Xl8QiSd05D2cIlS9DNJw68t1/ixiL2vWO3Ap4vos6tegm8ctJXWJPODJIzKHS2d6fCKbXxs43QUx99dHPdIEX/Z48QQ3KMX9MmoEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V4sCo/T1; arc=none smtp.client-ip=209.85.214.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791689899; c=relaxed/simple;
+	bh=5xKbhOaGID9Pwo5cuLWrKk/sfw0dg/1AYDf7kuhse+4=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ZiV7/lmYz0OANS2MBH+n5GqRamviIamYDSdia7Q6uTYdET19bzzOlZaMdOyUeU2Awxebf0h2vsYiWN4la9642ay1WqeLkKI9Q3pOygWwD7+mJ2s97zzVLcbRuxd7yvoCPF5dn5jlGXNZGUwiMYqtggcY+CyIyBxN1NvfV4C/XPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EGinSXvX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V4sCo/T1"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e5378b281aso4241445ad.2
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 20:37:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791689865; x=1792294665; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZGdZTphdielncpBx9OT9jLr3XakXHovVsOh5FWf782Y=;
-        b=V4sCo/T1VkB/KTGub0UnuGW0idPk33oHGfCqezdBRlh24BIV3GFwoUaJrKMvyG8JW2
-         cNmID4vEEzWL9SoqHAZOjZLiGZ3An9NCm7Ph/PU/Kok0D7/7LO+EgR4otNaiNnOxbUrG
-         +/lIwCVZvketkeP3u5PoJjBFOudLNr+1N/kqE3Qdr2jafflNP5u2w4UQtxHsKWMLYLch
-         V8OpIckmA6+2rMb/dJIW6k+5mM4Uo6qW2swttNoPlB2ep1PQ+U2kUmuBgpuuAWX0zGsx
-         YDqyMgfG9Jk5FfogA/YHi4Qqd4NCUWhTs7SAAzSILyAFQkIOwgApCiCccFfYQyaIRsEb
-         vZcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791689865; x=1792294665;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZGdZTphdielncpBx9OT9jLr3XakXHovVsOh5FWf782Y=;
-        b=hzjXzWZf57UXtoRkjXtxgordguYgu+bssbxenV5jOGdY0+6wYLjRM4EitiZKnCVAEP
-         qIK/RTfoE4fMfVCdjm6kz/5u2Lcb51RztuTAnTBWGxFYeT9TRDGvpjHyP6ng7fR/GNU8
-         fPVpcKgznN0F4Tdf3v3ztzwFXsUBGbntD+T4ooRrl/gTKnEPeWfIdGZ3T9oXLgz8eC/I
-         GjbOL1ab5aDDo/Id4gscIwtWiSUHL6HD/P7jFBGzdVK8g8tOQP2okQIWIlxUflddBZGU
-         E5aDiz1J6ug41SUgYlqkZZhjBw12h2xeakIOXrLuaJjYGbCfOn1uf2Yylr0np/RK18mf
-         +Izw==
-X-Forwarded-Encrypted: i=1; AKwUvBxQHCr37aFlZV1gsBTMuHRzd4D9vbJycQDJwpjQxcx+OSMGlnsMPDYcli/y/XUOrvwUy38fV+UIMaIJDo4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ6TuybW5Uc6g7pwrM1McPCGiIec8zx7ZRt/C+6n8tpiI8ZYU0B
-	UnWynFOKq7vgiKufKCr8AEc8HW/O/5NHdHz9loV4wvNFyZyj8BLTH1dD
-X-Gm-Gg: AYBFou2uY47MiZAFljwfnbIq9sBMWg5uhqv01PrIzI9+ExkUQfPQxqQ2hwobonVuYVw
-	C0gCYxS7ZSf+R+HoyA86QFQF6yQQauh8UlmymiHPaqf4G/e1SSxvWQlMQmRgLL3TjwJ1QYG5wHC
-	h6BSGZps9XH1JB2+nOKlWi4j9B4PG5j1UnNkgk1WMgUW/b4Cf42nuIirYiEuwPQ5ossCbWPQZmP
-	j95Ztxa2zNcXbLvMxIPoyTueENC7PtrKMhB6ZsCdof8tACBBtPAdPOu8n6DrUqGForqwd+Asix6
-	4kq3gGokdbaALDh7Cdm2YwHjXkrTxUoddhUQeVCs2PJs21Cky4y5UTo+jbVR1/wngM5vo4bKnPT
-	2my07WDLZdeSLjElWTDP7d3NTuhjFce4/UauBypYOldJS1XOam/Wq+EYtxl0xxGfRWRvghn7b6P
-	Bd8CuAStc4EA8y1jej8/DaEEDknptfevozPUkBFdpG01pFY1E5oh/yh4Wh+h+6G5tNVdo0mqWyj
-	Q==
-X-Received: by 2002:a17:902:cf4b:b0:2df:a803:efaf with SMTP id d9443c01a7336-2e842bbf513mr52153315ad.23.1791689865185;
-        Sat, 10 Oct 2026 20:37:45 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2a09:bac5:d45a:16c8::245:79])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422b8c6esm27212895ad.61.2026.10.10.20.37.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 20:37:44 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: josef@toxicpanda.com,
-	axboe@kernel.dk
-Cc: mchristi@redhat.com,
-	linux-block@vger.kernel.org,
-	nbd@other.debian.org,
-	linux-kernel@vger.kernel.org,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	syzbot+90895f5bfaa7243c2d20@syzkaller.appspotmail.com
-Subject: [PATCH] nbd: fail requests stuck on a dead socket when timeout is 0
-Date: Sun, 11 Oct 2026 10:37:39 +0700
-Message-ID: <20261011033739.18434-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EGinSXvX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B2501F000FF;
+	Sun, 11 Oct 2026 03:38:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791689898;
+	bh=IHiq471lI34tMV6DI159H0HPk05JOLQKG1SqobU79J0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=EGinSXvXpMfm+BKNZSmdSSntxAhl9mXZyU1CvvbHybYYrOFEAUplRFw93WoCpsrlz
+	 AE6R27g5xwx8YepMEIMSbWA4MwPWl6/taP2phdnYblY4lplz5F39EL9vjm/NrzR0vH
+	 5njyL8cZX7SFm8XCVC5pmp8CEKTWplmCsErFuEaqeCI+hDWFWthMtmM3gm1kEyxdA1
+	 QvgS9q1lBn6fRVzg44hJMFcLIz/pQbeSsYyWqnYyTtgVvZZ9DEFPX14XgsIaC6kigN
+	 vtr+AQJHdwJ+AFq19iQsmjkgkujLMqg0eVkTKkHpIgcK7BzaBC5kvk+hKgJTakkwig
+	 CU7u0yQ6Sk14Q==
+Subject: Re: [PATCH net v1 1/4] net: devmem: unmap dma_buf synchronously on
+ queue uninstall
+From: netdev-bot+sashiko@kernel.org
+To: almasrymina@google.com
+Cc: kuba@kernel.org, dw@davidwei.uk, asml.silence@gmail.com,
+ ap420073@gmail.com, sdf@fomichev.me, pabeni@redhat.com, kaiyuanz@google.com,
+ bobbyeshleman@meta.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, horms@kernel.org, shuah@kernel.org,
+ sumit.semwal@linaro.org, christian.koenig@amd.com, daniel@iogearbox.net,
+ razor@blackwall.org, tariqt@nvidia.com, kaifengw@google.com
+Date: Sun, 11 Oct 2026 03:38:16 +0000
+Message-ID: <179168989611.434549.16378879758158058625@kernel.org>
+In-Reply-To: <20261010025532.839559-2-almasrymina@google.com>
+References: <20261010025532.839559-2-almasrymina@google.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-With a zero command timeout, nbd_xmit_timeout() only logs a "possible
-stuck request" message and resets the timer. A request already sent on
-a socket that has since died is never completed this way, because
-nothing will ever answer it.
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-That blocks nbd_set_size(), which freezes the queue while holding
-nbd->config_lock and genl_mutex. The freeze waits for the stuck request
-forever, and reconnecting a socket (which would change the cookie and
-get the request requeued) can't happen as it is handled later by the
-same reconfigure call. Everything touching the device then hangs,
-including partition scanning in udev:
+Critical: 0 · High: 2 · Medium: 0 · Low: 2
 
-  INFO: task udevd blocked for more than 143 seconds.
-   __bio_queue_enter+0x369/0x7f0 block/blk-core.c:396
-   blk_mq_submit_bio+0x776/0x2a70 block/blk-mq.c:3127
-   ...
-  INFO: task syz.0.17 blocked for more than 143 seconds.
-   blk_mq_freeze_queue_wait+0x101/0x180 block/blk-mq.c:191
-   queue_limits_commit_update_frozen+0x55/0xd0 block/blk-settings.c:590
-   nbd_set_size+0x4c5/0x7d0 drivers/block/nbd.c:383
-   nbd_genl_reconfigure+0x7e1/0x1040 drivers/block/nbd.c:2444
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Requeue the request when its socket is dead, as is already done when
-the socket was replaced. The submit path then waits for a reconnect up
-to dead_conn_timeout and otherwise fails the request with an I/O error.
+- [High] Incomplete fix: a binding that has already been unbound (netlink
+  socket closed) but is still alive because a TCP socket or page pool…
+- [High] The patch unmaps and detaches the dma-buf in
+  mp_dmabuf_devmem_uninstall() as soon as bound_rxqs becomes empty.
+- [Low] The comment on struct net_devmem_dmabuf_binding::lock in
+  net/core/devmem.h still reads '/* Protect dev */'.
+- [Low] The comment on struct net_devmem_dmabuf_binding::ref in
+  net/core/devmem.h still says 'The binding undos itself and unmaps the…
 
-Reported-by: syzbot+90895f5bfaa7243c2d20@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=90895f5bfaa7243c2d20
-Fixes: 2da22da57348 ("nbd: fix zero cmd timeout handling v2")
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
- drivers/block/nbd.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+--
 
-diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
-index ffce519bf008..218b99f9e1ef 100644
---- a/drivers/block/nbd.c
-+++ b/drivers/block/nbd.c
-@@ -532,7 +532,8 @@ static enum blk_eh_timer_return nbd_xmit_timeout(struct request *req)
- 			blk_rq_bytes(req), (req->timeout / HZ) * cmd->retries);
- 
- 		mutex_lock(&nsock->tx_lock);
--		if (cmd->cookie != nsock->cookie) {
-+		/* A dead socket will never complete this request. */
-+		if (cmd->cookie != nsock->cookie || nsock->dead) {
- 			nbd_requeue_cmd(cmd);
- 			mutex_unlock(&nsock->tx_lock);
- 			mutex_unlock(&cmd->lock);
+net: devmem: unmap dma_buf synchronously on queue uninstall
+
+This patch adds net_devmem_dmabuf_binding_unmap(), which runs under
+binding->lock and clears binding->sgt and binding->attachment so that
+unmapping is idempotent. It is called from mp_dmabuf_devmem_uninstall()
+when the last bound RX queue is uninstalled, so the dma_buf is no longer
+unmapped against a freed dma_dev after device unregister.
+
+> diff --git a/net/core/devmem.c b/net/core/devmem.c
+> index f4d60654ce7fd..5e4070b82df44 100644
+> --- a/net/core/devmem.c
+> +++ b/net/core/devmem.c
+> @@ -58,6 +58,21 @@ static void net_devmem_dmabuf_binding_release(struct percpu_ref *ref)
+>  	schedule_work(&binding->unbind_w);
+>  }
+>  
+> +static void
+> +net_devmem_dmabuf_binding_unmap(struct net_devmem_dmabuf_binding *binding)
+> +{
+> +	lockdep_assert_held(&binding->lock);
+
+[Severity: Low]
+This isn't a bug, but the comment on binding->lock in net/core/devmem.h
+still reads:
+
+	/* Protect dev */
+	struct mutex lock;
+
+The lock now also protects binding->sgt and binding->attachment, and the
+lockdep_assert_held() here enforces that. Should the comment in the header
+be updated as well?
+
+> +
+> +	if (!binding->sgt)
+> +		return;
+
+[ ... ]
+
+> @@ -74,9 +89,10 @@ void __net_devmem_dmabuf_binding_free(struct work_struct *wq)
+>  		  size, avail))
+>  		gen_pool_destroy(binding->chunk_pool);
+>  
+> -	dma_buf_unmap_attachment_unlocked(binding->attachment, binding->sgt,
+> -					  binding->direction);
+> -	dma_buf_detach(binding->dmabuf, binding->attachment);
+> +	mutex_lock(&binding->lock);
+> +	net_devmem_dmabuf_binding_unmap(binding);
+> +	mutex_unlock(&binding->lock);
+
+[Severity: High]
+Can this deferred unmap still run against a freed dma_dev when the binding
+was already unbound before the device went away?
+
+The commit message says the fix covers unregister "while userspace still
+holds a netlink or TCP socket reference". However, the only synchronous
+unmap is in mp_dmabuf_devmem_uninstall(), and dev_memory_provider_uninstall()
+only reaches that for RX queues whose rxq->mp_params is still set.
+
+Closing the netlink socket does this, with no unmap:
+
+netdev_nl_sock_priv_destroy()
+  net_devmem_unbind_dmabuf()
+    xa_erase(&net_devmem_dmabuf_bindings, binding->id);
+    netif_mp_close_rxq()
+      __netif_mp_close_rxq()
+        memset(&rxq->mp_params, 0, sizeof(rxq->mp_params));
+    percpu_ref_kill(&binding->ref);
+
+Other references can keep the binding alive past that point. On RX,
+unreturned devmem tokens keep the old page pool alive. On TX, unacked
+devmem skbs in a TCP retransmit queue hold refs taken via
+net_devmem_get_net_iov(). The TX binding can be created through
+netdev_nl_bind_tx_doit(), which does not check for CAP_NET_ADMIN.
+
+A later unregister then finds no installed provider, so
+mp_dmabuf_devmem_uninstall() is never called for this binding. After the
+parent device is freed (for example in nsim_bus_dev_release()), dropping
+the last reference goes through:
+
+__net_devmem_dmabuf_binding_free()
+  net_devmem_dmabuf_binding_unmap()
+    dma_buf_unmap_attachment_unlocked()
+      unmap_udmabuf()
+        dma_unmap_sg_attrs()    <-- freed attach->dev
+
+That looks like the same KASAN report quoted in the commit message.
+
+The follow-up commit "net: devmem: detach TX bindings on NETDEV_UNREGISTER"
+fixes the TX case while the netlink socket is still open. Its
+net_devmem_dev_unregister() only walks net_devmem_dmabuf_bindings, though,
+and unbound bindings are no longer in that xarray.
+
+A narrower variant needs no extra references. The unbind_w work queued by
+net_devmem_dmabuf_binding_release() runs asynchronously, and nothing makes
+it run before device removal.
+
+Would a complete fix need to track every binding that is still mapped
+against a device, and not only the ones installed on an RX queue?
+
+> +
+>  	dma_buf_put(binding->dmabuf);
+>  	xa_destroy(&binding->bound_rxqs);
+>  	percpu_ref_exit(&binding->ref);
+> @@ -535,6 +551,7 @@ static void mp_dmabuf_devmem_uninstall(void *mp_priv,
+>  				mutex_lock(&binding->lock);
+>  				ASSERT_EXCLUSIVE_WRITER(binding->dev);
+>  				WRITE_ONCE(binding->dev, NULL);
+> +				net_devmem_dmabuf_binding_unmap(binding);
+
+[Severity: High]
+Is it safe to unmap here just because bound_rxqs became empty? Nothing
+here checks whether the hardware queue has actually stopped using the
+binding.
+
+On queue lease teardown the physical NIC is still registered and running:
+
+netkit_queue_unlease()
+  netdev_rx_queue_unlease()
+    netif_rxq_cleanup_unlease()
+      __netif_mp_close_rxq(phys_rxq->dev, rxq_idx, &p);
+      __netif_mp_uninstall_rxq(virt_rxq, &p);
+        mp_dmabuf_devmem_uninstall()
+          net_devmem_dmabuf_binding_unmap()
+
+If the reconfig fails, __netif_mp_close_rxq() only warns:
+
+	err = netdev_rx_queue_reconfig(dev, rxq_idx, &qcfg[0], &qcfg[1]);
+	WARN_ON(err && err != -ENETDOWN);
+
+netdev_rx_queue_reconfig() can fail in ndo_queue_mem_alloc() before
+ndo_queue_stop() is called. It can also fail in stop or start, with the
+old queue restored. In both cases the old devmem page pool keeps running,
+and its ring holds DMA addresses from binding->sgt.
+
+netif_rxq_cleanup_unlease() still calls uninstall unconditionally. The
+virtual rxq is the one recorded in bound_rxqs, so removing it empties the
+xarray. The dma-buf is then unmapped and detached while the NIC can still
+DMA into those IOVAs, and the pool can keep refilling from
+binding->chunk_pool.
+
+Before this patch the mapping lasted until __net_devmem_dmabuf_binding_free()
+ran, which only happens after every page pool has dropped its binding ref.
+The commit message only talks about unregistration. Was the lease
+teardown path also meant to unmap synchronously here?
+
+[Severity: Low]
+This isn't a bug, but the comment on the ref field of struct
+net_devmem_dmabuf_binding in net/core/devmem.h still says:
+
+	 * The binding undos itself and unmaps the underlying dmabuf once all
+	 * those refs are dropped and the binding is no longer desired or in
+	 * use.
+
+With this call, the mapping can go away while netlink, page pool or
+net_iov refs are still held. The follow-up commit "net: devmem: detach TX
+bindings on NETDEV_UNREGISTER" adds another early unmap in
+net_devmem_dev_unregister(). Should this comment be updated to match?
+
+>  				mutex_unlock(&binding->lock);
+>  			}
+>  			break;
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261010025532.839559-1-almasrymina%40google.com
