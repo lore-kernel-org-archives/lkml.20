@@ -1,65 +1,65 @@
 Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B5EC46D552
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 23:15:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3D86353A92
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 23:15:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791760515; cv=none; b=rc383MlFC6FkeFTWvV07T1J0KTzcfkjPlAzFSKcd8MeWKPtRHJiDnkRfuTsUY/CRIqRqEuuIcOHDPFscDXL0Evlyu3vKzmMo/5pX9K/tupfsZpINx++vxlvqTGYqZFOKer4vfVgmCWjS49tECOF1o1/bPMsMSMFk9sYi3/FQV8w=
+	t=1791760528; cv=none; b=lprVRKmQOZKhOmf0LClxyi7XsAuy+EuAHWF5+yszS+ztF7W0pxNGfn8VxQKYuENq+FdQ/NGDqcjZAqQA6DL8PFkVxTXjYfnt+OMU3OhGc2w+WwivwGfRWiSNCU2gBWRg171r8LXDfA6S0sybjTbJ/GCh9fPdbikEFQYJsUPXbsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791760515; c=relaxed/simple;
-	bh=xRIROboOq7YnV8/1IaBqYbRLKHt0fQ+KUceWyI1dYsU=;
+	s=arc-20240116; t=1791760528; c=relaxed/simple;
+	bh=bHCaf2cQnvaSzG0n+2uBG1JAe8YLpZ0uK7FOK+C/9Uc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iwVYEllrRueeVNkgmX3Ks5jHxFTZfDHdRxUkuclrVXTbsgXouWheBn59r707YP/GcPH83iiDlek6fuMLFMlvNGkxOODHYeqDzQrrY9xVtwetB4WaEhIkcRJGxwXJ65cuNOFTI3ZxybfaFbGORTodxhksp/oNNn2miq98MjiO9+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F0jAXgir; arc=none smtp.client-ip=209.85.210.171
+	 MIME-Version; b=iHrytCx/0sFH7lp6Z8eEHrw46bPH11CAmBSXldfMT+PbeQlRDfC4k9zR0X5CMzi7SIRLbLPR/RhFtquhMtWNmzFiDRvZVSlKVx5fU9m6PDiLmyuDvEBYJ0ornTn2t8RJiWr7VqwDRkqs4klJukazxWKCR2U2gUf543eYwXZ9k4o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pv84UUif; arc=none smtp.client-ip=209.85.210.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F0jAXgir"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-88bd2b44f3aso535972b3a.0
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:15:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pv84UUif"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8875d220446so555527b3a.3
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:15:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791760512; x=1792365312; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791760525; x=1792365325; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Ez0MKkaL+9nl7v/1TSujw34DgJwcHE0U5Z1MVZ+OKhc=;
-        b=F0jAXgir9OZf0sHkAZL5YifCSqUHA8sxSn8WDJzq1OWmJHYdpmMSBRKPnKX5d39oos
-         D/+nSBX9Gtk311GxcCm6pFfrdJjl6AYHuKeiCrJcp5PjTRXd3UQtDmmtA2BfOLx3T/+e
-         +Edqi/Op1fui0TU6tt/rPyfse03rlawn4XyfbgLyNnlHvEecNpx7EnvaEpGhydIs2QjZ
-         RhAOmb9wUeg5vZG3BKHfWOfoDLzApA0nPyBVnGXkpwxW/PXd+3IPvENYQdKgF0MB9Ze3
-         jffWtvAX0ID1vl+OaJ4lGAiyoYUgcw38lkmytV4zl4w95olv2jEh0wH9ukxaYsxPmxDk
-         rifg==
+        bh=D03yh9hg4Z7p1LLplFSLrS9roWPWngYbJKfaB1ZVXjs=;
+        b=Pv84UUif1C8oBJWfc/WEgClrKo1a2Z12gMM289ldK7MBD9x95YRqK2jGuOzIjac+Ch
+         qn5O25YAwbtdo7AlzzGO7aSYZj1AtqZuOis1y1vBpL7cKqLlQvXs4J4hK6OkO0/ctpt3
+         81JxG7Qlj7TTc1C+hQ2s0vF9dMXIRi9fuvlE8vIqEuAM6PPunDjbpV9HozgQ+zTPMqGA
+         nmVQE+a6Al2uAn3j/xNM1phoNTZSLW6d1p7VAQcbWXUlsLwws6KmS/hvgQTjrimn9/kN
+         dqGIEXpE+NWAgiTL3mVoWlKLg2/dbZokkBcL8cf6Zmu4ScxfxddD2829AtD45lYOzaOA
+         8z6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791760512; x=1792365312;
+        d=1e100.net; s=20260707; t=1791760525; x=1792365325;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ez0MKkaL+9nl7v/1TSujw34DgJwcHE0U5Z1MVZ+OKhc=;
-        b=ERIYM12ZOFdWoE57X2eKa0qUkdVGHsl6VqFxrswUY4NbPbOv8sRaIvh1sDiEYIieuG
-         WWQz0NYxN8mmzdfXOftJjswgslHZ31DTRvGjos3Az6FIgCnBo8VdW+Q9nQz4F7Zt2xqB
-         2XUP6GPf97s+1oQVW37x0sp20zmoma2gusMSwxjGMNMoGhjOLytoBrI/AovVXURQpUqj
-         RSApOuuzJnZbhxgSwFAxaYAk3yz2+bNYUEBzg4lOMop54liX6mI1DaGOlU0yY1NzwOeE
-         /l/TcUQ7ulsDVGlWO+loPYyJSYh0VT8BHXnnKIld4QbA91c9IKTzesQO1CR0vohillOB
-         dFSg==
-X-Forwarded-Encrypted: i=1; AKwUvBwNIHq9bntd9WR0uD/Z9yHl0J6O87POonbERgQHUTgyorbSBg9g1l6CPWyVWiXfybxiCMI8Vvo2KTrhfck=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ5hQIgyv3ErCs4oRU+ggiT0xwnDFbF2ksaRaFei4MX2giVE98B
-	X9HAAeA/jaUBhveLg5pSO1yxsq8YvwT+VIgPWvFHc9i77s5+EG6zGg1A
-X-Gm-Gg: AYBFou1ZkS0anrMNYNYzg4brEjjrG12/bMC22kAAB0eZxXkIoBZlExPM3/d3xWWAQfI
-	n8qVku1OkCeQTo+qZax9wACaZ7NdIWr13+R6FAYVqYichnPW+3hXHQ/QYiOBPRlh108zUshdYzA
-	3C4/JDSBxJo77W2r6r+pRxZxA29daue8KhCBa3ePfIC2be5/aIVPdRDA4k+HnqBrRD0qplpabKZ
-	D620It3jUQ4LslN/pzx3VRjOaXI5AQ6rYsHizEMGCComW+ZqNtQLrbUPCxFlq7ttp29XPiUCQHy
-	w+I5HrsnVzah2KhlcvyP3Nfk240cP/X/CSKZ9YFyrL2PfusU0dIA1tqF/F9qLDGV7XCrsMBcILd
-	jTiFf6+4JvYdYdzr6GHccZlC1oHsy6aZb7tQ9zTgZPoNuFtBjORmc+rnr8e7v9D2/yrMKLk98Qz
-	MZ+jNEOlibe76emST+qbviQWZGJ8kmmf7XrpZc97PNxraEcIB3A8gccBNsqXgOr8mzRrerjvN5T
-	wonR3OEqelIOxLDTEN1TbXRP/XbgRQmUwAap021cBi1EnTm+sRb2xLlF8BU9/HYAMp4fs/E3e3C
-	Yyv/aR0=
-X-Received: by 2002:a05:6a21:6012:b0:3e1:1689:1ebd with SMTP id adf61e73a8af0-3e16bf896c5mr6541379637.49.1791760511762;
-        Sun, 11 Oct 2026 16:15:11 -0700 (PDT)
+        bh=D03yh9hg4Z7p1LLplFSLrS9roWPWngYbJKfaB1ZVXjs=;
+        b=LpeCXAzzM6yVCGp44LPMSfsAAGnibPQKwJhaYVWFAFbtdlWOw82wzB2CiL2rqMcYkY
+         zEsnaRjS3FwgtRoE0/SBWBST/KYsqXmfY87hW8lGuG1Wrl7hdIHN/rsXK4lMeB4BQ0DU
+         OAvRgXlNNdqLS1VY8Mt7+fM9dgBPJ81XDygMe1izaHrntDyxO1ihRU3NXf0Z/GDhUh7p
+         lhYVTlNfvMGuBo6+9E54vYP9+CYGVV5Lr20/BEZMJP5jW8tnv4AY6fGqszVaYBh+f6Pj
+         fcoIOftG9pCVRTf8kSWbEW6sScJ+8U/AMkDPlb+syUnVM27CZpoutbmvtC0IbtcrwaUk
+         9Csg==
+X-Forwarded-Encrypted: i=1; AKwUvBz/WX4teWYg7+A0FQ8N/joZT6y/jYjYeArn2Sos/7+80GKaoNk7EWE9Qaf/TDHehfZm569+D9/czvsIsKE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJIdn4FhPzW4kWWmEK18kz5hSbuxqYfKRVfjLxFSCxfEd6wO14M
+	GyXFAyKJdQO7w/wz657vzzVHPvyET66KjtoaY+ll64s4G/VihOxl1S9v
+X-Gm-Gg: AYBFou3wp0ArCtn3QpIEQYRUGWg1E2yz9NwMG5VB4Qxq3U40HRAHn2ID1kFwcb2GZqS
+	0I1sQ03RwFJpWHbmuv930ikRViGHGhMmPRk3ygYxiJ6bVQsOO666wR12MoU+uY4w5CSE5lhM1RH
+	qZ/RJokKu5MXyQoikQKDdng5v5zG4ZomBuoFsJ74lTVuCKarBnW7uo+3Af118wDCDm7tmsRaRJK
+	dU1ZAVAM5OLG+OFO+D50Ndv587sQHdryDKZfNjWmuwRyMHQvZdkAaWse5TFmyPUHrnDB7h1RNaq
+	vA+Vq0tJe0NFQ4oeRo5Y4g077mcntF4qsqDykukT4InloWbtyjzlEfU043/p70ynNSfiXFc9Vd/
+	37LzjyZBnbJXjOVw8bHRcnoV4moBMVYIWb5ooqo257ZOxkD0cjMMlkS8MS2jhtaylKtz7qKVEe+
+	eDRn/FrD8YXuxA4ISzj85AE3NCNKACAx1LZTaj9qZqvrOyi1c8ESjIxryoZWhi8b8Xfiv/XTr8d
+	lDW+QNFykLPBSgmmBq+DPUpP1qOUVYfPyqpCGgr6GomYAfq0docmPd0AyGdG1Y/GF9wqmZrn18W
+	41+uCr8=
+X-Received: by 2002:a05:6a00:3d06:b0:886:a6f8:1f1b with SMTP id d2e1a72fcca58-897c6d1de98mr6831307b3a.37.1791760525040;
+        Sun, 11 Oct 2026 16:15:25 -0700 (PDT)
 Received: from DESKTOP-G3E0OSP.localdomain ([58.224.60.243])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c48945dcsm3188917b3a.54.2026.10.11.16.15.07
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c48945dcsm3188917b3a.54.2026.10.11.16.15.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 16:15:11 -0700 (PDT)
+        Sun, 11 Oct 2026 16:15:24 -0700 (PDT)
 From: Jinseob Kim <kimjinseob88@gmail.com>
 To: jic23@kernel.org,
 	linux-iio@vger.kernel.org
@@ -79,9 +79,9 @@ Cc: kimjinseob88@gmail.com,
 	skhan@linuxfoundation.org,
 	rdunlap@infradead.org,
 	linux-doc@vger.kernel.org
-Subject: [PATCH v11 6/8] iio: osf: add IIO devices from capability reports
-Date: Mon, 12 Oct 2026 08:13:38 +0900
-Message-ID: <20261011231340.42885-7-kimjinseob88@gmail.com>
+Subject: [PATCH v11 8/8] iio: osf: add IIO KUnit tests
+Date: Mon, 12 Oct 2026 08:13:40 +0900
+Message-ID: <20261011231340.42885-9-kimjinseob88@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261011231340.42885-1-kimjinseob88@gmail.com>
 References: <20261011231340.42885-1-kimjinseob88@gmail.com>
@@ -93,894 +93,435 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Register IIO devices from supported capability descriptors and expose RAW,
-descriptor-derived SCALE and initialized active-scan buffers. Validate
-complete inventories and sample meaning, and fault incompatible bound
-sessions.
+Exercise active-scan packing, timestamp alignment and producer quiescence
+during buffer reconfiguration and unregister. Check that a blocked OSF
+push retains its active scan mask until its mode claim is released.
 
-Hold an IIO buffer-mode claim while packing and publishing samples so that
-the scan layout and buffer lifetime remain stable through reconfiguration
-and unregister.
+Use deferred actions for
+workers, registered devices, temporary buffer callbacks and extra device
+references so assertion aborts release resources in ownership order.
 
 Assisted-by: LLM
 Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
 ---
- drivers/iio/sensorhubs/osf/Kconfig      |  13 +-
- drivers/iio/sensorhubs/osf/Makefile     |   3 +-
- drivers/iio/sensorhubs/osf/osf_core.c   | 364 ++++++++++++++++++++++++
- drivers/iio/sensorhubs/osf/osf_core.h   |  46 +++
- drivers/iio/sensorhubs/osf/osf_iio.c    | 288 +++++++++++++++++++
- drivers/iio/sensorhubs/osf/osf_iio.h    |  22 ++
- drivers/iio/sensorhubs/osf/osf_serdev.c |   7 +-
- 7 files changed, 736 insertions(+), 7 deletions(-)
- create mode 100644 drivers/iio/sensorhubs/osf/osf_iio.c
- create mode 100644 drivers/iio/sensorhubs/osf/osf_iio.h
+ drivers/iio/sensorhubs/osf/Kconfig        |   2 +-
+ drivers/iio/sensorhubs/osf/Makefile       |   2 +-
+ drivers/iio/sensorhubs/osf/osf_iio_test.c | 386 ++++++++++++++++++++++
+ 3 files changed, 388 insertions(+), 2 deletions(-)
+ create mode 100644 drivers/iio/sensorhubs/osf/osf_iio_test.c
 
 diff --git a/drivers/iio/sensorhubs/osf/Kconfig b/drivers/iio/sensorhubs/osf/Kconfig
-index fa25ad24bef6e37ea53617894e121cb9f625ddb5..f955a1f2993d244369943efbd853b9d2c6d47139 100644
+index 316f33be1327ca85eb18920b8d610a3e983439d2..b4a2cde9645e588703fd7f3f315a6d8b6a90f9c9 100644
 --- a/drivers/iio/sensorhubs/osf/Kconfig
 +++ b/drivers/iio/sensorhubs/osf/Kconfig
-@@ -1,12 +1,15 @@
- # SPDX-License-Identifier: GPL-2.0-only
- 
- config OPEN_SENSOR_FUSION
--	tristate "Open Sensor Fusion UART receiver"
-+	tristate "Open Sensor Fusion UART IIO driver"
- 	depends on SERIAL_DEV_BUS
- 	select CRC32
-+	select IIO_BUFFER
-+	select IIO_KFIFO_BUF
+@@ -20,7 +20,7 @@ config OPEN_SENSOR_FUSION_KUNIT_TEST
+ 	default KUNIT_ALL_TESTS
  	help
--	  Build the Open Sensor Fusion UART receive path.
-+	  Build the Open Sensor Fusion UART IIO driver.
+ 	  Build focused unit tests for the Open Sensor Fusion core sample
+-	  acceptance, direct-read cache, and capability/session handling. The tests
++	  acceptance, direct-read cache, and IIO buffer paths. The tests
+ 	  exercise accepted, ignored, and rejected sample handling without
+ 	  exposing additional production interfaces.
  
--	  The driver receives and validates OSF protocol frames over a serdev
--	  UART and caches device status reported by the sensor hub.
--	  Message types without an application handler are ignored.
-+	  The driver receives OSF protocol frames over a serdev UART and
-+	  registers IIO devices for supported capability entries. It exposes
-+	  accelerometer, gyroscope, magnetometer, and temperature samples
-+	  through IIO direct reads and software buffers.
 diff --git a/drivers/iio/sensorhubs/osf/Makefile b/drivers/iio/sensorhubs/osf/Makefile
-index 940c82eddc2e54d5a04dccf3ecb36c98ac638244..b4e03b80cfa4cca6a67e6cd8228a4776a38dcb72 100644
+index c2f5ba065a62fef2a4897034239b405ccdd69250..6a28b14cae1f358d485cea67f44df3647939a560 100644
 --- a/drivers/iio/sensorhubs/osf/Makefile
 +++ b/drivers/iio/sensorhubs/osf/Makefile
-@@ -2,4 +2,5 @@
+@@ -4,4 +4,4 @@ obj-$(CONFIG_OPEN_SENSOR_FUSION) += open-sensor-fusion.o
  
- obj-$(CONFIG_OPEN_SENSOR_FUSION) += open-sensor-fusion.o
- 
--open-sensor-fusion-y := osf_core.o osf_protocol.o osf_serdev.o osf_stream.o
-+open-sensor-fusion-y := osf_core.o osf_iio.o osf_protocol.o osf_serdev.o \
-+			 osf_stream.o
-diff --git a/drivers/iio/sensorhubs/osf/osf_core.c b/drivers/iio/sensorhubs/osf/osf_core.c
-index b76619335335f5b197374af90056a616c1c08f82..4f73ff5e9572b95e1cd237671f01e149784b92b5 100644
---- a/drivers/iio/sensorhubs/osf/osf_core.c
-+++ b/drivers/iio/sensorhubs/osf/osf_core.c
-@@ -1,10 +1,13 @@
- // SPDX-License-Identifier: GPL-2.0-only
- 
-+#include <linux/cleanup.h>
- #include <linux/device.h>
- #include <linux/errno.h>
-+#include <linux/string.h>
- #include <linux/types.h>
- 
- #include "osf_core.h"
-+#include "osf_iio.h"
- #include "osf_stream.h"
- 
- #define OSF_RESERVED_MSG_FIRST		0x7f00
-@@ -16,6 +19,247 @@ void osf_core_init(struct osf_device *osf, struct device *dev)
- 	*osf = (struct osf_device) {
- 		.dev = dev,
- 	};
-+	mutex_init(&osf->latest_lock);
-+}
-+
-+void osf_core_unregister_iio(struct osf_device *osf)
-+{
-+	for (unsigned int i = 0; i < osf->iio_dev_count; i++)
-+		osf_iio_unregister_sensor(osf->iio_devs[i].indio_dev);
-+
-+	osf->iio_dev_count = 0;
-+}
-+
-+static struct iio_dev *osf_core_find_iio_dev(struct osf_device *osf,
-+					     u16 sensor_type, u16 sensor_index)
-+{
-+	const struct osf_iio_binding *binding;
-+
-+	for (unsigned int i = 0; i < osf->iio_dev_count; i++) {
-+		binding = &osf->iio_devs[i];
-+		if (binding->sensor_type == sensor_type &&
-+		    binding->sensor_index == sensor_index)
-+			return binding->indio_dev;
-+	}
-+
-+	return NULL;
-+}
-+
-+static struct osf_latest_sample *
-+osf_core_find_latest_sample(struct osf_device *osf, u16 sensor_type,
-+			    u16 sensor_index)
-+{
-+	struct osf_latest_sample *latest;
-+
-+	for (unsigned int i = 0; i < osf->latest_sample_count; i++) {
-+		latest = &osf->latest_samples[i];
-+		if (latest->sensor_type == sensor_type &&
-+		    latest->sensor_index == sensor_index)
-+			return latest;
-+	}
-+
-+	if (osf->latest_sample_count >= OSF_MAX_CAPABILITIES)
-+		return NULL;
-+
-+	return &osf->latest_samples[osf->latest_sample_count++];
-+}
-+
-+static bool
-+osf_core_capability_supported(const struct osf_capability_entry *entry)
-+{
-+	return osf_iio_sensor_supported(entry->sensor_type,
-+					entry->channel_count) &&
-+	       entry->sample_format == OSF_SAMPLE_FORMAT_S32 &&
-+	       !(entry->flags & ~OSF_CAPABILITY_FLAGS_MASK);
-+}
-+
-+static const struct osf_capability_entry *
-+osf_core_find_capability(const struct osf_capability_cache *cache,
-+			 u16 sensor_type, u16 sensor_index)
-+{
-+	for (u16 i = 0; i < cache->capability_count; i++) {
-+		const struct osf_capability_entry *entry = &cache->entries[i];
-+
-+		if (entry->sensor_type == sensor_type &&
-+		    entry->sensor_index == sensor_index)
-+			return entry;
-+	}
-+
-+	return NULL;
-+}
-+
-+static bool
-+osf_core_capabilities_equal(const struct osf_capability_cache *old,
-+			    const struct osf_capability_cache *new)
-+{
-+	if (old->capability_count != new->capability_count)
-+		return false;
-+
-+	for (u16 i = 0; i < old->capability_count; i++) {
-+		const struct osf_capability_entry *entry = &old->entries[i];
-+		const struct osf_capability_entry *other;
-+
-+		other = osf_core_find_capability(new, entry->sensor_type,
-+						 entry->sensor_index);
-+		/* Type and the supported major version also fix the unit. */
-+		if (!other || other->channel_count != entry->channel_count ||
-+		    other->sample_format != entry->sample_format ||
-+		    other->scale_nano != entry->scale_nano)
-+			return false;
-+	}
-+
-+	return true;
-+}
-+
-+static bool osf_core_capability_is_duplicate(const struct osf_capability_cache *cache,
-+					     u16 index)
-+{
-+	const struct osf_capability_entry *entry = &cache->entries[index];
-+
-+	for (u16 i = 0; i < index; i++) {
-+		if (cache->entries[i].sensor_type == entry->sensor_type &&
-+		    cache->entries[i].sensor_index == entry->sensor_index)
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
-+static int osf_core_register_capabilities(struct osf_device *osf,
-+					  const struct osf_capability_cache *cache)
-+{
-+	struct iio_dev *indio_dev;
-+	int ret;
-+
-+	for (u16 i = 0; i < cache->capability_count; i++) {
-+		ret = osf_iio_register_sensor(osf->dev, &cache->entries[i],
-+					      osf, &indio_dev);
-+		if (ret)
-+			goto err_unregister;
-+
-+		osf->iio_devs[osf->iio_dev_count++] = (struct osf_iio_binding) {
-+			.sensor_type = cache->entries[i].sensor_type,
-+			.sensor_index = cache->entries[i].sensor_index,
-+			.indio_dev = indio_dev,
-+		};
-+	}
-+
-+	return 0;
-+
-+err_unregister:
-+	osf_core_unregister_iio(osf);
-+
-+	return ret;
-+}
-+
-+void osf_core_start(struct osf_device *osf)
-+{
-+	int ret;
-+
-+	if (osf->iio_ready)
-+		return;
-+
-+	osf->iio_ready = true;
-+	if (!osf->capability_cache.valid ||
-+	    !osf->capability_cache.capability_count)
-+		return;
-+
-+	ret = osf_core_register_capabilities(osf, &osf->capability_cache);
-+	if (ret) {
-+		/* As with RX discovery failure, a later report may retry. */
-+		osf->capability_cache.valid = false;
-+		dev_err_ratelimited(osf->dev,
-+				    "failed to register pending capabilities: %d\n",
-+				    ret);
-+	}
-+}
-+
-+static int osf_core_handle_sensor_sample(struct osf_device *osf,
-+					 const struct osf_frame *frame)
-+{
-+	const struct osf_capability_entry *entry;
-+	struct osf_latest_sample *latest;
-+	struct osf_sensor_sample sample;
-+	struct iio_dev *indio_dev;
-+	s32 values[OSF_MAX_SAMPLE_CHANNELS] = { };
-+	int ret;
-+
-+	ret = osf_protocol_decode_sensor_sample(frame, &sample);
-+	if (ret) {
-+		dev_warn_ratelimited(osf->dev,
-+				     "rejecting malformed sensor sample: %d\n",
-+				     ret);
-+		return ret;
-+	}
-+
-+	indio_dev = osf_core_find_iio_dev(osf, sample.sensor_type,
-+					  sample.sensor_index);
-+	if (!indio_dev) {
-+		dev_dbg_ratelimited(osf->dev,
-+				    "ignoring sample for unregistered sensor %#x:%u\n",
-+				    sample.sensor_type, sample.sensor_index);
-+		return OSF_STREAM_FRAME_IGNORED;
-+	}
-+
-+	entry = osf_core_find_capability(&osf->capability_cache,
-+					 sample.sensor_type, sample.sensor_index);
-+	if (!entry || sample.channel_count != entry->channel_count ||
-+	    sample.sample_format != entry->sample_format ||
-+	    sample.scale_nano != entry->scale_nano)
-+		return -EPROTO;
-+
-+	if (sample.channel_count > OSF_MAX_SAMPLE_CHANNELS) {
-+		dev_warn_ratelimited(osf->dev,
-+				     "rejecting sensor sample with %u channels\n",
-+				     sample.channel_count);
-+		return -E2BIG;
-+	}
-+
-+	for (u16 i = 0; i < sample.channel_count; i++) {
-+		ret = osf_protocol_sensor_sample_value(&sample, i, &values[i]);
-+		if (ret) {
-+			dev_warn_ratelimited(osf->dev,
-+					     "rejecting malformed sample value: %d\n",
-+					     ret);
-+			return ret;
-+		}
-+	}
-+
-+	/* Serialize publication and cache admission with the session fault. */
-+	guard(mutex)(&osf->latest_lock);
-+	if (osf->session_fault)
-+		return -EPROTO;
-+
-+	ret = osf_iio_push_sample(indio_dev, values, sample.channel_count);
-+	if (ret) {
-+		dev_err_ratelimited(osf->dev,
-+				    "failed to push sensor %#x:%u sample: %d\n",
-+				    sample.sensor_type, sample.sensor_index, ret);
-+		return ret;
-+	}
-+
-+	latest = osf_core_find_latest_sample(osf, sample.sensor_type,
-+					     sample.sensor_index);
-+	if (!latest) {
-+		dev_err_ratelimited(osf->dev,
-+				    "latest sample cache full for sensor %#x:%u\n",
-+				    sample.sensor_type,
-+				    sample.sensor_index);
-+		return -ENOSPC;
-+	}
-+
-+	memcpy(latest->values, values, sizeof(values));
-+	latest->sensor_type = sample.sensor_type;
-+	latest->sensor_index = sample.sensor_index;
-+	latest->channel_count = sample.channel_count;
-+	latest->sample_format = sample.sample_format;
-+	latest->scale_nano = sample.scale_nano;
-+	latest->sequence = frame->sequence;
-+	latest->timestamp_us = frame->timestamp_us;
-+	latest->valid = true;
-+	osf->last_sequence = frame->sequence;
-+
-+	return OSF_STREAM_FRAME_HANDLED;
- }
- 
- static int osf_core_handle_device_status(struct osf_device *osf,
-@@ -45,6 +289,91 @@ static int osf_core_handle_device_status(struct osf_device *osf,
- 	return OSF_STREAM_FRAME_HANDLED;
- }
- 
-+static int osf_core_handle_capability_report(struct osf_device *osf,
-+					     const struct osf_frame *frame)
-+{
-+	struct osf_capability_cache cache = { };
-+	struct osf_capability_report report;
-+	int frame_result;
-+	int ret;
-+
-+	ret = osf_protocol_decode_capability_report(frame, &report);
-+	if (ret) {
-+		dev_warn_ratelimited(osf->dev,
-+				     "rejecting malformed capability report: %d\n",
-+				     ret);
-+		return ret;
-+	}
-+
-+	for (u16 i = 0; i < report.capability_count; i++) {
-+		struct osf_capability_entry entry;
-+
-+		ret = osf_protocol_decode_capability_entry(&report, i, &entry);
-+		if (ret) {
-+			dev_warn_ratelimited(osf->dev,
-+					     "rejecting malformed capability entry: %d\n",
-+					     ret);
-+			return ret;
-+		}
-+
-+		if (!osf_core_capability_supported(&entry))
-+			continue;
-+
-+		if (!entry.scale_nano)
-+			return -EPROTO;
-+
-+		if (cache.capability_count >= OSF_MAX_CAPABILITIES) {
-+			dev_warn_ratelimited(osf->dev,
-+					     "too many supported capabilities\n");
-+			return -E2BIG;
-+		}
-+
-+		cache.entries[cache.capability_count] = entry;
-+		if (osf_core_capability_is_duplicate(&cache, cache.capability_count)) {
-+			dev_warn_ratelimited(osf->dev,
-+					     "rejecting duplicate capability\n");
-+			return -EEXIST;
-+		}
-+		cache.capability_count++;
-+	}
-+
-+	cache.sequence = frame->sequence;
-+	cache.valid = cache.capability_count != 0;
-+
-+	if (osf->iio_dev_count) {
-+		if (!osf_core_capabilities_equal(&osf->capability_cache, &cache)) {
-+			guard(mutex)(&osf->latest_lock);
-+			osf->session_fault = true;
-+			return -EPROTO;
-+		}
-+
-+		osf->last_sequence = frame->sequence;
-+		return OSF_STREAM_FRAME_IGNORED;
-+	}
-+
-+	frame_result = OSF_STREAM_FRAME_IGNORED;
-+	if (cache.capability_count) {
-+		if (osf->iio_ready) {
-+			ret = osf_core_register_capabilities(osf, &cache);
-+			if (ret) {
-+				dev_err_ratelimited(osf->dev,
-+						    "failed to register capabilities: %d\n",
-+						    ret);
-+				return ret;
-+			}
-+		}
-+		frame_result = OSF_STREAM_FRAME_HANDLED;
-+	} else {
-+		dev_dbg_ratelimited(osf->dev,
-+				    "ignoring report without supported capabilities\n");
-+	}
-+
-+	osf->capability_cache = cache;
-+	osf->last_sequence = frame->sequence;
-+
-+	return frame_result;
-+}
-+
- int osf_core_receive_frame(struct osf_device *osf, const u8 *buf, size_t len)
- {
- 	struct osf_frame frame;
-@@ -70,9 +399,15 @@ int osf_core_receive_frame(struct osf_device *osf, const u8 *buf, size_t len)
- 	 * trusted frame boundary and let the stream consume the complete frame.
- 	 */
- 	switch (frame.message_type) {
-+	case OSF_MSG_SENSOR_SAMPLE:
-+		ret = osf_core_handle_sensor_sample(osf, &frame);
-+		return ret < 0 ? OSF_STREAM_FRAME_REJECTED : ret;
- 	case OSF_MSG_DEVICE_STATUS:
- 		ret = osf_core_handle_device_status(osf, &frame);
- 		return ret < 0 ? OSF_STREAM_FRAME_REJECTED : ret;
-+	case OSF_MSG_CAPABILITY_REPORT:
-+		ret = osf_core_handle_capability_report(osf, &frame);
-+		return ret < 0 ? OSF_STREAM_FRAME_REJECTED : ret;
- 	default:
- 		if (frame.message_type >= OSF_RESERVED_MSG_FIRST &&
- 		    frame.message_type <= OSF_RESERVED_MSG_LAST) {
-@@ -94,3 +429,32 @@ int osf_core_receive_frame(struct osf_device *osf, const u8 *buf, size_t len)
- 		return OSF_STREAM_FRAME_IGNORED;
- 	}
- }
-+
-+int osf_core_read_latest_sample(struct osf_device *osf, u16 sensor_type,
-+				u16 sensor_index, u16 channel,
-+				s32 *value)
-+{
-+	const struct osf_latest_sample *latest;
-+
-+	if (!osf || !value)
-+		return -EINVAL;
-+
-+	guard(mutex)(&osf->latest_lock);
-+	if (osf->session_fault)
-+		return -EPROTO;
-+
-+	for (unsigned int i = 0; i < osf->latest_sample_count; i++) {
-+		latest = &osf->latest_samples[i];
-+		if (latest->sensor_type != sensor_type ||
-+		    latest->sensor_index != sensor_index)
-+			continue;
-+
-+		if (!latest->valid || channel >= latest->channel_count)
-+			break;
-+
-+		*value = latest->values[channel];
-+		return 0;
-+	}
-+
-+	return -ENODATA;
-+}
-diff --git a/drivers/iio/sensorhubs/osf/osf_core.h b/drivers/iio/sensorhubs/osf/osf_core.h
-index 7095e3f967fcde473f3f64b05061c3e9ab0996e4..1fd8e5db14434e8e3c67fa15186a842815ac3ab2 100644
---- a/drivers/iio/sensorhubs/osf/osf_core.h
-+++ b/drivers/iio/sensorhubs/osf/osf_core.h
-@@ -2,11 +2,35 @@
- #ifndef _OSF_CORE_H
- #define _OSF_CORE_H
- 
-+#include <linux/mutex.h>
- #include <linux/types.h>
- 
- #include "osf_protocol.h"
- 
-+#define OSF_MAX_SAMPLE_CHANNELS	3
-+#define OSF_MAX_CAPABILITIES	16
-+
- struct device;
-+struct iio_dev;
-+
-+struct osf_latest_sample {
-+	u16 sensor_type;
-+	u16 sensor_index;
-+	u16 channel_count;
-+	u16 sample_format;
-+	u32 scale_nano;
-+	s32 values[OSF_MAX_SAMPLE_CHANNELS];
-+	u64 sequence;
-+	u64 timestamp_us;
-+	bool valid;
-+};
-+
-+struct osf_capability_cache {
-+	u16 capability_count;
-+	struct osf_capability_entry entries[OSF_MAX_CAPABILITIES];
-+	u64 sequence;
-+	bool valid;
-+};
- 
- struct osf_status_cache {
- 	u32 uptime_s;
-@@ -17,13 +41,35 @@ struct osf_status_cache {
- 	bool valid;
- };
- 
-+struct osf_iio_binding {
-+	u16 sensor_type;
-+	u16 sensor_index;
-+	struct iio_dev *indio_dev;
-+};
-+
- struct osf_device {
- 	struct device *dev;
-+	bool iio_ready;
-+	/* Protects session_fault and latest samples; nests outside buffer_lock. */
-+	struct mutex latest_lock;
-+	bool session_fault;
-+	struct osf_latest_sample latest_samples[OSF_MAX_CAPABILITIES];
-+	unsigned int latest_sample_count;
-+	struct osf_capability_cache capability_cache;
- 	struct osf_status_cache status_cache;
-+	struct osf_iio_binding iio_devs[OSF_MAX_CAPABILITIES];
-+	unsigned int iio_dev_count;
- 	u64 last_sequence;
- };
- 
- void osf_core_init(struct osf_device *osf, struct device *dev);
-+/* Serialize start with receive_frame; pending entries own their data. */
-+void osf_core_start(struct osf_device *osf);
-+/* Stop the receive producer before teardown; init starts a fresh session. */
-+void osf_core_unregister_iio(struct osf_device *osf);
- int osf_core_receive_frame(struct osf_device *osf, const u8 *buf, size_t len);
-+int osf_core_read_latest_sample(struct osf_device *osf, u16 sensor_type,
-+				u16 sensor_index, u16 channel,
-+				s32 *value);
- 
- #endif
-diff --git a/drivers/iio/sensorhubs/osf/osf_iio.c b/drivers/iio/sensorhubs/osf/osf_iio.c
+ open-sensor-fusion-y := osf_core.o osf_iio.o osf_protocol.o osf_serdev.o \
+ 			 osf_stream.o
+-open-sensor-fusion-$(CONFIG_OPEN_SENSOR_FUSION_KUNIT_TEST) += osf_core_test.o
++open-sensor-fusion-$(CONFIG_OPEN_SENSOR_FUSION_KUNIT_TEST) += osf_core_test.o osf_iio_test.o
+diff --git a/drivers/iio/sensorhubs/osf/osf_iio_test.c b/drivers/iio/sensorhubs/osf/osf_iio_test.c
 new file mode 100644
-index 0000000000000000000000000000000000000000..24a5393ef4176aa4742833b01391dc88d03a5011
+index 0000000000000000000000000000000000000000..4c3fd8cfb2b2674bbb91a311afbab812a19db284
 --- /dev/null
-+++ b/drivers/iio/sensorhubs/osf/osf_iio.c
-@@ -0,0 +1,288 @@
++++ b/drivers/iio/sensorhubs/osf/osf_iio_test.c
+@@ -0,0 +1,386 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +
-+#include <linux/array_size.h>
++#include <kunit/device.h>
++#include <kunit/test.h>
++
 +#include <linux/bitmap.h>
-+#include <linux/bitops.h>
-+#include <linux/errno.h>
++#include <linux/completion.h>
++#include <linux/delay.h>
++#include <linux/err.h>
 +#include <linux/iio/buffer.h>
++#include <linux/iio/buffer_impl.h>
 +#include <linux/iio/iio.h>
-+#include <linux/iio/kfifo_buf.h>
-+#include <linux/types.h>
-+#include <linux/units.h>
++#include <linux/kthread.h>
++#include <linux/string.h>
 +
 +#include "osf_core.h"
 +#include "osf_iio.h"
 +
-+struct osf_iio_sensor_spec {
-+	u16 sensor_type;
-+	u16 channel_count;
-+	const char *name;
-+	const struct iio_chan_spec *channels;
-+	unsigned int num_channels;
-+};
++KUNIT_DEFINE_ACTION_WRAPPER(osf_iio_test_unregister, osf_iio_unregister_sensor,
++			    struct iio_dev *);
 +
-+struct osf_iio_state {
-+	const struct osf_iio_sensor_spec *spec;
-+	struct iio_buffer *buffer;
-+	u32 scale_nano;
-+	u16 sensor_index;
-+	struct osf_device *osf;
-+};
++KUNIT_DEFINE_ACTION_WRAPPER(osf_iio_test_put_device, put_device, struct device *);
 +
-+#define OSF_CHAN(_type, _mod, _idx)				\
-+	{								\
-+		.type = (_type),					\
-+		.modified = ((_mod) != IIO_NO_MOD),		\
-+		.channel2 = (_mod),					\
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),		\
-+		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),	\
-+		.scan_index = (_idx),					\
-+		.scan_type = {						\
-+			.sign = 's',					\
-+			.realbits = 32,					\
-+			.storagebits = 32,				\
-+			.endianness = IIO_CPU,				\
-+		},							\
++static noinline void osf_test_poison_stack(void)
++{
++	u8 bytes[1024];
++
++	memset(bytes, 0xa5, sizeof(bytes));
++	barrier_data(bytes);
++}
++
++static void osf_iio_check_scan(struct kunit *test, struct iio_dev *indio_dev,
++			       const s32 *values, unsigned int channels,
++			       unsigned int mask, bool ts)
++{
++	struct iio_buffer *buffer = indio_dev->buffer;
++	unsigned int data_bytes = hweight32(mask) * sizeof(s32);
++	unsigned int ts_offset = ALIGN(data_bytes, 8);
++	unsigned int scan_bytes = ts ? ts_offset + 8 : data_bytes;
++	unsigned int offset = 0;
++	u8 scan[24] __aligned(8);
++	s64 before, after, timestamp;
++	int ret;
++
++	bitmap_zero((unsigned long *)buffer->scan_mask, iio_get_masklength(indio_dev));
++	for (unsigned int i = 0; i < channels; i++)
++		if (mask & BIT(i))
++			set_bit(i, (unsigned long *)buffer->scan_mask);
++	buffer->scan_timestamp = ts;
++	ret = iio_update_buffers(indio_dev, buffer, NULL);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	kunit_info(test, "device=%s mask=%u ts=%u bytes=%u\n",
++		   indio_dev->name, mask, ts, scan_bytes);
++	memset(scan, 0xa5, sizeof(scan));
++	before = iio_get_time_ns(indio_dev);
++	osf_test_poison_stack();
++	ret = osf_iio_push_sample(indio_dev, values, channels);
++	after = iio_get_time_ns(indio_dev);
++	KUNIT_EXPECT_EQ(test, ret, 0);
++	KUNIT_EXPECT_EQ(test, buffer->bytes_per_datum, scan_bytes);
++	ret = iio_pop_from_buffer(buffer, scan);
++	KUNIT_EXPECT_EQ(test, ret, 0);
++	if (ret)
++		goto disable;
++
++	for (unsigned int i = 0; i < channels; i++) {
++		if (!(mask & BIT(i)))
++			continue;
++		KUNIT_EXPECT_MEMEQ(test, scan + offset, &values[i], sizeof(s32));
++		offset += sizeof(s32);
 +	}
++	if (ts) {
++		for (unsigned int i = data_bytes; i < ts_offset; i++)
++			KUNIT_EXPECT_EQ(test, scan[i], (u8)0);
++		memcpy(&timestamp, scan + ts_offset, sizeof(timestamp));
++		KUNIT_EXPECT_GE(test, timestamp, before);
++		KUNIT_EXPECT_LE(test, timestamp, after);
++	}
++	/* Neither kfifo nor the producer may write outside the consumer stride. */
++	for (unsigned int i = scan_bytes; i < sizeof(scan); i++)
++		KUNIT_EXPECT_EQ(test, scan[i], (u8)0xa5);
 +
-+static const struct iio_chan_spec osf_accel_channels[] = {
-+	OSF_CHAN(IIO_ACCEL, IIO_MOD_X, 0),
-+	OSF_CHAN(IIO_ACCEL, IIO_MOD_Y, 1),
-+	OSF_CHAN(IIO_ACCEL, IIO_MOD_Z, 2),
-+	IIO_CHAN_SOFT_TIMESTAMP(3),
++disable:
++	KUNIT_EXPECT_EQ(test, iio_update_buffers(indio_dev, NULL, buffer), 0);
++}
++
++/* Protect timestamp alignment holes and every supported scan layout. */
++static void osf_iio_scan_bytes_test(struct kunit *test)
++{
++	static const u16 types[] = {
++		OSF_SENSOR_ACCELEROMETER, OSF_SENSOR_GYROSCOPE,
++		OSF_SENSOR_MAGNETOMETER, OSF_SENSOR_TEMPERATURE,
++	};
++	const s32 values[] = { 101, -202, 303 };
++	struct osf_capability_entry entry = {
++		.sample_format = OSF_SAMPLE_FORMAT_S32,
++		.scale_nano = 1000000,
++	};
++	struct osf_device *osf;
++	struct device *dev;
++
++	dev = kunit_device_register(test, "osf-iio");
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
++	osf = kunit_kzalloc(test, sizeof(*osf), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, osf);
++	osf_core_init(osf, dev);
++
++	for (unsigned int t = 0; t < ARRAY_SIZE(types); t++) {
++		unsigned int channels = t == 3 ? 1 : 3;
++		struct iio_dev *indio_dev;
++		int ret;
++
++		entry.sensor_type = types[t];
++		entry.channel_count = channels;
++		ret = osf_iio_register_sensor(dev, &entry, osf, &indio_dev);
++		KUNIT_ASSERT_EQ(test, ret, 0);
++		ret = kunit_add_action_or_reset(test, osf_iio_test_unregister, indio_dev);
++		KUNIT_ASSERT_EQ(test, ret, 0);
++		for (unsigned int mask = 1; mask < BIT(channels); mask++)
++			for (unsigned int ts = 0; ts < 2; ts++)
++				osf_iio_check_scan(test, indio_dev, values, channels, mask, ts);
++		kunit_release_action(test, osf_iio_test_unregister, indio_dev);
++	}
++}
++
++struct osf_iio_race {
++	struct iio_buffer_access_funcs access;
++	const struct iio_buffer_access_funcs *original;
++	struct iio_dev *indio_dev;
++	struct kunit *test;
++	struct task_struct *producer;
++	struct task_struct *config;
++	struct completion entered;
++	struct completion release;
++	struct completion config_started;
++	struct completion config_done;
++	atomic_t block_store;
++	atomic_t stores;
++	atomic_t disabled;
++	atomic_t bad_store;
++	int enable_error;
++	int disable_error;
++	int config_result;
++	bool unregister;
 +};
 +
-+static const struct iio_chan_spec osf_gyro_channels[] = {
-+	OSF_CHAN(IIO_ANGL_VEL, IIO_MOD_X, 0),
-+	OSF_CHAN(IIO_ANGL_VEL, IIO_MOD_Y, 1),
-+	OSF_CHAN(IIO_ANGL_VEL, IIO_MOD_Z, 2),
-+	IIO_CHAN_SOFT_TIMESTAMP(3),
-+};
++static void osf_iio_stop_producer(void *data)
++{
++	struct osf_iio_race *race = data;
 +
-+static const struct iio_chan_spec osf_mag_channels[] = {
-+	OSF_CHAN(IIO_MAGN, IIO_MOD_X, 0),
-+	OSF_CHAN(IIO_MAGN, IIO_MOD_Y, 1),
-+	OSF_CHAN(IIO_MAGN, IIO_MOD_Z, 2),
-+	IIO_CHAN_SOFT_TIMESTAMP(3),
-+};
++	atomic_set(&race->block_store, 0);
++	complete_all(&race->release);
++	kthread_stop(race->producer);
++}
 +
-+static const struct iio_chan_spec osf_temp_channels[] = {
-+	OSF_CHAN(IIO_TEMP, IIO_NO_MOD, 0),
-+	IIO_CHAN_SOFT_TIMESTAMP(1),
-+};
++static void osf_iio_stop_config(void *data)
++{
++	struct osf_iio_race *race = data;
 +
-+static const struct osf_iio_sensor_spec osf_iio_sensor_specs[] = {
-+	{
++	/* Configuration may be waiting for an admitted store to finish. */
++	atomic_set(&race->block_store, 0);
++	complete_all(&race->release);
++	kthread_stop(race->config);
++}
++
++static void osf_iio_restore_access(void *data)
++{
++	struct osf_iio_race *race = data;
++
++	race->indio_dev->buffer->access = race->original;
++}
++
++static struct osf_iio_race *osf_iio_race_from_buffer(struct iio_buffer *buffer)
++{
++	return container_of(buffer->access, struct osf_iio_race, access);
++}
++
++static int osf_iio_test_store(struct iio_buffer *buffer, const void *data)
++{
++	struct osf_iio_race *race = osf_iio_race_from_buffer(buffer);
++
++	if (atomic_xchg(&race->block_store, 0)) {
++		complete(&race->entered);
++		if (!wait_for_completion_timeout(&race->release, 5 * HZ))
++			return -ETIMEDOUT;
++	}
++	if (atomic_read(&race->disabled))
++		atomic_inc(&race->bad_store);
++	atomic_inc(&race->stores);
++	return race->original->store_to(buffer, data);
++}
++
++static int osf_iio_test_enable(struct iio_buffer *buffer, struct iio_dev *indio_dev)
++{
++	struct osf_iio_race *race = osf_iio_race_from_buffer(buffer);
++
++	if (race->enable_error)
++		return race->enable_error;
++	atomic_set(&race->disabled, 0);
++	return 0;
++}
++
++static int osf_iio_test_disable(struct iio_buffer *buffer, struct iio_dev *indio_dev)
++{
++	struct osf_iio_race *race = osf_iio_race_from_buffer(buffer);
++
++	atomic_set(&race->disabled, 1);
++	return race->disable_error;
++}
++
++static int osf_iio_test_producer(void *data)
++{
++	struct osf_iio_race *race = data;
++	const s32 values[] = { 101, -202, 303 };
++
++	while (!kthread_should_stop()) {
++		osf_iio_push_sample(race->indio_dev, values, ARRAY_SIZE(values));
++		cond_resched();
++	}
++	return 0;
++}
++
++static int osf_iio_test_configure(void *data)
++{
++	struct osf_iio_race *race = data;
++
++	complete(&race->config_started);
++	if (race->unregister) {
++		/* Consume the registered cleanup action exactly once. */
++		kunit_release_action(race->test, osf_iio_test_unregister, race->indio_dev);
++		race->config_result = 0;
++	} else {
++		race->config_result = iio_update_buffers(race->indio_dev, NULL,
++							 race->indio_dev->buffer);
++	}
++	complete(&race->config_done);
++	while (!kthread_should_stop())
++		msleep(20);
++	return 0;
++}
++
++static void osf_iio_expect_quiesce(struct kunit *test, struct osf_iio_race *race)
++{
++	struct iio_dev *indio_dev = race->indio_dev;
++	const unsigned long *scan_mask = indio_dev->active_scan_mask;
++	unsigned long mask;
++	unsigned long waited;
++	int ret;
++
++	KUNIT_ASSERT_NOT_NULL(test, scan_mask);
++	mask = *scan_mask;
++	race->config = kthread_run(osf_iio_test_configure, race, "osf-cfg-test");
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, race->config);
++	ret = kunit_add_action_or_reset(test, osf_iio_stop_config, race);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++	KUNIT_EXPECT_NE(test, wait_for_completion_timeout(&race->config_started, HZ), 0UL);
++	waited = wait_for_completion_timeout(&race->config_done, msecs_to_jiffies(20));
++	KUNIT_EXPECT_EQ(test, waited, 0UL);
++	/* The blocked OSF push owns the mode claim until its store returns. */
++	KUNIT_EXPECT_TRUE(test, iio_buffer_enabled(indio_dev));
++	KUNIT_EXPECT_PTR_EQ(test, indio_dev->active_scan_mask, scan_mask);
++	if (indio_dev->active_scan_mask)
++		KUNIT_EXPECT_EQ(test, *indio_dev->active_scan_mask, mask);
++	complete(&race->release);
++	kunit_release_action(test, osf_iio_stop_config, race);
++	KUNIT_EXPECT_TRUE(test, completion_done(&race->config_done));
++	KUNIT_EXPECT_EQ(test, race->config_result, 0);
++	KUNIT_EXPECT_FALSE(test, iio_buffer_enabled(indio_dev));
++	KUNIT_EXPECT_NULL(test, indio_dev->active_scan_mask);
++}
++
++/* Run real IIO configuration and kfifo code against an independent producer. */
++static void osf_iio_buffer_lifetime_test(struct kunit *test)
++{
++	struct osf_capability_entry entry = {
 +		.sensor_type = OSF_SENSOR_ACCELEROMETER,
 +		.channel_count = 3,
-+		.name = "osf-accel",
-+		.channels = osf_accel_channels,
-+		.num_channels = ARRAY_SIZE(osf_accel_channels),
-+	},
-+	{
-+		.sensor_type = OSF_SENSOR_GYROSCOPE,
-+		.channel_count = 3,
-+		.name = "osf-gyro",
-+		.channels = osf_gyro_channels,
-+		.num_channels = ARRAY_SIZE(osf_gyro_channels),
-+	},
-+	{
-+		.sensor_type = OSF_SENSOR_MAGNETOMETER,
-+		.channel_count = 3,
-+		.name = "osf-magn",
-+		.channels = osf_mag_channels,
-+		.num_channels = ARRAY_SIZE(osf_mag_channels),
-+	},
-+	{
-+		.sensor_type = OSF_SENSOR_TEMPERATURE,
-+		.channel_count = 1,
-+		.name = "osf-temp",
-+		.channels = osf_temp_channels,
-+		.num_channels = ARRAY_SIZE(osf_temp_channels),
-+	},
++		.sample_format = OSF_SAMPLE_FORMAT_S32,
++		.scale_nano = 1000000,
++	};
++	const s32 values[] = { 101, -202, 303 };
++	struct osf_iio_race *race;
++	struct osf_device *osf;
++	struct iio_dev *indio_dev;
++	struct iio_buffer *buffer;
++	struct device *dev;
++	int stores, ret;
++
++	dev = kunit_device_register(test, "osf-race");
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
++	osf = kunit_kzalloc(test, sizeof(*osf), GFP_KERNEL);
++	race = kunit_kzalloc(test, sizeof(*race), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, osf);
++	KUNIT_ASSERT_NOT_NULL(test, race);
++	osf_core_init(osf, dev);
++	ret = osf_iio_register_sensor(dev, &entry, osf, &indio_dev);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++	ret = kunit_add_action_or_reset(test, osf_iio_test_unregister, indio_dev);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++	buffer = indio_dev->buffer;
++	race->indio_dev = indio_dev;
++	race->test = test;
++	race->original = buffer->access;
++	race->access = *buffer->access;
++	race->access.store_to = osf_iio_test_store;
++	race->access.enable = osf_iio_test_enable;
++	race->access.disable = osf_iio_test_disable;
++	init_completion(&race->entered);
++	init_completion(&race->release);
++	init_completion(&race->config_started);
++	init_completion(&race->config_done);
++	atomic_set(&race->disabled, 1);
++	/* Keep the device and its attached buffer alive across unregister. */
++	get_device(&indio_dev->dev);
++	ret = kunit_add_action_or_reset(test, osf_iio_test_put_device, &indio_dev->dev);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++	buffer->access = &race->access;
++	ret = kunit_add_action_or_reset(test, osf_iio_restore_access, race);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++	set_bit(0, (unsigned long *)buffer->scan_mask);
++	KUNIT_EXPECT_EQ(test, iio_update_buffers(indio_dev, buffer, NULL), 0);
++
++	atomic_set(&race->block_store, 1);
++	race->producer = kthread_run(osf_iio_test_producer, race, "osf-rx-test");
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, race->producer);
++	ret = kunit_add_action_or_reset(test, osf_iio_stop_producer, race);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++	KUNIT_EXPECT_NE(test, wait_for_completion_timeout(&race->entered, HZ), 0UL);
++	osf_iio_expect_quiesce(test, race);
++
++	for (unsigned int i = 0; i < 100; i++) {
++		bitmap_zero((unsigned long *)buffer->scan_mask, iio_get_masklength(indio_dev));
++		*(unsigned long *)buffer->scan_mask = (i % 7) + 1;
++		buffer->scan_timestamp = i & 1;
++		KUNIT_EXPECT_EQ(test, iio_update_buffers(indio_dev, buffer, NULL), 0);
++		cond_resched();
++		KUNIT_EXPECT_EQ(test, iio_update_buffers(indio_dev, NULL, buffer), 0);
++	}
++
++	race->enable_error = -EIO;
++	KUNIT_EXPECT_EQ(test, iio_update_buffers(indio_dev, buffer, NULL), -EIO);
++	stores = atomic_read(&race->stores);
++	KUNIT_EXPECT_EQ(test, osf_iio_push_sample(indio_dev, values, 3), 0);
++	KUNIT_EXPECT_EQ(test, atomic_read(&race->stores), stores);
++	race->enable_error = 0;
++	KUNIT_EXPECT_EQ(test, iio_update_buffers(indio_dev, buffer, NULL), 0);
++	race->disable_error = -EIO;
++	KUNIT_EXPECT_EQ(test, iio_update_buffers(indio_dev, NULL, buffer), -EIO);
++	stores = atomic_read(&race->stores);
++	KUNIT_EXPECT_EQ(test, osf_iio_push_sample(indio_dev, values, 3), 0);
++	KUNIT_EXPECT_EQ(test, atomic_read(&race->stores), stores);
++	race->disable_error = 0;
++
++	KUNIT_EXPECT_EQ(test, iio_update_buffers(indio_dev, buffer, NULL), 0);
++	/* Rearm only after the first blocked store and configuration have ended. */
++	reinit_completion(&race->entered);
++	reinit_completion(&race->release);
++	reinit_completion(&race->config_started);
++	reinit_completion(&race->config_done);
++	/* Publish the completions to the producer's fully ordered atomic_xchg(). */
++	atomic_set_release(&race->block_store, 1);
++	KUNIT_EXPECT_NE(test, wait_for_completion_timeout(&race->entered, HZ), 0UL);
++	race->unregister = true;
++	osf_iio_expect_quiesce(test, race);
++	kunit_release_action(test, osf_iio_stop_producer, race);
++	KUNIT_EXPECT_EQ(test, atomic_read(&race->bad_store), 0);
++	KUNIT_EXPECT_GT(test, atomic_read(&race->stores), 0);
++	kunit_release_action(test, osf_iio_restore_access, race);
++	kunit_release_action(test, osf_iio_test_put_device, &indio_dev->dev);
++}
++
++static struct kunit_case osf_iio_test_cases[] = {
++	KUNIT_CASE(osf_iio_scan_bytes_test),
++	KUNIT_CASE(osf_iio_buffer_lifetime_test),
++	{ }
 +};
 +
-+static const struct osf_iio_sensor_spec *
-+osf_iio_find_sensor_spec(u16 sensor_type, u16 channel_count)
-+{
-+	for (unsigned int i = 0; i < ARRAY_SIZE(osf_iio_sensor_specs); i++) {
-+		if (osf_iio_sensor_specs[i].sensor_type == sensor_type &&
-+		    osf_iio_sensor_specs[i].channel_count == channel_count)
-+			return &osf_iio_sensor_specs[i];
-+	}
-+
-+	return NULL;
-+}
-+
-+bool osf_iio_sensor_supported(u16 sensor_type, u16 channel_count)
-+{
-+	return osf_iio_find_sensor_spec(sensor_type, channel_count) != NULL;
-+}
-+
-+const char *osf_iio_sensor_name(u16 sensor_type)
-+{
-+	for (unsigned int i = 0; i < ARRAY_SIZE(osf_iio_sensor_specs); i++) {
-+		if (osf_iio_sensor_specs[i].sensor_type == sensor_type)
-+			return osf_iio_sensor_specs[i].name;
-+	}
-+
-+	return NULL;
-+}
-+
-+static int osf_iio_read_raw(struct iio_dev *indio_dev,
-+			    const struct iio_chan_spec *chan, int *val,
-+			    int *val2, long mask)
-+{
-+	struct osf_iio_state *state = iio_priv(indio_dev);
-+	s32 raw;
-+	int ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW:
-+		ret = osf_core_read_latest_sample(state->osf,
-+						  state->spec->sensor_type,
-+						  state->sensor_index,
-+						  chan->scan_index, &raw);
-+		if (ret)
-+			return ret;
-+
-+		*val = raw;
-+		return IIO_VAL_INT;
-+	case IIO_CHAN_INFO_SCALE:
-+		*val = state->scale_nano / NANO;
-+		*val2 = state->scale_nano % NANO;
-+		return IIO_VAL_INT_PLUS_NANO;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static const struct iio_info osf_iio_info = {
-+	.read_raw = osf_iio_read_raw,
++static struct kunit_suite osf_iio_test_suite = {
++	.name = "osf-iio",
++	.test_cases = osf_iio_test_cases,
 +};
 +
-+int osf_iio_register_sensor(struct device *dev,
-+			    const struct osf_capability_entry *entry,
-+			    struct osf_device *osf, struct iio_dev **indio_dev)
-+{
-+	const struct osf_iio_sensor_spec *spec;
-+	struct osf_iio_state *state;
-+	struct iio_dev *iio_dev;
-+	int ret;
++kunit_test_suite(osf_iio_test_suite);
 +
-+	spec = osf_iio_find_sensor_spec(entry->sensor_type,
-+					entry->channel_count);
-+	if (!spec)
-+		return -EOPNOTSUPP;
-+
-+	if (entry->sample_format != OSF_SAMPLE_FORMAT_S32 ||
-+	    (entry->flags & ~OSF_CAPABILITY_FLAGS_MASK))
-+		return -EOPNOTSUPP;
-+
-+	if (!entry->scale_nano)
-+		return -EINVAL;
-+
-+	iio_dev = iio_device_alloc(dev, sizeof(*state));
-+	if (!iio_dev)
-+		return -ENOMEM;
-+
-+	state = iio_priv(iio_dev);
-+	state->spec = spec;
-+	state->scale_nano = entry->scale_nano;
-+	state->sensor_index = entry->sensor_index;
-+	state->osf = osf;
-+
-+	iio_dev->name = spec->name;
-+	iio_dev->info = &osf_iio_info;
-+	iio_dev->modes = INDIO_DIRECT_MODE | INDIO_BUFFER_SOFTWARE;
-+	iio_dev->channels = spec->channels;
-+	iio_dev->num_channels = spec->num_channels;
-+
-+	state->buffer = iio_kfifo_allocate();
-+	if (!state->buffer) {
-+		ret = -ENOMEM;
-+		goto err_free_iio;
-+	}
-+
-+	ret = iio_device_attach_buffer(iio_dev, state->buffer);
-+	if (ret)
-+		goto err_free_buffer;
-+
-+	ret = iio_device_register(iio_dev);
-+	if (ret)
-+		goto err_free_buffer;
-+
-+	*indio_dev = iio_dev;
-+
-+	return 0;
-+
-+err_free_buffer:
-+	iio_kfifo_free(state->buffer);
-+err_free_iio:
-+	iio_device_free(iio_dev);
-+
-+	return ret;
-+}
-+
-+void osf_iio_unregister_sensor(struct iio_dev *indio_dev)
-+{
-+	struct osf_iio_state *state = iio_priv(indio_dev);
-+
-+	iio_device_unregister(indio_dev);
-+	iio_kfifo_free(state->buffer);
-+	iio_device_free(indio_dev);
-+}
-+
-+int osf_iio_push_sample(struct iio_dev *indio_dev, const s32 *values,
-+			u16 channel_count)
-+{
-+	struct osf_iio_state *state = iio_priv(indio_dev);
-+	s64 timestamp;
-+	int ret;
-+
-+	if (channel_count != state->spec->channel_count)
-+		return -EPROTO;
-+
-+	if (!iio_device_try_claim_buffer_mode(indio_dev))
-+		return 0;
-+
-+	timestamp = iio_get_time_ns(indio_dev);
-+
-+	switch (channel_count) {
-+	case 1: {
-+		struct {
-+			s32 value;
-+			aligned_s64 timestamp;
-+		} scan = { };
-+
-+		scan.value = values[0];
-+
-+		ret = iio_push_to_buffers_with_ts(indio_dev, &scan,
-+						  sizeof(scan), timestamp);
-+		break;
-+	}
-+	case 3: {
-+		struct {
-+			s32 values[3];
-+			aligned_s64 timestamp;
-+		} scan = { };
-+		unsigned int index = 0;
-+		unsigned int channel;
-+
-+		/* Pack the active channels; unused storage remains initialized. */
-+		for_each_set_bit(channel, indio_dev->active_scan_mask, channel_count)
-+			scan.values[index++] = values[channel];
-+
-+		ret = iio_push_to_buffers_with_ts(indio_dev, &scan,
-+						  sizeof(scan), timestamp);
-+		break;
-+	}
-+	default:
-+		ret = -EPROTO;
-+		break;
-+	}
-+
-+	iio_device_release_buffer_mode(indio_dev);
-+
-+	return ret;
-+}
-diff --git a/drivers/iio/sensorhubs/osf/osf_iio.h b/drivers/iio/sensorhubs/osf/osf_iio.h
-new file mode 100644
-index 0000000000000000000000000000000000000000..d0745167f8e05666d7667555a027eeaad11fb0ec
---- /dev/null
-+++ b/drivers/iio/sensorhubs/osf/osf_iio.h
-@@ -0,0 +1,22 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef _OSF_IIO_H
-+#define _OSF_IIO_H
-+
-+#include <linux/types.h>
-+
-+#include "osf_protocol.h"
-+
-+struct device;
-+struct iio_dev;
-+struct osf_device;
-+
-+int osf_iio_register_sensor(struct device *dev,
-+			    const struct osf_capability_entry *entry,
-+			    struct osf_device *osf, struct iio_dev **indio_dev);
-+void osf_iio_unregister_sensor(struct iio_dev *indio_dev);
-+int osf_iio_push_sample(struct iio_dev *indio_dev, const s32 *values,
-+			u16 channel_count);
-+bool osf_iio_sensor_supported(u16 sensor_type, u16 channel_count);
-+const char *osf_iio_sensor_name(u16 sensor_type);
-+
-+#endif
-diff --git a/drivers/iio/sensorhubs/osf/osf_serdev.c b/drivers/iio/sensorhubs/osf/osf_serdev.c
-index 791bef93e4b8495fdfdf673faddc2059696e8872..dceac281443206588ee42b6abf08bcdb7ae2dc25 100644
---- a/drivers/iio/sensorhubs/osf/osf_serdev.c
-+++ b/drivers/iio/sensorhubs/osf/osf_serdev.c
-@@ -68,9 +68,10 @@ static void osf_serdev_release(void *data)
- {
- 	struct osf_serdev *osf_uart = data;
- 
--	/* The TTY controller drains RX work on close; hold no RX lock. */
-+	/* The TTY controller drains RX work on close; hold no RX or IIO lock. */
- 	serdev_device_close(osf_uart->serdev);
- 	osf_stream_reset(&osf_uart->stream);
-+	osf_core_unregister_iio(&osf_uart->osf);
- 	if (osf_uart->vcc_enabled)
- 		regulator_disable(osf_uart->vcc);
- }
-@@ -124,6 +125,10 @@ static int osf_serdev_probe(struct serdev_device *serdev)
- 		return dev_err_probe(dev, ret, "failed to enable vcc regulator\n");
- 	osf_uart->vcc_enabled = true;
- 
-+	/* No fallible probe steps remain when IIO children become visible. */
-+	scoped_guard(mutex, &osf_uart->lock)
-+		osf_core_start(&osf_uart->osf);
-+
- 	return 0;
- }
- 
++MODULE_LICENSE("GPL");
