@@ -1,148 +1,165 @@
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 388453C65F4
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 05:26:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791696382; cv=pass; b=VkZU8j3r2QDuWuq+WKXjjRq8P+VVyukGkU0ejQ4XfWdofvMcjr1jx3Slk7N2hHuCoexZpUE4vMtX31tCEhGaQzbDI2UkdC1g2Lhp32pRFpxOToxHmii3K184Kq2BtxRu1uHU84CoUdFpuYt06HWi+OY2TSFFX4LRkYMv/+GavwY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791696382; c=relaxed/simple;
-	bh=77rZFfgjYBTlmfFxdEKXYN3j8YeaENiscAJklGZpDd0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gutvwWHnF5xNlDTnZKFCs8q9B1wRNzvvzVBk9inZFvkB0YOEPooYx2TAlWKH3ho6qIZWO2n4iulvDv4W4q8QXsMY5TxduToeO74hPfiA/IURYoR0S03hMIpP83EZX71F6+g/38hricfIBbKHuf4qINxDzImApLC7P+yC5R3OI4A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MQsggebR; arc=pass smtp.client-ip=209.85.160.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51833AA9D4
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 05:29:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791696588; cv=none; b=SO7+Lc3Zem6/mPiQmp0AabDLANWw6mYYx9JHdzy3pNY12mELUThupeluvBQhlXVmG4VcaA35pyDitcti9GLUKVO+YgtTD8CD6FtW7Ym/ljyAA/cDWJoP57VqpotjkKEyUmxSxTADw24IlRP6x1otq01BIHIjYEaxL62koX0KojU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791696588; c=relaxed/simple;
+	bh=sIbRso6W6WqLNYE6yLPCDLJ+kUhhHofo7p2mjFJFouk=;
+	h=From:To:Cc:Subject:Message-ID:In-Reply-To:References:Date:
+	 MIME-Version:Content-Type; b=PfhlSu0wRdB81Es9lqYA+PyzFY8lnnsoOa7sJdQLYv8Rz/R6ZfFWcvfel08LpDVHxsIcSaKiS5ut309atSSzOEYxEoxfvazMIDGpkwzH2UT28+/4BJgOlrv/uOMIFk1+Nq7mcAvL3kexKz8IwnmyqLx5VyVbA3MoysRgKzHActU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=innovatrics.com; spf=pass smtp.mailfrom=innovatrics.com; dkim=pass (1024-bit key) header.d=innovatrics.com header.i=@innovatrics.com header.b=eqefMXFC; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=innovatrics.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=innovatrics.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MQsggebR"
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-533778ab0bdso12001281cf.3
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 22:26:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791696379; cv=none;
-        d=google.com; s=arc-20260327;
-        b=E0iQBgDhWroegxxJi+DLXEruP60K3sTpnatwL86GhrF5AS2QPHjISrbs99XDwYy8q7
-         QetNTo8uuUwKbnNN2r1ACs7JZuxdxSTtYXBaJ6BosSXX9pN3Iz2J0qeqLbYgjpBoloso
-         BKhRFV/Jufj29A/gAV1Mg2UKc2boRXLAw4pui1Db9wTMOf4f58W9+TJtceOZyU4VPWuA
-         8ggL/+1Dm0n257O6q9e+h9l4HzxHcWDj0ZVSvATyx0lxdAGPtLaAzoymJopn9j8E+j2p
-         ZHvCy+eJSPdEAPmsXt0BDEhEWwdYpqVHDkCBYWwuG+qU7YHsi9LBWks7cRiGDr4egfLB
-         syTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=1i76vSVcCtW46mgdzvE51Z6MfQ6riiMaLLzExFhy9SI=;
-        fh=lqcFqVd5+AQKOUouVzq1k+SkzEYjOhvlP3Tm5C9Hc/A=;
-        b=m0bhVdIZWxb1Nl6le/Cwm1jauzL6YNytsspsU0pAuCmwvZAWI0Z7RMMZzK4hEYUJBP
-         iyeqqILYpeEPBoBfr1BM+aDVwLRSEIUGM+BE8yti0BuU8A3rZSw+P2JvwxFrFmIEtCzJ
-         ntuzIAIxq0kZBDZf/OITv1LSQ/CsUjTARb64N70Vq2gSNR+Wxk6o0A3+yfKwx8POm+gC
-         hx3hIDT+emufZ+PYRz5rJpUBIx/Kn5qS0dSO2NC5IVyz6LtARNl47TTWi14iYucV42m4
-         K9/DzCXXEJxvDU0Hys61GyecWAKX7eUCLgTGKMo9T5xyHJUOmvGjjPmln3v00Xi/rx3O
-         bNBA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=innovatrics.com header.i=@innovatrics.com header.b="eqefMXFC"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a061a13884so8019695e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 22:29:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791696379; x=1792301179; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1i76vSVcCtW46mgdzvE51Z6MfQ6riiMaLLzExFhy9SI=;
-        b=MQsggebRpqTvK/77e7pxNlG2SnjQPv6a1RDvxjdT12CIz0G805TMlDiLp1bYvmXziQ
-         7/LJz3W9vYfWlg48v6o32owSqc1mcqTbJbXDmHC/v2fGopfuQDi6Yenzgza2tY+8d+xV
-         VuaHiBeJki50JmPymrSMbzI7MOYUA+Vmfl2SlnUqhJgx6LrxUX9eWeP5HLf8DwFcnQbz
-         g9mMKTg9XxFt4vtJjX5PqMfIA1vhrqR/QceCx37SzUXyLpgq6dr2b1qhDF6yHcUT3Fdy
-         vjGXijuZ+UoChOOWjslxARtQVFz3vax9XE0qpsG34CsBh/0kfLg6QG2EH0tzgg518Lr1
-         Ux2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791696379; x=1792301179;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=innovatrics.com; s=google; t=1791696585; x=1792301385; darn=vger.kernel.org;
+        h=content-type:mime-version:date:references:in-reply-to:message-id
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1i76vSVcCtW46mgdzvE51Z6MfQ6riiMaLLzExFhy9SI=;
-        b=bI0PI/8dKQ9JS+ze8ZMUWdMU3Gd2w8OZy8qLJ/9Hg9KWaX6MJYL4THA+2H0oIpJB/g
-         kIlUS1G4pK7lunZtfVYyUIgA93dVdTGFjiGyk8Lv5KDddEcWzIMLophLnP9ha35JignZ
-         HEUbJCf3m/8kGy8hU6Us4oFHYx33Lxhlo1Nqnj7mUGa2BqBW7ATnSZYCo6xgGl38reqm
-         uhdPo13Zaztw3GUhqxl4DNjGRWzAk+G7NwQPY2Jc3fCnQLHDKHUKMkHJsyoOTTIohGJr
-         bKe7cCfHgFW1QxRoCazWLEbYBD7JxkAnUTkBgu9xh0Ds1kQd3nSqU5nSIkldyswYpjce
-         SYyg==
-X-Forwarded-Encrypted: i=1; AKwUvByM3tCYCVZkGfTC/IuLUktuu1ANBl1eqfhuD5Kq9KbMS1+Q60scbLBWzWSgkgDYjZXXsv7izjBB8Co+QPE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJAHHeouC9/xnk2Eb96QaVl44HceUTOV7AubFuVNxCRPxOAwHGo
-	Ay3bwzuVpGCZt3ZPwkR3kAEmDLJc8h8ax8ntKK4NWllwgkhu8vzkIcDeNpMaLJg6ZaOxxW/lD5s
-	o1BwqG7f0CcgkvAKWQ6XDbobqA5HmM54=
-X-Gm-Gg: AYBFou0jZ3gBMVUsRAlX5Y9KNr6vXhkjXJS68VOuI6wuaQ9d2zeZFs5Q4VanA8oDrAr
-	UyqwPoDK9uTKQpwT59R1qIXWaVV7GDKQ9noQj9JuQYdFCKtRhdCuIa26vi8LWReyNHJzDaW2FQt
-	xVStUg/+dgtZfnL/YZ2VLWjNdbrfIQ5WCuS0JV4WHJ3J/nuaYEoDWn3fEibtQxm6gZ999SPLk4r
-	A2G4eZN1NYIx0CktXYsHwie6SG3/S4uRxRN+YmrARwgCFiW8cdWFZyoBpGWH/eV7wnytMIpxkMZ
-	N02IZ2tSs/i+vpmzijhs2wnp5qeFllBrULPe7QVJ/cotv9HX+uleVDkbm2wV9IqJvq3iOU/Njk/
-	kgw8YvYyVJp3yKj+iZuLFdd5hKC4VFDcGOKF0Lp6TbAaYnDS3bIjbMjFqaT8yith46l8eTlnON+
-	Ib4Up3/QKjmipa8z88dhVgJFRKS43rjqovX5VAz6Zc0Yg6SvVtH0FSGimcKQFlYSnNeQ5UhfToF
-	ZBj5X1wFmLumbgbJB0HjjS0yHuV8WI=
-X-Received: by 2002:a05:622a:4815:b0:535:7692:786 with SMTP id
- d75a77b69052e-5359fae3fe1mr113804581cf.20.1791696379015; Sat, 10 Oct 2026
- 22:26:19 -0700 (PDT)
+        bh=EwJQAcrSA8vm2/QDhj4tfogkpVMYET7O/tmaR0Uw6Xg=;
+        b=eqefMXFCtMdjqzxlckHAdKhdWg45OVbq12RRfTeUnpr5REQeBjRlA4pvRF/8tX2SrU
+         DOxrr52H3C0AgyMCvq5wtF1r/IYYnEersFGO9EFi3Iu2k1HLsXzNf4IT+bWUR2+wVoJj
+         xl41LRWS6re51wj+N3vj+nJQOwbAQxAPdTARg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791696585; x=1792301385;
+        h=content-type:mime-version:date:references:in-reply-to:message-id
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EwJQAcrSA8vm2/QDhj4tfogkpVMYET7O/tmaR0Uw6Xg=;
+        b=gJpweacASTofeFUvsmDr0thZrBgftGOt7wbKP/49zO/SCCpt203ZmPjeIVcw14f/F9
+         mbWyiymtI25rXD+tgZjbav7KxCkyxG7eQIifNOgA2eamkKcKSkCAY7YkQCr01L5VRpVQ
+         BLbGuoQMgE1lmJsxyEpLQtdaw00j4kT8mE92T4bwbFm+spBhgsnj9WqJStA5lwjXnYS+
+         POtvOK21h6aHN6DAbaX1BZtvjWipAJ2SLZHUmENK6/8nh+5yDle8ub3ucjS6gRyftWko
+         1uAq9OTtq2XgOwrWdDhX9oMr7THB3OrTUJKcmqiDMqxgkdwdLvhNKiAAadpO8rKivlEK
+         KnZg==
+X-Forwarded-Encrypted: i=1; AKwUvByjc4MUyNIGs5hWUcank64pAUbRagHllOUpsMQg136lzDyb0HH8mCxizuPgtMX+NFLwxN8NJOTk1hhryk0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKQ41G0eL7QW3CXX5INjn27MsiO84vFVsb33taeFyOXBpsHukt0
+	24n+SibPH1dp5+ib+m3lVEJDbNK2auaPQbwGCZz8Lvf5lnprrN73K78HeNmDa7CG3w==
+X-Gm-Gg: AYBFou27+7bU/Cz6WRHyiiNrF3vpjY0Nf61OW7QJhaUoZ36JRKIMU5sMA8mqA94WWZF
+	yCiUsdiKXohQjP7Cq9dDyqw5wdBpkWNAvMVvXohMQxbYKHOkntaBSNyJRhE4Ur1x2mrhvwOpAra
+	18RXhY4DoRlq6IJ7YelKdEtJxEUIeMDmJ4+vV48+hatfLqDK68aEmnII5viNGzHBg4I3YuzZhs/
+	s+lTcNVRBuTlyKWKI6wkibuHEIeR8+Mnj72bXJrUHxbJqsrl0fGmR9FRkm4RIgmCUUaurhrzyCM
+	RFW+46U0T3IKYmv2rBt7Bybnqenb32r4h5+0lJ3t41VAyqwYmzayr1ZIS0gR/bAw+1/wREpgZ99
+	X9ScyKvf736apCAinJtcIoekx9b/P8LdkuS384JEK8f2sA9MWMOH/e/HWT0Kgxo4NKGKrLUU+nF
+	ljKkmYd000rL6vJ/tZjQPS4VjGmyj6E71jJ9a9udqAYqNGRdWjxTTzJKlKbuHmqHw1Y8ZLiearU
+	INi+KgRd1OrX/kdX36YFfgWjbQ6oreHvcolkFjjMk9OXI898iDuNr+aXh6F8Eh3d/42z1L1nKVl
+	t0/wsHyoMUEIchR0IE03w4U9rR4s6wU=
+X-Received: by 2002:a05:600c:e558:20b0:4a1:946c:953f with SMTP id 5b1f17b1804b1-4a1946c9744mr30278845e9.20.1791696585122;
+        Sat, 10 Oct 2026 22:29:45 -0700 (PDT)
+Received: from [10.11.72.5] (bip-static-148.213-81-147.telecom.sk. [213.81.147.148])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a193f2c992sm107606015e9.5.2026.10.10.22.29.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 22:29:44 -0700 (PDT)
+From: Petr Chmelar <petr.chmelar@innovatrics.com>
+To: David Howells <dhowells@redhat.com>
+Cc: Christian Brauner <christian@brauner.io>,
+    Paulo Alcantara <pc@manguebit.org>,
+    Matthew Wilcox <willy@infradead.org>,
+    Namjae Jeon <linkinjeon@kernel.org>,
+    Marc Dionne <marc.dionne@auristor.com>,
+    Stefan Metzmacher <metze@samba.org>,
+    Eric Van Hensbergen <ericvh@kernel.org>,
+    Dominique Martinet <asmadeus@codewreck.org>,
+    Ilya Dryomov <idryomov@gmail.com>,
+    netfs@lists.linux.dev,
+    linux-afs@lists.infradead.org,
+    linux-cifs@vger.kernel.org,
+    linux-nfs@vger.kernel.org,
+    ceph-devel@vger.kernel.org,
+    v9fs@lists.linux.dev,
+    linux-fsdevel@vger.kernel.org,
+    linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v12 4/5] cachefiles: Don't rely on backing fs storage map
+ for most use cases
+Message-ID: <20261011.cachefiles-partial-zeros.pchmelar@innovatrics.com>
+In-Reply-To: <20260910220242.2165023-5-dhowells@redhat.com>
+References: <20260910220242.2165023-1-dhowells@redhat.com>
+ <20260910220242.2165023-5-dhowells@redhat.com>
+Date: Sun, 11 Oct 2026 05:29:43 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261011052006.60585-1-jain.sm@gmail.com> <179169628642.2527009.18099159731266030842@kernel.org>
-In-Reply-To: <179169628642.2527009.18099159731266030842@kernel.org>
-From: shashank Jain <jain.sm@gmail.com>
-Date: Sun, 11 Oct 2026 10:56:07 +0530
-X-Gm-Features: AclHuK_e2G4wGlYi2pZCqS6Wc_bIdvLjmkNcLTMqIuPeyyB_aBbCowg7WmVNY5c
-Message-ID: <CA+FWx==a6tGvhtPfz92PJa4CxgR4tGNBGHQMq9jEhX5P-4sB2g@mail.gmail.com>
-Subject: Re: [PATCH net] tcp: keep the route window metric when SO_RCVBUF is
- set before connect
-To: netdev-bot+sinfo@kernel.org
-Cc: Eric Dumazet <edumazet@kernel.org>, Neal Cardwell <ncardwell@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	"David S. Miller" <davem@davemloft.net>, Kuniyuki Iwashima <kuniyu@google.com>, Simon Horman <horms@kernel.org>, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-The issue was found by manual code inspection assisted by an LLM
-(Claude Code, Claude Opus), while reviewing the networking changes that
-set window_clamp on unconnected sockets, and then confirmed with a
-reproducer before posting. The patch carries an "Assisted-by: LLM" tag
-for that reason.
+Hi David,
 
-Reproducer: mainline a5ebb76233b7 built for x86_64 and booted in qemu,
-two network namespaces joined by a veth pair, with
-"ip route replace 10.0.0.0/24 dev <veth> window 4096" on both sides. A
-small program sets SO_RCVBUF before connect()/listen() and reads
-TCP_WINDOW_CLAMP and tcp_info, and the SYN/SYN-ACK is captured with
-tcpdump.
+With this patch, reading a file whose cache object is only partly
+filled returns wrong data, mostly whole 64 KiB blocks of zeros.  A
+second full read returns the same wrong blocks.  It reproduces over
+NFS and 9p on vfs-7.4.netfs (9f8b64f66).  Over 9p it bisects to this
+patch, 13e340e397 in that branch; over NFS its parent is clean and the
+branch tip is not.
 
-Without SO_RCVBUF the route's window metric is applied
-(TCP_WINDOW_CLAMP=3D4096, rcv_wscale=3D0, SYN "win 2920, wscale 0"). With
-SO_RCVBUF set before connect, mainline reports TCP_WINDOW_CLAMP ~1 MB
-and rcv_wscale=3D5, i.e. the route metric is ignored. Reverting
-b025461303d8 ("tcp: update window_clamp when SO_RCVBUF is set") or
-applying this patch restores TCP_WINDOW_CLAMP=3D4096 and the scaled-down
-SYN window; with no route metric configured, mainline, the revert and
-the patch behave identically in all four combinations.
+#regzbot introduced: 13e340e397
+
+Reproducer: random 64 KiB reads covering half of a 256 MiB file of
+random data, then a full read after dropping the page cache, compared
+with the original per 64 KiB block:
+
+  fio --name=half --filename=/mnt/part.bin --rw=randread --bs=64k \
+      --ioengine=psync --fadvise_hint=random --size=256m --io_size=128m \
+      --randrepeat=1
+  sync; echo 3 > /proc/sys/vm/drop_caches
+  cmp /mnt/part.bin /path/to/original
+
+Setup: QEMU 8.2.2 (TCG, 4 vCPUs), cache on a fresh XFS on a loop device
+(2 GiB for 9p, 4 GiB for NFS), cachefilesd 0.10.10 with brun 10%, bcull
+7%, bstop 3%, fio 3.36.  Mounts:
+
+  NFS: NFSv4.2 loopback export of a tmpfs, vers=4.2,fsc,actimeo=1
+  9p:  trans=virtio,version=9p2000.L,cache=fscache,msize=1048576
+
+Wrong 64 KiB blocks out of 4096, first full read / second full read:
+
+  kernel                mount     wrong       all zeros
+  v7.3-rc6              9p        0 / 0       0
+  e0aa90eb8c            9p        0 / 0       0
+  98e0cd700d (parent)   9p        0 / 0       0
+  98e0cd700d (parent)   NFS       0 / 0       0
+  13e340e397 (this)     9p        936 / 936   825
+  8097a263bd (merge)    9p        936 / 936   825
+  9f8b64f66             9p        936 / 936   825
+  9f8b64f66             NFS       817 / 817   817
+  9f8b64f66             9p loose  0 / 0       0
+
+  "9p loose" is the 9p mount with cache=loose, without fscache.
+
+On 9f8b64f66 over 9p, three runs gave the same counts and the same
+first wrong blocks.  The first wrong blocks are 10, 13, 15, 24, 26 and
+27 over 9p, and 50, 51, 53, 54, 55 and 56 over NFS.
+
+Two more observations, in case they help:
+
+ - Over 9p, after the random fill and both full reads, the backing
+   object has 451 extents with this patch and 28 on v7.3-rc6 (37 on
+   98e0cd700d).
+
+ - Over NFS on 9f8b64f66, the fscache counters after the fill and both
+   full reads are IO rd=371 wr=2189.  I haven't traced whether the
+   zeros come from reads over holes in the backing file or from what
+   was written to it.
+
+Over NFS, a server-side rewrite of the file (invalidation) and a shrink
+and regrow through the mount both read back correctly on 9f8b64f66 and
+98e0cd700d.
+
+I found this while testing a workaround for slow reads from fragmented
+cache objects, which I describe in a reply to the cover letter:
+
+  https://lore.kernel.org/r/20261011.cachefiles-seek-hole-walk.pchmelar@innovatrics.com
+
+It reproduces without that workaround.  The reproducer and the
+bisection were done with LLM assistance.
 
 Thanks,
-Shashank
-
-On Sun, Oct 11, 2026 at 10:54=E2=80=AFAM <netdev-bot+sinfo@kernel.org> wrot=
-e:
->
-> Hi!
->
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
->
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
->
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
->
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+Petr
