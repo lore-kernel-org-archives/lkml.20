@@ -1,122 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89803285058
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:55:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB439426694
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:56:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791708951; cv=none; b=IjYV9LXuTDt/xjPbcFb6Kv55Df/pq6ZuIFXVM0f555zgeKnPN1JamEo6RaaTRUU0X9WPFFk9my7/w0mZIvn+D8ebPmmb4/e+2kjr1GzF5WMO4HmNufBJ6/6QTBuG5S3o1rEM+6DXRdHNOAkljm4auroqapcB4uf9C9wjps/gfkk=
+	t=1791708995; cv=none; b=SahdWb4MWZ/2Mi0lY731IcjkAhR+zH5RcB3ZISO39u9Vqsx8vIT0IXODGX+0ybtMOmrfzgD6Ta7lmfKacNTwefDEVr0EcQXyFPnHjVTk3rdOcHTCurYuYgoOvGYITjKEbawSUrhq4zntPWLwllg2J34KiCFIChzlBiJc+9BT+PA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791708951; c=relaxed/simple;
-	bh=c71GV9Em8N83Q/onaYF06piMYm9Sy1RKY9G8jl/civ0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aSvVbscQ3Nm+EvTpKn5ZikMuGZE/Zqm9z7q1IYQX1hBEOQZFJBhf55ItX1jaUpHFWM+dlclFPNgZpfwjb1xJSoLkLrx8mSV7JDh6Ch+vYmlFIkGYmyPm/mHimZHxzhSEN3PEXCFgLFfQAdQNMj+mmw+zqUgWWRMD73wnkVkrpMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TtGem5H/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791708995; c=relaxed/simple;
+	bh=trXuCyofDSoyesvjUgDrKmbXdt/YLOeYazvd/Osj+lQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eirA1mQXsl3kwKS8LhowpEuf7Ivgg0D14PUXBigr2/bY5/98lg+H1M7aiMy/UuhS/xBYIVUc6pbAs+pbxtHWXZodnSTVWg8gZ8EKdwmXnxNnnT4OmhJQKtHgy93cGiqJTO1cxzlouagUyHSUXM/MrKZODeHrL7AZfGDzIE0DW4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=HCf+9AJj; arc=none smtp.client-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TtGem5H/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31B361F008A5
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:55:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791708950;
-	bh=bq8owGPAlvuzDobHhVTg9562ILbptQRMiB+o1O0+JE0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=TtGem5H/n9sfe4HkWONB9kN5HHL3KAmk9Iei//tLjScYYPayiVeNl7PIVSuyHQspQ
-	 FL1kgEdzoJ5UUN26eeHlTQMl4I6HbobjPwKnwgrVoqqB1xHRNmmboU5wZrj4ju6Goq
-	 YX2i7Qa2/3uxO/tti6wro2aIfMPf73eaARb2Fooq63Qp2VuaGcsStuG8Za0OtuE3Nd
-	 Uftiwf8QTNcjElt3UTNQ7pJa4OfbMGyRrqTbt8ZHPUzmpwlIeMXB7hfeTf40UZOv9H
-	 BIgZKxhAoXGlJwkJsx/ZdwWz7HtkUHf5NnpWaVz0RN5w4DVwQRCdYuqbbsNzYIdO/B
-	 IU4R3NqBrbsFQ==
-Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6e560e00a86so867699eaf.1
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 01:55:50 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwRfvJYobmnxHK4InqazLRMNWEYc/nWdRq3jLA8UWhX4rcIhW1xnu5taAx09kayR/4yRvQK9aGaDLl6Esk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJSrnKxsXInvlTuaQ8knzAPK3etauNn3T88k7Pu+9F2XsKE/GBw
-	frXFIeIE32xKWfvb3iBffBYvEQbqbRGX/ne2SxWz54hE/r8YaoNgCVlrr/ySS4bbZog8TJ4r4ls
-	xcJIH3rN30e/nLsECQN+0wLIUgqk15ac=
-X-Received: by 2002:a05:6820:c2d3:10b0:6f4:ae96:c596 with SMTP id
- 006d021491bc7-6f4ae96ccc1mr351008eaf.2.1791708949482; Sun, 11 Oct 2026
- 01:55:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="HCf+9AJj"
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c263415982eso119496166b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 01:56:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791708991; x=1792313791; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dKOqZxKxSOHNw25+e85CqVx4B1361RF8kK92P+D5pVQ=;
+        b=HCf+9AJj68FQjIxYxllcXMPh/xLWNhDxiwo2416kSNqHz9iEkEonTNZ0QTH+Yt+uWg
+         +vJGQ4ibw2DaCwgZaaBa822cYfUtKvqeK9yPyjgXlGRvkCsqD2kHCUJc46s+qrWAeW9s
+         x0CI+g+36a+2AANQEActK1Zog4eQuF+G9vtYFogZZnob3kMx2EzHaHQ+dVwT2NmurOBI
+         Mf9FhnqzJHXeY3Y7TTnqbwWE/lSmHy91caoz52tlv5uo8QjI2autT/HQ5qF3UTdLoZOb
+         bCLBrRViqKctlHnPtoO3R3qJiYsz+Uqbox3IpsXQFHlrFt+anLfctQCEtIs608+sxEU8
+         Kkrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791708991; x=1792313791;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dKOqZxKxSOHNw25+e85CqVx4B1361RF8kK92P+D5pVQ=;
+        b=XP0fAb4FQZUB8KepMAYwFWeLNp/fGS7oTjh9FcJicJuYwpGE1MmIOxyAgyMnU6ieSf
+         gHI7O4d22swxwWea1ffAzDdhfyLUKBr3VSX8Bg2Mb1eXMC0B3vjk0J6OxeAlyVzSDiOc
+         eX7xgt4WP3Jhnn+MTl86uZd3ITMeqGGS8oIpnNZEYXai9JyQ3O9aul5zaAYjJ0EG+VF8
+         2me/vtNpb0crw0R3yB8eLgcTjGCy/SogL0QpQLx/+wpIbtIjW6mBL6DAsV0TigvjYrxY
+         Zzt0F77Gs8ClPVxkAPSHoN9TTdIVOh9AzrmbrWP9s4QKh+PSREj1W2fLP4ENTpZh2cNe
+         HuYA==
+X-Forwarded-Encrypted: i=1; AKwUvBwmie+xZQe3r9Fqjf3GTsmukAZJEBX2QTOO1eoudZahZS3FBtDQRHgy3/QTojz3jHLlPnj+bbZTE5GgrlE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYISYIO/lG0aSpi9DEzfoIJQafnHQ7iLyAjzpX+rubwnVTicEdi/
+	u68dHirkCJdhNlQun3hNE25oBfUT1MtspP4STiTxglCxr6JtPX8T5Kb0Q1rpDc4zXhk=
+X-Gm-Gg: AYBFou3CU0CJb08wiU2LOWbWzdF6qywWQAeJJl6GelWy49u+eqe6TQUPHqsVYPzSR/U
+	q/oEs9DBg/tYZMOWolFXg6GZfdLNZs307SI+5aHWfRfh+IK40g98An4stffEIucQ087rSAtKB8H
+	G3fY7Ujfp56XlswQD1AMjnbQiSeDhX9Db6GSXEFQyojTVYqe9y06/gwTpCofLWQ5sTPZ4Y77CJK
+	ajZwfXcpdhDYITFrcorH3utY43/JtBjAmVO4b1M3CEeHJOZ9rzMSjxOe1yQdCymjFRAz/qO7FYy
+	mlxnVA/MQA9zCe7NWi6cg6V6snCXVXcbj+U4K54WHTenKn3M83bnv2nbbcTxbChdfm8rt+HAJpJ
+	0aMB1k0X1iyz3D8dORM10nQmRTzB8SAbnPLi4Y9bGKBdF8NXen5F2PCBd3pPdU6xx7iolI1sjMn
+	q26qQ3LZBsjM9scl9cITMOSTtlnB9SgGv58I3tiB1zbaI0pwSIDzLXQe5hza4xTJBUipkp6aAY9
+	9tCDy/Cykre
+X-Received: by 2002:a17:907:940b:b0:c2a:ef15:2be0 with SMTP id a640c23a62f3a-c31a9ffee01mr693409466b.24.1791708991035;
+        Sun, 11 Oct 2026 01:56:31 -0700 (PDT)
+Received: from [192.168.0.167] ([109.76.165.237])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9ae59f9sm334413466b.80.2026.10.11.01.56.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 11 Oct 2026 01:56:30 -0700 (PDT)
+Message-ID: <a6e5dc34-c2e7-4a3c-a0e4-fb0a3a28cece@linaro.org>
+Date: Sun, 11 Oct 2026 09:56:28 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261011-bradfitz-gre-fou-gro-b4-v1-0-df713aad1531@tailscale.com> <20261011-bradfitz-gre-fou-gro-b4-v1-1-df713aad1531@tailscale.com>
-In-Reply-To: <20261011-bradfitz-gre-fou-gro-b4-v1-1-df713aad1531@tailscale.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Sun, 11 Oct 2026 10:55:38 +0200
-X-Gmail-Original-Message-ID: <CAL4WiioRu30CJBTDo6UhnJCb8jmzYUZaDZ9UQAZ0+rpxtANH0g@mail.gmail.com>
-X-Gm-Features: AclHuK_2L6gfWdm0daVBvQD8sLKYxLb2fL9PO6B1lw50qvYQOGtJGmvz7CgB9gg
-Message-ID: <CAL4WiioRu30CJBTDo6UhnJCb8jmzYUZaDZ9UQAZ0+rpxtANH0g@mail.gmail.com>
-Subject: Re: [PATCH net 1/2] gre: keep the UDP tunnel GSO type when completing GRO
-To: bradfitz@tailscale.com
-Cc: "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
-	Antoine Tenart <atenart@kernel.org>, Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v20 08/13] media: qcom: camss: vfe: Add support for VFE
+ 1080
+To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, jeyaprakash.soundrapandian@oss.qualcomm.com,
+ Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
+ Atiya Kailany <atiya.kailany@oss.qualcomm.com>
+References: <20261010-kaanapali-camss-v20-0-63e98ce9ac0c@oss.qualcomm.com>
+ <20261010-kaanapali-camss-v20-8-63e98ce9ac0c@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261010-kaanapali-camss-v20-8-63e98ce9ac0c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Le dim. 11 oct. 2026 =C3=A0 03:41, Brad Fitzpatrick via B4 Relay
-<devnull+bradfitz.tailscale.com@kernel.org> a =C3=A9crit :
->
-> From: Brad Fitzpatrick <bradfitz@tailscale.com>
->
-> gre_gro_complete() assigns SKB_GSO_GRE to gso_type rather than OR-ing
-> it in. When GRE is carried over UDP by FOU or GUE, udp_gro_complete()
-> has already set SKB_GSO_UDP_TUNNEL{,_CSUM} before calling into the FOU
-> or GUE gro_complete handler and then gre_gro_complete(), so that bit is
-> lost.
->
-> That has broken forwarding of such packets since FOU gained GRO: if a
-> host with a FOU or GUE socket on the tunnel's port merges transit
-> packets and then forwards them out a device that can't segment them
-> itself, udp4_ufo_fragment() finds neither tunnel bit and fails, and
-> the packets are dropped. Since commit 3d010c8031e3 ("udp: do not accept
-> non-tunnel GSO skbs landing in a tunnel"), local receive is broken too:
-> udp_unexpected_gso() considers the merged skb, which reaches the
-> encapsulation socket without either UDP tunnel bit, unexpected and
-> hands it to udp_rcv_segment(). Segmenting fails, so the packet is
-> freed and counted in UdpInErrors. Either way, only packets GRO didn't
-> merge get through, so TCP over FOU or GUE GRE tunnels slows to about
-> one segment per round trip whenever the receiving device has GRO
-> enabled.
->
-> OR in SKB_GSO_GRE instead, as ipip_gro_complete() and
-> sit_gro_complete() do for SKB_GSO_IPXIP4. For plain GRE, gso_type is
-> still zero at this point unless the driver set it, so nothing changes
-> there in the usual case.
->
-> The assignment dates to commit bf5a755f5e91 ("net-gre-gro: Add GRE
-> support to the GRO stack"), but nothing set gso_type before it until
-> FOU GRO came along, so the Fixes tag points there.
->
-> Tested under virtme-ng with bulk TCP over a GRE tunnel between two
-> network namespaces joined by a veth, with GRO on the receiving veth and
-> segmentation off on the sending one, so GRO sees wire-sized packets.
-> 32 MiB took:
->
->                   before                  after
->   FOU over IPv4   26.0s, 9658 UDP errors  0.28s, 0 errors
->   GUE over IPv4   26.1s, 9686 UDP errors  0.39s, 0 errors
->   FOU over IPv6   26.4s, 9860 UDP errors  0.16s, 0 errors
->   plain GRE       0.17s                   0.15s
->
-> Forwarding the same FOU traffic through a third namespace with its own
-> FOU socket on the port, GRO on its ingress and segmentation off on its
-> egress, took 26.0s with 4826 egress drops before and 0.31s with none
-> after. On v6.8, before 3d010c8031e3, local receive was fine but
-> forwarding failed the same way (25.7s, 4764 drops).
->
-> With GRO off on the receiver, all took under 0.2s both before and
-> after. The gre_gso.sh and fou_mcast_encap.sh selftests give the same
-> results before and after.
->
-> Fixes: afe93325bc02 ("fou: Add GRO support")
-> Assisted-by: LLM
-> Signed-off-by: Brad Fitzpatrick <bradfitz@tailscale.com>
-> ---
+On 10/10/2026 17:01, Hangxiang Ma wrote:
+> +		if (!vfe->res->reg_update_after_csid_config)
+> +			ops->reg_update(vfe, line->id);
 
-Nice catch, thanks.
+So I'd prefer to have a discussion about if we can move all of the 
+updates to one method.
 
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+i.e. why should any of the updates happen before csid ?
+
+Sure vfe 1080's documentation makes some sort of explicit statement 
+about an update that has been implied for some time.
+
+My question is why not gate all of the updates this way and make this 
+not a flag but a global behaviour ?
+
+---
+bod
