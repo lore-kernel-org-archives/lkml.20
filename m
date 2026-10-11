@@ -1,135 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6AB1353A65
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 20:14:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC9AE35B12B
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 20:16:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791749670; cv=none; b=dTsDc4E4MAmgBGZEHZHYObDcMklsK4RMRkm/3Rv4VhN5eDMK44xw5byr+fz7GQJEid6UPhUs5pivQ7Pn5ZACXZw0ukKv0q4t2JUCYEppC0Wy+wtXmf6MipMv9ocNbAxuYfnBfEAeDB32ZGk1Vw2oX8g9PxNrNQBXCR6gh2yVhhw=
+	t=1791749808; cv=none; b=WPM4Icrv5lGS6hcuY5EoERGH5+AmuIZ9SZ/yTIu0dMfubxX9nr5eGJQyNmFO2It0Nc3y0TdOdtUkqeHZ9vJP3GpE1fQ4QcdrqqN5NsJ9DKJwQWQRdxsBNBDt7sSV9e2/qnPT6O8nHTb9D+nrXzC5qMQxzvIW468hPq20OZFTaAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791749670; c=relaxed/simple;
-	bh=wFATd3AKREDjpA0f6zO3k2HYKpHRpHqvKk6gTZrn6/0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EvzRDelOjsqUR8vzMsaCufnEXwkMPzoRWOk1qFTf9Kor0OMTcHl8/i/jVXkX+Ul0CeM/P1PH7ubo2/Antzs05o/jouhMSUGvU7AE0NHoHi+ldB79cIDQEpzjhkhYHmRSUWHMWu8oiBvrYe+S4urASC7q1SeMii9XZe/Vo0dWzK4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iHptSIYn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791749808; c=relaxed/simple;
+	bh=mUa5JfPytUIBNId27ct+pI+y+lXe6dkBu7TtmZ2Okr0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=EdSyO17M+MjCZBJWTYCJu8lQz4S8KPkX+OujRgk5Z27ZlLBZzRIqrTI36gZC37gNZsKVu3oZDuNIbp/3OCb5dzpM5J3avk7AbzS9Na3tJ3lKRobj5zF9lfKDJs+ZxNaKzldAXbjQv22heA/WqP5Jouh7Aupe5L4zUA3JZO5Hwyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fxG8KF6k; arc=none smtp.client-ip=209.85.128.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iHptSIYn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 645E51F0089E
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 20:14:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791749669;
-	bh=2B6yxoun5grNXYDPaHbatpr3XqvAdqs6leClJ2sd5R8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=iHptSIYnEoXY75N5KOzg4E/xkRfjBaZIkYloNhEOKhQbrhZTB3u69gX372ImDPVVS
-	 Dm+InQ/5B9Nya4ueKj0KzFOwsMZk70RXneY/mpGcJ6AWHhgGx8hnMVli9xwNyQ6g0+
-	 0MZIIDTj1E+a8qGy2Suu/StXxvqCy52wB+Fx0r+Zktp3ifU2OAnqX+j9PDLcy+yLZa
-	 AbPSNM+89qrc4PwzdJEykbdom9hzduReaWJg5LUrVt8s3ArsQXd0Cl51g4jzMgUavZ
-	 a0Qbfiwv9XbC8CSwAa1O/iNpZs2YmWbdnPTTFMx3twMa0bdU8QpUcEw6xN6kdN2CA2
-	 6p2m8SXEcdyyQ==
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5ba3ac592faso1487960e87.0
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 13:14:29 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwJDK5LVTetZs/r546XH9AlC9lYanj6elPPbJtph3WwSVGQaGUvHbbTX8lMAW12YPVcHz1BSLD5206+Ygk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLz9X7ynX0/65bVa7lk8Q0YxCqCmgXNJlbDWFUfwb5UQb1R5Ke7
-	zDRBeUb6f2zlKmBRLrLEderiM5QxiqP2tNxUdavxeoUmEM7JJUr2bmkOjAGwFQ9nlDje4xq0ggF
-	JHGA5JFWPVDRedlidK+mjfpWpzS34vK0=
-X-Received: by 2002:a05:6512:1155:b0:5bb:7beb:20c2 with SMTP id
- 2adb3069b0e04-5bcde8d90d7mr2470503e87.67.1791749668067; Sun, 11 Oct 2026
- 13:14:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fxG8KF6k"
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8b06c0794cfso8866217b3.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 13:16:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791749806; x=1792354606; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=LMIFt4Dv9YYDb9vJ6+cJXhs5xmH9sVe/KBqI/bov4Ps=;
+        b=fxG8KF6k5+mW6gdTNTG4F67fBO+eA4n5qdO34dC9x5APqsqi4uaQ8CyYedrMMEiBWt
+         UAo/sFIm2V1ZmlPWeWJr1CdOyWs+WZjnBCyihF3bRTIy3klYKMd9ceBGWF+/i4DxDMBe
+         SBWvTI0CVPSSS73Obasmzh+SkbTwl9TaWx+xPLFU+suSQNmYCglKIU6LBN3kD+Chq2ic
+         PvmWkQHj1UTFyMb0TPAv0Ru4zFIzAsWg/6dEQhTWsNR91niQvCmFY/csPLNlqTE2zc6e
+         uAhyBNm410MaLyAxeqEQ3gCkY3o8COIIu6va8k/deJghbt9MtvlmHYmmxh8Q8+lyM2fD
+         s1tA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791749806; x=1792354606;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LMIFt4Dv9YYDb9vJ6+cJXhs5xmH9sVe/KBqI/bov4Ps=;
+        b=s2vN5/KVx7zfbiQeg0xJsOhfJhoAgMj01L4l1fKRtb2I9I9tRDe33aXXz8cqae/Zh6
+         D9vEBoDkqo7qo8NAx8zt39UWBnl942Z4vBIiDU6cpvmW8Z18cTZgUV9hmiuiLGdiEVzg
+         U+aWm6sO4oUMVYBuEdDqrqRHyuhpZsAdeK6UGI25QaTIBrp6TVk3+OLPP6IVcDoLJfv4
+         StTwKObX3xOQXg02Gq62fT91FfhEzFaTDAk8dgan0iU8rxOTv8eEfV0h3w1l2eZAm3QH
+         fht5doZQ/fPSQCBlOumPSXRxyHp5jx4H+jGeCg9yQci7ihzVBDB7xRVdFrU7Z/g/rQf+
+         YK5A==
+X-Forwarded-Encrypted: i=1; AKwUvBzPoKswNpZ2pWIQQZ0BdU2c/7BVt9bct2tjwfeMtkqFPRn8HD2A/xtHI51ds//sO71RPv+ZabcVGkwL9IY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLLSYWaKiZ79wKjw/tyJVL7DBXG7/wHZQguJxo4srOGVuOIXGZ3
+	RL6itC798agg+VCnpO4RPUA2uSW2cY/Dp1zicvNul/zDhqUA7bxm5a5f
+X-Gm-Gg: AYBFou0GyEj2FqHY0a0ZxLTjpKOp3eLQ22Xnswo8oC3HHjpSZLvMZAwplQ2ExTHFzai
+	5Xw/EPDKOciVXiyOhIwcT+0BvD2GJDCphmu96277zy7yKuGSAPf3xpBpIjFIxF7nZpHF65UkTze
+	qTmcnVPb/E1OCCHhdk1wN3BEa8oexrG1TsApVzJMiRIcYYyu33rQgT/uQiAlppYwG7iVeNkzvWp
+	9qUsNOWtlYfHufbGZiVmbE+beh3pkhz0pV+28VOLCW8WP3LgkGdw3qGklOi0CSujnvgk+uA0cP+
+	HsvvYCea8TBtEUswBalrrDHZDpVt2SXVPAJtOzak+m9lyYpCidi8rTtw+RiaHvMfxICl/KLAMOQ
+	o10EzYh0KeMlc6UJTOOwvt0col4JgjEF3v5E14r89WdgI5nOyBib5SQm6swQWddlwj4L6ZQEEiF
+	QAebiH5hmDT44uk1SQTRyujqkISAvm3qdxF+j7ZRb1Cbgxcum8yq6H9aR02OHWKyh93AWq1eYFG
+	+VwgRFgvizTwjXEKDpxcx7PtlaL9mhzFRB3mk3v83eYAQpYdEJ494zb
+X-Received: by 2002:a05:690c:6e85:b0:8b0:a352:f96d with SMTP id 00721157ae682-8b0a352fd2bmr4001297b3.11.1791749805566;
+        Sun, 11 Oct 2026 13:16:45 -0700 (PDT)
+Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b07f1ea845sm28267397b3.24.2026.10.11.13.16.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 13:16:43 -0700 (PDT)
+From: Matt Turner <mattst88@gmail.com>
+Subject: [PATCH 0/4] alpha: perf register sampling and user stack dumps
+Date: Sun, 11 Oct 2026 16:16:40 -0400
+Message-Id: <20261011-alpha-perf-regs-v3-v1-0-eaa625a39712@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261010175721.76213-1-adilov@disroot.org>
-In-Reply-To: <20261010175721.76213-1-adilov@disroot.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Sun, 11 Oct 2026 22:14:13 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnTOc+n2PGpK1NDnNJXwgzTQ8shO_6NqNuADzxY8SyYsA@mail.gmail.com>
-X-Gm-Features: AclHuK-Ke9siXQxkd32F58VdGeapNv-uCnv-gmOvNgN2Tl6ULJ5GCCFCFZi_kuk
-Message-ID: <CAD++jLnTOc+n2PGpK1NDnNJXwgzTQ8shO_6NqNuADzxY8SyYsA@mail.gmail.com>
-Subject: Re: [PATCH v2] pinctrl: single: add big endian support
-To: Rustam Adilov <adilov@disroot.org>
-Cc: Tony Lindgren <tony@atomide.com>, Haojian Zhuang <haojian.zhuang@linaro.org>, 
-	linux-arm-kernel@lists.infradead.org, linux-omap@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSQqAMAxA0auUrA10wAGvIi5KjRoQLSkUofTuF
+ pdv8X+BRMKUYFYFhDInfu4G0ykIp78PQt6awWo7GK0N+iueHiPJjkJHwuxwJOt6PQUTvIUWRqG
+ d33+6rLV+S01NGGQAAAA=
+X-Change-ID: 20261001-alpha-perf-regs-v3-7e23508c1ca2
+To: Richard Henderson <richard.henderson@linaro.org>, 
+ Magnus Lindholm <linmag7@gmail.com>
+Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+ Matt Turner <mattst88@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1840; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=mUa5JfPytUIBNId27ct+pI+y+lXe6dkBu7TtmZ2Okr0=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLJOv1uptCh8YuRrwxtOx3f+klebfddBfEKC3JNCEUmFt
+ ctMreJNOz6yMIhxMcwUU2SJW6/IMqttx1Kf09K/YOawMoEMkRZpYAACFga+3MS8UiMdIz1TbUM9
+ QyBDxygeIqfHoJFZXFyaWqSbVlDkkJdfkliSmZ9XrJdfkJpXkF6gl5aZVpKRkV9UnAo0Qi8vtcT
+ U1dHNyNDAxNLRwszJwtHUxNnZydDJzdHR2dXJyNLcxMDZ0tHE1dKcgYtTAOaaa4sZGXo7mf1+B+
+ z12/Eu/shBuwOFs9f1RPd5T66Yfn13a9Os2HJGhkel4i1b+KpcHhzx1so9zvd5YZnmqdYzFw/NM
+ lGfOpWvgBsA
+X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
+ fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-On Sat, Oct 10, 2026 at 7:57=E2=80=AFPM Rustam Adilov <adilov@disroot.org> =
-wrote:
+This lets perf sample registers and dump the user stack on alpha, which
+perf record --call-graph dwarf needs to unwind user space.
 
-> Add support for big endian pin controllers by taking into account
-> a big-endian device tree property.
->
-> This is needed on big endian MIPS platforms like RTL930X, RTL931X
-> and RTL9607C who use pinctrl-single, because when SWAP_IO_SPACE is
-> enabled, the mmio accessors in pinctrl-single perform a byte swap.
->
-> Signed-off-by: Rustam Adilov <adilov@disroot.org>
+r9-r15 are not in pt_regs, so they cannot be sampled. An unwinder
+therefore cannot get past a first frame that uses $15 as its frame
+pointer (-O0 code or alloca).
 
-I'm not so sure about expanding the usage of pinctrl-single, we have
-said that this is used in the cases when you want to stash all the
-hardware data into the device tree (such as which groups and functions
-that exist) and it seems mostly done to save memory for the kernel
-so you don't need to compile in that data for all systems.
+The perf tool side is a separate patch for perf-tools-next. libdw also
+needs alpha unwinding support, which I am sending to elfutils-devel.
 
-The argument that this is "simple" if you just have some hardware
-data in a file is moot these days IMO, because you can now just
-give that data to an LLM and it will spit out any group and function
-definitions you want.
+---
+Matt Turner (4):
+      alpha: fix stale user_stack_pointer()
+      alpha: stop storing the user stack pointer in pt_regs
+      alpha: use user_stack_pointer() in KSTK_ESP() and dump_elf_thread()
+      alpha: add HAVE_PERF_REGS and HAVE_PERF_USER_STACK_DUMP support
 
-So I'd like to hear some of the reasoning about why you want to
-do this thing, we have other drivers doing this but without using
-pinctrl-single.
+ .../features/perf/perf-regs/arch-support.txt       |  2 +-
+ .../features/perf/perf-stackdump/arch-support.txt  |  2 +-
+ arch/alpha/Kconfig                                 |  2 +
+ arch/alpha/include/asm/processor.h                 |  3 +-
+ arch/alpha/include/asm/ptrace.h                    |  7 +--
+ arch/alpha/include/uapi/asm/perf_regs.h            | 45 +++++++++++++++++
+ arch/alpha/include/uapi/asm/ptrace.h               |  2 +-
+ arch/alpha/kernel/Makefile                         |  1 +
+ arch/alpha/kernel/asm-offsets.c                    |  1 -
+ arch/alpha/kernel/entry.S                          |  5 --
+ arch/alpha/kernel/perf_regs.c                      | 56 ++++++++++++++++++++++
+ arch/alpha/kernel/process.c                        |  2 +-
+ arch/alpha/kernel/ptrace.c                         | 12 +++++
+ arch/alpha/kernel/traps.c                          |  8 ----
+ 14 files changed, 122 insertions(+), 26 deletions(-)
+---
+base-commit: 8f5dbfb93440d1aba216a1a34369a65654b94be9
+change-id: 20261001-alpha-perf-regs-v3-7e23508c1ca2
 
-One of the driver maintainers have to ACK it too.
+Best regards,
+-- 
+Matt Turner <mattst88@gmail.com>
 
-> +static unsigned int pcs_readw_be(void __iomem *reg)
-> +{
-> +       return ioread16be(reg);
-> +}
-> +
-> +static unsigned int pcs_readl_be(void __iomem *reg)
-> +{
-> +       return ioread32be(reg);
-> +}
-> +
-> +static void pcs_writew_be(unsigned int val, void __iomem *reg)
-> +{
-> +       iowrite16be(val, reg);
-> +}
-> +
-> +static void pcs_writel_be(unsigned int val, void __iomem *reg)
-> +{
-> +       iowrite32be(val, reg);
-> +}
-
-Why this indirection? Can't you just assign the standard
-accessors directly?
-
->         case 16:
-> -               pcs->read =3D pcs_readw;
-> -               pcs->write =3D pcs_writew;
-> +               if (byte_be) {
-> +                       pcs->read =3D pcs_readw_be;
-> +                       pcs->write =3D pcs_writew_be;
-> +               } else {
-> +                       pcs->read =3D pcs_readw;
-> +                       pcs->write =3D pcs_writew;
-
-Maybe they should all do that actually, can't we rewrite
-this so we just:
-
-if (byte_be) {
-  pcs->read =3D ioread16be;
-  pcs->write =3D iowrite16be;
-} else {
-  pcs->read =3D ioread16;
-  pcs->write =3D iowrite16;
-
-I don't see how the wrappers help and I hope the compiler
-just optimize them away anyway.
-
-Yours,
-Linus Walleij
