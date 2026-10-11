@@ -1,131 +1,113 @@
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-245.mta1.migadu.com [95.215.58.245])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B143D9DB9;
-	Sun, 11 Oct 2026 06:03:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CA193DA5B4
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:05:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.245
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791698612; cv=none; b=iv0gZAWVzGuJcj22dI839vLY+5LQ2rEZFKKdT8NGStsWbfNy6Su73t1U5xrlb9EcnFq0w9kWfliYMHR6ROzIHBAB5zfpHQ3Fk7cKEoda09Kj6xrZLq2VNgtiHpWz0cFotXqqO8brwsF0wd8+TWgJMKPEwoUYqO9qo5iQM8gCbZU=
+	t=1791698709; cv=none; b=BknIIytnIY2q/AfW175fo9riwMEa9005vhNJ5ue1u1vN0GYzG8eTKRrhwVut9PTp78YbOzARtP9BLLk6H4BANd1xMwr4VqmeOvUSKjZPnBMYkcw4x9sODI8tDUJccXwdovwjQaYhWCdOU3IgiXqALHw5/dAQpexOXsWUPbnkBuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791698612; c=relaxed/simple;
-	bh=bJmutYSfU12J9m42/ZAR2XzxhB6aUUDLS/p13FCHDDQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sgT9NjZsNJ7DHKn0NM2O/IKDAbhYvhp2GRprjmn/j9OAY+U86kFJqacB0irfiyRX/2KyxlM3d6twpzOJxWX64liwW/8rErlbhafurEm6LIpfADxglbiq83S0cTR8T11P1JmYB/QXZg944daODLH5PQLfmdLcGu/knGMJFk165Z4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; arc=none smtp.client-ip=92.121.34.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
-Received: from inva020.nxp.com (localhost [127.0.0.1])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id D45D01A00B4;
-	Sun, 11 Oct 2026 08:03:27 +0200 (CEST)
-Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com [134.27.226.22])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id B25C61A0031;
-	Sun, 11 Oct 2026 08:03:27 +0200 (CEST)
-Received: from lsv051416.swis.nl-cdc01.nxp.com (lsv051416.swis.nl-cdc01.nxp.com [10.168.48.122])
-	by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 29BEC20301;
-	Sun, 11 Oct 2026 08:03:27 +0200 (CEST)
-Date: Sun, 11 Oct 2026 08:03:27 +0200
-From: Jan Petrous <jan.petrous@oss.nxp.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>,
-	NXP S32 Linux Team <s32@nxp.com>, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Bogdan Hamciuc <bogdan.hamciuc@nxp.com>,
-	Ionut Vicovan <ionut.vicovan@nxp.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Clark Wang <xiaoning.wang@nxp.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Chester Lin <chester62515@gmail.com>,
-	Matthias Brugger <mbrugger@suse.com>,
-	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	imx@lists.linux.dev, linux-pci@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	Vincent Guittot <vincent.guittot@linaro.org>
-Subject: Re: [PATCH RFC v3 04/12] net: pcs: add NXP SerDes XPCS shared core
-Message-ID: <assmr2PH8064/pJn@lsv051416.swis.nl-cdc01.nxp.com>
-References: <20260919-s32g_serdes-v3-0-9d68868c1e89@oss.nxp.com>
- <20260919-s32g_serdes-v3-4-9d68868c1e89@oss.nxp.com>
- <07c5ed86-755a-4094-b45a-6316d10f4515@lunn.ch>
+	s=arc-20240116; t=1791698709; c=relaxed/simple;
+	bh=WTJnMz1L+nTj4XciCQtdQWPFA/4kTHabv1cDP1vlEuU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=b3RKw06ofqtLkCncsKzY0e8pBiLdvLJ1GN63xlErXnJqsv/t26VW13gr8p60ETH+gEO7fvf2/E2fYX+l0A0NCYUJHUCj+sAT9ezVCsDZsoHot8J5qMK6LqMm38neCeKJIy+l0kAkGtrhMwPYONVMCmsw224krJPS6JJ9cJCfPiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=k7ebHTbA; arc=none smtp.client-ip=95.215.58.245
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="k7ebHTbA"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=WTJnMz1L+nTj4XciCQtdQWPFA/4kTHabv1cDP1vlEuU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791698703; v=1; x=1792303503;
+ b=k7ebHTbA38A9BLCn6VHe/vd5X2Q+cgP06+YmF+pjznRACNSYtouF5/Y/DCcRArjcWzBerIPw
+ 8sFvgko6hwpF1Yvmy2C4aaBrX1vCUIl2902qQIlMng+Et0qswj66df42+RI9MAeTb5bkumCdDbJ
+ w4VPOqjePtYngE+mYhqWAYBA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e098440cc4f179bd;
+	Sun, 11 Oct 2026 06:05:02 +0000
+X-Mizu-Trace-ID: e098440cc4f179bd
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <c0e3c4fb-82d4-4ec9-940a-f8ab94d34aa2@linux.dev>
+Date: Sun, 11 Oct 2026 14:04:54 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <07c5ed86-755a-4094-b45a-6316d10f4515@lunn.ch>
-X-Virus-Scanned: ClamAV using ClamSMTP
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH-next v2 3/6] cgroup/cpuset: Do housekeeping check before
+ converting invalid partition to valid
+To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Shuah Khan <shuah@kernel.org>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, Hui Peng <benquike@gmail.com>
+References: <20261010221938.243859-1-longman@redhat.com>
+ <20261010221938.243859-4-longman@redhat.com>
+Content-Language: en-US
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <20261010221938.243859-4-longman@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 20, 2026 at 08:39:26PM +0200, Andrew Lunn wrote:
-> On Sat, Sep 19, 2026 at 08:54:32AM +0200, Jan Petrous via B4 Relay wrote:
-> > From: Clark Wang <xiaoning.wang@nxp.com>
-> > 
-> > The SerDes subsystems found on NXP S32G and i.MX SoCs integrate a
-> > Synopsys DesignWare Ethernet XPCS and an Ethernet PHY (PMA) with an
-> > identical register layout. Only the register transport differs: indirect
-> > memory mapped access on S32G, Clause 45 MDIO on i.MX.
-> > 
-> > Add a transport agnostic phylink PCS core which operates on regmaps
-> > provided by the platform glue.
+
+
+在 2026/10/11 06:19, Waiman Long 写道:
+> When a hotplug event happens or when update_cpumasks_hier() is called, an
+> invalid partition may be converted back to valid. However check against
+> housekeeping conflict isn't being done which can lead to a partition
+> state that violates the housekeeping rules. Update the code to allow
+> reviving an invalid partition only if it can pass the housekeeping check.
 > 
-> What is not transport agnostic with the current code.
+> Fixes: 4a74e418881f ("cgroup/cpuset: Check partition conflict with housekeeping setup")
+> Signed-off-by: Waiman Long <longman@redhat.com>
+> ---
+>  kernel/cgroup/cpuset.c | 18 ++++++++++++++++--
+>  1 file changed, 16 insertions(+), 2 deletions(-)
 > 
-> Think carefully about that, before you answer.
-> 
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 1c0441fa3bea..fb41cd76add6 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -1374,6 +1374,13 @@ static bool prstate_housekeeping_conflict(int new_prs, int parent_prs,
+>  	cpumask_var_t full_hk_cpus;
+>  	int res;
+>  
+> +	/*
+> +	 * For a currently invalid partition state, do the check assuming that
+> +	 * it may be converted back to valid.
+> +	 */
+> +	if (new_prs < 0)
+> +		new_prs = -new_prs;
+> +
+>  	if (housekeeping_enabled(HK_TYPE_DOMAIN_BOOT) && (new_prs == PRS_ROOT) &&
+>  	    !cpumask_subset(add_cpus, housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT)))
+>  		return true;
+> @@ -1956,9 +1963,16 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>  			bool exclusive = true;
+>  
+>  			/*
+> -			 * Convert invalid partition to valid has to
+> -			 * pass the cpu exclusivity test.
+> +			 * Convert invalid partition to valid has to pass the
+> +			 * cpu exclusivity test as well as the housekeeping
+> +			 * check.
+>  			 */
+> +			if (prstate_housekeeping_conflict(cs->partition_root_state,
+> +							  parent->partition_root_state,
+> +							  xcpus, NULL)) {
+> +				part_error = PERR_HKEEPING;
+> +				goto write_error;
+> +			}
+>  			rcu_read_lock();
+>  			cpuset_for_each_child(child, css, parent) {
+>  				if (child == cs)
 
-Ok, got it, pcs-xpcs only reaches the hardware through mdiodev_c45_*(), so
-whatever sits behind the mii_bus is the transport. pcs-xpcs-plat already
-puts the DW indirect MMIO viewport behind one, sja1105 and txgbe put
-their own register access behind one, and on i.MX the XPCS is on plain
-Clause 45 MDIO in the first place. The claim in the commit message was
-wrong, and with it the justification for a second core.
-
-For the next version I will drop this patch and move S32G onto
-pcs-xpcs. The SerDes PHY driver registers a mii_bus per XPCS instance
-over the existing indirect accessor and creates the PCS with
-xpcs_create_pcs_mdiodev(). The S32G PMA sequence becomes a
-dw_xpcs_compat .pma_config keyed on an S32G PMA ID, the same way the
-SJA1110 and TXGBE ones are.
-
-That leaves two things S32G needs from pcs-xpcs, neither of which is
-about the transport:
-
- - skipping the generic soft reset. The vendor reset
-   (VR_MII_DIG_CTRL1.VR_RST) is part of an ordered bring-up of both
-   XPCS instances, which the SerDes PHY driver owns because the PMA is
-   shared with the PCIe lane. The PMA ID check that already clears
-   need_reset for TXGBE and FBNIC would cover it.
-
- - no EEE. S32G3 does not implement VR_MII_EEE_MCTRL0/1, so
-   pcs_enable_eee/pcs_disable_eee must not touch them.
-
-Both will be separate small patches against pcs-xpcs so they can be
-judged on their own.
+Reviewed-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
 
 Thanks,
-Jan
+Guopeng
