@@ -1,148 +1,71 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBE6C4349BC;
-	Sun, 11 Oct 2026 12:19:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E6E7449EB2
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 12:19:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791721159; cv=none; b=lJbFzlS+524Wywvno7fhw+hJBgMOq9wG0T2vqUAEWA+LePl1Yq82/NOt4pqoTUrTHgRu16nCOKZWsjuz6JMsjkxcLOxexYW9JSUpRS+rfmCjgDe7zjzR1mUPNV4/t1s9rFLG9XwJoQuJzyTlLdqSvkZIO29/VdjkEHGbRBkU+68=
+	t=1791721191; cv=none; b=SVaq/bhMjFR7UigvCWGIuSk3cq2xcxnDRkV1M+bwLOiNqloBI6CPaR+HlTPeyOLv83JDT5O9TSVYddNj5xaAmJW4KgbQWoeij/LxclRBrl4TRGem1ki7e1wGP24C7Ty85PBx6DRV8QeoSX8/zzJ+pOlyzUPi6Hnr30Ym72HTIjI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791721159; c=relaxed/simple;
-	bh=MbWRlKgJ2AlJCjvXVQFZwh/KRWdQd1c4H+FmNjpJzW4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Xjd//Ue/ch1TIFzov4q7nRsfdRDxsIgECeqXAyJFMGl/wTIM+OlcPg2i2heN2fDtFwE2+WTofqv0zHffKE9IJ2BMPO1gJyJiRFsFOB0wrbLYZlyLN66dKL/a8Z6phFsFDDNLu1f8qJCRVQ3kQ+ZNa1tv7zOlognOfthkxO4nJ1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=V7UX0nh+; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791721191; c=relaxed/simple;
+	bh=cGqy5ia5VZNErdROYGY2IfaT+ZBJKtcgXdodlgUzLc8=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=raEfoj0tcGQ4/UA1/t8dLr/BN0QAA5Hunm4Z3FsHcjDjNRIw1jG8kgwjwYJ23gOHiU/ytXAyaQ+y0cxMo0SgB5t5lHLr8jdQtK3ZwcnRnnE/i7mj//47bnaXo8pQ2A5yNCl+bwPckQ8qUrqGaq5/TE9+mf6en4YmqIul6oZq+Uw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GXchIvvB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="V7UX0nh+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
-	Content-Type; bh=QCqtaZNs9+FSdR166uxtT7B6n4OGPOvF4p+wl8RQrt4=;
-	b=V7UX0nh+h2pp12s9Oqq86ZRGrhvM7D4fGA3imMv8WKi1LCAQ36z8nt5WcaCThe
-	dii7M88/A9KNw5QT1FugOxY8dts+/HqeTwcRYBeuqWKrscZLj7Fxa2QTSw0YOF+R
-	twhTJ9464/FDaYcArXHEp39S5qH/ifNCtqa6hJ+PRJU1s=
-Received: from ubuntu.. (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wA3q+t5fstquMRzDw--.32114S4;
-	Sun, 11 Oct 2026 20:18:08 +0800 (CST)
-From: Ma Ke <make_ruc2021@163.com>
-To: Shyam-sundar.S-k@amd.com,
-	hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	alexandre.belloni@bootlin.com,
-	mario.limonciello@amd.com
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-rtc@vger.kernel.org,
-	akpm@linux-foundation.org,
-	Ma Ke <make_ruc2021@163.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] platform/x86/amd/pmc: Fix RTC reference leak in amd_pmc_verify_czn_rtc()
-Date: Sun, 11 Oct 2026 20:17:58 +0800
-Message-ID: <20261011121759.3267678-1-make_ruc2021@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GXchIvvB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA0C61F0089B;
+	Sun, 11 Oct 2026 12:19:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791721185;
+	bh=+bUjhFFNvi7S7NmKFHZzl4mLcYN4K5RNcVEHvKxPa9g=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=GXchIvvBEpadoNVj1j6O/e333xRnubs7XV+E1ZwL7NAmkOFBgWTsqjGYTIG+drT9u
+	 +b6djf5DQ6gVSz/cAj5Rxon4VRkIpNOrJStQJn0LJnvhVPjlxCGI4hYCBrwTRZEbsw
+	 wpXyEn4qGi1XofPX3JI7POC0+gU5OzqdqdPVqy68iX5AgoUe6cYlg3+DKeTpSJchB0
+	 Lg+kBwIM5VIHOhj0Put0HMHFNpWvssYaBD+1T2uvh/ilFaSWwOPzukOn9ItInFLGv7
+	 On3G0rRH0FSigJBPhgO41ZT7751THbNF3C6/p8TIhcWBZUij8dJlT10BN8Ass+nVmD
+	 xnjMUu7DSQQIg==
+Message-ID: <ce9280bf-f88c-490d-bede-816ed76e94c0@kernel.org>
+Date: Sun, 11 Oct 2026 20:19:43 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wA3q+t5fstquMRzDw--.32114S4
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXF1fZrykKF15Zr1ruF4xCrg_yoW5Kr1xpa
-	yDCF15CFWDCF4UW3W7X3Wqy3WxZr42vw1UKryj9w1I9a4SqFn5JrWkCw1aqr1DA3ykCF17
-	XFZxK398ur4UG3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUf73kUUUUU=
-X-CM-SenderInfo: 5pdnvshuxfjiisr6il2tof0z/xtbC9QBNWGrLfoD17AAA3m
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] f2fs: check every cur_*_segno[] entry on readonly images
+To: Kaixuan Li <kaixuanli0131@gmail.com>, Jaegeuk Kim <jaegeuk@kernel.org>
+References: <20260918165507.1267942-1-kaixuanli0131@gmail.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20260918165507.1267942-1-kaixuanli0131@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-amd_pmc_verify_czn_rtc() opens the RTC with rtc_class_open(), which
-takes both a device reference and a module reference on the RTC
-driver. The matching release is rtc_class_close(), and it is never
-called. Every return path after the device has been opened, the ones
-that return 0 as well as the ones that report an error, leaves both
-references behind, so each S0i3 suspend leaks them.
+On 9/19/26 00:55, Kaixuan Li wrote:
+> sanity_check_ckpt() bounds-checks cur_node_segno[] and cur_data_segno[]
+> against main_segs, but on an image with the RO feature the goto that skips
+> the duplicate-segno cross-checks also leaves the enclosing loop, so only
+> index 0 of each array is ever checked.
+> 
+> An unchecked index reaches __set_sit_entry_type() through build_curseg() ->
+> reset_curseg(), which writes se->type through &sit_i->sentries[segno]. With
+> segment_count_main 120 and cur_data_segno[1] set to 200, KASAN reports
+> three out-of-bounds writes during mount and the mount then succeeds.
+> 
+> Use continue so every index is bounds-checked, and skip the node-vs-data
+> cross-check explicitly, which is the other thing the old goto skipped.
+> 
 
-Release the reference with a __free() cleanup on the declaration,
-which covers every return path without adding labels.
+Cc: stable@kernel.org
 
-rtc_class_close() does not accept a NULL argument, so the cleanup
-helper has to guard against one: rtc_class_open() may fail and the
-declaration still has to be cleaned up.
+> Fixes: a7d9fe3c3388 ("f2fs: support RO feature")
+> Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
 
-Found by code review.
+Reviewed-by: Chao Yu <chao@kernel.org>
 
-Fixes: 59348401ebed ("platform/x86: amd-pmc: Add special handling for timer based S0i3 wakeup")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ma Ke <make_ruc2021@163.com>
----
-Changes in v3:
-- Define DEFINE_FREE(rtc_class_close, ...) in include/linux/rtc.h rather
-  than locally in pmc.c, since it belongs with the API it wraps.
-  Suggested by Ilpo Järvinen.
-- Guard the cleanup against a NULL rtc_device; rtc_class_close() does not
-  handle one.
-- Move the __free() declaration to the assignment, as described in the
-  comment in <linux/cleanup.h>.
-- Cc the RTC maintainer and list, since v3 touches include/linux/rtc.h.
-
-Changes in v2:
-- Replace the added goto labels with a __free() cleanup on the
-  declaration, as suggested by Mario Limonciello and Ilpo Järvinen.
----
- drivers/platform/x86/amd/pmc/pmc.c | 5 +++--
- include/linux/rtc.h                | 2 ++
- 2 files changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/platform/x86/amd/pmc/pmc.c b/drivers/platform/x86/amd/pmc/pmc.c
-index 6792aa2c6187..f96e8a358eb7 100644
---- a/drivers/platform/x86/amd/pmc/pmc.c
-+++ b/drivers/platform/x86/amd/pmc/pmc.c
-@@ -14,6 +14,7 @@
- #include <linux/array_size.h>
- #include <linux/bitfield.h>
- #include <linux/bits.h>
-+#include <linux/cleanup.h>
- #include <linux/debugfs.h>
- #include <linux/delay.h>
- #include <linux/dmi.h>
-@@ -648,7 +649,6 @@ static int amd_pmc_wa_irq1(struct amd_pmc_dev *pdev)
- 
- static int amd_pmc_verify_czn_rtc(struct amd_pmc_dev *pdev, u32 *arg)
- {
--	struct rtc_device *rtc_device;
- 	time64_t then, now, duration;
- 	struct rtc_wkalrm alarm;
- 	struct rtc_time tm;
-@@ -664,7 +664,8 @@ static int amd_pmc_verify_czn_rtc(struct amd_pmc_dev *pdev, u32 *arg)
- 	if (pdev->major < 64 || (pdev->major == 64 && pdev->minor < 53))
- 		return 0;
- 
--	rtc_device = rtc_class_open("rtc0");
-+	struct rtc_device *rtc_device __free(rtc_class_close) =
-+		rtc_class_open("rtc0");
- 	if (!rtc_device)
- 		return 0;
- 	rc = rtc_read_next_alarm(rtc_device, &alarm);
-diff --git a/include/linux/rtc.h b/include/linux/rtc.h
-index c09fc22819d0..0f43b5027235 100644
---- a/include/linux/rtc.h
-+++ b/include/linux/rtc.h
-@@ -13,6 +13,7 @@
- #define _LINUX_RTC_H_
- 
- 
-+#include <linux/cleanup.h>
- #include <linux/types.h>
- #include <linux/interrupt.h>
- #include <linux/nvmem-provider.h>
-@@ -201,6 +202,7 @@ extern void rtc_update_irq(struct rtc_device *rtc,
- 
- extern struct rtc_device *rtc_class_open(const char *name);
- extern void rtc_class_close(struct rtc_device *rtc);
-+DEFINE_FREE(rtc_class_close, struct rtc_device *, if (_T) rtc_class_close(_T));
- 
- extern int rtc_irq_set_state(struct rtc_device *rtc, int enabled);
- extern int rtc_irq_set_freq(struct rtc_device *rtc, int freq);
--- 
-2.43.0
-
+Thanks,
