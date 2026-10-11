@@ -1,80 +1,75 @@
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+Received: from mail-qk2-f8.google.com (mail-qk2-f8.google.com [74.125.230.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B57B2DB794
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 01:11:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 892651C84A2
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 01:15:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791681100; cv=none; b=sJ2xAAspSW7H/cDnvY3p04VOX50jNxrJcwOicfwRiidValvsFgUcBq2i0gVECm+BAGbxfzZIEkBltLbbBxesuDpxF10fLq3EbBazKaNgMPjzjrA9htj8eSmYso/Y3dqDx9n7NJZIPnJMYnyxU9zBGGW8guP3nID3UCP6OY18eLk=
+	t=1791681350; cv=none; b=omxobJUe8ZurFg3Z8MVHXn+1MwH+v+06F7TcTRT6w4MS3sTZzMGgflT9ndKsa9Sw0jEXBL7Aim5NiMyqRxUHUUobzPpEq8hwVjuoAX3rOGranXGtEQqgPi6oYO3C+YGoeJnyS3mYHOTSNDea+fA94svaffnGcjerK4jTStHIDC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791681100; c=relaxed/simple;
-	bh=Jd9TDUW7MtPMHubKz6vTXi5FG4agSXog70jUIjozroI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G4wymDUxubqAOvW77VmDx8XviNLLlpW3G2Bzy6apWhamQxyvifabzJY5MZPnKGSJxaEkzDlxQzTiKnce0KI3OVqBGljYbjA17YKtZnrYUEHEBfW+gOM96QTxjI2TDmGw0lTVRQHdTMpi0EBZt8PhjovpKsvFMA5ghz/ooygkeRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co; spf=pass smtp.mailfrom=x6u.co; dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b=D9N9gOPz; arc=none smtp.client-ip=209.85.128.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=x6u.co
+	s=arc-20240116; t=1791681350; c=relaxed/simple;
+	bh=is6ytbu7NISTu46E7Wb6FacbhYvjgAU04aTSRvndh78=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MuK6z9FSKrqf2xxkiPe7LvCU7sOFJymBChP4qDTPgXnUMhYmozzYCV7xn0D+vak5h5IOPefJ9jCRryfjOpjGHsUsA77/pCGiGgfbtrYN3bdcxgs9A0Wc4Bkth9r8mEOxt0hPUc0QWEaMFZPuZONI0PU6M8MnNDUOi/oygEdJS1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QgDa8AOH; arc=none smtp.client-ip=74.125.230.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b="D9N9gOPz"
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8ace0741488so5577257b3.3
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 18:11:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QgDa8AOH"
+Received: by mail-qk2-f8.google.com with SMTP id d75a77b69052e-53524092d9cso10342541cf.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 18:15:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=x6u.co; s=google; t=1791681098; x=1792285898; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QxVYkCol0mo3SRxFqyvvpN4DEwbY/JfjR8JOwwtRCcE=;
-        b=D9N9gOPzqrMrDyLTzx4k3+e4KQoBKHkHQIcojNOSZ4pt0HoPztU9XED2lVqppiabRM
-         KAio5ZJIGjCLFNgq4DhVyfkDP8GIR5aeEXMhPBe/VZrgf7bARIB7VtrqWAyzP4vXKAq5
-         J6CEY8uP3gJFkUdJ/vSVrRb0khUKrWPw+PyjUK8DhCBZjV+rXuxv0eKku9xzXtqHeDj8
-         MAQeOXOGe9GPDU/9/FmWtWKOrSUWCG/E4TDmzWhJ2RyzcoOffpbOghN8+P7A0518g8rw
-         ifpCscDd3RiFKUaNQhEoyfvY4zILiKb/MXhBg2xwR7KEeDXLoLsUFsENCwwL+fyfZwnN
-         /h/Q==
+        d=gmail.com; s=20251104; t=1791681348; x=1792286148; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=w5e0+n/SZwb+mdMGSpmZA8wmqSq0w/SQYcFKC9N+I3s=;
+        b=QgDa8AOHrrskrhuem2PTKvdOefHwj5WUN6fsbY2CedRelmzzLrQMxZm1FXkxzKp1R1
+         KDwIxGk06X581lSKwfbek/nFz1sd/kyE+XqwH8V1pcxxKNrxTNacrjulRfeG8Ymrj/JV
+         TsbsKPVxBJZt9/dVdWbEYjI3TiMQJbmr7gllqdpAqIluzmhYg9q4QXWkrFPtxErXVV5P
+         Vdgly+VOnv1irKGMznwk3G+fvFGqvDV/gzv4mAxEiw9kM0hB0vxpN1B+g+dUG/SP7A8d
+         4Tg/nJJlM+em+XL4dq+yYuD0iZicXFLAUrFlmzaoZrRO+o4ZjmRfEKuDT/j3sEaVWlK9
+         PlJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791681098; x=1792285898;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QxVYkCol0mo3SRxFqyvvpN4DEwbY/JfjR8JOwwtRCcE=;
-        b=yBdxXVfL/nkgdUFAzD+rigJu1yIUYIldqM8cC+ILeWLKJbmFODgKjM5ecA9uYbfhI4
-         9YUpsEhzPBRuxMaWw6ad6FzVDq++EKVzt7DMMUs7QIbib487bHHCn7R0hQ5rO8Xb29C/
-         +ST4AfzfxZmH8EYrJ0Ba/+8z/RNW31QXes9FYy/YURYJKYwaKVACWST2pGKbkj1wPJvj
-         4rF1wsPRjaRMntZ3LAzV63NqLgmWRHqEv7oF8Odvile800WBIAitKuoH1Oj9FvrYn9Lp
-         6BQ6Fv7bGD/1TKy+0eifdGQUwFkCs1uWtGGFFj27AdfITDx7j0XREWSunVHX4QhRD5tx
-         Ka6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBywcodIY5DO2Rsm2mkGTRtawPOrhCE1q6HKHjwVT8oo3kKf73f/H3MYgPzZFxICzRvyJMyhMBhzDRO2Kvo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ05vijbV2lYaTPF7j1oypUJxOnIEhXhPa1OAAEEw+3YgfuMNzP
-	Bz9TXpZEdNW+J8IHwqG0vrSqz6/XkKuJ9cOpRUSQ3KKjCc2/QNinyZMSs1ukXhwK6Rav
-X-Gm-Gg: AYBFou00wi2UgLAnC8DkRZZe/6+I5ICXnlx2tmzMdYibLv8H025ghBj2UGit+cBTx65
-	IisdM6EtJEQittCNZ3I+EQGqEdjjtHHr9rCRcZPCLnUnqCPGDvmLfHZOziOXVnMhndXr9D21rEu
-	rXNdg+qEX225pHE3DSFJUe6NDMxvYP9U0VtwWxrjlHunuVcXo+9Dd2zwQZKxS4+qHy5ybOBKchE
-	i2dsu8/Tnc8ewhMJn4IesULuYZVsiIl1+Y0XRXV97gPIrr3ZfDAh/yYGCSTHbIbk5/iApWSA8sl
-	OGgo1siiCPKlVgKXIBleULUf49jtImuWrz+qDXzMTnBmprEYQUMzeD1T3tq2cGm+hNUFrabHOLw
-	WpsDTWB5QVeyNm3V87+QekOtWA4YylP1TZaJORN7qJjvbT0gMK0PfDfSYTs2EVn13Dv78wcUtjU
-	xjYTx23GYtNRCEOiB7utNmQPpCVf3t6PzUIBFqS3tgpjFbofQK+zE+Fj/IL1aDBwQunAQDzZ30P
-	lpv6cASOiUswa9n/Je+fmbHGIDWjWttKfDcNg1hCANm0t9y3qh3NLI6tIYZ44dPcNHYG7vB79bA
-	3k4NeCYdVA==
-X-Received: by 2002:a05:690c:e3ea:b0:8ac:dbb9:2203 with SMTP id 00721157ae682-8b07edb00a1mr20263737b3.71.1791681098009;
-        Sat, 10 Oct 2026 18:11:38 -0700 (PDT)
-Received: from worldpeace10.c.googlers.com.com (119.20.221.35.bc.googleusercontent.com. [35.221.20.119])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b07f263bc8sm21311817b3.45.2026.10.10.18.11.35
+        d=1e100.net; s=20260707; t=1791681348; x=1792286148;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=w5e0+n/SZwb+mdMGSpmZA8wmqSq0w/SQYcFKC9N+I3s=;
+        b=SaIFzdqpUx7oxWAM/YiXkOgEWAw3atjGcxQ3ESvUKQJq6dvaeiZusNE+Nup1t6FfwK
+         97KruWgGpDKk0PJc8Q2NK9TbtrNICs+1j8YUbs2lav2+K+tw2viOy6KdoZecFxK+/Yd4
+         hvtEnMVh0LqudltBg9eZlAtUSdli8zsigBgcpVnBBRckI1bdEPIzNQEF2Ev8SLGxZrYo
+         W9kBPRZK/TjFG87wGGU6gCYBZ51Xb2uFYDZhk3k2uqqMJBY1iPPtEWkC04rv87JQWqo9
+         XePesVPV7pWLNKLE8XYsAZDLSRN3lhVMmku/cnytjR2aOcKcgNgUX9sl+VV6Iy8NwP6l
+         hmjg==
+X-Forwarded-Encrypted: i=1; AKwUvBwQhHGUw8rRqeomh69jsh71kHsRs3wdGso2/C39ypiB2ogXVQYNtd0jxTplHV2uszpk4Apc1kKd6cQOxpw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKP+84S9G2MKOJ87xh1GuYTiH1VoGwqQkJC3Kh1HPG+9mG+RFSD
+	03zy5SbY17dgKChSISRH7G5D7hiwB6vWme3KV3Dy+OVOIahjwnX01aNs
+X-Gm-Gg: AYBFou1EKAhXvJDo6l17fRbhvXyD8gF30uMB3mIcIwGfD67BkA6qJDzRT44VXn9LDia
+	M2XgM1iQQFa0oMJe+6+DlDmnFRSBMFnBBIxZnz2VDCfzSbILQR4/3fVvoE96d5QfPmzYWFX4aiT
+	FhHJm67DnlqhK9eKPIhQ4FghrbutKOMDd7miS+iKhsezeItUgjh0yoYJ3txeN36hzX+EXBkh64/
+	yNrD/m007TcwwpIyx2aMRaPKSMQEhvXZYycVz3wffGN7pwoSl+JCV2qM4y3SDKE9Tr9agHQ1vHT
+	4t3ju3A4XPZuichx9r9ZRieazl0i3s/vwp2iUioJUK73PWSyqTuHywA2rCTrlvQ6uXODoHRgK/I
+	ErehhsWoVWCx87/+TTflumPDKqZ5pzVtuMwLO0/zKPXUBSthNt2m7D6P5XC+1c25omTGNCUKGWl
+	FK4sPdAzxqzBdUSM4YU/MLR3fOUPYzzUz+Pv8YJD99eq5aNcv8FigoM8c4mPM+S90THCM=
+X-Received: by 2002:a05:6214:3d8a:b0:919:5a24:d77c with SMTP id 6a1803df08f44-91b5556a830mr104675746d6.31.1791681348207;
+        Sat, 10 Oct 2026 18:15:48 -0700 (PDT)
+Received: from omarchy ([2601:804:8780:3df1:6ff:277e:31c7:ac13])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b550c354asm58641236d6.39.2026.10.10.18.15.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 18:11:36 -0700 (PDT)
-From: David Hu <dhu@x6u.co>
-To: Tatyana Nikolova <tatyana.e.nikolova@intel.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>
-Cc: linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	jmoroni@google.com,
-	eagleshaw@google.com,
-	David Hu <xuehaohu@google.com>
-Subject: [PATCH rdma-next 5/5] RDMA/irdma: Support UMEM attribute for SRQ creation
-Date: Sun, 11 Oct 2026 01:10:22 +0000
-Message-ID: <20261011011022.1445352-6-dhu@x6u.co>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-In-Reply-To: <20261011011022.1445352-1-dhu@x6u.co>
-References: <20261011011022.1445352-1-dhu@x6u.co>
+        Sat, 10 Oct 2026 18:15:47 -0700 (PDT)
+From: zoan37 <agentzoan@gmail.com>
+To: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>
+Cc: Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Freddy Hsin <freddy.hsin@mediatek.com>,
+	linux-watchdog@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] watchdog: mtk_wdt: Stop a running watchdog over system sleep even if not opened
+Date: Sat, 10 Oct 2026 21:15:36 -0400
+Message-ID: <20261011011536.1139162-1-agentzoan@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,130 +78,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: David Hu <xuehaohu@google.com>
+mtk_wdt_suspend() and mtk_wdt_resume() only stop and restart the
+watchdog when it is active, that is, when userspace has opened it.
 
-Support the standard 1-step queue buffer creation
-for SRQ by `UVERBS_ATTR_CREATE_SRQ_BUF_UMEM` via
-`ib_umem_get_attr()`.
+But a watchdog that the bootloader left enabled stays enabled at probe,
+marked WDOG_HW_RUNNING, and the watchdog core pings it until userspace
+takes over; that has been the case since
+commit bbece05c0d3a ("watchdog: mtk_wdt: Remove mtk_wdt_stop() in probe()
+to prevent the system freeze and it doesn't reboot by watchdog problem").
+If the system suspends before userspace opens the device, or userspace
+never does, nothing stops the watchdog and nothing pings it while the
+system sleeps, so it resets the system one timeout (31 s by default)
+into the sleep.
 
-Set up hardware pble directly from the pinned SRQ
-umem via `irdma_setup_q_pbl_from_umem()`.
+Also stop it on suspend and restart it on resume when it is running in
+hardware, like sp805_wdt does.
 
-Proper umem and pble cleanup, and error unwind are
-added into existing `irdma_srq_free_rsrc()` upon
-SRQ destruction.
+The core's ping worker for such a watchdog would keep running across
+the sleep and could ping the stopped watchdog after resume, before
+mtk_wdt_resume() has started it again. Have the core stop the worker
+over system sleep with watchdog_stop_ping_on_suspend(), as imx2_wdt
+does: it pings one last time before the system suspends and restarts
+the worker once everything has resumed.
 
-We maintain backward compatibility for the legacy
-2-step registration if the UMEM attribute is not
-provided.
-
-Signed-off-by: David Hu <xuehaohu@google.com>
+Fixes: bbece05c0d3a ("watchdog: mtk_wdt: Remove mtk_wdt_stop() in probe() to prevent the system freeze and it doesn't reboot by watchdog problem")
+Assisted-by: LLM
+Signed-off-by: zoan37 <agentzoan@gmail.com>
 ---
- drivers/infiniband/hw/irdma/verbs.c | 68 ++++++++++++++++++++++++-----
- 1 file changed, 58 insertions(+), 10 deletions(-)
+Changes in v2:
+- Also call watchdog_stop_ping_on_suspend() in probe, so the core's ping
+  worker doesn't run across the sleep and ping the stopped watchdog
+  before mtk_wdt_resume() (pointed out by the Sashiko review of v1).
+- Link to v1: https://lore.kernel.org/all/20261011004322.1118027-1-agentzoan@gmail.com/
 
-diff --git a/drivers/infiniband/hw/irdma/verbs.c b/drivers/infiniband/hw/irdma/verbs.c
-index e4a02a6b2a11..274c76badd2e 100644
---- a/drivers/infiniband/hw/irdma/verbs.c
-+++ b/drivers/infiniband/hw/irdma/verbs.c
-@@ -1996,9 +1996,16 @@ static void irdma_srq_free_rsrc(struct irdma_pci_f *rf, struct irdma_srq *iwsrq)
- 		iwsrq->kmem.va = NULL;
- 	} else {
- 		/* Not called in any failure path, so iwpbl is valid. */
--		struct irdma_mr *iwmr = iwsrq->iwpbl->iwmr;
-+		if (iwsrq->iwpbl) {
-+			struct irdma_mr *iwmr = iwsrq->iwpbl->iwmr;
+Testing: on an MT8189 Chromebook (next-20261008 plus MT8189 support)
+whose firmware leaves the watchdog off; a local module parameter
+(mtk_wdt.start_timeout=31) starts it in probe the same way a
+bootloader-enabled watchdog is picked up (WDOG_HW_RUNNING set, fed by
+the watchdog core, nobody opening /dev/watchdog). Without the suspend
+change the board reset about 30 s into s2idle. With v2: 4 s2idle cycles
+of 60 s each, awake 45 s after every resume, all came back with no
+reset (so the worker feeds it again after resume). v1 also passed a
+10-minute s2idle sleep. Not tested with a watchdog actually left enabled
+by a bootloader. Built with W=1, checkpatch --strict clean apart from
+the sign-off.
+
+ drivers/watchdog/mtk_wdt.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/watchdog/mtk_wdt.c b/drivers/watchdog/mtk_wdt.c
+index 1630ab65d593..3c493a470b37 100644
+--- a/drivers/watchdog/mtk_wdt.c
++++ b/drivers/watchdog/mtk_wdt.c
+@@ -543,6 +543,7 @@ static int mtk_wdt_probe(struct platform_device *pdev)
+ 	mtk_wdt_init(&mtk_wdt->wdt_dev);
  
--		refcount_dec(&iwmr->user_ring_refs);
-+			if (iwmr && refcount_dec_and_test(&iwmr->user_ring_refs)) {
-+				ib_umem_release(iwmr->region);
-+				if (iwsrq->iwpbl->pbl_allocated)
-+					irdma_free_pble(rf->pble_rsrc, &iwsrq->iwpbl->pble_alloc);
-+				kfree(iwmr);
-+			}
-+		}
- 	}
- 
- 	irdma_free_rsrc(rf, rf->allocated_srqs, srq->srq_uk.srq_id);
-@@ -2414,6 +2421,7 @@ static int irdma_setup_umode_srq(struct irdma_device *iwdev,
- 				 struct ib_udata *udata,
- 				 struct uverbs_attr_bundle *attrs)
+ 	watchdog_stop_on_reboot(&mtk_wdt->wdt_dev);
++	watchdog_stop_ping_on_suspend(&mtk_wdt->wdt_dev);
+ 	err = devm_watchdog_register_device(dev, &mtk_wdt->wdt_dev);
+ 	if (unlikely(err))
+ 		return err;
+@@ -572,7 +573,8 @@ static int mtk_wdt_suspend(struct device *dev)
  {
-+	struct irdma_srq_uk_init_info *ukinfo = &info->srq_uk_init_info;
- 	struct irdma_create_srq_req req = {};
- 	struct irdma_ucontext *ucontext;
- 	struct irdma_srq_mr *srqmr;
-@@ -2429,14 +2437,49 @@ static int irdma_setup_umode_srq(struct irdma_device *iwdev,
- 	if (ret)
- 		return ret;
+ 	struct mtk_wdt_dev *mtk_wdt = dev_get_drvdata(dev);
  
--	spin_lock_irqsave(&ucontext->srq_reg_mem_list_lock, flags);
--	iwpbl = irdma_get_pbl((unsigned long)req.user_srq_buf,
--			      &ucontext->srq_reg_mem_list);
--	spin_unlock_irqrestore(&ucontext->srq_reg_mem_list_lock, flags);
--	if (!iwpbl)
--		return -EPROTO;
-+	if (attrs && uverbs_attr_is_valid(attrs, UVERBS_ATTR_CREATE_SRQ_BUF_UMEM)) {
-+		struct irdma_mem_reg_req srq_req = {};
-+		struct ib_umem *umem;
-+		u32 total;
-+		u8 shift;
-+
-+		irdma_get_wqe_shift(ukinfo->uk_attrs, ukinfo->max_srq_frag_cnt, 0, &shift);
-+		srq_req.rq_pages =
-+			DIV_ROUND_UP((ukinfo->srq_size << shift) * IRDMA_QP_WQE_MIN_SIZE,
-+				     IRDMA_HW_PAGE_SIZE);
-+		total = srq_req.rq_pages + IRDMA_SHADOW_PGCNT;
-+
-+		umem = ib_umem_get_attr(&iwdev->ibdev, attrs,
-+					UVERBS_ATTR_CREATE_SRQ_BUF_UMEM,
-+					total << IRDMA_HW_PAGE_SHIFT,
-+					IB_ACCESS_LOCAL_WRITE);
-+		if (IS_ERR(umem))
-+			return PTR_ERR(umem);
+-	if (watchdog_active(&mtk_wdt->wdt_dev))
++	if (watchdog_active(&mtk_wdt->wdt_dev) ||
++	    watchdog_hw_running(&mtk_wdt->wdt_dev))
+ 		mtk_wdt_stop(&mtk_wdt->wdt_dev);
  
--	iwsrq->iwpbl = iwpbl;
-+		iwsrq->iwpbl = irdma_setup_q_pbl_from_umem(iwdev, umem,
-+							   iwsrq->ibsrq.pd,
-+							   IRDMA_MEMREG_TYPE_SRQ,
-+							   &srq_req);
-+		if (IS_ERR(iwsrq->iwpbl)) {
-+			ret = PTR_ERR(iwsrq->iwpbl);
-+			iwsrq->iwpbl = NULL;
-+			ib_umem_release(umem);
-+			return ret;
-+		}
-+		iwpbl = iwsrq->iwpbl;
-+	} else {
-+		if (!req.user_srq_buf)
-+			return -EINVAL;
-+
-+		spin_lock_irqsave(&ucontext->srq_reg_mem_list_lock, flags);
-+		iwpbl = irdma_get_pbl((unsigned long)req.user_srq_buf,
-+				      &ucontext->srq_reg_mem_list);
-+		spin_unlock_irqrestore(&ucontext->srq_reg_mem_list_lock, flags);
-+		if (!iwpbl)
-+			return -EPROTO;
-+
-+		iwsrq->iwpbl = iwpbl;
-+	}
- 	srqmr = &iwpbl->srq_mr;
+ 	return 0;
+@@ -582,7 +584,8 @@ static int mtk_wdt_resume(struct device *dev)
+ {
+ 	struct mtk_wdt_dev *mtk_wdt = dev_get_drvdata(dev);
  
- 	if (iwpbl->pbl_allocated) {
-@@ -2604,7 +2647,12 @@ static int irdma_create_srq(struct ib_srq *ibsrq,
- 	if (iwsrq->user_mode && iwsrq->iwpbl) {
- 		struct irdma_mr *iwmr = iwsrq->iwpbl->iwmr;
- 
--		refcount_dec(&iwmr->user_ring_refs);
-+		if (iwmr && refcount_dec_and_test(&iwmr->user_ring_refs)) {
-+			ib_umem_release(iwmr->region);
-+			if (iwsrq->iwpbl->pbl_allocated)
-+				irdma_free_pble(rf->pble_rsrc, &iwsrq->iwpbl->pble_alloc);
-+			kfree(iwmr);
-+		}
+-	if (watchdog_active(&mtk_wdt->wdt_dev)) {
++	if (watchdog_active(&mtk_wdt->wdt_dev) ||
++	    watchdog_hw_running(&mtk_wdt->wdt_dev)) {
+ 		mtk_wdt_start(&mtk_wdt->wdt_dev);
+ 		mtk_wdt_ping(&mtk_wdt->wdt_dev);
  	}
- 	irdma_free_rsrc(rf, rf->allocated_srqs, iwsrq->srq_num);
- 	return err_code;
+
+base-commit: aac26bee2287c88af5be5a5ff96d783b19a28790
 -- 
-2.56.0.385.gd3acb90ef8-goog
+2.43.0
 
