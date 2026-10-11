@@ -1,143 +1,187 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com [209.85.160.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C3FE2E7380;
-	Sun, 11 Oct 2026 23:17:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791760620; cv=none; b=F7CTBvVBweg1kPRm3iIHq4Nmb6W/L956NmoB22FT1rqfQ0/6mbKMLZN+rdQh6gm6G5gcw8WHLRX9MbT2fAp20peXURK3r+atJ2C91Ar8D8l/G8Wo5M2GoOO6O/AN6TaqRLLMb0E2XzedlndlgyrwIMVHoyENwVLUfqnDgxhNIXI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791760620; c=relaxed/simple;
-	bh=UAZF3D+Sx35z3vcZ9NHFHqwGAcWy4Z3le2K73RKXH8Y=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=UiQwgAwuq+keiLeqMbR31MIXpB3/CJ77yu4Y5FyKydxi8zXUJJdXgRtRPjeNRhNigdsG8Q5+ZoAUu9c1X4WaCf9yZH2xYomtRDEUn+eJkME+CmCSLTy5BVgJjE5f3GPZqAZJWBhRSo73X6Iroq8/8Wbw8rM3WuW0YCY7V9LiDrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K6OAyUw1; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66DAC2D9ECB
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 23:24:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791761075; cv=pass; b=UXpO7RM6Arzu31xtfOVE9kO8JOMzJGt+UbPaUhu97c06tbJaGw+7w1XHokoZcxTPtMLvtafbnnTh8Lwu00btbV6zifcheansoU1oGMr0jCYv1BdNmmXoETf5i9ppyO3ik46c4d4l6kY435OqqSxricHF+R5MLGvi30pnM9/+7q4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791761075; c=relaxed/simple;
+	bh=GktAgKUL/yFktjDP9OAV+uRWevoTtopqQ5u7akr+55k=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FdwBigJ/guDOupwrq2prJzu1PYR+D2oghejhzh/BlGyxzeNNz+BP1ufZbreXW61wU0Xidwf18ubct04ZW8AzXINaXRbYMSGZ1ncMCUFdnv2zK5E0PiOYbh5a+i3eBYXXw+G5ZHH5ulZTnutJJAawm3Cc8MmpHwOZRpW10ot08Cg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CcotFU3X; arc=pass smtp.client-ip=209.85.160.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K6OAyUw1"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DA6E4C2BCF5;
-	Sun, 11 Oct 2026 23:16:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791760619;
-	bh=UAZF3D+Sx35z3vcZ9NHFHqwGAcWy4Z3le2K73RKXH8Y=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=K6OAyUw1vHZaCnZDDolLm+V0CH1PVTxqNOIIPwlAvBDD2LNmxwV0mUQa3erW/oms2
-	 hBkHZ5/fdSnVEj+swQp3sQn22oNRyzXZb5GuWiSEqJjs4FsZPu9eMYTA+vFgFrzBpT
-	 Tzt4juBe3QS7JjequhO91Mogptl4G4ci9A7Qe2QuwDpyGNnR/EZZYV6yM3YQAmVKik
-	 HfjswCBqEQGisT16CsSnBN6H2gAh223F1uh4MC9zzoTUljZjC7+54rL8wXPskHN8h1
-	 lgmR1rTspU6XcF/BYNj1avW2rG6q1GJ1lV0AKxDWwZnNCVb+GhahkPK+dfyYB46FZd
-	 w2BlOS+4I9xTA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C60C0CA9EBD;
-	Sun, 11 Oct 2026 23:16:59 +0000 (UTC)
-From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Date: Mon, 12 Oct 2026 02:16:58 +0300
-Subject: [PATCH] watchdog: orion_wdt: stop the watchdog during system
- suspend
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CcotFU3X"
+Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-4a2757826b9so620336fac.2
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:24:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791761073; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eqe0mrBSmtmGf8AD7ViYIGnKG1LsvHSJEdhKhu6wOXXLhGSn4Jn16E7NCDKfzHHz4c
+         gXHVvFymoqfjpi2gJl3EBYxnoAo5DxlcPt7i0P/qt635OAdt9xswJRjNencBGd7Xy6gS
+         su2mDF+CxcMXJl7fg/rX59hjGfxZpvPZedvGA1MjJw1VkY5Il+3fXs5U0HKUtJkaFyww
+         1tN6KihzO0E2jU7Z//LcfSCgfBz6Wuj7UFJTP9gQoR9rjyUUS/GGndzL+Aii/ZbSVih8
+         SYNch2RlO6ZADXcnI/K+Zt/MyApmhA0kVFONbu9+WT9+AJEKqSd0XN/9AcGOrrgyOelQ
+         zzSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Eg47cBecXpRbZQlFdWngr6AF33NBsP1BXGUbvCKwbOE=;
+        fh=iR7E80yU6fO96uvywu5OsMig+KpHtLw0KvYRrewzTRQ=;
+        b=o+6b9H+YBmBfFzI66VDKa889oGl7INrWkknQN18wvlKgGWvAyvffyCPCvFFr+KORfT
+         1PJGgz1tmNtXmKVU8iLLENZyxKs+q5neFfFbhXsp5uylaEpk6+N9q/qCDlH2daipeh/U
+         Xti3SVQzoOo/Xq89sfNUk396aW//2MgvyXVVaRBXxtP8A94zl3+iuEEMU8x30rBudZtT
+         g44yjNMLTQ7byDo87tFm2eiL3peQPZYk7GPpQwb5u6nKa0XwUVv5jjF8nn154DcDlkqW
+         BAW7dXF0iK5GJbf8OvTQswHgamnpD0HJ0STxdh4zj7h3pUHygCsDEw+XRpaYd1DdSnu0
+         maQA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791761073; x=1792365873; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Eg47cBecXpRbZQlFdWngr6AF33NBsP1BXGUbvCKwbOE=;
+        b=CcotFU3XplIWiMX3MlrB51bPMsLbtPcnGJeEmQbRFFM7quTZLAYUI8ZSCPGgMBYEBC
+         tNmoO7xnxxihpljH/pL7bLdMU13rd1J7xNpBfjxICG0y8U+9m2a+642Pp8XAFSjLwJpn
+         cfBCv/pR7H3R+3+XrVCWfd7puQdjj0WGIqLvAP0veK4YiWMYyHlX52Ty9FYAULBiACvf
+         oBnryPWp9MrjVNiSBh0vUm7wyuhHyTF+Npi7ZwgkWrNxd8yUunQ92zSjlaR21rQ1y48a
+         HFz6XIojWmgeVmT5gngBeY+ElA6xXnYRtQVHiAL3mZCAVgzrOP/8yW+L/4HWXCqxOWnQ
+         E/GQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791761073; x=1792365873;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Eg47cBecXpRbZQlFdWngr6AF33NBsP1BXGUbvCKwbOE=;
+        b=RXW/jha249Ol5bx5kdRKSR64BcBs0gVDGvqjMhr53gg+GFfzRkfjf1ew/QJq3UPXxJ
+         TGO1IFejKV/8k0n7sz5Z718svNxkZVDF6+TI/QMj5ez9Wog63eJ5AvVZqMbqUmExss/H
+         EQR+cQnj++WJ0ypJnbPtO76j6Pjbmhw7fYn4vIF/n6RE7Bl6Du0PMaukomOHb/AqNwXN
+         2gQg/yNDnITsbRHnXYRx4cydXISUt87ord/tgJ3Y/wfn9otbh+yNPhq0gasn9RhUkffv
+         zaIJ/XoBBJdRPpgJrqghioii+kCfVoJ8YbNb9gHTql8IwKipeuFGOOKBgVXp7bSEvm3b
+         ZziQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy6lEc8aHhuPa3H3DXtwgirG9rITpLpIK5Ij2d5oBYKmRSAXqPoAzivhVC66uBXKJfdI45yxnjIU2Mz4nY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJAz/e+X5ubHpwSICVUoc070G6GyYSPfllPZcdLy0FgzJ3trHyP
+	AuEnoC5x5fXAvYYlTNJ1+8/1jEyNkxTXfYDzwWygMW3D7WiLE2rfroP/HcQl6izEL9bS/N9CfbJ
+	8HmOKSNNvJOogfjT5CyhOJ76bmI7u1to=
+X-Gm-Gg: AYBFou2s9yiMGA8NY13Zubiu4q9kFa56L2B0rgKn86FdeKH3f4nlQN3oVH5mjqdH/bl
+	zcY4JKPct2RjUg+15QWKuhIVBqzp29CMrrBGqGhB6Yxlc5qWLGffrBjeE8f0abVXZwZMAtmFEfm
+	xyzF1uIyWA9CVMjS1K1eRmTDeYnFEcjle3BBR4PXf5JyFM87zPlp0q72g3R9CWlYNCgAWRpZzkB
+	jrTV6DnTJD0stdOOgNYFsvKqbcxermF3U05iQW4mfpggwj0/6XXyI0o9J1cpT+CV53fLZLTxaOS
+	wp6LMezxC+/0ZuDvbk95A/465+yGSVg2l3XmGbd+h4qkXYcokTrT0lg=
+X-Received: by 2002:a05:6870:1793:b0:494:878a:39b8 with SMTP id
+ 586e51a60fabf-4a2a8b3708bmr6291393fac.52.1791761073316; Sun, 11 Oct 2026
+ 16:24:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-orion-wdt-suspend-v1-1-1676cb79e29e@iav.lv>
-X-B4-Tracking: v=1; b=H4sIAOkYzGoC/x2MywqAIBAAfyX23IJKWPQr0UFyrb1ouL1A+vek4
- 8DMFBDKTAJjUyDTxcIpVtBtA8vm4krIvjIYZaxW2mDK1cDbHyin7BQ9qiGY3joXnO6gdnumwM/
- /nOb3/QCPfJWFYwAAAA==
-To: Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Guenter Roeck <linux@roeck-us.net>
-Cc: linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Igor Velkov <iav@iav.lv>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2486; i=iav@iav.lv;
- h=from:subject:message-id;
- bh=I01cscMCOu6Tzd50ZUw7bETh0PaV7/fPLgkbt1myUGw=;
- b=owGbwMvMwCVmNH1q96v4SmbG02pJDFlnJF4Vzjj28OQGnVD39D1Pf32OOOJmI5fKxyfsYBG35
- Y3RP4UvHaUsDGJcDLJiiiwTDmncylhy9a+/h/kDmDmsTCBDGLg4BWAiJhMYGZZM0OLjy4vK8PrK
- qrZqiljWxKkHbk9deX7/BFn+jA/Xo+8zMtxPvbFU1YYnN7pPjOHm2wnh06P60wr2357rLynGc2v
- KFTYA
-X-Developer-Key: i=iav@iav.lv; a=openpgp;
- fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
-X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
-X-Original-From: Igor Velkov <iav@iav.lv>
-Reply-To: iav@iav.lv
+References: <20260915144538.3465774-1-lhfff@tju.edu.cn>
+In-Reply-To: <20260915144538.3465774-1-lhfff@tju.edu.cn>
+From: Jassi Brar <jassisinghbrar@gmail.com>
+Date: Sun, 11 Oct 2026 18:24:22 -0500
+X-Gm-Features: AclHuK9DNL57Jsmx5AKGNxO-DRbZ2zgqU32OE2fsplIIq7lTBL6Mg74oNldR52M
+Message-ID: <CABb+yY121-o1DaoBG4Vm27zWT0CDUjTaZLBUSPMLAvyQZ+4K3w@mail.gmail.com>
+Subject: Re: [PATCH v1] mailbox: bcm-pdc: Free the IRQ before cancelling
+ receive work
+To: Yibo Tan <lhfff@tju.edu.cn>
+Cc: Andy Gospodarek <gospo@broadcom.com>, Rob Rice <rob.rice@broadcom.com>, 
+	linux-kernel@vger.kernel.org, u.kleine-koenig@baylibre.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Igor Velkov <iav@iav.lv>
+On Tue, Sep 15, 2026 at 9:45=E2=80=AFAM Yibo Tan <lhfff@tju.edu.cn> wrote:
+>
+> pdc_irq_handler() queues rx_work to process received data.  Because the
+> driver requests a managed IRQ, the handler remains registered until
+> after probe or remove returns unless the driver frees it explicitly.
+>
+> The pdc_mb_init() error path and pdc_remove() currently cancel the work
+> while the IRQ handler is still registered.  A later interrupt can queue
+> the work again.  Cleanup then destroys the DMA pools and frees struct
+> pdc_state, so pdc_work_cb() can access freed memory and registers.
+>
+> KASAN reported an invalid access in pdc_work_cb() when an interrupt
+> queued the work during removal.  After this change, removal waited for
+> the work to finish and the same test completed without a kernel
+> diagnostic.
+>
+> Add pdc_stop() to disable the hardware, free the managed IRQ and wait for
+> rx_work.  Call it in both paths before destroying either DMA pool.
+>
+> Fixes: 8aef00f090bc ("mailbox: bcm-pdc: Convert from threaded IRQ to task=
+let")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:GPT-5
+> Signed-off-by: Yibo Tan <lhfff@tju.edu.cn>
+> ---
+>  drivers/mailbox/bcm-pdc-mailbox.c | 18 +++++++++++++-----
+>  1 file changed, 13 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/mailbox/bcm-pdc-mailbox.c b/drivers/mailbox/bcm-pdc-=
+mailbox.c
+> index 6fcc4002ad4f..aea2e5273bf0 100644
+> --- a/drivers/mailbox/bcm-pdc-mailbox.c
+> +++ b/drivers/mailbox/bcm-pdc-mailbox.c
+> @@ -1335,6 +1335,15 @@ static void pdc_hw_disable(struct pdc_state *pdcs)
+>                   &dma_reg->dmarcv.control);
+>  }
+>
+> +static void pdc_stop(struct pdc_state *pdcs)
+> +{
+> +       struct device *dev =3D &pdcs->pdev->dev;
+> +
+> +       pdc_hw_disable(pdcs);
+> +       devm_free_irq(dev, pdcs->pdc_irq, dev);
+> +       cancel_work_sync(&pdcs->rx_work);
+> +}
+> +
+>  /**
+>   * pdc_rx_buf_pool_create() - Pool of receive buffers used to catch the =
+metadata
+>   * header returned with each response message.
+> @@ -1581,15 +1590,16 @@ static int pdc_probe(struct platform_device *pdev=
+)
+>         /* Initialize mailbox controller */
+>         err =3D pdc_mb_init(pdcs);
+>         if (err)
+> -               goto cleanup_buf_pool;
+> +               goto cleanup_irq;
+>
+>         pdc_setup_debugfs(pdcs);
+>
+>         dev_dbg(dev, "pdc_probe() successful");
+>         return PDC_SUCCESS;
+>
+> +cleanup_irq:
+> +       pdc_stop(pdcs);
+>  cleanup_buf_pool:
+> -       cancel_work_sync(&pdcs->rx_work);
+>         dma_pool_destroy(pdcs->rx_buf_pool);
+>
+>  cleanup_ring_pool:
+> @@ -1605,9 +1615,7 @@ static void pdc_remove(struct platform_device *pdev=
+)
+>
+>         pdc_free_debugfs();
+>
+> -       cancel_work_sync(&pdcs->rx_work);
+> -
+> -       pdc_hw_disable(pdcs);
+> +       pdc_stop(pdcs);
+>
+>         dma_pool_destroy(pdcs->rx_buf_pool);
+>         dma_pool_destroy(pdcs->ring_pool);
+>
+I am not comfortable picking this patch without ack from someone from
+BCM, especially since it seems found and fixed by AI and it changes
+the order of teardown.
 
-The watchdog timer keeps counting across system suspend while the
-userspace that pings it is frozen, so it expires and resets the system.
-On a Kobol Helios4 (Armada 388) with a 60 s timeout the board resets
-47-61 s into s2idle, whether the watchdog daemon or systemd's
-RuntimeWatchdogSec holds the device.
-
-Stop the timer on suspend and restart it on resume when it is active or
-running in hardware, as sp805_wdt does. orion_wdt_start() reloads the
-counter, so userspace gets a full timeout after resume.
-
-Assisted-by: LLM
-Signed-off-by: Igor Velkov <iav@iav.lv>
----
-Tested on a Kobol Helios4 (Armada 388, v7.2.9). Unpatched, the board
-resets 60 s into s2idle. With this patch:
-- watchdog daemon: three 120 s s2idle cycles, no reset;
-- systemd RuntimeWatchdogSec=60s: one 120 s s2idle and one 120 s
-  standby cycle, no reset;
-- the watchdog still fires after resume: freezing the daemon (SIGSTOP)
-  after the s2idle cycles reset the board in 61 s, a panic after
-  standby in 54 s.
----
- drivers/watchdog/orion_wdt.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
-
-diff --git a/drivers/watchdog/orion_wdt.c b/drivers/watchdog/orion_wdt.c
-index 5d56e93f0406..0e3d896fe930 100644
---- a/drivers/watchdog/orion_wdt.c
-+++ b/drivers/watchdog/orion_wdt.c
-@@ -668,6 +668,29 @@ static void orion_wdt_shutdown(struct platform_device *pdev)
- 	orion_wdt_stop(wdt_dev);
- }
- 
-+static int orion_wdt_suspend(struct device *dev)
-+{
-+	struct watchdog_device *wdt_dev = dev_get_drvdata(dev);
-+
-+	if (watchdog_active(wdt_dev) || watchdog_hw_running(wdt_dev))
-+		return orion_wdt_stop(wdt_dev);
-+
-+	return 0;
-+}
-+
-+static int orion_wdt_resume(struct device *dev)
-+{
-+	struct watchdog_device *wdt_dev = dev_get_drvdata(dev);
-+
-+	if (watchdog_active(wdt_dev) || watchdog_hw_running(wdt_dev))
-+		return orion_wdt_start(wdt_dev);
-+
-+	return 0;
-+}
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(orion_wdt_pm_ops, orion_wdt_suspend,
-+				orion_wdt_resume);
-+
- static struct platform_driver orion_wdt_driver = {
- 	.probe		= orion_wdt_probe,
- 	.remove		= orion_wdt_remove,
-@@ -675,6 +698,7 @@ static struct platform_driver orion_wdt_driver = {
- 	.driver		= {
- 		.name	= "orion_wdt",
- 		.of_match_table = orion_wdt_of_match_table,
-+		.pm	= pm_sleep_ptr(&orion_wdt_pm_ops),
- 	},
- };
- 
-
----
-base-commit: 8b5a9f09037e3c372c4e9f2fbda85fcfbf5ea5f0
-change-id: 20261012-orion-wdt-suspend-08f276aafa14
-
-Best regards,
--- 
-Igor Velkov <iav@iav.lv>
-
-
+Regards,
+Jasis
