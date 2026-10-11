@@ -1,288 +1,218 @@
-Received: from mta1.migadu.com (out-98.mta1.migadu.com [95.215.58.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C7C44052A9
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:48:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B14594248D7;
+	Sun, 11 Oct 2026 08:48:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791708512; cv=none; b=jvpUHS6cLfP+on0EGCBAIRCBbNiPLJVriEsIwIVN5sYezrVn7jfuAN534XHAS372GMhYi4LJEw+j2gvjrDloTWyEeuacrEKWmBeOIqhBxXiM9lr1Fc1/+cpQvhYWGj6m/Xy95JT1K1xMrIu/NClLpierfG4SgD/nt/ryLsKY1UM=
+	t=1791708525; cv=none; b=t/yA+wbk4hjvlJEQ/nLHs+CdLq3Y4GweCxW5X3kTNoHjEEvpClnuhVhJ2KR8k7ct03IYDCNAR9SES7EogKeQt8U1GG/gD80zxj1FR+iGFRj78HacuCh5fqblmzntiBciafMMF32PIeCGCig5a2g0tjbXHLbwsAxjk8aDfkGYQu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791708512; c=relaxed/simple;
-	bh=1ZJ270N9Cvuns/rw/5cTxT6UtYYld8470xg4Xu8WE8s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oQb+8PNr/V4orq4IuHcilkd80DySzjWGkEfIUyLpimOXEVEw47gEm+SJHrV9yhmzq97OmvW2d9USSVg8w4g0QTVUECa773msMIebDKpaFH4LOjpqP+mczyKQ48egEifayTdM0Ml8RQS5bA2KzgEkCTVg4Jw+PCAfyz+iJ6eCo7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hxWDWY8j; arc=none smtp.client-ip=95.215.58.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791708525; c=relaxed/simple;
+	bh=PK2/fTVmspjHBocolBh2jrgC7An7V8dAPsC+YJWRdZM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Jn6WLEKNzuZfveaYuiAr4JoNuaFqPT09ab4zsecKgfAYgZn6qDheNbu0MzB4a4bRJ4fScqMZeQ87HWtMBGCx/Xm7qYtO6TlF9fBgOltjAZ4hh8NBlS5H7XA5sIvstkvFzYski7BsGHDdAQtlHglhcLu3U6jW86TkUurYUbQp7pM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qK/sKEPO; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hxWDWY8j"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1ZJ270N9Cvuns/rw/5cTxT6UtYYld8470xg4Xu8WE8s=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791708506; v=1; x=1792313306;
- b=hxWDWY8j2jyT5srBWjxOeEcLAWKT0fX4rhTT2KZc97w8YSlPe+Ikp9zPbLl++JLqSdd9QA1W
- CLabkoo60gDI9NZeOJ1omdkq7e/WeiBDo0DwW9tjm+9Sw0fJpi5ugyIYAp7nUsOoM2s73kqD0Dt
- OeuQzEt9c8092nW6F5KEBqxI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c162570d02b52201;
-	Sun, 11 Oct 2026 08:48:25 +0000
-X-Mizu-Trace-ID: c162570d02b52201
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <c7bf4584-0a47-445b-af10-4b1a29e9cdec@linux.dev>
-Date: Sun, 11 Oct 2026 16:48:20 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qK/sKEPO"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 16C80C2BCF7;
+	Sun, 11 Oct 2026 08:48:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791708525;
+	bh=PK2/fTVmspjHBocolBh2jrgC7An7V8dAPsC+YJWRdZM=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=qK/sKEPOBbOpsmXm0PtV5DDtuUXDz9tQnuO/KsK8HOHEm800BWzpyQmmGD9JSIHQn
+	 7uS4gPBTXROZLHbKQwTPcm1A5QF547w7zLho8snps3RoaSjlYHJTHHMOWOXmtStddl
+	 nSqycg5cCxV4J0mOWAixLOYPgWQgzjeMele3hY69WfMcj7YhFlT4SwlVicV4hLr2ZN
+	 91xIOi6vZRBQDKlq+Et/VZjoCKzlBBe3ZD5XH6MBUZZZ7xO7vzyPe+fxErcT7xBcxU
+	 Fod1NJBqrnJ7eL+oY5G64+uc0YJs9FM4URmnsdtGkaEcR4GVOLPz6lO5DOg0NBslRY
+	 M1bQ5lw8I8+6Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E27B1CA9EBD;
+	Sun, 11 Oct 2026 08:48:44 +0000 (UTC)
+From: Linfeng Sun via B4 Relay <devnull+linfeng.sun.dev.gmail.com@kernel.org>
+Date: Sun, 11 Oct 2026 16:48:40 +0800
+Subject: [PATCH] vhost-vdpa: initialize state before publishing cdev
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next v2 5/6] selftests/cgroup: Add tests for housekeeping
- check
-To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, Hui Peng <benquike@gmail.com>
-References: <20261010221938.243859-1-longman@redhat.com>
- <20261010221938.243859-6-longman@redhat.com>
-Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <20261010221938.243859-6-longman@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261011-fix-null-pointer-in-vhost_vdpa_release-v1-1-43ebc225f938@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNQQrCMBCF4auUWTvQFJXWq4iUSTu1IyEJmTQIp
+ Xc36vJbvP/toJyEFW7NDomLqARfYU4NTCv5J6PM1dC13dW0xuAib/SbcxiD+MwJxWNZg+axzJH
+ GxI5JGe15uCy2H4iohxqLievyd3R//K2bffGUv3U4jg/HsmXpigAAAA==
+X-Change-ID: 20261011-fix-null-pointer-in-vhost_vdpa_release-b495fb89aaa8
+To: "Michael S. Tsirkin" <mst@redhat.com>, 
+ Jason Wang <jasowangio@gmail.com>, 
+ =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+ Tiwei Bie <tiwei.bie@intel.com>
+Cc: kvm@vger.kernel.org, virtualization@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, Linfeng Sun <linfeng.sun.dev@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791708522; l=5684;
+ i=linfeng.sun.dev@gmail.com; s=20261010; h=from:subject:message-id;
+ bh=lO63c612f3W01eAQKW8gQ/u7SgviABtFHcPCPVA69xg=;
+ b=2SKvFGyQlpWr3kk1AhzwaEfs1Z00KYut0wXx2gI5Q4v/E6groac6bAUK3wS1EdqSxWBAoZWFH
+ 4Qf467hFPJgBA/wCB8rsLfMKXYh6XGHOZstGX3A09H7cs4z77LpcCIz
+X-Developer-Key: i=linfeng.sun.dev@gmail.com; a=ed25519;
+ pk=IPHLe8L3bTveNcYFP12okRAIWs4eqaVd4jrqSNMj7UU=
+X-Endpoint-Received: by B4 Relay for linfeng.sun.dev@gmail.com/20261010
+ with auth_id=1150
+X-Original-From: Linfeng Sun <linfeng.sun.dev@gmail.com>
+Reply-To: linfeng.sun.dev@gmail.com
 
+From: Linfeng Sun <linfeng.sun.dev@gmail.com>
 
+Initialize the completion and as hash buckets before cdev_device_add()
+makes the device accessible.
 
-在 2026/10/11 06:19, Waiman Long 写道:
-> Whenever a partition is enabled or the cpumask of a valid partition
-> changes, a housekeeping check will be performed to ensure that the
-> change won't violate the imposed housekeeping constraints. One of the
-> constraints is that a boot-time isolated CPU will not be used to form
-> a non-isolated root partition.  This requires the presence of boot-time
-> isolated CPUs when a test is run.
-> 
-> The test_cpuset_prs.sh test script is now updated to run a set a
-> special housekeeping check tests that will only be run if a suitable
-> boot-time isolated CPU is present. This will enable us to detect bugs
-> or regressions in the housekeeping checking code though a "isolcpus="
-> boot parameter with CPUs beyond CPU 8 must be present.
-> 
-> Adding test to check for exhaustion of all the housekeeping CPUs is
-> much harder and so will not be attempted at this time.
-> 
-> This patch also includes a minor fix to the REMOTE_TEST_MATRIX to avoid
-> test failure when the -v option is used.
-> 
-> Signed-off-by: Waiman Long <longman@redhat.com>
-> ---
->  .../selftests/cgroup/test_cpuset_prs.sh       | 109 ++++++++++++++----
->  1 file changed, 87 insertions(+), 22 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> index 7efd5e645767..3d392e8c66aa 100755
-> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> @@ -86,26 +86,37 @@ echo "" > test/cpuset.cpus
->  
->  #
->  # If isolated CPUs have been reserved at boot time (as shown in
-> -# cpuset.cpus.isolated), these isolated CPUs should be outside of CPUs 0-8
-> -# that will be used by this script for testing purpose. If not, some of
-> -# the tests may fail incorrectly. Wait a bit and retry again just in case
-> -# these isolated CPUs are leftover from previous run and have just been
-> -# cleaned up earlier in this script.
-> +# /sys/devices/system/cpu/isolated), these isolated CPUs should be outside of
-> +# CPUs 0-8 that will be used by this script for testing purpose. If not, some
-> +# of the tests may fail incorrectly.
->  #
-> -# These pre-isolated CPUs should stay in an isolated state throughout the
-> +# The current set of isolated CPUs (as shown in cpuset.cpus.isolated) should
-> +# be the same as the boot value. If not, wait a bit and retry again just in
-> +# case these isolated CPUs are leftover from previous run and have just been
-> +# cleaned up earlier in this script. If they still don't match, we report an
-> +# warning and skip the test.
-> +#
-> +# These boot isolated CPUs should stay in an isolated state throughout the
->  # testing process for now.
->  #
-> -BOOT_ISOLCPUS=$(cat $CGROUP2/cpuset.cpus.isolated)
-> +BOOT_ISOLCPUS=$(cat /sys/devices/system/cpu/isolated)
-> +CURRENT_ISOLCPUS=$(cat $CGROUP2/cpuset.cpus.isolated)
-> +FIRST_ISOLCPUS=
-> +TEST_ISOLCPUS=
-> +
->  [[ -n "$BOOT_ISOLCPUS" ]] && {
-> +	FIRST_ISOLCPUS=$(echo $BOOT_ISOLCPUS | sed -e "s/[,-].*//")
-> +	[[ $FIRST_ISOLCPUS -le 8 ]] &&
-> +		skip_test "Boot-isolated CPUs ($BOOT_ISOLCPUS) overlap CPUs to be tested"
-> +	echo "Boot-isolated CPUs: $BOOT_ISOLCPUS"
-> +}
-> +
-> +[[ "$BOOT_ISOLCPUS" != "$CURRENT_ISOLCPUS" ]] && {
->  	sleep 0.5
-> -	BOOT_ISOLCPUS=$(cat $CGROUP2/cpuset.cpus.isolated)
-> +	CURRENT_ISOLCPUS=$(cat $CGROUP2/cpuset.cpus.isolated)
-> +	[[ "$BOOT_ISOLCPUS" != "$CURRENT_ISOLCPUS" ]] &&
-> +		skip_test "Current isolated CPUs ($CURRENT_ISOLCPUS) don't match boot isolated CPUs!"
->  }
-> -if [[ -n "$BOOT_ISOLCPUS" ]]
-> -then
-> -	[[ $(echo $BOOT_ISOLCPUS | sed -e "s/[,-].*//") -le 8 ]] &&
-> -		skip_test "Pre-isolated CPUs ($BOOT_ISOLCPUS) overlap CPUs to be tested"
-> -	echo "Pre-isolated CPUs: $BOOT_ISOLCPUS"
-> -fi
->  
->  cleanup()
->  {
-> @@ -202,7 +213,7 @@ test_add_proc()
->  #
->  # ECPUs    - effective CPUs of cpusets
->  # Pstate   - partition root state
-> -# ISOLCPUS - isolated CPUs (<icpus>[,<icpus2>])
-> +# ISOLCPUS - isolated CPUs (<icpus>[,<icpus2>] or .)
->  #
->  # Note that if there are 2 fields in ISOLCPUS, the first one is for
->  # sched-debug matching which includes offline CPUs and single-CPU partitions
-> @@ -444,6 +455,35 @@ TEST_MATRIX=(
->  	"   C0-3     .      .    C4-5   X3-5     .      .      .     1 A1:0-3|B1:4-5"
->  )
->  
-> +# Test matrix with boot time isolated CPUs present for housekeeping check testing
-> +ISOLCPUS_TEST_MATRIX=(
-> +	#  old-A1 old-A2 old-A3 old-B1 new-A1 new-A2 new-A3 new-B1 fail ECPUs Pstate ISOLCPUS
-> +	#  ------ ------ ------ ------ ------ ------ ------ ------ ---- ----- ------ --------
-> +	# A local isolated partition containing boot isolated CPU cannot be
-> +	# switched to root partition.
-> +	" C1-2,I:P2  .      .      .      P1     .      .      .     0 A1:1-2,I A1:P-1 ."
-> +
-> +	# A remote isolated partition containing boot isolated CPU cannot be
-> +	# switched to root partition.
-> +	" X1-2,I CX1-2,I:P2 .      .       .    P1      .      .     0 A2:1-2,I A2:P-1 ."
-> +
-> +	# A local isolated partition with a boot isolated CPU distributed to a
-> +	# child isolated partition also cannot be switched to a root partition.
-> +	" C1-3,I:P2 C1,I:P2 .      .      P1     .      .      .     0 A1:1-3,I|A2:1,I A1:P-1|A2:P-2 ."
-> +
-> +	# A remote isolated partition with a boot isolated CPU distributed to a
-> +	# child isolated partition also cannot be switched to a root partition.
-> +	" X1-3,I C1-3,I:P2 C1,I:P2 .       .    P1      .      .     0 A2:1-3,I|A3:1,I A2:P-1|A3:P-2 ."
-> +
-> +	# The cpumask of a local root partition cannot be changed to include a
-> +	# boot isolated CPU.
-> +	" C1-2:P1    .      .      .     C2,I    .      .      .     0 A1:2,I A1:P-1 ."
-> +
-> +	# The cpumask of a remote root partition cannot be changed to include a
-> +	# boot isolated CPU.
-> +	" CX1-2,I  CX1-2:P1 .      .       .   CX2,I    .      .     0 A1:1-2,I|A2:2,I A2:P-1 ."
-> +)
+Fixes: 4c8cf31885f6 ("vhost: introduce vDPA-based backend")
+Assisted-by: OpenAI-Codex:GPT-5.6
+Signed-off-by: Linfeng Sun <linfeng.sun.dev@gmail.com>
+---
+I used // because b4 ignores lines starting with #. Please uncomment those 
+lines before reproducing.
+---- reproduce.c ----
+// #include <fcntl.h>
+// #include <pthread.h>
+// #include <stdatomic.h>
+// #include <unistd.h>
 
-Could we add two invalid-root revival cases with an explicit exclusive
-mask here? For example:
+// #define THREADS 16
 
-        # An invalid root must stay invalid when cpus grows but exclusive
-        # still contains a boot isolated CPU.
-        " CX1,I:P1        .  .  .  C1-2,I   .  .  .  0 A1:1-2,I A1:P-1 ."
+static const char *device_path;
+static const char *sysfs_path;
+static atomic_int stop;
 
-        # Growing exclusive must not revive it either.
-        " C1-2,I:X1,I:P1 .  .  .  X1-2,I   .  .  .  0 A1:1-2,I A1:P-1 ."
+static void *open_close(void *unused)
+{
+	(void)unused;
 
-Thanks,
-Guopeng
+	while (!atomic_load(&stop)) {
+		int fd;
 
-> +
->  #
->  # Cpuset controller remote partition test matrix.
->  #
-> @@ -496,8 +536,8 @@ REMOTE_TEST_MATRIX=(
->  							 p1:P1|c11:P1|c12:P-1"
->  	# Narrowing cpuset.cpus to previously sibling-excluded CPUs should
->  	# not return CPUs that were never actually owned.
-> -	"  C1-4:P1   .   C1-2:P1  C1-3:P2  .       .  \
-> -	      .      .     .       C3      .       .     p1:4|c11:1-2|c12:3 \
-> +	"  C1-5:P1   .   C1-2:P1  C1-3:P2  .       .  \
-> +	      .      .     .       C3      .       .     p1:4-5|c11:1-2|c12:3 \
->  							 p1:P1|c11:P1|c12:P2 3"
->  	# Expanding cpuset.cpus to include a previously sibling-excluded CPU
->  	# after the sibling has become a member should correctly request it.
-> @@ -541,6 +581,27 @@ write_cpu_online()
->  	pause 0.05
->  }
->  
-> +#
-> +# Set the CPUS values
-> +#  $1 - the passed in cpu parameter
-> +#
-> +# The special ",I" suffix if present is being replaced by the first boot CPU
-> +# and assigned to the "CPUS" variable when the TEST_ISOLCPUS flag is set.
-> +# If not, the program will exit with an error.
-> +#
-> +set_cpus()
-> +{
-> +	local cpus=$1
-> +	if [[ $(expr "$cpus" : .*,I) -gt 0 ]]
-> +	then
-> +		[[ -z "$TEST_ISOLCPUS" ]] &&
-> +			skip_test "',I' added to non-isolcpus testing matrix!"
-> +		CPUS=$(echo $cpus | sed -e "s/,I/,$FIRST_ISOLCPUS/")
-> +	else
-> +		CPUS=$cpus
-> +	fi
-> +}
-> +
->  #
->  # Set controller state
->  #  $1 - cgroup directory
-> @@ -575,16 +636,16 @@ set_ctrl_state()
->  		}
->  		case $CMD in
->  		    X*)
-> -			CPUS=${CMD#?}
-> +			set_cpus ${CMD#?}
->  			COMM="echo $CPUS > $XFILE"
->  			eval $COMM $REDIRECT
->  			;;
->  		    CX*)
-> -			CPUS=${CMD#??}
-> +			set_cpus ${CMD#??}
->  			COMM="echo $CPUS > $CFILE; echo $CPUS > $XFILE"
->  			eval $COMM $REDIRECT
->  			;;
-> -		    C*) CPUS=${CMD#?}
-> +		    C*) set_cpus ${CMD#?}
->  			COMM="echo $CPUS > $CFILE"
->  			eval $COMM $REDIRECT
->  			;;
-> @@ -978,8 +1039,11 @@ run_state_test()
->  	I=0
->  	eval CNT="\${#$TEST[@]}"
->  
-> +	# Skip isolcpus specific test matrix if FIRST_ISOLCPUS not defined
-> +	[[ -n "$TEST_ISOLCPUS" && -z "$FIRST_ISOLCPUS" ]] && return
-> +
->  	reset_cgroup_states
-> -	console_msg "Running state transition test ..."
-> +	console_msg "Running state transition test for $TEST ..."
->  
->  	while [[ $I -lt $CNT ]]
->  	do
-> @@ -998,7 +1062,7 @@ run_state_test()
->  		NEW_A3=$7
->  		NEW_B1=$8
->  		RESULT=$9
-> -		ECPUS=${10}
-> +		ECPUS=$(echo ${10} | sed -e "s/,I/,${FIRST_ISOLCPUS}/g")
->  		STATES=${11}
->  		ICPUS=${12}
->  
-> @@ -1284,6 +1348,7 @@ test_inotify()
->  trap cleanup 0 2 3 6
->  run_state_test TEST_MATRIX
->  run_remote_state_test REMOTE_TEST_MATRIX
-> +TEST_ISOLCPUS=1 run_state_test ISOLCPUS_TEST_MATRIX
->  test_isolated
->  test_boot_isolated
->  test_inotify
+		if (access(sysfs_path, F_OK))
+			continue;
+		fd = open(device_path, O_RDWR);
+		if (fd >= 0)
+			close(fd);
+	}
+	return NULL;
+}
+
+int main(int argc, char **argv)
+{
+	pthread_t threads[THREADS];
+	int i;
+
+	if (argc != 3)
+		return 1;
+	device_path = argv[1];
+	sysfs_path = argv[2];
+
+	for (i = 0; i < THREADS; i++)
+		if (pthread_create(&threads[i], NULL, open_close, NULL))
+			return 1;
+
+	sleep(45);
+	atomic_store(&stop, 1);
+	for (i = 0; i < THREADS; i++)
+		pthread_join(threads[i], NULL);
+	return 0;
+}
+
+---- crash ----
+[   23.959139] BUG: unable to handle page fault for address: fffffffffffffff8
+[   23.959859] #PF: supervisor read access in kernel mode
+[   23.960291] #PF: error_code(0x0000) - not-present page
+[   23.960740] PGD 4869067 P4D 4869067 PUD 486b067 PMD 0 
+[   23.961718] Oops: Oops: 0000 [#1] SMP NOPTI
+[   23.962395] CPU: 1 UID: 0 PID: 126 Comm: poc Not tainted 7.3.0-rc2+ #1 PREEMPT(full) 
+[   23.963059] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[   23.963890] RIP: 0010:complete+0x44/0x80
+[   23.964656] Code: 41 d8 01 49 89 c4 8b 03 83 f8 ff 74 05 83 c0 01 89 03 48 8b 53 10 48 8d 43 10 48 39 c2 74 29 48 8b 5b 10 31 d2 be 03 00 00 00 <48> 8b 7b f8 e8 e3 65 fc ff 48 8b 13 48 8b 43 08 48 89 42 08 48 89
+[   23.965679] RSP: 0018:ffffc9000141bc38 EFLAGS: 00000046
+[   23.966109] RAX: ffff888008a678d8 RBX: 0000000000000000 RCX: 0000000000000000
+[   23.966513] RDX: 0000000000000000 RSI: 0000000000000003 RDI: 0000000000000000
+[   23.967005] RBP: ffffc9000141bc50 R08: 0000000000000000 R09: 0000000000000000
+[   23.967483] R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000246
+[   23.967896] R13: ffff888008a678d0 R14: 0000000000000000 R15: ffffffff83541780
+[   23.968384] FS:  00007dcd511046c0(0000) GS:ffff8880b94b6000(0000) knlGS:0000000000000000
+[   23.968933] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   23.969398] CR2: fffffffffffffff8 CR3: 0000000009a41000 CR4: 00000000000006f0
+[   23.970091] Call Trace:
+[   23.970735]  <TASK>
+[   23.971266]  vhost_vdpa_release+0x175/0x190
+[   23.971862]  ? __pfx_vhost_vdpa_release+0x10/0x10
+[   23.972298]  __fput+0x1c2/0x520
+[   23.972692]  fput_close_sync+0x6e/0x140
+[   23.973040]  __x64_sys_close+0x51/0xd0
+[   23.973362]  x64_sys_call+0x2680/0x27e0
+[   23.973655]  do_syscall_64+0xbf/0x550
+[   23.973969]  ? restore_fpregs_from_fpstate+0xa1/0x110
+[   23.974322]  ? switch_fpu_return+0xbd/0x190
+[   23.974630]  ? do_syscall_64+0x299/0x550
+[   23.974962]  ? putname+0x7f/0xd0
+[   23.975267]  ? do_faccessat+0x3fe/0x570
+[   23.975583]  ? __sanitizer_cov_trace_cmp4+0x16/0x30
+[   23.975934]  ? fpregs_assert_state_consistent+0x7b/0xc0
+[   23.976272]  ? do_syscall_64+0xfd/0x550
+[   23.976591]  ? __sanitizer_cov_trace_cmp4+0x16/0x30
+[   23.976949]  ? fpregs_assert_state_consistent+0x7b/0xc0
+[   23.977304]  ? do_syscall_64+0xfd/0x550
+[   23.977611]  ? prandom_u32_state+0xd/0x90
+[   23.977933]  ? do_syscall_64+0x31/0x550
+[   23.978248]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+[   23.978644] RIP: 0033:0x41e94c
+[   23.979296] Code: 0f 05 48 3d 00 f0 ff ff 77 3c c3 0f 1f 00 55 48 89 e5 48 83 ec 10 89 7d fc e8 b0 a5 02 00 8b 7d fc 89 c2 b8 03 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 2c 89 d7 89 45 fc e8 12 a6 02 00 8b 45 fc c9
+[   23.980064] RSP: 002b:00007dcd51104220 EFLAGS: 00000293 ORIG_RAX: 0000000000000003
+[   23.980511] RAX: ffffffffffffffda RBX: 00007dcd51104cdc RCX: 000000000041e94c
+[   23.980887] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000003
+[   23.981251] RBP: 00007dcd51104230 R08: 0000000000000000 R09: 00007dcd511046c0
+[   23.981604] R10: 0000000000000000 R11: 0000000000000293 R12: 00007dcd511046c0
+[   23.981960] R13: ffffffffffffffb8 R14: 0000000000000000 R15: 00007ffe8c98a0f0
+[   23.982377]  </TASK>
+[   23.982597] Modules linked in:
+[   23.983036] CR2: fffffffffffffff8
+[   23.983847] ---[ end trace 0000000000000000 ]---
+---
+ drivers/vhost/vdpa.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/vhost/vdpa.c b/drivers/vhost/vdpa.c
+index ff7d90719171..35e2f5b2293b 100644
+--- a/drivers/vhost/vdpa.c
++++ b/drivers/vhost/vdpa.c
+@@ -1678,17 +1678,16 @@ static int vhost_vdpa_probe(struct vdpa_device *vdpa)
+ 
+ 	cdev_init(&v->cdev, &vhost_vdpa_fops);
+ 	v->cdev.owner = THIS_MODULE;
++	init_completion(&v->completion);
++	for (i = 0; i < VHOST_VDPA_IOTLB_BUCKETS; i++)
++		INIT_HLIST_HEAD(&v->as[i]);
+ 
+ 	r = cdev_device_add(&v->cdev, &v->dev);
+ 	if (r)
+ 		goto err;
+ 
+-	init_completion(&v->completion);
+ 	vdpa_set_drvdata(vdpa, v);
+ 
+-	for (i = 0; i < VHOST_VDPA_IOTLB_BUCKETS; i++)
+-		INIT_HLIST_HEAD(&v->as[i]);
+-
+ 	return 0;
+ 
+ err:
+
+---
+base-commit: c69023b5e16e5ffe9368603dca76d85bd544ee57
+change-id: 20261011-fix-null-pointer-in-vhost_vdpa_release-b495fb89aaa8
+
+Best regards,
+--  
+Linfeng Sun <linfeng.sun.dev@gmail.com>
+
 
