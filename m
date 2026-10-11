@@ -1,149 +1,265 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011000.outbound.protection.outlook.com [40.107.208.0])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B81EF1C75F9;
-	Sun, 11 Oct 2026 09:08:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.0
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791709696; cv=fail; b=jkZ50Ze1bdCylfuV1MWU20WZt6fH9kG8jycu2dsbtlgCerH47damxet4u5LV1MyN2XV7dxD/u8eu8yFFn2x/pu6cAzBfJaliJdl5L77Yi9Q/6ctEBna8/am3nHg9aewWluUbH8nO9bPO3gcqnohkdKhD/6TwE0kuFtFkOUYrBr4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791709696; c=relaxed/simple;
-	bh=uo270Z7k7EOwVmdvwX7J9uS1ureBQ+k0DjjGlyzsG64=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=j45fl8H6uxUjfIPzkygxymebNlBDpfr+RDDze4EqV6xRW5CJPIp63suDK/eQc+hBeEIk6z5ho7xoe6i1ZlzIC4FHDiJ4Uaql8r5cCHjJ1HlLz7b83+E/e2QJeCwVQNHJG2XUUu+PHck9Sr1VxqfliO5vdGJDeDxDcmFrvBN8PFc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=OVmGC/8b; arc=fail smtp.client-ip=40.107.208.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 422D2423E9C
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:08:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791709701; cv=none; b=Rb4y7BgzhIzxn6JIChdftz8slWYVhpUI0mGQ+pDcNvOVsOQWqunPDLxZ0Rbq7ZkvQH5wkPehcc+d5cHSKm0it9VhDiqARdPJLFyfcMbi730fHTmr7LdtUhPm+BlW4lntB1eTcG6HLfUp5R6FOHY0NtOMPrsNof1sgt56ewqaDyc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791709701; c=relaxed/simple;
+	bh=5oHe4n5rbLwyg7OqY/yYUv5kuFE9IDPOKywLKt7K5uM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=q5v3TQg9oWR5zB2WPBqEtZ61pK6wF6OV1QWkzGB0NnVUp4uGtc3IwyUGJtjGkgb4K0kVoeLxtEmQuLADBpB5G+y7SHuPiDIgSamgLGe/58XQyp5U8bFzc/f8CIp1e5xWBTz4/AUxrbFPbzGVBsqnEft1moB8V+Q6ntnoTB2e/uA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IFz3nDqW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cxpGi2o6; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="OVmGC/8b"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=X8ZrPbvGpydUL7ifykYm43gZ9ndgcVxYVoA4HjeNwOy4RdzgMNff1doWKqefRue6bCJS2F3YDZBcFil7xR5ZOszRvkqTGHk6JqWwPyuwwIGtU8JcWc73iCO+2fz3NXl3QC9P+BVkr0Kcv/uB62LsOHDYcj9IK2uaFKBVkZqvkx4vSSgO560REORFgHstBDrEzTZ7lglMODo72PKNhI5fJvVjGAUhZAy6NEof7wi4h35+nbYnM96i9MALTy10g/J/cg0IZ6wxUYBiKExHd3uJKULmZker4glKHUHEaXMW171n1JdsLyln3wdMjVmT4j9QSKTK+c6kd5C1419BBbfmrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PBGTXGmYg1CVUezIy9ZQvHZ4zp42xL5mf45NWPzhpOQ=;
- b=xV27GcSieZ+J6cSd3IvLrG60rlgbgsOKaM6UGRodygFfkmV9m4c6RgRRhzIAR8wcY7b0IIlePmDEOpb5+ytaCoS0gxvCrA/Up5FIdxQ10fdCJglVZLhF1fDL1qRvOK3T+lnizgvY0WFgJtaddZpVFAfiCbPA16h9agoUzwN+yStSX4F1kDUBj2Gtg8NGvqzEHsuV8JiRbKE0FaT1KA0qBKiwx1tk63weFFi2xqwjN7Fr5NscEFXCfl59As0u6sGbSyu30XqzYY8gX/rAKmdS5vCp33Sbyjgbm7tlV7C2fh1vpU5mbE5gFHhZ+LsY8n850WWN1FluAXbJMZ+uaLyOFA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.233) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PBGTXGmYg1CVUezIy9ZQvHZ4zp42xL5mf45NWPzhpOQ=;
- b=OVmGC/8bfTsmHNpwW2wl3npVpyhBEtBBlCqneWpCzlEQq3ewRsHwM3zfnCA+l8b6POtFEcbiY9Rf30+cC7/dnXYuIlqWS2/NAzYTUUmB60+WnP6z1n5T6MBzHvHg2AUFQVkUSBDScH5NFTSF74YgKbUok41GaVzqVfdhXDUM83+LKURpksQMcRet45j1bHzg7TrZ9aQSC7PgfBeb6R2ff+s+M3iE8485SzPQnezryIafKbPo1xm0PdURy13HqvC/CrpVSx2T5M6dlDCWXYCuC7mTCYBfP0deV8x2yr7Et87/e+k0KPvO+UX7gw4DZu5WXI2MwJD1l659J6y0gfxAUw==
-Received: from CH5P221CA0022.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:1f2::23)
- by SN7PR12MB8025.namprd12.prod.outlook.com (2603:10b6:806:340::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Sun, 11 Oct
- 2026 09:08:10 +0000
-Received: from CH2PEPF00000143.namprd02.prod.outlook.com
- (2603:10b6:610:1f2:cafe::36) by CH5P221CA0022.outlook.office365.com
- (2603:10b6:610:1f2::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Sun,
- 11 Oct 2026 09:08:10 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.118.233) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.233) by
- CH2PEPF00000143.mail.protection.outlook.com (10.167.244.100) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Sun, 11 Oct 2026 09:08:09 +0000
-Received: from drhqmail202.nvidia.com (10.126.190.181) by mail.nvidia.com
- (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Sun, 11 Oct
- 2026 02:07:58 -0700
-Received: from drhqmail203.nvidia.com (10.126.190.182) by
- drhqmail202.nvidia.com (10.126.190.181) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sun, 11 Oct 2026 02:07:58 -0700
-Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com
- (10.126.190.182) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Sun, 11 Oct 2026 02:07:54 -0700
-From: Tariq Toukan <tariqt@nvidia.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>
-CC: Carolina Jubran <cjubran@nvidia.com>, Cosmin Ratiu <cratiu@nvidia.com>,
-	Gal Pressman <gal@nvidia.com>, Jiri Pirko <jiri@resnulli.us>, Jonathan Corbet
-	<corbet@lwn.net>, <linux-doc@vger.kernel.org>, open list
-	<linux-kernel@vger.kernel.org>, Randy Dunlap <rdunlap@infradead.org>, "Shuah
- Khan" <skhan@linuxfoundation.org>, Simon Horman <horms@kernel.org>, "Tariq
- Toukan" <tariqt@nvidia.com>
-Subject: [PATCH net] devlink: Fix accidental merge error in nested devlink docs
-Date: Sun, 11 Oct 2026 12:07:39 +0300
-Message-ID: <20261011090739.746757-1-tariqt@nvidia.com>
-X-Mailer: git-send-email 2.44.0
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IFz3nDqW";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cxpGi2o6"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69B85Tnv2972290
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:08:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	C/iR2mjTCid+nrePpQGbvgdRC2IVUI2A0iMsqmLXvp8=; b=IFz3nDqWtEVZKMXr
+	DjsxrI+VQ/SyD2PupNiCm5RropHru1KtK8wTldunls87r9tUfIzKoqR7XGjMP5R1
+	hsidtLi0LhQWcRwW4rYcR5vIG34FdRRbovpJX08lR/ibXqZA48QH23yq/bhKQ33d
+	mzESyyGnSstar+PM+NUMoizC95TKHH/i0NSc7BiL866bse/quPNvbLdl3zUkypCk
+	HiHA00UV0Jh7IBTJ/vfmocqo/hUb9lQRLA4HYnXoBbL/ZUKeJan/juJ8M42sxuYH
+	yX+lVy4wyW9162Q1j56vozPGECQ1OGOp+LJ/a9ddh4KYKMvYHMbhBWKFTrfE9Ppo
+	ecCLow==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7dk22q4r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:08:18 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93cc40759b2so253834085a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 02:08:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791709697; x=1792314497; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=C/iR2mjTCid+nrePpQGbvgdRC2IVUI2A0iMsqmLXvp8=;
+        b=cxpGi2o6itdaUoOcNyn2/qvqt6rX24yPpSYz4fMw+lTC2+VmHU9Hy69ht2g+6eSrIV
+         D0Iuo2wvVJbqRN99mQqI23ZIHM6zTBZ1YoSUXvQDex56vfH04Kv6hZ3SDEB1yZ504MRU
+         mV21gpiecOjMxzHcAHsVUY7+ME2or35Z7TRV+MBu0M2SLRFGJXxrkLOl1DkhjJMsRIu1
+         WNXxqDHzVAxXlEyFsjIGdV4E4OWUT7AsjnBdoQH/0eV5kepAjY19BRwUi/EkuxoCAJ05
+         f/HvFxdmUv712f2WM3S+jJTSnJ9A71FCnVCVRfs8S0ExakTuJ8EbH43AZ4rg9Wb6z9bW
+         tG0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791709697; x=1792314497;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C/iR2mjTCid+nrePpQGbvgdRC2IVUI2A0iMsqmLXvp8=;
+        b=ttv9gY/WhajSTiXm40UcQG6N74JLJ1vJ0TiFm2v4ZnJjVWlL+dzxz8jQSuKN4/GR69
+         fZPRLKpJB2L/rNCpbiwsTVP8lPuPgbPVSRhv9OFVGJSK1w0YFR1LEEdFYMLCREfJ+gKZ
+         lxM4vjpBsDHO/z9DCBAwyVY+iYbO/WUJoJTDZs10vWHiPPJ68jSnkol9jEzqo39S7w8f
+         FfI8dYd4bkSBn1E8EcT3h/gi66pnnKhVxefoFjns+7B2juGwZ8kh/AXgjMNPVWBoSz2D
+         s2zT9L/zbUeMpu5VqkKhz+fpSk/VPbKVB0WItr5+eDfMHvu0Av2oETPXHOLjKByj4Wjr
+         ID/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx+mO5rBseNC0FMLOg5PisN5AhoBL++OdDoiOOAq9Egd0fyJ1e5EQ5ZESsFbs4lNEvUkSTL2M2jwJ2ivBE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKom7efGGgKhB7mCD0blHxxaJLhlc6ro6biIO/ntAjaqEJuOYLe
+	Ovo6OYXeYscWx2TcndZezzyldBZC1kvhsW0ibm5rkMZkZaxQD11B9ERQfCC/kJFo6GCzTegCpms
+	ZjIAGk9BuOuK+j1lmGSefx/uEua2i35Q2bm70bLn0YzDKhy9EfJ9pDTaJIkLNOD1B+HU=
+X-Gm-Gg: AYBFou1RiR8Qh05eREPH52LNnsjPYZzvxxHIbgG2hAKjI5kEDCFH2F0cM+eGKKHpjRc
+	2lonp3fdK/5CelIPuhPY/uu5IB9Q/GOwTgmxnNoHwCZtRcsP+mHSLXjM+Uhd2jiNYAl3lGfxiUJ
+	35aR2gYeAKEEe0Wmrfgwl/QlZVp8MCDHFHgdbzag9ceYw7BYL2T1TDv+PC31BWG9pJGENbrK3P0
+	aZ+51pox+Sxcnyo4ywa00qAd0UHPLSe/mDjttc5aUYX+PxZnO5RFXJBv0v3NllvgKIUAvx4tIHL
+	qkSzkwxYxrdDl1/qQuNcDTSLOCZRKHJP3rLHdzXfiIy3zxKsrjjb891HUaYVY3OuIyEcXvyFFvV
+	rEtePOgPnshAXoCkXJkUZ/Jx93efmvRLe9XHMo0+nsRt/0+DA/f30edF4a8fL
+X-Received: by 2002:a05:620a:a2cf:10b0:93e:c12c:f133 with SMTP id af79cd13be357-93ec12d074emr701304885a.78.1791709697088;
+        Sun, 11 Oct 2026 02:08:17 -0700 (PDT)
+X-Received: by 2002:a05:620a:a2cf:10b0:93e:c12c:f133 with SMTP id af79cd13be357-93ec12d074emr701302585a.78.1791709696517;
+        Sun, 11 Oct 2026 02:08:16 -0700 (PDT)
+Received: from ?IPv6:2a00:23c4:e5c9:901:c496:8838:86d0:bc8c? ([2a00:23c4:e5c9:901:c496:8838:86d0:bc8c])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db94e2f08sm13334523f8f.15.2026.10.11.02.08.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 02:08:15 -0700 (PDT)
+Message-ID: <9a9cc7d383b668bd2c96596a96ca30b73e9ccff3.camel@oss.qualcomm.com>
+Subject: Re: [PATCH] arm64: dts: qcom: x1: split PAS remoteproc iommus out
+ of x1-el2
+From: Christopher Obbard <chris.obbard@oss.qualcomm.com>
+To: jens.glathe@oldschoolsolutions.biz,
+        Bjorn Andersson
+ <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa
+ <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski	
+ <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Xin Liu	
+ <xin.liu@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Nikita Travkin
+	 <nikita@trvn.ru>, Birk Skyum <birk.skyum@pm.me>,
+        Stephan Gerhold
+	 <stephan.gerhold@linaro.org>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Date: Sun, 11 Oct 2026 10:08:14 +0100
+In-Reply-To: <20260914-x1-el2-unfuck-v1-1-00d8bc35a635@oldschoolsolutions.biz>
+References: 
+	<20260914-x1-el2-unfuck-v1-1-00d8bc35a635@oldschoolsolutions.biz>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-10 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000143:EE_|SN7PR12MB8025:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3a8ddb06-5d64-44cc-fc05-08df27772bce
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|82310400026|36860700016|1800799024|10067099003|56012099006|11063799006|261009223027099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	AVzkPEGMeL+PVbC7z2NmGIMCyifq+M9vsdYaVFiOTFEGU8a9VNV8LvTQUJWMmiKTw4RmReDB5XCrAs5UmLyVG3orZIjMNZp4akx2DOHQbCel0CzVqeGoGmcptbdYK1YDcH2S7iyX9A39ZktmmEzmKIZsYnVbJZNgSDoYhiuOTJ4YWAGxNr2nZjedT99GdZcKJ6uuplWiMrAZtFHH5FDxZLHGfzb+DhhMMGSX1X/DBbRYcsn5TPfltAnStU2VSKz+5IgYkuqtJ+k27YUPmww0CClT6cTD+ZsEaCOqO8xfZ7E80V/JFycmuJtXHfrI71jdA8ka/iLgipKTTGiOIeJ6do0tI5ze6EgC71cCMqsQ/YAd/ttdQh80yBdNKqyb5GPlRPsGNxZ1DquDPL0lJZptMkG8E9inHRgrknCzjZMXr1W1Tj6cw55iVWivw6XySN1nZWb5OfxGcJixucZvvag2KORE1C3EsgGTRUYvja9uR9v6gPqFb87mz7GXQWsFcC4swsUdLuB3QJ0UCWxO/2Se4JInal9CS6IzzCFqPhbQIonopwM0wfKtNJhQCbyF6/4pO4LNEV2DToZhNolcUMk1tq7bjM4Kill7m3JZbjGBsZsUt+NGQxOnJGBgZfUfTkyba3HqwtX8bzNcaYH7fnAPndz9b3L3svl8V4eawDcmv3rsFX7ILAczaKMyOERas7IengnRQqzQiF0UapzPG05IrA==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(82310400026)(36860700016)(1800799024)(10067099003)(56012099006)(11063799006)(261009223027099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	jdL8JzFJXbK7+kTSJHcL0quznDjmIfMKfW82FFV9Y9f154ZrKH7uhRCW981oJFfupjnAY3hUjTz8hKl6xu5Heb2qP4cuwhwWgXjboCpHLFdZ76kFFbmwLNt3ktjHODj0v5IUcQ8t1zfAgeRibZ2GNx5+rl4FL0elqctR4C8j08jFclyRQJehmIKU8ltWvZOFFDQbNKA9pXKJln/8e5aJOpb8XDOHm4iNfr3ZP3yLjPvSti5VWeJmBx9U2YY0GgDZ1PZScV9luJIomaEZjWXvwabYBtR5qvHS1822U9dcO4g2RUDqQxidHDQl9SholRJnewAgzT19c9OmpLfI8rtRkiugE9SAW/I0rzNbWgsuAMGE1AKhpLcnC9yazob5gZd0L7MxKKidpGnidKqrbajPeajTwIIw5mnetF02BKzTLRHh5LLEfZ4RVNFoyf7mmJHD
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2026 09:08:09.8059
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a8ddb06-5d64-44cc-fc05-08df27772bce
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF00000143.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8025
+X-Proofpoint-ORIG-GUID: r3ZLzwAhmNk3VLY8Qo_WrzVe2OooFD0k
+X-Proofpoint-GUID: r3ZLzwAhmNk3VLY8Qo_WrzVe2OooFD0k
+X-Authority-Analysis: v=2.4 cv=E6hYNqdl c=1 sm=1 tr=0 ts=6acb5202 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=gxl3bz0cAAAA:8 a=InlpzHCLAAAA:8 a=ud_x2R5wYZwBytq8-mIA:9
+ a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22 a=kiRiLd-pWN9FGgpmzFdl:22
+ a=j9sqBCYxEfXq8HZXc0HF:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDExMDAzNiBTYWx0ZWRfXx2RTcscZ3X9B
+ 4wSqP3VtfppnZspzLxg6W8BlsIFfE14S4ktGEHuM9WBEnxR9D+jY88hgV6fN4oRRR7EUIwudhSI
+ z/48NaVblVLmte6eZWPlZr5QY/LBLdhqbz00ChOXO9J4j1JROKye8rDFdvR20+q2lYGsWDAlFQb
+ B11brAkAJ3D5L3rU6SHEcU4wFd9LEcAqZZhvKbc9zwWgrEd5MBalmW68IUS6RLlwOHr4BZWHFS1
+ 5GbS+i1MAw9PLhaAdwSXLsSnfHd21b28KXb3R2fKfYlWcOdlnl1KF35m3iKNIbL5twW4fPBuE7R
+ PvYo6+iiE2CHLA0ZPozZLBCU9XJTLB0TDldSNU3WKrpMFPF+65LHL8WUYuG3SWlgCncT3rgVG/L
+ UZeZMGwLkHPvL4sCfp+EjQE4M3XEDyP3vRPa2IYVySgfenmA70tloMXlui5kBprGrM+kRyXEzxp
+ cMjzsZZ9VGgBoGI8K3g==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDExMDAzNiBTYWx0ZWRfX+DWtmvRCfnsB
+ fkVBSPVaitfXxOsF2gAqGwbznq00C+FBn7fSsNYYdw3zSvy4FZgDxkB0rC3Urden6A+PHSCkW+h
+ 3CpqAAZtR2Sz8JmJ70pbMHpIu8bm1ps=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-11_03,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 malwarescore=0 suspectscore=0 impostorscore=0 phishscore=0
+ bulkscore=0 spamscore=0 adultscore=0 priorityscore=1501 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610110036
 
-From: Cosmin Ratiu <cratiu@nvidia.com>
+Hi Jens,
 
-The referenced "Fixes" commit accidentally reverted a correction
-introduced in commit [1].
-Revert that mistake.
+On Mon, 2026-09-14 at 21:42 +0200, Jens Glathe via B4 Relay wrote:
+> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+>=20
+> The shared x1-el2 overlay currently attaches apps_smmu streams to
+> remoteproc_adsp/cdsp so Linux can program those SIDs when PAS is
+> used to authenticate and reset the DSPs.
+>=20
+> That is wrong for the common WoA EL2 path (slbounce + shipping
+> UEFI). There the DSPs are already running from the bootloader and
+> the SMMU probe path leaves their SIDs in bypass. Describing iommus
+> on the remoteproc nodes replaces that bypass with a translated
+> context that is never set up, and boot dies in an SMMU fault storm
+> on SID 0x1000 before userspace.
+>=20
+> Move the remoteproc iommus into a new x1-el2-pas overlay and apply
+> it only on hamoa-iot-evk, which is the platform that actually needs
+> PAS-managed remoteproc under EL2. Other x1e/x1p -el2 DTBs stay on
+> the generic overlay.
+>=20
+> Tested on:
+>   Lenovo Yoga Slim 7x (83ED, BIOS NHCN62WW) by Birk
+>   Lenovo Thinkpad T14s G6 (21N1, Hamoa)
+>   Lenovo IdeaCentre Mini 01q8x10 (91B6, Purwa)
+>   Lenovo Ideapad 5 2in1 14Q8X9 (83GH, Purwa)
+>=20
+> Fixes: 47c88db49f6c ("arm64: dts: qcom: hamoa: Add remoteproc IOMMUS in E=
+L2 device trees")
+> Link: https://lore.kernel.org/all/20260130073113.3091884-1-xin.liu@oss.qu=
+alcomm.com/
+> Suggested-by: Nikita Travkin <nikita@trvn.ru>
+> Assisted-by: Grok(xAI):4.6
+> Tested-by: Birk Skyum <birk.skyum@pm.me>
+> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 
-[1] commit e504cf18ef47 ("docs: net: fix minor issues with devlink
-docs")
-Fixes: 3bf4c5970ca8 ("devlink: Update nested instance locking comment")
-Signed-off-by: Cosmin Ratiu <cratiu@nvidia.com>
-Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
----
- Documentation/networking/devlink/index.rst | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Tested-by: Christopher Obbard <chris.obbard@oss.qualcomm.com> # Lenovo=20
+T14s Hamoa
 
-diff --git a/Documentation/networking/devlink/index.rst b/Documentation/networking/devlink/index.rst
-index d4a83fdcff7f..64e498e4ff16 100644
---- a/Documentation/networking/devlink/index.rst
-+++ b/Documentation/networking/devlink/index.rst
-@@ -33,8 +33,8 @@ sure to respect following rules:
-    lock of both nested and parent instances at the same time, devlink
-    instance lock of the nested instance should be taken first, only then
-    instance lock of the parent instance could be taken.
-- - Driver should use object-specific helpers to setup the
--   nested relationship:
-+ - Driver should use object-specific helpers to setup the nested relationship
-+   before registering the nested devlink instance:
- 
-    - ``devl_nested_devlink_set()`` - called to setup devlink -> nested
-      devlink relationship (could be used for multiple nested instances).
 
-base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
--- 
-2.44.0
+Thanks!
 
+Chris
+
+> ---
+>  arch/arm64/boot/dts/qcom/Makefile        |  2 +-
+>  arch/arm64/boot/dts/qcom/x1-el2-pas.dtso | 21 +++++++++++++++++++++
+>  arch/arm64/boot/dts/qcom/x1-el2.dtso     |  8 --------
+>  3 files changed, 22 insertions(+), 9 deletions(-)
+>=20
+> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom=
+/Makefile
+> index d6547fb18edf0..1d1cdf057fd99 100644
+> --- a/arch/arm64/boot/dts/qcom/Makefile
+> +++ b/arch/arm64/boot/dts/qcom/Makefile
+> @@ -22,7 +22,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+=3D glymur-hp-elitebook-x-g2q.=
+dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+=3D glymur-lenovo-yoga-slim7x.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+=3D hamoa-iot-evk.dtb
+> =20
+> -hamoa-iot-evk-el2-dtbs	:=3D hamoa-iot-evk.dtb x1-el2.dtbo
+> +hamoa-iot-evk-el2-dtbs :=3D hamoa-iot-evk.dtb x1-el2.dtbo x1-el2-pas.dtb=
+o
+> =20
+>  dtb-$(CONFIG_ARCH_QCOM)	+=3D hamoa-iot-evk-el2.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+=3D hamoa-lenovo-ideacentre-mini-01q8x10.dtb
+> diff --git a/arch/arm64/boot/dts/qcom/x1-el2-pas.dtso b/arch/arm64/boot/d=
+ts/qcom/x1-el2-pas.dtso
+> new file mode 100644
+> index 0000000000000..05364b439182a
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/x1-el2-pas.dtso
+> @@ -0,0 +1,21 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Extra EL2 overlay for platforms where Linux programs remoteproc
+> + * IOMMU streams because PAS is available.
+> + *
+> + * Do not apply this on current WoA firmware. Those DSPs are started
+> + * by the bootloader and rely on the SMMU SID bypass set up in
+> + * qcom_smmu_cfg_probe(). Attaching iommus here replaces that bypass
+> + * with an empty translated context and faults SID 0x1000.
+> + */
+> +
+> +/dts-v1/;
+> +/plugin/;
+> +
+> +&remoteproc_adsp {
+> +	iommus =3D <&apps_smmu 0x1000 0x80>;
+> +};
+> +
+> +&remoteproc_cdsp {
+> +	iommus =3D <&apps_smmu 0x0c00 0x0>;
+> +};
+> diff --git a/arch/arm64/boot/dts/qcom/x1-el2.dtso b/arch/arm64/boot/dts/q=
+com/x1-el2.dtso
+> index ee006742d6f3b..175679be01eba 100644
+> --- a/arch/arm64/boot/dts/qcom/x1-el2.dtso
+> +++ b/arch/arm64/boot/dts/qcom/x1-el2.dtso
+> @@ -52,14 +52,6 @@ &pcie_smmu {
+>  	status =3D "okay";
+>  };
+> =20
+> -&remoteproc_adsp {
+> -	iommus =3D <&apps_smmu 0x1000 0x80>;
+> -};
+> -
+> -&remoteproc_cdsp {
+> -	iommus =3D <&apps_smmu 0x0c00 0x0>;
+> -};
+> -
+>  /*
+>   * The "SBSA watchdog" is implemented in software in Gunyah
+>   * and can't be used when running in EL2.
+>=20
+> ---
+> base-commit: 1a1de54f7369cd2b5bac0f265910e60ad3a6b4c3
+> change-id: 20260514-x1-el2-unfuck-0c46167538f4
+>=20
+> Best regards,
