@@ -1,212 +1,247 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout.web.de (mout.web.de [212.227.15.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59BDA457E78
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 14:26:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E881344C652
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 14:28:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791728770; cv=none; b=ba3S2igPPP/OWMC2KuJiVGDS2QpHTuFcd6rnfVmkPtLVQXeZdaQhTnSLhCescWaGuTyDMxZL1zQn/NATonDCBJpf4vGdhwB0m3xu3wSvAsI2B4azKjXlwuixi1WiLOtiYVDyVe9jnaZt2xm/d4IBM1XPtngI0vuz+lg+mseuQXI=
+	t=1791728883; cv=none; b=pPhlQ9CoXK16jvbPj5b5kpx//BR+MrHwKoGRtUhhC7uy1Lw8isiRXfiK6IJGTfiHWWXlu8v+p+TRfm6oCWTonz1KqkTWqtJqJqjV8ANZafsqFXscIb1pDUnpPEkvO17jZ9H1KLUa7rPzwHu+i3q8EkIGCT7ICD4i0OylH5WNnfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791728770; c=relaxed/simple;
-	bh=w7839LUsgvpbY0N5QMim52V6fEawWUEf5QqYl90ZBjQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YN4SHclZuoYdFCWjN0z0QWT56yNcdJEefc8VRQ6dBstNP6LG/6oATMqQP14JY5CqfmRIejDNrbCOBzOI56TjdAC/4wIkfFsU5qUKx0Ttd/8a7E0nkriDbOjYmIAS0fFcnVpBji5P3E+29tNN+FSEvwZXlZkJcD8IX53DdKQZpGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L0N4LcL3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791728883; c=relaxed/simple;
+	bh=ICf0VRzEKEG5nC1tNU7Dr6H9cF4SP5t2f4qioalyMqg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=YIFx0epgAJpVwMXiN9biL0qGmsgCq83kRmSgGtGvL1veD+P58sSf5pe9NH8Jq3Yv2gv1hJoZKNGvwdhYKhjvn87H1sODDQZ07z1QJRiHEuNwjhX7TJSLfu0ajFVYz5xtD7mld38qUormbxKQiO+l99e8oSFZ/oeueGkSI12+nPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=jan.claussen10@web.de header.b=m/qnXRDt; arc=none smtp.client-ip=212.227.15.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L0N4LcL3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 040CF1F0089B
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 14:26:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791728769;
-	bh=+UhTe7v9a62PlALZJIz+/72zupM4/GB+WgMVaR+OrXk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=L0N4LcL3MKnHNhKObDTtX6lFimRyRheB/BfPx0CZpTlPRPZeB9U3ybqp6HP3Oxi2S
-	 SB4GJ2UAqruQxqY+ER9SzdrLbpzl4KWERj6wU/YCZ3V9H0E4rngUEgv1d8zEPTr74w
-	 3Z5qzz6X/KP+MkGH+WFEliyUg/7kjwV+cP+IbAeGuS7X69aFQeXVfSPlqxgkcr77a0
-	 PlwNMGr+cbBZrR1XcsyRO61WRtde2E++vNj7JRIp6cDHA9Mm/97/bhWtlzRcd+sFv6
-	 uTJQKUd6F6tXGIEiDCXAz08u9B2GOBrpkDHURN1ZB3M2KGEjMCwtI6ECDN+5QypjPf
-	 L3YdvsEtm8Ubw==
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6afa651700eso1643242a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 07:26:08 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBynzXNRKiI0S0yGFrV3jrz1/2lYhXAxABahv0u5mhK/ltbmyAr6Pb5yLC2irvqUjTRVEmimTpx84Tjrxgw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL01xgSLiB+DSgqrSLNlWUGr/VyV7CjgUUUqlR+yrm7bfDd7oQJ
-	vewx0qRJBVUBalW6BPhDdf/gb4j6T1ZsMnVwvAKkJKYiSelu8Q4E7p7hmlMOB2gHJv7+AvdGREA
-	vyapyJ/NRwwuprXVheXbJSIwl29hDtcA=
-X-Received: by 2002:a05:6402:50cd:b0:6af:7d49:728e with SMTP id
- 4fb4d7f45d1cf-6b17c24437amr6097984a12.16.1791728767596; Sun, 11 Oct 2026
- 07:26:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=web.de header.i=jan.claussen10@web.de header.b="m/qnXRDt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1791728868; x=1792333668; i=jan.claussen10@web.de;
+	bh=TJDll0swAGnG9jPsI7wun+CDH2ZuY1KWvM766u157T0=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=m/qnXRDt1wgV/ZisMjREBDe2Z/T1Y5R23UcBrbioWDocfENSy01h2KWayAPkHqrp
+	 HrA2vKC2oEykhihofYdBCVlEx91JM9iRUtxUDVf8BT2tX4o/w3RFf1odb5vrEujU4
+	 Glkeq7S2kinbVGqRAV4JCh/EmKhyGfvj2RH8JTOIRH2oiZpZ1Q2gY6qKwQCOLRlHS
+	 kddZXxfT8FpQD2VDyQvtwzX0/A5oDRVd4rUUGmi775JJ6QV4R3DUV7ZFhNeNzdEwV
+	 CZTicRfMesKGwyoX80WupwN+fGGVl82NH/6ZFcQ78QaU9yVVRmUFlluoPuNvZYAc5
+	 xOuc2j8mphPVPT2vhQ==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb006
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1N7QQD-1wasG647X3-010iS8; Sun, 11
+ Oct 2026 16:27:48 +0200
+From: =?UTF-8?q?Jan=20Clau=C3=9Fen?= <jan.claussen10@web.de>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>
+Cc: =?UTF-8?q?Jan=20Clau=C3=9Fen?= <jan.claussen10@web.de>,
+	Javier Martinez Canillas <javierm@redhat.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH RFC v2] drm/bridge: connector: Support the colorspace property for HDMI
+Date: Sun, 11 Oct 2026 14:27:32 +0000
+Message-ID: <20261011142733.7806-1-jan.claussen10@web.de>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260924075655.375632-1-lianyangyang@kylinos.cn> <20261008023419.118623-1-lianyangyang@kylinos.cn>
-In-Reply-To: <20261008023419.118623-1-lianyangyang@kylinos.cn>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Sun, 11 Oct 2026 22:25:56 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H7-sRJ76282PVtwr66mLvEzhx+vaWvP5u5C++7zwVwwWw@mail.gmail.com>
-X-Gm-Features: AclHuK_sFAFRkuAykbh-HP4qmaiZ_WqlFu5h1LjeuxXTvJ2ziMzxclLf_HVqQo8
-Message-ID: <CAAhV-H7-sRJ76282PVtwr66mLvEzhx+vaWvP5u5C++7zwVwwWw@mail.gmail.com>
-Subject: Re: [PATCH v3] LoongArch: kdump: add arch_crash_save_vmcoreinfo() support
-To: Yangyang Lian <lianyangyang@kylinos.cn>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Baoquan He <baoquan.he@linux.dev>, 
-	Mike Rapoport <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Pratyush Yadav <pratyush@kernel.org>, Dave Young <ruirui.yang@linux.dev>, 
-	WANG Xuerui <kernel@xen0n.name>, kexec@lists.infradead.org, loongarch@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Haoran Jiang <jianghaoran@kylinos.cn>, 
-	Tao Cui <cuitao@kylinos.cn>, George Guo <guodongtai@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:3k4pJrGcliLYe8IB6JM7WTuq3Pl0Igz6xYXpiwYcj5eRXUFxTof
+ IJGHrBMp1v0LyItc3qmwysB013Nk466+5OJYReqB7xJcn9lPSuc5+kwyI3hkDb7IF88O576
+ wylOTwtvlwBg/WvIEGbrxSYHbrzrJh7hr4Hx77lqYuGbC7j5qlWja7juwxq3BCc/wsTFAhw
+ 1KWvTTMG8TWbEMvRXbmjQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:DaSMtxPuP30=;YAVuQWEsyTeo+yGPgcxgvznORoy
+ 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
+ Ru+Jed2g==
 
-On Thu, Oct 8, 2026 at 10:35=E2=80=AFAM Yangyang Lian <lianyangyang@kylinos=
-.cn> wrote:
->
-> Since commit 23c85094fe18 ("proc/kcore: add vmcoreinfo note to
-> /proc/kcore") the kernel has exported the vmcoreinfo PT_NOTE on
-> /proc/kcore as wellas /proc/vmcore.
->
-> LoongArch does not provide arch_crash_save_vmcoreinfo(), so the
-> arch-specific values are missing from the vmcoreinfo PT_NOTE. The
-> generic exporter in kernel/vmcore_info.c already provides
-> NUMBER(VMALLOC_START), but tools like crash cannot derive the module
-> and vmemmap ranges, VA_BITS, or the KASLR offset of a LoongArch dump.
->
-> Since commit 18210a104bb9 ("LoongArch: Expand module virtual address
-> space to 2GB") the vmalloc and module boundaries are no longer stable
-> across kernel versions either, so vmcoreinfo is the only reliable
-> source for them.
->
-> Provide this function in a separate file that is built at the same time
-> as its caller in kernel/vmcore_info.c, and add a LOONGARCH64 section to
-> Documentation/admin-guide/kdump/vmcoreinfo.rst.
->
-> Reported-by: Haoran Jiang <jianghaoran@kylinos.cn>
-> Suggested-by: Haoran Jiang <jianghaoran@kylinos.cn>
-> Tested-by: Tao Cui <cuitao@kylinos.cn>
-> Co-developed-by: George Guo <guodongtai@kylinos.cn>
-> Signed-off-by: George Guo <guodongtai@kylinos.cn>
-> Signed-off-by: Yangyang Lian <lianyangyang@kylinos.cn>
-> ---
-> V3 -> V2: Export PAGE_OFFSET, as suggested by Huacai Chen. It is not a
->           fixed value on LoongArch (PAGE_OFFSET =3D CACHE_BASE + PHYS_OFF=
-SET)
->           and RISC-V already exports it.
-Though Dave thought PAGE_OFFSET needn't be exported, I think export is
-also OK (and the fact of fixed value may be changed in future). So I
-applied V3 to loongarch-next.
+Bridge connectors for HDMI do not expose the colorspace property,
+so userspace cannot signal the colorimetry (e.g. BT.2020 for HDR).
+KWin requires the property before it offers the HDR toggle.
 
-Huacai
+Attach the property for HDMI bridge connectors, next to the other HDMI
+properties set up by drmm_connector_hdmi_init().
 
-> V2 -> V1: Export VMEMMAP_END + 1 to make it an exclusive bound, matching
->           what tools like makedumpfile expect.
->           Add Tested-by tag from Tao Cui.
->
->  .../admin-guide/kdump/vmcoreinfo.rst          | 36 +++++++++++++++++++
->  arch/loongarch/kernel/Makefile                |  1 +
->  arch/loongarch/kernel/vmcore_info.c           | 22 ++++++++++++
->  3 files changed, 59 insertions(+)
->  create mode 100644 arch/loongarch/kernel/vmcore_info.c
->
-> diff --git a/Documentation/admin-guide/kdump/vmcoreinfo.rst b/Documentati=
-on/admin-guide/kdump/vmcoreinfo.rst
-> index 7663c610fe90..dd1f1d6225b6 100644
-> --- a/Documentation/admin-guide/kdump/vmcoreinfo.rst
-> +++ b/Documentation/admin-guide/kdump/vmcoreinfo.rst
-> @@ -594,3 +594,39 @@ va_kernel_pa_offset
->
->  Indicates the offset between the kernel virtual and physical mappings.
->  Used to translate virtual to physical addresses.
-> +
-> +LOONGARCH64
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +VA_BITS
-> +-------
-> +
-> +The maximum number of bits for virtual addresses. Used to compute the
-> +virtual memory ranges.
-> +
-> +PHYS_OFFSET
-> +-----------
-> +
-> +Indicates the physical address of the start of memory. Used to translate
-> +virtual to physical addresses.
-> +
-> +PAGE_OFFSET
-> +-----------
-> +
-> +Indicates the virtual kernel start address of the direct-mapped RAM regi=
-on.
-> +Used together with PHYS_OFFSET to translate between virtual and physical
-> +addresses.
-> +
-> +KERNELOFFSET
-> +------------
-> +
-> +The kernel randomization offset. Used to locate the kernel text in
-> +virtual memory. If KASLR is disabled, this value is zero.
-> +
-> +MODULES_VADDR|MODULES_END|VMALLOC_START|VMALLOC_END|VMEMMAP_START|VMEMMA=
-P_END
-> +------------------------------------------------------------------------=
------
-> +
-> +Used to get the correct ranges:
-> +       MODULES_VADDR ~ MODULES_END-1 : Kernel module space.
-> +       VMALLOC_START ~ VMALLOC_END-1 : vmalloc() / ioremap() space.
-> +       VMEMMAP_START ~ VMEMMAP_END-1 : vmemmap region, used for struct p=
-age array.
-> diff --git a/arch/loongarch/kernel/Makefile b/arch/loongarch/kernel/Makef=
-ile
-> index 001924877772..6260c15adaba 100644
-> --- a/arch/loongarch/kernel/Makefile
-> +++ b/arch/loongarch/kernel/Makefile
-> @@ -64,6 +64,7 @@ obj-$(CONFIG_RELOCATABLE)     +=3D relocate.o
->  obj-$(CONFIG_KEXEC_CORE)       +=3D machine_kexec.o relocate_kernel.o
->  obj-$(CONFIG_KEXEC_FILE)       +=3D machine_kexec_file.o kexec_efi.o kex=
-ec_elf.o
->  obj-$(CONFIG_CRASH_DUMP)       +=3D crash_dump.o
-> +obj-$(CONFIG_VMCORE_INFO)      +=3D vmcore_info.o
->
->  obj-$(CONFIG_UNWINDER_GUESS)   +=3D unwind_guess.o
->  obj-$(CONFIG_UNWINDER_PROLOGUE) +=3D unwind_prologue.o
-> diff --git a/arch/loongarch/kernel/vmcore_info.c b/arch/loongarch/kernel/=
-vmcore_info.c
-> new file mode 100644
-> index 000000000000..e4efc35165b1
-> --- /dev/null
-> +++ b/arch/loongarch/kernel/vmcore_info.c
-> @@ -0,0 +1,22 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +#include <linux/vmcore_info.h>
-> +#include <asm/addrspace.h>
-> +#include <asm/pgtable.h>
-> +#include <asm/setup.h>
-> +
-> +void arch_crash_save_vmcoreinfo(void)
-> +{
-> +       VMCOREINFO_NUMBER(VA_BITS);
-> +       /* NUMBER(VMALLOC_START) is exported by the generic code */
-> +       vmcoreinfo_append_str("NUMBER(VMALLOC_END)=3D0x%lx\n", VMALLOC_EN=
-D);
-> +#ifdef CONFIG_64BIT
-> +       vmcoreinfo_append_str("NUMBER(MODULES_VADDR)=3D0x%lx\n", MODULES_=
-VADDR);
-> +       vmcoreinfo_append_str("NUMBER(MODULES_END)=3D0x%lx\n", MODULES_EN=
-D);
-> +       vmcoreinfo_append_str("NUMBER(VMEMMAP_START)=3D0x%lx\n", (unsigne=
-d long)vmemmap);
-> +       vmcoreinfo_append_str("NUMBER(VMEMMAP_END)=3D0x%lx\n", VMEMMAP_EN=
-D + 1);
-> +#endif
-> +       vmcoreinfo_append_str("NUMBER(PHYS_OFFSET)=3D0x%lx\n", PHYS_OFFSE=
-T);
-> +       vmcoreinfo_append_str("NUMBER(PAGE_OFFSET)=3D0x%lx\n", PAGE_OFFSE=
-T);
-> +       vmcoreinfo_append_str("KERNELOFFSET=3D%lx\n", kaslr_offset());
-> +}
-> --
-> 2.25.1
->
+Force a modeset when the property changes so the new colorimetry
+reaches the sink, as vc4 does in its connector atomic_check.
+
+After toggling HDR on, modetest shows that the correct BT.2020 color
+space is loaded. After toggling it off, it loads the default color space
+again.
+
+Tested in KDE Plasma 6.7.5 on a Radxa Rock 5B (RK3588) with an LG
+OLED55B87LC.
+
+Suggested-by: Javier Martinez Canillas <javierm@redhat.com>
+Signed-off-by: Jan Clau=C3=9Fen <jan.claussen10@web.de>
+=2D--
+ .../gpu/drm/display/drm_bridge_connector.c    | 25 ++++++++++++++++---
+ 1 file changed, 22 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/=
+drm/display/drm_bridge_connector.c
+index 81f3e26f6fdf..885094cc6ddf 100644
+=2D-- a/drivers/gpu/drm/display/drm_bridge_connector.c
++++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+@@ -414,11 +414,24 @@ static int drm_bridge_connector_atomic_check(struct =
+drm_connector *connector,
+ {
+ 	struct drm_bridge_connector *bridge_connector =3D
+ 		to_drm_bridge_connector(connector);
++	struct drm_connector_state *old_state =3D
++		drm_atomic_get_old_connector_state(state, connector);
++	struct drm_connector_state *new_state =3D
++		drm_atomic_get_new_connector_state(state, connector);
++	struct drm_crtc_state *crtc_state;
+=20
+-	if (bridge_connector->bridge_hdmi)
+-		return drm_atomic_helper_connector_hdmi_check(connector, state);
++	if (!bridge_connector->bridge_hdmi)
++		return 0;
+=20
+-	return 0;
++	if (new_state->crtc && old_state->colorspace !=3D new_state->colorspace)=
+ {
++		crtc_state =3D drm_atomic_get_crtc_state(state, new_state->crtc);
++		if (IS_ERR(crtc_state))
++			return PTR_ERR(crtc_state);
++
++		crtc_state->mode_changed =3D true;
++	}
++
++	return drm_atomic_helper_connector_hdmi_check(connector, state);
+ }
+=20
+ static const struct drm_connector_helper_funcs drm_bridge_connector_helpe=
+r_funcs =3D {
+@@ -1079,6 +1092,12 @@ struct drm_connector *drm_bridge_connector_init(str=
+uct drm_device *drm,
+ 					       connector_type, ddc);
+ 		if (ret)
+ 			return ERR_PTR(ret);
++
++		ret =3D drm_mode_create_hdmi_colorspace_property(connector, 0);
++		if (ret)
++			return ERR_PTR(ret);
++
++		drm_connector_attach_colorspace_property(connector);
+ 	} else {
+ 		ret =3D drmm_connector_init(drm, connector,
+ 					  &drm_bridge_connector_funcs,
+=2D-=20
+
+Changes in v2:
+* Only look up the CRTC state when the connector has a CRTC
+* Only apply the check to HDMI bridge connectors
+* Move declarations to the top of the function
+
+v1: https://lore.kernel.org/all/20261011132024.2833-1-jan.claussen10@web.d=
+e
+
+2.56.0
+
