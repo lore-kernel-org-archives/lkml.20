@@ -1,100 +1,68 @@
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F162823D2B1
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 01:23:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3807154705F;
+	Sun, 11 Oct 2026 01:24:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791681812; cv=none; b=FK08TbIyl+3h6N5FqEp9CD2q1hVMqlI0ZpiOofoDAPSHB+5+qycn5BPpw4y2ESfKBtVXYZyOGkVSWzLvtWh+uKbbdCup2V/veeyhSxaBN9I84Ehjb3RubdtrYqroMvXXkWrlvgZoqv9+P90lh4v+U6dnDczTmd1PAnlLJFzzDyI=
+	t=1791681856; cv=none; b=Uxg9XdR04rPngbknZsSllsmavgG55kFdP45vSOXobvqzD/w0M4latQl2fP9ytjGHCtTRS8dHsogCv5iqoJUvGGT6A9G7xQ9yA0kptpvxeLqN6yc/bU49xvjrrNW2g+Q77biPUyNC1NZNEw7e21m5WBdaX+18beYwWCo0ISWPWIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791681812; c=relaxed/simple;
-	bh=XrpzSJ/DTTagRfedMl1HXHs8F7QgjqSEkRayC0Oo8wA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jNTE3YHuFoEyh8CBYEi1RIBz7hsjVJEVQSAw/gjSuVwPsIayx/W+x8nyt6UOjWjLUApYn5Lz0Xg1END/JpsdUxZGkWrJoGgB/wXfiD+3kQn5GfGClgoxzlXmfbZkEvXRbdSTUe01KLNU2C3LbZotkYj2xZt4VkvfVQh4IiOTzhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; dkim=pass (2048-bit key) header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.b=OUYCctiy; arc=none smtp.client-ip=128.30.2.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+	s=arc-20240116; t=1791681856; c=relaxed/simple;
+	bh=vUsYNcB8ae0YhaozGtIMgaefuQwTpAbUax+4L9rJbSs=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hOQiYjOlFZTB0QDwUXCQZV0Z+ECnA8Y3asV80KjW4B7RCe+FNX4zhInBQuU38kST3I68/NEkicKYuGnmp9uzn3WPcRLcawnzPyT7DF56ivvH7MJqSnoDNLbx0SZ/fB7mfTaPSRYv+GKfJ773Wyzehc46fM2GoRlDJH93voHkJ7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=MCUK7dVI; arc=none smtp.client-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.b="OUYCctiy"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=outgoing.csail.mit.edu; s=test20231205; h=Content-Transfer-Encoding:
-	Content-Type:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:
-	MIME-Version:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=6NWM+eldm9EciYsTQn972KMZgMpvJjJhXLQrDig7no0=; t=1791681811; x=1792545811; 
-	b=OUYCctiypQ8eEg7mxxYo/fvzu+C0tnFbACHejFdIiSEE/hVbOEqB3uUK/PRg5MXI8kapzTKWTRu
-	DG4c7izwJ4EYO/kZMqlpnH4V/vsblIu0yJhJ5U8gY7OQPFbyCUp6hT4UGxCFkEcIunrQiFrZcj4le
-	7MrHj/Iyy7+dREWNjHpgZwtQxQwGGxaFeNSEc7tb4TUS68vNP3itfdO/tSSj+NZb6x4wKl5sZihDk
-	SzOKRmwNvPVRsdJJ/uDD0fD2icDXRRWHRUf1E2BEioQ0wvVGa7Ami3M4d7Hs+ZpCthRRpM+IPL05M
-	/pZ1q1pkaCdsZacKmsh+qpuFw/lHHRWOJJQQ==;
-Received: from mail-dy1-f174.google.com ([74.125.82.174])
-	by outgoing2021.csail.mit.edu with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xFiHi-008AUg-60
-	for linux-kernel@vger.kernel.org;
-	Sat, 10 Oct 2026 21:23:30 -0400
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-33fb4680717so3135323eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 18:23:30 -0700 (PDT)
-X-Gm-Message-State: AFq9FYId9JInbreX0D5DUylcrYU6j0fwSymBeMZn5SnytViWuTW+wUGT
-	uu/6QXK9seFodISGJ0h9jaeDVD0gwkSg7ncE7FTGmLJBdhARh9KoHBDArMqqL1FSp9TqnGSXby7
-	SCUFocROXlQNOoawOA2y+Ka86UbV1HYw=
-X-Received: by 2002:a05:701b:2092:20b0:16d:c848:d36e with SMTP id
- a92af1059eb24-16dc848d4ecmr5183168c88.13.1791681809283; Sat, 10 Oct 2026
- 18:23:29 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="MCUK7dVI"
+Received: from omf01.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay04.hostedemail.com (Postfix) with ESMTP id 665111A0544;
+	Sun, 11 Oct 2026 01:24:12 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf01.hostedemail.com (Postfix) with ESMTPA id A0D106000C;
+	Sun, 11 Oct 2026 01:24:10 +0000 (UTC)
+Date: Sat, 10 Oct 2026 21:24:09 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Jeff Barnes <jeffbarnes@linux.microsoft.com>
+Cc: linux-trace-kernel@vger.kernel.org, mhiramat@kernel.org,
+ mathieu.desnoyers@efficios.com, linux-kernel@vger.kernel.org,
+ akpm@linux-foundation.org, kees@kernel.org
+Subject: Re: [PATCH] tracing/user_events: Fail fork when event state
+ duplication fails
+Message-ID: <20261010212409.1db6bfd0@226.227.38.69.naturalwireless.com>
+In-Reply-To: <20261008142054.89783-1-jeffbarnes@linux.microsoft.com>
+References: <20261002222639.1964370-1-jeffbarnes@linux.microsoft.com>
+	<20261008142054.89783-1-jeffbarnes@linux.microsoft.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009051857.758182-1-nickolai@csail.mit.edu>
- <20261010162558.62abcd2ec967b009d0cb3bbb@linux-foundation.org>
- <CADGQE7G-PAiJ2W8uhFO_-e9GGtEPey=drfSqLfWdxXDys3mJNg@mail.gmail.com> <20261010181016.44f5e2883b6820bb32c04204@linux-foundation.org>
-In-Reply-To: <20261010181016.44f5e2883b6820bb32c04204@linux-foundation.org>
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Date: Sat, 10 Oct 2026 21:23:17 -0400
-X-Gmail-Original-Message-ID: <CADGQE7F5SsRjqCAWJbwsT9P8+Uq-d_movTmiCM1ko=dg52kmCQ@mail.gmail.com>
-X-Gm-Features: AclHuK_JytmvPKHV2JJKLmw644JZVHLd9i3B6iNoev1zmZ91lFgee4W5dbKHjvk
-Message-ID: <CADGQE7F5SsRjqCAWJbwsT9P8+Uq-d_movTmiCM1ko=dg52kmCQ@mail.gmail.com>
-Subject: Re: [PATCH] lib/plist: fix plist_requeue() shortcut inserting the
- node at the list head
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	I Hsin Cheng <richard120310@gmail.com>, Ching-Chun Huang <jserv@ccns.ncku.edu.tw>, 
-	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: c96h9u331j36y5bukep4zca79n97oqbz
+X-Rspamd-Server: rspamout04
+X-Rspamd-Queue-Id: A0D106000C
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1+wqFs2MQDJdL3ylJlkZHGC2MAOb/NfeZM=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=FdBG3gkHDcFBk9gV69/rmpvTGRIaSVfg5pxb1RCrOOU=; b=MCUK7dVIK/Jxm52V/tVark2wHdCF1g2VeE3xOJqc5CCdukjdrAwfR1VPOG0iBa7/hZPlUxm4ow7/6ya6erQC2WJ0wAbZ7aLG8c2i2eg3Oq2w3vXrufC2iM4iGv+YK1RPW5kakVS+Hd56t0MQTWjOTjuIy/5Xp89Mfl56bhVC0Ng=
+X-HE-Tag: 1791681850-67614
+X-HE-Meta: U2FsdGVkX194fcGMF6/nOhM2kZomAnpTU1b6DZXTUwxb98M0g6dUBOXN6GRga3u5p1Xxx/FLmSIqrNo6rWURYiyx/0FO9iUR76N+CF0ikpT2fHBajGXzOgkkGRygqAAGuq491zMkA5Dkw3MsZZcEuHWLxDmUyBz/ANUPKJJ8lGMYtghIYO5UL0fFfn3nfCYkFZj3VuvfQ4hrW0igk24QKfzjZnQkx+YFge8U/Cjieqe93Wx8UYJcJr3Z1B7yjbbwfoiOZdDzznahS2D5FXa0Aw+CHRglCH5PJkRiR3U9YAzV3UHv3HHKMfJjpUjdFD9njmjJnVmyzzsr4G28bU9lnMVQJTIPb3CkxY9Qu6Tobzwb9e5S3kC6+w==
 
-On Sat, Oct 10, 2026 at 9:10=E2=80=AFPM Andrew Morton <akpm@linux-foundatio=
-n.org> wrote:
-> On Sat, 10 Oct 2026 19:33:46 -0400 Nickolai Zeldovich <nickolai@csail.mit=
-.edu> wrote:
-> > On Sat, Oct 10, 2026 at 7:26=E2=80=AFPM Andrew Morton <akpm@linux-found=
-ation.org> wrote:
-> > > I recently queued a fix for this problem from Alex:
-> > >         https://lore.kernel.org/20260903222456.1881786-1-handyhandyma=
-n.adam@gmail.com
-> > >
-> > > The two patches are rather different.  Please review Alex's change an=
-d
-> > > and let us know of any alterations/improvements which you see.
-> >
-> > This patch is equivalent; I don't see any reason to prefer my fix
->
-> Thanks.  Can I add your Reviewed-by:?
+On Thu,  8 Oct 2026 10:20:54 -0400
+Jeff Barnes <jeffbarnes@linux.microsoft.com> wrote:
 
-Sure, sounds good to me.
+> Hi,
+> 
+> Gentle ping on this fix for the user_events fork error path. Please let
+> me know if there are concerns with failing fork when user_event_mm
+> duplication fails, or if additional testing would be helpful.
 
-> > (except for the test case that might be helpful in catching
-> > regressions).
->
-> I like test cases and I take patches ;)
+Sorry, due to my traveling (from Sept 15th) I have not been doing *any*
+kernel patches. I'll be spending the next week catching up on all my
+patches (including this one) for inclusion.
 
-Sent just now.
+-- Steve
 
-Thanks,
-
-Nickolai.
