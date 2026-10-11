@@ -1,155 +1,146 @@
-Received: from mslow3.mail.gandi.net (mslow3.mail.gandi.net [217.70.178.249])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6CEF3947B5
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 18:50:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.178.249
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791744651; cv=none; b=Rxz2JWj16h2nxiB2q2ieX2Bvf4TdIwiniMHty+NwkcPR7Jlp3JyRXD/Z0LixuZIErq1AC8FPnkeu9jwWQs8YQdD9ZJHox+ZwnRQ6Nf3wpq3UxTy9bwt8lqwLHQmyVgig49wROR8GCY3p9A/FVvb5n4tiyvmQQGdrpwgSua9NVxM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791744651; c=relaxed/simple;
-	bh=SxJ1lgEnHoU58LHMD8plZhXnAjWyUKd/lTqNoeTv4xM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Mjt51YXZSmhcoBu363OP0ZtDUttIi/w2XUfphnFvt4JWJ18oNOICPhSWjeJlXf0TgO1FRO77FXXkPR688qMlhse1fQi5k3qqYqpd7DRsILKl95URXUb7MYC17mu5hSNzSjbrrma8nak6bfPCxDptmFx9ssUoL+YkNzWaDgeqZ4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io; spf=pass smtp.mailfrom=gtucker.io; dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b=cMPk/QHt; arc=none smtp.client-ip=217.70.178.249
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gtucker.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D52783D170C
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 18:51:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791744676; cv=pass; b=mEzRfhiAXSdLAhjsdVaUDv10U2yKRIAjJrYbCqxbcAz2owgoC8cTfyPUFNb/FaFZ7J1lhxUWSOERIfOfwRj6maug+u0qqeULRw+ayNIkyJBgcqXKHeq5iSe71JblfIL+OZnhPNP+3ELiITyaH4ot13oUC4/2gHpcwlWAgi4Rwkc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791744676; c=relaxed/simple;
+	bh=0KIupU1PlUnI74kbeA9rKFTjXf0bMD2fNsbxeKLKsfA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rKGoE2bQCAO8IvdSOmCcTyFH3wdC7H31CPSfY8zmoA65rXri3IQ+Qd4w8LHCPe6xLEe0r1WobkpYllwOhU65zosQwBDmBgngZZAkO49o/m5+X1Q0DDZBxJL06cSMKDhyqXBrIQC7/7oD0AlEaNQ3/NNpi6WqYXLePJzZEvTx9bc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MIamxw7R; arc=pass smtp.client-ip=209.85.161.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b="cMPk/QHt"
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net [217.70.183.193])
-	by mslow3.mail.gandi.net (Postfix) with ESMTP id 117B2580A18
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 17:47:09 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 4ACF63F0A4;
-	Sun, 11 Oct 2026 17:46:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gtucker.io; s=gm1;
-	t=1791740821;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=X7VrsDvVsYsTaXUVkNX/JDkKURCHeNYcbgIz5JEwd38=;
-	b=cMPk/QHt9fSefcMEopoPzBSFYm+ZiFvFYAdWWl+RQWp/c1qotyCUMSCjowxJumr2BznA7f
-	CKEzShhv3GFgSXEXdUYyHjOjdTTwwEge4CsVsI/Digbq8h3YPmsRxKRPS1JsSiMECiDQnR
-	hzfjAH1Ix1H+u86sVLMoGMb2vml6y4Nym+jNZJJSXV6NS9nfT37jM1AQHphlLb8G/9J47F
-	lh/w7uTD1X50mWHo7raKlpuamaebzq/0iIA8meai60gF9hHaPRyqE898s1RIGuWv7P7hDv
-	GqAZVplvDzzsLS+MeZVWaZXcPN1ySmnpq5+46xBgsqWCTIBZGyvufP2Y0WsIxw==
-From: Guillaume Tucker <gtucker@gtucker.io>
-To: Guillaume Tucker <gtucker@gtucker.io>,
-	Matthew Brost <matthew.brost@intel.com>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Mallesh Koujalagi <mallesh.koujalagi@intel.com>,
-	Badal Nilawar <badal.nilawar@intel.com>,
-	Michal Wajdeczko <michal.wajdeczko@intel.com>,
-	Riana Tauro <riana.tauro@intel.com>,
-	Stuart Summers <stuart.summers@intel.com>,
-	Jonathan Corbet <corbet@lwn.net>
-Cc: intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/xe/log: fix documentation title levels
-Date: Sun, 11 Oct 2026 19:46:53 +0200
-Message-ID: <2320050536ca29afe69ecd163eb974a40df571fc.1791740369.git.gtucker@gtucker.io>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MIamxw7R"
+Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-6de08b2e447so491363eaf.3
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 11:51:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791744674; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qAqKV0RGiQCIM9ECRsFWl8uOXFBhtg+oRoo/eSFkYURKass8GdHbn64xxSKLz9v940
+         pVE/8zqmZblDhNnKoGLm1Z5Kob3EQ0TYu7G8Hgg3ZvLxYUu6kskO2skEytlBcUSxaNDp
+         7kYEmpC1wrVR0hvtKQDvQDGK1x1r4+qOUCncqXCUZ5PWWqi75fxyxd2iXw2LwMJpY7Ro
+         og/QJXMMqJPQkrTPcncrU07UbisK17401g7ULcJhxD9liSn4wVUX1zp0C2gZSVM9nis/
+         QdJjJGOyPi7FC9umF4FBBihj8mFX2sZwzaRTHhxbWhlbKUHpZ6LEl3+a5LtP4OOCzjjp
+         dHJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0KIupU1PlUnI74kbeA9rKFTjXf0bMD2fNsbxeKLKsfA=;
+        fh=hzzu5E8Ej1sn0venLIJ1mpnSt0I+DyVjjaGZFwAD3co=;
+        b=ERS7Mf0cSLnKu23xDMprlo2je92GB0AVROFyWaw8Otm3VG0BYIeu9irwkV0leUkX5Q
+         HciwdPrsCvvQVpmuXBsIv42Fpuak2eOOcnh5Mvor9sF6euIZU48d1ZZA1gx9DgkROY+w
+         NvaatN9fxJUwCcwfwzA2RGi2FciYvSPRzJiWL9N5tuRdlTmtnMYCaS+Q2hQXHKAS55RV
+         AXAUWILkUbYnb9fzmgfTCYUNuqqBSe52pjoQkz3vpTU+fjqV9lVEoAx3xp63BCdvqE0m
+         Z02f/ofhzHftNvQZUB+aWsRKj71+onnX3725fRSZqVi9vfpHLMh0LQYGldG6Ss6/nKaX
+         B45A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791744674; x=1792349474; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0KIupU1PlUnI74kbeA9rKFTjXf0bMD2fNsbxeKLKsfA=;
+        b=MIamxw7RlDIhS/VSIrtK6SPcz5PWQhti+mrNI6HFvAtSLULvTUXfZyUXXIopsz+e9c
+         w9s5O+YuqD1zxULfWKJExXPEk1Adz8II+9/EW1ayawg3AlFpHpa++Wd44E5Lk6XFRW2x
+         fauQyA6Mr5XGG1GWFjD45wayLmcef/aKRJtFfcWB4ReXqPv+DZQmek5wbSBagSRxQA2Z
+         gldR8y0y5MMIRZPpmn4aOHprTEwP37YmifyNlq0qsvTJLgxAZhVZspkMl6NCCgY0hWbr
+         A7dh44KkvyLktlQ8wsmHGtzvHBtcTqsovH6SkFxI2SLbXoeaQJ6ncEsL2ENNQKuT0b6s
+         LH8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791744674; x=1792349474;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0KIupU1PlUnI74kbeA9rKFTjXf0bMD2fNsbxeKLKsfA=;
+        b=wfY8jiw5kBC3BT4H6tBmcksgTih7MLN4j9ECEHt2CJxaRm2jSYHFCKCKumo9lbjXfK
+         FClsaq8NpnSZCNToVR6ZfttZ65W7Vt6/bEIqR2B5QeUnrPdvWg8FooBmS1NS3WHbS5uw
+         yiMY1SCnXfypNzxku1MOs06yX5twwWQ/egWsSkb5t7GKkiQyV/mFEnzI4qgio9wqs/zd
+         9xvCn1VozQDKgpTZi46ZXOAzWNkcB5UqrvgHpj/SUrRKq37JCT0MeFGN2uGYC2PpOQr/
+         zM24zfwneWNXAIXasrSTyrac7k6Z0wKQlf4mC14E+xlJb89Mij1CjIs7vT8llGZZrJYb
+         CrJA==
+X-Forwarded-Encrypted: i=1; AKwUvBxpfZUM6GWDyBllDB280uKLiuhgVDBfiD2LfkbBFic8RoHgbwh3SoUW0Au/ZR+1lBqnc6yAd3JDYEF1CpU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKEDjCRg2TRdINnCFUFk42yiTunfoqOOAORaeWZMDOANMxFeIkS
+	7z8qBPX5F6WA/DfnuB1kvixSYbNzXngUHvylKU1RJAwrDFwX1UqP3F4jU9wvkLx1O06xtjCCltH
+	YWagvbU4Qwu31JADbWA0wotTXh9dAHVk=
+X-Gm-Gg: AYBFou0yxyN103M7badbWFOYyyi41FKQaexvE3ayGvCO0ZdFduDuPDf13sQ+6y7cUPf
+	8YKEZkL2tUBLtf8MB7nQbTHILf/GsmdLNFjvYCoyiTpbq+8EghVh/Luqj3onZiFFyCVGjf8UQuT
+	5kft7UFAPJwFR/2zkfDmQLeD2xfXFeJ2r4FQ0kRZYFaAlIXqGxUj2JqD27D799rwRx0QLI50tT1
+	ButGTPQHfnl9D68ccVuvCVqJvw3GfR877by71ab+vQJXvVbr310uaZK+ozLG6CDJ181WlrQWYu5
+	OkWMXciE0RclLLV1idqjEEEoxPREsoRJmx4D5APsqSySxzxlEA2LkiA=
+X-Received: by 2002:a05:6870:e311:b0:47d:a12f:3951 with SMTP id
+ 586e51a60fabf-4a2a89f425bmr6103374fac.39.1791744673650; Sun, 11 Oct 2026
+ 11:51:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-GND-Sasl: gtucker@gtucker.io
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: dmFkZTGUXyJjU/OcpBuci7LmotG4qBy+yk9KsO+tzVjmIpjR/ykPYKbfVbxiRlrUf4AuIteDQwkg/es1YyJ+xTByrUjnU4XRZ/jqL6asUQ2iwOJt4gOYL6/lBE8BQwzxYfgidSoeGnSdRCrPChzQVWuIdsiDZ6Fis9zTOiOWewf6RSVS+jSwVwlDOIiPZGvz3gzYk/wI8HPEyTtzkog1ZfkMxdGyzomXwNmmHHEs9WjteNlegNe1/HShi8T7gBcgSU228XpiF9AhUhC2zhVGSEWI6S7OsALH175rbBYcSUYC5tqWS2jDjucVSEQ4NagjWWqyrjXCM+73PCwX0X1bJtrcnu8OtHhUurW8IcDAQmF+/VrgFRJgxDYsj4m8z7AFCEdbpjsUbWf8nBZPjvHINWdXYL9QC1LWXGt7i3N8IuFysvu985VG9SuXMGEKKG5K3LGAAuw/ZDCLTqjU+RS0M3bRBmLpNQK3vQgme66xiIyCcP4ZkAFgPj6n9Knhf+Ov6pvEBXSWg4HE0p0igI3spnJQOayc0BNrKdYUAv8yTOMgtY+YAXkG+hi6G3Lx+9I+VNd9dMGqECzF8HtCJ9qbbHiTM5LkkNDI+UQZereWPEcXm90r2ARGbLom/sAya3aNsG0tEnydalmvRVgQUeIqY8cuHBjkxYmmyJmEZR1Z3cbNdmvEuw
+References: <20260907-6572-gce-v2-0-412a5b037290@protonmail.com>
+ <20260907-6572-gce-v2-2-412a5b037290@protonmail.com> <39494ea2-7fb5-4414-8560-47ddd40260cf@collabora.com>
+In-Reply-To: <39494ea2-7fb5-4414-8560-47ddd40260cf@collabora.com>
+From: Jassi Brar <jassisinghbrar@gmail.com>
+Date: Sun, 11 Oct 2026 13:51:01 -0500
+X-Gm-Features: AclHuK96ynSq9uLesTtRAZnhZ7wj24Xtpvp969Wwe99Ul08jW1tzra27V2b0o08
+Message-ID: <CABb+yY3oEfZrx+=igTVUOSGB1+J-pa6=k=+DGOxWozJnK_sJgQ@mail.gmail.com>
+Subject: Re: [PATCH v2 2/3] soc: mediatek: cmdq-helper: add legacy GCE ISA support
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: rva333@protonmail.com, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, Houlong Wei <houlong.wei@mediatek.com>, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Fix an htmldocs build error in the gpu/xe section by moving all the
-titles one level higher in the Xe SIGID page to keep a consistent
-hierarchy.  This is the error message:
+On Wed, Sep 9, 2026 at 4:57=E2=80=AFAM AngeloGioacchino Del Regno
+<angelogioacchino.delregno@collabora.com> wrote:
+>
+> On 9/7/26 20:03, Roman Vivchar via B4 Relay wrote:
+> > From: Roman Vivchar <rva333@protonmail.com>
+> >
+> > Some SoCs, such as mt6572, have different WRITE and POLL instruction
+> > encoding. Instead of 16-bit offset and 8-bit subsystem ID, old GCEs hav=
+e
+> > 22-bit offset and 2-bit subsystem ID.
+> >
+> > Extend cmdq_instruction struct with additional union and struct to hold
+> > the legacy format of instruction encoding. Add legacy_isa to select
+> > legacy GCE ISA when writing instruction. Finally, add special handing
+> > for legacy_isa cases.
+> >
+> > Also correct comment about PA writes, because it's incorrect for legacy
+> > ISA. Only v2 (mt8167, 8173) and v3 (mt8168, 6768, 6779, 6785, etc) have
+> > GPRs and SPRs for PA writes.
+> >
+> > While mt6572 GCE supports 22-bit offsets, the parameter type for offset
+> > remains 16 bit, because all mt6572 GCE mmsys consumers are in the 0xfff=
+f
+> > range.
+> >
+> > Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+>
+> Verified in the lab on multiple MediaTek boards.
+>
+> ... but I either need an ack on patch 3/3 from mailbox maintainers, or th=
+ey need
+> an ack from me on this patch to pick everything.
+>
+> I'm fine with anyone picking this, so...
+>
+> Acked-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora=
+.com>
+>
+I realize the patch order is messed up - it should have been 1-3-2
+instead. So maybe for this time...
 
-    Documentation/gpu/xe/xe_sigid.rst:10: (SEVERE/4) Title level inconsistent:
+Acked-by: Jassi Brar <jassisinghbrar@gmail.com>
 
-All the other pages in the xe section use <h2> titles so follow the
-same convention here as well.
-
-Signed-off-by: Guillaume Tucker <gtucker@gtucker.io>
----
- drivers/gpu/drm/xe/abi/xe_sigid_abi.h | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/xe/abi/xe_sigid_abi.h b/drivers/gpu/drm/xe/abi/xe_sigid_abi.h
-index 2f3440505f69..277b15fce9cc 100644
---- a/drivers/gpu/drm/xe/abi/xe_sigid_abi.h
-+++ b/drivers/gpu/drm/xe/abi/xe_sigid_abi.h
-@@ -10,14 +10,14 @@
-  * DOC: Xe Error Signatures (SIGID)
-  *
-  * What SIGID stands for
-- * ---------------------
-+ * =====================
-  *
-  * SIGID is short for *Signature Identifier*. It is a small, stable integer
-  * that names one of the *recognised fault sites* -- nothing more. It is the
-  * primary handle used for triage and maps directly to a specific report site.
-  *
-  * Numbering
-- * ---------
-+ * =========
-  *
-  * SIGIDs are a single flat list numbered sequentially within the assigned range,
-  * in the order the fault sites were introduced. Values are stable: once assigned
-@@ -25,7 +25,7 @@
-  * SIGID value is deprecated in place, never re-purposed.
-  *
-  * Why this exists
-- * ---------------
-+ * ===============
-  *
-  * Today the driver reports faults with ad-hoc ``xe_err()`` / ``xe_gt_err()``
-  * strings that have no stable shape. That is fine for a human reading dmesg,
-@@ -37,7 +37,7 @@
-  * firmware versions, and (eventually) across other Intel devices in a node.
-  *
-  * What a SIGID is not
-- * -------------------
-+ * ===================
-  *
-  * SIGID deliberately does not encode the detailed reason or the outcome. Those
-  * are carried alongside it::
-@@ -51,7 +51,7 @@
-  * different severities depending on the instance and the recovery taken.
-  *
-  * When to use SIGID logging
-- * -------------------------
-+ * =========================
-  *
-  * The xe_log_*() helpers are for these recognised fault sites only --
-  * important, operator-relevant faults and events. The driver's only job is to
-@@ -63,7 +63,7 @@
-  * those that correspond to a published fault site.
-  *
-  * SIGID log output (dmesg vs. the machine record)
-- * -----------------------------------------------
-+ * ===============================================
-  *
-  * The dmesg line stays close to a normal xe error message so it remains
-  * readable for admins; the only stable, machine-matchable token on it is
-@@ -74,7 +74,7 @@
-  * carrying the same SIGID (generation is a planned follow-up).
-  *
-  * How to pick a SIGID (the uniqueness rule)
-- * -----------------------------------------
-+ * =========================================
-  *
-  * Pick per *report site*, not per incident. Each site emits the single most
-  * specific recognised SIGID *for that site* -- so the question is never
-@@ -95,7 +95,7 @@
-  * after making significant changes to the site that emits this SIGID.
-  *
-  * Scope: software vs hardware emitted signatures
-- * ----------------------------------------------
-+ * ==============================================
-  *
-  * Some SIGID represents fault sites that the *driver itself* detects and
-  * reports from the software POV: probe abort, wedged, survivability, driver-
--- 
-2.47.3
-
+Thanks
+Jassi
