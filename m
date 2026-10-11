@@ -1,404 +1,252 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010054.outbound.protection.outlook.com [52.101.56.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7AD14534A8
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 18:52:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791744775; cv=none; b=ppdE2+zZoXWuwLoNcUhslnL7J/Ai0y+cDK6CuWdrwIHAIxZC1QxxTt4AkCJVca7ls+Bz0uemaQGrcHFBorsy4liJWpRPBw+DjHf7JqtBM37+IlSB+VM0Xbmi1DhmxdhOxQc6dhn46AeQXnRW9ZbgktLpcvC/n5xh+cQMKDcLlM8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791744775; c=relaxed/simple;
-	bh=b2INNKkwyaIV3FcRArB0e4XmJfNY8ScQwjeykvqq5/Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KdLxPiPaXa9nqi62DQMYPXH3SCY8/+N2xOhjB+tk+pL1aXb4bpHIGW029yjU15Wrj7jHCILuyc0DJWwZSbwbxgh7t4srTwomYk+dLd4SfGBHAxmQ0Q0YUIj94Q7lvTtgXimhNKp2uy+84xmW+uMiLiHDdh9Qlp/ie9nymrxtGo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R8WETHLp; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93448343D75;
+	Sun, 11 Oct 2026 18:54:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791744873; cv=fail; b=ExlRp6QANPzEQDebFtZeu9B7XcFCtqvx63EC2kYq6yVGL0iC/Y/MK390EWiSHcDRzQFwPGWpBqsQgjhkTryqulgJ9KaH1o6MBCVXvO6ujLrHDFh10IxsZBbNWJMx+wNR6CuVN2bdZDcFlasc4cjvWR4NbAMxH9N7WJrq1Su7Kzs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791744873; c=relaxed/simple;
+	bh=A2rpVyF+cgFitZPsKoI4xmrcVypaPSSiwnn0az0N31o=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=D77hhBdHaGfw4nTfS3jGo+JlQbRQpV3srGgUUXuaLqvTe1Xp1/VLGSV6iJmuI3KJN+GDjCtQRDpxbUsuzw2P2ZAHTm0WIdc48Alyncq1qSbV3p41DMHSjaxXNxcZuehMAOu1dlS1vk8sPsqaktmBJFZCRoWdNNasWEa3zMU9R1s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=HMB2Z+qn; arc=fail smtp.client-ip=52.101.56.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R8WETHLp"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a168355946so9137435e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 11:52:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791744770; x=1792349570; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VyucJ8TCQc4z3JnCL7mmWU2p/9nK9Burjlq3x/AZjdw=;
-        b=R8WETHLpJEWvsHNycRQ5GXn//G+D/SeyswYeXzsYrupdwiNyI2eNR2BgdR81gW4q4n
-         6wKXa6K/Utf1XfSu3oUFriYm6yPQlFczI51vKG9r2OPiKEmpXqv4lPYGfcEoHmH4U2Tz
-         XRQhCn8VNDJa5fyhNkkU+fpa1Gf/bqmaN7Tv2RkJZrkvL9hySXj0xTQXB7acw+OWixWW
-         MLQNIonRbaATFyUSCFa2M9XtPCbt7GNzOs7ZyATTxLbXiE5Q5S0m9PybYWQiCcKU2qV3
-         KIUBFm1CRby1JiY1FLdOrY16PtySq6ZSwrAk59pctsdaglH2B5Mjbf+Wo1aUiVZzDctz
-         UIcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791744770; x=1792349570;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VyucJ8TCQc4z3JnCL7mmWU2p/9nK9Burjlq3x/AZjdw=;
-        b=Q+o4bwI5ygFnQmxV9y5E0Z0foU/Zw4QXtsXQQkEpSp97k6IvtAWMEVJ6+kDeenxZF4
-         99U4XMZDvayuOsraNVRmIttmN4sFHKxaUvGCMY1P9xElVVaLk+ylA1D6H1kOMwnz9jq8
-         4S1+Qj4AcfHN5e0gwP8l4l+KzSp+Mqb2IurYfh1HYj0YTwqcI1UthfIkCXuBSfiWraJq
-         UFnvyYBWwvf87dRfq/UOQqvFsbR6f5CvzIY6m8PlieEc4DN3QCH5SgY4nPKWtTh0TGUE
-         sMEv1lCvA/0NPQJ6QCSY3edt/8q1x0sfMqr7noX6fuLnCrPhXmsgTYGA0PvEaMje1ggH
-         HfmQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx9msXtJqV14s8kKwvCj95PKTJLIu0gl72ZyR3gkVW7f3rWxSjpG5SAeXSo/dInuGgHh30GIi+2dKMvoss=@vger.kernel.org
-X-Gm-Message-State: AFq9FYILb6RXrJBY1BxX4k5z597wH+a6aEKfLfFYBIK3YNt3f1QMvEYa
-	/+Qrry5rpB6zlwBQypPifrtgDTIXW3xlC892r6ripvvPLEGKcIGo8PqM
-X-Gm-Gg: AYBFou2uevLEY2Dogz0pWXJKx3bzVwC0cczqmfWrh4ULzHIay2jrINsFn68o2aVwmLi
-	6e2NkTPUvOD+I3+SeU8NV31oZBKtAbuLoyAvWNpYmdyjppJ+C0xI+f1PQKk/equSAm+5b6LHfKL
-	KHIcF8E7N2mmWER59WrREcFjwu/BLWlTkCdJKXe+ljjblScl6Q8IWVW8JYBfYw3SICDiz2L7uT4
-	auz+82k8vqBpmWPs6Zzvhz/nSpRkAtRX+353QLrZ76CMCXI3Pbv9jSFmGxS0EAac7ZcZ3QoHfz9
-	svTz1H+1rHDN0rIMXgZmo2iP9+yQVrzmCOrDfdP/iUaroSukqeBZKXioBsmFNdG6z7Pll9f+amw
-	289YN5Q3d1yyH4X51zA6B+dmRJe4T1dASP9qlzoOeTs0+QM3qCE7CsUK3uR57aKwemaUnUjTBwh
-	1jyjEOehe3dzviCug5LAtPTtUzw9+jdP5bMIT++bHAmiXeIc9R/hc2TYG1LZ4AbJE05JzAWLn6j
-	58jk2Di21LN57YaWJuxv4FfRCVb7iR1g3vD2C29vfTZxUDO7v2L3x8OKn4Se6tpBP2a/8ivufRO
-	OuUAqKyI+eRypK0SYg+4nA==
-X-Received: by 2002:a05:600c:c16f:b0:49f:ed8c:6cad with SMTP id 5b1f17b1804b1-4a18e4ca869mr125589925e9.19.1791744769972;
-        Sun, 11 Oct 2026 11:52:49 -0700 (PDT)
-Received: from Ansuel-XPS24.localdomain (host-95-235-252-189.retail.telecomitalia.it. [95.235.252.189])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a18bf2caf4sm257418615e9.10.2026.10.11.11.52.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 11:52:49 -0700 (PDT)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Felix Fietkau <nbd@nbd.name>,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Christian Marangi <ansuelsmth@gmail.com>
-Subject: [PATCH v8 3/3] clk: en7523: add support for Airoha AN7583 clock
-Date: Sun, 11 Oct 2026 20:52:37 +0200
-Message-ID: <20261011185238.52229-4-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261011185238.52229-1-ansuelsmth@gmail.com>
-References: <20261011185238.52229-1-ansuelsmth@gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="HMB2Z+qn"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HiMGVqCeC4EdC+YZu8SdNkcn8hDUBAXnZST8afmn07M9vMZ44LWqS/4pHfSQ1J7zCaieT0flD9p7Oh9o2RdRV3ZjA3wwZMNnh/2d8dCLggqDoJ0H0tmhYj+Ys62PTL7XsXEqIx2QGZM6Bnoltaip8jIQHw3tPo8IepGm9SYjvC3A8MKHKKMo70x3F5p9Bh7DVlSCam9dZ/jwSx/sQhDqDCfecJrH2UHIxJAWqRvERMMQzwvd5U0r58UMWS83s3nxdFyOi7DZc+qgbHI9xApLtJ0pNNcunR/GV5tbmFjnWEurTuKzZSvN3AlnU9+5nVK3Z4GTB8dAiN3KFkTY9C4ovg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ebIpzzBixlv2iQHmSUZX9IUXwHl9fGWWFjnRGfTI7Os=;
+ b=RQYhwG9ShWXos4gNVSsRQUBUQ2OMD+wxolzPlynWAAA5TA9j2zYiwSDUKe2ZoePxr0vZjpdfwqk5dKYgqJP4Ss8PfgMFjGhBxH6mpgSVSAeTKJaMsH8Np1Z5iAgdnDEwXOW7+4Dd51K0Rhu1bAWD7VoGvLdlqpvy1XS4cafvKQhxZRqUAw06pV/YYwPDpIcSuho641qQoOct9XXG0Bw7GmXQlABLCL0dSEe0lIebsz8N8GNiMTgtUQG4i0cLHBRCMQBQyWC1BaD0zqKIzYyBjMJZho82mSGZxls9+R/Q/523612WBRv++XY+sbyDwka+MeEYgV2t/B05vjTD/ieCiw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ebIpzzBixlv2iQHmSUZX9IUXwHl9fGWWFjnRGfTI7Os=;
+ b=HMB2Z+qnaGI9pB64L4YdTBPdf7WXQtHunF624j5Fy+fSMzfgcf0tvgD0FENbwLCUU0VHTRMwJaqOh2ete4VQXAqr7mQBiyWJT6WB7WbBivCxdK91pLS+ncg7KEXm+9xZJNgkFU7NxHZVskTqKl4ZMuO9YOpd4hsEWT4yHK7udCH7OkzohB8wUhgKnIjMi8ok0l58cqGU0MnB9XYiN3tZQra4c7nbrKvgp4fn+thYlngiXQFhQmNTRJ7rN2K8jI8Og8CVgeJTQqvSQqJxv9752R4xciqoAYxU4P/dEEjsX0Sd/ojJF47Erlw4w5ooh3tL4VO13te6zIbAu2Vp6cbaFQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH1PR12MB9647.namprd12.prod.outlook.com (2603:10b6:610:2b0::10)
+ by SJ2PR12MB8157.namprd12.prod.outlook.com (2603:10b6:a03:4fa::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.20; Sun, 11 Oct
+ 2026 18:54:26 +0000
+Received: from CH1PR12MB9647.namprd12.prod.outlook.com
+ ([fe80::228c:766a:191d:77b2]) by CH1PR12MB9647.namprd12.prod.outlook.com
+ ([fe80::228c:766a:191d:77b2%3]) with mapi id 15.21.0496.020; Sun, 11 Oct 2026
+ 18:54:26 +0000
+Message-ID: <0b9f409a-4281-4e94-87b2-66e57ae751a0@nvidia.com>
+Date: Sun, 11 Oct 2026 20:54:19 +0200
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH net-next 00/10] net/mlx5e: Add netdev support for data
+ direct
+To: Mina Almasry <almasrymina@google.com>
+Cc: Tariq Toukan <tariqt@nvidia.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>, Bobby Eshleman <bobbyeshleman@meta.com>,
+ Byungchul Park <byungchul@sk.com>, Carolina Jubran <cjubran@nvidia.com>,
+ Cosmin Ratiu <cratiu@nvidia.com>, Gal Pressman <gal@nvidia.com>,
+ Jacob Keller <Jacob.e.keller@intel.com>, Kees Cook <kees@kernel.org>,
+ Leon Romanovsky <leon@kernel.org>, open list <linux-kernel@vger.kernel.org>,
+ linux-rdma@vger.kernel.org, Mark Bloch <mbloch@nvidia.com>,
+ Matt Fleming <mfleming@cloudflare.com>,
+ Nikolay Aleksandrov <razor@blackwall.org>, Saeed Mahameed
+ <saeedm@nvidia.com>, Shivaji Kant <shivajikant@google.com>,
+ Simon Horman <horms@kernel.org>, Stanislav Fomichev <sdf@fomichev.me>,
+ Stanislav Fomichev <sdf.kernel@gmail.com>, William Tu <witu@nvidia.com>,
+ Yue Haibing <yuehaibing@huawei.com>
+References: <20261008132815.654147-1-tariqt@nvidia.com>
+ <CAHS8izNSo4YzXxD3C6c2HohdOfH2GK1M=51biuevLUk3vz5k4g@mail.gmail.com>
+ <CAHS8izMKNeEmJM0wOgtoz9_3WRLUOqP0PEDMn5SZ+hXTKTwSyw@mail.gmail.com>
+ <7a0bff03-2a7d-4819-b96e-a5ad8a5f6bf6@nvidia.com>
+ <CAHS8izOPRjO54w0ehXCXahn3LPD7uqyJYX=zBeDDYG91Sm+DXw@mail.gmail.com>
+Content-Language: en-US
+From: Dragos Tatulea <dtatulea@nvidia.com>
+In-Reply-To: <CAHS8izOPRjO54w0ehXCXahn3LPD7uqyJYX=zBeDDYG91Sm+DXw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0370.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f8::16) To CH1PR12MB9647.namprd12.prod.outlook.com
+ (2603:10b6:610:2b0::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PR12MB9647:EE_|SJ2PR12MB8157:EE_
+X-MS-Office365-Filtering-Correlation-Id: fb3fafd7-14ed-4b69-7265-08df27c9123e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|7416014|376014|6133799003|18002099003|22082099003|10067099003|3023799007|11063799006|4143699003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	Jqq9+4TZi97ApYgm67DkniUajwgLw2BRgK4S66A1t2hrnkpoSuXw6JXXep+OYPRPcpOlL/ejzha4/+K05vhn082MoL8wILpFxNM1Orfhoz/5SBh9aBbhyM9YqfsZQKkjXkehNfvc7W17rE91nQxY7Y+54KliRlrB0WTqKc2vLlji9PiTpH1n34J2GUd7HBlmOWpsufJMf7RLJvtjhzIFfPrPJY8ab1kICJ72WGHtSX1ontGLHrJ9js2fhtRvhFq0Z9djb/Wx4pu3WFVnWPebPNV3kJCFCz1sEYxXO2G28xGyc2xi0ktzWQi/rUxKExIucQALYY6J09sWkfpkV3o4d0227kqy93pu7UfWT7qFDaO+zM2m3OX/pOHeYTGA7JIoxbXwTFwYfnXnzuSad8PGliDGSvAXx9GVq3Y3wjTKwiOTINBVVCM1kwgszlZPsrv1XIwjAXV+6fBQu7NOn4PP92dzozNRCNUIRfOlWOBeUsDQvR3rt/fb3D6L1uCUyB0ntZDahts4bxmcDWea5NEKN/9Vx45HXPqRGQ27axIXRGz+FuvVbAMdQu7uYHimWCcmvkZlOVLsURnjCO/fUaboXHRjZT/cbI0OqN68vi9IkO0NJgD9KDIj98EpNP6DJRI6XWOgdzSFOMbaE/LF7iO9kx/+VbZNSLvwxlLbjlRJ92U=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH1PR12MB9647.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(7416014)(376014)(6133799003)(18002099003)(22082099003)(10067099003)(3023799007)(11063799006)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZGlONDlyK242b0xqMUowa3p3WUI2YUYvY3ZIZTRVTGhTRTQ0QXBDYTZ2VWZO?=
+ =?utf-8?B?ZWMxYVhBdHAwczFnb0xadkFEd2ZjTWRHelMxZXdiU1BTa2grelQyYi9BMXJv?=
+ =?utf-8?B?aUJTMlRHRHlmZEJUVjlzZW9Md1FJQzhqVERhVTBwTkR6V1EyVWN5VEttTUYy?=
+ =?utf-8?B?Q0oyK0lDMmlpQnJ3VDk4YzR3ejhFUEtkVHJMeHU1bWhNZDRTeDFCZHQrTUtw?=
+ =?utf-8?B?ZVdBc2FUUng4U2g2Wmo2NEpNSyswUzJDbnFxRjk1R2IyVy9JYU9hNUNLWXQ0?=
+ =?utf-8?B?VnNIejZEcjRDd0Z2M0lGL2E5OFhYRUlRUHlKV3BwOGo1bVpQU2RQbDgzYnI0?=
+ =?utf-8?B?Q3U1R0NBK0R3cFh1aHkwVlBhTW5vcGttcnlkVkJmSDRKVFFUZHBwcjNNUnM3?=
+ =?utf-8?B?UnB5M2JqR2poUUJETTROSFBpU1QxRURtRHVyNjZOQ0VEWkFoOTlTZ21UcDhN?=
+ =?utf-8?B?a05YTTZWbFN5ZWc2VVZ4L05oeXIrQ0JSQWh6YWN3MVlEYytxLy9LdDNsSklH?=
+ =?utf-8?B?RE01ZGJ5dFVmWTJSaTcyRVZRREtJU0V5d3I2T3pMdUpLbGg2d1d1dFhJditD?=
+ =?utf-8?B?aEhyc0ZNQmVZZjllRnFuak43WkV2eHMzU3JOeWxFR2J4bUtHK2oxR2hoSjhp?=
+ =?utf-8?B?OExQSStVNHl5ejhVOXRnOTJ0M0wwTDJHQ1B2cjVUQ3NjdDlDN0I2MHQrdm1U?=
+ =?utf-8?B?NVJlU0Z2dU5VNHhxa1NLY0JFbnBUTkx0WUcwcHl1cGpOcjlKOElwU3hLMmg0?=
+ =?utf-8?B?WFZoUGthNFc0NGFaZ000Zi90enhhazVxY3F0L3gwMnc1VXlFaS93QnB4Ujl0?=
+ =?utf-8?B?Qm1ZaFUrbTlPNEdEZ1JjUndmNGY4SzJHakNMbnAzS0FCeE83SGh1Y2c1VTVw?=
+ =?utf-8?B?MnNaTUtoT2RaWnIzR3lrUktpdmZFenFzbzUvWkRVSytPdVdtM09HWlhsL2pO?=
+ =?utf-8?B?TklTc2dHMkpFb2pCeVZsQTdJSzdWWm1sbjlWd01qNDVVaXVUTjdkLzIvRzBL?=
+ =?utf-8?B?NFVKZ0tNS0xqS2NmUWpCZjFoY2YwclArVVd3MjM1c2xEQ1ZQaUxsN1pMSDN4?=
+ =?utf-8?B?dTJTcFUyU3U5YTFFZDh6emZCampLdnlvT3J3bzVCMnU2SnlHUDJEQS9rcjlP?=
+ =?utf-8?B?bXRQQjljYWMzQ1ZPMEM1T1Z5OWZXc3crZFB0WWk2M3NMV1BlQVpjZGExVWFE?=
+ =?utf-8?B?MzZzR1hMODl0ZTIyQ3U5V0FlbXJNY2hlZ3RLVy9LNktpd3RDYXJ1MGRLcEp2?=
+ =?utf-8?B?NW5jUUkxMVZ4cDRXdlYrVDJSK1p4c1grV1BDekxnYTRWeXp2ZDlYQmx4TFY0?=
+ =?utf-8?B?UXRoOVdoL2NSZkNxWTVRdGtDQ3U0NExFTkVqNmJ2NldRMjFEbUI5a1hyeXNy?=
+ =?utf-8?B?ZHZVRFQxakNBRi9iTmRXWExuVGpQMVRWZk1QVFJsdGd1SENuSU9iRTlLWWZi?=
+ =?utf-8?B?bkpoZzRkTGxhYTEvbnJqaGR0eUVwUDBoUHpmNU5pOW4zN3lDMGs2WmVJMEkx?=
+ =?utf-8?B?YmpUSlBXQi9EU2p6NWNxbHdZeVpockRsL1psUk9oMnZDc0pHS0VhZE1GRmF5?=
+ =?utf-8?B?V29pY0pUNWFlU0U4VkhRTEEyaWRkSHkvZ1BxVnpvZnBEVFhvcndTdmEzTmFq?=
+ =?utf-8?B?andjblhjQkpwbmlBcVpZd3FSRkdhZkx4NnUySmFYVmsrNHdQRllZK1VxWkVm?=
+ =?utf-8?B?L0FZWkhCMzR5ZU9jSDhkejZsanI2d3Z6SzhGdnpiT3Jxd3hlelFpQ2d4L1Yw?=
+ =?utf-8?B?bUR6NXNabGtKdXN4YXZsY2NGckR3MFVJRktLRFEwLzNEdTlNcnhNTEFIb00v?=
+ =?utf-8?B?VytnQTVUZnVnMllMampoOHBJTzZ2cWhkK1ZTbzk2TW1CT1F2Y2tGbytxRkow?=
+ =?utf-8?B?Wjcyd1B2UkN3cWUzS29lY21Pcm93dFExY3Z0OHJJOStuSnZaY3lYQ0FwRlRN?=
+ =?utf-8?B?dHU3SDVMejJnYmhwa0k3RE9ReUg1a2dGa2lJdGl5bHNjQWFjUGVSVHRFVG9E?=
+ =?utf-8?B?ZVp1bW1OeEtRb1VYaFM0eDhIdk5WK0NkLzI0b1NVUUJTakNpbEcrOGZUWE9h?=
+ =?utf-8?B?Yjk2ZE4rRGdzaGlFbUN6c0puZmpJZi9QTFBzb3NheGVpMGhXdk1tbkFVM002?=
+ =?utf-8?B?Y3YyZmpUaVlDOFZsLzFKVlRUV2JnZ1ZaVzVDSnZrYlJCdnB6aDJNRXhlRVA2?=
+ =?utf-8?B?YWNEODF5cFVBbWZoZ2U2RHRLZmdyelV6NGpianJDSHA4QWdhbjAxRFF6cHQ0?=
+ =?utf-8?B?QWMveCt1ZlVid2JWRkhES3Rkb2FXYVZrMUpucFA4WE43bWp3NC9tUEVMS1lP?=
+ =?utf-8?B?Wnpvck1SR3h1TTk0RDVrRnhoaVV6RENKZVNhSGVSeFNFNGdHeFJxQT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb3fafd7-14ed-4b69-7265-08df27c9123e
+X-MS-Exchange-CrossTenant-AuthSource: CH1PR12MB9647.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2026 18:54:26.0697
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: COoRIo1lJLJ+IupuV7p2b/yoMri1OaW2yRUFGD2j395K+BavySc155kVphiXLHqRWwY8Mutdwh2bm9ZfVSbM5A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8157
 
-Add support for Airoha AN7583 clock and reset.
 
-Airoha AN7583 SoC have the same register address of EN7581 but implement
-different bits and additional base clocks. Also reset are different with
-the introduction of 2 dedicated MDIO line and drop of some reset lines.
 
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
----
- drivers/clk/clk-en7523.c | 248 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 248 insertions(+)
+On 11.10.26 18:25, Mina Almasry wrote:
+> On Sat, Oct 10, 2026 at 7:16 AM Dragos Tatulea <dtatulea@nvidia.com> wrote:
+>>
+>>
+>>
+>> On 10.10.26 01:54, Mina Almasry wrote:
+>>> On Fri, Oct 9, 2026 at 9:42 AM Mina Almasry <almasrymina@google.com> wrote:
+>>>>
+>>>> On Thu, Oct 8, 2026 at 6:28 AM Tariq Toukan <tariqt@nvidia.com> wrote:
+>>>>>
+>>>>> Hi,
+>>>>>
+>>>>> This patch series by Dragos adds data direct support for netdev devices,
+>>>>> allowing a mlx5 netdev to issue DMA commands through multiple paths.
+>>>>> This feature is critical for improving performance and reaching line
+>>>>> rate in certain environments where issuing PCI transactions over one
+>>>>> path may be significantly faster than over another. These differences
+>>>>> can arise from various PCI generations in the system or the specific
+>>>>> system topology.
+>>>>>
+>>>>> Data direct for netdev will work with devmem by returning the data
+>>>>> direct DMA device instead of the DMA device of the NIC. Each PF netdev
+>>>>> registers its own data direct device and support for RX and TX datapath
+>>>>> is added. The feature is selected through a new data direct priv flag.
+>>>>>
+>>>>> The feature is enabled though a ethtool private flag. When this flag
+>>>>> is enabled, the driver will return the data direct device in the
+>>>>> ndo_queue_get_dma_dev op.
+>>>>>
+>>>>> During data_direct device unbind, a re-creation of the channels is
+>>>>> triggered.
+>>>>>
+>>>>> A note about the unbind: it does not does not tear down dmabuf bindings
+>>>>> attached to the data direct device; the recreated channels will still
+>>>>> pick up the binding via rxq->mp_params and post DMA addresses from the
+>>>>> data direct IOMMU domain to the PF, causing IOMMU faults. A devmem
+>>>>> revoke hook is needed to close those bindings before the switch. This is
+>>>>> out of scope for this series.
+>>>>>
+>>>>
+>>>> Elaborate on this please. Are you referring to the fact that on
+>>>> page_pool_scrub we unmap the netmems dma-mapped by the page-pool, but
+>>>> we don't unmap the netmems dma-mapped by the memory provider?
+>>>>
+>>>> What's the impact of leaving this unfixed? Is the machine going to
+>>>> crash if the device goes away but we don't unmap the dmabuf?
+>>>
+>> IOMMU faults because the dma device is invalid. Either because the
+>> DD dev is still in use and was unbound. Or because the non-DD
+>> one is used and is invalid (due to channel reopen).
+>>
+>>> Oh, you're referring to an even different bug than the one I had in
+>>> mind. (I'll see if I can submit a fix for the bug I had in mind).
+>>>
+>>> But in general I think not addressing the issue you're referring to is
+>>> way too messy. I think we do indeed need to unbind the dma-buf if the
+>>> dma-dev is going away. The invariant should be that the
+>>> binding->attachment->dev should not change at all during the entire
+>>> lifetime of the binding. We already 'revoke' the dma-buf binding if
+>>> the netdev is going away, sorta (there is a bug there I need to fix.
+>>> The uninstall function in the provider doesn't actually unmap the
+>>> dma-buf :sad face:).
+>>>
+>>> I've worked with my LLM to suggest some changes that (we think) make
+>>> this work, but you may disagree. I'll post the suggestions. But please
+>>> I think this should be handled one way or another.
+>>>
+>> My idea was to handle the unbind part in a subsequent series because
+>> it probably needs some more back and forth to get this cleanup path
+>> right.
+>>
+>> If not acceptable I'll work on adding it to this series.
+>>
+> 
+> Since these are mostly driver-local changes I don't want to be so
+> forceful to block it by saying it's unacceptable, but if at all
+> possible lets try not to exacerbate the current mess. It looks like we
+> already a bunch of lifetime bugs with regards to the device going
+> away. I've posted this series, which - I think - gives you the devmem
+> 'revoke' mechanism that you want:
+> 
+> https://lore.kernel.org/netdev/20261010025532.839559-1-almasrymina@google.com/
+> 
+> Also working on that, I realized we don't use binding->vdev and
+> binding->dev correctly on binding rx. binding->vdev is meant to be the
+> device we do the bind to, and binding->dev is meant to be the
+> underlying dma_device (if they're different). That fits into your
+> model where you have the netdev you want to bind to, but have an
+> underlying device that you want to dma-map to.
+> 
+> I've gotten some feedback on my series and I'm working on v2. If it
+> makes sense for you to wait on my devmem core changes so you can
+> integrate into them better and avoid these lifetime bugs, lets do
+> that.
+> 
 
-diff --git a/drivers/clk/clk-en7523.c b/drivers/clk/clk-en7523.c
-index ec66a504d4c5..e8c61474c1f9 100644
---- a/drivers/clk/clk-en7523.c
-+++ b/drivers/clk/clk-en7523.c
-@@ -13,6 +13,7 @@
- #include <linux/reset-controller.h>
- #include <linux/spinlock.h>
- #include <dt-bindings/clock/en7523-clk.h>
-+#include <dt-bindings/reset/airoha,an7583-reset.h>
- #include <dt-bindings/reset/airoha,en7523-reset.h>
- #include <dt-bindings/reset/airoha,en7581-reset.h>
- #include <dt-bindings/clock/econet,en751221-scu.h>
-@@ -166,6 +167,14 @@ static const u32 crypto_base[] = { 540000000, 480000000 };
- static const u32 emmc7581_base[] = { 200000000, 150000000 };
- /* EN751221 */
- static const u32 gsw751221_base[] = { 500000000, 250000000, 400000000, 200000000 };
-+/* AN7583 */
-+static const u32 gsw7583_base[] = { 540672000, 270336000, 400000000, 200000000 };
-+static const u32 emi7583_base[] = { 540672000, 480000000, 400000000, 300000000 };
-+static const u32 bus7583_base[] = { 600000000, 540672000, 480000000, 400000000 };
-+static const u32 spi7583_base[] = { 400000000, 12500000 };
-+static const u32 npu7583_base[] = { 666000000, 800000000, 720000000, 600000000 };
-+static const u32 crypto7583_base[] = { 540672000, 400000000 };
-+static const u32 emmc7583_base[] = { 150000000, 200000000 };
- 
- static const struct en_clk_desc en7523_base_clks[] = {
- 	{
-@@ -368,6 +377,138 @@ static const struct en_clk_desc en7581_base_clks[] = {
- 	}
- };
- 
-+static const struct en_clk_desc an7583_base_clks[] = {
-+	{
-+		.id = EN7523_CLK_GSW,
-+		.name = "gsw",
-+
-+		.base_reg = REG_GSW_CLK_DIV_SEL,
-+		.base_bits = 2,
-+		.base_shift = 8,
-+		.base_values = gsw7583_base,
-+		.n_base_values = ARRAY_SIZE(gsw7583_base),
-+
-+		.div_bits = 3,
-+		.div_shift = 0,
-+		.div_step = 1,
-+		.div_offset = 1,
-+	}, {
-+		.id = EN7523_CLK_EMI,
-+		.name = "emi",
-+
-+		.base_reg = REG_EMI_CLK_DIV_SEL,
-+		.base_bits = 2,
-+		.base_shift = 8,
-+		.base_values = emi7583_base,
-+		.n_base_values = ARRAY_SIZE(emi7583_base),
-+
-+		.div_bits = 3,
-+		.div_shift = 0,
-+		.div_step = 1,
-+		.div_offset = 1,
-+	}, {
-+		.id = EN7523_CLK_BUS,
-+		.name = "bus",
-+
-+		.base_reg = REG_BUS_CLK_DIV_SEL,
-+		.base_bits = 2,
-+		.base_shift = 8,
-+		.base_values = bus7583_base,
-+		.n_base_values = ARRAY_SIZE(bus7583_base),
-+
-+		.div_bits = 3,
-+		.div_shift = 0,
-+		.div_step = 1,
-+		.div_offset = 1,
-+	}, {
-+		.id = EN7523_CLK_SLIC,
-+		.name = "slic",
-+
-+		.base_reg = REG_SPI_CLK_FREQ_SEL,
-+		.base_bits = 1,
-+		.base_shift = 1,
-+		.base_values = slic_base,
-+		.n_base_values = ARRAY_SIZE(slic_base),
-+
-+		.div_reg = REG_SPI_CLK_DIV_SEL,
-+		.div_bits = 5,
-+		.div_shift = 24,
-+		.div_val0 = 20,
-+		.div_step = 2,
-+	}, {
-+		.id = EN7523_CLK_SPI,
-+		.name = "spi",
-+
-+		.base_reg = REG_SPI_CLK_FREQ_SEL,
-+		.base_bits = 1,
-+		.base_shift = 0,
-+		.base_values = spi7583_base,
-+		.n_base_values = ARRAY_SIZE(spi7583_base),
-+
-+		.div_reg = REG_SPI_CLK_DIV_SEL,
-+		.div_bits = 5,
-+		.div_shift = 8,
-+		.div_val0 = 40,
-+		.div_step = 2,
-+	}, {
-+		.id = EN7523_CLK_NPU,
-+		.name = "npu",
-+
-+		.base_reg = REG_NPU_CLK_DIV_SEL,
-+		.base_bits = 2,
-+		.base_shift = 9,
-+		.base_values = npu7583_base,
-+		.n_base_values = ARRAY_SIZE(npu7583_base),
-+
-+		.div_bits = 3,
-+		.div_shift = 0,
-+		.div_step = 1,
-+		.div_offset = 1,
-+	}, {
-+		.id = EN7523_CLK_CRYPTO,
-+		.name = "crypto",
-+
-+		.base_reg = REG_CRYPTO_CLKSRC2,
-+		.base_bits = 1,
-+		.base_shift = 0,
-+		.base_values = crypto7583_base,
-+		.n_base_values = ARRAY_SIZE(crypto7583_base),
-+	}, {
-+		.id = EN7581_CLK_EMMC,
-+		.name = "emmc",
-+
-+		.base_reg = REG_CRYPTO_CLKSRC2,
-+		.base_bits = 1,
-+		.base_shift = 13,
-+		.base_values = emmc7583_base,
-+		.n_base_values = ARRAY_SIZE(emmc7583_base),
-+	}, {
-+		.id = AN7583_CLK_MDIO0,
-+		.name = "mdio0",
-+
-+		.base_reg = REG_CRYPTO_CLKSRC2,
-+
-+		.base_value = 25000000,
-+
-+		.div_bits = 4,
-+		.div_shift = 15,
-+		.div_step = 1,
-+		.div_offset = 1,
-+	}, {
-+		.id = AN7583_CLK_MDIO1,
-+		.name = "mdio1",
-+
-+		.base_reg = REG_CRYPTO_CLKSRC2,
-+
-+		.base_value = 25000000,
-+
-+		.div_bits = 4,
-+		.div_shift = 19,
-+		.div_step = 1,
-+		.div_offset = 1,
-+	}
-+};
-+
- static const u16 en7581_rst_ofs[] = {
- 	REG_RST_CTRL2,
- 	REG_RST_CTRL1,
-@@ -543,6 +684,64 @@ static const u16 en751221_rst_map[] = {
- 	[EN751221_USB_PHY_P1_RST]	= 3 * RST_NR_PER_BANK + 7,
- };
- 
-+static const u16 an7583_rst_map[] = {
-+	/* RST_CTRL2 */
-+	[AN7583_XPON_PHY_RST]		= 0,
-+	[AN7583_GPON_OLT_RST]		= 1,
-+	[AN7583_CPU_TIMER2_RST]		= 2,
-+	[AN7583_HSUART_RST]		= 3,
-+	[AN7583_UART4_RST]		= 4,
-+	[AN7583_UART5_RST]		= 5,
-+	[AN7583_I2C2_RST]		= 6,
-+	[AN7583_XSI_MAC_RST]		= 7,
-+	[AN7583_XSI_PHY_RST]		= 8,
-+	[AN7583_NPU_RST]		= 9,
-+	[AN7583_TRNG_MSTART_RST]	= 12,
-+	[AN7583_DUAL_HSI0_RST]		= 13,
-+	[AN7583_DUAL_HSI1_RST]		= 14,
-+	[AN7583_DUAL_HSI0_MAC_RST]	= 16,
-+	[AN7583_DUAL_HSI1_MAC_RST]	= 17,
-+	[AN7583_XPON_XFI_RST]		= 18,
-+	[AN7583_WDMA_RST]		= 19,
-+	[AN7583_WOE0_RST]		= 20,
-+	[AN7583_HSDMA_RST]		= 22,
-+	[AN7583_TDMA_RST]		= 24,
-+	[AN7583_EMMC_RST]		= 25,
-+	[AN7583_SOE_RST]		= 26,
-+	[AN7583_XFP_MAC_RST]		= 28,
-+	[AN7583_MDIO0_RST]		= 30,
-+	[AN7583_MDIO1_RST]		= 31,
-+	/* RST_CTRL1 */
-+	[AN7583_PCM1_ZSI_ISI_RST]	= RST_NR_PER_BANK + 0,
-+	[AN7583_FE_PDMA_RST]		= RST_NR_PER_BANK + 1,
-+	[AN7583_FE_QDMA_RST]		= RST_NR_PER_BANK + 2,
-+	[AN7583_PCM_SPIWP_RST]		= RST_NR_PER_BANK + 4,
-+	[AN7583_CRYPTO_RST]		= RST_NR_PER_BANK + 6,
-+	[AN7583_TIMER_RST]		= RST_NR_PER_BANK + 8,
-+	[AN7583_PCM1_RST]		= RST_NR_PER_BANK + 11,
-+	[AN7583_UART_RST]		= RST_NR_PER_BANK + 12,
-+	[AN7583_GPIO_RST]		= RST_NR_PER_BANK + 13,
-+	[AN7583_GDMA_RST]		= RST_NR_PER_BANK + 14,
-+	[AN7583_I2C_MASTER_RST]		= RST_NR_PER_BANK + 16,
-+	[AN7583_PCM2_ZSI_ISI_RST]	= RST_NR_PER_BANK + 17,
-+	[AN7583_SFC_RST]		= RST_NR_PER_BANK + 18,
-+	[AN7583_UART2_RST]		= RST_NR_PER_BANK + 19,
-+	[AN7583_GDMP_RST]		= RST_NR_PER_BANK + 20,
-+	[AN7583_FE_RST]			= RST_NR_PER_BANK + 21,
-+	[AN7583_USB_HOST_P0_RST]	= RST_NR_PER_BANK + 22,
-+	[AN7583_GSW_RST]		= RST_NR_PER_BANK + 23,
-+	[AN7583_SFC2_PCM_RST]		= RST_NR_PER_BANK + 25,
-+	[AN7583_PCIE0_RST]		= RST_NR_PER_BANK + 26,
-+	[AN7583_PCIE1_RST]		= RST_NR_PER_BANK + 27,
-+	[AN7583_CPU_TIMER_RST]		= RST_NR_PER_BANK + 28,
-+	[AN7583_PCIE_HB_RST]		= RST_NR_PER_BANK + 29,
-+	[AN7583_XPON_MAC_RST]		= RST_NR_PER_BANK + 31,
-+
-+	/* RST_PCIC */
-+	[AN7583_PCIC_PERSTOUT0_RST]	= 2 * RST_NR_PER_BANK + 29,
-+	[AN7583_PCIC_PERSTOUT1_RST]	= 2 * RST_NR_PER_BANK + 26,
-+};
-+
- static int en7581_reset_register(struct device *dev, void __iomem *base,
- 				 const u16 *rst_map, int nr_resets,
- 				 const u16 *rst_reg_ofs);
-@@ -1088,6 +1287,42 @@ static int en7581_clk_hw_init(struct platform_device *pdev,
- 	return en7581_serdes_phy_register(&pdev->dev);
- }
- 
-+static int an7583_clk_hw_init(struct platform_device *pdev,
-+			      struct clk_hw_onecell_data *clk_data)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct regmap *map;
-+	void __iomem *base;
-+	u32 val;
-+	int ret;
-+
-+	map = syscon_regmap_lookup_by_phandle(dev->of_node, "airoha,chip-scu");
-+	if (IS_ERR(map))
-+		return PTR_ERR(map);
-+
-+	base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(base))
-+		return PTR_ERR(base);
-+
-+	priv->base = base;
-+
-+	en7581_register_clocks(dev, clk_data, map, base);
-+
-+	val = readl(base + REG_RST_CTRL1);
-+	val |= REG_PCIE_HB_RST;
-+	writel(val, base + REG_RST_CTRL1);
-+	val &= ~REG_PCIE_HB_RST;
-+	writel(val, base + REG_RST_CTRL1);
-+
-+	ret = en7581_reset_register(dev, base, an7583_rst_map,
-+				    ARRAY_SIZE(an7583_rst_map),
-+				    en7581_rst_ofs);
-+	if (ret)
-+		return ret;
-+
-+	return en7581_serdes_phy_register(dev);
-+}
-+
- static enum en_hir get_hw_id(void __iomem *np_base)
- {
- 	u32 val = FIELD_GET(REG_HIR_MASK, readl(np_base + REG_HIR));
-@@ -1241,6 +1476,18 @@ static const struct en_clk_soc_data en7581_data = {
- 	.hw_init = en7581_clk_hw_init,
- };
- 
-+static const struct en_clk_soc_data an7583_data = {
-+	.base_clks = an7583_base_clks,
-+	/* We increment num_clocks by 1 to account for additional PCIe clock */
-+	.num_clocks = ARRAY_SIZE(an7583_base_clks) + 1,
-+	.pcie_ops = {
-+		.is_enabled = en7581_pci_is_enabled,
-+		.enable = en7581_pci_enable,
-+		.disable = en7581_pci_disable,
-+	},
-+	.hw_init = an7583_clk_hw_init,
-+};
-+
- static const struct en_clk_soc_data en751221_data = {
- 	.num_clocks = EN751221_MAX_CLKS,
- 	.pcie_ops = {
-@@ -1254,6 +1501,7 @@ static const struct en_clk_soc_data en751221_data = {
- static const struct of_device_id of_match_clk_en7523[] = {
- 	{ .compatible = "airoha,en7523-scu", .data = &en7523_data },
- 	{ .compatible = "airoha,en7581-scu", .data = &en7581_data },
-+	{ .compatible = "airoha,an7583-scu", .data = &an7583_data },
- 	{ .compatible = "econet,en751221-scu", .data = &en751221_data },
- 	{ /* sentinel */ }
- };
--- 
-2.55.0
+Thanks for your patches Mina! This made it easier to implement the
+unbind. I will add a dependency in the series to your patches. That's
+if they don't get merged before.
 
+Thanks,
+Dragos
