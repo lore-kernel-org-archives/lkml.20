@@ -1,34 +1,32 @@
 Received: from mail.nozomi.space (mail.nozomi.space [139.162.184.125])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F42F3D9058;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F3173D525B;
 	Sun, 11 Oct 2026 18:22:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.162.184.125
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791742931; cv=none; b=L4ffM9m8EPG6bVQ92hBzmrnbnLtAwPfaw2ydbMB4v7CQQYW9pzIGamuJSduJKfIekwPjR1EI/2OBtxFkJrAFDG5cgAqV9R5WkQqGzHiRRJ9mSilZcu/9EmE6ybexH2eg5cLQ7kAVjgBJc9MknfuRm9ziff76E1sCmEqAUn2+aWo=
+	t=1791742933; cv=none; b=pj3mTqxg8l4JHp/4yseDQwu2+HZu/gD15UTHUsv/UhZOvhud8oz/2Ibt1ymKoOYAWkZ5eE3Xwnf3S2uqVE9g2Bb4DWK36+yE1VsXCLcJ3TzbSSJgZ4x4oBj6YLHEAhPbGLcxN6Ep4eErcbhds5/9d2oEjZqpYWtzZTNmNIoCwgE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791742931; c=relaxed/simple;
-	bh=UB7xWJx1RBBjSwNodonLHLCsWFYVbmM5Cfw9+jQotTw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KSn1Zi44kRHxgGbK8xplkFMBSg3plHTEh/SnyFDY0TbVHcgFEN+oizaP/NcKmawtdXIyikfYkRbviMtMsFmsFYPSXLFwVDzVqyA64ss3GU1iQNHDK6BxX5rt4z1+iiaKgGRqUo/KFcGWin6FiatxIKsZTBIjWbMwmMHjAVDmeQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nozomi.space; spf=pass smtp.mailfrom=nozomi.space; dkim=pass (2048-bit key) header.d=nozomi.space header.i=@nozomi.space header.b=OewzcbOM; arc=none smtp.client-ip=139.162.184.125
+	s=arc-20240116; t=1791742933; c=relaxed/simple;
+	bh=BbmJi8vZciVUk38WN8/tDCgMbCdprOPnGMCBvTtNfQQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=B1VbAHG5mApgok3bvS+Lr4ldb1Lrn3+S9lGni7bkQa+sPCaJ7doNlPiuL6wQvTv18AtBcDo91cjNg32KcEpU9iEy3zkqsAsr1VnUDL94a2fwVzOG/uB9E8rqIAM/V2Ujh9dbw62hVR3UFvupozhkxiw/tPvzG0mFlSU9uBTRnDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nozomi.space; spf=pass smtp.mailfrom=nozomi.space; dkim=pass (2048-bit key) header.d=nozomi.space header.i=@nozomi.space header.b=0She3xN/; arc=none smtp.client-ip=139.162.184.125
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nozomi.space
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nozomi.space
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nozomi.space header.i=@nozomi.space header.b="OewzcbOM"
+	dkim=pass (2048-bit key) header.d=nozomi.space header.i=@nozomi.space header.b="0She3xN/"
 From: =?UTF-8?q?Micha=C5=82=20Kope=C4=87?= <michal@nozomi.space>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nozomi.space;
-	s=mail; t=1791742597;
+	s=mail; t=1791742596;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=e+ZyLocKTaEdGSy/+OIgE6gDvQVDoIaLeI9kLrTDJqE=;
-	b=OewzcbOM1lSj7xGaToXFx+1iDVopWIvnWQfhWuX4uHYlIeWux764/6LKY1U+m4Z5zPSp9N
-	JHdbin2NEYjQsdDVJetilVMG+XdvyaeR+k8s9+Uya31mEE1o5dIAo5PKvNDeRD9pcdDhtY
-	rhIM/yqSTSVAH2IsQ/r2XRBJj6RqJYc6T5M53k+KFV1DQdfaelWp19WjgRw/+KLNPINUuJ
-	f4JIl0FZuZVW3LWoR5uldoGSNaICIGQk3jPX5I4c4i5ybHClA4IsCzK80UJYtw1EraFeiT
-	k3LfKlkv0My7UhTWuTl7/Fckzc9VeL8dqQNXWnk0MUWLIc26LGpyFtkynEC6Kg==
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=LVgYSY2UxISntRQ+WN3hTQeIMTkiy9umGiKAb6XsNSQ=;
+	b=0She3xN/8VN2Z7OQ3s5cWgL0l6SaoRYFz+y0rmQPZiYwZcdJg85cw7ZH7EI6arBvRkgIA3
+	62qtNpCKgNfh9sceDizfxQhay7jtljTEeFt7JunR9UW7cZ+TOGgsM5CaWLkLnI711nZO88
+	RyvkRvcmEVIXYdM2hzKCpb3JfaGAqWBTJWjlRUAH7t2Mvb3QjVhADTS2+17vmrdxNvzoxm
+	DEXnofsyla/KP9WLFF0XDFaDdoC5YxMC0l1Z7DVfiz5/V9cHGGwnZtxKPgVhyz/FEaQptv
+	mQwRGZJ2Ht8v3waIqLUWM7vDrXj/Adqnex/UAZfIz9LtDkjvnF0MX/gFqqgRJg==
 To: linux-input@vger.kernel.org
 Cc: devicetree@vger.kernel.org,
 	linux-mediatek@lists.infradead.org,
@@ -47,11 +45,9 @@ Cc: devicetree@vger.kernel.org,
 	felix@kaechele.ca,
 	dianders@chromium.org,
 	=?UTF-8?q?Micha=C5=82=20Kope=C4=87?= <michal@nozomi.space>
-Subject: [PATCH v6 1/3] dt-bindings: input: Add Himax HX83102J touchscreen
-Date: Sun, 11 Oct 2026 20:16:31 +0200
-Message-ID: <20261011181633.1778969-2-michal@nozomi.space>
-In-Reply-To: <20261011181633.1778969-1-michal@nozomi.space>
-References: <20261011181633.1778969-1-michal@nozomi.space>
+Subject: [PATCH v6 0/3] HID: Add support for the Himax HX83102J touchscreen
+Date: Sun, 11 Oct 2026 20:16:30 +0200
+Message-ID: <20261011181633.1778969-1-michal@nozomi.space>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,142 +57,84 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Add the binding for the touch function of the Himax HX83102J, a touch
-and display driver integrated (TDDI) controller. The touch function is
-connected over SPI and shares the analog supplies and the reset of the
-display function, so it is powered and reset together with the panel
-and has to follow it.
+This series adds support for the touch function of the Himax HX83102J,
+a touch and display driver integrated (TDDI) controller that reports HID
+packets over SPI. It is used in the MediaTek MT8188 based Lenovo
+Chromebook Duet ("Ciri").
 
-Co-developed-by: Allen Lin <allencl_lin@hotmail.com>
-Signed-off-by: Allen Lin <allencl_lin@hotmail.com>
-Signed-off-by: Michał Kopeć <michal@nozomi.space>
----
- .../input/touchscreen/himax,hx83102j.yaml     | 98 +++++++++++++++++++
- MAINTAINERS                                   |  6 ++
- 2 files changed, 104 insertions(+)
+As Krzysztof suggested, I have taken over the series and rewritten the
+driver along the lines of hid-goodix-spi instead of cleaning up the
+vendor code. Allen Lin and Tylor Yang are credited with Co-developed-by,
+since the protocol, the firmware loading sequence and the heatmap
+handling come from their code.
+
+On Ciri the controller has no flash, so the firmware is loaded from a
+file (himax_i2chid_1002.bin or himax_i2chid_1003.bin, depending on the
+panel, the names ChromeOS uses). These files are not in linux-firmware.
+
+Tested on Ciri (sku0, BOE panel): touch, stylus, display off and on,
+suspend/resume and reloading the module.
+
+The firmware report descriptor declares feature report 68 (usage
+0xff0000c5), which the driver does not serve, so hid-multitouch logs
+"failed to fetch feature 68" once per probe. Touch works regardless.
+
+Changes in v6:
+- Take over the series and use Allen's full name (Krzysztof).
+- dt-bindings: describe how reset-gpios differs from
+  display-reset-gpios (Krzysztof).
+- dt-bindings: use unevaluatedProperties and drop the properties that
+  only repeated the referenced schemas.
+- Squash the four driver patches and rewrite the driver: a standard
+  module_spi_driver() with devm resources, no kerneldoc for standard
+  functions, no __func__ in messages, no probe message, no CONFIG_OF
+  conditionals or .owner, dev_err_probe() in probe (Krzysztof).
+- Rename the driver to hid-himax-spi (CONFIG_HID_HIMAX_SPI), like
+  hid-goodix-spi.
+- Power the touch function up from a work item when the panel has been
+  prepared, so loading the firmware doesn't delay the panel, and drop
+  the unexplained 2 s and 1 s delays of the vendor code.
+- Request and validate the firmware once and keep it, so resume doesn't
+  need the file system. Check every offset and size taken from the
+  image.
+- Keep the HID device across power cycles instead of recreating it.
+- Request the interrupt in probe, disabled until the HID device exists,
+  and take its trigger from the device tree.
+- Retry a failed power up when the panel is prepared again, and pass
+  -EPROBE_DEFER from the panel lookup through.
+- Size the heatmap buffers for an odd number of nodes, and use
+  hid_safe_input_report().
+- Use crc32c() instead of an open-coded CRC-32C.
+- Only reset the IC when reading the event stack fails, not when the
+  HID core rejects a report.
+
+v5: https://lore.kernel.org/all/20261003142741.48634-1-michal@nozomi.space/
+v4: https://lore.kernel.org/all/TY0PR06MB56110754EB9D827BE3304A259E0F2@TY0PR06MB5611.apcprd06.prod.outlook.com/
+
+
+
+
+Michał Kopeć (3):
+  dt-bindings: input: Add Himax HX83102J touchscreen
+  HID: Add Himax HX83102J SPI touchscreen driver
+  arm64: dts: mediatek: mt8188-geralt-ciri: Add the touchscreen
+
+ .../input/touchscreen/himax,hx83102j.yaml     |   98 ++
+ MAINTAINERS                                   |    7 +
+ .../dts/mediatek/mt8188-geralt-ciri-sku1.dts  |    4 +
+ .../dts/mediatek/mt8188-geralt-ciri-sku3.dts  |    4 +
+ .../dts/mediatek/mt8188-geralt-ciri-sku5.dts  |    4 +
+ .../dts/mediatek/mt8188-geralt-ciri-sku7.dts  |    4 +
+ .../boot/dts/mediatek/mt8188-geralt-ciri.dtsi |   33 +
+ drivers/hid/Kconfig                           |   13 +
+ drivers/hid/Makefile                          |    1 +
+ drivers/hid/hid-himax-spi.c                   | 1300 +++++++++++++++++
+ 10 files changed, 1468 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/input/touchscreen/himax,hx83102j.yaml
+ create mode 100644 drivers/hid/hid-himax-spi.c
 
-diff --git a/Documentation/devicetree/bindings/input/touchscreen/himax,hx83102j.yaml b/Documentation/devicetree/bindings/input/touchscreen/himax,hx83102j.yaml
-new file mode 100644
-index 0000000000000..f0aca7a6662c9
---- /dev/null
-+++ b/Documentation/devicetree/bindings/input/touchscreen/himax,hx83102j.yaml
-@@ -0,0 +1,98 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/input/touchscreen/himax,hx83102j.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Himax hx83102j touchscreen
-+
-+maintainers:
-+  - Michał Kopeć <michal@nozomi.space>
-+
-+description:
-+  The Himax HX83102J is a touch and display driver integrated (TDDI)
-+  controller. Its touch function is connected over SPI and reports HID
-+  packets. The display and touch functions share the analog supplies and
-+  the display reset, so the touch function is powered and reset together
-+  with the panel it is part of.
-+
-+allOf:
-+  - $ref: /schemas/input/touchscreen/touchscreen.yaml#
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+
-+properties:
-+  compatible:
-+    const: himax,hx83102j
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    maxItems: 1
-+    description:
-+      Reset of the touch function. Unlike display-reset-gpios, it only
-+      resets the touch MCU and leaves the display function running, so the
-+      touch function can be reset without disturbing the panel.
-+
-+  vccd-supply:
-+    description: Digital I/O supply of the touch function.
-+
-+  vsn-supply:
-+    description: Negative analog supply, shared with the display function.
-+
-+  vsp-supply:
-+    description: Positive analog supply, shared with the display function.
-+
-+  display-reset-gpios:
-+    maxItems: 1
-+    description:
-+      Reset of the display function, usually driven by the panel. Asserting
-+      it also resets the touch function.
-+
-+  spi-cpha: true
-+
-+  spi-cpol: true
-+
-+  firmware-name:
-+    description: Specify the file name for firmware loading.
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - reset-gpios
-+  - panel
-+  - vccd-supply
-+  - vsn-supply
-+  - vsp-supply
-+  - display-reset-gpios
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    spi {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+      ap_ts: touchscreen@0 {
-+        compatible = "himax,hx83102j";
-+        reg = <0>;
-+        pinctrl-names = "default";
-+        pinctrl-0 = <&touch_int0 &touch_reset>;
-+        reset-gpios = <&gpio1 8 GPIO_ACTIVE_LOW>;
-+        spi-cpha;
-+        spi-cpol;
-+        interrupt-parent = <&gpio1>;
-+        interrupts = <7 IRQ_TYPE_LEVEL_LOW>;
-+        panel = <&panel>;
-+        vccd-supply = <&regulator>;
-+        vsn-supply = <&regulator>;
-+        vsp-supply = <&regulator>;
-+        display-reset-gpios = <&gpio1 9 GPIO_ACTIVE_LOW>;
-+      };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 72294ddfa5b75..e209f0d44fa73 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -11729,6 +11729,12 @@ W:	http://www.highpoint-tech.com
- F:	Documentation/scsi/hptiop.rst
- F:	drivers/scsi/hptiop.c
- 
-+HIMAX HID TOUCHSCREEN
-+M:	Michał Kopeć <michal@nozomi.space>
-+L:	linux-input@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/input/touchscreen/himax,hx83102j.yaml
-+
- HIMAX HX83112B TOUCHSCREEN SUPPORT
- M:	Job Noorman <job@noorman.info>
- L:	linux-input@vger.kernel.org
+
+base-commit: fd179f8a05be3ccae366b9b96e176b51fbe54aab
 -- 
 2.56.0
 
