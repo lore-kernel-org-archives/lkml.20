@@ -1,177 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93240185B48;
-	Sun, 11 Oct 2026 08:04:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E71AA3630AC
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:05:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791705876; cv=none; b=IkRsND5agYK0SNiYcmF0MiX0T5v1GLnNbjUngsKS10hKuGlNgruOG+48fRnP7/2fL+/hb8/tK/8DbLIqVAUUuacq4B3LWHz+5HZbDRaYeu6+VpRwFEvbitS/OcHsXNPuf7wbtUVbPk9VeHEsKFv2hxckwlnaXKDeN9G0Zb3+22Q=
+	t=1791705911; cv=none; b=EMrhRNTE+q0fkvWM7CSrTvCF1V9w314AG1vjMOOMAGudb/ZW+UQThw+v8yvZ0R44HGWILNtTT4a+Ewc2lkIXcUkXzecRHpkF87nufspAC0YaNJChVxTwspwqD5dFbL/qBFQakcImvOBUT19yKVRD9rZ4N0S10J4JpoOgmSxMV9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791705876; c=relaxed/simple;
-	bh=3dl2088A3FSVhN92Lv3OonvssgasnxbW+zR4oicbTRU=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=K9XaeAnVmXdYLxFYbHY3dS5oP1064uWn+lRvHvRvgY0ZagSm5GDuWDghU6wGOjwUKq4HJrB+UjZcg8+wUAb4uZ1NrZvcMrCh43dOa1gQMcuZ3pxLdtMYdrdQZP8tQ/Ekxbz5X/gE/W7W/+eM1t4TDCEGTyaog9GNzIorzILFqM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oCmVXKiU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791705911; c=relaxed/simple;
+	bh=Dd0AlETCrLfBhwgPv/+aAB35OnDGld5JfQtHhBHb438=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=p+VC3ngFap1985D/trtwROvidWHeHtvBspE8Uhrj/ogwyMtw/zDoNh0fDLmIaLqvIVD7S3ThZfSYdr+v2AsgxJiEQuyoBflYwS6+rMEZ4+dEp2WD1J9E0t8fm3UAZH3PO5i7fhbRww3OFz2nLcB+5f5PC1kTaG68REY6R/Ghifo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J++zvAya; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oCmVXKiU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6BCD1F0089B;
-	Sun, 11 Oct 2026 08:04:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791705875;
-	bh=Lti2Y8S7Hxd6PYECyIiG64uGEClN5O3X1xqGLARzapI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=oCmVXKiURQ68dMVmKOFiAY13faPEJgYuFLKR/PxVqjJbgNudQoX1YyqhjNL/Km1od
-	 TGsU2zsaUdMR3/Y6MmiYwTws6q80lj5mZFfZPyuUH9R0b0m1pjhraxt7aNxSDBZ3ZE
-	 4m8BigL7dvd+dXrMeCBFxOni+gnnpezZhD/etYAw3upAg3n0zvp1EOPpNJ6JZLsZBH
-	 w2hrXFUjKIL1KElUHBBtNiVXEyDlhjP0TgHnkYRTlyL3XTayNSoGqSUfir22dX5rvY
-	 jcXkWa3CFHiBtBRqUeCAHntraXHUxr5rNs83xdfWV7dQEL1d5mvK33luw9yZEQFbOR
-	 tNcQLw4bF6nBA==
-Subject: Re: [PATCH net-next] net: bgmac: use the NAPI skb cache
-From: netdev-bot+sashiko@kernel.org
-To: rosenp@gmail.com
-Cc: netdev@vger.kernel.org, rafal@milecki.pl,
- bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-kernel@vger.kernel.org
-Date: Sun, 11 Oct 2026 08:04:34 +0000
-Message-ID: <179170587420.434549.9366997254776579845@kernel.org>
-In-Reply-To: <20261010070635.97759-1-rosenp@gmail.com>
-References: <20261010070635.97759-1-rosenp@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J++zvAya"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1635f7c89so9474985e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 01:05:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791705907; x=1792310707; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sHRwnViPe+B6SXPirxdpPYH3hzjizazcvdZWVcjfRYc=;
+        b=J++zvAyadO9f+fK/sTclCsfwvrhcCgYj9XP+SmLag421FySxbP17MCb395sQKvw5Fh
+         OGu42LDgxxLDkv/JOCj5GaqmpvGyX30Y5MNyUf7dV3lJAOG5b6Be52im/0AGVP6T0XcC
+         rnkr2RbKFqLPKmCM8EW3ZwmyJVBqk9LWRWx0542kc5iVkTjxpIVkVFAzzDBGcx1IrQLh
+         JifnUIrnGSnhNU9xar78mTzokMbbPcUcZh40FmdNDhJjY9h4AdHD53emI6DnYENC2gSb
+         79SKnK40BTjK4UM5zrFgkcKI+2dZulNXEAN3c9M6YLpISAt5jUKrU6G1e7HK9AXP9ElH
+         nNZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791705907; x=1792310707;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sHRwnViPe+B6SXPirxdpPYH3hzjizazcvdZWVcjfRYc=;
+        b=oWKmmsDWHOtzY6yAqFSvbEq7nDoAb4g+ZIFtNnf79vv1Ngm6Lp0BpM5K4bxvCelrg2
+         vJzUuwQC6QRbx9Q/hKENVexCZCKg2CgJveYeFVlOK40Y0pakPhdwwpwN+T3J02P+fL01
+         GygKpI71uFTCZkC0o+13PJKr9nTNIhYGBV/1CNx8SpvryoxRC+5CCQxP/bW7AgC9fy6w
+         93TZZAv5w1+uGVi9zIgxY9e0aTrtnxr14fY1Qbx5Iz7JolpTZTv7liW75alEGF/zgy6G
+         ps83JWWxlvvbJ2IZvx0HU8IV1AFs2JldYFvLx4a2NVOjf6kEWLyMGZkvbUCrONgKRqzb
+         0MIw==
+X-Forwarded-Encrypted: i=1; AKwUvBwBgnu08jIpXY+HoAmCXQeMQFYfwkhYz+Gc5ExnkdgYYRfet7SaJlJIk8upKSNOg3HpFiJa5Dd4dYpxDRA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL3w8cfPV9EdQenRXh33IOsAtXUKNrrowdP5nweth0h4TwbOOMc
+	GjcSIWC5jpR5tHg63ywMDdFniTSmirKsoT9nsBjrFXyzhHlYiE4wXk0dIsA60zwIZQg=
+X-Gm-Gg: AYBFou1ECeMqRZkbZPfsZTFLU3PM9m5s8v6SFeCbCJ3Lvff31H4ZrEG4XnPoUo4Vcgf
+	yyAaw1N4kbPRvwARoskeOQcTAWvPieNMYw/oNq0yP+6tWpLTJXf78tbUmgd1UZJUd9T2OUigEjS
+	xCnQEuSOjE5dRqhYsbj/VVOL8cERysiBBoZqSCle3gne+hnQlhXtwZLprEOEw0tsSMWV4ehDb1H
+	ZDsQAmJ/V1tAh9W2TAyynI1BD2TVlFVe5SQMKL/F6MZ6aAK7DHaFobFQ+WR+j/qCNm944GNSGg/
+	triTugSDUm3O8dZ5lVBzr3EXbL1rXi6Z8MBOwG/6CHLZZEIU8mM29RO8/ahQyN5VIImc7VFeTuu
+	DPPmqewFdHRsdPt5wjgRvRZEi//NmLqo5Cxl/TexYIblQMpfl4QyLbj+6EnqfqAsN3kOu4fqOQJ
+	w4FqXMKhM7N9TgSXmg0yHcuwKHzJJ0NMzMi/j/JxtjZp8eyasAtigI9WJLiY82A9pcrAa5GpaHD
+	JhUZMB+PaCFMUGGT5KggebIsiZpiN5B5YgOd4WivVAeeTtngdww43ZIkDelyavv/pHWXpu/oIC8
+	ZLTwiaaoehx9BdqG2Q==
+X-Received: by 2002:a05:600c:19c8:b0:4a1:777b:8a12 with SMTP id 5b1f17b1804b1-4a18e4adcdbmr114834925e9.14.1791705906973;
+        Sun, 11 Oct 2026 01:05:06 -0700 (PDT)
+Received: from center.jhjvjihww5qejoy14qwv1cc4td.frax.internal.cloudapp.net ([131.189.143.225])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dc1b30075sm9520337f8f.19.2026.10.11.01.05.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 01:05:06 -0700 (PDT)
+From: Orgad Shaneh <orgads@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] usb: octeon-hcd: keep SOF interrupts while a pipe needs them
+Date: Sun, 11 Oct 2026 08:05:06 +0000
+Message-ID: <20261011080506.2394708-1-orgads@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261011072236.2381546-1-orgads@gmail.com>
+References: <20261011072236.2381546-1-orgads@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+cvmx_usb_schedule() now sleeps on an hrtimer until the nearest future
+periodic deadline instead of counting frames down on every SOF. The scan
+that finds that deadline only looks at pipes with
 
-Critical: 0 · High: 1 · Medium: 0 (1) · Low: 0
+	next_tx_frame > usb->frame_number
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+which is right for picking the deadline, but two kinds of pipe that
+need a SOF to make progress are invisible to the decision:
 
-- [High] In bgmac_dma_rx_read() (drivers/net/ethernet/broadcom/bgmac.c),
-  the patch replaces build_skb() with napi_build_skb().
+- A periodic pipe that is due and was *not* started: no idle hardware
+  channel this round, its split window is closed
+  (cvmx_usb_find_ready_pipe() rejects both), or another pipe owns
+  usb->active_split. cvmx_usb_next_pipe() looks at the isochronous and
+  interrupt lists only when is_sof is true.
 
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but bgmac_poll()
-  has no zero-budget guard.
+- Any pipe that has sent its start split and waits for the frame its
+  split complete may go out in (split_sc_frame, also checked by
+  cvmx_usb_find_ready_pipe()). A control or bulk pipe on a full or low
+  speed device behind a hub is in this state between its two halves, and
+  with SOF masked nothing guarantees an interrupt that brings
+  frame_number there.
 
---
+When some other periodic pipe sets a far deadline - a hub's status pipe,
+whenever a hub is attached - the driver masks SOF, arms the timer for
+that deadline and these pipes wait for it. That is hundreds of frames;
+the code allows up to 8000 (one second) before it falls back to SOF.
 
-net: bgmac: use the NAPI skb cache
+Before the hrtimer this could not happen: any pipe with a future
+deadline set need_sof, so SOF stayed enabled every frame and the pipe
+was retried on the next one.
 
-This commit changes bgmac to allocate RX skb heads with napi_build_skb()
-and to free completed TX skbs with napi_consume_skb(). The skb heads are
-then recycled through the per-CPU NAPI cache instead of the slab
-allocator.
+Note such a pipe and keep SOF enabled while there is one, whether or not
+another pipe has a future deadline. Nothing changes when there is none,
+which is the case the timer was added for.
 
-> diff --git a/drivers/net/ethernet/broadcom/bgmac.c b/drivers/net/ethernet/broadcom/bgmac.c
-> index 3e9c57196a397..63a01accd7803 100644
-> --- a/drivers/net/ethernet/broadcom/bgmac.c
-> +++ b/drivers/net/ethernet/broadcom/bgmac.c
+Other control and bulk pipes are excluded deliberately: their
+next_tx_frame is not updated on completion, so they are almost always
+"due" and would keep SOF enabled permanently.
 
-[ ... ]
+Fixes: aebbc7d63407 ("usb: octeon-hcd: sleep on an hrtimer for far-off periodic transfers")
+Assisted-by: LLM
+Signed-off-by: Orgad Shaneh <orgads@gmail.com>
+---
+v2: the Sashiko review bot found that v1 missed two cases:
+ - due_now was only looked at when some pipe had a future deadline, so
+   a due pipe with none still left SOF masked;
+ - a control or bulk pipe waiting for its split complete is in the same
+   position as a due periodic pipe, but v1 excluded all control and bulk
+   pipes. split_sc_frame tells these apart from the always-due ones.
+ Compile-tested only: there is no full or low speed device behind a hub
+ on the test board, so the split path is not exercised.
+v1: https://lore.kernel.org/all/20260915081724.25637-1-orgads@gmail.com/
+    and the resend 20261011072236.2381546-1-orgads@gmail.com
 
-> @@ -466,9 +467,9 @@ static int bgmac_dma_rx_read(struct bgmac *bgmac, struct bgmac_dma_ring *ring,
->  			/* Omit CRC. */
->  			len -= ETH_FCS_LEN;
->  
-> -			skb = build_skb(buf, BGMAC_RX_ALLOC_SIZE);
-> +			skb = napi_build_skb(buf, BGMAC_RX_ALLOC_SIZE);
-
-[Severity: High]
-Can netpoll's zero-budget poll reach this call outside softirq context?
-
-poll_one_napi() in net/core/netpoll.c calls napi->poll(napi, 0). A budget
-of 0 means only the TX path should be cleaned. The TX side of bgmac_poll()
-handles this, because napi_consume_skb() falls back to
-dev_consume_skb_any() when budget is 0.
-
-However, bgmac_poll() still calls bgmac_dma_rx_read() with weight 0. The
-budget check there only runs after a descriptor has been handled:
-
-bgmac_dma_rx_read() {
-    ...
-		if (handled >= weight) /* Should never be greater */
-			break;
-    ...
-}
-
-So one ready RX frame always reaches napi_build_skb():
-
-netpoll_send_skb() [local_irq_save]
-  __netpoll_send_skb()
-    netpoll_poll_dev()
-      poll_one_napi()
-        bgmac_poll(napi, 0)
-          bgmac_dma_rx_read(weight=0)
-            napi_build_skb()
-              __napi_build_skb()
-                napi_skb_cache_get()
-
-napi_skb_cache_get() modifies the per-CPU napi_alloc_cache
-(nc->skb_cache[--nc->skb_count]) under local_lock_nested_bh(). On !RT
-kernels, that lock is only a lockdep_assert_in_softirq() plus a lockdep
-annotation.
-
-Netpoll can be entered from hardirq context, for example by a printk
-through netconsole from an IRQ handler. Suppose that hardirq interrupts a
-NET_RX softirq on the same CPU while the softirq is inside
-napi_skb_cache_get() or napi_skb_cache_put().
-
-Could both contexts then take the same skb head, or corrupt
-nc->skb_count?
-
-On PREEMPT_RT, local_lock_nested_bh() is a sleeping per-CPU lock. Here it
-would be taken with IRQs disabled. With lockdep enabled,
-lockdep_assert_in_softirq() would also warn every time netpoll handles an
-RX frame.
-
-The old build_skb() used kmem_cache_alloc(), which is safe in this
-context. Zero-budget RX could already reach napi_skb_cache_put() through
-the GRO_MERGED_FREE path in gro_skb_finish(). This change makes the cache
-access unconditional for every frame handled at budget 0.
-
-Would it make sense to skip RX processing when weight is 0, either in
-bgmac_poll() or at the top of bgmac_dma_rx_read()?
-
-[ ... ]
-
-> @@ -1153,7 +1154,7 @@ static int bgmac_poll(struct napi_struct *napi, int weight)
->  	/* Ack */
->  	bgmac_write(bgmac, BGMAC_INT_STATUS, ~0);
->  
-> -	bgmac_dma_tx_free(bgmac, &bgmac->tx_ring[0]);
-> +	bgmac_dma_tx_free(bgmac, &bgmac->tx_ring[0], weight);
->  	handled += bgmac_dma_rx_read(bgmac, &bgmac->rx_ring[0], weight);
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but bgmac_poll() has no guard
-for a zero budget. With weight 0, bgmac_dma_rx_read() handles one RX
-descriptor and returns 1. bgmac_poll() then skips the handled < weight
-branch and also returns 1.
-
-Doesn't that trigger the WARN_ONCE() in poll_one_napi()?
-
-net/core/netpoll.c:poll_one_napi() {
-    ...
-	work = napi->poll(napi, 0);
-	WARN_ONCE(work, "%pS exceeded budget in poll\n", napi->poll);
-    ...
-}
-
-This missing guard is also what allows the napi_build_skb() issue above.
-The same fix, returning before RX processing when weight is 0, would
-cover both.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261010070635.97759-1-rosenp%40gmail.com
+diff --git a/drivers/usb/host/octeon-hcd.c b/drivers/usb/host/octeon-hcd.c
+index 256e459..9477a1d 100644
+--- a/drivers/usb/host/octeon-hcd.c
++++ b/drivers/usb/host/octeon-hcd.c
+@@ -1923,6 +1923,7 @@ static void cvmx_usb_schedule(struct octeon_hcd *usb, int is_sof)
+ 	struct cvmx_usb_pipe *pipe;
+ 	int need_sof;
+ 	u64 min_due;
++	bool due_now;
+ 	enum cvmx_usb_transfer ttype;
+ 
+ 	if (usb->init_flags & CVMX_USB_INITIALIZE_FLAGS_NO_DMA) {
+@@ -1964,15 +1965,32 @@ done:
+ 	 */
+ 	need_sof = 0;
+ 	min_due = ~0ull;
++	due_now = false;
+ 	for (ttype = CVMX_USB_TRANSFER_CONTROL;
+ 	     ttype <= CVMX_USB_TRANSFER_INTERRUPT; ttype++) {
+ 		list_for_each_entry(pipe, &usb->active_pipes[ttype], node) {
++			/*
++			 * Do not sleep past a pipe that is only retried from a
++			 * SOF: a periodic one that is due but was not started
++			 * (no idle channel, closed split window, another pipe's
++			 * split active), or any pipe waiting for the frame its
++			 * split complete may go out in. Other control and bulk
++			 * pipes are left out: their next_tx_frame is not updated
++			 * on completion, so they always look due.
++			 */
++			if (pipe->split_sc_frame != -1 ||
++			    (pipe->next_tx_frame <= usb->frame_number &&
++			     (ttype == CVMX_USB_TRANSFER_ISOCHRONOUS ||
++			      ttype == CVMX_USB_TRANSFER_INTERRUPT)))
++				due_now = true;
+ 			if (pipe->next_tx_frame > usb->frame_number &&
+ 			    pipe->next_tx_frame < min_due)
+ 				min_due = pipe->next_tx_frame;
+ 		}
+ 	}
+-	if (min_due != ~0ull) {
++	if (due_now) {
++		need_sof = 1;
++	} else if (min_due != ~0ull) {
+ 		u64 delta = min_due - usb->frame_number;
+ 
+ 		/*
