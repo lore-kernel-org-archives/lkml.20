@@ -1,148 +1,100 @@
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2E3233A700
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:28:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7944F339387;
+	Sun, 11 Oct 2026 16:29:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791736113; cv=none; b=ZxbZg3npUjpHfnmCWwh7IadDWJ9WrLhQIzNHoWCEADrtu2ra17Dq41Xv8jHCJNhpuG+Ce+5cREGxiImaGWTlqXGDfPIqpOwmkSdXAq9dOLBIHYMevYlHKl+5Eb0MurhXvom1R8Q+OIKhPwMo+WWywvxUDWP3iAIZOPLXQd+HDbo=
+	t=1791736176; cv=none; b=IISxrZEscddXP3XjJKGJvLIvmgwEcmMPGuwkMy/HL8FYMES3FJ8g56UXu30yVapVj0Z31GsS4+2Z2nCyLFlQZHUJhkh5JeVTAEAbTVvksBffAnW4svLCpeByT8zPgSuX8pPN7ON9RNIjPUVOzbAaHuPmV/TXpXZXylbJ6MBSxz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791736113; c=relaxed/simple;
-	bh=gFt47LSAsQO+9dW+yOZPgrQ8Va/c7AWtExmCZjKK+GI=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=bFFb1UA+a0gRYFvOO0Ka2MhsQOEaEVNCGum21HSgzO5YxNVm16WH3e1NVpieaTyH6kq+BFl5x9gr47SgoscN/lthIZJZzrXol4+LqnaPH4qwfdV4kzF30v5mq7jMkFCXEseVJGdw8cIqymfvwyLUsbzsBdQvgbxCIfN2NwWXlDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gox6cT+p; arc=none smtp.client-ip=74.125.224.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791736176; c=relaxed/simple;
+	bh=WndzLhBb0HUUX0sO0798zNIc9+X+/xCoKEm0WMcuE88=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rus8y/hUEwiUgQ0gi4i1RPKZYqT/Mq+yHf2Mlkg2oE2mxHRaNduDuLhTeZ7LRXHmYoKPvsP5qkaLtB8vzUUv/lpcvQrIs9QKqVWthzWULQ1kyn7XaPRz/UdTPWgh3DDxPe9T8U8VPpuuRcq5ANUYt0zBxvX9lpRYA04wk+rTfrg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=XADCc8U9; arc=none smtp.client-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gox6cT+p"
-Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-6793ff3d53dso735055d50.2
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:28:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791736111; x=1792340911; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=gFt47LSAsQO+9dW+yOZPgrQ8Va/c7AWtExmCZjKK+GI=;
-        b=Gox6cT+pbC4miYBOPFdFk5wPSbjPunDqPfcyJ+SlPz1/SaCEK6Euf20OBpBAsS7Tfs
-         IptAxlHxbBczKMMMYruNijg1Qciahg9xaxARXV6Z+csRTP6HtaMInHcRvKWbAXD2ut4a
-         +y/o4g7wmq0Iga4nF0up6fccIjAkRNXKUiMPNlKJjeXO5jtJc5sFjla2VlzVHSDXoCxs
-         aFL3Yed8a5XT1EHP+TYnIhUCYp/gm0ekv7VYdwKPWGR37dHcGLNAofhCvlgCzHTXHCaK
-         YcQzXmwrSsrLglfDX88awO+6CLlq+Bpbi8icVREGeIab7QwXQH8coese4WYS44SvoTvn
-         nJiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791736111; x=1792340911;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gFt47LSAsQO+9dW+yOZPgrQ8Va/c7AWtExmCZjKK+GI=;
-        b=O9CT9q68oNblB5oHv6J+MMJNy6gK/L60zC3fjhxpxEhbaeQLJbI4gttN9fnjFm2iT1
-         Gbj7Wa/Tl8NzTxHSjzG668S0qI3P/g/0n/dSs8zWDc0RLTJ4DesNImZODcXnhX28Qf3H
-         t+5sqfT0/BChkS1dm5WYgX1fBf94qqR4SOLPgaTJIsSHN/g/CAbUMAvN6+s8m6iS2bi3
-         4BzWUjThrlLamPazCJbRUb4M92WPPdWGlyV9+6Uwy1tZEkz9Y+3jdWiLENALAWwAOyOR
-         g/wGsqCAqyWOwJPc1T0qr9K0Ue5pqoOGdXbwCK5SRrbggiMUv/DqD57Ah5WJBWJK5TRT
-         nw5Q==
-X-Forwarded-Encrypted: i=1; AKwUvByHduGLOCTpr0PZ7h7dBrAmfJUzv2ShMF5zaCx7bvPFVpmVZ7Rmxp24+J/3Fyj3JpcxbQVuj/vYI5JcgbQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIto7cOeI+uMu2M6UlE8+f/evpS3A4oXC8Em0QGfs/22fjuGnW9
-	KYBhibL+F3g/Eu0oiC274ADx3yjcHOdrIq04JGa3xnBS3gly0qqypizC
-X-Gm-Gg: AYBFou3DnUfqhP47NXumiWujBpYDEeOzJJvm451esTCnQdPHCweta1/R2Om4i6cYyPw
-	LzyRqQoel2iIblXrru7wFRW0M/zOgFmI8K3H6WKmF5pyCRtbqSOMNG46qtFgg21pEEZo9n9nYDy
-	lkw597MwzvhnTpSATgL5J5mRd45AgSnEDstjYiu250lyNk6vJkSHYgkmObKTDXcMLouRIKuqPPK
-	uDqTC9JaXkOih/kOahGjfukYld61CDl9fFcYUqci3Piwcw4aUb83RMslds7P67l6gnZvDVEfDbb
-	C3rGLoV6I1dol5nbfYdHjvDpngaQIABiEg7HJHqEYECz5pphTS2ZMHAiKdTpTRmtc+LfxYrLTBw
-	gn16yfszH6BKR5YDm8vlVqv3oM4h0dQP4p97aVRcKPxREk5yxWuCRCNZS8XrZrZg6Z5B+GEqetS
-	pzQwGN7+vJZNt3AhrKUWIsTK78gT/oUqAEYPwVhSjiOLiyP8dcOXvY0/D2dgKcIkyVSYhQXPsZ8
-	huI7Zjz6PcHr6EX8TldDfF0HA1WMqolTuYDnFv3vzaxqd+pYMWQ0mPXhMmkDpEHQc3T89H6T9fQ
-	oY2wXxeTjKqsxqRmKlfLmP+B90DKjVkyfX/pZ4/RYYYO6kYK
-X-Received: by 2002:a05:690e:d4b:b0:673:572:4492 with SMTP id 956f58d0204a3-6793600cd9dmr1293447d50.24.1791736110930;
-        Sun, 11 Oct 2026 09:28:30 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-679356d5a8esm2788846d50.18.2026.10.11.09.28.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 09:28:29 -0700 (PDT)
-Date: Sun, 11 Oct 2026 12:28:29 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: "Jason A. Donenfeld" <Jason@zx2c4.com>, 
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: rafael@kernel.org, 
- lenb@kernel.org, 
- pavel@kernel.org, 
- kuba@kernel.org, 
- pabeni@redhat.com, 
- linux-pm@vger.kernel.org, 
- netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <jeremy.jean@oss.cyber.gouv.fr>, 
- steffen.klassert@secunet.com
-Message-ID: <willemdebruijn.kernel.e128e48c07be@gmail.com>
-In-Reply-To: <CAHmME9rW6Pav4vLdHbvvuf65v-+gtoHpDagFpmqrHYnkTKKNuw@mail.gmail.com>
-References: <20261008124106.665014-1-Jason@zx2c4.com>
- <willemdebruijn.kernel.cf8fec88827c@gmail.com>
- <CAHmME9r+O=3i4JP94P0-gFwghfWtD=vLa1g3KB-LvW+xFbJWHA@mail.gmail.com>
- <CAF=yD-LO0u5z8SU_Aktu0-0aeM-1UknYsGc+rCpD3y9bpwxtwg@mail.gmail.com>
- <CAHmME9rW6Pav4vLdHbvvuf65v-+gtoHpDagFpmqrHYnkTKKNuw@mail.gmail.com>
-Subject: Re: [PATCH net] udp_tunnel: drop packets when hibernating
+	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="XADCc8U9"
+From: Stian Halseth <stian@itx.no>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
+	t=1791735627;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=I2h0x6MRK97TXy17q/oGa0pHMkpomhGIicSPhvbv6/g=;
+	b=XADCc8U9B8QaYAchNDAG8w3uziok9xva1leOsMX6XlYarOzrlxHLQiQNEA2yRR9eYfHsJD
+	7tcUmPT3d8Cz1A7pCmSLBgwzP9OKi+w/aHtUT76trhQpWU5UnKoKsXeAkYiDPwZXaY43+/
+	EGaVAudImrmY0ja78Nii6cGyHZEjtJ4=
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Suren Baghdasaryan <surenb@google.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Andreas Larsson <andreas@gaisler.com>,
+	linux-mm@kvack.org,
+	linux-fsdevel@vger.kernel.org,
+	sparclinux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Stian Halseth <stian@itx.no>,
+	stable@vger.kernel.org
+Subject: [PATCH] fs/proc/task_mmu: fix lost maps entries above 2^63
+Date: Sun, 11 Oct 2026 18:20:19 +0200
+Message-ID: <20261011162019.922436-1-stian@itx.no>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Jason A. Donenfeld wrote:
-> On Thu, Oct 8, 2026 at 11:03=E2=80=AFPM Willem de Bruijn
-> <willemdebruijn.kernel@gmail.com> wrote:
-> > Since this is an issue specific with security protocols and reuse of
-> > their state across freeze and restore, is that the more suitable
-> > location for this check? Drop transmit of packets with that risk
-> > (unique for that connection nonce) only, if freezing.
-> =
+When a read of /proc/pid/{maps,smaps,numa_maps} resumes, m_start()
+rewinds *ppos to priv->last_pos so that the vma which did not fit into
+the previous buffer is shown again. It only does so for last_addr > 0,
+meaning to exclude the start of the file and SENTINEL_VMA_GATE, but
+last_addr is a signed loff_t holding a vm_end. sparc64 maps shared
+libraries, anonymous memory and the stack above 0x8000000000000000, so
+the rewind does not happen there and one entry is lost at every read()
+boundary.
 
-> I was thinking this is a pretty common problem to UDP apps in general,
-> and it's confusing to have these sorts of replays due to hibernation
-> that userspace doesn't have. It's an odd problem to expect every
-> in-kernel user to fix independently, so maybe it'd be more clever to
-> do this all in one place. I can put it in only wireguard, instead, if
-> you feel really strongly about it. But I was thinking this just seemed
-> like an odd behavior difference that could be easily fixed for
-> everyone.
+Reading the maps file of a process with read sizes from 64 to 8192
+bytes in steps of 64 loses lines at 126 of the 128 sizes, smaps at 123
+and numa_maps at 97, and the proc-maps-race selftest fails 4 of its 6
+tests. Python's sys.remote_exec() reads maps with fgets() and fails
+intermittently when it misses the libpython data mapping.
 
-When it comes to security protocols, this does not cover many of them,
-such as IPSec, MACSec, kTLS or PSP.
+Test for the two values that are not a vma end instead.
 
-Independent of security protocols, is there a replay on thaw issue?
-Your example points out that 6 and 8 can have different data, so this
-is not a replay because of thaw, but a second transmission by the
-security protocol, correct? If so, then other UDP protocols are not
-necessarily affected: only the nonce reuse is the problematic aspect.
+Fixes: 5631da56c9a87 ("fs/proc/task_mmu: read proc/pid/maps under per-vma lock")
+Closes: https://github.com/sparclinux/issues/issues/111
+Cc: stable@vger.kernel.org
+Signed-off-by: Stian Halseth <stian@itx.no>
+---
 
-To avoid across UDP, udp_tunnel_xmit_skb would also be too narrow,
-capturing only tunnel packets. Blocking transmission post snapshot
-entirely may require quiescing at the device layer, something like
-QUEUE_STATE_STACK_XOFF (if that isn't done yet, I don't know this
-freeze process well).
+Notes:
+    Tested on a SPARC T7-1 (sun4v, 7.3-rc5), a T4-1 (7.2.9) and a Sun Fire
+    V240 (sun4u, 7.3-rc5): no lost lines at any read size afterwards, and
+    Python's sys.remote_exec() test passes 20/20. On an amd64 KVM guest maps,
+    smaps, numa_maps and the proc selftests are unchanged.
 
-> > udp_queue_rcv_one_skb is the UDP hot path. Since it touches all
-> > packets, the last resort for adding checks that are relevant too only=
+ fs/proc/task_mmu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> > a small subset of packets.
-> =
+diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+index 5c54aebe21182..cdce513edcb1d 100644
+--- a/fs/proc/task_mmu.c
++++ b/fs/proc/task_mmu.c
+@@ -339,7 +339,7 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
+ 	 * Reset current position if last_addr was set before
+ 	 * and it's not a sentinel.
+ 	 */
+-	if (last_addr > 0)
++	if (last_addr && last_addr != SENTINEL_VMA_GATE)
+ 		*ppos = last_addr = priv->last_pos;
+ 	vma_iter_init(&priv->iter, mm, (unsigned long)last_addr);
+ 	hold_task_mempolicy(priv);
+-- 
+2.43.0
 
-> Is there another way you'd suggest doing this? Some other trick for
-> disabling the socket? I also am not keen on adding branches to hot
-> paths.
-
-At this layer or another, making pm_freezing a static_branch toggled
-by freeze_processes() / thaw_processes() would make the branch a
-NOOP in het hot path.
-
-So far, most promising I see is blocking the new handshake in
-Wireguard itself to avoid this from being possible. But that would
-indeed require all other protocols to be warned and review for
-individual fixes. A single choke point would be preferable, but I
-do not think they share a single such code path.=
