@@ -1,148 +1,120 @@
-Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
+Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B58C0368D47
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 20:00:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791748860; cv=none; b=a4rpCTlh5lxMXUOlDsS9JJaxTgB15TBQcIIW2nV62eAkBKUuwj2BNeQx+HkXItkWLoVFxKFP5zXAVb3eojiyD83jyIX+HVbg26I/oPQCtJWD7AipTT6AbMj+3E4NSd84DySzkBuSybjNsWuuSCMw/AuHO7hh+cdU86DWJH8XA/o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791748860; c=relaxed/simple;
-	bh=8hzuobKMRFUIB5Gkf99Q71AgNKs1zpi13TsIJ+8zIjk=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=SIvO8F2MNAnle4aXk5EcqP9q0ZZP/yI3g/+QVnmugAJ2Wa6oYFf3ojHU9LLbpvFZiVcXwQFsgOSqAZanhIcWOfLDXY33ES6GHHnMXg++m+WMao6Ciw2mNCWdqtnhklNyfNNUwL/FkJFGENw66GfPt5aRF1lvv2Y2HGleGtRY5uU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GkTlir3W; arc=none smtp.client-ip=209.85.219.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DDDD2FE074
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 20:01:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791748896; cv=pass; b=rtB8vlkqQzLfpgJ+qB1tU6m8sb5nY0cvcXhFYPZDO6Y2mta+l+gk9+3fvZie8DPCtoHvTvsvIW6lPVP1TPEaSdSeRpMpcDGTrPW+QX6R1LbXBEIODPCMl5fweLW/GEDgk2MklyQUFg6qSNqyp+9eljY+KlvaoNnbYzPQUO+oY+A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791748896; c=relaxed/simple;
+	bh=1tzJN88GwpvDiyz/lrjVdtV8dFKQy4NpjoeYN/PYPdM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tdLyuPi4Z1nalBUT0ekEp/17H5pAJBf8TzCZEMoLV/+UANxBH6+Qob8jqOXmJT/wya7Gfs+hA4f9aOEiDNIPh7E5vPkR5rdKYMk4Mzx8/sTNE6hbQeEfKoFCcKgAgaMmIBA7TPgkrJo4o3Ozs3+swkXUsYuBa5RskdqvBfn2dp4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hj2ewtMT; arc=pass smtp.client-ip=209.85.219.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GkTlir3W"
-Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-91b54d1e9cdso15055626d6.1
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 13:00:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hj2ewtMT"
+Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-917d595138fso10127566d6.3
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 13:01:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791748894; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Zq/13K5f52R/1oRGjbnFd9njzdkXNEJCtV8nESG4DveazpLXZM9F57qDsaTm0ccQ3I
+         xfmKFCA7Evmm7Zkfgx2vup8ipmJ/BxEnV2NZ40kQ1y9fSFP5xtIfrYzlT5QVxlBPmg+L
+         23HS4gly51kd/21DoIvurFzEfWwCyQYpdDXDuuEFchwK58wt918Vzka+cJ9HaEq4JLee
+         Ew8WFD/OZgyP9BVtFdaAoPIv77Mwcf9caBdQ1wKquVk9viehP6FxBsmsH1hYMfnB5BH7
+         9PuMdWadBWXrLFKdksdGVHlFtTJd2i6XygWy9HcPyNcl+gSbGWCgn2g3vBi/wAq9uKY5
+         B2rQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=6S4lTE+OpEhZb6bjQs47nv2nou0BGYnNK81t93sALC0=;
+        fh=Pd2h13zWnwBL+SYbu3/NP9rc1rdTN0O7MXbSSEVaobs=;
+        b=elv+OVUTcqeVCIzXDQvnXN6twf6/NilMOYd99UEsPls5kL7ekrKlxWCXfbIE+LmM/u
+         Ch5Hent8h3wwyBEyCB1WxBRShiyJA9tLVNYJhSjjUHL31neprgyjhQXxj4UJ7timZhvK
+         bF/Uq2lqD/u6xhsPsQq77ZQHpvK/y762ZuSS1aCcIGnq14xwJ63vA9n3f8ls+eToKJgN
+         2ipfmhJgAlWgdN2AD4dvMrIv5fOFLT6+C1v1hZES+w6a4Wab02KOYd2tJg5BRJklbGc2
+         qZnI0TsPJ1Bsu22PhoZeX4QAHm3M5X4oHnyMv/GrDAWbpNTaYK2GWUT1Qa7D9Ueg+MBp
+         l4Sw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791748858; x=1792353658; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:content-type:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1791748894; x=1792353694; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DjYVCkAhkYx5jymWbenkZ0abyqmM1tuoDhhjTrAOAqI=;
-        b=GkTlir3Wtk7qaZ0+/FVM5n0T6zzmAAvUUd406SjZNPs6ppNJT0/EjIvd7G2hczhRSo
-         PZzXnHHWeJ4Hx83JseVjXFCGQUiKuEkEGoTWAyezFw2u4SZfcODY+AFl1TOdtlZ0h+Tf
-         bDtW1iQ47hWkxR6JURqWYb1eMeFBNrnzbLvKUVTOCnxNwe/mNuQ9Jijstd90twc4l+Jy
-         WTwXmFjS4MtZ5Xp9193BY45/ZyJZb3rK4UH1dGDmkjRSCiTfrHFNsT/JNy5+okNPxAI/
-         EaNpj8Wpus//JF4auF2w1mpt6sZuRIsikEz9MXDKtVrq5L166rY0qhi+933mLyiStAXz
-         7c6A==
+        bh=6S4lTE+OpEhZb6bjQs47nv2nou0BGYnNK81t93sALC0=;
+        b=hj2ewtMTYwaSPbrexTCOwRAPkXV3L3WMdGnMxNnKEXWjM1lgUP7/hoB9MO3WjNFY5A
+         yyGnWLWUBJeMvP/e15LuMzRTlpitsx7fdIqU4BqyXqWpy0Cwt60Xy+XQYf5OBo30y+4Q
+         eDzxtBu5LRYWr2j99RNZRo0Kheqa3GwPMtnav1Hsqb9jdvoc+ULrPS8/vBYHAVtfJIEj
+         4mpJiG0qL3XROaPoZog563FR4gcFSPyN+L2ud8QHWI3z+SsDBD5uCNlFazHExKSaLlI+
+         ONyrDnkZrrJDXSNTO7tPieH4Eo06NF7nhCkbe2DP/9/6Vsu/1yH8DEAtQBsaC2k+MsLp
+         WSYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791748858; x=1792353658;
-        h=content-transfer-encoding:mime-version:content-type:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DjYVCkAhkYx5jymWbenkZ0abyqmM1tuoDhhjTrAOAqI=;
-        b=IwjV6smFm5SJfBythVW1jCpbhfjCvIWqnx3wZaRreXPnOmilOm0MnDY5HhrVagd9GZ
-         up8pwmW0D+3TzF63bx6a8in3NJRmctTYzZiinSFL0MZSyY4fzqVSk6wVQwzoutIY5b2M
-         Xtg0qdIdZTz0vGUP6bitQUUdb9V91u8d1vHUWani5AlsnJd+6RHiLMKH3aEWhEhqbdG7
-         kcl5DlnpN4Ut+UaIzRbzvdI+c0M6O/VxcoRnhHb7yMfYR2alI59SgIvvgtt69TQZMZjq
-         212gx8M0ZtMQHofG6l2JUznaBk3x4b6mpv+oaGqXHo7yrIFzm4tzCVRIW3vSot28K3cB
-         kLQQ==
-X-Gm-Message-State: AFq9FYJbf66MC5b16z8kArguWs2oEREOXg5N5n2lvuZzgY8EXFddkUTn
-	aSkImvh0E0l3velMyQ1SWMAhprJ1IRH9E3zdEr7cQGLZ5TqSLVXkxiw=
-X-Gm-Gg: AYBFou1LqIsr4OEaYgq3SclZ6DnSvrqpKN7ad9PGANggz6t0ezNpznxDvLq+AF5kXpH
-	IflLqji9VXQ54Bjaif7zIcgeh0O/wH3YmU37Z8DD+BLx3MBHK5qc+u+OKbF2vn+pwQmh3drOKzr
-	Jj3C4j4rMe6QwP8tp/Vx2WHeFUZZiE3Es+Kl6lVAnTNG0HARHJ2F6j+IbwwupJ8eqS4hh1zv9Y8
-	Z475gUNc7Opl9fkDISQw3RkflpXbLm2IRvGVetH7dI+UesWFj1lPsRY6OhiHSjcfWDVfHycuWl4
-	dIfv5u3WU3IfekYl/MR3fswcTFZW4RIXPiEDkmqZrqSsOegqdJAzmGvtUuKFB3aKHk6yqw3m5n8
-	KUstaLGM6OQuhW5Vd7PBwZneWaSyDYJ6YDobL9naRdrHAEwpqbjJe+8iOa+6gzPj6YgOTjM0hKx
-	wJPUYCFnmsC0yuLTPw/MySqly/q3rV17Nr2edS+r865v82jl7ftATzvdrwe+l3PlrIDd9sViUVk
-	+3j65ESoGEtAbFs1/YtdtWG40/dfu2RDujeruJ+UvQkXwLnWaSsTzFiEywB6BhFNfMAI8P51HOy
-	QUWPmtH1Ju7SGnFK
-X-Received: by 2002:a05:620a:a0d3:20b0:93e:c12c:9b74 with SMTP id af79cd13be357-93ec12c9f6amr885590485a.79.1791748858371;
-        Sun, 11 Oct 2026 13:00:58 -0700 (PDT)
-Received: from gmail.com ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb986c0cfsm705308685a.19.2026.10.11.13.00.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 13:00:57 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: krzk@kernel.org,
-	thierry.reding@kernel.org,
-	jonathanh@nvidia.com
-Cc: linux-kernel@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	ae878000@gmail.com
-Subject: [PATCH] memory: tegra: Shut down Tegra210 EMC timers before teardown
-Date: Sun, 11 Oct 2026 16:00:56 -0400
-Message-ID: <20261011160034.93d011b386c2-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.53.0
-Content-Type: text/plain; charset="utf-8"
+        d=1e100.net; s=20260707; t=1791748894; x=1792353694;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=6S4lTE+OpEhZb6bjQs47nv2nou0BGYnNK81t93sALC0=;
+        b=hQN2ayoHQL6zfRIiBsxzM3UEnG0F7m7K5Cef/n0uZvdzjAqnqoBswPEOpBgVyzB/7v
+         cCavQOE9J5+Qbix/WLgR6e5jgtgERNm+gLJp56HLQNiAM1mZyHZzI9kkZ3aNyNA4He1e
+         jnE4bu4UAjn2nZpSO8vj5IIQ0i+r8SwEfCJePsqCddC1a3Po66hMSiklmswNaChZr/n8
+         0lKp4MfMYpTWJG5M4oLOw7s9inX4cPyecW+PluQiZ4cqfjFWVvV+XnXwxcCM+tK+mQyz
+         iKA7LfEX6d6yMDGAmTqkA8NfM7KJ+l5hs6w2AsOnik7lHJR0rgz3q7UBdnKX4WDHdhuT
+         PPlQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwTRhoAy+KlPv591HR6TluLQPhqrDKoUrtnbIWBnIF7HVPjR9Ra2xccNw4fqmc59dPthzEeM2z6sI8k1bs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK8NY36QxbX7eFfR1sjwQRuZEJHgQkJX/OWqIcUT1enUwX2MWBZ
+	RnUDg0bYlG5wqwrtWfzCCTWP2y5TZGire4PB/g34wUt/wGSWzpdoDcIVg76JHT2mVrpqUh/EeyO
+	R/oA441maV7FS/m9nEsUo4OOnbFj8vVk=
+X-Gm-Gg: AYBFou1Ck17XDvoEX45d5k537vhevYal9c2+uSr7Tex8Z9MRVitjLVXn/O2gfN5FOgK
+	urTLPaYIHgxwWJWcu97ZPQVmiBKTE9O3eQo4AB9h2MP5Jdi/wpB6m8emaBo8ji5DDYyONoLikWu
+	/3u+Q4gwsh5EPUhJfLM+2h3+qop5sR3axwHdMnaXj/LzNw5uKoJXwxhT7/noN/xSGMHFcP2t+2y
+	R3Y/Fq5GHyJ/+AD9Cv1SQr9Y17D4s7qLTskVaTnlUa0kwu/ULrVFzQdke8Znnt/fR7XoejBc8gO
+	q5mk5fnJPvAoa7jsOtoxifZz4306fflDBfeWXajC5xm/wFWqDSIS+Zm/lUUV8MnDQcw6GSRfK+s
+	HeRtyNvvvubDnQwaxesKRdXm60VQwNWOr0P37YP/CpiXXESHwilOMTsBMq3tPzUJTFKU1i5g=
+X-Received: by 2002:a05:620a:a41b:20b0:93e:c12c:fbd1 with SMTP id
+ af79cd13be357-93ec12d08e0mr831249985a.77.1791748894091; Sun, 11 Oct 2026
+ 13:01:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261011191344.981000-1-linmag7@gmail.com> <20261011191344.981000-7-linmag7@gmail.com>
+In-Reply-To: <20261011191344.981000-7-linmag7@gmail.com>
+From: Matt Turner <mattst88@gmail.com>
+Date: Sun, 11 Oct 2026 16:01:14 -0400
+X-Gm-Features: AclHuK9hH6WUDnezreEOOPO2jeyuAE8H0CKQdbkUt_jrQI3BponjxKRx6Hgy5is
+Message-ID: <CAEdQ38GoGhoaoymQER16qF2NHwhOGjGsTh68B8oqSzeR-LL-uA@mail.gmail.com>
+Subject: Re: [PATCH v6 6/6] alpha: stop on fatal Tsunami system ECC and write
+ parity errors
+To: Magnus Lindholm <linmag7@gmail.com>
+Cc: richard.henderson@linaro.org, linux-kernel@vger.kernel.org, 
+	linux-alpha@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The training and refresh timers can outlive the EMC state on removal
-or probe failure after clock attachment, causing use-after-free.
+> +#define TSUNAMI_PERROR_FATAL (perror_m_uecc | perror_m_perr)
 
-Shut down both timers before detaching the clock provider and releasing
-the timing tables to wait for callbacks and prevent rearming. Initialize
-them before clock attachment, since set_rate() can start training.
+Why PERR and not RDPE? Bad parity on data read from PCI seems just as
+bad for the consumer. If the HRM says the Pchip poisons that data and
+the CPU takes a 670 for it, please say so in the changelog.
 
-This issue was found by static analysis.
+> +             perror = live.perror[0] | live.perror[1];
 
-Fixes: 10de21148f7d ("memory: tegra: Add EMC scaling support code for Tegra210")
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
-Compile-tested with GCC, W=1 (arm). No runtime testing.
+The changelog says incidental PERROR state on a CPU or environmental
+vector cannot trigger the panic. It still can on a system vector: UECC
+or PERR latched before an unrelated NXM will panic here. That may be
+what you want, since the error is real either way, but the changelog
+should cover it. It also depends on the PERRMASK question I asked on
+patch 4.
 
- drivers/memory/tegra/tegra210-emc-core.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+Two things that I think belong in the changelog:
 
-diff --git a/drivers/memory/tegra/tegra210-emc-core.c b/drivers/memory/tegra/tegra210-emc-core.c
-index e8d4cd8..044ec6f 100644
---- a/drivers/memory/tegra/tegra210-emc-core.c
-+++ b/drivers/memory/tegra/tegra210-emc-core.c
-@@ -1946,12 +1946,6 @@ static int tegra210_emc_probe(struct platform_device *pdev)
- 			config->same_freq = true;
- 	}
- 
--	err = tegra210_clk_emc_attach(emc->clk, &emc->provider);
--	if (err < 0) {
--		dev_err(&pdev->dev, "failed to attach to EMC clock: %d\n", err);
--		goto release;
--	}
--
- 	emc->clkchange_delay = 100;
- 	emc->training_interval = 100;
- 	dev_set_drvdata(emc->dev, emc);
-@@ -1963,6 +1957,12 @@ static int tegra210_emc_probe(struct platform_device *pdev)
- 
- 	timer_setup(&emc->training, tegra210_emc_train, 0);
- 
-+	err = tegra210_clk_emc_attach(emc->clk, &emc->provider);
-+	if (err < 0) {
-+		dev_err(&pdev->dev, "failed to attach to EMC clock: %d\n", err);
-+		goto release;
-+	}
-+
- 	tegra210_emc_debugfs_init(emc);
- 
- 	cd = devm_thermal_of_child_cooling_device_register(emc->dev, np, "emc", emc,
-@@ -1978,6 +1978,8 @@ static int tegra210_emc_probe(struct platform_device *pdev)
- 
- detach:
- 	debugfs_remove_recursive(emc->debugfs.root);
-+	timer_shutdown_sync(&emc->training);
-+	timer_shutdown_sync(&emc->refresh_timer);
- 	tegra210_clk_emc_detach(emc->clk);
- release:
- 	of_reserved_mem_device_release(emc->dev);
-@@ -1990,6 +1992,8 @@ static void tegra210_emc_remove(struct platform_device *pdev)
- 	struct tegra210_emc *emc = platform_get_drvdata(pdev);
- 
- 	debugfs_remove_recursive(emc->debugfs.root);
-+	timer_shutdown_sync(&emc->training);
-+	timer_shutdown_sync(&emc->refresh_timer);
- 	tegra210_clk_emc_detach(emc->clk);
- 	of_reserved_mem_device_release(emc->dev);
- }
+A CPU-detected uncorrectable ECC error (670 through
+ev6_machine_check()) still does not panic, so after this patch the
+policy differs by who detected the error.
+
+A PCI card with a marginal connection that asserts PERR# now takes the
+machine down, where before it logged and carried on.
