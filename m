@@ -1,97 +1,79 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A56402BD59C
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 02:28:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7585622A7F6
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 02:30:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791685718; cv=none; b=nDGZ1joDzDRbiF8muXVUOX1pOUYx4X2Fl/JdwASU2lVt66yQtuAmgY7bclqGZGIq7hpNjXhEsL27PFxumuj80gj4//IQY6HK8DGcl2lGG+4UDbWmLtavTy/saJAyja8dzUZr4NoZre/WnmPIW3tmkDgUVZr8gm5VaCSa/nSy50o=
+	t=1791685860; cv=none; b=HgDoVIkW+R4FDNbvsFDNMHAGB8uHjbHaIlAT+NBmE69plbx8bAU64j7EA6XR30fLYA7mJdOk0bZK2Ki7Yc9DFeZ7eP8dc6AwP+EAiO+KfP+GLRXcpCtR2cbmrbIFAIfDdS7o16NVKJ8TrbMc0m7znn4zqUtuFwoAu3DbxxTnze4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791685718; c=relaxed/simple;
-	bh=etq7+g2rL94QK0gzoUV5j76lq9AirHyTnHCtlBi3LuI=;
+	s=arc-20240116; t=1791685860; c=relaxed/simple;
+	bh=X2ljtACZVrU4fNtiTp3jI+fMpPYEDJpdBKjpUTgN2ik=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Kt8mCOkBrzaEkNPcqp79ttyOrfarVM6xMFo5AGU8P27T49HzvcMGkbg9oqHFmtmPJGJVAdVtQsX/TCOL+Vnw5iVPUhyMJI3LVDSza6Aczpzu1sLAirO1dbNohniYQ8ZzAnJ1I1DJILr2nYSUxTnB9sUg3JOM99zS/0l5Fceg9eo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UP9xemUO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NIT+ZxRy; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 MIME-Version; b=rWWKGdblS+E4fQ9zpa80GzsHNrhj+mGXervZFnfZ9GH++QMtigBfOxQ/pZ207PAhYk58ifNjKbXVF7Yt3MEtSCLkHrR7qqjVUreIOrBa8Ccg0HYQyou2vm5HbAnW5yIALQAxFgSfiXrRqKlQm1eDfExb3RoN3JEpSRSGClr7874=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l/zCUp7A; arc=none smtp.client-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UP9xemUO";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NIT+ZxRy"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69B1q2sV1366740
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 02:28:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=Tsw52ZQ+RZP
-	9IDHZvMkKCCM6Ksyer2YkUUSMBBReSdE=; b=UP9xemUOCj2mnhEUyGRstY/Zymm
-	9oNmKFW07QH2IFaPQawSYIbDusYBPAGb4IVfFf8pkA9IAl/4KOhNiLQcJ0dcQIVN
-	7svRMAFFY1f4YITg/v9c5MxcsSK/9ZPJXy0v67oiJ3LwGEpo5O1yqOwGnYLSuL7T
-	wGmg7hR9iw09ILQ7jGsTAUb/TQ8cvILn2QnKxpGALK76u130TKfn3YpfWNgXAgow
-	W55GklXvYKcHeUFhrkOzMfzfblZPo+60VE5xbUrjP3JGLrWzHt3yYle4HcrD2nAM
-	tBqdE8qDL8g9sDPJqi18P4aETI7l6TilrDn8+AaI5Ov4h6Cc1MOpyb1fsZw==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7en9t1au-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 02:28:36 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso2229663eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 19:28:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l/zCUp7A"
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-353804b591eso1519069eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 19:30:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791685716; x=1792290516; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791685858; x=1792290658; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Tsw52ZQ+RZP9IDHZvMkKCCM6Ksyer2YkUUSMBBReSdE=;
-        b=NIT+ZxRyzUesx+32ZCSINoD115z9ZYhX4WAYcJCH7DdIGoGrv3au/s7RViq0ssIKBS
-         8bM92ZQe/m9Kg7DycUQ6cd6OtTC1Go2Jb8r8/emyLtwvF4CzrIpvCcQDEptdQavvWmA9
-         tD4Eln5AaS8M4Fyib00VRqAH15WfhyKPAJxBjzuAhGAM67i6Coq+91sp5xT0fjAN1N0F
-         jq/GIBi5ITvU3culbmOVSdLczDcceK5+mcEC3BGILFWoUXiOjBahZwkR/4bWsSer9+j1
-         tUqlS+lZzDyt8F5FfaBN0qBsVnc3yZeuuVnkjqCinrXgW/TrqHt/KrmmvwC2V7Q3FOlJ
-         dZYw==
+        bh=kCNfp0vGn8/xN8ripmRLy8rnMYglVOHWqc9ty1HwnYw=;
+        b=l/zCUp7ABZWH8wrBVV/5dVJ6+9CYed9Ca83BrzE8tH4timNtKuX3ln2LtWCHI3qEyU
+         FOtw9PTRQf5bxJzV9Ym/z9MOlFarANpv14+G+CBh8g/sHjQ6L4zVAKfJ4FjfkpGrRaMQ
+         VmpPeHM2xjYq71INZOk6W5frAnl0nyvErB/aBYAZr/rQ8dvxJCaYZ9zIWuXu4nYkFjP0
+         mg2jlnBnu8gzji6vApIMjsP4e1yfjMwIisczBTKJD1cNUm4MbL0t4a00E2qWuSIrU5ye
+         npX50ASgfRMAI7wKtZSKZFGJJNJDfhnZMGBBSou/SzZ6tvwpERmqRe/ZiQnM+j0G2/qh
+         ioRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791685716; x=1792290516;
+        d=1e100.net; s=20260707; t=1791685858; x=1792290658;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Tsw52ZQ+RZP9IDHZvMkKCCM6Ksyer2YkUUSMBBReSdE=;
-        b=uUe78C4mfRey4id+91iwQsAhT9xqbbWSJloTcUbvmyjK3Yt8trag5L38V0O8nDEzpJ
-         lHVEAJD4Qdd0Ki9AfnJZjd3fw6XizZPoKKkm7Vwsx4LbZDdiMqvzruMcIAs6lG7jUndD
-         ooJUIQFXtUurf5bKvYmmy6Al1euBarCv2ZwXcRh3QaKzW6qzAzJ9GObjy4sh2IFYlyEb
-         9ESguQvSrxySjalChP70JhwrHPl0urhTRlQ9Wt+I3NKLeuvX2P+U+1/ptV3u8Db/q624
-         ipys0rUFd9dTnhs4W+FOmk2QW+uSqU49FbhizMukd9iColVSQSs9/eIT2Vrkb8rZxFV7
-         kRVw==
-X-Forwarded-Encrypted: i=1; AKwUvBxRBKPaQ1RI9GBC9dMdoPwOcGPnH3Z2UxkZp3FF9yhPUx1mh2MAdQSWwJEJVHXpAHuu3xF8FivUuyg6zZM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJmh6MQ9eJob+pyojnGzHSDtUAppn/MSJeDJ7WzDF0RbNcmK0on
-	RQ+8Psry9cwumKH4SY4GP3/qyYkn+Z/Sfr+VZup9Om3Yi5HsO6gVCz0/hPgcPHJdDRhvfVUiDqI
-	9lmPWJBfGpxpPIDe0U/7Y6S8DZ9PNQPO+cK/KNnHHatbII76lAxs8eT40MzCVOqyjahw=
-X-Gm-Gg: AYBFou0WMTZIJsqIMF5jK39Z5DHtp8Qcpc2Doffqo1ePzfYXGj81SMRDUvdJXNEZ7us
-	RVUgxMiPk+KApYrGkoujCDKmSrG3xj12GlTPRifokJABy4LFNGYn9g866oE0rGiIrV6JBLuyDWv
-	O0HKiG6FoivtMaAtDc38g+JFDHTj6FYtsgJxsmRlVEdXn3hr07GOKI7Nm5q6pWVtbNeW8f5SKhM
-	tgPogLfT/Uqre1fJhrTpwF8VG4gqYDNBvGO6SznZCl9X2y3rlP93HA8AoVW0OyXt4Gk86CkDmE4
-	Wwqeqk2WMJ2xM/jJCx0RHEL9OxHsBlT7VQ+ON7IUT5QqgKSDC07Qcy9iFayASgyPW+UWSA+moKW
-	lxFG9yQD4d6n1dW9t5Pf63u11ugYI3EtdTFWqBk2uPU4rPiVI1WmDOqqoNWY=
-X-Received: by 2002:a05:7300:c7c6:b0:351:7108:c62 with SMTP id 5a478bee46e88-3537e0f3a99mr7693032eec.23.1791685715919;
-        Sat, 10 Oct 2026 19:28:35 -0700 (PDT)
-X-Received: by 2002:a05:7300:c7c6:b0:351:7108:c62 with SMTP id 5a478bee46e88-3537e0f3a99mr7693008eec.23.1791685715261;
-        Sat, 10 Oct 2026 19:28:35 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c841648sm22068243eec.3.2026.10.10.19.28.32
+        bh=kCNfp0vGn8/xN8ripmRLy8rnMYglVOHWqc9ty1HwnYw=;
+        b=j38VbW1djf2huBZ+HHmvKVLqNAT24aSXCPUDC1hXZxqZrGlYz+1J8+R8Q9O3tNNh11
+         FWFU6cd2fouv96y6sjkaGyArYhWSnwQtoFidtp/pAiCO/nEw1Z3QdXRK46Kh2d0Eaqr7
+         MZULP3RJ2rENYsANBAKuQhBhvZyLbtRLOtrtwYV6Wu5NuFEF13YRb3qwfebz1aWaQ1rH
+         AzINMqGc8oRU+K8xCFTjFD57I1I6F31vamirdmrtX8X6mm4dCHuOgF71saRNY+lUnqdj
+         D6AzNGXa7+YGOq8Jns8S/q7Oezf1MZUnEbqBuX2bVLD8MR/TJvWBbKGXFo6SZnSLSjgG
+         kQSw==
+X-Forwarded-Encrypted: i=1; AKwUvBxo2zbGl/jRClPWq9Vg4MU9MczdJ5UkeNdC/yfkDNqtNAxN2//rwwbdKfYAGSQdgzWwPrHlwzN+pFLRbSc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKS7MKK+4fW4rFMV7VJjmWccGsXEg8SaZ6mdyCv+6ECj+tR2RL5
+	tQ7ZOvHp/47Il5d4JBmV7oB4npBqP86p08YqVuAz7pbFEX8Dnq2WRSmR
+X-Gm-Gg: AYBFou25rE1+EB9OiYhHiSXSXaOIkMrZkUJAh69hUoPNZP+Ol7zmZXYNW2f98xzkVFB
+	gREZIG8CsqlhjMrOKmZ4UxqgcJg8C6jSRcSFod8YMi3+x1+69W+iCkgb67VMpbgaR7WjPOL+RKe
+	//6W//3huvXcf3gCVvLkyTnd9jRlsgfXb0B5+IRDvIWImIVCiidWnpqj8l+BkUd1+XQEKkvJBr0
+	VYc4SLlPUko8OXm13P9xqxrHuVDzEAO3rvXNUQO2uEhwQLCARl6lNHEK7b9cmkkcgBoynDxTK9O
+	oJf3iW/0RZ6Nyq2TKFtjlUcmpxQZD8ggCkSrBvx5Gx+m60GEtIQ/M49BhRlL1/G8GezGE4EITgB
+	oAwxNgzAgld6CYvd3m+GiD5g/YTDh7RN4/vaPcjaOLSwW54pSAR8zm5z/+CMA5wQS5cKKg+RVbZ
+	hTe8zO56yi0z3WpkIV8sW2j9I0yffAcEbsrSbwZpCo3i73cB+p3S1nrUyAmwCTzUyIyeyiByMsb
+	+eCEk4hJJJwur48i48lpjmEPXDsWEglGy60TlNCybaTh4ggMJNfijE11pI+CWkM7exD3HkiWT/X
+	wA5dBVHx1I2EfqrLN4K21n09TCAbWax8evcmGFyqMDZhCHTl8nYczHmyoF6s5PYY4sWGm7XeYX0
+	RJ5QNsvs+PfuIIvzussMGcJ7v1i/tBan2RYgqeFk/CSrCDICH8+xVFsTYLo8NMh39SgHHv3z6T2
+	Q2dpnbSilpaHjyRjOWn1oQoEGzDGkmDCdrz4mmDg==
+X-Received: by 2002:a05:693c:66c1:20b0:351:1b85:e139 with SMTP id 5a478bee46e88-3537e0cefcdmr8632109eec.23.1791685858335;
+        Sat, 10 Oct 2026 19:30:58 -0700 (PDT)
+Received: from localhost.localdomain (2001-b011-c00c-b850-3c50-660a-7c51-9da0.dynamic-ip6.hinet.net. [2001:b011:c00c:b850:3c50:660a:7c51:9da0])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb1e05esm20357265eec.25.2026.10.10.19.30.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 19:28:35 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Stephan Gerhold <stephan.gerhold@linaro.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
-        Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH v2 2/2] remoteproc: qcom: pas: Don't fail attach if the remote has crashed
-Date: Sun, 11 Oct 2026 10:28:02 +0800
-Message-ID: <20261011022802.4069489-3-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261011022802.4069489-1-shengchao.guo@oss.qualcomm.com>
-References: <20261011022802.4069489-1-shengchao.guo@oss.qualcomm.com>
+        Sat, 10 Oct 2026 19:30:58 -0700 (PDT)
+From: Ting-Han Hou <ue081723@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Jan Kiszka <jan.kiszka@siemens.com>,
+	Kieran Bingham <kbingham@kernel.org>,
+	Kuan-Ying Lee <kuan-ying.lee@canonical.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] scripts/gdb: fix radix tree lookup and stack depot diagnostic
+Date: Sun, 11 Oct 2026 10:30:42 +0800
+Message-ID: <20261011023044.1722-1-ue081723@gmail.com>
+X-Mailer: git-send-email 2.52.0.windows.1
+In-Reply-To: <20261010141712.2db4491436e30110ccb5a25e@linux-foundation.org>
+References: <20261010141712.2db4491436e30110ccb5a25e@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -99,152 +81,36 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=Woe+otfv c=1 sm=1 tr=0 ts=6acaf454 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=3PKELjQNWO5EQmssXgYA:9 a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-GUID: Yta_MCPqGKqwVBHzGuUL2o-aFXtEw3tO
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDExMDAwOSBTYWx0ZWRfX3VaG54do/DK2
- 42ivIG6alfHqmQQ6b7LqHMRKYnkuQ2wnXL1C4gPzlQ4lsBsUulGF7VJQqIKCAvsGbFNy0BU63W7
- SOuFjAhvljtpdD5PUu+u8K8Ciwv/I+ovMyytZ37ASjuAak9aQ1OKVmzGteQuEBPoZdID4g9bsnO
- JXJrTsNviH4NpcaUhsX8f9qWEDHXWjhDQdKsXE8Gq2BXQjLjZasCsfQWF9xCfVyai9x/SOB1egP
- 9pMRpKQvKVUAY3OlyfPS+07h+mv8olzpsLZ+OO9HD1lf00Nos0MP43HrE19yAzdxg7Z59eUlL9V
- MfUuzG19reDqGFO7M0RAkLYvbFgRSqUWn85JylClJx/q54IwidmiKWt6hetiGGDtjge2TRkK45S
- MP3MW6FM9qkeub+7P6ze+Qe4THi53TGnuBUknasajRMnSYIQh2STO0QM0jQ3OV1uhjjOeH/nU42
- uH1gn01e5WEp/NpB0Lw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDExMDAwOSBTYWx0ZWRfX0nsia5vjGr2G
- TNh0av1GSGCMVeFo2vdEyRObicJpXf8mjpNaGoV9dkL11iL2BfidPOjBeDC7ZVBNENSX93kGvwI
- K8RUpTTM1yW/tKltN4pcEzhTLVa8Cus=
-X-Proofpoint-ORIG-GUID: Yta_MCPqGKqwVBHzGuUL2o-aFXtEw3tO
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-11_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 priorityscore=1501 phishscore=0 spamscore=0
- suspectscore=0 lowpriorityscore=0 malwarescore=0 adultscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610110009
 
-When qcom_pas_attach() finds the fatal SMP2P bit already set, it reports
-a crash and then fails the attach. The core unwinds the attach while the
-crash work is queued: rproc_boot() drops the power refcount back to 0,
-and __rproc_attach()/rproc_attach() unprepare the subdevices, clean up
-the resource table and disable the IOMMU. Once rproc_boot() releases
-rproc->lock, the crash handler finds the rproc still RPROC_DETACHED,
-marks it RPROC_CRASHED and runs rproc_boot_recovery() on top of that
-torn-down state:
+Andrew, here are the two scripts/gdb fixes as a series, as requested.
 
- - the subdevices are unprepared a second time by rproc_stop(), so SSR
-   and sysmon notifiers see a duplicate shutdown;
- - qcom_pas_stop() and the subsequent rproc_start() operate on resources
-   that rproc_attach() already released, e.g. iommu_unmap() on a
-   disabled domain for rproc->has_iommu;
- - recovery leaves the rproc RPROC_RUNNING with power == 0. A later
-   "stop" via sysfs takes power to -1 and returns success without
-   stopping anything, so the remote stays running. A following "start"
-   then boots the firmware again on the running remote and fails to
-   re-add the still registered subdevices:
+Patch 1 fixes $lx_radix_tree_lookup(), which dereferenced slot contents
+as if they were node pointers. v2 also handles the XArray sibling,
+retry and zero entries that Sashiko pointed out: they carry the
+internal tag but are not node pointers, and the v1 patch raised a GDB
+MemoryError on them. Large folios in the page cache make sibling
+entries common, so this was worth fixing rather than documenting.
 
-  sysfs: cannot create duplicate filename '.../qcom_common.pd-mapper.0'
-  remoteproc remoteproc0: failed to prepare subdevices for adsp: -17
-  remoteproc remoteproc0: Boot failed: -17
+Patch 2 is unchanged from v1 apart from being resent with git
+send-email, since the earlier copy was word-wrapped by the mail
+client. Sorry about that.
 
-A crash found at attach time is no different from one reported by the
-fatal interrupt right after attaching. Factor the crash handling out of
-q6v5_fatal_interrupt() into qcom_q6v5_report_fatal(), which logs the
-SMEM crash reason, clears q6v5.running and reports the crash, and call
-it from qcom_pas_attach() before letting the attach succeed. The core
-completes the attach with balanced bookkeeping, and the crash handler
-then recovers the subsystem through the regular RPROC_ATTACHED ->
-RPROC_CRASHED path.  With running cleared, qcom_q6v5_request_stop() does
-not wait for a stop ack the dead remote cannot send, and handover_issued
-already prevents a spurious handover on stop.
+Both patches are tested against standalone GCC-built fixtures that use
+the kernel struct layouts (details below the --- line of each patch),
+not against a running kernel.
 
-Assisted-by: LLM
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
----
- drivers/remoteproc/qcom_q6v5.c     | 22 +++++++++++++++++-----
- drivers/remoteproc/qcom_q6v5.h     |  1 +
- drivers/remoteproc/qcom_q6v5_pas.c |  9 ++++++---
- 3 files changed, 24 insertions(+), 8 deletions(-)
+v1:
+  https://lore.kernel.org/r/CA+NtrhTyE4J-C2=hSUXYc+NJBsQeYvbwJb+-ROHE1QQP-_gYzg@mail.gmail.com/
+  https://lore.kernel.org/r/CA+NtrhTQXdQRWe+pRJHyKxPPgsF7Ob5R41Xm3dAJ54OfT2_z5A@mail.gmail.com/
 
-diff --git a/drivers/remoteproc/qcom_q6v5.c b/drivers/remoteproc/qcom_q6v5.c
-index fe148b4b3775..51b24cbd4336 100644
---- a/drivers/remoteproc/qcom_q6v5.c
-+++ b/drivers/remoteproc/qcom_q6v5.c
-@@ -147,15 +147,18 @@ static irqreturn_t q6v5_wdog_interrupt(int irq, void *data)
- 	return IRQ_HANDLED;
- }
- 
--static irqreturn_t q6v5_fatal_interrupt(int irq, void *data)
-+/**
-+ * qcom_q6v5_report_fatal() - report a fatal error of the remote processor
-+ * @q6v5:	reference to qcom_q6v5 context
-+ *
-+ * Log the crash reason published by the remote in SMEM, mark the remote as
-+ * no longer running and report the crash to the remoteproc core.
-+ */
-+void qcom_q6v5_report_fatal(struct qcom_q6v5 *q6v5)
- {
--	struct qcom_q6v5 *q6v5 = data;
- 	size_t len;
- 	char *msg;
- 
--	if (!q6v5->running)
--		return IRQ_HANDLED;
--
- 	msg = qcom_smem_get(QCOM_SMEM_HOST_ANY, q6v5->crash_reason, &len);
- 	if (!IS_ERR(msg) && len > 0 && msg[0])
- 		dev_err(q6v5->dev, "fatal error received: %s\n", msg);
-@@ -164,6 +167,15 @@ static irqreturn_t q6v5_fatal_interrupt(int irq, void *data)
- 
- 	q6v5->running = false;
- 	rproc_report_crash(q6v5->rproc, RPROC_FATAL_ERROR);
-+}
-+EXPORT_SYMBOL_GPL(qcom_q6v5_report_fatal);
-+
-+static irqreturn_t q6v5_fatal_interrupt(int irq, void *data)
-+{
-+	struct qcom_q6v5 *q6v5 = data;
-+
-+	if (q6v5->running)
-+		qcom_q6v5_report_fatal(q6v5);
- 
- 	return IRQ_HANDLED;
- }
-diff --git a/drivers/remoteproc/qcom_q6v5.h b/drivers/remoteproc/qcom_q6v5.h
-index 8991ff090579..a0507860a21c 100644
---- a/drivers/remoteproc/qcom_q6v5.h
-+++ b/drivers/remoteproc/qcom_q6v5.h
-@@ -56,5 +56,6 @@ int qcom_q6v5_unprepare(struct qcom_q6v5 *q6v5);
- int qcom_q6v5_request_stop(struct qcom_q6v5 *q6v5, struct qcom_sysmon *sysmon);
- int qcom_q6v5_wait_for_start(struct qcom_q6v5 *q6v5, int timeout);
- unsigned long qcom_q6v5_panic(struct qcom_q6v5 *q6v5);
-+void qcom_q6v5_report_fatal(struct qcom_q6v5 *q6v5);
- 
- #endif
-diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
-index 56179b71fd2a..99f627db6bd3 100644
---- a/drivers/remoteproc/qcom_q6v5_pas.c
-+++ b/drivers/remoteproc/qcom_q6v5_pas.c
-@@ -562,10 +562,13 @@ static int qcom_pas_attach(struct rproc *rproc)
- 		goto disable_running;
- 
- 	if (crash_state) {
-+		/*
-+		 * Complete the attach and let the crash handler recover the
-+		 * subsystem from the attached state, as for a crash reported
-+		 * by the fatal interrupt.
-+		 */
- 		dev_err(pas->dev, "Subsystem has crashed before driver probe\n");
--		rproc_report_crash(rproc, RPROC_FATAL_ERROR);
--		ret = -EINVAL;
--		goto disable_running;
-+		qcom_q6v5_report_fatal(&pas->q6v5);
- 	}
- 
- 	return 0;
+Ting-Han Hou (2):
+  scripts/gdb: Fix radix tree lookup pointer handling
+  scripts/gdb: Fix stack depot out-of-bounds diagnostic
+
+ scripts/gdb/linux/radixtree.py  | 66 ++++++++++++++++++++-------------
+ scripts/gdb/linux/stackdepot.py |  2 +-
+ 2 files changed, 41 insertions(+), 27 deletions(-)
+
 -- 
-2.43.0
+2.53.0
 
