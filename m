@@ -1,172 +1,84 @@
-Received: from mail-07.mail-europe.com (mail-07.mail-europe.com [37.187.220.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-75.mta0.migadu.com [91.218.175.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9AF2DFA4A
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 15:26:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.187.220.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CD2D2F3C10
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 15:27:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.75
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791732411; cv=none; b=qVO48it23GjIl8I7503834keRo+8/TRyl9YyFDJuCxJrpx9o7tZ9l9NdmTW5x7/6CJBE5zHDHRw4yE9vr2GTDkQOp3peYtQTvJaaFGsGB8Qp60bRiGWPRebTmFpkVjxoZEDOP8jT0Vvl5sZlT4Mk1BSp8f9vpm+fqwz8WNgv1Mk=
+	t=1791732459; cv=none; b=bbat62Wii6000LE3rSaHADs1tHwVDM4km/fUbPETUmEotYyQznWkyxHUIt/T4NmHIbgl6yJ+kNe3A+EM7dfHlIb4nbUcQotE/OX0FZqWroQH4tOefdWdTdoWvP/SJpVwz22jz4kvk8aa9nzCi6iOX8cgMIr+3LB7WlQgyl9Qyls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791732411; c=relaxed/simple;
-	bh=1UiWxxWmaqJS/1eMvEfKBukxOF927TCrDCQv/J4e9+4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YvVqGz7Q/QnzoiB94jh+i/q4w0Au92LDqwIYxrm4EUMvl4Yd++4agwI9Nj0Dbriuk8N90pAugJl972oH00YbQaFwqEqkZ3JNM9Guni7WH1AVDHVlZxKezSKy781p1VYXj5/kQADah1/lXlY+uANxoajnjbzP2SbmaYZ5h8nLoNg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev; spf=pass smtp.mailfrom=onurozkan.dev; dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b=jyrBvQLz; arc=none smtp.client-ip=37.187.220.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onurozkan.dev
+	s=arc-20240116; t=1791732459; c=relaxed/simple;
+	bh=suXI9TweIJ9OgvYGDH8vL0MpTp8HpvwFkmEvYZ5Q21c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=A1jooHw6JdQ4cmEboPFYaR2YrFHTt5/iht3HsXbrVwYsccMCiE6/rosDU1GTv9nB8h3z+lPynCO0MEIayWg3eJ7AqlFhX1yGRTdwhe1j4OsOu41g03rmBOo7gpc8By1tAimyMXLuSzEnJvhxS/YECvekKsc165z9A4daB7TBL7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=P18CFpNn; arc=none smtp.client-ip=91.218.175.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="jyrBvQLz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
-	s=protonmail2; t=1791732397; x=1791991597;
-	bh=RXyfFVfaAhlQRHEV6RukULXPip+X7zzDOrgAXGjUHEc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=jyrBvQLz9yBGShrDXcTleIU74SPcLuRy1kLDtZ5Ics3vWQ6Z1tjZQJFmdbOaHlfXm
-	 ZmyfRoiG0MQlxyMvzHKYkXn1SHo309tU6rEYCxrj77KTtmTCV9DIVIxyxlhjZ0Uy3s
-	 14OKGOnXtn1suGYWbqFMDLpBDPuVKko2M5U4MzOECGTthJn3epSioUOjuYSBo9IfYK
-	 4YP+t651120yToVpN+WG9xRYhTN1Q317xGG6jJ0mhvbj2gMCsu9K530a8sU3gu6kUv
-	 ueg+AA3vtK4fj+0UZLtrjrGT1ykON1XOvqoq7lZaOlioZgwN1QGdyMeaSSyBIsxzG9
-	 +xkM+MAtWNHOA==
-X-Pm-Submission-Id: 4j2kw71YDfz2ScWv
-From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-To: Daniel Almeida <daniel.almeida@collabora.com>
-Cc: rust-for-linux@vger.kernel.org,
-	lossin@kernel.org,
-	lyude@redhat.com,
-	ojeda@kernel.org,
-	alex.gaynor@gmail.com,
-	boqun.feng@gmail.com,
-	gary@garyguo.net,
-	a.hindborg@kernel.org,
-	aliceryhl@google.com,
-	tmgross@umich.edu,
-	dakr@kernel.org,
-	peterz@infradead.org,
-	mingo@redhat.com,
-	will@kernel.org,
-	longman@redhat.com,
-	felipe_life@live.com,
-	daniel@sedlak.dev,
-	thomas.hellstrom@linux.intel.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v10 6/7] rust: ww_mutex: implement LockSet
-Date: Sun, 11 Oct 2026 18:26:20 +0300
-Message-ID: <20261011152630.117725-1-work@onurozkan.dev>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <A11C8B1A-00A3-49C9-B9B5-30A55AFDDF2B@collabora.com>
-References: <20260103073554.34855-1-work@onurozkan.dev> <20260103073554.34855-7-work@onurozkan.dev> <A11C8B1A-00A3-49C9-B9B5-30A55AFDDF2B@collabora.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="P18CFpNn"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=suXI9TweIJ9OgvYGDH8vL0MpTp8HpvwFkmEvYZ5Q21c=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791732453; v=1; x=1792337253;
+ b=P18CFpNnABRkvvSvZLpB5WBPqb3C1Gy0xH7TyrM/bE6d5D+EabA+/tUOJ6WdYe8JylnlFtsg
+ ldCXcxPa2d44Seta2rOu8MorP3L70f8Pkewz97uF3aW05w3SQvetvV4z6ZUpTs/9294HOqlwYmV
+ Gq1ycQR36ua2ds3lMKhm8MyI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id cd0817c970917564;
+	Sun, 11 Oct 2026 15:27:33 +0000
+X-Mizu-Trace-ID: cd0817c970917564
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5bcf03d95b8so1028e87.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:27:33 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxiJB8liM0EtJhciearuKNbobOtMynAiEoO8Vbk9t8AneThuoRKQy77Kg+j/urGFc7H4Lnmx+gy+P7Ne+4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK97inDLLbIE5BB5cZOlY98nFIqqgGYc3bO/Cu+MPaH1uLiJdFT
+	q/XuO9y+OGaVpP42X4CB5sJhwt/p/mz/ycF+J+1L/XSWeJbuuteFyARFQZ5wVjs4/hS34i/uhb9
+	ANGeIyDLNjPDTeUF6LLG51J0Y3u4aiu1e/Copf8wF
+X-Received: by 2002:a05:6512:238d:b0:5b8:ebf3:3370 with SMTP id
+ 2adb3069b0e04-5bce9d8696fmr69006e87.5.1791732452056; Sun, 11 Oct 2026
+ 08:27:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+References: <20261011143648.211337-1-fuad.tabba@linux.dev> <20261011143648.211337-5-fuad.tabba@linux.dev>
+ <87zewk8e90.wl-maz@kernel.org>
+In-Reply-To: <87zewk8e90.wl-maz@kernel.org>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Sun, 11 Oct 2026 16:26:55 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTwQzWTQd83ybB7xyhzVZctre0Nn5_Smg8dA7QusNMve3w@mail.gmail.com>
+X-Gm-Features: AclHuK_rIOwStTCG2fxSnbJUVb7MyinGSk7pAOJvFzysPaQbzGjG5f9VtEekiws
+Message-ID: <CA+EHjTwQzWTQd83ybB7xyhzVZctre0Nn5_Smg8dA7QusNMve3w@mail.gmail.com>
+Subject: Re: [PATCH v2 4/5] KVM: arm64: vgic: Do not access the GICv5 CPU
+ interface from EL1
+To: Marc Zyngier <maz@kernel.org>
+Cc: oupton@kernel.org, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, 
+	seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, 
+	mark.rutland@arm.com, vdonnefort@google.com, qperret@google.com, 
+	Sascha.Bischoff@arm.com, steven.price@arm.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 30 Sep 2026 19:10:16 -0300=0D
-Daniel Almeida <daniel.almeida@collabora.com> wrote:=0D
-=0D
-> Hi Onur,=0D
-> =0D
-> The bot has caught it already, but remember to compile with CLIPPY=3D1 fo=
-r=0D
-> v11.=0D
-> =0D
-> If push() fails, two things drop:=0D
-> =0D
-> > +    /// Attempts to lock the given [`Mutex`] and stores a guard for it=
-.=0D
-> > +    pub fn lock<T>(&mut self, mutex: &'a Mutex<'a, T>) -> Result {=0D
-> > +        let guard =3D self.acquire_ctx.lock(mutex)?; <--- this guard=0D
-> > +=0D
-> > +        self.taken.push(=0D
-> > +            RawGuard {=0D
-> > +                // SAFETY: We just locked it above so it's a valid poi=
-nter.=0D
-> > +                mutex_ptr: unsafe { NonNull::new_unchecked(guard.mutex=
-.inner.get()) },=0D
-> > +                _not_send: NotThreadSafe,=0D
-> > +            }, <------- also the raw guard, which drops in push()=0D
-> > +            GFP_KERNEL,=0D
-> > +        )?;=0D
-> > +=0D
-> > +        // Avoid unlocking here; `release_all_locks` (also run by `Dro=
-p`)=0D
-> > +        // performs the unlock for `LockSet`.=0D
-> > +        core::mem::forget(guard);=0D
-> > +=0D
-> > +        Ok(())=0D
-> > +    }=0D
-> > +=0D
-> =0D
-> Both unlock. I suggest that RawGuard consumes Guard on creation, or some=
-=0D
-> variation of this.=0D
-=0D
-We can forget the original guard after constructing RawGuard before calling=
-=0D
-push(). I think we can keep `RawGuard` as simple as it is.=0D
-=0D
-> =0D
-> =0D
-> When locking, I don't think it makes sense to immediately retry on=0D
-> -EDEADLK. This will busy-loop on a lock that will probably still be=0D
-> taken. We should release all locks and sleep instead.=0D
-> =0D
-> > +    pub fn lock_all<T, Y, Z>(=0D
-> > +        &mut self,=0D
-> > +        mut locking_algorithm: T,=0D
-> > +        mut on_all_locks_taken: Y,=0D
-> > +    ) -> Result<Z>=0D
-> > +    where=0D
-> > +        T: FnMut(&mut LockSet<'a>) -> Result,=0D
-> > +        Y: FnMut(&mut LockSet<'a>) -> Result<Z>,=0D
-> > +    {=0D
-> > +        loop {=0D
-> > +            match locking_algorithm(self) {=0D
-> > +                Ok(()) =3D> {=0D
-> > +                    // All locks in `locking_algorithm` succeeded.=0D
-> > +                    // The user can now safely use them in `on_all_loc=
-ks_taken`.=0D
-> > +                    let res =3D on_all_locks_taken(self);=0D
-> > +                    self.release_all_locks();=0D
-> > +=0D
-> > +                    return res;=0D
-> > +                }=0D
-> > +                Err(e) if e =3D=3D EDEADLK =3D> {=0D
-> > +                    // Deadlock detected, retry from scratch.=0D
-> > +                    self.cleanup_on_deadlock(); =0D
-> > +                    continue; <------ sleep on the contended lock befo=
-re continuing=0D
-> > +                }=0D
-> > +                Err(e) =3D> {=0D
-> > +                    self.release_all_locks();=0D
-> > +                    return Err(e);=0D
-> > +                }=0D
-> > +            }=0D
-> > +        }=0D
-> > +    }=0D
-> > +=0D
-> =0D
-> In order to sleep, we must record the contended lock though, which is=0D
-> something that this patch does not do yet. I suggest that we store a=0D
-> pointer to it and call from_raw() on that. Also, when acquiring the=0D
-> contended lock, we must hold it before retrying, or we will race for it=0D
-> again.=0D
-> =0D
-> > +    fn cleanup_on_deadlock(&mut self) {=0D
-> > +        self.release_all_locks();=0D
-> > +=0D
-> > +        // SAFETY: We released all the locks just above.=0D
-> > +        unsafe { self.acquire_ctx.as_mut().reinit() }; =0D
-> > +    }=0D
-> =0D
-> =0D
-> IIUC, calling reinit() will forfeit our ticket and acquire a new one, so=
-=0D
-> LockSet breaks the whole premise of wwmutex: when there's contention,=0D
-> the older ticket eventually wins. IMHO, remove that line.=0D
-> =0D
-> =0D
-> -- Daniel=0D
+Hi Marc,
+
+On Sun, 11 Oct 2026 16:10:19 +0100, Marc Zyngier <maz@kernel.org> wrote:
+[...]
+> This really is perpetuating the wrong model. The rule is simple:
+> anything that requires system instructions or system registers cannot
+> be accessed from EL1, and therefore GICv2 is the only one that can be
+> accessed from EL1. So the whole thing should read:
+>
+>      return has_vhe() || kvm_vgic_global_state.type == VGIC_V2;
+
+Ack, I'll respin it that way.
+
+> Ultimately, we should static keys for all of the vgic types.
+
+I'll do that as a follow-up once the merge window is over.
+
+Cheers,
+/fuad
