@@ -1,28 +1,29 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011035.outbound.protection.outlook.com [52.101.70.35])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011017.outbound.protection.outlook.com [52.101.70.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6277A361976
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 17:40:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6F793624CC
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 17:40:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.17
 ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791740425; cv=fail; b=uPEbYWkiG9oD2CzaSBvtVKkkYGP7C+jEz2kpl6fe9dRol8+wX36p6jKf/oIWteZpcwINXXM9zPsjxFJinemr5NYzDTKnPbSbJ9AEtUV+6tC3ow0dH1rOAo5lrYhjDPYRDb47iyfNI2jfWhkxu6UAHrH6vQvHUqqRqhqZTqyL8dk=
+	t=1791740426; cv=fail; b=hdDfX/xGUDoSGD1Jkm78RAFDav8qSdcq8GVN4aUYzK5OizW1kC67YGQcOSaYm7dhnj8vNpCDv9IDJPeo4UnTV15MrKAxq76tieiFny5NqOU9LOyicdBlhq9jDiZTUU80eJMTq0J/hAx/8zWdPMZrAYjL8CYhdzjYT7LWk0/HrqA=
 ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791740425; c=relaxed/simple;
-	bh=L8oVMjT8FMJCDvgx0xT44x37LM2QIN5RZlBxaK8UuJY=;
-	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=Mw0M5avLB3fblcB9RtrhwqnUo0TN22kW+1nyg9b3taxuvVsVm/oBiiSODe2/EXomYmhxA8uRQx0C67QGo2wnj1x3Z5cQj/o9s86ErBT8idMozee2s7rhVJSfzE8SRdT1b0f5PwbWUSFEZ8loatMSHH4U9wkSfrXUJdmuOCBdNEA=
-ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=kBqvHwxG; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=kBqvHwxG; arc=fail smtp.client-ip=52.101.70.35
+	s=arc-20240116; t=1791740426; c=relaxed/simple;
+	bh=BoGrZlOUd4M7kq3A7myVUgAdX6kPA1RgaiymIhYCa6s=;
+	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
+	 To:Cc:MIME-Version; b=rP1knHvLNI06DjDZq8k/P5bJDmh+41rRbTspfXus9rLS8nUJkIrD6KFRH2HlfhlDlGNhxhnCVraHhstJ8uiOGIX85amxX7P+cIGgRrQ4Sa25PW/AxNlS2vTHME5eWU7uW1iIPhCWZoDfSVtV3zpkTVOkXYld98/RPQ8cqyk6Pz4=
+ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=PKxGZFpy; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=PKxGZFpy; arc=fail smtp.client-ip=52.101.70.17
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="kBqvHwxG";
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="kBqvHwxG"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="PKxGZFpy";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="PKxGZFpy"
 ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=BW+DHSBrvujGvOyJbe0SwWFYMiE5GG3TCYiuQEjy5mNfsHbFfbKuZd6idL8/ZQY2NK7+1aCoaxOlyXp/9jDmrgwX7BgF//vXRr/Ggp8hVXxczjbKnUu9MTwewu7bPrVbrP6dZZXE3iNHEb9BM4U3s7yW36BNDq7SeIWwQjaIBA5fb11SI2NIhKnsjJA0W+FcF2LhDWYWsi8Vuww4Bfrfd0uf5eCodCRYxYhlyogvtyRwsQobcDfa5KmBGCVJSiW4mr4xkxlMOfYOvXf2NKKAhcWc4N6BQKlQuzGAhcmm+xOOopLJlKA73GFh2ZXnjZYHSyFUukB2ZRsCvxeuD8D34A==
+ b=IIhDIdX8R8RkxFqCxBKOdU4MUIanmEGqh3+R5PA0tVgGAGsw/guONXyi70oUkuSxYRpuRsx3oeYSQg3P/r+/G369/MeanhC75l/+FurQBr4GXmR2bCHud3dpUu6nxjBCSRRwsufCDgZqz9AJA6Oz1NHnXqwHkAT5kyZH2n6gsxRcegWbM7FXLqx2tDS2ddSuRiR4Yzaa/MV0ODZpmddPby2CIXlGTjNhXjeaRSLd+HJ2HJ82rF8h4h3lqxYKckgddR7tgphuM7QGfJk01YRzG6k9A0OqOHwHeb5sEF2pfE5xvgHtgULzT4FNGBcMOGgYLoV/UoEgfwOUegpb6WkwTw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SgQnJSCaYpfcDW90CuLAi4zX9qHHQfKaR+yyWzBBy+A=;
- b=MdCd61FkoYm7ggDNwu95r+302qUCAJI0hZXZV52avJyRuXPk6zYZtrHXbaL5kJg1c6IluTqrX8CojQ6KWxKA+cfaqzekjltaNKt37HjPSR8IVp4ksBV37tDtTQ1T017/hLDgPj1AKSiNWV+dr7ePBOdK455Ey90KTjFgjHRu8SNwJ08goJRiLlzjOZFP0EAGTTSVGtTX00mrYO+ThNwgOlZM6fOb9bYSioXwa9FMPkibtfIGiQ6WNpmHMef9loGN6N5tEd2otL7wQDLJSbe7dYjlC88oRoyQBzuhzBHHHAfNrTOeeOnvzK+rLSsDsRtA1WPwJjEKUDVZPfTd/KAeEg==
+ bh=YOlGWin7237jvcz8PKAzq/GqL+7Iyzum2o7xijQ7TGw=;
+ b=vpxzpz53NjsCUwQYIX9OHlOlRrqTns8f5waLMJ0r/O9DEXowQBh2bEugVfC+eqhwdb2U6lIBi1eRU9PHzrEF5FVFqaCtFWaZOXEOWLFxdmQCTfWPXqsih1O472+K/Dd+je9TlsNEMD+bmcP3n3Xw0eMOKSNb1yg8N4j6hcJAy91l/s6vgz1P5j1Ks73NuWfdiQpP13J7OFAhE/BKY5xRL04KZqfireDin2Cy+nhDLE4R078SpuRnHZ6O04+xW+VPCtWRXc7wLj8WnzAECLMpZ8EYO04OdDNxVbBx82UhXwy97ldCTDDhaArIqfRQgyOewR+zIRwS4Vq6cc30hpl2yQ==
 ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  4.158.2.129) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=arm.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
@@ -31,18 +32,18 @@ ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  dmarc=[1,1,header.from=arm.com])
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SgQnJSCaYpfcDW90CuLAi4zX9qHHQfKaR+yyWzBBy+A=;
- b=kBqvHwxGqI527GhkuRJUPuC/gVp9H+pyQy8grpX+MtFnn1/P/VQIg5m/YJ8ZiI4kAxe69M3e66zFgllTHEd2i6GSNlVix2f5b2AmMIurBcCbNM/N0LaID6THcv6xdZkgwtj/OmZKJ8W3W5Ii0MG4dj7yBSkwN335LfnFC6rNelA=
-Received: from PA7P264CA0526.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:3db::7)
- by GVXPR08MB11536.eurprd08.prod.outlook.com (2603:10a6:150:2c3::17) with
+ bh=YOlGWin7237jvcz8PKAzq/GqL+7Iyzum2o7xijQ7TGw=;
+ b=PKxGZFpy7qRtHXekEpu4aVoZMJ8B0lSyYt81iAwIHY6m+F3pAHLHTF69ex9IrirbbOwdEbqS2d6dU9y7wR+uWUZjMagaD9UqQiXdxcTSkJChzMlSNhhLUBtDDGafstuNd7vHeJOA3j2z8+ltnwoB5vUDITDxzW2i8ugkY6CS/fg=
+Received: from OS6P279CA0153.NORP279.PROD.OUTLOOK.COM (2603:10a6:e10:39::13)
+ by VI0PR08MB11293.eurprd08.prod.outlook.com (2603:10a6:800:306::16) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.10; Sun, 11 Oct
- 2026 17:40:14 +0000
-Received: from MI3PEPF0000848F.eurprd03.prod.outlook.com
- (2603:10a6:102:3db:cafe::9c) by PA7P264CA0526.outlook.office365.com
- (2603:10a6:102:3db::7) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 17:40:17 +0000
+Received: from CPH1EPF00000530.eurprd05.prod.outlook.com
+ (2603:10a6:e10:39:cafe::1c) by OS6P279CA0153.outlook.office365.com
+ (2603:10a6:e10:39::13) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Sun, 11
- Oct 2026 17:40:14 +0000
+ Oct 2026 17:40:17 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 4.158.2.129) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
  header.d=arm.com;dmarc=pass action=none header.from=arm.com;
@@ -50,45 +51,42 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  4.158.2.129 as permitted sender) receiver=protection.outlook.com;
  client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
 Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- MI3PEPF0000848F.mail.protection.outlook.com (10.167.240.150) with Microsoft
+ CPH1EPF00000530.mail.protection.outlook.com (10.167.241.171) with Microsoft
  SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.6
- via Frontend Transport; Sun, 11 Oct 2026 17:40:13 +0000
+ via Frontend Transport; Sun, 11 Oct 2026 17:40:16 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Zj9oT72VB9aG1Z5Zwpq6a7mjew+N7p3Lo+waq7ABa0zF421x85yZ7NUCvhL76Nn5W27aNycX2Z39ormuNdIBVpcShjFWPOgSjhzeECqLMTIHLjn50jLFA9R8e0VpLFA/xIfhkg6bTH3Xos9Kr974R5cCE6Sxk10gUGW5j+hqxj/a9V4ZHQ6/b7lGaRPWJ6Up7edXhgm5RPc1JxgafVR9wblTmr/4Hxu5kzL2UJVFwBs545LJSUOZ+9HzcBi2TGe/p10igBUfDErnf5wazpt9kdh+MflfX19fHmLC7IFleusU7NEqeuofwkbT50lrUffDBUn7pQ4xsMIFFUR54zrd0g==
+ b=sGF7pJzMz/CZ73qSTBKcX/heoAi4WyN1kIORcvQAcXUpJVcEiWqDc5tPWP1zv7oWbxNrT0lX2Cx+iJ5hdL9lMRADFdvCmvSEAXdtkZeNlwNfArYjSD9+mCH/ltj8b7At+Hi9kK/fDFMySuP3Y52k1Y3G8zdaUXmw/5EnAnb4yHuB9KJb8IZ4OYyX8S+ofLiS41AewmmK9ogvH4NOBKTLvKZ9JVHaqqRW9t5vgKPRsGoJP0x57gkmCK3G72oo1ZhENo5VtIUeDW6Z8AGCACFjtHfZh/0X3Kwels5plU3mxLmgYa6nez1jLAThOKOXbJ1uNSTa82xzXs+tpRdJpApNrA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SgQnJSCaYpfcDW90CuLAi4zX9qHHQfKaR+yyWzBBy+A=;
- b=nGzkrWfZMiStrGVtGhr2z1fiUF469J3CmNNTum6SAXLJhlYPwFrKquChWimUhG0nTuhG93dFeksnixgyewKEg8qNiK6gnQ9YFsqXAGRiqwhvvS3czsaDgNXUCyi4FH9aPQJXyOOxnbKMHsFgOM0rtJMlXKEbrab3qRRndqkBJ5Fg6JsS96Q2HzQP5z1auoliha6UZHZT+pANvbreKT5iIcNqeZuvfkj6fNjsNZz9gVtkdJUsC+aeR0tR1dDb4eiGgdx8XuA++VWftDQdsq9rY5uiVMPZGh6kCh/wPBt4/6hA6FQDHKaCqTRVYezMOGoUavJ4FQL9vDvVQlLIQLOW7Q==
+ bh=YOlGWin7237jvcz8PKAzq/GqL+7Iyzum2o7xijQ7TGw=;
+ b=JSEUMdMv5Ge23Wt/7USaOYxrG1xpmoDLU0FiUinMUgHY1hZZwLvdty7VTpb4vaSfMU4tD3ANU0lj+lP495dpjFlf2VG7seZgmc0u8jcoqhZK7XHWtvdPAC/uZgXktYxLSrw48TH6++ZKd+fC1A7+Xy1/6WBaZbzk8iXhP07MZGeduhgIzu7lSZJBRCN8O+iqMGvA0Vwv1mrz9d13//KBVrObdilkS+AFsGiaXgcCb0bSeL78lDLhDw3kNWu/yrm8D0tBO/mx72PV/5k5Pk0wpJOWdbjaA8Ah1fVs85Is2VLeuGSE+ORXtWAITJOcl62F2k9rUb47RBvMgvnDu9dCMA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SgQnJSCaYpfcDW90CuLAi4zX9qHHQfKaR+yyWzBBy+A=;
- b=kBqvHwxGqI527GhkuRJUPuC/gVp9H+pyQy8grpX+MtFnn1/P/VQIg5m/YJ8ZiI4kAxe69M3e66zFgllTHEd2i6GSNlVix2f5b2AmMIurBcCbNM/N0LaID6THcv6xdZkgwtj/OmZKJ8W3W5Ii0MG4dj7yBSkwN335LfnFC6rNelA=
+ bh=YOlGWin7237jvcz8PKAzq/GqL+7Iyzum2o7xijQ7TGw=;
+ b=PKxGZFpy7qRtHXekEpu4aVoZMJ8B0lSyYt81iAwIHY6m+F3pAHLHTF69ex9IrirbbOwdEbqS2d6dU9y7wR+uWUZjMagaD9UqQiXdxcTSkJChzMlSNhhLUBtDDGafstuNd7vHeJOA3j2z8+ltnwoB5vUDITDxzW2i8ugkY6CS/fg=
 Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
  signed) header.d=none;dmarc=none action=none header.from=arm.com;
 Received: from AM9PR08MB6052.eurprd08.prod.outlook.com (2603:10a6:20b:2d5::15)
  by AS2PR08MB9521.eurprd08.prod.outlook.com (2603:10a6:20b:60f::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.10; Sun, 11 Oct
- 2026 17:39:40 +0000
+ 2026 17:39:43 +0000
 Received: from AM9PR08MB6052.eurprd08.prod.outlook.com
  ([fe80::5ba6:c70c:1cd:48cd]) by AM9PR08MB6052.eurprd08.prod.outlook.com
  ([fe80::5ba6:c70c:1cd:48cd%7]) with mapi id 15.21.0522.009; Sun, 11 Oct 2026
- 17:39:40 +0000
+ 17:39:43 +0000
 From: Lukas Zapolskas <lukas.zapolskas@arm.com>
-Subject: [PATCH v7 0/8] drm/panthor: Performance counter implementation
- with single manual client support
-Date: Sun, 11 Oct 2026 18:36:47 +0100
-Message-Id: <20261011-panthor-performance-counters-v7-0-12c32495062f@arm.com>
+Date: Sun, 11 Oct 2026 18:36:50 +0100
+Subject: [PATCH v7 3/8] drm/panthor: Add DEV_QUERY.PERF_INFO handling
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAC/Jy2oC/yXMwQrCMAwA0F8ZORsYZXPMXxEPXZa5CKYl6UQY+
- 3erHt/l7eBswg6XZgfjl7gkrRhODdAa9c4oczWENpzbPoyYo5Y1GWa2JdkzKjFS2rSwOfZjN3M
- M3UBhglpk40Xev/56+9u36cFUviccxwfCm7kHgAAAAA==
-X-Change-ID: 20260529-panthor-performance-counters-594dea247c2b
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261011-panthor-performance-counters-v7-3-12c32495062f@arm.com>
+References: <20261011-panthor-performance-counters-v7-0-12c32495062f@arm.com>
+In-Reply-To: <20261011-panthor-performance-counters-v7-0-12c32495062f@arm.com>
 To: Daniel Almeida <daniel.almeida@collabora.com>, 
  Alice Ryhl <aliceryhl@google.com>, 
  Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -97,12 +95,10 @@ To: Daniel Almeida <daniel.almeida@collabora.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- nd@arm.com, Mihail Atanassov <mihail.atanassov@arm.com>, 
- Lukas Zapolskas <lukas.zapolskas@arm.com>, 
- =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+ nd@arm.com, Lukas Zapolskas <lukas.zapolskas@arm.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: PR3P251CA0011.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:102:b5::21) To AM9PR08MB6052.eurprd08.prod.outlook.com
+X-ClientProxiedBy: LO3P123CA0027.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:388::18) To AM9PR08MB6052.eurprd08.prod.outlook.com
  (2603:10a6:20b:2d5::15)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -111,204 +107,306 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-TrafficTypeDiagnostic:
-	AM9PR08MB6052:EE_|AS2PR08MB9521:EE_|MI3PEPF0000848F:EE_|GVXPR08MB11536:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6b0f3c77-173c-4a0d-2aaf-08df27beb4c2
+	AM9PR08MB6052:EE_|AS2PR08MB9521:EE_|CPH1EPF00000530:EE_|VI0PR08MB11293:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1db94b2b-0a57-4642-cd41-08df27beb67b
 X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
 x-checkrecipientrouted: true
 NoDisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|6133799003|10067099003|18002099003|260925021311599003|260925021911599003|260925022911599003|3023799007|13003099007|921020|11063799006|261009223027099003|56012099006;
+ BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|6133799003|10067099003|22082099003|18002099003|921020|11063799006|261009223027099003|56012099006;
 X-Microsoft-Antispam-Message-Info-Original:
- u6TDjtO8dBFxYSSrmanLd/TRmdLyX/tCve875l+g8YPmCZfytIpdiGzopiWIiyudycPF6JTKEGzfudvxHidO/OTxRkJ9QkGdakll+nhrnnDHmdGmUd8oEMh5oiGcss00Q8Ywv6rorqPm5hoWRo7vcHOujvNuZ1POJvaCzpQBb+R/Lgh5+I6QPtHlzDAhjbrf9WZWz5DERVDTOARgfyLGGX+f/irBZG9yHvxWe4QwA9XjSHks14OtWSFs7DUWhblFYMyrZpIjIYj/KfLbxEEMDnVSAoK7JCV73MISeFHGLeL8T2U+5ZRLu61wzwh66TywWsXP9PkD7M8nRiDZFzEKHaRuNvPoReYs0gC1eHkfgBzoKI/jgaLTMCkMafEvsfv541bCtYQ38BP0rUiZq9+FSD53xz9n09TkktCXGsspqA6XRQyJUKEuUhD27DmcAMuppu6WpZ0RO2GA4JqJjhxSvTSK6ZR7qYNdI5DrdECZRL9+8PQJNd85fYltJvn9SL2f0+TRE5H0gQ4BLkQdnn+EZOnatjhY7Cyq41rP89sFPR5fn4TYZBLoThjENPKR+CgNbT4/EYAxAwSESwbPZbCfoCpfJLHR91q7Iy0r37z3bzjpjISRMvHe9/rcwbCdbkquf8KZyvPBeTwKZ0aJaSi6QdMJzEbyR9z6ISEkAFvCPyg=
+ /yyczxfEc8KKPsTKlMtD4SG8UsYkapBkGfeRllNeA1BQTP1TLASF6JWJjXpSumLPNIYHsRxrU5vGcrFwWb9trzSFNt9iCxHFUyz837iQFzI8RzamCd6vpDdPBYUDulHdqf9ms12N0UbW/HDrWijhqb9zZ/fFNcRgzCvlEVTXR2nSRH2PQSNeUp/SeLR6aCjaOtBUTAJz31/mS8zeROgKBRYjnbxZ5dvf1ZI+9P1WO3Q+JAHZF+SzCXsNiU+JnKnl7jjatv9S5ZueKp1PJlG1RQApBcxgJyNkwFjS08ntyu5ulYm7AQTIUHO1s5Hp9MKZJZsZnbTVXfIaMlsE0ON84o5FlVs5JA0Om4aaaRt18co9040qAmnOKYATtpJAniZ8SwGGolDJ3cEkS4T0RAM6t1MvbnxCrL9ytupSLxLVm9KCNCmPOxtGPzknnGNCsZw/+RUTrRyIGl63vkF7U4WgxqJ8JUhnthUbel8SxU+9JyFyL+eh33Vx+01bj/C9xbmPqaWIjPtoglQI3b032rZNenonk5IjOI1JSO7EKA2TXR0eLtwJPQrD6HbcfqgCElMDs67Wu/y4CKH56reBeAk7Pam5urRb1d/FBzFrzY/vSR83RqB7fhsUj45OaWI1ykl529DwyOuqgkNjalN9B45kChppg1N0LETSVbC5CW6gApPP3ah6/1JYUjYGDqekARD/E25DYVZXqBLR7ObYfdJ0/w==
 X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR08MB6052.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(6133799003)(10067099003)(18002099003)(260925021311599003)(260925021911599003)(260925022911599003)(3023799007)(13003099007)(921020)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR08MB6052.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(6133799003)(10067099003)(22082099003)(18002099003)(921020)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
 X-Exchange-RoutingPolicyChecked:
- nKBI+FHNqIYn2dC9Bh9faMaTNIca3zbvQWtm4xgPWIQkuyMeOJaVmG5JJfKPgxlnFPMCGtBmBii8Pvhu3G3oNrmUwEL9tHWtflz3uzWAfoglS1m1cuLQgeWSZKocjI06z+4Y4/ma7YXZ2TytVp3UPjKL3Hc+SvBdi6ZdGDTRz0+XgW6JQDl+ykWowlPpMhb/wBQbqTk4uEH2eyPnPqnItWVoHe+/UlBxxNS8boyjx1F8Vre8egAIhVYvmLHeNKpLGk7GGWoDpUGZPB2kEPdFXFSgkjvTX7LDurAulZJtQKQqaBl9Rn3nojFxcP+X6ej+f1r021CNZyBYr3DbVRim5w==
+ ZSKg/3q65QZ3Qbgu88sC7vW72UXzqze9qh99FK69RBMmI7at3l8j1WgjjYXHyZZkTqkGLBc0A7R8XYq0cdK7UZR1CScEoZ4K3G1/2h/HJK83cjpEk8CrCKVQf9byr9ZcAs/c6EVihIX5k5Qua1Fk/HjiSrNczsVBvzv0PI4OiVDRaOay+/vVAC3rmFo1jhYP4agYYsdsH+xfPkHLVs20mGzHjybu0xxWhAWN1YrEDMF/u4pllzFBzxVnqDQBEDGR5LndqrDUo7N3xIc+u8OVauO1ZizHTkFn7ZwKHbd1mtMStRn80RNe0Ym6Gn4KcERh32WpcdzDwbNM/WKDU71aqQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB9521
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- MI3PEPF0000848F.eurprd03.prod.outlook.com
+ CPH1EPF00000530.eurprd05.prod.outlook.com
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	e499d230-6036-4f68-cdcb-08df27bea0b4
+	da125ed0-4fe7-48cd-1560-08df27bea25d
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|14060799003|1800799024|82310400026|376014|7416014|35042699022|36860700016|23010399003|6133799003|10067099003|18002099003|260925021911599003|260925021311599003|260925022911599003|3023799007|13003099007|921020|11063799006|261009223027099003|56012099006;
+	BCL:0;ARA:13230040|36860700016|23010399003|14060799003|82310400026|7416014|1800799024|35042699022|376014|6133799003|10067099003|18002099003|22082099003|921020|11063799006|261009223027099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	9T2H7+CzihKLeQYNxKcEDjON5Pb8LSRvnwF9ehW70Szw/ptiWJM6BYLEL13/ONON6FFAzAy7+uPC+P8npOwt2MyhMYieCCwQrysQopwKYxtZpO28Wd50eh4KNoT9p89lcSpLGLYuMG23fQM8yh82ny6XSqnzNHutZhc4lF9WpOcLphoGkxmqsjsMV8eaBYdU0nzCXGb+2Thy9OoH6HIiUD9bJyp7V50JeYUX6WT158h9VHWJ5oFk/99c2oMOH/xD/yii++NQvEXql48CYrjYGakJAmko4iQEuCHdvJRrb+NwK5tjADkexuaolZ6jw9LN8dOHpcZ0Y50IHpya8aGPyhBVAMnOi1njxwC8ssSXo/kzHPAXXfQJN5F4rqkVdd9sgMlugp4SGXKtkYUc98CajmNdeElkpNhTeTQCoHayUrCA+4YBMCZeX5pOFcN2Ylo43kIfNVKwCypQXT5bUFFNuv31YAvVFWJcRdfhtx0ZfwyM4vEg/vwwyf3VlePyjCYpoMNlarfYZ8davms4QgS9wscIduE1tWvkiLjAdqTP8A3WjGLa1zzsnWCYnAqrQjm4nn3fyVt/sGFsdpOhN9Vpwd1QtmgL63c6K9LFiKSVFDGb4sEBSn1iaIa3F0UK6h1szN6aVubumiCDQI6h7RVxJnh/ZTYdSMmkxjK4LiHnivQqFoIrMdwiNOsdopd8do7iWPTAEHF3wLODkwOVecN6gA==
+	ZImwr/jdlp9g/Ssg81fmU4jWhDTwpHD+qWevYi5s9LYqnbImMnezvRRXr4iOH9KLs4Wc6AF0Di/tXgnbIB46BysFR39E+jhhLflWfiyDCI5JqYLX4dp9Yfnwo57iiEns+vy8dfTUGqteHXhhvf6bK4knfbuYGxjdJ1MGKNzTQt6DfmQRk1zYlJqNKVAfpiWiDlxD+//aZehQDuXRSydLiIeQeDqK/7asYU8MFiL2IVLXRjcQjQsWA3epD5qVJA/5pUcg7LYnrkJAt1X4eFfU+SR+JEUROJQoAIAmL4dfG4RZz8nm4YFmW9eUIx+/MdKe8MoyPc8fuhQLSXxUVIh4l+Hgl0vqrLW1HM1xmGHJwazgY/OsmbqJW1jjDE5WbCwal6CY3teEEo8gEUnc61XyVSTV3SNpsPf7pabjHa7bI4j0LxEMMfEJWdCIvVt+RpZgb2wyeF7KnrCuAp9TFef0G6mGLM1k8NkJsOJ3v2so8sD5D5m4G38Da2Vx1GwHLYUQ0WsfwjMYLvle2K1v8k2fEhYAzE/GYRZvvTEqM8QxG8+MPdf3VusN2YSW/04/cNzdqHxFGYzRP+GlgSHjxdxrOjsA1p/EaIO0lPLRKrHLe48Zj2osX83fvSz4LYLaitywZSlVBcf1K8+iPs9mV1ASlrMIeNk06EwbRS1UDxNfIQ5QEOvXyq/4MdDUrNAdzoc/GTAUBHV8TnV6zYBWDfb4IcN0BAOsLtOO0uRtZGq35paaWnOZrwwrLF1AoEEUjSLu
 X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(14060799003)(1800799024)(82310400026)(376014)(7416014)(35042699022)(36860700016)(23010399003)(6133799003)(10067099003)(18002099003)(260925021911599003)(260925021311599003)(260925022911599003)(3023799007)(13003099007)(921020)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(14060799003)(82310400026)(7416014)(1800799024)(35042699022)(376014)(6133799003)(10067099003)(18002099003)(22082099003)(921020)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	fxng4YjgIqPmyciZVsIhBspRqOmU3ShKwRzQQw6dwuFan838dvj5/D06FO9y9TbHiSvgrRX1qPNU4vgdPBTWxGJk2b62Z6xsVaIK8mcG2uiGbqso6aYV5Laj20Y2ySO47gIxEQCKia6WLZig0iQ6ogo+Ke6rPef6uFK6gJQkH0sc2WAfck9n2SEeeU55A9QfSstALQfkReQ6U3o58mX6k/6+ahn7G0dgSkhqSqild77DCDqnd1CEAAjyNlPipGS2B7IEJr7zaoIsrBF/ptO+6xV6vzcobOTCm3QrtO2unP3JiGsIDY21mK+zlNyN5tN58WcR3sErUqNWAuNwoB7tBlR9+4BPWhPNhwqnHjs8rLAqJ3bxHhGYVHIbeRJ0qcCw5UCu0PV+LL6KxRnZRe5S24bvblDWmO1OQH5LqbvCfpFy59CQ3yU8tvggtxTqvp2o
+	gaF6iT0gomNZLB/Wc4qK4rFUT8H1nNIr3tiAsQoQosoUpniBBODdTHsGYAetk3GpYh/XGoRNn1nYncPnrQ7P//Dz2lF8koYZASZYa+oq5CcGvTHY7NkIJIF0ig3HpmKsv7dSsigC6KTHSKpP1cCW1Viy6yNLVR04SmQWpW+2nxzgzCoRkD/Ve54LIX2+nOQPyQ1pf2MbWgna/ZEO5/+Hmf6Aa4elBUDGsu2i2FxeckjF/Tlv9cDh7IuQ+m2KvHIVoUTpC9aJde5ueDbHf0rhqM40UeGjSrylvYzKvkYGgPmkwhj4qI/CNzQmHGGIJ6u5vvED1AXzzUlkBUMoZkfI0Ln7bYev8J7Nb6BnJI91HlUniH/sp96IFBje5v448ecpv+35QVeE3lJTk/f0u+q5RaDcclHzSn+xS1MKa+ucvI9zLKetYxcvaTfvxMVU9nyb
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2026 17:40:13.7999
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2026 17:40:16.7149
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b0f3c77-173c-4a0d-2aaf-08df27beb4c2
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1db94b2b-0a57-4642-cd41-08df27beb67b
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MI3PEPF0000848F.eurprd03.prod.outlook.com
+	CPH1EPF00000530.eurprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR08MB11536
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR08MB11293
 
-Hello,
+This change adds the IOCTL to query data about the performance counter
+setup. Some of this data was available via previous DEV_QUERY calls,
+for instance for GPU info, but exposing it via PERF_INFO
+minimizes the overhead of creating a single session to just the one
+aggregate IOCTL, and removes the dependence on architectural details of
+the counter layout.
 
-This patch set implements initial support for performance counter
-sampling in Panthor, as a follow-up for Adrián Larumbe's patch
-set [1]. In response to follow-up comments on v6, uAPI features that
-were not being populated in the original series are now dropped, leaving
-only the features necessary for the initial implementation.
+This required reading one of the GPU registers, which is exposed via
+a new helper in the gpu header.
 
-The Mali performance counters are controlled via a global firmware
-interface to point to a buffer that contains samples of either 64 or 128
-32-bit counters per block instance. Each of the block types has its own
-32-bit enable mask, allowing for finer-grained control of which counters
-are emitted. The size of the sample is dictated by the sum of the
-FIRMWARE_SIZE and the HARDWARE_SIZE fields, but neither the FW nor the
-HW provide sufficient information about what block types are present at
-what offsets. This information is architectural, and may change between
-different major versions, as well as different firmware revisions.
+The current handling covers GPUs from the Mali-Gx10 up to and including
+the Mali-G1.
 
-To work around the instability of the counter block layout, the kernel
-maintains its own offset table per GPU, and provides that via
-additional block headers inserted into the data. This enables old
-userspace clients to interpret a buffer copied over directly from hardware,
-for users like libGPUCounters[2] embedded in an executable to retain some level of
-support for counter sampling without being updated.
-
-The following performance counter implementation supports a single
-userspace explicitly requesting samples via ioctl, and managing the
-consumed samples via a ring buffer and a set of control indices. The
-user client passes in the resources to create a session, at which point
-they can explicitly enable or disable sampling via the
-PERF_SESSION_START/PERF_SESSION_STOP ioctls.
-
-Samples are request via an explicit PERF_SESSION_SAMPLE ioctl. When
-the request round trips back to the KMD, an eventfd is signaled for the
-user indicating that the sample is complete and can be found in the
-shared user/kernel ring buffer.
-
-Existing performance counter workflows, such as those in game
-engines, and user-space power models/governor implementations
-require the ability to simultaneously obtain counter data on the same
-driver. Though this is not enabled out of the box, handling for multiple
-sessions sampling at different cadences is added via the sample
-accumulation handling.
-
-Mesa MR: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/35024
-
-v7:
-- Move the perf commands into their own ioctls
-- Moved session tracking to the pfile
-- Fixed padding on uAPI structs
-- Removed the sampler abstraction
-- Moved new registers to a separate commit
-- Drop the offset argument for session creation
-- Drop the count of enabled clients, using the session_list directly
-- Removed the r-b's due to significant changes in the patches
-- Added check for CAP_PERFMON on session setup
-- Fixed architectural handling of prfcnt_en
-- Link to v6: https://lore.kernel.org/dri-devel/20251215171453.2506348-1-lukas.zapolskas@arm.com/
-
-v6:
-- xa_erase -> xa_delete to fix up dangling session issues
-- Move setting user data into request callback to avoid setting it on error
-- Embed the enable mask into the sampler
-- Added helper for sample_enable and sampler_disable to eliminate duplicate checks
-- Drop PM reference on session enable failure
-- Drop the panthor_perf_em_zero function
-- Added R-b's for the first several patches
-- Added added reading of the PRFCNT_FEATURES register on supporting architectures
-- link to v5: https://lore.kernel.org/dri-devel/cover.1753449448.git.lukas.zapolskas@arm.com/
-
-v5:
-- Started re-using perf info size fields instead of
-  recomputing the size where needed
-- Removed panthor_file pointer to the drm_file
-- Fixed ordering of subsystem unplug on init failure
-- Using the kernel struct size to allocate memory for user-passed
-  uAPI struct.
-- Inlined panthor_perf_sampler_{suspend,resume} into
-  panthor_perf_{suspend,resume}
-- Inlined
-- Updated all callers of CIRC_SPACE_TO_END to use CIRC_SPACE
-  for correct ring buffer wraparound.
-- Free the session and sampler enable maps on termination
-- Drop the return values from panthor_perf_{suspend,resume}
-- Update userdata and end timestamp on accumulation
-- Removed the ptdev checks on suspend and resume paths
-- Link to v4: https://lore.kernel.org/dri-devel/cover.1747148172.git.lukas.zapolskas@arm.com/
-
-v4:
-- Added sample size to the uAPI.
-- Clarified the bit-to-counter mapping for enable masks.
-- Fixed IRQ handling: the PERFCNT_THRESHOLD and PERFCNT_OVERFLOW
-  interrupts can be handled by checking the difference between the
-  REQ and ACK bits, whereas PERFCNT_SAMPLE needs external data to
-  validate.
-- FW ring buffer indices are now only wrapped when reading the buffer
-  and are otherwise left in their pre-wrapped form.
-- Accumulation index is now bumped after the first copy.
-- All insert and extract index reads now use the proper, full-width
-  type.
-- L2 slices are now computed via a macro to extract the relevant
-  bits from the MEM_FEATURES register. This macro was moved from
-  the uAPI due to changes in the register making it unstable.
-- Consistently take the sampler lock to check if a sample has been
-  requested.
-- Link to v3: https://lore.kernel.org/dri-devel/cover.1743517880.git.lukas.zapolskas@arm.com/
-
-v3:
-- Fixed offset issues into FW ring buffer
-- Fixed sparse shader core handling
-- Added pre- and post- reset handlers
-- Added module param to control size of FW ring buffer
-- Clarified naming on sampler functions
-- Added error logging for PERF_SETUP
-- Link to v2: https://lore.kernel.org/dri-devel/20241211165024.490748-1-lukas.zapolskas@arm.com/
-
-RFC v2:
-- Link to v1: https://lore.kernel.org/lkml/20240305165820.585245-1-adrian.larumbe@collabora.com/T/#m67d1f89614fe35dc0560e8304d6731eb1a6942b6
-
-[1]: https://lore.kernel.org/lkml/20240305165820.585245-1-adrian.larumbe@collabora.com/T/#m67d1f89614fe35dc0560e8304d6731eb1a6942b6
-[2]: https://github.com/ARM-software/libGPUCounters
-
-base commit: e48123c607a0
-
+Signed-off-by: Lukas Zapolskas <lukas.zapolskas@arm.com>
 ---
-Adrián Larumbe (1):
-      drm/panthor: Implement sample handling
+ drivers/gpu/drm/panthor/Makefile         |  1 +
+ drivers/gpu/drm/panthor/panthor_device.c |  7 +++
+ drivers/gpu/drm/panthor/panthor_device.h |  3 ++
+ drivers/gpu/drm/panthor/panthor_drv.c    | 10 +++-
+ drivers/gpu/drm/panthor/panthor_gpu.c    |  5 ++
+ drivers/gpu/drm/panthor/panthor_gpu.h    |  2 +
+ drivers/gpu/drm/panthor/panthor_perf.c   | 87 ++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/panthor/panthor_perf.h   | 15 ++++++
+ 8 files changed, 129 insertions(+), 1 deletion(-)
 
-Lukas Zapolskas (7):
-      drm/panthor: Add performance counter uAPI
-      drm/panthor: Add register definitions for perf
-      drm/panthor: Add DEV_QUERY.PERF_INFO handling
-      drm/panthor: Add panthor perf initialization and termination
-      drm/panthor: Introduce sampling sessions to handle userspace clients
-      drm/panthor: Add suspend, resume and reset handling
-      drm/panthor: Expose the panthor perf ioctls
+diff --git a/drivers/gpu/drm/panthor/Makefile b/drivers/gpu/drm/panthor/Makefile
+index dd15d52a88ba..c65fff290720 100644
+--- a/drivers/gpu/drm/panthor/Makefile
++++ b/drivers/gpu/drm/panthor/Makefile
+@@ -10,6 +10,7 @@ panthor-y := \
+ 	panthor_heap.o \
+ 	panthor_hw.o \
+ 	panthor_mmu.o \
++	panthor_perf.o \
+ 	panthor_pwr.o \
+ 	panthor_sched.o
+ 
+diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
+index 9687c59de350..2877d47c6717 100644
+--- a/drivers/gpu/drm/panthor/panthor_device.c
++++ b/drivers/gpu/drm/panthor/panthor_device.c
+@@ -24,6 +24,7 @@
+ #include "panthor_gpu.h"
+ #include "panthor_hw.h"
+ #include "panthor_mmu.h"
++#include "panthor_perf.h"
+ #include "panthor_pwr.h"
+ #include "panthor_sched.h"
+ 
+@@ -287,6 +288,10 @@ int panthor_device_init(struct panthor_device *ptdev)
+ 	if (ret)
+ 		goto err_unplug_fw;
+ 
++	ret = panthor_perf_init(ptdev);
++	if (ret)
++		goto err_unplug_sched;
++
+ 	panthor_gem_init(ptdev);
+ 
+ 	/* Now that everything is initialized, we can enable the reset work. */
+@@ -305,6 +310,8 @@ int panthor_device_init(struct panthor_device *ptdev)
+ 
+ err_disable_autosuspend:
+ 	pm_runtime_dont_use_autosuspend(ptdev->base.dev);
++
++err_unplug_sched:
+ 	panthor_sched_unplug(ptdev);
+ 
+ err_unplug_fw:
+diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+index b55a3f9edd41..d93b182a3d9b 100644
+--- a/drivers/gpu/drm/panthor/panthor_device.h
++++ b/drivers/gpu/drm/panthor/panthor_device.h
+@@ -174,6 +174,9 @@ struct panthor_device {
+ 	/** @pwr: Power control management data. */
+ 	struct panthor_pwr *pwr;
+ 
++	/** @perf_info: Performance counter interface information. */
++	struct drm_panthor_perf_info perf_info;
++
+ 	/** @gpu: GPU management data. */
+ 	struct panthor_gpu *gpu;
+ 
+diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+index 8cdba0c1a14b..b6b55b0f2ff5 100644
+--- a/drivers/gpu/drm/panthor/panthor_drv.c
++++ b/drivers/gpu/drm/panthor/panthor_drv.c
+@@ -182,7 +182,8 @@ panthor_get_uobj_array(const struct drm_panthor_obj_array *in, u32 min_stride,
+ 		 PANTHOR_UOBJ_DECL(struct drm_panthor_queue_submit, syncs), \
+ 		 PANTHOR_UOBJ_DECL(struct drm_panthor_queue_create, ringbuf_size), \
+ 		 PANTHOR_UOBJ_DECL(struct drm_panthor_vm_bind_op, syncs), \
+-		 PANTHOR_UOBJ_DECL(struct drm_panthor_bo_sync_op, size))
++		 PANTHOR_UOBJ_DECL(struct drm_panthor_bo_sync_op, size), \
++		 PANTHOR_UOBJ_DECL(struct drm_panthor_perf_info, shader_blocks))
+ 
+ /**
+  * PANTHOR_UOBJ_SET() - Copy a kernel object to a user object.
+@@ -959,6 +960,10 @@ static int panthor_ioctl_dev_query(struct drm_device *ddev, void *data, struct d
+ 			args->size = sizeof(ptdev->mmu_info);
+ 			return 0;
+ 
++		case DRM_PANTHOR_DEV_QUERY_PERF_INFO:
++			args->size = sizeof(ptdev->perf_info);
++			return 0;
++
+ 		default:
+ 			return -EINVAL;
+ 		}
+@@ -992,6 +997,9 @@ static int panthor_ioctl_dev_query(struct drm_device *ddev, void *data, struct d
+ 	case DRM_PANTHOR_DEV_QUERY_MMU_INFO:
+ 		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->mmu_info);
+ 
++	case DRM_PANTHOR_DEV_QUERY_PERF_INFO:
++		return PANTHOR_UOBJ_SET(args->pointer, args->size, ptdev->perf_info);
++
+ 	default:
+ 		return -EINVAL;
+ 	}
+diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+index a383b04f101e..726a70b74346 100644
+--- a/drivers/gpu/drm/panthor/panthor_gpu.c
++++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+@@ -508,3 +508,8 @@ int panthor_gpu_coherency_init(struct panthor_device *ptdev)
+ 	drm_err(&ptdev->base, "Coherency not supported by the device");
+ 	return -ENOTSUPP;
+ }
++
++u32 panthor_gpu_get_prfcnt_features(struct panthor_device *ptdev)
++{
++	return gpu_read(ptdev->gpu->iomem, GPU_PRFCNT_FEATURES);
++}
+diff --git a/drivers/gpu/drm/panthor/panthor_gpu.h b/drivers/gpu/drm/panthor/panthor_gpu.h
+index f615feb05609..46a6ca98cbb1 100644
+--- a/drivers/gpu/drm/panthor/panthor_gpu.h
++++ b/drivers/gpu/drm/panthor/panthor_gpu.h
+@@ -60,4 +60,6 @@ u64 panthor_gpu_get_cycle_count(struct panthor_device *ptdev);
+ 
+ int panthor_gpu_coherency_init(struct panthor_device *ptdev);
+ 
++u32 panthor_gpu_get_prfcnt_features(struct panthor_device *ptdev);
++
+ #endif
+diff --git a/drivers/gpu/drm/panthor/panthor_perf.c b/drivers/gpu/drm/panthor/panthor_perf.c
+new file mode 100644
+index 000000000000..cbfe1ca5872d
+--- /dev/null
++++ b/drivers/gpu/drm/panthor/panthor_perf.c
+@@ -0,0 +1,87 @@
++// SPDX-License-Identifier: GPL-2.0 or MIT
++/* Copyright 2023 Collabora Ltd */
++/* Copyright 2025 Arm ltd. */
++
++#include <linux/bitops.h>
++#include <drm/panthor_drm.h>
++
++#include "panthor_device.h"
++#include "panthor_fw.h"
++#include "panthor_gpu.h"
++#include "panthor_gpu_regs.h"
++#include "panthor_perf.h"
++
++/**
++ * PANTHOR_PERF_COUNTERS_PER_BLOCK - On CSF architectures pre-11.x, the number of counters
++ * per block was hardcoded to be 64. Arch 11.0 onwards supports the PRFCNT_FEATURES GPU register,
++ * which indicates the same information.
++ */
++#define PANTHOR_PERF_COUNTERS_PER_BLOCK (64)
++
++/**
++ * PANTHOR_HW_COUNTER_SIZE - The size of a hardware counter in the FW ring buffer.
++ */
++#define PANTHOR_HW_COUNTER_SIZE (sizeof(u32))
++
++struct panthor_perf_counter_block {
++	struct drm_panthor_perf_block_header header;
++	u64 counters[];
++};
++
++static size_t get_annotated_block_size(size_t counters_per_block)
++{
++	return struct_size_t(struct panthor_perf_counter_block, counters, counters_per_block);
++}
++
++static size_t session_get_sample_size(const struct drm_panthor_perf_info *const info)
++{
++	const size_t block_size = get_annotated_block_size(info->counters_per_block);
++	const size_t block_nr = info->cshw_blocks + info->fw_blocks +
++		info->tiler_blocks + info->memsys_blocks + info->shader_blocks;
++
++	return info->sample_header_size + (block_size * block_nr);
++}
++
++static void panthor_perf_info_init(struct panthor_device *const ptdev)
++{
++	struct panthor_fw_global_iface *glb_iface = panthor_fw_get_glb_iface(ptdev);
++	struct drm_panthor_perf_info *const perf_info = &ptdev->perf_info;
++
++	if (GPU_ARCH_MAJOR(ptdev->gpu_info.gpu_id) < 11) {
++		perf_info->counters_per_block = PANTHOR_PERF_COUNTERS_PER_BLOCK;
++	} else {
++		u32 features = panthor_gpu_get_prfcnt_features(ptdev);
++
++		perf_info->counters_per_block = PRFCNT_FEATURES_COUNTER_BLOCK_SIZE(features) /
++			PANTHOR_HW_COUNTER_SIZE;
++	}
++
++	perf_info->sample_header_size = sizeof(struct drm_panthor_perf_sample_header);
++	perf_info->block_header_size = sizeof(struct drm_panthor_perf_block_header);
++
++	if (GLB_PERFCNT_FW_SIZE(glb_iface->control->perfcnt_size))
++		perf_info->fw_blocks = 1;
++
++	perf_info->cshw_blocks = 1;
++	perf_info->tiler_blocks = 1;
++	perf_info->memsys_blocks = GPU_MEM_FEATURES_L2_SLICES(ptdev->gpu_info.mem_features);
++	perf_info->shader_blocks = hweight64(ptdev->gpu_info.shader_present);
++
++	perf_info->sample_size = session_get_sample_size(perf_info);
++}
++
++/**
++ * panthor_perf_init - Initialize the performance counter subsystem.
++ * @ptdev: Panthor device
++ *
++ * Return: 0 on success, negative error code on failure.
++ */
++int panthor_perf_init(struct panthor_device *ptdev)
++{
++	if (!ptdev)
++		return -EINVAL;
++
++	panthor_perf_info_init(ptdev);
++
++	return 0;
++}
+diff --git a/drivers/gpu/drm/panthor/panthor_perf.h b/drivers/gpu/drm/panthor/panthor_perf.h
+new file mode 100644
+index 000000000000..3c32c24c164c
+--- /dev/null
++++ b/drivers/gpu/drm/panthor/panthor_perf.h
+@@ -0,0 +1,15 @@
++/* SPDX-License-Identifier: GPL-2.0 or MIT */
++/* Copyright 2025 Collabora Ltd */
++/* Copyright 2025 Arm ltd. */
++
++#ifndef __PANTHOR_PERF_H__
++#define __PANTHOR_PERF_H__
++
++#include <linux/types.h>
++
++struct panthor_device;
++
++int panthor_perf_init(struct panthor_device *ptdev);
++
++#endif /* __PANTHOR_PERF_H__ */
++
 
- drivers/gpu/drm/panthor/Makefile           |    1 +
- drivers/gpu/drm/panthor/panthor_device.c   |   17 +-
- drivers/gpu/drm/panthor/panthor_device.h   |   12 +-
- drivers/gpu/drm/panthor/panthor_drv.c      |  134 +-
- drivers/gpu/drm/panthor/panthor_fw.c       |    5 +
- drivers/gpu/drm/panthor/panthor_fw.h       |    9 +-
- drivers/gpu/drm/panthor/panthor_gpu.c      |    5 +
- drivers/gpu/drm/panthor/panthor_gpu.h      |    2 +
- drivers/gpu/drm/panthor/panthor_gpu_regs.h |    4 +
- drivers/gpu/drm/panthor/panthor_perf.c     | 1953 ++++++++++++++++++++++++++++
- drivers/gpu/drm/panthor/panthor_perf.h     |   40 +
- include/uapi/drm/panthor_drm.h             |  370 ++++++
- 12 files changed, 2547 insertions(+), 5 deletions(-)
----
-base-commit: 4b7a49d66c8398a7984dff4ac54d1acc6b3a58df
-change-id: 20260529-panthor-performance-counters-594dea247c2b
-
-Best regards,
---  
-Lukas Zapolskas <lukas.zapolskas@arm.com>
+-- 
+2.43.0
 
