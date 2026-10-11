@@ -1,120 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A99442AA9;
-	Sun, 11 Oct 2026 21:13:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D669A313543
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 21:35:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791753241; cv=none; b=WnlanJHe5n5PKd5kXcB9CK3iKUGnWE76mCIOsDtdngwgo5ddXlb4uwzz/dR9dsQYZNQzZKUgLW2Dz1Nrk//2DN0PlLUj16RgcAdnA13qATAkDonptQcCIT43S9ams1vvYo8ytpAYp+1DrO1VTRa18bIpeptg61RvpojeR/8K9Sk=
+	t=1791754543; cv=none; b=LXLSVMp7CG5L5OK6FkuN+YyiFv/SmX2sY5UUFw8OdZyORA8HB1BgVraVGrYlHBkFKpy6dT3m6K2TYuHhfyKpQSUc3b5YaKT3Ql8lihhY66BDtORkJavDVNXXav5h9PMcfxwKLCtqhjFK6Z9tachAmtGaelelRKMUiYJgDBkiT5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791753241; c=relaxed/simple;
-	bh=SvO4R3vxF4xR1wqicParlaqsB3sS5MVT1lmEeZOcGvU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H+zEoproq0MR5Cy9I3o3sGHOb8YYOrjHFVCLUBzZdKyV7wXVYMxO9j8vJ5wkDSVNbao//U9ealO32ZCo65lQPN9xJjsZ7rp9HkXq5nwqS9EY96YdCrP2M1Gn+a+C1yE+N8DCtQ1fnNPbYT5dOMwCon8GvUCo7gIRbx6q/hqCWdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y9R0nBAp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791754543; c=relaxed/simple;
+	bh=+pjj0FeaXMYUm+V+cqoYAftZoLBbqLSQOkzEKvz3EJs=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=gGHBwYzfBC8sh52Q1s44lJPha3znxMkkX/P4j8h79F/SLc9uCVpdTGDcnH8KGWqBmWzSXrRc6yv+xV3WQKyQ0F8v5mNlqic5Pux4MJx1vf+pCvbUq/1VLX8C7sJmjfdCx2XftXMwjdkkE4PrVvvTi8Pz2mWTdCSkrisHHxthMsw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XVVtk2gG; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y9R0nBAp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 743761F0089B;
-	Sun, 11 Oct 2026 21:13:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791753239;
-	bh=cB64+7GIL/QejhQmJX5UmgahZ1S8lTXRVFKShlbGWQM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Y9R0nBApfEq3cFVA+VsinEcrUSzp6c6bkadfZbfDy1QEQ5rg5OoIhCrczxqxVS8kT
-	 2HCmsO3+W/T1abh2B3I65X7x5vUzr6/euVpLz62Vk52UmSYp3MrIvnlOMVrfn8H8DG
-	 MpMCa6Zs5ebzHvIYHcvddVChPsaMdWP/v7H2s8fzOx0wSu9M1w5a/ugCmIJ9EgQ/nh
-	 UphV13z3PHvIvffykWUVXTGisHUO9e8mRsmH3fY+RSHQKkQCWY35rny4nZbSsQaCUz
-	 FQL35cVSIfc3jQjVf9AmhNE73CU/WhMWFD8xNuZHj+izqQ3ViEg18rZ7Q2dL7efhbW
-	 GBotapyIPL2RQ==
-Date: Sun, 11 Oct 2026 22:13:53 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Lucas Tanure <tanure@linux.com>
-Cc: Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v3 1/8] dt-bindings: net: amlogic,meson-dwmac: list the
- compatible combinations
-Message-ID: <20261011-starship-foyer-1105c1b35e31@spud>
-References: <20261010105900.247342-1-tanure@linux.com>
- <20261010105900.247342-2-tanure@linux.com>
- <CAFBinCAejxmeeHyDy+vMSg6dBm+9prhEo9qZ7FAsiWNB1W-HXw@mail.gmail.com>
- <CAJX_Q+3JLn6oTt8qTPM-muKsY9JbTEMwqRvbamZ3vqg_Yymsmg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XVVtk2gG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791754542; x=1823290542;
+  h=date:from:to:cc:subject:message-id;
+  bh=+pjj0FeaXMYUm+V+cqoYAftZoLBbqLSQOkzEKvz3EJs=;
+  b=XVVtk2gGJdSb/W/t2iOyBrJfSNj2BX8p08220Bgl1cRMBCzehD0o+JAz
+   TF1v/7wRyb93tWcYDUkGtJpEVYo8L/IFkd20iAXA/VBbm9jR71GrBOOpa
+   FA60CAl/mWwvaKuI+AumpzUZj082vSjfKLqDr75T3jot2qgA/ERszMnMK
+   CK/HTgLtxGicQiWrd8/RzPKypp469XKxvjXCuZJlReCY9kZgFuqCxjI1x
+   2+FiZIY35vpDvWWCiZ9vadxoDIM7JhV5vvAfRGUxGNPHIGpG+xjLEbzhY
+   IbL60aUUvfW5NKk8Qh+UpKCLzeAOwdrFdWGXMnVFgJdYcKSzi8XBO7Mxn
+   A==;
+X-CSE-ConnectionGUID: JahpUe4zRnqZSaNQH8dAqg==
+X-CSE-MsgGUID: m+S3U4MSSuiQRv7L4Pu5Fg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="360736"
+X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
+   d="scan'208";a="360736"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 14:35:41 -0700
+X-CSE-ConnectionGUID: hAAtQ9E7RgC5gggq/kmmLw==
+X-CSE-MsgGUID: uTyPzQByTueVWkV9Kcs6jw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
+   d="scan'208";a="666731"
+Received: from igk-lkp-server01.igk.intel.com (HELO d0de6c2a75a7) ([10.211.93.152])
+  by orviesa007.jf.intel.com with ESMTP; 11 Oct 2026 14:35:40 -0700
+Received: from kbuild by d0de6c2a75a7 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xG1Ci-000000009eV-2jk1;
+	Sun, 11 Oct 2026 21:35:36 +0000
+Date: Sun, 11 Oct 2026 23:35:31 +0200
+From: kernel test robot <lkp@intel.com>
+To: Kees Cook <kees@kernel.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
+ Nathan Chancellor <nathan@kernel.org>
+Subject: ld.lld: error: undefined symbol:
+ __kcfi_typeid_aria_aesni_avx2_gfni_encrypt_32way
+Message-ID: <202610112311.o9XQsWsa-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Li4Qmgdoe6LbIUh+"
-Content-Disposition: inline
-In-Reply-To: <CAJX_Q+3JLn6oTt8qTPM-muKsY9JbTEMwqRvbamZ3vqg_Yymsmg@mail.gmail.com>
 
---Li4Qmgdoe6LbIUh+
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Kees,
 
-On Sun, Oct 11, 2026 at 03:16:18PM +0100, Lucas Tanure wrote:
-> On Sat, Oct 10, 2026 at 11:04=E2=80=AFPM Martin Blumenstingl
-> <martin.blumenstingl@googlemail.com> wrote:
-> >
-> > Hi Lucas and Conor,
-> >
-> > On Sat, Oct 10, 2026 at 12:59=E2=80=AFPM Lucas Tanure <tanure@linux.com=
-> wrote:
-> > [...]
-> > > +          - enum:
-> > > +              - amlogic,meson8b-dwmac
-> > > +              - amlogic,meson-gxbb-dwmac
-> > > +              - amlogic,meson-axg-dwmac
-> > > +              - amlogic,meson-g12a-dwmac
-> > > +          - const: snps,dwmac-3.70a
-> > > +          - const: snps,dwmac
-> > > +      - items:
-> > > +          - enum:
-> > > +              - amlogic,meson6-dwmac
-> > > +              - amlogic,meson8m2-dwmac
-> > Meson8m2 dwmac reports: User ID: 0x10, Synopsys ID: 0x37
-> > In case it helps I can submit a patch to change the Meson8m2 .dtsi to
-> > use "amlogic,meson8m2-dwmac", "snps,dwmac-3.70a", "snps,dwmac" - then
-> > we could move it here too.
-> > That leaves only Meson6 with a single fallback compatible. I don't
-> > have any Meson6 boards, so it'll have to stay that way.
-> Hi,
->=20
-> Fine by me. But I think it is best to wait for this series to be merged.
+FYI, the error/warning still remains.
 
-In the second sentence, you're referring to the dts patch I assume?
-IMO, you should submit a new version of this with the 8m2 moved to the
-other enum and Martin can submit the dts patch now, since the current
-binding permits using dwmac-3.70a, no need to wait for this to be
-merged.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   d6d3455d8751854e0d1820f14184682e23ac4475
+commit: 23ef9d439769d5f35353650e771c63d13824235b kcfi: Rename CONFIG_CFI_CLANG to CONFIG_CFI
+date:   1 year, 1 month ago
+config: x86_64-randconfig-2000-20261011 (https://download.01.org/0day-ci/archive/20261011/202610112311.o9XQsWsa-lkp@intel.com/config)
+compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261011/202610112311.o9XQsWsa-lkp@intel.com/reproduce)
 
---Li4Qmgdoe6LbIUh+
-Content-Type: application/pgp-signature; name=signature.asc
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 23ef9d439769 ("kcfi: Rename CONFIG_CFI_CLANG to CONFIG_CFI")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610112311.o9XQsWsa-lkp@intel.com/
 
------BEGIN PGP SIGNATURE-----
+All errors (new ones prefixed by >>):
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasv8EQAKCRB4tDGHoIJi
-0j98AP4rQ60xf6QZIR+UVdVPmdSR8xm6GMzsKTW5wwCVZq8gLAEAyM8L5JCUZzmE
-aBhkxeWELj13jV1WIQV+eunZ4dUaYgU=
-=+0qV
------END PGP SIGNATURE-----
+>> ld.lld: error: undefined symbol: __kcfi_typeid_aria_aesni_avx2_gfni_encrypt_32way
+   >>> referenced by aria-aesni-avx2-asm_64.S:1345 (arch/x86/crypto/aria-aesni-avx2-asm_64.S:1345)
+   >>>               vmlinux.o:(__cfi_aria_aesni_avx2_gfni_encrypt_32way)
+--
+>> ld.lld: error: undefined symbol: __kcfi_typeid_aria_aesni_avx2_gfni_decrypt_32way
+   >>> referenced by aria-aesni-avx2-asm_64.S:1370 (arch/x86/crypto/aria-aesni-avx2-asm_64.S:1370)
+   >>>               vmlinux.o:(__cfi_aria_aesni_avx2_gfni_decrypt_32way)
+--
+>> ld.lld: error: undefined symbol: __kcfi_typeid_aria_aesni_avx2_gfni_ctr_crypt_32way
+   >>> referenced by aria-aesni-avx2-asm_64.S:1395 (arch/x86/crypto/aria-aesni-avx2-asm_64.S:1395)
+   >>>               vmlinux.o:(__cfi_aria_aesni_avx2_gfni_ctr_crypt_32way)
 
---Li4Qmgdoe6LbIUh+--
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
