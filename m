@@ -1,167 +1,122 @@
-Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6B0B390600
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 14:48:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.158
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791730131; cv=none; b=UiYCnzzI/58zLBPcNf+L86ip/wwoVxRs98VnDIy0wnNFb1UVdgfz1aWAVXog0dDTnrFc1fKwBLjMnsMFUj6nqmj9mS3SQWdO9pNsZTb/cuFh2MqX3vKQvJmMi841B1IbF7EoU+OG7sPg/I5qa0w1xFovb7j5sTBGPslpDzuNU50=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791730131; c=relaxed/simple;
-	bh=gKTlSyqYGa9oJGFDgtRnbCQv3mFMbEsDBXP0tOGtHTg=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=Z/kqe9rzzG+aQloWSx6DMS+VZgasNz8gA+l7tqAsCHPPgzAIkdUYYVmOgzppXmei9dcfDP4G34GkX1msDX4AKD/Gb7Z/03KzKYqEOy9pfaMFxDO7DzrKeQRO608EQGNlg0AM6yXk6/KoNpi26VT+gmCxk8CgyRBQoQPaafjnZi8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=ETHCpfef; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=x9mUYB2D; arc=none smtp.client-ip=202.12.124.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8E5D4570D8
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 14:48:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791730142; cv=pass; b=Wsb016jYnNYZK9QrpC360qT8uaZ3itBt2zMhwvKABw4iiTycUhx2vMDrl3jO++54jDuHoxoNzpYSoy7O5ZJivpUXCQfetYk9I01D6R2eLUd4ANwG66IzF2uaAX3/6eft+ijTEW13JPniPzUHtKjEqs3uE0MSUyc+IhRZ+ToSFnM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791730142; c=relaxed/simple;
+	bh=KTTmDBDLvEzXTcUeFdNHCL+XWsl5T0ZipzxiDJtTFzw=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=VN4JjvBWiipIRdHyfvhf/32guqO8mavnCwHboa6N0UR70e2+ER0HfFl+uv9KKnwHSuNswTmqEc6gNOP6dih0unZwdftAzwGOfoB88n2W7eZfNWWmJuWjyNtwvEJscJqD5Hwsf2FqFHTQHHT50x21qDORTHdjKYE1xequXWmdDjM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ol0HXaXa; arc=pass smtp.client-ip=209.85.161.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="ETHCpfef";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="x9mUYB2D"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 1DD227A009F
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 10:48:49 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Sun, 11 Oct 2026 10:48:49 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1791730125;
-	 x=1791816525; bh=Axm0z0t9Vgbtkl8tyQP29sbUaRobPDCmblkBy/kM7qE=; b=
-	ETHCpfefoTXBhbd3yMvINgcH/G/9PfwGVXzfUDRqRii/8DEexcC+3Ky8Y0l6vkYg
-	QggUezBz9Gtt5fFgf6Jx4ze+QPbYG4ssJvZtEdB/4fy5DpuAIAXGmITrM5yx77u1
-	Zoq3IfgswEYzMIPszRqPASgrnH4sYBSyEynr0odpWivB1ohfdmF2j8XjTnSEyui+
-	YfVoxx8vgO/YQrIw0CMztpKslY+rDTETcMhBkO4pmhLrRUtD6ORMmkHRlUldj7Fs
-	ZV7SrZPc2AtVE9yU4TiatFKpeemOOlYyAmBeM3QbreziujVRrUJxcOeuPZ02pEUJ
-	X3EuvfXuyot+Ea3J4scWIw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791730125; x=
-	1791816525; bh=Axm0z0t9Vgbtkl8tyQP29sbUaRobPDCmblkBy/kM7qE=; b=x
-	9mUYB2DFiOZdGDaD3V2M2QFlx2odui9k/Yhpv9B8SNEwPSiNOXjogDOoYZlZCg9K
-	iBibOJTHP8teRui6Pz/G1XUGqgZbxBAioG/4f2Zg7VY/REoBKn3+sk9hPaSJpdcY
-	YDJ9jrZID+FMw4ZQlbG9CugFgNFln99e5UKB2AXVwxHI6a17L6e9DIqlG8iuJSAS
-	85yU5zJ64qJXy4L6XSLXsyvJ1renbeZh9tZio3BBj9UoRYbRYvSA9P//ckApmV4+
-	SZ9TwDiv0A2tAJ0Fj5QHP3QZI1t8+m10AMHBWTrXUUmqgxu6l/w/qkj3mt6PAF8i
-	yg73seal00gUWzFL+JNTA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791730125; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:kJFNpW3LKR0yttYHl75vBpR4Q3O8sxF2vl9oVw0JfvNfqQd
-	f6Dmhdwl81WcaBacz9mOlrnhwzgkORmrKrJeNmBlLq77n6O3Ur5I4N2rv0Rae4Vg
-	t/DUELh+HZDnAmbk2emoU/tFq6gMQvCvULykvlrfBg9BE+mWQ4QyuECxkmMOQ4NX
-	txcuM3ICjGPy+Nk7zzYSkgnR5t9ogkmLZRJlXIC982M4EkQrOR3GliKh0+kfz1z+
-	BpWbCx4wPqbaosNOXJiBh8nbPGuHCgl7PhdBbT8c7mzWPhBfufubDMWB15FVtUcB
-	c7FpDJuQgUhokiekGrDVmIIAvusmuxV7SggL1gg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:Zmt5RHXIZklQWTY/vXNbYxeV+ENmVvZ3kSVV+iZ1wD4=:gKTlSyqYGa9oJGFDgtRnbCQv3mFMbEsDBXP0tOGtHTg=;
-X-ME-Sender: <xms:yqHLaoXQa7Ow-npIXdF-5wc25Uwr8OFSSyPJ6YXpc9WA7Yygo8maOg>
-    <xme:yqHLanYaaq4PexKn8hQaLNqzkqds-Upn18RgIYy3541wuyNMpEM1emHLpfvxiIHEJ
-    vQLCTg6T7hYAgP32K9nJCysnftwePWdy3umouUimDjUPwI8g-LhKWaV>
-X-ME-Proxy-Cause: dmFkZTFlvCzuizRCxOGSyJ7dExCHkaPBMfn19wBrO5Fu+RJgyuZWAXJOoOkxfnVSdoV+7f
-    3RO846yTCg7R9FEo2kMonMz3w171iaKzhUsBBonWUjLdBkDYODVwgLg2DJWROvM3st/eut
-    LjgYPmY7fUO4KjV/lFiUDyy5y6ySWxganQ0/mv3+v/I+Hrs0EFgj/z/45ifI3Cq4Iew5oP
-    /eEMgNfAIKSGAMwrQxiDSCT4DuupHQlm52sz8m5Tfu3IyTagtggaS2GyGBs9Sw+mkYUuBo
-    BjyxCwh08+ZeVyzCZcHi80ecrKAR3r3ADQvpMif/0MfxnZyGM60ce3ZwhcEvuVr3EEBDuD
-    7hf4CaXC1jT+MvxJTdLKEUTY4QmG4r0+fzCKLwcmsbNZs43vU3AYw+yzln3aD9tEQ2CeQi
-    PrKRQmJ/oJQbK1XuBdhgyC4hn8YG2kvC7OfNx9RpsDtnQXAiKIJVH7VJkRuzg9cLEYDbWg
-    qow8C3pogXiB9a5UTwXsIhdFCIoC0VRY8X6ySsSNwhXOmEubSTQhLcxSG0kQq6owZABOfC
-    HOjzdtDOg4wfa/HLFpDv4899q8HYXcoYKvdQi697NMBpvitqrbQS/ZhMAvGOFc1qwX8zvU
-    JLldm/v1ydrXBfIL4HOkhv8YqQ4P8BoGDaKIJzrp6P8CO/UtZDM0qrLhG/Rw
-X-ME-Proxy: <xmx:y6HLagsA1ptQJ4tp75WK1KjmNQAQljQ28qfdEEldavhBvQs99Q3Pkg>
-    <xmx:y6HLauJU-8CL8DLBaZ3d4ZV2xbmp4jHVGtNLN-vurl5Hc4MSfaq3MA>
-    <xmx:y6HLap8EU314MwOaBvAmnDV978cv_sA2WiRxj5Ajw5wVGt9HDVd7tg>
-    <xmx:y6HLanwxYWndpDEhM0SoL357i2AbJ7itIlH4_wCMA2sy8lmRGp80ew>
-    <xmx:zaHLasfPBjj3YQyAWkpwc2wbkpnYm-vhJFvnKi5GrzsCh3emZKAgDbkC>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 2B6FF32A008E; Sun, 11 Oct 2026 10:48:42 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ol0HXaXa"
+Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6b19e291cc6so1281555eaf.2
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 07:48:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791730138; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ct9mEJU8ssOLo407iQUcsXbrkPqVbciWNeee4pV4dWAIj4Wl0PPoTXNl9N5/DgPM2Q
+         SLUpcki21vigb48M2B7vNtNMW33rFI6xrwVkl23Ka8qzNC/P0Oe+On9lTaVIcaHrKWFo
+         lFXt65zHtJxU7T4Ph+kbdrlSrBuASbNEFOY/1uqMjVJ2PTAIZI9umMYuOWmQALYkfkZ9
+         LiBHkYUo2IDkQSbt6QTcgCheQERQgeYdYTqAXtrna/ckSLNhVYf5drEZv+TqJ0mzCooG
+         KVFN2roRDy66PyL8f1wty0ZB3yqCzS/m/2o8Qs5IswU3tthrw/ajMW6eTg6Zhh9URpV4
+         XVJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :mime-version:dkim-signature;
+        bh=eSAItQD3XdnMYrgEBGA328w0uBEEk18b+E5vbP3GsUE=;
+        fh=eawyxtJgBnC7+TYZrSMZzgocw2YYl1rC8Y8RCdGRdcc=;
+        b=sgjTxJAq9nwrlkZU/+qeIcTCSuN2tGINFGXKenDpkvbY80IJiwZOOz2FYuB+vaZQTE
+         pSbeQRA40B32Qv2b4U+9QJzQmMqTju0KhLsvqwyrmTWCG5VxspqISuWkTK/Nr6Up4jOM
+         V4+lQ4Gjqzs63NNmaD93oriU7FV6lmPelBWgAwaecc/0eRrtkciDv9qyi/kfQllns/sh
+         1tl5mThQg1TJPgZF2AHLnTvemlhQPsqkHybO8eKH39mwoAvTRZyDC4XM0cU20ht9hydh
+         rdQTy/1xjXGTiZZAeJ8Ity8xi+JhzIeJemy03o/DqzW7T4AiEG1st2yZpRcGMXxibuiW
+         aJWg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791730138; x=1792334938; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eSAItQD3XdnMYrgEBGA328w0uBEEk18b+E5vbP3GsUE=;
+        b=ol0HXaXarRSSmXNWm2M24R2JXyslD1tZpsEbjfKZq38kESqn/P41+dltQU8dcwTwmS
+         h4eJ/WZ3yG/HAu2bxBTJ1Cru1DCr40nujOJE6W2QO/wWvEg6olRCGBFyDvO/F+1LS9If
+         4F7zNllWJXofBPlrg8CZ6SNZoa2SwMMFJ2TAA9/Jtow3YrandohNNsO9yeatWHmRM1pq
+         Km9xJZZfZOw42aeR344jAHunxF9BcpsTrg2HlTmrGQPXq7kD6ePes/E85oxqYDQ6RJrt
+         4QfFb9hUD42lATmSfIH6IsLdobW63AHb1NkTFEykSu8fVBqPY1rB9fn21p7ungRhwLU/
+         RG4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791730138; x=1792334938;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=eSAItQD3XdnMYrgEBGA328w0uBEEk18b+E5vbP3GsUE=;
+        b=O4DFmXo+CiOOyFTRS0kaHAepziHQQFn4Wqh156zX1rRJwqTOchTOMqFMSpL25C98ef
+         o77VlGdsWvndbIL+Fm0QPqqTzrmAdArjGl9Q2kIxnsDYlud2Xmx7BZ+rrK2r+i6Xmd1J
+         jDnOgipBB0aMonkEHG9oB5ylB1uZM4IoobCDhvnL6UyNlBbXr7LcrlPK7UcyVZcsAtao
+         b+WweRR9uDNt7WL7VBbDG0ueCCaHfy7Hptn8chcKls6rdlvexT7N2CmpkXqZH178/kZz
+         UtntaK8SPP52Czyp5cO/I2OOdCMAXshpRbZ8X0LSqQVzP16DgszlhmsgN3R3P6cWYE8J
+         hEkA==
+X-Forwarded-Encrypted: i=1; AKwUvBzhbKIaK57ugAUtFvtx9IahhwwWQQJoZu54rE6ls+bNSK2TgSksLak9YoRe6gt4cLVttcWtZX8K7NvsTWw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJk5qq6/jy+r0U9OR237cv04FvcYN/D0qEtOn98pjJlqhZdYcKm
+	69mbMtBgnL89o70lbpqZM7IoCePIZJrjiEE29UcaFfUvtUPb5421V5JJWq5NhteH8zbAimXDzCd
+	TOu795LXgeJUSgAjaaJbtmFtfaBU/1Sw=
+X-Gm-Gg: AYBFou3tklPc2ARVbk4QGRZGfhVrJJ+oklQplqfz82O2jWIUTPw30EtKDe3nJy7oGS8
+	9qBDSg6QgQ+Naoonl5BC5JPzaTqP8oC9pafG9le+SYDP6Um6m5Eh9LeiqPqChsNxQLrtnmJqeQ9
+	6Z9a96ntAMK/4W3R0YBoGrtIhFs3lBFeLfYMuuLduA0apkJ1Hqx8ooPUoUoq4pq8sZXRTzMvNBU
+	cEgA+iWRKIzEs46hbpv9pVPrMfjXYROnxaP+lOgz/iYjNDf5zYwELZngIf4yPjYLuZDXqg+/nPp
+	t7rfQvDgY9AzzgTl500eSXH1S5EioWZOhD3YITqL+bV895PD69sTqZ0z
+X-Received: by 2002:a05:6820:350c:20b0:6f4:80f6:6ae9 with SMTP id
+ 006d021491bc7-6f480f6a5ccmr760752eaf.27.1791730138569; Sun, 11 Oct 2026
+ 07:48:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A-dXEK1mihoo
-Date: Sun, 11 Oct 2026 16:48:11 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Navid Ghahremani" <ghahramani.navid@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- =?UTF-8?Q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>,
- "Russell King" <linux@armlinux.org.uk>
-Message-Id: <2bebabca-9df1-4ccd-afdc-3a1740c05061@app.fastmail.com>
-In-Reply-To: <20261011010223.2379347-1-ghahramani.navid@gmail.com>
-References: <5e78f63b-9479-49d9-8474-fa408135f325@app.fastmail.com>
- <20261011010223.2379347-1-ghahramani.navid@gmail.com>
-Subject: Re: [PATCH 02/24] ARM: l2c: Serialize device reads with cache maintenance when
- requested
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+From: MaeeFilho FL <joaoanandalima@gmail.com>
+Date: Sun, 11 Oct 2026 11:48:47 -0300
+X-Gm-Features: AclHuK8IJOYpso1HhSgXW104tnmReEvrVU3sXstVSoTDmAtKD_QfWoBZxJyM9Ww
+Message-ID: <CAFA5sMdbmqyqPhQ7Bqayd4-PBbA6RGHxgy7kFa_uF7mJWtFDLQ@mail.gmail.com>
+Subject: Re: [PATCH] lkdtm: Add more EFI runtime tests
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Kees Cook <keescook@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Oct 11, 2026, at 03:02, Navid Ghahremani wrote:
+Hi Ard,
+
+The Code is excellent. A few points worth highlighting:
+
+> Two bugs were found in the arm64 EFI runtime support that weren't caught
+> by LKDTM. The existing EFI_RUNTIME_CRASH test instructs the firmware to
+> write to kernel memory that is mapped read-only, which usually fails as
+> expected. However, this does not exercise the runtime mapping logic in
+> the kernel, nor the fault recovery logic when the faulting address is
+> inside the EFI runtime memory regions itself.
 >
-> Thank you again for the suggestion to test arm,outer-sync-disable. I 
-> have now completed extensive hardware tests on the physical ZTE ZXHN 
-> H3600 across multiple bring-up orders and load scenarios, and 
-> unfortunately disabling outer-sync alone is not sufficient to prevent 
-> the interconnect deadlock.
->
-> Here is what I tested:
-> 1. Added arm,outer-sync-disable to the l2cc node in the device tree 
-> (zx279128s.dtsi).
-> 2. Rebuilt the kernel with CONFIG_CACHE_L2X0_IO_LOCK disabled and 
-> completely removed my custom read lock from both cache-l2x0 and mt76.
-> 3. Netbooted the initramfs uImage over TFTP into RAM via U-Boot (zero 
-> flash modification).
->
-> The kernel booted cleanly and confirmed the configuration:
-> [    0.000000] L2C: disabling outer sync
-> [    0.000000] L2C-310 cache controller enabled, 16 ways, 256 kB
->
-> Both MT7915 cards enumerated over PCIe and initialized firmware. Here 
-> are the observed results across the different test scenarios:
+> So add two more test cases:
+> - a write to R/O memory test that uses the firmware's own executable
+>   memory as an output buffer
+> - a branch to memory that is occupied by the firmware's runtime services
+>   function table, which is usually mapped non-execute.
 
-Thanks for the detailed testing!
+This is an excellent addition to the LKDTM suite. Forcing GetTime() to
+target efi.runtime->set_time is a very clever way to ensure that the
+firmware page tables are strictly enforcing permissions over its own
+executable boundaries, rather than just testing general kernel mappings.
 
-> Given that this is a silicon crossbar flaw that requires software 
-> serialization, what would you recommend as the cleanest, most 
-> acceptable way to structure this for upstream? Would you prefer keeping 
-> the serialization lock as an SoC-specific quirk in cache-l2x0, or is 
-> there an alternative architectural mechanism you would suggest?
+The execution tracking via the anonymous function pointer struct conversion
+to trap NX faults on efi.runtime data object is also rock solid and properl=
+y
+exercises the arm64 translation tables validation logic.
 
-The best idea I have so far is to delay solving this problem and
-just upstream the patches that are not impacted by it for the moment.
-Even if you never upstream patches 2 and 3, that would still
-get you much closer to something that works out of the box.
-
-My hope would be that there is some errata workaround that you
-can simply turn on with a chicken bit in the firmware, but if the
-vendor BSP has the same approach as you tried here, that seems
-a lot less likely.
-
-You can also try to avoid the issue in a way that trades it for
-overall performance, e.g. using only one CPU and turning off
-the L2 coherency management in the CCU, or leaving SMP enabled
-but turning off the L2 cache. Not sure if either approach would
-work at all, and the performance cost may make this impractical.
-At least it would give you something that works reliably
-while you can still use a patched kernel for better performance.
-
-One possible idea would be to use the helpers from
-lib/logic_iomem.c to register a special MMIO range that takes
-care of PCI MMIO regardless of the PCI device driver. This seems
-like a cleaner approach, but I cannot guarantee that any patches
-for this would find consensus.
-
-      Arnd
+Reviewed-by: Jo=C3=A3o Guilherme da Silva Freitas Lima <joaoanandalima@gmai=
+l.com>
