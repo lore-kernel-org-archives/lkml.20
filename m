@@ -1,128 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B77A0279DB1;
-	Sun, 11 Oct 2026 06:27:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39AE0279DB1;
+	Sun, 11 Oct 2026 06:28:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791700073; cv=none; b=tg7zJuapICnjECGVziZavgPYgOfcCY2GNye7437LKT8I4UAUSlhYLCGaiSxrplL/qdeBf+AhktZUIy+lMJKAXyp0vTz5aObzMETwWyAz8UnACdXz+spPpcyKPJTOYgUDXEf6MK598JR6Ry295Dxko+govQr0p+HI3DdH22rTjY8=
+	t=1791700144; cv=none; b=ESMmYnIcU21KaAm3E0MvOSD8jIPdv0BjfHR9u9WJucolYeRIAIEeKhxYdYn91LlCwz9w0nIoj92DQMAaqLPpZMiUL2JNXTPdVt7iMSfHzmqUnBOGNRcQPAmF13HYYuYFWSaNWkWyJAVdXN7v13u5oJYeWN5hRMEJiljvvxBXfs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791700073; c=relaxed/simple;
-	bh=+fkuQeaiBzgWlitXbBzzW9cMa5R1QZo/J9S1LpNBoBo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=W6GlG409c+X3mZxsLIq02bch2nzdplpboeZvOoM0+oo+NSZdwl3KhYptRVdjA4yziqa9lplMigeSa63RwuDnZSA7xiDvl6v0S3oqkDNLkHy1xc6LSqi3a2KICSUiDSpXXBZ+W05N+H3LncPp7ot5x6E9+xuHMwCA7n5+vzIJHN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ARsyvieV; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791700144; c=relaxed/simple;
+	bh=Ztzw7tIq+F5DxzZ3zYHgJ6+Ip2a4HgploLiOOYoCT8U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Eyc5Vo1mwCHIkpFE69scrfTnlW9+vMCvGyaocROuJHY0Sa2dcvJKGtPyxqLEKhoYcoLBCjVhppxrzPbjT6/otd2QQdqmKJ+Vsj+fCevRcp2/ny00ShzC/5bmoH6qLG5yZ7DT94WUZQmssWBJIgdz9Pna1EwHLvjze4RO2KOIQs0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=CIYEYSK6; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ARsyvieV"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 29B42C2BCF5;
-	Sun, 11 Oct 2026 06:27:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791700073;
-	bh=+fkuQeaiBzgWlitXbBzzW9cMa5R1QZo/J9S1LpNBoBo=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=ARsyvieVBL8BG3I4NF1hKrKuNi/8K2gHvGaW9PpSQr+tPZ8xGO4cjzqP7SYCxN/Kl
-	 BW2E1H5k3OWNrKtILLQgPiUmGLetdoI8uDnC8Ukk6/xF7BNfvzfMfvDh1thPrK2JGL
-	 yhLLAk5UPznmosS77mo0+VopaaFQlZWNPnXDslClf7FFxVyQztaIIxN8CNQ7aQTl1M
-	 mAjrnxWhss3wBGnyHPjLBDkRDWJbcNl0DNL1tIK/GbyVxwHWpNHh+0287zb0EmME0x
-	 0J+raWsrPSz2QTk9abWNSTP3Y8KlCNAkS9kjYmglI5kYrA1UGF1NG9+M2bFjac8iWj
-	 2h1k89joxbSNw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 03168CA9EC7;
-	Sun, 11 Oct 2026 06:27:52 +0000 (UTC)
-From: Ryan Leung via B4 Relay <devnull+untilscour.protonmail.com@kernel.org>
-Date: Sun, 11 Oct 2026 06:27:42 +0000
-Subject: [PATCH] arm64: dts: rockchip: add maskrom and recovery ADC buttons
- to NanoPi M5
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="CIYEYSK6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=SS
+	VvchRVLaj/Pb3fS/ZmIqZ7GV3LIWkg7RWPBl3w+iw=; b=CIYEYSK6RkP9nglEXf
+	gVYda7jr9yERPtSK9Wm3/ezIbh2Ua/AsqWkD8VRs+RFMgNa+1WhAwwptcNMi3xUm
+	CStGHORgg8VWcy7And7lC/8godOCBH0S6J+Z1UBZLfUjhLFrGiYEdaT9/S+MoDx8
+	81gxneqrDAEvL0RaRt+tPKdkE=
+Received: from ubuntu.. (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wBn5exyLMtqwLyuDg--.24813S4;
+	Sun, 11 Oct 2026 14:28:13 +0800 (CST)
+From: Ma Ke <make_ruc2021@163.com>
+To: david.rhodes@cirrus.com,
+	rf@opensource.cirrus.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	sbinding@opensource.cirrus.com
+Cc: linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com,
+	linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org,
+	Ma Ke <make_ruc2021@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ALSA: hda: cs35l41: Fix ACPI device reference leak on probe failure
+Date: Sun, 11 Oct 2026 14:28:01 +0800
+Message-ID: <20261011062801.3163066-1-make_ruc2021@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261011-nanopi-m5-adc-v1-1-822edeb1acf4@protonmail.com>
-X-B4-Tracking: v=1; b=H4sIAF0sy2oC/yXMTQ5AMBBA4avIrE3S+g1XEYtqByNR0iIScXfF8
- lu8d4Enx+Shji5wdLDnxQbIOAI9KjsQsgmGRCSFFFKiVXZZGeccldFYkEhN1qVVXpYQmtVRz+f
- 3a9rffu8m0ts7gft+ABA07nZxAAAA
-X-Change-ID: 20261011-nanopi-m5-adc-6e03d4b39577
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Ryan Leung <untilscour@protonmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791700071; l=1728;
- i=untilscour@protonmail.com; s=20260906; h=from:subject:message-id;
- bh=kg6KVsnzM/S6c7CrUcQL5EMoEDLITm6RqDphdFMeMKY=;
- b=dV8N2jv8eLKcK6TyO8zkxuVRUG+UslFvJPAxdBtKgxpIlzoMOG0owvnjync47Ne68aflqv4d+
- 6Ya5ousvZTsB+1Kv3OOTGPcqR7+KmFswpgy9P3VtuqMtIuZfjsX4/lB
-X-Developer-Key: i=untilscour@protonmail.com; a=ed25519;
- pk=eCaNcoQNRWYKZ9D7KbOGKvQVK2YFguJXZxglTtAR7Xk=
-X-Endpoint-Received: by B4 Relay for untilscour@protonmail.com/20260906
- with auth_id=1011
-X-Original-From: Ryan Leung <untilscour@protonmail.com>
-Reply-To: untilscour@protonmail.com
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wBn5exyLMtqwLyuDg--.24813S4
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAr1kGFWUWr4xtF18KFW8Xrb_yoW5WF4fpr
+	45XayfGrZxXFyj9r17Xr4xX34rCry0vr13Wr1Fkw1rCw4fKry8J3y7JFy7Xw1rXrWvg3y7
+	XF13JFn5ZF1Ut3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0p_zV1UUUUUU=
+X-CM-SenderInfo: 5pdnvshuxfjiisr6il2tof0z/xtbC0x23wmrLLH2CHAAA3V
 
-From: Ryan Leung <untilscour@protonmail.com>
+cs35l41_hda_probe() takes an acpi_device through
+cs35l41_hda_read_acpi() and stores it in cs35l41->dacpi. It is
+released in the err: label, which is reached from every later failure.
 
-The FriendlyELEC Nanopi M5 has MASKROM and RECOVERY buttons connected
-via SARADC (sheets 6 and 19 of the schematic for both the LPDDR4X [1]
-and LPDDR5 [2] versions). Add the two buttons to the device tree.
+One failure is not routed there:
 
-[1]: https://wiki.friendlyelec.com/wiki/images/1/10/NanoPi_M5_LP4X_2411_SCH.PDF
-[2]: https://wiki.friendlyelec.com/wiki/images/9/97/NanoPi_M5_LP5_2411_SCH.pdf
+        ret = cs35l41_hda_read_acpi(cs35l41, device_name, id);
+        if (ret)
+                return dev_err_probe(cs35l41->dev, ret, ...);
 
-Signed-off-by: Ryan Leung <untilscour@protonmail.com>
+cs35l41->dacpi is assigned inside cs35l41_hda_read_acpi(), before the
+point where it can fail:
+
+        adev = acpi_dev_get_first_match_dev(hid, NULL, -1);
+        ...
+        cs35l41->dacpi = adev;
+        ...
+        ret = cs35l41_hda_parse_acpi(cs35l41, physdev, id);
+        if (ret)
+                return ret;
+
+so on that path the reference taken by acpi_dev_get_first_match_dev()
+is never dropped, and cs35l41->acpi_subsystem_id is leaked as well.
+This is reachable on any system whose ACPI description does not match
+what the driver expects.
+
+Route the failure through a new err_acpi label that releases both.
+
+cs35l41_hda_read_acpi() also drops the reference on its own !physdev
+path while leaving cs35l41->dacpi pointing at the released device.
+Clear the pointer there so the reference is not dropped a second time
+from either cleanup path.
+
+Found by code review.
+
+Fixes: 447106e92a0c ("ALSA: hda: cs35l41: Support mute notifications for CS35L41 HDA")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ma Ke <make_ruc2021@163.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts | 28 +++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+ sound/hda/codecs/side-codecs/cs35l41_hda.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts b/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
-index 3a305408fa16..46c88b1ccde7 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
-@@ -41,6 +41,34 @@ hdmi_con_in: endpoint {
- 		};
- 	};
+diff --git a/sound/hda/codecs/side-codecs/cs35l41_hda.c b/sound/hda/codecs/side-codecs/cs35l41_hda.c
+index 62296be45c55..1088065f1fff 100644
+--- a/sound/hda/codecs/side-codecs/cs35l41_hda.c
++++ b/sound/hda/codecs/side-codecs/cs35l41_hda.c
+@@ -1929,6 +1929,7 @@ static int cs35l41_hda_read_acpi(struct cs35l41_hda *cs35l41, const char *hid, i
+ 	struct device *physdev __free(put_device) =
+ 		get_device(acpi_get_first_physical_node(adev));
+ 	if (!physdev) {
++		cs35l41->dacpi = NULL;
+ 		acpi_dev_put(adev);
+ 		return -ENODEV;
+ 	}
+@@ -1986,8 +1987,10 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
+ 	dev_set_drvdata(dev, cs35l41);
  
-+	adc-keys-0 {
-+		compatible = "adc-keys";
-+		io-channels = <&saradc 0>;
-+		io-channel-names = "buttons";
-+		keyup-threshold-microvolt = <1800000>;
-+		poll-interval = <100>;
-+
-+		button-maskrom {
-+			label = "maskrom";
-+			linux,code = <KEY_SETUP>;
-+			press-threshold-microvolt = <0>;
-+		};
-+	};
-+
-+	adc-keys-1 {
-+		compatible = "adc-keys";
-+		io-channels = <&saradc 1>;
-+		io-channel-names = "buttons";
-+		keyup-threshold-microvolt = <1800000>;
-+		poll-interval = <100>;
-+
-+		button-recovery {
-+			label = "recovery";
-+			linux,code = <KEY_VENDOR>;
-+			press-threshold-microvolt = <0>;
-+		};
-+	};
-+
- 	keys {
- 		compatible = "gpio-keys";
+ 	ret = cs35l41_hda_read_acpi(cs35l41, device_name, id);
+-	if (ret)
+-		return dev_err_probe(cs35l41->dev, ret, "Platform not supported\n");
++	if (ret) {
++		dev_err_probe(cs35l41->dev, ret, "Platform not supported\n");
++		goto err_acpi;
++	}
  
-
----
-base-commit: d2abcbb905b0e4b2e06b257fa1e5bcf4faa6dbda
-change-id: 20261011-nanopi-m5-adc-6e03d4b39577
-
-Best regards,
---  
-Ryan Leung <untilscour@protonmail.com>
-
+ 	if (IS_ERR(cs35l41->reset_gpio)) {
+ 		ret = PTR_ERR(cs35l41->reset_gpio);
+@@ -2066,6 +2069,12 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
+ 
+ 	return 0;
+ 
++err_acpi:
++	acpi_dev_put(cs35l41->dacpi);
++	kfree(cs35l41->acpi_subsystem_id);
++
++	return ret;
++
+ err_pm:
+ 	pm_runtime_dont_use_autosuspend(cs35l41->dev);
+ 	pm_runtime_disable(cs35l41->dev);
+-- 
+2.43.0
 
