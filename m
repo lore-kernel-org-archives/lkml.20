@@ -1,131 +1,166 @@
-Received: from smtpout4.mo536.mail-out.ovh.net (smtpout4.mo536.mail-out.ovh.net [51.210.91.13])
+Received: from adamchcechodzic.pl (adamchcechodzic.pl [51.254.141.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F052F3A759D
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 22:52:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.210.91.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EE9B373C00
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 22:55:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.254.141.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791759164; cv=none; b=L2aM1wPtYA0c6FH81Luf0I8rNIvrB4W6hwF3Yg+e98GSEN5MzWQJhICg7NAn8XUdPneKBSLTaJ5qgzaksm6kxgcCcq75J1+B4jc3WiBNAfmm0SzjnKYQSpplkwzBYotVFQVrDJsTLh0Vb0b1s4ZgXpC9vXgzB5IyDhxveTcntFA=
+	t=1791759318; cv=none; b=lOwVsRjqkxx6+e0WG/hQAavLBzEIzbQfORwi/xMBS9EoX7m3+wI08cMD+tlfsFgZKANHGkRjgZ3zxuDz3KkfXiwfsWGYyJkZO/kfa/jOd2ZakK8bQBJDCNlZmQV8tBjGgberl5McQSPehDuXE/mvzCLVRMgHEXfqwpEEeA6Ds1s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791759164; c=relaxed/simple;
-	bh=gIv48S26TsXJgNxVAg22JLgZLqnohD14Ny2j1rS1OOk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ULpwJej6UaT+kacPcAAhMECKIvslnH1w6je+P/W2NIlu9VRW4lBP83BnZZ68CkfPPS9TRLJxkvtlF0i8VpkkhEWQQoTHxkyCkIZCYGID5hSogHPndWVmdnzh9qn55ZE3fFC/Pq755N63aTehdKXkkoSovk9vQ+gb5QyZktv8Xy4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=npnm.eu; spf=pass smtp.mailfrom=npnm.eu; dkim=pass (2048-bit key) header.d=npnm.eu header.i=@npnm.eu header.b=gDebjUab; arc=none smtp.client-ip=51.210.91.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=npnm.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=npnm.eu
+	s=arc-20240116; t=1791759318; c=relaxed/simple;
+	bh=2F4yMMwkgMXqFZKZbrFhRcPx580EwzVCLmGG2/Z+EmE=;
+	h=To:Subject:Date:From:Message-ID:MIME-Version:Content-Type; b=GTjcwEG63zBrcUfydnbHzbEUzS0sc+22TNQGtbEnOTLwwhtHeKOWBUxI+Ejzj3RW74owiVBhCY2S2DUpKqqY7YYaYSVcbwkux9qTeDCWia0YgJGjIR+HnfpmA5qArlrj4a0AMeBLiV7W2m40untB7e/tXbMD/T25bzY9+pENItc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=adamchcechodzic.pl; spf=pass smtp.mailfrom=adamchcechodzic.pl; dkim=pass (1024-bit key) header.d=adamchcechodzic.pl header.i=@adamchcechodzic.pl header.b=f2pk+TIn; arc=none smtp.client-ip=51.254.141.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=adamchcechodzic.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=adamchcechodzic.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=npnm.eu header.i=@npnm.eu header.b="gDebjUab"
-Received: from director5.derp.mail-out.ovh.net (director5.derp.mail-out.ovh.net [79.137.60.225])
-	by mo536.mail-out.ovh.net (Postfix) with ESMTPS id 4j2r1Z5vC3z88tW;
-	Sun, 11 Oct 2026 19:16:34 +0000 (UTC)
-Received: from director5.derp.mail-out.ovh.net (director5.derp.mail-out.ovh.net. [127.0.0.1])
-        by director5.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
-        for <daniel.almeida@collabora.com>; Sun, 11 Oct 2026 19:16:34 +0000 (UTC)
-Received: from mta2.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.164.42])
-	by director5.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4j2r1Z4Xrkz6MbS;
-	Sun, 11 Oct 2026 19:16:34 +0000 (UTC)
-Received: from npnm.eu (unknown [10.1.6.10])
-	(Authenticated sender: laniel_francis@npnm.eu)
-	by mta2.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id CCC4F3E1F84;
-	Sun, 11 Oct 2026 19:16:31 +0000 (UTC)
-Authentication-Results:garm.ovh; auth=pass (GARM-112S00642d5369b-6819-4b97-8d32-07d59613bd17,
-                    D399504B8DAA22F5A3196F0BFCE745750AD202B1) smtp.auth=laniel_francis@npnm.eu
-X-OVh-ClientIp:46.177.232.216
-From: Francis Laniel <laniel_francis@npnm.eu>
-To: Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Francis Laniel <laniel_francis@npnm.eu>,
-	Timur Tabi <ttabi@nvidia.com>
-Cc: Thorsten Blum <blum@kernel.org>,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH v1 2/2] rust: uaccess: Use slice::NonEmptySlice in strcpy_into_buf()
-Date: Sun, 11 Oct 2026 22:15:12 +0300
-Message-ID: <20261011191540.56199-3-laniel_francis@npnm.eu>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261011191540.56199-1-laniel_francis@npnm.eu>
-References: <20261011191540.56199-1-laniel_francis@npnm.eu>
+	dkim=pass (1024-bit key) header.d=adamchcechodzic.pl header.i=@adamchcechodzic.pl header.b="f2pk+TIn"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=adamchcechodzic.pl; s=mail; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:List-Owner:List-Subscribe:List-Unsubscribe:List-Help:Message-ID:
+	Reply-To:From:Date:Subject:To:Sender:Cc:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References:List-Id:List-Post:List-Archive;
+	bh=ibyYUEPPyuuBjayMfWisBC6qz39qMX4b66AvHz4YBZU=; b=f2pk+TInOiFqH7tbSyx8deGpz7
+	OO9Z8gZKvbIssJxlwI+T9sAJyXcXYRYZ9ycrCNXqBf1s++BpPO1b6k/4oOGydVm4dF44dXhpB0TPL
+	Gh8Hq5UCdI2+PqSLXEnjaTT3ik3pt94NBRsH2f+jNvfCDOdrYrOUPG9t9BHJgRmn6G8o=;
+To: linux-kernel@vger.kernel.org
+Subject: przepraszam
+Date: Sun, 11 Oct 2026 17:29:12 +0200
+From: =?UTF-8?Q?Adam_Pop=C5=82awski?= <kontakt@adamchcechodzic.pl>
+Reply-To: kontakt@adamchcechodzic.pl
+Message-ID: <69eikkhECZ5Z7j6HsRXBQPE9qMFzoe6XNRqH8DM4faU@adamchcechodzic.pl>
+X-phpList-version: 3.6.14
+X-MessageID: 16
+X-ListMember: linux-kernel@vger.kernel.org
+Precedence: bulk
+List-Help: =?us-ascii?Q?<https://adamchcechodzic.pl/lists/=3Fp=3Dprefer?=
+ =?us-ascii?Q?ences&uid=3D43ebf2561c1228e537afd6e6e1b73196>?=
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+List-Owner: <mailto:kontakt@adamchcechodzic.pl>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 16181996412188370390
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTFYpmSUVACmnAH0gVYiJK/AGHBDwKlsYRr7+goWsVo2uU/QNb8dja/JviIR1OeKhf6ompLIRVKprC+uybqzJlspoeOCnhjLmv/GXU7hecOzz18oqALiVMyi7cYzK3hmkVQAsHJ9Fr0LUvhODEsfBHWRS0vEofCmEIEXo89tesfCaUxnPd2plQTOzx2lN+beEbrrqXolPMa8TEo/JC6KuOdC91N0IOuiyyFLao6z73c4V1isOgfB4PYe9jmmpQtcwG9CXmUT63U2yfHsqGrEnbx+esokdVcUMZueAz+nQR4JEzvYbxmGpITQ+Z1zc8PqRqVsCwgBG1QCBzBMuNWeQp7HipeDX8XHjtUamwkVTEkUzSI0SxjUX/CBhW6gPLINkPJzwcOfO9e6wObdqJdIkJgX/iLtQXh1OH6svapDoVc7iCVoQyeEtyCgf0+PpqFHIXRvFT/TIKwPPrEUqXscAUR86IYmOztczj3ioD/w6at/gBfOzpnHlhELunxWBkhsKTtnw25hotI37zyaYw4u05KBg3AFFijiAj6zLL/haA0jV7Q/+RZvhfZYzHVTYcianJCd30FetNu1cCAP1NwWref3E5modNK8qVh39RPVE9X/TfMzTgvWH+Xk6RwIqYMQkopoQXifk7enHjBWRzQbkun+VtwxuGrqmPCq1tyxwkaArw
-DKIM-Signature: a=rsa-sha256; bh=BHxeoR2o4o42+qXG8b2+JAzqqv2SnVs76amoJDZOaRo=;
- c=relaxed/relaxed; d=npnm.eu; h=From; s=ovhmo-selector-1; t=1791746195;
- v=1;
- b=gDebjUab6qcEUBYwTCTfjlNZnCTWq27eUGAF4XH9Ju8E1VqvZVJ7jWN3MkYc5ag2aaTUMTRh
- kci5ns4hd9E0/5+ICBwkIt/3Km7NqN8iahVWIAiZtSEA1CBd2//Bt4qWkfpokNvDrTonhPK/aIz
- yHASQ6kYwb2+1mFjjgVFGMTvJ/5KNbhwe36DuTWIz78yPuWFzFF8h4uQtlR4fbe/C8l+KDH45o3
- QBHAfiac1O5iVhsB9W2XOCB5SnvdhNHpokt3TeJrIf9GpHo3qBKh0m2UchWbEoYwG7kBOJ+88/I
- WPEeBi+N0Xc6MTPOVcSpYUP1apcYKa4EYJwoEz7LZGWMQ==
 
-This removes an unsafe block in strcpy_into_buf(), the unsafe
-block now lies in last_mut() in NonEmptySlice.
+ 
 
-Signed-off-by: Francis Laniel <laniel_francis@npnm.eu>
-Suggested-by: Gary Guo <gary@garyguo.net>
----
- rust/kernel/uaccess.rs | 11 ++++-------
- 1 file changed, 4 insertions(+), 7 deletions(-)
+dzien dobry
 
-diff --git a/rust/kernel/uaccess.rs b/rust/kernel/uaccess.rs
-index 5f6c4d7a1a51..b6bf9074d67a 100644
---- a/rust/kernel/uaccess.rs
-+++ b/rust/kernel/uaccess.rs
-@@ -13,6 +13,7 @@
-     fs::file,
-     prelude::*,
-     ptr::KnownSize,
-+    slice::NonEmptySlice,
-     transmute::{AsBytes, FromBytes},
- };
- use core::mem::{size_of, MaybeUninit};
-@@ -390,13 +391,11 @@ pub fn read_all<A: Allocator>(mut self, buf: &mut Vec<u8, A>, flags: Flags) -> R
-     /// copied).
-     #[doc(alias = "strncpy_from_user")]
-     pub fn strcpy_into_buf<'buf>(self, buf: &'buf mut [u8]) -> Result<&'buf CStr> {
--        if buf.is_empty() {
--            return Err(EINVAL);
--        }
-+        let buf = NonEmptySlice::new_mut(buf).ok_or(EINVAL)?;
+jestem Adam i mam 40 lata. Od dziecka cierpię na czterokończynowe
+
+mózgowe porażenie dziecięce, co uniemożliwia mi normalne 
+
+funkcjonowanie.
+
+Mimo to, każdego dnia staram się być pogodnym i pełnym nadziei
+
+człowiekiem, mającym wiele marzeń.Jednym z moich największych celów
+
+jest możliwość prowadzenia normalnego życia. Niestety, choroba
+
+postępuje, a zanikające mięśnie prowadzą do pogorszenia całego stanu
+
+mojego organizmu. Dlatego tak ważne są dla mnie turnusy
+
+rehabilitacyjne, dzięki którym mogę poprawić koordynację ruchową, z
+
+którą mam największe problemy.Jednak koszty takiego turnusu to dla
+
+mnie ogromny wydatek - jedna taka terapia kosztuje 6000 złotych. W
+
+moim wieku trudno już uzyskać dofinansowanie, a PFROM maksymalnie
+
+dofinansowuje tylko 1600 złotych raz na 2 lata.Dodatkowo, aby móc
+
+poprawić swoją jakość życia i niezależność, mój cel to
+Egzoszkielet
+
+urządzenie, które umożliwia mi funkcjonalną rehabilitację, chód oraz
+
+ćwiczenia polegające na przenoszeniu obciążenia między stronami w
+
+niespotykany dotąd sposób. Różne tryby treningowe pozwalają na
+
+dostosowanie urządzenia do postępów pacjenta, co przynosi liczne
+
+korzyści, takie jak: Poprawę chodu Redukcję stanów zapalnychv Redukcję
+
+spastyczności Zmniejszenie bólu neuropatycznego Usprawnienie krążenia
+
+Poprawę funkcji jelit i pęcherzaCena egzoszkieletu wynosi
+
+aż 500 000 złotych. To urządzenie pomoże mi w codziennych czynnościach
+
+i pozwoli prowadzić bardziej samodzielne życie.Moja pasja to muzyka
+
+elektroniczna i fotografia, ale najważniejsze jest dla mnie móc
+
+cieszyć
+
+się życiem takim, jakie jest. Wiem, że z Twoją pomocą moje marzenie
+
+o normalnym życiu może się spełnić. Będę niezmiernie wdzięczny za
+
+każdą, nawet najmniejszą kwotę, którą zdecydujesz się przekazać.
+
+Dlatego zwracam się do Ciebie z prośbą o wsparcie finansowe na
+
+egzoszkielet, turnus rehabilitacyjny i marzenie o normalnym życiu.
+
+Moje skromne środki nie pozwalają mi na regularną rehabilitację i
+
+zakup egzoszkieletu, a tylko one dają mi szansę na poprawę stanu
+
+mojego zdrowia i realizację celów.Dziękujemy za każdą formę wsparcia.
+
+Twój wkład ma ogromne znaczenie dla Adama i jego rodziny. Razem możemy
+
+uczynić cud i dać Adamowi szansę na lepsze życie.
+
+Oto, jak możesz pomóc:
+
+fundacja avalon ul. Domaniewska 50A 02-672 Warszawa
+
+tytuł wpłaty 825 Adam Popławski na pomoc 
+
+nr konta 62 1600 1286 0003 0031 8642 6001
+
+blik 666 324 328 tytul poplawski 825
+
+SMS CHARYTATYWNY Wystarczy wysłać SMS
+
+pod numer 75 165 w treści POMOC 825 bardzo jest ważna ta treść 
+
+Koszt SMSa to 6,15 zł.
+
+brutto (kwota zawiera VAT), z czego dostaje 6 zł zł
+
+JAK PRZEKAZAĆ 1,5% PODATKU?
+
+Wypełniając odpowiednią rubrykę w rocznym zeznaniu podatkowym PIT
+
+1 NUMER KRS: 0000270809
+
+2 Wnioskowana Kwota nie może przekroczyć 1,5%
+
+3 INFORMACJE UZUPEŁNIAJĄCE : 825 Popławski Adam
+
+4 Zaznaczyć Wyrażam zgodę
+
+każda, nawet najmniejsza kwota będzie mile widziana i 
+
+przyczyni się do spełnienia marzenia Adama.
+
+Pomoc bezpośrednia prosimy o kontakt
+
+dziekuje adam
+
+
+
  
-         // SAFETY: The types are compatible and `strncpy_from_user` doesn't write uninitialized
-         // bytes to `buf`.
--        let mut dst = unsafe { &mut *(core::ptr::from_mut(buf) as *mut [MaybeUninit<u8>]) };
-+        let mut dst = unsafe { &mut *(core::ptr::from_mut(&mut **buf) as *mut [MaybeUninit<u8>]) };
- 
-         // We never read more than `self.length` bytes.
-         if dst.len() > self.length {
-@@ -422,9 +421,7 @@ pub fn strcpy_into_buf<'buf>(self, buf: &'buf mut [u8]) -> Result<&'buf CStr> {
-             // This means that we filled the buffer exactly. In this case, we add a NUL-terminator
-             // and return it. Unlike the `len < dst.len()` branch, don't modify `len` because it
-             // already represents the length including the NUL-terminator.
--            //
--            // SAFETY: Due to the check at the beginning, the buffer is not empty.
--            unsafe { *buf.last_mut().unwrap_unchecked() = 0 };
-+            *buf.last_mut() = 0;
-         }
- 
-         // This method consumes `self`, so it can only be called once, thus we do not need to
--- 
-2.47.3
 
