@@ -1,120 +1,188 @@
-Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from YT3PR01CU008.outbound.protection.outlook.com (mail-canadacentralazon11020102.outbound.protection.outlook.com [52.101.189.102])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DDDD2FE074
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 20:01:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82B4D3EAC8D;
+	Sun, 11 Oct 2026 20:06:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.189.102
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791748896; cv=pass; b=rtB8vlkqQzLfpgJ+qB1tU6m8sb5nY0cvcXhFYPZDO6Y2mta+l+gk9+3fvZie8DPCtoHvTvsvIW6lPVP1TPEaSdSeRpMpcDGTrPW+QX6R1LbXBEIODPCMl5fweLW/GEDgk2MklyQUFg6qSNqyp+9eljY+KlvaoNnbYzPQUO+oY+A=
+	t=1791749191; cv=fail; b=C6CBB4AKZ2b6hlaEpavLnV9/BspzJfh85Oex78vIiWeakVDiGZjp04kzCViGCAAmbnVQ+HOY+31v/I/l5PJ3tq/SwV5M5sT1VBW14VAna2eYUc4yvM2vds7BzVT9iC6MaQPYayfxKJZt7i3dvG0xGOwo8z2RH/QTP9KAbqqjnpc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791748896; c=relaxed/simple;
-	bh=1tzJN88GwpvDiyz/lrjVdtV8dFKQy4NpjoeYN/PYPdM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tdLyuPi4Z1nalBUT0ekEp/17H5pAJBf8TzCZEMoLV/+UANxBH6+Qob8jqOXmJT/wya7Gfs+hA4f9aOEiDNIPh7E5vPkR5rdKYMk4Mzx8/sTNE6hbQeEfKoFCcKgAgaMmIBA7TPgkrJo4o3Ozs3+swkXUsYuBa5RskdqvBfn2dp4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hj2ewtMT; arc=pass smtp.client-ip=209.85.219.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791749191; c=relaxed/simple;
+	bh=Hjl24krGP2wGz45ILh+cXt0f/W2QrIoZnUXV/Fm3biU=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=BkUB4ATX2ab9fL2fpnmLnrGfVnVCsHcCgVj70wKYv0oUAYWLI8IA5D77f36g2x43J6SrGAy7pv3+5wzNSF2qwLUIXc0mL/7KWxIhveY/NEMVAhp20eiGeks+2/hfMNBM9WxOOijoqnq46Hd9L9kAPaUfKwulQRsxhUwY4B41KKM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=WcJl456c; arc=fail smtp.client-ip=52.101.189.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hj2ewtMT"
-Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-917d595138fso10127566d6.3
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 13:01:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791748894; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Zq/13K5f52R/1oRGjbnFd9njzdkXNEJCtV8nESG4DveazpLXZM9F57qDsaTm0ccQ3I
-         xfmKFCA7Evmm7Zkfgx2vup8ipmJ/BxEnV2NZ40kQ1y9fSFP5xtIfrYzlT5QVxlBPmg+L
-         23HS4gly51kd/21DoIvurFzEfWwCyQYpdDXDuuEFchwK58wt918Vzka+cJ9HaEq4JLee
-         Ew8WFD/OZgyP9BVtFdaAoPIv77Mwcf9caBdQ1wKquVk9viehP6FxBsmsH1hYMfnB5BH7
-         9PuMdWadBWXrLFKdksdGVHlFtTJd2i6XygWy9HcPyNcl+gSbGWCgn2g3vBi/wAq9uKY5
-         B2rQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=6S4lTE+OpEhZb6bjQs47nv2nou0BGYnNK81t93sALC0=;
-        fh=Pd2h13zWnwBL+SYbu3/NP9rc1rdTN0O7MXbSSEVaobs=;
-        b=elv+OVUTcqeVCIzXDQvnXN6twf6/NilMOYd99UEsPls5kL7ekrKlxWCXfbIE+LmM/u
-         Ch5Hent8h3wwyBEyCB1WxBRShiyJA9tLVNYJhSjjUHL31neprgyjhQXxj4UJ7timZhvK
-         bF/Uq2lqD/u6xhsPsQq77ZQHpvK/y762ZuSS1aCcIGnq14xwJ63vA9n3f8ls+eToKJgN
-         2ipfmhJgAlWgdN2AD4dvMrIv5fOFLT6+C1v1hZES+w6a4Wab02KOYd2tJg5BRJklbGc2
-         qZnI0TsPJ1Bsu22PhoZeX4QAHm3M5X4oHnyMv/GrDAWbpNTaYK2GWUT1Qa7D9Ueg+MBp
-         l4Sw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791748894; x=1792353694; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6S4lTE+OpEhZb6bjQs47nv2nou0BGYnNK81t93sALC0=;
-        b=hj2ewtMTYwaSPbrexTCOwRAPkXV3L3WMdGnMxNnKEXWjM1lgUP7/hoB9MO3WjNFY5A
-         yyGnWLWUBJeMvP/e15LuMzRTlpitsx7fdIqU4BqyXqWpy0Cwt60Xy+XQYf5OBo30y+4Q
-         eDzxtBu5LRYWr2j99RNZRo0Kheqa3GwPMtnav1Hsqb9jdvoc+ULrPS8/vBYHAVtfJIEj
-         4mpJiG0qL3XROaPoZog563FR4gcFSPyN+L2ud8QHWI3z+SsDBD5uCNlFazHExKSaLlI+
-         ONyrDnkZrrJDXSNTO7tPieH4Eo06NF7nhCkbe2DP/9/6Vsu/1yH8DEAtQBsaC2k+MsLp
-         WSYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791748894; x=1792353694;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=6S4lTE+OpEhZb6bjQs47nv2nou0BGYnNK81t93sALC0=;
-        b=hQN2ayoHQL6zfRIiBsxzM3UEnG0F7m7K5Cef/n0uZvdzjAqnqoBswPEOpBgVyzB/7v
-         cCavQOE9J5+Qbix/WLgR6e5jgtgERNm+gLJp56HLQNiAM1mZyHZzI9kkZ3aNyNA4He1e
-         jnE4bu4UAjn2nZpSO8vj5IIQ0i+r8SwEfCJePsqCddC1a3Po66hMSiklmswNaChZr/n8
-         0lKp4MfMYpTWJG5M4oLOw7s9inX4cPyecW+PluQiZ4cqfjFWVvV+XnXwxcCM+tK+mQyz
-         iKA7LfEX6d6yMDGAmTqkA8NfM7KJ+l5hs6w2AsOnik7lHJR0rgz3q7UBdnKX4WDHdhuT
-         PPlQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwTRhoAy+KlPv591HR6TluLQPhqrDKoUrtnbIWBnIF7HVPjR9Ra2xccNw4fqmc59dPthzEeM2z6sI8k1bs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK8NY36QxbX7eFfR1sjwQRuZEJHgQkJX/OWqIcUT1enUwX2MWBZ
-	RnUDg0bYlG5wqwrtWfzCCTWP2y5TZGire4PB/g34wUt/wGSWzpdoDcIVg76JHT2mVrpqUh/EeyO
-	R/oA441maV7FS/m9nEsUo4OOnbFj8vVk=
-X-Gm-Gg: AYBFou1Ck17XDvoEX45d5k537vhevYal9c2+uSr7Tex8Z9MRVitjLVXn/O2gfN5FOgK
-	urTLPaYIHgxwWJWcu97ZPQVmiBKTE9O3eQo4AB9h2MP5Jdi/wpB6m8emaBo8ji5DDYyONoLikWu
-	/3u+Q4gwsh5EPUhJfLM+2h3+qop5sR3axwHdMnaXj/LzNw5uKoJXwxhT7/noN/xSGMHFcP2t+2y
-	R3Y/Fq5GHyJ/+AD9Cv1SQr9Y17D4s7qLTskVaTnlUa0kwu/ULrVFzQdke8Znnt/fR7XoejBc8gO
-	q5mk5fnJPvAoa7jsOtoxifZz4306fflDBfeWXajC5xm/wFWqDSIS+Zm/lUUV8MnDQcw6GSRfK+s
-	HeRtyNvvvubDnQwaxesKRdXm60VQwNWOr0P37YP/CpiXXESHwilOMTsBMq3tPzUJTFKU1i5g=
-X-Received: by 2002:a05:620a:a41b:20b0:93e:c12c:fbd1 with SMTP id
- af79cd13be357-93ec12d08e0mr831249985a.77.1791748894091; Sun, 11 Oct 2026
- 13:01:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="WcJl456c"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jq3J/W+HBW5bupkL+dnE9fZyL9OUpe0FQWyvHSuFSkKSLj0bvSlPiMUWv+MSWk9MV3VbLmnlY8BzuB5y73Zq5nDpL+Us3dBfnUTd36ct0Z8TPkDhkV03Sh+HuTRdogS7IXsT725Xk04ZPN1uO3qdgx7HGxD4xunTrOa+rVE9yfT6kEnGtRMr/3LtLeRGl7ov8b5UVB3kH50H8yGWYGGL96APQx3a7F3BmBrQ1TP+u63/ZEnWrg6pniAOXOj4gcIBncXh9Qz1sWxbbWds6vyy7t/Exd9nPp1jG5yUmY2o+7yXeCmBta1kxGAgQ6jMIwvk1ZfG92jKAhjNzkUMfAV3QQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7OL20Pza5HyE3tD7cs8q77aH3xITZJhqKeOWl1bB8kE=;
+ b=xYoVTn7SEI2FPGBhvYYoqIQUNtpE3PSC+Oc/uNjzKDRoRC6vJisCWQRwkF52ysHqWLhoLj3Jwij90scTN832u3FRvaBePvoMHlOfwHDROEW7v5t99ESE49NBBq4nNV/667h5s5le80ltOoQXMVWG4hjfLnpRK0cKGm5BNApLNTe7OHd12hwKl+M6+/50CO9+eayC387DIPnO2uAcO+VnDoAfcY/SE91W3u2DBztvkDH7UYswat8rYtayZXzd/pv4pRGYu8hi2vFydiJu3pV3nEC46/P9S63tNwiKfMIuRNCWD7kaFtiY0uu8nBjyiKf72vfeHj7zSCwvO22QLL0YVw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
+ dkim=pass header.d=efficios.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7OL20Pza5HyE3tD7cs8q77aH3xITZJhqKeOWl1bB8kE=;
+ b=WcJl456cuiRZnabANx1n6ACKThSB/vIMlVoD4fwKcQDpgn9hoJWo1vD9Roz8P2A6LxXRH5bPOTYuEqPp3219Esew6T9LvIDA5VFP2dr/uxB7eQRiX2XB4THF34F8pzVx9zt2rnsy5KZSs5YFP25gFwVL6Q/I0Aj609Ql4fSywQBgOJMJiHbuFAOX6vIn31JnXqAMC3YegnsWFkKbtTJtt3AHNlA2+ww5sUpbk7TpqU5erjUkSLtza6aP72uDq8UiN6J7CTrZazquue1bZmczO8b7pU6FWsN20Vvb8pa//qFbaN4EwOFpj8w8Rg6SW26xYd7tpUSQ/mVkZCMofQSWhw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=efficios.com;
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10) by YT8PR01MB612386.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:12::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Sun, 11 Oct
+ 2026 20:06:25 +0000
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0496.019; Sun, 11 Oct 2026
+ 20:06:25 +0000
+Message-ID: <97f91313-e629-40c0-b3ff-f23c235a8ad8@efficios.com>
+Date: Sun, 11 Oct 2026 16:06:24 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH hazptr v3 4/4] hazptr: Introduce "try acquire" fast path,
+ fallback to overflow list
+To: Bradley Morgan <brads@mainlining.org>,
+ "Paul E . McKenney" <paulmck@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Gary Guo <gary@garyguo.net>,
+ Boqun Feng <boqun@kernel.org>, rcu@vger.kernel.org, lkmm@lists.linux.dev,
+ Lian Wang <lianux.mm@gmail.com>, Kunwu Chan <kunwu.chan@gmail.com>
+References: <20261011194902.97364-1-mathieu.desnoyers@efficios.com>
+ <20261011194902.97364-5-mathieu.desnoyers@efficios.com>
+ <E99B2D1B-6D27-4ED7-A7A4-083DB5427925@mainlining.org>
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Content-Language: en-US
+In-Reply-To: <E99B2D1B-6D27-4ED7-A7A4-083DB5427925@mainlining.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0446.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10d::7) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261011191344.981000-1-linmag7@gmail.com> <20261011191344.981000-7-linmag7@gmail.com>
-In-Reply-To: <20261011191344.981000-7-linmag7@gmail.com>
-From: Matt Turner <mattst88@gmail.com>
-Date: Sun, 11 Oct 2026 16:01:14 -0400
-X-Gm-Features: AclHuK9hH6WUDnezreEOOPO2jeyuAE8H0CKQdbkUt_jrQI3BponjxKRx6Hgy5is
-Message-ID: <CAEdQ38GoGhoaoymQER16qF2NHwhOGjGsTh68B8oqSzeR-LL-uA@mail.gmail.com>
-Subject: Re: [PATCH v6 6/6] alpha: stop on fatal Tsunami system ECC and write
- parity errors
-To: Magnus Lindholm <linmag7@gmail.com>
-Cc: richard.henderson@linaro.org, linux-kernel@vger.kernel.org, 
-	linux-alpha@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YT8PR01MB612386:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5b66b566-ba05-452a-ce3d-08df27d32108
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|18002099003|22082099003|10067099003|4143699003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	1+y9V4pfD1jkRmnbPALuzCuWalkd3VzCyGaFnUsFv5iImJSZpxlIYy9xWDE3rJxucBQzBHiBw4Q2qzIqp+bhVC5dAWR1Bh6z3N7l6rlJOuWdbKeaUYpV36HWeYCEdrDaV7k3op0lfVqLhQmje+/7KdvAXmm8I+p7iJLakgR47RllU0n1WOCvPBn8g7boBPfC0K1/aLWx6TGAYQm6egkZXtgeMqBqMJx0vlH3T2watKA0yNFMkTibPpbPiqlV77WZ8vGGlBKZNOOThgESq0d5/cw1sirQ2Veg0/vLsJIljZ2dxm31kdGvkaUZZHsyVOn8keYK+vMakIxbqzIWd9zgFUEZoxd7JadeAA2+5HuJg8XbUvt4Un0gkgWp1RMHEeVZp4rNRCp/zsgO8b9Hdf2U31DLGTuAobwo7yGmy3x4mBPODCTHXl4swbUBWS5Csi2mtSF2vCeEFiuIFj6TDxy/ekFsZxpznzqTdfXXnmHWexaYQ+KexPr7fSvMtAEiPLAYaof2e0wZTjFE6Y1ccGTBOEcjEb4Og89KnyzDZXOItwoJwJaksLRlWmRFdHjtt+ZvArxrxQtSJ1PrbNTamO2Zo1aP8LMFlW30BGeCDy733Zo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(18002099003)(22082099003)(10067099003)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SkpoTFFvRUQxc0ZQUFZvamlsVmxDL3BZUFJScjdqeWk5d2xKaHN3QmlITVBZ?=
+ =?utf-8?B?SXVTdEoweTdVRWg4ZjBoNDR0dDN3THJyeHNlcXFyY0paeGZFWnNoK1JOMEdu?=
+ =?utf-8?B?QUJTbm1uaXhMeXNtRElSMUtlbGd0MG5wMVVTbThHRlFqd0w0Z2dsS1FlSGVi?=
+ =?utf-8?B?Vzhob3Y0U1U4KzBwZzRmZ3NDS0V0cWtTYzdOakpad3ZwdTAzWjRLbkJsK1dW?=
+ =?utf-8?B?bXI4RW52SjhxUXdINmxCdmlZWVZQSVFEeE1vSE93R2I2dWQ3QnNMV0NtUmFG?=
+ =?utf-8?B?TjFxT0pYaE04UkdaWlhZNEtKY1ArYzVrWDNrN2lMRkIxdVh3QkFjQWxvVVd1?=
+ =?utf-8?B?aTFPeUdaL3NzUWcrcHpWa1JwZDJsQ3kzL1hLUlJlZlFscnYxeDNPTEtwUldP?=
+ =?utf-8?B?dDhEc0ZKVXpGYVZ3OURvQlhIWnlmT1AxUlpmZGl2dU43elNNTWlXdUJnaFlm?=
+ =?utf-8?B?c2dxbHlYc0Fsd3RGZDc4dlRvcHNIMExwM2hCeElQenlkVm5Ld3NmV1U4S1BB?=
+ =?utf-8?B?T1U0bUQxa3NNVHV1Q29hSXYxall5TGlYTGszamJWQWJINGlyZmpwMTZRTCs1?=
+ =?utf-8?B?UlZkbVF6eGw4bHBFN1NaZitDYWk1VWtGcjNReUZ2NkJrQ3N6N0JVc3JBY3dP?=
+ =?utf-8?B?RVlVb1hrT1E5Zlkya0gxeWFmeTIxblAvWldFS0laWnBEbUJHTVZXL0lhamNp?=
+ =?utf-8?B?WGVaMk1jTG9YNDZXUDM0Y3NMZTc4OGhCYi9tMk1UcUs3UUYwNHNZSTlIejVR?=
+ =?utf-8?B?Mno5cFRjSDNNbkh6b2E2RjNmREdPZHdXT1R3bHJEZ2ttOUpHSmZXdG4vclJw?=
+ =?utf-8?B?REFXeStSYk1FTEJQM2FvaWc2a3AzUUlLN2ZSVmNqdkZ3M2t0YzNjL0l0N0Jx?=
+ =?utf-8?B?cFJzK3NEaTlYSkdVS21kMFA0ZnZnQzA0eTE4VlgzTXBUUGw1cTZEcUxSMUhl?=
+ =?utf-8?B?ZU4vUXhUaE9ZN3hrVElsem5tZDF2TWpXMHRjblZrR1V5TUZ1VER3STd5ZGJN?=
+ =?utf-8?B?anZFd1lrQ25oVmhSeThxNE9Ja1MzUXNlMkJNekRCaURNdnJXbDFKdkdjYnpo?=
+ =?utf-8?B?UFllak1YaUpidzgwNUJBT0FHWTZZVnZpeTJpdEhoYk5xalFZLzZ6alQrdVBE?=
+ =?utf-8?B?NHArRGduRW1uck10S3ZlSFRXamlObG5EYWxZTjRtK2ViV09XU21KSUVzdUlz?=
+ =?utf-8?B?R0Q4ZERsL1RDOTVIZFBkRXhDWlhBUmdXcFduMXlhdUI3cVlFOWh4VGJDREtm?=
+ =?utf-8?B?OFRVNE8rTnVUMkRJdkNpb3ozeXJrb2RnUndrdk9yY2hFT3cwVkxhLzdEU1VH?=
+ =?utf-8?B?OXp0OGFVckRkUWN5WVVYcHRucW5PWW1iaE9FTjJaMi9FRXZTL09uZDRlbjBa?=
+ =?utf-8?B?bXVKMmt6RU1XK3VUL2duWDRnTEh6KzFBVm91MzdTUFN5SnRLNjcyR1VlQkVr?=
+ =?utf-8?B?SmdMOGV0bGowMU5mV0kvK1RROHgwd2VXQ093QjVCS0RzR1hTeXFtYzNUcXM1?=
+ =?utf-8?B?UXFhZ1NkeXFhQ3BDYzA1bnYwb2VOaW9kTTllYlVOVExvSW5QS2dmS2FPNnkr?=
+ =?utf-8?B?emMvTkpMV3k5YXlHYi9zWHFxckxoV2R1UXBaSEtKQ0tXL3dMNEUra3B6bUcy?=
+ =?utf-8?B?dW94eklQVjBPRk9qMitYM1NDeHZjdDE5Q3RrcFRKU1JNTXZhZzFaQnRJRkZi?=
+ =?utf-8?B?MDJLYU1zd3lvUDJpMENZZWc1VjdmN0JTOUxIQk1zY29UZmRWSlJlNnB2SS9R?=
+ =?utf-8?B?cGRwMzBoSjlLL0VjcVAvUkc1YW5PV3BhaGs3ZjF0dTlGaWZVdFF2TVcyN25O?=
+ =?utf-8?B?MW5CbklZR2plYzN5Y1kvaDdBbkhwbWQ4V2JXaDRnRFpyQUxwa1FVUWFtcjZp?=
+ =?utf-8?B?UC9yT2w4OWJWbGQ3VjBwVW9UNldPbGdPU3JieUY1bTV1ZnJ6Vi8wd01nZlBJ?=
+ =?utf-8?B?djJ2NXNoVnJldm0zOGdxS05KQjA5dVk2cjZFN0U0Ymt4Ym90a2ZWV3liVTZO?=
+ =?utf-8?B?OUdyQTFTRTZtck9XdXh5WmFQZ09PYUhWL2g4QURINzMraE9FRko0MmZ3NTRq?=
+ =?utf-8?B?YzE2ajZHYk8zQTE5VllLcGIzcHZqcDAwTjVsNUZFUU9yZ25TVE5sOEFlNUUv?=
+ =?utf-8?B?QWo4Y0xLdy9WVTdkNkJIM1dkRVlxNGo2Sm9ZK0hrUWVONEcza1I0Z2xnRmVU?=
+ =?utf-8?B?ZWNBV2syNHpKQll3OHVXSEZqKzJCZUdSQ1lWeUVKcEVXYjllelRZWUZQZHA1?=
+ =?utf-8?B?QlZpZ0dNMHdLUFZuUnlxWUQ0NkRLSjNZaUswZHpTaFplQmRnWVMxakplbWhL?=
+ =?utf-8?B?SGNNWEM4SmpXUkVxY1BUZDBpak5JZkxRdDgzTHRXWU9pQy9BUy9yTGZhWk5v?=
+ =?utf-8?Q?gBl3eoDMpXrZtniQ=3D?=
+X-OriginatorOrg: efficios.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5b66b566-ba05-452a-ce3d-08df27d32108
+X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2026 20:06:25.6418
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3w1UvAKyuuTKvJarG/0Ehq9pJEyPPGt94e5C11zH+8O/ZpDRrmG8c1FsFTKsh8sVBjp5inZghQC3Xj71/qg+mcEexwuptmzMAGglnYNujwo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT8PR01MB612386
 
-> +#define TSUNAMI_PERROR_FATAL (perror_m_uecc | perror_m_perr)
+On 2026-10-11 15:59, Bradley Morgan wrote:
+> On 11 October 2026 20:48:50 BST, Mathieu Desnoyers
+> <mathieu.desnoyers@efficios.com> wrote:
+>> Introduce a "try acquire" hazard pointer fast path, which performs an
+>> early load of the address to store it into the hazard pointer slot, and
+>> then re-loads that address after a barrier to check whether it has
+>> changed meanwhile.
+>>
+>> On comparison failure, rather than re-try, guarantee forward progress by
+>> falling back to the __hazptr_acquire slow path on failure.
+>>
+>> The acquire slow path attempts a try-acquire for any available per-CPU
+>> slot. If that fails, it chains the backup slot into the overflow list,
+>> therefore guaranteeing forward progress for both hazard pointer
+>> read-side and synchronize:
+>>
+>> - Readers set the wildcard, and then proceed to set the more
+>>   specific address to replace the wildcard.
+>>
+>> - One synchronize alternates between two overflow list periods,
+>>   scanning each one while readers are added to the other period,
+>>   thus preventing a steady flow of readers from preventing
+>>   synchronize forward progress.
+>>
+>> With this change, the scan on per-CPU slots don't need to expect a
+>> wildcard anymore, because none can be produced by readers. Wildcards are
+>> only expected within overflow lists.
+>>
+>> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+>> Suggested-by: Gary Guo <gary@garyguo.net>
+>> Link: https://lore.kernel.org/lkmm/DLK9MW1N86KD.2GRWUAD2NX4FU@garyguo.net/
+>> Reviewed-by: Gary Guo <gary@garyguo.net>
+> 
+> Hi, my R-B still stands from
+> 
+> https://lore.kernel.org/all/C53DEBF5-555F-44A8-A11C-A15C83AAD341@mainlining.org/
+> 
+> Reviewed-by: Bradley Morgan <brads@mainlining.org>
 
-Why PERR and not RDPE? Bad parity on data read from PCI seems just as
-bad for the consumer. If the HRM says the Pchip poisons that data and
-the CPU takes a 670 for it, please say so in the changelog.
+Sorry, I forgot to add it to my commit message. I'll add it to the next
+round (if there is one), else hopefully Paul can add the R-B tag if he
+picks up this series.
 
-> +             perror = live.perror[0] | live.perror[1];
+Thanks!
 
-The changelog says incidental PERROR state on a CPU or environmental
-vector cannot trigger the panic. It still can on a system vector: UECC
-or PERR latched before an unrelated NXM will panic here. That may be
-what you want, since the error is real either way, but the changelog
-should cover it. It also depends on the PERRMASK question I asked on
-patch 4.
+Mathieu
 
-Two things that I think belong in the changelog:
 
-A CPU-detected uncorrectable ECC error (670 through
-ev6_machine_check()) still does not panic, so after this patch the
-policy differs by who detected the error.
-
-A PCI card with a marginal connection that asserts PERR# now takes the
-machine down, where before it logged and carried on.
+-- 
+Mathieu Desnoyers
+EfficiOS Inc.
+https://www.efficios.com
