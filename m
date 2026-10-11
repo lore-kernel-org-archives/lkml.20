@@ -1,282 +1,156 @@
-Received: from mta0.migadu.com (out-171.mta0.migadu.com [91.218.175.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C0B3AE6F7
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 11:23:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E1E34216C;
+	Sun, 11 Oct 2026 11:23:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791717825; cv=none; b=NHdevNCHZ3Y6F+YMBhgei/XkXrLGtZGH3ZyZ0DrOHOA1jZQ3q7VmBezxnmYceol6OhenKOhrkIokkU+KX3MBWpdvlSNbNMKGAxWOC8/2EjsNskWxGHX0r8DDqrXjeIRdX5/cFbJGK2yde14UVyLe6uL5ykPe93EZxqu9pUfZ+54=
+	t=1791717837; cv=none; b=iVG8jMgCJ/HHZ61cY8vZ9Bfovb142UKJYNa7enCst7xeAQpOgfWl1kuHGHC0u6hSjeOORIDTakqBTPlO8kQT0s8OAkPwdyAZso9l5bW9BuEzcCxk4XDkxdl96KPa5qfx7wVBWFllLlSTc+GOMldMCF5JnVG2x+KlN/hHFkmEqA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791717825; c=relaxed/simple;
-	bh=1DNHUqnm805bm4ix+NLuhMWV19b4IAVpqD9AEak72a4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=f9Rk9Lq3SFXDmE6Rk8T0XuX7xR0HEXpjPxtIPsa4Xk2Wf9dcy/nf2kz5AFOdkvghxO7zXUIO1s/H/HgQ6mAfW16579YJN01osxFkZekHPmQofJc6OK1T49K2ny6C/YHI2nUbZktv+S4Rhp5BmjrM4hJNUc6aO1sr5zzPBWN1XO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cpAI64QD; arc=none smtp.client-ip=91.218.175.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791717837; c=relaxed/simple;
+	bh=CCferC2my1KTfiRlvoMZHvwLRRPxthwclodKSDzPpAo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=YDtp4wOfEku1dCgwbZES4m6tOaCiDGZzDug4i1JKI2yJsIi9HjhjtELmvXwl3GqYhcBB73JaUwH19ZePG3/29RC98XfKzKEWVvBsG3dX53X6cukk7Uz5II0eV6PypkIN2rpnbqztHVb2lC8JOxrP7T3zHhIQiXheGdEjwofbxD0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SJNe293a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cpAI64QD"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1DNHUqnm805bm4ix+NLuhMWV19b4IAVpqD9AEak72a4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791717819; v=1; x=1792322619;
- b=cpAI64QDl13AQ+Loldt/Hj2kTQPoFwp5c0thb4V5ab1yHG4w6dBykloHXzOQVNzTuSXgGZDK
- Cj8wEDRc2yhQzhFdYMWixAk8vGVN2Y/KYLs7CuR3TdeiHvV4fTCHYIvYcawQP9JfE2hkl7+PAhA
- eMEaSx7HgQPVZMmncQBI5r84=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id faba7e628ebf2d40;
-	Sun, 11 Oct 2026 11:23:39 +0000
-X-Mizu-Trace-ID: faba7e628ebf2d40
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <cf408084-9b6a-436d-a63a-8a247a49006f@linux.dev>
-Date: Sun, 11 Oct 2026 19:23:34 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SJNe293a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DE501F0089B;
+	Sun, 11 Oct 2026 11:23:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791717836;
+	bh=B+sTImV2OzP8xPaKYq6APrxAM++DsSPbzV5A+zRS8LM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=SJNe293aduo2+L1Mk5AtkOLI/nly1/xtEXT5TJzcVm4ZKK53bk/QdPzSXAQIB2/xT
+	 WlCLamXGF7Q58nK9UxPnz3wXU8f56eXM+Yhpev+JVmNw4wSDfIZKAccjO1GPcSOZa3
+	 v2Ikz5wTGi3UTdyS/pMgxgGeQy9kR9Zqb9xtpe0wAnlZAa5QiO1mEzbToda7XPbeWc
+	 9yt+hSFBPrvrMwQX/8A4biO8vWdPFSRg/95BrT/QMAc1ZiibsDHjsDuf7P582PfEs+
+	 vXrNARNRHy8IhTE6CIdtsCAtbVNUiJ8BSkZwJE2GIYaEowSuREaBtSxqiNY1jy31E5
+	 ip9cGduAiErxg==
+Date: Sun, 11 Oct 2026 12:23:30 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: "jiale yao" <19888972804@163.com>
+Cc: "Andy Shevchenko" <andriy.shevchenko@intel.com>, "David Lechner"
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, "Andy
+ Shevchenko" <andy@kernel.org>, "Stepan Ionichev" <sozdayvek@gmail.com>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: gyro: bmg160: reject duplicate event disable
+Message-ID: <20261011121422.5c7078ff@jic23-hlaptop>
+In-Reply-To: <5d8fc46a.89bc.1a0e7525da7.Coremail.19888972804@163.com>
+References: <20260925140956.2254877-1-yaojiale02@163.com>
+	<araCndRmAqnX1K9k@ashevche-desk.local>
+	<6b2f4eef.1cf6.1a0d8fc9ac6.Coremail.19888972804@163.com>
+	<20260926020133.3699a786@jic23-hlaptop>
+	<20260927181632.76bc1eda@jic23-hlaptop>
+	<5d8fc46a.89bc.1a0e7525da7.Coremail.19888972804@163.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] cgroup/cpuset: Invalidate remote partition on
- housekeeping conflict
-To: Ridong Chen <ridong.chen@linux.dev>, Waiman Long <longman@redhat.com>,
- Tejun Heo <tj@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- Guopeng Zhang <zhangguopeng@kylinos.cn>
-References: <20260929023805.31648-1-guopeng.zhang@linux.dev>
- <585bc1e0-f538-444e-b8b4-28185ee6b19c@linux.dev>
-Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <585bc1e0-f538-444e-b8b4-28185ee6b19c@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Mon, 28 Sep 2026 17:22:09 +0800 (CST)
+"jiale yao" <19888972804@163.com> wrote:
 
-Hi Ridong,
-在 2026/10/11 09:42, Ridong Chen 写道:
+> At 2026-09-28 01:16:32, "Jonathan Cameron" <jic23@kernel.org> wrote:
+> >On Sat, 26 Sep 2026 02:01:33 +0100
+> >Jonathan Cameron <jic23@kernel.org> wrote:
+> >  
+> >> On Fri, 25 Sep 2026 22:33:48 +0800 (CST)
+> >> "jiale yao" <19888972804@163.com> wrote:
+> >>   
+> >> > At 2026-09-25 22:18:05, "Andy Shevchenko" <andriy.shevchenko@intel.com> wrote:    
+> >> > >On Fri, Sep 25, 2026 at 10:09:54PM +0800, Jiale Yao wrote:      
+> >> > >> The IIO core does not filter duplicate writes to the event enable
+> >> > >> attribute.      
+> >> > >
+> >> > >Can it be done there once for all?      
+> >> > 
+> >> > I don't think the core can safely do this generically, since it doesn't own
+> >> > the per-event state and read_event_config() may reflect shared hardware state.
+> >> > 
+> >> > The runtime PM accounting is driver-specific, so handling duplicate writes in
+> >> > the driver seems safer. gp2ap002 does the same in commit 579c049b4cb6,
+> >> > refer https://lore.kernel.org/all/20260720193911.74919-2-nikhilgtr@gmail.com/    
+> >> 
+> >> Exactly right.
+> >> 
+> >> Event handling in the core would indeed require complex mapping of
+> >> what can actually be enabled on a given device. Some of those we might
+> >> be able to represent with simple approaches similar to what we do
+> >> for avail_scan_masks for buffered channels but it is hard to generalize
+> >> and FWIW that concept still misses some corner cases of channel enabling
+> >> where drivers have to apply constraints in the actual buffer enable.
+> >> Those are rare enough that it isn't too much of a problem in practice.
+> >> Probably fine on 99% of drivers.
+> >> 
+> >> Events have simplre cases like:
+> >> - 1 enable bit turns a whole load of events on (we don't filter in
+> >>   the kernel - so userspace has to cope with surprise events).
+> >> - Always on event signals.
+> >> - Limited numbers of general purpose event engines (the ADI IMUs do
+> >>   this as they tend to have 2 instances). Each engine can do anything
+> >>   but there are only two of them.
+> >> 
+> >> We also have more complex ones like mode bits that flip a subset
+> >> of events from one enable state to another.  There are some really
+> >> odd rules in some devices because some upstream filter that is needed
+> >> for 5 seemingly unrelated events has to be in a particular state for
+> >> subsets of them.
+> >> 
+> >> Anyhow, all in all event control is a mess of 'original solutions'
+> >> from vendors and relies on the (naughty) get out of IIO ABI that
+> >> just occasionally any write to any userspace ABI element can
+> >> change what is read back from any other.
+> >> 
+> >> Not great, but I've never come up with a better solution for events.
+> >> If anyone wants to have a go at architecting a filtering solution
+> >> a bit like the IIO buffer demux maybe we can opt in to it from
+> >> some drivers.
+> >> 
+> >> I am wondering if it is worth registering a driver specific tidy
+> >> up events call though that would disable everything a bit like
+> >> we disable buffers as part of the userspace tear down.  That would
+> >> close out some races sashiko has reported.  That project would
+> >> I think be a lot simpler to implement.
+> >>   
+> >This one needs a fixes tag, as do the other similar ones.
+> >Fine to just reply to each thread with the appropriate tag.  
 > 
+> Fixes: 22b46c45fb9b ("iio:gyro:bmg160 Gyro Sensor driver")
 > 
-> On 9/29/2026 10:38 AM, Guopeng Zhang wrote:
->> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
->>
->> Widening an ancestor's exclusive CPU mask can add a boot-isolated CPU
->> to a valid remote partition root without touching the partition's own
->> control files. The partition then load balances that CPU, silently
->> defeating isolcpus=domain for it.
->>
->> This can be reproduced on a 32-CPU system booted with
->> isolcpus=domain,4:
->>
->>      cd /sys/fs/cgroup
->>      echo +cpuset > cgroup.subtree_control
->>      mkdir -p A/B
->>      echo +cpuset > A/cgroup.subtree_control
->>      echo 2-4 > A/cpuset.cpus
->>      echo 2-3 > A/cpuset.cpus.exclusive
->>      echo 2-4 > A/B/cpuset.cpus
->>      echo 2-4 > A/B/cpuset.cpus.exclusive
->>      echo root > A/B/cpuset.cpus.partition
->>      cat A/B/cpuset.cpus.effective               # 2-3
->>      echo 2-4 > A/cpuset.cpus.exclusive
->>      cat A/B/cpuset.cpus.partition               # root
->>      cat A/B/cpuset.cpus.effective               # 2-4
->>
->> The last write returns 0 and leaves the hierarchy in this state:
->>
->>      root (cpuset.cpus.effective=0-1,5-31)
->>      |
->>      \-- A (member):           cpuset.cpus=2-4
->>          |                     cpuset.cpus.exclusive=2-4
->>          \-- B (root, remote): cpuset.cpus=2-4
->>                                cpuset.cpus.effective=2-4
->>
->> B is a remote partition: it takes its CPUs directly from the root
->> cpuset, and A only passes its exclusive list down. Before the last
->> write, that list is 2-3, so B holds 2-3 and CPU 4 stays in the
->> root cpuset as a boot-isolated CPU. The write widens A's exclusive
->> list to 2-4, which additionally grants CPU 4 to B. Nothing rejects
->> the grant: B remains a valid root partition, and CPU 4 is still
->> listed in cpuset.cpus.isolated while sitting in a load-balanced
->> partition.
->>
->> remote_partition_enable() already rejects such grants through
->> prstate_housekeeping_conflict(). remote_cpus_update(), which applies
->> ancestor changes to a remote partition, does not.
->>
->> Both paths also open-code remote partition validation. Move those
->> checks into validate_remote_partition(), and check the resulting
->> effective exclusive CPU mask for a housekeeping conflict there. The
->> existing prs_err path then invalidates the remote partition instead of
->> assigning it a boot-isolated CPU.
->>
->> Fixes: f62a5d39368e ("cgroup/cpuset: Remove remote_partition_check() & make update_cpumasks_hier() handle remote partition")
->> Suggested-by: Ridong Chen <ridong.chen@linux.dev>
->> Suggested-by: Tejun Heo <tj@kernel.org>
->> Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
->> Reviewed-by: Waiman Long <longman@redhat.com>
->> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
->> ---
->>
->> Changes since v2:
->> - Pass the enable/update mode explicitly to validate_remote_partition()
->>    instead of deriving it from cs->remote_partition, which can remain set
->>    after a failed partition state transition, as suggested by Tejun.
->>
->> Changes since v1:
->> - Consolidate remote partition validation in a common helper, as
->>    suggested by Ridong.
->> - Check housekeeping conflicts against the resulting effective exclusive
->>    CPU mask.
->> - Rebase onto cgroup/for-7.3-fixes.
->>
->>   kernel/cgroup/cpuset.c | 69 ++++++++++++++++++++++++++++--------------
->>   1 file changed, 47 insertions(+), 22 deletions(-)
->>
->> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
->> index 1fcec89a28b9..d0a45241c070 100644
->> --- a/kernel/cgroup/cpuset.c
->> +++ b/kernel/cgroup/cpuset.c
->> @@ -1561,6 +1561,43 @@ static inline bool is_local_partition(struct cpuset *cs)
->>       return is_partition_valid(cs) && !is_remote_partition(cs);
->>   }
->>   +/**
->> + * validate_remote_partition - Validate a remote partition CPU change
->> + * @prs: partition root state to validate
->> + * @updating: true for an update, false for an enable
->> + * @excpus: resulting effective exclusive CPU mask
->> + * @addcpus: exclusive CPUs to be added
->> + * @delcpus: exclusive CPUs to be deleted, can be NULL
->> + *
->> + * Return: PERR_NONE if valid, otherwise an appropriate error code
->> + */
->> +static enum prs_errcode
->> +validate_remote_partition(int prs, bool updating,
->> +              struct cpumask *excpus,
->> +              struct cpumask *addcpus,
->> +              struct cpumask *delcpus)
->> +{
->> +    if (!capable(CAP_SYS_ADMIN))
->> +        return PERR_ACCESS;
->> +
->> +    if (!updating &&
->> +        (!cpumask_intersects(excpus, cpu_active_mask) ||
->> +         cpumask_subset(top_cpuset.effective_cpus, addcpus)))
->> +        return PERR_INVCPUS;
->> +
-> 
-> Do we really need the updating flag? I mean, whether or not it's an updating partition, it should still be an invalid remote partition, right? So why do we have to distinguish between updating and not updating?
-> 
-
-Both paths do invalidate the remote partition when validation fails, but
-the flag was added when factoring out this helper to preserve the
-different semantics of the two paths.
-
-For example, suppose the top cpuset has only CPU 4 left:
-
-    top_cpuset.effective_cpus = 4
-
-When enabling a new remote partition:
-
-    addcpus = 4
-
-cpumask_subset(top_cpuset.effective_cpus, addcpus) is true, and the
-existing enable path returns PERR_INVCPUS.
-
-Now suppose an existing remote partition owns CPUs 2-3 and is updated
-to add CPU 4:
-
-    old excpus = 2-3
-    addcpus    = 4
-    new excpus = 2-4
-
-The same cpumask_subset() condition is true, but the existing update
-path returns PERR_NOCPUS. The active CPU check also differs: the enable
-path requires the resulting mask to contain at least one active CPU,
-while the update path only checks whether the resulting mask is empty.
-
-If we want to remove the flag, I think the cleaner approach is to keep
-the checks specific to each path in their respective callers and leave
-only the shared checks in validate_remote_partition().
+Applied to the fixes-togreg branch of iio.git and marked for stable.
+Note that I'll be rebasing that on rc1 (once available) before sending
+out a pull request.
 
 Thanks,
-Guopeng
 
->> +    if (cpumask_intersects(addcpus, subpartitions_cpus) ||
->> +        (updating &&
->> +         cpumask_subset(top_cpuset.effective_cpus, addcpus)))
->> +        return PERR_NOCPUS;
->> +
->> +    if ((prs == PRS_ISOLATED &&
->> +         !isolated_cpus_can_update(addcpus, delcpus)) ||
->> +        prstate_housekeeping_conflict(prs, excpus))
->> +        return PERR_HKEEPING;
->> +
->> +    return PERR_NONE;
->> +}
->> +
->>   /*
->>    * remote_partition_enable - Enable current cpuset as a remote partition root
->>    * @cs: the cpuset to update
->> @@ -1574,11 +1611,7 @@ static inline bool is_local_partition(struct cpuset *cs)
->>   static int remote_partition_enable(struct cpuset *cs, int new_prs,
->>                      struct tmpmasks *tmp)
->>   {
->> -    /*
->> -     * The user must have sysadmin privilege.
->> -     */
->> -    if (!capable(CAP_SYS_ADMIN))
->> -        return PERR_ACCESS;
->> +    enum prs_errcode err;
->>         /*
->>        * The requested exclusive_cpus must not be allocated to other
->> @@ -1591,15 +1624,10 @@ static int remote_partition_enable(struct cpuset *cs, int new_prs,
->>        * above it or remote partition root underneath it is not allowed.
->>        */
->>       compute_excpus(cs, tmp->new_cpus);
->> -    if (!cpumask_intersects(tmp->new_cpus, cpu_active_mask) ||
->> -        cpumask_subset(top_cpuset.effective_cpus, tmp->new_cpus))
->> -        return PERR_INVCPUS;
->> -    if (cpumask_intersects(tmp->new_cpus, subpartitions_cpus))
->> -        return PERR_NOCPUS;
->> -    if (((new_prs == PRS_ISOLATED) &&
->> -         !isolated_cpus_can_update(tmp->new_cpus, NULL)) ||
->> -        prstate_housekeeping_conflict(new_prs, tmp->new_cpus))
->> -        return PERR_HKEEPING;
->> +    err = validate_remote_partition(new_prs, false, tmp->new_cpus,
->> +                    tmp->new_cpus, NULL);
->> +    if (err)
->> +        return err;
->>         spin_lock_irq(&callback_lock);
->>       partition_xcpus_add(new_prs, NULL, tmp->new_cpus);
->> @@ -1672,6 +1700,7 @@ static void remote_partition_disable(struct cpuset *cs, struct tmpmasks *tmp)
->>   static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
->>                      struct cpumask *excpus, struct tmpmasks *tmp)
->>   {
->> +    enum prs_errcode err;
->>       bool adding, deleting;
->>       int prs = cs->partition_root_state;
->>   @@ -1695,14 +1724,10 @@ static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
->>        */
->>       if (adding) {
->>           WARN_ON_ONCE(cpumask_intersects(tmp->addmask, subpartitions_cpus));
->> -        if (!capable(CAP_SYS_ADMIN))
->> -            WRITE_ONCE(cs->prs_err, PERR_ACCESS);
->> -        else if (cpumask_intersects(tmp->addmask, subpartitions_cpus) ||
->> -             cpumask_subset(top_cpuset.effective_cpus, tmp->addmask))
->> -            WRITE_ONCE(cs->prs_err, PERR_NOCPUS);
->> -        else if ((prs == PRS_ISOLATED) &&
->> -             !isolated_cpus_can_update(tmp->addmask, tmp->delmask))
->> -            WRITE_ONCE(cs->prs_err, PERR_HKEEPING);
->> +        err = validate_remote_partition(prs, true, excpus, tmp->addmask,
->> +                        tmp->delmask);
->> +        if (err)
->> +            WRITE_ONCE(cs->prs_err, err);
->>           if (cs->prs_err)
->>               goto invalidate;
->>       }
->>
->> base-commit: 31c88350b7dd1522792f726f79607f31bb55c50f
-> 
+Jonathan
+
+> >
+> >Thanks,
+> >
+> >Jonathan
+> >  
+> >> Jonathan
+> >>   
+> >> >     
+> >> > >      
+> >> > >> bmg160_write_event_config() already ignores repeated enable
+> >> > >> requests, but a repeated disable request still calls
+> >> > >> bmg160_set_power_state(data, false), dropping a runtime PM reference
+> >> > >> that was not acquired for this request. This can underflow the runtime
+> >> > >> PM usage count and trigger a "Runtime PM usage count underflow" warning.
+> >> > >> 
+> >> > >> Return early when the requested state already matches ev_enable_state.      
+> >> > >
+> >> > >-- 
+> >> > >With Best Regards,
+> >> > >Andy Shevchenko
+> >> > >      
+> >> 
+> >>   
 
