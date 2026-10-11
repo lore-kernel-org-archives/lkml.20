@@ -1,171 +1,112 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F0F0443AA3
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 15:04:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE256243387;
+	Sun, 11 Oct 2026 15:07:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791731075; cv=none; b=X8yqjAdJUsaXa0784x+I/Lge5xNWP5y2wFkE89+TLX+63Axj55NJlOCxO4gmNKN0xDauobSG/esiNnfUhd6LG4Jpx8En6EwpUWgSAdY14Q+181Whkuamf/Z5mk+1X/SuyGQizVab0EjOJ8pwaZhmanAxMo89bS0E6L8ZgBT0C7I=
+	t=1791731235; cv=none; b=VSmxWBPf+CDyTOzjHIXfyuRASMLQoaM+4Jp/pZRVlUihq8u8GVYVKiENkkN4Lq9gUMObRx4DDWjMnx7MI1AesGpTRJM8ZEI8XBuqX/bhXIMsZrziLEXn3pfvyCyYbZa5jRXss8pv1b4hkbbnI4lSv+4R+XPuBxQciAoZXuZVejM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791731075; c=relaxed/simple;
-	bh=D5oJblw1Mk2D0oXCU0ZAWnjEkCSIw80thnwcJYQpFIw=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=rmOgOv9l8pTZVWAvWw9vTKBr3mgNJFHaQg0S95ty9FNNbz6hnJUXsoI7RM0M44KA+N9jlJbr8/caXy74SUi6kpcc3PEnFFVB1XaLy9COD/IUlXVi+PBt7aE9uP//gmv6aZhaSESolnRu2UJQv5EdKnGNWRL91r8+3zZ23iBFrtU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FCcDefz1; arc=none smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791731235; c=relaxed/simple;
+	bh=dl++89glVDFxTXodHWnqwNoD+60xNeshlXqtD8dpDb8=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=joVh4lw39lLozOGwL3tBZT7jtXdOhmOkuc6Pr46yaH+OFBta+Tktee8hMJzyf16Cy3OhXcT3UJyE9HEwXbdQedEXoNvVw5HlTagchhjpmxCAqx2q4cl4kK44qgLLW1J9y7cEbi/e6CEndSHU1K31t8Jh+qqCwZ8Cd73YI9aF6MM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ATRUbMz+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FCcDefz1"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c29c6a3930bso143070566b.3
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:04:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791731072; x=1792335872; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0Iap1AsRv1qyz87XD+IHHgucFbHNuqIM/DFpF+PMZW0=;
-        b=FCcDefz1j0nhXLi1HkLsKO+YTf+XomH5UerjENYsEiRgkylRxAE15oIG0cwSBCO4NZ
-         PRCAMVm5HIGp72IBZOKkHHJsHoUeKOmH475icT2X4YB+2kq7JntDRoVAkqjHLx5pdEPF
-         +JWWZbSaAwFGcCqW9s9pRcPofaCjl9eRjlCrVhcP+XCUWbfGxs6XsvkVvFgw7fufEehp
-         yzeefJjcNP7+Y8hj/GVdOLdGQUjf8HqhBiG2pTnzBf5ull9nEhW4vH4Nf62e2xztq9dC
-         vMXQPsUqUZ+W/eARQ0lQ4PRVQrSP1hl7jkOY8NkbASbXpgx5OkaH9/9naeSvFLQi27C8
-         nsNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791731072; x=1792335872;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0Iap1AsRv1qyz87XD+IHHgucFbHNuqIM/DFpF+PMZW0=;
-        b=ejdzh01Igy+7i0IkNAfG3Qm1dvNYo7GxcmPLcxkZPObJVtrHdEblo9aSxbxiWPW84/
-         DN12kjc3nj63GYl7s2SAibBa8VKlU8Lg6RfJrZujJyjQGxk2CRzEDAiyQ4C83U6JF6FL
-         Yy9SkuPHA94aog7KbriSVXvCNI2YrRBrcWfh6LHr621Mg9P0TDbLspndEvVwEksoxPOx
-         KKh7heoLKRCoztbfj7nxSLBSKNpec6ba4sVsnEjNiACmDn0L2aqva8BCoN+lpiIY7mub
-         c/5rDU1XYtF/quzGwCI7RTfcjfofmrqAlMqI91gh5uR+SaevUrw6UgGqE7MpAKonUkjV
-         Xarw==
-X-Forwarded-Encrypted: i=1; AKwUvBwTcq6uAzm7L6m1j+b8ieNKpBb8jd6B2uFpn8O3guduHB41ZfsiquKNx49B1yaBwTM03fgru3PtDrw/Jak=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIDreqlphpHKIG69mfnIPNGi//68qDtWCWQ8iPf22UKCAp9mVKY
-	b9LkVgzPZwB2XyRFhnFNkhGoxHp7GS+hCrCuVIRH2GXvufCX7rrBEXwC
-X-Gm-Gg: AYBFou1oVdoEdSCBWYdBS2b8rjz9ZYnc6J6EDauFT0DIah0rGp2aiEdG1MFZQwYfNsT
-	kQrHcJ99ANg9GIwdaXueuphqP/9lYsK6JQlGTRBu8Dc/PwXEXmTkEqN9oh5l127nUeq0qQJ4Qde
-	JuhRAtNuhzFuHQhykVpYlCgfoe1GUaqEtpkoedfjqeKxrTmSWO/d0EFuS6jKNt4LaFUy7JzpRfh
-	IeiZsIqGpfDChkqwWfkgX43q9d3Sb9j49D9sh/A/MLzfp6boHTQ6Vb/xNerh0LZBc7LPxDVA5nQ
-	+z6P6IIYNSNjSo5z5MyfKdF5bf7NTfBVq1ZgDhHtZw964183b8TLDEoIjr6ddAam3fjSIjZoepG
-	ZoiQ1Gzw8AP6mjuPZc0m8Ob6Y2VFeZ7oOxYIvUIuhq5cugHDbt49grDJCuvgnyTdvvfyT+sH4Ch
-	mwZ5DxX1Y+me0XjlKMxsHTyE6mllTH7yal58E5YfFd8fFYnOY6CZ27H66S9EdQYg==
-X-Received: by 2002:a17:907:7296:b0:c2e:4f16:fbf with SMTP id a640c23a62f3a-c31a9f8af14mr724308066b.31.1791731072224;
-        Sun, 11 Oct 2026 08:04:32 -0700 (PDT)
-Received: from RuiTian-14 ([2a09:bac5:303d:28c::41:134])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c346637b997sm62035566b.30.2026.10.11.08.04.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 08:04:31 -0700 (PDT)
-From: jiamingouyang13@gmail.com
-To: alexs@kernel.org,
-	si.yanteng@linux.dev,
-	dzm91@hust.edu.cn,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	wy@wyuan.org
-Subject: [PATCH RESEND v3] docs/zh_CN: add Chinese translation for usb/ohci.rst
-Date: Sun, 11 Oct 2026 17:03:08 +0200
-Message-ID: <20261011150310.51673-1-jiamingouyang13@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ATRUbMz+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E9841F0089B;
+	Sun, 11 Oct 2026 15:07:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791731234;
+	bh=rPssMDMu2wzj+SLVMrrlq/wPuteu356OQ6siN0kIobM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ATRUbMz+kTJCBgOaTXtgUoZIaRDwWP7rNf33Asa4LbCtGnsHo27BWHK4GzCwfjJPf
+	 ss0ebsvPMB5nBIV/tuYk0AOSzjC/f6Jd9mt8lrUVC2cAEBNQ2pwLix/Xfy7AbPaY6e
+	 MO4yHwoWuYgFtHkG8KdKk1nLBoeTNFcKXh0CISiJXzUAjUQFVH7u4TZ6wJuKJZsTcJ
+	 BB0yVrAKMeo0ZV0XHnjaFv2TgwC3dT8mCJfs9QgZzsXlBSPvWI0tStKmWmqlA3eEHU
+	 3EXJNTCRsMM+X9iTarQAXTpw6FzkZArsxG9xMHUu1jjmMO6jEU5YCLhyrOjiL1nVAI
+	 mDYV1fmqxTBuA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xFv8q-00000001aqI-2Uaa;
+	Sun, 11 Oct 2026 15:07:12 +0000
+Date: Sun, 11 Oct 2026 16:10:19 +0100
+Message-ID: <87zewk8e90.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: oupton@kernel.org,	kvmarm@lists.linux.dev,	linux-arm-kernel@lists.infradead.org,	linux-kernel@vger.kernel.org,	catalin.marinas@arm.com,	will@kernel.org,	joey.gouly@arm.com,	seiden@linux.ibm.com,	suzuki.poulose@arm.com,	yuzenghui@huawei.com,	mark.rutland@arm.com,	vdonnefort@google.com,	qperret@google.com,	Sascha.Bischoff@arm.com,	steven.price@arm.com,	tabba@google.com
+Subject: Re: [PATCH v2 4/5] KVM: arm64: vgic: Do not access the GICv5 CPU interface from EL1
+In-Reply-To: <20261011143648.211337-5-fuad.tabba@linux.dev>
+References: <20261011143648.211337-1-fuad.tabba@linux.dev>
+	<20261011143648.211337-5-fuad.tabba@linux.dev>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, mark.rutland@arm.com, vdonnefort@google.com, qperret@google.com, Sascha.Bischoff@arm.com, steven.price@arm.com, tabba@google.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-From: Jiaming Ouyang <jiamingouyang13@gmail.com>
+On Sun, 11 Oct 2026 15:36:47 +0100,
+Fuad Tabba <fuad.tabba@linux.dev> wrote:
+> 
+> can_access_vgic_from_kernel() excludes only the GICv3 system register
+> interface, so on a native GICv5 system without FEAT_GCIE_LEGACY it
+> returns true under nVHE. The kernel then saves and restores the CPU
+> interface from EL1, where ICH_VMCR_EL2 and the ICH_PPI_* registers are
+> UNDEFINED, so running a vCPU oopses the host. The nVHE world switch
+> already does that work at EL2.
+> 
+> Require VHE for GICv5 as for GICv3.
+> 
+> Fixes: 9b8e3d4ca0e73 ("KVM: arm64: gic-v5: Implement GICv5 load/put and save/restore")
+> Reviewed-by: Sascha Bischoff <sascha.bischoff@arm.com>
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> ---
+>  arch/arm64/kvm/vgic/vgic.c | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
+> 
+> diff --git a/arch/arm64/kvm/vgic/vgic.c b/arch/arm64/kvm/vgic/vgic.c
+> index b25303d9919fd..da72779d3b3ee 100644
+> --- a/arch/arm64/kvm/vgic/vgic.c
+> +++ b/arch/arm64/kvm/vgic/vgic.c
+> @@ -1045,11 +1045,15 @@ static void vgic_flush_lr_state(struct kvm_vcpu *vcpu)
+>  static inline bool can_access_vgic_from_kernel(void)
+>  {
+>  	/*
+> -	 * GICv2 can always be accessed from the kernel because it is
+> -	 * memory-mapped, and VHE systems can access GICv3 EL2 system
+> -	 * registers.
+> +	 * GICv3 and GICv5 drive the CPU interface through EL2 system
+> +	 * registers, so only VHE reaches them from the kernel. GICv2 is
+> +	 * memory-mapped and always reachable.
+>  	 */
+> -	return !static_branch_unlikely(&kvm_vgic_global_state.gicv3_cpuif) || has_vhe();
+> +	if (static_branch_unlikely(&kvm_vgic_global_state.gicv3_cpuif) ||
+> +	    kvm_vgic_global_state.type == VGIC_V5)
+> +		return has_vhe();
+> +
+> +	return true;
 
-Translate Documentation/usb/ohci.rst into Chinese Simplified.
+This really is perpetuating the wrong model. The rule is simple:
+anything that requires system instructions or system registers cannot
+be accessed from EL1, and therefore GICv2 is the only one that can be
+accessed from EL1. So the whole thing should read:
 
-The translation covers OHCI driver overview, hardware protocol
-differences (OHCI vs UHCI), improvements since 2.4 kernel,
-queueable interrupt transfers, and non-PCI support.
+	 return has_vhe() || kvm_vgic_global_state.type == VGIC_V2;
 
-Signed-off-by: Jiaming Ouyang <jiamingouyang13@gmail.com>
----
+Ultimately, we should static keys for all of the vgic types.
 
-Changes in v3:
-- Correct the docs list in index.rst
----
+	M.
 
-Sending this resend because last send is broken.
----
- .../translations/zh_CN/usb/index.rst          |  2 +-
- Documentation/translations/zh_CN/usb/ohci.rst | 38 +++++++++++++++++++
- 2 files changed, 39 insertions(+), 1 deletion(-)
- create mode 100644 Documentation/translations/zh_CN/usb/ohci.rst
-
-diff --git a/Documentation/translations/zh_CN/usb/index.rst b/Documentation/translations/zh_CN/usb/index.rst
-index df99814c6497..c96eacf13e11 100644
---- a/Documentation/translations/zh_CN/usb/index.rst
-+++ b/Documentation/translations/zh_CN/usb/index.rst
-@@ -32,6 +32,7 @@ USB 支持
-     chipidea
-     dwc3
-     ehci
-+    ohci
-     usbmon
- 
- 待翻译文档：
-@@ -49,7 +50,6 @@ USB 支持
- * mass-storage
- * misc_usbsevseg
- * mtouchusb
--* ohci
- * raw-gadget
- * usbip_protocol
- * usb-serial
-diff --git a/Documentation/translations/zh_CN/usb/ohci.rst b/Documentation/translations/zh_CN/usb/ohci.rst
-new file mode 100644
-index 000000000000..5e36831bf370
---- /dev/null
-+++ b/Documentation/translations/zh_CN/usb/ohci.rst
-@@ -0,0 +1,38 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+:Original: Documentation/usb/ohci.rst
-+
-+:翻译: 欧阳家铭 Jiaming Ouyang <jiamingouyang13@gmail.com>
-+
-+========
-+OHCI驱动
-+========
-+
-+2002年8月23日
-+
-+“OHCI-HCD”驱动程序是一个USB主机控制器程序（HCD），它源自2.4内核系列中的“usb-ohci”
-+驱动程序。“usb-ohci”代码主要由 Roman Weissgaerber <weissg@vienna.at>编写但也获
-+得了来自David Brownell <dbrownell@users.sourceforge.net>，Linus Torvalds
-+和Gregory P. Smith的支持。
-+
-+它支持“开放主机控制器接口”（OHCI），该接口标准化了用于与USB 1.1主机控制器通信的
-+硬件寄存器协议。“与英特尔早期的“通用主机控制器接口”（UHCI）相比，它将更多只能功能
-+注入到硬件中。除英特尔和威盛之外的其他供应商的USB1.1控制器通常使用OHCI。
-+
-+自2.4内核以来的更改包括
-+
-+         - 提高了健壮性; 修复了错误; 减少了开销
-+         - 支持更新和简化的usbcore API
-+         - 中断传输可以更大，并且可以排队
-+         - 通过使用上层“hcd”框架，减少代码量
-+         - 支持一些非PCI的OHCI实现
-+         - ... 以及更多
-+
-+“OHCI-hcd”驱动程序处理所有USB 1.1传输类型。所有类型的传输都可以排队。在“usb-ohci”
-+中也是如此，但中断传输除外。以前，使用一帧的周期会因为IRQ处理的开销而导致数据丢
-+失的风险。当中断传输排队时，可以通过确保硬件在操作系统处理相关IRQ时始终有传输需要
-+处理，来最大限度的降低这些风险。
-+
-+- David Brownell
-+  <dbrownell@users.sourceforge.net>
-+
 -- 
-2.53.0
-
+Jazz isn't dead. It just smells funny.
