@@ -1,181 +1,293 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2912C2FE074
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 22:39:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F8C735C6BE;
+	Sun, 11 Oct 2026 22:40:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791758399; cv=none; b=DJnlYJ4dhsi+F/m9g2uyMomLaadgVmXwhc5dmPn0cQhY7V0zLpLKIwhBd92LRpofI3omnohefgBb0JbpPEROY1fajjtlHSzGF66BsVL2fAcyCVQWOATCP77snrcVVs9uxuL7oATpaD1DGl4YN9ruHDyRm3qa7Ojd6X8XbYqsjmw=
+	t=1791758425; cv=none; b=SUDBetMxhPxFH2ANQvzKDhXFxSXfqeqdSnPLoGJFWNBaSDd1aZ3M+pbCwl31t1ntgoJmJkeHpPjJ/aAmVkrfog2FHLMbC3GbSQFNLLqFKVTv4s562ocR3SHpoQdieg2Toyx1LLgGecbHTR8t8RsTtLPDV7JR+Aj5QM+eGoBg1eg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791758399; c=relaxed/simple;
-	bh=xm7zmmCmvA/Kz7KfL1R9Yqv2NSWneryvUBrSk9xgCDo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dqMdhVMPf8tWmXDJ62i3Z6Xn6kb20AXuam59eczRCzUEDnpOCD/5ZQ4VEDAno7Ux9PIaHVV8gfFfljjr9Qsk8m1EY0GX3EClF4YDgbL6ujsfu8LW2OIEozDMtke/RPNnfcZYK/x9y4WI3Ecx7YK0q8jX6e5iQtT9kEWELJ6alFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=aRsPZtzM; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791758425; c=relaxed/simple;
+	bh=IxShT9PYMHtq0d2zYCfZWp4T5J7JzMrOrsnG6YCZE2Q=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=RXerKW1wpw3q4QajgQQSnUcAdcprVwZZPld4M6aO4UsQLyWeqjaEq96Et+6QoUbWwgERJau6BIJOsS9p1J1W5B5B32oW5vi4OIIEsDKxxLE+NQaBWibmnEQkU2WSHhx2rbxmKooGgzMJlgNG2Lai543MiLtPxNgftKRYDNvr9R4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OMUEr7/p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="aRsPZtzM"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48b0584ad71so617448f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 15:39:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791758396; x=1792363196; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xwhYc9CDw7ZgP6emNisFG66EG4JKlhzFKT9RLmp7nJU=;
-        b=aRsPZtzM/CVizgyW5uQCYGYegHyHSxJeYwd1/FhVlRqINvK+hBr3CqxoH7xfFQli+5
-         dE8GFrQQX/R1ctL0DVZ0B/E2JCuaxOI7u09ahG+0jr0ZPkhM4Uf/rCch41mQ407bp9uQ
-         +MXoyeS+tp/86Tnf3/vGwJhMHvqoaLJBk4b0DeQtfVLRtrg4iEK/yGS/uWfba4iaN/NV
-         5st6YOpfeVGmXSzW28aHmMzWNnImutU7/DScP/VqSSkWNxyendDUeI7U/PGKnatC4Sab
-         0d8i1SQu/xuawj/IzUun+xXldnlN1EhtjrDBhK6S8P6eBbCfoMkbJNwHm1tNTb6DuhNr
-         fL8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791758396; x=1792363196;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xwhYc9CDw7ZgP6emNisFG66EG4JKlhzFKT9RLmp7nJU=;
-        b=2oSxUHiJOkEgm0qLn67CLv+8XV92TZ3qG5q24RCK0JEBHkpxW3Far84seL03ihaA3h
-         Ya68dxKSpRXdlE1uCOKOvwt52S5QE2XpgAyhHplMJXZjBW8za8h5tUI4JiVkeznzoy0k
-         KQ+SictHWeaBkNS/hVCmyWPm7HtySRwqtSzJsS0xpy3t95JwWaie+p1l7cpNCWHZKzr2
-         gpFAnR4yPJChaJyEWi9SrUcnTlTHwiuQsIf6XPCCZV45IySt+MQcK10qxgywF7udfh2A
-         sLVtucxx3BvVnrXpsjkvTnW9AQ2YvfkiM+1baSM1tJePFiIYkF7P9gyPSWGOWSqfcEK7
-         B0iw==
-X-Forwarded-Encrypted: i=1; AKwUvBwSwKiTUbd5fJ44dbzBjDlNv8SCIRxbexymPQgIJyTqn/cHRKXNFRK6vq1uhzQT2uQCHlYr/fUZubBTzTw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLT90j/DvvWjjHBMrp49x9pUWVdr+UBxikOWOUNrx2Hvz7eUkVl
-	KRt8w8aFmUitVltjn3NYErU/REdA+ijTpnKYOi7/BszKy8n+B/joKxk4s58FH2RfI78=
-X-Gm-Gg: AYBFou2E88TIb2AeKfSefu4NcDH5T9+QCw+bfRBAuwaxY0MEktrYw4gT6HinX6MIk0K
-	UAdI4+RJ0/CHvvxLI2X6VdFFyMvAG0P77a6UAui8cMtUoakizLolx6Z9+rqMix69HaY1Wx7eDHG
-	vexfimkbs90lQUn7V4GU7+EgcIU0VboM9insrc8O26GHOHxlvr/mEmte267WX4E7xd/TKHJgIC+
-	jggjgZ00g6IRXElU5WeqfRhgx3knr6jRalaxTHx3e446AfypmGhnvoql09ZgAs0TgBM+Bm/UlXB
-	Wsb9qszTALq21Ye1DrVmgTEcLA+zLKBucEqRfcNFzA6qKBfVWalYGsulalcrxdWzQzdFdz9i1z/
-	7TURPA1vy+lVG4a5JoQ3JcM5jQ1IZz6cOwXZ6Xa6gLbk6tBT6mX9LnoMU3m01qUCMKbBwokE5Bp
-	DnpAwRQqgw5nZ4Ul3bwVlxddqG1VNao/D4PRgPQRnHCdCMxEzszq0jz8vRvf5yQcjY46BBImE6C
-	utBHG5IjwXBAQ==
-X-Received: by 2002:a05:6000:40e0:b0:48c:6a4d:3b67 with SMTP id ffacd0b85a97d-48dbaceb433mr14028801f8f.19.1791758396194;
-        Sun, 11 Oct 2026 15:39:56 -0700 (PDT)
-Received: from [192.168.0.167] ([109.76.165.237])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9463a9dsm16723214f8f.6.2026.10.11.15.39.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 11 Oct 2026 15:39:54 -0700 (PDT)
-Message-ID: <5f238c7a-c17e-4127-afad-38eb2cea9c34@linaro.org>
-Date: Sun, 11 Oct 2026 23:39:53 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OMUEr7/p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AE521F0089B;
+	Sun, 11 Oct 2026 22:40:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791758424;
+	bh=k6XlKFnfVi4/5k41hFdTt5y7yRrRlJp0WwmZIund+20=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=OMUEr7/p18hHaEwb1ca2J4cCZAhv+xnM+tyOqHSXzaloMVFpm/arWyWLzbNb8Eurt
+	 O63M6/7da6ZOcFCA14QmovJX6mdyJhY2O5gbWmgV8+z7QDWR3obi3An4qFe5lAXnSW
+	 Qg9uz2KhEhBJ4pmHG/HZeeo8GyusWdH6U6kWpymjtmvIweaCe/9MZvSv88923mqXYC
+	 Gxl08qiBTezVfVrcTB+zWxC6zKNDI77llMGzzNKpub9XQ1PzKKONn28PvRoBWCAfAY
+	 hkeoc0yt8JrjZSIsJIWZBM2fnxazy/F/fubhNuUgyUK7iBSU2BpjyjM3a6Dvtejh29
+	 yOpsOljs57AIw==
+Subject: Re: [PATCH net] ip_tunnel: reserve headroom for the encap header
+ before pushing it
+From: netdev-bot+sashiko@kernel.org
+To: theodorlarionov@gmail.com
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, dsahern@kernel.org, idosch@nvidia.com,
+ cehrig@cloudflare.com, ast@kernel.org, tom@herbertland.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Sun, 11 Oct 2026 22:40:22 +0000
+Message-ID: <179175842288.434549.1635440087778323337@kernel.org>
+In-Reply-To: <20261010223601.1193655-1-theodorlarionov@gmail.com>
+References: <20261010223601.1193655-1-theodorlarionov@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/8] media: qcom: camss: Add streams API support for
- CSIPHY
-To: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
- Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
-References: <20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com>
- <20260911062213.195007-2-gjorgji.rosikopulos@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20260911062213.195007-2-gjorgji.rosikopulos@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 11/09/2026 07:22, 
-Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com wrote:
-> From: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
-> 
-> Add the V4L2 subdev streams API to the CSIPHY driver: a passthrough
-> routing table (one VC per stream) and NO_STREAM_MIX routing validation.
-> 
-> enable/disable_streams pad ops track active streams per pad via a
-> per-pad enabled_streams[] bitmask, so that multiple source-pad
-> consumers can share a single propagated sink stream without redundant
-> or colliding propagation to the sensor. The shared D-PHY lanes are
-> enabled once, on the transition from no active streams to at least
-> one, and disabled once all streams have gone idle.
-> 
-> This is opt-in per CSIPHY instance via the new streams_enable resource
-> flag; no platform sets it yet, so CSIPHYs continue to use the legacy
-> non-streams subdev ops unchanged.
-> 
-> Signed-off-by: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
-+ static const struct v4l2_subdev_core_ops csiphy_core_ops = {
-+       .s_power = csiphy_set_power,
-++>>>>>>> media: qcom: camss: Add streams API support for CSIPHY
-   };
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-   static const struct v4l2_subdev_video_ops csiphy_video_ops = {
-@@@ -932,17 -981,17 +1133,30 @@@ int msm_csiphy_register_entity(struct c
-   {
-         struct v4l2_subdev *sd = &csiphy->subdev;
-         struct media_pad *pads = csiphy->pads;
-++<<<<<<< HEAD
-  +      struct camss *camss = csiphy->camss;
-  +      struct device *dev = camss->dev;
-  +      int ret;
-  +
-  +      if (camss->legacy_phy)
-  +              v4l2_subdev_init(sd, &csiphy_v4l2_ops_legacy);
-  +      else
-  +              v4l2_subdev_init(sd, &csiphy_v4l2_ops);
-  +
-  +      sd->internal_ops = &csiphy_v4l2_internal_ops;
-++=======
-+       struct device *dev = csiphy->camss->dev;
-+       bool streams_api = csiphy->res->streams_enable;
-+       int ret;
-+
-+       v4l2_subdev_init(sd, streams_api ? &csiphy_streams_v4l2_ops
-+                                             : &csiphy_v4l2_ops);
-+       sd->internal_ops = streams_api ? &csiphy_streams_internal_ops
-+                                       : &csiphy_v4l2_internal_ops;
-++>>>>>>> media: qcom: camss: Add streams API support for CSIPHY
-         sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
-+       if (streams_api)
-+               sd->flags |= V4L2_SUBDEV_FL_STREAMS;
-         snprintf(sd->name, ARRAY_SIZE(sd->name), "%s%d",
-                  MSM_CSIPHY_NAME, csiphy->id);
-         sd->grp_id = CSIPHY_GRP_ID;
-@@@ -968,22 -1025,16 +1190,35 @@@
-         ret = v4l2_device_register_subdev(v4l2_dev, sd);
-         if (ret < 0) {
-                 dev_err(dev, "Failed to register subdev: %d\n", ret);
-++<<<<<<< HEAD
-  +              goto media_entity_err;
-  +      }
-  +
-  +      if (!IS_ERR(csiphy->phy)) {
-  +              ret = phy_init(csiphy->phy);
-  +              if (ret) {
-  +                      dev_err(dev, "%s init fail %d\n", csiphy->name, 
-ret);
-  +                      v4l2_device_unregister_subdev(sd);
-  +                      goto media_entity_err;
-  +              }
-  +      }
-  +
-  +      return 0;
-  +
-  +media_entity_err:
-  +      media_entity_cleanup(&sd->entity);
-++=======
-+               goto err_v4l2_subdev_cleanup;
-+       }
-+
-+       return 0;
-+
-+ err_v4l2_subdev_cleanup:
-+       v4l2_subdev_cleanup(sd);
-+ err_media_entity_cleanup:
-+       media_entity_cleanup(&sd->entity);
-+
-++>>>>>>> media: qcom: camss: Add streams API support for CSIPHY
+Critical: 0 · High: 2 · Medium: 0 · Low: 1 (1)
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] The patch adds skb_cow_head(skb, encap_hlen) at the top of
+  ip_tunnel_xmit() (net/ipv4/ip_tunnel.c:700), before the first…
+- [High] In ip_md_tunnel_xmit(), the headroom is sized from one live read
+  of the shared tun_info->encap: `encap_hlen =…
+- [Low] The new early skb_cow_head(skb, encap_hlen) in ip_tunnel_xmit()
+  (net/ipv4/ip_tunnel.c:700) runs on every packet, including tunnels…
+
+Pre-existing issues:
+- [Low] ip_tunnel_xmit() now does `encap = READ_ONCE(tunnel->encap);`
+  (net/ipv4/ip_tunnel.c:696) under the comment 'Size and push the encap…
+
+--
+
+ip_tunnel: reserve headroom for the encap header before pushing it
+
+This patch adds an early skb_cow_head() for the FOU/GUE encap header length
+at the start of ip_tunnel_xmit() and ip_md_tunnel_xmit(). The goal is that
+ip_tunnel_encap() no longer pushes the encap header into headroom that was
+never reserved. ip_tunnel_xmit() also takes one READ_ONCE() snapshot of
+tunnel->encap and uses it for both the reservation and the push.
+
+> diff --git a/net/ipv4/ip_tunnel.c b/net/ipv4/ip_tunnel.c
+> index e6bcf01411d0b..38ab3c3bf5c9a 100644
+> --- a/net/ipv4/ip_tunnel.c
+> +++ b/net/ipv4/ip_tunnel.c
+
+[ ... ]
+
+> @@ -587,6 +588,11 @@ void ip_md_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+>  		     ip_tunnel_info_af(tun_info) != AF_INET))
+>  		goto tx_error;
+>  	key = &tun_info->key;
+> +	encap_hlen = ip_encap_hlen(&tun_info->encap);
+> +	if (encap_hlen < 0)
+> +		goto tx_error;
+> +	if (skb_cow_head(skb, encap_hlen))
+> +		goto tx_dropped;
+
+[Severity: High]
+Is tun_info->encap stable between this reservation and the push?
+
+The headroom is sized here from one read of tun_info->encap. The header is
+then pushed later in ip_md_tunnel_xmit() using separate reads:
+
+	if (!tunnel_hlen)
+		tunnel_hlen = ip_encap_hlen(&tun_info->encap);
+
+	if (ip_tunnel_encap(skb, &tun_info->encap, &proto, &fl4) < 0)
+		goto tx_error;
+
+The fou/gue build_header callbacks also read e->flags again.
+
+tun_info is not necessarily private to this skb. bpf_skb_set_tunnel_key()
+attaches the per-CPU md_dst to every skb it handles on that CPU, and then
+rewrites it in place:
+
+net/core/filter.c:bpf_skb_set_tunnel_key() {
+	struct metadata_dst *md = this_cpu_ptr(md_dst);
+    ...
+	skb_dst_drop(skb);
+	dst_hold((struct dst_entry *) md);
+	skb_dst_set(skb, (struct dst_entry *) md);
+
+	info = &md->u.tun_info;
+	memset(info, 0, sizeof(*info));
+    ...
+}
+
+bpf_skb_set_fou_encap() also writes info->encap.type/flags/sport/dport in
+place.
+
+Suppose an skb is tagged on CPU0, queued on a qdisc of a collect_md ipip
+device, and sent from CPU1. Meanwhile CPU0's tc BPF program rewrites the
+same md_dst (memset to TUNNEL_ENCAP_NONE, then GUE). Could CPU1 reserve 0
+or 8 bytes here and then push a 12-20 byte GUE header?
+
+That would hit the same skb_under_panic() in fou_build_udp() that this
+patch fixes. In the mirred mirror case it would overwrite the bytes in
+front of skb->data instead.
+
+ip_tunnel_xmit() takes a local copy of the encap config for this reason.
+Would a local snapshot here close the same gap on the md path? For example:
+
+	struct ip_tunnel_encap encap = tun_info->encap;
+
+used for the reservation, tunnel_hlen and ip_tunnel_encap().
+
+>  	memset(&(IPCB(skb)->opt), 0, sizeof(IPCB(skb)->opt));
+>  	inner_iph = (const struct iphdr *)skb_inner_network_header(skb);
+>  	tos = key->tos;
+
+[ ... ]
+
+> @@ -679,11 +686,23 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+
+[ ... ]
+
+> +	/* Size and push the encap header from one copy of the config. */
+> +	encap = READ_ONCE(tunnel->encap);
+
+[Severity: Low]
+This is a pre-existing issue, not one introduced by this patch, but the
+writer side has no matching marked store for this READ_ONCE().
+ip_tunnel_encap_setup() zeroes t->encap and then fills it in with plain
+stores:
+
+net/ipv4/ip_tunnel.c:ip_tunnel_encap_setup() {
+    ...
+	memset(&t->encap, 0, sizeof(t->encap));
+
+	hlen = ip_encap_hlen(ipencap);
+	if (hlen < 0)
+		return hlen;
+
+	t->encap.type = ipencap->type;
+	t->encap.sport = ipencap->sport;
+	t->encap.dport = ipencap->dport;
+	t->encap.flags = ipencap->flags;
+    ...
+}
+
+So a snapshot taken during changelink can still be half-written. It might
+see type NONE right after the memset, or a new type with sport/dport still
+0.
+
+The length and the push now both come from the local copy. Because of
+that, the worst case is a few packets sent without encap or with UDP port
+0, plus a possible KCSAN report. The old plain reads could already see
+these same states.
+
+Would it make sense to build the new config in a local struct and store it
+once on the writer side, as a follow-up?
+
+> +	encap_hlen = ip_encap_hlen(&encap);
+> +	if (encap_hlen < 0)
+> +		goto tx_error;
+> +	if (skb_cow_head(skb, encap_hlen)) {
+> +		DEV_STATS_INC(dev, tx_dropped);
+> +		kfree_skb(skb);
+> +		return;
+> +	}
+
+[Severity: High]
+Can this new skb_cow_head() free the memory that tnl_params points to?
+
+For GRE devices with header_ops (NBMA or a multicast remote), ipgre_xmit()
+passes ip_tunnel_xmit() a tnl_params pointer that lives inside the skb
+head:
+
+net/ipv4/ip_gre.c:ipgre_xmit() {
+    ...
+	if (dev->header_ops) {
+		int pull_len = tunnel->hlen + sizeof(struct iphdr);
+
+		if (skb_cow_head(skb, 0))
+			goto free_skb;
+		...
+		tnl_params = (const struct iphdr *)skb->data;
+
+		/* ip_tunnel_xmit() needs skb->data pointing to gre header. */
+		skb_pull(skb, pull_len);
+    ...
+}
+
+That pointer reaches ip_tunnel_xmit() through __gre_xmit():
+
+	ip_tunnel_xmit(skb, dev, tnl_params, tnl_params->protocol);
+
+If skb_cow_head(skb, encap_hlen) ends up in pskb_expand_head(), the old head
+is freed. Every later read of tnl_params (->daddr, ->tos, ->saddr,
+->frag_off, ->ttl) then reads freed memory. Those values feed the route
+lookup and the outer IP header.
+
+Before this patch, the only skb_cow_head() in ip_tunnel_xmit() ran after the
+last tnl_params read.
+
+For the reallocation to happen, the headroom at entry has to be smaller than
+encap_hlen. In the GRE header_ops path the tunnel config is read three times
+without locking:
+
+  - tunnel->hlen in ipgre_xmit(), for pull_len
+  - tunnel->tun_hlen in __gre_xmit()
+  - tunnel->encap here
+
+ipgre_changelink() writes t->encap and t->hlen in
+ipgre_newlink_encap_setup(). It later writes tun_hlen and hlen in
+ipgre_link_update(). There is no synchronize_net() in between.
+
+For example, take a single "ip link set" that changes encap from none to GUE
+with remcsum (0 -> 20 bytes) and o_flags to csum|key|seq (tun_hlen 4 -> 16).
+If a packet is between the hlen read and the tun_hlen read, it has about
+H0 + 8 bytes of headroom, where H0 is the headroom it arrived with. For
+small H0 that is below 20.
+
+Before the patch, that race ended in skb_under_panic(). With the patch it
+looks like it becomes a silent use-after-free read.
+
+Doesn't this contradict this part of the commit message?
+
+    ip_tunnel_xmit() reads tunnel->encap once, so a concurrent
+    changelink cannot change the length between the reservation and the
+    push.
+
+Would either of these avoid it: copying *tnl_params to a local struct before
+the early skb_cow_head(), or moving the reservation after the last
+tnl_params read?
+
+[Severity: Low]
+Should this skb_cow_head() be skipped when encap_hlen is 0?
+
+__skb_cow() calls pskb_expand_head() whenever skb_header_cloned() is true,
+even when delta is 0. ipip_tunnel_xmit() and sit pass skbs through without
+uncloning them.
+
+Take a header-cloned skb going into a plain ipip tunnel with no encap, such
+as the mirred mirror case from the commit message. It is now uncloned here.
+If its headroom is still too small, the later skb_cow_head(skb,
+max_headroom) reallocates it a second time.
+
+Before the patch, one pskb_expand_head() in the max_headroom call handled
+both. Either guarding this call with if (encap_hlen), or reserving the full
+estimate in one call, would avoid the extra allocation and copy per packet.
+
+> +
+>  	inner_iph = (const struct iphdr *)skb_inner_network_header(skb);
+>  	connected = (tunnel->parms.iph.daddr != 0);
+>  	payload_protocol = skb_protocol(skb, true);
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261010223601.1193655-1-theodorlarionov%40gmail.com
