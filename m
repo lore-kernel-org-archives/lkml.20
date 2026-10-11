@@ -1,73 +1,46 @@
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+Received: from mta0.migadu.com (out-83.mta0.migadu.com [91.218.175.83])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 447683242D8
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 19:34:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACE0A449988
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 19:39:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.83
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791747243; cv=none; b=CRadrXVFIioBGSIYUf9JogmEVtup2iTR/h1V/4iLECD4sQgu4DPAFOMsZ5LBgqtvNOHvXPIpoEfLUEaq8QQleAUBMeFadXNtRm+xsf9xd83BaJXonJbpbDT61VXpqUC4B+kTzOavpb0r5Yzkc9fcN/k9zmOa5usp38aCOm01ifo=
+	t=1791747590; cv=none; b=oHfg1CF35s98ZNHFPrjvB12MEVTPCcpBKk++Ll+AFTd9Rfg+9aJ4QdXCpmgK6VPPsUY4fMW9DkYUzPcwTr0XInbF63+51DMYkTu+jUFKZmAXbW1MYLDZAVE94cKzPKBEI2XaT/CZrRiCMtcKnJX+f8/6T+BBWm670rCWRKKewAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791747243; c=relaxed/simple;
-	bh=61XhG2ZYTDSrWKrKfWInr2r/YADFoTuE8RhU6zdkc+A=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=sbnmMIp6CwpNIwo8+z1R/mkpOY4T044TS4jtnlaDI/OTpkj3HiSo+x0P1dHpdDkLRVmVuUhsIstI2pdBPPfmVBRj7SA6qQmViRreqmNJrSaAM1Dzfi+X6BaN16we5scbqeJSE8fdVMtr/1rxtFEyrhNJLY+3f9Klcgl6YDH5TZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qrvXDx9I; arc=none smtp.client-ip=209.85.160.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791747590; c=relaxed/simple;
+	bh=4mrAIQI+m0F1K1NEKjyN89vPwAwdMuNeKG+UaA+E+X0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=bYTsfIjGqvcwcRtPTvX8A/doCBd+u3LeUfNmou/ignK6jrwM75dB3o67tDd4fKarimn9nBzkVDCEhgEugY0/fnUE+Zje65krQEq8TbPA/sD5Fhu4HNrgFYV9eZLju31HgRhzvipewn1LLEqiGWImwoOSjphQeVQnOw2kcxu93CU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=skAObB7H; arc=none smtp.client-ip=91.218.175.83
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qrvXDx9I"
-Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-5352a876d5aso18009901cf.1
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 12:34:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791747241; x=1792352041; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:content-type:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5cS8rtI+Z/43NmekjXfCNZrQzOfAL9A4kwOwWeF68po=;
-        b=qrvXDx9IPw5ZNXf1B76s2FVWpTd3JnDG7pdBZBoZ8ss+GO8G86XTNnKmmR7USXOKy2
-         x05v5XRmDZR3UrU/vVmIoX3W8IWdeWwbv0p/dLA7JP2bk6YgYZkZ2kbKwj7QVK1bB5DN
-         M9xHyuf2tRsdxDN75g8Y7UZE9JRj0E8sHHg4hBrAoglbj2Lec9Mzvcff129u2i2D7hYA
-         xst6DLMyBDCpDXuLbkQ9Fg31rCXPemBOq7pw96tPajOKgduHYGugoIvZtUMjzI+CzsKc
-         h4hNhXLjpJmY1ZG3pE+bfyNwRLbsfL2rGonBUPKUXJlRZ43dibpbhcSePHKLabXzRMFS
-         mY0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791747241; x=1792352041;
-        h=content-transfer-encoding:mime-version:content-type:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5cS8rtI+Z/43NmekjXfCNZrQzOfAL9A4kwOwWeF68po=;
-        b=UnZYkGqKKlrJ8R5MpKrWp6YYDoSyko1WCUEgBpwtlxIB/8tljS44gGVOPcgJQuH57A
-         ZwmN5WvLN/X88AFuGhWysLofhzhdj8voZp50uO7UaxvIY0wIQoD5UZUfMjUIKfbbLfgA
-         bD4JAbPqOV9L1QB4V6ODid38Ox422+thScfuQj/EshltJZl7utAGXQRA75+2ZgI1Shbl
-         cc3wuXFQh1aVvcUF8UPSeuKpzlMRTQ4wwDhhNsrfII/UUMpDVyWDpKOVHd2ukmDnEFPn
-         cCrjbLy5/FKLXzDdfit7O5PKrivHVdydGH6t+BJedcvS9VVCgFSgw21Y46xU6uDlTE4h
-         1rQg==
-X-Gm-Message-State: AFq9FYKxHJ6O7191bz+zR0QHksT21eXkcysnb9lbN+yWtZAzmZojm/ck
-	Am8JGfpDiDHgWNQbMj6OXnyk352Nb3vZRsw2CsCBSXX5jELGWLwTvEM=
-X-Gm-Gg: AYBFou1JCpQyEoOaV1RPsBxGn2jYBp2ia3eDxlmjJch4hTbSdW+ZseTfYlhSefTflSv
-	cqu/G+3pYt7XhaRDbax9O2S8vsh/Sk5RcFTzwX3KIwCt4O9/StGsSp+mXgQ8t6QKTXIqz39xahr
-	SpN3ies1iMid12lqlZFibsaJ0/Ppc/rszwgSCr6KRQLYirZrc2Xk26PKS9PlFPJ+Nz0wviZBzSx
-	gQh9IkJM7D9LR3cFTS2CRkggKa6j1k6veyHrKupE5NC05y5f9UenxDiPsB+i/dp8fxhN5zh5AP9
-	NG93TxhB8fHweIX0e5Ath5rX2OcByIAlQ09md9RQb4ebC8vTmlvcpXpRsVMoMaDuFceb9Eb/TXC
-	i77b8G0ZUB3jAK+S/IWcwrJ0YMHo+FDAKuxaCa3J1BBb8a4tOWtW8EOkDCcyhUfktL6+/Fi6JIn
-	hMYLbeCXwgL540hO8wMOjN+uGHEI/V9wY2YxhfKR5/T8Ha3WAlC+GdpyIJo5RlbCdQLUZyfZwit
-	CkbYkbVF3DSvXvXP04RNLrT9sc3Dln6VrpzJulwF93HVQHSqdr6Hd6221QqXJ2xTcvSBH6ejehc
-	YXBeRg==
-X-Received: by 2002:ac8:5cd4:0:b0:533:36d9:a911 with SMTP id d75a77b69052e-5359fb20005mr122686171cf.28.1791747241023;
-        Sun, 11 Oct 2026 12:34:01 -0700 (PDT)
-Received: from gmail.com ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b7dd1a0sm63412351cf.27.2026.10.11.12.33.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 12:34:00 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: mporter@kernel.crashing.org,
-	alex.bou9@gmail.com
-Cc: linux-kernel@vger.kernel.org,
-	ae878000@gmail.com
-Subject: [PATCH] rapidio: tsi721: Cancel the self-rearming doorbell work on removal
-Date: Sun, 11 Oct 2026 15:33:56 -0400
-Message-ID: <20261011193336.005f74ced603-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.53.0
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="skAObB7H"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=4mrAIQI+m0F1K1NEKjyN89vPwAwdMuNeKG+UaA+E+X0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791747585; v=1; x=1792352385;
+ b=skAObB7HCCYZPqtcbC1cp7goDDeXukdxM5KdUPkaEGsqsWV1sXZyjy5+7z7wSu+GadQhC52C
+ VS5s3Z9QH7BTeDLHM9qpxkU4tQeS3PA/S+nxm2k68k25adbp47kA5qK3JoD2ndTdz/FXdMAfFl7
+ yd5x7clS0VVZzdP9UiooVqAE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id ae1cf5677c39f91f;
+	Sun, 11 Oct 2026 19:39:45 +0000
+X-Mizu-Trace-ID: ae1cf5677c39f91f
+X-Migadu-Flow: FLOW_OUT
+From: wen.yang@linux.dev
+To: Gabriele Monaco <gmonaco@redhat.com>
+Cc: Nam Cao <namcao@linutronix.de>,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wen Yang <wen.yang@linux.dev>
+Subject: [PATCH v7 01/14] rv: Force environment reset action on HA monitor start
+Date: Mon, 12 Oct 2026 03:39:07 +0800
+Message-Id: <3680decb855286ac73c903bc3101272c0419e783.1791745088.git.wen.yang@linux.dev>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1791745088.git.wen.yang@linux.dev>
+References: <cover.1791745088.git.wen.yang@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,39 +49,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tsi721_db_dpc() schedules idb_work again when another doorbell arrives
-while it is restoring the queue interrupt. flush_work() waits for the
-instance that was queued at the start of the flush, but does not prevent
-that instance from queuing a successor. Removal can therefore free the
-doorbell buffer and device state with another instance still pending.
+From: Gabriele Monaco <gmonaco@redhat.com>
 
-Use cancel_work_sync() after freeing the IRQs. At that point the external
-producer has stopped, and synchronous cancellation also handles a worker
-that rearms itself. The non-rearming port-write work can still be flushed.
+Currently the monitor variables with a storage (e.g. clocks) are
+initialised as invalid, then the first explicit reset() sets them as
+valid for constraint. This only adds extra complexity to handle the
+invalid case in constraints check.
 
-This issue was found by static analysis.
+Apply a reset() by default when starting monitors instead of resetting
+to an invalid state. If monitors have no stored variable (hence no reset
+function) add a macro HA_NO_RESET to stub it, this is all transparently
+handled by rvgen.
 
-Fixes: 3670e7e12e58 ("rapidio/tsi721: fix inbound doorbell interrupt handling")
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+The reset() action on ns-granularity clocks needs the (possibly cached)
+current time, read it directly there. This might cause a double call to
+ktime_get_ns() within the same da_handle_start_run_event() but will
+occur only the first time and is harmless.
+
+Signed-off-by: Gabriele Monaco <gmonaco@redhat.com>
+Tested-by: Wen Yang <wen.yang@linux.dev>
 ---
-Compile-tested with GCC, W=1 (arm). No runtime testing.
+ include/rv/ha_monitor.h                 | 8 +++++++-
+ kernel/trace/rv/monitors/opid/opid.h    | 1 +
+ tools/verification/rvgen/rvgen/dot2c.py | 2 ++
+ 3 files changed, 10 insertions(+), 1 deletion(-)
 
- drivers/rapidio/devices/tsi721.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+diff --git a/include/rv/ha_monitor.h b/include/rv/ha_monitor.h
+index 6e1c7fe5449a..93ac99ff7f1d 100644
+--- a/include/rv/ha_monitor.h
++++ b/include/rv/ha_monitor.h
+@@ -159,19 +159,25 @@ static void ha_monitor_destroy(void)
+ 
+ /* Should be supplied by the monitor */
+ static u64 ha_get_env(struct ha_monitor *ha_mon, enum envs env, u64 time_ns);
++static void ha_reset_env(struct ha_monitor *ha_mon, enum envs env, u64 time_ns);
+ static bool ha_verify_constraint(struct ha_monitor *ha_mon,
+ 				 enum states curr_state,
+ 				 enum events event,
+ 				 enum states next_state,
+ 				 u64 time_ns);
++#ifdef HA_NO_RESET
++static void ha_reset_env(struct ha_monitor *ha_mon, enum envs env, u64 time_ns) { }
++#endif
+ 
+ /*
+  * ha_monitor_reset_all_stored - reset all environment variables in the monitor
+  */
+ static inline void ha_monitor_reset_all_stored(struct ha_monitor *ha_mon)
+ {
++	u64 time_ns = ha_get_ns();
++
+ 	for (int i = 0; i < ENV_MAX_STORED; i++)
+-		WRITE_ONCE(ha_mon->env_store[i], ENV_INVALID_VALUE);
++		ha_reset_env(ha_mon, i, time_ns);
+ }
+ 
+ /*
+diff --git a/kernel/trace/rv/monitors/opid/opid.h b/kernel/trace/rv/monitors/opid/opid.h
+index fb0aa4c28aa6..f85b1959c2fb 100644
+--- a/kernel/trace/rv/monitors/opid/opid.h
++++ b/kernel/trace/rv/monitors/opid/opid.h
+@@ -28,6 +28,7 @@ enum envs_opid {
+ };
+ 
+ _Static_assert(env_max_stored_opid <= MAX_HA_ENV_LEN, "Not enough slots");
++#define HA_NO_RESET
+ 
+ struct automaton_opid {
+ 	char *state_names[state_max_opid];
+diff --git a/tools/verification/rvgen/rvgen/dot2c.py b/tools/verification/rvgen/rvgen/dot2c.py
+index 22938ce1bf6c..1532e6b6e199 100644
+--- a/tools/verification/rvgen/rvgen/dot2c.py
++++ b/tools/verification/rvgen/rvgen/dot2c.py
+@@ -90,6 +90,8 @@ class Dot2c(Automata):
+                         ' "Not enough slots");')
+             if {"ns", "us", "ms", "s"}.intersection(self.env_types.values()):
+                 buff.append("#define HA_CLK_NS")
++            if len(self.env_stored) == 0:
++                buff.append("#define HA_NO_RESET")
+             buff.append("")
+         return buff
+ 
+-- 
+2.25.1
 
-diff --git a/drivers/rapidio/devices/tsi721.c b/drivers/rapidio/devices/tsi721.c
-index 71b87bf..2bae63e 100644
---- a/drivers/rapidio/devices/tsi721.c
-+++ b/drivers/rapidio/devices/tsi721.c
-@@ -2978,7 +2978,7 @@ static void tsi721_remove(struct pci_dev *pdev)
- 
- 	tsi721_disable_ints(priv);
- 	tsi721_free_irq(priv);
--	flush_work(&priv->idb_work);
-+	cancel_work_sync(&priv->idb_work);
- 	flush_work(&priv->pw_work);
- 	rio_unregister_mport(&priv->mport);
- 
