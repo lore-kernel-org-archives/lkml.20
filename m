@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E99484399FB;
-	Sun, 11 Oct 2026 10:51:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E38D143CE73;
+	Sun, 11 Oct 2026 10:51:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791715886; cv=none; b=U379kVqwc2mQM1bHyRshKybqA4CxBnzkwjIAQZBdMDHCxmcZh4GAid5xglzSJ2j6zM+aZKiltkdB/0YjLhrP91W1NcbDkbxivPJPeiQilOKVV0lB4o49O64Yj/kLCfVpHbVnnJZhRKPyH3ko5E8344HgT0l52r0jSOfXf++W/Yo=
+	t=1791715890; cv=none; b=cSysEKFkybEnF5rvxTz8k9E08o82p4hu64bxLy7WZ8baFzIZmDUVRrpu+A5389Q4dKaggnZAL7UK7gSAgqjz+JBnZSGUhW4bIcAJrlRg4f2eteBBxLJ4RHIIhxV7UdxbJMM22bwg6QJzdVu9fN4mL8unLbUd2AaZllHje+vh1XM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791715886; c=relaxed/simple;
-	bh=as3ihcP+oak57EeL07rY+lPYLlsI1ssmjH8ifKRsFTE=;
+	s=arc-20240116; t=1791715890; c=relaxed/simple;
+	bh=xK+yHyKTh94pvxjqg6oiFbjBwGp4b1724p9Ste8+6uI=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=b12uITHKkTPkTBZoc06VGV4p3kVPT/TJUVls5VLe9HELy/jZn6Abtx94WyddyLabN0o1Me0SsE82Hk7izvy4p3xVOfpjL9hT3BqkY4+Gmqdu0wisim17cXXpxZNpObIYXASbK7w+IWzDDJDG5QOi7gc0WNGF3FJsXUbGSgUSpWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mvDVl7A4; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=LVRBNJV6Q0xGKiuGlDVlXH7smfVoqVF6spJBDPB7TKJ/PA3ABL96e24GN4jCDX6UjgPBqTyNfi0cwSZdGYIXHF4aoWn9n60IziWYY1PVpn/7m6YFuc6O4pIz/B5iKJoa4XcqFREoBSt3w5DhyO0mxxNuhAplqUtIF3ph2BToEvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kPJmeiwG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mvDVl7A4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C8051F0089B;
-	Sun, 11 Oct 2026 10:51:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kPJmeiwG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FB8F1F0089D;
+	Sun, 11 Oct 2026 10:51:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791715884;
-	bh=rWm/iIxqTz2W2z7/7Z6sI2zjSnesShsR3wonGIZZxLo=;
+	s=k20260515; t=1791715886;
+	bh=i4wXItLBI+jPlNVAS/OPUIcpk3cL799kkvfJhP4EeTE=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=mvDVl7A4r06ljLllvB34LpYH8//j4Ax+tPbhYQ9H6tpE81ZPu79FruJvnijZZDw2v
-	 aeSkagUkPiMTs7ruiYygvTIo+iWHWv8Qc8h/k97q2N11o6ntazj5zL3jS9nVc5AMH3
-	 Jnn869cpsNJdqG77TdbNYf1ZEX8V6Zhcy8wHfNZQWfKXyDfG3zvHOv0s4XrOuP28j8
-	 ippfUnTd4c9m5EIlViHtNHtGHcMXH53WcYC9S0glsDdQOilPKZ/AE2+m+mal5P2r4X
-	 bKvtpj1H6NqM4u/TvLmX8q6MwyWFVO36n2EGPyvIced/7Dvk3tGvmHXbOv21WgfZA3
-	 fZ3MI5zDwiHzw==
-Subject: Re: [PATCH v31 net-next 4/8] net/nebula-matrix: add chip-wide
- hardware init/deinit implementation
+	b=kPJmeiwGAupB0zk5hbxzdrmb0UV4qbjq461b6dMY9IfuoLskQ/qfsZals2xG4DfvZ
+	 PHCjxrHRdUOewyJ1CRQt91kaHRWADkf9xlVOeZzvcRkGx6LSom3zUtsTQpc8pAQyWS
+	 UzC1v5G4VLuWMkK7yb9V0a7yho799jGOTCJ7aGh3OUtMjRsqFYQP0s4vd5+/Q/k0/6
+	 Kb2YfM8Xa0pjKeq6DPWk/5KmBuug18wWoixX/Ey32AapwyKfslV3FpB67hFmn/jz3F
+	 OAZBh0VTM2S3IFHroFyFTnw8HORBJC3J4hCiiLgb/G2F5vQ7g2oZKGya1Es5bVOfA/
+	 z1aoCECY2qNfw==
+Subject: Re: [PATCH v31 net-next 6/8] net/nebula-matrix: dispatch: implement
+ channel RPC framework and serialize hardware ops
 From: netdev-bot+sashiko@kernel.org
 To: illusion.wang@nebula-matrix.com
 Cc: dimon.zhao@nebula-matrix.com, alvin.wang@nebula-matrix.com,
  sam.chen@nebula-matrix.com, netdev@vger.kernel.org, kuba@kernel.org,
  edumazet@google.com, horms@kernel.org, linux-kernel@vger.kernel.org
-Date: Sun, 11 Oct 2026 10:51:23 +0000
-Message-ID: <179171588376.434549.16751659679042954344@kernel.org>
-In-Reply-To: <20261010095939.2230-5-illusion.wang@nebula-matrix.com>
-References: <20261010095939.2230-5-illusion.wang@nebula-matrix.com>
-X-sashiko-severity: High
+Date: Sun, 11 Oct 2026 10:51:25 +0000
+Message-ID: <179171588597.434549.1106532144631559450@kernel.org>
+In-Reply-To: <20261010095939.2230-7-illusion.wang@nebula-matrix.com>
+References: <20261010095939.2230-7-illusion.wang@nebula-matrix.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -47,318 +47,121 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 7 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 1 · Medium: 2 · Low: 4
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The stale-state recovery in nbl_hw_init_module() can wipe the
-  per-PF mailbox state the driver has just programmed.
-- [Medium] The only synchronization between the driver and firmware's
-  asynchronous driver_status cleanup is a fixed usleep_range(2000,…
-- [Medium] nbl_shaping_init() clears the shaping_net table
-  (NBL_SHAPING_NET_REG(i)) only for i < NBL_MAX_PF (8), yet the loop…
-- [Low] The comment on nbl_hw_deinit_module() (lines 730-734) says the
-  safety of a later init_module() rests on the device link, and that the…
-- [Low] The commit message covers only the driver_status handshake and
-  the 2-3 ms best-effort wait.
-- [Low] Baseline decision: false positive, because the series fixes it.
-- [Low] Baseline decision: false positive.
+- [Low] Baseline decision is false: in the final state of the series this
+  is not a bug.
+- [Low] The kernel-doc this patch adds for struct nbl_dispatch_ops in
+  nbl_def_dispatch.h says the new callbacks 'forward chip/firmware…
 
 --
 
-net/nebula-matrix: add chip-wide hardware init/deinit implementation
+net/nebula-matrix: dispatch: implement channel RPC framework and serialize hardware ops
 
-This adds Leonis chip-wide init_module and deinit_module hooks in the hw
-and resource layers. deinit_module clears the driver_status bit, flushes
-and sleeps 2-3 ms to give the asynchronous firmware cleanup time to run.
-init_module programs the datapath registers. If it finds driver_status
-already set by a previous instance, it first clears the bit and waits for
-the same window.
+This patch adds mailbox RPC requests and responders for five dispatch ops:
+cfg_msix_map, destroy_msix_map, set_mailbox_irq, get_vsi_id and get_eth_id.
+Each op is chosen by capability level. A has_ctrl function calls the
+resource layer locally, and a has_net function forwards the request to the
+management PF over the channel. nbl_disp_remove() gains a comment that
+explains why the registered responders are never unregistered.
 
-> Add Leonis chip-wide datapath init/deinit hooks (init_module and
-> deinit_module) in the hw and resource layers. The hooks use the
-> driver_status register as a handshake with firmware.
-
-[Severity: Low]
-This isn't a bug, but the commit message only describes the driver_status
-handshake and the 2-3 ms wait. Most of the patch is chip-wide datapath
-programming in nbl_dp_init() and nbl_intf_init(), and several of those
-writes change device behaviour:
-
-  - SCTP L4 checksum enable in DPED
-  - UPED TCP L3-length edit profiles
-  - per-port CIR/PIR shaping from the firmware speed (DVN dport CIR at
-    half rate), and PSHA enable
-  - DSCH host QID max (0x7ff) and quanta
-  - USTORE min packet length 42 and drop thresholds
-  - DSTORE drop-enable clear and XON/XOFF thresholds
-  - relaxed ordering bits taken from DEVCTL
-  - UQM counter clearing and que_type forced to backpressure mode
-  - PADPT flow control credits
-
-The patch also adds a new firmware ABI dependency in nbl_hw_get_quirks(). It
-reads a quirk word at mailbox offset 0x140, where ~0U means no quirks and
-BIT(1) selects the UVN prefetch mode.
-
-deinit_module also doesn't revert any of these datapath registers. They stay
-programmed until chip reset, even if the control PF is later bound to
-another driver.
-
-Could the commit message describe these?
-
-> diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_chip.c b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_chip.c
-> new file mode 100644
-> index 0000000000000..419eb6392ada1
-> --- /dev/null
-> +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_chip.c
-> @@ -0,0 +1,32 @@
+> diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dispatch.c b/drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dispatch.c
+> index 966fee2dec8b0..e2d98b7c391b4 100644
+> --- a/drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dispatch.c
+> +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_core/nbl_dispatch.c
 
 [ ... ]
 
-> +int nbl_res_chip_init_module(struct nbl_resource_mgt *res_mgt)
-> +{
-
-[ ... ]
-
-> +	hw_ops = res_mgt->hw_ops_tbl->ops;
-> +	p = res_mgt->hw_ops_tbl->priv;
-> +	return hw_ops->init_module(p, eth_speed, eth_num);
-> +}
-
-[Severity: Low]
-This isn't a bug, but nothing calls init_module or deinit_module at this
-point in the series. nbl_hw_setup_ops() and nbl_res_setup_ops() only check
-the new hooks for NULL.
-
-Two later commits wire them up:
-
-  - "net/nebula-matrix: dispatch: add control-level routing core
-    infrastructure" adds nbl_disp_init_module() and
-    nbl_disp_deinit_module()
-  - "net/nebula-matrix: add common/ctrl dev init/remove operation" calls
-    them from nbl_dev_setup_ctrl_dev() and nbl_dev_remove_ctrl_dev()
-
-So the final state of the series looks fine. nbl_hw_init_module() also
-validates eth_num with nbl_hw_eth_num_valid().
-
-> diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.c b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.c
-> index 1712cdbc5fe74..bd1216265036b 100644
-> --- a/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.c
-> +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_hw/nbl_hw_leonis/nbl_hw_leonis.c
-
-[ ... ]
-
-> @@ -150,6 +164,658 @@ static void nbl_hw_get_fw_eth_map(struct nbl_hw_mgt *hw_mgt, u32 *eth_map)
-
-[ ... ]
-
-> +static int nbl_shaping_init(struct nbl_hw_mgt *hw_mgt, u8 speed)
-> +{
-> +#define NBL_SHAPING_FLUSH_INTERVAL 128
-
-[ ... ]
-
-> +	for (i = 0; i < NBL_MAX_PF; i++) {
-> +		nbl_hw_wr_regs_lock(hw_mgt, NBL_SHAPING_NET_REG(i),
-> +				    net_shaping.data,
-> +				    sizeof(net_shaping));
-> +		if ((i + 1) % NBL_SHAPING_FLUSH_INTERVAL == 0)
-> +			nbl_flush_writes(hw_mgt);
-> +	}
-> +	nbl_flush_writes(hw_mgt);
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Is NBL_MAX_PF the right bound for the shaping_net table here?
-
-NBL_MAX_PF is 8 and NBL_SHAPING_FLUSH_INTERVAL is 128, so (i + 1) % 128 == 0
-is never true and the periodic flush is dead code. Flushing every 128 writes
-suggests a table with hundreds of entries.
-
-The other tables this patch sweeps have depth macros
-(NBL_DSTORE_PORT_DROP_TH_DEPTH, NBL_UQM_PORT_DROP_DEPTH and
-NBL_UQM_DPORT_DROP_DEPTH). shaping_net has none, so the bound can't be
-checked against the register map.
-
-If the table is deeper than 8, would entries above index 7 keep whatever a
-previous instance or firmware left there across kexec or rebind? That could
-include VALID set with stale CIR/PIR.
-
-[ ... ]
-
-> +/*
-> + * Setting driver status to false notifies firmware to clean up per-PF
-> + * hardware state such as qinfo registers.
-> + *
-> + * Note: firmware does NOT automatically revert chip-wide registers
-> + * configured in this init flow. Those chip-wide settings remain valid
-> + * until chip reset or explicitly overwritten by driver.
-
-[ ... ]
-
-> + * does not guarantee that the firmware pass has finished.  The ordering
-> + * this relies on is the device-link one: sibling PFs are unbound before
-> + * the control PF, so a later init_module() requires an admin (or the
-> + * core's AUTOPROBE re-probe) to bind this PF again, which is not
-> + * instantaneous - but there is no hard firmware handshake.
-
-[Severity: Low]
-Is the AUTOPROBE part of this comment accurate?
-
-init_module and deinit_module only run on the control PF, because of the
-has_ctrl checks in nbl_chip.c. nbl_probe_chip_deps() in nbl_main.c returns
-early when has_ctrl is set. For the siblings it does:
-
-    link = device_link_add(&pdev->dev, &mgt->dev,
-                           DL_FLAG_AUTOPROBE_CONSUMER);
-
-This makes the siblings consumers and func 0 the supplier.
-DL_FLAG_AUTOPROBE_CONSUMER only re-probes consumers, so it never rebinds the
-control PF.
-
-The link also doesn't order the control PF's own deinit against its next
-init. Only the 2-3 ms sleep does that.
-
-The two comments in this file also disagree. The one above
-NBL_FW_CLEANUP_SYNC_MIN_US says:
-
-    Bounding the wait keeps a later init_module() from reprogramming
-    per-PF/chip-wide registers while firmware is realistically still
-    wiping them
-
-This comment says firmware does not automatically revert chip-wide
-registers. Which one describes what firmware actually cleans?
-
-> + *
-> + * Caller must ensure no new DMA is initiated after this point.
-> + * The mailbox channel is stopped by nbl_chan_teardown_queue()
-> + * before this function is called, so no in-flight mailbox DMA
-> + * remains.
-> + */
-> +static void nbl_hw_deinit_module(struct nbl_hw_mgt *hw_mgt)
-> +{
-> +	nbl_hw_set_driver_status(hw_mgt, false);
-> +	/* ensure driver_status reaches the chip */
-> +	nbl_flush_writes(hw_mgt);
+>  void nbl_disp_remove(struct nbl_adapter *adapter)
+>  {
+> -	/* Dispatch structures are allocated via devm */
 > +	/*
-> +	 * Give the asynchronous firmware cleanup pass time to settle
-> +	 * before returning; best-effort, see NBL_FW_CLEANUP_SYNC_MIN_US.
-> +	 */
-> +	usleep_range(NBL_FW_CLEANUP_SYNC_MIN_US, NBL_FW_CLEANUP_SYNC_MAX_US);
-> +}
-
-[ ... ]
-
-> +static int nbl_hw_init_module(struct nbl_hw_mgt *hw_mgt, u8 eth_speed,
-> +			      u8 eth_num)
-> +{
-
-[ ... ]
-
-> +	status = nbl_hw_rd32(hw_mgt, NBL_DRIVER_STATUS_REG);
+> +	 * Dispatch structures are devm-allocated and freed at detach.
+> +	 *
+> +	 * The five responders registered by nbl_disp_setup_msg() are
+> +	 * owned by the channel layer (xarray of handlers) and are never
+> +	 * unregistered here. This is safe because the teardown order
+> +	 * guarantees no responder can run after this point:
+> +	 *
+> +	 *   mailbox teardown
+> +	 *     -> cancel_work_sync(clean_mbx_task)   // drain RX work
+> +	 *     -> nbl_chan_teardown_queue()          // stop HW queue,
+> +	 *                                                 // join clean task,
+> +	 *                                                 // active=false
+> +	 *     -> nbl_chan_remove_common()
+> +	 *          -> destroy_wq()                       // no new work
+> +	 *          -> nbl_chan_remove_msg_handler()      // free handler nodes
 
 [Severity: Low]
-This probably isn't an issue in practice, but bit 16 is tested here with an
-unlocked read. The clear below is a separate read-modify-write under
-reg_lock in nbl_hw_set_driver_status().
+This isn't a bug, but does this comment describe code that exists at this
+commit?
 
-On the driver side, both only run from the serialized control PF probe and
-remove paths. Only the driver sets bit 16, so a stale read at worst causes a
-redundant clear and sleep.
+clean_mbx_task doesn't appear anywhere in the tree yet. Nothing calls
+chan_ops->setup_queue at this point either, so the mailbox RX path that
+this sequence quiesces is never active.
 
-Does firmware ever write other bits of NBL_DRIVER_STATUS_REG? If it does,
-could the read-modify-write in nbl_hw_set_driver_status() lose those
-updates?
+The ordering the comment relies on is nbl_dev_remove() doing the mailbox
+teardown before nbl_disp_remove(), nbl_res_remove_leonis() and
+nbl_chan_remove_common(). That ordering only arrives with the later
+"net/nebula-matrix: add common/ctrl dev init/remove operation" patch.
 
-> +	if (status & BIT(NBL_DRIVER_STATUS_BIT)) {
-> +		dev_warn(hw_mgt->common->dev,
-> +			 "driver_status already set at init, cleanup forced\n");
-> +		nbl_hw_set_driver_status(hw_mgt, false);
-> +		nbl_flush_writes(hw_mgt);
-> +		usleep_range(NBL_FW_CLEANUP_SYNC_MIN_US,
-> +			     NBL_FW_CLEANUP_SYNC_MAX_US);
-> +	}
+Also, destroy_wq() looks like shorthand for nbl_common_destroy_wq().
 
-[Severity: High]
-Can this forced 1 -> 0 transition wipe the mailbox state the driver has just
-programmed?
+Could this comment move to the patch that introduces that teardown
+ordering, and use the real function names?
 
-The deinit_module comment above says firmware reacts to driver_status going
-to 0 by cleaning per-PF state such as qinfo registers. Later in the series,
-nbl_dev_remove_ctrl_dev() relies on the same behaviour:
+> +	 *
+> +	 * By the time devres frees disp_mgt, the mailbox queue is stopped
+> +	 * and the handler xarray is empty, so no responder can touch
+> +	 * res_mgt->intr_mgt after nbl_intr_mgt_stop() has cleared it.
+> +	 */
+>  }
 
-    The qinfo map programmed in nbl_dev_init() via
-    nbl_dev_setup_chan_qinfo() is not explicitly cleared; firmware
-    handles it on driver_status change
+[ ... ]
 
-In the final state of the series, nbl_dev_init() runs in this order:
+> diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_dispatch.h b/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_dispatch.h
+> index 08fef0f679268..bcd74b9df8275 100644
+> --- a/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_dispatch.h
+> +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_dispatch.h
 
-nbl_dev_init()
-    nbl_dev_setup_chan_qinfo()
-        nbl_chan_cfg_qinfo_map_table()
-            hw_ops->cfg_mailbox_qinfo()     /* for every PF */
-    nbl_dev_setup_common_dev()              /* mailbox queue setup */
-    nbl_dev_setup_ctrl_dev()
-        nbl_disp_init_module()
-            nbl_res_chip_init_module()
-                nbl_hw_init_module()
-                    nbl_hw_set_driver_status(hw_mgt, false)
+[ ... ]
 
-So the stale clear happens after the mailbox QINFO map and queue registers
-are programmed, and nothing reprograms them afterwards. This function then
-sets driver_status back to 1 and returns 0.
+> @@ -32,6 +33,16 @@ enum {
+>   *               mailbox DMA before calling it, see nbl_dev_remove().
+>   *               Returns void.  Control-PF exclusive, same NULL rule as
+>   *               @init_module.
+> + * @cfg_msix_map: configure function msix mapping table
+> + * @destroy_msix_map: tear down msix mapping resource
+> + * @set_mailbox_irq: bind mailbox interrupt to specified msix vector
+> + * @get_vsi_id: resolve VSI ID by type
+> + * @get_eth_id: resolve eth port info from VSI ID
+> + *
+> + * These callbacks are not dispatch-layer setup/teardown: the dispatch
+> + * structures are devm-allocated in nbl_disp_init(), and nbl_disp_remove()
+> + * only documents why no explicit teardown is needed.  They forward
+> + * chip/firmware control to the upper layers instead.
 
-The driver has no .shutdown callback, so every kexec reaches this path. The
-commit message names kexec as a case init_module handles.
+[Severity: Low]
+Is "upper layers" the right direction here? The new callbacks forward
+downward, for example:
 
-If firmware clears the QINFO routing here, would the inter-PF mailbox stop
-working? The sibling PFs' cross-PF requests would then time out and their
-probes would fail.
+nbl_disp_cfg_msix_map()
+    return res_ops->cfg_msix_map(p, common->mgt_pf, num_net_msix,
+                                 num_others_msix, net_msix_mask_en);
 
-Would it work to do the stale driver_status clear before any per-PF
-programming in nbl_dev_init(), or to reprogram the mailbox state after it?
+The nbl_disp_chan_*_req() variants call chan_ops->send_msg() instead.
 
-> +
-> +	ret = nbl_dp_init(hw_mgt, eth_speed, eth_num);
-> +	if (ret)
-> +		return ret;
-> +	nbl_intf_init(hw_mgt);
-> +	nbl_hw_set_driver_status(hw_mgt, true);
+The resource and channel layers both sit below dispatch, and nbl_dev is
+the caller. Later patches in the series don't change this text, so the
+wording stays as it is.
 
-[Severity: Medium]
-The only synchronization with the asynchronous firmware cleanup is a fixed
-usleep_range(2000, 3000). It is used here and in nbl_hw_deinit_module().
-
-On this stale path, the bit stays low only for that sleep plus the
-nbl_dp_init() and nbl_intf_init() register writes, and then it is set again
-here. If firmware samples driver_status less often than that, can it miss
-the 0 entirely? The per-PF cleanup this path is meant to trigger would then
-never run.
-
-If firmware does see the 0 but its cleanup takes longer than the window, can
-the cleanup overlap the new instance's programming? That includes
-driver_status=1 here and the MSI-X map and mailbox IRQ setup later in
-nbl_dev_start(). Neither case would be reported.
-
-On the deinit side, only elapsed time separates a quick unbind and rebind
-of the control PF from an unfinished firmware pass.
-
-Does firmware provide an acknowledgement that could be polled here, or a
-documented upper bound on its polling period and cleanup latency?
-
-> +	/* ensure registers written */
-> +	nbl_flush_writes(hw_mgt);
-> +
-> +	return 0;
-> +}
+>   *
+>   * Warning: init_module/deinit_module are control-PF exclusive. The five
+>   * resource ops (cfg_msix_map, destroy_msix_map, set_mailbox_irq,
 
 [ ... ]
 
