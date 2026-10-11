@@ -1,169 +1,74 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D5E3C942B
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 05:29:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3325A3451C6;
+	Sun, 11 Oct 2026 05:31:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791696595; cv=none; b=XS2sYEAlGeXBvtWcNr5PISATFSfEqceRmx0x2bIEF4Y/V+W+F9YLes4vODNgAT6MZBqkEKKIrowdQMQQJnLbpEIGjLXhPI5zdTunx1lOo+rpX++lIAMA+yIgOCtDOv6AoItux+ZZgGiYO9iIarYG51d6gJxQ1lHB5/vILo0iEyw=
+	t=1791696666; cv=none; b=UXSMULH2Betg9oXMkRO8XcmgTntheWE3CiKtwnJAbU4CW8eO3ob5WcsaXk5N5+NABO+rup5Uhyt1qVFLhiDgxh2zjAXk1RiK8wuGRiFmltlsrLjuzxGpyJJI7fSJS4OATRvIX4HEQ2VzxUsVGVwPSSc67x0z78wzUVW1jH1LR8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791696595; c=relaxed/simple;
-	bh=1haV4dNMWDdQWqZsUuA0TFAZtQMdcpLXPmSnhiji0ao=;
-	h=From:To:Cc:Subject:Message-ID:In-Reply-To:References:Date:
-	 MIME-Version:Content-Type; b=uPyiX0RYcdQe7v9Hwq1SRHNoIKOcCUa22e7aUOGAFqWKNOm6BUqejwdF5t8oIp6mwVa45ZeBokndgB9i7ALAOkUc1juid4rNepjijq8QTqQ1UAx/B+HXe7MoIfYf1ne4KNzxj2gXFWZ5SnjH3fsb/XgQe1TbDmUBmi+LLSFPz+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=innovatrics.com; spf=pass smtp.mailfrom=innovatrics.com; dkim=pass (1024-bit key) header.d=innovatrics.com header.i=@innovatrics.com header.b=sG+ClBZE; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=innovatrics.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=innovatrics.com
+	s=arc-20240116; t=1791696666; c=relaxed/simple;
+	bh=mmkOBjydK8X1MPZjQ+oe1RAsEXoznMVWMyZLqangTok=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Dh3RavRJ5W4undoLaIumg24/FfKCKsRwSfHvlBnJYU3h/55s48SHX1nRe/12q670L00LzFNui5FnNxPBWirBnbT+KbILjstgG9y/BI3kfEbWQj2phovSV/mJ1sFvf3BR+B6F27E51lT31gueg4/qMQdpFWGJaG2qlbtUYmTwQNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SUrpTlgb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=innovatrics.com header.i=@innovatrics.com header.b="sG+ClBZE"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a16c1608faso12011605e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 22:29:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=innovatrics.com; s=google; t=1791696592; x=1792301392; darn=vger.kernel.org;
-        h=content-type:mime-version:date:references:in-reply-to:message-id
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q2LSr6tsQNBQXJylfG8nOPgyPFtDzDbVgLjnyN+NvOY=;
-        b=sG+ClBZEZshyYL12WpUA8gi5U4p3Lf2TUW5h8eG3RZVknGgosp9xUBym2Jg7on3Bti
-         u3YWy87k/lf3MT3ptjbhL28yBia/RGwBWim2B6spsjnWSKbqf/PRWIODLjHoWquV6rf6
-         lWE+oxJb1L+70J2GVpC844oToN87Xc7V4+zzg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791696592; x=1792301392;
-        h=content-type:mime-version:date:references:in-reply-to:message-id
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=q2LSr6tsQNBQXJylfG8nOPgyPFtDzDbVgLjnyN+NvOY=;
-        b=zFvsZPYp4gQjc00R2JwcwukLvojXCOL0GjHKS7JWHSX3+oqTC+NPGsW/+n+vUGxLbY
-         e79Jw3WwWDaRqn+VsNORxiKiUwB3nx7/3t0IP4S+nQX4Kx3nycy/Cd+DRVRFeCofqXDE
-         q0JDZVcNMaoiv5+VbWRdMGNOyFczU1ROSMKRVW0rO3uvfGN/XV4+9cX05YdcdUFGzutk
-         XRdjhm6j/kTSKnW8wKnUbNgOXFf7BcDz3Z1m3O4e2VZA6FMoqBa3uvFvUmlmSqBIaBWF
-         DUcrkQGi+ed5SVwblCSFugiBhdgoLz1+PqGOOpQMpCV5g/9H/3A49J5YV/lNALiTEppE
-         kavA==
-X-Forwarded-Encrypted: i=1; AKwUvBwxc5rnE5CPYtgdRWeJShbcu9qDSqZQhPFIuun+8ROXBGPu9K3pEXQFbDBzl7S1d4c/ryZqRQtN7yZzsY0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLlzoTBIrLmqqoti26nGj+d7MbUHPAMghdbYWrp5ABZvC4hfM4H
-	c9GXtccwD34NN7irG12PUDf0lOagSe3mFN8uwgyBddV6KH9eLiSIL4Vwok2pS/QrRw==
-X-Gm-Gg: AYBFou3Efym34OQ1iou3tgMDLMfRWVw+ZRjLrs72Tr0fGMDb3BPcjRA6sSJvuQvtoLC
-	ovzP/sDnjN+f4dV+ZWjLrGkrfg2Mu2pcHDN1nun8NMlfU5YMr6jZIzTTqtYxOFGKIS0yJUEZMjc
-	cIstnTq5XWt1krKsBlHErWSgQ+AWbiM+65JFW120WXsjsnFfSE1aWqmRSh/R8USKSeHFo8Yulb7
-	1DZHDvHp1RNAmloAUrPiH78P9VrURxhpFTn6reZuOrpoYewGvVxCGIqqJ4aHvIODroWsbnhemjQ
-	5GiuG244FX9vVn2dVvHwV6XVyLKfOrKMn0rQrQlO0fG9jMObrho8G1SQY8eBew9FlY8fvou8tMC
-	m+JGvgu9yj1YSrp+Ryp90qhmJh9/dIvV3fXY3iHZaCySMVDAzdQBKSZuDZphOj3qgGJjGnoDze1
-	sZzSy+raaoYDQnIL4mVijfn0we4onE+Iahtk/up1FCXtsYplFzHAcHna51DhZyQL7yo67x70mbN
-	oW0tgMiw9qj5Z2hrUk9vwasUVYP3XcCDPRx1aaNRwlBbIeXVOkDI4BCYZyRCz1B3IkRHUARm3k4
-	Qa3nCDvgWTJi7HVMWZejtIEO14QSBrQ=
-X-Received: by 2002:a05:600c:3146:b0:4a0:34a:588c with SMTP id 5b1f17b1804b1-4a18e4a7cb9mr117216165e9.14.1791696591843;
-        Sat, 10 Oct 2026 22:29:51 -0700 (PDT)
-Received: from [10.11.72.5] (bip-static-148.213-81-147.telecom.sk. [213.81.147.148])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bea0f1csm277235065e9.9.2026.10.10.22.29.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 22:29:51 -0700 (PDT)
-From: Petr Chmelar <petr.chmelar@innovatrics.com>
-To: David Howells <dhowells@redhat.com>
-Cc: Christian Brauner <christian@brauner.io>,
-    Paulo Alcantara <pc@manguebit.org>,
-    Matthew Wilcox <willy@infradead.org>,
-    Namjae Jeon <linkinjeon@kernel.org>,
-    Marc Dionne <marc.dionne@auristor.com>,
-    Stefan Metzmacher <metze@samba.org>,
-    Eric Van Hensbergen <ericvh@kernel.org>,
-    Dominique Martinet <asmadeus@codewreck.org>,
-    Ilya Dryomov <idryomov@gmail.com>,
-    netfs@lists.linux.dev,
-    linux-afs@lists.infradead.org,
-    linux-cifs@vger.kernel.org,
-    linux-nfs@vger.kernel.org,
-    ceph-devel@vger.kernel.org,
-    v9fs@lists.linux.dev,
-    linux-fsdevel@vger.kernel.org,
-    linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v12 0/5] netfs, cachefiles: Changes for next, primarily
- occupancy tracking-related
-Message-ID: <20261011.cachefiles-seek-hole-walk.pchmelar@innovatrics.com>
-In-Reply-To: <20260910220242.2165023-1-dhowells@redhat.com>
-References: <20260910220242.2165023-1-dhowells@redhat.com>
-Date: Sun, 11 Oct 2026 05:29:50 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SUrpTlgb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7794E1F0089B;
+	Sun, 11 Oct 2026 05:31:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791696664;
+	bh=9UINK8Ylgw2POp8mtSoHe0NZ1kXpFn45FN0OmGDfuuM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SUrpTlgbVIRHiOgX1oK0kAIDCT9ok7g9D7ot6DGNaGdldQ8dMwoTMyWHEUW2Zr3tl
+	 LjZzh+CTCCQZ8GMe0bNiKhEoLjwAnEIwx03ETzpI2XZxb2IwwvsjPmcFjrY/G6BLIF
+	 YIA+YfdQBEc2ODULd44o4sdIPv6ybChZsiy4J8Z8z+upgMuEY+uWJ4Rd/4ZYTnJHyN
+	 KLCaa5ih8LbhAKDSYc4ApgYFj09VtRR4/03ihFnO1vkNj6uoUpYwvpXqmSpjFY2Nnp
+	 COgoXU/tRd8qX2I5qH6NahXgFm63ClsTAtomQ38W23lWRw/UF21aWREG7xRJAe8IvZ
+	 Fi+6ju0AiZZJw==
+Date: Sun, 11 Oct 2026 07:30:59 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: a0282524688@gmail.com
+Cc: lee@kernel.org, Ming Yu <tmyu0@nuvoton.com>, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Guenter Roeck <linux@roeck-us.net>, Marc Kleine-Budde <mkl@pengutronix.de>, 
+	Vincent Mailhol <mailhol@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Wim Van Sebroeck <wim@linux-watchdog.org>, linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-hwmon@vger.kernel.org, linux-i2c@vger.kernel.org, linux-can@vger.kernel.org, 
+	linux-rtc@vger.kernel.org, linux-watchdog@vger.kernel.org, mfd@lists.linux.dev
+Subject: Re: [PATCH v8 06/13] mfd: nct6694: Move module type macros to shared
+ header
+Message-ID: <asse8LZ76649tShM@zenone.zhora.eu>
+References: <20261007092102.3768818-1-a0282524688@gmail.com>
+ <20261007092102.3768818-7-a0282524688@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007092102.3768818-7-a0282524688@gmail.com>
 
-Hi David,
+Hi Ming,
 
-The cover letter leaves non-contiguous objects, which still use
-SEEK_DATA/SEEK_HOLE, for a later series.  We hit that case badly in
-production, so here are numbers in case they help with its priority.
+On Wed, Oct 07, 2026 at 05:20:55PM +0800, a0282524688@gmail.com wrote:
+> From: Ming Yu <a0282524688@gmail.com>
+> 
+> Each sub-device driver defines the module type used by its own
+> commands. The upcoming HIF transport also needs to recognise
+> NCT6694_RPT_MOD, as report accesses are served from a separate
+> register space rather than through the command mailbox.
+> 
+> Move all module types into the shared header so that the transports
+> and the sub-device drivers use a single set of definitions.
+> 
+> No functional change.
+> 
+> Signed-off-by: Ming Yu <a0282524688@gmail.com>
 
-Objects get into that state when a large file is read at random
-offsets, as training jobs do with data sets on NFS.  Each read is
-copied to the cache at its own offset, and with other files being
-cached at the same time most pieces end up in separate XFS extents.  The
-object is BACKFS_MAP from the first discontiguous write and stays so
-once it has filled in.
-
-SEEK_HOLE has no upper bound.  On XFS, iomap_seek_hole() calls
-xfs_seek_iomap_begin() once per extent until it finds a hole, and in a
-fully populated object the only hole is EOF.  cachefiles probes the
-occupancy at least once per read request, so a sequential read of such
-an object walks the rest of its extent list for every readahead batch.
-
-On our NFS clients (Ubuntu, v6.8, cache on XFS), a sequential read of a
-fully cached 184 GB object with 1,080,732 extents ran at 0.4 MB/s.  In
-a 15 s trace of one of the affected readers, each SEEK_HOLE took 64 ms
-to 1 s, XFS did 58.5 million extent lookups, and nothing was read from
-the server.  After xfs_fsr brought the object down to a few hundred
-extents, a traced read of it ran at 369 MB/s from the cache.  On
-another machine, v6.14 does the same walk at about 220 ns per extent,
-against 520 ns on v6.8.
-
-It's the same on vfs-7.4.netfs (9f8b64f66).  In QEMU (TCG, 4 vCPUs),
-over an NFSv4.2 loopback mount with fsc and the cache on XFS, a 1 GiB
-object filled by random 64 KiB reads, while a second file is filled
-the same way, ends up with about 16,300 extents.  A sequential read of
-it after dropping the page cache makes 4,098 SEEK_HOLE calls that take
-176 s in total, and runs at 4.3 MiB/s.
-
-To confirm that the walk is the whole problem, I wrote a naive
-workaround with LLM assistance.  I don't know the cachefiles and netfs
-internals well, so take it as a probe rather than a proposal:
-
- - Each cachefiles_object remembers the last region that SEEK_DATA/
-   SEEK_HOLE found to be contiguous data.  cachefiles_query_occupancy()
-   answers a query that starts inside that region without seeking, and
-   overlapping or abutting regions merge.  A sequential read then pays
-   for one walk instead of one per request.
-
- - The region is forgotten after every place where cachefiles removes
-   data from a backing file: the punch on low space in
-   __cachefiles_prepare_write(), the padding clear and the truncation in
-   cachefiles_collect_write(), cachefiles_shorten_object() and
-   invalidation.  A sequence number sampled before the seeks stops a
-   query that raced with a removal from recording what it saw, and
-   cookie->inval_counter ties the region to the backing file.
-
-In the same test, the workaround makes one SEEK_HOLE call taking 61 ms,
-and the read runs at 17 MiB/s.  A debug build that checked every
-remembered answer against a fresh SEEK_DATA/SEEK_HOLE saw no mismatch in
-more than 7,000 checks over NFS and 9p.  It only helps fully or mostly
-populated objects read in order; random reads of a partly cached object
-still seek.
-
-I expect the right fix is for cachefiles to track what it has written
-itself, as CONTENT_ALL now does for contiguous files, rather than
-something like the above.  I can send the workaround if it's useful as
-a reference, and I'm happy to test whatever you plan for this case on
-our workload.
-
-While testing it I hit a data corruption on partly cached objects that
-bisects to patch 4/5 of this series and reproduces without the
-workaround; I've reported it in a reply to that patch:
-
-  https://lore.kernel.org/r/20261011.cachefiles-partial-zeros.pchmelar@innovatrics.com
-
-The numbers on vfs-7.4.netfs and the debug cross-check were also
-produced with LLM assistance.
+Reviewed-by: Andi Shyti <andi.shyti@kernel.org>
 
 Thanks,
-Petr
+Andi
