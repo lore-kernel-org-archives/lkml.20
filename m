@@ -1,171 +1,271 @@
-Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com [209.85.222.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECD6036F909
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:15:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791699345; cv=pass; b=XHUtQP+QwOPLdjpdxzU25uY0WmZfi6LXpzaHpXAKZGYw+83dkzAK1k31BRyq6sO4HaMGpWOlPhD5g0ZmIiu23TsDk17Y9xDho7+ZO8qymclNgorNtWKjwBvmn4NZhXGl8DATLA9g5pYaeXKRytCdLgtz/k/jp8hWW42UE9CqSWA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791699345; c=relaxed/simple;
-	bh=XrM8GNdz09aTLpj/YWt5QoBx4XJXWOW0t3qeZquGh68=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=hrbFsa0TgElpHmFSe+oT/hmBC3ouLv0dQ1i5C/VjeUUAYv8QUsP6XulgEOGek84Xoyuw++OnsNgDNIlh/46iLnsHprXx5whdGZAxX2v7yyPptKHILu46JYaoKTr3bLkRK9vBsUGf7AS1yrY3LR9MIr0h7TXILQnxDNO99skNHsw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yx0cKMW1; arc=pass smtp.client-ip=209.85.222.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F10A922A7F6;
+	Sun, 11 Oct 2026 06:15:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791699354; cv=none; b=VNyE2SukK7h7dNUptz2s8QNsFoid16S3Bglp48pQCHl0j9lvp7zIPOgmCpZEGVBkvKl/MUFG3tuf4pU+X0KzGOKm4eyTlg3uAd7iNQaMxXBrQ9UFFoKwvZugZSPTRQbo8hOLjfjTcv3987K7Zs4ksCJIdgY9zyF1OHiylDAY40c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791699354; c=relaxed/simple;
+	bh=QdwlSdD4e8pIxx8RaYVNZobwNMHOaf3eJSCGNU+vnrI=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=t7IL7w011ZOQJpcqxigkAf3vDtq+WhwgCjS/6BI44NWYjKTrhP9Ib1Jx3vbyIsNu3PFNJyrWtpC+5gki4CG7L71DFleWxfgkzGwclqdHkMaBSyP4vNgA2guoyMqkIjpHtLgbVYHg3S1Wq97mq2akzmTDl1ZB1MKT92gb+TMY33A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fO5tj43I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yx0cKMW1"
-Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-97622cc1f40so558433241.3
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 23:15:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791699342; cv=none;
-        d=google.com; s=arc-20260327;
-        b=O7YI/IRwKARntO31TO9IFZEK3nfNJwKUIAi3JUGNjkFFCkBHIoirTibQN3xBwDum+R
-         9oPky2VLwBDfRqtfdcGvR7EfI4T3b6CH9ZX/WPxUMARwyPXGfmwx//GrAZyQUZizgw5Y
-         8gbUeX4/CsWWct/0zxlOJfMscyAhLIwy0Zezbz8HKmEOzElK8VICZTQms5hSwBiV1hzh
-         dnuNLs4Tj52qsuYqev5VzwImZ9Oev2qLBagqNMjW2dVqRRiGSHrhJHy7D/HhpVb/aZRa
-         qN4ZrAkebpKbAnRn5CL0nQAdNLbkN+PNSD0wP3oJeM89fCQo3SPa2OXAuVM38E/DBfsN
-         SXgQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :mime-version:dkim-signature;
-        bh=X8L+iNlTtt3HRZDj3HQaVSJLaMG+O2tpW3fkmUX4Knk=;
-        fh=6b1vbKb53ExhQzDM/ALsuv5CJxgrcIO/OuqKunzSk6s=;
-        b=qerTCTIVRsz3ZFR8CXPxpNw6d8rbl6VrwDZjyioF2TmGwM0CfqgiOxBvj68G51l7p5
-         nI2oxIJbJz262ltOhh4m3GgPraBGAyHL43p1QpcTjOhPiDoyMQWHOUon21l0//4IXWb2
-         IGqNjVzX4G78409pjgCIt3tm7/G2ieV0tzsL1mlIuapXVoskmDo3Q9K7Gz+S3Vo2fnFQ
-         Z3LtbAzZQU7O3JJaAkLObV91U+b8PyjWObIVto22IiIuyE+sKGlvS7e6yGfGtuV3j8J1
-         mRgftYZ3iPoQrELw1U3AG5V3OaRPBFZ+eZ4UfU2/0qGvHUdMe3HtOxadk4rRWAW6yfN9
-         DilA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791699342; x=1792304142; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=X8L+iNlTtt3HRZDj3HQaVSJLaMG+O2tpW3fkmUX4Knk=;
-        b=Yx0cKMW1CozpDzpNqqD4oNxR1ZlFcrO5YqTTAUPXSKRvR1E1y4mMsMd8q/e3VEX4Hk
-         L5UrkkLdCZ8RiCl1DKRZFMSMGEK+WXU410Mn8gFYAUHAenU3HGl1x6/QYkfrPOV1Bbs3
-         /fm2wkZXjsjIIk4ZVt5Tgwtl+9bhxluuaohvMpdEPzJK17MZE2CuDBjfV/Df+u0OI8wX
-         OQmb3yJylmIEL5RttX1sXEmeXSphHuvxTjB26eFQmls4Eka5UNUqTESC+f4WYriMEqTr
-         FuLachD0eu8iUeR5uDOyZfuIM5j/p9ss3dXgi+7ZCkTdFr2xrwCZzWOk2m+xrIbGL8aV
-         SgcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791699342; x=1792304142;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=X8L+iNlTtt3HRZDj3HQaVSJLaMG+O2tpW3fkmUX4Knk=;
-        b=TM66ATPWRELTbLRENyoXa2W0syU7Aip8LV3kyrf607TKEzHwJR0WJsKggA9pxSnuNA
-         RVfx2i1bkyoLtMy9fdIK2w+ZwlN+eP1WQpQo6oMJsffLTCqMN9mTJtvuQMwCbqq7MCGI
-         EtW1E3AaUg/VFDKpUA0VgtzSajs1LTwlJCdQ5QWoC2FA0XxMC7W/PyQN3ZWpAatwUfQe
-         M6JNnev/mpaI1epaWwpOkTrENwEpMFBsTH7/j7IheqxIPF9wuHEwreP1hEslA48UIQ87
-         R98HgcGPbQ8/SXslENvyG9nHQtz3gDtIXq2L4BqqfLRdIIu06MP+YBvAr+77TR2mh3b6
-         0sOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwIePf3IqqURIEQdfIG4+CXRCsJ0FmgNux/McrNmIZlZQjaTi2/nzPJty8vigjdB9lsqPpRAFO1poDGrjs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJx2JOwLZvBuSvQHEApYcWSluaNs/jdgvWbDisSaBaPaFm/Zi+c
-	seuVyda2Qu+fhZ1SBraSNk8ErnsxxbDM6YXDaB6D3i6J61SlyYps8dOYXs4gcsQtQf/13bXu/0S
-	g2/WsJCCQM20WPhP6ovN0LLL35ipjnT4=
-X-Gm-Gg: AYBFou3rLX9RHo7CqYuiYp/RNAQOFiUR7xNetArSYJgJyILQhjE07jDfnWgQExhSHCx
-	1XxESOTF6Gc2AZpLXefHpwgy7v9mdNZPo18jHtcOYa0vIlwfDpMByVsGOokMMBVhX5H4HSTTA4U
-	9A9v6TdPyfqSFh0BKUz1q4d0zU20HveYgjXjIf87q8uMdGsqVa+51sS/OGYWQseBNuFJvn60C/w
-	KRuKKi4QfyXRlYKn/yRDhsnjDtpWpb0K7OkEoClwaHMjxwyAi/B/y5oDQMp+fHA0Jlrnr921K6c
-	52SIeqU/Q63WySQCZQvTN5ZfYf9PfrSRS8CVypkC4NDn70nj7j3qrw==
-X-Received: by 2002:a05:6102:14aa:b0:7a1:84bd:7f50 with SMTP id
- ada2fe7eead31-7cb39713ccbmr2025006137.1.1791699341706; Sat, 10 Oct 2026
- 23:15:41 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Sun, 11 Oct 2026 02:15:41 -0400
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Sun, 11 Oct 2026 02:15:02 -0400
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fO5tj43I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E33B51F0089B;
+	Sun, 11 Oct 2026 06:15:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791699352;
+	bh=Kw8eIFWLJdO0vJMNss4vKqPZ2tB+xPBa5E7C4a8Opp0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=fO5tj43I2wMBVp9IPZVleY/HYOOdwCFtZmwWgyDRzA5BQ8iXxF9fxZyNddWXp5JLm
+	 07OuTjPBlvDktkabsFHZ0I2ovq1+s1ZRrxWs4cdWb8gDK48iF1wxQ7JmUCJ9zJZQga
+	 wsnoRFyIXMt8v4Rb2yiPNu3kS2O22iZu2XrvpJiIDBBJ5m2YsNXI6cil1Ci6Sh3rYG
+	 8Uq2+Z9Q8C0f/0inV+D28Z/ALWE/N0YtSC09BAla5aEIt3e21H20T5A20YLW53koAP
+	 8rjvOIPaiXF0/k2GKpen3uPnybEWex81Rr95YxMa7Je5oCiwnXAAeAzesg7jKOximT
+	 qOEr9l7yo1Ktg==
+Subject:
+ Re: [PATCH net] net: bridge: don't under-estimate the VLAN tunnel info size
+From: netdev-bot+sashiko@kernel.org
+To: yimingqian591@gmail.com
+Cc: razor@blackwall.org, idosch@nvidia.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ bridge@lists.linux.dev, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Sun, 11 Oct 2026 06:15:51 +0000
+Message-ID: <179169935141.434549.18249145287675691158@kernel.org>
+In-Reply-To: <20261007055939.63100-1-yimingqian591@gmail.com>
+References: <20261007055939.63100-1-yimingqian591@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
- Sun, 11 Oct 2026 02:07:29 -0400
-Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
- Sat, 10 Oct 2026 23:06:45 -0700
-From: =?UTF-8?B?6LW15paH5by6?= <berringtoni36@gmail.com>
-Date: Sun, 11 Oct 2026 02:15:41 -0400
-X-Gm-Features: AclHuK8AMx45cLdSTsGLQ9rt89HLUljIGqTqKX2kSBVQqAMXvnHaMVhCGjVg3xg
-Message-ID: <CAF2O-sO1YuVQWLoNT4mRN2+mzFOG-WdQ5Nt80s1k+7PP8QUtFQ@mail.gmail.com>
-Subject: [PATCH 1/2] iio: accel: adxl345: propagate errors when reading event configuration
-To: =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
-	Lothar Rubusch <l.rubusch@gmail.com>, linux@analog.com, linux-iio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-adxl345_is_act_inact_en() returns either a boolean state or a negative
-regmap error. Applying !! in adxl345_read_mag_config() converts every
-negative error to 1, so a failed register read is reported to userspace
-as an enabled activity or inactivity event.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Return the helper result directly. Its successful paths already return
-0 or 1, and the IIO event attribute read path propagates negative errors.
-This also covers the adaptive magnitude events using the same helper.
+Critical: 0 · High: 2 · Medium: 1 · Low: 0
 
-Fixes: 66a1af6d8a63 ("iio: accel: adxl345: add activity event feature")
-Assisted-by: LLM
-Signed-off-by: =E8=B5=B5=E6=96=87=E5=BC=BA <berringtoni36@gmail.com>
----
-Validation on macOS ARM64 with Apple clang 17:
-- Compiled the three relevant driver functions verbatim with the driver
-  header, using a host regmap stub for deterministic read failures.
-- The original code failed 36 error cases; the patch passed all 53 cases.
-- Covered activity/inactivity and DC/AC coupling, each of three regmap
-  reads failing with -EIO, -ETIMEDOUT and -EREMOTEIO, enabled/disabled
-  states, mismatched coupling and an unsupported direction.
-- Checked read order, early exit and unchanged register state.
-- Used -Wall -Wextra -Werror, AddressSanitizer and UndefinedBehaviorSanitiz=
-er.
-- git diff --check and checkpatch.pl --no-tree --no-signoff --strict
-  on the code diff passed with no errors, warnings or checks.
-- The full patch draft also passed checkpatch with no errors, warnings
-  or checks after fetching the introducing commit for Fixes validation.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Also compiled adxl345_core.o, adxl345_spi.o and adxl345_i2c.o as
-x86_64 ELF relocatable objects using clang and unpacked Debian Linux 6.1
-headers supplemented by upstream IIO/regmap headers. This checks syntax
-and types; it is not a full Kbuild/modpost build.
+- [High] The fix is incomplete.
+- [High] The commit message says the change 'keeps br_nlmsg_size() an
+  upper bound of what the fill needs', but the IFLA_BRIDGE_VLAN_INFO…
+- [Medium] On any bridge port with vlan_tunnel enabled,
+  br_get_vlan_tunnel_info_size() now reserves __get_vlan_tinfo_size()…
 
-No in-kernel KUnit execution or hardware sensor test was performed.
-The checkout is sparse; --no-tree disables checkpatch's tree layout
-check. Initial draft checks used --no-signoff before human review.
-The final signed email also passed checkpatch without --no-signoff.
+--
 
-AI assistance: Codex reviewed the event-read path, identified the errno
-conversion, drafted this two-line fix, the reproducer and changelog.
-The request was to prepare a driver/BSP/kernel contribution related to an
-ADXL345 SPI/IIO vibration-monitoring project, with reproduction and checks.
+net: bridge: don't under-estimate the VLAN tunnel info size
 
- drivers/iio/accel/adxl345_core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+br_get_vlan_tunnel_info_size() used to count the compressed ranges of VLANs
+that currently have a tunnel mapping. This patch makes it reserve one
+IFLA_BRIDGE_VLAN_TUNNEL_INFO attribute for every usable VLAN in the group.
+The goal is to stop br_info_notify() from hitting
+WARN_ON(err == -EMSGSIZE) when mappings change between br_nlmsg_size() and
+br_fill_ifinfo() on the STP timer path, which runs without RTNL.
 
-diff --git a/drivers/iio/accel/adxl345_core.c b/drivers/iio/accel/adxl345_c=
-ore.c
-index 6c9080d..5983fc7 100644
---- a/drivers/iio/accel/adxl345_core.c
-+++ b/drivers/iio/accel/adxl345_core.c
-@@ -1176,9 +1176,9 @@ static int adxl345_read_mag_config(struct
-adxl345_state *st,
- {
- 	switch (dir) {
- 	case IIO_EV_DIR_RISING:
--		return !!adxl345_is_act_inact_en(st, type_act);
-+		return adxl345_is_act_inact_en(st, type_act);
- 	case IIO_EV_DIR_FALLING:
--		return !!adxl345_is_act_inact_en(st, type_inact);
-+		return adxl345_is_act_inact_en(st, type_inact);
- 	default:
- 		return -EINVAL;
- 	}
+> Size the tunnel info for the maximum number of attributes that
+> br_fill_vlan_tunnel_info() can emit for the VLAN group instead of for the
+> mappings that are currently installed.  Consecutive VIDs with consecutive
+> tunnel IDs are compressed into two attributes, so the fill never emits more
+> attributes than there are usable VLANs, which keeps br_nlmsg_size() an upper
+> bound of what the fill needs.
 
-base-commit: 9ee8306121495d2a25aa5d1bfd519f2748786b83
---=20
-2.50.1 (Apple Git-155)
+[Severity: High]
+Does br_nlmsg_size() really become an upper bound with this change? The
+IFLA_BRIDGE_VLAN_INFO part of the same message is still sized from a
+snapshot.
+
+br_get_link_af_size_filtered() gets that size from __get_num_vlan_infos().
+That function counts compressed ranges using the current PVID, the
+BRIDGE_VLAN_INFO_UNTAGGED flag of each VLAN and the current VLAN set:
+
+net/bridge/br_netlink.c:br_get_link_af_size_filtered() {
+    ...
+	num_vlan_infos = br_get_num_vlan_infos(vg, filter_mask);
+    ...
+	vinfo_sz += num_vlan_infos * nla_total_size(sizeof(struct bridge_vlan_info));
+    ...
+}
+
+br_fill_ifvlaninfo_compressed() later works out the ranges again from live
+state. br_ifinfo_notify() always passes RTEXT_FILTER_BRVLAN_COMPRESSED,
+including on the br_forward_delay_timer_expired() path in the trace.
+
+Suppose an RTM_SETLINK under RTNL does one of the following while the timer
+is between sizing and filling:
+
+- toggles UNTAGGED on a VLAN in the middle of a range (one 2-attribute
+  range becomes 2+1+2)
+- changes the PVID
+- adds non-adjacent VLANs through __vlan_add()->__vlan_add_list()
+
+Can't br_fill_ifvlaninfo_compressed() still return -EMSGSIZE and hit the
+same WARN_ON in br_info_notify()? This applies to tunnel and non-tunnel
+ports alike.
+
+About 30 extra 8-byte attributes are enough to go past the kmalloc slack.
+A single setlink with many IFLA_BRIDGE_VLAN_INFO entries can produce that
+many.
+
+The patch only makes the tunnel half of br_get_link_af_size_filtered()
+pessimistic. The two halves now follow different sizing rules.
+
+> diff --git a/net/bridge/br_netlink_tunnel.c b/net/bridge/br_netlink_tunnel.c
+> index e7eceab5b515d..74627323711c1 100644
+> --- a/net/bridge/br_netlink_tunnel.c
+> +++ b/net/bridge/br_netlink_tunnel.c
+> @@ -35,39 +35,25 @@ bool vlan_tunid_inrange(const struct net_bridge_vlan *v_curr,
+>  	return (be32_to_cpu(tunid_curr) - be32_to_cpu(tunid_last)) == 1;
+>  }
+>  
+> -static int __get_num_vlan_tunnel_infos(struct net_bridge_vlan_group *vg)
+> +/* Upper bound of the number of IFLA_BRIDGE_VLAN_TUNNEL_INFO attributes that
+> + * br_fill_vlan_tunnel_info() can emit for @vg.
+> + *
+> + * br_info_notify() is also called without RTNL (e.g. from the STP timers), so
+> + * the set of VLANs that have a tunnel mapping can change between the size
+> + * calculation done by br_nlmsg_size() and the actual fill.  Account for the
+> + * maximum instead of the currently used mappings: consecutive VIDs with
+> + * consecutive tunnel IDs are compressed into two attributes, so the fill never
+> + * emits more attributes than there are usable VLANs in the group.
+> + */
+> +static int __get_max_num_vlan_tunnel_infos(struct net_bridge_vlan_group *vg)
+>  {
+> -	struct net_bridge_vlan *v, *vtbegin = NULL, *vtend = NULL;
+> +	struct net_bridge_vlan *v;
+>  	int num_tinfos = 0;
+>  
+> -	/* Count number of vlan infos */
+>  	list_for_each_entry_rcu(v, &vg->vlan_list, vlist) {
+>  		/* only a context, bridge vlan not activated */
+> -		if (!br_vlan_should_use(v) || !v->tinfo.tunnel_id)
+> -			continue;
+
+[ ... ]
+
+> +		if (br_vlan_should_use(v))
+> +			num_tinfos++;
+>  	}
+
+[Severity: High]
+Isn't this still only a bound on vlan_list as it looks at sizing time?
+
+When called from br_forward_delay_timer_expired(), br_info_notify() holds
+only br->lock and RCU. br_fill_ifinfo()->br_fill_vlan_tunnel_info() then
+walks the list again and checks BR_VLAN_TUNNEL_BIT again on its own:
+
+net/bridge/br_netlink.c:br_info_notify() {
+    ...
+	skb = nlmsg_new(br_nlmsg_size(dev, filter), GFP_ATOMIC);
+    ...
+	err = br_fill_ifinfo(skb, port, 0, 0, event, 0, filter, dev, false);
+	if (err < 0) {
+		/* -EMSGSIZE implies BUG in br_nlmsg_size() */
+		WARN_ON(err == -EMSGSIZE);
+    ...
+}
+
+The RTNL writers don't take br->lock, so two inputs can still change
+between those steps.
+
+First, VLANs can be added. __vlan_add()->__vlan_add_list() publishes them
+with list_add_rcu() under RTNL only. One RTM_SETLINK can carry
+IFLA_BRIDGE_VLAN_INFO followed by IFLA_BRIDGE_VLAN_TUNNEL_INFO for the new
+VIDs, and br_afspec() handles both. A VLAN that wasn't on the list when
+this loop ran isn't counted, but br_fill_vlan_tunnel_info() will emit it.
+
+Second, the flag can change. br_setport() sets BR_VLAN_TUNNEL with a
+lockless try_cmpxchg(), and br_setlink() then calls br_afspec() to install
+mappings. If sizing saw the bit clear, nothing is reserved:
+
+net/bridge/br_netlink.c:br_get_link_af_size_filtered() {
+    ...
+	if (p && test_bit(BR_VLAN_TUNNEL_BIT, &p->flags))
+		vinfo_sz += br_get_vlan_tunnel_info_size(vg);
+    ...
+}
+
+The fill can then see the bit set and emit one 28-byte attribute per
+mapped VLAN:
+
+net/bridge/br_netlink.c:br_fill_ifinfo() {
+    ...
+		if (port && test_bit(BR_VLAN_TUNNEL_BIT, &port->flags))
+			err = br_fill_vlan_tunnel_info(skb, vg);
+    ...
+}
+
+In either case, wouldn't br_fill_vlan_tinfo() return -EMSGSIZE and hit the
+WARN_ON quoted in the commit message? Nine or more tunnel attributes that
+can't be merged would exceed the usual kmalloc slack. This needs
+CAP_NET_ADMIN in a network namespace, which includes unprivileged user
+namespaces.
+
+The "upper bound" in the new comment only holds while the VLAN list and
+the flag stay the same, and nothing guarantees that without RTNL.
+
+Could the size and the fill be computed from one consistent view, or use a
+bound that doesn't depend on current membership? Another option is for the
+non-RTNL callers to stop treating -EMSGSIZE as a bug, for example by
+retrying with a larger skb.
+
+[ ... ]
+
+> @@ -81,7 +67,7 @@ int br_get_vlan_tunnel_info_size(struct net_bridge_vlan_group *vg)
+>  		return 0;
+>  
+>  	rcu_read_lock();
+> -	num_tinfos = __get_num_vlan_tunnel_infos(vg);
+> +	num_tinfos = __get_max_num_vlan_tunnel_infos(vg);
+>  	rcu_read_unlock();
+>  
+>  	return num_tinfos * __get_vlan_tinfo_size();
+
+[Severity: Medium]
+On a vlan_tunnel port, this now reserves __get_vlan_tinfo_size() (28
+bytes) for every usable VLAN, whether it is mapped or not. Two examples:
+
+- VLANs 1000-1999 mapped to consecutive VNIs go from 56 bytes to about
+  28KB.
+- A port with 4094 VLANs and few mappings now reserves about 114KB.
+
+Is this cost intended on the br_info_notify() path itself? That path calls
+nlmsg_new(br_nlmsg_size(), GFP_ATOMIC) from STP timer softirq context, so
+these sizes become order-3 to order-5 atomic page allocations. When one
+fails, the notification is dropped and rtnl_set_sk_err() reports ENOBUFS.
+
+The inflated size also reaches messages outside the bridge code.
+br_get_link_af_size_filtered() adds it regardless of filter_mask. It is
+registered as get_link_af_size in br_af_ops, which has no fill_link_af:
+
+static struct rtnl_af_ops br_af_ops __read_mostly = {
+	.family			= AF_BRIDGE,
+	.get_link_af_size	= br_get_link_af_size_filtered,
+};
+
+That has two effects:
+
+- if_nlmsg_size()->rtnl_link_get_af_size() reserves the space for every
+  generic rtmsg_ifinfo() or RTM_GETLINK message for the port, and nothing
+  ever fills it.
+- rtnl_calcit() takes the max of if_nlmsg_size() over every netdev in the
+  netns as min_dump_alloc for RTM_GETLINK dumps that carry IFLA_EXT_MASK.
+  One such port inflates those dumps for the whole namespace.
+
+The commit message doesn't mention this cost. As noted above, the
+over-reservation still doesn't guarantee the bound.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261007055939.63100-1-yimingqian591%40gmail.com
