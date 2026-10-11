@@ -1,43 +1,56 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C4C43D75A0;
-	Sun, 11 Oct 2026 15:12:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3447E3BB9FA
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 15:13:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791731575; cv=none; b=H9okMK1gG3rPhFp1ETU+liZWs94sk22jwSeypUFT0SbsFMF5Q8lbshc4oG7abVl4cwdKZHmZnKWZ4jv2jlH62alOD6vYBcagXetPMEWzMLelJVNoIzCCyy5QwOfaDZGUBQQpq8wJSzOT/XgHUjtyrfGLwMaYiDwhWPajKEaIIpo=
+	t=1791731606; cv=none; b=tr24yTPP7sq8B6RMzyavVgLTj/xLeuLCP9za5G2HOYW/VMW2YOrHp9WMN0baTVPROZB9QorVIr//Tu4fhbN+S7t/J6N9VF78/J8v6qWzf+d1HNisioNiBgF8T3t7ufOSllqoL3sTz05MhaLzwX/hAZbLvXKVZ/DfOX1scHilpn4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791731575; c=relaxed/simple;
-	bh=AT3EOoHI6vEWhhOW/47tW8BmLzVJ7heHZlkdCzzvl14=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MKF7cirB/fod0ZKImbOXwWPQCTqaK+AyS6MXJzgYLeAMUrLfrHwf9Q3M5dUBMYHFy4MOwM7IrW+Gz7e2ocl9F6RyIbOQKbV+cWJdgaLqlONP5qNCMEZnzB4tS3QVNuIBdUhlxxnd1os3D180GSvN4HF3j/AQzCZf9U5hVL9vySg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oPOCJBBI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791731606; c=relaxed/simple;
+	bh=wP550UQ3WNRFZOr28N2FE4tNUuHVthdgbMQ76TisVjA=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=pIfFQNrLYZzlvxX+92gZ7kcI4DBVjeE8xRw/VmUxSqD5d7575cX+p8W4twDFAIDZiwdkNsr0YT/0NaIpXIAtAcAodyfE+mlcEyhEdHq9nMUi5HUqhapzDVTa7CfQIiEOsfrBew6JOgUTI1eqOySNsYLGGQ0MfcG1ulddlCVfBIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ORCoiK4x; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oPOCJBBI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C31821F0089B;
-	Sun, 11 Oct 2026 15:12:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791731573;
-	bh=pvICUiKV0JeddJgZDCfHSonuPLm3tzUGTCLppNrtDzQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oPOCJBBIaS+PlHrFKMzmE4tkRfKxBzkLoezE7h1HNor0o6tJdXORAjMEK71sfYwfO
-	 z8GnoRid1+l7IT/60YojUqm0k0sCU9K9w/789Hm5kikRlFUepfyKIGQyjP7zkgIzH6
-	 gFUXe1udwRQik1bxITsk4PnheXQ1SW06O2kcowTh9oafj+hJGYsWhYXzEWYsf2vvYD
-	 x+4lEWWkPsC8fpa9X+edFv5tQs/0yLVece5HvAML+apbXxq1MqTbuWPPICTALhEaEn
-	 19mXpwICuwzX/09hMhKDBfa1YbVBP2BS91jgs1TqrBLwf/SrLOhIjeodGwQjU1Dg9f
-	 tr+2Opg7cxMaA==
-Date: Sun, 11 Oct 2026 17:12:43 +0200
-From: Eric Biggers <ebiggers@kernel.org>
-To: Huacai Chen <chenhuacai@loongson.cn>
-Cc: Huacai Chen <chenhuacai@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
-	linux-crypto@vger.kernel.org, WANG Xuerui <kernel@xen0n.name>,
-	loongarch@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Tianyang Zhang <zhangtianyang@loongson.cn>
-Subject: Re: [PATCH 2/2] lib/crc: loongarch: Add 3-way parallel CRC32(C) for
- large buffers
-Message-ID: <20261011151243.GB168780@quark>
-References: <20261011142930.492999-1-chenhuacai@loongson.cn>
- <20261011142930.492999-2-chenhuacai@loongson.cn>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ORCoiK4x"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791731603;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+	bh=714yqAZTRj/a33tbhrXMlSgRJqGIyjQ+vWHwkJlfQuI=;
+	b=ORCoiK4xZo/M1jbwdyJNp1bwQwbbWNQLX183RPcSos5QizG/Hk4nhOEI9ZUvBNZoV8PTwa
+	tH9bJ67wRA9s8IhENUS4MFHXM5MGY4beq3zjrIL9Dc00wL1Ipl7QlMKzmv/K76M+IzKP0S
+	8bMlV/Ayvg3m22GeaWPg62uLQXhW1so=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-344-HvhnI5KcNEKUQ6SO3kHY1Q-1; Sun,
+ 11 Oct 2026 15:13:21 +0000
+X-MC-Unique: HvhnI5KcNEKUQ6SO3kHY1Q-1
+X-Mimecast-MFC-AGG-ID: HvhnI5KcNEKUQ6SO3kHY1Q_1791731600
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id EC09D1955DC7;
+	Sun, 11 Oct 2026 15:13:19 +0000 (UTC)
+Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 6F56E1956086;
+	Sun, 11 Oct 2026 15:13:17 +0000 (UTC)
+Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
+	oleg@redhat.com; Sun, 11 Oct 2026 17:13:19 +0200 (CEST)
+Date: Sun, 11 Oct 2026 17:13:16 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: Christian Brauner <brauner@kernel.org>,
+	Pavel Begunkov <asml.silence@gmail.com>, io-uring@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] io_uring/io-wq: don't call try_to_wake_up() twice in
+ io_wq_worker_wake()
+Message-ID: <asunjCm5Ovj_YDSp@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,39 +59,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261011142930.492999-2-chenhuacai@loongson.cn>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On Sun, Oct 11, 2026 at 10:29:30PM +0800, Huacai Chen wrote:
-> The crc* loop is a single serial dependency chain: every instruction
-> consumes the previous one's result. CRC is linear over GF(2), so a
-> buffer can be split into 3 contiguous lanes processed by independent
-> chains and combined afterwards:
-> 
->     crc(A|B|C) = shift(crc(A), |B|+|C|) ^ shift(crc(B), |C|) ^ crc(C)
-> 
-> with lanes B and C seeded with 0. The shift (multiplication by x^(8n)
-> mod P) is linear, so its multiplier is tabulated at module init as 4x256
-> tables built from crc32_le_base()/crc32c_base(); each combine then costs
-> 4 lookups instead of a log-time GF(2) square loop.
-> 
-> Lanes use a fixed 2 KiB stride (6 KiB superblock); smaller buffers fall
-> through to the serial path. The 3-way parallel loop CRC32 is measured on
-> a Loongson-3C6000 machine (single core, cache-hot, with UAL):
-> 
->     8 KiB:   8.4 -> 12.0 GB/s
->     64 KiB:  8.4 -> 12.4 GB/s   (+45% over the serial hw loop,
->                                  ~12x over the generic table)
-> 
-> Correctness was verified bit-exact against crc32c() over all lengths
-> 0..6168 with 3 seeds, plus 3000 random offset/length/seed combinations.
-> 
-> Signed-off-by: Tianyang Zhang <zhangtianyang@loongson.cn>
-> Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+io_wq_worker_wake() does an unconditional wake_up_process(). This means
+that __set_notify_signal() makes no real sense. Change it to use
+set_tsk_thread_flag(TIF_NOTIFY_SIGNAL) instead to avoid test_and_set_bit()
+and another wake_up_state(TASK_INTERRUPTIBLE) if NOTIFY_SIGNAL was not set.
 
-So is this new code testable in QEMU?  That's a prerequisite for adding
-new optimized CRC or crypto code.
+Perhaps io_wq_worker_wake() can rely on __set_notify_signal() solely, but I
+don't understand this code enough and this patch doesn't change the current
+behaviour.
 
-Please also note that you should just run crc_kunit instead of writing
-custom in-kernel CRC test code.
+Signed-off-by: Oleg Nesterov <oleg@redhat.com>
+---
+ io_uring/io-wq.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-- Eric
+diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
+index 2ca223e47d41..eb90961f32d8 100644
+--- a/io_uring/io-wq.c
++++ b/io_uring/io-wq.c
+@@ -972,7 +972,7 @@ static void io_wq_for_each_worker(struct io_wq *wq,
+ 
+ static bool io_wq_worker_wake(struct io_worker *worker, void *data)
+ {
+-	__set_notify_signal(worker->task);
++	set_tsk_thread_flag(worker->task, TIF_NOTIFY_SIGNAL);
+ 	wake_up_process(worker->task);
+ 	return false;
+ }
+-- 
+2.55.0
+
+
