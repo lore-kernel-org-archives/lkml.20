@@ -1,140 +1,136 @@
-Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A286A33FE09
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:25:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.149
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791707137; cv=none; b=MfL6JJ+eE8m1d0OYMTQ97Ljl0CXGLdaJ3vC0cJRg6THZFI8b/8ng6i2du4DlvCSH3qgtP4cSuTBHWVdRTchdBJCf3U+MN6TSl3xCx7PUwYcZbH13EKKHRM+T/OcUhGYtusLfYBdvT+bP4Zp4pTYz6GnNM2oP2dvXeN/3obRmgiQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791707137; c=relaxed/simple;
-	bh=kScpCZUfbiwUBCfY1/4QhXc1j3HkTC2SpEXoET/sHcw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TFoeCFoW6tNTU5uwcEVAFbdcQwIYnhETndEf4baD4EE5Zh4VLixYzN7mOw7vmFfkDBOVXelhGF6ntlKaKD1jC1/kVnCacieyDZtNBUSkhVAXgVgaqxxhvwNmCmExtocZKPZ+fMPDq6WLh4B3WPDUSw9s6m6/G59c6H0DDMmSvnw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=m9GvCQes; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=WvdmI4V4; arc=none smtp.client-ip=103.168.172.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDAB833FE09
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:26:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791707165; cv=pass; b=NgPM9oJH1+wxVQfe/MYY7gu/OjHACd6BTJg6UFqgsiQy/0iLk9J+fWzC30/tRyHWPf0Sy9fdLQdcbOCt1a841pqjNB1g9EsbCSBMZRVC5X9308V5LYyUQMLBsYkIXww5K/3QPXEQImE+6GlB/JI3Gno43Fk9tYzBsu7DWuZMfeo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791707165; c=relaxed/simple;
+	bh=1rOitW8r9N3qxI4COoi0xLJMf8zsLADvSuasEynHaEk=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=imovWnHJmnMBGzWqITedD58r+N95LRSbvhiphzKLXcii1c0801/OL6WtRoixgZxr8Jo0Vq/2OtwHQ7JEUB4/c71I+pPVApphvgCj+/C95NtO41uNG+08kxjSO3wT+Tt3PZ7ilb3cN6F8cScS0PBtKWnQU+JvzIphw6Caqd2umPM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lites.edu.in; spf=none smtp.mailfrom=lites.edu.in; dkim=pass (2048-bit key) header.d=lites-edu-in.20251104.gappssmtp.com header.i=@lites-edu-in.20251104.gappssmtp.com header.b=PH9D2fFH; arc=pass smtp.client-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lites.edu.in
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=lites.edu.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="m9GvCQes";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="WvdmI4V4"
-Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
-	by mailfout.phl.internal (Postfix) with ESMTP id D8990EC0ABC
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 04:25:34 -0400 (EDT)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-09.internal (MEProxy); Sun, 11 Oct 2026 04:25:34 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1791707134;
-	 x=1791793534; bh=LLtGKMrhKvPJ9XjJTi6BFyiUya1GkfxLEGv2nPtdLf0=; b=
-	m9GvCQes0K3+D2VAJrOiLgljwFAXLN7y77l8iINntKZhojIXRRYCzW/5CuaMufMy
-	7oSdK97cYwuWD7XSj+R3WQCUjFH0+EEYrITzFfzCHiWTsMNHFrT7Dcohn/ubs1qX
-	b9gWKY9gCauGeExMM41NiqLkeAyNYHU9YBR3EZBrSQPfwdXReweMFdzEpV8cKBFV
-	tbdq/lRw8aQrCrdaSTR+Xb30yCkUr8Q8EPPPXBOWpkyvpz4DYNG+D4GT2ePnrj7w
-	Y0lLNT/MYvvrE30NrDR8Ummv0Ry64Ufpl07U7yNGYL7I04FWjHAmPaDzhzJSH+8v
-	uAulQp3Z18ZS0EvA9dKPpg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791707134; x=
-	1791793534; bh=LLtGKMrhKvPJ9XjJTi6BFyiUya1GkfxLEGv2nPtdLf0=; b=W
-	vdmI4V4MOawQQ5mtLM/t4Dib4j6C76B0jVPYr4P46sVJ88ryDi7c8cCJAAg3fBBi
-	7BZ+DDGT6Lirz2Q1I88eLHLqz2Mgd8vD2n9ShyEQqVoImn6ECYLI6lPtr9VAZl+o
-	jCbNrLBM5t1gD54S+Hzk4AmaSmhvX0v0ronri/AB118tsfgCaRNOtgmOgi/s8wni
-	9SKFoAk3vRfUij2mVPwA7LyLDW4Q8m+R+gIHVJr4ZTEP2vfH97nGVlCTNSm7zW/e
-	2U6YkjfV4MAIT+DZoi/2Lir09IWDHwfYNLfYcp+nozHTj1fXQHs2SaAXkd6rlc3k
-	mnKVQJjQSngxzcxwfbPMA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791707134; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:YLn8/w3lhGfj/QsMjTx7zwRoxz7CvUvX1uLWXly0pIV6IJS
-	IRvehCciIfjscUmSqGsZ3K9V53UbQqUuID1XAFg76sZX+a/iaJnhyYOcZIK+OMio
-	bBAHRhYEp2exTRrNmucR/G/JUBJSSu08HxAq5eap3pxXjyXJMjajBlbKgXzr6xLX
-	5a3N8p2fmMrIju08qwdFXteTjQk8TN0wiVJ9ZQw8Fd12XbJph5jn09+c12gHNFro
-	AkKZb6qkcyNPHsUq3+LovIznwYj8AooI6zz/7q0AGkdWPgqVqDAWadWfrsYGTshy
-	r5jYLPMEKFDA/YBY1kYu8NBwcav8Y3twtMjrMjA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:UJXWda4JDQgsQCsKK+DUYbwUhN5jrbonyH/hgjgH89E=:kScpCZUfbiwUBCfY1/4QhXc1j3HkTC2SpEXoET/sHcw=;
-X-ME-Sender: <xms:_UfLaiTFc1WVMa6T8l7WaOOzSp0r25cxCmH7FEDhrmDRbGNYcIp1UA>
-    <xme:_UfLajqXnDYjMUX6wV_gvPO4EPB-64dL8waiK2YsE-TTL9yr5SKZCg4RiDGH5uaum
-    WA6bOwLfegvGUK8QnJH6shhrv_6AwKwivV9jchaF52US8hS-wsdVv1qwA>
-X-ME-Received: <xmr:_UfLarVmFq-6UoA3PNTTL-gsMEFqNYTCf1MoMFj-C9yhpamz_nc5BsoU_U15OWiHtYLKFf_2m7jdGu7c1aOygUrXl-vNXURa>
-X-ME-Proxy-Cause: dmFkZTGIpgsSKCJlcXUNrfhQ+rOxRjqphKb+CKmUmfpqVrmmf+En8wMSywkaPXMTn8INhK
-    kU6j9n8EsW9STbEz2liYD2xeGXc4HNf+WhiUxXoa2GtAE/efkNC8+D4x3DRFafeR7i+YzE
-    XpSTO+f5oiMpHg9xAWurhjt9ycNlApP7pnwuEIcK/ZpYgdlagip/pXrar1axYNJ8DXXqOZ
-    0vSOVzY4gJtpoDC3fhRvQH78AcbISUWzKarDj0DTnGFnwAT9j3ywp34O14MQ0wSyxmPKxj
-    yCtxxzus65xp0grVOrsazpc7kBidm2+pTlSliBgCSCBZOfFbo8pQD9bK+qjH8O0srD0bkR
-    WifMS4NVEnAz/RmbE//7jjCl7ZkBE9Zml0FKj4stCVPr3xbw+xA6fpnQsDeROc2E10ZnyH
-    w7tJFqlIKBfdDFvF4mFy526q06qhDTG/piibSbakG1SDdzEJy1CZv4OjeHXmIt8oU1iPKv
-    5t6b8uvHqX9o304cZU96cr2hNesO5uF+1TyDon4WAbHOvVrHLFAlDN9kHIiVH4GlUAZr1/
-    QfGur6C5ePZtPc78HMPi+Q1ery6ZgmHPWGv7Vitt8LYTaBqFwBwRBqOJwNwdbNpa/Zpsll
-    12gU0o8u0UZP4xwvngiyn+NSka4xuG2cy1yqVvwLWlcG/9I3dNxJdkaJAmtw
-X-ME-Proxy: <xmx:_UfLah9DH6X6RIzaJ69BFSmivrBxezBgX4RXB0hLya8km3K5cnvBPA>
-    <xmx:_kfLajYnnaL4hX50Q3ZEniiCccUg2lNDzZhetAsb5Sbl9GiitkrzBw>
-    <xmx:_kfLapfMRyherokzlQFoOp2FxGhceiM_l_OfhuXtnz5y5QY1ap83ig>
-    <xmx:_kfLatrnXz8zlJbuq1HJSRBv1d5I3l3rZgAQQzPAQU-0slcSYyRQ5w>
-    <xmx:_kfLalEcTzPsHI1HfCK6k_hUK8WCak6PSSoS_M83ynhQmUWaJMuIWQ-8>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 11 Oct 2026 04:25:31 -0400 (EDT)
-Message-ID: <47315427-d8c8-4f60-a0ed-c607ed1d10ea@pobox.com>
-Date: Sun, 11 Oct 2026 01:25:30 -0700
+	dkim=pass (2048-bit key) header.d=lites-edu-in.20251104.gappssmtp.com header.i=@lites-edu-in.20251104.gappssmtp.com header.b="PH9D2fFH"
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c315869241fso149012366b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 01:26:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791707162; cv=none;
+        d=google.com; s=arc-20260327;
+        b=slFBzhbwb7R6j35C98PDjc9hRD8grdg/q4JZFHuaXbcfjY3vEOJua8efli2QVe5iUe
+         JWoz4i0d49uYKk0N1m84+a++Y/feS959osL7Du4hJHLNLKKz2EugufDecXvkGIDeiYqu
+         Qd8c9cBIQEaRuBkixjCe8cv+n/emO3qpRHum5qZQZDBW77UyyQUlA4NKbENJ+ctp1zNa
+         qvbXcVWi5OSvOtKA0zCyPUbgi5duiivecHl5sXN6KiGtta65A19sv5VZa7EIOzo7YhbW
+         gr05G3z7CU/GSENkWfHH/B4VhkpUv1sgoKlUgjCmhtGmrxPJ5pZa96USIxyy/NYLu4Y9
+         EwOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=7MxxQsJMy8Dabqsfj/WHHYHGTv06Iy9zxs6jX+9/cu8=;
+        fh=gSRBVGKNr8dchkk1XeNsnWS1QMguI9U3yiiesf5mubo=;
+        b=kzRc352VTN7/+rVJJ/YvUKMBRnY29/5T6TAIbGpV2XVLCS1uRYDQsnVoGIfzAGEmA9
+         FSaT6VPYtIr53pTAQLsreBt6tDaei6EfaT7utq6tVc9VGIjmFmzZpXV2QFdr1fKNfCN6
+         iQkefh/xMKmTBAJyp+HtinPvIb7Rwpr9pbCQzbWYp2M8gBBWjHIp6oVkBf6UgIx7nPag
+         D90Pa8lv2Ub9FDw9OtvrFLUKfDVwn/hs/8vCvacNNLtqWJFMCUKKZ8ASrsrYDbAyMRsH
+         mCp9VaBRsDJ4RCdu8FWdRTmX5+rbeoYj76rVSp2JlhuLPASkA8TaV6+kEeed9nQnNDU9
+         acOA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=lites-edu-in.20251104.gappssmtp.com; s=20251104; t=1791707162; x=1792311962; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7MxxQsJMy8Dabqsfj/WHHYHGTv06Iy9zxs6jX+9/cu8=;
+        b=PH9D2fFHYeTCGbm3KK/YjdBvECnQYKwHG2CDcuUknaeg/TFNoyoCLvEZ1YSx70vrQ9
+         Oz54St+aE2iR5/mokx4SKDhGID93W7YhTxG74igEGGlcN1Pz0mJM47Ol+CNpylEtUoBc
+         lAiewF+0mWH8s9bOY4h7VWvrw0WLwpK4zxZe0wS04ummwoOw1qjZ+1cQlcJSKra8W0Rw
+         2bNKmtqJ32LOcL/QQeEVREK2hkpD3vlhx2nNO6V7sSBgTd2UrauUMSnqvzNtufDLmKpg
+         lCTy0lRsJjFOkbHPQDQHSjsrg9cMtKQKtcIIL8K5j14VAmwUReT/Ew1nZvr9I8z9EVAS
+         S9FQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791707162; x=1792311962;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=7MxxQsJMy8Dabqsfj/WHHYHGTv06Iy9zxs6jX+9/cu8=;
+        b=R0Ih4bsFPndwyffC3LNeKxDwVeQoviJQ5f7Xw4hJOSSw2yZTZl0WwtCPGU00Gx6Ezs
+         Sz8/4r9VaagpAsI4EJagU23WY0QQYN91ydAfa+LQIjiPH2ubC/C/YTbqvysozssyPI2e
+         os0gl6pRjE82lKfhiqgFEkHCImsOS+yN5yk2nfBgxMwiSuZOlYxFNUiiVs2nQI4vCppR
+         Qrr3dm5vHZpEiRMh8p4YEmjwdYTMojK58yuitoLUOLlvOMVFmtHZ0mXVWJ7a9Sr+EHk1
+         +WFPPfLDZ6ewhjQcYJLoMji3Cs7ZZ0pt2alCUVYbi79cAygBNwHHpDqi2dddebgxsWZH
+         IeaA==
+X-Forwarded-Encrypted: i=1; AKwUvBzacG5UEx7DTSLoFIH9o3cgnm9wZ9OaBtNLlLJQCrCDBVWQtGOF6RO9j8d21/JVdQX9l3Uj9ppyx9b2zto=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJtCIpUCElWTAIaqQqkdddqPcNTbQfV1iY48Jmwqf74faSDzEuA
+	nJQ08KZy9W2v7TDCqGGZfzlFIFgAezvec8TV1jTTgudKYi2UEggzE6CCZUsBMEhReHIiqolmtqF
+	tM90+DLxMbDx7qR9ELFKn0zWa4zCfxk7juMl7ArPf3w==
+X-Gm-Gg: AYBFou05dG9RS9L5DiAxIehV+HrJHjIVVrOq6QhhPBGxkLHwncc/Ik2iDivtkrYP9AE
+	X4ZEYQEx45za35Q0Q1YC/JyipQULfmmSJGuN+LHFz4dxguAL/3Trp8wCxvLr8+/uSRAEzC/dK6S
+	yfm9AE453RMEYzIP2nIa4OSUSuvUyCGwL2UEK/OQ80UpfifRYometHAMaW5f1QK+uoMhfDwJlEz
+	p7KVGBwbtr6brDkCtneRqzGMUv2ObCD1EyaEL10Uz1zBrW2Rl/XnuVzxsNvzpnFMgmlF5enPCtl
+	w4lCqtYFZhGMXLScdgAPyL3fvlWG3RnDe855XfKxRvqjf84tBonAjEWe
+X-Received: by 2002:a17:907:7fab:b0:c25:2fb9:b897 with SMTP id
+ a640c23a62f3a-c31a9d148dfmr641783066b.18.1791707161992; Sun, 11 Oct 2026
+ 01:26:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 000/428] 7.2.10-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261009140946.008206689@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20261009140946.008206689@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: 961222243021 SHYAM J <961222243021@lites.edu.in>
+Date: Sun, 11 Oct 2026 13:56:30 +0530
+X-Gm-Features: AclHuK970s9MJxl7cp7_4kN1jg2QKdKFYhGp8fdirhXJ4NJ6iJ0a_KRlYOsniLg
+Message-ID: <CABQ+_V+-SX4E92NeZiTCC9Vwhq_MomdsmcY4+xoCnrip3uXN_Q@mail.gmail.com>
+Subject: [PATCH 2/2] lib/math: rational: test large semiconvergent final terms
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Trent Piepho <tpiepho@gmail.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/9/26 7:05 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.10 release.
-> There are 428 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sun, 11 Oct 2026 14:08:23 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.10-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Add cases where doubling the semiconvergent final term would overflow
+an unsigned long, including odd and even continued-fraction final terms.
+Check the cases immediately below and at the halfway boundary as well,
+so selecting a semiconvergent too eagerly is detected.
 
-Tested on 2 amd64 systems and an arm64 virtual machine. Working well,
-no regressions observed.
+Use ULONG_MAX so the same cases exercise the native unsigned-long width
+on both 32-bit and 64-bit builds. Three of the added cases fail without
+the overflow guard.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+Assisted-by: LLM
+---
+ lib/math/tests/rational_kunit.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
--- 
--Barry K. Nathan  <barryn@pobox.com>
+diff --git a/lib/math/tests/rational_kunit.c b/lib/math/tests/rational_kunit.c
+index 47486a95f..743fb16f8 100644
+--- a/lib/math/tests/rational_kunit.c
++++ b/lib/math/tests/rational_kunit.c
+@@ -2,6 +2,7 @@
+
+ #include <kunit/test.h>
+
++#include <linux/limits.h>
+ #include <linux/rational.h>
+
+ struct rational_test_param {
+@@ -21,6 +22,16 @@ static const struct rational_test_param test_parameters[] = {
+        { 1155, 7735,   255, 255,       33, 221,   "Exact answer" },
+        { 87, 32,       70, 32,         68, 25,    "Semiconvergent,
+numerator limit" },
+        { 14533, 4626,  15000, 2400,    7433, 2366, "Semiconvergent,
+denominator limit" },
++       { 1, ULONG_MAX, 1, ULONG_MAX - 1, 1, ULONG_MAX - 1,
++         "Semiconvergent term multiplication overflows" },
++       { 1, ULONG_MAX, 1, ULONG_MAX / 2 + 1, 1, ULONG_MAX / 2 + 1,
++         "Odd final term, above half" },
++       { 1, ULONG_MAX, 1, ULONG_MAX / 2, 0, 1,
++         "Odd final term, below half" },
++       { 1, ULONG_MAX - 1, 1, ULONG_MAX / 2 + 1, 1, ULONG_MAX / 2 + 1,
++         "Even final term, above half" },
++       { 1, ULONG_MAX - 1, 1, ULONG_MAX / 2, 0, 1,
++         "Even final term, exactly half" },
+ };
+
+ static void get_desc(const struct rational_test_param *param, char *desc)
+--
+2.51.1
