@@ -1,259 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9B2B276050;
-	Sun, 11 Oct 2026 06:41:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39D0534A78F
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:47:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791700888; cv=none; b=E/xpKvSDyhLgftTL6ix+OgFPNtzn9o2gHw1gvxYcHkWCeUPWQE/3If7zgZfAGtO5MseaNL0I02Q9mMaqp9iwmp/tGbcEQEdlMZn036KNB5oKe3wCs5/ishy59w6JmuW7aRwMlVyXcTqkxi33gOF8BrD0/6PUrfmbTP42H/3tqNM=
+	t=1791701241; cv=none; b=WZwyrTsohIvCoRWCPX/CnrfZnqBoIoduDgaqEWlG1WoC+rCTyYm8xCxzMfTH2n3ICsRsg+Ywo3tlLCludhzzOywAJse2TXb2MlpOsRZh9oI2dzetSPP6HjFXMoJ1dfT29gTOwc9uAr+dGeZgr7bbct660NW+5HZL6e7n+jVnqQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791700888; c=relaxed/simple;
-	bh=o1Cfjj4mgiFLSD4ehTkQrXze+HXV0jTSSUbP7u03vuA=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ebn/M8SkaXcwuLY5ZYaCvMDpBb4bWcUCFHLRjGK2FaQ+wWcQ4zJSgoVRxsHLjPv5Oj4vJaOH2MYp1oCkdSD2H0KI8n1SQn9AdU90FZTjccoONBOshQzUZVI7JYX2ZpO7xsL/S5tzofOsC1ydfGg3E+IsMVnb6g5Yq+RgJJ6zW0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c9chI6SV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791701241; c=relaxed/simple;
+	bh=b9lFKuABg9FRexBM2bdC5Db/THMVYRfwn/iTTWMKBzA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DFWTjXgS56VR6KpADxtsJd16SJeUJCgUIR5VHFJRDlBFuz0XjgnnJmyDGeK/f9gfjME7Vc3vB48yM+JmYk1vOUHdSAxyzMBXh1ODQNM5atYTn+1G61Nc0ZUTtETQCtkdGm5iZrt1u/MJu2ruoGLKcY3FxJ6ST+QUbKD05YyqX24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YCUCybgq; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c9chI6SV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24AB51F0089B;
-	Sun, 11 Oct 2026 06:41:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791700886;
-	bh=RmCZH95ehgU540OjvnS3MFoFEkyabpFbTjwYQ0ORD6k=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=c9chI6SVxwWEhR9Gnfx7+wVHgTLMyFaMMMbouAiIIJ8tXrXAdCLpGVEGAI7GQiQ8V
-	 bkAwVt+B8Vvg5BPbs06QDrVTVF2oSORR708zdASXpEYMYiyGYqWkx8vqMG43SPf+lv
-	 IU2deCmPlDX3X7Ry72gkooZM7a12Tl5wl8Mbhj8ueMDaUdlovJCptQjjVq05yfHvbt
-	 rEe56RR8P0fOBWrZ0ATTZQmjsFwt/XB+2xIhX+1bHPnCQymMYSq0+NunDQvpFAJaW0
-	 DpC/mDB7+yGOmi4Qi4gQ39m6HrMfFCrP/pf8JTdvC97PE8c4OSRn5u0NksoXC26okx
-	 vFW5mpoM6PP9Q==
-Subject:
- Re: [PATCH net] macvlan: require lower-netns admin for IFLA_MACVLAN_FLAGS
-From: netdev-bot+sashiko@kernel.org
-To: bsdhenrymartin@gmail.com
-Cc: davem@davemloft.net, kuba@kernel.org, edumazet@kernel.org,
- pabeni@redhat.com, andrew+netdev@lunn.ch, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Sun, 11 Oct 2026 06:41:25 +0000
-Message-ID: <179170088566.434549.4699134797461783473@kernel.org>
-In-Reply-To: <20261010062944.2671656-1-bsdhenrymartin@gmail.com>
-References: <20261010062944.2671656-1-bsdhenrymartin@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YCUCybgq"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a018792ab3so8000025e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 23:47:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791701238; x=1792306038; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1QXG/OHOueFMbmPjMgjHa4I8+bxiyo5Fb5MP2BTqljM=;
+        b=YCUCybgqfvGWo5fdOk/GXL7n6BMnpMWOay7xmdN4PY1jn5cO+JwBTuThIYY3dUCw4N
+         UbWrzmsT2BT/53FkBiDNHj/qe0BAGXxJzeOy6AylD1u4PBBWsAe496FdYnljbnqG/SMh
+         TOrVvTmSZe2icdCnKjtxUzsuqRnl9ujwPyGDxTUiFshNlta25KXLSvz9SUrztw2X4dOB
+         VyJF0zHLbHh5avJO9fQpg0/hWGN7H2ejfy2y8x7UANe5kPM46xlyhGj9xzn86j9gVByE
+         FPgxIKp/BgLZmmA3F+X3EtdUXWzuOt9FKo6kqfgXMMyPkxCOyfjkWyoJ9xN61dIfbngg
+         TQoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791701238; x=1792306038;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1QXG/OHOueFMbmPjMgjHa4I8+bxiyo5Fb5MP2BTqljM=;
+        b=AOiBdqeQkyRYiy97dE2514m4LVB4nf4JSE7z/Owxsjl0r6b8lfoZWk/SJWYBySiF4t
+         MXI4ZxbBanCjaBddarrt3oN5+riJs1qXrD0HOGjVJfm/vyLqFRQUovr7F5QIkbJc7E9E
+         bDUmbgjZ1Vv/tFe0Na97VkbBVzYJGCpMzz5e3uap8LmF1UfQjJ/1dn16vnWwE/vZjr4y
+         frRIN8q3IkUfpvoESR6SYS3FFdb+PMsrhxg0A4JL/3EbKlHblsz/uM+Ri50i79IKUp4H
+         BDFEgECfIwqGbu7f4Ew+hZj81lSb/EIMe7UD5fOozlPfFLaiH4oATlkOBLlD00HHXpv9
+         q5AQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwxxL6HkKrsWy4zZ757AhXO3BUfRZdUF0l6U1IPM3IoToT94Q6EZ8ss3OyOK4kHAHetzSVSYN12Dco0xOA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJQtBjEKA+j2ZOgEnTRI4lwWWRabDQow3PufTQqvvxSRbvKomDE
+	vMotIugzk3TCHd7zSdkDXzKi9RT5KKMbYowi2/+PAtQQAUZEfSi8H7yUk66yLyRuxyA=
+X-Gm-Gg: AYBFou1ZorAkT7QIlX/7dlvxQebx0COUM9sLR1ZJylFofU0pm4zQLjEtUeXqjx7DMto
+	jg1dqXm03Jsc3FVSYlyY4YkVylQHngeTeX8lysn2LhtZSjexAEXGEl70RKxbRg5cmvbLSJFqcoM
+	EtBX/uG1+9O1TCbKejrHTGXB4OB2jlJQ7nSnbFmfb20/p4vbOxPnhlJktJ3m0sbGDYiHumiuXi6
+	+stONRgiJj505jKbB9ADHFm40p3uxOGVndoycbBTXrj8Lho8N9Ff6SGQF2HuCORRyaXAyS20aVF
+	wg1wNbdtTiBc2NmLw/guzRrx2oZfxZR05FWEIcKZjJj32BshgsptyvVm0HlkTwprx2sAjXRDjOL
+	h/poIUIXNiKksSM2/dikdzcS6UDij9T5QMIqZwSgSAK7fagJWpbwZoeQC3r34XeOIr5DRgLRUAD
+	9amSwGtXtQv8d0LM6Z8r9luJPUttcui9sf3EwCBxk5ujEgJZ2kkd9JMLxbWlDfesbpzJBn4/gS3
+	DppomdzvP8v46crY0mtfB7MDxZ/VXlV+D0=
+X-Received: by 2002:a05:600c:1c15:b0:4a0:2867:d8a9 with SMTP id 5b1f17b1804b1-4a18e4d67e2mr131695315e9.30.1791701238379;
+        Sat, 10 Oct 2026 23:47:18 -0700 (PDT)
+Received: from LAPTOP-AVI.taile24b5.ts.net ([2a06:c701:4778:c500:e952:dc8f:95c1:823c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf31b83sm194319945e9.12.2026.10.10.23.47.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 23:47:17 -0700 (PDT)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: Joel Stanley <joel@jms.id.au>
+Cc: Andrew Jeffery <andrew@codeconstruct.com.au>,
+	linux-aspeed@lists.ozlabs.org,
+	dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/aspeed: Propagate DAC mux register update errors
+Date: Sun, 11 Oct 2026 09:47:14 +0300
+Message-ID: <20261011064715.2422596-1-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+dac_mux_store() currently returns 0 when regmap_update_bits()
+fails, implying a zero-length write instead of the actual error.
 
-Critical: 0 · High: 1 · Medium: 1 (2) · Low: 0
+Return the negative error code itself for observability. No obvious
+reason that this return should be clobbered to zero.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Fixes: 696029eb36c0 ("drm/aspeed: Add sysfs for output settings")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+---
+ drivers/gpu/drm/aspeed/aspeed_gfx_drv.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-- [High] macvlan: incomplete CAP_NET_ADMIN check allows traffic
-  interception
-- [Medium] The commit message presents commit 5b782a811e73 ("macvlan:
-  require lower-netns admin for shared port settings") as covering…
-
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but
-  macvlan_changelink() (drivers/net/macvlan.c:1665-1678) calls…
-- [Medium] This problem wasn't introduced by this patch, but the new
-  check relies on rtnl_dev_link_net_capable()…
-
---
-
-macvlan: require lower-netns admin for IFLA_MACVLAN_FLAGS
-
-This patch extends the rtnl_dev_link_net_capable() check in
-macvlan_changelink() to IFLA_MACVLAN_FLAGS. Changing that attribute now
-requires CAP_NET_ADMIN in the lower device's network namespace. The
-reason given is that toggling MACVLAN_FLAG_NOPROMISC in passthru mode
-calls dev_set_promiscuity() on the lower device.
-
-> diff --git a/drivers/net/macvlan.c b/drivers/net/macvlan.c
-> index afad90b9222a2..d30cffddb1e1b 100644
-> --- a/drivers/net/macvlan.c
-> +++ b/drivers/net/macvlan.c
-> @@ -1641,7 +1641,8 @@ static int macvlan_changelink(struct net_device *dev,
->  	int ret;
->  
->  	if (data &&
-> -	    (data[IFLA_MACVLAN_BC_QUEUE_LEN] || data[IFLA_MACVLAN_BC_CUTOFF]) &&
-> +	    (data[IFLA_MACVLAN_BC_QUEUE_LEN] || data[IFLA_MACVLAN_BC_CUTOFF] ||
-> +	     data[IFLA_MACVLAN_FLAGS]) &&
->  	    !rtnl_dev_link_net_capable(dev, dev_net(vlan->lowerdev))) {
->  		NL_SET_ERR_MSG(extack,
->  			       "Changing shared macvlan port settings requires CAP_NET_ADMIN in the lower device network namespace");
-
-[Severity: High]
-This isn't introduced by this patch. Since the guard is being
-extended here, though, does it still miss the attributes that let a
-child netns admin receive traffic from the lower device?
-
-IFLA_MACVLAN_MODE and IFLA_MACVLAN_MACADDR_MODE are not covered by the
-rtnl_dev_link_net_capable() check. One changelink request is enough
-for root in the macvlan's netns to do both of these:
-
-  1. Switch a non-passthru macvlan to MACVLAN_MODE_SOURCE. set_mode is
-     applied before the IFLA_MACVLAN_MACADDR_MODE branch.
-  2. Pass MACVLAN_MACADDR_ADD with an arbitrary MAC address.
-
-macvlan_changelink_sources() then calls macvlan_hash_add_source().
-That inserts the entry into vlan->port->vlan_source_hash, which
-belongs to the shared struct macvlan_port, not to the upper device.
-
-On receive, macvlan_handle_frame() calls macvlan_forward_source() for
-every frame on the lower device, keyed on eth->h_source. For each
-matching entry, macvlan_forward_source_one() delivers a clone to that
-vlan. Nothing restricts the MAC to stations that belong to the child
-netns.
-
-A container that only owns the upper device could therefore add the
-MAC of, for example, the gateway on that segment. It would then get a
-copy of every frame that station sends on the lower device. That
-includes frames addressed to the lower device itself or to macvlans in
-other namespaces.
-
-If MACVLAN_FLAG_NODST is already set on that vlan, consume becomes
-true in macvlan_forward_source(). The frame is then dropped instead of
-reaching its real destination.
-
-5b782a811e73 treated mode as a per-upper setting. Does that still hold
-once MACVLAN_MODE_SOURCE fills a port-wide hash?
-
-Should the check also cover IFLA_MACVLAN_MACADDR_MODE, and maybe the
-switch into MACVLAN_MODE_SOURCE? Or is source-mode filtering meant to
-be allowed for an admin of the upper's namespace alone?
-
-[Severity: Medium]
-
-The commit message says that 5b782a811e73 "only covered
-IFLA_MACVLAN_BC_QUEUE_LEN and IFLA_MACVLAN_BC_CUTOFF". That reads as if
-flags were overlooked. However, 5b782a811e73 left flags ungated on
-purpose:
-
-    rtnl_dev_link_net_capable() short-circuits when the lower
-    device shares the macvlan network namespace, so an ordinary
-    single-namespace configuration is unaffected, and per-upper settings
-    such as mode and flags stay available to an administrator of the
-    macvlan's own namespace. This is the model ipvlan has used since
-    commit 7cc9f7003a96 ("ipvlan: disallow userns cap_net_admin to change
-    global mode/flags").
-
-That commit also said the passthru-only port state cannot be reached
-from a second upper, since passthru requires port->count == 0.
-
-Should the commit message say that this reverses the earlier decision,
-and explain why that reasoning no longer holds?
-
-The extack text is reused unchanged. IFLA_MACVLAN_FLAGS is stored in
-vlan->flags in struct macvlan_dev, not in the shared struct
-macvlan_port. Is "Changing shared macvlan port settings" accurate for
-this attribute?
-
-The new check also covers more than the problem described. In the flags
-branch below, only this path touches the lower device:
-
-	if (macvlan_passthru(vlan->port) && promisc) {
-		...
-			err = dev_set_promiscuity(vlan->lowerdev, -1);
-		...
-	}
-	WRITE_ONCE(vlan->flags, flags);
-
-On a non-passthru macvlan, or for a change that leaves NOPROMISC alone
-(for example a NODST-only change), the branch only writes vlan->flags.
-After this patch, an admin of the macvlan's own netns without
-CAP_NET_ADMIN in the lower netns gets -EPERM for those changes too.
-
-Is this uAPI change intended? Could the check be limited to passthru
-mode when MACVLAN_FLAG_NOPROMISC actually changes?
-
-[Severity: Medium]
-
-This isn't a bug introduced by this patch, but the IFLA_MACVLAN_FLAGS
-branch in macvlan_changelink() changes the lower device's promiscuity
-without checking netif_running(dev):
-
-	if (data && data[IFLA_MACVLAN_FLAGS]) {
-		__u16 flags = nla_get_u16(data[IFLA_MACVLAN_FLAGS]);
-		bool promisc = (flags ^ vlan->flags) & MACVLAN_FLAG_NOPROMISC;
-		if (macvlan_passthru(vlan->port) && promisc) {
-			int err;
-
-			if (flags & MACVLAN_FLAG_NOPROMISC)
-				err = dev_set_promiscuity(vlan->lowerdev, -1);
-			else
-				err = dev_set_promiscuity(vlan->lowerdev, 1);
-
-Otherwise the passthru promiscuity reference is held only while the
-macvlan is up. macvlan_open() takes it:
-
-	if (macvlan_passthru(vlan->port)) {
-		if (!(vlan->flags & MACVLAN_FLAG_NOPROMISC)) {
-			err = dev_set_promiscuity(lowerdev, 1);
-
-macvlan_stop() drops it:
-
-	if (macvlan_passthru(vlan->port)) {
-		if (!(vlan->flags & MACVLAN_FLAG_NOPROMISC))
-			dev_set_promiscuity(lowerdev, -1);
-
-What happens if NOPROMISC is toggled while the macvlan is down?
-
-Clearing NOPROMISC while down adds 1. A later open adds another 1, but
-stop removes only one. Does the lower device then stay promiscuous for
-good?
-
-Setting NOPROMISC while down drops a reference that was never taken.
-That could take away another holder's reference. If the counter was 0,
-__dev_set_promiscuity() would wrap it to UINT_MAX with IFF_PROMISC set,
-and later +1 requests would fail with -EOVERFLOW.
-
-This goes back to df8ef8f3aaa6. With this patch applied, reaching this
-path needs CAP_NET_ADMIN in the lower netns, or both devices in the
-same netns.
-
-[Severity: Medium]
-
-This is a pre-existing issue, but the check extended here depends on
-rtnl_dev_link_net_capable(), which only looks at current's credentials:
-
-net/core/rtnetlink.c:rtnl_dev_link_net_capable() {
-	return net_eq(link_net, dev_net(dev)) ||
-	       ns_capable(link_net->user_ns, CAP_NET_ADMIN);
-}
-
-The other cross-netns checks in rtnetlink use
-netlink_ns_capable(skb, ...). That also requires the socket opener to
-hold the capability (the CVE-2014-0181 hardening).
-
-Could a confused deputy get past the lower-netns check here? For
-example:
-
-  1. An unprivileged user who owns a child userns opens a NETLINK_ROUTE
-     socket in the child netns.
-  2. A privileged program (for example a setuid-root one) is made to
-     write an attacker-controlled RTM_NEWLINK message to that fd.
-  3. netlink_net_capable() in rtnetlink_rcv_msg() passes, because the
-     opener is privileged in the child userns.
-  4. rtnl_dev_link_net_capable() in macvlan_changelink() passes,
-     because current is global root.
-
-Nothing checks that the opener lacks CAP_NET_ADMIN in the lower netns.
-
-The helper came from 8165f7ff57d966. Other callers such as ip_gre,
-vxlan and geneve share it, so a fix there would probably be a separate
-patch.
-
+diff --git a/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c b/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
+index c8746766f258..a933ad358852 100644
+--- a/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
++++ b/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
+@@ -268,7 +268,7 @@ static ssize_t dac_mux_store(struct device *dev, struct device_attribute *attr,
+ 
+ 	rc = regmap_update_bits(priv->scu, priv->dac_reg, 0x30000, val << 16);
+ 	if (rc < 0)
+-		return 0;
++		return rc;
+ 
+ 	return count;
+ }
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261010062944.2671656-1-bsdhenrymartin%40gmail.com
+2.43.0
+
