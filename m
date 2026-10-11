@@ -1,157 +1,157 @@
-Received: from mout.web.de (mout.web.de [212.227.15.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C23183A9871;
-	Sun, 11 Oct 2026 12:11:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B062448D11
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 12:13:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791720705; cv=none; b=PtBYN615H24LFBuXdLY+B4HDBAlyAgsiUtSxxEOHBP2u6k2I7a5KAumhxr1sxn+WE5cx6ZRzz1TvJlNtH4VgQTCZT1+HuFSMxzjWkNDoVvrxq0xE+yTqnfWNk6wsF589Q3Qbj3HpX9XOYN1SNquwXJFHG8CIwH3EJgLGyDv0pbA=
+	t=1791720811; cv=none; b=f76Ti/I4k2U4VqDFxV/i+NgGSGs0CswomiuNuoruK4mXPIbUXFclTPgf/EaFGTjebEbSDzwVLXbfC9xGtOFHoy5Gwh6S3wJ9v/Ziqh1VWjnVvCbPVJQiLI89Vqrld6SMl4bgrfnmB8hZ33+KQR6B2LYol4kE+WmSl5AQrHcD4Dk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791720705; c=relaxed/simple;
-	bh=97ys9gRqrEZ8QWJSZ5qvUMjJJLvd3tNrB4aJIYBAGhk=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
-	 In-Reply-To:Content-Type; b=Te6D2gdxy7XHfHc3RgdlhZCeZN5nUDqxppFnUEIXA0FZJieRiAeCNwvNkBvxPqBfec3j+vfDDo/hevmWkjYbEoC62m4u1gRzDvDFnDFlxtMGMFzoS0dnqfiBw+wF+6t5K86PemctIDSuWz8orRSmi7l8kzd6lPKvgAyT1WaICPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=rVI38Uud; arc=none smtp.client-ip=212.227.15.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	s=arc-20240116; t=1791720811; c=relaxed/simple;
+	bh=xANXtOiaSRHZikF1Pq8P3t+bkAaThlmuB+FyvIC2ni4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=I/19qkrRjPtlf+z21wKLUxv/caD0W98MDwXLwowP0S4Ro2In5bpNVNrty4TmrbYaxAVuE1i1qKJDe3wclXe1QMPjvvz5NE9pR7ItcRRo8L4tmrNtNK8SzgfZpASpcL4eRhdous1YU9fE7caKTkkxPpCPP5vn6FqB3d9UmVr/NgM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gg4Zp6gQ; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="rVI38Uud"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1791720686; x=1792325486; i=markus.elfring@web.de;
-	bh=97ys9gRqrEZ8QWJSZ5qvUMjJJLvd3tNrB4aJIYBAGhk=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
-	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 cc:content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=rVI38UudstmKB5sKXXGK+ilJln2x/NmDHH0rFJPjREqh4FP06bOduaU+/N8gTHfi
-	 xvxVDD1oU5qIVauEYWv7ue8WdGswCHmwHQ5+FO3BYeQrNUOFKxv4PE5w+ZaRmRKcG
-	 lgmv1AxzsLIkV+lPThw3G0ABEof61kGl0++CCwCIBWqiajMC8KKxRIzvktmX1Oj8b
-	 9MzsIX888RAj5KfJj6hXl5R0Xozq4rGQQaZquAq9x9v45yIaZQcqHxH4sguEkELYP
-	 d+wLYFzBFzBLivadArVt0QFqISylbPtm8EImFxQ/aDdpQxnBJP5jZSfyGcjhAuJyK
-	 9JyKg4WgK0Q5ZWs6Iw==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb005
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1MUlDJ-1x6hQt3Ax7-00ItcS; Sun, 11
- Oct 2026 14:11:26 +0200
-Message-ID: <ffeb3e5b-d9de-4337-b250-e27667024461@web.de>
-Date: Sun, 11 Oct 2026 14:11:25 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gg4Zp6gQ"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a018792ab3so9023075e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 05:13:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791720803; x=1792325603; darn=vger.kernel.org;
+        h=content-type:mime-version:references:in-reply-to:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6WNhfRaYtKVpVmrsy/HA79NcbT4wzVybUHXDzkeeAVs=;
+        b=gg4Zp6gQFqmEX1CSGivAJLsgiteD3K9J98Mja3K+2XmXBpa/rat5BMIbTY77Mi0mLr
+         sHzzr4VhkLDpA+K0qKWvg4xHuqk+Zq3lwBrRCTJWNd8uPrsiKMpvjtAkVaZ6jdfuNfZ8
+         ctC9/0zuQd05XoUOdgp+IixKm33DnPuKJVvM/BDHjyWGjOeBHjSGE4JjG7RCa4/h32Qs
+         NP2e4ng8Yynp1gZddbbQ4oCxH1zA/FDfjyMksMDguFIRsQSzlFidiDsYUD/LfbCaZmBB
+         I4IqAFZXgkl7hXepDbnJpDpZcPZL65vKWpOqHwhdMbpVhlHsnsQFlODIiZdNeFFP5DJH
+         z9rw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791720803; x=1792325603;
+        h=content-type:mime-version:references:in-reply-to:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6WNhfRaYtKVpVmrsy/HA79NcbT4wzVybUHXDzkeeAVs=;
+        b=lh0tptMwTwXX0AcscDTUBA5oqYt6DEC+ajsBMEiQGMo9SgmSwQN9//HBjXtf/eONlF
+         ohpoRQ8tEN8E/nDuCCYSnHZ7lwYFFygs7Dr44y+QpcFvMiCVw7DSllOx76Su8uZYLfO4
+         cMW3G5QcXj25b+ngEr+dblXXxKApy1dVEd8LIynmzQzsZyXdQJwK7yllHOGTXd6tRYR5
+         S04Cf3marnsNK+PgJhj/dJyQTTgXVeSSPDL0RRlZPgAY7wtQlAL/sugGcrfuEoZ78jzf
+         Qik7hZ7o3OcqT+RGkDy3l5qIGxqLZVYjkLP2qFnyW43UhvoieP6upYfWJOG2aVGB9oLB
+         qcRg==
+X-Forwarded-Encrypted: i=1; AKwUvBxSMldBHxykWt2/jQvcpu6Y8O4Z+RFuaukTWAls6TAom5U1T+dVOlF2i/b3XqnCphl2nHAlWMrc9Tf5S9M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKkmNoBLRv0aa6LTABJnaV6eOVVHC3oGF6uBN3WinVWsNGl4R/C
+	/i3A81MXA/fFGPuedLHNwKcgBmTCwpZguM+hb2SjOZFNImtUMh/7UOG8
+X-Gm-Gg: AYBFou0jDXaKkZr1etc1WUDAvCfpMdXkmr8gCIBrQZZsa2E7KevUVM49ujOlbeeJ/cf
+	FXMgYjUVCUurekqqRpLxF5istc0wXe8qlHbQ4kt5OVyArK71vEyQgVt+Jlg1sQNnebnJdh74AHH
+	8lqBtoVK2YgN9FGKZpee21U/wVWQb0lur/EEYh+pE0LTlruiNiAJeDjMkjr0pMHRup7YwQoc+oV
+	CmUUWBp8JFyTTywWG6gAUF3u/KO+MZko4Qf/czDugdSYoPL4r9E0FDj20VZ6FA0Yi0Nn2zgAn6J
+	GwCQqAbNA8appdJr0/Ut7fRE5KmaYuqnygOsBT7SsQbihuVgRT+XCWYG0NCSg7e4MsgskE536vB
+	fgU62AU2XdyMqidfi6RXsbnDqeym3HxIEtDr1064zdigebEFud61dmsvMP3zTcYkvuPbsQU2XSG
+	BPpVPl01OFYy4g4Hj6wkZV80+pW6WfmQva77hGnv9wOoVZZs0MZ0oRGdMPrwg7mQu8iLeBabjyo
+	1tNjmlu4g2w/bwke+ZvU+OyRWqaT5ZtTc9sRNykbnnijFzlqFM7Tqkw
+X-Received: by 2002:a05:600c:3e83:b0:4a1:6d35:779a with SMTP id 5b1f17b1804b1-4a18e446880mr106551865e9.3.1791720803247;
+        Sun, 11 Oct 2026 05:13:23 -0700 (PDT)
+Received: from silicon.doe.home (178.165.167.132.wireless.dyn.drei.com. [178.165.167.132])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18e49792bsm328215565e9.4.2026.10.11.05.13.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 05:13:22 -0700 (PDT)
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+To: linux-arm-kernel@lists.infradead.org,
+ Navid Ghahremani <ghahramani.navid@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, arnd@arndb.de,
+ linux@armlinux.org.uk, robh@kernel.org, krzk@kernel.org,
+ Navid Ghahremani <ghahramani.navid@gmail.com>
+Subject: Re: [PATCH 09/24] gpio: Add ZTE ZX279128S GPIO driver
+Date: Sun, 11 Oct 2026 13:19:13 +0200
+Message-ID: <aV_PM_GzRW6aLmK6NF7ttw@gmail.com>
+In-Reply-To: <20261010130024.177503-10-ghahramani.navid@gmail.com>
+References:
+ <20261010130024.177503-1-ghahramani.navid@gmail.com>
+ <20261010130024.177503-10-ghahramani.navid@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Dan Carpenter <error27@gmail.com>, gfs2@lists.linux.dev,
- kernel-janitors@vger.kernel.org, Alexander Aring <aahringo@redhat.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, David Teigland <teigland@redhat.com>
-References: <ar4BZ26gjQEjZgIa@stanley.mountain>
-Subject: Re: [PATCH] dlm: clean up a type in waiters_read()
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <ar4BZ26gjQEjZgIa@stanley.mountain>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: multipart/signed; boundary="nextPartK_YJ80XiTvajPgjPcZKRXg";
+ micalg="pgp-sha256"; protocol="application/pgp-signature"
+
+--nextPartK_YJ80XiTvajPgjPcZKRXg
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:piw8jHfgBy8ySzubbHI4sEFqy0eLbdhbmsfRVrGJ4H5mYIfFxXn
- +41a1Y2z83FnC/jJ8zbLOcwsv3jiadh7kZ9y93kS34C8w9RrOrRHFhY7n57bm8YtD5XR5Ga
- oYGQGdj25J/T7o0FSu5CkBqOylVXJ+HsdgiDemqchgiHogaPxPX6TPPh37YBmuedN9/W0YG
- eoodW93X3gi3oQTCw08bg==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:ubMxcasiTks=;H+QHJOS+IO5gE7dgMQnC5ka4WBc
- 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
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+Subject: Re: [PATCH 09/24] gpio: Add ZTE ZX279128S GPIO driver
+Date: Sun, 11 Oct 2026 13:19:13 +0200
+Message-ID: <aV_PM_GzRW6aLmK6NF7ttw@gmail.com>
+In-Reply-To: <20261010130024.177503-10-ghahramani.navid@gmail.com>
+MIME-Version: 1.0
 
-> This doesn't affect runtime but "rv" stores error codes and so
-> declare it as ssize_t instead of size_t.
+Am Samstag, 10. Oktober 2026, 14:59:47 Mitteleurop=C3=A4ische Sommerzeit sc=
+hrieben=20
+Sie:
+> +/*
+> + * Each bank has 16 lines, one bit per line in each register. The regist=
+ers
+> + * at 0x04-0x10 and 0x28-0x34 control the interrupts, which are not
+> supported + * yet.
+> + */
+> +#define ZX279128S_GPIO_DIR	0x00	/* 1: output */
+> +#define ZX279128S_GPIO_DATA	0x14	/* line level */
+> +#define ZX279128S_GPIO_SET	0x18	/* write 1: drive high */
+> +#define ZX279128S_GPIO_CLEAR	0x1c	/* write 1: drive low */
 
-Can a similar adjustment matter also for the local variable =E2=80=9Cret=
-=E2=80=9D?
+This looks identical to mine, which itself matches the old zx29 GPIO driver=
+=20
+with IRQ support etc that was removed in 89d4f98ae90d ("ARM: remove zte  zx=
+=20
+platform"). This old driver had support for IRQs.
 
-Regards,
-Markus
+My hardware has the same register layout, but no IRQ support (related=20
+registers are always 0). So I wasn't planning on reviving the old driver an=
+d=20
+just using regmap-gpio like you do here. If your hardware has indeed workin=
+g=20
+GPIO IRQs it would make sense to revive the old driver.
+
+My hardware has one annoyance: There is one GPIO line (not one block of 16,=
+=20
+just one single line) that has an inverted direction bit - and this line is=
+=20
+necessary to run the routers on battery. I don't yet know what the nicest w=
+ay=20
+to deal with this is. If we have a good reason to have our own zx gpio driv=
+er=20
+then life would be easier :-)
+
+--nextPartK_YJ80XiTvajPgjPcZKRXg
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmrLcLEbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMywyAAoJED0TvMhUTxoijZ0QAIYvFbnd86a0BA4vB7p5
+HZW7/UnHb9Rd8bwaNM9LhFgFYmTeQPLzMoVsSUt84V+JUge57Kw8nPV0Iux2YNkz
+IdzhQiShuW4/7oRjYqDSPStnkxVSeFDPOTmMJWLxqVXDvgWr5UMdCq4btlpYiPaU
+mnnG9uvEjFCocDCxhCQpoMAx7HUCy+EnNge9vMPmXezh6+S4u1dYYE0Ap1u9kp1w
+9yOd6Joq6hldxa8Rf+IVb8k9aFOz34eK/3HCBUuni0/zIIMiSj4EhUosmD7LxtMp
+9GQ0bmuDTognLxJQHVRG2mH11ihkfvtEW25D/Dmb40YQsepPvjBAO3aq/DkoVWAc
++jc5MaYUCIZkiKvpU51Yyc4dWrCPr8mBZLDhGE8mT1kt2a5Viu4E4q7aePEqqmrX
+7BxuiP6EDWHhdlvd0twIv4QjP6j+qE6+RbtGFSypOUQ8r5U83qrBNXid7MWXKwEA
+zyMF2uh2oFdGAap3RK07ohCigHiuWkbk0HYdDt/VUP/pZLD2OR7ozZ94ResxbsyG
+9ymGPuuDHwzHy+ULVHiaeHWygV0AfO3/BdAh+IfbbU8XgLQNve0f3ouodUN98L9M
+NZAeS7Kwtpt/55jvyJ/ZxDufW+xIHnHrqrW0HPf/asAchms/6+TkScZFgcJRA8FY
+2yHKUduoenPY8vgxk+nADhIb
+=xhk2
+-----END PGP SIGNATURE-----
+
+--nextPartK_YJ80XiTvajPgjPcZKRXg--
+
+
+
