@@ -1,47 +1,47 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E97FB3E9C1E
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:12:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5406E3ED132
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:12:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791699155; cv=none; b=FGNOdEi0fd3J4gWVNNjTCxmuDvAbfCL8bpG9FT+ceqHttLAEIab/tGWGAXznAs5C2EqYK+9nK8lhuQO77ANTPj17+cP7gk8Mo69fIePZSZN4MswcIBAEoK3dSnMjsuhWKlLUPCoYl/UPKaUypxa1hQT8XbIO+YWCsPTDM16l3FQ=
+	t=1791699162; cv=none; b=L57Up5od5r7dM7HuRMo2HTlZJYeMT4XoxSK962bCvCQZ7dSZ8A/+7j7IzddozOyLLsBho7Lyj1ldAB9kx03bqjX+GAQjJDYC96mH3Z5A8TMwfeCT6fdldWzGndNigptHkD/fHHztLAAVKIl6+F5YfnIrhDmF6Kt/OuBgCe8rcI0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791699155; c=relaxed/simple;
-	bh=vj6H1vowi2lzxnQSBay1TKsc7Z/dB/o1ypHjOfhCG6w=;
+	s=arc-20240116; t=1791699162; c=relaxed/simple;
+	bh=7ThhzBvOWHWuYU5Sp1diE1LOfa9vUSCF1XL1VWrwzUg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aWpVept96v/4M5Xe/jLq19sJSDjaT+gc9sHpH6HXCSnhAvkbgoKR3/zW48bD6jnn0/rrWrHQ9NqAoribZUPYOGY0/w1zUl4ke0YOKPCTNuTwwbCvQT9VJbZya7qTrt3MIB2IxLRGw1FMOL7Pj9Rp2mYRBVd6fL2bO2hk90zFlp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NNWkttJp; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version; b=iVpxVytAMSloBmKMVoXI9MSK5gbYuijeLIndUibnmo+sZ5OAro2tiIkswGmz03T+vNLQhVevY4tf/UutXeHuqXS2u3PQmyZjefi1ITWJwST8BfDj93ARWhKRepMGwQOt1u/cR5eWuvbi70WSi9shI8gEn8RpXuejCGc+pff+gUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=gl9WYhyI; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NNWkttJp"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="gl9WYhyI"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791699151;
+	s=mimecast20190719; t=1791699156;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=DRD/ercjdw7VLBbGpPtluMnT33XK5IWG7zFOISNZCnE=;
-	b=NNWkttJpOvhEm/yvFS04AOcY23mS14kA4POcA95QT5t8K29ktqjZ4uEA3cG5VkKzb9Fk4k
-	Qhy6ddTyuGDVe1i6KB8VddIEPLpph8cpgb9kc/XLXjDvfTo25K3d4bfs9g9kxM6hgLLE3T
-	eMIfLbtFuQHPhjVNfYuklBesfjYNXbc=
+	bh=BU4+eQIdWGVJ9C2EKz8P+UqRUbc3IXVOq93kMZKF4Pg=;
+	b=gl9WYhyIRJTR56M9mvdzovSDPEWi9H7qKmm64FZ/BSyjRMcyHakfO/AemK6Gui2CmOu4Tf
+	aQFb5ZI8Lohbj98L57AGR3wdcygnNx4JSwBkowJBBuLHixWemnMWlW//LxdtnpznHn/sJb
+	aNjCJIVMij927wRpFBsZgDNFc9DzTJI=
 Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-664-lgqQXx-GO1eAZNx_OD_w4w-1; Sun,
- 11 Oct 2026 06:12:26 +0000
-X-MC-Unique: lgqQXx-GO1eAZNx_OD_w4w-1
-X-Mimecast-MFC-AGG-ID: lgqQXx-GO1eAZNx_OD_w4w_1791699145
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-513-AOwQtuM5OG20NnM6VhKnng-1; Sun,
+ 11 Oct 2026 06:12:33 +0000
+X-MC-Unique: AOwQtuM5OG20NnM6VhKnng-1
+X-Mimecast-MFC-AGG-ID: AOwQtuM5OG20NnM6VhKnng_1791699150
 Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DE2DB18009CC;
-	Sun, 11 Oct 2026 06:12:24 +0000 (UTC)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id BDDAB1800607;
+	Sun, 11 Oct 2026 06:12:30 +0000 (UTC)
 Received: from ivecera-thinkpadp16vgen1.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 877671956095;
-	Sun, 11 Oct 2026 06:12:21 +0000 (UTC)
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 20F291956095;
+	Sun, 11 Oct 2026 06:12:27 +0000 (UTC)
 From: Ivan Vecera <ivecera@redhat.com>
 To: netdev@vger.kernel.org
 Cc: Petr Oros <poros@redhat.com>,
@@ -53,9 +53,9 @@ Cc: Petr Oros <poros@redhat.com>,
 	Prathosh Satish <Prathosh.Satish@microchip.com>,
 	Paolo Abeni <pabeni@redhat.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net v5 3/5] dpll: zl3073x: reject output frequencies with too small divisor
-Date: Sun, 11 Oct 2026 08:12:09 +0200
-Message-ID: <20261011061211.448373-4-ivecera@redhat.com>
+Subject: [PATCH net v5 5/5] dpll: zl3073x: notify sibling pin when shared output config changes
+Date: Sun, 11 Oct 2026 08:12:11 +0200
+Message-ID: <20261011061211.448373-6-ivecera@redhat.com>
 In-Reply-To: <20261011061211.448373-1-ivecera@redhat.com>
 References: <20261011061211.448373-1-ivecera@redhat.com>
 Precedence: bulk
@@ -67,85 +67,362 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-The output divisor has to be at least 2: a divisor of 1 bypasses the
-divider and the hardware then ignores the pulse width and eSync
-registers. For the N-pin of an N-divided output the N divider (>= 2)
-applies on top, so its effective divisor has to be at least 4.
+The P-pin and N-pin of an output share the divisor, clock type, eSync
+and phase compensation registers (outside N-divided mode). Changing
+them through one pin changes the other pin too, but only the requested
+pin gets a change notification.
 
-zl3073x_pin_check_freq() only checked that the frequency divides the
-synth frequency. Require also the minimum divisor. For N-divided
-outputs this is necessary but not sufficient, the rest is checked by
-the frequency set callback.
+Add zl3073x_dpll_output_pin_sibling_get() and notify the sibling from
+frequency_set(), esync_set() and phase_adjust_set(). The notification
+re-enters the pin get callbacks, so it has to be sent after
+zldpll->lock is released and the callbacks switch from guard(mutex)
+to explicit unlocking.
 
-Hit during development: an N-pin frequency that needs an N divider of 1
-was accepted, and with esync_n_period = 1 the N-pin produced no output
-on an oscilloscope.
+To always find a registered sibling, add a pin to zldpll->pins before
+dpll_pin_register() and remove it only after dpll_pin_unregister(),
+both under zldpll->lock. A pin that is on the list but not registered
+gets no netlink notification, as dpll_pin_event_send() skips such
+pins, and the only in-tree DPLL notifier ignores DPLL_PIN_CHANGED.
 
-Fixes: a99a9f0ebdaa ("dpll: zl3073x: Read DPLL types and pin properties from system firmware")
+Found by code inspection, not triggered at runtime.
+
+Fixes: 634ca2cb06d2 ("dpll: zl3073x: Add support to get/set esync on pins")
+Fixes: ce26d7ca50a5 ("dpll: zl3073x: Add support to get/set frequency on pins")
+Fixes: 6287262f761e ("dpll: zl3073x: Add support to adjust phase")
 Reviewed-by: Petr Oros <poros@redhat.com>
 Signed-off-by: Ivan Vecera <ivecera@redhat.com>
 ---
- drivers/dpll/zl3073x/prop.c | 33 +++++++++++++++++++++++++++------
- 1 file changed, 27 insertions(+), 6 deletions(-)
+ drivers/dpll/zl3073x/dpll.c | 155 +++++++++++++++++++++++++++++++-----
+ 1 file changed, 135 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/dpll/zl3073x/prop.c b/drivers/dpll/zl3073x/prop.c
-index 768e5424de2d..4e006ed5950a 100644
---- a/drivers/dpll/zl3073x/prop.c
-+++ b/drivers/dpll/zl3073x/prop.c
-@@ -22,7 +22,8 @@
-  * The function checks the given frequency is valid for the device. For input
-  * pins it checks that the frequency can be factorized using supported base
-  * frequencies. For output pins it checks that the frequency divides connected
-- * synth frequency without remainder.
-+ * synth frequency without remainder and that the resulting divisor is not
-+ * below the minimum the driver supports.
-  *
-  * Return: true if the frequency is valid, false if not.
-  */
-@@ -41,18 +42,38 @@ zl3073x_pin_check_freq(struct zl3073x_dev *zldev, enum dpll_pin_direction dir,
- 		if (rc)
- 			goto err_inv_freq;
- 	} else {
--		u32 synth_freq;
--		u8 out, synth;
-+		u32 synth_freq, div, min_div, rem;
-+		const struct zl3073x_out *out;
-+		u8 out_id, synth;
+diff --git a/drivers/dpll/zl3073x/dpll.c b/drivers/dpll/zl3073x/dpll.c
+index 6d9a6d21d30b..1cdadb8e46fb 100644
+--- a/drivers/dpll/zl3073x/dpll.c
++++ b/drivers/dpll/zl3073x/dpll.c
+@@ -123,6 +123,8 @@ zl3073x_dpll_pin_get_by_ref(struct zl3073x_dpll *zldpll, u8 ref_id)
+ {
+ 	struct zl3073x_dpll_pin *pin;
  
- 		/* Get output pin synthesizer */
--		out = zl3073x_output_pin_out_get(id);
--		synth = zl3073x_dev_out_synth_get(zldev, out);
-+		out_id = zl3073x_output_pin_out_get(id);
-+		synth = zl3073x_dev_out_synth_get(zldev, out_id);
- 
- 		/* Get synth frequency */
- 		synth_freq = zl3073x_dev_synth_freq_get(zldev, synth);
- 
- 		/* Check the frequency divides synth frequency */
--		if (synth_freq % (u32)freq)
-+		div = div_u64_rem(synth_freq, freq, &rem);
-+		if (rem)
-+			goto err_inv_freq;
++	lockdep_assert_held(&zldpll->lock);
 +
-+		/* The driver requires an output divisor of at least 2 -
-+		 * below that the hardware bypasses the divider and ignores
-+		 * the pulse width and eSync registers the driver programs.
-+		 * For the N-pin of an N-divided output the effective divisor
-+		 * also includes the N divider (>= 2), so the minimum is 4.
-+		 * For N-divided outputs this is only a necessary condition -
-+		 * whether the frequency can be set also depends on the output
-+		 * divisor shared by both pins, which is checked when the
-+		 * frequency is set.
-+		 */
-+		out = zl3073x_out_state_get(zldev, out_id);
-+		if (zl3073x_out_is_ndiv(out) && zl3073x_is_n_pin(id))
-+			min_div = 4;
-+		else
-+			min_div = 2;
-+		if (div < min_div)
- 			goto err_inv_freq;
+ 	list_for_each_entry(pin, &zldpll->pins, list) {
+ 		if (zl3073x_dpll_is_input_pin(pin) &&
+ 		    zl3073x_input_pin_ref_get(pin->id) == ref_id)
+@@ -132,11 +134,42 @@ zl3073x_dpll_pin_get_by_ref(struct zl3073x_dpll *zldpll, u8 ref_id)
+ 	return NULL;
+ }
+ 
++/**
++ * zl3073x_dpll_output_pin_sibling_get - get the other pin of an output pair
++ * @pin: output pin whose sibling is sought
++ *
++ * Output pin ids are allocated in P/N pairs (P even, N odd) that share a
++ * single HW output. Looks up the other pin of the pair in the pin list
++ * of this DPLL. A pin is on the list from just before its registration
++ * until just after its unregistration, so a registered sibling is always
++ * found, but the returned pin may also be one that is not (yet or any
++ * longer) registered.
++ *
++ * Return: pointer to sibling pin, or NULL if it is not on the pin list
++ */
++static struct zl3073x_dpll_pin *
++zl3073x_dpll_output_pin_sibling_get(struct zl3073x_dpll_pin *pin)
++{
++	struct zl3073x_dpll_pin *sibling;
++
++	lockdep_assert_held(&pin->dpll->lock);
++
++	list_for_each_entry(sibling, &pin->dpll->pins, list) {
++		if (!zl3073x_dpll_is_input_pin(sibling) &&
++		    sibling->id == (pin->id ^ 1))
++			return sibling;
++	}
++
++	return NULL;
++}
++
+ static struct zl3073x_dpll_pin *
+ zl3073x_dpll_nco_pin_get(struct zl3073x_dpll *zldpll)
+ {
+ 	struct zl3073x_dpll_pin *pin;
+ 
++	lockdep_assert_held(&zldpll->lock);
++
+ 	list_for_each_entry(pin, &zldpll->pins, list) {
+ 		if (zl3073x_dpll_is_nco_pin(pin))
+ 			return pin;
+@@ -909,12 +942,14 @@ zl3073x_dpll_output_pin_esync_set(const struct dpll_pin *dpll_pin,
+ 	struct zl3073x_dpll *zldpll = dpll_priv;
+ 	struct zl3073x_dev *zldev = zldpll->dev;
+ 	struct zl3073x_dpll_pin *pin = pin_priv;
++	struct zl3073x_dpll_pin *sibling = NULL;
+ 	const struct zl3073x_synth *synth;
+ 	struct zl3073x_out out;
+ 	u32 synth_freq;
+ 	u8 out_id;
++	int rc;
+ 
+-	guard(mutex)(&zldpll->lock);
++	mutex_lock(&zldpll->lock);
+ 
+ 	out_id = zl3073x_output_pin_out_get(pin->id);
+ 	out = *zl3073x_out_state_get(zldev, out_id);
+@@ -923,12 +958,14 @@ zl3073x_dpll_output_pin_esync_set(const struct dpll_pin *dpll_pin,
+ 	 * for N-division is also used for the esync divider so both cannot
+ 	 * be used.
+ 	 */
+-	if (zl3073x_out_is_ndiv(&out))
+-		return -EOPNOTSUPP;
++	if (zl3073x_out_is_ndiv(&out)) {
++		rc = -EOPNOTSUPP;
++		goto unlock;
++	}
+ 
+ 	if (!freq) {
+ 		zl3073x_out_esync_disable(&out);
+-		return zl3073x_out_state_set(zldev, out_id, &out);
++		goto commit;
  	}
  
+ 	/* Get attached synth frequency */
+@@ -937,9 +974,24 @@ zl3073x_dpll_output_pin_esync_set(const struct dpll_pin *dpll_pin,
+ 
+ 	/* Enable 1PPS eSync for this pin frequency */
+ 	zl3073x_out_esync_enable(&out, synth_freq / out.div);
+-
++commit:
+ 	/* Commit output configuration */
+-	return zl3073x_out_state_set(zldev, out_id, &out);
++	rc = zl3073x_out_state_set(zldev, out_id, &out);
++	if (rc)
++		goto unlock;
++
++	/* The clock type, esync period and esync width are all shared by
++	 * both pins of the output pair, so the sibling pin's esync
++	 * configuration changes too and userspace has to be notified.
++	 */
++	sibling = zl3073x_dpll_output_pin_sibling_get(pin);
++unlock:
++	mutex_unlock(&zldpll->lock);
++
++	if (!rc && sibling)
++		__dpll_pin_change_ntf(sibling->dpll_pin);
++
++	return rc;
+ }
+ 
+ static int
+@@ -969,13 +1021,15 @@ zl3073x_dpll_output_pin_frequency_set(const struct dpll_pin *dpll_pin,
+ 	struct zl3073x_dpll *zldpll = dpll_priv;
+ 	struct zl3073x_dev *zldev = zldpll->dev;
+ 	struct zl3073x_dpll_pin *pin = pin_priv;
++	struct zl3073x_dpll_pin *sibling = NULL;
+ 	const struct zl3073x_synth *synth;
+ 	u32 new_div, synth_freq;
+ 	struct zl3073x_out out;
+ 	u64 n_period, rem;
+ 	u8 out_id;
++	int rc;
+ 
+-	guard(mutex)(&zldpll->lock);
++	mutex_lock(&zldpll->lock);
+ 
+ 	out_id = zl3073x_output_pin_out_get(pin->id);
+ 	out = *zl3073x_out_state_get(zldev, out_id);
+@@ -988,7 +1042,8 @@ zl3073x_dpll_output_pin_frequency_set(const struct dpll_pin *dpll_pin,
+ 	/* Check signal format */
+ 	if (!zl3073x_out_is_ndiv(&out)) {
+ 		/* For non N-divided signal formats the frequency is computed
+-		 * as division of synth frequency and output divisor.
++		 * as division of synth frequency and output divisor, which
++		 * is shared by both pins of the output pair.
+ 		 */
+ 		out.div = new_div;
+ 
+@@ -1013,7 +1068,16 @@ zl3073x_dpll_output_pin_frequency_set(const struct dpll_pin *dpll_pin,
+ 		}
+ 
+ 		/* Commit output configuration */
+-		return zl3073x_out_state_set(zldev, out_id, &out);
++		rc = zl3073x_out_state_set(zldev, out_id, &out);
++		if (rc)
++			goto unlock;
++
++		/* The other pin's frequency changed too - it has to be
++		 * notified about the change.
++		 */
++		sibling = zl3073x_dpll_output_pin_sibling_get(pin);
++
++		goto unlock;
+ 	}
+ 
+ 	if (zl3073x_dpll_is_p_pin(pin)) {
+@@ -1039,19 +1103,22 @@ zl3073x_dpll_output_pin_frequency_set(const struct dpll_pin *dpll_pin,
+ 		NL_SET_ERR_MSG_FMT(extack,
+ 				   "OUT%uN freq must be at most half of OUT%uP freq",
+ 				   out_id, out_id);
+-		return -EINVAL;
++		rc = -EINVAL;
++		goto unlock;
+ 	}
+ 	if (n_period > U32_MAX) {
+ 		NL_SET_ERR_MSG_FMT(extack,
+ 				   "OUT%uN freq is too low for OUT%uP freq",
+ 				   out_id, out_id);
+-		return -EINVAL;
++		rc = -EINVAL;
++		goto unlock;
+ 	}
+ 	if (rem != 0) {
+ 		NL_SET_ERR_MSG_FMT(extack,
+ 				   "OUT%uN freq must divide OUT%uP freq",
+ 				   out_id, out_id);
+-		return -EINVAL;
++		rc = -EINVAL;
++		goto unlock;
+ 	}
+ 	out.esync_n_period = n_period;
+ 
+@@ -1059,7 +1126,14 @@ zl3073x_dpll_output_pin_frequency_set(const struct dpll_pin *dpll_pin,
+ 	out.esync_n_width = out.esync_n_period;
+ 
+ 	/* Commit output configuration */
+-	return zl3073x_out_state_set(zldev, out_id, &out);
++	rc = zl3073x_out_state_set(zldev, out_id, &out);
++unlock:
++	mutex_unlock(&zldpll->lock);
++
++	if (!rc && sibling)
++		__dpll_pin_change_ntf(sibling->dpll_pin);
++
++	return rc;
+ }
+ 
+ static int
+@@ -1098,10 +1172,12 @@ zl3073x_dpll_output_pin_phase_adjust_set(const struct dpll_pin *dpll_pin,
+ 	struct zl3073x_dpll *zldpll = dpll_priv;
+ 	struct zl3073x_dev *zldev = zldpll->dev;
+ 	struct zl3073x_dpll_pin *pin = pin_priv;
++	struct zl3073x_dpll_pin *sibling = NULL;
+ 	struct zl3073x_out out;
+ 	u8 out_id;
++	int rc;
+ 
+-	guard(mutex)(&zldpll->lock);
++	mutex_lock(&zldpll->lock);
+ 
+ 	out_id = zl3073x_output_pin_out_get(pin->id);
+ 	out = *zl3073x_out_state_get(zldev, out_id);
+@@ -1110,7 +1186,21 @@ zl3073x_dpll_output_pin_phase_adjust_set(const struct dpll_pin *dpll_pin,
+ 	out.phase_comp = phase_adjust / pin->phase_gran;
+ 
+ 	/* Update output configuration from mailbox */
+-	return zl3073x_out_state_set(zldev, out_id, &out);
++	rc = zl3073x_out_state_set(zldev, out_id, &out);
++	if (rc)
++		goto unlock;
++
++	/* The phase compensation register is shared by both pins of the
++	 * output pair, so the sibling pin's phase adjustment changes too.
++	 */
++	sibling = zl3073x_dpll_output_pin_sibling_get(pin);
++unlock:
++	mutex_unlock(&zldpll->lock);
++
++	if (!rc && sibling)
++		__dpll_pin_change_ntf(sibling->dpll_pin);
++
++	return rc;
+ }
+ 
+ static int
+@@ -1734,6 +1824,13 @@ zl3073x_dpll_pin_register(struct zl3073x_dpll_pin *pin, u32 index)
+ 	else
+ 		ops = &zl3073x_dpll_output_pin_ops;
+ 
++	/* Add the pin to the list before registering it with the DPLL core so
++	 * that it is findable as a sibling as soon as the core publishes it.
++	 */
++	mutex_lock(&zldpll->lock);
++	list_add(&pin->list, &zldpll->pins);
++	mutex_unlock(&zldpll->lock);
++
+ 	/* Register the pin */
+ 	rc = dpll_pin_register(zldpll->dpll_dev, pin->dpll_pin, ops, pin);
+ 	if (rc)
+@@ -1745,6 +1842,9 @@ zl3073x_dpll_pin_register(struct zl3073x_dpll_pin *pin, u32 index)
+ 	return 0;
+ 
+ err_register:
++	mutex_lock(&zldpll->lock);
++	list_del(&pin->list);
++	mutex_unlock(&zldpll->lock);
+ 	dpll_pin_put(pin->dpll_pin, &pin->tracker);
+ err_pin_get:
+ 	pin->dpll_pin = NULL;
+@@ -1779,6 +1879,13 @@ zl3073x_dpll_pin_unregister(struct zl3073x_dpll_pin *pin)
+ 	/* Unregister the pin */
+ 	dpll_pin_unregister(zldpll->dpll_dev, pin->dpll_pin, ops, pin);
+ 
++	/* Remove the pin from the list only after it has been unregistered so
++	 * that a still-registered pin is always findable as a sibling.
++	 */
++	mutex_lock(&zldpll->lock);
++	list_del(&pin->list);
++	mutex_unlock(&zldpll->lock);
++
+ 	dpll_pin_put(pin->dpll_pin, &pin->tracker);
+ 	pin->dpll_pin = NULL;
+ 
+@@ -1798,9 +1905,11 @@ zl3073x_dpll_pins_unregister(struct zl3073x_dpll *zldpll)
+ {
+ 	struct zl3073x_dpll_pin *pin, *next;
+ 
++	/* Unregister each pin before removing it from the list so that a
++	 * still-registered pin is always findable as a sibling.
++	 */
+ 	list_for_each_entry_safe(pin, next, &zldpll->pins, list) {
+ 		zl3073x_dpll_pin_unregister(pin);
+-		list_del(&pin->list);
+ 		zl3073x_dpll_pin_free(pin);
+ 	}
+ }
+@@ -1913,16 +2022,24 @@ zl3073x_dpll_nco_pin_register(struct zl3073x_dpll *zldpll)
+ 		goto err_pin_get;
+ 	}
+ 
++	/* Add the pin to the list before registering it with the DPLL core so
++	 * that a registered pin is always on the list.
++	 */
++	mutex_lock(&zldpll->lock);
++	list_add(&pin->list, &zldpll->pins);
++	mutex_unlock(&zldpll->lock);
++
+ 	rc = dpll_pin_register(zldpll->dpll_dev, pin->dpll_pin,
+ 			       &zl3073x_dpll_nco_pin_ops, pin);
+ 	if (rc)
+ 		goto err_register;
+ 
+-	list_add(&pin->list, &zldpll->pins);
+-
+ 	return 0;
+ 
+ err_register:
++	mutex_lock(&zldpll->lock);
++	list_del(&pin->list);
++	mutex_unlock(&zldpll->lock);
+ 	dpll_pin_put(pin->dpll_pin, &pin->tracker);
+ err_pin_get:
+ 	pin->dpll_pin = NULL;
+@@ -1974,8 +2091,6 @@ zl3073x_dpll_pins_register(struct zl3073x_dpll *zldpll)
+ 			zl3073x_dpll_pin_free(pin);
+ 			goto error;
+ 		}
+-
+-		list_add(&pin->list, &zldpll->pins);
+ 	}
+ 
+ 	/* Register NCO virtual input pin */
 -- 
 2.56.0
 
