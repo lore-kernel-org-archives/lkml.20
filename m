@@ -1,162 +1,183 @@
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE61D31280C
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 15:58:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7898F282F0E
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:02:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791734309; cv=none; b=faW/YZDDwxR55BfIKoCSx6aJIFg9ubGTdVZL85jPjtjOhdnQ7fv+JScqPJ9rCn6vw4jZQfdHBRRux/zMp8H8iIW8raq1aZ/0gHhELEGiWN+xRePrQrjRmVge8GzFfLCmksrrnVjaZu+QobaOhaJlLdQi1Z6HjvS8rmf1pqcTxow=
+	t=1791734579; cv=none; b=KyLtldGnlFSXKfFL8UmxqNq0/OZhTZ39zkM77s2YNTLOF4h7OFTOImDZB5w0ia1CJIGmdeBEV2RTqqN0HfCQ5F/yFBhYaeOrABKs8HtHTTou95RFv7Rim7lrpLUxHCQuLx9ZHKcy6z+l/JsztL5+x6Jj/ZqEdHFzzmjvOu5PX48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791734309; c=relaxed/simple;
-	bh=IvIXragyDbXsVrZjUB1QpSAn+NSlJROmmj4LKC38QJU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=csZc2T/w3eTJT5RZsymiXlY6PQibyAePXB0exavguxuKDGQWnOFqrMpFj2rJ9qvD7IqLg2yEUr2VmXr5hautzH4RNp63JiQPWv43qIcjxyYflVyZMTVfEv3Xqb/scdjUnvnZT8JCFXVff78Oxl1zgUt0a2vnxOH1qNzu2Dj7Byc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=QmR8G/g2; arc=none smtp.client-ip=209.85.222.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	s=arc-20240116; t=1791734579; c=relaxed/simple;
+	bh=tRotFdJein35pOxgU2hMZo2Ouf63MisZjo3t3o/x8fA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=Q88j8ouMUdG0Lo6rD+HtM9ZIRFm3CgV9uYdiPh7DZ4OeH3auP6LxQHQFXAz3c2gHgD7VVPNYBoEXPBuQ7AjagSXnXSQT14fseS6k0ScSkQ194YLKhlbnt4mHy4TnWgyixkHppnqFMlQYUrs180eRx2Rhy5fAyXfwo0Xnw6nF3DU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AlyT3Ni3; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="QmR8G/g2"
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-93e63522076so91522685a.1
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:58:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AlyT3Ni3"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ab752f6244so976544a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:02:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1791734306; x=1792339106; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ossy4ZlqAnnaACaITPaVVTxzs5zkLFNVTZN6qPcgS+c=;
-        b=QmR8G/g20zJzKEgVvQnPGkK8JAEEBp3Px0hdefHXYLj1iDgR5q/Y0IOSRm7ZrqiL9g
-         JF+U2kpsJ7My/xHNF7QGC3PN3aPRHP/77b4KMW1vhU2Q/zuOUJ5ZWpg4v2liVg9R7V+b
-         +aA5CM+7jV0ViVup3ryqUKbYw942PjWy++MbDde4axbCg7NUV2L8ancUD5dWXc6wxMIL
-         VXbwsAA+o0xCxIk39O/R0IUWA7SW3hX6uLv4oW22PgbEfpBpxudaPsq41k5gt3C4LCte
-         nmNetlZuJhpDMwJGqbJHuFhpcIf63hyHfZrAZR1dsPSlHwR6RKffnMqIu/6D9dx7MHUf
-         ZQXQ==
+        d=gmail.com; s=20251104; t=1791734578; x=1792339378; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pYhN/oFcVoNvHQRWPY1E6x94NkzXk64BVrqHUYWR0O4=;
+        b=AlyT3Ni3rOyT3VOLUN54PP9HpD/mfMOWvaV8vYt3CM3QDOXscEjLH07nDGQ6shfM65
+         CSpRuGtQOubPvj66td7ACgYy0zoCbR+FR3wpA9cRncnhwMA0KtqNrlstYQqLWvAqlONp
+         +4g6T3kwnpg8ny30aX2qqwfa2Y2tP+VqVjaYWRzbkAh3h1jFuCw/lFLn5YHSu0OyKqhz
+         /gBLPZvPxkaWfsFhyER+p0axH800CLJ+uFi/DbhVptSNFj+qfkU7F25+rlYCdns99lTq
+         Wq5+w5wzgo60o5jBHUyiUpTjkDM/y7Zs442P9PqXTZWUCMG1p7RGYZ+SY0hLqRgQljpr
+         cV6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791734306; x=1792339106;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ossy4ZlqAnnaACaITPaVVTxzs5zkLFNVTZN6qPcgS+c=;
-        b=z24hYjryMsvSe8a7inwC/6OavMxGhYqP7BgigzFiiZ99E1Rj4g25cyWpFisdwWsrY8
-         Ogk10V77pV6/X1TvSacGzwnleZkN2CIQlUa1ky6tCVrQFn/X3QYxIbmkLM75X2WbryFH
-         6pYD1OL2o7BU8L+TZNdYJeuln9iv5M6DYjCIMt8nfOILe/pWBa0CjeOWXOm61UYUf5BK
-         wlWL2z4G7qV/6KM9338Hn0DwQyZ9sZNc+ra0SR4l1Mi7IWoINr9QwNIWByNMRMYXekqN
-         MEUJlJOiP9BU22q9WfYVeo4PTzFsu+54kbR0Vn8ULfxk0g2L+YrxWJQGqWlNPNshECjC
-         /27A==
-X-Forwarded-Encrypted: i=1; AKwUvBw4ami0XXoi6N7R+bav6FIe5tVIKNNx2iK3vF0mb8LpG5sH80FM/0mgTkGjpEL7IH01iSOjxwJ9CM5M/o0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK3GbXxtxpLsXynPTgjtEdkHTYkXQlSjLH9PWkwTis9nDhg7WcE
-	/4gurfVZJ88sKrqeuO7K+imwgEXMVr83ICCtHngEKhgkeGdZGZYH5hKhNgEt7etqpw==
-X-Gm-Gg: AYBFou3fvoFvynuQCmdg4Tahz/I6JcYUxEu/FNwPmacQ+f6DJWw9TOfPtLCMOwotnAp
-	i1HPGh3/OPM/KwXQR8C8sNTfPNl5fEQ8tAer+KFDdy+Q4FCGiqO5ia3UvslSi0TQddWzhg/+ytz
-	G5Gp/GsipvjeE5Q8N8zx68ncMbOpuDCeHzG+KYYGUb6BYzhUSEmTPGusNmzZUZ6Y1d+0cOP705L
-	KHa8bQGA49+gVlIxwLuMqpVSJ4d6b6Y03tRfyVweaHGjjVrxDbtX5hiIH07o7P9qR6dc/3K2VDW
-	5cZlq/W+PLdSi/K1M7IAUkdMSBteovPcKL4cQ35BjzoamqkTAmGtwks5rOhqUK0SmvmJOZE5aIH
-	qc8COTUidt2xWwqR/yYieEU+B4hnUcgIbM09YUrfvZvt2oJVpwPnvuhfnm+1VjRIZIKk1/JTIoW
-	fpV4YiZlTLdMoBRZb0uXUweq96ZxjKl/8YgeiyCoeKKlTO2xbvdLbudBYdqIH7MZZaLR+s8ulhp
-	80KX8GK5d0g04uhEloM1eyH78xsFH/Y
-X-Received: by 2002:a05:620a:2681:b0:93b:d79b:9a5c with SMTP id af79cd13be357-93ebd28bb9emr1226124585a.61.1791734306512;
-        Sun, 11 Oct 2026 08:58:26 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb984889fsm666517185a.13.2026.10.11.08.58.25
+        d=1e100.net; s=20260707; t=1791734578; x=1792339378;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pYhN/oFcVoNvHQRWPY1E6x94NkzXk64BVrqHUYWR0O4=;
+        b=I4sYE9u0Zc8yw6lmWxnu/eTEgJxscVbSSOcpl3aZ9ysiLFQqYE56af5RsSFCkBeAHa
+         /TVupCbG5MG15PrGZulma6Se20pjbZ1+JSj3cHgJtpksia/GtNBRtZsTraq9txU/c40X
+         yckNFeUvEZHSXM5wkDP07OV6f6olL2YL4CESGoK2T1gQmtbrqEwjSZ1q9yp/KC8jZN72
+         69kTOelYA85n2k5wXyspB1Hbm6zpCkrRbk2ftfNtm8dH8XSfIZL/i9MXQQkrXwT4FUM7
+         PBw7g7YFABefJR+JJ62OCFha303uUtTVhmBVwl+X2LoqadDTsbp5I2zRT1nJ0ue5+FKv
+         N7sw==
+X-Forwarded-Encrypted: i=1; AKwUvBwbJ1LEkUvSoOC0z/DTLWUORpLjIKKvvujAYEtL8+lrsSiPPIZqaxysJNrINg22mnF336kBFwbUidzOHQc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJskNZ2wE8ufs5N6JnX+2kRds1QrPsCOpcbSGN74SwiLGJT21Ay
+	pM9DocQIwK+61rvsvsQa9fnf3+lA40jN5eH5h7ob+dV+7zWj6dwt0/Qr
+X-Gm-Gg: AYBFou2pQ958r71iUScTp6qTVEGmtliX57tNd9WMyEN0aO6MvpDgAJfLN0d1WpHeV/E
+	bAtmabRmnHm6rvw8bxSFLaGIJKmhNivQph9tmMF1TC/BKdTkq2R/kyEjIJk0ibbo31wc/fFJlMQ
+	y1pJt+U84H7Htx6JcJvnzfGbsm+5w3d+li238HBw3abmMPn8J1Ove3E9AHcfb0FgAXr16SWA5tU
+	otmFyynYSiqrA46inZI9yrxn7UQeaYY5BIyc/WJOpUK6N8mUnfkL0QIqUVu0v0w6V+ia1meMBdI
+	P65Yc9S5QY0cKChhYosFnDiT36g5UUq8ncoUba3p/OYg2Bg8YklaZpZnE70VbWUzqoa90p9pRf6
+	2W8hFCImjKItGUbQSw06mbdnmkzMhFvYimOhEDMco/VRBIn4eYqrL1o/kYDZInm6KodTuV5pFg8
+	Y6crBZOSBzu4m9hnLpZ5922E4YaBfwA4G8AWdQ61e1VEbinaJlyhy6cPIO7b8ammPzAw==
+X-Received: by 2002:a17:90a:d006:b0:3a4:77b8:1770 with SMTP id 98e67ed59e1d1-3ab3a955c28mr6412277a91.15.1791734577692;
+        Sun, 11 Oct 2026 09:02:57 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38b9633fsm15794623a91.6.2026.10.11.09.02.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 08:58:26 -0700 (PDT)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: David Sterba <dsterba@suse.com>
-Cc: Chris Mason <mason@kernel.org>,
-	Filipe Manana <fdmanana@suse.com>,
-	Qu Wenruo <wqu@suse.com>,
-	linux-btrfs@vger.kernel.org,
+        Sun, 11 Oct 2026 09:02:57 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com,
+	norbert@doyensec.com,
+	kees+treewide@kernel.org,
+	phucduc.bui@gmail.com,
+	danishkhateeb03@gmail.com,
+	cassiogabrielcontato@gmail.com,
+	maoyixie.tju@gmail.com,
+	ivan.orlov0322@gmail.com
+Cc: linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] btrfs: fix chattr failing on nodatasum files that have the compress flag
-Date: Sun, 11 Oct 2026 11:58:15 -0400
-Message-ID: <20261011155815.1563812-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH] ALSA: timer: Pin the module for userspace timer controllers
+Date: Mon, 12 Oct 2026 00:02:50 +0800
+Message-Id: <pm-pmb-98fb8f747fc7b8499fd4-v2-1c531f149a6d6c084f48@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Commit cf1afec09e9f ("btrfs: validate properties before setting them")
-made btrfs_set_prop() validate a property before setting it. For the
-compression property, the validation fails with -EINVAL when the inode
-has NODATASUM.
+The static snd_utimer_ids IDA must remain live until a userspace timer
+controller has returned its ID. However, snd_utimer_fops has no owner,
+so anon_inode_getfd() does not take a reference to snd-timer for the
+controller file.
 
-However, chattr writes back all the flags it read from the file, and
-btrfs_fileattr_set() sets the compression property whenever the new
-flags include FS_COMPR_FL, even when the compression flags do not
-change. A file created on a filesystem mounted with nodatasum has
-NODATASUM and still inherits the compress flag from its directory. As
-of now, chattr fails on such a file when it changes any other flag.
+With CONFIG_SND_TIMER=m and CONFIG_SND_UTIMER=y, userspace can create a
+controller with SNDRV_TIMER_IOCTL_CREATE and close the native timer
+file. If no timer instances or dependent modules retain snd-timer,
+ordinary module unload can then overlap the controller's final release:
 
-The issue can be reproduced with:
+  Controller final release              Module unload
+  snd_utimer_release()
+    snd_utimer_free()
+      snd_timer_free(): unlink provider
+      snd_utimer_put_id()
+        enter ida_free()
+                                        delete_module()
+                                          alsa_timer_exit()
+                                          free_module(): free MOD_DATA
+        access snd_utimer_ids.xa
 
-    mkfs.btrfs -f /dev/sdb
-    mount -o nodatasum /dev/sdb /mnt
-    mkdir /mnt/dir
-    chattr +c /mnt/dir
-    touch /mnt/dir/file
-    chattr +A /mnt/dir/file
+The provider is already absent from snd_timer_free_all() when unload
+runs. Neither register_mutex nor the IDA's lock keeps module storage
+resident through the remaining IDA access. That access can therefore
+use freed module data and fault while acquiring the XArray lock, as
+shown in the Oops below.
 
-Before commit cf1afec09e9f ("btrfs: validate properties before setting
-them"), the last command succeeds.
+Set snd_utimer_fops.owner to THIS_MODULE so anonymous-file creation
+takes the existing module reference. The VFS drops it only after
+snd_utimer_release() returns, keeping the IDA resident through
+ida_free() and preventing ordinary unload during that interval.
 
-After that commit, it fails with EINVAL.
+Oops report as below:
 
-This patch will make btrfs_fileattr_set() leave the compression flags
-and the compression property alone when the call changes neither
-FS_COMPR_FL nor FS_NOCOMP_FL.
+    BUG: unable to handle page fault for address: fffffbfff80480af
+    #PF: supervisor read access in kernel mode
+    #PF: error_code(0x0000) - not-present page
+    PGD 1a7ff6067 P4D 1a7ff6067 PUD 1a7ff2067 PMD 100ad6067 PTE 0
+    Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+    CPU: 0 UID: 0 PID: 485 Comm: alsa-utimer-fix Tainted: G           O        7.2.0-rc6-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
+    Tainted: [O]=OOT_MODULE
+    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+    RIP: 0010:kasan_byte_accessible+0x15/0x30
+    Code: 00 00 0f 1f 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 0f 1f 40 d6 48 b8 00 00 00 00 00 fc ff df 48 c1 ef 03 48 01 c7 <0f> b6 07 3c 07 0f 96 c0 e9 69 f1 2b ff 66 66 2e 0f 1f 84 00 00 00
+    RSP: 0018:ffff88811a457c48 EFLAGS: 00010086
+    RAX: dffffc0000000000 RBX: ffffffffc0240578 RCX: 0000000000000000
+    RDX: 0000000000000000 RSI: ffffffff861f111c RDI: fffffbfff80480af
+    RBP: ffffffffc0240578 R08: 0000000000000001 R09: 0000000000000000
+    R10: ffffffff891cc057 R11: ffff88811531ba00 R12: ffffffff861f111c
+    R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+    FS:  00007ff190ff7780(0000) GS:ffff8881fda2a000(0000) knlGS:0000000000000000
+    CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+    CR2: fffffbfff80480af CR3: 0000000116890003 CR4: 0000000000770ef0
+    PKRU: 55555554
+    Call Trace:
+     <TASK>
+     __kasan_check_byte+0x13/0x50
+     lock_acquire+0x113/0x2f0
+     ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
+     ? lock_release+0xc8/0x280
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     _raw_spin_lock_irqsave+0x3c/0x60
+     ? ida_free+0xd4/0x2b0
+     ida_free+0xd4/0x2b0
+     ? __pfx_ida_free+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_locks_remove_file+0x10/0x10
+     ? __fput+0x39f/0xa60
+     ? fput_close_sync+0xff/0x200
+     ? __pfx_fput_close_sync+0x10/0x10
+     ? dnotify_flush+0x22/0x4b0
+     ? __x64_sys_close+0x8c/0xf0
+     ? do_syscall_64+0x115/0x6a0
+     ? entry_SYSCALL_64_after_hwframe+0x77/0x7f
+     </TASK>
+    Modules linked in: snd(O) [last unloaded: snd_timer(O)]
+    CR2: fffffbfff80480af
+    ---[ end trace 0000000000000000 ]---
 
-Fixes: cf1afec09e9f ("btrfs: validate properties before setting them")
-Cc: stable@vger.kernel.org # 7.2+
-Suggested-by: Qu Wenruo <wqu@suse.com>
+Fixes: 37745918e0e7 ("ALSA: timer: Introduce virtual userspace-driven timers")
 Assisted-by: LLM
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 ---
-Changelog
-v2:
-- Do not test whether the inode can be compressed. Leave the compression
-  flags and the property alone when the call does not change them, as
-  suggested by Qu Wenruo. Setting the compress flag on a NODATASUM inode
-  still fails with -EINVAL.
 
-- In the failing call FS_COMPR_FL is set, because chattr writes back the
-  flags it read. A test for "neither FS_NOCOMP_FL nor FS_COMPR_FL is
-  set" does not catch it and would stop chattr -c from removing the
-  flag, so the check compares the old and the new flags.
-
-- Explain why the call fails.
-
-v1:
-https://lore.kernel.org/linux-btrfs/20261010105425.165104-1-hengyul@cs.unc.edu/
-
- fs/btrfs/ioctl.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
-index 52aab510aea0..43a945345cbe 100644
---- a/fs/btrfs/ioctl.c
-+++ b/fs/btrfs/ioctl.c
-@@ -375,6 +375,19 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
- 		}
- 	}
+diff --git a/sound/core/timer.c b/sound/core/timer.c
+index 69a59b25fe0a80330669a27450ae40deaa5b9084..905176bf6948d790f9cb5732d01d01d858202d1b 100644
+--- a/sound/core/timer.c
++++ b/sound/core/timer.c
+@@ -2173,6 +2173,7 @@ static long snd_utimer_ioctl(struct file *file, unsigned int ioctl, unsigned lon
+ }
  
-+	/*
-+	 * Callers write back the whole flag set, so only touch the compression
-+	 * flags and the compression property if FS_COMPR_FL or FS_NOCOMP_FL
-+	 * changes.
-+	 */
-+	if (!((fsflags ^ old_fsflags) & (FS_COMPR_FL | FS_NOCOMP_FL))) {
-+		/* 1 item for the inode */
-+		trans = btrfs_start_transaction(root, 1);
-+		if (IS_ERR(trans))
-+			return PTR_ERR(trans);
-+		goto update_flags;
-+	}
-+
- 	/*
- 	 * The COMPRESS flag can only be changed by users, while the NOCOMPRESS
- 	 * flag may be changed automatically if compression code won't make
--- 
-2.53.0
-
+ static const struct file_operations snd_utimer_fops = {
++	.owner		=	THIS_MODULE,
+ 	.llseek		=	noop_llseek,
+ 	.release	=	snd_utimer_release,
+ 	.unlocked_ioctl	=	snd_utimer_ioctl,
