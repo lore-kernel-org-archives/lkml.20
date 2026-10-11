@@ -1,82 +1,85 @@
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
+Received: from mail-qk2-f10.google.com (mail-qk2-f10.google.com [74.125.230.202])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57FBA33374F
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 19:56:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3755E456DE6
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 19:57:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.202
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791748612; cv=none; b=Hldrvxip1+ckEwKtkVPV2UE6u34dKFkhaYxacVZ5eJQ+0lpXEmQQkkzQIkgbsSyO/zBH7PtztVo8OZkQAI3ST2712ygtj57ye/PjY0tI48MP6LCRg0kqYmGAVghedX8xQ5rNWBWWS4MUHsUPeoeusHcjl7TcPqm4nuGh5bUfouM=
+	t=1791748642; cv=none; b=O4yR+tQhOv43R0bcbGbZVI1N7P8jxDNujCV2osTYlHxM7qidNpaKmj1GmFQjCwMpLp7HCszhFqwExak1hEVjT64ea6zpDOhKhf3yZi/VT8BmONVmEhS9EiWhQG/0dWaZj3qL7Mt8eUwIhNJDhWGVvlPUKQDZ3tXEw4MEXDvQLa8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791748612; c=relaxed/simple;
-	bh=epmQuNnUwuWrARF6TFO83/KSZ5JczeyOambMq4x8/Gk=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=e5s5zw3CrYxwS/2FIwAcZEwlo73k0yGIRcP1HY8HEdfd7s//ilK2bXljUYAnqgA+z9TSLvXk5LzFp1bsd59yL68uR/ec8lhP4W1UeXCseNloXgGSOiTuw/5Q63y87sL5etQs1ioNHWyTmbhpu+dwOBrTKKRM8RglgWxzU9APnoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P//eD9Me; arc=none smtp.client-ip=209.85.219.42
+	s=arc-20240116; t=1791748642; c=relaxed/simple;
+	bh=1ILQ+U7Fm5XjAul9HYGzD8lpDpaW5gM4yITeSwIUeNg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nJAps9cufgn4IWoMmkZrzfyu3z1uXq1LIekxBNiv6AUC0Bdtw1UFqWz037K8bok8NMjvr8uy6yyy96CAjRhXQV0She9L12d6E4EdamZKjlTibK14MZB79/9WLDhZFUne1VG/yPtdVlm/4oNPIol1mszOJFMr14niGN60WiIOoiw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QvEPggWa; arc=none smtp.client-ip=74.125.230.202
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P//eD9Me"
-Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-91054f537ccso16779056d6.1
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 12:56:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QvEPggWa"
+Received: by mail-qk2-f10.google.com with SMTP id af79cd13be357-93e67431372so120100385a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 12:57:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791748610; x=1792353410; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:content-type:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iHHZH59qV3EnqbOQ3vYmK0JHZ+tuhXSFnyosgBQqvFQ=;
-        b=P//eD9Meh3ty9Is3pKnToxFWm/iKMBeWxKZ+l42qbdqTIDlN3/D27rVHaOwAzRSsP2
-         jncL7ekJOnEnN8F089stkcbIC1xCf6cIKUiLLvmHO/yPpw5C1NyWFrgFgc+6qhLK7FDs
-         7fiujLTQICiN0lTsY/VVakWfp17SY0gUaolUMNi+kYYDyYlB9VwZWObA/ZjiCGn6+vuG
-         SA0+WFkDhHPIcFt9cCxJ0Qxm4Z0kODwkidaYRsDNscYJOLQLPaQQEx19XXFXacz6xcew
-         /xHJml0nqdHteecqC/uu5U4cgQp/yttjELV46eeurQIOHSyqwFm5R5w4svhJXSLOwOf4
-         l6Ug==
+        d=gmail.com; s=20251104; t=1791748639; x=1792353439; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ybYSdKsTtQmBTL9u8kO8sl68Iedi9IlFuOT60yw2EWU=;
+        b=QvEPggWaCIOvx2JHe7xHKCOijpV5qKq5TeEW9X02zCIu/28yORcgEVT3VKOSM5Frt2
+         k/uGc2iMaShWRRpl4zJ4Ot4WblNVJ+CMKcrRL+GhaUb4UHk07OHZTMSMZBQavFLJrrvo
+         DAUxyBY0P/zKe/C+UGN9rRo82lDq4MO1r6LLbwOfKt3U3KzmX5rPfV0YsjLy2QaCE9WU
+         I+EEAYWT5HEEzvBc51tVzjMrzHloJojBMW4dWFKxaTzPl5jc+dryGJDY0lMXyyQZ5VDw
+         Kk6jbbCz063sLamSAEDc/XlP0zPZlnJbloCfEU/VU2pBHhD7D46yCv3oTXWvHdAcRkoY
+         NtzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791748610; x=1792353410;
-        h=content-transfer-encoding:mime-version:content-type:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=iHHZH59qV3EnqbOQ3vYmK0JHZ+tuhXSFnyosgBQqvFQ=;
-        b=IcMYITz6w7BmuBnfuFK6/VGKDaw3PTQzOkWeJ4eDy9M1UEaBK6BRgIK0xlIqwYD7NR
-         gQft/mJbl7a9A9PGmEdolI6xEGsBRxEK/iF1vaIs+r7qx7Nv+SSuTqz/ryBpFr/knhfZ
-         yR1eXJT/a7ezhYOMfBeS8HfQHsR3q9Quy8jCbcXqIcStjj02zGDkvLNkGlqPw4klXaDS
-         TFHYxVvFi4RxoSehim7Rx5xc2MC9CWV3uiByf4BYxhGfglKcCI5XxMQ8aXl9JKlwbgg0
-         r8VtA6r5WrTdXIxiAERT/1iQhqDdJGi4dNvUuWrpJ8TEpIx8GFEEp4PyX5yx3kmcDeRL
-         Ulbw==
-X-Forwarded-Encrypted: i=1; AKwUvBxDNttM8212fk+/Ns9xqFHZwVYKJtHXfjWhoIqCMnuANWfviejPMeTS7bvf7TvMwRUvwCOArxZ9aUYFXRk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIQExqTdWOzi5IKXbi94Xym/Vqd7ex7hjHC0MqS9wp4fDz0RIwq
-	vW+42FEhBCbr+lF8VRx/vaDttBh5BOwX/dQXbJLrIIcFlT/cmXr09LA=
-X-Gm-Gg: AYBFou2z22iwQBzUWqZ/twNnSKHmH4jQfnrRgK6SUClUwImKAYt8lqINLmj41sdKhvB
-	g592CLo6+eoPZ3h+UTgN99tJMDpenIHDvC/R4nzUYWHag67aYMSqnPMYrOPJh+dd49LHMSrpS2D
-	Y/QuAJVTGhgnL1eorUHcjc4W2NqO3t+6RzK3Okl9m3njqXmzkU5d0EXHyexGmZjBt+zMPXpZwqB
-	1GGImqG0UkfLE7tlf0H62MrtCrTd3I89ECe8qIdOGRwl277k4Z1UOODs7H21LljkFcCcxt1r35V
-	jEiv8T1THEZfY6HsLLBWALUSdg1xXLTJyBS2xsHWEBPxyQJmjSB6yNR5DZwZemxfqDnEl5KXNJc
-	Fea4Hc8mvZPi12sVucVvLC2zrqg5HeSF5EB1t3/r6quL791hZNGEfHs5r8Zf7JlS07n/KFq4FQM
-	jWIaHuJBu6rLMnZqT3vBqUmvXj4oIZiuujPjtJO6lZ/+pyDbbNKZ+xpGbIuWUvFV3AWLsmF0t5s
-	gTkm6aQHxkcPEEZ38EHrndsZaVWqj8bIZKRfEGlPTtKsXacompAogvt8ThtR4tKr1vRJXc9h6Ri
-	xwg0i7zHT7zllYPoS4dARfw81ZKdizMq3GZoWKo=
-X-Received: by 2002:a05:6214:498e:b0:91b:5d3b:4acc with SMTP id 6a1803df08f44-91b5d3b4e26mr149047996d6.53.1791748610213;
-        Sun, 11 Oct 2026 12:56:50 -0700 (PDT)
-Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b550dfb6csm77651326d6.45.2026.10.11.12.56.49
+        d=1e100.net; s=20260707; t=1791748639; x=1792353439;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ybYSdKsTtQmBTL9u8kO8sl68Iedi9IlFuOT60yw2EWU=;
+        b=wqoTPZx8Sb6V0zVGmobFr2U8vsdi/r3muhp57d7uSAxob/3NV+TEJJd7uO+qcJUziG
+         dMDeZ6SfUpOhRJNgm0EJ8tXHoxax/LjCcFhK0XuUh6pD76yyFYkqIVct8ciJZsNMAR9W
+         2YpIUPZgRWrYxhxwkjfrBoH0yoHOY3eJTAej8iWQz6ozifHrrozvtQZbo+fkv8lMwZcr
+         zXSdJpukjgfOaXcHAd8rexN4AfcJyTl+UEZbAHgQc6zg5dyIMjcRcz3Wd3adsYSGkyny
+         v+0koE1PatxnbP+2Gy4GQccZRjfWoyEN6WKUtxVh4b3ltqjOw25ctU4VFN6dmTcd8199
+         l1PQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxKXulaQwUavgi0iCaoN6QNht7fhFAz708uH8nUpNz+UBq8W9rzWc88UvmyF7jP4ahTw94nbZi33NsaANk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIIUwYMm2vpd6uHmYLXT2q0TKrPpy+qEL3e2IzSO3pNH3BXWQms
+	I16C5rQ7EKOyXr+XX0RO3sJkwwdzMDYgFkI9CS4zEVWhbgaFKW4Djglk
+X-Gm-Gg: AYBFou3numE88dmsoLnu7c0UduatcXcGqiy+szduKdFQxKcqnX+aZKWXG7B/HFiH5Su
+	2UANiSZoEKAjOl7scaXnGykCdrwMIe/vwtxExumMreNEd30qdW9qceeDE4iwTQLVkKk/7AOuOwA
+	79Kd4KAhVQApoX+pnBpiQfyOlr99b0kwd/+QcA9zkX/o9hvZ9JlwDHgGHDhGzjvzMDw+H+4+TXt
+	Ze1DAJVydScCnxQbjjFjAuFyjvFY8B204XH34DMqy92PY6CUtxGjJT2mT/MWxXu4dgIiNs8j8dh
+	lTD2vgON9AliMamSzueDENkzsTBGZsGFtnc/aSWx2ZOgvtcI3hEhTWcmkEjmFjewxXyg23IHIln
+	8U9nC80PtD9Vw+Px8qGGZXCnY8DHLGISGSzN+BPOHMjLw8GxbOHSyd0BNUIQYadwvPOZmOpJB31
+	83GbvDNGeKl8H9oHuHqtX5rts0AnZtvmZIHeaBOfoypGbCx1SR+a1ElzpZHP6utTAfrOU=
+X-Received: by 2002:a05:620a:2912:b0:93e:a818:c8b1 with SMTP id af79cd13be357-93ebd0d01edmr1283130285a.9.1791748639122;
+        Sun, 11 Oct 2026 12:57:19 -0700 (PDT)
+Received: from omarchy ([2601:804:8780:3df1:6ff:277e:31c7:ac13])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b54e832edsm77803306d6.4.2026.10.11.12.57.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 12:56:49 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Eddie James <eajames@linux.ibm.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>
-Cc: Ryan Chen <ryan_chen@aspeedtech.com>,
-	Billy Tsai <billy_tsai@aspeedtech.com>,
-	linux-media@vger.kernel.org,
-	openbmc@lists.ozlabs.org,
+        Sun, 11 Oct 2026 12:57:18 -0700 (PDT)
+From: zoan37 <agentzoan@gmail.com>
+To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Chun-Jie Chen <chun-jie.chen@mediatek.com>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	Edward-JW Yang <edward-jw.yang@mediatek.com>,
+	Irving-CH Lin <irving-ch.lin@mediatek.com>,
+	kernel@collabora.com,
+	linux-clk@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] media: aspeed: disable resolution work before removing the device
-Date: Sun, 11 Oct 2026 15:56:45 -0400
-Message-ID: <179174852932.3.2170255507797724902.G64@gmail.com>
-X-Mailer: git-send-email 2.53.0
-Content-Type: text/plain; charset="utf-8"
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] clk: mediatek: mt8189: Don't let the GPU reference mux retune MAINPLL
+Date: Sun, 11 Oct 2026 15:56:12 -0400
+Message-ID: <20261011195612.1663714-1-agentzoan@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260904-mt8189-clocks-system-base-v6-19-5df247f56938@collabora.com>
+References: <20260904-mt8189-clocks-system-base-v6-19-5df247f56938@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,40 +88,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A resolution-change interrupt schedules res_work. The worker enables the
-video engine clocks, initializes registers and detects the resolution.
-It can also queue a V4L2 event or restart frame capture. The remove path
-shuts down the engine and releases resources without cancelling or
-waiting for this work, so the worker can undo the shutdown or access
-resources after they have been released.
+mfg_sel_mfgpll selects the GPU clock from mfg_ref_sel or mfgpll and has
+CLK_SET_RATE_PARENT, so a GPU rate request (Panfrost devfreq) goes
+through __clk_mux_determine_rate(), which evaluates both parents.
+mfg_ref_sel is a MUX_GATE_CLR_SET_UPD() and so also has
+CLK_SET_RATE_PARENT, as does its mainpll_d6 parent: through it, any GPU
+OPP can be met exactly by retuning MAINPLL to six times the requested
+rate. mfg_ref_sel is parent 0, so it wins over mfgpll whenever both match.
 
-Disable and drain res_work before turning the engine off. This cancels
-pending work, waits for a running worker and prevents the IRQ handler
-from queuing the work again. Keep the clocks and IRQ handler available
-during the wait because resolution detection can wait for an IRQ.
+On an MT8189 Chromebook, MAINPLL therefore followed the GPU: 2340 MHz
+for the 390 MHz OPP instead of the 2184 MHz the firmware sets, and 3360
+or 3570 MHz while the GPU ran at 560 or 595 MHz. Everything else derived
+from MAINPLL moved with it: the peripheral and memory buses, and the
+display PWM, whose backlight frequency jumped from 2 to about 3 kHz for
+tens of milliseconds under GPU load. That showed as a visible brightness
+flicker.
 
-This issue was found by static analysis.
+mfg_ref_sel is only the reference/bypass parent that the mux notifier
+switches to while MFGPLL relocks. Don't let it propagate rate changes,
+as MT8195 does for its top_mfg_core_tmp. The GPU then gets its rates
+from MFGPLL, and MAINPLL stays at its firmware rate.
 
-Fixes: d2b4387f3bdf ("media: platform: Add Aspeed Video Engine driver")
 Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Signed-off-by: zoan37 <agentzoan@gmail.com>
 ---
-Compile-tested with GCC, W=1 (arm64). No runtime testing.
+Found on top of v6 ("[PATCH v6 19/27] clk: mediatek: Add MT8189 topckgen
+clock support"); it applies to that patch and can be squashed into it.
 
- drivers/media/platform/aspeed/aspeed-video.c | 1 +
- 1 file changed, 1 insertion(+)
+Testing: Lenovo IdeaPad Slim 3 Chromebook (MT8189, "quigon"),
+next-20261008 plus this series and local board support, Panfrost on the
+Mali-G57 with devfreq. Before: MAINPLL 2340 MHz at idle and 3360/3570 MHz
+under GPU load, read from clk_summary; the display PWM's actual period
+(debugfs/pwm) went from 500 us to 348/328 us with it. After: every GPU
+OPP from 390 to 1100 MHz forced through devfreq min/max_freq, and
+scrolling a busy page: the GPU always on mfgpll, MAINPLL fixed at
+2184 MHz, the PWM steady, no flicker. No device tree change needed (the
+mux selects mfgpll by itself). Built with W=1.
 
-diff --git a/drivers/media/platform/aspeed/aspeed-video.c b/drivers/media/platform/aspeed/aspeed-video.c
-index a292275..4274b90 100644
---- a/drivers/media/platform/aspeed/aspeed-video.c
-+++ b/drivers/media/platform/aspeed/aspeed-video.c
-@@ -2360,6 +2360,7 @@ static void aspeed_video_remove(struct platform_device *pdev)
- 	struct v4l2_device *v4l2_dev = dev_get_drvdata(dev);
- 	struct aspeed_video *video = to_aspeed_video(v4l2_dev);
- 
-+	disable_delayed_work_sync(&video->res_work);
- 	aspeed_video_off(video);
- 
- 	aspeed_video_debugfs_remove(video);
+ drivers/clk/mediatek/clk-mt8189-topckgen.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/clk/mediatek/clk-mt8189-topckgen.c b/drivers/clk/mediatek/clk-mt8189-topckgen.c
+index 6ed7661119b8..ff9fd5115c5b 100644
+--- a/drivers/clk/mediatek/clk-mt8189-topckgen.c
++++ b/drivers/clk/mediatek/clk-mt8189-topckgen.c
+@@ -818,9 +818,13 @@ static const struct mtk_mux top_muxes[] = {
+ 			     dxcc_parents, 0x100, 0x104, 0x108,
+ 			     24, 2, 31, 0x0c, 1),
+ 	/* CLK_CFG_16 */
+-	MUX_GATE_CLR_SET_UPD(CLK_TOP_MFG_REF_SEL, "mfg_ref_sel",
+-			     mfg_ref_parents, 0x110, 0x114, 0x118,
+-			     0, 2, 7, 0x0c, 2),
++	/*
++	 * Reference/bypass parent of mfg_sel_mfgpll: don't propagate rate
++	 * requests, or GPU DVFS retunes MAINPLL through mainpll_d6.
++	 */
++	MUX_GATE_CLR_SET_UPD_FLAGS(CLK_TOP_MFG_REF_SEL, "mfg_ref_sel",
++				   mfg_ref_parents, 0x110, 0x114, 0x118,
++				   0, 2, 7, 0x0c, 2, 0),
+ 	MUX_GATE_CLR_SET_UPD(CLK_TOP_MDP0_SEL, "mdp0_sel",
+ 			     mmsys_parents, 0x110, 0x114, 0x118,
+ 			     8, 4, 15, 0x0c, 3),
+-- 
+2.43.0
+
