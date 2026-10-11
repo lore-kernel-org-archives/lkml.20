@@ -1,74 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4D8833B6E8
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 20:18:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9B1360EF5
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 20:22:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791749933; cv=none; b=FyKTO+0UM3/BeyRVLaLJpsKzTPwkEVNoMB9Ig399htFPMSrWADAHFXUrlfkp0WLMEi1+nmN8vHKfdjzF9UT4LCKSi9+T6fy7fZnB4tjPo48dNSMDPLoZn22I2cweT+MwUhTxGB1kK6x9OW2qY7+vhWwCa7+tFFWKl9XV6V3AmL0=
+	t=1791750143; cv=none; b=i7rZ15JVMXTnboBOP3b1S4S94prQ42DNXES2lxS5RX17gZwaQx/30w9lN7PsqRs+h7gmqHChHrTaYDkLT0llE1Hl+S8lrovi5QCSVAS68x8FyPgMmyOWH/ONarzJkU6gL12Ryq8l1pA0Nu47kaIYLSZ7A57mHomkaa8ZnYR1qe8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791749933; c=relaxed/simple;
-	bh=Gcg44s5pOEsHqe5yAMzNJ5yI/h+EQKqw2L0+QOdZ5j0=;
+	s=arc-20240116; t=1791750143; c=relaxed/simple;
+	bh=HWTZ9bvPwdYwge/Hjf9waEWkT6bDPCEj4gdjt6lCfr0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SPb5DAhJ5JgVtczt7J6ucR8+TafE44/4Q/9sfm97BO/YgaloUQqvV/QxH7znkDE9Xu7J6aIZbdLYYhOwet8EYZ9mbEK7MQmU5qVhH8wKWhSf5kp5a+qr5STecCz2sze0a3yPUg2LU+XRB2mgGBKK4qrI4PKaevPDfpdJiefL4Uo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ENy8ZP7j; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=N78lieN/Q5BWrCgYQTJN/ynaisPelZJ52+nYkDBHrOGdhiZOwwcZPYS8aVW0bVAfYIWKXkzmMP7h+jNVBQx3DrwyVoSHpCOCaQX1udnhOeeO2xY5OyC0dmGQP637pG0B8lULOwufKC8kviVEfqp/yFD//hz2BIajZT0yJyDOqXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XUgAkScV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ENy8ZP7j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 816721F008A2
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 20:18:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XUgAkScV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 675F41F0089F
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 20:22:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791749932;
-	bh=Gcg44s5pOEsHqe5yAMzNJ5yI/h+EQKqw2L0+QOdZ5j0=;
+	s=k20260515; t=1791750142;
+	bh=HWTZ9bvPwdYwge/Hjf9waEWkT6bDPCEj4gdjt6lCfr0=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ENy8ZP7jGREjv2K/Qr2t7W6v3kFIJrzQodR5YMlLQLh95STBVDa0eVAnD2dOGzq4Y
-	 eVI1WEGOKg9Ukt96aKrSGY5D2Po+li18p2Vqo2JaS7TH3hxXJz/7PZQ2hfhV3IbBqg
-	 q+34Xmmi8WwZI54FGEjvHrVZTXO7l6i8nwT5Sva+0dtEO5Prw1xihYUoW/qwNzRgjl
-	 QR6L6jd49lWWmbCX7VDlIh6BVaEIXqqfOl3koTLHHrjnxmHt7Aasp/O5u+B/RPvV9u
-	 c3jx1914UuBugYQwbfZPRDMjpyqV0L3qco/GPXaMObRVa4tx0Orni3Q7yilPCyvKzt
-	 vQ7S+OMVZg+MQ==
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5bcb0f245e0so852614e87.3
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 13:18:52 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw0IpgaQxj+Mqvc4mlyUdoqnbkJwU7gHkiBYZLFMWAcY4GnevUoV7aoQqT2QLKcMUtDY31w8Ed64nAo4Us=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI287rC013VgK4DESLG5iXirMSn0aiACVsY1zjFxVbhIn9pLpkY
-	u8grWpHN/YQdseW+HcYZyV1HlyNtEXRn3JKdcp1mF2GlmyLmiZ3fAcuTgWu8o/ITkDOuO2Ff86L
-	KxATxWGOFljAl7qUyAZ90uvkfWiUM7bM=
-X-Received: by 2002:a05:6512:1094:b0:5bc:ca67:c329 with SMTP id
- 2adb3069b0e04-5bcde3538b2mr2804085e87.4.1791749931095; Sun, 11 Oct 2026
- 13:18:51 -0700 (PDT)
+	b=XUgAkScV0iStNQLlurQipy2y/Qrp4G+6JTOuygeyuQQBIkMAI7kdANa10lcrCYO3g
+	 e0Jex1uyGGtYr9D1g14BqX3GTqOaGjiRp5mhuTXdcBAVIiuEln9KXmfIwOYMa4v6cW
+	 5GWt+ovB/nLX5qUhf4PYqkv9SFc+pfIAWgi5C3pkGcLIzRghaT8Jv4a1ACpJskD8wF
+	 eUbYG14gl+ERmZ7tGSR1UpMm3K77Sl/6l9+zIbcNTUp11mmns9Z8vBDHVKJlTXJtLd
+	 /kF1GKR82wj3YMNRIRbAt8VYfg3/Efy3sY11ycqPoUjAyCQZqOpK9wGPo029lUKGwq
+	 MdNz/Ppm4BnXQ==
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3a75f960be4so10123761fa.2
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 13:22:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwihx8Jn3+OakfKtviN8l2/Ql6JRKzW8WvMmfnqPF3ye8UuDZAra72OpgfWW+L/QnWhhnYoNhxjrU6aaz8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK0Kd/yM9t7e4+SsfDR2IMki7Ty5EfET8fXPCdW1w8DC5Ib/KW4
+	GDezM/0xuxfT0x2tpvPUpB9p/Ae1OmMyGaSnNe3m/MKoVt4CBo0zZRF+K5J1uzPhlc0+bhGdeOr
+	aFgnFIFN7agV4qzqx82MzaR7BwSnq2xg=
+X-Received: by 2002:a05:651c:510:b0:3a7:8372:61b7 with SMTP id
+ 38308e7fff4ca-3a9c56e47e1mr17356451fa.25.1791750141071; Sun, 11 Oct 2026
+ 13:22:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261011131208.272131-3-blum@kernel.org>
-In-Reply-To: <20261011131208.272131-3-blum@kernel.org>
+References: <20260815094451.31792-1-adilov@disroot.org> <aro4qbhcd3X6wTvP@black.igk.intel.com>
+ <CAD++jLk8gCAy+SbGffttCQ7dM9x6gzVRBwRppCByzwYdm_5kGw@mail.gmail.com> <e1c0f3ff0c47fc7a2258bbb67f588f57@disroot.org>
+In-Reply-To: <e1c0f3ff0c47fc7a2258bbb67f588f57@disroot.org>
 From: Linus Walleij <linusw@kernel.org>
-Date: Sun, 11 Oct 2026 22:18:38 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmaCFZ6MOek=n5h7pU=6_ihQJ3EarZSSGi=xhMqcLc3CA@mail.gmail.com>
-X-Gm-Features: AclHuK_f9oCezWet9D8wmptpScz-bKTuIXf20YhlSgnbTQakgm03SMJQJWbSXIs
-Message-ID: <CAD++jLmaCFZ6MOek=n5h7pU=6_ihQJ3EarZSSGi=xhMqcLc3CA@mail.gmail.com>
-Subject: Re: [PATCH net-next] net: dsa: realtek: Remove unused buffer from
- struct realtek_priv
-To: Thorsten Blum <blum@kernel.org>
-Cc: Luiz Angelo Daros de Luca <luizluca@gmail.com>, =?UTF-8?Q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>, 
-	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, 
+Date: Sun, 11 Oct 2026 22:22:08 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmVeCawRt+7ndiRXhjkPBPdhPTEfFUtd5pYtH1vG_77Zg@mail.gmail.com>
+X-Gm-Features: AclHuK_THDuU9J7npmtxHWGarItkiE4EjGzb5DoJK4Ky32lTjPybl5mmmrrInoI
+Message-ID: <CAD++jLmVeCawRt+7ndiRXhjkPBPdhPTEfFUtd5pYtH1vG_77Zg@mail.gmail.com>
+Subject: Re: [PATCH v2 0/2] gpio: realtek-otto: make the driver work with SWAP_IO_SPACE
+To: Rustam Adilov <adilov@disroot.org>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Sander Vanheule <sander@svanheule.net>, linux-gpio@vger.kernel.org, 
 	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Oct 11, 2026 at 3:12=E2=80=AFPM Thorsten Blum <blum@kernel.org> wro=
-te:
+On Sat, Oct 10, 2026 at 4:18=E2=80=AFPM Rustam Adilov <adilov@disroot.org> =
+wrote:
+> On 2026-10-01 20:14, Linus Walleij wrote:
 
-> The buffer has never been used. Remove it.
+> > On Mon, Sep 28, 2026 at 11:51=E2=80=AFAM Andy Shevchenko
+> > <andriy.shevchenko@intel.com> wrote:
+> >> On Sat, Aug 15, 2026 at 02:44:49PM +0500, Rustam Adilov wrote:
+> >> > This patch series changes gpio-realtek-otto to be functional around
+> >> > SWAP_IO_SPACE config.
+> > (...)
+> >> Convert the driver to use regmap MMIO and most of the code in this ser=
+ies won't
+> >> be needed. Also it will give some benefits (like register caching and =
+debugfs
+> >> monitoring).
+> >
+> > Andy is right.
+> >
+> > Make an attempt on top of the merged patches to convert this to regmap =
+MMIO
+> > and see what happens, and if that works consider regmap GPIO as
+> > well.
+> >
+> > Everyone will be happier, because less code.
 >
-> Signed-off-by: Thorsten Blum <blum@kernel.org>
+> As far as i remember, i thought of using regmap earlier but got stuck bec=
+ause
+> the regmap has to not swap in realtek_gpio_update_line_imr() but potentia=
+lly
+> swap in other places by bank_read/write.
+> Maybe i am missing something but i just couldn't figure it out.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-
-Probably a leftover from initial development, thanks for finding this!
+Regmap can do any kind of cherry-picked exceptions in the callbacks,
+so I think it can deal with that, you just need a more custom than average
+regmap set-up.
 
 Yours,
 Linus Walleij
