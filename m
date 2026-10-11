@@ -1,319 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E623BFADD;
-	Sun, 11 Oct 2026 03:38:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F73E2DECBF
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 03:47:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791689910; cv=none; b=iBRS7Sqlf4CWsLRySYBJH9kHz4CS7RlOD3OfZIp/tyovuboFR9hNJn+A9l9r08M2ZbFml95HBCLL/BJyxel/bkMS4CqlnOaIRfnC8gEA1e4/A56QenemIbChn0JnqoDP4tdd+LV+fWYPA24btVnCDyko+XhzxsTVnxdTr03K3/E=
+	t=1791690474; cv=none; b=XWkC19oZmCs/3dg5jdPkc2WW+djHoCtC5nIJZa3ZYGQHpWo6nhhNppvOfaAYIkzc6if6RCQivOf0+3xgciGIhGyErxu/F8YcMEWH2JgLabtcJbuAkjVrNvnDuB0PA/S55RD7hFMKE2ZRdpita1i6PM++QKljUIp9Ca0okaK760o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791689910; c=relaxed/simple;
-	bh=2xrZX45iucc6IrSrbF9YcOlGiPMVSZSHJtoWydcngZ4=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=R/RMAy7mJpAYAlSvgaAz/fIpzZubOUzoAMk/8GsQcCfPzVq/icX9GMO9KLP2l5aLiMI42kuMIxEdlFY+xmQB1EsFt8wUpCYuqvLNYFpg5yGuieCobCvTDRZ2DSj5SaN5hxK6gdeSOCoBRIXr0YdcrLsjr7ud1Yypou8D6W+tdbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LSHJfP/I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791690474; c=relaxed/simple;
+	bh=n0uiX78IPrTN/TLii59hko4ih3t30FEhDQIhTr+AN5U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mqQM0SMSmRIwz/jBfyWL7xaUbeYatpo7z8CHSzL5kHhhHHCRBYrIyNqFl0pGXEwQ2FGWvCBqSANmhItIXikwvwCzBUlWLu7r8ego3XHG0XpHrXisk3wYNnLLr8U63aRnxH87HiihRg54xMSPyV9SUonnvX0GmuCKEVgZkq74zN4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=gf8Ywsc6; arc=none smtp.client-ip=209.85.219.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LSHJfP/I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E54211F00893;
-	Sun, 11 Oct 2026 03:38:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791689904;
-	bh=DhT2Sc1qZOsPqVuOtTlejOzafSl9/+wC5w47v4hyl3w=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=LSHJfP/IDboyc/VdiFW0S5vIbArmrOGlWGu/rf8Sh8b+nve3NdVCJHXsysp4l9xaH
-	 tD4nZz3H2ZukItiafHfTQjAnJmrAdmTRwxKLV3nJR4XGcpWcLGef/wR8PqhWRPI5HR
-	 muaHaCh6nYMsarMSJlbuwA114GYKMFTPCUSkucosh0wzaDPMJgqlyUFHLFhy2jma/j
-	 a2KBtbQ/hC3yjjj2yu6EILi7ByOptub1AdzKbl62tWxeRgpvpM3S5S6OD0a0VY2PAV
-	 obgXc63PF1EQDAttMzuZo4oAgEmdZUlABXqaqErfF06EHfxtqUsjKEqS31zb4sEcD6
-	 FIqE/AFVbfJMg==
-Subject: Re: [PATCH net v1 4/4] selftests: net: add devmem RX and TX netdev
- unregister tests
-From: netdev-bot+sashiko@kernel.org
-To: almasrymina@google.com
-Cc: kuba@kernel.org, dw@davidwei.uk, asml.silence@gmail.com,
- ap420073@gmail.com, sdf@fomichev.me, pabeni@redhat.com, kaiyuanz@google.com,
- bobbyeshleman@meta.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, horms@kernel.org, shuah@kernel.org,
- sumit.semwal@linaro.org, christian.koenig@amd.com, daniel@iogearbox.net,
- razor@blackwall.org, tariqt@nvidia.com, kaifengw@google.com
-Date: Sun, 11 Oct 2026 03:38:22 +0000
-Message-ID: <179168990244.434549.3313221235274785716@kernel.org>
-In-Reply-To: <20261010025532.839559-5-almasrymina@google.com>
-References: <20261010025532.839559-5-almasrymina@google.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="gf8Ywsc6"
+Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-9179bfa9e9cso19951666d6.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 20:47:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cs.unc.edu; s=google; t=1791690472; x=1792295272; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FB4MPXLOykFptRXKNBWjPGR4VJPoRGtDL9e2tNF9Rw4=;
+        b=gf8Ywsc6VV9A/pv3FZsKNSX/6+/KFd/030OLVuGBQs7r/xkYLqiFkfgmkSGU6fKlby
+         bXF5VqseYzBW0Mv1m0lzMueMjOBsLCvJMsPIeEUNBs+GvD9s5gLkPzYhbLNQgzb19BWi
+         2OcFViFQCq/XtVwDkJOPe/IRRqAihyZTypqyWzrcoRGlZTNKILghnUvPbgFMz9ZvWifx
+         jad9TGf77cq9oMD1KXWZ0WSA/adOvrmcvK8LW3QsFyftAwD8sQDXfiKPTJcaQvLPm1FO
+         Zo60jaQQrWJtDYUAl6K+hfUI8P7iGhKjQvmBA2vft4otJpw5BlKcu0NGhTJPc6zJB5lJ
+         qOYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791690472; x=1792295272;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FB4MPXLOykFptRXKNBWjPGR4VJPoRGtDL9e2tNF9Rw4=;
+        b=Bn24h5mTXWeHZ/Q2NZuyjl2rZBmDaZ12xNlPPlB/zW8+kc9FCHXnJxm/K0xe6n/O8U
+         FEr4C+BXDO9+OhHnBTvQc2i+UDI58jw+RosdJwhM1eU324NLjgKxDvHbSdMU5GDmpc4n
+         y6xHIwjyuYUTaI104alcbi42V38ECH2IHRBHcluf8lWQAeq56hlnoVKLBFNuo6ALlmta
+         LUWnGPpbFJSU1Mg5vnmgrm4iimStX1SC9wp+i1Nsa+OqAAToVqK0V0IzxU4GuKmsuyb6
+         aRgxIoVwZnHOeNYgXEk/roptS4jOWgtJ3bGLcIvo7HTFIRNiQWPtmRx9Tugw4RcpbCAp
+         RWrg==
+X-Forwarded-Encrypted: i=1; AKwUvBzRVRhAPJpyIaZEIMajSn5giLMnA+5DGeqSRP4SZ7fYjjvw7xYBJhx/SRgnv3e3aIb7l6v6zTvPz2ZfFE8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK91ZTPqWqe2oCsUtedddja+Cf2j6Wm0tH2aEWvCmV2s86EzmQ1
+	3eAoCyszkVJXcOOeVdUa1RZIGi4l5FHKwPMuOXiV/qEzJVu3XvXMjTe7mVFUbtMylQ==
+X-Gm-Gg: AYBFou1hm5agAs/aWaTX/4+F39zdnxIL22+ovvBqsgWeyijptHm0+lZkV66cgwYFeuZ
+	mkhpFhrJE/C8pzM5kyLlbC9G4BWd8zGaxoUQCBtRzvSxeL5iHdb8ZMenPx+aYOc28GbbmFrpxWg
+	BosZ3b5N4Gzdn7DGMqpTh2j79lOn3vN7V3R7E/wI5morZi1Rj56UahGp/+530m7sXEVw8PdGI4i
+	sw+DgVLs8DH0b7Q9bhmABRQN95u3RJXWKpy/LWID4/+Xt4785K2Kz3/xhfvb1sQlmdFl6FdukFP
+	JoUQrecmqrPyIePqJsb8A+y5R1OcT2cIjgtBWvdd2Tt5ivEGjOoKh8EZ3SoVsirtYaqPUDycyF0
+	l87LMF13d+lnAQcXnB3VdPd68JRetB46o+EeT+71LAH2epqyf701YLUIzmCPAULhPEiShKW3/ui
+	1c2fwJUvZy3ooFXC4LWsSg8yuaKQCVFPWQri6UMj0R+KAaAVtJCGd2XdDAAulOayL5EO89p3B5m
+	qjX33AZkK4JGXz6CYaIgA==
+X-Received: by 2002:a05:620a:890a:b0:939:3a81:326 with SMTP id af79cd13be357-93ebd25989cmr1027862585a.37.1791690471864;
+        Sat, 10 Oct 2026 20:47:51 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb9847f37sm558267785a.10.2026.10.10.20.47.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 20:47:51 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: Qu Wenruo <wqu@suse.com>
+Cc: David Sterba <dsterba@suse.com>,
+	Chris Mason <mason@kernel.org>,
+	Filipe Manana <fdmanana@suse.com>,
+	linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] btrfs: fix chattr failing on nodatasum files that have the compress flag
+Date: Sat, 10 Oct 2026 23:47:31 -0400
+Message-ID: <20261011034731.1054465-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <41987a33-f2dd-4ffe-b35f-d669d36dbcfe@suse.com>
+References: <41987a33-f2dd-4ffe-b35f-d669d36dbcfe@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 7 potential
-issue(s) to consider.
+On 2026/10/11 07:47, Qu Wenruo wrote:
+> This is very LLM-like, and very LLM's objective-oriented behavior.
+> Disclose it first.
 
-Critical: 0 · High: 0 · Medium: 5 · Low: 2
+Yes, and sorry for not saying so in the patch. I found this while
+comparing the behaviour of different kernel versions. I used an LLM to
+analyse the difference, write the patch and the changelog and run the
+tests in VMs.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+> Explain the reason why it fails.
 
-- [Medium] In devmem_bind_rx_unregister_check() and
-  devmem_bind_tx_unregister_check()…
-- [Medium] The new tests need /dev/udmabuf (CONFIG_UDMABUF) and debugfs
-  (CONFIG_DEBUG_FS, for the bufinfo assertions).
-- [Medium] _dmabuf_attached_devs() (nl_netdev.py:390-408) collects the
-  'Attached Devices' entries of every dma_buf in the system, not only…
-- [Medium] devmem_bind_rx_unregister_check() (lines 413-439) and
-  devmem_bind_tx_unregister_check() (lines 444-466) do not use `with…
-- [Medium] _create_udmabuf() (nl_netdev.py:384) passes the hardcoded
-  number 0x40187542 as UDMABUF_CREATE.
-- [Low] In both new tests, the only check for the behaviour the
-  docstrings claim ('Verify RX devmem bindings detach dma_buf…
-- [Low] _create_udmabuf() (nl_netdev.py:379-387) closes memfd and devfd
-  only on the success path.
+chattr reads the flags and writes the whole set back, so FS_COMPR_FL is
+in the new flags. btrfs_fileattr_set() then calls btrfs_set_prop() for
+btrfs.compression, and since cf1afec09e9f that runs
+prop_compression_validate(), which returns -EINVAL because
+btrfs_inode_can_compress() is false for a NODATASUM inode.
 
---
+> So when setting compress in the first place, the NODATASUM/NODATACOW
+> flag should be cleared.
 
-selftests: net: add devmem RX and TX netdev unregister tests
+OK, I will do it this way: a new inode that inherits the compress flag
+does not get NODATASUM/NODATACOW from the mount options, and chattr +c
+on an empty file clears NODATASUM.
 
-This adds two tests to nl_netdev.py. Each one creates a udmabuf, binds it
-to a netdevsim device for devmem RX or TX through the netdev netlink
-family, and then removes the netdevsim device. The tests check debugfs
-dma_buf/bufinfo to confirm that the attachment is gone, and expect the
-netlink socket to close cleanly afterwards.
+This differs from the documentation in one place. btrfs(5) says that
+all files created under nodatasum have no checksums and that
+compression is disabled when nodatasum is enabled. With this change a
+file created in a +c directory on a nodatasum mount has checksums and
+is compressed. Is that what you intend?
 
-> diff --git a/tools/testing/selftests/net/nl_netdev.py b/tools/testing/selftests/net/nl_netdev.py
-> index ceb44c8e1fec5..bad230ee9dcd2 100755
-> --- a/tools/testing/selftests/net/nl_netdev.py
-> +++ b/tools/testing/selftests/net/nl_netdev.py
+In chattr there are two cases where I would not clear the flag:
 
-[ ... ]
+- The file has NODATASUM and already has data. The existing extents
+  have no checksums, so clearing NODATASUM would make them unreadable.
+  chattr +c would return -EINVAL here, the same as setting the
+  btrfs.compression property does since commit 0e852ab8974c ("btrfs:
+  do not allow compression on nodatacow files").
 
-> @@ -366,6 +370,102 @@ def page_pool_stats_ifindex_check(nf) -> None:
->      ksft_eq(cm.exception.nl_msg.extack['bad-attr'], '.info.id')
->  
->  
-> +def _create_udmabuf(num_pages=64) -> int:
-> +    """Create a sealed memfd-backed udmabuf fd for devmem tests."""
-> +    if not os.path.exists("/dev/udmabuf"):
-> +        raise KsftSkipEx("/dev/udmabuf is not available")
+- The file has +C. check_fsflags() already rejects chattr +c on it
+  with -EINVAL and I would keep that.
 
-[Severity: Medium]
-Will these tests ever run in CI that builds from the net config fragment?
+One more question before v2. Files with both flags and data can already
+exist on disk, and chattr +A on them fails since 7.2. Is it OK to leave
+the compress flag and the property alone on these files when only other
+flags change?
 
-The only related entry in tools/testing/selftests/net/config is:
-
-CONFIG_NETDEVSIM=m
-
-It enables neither CONFIG_UDMABUF nor CONFIG_DEBUG_FS. So
-_create_udmabuf() would always raise KsftSkipEx here, and both new tests
-would always skip.
-
-tools/testing/selftests/drivers/net/hw/config and drivers/dma-buf/config
-both set CONFIG_UDMABUF=y. Should the net config fragment add
-CONFIG_UDMABUF=y and CONFIG_DEBUG_FS=y too?
-
-> +
-> +    size = num_pages * mmap.PAGESIZE
-> +    memfd = os.memfd_create("devmem-ksft", os.MFD_ALLOW_SEALING)
-> +    os.ftruncate(memfd, size)
-> +    fcntl.fcntl(memfd, 1033, 0x0002)  # F_ADD_SEALS, F_SEAL_SHRINK
-> +    devfd = os.open("/dev/udmabuf", os.O_RDWR)
-> +    req = bytearray(struct.pack("IIQQ", memfd, 0, 0, size))
-> +    dmabuf_fd = fcntl.ioctl(devfd, 0x40187542, req)  # UDMABUF_CREATE
-
-[Severity: Medium]
-Is 0x40187542 the right request number on every architecture?
-
-The uapi header defines it as:
-
-include/uapi/linux/udmabuf.h:
-#define UDMABUF_CREATE       _IOW('u', 0x42, struct udmabuf_create)
-
-0x40187542 is the asm-generic encoding. Alpha, mips, powerpc and sparc
-define _IOC_WRITE as 4U with 13 size bits, and parisc defines it as 2U.
-On all of these the write bit lands at 0x80000000, so the request number
-becomes 0x80187542.
-
-On those architectures udmabuf_ioctl() hits its default case:
-
-	default:
-		ret = -ENOTTY;
-
-Nothing catches the resulting OSError from fcntl.ioctl(), so both devmem
-tests would fail instead of running or skipping.
-
-> +    os.close(devfd)
-> +    os.close(memfd)
-> +    return dmabuf_fd
-
-[Severity: Low]
-Does this leak memfd and devfd on the error paths?
-
-If os.ftruncate(), the F_ADD_SEALS fcntl() or os.open() raises, memfd is
-never closed. If the UDMABUF_CREATE ioctl raises (the ENOTTY case above,
-for example), both memfd and devfd stay open. ksft_run() catches the
-exception and keeps the process running.
-
-A try/finally around these calls would close both.
-
-> +
-> +
-> +def _dmabuf_attached_devs():
-> +    """Return attached device names from debugfs dma_buf/bufinfo if available."""
-> +    path = "/sys/kernel/debug/dma_buf/bufinfo"
-> +    if not os.path.exists(path):
-> +        return None
-
-[Severity: Low]
-What happens when bufinfo is missing (CONFIG_DEBUG_FS off, or debugfs not
-mounted)?
-
-Both tests guard every assertion with:
-
-    if attached is not None:
-
-With None they run no assertions at all. ksft_run() then records them as
-pass, not skip.
-
-The tests still exercise nsimdev.remove(), but they would pass even if
-the dma_buf stayed attached after unregister. Should this raise
-KsftSkipEx instead of returning None?
-
-> +    with open(path, "r", encoding="utf-8") as f:
-> +        text = f.read()
-> +    attached = []
-> +    in_attached = False
-> +    for line in text.splitlines():
-> +        if line.strip() == "Attached Devices:":
-> +            in_attached = True
-> +            continue
-> +        if in_attached:
-> +            if line.startswith("\t") and line.strip():
-> +                attached.append(line.strip())
-> +            else:
-> +                in_attached = False
-> +    return attached
-
-[Severity: Medium]
-Does this count attachments from every dma_buf in the system, rather than
-only the udmabuf this test created?
-
-dma_buf_debug_show() walks the whole dmabuf_list and prints one block for
-each buffer:
-
-drivers/dma-buf/dma-buf.c:dma_buf_debug_show() {
-    ...
-		seq_puts(s, "\tAttached Devices:\n");
-		attach_count = 0;
-
-		list_for_each_entry(attach_obj, &buf_obj->attachments, node) {
-			seq_printf(s, "\t%s\n", dev_name(attach_obj->dev));
-    ...
-}
-
-The parser collects entries after every header, so the result is a total
-for the whole host.
-
-This has two effects:
-
-- ksft_eq(len(attached), 0) after nsimdev.remove() fails whenever any
-  other dma_buf (GPU, display, V4L2) has an attachment, even if the
-  kernel detached this one correctly.
-- ksft_ge(len(attached), 1) passes even if this binding never attached.
-
-An attachment left behind by the RX test would also make the TX test
-fail.
-
-Could this filter on the inode of dmabuf_fd (os.fstat(dmabuf_fd).st_ino)
-or on the netdevsim device name?
-
-> +
-> +
-> +def devmem_bind_rx_unregister_check(_nf) -> None:
-> +    """Verify RX devmem bindings detach dma_buf synchronously on netdev unregister."""
-> +    dmabuf_fd = _create_udmabuf()
-> +    nf_priv = NetdevFamily()
-> +    ef = EthtoolFamily()
-> +    nsimdev = NetdevSimDev(queue_count=2)
-> +    nsim = nsimdev.nsims[0]
-
-[Severity: Medium]
-What happens to the netdevsim device if anything between here and
-nsimdev.remove() raises?
-
-The ip link set call, ef.rings_set(), nf_priv.bind_rx() or ksft_ge()
-could all raise. ksft_run() catches the exception and moves on, but
-nsimdev.remove() is never reached.
-
-NetdevSimDev only cleans up through remove() or __exit__ and has no
-__del__. So the device stays in the kernel after the selftest exits.
-dmabuf_fd stays open, and if the bind succeeded, the dma_buf attachment
-stays live too.
-
-The other netdevsim tests in this file use "with NetdevSimDev(...)" or
-defer(). Could these do the same? devmem_bind_tx_unregister_check() has
-the same pattern.
-
-> +
-> +    ip(f"link set dev {nsim.ifname} up")
-> +    ef.rings_set({"header": {"dev-index": nsim.ifindex},
-> +                  "tcp-data-split": "enabled"})
-> +    nf_priv.bind_rx({
-> +        "ifindex": nsim.ifindex,
-> +        "fd": dmabuf_fd,
-> +        "queues": [{"id": 1, "type": "rx"}],
-> +    })
-> +
-> +    attached = _dmabuf_attached_devs()
-> +    if attached is not None:
-> +        ksft_ge(len(attached), 1)
-> +
-> +    nsimdev.remove()
-> +
-> +    attached = _dmabuf_attached_devs()
-> +    if attached is not None:
-> +        ksft_eq(len(attached), 0)
-> +
-> +    del nf_priv
-> +    os.close(dmabuf_fd)
-
-[Severity: Medium]
-Does del nf_priv actually close the netlink socket that holds the
-binding?
-
-YnlFamily.__init__() stores, on self, a partial for every op that refers
-back to self:
-
-tools/net/ynl/pyynl/lib/ynl.py:YnlFamily.__init__() {
-    ...
-        for op_name, op in self.ops.items():
-            bound_f = functools.partial(self._op, op_name)
-            setattr(self, op.ident_name, bound_f)
-    ...
-}
-
-That is a reference cycle, so refcounting never frees the object. del
-only drops the local name, and self.sock stays open until the cyclic GC
-happens to run. That could be during the next test, or at process exit
-after ksft_exit() has already printed the results.
-
-So the step the commit message describes, closing the socket after
-unregister and reaching netdev_nl_sock_priv_destroy(), does not happen
-at a fixed point inside this test. A failure on that path could be
-blamed on another test, or show up after this one already reported ok.
-
-YnlFamily already provides close() and __enter__/__exit__. Would
-nf_priv.close(), or "with NetdevFamily() as nf_priv:", be better here?
-The same applies to devmem_bind_tx_unregister_check().
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261010025532.839559-1-almasrymina%40google.com
+Thanks,
+Hengyu
