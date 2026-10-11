@@ -1,126 +1,168 @@
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
+Received: from mail-qk2-f8.google.com (mail-qk2-f8.google.com [74.125.230.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1EC154705F
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 01:26:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791681967; cv=pass; b=cezYymMwDaiwNkGQC7u1axJ4eMal6xwsY8hcm2gH3vhGHOOe6xB8wTTTFZQ7UmJ2ZoBL+gUvW1tRFzvxhZTQd5QpvCfbvwFytIdtrx0KP+lslz52GvyDJmkkCCHqCMpnRzCz9sofh6ustTW9eLeScQONmmeJmvFsYuianOupeQs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791681967; c=relaxed/simple;
-	bh=4AOaTpaQq8Voh+cFkgg8oIDZlCp2f1Lf+Q3dWmXSF0g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Wo3NSQoChLSz/ANzIVGpxNlhl6BlsaaVK7N8eu+u8/T4uWmXm832OkkV+1dwhq6eDjx3l6rX+jkv8AbmW6x2jVzGeIxTMS7lgLpEA5XgujGwLbi70WOjNkvFgO3sKCPTkU3Syy9PVYKwdGgsR4k6eMz7sxa36+kUKC6VEtYXNSk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sladewatkins.com; spf=pass smtp.mailfrom=sladewatkins.com; dkim=pass (2048-bit key) header.d=sladewatkins.com header.i=@sladewatkins.com header.b=PPEEsLtD; arc=pass smtp.client-ip=74.125.224.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sladewatkins.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sladewatkins.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0951117BB21
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 01:36:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.200
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791682604; cv=none; b=RQ1eqaOnLTT9nvjgqmQiHV6wmUutRgBSnkl1ZWZq+mMOYWKSVQUFdZ4lbAN56oknRZ8B57pI/EmqEwsXgGVZ7KbztcV6cWJXlX85z3eT5GoNWOBw1lNTGPN3X0dUnMhtjqP3wQ5Kh6u1RqucVxFYNU9bOtkgKGeNuunCfsW50gs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791682604; c=relaxed/simple;
+	bh=hco41XEl2buEUWtl9czQIcB2Oj9rlgT1hYq43dsuNTI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oywx6Q8/+GtOwMCC2SUJoSZ5Fiir8MtkvAx4L9w1/Exv4YT9AvozTGtjackZs+23Tf0EcSxeuSJsUEB3NiCFyQ2XeSk/yvnfY7mrPOGlrW7vZzIGa+5PBO+jUiviVyueFLnS8H70O6JT51hj8UmOWnr4wc1E5TSBpPCI27UWX8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XOhnPSRu; arc=none smtp.client-ip=74.125.230.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sladewatkins.com header.i=@sladewatkins.com header.b="PPEEsLtD"
-Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-66fca0709caso606160d50.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 18:26:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791681965; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Hn717owHDSH4Hnq0F71xOA8mL11Ci059IzIT37yWvjMYZ7dtmKc11mXR0/za0cPGtC
-         8yEFSrYhspetijV20OLknoxLklaT/SqFcLEclrxtN6Arixa8B4cEOU9GJcnsdW/CVqwH
-         x92fj7qlOEbD1tCuPIbPvv2CRhBRIEOMzui0tkbW9JaBYRUPzTzgSIgQVKocQWS0TELq
-         qNe+wSmVn6i9Jcr3THkYJ1iOtv48WwhWp9FOiNfgVfjl1lQC0tNBnHJNLOmSBTQAbR7y
-         JmYdnI0qthAXOyO2kDzL/QapJ0FqhWHJzBNguH5VON9v7WZ6eF6s1usIH1gp8voCZL8L
-         BWxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Z9yH2y3goTIlD1nGF+P4iDsFdwyaI9RVJU1CXJC3Tro=;
-        fh=UwzeX8MAgCqmz8h/ro+yBUMMMe1YazaIu7hfYiYoBN0=;
-        b=GMuatGJeeQSEaOO6K/mbDkRm1tQ0T5Khf4NUbggpcdu5rNVbVGofnR96dvGU+egMxB
-         kWUnZfJU++6VAg/Y0SeV7I7ILz+Hwd76OcgJf5NrgVVN6AHsU2hxJlogmTtzfLxZMLSh
-         M+q1IWbzobGFwlyCx/H/NquTBzOtF2s8wXIiHIDMTcUoMN6I5cupGqEhH7xE7B/YKqmE
-         UnazwmIdEQpYF6uZzwkctavOe3bqXoNI8uMsXl40LTNN+XJalTtcVq5fdn5dzLm9TZuv
-         HN2rIJynYltnAtEMk9JzsXwLD1U/NjtpAmTT5hpD7aXhvxtLs8RslqJSzX5U8qOvtrx7
-         wOIQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XOhnPSRu"
+Received: by mail-qk2-f8.google.com with SMTP id af79cd13be357-93e63db6681so54351685a.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 18:36:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sladewatkins.com; s=google; t=1791681965; x=1792286765; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Z9yH2y3goTIlD1nGF+P4iDsFdwyaI9RVJU1CXJC3Tro=;
-        b=PPEEsLtDEYS1NxjCSgifjcobz2w2XdEVyzCziATjOsK9KoMWGiaeJNjZEl6OFFnB72
-         jTOY1r/T3ZUGVve+WE6eTjle03pWL9prtucEQdRcnj5nrCs1MWQgVF2ZV45wfy5uQW4e
-         APRLU1LW7ly35vjkJUnEjXsee4WEvO8g8zGi81biHckJHLJhdo2L+bNUwsx0ivEzBQBB
-         x18MLZNe9j/sleqa0pM7SO6ezp35HjK2MEwTyAcsVX6mCkGxGUU0Xq8h93cTwGSKkwwY
-         rHuQogj9GsK0UI2LoiQfWOxsLx5T4/LbPOIpF94Skph90SVxAoh0r7duPo5OV2jSADNy
-         osXQ==
+        d=gmail.com; s=20251104; t=1791682602; x=1792287402; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rqnBIiDXep9A/E7GHE0x8r23fh4KmbfjK4ifaUvrCeM=;
+        b=XOhnPSRu8P6qNX758ph3AsO/DqDMz80iQ+p+xKTDS8SVV4MUyBxVXx7BPQL5kkSHO0
+         /zLGlxExox+RoI9HWaoJF0v1zJaxzTsZ9XopQbESK5cOw6lENfMs/M057/aIqhhQS2OC
+         yUX2abQwYlj4WJIGwaeW0ZHpF1+g74MO66BKtJ+tjNJl01Y2w+SNdR9D7yV8U3fFJdId
+         GWf7VBGiFLIWfdzyF+uW9sx3aEfPpgRSo6pBRsrhbVNu979htCIyI1gWSqWeeEWIILrh
+         xBIIZSytSpdea2LukhhEQSipwTfxii20ljNHFcff0HR5G1WiSnhnB9L0QXNfsUQNdJyB
+         Yj7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791681965; x=1792286765;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Z9yH2y3goTIlD1nGF+P4iDsFdwyaI9RVJU1CXJC3Tro=;
-        b=2OA1NmcJz87qy/52aGBuABwYkxYLuGs1o8zv4/rFV3P8IimPmJUdiEkLwpAADi63T6
-         Gax+ucx2BZSv0l0vTZ/9hX9PgrgQcOXrH8YhXJm5/PCWzlJ3RWDi/t2yiAPK8q/74qbT
-         TmD8xIfTbzO1a61xipt9hdQlwyQtBCEdIZ0JgeFbt/Tnnq7ZzT0ywWJN3wFwNzYTYVia
-         eN5QrVlB/V2EYuI8xTGvJcE8nAVo+Gavc+Lm7dCcZDCas7uvTD9s/hjgO0TsIcPn+Srx
-         sZh7s7Ll8S0Lo4Xtn15b8cHMmBWhKCK/FQHtYpyD8tlAF/CIDE+rmWKTWlw98UWCh6Hz
-         8gwA==
-X-Forwarded-Encrypted: i=1; AKwUvBwfQsHMF6cnWt9IU3zamqwTPRvAxCr2bmMxualcdMS0tYdaauVrl4tivKwr6myw7OcQXF7nVfHVmXr7h/g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIbMOGUJWbnTDTtZVh1UgEK4L3vQci4S5MrvlUxnsx+IqaaQoyV
-	crGNg/m53gJ6v0b8A2hVSPjo6X3Atph55xqn/xoc3QDs7kD/nSQTcDkEeklTKubxWV04RW9WI3T
-	jcjqOZuoK0WIjkJFM9s5Hwgdu3yjcy0TG97WEiqjwT4dAEIgcXehb1YJAGzBHLw+V9UoS969CBC
-	aS9JhF9bVMp+cBcqZLPAT5nBDRoua30aUGi/s=
-X-Gm-Gg: AYBFou1Pyu00+JF69AIXT9PayCs6zHg/NhcKykfmA7tlnu3oQQjPh9vWJ2muNs7Vexl
-	NFdj/bHnIAE3G5cmPemq37Q7kvK4p3TmGLfBtzMzRLGErL0YDksMlY7p3dIdQ7gaPQS+/H0uxOF
-	da+RaYjP3Hra1daEL+VJJfKcWyZMBtmU3MwH7nlXFBW+f94rrf8cUoLbxN/cIf3SEaATxE+gqZS
-	ry3aCHo07VZZu1elA5LWUfRoDiFWsr1j9oVv/5gr0mXWct3vx7cID8hkXAEgMv54C83TY3G7Cds
-	D8fqHLyg0KiCWCb0KJPiDtbevgUYawpZWqhU7B08MY6+/U9S8gKcdy7dDG8FEV7n2B7u6Lj31LH
-	Xn+cJ6hizy0A=
-X-Received: by 2002:a05:690e:150d:b0:674:a7b:a07e with SMTP id
- 956f58d0204a3-679362715a8mr1849655d50.29.1791681964629; Sat, 10 Oct 2026
- 18:26:04 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791682602; x=1792287402;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rqnBIiDXep9A/E7GHE0x8r23fh4KmbfjK4ifaUvrCeM=;
+        b=FZ1/8RewCc0cMZ3eTjtzOTx6En49ZtZsRcYWhMrRDixlbOBlQJxlKabI76OJ0+LxDs
+         VVl+Wi+0t+rPAfEdjGclLXVTdWHihNLpm2+jE8hrT7YgScy6LMH/3XhuyclhR91pNd//
+         CDFFgV0s0bCOmzpHqlINWVcEd+phOyyEalncsc5w3r3+90rCIzeiFp4kRNpxEBYpkA4J
+         U0RNfRh6lCXdTO/JrQyd6CGn7NjcaEUOS/FXq+5enJMtxvuQsBQHoNLM51/D6ICeFTCo
+         N901ey1vpsPPrSCtOQGb3D5fARwl//UxUUzt9yE1hK2s/LMBB47U2IPmKhTslw/GLqrv
+         oLbQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw6QH+yPrkShRb9U8O9QCo5D6BARQmj2AKXM2h6Fuw2/qIKLKjlbsvA13RbFE8lXZGhiVSChJiRZIOk/Js=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLUJipDhGkhTXLfX3rSVOjj9F0wdCqX1XXN+DYd1/sbSqhNcrKM
+	+mzLFPByN/04oFMvEk9FHLEifjV1EBCb0W3fmht/0M1bJdGCqCE5Iag7vfdPOsvqlWI=
+X-Gm-Gg: AYBFou0zyhCsHyUKnAFAdlLsmFAonrUDGFa5fmnlARygqnVYKaKQf7EvROndpOFrjBR
+	XMDfCT4jIhPe9SHdbA1GCVpY7sb4OUrbuXti1ZWnTeVL/tyz1fc0RI/4VRkfEfUaAblQVVTPLbo
+	q8j/z7w89iWFasoUlBVVD9fpY8/0fFfbJI00AAABij7G+Y5Sois59J1QLXp3pPzhTfPApqEqh4/
+	2MiMV6/xBQZ5m0fepMZoEWcbpqqK5uhBd5ZyniN7AeDT1d41y0UEAccyvtDBccmetO6N7kLwc7L
+	Eu2rx2Wc95ihr2ay+5Y1JBIBmPHN8VSgkmYtiHJV37TEZXdD5MlECiwZ2fkmUbAeTMRVYLC346C
+	lPYsJXaPBejs95/NR2QuGw4kA/S12dQNnuR4HwygFLX3TffOz8kcMcmMW5Jf1/0YOBCA3oCULET
+	7tBbgMbLujyC+CjMHBwj/l4LAuEojrg3sstLNtZfVvhGs43r9LfwMB2E2Q0iOQHPjnc2g8
+X-Received: by 2002:a05:620a:448f:b0:939:b94c:3e85 with SMTP id af79cd13be357-93ebd1bb1c2mr1032711285a.24.1791682601680;
+        Sat, 10 Oct 2026 18:36:41 -0700 (PDT)
+Received: from omarchy ([2601:804:8780:3df1:6ff:277e:31c7:ac13])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb9848702sm540139885a.12.2026.10.10.18.36.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 18:36:41 -0700 (PDT)
+From: zoan37 <agentzoan@gmail.com>
+To: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>
+Cc: Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Freddy Hsin <freddy.hsin@mediatek.com>,
+	linux-watchdog@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] watchdog: mtk_wdt: Stop a running watchdog over system sleep even if not opened
+Date: Sat, 10 Oct 2026 21:36:31 -0400
+Message-ID: <20261011013631.1149228-1-agentzoan@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009140946.008206689@linuxfoundation.org>
-In-Reply-To: <20261009140946.008206689@linuxfoundation.org>
-From: Slade Watkins <sr@sladewatkins.com>
-Date: Sat, 10 Oct 2026 21:25:53 -0400
-X-Gm-Features: AclHuK-mPjRKtEOxbIaB0PCNQlzkgcurHHS9ajfoSxGLwQ46ONA1zvOrJKTSiuM
-Message-ID: <CAMC4fzKGfW=zuJYCYjh-i5Z7_1568SSB4k=HGWP2ObLfzsJyug@mail.gmail.com>
-Subject: Re: [PATCH 7.2 000/428] 7.2.10-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
-	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
-	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
-	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
-	achill@achill.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Rogueport-AntispamServ: glowwhale.rogueportmedia.com
-X-Rogueport-AntispamVer: Reporting (SpamAssassin 4.0.2-sladew)
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 9, 2026 at 10:14=E2=80=AFAM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> This is the start of the stable review cycle for the 7.2.10 release.
-> There are 428 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Sun, 11 Oct 2026 14:08:23 +0000.
-> Anything received after that time might be too late.
+mtk_wdt_suspend() and mtk_wdt_resume() only stop and restart the
+watchdog when it is active, that is, when userspace has opened it.
 
-Hi Greg,
+But a watchdog that the bootloader left enabled stays enabled at probe,
+marked WDOG_HW_RUNNING, and the watchdog core pings it until userspace
+takes over; that has been the case since
+commit bbece05c0d3a ("watchdog: mtk_wdt: Remove mtk_wdt_stop() in probe()
+to prevent the system freeze and it doesn't reboot by watchdog problem").
+If the system suspends before userspace opens the device, or userspace
+never does, nothing stops the watchdog and nothing pings it while the
+system sleeps, so it resets the system one timeout (31 s by default)
+into the sleep.
 
-7.2.10-rc1 built and run on my aarch64 test system. No errors or regression=
-s.
+Also stop it on suspend and restart it on resume when it is running in
+hardware, like sp805_wdt does.
 
-Tested-by: Slade Watkins <sr@sladewatkins.com>
+The watchdog core keeps pinging such a watchdog until
+mtk_wdt_suspend() stops it, so it stays fed while tasks are frozen
+before the devices suspend. It may also ping once after resume, before
+mtk_wdt_resume() has started the watchdog again; that only reloads the
+counter of a stopped watchdog, and the watchdog stays powered over
+system sleep (it is what resets the system from s2idle without this
+patch). watchdog_stop_ping_on_suspend() is deliberately not used: it
+stops the pings from PM_SUSPEND_PREPARE on, which would leave a running
+watchdog unfed while tasks are frozen and could reset the system there
+with a short timeout.
 
-Cheers,
-Slade
+Fixes: bbece05c0d3a ("watchdog: mtk_wdt: Remove mtk_wdt_stop() in probe() to prevent the system freeze and it doesn't reboot by watchdog problem")
+Assisted-by: LLM
+Signed-off-by: zoan37 <agentzoan@gmail.com>
+---
+Changes in v3:
+- Drop watchdog_stop_ping_on_suspend() again. It stops the core's pings
+  at PM_SUSPEND_PREPARE, before tasks are frozen, while the watchdog
+  keeps running until mtk_wdt_suspend(); with a short timeout that could
+  reset the system during the freeze (Sashiko review of v2). The ping
+  after resume it was meant to avoid (Sashiko review of v1) is harmless,
+  see the commit message.
+- The code is v1 again; the commit message explains the choice.
+- v2: https://lore.kernel.org/all/20261011011536.1139162-1-agentzoan@gmail.com/
+
+Changes in v2:
+- Call watchdog_stop_ping_on_suspend() in probe.
+- v1: https://lore.kernel.org/all/20261011004322.1118027-1-agentzoan@gmail.com/
+
+Testing: on an MT8189 Chromebook (next-20261008 plus MT8189 support)
+whose firmware leaves the watchdog off; a local module parameter
+(mtk_wdt.start_timeout=31) starts it in probe the same way a
+bootloader-enabled watchdog is picked up (WDOG_HW_RUNNING set, fed by
+the watchdog core, nobody opening /dev/watchdog). Without this patch
+the board reset about 30 s into s2idle. With this code (= v1): a
+10-minute s2idle sleep and 40+ shorter s2idle cycles came back without
+a reset. Not tested with a watchdog actually left enabled by a
+bootloader. Built with W=1, checkpatch --strict clean apart from the
+sign-off.
+
+ drivers/watchdog/mtk_wdt.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/watchdog/mtk_wdt.c b/drivers/watchdog/mtk_wdt.c
+index 1630ab65d593..ff72e0fb1154 100644
+--- a/drivers/watchdog/mtk_wdt.c
++++ b/drivers/watchdog/mtk_wdt.c
+@@ -572,7 +572,8 @@ static int mtk_wdt_suspend(struct device *dev)
+ {
+ 	struct mtk_wdt_dev *mtk_wdt = dev_get_drvdata(dev);
+ 
+-	if (watchdog_active(&mtk_wdt->wdt_dev))
++	if (watchdog_active(&mtk_wdt->wdt_dev) ||
++	    watchdog_hw_running(&mtk_wdt->wdt_dev))
+ 		mtk_wdt_stop(&mtk_wdt->wdt_dev);
+ 
+ 	return 0;
+@@ -582,7 +583,8 @@ static int mtk_wdt_resume(struct device *dev)
+ {
+ 	struct mtk_wdt_dev *mtk_wdt = dev_get_drvdata(dev);
+ 
+-	if (watchdog_active(&mtk_wdt->wdt_dev)) {
++	if (watchdog_active(&mtk_wdt->wdt_dev) ||
++	    watchdog_hw_running(&mtk_wdt->wdt_dev)) {
+ 		mtk_wdt_start(&mtk_wdt->wdt_dev);
+ 		mtk_wdt_ping(&mtk_wdt->wdt_dev);
+ 	}
+
+base-commit: aac26bee2287c88af5be5a5ff96d783b19a28790
+-- 
+2.43.0
+
