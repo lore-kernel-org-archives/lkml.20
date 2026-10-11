@@ -1,39 +1,39 @@
 Received: from sm24.hosting.reg.ru (sm24.hosting.reg.ru [31.31.198.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B29E43C07C;
-	Sun, 11 Oct 2026 11:54:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52FDD3E49F9;
+	Sun, 11 Oct 2026 11:54:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=31.31.198.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791719708; cv=none; b=i34ZkUp3Yjw5Anp7CAqWDYHqgt5Gyp8ChIR+lVHWQYrtCn9M2XaBgrUtVITHCCLdfDUwt+xJXMyQHjyl3L7AFXYilcTcXEhn4yYjHhZj4qHq4RT73W5wKmF3cMpFevOwbzfTmpg3p7i1hJKYEmqvIU08hm0ilIlBiwahQgjIR5Y=
+	t=1791719710; cv=none; b=I1qqDd72Ou4sjPL9u2Y9SQK+gKdN7wJ+lS4Uyir34xNF0lq8SU2neLJILwQOD19muHpedkhif3Z7yIyfsNGnX05sCXUjpj3svOwxWf5tEtEd7RHh7ZV8fctlvVv1seNy78HIna6+/Gv0kVoX1OHES5tL5KJQtyF3JG8x+llEEnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791719708; c=relaxed/simple;
-	bh=vzA2g9c9NkWi2pDe0Z2t3dwkgLPpdURFoYdgzrnQawo=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=DkMUFK0bi0XNW8t5PoMgPrOP2Cl1KMK0qztkKG9JgeP1IlGMDscMecTzmJsAEWAYmHZb+V+OWPaxJfaFq8GQ/S9qN+p4HrOBdBDMEzd/EtlBVn0BpnUdFHP33GfPetz686BdFsUZ2wYq1AlpZI+6TIgHhwfBT+z/qNnvmtFLY0w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru; spf=none smtp.mailfrom=minlexx.ru; dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b=aWNZXuTc; arc=none smtp.client-ip=31.31.198.150
+	s=arc-20240116; t=1791719710; c=relaxed/simple;
+	bh=T2UGNy10ABCgs/jD1wJfCZo13Vo7mhRT6zb/j9330rs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=HNZA4p8Y416mKRXwYlTf4xUm3gWVwek3ZzvTZJOuiUSYu5tfM1f4B/MSgP0gVpC/kgCEieTCeVwxNmM8xvYuXAHlKwiEuLsslQbOmqA8sUPaE32YGlw6XXqkFrhVsZAnS8rr2V3jLOH5cHywBMQxhuftFFeZxbScf2ksoBDPkS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru; spf=none smtp.mailfrom=minlexx.ru; dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b=NdQObqVm; arc=none smtp.client-ip=31.31.198.150
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=minlexx.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b="aWNZXuTc"
+	dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b="NdQObqVm"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=minlexx.ru;
-	s=dkim; h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
-	Message-Id:Date:Subject:From:Sender:Reply-To:Content-ID:Content-Description:
-	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	s=dkim; h=Cc:To:In-Reply-To:References:Message-Id:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:Subject:Date:From:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
 	List-Post:List-Owner:List-Archive;
-	bh=FN631/9T9uMbpd3ZhkoMzNJl1vY0qDGf9MoRnhmjZgk=; b=aWNZXuTcmGhLZucf4lPPA/yYIF
-	+oXTUsdnX1OGhIuyYCCyoG4tQkCTs2u4KE/GYJBeQocWPt6g8zIC3ItQ9cDsEViRokclxYdKWwkRZ
-	2dgiZvpQMU54QrnnZBWJQogOeira6NNwevLd1rqWihdgjbX4R7MwpodmjXqa+6amegMU=;
+	bh=YQs6ToihvGfhhCQzTyPHrn1kpZbxjMBYR8WbOJnTE18=; b=NdQObqVmxVxWwFUBzV1ZmH0UXP
+	FqdrQb0qSGCKNCeEyh1pmSjEzHWcggKfUmku63v2JP9py6Aaoi0RvcNFBZxQITVXo+CKjI8A9OTHH
+	sV43Zfs5yXk29nQFFETWGdCCPsc7686Onb/OW2ko/VY/rb3Ct0KSQynC2fb1rLTHKEgI=;
 Received: 
 	by sm24.hosting.reg.ru with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
 	(envelope-from <alexeymin@minlexx.ru>)
-	id 1xFs8f-0000000GkAI-2Dmy;
-	Sun, 11 Oct 2026 14:54:50 +0300
+	id 1xFs8l-0000000GkAI-2qaV;
+	Sun, 11 Oct 2026 14:54:56 +0300
 From: Alexey Minnekhanov <alexeymin@minlexx.ru>
-Subject: [PATCH v3 0/9] drm/panel: novatek-nt36672a: Extend with 5 new
+Date: Sun, 11 Oct 2026 14:54:04 +0300
+Subject: [PATCH v3 3/9] dt-bindings: display: novatek,nt36672a: Add 5 new
  panels
-Date: Sun, 11 Oct 2026 14:54:01 +0300
-Message-Id: <20261011-nt36672a-panels-v3-0-9ea238627f8a@minlexx.ru>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,11 +42,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XN0Q6CIBTG8VdxXEdDULCueo/WBeAxaYYOlNmc7
- x7Y2mpe/rfv/M6CPDgDHp2zBTkIxpvexmCHDOlW2jtgU8dGlFBOTjnFdmScCyrxIC10HgMrpKB
- cCKVKFK8GB42ZN/F6+7Sf1AP0mJi0aI0fe/faXoY87b462+khxwRrICdREKo5yMvT2A7m+egml
- PhAfwGxB2gEmqqGSkGpKt78Aeu6vgE9GcvKAgEAAA==
-X-Change-ID: 20260912-nt36672a-panels-e34a72677bb5
+Message-Id: <20261011-nt36672a-panels-v3-3-9ea238627f8a@minlexx.ru>
+References: <20261011-nt36672a-panels-v3-0-9ea238627f8a@minlexx.ru>
+In-Reply-To: <20261011-nt36672a-panels-v3-0-9ea238627f8a@minlexx.ru>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
  Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -57,87 +55,64 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 Cc: David Heidelberg <david@ixit.cz>, Joel Selvaraj <foss@joelselvaraj.com>, 
  Chintan Patel <chintanlike@gmail.com>, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- phone-devel@vger.kernel.org, Alexey Minnekhanov <alexeymin@minlexx.ru>, 
- Richard Acayan <mailingradian@gmail.com>, 
- Aboothahir U <aboothahirpkd@gmail.com>
+ phone-devel@vger.kernel.org, Alexey Minnekhanov <alexeymin@minlexx.ru>
 X-Mailer: b4 0.16.0
 
-These series make the driver for novatek-nt36672-based panels more
-easily extensible and add support for 5 new panels to it, used in
-4 different smartphones, all based on NT36672A:
+Document 5 new panels used in 4 different smartphones produced by
+Xiaomi and ASUS:
 
  * Shenchao panel used in Xiaomi Redmi Note 7 (xiaomi-lavender), the
   exact model string is unknown
- * Tianma TL063FVMCA01-00 for Xiaomi Redmi Note 7 (xiaomi-lavender)
  * Tianma TL063FVMC43-02 for Xiaomi Redmi Note 6 Pro (xiaomi-tulip)
+ * Tianma TL063FVMCA01-00 for Xiaomi Redmi Note 7 (xiaomi-lavender)
  * Tianma TL060FVXS16-00 for Xiaomi Mi A2 smartphone (xiaomi-jasmine)
- * TXD TXDI600YANPA-43V3 Asus Zenfone Max Pro M1 (asus-x00td).
-
-Combining two init sequences into one was previously briefly
-discussed in [1].
-
-[1] https://lore.kernel.org/all/20260523035734.6602-1-chintanlike@gmail.com/
+ * TXD TXDI600YANPA-43V3 Asus Zenfone Max Pro M1 (asus-x00td)
 
 Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
----
-Changes in v3:
-- rebased on next-20261009
-- fix bindings description to not include specific number of panels supported (Rob)
-- Link to v2: https://patch.msgid.link/20260917-nt36672a-panels-v2-0-f8de8be5b86f@minlexx.ru
-
-Changes in v2:
-- rebased on next-20260914
-- vendor prefixes: changed from "txd" to "txdkj" in bindings and driver for asus-x00td
-- vendor-prefixes: correct company name for shenchao, expand description, add a link
-- nt36672a bindings: changed description to mention several panels instead of one,
-  fixed alphabetical ordering of compatible strings
-- patch 5: move tianma_fhd specific deinit sequence (set_display_off, msleep,
-  enter_sleep_mode) from nt36672a_panel_unprepare() into its own
-  tianma_fhd_video_send_deinit_cmds() deinit function.
-- patch 6: sort compatible strings alphabetically in of_device_id
-- patch 7: use mipi_dsi_usleep_range() instead of usleep_range()
-- patch 8: use correct co-author's real name in trailers
-- picked one r-b tag from David Heidelberg
-- Link to v1: https://patch.msgid.link/20260913-nt36672a-panels-v1-0-ce097402c6ea@minlexx.ru
-
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>
-To: Alexey Minnekhanov <alexeymin@minlexx.ru>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-To: Jessica Zhang <jesszhan0024@gmail.com>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
 ---
-Alexey Minnekhanov (9):
-      dt-bindings: vendor-prefixes: Add Shenzhen TXD Technology Co., Ltd.
-      dt-bindings: vendor-prefixes: Add Shen Chao Optoelectronics
-      dt-bindings: display: novatek,nt36672a: Add 5 new panels
-      drm/panel: novatek-nt36672a: Set driver name to novatek for consistency
-      drm/panel: novatek-nt36672a: Combine two init callbacks into one
-      drm/panel: novatek-nt36672a: Add 3 panels used in Xiaomi phones
-      drm/panel: novatek-nt36672a: Add Tianma panel for Xiaomi Mi A2
-      drm/panel: novatek-nt36672a: Add panel for Asus Zenfone Max Pro M1
-      MAINTAINERS: Add Alexey Minnekhanov as maintainer for NT36672A panel
-
- .../bindings/display/panel/novatek,nt36672a.yaml   |   9 +-
- .../devicetree/bindings/vendor-prefixes.yaml       |   4 +
- MAINTAINERS                                        |   1 +
- drivers/gpu/drm/panel/panel-novatek-nt36672a.c     | 573 +++++++++++++++++++--
- 4 files changed, 542 insertions(+), 45 deletions(-)
+v3:
+ * removed the sentence "Currently supports 6 panel models for 5
+   different smartphones." as asked by Rob Herring.
+v2:
+ * changed description to mention several panels instead of one
+ * fixed alphabetical ordering of compatible strings
+ * changed vendor prefix of TXD: "txd" -> "txdkj"
 ---
-base-commit: becb95e45ef0dda9ffb35156d909d3da7a2789c3
-change-id: 20260912-nt36672a-panels-e34a72677bb5
+ .../devicetree/bindings/display/panel/novatek,nt36672a.yaml      | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-Best regards,
---  
-Alexey Minnekhanov <alexeymin@minlexx.ru>
+diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml
+index 5d16d85117254..f63d322ed5da9 100644
+--- a/Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml
++++ b/Documentation/devicetree/bindings/display/panel/novatek,nt36672a.yaml
+@@ -10,10 +10,8 @@ maintainers:
+   - Sumit Semwal <sumit.semwal@linaro.org>
+ 
+ description: |
+-  The nt36672a IC from Novatek is a generic DSI Panel IC used to drive dsi
++  The NT36672A IC from Novatek is a generic DSI Panel IC used to drive dsi
+   panels.
+-  Right now, support is added only for a Tianma FHD+ LCD display panel with a
+-  resolution of 1080x2246. It is a video mode DSI panel.
+ 
+ allOf:
+   - $ref: panel-common.yaml#
+@@ -22,7 +20,12 @@ properties:
+   compatible:
+     items:
+       - enum:
++          - shenchao,fhdplus-video
+           - tianma,fhd-video
++          - tianma,tl060fvxs16-00
++          - tianma,tl063fvmc43-02
++          - tianma,tl063fvmca01-00
++          - txdkj,txdi600yanpa-43v3
+       - const: novatek,nt36672a
+     description: This indicates the panel manufacturer of the panel that is
+       in turn using the NT36672A panel driver. This compatible string
+
+-- 
+2.55.0
 
