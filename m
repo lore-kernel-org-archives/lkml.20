@@ -1,141 +1,139 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net [217.70.183.193])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 244CF372EDB
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 20:50:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F051230F819;
+	Sun, 11 Oct 2026 20:54:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791751824; cv=none; b=kx99hF5aAQYDuNlvqcHUXaHvVaF1yHfG9an0h0XOHgBw3Hzt91L8+pEGfQajw8A14ywM6VSQcGimgExBXkaZXRxOSUlA9txkcj6oMXbIl3fvSTmnQDfWS0xwEsouJIlvyLQMxM54qsxO2Et2Zx2TwB7JyAae2/0bUiJgpcoN6BU=
+	t=1791752066; cv=none; b=arZPVB+ZPDkyizzyglKZFZg0S11+XV6pNu59pUpsxXiW3xYiR066TeK/RMrR75r1aknDSYfkp1e3LQuSTQy8ikc+j3f97qwrITw+vrwLF5Pm5yW83AnZs1cNqtfr++M7efl7XAdPXYzoIKXvgZK5tmOJw1pNwSVtnDvJFjkE7To=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791751824; c=relaxed/simple;
-	bh=VOMUI7EGgh3ylAYuYLulNkmJ/7OfDzhyWa0Rz4EZ8Qg=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Y8exPr1tJ3vW9i5t4V/X+2JsRy+ePSSFIJdGu6zC2Ai0sBJm++6dsJQPvvcLqDDgzmIQchyCU+XbHjvZBM3xgYSh8Bo96KGCp3KOG7+Ei/gRyx25UFJJZ5zRCw58rjgschn/xRLXLvE3tSkSbJDAV939+e0zth6U/WgjKeVSqck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b28d7ffab1so2410158b6e.1
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 13:50:22 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791751822; x=1792356622;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vkFr1A6iIW6UxVEf74UCASeA3APYa9ah9qSVFDORK9U=;
-        b=r/gvQJZhgVt7yM3DjPjjTbHJL+ByhWmj4EJSuxavGXQlAd3dGB8+Num+T75ZS7QQZR
-         Olunu2B1bzeO/YyD9ht72Jg0MtO8dPhRo6dobFjEkETgoGfajOca/nAHIwB94R3VzeX/
-         kaMfo+bOj4Q9CZcu4DUYP7jjs8MVbqI+pjhgS3T2ragvj+0Wamp7XQvZwL5Xe965xyiF
-         97Rl+4MIpJSh5qFT74LdME3MevyEZnVba6vlTJFjzANMtUGG8WYRMBUcwPK/vM0h74gm
-         DRrsJXMv9XFd3cq7K7Z/7HCiRla4qQdncxSjnVt2KzLXSC2S4xqWZv3U2kMMIY0YRx39
-         ojmg==
-X-Forwarded-Encrypted: i=1; AKwUvBxl0MvpOt2wa0AATDBbc6PwL+tJ7RrUU+jQ+JNZg3ME4YZBbWbfwHNpzYrCb11/gLhv99f82oLjnuqa89E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ7EVFaHM365pOROKWwlwIBjju3UmcuAHKaF3P7Qb9OBuaCkMQo
-	HSipFmGiWqtQd0szsl6ujE/z7xHqQ37KpN3QO5Hivgg/HPesRK03SD2fevHouZ5mgQU1GkuJUmF
-	w/Nu+RotiN7Sp6ebGpn2xTqaWXq/qCRGnZdlMFbAEsDRtGMHa6ojMZhTvvmE=
+	s=arc-20240116; t=1791752066; c=relaxed/simple;
+	bh=TrgQDVYkD6LEnN4/uKHrUTZXc0tQbzzynlAZ4y19Uzg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YzzcVnA8lLmTrt463P85XoV7nJ7YD7Ys8gqacfz0esAlUAtyZEOK/RQi65LHTyuANR7GEYe/xz9w2teZAZnsDDK2XTOL7FqHjBncq0jTCcFXwZEYZIynFiGGDxuY6n1JDsZ7SlXWc0mhuipGaDuywiqTFzqEMKOcdwrJVcDIwVE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io; spf=pass smtp.mailfrom=gtucker.io; dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b=neDhq81p; arc=none smtp.client-ip=217.70.183.193
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gtucker.io
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b="neDhq81p"
+Received: by mail.gandi.net (Postfix) with ESMTPSA id DD6DD3F0CB;
+	Sun, 11 Oct 2026 20:54:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gtucker.io; s=gm1;
+	t=1791752061;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QdN+oTU5PMaYuecfr2qq7jZHZgaDcxyO3SqoGnXF6EY=;
+	b=neDhq81pzs+9ojCvnONP8iR1wKs4EmVFF/IJgnXozPzPMqKmDkZSVC/UpAaHrmnCHtbl6L
+	yOIv1q+kJZTg5bqqi7LMcmbzbjar0hXoUBJJDhFD70/KNv4gxk68auRD3PlgulqBXMlEMc
+	D59oaQXka43HlARgDS4PTB6G8QUdrhPhG8gGygjKDkaiaZniDYhbieAEr7LUSUX/Ao506D
+	JNq2+147W387zvFIOS6v1Nvz6783YEoB3nUNg3iLgoJA7pRcR40UrNAHnoR6F+A/1/pQhh
+	Pb4gTbp61G+5AO0WB0rDkmwumd2mvVw2P2mgT/SzrIVq3Yyyisq7nsww5WiFDw==
+From: Guillaume Tucker <gtucker@gtucker.io>
+To: Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Miguel Ojeda <ojeda@kernel.org>
+Cc: Guillaume Tucker <gtucker@gtucker.io>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	linux-doc@vger.kernel.org,
+	workflows@vger.kernel.org,
+	linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/2] Documentation: dev-tools: cover registry option in container.rst
+Date: Sun, 11 Oct 2026 22:54:11 +0200
+Message-ID: <d7d6735e4b287ae0cb6f873ee8763820cb6e1d7e.1791751900.git.gtucker@gtucker.io>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <06ee7c694c3e9716bff5c9b1b8e9dc95cc0b38d3.1791751900.git.gtucker@gtucker.io>
+References: <06ee7c694c3e9716bff5c9b1b8e9dc95cc0b38d3.1791751900.git.gtucker@gtucker.io>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:e84:b0:4d6:9133:cfde with SMTP id
- 5614622812f47-50b657ec2famr5832006b6e.35.1791751822133; Sun, 11 Oct 2026
- 13:50:22 -0700 (PDT)
-Date: Sun, 11 Oct 2026 13:50:22 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6acbf68e.6d14cce4.2677ed.016a.GAE@google.com>
-Subject: [syzbot] [fs?] WARNING in minix_put_super
-From: syzbot <syzbot+bffc332f376fdab5cef0@syzkaller.appspotmail.com>
-To: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-GND-Sasl: gtucker@gtucker.io
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: dmFkZTEyBHBhW5frcDZqhuP5Y8gLNmlhU9/NnsCUPS4GCpA2pv+5JEMGMBApPt0hxUmuTXLxIXzMCssGikpcEXJjcfSV4FxuRv+llbYLr0iqZy6uMTOIt/32zCuI4IVtm3d0lFOhYDutX8iI5h1GxWDWTi/4fxs63U64zU2NF66jpl71IuiwtYzdaJ739F6hcRE163yFC+VR+7JkKd8xzMb0g3WO2yK8n8FJQ+D5KmwQBAN7sdfCQzyLVNUBTQAac92LN3B6WcABbqLdfTNtHP6NNDpPvCEaxa4Z7AjKM2ErlkxIxTowCwSFJofFGI5wVMqQj7GdnEwo/Ld9cvkZpyZLTWllXnkeKcmJFf6EoGvGUI4SMQsToCZCiCrjc6C80eoA/xZeKwInBnRid7JEISQq6uzMwgyah90mMaBimwk2+QsyV2saeSsxAD7q/AsadfPl3j1cLp8GeB2G9GnNUZImlGBUEZe+phWMQiBLSIyMGYJQ8vwPhHVanxVR6jMXhTrR79W83hJaPfqG7ki1yqgCw7c4exX+VAlZZO2eWwiK1NIebJNCY0FTi5tKf7TFOtm84S8RWd5K/zs+XGBM/sWKatURE4tK8vwvP3ZT0glB27zHUxTShtj39gCExERIW7MypFA8gU8anuBXWfPvwYTUllENEG2GTiNhiz/nuTJhX5Hg6A
 
-Hello,
+Add the corresponding documentation entry for the new --registry
+command line option and TOML configuration file.  Update the examples
+accordingly to show how this can be used to override a registry name
+already defined within a default image name.
 
-syzbot found the following issue on:
-
-HEAD commit:    b88c841d1164 Merge tag 'input-for-v7.3-rc6' of git://git.k..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=12adc5d1580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=7d1b274ca9837366
-dashboard link: https://syzkaller.appspot.com/bug?extid=bffc332f376fdab5cef0
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=13fbc1d1580000
-
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-b88c841d.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/c64cd81f2bae/vmlinux-b88c841d.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/605b0408da7b/bzImage-b88c841d.xz
-mounted in repro: https://storage.googleapis.com/syzbot-assets/adc9f1a572c3/mount_10.gz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+bffc332f376fdab5cef0@syzkaller.appspotmail.com
-
-------------[ cut here ]------------
-!buffer_uptodate(bh)
-WARNING: fs/buffer.c:991 at mark_buffer_dirty+0x299/0x410 fs/buffer.c:991, CPU#0: syz-executor/5457
-Modules linked in:
-CPU: 0 UID: 0 PID: 5457 Comm: syz-executor Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:mark_buffer_dirty+0x299/0x410 fs/buffer.c:991
-Code: 4c 89 f7 e8 d9 d5 d7 ff 49 8b 3e be 40 00 00 00 5b 41 5c 41 5e 41 5f 5d e9 34 44 fb ff e8 8f 56 65 ff eb 8c e8 88 56 65 ff 90 <0f> 0b 90 e9 a5 fd ff ff e8 7a 56 65 ff 90 0f 0b 90 e9 cf fd ff ff
-RSP: 0018:ffffc9000e597c90 EFLAGS: 00010293
-RAX: ffffffff8262ca98 RBX: ffff8880468d50e0 RCX: ffff888036f5cb00
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000002
-RBP: 0000000000000001 R08: ffff8880468d50e7 R09: 1ffff11008d1aa1c
-R10: dffffc0000000000 R11: ffffed1008d1aa1d R12: 1ffff1100af668cf
-R13: ffff888041a50580 R14: ffff888057b34678 R15: ffff888041a505c8
-FS:  000055557bc8e500(0000) GS:ffff88808b0b4000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f34db7ef158 CR3: 0000000014819000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- minix_put_super+0x16d/0x460 fs/minix/inode.c:70
- generic_shutdown_super+0x13d/0x2d0 fs/super.c:751
- kill_block_super+0x44/0xa0 fs/super.c:1903
- deactivate_locked_super+0xbe/0x110 fs/super.c:586
- cleanup_mnt+0x204/0x2a0 fs/namespace.c:1392
- task_work_run+0x1d9/0x270 kernel/task_work.c:233
- resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
- __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
- exit_to_user_mode_loop+0x204/0x770 kernel/entry/common.c:101
- __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
- syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
- syscall_exit_to_user_mode include/linux/entry-common.h:343 [inline]
- do_syscall_64+0x328/0x520 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f4096b9f417
-Code: a2 c7 05 dc 62 25 00 00 00 00 00 eb 96 e8 e1 12 00 00 90 31 f6 e9 09 00 00 00 66 0f 1f 84 00 00 00 00 00 b8 a6 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 01 c3 48 c7 c2 e8 ff ff ff f7 d8 64 89 02 b8
-RSP: 002b:00007ffeab55db28 EFLAGS: 00000246 ORIG_RAX: 00000000000000a6
-RAX: 0000000000000000 RBX: 00007f4096c34ccb RCX: 00007f4096b9f417
-RDX: 0000000000000000 RSI: 0000000000000009 RDI: 00007ffeab55dbe0
-RBP: 00007ffeab55dbe0 R08: 00007ffeab55ebe0 R09: 00000000ffffffff
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007ffeab55ec70
-R13: 00007f4096c34ccb R14: 000000000003a52d R15: 00007ffeab55ecb0
- </TASK>
-
-
+Signed-off-by: Guillaume Tucker <gtucker@gtucker.io>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ Documentation/dev-tools/container.rst | 33 +++++++++++++++++++++++----
+ 1 file changed, 29 insertions(+), 4 deletions(-)
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+diff --git a/Documentation/dev-tools/container.rst b/Documentation/dev-tools/container.rst
+index 5dde95f6b222..3f2ba1fcf3bf 100644
+--- a/Documentation/dev-tools/container.rst
++++ b/Documentation/dev-tools/container.rst
+@@ -48,6 +48,13 @@ Available options:
+     Profile section to use in the config file.  This will override any values
+     defined in the ``DEFAULT`` section.
+ 
++``-R, --registry REGISTRY``
++
++    Container registry name.
++
++    Any registry already included in the image name will be replaced or removed
++    when using this option with no value.
++
+ ``-r, --runtime RUNTIME``
+ 
+     Container runtime name.  Supported runtimes: ``podman``, ``docker``.
+@@ -274,6 +281,15 @@ Supported options in each section are:
+     Name of the container image to use, equivalent to the ``-i`` command line
+     option.
+ 
++``registry``
++
++    Name of the container image registry to use, equivalent to the ``-R``
++    command line option.  This will be used as a prefix before the image name
++    with a ``/`` separator.
++
++    For example, a ``docker.io`` registry and a ``myuser/myimage`` image will
++    result in ``docker.io/myuser/myimage`` as the full image path.
++
+ ``runtime``
+ 
+     Name of the container runtime, equivalent to the ``-r`` command line option.
+@@ -288,6 +304,7 @@ Here's a sample configuration with an extra ``clang`` profile::
+ 
+   [DEFAULT]
+   runtime = "podman"
++  registry = "docker.io"
+   image = "tuxmake/korg-gcc"
+ 
+   [clang]
+@@ -306,10 +323,18 @@ Using the configuration file, it can now be simplified into this::
+ 
+   scripts/container -p clang -- make defconfig
+ 
+-Then to override the default user, the ``-u`` option can still be used::
++Then to override the default runtime, the ``-r`` option can still be used::
++
++  scripts/container -p clang -r docker -- make defconfig
++
++Likewise, to override the registry name::
++
++  scripts/container -p clang -R my.registry.com -- make defconfig
++
++Or to not use any registry at all but only a local image::
+ 
+-  scripts/container -p clang -u0 -- make defconfig
++  scripts/container -p clang -R -- make defconfig
+ 
+-This also illustrates how values take precedence over each other: the runtime
++This also illustrates how values take precedence over each other: the registry
+ is loaded from the ``DEFAULT`` section, the image from the ``clang`` section
+-and the user ID from the command line ``-u`` option.
++and the runtime from the command line ``-r`` option.
+-- 
+2.47.3
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
