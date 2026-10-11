@@ -1,66 +1,68 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBC12374A0B
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:45:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49233314A60
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:45:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791711955; cv=none; b=Uw7g4DXVmoDFswetJRrNXI52f0HIBoLhOghTpxLgDt2Uad6c8kP+6yv5rt0kyO1DewbH1lZPaRGlWTKD/CvHTJqMoDMdU6r1y86A4Yk7PdgCwmYcVKdGT1JX3fIPtcJm323n+hk8ymBInrnS/wwhryCoEW3QP197uNq1tOMKpaY=
+	t=1791711960; cv=none; b=bqbMRl8NtRbbo+iuOj6Sgg5suT69EiEsvbOZNcSJEqqI7WwFeL6lq4issrlQU51AJZbboH8eIiGF77gwko0MDshkjZTSNdYNqsIoFqFiAtn7HkjC0TLZGfYp7V4oyW0pvUhrEWQOtaLhpZ2N7tDjr0xA9B54DJbzFZN8s4IsXj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791711955; c=relaxed/simple;
-	bh=5mmZhR/1CGYCcEvQ2dg1eKpC1CBZRcve2O2Akd7oIKo=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=SWs/7B0CgWHw9guJukIntlX0pJA4feXgyyIRBKmhYiDDpFUjnODHz7eYBGRRmuiBleBn1kGkj7VtwON3Jv7GuUW5/Jlcze0RdmS22X02fhT6/rE50bfnIEbifEb2AFMUFS7DlXeKhFC6fBG/q3IQFdFhwNHIh0naZNfO/S3NWhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O74gu06h; arc=none smtp.client-ip=209.85.214.181
+	s=arc-20240116; t=1791711960; c=relaxed/simple;
+	bh=wLfJxALuT1cZSnPavKZt4dn22slSqnr0uWglnuyHRWw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=usoEdLo0fms+FlpBcj2mBpq6Un1pjXFd6b7CySzlzr9m23V/2DIEaKM5ewRcWqkhUCX31v2lWw9M1BeS9/Yjg637R0kA/Yy0/4Rqk5dyQdcPYt4ZFhMUnTLKFO17dD0mJHr5T5E82cdB1MXb+IZZ4++dxBslj2J6ktkLdi0jDUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JNdUR6YA; arc=none smtp.client-ip=209.85.214.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O74gu06h"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2e836252e1dso8055505ad.3
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 02:45:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JNdUR6YA"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e2c837fa12so3595665ad.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 02:45:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791711954; x=1792316754; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=AvGhTKKdbU1GWyQfWY5VlojnPZ4MgvqmXbvuxJbcqHg=;
-        b=O74gu06hmmgmwkawjp/AmttXzVUeEYbTm96xuAyqot9cNjK1O2LkBN3f2ItUU/Ka6Z
-         iMvBtQC60CkKnSYsnoeHb3SBPTIoKq1qJDDveGvh5CkT2vFrERqDPT6qH5CSiQ7uMb0U
-         T60mBYO02oM4lLRp67xteXObajyVqGF3UlqOF+GHR/UWHTWz+cVDatpX0sX+QlzEIrEC
-         Wkk5Od8dKSRayRnKXfYaYvd230Y79pPEqCMYKoGh4GPeHZggi8wJgWCN9tZujKrtWj7L
-         NS3kmqZYn0FJLRKSfvqBulKIEF19QnaYjxTeWOPQMtDO9v1ECqJJ92o94/jL7+UZqNFz
-         Ddxw==
+        d=gmail.com; s=20251104; t=1791711958; x=1792316758; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uN8ZmAJdRHfbn3ihN7mgkxsJ7YccZG0qSHKehDex714=;
+        b=JNdUR6YAwGphZFc7zSOxDAgkYf8KO65+ZKwiXMrQcCxG2EhcfcHaBWVPcI2loA7tht
+         Wi2VjiRmQIHu8LrwdMLnewlDIlK/DSOoGW0kM5qqV85SUmQpPtknxpXAw3R11vCZYbC4
+         cjTBHLt5SsiL4j8TRHHSc3xDG29IrOJOdkun7LxWYVQi+Eruj/VNb+nGk6OyiNsDjI+y
+         WcWQEk8LiW7+1dMxFj7qexXw7CFzhYS/eYBrg9F19dPF1fYNfC/LAXvE5jfUyo/2FJSW
+         HoGBi8wW3g1DWX8J+jKP/8FVFz4cltRFVAJ9U5Rav9FEvQZebx4F1gkQZbu+qmb7t8PO
+         LHpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791711954; x=1792316754;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=AvGhTKKdbU1GWyQfWY5VlojnPZ4MgvqmXbvuxJbcqHg=;
-        b=wHTlsmuoO13k8wt3ZnG6CdcbihKDD7gLQD1LTzLH2OBzwIu2jm3w0QXKPMulFtO6+m
-         RHaIZsmvnat6RM+dX+T0XUAHpp3cytYk3vfi5HHhLNzmhuaj7GrgK/ckTvoOsXmzghrN
-         cjmslQNoTngY/Dc3MkkrVDWk3ty3/VymOux7o2yR7bIOcre8sMEfyvaEBjz8s2Ig7BDz
-         7KMEC/ddhIQMznkwwhfSzxBcjnmTWmiPsK4h56Mw49Uq8ambg5WjJfDcuQLrPLKKEQYc
-         Ad9mCx2y4PSz5guXYAj+vswYyUqKFVKy3xolpcODXmDCRSBCh7ttpcMHfVvdw0m+qszB
-         zcbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwwdPMuPsQ3NHistWvmo9uFmlpkh2QdbRICU1B7KJwyh4W7cIGCdKuELtrrcghsjZ0vB90c7NIWxiy1KPM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJTaKo2djqjw5Axme7q0slLHxaSoldh4JYQR6EyUO+oy4Dp2Qcg
-	0oCNsMfkaCw+zz8j86BD4jDKWBJMTEGDPN7Nuhd8r/cJCg7xstyXrixB
-X-Gm-Gg: AYBFou1TwC81n80+EBwRfsRT16eJuVwwxnR5noeqnpQANDxH/Hm4kV3sN8zrbO9t39o
-	6M8PTMntU+eM42PiiUeBPiBgqrfWJ0KxhWlH9uYcD1rJu7bWGyHcrCyDBmVIxU+7PKoK+cFVvP5
-	SRYmaFVmgMQt6rTc4HmSSMpR6W05gKgDAinSAanQATsEOkS3uh4j6AnAehJ7P/5hHU6sDD9iWGG
-	kYU0dFpVbEFPDOyzd+ZtXBC08DLgeE0n2K+4KHy+Zrt1wQ0AVOh2uaYG+lr/olOFFIEl3WeTBFl
-	qY7FMdHGdYrD4sKjRbtSEjfPcPwt7gTUY4FyMp4TT95w1dneGHenvhUkx7pbQGEcJqB8Bsv0quL
-	7reZ0LhDueHiOLj5FNZaoB6gIcqskBW38HloN2js8lC8RYpYkVONVRPi+QunOkElMDGIfxcOY4n
-	uXrBNAQraNhHOTiX9UBizFfemvU2zMjbiC23gABOhuM8Y40L1lQ5ajGTPE80x0E7peKp4=
-X-Received: by 2002:a17:902:ea05:b0:2dd:ad73:c93e with SMTP id d9443c01a7336-2e842abf8a8mr58037495ad.31.1791711953944;
-        Sun, 11 Oct 2026 02:45:53 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791711958; x=1792316758;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uN8ZmAJdRHfbn3ihN7mgkxsJ7YccZG0qSHKehDex714=;
+        b=l1dyiN5pjoNtZLpZbT6bcNVEOOoFTl6ejhXG5O3BDAobkzT/+G9M4RHIYySMhVvfXL
+         uNgfGIZGxCCr1G5qT3jtvOMk33uCixS98Hr7kjv6TCRArw3QoHWM2oQb8HtCyeVf3o0C
+         w3RrWFsIn7Ro0s1emc18bRAkDe1wRPeuZlTOkK4NamzcktqEhaSFctvQWiQrZSaHaIt2
+         aEiV3QN2/TeUkWudlytL1deNq3ynPS2lGs3TMQof1iAL7Qwt/bK5qLMYWhsjY5VLpmbe
+         7kxRl8S3XxI99nQ8TSShTYfzHK9LUWp/uskP0jcAql96jlknc/ghapiskp3H57EVkLHF
+         MJ2A==
+X-Forwarded-Encrypted: i=1; AKwUvBwnm4cJhhvLbcfqjirJd+HB7A0dCvqpdaAGTKkX3Vu51jvj+Ll+1CHlh69ZAlQmxJAN5aPTyPnm8ZGNy9E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK2j5SQ9eFvm6CsrTgnwvuuz/RsT0KlPLWK+bvEBI9SIzyJ1miP
+	uaHRE4FEHyCOwRHkqGgGLvV+tYzs6e4Z5vsnHsZTiitX0Ur/4gL8UdTF
+X-Gm-Gg: AYBFou3vT4PI/2PQxfFN3eNjda97zE6jlNwwWuQQKC+BbfNxEKXIR52Z6BxmmPaiaGF
+	JTlEnUBWYAHcSJOflvDlOqMwov7QVOkXG8sTzZCjvwpMprJzqM1Q+f39XIwyWDAAClBM0+ogRd4
+	GBN5WXEqabKLFf3zjiwJQE80WWZzil8ihEA3C2dvFepDlN+tzaI5QubIkdo68kCdL78/SQ24L5R
+	riWETMCulVtgc4T7fflwMJiG9768qS2QRwTDtqk+oa3EpDQdpJmiRHDG42Xs3sfqr7gCYsJl0NG
+	XyYSUgKNeG1CO7r9Jv2c3yF5Jb7OY/tnWVPf9GluAsWLwYRLmZ4REKuJBAlGNbZfptG12bzw2Fx
+	oFMgWsBOGys0opac1zZjjIm7DvooZmIJiRRFzIfo2xcEZcGzb8xe+eGEolqt++XX2HEUsQVYRHy
+	d76GoIJlx063r8LUaNIbb0xI8uBB6WaydEqmBwu4s5xJ4+aM3A0eETrnqHtklVAmWbDRb5H3GE0
+	MyMHg==
+X-Received: by 2002:a17:903:1c7:b0:2e6:c39:b250 with SMTP id d9443c01a7336-2e842ab6808mr49774725ad.25.1791711958372;
+        Sun, 11 Oct 2026 02:45:58 -0700 (PDT)
 Received: from [127.0.1.1] ([121.125.115.175])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422ba80asm31067695ad.63.2026.10.11.02.45.49
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422ba80asm31067695ad.63.2026.10.11.02.45.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 02:45:53 -0700 (PDT)
+        Sun, 11 Oct 2026 02:45:57 -0700 (PDT)
 From: Gyeyoung Baek <gye976@gmail.com>
-Subject: [PATCH v2 0/2] drm/imagination: Switch the GPUVM to immediate mode
-Date: Sun, 11 Oct 2026 18:45:31 +0900
-Message-Id: <20261011-pvr-gpuvm-immediate-v2-0-744ddc6644c3@gmail.com>
+Date: Sun, 11 Oct 2026 18:45:32 +0900
+Subject: [PATCH v2 1/2] drm/imagination: Switch the GPUVM to immediate mode
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,11 +71,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIALtay2oC/32Oyw6CMBBFf8V07ShtVNCV/2FY9DGFMRZIC42G8
- O+2ELfu5kzuPbkzC+gJA7vtZuYxUqC+SyD2O6Zb2TUIZBIzUYgLLziHIXpohik6IOfQkBwRbIm
- yQqMFlpal5uDR0nu1PuqNw6SeqMesygklA4LystNtfhnvwFHQx98BWz8lWwpj7z/rwMiz8f+Wy
- KGAsxLXyliNJ1vdGyfpddC9Y/WyLF9T+9QI8gAAAA==
-X-Change-ID: 20261011-pvr-gpuvm-immediate-f7ea8edc2e7f
+Message-Id: <20261011-pvr-gpuvm-immediate-v2-1-744ddc6644c3@gmail.com>
+References: <20261011-pvr-gpuvm-immediate-v2-0-744ddc6644c3@gmail.com>
+In-Reply-To: <20261011-pvr-gpuvm-immediate-v2-0-744ddc6644c3@gmail.com>
 To: Alessio Belle <alessio.belle@imgtec.com>, 
  Luigi Santivetti <luigi.santivetti@imgtec.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -86,42 +86,195 @@ Cc: Alexandru Dadu <alexandru.dadu@imgtec.com>,
  Gyeyoung Baek <gye976@gmail.com>
 X-Mailer: b4 0.15.1
 
-Switch the GPUVM to immediate mode, as a prerequisite for asynchronous
-VM_BIND. A revised VM_BIND series will follow separately; v1 [1] is
-linked only for context.
+Use DRM_GPUVM_IMMEDIATE_MODE so that each GEM's GPUVA list is protected
+by its gpuva.lock instead of its dma_resv. This prepares for
+asynchronous VM_BIND, whose run_job() will update the GPUVA lists
+before signalling its fence. That section imposes three rules:
 
-The switch also fixes an issue Sashiko reported on [1]: the GPUVA lists
-of other objects are updated without holding their reservations [2].
+1. No dma_resv: another thread may hold it while waiting for the job's
+   fence, directly or through a dependency.
+   -> Protect the lists with gpuva.lock, and take it around
+      drm_gpuva_link().
 
-Based on drm-misc-fixes (depends on 196d4d10c1b3).
+2. No allocation under a lock run_job() takes: reclaim may wait for a
+   fence that depends on the job.
+   -> Allocate the vm_bo before taking gpuva.lock:
+      drm_gpuvm_bo_obtain_locked() becomes drm_gpuvm_bo_create() +
+      drm_gpuvm_bo_obtain_prealloc().
 
-Tested on BeagleY-AI with lockdep, KASAN and failslab enabled:
-- All IGT imagination tests pass, including pvr_vm_map [3].
-- The fail-nth reproducer in patch 1 no longer warns.
+3. No freeing of GEM objects: that takes their dma_resv, and under
+   gpuva.lock would free the held lock too.
+   -> Defer it: drm_gpuva_unlink() and drm_gpuvm_bo_put() become
+      drm_gpuva_unlink_defer() and drm_gpuvm_bo_put_deferred(), and
+      drm_gpuvm_bo_deferred_cleanup() frees once the locks are dropped.
 
-[1] https://lore.kernel.org/r/20260817-pvr-vm-bind-v1-0-0a0f21be7d38@gmail.com
-[2] https://sashiko.dev/#/patchset/20260817-pvr-vm-bind-v1-0-0a0f21be7d38@gmail.com?part=1
-[3] https://lore.kernel.org/igt-dev/20260930125057.1837788-1-gye976@gmail.com/
+This also fixes an unlocked GPUVA list update: when a map fails,
+pvr_vm_bind_op_fini() drops the last vm_bo reference without holding
+the object's dma_resv.
 
+Failing VM_MAP allocations with fail-nth shows
+it on a lockdep kernel (real allocation failures under memory pressure
+take the same path):
+
+  WARNING: drivers/gpu/drm/drm_gpuvm.c:1661 at drm_gpuvm_bo_put+0x2ec/0x660 [drm_gpuvm]
+  Call trace:
+   drm_gpuvm_bo_put
+   pvr_vm_bind_op_fini
+   pvr_vm_map
+   pvr_ioctl_vm_map
+
+Fixes: ff5f643de0bf ("drm/imagination: Add GEM and VM related code")
 Signed-off-by: Gyeyoung Baek <gye976@gmail.com>
 ---
-Changes in v2:
-- Patch 1: drain the vm_bo that fini() deferred when map_init() fails.
-  (Sashiko)
-- Link to v1: https://patch.msgid.link/20261011-pvr-gpuvm-immediate-v1-0-5b298dfce4f8@gmail.com
+ drivers/gpu/drm/imagination/pvr_vm.c | 39 +++++++++++++++++++++++++++---------
+ 1 file changed, 30 insertions(+), 9 deletions(-)
 
----
-Gyeyoung Baek (2):
-      drm/imagination: Switch the GPUVM to immediate mode
-      drm/imagination: Stop locking reservations around map and unmap
+diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/imagination/pvr_vm.c
+index cbdd15ed74f..807a01aab1d 100644
+--- a/drivers/gpu/drm/imagination/pvr_vm.c
++++ b/drivers/gpu/drm/imagination/pvr_vm.c
+@@ -214,7 +214,7 @@ static int pvr_vm_bind_op_exec(struct pvr_vm_bind_op *bind_op)
+ 
+ static void pvr_vm_bind_op_fini(struct pvr_vm_bind_op *bind_op)
+ {
+-	drm_gpuvm_bo_put(bind_op->gpuvm_bo);
++	drm_gpuvm_bo_put_deferred(bind_op->gpuvm_bo);
+ 
+ 	kfree(bind_op->new_va);
+ 	kfree(bind_op->prev_va);
+@@ -255,11 +255,11 @@ pvr_vm_bind_op_map_init(struct pvr_vm_bind_op *bind_op,
+ 
+ 	bind_op->type = PVR_VM_BIND_TYPE_MAP;
+ 
+-	dma_resv_lock(obj->resv, NULL);
+-	bind_op->gpuvm_bo = drm_gpuvm_bo_obtain_locked(&vm_ctx->gpuvm_mgr, obj);
+-	dma_resv_unlock(obj->resv);
+-	if (IS_ERR(bind_op->gpuvm_bo))
+-		return PTR_ERR(bind_op->gpuvm_bo);
++	bind_op->gpuvm_bo = drm_gpuvm_bo_create(&vm_ctx->gpuvm_mgr, obj);
++	if (!bind_op->gpuvm_bo)
++		return -ENOMEM;
++
++	bind_op->gpuvm_bo = drm_gpuvm_bo_obtain_prealloc(bind_op->gpuvm_bo);
+ 
+ 	bind_op->new_va = kzalloc_obj(*bind_op->new_va);
+ 	bind_op->prev_va = kzalloc_obj(*bind_op->prev_va);
+@@ -293,6 +293,8 @@ pvr_vm_bind_op_map_init(struct pvr_vm_bind_op *bind_op,
+ 
+ err_bind_op_fini:
+ 	pvr_vm_bind_op_fini(bind_op);
++	/* Drain what fini() deferred. */
++	drm_gpuvm_bo_deferred_cleanup(&vm_ctx->gpuvm_mgr);
+ 
+ 	return err;
+ }
+@@ -366,7 +368,11 @@ pvr_vm_gpuva_map(struct drm_gpuva_op *op, void *op_ctx)
+ 		return err;
+ 
+ 	drm_gpuva_map(&ctx->vm_ctx->gpuvm_mgr, &ctx->new_va->base, &op->map);
++
++	mutex_lock(&op->map.gem.obj->gpuva.lock);
+ 	drm_gpuva_link(&ctx->new_va->base, ctx->gpuvm_bo);
++	mutex_unlock(&op->map.gem.obj->gpuva.lock);
++
+ 	ctx->new_va = NULL;
+ 
+ 	return 0;
+@@ -396,7 +402,7 @@ pvr_vm_gpuva_unmap(struct drm_gpuva_op *op, void *op_ctx)
+ 		return err;
+ 
+ 	drm_gpuva_unmap(&op->unmap);
+-	drm_gpuva_unlink(op->unmap.va);
++	drm_gpuva_unlink_defer(op->unmap.va);
+ 	kfree(to_pvr_vm_gpuva(op->unmap.va));
+ 
+ 	return 0;
+@@ -418,6 +424,7 @@ pvr_vm_gpuva_unmap(struct drm_gpuva_op *op, void *op_ctx)
+ static int
+ pvr_vm_gpuva_remap(struct drm_gpuva_op *op, void *op_ctx)
+ {
++	struct drm_gem_object *obj = op->remap.unmap->va->gem.obj;
+ 	/* The split parts belong to the object of the mapping being split. */
+ 	struct drm_gpuvm_bo *vm_bo = op->remap.unmap->va->vm_bo;
+ 	struct pvr_vm_bind_op *ctx = op_ctx;
+@@ -435,16 +442,20 @@ pvr_vm_gpuva_remap(struct drm_gpuva_op *op, void *op_ctx)
+ 	drm_gpuva_remap(&ctx->prev_va->base, &ctx->next_va->base, &op->remap);
+ 
+ 	if (op->remap.prev) {
++		mutex_lock(&obj->gpuva.lock);
+ 		drm_gpuva_link(&ctx->prev_va->base, vm_bo);
++		mutex_unlock(&obj->gpuva.lock);
+ 		ctx->prev_va = NULL;
+ 	}
+ 
+ 	if (op->remap.next) {
++		mutex_lock(&obj->gpuva.lock);
+ 		drm_gpuva_link(&ctx->next_va->base, vm_bo);
++		mutex_unlock(&obj->gpuva.lock);
+ 		ctx->next_va = NULL;
+ 	}
+ 
+-	drm_gpuva_unlink(op->remap.unmap->va);
++	drm_gpuva_unlink_defer(op->remap.unmap->va);
+ 	kfree(to_pvr_vm_gpuva(op->remap.unmap->va));
+ 
+ 	return 0;
+@@ -588,7 +599,8 @@ pvr_vm_create_context(struct pvr_device *pvr_dev, bool is_userspace_context)
+ 	drm_gem_private_object_init(&pvr_dev->base, &vm_ctx->dummy_gem, 0);
+ 	drm_gpuvm_init(&vm_ctx->gpuvm_mgr,
+ 		       is_userspace_context ? "PowerVR-user-VM" : "PowerVR-FW-VM",
+-		       0, &pvr_dev->base, &vm_ctx->dummy_gem,
++		       DRM_GPUVM_IMMEDIATE_MODE, &pvr_dev->base,
++		       &vm_ctx->dummy_gem,
+ 		       0, 1ULL << device_addr_bits, 0, 0, &pvr_vm_gpuva_ops);
+ 
+ 	mutex_init(&vm_ctx->lock);
+@@ -622,6 +634,7 @@ pvr_vm_context_release(struct kref *ref_count)
+ 		pvr_fw_object_destroy(vm_ctx->fw_mem_ctx_obj);
+ 
+ 	pvr_vm_unmap_all(vm_ctx);
++	drm_gpuvm_bo_deferred_cleanup(&vm_ctx->gpuvm_mgr);
+ 
+ 	pvr_mmu_context_destroy(vm_ctx->mmu_ctx);
+ 	drm_gem_private_object_fini(&vm_ctx->dummy_gem);
+@@ -758,7 +771,9 @@ pvr_vm_map(struct pvr_vm_context *vm_ctx, struct pvr_gem_object *pvr_obj,
+ 
+ err_cleanup:
+ 	mutex_unlock(&vm_ctx->lock);
++
+ 	pvr_vm_bind_op_fini(&bind_op);
++	drm_gpuvm_bo_deferred_cleanup(&vm_ctx->gpuvm_mgr);
+ 
+ 	return err;
+ }
+@@ -840,6 +855,8 @@ pvr_vm_unmap_obj(struct pvr_vm_context *vm_ctx, struct pvr_gem_object *pvr_obj,
+ 	err = pvr_vm_unmap_obj_locked(vm_ctx, pvr_obj, device_addr, size);
+ 	mutex_unlock(&vm_ctx->lock);
+ 
++	drm_gpuvm_bo_deferred_cleanup(&vm_ctx->gpuvm_mgr);
++
+ 	return err;
+ }
+ 
+@@ -874,6 +891,8 @@ pvr_vm_unmap(struct pvr_vm_context *vm_ctx, u64 device_addr, u64 size)
+ 
+ 	mutex_unlock(&vm_ctx->lock);
+ 
++	drm_gpuvm_bo_deferred_cleanup(&vm_ctx->gpuvm_mgr);
++
+ 	return err;
+ }
+ 
+@@ -906,6 +925,8 @@ pvr_vm_unmap_all(struct pvr_vm_context *vm_ctx)
+ 	}
+ 
+ 	mutex_unlock(&vm_ctx->lock);
++
++	drm_gpuvm_bo_deferred_cleanup(&vm_ctx->gpuvm_mgr);
+ }
+ 
+ /* Static data areas are determined by firmware. */
 
- drivers/gpu/drm/imagination/pvr_vm.c | 82 +++++++++++++-----------------------
- 1 file changed, 30 insertions(+), 52 deletions(-)
----
-base-commit: 6ccf996a0dec1852dab94ad865f27b4904750e12
-change-id: 20261011-pvr-gpuvm-immediate-f7ea8edc2e7f
-
-Best regards,
---  
-Gyeyoung Baek <gye976@gmail.com>
+-- 
+2.43.0
 
