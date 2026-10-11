@@ -1,164 +1,239 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012056.outbound.protection.outlook.com [40.93.195.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC09323BCF7;
-	Sun, 11 Oct 2026 23:02:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791759740; cv=none; b=uSs7ocHRfZ2zcLVTw+2nYVDkpOGzstyoI47iapNdWW2g08V2XgdrJ8tRve5uydB/MAmPf+qGUBwF+0ZtnR2iM1SRRgwbgjLLyifkRPBvkDkhexmNQHBJ+LO3ra1FL5TrqxWVChs4Hd6ise2BNwBxxauqop6HGPHn3O7p+m+rYHw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791759740; c=relaxed/simple;
-	bh=+LrpSHi83rg43ATDcwnlytRa93Im8h1st3CGeqOd/LY=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Krtap9a9VNknEC9NTXoPvrb0TvBdyFdPYmowadH/6VEiDsR7j0dhxq2j2WJY/ZXldaTLkj9J9IgzwCY6L5WAG39zsWIvdenQQcPD0vkRe1+WAOpU5Iic7V1NY4pRsjJFceaNEGd/dZ7Rxt/RTOMdh0GVCQezL9D1h19Z8HWErsI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aFnHjWlP; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1D1F35C698
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 23:04:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.56
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791759870; cv=fail; b=AiA+LRcap1Tq8If7/CNSp188jM73ABLy3+zRNXqfawVKsK/xIMeQJesSe/ZH19fukKw2yEwr9ndwSorfa4F9pGWKHWjSs1XORNx+r7UfddFVqEAFV4bkRBuM5KupXqtG+rqLiQNooV/LarQ12js862rTux2PIAWOn7K2ZTpT8ZI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791759870; c=relaxed/simple;
+	bh=WLLSOL0pQFX3B6dreLozfjxpXmoIZAuc/ORptKE03m8=;
+	h=Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
+	 In-Reply-To:MIME-Version; b=W5c1twDSXVQG/sLipa5Z2FDaLbGdtRyd0OfugKz0AQQ1rx2BS1jFe3SAZS8vuG2C5C4389iV7gesRgEtV7UdOBBufrPZC3ehLGzNw5OTfixONRkM/YlarbgIujY3zRbX8KdA+QKzT5NaxsvExr7MpYKNmZPrcQPH0Z8/7xRWNBQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=LCSICsy0; arc=fail smtp.client-ip=40.93.195.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aFnHjWlP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4F7E1F0089B;
-	Sun, 11 Oct 2026 23:02:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791759739;
-	bh=BMnwnSmmh2hW4aGAkK60qX2n3aHbKT63XD1QC30Rr9Q=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=aFnHjWlP7yNtmJtHuDiMq+1Ptf/98BvwcvGh3omVzvfRvl+khkd1JusycK0Dfk2vZ
-	 wutHGRdyA5AlkwvgK7lFXYKU4rI3xjRM/t8wHC+xBUFXN0hmWxtebeEriEv5rSG7wn
-	 jRDWgQQEF4fzGyEArx7Dd95KEDXCdVDdTlNMvzYM0FrJzV68k9NuxP+Kprk6R2OC2E
-	 CeBvkWrLqJT/XGnXwpItlZfw4k9MiNReWNVz4gNVori006Zw9cm8CA9/I8/ro60JZr
-	 as67voQdi9bI03VATm2v6RWPeh6rUutlKGbx8OPPIXDMzEN51ebjsWGeMvKFTkZhFl
-	 CByzUzH5XgaQw==
-Subject: Re: [PATCH net v2] tcp: do not send a SYNACK to a broadcast or
- multicast address
-From: netdev-bot+sashiko@kernel.org
-To: theodorlarionov@gmail.com
-Cc: edumazet@kernel.org, ncardwell@google.com, kuniyu@google.com,
- davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Sun, 11 Oct 2026 23:02:18 +0000
-Message-ID: <179175973842.434549.79608444362932465@kernel.org>
-In-Reply-To: <20261008114942.1376889-1-theodorlarionov@gmail.com>
-References: <20261008114942.1376889-1-theodorlarionov@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="LCSICsy0"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=p8EhW7I0hkESBGbLTzn1CtqvxSm0hH9zYaXJ06LR49h2VnGGXwYPYYTQLQwyxlq8VNREDh0a064idccSPc08br5dUBhw/eJlDr/VWLyf7u2ja2twHfR2DgXweZWFaRRhxp9Q/GaRVm0g3qX59CAAFf0c0toNphG7zTiny5iirIlbtXYAt7EnmCLaUzUmymOBVz/ChxndDFvZkgFeCMp8sKGPt9KsoTzrDVdchi6cNkM1h/zMeKN8RYV5ZwDiHJtArkAFH0uw6dA0xiPVAQRWvW20dAeDGqteUS/2gw7G/+VN5JKGZJlWeAXiZucCtjTMmoMrqxSHFUHOErhMMn6X1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WLLSOL0pQFX3B6dreLozfjxpXmoIZAuc/ORptKE03m8=;
+ b=p/890gg1eQaXE9RjsRFqACRqJYJByWox9wHFtJyaOVeoJQPA7p1T/cdLkTHJ/ueadzbnSnGxNlqcbCWXafv6tCKdngc7LNAADq8xA9rChzozRB32fcFqSHJwCK0jqrPPfYN2kGEuZuw0YBnY5nJNI+mGIyi/MY7BSPKnmt+91ap/TluD+g6kE+S9DjCFGNaVIoIBIZ+gCIkZvcsxbHd/y84kk0gmMID0QKteI5XC+8T3O7cm132vXWbOSHfKcX/hmzws6Z7HZ+yQQBuzoLzlkvngQaUGFu78CJUl0sY8QysoKJ1R5C852+EVqZEdzQfNAEtpEt2I7vRnz3Hf5RiQIQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WLLSOL0pQFX3B6dreLozfjxpXmoIZAuc/ORptKE03m8=;
+ b=LCSICsy0LRBT4FZJmmGXvRVJ9Pl3WSK9+XQGmkGzLYmICedcztM/BYcp8HuWjdUjrjuTm/VBXTLqGQ+Wy3DDGd1N+IRpawAJUm0vfnEPU7eF77602IYUomU3ft+4LIvz/OO9N7s4uLzE09zjNR9kK5GD8LGhZpR3mPJFhTNs/C8BKS6jku5nXPpadf1vqc1Y+ds5GSNhqWarX1b0tIySp24bVq7T7tU+AEosY2TLLMdtnhVx/dLwpbFNA0gEbQLNR2Lj+tlnebw5R7XKxS6i0IGm4aSUd68Rj6snxUSDB1CihQHcbD6+veHZwPWQkKhk+fDVPJ2gLUYxXULGLmWtlA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by SJ2PR12MB8925.namprd12.prod.outlook.com (2603:10b6:a03:542::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.20; Sun, 11 Oct
+ 2026 23:04:23 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0472.016; Sun, 11 Oct 2026
+ 23:04:23 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 11 Oct 2026 19:04:21 -0400
+Message-Id: <DM2DV199T6N4.19MU82DJBDOF9@nvidia.com>
+Subject: Re: [RFC NO CODE] [DISCUSSION] Anti-fragmenting ordered buddy
+ allocator
+Cc: <linux-kernel@vger.kernel.org>, <ryan.roberts@arm.com>,
+ <riel@surriel.com>, <akpm@linux-foundation.org>, <david@kernel.org>,
+ <ljs@kernel.org>, <liam@infradead.org>, <vbabka@kernel.org>,
+ <rppt@kernel.org>, <surenb@google.com>, <mhocko@suse.com>,
+ <kasong@tencent.com>, <qi.zheng@linux.dev>, <shakeel.butt@linux.dev>,
+ <hannes@cmpxchg.org>, <brendan.jackman@linux.dev>
+To: "Dev Jain" <dev.jain@arm.com>, <linux-mm@kvack.org>
+From: "Zi Yan" <ziy@nvidia.com>
+X-Mailer: aerc 0.22.0
+References: <20261011215412.1181172-1-dev.jain@arm.com>
+In-Reply-To: <20261011215412.1181172-1-dev.jain@arm.com>
+X-ClientProxiedBy: BL1P221CA0037.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:208:5b5::12) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|SJ2PR12MB8925:EE_
+X-MS-Office365-Filtering-Correlation-Id: 95745c0d-e7c5-4861-51a7-08df27ebfd45
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|6133799003|10067099003|18002099003|22082099003|3023799007|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	kY6br1wYw6yolfgBgnhdDysxQTtIIZIm8oE9paVQ5rpXRvCv/rv5S5tMFhLahWAbMwhYFTQllzlstJUp+EwfZ+KjWpaDhnZ9+G9m4i3tr9tNSMgPLi70NfiFXieUPBRdO9W02HxcQHs81ea7tSHlFF6WLtCtLODczia3JziMVN+LcK9m+qH95RfwJgD36erJtzBF/PZk/vu16QwgXvKLXdBJ5BHtIkYo/BXfjn3gMuAXnKPc1SwrqBMjg5uHy1BwYojxkhFszPKAwtCs+3nZUH2jWgfCm5XI+CQWRGlcJhsyVWARBAA9xcBgxHO92x9geshYxPVDTsE7B0UTY67Dv0f1m6Kfm1RoV6jO+yP9HTmRYI1krz8ye8p1IXePzErpLUWuE69ABaQt+SGs15yZKKIx1gwVnemk+AkfMCSK/JMHEPohVUF0uRdVBhqmNS3Fm6KAz4pFy6q5MM7Era4n5u/Wg8We4AKVwdBZdGQHwUClGJzoMFekp7Efq5y5jTDpyZywxO1E4uFtVBHUlSu+QQLpTovxbefIWqKaopjMm1L9eVFt1oZmTMf74+9UGmgGdKKLoEFuXvfqrATz9SxVC5bhw8qdB/YWGTAJqtfUFicb14Rs5SJj9xsuyikSctr4aPbNJ0aERmNMUHRrWcZy3NGqHU25o2BS4hS/NVtHEa4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(6133799003)(10067099003)(18002099003)(22082099003)(3023799007)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TENya085VzVkT0ZTMXBhUW5KOENXRURvSmwxUWp2NXB4TnN6QlA5dENDL1hO?=
+ =?utf-8?B?R0V6QmRtQ0Rza0ZaaHRYbW5nUWFjLzBLZFJsRWM3NWtGbjZxTUVmNmEyaUNo?=
+ =?utf-8?B?L1haditvYVFnTjhjbll3b3Vzbk1tSXphRkhHN0pna2grUzJqeVVqQVd0ellh?=
+ =?utf-8?B?Nm16bEU5bG9tSUsrUllhbUg0OHlrako0eGxyVUtRd2VIM1Y0bU1xSXlxRkNT?=
+ =?utf-8?B?NmdUOWFyOGpYbHRhbU1POUJlMXpPTmlzRXpHZHRrQlQyYVlncmhlS0ZhamMv?=
+ =?utf-8?B?SzVrUXVLc0RDWmZnd0N0bjJJcStuWWxUaGFTSk1iNkNlYWRNTGhrZGpaWGth?=
+ =?utf-8?B?ZlNiRHdPNFRoWXZJNW1LTnJxamVzVHFrdkxPdHAwdlVwWGUwMDVpRi9QYTZi?=
+ =?utf-8?B?NUVuNCtMSmRweXh5S0dLSTg0aGRVb1JWaFA3Y2VOdUZXS2lMMmJ2MjJkUEls?=
+ =?utf-8?B?a2dSazdTRVl6cEV3ZFBSQkJIMUlSWGR0RzVZQ0hLUEZ1Z0w3VkV6MEltbkRy?=
+ =?utf-8?B?b2dhdmU5aWxhcG9EOGxkRkgzTEdlSEV0NVBqbWFzb1ZSRFhBWFNXV0RwY1VX?=
+ =?utf-8?B?ajRzNnZqNlFUR0Rma0hraTZVUW90RWRDN3VrTU5NL3g1MWN5TUgxQUxZQk4w?=
+ =?utf-8?B?K2kwSTErSVdvUnpzelU5VjVRNkk5YW5td3c2U2tJa3E0YkFkdDlWc1VoZlVT?=
+ =?utf-8?B?YVQrUmNnZU12aXFzNXl0MDZqTzFtLzZ6VGJ6ZmdocWtzakVxQVVic3Zra1V2?=
+ =?utf-8?B?NC9ENE5qTWJWaklINnhib0ExOVp6Z01ldWdsTXY5eTM0QW91QnNzNHV1RDU1?=
+ =?utf-8?B?UHhvNUdUL2RuNW5yZlVSSUZjV1NEc0tlZFk5QlgvZ052TFpIN2c0eVFwT1g1?=
+ =?utf-8?B?QnVkTTlXUkhTK3VrcmQ3emtWK2s2REo3QkxPSXN4ZWFmQ3RjMVV1MHJIQU5B?=
+ =?utf-8?B?dlpTYzByMm4xUTdSQmJEZmtycnpkcEwvVHQrUW5RRFVKVHBqcS9aZXBXbHhU?=
+ =?utf-8?B?OWIxMkd5czRrTUpVQ2VtbzhGTG05YW1HTHZtR2pNK3dVemN1d0oyZDRvajVR?=
+ =?utf-8?B?UTlqRFR4RFRXYXdpTmN1MUFyQ0Y1QTEzMjN0ZjBReEVKQ0N3WThKTmtwRm12?=
+ =?utf-8?B?V0tYeWc1MVd3blNWcElpTWJqam1KVjMwcFAwKzVJMGk5Z2lOTlNsZDl5MUUw?=
+ =?utf-8?B?MEVXK0pndWdabSsyeFd3SVgyTW02ZWVZWFBYalJjSHRLL1kwczQ4SkJHbXRM?=
+ =?utf-8?B?U3FRblNoYjhIWEIzb2VXWVd4M2xWUmpLR1NzVWZqaExYYXJsRXRVeG5Fa2Jq?=
+ =?utf-8?B?OGV0Ym05RE5Za0F6eHNYcVRwSUFLWVJGeGlFV3Z2NzhzaTZvRVpPRUNDVkZR?=
+ =?utf-8?B?YjdWZnRJZEhVV1plZU5jakFyVHd3L3lvci9UYyt5MFVEUEhrZE0xNFg2UFBU?=
+ =?utf-8?B?QWVvdUd0N2FrSHNzZ3UwNU5OSEhncThJd3VZSjBVMERsTHJRTkQ0TE9tZDQ4?=
+ =?utf-8?B?cTl4TlNSWlBxN0dSMUVLMUdJRmV6ajd6Z3Q4akp5S3JUVkRCTEdyK25idHdY?=
+ =?utf-8?B?RFVPMG95ejNadkh2Y3ZvNUlMUFVqZk80OFBmRmlHSTFhOWlFVjlCZ3cwSk5S?=
+ =?utf-8?B?NXgzejdSOG1hM1BrYVFZLzVabHI5L2FYeEFYbHE3UWhscUdRM2xqaitDWExF?=
+ =?utf-8?B?Z014N1IwYUpxRStMKzM0dFRuWUhDQ0w4cTkyNFg5RFR5UVhWTXI5WUxxc0V2?=
+ =?utf-8?B?aEhXbFZaQTFsZjlpeTNYaDdHTWd1Z0NTSjlDSk56RmN5SWkvRmRxSzVDY3hJ?=
+ =?utf-8?B?V2ExZHp1OUg5Z2FhcGh6MzhRcXAycEpZTnYxem9iR2FEcGsxUVh6MjFqaEVU?=
+ =?utf-8?B?UzlDTjlOSmxCWS9GcUlPWXJ5MURRdnFrS3QvUTh0L3dhcnhXUEpBUEMxUUh1?=
+ =?utf-8?B?bUdFTGlEMXZlZFhpMHMwcFh2QVYzcmZCRkVmMkZxaVovYVNrS1VjZFljbWwr?=
+ =?utf-8?B?Z3Rlb1h2dkluZDEwanRFZUdJNUdQM0NkYjFRUWFxUExhL2lIUCtMSzU3d3Zu?=
+ =?utf-8?B?Wm5EU1k2OGZXSjN5am9UM3Nha01qRnFuN3FKZlhuRTkxNXdURkVXTUg1cmhD?=
+ =?utf-8?B?aG9xcHZDbEJEdUsyeVczakZ5blRBREpGVFAyWC8wUzRMNndrTUo0WDMzSnhW?=
+ =?utf-8?B?UEdzZWlOL3FmVkZ6ZU9ZdVk1dUczaG43UmIwOHJZLzcxOGNiY3piTTRmbTJY?=
+ =?utf-8?B?WGswL3NaZC9JWUhCYk92anZRQm5HL0JLa1pVNW9lYTJMNWRxam1XREhXUGlv?=
+ =?utf-8?Q?6FWaWp+5tPmIy9yVId?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 95745c0d-e7c5-4861-51a7-08df27ebfd45
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2026 23:04:23.1318
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NLiRjP3mge88O/0jVM/hvQHL3ZnZVeTQ2nrEvIigXM+y1AO1TmC2rb8MY0jDjMn4
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8925
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Sun Oct 11, 2026 at 5:54 PM EDT, Dev Jain wrote:
+> (I am not posting code yet since it is in experimental stage.)
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The fix is incomplete.
-
---
-
-tcp: do not send a SYNACK to a broadcast or multicast address
-
-This patch makes inet_csk_route_req() reject SYNACK routes that have
-RTCF_BROADCAST or RTCF_MULTICAST set. A SYN with a multicast source that
-is looped back with its dst attached skips the martian source check. Its
-SYNACK then goes through ip_mc_output(), and sk_mc_loop() reads past the
-end of the request socket.
-
-> diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
-> index 6a30f11384547..aa928015cd143 100644
-> --- a/net/ipv4/inet_connection_sock.c
-> +++ b/net/ipv4/inet_connection_sock.c
-> @@ -779,6 +779,9 @@ struct dst_entry *inet_csk_route_req(const struct sock *sk,
->  		goto no_route;
->  	if (opt && opt->opt.is_strictroute && rt->rt_uses_gateway)
->  		goto route_err;
-> +	/* Never send a SYNACK to a broadcast or multicast destination. */
-> +	if (rt->rt_flags & (RTCF_BROADCAST | RTCF_MULTICAST))
-> +		goto route_err;
-
-[Severity: High]
-Does this cover the syncookie passive-open path? cookie_v4_check() in
-net/ipv4/syncookies.c does its own route lookup to ireq->ir_rmt_addr.
-The only check on the result is IS_ERR():
-
-net/ipv4/syncookies.c:cookie_v4_check() {
-    ...
-	rt = ip_route_output_key(net, &fl4);
-	if (IS_ERR(rt)) {
-		SKB_DR_SET(reason, IP_OUTNOROUTES);
-		goto out_free;
-	}
-    ...
-	ret = tcp_get_cookie_sock(sk, skb, req, &rt->dst);
-    ...
-}
-
-In the syncookie case, tcp_v4_syn_recv_sock() uses that dst as is.
-Neither inet_csk_route_req() nor inet_csk_route_child_sock() runs.
-
-So it looks like a full child socket can still be created with
-inet_daddr set to a multicast address such as 224.0.0.1. Active opens
-already refuse this in tcp_v4_connect():
-
-	if (rt->rt_flags & (RTCF_MULTICAST | RTCF_BROADCAST)) {
-		ip_rt_put(rt);
-		return -ENETUNREACH;
-
-The ACK that completes the handshake can come in the way the commit
-message describes for the SYN: raw IP_HDRINCL, nft dup or TEE, with
-saddr=224.0.0.1. tcp_v4_cookie_check() passes any non-SYN segment to
-cookie_v4_check().
-
-The cookie can pass in two ways:
-
-- cookie_tcp_check(), after a recent overflow. A netns owner can set
-  tcp_syncookies=2 and send one unicast SYN. After that, ack_seq/seq can
-  be brute forced at about 2^-29 per packet.
-- cookie_bpf_check(), when a BPF program is in use.
-
-Once that child is closed and in TIME_WAIT, a segment from the peer
-would go down this path:
-
-tcp_v4_rcv()
-  tcp_v4_timewait_ack()
-    tcp_v4_send_ack()
-      ip_send_unicast_reply(ctl_sk, tw, ...)
-        ip_route_output_flow()   /* daddr 224.0.0.1, no rt_flags check */
-        skb_set_owner_edemux(nskb, tw)
-        ip_push_pending_frames()
-          ip_send_skb()
-            ip_local_out(net, skb->sk, ...)
-              ip_mc_output()
-                sk_mc_loop(tw)
-
-sk_mc_loop() does not check sk_fullsock():
-
-	case AF_INET:
-		return inet_test_bit(MC_LOOP, sk);
-
-Wouldn't that read inet_flags past the end of the tcp_timewait_sock
-object? That is the same out-of-bounds read this patch fixes for request
-sockets. This path comes from reading the code at this commit; it has
-not been reproduced.
-
-Could the same rt_flags rejection (ip_rt_put() and drop) go after
-ip_route_output_key() in cookie_v4_check()? For symmetry it could also
-go in inet_csk_route_child_sock(). In practice that one only runs after
-inet_csk_route_req() has passed, so it is just an inconsistency.
-
-Another option would be to change sk_mc_loop() and
-ip_send_unicast_reply() so they do not treat non-full sockets as
-inet_sock.
-
->  	rcu_read_unlock();
->  	return &rt->dst;
+Thank you for posting the idea.
 >
+> TL;DR
+> -------
+>
+> I am proposing "ordered/bucketed buddy allocator": we divide the buddy
+> freelists into buckets, and prefer lower buckets for allocation.
+> This reduces external fragmentation (and, further reduces it when we
+> reverse the ordering for unmovable and reclaimable allocations) at the
+> cost of regressing the alloc and free paths, which depends on how many
+> buckets you partition into. I think we can partition into 4 buckets and
+> do some tricks to remove any regression.
+>
+> Design 1 is the simplest and the most upstream-friendly method in terms o=
+f
+> allocator speed. Design 2 tries to scale better with the number of bucket=
+s.
+>
+> INTRODUCTION
+> -------------
+>
+> Apart from dividing the freelists between migratetypes, little attempt
+> has been made to change the algorithm of the buddy itself to reduce
+> external fragmentation proactively (termed as "anti-fragmentation" in
+> academia). Linux has defragmentation (compaction). The analysis below
 
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261008114942.1376889-1-theodorlarionov%40gmail.com
+Like Rik suggested, it is better to focus on one thing at a time. I
+think improving anti-fragmentation at pageblock level is high priority
+at the moment.
+
+> is *not* to claim that compaction does a bad job; I just took up the
+> challenge of anti-fragmentation (because I like to torture myself) and
+> kept digging the rabbit hole.
+>
+> There have been academic papers about replacing the buddy with bitmaps -
+> I did not want a hard NAK from upstream at any attempt to do that, so
+> I preserved the buddy freelists.
+>
+> IDEA
+> ----
+>
+> There is a correlation between allocating from one side of memory, and
+> reducing external fragmentation. Biasing on one side implies the
+> probability we fragment already fragmented sections is high. This may als=
+o
+> enable smarter compaction by directing the free-page scanner toward
+> higher-address regions. This also circumvents the discussion around
+> a "fragmentation score" which is dependent on the size of the
+> block we are considering.
+>
+> The idea itself quite obviously improves clustering of allocations: I
+> observe reductions in 'compact_stall' and 'anon_fault_fallback', and some
+> large improvements when the number of buckets is high (like, compact_stal=
+l
+> going down from 4000 to 5 with almost no hit in execution time for a kern=
+el
+> compilation). The obvious downside being slowing down the allocator (whic=
+h
+> needs to be tested more widely). The content below is mainly on how
+> to minimize that.
+
+I am not sure how your bucket idea is better than the existing pageblock
+design, because the biggest issue in anti-fragmentation is unmovable
+pages spreading across the entire physical memory space to prevent high
+order page allocation and I do not see how your idea could contaminate
+unmovable pages.
+
+Unmovable pages can sometimes take majority of the memory of a system,
+leaving the entire memory space fragmented, for example a burst of
+dentry allocation. Roman wrote a small userspace app to do this [1], and
+you can give it a try. Afterwards, some of these unmovable pages might
+be freed after their use, but there is no guarantee that the freed
+unmovable pages can create contiguous free pages. Unless we do unmovable
+page lifetime prediction and group unmovable pages with similar lifetime
+like Yu Zhao proposed[2].
+
+IMHO, pageblock is already acting like bucket, limiting allocation
+range. I see each pageblock a small bucket for allocations and it is
+better than growing allocation from one end to the other end, because
+the latter means unmovable allocation can keep pushing the boundary and
+the boundary might be able to move back if there is a long live
+unmovable page sitting at the boundary.
+
+At the moment, anti-fragmentation is only preventing mixing
+movable and unmovable pages in a pageblock. Rik's series[3] is doing
+additional work to keep unmovable page allocation within a unmovable
+pageblock, further reducing fragmentation. That is probably what we want
+to get in first.
+
+Maybe you can compare your idea with Rik's series and tell us the pros
+and cons of both. :)
+
+
+[1] https://github.com/rgushchin/fragm
+[2] https://lpc.events/event/18/contributions/1779/
+[3] https://lore.kernel.org/all/20261007021250.1665929-1-riel@surriel.com/
+
+
+--=20
+Best Regards,
+Yan, Zi
+
