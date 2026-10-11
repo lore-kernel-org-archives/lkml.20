@@ -1,175 +1,114 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E76733F5BC
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 07:44:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65DB9EED8
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 07:45:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791704685; cv=none; b=PIOlgYwsqwYueuD2i+IhXbEXkqMT4xB1/sSGoCzXjSab9tZsGu/m0jucwBV3C5JWb7lGs5dhcurXwSs4TblAWnPa4949iCS1twGEV6vAXL/mHr3IwksxMlvhrxE1L5J7eRYmZmGbDuLid18XDRX30XTIMoElYw4v0n+QHWy4OIc=
+	t=1791704722; cv=none; b=RD5aIijr6xZ8LuuFaBMwSCl3uTznl1Z+6lMLP6dIA7bIj9P4kDpEX4GlLYCOActyteR4C1fb+4Ss4xauFghYxF0eKicwzddbjH5L8IXJdMjZhgv7WobaeRITJ+4RJkSlJkuQepiKN5vaUPvQZ7CLtp1vfJNq4E5D2EQRmsiMhNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791704685; c=relaxed/simple;
-	bh=rGMbyhib4zZcg3k4zdkgCRV8ZgOgMOEaU/d0FumPSQE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=n8yDc6C/NEdW88Acmgu6RIiQ+IeVWB3unwNNE2UA/IVVFtrBNa5v9+cRiV1vhTMgFvvxf72OnSk6m4sJ9uwhCLDCro2p9A4tI7UgoXR6IEUN5xKshzGFQAdLiUlkz77IbrfQxjMWWZFF+JZkn+TmVqlJrLnLul80sBdbBW2rtLk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VJzyLD7A; arc=none smtp.client-ip=209.85.128.46
+	s=arc-20240116; t=1791704722; c=relaxed/simple;
+	bh=x9LCMogkgdKO89rsH+DfpirVbdhLPQZ8S0nWxdG4n90=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l755rcFhOAgMizMGUOP0lgjxDGLzti8MJgwZ8MDfAm3BxUjGgeL2qhcIb4QXamPbmNWZKf2VcQlu/hbRs9GajXKDHpoV+RshG7/QKZ38QkLVYx0JhdRFwB77GR9w8wLsgSNdhZrSXojWfiLwpE7sTv3fRSQaDMrDzHaPUPKGjMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Np7G0Ji2; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VJzyLD7A"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a19cba5c14so1445205e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 00:44:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Np7G0Ji2"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so10580025e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 00:45:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791704682; x=1792309482; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xEpLIief8ocWMfrgYIPs7JbK9l0pcCQt5z82oKv+qFc=;
-        b=VJzyLD7AGHCkW4mUPuNXfGmJ6B6CkOdQKonl0VVjZP457cyFHZEwn5bBXXAdGYK/In
-         wc9gF9xVwhlquB2zIsg1/jStc7QcF3KVuf31Rtjxa9XAh0ww/CP14lVPYeQKMFv10kry
-         yiN/DSDayLqc3YfJWz2y+a1p8qiqu1Iq4l4qOs+Z0YKPeJ0VwSo4vR1qmIQ/BwEd/NXV
-         GWBxLIZKl683SBrKTfoeqPJ6aXlNw915JDnl2hy7Cc8qyJnSwXeyE+AR4AbITKJAGwTh
-         QeC9V7ttjsSFRBMtlPguidziWhR1NJK7nRPxdL1KcAwmarWWRTCbY7rsYLnIleeT0ZN6
-         z6Gg==
+        d=gmail.com; s=20251104; t=1791704719; x=1792309519; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BqM+9SRRezlqj4MjJGtTvfOzuMvNp9lIqAkwlEew1kk=;
+        b=Np7G0Ji251b45oBYrLnOF1KLzvq/3Qmu3qA6RMMLwKA9pm381cJuYIbSe7mqSrU549
+         qTl1M4lRLVNbJiNidC4hb3tvJL7skVj8k0mWYn9+eHFIO0Pn9FIJhOlMQkoDAI0AZOut
+         BgMyZfQXwtSgFKdNSG1Uh0eSc/+3uMxH1I6wl6RGZlMqbrOAAZcVuD4c1GEnMAcqJIqG
+         PCRm8qgQgF1MIMOtLPcdY7JOQUR/wR2iN/N2GwaiXv9hvd6kG9uEgX2h5/UX+TraLa30
+         9UMBxos+ITPCupmWxZL9Fz7XnlypFQ2S4N730Xtb3vsb8WdN3ZGP37AScRAG47nasMN9
+         0KOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791704682; x=1792309482;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xEpLIief8ocWMfrgYIPs7JbK9l0pcCQt5z82oKv+qFc=;
-        b=JI/Gb9UlAan9CxHBhzXIt9ZxvzregICt1zFZALynzrWhno88Te7xFlqBS2RtMihTr9
-         Sb4biIAKQ1E4C4m+cs5HA8wmi0W7QGxF7malaM+qRv70M6MAApr9HKEMGwLytJebc5Q9
-         rbRFPLXx7z4pRcwe0vFOoC3LqqoRU3KsiK07hrzmgcX5TB1V2oM8qNNSCE1Z9CR6nqi/
-         ZQfBrI5R0fWVkcPuOWXqDOlFje/UIpiyyCwfJw9pELgfxgcsJbXLhCfyH9QoQNJPr6yD
-         NsQ0Vcz+Q3zPtymnj8+GxcQiTzYMPnouKVs8h54k5Mpv7GbTPMAc7C0wDpoVWKJg8C82
-         O8ZA==
-X-Forwarded-Encrypted: i=1; AKwUvBz4RBdIJ/NpsJcCaDWiAcqlq+YIrhldJ/PmA4907S6HEFNYeQAmZidNEM2ob7ClcRegQw4TZS7xDZLqBak=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK72w9Lr0XqtJZRWKT9bbbjq5MKJESIkgaCSF6XUN0DVjlLYKZC
-	yN54o6g4+rBWgUjbjrWBJ0pQm9lfeLd0R2Zss9fRzy/TWsxBi7MtpGA+
-X-Gm-Gg: AYBFou1pwNjbUi6CPkxPQyAkav3l9BbH+yS8AVh9PD59twigTXpRLw795LM3x5A3C/Z
-	J+B5YzQIIBebgWEZVWq3D+1TXpJXzzowS+CQYJYbrPkXe4tEBdy0xSodi2tHXMax+SXoZqhTAnY
-	VHdBowuJM70PgbbCvnKolq7IklidOERFDo5gd7LYlSpwkVSgmdeCvJvyNlhQxUE2s2QS7+JgF/P
-	P4inS5/vxG/dN1qvGo4kBU+z26FBU8985QxFZQrGZO2XxcwjB41tWaPhRo9x7vcva7SmtFhOOo9
-	of9/teIhSWHx6/ssmLNNOrwEhP7QsDm9CBkssrHb+6OY7mU+WyI9QxrpTsq3S5uMQJ6wG36JWh0
-	hC5JihSwzN8wDJleIv5XxEqit34F9Xm9n1kLrjlfy87M7JMF9Q/akTrmgIi0A/9/vMZ7o4vP+fb
-	T/DAJjSQMXHM6aNTvqZ92AUkkLGMkiCjME11zDtf7PT/OLyH6ZDxxlB7dPz78hgnDNnimF8ebJs
-	8+F0WRd06FFbaR8Ee2ApA==
-X-Received: by 2002:a05:600c:1906:b0:4a1:71ab:63ba with SMTP id 5b1f17b1804b1-4a18e4e5c87mr117687715e9.29.1791704682296;
-        Sun, 11 Oct 2026 00:44:42 -0700 (PDT)
-Received: from FranzSP11.tail2d6612.ts.net ([31.31.60.25])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a198c80cb3sm47912325e9.3.2026.10.11.00.44.40
+        d=1e100.net; s=20260707; t=1791704719; x=1792309519;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BqM+9SRRezlqj4MjJGtTvfOzuMvNp9lIqAkwlEew1kk=;
+        b=udiN+7tkMWIhYS/8imaa/kiPx0JKtIEkXWrsnIwuVh6uHIEVnsWoBnzj0o1pA475QL
+         CWlrTY+lBoSdQzdg6NQ5epjOwbTlTV4TspOt7wdNUrctrApACiiuQzsDSRqCeZMzec7u
+         B6OpV/NP2pyUZs/Dv2BCP136PBVTWo/ku4CKnVvxGOftN3o2lU/0umQWlZrCOnYfiCcp
+         MOxpNvHujXsIb3m/zgXzbUfzvilqy+wAa8+L/0D5NFEhubUPS8dtRCJI+hgWwwWTn34X
+         gJMfkyl0LTQC5pQHGhj+iMmQ72iIaoLIHQWZfRTapqYcvYp5eNWEF3xRpqKLhyT20egu
+         /U+A==
+X-Forwarded-Encrypted: i=1; AKwUvBxM+u/GxOcBucMxldie71y3jIPSWd1UfZUbNy1UCRsDbNpK+evWedaBxkF2cYZEUOu4XlQRUsMcKBYgFKE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL9noGc6EGx6FAatzJBp8MNtYj2ST3szL9HMGIp8e9BjOVTGUpc
+	XVV53KvwycePhNPEq/NftdHyKq4+tYMtYnvSivxRp/IHT4IutYuh54Ef
+X-Gm-Gg: AYBFou0lsd7VfWMoRwdZOrD9V+Zws02oLWGxmUlkmy+vcUdY2+gu7UpgpiyOAIhlH1R
+	qTr3KZ2FAzZFKIUKB+goh46aZLYPpzewvDxKSBrv6oVb+ei/IvkYupUD5CQlD4Jq9CGPJIgTKju
+	evSanyVmMrEELMRT78Imz8BA4nU1PYZmt8a0LOE0iAKyKjDkTCvJhLE2xfr9SXNXNU4/8TAhmeR
+	2syjNynOrrdHQ8SvZkmCnlPhv/Ff1orFbYsK9yx1A8SpdGYA7KxPmtrjiARvBk3vz/D1K2mwmbE
+	JPzAtsuOxdZ1Wy8GBq2JC+sXU9kTX7gwhBQ8EK++6PUdYtp0/QJOxVcRz5GLbvH/ZP/GDCCo17f
+	HRBV0uOKRqChzztOWvez4oe8fPQ2o2vBX39U6U38XI0PYMVGdZCamzSAEo7JXt0xoN0FIZfcAUd
+	3HSoHIEwfaiEvlO/zccNCUMpzOaPKGtcWh2eTtYQaheRQe9cArh0eEE8i6SFMnbYuqC/V1shMNo
+	Vuy0MAT6yS7QkrelMh6tnY=
+X-Received: by 2002:a05:600c:620b:b0:49c:fc6c:be19 with SMTP id 5b1f17b1804b1-4a18e4d12e7mr102284445e9.31.1791704719496;
+        Sun, 11 Oct 2026 00:45:19 -0700 (PDT)
+Received: from LAPTOP-AVI.taile24b5.ts.net ([2a06:c701:4778:c500:e952:dc8f:95c1:823c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18e48db03sm271020005e9.3.2026.10.11.00.45.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 00:44:41 -0700 (PDT)
-From: =?UTF-8?q?Fran=C3=A7ois=20Roux?= <franzelfranzel@gmail.com>
-To: Jeff Johnson <jjohnson@kernel.org>
-Cc: Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	ath12k@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
+        Sun, 11 Oct 2026 00:45:19 -0700 (PDT)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: austin.zheng@amd.com,
+	jun.lei@amd.com
+Cc: harry.wentland@amd.com,
+	sunpeng.li@amd.com,
+	siqueira@igalia.com,
+	alexander.deucher@amd.com,
+	aurabindo.pillai@amd.com,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] wifi: ath12k: set the regdomain before registering the wiphy
-Date: Sun, 11 Oct 2026 09:44:33 +0200
-Message-ID: <20261011074433.9187-1-franzelfranzel@gmail.com>
-X-Mailer: git-send-email 2.56.0
+Subject: [PATCH] drm/amd/display: Initialize missing TD-LUT programming inputs
+Date: Sun, 11 Oct 2026 10:45:10 +0300
+Message-ID: <20261011074510.2495683-1-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-ath12k marks its wiphy as REGULATORY_WIPHY_SELF_MANAGED, but it applies
-the regdomain received from the firmware only after
-ieee80211_register_hw(). cfg80211 announces the new wiphy to userspace
-during registration, so a GET_REG request sent in that window finds a
-self-managed wiphy without a regdomain:
+dml_core_mode_programming() memsets (clears) its scratch structure
+before calculating TD-LUT settings, but does not initialize
+tdlut_mpc_width_flag or is_gfx11.
 
-  WARNING: net/wireless/nl80211.c:10828 at nl80211_get_reg_do+0x1d0/0x1fc [cfg80211], CPU#5: iwd/721
+Both inputs therefore remain false regardless of the plane
+configuration which can result in incorrect calculations.
 
-iwd queries the regdomain of each new wiphy right away, so this shows up
-at boot. On a Microsoft Surface Pro 11 (WCN7850) it happened in 3 of 4
-boots.
+Initialize both fields using the same sources as the mode
+support path (now both paths are aligned).
 
-Apply the boot-time regdomain before ieee80211_register_hw().
-regulatory_set_wiphy_regd() only queues it. cfg80211 then applies it in
-wiphy_regulatory_register(), which runs under the RTNL before
-wiphy_register() returns. nl80211_get_reg_do() also takes the
-RTNL, so userspace can no longer see the wiphy without a regdomain.
-
-The regdomain update no longer needs to unregister the hw on failure,
-so drop that error path.
-
-Tested on a Surface Pro 11 (WCN7850 hw2.0, WLAN.HMT.1.1.c7-00108) with
-next-20260929:
-- without this patch, every driver unbind/bind triggers the warning
-  (12 warnings over 6 cycles);
-- with it, there is no warning over two boots, two module reloads and
-  17 unbind/bind cycles, and Wi-Fi connects each time;
-- with CONFIG_ATH_REG_DYNAMIC_USER_REG_HINTS and the user regdomain set
-  to CH, the wiphy ends up with CH after each of 4 unbind/bind cycles,
-  with or without this patch. The user hint handling added by commit
-  906619a00967 ("wifi: ath12k: handle regulatory hints during mac
-  registration") still works.
-
-Link: https://lore.kernel.org/all/20261006161744.3804-1-franzelfranzel@gmail.com/
-Assisted-by: LLM
-Signed-off-by: François Roux <franzelfranzel@gmail.com>
+Fixes: 70839da63605 ("drm/amd/display: Add new DCN401 sources")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
 ---
- drivers/net/wireless/ath/ath12k/mac.c | 25 ++++++++++++-------------
- 1 file changed, 12 insertions(+), 13 deletions(-)
+ .../dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c        | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/net/wireless/ath/ath12k/mac.c b/drivers/net/wireless/ath/ath12k/mac.c
-index 196b80721..1208c1698 100644
---- a/drivers/net/wireless/ath/ath12k/mac.c
-+++ b/drivers/net/wireless/ath/ath12k/mac.c
-@@ -15041,6 +15041,18 @@ static int ath12k_mac_hw_register(struct ath12k_hw *ah)
- 	for_each_ar(ah, ar, i)
- 		complete_all(&ar->regd_update_completed);
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
+index 72acf12e9251..0ee385e8ba5f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
+@@ -11074,6 +11074,8 @@ static bool dml_core_mode_programming(struct dml2_core_calcs_mode_programming_ex
+ 		calculate_tdlut_setting_params->cursor_buffer_size = mode_lib->ip.cursor_buffer_size;
+ 		calculate_tdlut_setting_params->gpuvm_enable = display_cfg->gpuvm_enable;
+ 		calculate_tdlut_setting_params->gpuvm_page_size_kbytes = display_cfg->plane_descriptors[k].overrides.gpuvm_min_page_size_kbytes;
++		calculate_tdlut_setting_params->tdlut_mpc_width_flag = display_cfg->plane_descriptors[k].tdlut.tdlut_mpc_width_flag;
++		calculate_tdlut_setting_params->is_gfx11 = dml_get_gfx_version(display_cfg->plane_descriptors[k].surface.tiling);
  
-+	/* Apply the regd received during initialization before registering
-+	 * the wiphy. It is self-managed, so userspace may ask for its regd as
-+	 * soon as it shows up, and cfg80211 expects one to be there.
-+	 */
-+	for_each_ar(ah, ar, i) {
-+		ret = ath12k_regd_update(ar, true);
-+		if (ret) {
-+			ath12k_err(ar->ab, "ath12k regd update failed: %d\n", ret);
-+			goto err_cleanup_if_combs;
-+		}
-+	}
-+
- 	ret = ieee80211_register_hw(hw);
- 	if (ret) {
- 		ath12k_err(ab, "ieee80211 registration failed: %d\n", ret);
-@@ -15058,13 +15070,6 @@ static int ath12k_mac_hw_register(struct ath12k_hw *ah)
- 	for_each_ar(ah, ar, i) {
- 		struct ath12k_base *this_ab = ar->ab;
- 
--		/* Apply the regd received during initialization */
--		ret = ath12k_regd_update(ar, true);
--		if (ret) {
--			ath12k_err(this_ab, "ath12k regd update failed: %d\n", ret);
--			goto err_unregister_hw;
--		}
--
- 		if (this_ab->hw_params->current_cc_support) {
- 			struct wmi_set_current_country_arg current_cc = {};
- 			struct ieee80211_regdomain *default_regd;
-@@ -15105,12 +15110,6 @@ static int ath12k_mac_hw_register(struct ath12k_hw *ah)
- 
- 	return 0;
- 
--err_unregister_hw:
--	for_each_ar(ah, ar, i)
--		ath12k_debugfs_unregister(ar);
--
--	ieee80211_unregister_hw(hw);
--
- err_cleanup_if_combs:
- 	ath12k_mac_cleanup_iface_combinations(ah);
- 
-
-base-commit: 6474fa070f2b8013b4b87350b775b8c3be6e8aac
+ 		// output
+ 		calculate_tdlut_setting_params->tdlut_pte_bytes_per_frame = &s->tdlut_pte_bytes_per_frame[k];
 -- 
-2.56.0
+2.43.0
 
