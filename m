@@ -1,73 +1,80 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-dy2-f2.google.com (mail-dy2-f2.google.com [74.125.229.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39D0534A78F
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:47:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7141034A78F
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:48:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791701241; cv=none; b=WZwyrTsohIvCoRWCPX/CnrfZnqBoIoduDgaqEWlG1WoC+rCTyYm8xCxzMfTH2n3ICsRsg+Ywo3tlLCludhzzOywAJse2TXb2MlpOsRZh9oI2dzetSPP6HjFXMoJ1dfT29gTOwc9uAr+dGeZgr7bbct660NW+5HZL6e7n+jVnqQ0=
+	t=1791701328; cv=none; b=Vjb7eiiy5mOH3qJ0w0GqkWaCetkd2UkBbzNyQCfVzSZ1wxSb1l8KnBD3mQwP0tlqk8Ck9hkHhx7OD3W5XnM5DAiBUAMeyKKwEaMJ9wy/wEFdvFSWRUqZkJXpWsos83lAc40mfVAxnAt4jvkwJM8mFsckXbbaQK1vYbCOtNUOtp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791701241; c=relaxed/simple;
-	bh=b9lFKuABg9FRexBM2bdC5Db/THMVYRfwn/iTTWMKBzA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DFWTjXgS56VR6KpADxtsJd16SJeUJCgUIR5VHFJRDlBFuz0XjgnnJmyDGeK/f9gfjME7Vc3vB48yM+JmYk1vOUHdSAxyzMBXh1ODQNM5atYTn+1G61Nc0ZUTtETQCtkdGm5iZrt1u/MJu2ruoGLKcY3FxJ6ST+QUbKD05YyqX24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YCUCybgq; arc=none smtp.client-ip=209.85.128.43
+	s=arc-20240116; t=1791701328; c=relaxed/simple;
+	bh=12x4Fjiyi/4PbSLt4bmLyJ/B6akX95r8sgWYZNezRSU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=UtJNGsE3nc8/Q2jwhUyzZk/FThZ31RgoTx9pDNs2X5b4MYW8oc/GmUkU14Kkf3i+bL+qRvpDSa+cQ/qDrXd5iQbwicXRQ4eo+gIImE4QCQ59QNP0/DbE6Z0dibliPlOyIkdVsrWFI0RiGyLoveWHhEduWZzFbs0oGMoMQlbx71w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Na2XRAmj; arc=none smtp.client-ip=74.125.229.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YCUCybgq"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a018792ab3so8000025e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 23:47:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Na2XRAmj"
+Received: by mail-dy2-f2.google.com with SMTP id 5a478bee46e88-327b1d5824fso1166581eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 23:48:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791701238; x=1792306038; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791701325; x=1792306125; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1QXG/OHOueFMbmPjMgjHa4I8+bxiyo5Fb5MP2BTqljM=;
-        b=YCUCybgqfvGWo5fdOk/GXL7n6BMnpMWOay7xmdN4PY1jn5cO+JwBTuThIYY3dUCw4N
-         UbWrzmsT2BT/53FkBiDNHj/qe0BAGXxJzeOy6AylD1u4PBBWsAe496FdYnljbnqG/SMh
-         TOrVvTmSZe2icdCnKjtxUzsuqRnl9ujwPyGDxTUiFshNlta25KXLSvz9SUrztw2X4dOB
-         VyJF0zHLbHh5avJO9fQpg0/hWGN7H2ejfy2y8x7UANe5kPM46xlyhGj9xzn86j9gVByE
-         FPgxIKp/BgLZmmA3F+X3EtdUXWzuOt9FKo6kqfgXMMyPkxCOyfjkWyoJ9xN61dIfbngg
-         TQoA==
+        bh=koNO8fBOwK5rhKY5/q8SE/NGFcISiEzKzkHra3TeJ/M=;
+        b=Na2XRAmjD/IGf3kac+xsO54ghH+42NuPAocWr/RLWTVdkXfv/KpQj23IZ1ShHAQ9ma
+         UAI4uwy7zd2XXyX1hup98h/TMmNUtHNWToQVk6zuiqNQujT6KstLge8QGE5k6tu+h73t
+         yrVaSK0L7CvF51Rid7GNm4aLpv/o3i0QTTd2fAYTWAIlP1xb7/pE5zIAP+yy6CbHn3XG
+         1EooESLRi97X3ay1HI4IxzXJBgujP4/RW2ZZeJHhG6m66R0869xYdph5ZB9Z5UeCeL0J
+         QYzc1LehW4v+2RibgXrQIrYMLM8/8RkycUInEEYr8kaai9qeQ5h2ZRQpinYhTHypizOr
+         TKqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791701238; x=1792306038;
+        d=1e100.net; s=20260707; t=1791701325; x=1792306125;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1QXG/OHOueFMbmPjMgjHa4I8+bxiyo5Fb5MP2BTqljM=;
-        b=AOiBdqeQkyRYiy97dE2514m4LVB4nf4JSE7z/Owxsjl0r6b8lfoZWk/SJWYBySiF4t
-         MXI4ZxbBanCjaBddarrt3oN5+riJs1qXrD0HOGjVJfm/vyLqFRQUovr7F5QIkbJc7E9E
-         bDUmbgjZ1Vv/tFe0Na97VkbBVzYJGCpMzz5e3uap8LmF1UfQjJ/1dn16vnWwE/vZjr4y
-         frRIN8q3IkUfpvoESR6SYS3FFdb+PMsrhxg0A4JL/3EbKlHblsz/uM+Ri50i79IKUp4H
-         BDFEgECfIwqGbu7f4Ew+hZj81lSb/EIMe7UD5fOozlPfFLaiH4oATlkOBLlD00HHXpv9
-         q5AQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwxxL6HkKrsWy4zZ757AhXO3BUfRZdUF0l6U1IPM3IoToT94Q6EZ8ss3OyOK4kHAHetzSVSYN12Dco0xOA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJQtBjEKA+j2ZOgEnTRI4lwWWRabDQow3PufTQqvvxSRbvKomDE
-	vMotIugzk3TCHd7zSdkDXzKi9RT5KKMbYowi2/+PAtQQAUZEfSi8H7yUk66yLyRuxyA=
-X-Gm-Gg: AYBFou1ZorAkT7QIlX/7dlvxQebx0COUM9sLR1ZJylFofU0pm4zQLjEtUeXqjx7DMto
-	jg1dqXm03Jsc3FVSYlyY4YkVylQHngeTeX8lysn2LhtZSjexAEXGEl70RKxbRg5cmvbLSJFqcoM
-	EtBX/uG1+9O1TCbKejrHTGXB4OB2jlJQ7nSnbFmfb20/p4vbOxPnhlJktJ3m0sbGDYiHumiuXi6
-	+stONRgiJj505jKbB9ADHFm40p3uxOGVndoycbBTXrj8Lho8N9Ff6SGQF2HuCORRyaXAyS20aVF
-	wg1wNbdtTiBc2NmLw/guzRrx2oZfxZR05FWEIcKZjJj32BshgsptyvVm0HlkTwprx2sAjXRDjOL
-	h/poIUIXNiKksSM2/dikdzcS6UDij9T5QMIqZwSgSAK7fagJWpbwZoeQC3r34XeOIr5DRgLRUAD
-	9amSwGtXtQv8d0LM6Z8r9luJPUttcui9sf3EwCBxk5ujEgJZ2kkd9JMLxbWlDfesbpzJBn4/gS3
-	DppomdzvP8v46crY0mtfB7MDxZ/VXlV+D0=
-X-Received: by 2002:a05:600c:1c15:b0:4a0:2867:d8a9 with SMTP id 5b1f17b1804b1-4a18e4d67e2mr131695315e9.30.1791701238379;
-        Sat, 10 Oct 2026 23:47:18 -0700 (PDT)
-Received: from LAPTOP-AVI.taile24b5.ts.net ([2a06:c701:4778:c500:e952:dc8f:95c1:823c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf31b83sm194319945e9.12.2026.10.10.23.47.17
+        bh=koNO8fBOwK5rhKY5/q8SE/NGFcISiEzKzkHra3TeJ/M=;
+        b=Gs4Jb6vnLp7LFkIRxP3uduAHjEPBPyfD7p2b64KMJN8GnRROnnahBSfToGP+21nZ7l
+         RDYPLXbbqH838xHmWhkm0k/2bcT1kBD/uqaV9LdIqHklvQMSCFk348Bwky+mvPsfhElP
+         BV4WN2U/q0bu6lXWhiXMu2k3exLZSyna9/y4NN7ao7FwlzjyrSfs7DL+58W9wT5zWZbZ
+         jk5qDLUXu7fP/w+SgdEHcPt9Cmw6kNwNiqRL+OxQsybxFxQmNrFAHPkAaIprFUYIoOUC
+         d3ZxDvEVXrZxJqLSPvCqC4CTmUWX3pJRT8I2ywTcZjQd/MY14gRVZgirLydl8rfMS1SI
+         2I0g==
+X-Gm-Message-State: AFq9FYL+busBOofszoUMaGcPpJBX9h9oMGAycFf8gH+tidXJDBWtDehh
+	m3ITHUAKBkCbGkjA32TmYS/b36/M7BXnMvTETTc+0XHRkLNn9rbng0MB0ijVLPuKOPQ5N9fR
+X-Gm-Gg: AYBFou3O8kUTKZO+dVasD8XyXYOXobGuh63Zy1mGm22zaGlAGvA1kF1vmLZL8tA4NMN
+	3LRQ3ZxyuQjFBMcfunJXa6ptWf07uwCyI1SLJ20pJGXIQExXP3R2kHeFdUpemsBfiHU8TrPhL0Z
+	0p2H0b15rjnBYUbmRvUXd3tbv8+WVmZIYyFcFqeAwz4P+aMrkaEpH92Rx0XO8aZWpIycf1JOybk
+	kRGkzw9U0Y+wJCWqYn+F/lNHKwPsqGTFRB310zhblHtg6/hpixaZSxGsuy2KK4XlalREfMzI2Z/
+	uPIXYWhasgf9PTt2l3/NyCqkpML7ARGDWgvOfP0d/y0kLffMH8yeHt+0F1imgUyrMyKHWQcUBSD
+	mMs6BPeiBF5+FX3aiPhnqZGAgs4PtrW1wuHJq/TVisEDrvb7Clx3Uy8JyDfF9I1fsAsAPq4xFc1
+	8c2SpI8NIMjH8CZVPscv+kuBjShXHf8JSLrpYwQQvlvDPMmbcX6hmgcEjd3vcIDsO5dwgyYaFa9
+	BpnjDP70jX4Re3DAMUzuaykOxqfQVF7Fv54Llgwz0LTpiM3i3uNcqR/IWA=
+X-Received: by 2002:a05:7300:2216:b0:351:28d9:4908 with SMTP id 5a478bee46e88-3537db99e8amr12245241eec.0.1791701325373;
+        Sat, 10 Oct 2026 23:48:45 -0700 (PDT)
+Received: from localhost (ec2-18-143-158-86.ap-southeast-1.compute.amazonaws.com. [18.143.158.86])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-359789fde97sm4534786eec.20.2026.10.10.23.48.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 23:47:17 -0700 (PDT)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: Joel Stanley <joel@jms.id.au>
-Cc: Andrew Jeffery <andrew@codeconstruct.com.au>,
-	linux-aspeed@lists.ozlabs.org,
-	dri-devel@lists.freedesktop.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/aspeed: Propagate DAC mux register update errors
-Date: Sun, 11 Oct 2026 09:47:14 +0300
-Message-ID: <20261011064715.2422596-1-thnkslprpt@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Sat, 10 Oct 2026 23:48:44 -0700 (PDT)
+From: jianyungao89@gmail.com
+To: linux-kernel@vger.kernel.org
+Cc: Jianyun Gao <jianyungao89@gmail.com>,
+	stable@vger.kernel.org,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Dan Williams <djbw@kernel.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Goldwyn Rodrigues <rgoldwyn@suse.com>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Shiyang Ruan <ruansy.fnst@fujitsu.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-fsdevel@vger.kernel.org (open list:FILESYSTEMS (VFS and infrastructure)),
+	nvdimm@lists.linux.dev (open list:FILESYSTEM DIRECT ACCESS (DAX))
+Subject: [PATCH v2] dax: fix dax_range_compare_iter() to use correct size and address offset
+Date: Sun, 11 Oct 2026 14:48:39 +0800
+Message-Id: <20261011064840.1296-1-jianyungao89@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,31 +83,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-dac_mux_store() currently returns 0 when regmap_update_bits()
-fails, implying a zero-length write instead of the actual error.
+From: Jianyun Gao <jianyungao89@gmail.com>
 
-Return the negative error code itself for observability. No obvious
-reason that this return should be clobbered to zero.
+dax_range_compare_iter() has two bugs in how it calls
+dax_iomap_direct_access() and uses the returned addresses:
 
-Fixes: 696029eb36c0 ("drm/aspeed: Add sysfs for output settings")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+1. The size argument passed to dax_iomap_direct_access() is
+   ALIGN(pos + len, PAGE_SIZE), which is an absolute file offset
+   rather than a length. This causes the underlying dax_direct_access()
+   to request a massively inflated nr_pages via PHYS_PFN(size).
+
+2. The addresses returned by dax_iomap_direct_access() are page-aligned
+   starting addresses, but memcmp() compares from saddr/daddr directly
+   without adding the page-in-page offset of pos1/pos2. When pos1/pos2
+   are not page-aligned, this compares the wrong data.
+
+Fix the size by computing ALIGN(len + offset_in_page(pos), PAGE_SIZE),
+matching the pattern used in dax_iomap_copy_around(). Fix the address
+by adding offset_in_page(pos1)/offset_in_page(pos2) to saddr/daddr in
+the memcmp() call.
+
+Fixes: 6f7db3894ae2 ("fsdax: dedup file range to use a compare function")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
 ---
- drivers/gpu/drm/aspeed/aspeed_gfx_drv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c b/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
-index c8746766f258..a933ad358852 100644
---- a/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
-+++ b/drivers/gpu/drm/aspeed/aspeed_gfx_drv.c
-@@ -268,7 +268,7 @@ static ssize_t dac_mux_store(struct device *dev, struct device_attribute *attr,
+Changes in v2:
+- Add offset_in_page(pos1)/offset_in_page(pos2) to the saddr/daddr
+  arguments in memcmp() to fix the page-in-page offset issue pointed
+  out in the v1 review.
+- Use offset_in_page() macro instead of (pos & ~PAGE_MASK) for
+  consistency with the rest of the codebase.
+
+v1: https://lore.kernel.org/lkml/20261010071453.6028-1-jianyungao89@gmail.com/
+
+ fs/dax.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/fs/dax.c b/fs/dax.c
+index 6ba50142eeb2..b08d408418bd 100644
+--- a/fs/dax.c
++++ b/fs/dax.c
+@@ -2197,6 +2197,7 @@ static int dax_range_compare_iter(struct iomap_iter *it_src,
+ 	const struct iomap *dmap = &it_dest->iomap;
+ 	loff_t pos1 = it_src->pos, pos2 = it_dest->pos;
+ 	void *saddr, *daddr;
++	size_t size1, size2;
+ 	int id, ret;
  
- 	rc = regmap_update_bits(priv->scu, priv->dac_reg, 0x30000, val << 16);
- 	if (rc < 0)
--		return 0;
-+		return rc;
+ 	len = min(len, min(smap->length, dmap->length));
+@@ -2212,17 +2213,18 @@ static int dax_range_compare_iter(struct iomap_iter *it_src,
+ 	}
  
- 	return count;
- }
+ 	id = dax_read_lock();
+-	ret = dax_iomap_direct_access(smap, pos1, ALIGN(pos1 + len, PAGE_SIZE),
+-				      &saddr, NULL);
++	size1 = ALIGN(len + offset_in_page(pos1), PAGE_SIZE);
++	ret = dax_iomap_direct_access(smap, pos1, size1, &saddr, NULL);
+ 	if (ret < 0)
+ 		goto out_unlock;
+ 
+-	ret = dax_iomap_direct_access(dmap, pos2, ALIGN(pos2 + len, PAGE_SIZE),
+-				      &daddr, NULL);
++	size2 = ALIGN(len + offset_in_page(pos2), PAGE_SIZE);
++	ret = dax_iomap_direct_access(dmap, pos2, size2, &daddr, NULL);
+ 	if (ret < 0)
+ 		goto out_unlock;
+ 
+-	*same = !memcmp(saddr, daddr, len);
++	*same = !memcmp(saddr + offset_in_page(pos1),
++			daddr + offset_in_page(pos2), len);
+ 	if (!*same)
+ 		len = 0;
+ 	dax_read_unlock(id);
 -- 
-2.43.0
+2.34.1
 
