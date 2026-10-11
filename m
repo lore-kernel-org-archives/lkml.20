@@ -1,361 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D774E3603DF;
-	Sun, 11 Oct 2026 19:13:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516C035DA42
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 19:13:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791746017; cv=none; b=fD4xPW/M04vWof3nMEU2n6Y2l+vxOQ76EWOp6Mnkq+uDi6tU0V9fE8YRfRDOOX7TpJH3QGClAdeosNONFqGDUeSJRoBdMeyMSJpXe9k3Ey6P5xYdx5EeMZM2S0sCzX+aLkGUyGcf3Hxq8b2snZwvyXecDiOYnU40Y8kWFkgK5aI=
+	t=1791746040; cv=none; b=V0x8CjWtuPMmpMJqK2O1EM/ypKiQyNO6BvIPLu77aMHrTrszI8foVmLWRcc/E9FcbPOqBsYUlmIMCGnnIZjrCyz3nek95J8yS6ttTro+8IV/E+LbS2n4ghmBnyOQcPZzQ3Cwp4Oyr/LUZdjsH/ip+6DGZRzRUsSBl/L0LVcV5YI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791746017; c=relaxed/simple;
-	bh=ZGV2vIh0/KBGU1oZwFmHUpi4kBz6Xm2Llfiyjwm8VTs=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=hkVBgzyVOsaKK8sOiN222WohmSr+dC8Se+3hko5gOZiR+5UHoi1StfzP4Rcf4tqFFEjrfBWdygVS02GnkD1R498CZvXQAaEV5mRL8pTpVnPrz097g0Siq6L4sN6SB/34mN9dxniQsehKGZkHLc6uQL6WEYK25WrlyMFXmMz7y/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H4u/IgrR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791746040; c=relaxed/simple;
+	bh=u3GA36Yn1in3410a7NikaX25shwYKZA4aFjbSlUMpqo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HmDoc8Mmwt/bGrfkiifYGKt74YHnVReL7s422CiKu11huClXE0l2ahmhJlNGO2LXepLAf1qNUwTKHTyXg80mg6HyRptRSIOdqU+KOb400wZ16GQECjeX/zf34EvML5Z4giFyylODUDB/A99yneK5pR7oQO2W1cx/5NyA04yjo1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g9wgXTvl; arc=none smtp.client-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H4u/IgrR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC84D1F0089B;
-	Sun, 11 Oct 2026 19:13:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791746015;
-	bh=oFMGe7A7jXBHyDAEo+RvnvGYBzGkORWLEt7pLGKtQtA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=H4u/IgrRqHLPj8XKdbQrORvWlM4V0UeY31e1XGeREclAhdqFiZiUbfXc1rBi3mVjm
-	 YdwyR/2zj+kcyTm8iziNhFs3oOVw2HS74Z37C4aCCsPoadPkIWNwixRBa4C4ll55Lc
-	 cf17Uo6P35DT0W99oKb0+HGJ7JAQU1n9pflLBA30IYQ8mGuQrNl4jwoEBWqkuAhRVT
-	 Yi+3246yC8h6PS+tYZSLJok4xO/gHMZImgOA1D3KQN1W/W0vCK5ZmYtt10ZL0nAsz3
-	 3yjRfM/zy60YQoF4Uo/GihhqBFi1/aS1MtzxjAry1/UQwDbwpGT7Xa9i22l2qpxHC/
-	 6Ahv6GWX+8Nwg==
-Subject:
- Re: [PATCH net-next v2] net: stmmac: dwxgmac2: enable L2 split header support
-From: netdev-bot+sashiko@kernel.org
-To: sagar.cheluvegowda@oss.qualcomm.com
-Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- lorenzo.bianconi@oss.qualcomm.com, hongmei.xu@oss.qualcomm.com,
- abhishek.chauhan@oss.qualcomm.com, sarosh.hasan@oss.qualcomm.com
-Date: Sun, 11 Oct 2026 19:13:34 +0000
-Message-ID: <179174601434.434549.13553290378854885570@kernel.org>
-In-Reply-To: <20261007183905.2582759-1-sagar.cheluvegowda@oss.qualcomm.com>
-References: <20261007183905.2582759-1-sagar.cheluvegowda@oss.qualcomm.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g9wgXTvl"
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c169ae1cb26so581871566b.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 12:13:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791746037; x=1792350837; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UOSwhisIw431b/tMlifKmUueFNOwFyz7VxO+xdRddRQ=;
+        b=g9wgXTvlJrwHZ6ip+Bo3mYZe6hBo8hEh5TeiULdJGkoq4kdTN49kagbfTRj5GGpyEa
+         Yopgt0Bl7qr3mb8FjDRyvnO3cAHflAsSie9J/Cr/EHZstCMwRshMPSaTE5tIvNgnfpQu
+         e9Rfr0E0q5HlKyYR6Qi7ap77tfBAJ/4MB1C8HJyQiP/K0kUy+IvM4hPlxsVY7KcOXfsN
+         PFsxtnKLcY2HYhYSc8Vqf0jlZQUKxx7mCsknhPdG1g552VQOIFVCsCdIflQzBhXmfmFG
+         r/Khx11fG5Y32t2OEvso1yh34Gy7aVp+aQ4cNZmGFhu7+/VkoCrXRKGVvlodAoCETM7G
+         4lVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791746037; x=1792350837;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UOSwhisIw431b/tMlifKmUueFNOwFyz7VxO+xdRddRQ=;
+        b=vHxJhHWGYZfurkUL7+hg4Rduj2jPu476z1IYGkg2QKi8DIcMVM9axvdMISkKpDVRo+
+         /DbGwKk2OZEVCPovjBNjwBiFERSb6bDO2Bf5Of+7jyrrlD1ZPkw05VhpZR0qbw2wihn4
+         DnybgfCNNcXWeCOoe8n8JZdpM2hzYvGJ8BQP8bAL8Ck5ff52WQahjKD2PsRYHH3uN8Zd
+         ihV2d8ETFjIgbWVzZK9zC+2Aw9RtU95PrhZTUPktm6SDllJQryssvy6fuk6qo/LN+E6i
+         yIfLn07KLkiLcGckkAZ/AGO6wzvf3ixGeP2SU3jYUuJK7JTeAvBz+JS/n7AkRXAULAy+
+         xqLA==
+X-Forwarded-Encrypted: i=1; AKwUvBybwmdCSZtXrjymmKWR6I7Dxznzq1GylebG6i5Sch6J6h+vMX82UXsQFdVTeg7Oe1s9Npi0bdIZ4G1js8U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIhjCY04+bTa3L+pTiHC9K39VdTN/0ywZLLs0Uur9XwOLnMk7me
+	3ftMl3a4SKf5R7jNsUQ/3y0RlaP9nX5VunVYlZX8hazub4CCLW9PCIAu
+X-Gm-Gg: AYBFou0YIFCOlsPYRwjInUe+1bprSJ86u25EpYvdBsUbZTBg+dGAlpw2BS++bPG/ryx
+	6As8GBClrfwgb667S10m3diesFh2oL6NQyX1mHcJ4AA/w+EobXbnd4kS3BTD7I6rzePjiSD4Dyd
+	e4uwKWD/NghlyWkpFQH04Wn9b0lQvKzvQJLwKpZHqUODoddzxeRwCjY9TB1t/vefpOrFNtOgiYm
+	O9CfT4csKMtqD3YmdAtwpKAAinsSV0bxrKU+rCCR0qElroAe5SVL7x9ny1xwGKVPWADyIJZNa7u
+	NiNYrLj7KF3W3jO8QxEIJcSShQ8e12fV6LE5QFhr1s2VolVrgRsDjtEZn8P+j10522PLnaQXOmn
+	Wc1127wD15SFD4zBsYEHVLEy/NwTxAqBqUhgY253A+W7wSBAfvdXuLGZVUSKp6TLNkvCHbl+A13
+	bgdTCXZB8dOvttweYjYS55DBf0GBtXPk4OM6Jri02UoJajkcAeAdn4xLeFIjXRIPa0ZKuQQxN+m
+	1S9svBUEOWHmXPFYy3hTxNwTe8M+D3FJxK8ygZl
+X-Received: by 2002:a17:907:c386:b0:c2e:2275:1168 with SMTP id a640c23a62f3a-c31a70675b3mr740184466b.19.1791746037400;
+        Sun, 11 Oct 2026 12:13:57 -0700 (PDT)
+Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b179dd3736sm4084832a12.18.2026.10.11.12.13.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 12:13:56 -0700 (PDT)
+From: Magnus Lindholm <linmag7@gmail.com>
+To: richard.henderson@linaro.org,
+	mattst88@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-alpha@vger.kernel.org
+Cc: linmag7@gmail.com
+Subject: [PATCH v6 0/6] alpha: improve Tsunami machine check reporting
+Date: Sun, 11 Oct 2026 21:12:47 +0200
+Message-ID: <20261011191344.981000-1-linmag7@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-Thank you for your contribution! Sashiko AI review found 6 potential
-issue(s) to consider.
-
-Critical: 0 · High: 2 · Medium: 2 (2) · Low: 2
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] On XLGMAC cores, dwxgmac2_enable_sph() writes to the wrong
-  registers.
-- [High] net: stmmac: incorrect shift in non-IP header length calculation
-- [Medium] dwxgmac2_enable_sph() programs the MAC-wide split
-  configuration regardless of `en` or split-header capability, which…
-- [Medium] stmmac: missing mask clear before setting XGMAC_CONFIG1_SPLM
-  field
-- [Low] The commit message presents the RX header-length change in
-  dwxgmac2_get_rx_header_len() as a fix for an existing defect: RDES3…
-- [Low] net: stmmac: dwxgmac2: missing mask when setting multi-bit SPLM
-  field
-
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but the error
-  handling in stmmac_rx() can lose the partial-packet state.
-- [Medium] This problem wasn't introduced by this patch, but the XGMAC RX
-  path reads descriptor write-back fields without a DMA read barrier…
-
---
-
-net: stmmac: dwxgmac2: enable L2 split header support
-
-This patch makes dwxgmac2_enable_sph() set SPLM and SAVE_EN in
-XGMAC_EXT_CFG1 and clear VPRE in XGMAC_EXT_CFG0, so that L2 header
-splitting works on XGMAC2. It also changes dwxgmac2_get_rx_header_len().
-On non-last descriptors it now reads the header length from RDES2[9:0]
-directly. On the last descriptor it uses RDES2[9:2] for non-IP packets
-that have L2T set.
-
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-> index 6719ac6e395bc..65ac5403ec583 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-> @@ -292,8 +292,18 @@ static int dwxgmac2_get_rx_hash(struct dma_desc *p, u32 *hash,
->
->  static void dwxgmac2_get_rx_header_len(struct dma_desc *p, unsigned int *len)
->  {
-> -	if (le32_to_cpu(p->des3) & XGMAC_RDES3_L34T)
-> +	u32 rdes3 = le32_to_cpu(p->des3);
-> +
-> +	/* when FD=1 and LD=0, HL is RDES2[9:0] */
-> +	if (!(rdes3 & XGMAC_RDES3_LD)) {
-
-[Severity: Medium]
-This is a pre-existing issue, not one introduced by this patch. The
-comment says FD=1, but the code never checks FD. Can a continuation
-descriptor get here and be treated as a first descriptor?
-
-In stmmac_rx(), suppose napi_build_skb() fails on the first descriptor
-of a multi-descriptor packet:
-
-stmmac_rx() {
-    ...
-			skb = napi_build_skb(page_address(buf->page),
-					     rx_q->napi_skb_frag_size);
-			if (!skb) {
-				page_pool_recycle_direct(rx_q->page_pool,
-							 buf->page);
-				buf->page = NULL;
-				rx_dropped++;
-				count++;
-				goto drain_data;
-			}
-    ...
-}
-
-error is not set, and the code goes back to read_again. If the next
-descriptor is still owned by the DMA, status is dma_own and the loop
-exits. The state save is then skipped, because status has no
-rx_not_ls and skb is NULL:
-
-	if (status & rx_not_ls || skb) {
-		rx_q->state_saved = true;
-		...
-	}
-
-On the next poll, len and error are both 0 even though the descriptor
-is a continuation. That bypasses this guard in stmmac_rx_buf1_len():
-
-	if (priv->sph_active && len)
-		return 0;
-
-dwxgmac2_get_rx_header_len() is then called on a descriptor with FD
-clear.
-
-Would buffer 1 of that continuation be handled as the header of a new
-packet, so a malformed packet reaches the stack? Split IP packets
-could already hit this before the patch. The patch only changes which
-RDES2 field gets read here.
-
-> +		*len = le32_to_cpu(p->des2) & XGMAC_RDES2_HL;
-> +		return;
-> +	}
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but is there an ordering
-problem between the OWN check and this RDES2 read?
-dwxgmac2_get_rx_status() checks OWN first:
-
-	u32 rdes3 = le32_to_cpu(p->des3);
-	u32 rdes2 = le32_to_cpu(p->des2);
-
-	if (unlikely(rdes3 & XGMAC_RDES3_OWN))
-		return dma_own;
-
-stmmac_rx() then reads des2 again through
-stmmac_rx_buf1_len()->stmmac_get_rx_header_len()->
-dwxgmac2_get_rx_header_len(). There is no dma_rmb() between the two
-reads on this path.
-
-On weakly ordered platforms, could the RDES2 load complete before the
-RDES3 load that sees OWN cleared, and return a stale header length?
-This patch now reads RDES2 in more cases (non-last descriptors and L2T
-packets).
-
-> +
-> +	if (rdes3 & XGMAC_RDES3_L34T)
->  		*len = le32_to_cpu(p->des2) & XGMAC_RDES2_HL;
-> +	else if (rdes3 & XGMAC_RDES3_L2T)
-> +		*len = (le32_to_cpu(p->des2) & XGMAC_RDES2_NONIPHL) >> 2;
->  }
-
-[Severity: High]
-Does this shift turn a byte count into a dword count?
-
-If RDES2[9:2] holds the non-IP header length in units of 4 bytes, the
-value masked with XGMAC_RDES2_NONIPHL is already the length in bytes.
-Shifting it right by 2 then gives the number of dwords instead.
-
-stmmac_rx_buf1_len() passes hlen straight back to stmmac_rx() as a
-byte count:
-
-	stmmac_get_rx_header_len(priv, p, &hlen);
-	if (priv->sph_active && hlen) {
-		priv->xstats.rx_split_hdr_pkt_n++;
-		return hlen;
-	}
-
-stmmac_rx() then uses buf1_len for dma_sync_single_for_cpu(),
-xdp_prepare_buff() and the skb_put() on the head buffer. For a 16-byte
-header this returns 4, so only 4 bytes of the Ethernet header land in
-the linear part of the skb, and buffer 2 is attached after them as a
-frag. The rest of the header is lost.
-
-Wouldn't stmmac_rx_vlan() and eth_type_trans() then read past the
-4-byte linear area, and the ETH_HLEN pull in eth_type_trans() hit the
-BUG() in __skb_pull()?
-
-The L34T case right above uses RDES2[9:0] as a byte count with no
-shift. Can you confirm against the databook whether the non-IP case
-really needs the >> 2?
-
-[Severity: Low]
-The commit message describes this change as a fix for an existing
-defect:
-
-  Also fix the RX header-length calculation for split-header
-  descriptors. Per the XGMAC2 descriptor format, RDES3's L34T and
-  L2T fields are only valid on the last descriptor (LD set); on a
-  non-last descriptor they can hold stale write-back data from a
-  previous packet.
-
-The L34T-gated read being replaced came from commit 96147375d49f
-("net: stmmac: xgmac: Only get SPH header len if available").
-
-If that premise holds, existing XGMAC SPH users can get hlen == 0 on a
-split first descriptor. They then fall through to this in
-stmmac_rx_buf1_len():
-
-	if (status & rx_not_ls)
-		return priv->dma_conf.dma_buf_sz;
-
-Should this part go in its own patch with a Fixes: tag? Then it could
-be backported without the new L2 split and VPRE changes.
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-> index ff83858ebc1f3..0a9c787305a4e 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-> @@ -561,6 +561,16 @@ static void dwxgmac2_enable_sph(struct stmmac_priv *priv, void __iomem *ioaddr,
->  	value |= XGMAC_CONFIG_HDSMS_256; /* Segment max 256 bytes */
->  	writel(value, ioaddr + XGMAC_RX_CONFIG);
->
-> +	value = readl(ioaddr + XGMAC_EXT_CFG1);
-> +	value |= XGMAC_CONFIG1_SPLM(1);
-> +	value |= XGMAC_CONFIG1_SAVE_EN;
-> +	writel(value, ioaddr + XGMAC_EXT_CFG1);
-> +
-> +	/* Disable variable preambles to keep the L2 split offset deterministic. */
-> +	value = readl(ioaddr + XGMAC_EXT_CFG0);
-> +	value &= ~XGMAC_EXT_CFG0_VPRE;
-> +	writel(value, ioaddr + XGMAC_EXT_CFG0);
-
-[Severity: Medium]
-This read-modify-write keeps whatever was in bits 9:8 of
-XGMAC_EXT_CFG1 and ORs in SPLM=1 on top. If a bootloader or earlier
-firmware left SPLM at 2, the register ends up with SPLM=3 instead of
-the L2 offset mode this patch wants.
-
-dwxgmac2_enable_sph() is called from stmmac_hw_setup() for every RX
-channel, and again from the XDP and stmmac_set_features() paths. None
-of those calls would ever correct the field, so the MAC would stay in
-whatever split mode the combined value selects. What does SPLM=3 do on
-XGMAC2? If it is reserved or selects a different split point, the
-header length the hardware reports would no longer match what
-dwxgmac2_get_rx_header_len() expects.
-
-dwmac4_enable_sph() looks to have the same pattern for GMAC_EXT_CFG1,
-so copying it here carries the issue over. Should the field be cleared
-with XGMAC_CONFIG1_SPLM_MASK before XGMAC_CONFIG1_SPLM(1) is applied?
-
-[Severity: Low]
-XGMAC_CONFIG1_SPLM_MASK is a two-bit field, GENMASK(9, 8), but the
-old contents of that field are never cleared before the new value is
-ORed in. If bit 9 is already set when dwxgmac2_enable_sph() runs, the
-field ends up as 3 rather than 1.
-
-The reset value is probably 0, so this may not matter in practice.
-Still, the usual pattern for FIELD_PREP() in a read-modify-write is to
-clear the mask first:
-
-	value &= ~XGMAC_CONFIG1_SPLM_MASK;
-	value |= XGMAC_CONFIG1_SPLM(1);
-
-The v2 changelog says the mask was added for XGMAC_CONFIG1_SPLM().
-Could it also be used here to clear the field?
-
-[Severity: High]
-Can this clear an RX queue enable bit on XLGMAC? The DWXLGMAC_ID entry
-in stmmac_hw[] in hwif.c uses the XGMAC DMA ops:
-
-		.desc = &dwxgmac210_desc_ops,
-		.dma = &dwxgmac210_dma_ops,
-		.mac = &dwxlgmac2_ops,
-
-That means dwxgmac2_enable_sph() also runs on XLGMAC. On that core,
-offset 0x140 is the RX queue enable register in dwxlgmac2.h:
-
-#define XLGMAC_RXQ_ENABLE_CTRL0		0x00000140
-
-dwxlgmac2_rx_queue_enable() programs a 2-bit enable field per queue in
-that register:
-
-	if (mode == MTL_QUEUE_AVB)
-		value |= 0x1 << XGMAC_RXQEN_SHIFT(queue);
-
-For queue 4 in AVB mode this is BIT(8). That is the same bit this code
-clears as XGMAC_EXT_CFG0_VPRE.
-
-stmmac_hw_setup() enables the RX queues in stmmac_mtl_configuration().
-After that, it calls stmmac_enable_sph() for every RX channel, without
-checking sph_capable or the core type:
-
-	sph_en = (priv->hw->rx_csum > 0) && priv->sph_active;
-	for (chan = 0; chan < rx_cnt; chan++)
-		stmmac_enable_sph(priv, priv->ioaddr, sph_en, chan);
-
-Would an AVB-mode RX queue 4 on XLGMAC end up disabled after every
-open, every XDP reconfiguration, and every stmmac_set_features() call?
-
-The write to 0x144 also sets bits 8 and 24 on XLGMAC, and the driver
-doesn't define what that offset holds on that core.
-
-Should these MAC register writes move into the per-core MAC ops, or be
-gated on the core ID?
-
->  	value = readl(ioaddr + XGMAC_DMA_CH_CONTROL(chan));
->  	if (en)
->  		value |= XGMAC_SPH;
-
-[Severity: Medium]
-The XGMAC_EXT_CFG1 and XGMAC_EXT_CFG0 writes above run whether or not
-en is set. Only the per-channel XGMAC_SPH bit depends on en. The
-commit message says:
-
-  Finally, disable the variable-length preamble when L2 splitting
-  is enabled.
-
-stmmac_hw_setup() and the XDP setup path call stmmac_enable_sph() for
-every RX channel without checking priv->sph_capable. Does that mean
-every XGMAC instance gets SPLM and SAVE_EN set and VPRE cleared? That
-would include cores without SPH, STMMAC_FLAG_SPH_DISABLE setups, setups
-with XDP attached, and setups with RX checksum off.
-
-The en == false path, for example stmmac_set_features() after ethtool
--K rx off, also never clears SPLM/SAVE_EN or restores VPRE. The dwmac4
-sequence sets SPLM/SAVE_EN unconditionally too, but the VPRE change is
-new.
-
-Should these settings be applied only when en is true, and undone
-otherwise?
-
+Content-Transfer-Encoding: 8bit
+
+This series adds Tsunami/Typhoon system-error diagnostics and Clipper
+ES40 environmental reporting. It applies to v7.3-rc1 on the Alpha for-next
+branch at 33465f6ab697.
+
+Thanks to Matt Turner for reviewing v5, building each patch for GENERIC
+and SHARK with W=1, building its tip for DP264 and EIGER, and booting
+GENERIC on QEMU Clipper with two CPUs. His Reviewed-by tags are carried
+on patches 1 and 2; patch 1 also incorporates his build-ordering nit.
+
+Changes since v5:
+- Add bounded raw dumps for rejected EV6/system/environmental frames.
+  Round down to whole quadwords and cap fallback dumps at 1 KiB.
+- Clarify that ES40 documents the short EV6 frame; the corresponding
+  Titan/Nautilus firmware behavior has not been verified.
+- Move the non-generic Tsunami err_ev6.o dependency to patch 4.
+- Correct the obsolete PERROR bit-9 RTO definitions: HRM rev. 4.0,
+  Table 10-42 specifies reserved MBZ/RAZ, so the 0xdff mask is retained.
+- Drop the ES40-specific system reason-code restriction, retain structural
+  bounds checks, and restore CPU register/PC output for system errors.
+- Remove inactive expected-probe handling and its changelog claims.
+- Report valid environmental notifications with no recognized fault bits,
+  including their status context; remove "Set =" from door messages.
+- Keep PCI initialization in sys_dp264.c and error registration in the
+  error file. Restrict console-log scanning to Clipper pending testing
+  on older Tsunami firmware.
+- Put UECC/PERR panic policy in patch 6 with its HRM rationale. Only
+  system-error vectors can trigger it, not incidental live PERROR bits
+  during CPU or environmental notifications.
+
+PERRMASK remains as configured by firmware. Inverted SMIR halt/reset
+bits remain undecoded. Console environmental records remain raw because
+ES40 Table D-18 has conflicting offsets. Restricting console-log scanning
+avoids extending it to untested boards; it does not validate arbitrary
+firmware pointers or establish nonempty-log coverage on Clipper.
+
+Testing:
+- Native ASan/UBSan tests exercise the actual EV6/Tsunami handlers and
+  console helpers, including malformed/short frames, raw-dump bounds,
+  unfamiliar reason codes, separate live snapshots, register reporting,
+  fault-free environmental notifications and system-only fatal policy.
+- W=1 vmlinux builds passed for minimal GENERIC, SHARK, DP264 and EIGER
+  configurations using GCC 15.0.1. The existing saved_config COMMON-symbol
+  modpost warning remains; no compiler warnings in the final build logs.
+- git am on the stated base reproduces the final source tree.
+  git diff --check passes; checkpatch reports no errors.
+
+V6 was boot-tested on my AlphaServer ES40 using my ES40 configuration,
+with GENERIC_ENTRY enabled. Unplugging and reconnecting a PSU power cable
+produced three correctable environmental notifications (code 206). PSU 1
+was first reported enabled but failed, then its enabled indication was
+absent. After reconnection, its enabled indication returned and its
+individual failure indication cleared. No oops or panic appeared in the
+available log during this test.
+
+SMIR bit 0 remained set in all three reports, so this test does not
+exercise notification reporting with all recognized fault bits clear.
+That path, malformed-frame raw dumps, system-error register reporting and
+the UECC/PERR panic policy remain covered by synthetic tests only. V6
+hatch testing and nonempty firmware console-log testing remain outstanding.
+PALcode clearing behavior, inverted halt/reset polarity and corresponding
+firmware layouts on other boards remain unverified.
+
+Earlier v4 testing used PSU power-cable changes, opened hatches and a
+CALLSYS-based software trigger with modified handling. Matt's build and
+QEMU results above apply to v5.
+
+Magnus Lindholm (6):
+  alpha: move Tsunami machine check handling to err_tsunami.c
+  alpha: describe the Tsunami system machine check frame
+  alpha: bound EV6 logout decoding by the processor area
+  alpha: decode and acknowledge Tsunami system machine checks
+  alpha: decode Clipper environmental events and retain console logs
+  alpha: stop on fatal Tsunami system ECC and write parity errors
+
+ arch/alpha/include/asm/core_tsunami.h |   8 +-
+ arch/alpha/include/asm/err_common.h   |   2 +
+ arch/alpha/kernel/Makefile            |   4 +-
+ arch/alpha/kernel/core_tsunami.c      |  34 --
+ arch/alpha/kernel/err_common.c        |  13 +
+ arch/alpha/kernel/err_ev6.c           |  38 +-
+ arch/alpha/kernel/err_impl.h          |   1 +
+ arch/alpha/kernel/err_tsunami.c       | 592 ++++++++++++++++++++++++++
+ arch/alpha/kernel/proto.h             |   2 +
+ arch/alpha/kernel/sys_dp264.c         |   5 +-
+ 10 files changed, 651 insertions(+), 48 deletions(-)
+ create mode 100644 arch/alpha/kernel/err_tsunami.c
+
+
+base-commit: 33465f6ab697abceafd9a340067a544d551c4412
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261007183905.2582759-1-sagar.cheluvegowda%40oss.qualcomm.com
+2.43.0
+
