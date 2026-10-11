@@ -1,167 +1,127 @@
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14D812BF3F3
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 23:12:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0951444A730
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 23:13:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791760372; cv=none; b=aAjkEhjniYIRFzBQpEGCpxwltPZSd+pvt0lykkXmkAp1ic3p21zjdoISgwHKvhY7QDPiynCSdUPJ7QUl4HKbZJY6XkGKdx5dPKRS5wdd+PkRPwGxyfqBR7DVjaucmE6Zfu/YRllkFhCUjeVepRROD+SX755zVlSDKT6fHujuV6Y=
+	t=1791760408; cv=none; b=ujQhyct5wU8YtmdvEldxyu/u/IpffUj5Mkr+AUDX0nIrsfAyv7cGDUmHE500HUYnDsr3OcNQoi/4MUzsuY3OogL0eGECZOAl+KW8MDFrSDc/t4kDvvjILCTz833LkmDCFESUUh2wb5ySFLgobFY5FXOzHAOo433np7f6hcwV8Ms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791760372; c=relaxed/simple;
-	bh=oiqejljpC0r+WZwUgtEHk+QEL0SEdtKyU3/JxT4QOkI=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=iz9TuqKtKT9OIx3wojiK5PQS4RAMNpCqtl9QkCzklWQOBJzZ8mBmqeSFCfAw9H+RWZeYQqJtgxdObSWLZV5ab/UbKW9bN1o9thqrk6TOewMyJlv9yCw6ANBwKpwnPEfstCiQsYewt2wWCdjMCf7WUVk21LkPxkBalU+wAT+DeIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mina86.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q7hmyJHK; arc=none smtp.client-ip=209.85.218.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mina86.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791760408; c=relaxed/simple;
+	bh=oxW4Ujc2C6PLvH6PLF1Dxb2THQi6y4w5CW1TMZdBXv0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bFaHzcWiyJ/0q+vga9W7sVyw/OEP7+/2HR/L3eiXwVyrr3WF0UgYzX8LgwiHXkbpVd2ShFim1YKBCbJ8rpmMBveLzE/En4vO39QD8FEXeX9dy/3argqAatmT0DHd/khmsxOOMUy0aDe9ZBJDv44W0V2qSnMS/Jzj9ul9+8y/Wr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=QON8AQ/y; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q7hmyJHK"
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c2a4e013a44so193890566b.2
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:12:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="QON8AQ/y"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a180fbeef5so11951755e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:13:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791760369; x=1792365169; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:sender:from:to:cc:subject
+        d=baylibre.com; s=google; t=1791760405; x=1792365205; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=RgqrNqMtaQsL974qKMls+lDoPZ135EhOvjmIHmRaXDw=;
-        b=Q7hmyJHKehtGfBlhefSATHmpyQhzqdUAYJ0fy5StXPhjC8SbJWrFbKx7uQ8RSxm2DX
-         tYuXG6xqMLmeco43kId2hkMjBzFgnnNdP1xLlbgO3Gk/Jo9is2ek8RiAG9IEYUb5W/aX
-         meS6ZltAbdRVZcjUAde9sev5NnbkksXrLHWktgT5zfa/OQJFw/VTq0iVLaGd7mYznygs
-         ewG8iytyHd6gEJeJOCLedePLTupGR716JmlUSZUAfVNTyl/H6XOy5zRdI3yFt2CCaEka
-         kbBlcZYeqklBI6bVXD1ppb3/BLmDoeKXyBXb8MY4IBXjGQNHb+MKEzbIcetMuz3jmXJ0
-         qD3g==
+        bh=oxW4Ujc2C6PLvH6PLF1Dxb2THQi6y4w5CW1TMZdBXv0=;
+        b=QON8AQ/y9KiDFNy+It8hlob20YtDNppEISyizRYGEuYW850wo+nChbnur+Em+jCztB
+         /cfm0szmZIEThkdWA0vzorgpsLyHphoJCOGuoxSaxkHSTuVsUvYjbHMUvcpF1GSOvHQH
+         nHqOxVlwpTfrcZWDu4MicUvoyfJIZki6P55XjhS7hl7Jl2Y8eU8NAkukEuSWMuR6J5LH
+         EEwOvkvRhxkR8rbeLvDMsm2dFOwRHKntRAgG4wAZupdVfBeK4nCTZQCp461kYasoojZm
+         fq/V4bUMgkGW5XYnKG1N/OjUd3ViOc4KA1gjEfBNP9WJjIr+e0Yah3OW9cSPWGX7OIWt
+         IqgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791760369; x=1792365169;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:sender:x-gm-gg
+        d=1e100.net; s=20260707; t=1791760405; x=1792365205;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=RgqrNqMtaQsL974qKMls+lDoPZ135EhOvjmIHmRaXDw=;
-        b=BXSOxhc4pTtP6WWOPtQE2a8rHVtfssQGm9TIhucSssj1BXnDryFFVpdKq/PaUpPGDs
-         Wizr0bdArkRVLKQn5W6peRx69hqzTZEzVc7/jsvH0awr1MRTq9MVTescgaEXaG5Kw+ke
-         JcBrl8IGB2WrSbNqB7SL1GSeQ95joJpu7tPLP3U5pauku6ioSrkGVKQ5OkTU06HfKz5E
-         FD5MnLjVoOBd/Y8353mybHF6A0KBu3N7PUeAurvc8uVEfR3KtJsugr0Hl0mMz2f2tXDx
-         Ddykl5LAQT5Xo09upEMaplQ2fjpmRFxiowjL9LfxDsgXadpYbU7mexMPPeskzXhkPib3
-         qROw==
-X-Forwarded-Encrypted: i=1; AKwUvBxnHKO3/JLVoPfK+vWeKnRA6i0laGN/uHgRpCZfUea0zZrU3aFSel9MiiBcLRCcihctKmja3W+zatoq2b8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIbzcy9kCV0sh8R5GuIJA3dqzQe1YK2TBARJa4y1NVFA3N/J+GH
-	6hbYzKokMqPvHdzPw9Uv5zQEWLMyFsfvI7/27AuJ9TA8OEkwGvJVdC4q
-X-Gm-Gg: AYBFou0RvNIkabA6D3ucWF7DIJnq8IGtXCGHLESBxB4PTERiQ44yHARHFWPWaIj+7Rl
-	lUfnrFEo2pUfp00gBctAcZZKZf0jP5jd/PwISd1VBxeoCI2RAJ3SezhBB/Vp9xT4uRfMiNmSNVw
-	SfKEEx5WWz5hNvtxtwkhAXfD7jvz4PhgC29eZ2iG7MaVli53f80DE9GPs3SgHNNwaqbYC/Ut9LC
-	pTlCoPvlW8ZAwD/1Fk5Qt+KaP72DgXpaAQhVD0w/6Cd0BxIFdrU9owGtpLa55KB2cHTI1b90ewf
-	PPN2UPvDevO8vPqwRbOcOZ12pZqvO/laVNppRhFYtbMoNlcq3EuFYS7JE4uNjM3u0Vmv/J4qeG4
-	WdKgOIIqm3cBp5XDNH4BgyIF9Z0z6EZf/fUJO6MtAghployWRIZs3mNY176HRD4l8iOgS+M+di7
-	ttvE5fnkDRxBTWfj4lHkQijdp79L2Q58BvIP/3pc4j0Msc80cebZ0yKsUjTshFbQtrqLxqNwjrx
-	sl6uEnPmqqnCZGGvFd+Qwpo
-X-Received: by 2002:a17:907:9620:b0:c29:5172:6151 with SMTP id a640c23a62f3a-c31aa02998amr786006666b.45.1791760369272;
-        Sun, 11 Oct 2026 16:12:49 -0700 (PDT)
-Received: from erwin (109241130011.warszawa.vectranet.pl. [109.241.130.11])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3596566d8bsm4873366b.16.2026.10.11.16.12.48
+        bh=oxW4Ujc2C6PLvH6PLF1Dxb2THQi6y4w5CW1TMZdBXv0=;
+        b=BnXCcY16hs9stgBh8B8EazX2mj4JuOGF2K7FAqRsMOTYjVAnrM3ko8e7/82hyUoXpS
+         LYqiOpqxvYQveZQpySI401jc+7otu1PVEv0dECJQjS8YxFbv2NFrX6qlQW8pC2BvQZLI
+         AiZtAmp+9a0cA2k91iESFL73uhqi64WHvXwRgnQn/ZjB4gHd5sTWkBJ/RyrRvwhXFNXH
+         GWJi3EwKsw/MO0sIQpffQ9Ip3OOyt+Eo3tvX8omXG5fN9V7aVSq3e7SggJKtuoun6kxz
+         ihwWD9RXiG+MIRyh8HS4GBQFEW4Z/Gx3PI8cnyG9F0XPJOzjs1GG8RCEc60p27g+gRXz
+         NfAw==
+X-Forwarded-Encrypted: i=1; AKwUvBzDmgDuDr5Hgnijoq9D2jBAcVX2GGl66KWAYA2onnLh+lk79O5wgkEa8PFjevzFHBHeGowgcqnXtwqSciU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKlEGTES+0++ogiygAj7Cs2fFuIyXV2REox2Q8fq0km66O5R4Pj
+	NQsUKBWWSq1uRHSpt+Xape5ZT+qT7qkwO8mCWFnjBlv6mUUwhUtJzvt1zqnhvf5H2pI=
+X-Gm-Gg: AYBFou0iuMUB9VoAl4xmcU+fEmWjRr2RwNwSWca82mFXLXAKeSqqi++7rBGWosavsCS
+	+E3NgSYcJmO4IP6ZlbyAE4CQriGEMM//VO24e9O83Wfd1d7Tm6x1/V7RU2RKM8JF1OkK07nIStM
+	0SXFCkU7Bg4zKducsV6iir9dENKdMa54p95p+Ecg6ReqknhNUH6qwX2e661GuCxXKMiZOfYE41O
+	9XoDMGRtSz2PKFouawcYEmdrX60wK9lVzUMGbn943UHXCQPPtznGjyNWI/bU7axQu5pG8ZPb2tA
+	iIhXw/6AD362qksW1ZKOun7WoybuxSRk4MeaC1hH7VkAUE/66eVIDVf7/mx1FTtjIoZr9L7cVnL
+	RUKeKa4OHQrmN3xclLG4yYSb8G2HCtgn6gGPfG7sDqdK3cU6sXDrRrxcnuNRB3EyMN8MimaEw2U
+	0CwykCGHmGvA8AigJzbnBUuhw11F9KZkbhQATh16RIDO6YhN01K17lmnCN9gkzWLsgNE4Fww+CZ
+	xo=
+X-Received: by 2002:a05:600c:3f0c:b0:4a1:85d9:13be with SMTP id 5b1f17b1804b1-4a18e498471mr165188775e9.20.1791760404876;
+        Sun, 11 Oct 2026 16:13:24 -0700 (PDT)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a18bea1021sm222382515e9.10.2026.10.11.16.13.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 16:12:48 -0700 (PDT)
-Sender: =?UTF-8?Q?Micha=C5=82_Nazarewicz?= <mnazarewicz@gmail.com>
-From: =?utf-8?Q?Micha=C5=82?= Nazarewicz <mina86@mina86.com>
-To: Palla Raghunath <raghunathpalla.0209@gmail.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, Neill Kapron <nkapron@google.com>, Shuah Khan
- <shuah@kernel.org>, Brigham Campbell <me@brighamcampbell.com>,
- linux-kernel-mentees@lists.linux.dev, linux-kernel@vger.kernel.org,
- raghunathpalla.0209@gmail.com, stable@vger.kernel.org,
- syzbot+6227549bd2c8a1ec8ba0@syzkaller.appspotmail.com
-Subject: Re: [PATCH] usb: gadget: f_fs: fix use-after-free of ffs_dev in
- ffs_free_inst()
-In-Reply-To: <20261006204202.59604-1-raghunathpalla.0209@gmail.com>
-References: <20261006204202.59604-1-raghunathpalla.0209@gmail.com>
-Date: Mon, 12 Oct 2026 01:12:48 +0200
-Message-ID: <ebgvv59g1ly3pyekh2c8vg5v@mina86.com>
+        Sun, 11 Oct 2026 16:13:24 -0700 (PDT)
+Date: Mon, 12 Oct 2026 01:13:23 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Hans Verkuil <hverkuil@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Paul Kocialkowski <paulk@sys-base.io>, 
+	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] media: sunxi: Add support for the D1 CSIC
+Message-ID: <aswXwdgpWTVoItYy@monoceros>
+References: <20260930154835.402684-1-tien.nguyenminh@embeddedlinux.blog>
+ <20260930154835.402684-3-tien.nguyenminh@embeddedlinux.blog>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qngddyqnkwhditii"
+Content-Disposition: inline
+In-Reply-To: <20260930154835.402684-3-tien.nguyenminh@embeddedlinux.blog>
 
-On Tue, Oct 06 2026, Palla Raghunath wrote:
-> When a function instance is removed through configfs, ffs_free_inst()
-> first calls ffs_release_dev(), which takes ffs_dev_lock, detaches the
-> dev from its mount and drops the lock again. Only then does it retake
-> the lock and free the dev with _ffs_free_dev().
 
-> Fixes: ecfbd7b9054b ("usb: gadget: f_fs: Fix setting of device and driver=
- data cross-references")
-> Cc: stable@vger.kernel.org
-> Reported-by: syzbot+6227549bd2c8a1ec8ba0@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D6227549bd2c8a1ec8ba0
-> Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
+--qngddyqnkwhditii
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH 2/3] media: sunxi: Add support for the D1 CSIC
+MIME-Version: 1.0
 
-Acked-by: Micha=C5=82 Nazarewicz <mina86@mina86.com>
+On Wed, Sep 30, 2026 at 10:48:34PM +0700, Nguyen Minh Tien wrote:
+> +#include <linux/mod_devicetable.h>
 
-> ---
->  drivers/usb/gadget/function/f_fs.c | 15 +++++++++++----
->  1 file changed, 11 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/func=
-tion/f_fs.c
-> index c64a268e98a4..f8ea9a980605 100644
-> --- a/drivers/usb/gadget/function/f_fs.c
-> +++ b/drivers/usb/gadget/function/f_fs.c
-> @@ -288,6 +288,7 @@ static struct ffs_dev *_ffs_find_dev(const char *name=
-);
->  static struct ffs_dev *_ffs_alloc_dev(void);
->  static void _ffs_free_dev(struct ffs_dev *dev);
->  static int ffs_acquire_dev(const char *dev_name, struct ffs_data *ffs_da=
-ta);
-> +static void _ffs_release_dev(struct ffs_dev *ffs_dev);
->  static void ffs_release_dev(struct ffs_dev *ffs_dev);
->  static int ffs_ready(struct ffs_data *ffs);
->  static void ffs_closed(struct ffs_data *ffs);
-> @@ -4147,8 +4148,8 @@ static void ffs_free_inst(struct usb_function_insta=
-nce *f)
->  	struct f_fs_opts *opts;
->=20=20
->  	opts =3D to_f_fs_opts(f);
-> -	ffs_release_dev(opts->dev);
->  	ffs_dev_lock();
-> +	_ffs_release_dev(opts->dev);
->  	_ffs_free_dev(opts->dev);
->  	ffs_dev_unlock();
->  	kfree(opts);
-> @@ -4363,10 +4364,11 @@ static int ffs_acquire_dev(const char *dev_name, =
-struct ffs_data *ffs_data)
->  	return ret;
->  }
->=20=20
-> -static void ffs_release_dev(struct ffs_dev *ffs_dev)
-> +/*
-> + * Same as ffs_release_dev(), for callers that already hold ffs_dev_lock.
-> + */
-> +static void _ffs_release_dev(struct ffs_dev *ffs_dev)
->  {
-> -	ffs_dev_lock();
-> -
->  	if (ffs_dev && ffs_dev->mounted) {
->  		ffs_dev->mounted =3D false;
->  		if (ffs_dev->ffs_data) {
-> @@ -4377,7 +4379,12 @@ static void ffs_release_dev(struct ffs_dev *ffs_de=
-v)
->  		if (ffs_dev->ffs_release_dev_callback)
->  			ffs_dev->ffs_release_dev_callback(ffs_dev);
->  	}
-> +}
->=20=20
-> +static void ffs_release_dev(struct ffs_dev *ffs_dev)
-> +{
-> +	ffs_dev_lock();
-> +	_ffs_release_dev(ffs_dev);
->  	ffs_dev_unlock();
->  }
+Please rely on <linux/platform_device.h> to provide of_device_id and
+drop the inclusion of <linux/mod_devicetable.h> which does more harm
+than good.
 
---=20
+If you really want an include for of_device_id, use
+<linux/device-id/of.h>
+
 Best regards
-=E3=83=9F=E3=83=8F=E3=82=A6 =E2=80=9C=F0=9D=93=B6=F0=9D=93=B2=F0=9D=93=B7=
-=F0=9D=93=AA86=E2=80=9D =E3=83=8A=E3=82=B6=E3=83=AC=E3=83=B4=E3=82=A3=E3=83=
-=84
-=C2=ABIf at first you don=E2=80=99t succeed, give up skydiving=C2=BB
+Uwe
+
+--qngddyqnkwhditii
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrMGBAACgkQj4D7WH0S
+/k5tCggArhjqsIMxWZn1mdwNpWwWCgDbuq6GCyhWvxK6/4SoEqOcbECNykQJkcqM
+gvBI7Zcz8K+t3TTUvkpf5ten3RucpB85MIpw2zPZyT7UNFTU4XpVJ9KXFNT6G57g
+GknahtuMpdBREceO6pO3vd/yn8VMXV8clPTPXpgNywW5t6z3QOzEz0IcrZMJb8V6
+cSCkPm8gLqPQcJsxc5Jwdjzt/xaeUIEVlS9TgyVY6BrcotwmfGeJsCPubGsR35Dv
+rCHn8rkKSLOaUBG2rAWF26nch4TvC8JDsPDVi5/HJBfJhBqHK5hOi/Nri4WSmi8T
+kVp10DCvNgThgd+VEI82L4IL+a9Oig==
+=gnsw
+-----END PGP SIGNATURE-----
+
+--qngddyqnkwhditii--
