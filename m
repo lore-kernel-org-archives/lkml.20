@@ -1,356 +1,282 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 050E735A395;
-	Sun, 11 Oct 2026 19:53:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791748387; cv=pass; b=LsUauPLF5B1qoVKUuoCWbMTgAWiJqWIUKVe4aMgnC9PQdd3KLgmcbbqQUaPJshAKSJ64t+YHT+++0KQf/d9jN9mUust8ZQm/O9aSu5EMSigjoljC682nIOT2mY3O77lrtLEeHt0KxVr4ks9R5z88IcfI4McPq6Sorv7YyhfGfZ8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791748387; c=relaxed/simple;
-	bh=0wYxKFlPmNVJ4iYBf1Uloc/Hkn72LMIBKw/3/6MTdlc=;
-	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=rvPsPZDCR6Nwb/T1hDn34M7T+oDc6CGg0I2VWHgVBpFpqDqXqHXBHCU7BxUhEFDcA5w3dH8eq+V0BbeQiUzvUEzVQ/ajk4E38i/FLx6VA6rd8Ftl4dQ6MlSGllfiHmUT9QlAz0MUCLi/59eqWUpq0Vb7nIRWEyXJy35C1tcyJPI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=bBdxULdI; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73EDA38D3EE;
+	Sun, 11 Oct 2026 19:55:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791748533; cv=none; b=qs+D31s+tCIGYMQSp46A1Aj4iAnd5LEiM9hChxc/kBAFhRCe1iyDjp+9LXxnvTvyeTQun7HEZWLSjO5J/+tufgyOKhrKkWReYTqsrnUmjRVvq3/Z+rqLb1Q+u1t+E/Xa5aLO1g9U4CcGRT97pJM3EQgbJwgk8y0u9Bhp41UQRxc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791748533; c=relaxed/simple;
+	bh=bM5l5rkNiU9f12LqX0//ap6AJwoy3BA5LTW0gXRcHj4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=bHWOJzzDaQ51QBVFKobKyWN3LZ4IffwxQwuXFzBluRdALlvRpHfvsoWVr7GEdQgj6CulAplSeUXqN6XN7xfU+RrcmAN3G2nwMTbztrJUCV1lrVfD4fwCuBCc/mFzeSkZv0nez1btCQee+oABZSyC21Et8g8qD6eZTv8zndsM9cc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ATfMjVd5; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="bBdxULdI"
-ARC-Seal: i=1; a=rsa-sha256; t=1791748375; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=XDR1jBViY8Bexr60Jm2Nwvg30tV3uYrpGvhHw5CElOJVUWTcv+bGbwczndgmoFKFTjjfxgi1Ns2L8VYhwKCWa0DY3eW2HHNNhTz5kANDJB53VVnvg1Mm2O8JIKRvTGQ8Dk9QakuRCIiX++m1FbyIw3T1hzFLlFLLnXarLFBTQuo=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791748375; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=JioO99Wy7cUGDgZKTWaXWHv12LZct4tUjuOiO/Pi0Bk=; 
-	b=j2auPcyz9faWdFrFLYhDU9wf5FtKu+bcsa2YpYuSYOafKZSLCReWP24vxaXyVygRj2aNgbi7uTa5RF2hFYanCPYGdfNVZX/sfupAxyT8Nuj/q1UvE8X90ZaAouC8RoF1boYSYU9AR0jFgT4B0DmJTfjZnmP2bYFC7hmuhJ/4KQg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791748375;
-	s=zmail2048; d=rong.moe; i=i@rong.moe;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding:Date:Date:MIME-Version:Message-Id:Reply-To;
-	bh=JioO99Wy7cUGDgZKTWaXWHv12LZct4tUjuOiO/Pi0Bk=;
-	b=bBdxULdIrINqwyCkm8QYVLIjXADw2T2Oyi/ngxuO5MvWIVFABJtAEGPPiWNMwOxU
-	EGo2aDBCZly59us2llBRZGhR75qySK0VtBx/NDF+A4+s9yWHaADt8/BwXRmgkIpfroL
-	niLxPibY48rQIYKpsoh+j2feeDVXzBwZJmc2OHstXwfqiA3XPG3Fdx4yk7aUepaDJjy
-	QwyzhOI8LMNLep7P2y4FVqqK7R3hA8/FcH58j2EHXsF82dI4QdoN6ZlEkqglsrOB+c9
-	TgL/6Ygc951drTlFejW6oFRzVw4yHQ170sxEtyXCSV2tPk758Y7nOWbMjoVMb/a8sSj
-	zTn0PNA7cg==
-Received: by smtp.zohomail.com with SMTPS id 1791748374291659.8468890399357;
-	Sun, 11 Oct 2026 12:52:54 -0700 (PDT)
-Message-ID: <b31878aeb4af648106adc74efbb2d1e839f9f8ea.camel@rong.moe>
-Subject: Re: [PATCH v2 2/5] platform/x86: uniwill-laptop: Implement rainbow
- animation as trigger
-From: Rong Zhang <i@rong.moe>
-To: Armin Wolf <W_Armin@gmx.de>, hansg@kernel.org, 
-	ilpo.jarvinen@linux.intel.com
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
-	wse@tuxedocomputers.com, platform-driver-x86@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org
-In-Reply-To: <9087d109-d757-43bc-b80d-64df7dc9ff82@gmx.de>
-References: <20261007144101.323289-1-W_Armin@gmx.de>
-	 <20261007144101.323289-3-W_Armin@gmx.de>
-	 <035799dd461fe0e7a60564e11f10fd23eb3daabf.camel@rong.moe>
-	 <9087d109-d757-43bc-b80d-64df7dc9ff82@gmx.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 03:47:48 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ATfMjVd5"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 25E49C2BCF5;
+	Sun, 11 Oct 2026 19:55:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791748533;
+	bh=bM5l5rkNiU9f12LqX0//ap6AJwoy3BA5LTW0gXRcHj4=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=ATfMjVd5X9sVGvYoljBrY3hIVtIw4njNlP482Ne/1HdWmyrIFTDbuLa0IkjHkciZ2
+	 XRmlE7fPxA+Aa15ifwRVvq+PlOd7uHJe5xbXJbKaw8WKbiqLUop8aoqvX86svYh9oZ
+	 IIhIyWyJVv4McitLGKPmPqMXi/KRAeVrW8SlyC4jxAw+PReYmGOzL8tpxizTDmTM3y
+	 Bage4DlbWZ86UOk8ykqyJb4Tfl/AIC2SgH71JpmlB7Q594evjCAK6I66v2NrBhgsmy
+	 03+vQNM3iKeboYNm2Oq89DH1Js4ZNtZcIeTEGSEm1JdXWQo+imU9NZv+9PSPgMQ8LX
+	 0UYT2iswKMyuQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 003B7CA9EBD;
+	Sun, 11 Oct 2026 19:55:32 +0000 (UTC)
+From: Max Bretschneider via B4 Relay <devnull+max.bretschneider.leica-geosystems.com@kernel.org>
+Date: Sun, 11 Oct 2026 21:55:23 +0200
+Subject: [PATCH] media: i2c: ov08d10: add get_selection support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Evolution 3.56.2-10+b1 
-X-ZohoMailClient: External
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261011-ov08d10-get-selection-v1-1-5debe6436765@leica-geosystems.com>
+X-B4-Tracking: v=1; b=H4sIAKrpy2oC/x3MSwqAIBRG4a3EHXfBHPTaSjQw/bULUaERQbj3p
+ OEZfOelhChINFYvRdyS5NhLNHVFdjV7AIsrTVrpVg164ONWvWsUB1ycsMFeRbA1pltau/TOg4o
+ 9I7w8/3eac/4AdWH36mcAAAA=
+To: Jimmy Su <jimmy.su@intel.com>, Matthias Fend <matthias.fend@emfend.at>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Max Bretschneider <max.bretschneider@leica-geosystems.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791748532; l=7199;
+ i=max.bretschneider@leica-geosystems.com; s=20260501;
+ h=from:subject:message-id;
+ bh=E3xQubIkPTvx2wL9DZkujO+3/+i9lmKaF0B4AxGybZA=;
+ b=9vswjrUEaoOtfN9mkxB9X5vc4a/hINTznbcg04kikaRCSeBHpfyUAEQdDzCBEEGd5wAhfhfQy
+ n7h2otlC6lPB7pUyUU9y8k2A6b1PpcCIgbHui3JhL6cxkzm+jzlbaRZ
+X-Developer-Key: i=max.bretschneider@leica-geosystems.com; a=ed25519;
+ pk=jf4ba33jrWlsOdGemi2InMtJAngoJVZU8Moetp0ixik=
+X-Endpoint-Received: by B4 Relay for
+ max.bretschneider@leica-geosystems.com/20260501 with auth_id=1161
+X-Original-From: Max Bretschneider <max.bretschneider@leica-geosystems.com>
+Reply-To: max.bretschneider@leica-geosystems.com
 
-Hi Armin,
+From: Max Bretschneider <max.bretschneider@leica-geosystems.com>
 
-On Sun, 2026-10-11 at 02:52 +0200, Armin Wolf wrote:
-> Am 10.10.26 um 13:20 schrieb Rong Zhang:
->=20
-> > Hi Armin,
-> >=20
-> > On Wed, 2026-10-07 at 16:38 +0200, Armin Wolf wrote:
-> > > It turns out that some models require the lightbar to be activated
-> > > in order to display the rainbow animation, so users have to access
-> > > both the "rainbow_animation" sysfs attribute and the LED sysfs
-> > > interface when enabling the rainbow animation. This can cause short
-> > > glitches when the lightbar was previously disabled.
-> > >=20
-> > > Fix this by replacing the sysfs attribute with a custom LED trigger
-> > > called "uniwill-rainbow". Selecting this trigger will atomically
-> > > activate the lightbar and enable the rainbow animation mode. This
-> > > can potentially break userspace applications using the old sysfs
-> > > attribute, but so far no such application is known to exist (yet).
-> > >=20
-> > > Signed-off-by: Armin Wolf <W_Armin@gmx.de>
-> > > ---
-> > >   .../ABI/removed/sysfs-driver-uniwill-laptop   |  10 ++
-> > >   .../ABI/testing/sysfs-driver-uniwill-laptop   |  11 --
-> > >   .../admin-guide/laptops/uniwill-laptop.rst    |   5 +-
-> > >   MAINTAINERS                                   |   1 +
-> > >   drivers/platform/x86/uniwill/Kconfig          |   1 +
-> > >   drivers/platform/x86/uniwill/uniwill-acpi.c   | 133 +++++++++++----=
+The driver does not implement .get_selection, so it never reports the
+analogue crop rectangle of the active mode. Userspace has no way to
+learn which region of the pixel array a given mode reads out, and
+cannot assume a fixed one, because the modes differ: the full mode
+reads 3280x2460 at offset (4,8), while the 3264x2448 and the 2x2
+binned 1632x1224 modes read 3264x2448 at offset (12,16).
+
+Consumers that derive the sensor scale from the analogue crop and the
+output size therefore compute a wrong result for the cropped and
+binned modes, and may reject those configurations.
+
+Track the analogue crop rectangle per mode, store it in the subdev
+state when the format is set, and report it through .get_selection.
+Also report V4L2_SEL_TGT_CROP_DEFAULT, V4L2_SEL_TGT_CROP_BOUNDS and
+V4L2_SEL_TGT_NATIVE_SIZE from the pixel array geometry. Implement
+.init_state so a newly allocated state holds a valid format and crop,
+and add the v4l2_subdev_init_finalize() and v4l2_subdev_cleanup()
+calls required to use the subdev active state.
+
+The pixel array geometry and the per-mode offsets are taken from the
+sensor datasheet and the recommended reference register sets.
+
+Signed-off-by: Max Bretschneider <max.bretschneider@leica-geosystems.com>
 ---
-> > >   6 files changed, 95 insertions(+), 66 deletions(-)
-> > >   create mode 100644 Documentation/ABI/removed/sysfs-driver-uniwill-l=
-aptop
-> > >=20
-> > > diff --git a/Documentation/ABI/removed/sysfs-driver-uniwill-laptop b/=
-Documentation/ABI/removed/sysfs-driver-uniwill-laptop
-> > > new file mode 100644
-> > > index 000000000000..c226efc23b59
-> > > --- /dev/null
-> > > +++ b/Documentation/ABI/removed/sysfs-driver-uniwill-laptop
-> > > @@ -0,0 +1,10 @@
-> > > +What:		/sys/bus/platform/devices/INOU0000:XX/rainbow_animation
-> > > +Date:		November 2025
-> > > +KernelVersion:	6.19
-> > > +Contact:	Armin Wolf <W_Armin@gmx.de>
-> > > +Description:
-> > > +		Forces the integrated lightbar to display a rainbow animation when=
- the machine
-> > > +		is not suspended. Writing "1"/"0" into this file enables/disables =
-this
-> > > +		functionality.
-> > > +
-> > > +		Reading this file returns the current status of the rainbow animat=
-ion functionality.
-> > It'd be more helpful by documenting the removal date, version and what
-> > has replaced it.
->=20
-> True, i will write a patch to address this.
+Tested on a Hexagon/Leica CS50 (i.MX8MP, rkisp1) running 6.16.12 with the
+equivalent of this patch applied, where it fixes configuration of the 2x2
+binned 1632x1224 mode with libcamera's rkisp1 CAC algorithm enabled.
+Compile-tested against media/next.
 
-[..snip..]
+Modelled on imx335.
+---
+ drivers/media/i2c/ov08d10.c | 74 ++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 73 insertions(+), 1 deletion(-)
 
-> > > -
-> > >   static ssize_t breathing_in_suspend_store(struct device *dev, struc=
-t device_attribute *attr,
-> > >   					  const char *buf, size_t count)
-> > >   {
-> > > @@ -1258,7 +1213,6 @@ static struct attribute *uniwill_attrs[] =3D {
-> > >   	&dev_attr_super_key_enable.attr,
-> > >   	&dev_attr_touchpad_toggle_enable.attr,
-> > >   	/* Lightbar-related */
-> > > -	&dev_attr_rainbow_animation.attr,
-> > >   	&dev_attr_breathing_in_suspend.attr,
-> > >   	/* Power-management-related */
-> > >   	&dev_attr_ctgp_offset.attr,
-> > > @@ -1288,8 +1242,7 @@ static umode_t uniwill_attr_is_visible(struct k=
-object *kobj, struct attribute *a
-> > >   			return attr->mode;
-> > >   	}
-> > >  =20
-> > > -	if (attr =3D=3D &dev_attr_rainbow_animation.attr ||
-> > > -	    attr =3D=3D &dev_attr_breathing_in_suspend.attr) {
-> > > +	if (attr =3D=3D &dev_attr_breathing_in_suspend.attr) {
-> > >   		if (uniwill_device_supports(data, UNIWILL_FEATURE_LIGHTBAR))
-> > >   			return attr->mode;
-> > It'd be better to convert breathing_in_suspend into an LED device
-> > attribute. See led_classdev->groups.
->=20
-> We cannot do this because this field is being used by the multicolor LED =
-class.
+diff --git a/drivers/media/i2c/ov08d10.c b/drivers/media/i2c/ov08d10.c
+index 0710d2243cc0..b32a1246df45 100644
+--- a/drivers/media/i2c/ov08d10.c
++++ b/drivers/media/i2c/ov08d10.c
+@@ -65,6 +65,14 @@
+ #define OV08D10_REG_FLIP_OPT			0x32
+ #define OV08D10_REG_FLIP_MASK			0x3
+ 
++/* OV08D10 native and active pixel array size */
++#define OV08D10_NATIVE_WIDTH			3288
++#define OV08D10_NATIVE_HEIGHT			2476
++#define OV08D10_PIXEL_ARRAY_LEFT		4
++#define OV08D10_PIXEL_ARRAY_TOP			8
++#define OV08D10_PIXEL_ARRAY_WIDTH		3280
++#define OV08D10_PIXEL_ARRAY_HEIGHT		2464
++
+ #define to_ov08d10(_sd)		container_of(_sd, struct ov08d10, sd)
+ 
+ struct ov08d10_reg {
+@@ -110,6 +118,9 @@ struct ov08d10_mode {
+ 
+ 	/* Number of data lanes */
+ 	u8 data_lanes;
++
++	/* Analogue crop rectangle, in native sensor coordinates */
++	struct v4l2_rect crop;
+ };
+ 
+ /* 3280x2460, 3264x2448 need 720Mbps/lane, 2 lanes - 19.2 MHz */
+@@ -630,6 +641,7 @@ static const struct ov08d10_lane_cfg lane_cfg_2 = {
+ 		},
+ 		.link_freq_index = 0,
+ 		.data_lanes = 2,
++		.crop = { .left =  4, .top =  8, .width = 3280, .height = 2460 },
+ 	},
+ 	{
+ 		.width = 3264,
+@@ -643,6 +655,7 @@ static const struct ov08d10_lane_cfg lane_cfg_2 = {
+ 		},
+ 		.link_freq_index = 0,
+ 		.data_lanes = 2,
++		.crop = { .left = 12, .top = 16, .width = 3264, .height = 2448 },
+ 	},
+ 	{
+ 		.width = 1632,
+@@ -656,6 +669,7 @@ static const struct ov08d10_lane_cfg lane_cfg_2 = {
+ 		},
+ 		.link_freq_index = 1,
+ 		.data_lanes = 2,
++		.crop = { .left = 12, .top = 16, .width = 3264, .height = 2448 },
+ 	}}
+ };
+ 
+@@ -955,6 +969,36 @@ static int ov08d10_set_ctrl(struct v4l2_ctrl *ctrl)
+ 	return ret;
+ }
+ 
++static int ov08d10_get_selection(struct v4l2_subdev *sd,
++				 const struct v4l2_subdev_client_info *ci,
++				 struct v4l2_subdev_state *sd_state,
++				 struct v4l2_subdev_selection *sel)
++{
++	switch (sel->target) {
++	case V4L2_SEL_TGT_CROP:
++		sel->r = *v4l2_subdev_state_get_crop(sd_state, 0);
++		return 0;
++
++	case V4L2_SEL_TGT_NATIVE_SIZE:
++		sel->r.left = 0;
++		sel->r.top = 0;
++		sel->r.width = OV08D10_NATIVE_WIDTH;
++		sel->r.height = OV08D10_NATIVE_HEIGHT;
++		return 0;
++
++	case V4L2_SEL_TGT_CROP_DEFAULT:
++	case V4L2_SEL_TGT_CROP_BOUNDS:
++		sel->r.left = OV08D10_PIXEL_ARRAY_LEFT;
++		sel->r.top = OV08D10_PIXEL_ARRAY_TOP;
++		sel->r.width = OV08D10_PIXEL_ARRAY_WIDTH;
++		sel->r.height = OV08D10_PIXEL_ARRAY_HEIGHT;
++		return 0;
++
++	default:
++		return -EINVAL;
++	}
++}
++
+ static const struct v4l2_ctrl_ops ov08d10_ctrl_ops = {
+ 	.s_ctrl = ov08d10_set_ctrl,
+ };
+@@ -1194,6 +1238,9 @@ static int ov08d10_set_format(struct v4l2_subdev *sd,
+ 
+ 	mutex_lock(&ov08d10->mutex);
+ 	ov08d10_update_pad_format(ov08d10, mode, &fmt->format);
++
++	*v4l2_subdev_state_get_crop(sd_state, fmt->pad) = mode->crop;
++
+ 	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY) {
+ 		*v4l2_subdev_state_get_format(sd_state, fmt->pad) =
+ 								fmt->format;
+@@ -1297,6 +1344,19 @@ static int ov08d10_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
+ 	return 0;
+ }
+ 
++static int ov08d10_init_state(struct v4l2_subdev *sd,
++			      struct v4l2_subdev_state *sd_state)
++{
++	struct ov08d10 *ov08d10 = to_ov08d10(sd);
++	const struct ov08d10_mode *mode = &ov08d10->priv_lane->sp_modes[0];
++
++	*v4l2_subdev_state_get_crop(sd_state, 0) = mode->crop;
++	ov08d10_update_pad_format(ov08d10, mode,
++				  v4l2_subdev_state_get_format(sd_state, 0));
++
++	return 0;
++}
++
+ static const struct v4l2_subdev_video_ops ov08d10_video_ops = {
+ 	.s_stream = ov08d10_set_stream,
+ };
+@@ -1306,6 +1366,7 @@ static const struct v4l2_subdev_pad_ops ov08d10_pad_ops = {
+ 	.get_fmt = ov08d10_get_format,
+ 	.enum_mbus_code = ov08d10_enum_mbus_code,
+ 	.enum_frame_size = ov08d10_enum_frame_size,
++	.get_selection = ov08d10_get_selection,
+ };
+ 
+ static const struct v4l2_subdev_ops ov08d10_subdev_ops = {
+@@ -1315,6 +1376,7 @@ static const struct v4l2_subdev_ops ov08d10_subdev_ops = {
+ 
+ static const struct v4l2_subdev_internal_ops ov08d10_internal_ops = {
+ 	.open = ov08d10_open,
++	.init_state = ov08d10_init_state,
+ };
+ 
+ static int ov08d10_power_off(struct device *dev)
+@@ -1470,6 +1532,7 @@ static void ov08d10_remove(struct i2c_client *client)
+ 	struct ov08d10 *ov08d10 = to_ov08d10(sd);
+ 
+ 	v4l2_async_unregister_subdev(sd);
++	v4l2_subdev_cleanup(sd);
+ 	media_entity_cleanup(&sd->entity);
+ 	v4l2_ctrl_handler_free(sd->ctrl_handler);
+ 	pm_runtime_disable(ov08d10->dev);
+@@ -1565,17 +1628,26 @@ static int ov08d10_probe(struct i2c_client *client)
+ 	pm_runtime_set_active(ov08d10->dev);
+ 	pm_runtime_enable(ov08d10->dev);
+ 
++	ret = v4l2_subdev_init_finalize(&ov08d10->sd);
++	if (ret) {
++		dev_err(ov08d10->dev, "failed to init subdev state: %d\n", ret);
++		goto probe_error_media_entity_cleanup;
++	}
++
+ 	ret = v4l2_async_register_subdev_sensor(&ov08d10->sd);
+ 	if (ret < 0) {
+ 		dev_err(ov08d10->dev, "failed to register V4L2 subdev: %d\n",
+ 			ret);
+-		goto probe_error_media_entity_cleanup;
++		goto probe_error_subdev_cleanup;
+ 	}
+ 
+ 	pm_runtime_idle(ov08d10->dev);
+ 
+ 	return 0;
+ 
++probe_error_subdev_cleanup:
++	v4l2_subdev_cleanup(&ov08d10->sd);
++
+ probe_error_media_entity_cleanup:
+ 	pm_runtime_disable(ov08d10->dev);
+ 	pm_runtime_set_suspended(ov08d10->dev);
 
-Whoops, I didn't notice that.
+---
+base-commit: 2dcdfb625c3b8fe87454e19dfbc54b3e3f0ad70e
+change-id: 20260929-ov08d10-get-selection-caa7b6cb8dfe
 
-> I can try to find a workaround for this.
-
-(+CC Lee, Pavel, linux-leds)
-
-IMO the best way to solve the dilemma is to introduce class_group for
-led-class-multicolor and led-class-flash, or else we will have to
-introduce (or have already introduced?) more workarounds for other
-drivers.
-
-For this cycle let's keep the attribute as is.
-
-[..snip..]
-
-> > > +
-> > > +static struct led_trigger uniwill_lightbar_trigger =3D {
-> > > +	.name =3D "uniwill-rainbow",
-> > > +	.activate =3D uniwill_lightbar_trigger_activate,
-> > > +	.deactivate =3D uniwill_lightbar_trigger_deactivate,
-> > > +	.trigger_type =3D &uniwill_lightbar_trigger_type,
-> > > +};
-> > > +
-> > >   #define LIGHTBAR_MASK	(LIGHTBAR_APP_EXISTS | LIGHTBAR_S0_OFF | LIGH=
-TBAR_S3_OFF | LIGHTBAR_WELCOME)
-> > >  =20
-> > >   static int uniwill_led_init(struct uniwill_data *data)
-> > > @@ -1587,12 +1593,18 @@ static int uniwill_led_init(struct uniwill_da=
-ta *data)
-> > >   	data->led_mc_cdev.led_cdev.max_brightness =3D 1;
-> > >   	data->led_mc_cdev.led_cdev.flags =3D LED_REJECT_NAME_CONFLICT;
-> > >   	data->led_mc_cdev.led_cdev.brightness_set_blocking =3D uniwill_led=
-_brightness_set;
-> > > +	data->led_mc_cdev.led_cdev.trigger_type =3D &uniwill_lightbar_trigg=
-er_type;
-> > > +	data->led_mc_cdev.led_cdev.hw_control_trigger =3D uniwill_lightbar_=
-trigger.name;
-> > > +	data->led_mc_cdev.led_cdev.hw_control_set =3D uniwill_led_hw_contro=
-l_set;
-> > A private trigger does not need hw_control_set, which is only meant to
-> > coordinate between different drivers, i.e., in the case when the LED
-> > device and the hardware control trigger are located at different driver=
-s.
-> >=20
-> > I've also updated the documentation in commit 8e04e5382aa9 ("leds:
-> > trigger: Add hw_offloaded() callback and provide
-> > trigger_may_offload_to_hw attribute"), quoted below:
-> >=20
-> >     Alternatively, a private trigger can be implemented along with the =
-LED
-> >     driver if the LED's hardware control doesn't fit any generic trigge=
-r. To
-> >     associate the private trigger with the LED classdev, their `trigger=
-_type`
-> >     must be the same. To declare that the private trigger provides hard=
-ware
-> >     control for the associated LED classdev, set the `hw_control_trigge=
-r`
-> >     string to the trigger's name. Since both the LED classdev and the p=
-rivate
-> >     trigger are in the same LED driver, it's not necessary for them to
-> >     coordinate via `hw_control_*` callbacks.
-> >=20
-> > I'd suggest calling uniwill_led_hw_control_set() directly from the
-> > trigger's [de]activate callbacks, just like other drivers.
->=20
-> I decided to use this callbacks in order to be able to add support for th=
-e keyboard backlight
-> animation in the future (if we someday find a device that supports this f=
-eature).
-
-The name "uniwill-rainbow" sounds irrelevant to keyboard backlight
-animation. In this case the latter needs a new private trigger with a new
-name, and it can have different [de]activate callbacks. IOW, we don't
-need hw_control_set() either.
-
-Otherwise, using hw_control_set() makes sense to me as long as the
-current name is relevant.
+Best regards,
+-- 
+Max Bretschneider <max.bretschneider@leica-geosystems.com>
 
 
-
-Since I've CC'ed leds folks:
-
-Per-key lighting is becoming increasingly common for keyboard backlight.
-
-I am actually thinking about introducing LED array/matrix support to the
-leds subsystem. An LED array/matrix device is just a special LED device
-that controls all constituent LED devices, so that we can:
-
-- implement keyboard backlight animation (or LampArray autonomous mode)
-as an array/matrix hardware control trigger [1]
-- tune the lighting of the whole array/matrix at once by tuning the LED
-array/matrix device [2]
-- tune per-key lighting by tuning constituent LED devices
-- apply generic LED triggers to the whole array/matrix [1]
-- apply different generic LED triggers to different constituent LED
-devices
-- properly deconflict the above operations
-
-It definitely requires a lot of work to get things (especially locking
-and atomicity) right, but it should be very helpful for devices with per-
-key lighting once done. I believe missing proper LED array/matrix support
-was the main reason why tuxedo_nb04_wmi_ab [3] implemented a virtual
-LampArray HID device far before any userspace LampArray tool emerged.
-
-[1]: The constituent LED devices will be inoperable when a trigger is
-active on their array/matrix LED device.
-
-[2]: The leds subsystem won't emulate this. The driver must implement
-brightness_get() and brightness_set[_blocking]() for the LED array/matrix
-device.
-
-[3]: I know Texudo folks are working on adding hid-lamparray to connect
-it to the LED subsystem. I've had another independent implementation with
-HIDRAW sniff, no hid-generic dependency, autonomous mode as a trigger,
-non-RGB LampArray support, and per-key LED device support in my local
-tree, but that's another story. I will firstly push it further without
-LED array/matrix support. Then I will try to add LED array/matrix
-support, with hid-lamparray being the first user.
-
-Thanks,
-Rong
-
->=20
-> > >  =20
-> > >   	if (value & LIGHTBAR_S0_OFF)
-> > >   		data->led_mc_cdev.led_cdev.brightness =3D 0;
-> > >   	else
-> > >   		data->led_mc_cdev.led_cdev.brightness =3D 1;
-> > >  =20
-> > > +	if (value & LIGHTBAR_WELCOME)
-> > Check !LIGHTBAR_S0_OFF too?
-> >=20
-> > If the last state is LIGHTBAR_S0_OFF|LIGHTBAR_WELCOME (probably caused =
-by
-> > an outdated driver without this patch), the trigger's activate callback
-> > will be called on probe, lighting up the previously off LED. Is this
-> > intentional?
-> >=20
-> > Thanks,
-> > Rong
->=20
-> Yes, this is intentional. LIGHTBAR_WELCOME implies !LIGHTBAR_S0_OFF, some=
- devices
-> even assume this.
->=20
-> Thanks,
-> Armin Wolf
->=20
-> > > +		data->led_mc_cdev.led_cdev.default_trigger =3D uniwill_lightbar_tr=
-igger.name;
-> > > +
-> > >   	for (int i =3D 0; i < LED_CHANNELS; i++) {
-> > >   		data->led_mc_subled_info[i].color_index =3D color_indices[i];
-> > >  =20
-> > > @@ -3540,17 +3552,31 @@ static int __init uniwill_init(void)
-> > >   		pr_warn("Enabling potentially unsupported features\n");
-> > >   	}
-> > >  =20
-> > > -	ret =3D platform_driver_register(&uniwill_driver);
-> > > +	/*
-> > > +	 * We cannot register the trigger inside the .probe callback of the
-> > > +	 * platform driver, because each trigger needs a unique name.
-> > > +	 */
-> > > +	ret =3D led_trigger_register(&uniwill_lightbar_trigger);
-> > >   	if (ret < 0)
-> > >   		return ret;
-> > >  =20
-> > > +	ret =3D platform_driver_register(&uniwill_driver);
-> > > +	if (ret < 0)
-> > > +		goto err_platform;
-> > > +
-> > >   	ret =3D uniwill_wmi_register_driver();
-> > > -	if (ret < 0) {
-> > > -		platform_driver_unregister(&uniwill_driver);
-> > > -		return ret;
-> > > -	}
-> > > +	if (ret < 0)
-> > > +		goto err_wmi;
-> > >  =20
-> > >   	return 0;
-> > > +
-> > > +err_wmi:
-> > > +	platform_driver_unregister(&uniwill_driver);
-> > > +
-> > > +err_platform:
-> > > +	led_trigger_unregister(&uniwill_lightbar_trigger);
-> > > +
-> > > +	return ret;
-> > >   }
-> > >   module_init(uniwill_init);
-> > >  =20
-> > > @@ -3558,6 +3584,7 @@ static void __exit uniwill_exit(void)
-> > >   {
-> > >   	uniwill_wmi_unregister_driver();
-> > >   	platform_driver_unregister(&uniwill_driver);
-> > > +	led_trigger_unregister(&uniwill_lightbar_trigger);
-> > >   }
-> > >   module_exit(uniwill_exit);
-> > >  =20
