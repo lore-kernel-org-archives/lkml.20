@@ -1,212 +1,138 @@
-Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B840436194B;
-	Sun, 11 Oct 2026 18:57:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.171.160.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6CCA361977
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 18:58:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791745074; cv=none; b=if8DZ4/ClElvfNCZ/nB1rgUl5/h8fqKlPp5DUIANy3WVdPWYm8S+zjqJ1sBGLfCvYdnW4z+gsIQVKiIAnPtArm1oUYCfAXNSTe98prrvuW1wCUbpl7sF5pFQPbnG6hWOXBkBUNYB6MFy07pRcasIxx9cZHIEUr8DGYt0Stvwa9g=
+	t=1791745088; cv=none; b=d8mbVjfpN/fi7NWFQ6vN4pLAOjXQqMI8ZkPm/3ywScAEXvTwzbA1rtfGnMbV2rFf/4CjlbOAopQO+paKFj7edyJAqJJLDRcZjqUE2Xuoiqk95Wrk8KX1vfa3q+PRYqVaQy2Bmm5goxwb035sJ9439rboldFP2eQpPXZ4PGwS/sM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791745074; c=relaxed/simple;
-	bh=REl+tppxvSHabgdSvrzG8Ka/zUm84pDQokIz7/Unu5c=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=jcjzBu23Py1Njw8NCn0TswfgARNcE2kxHTuUejwXv/xJrVht4traVClQanlqg/RQ/d0Pd/6ZTeA0zqVkyTKlfnC7+QHuBOaePkpcd6gp7QP5p1pRRMTultkVZUFWn+Z4EgkNKifdIqkXR8NZYIWhgYHF120zxOmHKDUVCy/rUJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp; spf=pass smtp.mailfrom=parknet.co.jp; dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=r4gjlvfy; dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=MY253s+b; arc=none smtp.client-ip=210.171.160.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
+	s=arc-20240116; t=1791745088; c=relaxed/simple;
+	bh=30vIfVs4KGaKJvtrndZP8P9FN0D+Uu8JZD/JsQ4gY6w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HtZeUhm8sXeRuHnYUXTMdH9PclN8yzlZyqcfYwMpHCqAzciGtff0Tsdg58wFFI+aWxuPbihAVcVa2XaXmE/GSOl9pDMMPdFmQ6laOVMny9oLaqohUv1Ud7DARhgouONRvFh279Ci2yMbo3EGI07Ds3a1E3YjQKrFlLkCRK/AB44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=edx0aHYv; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="r4gjlvfy";
-	dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="MY253s+b"
-Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
-	by mail.parknet.co.jp (Postfix) with ESMTPSA id D2D70209679B;
-	Mon, 12 Oct 2026 03:57:49 +0900 (JST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114; t=1791745069;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FozaGIn1BmAHL8GW0iF0GtmkWIVrQ/+b8AEY9wpf79k=;
-	b=r4gjlvfyGEHb+f/x9llx63L0il5YuSerZhUiircHs/jsHSzYU2XwLVP883vgJg0uGSknmw
-	p4eZmYEVKXu5Dq4CqSKOxLmYIQCi0I+wBcI8sq+wVBa0e0+QiiD+vaj5Hu6EX59NBzpkPR
-	KNw93Q9I47eH18wyRUXdaKTnDUC/9N5VgHjhr30/SCmq5c6Z8596mAXoHYsXM7CFwgQifn
-	qlR60fpCZHEgKkGutChxb6zDGKyQ8606bxIkVM48U/ShgzXgR1vi9kfP5XK/+qWnFDyhvr
-	u2eORFXHJRJlaVOyhU+3h8hnWT44mku3TNQasKDwu9UyyYKPV3TcfWMFEF49Yg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114-ed25519; t=1791745069;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FozaGIn1BmAHL8GW0iF0GtmkWIVrQ/+b8AEY9wpf79k=;
-	b=MY253s+bIxiRHlo4+hHok0W8opt2L9D2CqLShx5rHJTm5VqdsS675TOvnN2bd0v3zYnT3D
-	fuh7V/jHwPfgbOCA==
-Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
-	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id 63ABFE00134;
-	Mon, 12 Oct 2026 03:57:49 +0900 (JST)
-Received: by devron.myhome.or.jp (Postfix, from userid 1000)
-	id 509A122000EE; Mon, 12 Oct 2026 03:57:49 +0900 (JST)
-From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-To: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-Cc: linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] fat: return only first cluster when allocating
-In-Reply-To: <20261008020941.55784-3-matheus.aalmeida@inf.ufrgs.br>
-References: <20261008020941.55784-1-matheus.aalmeida@inf.ufrgs.br>
-	<20261008020941.55784-3-matheus.aalmeida@inf.ufrgs.br>
-Date: Mon, 12 Oct 2026 03:57:49 +0900
-Message-ID: <87zewkkqtu.fsf@mail.parknet.co.jp>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="edx0aHYv"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a17ce1dc00so2092335e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 11:58:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791745085; x=1792349885; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=30vIfVs4KGaKJvtrndZP8P9FN0D+Uu8JZD/JsQ4gY6w=;
+        b=edx0aHYv611IcIA3wCr9DZZNqzNZv0g7qLB2EZEJHY8Nyl3h9MnUO8VQhqp2KZj2VQ
+         OvOgfOdQaUfArxyop6uhgnHRhC1+m56EQ7ouiamEmNNUgDUo+MZDAG2CF+H8yRF0nPZx
+         n2SoOt3Oy9h7mA+IowVH+zulS8b54C1bEoX4cfQMs9SpNJjrIyjXwte4IMM6fFiYubHQ
+         Y/ABzwBlZFJhY/MDhT0Jstuxxxy9IiibiC0+lm2SnPTRcsz0B+MV2KWlI8vDirs0Zvjd
+         wQxkHDSo7bEWVOh9Vsfr6pIhZsS4trpANJu4i893rx9xG4lt0q7JYF8igp8Wk2Wc4BQp
+         bFgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791745085; x=1792349885;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=30vIfVs4KGaKJvtrndZP8P9FN0D+Uu8JZD/JsQ4gY6w=;
+        b=MCjD/QJ0AS5oscfriOo1KiLbCEM2d1wQkzo1l6f0dViuLM9np7E4PgaJYP8O0AfDmB
+         nLQiSwAxiLC6TgBJTsFpJ9zu898WF+WOv7U3GDwO74C8X5NxUp0yRe0MqMu7dRCfUsJq
+         QtkyO0vrL1egAkvQhftA5/aL1FsO6qvqYmD91Kpk0VxrYafDOh9fLepIT+s/zIOd3b7L
+         NB9nixkM/nW9Dys6tuUM/G1f94jKKk9cDnBpzfgr/WrTObJIZwnaBwTiYInrH55dnx26
+         NCCFL1AV+/EqJ4DI7MuHr0pcfsRnuZ0l2j6B17NSueMfhbCm1yeNZfDOioAjFK+hhsVI
+         ZPIw==
+X-Forwarded-Encrypted: i=1; AKwUvBz4t9nlmtvXL7BIL7TnHjAr7+WbDp1PzoKvKAI/kHDITlJ83sWHIadFmgtClqfbDbcHZHW9/3SLD/LCsYI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIWLu/PMYEydMRN+UvGCMo//z978i9zov4woB5NjQtn/SSX5SDT
+	lF4dagE2XdmCNuqDJ3+l9nt/HyD3aS+tk88o0b72Y8T9XFnkre8M3xvU
+X-Gm-Gg: AYBFou0I8geTjFWn63tysZcYjp4r+Dnn9JP2wUafM5WgrAn/BaDnNWuFr5htpowMWrt
+	7+A6KNoFG5Mw9suJp4iBWixWQjAchFoc/InEsNwqvp4OTH4PT1hmBwZVCc+igZg59CENgvE0bEa
+	JQKnnIShsxpC01XkidWnYOmg2/kexUt81eAUQoqd8NjS6ZdkJmVJZLeMV2SUxTV8mvRg+yOOR0n
+	dX00oxTkePBZLP6aZGCNrsZxP90aj9XeyZYRTDAeZLGALy7yfqeJ1pjfk2WSlSVLqe+OiHjeb1u
+	e4v0vSOINOkP+Nd1IKprdeLumtODeDQvy3c0x4E6FVk/cH63ffQlKjPN1G/RYDA4wCshgue5uz5
+	KZcAhKAAUfvrNzUUaCVl2l47wtN8YeXF0Ir+bCHPkvO4hjKOyc2LarDDIPc6pcjgdgYfeGhQCJd
+	/Cxg5SL89tnX/econVs51GfySKe0sVcWyKRH+ZpleT2zYXANGkufYg2qZwDUsA4UJbPbNy8uBHn
+	MVevFfaN0THrauzlnbK1P/r7tEGo7msfdrO0gkgYVd3Ep3BCC4lSnMPWyY5W78QbXMIjiasa02l
+	mSjTbYB27Q4xs5DRzKmJwWkWnioW02jIZ7wDG1F+H23wiO7j1/jhOEHVoQKIc0yw8heOZHN1ISG
+	484gRUyGB8IOAKA0XwjA=
+X-Received: by 2002:a05:6000:2289:b0:487:1488:d200 with SMTP id ffacd0b85a97d-48dba9dd862mr12678838f8f.3.1791745084567;
+        Sun, 11 Oct 2026 11:58:04 -0700 (PDT)
+Received: from ?IPV6:2a02:3100:5e07:d2fc:e857:e0d8:19e6:f391? (dynamic-2a02-3100-5e07-d2fc-e857-e0d8-19e6-f391.310.pool.telefonica.de. [2a02:3100:5e07:d2fc:e857:e0d8:19e6:f391])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9aac6a4sm15508639f8f.28.2026.10.11.11.58.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 11 Oct 2026 11:58:04 -0700 (PDT)
+Message-ID: <3030b753-eab2-46df-b936-8704c358f589@gmail.com>
+Date: Sun, 11 Oct 2026 20:58:02 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v7 4/4] selftests: net: hsr: verify GRO policy and
+ ordered forwarding
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, andrew+netdev@lunn.ch,
+ shuah@kernel.org, kees@kernel.org, petr.wozniak@gmail.com,
+ qingfang.deng@linux.dev, fmaurer@redhat.com, luka.gejak@linux.dev,
+ bigeasy@linutronix.de, xiaoliang.yang_1@nxp.com, skhawaja@google.com,
+ liuhangbin@gmail.com, stable@vger.kernel.org, sdf.kernel@gmail.com
+References: <20261009201324.17-5-xiexinet@gmail.com>
+ <179166359775.434549.12356274501362124625@kernel.org>
+Content-Language: en-GB
+From: Xin Xie <xiexinet@gmail.com>
+Autocrypt: addr=xiexinet@gmail.com; keydata=
+ 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
+ sNySbH3veZ/55EtlXA==
+In-Reply-To: <179166359775.434549.12356274501362124625@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
+> [Severity: Critical]
+> Can this leave veth's NAPI state out of sync?
 
-> fat_alloc_clusters() returns every allocated cluster number in an array.
-> For larger allocations, like growing a file, this array would need to be
-> very large.
->
-> Make fat_alloc_clusters() return only the first allocated cluster in the
-> chain. Update fat_add_new_entries() to follow the chain when it needs
-> the second cluster.
+Confirmed. veth decides its NAPI lifetime from wanted_features in
+veth_open()/veth_close(), so an attached veth with GRO still requested
+can disable NAPI twice on close, or enable it twice on detach. I will
+fix this in v8 and address the reports on patches 2 and 4 there too.
 
-This would be more common case than fallocate(), so penalize this part
-would not be good.
+pw-bot: cr
 
-Thanks.
-
-> Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-> ---
->  fs/fat/dir.c    | 20 +++++++++++++++++++-
->  fs/fat/fat.h    |  2 +-
->  fs/fat/fatent.c | 17 +++++++++--------
->  3 files changed, 29 insertions(+), 10 deletions(-)
->
-> diff --git a/fs/fat/dir.c b/fs/fat/dir.c
-> index 35bdb6294..672d5e392 100644
-> --- a/fs/fat/dir.c
-> +++ b/fs/fat/dir.c
-> @@ -1245,6 +1245,7 @@ static int fat_add_new_entries(struct inode *dir, void *slots, int nr_slots,
->  	sector_t blknr, start_blknr, last_blknr;
->  	unsigned long size, copy;
->  	int err, i, n, offset, cluster[2];
-> +	struct fat_entry fatent;
->  
->  	/*
->  	 * The minimum cluster size is 512bytes, and maximum entry
-> @@ -1255,10 +1256,26 @@ static int fat_add_new_entries(struct inode *dir, void *slots, int nr_slots,
->  	*nr_cluster = (size + (sbi->cluster_size - 1)) >> sbi->cluster_bits;
->  	BUG_ON(*nr_cluster > 2);
->  
-> -	err = fat_alloc_clusters(dir, cluster, *nr_cluster);
-> +	err = fat_alloc_clusters(dir, &cluster[0], *nr_cluster);
->  	if (err)
->  		goto error;
->  
-> +	if (*nr_cluster > 1) {
-> +		fatent_init(&fatent);
-> +		cluster[1] = fat_ent_read(dir, &fatent, cluster[0]);
-> +		fatent_brelse(&fatent);
-> +		if (cluster[1] == FAT_ENT_EOF || cluster[1] == FAT_ENT_FREE) {
-> +			fat_fs_error(sb,
-> +				     "%s: invalid cluster chain (i_pos %lld)",
-> +				     __func__, MSDOS_I(dir)->i_pos);
-> +			cluster[1] = -EIO;
-> +		}
-> +		if (cluster[1] < 0) {
-> +			err = cluster[1];
-> +			goto error_ent;
-> +		}
-> +	}
-> +
->  	/*
->  	 * First stage: Fill the directory entry.  NOTE: This cluster
->  	 * is not referenced from any inode yet, so updates order is
-> @@ -1313,6 +1330,7 @@ static int fat_add_new_entries(struct inode *dir, void *slots, int nr_slots,
->  error_nomem:
->  	for (i = 0; i < n; i++)
->  		bforget(bhs[i]);
-> +error_ent:
->  	fat_free_clusters(dir, cluster[0]);
->  error:
->  	return err;
-> diff --git a/fs/fat/fat.h b/fs/fat/fat.h
-> index 61338413d..75ac0239a 100644
-> --- a/fs/fat/fat.h
-> +++ b/fs/fat/fat.h
-> @@ -393,7 +393,7 @@ extern int fat_ent_read(struct inode *inode, struct fat_entry *fatent,
->  			int entry);
->  extern int fat_ent_write(struct inode *inode, struct fat_entry *fatent,
->  			 int new, int wait);
-> -extern int fat_alloc_clusters(struct inode *inode, int *cluster,
-> +extern int fat_alloc_clusters(struct inode *inode, int *first_cluster,
->  			      int nr_cluster);
->  extern int fat_free_clusters(struct inode *inode, int cluster);
->  extern int fat_count_free_clusters(struct super_block *sb);
-> diff --git a/fs/fat/fatent.c b/fs/fat/fatent.c
-> index bfab8eab5..4970b1f14 100644
-> --- a/fs/fat/fatent.c
-> +++ b/fs/fat/fatent.c
-> @@ -488,14 +488,14 @@ static int fat_flush_bhs(struct super_block *sb, struct buffer_head **bhs,
->  	return 0;
->  }
->  
-> -int fat_alloc_clusters(struct inode *inode, int *cluster, int nr_cluster)
-> +int fat_alloc_clusters(struct inode *inode, int *first_cluster, int nr_cluster)
->  {
->  	struct super_block *sb = inode->i_sb;
->  	struct msdos_sb_info *sbi = MSDOS_SB(sb);
->  	const struct fatent_operations *ops = sbi->fatent_ops;
->  	struct fat_entry fatent, prev_ent;
->  	struct buffer_head *bhs[MAX_BUF_PER_PAGE];
-> -	int i, count, err, nr_bhs, idx_clus;
-> +	int i, count, err, nr_bhs, clusters_done;
->  
->  	lock_fat(sbi);
->  	if (sbi->free_clusters != -1 && sbi->free_clus_valid &&
-> @@ -504,7 +504,7 @@ int fat_alloc_clusters(struct inode *inode, int *cluster, int nr_cluster)
->  		return -ENOSPC;
->  	}
->  
-> -	err = nr_bhs = idx_clus = 0;
-> +	err = nr_bhs = clusters_done = 0;
->  	count = FAT_START_ENT;
->  	fatent_init(&prev_ent);
->  	fatent_init(&fatent);
-> @@ -531,8 +531,9 @@ int fat_alloc_clusters(struct inode *inode, int *cluster, int nr_cluster)
->  				if (sbi->free_clusters != -1)
->  					sbi->free_clusters--;
->  
-> -				cluster[idx_clus] = entry;
-> -				idx_clus++;
-> +				if (!clusters_done)
-> +					*first_cluster = entry;
-> +				clusters_done++;
->  
->  				if (nr_bhs + fatent.nr_bhs > MAX_BUF_PER_PAGE) {
->  					err = fat_flush_bhs(sb, bhs, &nr_bhs,
-> @@ -542,7 +543,7 @@ int fat_alloc_clusters(struct inode *inode, int *cluster, int nr_cluster)
->  				}
->  				fat_collect_bhs(bhs, &nr_bhs, &fatent);
->  
-> -				if (idx_clus == nr_cluster)
-> +				if (clusters_done == nr_cluster)
->  					goto out;
->  
->  				/*
-> @@ -575,8 +576,8 @@ int fat_alloc_clusters(struct inode *inode, int *cluster, int nr_cluster)
->  	for (i = 0; i < nr_bhs; i++)
->  		brelse(bhs[i]);
->  
-> -	if (err && idx_clus)
-> -		fat_free_clusters(inode, cluster[0]);
-> +	if (err && clusters_done)
-> +		fat_free_clusters(inode, *first_cluster);
->  
->  	return err;
->  }
-
--- 
-OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+--
+Xin
