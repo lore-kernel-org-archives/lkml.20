@@ -1,118 +1,174 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24FAC38A73B;
-	Sun, 11 Oct 2026 20:23:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1A7233B6E8
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 20:24:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791750232; cv=none; b=gLQsBnGWEoMq+ug9jipS5Q9eCiHeECkoBAMjH5q2X9nbG1msbWRBtKD1IUyGBVLi1ULpMn6QFvs2MVjYe4qn9mnIur833oU59FZ/LrrisWBQxXgSTWU/D/oiBdu9ul8vOa/0JHBZegMqAdkglBmoFb0meaIg8hAN6BqNCsAOGkc=
+	t=1791750251; cv=none; b=mvKOWPg/b6xncbvwEn70NUzJezp0SMzvvwg0SGeBrWhS4pJkE86V2zgFDMI/HWXmwrNhjhaKw54awIBfkSqy8jnJoWn95x2Qhm8Cny+GP469rl8335ofbHXTiNbAxqweYQbiedHHfNHtzbOKYmYNjs7RxS8Fi8W8oLn6pG4i7pE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791750232; c=relaxed/simple;
-	bh=OsekOoMWUp1sEIOlyQjkDPmeFUttFjczZH/BP6uvCDw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=sI6V5yKthz6eC6d9FBOL2Q6TLt+EG/W1l/xxb/W1Oephkx+dUulfnj5+5mcg6oEzkbvuh6KKTZZwStI0IDJQyVa8fa2t59pwEuknLjXNXjcpP596oWVkk1umDoYEOdKMUBAIpux8ef2TjTVqozGvLqJg1YUNc+pDO8lCM5MqtQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=zHeAb5xI; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1791750251; c=relaxed/simple;
+	bh=JhCQBqYnJdpdOwhBA8D+Toq/EXOxfct68OJa+cDfYkM=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=JHpFxukT6CrRmC33+DPqPMiYqsyg5LJqapxJlbKOVwe4oXGJtXnEK95xuPggsd2IWWtqgFrK5qqrbBHQaUEXy08pU1CMeZ9d2HjdxExn+MiNQ1phB5Ev8d1JGJceIc8xT/Qor8wpFdFwIa9CLkY8QwBHMcDIM/VxNmhTL3tQaYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bElK1Wea; arc=none smtp.client-ip=209.85.160.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="zHeAb5xI"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AD1F2A155F;
-	Sun, 11 Oct 2026 22:23:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1791750228; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=INJQe6paOwtdLO99XY5b6szNASacCk5MfFyywcH7fqs=;
-	b=zHeAb5xIJYV8F6p9eICUAzLhVoqRog6hmZnMgQ44ajYW7KTWeIY6cZdl0sxBYiad4ssxn2
-	B8xU0pGEO4FV2dpdBGWIXKmK8XxzABJ1KcfIH8U9cFCD2GOPQtnmXHYnewqHfXOmRdwnn4
-	4K8JIU1VJ7jG2sRr0f12DnbxsPt/JqMyIGgVsysR5V9wd/l0ldnd7p8elhpCRrJGz1ULds
-	RDvb5mT1sk4YlNzOhUV5iO1H9W+H1Zn3lEx+PvdZcTPYO6qxrwnm5K2it78d3QgedKmD1r
-	rsNFibmFEbUPAm2VKmmIvCx4ZYwJhQAp9ZwXc+lFOM5TaYN0bcoey1HNTLnUcg==
-From: Nicolai Buchwitz <nb@tipi-net.de>
-Date: Sun, 11 Oct 2026 22:23:44 +0200
-Subject: [PATCH] serial: amba-pl011: honour delay_rts_before_send for every
- write
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bElK1Wea"
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-53440816851so14967731cf.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 13:24:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791750249; x=1792355049; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:content-type:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pWMpy5IfG30fH79TNnvrohqFgTd2rKQhe4mM8EE1gH4=;
+        b=bElK1WeaOgXdYGopdQ1zlkiXGhfwhEhzs/L9qFIxSMGHAmxoypzSbxzgZPZ54pXOpe
+         sdnaq+ia+zToE/aqB1ST//E4pxXdOM6UEEqhSEJK9C87A/M8Px4/w/Y2Zy0sf2i9DQ4s
+         xcE5+rMl5MrmjSTDGnO5ihG8qYbxHv2L4JQJGtOu63CUXIKJFqte4SBss5C/AMM7/JiX
+         FhguIwKxUNJhMys1kRvJLttqjBVAo5/bGrEP+X4V/idujg20QHuaTyNek5MQB+sXkyxn
+         z8ywd4EqWZhygmeekVWOV1wDh3SFjDpJNo4gY0DTsJj1IDDdxqdL+4JCk6chJOA7x8pY
+         HsIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791750249; x=1792355049;
+        h=content-transfer-encoding:mime-version:content-type:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pWMpy5IfG30fH79TNnvrohqFgTd2rKQhe4mM8EE1gH4=;
+        b=CTqHMajBV4iI9ucSMRqWrg4Wnn+/l2/F4CpeErLM0g62YNpEmNzNzn9AXPUrE446rO
+         9R5Hm1pTj+f+5EkmpNbCOGlitI+0EKXfHxaPMGz8ERp3wFu/o/KDxppZm7HJV3Fjax/P
+         LUzNAMxSemHuJTuRJ7FD8ptDF+CkzV67v2WkOyyEAg0GBL1IFa5zfujkCJxUHfcoi6rH
+         bjldcvzMO6p8HzLMLLXjcgR6g2r+apVL3p4D9eEPDrPr3m0+m5eLmX2VD60eDq3t0m6Z
+         +hZZI4+dlNIR+wbaFixnBeSoGtTYnLMiHc/VJ8VLWQh3MbDOdFJwuIfcLdmjyjaFVO9b
+         AkMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwX6klHQBwoEEYTMFpyGhI9fip6Py7LVVvacwgOaiFp62TQ7IBy0x1DVpDG/drCa8NqUJYmc3j8eqdvdHs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLU5su3iOotRNB4qkE2hebuHNKuL0od3JOwsT7n4p8m14GMw251
+	NxyFhma+L+J3f58qbUazuZO09OFujc7aEgX/v8Cg2rx9tIkR2jDp6ko=
+X-Gm-Gg: AYBFou3dU14C8+5hfocgphGC14OaopKnzsomcu8YY/AC8g/b/B+vWJxhY8i5PdECV2i
+	QFtQ2Catc5SXPydtpN3+zgcqh9QKgN7920usu+/B+oT+MFq3XWPEZLc/n+Oe7dswZdWyBNfof6A
+	CW/hT1cF7tSUk1huoOwJIonPP5xE9xp0lzJgXx+HqE68LBu8Ofs/nRm+1Kh+hSGYf5r7kGfy5Ok
+	bImaKHdISBotExj7x+0PjVw4cvCxA/rLHKyFqmw1I1E3VuUnrfsdkvXdw0FIw5eMVEl+YwCmGOE
+	/a1APjGYAnn5m0DJ15cweKrdBEiNE6fZtbpOqzSaweFWnxhqxCNBzVfmNxAL8QjOV5MoDx0kcNo
+	XwmNuOje+uBY+jDOen1SOnBOExGhYkJ9CwC10wgURQMGNL18E/cztC2sxJ6N/5rLcdcC/dmFg0I
+	/agkgLibR2J+GDr+GpJsCQsu7/Qmo7ysZQ5PYrsWX51M9jbiZ3FsFuXBl2dJhMI5XhLlCFaDsT4
+	gazLleboSb6uWxNNdkQNch3sl7lNmO6+tOhkNFJL3CLKmAc5YRwmHpoPpKTplRngFIZ0cfD0cAh
+	w9KtUs2EiiQJlF9uEwP4H2Ql7tkA
+X-Received: by 2002:ac8:6f11:0:b0:535:f20:c828 with SMTP id d75a77b69052e-5359faee760mr145505481cf.24.1791750249415;
+        Sun, 11 Oct 2026 13:24:09 -0700 (PDT)
+Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b46b471sm65185221cf.1.2026.10.11.13.24.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 13:24:08 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Frank Li <Frank.Li@kernel.org>,
+	Allen Pais <allen.lkml@gmail.com>,
+	dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH] dmaengine: mmp_tdma: Release IRQs before channel tasklets and storage
+Date: Sun, 11 Oct 2026 16:24:06 -0400
+Message-ID: <20261011202406.1869441-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.53.0
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261011-fix-pl011-rs485-rts-delay-v1-1-5078e61bc408@tipi-net.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQqDQAxFryJZG5gZtJReRVyMk7RNEZVEpUW8e
- 0fd/Qf/vQ2MVdjgUWygvIrJOGTwZQHpHYcXo1BmCC7cvPMen/LFqT+WWnWvUWdD4j7+MEWqmCK
- F2nWQ/Uk5n892015sS/fhNB9B2Pc/EYfrj30AAAA=
-X-Change-ID: 20261011-fix-pl011-rs485-rts-delay-cad4edad250b
-To: Russell King <linux@armlinux.org.uk>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Miroslav Ondra <ondra@faster.cz>
-Cc: Lino Sanfilippo <LinoSanfilippo@gmx.de>, linux-kernel@vger.kernel.org, 
- linux-serial@vger.kernel.org, stable@vger.kernel.org, 
- Nicolai Buchwitz <nb@tipi-net.de>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-While the driver waits out delay_rts_before_send, another write calls
-pl011_start_tx() again. pl011_rs485_tx_start() then switches straight
-to SEND, and the data goes out before the delay has passed.
+The shared IRQ is requested before the channels are initialized and
+released after their storage is freed. Its handler can therefore
+dereference NULL pointers or freed channel state. Pending tasklets can
+also outlive the channels.
 
-Leave the start to the trigger_start_tx timer while it is pending.
+Initialize both channels before requesting the shared IRQ and add managed
+tasklet cleanup for each channel. This releases IRQs before draining each
+tasklet and freeing its channel storage.
 
-Fixes: 2c1fd53af21b ("serial: amba-pl011: Fix RTS handling in RS485 mode")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+This issue was found by static analysis.
+
+Fixes: c6da0ba8dfc8 ("dmaengine: mmp_tdma: add mmp tdma support")
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
-Noticed while implementing a DMX master on a CM5 with its PL011.
-Tested on that board with delay_rts_before_send set to 1 ms and two
-quick writes. With ftrace, the first pl011_tx_chars() came 0.03 ms
-after pl011_start_tx() before this patch and 1.03 ms after with it.
----
- drivers/tty/serial/amba-pl011.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+Compile-tested with GCC, W=1 (arm). No runtime testing.
 
-diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
-index c4824c201e1c..759124a2a1a8 100644
---- a/drivers/tty/serial/amba-pl011.c
-+++ b/drivers/tty/serial/amba-pl011.c
-@@ -1420,10 +1420,6 @@ static void pl011_rs485_tx_start(struct uart_amba_port *uap)
- 	struct uart_port *port = &uap->port;
- 	u32 cr;
+This fix overlaps with Allen Pais's DMAengine BH v3 conversion. If that
+series lands first, the cleanup should use dmaengine_kill_bh().
+Link: https://lore.kernel.org/r/3cd07c8bcab908e352bf1570fb7a3c24cc0fe516.1786384168.git.allen.lkml@gmail.com/
+
+ drivers/dma/mmp_tdma.c | 28 ++++++++++++++++++++--------
+ 1 file changed, 20 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/dma/mmp_tdma.c b/drivers/dma/mmp_tdma.c
+index ba03321..965cdd6 100644
+--- a/drivers/dma/mmp_tdma.c
++++ b/drivers/dma/mmp_tdma.c
+@@ -353,6 +353,13 @@ static void dma_do_tasklet(struct tasklet_struct *t)
+ 	dmaengine_desc_get_callback_invoke(&tdmac->desc, NULL);
+ }
  
--	if (uap->rs485_tx_state == WAIT_AFTER_RTS) {
--		uap->rs485_tx_state = SEND;
--		return;
--	}
- 	if (uap->rs485_tx_state == WAIT_AFTER_SEND ||
- 	    uap->rs485_tx_state == WAIT_AFTER_SEND_DELAY) {
- 		hrtimer_try_to_cancel(&uap->trigger_stop_tx);
-@@ -1462,6 +1458,10 @@ static void pl011_start_tx(struct uart_port *port)
- 
- 	if ((uap->port.rs485.flags & SER_RS485_ENABLED) &&
- 	    uap->rs485_tx_state != SEND) {
-+		/* trigger_start_tx starts TX once delay_rts_before_send passed */
-+		if (uap->rs485_tx_state == WAIT_AFTER_RTS)
-+			return;
++static void mmp_tdma_kill_tasklet(void *data)
++{
++	struct mmp_tdma_chan *tdmac = data;
 +
- 		pl011_rs485_tx_start(uap);
- 		if (uap->rs485_tx_state == WAIT_AFTER_RTS)
- 			return;
-@@ -1478,8 +1478,10 @@ static enum hrtimer_restart pl011_trigger_start_tx(struct hrtimer *t)
- 	unsigned long flags;
++	tasklet_kill(&tdmac->tasklet);
++}
++
+ static void mmp_tdma_free_descriptor(struct mmp_tdma_chan *tdmac)
+ {
+ 	struct gen_pool *gpool;
+@@ -562,6 +569,7 @@ static int mmp_tdma_chan_init(struct mmp_tdma_device *tdev,
+ 					int type, struct gen_pool *pool)
+ {
+ 	struct mmp_tdma_chan *tdmac;
++	int ret;
  
- 	uart_port_lock_irqsave(&uap->port, &flags);
--	if (uap->rs485_tx_state == WAIT_AFTER_RTS)
-+	if (uap->rs485_tx_state == WAIT_AFTER_RTS) {
-+		uap->rs485_tx_state = SEND;
- 		pl011_start_tx(&uap->port);
+ 	if (idx >= TDMA_CHANNEL_NUM) {
+ 		dev_err(tdev->dev, "too many channels for device!\n");
+@@ -584,6 +592,9 @@ static int mmp_tdma_chan_init(struct mmp_tdma_device *tdev,
+ 	tdmac->status = DMA_COMPLETE;
+ 	tdev->tdmac[tdmac->idx] = tdmac;
+ 	tasklet_setup(&tdmac->tasklet, dma_do_tasklet);
++	ret = devm_add_action_or_reset(tdev->dev, mmp_tdma_kill_tasklet, tdmac);
++	if (ret)
++		return ret;
+ 
+ 	/* add the channel to tdma_chan list */
+ 	list_add_tail(&tdmac->chan.device_node,
+@@ -666,14 +677,6 @@ static int mmp_tdma_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
+ 	}
+ 
+-	if (irq_num != chan_num) {
+-		irq = platform_get_irq(pdev, 0);
+-		ret = devm_request_irq(&pdev->dev, irq,
+-			mmp_tdma_int_handler, IRQF_SHARED, "tdma", tdev);
+-		if (ret)
+-			return ret;
+-	}
+-
+ 	/* initialize channel parameters */
+ 	for (i = 0; i < chan_num; i++) {
+ 		irq = (irq_num != chan_num) ? 0 : platform_get_irq(pdev, i);
+@@ -682,6 +685,15 @@ static int mmp_tdma_probe(struct platform_device *pdev)
+ 			return ret;
+ 	}
+ 
++	/* Release the shared IRQ before draining and freeing the channels. */
++	if (irq_num != chan_num) {
++		irq = platform_get_irq(pdev, 0);
++		ret = devm_request_irq(&pdev->dev, irq, mmp_tdma_int_handler,
++				       IRQF_SHARED, "tdma", tdev);
++		if (ret)
++			return ret;
 +	}
- 	uart_port_unlock_irqrestore(&uap->port, flags);
- 
- 	return HRTIMER_NORESTART;
-
----
-base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
-change-id: 20261011-fix-pl011-rs485-rts-delay-cad4edad250b
-
-Best regards,
---  
-Nicolai Buchwitz <nb@tipi-net.de>
-
++
+ 	dma_cap_set(DMA_SLAVE, tdev->device.cap_mask);
+ 	dma_cap_set(DMA_CYCLIC, tdev->device.cap_mask);
+ 	tdev->device.dev = &pdev->dev;
