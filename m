@@ -1,212 +1,284 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29B12381C4;
-	Sun, 11 Oct 2026 14:16:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791728183; cv=fail; b=DwIXzerWYX8UR+GvlrzMwzskBG32YtnMaEQnEqJm6hJu/F2YORuhEJrF3pAeS9McjM2hmw1FguDWmccDjVtzuvJ3zSVHJ4BS7wgOzmV403U/Qrt1nsCJXIJHC1EnR/rNrVwbpoY6+Ij0k/6rtmAWY460Vuiv0cDBrM+OiqRmNwE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791728183; c=relaxed/simple;
-	bh=+Z+fTU2Wn72LL0bisIDUd8gPc1RkIejq7Z6hl6KNO54=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ueagm9AsWRCkBroS9RaQq7QGzwIdZ34o0theiiqd1CbIlHjUdVAks6vlZZDhtTLbL+MEdW2LRCTcXpLZd3hyw2zLBPaquROIcPuguruy8QidP3nu4sjpEDRaSa/yVvT/aT9fDA+AuLcHFul7aok4/PqwmSHJRbnwKvfwfhJxxJc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jjIVGXQM; arc=fail smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B514F3B4E9B
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 14:16:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791728209; cv=none; b=Ppmgf6+B+Rygy1Lfb/G+phavMefi4vpurzbMcodha6TMDAnc8ubWnM0/17PCNxZwju2N2c/mK0EVvVao5/jsSKFldixqG5bqrc4ZpqTyDziMPDT8S8buojYTSXitIBxTOAfz7Jxc6cY4X7QeD8jJwyuPIMoo+xXnVfvJ1nFck5c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791728209; c=relaxed/simple;
+	bh=W7FZNSRbWo6VxKmxkMfSfrz+K/NtHoDLIImLCIZ7IhI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EZzMUd9FOPXqpsUo4IE6m6horPM6PEBL8fuP+pYbw7/fCH2HRQvAde7WyRRup9TK5cGlukE/Ga6GabB/GMPMambLPL79f5zI4ulSA7iie4jCvMdFa+f1FDMQEsk9Rw6oScU/2dkPkiPkUCLdVbRW9VoopUc5kO4mqRCAEmwww2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lDsrGf4C; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dvoNuLmt; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jjIVGXQM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791728181; x=1823264181;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=+Z+fTU2Wn72LL0bisIDUd8gPc1RkIejq7Z6hl6KNO54=;
-  b=jjIVGXQMfKEbm7qCadBwhm2hUPennEzJDB3Bi0Z6pd6qkfqgvMlvOnF0
-   0WOCkOZk7HUkqn3BIiskWlzttFZHzUmaAi3l6PjdMDjWWoOxPj4OljC23
-   fxqnxRn0Gnbb5CNGqNRUETActIOUxXFMKWJ7t6b16i79tDcacUUn7HLJP
-   zZxbjkIzSHjPwjohiKMfqQPSVhgHJnRgAgMs9J65Ecep7JPLuVRWk7BJU
-   OGGlVqXQMRqmbN0AwhwwEUImSdjJ6SNR9tbu6Jk9v9Hzj2sN7+OLmJ3f9
-   EmDhZO+322zIXBJJ3+SuqiBjsHQ4oHW+Ah70bpXitu7mAzWnTeLWzV1+e
-   Q==;
-X-CSE-ConnectionGUID: V/kOXQOkSyGgHNuKKUycHg==
-X-CSE-MsgGUID: 2/EfDmvkTYy25cv98HGEPg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="336513"
-X-IronPort-AV: E=Sophos;i="6.27,151,1787036400"; 
-   d="scan'208";a="336513"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 07:16:21 -0700
-X-CSE-ConnectionGUID: NWOXoAl/Ta6T9kzgY7o68w==
-X-CSE-MsgGUID: aAsU2DZqTRmZG7sjIZfgUg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,151,1787036400"; 
-   d="scan'208";a="669391"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 07:16:19 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sun, 11 Oct 2026 07:16:18 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Sun, 11 Oct 2026 07:16:18 -0700
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.2) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sun, 11 Oct 2026 07:16:18 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RxOnACD3keATWZMhnUY4+gqegJPlGsXP2vhkLuqiEdor1xOj5xKlOrq6bDHMad+0EsGUuWAfh9LW0jAuFQ0nPJ69CykkH8RycsOvfR39U3JyO04LIo7Ww2vzMa33SgOaJsK7En2mKuCaZSh6+mOEG0yfWVvdz5XkPaXjGx9PcMNL4wuuVYP2w68HoldQx+s1QAVNvQGoaoSRxvDsW2Cje8JWGk1JRUSl5kqi3kV8RibMbX91oWKbaxU9Xr749qH0E6SxflKuTeeGlyT+kzDCI9xSdDk5b5RghD1sfiIjGh5ddgdDdYlPXYD0fsE8SEUn55BS9xG222Wt6diGi1WTIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gxWJ67Zg33T5TSNoufTqcI1XUEAIJd3/Y/AwAAEn1UI=;
- b=qyhZ7suiAzturxvP6o6VSzkfr4meoSr2liRqj0nCuI9QEAqJaO5jISDn+lW+nfgW3AWM1hyJgc/y8lLT3jIvqw+Zjg+xia6+TnAgiljr2GN+cU6mOnc8PSnxXeYDfh1eRrOVZPFcavW0vWzk8TAkp9WQVwPMaqFyDWVd82BtGZ2hmQihxPPCdC8tT1HMM94bDXILryTP5zhhVLWYSFNWrr8I+rGGwgmvW5YpXqQo9HgVgSe1Cl4kBNvoS+Dzud34BUSXAPTXZ5lK99Z0mpohN6urK73NYuxuImXS6SPIdxeEZGwgYtOlF4UX9gHq3Y2pEbfWOzC3JO7tpepgk9QmBQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from LV1PR11MB8790.namprd11.prod.outlook.com (2603:10b6:408:2b1::16)
- by DS7PR11MB7691.namprd11.prod.outlook.com (2603:10b6:8:e4::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.20; Sun, 11 Oct
- 2026 14:16:09 +0000
-Received: from LV1PR11MB8790.namprd11.prod.outlook.com
- ([fe80::27cb:7a60:19bb:584a]) by LV1PR11MB8790.namprd11.prod.outlook.com
- ([fe80::27cb:7a60:19bb:584a%5]) with mapi id 15.21.0496.015; Sun, 11 Oct 2026
- 14:16:08 +0000
-From: "Nowlin, Alexander" <alexander.nowlin@intel.com>
-To: "Oros, Petr" <poros@redhat.com>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>
-CC: "Oros, Petr" <poros@redhat.com>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>, "Nguyen, Anthony L" <anthony.l.nguyen@intel.com>,
-	"Kitszel, Przemyslaw" <przemyslaw.kitszel@intel.com>, Andrew Lunn
-	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Simon Horman <horms@kernel.org>, "Kubalewski, Arkadiusz"
-	<arkadiusz.kubalewski@intel.com>, "intel-wired-lan@lists.osuosl.org"
-	<intel-wired-lan@lists.osuosl.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH iwl-net 1/2] ice: fix DPLL registration on boards without
- the SMA clock mux
-Thread-Topic: [PATCH iwl-net 1/2] ice: fix DPLL registration on boards without
- the SMA clock mux
-Thread-Index: AQHdRtdS6j9ATnG3uU6RLsVoN0+82bb4iDCg
-Date: Sun, 11 Oct 2026 14:16:08 +0000
-Message-ID: <LV1PR11MB8790D21B00CAF612C0E0B92B90902@LV1PR11MB8790.namprd11.prod.outlook.com>
-References: <20260917190258.3239282-1-poros@redhat.com>
- <20260917190258.3239282-2-poros@redhat.com>
-In-Reply-To: <20260917190258.3239282-2-poros@redhat.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: LV1PR11MB8790:EE_|DS7PR11MB7691:EE_
-x-ms-office365-filtering-correlation-id: b1462d2b-25ab-4c57-bd9b-08df27a23218
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|366016|6133799003|22082099003|18002099003|10067099003|38070700021|261009223027099003|4143699003|11063799006|5023799004|56012099006;
-x-microsoft-antispam-message-info: 9kIE6uSD/lGPhygfwsjGeHzXAMj0O4vqPvuaE+potGhlQ07xQYM//G18s8KmThD3/6b2ebrLPvf3VDXkKeaVAd4wAfdyFu5o74QRKVvl2v6iTSzqQIBkwE+SNptGYoFYqgfQT6BedE8Xmp7UG6M8P0PFlkdfTGW4x85+SR6oam/7/4ZcKXX3lELYpP+Kby+3C/qBqhMDtNiGMWQFnE1tvcehqKh8uPs6KfFXgGEUV29MUPqv4HA/YGOZVX0cRjgHWLLmhKySoFXbJ2Ro1TMe+2Ak+E0ijKqf8wXjQe3N8Q6f+jFNfrZcdqIy9Pww2F90OdALHCsidH+S4b/E4Ym5v8kPECY5PsCck0nzzvdQ/+AXbAamU2q2EAZOiwqtysPYGB2KXMKgIUOUYddsKOjq/frf5lxskpDhKNufvseUAJGCcHS/7pLdgPLCYqetfr7MkkfaBUwNEtcrlHMGanBI+cTKzOxOVf1pnjc94KiTlwr5gehKAbNGp+X4XVUULTiT/pHGH4fPNc7l1Vqow+HtcRJvdGnVhak730ysB4gjX4CugJqTJsa/AnEh4PF8Xa+h7wxSdl2uw66T6qni6dDBBsOaB4ilCuROpByw4UcgA77dcEMc/xQkTMoIKSMem0qhlYAdmVdwQUNQtKwscf/UY/POOcEH5eGXhT6H405Pyw78JrBjpMO6AJ1FEdollFatNWGVt8USsW+oE2wBfxDJcXljZJoy42TEzm5TKgE6LQI=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV1PR11MB8790.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(6133799003)(22082099003)(18002099003)(10067099003)(38070700021)(261009223027099003)(4143699003)(11063799006)(5023799004)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?WfNquru5GMD6xlG5XVkj66xypj9TJq5AD7az6GhOlyZn3PSWwlkI2/V5Tsjs?=
- =?us-ascii?Q?3MNEV0E66HtaB24bG/HR46O70ZndrAVrdqwKwcPl4nrrSp9NhYAnZv/LmXyw?=
- =?us-ascii?Q?3i2DjM7YFaQ7VOIyaXsd4p4hyhjdmk4QaBJ3rDvWVva+oDO6eDTq1lIHRMID?=
- =?us-ascii?Q?+YvJIPQZESJEXGIoIpvY7z8g2VzBno0TCKw+fyJGh2qukfdagqDjgEukn3zZ?=
- =?us-ascii?Q?EMay1OJBsSEZWwzPjc1pdVIaJfFuN62puyq5AApFzC9p4F95nt44ZJI+ps//?=
- =?us-ascii?Q?o56ivrb1WYBax0hArSlYvpCJKz4RVFuMV8tNwkqhffwadbgjjQE+kW5Aeh9K?=
- =?us-ascii?Q?fLHxKw9ChVcz2Ikpe5EJi21ZESsPMrQmSxnL+7B9ldHU4yADlHEeO1rQf/Gx?=
- =?us-ascii?Q?/0F2oScJv7gAiiQvJLBdddR7cexhERxYHw/sErfvZ/4eRZY6Fm8svW0BYQnR?=
- =?us-ascii?Q?AIUS7ftDOCxS4PpMIBO0FctWTzGevsf/DZhkYACsUpaakerUtGxAoqbP0qwt?=
- =?us-ascii?Q?VyqdFCLmCaPw1J8Q46FAkTfKiQpaSRTK4dcP8P5bQT37LKvP0Pc3ANTP8mL2?=
- =?us-ascii?Q?MucUjxLDwsHHmvNY3hM87lDXiPlBHENCcltquY/1JnBVBqOgQ9u8bflA1gll?=
- =?us-ascii?Q?2VjoPNC+gSQpmjPQYOV6IgKNgoFU1SBK3DwyfuR4bpJoQatjvJ6f/swatEJp?=
- =?us-ascii?Q?hfRDuX5Iv5FlGhLpzrEDMbj0Js1cJPTtTZ+PwdR2jJu8HMiWh5VSRap4Jo6v?=
- =?us-ascii?Q?nPNhpCP8aGsjTaA0xyD734LCJMaXZ/FTdrOCQX56+ynEDLeQY83d5jC+c70B?=
- =?us-ascii?Q?t4Dw5otNQJ+YdFZzLPb8zHU/9w20plUyNK27HgAF0uXp6QnnG02MWIddswnM?=
- =?us-ascii?Q?ByNxJTOw1R/rwew5/fcipkpDPHVlkm3J0zC5CM2F2vPZUw92AErkBHzk3Snm?=
- =?us-ascii?Q?L1VdcYqnkJ5cUZGhsbRCrl/62WKsx6YGmSgH6XgaLlwgxkaSmbTLA12KRQOp?=
- =?us-ascii?Q?fKLJY5ucR48R8bXO95qog0xI2eBs0BiMSGladjAxuLDa06Fceow6jTsivxEW?=
- =?us-ascii?Q?ncfDxh4FciAGjPw3xlQQTpKceiXqcB29EsLOr9l/OEOYwk2zO/E5Th4hp5Rh?=
- =?us-ascii?Q?8KLcN9B815J2OuWXzQVn2MG6Q4oCG/MObQmytoi4/KCWyhsgGMSehFtQ6u+S?=
- =?us-ascii?Q?ArH4lnI1BjZzd10wuF96d/41ZbyXVNAltu2o6pLjcFws+KgxtbagHWqbntvu?=
- =?us-ascii?Q?T2oSxcbBNo1wpLD3aZ0Jqle+6uwKUeBS8Q3AA9oKZher3/nvomNWVw+SDrg6?=
- =?us-ascii?Q?pMgO0BtVFig6Ov98TZSpobArNBOjjIHXmBWRfR+n781vkh3uSSbK29zNL2YA?=
- =?us-ascii?Q?rShdmysuwn8Z7XLFldBmUePvSnw5Jj6S6Ldc1mROUUHaRiwUzqvf+Cpp1sy1?=
- =?us-ascii?Q?T/6GYi4E8IyqgxqzCQIgQvZnrl/tycVSE9Fo5x+oYFazzCfSmNVoy4yCEUco?=
- =?us-ascii?Q?zvh/jwxn2CeDe3OPqvBt2pM4yX+M/IP7+E6vSedlmAL4MiSVKfHMOohdRmzs?=
- =?us-ascii?Q?gfZRXNTpPzLD5FcTFI9e+jwNmDINh9BygHltVTiNTTRjrF/Avl5qAWCLqaPH?=
- =?us-ascii?Q?E2APmXsDoNubgmhsWwbse2L9O/8sHbPIpuiFPIuuZBjCq11nAJoIWLNUSPIf?=
- =?us-ascii?Q?ENpCFi+mZFyBpnfCNgGYJpEZixkMMjn2DZZA07pMQeck2yloDw383H5xwGmV?=
- =?us-ascii?Q?w2V2keu1Lg=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lDsrGf4C";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dvoNuLmt"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69B857Q82381401
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 14:16:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	M2N1+nLpksf0tEB2SxFBndBmGIzIOlWOd60HbVRm1fA=; b=lDsrGf4CP7iNuKoJ
+	eqvpShDixlPtH7LO9lT4tgDs70zd+gIiEMKDQpF9GIjAW6n23e/L2m0fijRff/1y
+	Lb2vMCz/Yt9y/yzQQbOoaOILdChgwudSBcfAfQVjoa0srSWjE3iUJ0OY0ebEpda6
+	dK/g9Kb2I72jGbxfUjCsgOoV0hVq4oQI/Yc4l9IjbNICyXciKBo/b8aijQTeEj2x
+	816xxFTDazdWJjciaBvUxPf3BIKcL49cZSMoPo/CSLfQ2ypSYfQoDhZVK00owE8+
+	B9kn+cbgQXUdhH2/uEKFjtTiXah1UJJhL7TRFBDJVSNbSkQHU8xh3xuoB/KP8dES
+	1RMN1w==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7e4eb13d-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 14:16:46 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-897bfd32c95so1046963b3a.2
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 07:16:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791728206; x=1792333006; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=M2N1+nLpksf0tEB2SxFBndBmGIzIOlWOd60HbVRm1fA=;
+        b=dvoNuLmt+6X7kZWSo5M8MNBHMRgYTEOkTqHUzoyOYJxyy73hn19mEb6r4JUZtGDPEy
+         Y0yHq1IP6rak7i0ccLV3siT6EgMdFFMtdGXram0ceM4J02daYuf4Q/kq4Vec7cyo3+c+
+         QEcQjbz7uUrFMfBvEWNhXjBho/esPFsD5ICSAJEreilM/4el+N32LxKN+FbJFGZ2VHxp
+         MOc7HzK3+Ptm/rFOkOFslLBDY49ZxdVBk8nRx2y9DiY28QjWruNbOA0l6vGiy5WVeWhQ
+         8jzvSAJcxnOTF3Vj3n2siOP21T4P8GjPGqM3CMPo5Nny560AqG/BC4Mc4S1DHWSI0dUr
+         VhvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791728206; x=1792333006;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=M2N1+nLpksf0tEB2SxFBndBmGIzIOlWOd60HbVRm1fA=;
+        b=jdK9A711SXKXYOnv0n0tklnuaYF/ZZA7J3ofxHdw9b7HFU/Q1EHG0jCWHpxBKPVQlL
+         F9YkvUZnoQA5avmSvpTPdWzYrIaU41IWoQ3pDevTaNHF31RCiANJeho7BiFEZdWy2ZbH
+         20K39TOQ/yo/WrbPsqyFGSsI92+Q0sYfauZXrAhGQbt39bxF47bh+KTrmiTlZd+nTOCJ
+         VwDVdt3Nn7YXJriYA6XCzAV3LayW22ImlWp500gNKwSfRBoRFqfDa71CuUsy27hfjZIR
+         2v7oPIq1AlrzFFDJYIwBZivezjPavQIugq9D3z/KrupS2Pqyw8BpQFwxEtJQaoLY/A34
+         L0fg==
+X-Gm-Message-State: AFq9FYKCnLZbgS1OrzDExsfQSFWfYfwj0uqT7MeeP0HJPbpnJ3NIUWFM
+	W490ar4Xm4YM3lrNlbsZI30ZWauHbJ7s6RMk16nhcRQG4K57JJkO8jL1/0/gbUV62EDNvViVhzc
+	X81seqF5DKSa1NAMl4sukrzRCMaL4KQ0ATBQP40hvyz4lbVjbCmrFmclRZ5ZCZhgIIzM=
+X-Gm-Gg: AYBFou05bAQdtgB4u3bi+TCLDmWQd390bGcj5AagjrNcIGQp27xenQyyNrq8Jqj8G9Q
+	5WwP6I5SBqcOnqchvOzz0wdzuyeUnI9gBGSmYK0FsGhjnTDPd5ULXxQTq4QfFIkuPXLcoUK0KaV
+	DfD5OEesilFH/0ZR5oCLldLnjGnk5jed0BOanCyOkj6W0Gk6neq+DP3+Z79bqj7M3xgj0gXprUb
+	D2mcHm04ufL2oMnxqkHoSXJMDlnTliJAJfW+0UXSk/7QmoFYpI81RP37NkEZRFPWCh801sukv4l
+	orvOJptiLiUxT2JLJgriPxv2xVl2xOy+ZLPc6II+g6yz+9jMkWwLgrEc900BBRff4i1LvsxPyvl
+	xMBPFdRqGzmXU8vNOZxbMPlLFwLzuy+8uPvAU3H8kPdRzKhIRLHCaXABemAldYvU=
+X-Received: by 2002:a05:6a00:4209:b0:891:6d3e:3999 with SMTP id d2e1a72fcca58-897c701082bmr5887956b3a.9.1791728205961;
+        Sun, 11 Oct 2026 07:16:45 -0700 (PDT)
+X-Received: by 2002:a05:6a00:4209:b0:891:6d3e:3999 with SMTP id d2e1a72fcca58-897c701082bmr5887934b3a.9.1791728205389;
+        Sun, 11 Oct 2026 07:16:45 -0700 (PDT)
+Received: from ?IPV6:240e:400:e20:12c6:a578:1ef6:8335:64b6? ([240e:400:e20:12c6:a578:1ef6:8335:64b6])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-897fb87c459sm2827960b3a.50.2026.10.11.07.16.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 11 Oct 2026 07:16:44 -0700 (PDT)
+Message-ID: <fbd7fe35-5e14-4589-a072-909e49a92e76@oss.qualcomm.com>
+Date: Sun, 11 Oct 2026 22:16:37 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: FDA/e5cs5zxgJNFrI+qHuOrLAvujBc2BS6ZKZ4irSys0AwZWRzirNPkX5TScJSWplGyqWaIl2ihHQdC2M/RPUo3FIPd0C32IFftRx2uYHPebF/6RHwXP69T0NABoKoyRRXofeg1XjunKnG1MHOON0Ye8I1Mgm8Oo9kCvOHSRVZYcmuUDGhaHXVr8DO1VUiCMyJJn9Xeg0jHOe3Dy/FK1k0uLMJfGfSUSTpZeA7kcobsAOHkyMxM1cMAGe/Lm4ipObWUCQhXFDgq6+B4Kn2T1NqogywkZ6pzOBkaB0Yt8UhhD+D0N3k955HjGhMZs9BBINb3nY/qmN6f/lKrgNcKR3Q==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: LV1PR11MB8790.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b1462d2b-25ab-4c57-bd9b-08df27a23218
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Oct 2026 14:16:08.8231
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: EixbnGQqrovPKPU/b8ZTcYduaGkCk/2vCntz1Cd1Pd7kQBuUXtJA1/eG509/lx23+XWML9RB9v7RJ0zfKqlUZZlcgrWCI4g6YX45p1t1CT0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR11MB7691
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] arch_topology: seed capacity_freq_ref with highest
+ available frequency
+To: Ananthu C V <ananthu.cv@oss.qualcomm.com>,
+        Vincent Guittot <vincent.guittot@linaro.org>,
+        Sudeep Holla <sudeep.holla@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Danilo Krummrich <dakr@kernel.org>,
+        Viresh Kumar <viresh.kumar@linaro.org>,
+        Jie Zhan <zhanjie9@hisilicon.com>,
+        Pierre Gondois <pierre.gondois@arm.com>
+Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+        linux-pm@vger.kernel.org,
+        "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+        Oleg Keri <okerixx@gmail.com>, zhongqiu.han@oss.qualcomm.com
+References: <20260929-schedutil-boost-frequency-handling-v3-0-68de169498c7@oss.qualcomm.com>
+ <20260929-schedutil-boost-frequency-handling-v3-1-68de169498c7@oss.qualcomm.com>
+Content-Language: en-US
+From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+In-Reply-To: <20260929-schedutil-boost-frequency-handling-v3-1-68de169498c7@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDExMDA1NiBTYWx0ZWRfX2ARr4Jaq/jYH
+ GHXFkGeCJMU2sEIubJFCrf1KY/kIdIf2H6bPsz9QjQ72Vr7zOxmXyce87Hs+GEm59xCnHTsprUB
+ ANF8orGq8ATqIBn+MTYW/ZQaKOi/QHTyZL98etMJA2xDh2BpIbOn9cL0EPj3jdCUlcAcKnN/B3i
+ j5dMHevy1iGNecRALowma4Z8gtkPZZ+GtqjoKQI+CQy53pM1kNnjJuryEprFLTNk+7EA4JBdxWK
+ 84LEOZ/W1pWVbdGHsz4/SwWGwKZmDWreV94bPi2CUsUMaNMsdeluaF78qnG72C3jpaNlzMz+EcG
+ ogU8KOsRpjVBV8Bv5yYNaPzy20t9tAhRvc7rnefNJU5rXUlZWQ7hLEHKZBvUdwU7c4S+vfa8V6m
+ g+U0IYS91nWJIzQ4NzI7QOD1tGoMCfLfnZzSbeCw9Henk4cZdmnkwZJ38ExQ+dJ7Am8yIux6hwk
+ WghJA9whHA2yRX+Ejrw==
+X-Proofpoint-ORIG-GUID: QfnuAYuzaZXhZfymbjd5HI9l5bEK3kCe
+X-Proofpoint-GUID: QfnuAYuzaZXhZfymbjd5HI9l5bEK3kCe
+X-Authority-Analysis: v=2.4 cv=W5utxhWk c=1 sm=1 tr=0 ts=6acb9a4e cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=KKAkSRfTAAAA:8
+ a=EUspDBNiAAAA:8 a=mPL7UwSLHth3KX_UYEUA:9 a=QEXdDO2ut3YA:10
+ a=IoOABgeZipijB_acs4fv:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDExMDA1NiBTYWx0ZWRfX6cWLDJFJf4U+
+ Gm9qO5RZXPcHAiGF1iJI3g5tmyVHlw23U8SsUoWsiQ3zkW83ieggvkD2N20PWzNIu6Y+HHxdC/W
+ SK1vLe0WvkOJjm8ei7vRH2xIZBaJZas=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-11_03,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 adultscore=0 phishscore=0 malwarescore=0 impostorscore=0
+ bulkscore=0 suspectscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610110056
 
-> -----Original Message-----
-> From: Petr Oros <poros@redhat.com>=20
-> Sent: Thursday, September 17, 2026 12:03 PM
-> To: netdev@vger.kernel.org
-> Cc: Oros, Petr <poros@redhat.com>; stable@vger.kernel.org; Nguyen, Anthon=
-y L <anthony.l.nguyen@intel.com>; Kitszel, Przemyslaw <przemyslaw.kitszel@i=
-ntel.com>; Andrew Lunn <andrew+netdev@lunn.ch>; > David S. Miller <davem@da=
-vemloft.net>; Eric Dumazet <edumazet@google.com>; Jakub Kicinski <kuba@kern=
-el.org>; Paolo Abeni <pabeni@redhat.com>; Simon Horman <horms@kernel.org>; =
-Kubalewski, Arkadiusz <arkadiusz.kubalewski@intel.com>; intel-wired-lan@lis=
-ts.osuosl.org; linux-kernel@vger.kernel.org
-> Subject: [PATCH iwl-net 1/2] ice: fix DPLL registration on boards without=
- the SMA clock mux
->=20
-> The SMA and U.FL connectors of an E810-C timing board are routed by a
-> PCA9575 GPIO expander, and ice_dpll_init_info_sw_pins() reaches it throug=
-h ice_read_sma_ctrl(). On a board that carries a CGU but no such expander t=
-he netlist lookup fails with -ENXIO, which aborts
-> ice_dpll_init_info() and with it the whole DPLL registration:
->=20
->   ice 0000:cc:00.0: ice_dpll_init_info - fail: d->inputs:...
->   ice 0000:cc:00.0: DPLLs init failure err:-6
->=20
-> Userspace loses the EEC and PPS devices, every CGU pin and the recovered =
-clock pin.
->=20
-> The netlist describes the mux with a clock mux node, which
-> ice_init_feature_support() already turns into ICE_F_SMA_CTRL. Key the sof=
-tware controlled pins on that flag. Without the mux the SMA wrappers stay i=
-nputs, the state the mux path programs at init anyway, and > do not adverti=
-se DIRECTION_CAN_CHANGE. The U.FL pins are the other leg of the mux, so the=
-y are hidden, and the outgoing CGU pins stay visible as
-> REF-SMA1 and REF-SMA2/U.FL2.
->=20
-> The layout is not exotic, the E810_C827_SyncE_SFP_SEC configuration in In=
-tel's 4.80 NVM package has no clock mux node either. Such boards worked unt=
-il the SMA and U.FL redesign moved the expander access > into the DPLL init=
- path.
->=20
-> Fixes: 2dd5d03c77e2 ("ice: redesign dpll sma/u.fl pins control")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Petr Oros <poros@redhat.com>
+On 9/29/2026 7:38 PM, Ananthu C V wrote:
+> capacity_freq_ref, the per-CPU frequency-invariance reference used by
+> schedutil, is seeded from policy->cpuinfo.max_freq at policy creation.
+> If boost isn't enabled yet at boot, max_freq reflects only the
+> non-boost ceiling, so capacity_freq_ref never learns about boost
+> frequencies for the policy's lifetime. Enabling boost later raises
+> policy->max, but capacity_freq_ref stays stale, leaving schedutil
+> unable to scale utilization or target a frequency above the non-boost
+> maximum.
+> 
+> Seed capacity_freq_ref with the highest available frequency regardless
+> of whether boost is enabled. Runtime enforcement, still handled by
+> policy->max, is unaffected.
+> 
+> Suggested-by: Vincent Guittot <vincent.guittot@linaro.org>
+> Signed-off-by: Ananthu C V <ananthu.cv@oss.qualcomm.com>
 > ---
->  drivers/net/ethernet/intel/ice/ice_dpll.c | 20 +++++++++++++++++---
->  1 file changed, 17 insertions(+), 3 deletions(-)
+>   drivers/base/arch_topology.c |  3 ++-
+>   include/linux/cpufreq.h      | 13 +++++++++++++
+>   2 files changed, 15 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/base/arch_topology.c b/drivers/base/arch_topology.c
+> index 8c5e47c28d9a..92966be712d5 100644
+> --- a/drivers/base/arch_topology.c
+> +++ b/drivers/base/arch_topology.c
+> @@ -404,7 +404,8 @@ init_cpu_capacity_callback(struct notifier_block *nb,
+>   	cpumask_andnot(cpus_to_visit, cpus_to_visit, policy->related_cpus);
+>   
+>   	for_each_cpu(cpu, policy->related_cpus) {
+> -		per_cpu(capacity_freq_ref, cpu) = policy->cpuinfo.max_freq;
+> +		per_cpu(capacity_freq_ref, cpu) = max(policy->cpuinfo.max_freq,
+> +						      cpufreq_frequency_table_max(policy));
+>   		freq_inv_set_max_ratio(cpu,
+>   				       per_cpu(capacity_freq_ref, cpu) * HZ_PER_KHZ);
+>   	}
+> diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
+> index 35ce665edfd8..f048c925fd98 100644
+> --- a/include/linux/cpufreq.h
+> +++ b/include/linux/cpufreq.h
+> @@ -1107,6 +1107,19 @@ static inline int cpufreq_frequency_table_target(struct cpufreq_policy *policy,
+>   	return idx;
+>   }
+>   
+> +static inline unsigned int cpufreq_frequency_table_max(struct cpufreq_policy *policy)
+> +{
+> +	int idx;
+> +
+> +	if (!policy->freq_table)
+> +		return policy->cpuinfo.max_freq;
+> +
+> +	idx = cpufreq_frequency_table_target(policy, UINT_MAX, 0, UINT_MAX,
+> +					 CPUFREQ_RELATION_H);
+> +
+> +	return policy->freq_table[idx].frequency;
+> +}
+> +
 
-Tested-by: Alexander Nowlin <alexander.nowlin@intel.com>
+The current implementation looks correct and works well. That said, we
+might be able to optimize it with a simpler implementation as shown
+below:
+
++/**
++ * cpufreq_frequency_table_max - Get the highest frequency in a 
+policy's table
++ * @policy: the &struct cpufreq_policy to inspect
++ *
++ * Boost entries (%CPUFREQ_BOOST_FREQ) are taken into account regardless of
++ * whether or not boost is currently enabled.
++ *
++ * Return: the highest valid frequency in @policy->freq_table, or 0 if 
+there
++ * is no frequency table.
++ */
++static inline unsigned int
++cpufreq_frequency_table_max(const struct cpufreq_policy *policy)
++{
++	struct cpufreq_frequency_table *pos;
++	unsigned int max_freq = 0;
++
++	if (!policy->freq_table)
++		return 0;
++
++	cpufreq_for_each_valid_entry(pos, policy->freq_table)
++		max_freq = max(max_freq, pos->frequency);
++
++	return max_freq;
++}
++
+
+
+>   static inline int cpufreq_table_count_valid_entries(const struct cpufreq_policy *policy)
+>   {
+>   	struct cpufreq_frequency_table *pos;
+> 
+
+
+Besides, could you comment patch v2 Dietmar's comments? It seems that 
+patch 1/2 exposes a pre-existing ordering issue. On DT systems, 
+cpu_scale is normalized only from the CPUFREQ_CREATE_POLICY notification 
+of the last policy, so the cpufreq pressure of every other policy is 
+computed in cpufreq_init_policy() from the raw, not yet normalized, 
+capacity, and stays cached until the next cpufreq_set_policy() for that 
+policy. So far this was harmless because capacity_freq_ref == 
+policy->max at boot, so the pressure was 0 regardless of the capacity. 
+With 1/2, capacity_freq_ref covers the boost frequencies while boost is 
+disabled at boot, so policy->max < capacity_freq_ref becomes the common 
+case and the stale value becomes visible (102 vs 79 on Juno R0, as 
+reported by Dietmar). Perhaps the limits of all policies could be 
+refreshed once from parsing_done_workfn(), after the capacities have 
+been normalized?
+
+--- a/drivers/base/arch_topology.c
++++ b/drivers/base/arch_topology.c
+@@ -454,9 +454,27 @@ core_initcall(register_cpufreq_notifier);
+
+  static void parsing_done_workfn(struct work_struct *work)
+  {
++	int cpu;
++
+  	cpufreq_unregister_notifier(&init_cpu_capacity_notifier,
+  					 CPUFREQ_POLICY_NOTIFIER);
+  	free_cpumask_var(cpus_to_visit);
++
++	/*
++	 * The cpufreq pressure of all policies but the last one has been
++	 * computed before topology_normalize_cpu_scale(), so refresh it now
++	 * that cpu_scale is final.
++	 */
++	for_each_possible_cpu(cpu) {
++		struct cpufreq_policy *policy __free(put_cpufreq_policy) =
++			cpufreq_cpu_get(cpu);
++
++		if (!policy || cpu != policy->cpu)
++			continue;
++
++		guard(cpufreq_policy_write)(policy);
++		refresh_frequency_limits(policy);
++	}
+
+
+
+-- 
+Thx and BRs,
+Zhongqiu Han
