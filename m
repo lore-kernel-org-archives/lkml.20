@@ -1,355 +1,249 @@
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 210F7248F57
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 15:34:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791732867; cv=pass; b=t5rkn2I7eTGIzSd6+JOCl7fPLvyJRLFvnSBV2EHXPPSK2NW6oh1hODorpM69+qutQCS3xxCdF1wfwgaqdNV6r6T0gbTIk6ilRBs7jcLJNOzyDd1DN5QiZ89FIslKh9AYQCc5FW8HIgCaUTTGmXeUbXfPPKC4KVdumqsMsk55+xM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791732867; c=relaxed/simple;
-	bh=Sj5yyuPvYN6ZKvxEV4F1P5gDON53VA/IY3g49RSqFy8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UVkqVDcO63xsg+wnEsTHD9gUXCwNiLqD7lZ9/Tn/F79RDeN2pEmwcMGu2omhNm6FeLijGjnFpxw6VgM9/Eg5gzsVbU8QFORFQia7YqULTHabn/IwU8jbOBur905eBYhamjc0iqx6VRDSKf4Hj9GnMBa3D2ISPP0qpe+a0tfPYqk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F5fp8QMG; arc=pass smtp.client-ip=209.85.208.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF2CC1C84A2
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 15:35:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791732916; cv=none; b=lyc84GxMZ8opRB66yGs88I6hPywPSYe8B9PDUfHC5eNiAU7ifF3jSwY4kYXI+1J3lAv4mXUVUQQsHprsdIuMG1aSm7tIfRPcjir1Zjyd7Iox/Y7QwxJ3ICRycwkmrVjZpW3g2gkEN6bcwHhNoYds8StXDqNpGBLpKbFIKFcxNvM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791732916; c=relaxed/simple;
+	bh=aTHjow+MhX2pUPdBBCb+pN2n/W8ibGPkh5XhBD4c/DA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Fjup14SfI9ONuJXlTVfejh7t1UAt0OzzpLQSlW44OVuMZXf4GbMsq1pB1ok7adwpRwyPDG0CLLa2iyXOwY31lpxbN4OyoUQBTY/jY49BiyTSeDiqzYRF5onn7ejBylj2C3Bg1MebZHMEPm74s163NW5idZc9/MB6AzTWkBz81BM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lEwsTp4U; arc=none smtp.client-ip=209.85.216.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F5fp8QMG"
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3a9ad623098so10645151fa.1
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:34:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791732864; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Xp18hBEQVxpkLQTW4bP6Pz6wNINQ2PIOayDatqpi8eJ6AvDEPYxkq7ZOY4QXUl+NDE
-         UDNjtllg6rJMk3DU+ssRcyDZ9RiloQiYjRU1trS6tQvtusUEySTM7Kp5/2P72/WnmGFz
-         5jyDbcNuKoJfops9LKqyxORglU2a1sG5gc8/Bi2JllUV9ShP5WOSsHio/EOFwGeD6bTV
-         ggfegLckzHcLrqRxlGJz3vLQ33Ulzkf3sHLxZRBSjVbt8PcWB+4Q6GuuuWX3vdaG3Qfd
-         knzVcsgc2SRuP2Ms3JF2it3VZHHIcB/8bBmHVrDLLTnRaBdQhx2pH/Dq2sjEi4DudHEQ
-         aswA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VIqqDV705JeS8gKS9WKK7E1LbHj9qbphXeHw0zjFDGE=;
-        fh=sPilOYAT4QfMgYxGH2LjRrcqbLUzvrQqMQUicHZMufQ=;
-        b=jQpDeFlg1Eeulbj9jprLCF6d8alrv3HgoHQeGMtwZz/3ppXNHQjlsFu862PnRJjPf3
-         dmhLfjaUwtYsnpw+Zdbm/4bhH05gP3XsDe8gdMbWgJCyDzTZ0G9+qoURUWRSMDWoLh7O
-         d9rD616lydeYT7yfxeB9Nhnv49IeTcyumUxW/daaFe9svBtgNm6NOL/eeaC8hkHnDk6T
-         fLeQesEd53n/nGmCOfnDxJHchXc28HSD8s8h21y4RMR0pe8OkkVFmPF3v0Pbrv/Zjtww
-         i+dR2wHWH2mE7MzrEfc2e/+/1GcUNsT7UOYo694TbrUdb+G2QWqnWa1Ooa08b1wfW3bk
-         rqdg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lEwsTp4U"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ab41538192so824909a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:35:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791732864; x=1792337664; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VIqqDV705JeS8gKS9WKK7E1LbHj9qbphXeHw0zjFDGE=;
-        b=F5fp8QMG8uJiWNbFNsW/3cdilDuWtW41oFLhBThmT+XkRixtptT8bXvPGwOUDN2MSb
-         WOhsvC/dB/hu2Kng9r5OqKxETlBVzRVhEJ42D7xgRLmiDpsH5rQtD5qIKy+AKfiY04mW
-         HNo7o5+cuxzj2VPmOP/cQYA80aJN1CvEJad2jNKGjaXj82G59qsl/C355OlRBgkLSCYk
-         12/j8PqMhBV3dcKU0s+ZsiSvaAgX3GxG+TY7KtA057LyzeLXkTJuifIkQI1n3bOI0dfF
-         jpb+3Z7hH91fxa14rQuTnSb2hEVPYwRa4nRqhvEljRPoF7eSyOpwiO6w8thwL/NAZwCP
-         z3RQ==
+        d=gmail.com; s=20251104; t=1791732914; x=1792337714; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZDi5NZhxe7aNgs5fvPM2l6LxfLw9cZzq0HmYScNkIJ4=;
+        b=lEwsTp4UFS83ARlY5AxJah4Wk4cBcojxX0bhSOmBi8jpB74RHgOMyR2/gLDA7ASgK0
+         j7aDUXsdun1q+S7cDTlx47eAq85xQYpfeRaC/f8oWZ3K4OkjfTc1G1LUsqWWc0hE7bsc
+         qivxs8SXy/7mtifLqEiP8Ep5Licr+8ZkJFqd5Wqzwfioh6q5W996MMZMsYn1ZzYh1B/7
+         rGgonTUbxYo/DD0ctBt0aQnr4lDz8mvo4x8V2sEaiS23biYpNoiuED31A/CaAvcULB6K
+         NlwitXDxpxkj+yohAMOQ/5tH7oUCsJljYRIRyVSBmWPorD0M5n3PnMTWywITLZ3N7Pm9
+         ZKgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791732864; x=1792337664;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VIqqDV705JeS8gKS9WKK7E1LbHj9qbphXeHw0zjFDGE=;
-        b=CDIG/X5PKK9OJhwhnw7WRiZ5fSh5qiLL9MDLijcew/6yyJi0eZ4ZtsI7Kz2bTCv2UZ
-         2+Cwp2hWJ2gExi1h/wIUCpa5I9in24tTLZjc8X2FF6ujxw5iSXzJ0GofiRtA5e52gqch
-         HoNiI0Mu32e57eHA61uS74yaGofmXvd+m/OVF2FvAyYvlyr92exiyNqKqfItiu2i85z+
-         S343tIh1mz9yB5I4gRZplk6PRN0J//1homPHzWX3xBgYKZiO8cSWfLgCvqtQza+VR5FE
-         ANuHF/YMoPgNmGSPa2osjCFdztO9Vfrd4p66EyLveE6CkxpSUVsh/qfsZwp4k6FG+KvM
-         m/Xg==
-X-Gm-Message-State: AFq9FYI2uSx1z0IpBvWYS17fWjasXJtrh1IBur/uvnz6cpg5FwXPLpKz
-	gCZBCK3qRSQ8++4fr8srSco66iWo/wgSm6UH5swGgC+DpUYUGki+68i8yDvgjxZIEqrPxop3Cg6
-	EAuUxU9hA/xY2pPQdWqLEtJGp/qqCIx4=
-X-Gm-Gg: AYBFou01AeK0IGs3E2zxy3vYJffkNHFg3gTRolvtCF2CA2lWcZCs5gE9M3l5nkV+TVi
-	vyleP/m8RBXIUNuHj/d++/Gg/6uvfrkImTz1btd0QHnnqdEl517W3yXIsDLfnhiS3Bkz9/Wg8vq
-	buuAeWRyMs9LMXa5U+e6eX90xLF2IIGGHErRwvWRI5OnxRpp6T9zcrBIuXIY0nNZQxG82Jd1WTQ
-	s3P6TKoln32YzxRnY0o7QeukS4Kgk+CTyPFLomY2X7o7//pi3QnMt+ZdaeMCiaVYgGJVAAcvmey
-	45VYIXs3FfxZ8SCNOc9i756ldTa+fxlNqdDVEgkpYr26H15PTVbN9HzVwg8zHLTsxiPXzhfeHYX
-	/Mn3QoRb81jqvJNAmsUlSg5ueQbyxjJaLNizs6ikMXEtT
-X-Received: by 2002:a05:651c:1503:b0:3a7:6d4a:1c9f with SMTP id
- 38308e7fff4ca-3a9c55b5768mr19616651fa.15.1791732863780; Sun, 11 Oct 2026
- 08:34:23 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791732914; x=1792337714;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZDi5NZhxe7aNgs5fvPM2l6LxfLw9cZzq0HmYScNkIJ4=;
+        b=xRNbGyNNWGFv2FwZjfBvGWP1JzMxhcgbsYasoydt0FbQsy8KFjcxHpJcuWxmLcKRYq
+         0zd/RBwhMCUB3Ywm6piZcXFI/8Fbc1NN2GX1H3Ldr+3XnM80F0trUWv9EJPis7SQp4lM
+         2YDsJmvmxZ3NK285hyj+9frL473uJRHAtWUQeOQ6PB53qxXCiB2whFgmTK6cjfEYIqwz
+         rPxmLWRMaA0vlw7UwtOkU8AYH6BqTPXdWIUzDNUvQe1yVLNNPRfIWkhbgHoaJ0Njhqzz
+         Y9ro9DsnkDhBV3eJF7nDDzugKKCdQMxMRTHivOFBaRjSQsKn/XHrCwg13FppYiXUl2n7
+         Kaww==
+X-Forwarded-Encrypted: i=1; AKwUvBzkjeP+2iJL6IDWMR6wJAs7LU+Ks6R4B7zo7OvLNOUIQI6OtLbDyE7g7vBbwAZyuc37utLm5qLVzA+s4E8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLSfySk3Hki9xfaIusYHp8TN9vD1CTWp/r52T/BWwGHUrAtAVw+
+	pceyHTmK/SMIMscMgTz0cVl83nLwaxXQCwf5ej89EzZmp4Ada/5/fMx0
+X-Gm-Gg: AYBFou3YFn3BqrnKTkzk7sopOmru9pWJxleMhTvcg4N/F5gVc74oF7PkZij6O+VflaT
+	EA/cpF/dqD9hLqtYK0/l4Co1fixv15+61YSEOuYdupI4JZ3Rk4fBxwmlO1bNBJLHWSoV0/2WPro
+	bZgwOCPkNS932tVH/DuyckdrpjnJQos8Rw9qY2mHLXF7oQg+OJu1WD7KhX7EfMXow1rpKHtkn8l
+	PFLt4Snn1sei7UnwomUgRanVENK+zKV77G96v+1ooP7ZCqq4cE4zzqIuQFt6E+zE8JVDb3iaZVL
+	25eS37HN4rC0+l3BWeTWcJyBlxcy0x77w3L7JiKwVv6iQEm1jk4ez+5HQ/HwknRnkr94r2PQMCz
+	S+0RckdM4Eik5g33GwOOXWNm/71D+fBk7+0vztL8G+hHqGhH79ZpsiMy+Dlo4abgDrY5ulWUlRG
+	cF0n2F86uZJTsKu9hXIXAqQUbqaOoCee4aKHPlFL0pG9hz+qBq3eGIJzOJ3ZGzu/j3mw==
+X-Received: by 2002:a17:90b:5346:b0:3ab:235b:185b with SMTP id 98e67ed59e1d1-3ab3a77980emr5497145a91.31.1791732913900;
+        Sun, 11 Oct 2026 08:35:13 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36f8277bsm12398641a91.11.2026.10.11.08.35.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 08:35:13 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: mark@fasheh.com,
+	jlbec@evilplan.org,
+	joseph.qi@linux.alibaba.com,
+	heming.zhao@suse.com,
+	rollkingzzc@gmail.com,
+	brauner@kernel.org,
+	jack@suse.cz,
+	rppt@kernel.org,
+	kees@kernel.org,
+	akpm@linux-foundation.org,
+	hexlabsecurity@proton.me,
+	sunil.mushran@oracle.com
+Cc: ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH v2] ocfs2/dlm: Protect the recovery list during debugfs reads
+Date: Sun, 11 Oct 2026 23:35:06 +0800
+Message-Id: <pm-ocfs2-objects-candidate-0049-v3-184e46c47f5283f06191@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261007193131.1785199-1-daeho43@gmail.com> <dabc2517-6915-4df6-b638-9a7ec14efe70@kernel.org>
-In-Reply-To: <dabc2517-6915-4df6-b638-9a7ec14efe70@kernel.org>
-From: Daeho Jeong <daeho43@gmail.com>
-Date: Sun, 11 Oct 2026 08:34:11 -0700
-X-Gm-Features: AclHuK_koZl57lWSQnrPuaWVX5nhQYlN5RL0lPVYqKnVeV1x85oEtl185LETSfw
-Message-ID: <CACOAw_wrHCPq=fxo4Zbpi4tmtDrYkWYdjvM3q7ySh2AxkaHqVg@mail.gmail.com>
-Subject: Re: [f2fs-dev] [PATCH] f2fs: cache: wake up the writeback thread
- while checkpoint is disabled
-To: Chao Yu <chao@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net, 
-	kernel-team@android.com, Daeho Jeong <daehojeong@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 11, 2026 at 1:22=E2=80=AFAM Chao Yu <chao@kernel.org> wrote:
->
-> On 10/8/26 03:31, Daeho Jeong wrote:
-> > From: Daeho Jeong <daehojeong@google.com>
-> >
-> > Dirty node and meta caches are written back by the cache writeback
-> > thread and by checkpoint. The thread wakes up every cache_wb_interval
-> > (5 seconds by default) and writes at most 512 node caches and one
-> > contiguous run of meta caches. Checkpoint, which f2fs_balance_fs_bg()
-> > triggers when there are too many dirty caches, writes the rest.
-> >
-> > While checkpoint is disabled, checkpoint does not run: f2fs_sync_fs()
-> > returns early and f2fs_balance_fs() returns before doing anything. So
-> > dirty node caches pile up without a limit. They are kmalloc'd, and the
-> > shrinker skips dirty entries, so this memory cannot be reclaimed. When
-> > node and meta blocks were in the page cache, the dirty pages were
-> > counted as dirty page cache, and the flusher threads wrote them back in
-> > the background.
-> >
-> > A checkpoint=3Ddisable test that remounts the filesystem with
-> > checkpoint=3Ddisable and runs fsstress -p 32 for 300 seconds left about
-> > 160K dirty node caches (2.7GB of kmalloc-16k) with 16KB blocks and
-> > about 226K with 4KB blocks in QEMU, and drop_caches freed none of them.
-> >
-> > While checkpoint is disabled, wake up the thread from
-> > f2fs_mark_cache_dirty() once there are as many dirty node or meta
-> > caches as f2fs_write_node_caches() and f2fs_write_meta_caches() collect
-> > before writing, and let the thread go on without waiting while that is
-> > still true and each round writes some of them. Each round writes the
-> > same number of caches as before. Split nr_caches_to_collect() out of
-> > nr_caches_to_skip() to share these numbers without the dirty_exceeded
-> > check.
-> >
-> > With this, the same test keeps about 4K dirty node caches with both
-> > 4KB and 16KB blocks. Nothing changes while checkpoint is enabled.
->
-> I've sent a patch to wake up f2fs_writeback to flush dirty data according
-> to configurable sysfs value, I guess it can fix your checkpoint disable
-> case, please take a look.
->
-> [PATCH 3/5] f2fs: cache: wake up f2fs_writeback when exceeding threshold
->
-> Thanks,
+Recovery participant records must remain alive while debug_state_print()
+walks reco.node_data and formats their fields. The formatter holds
+dlm->spinlock, but the recovery participant list is protected by
+dlm_reco_state_lock. In particular, dlm_destroy_recovery_area() detaches
+the list under dlm_reco_state_lock and frees the detached records after
+releasing it. A concurrent debugfs open can therefore read freed memory.
 
-Hi Chao,
+Protect the participant traversal and field reads in debug_state_print()
+with dlm_reco_state_lock, matching the existing list writers. This also
+serializes the traversal against list_add_tail() during recovery-area
+initialization. Make the existing lock available to the debug code
+through dlmcommon.h; the lock remains internal to the OCFS2 DLM module.
 
-Thanks, I think it covers my case.
+Release dlm->spinlock after formatting the other domain state and before
+acquiring dlm_reco_state_lock, so the debug reader does not nest the two
+locks. Leave recovery list insertion, detachment and freeing unchanged.
 
-Two things in v2:
+KASAN report as below:
 
-1. The wait condition stays true when the thread can't reduce the dirty
-   count, so it loops without sleeping: on f2fs_cp_error(), readonly,
-   freezing(current) or a failed sb_start_write_trylock() (dirty caches
-   stay after shutdown/freeze with checkpoint=3Ddisable, and during
-   suspend the thread may never freeze), or when the threshold is below
-   nr_caches_to_skip() so the write functions write nothing. How about
-   sleeping for the interval when a round doesn't reduce the dirty
-   count?
+    BUG: KASAN: slab-use-after-free in debug_state_open+0x1169/0x12d0
+    Read of size 4 at addr ffff88810662ef80 by task dlm-state-stres/896
 
-2. With both thresholds 0, dirty caches grow again under
-   checkpoint=3Ddisable. Should that case wake the thread anyway?
+    CPU: 1 UID: 0 PID: 896 Comm: dlm-state-stres Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
+    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     ? debug_state_open+0x1169/0x12d0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __virt_addr_valid+0x20e/0x420
+     ? debug_state_open+0x1169/0x12d0
+     kasan_report+0xe0/0x110
+     ? debug_state_open+0x1169/0x12d0
+     debug_state_open+0x1169/0x12d0
+     ? __pfx_debug_state_open+0x10/0x10
+     full_proxy_open_regular+0x193/0x310
+     do_dentry_open+0x595/0x12d0
+     ? __pfx_full_proxy_open_regular+0x10/0x10
+     vfs_open_consume+0xd1/0x400
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     path_openat+0x18d0/0x2020
+     ? __pfx_path_openat+0x10/0x10
+     do_file_open+0x21e/0x470
+     ? __pfx_do_file_open+0x10/0x10
+     ? _raw_spin_unlock+0x23/0x40
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? alloc_fd+0x3a6/0x6b0
+     do_sys_openat2+0xf4/0x1b0
+     ? __pfx_do_sys_openat2+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __fput+0x5b5/0xa60
+     __x64_sys_openat+0x136/0x1e0
+     ? __pfx___x64_sys_openat+0x10/0x10
+     do_syscall_64+0x114/0x620
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+    [Register dump omitted.]
+     </TASK>
 
-I'm fine to drop my patch if you take this in your series.
+    Allocated by task 880:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_cache_noprof+0x28d/0x610
+     dlm_remaster_locks+0x147/0x1d90
+     dlm_do_recovery+0xde1/0x1580
+     dlm_recovery_thread+0x109/0x300
+     kthread+0x351/0x460
+     ret_from_fork+0x659/0x940
+     ret_from_fork_asm+0x1a/0x30
 
-Thanks,
-Daeho
+    Freed by task 880:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     kasan_save_free_info+0x3b/0x60
+     __kasan_slab_free+0x5f/0x80
+     kfree+0x308/0x580
+     dlm_destroy_recovery_area+0x285/0x460
+     dlm_remaster_locks+0x17c4/0x1d90
+     dlm_do_recovery+0xde1/0x1580
+     dlm_recovery_thread+0x109/0x300
+     kthread+0x351/0x460
+     ret_from_fork+0x659/0x940
+     ret_from_fork_asm+0x1a/0x30
 
->
-> >
-> > Fixes: 7a1cf2a76b71 ("f2fs: cache: use meta cache")
-> > Fixes: 493b9dc8b52c ("f2fs: cache: use node cache")
-> > Signed-off-by: Daeho Jeong <daehojeong@google.com>
-> > ---
-> >   fs/f2fs/cache.c   | 59 +++++++++++++++++++++++++++++++++++++++++++++-=
--
-> >   fs/f2fs/cache.h   |  1 +
-> >   fs/f2fs/segment.h | 13 +++++++----
-> >   3 files changed, 67 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/fs/f2fs/cache.c b/fs/f2fs/cache.c
-> > index 04b5408cbc5..6b6f49fae25 100644
-> > --- a/fs/f2fs/cache.c
-> > +++ b/fs/f2fs/cache.c
-> > @@ -61,6 +61,42 @@ void f2fs_cache_update_tag(struct f2fs_cached_block =
-*entry,
-> >       spin_unlock_irqrestore(&cache->tree_lock, flags);
-> >   }
-> >
-> > +/*
-> > + * While checkpoint is disabled, checkpoint does not write back dirty =
-node and
-> > + * meta caches, and the writeback thread is the only one that writes t=
-hem. Tell
-> > + * whether there are as many dirty caches as f2fs_write_node_caches() =
-and
-> > + * f2fs_write_meta_caches() collect before writing, so that the thread=
- should
-> > + * write them now instead of every cache_wb_interval.
-> > + */
-> > +static bool f2fs_cache_wb_needed(struct f2fs_sb_info *sbi)
-> > +{
-> > +     if (likely(!is_sbi_flag_set(sbi, SBI_CP_DISABLED)))
-> > +             return false;
-> > +
-> > +     return get_nr_caches(sbi, F2FS_DIRTY_NODES) >=3D
-> > +                             nr_caches_to_collect(sbi, NODE) ||
-> > +             get_nr_caches(sbi, F2FS_DIRTY_META) >=3D
-> > +                             nr_caches_to_collect(sbi, META);
-> > +}
-> > +
-> > +static void f2fs_wake_cache_wb_thread(struct f2fs_sb_info *sbi)
-> > +{
-> > +     struct f2fs_cache_kthread *cache_thread =3D &sbi->cache_thread;
-> > +
-> > +     if (!f2fs_cache_wb_needed(sbi))
-> > +             return;
-> > +
-> > +     /* pairs with smp_store_release() in f2fs_start_cache_wb_thread()=
- */
-> > +     if (!smp_load_acquire(&cache_thread->cache_wb_task))
-> > +             return;
-> > +
-> > +     if (READ_ONCE(cache_thread->cache_wb_urgent))
-> > +             return;
-> > +
-> > +     WRITE_ONCE(cache_thread->cache_wb_urgent, true);
-> > +     wake_up(&cache_thread->cache_wb_wq);
-> > +}
-> > +
-> >   bool f2fs_mark_cache_dirty(struct f2fs_cached_block *entry)
-> >   {
-> >       struct f2fs_cached_block_list *cache =3D entry->cache;
-> > @@ -81,6 +117,7 @@ bool f2fs_mark_cache_dirty(struct f2fs_cached_block =
-*entry)
-> >               f2fs_cache_update_tag(entry, F2FS_CACHE_TAG_NONE,
-> >                                               F2FS_CACHE_TAG_DIRTY);
-> >               inc_cache_count(cache->sbi, type);
-> > +             f2fs_wake_cache_wb_thread(cache->sbi);
-> >               return true;
-> >       }
-> >
-> > @@ -679,10 +716,13 @@ static int f2fs_cache_writeback_kthread(void *dat=
-a)
-> >
-> >       while (!kthread_should_stop()) {
-> >               unsigned int interval =3D cache_thread->cache_wb_interval=
-;
-> > +             s64 nr_dirty;
-> >
-> >               wait_event_freezable_timeout(*wq,
-> > -                             kthread_should_stop(),
-> > +                             kthread_should_stop() ||
-> > +                             READ_ONCE(cache_thread->cache_wb_urgent),
-> >                               msecs_to_jiffies(interval));
-> > +             WRITE_ONCE(cache_thread->cache_wb_urgent, false);
-> >
-> >               if (kthread_should_stop())
-> >                       break;
-> > @@ -699,10 +739,23 @@ static int f2fs_cache_writeback_kthread(void *dat=
-a)
-> >               if (!sb_start_write_trylock(sbi->sb))
-> >                       continue;
-> >
-> > +             nr_dirty =3D get_nr_caches(sbi, F2FS_DIRTY_NODES) +
-> > +                             get_nr_caches(sbi, F2FS_DIRTY_META);
-> > +
-> >               f2fs_write_meta_caches(sbi);
-> >               f2fs_write_node_caches(sbi);
-> >
-> >               sb_end_write(sbi->sb);
-> > +
-> > +             /*
-> > +              * Each round writes a limited number of caches. Go on wi=
-thout
-> > +              * waiting while there are still many dirty caches, as lo=
-ng as
-> > +              * this round wrote some of them.
-> > +              */
-> > +             if (f2fs_cache_wb_needed(sbi) &&
-> > +                     get_nr_caches(sbi, F2FS_DIRTY_NODES) +
-> > +                     get_nr_caches(sbi, F2FS_DIRTY_META) < nr_dirty)
-> > +                     WRITE_ONCE(cache_thread->cache_wb_urgent, true);
-> >       }
-> >       return 0;
-> >   }
-> > @@ -719,6 +772,7 @@ int f2fs_start_cache_wb_thread(struct f2fs_sb_info =
-*sbi)
-> >
-> >       init_waitqueue_head(&cache_thread->cache_wb_wq);
-> >       cache_thread->cache_wb_interval =3D DEF_DIRTY_CACHE_TIMEOUT;
-> > +     cache_thread->cache_wb_urgent =3D false;
-> >       snprintf(name, sizeof(name), "f2fs_writeback-%u:%u",
-> >                       MAJOR(dev), MINOR(dev));
-> >
-> > @@ -726,7 +780,8 @@ int f2fs_start_cache_wb_thread(struct f2fs_sb_info =
-*sbi)
-> >       if (IS_ERR(task))
-> >               return PTR_ERR(task);
-> >
-> > -     cache_thread->cache_wb_task =3D task;
-> > +     /* pairs with smp_load_acquire() in f2fs_wake_cache_wb_thread() *=
-/
-> > +     smp_store_release(&cache_thread->cache_wb_task, task);
-> >       return 0;
-> >   }
-> >
-> > diff --git a/fs/f2fs/cache.h b/fs/f2fs/cache.h
-> > index 6c4db910d76..1d0216d2128 100644
-> > --- a/fs/f2fs/cache.h
-> > +++ b/fs/f2fs/cache.h
-> > @@ -232,6 +232,7 @@ struct f2fs_cache_kthread {
-> >       struct task_struct *cache_wb_task;
-> >       wait_queue_head_t cache_wb_wq;
-> >       unsigned int cache_wb_interval;
-> > +     bool cache_wb_urgent;           /* write back without waiting */
-> >   };
-> >
-> >   int f2fs_start_cache_wb_thread(struct f2fs_sb_info *sbi);
-> > diff --git a/fs/f2fs/segment.h b/fs/f2fs/segment.h
-> > index 526764ba31a..58804e9cc29 100644
-> > --- a/fs/f2fs/segment.h
-> > +++ b/fs/f2fs/segment.h
-> > @@ -983,11 +983,8 @@ static inline bool sec_usage_check(struct f2fs_sb_=
-info *sbi, unsigned int secno)
-> >    * 512 blocks (2MB) * 8 for nodes, and
-> >    * 256 blocks * 8 for meta are set.
-> >    */
-> > -static inline int nr_caches_to_skip(struct f2fs_sb_info *sbi, int type=
-)
-> > +static inline int nr_caches_to_collect(struct f2fs_sb_info *sbi, int t=
-ype)
-> >   {
-> > -     if (bdi_wb_dirty_exceeded(sbi->sb->s_bdi))
-> > -             return 0;
-> > -
-> >       if (type =3D=3D DATA)
-> >               return BLKS_PER_SEG(sbi);
-> >       else if (type =3D=3D NODE)
-> > @@ -998,6 +995,14 @@ static inline int nr_caches_to_skip(struct f2fs_sb=
-_info *sbi, int type)
-> >               return 0;
-> >   }
-> >
-> > +static inline int nr_caches_to_skip(struct f2fs_sb_info *sbi, int type=
-)
-> > +{
-> > +     if (bdi_wb_dirty_exceeded(sbi->sb->s_bdi))
-> > +             return 0;
-> > +
-> > +     return nr_caches_to_collect(sbi, type);
-> > +}
-> > +
-> >   /*
-> >    * When writing cache asynchronously, align nr_to_write to BIO_MAX_VE=
-CS.
-> >    */
->
+    The buggy address belongs to the object at ffff88810662ef80
+     which belongs to the cache kmalloc-32 of size 32
+    The buggy address is located 0 bytes inside of
+     freed 32-byte region [ffff88810662ef80, ffff88810662efa0)
+
+    [Page and memory-state dumps omitted.]
+
+Fixes: 007dce53a29c ("ocfs2/dlm: Dump the dlm state in a debugfs file")
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+---
+Changes in v2:
+- Use dlm_reco_state_lock in debug_state_print() to protect recovery
+  participant traversal and field reads.
+- Serialize the read with recovery participant insertion, and leave list
+  teardown unchanged.
+- Release dlm->spinlock before acquiring the recovery list lock.
+
+Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0049-v2-a5d5091b8900dc3f9849@gmail.com
+
+ fs/ocfs2/dlm/dlmcommon.h   | 2 ++
+ fs/ocfs2/dlm/dlmdebug.c    | 5 ++++-
+ fs/ocfs2/dlm/dlmrecovery.c | 2 +-
+ 3 files changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/fs/ocfs2/dlm/dlmcommon.h b/fs/ocfs2/dlm/dlmcommon.h
+index 20f790a47484a72cba1cd71b3d505f36c1b2d5a4..58b28dfa8d34ef237df7b1eb789f0b461187174e 100644
+--- a/fs/ocfs2/dlm/dlmcommon.h
++++ b/fs/ocfs2/dlm/dlmcommon.h
+@@ -435,6 +435,8 @@ enum {
+ 	DLM_DEREF_LOCKRES_DONE		= 522,
+ };
+ 
++extern spinlock_t dlm_reco_state_lock;
++
+ struct dlm_reco_node_data
+ {
+ 	int state;
+diff --git a/fs/ocfs2/dlm/dlmdebug.c b/fs/ocfs2/dlm/dlmdebug.c
+index ce6d301cb9420385211d20d59637069154a89993..a91f167ed683931da0e44638875b36debe4eb702 100644
+--- a/fs/ocfs2/dlm/dlmdebug.c
++++ b/fs/ocfs2/dlm/dlmdebug.c
+@@ -736,8 +736,11 @@ static int debug_state_print(struct dlm_ctxt *dlm, char *buf, int len)
+ 				 buf + out, len - out);
+ 	out += scnprintf(buf + out, len - out, "\n");
+ 
++	spin_unlock(&dlm->spinlock);
++
+ 	/* Recovery Node State: */
+ 	out += scnprintf(buf + out, len - out, "Recovery Node State:\n");
++	spin_lock(&dlm_reco_state_lock);
+ 	list_for_each_entry(node, &dlm->reco.node_data, list) {
+ 		switch (node->state) {
+ 		case DLM_RECO_NODE_DATA_INIT:
+@@ -769,7 +772,7 @@ static int debug_state_print(struct dlm_ctxt *dlm, char *buf, int len)
+ 				node->node_num, state);
+ 	}
+ 
+-	spin_unlock(&dlm->spinlock);
++	spin_unlock(&dlm_reco_state_lock);
+ 
+ 	return out;
+ }
+diff --git a/fs/ocfs2/dlm/dlmrecovery.c b/fs/ocfs2/dlm/dlmrecovery.c
+index 9d4a2695b9594d1ad8bd60de9cec8ee701355f09..7d519e31fcf17e96116315ac33ab3f5baace354f 100644
+--- a/fs/ocfs2/dlm/dlmrecovery.c
++++ b/fs/ocfs2/dlm/dlmrecovery.c
+@@ -80,7 +80,7 @@ static int dlm_lockres_master_requery(struct dlm_ctxt *dlm,
+ 
+ static u64 dlm_get_next_mig_cookie(void);
+ 
+-static DEFINE_SPINLOCK(dlm_reco_state_lock);
++DEFINE_SPINLOCK(dlm_reco_state_lock);
+ static DEFINE_SPINLOCK(dlm_mig_cookie_lock);
+ static u64 dlm_mig_cookie = 1;
+ 
