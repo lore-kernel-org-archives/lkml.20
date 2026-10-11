@@ -1,118 +1,143 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D4F9372680
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 23:16:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C3FE2E7380;
+	Sun, 11 Oct 2026 23:17:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791760573; cv=none; b=ofAP0khh5HdztD/lUJwq5ZtCOaK2VBwKKNHOQw9icNXE102yLhGUFGlkeIMmSrBYJFiyx7c7sIg+x6p647V8n96e6Mu5UibcXilu39px8Yj2mD2ph3VVgj4lRIYyIAqw3S5pNzhs64C+xCA0riiK+PGgq79h4lmypgUObXuOxig=
+	t=1791760620; cv=none; b=F7CTBvVBweg1kPRm3iIHq4Nmb6W/L956NmoB22FT1rqfQ0/6mbKMLZN+rdQh6gm6G5gcw8WHLRX9MbT2fAp20peXURK3r+atJ2C91Ar8D8l/G8Wo5M2GoOO6O/AN6TaqRLLMb0E2XzedlndlgyrwIMVHoyENwVLUfqnDgxhNIXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791760573; c=relaxed/simple;
-	bh=LmVQj7uu7MJqrKqgNSP5uYYVsgcU/25VPpMhJmIGlMw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bfiprf/eh6bVkDIjUib2oFXnaHeoAvFooJgOdSKLJ6nR6DqjOGHs9Qz6QgZ+2J8xY9/gawXqXJD9h0F8G3KPAbMw6GoRkUVarlw0jR/JVZZ877bsNPa3izmGepykDHFPtvAD43hFi/SVw14Q6D20en6BLfjOW3HAEwOrHY/wUmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Sztr5wgH; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1791760620; c=relaxed/simple;
+	bh=UAZF3D+Sx35z3vcZ9NHFHqwGAcWy4Z3le2K73RKXH8Y=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=UiQwgAwuq+keiLeqMbR31MIXpB3/CJ77yu4Y5FyKydxi8zXUJJdXgRtRPjeNRhNigdsG8Q5+ZoAUu9c1X4WaCf9yZH2xYomtRDEUn+eJkME+CmCSLTy5BVgJjE5f3GPZqAZJWBhRSo73X6Iroq8/8Wbw8rM3WuW0YCY7V9LiDrg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K6OAyUw1; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Sztr5wgH"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a16c399641so13491585e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:16:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1791760571; x=1792365371; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LmVQj7uu7MJqrKqgNSP5uYYVsgcU/25VPpMhJmIGlMw=;
-        b=Sztr5wgHMnUNvoPb0SWAp/YNM6eyxBGF/XwVKdTFZ6ZSDyZmpkrRZ7B3hxKuza9qwM
-         sYIEBqQ9SUbmW3ycIykNwl+EuLJ7WQMJOLEn+mHlOIbZ/VU7HbysS+HT1qK03qODor0i
-         xZBYGTbAjH2fp3xoZYI+DGTijLEsczwgnXVV1JwdHkfIWczY8aAdqZlc2BVFSBujAUv8
-         hmWrUeqOAVTxWNNTTk7erKumnE0ip2PPsexJNPJrPkUJP2TcH8OCEtKfvqYCQP6gsFo0
-         f8BpfnIIedJg5azpYToOigcDlSucdnOQSTdoQDHg8kmoufzh8v3hJXTRWW9WJrQNlbuV
-         bQ4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791760571; x=1792365371;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LmVQj7uu7MJqrKqgNSP5uYYVsgcU/25VPpMhJmIGlMw=;
-        b=2ub/h0dIga4TM/yI5qLl/MFaQYqZhX8gg4cidQzDAlXPuvlGTryDYZLAr5LYRB4Onw
-         RQ4oKyaOBRBy4PiOOoCPyDYDZbvy+WoAcdBGPyjkmestzeuDhJz+NtTCoWiyE8hcRVTQ
-         TgTJ7ivu2dRgPrPzG8GXTLxIZ20VkFX4AlTOZqCUsFF1CMry81wom9ZehY6GPcXJYGVx
-         n5c8a+y2R/RaJXnUF7KNjWFoxBevCaowlu+R7S+16Ezp1fPsRu2Kt8CsnDEP7FtZEfwo
-         jyfMa4/XC3MlJde6SYQkwHG3fTuyqvBdwSpZir5iuG6fA6Q9oXj23On6yTyK+hNCIstW
-         W42w==
-X-Forwarded-Encrypted: i=1; AKwUvBzBZR2ns64Tm5jGnYmStcaI1yR1fa/zGTfxw9jSPq5IIYocGoYam1VWaE91TiIz6o6t9x+5XIiFTFw9H/k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ6LHZ7uHO+pxEu6cZPLEP1IC40QUB7xiJc6c36T0qMKCs4gX32
-	DU6a2UvwEXODWEOjV5O/PEkUh6F+lMwe+4a/wltgmYqRs5H3+dmrBvaVjgARCGEGz/U=
-X-Gm-Gg: AYBFou3KVVdTWSHaneh4nZ2og2Qh87QTBQb0TNZOTbe46xX2Rh6FrRG5RVCiIZd5teJ
-	gDNVyY0zdSbqkrs9HaOHflpIYnCuYLQ+7jV2ITF2ffb5E/vTGwm2qliDw4XczPmCNftwI5B33gb
-	YfZskHKVIFT1o+++1XyW9sFPPexxSp2Ov4UmVsGWTj2hE2uqIM/Kb+njayXwA/SH2KqFdFoPd8l
-	gO41DqE1Y0Apx7QNVZq5/hHE42qRzPnxyhg2LOGS1BEFpHGK8pEGHvCrJKdt5b2I37WfowdjSAV
-	DMP0C/76Bo5IYfYdhZLdTy9t2kprzkcG9JbErVxdtZBoBTCjTW7x1RmCMvQzntB1ei38YBM7KzA
-	uc8CeZRTDDI2caumViXVCBRcbilnSwS6DAL42qC/aL7FJqKbHY0SI4U6tg6Nu9sEMsD/k/WptfI
-	x6vPbZqoSRRyInaYD0KG3E0SWMdSoD1zOAuRXr44a40jgpwsSI+gTVBlv6aeCfxPkJJXOlM8kfT
-	YM=
-X-Received: by 2002:a05:600c:8105:b0:4a1:775b:5eb2 with SMTP id 5b1f17b1804b1-4a18e48362emr139928885e9.13.1791760570708;
-        Sun, 11 Oct 2026 16:16:10 -0700 (PDT)
-Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a18be964dfsm240506775e9.7.2026.10.11.16.16.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 16:16:08 -0700 (PDT)
-Date: Mon, 12 Oct 2026 01:16:08 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: armandas.kvietkus@proton.me
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Griffin Kroah-Hartman <griffin.kroah@fairphone.com>, 
-	linux-input@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] Input: aw8697 - Add Awinic AW8697 haptics driver
-Message-ID: <aswYYk71JspzTQaO@monoceros>
-References: <20260930-mainlining-v1-0-c303cbdb00c8@proton.me>
- <20260930-mainlining-v1-2-c303cbdb00c8@proton.me>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K6OAyUw1"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DA6E4C2BCF5;
+	Sun, 11 Oct 2026 23:16:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791760619;
+	bh=UAZF3D+Sx35z3vcZ9NHFHqwGAcWy4Z3le2K73RKXH8Y=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=K6OAyUw1vHZaCnZDDolLm+V0CH1PVTxqNOIIPwlAvBDD2LNmxwV0mUQa3erW/oms2
+	 hBkHZ5/fdSnVEj+swQp3sQn22oNRyzXZb5GuWiSEqJjs4FsZPu9eMYTA+vFgFrzBpT
+	 Tzt4juBe3QS7JjequhO91Mogptl4G4ci9A7Qe2QuwDpyGNnR/EZZYV6yM3YQAmVKik
+	 HfjswCBqEQGisT16CsSnBN6H2gAh223F1uh4MC9zzoTUljZjC7+54rL8wXPskHN8h1
+	 lgmR1rTspU6XcF/BYNj1avW2rG6q1GJ1lV0AKxDWwZnNCVb+GhahkPK+dfyYB46FZd
+	 w2BlOS+4I9xTA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C60C0CA9EBD;
+	Sun, 11 Oct 2026 23:16:59 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Mon, 12 Oct 2026 02:16:58 +0300
+Subject: [PATCH] watchdog: orion_wdt: stop the watchdog during system
+ suspend
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5ridkd3llbbsodmf"
-Content-Disposition: inline
-In-Reply-To: <20260930-mainlining-v1-2-c303cbdb00c8@proton.me>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261012-orion-wdt-suspend-v1-1-1676cb79e29e@iav.lv>
+X-B4-Tracking: v=1; b=H4sIAOkYzGoC/x2MywqAIBAAfyX23IJKWPQr0UFyrb1ouL1A+vek4
+ 8DMFBDKTAJjUyDTxcIpVtBtA8vm4krIvjIYZaxW2mDK1cDbHyin7BQ9qiGY3joXnO6gdnumwM/
+ /nOb3/QCPfJWFYwAAAA==
+To: Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>
+Cc: linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2486; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=I01cscMCOu6Tzd50ZUw7bETh0PaV7/fPLgkbt1myUGw=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFlnJF4Vzjj28OQGnVD39D1Pf32OOOJmI5fKxyfsYBG35
+ Y3RP4UvHaUsDGJcDLJiiiwTDmncylhy9a+/h/kDmDmsTCBDGLg4BWAiJhMYGZZM0OLjy4vK8PrK
+ qrZqiljWxKkHbk9deX7/BFn+jA/Xo+8zMtxPvbFU1YYnN7pPjOHm2wnh06P60wr2357rLynGc2v
+ KFTYA
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
+
+From: Igor Velkov <iav@iav.lv>
+
+The watchdog timer keeps counting across system suspend while the
+userspace that pings it is frozen, so it expires and resets the system.
+On a Kobol Helios4 (Armada 388) with a 60 s timeout the board resets
+47-61 s into s2idle, whether the watchdog daemon or systemd's
+RuntimeWatchdogSec holds the device.
+
+Stop the timer on suspend and restart it on resume when it is active or
+running in hardware, as sp805_wdt does. orion_wdt_start() reloads the
+counter, so userspace gets a full timeout after resume.
+
+Assisted-by: LLM
+Signed-off-by: Igor Velkov <iav@iav.lv>
+---
+Tested on a Kobol Helios4 (Armada 388, v7.2.9). Unpatched, the board
+resets 60 s into s2idle. With this patch:
+- watchdog daemon: three 120 s s2idle cycles, no reset;
+- systemd RuntimeWatchdogSec=60s: one 120 s s2idle and one 120 s
+  standby cycle, no reset;
+- the watchdog still fires after resume: freezing the daemon (SIGSTOP)
+  after the s2idle cycles reset the board in 61 s, a panic after
+  standby in 54 s.
+---
+ drivers/watchdog/orion_wdt.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/drivers/watchdog/orion_wdt.c b/drivers/watchdog/orion_wdt.c
+index 5d56e93f0406..0e3d896fe930 100644
+--- a/drivers/watchdog/orion_wdt.c
++++ b/drivers/watchdog/orion_wdt.c
+@@ -668,6 +668,29 @@ static void orion_wdt_shutdown(struct platform_device *pdev)
+ 	orion_wdt_stop(wdt_dev);
+ }
+ 
++static int orion_wdt_suspend(struct device *dev)
++{
++	struct watchdog_device *wdt_dev = dev_get_drvdata(dev);
++
++	if (watchdog_active(wdt_dev) || watchdog_hw_running(wdt_dev))
++		return orion_wdt_stop(wdt_dev);
++
++	return 0;
++}
++
++static int orion_wdt_resume(struct device *dev)
++{
++	struct watchdog_device *wdt_dev = dev_get_drvdata(dev);
++
++	if (watchdog_active(wdt_dev) || watchdog_hw_running(wdt_dev))
++		return orion_wdt_start(wdt_dev);
++
++	return 0;
++}
++
++static DEFINE_SIMPLE_DEV_PM_OPS(orion_wdt_pm_ops, orion_wdt_suspend,
++				orion_wdt_resume);
++
+ static struct platform_driver orion_wdt_driver = {
+ 	.probe		= orion_wdt_probe,
+ 	.remove		= orion_wdt_remove,
+@@ -675,6 +698,7 @@ static struct platform_driver orion_wdt_driver = {
+ 	.driver		= {
+ 		.name	= "orion_wdt",
+ 		.of_match_table = orion_wdt_of_match_table,
++		.pm	= pm_sleep_ptr(&orion_wdt_pm_ops),
+ 	},
+ };
+ 
+
+---
+base-commit: 8b5a9f09037e3c372c4e9f2fbda85fcfbf5ea5f0
+change-id: 20261012-orion-wdt-suspend-08f276aafa14
+
+Best regards,
+-- 
+Igor Velkov <iav@iav.lv>
 
 
---5ridkd3llbbsodmf
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH 2/2] Input: aw8697 - Add Awinic AW8697 haptics driver
-MIME-Version: 1.0
-
-Hello,
-
-On Wed, Sep 30, 2026 at 06:08:04PM +0200, Armandas Kvietkus via B4 Relay wrote:
-> +#include <linux/mod_devicetable.h>
-
-Please drop this include, <linux/i2c.h> already provides of_device_id
-and i2c_device_id, so you only gain unnecessary dependencies here.
-
-Best regards
-Uwe
-
---5ridkd3llbbsodmf
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrMGLUACgkQj4D7WH0S
-/k6kxQf+IukpznR2fVDe2FYjwtjDRNGy/yLsBjaEG3d4asAugaTEUfUdBPK0dCFW
-zgab2jxZXtXpWm145NHWKc2TXTY5fdbyzDo1lLTObUvw0XqXoEWjEV2Z1uFhMx2z
-b5SpQGJhkddN3tFDIayYA5uFwo9c7vYr2w2UjXnJL4YAaGR9UETvZgP3FeuBs0YI
-kqqR/z0K4q9zTl8LqcRdV8bkRBzetw8xopnurhb8rkB5eNwc0kUsfHG5ogpHyXGT
-CDtMfYaqC9NxfohfFB2/0T/ITMS2HmQ1koWTWmyY/iBpCfWjfbqFlBrAR18rD4V8
-GpJ5ZqYJeVW8FJIpYCiOsjce2bry9w==
-=8biG
------END PGP SIGNATURE-----
-
---5ridkd3llbbsodmf--
