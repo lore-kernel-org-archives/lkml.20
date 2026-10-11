@@ -1,122 +1,140 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from fhigh-a1-smtp.messagingengine.com (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC3E279DB1;
-	Sun, 11 Oct 2026 06:29:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BEBF245020
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:31:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791700176; cv=none; b=SEGeL+l2JfzBKrCTWik2x5M+daSEONwL5CwenihndzI/bsfC6Gcant0+Zp3URSZauUXYR7on6xMUmv39+2dodOmCkFPozBivIOYauN5rvX2iMSjk4n5mr3thXVqfO2oOAxzc/FO0wbnzEEaq5B05W/nXrTozCzNR9sHyO8hReyg=
+	t=1791700313; cv=none; b=eQtrtz3SOZ0+ctMWa4WbhMbfu0ZIMWyd2z5BP1enktUswxsPzCXBauBJOOGR5lwM3zvRRXQgJO6PyfrBMtu/I4z6drxCDp3vZoDYTFSTXD7iOxV6lRpNfqTRwVwG6YQBS6n1mU0E5rVFukTupqTaXYXfqTwxBM29sVl0oC+BniY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791700176; c=relaxed/simple;
-	bh=5vIidctZnEl3wtC1ByGQXHy1mdzwb3LTyG2mTj3tD9o=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=dSkjsiWsdpZRjmtVXbcMBqwQMJzCoFaEwZNx5DGhcLbl9wMRWIQCrJV+QPNBl4qA23yENhcbb5tOUxLoPd2UMmSHjhNX90RvVxsdZXwc5kD7ib65WPoT2QvIiRbIgVhDhxZAflbpv9/xXApgceDH2uXEgbidq0nAQYGgm5egvBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iEt2dtF/; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791700313; c=relaxed/simple;
+	bh=sQBOe7v+eZYsBMp5Nx6kLQjGq8BpZGgFzkOUNvWBG3A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hRROaYFqtInHCeQdr+10x70IeuqUIHiL34Lx5hqHqGkhy669jzFCW9sz0mHhMawJ8dKQN2EiyQrzUkrsB4DvUqcgAZsecUwmeI7MbYbXyFsW/CGYPt9y/mJXiElcsUTJcTSo3ebv1LstRZZyORLr8ZdIuhU1fFKeN0ZmHz2dt9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=KMrL1/op; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=VxWqbURv; arc=none smtp.client-ip=103.168.172.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iEt2dtF/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791700174; x=1823236174;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:to:cc;
-  bh=5vIidctZnEl3wtC1ByGQXHy1mdzwb3LTyG2mTj3tD9o=;
-  b=iEt2dtF/pJI34Rt+pwme3mlZEe0RcagPleepsfGmBi5SWLDQHXTk23+G
-   Ojgfyg6q+GcbT1mfxo/9Z4vqNuOognW9TqH1TMEwzfFhhqxUTXkCrtjcX
-   VE3SF6PaEhZemmdOHB2io22NPnzMmSNoGfJt9GF3c2Zh7ArtwaOfIJ+m7
-   JTHQmP3cvddppVdZpSoUIhmWiPVR6mhNQUAvgKbsUsnPNV4UQAWrP4VU8
-   eudD06yq8C5V042IkPOZsy94j04SWLe6CyWYezUm1gU+vB8EbBfyXWe+G
-   ic2jc/xPyZW3Cs70qdvmWGBZ3mijzNQ9Lf/S23VEv0VORIw6hG3WD2k8d
-   g==;
-X-CSE-ConnectionGUID: mLIV23CiTGOvZ6HIKIZcaQ==
-X-CSE-MsgGUID: ALR71y1bQkC5/I2RHXu1KA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11931"; a="345102"
-X-IronPort-AV: E=Sophos;i="6.27,151,1787036400"; 
-   d="scan'208";a="345102"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Oct 2026 23:29:34 -0700
-X-CSE-ConnectionGUID: NNOQdw+8RISKV3TLrOk61g==
-X-CSE-MsgGUID: Qk7azwCBTgOg+xDwubfXWA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,151,1787036400"; 
-   d="scan'208";a="760412"
-Received: from sannilnx-dsk.jer.intel.com (HELO [127.0.1.1]) ([10.12.231.107])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Oct 2026 23:29:32 -0700
-From: Alexander Usyskin <alexander.usyskin@intel.com>
-Date: Sun, 11 Oct 2026 09:29:12 +0300
-Subject: [PATCH char-misc] mei: me: Revert "mei: me: add adler lake point
- LP DID"
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="KMrL1/op";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="VxWqbURv"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 2B6B21400094
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 02:31:50 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Sun, 11 Oct 2026 02:31:50 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm2; t=1791700310; x=1791786710; bh=G/a4hkpw3e
+	lgsIHsduy0p+bKpIFNGJFeX00fxs/ijlM=; b=KMrL1/opbREIph6ra57DvcfauC
+	7wAuFL2uGRVKgdIdhScbME0nJabFulN/efmlK7vX1zHtpxmgeDU5qeP1cN2355/9
+	dI/IwIVsaFEqbbkHWJHcAfdn0fbGlfr5q0vRRBvWXjeoPHUc/A7+ihRtbELNnEZ8
+	LP87ZDwA5EaJuFlD6lJKhnxLHwTxHUjuVtb+UABDRBCy/Ota79jm8Y7iIMtuDWCf
+	HL/rwiLtI5vGIrwfSSI6WhHI1gJ6TGyLaQhLSRxirs1JO7nkhebG4zWKY9ZXeH4k
+	mHwySEhXmaS+se7B9jfjSAYrWTEWcOi8P4JsLijP4xzuXYA2DWrXG/CvfmCw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1791700310; x=1791786710; bh=G/a4hkpw3elgsIHsduy0p+bKpIFNGJFeX00
+	fxs/ijlM=; b=VxWqbURvOuqI176YwzWLfwJ1b7Is6JCO1DMjI6NkCr1daIfVKGg
+	i9Gbj02Y1IiocMUbMTiVZnA0iN0P9eIY5YhdTXECnQmk9ivN5hI4raaVRLo9KeT/
+	0arYxB70wG/YY/HSIAJ2uykXI2dtGa1Gs4dd8KXg1YPBdYVdWpNZjAGnDscdC5Kv
+	keDKusUBGfx0fS+wUxT7O6DWTpn4ifbO68CZUj8xc6Ba4eddhDTANVxsZZ+p+VI6
+	4BH6VPjgPUj33mf+cAKykrKdeMA9h98ZLc73pSiZV+7JRK1vLflXyNsGVGZCqdj2
+	EYOHgRkapAJrvDt1XfDvEWEfjm0y+ayrnUQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=sakamocchi.jp a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791700310; d=sakamocchi.jp;
+	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:Y+smwN9+iLsb0nbzGE8d5ScfOIayGyTglDT065JZHAeqgpG
+	hlve4oPyvh95olRGTHl//OMbAfbR355nnkkVJWWQd75Tv2h/YCQ1tcJAqqL5VgHg
+	Uq4hIPGM4xUtqWpS2aQ/NpYwTF1g9rgkDKTm9ebQ/ZYVkR+k7jzJbvi+zaJ0eARR
+	HdcsW59skf3SAiy8eK69uiohdmv6pCLSitIzvfTGWLdNqCgHdTmQk2DHn/Ex0emv
+	jZAmsfh88cZTcYU19dvA66QaILzS43N/N5Jfb+6TgGu8yBNtB61hJUGKHo1X88wQ
+	5E+4/4zmbCTEJbSNAbxjNHe10GdI2uOp/NM9k3w==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:aCGF+9rehShSD2uEZ3OShqARboZj4fS65O9BT2lEaYc=:sQBOe7v+eZYsBMp5Nx6kLQjGq8BpZGgFzkOUNvWBG3A=;
+X-ME-Sender: <xms:Vi3Lagf4T0N0AxGxluG1IW2s0DPhgFq-Y6I_EOqwpj5CTAMHeOV7Cw>
+    <xme:Vi3LagIuMWL5VTviKKC2fGwgn8t08ZiOafvuMJ1xC2s7UZ3_uyOfasLIBfXSS6acX
+    gyPp1npe8r_LDjxIAl3EJS3YLM-ey9n53vF6yIHxggXc5Jq1DpHFT0>
+X-ME-Received: <xmr:Vi3LapHg5A3ytT_7b7-nPdeJFduKhfSaRH8Qr1PDKHkBtsHVLZYurbgz9FRPdhEJbH5l-353EPrwHXFbaRv41oOpZESkhp00XQSq2wJaF58UyjM>
+X-ME-Proxy-Cause: dmFkZTEh2gf+w/WcXN8+TfkN5d13Tv6IhRjVzu1zL/Ruwz3d0XjJZwfNnVM7Jm4R8Yfe5y
+    Np2OKi+0ULkioZrFZvaNVVi/5njTCjO5zMCWI/PNQXvmW9y+tMXj7JZ5Jz6VpfbHgPQygn
+    hXT1jCpJ8q2aSOVC47biMA3+rx4VSX/Yl3eJon+ZJpn/NSjkB4SD0fkifshWXii706Sq1F
+    dKe5ugiik7V9KxaCEkuaE+px3oPcPm4ahSRX1a7XwJnJxQTmMjhM8j+QoLESJTE1286p81
+    Ni7YtQWVvnZFunARm/5Lc+NEvcyzFUfNMQJngqCuWWg5bQwvPT2EnMaDiXjQmJpbFsGfnG
+    SoQF5opDZGAvb6rmJ1gWgFLXQOwTtsb3rAFI0Id7I/3hOPpplhm8Ef5sRRfz9fr2DeMpW3
+    GeVOlK7eJZVa4/354YAdtTOzivp2C7OPxSG/VHDwBlm9jd19RQpITZPDgZZb2B3avo7BEb
+    teW2WyMJabZWm4kY7757Mdjz8jib8rd3s8Yoh4Nim21rmSRF8ZQae5/P8PY3ht/MKvEFdl
+    sMlhAgH8pZLtqsNg6EIyA2bUxwseH3VhYQ+81/AHZo/yezxWIwuOCdaQPWXDLeoYryt5ec
+    Ly38HWNwhuIWItbKJVSZm0y8XmgVYgEpHSjtSYZC2+XhoakFrNBsgx28Natg
+X-ME-Proxy: <xmx:Vi3LairPee1gg_L1UfBGI8DwnL3tE_3FHSsmydnZXeMFJLQQmwfkeg>
+    <xmx:Vi3LaqSjSc8H0kFeZsABBW6rProEqsrIH51eLA1wcJLE_xQiSvuIqA>
+    <xmx:Vi3LanP8YTDevsX9RgNEBNfGKOAPhYTffAQfqQlAK7H_z88l5J2Zqw>
+    <xmx:Vi3LalPXCUvNbRKbbmjHzy4vEsbrJJPgdk16CP8ishEx5VDIgVMUkw>
+    <xmx:Vi3LahyEIzsYutGD_kmSXDChZndDUH1Ova0_uwA9oZMmYQEd6LRQNwJr>
+Feedback-ID: ie8e14432:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 11 Oct 2026 02:31:49 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: linux1394-devel@lists.sourceforge.net
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/6] firewire: core: make execution context assumptions explicit for transaction layer
+Date: Sun, 11 Oct 2026 15:31:40 +0900
+Message-ID: <20261011063146.497455-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261011-remove_adl_lp-v1-1-177758bd617a@intel.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MTQqAIBBA4avErBPULKqrRITZVAP9MYIE0t2zl
- t/ivQgemdBDm0VgDOTpPBJUnoFb7bGgoCkZtNSVkkoJxv0MONhpG7ZLGFdLa2xTjKWG1FyMM93
- /r/sGLHbyDvrneQGd119wagAAAA==
-X-Change-ID: 20261011-remove_adl_lp-4c80a4a93b52
-To: Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-kernel@vger.kernel.org, Menachem Adin <menachem.adin@intel.com>, 
- stable@vger.kernel.org, Joe Finzel <joe@sudmix.de>, 
- Alexander Usyskin <alexander.usyskin@intel.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791700171; l=1868;
- i=alexander.usyskin@intel.com; s=20260315; h=from:subject:message-id;
- bh=5vIidctZnEl3wtC1ByGQXHy1mdzwb3LTyG2mTj3tD9o=;
- b=Da4Hve3Q/B/MUDn+HuPCtCMYEY/0UudNoqPQ+zAox4gQGbg6sSuThkcRH9nE39al3iuJ563SD
- g2D14NghJ1pAPRy8TrUXV/RisDTAfk2vQeoXpEJgtNozPYHns1jlDHM
-X-Developer-Key: i=alexander.usyskin@intel.com; a=ed25519;
- pk=X+qoF/nFCdDOV04IForWSxnkyoCAbUE10egZi6PSfcU=
+Content-Transfer-Encoding: 8bit
 
-This reverts commit 930c922a987a02936000f15ea62988b7a39c27f5.
+Hi,
 
-This device ID is not belongs to HECI and added by mistake.
+This series is take 3 of the previous series[1].
 
-Cc: stable@vger.kernel.org
-Fixes: 930c922a987a ("mei: me: add adler lake point LP DID")
-Reported-by: Joe Finzel <joe@sudmix.de>
-Link: https://lore.kernel.org/lkml/20261011-mei-xhci-v1-1-38c28b5f3f99@sudmix.de/
-Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
----
- drivers/misc/mei/hw-me-regs.h | 1 -
- drivers/misc/mei/pci-me.c     | 1 -
- 2 files changed, 2 deletions(-)
+Recent code changes have guaranteed the execution contexts of several
+functions in the transaction layer. Based on this, this series adds
+might_sleep() calls where appropriate. It also adds context analysis
+annotations and lockdep checks for several locks to document the expected
+locking context and help detect incorrect locking behavior.
 
-diff --git a/drivers/misc/mei/hw-me-regs.h b/drivers/misc/mei/hw-me-regs.h
-index b9a67629496b..35af82ad1713 100644
---- a/drivers/misc/mei/hw-me-regs.h
-+++ b/drivers/misc/mei/hw-me-regs.h
-@@ -107,7 +107,6 @@
- #define PCI_DEVICE_ID_INTEL_MEI_EBG        0x1BE0  /* Emmitsburg WS */
- 
- #define PCI_DEVICE_ID_INTEL_MEI_ADP_S      0x7AE8  /* Alder Lake Point S */
--#define PCI_DEVICE_ID_INTEL_MEI_ADP_LP     0x7A60  /* Alder Lake Point LP */
- #define PCI_DEVICE_ID_INTEL_MEI_ADP_P      0x51E0  /* Alder Lake Point P */
- #define PCI_DEVICE_ID_INTEL_MEI_ADP_N      0x54E0  /* Alder Lake Point N */
- 
-diff --git a/drivers/misc/mei/pci-me.c b/drivers/misc/mei/pci-me.c
-index 790a4647811b..a25f2ed5db0c 100644
---- a/drivers/misc/mei/pci-me.c
-+++ b/drivers/misc/mei/pci-me.c
-@@ -113,7 +113,6 @@ static const struct pci_device_id mei_me_pci_tbl[] = {
- 	{ PCI_DEVICE_DATA(INTEL, MEI_EBG, MEI_ME_PCH15_SPS_CFG) },
- 
- 	{ PCI_DEVICE_DATA(INTEL, MEI_ADP_S, MEI_ME_PCH15_CFG) },
--	{ PCI_DEVICE_DATA(INTEL, MEI_ADP_LP, MEI_ME_PCH15_CFG) },
- 	{ PCI_DEVICE_DATA(INTEL, MEI_ADP_P, MEI_ME_PCH15_CFG) },
- 	{ PCI_DEVICE_DATA(INTEL, MEI_ADP_N, MEI_ME_PCH15_CFG) },
- 
+Chanes from v2:
+* Switch from sparse to Compiler-based context analysis assisted by Thread
+  Safety Analysis in LLVM/Clang v23 or later.
 
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20261011-remove_adl_lp-4c80a4a93b52
+[1][PATCH v2 0/5] firewire: core: make execution context assumptions explicit
+https://lore.kernel.org/lkml/20261009121048.282982-1-o-takashi@sakamocchi.jp/
 
-Best regards,
+
+Takashi Sakamoto (6):
+  firewire: core: add might_sleep() checks to transaction layer
+  firewire: core: enable context analysis for transaction layer
+  firewire: core: use context analysis annotations and lockdep checks
+    for transactions lock
+  firewire: core: use context analysis annotations and lockdep checks
+    for split timeout lock
+  firewire: core: use context analysis annotations and lockdep checks
+    for topology map lock
+  firewire: core: narrow the card lock scope when accessing node_id
+
+ drivers/firewire/Makefile           |  2 +
+ drivers/firewire/core-topology.c    |  3 +
+ drivers/firewire/core-transaction.c | 97 +++++++++++++++++++++++------
+ include/linux/firewire.h            | 16 ++---
+ 4 files changed, 91 insertions(+), 27 deletions(-)
+
+
+base-commit: a8cf19ce243bf2cd0d338823fa79cd927e34b830
 -- 
-Alexander Usyskin <alexander.usyskin@intel.com>
+2.53.0
 
