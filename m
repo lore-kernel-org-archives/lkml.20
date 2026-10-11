@@ -1,178 +1,125 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012016.outbound.protection.outlook.com [40.93.195.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 425F24078E9;
-	Sun, 11 Oct 2026 08:40:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791708002; cv=fail; b=EsdNLSe95954Z1R3u/NJKRAuuyY4DHeDbc/jrFyZsXVxrKoh6er9EP82SIfADVK1zAL6vuNyJD3qNQdqoOLZpAYeT3NjQ8Oy0hRMOYJmFv43RkJkKdSWNZupachOSiRKWjNzjsqB0NOnRrUAe41b1ORRvgZz+b1aqVFUbgWGHz8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791708002; c=relaxed/simple;
-	bh=pXb/udyY72tlkXkHG5bT/Pzlwro3XpfXpDb7mUUcUT4=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ZlGl5trA+kEKd0NhD95yi4+SrGGX9bP0A6rHFUOTcvylNT2o3+6WjEojyuaLS3k2ZwdpqPU28S2UoROBOSjibnS/g7RZ8TJUEeax1bCgGmeSam6aB2/VX5O9k1JKMdNpjg+uOFkZL3JF+fBdDzLSqZcjipQ0ALRPlTmusIm0q08=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=FN7njEH7; arc=fail smtp.client-ip=40.93.195.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22C082E7380;
+	Sun, 11 Oct 2026 08:40:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791708014; cv=none; b=nOxo1n0aHJjAHST/OsNs1QxT8O9tlczuJhU5IYmXaFsNBffRjrZgjRqfgO/aYOD23LjS3LU9zcoEoH5urtgYiiL3DFNajEvX8Pn991PFEh3hX+lZnMayziMZlB5Hy/75uFFa16J9yfwj8k2KX5Q0C0XV3mAHUsEesE086ysUM7o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791708014; c=relaxed/simple;
+	bh=TbktEhj1a1+7ugqE0PLzbE7QRnJvyRaedk6Ba1R3byU=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=LB1jJTzEkiOlw/F6JaeCFi09uMKQxCfc1OD9XSIby7B4lRRzeT012a3xqtPI4gD0zX3Do8PL7v5Alh61DXPnJ3KTW6h0WMv5fiVPZV4D2JCXIcH/oLpkwv8zDNOGkVsfSzAvcuD/HBJ0Wmp0aD5L4jcXW3hA9HYvQ7i2zJXLsyQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S3vvTbLk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="FN7njEH7"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fWT98xijiSAPQgIMQCUg4HJ+mCuULHZMDf/c5x4oGw3cRe7aEZxEO4T4qaYsqA7+xmi7tzhD5wSgvfeahy2jiIFRcPuCoXPEHGxcQjI3h08p15ZvAlOVJY7PtvvJRWV7v/Tw/LZ3TOcf8SPeAOCSXIgLed5gCeQpcp/vjiK8inHWvBQXOxYc/QC7BUN5AJ8xExOrJigiTObaKYkffhYraGfh/6ZyZCsbj1gMsBFy1PAKH8WuFPWZ6ONfY4aql4mthzsshwI61OS9ZXnN6Lj3RpC0UOiMKvLUQNw8mIx8M/LGNXynVpXEnXIYi3WmaiiWpx7Ky/NxpCMUQyP42PGfng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9+M3A6U7TU4M4aiMrOjf/Awi+1GBbK4DCBsFhEb/M/s=;
- b=C002OfBi9Isyem2T4MKaVMWpeasaQzX6j59GWptyXoFEBMil8F3KbXeVS0od+c0OUksjNl/HsUEhsaVBuWZh6ddRSLgzgju9qP10nie9iRtYahjYvQIPtyM+wBcmzO6r57XohEcF1RxoPZJkfyKJNaQuh8vSFS0lD9kboacg8zmulL8GxXa7ZNYzrdTQg4xGntgOfFh5n2Qx1a6SM0scD1g73VkW9VzTzr/qA+4UVXm9zu5zhP9TIfgOW+OwefgF9CMuMpCEgK4/dx8MVJR5r0Y62zLZPxSsZqVEaTRd19pMvi/CbsKTbNk7IzTw2x90JofwgjWLnaU1DTYdZGzGcg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9+M3A6U7TU4M4aiMrOjf/Awi+1GBbK4DCBsFhEb/M/s=;
- b=FN7njEH7XTCjWMXDF5ZDKD6m+3s9mdjqdEsiLR3vnk0NmrcLXRcar7E1iEbYlkRcXrOh3YPz+qp7TvyMfKAmidl/+0fH9FnPHWkiGhJTMW1f6PFqFTwFXF946anPj/kxuMZ4st9FV1RuR6aMGECgoe/5MBZVBu79FI2lGmAmXdxAGmoq5ZkhJZHHHP5AU/IZJdI1OTeMO4u9S/ysGYG88hU5XKgEnc2cLEgloZzOJH0Svlc1ibCAo5gHTeadJdJGtX2vPzdBnl6XEtv1YSCEof8cmAGwP9dy75BW5hMbSPZxV7BbGqO0MPfjea48gmBYM0xoJIlIbyiTx3pLmhOuQw==
-Received: from BN0PR04CA0169.namprd04.prod.outlook.com (2603:10b6:408:eb::24)
- by CH3PR12MB9431.namprd12.prod.outlook.com (2603:10b6:610:1c1::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Sun, 11 Oct
- 2026 08:39:55 +0000
-Received: from BN7PEPF000000AA.namprd05.prod.outlook.com
- (2603:10b6:408:eb:cafe::4f) by BN0PR04CA0169.outlook.office365.com
- (2603:10b6:408:eb::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Sun, 11
- Oct 2026 08:39:55 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- BN7PEPF000000AA.mail.protection.outlook.com (10.167.245.234) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Sun, 11 Oct 2026 08:39:54 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Sun, 11 Oct
- 2026 01:39:44 -0700
-Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Sun, 11 Oct
- 2026 01:39:43 -0700
-Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.9)
- with Microsoft SMTP Server id 15.2.2562.49 via Frontend Transport; Sun, 11
- Oct 2026 01:39:40 -0700
-From: Tariq Toukan <tariqt@nvidia.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>
-CC: Alexei Lazar <alazar@nvidia.com>, Carolina Jubran <cjubran@nvidia.com>,
-	Gal Pressman <gal@nvidia.com>, Kees Cook <kees@kernel.org>, open list
-	<linux-kernel@vger.kernel.org>, <oss-drivers@corigine.com>, Simon Horman
-	<horms@kernel.org>, Tariq Toukan <tariqt@nvidia.com>
-Subject: [PATCH net-next V2] net/dcb: Validate bandwidth for non-ETS traffic classes
-Date: Sun, 11 Oct 2026 11:39:29 +0300
-Message-ID: <20261011083929.739261-1-tariqt@nvidia.com>
-X-Mailer: git-send-email 2.44.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S3vvTbLk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 585021F0089C;
+	Sun, 11 Oct 2026 08:40:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791708013;
+	bh=hp9xX2dUrZlCXONwEL+JCIXeQEQv5+IPQxFX1fAUAtU=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=S3vvTbLk8vDK/+zaU6Tcbk3NTdv6/y9sz6lzuZywie9orctLkEC8RJqWcFseS3hYy
+	 X8GEnMj62twLs5faSpFFlObTtlg70L9tnSh4RCthWeq64cXP34Z51VOXZk4ckw7+Je
+	 DmgMGjwcbutPLm4ZltlD2fMPAJamA6nhbz8ugzMx4QBKQfC8ZZarQ3xe4Oakpjbk+/
+	 PbH2woZ92BjGp+lwC1aJ0WyBY3gUO8a0daHQOw2uao9VpDduJ/fIF0N/8l85PxLxC5
+	 Yc644TnqDcz+9qtRiUd5sm8agF48aXszEO33NS6ZRY8i0Z0qzfps2am+a1GhzpoGpH
+	 Mj944qFof0Z6Q==
+Content-Type: multipart/mixed; boundary="===============0635665488301257032=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF000000AA:EE_|CH3PR12MB9431:EE_
-X-MS-Office365-Filtering-Correlation-Id: 772b5598-cbd4-49fb-c49e-08df277339a0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|23010399003|7416014|376014|36860700016|6133799003|18002099003|261009223027099003|13003099007|11063799006|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	V8phrbmX+Jh545IEkIF/lxqJlcNlIQfSnGiQm0/Z2BeQ6jDKcRMr04obzj0Jgzlfw2Red0jJyrdx+Zd2D7U1ge3c5miuB9Phzd4r4o6AJV8rjiQ/BoQ3NvxQUOSRPkM5U8M3eemQKahiIzbyzuo/XktE7gA2CatGvRVwcSYoHAlO6bpWRcS4Fuo12EgDEawOZJjCUcHoxPknh3fl2+KnRzpWvHV0fpCFn8XU7+ipxxGzirWRff+Yt7IQyDQcU7cEqQOUGpSmvWa6zFU4cbheaL1j+8bPv1zyaliz5G59oCiPaReX88AfaelvKnAH2R8QGDZ+bVhgdmVv3+2EaZrADUYXSnHUhbZU2+VSuC8QXj+AaIRPVDKjot4IsNc5mO8IdnPJkrmwx55ojbs9kf3gyCdCzIVUKYYclrtuDfGDANuvN9nbaBRl/Gx0qjIhtH6MZQj1zKRxePL2aStel9HuihluiYjiBfrk7DppEn5qKwTaxjh/8jST4sCEsNzGsmcc5lceERzp3RJiYgYqLCByK0mOKb9h50tGQqwWE3aF0p2mtu0J+nR04+KxiKJIlLbAG+fnxshB4VX9GXxoHmMU25k53xljd2PwsdG+7YLq7n4S1pE338ulKrI6Y+DdQRnRxL68nmaKvudjFnqJBL1UYVOfbkUzYeLzU9j8k4THudNy3LpJjvgNfJlA3j1Sq01VAKt42G3kiytetKaIQSdOXg==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(23010399003)(7416014)(376014)(36860700016)(6133799003)(18002099003)(261009223027099003)(13003099007)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	5/BYGQTVYLrgPoBchk4K6p42NpqnHikun41mt8qsPha7D47BeJNv0xjpc/s+ko2Zght3Ume7smyQPF5ZY4jkvk7U1FD4tttdYAdBY7IqcFEUkFqrXQwiUVzWCm4Get1pUpHtjSlGAZ3BAs4R85r78g86dNfqSJKhPfxBMhNyENECS3WYGQWvnpZuEjcEPiRvExV85Kga77CcyiA/BWxJnzjW1N209K1lNCq6SDdGKkHZjYNeWhF2BZ30OzWGIxKK9SMAEOC5s2qa9MQhn239RBeh9JBgfSk6TDV+4dn0F2M20H4dajQgKFgKzBIwu7ldutlmZgGD9f2voH7ZqHDRCUPMVtywfUZgQaoKG+D6wt8nM7jZJJsoqlaH4f2+GBvPl4EbentJpxMLCIuTYubexKNwcYzq0Y+hjJW1/z8OL8ZVlGr2bDmwisnHACDRqXBL
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2026 08:39:54.9555
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 772b5598-cbd4-49fb-c49e-08df277339a0
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN7PEPF000000AA.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9431
+Message-Id: <e81d8aa1c5fef5135717607342f2564d58907fb0e8e7bd9c32eea76b2eb2b2d9@mail.kernel.org>
+In-Reply-To: <20261011072930.3879724-1-visitorckw@gmail.com>
+References: <20261011072930.3879724-1-visitorckw@gmail.com>
+Subject: Re: [PATCH v9] m68k, bpf: Add initial BPF JIT compiler support
+From: bot+bpf-ci@kernel.org
+To: visitorckw@gmail.com,corbet@lwn.net,skhan@linuxfoundation.org,geert@linux-m68k.org,ast@kernel.org,daniel@iogearbox.net,eddyz87@gmail.com,memxor@gmail.com,andrii@kernel.org,gerg@linux-m68k.org
+Cc: rdunlap@infradead.org,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,jserv@ccns.ncku.edu.tw,marscheng@google.com,eleanor15x@gmail.com,linux-doc@vger.kernel.org,linux-kernel@vger.kernel.org,linux-m68k@lists.linux-m68k.org,bpf@vger.kernel.org,visitorckw@gmail.com,daniel@thingy.jp,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Sun, 11 Oct 2026 08:40:10 +0000 (UTC)
 
-From: Alexei Lazar <alazar@nvidia.com>
+--===============0635665488301257032==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-The IEEE 802.1Qaz standard defines that bandwidth allocation percentages
-only apply to ETS traffic classes. Reject ETS configurations that
-specify non-zero bandwidth for non-ETS traffic classes.
+> m68k, bpf: Add initial BPF JIT compiler support
 
-Placing this check in dcbnl_ieee_set() enforces the constraint uniformly
-for all drivers rather than relying on each driver to validate it
-independently.
+TL;DR: Nit only: in the m68k JIT's emit_math_call(), the BPF_CLASS checks on
+the signed div/mod selection look redundant given is_64, and could be folded
+into the switch cases. Not a bug.
 
-Drop the equivalent check from NFP's dcb_ets_check(). Keep ETS
-bandwidth-sum validation unchanged.
+> diff --git a/arch/m68k/net/bpf_jit_comp.c b/arch/m68k/net/bpf_jit_comp.c
+> new file mode 100644
+> index 000000000000..e585cbcd7564
+> --- /dev/null
+> +++ b/arch/m68k/net/bpf_jit_comp.c
 
-Signed-off-by: Alexei Lazar <alazar@nvidia.com>
-Reviewed-by: Carolina Jubran <cjubran@nvidia.com>
-Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
+[ ... ]
+
+> +static void emit_math_call(const struct bpf_insn *insn, struct jit_ctx *ctx, bool is_64)
+> +{
+
+[ ... ]
+
+> +	if (is_64) {
+> +		switch (op) {
+> +		case BPF_MUL:
+> +			func = (void *)jit_mul64;
+> +			break;
+> +		case BPF_DIV:
+> +			func = (void *)jit_div64;
+> +			break;
+> +		case BPF_MOD:
+> +			func = (void *)jit_mod64;
+> +			break;
+> +		}
+> +		if (BPF_CLASS(insn->code) == BPF_ALU64 && op == BPF_DIV && insn->off == 1)
+> +			func = (void *)jit_sdiv64;
+> +		if (BPF_CLASS(insn->code) == BPF_ALU64 && op == BPF_MOD && insn->off == 1)
+> +			func = (void *)jit_smod64;
+> +	} else {
+> +		switch (op) {
+> +		case BPF_MUL:
+> +			func = (void *)jit_mul32;
+> +			break;
+> +		case BPF_DIV:
+> +			func = (void *)jit_div32;
+> +			break;
+> +		case BPF_MOD:
+> +			func = (void *)jit_mod32;
+> +			break;
+> +		}
+> +		if (BPF_CLASS(insn->code) == BPF_ALU && op == BPF_DIV && insn->off == 1)
+> +			func = (void *)jit_sdiv32;
+> +		if (BPF_CLASS(insn->code) == BPF_ALU && op == BPF_MOD && insn->off == 1)
+> +			func = (void *)jit_smod32;
+> +	}
+
+This isn't a bug, but since is_64 already encodes the instruction class, are
+the BPF_CLASS(insn->code) == BPF_ALU64 and BPF_CLASS(insn->code) == BPF_ALU
+tests in these four conditions always true?
+
+Could the signed/unsigned choice be made inside the BPF_DIV and BPF_MOD cases
+of the switch instead, for example:
+
+	case BPF_DIV:
+		func = insn->off ? (void *)jit_sdiv64 : (void *)jit_div64;
+		break;
+
+That would drop the redundant class checks and the second assignment that
+overrides the one made in the switch.
+
+[ ... ]
+
+
 ---
- drivers/net/ethernet/netronome/nfp/nic/dcb.c | 3 ---
- net/dcb/dcbnl.c                              | 9 +++++++++
- 2 files changed, 9 insertions(+), 3 deletions(-)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-V2:
-- Generalized per Jakub's suggestion.
-
-V1:
-https://lore.kernel.org/all/20260622112925.624795-3-tariqt@nvidia.com/
-
-diff --git a/drivers/net/ethernet/netronome/nfp/nic/dcb.c b/drivers/net/ethernet/netronome/nfp/nic/dcb.c
-index bb498ac6bd7d..91fbfa3708fc 100644
---- a/drivers/net/ethernet/netronome/nfp/nic/dcb.c
-+++ b/drivers/net/ethernet/netronome/nfp/nic/dcb.c
-@@ -218,9 +218,6 @@ static int dcb_ets_check(struct net_device *dev, struct ieee_ets *ets)
- 		if (ets->tc_tsa[i] == IEEE_8021QAZ_TSA_ETS) {
- 			ets_exists = true;
- 			sum += ets->tc_tx_bw[i];
--		} else if (ets->tc_tx_bw[i]) {
--			nfp_warn(app->cpp, "ETS BW for strict/vendor TC must be 0.");
--			return -EINVAL;
- 		}
- 	}
- 
-diff --git a/net/dcb/dcbnl.c b/net/dcb/dcbnl.c
-index 35164bfa563d..ab71f5312876 100644
---- a/net/dcb/dcbnl.c
-+++ b/net/dcb/dcbnl.c
-@@ -1578,6 +1578,15 @@ static int dcbnl_ieee_set(struct net_device *netdev, struct nlmsghdr *nlh,
- 
- 	if (ieee[DCB_ATTR_IEEE_ETS] && ops->ieee_setets) {
- 		struct ieee_ets *ets = nla_data(ieee[DCB_ATTR_IEEE_ETS]);
-+
-+		/* IEEE 802.1Qaz: BW allocation applies only to ETS TCs */
-+		for (int i = 0; i < IEEE_8021QAZ_MAX_TCS; i++) {
-+			if (ets->tc_tsa[i] != IEEE_8021QAZ_TSA_ETS &&
-+			    ets->tc_tx_bw[i]) {
-+				err = -EINVAL;
-+				goto err;
-+			}
-+		}
- 		err = ops->ieee_setets(netdev, ets);
- 		if (err)
- 			goto err;
-
-base-commit: d8674294aefef02266c4d47ad10131f1bffbe534
--- 
-2.44.0
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/38122863281
+--===============0635665488301257032==--
