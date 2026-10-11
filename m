@@ -1,36 +1,37 @@
 Received: from smtpdh17-2.aruba.it (smtpdh17-2.aruba.it [62.149.155.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F6BB46A5E3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 939F746A5F8
 	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 22:48:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.155.117
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791758922; cv=none; b=k1PidmzjBdbBO7wKBH/SqeL37NabxHyK2/V03GBlEVPdC5w/Uy3s9Hl/o5Iz4ool7vsl01lba1vAYERq0kWZ1qsz/+y3Caa/9sAEK6fTedn5G+zTNhtQD10E7DQD71Vgl0js6coRqwPc+SoDV2EmevYKeMwmljxX4XApd2aDGxs=
+	t=1791758922; cv=none; b=I2aqw/Ky4FUCTPcp2+BaxeGZWysJ1Rdv8wUM51CtXf7PZ1msrTZCirCOPiH3FMO34laQZsn9uE+UDwE9e+Ao1EIeDl8GYdgHRrhQHplCZ3yY6M/ndH+Y7/KT+1OC56ofI1yMrhVC62GI5CdtW4RtP3r0flaAfm2ovdKruNIAnWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791758922; c=relaxed/simple;
-	bh=+IpgA7jYufO99+UKvnT4+pwqS2EFIXRDbHH+DcOTbhs=;
+	bh=rFXTrpUCw2RTFwskTkLoOBNivWtd42NvSspWk91m10U=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Fza7aX38YYsNZ/v6YMF/i8VyxQFplPUWaWdFdCkSgCDcsj9GmpABhEtrlQguGnX2/opao7hV/T+Ji0Po4d3Mg7G917pQ5tqv1CDXXFHifz09wY6Fr4Po8U1SVvKtqTOxuivxY+6abXcIl28wbCbtTMlFGpuLJbrp66DMd55SZVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it; spf=pass smtp.mailfrom=mythread.it; dkim=pass (2048-bit key) header.d=mythread.it header.i=@mythread.it header.b=Y/Dy4tA6; arc=none smtp.client-ip=62.149.155.117
+	 In-Reply-To:To:Cc; b=ghW6EmP0nNyBBMRhqC7tzigCPrWh03EyUOfNu0+O1c20p5vNfim8QLALw4hlW8ynGxKXH1xzBzJT4A+0a8y+Z0ZO0VoO1pXp3RxRDjugh+ouatUUmy5WxIzf0h7gjUtrJ24syxiWINANGLr7ViqEKibwCjyWiM/SXj5yiqr1oBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it; spf=pass smtp.mailfrom=mythread.it; dkim=pass (2048-bit key) header.d=mythread.it header.i=@mythread.it header.b=T2duyeKP; arc=none smtp.client-ip=62.149.155.117
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mythread.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mythread.it header.i=@mythread.it header.b="Y/Dy4tA6"
+	dkim=pass (2048-bit key) header.d=mythread.it header.i=@mythread.it header.b="T2duyeKP"
 Received: from [192.168.1.237] ([94.34.125.0])
 	by Aruba SMTP with ESMTPSA
-	id G2INxu7ww76R9G2IOxOsyN; Mon, 12 Oct 2026 00:45:32 +0200
+	id G2INxu7ww76R9G2IOxOsyn; Mon, 12 Oct 2026 00:45:32 +0200
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mythread.it; s=a1;
-	t=1791758732; bh=+IpgA7jYufO99+UKvnT4+pwqS2EFIXRDbHH+DcOTbhs=;
+	t=1791758732; bh=rFXTrpUCw2RTFwskTkLoOBNivWtd42NvSspWk91m10U=;
 	h=From:Date:Subject:MIME-Version:Content-Type:To;
-	b=Y/Dy4tA6yG9MsntOs5CKZ9Slq+R+lqZiBDIGWK4x60xd20CStvUkEtCm/yuII4y6H
-	 7M0kgPBYjGUzKu4MFLwLy72sWv/b0I7GJfuvcpP7yGTpFQvyKmrxQKBef9KuN9LVaT
-	 lpMmcRfewECqMKIMnL+V+A8rXyeNcWdx0uv1GQ/ljEmjTK51mcGMamSw1y7BC8Y3Du
-	 O7QwpNJAfXp8ZDjscrz1qpVIxYMCJEj+P8ldqpUk8E3T9Fdck/2iXtfvHY6GnGdLZq
-	 nH0s1Y786UyUnHBYxF7uQcu9MgYaxB2iotjUvxYyU0Sr85M3hKybbxyem2Xcbn2QIH
-	 zP9/HURLaReng==
+	b=T2duyeKP/qE75pEMO+Zd3NIwe6UFOut0+XHC5djez/77Cg4QdVIY4KWGduGbxc5sh
+	 1rH67cJHHuh32RNQq6kq4zoGWGxqGsPAQlExbif0duAE6GbzwjRHcsV5F3lQOm1mP1
+	 Z/TSBRiYjdMfyD+0zP9twOlaoq8NDefknjVsyDrkrK9cfpd8CLrj9jo7VIVuiGFtGX
+	 VjrQVkSx5lYgv21TU1uCZtImo6SUAzL8r2bNI8aHSGiubxKI3wKLj9fgu2PTZUTrsP
+	 z0llxm9JDpadSuUQsx+kvBdv2IvEF3+SeOYb+hXuXetJJ9PebMx70bl+D+tek9376T
+	 NnU/11zHczzYQ==
 From: Alessio Ferri <alessio.ferri@mythread.it>
-Date: Mon, 12 Oct 2026 00:45:26 +0200
-Subject: [PATCH v2 2/5] bcma: scan: support big-endian backplanes
+Date: Mon, 12 Oct 2026 00:45:27 +0200
+Subject: [PATCH v2 3/5] bcma: scan: accept wrapper-less cores on
+ wrapper-less backplanes
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-bcm6362-wlan-v2-2-4752da7e0982@mythread.it>
+Message-Id: <20261012-bcm6362-wlan-v2-3-4752da7e0982@mythread.it>
 References: <20261012-bcm6362-wlan-v2-0-4752da7e0982@mythread.it>
 In-Reply-To: <20261012-bcm6362-wlan-v2-0-4752da7e0982@mythread.it>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -60,58 +61,55 @@ X-CMAE-Envelope: MS4xfP2cNQoSpltEWhkdtWFlmY8vumarz2zBu0G4omizKhl/O1KMs3UROV8wnvf
  uWWou51+3rMjTLqi3oBuv0UctdEv3aqG9uKPLPEVW+/PNyZMZaj1/WxZWXi/7ho7PlER+kE3AYzUFsJathJK+ybAafotwJ99IbBQJwafZnnFtKWabKCkOgeI
  wBpE+zxFRnF863MiU7IPwxzsoj4d6BQLkh5fnYGC2uEez+3OneAKIqHkbxOTqzkamgA=
 
-On some SoCs the bcma backplane is a big-endian peripheral, so the
-ChipCommon ID/EROM pointer registers and the EROM itself read wrong
- with readl().
+The scan drops every component that publishes no master or slave
+wrapper in the EROM (NMW = NSW = 0), apart from a few known cores,
+because without a wrapper bcma has no agent registers to gate and
+crash. Since usually bcma is loaded early, it ends as a loop-crash.
 
-Add a big_endian flag to struct bcma_bus, set by the host driver
-before bcma_init_bus(), and use ioread32be() for scan-time accesses
-when it is set. Core register accesses after the scan already go
-through the host ops, which the host driver provides with the right
-endianness.
+Some backplanes, such as the integrated WLAN of the BCM6362, have
+no wrappers on any core. ChipCommon and the 802.11 core are gated
+through a SoC-level register block owned by the host driver, whose
+aread32/awrite32 ops emulate the agent registers, and core 0x837
+needs no gating.
 
-Nothing changes for other devices.
+Add a wrapperless flag to struct bcma_bus, set by the host driver
+before bcma_init_bus(), and accept these cores without wrappers when
+it is set. Other hosts keep rejecting them.
 
 Assisted-by: LLM sparse
 Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
 ---
- drivers/bcma/scan.c       | 4 +++-
- include/linux/bcma/bcma.h | 3 +++
- 2 files changed, 6 insertions(+), 1 deletion(-)
+ drivers/bcma/scan.c       | 6 ++++++
+ include/linux/bcma/bcma.h | 2 ++
+ 2 files changed, 8 insertions(+)
 
 diff --git a/drivers/bcma/scan.c b/drivers/bcma/scan.c
-index 84742408a59c..983a62ddeebb 100644
+index 983a62ddeebb..ef880b635971 100644
 --- a/drivers/bcma/scan.c
 +++ b/drivers/bcma/scan.c
-@@ -143,6 +143,8 @@ static const char *bcma_device_name(const struct bcma_device_id *id)
- 
- static u32 bcma_scan_read32(struct bcma_bus *bus, u16 offset)
- {
-+	if (bus->big_endian)
-+		return ioread32be(bus->mmio + offset);
- 	return readl(bus->mmio + offset);
- }
- 
-@@ -155,7 +157,7 @@ static void bcma_scan_switch_core(struct bcma_bus *bus, u32 addr)
- 
- static u32 bcma_erom_get_ent(struct bcma_bus *bus, u32 __iomem **eromptr)
- {
--	u32 ent = readl(*eromptr);
-+	u32 ent = bus->big_endian ? ioread32be(*eromptr) : readl(*eromptr);
- 	(*eromptr)++;
- 	return ent;
- }
+@@ -318,6 +318,12 @@ static int bcma_get_next_core(struct bcma_bus *bus, u32 __iomem **eromptr,
+ 		case BCMA_CORE_GCI:
+ 		/* Not used yet: case BCMA_CORE_OOB_ROUTER: */
+ 			break;
++		case BCMA_CORE_CHIPCOMMON:
++		case BCMA_CORE_80211:
++		case BCMA_CORE_SHIM:
++			if (bus->wrapperless)
++				break;
++			fallthrough;
+ 		default:
+ 			bcma_erom_skip_component(bus, eromptr);
+ 			return -ENXIO;
 diff --git a/include/linux/bcma/bcma.h b/include/linux/bcma/bcma.h
-index 17fc50190014..7ab2b21e7238 100644
+index 7ab2b21e7238..5dcf877e2872 100644
 --- a/include/linux/bcma/bcma.h
 +++ b/include/linux/bcma/bcma.h
-@@ -362,6 +362,9 @@ struct bcma_bus {
- 	/* We decided to share SPROM struct with SSB as long as we do not need
- 	 * any hacks for BCMA. This simplifies drivers code. */
- 	struct ssb_sprom sprom;
-+
-+	/* Backplane registers, EROM included, are big-endian */
-+	bool big_endian;
+@@ -365,6 +365,8 @@ struct bcma_bus {
+ 
+ 	/* Backplane registers, EROM included, are big-endian */
+ 	bool big_endian;
++	/* Cores have no DMP wrappers, the host ops handle agent accesses */
++	bool wrapperless;
  };
  
  static inline u32 bcma_read8(struct bcma_device *core, u16 offset)
