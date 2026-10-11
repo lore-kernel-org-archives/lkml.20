@@ -1,122 +1,147 @@
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8E5D4570D8
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 14:48:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28F6C45D933
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 14:49:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.47
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791730142; cv=pass; b=Wsb016jYnNYZK9QrpC360qT8uaZ3itBt2zMhwvKABw4iiTycUhx2vMDrl3jO++54jDuHoxoNzpYSoy7O5ZJivpUXCQfetYk9I01D6R2eLUd4ANwG66IzF2uaAX3/6eft+ijTEW13JPniPzUHtKjEqs3uE0MSUyc+IhRZ+ToSFnM=
+	t=1791730142; cv=pass; b=h0sywAZzAPKOyXEoXI8/OXzVrPXd7HR/AgHE9Wrk8ugunRC4KpntJGH5Bx3v5//VndVnPwYmopn0KDNOLaBSXhaTUpjdFaxWDETla+37UaarQoihn0KaDnzXLttx+pRZJeT4os2oWtXxpOsT3DztFlsbfGpOx3QcHP923OZjZHg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791730142; c=relaxed/simple;
-	bh=KTTmDBDLvEzXTcUeFdNHCL+XWsl5T0ZipzxiDJtTFzw=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=VN4JjvBWiipIRdHyfvhf/32guqO8mavnCwHboa6N0UR70e2+ER0HfFl+uv9KKnwHSuNswTmqEc6gNOP6dih0unZwdftAzwGOfoB88n2W7eZfNWWmJuWjyNtwvEJscJqD5Hwsf2FqFHTQHHT50x21qDORTHdjKYE1xequXWmdDjM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ol0HXaXa; arc=pass smtp.client-ip=209.85.161.50
+	bh=N7/bXLCxSKzME25oFTCMjTUc1fspZktULBquef1LNnQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WCZA1lDD6S/mvLMyciLxy/h01UfpmZXmhFu3F61iWYrr4tKLyAuZAlMd6oSjsCRCE7dn/zOyWrDIBQ4vEhuT0HziIzXVrAdUrUiMlgaxk5jNjR3Q8yEcO3CeGno2mbeW/LLvAisF4hX3jQ1/Cunfb2w/8Vwca5bE7Xb0CRMfE3g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hSIm+ZuW; arc=pass smtp.client-ip=209.85.218.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ol0HXaXa"
-Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6b19e291cc6so1281555eaf.2
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 07:48:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791730138; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hSIm+ZuW"
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c2dc8cb0decso121715766b.2
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 07:49:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791730139; cv=none;
         d=google.com; s=arc-20260327;
-        b=ct9mEJU8ssOLo407iQUcsXbrkPqVbciWNeee4pV4dWAIj4Wl0PPoTXNl9N5/DgPM2Q
-         SLUpcki21vigb48M2B7vNtNMW33rFI6xrwVkl23Ka8qzNC/P0Oe+On9lTaVIcaHrKWFo
-         lFXt65zHtJxU7T4Ph+kbdrlSrBuASbNEFOY/1uqMjVJ2PTAIZI9umMYuOWmQALYkfkZ9
-         LiBHkYUo2IDkQSbt6QTcgCheQERQgeYdYTqAXtrna/ckSLNhVYf5drEZv+TqJ0mzCooG
-         KVFN2roRDy66PyL8f1wty0ZB3yqCzS/m/2o8Qs5IswU3tthrw/ajMW6eTg6Zhh9URpV4
-         XVJg==
+        b=TcWRPqzMUdzuQN5JEpq/8G6kIYZCnAMrBfQ8yDoCUxE1P02rIgt/vjhotS4Y9ueaci
+         gGKtnllD+Ch/Ee1/vBibfnwvSbvbpZzWnhKpUpKRA00cOgb/yWx+jumKpoBdkn/fow4O
+         ufqx1c4wH7+bAwDmpFdIfWdTCez/wAreJ+Nk4YEfjh1oxMS9ZXuV/yrc+cg2hTsUonCT
+         xradcKw+T4pJkavXBZ463hQsn5IYTHlYhlIhOVgIj+RK2r0yrAi6NrbfCOzzZQztrpOj
+         RGNIuQjek0krAcVNihqUvpRcORsJsYUFbbFIJZvR9baHK7ZMCzdEPUeKL/fB0TnU0MsY
+         dFiw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :mime-version:dkim-signature;
-        bh=eSAItQD3XdnMYrgEBGA328w0uBEEk18b+E5vbP3GsUE=;
-        fh=eawyxtJgBnC7+TYZrSMZzgocw2YYl1rC8Y8RCdGRdcc=;
-        b=sgjTxJAq9nwrlkZU/+qeIcTCSuN2tGINFGXKenDpkvbY80IJiwZOOz2FYuB+vaZQTE
-         pSbeQRA40B32Qv2b4U+9QJzQmMqTju0KhLsvqwyrmTWCG5VxspqISuWkTK/Nr6Up4jOM
-         V4+lQ4Gjqzs63NNmaD93oriU7FV6lmPelBWgAwaecc/0eRrtkciDv9qyi/kfQllns/sh
-         1tl5mThQg1TJPgZF2AHLnTvemlhQPsqkHybO8eKH39mwoAvTRZyDC4XM0cU20ht9hydh
-         rdQTy/1xjXGTiZZAeJ8Ity8xi+JhzIeJemy03o/DqzW7T4AiEG1st2yZpRcGMXxibuiW
-         aJWg==;
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=4RkeVc6VkMZ4IMU3dg0M5Mik1yz8UTsHowUxZB7vFDA=;
+        fh=31gO5BFgfyNIITRZyRhEVJ2tQfU2d7EI8iXvWG+4tzU=;
+        b=db87ROQnjtHWRwpBU8MkPZ/xCn+XVSOVHZ1GHE8NVnZYD+nguEjFsAGQHXubBn2DVZ
+         TfrddFMGZmAn6usVnNjyVFai8pqNvWckC5qvmmwuFD0u7r3MwoVEreHeDXe8mW00kJkH
+         0pVEXcUGnJHjMAja58F3QuG3LB/8bSn+bRGrF0p0t92AiHl+uejUvDR5sA0IS66hrA0O
+         UwW3tRmcB/kMEa+CutuoFbYi5z3rgM5xq1UOlYgMxza8E2x8ImgwCttEBQccO7FGmBM9
+         rSS5q78+SQcxMLNid5WzBQl8ySsVxSb9IbNoL2S78Xt9KsagWCbKcKTO849CUOYQ5Uz4
+         Mh8g==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791730138; x=1792334938; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791730139; x=1792334939; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eSAItQD3XdnMYrgEBGA328w0uBEEk18b+E5vbP3GsUE=;
-        b=ol0HXaXarRSSmXNWm2M24R2JXyslD1tZpsEbjfKZq38kESqn/P41+dltQU8dcwTwmS
-         h4eJ/WZ3yG/HAu2bxBTJ1Cru1DCr40nujOJE6W2QO/wWvEg6olRCGBFyDvO/F+1LS9If
-         4F7zNllWJXofBPlrg8CZ6SNZoa2SwMMFJ2TAA9/Jtow3YrandohNNsO9yeatWHmRM1pq
-         Km9xJZZfZOw42aeR344jAHunxF9BcpsTrg2HlTmrGQPXq7kD6ePes/E85oxqYDQ6RJrt
-         4QfFb9hUD42lATmSfIH6IsLdobW63AHb1NkTFEykSu8fVBqPY1rB9fn21p7ungRhwLU/
-         RG4A==
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4RkeVc6VkMZ4IMU3dg0M5Mik1yz8UTsHowUxZB7vFDA=;
+        b=hSIm+ZuWJ7GvatqAO/yMWyqLsatlGbn3H3lVNLELHW1jNqe4Qt6PO6vaMgr5MEo7WZ
+         bRa4YmFE4fzg7YXJ3AapJS5ZUdIa+LPo8VchpWjdODvbwsvBOnyov9XxlxPvr6l8Vd8r
+         UTWN5TQamHBanlyeH/pu6RIffAJKQ+q58OSM0hOsStmMFWkBOzBSbkILb3TQY1b6Dzq6
+         c+QEe+euvby3jUReoMel9pBiTAPMcFqCIWD6T2W6kEx0L8WM35+VWMOfNECWhuB5Zrzv
+         7ts96nV0xqeRGonK+9PX1crZWfjJLf0UsAvWpjPT7TDyKz0fTO0d6aNCrYlDbN3lyZsW
+         181g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791730138; x=1792334938;
+        d=1e100.net; s=20260707; t=1791730139; x=1792334939;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=eSAItQD3XdnMYrgEBGA328w0uBEEk18b+E5vbP3GsUE=;
-        b=O4DFmXo+CiOOyFTRS0kaHAepziHQQFn4Wqh156zX1rRJwqTOchTOMqFMSpL25C98ef
-         o77VlGdsWvndbIL+Fm0QPqqTzrmAdArjGl9Q2kIxnsDYlud2Xmx7BZ+rrK2r+i6Xmd1J
-         jDnOgipBB0aMonkEHG9oB5ylB1uZM4IoobCDhvnL6UyNlBbXr7LcrlPK7UcyVZcsAtao
-         b+WweRR9uDNt7WL7VBbDG0ueCCaHfy7Hptn8chcKls6rdlvexT7N2CmpkXqZH178/kZz
-         UtntaK8SPP52Czyp5cO/I2OOdCMAXshpRbZ8X0LSqQVzP16DgszlhmsgN3R3P6cWYE8J
-         hEkA==
-X-Forwarded-Encrypted: i=1; AKwUvBzhbKIaK57ugAUtFvtx9IahhwwWQQJoZu54rE6ls+bNSK2TgSksLak9YoRe6gt4cLVttcWtZX8K7NvsTWw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJk5qq6/jy+r0U9OR237cv04FvcYN/D0qEtOn98pjJlqhZdYcKm
-	69mbMtBgnL89o70lbpqZM7IoCePIZJrjiEE29UcaFfUvtUPb5421V5JJWq5NhteH8zbAimXDzCd
-	TOu795LXgeJUSgAjaaJbtmFtfaBU/1Sw=
-X-Gm-Gg: AYBFou3tklPc2ARVbk4QGRZGfhVrJJ+oklQplqfz82O2jWIUTPw30EtKDe3nJy7oGS8
-	9qBDSg6QgQ+Naoonl5BC5JPzaTqP8oC9pafG9le+SYDP6Um6m5Eh9LeiqPqChsNxQLrtnmJqeQ9
-	6Z9a96ntAMK/4W3R0YBoGrtIhFs3lBFeLfYMuuLduA0apkJ1Hqx8ooPUoUoq4pq8sZXRTzMvNBU
-	cEgA+iWRKIzEs46hbpv9pVPrMfjXYROnxaP+lOgz/iYjNDf5zYwELZngIf4yPjYLuZDXqg+/nPp
-	t7rfQvDgY9AzzgTl500eSXH1S5EioWZOhD3YITqL+bV895PD69sTqZ0z
-X-Received: by 2002:a05:6820:350c:20b0:6f4:80f6:6ae9 with SMTP id
- 006d021491bc7-6f480f6a5ccmr760752eaf.27.1791730138569; Sun, 11 Oct 2026
- 07:48:58 -0700 (PDT)
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4RkeVc6VkMZ4IMU3dg0M5Mik1yz8UTsHowUxZB7vFDA=;
+        b=bwQDPW6hgisxbHsuZpAg3I1cHIHTXopRUTEmTcdTQeRfex1TDX8xC5Z38L04jgOfV7
+         asdRXpRMi8NkQOc9OdyJC3GlEgqjuoPTKOppgwiTfirnZNFqeL1cPR6o1/65U/hVHDXV
+         KI475KiBkYgo6RgyzHreEawPRwjyiVhZQYHs/0x9u4zw2LVk0gr04kGwHfOH/zKnFOZo
+         PWF4aFMbMEKcHovWFXXw8XVvCK3F3LwnHXWfVBRz+6zOlaCHnkK5MYVqCjlBoO1vnbXj
+         a+q3FCAo+9vUfA5eR1mHmZMDO2tTRuK6DlyTJynl4a9a78NLZaJ2ailYVekXrv+M5GA0
+         b0+g==
+X-Forwarded-Encrypted: i=1; AKwUvByoP4imU7tzKBl/pIn1TLh5QPkJFeHf16r1ebSbSyz/nseXyXAdgCS6zh4XXvlCVTPp+/niz5pNbi9Bx14=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK/K/ri1t3qjnqeybiWrC6fJa84NDBFeC1Rhxs1hwyQO8HT0gpQ
+	dulvXQ05p6SkQs/sAkb4PJbjNYBfSLLfLQ4z62ogk0CvQlrWtFv3sprAp3f0f/v009NdbYRUyuT
+	I+f9fov4jQVE/No3yaG4vs/I65zUwEdE=
+X-Gm-Gg: AYBFou3ECxH23D0Ljn6AFxLNm0kkyAQbsMXNIMCLqXGVLLe7lbiVct/iNclzCKBtIpE
+	O33r+GR1OF1hB6S397J2Y4EYwwbpJ56nDOf9Kwi119YxbKUhYI2g9o5DxcdkDIL16blFt2AhQql
+	5KwT0o/DZj6Y/YhBDdVb7J/DUhyJkZx2Spjo98deFyUkiGaD9a/2336yNR+JgBhN/WfrQydFy0J
+	IrcAvS6XD+UoM2v/mzUEipX3Aqx1wbOYdgNTdaHKjGfQU7LW1jInOC445Dc0JNiKhQdd+cca4mE
+	YE64RnnOlQA0mBjiJDyDj/hq1Is7c3pKOpYRsYlX0DQGCtV7nGFGtH1szctuY0dTUOtic9S4u0l
+	iTIyaC1zQsSMyOoRIK/hPu+vPUgBY5sppkaodUCBJ7Tg=
+X-Received: by 2002:a17:906:f59f:b0:c31:7495:e57 with SMTP id
+ a640c23a62f3a-c31aa0dc6b5mr668779566b.44.1791730139254; Sun, 11 Oct 2026
+ 07:48:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: MaeeFilho FL <joaoanandalima@gmail.com>
-Date: Sun, 11 Oct 2026 11:48:47 -0300
-X-Gm-Features: AclHuK8IJOYpso1HhSgXW104tnmReEvrVU3sXstVSoTDmAtKD_QfWoBZxJyM9Ww
-Message-ID: <CAFA5sMdbmqyqPhQ7Bqayd4-PBbA6RGHxgy7kFa_uF7mJWtFDLQ@mail.gmail.com>
-Subject: Re: [PATCH] lkdtm: Add more EFI runtime tests
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Kees Cook <keescook@chromium.org>
+References: <20261010142533.974797-1-linmag7@gmail.com> <20261010142533.974797-2-linmag7@gmail.com>
+ <CAEdQ38GtjhbEipnuTbo1EmzNNAE9=6p3T6MfTnMq-6okmE9-tQ@mail.gmail.com>
+In-Reply-To: <CAEdQ38GtjhbEipnuTbo1EmzNNAE9=6p3T6MfTnMq-6okmE9-tQ@mail.gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Sun, 11 Oct 2026 16:48:46 +0200
+X-Gm-Features: AclHuK_Tz9vD-0GaHu-Hko6cZBr-CRRYjqry0SEF8pHQaIVGQ0ve8CeJLxTsgbU
+Message-ID: <CA+=Fv5RTAXFbGTN+YPb3RBsw2s-52oVRzi_HgMuiB4R86YeY5A@mail.gmail.com>
+Subject: Re: [PATCH v5 1/8] alpha: load the MMU context when switch_mm()
+ switches the current task
+To: Matt Turner <mattst88@gmail.com>
+Cc: richard.henderson@linaro.org, linux-kernel@vger.kernel.org, 
+	linux-alpha@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Ard,
+Hi Matt,
 
-The Code is excellent. A few points worth highlighting:
-
-> Two bugs were found in the arm64 EFI runtime support that weren't caught
-> by LKDTM. The existing EFI_RUNTIME_CRASH test instructs the firmware to
-> write to kernel memory that is mapped read-only, which usually fails as
-> expected. However, this does not exercise the runtime mapping logic in
-> the kernel, nor the fault recovery logic when the faulting address is
-> inside the EFI runtime memory regions itself.
+On Sun, Oct 11, 2026 at 1:32=E2=80=AFAM Matt Turner <mattst88@gmail.com> wr=
+ote:
 >
-> So add two more test cases:
-> - a write to R/O memory test that uses the firmware's own executable
->   memory as an output buffer
-> - a branch to memory that is occupied by the firmware's runtime services
->   function table, which is usually mapped non-execute.
+> On Sat, Oct 10, 2026 at 04:24:27PM +0200, Magnus Lindholm wrote:
+> > do_shoot_lazy_tlb(), which switches to init_mm from an IPI. None explic=
+itly
+> > loads the context, so the task can carry on running
+> > under whatever was loaded before while current->mm says otherwise.
+>
+> Two small things if you touch this changelog again when applying,
+> neither worth a v6.
+>
+> The second line above is short.
+>
+> "while current->mm says otherwise" only describes kthread_use_mm(). The
+> other two callers change active_mm and leave current->mm NULL.
+>
+> > Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+> > Tested-by: Matt Turner <mattst88@gmail.com>
+> > Reviewed-by: Matt Turner <mattst88@gmail.com>
+>
+> Your Signed-off-by is last on patches 2-8 and first here.
 
-This is an excellent addition to the LKDTM suite. Forcing GetTime() to
-target efi.runtime->set_time is a very clever way to ensure that the
-firmware page tables are strictly enforcing permissions over its own
-executable boundaries, rather than just testing general kernel mappings.
+Thanks, I've reworded the changelog in for-next to distinguish
+kthread_use_mm(), which changes current->mm, from the other two callers,
+which change active_mm while leaving current->mm NULL. I've also fixed
+the line wrapping. There are no code changes for this patch.
 
-The execution tracking via the anonymous function pointer struct conversion
-to trap NX faults on efi.runtime data object is also rock solid and properl=
-y
-exercises the arm64 translation tables validation logic.
+The combined TLB v5 and MMU v4 stack has now also completed an extended
+SMP compaction soak on the ES40, with three CPUs online and
+CONFIG_COMPACTION=3Dy.
 
-Reviewed-by: Jo=C3=A3o Guilherme da Silva Freitas Lima <joaoanandalima@gmai=
-l.com>
+Over an hour, all 23 cycles passed:
+  - 207 lost-store rounds
+  - 207 stale-read rounds
+  - 230 shared-mapping writeback rounds on ext4
+
+Compaction was triggered repeatedly during each cycle, and
+pgmigrate_success increased by 193374. Continuous kernel logging showed
+no new warnings or errors, only the expected drop_caches notices from
+the writeback test. The writeback settings were restored and checked
+after every cycle.
+
+Thanks,
+Magnus
