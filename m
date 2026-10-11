@@ -1,134 +1,110 @@
-Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF228405F7
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 15:18:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD53723D295
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 15:19:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791731898; cv=none; b=hKtcKS6URL7JSkkqMU/rLKu0mcOK6yL4dfNUm9Tqtun8LoJhDVQOkOewa8PN75uqVvnUTUfNjhKYiWpuCunrqqlE349vv9y/13RQ1NSo5LdDIwfCf1OVYf6Vljp+CuJLiFsQ+fA+M/yzP01s5IhNTRCjJ3DPuinrEgR1gnGSALg=
+	t=1791731976; cv=none; b=RlAJvyQFGAGCaM2LAHcAwnjcVtgn7xCYM6usKn4sCmSF+8HcI12qMW3zbOkkRkwOKDVVFRZ6I7BVilALYAJML2F828fCPwa9Q9yRkfjrPZ4q5+2IcJLsZ5buEYCWQH7e9ofG7F/9px5AvPrZVG4LxuAkFjwhfSTHZw5FwksblXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791731898; c=relaxed/simple;
-	bh=47Juegb4i4wLYemsS3mlLmvD6SQo9n3f3fDvEuZbmeo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HVsv5thF1kAUQeILNgNp6CChqyM+1w3IfBaoMKoMUdoIusMDbzdPg8NEGjJcAmZyfkSefgqdPaUfeScqR8FAbs2lpdDqscHcvY96ko6MWvLVmktBWQvRUpL6HupbGXqXIxGxBfLygJ0ehDAuhQyUFwRMWSSNzWdcIiyYLVGI2f8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C6RfgQzK; arc=none smtp.client-ip=74.125.227.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C6RfgQzK"
-Received: by mail-pj2-f1.google.com with SMTP id 98e67ed59e1d1-3ab37ea4798so597053a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:18:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791731897; x=1792336697; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9Js12sCnL1SgWIn/v3LbBPMyn53Oc+3JONEbx1Wl0eE=;
-        b=C6RfgQzK1dXomQ55pOlodjgqfZzNwgG+B95aEFK38o/GRDZxVqGWaL5XZpQDO0jnUO
-         NqOkb52kAh6FkpTkFG7XQjijCp/0mMWecm+DLp2GYl+Y6PGdkXvkX3goXt2cT6KG/CGy
-         z35k3Qx2wIAKV5TDpN7MlGtSD8BhJ7ptbzYceavyb/ewQERP+/eJWKz3FZOBVghRY6uN
-         peMEdR4CGfKPr/o517puwCViAir4OF+NTok/Z3N9t2+1pJIhq8Q++e/iTMbXBRHAsTYS
-         0OqcLj9rRNo+0z5UFKzmQKCux3FZ9f/sz45+YUa96QY0y2W+QoZ87PEQsx/yKGcRXt4O
-         psPA==
+	s=arc-20240116; t=1791731976; c=relaxed/simple;
+	bh=SfZU5QBRdMi/KgNELcecbO6USgMv2hCSJf9T0qU5shI=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=sDlxVZHf6I+n0JtprrBJ01NghUpj8qub5cKB9ZQNZOk435gCWUyKHm4g8b0ZXIhoxtwYAzaGWMNansOBMXkb+DsD9K6IFRTyk+NnbzhEILwj9lDOZcISNOcDqJHJgLeBGUp1Gyie3z2kFOPgEo/v7DTBsfTBPJX7EohjWcFr0eI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4e937c5bd4fso1301185b6e.2
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:19:34 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791731897; x=1792336697;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9Js12sCnL1SgWIn/v3LbBPMyn53Oc+3JONEbx1Wl0eE=;
-        b=pc/6qPYVraNGS5R8bLV7paoU1iM6pWElVRdrcHij0Yd6iRJ+0WuaMB4ITFlXCJQDZ1
-         B4QKa8T1Parq3o0OqrxD3sWreNQZqaAThkOJnCXGrJQimDbLPslBtvRo/Idvb49V/mVs
-         0JvJr9i6+H0tcKQ0ne/+fAVArpZXhjOjJw6/r7zWe9Pd3qQ5Spt9qZnZ+fK+5RUkyQeT
-         klSGQUKU081RWOOoiNVdnG+4cP2uphWMX7qWH4X4s1waG3UyDA45szEh0FKcF9Q1vdhM
-         rxi4CT3ZwqM0a38XVLMu5hY2oZvdg40Xntb+7cKTbds4drfPtwS2gkqBwKUp8RORmne8
-         24Yw==
-X-Gm-Message-State: AFq9FYK8vw6Biedc12fUeVQIKt1a66hDmq0glYzYlmJKU4NtR8g8x439
-	5ly0Aerpxon71cC5C/UKekDbTm/RQHtFyPbXVtYL7/iPR0iGLlr8bF42
-X-Gm-Gg: AYBFou0iEnABuni1ECM4oESjdCZF0JuNuJkNXt61YexVZQiFXjgVnnfDfIogv1EG8s1
-	mAoKjXz1YOEQ8ZLNL4xnzy3M4IVm/V8+2RID9yKN9u/Fl3j92EjXthL+62+QHO7Ds+uE5Yax8lW
-	+64DWGKtoJhb4C4he0TdTmQlvNMRrOAUUX4v7sIwlGw0Ct81LKRF2Gqy0tialkrkcHA62BbOKkL
-	6zSvsyaAKT/2wxjR6T4+jFryPHkoCGkewhUgOa/tQWKXD/4s9Zs1tIx/YH5Pv/A8wdNY49oLbVQ
-	wVZFN8zgBXa4n6vWCdZIS0Fyz/yuz7hBxudDEWwYY+Q1pCpwAcfnCZvdQSJv8KnaL7azVdk9oWU
-	qFQ1wcOknnD2Y2hLChn/mUZd256Nnex5TOjxBkbpnQl5uClxjvuDltSJJWHd43wMEu0F+nLRzeD
-	dnUmaH2Yt88X1YC4ks9KnlJ/AA7qg/H7v072iRF48yp9al10X1mN1K2LBvlhontcw5FA==
-X-Received: by 2002:a05:6a00:3314:b0:87d:cc3d:fad4 with SMTP id d2e1a72fcca58-897c7fc20e1mr5366635b3a.54.1791731896836;
-        Sun, 11 Oct 2026 08:18:16 -0700 (PDT)
-Received: from xbp14 ([2409:8a1e:21b1:f670:abd0:4073:b5fa:6275])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c3ccf7cdsm3075729b3a.30.2026.10.11.08.18.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 08:18:16 -0700 (PDT)
-From: Jialin Wang <wjl.linux@gmail.com>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>
-Cc: linux-kernel@vger.kernel.org,
-	Jialin Wang <wjl.linux@gmail.com>
-Subject: [PATCH] x86/reboot: Disable CET in machine_real_restart()
-Date: Sun, 11 Oct 2026 23:18:03 +0800
-Message-ID: <20261011151807.263575-1-wjl.linux@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1791731973; x=1792336773;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/ejP176Rx5rm5jeJ6KaI7hE3f67vqppgEazw/7JP8qc=;
+        b=ZaNWJAVND5IxrcrFQ7zOT74p9EfNH6vmEMSXsMIH0szH0XtCmgz4t174rp9L8P2X7R
+         raeOoU+hWf8+0lk298V5eVDzm6NWqTvMxfPkZerlSM+m+u4+k2Ipt/WRiExKf7vV9lLp
+         0VygnFfQ+iWH8HWPsfyjEvteyxjj11lHfquedplTpHpRv68gSDJtvHVRyAK1TDIKE8/4
+         6n9rfanJ35Wtw2H3KcLaCV9lZrIsM/7HTUJsJxnpav8e8aWLzw9tbGafArYCveLo0wUt
+         2SKcbRZsdV9l2+Yc1iRDmAbdWiEq+kPr75UlCol8mQw9H8bUIsAzmY7VfinBAp+bE8QK
+         Jt8w==
+X-Forwarded-Encrypted: i=1; AKwUvBwfLPshtzH8dYmHvbxnmZAyAa8Kn389vZtHATWTZpF32B98k84OyA3t2rCwAKEYOJiyCpKftP1Om7IhhzM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK4aM+o7N6spNrOM41OUSNoXKmUxMaxweay8MEo1RULuAeEFFRi
+	H4oAYNh0M3/pVBlx+KkMDFiYjGyAbXwRlJK6iLyABNiQzssGLiitpM9DxLPnMKNDfXtiKQWiyI5
+	bSvCtcbQd2ADmlpGH024I1ZJQY5EvUVRW23wKHRVcti7vlXrBPFODAd2w3yg=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:130f:b0:4c3:2e7:55bb with SMTP id
+ 5614622812f47-50c537c68c7mr6581827b6e.38.1791731973659; Sun, 11 Oct 2026
+ 08:19:33 -0700 (PDT)
+Date: Sun, 11 Oct 2026 08:19:33 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6acba905.8cdf6287.1eb53.00e4.GAE@google.com>
+Subject: [syzbot] [block?] WARNING: lock held when returning to user space in blk_throtl_init
+From: syzbot <syzbot+1eb53c83ab8b0a0302a6@syzkaller.appspotmail.com>
+To: axboe@kernel.dk, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-When a kernel panic occurs in an environment without ACPI reboot or
-8042 keyboard reset support (such as QEMU microvm),
-native_machine_emergency_restart() falls back through BOOT_ACPI,
-BOOT_KBD, BOOT_EFI, and eventually invokes machine_real_restart(MRR_BIOS)
-to switch back to real mode for a BIOS reboot.
+Hello,
 
-When kernel IBT is enabled, the indirect far jump (ljmpl) in
-machine_real_restart() jumps to the 32-bit compatibility mode entry point
-(pa_machine_real_restart_asm). Because machine_real_restart_asm does not
-begin with an ENDBR32 instruction, an indirect branch tracking #CP fault
-is triggered. Since ibt_fatal is true, do_kernel_cp_fault() triggers:
+syzbot found the following issue on:
 
-  Missing ENDBR: 0x9a230
-  kernel BUG at arch/x86/kernel/cet.c:133!
+HEAD commit:    becb95e45ef0 Add linux-next specific files for 20261009
+git tree:       linux-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=119ea68e580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=7400eab0484d1dc
+dashboard link: https://syzkaller.appspot.com/bug?extid=1eb53c83ab8b0a0302a6
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=100e8999580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=159ea68e580000
 
-This issue can be reproduced with virtme-ng:
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/b16b9c03e69c/disk-becb95e4.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/78483614b526/vmlinux-becb95e4.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/e333f1b9fe69/bzImage-becb95e4.xz
 
-  vng -v -r -- 'echo c >/proc/sysrq-trigger'
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+1eb53c83ab8b0a0302a6@syzkaller.appspotmail.com
 
-which launches QEMU with the microvm architecture:
+null_blk: disk nullb1 created
+================================================
+WARNING: lock held when returning to user space!
+syzkaller #0 Not tainted
+------------------------------------------------
+syz.0.452/6787 is leaving the kernel with locks still held!
+locks held by syz.0.452/6787: 2, last CPU#0:
+ #0: ffff88803652c190 (&q->q_usage_counter(io)#105){++++}-{0:0}, at: blk_mq_freeze_queue include/linux/blk-mq.h:956 [inline]
+ #0: ffff88803652c190 (&q->q_usage_counter(io)#105){++++}-{0:0}, at: blk_throtl_init+0x27b/0x420 block/blk-throttle.c:1332
+ #1: ffff88803652c1c8 (&q->q_usage_counter(queue)#88){+.+.}-{0:0}, at: blk_mq_freeze_queue include/linux/blk-mq.h:956 [inline]
+ #1: ffff88803652c1c8 (&q->q_usage_counter(queue)#88){+.+.}-{0:0}, at: blk_throtl_init+0x27b/0x420 block/blk-throttle.c:1332
 
-  qemu-system-x86_64 -M microvm,accel=kvm,pcie=on,rtc=on \
-    -cpu host,topoext=on -smp 16 -no-reboot \
-    -kernel <vmlinuz> -append '... panic=-1 ...'
 
-Invoke cet_disable() in machine_real_restart() before loading the
-trampoline page table and executing the far jump, ensuring IBT is disabled
-and avoiding the #CP fault.
-
-Assisted-by: LLM
-Signed-off-by: Jialin Wang <wjl.linux@gmail.com>
 ---
- arch/x86/kernel/reboot.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/arch/x86/kernel/reboot.c b/arch/x86/kernel/reboot.c
-index 0fed6d0d7e32..eb23b8977de5 100644
---- a/arch/x86/kernel/reboot.c
-+++ b/arch/x86/kernel/reboot.c
-@@ -114,6 +114,13 @@ void __noreturn machine_real_restart(unsigned int type)
- 	CMOS_WRITE(0x00, 0x8f);
- 	spin_unlock(&rtc_lock);
- 
-+	/*
-+	 * Disable CET before loading the trampoline page table and jumping
-+	 * to the real-mode trampoline. This avoids missing-ENDBR #CP faults
-+	 * during the far jump.
-+	 */
-+	cet_disable();
-+
- 	/*
- 	 * Switch to the trampoline page table.
- 	 */
--- 
-2.56.0
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
