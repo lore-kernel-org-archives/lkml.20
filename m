@@ -1,190 +1,80 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3E11547048;
-	Sun, 11 Oct 2026 00:22:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791678177; cv=pass; b=LUJMoDpr8F/9IX3fveT1RRrd/d/2xDIdiQWpaLiCeJ8RaclhpFNjuly/j+Xj9aZHRfwMQMnqfER8SA3Tocik86EFWP1w40F+hbrG8qiqAij7P6kD8eQdToda61rmG7/zciqoly+TGf9tUS1pY/cB/01t4gbvIPwATKgtHKbg6ZA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791678177; c=relaxed/simple;
-	bh=Acju+NYKc71KbUWbzzblBaRW/DvVGpydE4PkEIgrI/k=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=eLa6yUiB4OewmzyJCyJtGyheoLx4JG02I8hlhhJr4HMdCLZv88HQkejSYMu/jlymcjlVSO9AboJfaWTP24/WXlcK4uCc8p8Q5UeTsnp+CDLhDL/bhQn34lQK/y0wGI5GV+FZUdRYQ1/Z+/p/e8wPBuSXDJh6t1y+IsvT4FpRZMw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=i1bSzKdE; arc=pass smtp.client-ip=165.173.180.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 042771CAA92;
+	Sun, 11 Oct 2026 00:24:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791678266; cv=none; b=ev8ehXgjn9hXvybLggTFzKjXq+pdUWVpzWJ6hgnJ4KYXPu83Im8LL2yumDuomCDQ63a6jhU2ZkeZOVS+5dELtZDq16lsJaCQERj0vOYurZ+H4dv2/H1IMzYIo19c/mRjnhbBOrWUvyu4CC1/EeY5wYkBhs2OQsSNKZ75tAH7J9o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791678266; c=relaxed/simple;
+	bh=mw4uDn52psPQsowKgfyz+H3m8s6P5wAgGu5dxdM98rM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Q+VJEJx3KHTiaZc3gPrgMCj3NAHu9cQkOGHLwBRTiTjcw0oUOm/QjWCvEGVJTbHha6izhWw7NhqwS6F4aLWEbtYKa1bwySVyzxdwh8n2iWj8gIGEovUjmXUHJ58g7gNIhFqpksmXq0EG7uU0ADxLzWpIo7DbmbpWa48NyGmSsfk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iOeziGOy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="i1bSzKdE"
-ARC-Seal: i=1; a=rsa-sha256; t=1791678148; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=RtJ+Y5yFVjFpWdC4PqXJ7qZsJRqt8s6mwjSC0jSNde3JeYg219d/VgxrUKF8IAf3bxHe95paI5drCSe/jLqlJQCwF/6bYhAohXQPunz1GKUr+BsQd8G/nynoLf1rtVP74bcs134HxJOX/cNib4k8dU5H7hgAIUHR6tFmcLTcwpE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791678148; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=41dPddWoQKnpWMYRbAvh5x0oiXREGVQ4pqzdMYi7w6A=; 
-	b=Veop6pQhMd+18pin7jk2NMYmbcPRgtECUcTTV/a9KOkS2qDWYPcdO7gHXjOxJqn5KMMlMaPVBd1mKrb6VqfmtUzKz75CNhPJy1tjmVOmftgZsmT+AWU0DlM7eVVrInQpDabyDMfdj3UmvsnQyWFnqb43asqy5V4jLoAsGaPDxDs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
-	dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791678148;
-	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
-	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
-	bh=41dPddWoQKnpWMYRbAvh5x0oiXREGVQ4pqzdMYi7w6A=;
-	b=i1bSzKdEqE/viofxpvNNSpKDshCMhnIEq1x9CfVhyWXrx8UtAC5hT/f322iQi9Ru
-	XoukuCzrdcAcQ2apBzDoBeljfkSo7mzKO20Aiyzd6hq1NZxpyTUB9DmiIQhN18wO+yV
-	NE0Sfm0cZf/lMw21NX2dKZ6tJWpVYjZFgfqmVn9Q=
-Received: by smtp.zohomail.com with SMTPS id 1791678146138728.6489422256464;
-	Sat, 10 Oct 2026 17:22:26 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iOeziGOy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DA591F000FF;
+	Sun, 11 Oct 2026 00:24:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791678265;
+	bh=e7SOl3meJKE0sc3cqt4qHuCQKfxeRpyWzCx1C/zFW+0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=iOeziGOy0tYXHnf5F9Uoa5MgXNaWwZOnOqW8+XOOl9selsG5FahEcgNkr/DEr8OTb
+	 cc5OQXp5pL72XNl9RKXpNMBzQOKOpNNKMUSi9GYc4qLD6WzxEgh/O0zZdZhLuDceV3
+	 FOaiQJkYsmVFEm843tPEeump6BqM8/cQOTu81V0TdKHxB5Kou6f53YGS65vU9GUAw2
+	 9upiNof54eyGgXJmCN/GNBru/5LKn9lvihD9nWGTJ4FEitxPYN30xKLCH8wBC2GKpX
+	 44PQB5+MghPQhLapgEg98S7R7S79+oipJN1KM6IGcpr0NRjNGOiWYjskRwkEZijbNg
+	 +WZgvwW0VAxlg==
+From: Nathan Chancellor <nathan@kernel.org>
+To: nsc@kernel.org, Aaron Tomlin <atomlin@atomlin.com>
+Cc: julianbraha@gmail.com, linux-kbuild@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260925181230.130525-1-atomlin@atomlin.com>
+References: <20260925181230.130525-1-atomlin@atomlin.com>
+Subject: Re: [PATCH] localmodconfig: Explicitly report boolean configs
+ during integrity check
+Message-Id: <179167825661.3510825.17086446256659768522.b4-ty@b4>
+Date: Sun, 11 Oct 2026 01:24:16 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
-Subject: Re: [RFC PATCH v5 0/6] rust: Add drm::JobQueue
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20261009191124.1022902-2-phasta@kernel.org>
-Date: Sat, 10 Oct 2026 21:22:07 -0300
-Cc: Danilo Krummrich <dakr@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- John.harrison@igalia.com,
- da.gomez@kernel.org,
- linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <F09C7397-AF97-4947-89D5-759498BCF7B0@collabora.com>
-References: <20261009191124.1022902-2-phasta@kernel.org>
-To: Philipp Stanner <phasta@kernel.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.11)
-X-ZohoMailClient: External
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=769; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=mw4uDn52psPQsowKgfyz+H3m8s6P5wAgGu5dxdM98rM=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFmnrhvbSWmo9Lw/VTmzdobw8QurKndv83V45ePMK/1vS
+ 1No0b5bHaUsDGJcDLJiiizVj1WPGxrOOct449QkmDmsTCBDGLg4BWAiGQIM/0Pzf3uobuo90/zQ
+ 3Kn0w+SnodV1R0OetOicPavL2eo5x5Dhv5fht60iNr/bRcsqvgY0nt/1PFlivsRWv423w2QPaQc
+ 84gEA
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-Hi Philipp,
+On Fri, 25 Sep 2026 14:12:30 -0400, Aaron Tomlin wrote:
+> localmodconfig: Explicitly report boolean configs during integrity check
 
-> On 9 Oct 2026, at 16:11, Philipp Stanner <phasta@kernel.org> wrote:
->=20
-> Changes in v5:
->  - Add back the Revocable<JobQueueInner=E2=80=A6> from my earliest =
-RFCs. Reason
->    is still the same: JQ dropping while dependency fences signal could
->    deadlock. Similarly, this solves a dependency kicking of the work
->    item again while drop() is running.
+Applied to
 
-Can you expand a bit on this? IIUC the problem is introduced by trying =
-to take
-the jq lock on signal? If so, this could be avoided by queuing the =
-worker from
-that path instead?
+  https://git.kernel.org/pub/scm/linux/kernel/git/kbuild/linux.git kbuild-next-unstable
 
->  - Do not call run_job() with a lock held, since run_job() might =
-sleep.
->    AFAICS, this also makes the proposed XArray solution impossible and
->    demands that we use a list.
+Thanks!
 
-Can you expand on this a bit?
+[1/1] localmodconfig: Explicitly report boolean configs during integrity check
+      https://git.kernel.org/kbuild/c/46d4ccf3b6213
 
->  - Re-add the earlier credit-count-system, so that run_job() is
->    infallible. Simplifies the design quite a bit. (Danilo)
+Please look out for regression or issue reports or other follow up
+comments, as they may result in the patch/series getting dropped or
+reverted. Patches applied to an "unstable" branch are accepted pending
+wider testing in -next and any post-commit review; they will generally
+be moved to the main branch in a week if no issues are found.
 
-What is AGX=E2=80=99s position on this? IIRC, this credit system could =
-not represent
-their submission model exactly, like it can for others.
-
-
->  - Drop jobs in a deferred manner through the work item so that job
->    payload data can do atomic-hostile stuff.
->  - Because of the point above, I suggest that we stop dropping a
->    DriverFence on signal (Danilo's and my idea). It has no real
->    advantage, and getting rid of it allows for better controlling what
->    drops when through JobQueue. For fence it's only relevant that =
-there
->    is an RCU grace period, thus:
->  - Replace DriverFence::drop()'s call_rcu() with synchronize_rcu(). We
->    would, therefore, demand that everyone who's got a problem with the
->    delay drops via work item.
-
-I will get back to you.
-
->=20
-> This can still not be tested as I'm blocked by pin-init vs self-ref.
-> Just FYI.
->=20
-> I would appreciate confirmation of these following thoughts on locking
-> design:
->=20
-> 1.
-> I believe that callers of jq.new_job() and jq.submit_job() do not need
-> an outer serialization mutex. Reason is that JQ serializes with its
-> internal lock. Sequence numbers cannot take over older seqnos because =
-it
-> is submit_job() who sets the seqno.
-
-I guess this makes sense, so long as submit_job() doesn=E2=80=99t take =
-&mut self?
-
-Also, submit_job() assigning seqnos is not compatible with the XArray =
-IIRC.
-Fine if going with lists, I suppose.
-
-
->=20
-> 2.
-> I, furthermore, believe that a driver will not need to hold a
-> driver-lock while calling jq.complete_jobs_up_to_seqno().
-
-In tyr, we hold _no_ locks. The driver signals the fences, and this will
-enqueue the worker thread.
-
->=20
-> IOW, I am suggesting that a driver can always safely use JQ without an
-> outer lock, and actually *should* do so to avoid potential locking
-> issues.
->=20
-> Reason:
->=20
-> let driver_stuff =3D foo.lock();
-> let current_gpu_seqno =3D driver_stuff.get_seqno();
-> drop(driver_stuff);
-> jq.complete_jobs_up_to_seqno(current_gpu_seqno);
->=20
-> Thus, I believe that it is OK for me to take the JQ lock in
-> jq.complete_jobs_up_to_seqno().
->=20
-> Please correct me if I'm missing something.
->=20
-> Should I be wrong and a lock inversion could occur, then we could
-> hypothetically add a fence Signaler object, with which we could signal
-> fences with a different lock. Similar to how drm_sched does it with =
-the
-> hardware_fence.
->=20
->=20
-> Regards
-> P.
->=20
->=20
-
-I will have a more thorough look this week :)
-
-=E2=80=94 Daniel
+Best regards,
+-- 
+Cheers,
+Nathan
 
 
