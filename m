@@ -1,87 +1,159 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F57D36C5BF;
-	Sun, 11 Oct 2026 18:07:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98AB23019CD
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 18:10:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791742045; cv=none; b=dp69sre0atee+biqCmWLemjuAWvseGTp1QGmANZM4qH28q4JdkZWLClZCGrKD5qvYd1nv2prSLp3Vvelm6zZgh39MCi749AfVeQQy46O9pP0B1zvQ1S9Z1LSRSU3nPuD0kgxtiFtsF61a+dIIwQTWCOCDllW4YT6cvJlmpEZD9g=
+	t=1791742215; cv=none; b=rd9LmpfLYMruxscqCnp2k0XwtHlpbe+nNJnK/I3LPTzxPDjRpLhMKcRtaGNMnVDty0svAoSuapW/jjB3/XyUKpATYeil9dC1u4DutnixPd1x24NzaUynfNDne+hs01qNwglxd1NRfQ/gRWclVXn8ABd+XrHQvhwqAQhsTGrqEZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791742045; c=relaxed/simple;
-	bh=5Cr27iKU35LWbUwRz0pgjQQZ+GO/Jx9Uviy2gu19Ufw=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=rQpIJQgXqZzMpZuVvQ5JJhmqSMRtKbL+Gojzdz2w2tnL9FZ1r8DApoBycpqAkxMAUOc7ocEd0Z2LSTb03hp5u8R5ZPU+JDAJQ7TWG1cH+yp1D4T5KktPN6RVN7c/+JnIZXeSgUeix2fmUzEGDhvnXag9LznEmppwggrOwm+GqN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=l6RszutC; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1791742215; c=relaxed/simple;
+	bh=+N0EYqnh9d3SdN0JXchYO51KoW25AszZPqV7SMJpVmU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sw/1ilVfcFNxApR1EyKYaYWrm2XdOfSIMB+5WFbm/DHHSFRtH9smZ9L3VYf4ZAl4AKNw4YM1wBnKsehw9MV2TVVCyTu5vZsalvGwXfn8GYShBYDvlfuu23irmy0k4hXr7Bj3X7laLsFSOUFLLxm+241/U0B1/NaYg0A8bhdXN8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kHMeamzs; arc=none smtp.client-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="l6RszutC"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4A567A1566;
-	Sun, 11 Oct 2026 20:07:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1791742037; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=IcYL9fZE9jnk9d+hPholRkBzjD07Lkz/hbWQDi+8jsQ=;
-	b=l6RszutC4zA1jetfCHsEMUNg+hxVSz8yNItUlzG5bkrHqkUn8jFWlYN977xvK+wnB93kiM
-	4yDhAzu72JVdI3dtyzHVp+dcUbebBl4dq9EhibtRszJQdl48xhkV/Q7bK2etVaralyDsO+
-	QflQYkpwXSaGULJL9VL+YEgrokdolAgHXf/1CqXuJNtD9LnIYpI7aetBdlQ3FuDySNZA9i
-	wKxnZyNJ4DZeb6eURpF2OzhwO6ldUm5g2/ZjCC5W6rFmzaae/MJranhLlhQB+GVgpmLnAP
-	uSgAvW+QaSC30S+tDkOJCJWAfE6ux+50AxF+LQLmE5tYRpDT8IZUjilSkeGZ5A==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kHMeamzs"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6afafc89b48so1690426a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 11:10:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791742212; x=1792347012; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5FJfsAWa2Tg0a7RAVRgcsQ8tBnMmp27HrWsnWumyp4U=;
+        b=kHMeamzs1Rq4K718jEcImPzAJjoU/3SAHczsnExFXL6A/e0OxVGFynZdGiTP2LQbLW
+         wCxoy8voHln3DybrjFy2D7G88G6hTCgqW2/YWq3RGKVEDYT/CfdG8RD8Gw7N/iwYq6bR
+         OlPoTpbf7rzPH7azCIdC3IyGug5AfL0yMM+H3b+gYPSnmN+p7+cD6s/2J43YXQzgZz2p
+         ea6s/YsVhQjaySGaxnkM8c0THhZ01fTkuMrFGGs5eQIKp/cLNMvmd+9eOMqAcK8UQsQb
+         M0+M+bdipm94ZdavUyVQDr66Og2gZkiphVIaxHwIWQezvtt5n8pIJqFaIIGUqQccRSXL
+         GT1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791742212; x=1792347012;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5FJfsAWa2Tg0a7RAVRgcsQ8tBnMmp27HrWsnWumyp4U=;
+        b=rFMy9vfg1aVDjeak1ZorJxp3fUMlxSNbRDKC5le2qIcdHcUDFAKmuZpBrawpvt47sQ
+         VCLyO7Uyon7YPPVWXBRcVn33K6GPUsPWZNce2pv1r96UHEz9Z3zgK7AZ7PQVqPTw/uSE
+         nXxNQxPfzJyGb0ky9j0yG5br3t0SkEHg1fxqmSyyYSQk62jlTGzPewdkTorvPkHILqWY
+         mUd7bzjCDRjpfCRgdkJTvbVg5FDpbExx/yF9XRGiY+l8OI3pRz9eFxZosSp4BAt9ve39
+         KUXNU9cTItW4ZZGKXHUr7m0LOzHUonsrmjDBdcc5NqGqbEdEaJQMsyDUQjLk9oFlgBDJ
+         vZ1A==
+X-Forwarded-Encrypted: i=1; AKwUvBybkFnhJpBEXNRU6JK3B8g9Se0wlAD+tmxTFn2Exa874tbU35Ei8VeiL4H7YBKxiroHzVo9ZWuWNb3YlhE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJSCSrLOeAVD2lTKNCWFlzG1pidgxHUUJH/EJCCPpwMYPJDt0Hi
+	0CiGMn825pc99GhIkJk+bssVsnWYNyE8XeLVg1EIULZbb0jI8BZHkJnA
+X-Gm-Gg: AYBFou0NdsReJQTJCh544Hd+uCw4xYWCSvJ3O1wEp0C9V69NmDbSR9ibochiRc4YfN3
+	Wv9HCxwyOwSwdiFsabqzRCQCLe5nNSj9qJtQnvdtlb3zDtEuNi2byGRPZXgCHWtjWq8e67+TXAr
+	T8W+E0i9+arSgqJZDOvhfvTvDl3wP1sURBX00C86GHn/v9BDfnd98gsyQebX4bpZILUKghak5Ib
+	Ce1aAKcalAde7zWVC+42wqBl5Yd5sMiUGzK6A4Qg7z+x/ZLG5qaa2bQJr1s4mvYrUchQ936bPLt
+	O4uvz1nsHhn8SZSSOJXOLHu4fL4T+2AD2TJJOEvLAppRPDXn9eXMgyK5tGWybrpG3h0y7CWJRnV
+	qUTnnQoKIFIT8FpSTmwzI/CnxA+XF2YauXujy/z2t1mxyKa+rP0c/UOnL0S5RJODQLKxuAYjia0
+	yHekFAOUKLgOtF0/fL5k1Pyb3a2eVRmGnpMoBfXqAxgOrfJxSjTl8Lyzd3cjhuD1GnMq75HTO9T
+	nhSg6/R7ZQSl5CTeGZ8
+X-Received: by 2002:a17:907:e158:b0:c34:e9fe:82ed with SMTP id a640c23a62f3a-c34e9fe8db4mr54546766b.28.1791742211560;
+        Sun, 11 Oct 2026 11:10:11 -0700 (PDT)
+Received: from fedora (staticline41082.toya.net.pl. [85.89.166.49])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c355555f483sm3542866b.23.2026.10.11.11.10.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 11:10:11 -0700 (PDT)
+From: Konrad Papaj <konrad.papaj@gmail.com>
+To: Miguel Vadillo <miguel.vadillo@intel.com>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Konrad Papaj <konrad.papaj@gmail.com>
+Subject: [RFC PATCH] media: cvs: do not announce host privacy LED ownership on SVP7xxx
+Date: Sun, 11 Oct 2026 20:08:30 +0200
+Message-ID: <20261011180830.9799-1-konrad.papaj@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Sun, 11 Oct 2026 20:07:13 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: James Clark <jjc@jclark.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, Andrew Lunn <andrew+netdev@lunn.ch>, Heiner
- Kallweit <hkallweit1@gmail.com>, Richard Cochran <richardcochran@gmail.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>, Doug Berger
- <opendmb@gmail.com>, =?UTF-8?Q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>,
- Russell King <linux@armlinux.org.uk>, Conor Dooley
- <conor.dooley@microchip.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Thomas Gleixner <tglx@kernel.org>,
- Miroslav Lichvar <mlichvar@redhat.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 0/5] net: mdio: add timestamped MDIO writes for
- PHY gettimex64
-In-Reply-To: <804e7c63-e762-4040-9d60-35d21df75531@lunn.ch>
-References: <20261009143506.2507607-1-jjc@jclark.com>
- <804e7c63-e762-4040-9d60-35d21df75531@lunn.ch>
-Message-ID: <db3a0f73c1883645f51294ca46cffe05@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Andrew
+The quirk entry for the Synaptics SVP7xxx bridge (06CB:0701) sets
+ICVS_HOST_PRIV_CTRL, which makes cvs_configure_dev_caps() add
+ICVS_HOST_ID_PRIVACY_LED to the host id sent to the CVS firmware via
+ICVS_SET_DEV_HOST_ID, i.e. it tells the device that the host gates the
+privacy LED.
 
-On 11.10.2026 15:50, Andrew Lunn wrote:
->> For example, using PTP_SYS_OFFSET_EXTENDED on the Raspberry Pi CM5 to
->> synchronize the system clock from the BCM54210PE PHY PHC leads to the
->> system clock being 32 µs ahead of the PHC. On the CM4, it is about 7 
->> µs.
->> (The difference is because the MDIO clock frequency is higher on the
->> CM4: 10 MHz as opposed to 2.08 MHz on the CM5.)
-> 
-> IEEE 802.3 says the clock should be 2.5Mhz. Does the CM4 use a
-> clock-frequency DT property to enable this faster clock?
-> 
-> 	Andrew
+On the Dell Pro 14 Plus PB14250 the host has no privacy LED to gate:
 
-The Pi 400 is the only BCM2711 board with clock-frequency in DT
-(1950000, from a downstream "Limit MDIO clock speed" commit with no
-further explanation). There the driver's assumed 250 MHz reference
-gives divider 63, which with the real 200 MHz (see my comments on
-patch 5) is about 1.56 MHz.
+ - the only enabled INT3472 device (INT3472:0c) belongs to the IR
+   camera HIMX1092:00 and registers HIMX1092_00::ir_flood_led.  The
+   remaining INT3472 devices are disabled, so the LED lookup done by
+   v4l2_subdev_get_privacy_led() finds nothing for the RGB sensor;
 
-Pi 4 and CM4 (the one with the PTP PHY) have no clock-frequency, so
-the driver keeps the firmware's divider 9, and 200 MHz / 20 is the
-10 MHz James mentions.
+ - the _CRS of \_SB.PC00.CVSS declares four GPIO resources (wake
+   0x00D4, rst 0x0037, req 0x0000, resp 0x0007), none of which is an
+   LED;
 
-Regards Nicolai
+ - the platform's own privacy hardware reports [Camera Shutter]
+   [unsupported].
+
+The indicator therefore stays dark for the whole duration of RGB
+streaming.  The firmware stops driving it once the host claims it, and
+the host has nothing to drive.
+
+Measured on the affected machine with 30 s of continuous streaming,
+800 frames captured in both runs:
+
+  quirks 0x7a (ICVS_HOST_PRIV_CTRL set)      indicator dark
+  quirks 0x3a (ICVS_HOST_PRIV_CTRL removed)  indicator lit
+
+Camera operation is unaffected: the sensor and CVS bind as before, the
+media graph is unchanged and libcamera still enumerates the camera.
+
+This is sent as an RFC because the quirk is keyed on the bridge
+VID/PID, while the presence of a host-driven privacy LED is a board
+property.  Dropping the flag unconditionally would regress designs
+that use the same Synaptics bridge and do wire the LED to the host.
+Announcing ICVS_HOST_ID_PRIVACY_LED only when a host-side LED is
+actually available, or keying this flag on DMI, both look more correct
+to me, but I do not know which Intel intends.
+
+Signed-off-by: Konrad Papaj <konrad.papaj@gmail.com>
+---
+Tested on:
+  Dell Inc. Dell Pro 14 Plus PB14250, BIOS 2.7.4
+  Intel(R) Core(TM) Ultra 7 265U
+  IPU6 8086:7d19, subsystem 1028:0ce8
+  Synaptics SVP7500 bridge, USB 06cb:0701, bcdDevice 84.95
+  CVS INTC10E0:00 on i2c-15, sensor OVTI05C1:00 (OV05C10) on i2c-16
+  kernel 7.2.8-200.fc44.x86_64 (Fedora 44)
+  libcamera 0.7.1, "simple" pipeline handler + ipa_soft_simple
+
+Disclosure: the OV05C10 sensor driver is not upstream, so the sensor on
+this machine is driven by an out-of-tree ov05c10 module built from
+intel/ipu6-drivers with local fixes.  The LED behaviour reported here is
+independent of that: the indicator is gated by CVS firmware based on
+ICVS_SET_DEV_HOST_ID, and the quirk flag was the only variable changed
+between the two measurements in the commit message.
+
+Reproduction:
+  1. boot with the in-tree intel_cvs, confirm "Quirks: 0x7a" in dmesg
+  2. stream from the RGB camera for 30 s, indicator stays dark
+  3. apply this patch, confirm "Quirks: 0x3a"
+  4. repeat the 30 s stream, indicator is lit for the duration
+
+ drivers/media/i2c/cvs/core.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/media/i2c/cvs/core.c b/drivers/media/i2c/cvs/core.c
+index fe9e59a..fafa2dc 100644
+--- a/drivers/media/i2c/cvs/core.c
++++ b/drivers/media/i2c/cvs/core.c
+@@ -70,7 +70,6 @@ static const struct icvs_device_quirk cvs_quirk_table[] = {
+ 	},	/* Lattice NX33 */
+ 	{ 0x06CB, 0x0701, ICVS_SKIP_FW_RESET |
+ 			  ICVS_HOST_SENSOR_PWR_CTRL |
+-			  ICVS_HOST_PRIV_CTRL |
+ 			  ICVS_FW_BUF_SIZE_256 |
+ 			  ICVS_FW_HEADER_SIZE_256
+ 	},	/* Synaptics SVP7xxx */
+-- 
+2.56.0
+
