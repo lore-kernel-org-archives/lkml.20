@@ -1,87 +1,129 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22CC2331ECC;
-	Sun, 11 Oct 2026 21:08:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D33E305660;
+	Sun, 11 Oct 2026 21:11:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791752909; cv=none; b=o7BvfLS0BkQZRDU9kSJfHL07huLFvn/Z8cz6hFCYZoGf7x3R1SohHHxS5WbJFBCqyyreCQAjB7mG5uwZOVtfzhaMEJY4tOLn3OvifFvfOsnuvNGneboe2Zpqoob6wVbAbjrXM+GfIGd1hSmVNAhZl/COgCYuZFSoW+5iggLOeiA=
+	t=1791753066; cv=none; b=VcRkfdt95o8l0z4vRdb4sojK3pec8+QORUuj2yQ+ciW36OE+qDWb074QaWAubp0cpM3fi0DaskS7cD3+bZWSJcolUltwtbbPj7I4Pq4HUykSPPePsdw27jdgMQwL7qvH81zHuD9IvZBjgGUcoUFDZj3pOPib89FqgIBEaxKIQvI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791752909; c=relaxed/simple;
-	bh=IQg9oh2LnA+yKKSr0zheC0T41BXq4kFKgbxcDlb7/Rs=;
+	s=arc-20240116; t=1791753066; c=relaxed/simple;
+	bh=4yyfpQb1Lb/ngzoEFFI2DA+n4z26ZUH9URDMiUauJco=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XKezgFHgJJrWV/4J3jpf9waknommTbZGOLyYrSPtQ+tBnEEmlkYQ1YRaFyBNZnbPkS7Es5huODRlv9eMqlSbNp2zklIw2cX6Be9fPQrk3WQdtX4jbYEsb4QXYJwrRhBo3t9NDIvttwEpj3BRms3B9/slDfEvmSi2zfS9eWdLk0w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=WVtB1du0; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=mu7kl/8WegfUcwWjFpdM7Dk71sgfMy60HXylRXsa19+VGfW6+oQdj5RBrsEe8e8W3Ir03ci7E9jaVbEjqY9RG/OT1DoIR7Y0iS0S+qbr/tYt8fIxL71iW6OW5dd89ydooFSunMv0uwpzz+uS0T1wTlRe3GO8tm51PlzNtwHtYQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=3GReNuwo; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="WVtB1du0"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E265D106E4A;
-	Sun, 11 Oct 2026 23:08:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1791752899;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=zNiGng+6U4NV7UMYDURHxyc0LkdRBarcaWyKPu4nhTk=;
-	b=WVtB1du0xYiVv9qZOoYmJvkiSMt0GQF6AzBCcbY22qvskVF7qJ/luJWnSoRHyvroL/BQHN
-	5oDwe886u+W00fEZBU/DHdjnN31Ji8/kXtH/3zz9Dt6KKzPFB/1omy0JlioYYgy4SEHm/8
-	GxiLL1gLPOflDXtSHkQWxBiqVJNVXzhQtxKw7AUED+k1Sghb8mfsbU5/LlsGT53kBO3mNx
-	y50LmVENrcC/QEGBnKqCr9INEs56BVE8BMR9usUB7vOM28N5EoQo0U8ym/xAcee5G9PNTl
-	xrhBeVMlEJUHkkkNbc70utd3O10dXfBMBusi+loFmYbvthn1HtyIVsyexdlmfQ==
-Date: Sun, 11 Oct 2026 23:08:17 +0200
-From: Pavel Machek <pavel@nabladev.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.18 000/403] 6.18.56-rc1 review
-Message-ID: <asv6wbKJkNbt0QPE@duo.ucw.cz>
-References: <20261009140952.119038291@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="3GReNuwo"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=oLPXrTETwXIgCqbMdypfomsb/ybLwCg++xPL7zgFDGM=; b=3G
+	ReNuwoJDRjI4rZICKl4/qMwBbhbuUuLrm43jQolz01wttc+Nl6mlFoXuqa7A9ZKtVTkBhpxi4PoYj
+	J1ZzywYp7hz+KrMoDeCuUMjj07TzKxrtfInAlgWCFWu8DlfoG+pS8PSZEq33WXQskRvSCslQmhGKJ
+	AsHIqcXF2wNamjg=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xG0og-00AASP-MW; Sun, 11 Oct 2026 23:10:46 +0200
+Date: Sun, 11 Oct 2026 23:10:46 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: =?iso-8859-1?Q?Th=E9o?= Lebrun <theo.lebrun@bootlin.com>
+Cc: James Clark <jjc@jclark.com>, "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Doug Berger <opendmb@gmail.com>, Nicolai Buchwitz <nb@tipi-net.de>,
+	Russell King <linux@armlinux.org.uk>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Miroslav Lichvar <mlichvar@redhat.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>
+Subject: Re: [PATCH net-next 4/5] net: macb: implement timestamped MDIO writes
+Message-ID: <c136b0ad-6d7e-4695-b988-55eb37550d01@lunn.ch>
+References: <20261009143506.2507607-1-jjc@jclark.com>
+ <20261009143506.2507607-5-jjc@jclark.com>
+ <DM1WEUIF8V8V.2OZWRB5G232T4@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="ofHhmPEdEv6yZYDQ"
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20261009140952.119038291@linuxfoundation.org>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <DM1WEUIF8V8V.2OZWRB5G232T4@bootlin.com>
 
+On Sun, Oct 11, 2026 at 11:23:54AM +0200, Théo Lebrun wrote:
+> Hello James,
+> 
+> On Fri Oct 9, 2026 at 4:35 PM CEST, James Clark wrote:
+> > Implement write_sts to provide system timestamp bounds for completion
+> > of an MDIO write. This enables tighter system timestamp bounds in PHY
+> > implementations of gettimex64.
+> >
+> > Take system timestamps around the command register write, then add
+> > the time from the command write until the MDC edge that clocks the
+> > last data bit, calculated from the peripheral clock rate and the
+> > configured MDC divider.
+> >
+> > On RP1 that edge comes 63.5 MDC periods after the command write. This
+> > was measured on a Raspberry Pi CM5 with its BCM54210PE PHY. The PHY's
+> > PHC was read with PTP_SYS_OFFSET_EXTENDED while the MDC divisor was
+> > switched between 48 and 128 through /dev/mem. Any error in the number
+> > of periods would make the PHC offset jump at each switch. After
+> > compensating for drift, the jump with 63.5 periods was under 2 ns.
+> > The MDC divider does not appear to run freely: the spread of the PHC
+> > offsets did not change with the divisor.
+> >
+> > Signed-off-by: James Clark <jjc@jclark.com>
+> > Assisted-by: LLM
+> > ---
+> > The 63.5-period delay has been measured only on RP1, but the code
+> > assumes it holds for all MACB and GEM variants. I am not sure whether
+> > that is a reasonable assumption; if not, write_sts could be enabled
+> > only for RP1.
+> 
+> I'm invoking my colleague @Maxime to get his opinion. What impacts the
+> MDIO write_c22 duration and how likely is it that this duration varies
+> (1) on the same MAC+PHY combo, (2) with a different PHY or (3) with a
+> different MACB revision?
 
---ofHhmPEdEv6yZYDQ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Putting the bits onto the bus should be a fixed time. It is just a big
+shift register, which is clocked at bus speed. There is no clock
+stretching, no ACK from the PHY, etc.
 
-Hi!
+What will introduce jitter is everything before the write hits the
+register. There are mutex which can be contended, because of other
+users on the bus, etc.
 
-> This is the start of the stable review cycle for the 6.18.56 release.
-> There are 403 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+> Sashiko makes an interesting point with PCLK that might change over
+> time, giving an example (which I've not checked) where it would be
+> derived from the CPU clk which might change with cpufreq.
 
-CIP testing did not find any problems here:
+Care would have to be taken here. IEEE 802.3 specifies the maximum bus
+speed is 2.5Mhz. I hope cpufreq can only make the clock slower, not
+faster, otherwise the MDIO bus is breaking the standard.
 
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-6.18.y
+> I'm wondering if we could do better than a hardcoded delay? For example
+> we could busy-wait for NSR.IDLE inside the prets/postts region, but
+> that implies at least 25µs with IRQs disabled. Or we could do a few
+> measurements at init to sample our platform delay?
 
-Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
+> It doesn't solve the PCLK changing issue, but it solves the hardcoded
+> 63.5 value.
 
-Best regards,
-                                                                Pavel
+Each C22 MDIO bus transaction is 64 bits. It is defined in the
+standard. So hard coding this value is fine. But it should be made
+generic, it should be the same for all implementations, all that
+changes is the bus speed.
 
---ofHhmPEdEv6yZYDQ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCasv6wQAKCRAw5/Bqldv6
-8jp7AKCpXrz1lemKDaIL2XnQQvS6aMQ6agCfb9z08+0TZl1A04Ha8+jjpOP9RN8=
-=rF2u
------END PGP SIGNATURE-----
-
---ofHhmPEdEv6yZYDQ--
+	Andrew
