@@ -1,140 +1,119 @@
-Received: from mail-lr2-f11.google.com (mail-lr2-f11.google.com [74.125.230.75])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C41362BEC3F
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 04:24:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791692663; cv=pass; b=tLAylGlHMe3iPoC0A2rRieUPaQaG/lZsDf4mUlBOnf1LQV90fczM4qi2WsBXo0APTTuvEHNfQtjh3iHAuMLBJqebJXb/jab28BdI5aSdWPCB9LV3pLY9C+unmZU61NJYW7uchzb5rlE2d7CvV2TP9E6kfmO8gcsfF645XX/l/KE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791692663; c=relaxed/simple;
-	bh=qdxE0RHmxCdnGtaZYVfxmF/aX520nxo6WdF2env194g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=luAk33PmqG+buIQ5fPvT9DrBsoeErEdmaZfueVpucbK43p7DSXxWJoksmYpdjN8BxEkTag2ha/bqw+o0uXUYPNokOnMqg/ycIV7qFHoah5E1BtS3eVdgOB7vuBYNe1DiJR/R+k2FjrL6uAo4qZsUe79XAqEyi1TfaC/3hH5L05M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rfNhN1zS; arc=pass smtp.client-ip=74.125.230.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CB462FFF8D
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 04:28:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791692890; cv=none; b=LhvIE1qWqpYjZnGotABfpZjGCvHwsVA1eraaslXEmIIkyyV7T0ghrIQE1S9Qo9xJmDts6mlnRlqARDCmDNQZfYPk1k4oDnfW8RMn4u9kvgLzT3bQQ0++4TKF2w5Ty+EeNRQ8MrgNhD9CqX/sjn7yypqtPC4G6L4DoWdkhB4Af0c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791692890; c=relaxed/simple;
+	bh=NUKj3EZm97qkLDRMMjG9360voWGZgERsw4v1velbTR8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bOt84T5qHS2w2Ibu5fRIsNfK8jGOoo2sz5470IOYdM1zTTobbcFxAjxdvdPNFeugzggYcR2yZLYjZODsDSRKd9aqDoOBBuBqhUIv7Fg+Gh4BI23LEFnxcOvfr3gdrXDqGlchGubfpIwvqiyB2OIKBAzOC/xWKF6Un+6v5Blb3r4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=A+js9uAG; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rfNhN1zS"
-Received: by mail-lr2-f11.google.com with SMTP id 38308e7fff4ca-3a7882fb706so7677751fa.0
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 21:24:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791692660; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Hg13hlVJ1GB32pLNHl1Rb+kviIG4V0C0aWMFaffiJtM3aIQbZTnKX9D5ysH3Hr9LSf
-         nyTkoIbrBZaWVkHSM+i6qzVguVi+gYTbUXMV8cDs7VogtiJrJ5QGAmJnd6uqRXoQuNFB
-         efuok/Ud7NM5rMvLiGmp3P/sM/mLrXA7kzLf6ivi8IzXObNpau1HWGT83Rtsb5QmK8Ad
-         yAvDeGhJ3AA1cya2E5iA3qtDmT9tTdGIBfHrQjjf0OAOuFfqz7AETQT6r1iiW0+KTX0S
-         vVCZfipNUVoOitxX1qqU9q6y7B6Z+4C2A6KomXIzkUWE+HdJYeghQqOq7i+pgP+w/DJG
-         7+5Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VhZc0ul596MdstjFona8ML1ytD+B6YUHJy1OvUi+4LI=;
-        fh=wI7OtBNgJoWAODco6A1jadN+Qy9yQfAOjQhnFLEUQlQ=;
-        b=fndLedb4u0EaLqD9XDTYV/pK0Jiel3FJg0ghLxpVtq1XcjC37TFaltdIEr66AjrJjE
-         FbpvzWpldQEr9phHBzxwwmTYjN4qiaBLvlS6sIZYEQKnUJR8M+w5Pc5zQoiJhciUyYyt
-         sIgbuDXc0Ry7xC8JSwbYOCbML14MpA9ooehjkZZRVG1AAmBirhWlv6fhiShiKj1BmNbi
-         7WtIKB+LJcrATGPBUv6sfjaadAOfC6l1lnjcJORANaPXeiqMQ99qD2SGscNi6omuv6lG
-         pL2znCvfop56HZtbw4vBL+WoUOtMlK8gNT/Uqbm98h93rlmg5cRCCBay62sn4IlNCkGR
-         BORw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="A+js9uAG"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2db710396ffso17369395ad.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 21:28:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791692660; x=1792297460; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=chromium.org; s=google; t=1791692889; x=1792297689; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=VhZc0ul596MdstjFona8ML1ytD+B6YUHJy1OvUi+4LI=;
-        b=rfNhN1zSVCKpko3buLAsnBNMoCJlRFVA3akvZkd5pItIqMTdrB5w/VDWNfFGEpIck2
-         Trsvdo1Ryc63+upWm05mysSO4ymHbqrpQtW5JzDKe4Brsre0wmpyHj74fC7wQvUeBViK
-         QZyPemVaoKQMoNcmszJ2KnNyhHrefIg6qYpc3VEF4Ehk00lmgl4Lm+SLZ5tq/aHdTTNj
-         p77CxAibofdiYErNUChaQawsajTCkMDAvwm+Vr1/qRqKVZLg8fgGQYP0nhu/6LsYf577
-         Hy9phEtbZUVLgs9+bFea6MtDI08DrYrxDwqmWRIV+gtABVyItlBDlMvgIB/0CgGnAm9T
-         IT/A==
+        bh=VgUBQDdodR1jUKBZJnt7Hs3MkCVZjH756ozkqdENr9k=;
+        b=A+js9uAGkzq/KqoVVUu4Rs9vLb2eRzVIEzc4yTu4oLveDL6jxCuHCgBM5xCqS+b4V4
+         sGx3VhsrOPlv5cymWkHxRpE8t9fK8B3r721RmhWUNx+CSXRU1fgn9HcAjFpo/nuio9Yb
+         LG4HenxlRPUojJB26n3ku32RLIAvCJv6rhWXI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791692660; x=1792297460;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1791692889; x=1792297689;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VhZc0ul596MdstjFona8ML1ytD+B6YUHJy1OvUi+4LI=;
-        b=pWqHc7pYXVssGv3m7wR1gV7E/X5DyiK69oPWzAb7oDF9+xlV/Max4vzZiWcwELeJ1D
-         w6AHVjC/yT7UFWcfpI7C/qeZCEBG7G5i0RBW1QNv1AJz/YCcV84sr9EEV8uQECfTeOwQ
-         9hnJU6LyAi8dI6oFpFm04n6GzTQSj9j8vPkBGbEktJrUiT+tQ5PuKOThBClZegHV/dWx
-         nM7kzEoeAtenO/APfkyCeg56bsgfFMaWDArLn123fpr4OggkkH1/Ssvz61L423RDmfDq
-         BvF0FB3KeVEWWt3Jt4DZjmEV0ecgtRz+oM9VkeHMo64nfg0CDdPeUBWCzd3qGfk/Iuuo
-         7V9Q==
-X-Forwarded-Encrypted: i=1; AKwUvByKPPBAhwGI1pkogA1rXcfjFY+z+gzcwaWnolj78mOPpzLCeuCDcM771PtTdvmiMlvBEnZZHkaFZCsWLSI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJtywlvMfafbmQIs+CeNSdBO1AAh7CDdLq5VKsBmLgfAH7JO9Iq
-	283D/hHOHzNYICmo8uxHV+OWeFA84xancXge0Z6I9ClkuFvSbxPGD61fwTsimC5Lrm/wqYxfDur
-	vsdxnvGiIfJ5HXjOjEursTdiHvuu6rtE=
-X-Gm-Gg: AYBFou2S7qjaper/MxMChDYpNoeR9a3kpeuRDOINvkFBzXBZLTVvM/M48pN++H5YHte
-	wQYM6J9rXy9WY8dKWuTg72P+JFYmJZMxlsBLLPVycaRDgouvtrGN5w0q0TtHY8gJPdZcbgnjmdW
-	C01Ez4HQUmGX6gKOAC6JHaHaGRee5pw2uxeWancw15Iat6MaWCSF2qHBtIfETLG3mFUh5kwMR2C
-	+8EyscU0v43MTk/luvvs7CWAxRWLjYidsyy5LC08A5KDs+KLqBoKRmHeDp8YNGEnhrXy0uDmRWv
-	kAheBrQVX8xWUXB5P/rd6r1CUJOmket0Vmy6ASJARxReByTGmrvRVYua
-X-Received: by 2002:a05:651c:b27:b0:3a9:9b0b:b789 with SMTP id
- 38308e7fff4ca-3a9c4ebac3bmr15900241fa.3.1791692659381; Sat, 10 Oct 2026
- 21:24:19 -0700 (PDT)
+        bh=VgUBQDdodR1jUKBZJnt7Hs3MkCVZjH756ozkqdENr9k=;
+        b=v8eQYkDQmXQr33MdgZBfRqi4shNuG15dKFAGNIJj2mo2WsIUkU3IA877Y6uCtUI1Dl
+         GRiv3iiG3TzNXgUDlKjA12RDv6/IgsIivbxCKYCY/GIqxOSJPt37Ee00V/B8BgLxtnj4
+         KDuXzsEUV7UULnafN45JIqD6ZNSyQacbiA5pLO2sl7h+CzdA4YzYiY26mvt7jIP8PxCN
+         F3WY+sk8uP84eJBNnz2/cp8cS3XQj/nQkmaRCbAb9t/2PZ454dXqn+TW2VaLcr+aeFH5
+         dq4Kj1iuvUov6g0sdy3ZMBR1PFngjY5ykiae3j2Rft5jWjyFGGLPrRh5zP5tjhCGOy/R
+         r/Gw==
+X-Forwarded-Encrypted: i=1; AKwUvBxkVcmJ2FTVAlJEo9EMw0RWnJ50JUBD+Ftd165+y7r4A4sbnxnPLFTh6gwcskvcY7SA2q23c/Z4Pu3Uz80=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJFlNwj/Smc68C+2ClY1WgNDgf9qE18B6SyKiGD85YfJQ4D3OJS
+	Exa1zCnsY5YCVloXHBDuIlycJzkbBNVyJVzTQS4ptnUoS71mZEgz0w8D/JwrSQCKXA==
+X-Gm-Gg: AYBFou1aGGk5oHcUGlnYewuDN6PDeriotAOiuMtzDt+vnKIPQRdEFff9cr2Bn33yOkk
+	04eosouT44+gNVuIFDghgAu8QBj3PC9RgdYGTiwKPruvVQ9VcG1lQ8hO11lSdl4tzHFZ73DrSDA
+	fFSJWr450h2epL9Jn5fZOltFM8dXzJXYBoeEhHF+02sT/kI6Ax6BsNmTMq0P4aEymCnYy5ueCty
+	Q8rtiySZJDHXiNRAyq2C8OBoTlXd6mBdiB3oqhz1Etncr0zchhbJPG0lpHhbkBY9tDutKTzn/sX
+	xzjmXmduItRZ9Y0TEm81dODHKVVrKfXSQRflVNr6TVR3/X5UKvZUBkKSMkuHB78Zg5FB3Xs6xvY
+	eACnIdVj5DccnHsgMq+dk6Zx8j+OntiQpn4KC4tTRN9fAGaMSA7cTtQhEUXqNIK41ZE27fLcUwR
+	vC8kREwQBFPKbisIW2OCT0JfYmMvxBDsRGqjqTIfWABkm5Fk9Zzkd36r0+cSBoLem/PwiVd1k2i
+	186QmFqSiz551jKiAgiIJkkfK2158srML7toGc=
+X-Received: by 2002:a17:90b:3b84:b0:3a0:d7f2:5a58 with SMTP id 98e67ed59e1d1-3ab3a369ebamr3764665a91.3.1791692888901;
+        Sat, 10 Oct 2026 21:28:08 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2031:6:75d8:6a8c:e079:f021])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab37163e21sm11921110a91.14.2026.10.10.21.28.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 21:28:07 -0700 (PDT)
+Date: Sun, 11 Oct 2026 13:28:01 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Brian Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>, 
+	Richard Chang <richardycc@google.com>, linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, 
+	linux-mm@kvack.org
+Subject: Re: [PATCH v2 11/11] zram: use rw_semaphore for decompression streams
+Message-ID: <assQJStvoDK0nepk@google.com>
+References: <20261009071157.3730698-1-senozhatsky@chromium.org>
+ <20261009071157.3730698-12-senozhatsky@chromium.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261010081059.3096312-1-bsdhenrymartin@gmail.com> <8393a8a2-2ed5-4d63-b937-5d837c1bb1aa@collabora.com>
-In-Reply-To: <8393a8a2-2ed5-4d63-b937-5d837c1bb1aa@collabora.com>
-From: henry martin <bsdhenrymartin@gmail.com>
-Date: Sun, 11 Oct 2026 12:24:10 +0800
-X-Gm-Features: AclHuK-BTl_lG-VGVrLo4m7etjeQVOp6O1v4a1N4RBOkp9wdRCffIEeVjuhsxU0
-Message-ID: <CAEnQdOovxVfYAyiEZ8nJM-DXe=r6apYkfmpJJUNx6CJbg61_-w@mail.gmail.com>
-Subject: Re: [PATCH] drm/virtio: reject mappable HOST3D blobs without
- host-visible memory
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Cc: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, Chia-I Wu <olvaffe@gmail.com>, 
-	Gurchetan Singh <gurchetansingh@chromium.org>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, 
-	Junrui Luo <moonafterrain@outlook.com>, dri-devel@lists.freedesktop.org, 
-	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009071157.3730698-12-senozhatsky@chromium.org>
 
-Hi Dmitry,
+On (26/10/09 16:11), Sergey Senozhatsky wrote:
+> Currently, per-CPU decompression streams use a mutex, so there is
+> a chance for priority inversion - a low priority Reader can get
+> preempted by a higher priority Reader, which simply will get
+> blocked on the stream mutex.
+> 
+> Switch zcomp_dstrm lock from mutex to rw_semaphore to permit parallel
+> usage.  However, things are not completely straightforward.  Many
+> backends have stateless decompression and don't modify decompression
+> context, so those can be used concurrently.  But then there are backends
+> that do modify decompression context.  We also can have compressed
+> object span across physical pages, which zcomp linearises using stream's
+> ->local_copy buffer before decompression.  That buffer, clearly, cannot
+> be used concurrently.
+> 
+> When the backend has no per-stream decompression context (stateless)
+> and zsmalloc object fits in a single page (ZCOMP_DECOMP_INPLACE), take
+> the stream lock in shared mode (read).  Otherwise, when ->local_copy
+> is needed (ZCOMP_DECOMP_BOUNCE) or the backend has a decompression
+> context (zstd, deflate), take the lock in exclusive mode (write).
+> 
+> A quick synthetic fio test on 24 CPUs (preempt=full, lz4, 48 low
+> priority (nice 19) readers, 24 normal priority (nice 0) CPU hogs
+> and 24 high priority (nice -19) readers):
+> 
+>   Metric           Base               Patched
+>   ----------------------------------------------------------
+>   Read IOPS        473k               680k          (+43.8%)
+>   Read clat avg    35.98 us           21.28 us      (-40.9%)
+>   Read clat p99.95 55.55 us           20.86 us      (-2.7x)
+>   Read clat p99.99 6,717 us           2,834 us      (-2.4x)
+>   Read clat max    2,005,100 us       1,614,300 us  (-19.5%)
+> 
+> Suggested-by: Brian Geffon <bgeffon@google.com>
+> Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
 
-You're right, thanks for catching this.  bo->created is set
-synchronously in virtio_gpu_cmd_resource_create_blob(), so the
-unmap/unref completion chain (cmd_unref_cb -> cleanup_object)
-releases everything once the host acks.  The leak I described does
-not exist - please drop the patch.
-
-Sorry for the noise.
-
-Regards,
-Henry
-
-Dmitry Osipenko <dmitry.osipenko@collabora.com> =E4=BA=8E2026=E5=B9=B410=E6=
-=9C=8811=E6=97=A5=E5=91=A8=E6=97=A5 04:19=E5=86=99=E9=81=93=EF=BC=9A
->
-> On 10/10/26 11:10, Henry Martin wrote:
-> > virtio_gpu_resource_create_blob_ioctl() -> verify_blob() validates
-> > blob flags, memory type, context and alignment, but never checks
-> > VIRTGPU_BLOB_FLAG_USE_MAPPABLE against vgdev->has_host_visible.
-> >
-> > For blob_mem =3D=3D VIRTGPU_BLOB_MEM_HOST3D the blob is created via
-> > virtio_gpu_vram_create(), and on a device without host-visible
-> > memory (plain virtio-gpu-pci,blob=3Don with no hostmem) the failure
-> > comes too late: the GEM object has been allocated, a host resource
-> > id taken and the create_blob command issued when
-> > virtio_gpu_vram_map() returns -EINVAL, and the cleanup calls
-> > virtio_gpu_vram_free(), which is a no-op while bo->created is still
-> > false (the host response has not been processed yet).  Every such
->
-> virtio_gpu_cmd_resource_create_blob() is invoked before
-> virtio_gpu_vram_map() in virtio_gpu_vram_create(), hence bo->created is
-> always true, how come it's false?
->
-> --
-> Best regards,
-> Dmitry
+JFI
+I have completely reworked this patch.  Will run tests and then
+send out v3.
