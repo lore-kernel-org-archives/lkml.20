@@ -1,313 +1,268 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A1D23BF91;
-	Sun, 11 Oct 2026 07:13:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2B89A2D46CE
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 07:13:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791702795; cv=none; b=a4PNFUe5oPGzFM9f64ahehUPzTdQd/S5eKX6GZnDsGjk4hWjp8cWCmyBSmESxw9px4DiKQgzdRUitSN+Hoq4RBfng6PutZoyVb9FGNTWUJDOn1c+Mvdtbfxr5sw6v1hrobSUR/eT72rtu7gSsR+u+5B96m86f7Pco7GsyuW85Ro=
+	t=1791702821; cv=none; b=RKEoaZZmxTm1bHUzzHUFVXliwpa58X/uPRNiHg+NxES1KYCF/zNd0DZ/WxNgIu1/oLELNUC67vW9fQeJgWIZqW1lQ19YtXQx0Z7FmxEYXjld0beIhFz5U426FgPq+7Hau9q82Grvea8Mk/WyiaVC77CfX2WvFwOrhHxdpG/hhCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791702795; c=relaxed/simple;
-	bh=UNzFcPb9iLWtp+2/arO5644kd4QaDQJ80HY5ydr9uaU=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=hdIZgGgzc9yVCv8PUCL5ntA/Ktkk0XozqmKRL7EJ38KOrmU7sW+U5qylA5eF1Y9pMStyBFWakf/IhtNPPHLr+WnYF8E5+iuWqHiecFJa7erH24Ja6YWRtZBpH411QS/O+2cGQ74nRSsY0o+oajvkv0f7d+70nwb7fgS90/Spbxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mNBvxFeF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791702821; c=relaxed/simple;
+	bh=6ebPOKjhN8Ps81D+vpVbiOaEFG9SSaG9YH0GaCOzwTQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=k72ChfELdkXLWu1ElZhoRiqhGpjHVpxHPA54u3LSqvWTC7RhQIoqXPbYPqy4dthMg8h85MCVr7KCjNlNIoiRMiSajSGoaCuWiR7ce/ZaQPxVznzF4Kjh3KWivW2KWQamnF+oGXw824ed8Uc8kt7nKoa8EdSu/Vq0079Jcp09O/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=D9Ob/WLt; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mNBvxFeF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A41E81F0089B;
-	Sun, 11 Oct 2026 07:13:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791702793;
-	bh=lnGwD9fE2Mz8xFJXNMFKNTcck4mpALjdDYG863eHPdI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=mNBvxFeFaQ4RhUJs3pOO9esgYpSRfnJA8rmK2arh9G/rUwy4ig//gn9maQac8bZ3N
-	 kI4P1C6YUU/GKTPYharXt72o8oCbhfVrnPbdYvz4Nhgc0IXDe5uJTaAQGD0kgNU3JR
-	 o+3Ow6fhxQSmE9TSIdes/QqpV3uCsvZqyXpY8QapuL8FfTpIxLAm6WilJlwMADOhwz
-	 XvqDjdIKNQFrsr/kg/ajPKxMkJKmdmkqNvmUCKwpdL6U7tWS19PbWxQVXuoLk6JHr0
-	 /y+SofWLS1I2UsQ77q2JprTYs7XayWd/CQTaYJdZ7TyCvIPsHqd0mIMeYMZJ0c9FnR
-	 AUmmcyAu6V5aQ==
-Subject: Re: [PATCH net] net: bgmac: clear TX slots when freeing the ring
-From: netdev-bot+sashiko@kernel.org
-To: rosenp@gmail.com
-Cc: netdev@vger.kernel.org, rafal@milecki.pl,
- bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- nbd@openwrt.org, linux-kernel@vger.kernel.org
-Date: Sun, 11 Oct 2026 07:13:12 +0000
-Message-ID: <179170279214.434549.15109616376617039657@kernel.org>
-In-Reply-To: <20261010070418.84457-1-rosenp@gmail.com>
-References: <20261010070418.84457-1-rosenp@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="D9Ob/WLt"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D385E1756;
+	Sun, 11 Oct 2026 00:13:33 -0700 (PDT)
+Received: from [10.57.79.3] (unknown [10.57.79.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 24C043F882;
+	Sun, 11 Oct 2026 00:13:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791702817; bh=6ebPOKjhN8Ps81D+vpVbiOaEFG9SSaG9YH0GaCOzwTQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=D9Ob/WLtcpyXcAxuRmhjCRv8rPOgJRs/4bif55q0vf+84jfybOsyTvgaIEzjnuFZJ
+	 fChuEop63cpjRFgab7Iug46FiQtolButTRM5scAjdJ1Snw3jwYKhxpakvB/dvlo1cW
+	 6qVFW7ovw01OFAoTuVQxKzzFplXEQYr/By/S86RQ=
+Message-ID: <ed2c3c89-f556-4fad-b17b-cc08f2eab84a@arm.com>
+Date: Sun, 11 Oct 2026 08:13:32 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] sched/eevdf: Fix vprot across reweighting
+To: Kayra Cizmeci <kayracizmeci@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: elif.topuz@arm.com, linux-kernel@vger.kernel.org, sh@gentwo.org,
+ Ingo Molnar <mingo@kernel.org>
+References: <20261003114656.105721-1-kayracizmeci@gmail.com>
+Content-Language: en-US
+From: Christian Loehle <christian.loehle@arm.com>
+In-Reply-To: <20261003114656.105721-1-kayracizmeci@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On 10/3/26 12:46, Kayra Cizmeci wrote:
+> Currently in reweighting, while a tasks vruntime changes dead protection
+> could go alive, or alive protection could decrease, increase and go dead.
+> 
+> To fix this, implement rel_vprot similar to rel_deadline. Only
 
-Critical: 0 · High: 1 (1) · Medium: 1 (2) · Low: 0
+Ah nice find, please allow me to look at this code for a bit if that's
+the best way to implement this, will review then, for now
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Tested-by: Christian Loehle <christian.loehle@arm.com>
 
-- [High] net/bgmac: broken DMA mapping error cleanup in TX path
-- [Medium] The patch says "Unmap before freeing", but
-  bgmac_dma_tx_ring_free() only orders unmap before free within a single…
+> major difference is that rel_vprot is not dependent on
+> PLACE_REL_DEADLINE, because there are no mechanisms (unlike deadline)
+> that recalculate vprot. So it gets carried.
+> 
+> Fixes: 80390ead2080 ("sched/fair: Separate se->vlag from se->vprot")
+> Fixes: bcd74b2ffdd0 ("sched/fair: Only set slice protection at pick time")
+> Link: https://lore.kernel.org/all/20261001164609.244156-1-kayracizmeci@gmail.com/
+> Link: https://lore.kernel.org/all/e4700a93-ebd5-4c7e-88b5-d606437a13c0@arm.com/
+> Co-developed-by: Christian Loehle <christian.loehle@arm.com>
+> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
 
-Pre-existing issues:
-- [High] In bgmac_open()
-  (drivers/net/ethernet/broadcom/bgmac.c:1177-1205), the hardware is…
-- [Medium] The error paths of bgmac_dma_tx_add()
-  (drivers/net/ethernet/broadcom/bgmac.c) leave slot->dma_addr non-zero,…
-- [Medium] The err_dma unwind in bgmac_dma_tx_add()
-  (drivers/net/ethernet/broadcom/bgmac.c:210-221) unmaps the wrong…
+FWIW my SOB shouldn't be there anymore.
 
---
-
-net: bgmac: clear TX slots when freeing the ring
-
-This patch changes bgmac_dma_tx_ring_free() to unmap each TX slot before
-freeing its skb. It picks dma_unmap_single() or dma_unmap_page() based on
-the SOF flag in the descriptor, and then clears slot->skb and
-slot->dma_addr. The aim is to stop stale slot->skb pointers from surviving
-a down/up cycle and being freed a second time by bgmac_dma_tx_free().
-
-> diff --git a/drivers/net/ethernet/broadcom/bgmac.c b/drivers/net/ethernet/broadcom/bgmac.c
-> index 3e9c57196a397..769d5d8e40bae 100644
-> --- a/drivers/net/ethernet/broadcom/bgmac.c
-> +++ b/drivers/net/ethernet/broadcom/bgmac.c
-> @@ -535,17 +535,19 @@ static void bgmac_dma_tx_ring_free(struct bgmac *bgmac,
->  		unsigned int len = ctl1 & BGMAC_DESC_CTL1_LEN;
+> Signed-off-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+> ---
+> Hi all,
+> 
+> Base is commit 4a3b51aab6e25244d97936aa65e6d5425adf98e1
+> on tip/sched/core.
+> 
+> NOTE: Christian, this version is really different from yours.
+> I still added the tags, hope that's not a problem.
+> If it is tho, please let me know.
+> 
+> I've thought a lot about this. I was at first thinking about
+> a simpler approach, but to be similar and consistent with the
+> current approaches to the similar problem on rel_deadline,
+> I thought this would be better. 
+> 
+> 
+> I also ran some tests, from a VM that was inside a VM that
+> was working on MacOS on my Mac. (This is like a war crime...)
+> 
+> 
+> MY GREAT AND DEFINITELY 100% CORRECT ULTRAMEGA TEST 
+> 
+> We first pin 2 tasks to the same CPU, (let's say TA and TB)
+> Then we change TA's nice value 3000 times between 0 and 10 (like, 0,10,0,10...)
+> We save weight and rem = (s64)(se->vprot - se->vruntime) on both
+> __dequeue_task() and enqueue_task_fair().
+> 
+> Then, we multiply weight and rem for both savings and
+> divide them. If they are between 0.95-1.05 we accept the
+> results as correct, if not well... Wrong.
+> 
+> I'm also terrible at math and a bit less terrible on coding
+> so these results should be 100% correct.
+> 
+> MY GREAT AND DEFINITELY 100% CORRECT ULTRAMEGA TEST RESULTS:
+> 
+> NRTP = NO_RUN_TO_PARITY
+> 
+>        Live Protection Wrong Counts
+>   +--------+-------------+--------------+
+>   |        |     BASE    | BASE + PATCH |
+>   +--------+-------------+--------------+
+>   | Normal |  6002/6002  |    0/6003    |
+>   +--------+-------------+--------------+
+>   |  NRTP  |    53/53    |     0/55     |
+>   +--------+-------------+--------------+
+> 
+> On Base Normal, maximum amount of increase was 4.49x,
+> while the maximum amount of decrease was 0.17x and the average was
+> 1.64x.
+> 
+> While on Base NRTP, maximum amount of increase was 2.27x,
+> maximum amount of decrease was 0.31x and the average was
+> 1.08x.
+> 
+> Well that's all. You may or may not ask where are the revived ones are.
+> This test does not really covers that part. 
+> 
+> Or as I like to say it, my computer ate that part.
+> 
+> That's really really all. Aside from the code :-).
+> 
+> 
+>  include/linux/sched.h |  1 +
+>  kernel/sched/core.c   |  1 +
+>  kernel/sched/fair.c   | 34 ++++++++++++++++++++++++----------
+>  3 files changed, 26 insertions(+), 10 deletions(-)
+> 
+> diff --git a/include/linux/sched.h b/include/linux/sched.h
+> index 7b91cae4a59c..bd9e2d119910 100644
+> --- a/include/linux/sched.h
+> +++ b/include/linux/sched.h
+> @@ -584,6 +584,7 @@ struct sched_entity {
+>  	unsigned char			on_rq;
+>  	unsigned char			sched_delayed;
+>  	unsigned char			rel_deadline;
+> +	unsigned char			rel_vprot;
+>  	unsigned char			custom_slice;
+>  					/* hole */
 >  
->  		slot = &ring->slots[i];
-> -		dev_kfree_skb(slot->skb);
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index 71d3c948e14a..f1241f572cdc 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -4638,6 +4638,7 @@ static void __sched_fork(u64 clone_flags, struct task_struct *p)
+>  	p->se.vruntime			= 0;
+>  	p->se.vlag			= 0;
+>  	p->se.rel_deadline		= 0;
+> +	p->se.rel_vprot			= 0;
+>  	INIT_LIST_HEAD(&p->se.group_node);
 >  
-> -		if (!slot->dma_addr)
-> -			continue;
-> +		if (slot->dma_addr) {
-> +			if (le32_to_cpu(dma_desc[i].ctl0) & BGMAC_DESC_CTL0_SOF)
-> +				dma_unmap_single(dma_dev, slot->dma_addr,
-> +						 len, DMA_TO_DEVICE);
-> +			else
-> +				dma_unmap_page(dma_dev, slot->dma_addr,
-> +					       len, DMA_TO_DEVICE);
-> +			slot->dma_addr = 0;
-> +		}
-
-[Severity: High]
-This is a pre-existing issue, but the new teardown code depends on
-slot->dma_addr being accurate, so it is worth raising here. What
-happens to the ring when skb_frag_dma_map() fails in
-bgmac_dma_tx_add()?
-
-At that point slot points at the failing fragment's slot, and its
-dma_addr is DMA_MAPPING_ERROR. The err_dma label then calls
-dma_unmap_single() on that value with skb_headlen(skb) as the length.
-The real head mapping is not released there.
-
-The unwind loop computes its index as (ring->end + i), but fragment k
-was placed at ring->end + 1 + k. When i > 0, the loop reaches the head
-slot at i == 0 and releases it with dma_unmap_page(), although it was
-mapped with dma_map_single(). Fragment i - 1 is never unmapped. When
-fragment 0 fails, only the bogus dma_unmap_single() runs and the head
-mapping leaks.
-
-None of these slots get their dma_addr reset to 0. ring->end is not
-advanced either, so bgmac_dma_tx_free() never looks at them. Suppose
-bgmac_stop() or bgmac_enet_suspend() runs before the ring wraps over
-these slots. Then bgmac_dma_cleanup() calls bgmac_dma_tx_ring_free(),
-which finds a non-zero dma_addr in every one of them.
-
-bgmac_dma_tx_add_buf() already wrote the head descriptor with SOF
-set. The new check therefore calls dma_unmap_single() on a head that
-err_dma already released as a page. The fragments that err_dma did
-unmap are unmapped a second time with dma_unmap_page(). The failing
-slot still holds DMA_MAPPING_ERROR, and its ctl0 and ctl1 belong to
-whichever packet last used it. So that value goes to the DMA API with
-a stale length and a stale single/page choice.
-
-With swiotlb or an IOMMU, couldn't a double unmap release a bounce
-buffer or IOVA that has since been given to another mapping? That
-would corrupt memory or crash, not just trip CONFIG_DMA_API_DEBUG.
-
-Should err_dma unmap ring->slots[ring->end % BGMAC_TX_RING_SLOTS] for
-the head and walk the fragments at ring->end + 1 + i? Should it also
-set dma_addr to 0 on every slot it touches, including the failing
-one? Would you prefer to fold that into this fix or send it as a
-separate patch?
-
-[Severity: Medium]
-This is a pre-existing issue and not something this patch introduced.
-Can this check see stale handles left behind by the error paths in
-bgmac_dma_tx_add()?
-
-If the head mapping fails, the head slot keeps DMA_MAPPING_ERROR:
-
-drivers/net/ethernet/broadcom/bgmac.c:bgmac_dma_tx_add() {
-    ...
-	slot->dma_addr = dma_map_single(dma_dev, skb->data, skb_headlen(skb),
-					DMA_TO_DEVICE);
-	if (unlikely(dma_mapping_error(dma_dev, slot->dma_addr)))
-		goto err_dma_head;
-    ...
-}
-
-If a fragment mapping fails, the failing slot also keeps
-DMA_MAPPING_ERROR. Its descriptor still holds the ctl0/ctl1 of the packet
-that last used that slot. The err_dma unwind unmaps the head and the
-earlier fragments, but it never resets their slot->dma_addr to 0.
-
-ring->end is not advanced in either case, so bgmac_dma_tx_free() never
-visits these slots. Suppose bgmac_stop() or bgmac_enet_suspend() runs
-before the ring wraps over them. Then the call chain
-bgmac_dma_cleanup()->bgmac_dma_tx_ring_free() finds a non-zero dma_addr
-and unmaps it again. The single/page choice comes from a stale SOF bit,
-and the length comes from a stale ctl1.
-
-Doesn't that mean addresses err_dma already released get unmapped twice,
-or DMA_MAPPING_ERROR itself gets unmapped? With swiotlb or an IOMMU,
-could that free a bounce slot or IOVA that now belongs to another
-mapping? CONFIG_DMA_API_DEBUG should at least report it.
-
-Would it make sense for the error paths in bgmac_dma_tx_add() to clear
-slot->dma_addr?
-
-The old code had the same if (!slot->dma_addr) check, so this patch does
-not change the behaviour here.
-
->  
-> -		if (slot->skb)
-> -			dma_unmap_single(dma_dev, slot->dma_addr,
-> -					 len, DMA_TO_DEVICE);
-> -		else
-> -			dma_unmap_page(dma_dev, slot->dma_addr,
-> -				       len, DMA_TO_DEVICE);
-> +		dev_kfree_skb(slot->skb);
-> +		slot->skb = NULL;
-
-[Severity: Medium]
-The commit message says "Unmap before freeing". Does that still hold for
-a scatter/gather packet that wraps past the end of the ring?
-
-bgmac_dma_tx_add() places a packet's slots at consecutive indices modulo
-BGMAC_TX_RING_SLOTS. It sets slot->skb only on the last of them:
-
-	slot->skb = skb;
-
-So one packet can have its head in slot 126, a fragment in slot 127 and
-its last fragment in slot 0.
-
-This loop runs i from 0 to 127. At i == 0 it unmaps the last fragment.
-dev_kfree_skb() then frees skb->data and drops the fragment page
-references through skb_release_data().
-
-The head in slot 126 and the fragment in slot 127 are unmapped only
-later, when the skb has already been freed.
-
-Would two passes give the ordering the commit message describes? The
-first pass would unmap every slot and the second would free the skbs.
-
->  	}
+>  	/* A delayed task cannot be in clone(). */
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index b42a0ca2a69e..0bcd3a77aba4 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -4614,7 +4614,7 @@ dequeue_load_avg(struct cfs_rq *cfs_rq, struct sched_entity *se)
 >  }
+>  
+>  static void
+> -rescale_entity(struct sched_entity *se, unsigned long weight, bool rel_vprot)
+> +rescale_entity(struct sched_entity *se, unsigned long weight)
+>  {
+>  	long old_weight = se->h_load.weight;
+>  
+> @@ -4712,7 +4712,7 @@ rescale_entity(struct sched_entity *se, unsigned long weight, bool rel_vprot)
+>  	if (se->rel_deadline)
+>  		se->deadline = div64_long(se->deadline * old_weight, weight);
+>  
+> -	if (rel_vprot)
+> +	if (se->rel_vprot)
+>  		se->vprot = div64_long(se->vprot * old_weight, weight);
+>  }
+>  
+> @@ -4720,7 +4720,6 @@ static void reweight_eevdf(struct cfs_rq *cfs_rq, struct sched_entity *se,
+>  			   unsigned long weight, bool on_rq)
+>  {
+>  	bool curr = cfs_rq->curr == se;
+> -	bool rel_vprot = false;
+>  	u64 avruntime = 0;
+>  
+>  	if (se->h_load.weight == weight)
+> @@ -4733,7 +4732,7 @@ static void reweight_eevdf(struct cfs_rq *cfs_rq, struct sched_entity *se,
+>  		se->rel_deadline = 1;
+>  		if (curr && protect_slice(se)) {
+>  			se->vprot -= avruntime;
+> -			rel_vprot = true;
+> +			se->rel_vprot = 1;
+>  		}
+>  
+>  		cfs_rq->h_nr_queued--;
+> @@ -4741,17 +4740,23 @@ static void reweight_eevdf(struct cfs_rq *cfs_rq, struct sched_entity *se,
+>  			__dequeue_entity(cfs_rq, se);
+>  	}
+>  
+> -	rescale_entity(se, weight, rel_vprot);
+> +	rescale_entity(se, weight);
+>  
+>  	update_load_set(&se->h_load, weight);
+>  
+>  	if (on_rq) {
+> -		if (rel_vprot)
+> -			se->vprot += avruntime;
+>  		se->deadline += avruntime;
+>  		se->rel_deadline = 0;
+>  		se->vruntime = avruntime - se->vlag;
+>  
+> +		if (se->rel_vprot) {
+> +			se->vprot += avruntime;
+> +			se->rel_vprot = 0;
+> +		} else if (curr) {
+> +			/* Reweighting must not revive expired slice protection. */
+> +			cancel_protect_slice(se);
+> +		}
+> +
+>  		if (!curr)
+>  			__enqueue_entity(cfs_rq, se);
+>  		cfs_rq->h_nr_queued++;
+> @@ -6297,6 +6302,11 @@ place_entity(struct cfs_rq *cfs_rq, struct sched_entity *se, int flags)
+>  
+>  	se->vruntime = vruntime - lag;
+>  
+> +	if (se->rel_vprot) {
+> +		se->vprot += se->vruntime;
+> +		se->rel_vprot = 0;
+> +	}
+> +
+>  	if (update_zero)
+>  		update_zero_vruntime(cfs_rq, -lag);
+>  
+> @@ -8143,9 +8153,13 @@ static bool __dequeue_task(struct rq *rq, struct task_struct *p, int flags)
+>  
+>  	dequeue_hierarchy(p, flags);
+>  
+> -	if (sched_feat(PLACE_REL_DEADLINE) && !task_sleep) {
+> -		se->deadline -= se->vruntime;
+> -		se->rel_deadline = 1;
+> +	if (!task_sleep) {
+> +		se->vprot = protect_slice(se) ? se->vprot - se->vruntime : 0;
+> +		se->rel_vprot = 1;
+> +		if (sched_feat(PLACE_REL_DEADLINE)) {
+> +			se->deadline -= se->vruntime;
+> +			se->rel_deadline = 1;
+> +		}
+>  	}
+>  	if (se != cfs_rq->curr)
+>  		__dequeue_entity(cfs_rq, se);
 
-While looking at this, I noticed two more issues in the same file that
-this patch does not touch.
-
-[Severity: Medium]
-This is a pre-existing issue and was not introduced by this patch. Does
-the err_dma unwind in bgmac_dma_tx_add() unmap the wrong addresses?
-
-drivers/net/ethernet/broadcom/bgmac.c:bgmac_dma_tx_add() {
-	int index = ring->end % BGMAC_TX_RING_SLOTS;
-	struct bgmac_slot_info *slot = &ring->slots[index];
-    ...
-	for (i = 0; i < nr_frags; i++) {
-		...
-		index = (index + 1) % BGMAC_TX_RING_SLOTS;
-		slot = &ring->slots[index];
-		slot->dma_addr = skb_frag_dma_map(dma_dev, frag, 0,
-						  len, DMA_TO_DEVICE);
-		if (unlikely(dma_mapping_error(dma_dev, slot->dma_addr)))
-			goto err_dma;
-		...
-	}
-    ...
-err_dma:
-	dma_unmap_single(dma_dev, slot->dma_addr, skb_headlen(skb),
-			 DMA_TO_DEVICE);
-
-	while (i-- > 0) {
-		int index = (ring->end + i) % BGMAC_TX_RING_SLOTS;
-		...
-		dma_unmap_page(dma_dev, slot->dma_addr, len, DMA_TO_DEVICE);
-	}
-    ...
-}
-
-By the time err_dma runs, slot points at the failing fragment's slot. The
-dma_unmap_single() call therefore gets DMA_MAPPING_ERROR with the head's
-length, not the head mapping.
-
-Fragment k lives at index ring->end + 1 + k, but the loop uses
-ring->end + i:
-
-- If fragment 0 fails, the loop does not run and the head mapping leaks.
-- If fragment i > 0 fails, the loop unmaps the head slot with
-  dma_unmap_page(), although it was mapped with dma_map_single().
-  Fragment i - 1 is never unmapped.
-
-Should the head unmap use ring->slots[ring->end % BGMAC_TX_RING_SLOTS],
-and should the loop index be ring->end + 1 + i?
-
-[Severity: High]
-This is a pre-existing issue and not something this patch introduced. Is
-the request_irq() failure path in bgmac_open() safe while the hardware is
-still running?
-
-drivers/net/ethernet/broadcom/bgmac.c:bgmac_open() {
-    ...
-	err = bgmac_dma_init(bgmac);
-	if (err)
-		return err;
-
-	/* Specs say about reclaiming rings here, but we do that in DMA init */
-	bgmac_chip_init(bgmac);
-
-	err = request_irq(bgmac->irq, bgmac_interrupt, IRQF_SHARED,
-			  net_dev->name, net_dev);
-	if (err < 0) {
-		dev_err(bgmac->dev, "IRQ request error: %d!\n", err);
-		bgmac_dma_cleanup(bgmac);
-		return err;
-	}
-    ...
-}
-
-When request_irq() is called, the hardware is already armed:
-
-- bgmac_dma_init() has enabled RX DMA and given every RX slot to the
-  hardware through bgmac_dma_rx_update_index().
-- bgmac_chip_init() has unmasked interrupts with bgmac_chip_intrs_on()
-  and enabled the MAC with bgmac_enable().
-
-If request_irq() fails, only bgmac_dma_cleanup() runs. Inside it,
-bgmac_dma_rx_ring_free() unmaps each RX buffer and calls put_page() on
-it. Nothing calls bgmac_chip_intrs_off() or bgmac_chip_reset() first.
-
-Could the RX DMA engine, still enabled, then write incoming frames into
-pages that have already gone back to the allocator? On ports attached to
-a switch, where the link is always up, frames can arrive at any time.
-
-The device would also keep raising interrupts on a shared line with no
-handler registered. Could that make the kernel disable the IRQ?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261010070418.84457-1-rosenp%40gmail.com
