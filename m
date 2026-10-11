@@ -1,186 +1,111 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47C46374A0B
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:46:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B437437DE9F;
+	Sun, 11 Oct 2026 09:46:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791711964; cv=none; b=CPTyjsdInHyBa9hCP32PnZK7lsgHKrIMXPfk4OZCSF/UgpZ2aZQFFYzAcHlAYX76QWowp46sL5wzIc5EXk6ixt5oROnqNUCGvChYYthAuIsCzl6R38GIEAMLJKlYuoVCOT0NRLsENu3P1zZXQOPGA/iKIXm4EG2vuX+TZfybgXI=
+	t=1791711990; cv=none; b=OyTCCunxAHH4u3FEsHsn1ffA3vWF2w1PaQ9iWhsKAPTR9Kia37XmNholbrkg9fqx2ksT6KVkPzC5BQiZcDYUDpM7W8icfB0cUkw/FlzoPH2Rgb+R/nnbOsc6muUjR1QpcF9urIaD0LT3Ca1x+LOK6afdROSskb5NtFZ6znAG0V0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791711964; c=relaxed/simple;
-	bh=+jYY9sBonYmr5GTARWZAfrrVH+Chj/Nd+KP8dbVuPDA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kBD8v3nyeJV+KOvoP04s0AL1lRZz7llwPIEfgD6hGRDOFc9iggZsYxRGlbu/ZnF/MQ+xKH7zhhYe59B3ljKB/zwh/mVamoDxacQxT7qE0BFCeeA63+Y/CMD33JMsqPoaT1sGmp+f3UgcwombTYC3EtAVPKT6EC7iXYTKVvMzOxE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OSqeWJvB; arc=none smtp.client-ip=209.85.215.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791711990; c=relaxed/simple;
+	bh=4vsUy3JHJZSML7ewaHhSAA2icB4STrIUvNYYS72U6Gw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mrntuqyQqHDn7yKWphxdZ6euh7tJeNNy3GvGb6eCxtVDLP1jDeCWk/PPE8TEeU96hDJjGzKIKuPgfffoUZmajS2Ghrf6Qn0nsFPMBXsVBVkHPW81KTmiOvtEmX4b3sh0UY/9nPiI5KtGprINQXj6iqpadq8DIdhbgrzGfYNhGU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d3tn6XcE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OSqeWJvB"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc4b62d118aso559384a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 02:46:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791711962; x=1792316762; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MZP+nJjW1ldXPLrJ2aA+g+89NLmL7+5znNakFjQ9T0o=;
-        b=OSqeWJvBsGnHSbBYSbLp/tZKtjFXyyeSCLuwLo2JVVyE/e/jnoaP/8GxSKYfYGerCC
-         uky99CzJzrdlf1x1soGHOroeOLU6ffJUUtrqJZtA1RIPKneGXCQnXoL5v69pSmFlzsot
-         1rjkvKwQBDfJ4bePMOzgTSPT9S1xYeQ6hSieurxH93NC5pfPn6VisdD8xAW6rGYjAOdH
-         4dD7cyC9dvAiB1KaHmoY9EhkjDQor/HpkUkk1f0QHdbM+8Yy59Ilpec+jwsQw2jJsPpi
-         r/h8Q2jhMOPTQs8ppY5KCI3OOmNA6vzqSRuU4CdSm5PW9ilkmOoI6HNuh0wVuu/VpoEd
-         92Nw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791711962; x=1792316762;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MZP+nJjW1ldXPLrJ2aA+g+89NLmL7+5znNakFjQ9T0o=;
-        b=mF0h2OiWvd6CBOy0c3ScCRPLfjHuCUm3azGVcFm826CkxqZswCE3ldSrK1x0eUJRkW
-         T8Jc23zI4URXBShSJotOmjnVn3M70SY8yGBV0vznsBx0oTa2RolD8HHI/Tnkbw0RT6d1
-         7WcPp2ZzzBtvJvGbuMlbUL07MG7F8V/QKoMWYwkiQMns87zk8q9Aoyj1yAdCucZw/JXB
-         DuKIKPZdGLk1BijfT1tfiTCzkXVReKImP+SdqO32FN0q4joMSfoRTew1mZi1SsdZH+xS
-         phwxAIDOBEUn3227oh0J6LZ8MBsezBDtOdCZX8ZhrkU1/eMgJfrrZfqekQCRFicTIANl
-         3C6A==
-X-Forwarded-Encrypted: i=1; AKwUvBwDxkHVgunsAewunnOAeANlrhFW8uC2isi4rRUbonjinei1g7dz649HTemEC3fCK4Il3qH027pFKLb+FGU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLvPPRsMNin81bp5jaNc5WhJqEpkXZ0fWJCi5EFhvuF74SQxUpT
-	1H9RuXeYz6bJZq6E0X4v2a1Eu3TWFnDQSKZL3Ck+7V/msn8PVn9ei/kcnZ7B3g==
-X-Gm-Gg: AYBFou0NoZxE1xiuWD6Vq7/aVgd85o1XIW3Y/hrKBdg1wwqmnX7MW5+lQ6oTUPhz4Ki
-	4au1CSgINlDku3R9Uli80uU2lMteQpBR2XO8bFFlG4SND4a4lmQ2Z5OzfDHF87/wZPQ4jre6Qy4
-	m0ZOMTgMzWa1wu+WfCKRYlLGs/JdrGvJ2WLP9L7GTp9gBBUNNOGtv+Wd6twZsjFeX2SA+FdFgwq
-	1yPjjp2I4Bd2Kck3afQQgb/GwHIEXw+asNjcJRsKfQ3/fK2s4jm0+hIMp+QMwT2ez5fI8zyBPGL
-	WSt+4K7d6+hdGq+AUEaks72+jdXiEr0vBhWrzZ9AJHFImS8RTqtd8O6xaR5FteKr1Cg0q0whS9z
-	0cGrHBdNVubszWhFy39BGEDw18CWAsMrtZBhK4povYUTr7xtVSGt7PHxNX5ng0JBXWpmrLe3Vt9
-	o/dNaojRbBUahdFvxXAwRd03yHAuh5lmvJiM05Dl3Xwakvc0ZElx2C4FCoOioC824i0Ls=
-X-Received: by 2002:a17:902:cec2:b0:2e6:1715:e48d with SMTP id d9443c01a7336-2e842ac8863mr65438955ad.35.1791711962471;
-        Sun, 11 Oct 2026 02:46:02 -0700 (PDT)
-Received: from [127.0.1.1] ([121.125.115.175])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422ba80asm31067695ad.63.2026.10.11.02.45.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 02:46:02 -0700 (PDT)
-From: Gyeyoung Baek <gye976@gmail.com>
-Date: Sun, 11 Oct 2026 18:45:33 +0900
-Subject: [PATCH v2 2/2] drm/imagination: Stop locking reservations around
- map and unmap
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d3tn6XcE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6F2B1F0089B;
+	Sun, 11 Oct 2026 09:46:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791711989;
+	bh=BFBlcxhuBA8riS/mJR6sRg852nuNHOxEVFNIKY+8dlU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=d3tn6XcEHr2sT8iGRxdjc9KgM4MjP/OtsmIAzPqaAChpOodEJs48XYv3lPchnecxc
+	 RbEfb9RC0YPZF9kT37gjaWUoE0CYwgwlij6r2MaIeBIw/FBtScpRaYDuB6BoaFS5YP
+	 MgXcvRlDYv5YbVw6lwh5Kx+gmUe3B8L5WPuQT3mJuo1VxvDucehrlyGHjVK58Ac4J9
+	 FPTqL0NAPQMXfv4MYtsjpBmiPbNV7qOVRj8ZQOSlm5RJHbBGnLP7nupImBCbRX+Lau
+	 gsxleEIClF02pu/E10JRR79xZ0s33MDNrpbq7OHt7R1c6NI1KeEX6cAT2KE/BxhUVd
+	 QPifbZFxKgQzA==
+Date: Sun, 11 Oct 2026 15:16:22 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Slark Xiao <slark_xiao@163.com>
+Cc: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
+	jeff.hugo@oss.qualcomm.com, mhi@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] bus: mhi: host: pci_generic: Add autosuspend_delay
+ customized support
+Message-ID: <astaLolGh8XkPNms@debian>
+References: <20260919095506.9570-1-slark_xiao@163.com>
+ <bf94f351-777d-4dc0-98a2-7af77f832f2b@oss.qualcomm.com>
+ <1bec2fd7.99f3.1a0c8ea4db6.Coremail.slark_xiao@163.com>
+ <2b0d3e13-96fa-437a-9de9-4a61911fe232@oss.qualcomm.com>
+ <nsaa4cchprkgqka7uc4ccr5wq7v6uhue5dpsvquwxyk4ndr57t@i56bkvwpclpo>
+ <5506abc6.8919.1a11aab7e81.Coremail.slark_xiao@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261011-pvr-gpuvm-immediate-v2-2-744ddc6644c3@gmail.com>
-References: <20261011-pvr-gpuvm-immediate-v2-0-744ddc6644c3@gmail.com>
-In-Reply-To: <20261011-pvr-gpuvm-immediate-v2-0-744ddc6644c3@gmail.com>
-To: Alessio Belle <alessio.belle@imgtec.com>, 
- Luigi Santivetti <luigi.santivetti@imgtec.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Alexandru Dadu <alexandru.dadu@imgtec.com>, 
- Brajesh Gupta <brajesh.gupta@imgtec.com>, 
- Frank Binns <frank.binns@imgtec.com>, imagination@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Gyeyoung Baek <gye976@gmail.com>
-X-Mailer: b4 0.15.1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5506abc6.8919.1a11aab7e81.Coremail.slark_xiao@163.com>
 
-The GPUVA lists are now protected by gpuva.lock instead of the
-reservations, so map and unmap no longer need to lock the reservations.
-Nothing else on that path relies on them.
+On Thu, Oct 08, 2026 at 04:40:09PM +0800, Slark Xiao wrote:
+> 
+> 
+> At 2026-09-26 19:26:15, "Manivannan Sadhasivam" <mani@kernel.org> wrote:
+> >On Wed, Sep 23, 2026 at 09:24:55AM +0530, Krishna Chaitanya Chundru wrote:
+> >> 
+> >> 
+> >> On 9/22/2026 5:09 PM, Slark Xiao wrote:
+> >> > At 2026-09-22 12:12:35, "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com> wrote:
+> >> >>
+> >> >> On 9/19/2026 3:25 PM, Slark Xiao wrote:
+> >> >>> For some WWAN device, it may get a SYS ERROR issue when resuming
+> >> >>> from suspend state frequently. Refer to the Qualcomm Windows
+> >> >>> driver, the default value of autosuspend_delay_ms is set as 5000
+> >> >>> ms. But in Linux side, all WWAN device were set as 2000ms. We
+> >> >>> tried to set this value to 5000ms and we can get a positive test
+> >> >>> result.
+> >> >>>
+> >> >>> So we add a support to allow vendor to set a difference value for
+> >> >>> specific WWAN device.
+> >> >> you can change auto suspend delay from sysfs, please use that way instead of
+> >> >> doing in the driver.
+> >> >>
+> >> >> - Krishna Chaitanya.
+> >> > Yes, we can do this by setting the sysfs API . However, not all users 
+> >> > are aware of this method. Additionally, this approach is only
+> >> > effective for a single instance; it requires reconfiguration after each
+> >> > restart, which is quite inconvenient.
+> >> you can have udev rule to set this without any user intervention.
+> >
+> >We should not rely on userspace to fix the SYS_ERROR. Userspace knob should only
+> >be exercised to customize the delay for power management purposes, not to fix
+> >firmware crash.
+> 
+> >
+> Agree. We are still working on the issue debug on the modem side. 
+> 
+> >First we should know whether the default delay can be increased to 5000ms for
+> >all devices or not. If that is not desired, then we can go for Endpoint specific
+> >delay.
+> >
+> >- Mani
+> >
+> For reference, MTK 5G modem T700 is using 5000ms as default value. And Qualcomm
+> Windows drivers side, the default value is 5000ms as well.
+> However, I cannot guarantee that if all MHI devices are adjusted to 5000ms, some
+> power-sensitive devices will not oppose this change. Additional, DELL hopes that
+> we only modify the SDX72 device while keeping the 2000ms setting for the SDX62
+> devices, as there are currently no similar issues with the SDX62 platform.
+> 
 
-Signed-off-by: Gyeyoung Baek <gye976@gmail.com>
----
- drivers/gpu/drm/imagination/pvr_vm.c | 43 ------------------------------------
- 1 file changed, 43 deletions(-)
+I think we should know the root cause of the crash before adding my fix. Right
+now, we only know that it is a firmware crash, but we don't know if the crash is
+due to MHI stack or PCI bus. If it is the MHI stack, then we can quirk the
+device in pci_generic driver. If it is a PCI bus issue, then we need to handle
+the quirk in pci/quirks.c.
 
-diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/imagination/pvr_vm.c
-index 807a01aab1d..08ce6542550 100644
---- a/drivers/gpu/drm/imagination/pvr_vm.c
-+++ b/drivers/gpu/drm/imagination/pvr_vm.c
-@@ -704,16 +704,6 @@ void pvr_destroy_vm_contexts_for_file(struct pvr_file *pvr_file)
- 	}
- }
- 
--static int
--pvr_vm_lock_extra(struct drm_gpuvm_exec *vm_exec)
--{
--	struct pvr_vm_bind_op *bind_op = vm_exec->extra.priv;
--	struct pvr_gem_object *pvr_obj = bind_op->pvr_obj;
--
--	/* Acquire lock on the GEM object being mapped/unmapped. */
--	return drm_exec_lock_obj(&vm_exec->exec, gem_from_pvr_gem(pvr_obj));
--}
--
- /**
-  * pvr_vm_map() - Map a section of physical memory into a section of
-  * device-virtual memory.
-@@ -741,15 +731,6 @@ pvr_vm_map(struct pvr_vm_context *vm_ctx, struct pvr_gem_object *pvr_obj,
- 	   u64 pvr_obj_offset, u64 device_addr, u64 size)
- {
- 	struct pvr_vm_bind_op bind_op = {0};
--	struct drm_gpuvm_exec vm_exec = {
--		.vm = &vm_ctx->gpuvm_mgr,
--		.flags = DRM_EXEC_INTERRUPTIBLE_WAIT |
--			 DRM_EXEC_IGNORE_DUPLICATES,
--		.extra = {
--			.fn = pvr_vm_lock_extra,
--			.priv = &bind_op,
--		},
--	};
- 
- 	int err = pvr_vm_bind_op_map_init(&bind_op, vm_ctx, pvr_obj,
- 					  pvr_obj_offset, device_addr,
-@@ -761,15 +742,7 @@ pvr_vm_map(struct pvr_vm_context *vm_ctx, struct pvr_gem_object *pvr_obj,
- 	pvr_gem_object_get(pvr_obj);
- 
- 	mutex_lock(&vm_ctx->lock);
--	err = drm_gpuvm_exec_lock(&vm_exec);
--	if (err)
--		goto err_cleanup;
--
- 	err = pvr_vm_bind_op_exec(&bind_op);
--
--	drm_gpuvm_exec_unlock(&vm_exec);
--
--err_cleanup:
- 	mutex_unlock(&vm_ctx->lock);
- 
- 	pvr_vm_bind_op_fini(&bind_op);
-@@ -802,15 +775,6 @@ pvr_vm_unmap_obj_locked(struct pvr_vm_context *vm_ctx,
- 			u64 device_addr, u64 size)
- {
- 	struct pvr_vm_bind_op bind_op = {0};
--	struct drm_gpuvm_exec vm_exec = {
--		.vm = &vm_ctx->gpuvm_mgr,
--		.flags = DRM_EXEC_INTERRUPTIBLE_WAIT |
--			 DRM_EXEC_IGNORE_DUPLICATES,
--		.extra = {
--			.fn = pvr_vm_lock_extra,
--			.priv = &bind_op,
--		},
--	};
- 
- 	int err = pvr_vm_bind_op_unmap_init(&bind_op, vm_ctx, pvr_obj,
- 					    device_addr, size);
-@@ -819,15 +783,8 @@ pvr_vm_unmap_obj_locked(struct pvr_vm_context *vm_ctx,
- 
- 	pvr_gem_object_get(pvr_obj);
- 
--	err = drm_gpuvm_exec_lock(&vm_exec);
--	if (err)
--		goto err_cleanup;
--
- 	err = pvr_vm_bind_op_exec(&bind_op);
- 
--	drm_gpuvm_exec_unlock(&vm_exec);
--
--err_cleanup:
- 	pvr_vm_bind_op_fini(&bind_op);
- 
- 	return err;
-
--- 
-2.43.0
-
+- Mani
