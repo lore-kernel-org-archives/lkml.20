@@ -1,185 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-21.mta0.migadu.com [91.218.175.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FDE8175D53;
-	Sun, 11 Oct 2026 07:33:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9850327A92D
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 07:35:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791704013; cv=none; b=BsLtYdKRsTxr5rchK8FL1MRpxnfbvrN/yVx0CZ369cLvOKWsw5ZifeIffwermrxxITmnqvDs/ItqM210uwDJb+7NRvResSVDBWJvhr+QG7ba1Hbbi9fYclN6aypOS4rVd8sVj8iWtctLipcunoEqSy62yBDa8jVis8WTn5S/9cQ=
+	t=1791704126; cv=none; b=NBcFU2HKtR9MdSRadArenymMwn3K8LvX8cKCQ9L6PFFUTggxx8oVPPO3+I6L4fdF6/ofHZYzWIOTJgisqD+0V/60A8TnChbyUH/sD04detZZduybNlT+ahWcRrtI5O4VSbuVg9HtfPvso8l6uGQH2WA03Hjb8pz1bsnUzcLyte0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791704013; c=relaxed/simple;
-	bh=Li7QPjdVKJpfvpbeJYy6aMf2uiChf08TlqmxReXVqaQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=oiLw/virXeLRJb6Sgv8El86P4pTrIP49kNAjlcmRQzzFunY+y2b1I0SBEzn4m0m3hoqpKf2pFf6zB4mwDUBXRX2+moJdQjJgrS8jl88Jup8pg+0yzupyk7gPRGogci2TSGjqC9L+qAfmdulTsXf4OsQJCYBRyTRKBd/7KoIV/zA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FrJIQRka; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791704126; c=relaxed/simple;
+	bh=XNFRYvVDaUFBZPhe3OOZAp9xrDPCoOvOUY4fCTsCUbs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OCqdOygo3kKcaiA+LYsMMv9xs/YBx3jWlX2lc25RmGRP7KbNAvXm5Wl7aYzjkSQ9knWEVn2C62kQkasxcWuNZ7YgsqqN5KYq/l7BjtLFgzecsl4UhU7ub1EOS5E11VWICo/fRF8Qp2Cd3CXabXn+5ZJIJxbCrCh1HWB7cFfszVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kAjzGqrT; arc=none smtp.client-ip=91.218.175.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FrJIQRka"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 15C44C2BCF5;
-	Sun, 11 Oct 2026 07:33:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791704013;
-	bh=Li7QPjdVKJpfvpbeJYy6aMf2uiChf08TlqmxReXVqaQ=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=FrJIQRkaqRi1DMuwlNvNSJv9sb++EVkoqASj3l8Mtem22X/wbaVTiqpc+iKNKwgFf
-	 UBXd4fyzTZsGjmMvQ9b/pS7H6AiK6LBevm+iSwqrA4PSnA19ThlNt9x7Y4NE6TJa20
-	 OepUZr+/WsilGNp6AN+GImDPBivCRSFjDogyhCwBRihQNuJqFD2oj5YlEU9/hPPaD7
-	 p66LPWIAKjQdPY2fHb8BFS9Ph7xlarI780dt5aNf4Mc4LpIkjJtiD3+lIV1Ivh4QoD
-	 x7oVv+eXkfJ+rBsVwCz1g7blLNIAihlAjUInsuVMQw9S3OmwQpTr71A7vy4zv1HNAF
-	 piVWK0WTgCWiQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DB62DCA9EBD;
-	Sun, 11 Oct 2026 07:33:32 +0000 (UTC)
-From: Linfeng Sun via B4 Relay <devnull+linfeng.sun.dev.gmail.com@kernel.org>
-Date: Sun, 11 Oct 2026 15:33:30 +0800
-Subject: [PATCH] vhost: reject backend enable without a kick file
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kAjzGqrT"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=XNFRYvVDaUFBZPhe3OOZAp9xrDPCoOvOUY4fCTsCUbs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791704122; v=1; x=1792308922;
+ b=kAjzGqrTFkWGp7M92r5AXKq3PHO8X/DYMmD6ohvad4KDgPkndKf7DlEx0E3YOIidYFE9zz55
+ hD1oIQWsW7eIJCr7GtMr3E0jJax8HryydDyDuU4eBMMiajPt07jxjfhg4VQ4OayTahuWoeoZdPL
+ 7QcFSLA7DXZ7MU6f/8X33fTc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 22ed305539deb7f2;
+	Sun, 11 Oct 2026 07:35:22 +0000
+X-Mizu-Trace-ID: 22ed305539deb7f2
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5ba40832934so2464e87.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 00:35:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzVBuC8Q6mJ8nf58snMMmQ0XeMyAXNBVnCylKJXJZpbNjhK/mW1tnWE6mcwwtgVMpa0tLJxfzJ+fKKb+mg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLthEOKEXvMGQw3bqVXezr0RkL8FGdj5B498rDKPdVhEwm9jaPl
+	MIHcmXjF/d1SKBuECh/ZgfJPuRzJfvKRGFb/Vx3+H6L4J+BpR27KbQUL/HQ1UjN4utUy+Gapcfc
+	kKWbCdjCborwdbRGlx8RasPYfY0xKNtCke3Hq4hst
+X-Received: by 2002:a05:6512:318a:b0:5b7:6707:e44c with SMTP id
+ 2adb3069b0e04-5bcea60aaf4mr47132e87.12.1791704116941; Sun, 11 Oct 2026
+ 00:35:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261011-fix-null-pointer-in-vhost_test_set_backend-v1-1-60b2f12d64c6@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNQQrCMBBFr1Jm7UBSo1KvIqWk6WhHy6Rk0iKU3
- t2omw9v8d/bQCkxKVyrDRKtrBylgD1UEEYvD0IeCkNt6rM11uKd3yjLNOEcWTIlZMF1jJq7TGW
- Uctf78CIZ0DTu2JA7Be8uUIRzovL+xW7tn3XpnxTytwD7/gHIgGoYjgAAAA==
-X-Change-ID: 20261011-fix-null-pointer-in-vhost_test_set_backend-09439e45ca47
-To: "Michael S. Tsirkin" <mst@redhat.com>, 
- Jason Wang <jasowangio@gmail.com>, 
- =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>
-Cc: kvm@vger.kernel.org, virtualization@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Linfeng Sun <linfeng.sun.dev@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791704011; l=5233;
- i=linfeng.sun.dev@gmail.com; s=20261010; h=from:subject:message-id;
- bh=eZ1DZ28a+86fOznwSiX0c0JcYbu2CGeoKTJCHCyhpfo=;
- b=1llHowXxVWEg+42F2EhlCrPKV4cn91bxeVpvDzNIRuoH/4LV+e9ZI9Rhb3yDjYylp1SLiCl91
- GEdpgkEWKiOAE/2SD9hi0VfgumH/5iH+/1fq68IuWqcLchET5977aEh
-X-Developer-Key: i=linfeng.sun.dev@gmail.com; a=ed25519;
- pk=IPHLe8L3bTveNcYFP12okRAIWs4eqaVd4jrqSNMj7UU=
-X-Endpoint-Received: by B4 Relay for linfeng.sun.dev@gmail.com/20261010
- with auth_id=1150
-X-Original-From: Linfeng Sun <linfeng.sun.dev@gmail.com>
-Reply-To: linfeng.sun.dev@gmail.com
+References: <20261009100738.31288-1-will@kernel.org> <20261009100738.31288-9-will@kernel.org>
+ <814a1d78-73df-4b8c-b596-65fb82f7cceb@arm.com>
+In-Reply-To: <814a1d78-73df-4b8c-b596-65fb82f7cceb@arm.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Sun, 11 Oct 2026 08:34:40 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTwgfGzS92thiGFcJ1NgoA732RBqv3gJUWF1gJAE-jANFA@mail.gmail.com>
+X-Gm-Features: AclHuK958ZwmXeLPkKS0guZt75r60xrx1-iRJMQxQvR6nqtqq4QaiIIHeVzCYys
+Message-ID: <CA+EHjTwgfGzS92thiGFcJ1NgoA732RBqv3gJUWF1gJAE-jANFA@mail.gmail.com>
+Subject: Re: [PATCH v2 08/23] arm64: cpufeature: Store every ID register with
+ its overrides applied
+To: Ben Horgan <ben.horgan@arm.com>
+Cc: Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>, 
+	=?UTF-8?Q?=C8=98tefania_Ion?= <stefion@google.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Pankaj Patil <pankaj.patil@oss.qualcomm.com>, 
+	Borislav Petkov <bp@alien8.de>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Jinjie Ruan <ruanjinjie@huawei.com>, Mark Rutland <mark.rutland@arm.com>, 
+	Tarun Sahu <tarunsahu@google.com>, David Woodhouse <dwmw@amazon.co.uk>, 
+	Peter Zijlstra <peterz@infradead.org>, Marc Zyngier <maz@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Linfeng Sun <linfeng.sun.dev@gmail.com>
+Hi Ben,
 
-Enabling a backend without VHOST_SET_VRING_KICK dereferences a NULL
-vq->kick in vhost_poll_start(). Reject the request with -EINVAL.
+On Fri, 09 Oct 2026 16:51:14 +0100, Ben Horgan <ben.horgan@arm.com> wrote:
+[...]
+>> the same way. Everything read with read_cpuid() goes through
+>> read_cpuid_with_overrides(). CTR_EL0 and CNTFRQ_EL0, which are read
+[...]
+> For completeness shouldn't read_cpuid(SMIDR_EL1) change to
+> read_cpuid_with_overrides(SMIDR_EL1)?
 
-Fixes: 264ee5aa81ec ("tools/virtio: Add --reset")
-Assisted-by: OpenAI-Codex:GPT-5.6
-Signed-off-by: Linfeng Sun <linfeng.sun.dev@gmail.com>
----
-I used // because b4 ignores lines starting with #. Please uncomment those 
-lines before reproducing.
----- reproduce.c ----
-// #include <fcntl.h>
-// #include <linux/vhost.h>
-// #include <stdint.h>
-// #include <stdlib.h>
-// #include <sys/ioctl.h>
-// #include <unistd.h>
+"Everything" should have said every register in arm64_ftr_regs[], and
+SMIDR_EL1 isn't one of them, so read_cpuid_with_overrides() would hit
+the WARN_ON() in get_arm64_ftr_reg() whenever SME is enabled.
 
-// #define VHOST_TEST_SET_BACKEND _IOW(VHOST_VIRTIO, 0x32, int)
-
-static char ring[4096];
-
-int main(void)
-{
-	struct vhost_memory *memory;
-	struct vhost_vring_state state = { .num = 1 };
-	struct vhost_vring_addr addr = { 0 };
-	struct vhost_vring_file backend = { 0 };
-	int fd;
-
-	memory = calloc(1, sizeof(*memory) + sizeof(memory->regions[0]));
-	memory->nregions = 1;
-	memory->regions[0].memory_size = sizeof(ring);
-	memory->regions[0].userspace_addr = (uintptr_t)ring;
-
-	addr.desc_user_addr = (uintptr_t)ring;
-	addr.avail_user_addr = (uintptr_t)ring + 64;
-	addr.used_user_addr = (uintptr_t)ring + 128;
-
-	fd = open("/dev/vhost-test", O_RDWR);
-	ioctl(fd, VHOST_SET_OWNER, NULL);
-	ioctl(fd, VHOST_SET_MEM_TABLE, memory);
-	ioctl(fd, VHOST_SET_VRING_NUM, &state);
-	ioctl(fd, VHOST_SET_VRING_ADDR, &addr);
-	return ioctl(fd, VHOST_TEST_SET_BACKEND, &backend);
-}
-
----- crash log ----
-[   12.537464] BUG: kernel NULL pointer dereference, address: 0000000000000008
-[   12.538119] #PF: supervisor read access in kernel mode
-[   12.538452] #PF: error_code(0x0000) - not-present page
-[   12.538855] PGD 8ddb067 P4D 8ddb067 PUD 8d3b067 PMD 0 
-[   12.539665] Oops: Oops: 0000 [#1] SMP NOPTI
-[   12.540406] CPU: 0 UID: 0 PID: 88 Comm: poc Tainted: G           OE       7.3.0-rc2+ #1 PREEMPT(full) 
-[   12.541088] Tainted: [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
-[   12.541411] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[   12.542015] RIP: 0010:vhost_poll_start+0x41/0xf0
-[   12.542802] Code: 8f fe 48 83 7b 10 00 74 1c 31 db e8 d9 d1 8f fe 89 d8 5b 41 5c 41 5d 5d 31 d2 31 c9 31 f6 31 ff c3 cc cc cc cc e8 bf d1 8f fe <49> 8b 44 24 08 4c 8b 68 48 4d 85 ed 74 7b e8 ac d1 8f fe 4c 89 e7
-[   12.543670] RSP: 0018:ffffc90000ebfdc0 EFLAGS: 00000246
-[   12.544081] RAX: 0000000000000000 RBX: ffff888008d88170 RCX: 0000000000000000
-[   12.544476] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff888008d88170
-[   12.544873] RBP: ffffc90000ebfdd8 R08: 0000000000000000 R09: 0000000000000000
-[   12.545266] R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
-[   12.545654] R13: ffff888008d88008 R14: 0000000000000000 R15: 0000000000000000
-[   12.546110] FS:  000000003a5c4380(0000) GS:ffff8880a9836000(0000) knlGS:0000000000000000
-[   12.546550] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[   12.546901] CR2: 0000000000000008 CR3: 0000000008ce1000 CR4: 00000000000006f0
-[   12.547496] Call Trace:
-[   12.548068]  <TASK>
-[   12.548605]  vhost_test_ioctl+0x6cd/0x730 [vhost_test]
-[   12.549194]  ? __pfx_vhost_test_ioctl+0x10/0x10 [vhost_test]
-[   12.549597]  __x64_sys_ioctl+0x10e/0x160
-[   12.549941]  x64_sys_call+0x2b5/0x27e0
-[   12.550243]  do_syscall_64+0xbf/0x550
-[   12.550565]  ? fpregs_assert_state_consistent+0x7b/0xc0
-[   12.550933]  ? irqentry_exit+0x44/0x790
-[   12.551270]  ? prandom_u32_state+0xd/0x90
-[   12.551612]  ? do_syscall_64+0x31/0x550
-[   12.551948]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-[   12.552361] RIP: 0033:0x41c19d
-[   12.552914] Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10 c7 45 b0 10 00 00 00 48 89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1a 48 8b 45 c8 64 48 2b 04 25 28 00 00 00
-[   12.553749] RSP: 002b:00007ffd30f78940 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-[   12.554234] RAX: ffffffffffffffda RBX: 00000000004860a4 RCX: 000000000041c19d
-[   12.554620] RDX: 00007ffd30f789b8 RSI: 000000004004af32 RDI: 0000000000000003
-[   12.555010] RBP: 00007ffd30f78990 R08: 00000000004b2820 R09: 0000000000000000
-[   12.555400] R10: 0000000000000001 R11: 0000000000000246 R12: 0000000000001000
-[   12.555788] R13: 00007ffd30f78b28 R14: 00000000004ad868 R15: 0000000000000001
-[   12.556239]  </TASK>
-[   12.556478] Modules linked in: vhost_test(OE)
-[   12.557136] CR2: 0000000000000008
-[   12.557983] ---[ end trace 0000000000000000 ]---
----
- drivers/vhost/test.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/vhost/test.c b/drivers/vhost/test.c
-index 84ed9ea81219..65dc8c71336d 100644
---- a/drivers/vhost/test.c
-+++ b/drivers/vhost/test.c
-@@ -287,6 +287,10 @@ static long vhost_test_set_backend(struct vhost_test *n, unsigned index, int fd)
- 		r = -EFAULT;
- 		goto err_vq;
- 	}
-+	if (enable && !vq->kick) {
-+		r = -EINVAL;
-+		goto err_vq;
-+	}
- 	if (!enable) {
- 		vhost_poll_stop(&vq->poll);
- 		backend = vhost_vq_get_backend(vq);
-
----
-base-commit: c69023b5e16e5ffe9368603dca76d85bd544ee57
-change-id: 20261011-fix-null-pointer-in-vhost_test_set_backend-09439e45ca47
-
-Best regards,
---  
-Linfeng Sun <linfeng.sun.dev@gmail.com>
-
-
+Thanks,
+/fuad
