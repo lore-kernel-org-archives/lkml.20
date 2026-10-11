@@ -1,36 +1,49 @@
-Received: from mta0.migadu.com (out-110.mta0.migadu.com [91.218.175.110])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22C3A33D6FA
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:05:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.110
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1188377A9C
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:06:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791698749; cv=none; b=OUUMPzuRIfBaruq2/6JB17ZYFhxhUAJaP1dR58XhQHphAl3SO6aDPxxjMkYNGTMBnHt0jojptBei46vslOFOYM5OIPxQI598cnYMHVv0nWEvuIAWnxpNy+nJopONgL4K/6tJEEmFtUgYHEEBFs0URdf47mZIkB+Xk0DUv3gvVck=
+	t=1791698764; cv=none; b=uI/FbBazFLZPWxr4BmlB8bTZwu+gP9W28OrhXPoldB0cNEcdLhDFLO7KWaJ5wNwlrhnjR5NIh9j7H23RkTNZHQl4YITK+mXw8/46CEHsOUsEIMbcLS00148UPz+A/aWplX2Tk6J/10wj0SGRqkOr3Y6r3xIZ9l+A1+Yzf/TTC0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791698749; c=relaxed/simple;
-	bh=XLD13vdTh+nPbO3bsCbikHpH8QFwWZS3n5MpVfOxjIA=;
+	s=arc-20240116; t=1791698764; c=relaxed/simple;
+	bh=Ko1rwNvxOIo8WlbGiktUw0zsW1dF4F4oBjsnhDJcW6M=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OP1VcwSH3/MdDlrrBumgQDBDWDa0ZY3DSntajOh8TbukGXFdSRk+zzKcnIcx1dR6TaKGn1tcEn7wni7fOYUhT3mgIrVB95SoP3ZWYr9kC9Mul8f0QbxCHHtWRMa8w1Ugx44OzztVVxJfo5TQm+5KdXh+N8dVFGBMpow33Jiz7ko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=RfYLQZBq; arc=none smtp.client-ip=91.218.175.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 In-Reply-To:Content-Type; b=iDRSJ8DODtXztLOOfxZ5pkSlmH2CKoKu93JvpbUj10iqoReH6OJ7UkF0zCV/I6d+k4g9rs3SwZzM6r2+uT5hE2leu+iA/2fTpLvkHVn3dt62Iht3AnlM+zSTCcuCyBu2/1G+/cK8ooYFJwh00kmToJ+ApffRWovDLAY7lmJeKzw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=foOxpfY5; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="RfYLQZBq"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=XLD13vdTh+nPbO3bsCbikHpH8QFwWZS3n5MpVfOxjIA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791698744; v=1; x=1792303544;
- b=RfYLQZBqGKL1AVlnsm78lVQ0ulxnAJ9Tr56Ds9OW78q59pZYaUnpVMxqNbeGnNggGysZStFz
- ZDYKECOiITK2Gm31VSJ9BKsnQHpq1P0WG7qtOZtIP2+Y3Aeq7Va8s82mDJrvKzi8CWfLBbdw38B
- wwgnPfp0L3qTLiiviM+dZyg0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9a93c669608db274;
-	Sun, 11 Oct 2026 06:05:26 +0000
-X-Mizu-Trace-ID: 9a93c669608db274
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <fe08846e-715f-4819-b08d-95ca3e20f725@linux.dev>
-Date: Sun, 11 Oct 2026 14:05:20 +0800
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="foOxpfY5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791698759;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YzD+3xdEd5Q/l4mFO/uhSnmUpJTKzxsMZ9agePwBXUw=;
+	b=foOxpfY5ONwm8dQc+xU0pCT7SHuKfw4DzRCIQY5WIU9oWTl5l0bI2xPH0Ku84w+jqD51qM
+	0ayoLvEXM/4w3KS7oaLmlsc4Qr8TAxkk1tU1yUaW4KgtpFfoCaizIHlvHeTtPtUkCX5S0/
+	6h0N9RVzCVz3IXakUtDPeDPv7YAo568=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-600-awbPnuu8Mr2ZWVo23w4D2w-1; Sun,
+ 11 Oct 2026 06:05:53 +0000
+X-MC-Unique: awbPnuu8Mr2ZWVo23w4D2w-1
+X-Mimecast-MFC-AGG-ID: awbPnuu8Mr2ZWVo23w4D2w_1791698752
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id AF29F1955F07;
+	Sun, 11 Oct 2026 06:05:51 +0000 (UTC)
+Received: from [100.91.101.41] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id C0CB21956095;
+	Sun, 11 Oct 2026 06:05:48 +0000 (UTC)
+Message-ID: <04fb95ae-92e6-428c-b1d6-d6adffe748c7@redhat.com>
+Date: Sun, 11 Oct 2026 08:05:47 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,140 +51,180 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next v2 4/6] cgroup/cpuset: Properly disabling partition
- when partition state switching fails
-To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, Hui Peng <benquike@gmail.com>
-References: <20261010221938.243859-1-longman@redhat.com>
- <20261010221938.243859-5-longman@redhat.com>
+Subject: Re: [PATCH net v4 4/5] dpll: zl3073x: reject inexact frequencies for
+ N-divided outputs
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, poros@redhat.com, min.li@microchip.com,
+ vadim.fedorenko@linux.dev, arkadiusz.kubalewski@intel.com, jiri@resnulli.us,
+ kuba@kernel.org, Prathosh.Satish@microchip.com, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org
+References: <20261009192556.272263-5-ivecera@redhat.com>
+ <179166042288.434549.8898926010926233618@kernel.org>
 Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <20261010221938.243859-5-longman@redhat.com>
-Content-Type: text/plain; charset=UTF-8
+From: Ivan Vecera <ivecera@redhat.com>
+In-Reply-To: <179166042288.434549.8898926010926233618@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
 
 
-在 2026/10/11 06:19, Waiman Long 写道:
-> Before commit 103b08709e8a ("cgroup/cpuset: Fail if isolated and nohz_full
-> don't leave any housekeeping"), the partition state can be freely switched
-> from "root" to "isolated" and vice versa. After that commit, the switch
-> from "root" to "isolated" can fail if it exhausts all the housekeeping
-> CPUs. Later on, the switch from "isolated" to "root" can also fail if
-> some of the partition CPUs are boot-time isolated by "isolcpus".
+On 10/10/26 21:27, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
 > 
-> A local or remote partition is made invalid when the switch fails.
-> However there are 2 problems with the existing invalidation code.
+> Critical: 0 · High: 0 · Medium: 1 · Low: 0 (1)
 > 
->  1) Both the subpartitions_cpus and isolated_cpus are not properly
->     updated.
->  2) In the case of remote partition with remote_partition flag set, it
->     is not cleared.
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
 > 
-> Fix this by calling the proper partition disabling function in this case.
+> - [Medium] After this patch, zl3073x_dpll_output_pin_frequency_set()
+>    rejects an N-pin frequency that the driver itself advertises as…
 > 
-> On an x86 test system with boot option "isolcpus=10 cgroup_debug" set
-> and more than 16 cores, the following commands were executed after boot.
+> Pre-existing issues:
+> - [Low] The three NL_SET_ERR_MSG_FMT() diagnostics this patch adds to
+>    zl3073x_dpll_output_pin_frequency_set() never reach userspace.
 > 
->   # cd /sys/fs/cgroup
->   # echo +cpuset > cgroup.subtree_control
->   # cat cpuset.cpus.isolated
->   10
->   # mkdir A
->   # echo 10-12 > A/cpuset.cpus
->   # echo isolated > A/cpuset.cpus.partition
->   # cat A/cpuset.cpus.partition
->   isolated
+> --
 > 
-> Before the patch:
+> dpll: zl3073x: reject inexact frequencies for N-divided outputs
 > 
->   # echo root > A/cpuset.cpus.partition
->   # cat A/cpuset.cpus.partition
->   root invalid (partition config conflicts with housekeeping setup)
->   # cat cpuset.cpus.isolated .__DEBUG__.cpuset.cpus.subpartitions
->   10-12
->   10-12
+> This patch changes zl3073x_dpll_output_pin_frequency_set() for N-divided
+> outputs. The esync_n_period computation now uses a 64-bit product, and the
+> request is rejected when the resulting period is below 2, does not fit
+> into 32 bits, or the division leaves a remainder.
 > 
-> After the patch:
+>> diff --git a/drivers/dpll/zl3073x/dpll.c b/drivers/dpll/zl3073x/dpll.c
+>> index 8bac680394d76..6d9a6d21d30b7 100644
+>> --- a/drivers/dpll/zl3073x/dpll.c
+>> +++ b/drivers/dpll/zl3073x/dpll.c
 > 
->   # echo root > A/cpuset.cpus.partition
->   # cat A/cpuset.cpus.partition
->   root invalid (partition config conflicts with housekeeping setup)
->   # cat cpuset.cpus.isolated .__DEBUG__.cpuset.cpus.subpartitions
->   10
+> [ ... ]
 > 
-> Reported-by: Tejun Heo <tj@kernel.org>
-> Link: https://lore.kernel.org/lkml/7f4c57b26ad120ab30adf35653f1dd94@kernel.org/
-> Fixes: 4a74e418881f ("cgroup/cpuset: Check partition conflict with housekeeping setup")
-> Fixes: 103b08709e8a ("cgroup/cpuset: Fail if isolated and nohz_full don't leave any housekeeping")
-> Signed-off-by: Waiman Long <longman@redhat.com>
-> ---
->  kernel/cgroup/cpuset.c | 17 ++++++++++++-----
->  1 file changed, 12 insertions(+), 5 deletions(-)
+>> @@ -1033,17 +1029,31 @@ zl3073x_dpll_output_pin_frequency_set(const struct dpll_pin *dpll_pin,
+>>   		/* For 50/50 duty cycle the divisor is equal to width */
+>>   		out.width = out.div;
+>>   	} else {
+>> -		/* We are going to change frequency of N-pin but if
+>> -		 * the requested freq is greater or equal than freq of P-pin
+>> -		 * in the output pair we cannot compute divisor for the N-pin.
+>> -		 * In this case indicate a failure.
+>> -		 *
+>> -		 * Update divisor for N-pin
+>> +		/* The N-pin frequency has to divide the P-pin frequency and
+>> +		 * be at most half of it.
+>>   		 */
+>> -		out.esync_n_period = div64_u64(synth_freq, frequency * out.div);
+>> -		if (!out.esync_n_period)
+>> -			return -EINVAL;
+>> +		n_period = frequency * out.div;
+>> +		n_period = div64_u64_rem(synth_freq, n_period, &rem);
+>> +	}
+>> +	if (n_period < 2) {
+>> +		NL_SET_ERR_MSG_FMT(extack,
+>> +				   "OUT%uN freq must be at most half of OUT%uP freq",
+>> +				   out_id, out_id);
 > 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index fb41cd76add6..df1619d7a701 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -2863,6 +2863,7 @@ static int update_prstate(struct cpuset *cs, int new_prs)
->  	struct cpuset *parent = parent_cs(cs);
->  	struct tmpmasks tmpmask;
->  	bool isolcpus_updated = false;
-> +	bool disable_partition = false;
->  
->  	if (old_prs == new_prs)
->  		return 0;
-> @@ -2920,15 +2921,21 @@ static int update_prstate(struct cpuset *cs, int new_prs)
->  		 */
->  		compute_excpus(cs, tmpmask.new_cpus);
->  		if (prstate_housekeeping_conflict(new_prs, parent_prs,
-> -						  tmpmask.new_cpus, NULL))
-> +						  tmpmask.new_cpus, NULL)) {
-> +			disable_partition = true;
->  			err = PERR_HKEEPING;
-> -		else
-> +		} else {
->  			isolcpus_updated = true;
-> +		}
->  	} else {
->  		/*
->  		 * Switching back to member is always allowed even if it
->  		 * disables child partitions.
->  		 */
-> +		disable_partition = true;
-> +	}
-> +
-> +	if (disable_partition) {
->  		if (is_remote_partition(cs))
->  			remote_partition_disable(cs, &tmpmask);
->  		else
-> @@ -2937,7 +2944,7 @@ static int update_prstate(struct cpuset *cs, int new_prs)
->  
->  		/*
->  		 * Invalidation of child partitions will be done in
-> -		 * update_cpumasks_hier().
-> +		 * update_cpumasks_hier() below.
->  		 */
->  	}
->  out:
-> @@ -2956,8 +2963,8 @@ static int update_prstate(struct cpuset *cs, int new_prs)
->  		isolated_cpus_update(old_prs, new_prs, cs->effective_xcpus);
->  	spin_unlock_irq(&callback_lock);
->  
-> -	/* Force update if switching back to member & update effective_xcpus */
-> -	update_cpumasks_hier(cs, &tmpmask, !new_prs);
-> +	/* Force update if partition is disabled & update effective_xcpus */
-> +	update_cpumasks_hier(cs, &tmpmask, disable_partition);
->  
->  	/* A newly created partition must have effective_xcpus set */
->  	WARN_ON_ONCE(!old_prs && (new_prs > 0)
+> [Severity: Low]
+> This isn't a bug introduced by this patch, but will userspace ever see
+> these three new extack messages?
 
+No, dpll_pin_freq_set() overwrites them. That is a DPLL core issue and
+out of scope for this series.
 
-Reviewed-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+> The only caller, dpll_pin_freq_set() in drivers/dpll/dpll_netlink.c,
+> always writes its own message when the driver callback fails:
+> 
+> drivers/dpll/dpll_netlink.c:dpll_pin_freq_set() {
+>      ...
+> 	ret = ops->frequency_set(pin, dpll_pin_on_dpll_priv(dpll, pin),
+> 				 dpll, dpll_priv(dpll), freq, extack);
+> 	if (ret) {
+> 		NL_SET_ERR_MSG_FMT(extack,
+> 				   "frequency set failed for dpll_id:%u",
+> 				   dpll->id);
+> 		return ret;
+> 	}
+>      ...
+> }
+> 
+> NL_SET_ERR_MSG_FMT() unconditionally replaces extack->_msg, so the
+> "OUT%uN freq must ..." strings from zl3073x get replaced by the generic
+> core message. ice_dpll_pin_freq_set() loses its messages the same way.
+> 
+> Would it make sense to switch the core to NL_SET_ERR_MSG_WEAK(), or to
+> keep a message the driver has already set?
+
+Yes, it make sense. This will be handled separately (not in this series).
+
+ >> +		return -EINVAL;>> +	}
+>> +	if (n_period > U32_MAX) {
+>> +		NL_SET_ERR_MSG_FMT(extack,
+>> +				   "OUT%uN freq is too low for OUT%uP freq",
+>> +				   out_id, out_id);
+>> +		return -EINVAL;
+>> +	}
+>> +	if (rem != 0) {
+>> +		NL_SET_ERR_MSG_FMT(extack,
+>> +				   "OUT%uN freq must divide OUT%uP freq",
+>> +				   out_id, out_id);
+>> +		return -EINVAL;
+> 
+> [Severity: Medium]
+> Can this reject an N-pin frequency that the driver itself lists as
+> supported?
+> 
+> The hardware N-pin frequency is synth_freq / (div * esync_n_period), and
+> that does not have to be a whole number of Hz. The getter rounds it down:
+> 
+> drivers/dpll/zl3073x/core.h:zl3073x_dev_output_pin_freq_get() {
+>      ...
+> 	freq = zl3073x_synth_freq_get(synth) / out->div;
+> 
+> 	if (zl3073x_out_is_ndiv(out) && zl3073x_is_n_pin(id))
+> 		freq /= out->esync_n_period;
+>      ...
+> }
+> 
+> zl3073x_pin_props_get() then adds this rounded value to freq_supported.
+> Unlike the firmware-listed frequencies, it does not go through
+> zl3073x_pin_check_freq():
+> 
+> 	if (curr_freq) {
+> 		struct dpll_pin_frequency freq = DPLL_PIN_FREQUENCY(curr_freq);
+> 
+> 		ranges[j++] = freq;
+> 	}
+> 
+> For example, take a 600 MHz synth with div=60 and esync_n_period=7. The
+> real N-pin frequency is 1428571.43 Hz, and it is advertised as 1428571 Hz.
+> 
+> Say userspace moves the N-pin to another supported value, such as a
+> firmware-listed 1 MHz, and then tries to set it back to 1428571 Hz.
+> dpll_pin_is_freq_supported() accepts the value, and then this function
+> computes:
+> 
+>      n_period = 1428571 * 60 = 85714260
+>      div64_u64_rem(600000000, 85714260, &rem) -> 7, rem = 180
+> 
+> The new rem != 0 check returns -EINVAL here. The old truncating division
+> gave n_period = 7, which restored the original hardware setting.
+> 
+> The comment in zl3073x_pin_props_get() says a frequency that "cannot be
+> set ... is not offered", which suggests the current frequency added there
+> is expected to be settable. Should the advertised current frequency be
+> skipped or checked for inexact N-divided outputs, or should the setter
+> accept the truncated value?
+
+Neither. A non-integer N-pin frequency can only come from the flash
+configuration, and the DPLL API works in whole Hz, so such a frequency
+cannot be requested exactly. The old truncating division restored it
+only by accident. Accepting truncated values again would bring back the
+silent rounding this patch removes.
 
 Thanks,
-Guopeng
+Ivan
+
