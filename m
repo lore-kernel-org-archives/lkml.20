@@ -1,87 +1,131 @@
-Received: from sonic317-33.consmr.mail.ne1.yahoo.com (sonic317-33.consmr.mail.ne1.yahoo.com [66.163.184.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC785318B83
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 23:32:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.184.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB86623817E;
+	Sun, 11 Oct 2026 23:36:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791761533; cv=none; b=ii41q0FyllIsK1qsYbnYUI7lifb/+6u6ZNADBE7z102iAREbyiEJ8W59UxARtIijnbEjESyj9ma0ZFCZOtDTp90U1e4Vxm6zQgp31w6ZGnXRhO490hjn86AIyYE7SXCBR9Q7IUkw2ZzvSuQtqcdPiI+Aj20oQj51Qg5FZPRKFXA=
+	t=1791761810; cv=none; b=sWpef3LyEO9EYskVsBZFu8xv1TBdPGaosWaj3YMQRKyR8P0RY6TClzLR0bNOp+4LbJwQCL48l4Enf5odEqxGiqSYdu1a0cf7o6N9A/EbCaxXepH2t6YB11+wOmba5Huldj9vjvJ78nt22/jC2l+xO7IEap6iE0O560ZUg7tcE1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791761533; c=relaxed/simple;
-	bh=EifIRG7TRl9QCR+3eHOvpf1UH+UR7E+QaGxfPiJk36k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qm8J7JZOAQBxw85JlyMR0wlUWiV+K2K0kGnQjx4AoKbfG+O6eBHtDbLAnIgFuRPmoEj5qtu9Tm6BE/ut5jeIZJMzs+IbZZDfGYCTodd/wCmgs8d4p4jRD3tp+an1IKjR1PZOf7s6MMeiwi1FNAIOrf/viLUkTtJM8NnN47ziUkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=BkAowf4m; arc=none smtp.client-ip=66.163.184.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1791761810; c=relaxed/simple;
+	bh=27GIcmxdEnb0vepu7ukk7BD5+WBojxM6q3nRXJtR9yo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nI3cWzAG2QL68GkNCVw726zs767tO5sgK9frQlMRqHpUIr3yD5il7RPzB+V50Pn37NP8OJIaRGcSy32BVNa5XZ4kJ6euG5laLwo6LGrHtk7oNV/pX/FXcHtrCFrvV9aTOIU6uqjzS8p/Vkc0h9ucCdTRp4tarBXD0zl1Dr6OdvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VDMvyo0Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="BkAowf4m"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791761526; bh=EifIRG7TRl9QCR+3eHOvpf1UH+UR7E+QaGxfPiJk36k=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=BkAowf4m8TvnzeHH8rKQiepN7G5Vjvj//EanLVk4SHlUOT6pUPl3mnCiGxxJYhtk5jIqgmgDZRHOU1wUhYAeCaXKt6jGjgsWx5TvCSMHqFOZMPA03JEQ75wXzo8EBX2mCX9nczYVFJ8VAOD/oDcdJO3u78YbLjVoq9yiDtz68FDRH3NG0xHckwai4zj+x+jbDVoQVP3hWoto3j5SUpolPS0YX1tw7kPO16M5Jdul/rWZw+o1Ne4QttmPufauuY4YY+cbWaKX2mPmpLJR8CD6OiTXrvMVXH8m54zwU4O1He4YtQvM7kbLjpnhqmVo2gQzGq8v/fai7wheY8fFQt+2CQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791761526; bh=z9MipcyLtU8DFvZPETXJ+LjAIlBJEvJIHnl7oSqbh/q=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=FiYu5nzY/zdHPKH29lEUbBdC11jvfVzUgl5FFxLbVQj2IzKmXjwsqvUJ6sSnZpMacybJr783Vb2KdseHMdi1858RGWVio2dXGzLKtD4N4Yw6WqJBkCL6oWgQxZqGUh1a+QGTCESpiKGzYOsMRcUH5HFA3fLnIshCOwOQM89utV8oPkW8VwprqNKCeU5P6wKiPk/o8q1WKxYWX2UtTmGlZqs0dIXP+SKvLIg5EN1UNiSXaSPnmTAJQu7/6Q1pCiytO84VJZHksRRwvzZWpKsoyJ9vS6RVtdIG3so14+fzXOJh2E9LhC0MB/zDFJu2vdjiJ7cnDmXGBzZcqxyMS7hxkg==
-X-YMail-OSG: gmIgQnYVM1nqFi7kPEEgXNJ.PiWF30XXk4uhPI176574TEu6TbcnGs01un.RTFQ
- kC3YS6bMjC6crWXQGkRvWwz52OoX2YBONXvlR9daMIAEsCE4f7N7wvsu0UEgBexPZZzTRlY4JrEr
- yjohAuvH2zEEbCRW4nl7B9CTm8GBzJ0EQw0JrePOvDO6Sprdrgd2WIxjWr0ONavLNuUxQBUUhMBJ
- vHcXeKWMjbTw5PAEOAno7doEswUpbs6JI4szqrOwVfz36dAzDrMecklt2BeqM8eEtcxOWzgN3qrs
- OCoghKXK.QD1zuYWKHR_QuMQkp0SPIuKlhJubf63skrGHQkz3l_EqR9dD9RFTLS6IY.XQbE6SmrD
- Sdxs3Diyby6ProutwkxLq9v.3FXkj7gvUme.xebGB0Yug4BLBmDHiEUtIF91bKnoLZIYfKF4uEK.
- 5SL49oaeDSXnWxTZ1c3NBuPqRtB.kfa4uX7VnwQbpDNtQVr.RlJjaGSK1XVo7Okb1PPvfy_9KOtM
- xQvA9l6ofGRo9cMfXGOKJMJF63YsbIdSn4loWh4pyTYxQPr.hWJAHXa_5u7XsxUbt_6shxGlJ8Yl
- ew6PHEaMS7TbMWZ9yV1YY4yxndZzIQ792N.GqJ0Ue9KoRxzX8hAqoAMlTPOKixCBXt.wNqGlJZ4c
- HgwJSk4rtZo.MZ5XJOHqQyF.OQX9oZ.KH7PWgB7VyChPVGbWbOOsbvSvVHx00xI6XYjRRALsqJWx
- lD6Iflcdeu2byPDSaFczQn1K6cUs7gNU_S3v76TUAtJln.rZZ2W8lLsh2wdZhmzVfH7aaWDJaGki
- 3SII7qjeE468TYsGMlvriRhqc0ury1lNMeQn1Oddt5VRk_RUXBUDY.Sc0ekB8A9oB9JJEdsegSws
- ngjgdLZP2DNoq8mk9SAwxRc_JJqHGFTDThGTiBP810DsgcNw7iYXYvhboE4RNaDEWeETcMWjuOzZ
- pK2J41vVPV07ANZxRLm3sqejdTcb7Yj1gqANBdJjs0c9ijEsB7qePEuv6Z0OWf3izSetjHUQwfbN
- hHmBjrBmONjzMABQBV_0YekOXbcQTmxvtWYwvQ53gp.xI_9YVOeOWZc0kCDQVdk_gBjDv8ZYLUPC
- I92v7dSPNv79cQvYEZDfhjWkvckVwMQscVmJ3XUe9E8x7s8cWdNypTZYk8DuV6ZIyQ5micGNSU6l
- HpklO_gIx0L_bgjuPH4FUeOZiU0.R8G2r37FL_6fYX5jMQ1M8C68nu5mMzqklwqGnbm_TaD6HrcQ
- u_0K3WjILSQc2tpDX2uRlfHL85e.3FBjV3M0axrfYlG9KEKLIQ9IATK2QMCJu3.xDlvAcY.OZvbq
- g_DWEMNyWj1pOllV9ly6K4BXpY.JcznjxXXLw.YYc7CR.VXeMGvMfuVzz0S5aXuajqaWaNHTyLag
- aDA7TtBY57egEdbqUTHH663DUsAySG._In94NVpCjkNQ2hB4OPNong2pqN3uU6Kul.cAIWtaWAC9
- GyLmmZ.dWfbOcipRn9bL3MDfIM7PouWRQZbbEyRDvmQJDtUGhyjTonXuHRvKCyxPy50cW4R6eck0
- VTP3WAEZTqsgwy7e4n8h5rwadJeMVvryGT0ee3ONZpI.VjwhGewCqanieIJTUAVlr53glpbk5rV5
- ULnQ4sXu1O7xabUdMf2EFpFMsT5bHlK9ZI3jyq7sX0YZ_6ML5z5XZ5ZwJiI3FVCrDCW9AGgPLnWS
- r5tQJNxz4pA53V8.HB1wgeQ80ppVPuRzEPJgTwhIuBlkwtxa9OmUOQCytbkHyvRJKMi_B668G9Es
- q2w20_7adF_p0Cb7aQVMJXu2G.7Sz3TQIX0PjQA2UxxjGIhV.9Xmofmf8DVIdoV5Pd9wRJ2ftqv2
- 1xh9ci0IiglbNUZMAsowmIl0G1H1Wl8G7kDi2nt8Dd.A28PbFvS79FvQa.tC5aeUFjRfpEKnVtIZ
- Yqey.clwHEmxAzwNLufbk.TT6qZ_3R__GxfFhRLJ0RVoP8EnxvMdZ.vPRqItIRgio9netDZOSDoR
- HdAp_ZFLOq0TMF7PZ1FXViSynP_2HengiezimrWAIJOgu.XSo_nC6o7m72JvgidF4M_vu3xBtx8x
- itKE9fXNtgdjfhpyE3ANi4CT9shygi0UIs_1rnI_l8iDD8fkvqPFQPKrSM_9K2gMPIM4vG.w13H_
- KSKny.u6Dr_rX_GOr7k3ej0mTsuCJxzzkYIuaijKDXiXWK7w9_syyWl35Hq2mlMNyh2FdzvJyz2F
- _MN83PyxwvF7oe2on8YOIjjEi577GSiu3LAvBbRcol_Mn.TneVBdSqZibWmYR4h3kg1HJKLRDxKk
- L605nvBjTARUWidMSuYUdqFMAESOPn6WXwZvyYp6hiA3IxZt5etI-
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: fddfef25-fbf7-4e84-b2e8-fe767513154c
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic317.consmr.mail.ne1.yahoo.com with HTTP; Sun, 11 Oct 2026 23:32:06 +0000
-Received: by hermes--production-ir2-5dd9bf4598-c45bs (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 2d5afcc519ec4465e506c68bbc713318;
-          Sun, 11 Oct 2026 23:32:04 +0000 (UTC)
-Message-ID: <1c967962-fcf4-4974-90cc-c8a98b91217a@yahoo.com>
-Date: Mon, 12 Oct 2026 01:32:01 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VDMvyo0Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ABAA1F0089B;
+	Sun, 11 Oct 2026 23:36:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791761809;
+	bh=GTQoJF77ZZyL5Isged6CeeOoQpGQXCdc3xg6ntjU7wo=;
+	h=From:To:Cc:Subject:Date;
+	b=VDMvyo0YaXtdQSGmIeqc0LtNswo+NKROnDg8cZEv+aH07QJHTZ5o/jzmotezb6tM/
+	 XJ3xfe+PR9U5CX/pPIIXS/OhvSXtqwNjEoWiGnSuSxe2qttzt+TWEgmEk3QFSPf2ux
+	 eKrR+/+klyfrMhFpsfNGSHXS+FbG/pMg9utYTYVgJu32hap9qHUVz0pBfHT7f+e0GH
+	 2Sz0kiOU8FCaIjtfmSCqtGu5/dW3NmlYuZVFadGKA35tYf0UxbXJK7Ld4DB0pscv+Q
+	 uoHJ3yTpzczHexlo9pkfL2J2jsgIS4HsJ+E0KK1upf5v3eTDliQTgskicQWpur+mqr
+	 mGXmJKlEwwjiQ==
+From: Sasha Levin <sashal@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	linux-kbuild@vger.kernel.org
+Cc: Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sasha Levin <sashal@kernel.org>
+Subject: [RFC PATCH 0/6] kbuild: build the userspace tools in tools/ with the kernel
+Date: Sun, 11 Oct 2026 19:36:39 -0400
+Message-ID: <20261011233647.2454648-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v3 9/9] net: dsa: realtek: rtl8365mb: add support
- for RTL8367S-VB
-To: netdev-bot+sashiko@kernel.org
-Cc: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev-bot+sashiko@kernel.org
-References: <8d3a9cc7-17cb-46b5-ac78-c7b4055989a7@yahoo.com>
- <179174829036.434549.5346764045610555935@kernel.org>
-Content-Language: pl
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-In-Reply-To: <179174829036.434549.5346764045610555935@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Transfer-Encoding: 8bit
 
-Thanks for the review. The issues are valid; I will respin as v4.
+The userspace programs under tools/ are disconnected from the rest of the
+kernel's build system. Each has its own makefiles and build framework, and
+"make" never builds them: apart from the few host tools the build itself needs,
+such as objtool and resolve_btfids, nothing under tools/ is compiled as part of
+a kernel build.
 
-pw-bot: cr
+That makes them easy to break. Most people, and most of the build bots, check a
+change with "make allmodconfig && make", which doesn't cover tools/ at all. A
+change that breaks a tool passes every build check and is only noticed when
+someone happens to build that tool by hand, often much later.
+
+We keep seeing this in tools/testing/: selftests that stop building after a
+change elsewhere in the tree, or after a backport to a stable tree, and stay
+broken until someone tries to build them. Others brought up the same concern at
+LPC.
+
+This series lets the kernel build also build the tools it is configured for:
+
+- tools/Kconfig adds a "Build userspace tools from tools/" menu
+  (CONFIG_TOOLS_BUILD) with one entry per tool and per selftests
+  directory, so .config records what gets built, and a tool that breaks
+  can be turned off on its own.
+
+- "make tools_build" builds the selected tools for the target, each with
+  its own build system as it is built standalone, into tools-build/ in
+  the object tree.
+
+- With CONFIG_TOOLS_BUILD=y, "make all" builds them too. allmodconfig
+  and allyesconfig enable every entry when the compiler can link
+  userspace programs, so the usual build test catches tools breakage.
+  Toolchains without a C library are unaffected, as are "make vmlinux",
+  "make modules" and external module builds.
+
+This is useful beyond build testing: the tools are built for the same
+target, from the same tree, as the kernel they go with.
+
+Sasha Levin (6):
+  kbuild: factor the userspace ABI flags out into KBUILD_USERABI
+  kbuild: add "make tools_build" to build userspace tools from tools/
+  tools: build perf in tools_build
+  tools: build kernel selftests in tools_build
+  kbuild: build the tools selected in tools/Kconfig as part of "make
+    all"
+  Documentation: describe building tools with the kernel
+
+ .gitignore                                 |   5 +
+ Documentation/dev-tools/kselftest.rst      |   4 +
+ Documentation/kbuild/kbuild.rst            |   5 +-
+ Documentation/process/submit-checklist.rst |   5 +
+ Makefile                                   |  24 +-
+ lib/Kconfig.debug                          |   2 +
+ tools/Kconfig                              | 326 +++++++++++++++++++++
+ tools/Makefile.kbuild                      | 198 +++++++++++++
+ 8 files changed, 562 insertions(+), 7 deletions(-)
+ create mode 100644 tools/Kconfig
+ create mode 100644 tools/Makefile.kbuild
+
+
+base-commit: a5ebb76233b79db01e82e061173cb73c6d2b5c6b
+prerequisite-patch-id: 68eb8785244b88ec7e696e716420e2d9b1367dbc
+prerequisite-patch-id: 37c57cf4c2a9700788cd1755912753f363cbb3f9
+prerequisite-patch-id: 7772557d5d842a42f1bbb3ee18d41f337db9783a
+prerequisite-patch-id: 75abf8d47ec8093740c215e9eebe7bbb5846ddd6
+prerequisite-patch-id: de33c5273a0f7619a54dc6d1fd9c47383b7dd60e
+prerequisite-patch-id: 5243b7b03f2c12a6e66c353b0c083f7f21fd7ba2
+prerequisite-patch-id: 7153a847ba7b05e49a670caba5d5b8fa2508eff1
+prerequisite-patch-id: 67a995618952454c30eb77960a5bf6f897d22547
+prerequisite-patch-id: f0580be789bfbd90c903bfef8cf6099609e63347
+prerequisite-patch-id: 975b27a83085ae7532771fbd7bb17b779ea2c254
+prerequisite-patch-id: fa973600f98f37417659bbe282f76d7cbdfd84ff
+prerequisite-patch-id: 333bf51a132f726bf970b5963017bdc607c0e315
+prerequisite-patch-id: 7853ec5197ec9b9322a102a6b02dd62bba4df102
+prerequisite-patch-id: 70780a52552f78b640178774bce254616b06f831
+prerequisite-patch-id: 7a28872d234cdfa7bd5ec851e9dde01a65e91130
+prerequisite-patch-id: f75a478f103e8707f7ce1ebb136e3a605f026cae
+prerequisite-patch-id: c6aacf3772c239df0224afb7e4bb661fb9b81c63
+prerequisite-patch-id: a71f47de3fd339d680c9f18e80f5bcde7eae0abf
+-- 
+2.53.0
 
