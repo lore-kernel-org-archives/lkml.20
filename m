@@ -1,183 +1,71 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7898F282F0E
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:02:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E426F283FDC;
+	Sun, 11 Oct 2026 16:04:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791734579; cv=none; b=KyLtldGnlFSXKfFL8UmxqNq0/OZhTZ39zkM77s2YNTLOF4h7OFTOImDZB5w0ia1CJIGmdeBEV2RTqqN0HfCQ5F/yFBhYaeOrABKs8HtHTTou95RFv7Rim7lrpLUxHCQuLx9ZHKcy6z+l/JsztL5+x6Jj/ZqEdHFzzmjvOu5PX48=
+	t=1791734685; cv=none; b=gciE6xfryNrBunbGZP4U1u4/2YlybOI00Bhqb47it2HcJHXv2474WKimDzTeYg4Ma63EX9dO4AKGHK/d78XDclaARUdi6YmU9nVXURaAeKpZ6OtC3GnaNKTxeELl6vZME/jWhe6tOwZVrqn4cfFqIYtRLWFTyUwGKcaPm26Nw6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791734579; c=relaxed/simple;
-	bh=tRotFdJein35pOxgU2hMZo2Ouf63MisZjo3t3o/x8fA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=Q88j8ouMUdG0Lo6rD+HtM9ZIRFm3CgV9uYdiPh7DZ4OeH3auP6LxQHQFXAz3c2gHgD7VVPNYBoEXPBuQ7AjagSXnXSQT14fseS6k0ScSkQ194YLKhlbnt4mHy4TnWgyixkHppnqFMlQYUrs180eRx2Rhy5fAyXfwo0Xnw6nF3DU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AlyT3Ni3; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791734685; c=relaxed/simple;
+	bh=VedIeZ6zmjpINfPLpDpfX3sBTma5OYnqgCfqlac4oX0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=hEiB7SKIgOJ1VNaIlM0R+tRg4P2yklyAwiNpOeDGoyI10Sg3IloPt7Tk4AMyN1wbYOvQsAKWCsiVt10SWLnH4rEwgMVS+FgJn851x78PBxkbCxslZ4TRUNFotfnJ+tLdNQj7p2ijWT1vprKjrEKudJsH85K7zZRoladQgkrscwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=odq0YgCc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AlyT3Ni3"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ab752f6244so976544a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:02:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791734578; x=1792339378; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pYhN/oFcVoNvHQRWPY1E6x94NkzXk64BVrqHUYWR0O4=;
-        b=AlyT3Ni3rOyT3VOLUN54PP9HpD/mfMOWvaV8vYt3CM3QDOXscEjLH07nDGQ6shfM65
-         CSpRuGtQOubPvj66td7ACgYy0zoCbR+FR3wpA9cRncnhwMA0KtqNrlstYQqLWvAqlONp
-         +4g6T3kwnpg8ny30aX2qqwfa2Y2tP+VqVjaYWRzbkAh3h1jFuCw/lFLn5YHSu0OyKqhz
-         /gBLPZvPxkaWfsFhyER+p0axH800CLJ+uFi/DbhVptSNFj+qfkU7F25+rlYCdns99lTq
-         Wq5+w5wzgo60o5jBHUyiUpTjkDM/y7Zs442P9PqXTZWUCMG1p7RGYZ+SY0hLqRgQljpr
-         cV6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791734578; x=1792339378;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pYhN/oFcVoNvHQRWPY1E6x94NkzXk64BVrqHUYWR0O4=;
-        b=I4sYE9u0Zc8yw6lmWxnu/eTEgJxscVbSSOcpl3aZ9ysiLFQqYE56af5RsSFCkBeAHa
-         /TVupCbG5MG15PrGZulma6Se20pjbZ1+JSj3cHgJtpksia/GtNBRtZsTraq9txU/c40X
-         yckNFeUvEZHSXM5wkDP07OV6f6olL2YL4CESGoK2T1gQmtbrqEwjSZ1q9yp/KC8jZN72
-         69kTOelYA85n2k5wXyspB1Hbm6zpCkrRbk2ftfNtm8dH8XSfIZL/i9MXQQkrXwT4FUM7
-         PBw7g7YFABefJR+JJ62OCFha303uUtTVhmBVwl+X2LoqadDTsbp5I2zRT1nJ0ue5+FKv
-         N7sw==
-X-Forwarded-Encrypted: i=1; AKwUvBwbJ1LEkUvSoOC0z/DTLWUORpLjIKKvvujAYEtL8+lrsSiPPIZqaxysJNrINg22mnF336kBFwbUidzOHQc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJskNZ2wE8ufs5N6JnX+2kRds1QrPsCOpcbSGN74SwiLGJT21Ay
-	pM9DocQIwK+61rvsvsQa9fnf3+lA40jN5eH5h7ob+dV+7zWj6dwt0/Qr
-X-Gm-Gg: AYBFou2pQ958r71iUScTp6qTVEGmtliX57tNd9WMyEN0aO6MvpDgAJfLN0d1WpHeV/E
-	bAtmabRmnHm6rvw8bxSFLaGIJKmhNivQph9tmMF1TC/BKdTkq2R/kyEjIJk0ibbo31wc/fFJlMQ
-	y1pJt+U84H7Htx6JcJvnzfGbsm+5w3d+li238HBw3abmMPn8J1Ove3E9AHcfb0FgAXr16SWA5tU
-	otmFyynYSiqrA46inZI9yrxn7UQeaYY5BIyc/WJOpUK6N8mUnfkL0QIqUVu0v0w6V+ia1meMBdI
-	P65Yc9S5QY0cKChhYosFnDiT36g5UUq8ncoUba3p/OYg2Bg8YklaZpZnE70VbWUzqoa90p9pRf6
-	2W8hFCImjKItGUbQSw06mbdnmkzMhFvYimOhEDMco/VRBIn4eYqrL1o/kYDZInm6KodTuV5pFg8
-	Y6crBZOSBzu4m9hnLpZ5922E4YaBfwA4G8AWdQ61e1VEbinaJlyhy6cPIO7b8ammPzAw==
-X-Received: by 2002:a17:90a:d006:b0:3a4:77b8:1770 with SMTP id 98e67ed59e1d1-3ab3a955c28mr6412277a91.15.1791734577692;
-        Sun, 11 Oct 2026 09:02:57 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38b9633fsm15794623a91.6.2026.10.11.09.02.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 09:02:57 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: perex@perex.cz,
-	tiwai@suse.com,
-	norbert@doyensec.com,
-	kees+treewide@kernel.org,
-	phucduc.bui@gmail.com,
-	danishkhateeb03@gmail.com,
-	cassiogabrielcontato@gmail.com,
-	maoyixie.tju@gmail.com,
-	ivan.orlov0322@gmail.com
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] ALSA: timer: Pin the module for userspace timer controllers
-Date: Mon, 12 Oct 2026 00:02:50 +0800
-Message-Id: <pm-pmb-98fb8f747fc7b8499fd4-v2-1c531f149a6d6c084f48@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="odq0YgCc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7E021F0089B;
+	Sun, 11 Oct 2026 16:04:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791734684;
+	bh=bec+jpXzHaLwD7RfR4+eVFRbcS73w2UfQ4IfOeNkfVk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=odq0YgCcWnlJUoW96cP0quA+rpHAQBxl5Qpx3bQJVb7Ycs4aVQ/ZsRWcWpZDi2wYX
+	 OWk9B5R16sU0d2TwZ5fygW5ZqwZbAER0DJcn+3eiCPfFRxvdbpJ8pebRecuUiO8imV
+	 gYiEXIc8BbloEd7UI6zJjiBcWe/3kPhftx+gyJ6r7kU1RArtHCZrlB0JgjyPQckX6y
+	 1arryjPIqGcf21UVScxCV5uaCUiD8rrzGzP0YrsP2119i2s7umRjwMj06RswSYgP7V
+	 ARGG6vMKu65wxEOX8DLvbOVkqGJcPgyQTC4k9D+HJH3gJCxwM6YVpLToBEy6JUwfXI
+	 CFUJVHA2qndyw==
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Jeff Hugo <jeff.hugo@oss.qualcomm.com>, 
+ Steve Meek <stevemeek82@gmail.com>
+Cc: mhi@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261011-mhi-next-v1-1-13a738637ff0@gmail.com>
+References: <20261011-mhi-next-v1-1-13a738637ff0@gmail.com>
+Subject: Re: [PATCH] bus: mhi: host: pci_generic: Add Quectel RM500Q-AE
+ support
+Message-Id: <179173468218.6306.10510688907306277028.b4-ty@b4>
+Date: Sun, 11 Oct 2026 21:34:42 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16.0
 
-The static snd_utimer_ids IDA must remain live until a userspace timer
-controller has returned its ID. However, snd_utimer_fops has no owner,
-so anon_inode_getfd() does not take a reference to snd-timer for the
-controller file.
 
-With CONFIG_SND_TIMER=m and CONFIG_SND_UTIMER=y, userspace can create a
-controller with SNDRV_TIMER_IOCTL_CREATE and close the native timer
-file. If no timer instances or dependent modules retain snd-timer,
-ordinary module unload can then overlap the controller's final release:
+On Sun, 11 Oct 2026 08:40:49 +0100, Steve Meek wrote:
+> The Quectel RM500Q-AE (SDX55) enumerates with the Qualcomm SDX55 ID
+> 17cb:0306 and subsystem ID 17cb:5002, so it binds to the generic
+> qcom-sdx55m entry. That configuration expects QMI on channels 14/15,
+> which this module's firmware does not answer: the modem probes, but
+> every QMI request over the control channel times out and no data
+> session can be set up. Users of this module have had to fall back to
+> Quectel's out-of-tree driver.
+> 
+> [...]
 
-  Controller final release              Module unload
-  snd_utimer_release()
-    snd_utimer_free()
-      snd_timer_free(): unlink provider
-      snd_utimer_put_id()
-        enter ida_free()
-                                        delete_module()
-                                          alsa_timer_exit()
-                                          free_module(): free MOD_DATA
-        access snd_utimer_ids.xa
+Applied, thanks!
 
-The provider is already absent from snd_timer_free_all() when unload
-runs. Neither register_mutex nor the IDA's lock keeps module storage
-resident through the remaining IDA access. That access can therefore
-use freed module data and fault while acquiring the XArray lock, as
-shown in the Oops below.
+[1/1] bus: mhi: host: pci_generic: Add Quectel RM500Q-AE support
+      commit: a35e29c95ded8356b405c2abd9e667082a2901ac
 
-Set snd_utimer_fops.owner to THIS_MODULE so anonymous-file creation
-takes the existing module reference. The VFS drops it only after
-snd_utimer_release() returns, keeping the IDA resident through
-ida_free() and preventing ordinary unload during that interval.
+Best regards,
+-- 
+மணிவண்ணன் சதாசிவம்
 
-Oops report as below:
 
-    BUG: unable to handle page fault for address: fffffbfff80480af
-    #PF: supervisor read access in kernel mode
-    #PF: error_code(0x0000) - not-present page
-    PGD 1a7ff6067 P4D 1a7ff6067 PUD 1a7ff2067 PMD 100ad6067 PTE 0
-    Oops: Oops: 0000 [#1] SMP KASAN NOPTI
-    CPU: 0 UID: 0 PID: 485 Comm: alsa-utimer-fix Tainted: G           O        7.2.0-rc6-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
-    Tainted: [O]=OOT_MODULE
-    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-    RIP: 0010:kasan_byte_accessible+0x15/0x30
-    Code: 00 00 0f 1f 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 0f 1f 40 d6 48 b8 00 00 00 00 00 fc ff df 48 c1 ef 03 48 01 c7 <0f> b6 07 3c 07 0f 96 c0 e9 69 f1 2b ff 66 66 2e 0f 1f 84 00 00 00
-    RSP: 0018:ffff88811a457c48 EFLAGS: 00010086
-    RAX: dffffc0000000000 RBX: ffffffffc0240578 RCX: 0000000000000000
-    RDX: 0000000000000000 RSI: ffffffff861f111c RDI: fffffbfff80480af
-    RBP: ffffffffc0240578 R08: 0000000000000001 R09: 0000000000000000
-    R10: ffffffff891cc057 R11: ffff88811531ba00 R12: ffffffff861f111c
-    R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
-    FS:  00007ff190ff7780(0000) GS:ffff8881fda2a000(0000) knlGS:0000000000000000
-    CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-    CR2: fffffbfff80480af CR3: 0000000116890003 CR4: 0000000000770ef0
-    PKRU: 55555554
-    Call Trace:
-     <TASK>
-     __kasan_check_byte+0x13/0x50
-     lock_acquire+0x113/0x2f0
-     ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
-     ? lock_release+0xc8/0x280
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     _raw_spin_lock_irqsave+0x3c/0x60
-     ? ida_free+0xd4/0x2b0
-     ida_free+0xd4/0x2b0
-     ? __pfx_ida_free+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_locks_remove_file+0x10/0x10
-     ? __fput+0x39f/0xa60
-     ? fput_close_sync+0xff/0x200
-     ? __pfx_fput_close_sync+0x10/0x10
-     ? dnotify_flush+0x22/0x4b0
-     ? __x64_sys_close+0x8c/0xf0
-     ? do_syscall_64+0x115/0x6a0
-     ? entry_SYSCALL_64_after_hwframe+0x77/0x7f
-     </TASK>
-    Modules linked in: snd(O) [last unloaded: snd_timer(O)]
-    CR2: fffffbfff80480af
-    ---[ end trace 0000000000000000 ]---
-
-Fixes: 37745918e0e7 ("ALSA: timer: Introduce virtual userspace-driven timers")
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
-
-diff --git a/sound/core/timer.c b/sound/core/timer.c
-index 69a59b25fe0a80330669a27450ae40deaa5b9084..905176bf6948d790f9cb5732d01d01d858202d1b 100644
---- a/sound/core/timer.c
-+++ b/sound/core/timer.c
-@@ -2173,6 +2173,7 @@ static long snd_utimer_ioctl(struct file *file, unsigned int ioctl, unsigned lon
- }
- 
- static const struct file_operations snd_utimer_fops = {
-+	.owner		=	THIS_MODULE,
- 	.llseek		=	noop_llseek,
- 	.release	=	snd_utimer_release,
- 	.unlocked_ioctl	=	snd_utimer_ioctl,
