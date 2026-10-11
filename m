@@ -1,138 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7FFC364EAF
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:15:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 493DD33A6F7
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:16:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791706522; cv=none; b=ZIuj0MWV8LZPJX4yoMOhaM5/91LamfCPtHSkxU2Qkg6jeZ4w0ODQoa9XN8Hxal0b5It7BL0l+v88LEn0XoiiR/6RVg2Z/HW1f9k2cXSAI5YA+EjlwDu2w9o3WaRDdwPfsqAOnor6vfd46zmNj1c7I7zAoblGNjvJY8uHfNH36nM=
+	t=1791706586; cv=none; b=odq5nJEx83G07L6aBUfeudzfJKMIuVDSI2CTFiUvAubb4xTbBHqolVs9Buwn/oMhK/aSf7xt/7MYBL2mMRebU8jTm0dF0TWoQi61ZZ+oN/+fvm5hlqpdTHDM9TQvsKQPkdBvrAr2oGURddXla1P/9DyePdIp1VF6Tijei7qLdOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791706522; c=relaxed/simple;
-	bh=/FCg25jwFYL2ar3DHPT39gbE1Iw7WOPXNMb12c2vqN8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eaEDEgkBjfMEisk2VYGTyqwMTSPbFrxC/vejJAyEeMXtJxcLV4yexhCHeaS7C++/kjBcoBpRm0YZA8E4sXppWgFEsUQdZk5lZxJL1h6XcI9Y4ClNu/+uIqXM0MG9auIySgFzb5PCXm0KHRwQ/JGGsSreTRJTlGvQM0Th1EH9osc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AkAueSbn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791706586; c=relaxed/simple;
+	bh=gqlcOcktZ36t3l7g2J+pRFwfuJyP3tE7gZHG1fcJgng=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=OKp3+MxiOLzCGTJo4SqFp61f/DccfKgqYGDJx20HbAyRDFp9SWKoaOpOIgm/V6IcsevDTkjcYdd31D3kmOWqUHPjL5T7MGxw5mNyjeXOKLel0IISjuSZwEm5r0Jqpime0YGHKThchzKJOchgURIQzTEnlB1J5g9JDwHXfpY4U/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FxKMtJGa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AkAueSbn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66B251F0089C
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:15:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FxKMtJGa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3D7E1F0089C;
+	Sun, 11 Oct 2026 08:16:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791706521;
-	bh=CVfiSFcCF0e/GPeUJhHYWYQxeQKMAvPyvPYtAOqKv1s=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=AkAueSbnjw5a6OIk+Q40Bko5u0dnx8+RQRi89c74qJ5Vs8FZpmntHIev7ZXD8uoWA
-	 DTejzy9KJbdsMe76wJ3Z/5bqbcX1sPMge3aGD7NS3tc1Fzl0km5LvtXN/VkGwxU81W
-	 YkR/0RhvmB2/FvD/f+eyoIwecF2w/arvE4/SNuxfecsHzJ3LHfwx7TL3scP7lop6bd
-	 3QXIe2WjAm0cAfYKV/MF/b9BpG5U7FRAWfBJTaHYZg4ZFziRSM9dlfNOqvk5fcWA3A
-	 RmMTZ+KFZ4o+zcwGA5uGg8wKOp30SPcmQgiji4tSEmWTVZyi9YrPyLNHWJEs9q+mTQ
-	 ms6m+Np0iulXw==
-Received: by mail-oa1-f42.google.com with SMTP id 586e51a60fabf-49ddddefadbso448858fac.1
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 01:15:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzMYYW2Ax5NbPONogxtwoywvkxhq/WRYSu/QkrhEViTZAkkGBVh0700lG3ZND7DfRn8lufhRflY9ptpO7E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIawIj5s973dgetvgKQnwlxIzLiiJ+cvMnBlrJ/FHYbzfKenz/1
-	YmiawzswT8qTtOFyvDC+TVS8W0Qaze+4OobWJTEy2OOlY2MfUDMgNYd8R94T6yL/TGPL21STCYq
-	zEsaZDLM9RDkCy3qjsaIKYfPHfdZHEBI=
-X-Received: by 2002:a05:6870:1495:b0:4a2:21ce:f2f8 with SMTP id
- 586e51a60fabf-4a2a88f8190mr6010986fac.41.1791706520768; Sun, 11 Oct 2026
- 01:15:20 -0700 (PDT)
+	s=k20260515; t=1791706584;
+	bh=4WcCA1E0CSTBkfr6toll4II58krvvlbL+7BiwRn1ctM=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=FxKMtJGa03OWcEHZIJL8VNOlf8cGdliveQCweEt85vANZ55UR7DNgCk63TlzlbsUT
+	 5Xed5gFDhaDOpQaPJTfes6B5Pf10EN3UtPCTQjx1sbku9a5LktvJBTx1BD/KD5SPhH
+	 Jlai2WUK6P/4ngxfTET4Ov3FDyHJPShOoof48dliBb9qrrPnAucBuF3lHJZjkQLRrx
+	 /121ePCIkRNbkh+ewsLndifgFQigqoH2TvzEJ4NoRxGVYBXWs1B2HpA26nPoI6ybtq
+	 gxqdIj9xM8ZL7ESDZ2edeWYVbC5ztuBFVa16YXxvuNwbv8bfuSc9yT26hC6I6pLOQQ
+	 sXM0WFoxgqatA==
+Message-ID: <f3f5fe2c-f0f5-4c23-a2f7-6cb5e09ced5a@kernel.org>
+Date: Sun, 11 Oct 2026 16:16:21 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261011052006.60585-1-jain.sm@gmail.com> <179169628642.2527009.18099159731266030842@kernel.org>
- <CA+FWx==a6tGvhtPfz92PJa4CxgR4tGNBGHQMq9jEhX5P-4sB2g@mail.gmail.com>
-In-Reply-To: <CA+FWx==a6tGvhtPfz92PJa4CxgR4tGNBGHQMq9jEhX5P-4sB2g@mail.gmail.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Sun, 11 Oct 2026 10:15:09 +0200
-X-Gmail-Original-Message-ID: <CAL4Wiio1bAsM_Z2LEQz9r0-ehHoWpzTneWy49hd2FGeoVVEQhQ@mail.gmail.com>
-X-Gm-Features: AclHuK9B4U4RVCwX7L_yEsSbxUzqDO0uYorO0scfr3eIuyaVKw-Jzcv8lIuYjy4
-Message-ID: <CAL4Wiio1bAsM_Z2LEQz9r0-ehHoWpzTneWy49hd2FGeoVVEQhQ@mail.gmail.com>
-Subject: Re: [PATCH net] tcp: keep the route window metric when SO_RCVBUF is
- set before connect
-To: shashank Jain <jain.sm@gmail.com>
-Cc: netdev-bot+sinfo@kernel.org, Neal Cardwell <ncardwell@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	"David S. Miller" <davem@davemloft.net>, Kuniyuki Iwashima <kuniyu@google.com>, Simon Horman <horms@kernel.org>, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, yi.sun@unisoc.com,
+ linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] f2fs: skip further SIT updates for already invalidated
+ blocks
+To: Seongjae Jeong <jsjlee1020@gmail.com>, jaegeuk@kernel.org
+References: <20261004061007.7433-1-jsjlee1020@gmail.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20261004061007.7433-1-jsjlee1020@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Le dim. 11 oct. 2026 =C3=A0 07:26, shashank Jain <jain.sm@gmail.com> a =C3=
-=A9crit :
->
-> The issue was found by manual code inspection assisted by an LLM
-> (Claude Code, Claude Opus), while reviewing the networking changes that
-> set window_clamp on unconnected sockets, and then confirmed with a
-> reproducer before posting. The patch carries an "Assisted-by: LLM" tag
-> for that reason.
->
-> Reproducer: mainline a5ebb76233b7 built for x86_64 and booted in qemu,
-> two network namespaces joined by a veth pair, with
-> "ip route replace 10.0.0.0/24 dev <veth> window 4096" on both sides. A
-> small program sets SO_RCVBUF before connect()/listen() and reads
-> TCP_WINDOW_CLAMP and tcp_info, and the SYN/SYN-ACK is captured with
-> tcpdump.
->
-> Without SO_RCVBUF the route's window metric is applied
-> (TCP_WINDOW_CLAMP=3D4096, rcv_wscale=3D0, SYN "win 2920, wscale 0"). With
-> SO_RCVBUF set before connect, mainline reports TCP_WINDOW_CLAMP ~1 MB
-> and rcv_wscale=3D5, i.e. the route metric is ignored. Reverting
-> b025461303d8 ("tcp: update window_clamp when SO_RCVBUF is set") or
-> applying this patch restores TCP_WINDOW_CLAMP=3D4096 and the scaled-down
-> SYN window; with no route metric configured, mainline, the revert and
-> the patch behave identically in all four combinations.
->
-> Thanks,
-> Shashank
+On 10/4/26 14:10, Seongjae Jeong wrote:
+> When update_sit_entry_for_release() encounters a block whose bit is
+> already cleared in cur_valid_map, it reports the inconsistency and
+> corrects se->valid_blocks and del. However, it still proceeds with
+> the discard bitmap and checkpoint accounting updates.
+> 
+> This can clear the discard bit unnecessarily and incorrectly decrement
+> the segment and section ckpt_valid_blocks counters when the block is
+> not marked in ckpt_valid_map.
+> 
+> Continue to the next block after correcting se->valid_blocks and del,
+> so that an already invalidated block does not trigger further discard
+> bitmap or checkpoint counter updates.
+> 
 
-Note that we ask to not top post on netdev@ mailing list.
+Cc stable.
 
-A few remarks on the changelog:
+> Fixes: 81ffbd224e5f ("f2fs: update_sit_entry_for_release() supports consecutive blocks.")
 
-1) "TCP_WINDOW_CLAMP 4096" only holds until the first data segment.
-Since a2cbb1603943 ("tcp: Update window clamping condition"),
-tcp_measure_rcv_mss() overwrites window_clamp from sk_rcvbuf as soon
-as scaling_ratio changes, with or without your patch. What the patch
-really restores is the SYN/SYN-ACK window and the window scale.
-Please say so.
+This commit didn't change previous logic? IIUC.
 
-2) "no window scaling" is not accurate: we still send the option,
-with a shift of 0.
+Otherwise it looks good to me.
 
-3) This also fixes TCP_WINDOW_CLAMP being overwritten by a later
-SO_RCVBUF on a not yet connected socket or a listener. This is
-probably more common than the route metric and worth mentioning.
+Thanks,
 
-A packetdrill test covering the SYN window and wscale would be nice.
+> Signed-off-by: Seongjae Jeong <jsjlee1020@gmail.com>
+> ---
+>   fs/f2fs/segment.c | 5 ++++-
+>   1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+> index 51858f64e43e..fc2f0fd8e318 100644
+> --- a/fs/f2fs/segment.c
+> +++ b/fs/f2fs/segment.c
+> @@ -2560,7 +2560,10 @@ static int update_sit_entry_for_release(struct f2fs_sb_info *sbi, struct seg_ent
+>   			f2fs_bug_on(sbi, 1);
+>   			se->valid_blocks++;
+>   			del += 1;
+> -		} else if (unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED))) {
+> +			continue;
+> +		}
+> +
+> +		if (unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED))) {
+>   			/*
+>   			 * If checkpoints are off, we must not reuse data that
+>   			 * was used in the previous checkpoint. If it was used
 
-It seems to be a net-next candidate, since WINDOW_CLAMP is not well
-documented / defined / implemented / tested.
-
-pw-bot: cr
-
-Thanks.
-
-
->
-> On Sun, Oct 11, 2026 at 10:54=E2=80=AFAM <netdev-bot+sinfo@kernel.org> wr=
-ote:
-> >
-> > Hi!
-> >
-> > This is an automated message. This series looks like a fix, but its
-> > commit messages seem to be missing some information:
-> >
-> >  - How the issue was discovered, e.g. hit in production, hit during
-> >    development, syzbot report, manual code inspection, LLM or static
-> >    analysis tool scan.
-> >
-> > Please do not repost the series just to address the above. Instead,
-> > reply to this email with the missing information, so that reviewers
-> > can take it into account. If the series needs another revision for
-> > other reasons, please include the information in the commit messages
-> > then.
-> >
-> > The evaluation is done by an LLM so it may be wrong, if you think
-> > that is the case please reply and explain.
