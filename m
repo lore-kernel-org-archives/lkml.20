@@ -1,186 +1,164 @@
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A998846C4B7
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 22:57:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC09323BCF7;
+	Sun, 11 Oct 2026 23:02:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791759456; cv=none; b=GtY5B061KkJo0Ow0+Jx2zknpyGiWY8vIj3rFCxtkkZMXUs+eYmNwMDlFabz6TINdoATxLQ8PN8SzGumQlu40ZfDc5fzetA16ZQ8lbfuo9gLaIAFtQS032Wc8x1rZcD0E02i75fa2eCHOgSKcpgKvV0+PRmnEy0x+0LdPy3At7k0=
+	t=1791759740; cv=none; b=uSs7ocHRfZ2zcLVTw+2nYVDkpOGzstyoI47iapNdWW2g08V2XgdrJ8tRve5uydB/MAmPf+qGUBwF+0ZtnR2iM1SRRgwbgjLLyifkRPBvkDkhexmNQHBJ+LO3ra1FL5TrqxWVChs4Hd6ise2BNwBxxauqop6HGPHn3O7p+m+rYHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791759456; c=relaxed/simple;
-	bh=iuxXe+oO0FU8wOMUzOslFucRKCsLGWXMFpgraSNUqnw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AGC2XuOZvAYO75tEqHBXeIQHWLMN7SvhQZLSBGFWl4cXoRyrGnftJ1OrlXid/lCqgJarALuhTxbYJxehQK2XR9zuuu4M3V/wHVElfFxMb4z4XROpm3E/NkBI0SW0JpTfLGfOCuTsEb5t0i9SYEB9O6vcADdDGbIa6opnVCvxZWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fVyge9ZD; arc=none smtp.client-ip=209.85.222.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791759740; c=relaxed/simple;
+	bh=+LrpSHi83rg43ATDcwnlytRa93Im8h1st3CGeqOd/LY=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Krtap9a9VNknEC9NTXoPvrb0TvBdyFdPYmowadH/6VEiDsR7j0dhxq2j2WJY/ZXldaTLkj9J9IgzwCY6L5WAG39zsWIvdenQQcPD0vkRe1+WAOpU5Iic7V1NY4pRsjJFceaNEGd/dZ7Rxt/RTOMdh0GVCQezL9D1h19Z8HWErsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aFnHjWlP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fVyge9ZD"
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-93e56c287b3so114685185a.0
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 15:57:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791759454; x=1792364254; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6HbFzXeXg8l+saP+bOvTWuOKTTgvyyirsYJqRDQW8/E=;
-        b=fVyge9ZDApF9GouUn5W04JyJ/G4IDU1Fi+0Xma1yQGbIUttccfmJZdCPXgtaEwjSso
-         XEUOmhEcINJnDfI3F5J1CyO0ryTY3sfD7l25gZCdN5YLTGtbo1y0zpqCDW9ltBR+nMH4
-         iDHNAn2jOOaG9YDytIxH9S/yS5xTEddUDqkYvganIMcXK7c/Ffym0r5nnD3TZCUFIri9
-         17MQLFSF7eBJWufTBK6Zn15FGsj+UJw7LFQJZ7R+Ve0lAxsyYNs6C/Usn+FK55ewFSsq
-         Uh13Jh4EyMXJObRpf8RLPNYW806FHs+48sTZCaG0juYWQg2uI2AK6s0ozzbkpQxzLWWb
-         /7sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791759454; x=1792364254;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6HbFzXeXg8l+saP+bOvTWuOKTTgvyyirsYJqRDQW8/E=;
-        b=z7ZfKAQ/Ktbg13zPQN2wLx6inRmVYec1f7bBisRDYE/bhE3GiY7L5vHr6hMwqca+PN
-         jh6MyheEf6Gw8UJopQCboKRBGZ36UXZi0SBFTC6KRXwM/2nSykwwFNFFQF77t+ZyfOlk
-         q+9u4r/HXWxHzPZDkD4jkMf8kdEi0/jQC4YLei4495glb7jNE2alI0CMPaNL1hmGFy/V
-         7jbVVbAmsuayWZgwgQuz8sXVflbNVfvF5nVsHBX0ir7Nu53JAYCoELHEhK8H082ALNLy
-         O74PR3vQrfg04/SYiiohQIN9buuph1LZkIK4RGmTNg8z23WVeyab7sYET4CUzA3COK/h
-         XxLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxisvR4nBEuNfhGWVSoaDaPzcfWqTidquZ+Jc9LfyuB0y0ARoMJrdvuQodj3GMuWJpJ4s7DMvZiSML+XqA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL4eGpvzSGQ+26UczkATfHe0/tq7U9Oql/ee3hdrpkQX1Cge2bD
-	H4uQz/0ofn7XyIzyRgOri+34SKhvQ41vY/C/rUWtdewBBHC2DNlYH10=
-X-Gm-Gg: AYBFou2SjVtbw6KB+DcxQTSkDgpWr/emsWZoSFYH7RMA0su3YWcWTiBK4avfiaotDHL
-	CIsJxP2EA4sRpGim79uE5OdzagLuB+6C8dWoSG688rMg6hArHIZViwu4VkGcX8GLxi7lHlyoMr5
-	hNwq4/eJsR8dOSiuGJhNMrgHdpTeExr/asbvdhbXFKtu60AXimx523uZa7APHLO8akpPoj6xKZU
-	/tLWdx4++cisGI/4msB462pN9TE01SwNw7KrapwWf/63yVwtymDO3Rxq72N2RDDnavpkCGEWwPL
-	UQ/x9rBfs3TN9R5nP7XRpZbpnqPuPQMrKCKPEPBpl6WkywoMIgahws/EIHxMufOKitHIUpiS02k
-	XnzmzHicQ6poJLZk3njfsIXmSd5T7vdYEJCSXucQz6P5BboBbiYYjygPNODv3QddOdmvuwmmlfN
-	GuYWFUnZ7AUCViYH//W8vjpMT0eOe6SgqjObialQ1XTO4PsZ6wcfidvVfC8HKCeGYGmGpNy/3Oy
-	TjpJTn/krulT/Tye9HG6gBhnLJKZ3+UgHXVy8n/YjpPdNZHSWnYqokxZdqtLXQxCxk7iVwSy+Cj
-	AGgLs2QyGfo/VGaAPbV04cpNOnD89h91DphiJJE=
-X-Received: by 2002:a05:620a:6487:b0:93e:4c1b:a06d with SMTP id af79cd13be357-93ebd1bac2bmr1499673885a.20.1791759453640;
-        Sun, 11 Oct 2026 15:57:33 -0700 (PDT)
-Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb98cd599sm723647985a.39.2026.10.11.15.57.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 15:57:31 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: linux-rtc@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH 2/2] rtc: renesas-rtca3: Join interrupt handlers before unregistering the RTC
-Date: Sun, 11 Oct 2026 18:57:25 -0400
-Message-ID: <20261011225657.rtca3-irq-ordering.2@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261011225657.rtca3-irq-ordering.0@gmail.com>
-References: <20261011225657.rtca3-irq-ordering.0@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aFnHjWlP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4F7E1F0089B;
+	Sun, 11 Oct 2026 23:02:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791759739;
+	bh=BMnwnSmmh2hW4aGAkK60qX2n3aHbKT63XD1QC30Rr9Q=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=aFnHjWlP7yNtmJtHuDiMq+1Ptf/98BvwcvGh3omVzvfRvl+khkd1JusycK0Dfk2vZ
+	 wutHGRdyA5AlkwvgK7lFXYKU4rI3xjRM/t8wHC+xBUFXN0hmWxtebeEriEv5rSG7wn
+	 jRDWgQQEF4fzGyEArx7Dd95KEDXCdVDdTlNMvzYM0FrJzV68k9NuxP+Kprk6R2OC2E
+	 CeBvkWrLqJT/XGnXwpItlZfw4k9MiNReWNVz4gNVori006Zw9cm8CA9/I8/ro60JZr
+	 as67voQdi9bI03VATm2v6RWPeh6rUutlKGbx8OPPIXDMzEN51ebjsWGeMvKFTkZhFl
+	 CByzUzH5XgaQw==
+Subject: Re: [PATCH net v2] tcp: do not send a SYNACK to a broadcast or
+ multicast address
+From: netdev-bot+sashiko@kernel.org
+To: theodorlarionov@gmail.com
+Cc: edumazet@kernel.org, ncardwell@google.com, kuniyu@google.com,
+ davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Sun, 11 Oct 2026 23:02:18 +0000
+Message-ID: <179175973842.434549.79608444362932465@kernel.org>
+In-Reply-To: <20261008114942.1376889-1-theodorlarionov@gmail.com>
+References: <20261008114942.1376889-1-theodorlarionov@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Masking AIE and PIE in remove does not wait for an interrupt handler
-that has already entered. Managed RTC unregistration follows remove,
-so such a handler can still report an alarm after the RTC operations
-have been cleared.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Save the periodic IRQ number and disable both Linux IRQs synchronously
-in remove. Wait for RTC operations under ops_lock before masking the
-sources, and reject subsequent alarm setup and enable requests. This
-prevents a concurrent alarm setup from re-enabling AIE or PIE after
-removal masks them.
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-Drop the private spinlock before disabling the IRQs so that a handler
-waiting for it can finish. Neither handler takes ops_lock. The managed
-IRQ actions still release the IRQ resources during devres unwind.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-This issue was found by source review.
+- [High] The fix is incomplete.
 
-Assisted-by: LLM
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
-Compile-tested with Clang 22.1.2, W=1 (arm64). No runtime testing.
+--
 
-One existing FIELD_GET comparison warning also occurs when compiling
-the unmodified driver with the same flags. No new compiler warnings.
+tcp: do not send a SYNACK to a broadcast or multicast address
 
- drivers/rtc/rtc-renesas-rtca3.c | 28 ++++++++++++++++++++++------
- 1 file changed, 22 insertions(+), 6 deletions(-)
+This patch makes inet_csk_route_req() reject SYNACK routes that have
+RTCF_BROADCAST or RTCF_MULTICAST set. A SYN with a multicast source that
+is looped back with its dst attached skips the martian source check. Its
+SYNACK then goes through ip_mc_output(), and sk_mc_loop() reads past the
+end of the request socket.
 
-diff --git a/drivers/rtc/rtc-renesas-rtca3.c b/drivers/rtc/rtc-renesas-rtca3.c
-index c304ed60edc6..9b177a131c27 100644
---- a/drivers/rtc/rtc-renesas-rtca3.c
-+++ b/drivers/rtc/rtc-renesas-rtca3.c
-@@ -121,6 +121,8 @@ struct rtca3_ppb_per_cycle {
-  * @lock: device lock
-  * @ppb: ppb per cycle for each the available adjustment modes
-  * @wakeup_irq: wakeup IRQ
-+ * @period_irq: periodic IRQ
-+ * @stopping: removal has started, protected by lock
-  */
- struct rtca3_priv {
- 	void __iomem *base;
-@@ -131,6 +133,8 @@ struct rtca3_priv {
- 	spinlock_t lock;
- 	struct rtca3_ppb_per_cycle ppb;
- 	int wakeup_irq;
-+	int period_irq;
-+	bool stopping;
- };
- 
- static void rtca3_byte_update_bits(struct rtca3_priv *priv, u8 off, u8 mask, u8 val)
-@@ -351,6 +355,9 @@ static int rtca3_alarm_irq_enable(struct device *dev, unsigned int enabled)
- 
- 	guard(spinlock_irqsave)(&priv->lock);
- 
-+	if (priv->stopping)
-+		return -ENODEV;
-+
- 	return rtca3_alarm_irq_set_helper(priv, RTCA3_RCR1_AIE, enabled);
- }
- 
-@@ -392,6 +399,9 @@ static int rtca3_set_alarm(struct device *dev, struct rtc_wkalrm *wkalrm)
- 	int ret;
- 
- 	scoped_guard(spinlock_irqsave, &priv->lock) {
-+		if (priv->stopping)
-+			return -ENODEV;
-+
- 		tmp = readb(priv->base + RTCA3_RCR2);
- 		if (!(tmp & RTCA3_RCR2_START))
- 			return -EPERM;
-@@ -684,6 +694,7 @@ static int rtca3_request_irqs(struct platform_device *pdev, struct rtca3_priv *p
- 	ret = devm_request_irq(dev, irq, rtca3_periodic_handler, 0, "rtca3-period", priv);
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to request period IRQ!\n");
-+	priv->period_irq = irq;
- 
- 	/*
- 	 * Driver doesn't implement carry handler. Just get the IRQ here
-@@ -786,13 +797,18 @@ static void rtca3_remove(struct platform_device *pdev)
- {
- 	struct rtca3_priv *priv = platform_get_drvdata(pdev);
- 
--	guard(spinlock_irqsave)(&priv->lock);
-+	/* Wait for RTC operations, including an alarm setup, to finish first. */
-+	guard(mutex)(&priv->rtc_dev->ops_lock);
- 
--	/*
--	 * Disable alarm, periodic interrupts. The RTC device cannot
--	 * power up the system.
--	 */
--	rtca3_alarm_irq_set_helper(priv, RTCA3_RCR1_AIE | RTCA3_RCR1_PIE, 0);
-+	scoped_guard(spinlock_irqsave, &priv->lock) {
-+		priv->stopping = true;
-+		/* Disable alarm and periodic interrupt sources. */
-+		rtca3_alarm_irq_set_helper(priv, RTCA3_RCR1_AIE | RTCA3_RCR1_PIE, 0);
-+	}
-+
-+	/* Neither handler takes ops_lock. Do not hold priv->lock while waiting. */
-+	disable_irq(priv->wakeup_irq);
-+	disable_irq(priv->period_irq);
- }
- 
- static int rtca3_suspend(struct device *dev)
+> diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
+> index 6a30f11384547..aa928015cd143 100644
+> --- a/net/ipv4/inet_connection_sock.c
+> +++ b/net/ipv4/inet_connection_sock.c
+> @@ -779,6 +779,9 @@ struct dst_entry *inet_csk_route_req(const struct sock *sk,
+>  		goto no_route;
+>  	if (opt && opt->opt.is_strictroute && rt->rt_uses_gateway)
+>  		goto route_err;
+> +	/* Never send a SYNACK to a broadcast or multicast destination. */
+> +	if (rt->rt_flags & (RTCF_BROADCAST | RTCF_MULTICAST))
+> +		goto route_err;
+
+[Severity: High]
+Does this cover the syncookie passive-open path? cookie_v4_check() in
+net/ipv4/syncookies.c does its own route lookup to ireq->ir_rmt_addr.
+The only check on the result is IS_ERR():
+
+net/ipv4/syncookies.c:cookie_v4_check() {
+    ...
+	rt = ip_route_output_key(net, &fl4);
+	if (IS_ERR(rt)) {
+		SKB_DR_SET(reason, IP_OUTNOROUTES);
+		goto out_free;
+	}
+    ...
+	ret = tcp_get_cookie_sock(sk, skb, req, &rt->dst);
+    ...
+}
+
+In the syncookie case, tcp_v4_syn_recv_sock() uses that dst as is.
+Neither inet_csk_route_req() nor inet_csk_route_child_sock() runs.
+
+So it looks like a full child socket can still be created with
+inet_daddr set to a multicast address such as 224.0.0.1. Active opens
+already refuse this in tcp_v4_connect():
+
+	if (rt->rt_flags & (RTCF_MULTICAST | RTCF_BROADCAST)) {
+		ip_rt_put(rt);
+		return -ENETUNREACH;
+
+The ACK that completes the handshake can come in the way the commit
+message describes for the SYN: raw IP_HDRINCL, nft dup or TEE, with
+saddr=224.0.0.1. tcp_v4_cookie_check() passes any non-SYN segment to
+cookie_v4_check().
+
+The cookie can pass in two ways:
+
+- cookie_tcp_check(), after a recent overflow. A netns owner can set
+  tcp_syncookies=2 and send one unicast SYN. After that, ack_seq/seq can
+  be brute forced at about 2^-29 per packet.
+- cookie_bpf_check(), when a BPF program is in use.
+
+Once that child is closed and in TIME_WAIT, a segment from the peer
+would go down this path:
+
+tcp_v4_rcv()
+  tcp_v4_timewait_ack()
+    tcp_v4_send_ack()
+      ip_send_unicast_reply(ctl_sk, tw, ...)
+        ip_route_output_flow()   /* daddr 224.0.0.1, no rt_flags check */
+        skb_set_owner_edemux(nskb, tw)
+        ip_push_pending_frames()
+          ip_send_skb()
+            ip_local_out(net, skb->sk, ...)
+              ip_mc_output()
+                sk_mc_loop(tw)
+
+sk_mc_loop() does not check sk_fullsock():
+
+	case AF_INET:
+		return inet_test_bit(MC_LOOP, sk);
+
+Wouldn't that read inet_flags past the end of the tcp_timewait_sock
+object? That is the same out-of-bounds read this patch fixes for request
+sockets. This path comes from reading the code at this commit; it has
+not been reproduced.
+
+Could the same rt_flags rejection (ip_rt_put() and drop) go after
+ip_route_output_key() in cookie_v4_check()? For symmetry it could also
+go in inet_csk_route_child_sock(). In practice that one only runs after
+inet_csk_route_req() has passed, so it is just an inconsistency.
+
+Another option would be to change sk_mc_loop() and
+ip_send_unicast_reply() so they do not treat non-full sockets as
+inet_sock.
+
+>  	rcu_read_unlock();
+>  	return &rt->dst;
+>
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261008114942.1376889-1-theodorlarionov%40gmail.com
