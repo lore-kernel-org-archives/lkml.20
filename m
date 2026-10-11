@@ -1,47 +1,81 @@
-Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7944F339387;
-	Sun, 11 Oct 2026 16:29:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2582F348C4C
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:30:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791736176; cv=none; b=IISxrZEscddXP3XjJKGJvLIvmgwEcmMPGuwkMy/HL8FYMES3FJ8g56UXu30yVapVj0Z31GsS4+2Z2nCyLFlQZHUJhkh5JeVTAEAbTVvksBffAnW4svLCpeByT8zPgSuX8pPN7ON9RNIjPUVOzbAaHuPmV/TXpXZXylbJ6MBSxz4=
+	t=1791736204; cv=none; b=D/L7A/+pXDKMTBiXWYyc1D5pT9WNemerg55CNxKlB0Ok9XhP093DEm1JCbsa6E1fzwVJI4BWQhgpdiDBxhjN9otmD6fKDCL4RvKMdF887qHjsZcryF7CkjdxycCqHYF3MORWpL1vXZ0Q5rfhv+8jLOnsomJTNuvlJuyBL1pcgi4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791736176; c=relaxed/simple;
-	bh=WndzLhBb0HUUX0sO0798zNIc9+X+/xCoKEm0WMcuE88=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rus8y/hUEwiUgQ0gi4i1RPKZYqT/Mq+yHf2Mlkg2oE2mxHRaNduDuLhTeZ7LRXHmYoKPvsP5qkaLtB8vzUUv/lpcvQrIs9QKqVWthzWULQ1kyn7XaPRz/UdTPWgh3DDxPe9T8U8VPpuuRcq5ANUYt0zBxvX9lpRYA04wk+rTfrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=XADCc8U9; arc=none smtp.client-ip=91.189.121.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
+	s=arc-20240116; t=1791736204; c=relaxed/simple;
+	bh=Ge1DtqAvy5tUaQE5gcwQLXUBT2zAJvrbfwuwvAHjE+4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KI4uHm1pVeWtgVV3hxNnj4spe9h9LdZDbuMBnblFHEjHRugKuiq33PwnWTKzlkD+BNY4R2mQlzbnpWvgXpTKoMXbp0BRsIqi03ZNqzbtZJwTOP7LdZyu4A/8HSilbrR5Ntg6UiG1KunP8Tl2hQ6BbzQ42NT647HhizO6k2+Nsfc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de; spf=pass smtp.mailfrom=bairaktaris.de; dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b=y+22YhOk; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="XADCc8U9"
-From: Stian Halseth <stian@itx.no>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
-	t=1791735627;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=I2h0x6MRK97TXy17q/oGa0pHMkpomhGIicSPhvbv6/g=;
-	b=XADCc8U9B8QaYAchNDAG8w3uziok9xva1leOsMX6XlYarOzrlxHLQiQNEA2yRR9eYfHsJD
-	7tcUmPT3d8Cz1A7pCmSLBgwzP9OKi+w/aHtUT76trhQpWU5UnKoKsXeAkYiDPwZXaY43+/
-	EGaVAudImrmY0ja78Nii6cGyHZEjtJ4=
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Suren Baghdasaryan <surenb@google.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Andreas Larsson <andreas@gaisler.com>,
-	linux-mm@kvack.org,
-	linux-fsdevel@vger.kernel.org,
-	sparclinux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Stian Halseth <stian@itx.no>,
-	stable@vger.kernel.org
-Subject: [PATCH] fs/proc/task_mmu: fix lost maps entries above 2^63
-Date: Sun, 11 Oct 2026 18:20:19 +0200
-Message-ID: <20261011162019.922436-1-stian@itx.no>
+	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b="y+22YhOk"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48c5358fc28so816026f8f.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:30:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bairaktaris.de; s=google; t=1791736201; x=1792341001; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/pxtRzJxw02uRFUZyLdxz9zdH/EhKXXiP2uIdjIYinA=;
+        b=y+22YhOkH2EyGNxBUzPHiGK/+AKw5D1Gp9M5zZpCoWr4Jok4TXOuaM1T0+o0cjnKLf
+         3Zt7uhtl4WC8OBEHXHqRL68qvbwUNb1IIBs8urJswYw83Cd/ejsp/aGr5UEdhqbSnOTD
+         Farm4OEW4gEv14NVhYioxHmRydROiRacvbU6nxrUoCXgJpuNqXjpckMQA6+L3XhHTOdi
+         QfUwu9N+lbSJnOfoMRxKYkbDlkq3y5GnbJo2hk8SVEQHzQ6SFfg7V65bA4X/IYSeoZqF
+         dhCzJqQh0SFZOoN3TokFBerh8QvqIR/je8dixxWgWprx7SysUu2m1Z+rMviRVnNpf5RH
+         NK1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791736201; x=1792341001;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/pxtRzJxw02uRFUZyLdxz9zdH/EhKXXiP2uIdjIYinA=;
+        b=FCmC50TzSi2h042J+40IuL2ZGbquspW9K50OocQIqfuR0NsT4WRBphVO2Axc4qt8cf
+         tH0ItALUACUAwtPMTdTIR6p2P5DMLFpmMfS0jRKzCMeyYzmXhflQqziwq9DfQTvq6ARC
+         nZwygN0vFgPXy7a6pPWh+OiyievowPDiB2Qe1Bs+uk+hkMoFUhD28SzkAnPILuLsRpgB
+         mbNkyYt1jtfMhEg9kS6820deely1BB6jbOySO0QK2CG1t7ZYmr5ap8e+qoMczqqBmcsq
+         7VS7KNZjjuoh9EpdVYSc/EHDSHS7Y3aW6J5CvTdyHlNXwNtvxxQPsHKF3hLh66M/j5zC
+         tl2w==
+X-Forwarded-Encrypted: i=1; AKwUvBzOSs94hW93RSx2vLJJSum+zdgA0KYQ2yVL/JEksWBCE06w2Liho3XsIw7mmsyCU6CkmPUTGsJSI6ZraAs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLY12ZHFS8uvNOPKFQMKytPeuQsxa8Z3NqT6CN1WGnMbtGgNbPB
+	Yk4ojfg+iTGS//ZLLkI8/3u43JXaf/7Mfo4MA1NZyP903z003BZksQWRkYDt9Dbstg==
+X-Gm-Gg: AYBFou2QEbfZ6vAiwyfVMKNsZFVSN3Qo78yPbGnxmHWqAld/mz4FX6y/lISsSNFXSWH
+	CaDiEuo16Qz//RH6jLp8Q52S9oJjYEUtkbEUGUkspgTdc4Qt9Fd02oiZIc5iKZq+q1YhpXz3Cwr
+	Ei2iMcUrgpQtwVA97wTTR9OgycJFBqpoUGq8FFrI2FuPBJzMm/HfzzSIb80lSezTY8RnJtfETiY
+	59/bGi8nmVs/v57+pCvcxs5V1fQpeOQj9cOwddxWfSWzZices6lgADlX3mP54lnUb8XjWcqivYI
+	h7ZUFE09i9mqU1vpKZyCIAhzSEQ17Z4fd86hnPY00gEhaR2xCwOrcmVZVNbbCyccHgadBtCHzV9
+	7tw1g4zInVYKvUYxjTNkWoEbnzJx6RTOISrqHI2XYhbBUVLaulM0VScY/oH+y08GhhIaBXEnc4z
+	Kb+lYdTYWc2WJD53V3YuMmgohV064HxuFvEqlnGLGDKnP5PekkFpODlOgyP9RyxyAHfkUPAOrnq
+	GFclyzLb3q17Upx1LCJDt8UIgn1eazwf2wtvSoTyAR23JH7B0RrFcOlGY8fzybuF5V8iQqIkUph
+	XlDF8xMRDbSujEhFyJEb3jI67DoyBK6rI4WtrxutPkyLDHn0O9v4wfAuDDVlFqfmnrqloUKIgTt
+	xUyxMxNsEnGrTPuiDiPOcz0etfQuX55Euhb7h9HUt5BCP4loK00Bp6O+cqs195C8r3j97W9X6Rm
+	r/I/Lqvh19JIgKJHEdc8B/k7We22wzG5W7vnrZBxzOaDNUgxEO
+X-Received: by 2002:a05:6000:144d:b0:48d:cb76:548f with SMTP id ffacd0b85a97d-48dcb76550bmr4567850f8f.38.1791736201025;
+        Sun, 11 Oct 2026 09:30:01 -0700 (PDT)
+Received: from Desktop.vpn.uni-hamburg.de (dhcp-40-52.vpn.uni-hamburg.de. [134.100.40.52])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9acc936sm14657920f8f.44.2026.10.11.09.29.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 09:30:00 -0700 (PDT)
+From: Julius Bairaktaris <julius@bairaktaris.de>
+To: netdev@vger.kernel.org
+Cc: dsahern@kernel.org,
+	idosch@nvidia.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	steffen.klassert@secunet.com,
+	willemb@google.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v2 0/3] ipmr: forward GSO multicast packets
+Date: Sun, 11 Oct 2026 18:29:54 +0200
+Message-ID: <20261011162957.1328474-1-julius@bairaktaris.de>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,51 +84,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a read of /proc/pid/{maps,smaps,numa_maps} resumes, m_start()
-rewinds *ppos to priv->last_pos so that the vma which did not fit into
-the previous buffer is shown again. It only does so for last_addr > 0,
-meaning to exclude the start of the file and SENTINEL_VMA_GATE, but
-last_addr is a signed loff_t holding a vm_end. sparc64 maps shared
-libraries, anonymous memory and the stack above 0x8000000000000000, so
-the rewind does not happen there and one entry is lost at every read()
-boundary.
+With fraglist GRO or UDP GRO forwarding on, a routed IPv4 multicast
+stream arrives as GSO packets. ipmr_prepare_xmit() drops every DF
+aggregate larger than the MTU, and a GSO packet sent to a VIFF_TUNNEL
+vif is dropped during segmentation because ip_encap() sets no tunnel
+GSO state. Once ip_encap() sets it, a fraglist aggregate reaches
+skb_segment_list() with tunnel headers, which can push a frag_list
+member below its head. The same panic happens today with a fraglist
+aggregate routed into an ipip device.
 
-Reading the maps file of a process with read sizes from 64 to 8192
-bytes in steps of 64 loses lines at 126 of the 128 sizes, smaps at 123
-and numa_maps at 97, and the proc-maps-race selftest fails 4 of its 6
-tests. Python's sys.remote_exec() reads maps with fgets() and fails
-intermittently when it misses the libpython data mapping.
+Patch 1 makes room for the tunnel headers in skb_segment_list().
+Patch 2 sets up IPXIP4 GSO state in ip_encap().
+Patch 3 lets DF GSO packets pass when their segments fit the MTU,
+leaving room for the outer header on tunnel vifs.
 
-Test for the two values that are not a vma end instead.
+Tested in netns on veth, MFC entry to a plain vif and a tunnel vif,
+software segmentation on egress, 4000 1316-byte datagrams per run, n=3
+per arm, fraglist GRO, UDP GRO forwarding and UDP_SEGMENT, DF set and
+clear:
+- net (af32da41b032): DF aggregates dropped on both vifs (FragFails),
+  non-DF aggregates dropped on the tunnel vif (tx_dropped); fraglist
+  into an ipip device panics in skb_segment_list().
+- v1: DF aggregates dropped on the tunnel vif (tx_dropped).
+- this series: all 4000 delivered on both vifs, FragFails 0, no tx
+  drops, no panic; ipip device 4000 of 4000.
 
-Fixes: 5631da56c9a87 ("fs/proc/task_mmu: read proc/pid/maps under per-vma lock")
-Closes: https://github.com/sparclinux/issues/issues/111
-Cc: stable@vger.kernel.org
-Signed-off-by: Stian Halseth <stian@itx.no>
----
+Changes in v2:
+- Add patches 1 and 2; v1 let DF GSO packets reach ip_encap() on tunnel
+  vifs, where they were dropped during segmentation (Sashiko).
+- Keep the additive MTU comparison and check mtu > encap before
+  subtracting, so a route MTU below 20 cannot wrap (Sashiko).
+- v1: https://lore.kernel.org/netdev/20261010131842.2157365-1-julius@bairaktaris.de/
 
-Notes:
-    Tested on a SPARC T7-1 (sun4v, 7.3-rc5), a T4-1 (7.2.9) and a Sun Fire
-    V240 (sun4u, 7.3-rc5): no lost lines at any read size afterwards, and
-    Python's sys.remote_exec() test passes 20/20. On an amd64 KVM guest maps,
-    smaps, numa_maps and the proc selftests are unchanged.
+Julius Bairaktaris (3):
+  net: make room for the tunnel header in skb_segment_list()
+  ipmr: set up GSO state for tunnel vifs
+  ipmr: do not drop GSO packets that fit the MTU after segmentation
 
- fs/proc/task_mmu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/core/skbuff.c |  4 ++++
+ net/ipv4/ipmr.c   | 21 ++++++++++++++++-----
+ 2 files changed, 20 insertions(+), 5 deletions(-)
 
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index 5c54aebe21182..cdce513edcb1d 100644
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -339,7 +339,7 @@ static void *m_start(struct seq_file *m, loff_t *ppos)
- 	 * Reset current position if last_addr was set before
- 	 * and it's not a sentinel.
- 	 */
--	if (last_addr > 0)
-+	if (last_addr && last_addr != SENTINEL_VMA_GATE)
- 		*ppos = last_addr = priv->last_pos;
- 	vma_iter_init(&priv->iter, mm, (unsigned long)last_addr);
- 	hold_task_mempolicy(priv);
 -- 
-2.43.0
+2.53.0
 
