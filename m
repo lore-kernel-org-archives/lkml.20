@@ -1,77 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70E7342050;
-	Sun, 11 Oct 2026 05:14:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67DC7318BA6
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 05:15:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791695687; cv=none; b=gJp3bi93Xf7roEkc6wy+W/cwyC7c4uvegiDQVys0Hj0CmuTw2iFsVrSG2m9pGA+ubB7cfzojOfjArkvXuasHR2MuKSA7twYad2fMGRsyogPIOo0GarLZ909goJZuX9bJkgc0yuFFeGaT3uJE89mex/JhwIBhKr1XSkjOyKN1CXw=
+	t=1791695738; cv=none; b=SbluwvP8xf3r8PRvR398xFyKqOEGJKOFCUzWiWAkgU89+RQqda3hGVkeUXFri11AvPtav1r3h66lDCNOk3Cc4lKHlTMY61x30fPFugH4G3ishRjveHMpP5peO36v1/GnqFHmd34hCUMahOmbwF/VhbLX+DRCHWJg0OESqHOs1yw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791695687; c=relaxed/simple;
-	bh=bsPc9QZnewzUoPnsbu1Wtsbg1fjQ9+m8MYzYIbtWTpQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FuxUIWPm2pUEs671vtY0bbVubix439Bi/lErGnVUE7OBcaUFApfNWnl5Q/ALiRpWUSLWUH/SPVmt7ufekZMUX3gaw66Gv62ZdxKs7nWKkb9n/huxNF/93rWnJhpCPyEmzO9aHtbOSLoTKy8n9TOXFl6jpqecdVyybB46pHvTtWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mQdeUDEr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791695738; c=relaxed/simple;
+	bh=9BunIciQcKJsll7WyEutsDEQR74br6ZN/XmTthqtjSY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CX4pEmzCHAk0pPz77odXPajxCU9xp9r17CIOHGGfri0du4fhRqfFijJbYz4v2+HOSq17k6su3eefGEAV9d5/rNFmgf8lw0xlnieiWOsSV6wn45QKxR9hJ9FGM8g7r9XoMU/zspzijJUWLgXXSp7lYz6FKrNDszQly4TN+Cl985Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gkx+ZtL+; arc=none smtp.client-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mQdeUDEr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ACD31F0089B;
-	Sun, 11 Oct 2026 05:14:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791695685;
-	bh=TzoMVDcB05PDAodT4NS5etr03uij9sNOO9aVLbmXwmQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mQdeUDEreLJAcMywzBFLqzRPs6754S1vf6art6JIe7F4rd6F+PcWm+gbTM/1zg4Yx
-	 ztqQU6deTdXhDSTBB5iapelEUhla7cvfn19lhj8Dp8BODJz4mHLDHVE8DvCYhfDyVY
-	 ZClxDTpKdzbwilGyMB6fUF9NREMeJKmtPEMhiRMc=
-Date: Sun, 11 Oct 2026 07:14:39 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Cc: Kuen-Han Tsai <khtsai@google.com>,
-	Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>,
-	Faqiang Zhu <faqiang.zhu@nxp.com>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] usb: gadget: u_ether: Fix NULL pointer deref in
- debug logging
-Message-ID: <2026101116-shortlist-trend-5e9d@gregkh>
-References: <20260923-u-ether-gadget-npe-v1-1-ff466c55ecc0@google.com>
- <20261010142650.2664739-1-qwe.aldo@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gkx+ZtL+"
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3282db206d3so3535519eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 22:15:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791695736; x=1792300536; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=H3Xv76cxiscF9BmNse8Pdd0IVkWBwffvOMSzyozEsUU=;
+        b=Gkx+ZtL+GEuzt3snJ2cgpKjhMSwt/cN7MmSa5H2axjHfR0x7V+fz/0w+p3LMVuxSmn
+         +hGB/EVto2ORFN5ytisA5l8HM8c9Sdy3Ju5qkuHHN5HF/yVG4KqT8VLrC/ZhDLkCC74U
+         eL8yzLrNVAFaInNcrYToSMTv8wqs41iDgLkzBA0GW1/X5w/Wpux+pQpIB7HgZKqwI7pK
+         ffee2w3iDsv1ExcDbwaMKTZpXDZtdoAVmd9DWDahG4mLp+kavklzc0/AWi0Dgr8rk5FG
+         6n3a0HPndTJJTBABK/MSFPUn0TZajG9uLs9HKrKcdJ1orxBOGDYroWchNf6rLaoKv00W
+         yyzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791695736; x=1792300536;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=H3Xv76cxiscF9BmNse8Pdd0IVkWBwffvOMSzyozEsUU=;
+        b=wrJo83C8MLjJGTgkvB3MtNcmfhOYYNiNHQ7lbdvQh/aDAofloWifi0EvF34/xyL3w5
+         by7X6lcaIKJ68o9vY9l22UCcjLmQ3QuOq1vV4rVIjyihu/jYosoxZYWxE02AnLpg0w1P
+         6nSSkJ5pe4NdMDWy/BgX4YmMYCVEUpJz/npSgqt5v6Nax96jyeBuo0+OJH57Vfdp/+Ot
+         z30daXRJeoDJnWORUtqoH7n/5QuMn8OYk6BjTAe9oiT2YlBLOQPrrfTpGBnMZL+DzOHI
+         KjkN5K61Scy9aVVyUyX/vEv5naYUqaWEGwOOmHoOOQyBiYJIu7kUm+qVlECO5hHcsRcs
+         NaEg==
+X-Forwarded-Encrypted: i=1; AKwUvByc1dYNBCQWd0LATqhf1rHtGJv5s0ts/5Ezf1qW5DFRHJuQKeZxlHffJbN4k827IYsbDSkzneMKdqjzeHg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKKj7EvKMbVm0Qr5aaVdDk0MGd5uLiE5zySA+G9pY5VOMime+Xs
+	HsOkpulM88ZRCpDHg63t1zzov+DeZgJBTWzf8qMzfGaXeFXhoJV61j0j
+X-Gm-Gg: AYBFou0wTiaUgIQNUwhc5oqjpWdyjvMFWWmLQ2PbGK/JG93RHQq2ia3ohd2p282S2og
+	WU8iV+1grvNKida5jRJZUOtvplfVEmaoyJ8+d1AnvQPmaIKLCkP1ziCCoU8WV9CUiXJ5E/3Kj5r
+	G+YeZWUrgYYa9pV3Lij9cH8wCTojPPnTFXtny49EMBwS7vivESCnYZlV3sPCymimk7GJEUPh9aZ
+	9hApJ7vr7zQoXulIGo/Lf1OhPQ2boVXz3dsJr0SZGQg3Y86uifmARrHmtCcdjh7xg0JeXhRnukv
+	ZX+SbNzcb5aVSlRVsH3CWImyOC9gGf8gxrQ+tYq2kTV+H28Wo75lXDPVJ9DrScoi2zbvKzefdtm
+	+YwoLJ7rbChEDzCtmqk0Ly2CDwL4CEy4fUqKtHLf+0kEtTaBb/9ZeOwnB8rBafkY1Qwu6WXIl1p
+	+BfyTIjegmZvfPxfmHAJXra4yCe+Px8q0TlD46PAXf4oJVNeUnSlj327CoRi5NyPrBF+eK0Ygho
+	I7uIt5eqRYe6dI=
+X-Received: by 2002:a05:7300:4306:b0:34e:67d0:bbb9 with SMTP id 5a478bee46e88-3537e0368fdmr13315398eec.29.1791695736039;
+        Sat, 10 Oct 2026 22:15:36 -0700 (PDT)
+Received: from kernel ([45.251.35.97])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb2954bsm21382050eec.26.2026.10.10.22.15.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 22:15:35 -0700 (PDT)
+From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+To: ebiggers@kernel.org,
+	ardb@kernel.org,
+	Jason@zx2c4.com
+Cc: skhan@linuxfoundation.org,
+	me@brighamcampbell.com,
+	jkoolstra@xs4all.nl,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+Subject: [PATCH] lib/crypto: sha1: use put_unaligned_be64() for length encoding
+Date: Sun, 11 Oct 2026 10:45:24 +0530
+Message-ID: <20261011051524.6703-1-raizudeen.kerneldev@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261010142650.2664739-1-qwe.aldo@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 10, 2026 at 11:26:29AM -0300, Aldo Ariel Panzardo wrote:
-> On Wed, Sep 23, 2026 at 03:58:35PM +0800, Kuen-Han Tsai wrote:
-> > Replace the composite.h logging macros in u_ether.c with the standard
-> > netdev_*() helpers. Because dev->net remains valid for the entire
-> > lifetime of struct eth_dev and netdev_printk() natively handles
-> > unparented network devices [...]
-> 
-> Confirmed against mainline. The DBG()/VDBG()/ERROR()/INFO() macros in
-> <linux/usb/composite.h> expand to dev_*(&(d)->gadget->dev, ...), so each
-> use in u_ether.c dereferences dev->gadget; once unbind clears it, logging
-> on the surviving net_device faults, as in the eth_stop() path you show.
-> 
-> The conversion is complete and safe. u_ether.c has 26 such macro uses (18
-> DBG, 3 VDBG, 1 ERROR, 4 INFO; no WARNING), and the patch converts all 26
-> one-to-one to the matching netdev_*(dev->net, ...). dev->net is the
-> net_device whose private area holds the eth_dev (netdev_priv); it is set
-> at creation and freed together with it via free_netdev(), so it is valid
-> wherever dev is. The remaining &g->dev logging in the setup paths uses
-> the local gadget argument, and the dev->gadget->dev access in
-> eth_get_drvinfo() is not a logging macro and is outside this change's
-> scope, so nothing is left logging through a stale dev->gadget.
-> 
-> Reviewed-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-> 
+The SHA1 final code in __sha1_final() and hmac_sha1_final() writes the
+64-bit message bit length of the SHA1 padding using direct access
+pointer casts:
 
-What wrote the above text, it seems like this is just a llm output?
+`*(__be64 *)&ctx->buf[SHA1_BLOCK_SIZE - 8] = cpu_to_be64(bitcount);`
+`*(__be32 *)&ctx->sha_ctx.buf[SHA1_BLOCK_SIZE - 4] =
+	 cpu_to_be32(8 * (SHA1_BLOCK_SIZE + SHA1_DIGEST_SIZE));`
 
-thanks,
+The rest of this file already uses the unaligned access helpers like
+get_unaligned_be32() for reading input and put_unaligned_be32() for writing
+the digest, for all structured buffer accesses. Replace both casts with
+put_unaligned_be64() for consistency.
 
-greg k-h
+In hmac_sha1_final(), this also writes the full 64-bit length field
+explicitly rather than writing only 32 bits and relying on a preceding
+memset() to zero the upper 32 bits. The resulting bytes are identical,
+nothing changes functionally.
+
+Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+---
+ lib/crypto/sha1.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/lib/crypto/sha1.c b/lib/crypto/sha1.c
+index b687b89d97cb..17d97160d578 100644
+--- a/lib/crypto/sha1.c
++++ b/lib/crypto/sha1.c
+@@ -183,7 +183,7 @@ static void __sha1_final(struct sha1_ctx *ctx, u8 out[SHA1_DIGEST_SIZE])
+ 		partial = 0;
+ 	}
+ 	memset(&ctx->buf[partial], 0, SHA1_BLOCK_SIZE - 8 - partial);
+-	*(__be64 *)&ctx->buf[SHA1_BLOCK_SIZE - 8] = cpu_to_be64(bitcount);
++	put_unaligned_be64(bitcount, &ctx->buf[SHA1_BLOCK_SIZE - 8]);
+ 	sha1_blocks(&ctx->state, ctx->buf, 1);
+ 
+ 	for (size_t i = 0; i < SHA1_DIGEST_SIZE; i += 4)
+@@ -267,8 +267,8 @@ void hmac_sha1_final(struct hmac_sha1_ctx *ctx, u8 out[SHA1_DIGEST_SIZE])
+ 	memset(&ctx->sha_ctx.buf[SHA1_DIGEST_SIZE], 0,
+ 	       SHA1_BLOCK_SIZE - SHA1_DIGEST_SIZE);
+ 	ctx->sha_ctx.buf[SHA1_DIGEST_SIZE] = 0x80;
+-	*(__be32 *)&ctx->sha_ctx.buf[SHA1_BLOCK_SIZE - 4] =
+-		cpu_to_be32(8 * (SHA1_BLOCK_SIZE + SHA1_DIGEST_SIZE));
++	put_unaligned_be64((u64)8 * (SHA1_BLOCK_SIZE + SHA1_DIGEST_SIZE),
++			&ctx->sha_ctx.buf[SHA1_BLOCK_SIZE - 8]);
+ 
+ 	/* Compute the outer hash, which gives the HMAC value. */
+ 	sha1_blocks(&ctx->ostate, ctx->sha_ctx.buf, 1);
+-- 
+2.53.0
+
