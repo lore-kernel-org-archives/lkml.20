@@ -1,212 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC81381E86;
-	Sun, 11 Oct 2026 13:25:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D1A44F548
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 13:26:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791725161; cv=none; b=IVYXJiXnajkUl1Qv3g+JiO80BdI52DZvF+vq+L9GJGjvbVnEjvRQtDJV30IH56qSaiu3q6+2Ad6mTY2WBWp4qmcdqj1UfpeCWwlOQNtJgaqKqnNLxRx2UGMx6dXeeUwUKzQihqv+1MeD4EyAf1RXEPdxFwdJQepOsSY9fOlvjEA=
+	t=1791725162; cv=none; b=Sto1B+gGlqithb5duIEbXg2IERI91wNFUu3Ad91C2MZya7XgNPWYaNbnFZMBlg+9k6JSBEGj0XBBqlnypDx6voNmc2whGteG8RFc2zqkdUdxIfyIJRTQPaoL8VYmrfPJUinYcaD0QdxGNXQ7Nh5rSW5I+Nh8Fjz+DsUCRDn9PxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791725161; c=relaxed/simple;
-	bh=q4u4xYb3rrulPpFoaAZHYRcV4GVi1DXfLyTqeLrN14g=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=X4WG66N/TIO1Cfsd6xdlwXX3B3wE1HJJekx7dyB4A/4aaJIDk6N3eDgEpx0cSNjGSNngB6KTsFws1rSUbzCiT2MtT919x8OmvyPIOYC2EAKo6cn+CXOgYehm948sCbGEU84uDhDvdljuNApfwsypEcH7HiWhPY3lQfAJgqXBx3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EwDLguI6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791725162; c=relaxed/simple;
+	bh=6dWlJcRUVWB/btg8a37rt2O6Z0fre4eW+YeyFdlAyHg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GPlQq7E56Y1VKFphoZ8iaL6tMsYcjR1iDslQ1k31B28pdJBnX1EE3yAlSqrsAzYFwfC+Cw6BnwN1026QM6/JNZvG+5AvLTqY/xjBT2+QkSi62dDdgl4b61aFscW1uscUqZWc/OE1c1nKX59REJ4pRLTb4fKkXHF/KWBPnnGQwW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=BdV1us/K; arc=none smtp.client-ip=209.85.160.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EwDLguI6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EEF91F0089B;
-	Sun, 11 Oct 2026 13:25:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791725159;
-	bh=DV2ix/Ea1kPpWspAgewGjA0T6tS84+dqwFV5LCPnMR0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=EwDLguI6vsefUIlCGnSrdIcd1Vzcpiy4meHhKRVGwwNELeqJd6r1T4S1LtfDowy0+
-	 iQQq963iolVJ4gc2g5I9JtZyeU3IASIjwlO822TCDJQ3LOGNsH0Pkf4/SQGVkaPfL3
-	 dX7p3N5I1LmWLVYjohsyXbVQ64MgpDs5EaTBaf38spQ+B1XOOSDn0wu15zRFJfntAk
-	 3sThxXcd9KZOJBcln7xmIewFBgPYA56k7w35psPpJozL9jDFrgbMYEyU8P5EfWGexj
-	 828pt42yCFJS/lXNoQCMz8kTYX0IIVD7gXsEG4l9Ke4u1iKkol5OkduaZY5kSHVidD
-	 vr9qSCb3F6yFw==
-Date: Sun, 11 Oct 2026 14:25:32 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Rupesh Majhi <zoone.rupert@gmail.com>
-Cc: Andy Shevchenko <andy@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Eddie James <eajames@linux.ibm.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
- stable@vger.kernel.org, Andy Shevchenko <andriy.shevchenko@intel.com>
-Subject: Re: [PATCH v4] iio: pressure: dps310: fix overflow in pressure
- compensation
-Message-ID: <20261011142532.71c0a344@jic23-hlaptop>
-In-Reply-To: <20261003185716.32732-1-zoone.rupert@gmail.com>
-References: <20261003185716.32732-1-zoone.rupert@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="BdV1us/K"
+Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-5338f65913dso13523461cf.2
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:26:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1791725160; x=1792329960; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PVcr7aWiZ8GvYwkyY6ZnXaDcRM8rUn6uQRQ7DpHdIyE=;
+        b=BdV1us/K4yGbQYecpLYWTOhtwex1AEvi0q7ntKiCc30ShQbZK8hgkZnbGHGUT7nukm
+         hYaNkSigDgjqfJlb4NOtg4jLvdNeu+Q2lboyEMB0K7e3oD6Oqs+gKDC2+VyrKOygrt5L
+         4C85wSvleT2gF2qlYy9BVihFebhssA6HcYlztg06Alj7WNHfsa5PTHJLzYckm/+Fy3Zp
+         dbAKei+ZuNK+1vj95tdu4ItfUwOxbdVCpliHsbXmfPR3gdURie6FUls0GBcztdw0M8fC
+         TJk70w3ZOwN0kSS2z5A+3Z2LNYiQDoT6aim77KLekZgDvqJOdrjw2xBTYgD8Zhoe37il
+         PP6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791725160; x=1792329960;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PVcr7aWiZ8GvYwkyY6ZnXaDcRM8rUn6uQRQ7DpHdIyE=;
+        b=V3Bw3/ryqBNN6Xtr8rqJ/lTLk6xW6drC9qs7s83JAp+8BJRTF/P2ibxAT9P8rJa98S
+         Qm5c8U7aOKFfQFfXEF1KGcF5DBSaT4EGF2ct6GhMqOX4mR49TSlCUQmyEzJtkTwevaBb
+         vgHe1DsMqoYKK8z8vGuqhzWOJetXwSTNyJqIPt4/XmK9dJZ8SWk+d/NO0YHMm+nIJkJT
+         jPAlUhFhobyvVTCiXvyczYmJIxkgr6HcoWSK3FvZwmdE455nPIdE5+DRc9TMhtuktN3F
+         kFjd5jY4ktYBw5An1QrgEFiZpVixB9I1YdrajiCZN5u0//8h6sXK4WDCNxP3HKuZ5F+g
+         fjyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx+gz49lYdZFa+WbMU/NkNooohYVLbUSb8ZMVWy9EgB94xN71IYvK+ZjAUgVNAZOjYaRPfHs8uCgPAR8xg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ2yWmsPEpFey6MsCCoA3mHm4XGydYnAPgy8pr8vKlIEYbQ8hyw
+	x5NHAKUxKmRq/G1mb2Hzi/SHXpnbUGlp4d8wkOH617+9zABH9Ok7lwWtbtX12bTjryY=
+X-Gm-Gg: AYBFou2bcd5Y79nqQYXt6K8J7Q8AD7msH1ReBMKXqlr2PFzk8c4+d9oeklwDLRB6HFJ
+	M8/Hvka9STy81TqVrKia29IYjeDcc5YCgVkkod39V+dM3vzTQC69p0d4k2F8yfdqneqmDcp1+QL
+	P4Omq3RwlZK79KrkU8lvR5fryn1jV3LS333gtPl5vnoh7mfBYjtndHejtwYJQcvlGxEfTqbmfes
+	v1oObL08NBaqBLwe5SSpoF16zwO4MoaHxOFcFcYswOZX9ZY/eEOU7JU3ZgynpqKm8YMtY/ZP+r2
+	fQ3Wh7Z19navWHliIhh2yhx13yxOqFVTJH0qsXZ1MSlDWSKN87A7zPrSOIxjsK2k+mkOD566y8i
+	ufeJTQotrn4BQeVY6pI5U1olBuYqHjXVGsXZI9y1+VVvSmXpeWREoVHOwovoDQ2Nt6Z+twsueM2
+	YwiMRr8Th5M3mFrQlSOEXC+UYssHBeREt3PVuCyT5OZvodsCnjcR8AB+kwJ932Kf5Emyr/KfL2B
+	fdnsE1P6LKDFD3S54emc5FwLRQJw5aSxPqpHHOsSaQCji1Qrln6Vi4vpTRP+KJS8X88
+X-Received: by 2002:a05:622a:e111:10b0:535:a5f9:752e with SMTP id d75a77b69052e-535a5f9789bmr75892511cf.77.1791725159958;
+        Sun, 11 Oct 2026 06:25:59 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b54e80353sm71122656d6.1.2026.10.11.06.25.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 06:25:58 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1xFtYs-00000003FEK-1U1k;
+	Sun, 11 Oct 2026 10:25:58 -0300
+Date: Sun, 11 Oct 2026 10:25:58 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+Cc: alex@shazbot.org, bhelgaas@google.com, jjohnson@kernel.org,
+	johannes@sipsolutions.net, mani@kernel.org, yishaih@nvidia.com,
+	skolothumtho@nvidia.com, kevin.tian@intel.com,
+	linux-pci@vger.kernel.org, kvm@vger.kernel.org,
+	linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
+	ath12k@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/7] Enable Qualcomm WiFi PCIe passthrough to VMs
+Message-ID: <20261011132558.GD14213@ziepe.ca>
+References: <20260930140833.576941-1-jtornosm@redhat.com>
+ <20261011075425.516927-1-jtornosm@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261011075425.516927-1-jtornosm@redhat.com>
 
-On Sat,  3 Oct 2026 21:57:16 +0300
-Rupesh Majhi <zoone.rupert@gmail.com> wrote:
+On Sun, Oct 11, 2026 at 09:54:25AM +0200, Jose Ignacio Tornos Martinez wrote:
+> Hi,
+> 
+> Since no further feedback was received after the last discussion,
+> I proceeded with v2 addressing review findings (Sashiko):
+> https://lore.kernel.org/all/20261011074514.515894-1-jtornosm@redhat.com/
+> 
+> I remain open to suggestions and happy to iterate further if needed
+> to get this acceptable.
 
-> p^3 * c30 and t * p^2 * c21 overflow s64 at most oversampling ratios,
-> and pressure comes out about 150 Pa low on a DPS310 here.
-> 
-> Use Horner form, dividing by scale factor at each step. Overflow then
-> needs a raw value far outside sensor range and returns -EOVERFLOW.
-> 
-> Checked against datasheet formula at all eight ratios.
-> 
-> Fixes: d711a3c7dc82 ("iio: dps310: Add pressure sensing capability")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20260921183132.233136-1-zoone.rupert%40gmail.com
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
-Dropped v3, applied v4 to the testing branch of iio.git
+IMHO this is not OK, building a new crazy hypervisor interface that
+only works with the broken driver design we have today is not OK. This
+is not some "quirk", it is a permanent new ABI between VMM and kernel
+that has real compatibility implications.
 
-Thanks
+Go tell an AI to convert it to
+platform_device_msi_init_and_alloc_irqs() and then solve for that so
+at least we are not getting trapped into a completely broken ABI by
+all the hacks here.
 
-Jonathan
+The whole "MSI Caching" concept is fully wrong to be an ABI to a VM.
 
-> ---
-> v4: -EOVERFLOW for the overflow check (Andy)
-> v3: min_t() line left as in mainline (Andy), comment cut to one line
->     https://lore.kernel.org/linux-iio/20261001121616.109973-1-zoone.rupert@gmail.com/
-> v2: (s64)BIT(20) instead of BIT_ULL(), min() instead of min_t() (Andy)
->     https://lore.kernel.org/linux-iio/20260930085819.886339-1-zoone.rupert@gmail.com/
-> v1: https://lore.kernel.org/linux-iio/20260928101803.547005-1-zoone.rupert@gmail.com/
-> 
-> Based on iio/togreg, since the buffer series reworked this function.
-> Can send a version for fixes-togreg if you prefer.
-> 
->  drivers/iio/pressure/dps310.c | 91 ++++++++++++++---------------------
->  1 file changed, 36 insertions(+), 55 deletions(-)
-> 
-> diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
-> index 85df58ac1809..1d0b3232db9e 100644
-> --- a/drivers/iio/pressure/dps310.c
-> +++ b/drivers/iio/pressure/dps310.c
-> @@ -19,6 +19,7 @@
->  #include <linux/limits.h>
->  #include <linux/math64.h>
->  #include <linux/module.h>
-> +#include <linux/overflow.h>
->  #include <linux/regmap.h>
->  #include <linux/unaligned.h>
->  
-> @@ -660,72 +661,52 @@ static int dps310_write_raw(struct iio_dev *iio,
->  	}
->  }
->  
-> +/* Fixed point one for the compensation fractions */
-> +#define DPS310_CALC_ONE		((s64)BIT(20))
-> +
-> +/* *acc = (*acc + coef) * raw / k, with coef scaled to match *acc */
-> +static bool dps310_horner_step(s64 *acc, s32 coef, s64 raw, s64 k)
-> +{
-> +	s64 prod;
-> +
-> +	if (check_mul_overflow(*acc + coef * DPS310_CALC_ONE, raw, &prod))
-> +		return false;
-> +
-> +	*acc = div64_s64(prod, k);
-> +
-> +	return true;
-> +}
-> +
->  static int dps310_calculate_pressure(struct dps310_data *data, int *val)
->  	__must_hold(&data->lock)
->  {
-> -	int i;
-> +	s64 p = data->pressure_raw;
-> +	s64 t = data->temp_raw;
-> +	s64 prs = 0;
-> +	s64 tmp = 0;
-> +	s64 pressure;
-> +	int kp, kt;
->  	int rc;
-> -	int kpi;
-> -	int kti;
-> -	s64 rem = 0ULL;
-> -	s64 pressure = 0ULL;
-> -	s64 p;
-> -	s64 t;
-> -	s64 denoms[7];
-> -	s64 nums[7];
-> -	s64 rems[7];
-> -	s64 kp;
-> -	s64 kt;
->  
-> -	rc = dps310_get_pres_k(data, &kpi);
-> +	rc = dps310_get_pres_k(data, &kp);
->  	if (rc)
->  		return rc;
->  
-> -	rc = dps310_get_temp_k(data, &kti);
-> +	rc = dps310_get_temp_k(data, &kt);
->  	if (rc)
->  		return rc;
->  
-> -	kp = (s64)kpi;
-> -	kt = (s64)kti;
-> -
-> -	p = (s64)data->pressure_raw;
-> -	t = (s64)data->temp_raw;
-> -
-> -	/* Section 4.9.1 of the DPS310 spec; algebra'd to avoid underflow */
-> -	nums[0] = (s64)data->c00;
-> -	denoms[0] = 1LL;
-> -	nums[1] = p * (s64)data->c10;
-> -	denoms[1] = kp;
-> -	nums[2] = p * p * (s64)data->c20;
-> -	denoms[2] = kp * kp;
-> -	nums[3] = p * p * p * (s64)data->c30;
-> -	denoms[3] = kp * kp * kp;
-> -	nums[4] = t * (s64)data->c01;
-> -	denoms[4] = kt;
-> -	nums[5] = t * p * (s64)data->c11;
-> -	denoms[5] = kp * kt;
-> -	nums[6] = t * p * p * (s64)data->c21;
-> -	denoms[6] = kp * kp * kt;
-> -
-> -	/* Kernel lacks a div64_s64_rem function; denoms are all positive */
-> -	for (i = 0; i < 7; ++i) {
-> -		u64 irem;
-> -
-> -		if (nums[i] < 0LL) {
-> -			pressure -= div64_u64_rem(-nums[i], denoms[i], &irem);
-> -			rems[i] = -irem;
-> -		} else {
-> -			pressure += div64_u64_rem(nums[i], denoms[i], &irem);
-> -			rems[i] = (s64)irem;
-> -		}
-> -	}
-> -
-> -	/* Increase precision and calculate the remainder sum */
-> -	for (i = 0; i < 7; ++i)
-> -		rem += div64_s64((s64)rems[i] * 1000000000LL, denoms[i]);
-> -
-> -	pressure += div_s64(rem, 1000000000LL);
-> -	if (pressure < 0LL)
-> +	/* Section 4.9.1 of the DPS310 spec, Horner form to avoid overflow */
-> +	if (!dps310_horner_step(&prs, data->c30, p, kp) ||
-> +	    !dps310_horner_step(&prs, data->c20, p, kp) ||
-> +	    !dps310_horner_step(&prs, data->c10, p, kp) ||
-> +	    !dps310_horner_step(&tmp, data->c21, p, kp) ||
-> +	    !dps310_horner_step(&tmp, data->c11, p, kp) ||
-> +	    !dps310_horner_step(&tmp, data->c01, t, kt))
-> +		return -EOVERFLOW;
-> +
-> +	pressure = data->c00 + div64_s64(prs + tmp, DPS310_CALC_ONE);
-> +	if (pressure < 0)
->  		return -ERANGE;
->  
->  	*val = (int)min_t(s64, pressure, INT_MAX);
-> 
-> base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
-
+Jason
