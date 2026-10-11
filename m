@@ -1,172 +1,144 @@
 Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D54F468C05
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 22:22:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01B2A2DC791
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 22:30:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791757369; cv=none; b=OL6Cukzy2789tmVlJmjQB9Ixo/9f027GYxGtridKmI+9cn0F2+vZ14Edtxk5RxNNRJz3BADTo0fmnQBfGPVkqg+RN3GpSrjxOEmAr3WpOH5I3sPCltQpbNfgrs/Jk41O09J1Zl8lo5X5am/G66fEQ0gublunhikKjBRIDbD/AWU=
+	t=1791757860; cv=none; b=KJPzJGPU9nTGC/dGmSZv7fG9a0iCrOllauGRQzGj0LUODG0nLWUZG+cTxPQw0bWeE/XyTYk5qmpmbLgVNrMaXD5UW4I9Va1HB2jvWMNxb8T70fZGITD7cBC05FOpE2QBJeX3+YLFEA0d8SnJI70adNaZ+n5FnMk/PQmgJKLnRUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791757369; c=relaxed/simple;
-	bh=RG0ruB2Fr2QCjhkNtAakmW1uuzOyNENgm2wDhj0WsH4=;
+	s=arc-20240116; t=1791757860; c=relaxed/simple;
+	bh=RUhZ687WiXbhHP2A7uEREv91fU3FDbersCArglngaxQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ke1UHogW/LCwloLGZXwVrzSz2J3cm8aabZ5Cd3yql4NCLLfzH4oNWtuybTwaW9V/yGXbyApz+JjptZAHqvcj8MW5YjCdYjwqOOUeI/YbmGuAZx+3DhkTUfHQXOZjfIBmVGqWmefdCVJCBhv3ElHlm8VWEw5YuamQIFMUoGGSEJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f/sQKPmd; arc=none smtp.client-ip=209.85.160.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:MIME-Version; b=Ou7zz9AUTod/UISfYB/QReIQvvtZmy86vrLkE9dLBndGK/inqdHGIweQQZg+M6MQWpMg3BWs7z3rpj8f6JZAMABbK6Fcq1k02DlfLqaQxHRVQ3/cMzSAKyuRpT/wT/PEJjKdsoBfD1uPuc5l323hZYkH71K43gvMZoC840u2os8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=voidship.net; spf=pass smtp.mailfrom=voidship.net; dkim=pass (2048-bit key) header.d=voidship-net.20251104.gappssmtp.com header.i=@voidship-net.20251104.gappssmtp.com header.b=icjRwqbP; arc=none smtp.client-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=voidship.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=voidship.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f/sQKPmd"
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-53396adbc53so18081011cf.3
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 15:22:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=voidship-net.20251104.gappssmtp.com header.i=@voidship-net.20251104.gappssmtp.com header.b="icjRwqbP"
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-5338c1197easo10568991cf.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 15:30:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791757367; x=1792362167; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
+        d=voidship-net.20251104.gappssmtp.com; s=20251104; t=1791757857; x=1792362657; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=OXZ1UsR/jsdDknoGUcyYR4VW8gmQlVsH7nZcsEdE/Yo=;
-        b=f/sQKPmdSPq47rK15as08IK/bzLvPWBcyLnGOmEjpwWSLtLBis0T6/rMD3OU6VagV0
-         mKiLGYZsZ/7VC0kF71fhsyoo5a+ituy1AfZASqz6gnjR26rYIsK3uZU1rSPmRVRa0dfM
-         2lHj20UN3+Gq8GaQYjKzWdeV/PKiPCmR466307tWmzbNPrkOpJHk+tlLoXDnAXi9fHon
-         xvZvwhLu3YqyCkOqebbX9Q3GfGha08Orc1MDlK/m4w6fZvPKX2AQpAT2+DwtCJI86thd
-         FLsLj3Fk1osM+7xg3PnNZe17eSXkm0dpxclF4OVfJWDhwoZL+19e3No4bVUxaV4CT99r
-         4MKA==
+        bh=RUhZ687WiXbhHP2A7uEREv91fU3FDbersCArglngaxQ=;
+        b=icjRwqbPlBojkQofC5EzCPZGf8XxvgLLPHDYu0na0R4+WiQEnSci8sH3DkIpNwjkE6
+         fIDyR/aY1oeIpKyVdowLEWOC7bP0KC/5lh/uZ8BUs+HGS9qIriwmvf7GHQxh6WfAGzai
+         4TZ3bLoykATY7OM/pU6FJkVFm7SoCHlbdL5bw4dqfWXRPuYeJUhWGH6xk2Ry0ETGFwjZ
+         TCYEnEqAj+1pzkM+Myp8xEfZRTtOVYm7CacWLAsO+tk9NGxDV3gKTWl1NQ58fU5y6dtY
+         EZ0bDZdAXUyiMd2qHv41E1faJ36kaIsuD4s8OY2GjLGEfjsE64soX57mI0bBXCTufxt9
+         8wgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791757367; x=1792362167;
-        h=content-transfer-encoding:content-type:mime-version:references
+        d=1e100.net; s=20260707; t=1791757857; x=1792362657;
+        h=mime-version:content-transfer-encoding:content-type:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OXZ1UsR/jsdDknoGUcyYR4VW8gmQlVsH7nZcsEdE/Yo=;
-        b=GTJ0Ta7yHJPzfhQGJ5Nl6xV585CRbV+XhHC0uF1DI5oIFdS7JZl1nup/9O7SK4iH9g
-         2AC6232xEDpwVRe2v+TqiCS53dvHGnLdsbtO6kKvkb8RRjRxHywDWT6X9tHkjk7JS5Ko
-         LNe+vRjpyW1ckrxKOiqpcl/hd1FmAJ8NBIV3OtBpjTfkHvRNoqcvE8HVwEMUQlnKMWW4
-         eVeUVS7L00ARu/ivXYM8EnCrekAxQK4HdWFfhwfaFb3cU6hXHb4Ucc4xBMRC54p2gYc9
-         YHuDj/HR2zytvT+KkEodRVBwuT28Nat/8c0OJaREmuogR5SDMZAMPUv09VlEIALKsSI3
-         YuvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxnD+LRa2YQ+V7hQ2vUW4Z5gqgojmcbqR+nfTcSZLCI43JssKTCbgG9w8Tl1O19IQIahOOWu63xCznJG80=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJmuLpXjpNwReO6Tjpo7oNdieD+CmojuOD02VH1sNVrYXj/CDYk
-	Qk87LDa5K5fva7gxkI74WIaLGym9IoNJReLWzalsNXExxc4TCvrF3DY=
-X-Gm-Gg: AYBFou2nbl2XXRP2FBF8nnlhNLC+j5nX/5N5NnMBSNDxZuvkBCKkxncZN6fW/gpiHod
-	DPlHNXgUB3xoHK9PU5cGhIdY4HMKYZPCdNs7vMSLOnSKOyLWXrhUizJC3dkyCobk5KihMKQ/jwq
-	PwvYu8yzAeWydNJwT6OAD9OUQLQVnKS4+DngKidf2lu3IHcyyJVXg0+I0c7k95LxXISwfcf+mvA
-	XH8a1paLKoPxHX/LRGKLOqH9POT4u8pmDCm4C4K8fNfbfrOcPmM0RisAcEL10xOKvs1kf6GfWXM
-	tPbZN/aIrIfnr7NNGPPnFzTKv6ZMMXHuzXm54uQy6uWvJf97QZ85WR1z4G0I0zMhbPbmVRttt9j
-	zAmaFsUOCiMPGIf63ByXki9PMPFoVjjkWXb8LTMIDtqgCKZaL0hNi9O07ZuTNxf2F9gkc6NJHNr
-	OkttsY4hcD4ZhotUl3hIVxuSobcaFE6HDeBv4+Jy9cJ2n4Jk5KoFA1VAZkos2o7sTxnqMuWeuif
-	aNY74yWp8HX2lgZyGfJH/neTGfDcHMOQs3Ppr4hKXJRTeMVLHvqKgo8JI+m0kRuUNlDf6LE36+K
-	VXGNkjHENOkrI3Eil4SlaVAe/o8EROE87T/P324=
-X-Received: by 2002:a05:622a:260b:b0:533:32f3:1db9 with SMTP id d75a77b69052e-5359f46f5ccmr130647001cf.11.1791757367164;
-        Sun, 11 Oct 2026 15:22:47 -0700 (PDT)
-Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b7ecccdsm66288831cf.30.2026.10.11.15.22.45
+        bh=RUhZ687WiXbhHP2A7uEREv91fU3FDbersCArglngaxQ=;
+        b=UincwS9sV6a3Zf2G1QBx/Rxjf80ZHDxQShey2UD6PNGwCeFT/5zjyiTfbmmk8dM0wQ
+         U385+TPUJ0/TFBmNZasuPqWeCL4uqUmLs+ckGJis32y2sBMxbLtoUcmxhcw4k10pWdES
+         SG2u822YyqhVz36yeca06NmqYoZq7fRpu5FOVI9sB+DlPxmQH1Qlu10j/82I01wdEZJB
+         kkxF49iU27HM4BA2n2yJ8U4ni5dE7LBe8m9uEHx8RMeTaeq3nxy6CVlxGI9CMLJNR2ax
+         001/EnrCVpYCLgetzqWqOkJHe4eG5Ws7qyVpJuQ6IC/CRNj8GG8Zbbr6djYGoDgE3PUU
+         bRWg==
+X-Forwarded-Encrypted: i=1; AKwUvBxY6piwoHARvvyzsUzrS8wQLUGsZLQTlpg+nOOaj+l6bps3NkAXtwA2JEm5ay3S/Tncw9h1cHNQJsxcLIQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLzbaZpxk8Ao6DCT3Ay2ZvzqwK+qea533gbDaWMOaj0xQYSCTzr
+	fnmIwd7RSk9eggoKzLdDT/V2rmokO3cBIREwVV7/OdqHpAn787o/GG3gPs6DM3A4Zzc=
+X-Gm-Gg: AYBFou2mFao0qzmuBNcJ5PWjQ8f9vUj/7R/eGGikn732ij/J49qEYgh4jVEK+2ztgkU
+	P40PzwKRQtOw/weqzv1QAhQM43Jb4Z8tpZ+LoHxY+i73JsCYxZfCkpUKi0AaQNH/qL+DdXIQa7V
+	Jw6iZEirIb5AikrpH7ZHQ6EhT/HSY9RSVmoq4jdPorSULyymQZ10qR9WbZWnFIAuZkGk8wDzMQV
+	4FvJGctLVtD8UTJMkN7sMj8sE06YJSp3djSDtUGBIEidj6TZ4aVLQi0uORek2HAsDh9fs9MHPlO
+	/XG0/TSj/Dz14FAfu9yQc1TVOReNwdQaWFp6336ZPZbPsSLEQBHAkLPrY3vouTiDusJwC+lxuLj
+	2CRp5UDIO5qa34CgdOk71WfhuSvL/fQRpNvdAfU+kQFZnZu/0cRa2taTOk5QEcxTsHDaI9FRj21
+	9Dg7SH0pqloffebMswmLxGqmsXJQ2+5PEZmk4BpFQ1AzEZ72WU0ZZagX9Wv6djVYVXryrRF5r5D
+	zdhezbjHqtVIi5UA/mk66cpZS1RjZRbDayUhtCTvkxSusOdHmJ5ihrQ1zAS
+X-Received: by 2002:a05:622a:22c6:10b0:535:db6c:139e with SMTP id d75a77b69052e-535db6c1fb3mr1848091cf.64.1791757857443;
+        Sun, 11 Oct 2026 15:30:57 -0700 (PDT)
+Received: from boomzilla.local (dynamic-acs-24-101-237-49.zoominternet.net. [24.101.237.49])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b7324c9sm67778241cf.12.2026.10.11.15.30.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 15:22:45 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH 3/3] ASoC: mediatek: mt8196: Keep the AFE IRQ within its resource lifetime
-Date: Sun, 11 Oct 2026 18:22:34 -0400
-Message-ID: <20261011222234.2098904-4-mhun512@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261011222234.2098904-1-mhun512@gmail.com>
-References: <20261011222234.2098904-1-mhun512@gmail.com>
+        Sun, 11 Oct 2026 15:30:56 -0700 (PDT)
+From: Karlos Abel <kabel@voidship.net>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH 0/2] Input: discard pre-registration events and test state seeding
+Date: Sun, 11 Oct 2026 18:30:51 -0400
+Message-ID:
+ <179175785190.2.15570576039664484922.input-plain-reply@voidship.net>
+In-Reply-To: <assT056aFmzMHmON@google.com>
+References:
+ <20261010180031.7-1-kabel@voidship.net> <assT056aFmzMHmON@google.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
 
-The managed AFE IRQ is requested before the regmap is allocated. The
-handler can therefore run before its regmap exists, and devres releases
-the regmap before joining the IRQ. The remove callback also suspends the
-AFE and disables its clocks before devres releases the IRQ.
+Resending in plain text; the mailing lists rejected my previous reply
+because it contained HTML.
 
-Request the IRQ after initializing the regmap and before enabling MCU
-IRQ routing. A failed request then takes the existing runtime PM unwind
-without enabling that routing. Release the IRQ at the start of removal
-before the explicit clock shutdown, using the IRQ number saved at probe.
-The regmap's managed lifetime also encloses the IRQ on probe errors.
+Hi Dmitry,
 
-This issue was found by static analysis.
+The observed problem is the initial switch event being delivered later and
+undoing a subsequent Bluetooth soft-block. It does not depend on the event
+timestamp.
 
-Fixes: 57513aabfe5b ("ASoC: mediatek: mt8196: add platform driver")
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
-Compile-tested with Clang 22.1.2, W=1 (arm64).
+hotkey_init() seeds SW_RFKILL_ALL=1 before registering the input device,
+without calling input_sync(). That updates the switch state, but also
+leaves the event queued across registration.
 
- sound/soc/mediatek/mt8196/mt8196-afe-common.h |  1 +
- sound/soc/mediatek/mt8196/mt8196-afe-pcm.c    | 18 ++++++++++++------
- 2 files changed, 13 insertions(+), 6 deletions(-)
+In the unpatched hardware trace:
 
-diff --git a/sound/soc/mediatek/mt8196/mt8196-afe-common.h b/sound/soc/mediatek/mt8196/mt8196-afe-common.h
-index 4951a6f32abb..ce5d586721db 100644
---- a/sound/soc/mediatek/mt8196/mt8196-afe-common.h
-+++ b/sound/soc/mediatek/mt8196/mt8196-afe-common.h
-@@ -186,6 +186,7 @@ struct clk;
- struct mtk_base_afe;
- 
- struct mt8196_afe_private {
-+	int irq_id;
- 	struct clk **clk;
- 	/* dai */
- 	void *dai_priv[MT8196_DAI_NUM];
-diff --git a/sound/soc/mediatek/mt8196/mt8196-afe-pcm.c b/sound/soc/mediatek/mt8196/mt8196-afe-pcm.c
-index a1ae8322d8b6..39d9103bd5e7 100644
---- a/sound/soc/mediatek/mt8196/mt8196-afe-pcm.c
-+++ b/sound/soc/mediatek/mt8196/mt8196-afe-pcm.c
-@@ -2393,12 +2393,7 @@ static int mt8196_afe_pcm_dev_probe(struct platform_device *pdev)
- 	irq_id = platform_get_irq(pdev, 0);
- 	if (irq_id < 0)
- 		return dev_err_probe(dev, irq_id, "no irq found");
--
--	ret = devm_request_irq(dev, irq_id, mt8196_afe_irq_handler,
--			       IRQF_TRIGGER_NONE,
--			       "Afe_ISR_Handle", afe);
--	if (ret)
--		return dev_err_probe(dev, ret, "could not request_irq for Afe_ISR_Handle\n");
-+	afe_priv->irq_id = irq_id;
- 
- 	/* init sub_dais */
- 	INIT_LIST_HEAD(&afe->sub_dais);
-@@ -2453,6 +2448,14 @@ static int mt8196_afe_pcm_dev_probe(struct platform_device *pdev)
- 		goto err_pm_put;
- 	}
- 
-+	ret = devm_request_irq(dev, irq_id, mt8196_afe_irq_handler,
-+			       IRQF_TRIGGER_NONE,
-+			       "Afe_ISR_Handle", afe);
-+	if (ret) {
-+		dev_err_probe(dev, ret, "could not request_irq for Afe_ISR_Handle\n");
-+		goto err_pm_put;
-+	}
-+
- 	regmap_read(afe->regmap, AFE_IRQ_MCU_EN, &tmp_reg);
- 	regmap_write(afe->regmap, AFE_IRQ_MCU_EN, 0xffffffff);
- 	regmap_read(afe->regmap, AFE_IRQ_MCU_EN, &tmp_reg);
-@@ -2482,8 +2485,11 @@ err_pm_put:
- static void mt8196_afe_pcm_dev_remove(struct platform_device *pdev)
- {
- 	struct mtk_base_afe *afe = platform_get_drvdata(pdev);
-+	struct mt8196_afe_private *afe_priv = afe->platform_priv;
- 	struct device *dev = &pdev->dev;
- 
-+	devm_free_irq(dev, afe_priv->irq_id, afe);
-+
- 	if (!pm_runtime_status_suspended(dev))
- 		mt8196_afe_runtime_suspend(dev);
- 
+At 74.486 seconds, Bluetooth is explicitly soft-blocked.
+At 80.300 seconds, Xorg injects LED updates followed by SYN_REPORT. There
+is already one event queued.
+That flush delivers the old SW_RFKILL_ALL=1 to rfkill_event(), which
+schedules a global unblock and turns Bluetooth back on.
+
+rfkill_start() already reads the initial switch state when the handler
+attaches; this later delivery produces an additional action after userspace
+has changed the soft-block state.
+
+Regarding the missing input_sync(): from reading the initialization path,
+simply adding it alongside the seed would be ignored because EV_SYN is not
+enabled on this device until input_register_device().
+
+I targeted registration because input_event() documents pre-registration
+seeding as updating initial state without delivering those events to
+handlers. The patch retains that state while discarding the pending events.
+The timestamp reset addresses a separate stale-timestamp case covered by
+the tests.
+
+Thanks very much,
+
+Karlos
+
+
+On Sun, Oct 11, 2026 at 12:45 AM Dmitry Torokhov <dmitry.torokhov@gmail.com>
+wrote:
+
+> Hi Karlos,
+>
+> On Sat, Oct 10, 2026 at 02:00:29PM -0400, Karlos Abel wrote:
+> > This series prevents input handlers from receiving buffered
+> initialization
+> > events after device registration. On a ThinkPad T14 Gen 6, a later LED
+> > update flushed a stale SW_RFKILL_ALL event seeded by thinkpad_acpi.
+> > The fix drops the pending events and their timestamp before handlers
+> > attach, while retaining the seeded switch and absolute-axis state.
+>
+> Could you explain why these seeded events give you trouble? Is it
+> because thinkpad_acpi() forgets to send input_sync() and so the
+> timestamp is stale/wrong?
+>
+> Thanks.
+>
+> --
+> Dmitry
+>
