@@ -1,283 +1,342 @@
-Received: from iad-out-005.esa.us-east-1.outbound.mail-perimeter.amazon.com (iad-out-005.esa.us-east-1.outbound.mail-perimeter.amazon.com [3.211.80.218])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEB11257459;
-	Sun, 11 Oct 2026 04:56:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=3.211.80.218
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791694615; cv=fail; b=rjp/qWjsg7R5gTQjhSSYB7n9y+uepW8lUyyAK6fvNDRbFW7KE8beU9ojdNmTeP7/dlISOfjOX43sF02npQ0YdgCNjh9CKkvcYMxsH/NuLNpfuxEA3dNS+n/p88zuyUWcbLoqo6XX1DlpL2NegqhozkkHr6M/Hi2WNL/GULCktSw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791694615; c=relaxed/simple;
-	bh=pHBkFwGmPjet+1ir6U8Bzl157CDnjHrU185M9lv75A8=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=VrGxZwgVXsc52dTElJEpiPhdgeDZ4YTbu1JlRY/MQzSL3Rr+a+4jMTxcOFXD9CuxjeL5jxBXFU/pvnQOylj2JMz5fshDnJlCDHnI25fke/CNIGNeNy5M+uMwEnm+liTsCidONF94RJcoQHQ0rYx5DeJOehw+lMWAKwqEe9w6zGE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=fScwUbsy; arc=fail smtp.client-ip=3.211.80.218
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B316439EF1C
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 04:57:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791694640; cv=none; b=dFOMFxCnh4voQO23lz5mORzpnvTs+lFW9qMDx83QxxDCPea5tNTuYRBuZo+IZ2dYUxpdfd2CQ7vRPs4pu+EASD1ivseVnyOrwUH7w2vZ9/yZKfD7O3MXH4bVRGcYix2D9IqC+Dw6JrTHr34BNmDf0tHExIWIkzLXMepHSJMeNuo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791694640; c=relaxed/simple;
+	bh=glwqAKwZKxWjoTvIZf3+4KJO09ktgARsPglmB8RAVqg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VskIoWpeWtddx+M4BBMz4Up7XYz01aB0rtQ6kUkYnzg4EYRmpSTrDD/f58KqK1UsvBUKcvQ09NaO/7aUST4Cr2g71gsHIgL5voUf6IiVqTKXy4tEtn/T/tyfHGGFACK7Qw+tMoeltY8V4MwWb3Nl6RORzGifUVD52M+7QYdvJ/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vm9Xqk6G; arc=none smtp.client-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="fScwUbsy"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vm9Xqk6G"
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3514e7cbbbaso2267234eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 21:57:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1791694614; x=1823230614;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=pHBkFwGmPjet+1ir6U8Bzl157CDnjHrU185M9lv75A8=;
-  b=fScwUbsycAZFnj35dxdVt2Ru5cONUULzZx5XJ0ns/OQymp4GaZvsMfWz
-   CYsxGEwWP2k/SClCaVNZfFnitdKN3UGaygiAOi3I3gkvTygpg1tlsu2bR
-   9Yh8Dq7wEvszvUSGbYZdki9NC5W49tkOeU5Q/fCsTlALsLoGkxPVK4N+S
-   x+y39eWhtjvOVGUm5R2mInId8H9T5yXaY6p/cSNAKL8yhDj0kP4w/cBeL
-   IvYlanb21bk10MLUOb7s4q1UK52xNUahhOyk3oRLChIAZ4ntIwtBAQJ56
-   nz68CIDh6yun3EfCnAm2WerkusntXa9VrGji7E42/4c+IUEp8/8QNT5rl
-   w==;
-X-CSE-ConnectionGUID: UbWkkl5MRs2P70iO+BjUbw==
-X-CSE-MsgGUID: DRvQnj13TrefFsJDGyWjMA==
-X-IronPort-AV: E=Sophos;i="6.27,151,1787011200"; 
-   d="scan'208";a="29319377"
-Received: from ip-10-4-13-79.ec2.internal (HELO smtpout.naws.us-east-1.prod.farcaster.email.amazon.dev) ([10.4.13.79])
-  by internal-iad-out-005.esa.us-east-1.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 04:56:49 +0000
-Received: from EX19MTAUEC002.ant.amazon.com [72.21.198.66:4643]
- by smtpin.naws.us-east-1.prod.farcaster.email.amazon.dev [10.0.2.235:2525] with esmtp (Farcaster)
- id 364aeef1-2b30-4680-a652-107f0292091c; Sun, 11 Oct 2026 04:56:49 +0000 (UTC)
-X-Farcaster-Flow-ID: 364aeef1-2b30-4680-a652-107f0292091c
-Received: from EX19EXOUEC001.ant.amazon.com (10.252.135.173) by
- EX19MTAUEC002.ant.amazon.com (10.252.135.253) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53;
- Sun, 11 Oct 2026 04:56:49 +0000
-Received: from DM2PR04CU003.outbound.protection.outlook.com (10.252.134.239)
- by EX19EXOUEC001.ant.amazon.com (10.252.135.173) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53
- via Frontend Transport; Sun, 11 Oct 2026 04:56:49 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JzAE5goeyGg42ingunvjcAO6S9TeW+RqXsJ59IhE/npKpeLwF5kNgvI2An1Vuw8Q3hHISFwDFMn+6ghKEK98h3neYHFVcVqZaB2mOmoTCJvLLcI4Yf8hGBAr0S9R6DrkDr78GWbV0K0dm9RVkH+C9CdNDhBnlva42RRsC9z3VoQy34elBwFriWCjMIH8n45lB1JyfRr4TD8Adjl19LU6o7rudO/ylGY68rwsf0AGvoDhSFixE8+Skg9D33C/PQqoxoKAUtoXiEAct1uqHWesl7ULAgUJATSjZ/lZJ9FEo3jo0sTKbYBM6SFGoLsWZL5AeMOguK9j69/qjVQ8PWzPuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pHBkFwGmPjet+1ir6U8Bzl157CDnjHrU185M9lv75A8=;
- b=d2cDo0LpE8CtAKgb+zcKOhQMZbMwc0/tybFF38OWcafO5Pp2bn3PBSsQDQDlv8j2q3bkD93zVtVDBnDbHnXRjdBmPAvkenIyJwNDrATJzvHyrZRkptJ72NfYEGw4bIlyAbk0+I5yTolT3xR2vifepEbMQARzPvM55L6in9fzCShDssF//j8cR+9JrRnjdn6du6DXpVrGLLT0nWQ0hWL4JFeBZDlyaWR7O8hl7C+sVxl1Xe9nLnZYPRdIdqKyv8LxgaVx/ZlW9sxEEZ+e6kuqENWf17uZ/imPrv+UqPEvxMFGEQ/psenUEELcxt0b6G90LvxpWBY16y34ddwwqE9RUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amazon.com; dmarc=pass action=none header.from=amazon.com;
- dkim=pass header.d=amazon.com; arc=none
-Received: from BY3PR18MB4722.namprd18.prod.outlook.com (2603:10b6:a03:3c9::19)
- by PH0PR18MB3975.namprd18.prod.outlook.com (2603:10b6:510:1::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.20; Sun, 11 Oct
- 2026 04:56:46 +0000
-Received: from BY3PR18MB4722.namprd18.prod.outlook.com
- ([fe80::e307:5f61:2694:b219]) by BY3PR18MB4722.namprd18.prod.outlook.com
- ([fe80::e307:5f61:2694:b219%4]) with mapi id 15.21.0451.022; Sun, 11 Oct 2026
- 04:56:46 +0000
-From: "Farber, Eliav" <farbere@amazon.com>
-To: Radu Rendec <radu@rendec.net>, Thomas Gleixner <tglx@kernel.org>,
-	"Shenhar, Talel" <talel@amazon.com>
-CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v2 8/8] irqchip/al-fic: add irq_set_affinity callback
-Thread-Topic: [PATCH v2 8/8] irqchip/al-fic: add irq_set_affinity callback
-Thread-Index: AQHdWTzqtPKchK0Wd0iAN5GIN+IhVA==
-Date: Sun, 11 Oct 2026 04:56:46 +0000
-Message-ID: <BY3PR18MB472266EF3E5796EFBDB6165CC6902@BY3PR18MB4722.namprd18.prod.outlook.com>
-References: <20260927080637.27285-1-farbere@amazon.com>
-			 <20260927080637.27285-9-farbere@amazon.com>
-		 <c28806ad779b972c94b9dd89fb70ee64cefb63cc.camel@rendec.net>
-		 <BY3PR18MB4722F4AFC8E300C4D01BE217C6962@BY3PR18MB4722.namprd18.prod.outlook.com>
-	 <150803f555ade32668f31d507e151558a505cfe1.camel@rendec.net>
- <13259378e2e41c61a7235c1b47eac649ab06425c.camel@rendec.net>
-In-Reply-To: <13259378e2e41c61a7235c1b47eac649ab06425c.camel@rendec.net>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amazon.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BY3PR18MB4722:EE_|PH0PR18MB3975:EE_
-x-ms-office365-filtering-correlation-id: c98ea440-65ea-4ada-35ff-08df27540d3e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|23010399003|376014|366016|10067099003|3023799007|261009223027099003|38070700021|11063799006|4143699003|18002099003|22082099003|56012099006;
-x-microsoft-antispam-message-info: UhxO2ANFtuwKjDMpHGGdU/TwqcHchQa1S04cmcbX53upDQqMVWNT83TF+20WgQ7P5HyhERBYcj1VvAYOm1ZaVHAHqrl6Z3c6rOQG94IUuHWrfOzQY9hgEtRW2sw1GBlJJme9+nwx40czSmhzuWsceJlQcPvcgn/PAR8QRxM04sqqahgzIO8++5FYXdQ0h4j0Qpx6APbfBE3eBRsQJz1U6OT6v3IMyR+xvwdwtts+msboYDXL8U1SWL4iAPmPiZjtOj4w57wQBYiIf/FHMs9n0dyzNqacTPvolmCPIzbN2fGledtu1tHVZYGL8Grs8TxTxG+UmSNDnFZysBQhLQvgKxomgeakF+gl5WZqfjCSLOCkYnx9V5czWGqTQrIA7FWfD4TYXDM1eFoifnlmQAlCQ6MkCy3nQ7OuNyscEcNw+k8DembWMgMMAt8lSK33oFXjdJ3DfgSB4z6VRKgZ02tI0C0EyAc9kCLYT5HQgRbgYvy14UCLHXbtoY6+QlZ0RT1RWFemPwbUk9+uaQpeyqEOhdGAnEhs5y9z6WQ6kgkhfbNf83lOjgCfIHIyKsUsg6b3w2PniwHI7CJQYMaI9fFLtU9KXToeU2qGu1XX2r9Wgn3c53/KGz5dBC82nRQau9KUYMLtWWKWqnTHjtfEeuy2mtOuw6yzgbt7T+t9fa4r1ofbLWXPRDoF2h7s3PG9FJq9gLtcH2G60MkLM/UzO50k9Xd6CvKhM3aZXEfaLhymVW4=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY3PR18MB4722.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(10067099003)(3023799007)(261009223027099003)(38070700021)(11063799006)(4143699003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?YkNrWEVVVmxrSjcvVGtqV0Q1ZVgwWGlFNlJqTCttY0Mrb1RuQzZ6R1J6a1B2?=
- =?utf-8?B?VXFoZElaZ1hEeTM3WTZieXhRNFFjRU02MFJ2eXRiL0NDdDViUDlaTGJFS0FC?=
- =?utf-8?B?YTVoYWxPdDR4UGdkOGU2TUVDME52MlFQemhjOWRaNVA0dm4zUDU2dW0xS1Vv?=
- =?utf-8?B?YmZhQ2ltOWpTWkM4WVJGaVBJdS9YckFxSU9VZWk4VTR3VFJLMm9ZcXFEWk85?=
- =?utf-8?B?b2lHeXJwMUl2aCs4S1pyYWVkeEdHNnQyVzk4NDY4cmxtR0gvbDdzMG5IY2xY?=
- =?utf-8?B?d0VnMUwwa3lGYXFORVRGODJCWWZxV3poUnNnNUJHYk0zN2liWXB2bWF4MTRZ?=
- =?utf-8?B?Wm5aOVZVcG9wVmxPNERKNWZGVEd5dXpaZjFhWFNSTHVIOE4vVW9NaDlCSDRj?=
- =?utf-8?B?MXdpYWdvOENVdWd0bWw2Uk14bFlXZktNbDlCZ256VWJCTDhJWWhWT2x3djll?=
- =?utf-8?B?Tzl1akt2b1BQdjJ3S3dyUmk3VTh1SG16a1BLZWdVM0tHOVhzM1FaV0ZITG1p?=
- =?utf-8?B?VVo0QjBpbzBKNDdUbjZ5TmJudTlNaDlDakpWam5RZVhDV1lUdWZaSlpYdVFW?=
- =?utf-8?B?aXpINTNIS3dZMEIxNWhDR0tWUkY5MW9hS2dkeWIvdC9JSVhxbGFJYzhqSGM2?=
- =?utf-8?B?Z3hWQmpnclNhMEdnL3loTHBNNzAwTnh0d2dDVFZ5K1cza1FibU4zNUp6T1JQ?=
- =?utf-8?B?VGtBSlJHRkJKZnA5WEZMZUVRQm81MWI0UHlDSjhEOVQ4eFZqV3FkVUdhUTZh?=
- =?utf-8?B?eGxUbEswU0N4UDdGRjhPYmRsMzR2cnVVakxoK1lOb1pTREI5amk5L3oyQXdi?=
- =?utf-8?B?NUlVUUFLQyttZUc0c0VkWStTN1pQZU41Mk5MZFN4SUNtZkM2UUk2czh6d3pt?=
- =?utf-8?B?bnAvNGEwaHVzRFVydkpJWEVDbVdGTm1rMlNPSndiMFJZbG1SUEZvTjRBL05o?=
- =?utf-8?B?VDlZclhsZVRhNE9rQU5mMTZqWkc5c0h4WHh1ZDRxWVJtRmhYZk9pWXI4Wk5z?=
- =?utf-8?B?NW1nTkRhOGhKcDlqU3d5M2hPN1JvYm1LQjJsVE9XVmRMK2U1Mjh2Y3dtTm0x?=
- =?utf-8?B?SFJJdDJEa2tWemJrek13WkpVR3c4TUhVSWkrR2I0SWhienpKZkpRSkM2S1Jl?=
- =?utf-8?B?ckEvRCtzL29oZjBvbldnYURqVGdnbWtGbUg4QzFRdXcvS0liTW11QVVmdjh4?=
- =?utf-8?B?TnNZMVJmZGRjb3BRcVo5UmV1bzA1UDFwaWlMR05WRlBNRmxHMDhTN2NSaFBU?=
- =?utf-8?B?RXNBVk9rWFN6QkRYRlk2c2tiR25wL1ZnRVU3dkQ4ZEJ1RzZDM3UyVVQrbXJw?=
- =?utf-8?B?S1U3VE1XRjd0RTQwWGtFVG1IK2Y0Zy9wb0VkL3FHZmZEUEZYNzEzZnhFNSt3?=
- =?utf-8?B?aTA1QkE4U3l0ZTNlakdoMDNvaTlzUVllNEtlQU1BcEZvTS9Db1VkUGdTOVBz?=
- =?utf-8?B?cWt0L3JCanZ6Q3pCcFNkSk9HYVZoNkxGVWYwYTBmRUx2Y0YzSnpGTmJqbmFU?=
- =?utf-8?B?M1FQWWE5dWlMZ3VvNkpyR1RVemo3MmFodGtXSUZjb1JBSkdmb3JxVTNBRlh4?=
- =?utf-8?B?ZzhaaDlkbVp4aWlDbjlhWDQ5T3pzWEZEcHFNV1RmOWowaExrRXltdnU1aTVN?=
- =?utf-8?B?RFhkZ2VyaHFNQU5TOWRWQ2lReHdSc0pIWkRTSzVnVkhTaFZHV2RUazZBNjlp?=
- =?utf-8?B?TytZYnV4U0Y5ZEY4anR6VVRMUTg3QU1nTXlpaWdXOGsxUnNnT3dmT0NvUXhL?=
- =?utf-8?B?K1BHU3VILys5QjNMZituT3lNT1Z0V2Fpd1FIdzNDdTI3VDN2ZTNNNlArYkRn?=
- =?utf-8?B?UEQzclN6Tm5oa0lsR1VDVXB2cFBRam44bHJ0L1A0RWd6KzlKYUJZZG9tbXhR?=
- =?utf-8?B?UVZla0haS0JKUFJoenF1Sm5QYzV1UFlHbEtZVkhEdU9PUnAzU2oreThNdWlD?=
- =?utf-8?B?c1lEc0lPUUlRR29XRHJTMVVvVE1oZmJsODBMaEtjRHdGMUJyQXpPWWtRVkU5?=
- =?utf-8?B?RmhieU5hVXN6TzU0U3AzZml2NjlkMXQ2aU9CQ0ZpK041TzJHbHcvWE1TMllP?=
- =?utf-8?B?c2pEcWpEN0VXQ2h2WnIrenJZOGFGUWlMUnZaaXZ2dGRJSmpJN3FSMmFzYmxY?=
- =?utf-8?B?WGxmdXlUNVAzMXFZeS9ZYzcvWjlUdHZLbE4xNWd4b1JyUXFkZ0JtRnphRE94?=
- =?utf-8?B?ZFM3cnA2UStrSXQzdXpzbnZObzY4RkpQOVVwamxqQmxaMzFqNHNHNXpiTkx0?=
- =?utf-8?B?elNUVktOejFsZUl2QU1TTDl3Z20xK0hTeDFQRjNKUzE3Rmt5UmRCZHdZK21z?=
- =?utf-8?Q?j6VwNWTpP2kJtceKQP?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+        d=gmail.com; s=20251104; t=1791694638; x=1792299438; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VSxIibBkVtF9VVSNXDoBpz/Pz8ZNbmWLpPtm9jtJfmY=;
+        b=Vm9Xqk6GkPQ57LWOxTzD9CbNYXOzh3ImLPqSU2lPB+GLXeHyC7ygXoCBMeH+rmXf+z
+         K5uSVhWW5usz2p6qdM2B9huPJu9iVRxidPqlYRNed9/xjBzzC0jfStA+2ZNjYoqwe8Su
+         6h0+qRz/BVJySDIgnUGI130khPFADi7lNgR37FKzXHTWCVOa2PyoUAmxC94F/rR1TqZn
+         FFCLyfgoNLOJ/18sFDQqsZpdYz7kQCjT+nGMdaDlo2nVj87br878l+i85xziS5VVoHIw
+         I9/WVB/R/tZSBwtXX1vLO7XbtUtAqln2uzUPleyP6TL541KzpD0jOjgstFQ/XftLyhhT
+         sndA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791694638; x=1792299438;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VSxIibBkVtF9VVSNXDoBpz/Pz8ZNbmWLpPtm9jtJfmY=;
+        b=Ft6ZbwCll5EAI1ni1y7UUMgtumas04RZxounpYNKFniIMV2QHClis/+yMG4+5MCchh
+         1S/RvZP6yori0dEpY+mdgv850XP4ntewGAFiDgBzy12c8XPH6jfwicRzcvUmKAw8JuYO
+         U/oYiqvusYcCgf16bVDe026YbPhIk4d4il8liF5hoiI++4sHgp4FNSaB077Mkiq0RTzS
+         EmkIe3H0UwoTrQX1/9BfgFgEPNk4pPte7K2kP44MWSn54yp0Bdcpj0oc5GRgab03DC2D
+         lEiPbhYtq8ssuvQvVIWWq7NtPbvNoiLvo606uNkjk5Pxjqg1BZ4cyHy2IY7gS0GXAmsq
+         CodQ==
+X-Forwarded-Encrypted: i=1; AKwUvByVZfIbgMypBDEksagpsstwaUUMG/Sh9B9TWYuVkZJQhJQ8EB1SbXLEj7w53vBTRI8el1ivYvKZY68LbsY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLHihn81OjmdFgkPg95NdP+e4p7+b319kaOWfuBStSkelXY04M3
+	7WWfb8w4y29lqAN4ivpMS90GWTMNqKvN865HD6obHP2VpvRtP3o89c2G
+X-Gm-Gg: AYBFou20W5r/K+oEnER3hFwmDNIPg34BJcU53rAPf9qoK26jw8u1UDs7k/E3kCw+v4y
+	OB96C6Sd33Dy+ZEo/s1wQsEQaV3ZgWXC0yz4suYH26RjL0Z0WD91FWSWVGueu32fC/8sfRBxiFS
+	UsNvoKyzDLPVu2LkTaE3XTS33JLkg863rwaVhZUMPtdC2P/ev9xzKHxD2MwqYH0kwANWQj9Bwaa
+	BOtUGheN8I166u4qcQep5we7yY4Wt8cuSYKJm+U4xis0SG8lUsDzBsWQDwg23Sg0wBo71PHOuo8
+	vSS5RVQCcTh8SBR+tXNCFIRoJYhS5JQWLx1IJqSIAHwsDkSiO0vbcpp5LiczeF68ng18ttmzXNZ
+	f4OJv1IYu95CwomaCJpbuQ/2L/lcDB/WsM+l9H7pqe+0FG6tJmXtbaToeqWTTDlhO6NpTCXiQxw
+	3T0rVCFVxiBqGmWzjktQFuFRHzrPUf1dOQaxu3B0S/Sh/RcrpnjEb/CvD0lvDkfy6h9szx73svj
+	vFIOOtHHGF+QfWUVtgyrB6vag0xJGGYtGT+2TZBEjpL/rFd6MWTC0lMh01voyLvzltQfuFKdt2t
+	Sqt7xR9XqRx6wlJ+fBRE8twEKEUAgg==
+X-Received: by 2002:a05:7301:7d06:b0:351:4d03:c6a with SMTP id 5a478bee46e88-3537df51463mr7508411eec.12.1791694637291;
+        Sat, 10 Oct 2026 21:57:17 -0700 (PDT)
+Received: from kapoor.iiserb.ac.in ([203.18.51.212])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb6a279sm20051584eec.30.2026.10.10.21.57.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 21:57:16 -0700 (PDT)
+From: Arnav Kapoor <kapoorarnav43@gmail.com>
+To: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+	Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Arnav Kapoor <kapoorarnav43@gmail.com>
+Subject: [PATCH] iio: imu: inv_mpu6050: fix swapped accel and gyro startup times
+Date: Sun, 11 Oct 2026 10:27:04 +0530
+Message-ID: <20261011045710.357809-1-kapoorarnav43@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: ropvsg3dM6xrCBCkoHV22wAAL8FWp1JihT8R5o3R6TEwQylEWLAD7NnDHA/dJHIzLlAa4CzAtJ5SjunmKhReARL+Tb4TE0FukCbLhHQXzbWxHFZ32wMKusY4SdLPPwYT5t8NLHVGcjKLGOkrZOSl3bkCzJk9CJLAvMPRxi5pZnIt2C4CgVSeYqrMqonH6YmWq9C7MNAqEKeuSW/7j/skpvAC0CnQApVhFo2eo5UZ7tlL8oHYCMbp/IxFFxG8cdmqsV1GzHiPkzx43sAwySU+VJ4BwXEJCzT8wk7yu7vR0VdwOvZwBhzSKiZ7eZA50kBtywNVNZ2Yh8Y6ubrDcJttSg==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BY3PR18MB4722.namprd18.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c98ea440-65ea-4ada-35ff-08df27540d3e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Oct 2026 04:56:46.2800
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 5280104a-472d-4538-9ccf-1e1d0efe8b1b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: kEExhReo259rbVWax/39VJ3jumf5H0wOoDa5gf2f8hR5ej+9HZXASJJGiCtJFzv5csX6PC2mFQlZP/N1BUArWg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR18MB3975
-X-OriginatorOrg: amazon.com
+Content-Transfer-Encoding: 8bit
 
-Y2F0IC9ob21lL2ZhcmJlcmUvd29yay9yZXBseS1yYWR1LXYyLThvZjgtcmVkaXJlY3QudHh0DQpP
-biBTYXQsIDIwMjYtMTAtMTAgYXQgMTY6MTkgLTA0MDAsIFJhZHUgUmVuZGVjIHdyb3RlOg0KPiBP
-biBNb24sIDIwMjYtMTAtMDUgYXQgMTE6MjAgKzAwMDAsIEZhcmJlciwgRWxpYXYgd3JvdGU6DQo+
-ID4gT24gU3VuLCAyMDI2LTEwLTA1IGF0IDAxOjI1ICswMDAwLCBSYWR1IFJlbmRlYyB3cm90ZToN
-Cj4gPiA+IFRoaXMgaXMgYSBjb21tb24gcHJvYmxlbSB0byBhbGwgbXVsdGlwbGV4aW5nIGlycSBk
-cml2ZXJzOyBub3QNCj4gPiA+IGJlY2F1c2UgdGhlIHBhcmVudCBpbnRlcnJ1cHQgaXMgc2hhcmVk
-IGJ1dCBiZWNhdXNlIGNoYW5naW5nIHRoZQ0KPiA+ID4gYWZmaW5pdHkgb2Ygb25lIGNoaWxkIGlu
-dGVycnVwdCAoYnkgY2hhbmdpbmcgdGhlIHBhcmVudA0KPiA+ID4gaW50ZXJydXB0J3MgYWZmaW5p
-dHkgdW5kZXIgdGhlDQo+ID4gPiBob29kKSB3b3VsZCBoYXZlIHRoZSBzaWRlIGVmZmVjdCBvZiBj
-aGFuZ2luZyB0aGUgYWZmaW5pdHkgb2YgYWxsDQo+ID4gPiBpdHMgc2libGluZ3MuDQo+ID4gPg0K
-PiA+ID4gSSB0aGluayB0aGUgY29ycmVjdCBiZWhhdmlvciBpcyB0byBmYWlsIHdpdGggLUVJTlZB
-TCBpbiB0aGlzIGNhc2UuDQo+ID4NCj4gPiAtRUlOVkFMIGlzIG5vdCB1c2FibGUgaGVyZSBiZWNh
-dXNlIGl0IHJlc3RvcmVzIHRoZSBmYWlsdXJlIHRoaXMNCj4gPiBwYXRjaCBmaXhlcy4gVGhlIGNv
-bnN1bWVyIGlzIGFybS1jbW4uIFdlIGhhdmUgYSBTb0Mgd2hlcmUgaXRzDQo+ID4gaW50ZXJydXB0
-IGlzIHJvdXRlZCB0aHJvdWdoIGEgRklDIGdyb3VwIGluc3RlYWQgb2YgYSBkaXJlY3QgR0lDIFNQ
-SSwNCj4gPiBhbmQgZHJpdmVycy9wZXJmL2FybS1jbW4uYyBkb2VzDQo+ID4NCj4gPiAgICAgICAg
-IGVyciA9IGlycV9zZXRfYWZmaW5pdHkoaXJxLCBjcHVtYXNrX29mKGNtbi0+Y3B1KSk7DQo+ID4g
-ICAgICAgICBpZiAoZXJyKQ0KPiA+ICAgICAgICAgICAgICAgICByZXR1cm4gZXJyOw0KPiA+DQo+
-ID4gYXQgcHJvYmUsIHNvIHdpdGggbm8gLmlycV9zZXRfYWZmaW5pdHkgY2FsbGJhY2sgdGhlIFBN
-VSBkb2VzIG5vdA0KPiA+IHByb2JlIGF0IGFsbC4NCj4NCj4gQWxsIHJpZ2h0LCBub3cgSSBzZWUg
-d2hhdCB0aGUgcHJvYmxlbSBpcy4gSSB3aWxsIGJlIGZ1bGx5IGhvbmVzdCBhbmQNCj4gdHJhbnNw
-YXJlbnQgYW5kIGFkbWl0IEkgZG9uJ3Qga25vdyBtdWNoIGFib3V0IFBNVSBkcml2ZXJzIGluIGdl
-bmVyYWwNCj4gb3IgYXJtLWNtbiBpbiBwYXJ0aWN1bGFyLiBCdXQgSSBiZWxpZXZlIHRoYXQgaXJx
-X3NldF9hZmZpbml0eSgpICh3aXRoDQo+IGEgaGFyZCBmYWlsKSBpcyB0aGVyZSBmb3IgYSByZWFz
-b24uIE9mIGNvdXJzZSwgYmVjYXVzZSB3ZSBhcmUgaW4gMjAyNiwNCj4gSSBkaWQgYXNrIGEgTExN
-IHdoYXQgdGhhdCByZWFzb24gY291bGQgYmUsIGJ1dCBJIHdpbGwgcmVmcmFpbiBmcm9tDQo+IHRh
-a2luZyB0aGUgYW5zd2VyIGFzIGNvcnJlY3QvZGVmaW5pdGl2ZSBvciBzcGVjdWxhdGluZzsgSSB3
-aWxsIGp1c3QNCj4gc2F5IGl0IHByb2JhYmx5IG5lZWRzIGNhcmVmdWwgY29uc2lkZXJhdGlvbi4N
-Cj4NCj4gVGhlIHJlcXVlc3RlZCBhZmZpbml0eSBtYXNrIGluY2x1ZGVzIGEgc2luZ2xlIENQVTsg
-YnkgY29udHJhc3QsIHVubGVzcw0KPiBleHBsaWNpdGx5IGNvbmZpZ3VyZWQsIHRoZSBGSUMgcGFy
-ZW50IElSUSB3aWxsIHByb2JhYmx5IGJlIGFmZmluZSB0bw0KPiBhbGwgYXZhaWxhYmxlIENQVXMs
-IHNvIHRoZSBjcHVtYXNrX2VxdWFsKCkgaW4geW91ciBwYXRjaCB3aWxsIGxpa2VseQ0KPiBiZSBh
-bHdheXMgZmFsc2UuIFRoZSBjb25jZXJuIGlzIG5vdCB0aGUgd2FybmluZyBpdHNlbGYgKHlvdSdy
-ZSB1c2luZw0KPiBwcl93YXJuX29uY2UpOyBpdCdzIHRoYXQgdGhlIGFybS1jbW4gSVJRIGhhbmRs
-ZXIgd2lsbCBydW4gb24gYQ0KPiBkaWZmZXJlbnQgQ1BVIHRoYW4gaXQgZXhwZWN0cy9oYXMgcmVx
-dWVzdGVkLg0KPg0KPiA+ID4gSWYgeW91IGluc2lzdCBvbiBoYXZpbmcgdGhlIGFiaWxpdHkgdG8g
-Y2hhbmdlIHRoZSBjaGlsZCBpbnRlcnJ1cHRzJw0KPiA+ID4gYWZmaW5pdHksIHlvdSBtYXkgd2Fu
-dCB0byBsb29rIGF0IHRoaXMgcGF0Y2ggYW5kIGRvIHNvbWV0aGluZyBzaW1pbGFyOg0KPiA+ID4g
-aHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsLzIwMjUxMTI4MjEyMDU1LjE0MDkwOTMtNC1ycmVu
-ZGVjQHJlZGhhDQo+ID4gPiB0LmNvbS8NCj4gPg0KPiA+IEkgaW1wbGVtZW50ZWQgdGhhdCBmb3Ig
-YWwtZmljIGFuZCB0ZXN0ZWQgaXQgb24gaGFyZHdhcmUuIEl0IHNlZW1zIHRvDQo+ID4gd29yazog
-d2l0aCB0aGUgcGFyZW50IFNQSSBwaW5uZWQgdG8gb25lIENQVSBhbmQgdGhlIGNoaWxkJ3MgYWZm
-aW5pdHkNCj4gPiBzZXQgdG8gYW5vdGhlciwgdGhlIGNoaWxkIGRpc3BhdGNoIGlzIGFjY291bnRl
-ZCBvbiB0aGUgdGFyZ2V0IENQVSwNCj4gPiBvbmUgZGlzcGF0Y2ggcGVyIHBhcmVudCBpbnRlcnJ1
-cHQsIG5vIHJlLWZpcmUgc3Rvcm0uDQo+ID4NCj4gPiBXaGF0IHN0b3BzIG1lIGZyb20ganVzdCBz
-ZW5kaW5nIGl0IGlzIHRoYXQgaXQgY2hhbmdlcyB0aGUgaW50ZXJydXB0DQo+ID4gcGF0aCBmb3Ig
-ZXZlcnkgY2hpbGQgb2YgZXZlcnkgRklDIGluc3RhbmNlLCBub3Qgb25seSBmb3IgYSBjaGlsZA0K
-PiA+IHRoYXQgYXNrcyBmb3IgYWZmaW5pdHkuIC5pcnFfcHJlX3JlZGlyZWN0IGlzIGNhbGxlZCBi
-ZWZvcmUgdGhlDQo+ID4gYWZmaW5pdHkgY2hlY2ssIHNvIGl0IHJ1bnMgb24gZXZlcnkgZGlzcGF0
-Y2guIFRoZSBhY2sgdGhlcmVmb3JlIGhhcw0KPiA+IHRvIGxlYXZlIHRoZSBmbG93IGhhbmRsZXIg
-YW5kIGJlIGRvbmUgaW4gdGhlIHBhcmVudCBjb250ZXh0IGFsd2F5cywNCj4gPiBhbmQgLmlycV9h
-Y2sgaGFzIHRvIGJlY29tZSBhIG5vb3Agc28gaXQgaXMgbm90IGRvbmUgdHdpY2UuIEEgbGV2ZWwN
-Cj4gPiBjb25maWd1cmVkIGdyb3VwIGhhcyB0byBiZSBtYXNrZWQgaW4gLmlycV9wcmVfcmVkaXJl
-Y3QgYXMgd2VsbCwNCj4gPiBiZWNhdXNlIHRoZSBGSUMgcmUtYXNzZXJ0cyB0aGUgY2F1c2UgYml0
-IHdoaWxlIHRoZSBzb3VyY2UgaXMgc3RpbGwNCj4gPiBhc3NlcnRlZCwgc28gZm9yIHRob3NlIGdy
-b3VwcyB0aGUgbWFzayBtb3ZlcyBpbnRvIHRoZSBwYXJlbnQgY29udGV4dA0KPiA+IHRvby4gVG9k
-YXkgYWxsIG9mIHRoaXMgaGFwcGVucyBpbnNpZGUNCj4gPiBoYW5kbGVfbGV2ZWxfaXJxKCkgYW5k
-IGhhbmRsZV9lZGdlX2lycSgpLCB1bmRlciBkZXNjLT5sb2NrLg0KPg0KPiBUaGUgZHdfcGNpIGRy
-aXZlciBpcyBub3QgdGhlIGJlc3QgZXhhbXBsZSBiZWNhdXNlIGl0IHVzZXMgYSBzdGFja2VkDQo+
-IGxheW91dCB3aXRoIHRoZSBtdWx0aXBsZXhpbmcgaXJxY2hpcCBhdCB0aGUgYm90dG9tIGFuZCBh
-IGhpZXJhcmNoeQ0KPiBpcnFjaGlwIG9uIHRvcCAod2hpY2ggaXMgd2h5IHRoZSAuaXJxX3ByZV9y
-ZWRpcmVjdCB3YXMgbmVjZXNzYXJ5KS4NCj4gVW5mb3J0dW5hdGVseSBpdCdzIHRoZSBvbmx5IGV4
-YW1wbGUgSSBhbSBhd2FyZSBvZiAoYW5kIGFsc28gd2hhdA0KPiBwcm9tcHRlZCB0aGUgcmVkaXJl
-Y3QgZnJhbWV3b3JrIGltcGxlbWVudGF0aW9uKS4gSSBhcG9sb2dpemUgZm9yIHRoZQ0KPiBjb25m
-dXNpb24gaXQgbWF5IGhhdmUgY3JlYXRlZC4NCj4NCj4gSSB0aGluayBpbiB0aGUgY2FzZSBvZiBh
-bC1maWMsIGl0J3Mgc3VmZmljaWVudCB0byBzZXQNCj4gaXJxX2NoaXBfcmVkaXJlY3Rfc2V0X2Fm
-ZmluaXR5IGFzIHRoZSAuaXJxX3NldF9hZmZpbml0eSBoYW5kbGVyIGFuZA0KPiByZXBsYWNlIGdl
-bmVyaWNfaGFuZGxlX2RvbWFpbl9pcnEgd2l0aCBnZW5lcmljX2hhbmRsZV9kZW11eF9kb21haW5f
-aXJxLg0KPiBUaGF0IHdpbGwgbm90IGNoYW5nZSB0aGUgYWNrL21hc2sgcGF0aC4NCj4NCj4gU29y
-cnkhIFNjcmF0Y2ggdGhhdC4gSHVtYW4gaGFsbHVjaW5hdGlvbiA6KQ0KPg0KPiBZZXMsIHlvdXIg
-aW50ZXJwcmV0YXRpb24gaXMgY29ycmVjdC4gVGhlIGFjayBhbmQgbWFzayBuZWVkIHRvIG1vdmUg
-dG8NCj4gLmlycV9wcmVfcmVkaXJlY3QgYmVjYXVzZSB0aGV5IG11c3QgaGFwcGVuIGluIGhhcmR3
-YXJlIGludGVycnVwdA0KPiBjb250ZXh0OyBpZiB0aGUgZGVtdWx0aXBsZXhlZCBpbnRlcnJ1cHQg
-aXMgcmVkaXJlY3RlZCwgaXRzIGZsb3cgaGFuZGxlcg0KPiAoaGFuZGxlX2xldmVsX2lycSgpIG9y
-IGhhbmRsZV9lZGdlX2lycSgpKSBydW5zIGFzeW5jaHJvbm91c2x5IGluDQo+IGlycV93b3JrIGNv
-bnRleHQsIHNvIGFjay9tYXNrIGNhbid0IGhhcHBlbiB0aGVyZS4NCg0KSW4gdjUgSSBpbXBsZW1l
-bnRlZCBpdCB0aGlzIHdheSwgYmFzZWQgb24geW91ciBzdWdnZXN0aW9uIGFib3ZlIGFuZCBvbg0K
-dGhlIGR3X3BjaSByZWZlcmVuY2UgeW91IGFuZCBUaG9tYXMgcG9pbnRlZCBtZSB0byBlYXJsaWVy
-Og0KLmlycV9zZXRfYWZmaW5pdHkgaXMgaXJxX2NoaXBfcmVkaXJlY3Rfc2V0X2FmZmluaXR5LCB0
-aGUgZGlzcGF0Y2ggbG9vcA0KY2FsbHMgZ2VuZXJpY19oYW5kbGVfZGVtdXhfZG9tYWluX2lycSgp
-IGluc3RlYWQgb2YNCmdlbmVyaWNfaGFuZGxlX2RvbWFpbl9pcnEoKSwgLmlycV9hY2sgaXMgYSBu
-b29wLCBhbmQgdGhlIGFjayAocGx1cyB0aGUNCm1hc2ssIGZvciBhIGxldmVsIGNvbmZpZ3VyZWQg
-Z3JvdXApIG5vdyBoYXBwZW5zIGluIGEgbmV3DQouaXJxX3ByZV9yZWRpcmVjdC4gVGVzdGVkIG9u
-IG91ciBoYXJkd2FyZTogd2l0aCBhIGNoaWxkJ3MgYWZmaW5pdHkNCnBpbm5lZCBhd2F5IGZyb20g
-dGhlIENQVSB0YWtpbmcgdGhlIHBhcmVudCBTUEksIHRoZSBhY2sgc3RpbGwgaGFwcGVucyBvbg0K
-dGhlIHBhcmVudCdzIENQVSBhbmQgdGhlIGhhbmRsZXIgYm9keSBydW5zIG9uIHRoZSB0YXJnZXQg
-Q1BVLCBubw0KcmUtZmlyZSBzdG9ybS4NCg0KPiBCdXQgbm90ZSB0aGF0IGV2ZW4gdGhvdWdoIHRo
-ZSBjYWxsIHBhdGggY2hhbmdlcyBmb3IgYW55IGludGVycnVwdCwgdGhlDQo+IGhhbmRsZXIgaXMg
-c3RpbGwgY2FsbGVkIHN5bmNocm9ub3VzbHkgKGF0IHRoZSBlbmQgb2YNCj4gZ2VuZXJpY19oYW5k
-bGVfZGVtdXhfZG9tYWluX2lycSgpKSBpZiB0aGUgYWZmaW5pdHkgaGFzbid0IGJlZW4gY2hhbmdl
-ZA0KPiBhbmQgcmVkaXJlY3Rpb24gaXMgbm90IG5lY2Vzc2FyeS4gU28gdGhlcmUgaXMgbm8gb3Zl
-cmhlYWQgaW4gdGhhdA0KPiBjYXNlLg0KDQpDb25maXJtZWQgdGhhdCB0b28gLSB0aGUgaW5saW5l
-IHBhdGggaXMgdW5jaGFuZ2VkIHdoZW4gbm8gcmVkaXJlY3QgaXMNCm5lZWRlZC4NCg0KPiBJIHRo
-aW5rIGFsbCB0aGlzIHdvdWxkIGJlIGxlc3MgaG9ycmlibGUgZm9yIGEgZHJpdmVyIHRoYXQgd2Fu
-dHMgdG8NCj4gaW1wbGVtZW50IHJlZGlyZWN0aW9uIGlmIHdlIGNoYW5nZWQgY2hhbmdlZCBoYW5k
-bGVfbGV2ZWxfaXJxKCkgYW5kDQo+IGhhbmRsZV9lZGdlX2lycSgpIHRvIHNraXAgdGhlIGFjay9t
-YXNrIGZvciBpcnFjaGlwcyB0aGF0IGltcGxlbWVudA0KPiByZWRpcmVjdGlvbiAoZS5nLiBiYXNl
-ZCBvbiBhbiBpcnFjaGlwIGZsYWcpLCBhbmQgcHJvdmlkZWQgYSBkZWZhdWx0DQo+IGltcGxlbWVu
-dGF0aW9uIG9mIC5pcnFfcHJlX3JlZGlyZWN0IHRoYXQgY2FsbGVkIHRoZSBhY2svbWFzayBoYW5k
-bGVycw0KPiBpbnN0ZWFkLiBUaGF0IHdheSwgYWxsIGFuIGlycWNoaXAgZHJpdmVyIHdvdWxkIGhh
-dmUgdG8gZG8gdG8gaW1wbGVtZW50DQo+IHJlZGlyZWN0aW9uIHdvdWxkIGJlOg0KPiAgKiBzZXQg
-dGhlIGZsYWcgdGhhdCBza2lwcyBhY2svbWFzayBpbiB0aGUgZmxvdyBoYW5kbGVyczsNCj4gICog
-c2V0IC5pcnFfc2V0X2FmZmluaXR5ID0gaXJxX2NoaXBfcmVkaXJlY3Rfc2V0X2FmZmluaXR5Ow0K
-PiAgKiBzZXQgLmlycV9wcmVfcmVkaXJlY3QgPSBkZWZhdWx0X2ltcGxlbWVudGF0aW9uX3RvX2Jl
-X2FkZGVkLg0KPg0KPiBJJ2xsIHRyeSB0byBkcmFmdCBzb21ldGhpbmcgYWxvbmcgdGhvc2UgbGlu
-ZXMgbmV4dCB3ZWVrIGFuZCBzZW5kIGFuDQo+IFJGQyBwYXRjaC4gV2UnbGwgc2VlIHdoYXQgVGhv
-bWFzIHRoaW5rcyA6KQ0KDQo+IEJ5IHRoZSB3YXksIGRpZCB5b3UgbWVudGlvbiB0aGUgRklDIGNo
-aXBzIGNvdWxkIGJlIHN0YWNrZWQgb3IgYW0gSQ0KPiBpbWFnaW5pbmcgdGhpbmdzIGFnYWluPyBU
-aGF0IGNvdWxkIGJlIGFuIGV4dHJhIHdyaW5rbGUgaW4gdGhlIGNvbnRleHQNCj4gb2YgcmVkaXJl
-Y3Rpb24uDQoNCk5vdCBpbWFnaW5pbmcgaXQgLSBhbC1maWMgZ3JvdXBzIGNhbiBiZSBzdGFja2Vk
-LCBhbiBGSUMncyBwYXJlbnQgY2FuIGJlDQphbm90aGVyIEZJQydzIG91dHB1dCBpbnN0ZWFkIG9m
-IGEgZGlyZWN0IEdJQyBTUEkuIFRlc3RlZCB0aGF0IGNhc2UgdG9vDQphbmQgcmVkaXJlY3Rpb24g
-d29ya2VkIHRoZSBzYW1lIHdheSB0aHJvdWdoIHRoZSBleHRyYSBsZXZlbC4NCg0KPiA+IERvIHlv
-dSBzdGlsbCBjb25zaWRlciB0aGF0IGp1c3RpZmllZCBmb3IgdGhpcyBkcml2ZXIsIGdpdmVuIHRo
-YXQgdGhlDQo+ID4gb25seSBjYWxsZXIgbmVlZGluZyBhbnl0aGluZyBoZXJlIGlzIG9uZSB0aGF0
-IGp1c3QgbmVlZHMgdGhlIGNhbGwgbm90DQo+ID4gdG8gZmFpbD8NCj4NCj4gQXMgSSBleHBsYWlu
-ZWQgYWJvdmUsIEkgcmVhbGx5IGRvdWJ0IHRoYXQgYXJtLWNtbiBqdXN0IG5lZWRzIHRoZSBjYWxs
-DQo+IG5vdCB0byBmYWlsLiBJIGFtIGluY2xpbmVkIHRvIHRoaW5rIHRoYXQgaXQgYWN0dWFsbHkg
-Km5lZWRzKiB0aGUgSVJRDQo+IHRvIHJ1biBvbiB0aGUgQ1BVIGl0IHdhbnRzLCBoZW5jZSB0aGUg
-aGFyZCBmYWlsLg0KDQpBZ3JlZWQuDQoNCldpbGwgc2VuZCB2NSBzaG9ydGx5Lg0KDQpUaGFua3Ms
-DQpFbGlhdg0K
+struct inv_mpu6050_hw declares startup_time as { accel, gyro }, but
+every entry of hw_info[] initializes it positionally as
+{ *_GYRO_STARTUP_TIME, *_ACCEL_STARTUP_TIME }, so the two values are
+swapped for all chips.
+
+inv_mpu6050_switch_engine() waits for startup_time.gyro after enabling
+the gyroscope, so it waits for the accelerometer startup time instead,
+e.g. 20 ms instead of 60 ms on MPU6050 and 20 ms instead of 100 ms on
+ICM20602, and the first gyroscope samples can be read before the sensor
+has settled. Enabling only the accelerometer waits longer than needed.
+
+Use designated initializers, so each value is assigned to the member it
+is named after.
+
+Fixes: e46a36d92da0 ("Add startup time for each chip using inv_mpu6050 driver")
+Assisted-by: LLM
+Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+---
+Compile-tested only (W=1); I don't have the hardware. I checked the
+built object: before this patch hw_info[] has e.g. accel=60, gyro=20 for
+MPU6050 and accel=100, gyro=20 for ICM20602; after it accel=20, gyro=60
+and accel=20, gyro=100, matching the *_STARTUP_TIME defines.
+
+ drivers/iio/imu/inv_mpu6050/inv_mpu_core.c | 95 +++++++++++++++++-----
+ 1 file changed, 76 insertions(+), 19 deletions(-)
+
+diff --git a/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c b/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c
+index 38c3f3b398d4..b26d1d401aaf 100644
+--- a/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c
++++ b/drivers/iio/imu/inv_mpu6050/inv_mpu_core.c
+@@ -150,7 +150,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6050,
+ 		.fifo_size = 1024,
+ 		.temp = {INV_MPU6050_TEMP_OFFSET, INV_MPU6050_TEMP_SCALE},
+-		.startup_time = {INV_MPU6050_GYRO_STARTUP_TIME, INV_MPU6050_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6050_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6050_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_MPU6500_WHOAMI_VALUE,
+@@ -159,7 +162,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 512,
+ 		.temp = {INV_MPU6500_TEMP_OFFSET, INV_MPU6500_TEMP_SCALE},
+-		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_MPU6515_WHOAMI_VALUE,
+@@ -168,7 +174,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 512,
+ 		.temp = {INV_MPU6500_TEMP_OFFSET, INV_MPU6500_TEMP_SCALE},
+-		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_MPU6880_WHOAMI_VALUE,
+@@ -177,7 +186,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 4096,
+ 		.temp = {INV_MPU6500_TEMP_OFFSET, INV_MPU6500_TEMP_SCALE},
+-		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_MPU6000_WHOAMI_VALUE,
+@@ -186,7 +198,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6050,
+ 		.fifo_size = 1024,
+ 		.temp = {INV_MPU6050_TEMP_OFFSET, INV_MPU6050_TEMP_SCALE},
+-		.startup_time = {INV_MPU6050_GYRO_STARTUP_TIME, INV_MPU6050_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6050_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6050_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_MPU9150_WHOAMI_VALUE,
+@@ -195,7 +210,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6050,
+ 		.fifo_size = 1024,
+ 		.temp = {INV_MPU6050_TEMP_OFFSET, INV_MPU6050_TEMP_SCALE},
+-		.startup_time = {INV_MPU6050_GYRO_STARTUP_TIME, INV_MPU6050_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6050_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6050_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_MPU9250_WHOAMI_VALUE,
+@@ -204,7 +222,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 512,
+ 		.temp = {INV_MPU6500_TEMP_OFFSET, INV_MPU6500_TEMP_SCALE},
+-		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_MPU9255_WHOAMI_VALUE,
+@@ -213,7 +234,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 512,
+ 		.temp = {INV_MPU6500_TEMP_OFFSET, INV_MPU6500_TEMP_SCALE},
+-		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_ICM20608_WHOAMI_VALUE,
+@@ -222,7 +246,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 512,
+ 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
+-		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_ICM20608D_WHOAMI_VALUE,
+@@ -231,7 +258,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 512,
+ 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
+-		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_ICM20609_WHOAMI_VALUE,
+@@ -240,7 +270,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 4 * 1024,
+ 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
+-		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_ICM20689_WHOAMI_VALUE,
+@@ -249,7 +282,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 4 * 1024,
+ 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
+-		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_ICM20600_WHOAMI_VALUE,
+@@ -258,7 +294,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 1008,
+ 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
+-		.startup_time = {INV_ICM20602_GYRO_STARTUP_TIME, INV_ICM20602_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_ICM20602_ACCEL_STARTUP_TIME,
++			.gyro = INV_ICM20602_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_ICM20602_WHOAMI_VALUE,
+@@ -267,7 +306,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 1008,
+ 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
+-		.startup_time = {INV_ICM20602_GYRO_STARTUP_TIME, INV_ICM20602_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_ICM20602_ACCEL_STARTUP_TIME,
++			.gyro = INV_ICM20602_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_ICM20690_WHOAMI_VALUE,
+@@ -276,7 +318,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 1024,
+ 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
+-		.startup_time = {INV_ICM20690_GYRO_STARTUP_TIME, INV_ICM20690_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_ICM20690_ACCEL_STARTUP_TIME,
++			.gyro = INV_ICM20690_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{	.whoami = INV_IAM20380_WHOAMI_VALUE,
+ 		.name = "IAM20380",
+@@ -284,7 +329,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 512,
+ 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
+-		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_IAM20680_WHOAMI_VALUE,
+@@ -293,7 +341,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 512,
+ 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
+-		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_IAM20680HP_WHOAMI_VALUE,
+@@ -302,7 +353,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 4 * 1024,
+ 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
+-		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
++		},
+ 	},
+ 	{
+ 		.whoami = INV_IAM20680HT_WHOAMI_VALUE,
+@@ -311,7 +365,10 @@ static const struct inv_mpu6050_hw hw_info[] = {
+ 		.config = &chip_config_6500,
+ 		.fifo_size = 4 * 1024,
+ 		.temp = {INV_ICM20608_TEMP_OFFSET, INV_ICM20608_TEMP_SCALE},
+-		.startup_time = {INV_MPU6500_GYRO_STARTUP_TIME, INV_MPU6500_ACCEL_STARTUP_TIME},
++		.startup_time = {
++			.accel = INV_MPU6500_ACCEL_STARTUP_TIME,
++			.gyro = INV_MPU6500_GYRO_STARTUP_TIME,
++		},
+ 	},
+ };
+ 
+-- 
+2.53.0
+
