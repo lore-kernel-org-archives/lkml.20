@@ -1,207 +1,144 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C76434EF03
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:08:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C1753C1F3A
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:12:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791698916; cv=none; b=lzuDYxEekEdCibetluTODeXmxXT+46m7+tnL8VC/ZiduJs+Du8BENP/0DMIHbpiVs1ux9DLeiTv1ArxPAQMQFB2hchzHNJk7z/lHSJsbTjS+E5s5cOsQupFK9Nh2+OLVrirarraqGPgt75W3+QVlBi5LjYZJ91xrhy6m0ZGCaDM=
+	t=1791699146; cv=none; b=astM3hVZU6BQ1HtfFJI+RP7vhukB6oHK0T+wSXZpBEUYEkHUfTkeWkUDICOT5JM/ErhrurRn4LIWnE+EFch78Hi6BDTwgBzY5OR4R64pdWfOS+vJkQ80s5cYUGy0dRi94TBiEGWBWhYAyOPtF+62nTJwfJ4Ch935yN5V1WSIyTo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791698916; c=relaxed/simple;
-	bh=L83EC1yVpH8jPT98rYtWh0VLRV6lhwCzyCmbaCjzW9k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u778d6rOgTzniquyFu5Kh/PMvMOF1CX8P2Fc9b+vqjY9Xzw3hlSTk615v6kKacHBCpqGBYPU/W7mW4fsNaeoion8SykiAfAp4IApYZ/2is6/BHaCNfHb8kR51lFVMs6pgrimSZqzQw+g6JXAdzfsuiSe7GXLvgg58OHR7yQJppI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=VvxEiZ6J; arc=none smtp.client-ip=170.10.133.124
+	s=arc-20240116; t=1791699146; c=relaxed/simple;
+	bh=JEiyBPOMQMMl2NLC0YLrjNa2D8JR4Xstw82Y92h7UF0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PQdTZ8D0wtA/bd7nQDzMiZ2CdF0ApW9lYDgBv8QuLI6+d+U2u2nJl9mNQY16GgJb2tvbrt0GTcUkfcDgIc3wNKcZY1I/13CW7oP7NBozhKx4q75elKPJa5FXITaZH5aCzEMtdB+GJ/B7jAK855MorYR3eC2Y6UebiQ7op3oy2cw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OA+OPvZg; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="VvxEiZ6J"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OA+OPvZg"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791698913;
+	s=mimecast20190719; t=1791699142;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Wo1efaTMpeT/4NBcKrfwC/YnsyXmNc2l9OW89Ez3udA=;
-	b=VvxEiZ6JkAL0ZOc2dZeoPOrS5Z+a+6UTsiIB0GEnrPegKbv7gluGijVVsr/eIewDBfLBqy
-	dMMPInD6aRA0Fj9Rv0Q55Fnndp7/mj4lL09JUrlH3jCaqt9NgAfH2AtMggWqwVShOawXUm
-	c2ZO4J3oPBbY835N+vFOR/+U/MGDhWk=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+	bh=eCXR6LtWJua5mS8JgVtfD13BSpVyujA2WFC+pOJHKKA=;
+	b=OA+OPvZg8M25jumwVEihleIFveh97jsv6fyzWkjhcDiX8sIo0Ed1OiUgjfPMMJ0uGiIKXN
+	0n8GlS7/5evdvQB0XoXmGG3WzhrXYiS6LI+KdRGRf7CznlS3kIJ4wRl9jDlfx7rWjTRFpS
+	CAjL1iqM9HjyNiAw732pvOBcIsadRjM=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-650-4oJXwfekOxKwRo7fDzlc_A-1; Sun,
- 11 Oct 2026 06:08:28 +0000
-X-MC-Unique: 4oJXwfekOxKwRo7fDzlc_A-1
-X-Mimecast-MFC-AGG-ID: 4oJXwfekOxKwRo7fDzlc_A_1791698906
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-139-8ZwGSvLlPpOf3BYWgIhZ5g-1; Sun,
+ 11 Oct 2026 06:12:19 +0000
+X-MC-Unique: 8ZwGSvLlPpOf3BYWgIhZ5g-1
+X-Mimecast-MFC-AGG-ID: 8ZwGSvLlPpOf3BYWgIhZ5g_1791699137
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 21040194510D;
-	Sun, 11 Oct 2026 06:08:26 +0000 (UTC)
-Received: from [100.91.101.41] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 60A5830000E3;
-	Sun, 11 Oct 2026 06:08:23 +0000 (UTC)
-Message-ID: <d4e4faab-002b-47c7-b437-0d8f92f8dbf3@redhat.com>
-Date: Sun, 11 Oct 2026 08:08:22 +0200
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C774619560B3;
+	Sun, 11 Oct 2026 06:12:17 +0000 (UTC)
+Received: from ivecera-thinkpadp16vgen1.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 4B41E1956095;
+	Sun, 11 Oct 2026 06:12:15 +0000 (UTC)
+From: Ivan Vecera <ivecera@redhat.com>
+To: netdev@vger.kernel.org
+Cc: Petr Oros <poros@redhat.com>,
+	Min Li <min.li@microchip.com>,
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Prathosh Satish <Prathosh.Satish@microchip.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v5 1/5] dpll: zl3073x: do not offer 0 Hz as a supported pin frequency
+Date: Sun, 11 Oct 2026 08:12:07 +0200
+Message-ID: <20261011061211.448373-2-ivecera@redhat.com>
+In-Reply-To: <20261011061211.448373-1-ivecera@redhat.com>
+References: <20261011061211.448373-1-ivecera@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v4 5/5] dpll: zl3073x: notify sibling pin when shared
- output config changes
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, poros@redhat.com, min.li@microchip.com,
- vadim.fedorenko@linux.dev, arkadiusz.kubalewski@intel.com, jiri@resnulli.us,
- kuba@kernel.org, Prathosh.Satish@microchip.com, pabeni@redhat.com,
- linux-kernel@vger.kernel.org
-References: <20261009192556.272263-6-ivecera@redhat.com>
- <179166042422.434549.15231909137129079099@kernel.org>
-Content-Language: en-US
-From: Ivan Vecera <ivecera@redhat.com>
-In-Reply-To: <179166042422.434549.15231909137129079099@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
+zl3073x_pin_props_get() always adds the current pin frequency to the
+supported list without checking it. A sub-Hz frequency reads back as
+0 Hz, so 0 Hz can then be requested and the output frequency set
+callback divides by zero. A 0 Hz entry in the firmware node is not
+rejected either: it is offered for an input pin, and for an output pin
+zl3073x_pin_check_freq() divides by it at probe time.
 
+Do not add a 0 Hz current frequency and reject 0 Hz in
+zl3073x_pin_check_freq(). If the list ends up empty, do not publish it
+at all, as the DPLL core rejects an empty non-NULL list.
 
-On 10/10/26 21:27, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found more severe
-> issue(s) in other patches of this series. This mail is only an FYI, in case
-> you want to address the nit picks below when you respin.
-> 
-> Low priority / nit picks for your consideration:
-> 
-> - [Low] Pins that are on the list but not registered get passed to
->    __dpll_pin_change_ntf(), and the new NCO comment is wrong.
-> 
-> --
-> 
-> dpll: zl3073x: notify sibling pin when shared output config changes
-> 
-> This patch adds zl3073x_dpll_output_pin_sibling_get(). It sends a change
-> notification for the sibling P/N pin from frequency_set(), esync_set() and
-> phase_adjust_set() after zldpll->lock is dropped. Pins are now added to
-> zldpll->pins before dpll_pin_register() and removed after
-> dpll_pin_unregister(), so a registered sibling can always be found.
-> 
->> diff --git a/drivers/dpll/zl3073x/dpll.c b/drivers/dpll/zl3073x/dpll.c
->> index 6d9a6d21d30b7..1d61fe5fe5862 100644
->> --- a/drivers/dpll/zl3073x/dpll.c
->> +++ b/drivers/dpll/zl3073x/dpll.c
-> 
-> [ ... ]
-> 
->> @@ -132,11 +134,42 @@ zl3073x_dpll_pin_get_by_ref(struct zl3073x_dpll *zldpll, u8 ref_id)
->>   	return NULL;
->>   }
->>   
->> +/**
->> + * zl3073x_dpll_output_pin_sibling_get - get the other pin of an output pair
->> + * @pin: output pin whose sibling is sought
->> + *
->> + * Output pin ids are allocated in P/N pairs (P even, N odd) that share a
->> + * single HW output. Looks up the other pin of the pair in the pin list
->> + * of this DPLL. A pin is on the list from just before its registration
->> + * until just after its unregistration, so a registered sibling is always
->> + * found, but the returned pin may also be one that is not (yet or any
->> + * longer) registered.
->> + *
->> + * Return: pointer to sibling pin, or NULL if it is not on the pin list
->> + */
-> 
-> [ ... ]
-> 
->> @@ -937,9 +974,24 @@ zl3073x_dpll_output_pin_esync_set(const struct dpll_pin *dpll_pin,
->>   
->>   	/* Enable 1PPS eSync for this pin frequency */
->>   	zl3073x_out_esync_enable(&out, synth_freq / out.div);
->> -
->> +commit:
->>   	/* Commit output configuration */
->> -	return zl3073x_out_state_set(zldev, out_id, &out);
->> +	rc = zl3073x_out_state_set(zldev, out_id, &out);
->> +	if (rc)
->> +		goto unlock;
->> +
->> +	/* The clock type, esync period and esync width are all shared by
->> +	 * both pins of the output pair, so the sibling pin's esync
->> +	 * configuration changes too and userspace has to be notified.
->> +	 */
->> +	sibling = zl3073x_dpll_output_pin_sibling_get(pin);
->> +unlock:
->> +	mutex_unlock(&zldpll->lock);
->> +
->> +	if (!rc && sibling)
->> +		__dpll_pin_change_ntf(sibling->dpll_pin);
-> 
-> [Severity: Low]
-> 
-> The kernel-doc for __dpll_pin_change_ntf() in drivers/dpll/dpll_netlink.c
-> says its argument is "@pin: registered pin pointer". The kernel-doc for
-> zl3073x_dpll_output_pin_sibling_get() above says the returned pin "may
-> also be one that is not (yet or any longer) registered".
-> 
-> Should the sibling's registration state be checked before it is passed to
-> __dpll_pin_change_ntf() here? The same question applies to the matching
-> calls in zl3073x_dpll_output_pin_frequency_set() and
-> zl3073x_dpll_output_pin_phase_adjust_set().
-> 
-> __dpll_pin_change_ntf() runs the notifier chain before the
-> dpll_pin_available() check in dpll_pin_event_send():
-> 
-> int __dpll_pin_change_ntf(struct dpll_pin *pin)
-> {
-> 	lockdep_assert_held(&dpll_lock);
-> 	dpll_pin_notify(pin, pin->clock_id, DPLL_PIN_CHANGED);
-> 	return dpll_pin_event_send(DPLL_CMD_PIN_CHANGE_NTF, pin);
-> }
-> 
-> This means a notifier subscriber can get DPLL_PIN_CHANGED for a pin
-> before it got DPLL_PIN_CREATED, or after it got DPLL_PIN_DELETED.
-> 
-> It looks like this can happen during probe:
-> 
-> - zl3073x_dpll_device_register() runs before zl3073x_dpll_pins_register().
-> - The P pin (even id) is registered before its N sibling.
-> - A userspace PIN_SET on the registered P pin holds dpll_lock.
-> - That PIN_SET can find N on the list after list_add(), while
->    dpll_pin_register(N) is still waiting for dpll_lock.
-> 
-> list_add() now runs before dpll_pin_register() for every pin type. So the
-> existing callers of zl3073x_dpll_nco_pin_get() and
-> zl3073x_dpll_pin_get_by_ref() can also get a pin that is not registered
-> yet and pass it to __dpll_pin_change_ntf(). Before this patch, that could
-> only happen during teardown, between dpll_pin_unregister() and list_del().
-> 
-> As the commit message says, no netlink message is sent for such pins, and
-> ice_dpll_pin_notify() ignores DPLL_PIN_CHANGED. So nothing visibly breaks
-> today.
-> 
-> Would a per-pin registered flag be cleaner? It could be set and cleared
-> under zldpll->lock around dpll_pin_register() and dpll_pin_unregister(),
-> and checked before notifying. Another option is to relax the core
-> kernel-doc and have dpll_pin_notify() check registration.
+Found by code inspection, not triggered at runtime.
 
-Such a pin gets no netlink notification and the only in-tree notifier
-ignores DPLL_PIN_CHANGED, so I would rather not add a registered flag
-in a net fix.
+Fixes: 85a9aaac4a38 ("dpll: zl3073x: Include current frequency in supported frequencies list")
+Reviewed-by: Petr Oros <poros@redhat.com>
+Signed-off-by: Ivan Vecera <ivecera@redhat.com>
+---
+ drivers/dpll/zl3073x/prop.c | 23 +++++++++++++++++++----
+ 1 file changed, 19 insertions(+), 4 deletions(-)
 
-> Separately, the new comment in zl3073x_dpll_nco_pin_register() says:
-> 
-> 	/* Add the pin to the list before registering it with the DPLL core so
-> 	 * that the list reflects the DPLL registration state.
-> 	 */
-> 
-> Is this accurate? With the early list_add(), the list holds every
-> registered pin and also pins that are not registered yet.
-
-Right, will fix the comment in v5.
-
-Thanks,
-Ivan
+diff --git a/drivers/dpll/zl3073x/prop.c b/drivers/dpll/zl3073x/prop.c
+index ac9d41d0f978..768e5424de2d 100644
+--- a/drivers/dpll/zl3073x/prop.c
++++ b/drivers/dpll/zl3073x/prop.c
+@@ -30,7 +30,7 @@ static bool
+ zl3073x_pin_check_freq(struct zl3073x_dev *zldev, enum dpll_pin_direction dir,
+ 		       u8 id, u64 freq)
+ {
+-	if (freq > U32_MAX)
++	if (!freq || freq > U32_MAX)
+ 		goto err_inv_freq;
+ 
+ 	if (dir == DPLL_PIN_DIRECTION_INPUT) {
+@@ -295,13 +295,20 @@ struct zl3073x_pin_props *zl3073x_pin_props_get(struct zl3073x_dev *zldev,
+ 		goto err_alloc_ranges;
+ 	}
+ 
+-	/* Start with current frequency at index 0 */
+-	ranges[0] = (struct dpll_pin_frequency)DPLL_PIN_FREQUENCY(curr_freq);
++	/* Start with current frequency at index 0. A sub-Hz frequency is
++	 * read back as 0 Hz and cannot be set, so it is not offered.
++	 */
++	j = 0;
++	if (curr_freq) {
++		struct dpll_pin_frequency freq = DPLL_PIN_FREQUENCY(curr_freq);
++
++		ranges[j++] = freq;
++	}
+ 
+ 	/* Add frequencies from firmware node, skipping current frequency
+ 	 * and filtering out frequencies not representable by device
+ 	 */
+-	for (i = 0, j = 1; i < num_freqs; i++) {
++	for (i = 0; i < num_freqs; i++) {
+ 		struct dpll_pin_frequency freq = DPLL_PIN_FREQUENCY(freqs[i]);
+ 
+ 		if (freqs[i] == curr_freq)
+@@ -312,6 +319,14 @@ struct zl3073x_pin_props *zl3073x_pin_props_get(struct zl3073x_dev *zldev,
+ 		}
+ 	}
+ 
++	/* The DPLL core rejects a non-NULL list without entries, so do
++	 * not publish the array at all when nothing is settable.
++	 */
++	if (!j) {
++		kfree(ranges);
++		ranges = NULL;
++	}
++
+ 	/* Save number of freq ranges and pointer to them into pin properties */
+ 	props->dpll_props.freq_supported = ranges;
+ 	props->dpll_props.freq_supported_num = j;
+-- 
+2.56.0
 
