@@ -1,131 +1,120 @@
-Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F73E2DECBF
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 03:47:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 156C22DECBF
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 03:49:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791690474; cv=none; b=XWkC19oZmCs/3dg5jdPkc2WW+djHoCtC5nIJZa3ZYGQHpWo6nhhNppvOfaAYIkzc6if6RCQivOf0+3xgciGIhGyErxu/F8YcMEWH2JgLabtcJbuAkjVrNvnDuB0PA/S55RD7hFMKE2ZRdpita1i6PM++QKljUIp9Ca0okaK760o=
+	t=1791690601; cv=none; b=nn5S3uIaRVz0T1L9VRq2zEJ2k0yAsmPSYkFuVfDHp6JpQMvXXPZwt+qsMvkyH5x0OehDKlEviEsBltyuq7H4i6u7hfKhybBc88FOh2NraGZM4i8BAYYorOVL2oW+nJ0lvcOlZF+gUIfx6N42e9PriCHd/DQGyjEKEG371+zMHSo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791690474; c=relaxed/simple;
-	bh=n0uiX78IPrTN/TLii59hko4ih3t30FEhDQIhTr+AN5U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mqQM0SMSmRIwz/jBfyWL7xaUbeYatpo7z8CHSzL5kHhhHHCRBYrIyNqFl0pGXEwQ2FGWvCBqSANmhItIXikwvwCzBUlWLu7r8ego3XHG0XpHrXisk3wYNnLLr8U63aRnxH87HiihRg54xMSPyV9SUonnvX0GmuCKEVgZkq74zN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=gf8Ywsc6; arc=none smtp.client-ip=209.85.219.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	s=arc-20240116; t=1791690601; c=relaxed/simple;
+	bh=1DpN0+D5ufXyFyAfy3uJmze4fn5FpngK55D6QJU13m0=;
+	h=From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References; b=oKMp+AQ2qEcVHiOnFtw5S6BocSx+LLl5gTtp08qg2GKN1kxCBrRH7ZyR87NCZ6AlYF714bzOPBRhfl/JxTYSV2Q98JNREvusKnJyd/4AlXKf+5/vg/SPsyEqD2BKmEKxpM0hHu4+v1qjgCK+J47s243F5BihRH9VcWX08O+iBZk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jqCnOtDD; arc=none smtp.client-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="gf8Ywsc6"
-Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-9179bfa9e9cso19951666d6.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 20:47:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jqCnOtDD"
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3282db206d3so3401073eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 20:49:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1791690472; x=1792295272; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FB4MPXLOykFptRXKNBWjPGR4VJPoRGtDL9e2tNF9Rw4=;
-        b=gf8Ywsc6VV9A/pv3FZsKNSX/6+/KFd/030OLVuGBQs7r/xkYLqiFkfgmkSGU6fKlby
-         bXF5VqseYzBW0Mv1m0lzMueMjOBsLCvJMsPIeEUNBs+GvD9s5gLkPzYhbLNQgzb19BWi
-         2OcFViFQCq/XtVwDkJOPe/IRRqAihyZTypqyWzrcoRGlZTNKILghnUvPbgFMz9ZvWifx
-         jad9TGf77cq9oMD1KXWZ0WSA/adOvrmcvK8LW3QsFyftAwD8sQDXfiKPTJcaQvLPm1FO
-         Zo60jaQQrWJtDYUAl6K+hfUI8P7iGhKjQvmBA2vft4otJpw5BlKcu0NGhTJPc6zJB5lJ
-         qOYQ==
+        d=gmail.com; s=20251104; t=1791690599; x=1792295399; darn=vger.kernel.org;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=FyjOs8U6Ak5u7Fn/oZM+fBDOPJMJH3TRgM8xKhmhhZ0=;
+        b=jqCnOtDDd41ZdVtH5EgO4VmolRbB6ElsyY1gyO+uqnf2mj9hAwXglyb7C/nmFNqUQI
+         NB6FYIHzZDzb+qyTzoZkB5G/qaF5abxbxRTaqbum/EOrrtdd1ayQsXKP6npWGbGD5g/M
+         +BevaTG/SagDHO77Dct9vndImfm1ZW0/K1YkQPBQ5Uen2wOjojgXgSFLEdWXkfzRU6si
+         EjEIMr7xlOE4gMybsEd4OFwS4XNrhu9rC4+44EJKmH/xHRgiRUAuvO5yEuYiriwYssqe
+         FV1ZhVFF8msauHvJ4uCchSmLomF13ZFPGa2A7p0CtFcYRzwqXB1tHn8HhXJCAAmgQJBt
+         1VHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791690472; x=1792295272;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FB4MPXLOykFptRXKNBWjPGR4VJPoRGtDL9e2tNF9Rw4=;
-        b=Bn24h5mTXWeHZ/Q2NZuyjl2rZBmDaZ12xNlPPlB/zW8+kc9FCHXnJxm/K0xe6n/O8U
-         FEr4C+BXDO9+OhHnBTvQc2i+UDI58jw+RosdJwhM1eU324NLjgKxDvHbSdMU5GDmpc4n
-         y6xHIwjyuYUTaI104alcbi42V38ECH2IHRBHcluf8lWQAeq56hlnoVKLBFNuo6ALlmta
-         LUWnGPpbFJSU1Mg5vnmgrm4iimStX1SC9wp+i1Nsa+OqAAToVqK0V0IzxU4GuKmsuyb6
-         aRgxIoVwZnHOeNYgXEk/roptS4jOWgtJ3bGLcIvo7HTFIRNiQWPtmRx9Tugw4RcpbCAp
-         RWrg==
-X-Forwarded-Encrypted: i=1; AKwUvBzRVRhAPJpyIaZEIMajSn5giLMnA+5DGeqSRP4SZ7fYjjvw7xYBJhx/SRgnv3e3aIb7l6v6zTvPz2ZfFE8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK91ZTPqWqe2oCsUtedddja+Cf2j6Wm0tH2aEWvCmV2s86EzmQ1
-	3eAoCyszkVJXcOOeVdUa1RZIGi4l5FHKwPMuOXiV/qEzJVu3XvXMjTe7mVFUbtMylQ==
-X-Gm-Gg: AYBFou1hm5agAs/aWaTX/4+F39zdnxIL22+ovvBqsgWeyijptHm0+lZkV66cgwYFeuZ
-	mkhpFhrJE/C8pzM5kyLlbC9G4BWd8zGaxoUQCBtRzvSxeL5iHdb8ZMenPx+aYOc28GbbmFrpxWg
-	BosZ3b5N4Gzdn7DGMqpTh2j79lOn3vN7V3R7E/wI5morZi1Rj56UahGp/+530m7sXEVw8PdGI4i
-	sw+DgVLs8DH0b7Q9bhmABRQN95u3RJXWKpy/LWID4/+Xt4785K2Kz3/xhfvb1sQlmdFl6FdukFP
-	JoUQrecmqrPyIePqJsb8A+y5R1OcT2cIjgtBWvdd2Tt5ivEGjOoKh8EZ3SoVsirtYaqPUDycyF0
-	l87LMF13d+lnAQcXnB3VdPd68JRetB46o+EeT+71LAH2epqyf701YLUIzmCPAULhPEiShKW3/ui
-	1c2fwJUvZy3ooFXC4LWsSg8yuaKQCVFPWQri6UMj0R+KAaAVtJCGd2XdDAAulOayL5EO89p3B5m
-	qjX33AZkK4JGXz6CYaIgA==
-X-Received: by 2002:a05:620a:890a:b0:939:3a81:326 with SMTP id af79cd13be357-93ebd25989cmr1027862585a.37.1791690471864;
-        Sat, 10 Oct 2026 20:47:51 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb9847f37sm558267785a.10.2026.10.10.20.47.51
+        d=1e100.net; s=20260707; t=1791690599; x=1792295399;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FyjOs8U6Ak5u7Fn/oZM+fBDOPJMJH3TRgM8xKhmhhZ0=;
+        b=eZwn14ZT/iJfg0agNWDhG4A26CAUzNNI9Uj7p/GeFikKTzLk0J2cZrHm6e3nTfTOLN
+         D0ciCaZOZ3jR/mt+rsNURcpQuyxagtFZz/LOa0mKwx2i/x35ZZJRmgCyBxgWG+Bkjr5K
+         DK5eNTYCmDD8w4O2k7meDuOW/foURLgVmTb/8NsJQJ9rgziQnBZPMAKEWImQb3UbMn7X
+         95I1bmZpIaZ4pQa6t3PcBHizwr7QpRGgwzopjLtwptHDUvxxBUcdl6p/d4lWzaMvNigB
+         zZbtxF6VP4Q2VSsW/OVZfgNO/0LpTCFe4Zl4JuNnm97a0dPOVPmN7JV8y3MSyC1uvIln
+         8Ujg==
+X-Forwarded-Encrypted: i=1; AKwUvBwLsVezTIJ6BsZy9D2UtenqmqsB7fjkuXlUARp2lMf5Ai6XrPlZKaEFuA7X9czO4f9pBU56/5wthHSBrTg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIqnAO3Z1iTyvBH5MF9ZG2205gQeO+AgXcsjP0g+KDcWKUjyB6h
+	S8S4RxIKaVW3F8x4voUgiE2UYbhv3HFN7rPO41uddfoDP2u3Os2EJjmqLy/NCw==
+X-Gm-Gg: AYBFou2iOMHbig4xCKUEwdzDx9n3abUsPYObXa07x6VSQDS2Io+DPzzGWLgmVEUGmER
+	CE0Th+Zri6n+ovOJj5ZSOw/UYq4igfBnLW6uD/UYRyGgYVfdK9iayz8byFLK/qhB3KP9uOrWVmx
+	IeIs68mb1gu2NYnvzPnMykhg2om9T2AlHrF+P3y4yoUd6SW4HhVEgPJefynPbdmrgKIXW5t/GhL
+	Docz3TBf/v6FttT0ltMVKO4Hcx6+eoiKTUim91M1qeUqfAcVrm7ouVViGPcWlmyzpE/PWAcoy8h
+	HQDh2PS+bn7iFwI9g4+M68COLi5A8ft1qm/OAJHhRfIzZ65KV4Iqe1MuJ2ZlcomBMlVJzfaCd4R
+	2gZ4fhHQ5iVZeazhGjIAl0Yv/vypxa7UAZey+KBBmInl00cjEOvkfS1G9u2vZxBz1R4c7L8R+Tu
+	VCytkypiYUaAHkPus/8XMaGeu7eYHgu+6ygPM87vBSTDaux0knY4s9XVMNAakHKA3PTjuS
+X-Received: by 2002:a05:7300:2442:b0:351:39db:42db with SMTP id 5a478bee46e88-3537dfe388fmr8395787eec.20.1791690598985;
+        Sat, 10 Oct 2026 20:49:58 -0700 (PDT)
+Received: from pve-server ([49.205.216.49])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-358de54fe47sm7430579eec.31.2026.10.10.20.49.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 20:47:51 -0700 (PDT)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: Qu Wenruo <wqu@suse.com>
-Cc: David Sterba <dsterba@suse.com>,
-	Chris Mason <mason@kernel.org>,
-	Filipe Manana <fdmanana@suse.com>,
-	linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] btrfs: fix chattr failing on nodatasum files that have the compress flag
-Date: Sat, 10 Oct 2026 23:47:31 -0400
-Message-ID: <20261011034731.1054465-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <41987a33-f2dd-4ffe-b35f-d669d36dbcfe@suse.com>
-References: <41987a33-f2dd-4ffe-b35f-d669d36dbcfe@suse.com>
+        Sat, 10 Oct 2026 20:49:58 -0700 (PDT)
+From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+To: Gautam Menghani <gautam@linux.ibm.com>, 
+Cc: maddy@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au, chleroy@kernel.org, sshegde@linux.ibm.com, amachhiw@linux.ibm.com, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] KVM: PPC: Book3S HV: Ensure that calls to idr_alloc are synchronized
+In-Reply-To: <20261009123035.157770-2-gautam@linux.ibm.com>
+Date: Sun, 11 Oct 2026 08:47:35 +0530
+Message-ID: <zewlq628.ritesh.list@gmail.com>
+References: <20261009123035.157770-1-gautam@linux.ibm.com> <20261009123035.157770-2-gautam@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On 2026/10/11 07:47, Qu Wenruo wrote:
-> This is very LLM-like, and very LLM's objective-oriented behavior.
-> Disclose it first.
+Gautam Menghani <gautam@linux.ibm.com> writes:
 
-Yes, and sorry for not saying so in the patch. I found this while
-comparing the behaviour of different kernel versions. I used an LLM to
-analyse the difference, write the patch and the changelog and run the
-tests in VMs.
+> Calls to idr_alloc() in __prealloc_nested() are not currently synchronized.
+> According to the documentation [1], the caller should provide their own
+> locking to prevent concurrent modifications to the idr to prevent bugs.
+>
+> Wrap the call to __prealloc_nested() in	a spinlock to prevent concurrent
+> modifications to idr.
+>
 
-> Explain the reason why it fails.
+This looks to be the leftover of previous implementation. IMO, the
+commit msg needs fixing.
 
-chattr reads the flags and writes the whole set back, so FS_COMPR_FL is
-in the new flags. btrfs_fileattr_set() then calls btrfs_set_prop() for
-btrfs.compression, and since cf1afec09e9f that runs
-prop_compression_validate(), which returns -EINVAL because
-btrfs_inode_can_compress() is false for a NODATASUM inode.
+How about this?
 
-> So when setting compress in the first place, the NODATASUM/NODATACOW
-> flag should be cleared.
+Calls to idr_alloc() in __prealloc_nested() are not currently synchronized.
+According to the documentation [1], the caller should provide their own
+locking to prevent concurrent modifications to the idr to prevent bugs.
 
-OK, I will do it this way: a new inode that inherits the compress flag
-does not get NODATASUM/NODATACOW from the mount options, and chattr +c
-on an empty file clears NODATASUM.
+Now __prealloc_nested() calls idr_alloc() with GFP_KERNEL which can
+sleep and mmu_lock is a spinlock. So idr_alloc() cannot be moved under
+mmu_lock. In such cases the idr Documentation says:
+    If you need to take a lock while allocating a new ID from the IDR,
+    you may need to pass a restrictive set of GFP flags, which can lead
+    to the IDR being unable to allocate memory.  To work around this,
+    you can call idr_preload() before taking the lock, and then
+    idr_preload_end() after the allocation.
 
-This differs from the documentation in one place. btrfs(5) says that
-all files created under nodatasum have no checksums and that
-compression is disabled when nodatasum is enabled. With this change a
-file created in a +c directory on a nodatasum mount has checksums and
-is compressed. Is that what you intend?
+Hence preload the idr memory with idr_preload() before taking mmu_lock,
+which allows us to use idr_alloc(..., GFP_NOWAIT) under the spinlock.
 
-In chattr there are two cases where I would not clear the flag:
+This also allows to kill __prealloc_nested() and __add_nested(), as they
+are not needed anymore with idr_preload().
 
-- The file has NODATASUM and already has data. The existing extents
-  have no checksums, so clearing NODATASUM would make them unreadable.
-  chattr +c would return -EINVAL here, the same as setting the
-  btrfs.compression property does since commit 0e852ab8974c ("btrfs:
-  do not allow compression on nodatacow files").
+[1]: lib/idr.c
+<...>
 
-- The file has +C. check_fsflags() already rejects chattr +c on it
-  with -EINVAL and I would keep that.
+> [1]: lib/idr.c
+>
+> Fixes: c0f00a18e2a8 ("KVM: PPC: Book3S HV Nested: Change nested guest lookup to use idr")
+> Cc: stable@vger.kernel.org # 5.19+
+> Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
+> Co-developed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+> Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
 
-One more question before v2. Files with both flags and data can already
-exist on disk, and chattr +A on them fails since 7.2. Is it OK to leave
-the compress flag and the property alone on these files when only other
-flags change?
+Otherwise LGTM. Thanks for taking it ahead and validating this.
 
-Thanks,
-Hengyu
+-ritesh
