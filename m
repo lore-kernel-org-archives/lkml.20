@@ -1,179 +1,218 @@
-Received: from mout.web.de (mout.web.de [217.72.192.78])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B493F1E0DD8;
-	Sun, 11 Oct 2026 09:30:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.72.192.78
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791711029; cv=none; b=fR75r1Bfy9D8OxRCQDVfBGqn5sUkC4XhfQCZ57tu7X8zAyHU+XFkIYO1SUlyVKFX+voumwtHg+OvkTz2sxRTLU5UPHCE7NTKLJYESMaIbAVlmEQiGntuSsnyga8VdcWJPiLZakh6e4SBi2ER9GrMMtYoKtGr021rKfgpEj2vxx0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791711029; c=relaxed/simple;
-	bh=hSpAMAz6L66EbSt4QATCBtWKU6hlfSpYqtv2qGsi13A=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
-	 In-Reply-To:Content-Type; b=IgB3XUI/3OHxUwMNstaQCuZTgsNpYFpBaGtGNJE08UU1dso+0gJ2XoBGSg5iuVvgbuWpD4XNUu5s5ZPMTEVD2jfeDkBHhWuOOj3qRzjW7pRYkh8SmCkVbYTsbDRA87444uFZkriwErlFzaKC81Ip45GhCXhmcSttb0khmAl+QOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=e7kuzT22; arc=none smtp.client-ip=217.72.192.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0688374187
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:31:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.18
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791711072; cv=fail; b=EWkCSKw0kbwUemn3SX1iZw3uF9diFK1Aok2bgIMYpGtasVl6tnuWa/RawvQozWDti7BNagRFjhIViKF0rZQGq5t9UE/r+a6X2CvyGdXyy2Dg4/2gOh06fm/M9JFbJnTeTRDWqjFiMkg5smfCCSKe4WDsoh2er1SNdibiaUQ3dCc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791711072; c=relaxed/simple;
+	bh=uqAhh1duSE0UFSzUObX3AUnV+yw8FvP1u2JwfvB1FAk=;
+	h=Date:From:To:CC:Subject:Message-ID:Content-Type:
+	 Content-Disposition:MIME-Version; b=seoohP4K+z2D9Nd9vRa0yPEmmvmUlpYbzWWs/MfJeP45RRy8yQR4hZa1VvTq701xzatBBjm6mxY3jS+m0QGb+EBwIziDGqv3RN3sMJCFGfBAEo8Ui6aa0RbtRWoQU21ua6RS1XInBwS6i0lLuqD5yUO3ynnPmGGeosZ/E+vzAjg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VNfqLzPU; arc=fail smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="e7kuzT22"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1791711025; x=1792315825; i=markus.elfring@web.de;
-	bh=2Tr2pAfI9CT6tJlmMA+Oy/YVrov/x/vP1QVyrXDF0is=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
-	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 cc:content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=e7kuzT22COUT8Ps1E/lNtMJDVCGuLMpdKie4HHkUAdYCgd+OvcHP4BzBua/4Txa8
-	 5AAnQIaNgSIFkt4Exg+wx4EMxuwdZoBdDFcaMABaY+ufZG3p+MW85UcG/DOXxuCod
-	 jQFk+7aPi9w0Ng+0Ry72klYeYZbpqZAMkPgH85O6CrV11HZYUO4z8KLIFiKKpUKiA
-	 uAY8V5eXeTYR6kcISMSzXukzhA/jClxqPhhhqF00H6goObnN1C83MxPqvjExHoWTj
-	 TCx+5ILXeoqLho9v+Av6PpUDreqiXMJiWWW7oYfW6R3L7QnfXHKE2yhMRlOiHqKYS
-	 Ze+J8B1L3Gz+YNh5tQ==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb105
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MFaui-1xRP830yUA-00Gdgi; Sun, 11
- Oct 2026 11:30:25 +0200
-Message-ID: <74850205-dba2-4a97-951d-cda28be129c9@web.de>
-Date: Sun, 11 Oct 2026 11:30:13 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VNfqLzPU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791711069; x=1823247069;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=uqAhh1duSE0UFSzUObX3AUnV+yw8FvP1u2JwfvB1FAk=;
+  b=VNfqLzPU/jDMsPahXX1SmU6YME6DYakyFES5+eADK4YbBp3+Yd0gfTPM
+   2Yo6FwzLsrVXmwa6MskJ8ObrMhBvUz1xYSKOJmoY3yj0pyQv1CYjDZbrw
+   1fadTOuyjZRdUJTjggmSWJ05I7MCnWRuIntS2oTxn1nilWTTn4sUpX3Dq
+   AP/C5vl70kHiZeUxi75830FNo3D+wXh1K9bgZiyOswUKiEnRy/SE+bXYo
+   Sd0ipu/GyPxPBgS6/9pR0egBJHnv9qEUEhZqC+8ke8hBS8rZqR7c3hj3j
+   GHnj/++VAVmzs+MGr9mvczTk9fybxnQB5lvBa23vpn9FmeCq6AgNaKY4l
+   A==;
+X-CSE-ConnectionGUID: da5gHs24S+aPy9B9XefbQA==
+X-CSE-MsgGUID: i3trAKYST/S50sYtbIWXSg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11931"; a="446434"
+X-IronPort-AV: E=Sophos;i="6.27,151,1787036400"; 
+   d="scan'208";a="446434"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 02:31:09 -0700
+X-CSE-ConnectionGUID: h33azbWIQvGexE3ql8wK9w==
+X-CSE-MsgGUID: VQpSF576QCOXKd+SOmhSPw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,151,1787036400"; 
+   d="scan'208";a="585056"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 02:31:08 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Sun, 11 Oct 2026 02:31:07 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Sun, 11 Oct 2026 02:31:07 -0700
+Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.49) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Sun, 11 Oct 2026 02:31:07 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=c4F5WUrMVya2qlbn+4mVvDZBu39gF18w9Y4SaRpe2quMw0LHSqHr/Idyw2Xuz+gLmcspdHO6vBQZO+ZuVnPa+noHnwozSPCxxr89RXPOPONs0NpsLKg0k6tg0IiNmN4+pmsRrZngc+ZNqn0S/tJWtg3jGGBcqIUMCbJSmkIJjKb7bRI8rnRZt2YC9MKaARbCYXLQhRnp4plJWZmHNvI6w8g/UcT+P4BhVFcUeDJbdvtjg/uxA4tBW/LS1dH0c7DAOiMcTaicyihAFfLqRP+QbVDrginKPE1GpWTO1oOZPhr4yO1XuGsSpi4OjpNJoRFy/BbxTWw0pV01Nf0QKQ1D/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+x9dRnShOFL/Z+fxcCAhbm0PsaC5Edqqld6j8tAmHQk=;
+ b=Me1eYlotDu+/wqTbzmqc2KcbwJBGPGsBjUhNtFkUteblZaZl6SKqF9dDZIfF/rWnjO/xJxdFONNxr/60I2asIxbKLF8q+mVmUBx01cComQbcetRh5uHPeu5KmYWZxUFfrdwzaiqUAxsz9Ibn3KYw4+cczYuCJvdeqo8or5QKxcXX3kBSttX2CR8X2OzBKZQVKD8WGFHM31wjdV92l7w645jMoZZmIEFOioPKcL0CD5PZo3iPF+agaHDa6s+5mt3pF29/fMqPIw57ZrllmUSDH/vYwY+G6Iwl2vzWDAMXYoFkiNnPlaVwzehS8XNtL5TYZ4WunNY9S2iSBSstF8Q80g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS6PR11MB362586.namprd11.prod.outlook.com (2603:10b6:8:4c4::14)
+ by CH0PR11MB8234.namprd11.prod.outlook.com (2603:10b6:610:190::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.19; Sun, 11 Oct
+ 2026 09:31:05 +0000
+Received: from DS6PR11MB362586.namprd11.prod.outlook.com
+ ([fe80::71a6:38f9:43ed:8f8a]) by DS6PR11MB362586.namprd11.prod.outlook.com
+ ([fe80::71a6:38f9:43ed:8f8a%6]) with mapi id 15.21.0496.019; Sun, 11 Oct 2026
+ 09:31:04 +0000
+Date: Sun, 11 Oct 2026 17:30:55 +0800
+From: kernel test robot <lkp@intel.com>
+To: Miguel Ojeda <ojeda@kernel.org>
+CC: <oe-kbuild-all@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+Subject: vmlinux.o: warning: objtool: cfi_staa_erase_varsize+0x545:
+ cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+Message-ID: <astXT0Ib6jSD1Yk7@rli9-mobl>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+X-ClientProxiedBy: SI1PR02CA0002.apcprd02.prod.outlook.com
+ (2603:1096:4:1f7::16) To DS6PR11MB362586.namprd11.prod.outlook.com
+ (2603:10b6:8:4c4::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Dan Carpenter <error27@gmail.com>, kernel-janitors@vger.kernel.org,
- linux-integrity@vger.kernel.org, Jarkko Sakkinen <jarkko@kernel.org>,
- =?UTF-8?Q?Peter_H=C3=BCwe?= <peterhuewe@gmx.de>
-Cc: LKML <linux-kernel@vger.kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
-References: <ar_DUjuGv-9vPzga@stanley.mountain>
-Subject: Re: [PATCH] tpm: clean up error checking in setup_ring()
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <ar_DUjuGv-9vPzga@stanley.mountain>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:1/f6U7KPfin9Z6fIf39ittEO/iO2JNFHDt4XdqOPyjsV+NBXrVv
- 3EnjtmTJm9M6Nqj3q4lsRdE+8TyigHE7UidAUOlF7mhpE1RH/V1GrO8CMhB8gSpCJlLL4YT
- /0Igji9JSVxH43wgErUin035WUMx9ACrase3Sx59ipKm4d9OBqoZzL1CZnutF/ZRJynjXqW
- PM4cQydKn4Qb383rwSj2g==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:HNNmcHyfClk=;Le9U5dA32zi6C+mfFjwrDmYle1a
- +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
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS6PR11MB362586:EE_|CH0PR11MB8234:EE_
+X-MS-Office365-Filtering-Correlation-Id: df14d28f-8c6f-4db4-13a7-08df277a5ef5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|261009223027099003|56012099006|11063799006|10067099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info: rP89aM2STUqyRHdYLWL4Tg/Trk9dvgRmaxQ1kouXHeuHi61UPxpxBP5k4CbMu2wNqIggp5o1UKxyX4qDynjV53WW08qxkILJEYIjQUgGw5BIlfcComGRtZtGV8svohGunrrW0Te11mmnrMC9lsQZ+lnCCxsjt+3Sht3cBKuranlNbhxCgofln7AMc/rqkjDaLWYYDKxOEW6zvYZwRY4gu1bTUab4VmU/5ARbca5YPMF6LuiQ4+0yV2ReOi6O+joGUkuhEumlZy3DYhHBSJ/6W/7kPR32DC6CtuHrSNq3XMxbW3WbtSj37jdP8Bcmttda8nIs5gyuMv8xb0XGRL2AwSr2c25bC1MY7tpEzHc0iUcPYeXmWw7YTQgDaedc54mFe5UcxpYxwoXeKRC9PGYjnQEIxL5Hh9ZyesxDpOhDoHkGPqvjyOY6g7A1cc3MlAE+uF19Zui15Kntvzw/T57bWqLTLyzMpQ5F0LljFqt1egpODz0wGxZhPeD82Ensfdx1tYGagYUSh/nA4n3Gsq7/d1CI+fBQu0UkcoxO9DZK+HE/62B4h1ZYgScoabSPOtevIWr55CM0hdg+lAr2VIFVdKnWqnkFvCjQ7wNy4QBU7S8p/fqwxuA9lMqNSErjSvWE
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS6PR11MB362586.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(261009223027099003)(56012099006)(11063799006)(10067099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?eRtAwaH2+Vr0AKFElW8V89+CdY2zxOcy6Ia455I/36WaLYs5Y9ZH1dcO/5aw?=
+ =?us-ascii?Q?OYlkpHddPY2dnEP5EIxeCEiwaiBdtZqEtBz3PV8EG7Ri8gloa0nB6935mtvX?=
+ =?us-ascii?Q?O+bsTzWKGkcB/OsgGHsyND0wiC2FevQoZP7cekGP1gYuJ1p7zkKb2JtGCNDm?=
+ =?us-ascii?Q?65d3mqWbkMjwnx6NLCmFZBdaBrTKBWopbghFWzr8C545ZpCPhV/8KhwVjuVZ?=
+ =?us-ascii?Q?ixUbc5qnNZnhMHkCi6CptUQ6IHqIAkmlGwL75vUdqY4C24b0JtI6pk+WiYxt?=
+ =?us-ascii?Q?DZt5zAVdyeA/WXappcNQb7Griwe9edpLVPH8JtIoSInh54KNqPCqv/KBGzmy?=
+ =?us-ascii?Q?cm4P4jCKfBO///97NVsaGOVQ3AY9iXGPmih8GHWv8IzzNCf7AkPqBKzI1kmt?=
+ =?us-ascii?Q?6kw1iI1XbRlAc7cQyqUmGnnWkykl0UY5neSr4Xtl1Ho7ahNdyDVgA90G1928?=
+ =?us-ascii?Q?2XtrU/y5wABtwhdRPDiXd1+/loc3Da6Iok2HjXTmXqvOKCoXV1vDPMwugBjl?=
+ =?us-ascii?Q?NSijVnKE/YE1ErpSE8tGVIQUsFl0lyE6kxAflH3HSOoTbXNesDuCefY/vaY/?=
+ =?us-ascii?Q?i04Yy98h2JnzCmpGZvuNlG3zljgA3oRV5LfAyVE9b8ONdLypLW0Ub80lPjvm?=
+ =?us-ascii?Q?8+Kcm73dH+YS/pgMUtZEbH/G27jUJCccjWWuKL6UD3sat2/X5S3bnILs4xwh?=
+ =?us-ascii?Q?iAEJxfB+WCzimREnfA8RDJ2spM87+zLINzNBLfQXUOcSBb5dx2bwLEzetggx?=
+ =?us-ascii?Q?qfoHTEKYfCPcAipanqYEAan4lFRGVoHSQ/ZzJ/oVSIu6HqyWDbMYEyI77K9c?=
+ =?us-ascii?Q?4TZUFZY0Fe1UnPcgbmhFq8eVK+txVlHqr72Nv6oFt/pDzNpf+9mK0JKq9CcW?=
+ =?us-ascii?Q?Dh7844hgY0OI5Ms+5Ir8pOkjSkXgoVvQFDPRNVS+u+GzcQVGusqdPC5QFlNE?=
+ =?us-ascii?Q?EejQpZ+9+yHzJKQSWw7S4zgBGQYTmVACDmF0jD0k/+6AvqS6ENft7ZepT5Rj?=
+ =?us-ascii?Q?kYekP1zAZzpuwTURBHqErE3KC56j0pfH3kOzqLwCPGoFZZQZRL9Nd9E4DAi5?=
+ =?us-ascii?Q?Z5ixxo/AZCPBu2i24SR2lY/687x9FS3xgEnfB3ufkUTnQePEvozXtSlXKRX5?=
+ =?us-ascii?Q?wGFU4QaQrvJr9I+0/w1BrEbrcNRmmma3ZDHPeCnrXLcAKWDoemToAP3PjUcZ?=
+ =?us-ascii?Q?0TaMuKc0b5IEji5LjTqPD89dkncv/pBAZFACFIyf/VuiizJA/4zX6GIYyDc2?=
+ =?us-ascii?Q?ZGwLvPddSUwbFLgCGIDcGoox6Qj+lBH6Ggf+qCWJxK1B4eWD/GIEkRYJmfaw?=
+ =?us-ascii?Q?slxHDhX7Ma+g4KvZfRT7NKCK0AwhVQe721bZbCx4HQW0OBOh7e0u74zVwrqT?=
+ =?us-ascii?Q?eGiHxobLNXHLPOl0LQM2lneu3KcBc4VkUptsDYH46EkyAufXVQ8aa4+7jrzH?=
+ =?us-ascii?Q?vom+f91X4QmwWGAy+V7sZeXKbziZUGr7mdlyWAZB5ynBRf/1kSt68fzc/cgP?=
+ =?us-ascii?Q?qp3YMrv79ffmOCG3xoyBCi4LdPA7sVx9NMEX3Hrt2eGjpM2i0esAk3j4tYxy?=
+ =?us-ascii?Q?HodaKH9uoa/6myywc1G8MkO5f3WJhjtQ1fHnq8SG1T4nz2/s3uCqtm2ZcTdq?=
+ =?us-ascii?Q?DqmHWSrLSf8Q/rJ538R8603iHU5VJozlbXo96DG4wy2zpNchILRDAbwPJESw?=
+ =?us-ascii?Q?pz963CeXNorZ3kK4oAJppvTsL37mmVq/MG2ZBSG9ojENFx8EyiutSLhBkigG?=
+ =?us-ascii?Q?cXcJuo5dPg=3D=3D?=
+X-Exchange-RoutingPolicyChecked: HHUR7x6twYFHcOhvVWc4G32wv+DlxfOSDVqfc4ak5mvyfkPKqTS5x4p+eYrZB2HmBlKcd8MTFJtXpdaVDzbGFBHeduXt5PMSPrBahNb6Rzlhf71m1MuZaJ/DXu4382AYCyXo9M46FMUDYdtvXKXMdM0mBBSlg5mHcpqiBzGBEYVWDnr/1dIBufiIcKbGcPnhfec1nzja22XNxY33DHSjImvGvbPKwNulHWZceYTYlm3XRpn2NxpI6Do5JAkwmXN5scfSHUGYpiltqSP2FD2dotEDv6CJibdk9Q0VKEIUEW82lltnMyqhloy0nn8m32kXf2eugV0/XlqmQ1zjsMzl2A==
+X-MS-Exchange-CrossTenant-Network-Message-Id: df14d28f-8c6f-4db4-13a7-08df277a5ef5
+X-MS-Exchange-CrossTenant-AuthSource: DS6PR11MB362586.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2026 09:31:04.5635
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FziOdezKSc9ZQ1XUdaruv8a6N2+UQElbCEe/u0+tLwz9Jn7C/poDXXmmt3j8R3XQW+bPclfFXMTWSfNtU25h2g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR11MB8234
+X-OriginatorOrg: intel.com
 
-> The bind_evtchn_to_irqhandler() function can never return 0.
-=E2=80=A6
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   3857c2fe5449541e24afc5efdb0f81a8a8f9a3a0
+commit: 5febf432df1cfa5b25d99b54c32103fafbdd0eb9 kbuild: rust: keep Rust objects out of Clang LTO with inline helpers
+config: x86_64-randconfig-r2308-20261010 (https://download.01.org/0day-ci/archive/20261010/202610101604.FJT4WAKR-lkp@intel.com/config)
+compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261010/202610101604.FJT4WAKR-lkp@intel.com/reproduce)
 
-I suggest to reconsider information once more also according to the probab=
-ility
-of return values from such a function.
-https://elixir.bootlin.com/linux/v7.3-rc6/source/drivers/xen/events/events=
-_base.c#L1453-L1461
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 5febf432df1c ("kbuild: rust: keep Rust objects out of Clang LTO with inline helpers")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/r/202610101604.FJT4WAKR-lkp@intel.com/
 
-bind_evtchn_to_irqhandler_chip()
-https://elixir.bootlin.com/linux/v7.3-rc6/source/drivers/xen/events/events=
-_base.c#L1432-L1451
+All warnings (new ones prefixed by >>):
 
+>> vmlinux.o: warning: objtool: cfi_staa_erase_varsize+0x545: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+>> vmlinux.o: warning: objtool: cfi_staa_read+0x190: unreachable instruction
+>> vmlinux.o: warning: objtool: cfi_staa_write_buffers+0x42b: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+>> vmlinux.o: warning: objtool: cfi_staa_lock+0x1d0: unreachable instruction
+>> vmlinux.o: warning: objtool: cfi_staa_unlock+0x1ec: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+>> vmlinux.o: warning: objtool: cfi_staa_resume+0x137: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+>> vmlinux.o: warning: objtool: cfi_amdstd_read+0x451: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+>> vmlinux.o: warning: objtool: cfi_amdstd_resume+0x181: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+>> vmlinux.o: warning: objtool: fixup_sst38vf640x_sectorsize+0x11f: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+>> vmlinux.o: warning: objtool: do_read_secsi_onechip+0x2a0: cfi_send_gen_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+>> vmlinux.o: warning: objtool: fixup_sst39vf_rev_b+0xe2: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+>> vmlinux.o: warning: objtool: cfi_amdstd_write_buffers+0x230: unreachable instruction
+>> vmlinux.o: warning: objtool: get_chip+0x2c1: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+>> vmlinux.o: warning: objtool: put_chip+0x1c8: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: put_chip+0x277: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+>> vmlinux.o: warning: objtool: chip_ready+0xce: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: chip_ready+0x9d: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+>> vmlinux.o: warning: objtool: cfi_check_err_status+0x13b: cfi_send_gen_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+>> vmlinux.o: warning: objtool: fwh_xxlock_oneblock+0x171: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: fwh_xxlock_oneblock+0x168: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+>> vmlinux.o: warning: objtool: cfi_amdstd_erase_chip+0x410: unreachable instruction
+>> vmlinux.o: warning: objtool: do_atmel_lock+0x14d: cfi_send_gen_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+>> vmlinux.o: warning: objtool: do_atmel_unlock+0x143: cfi_send_gen_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: cfi_amdstd_reset+0x171: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: cfi_amdstd_otp_walk+0x388: cfi_qry_mode_on() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: do_otp_write+0x168: cfi_send_gen_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: do_write_oneword+0x126: cfi_send_gen_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: do_write_oneword+0x119: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: do_otp_lock+0x16e: cfi_send_gen_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: do_otp_lock+0x75: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: cfi_amdstd_panic_wait+0x106: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: do_panic_write_oneword+0x190: unreachable instruction
+   vmlinux.o: warning: objtool: do_erase_oneblock+0x310: unreachable instruction
+   vmlinux.o: warning: objtool: do_erase_oneblock+0x1fd: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: cfi_intelext_read+0x2fe: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: cfi_intelext_suspend+0x4ec: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: cfi_intelext_resume+0x191: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: fixup_LH28F640BF+0x113: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: cfi_intelext_writev+0x290: unreachable instruction
+   vmlinux.o: warning: objtool: inval_cache_and_wait_for_operation+0x69: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: cfi_intelext_point+0x54d: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: cfi_intelext_reset+0x171: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: cfi_intelext_otp_walk+0x6b6: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: do_otp_read+0x161: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: do_xxlock_oneblock+0x14f: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: do_getlockstatus_oneblock+0xd3: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
+   vmlinux.o: warning: objtool: jedec_probe_chip+0x150: unreachable instruction
+   vmlinux.o: warning: objtool: jedec_reset+0x80: cfi_send_gen_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
 
-=E2=80=A6
-> ---
-> From static analysis.  Untested.
->=20
->  drivers/char/tpm/xen-tpmfront.c | 2 +-
-=E2=80=A6
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 
-Would you be looking for further collateral evolution?
-https://elixir.bootlin.com/linux/v7.3-rc6/source/drivers/char/tpm/xen-tpmf=
-ront.c#L267-L272
-
-Regards,
-Markus
