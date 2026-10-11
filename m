@@ -1,324 +1,177 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C69CA23ABBE
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 03:02:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C656126CE05;
+	Sun, 11 Oct 2026 03:09:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791687766; cv=none; b=LJKUmzQasMZVhSd/a0fBhNXWg5BCFRCHXBYFjX5gvxSbJ87VczOO+Ik70wEHTJtVTk0XCvI50nPLrG36/hqI9P+PF43kuPm9hgBaNSogdOgmrr0yto0qSB+Un73OHQw+LsNR0yxVXIuT+ErBAmjCjx+c+qDDUOc25B/f5a5PY7s=
+	t=1791688196; cv=none; b=O7YhYYpmsqUVaIlHOwRrVojK4gRQpaz7I2t/I8oxtoMnxBIN9bTpPIYYiWkmK2ddyX3EZJrlLcYJwXKnl60FkDX/qLxUgIFoW6n+1BiSQ8scVOYcaE298+Rf6tUjzvtjakKrVHwLfeKIsGzbbBk5FZMxkk2zyYMm4eh/BtQ+hYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791687766; c=relaxed/simple;
-	bh=oKhxBRgHdjYAXMpx0jtk/R6RJvqtQL4qz2v0Y/aI76k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dWJ7CBHRpHpVPYEdMge2EZb8gG6EnRjtoOys9eLcAEJsBCF60gSKcSRUiyvHkapa7AwcCK9bO2FX0g0NZz9CmX5zKL1Zh9Arp5rbENm4AtU+dgcmSvgHsGeWI9jwh8mQxTaoMO+WYKA5IqEWCD1xUKl9RgH/aYlZu/t/hO9HN/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gi6jAxa2; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791688196; c=relaxed/simple;
+	bh=4m6CiHIXLcTLZiemS0ktlfqETabZ496cjz4VuaQM6x4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=aID6kS37Rf2ULibwfFLswmAy9sr2IOZ/t1HqapTZxr51UaexS8eo42cjXaM4f7TeUStalUSVO0l4Fw9n+N2MxTDJCYDrOQHhJgIyBbdr5PHAbfL4lsg4B3GKrxvr8vSEjCnnBE1Wdd4B/N5NKjxJxlH4uo3Sma6sSb1x5MIzrTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=VH68w1l8; arc=none smtp.client-ip=80.86.107.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gi6jAxa2"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e82462a3f1so4621615ad.3
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 20:02:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791687764; x=1792292564; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9DCLy4jF4I0VPwoovH8To1nKzlQLurgH916f6BmtgCA=;
-        b=Gi6jAxa2tOgPt0Yey6UnGrqxi6S0p4xhqioaBVLRBpJ6itUX2m0pd9jAh61NFjTBU/
-         YuIyTsLzrJrWavE4bZLohBvfMj6PjAR3zXSLyl5P9XKsvNgiKTBOTTBRmCEWb5ClcoDb
-         7NrEWoEjJK3mwmnXkNqCIwUjpGKNaZn3LlAIJPgu298g7xV7EklaKwl2v8WI/iBCZhIo
-         sdPMzlYJQuuNmFFGz4UCWFYPHX4JKAMEb9ey1zLK/4riJx+xtiObJS/2ZuL6IlkIBIIw
-         32eZlNiCTtHus35XUaNCj6KCdEiMbIX9o7fv40aEHfuK99j+eMEH4pFd5WofRlX+oThW
-         h7EQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791687764; x=1792292564;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9DCLy4jF4I0VPwoovH8To1nKzlQLurgH916f6BmtgCA=;
-        b=DVfQ8bZ8Z1rp0xocl8Ajz58ZacAUPwPASpoh5o4/GU374JGAupYbh6h/dW4q993MAF
-         R4EON6UrsQJUWJXgUhDV2UnfT1HPZliOGZcN3kZJT/sc3p6Dga/w+4eCxymjDL7qJl3f
-         SdFSlxXWKx3WU+7a7RUBtFjz2qaGgdBuPdqnE5/9sBxVr3x+GgklTcAbj5Q8etQUN7xh
-         4DjLeDG/GSgSTai0xZ7M1BBR7pSCL82BahUshhFwclo+WCZoiIgnsoyrm3RTfOcS1fhr
-         4VsNWsA8X7YOCDfuTYETYHNnKf/F8JA+UlKMTClPArY1uhm2zH5H+JskaDkCVRf3V/L/
-         RzxA==
-X-Forwarded-Encrypted: i=1; AKwUvByIBT4j1YMPoZpz+mGuSucwtBKPui/TQpms7Tx3x76pu7Ksn59uJtovGKyeJaUn3fL/wTD3v/hL5+jJ5rg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIUukdg9NxC+oA+T3liIXKx/EPanNhayQiSmP83PZSChuHxgcxt
-	GjPuX5ygrset1iPgwq28eDJq95enAzCuLlednrpBUBSROL8ZdpdpgTck
-X-Gm-Gg: AYBFou2x3yzUO2OST2iSEsNC5+9RXpoehd7wjoitmCBo1AcqtZirqiZ7P4DUVvKaRW/
-	fZtXfC2w+hnmv2EiWrjkSc6cpY7Jz5HgvHV9+j2FlQpuTweL/Nca7pbVbLb9FSNbxx66D32NRod
-	oYpB8cjn0QPqZoaru6n/Z/gyhI96ZUPlFUEiyYZk6+twyqD+nqL2qSvMa9s6eZZtBVOJ6V61eTG
-	fdtMshb3aRtkJdPpEyzMlt4kVQO7c9eVy4i3wrjSiwVCs0MHZk7+tQqq/hoPt04o4ZDye9B/hG+
-	u+HmY5iI3vVAXA7NW4f+Or9dlEc/5IEjBjBehIvd8WfPMkFZP3PTEZ5IoWkkQtXSSFsM1AHgb40
-	LlIcMzo+mFDNIxJzQFJqzmUI4x6CcL0B0KtFHhrf9q7GqXmIdduETR21xB/XoDklcO5AmMwgQJa
-	8OSfx9NUMraYBuPzJsO408lzdCH0xXr0RrrNIHWUhGbx3q45rRVduU0u+FGWPULekHkMPak+Qgi
-	sTZdlPpGWKCiiyiO3iJv+78OBE=
-X-Received: by 2002:a17:90b:1a90:b0:39e:6a80:dd9d with SMTP id 98e67ed59e1d1-3ab3a9aa92bmr6112149a91.36.1791687763967;
-        Sat, 10 Oct 2026 20:02:43 -0700 (PDT)
-Received: from d.home.yangfl.dn42 ([2a09:bac5:661c:1246::1d2:d1])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36ed0daesm10564389a91.5.2026.10.10.20.02.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 20:02:43 -0700 (PDT)
-From: David Yang <mmyangfl@gmail.com>
-To: netdev@vger.kernel.org
-Cc: David Yang <mmyangfl@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v2] net: dsa: motorcomm: Add BR_FLOOD and BR_MCAST_FLOOD support
-Date: Sun, 11 Oct 2026 11:02:25 +0800
-Message-ID: <20261011030228.2761810-1-mmyangfl@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="VH68w1l8"
+Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
+	by mail.mindbit.ro (Postfix) with ESMTPSA id 176BAD1DCB;
+	Sun, 11 Oct 2026 06:09:50 +0300 (EEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro 176BAD1DCB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
+	s=default; t=1791688192;
+	bh=4m6CiHIXLcTLZiemS0ktlfqETabZ496cjz4VuaQM6x4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=VH68w1l8JDks86FV+XSXsLe5NlV66EytKLKnvJZFm3z558H4OsMBzTIq0liJY7s/C
+	 T+kjmGuPStM95e/OAqwrZRMUrt6FDte8lENRxQu4CS5X57soXpS3Oe84iO2YN7s9OB
+	 oA21gEsprUzhF/SlsEEKlCaxWpOU4t6IPc00e9lQEKQGKCq1VGJ8S6wmtIxQlRTrW9
+	 E+KW89vY3LnqI67Im7y44R5rebnutWuNW532O3QLe+WU8pN5s+AcI7TaXLmxeIratR
+	 y84ac4ZXiinPoyHGqEWfQ9TFSXm4K09vEJlTSyim0EgQEkYDmtCMVtoPKZ2XIPRL11
+	 XY4IPlevBD8FA==
+Message-ID: <13259378e2e41c61a7235c1b47eac649ab06425c.camel@rendec.net>
+Subject: Re: [PATCH v2 8/8] irqchip/al-fic: add irq_set_affinity callback
+From: Radu Rendec <radu@rendec.net>
+To: "Farber, Eliav" <farbere@amazon.com>, Thomas Gleixner <tglx@kernel.org>,
+  "Shenhar, Talel"	 <talel@amazon.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>,  "linux-kernel@vger.kernel.org"	
+ <linux-kernel@vger.kernel.org>
+Date: Sat, 10 Oct 2026 23:09:49 -0400
+In-Reply-To: <150803f555ade32668f31d507e151558a505cfe1.camel@rendec.net>
+References: <20260927080637.27285-1-farbere@amazon.com>
+			 <20260927080637.27285-9-farbere@amazon.com>
+		 <c28806ad779b972c94b9dd89fb70ee64cefb63cc.camel@rendec.net>
+		 <BY3PR18MB4722F4AFC8E300C4D01BE217C6962@BY3PR18MB4722.namprd18.prod.outlook.com>
+	 <150803f555ade32668f31d507e151558a505cfe1.camel@rendec.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Let the hardware flood the unknown unicast / multicast if all other
-ports in the bridge have BR_FLOOD / BR_MCAST_FLOOD enabled.
+On Sat, 2026-10-10 at 16:19 -0400, Radu Rendec wrote:
+> On Mon, 2026-10-05 at 11:20 +0000, Farber, Eliav wrote:
+> > On Sun, 2026-10-05 at 01:25 +0000, Radu Rendec wrote:
+> > > This is a common problem to all multiplexing irq drivers; not because
+> > > the parent interrupt is shared but because changing the affinity of o=
+ne
+> > > child interrupt (by changing the parent interrupt's affinity under th=
+e
+> > > hood) would have the side effect of changing the affinity of all its
+> > > siblings.
+> > >=20
+> > > I think the correct behavior is to fail with -EINVAL in this case.
+> >=20
+> > -EINVAL is not usable here because it restores the failure this patch
+> > fixes. The consumer is arm-cmn. We have a SoC where its interrupt is
+> > routed through a FIC group instead of a direct GIC SPI, and
+> > drivers/perf/arm-cmn.c does
+> >=20
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 err =3D irq_set_affinity(irq=
+, cpumask_of(cmn->cpu));
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (err)
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 return err;
+> >=20
+> > at probe, so with no .irq_set_affinity callback the PMU does not probe =
+at
+> > all.
+>=20
+> All right, now I see what the problem is. I will be fully honest and
+> transparent and admit I don't know much about PMU drivers in general or
+> arm-cmn in particular. But I believe that irq_set_affinity() (with a
+> hard fail) is there for a reason. Of course, because we are in 2026, I
+> did ask a LLM what that reason could be, but I will refrain from taking
+> the answer as correct/definitive or speculating; I will just say it
+> probably needs careful consideration.
+>=20
+> The requested affinity mask includes a single CPU; by contrast, unless
+> explicitly configured, the FIC parent IRQ will probably be affine to
+> all available CPUs, so the cpumask_equal() in your patch will likely be
+> always false. The concern is not the warning itself (you're using
+> pr_warn_once); it's that the arm-cmn IRQ handler will run on a
+> different CPU than it expects/has requested.
+>=20
+> > > If you insist on having the ability to change the child interrupts'
+> > > affinity, you may want to look at this patch and do something similar=
+:
+> > > https://lore.kernel.org/all/20251128212055.1409093-4-rrendec@redhat.c=
+om/
+> >=20
+> > I implemented that for al-fic and tested it on hardware. It seems to
+> > work: with the parent SPI pinned to one CPU and the child's affinity se=
+t
+> > to another, the child dispatch is accounted on the target CPU, one
+> > dispatch per parent interrupt, no re-fire storm.
+> >=20
+> > What stops me from just sending it is that it changes the interrupt pat=
+h
+> > for every child of every FIC instance, not only for a child that asks f=
+or
+> > affinity. .irq_pre_redirect is called before the affinity check, so it
+> > runs on every dispatch. The ack therefore has to leave the flow handler
+> > and be done in the parent context always, and .irq_ack has to become a
+> > noop so it is not done twice. A level configured group has to be masked
+> > in .irq_pre_redirect as well, because the FIC re-asserts the cause bit
+> > while the source is still asserted, so for those groups the mask moves
+> > into the parent context too. Today all of this happens inside
+> > handle_level_irq() and handle_edge_irq(), under desc->lock.
+>=20
+> The dw_pci driver is not the best example=C2=A0because it uses a stacked
+> layout with the multiplexing irqchip at the bottom and a hierarchy
+> irqchip on top (which is why the .irq_pre_redirect was necessary).
+> Unfortunately it's the only example I am aware of (and also what
+> prompted the redirect framework implementation). I apologize for the
+> confusion it may have created.
+>=20
+> I think in the case of al-fic, it's sufficient to set
+> irq_chip_redirect_set_affinity as the .irq_set_affinity handler and
+> replace generic_handle_domain_irq with generic_handle_demux_domain_irq.
+> That will not change the ack/mask path.
 
-Signed-off-by: David Yang <mmyangfl@gmail.com>
----
-v2:
-  - fix build error
-v1: https://lore.kernel.org/r/20261009005542.72860-1-mmyangfl@gmail.com
- drivers/net/dsa/motorcomm/chip.c | 143 +++++++++++++++++++++++++------
- drivers/net/dsa/motorcomm/chip.h |   4 +
- 2 files changed, 123 insertions(+), 24 deletions(-)
+Sorry! Scratch that. Human hallucination :)
 
-diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-index 91cc5647f2b6..e48189f841a0 100644
---- a/drivers/net/dsa/motorcomm/chip.c
-+++ b/drivers/net/dsa/motorcomm/chip.c
-@@ -2616,6 +2616,7 @@ yt921x_dsa_port_vlan_add(struct dsa_switch *ds, int port,
- 
- static int yt921x_userport_standalone(struct yt921x_priv *priv, int port)
- {
-+	struct yt921x_port *pp = &priv->ports[port];
- 	u32 mask;
- 	u32 ctrl;
- 	int res;
-@@ -2643,6 +2644,17 @@ static int yt921x_userport_standalone(struct yt921x_priv *priv, int port)
- 	if (res)
- 		return res;
- 
-+	mask = BIT(port);
-+	res = yt921x_reg_clear_bits(priv, YT921X_FILTER_UNK_UCAST, mask);
-+	if (res)
-+		return res;
-+	res = yt921x_reg_clear_bits(priv, YT921X_FILTER_UNK_MCAST, mask);
-+	if (res)
-+		return res;
-+
-+	pp->flood = true;
-+	pp->mcast_flood = true;
-+
- 	return 0;
- }
- 
-@@ -2721,6 +2733,62 @@ static int yt921x_bridge(struct yt921x_priv *priv, u16 ports_mask)
- 	return 0;
- }
- 
-+static int
-+yt921x_bridge_flood_set_type(struct yt921x_priv *priv, u16 ports_mask, int type)
-+{
-+	unsigned long targets_mask;
-+	u16 flood_ports_xor;
-+	u32 filter_ctrl;
-+	u16 flood_mask;
-+	u32 addr;
-+	int port;
-+	int res;
-+
-+	ports_mask &= ~priv->cpu_ports_mask;
-+
-+	flood_mask = 0;
-+	targets_mask = ports_mask;
-+	for_each_set_bit(port, &targets_mask, YT921X_PORT_NUM) {
-+		struct yt921x_port *pp = &priv->ports[port];
-+
-+		if (!type ? pp->flood : pp->mcast_flood)
-+			flood_mask |= BIT(port);
-+	}
-+
-+	flood_ports_xor = flood_mask ^ ports_mask;
-+	filter_ctrl = 0;
-+	targets_mask = ports_mask;
-+	for_each_set_bit(port, &targets_mask, YT921X_PORT_NUM) {
-+		if (!(flood_ports_xor & ~BIT(port)))
-+			continue;
-+
-+		filter_ctrl |= BIT(port);
-+	}
-+
-+	addr = !type ? YT921X_FILTER_UNK_UCAST : YT921X_FILTER_UNK_MCAST;
-+	res = yt921x_reg_update_bits(priv, addr, ports_mask, filter_ctrl);
-+	if (res)
-+		return res;
-+
-+	/* ACT_UNK is TRAP for every user port; see yt921x_chip_setup_dsa() */
-+
-+	return 0;
-+}
-+
-+static int yt921x_bridge_flood_set(struct yt921x_priv *priv, u16 ports_mask)
-+{
-+	int res;
-+	int ret;
-+
-+	ret = 0;
-+	for (int type = 0; type < 2; type++) {
-+		res = yt921x_bridge_flood_set_type(priv, ports_mask, type);
-+		if (res)
-+			ret = res;
-+	}
-+	return ret;
-+}
-+
- static int yt921x_bridge_leave(struct yt921x_priv *priv, int port)
- {
- 	int res;
-@@ -2733,6 +2801,12 @@ static int yt921x_bridge_leave(struct yt921x_priv *priv, int port)
- 	if (res)
- 		return res;
- 
-+	/* By the time port_bridge_leave() is called, the port is already
-+	 * unbridged, thus we cannot recompute flood flags for the affected
-+	 * bridge. This leaves some sub-optimality, but the flood will still
-+	 * be handled (by the CPU).
-+	 */
-+
- 	return 0;
- }
- 
-@@ -2749,6 +2823,10 @@ yt921x_bridge_join(struct yt921x_priv *priv, int port, u16 ports_mask)
- 	if (res)
- 		return res;
- 
-+	res = yt921x_bridge_flood_set(priv, ports_mask);
-+	if (res)
-+		return res;
-+
- 	return 0;
- }
- 
-@@ -2757,7 +2835,12 @@ yt921x_bridge_flags(struct yt921x_priv *priv, int port,
- 		    struct switchdev_brport_flags flags)
- {
- 	struct yt921x_port *pp = &priv->ports[port];
--	bool do_flush;
-+	struct dsa_switch *ds = &priv->ds;
-+	struct net_device *bdev;
-+	bool change_isolated;
-+	struct dsa_port *dp;
-+	bool change_flood;
-+	u32 ports_mask;
- 	u32 mask;
- 	int res;
- 
-@@ -2771,36 +2854,48 @@ yt921x_bridge_flags(struct yt921x_priv *priv, int port,
- 			return res;
- 	}
- 
--	/* BR_FLOOD, BR_MCAST_FLOOD: see the comment where ACT_UNK_ACTn_TRAP
--	 * is set
--	 */
--
- 	/* BR_BCAST_FLOOD: we can filter bcast, but cannot trap them */
- 
--	do_flush = false;
-+	change_isolated = false;
- 	if (flags.mask & BR_HAIRPIN_MODE) {
- 		pp->hairpin = flags.val & BR_HAIRPIN_MODE;
--		do_flush = true;
-+		change_isolated = true;
- 	}
- 	if (flags.mask & BR_ISOLATED) {
- 		pp->isolated = flags.val & BR_ISOLATED;
--		do_flush = true;
-+		change_isolated = true;
- 	}
--	if (do_flush) {
--		struct dsa_switch *ds = &priv->ds;
--		struct dsa_port *dp = dsa_to_port(ds, port);
--		struct net_device *bdev;
- 
--		bdev = dsa_port_bridge_dev_get(dp);
--		if (bdev) {
--			u32 ports_mask;
-+	change_flood = false;
-+	if (flags.mask & BR_FLOOD) {
-+		pp->flood = flags.val & BR_FLOOD;
-+		change_flood = true;
-+	}
-+	if (flags.mask & BR_MCAST_FLOOD) {
-+		pp->mcast_flood = flags.val & BR_MCAST_FLOOD;
-+		change_flood = true;
-+	}
- 
--			ports_mask = dsa_bridge_ports(ds, bdev);
--			ports_mask |= priv->cpu_ports_mask;
--			res = yt921x_bridge(priv, ports_mask);
--			if (res)
--				return res;
--		}
-+	if (!change_isolated && !change_flood)
-+		return 0;
-+
-+	dp = dsa_to_port(ds, port);
-+	bdev = dsa_port_bridge_dev_get(dp);
-+	if (!bdev)
-+		return 0;
-+
-+	ports_mask = dsa_bridge_ports(ds, bdev);
-+	ports_mask |= priv->cpu_ports_mask;
-+
-+	if (change_isolated) {
-+		res = yt921x_bridge(priv, ports_mask);
-+		if (res)
-+			return res;
-+	}
-+	if (change_flood) {
-+		res = yt921x_bridge_flood_set(priv, ports_mask);
-+		if (res)
-+			return res;
- 	}
- 
- 	return 0;
-@@ -3757,9 +3852,9 @@ static int yt921x_chip_setup_dsa(struct yt921x_priv *priv)
- 	 * the "bridged" ports, thus we need to trap and handle those packets by
- 	 * software.
- 	 *
--	 * If there is no more than one bridge, we might be able to drop them
--	 * directly given some conditions are met, but we trap them in all cases
--	 * for now.
-+	 * In some cases, we may offload the flood action to the hardware. This
-+	 * is done by fixing UNK_ACT to TRAP, and toggling the FILTER_UNK on the
-+	 * appropriate ports.
- 	 */
- 	ctrl = 0;
- 	for (int i = 0; i < YT921X_PORT_NUM; i++)
-diff --git a/drivers/net/dsa/motorcomm/chip.h b/drivers/net/dsa/motorcomm/chip.h
-index 25ff77054de3..85b658492f0c 100644
---- a/drivers/net/dsa/motorcomm/chip.h
-+++ b/drivers/net/dsa/motorcomm/chip.h
-@@ -801,6 +801,10 @@ struct yt921x_port {
- 	bool hairpin:1;
- 	/* BR_ISOLATED */
- 	bool isolated:1;
-+	/* BR_FLOOD */
-+	bool flood:1;
-+	/* BR_MCAST_FLOOD */
-+	bool mcast_flood:1;
- 
- #if IS_ENABLED(CONFIG_NET_DSA_YT921X_LEDS)
- 	unsigned char led_duty;
--- 
-2.53.0
+Yes, your interpretation is correct. The ack and mask need to move to
+.irq_pre_redirect because they must happen in hardware interrupt
+context; if the demultiplexed interrupt is redirected, its flow handler
+(handle_level_irq() or handle_edge_irq()) runs asynchronously in
+irq_work context, so ack/mask can't happen there.
 
+But note that even though the call path changes for any interrupt, the
+handler is still called synchronously (at the end of=20
+generic_handle_demux_domain_irq()) if the affinity hasn't been changed
+and redirection is not necessary. So there is no overhead in that case.
+
+I think all this would be less horrible for a driver that wants to
+implement redirection if we changed changed handle_level_irq() and
+handle_edge_irq() to skip the ack/mask for irqchips that implement
+redirection (e.g. based on an irqchip flag), and provided a default
+implementation of .irq_pre_redirect that called the ack/mask handlers
+instead. That way, all an irqchip driver would have to do to implement
+redirection would be:
+ * set the flag that skips ack/mask in the flow handlers;
+ * set .irq_set_affinity =3D irq_chip_redirect_set_affinity;
+ * set .irq_pre_redirect =3D default_implementation_to_be_added.
+
+I'll try to draft something along those lines next week and send an RFC
+patch. We'll see what Thomas thinks :)
+
+By the way, did you mention the FIC chips could be stacked or am I
+imagining things again? That could be an extra wrinkle in the context
+of redirection.
+
+> > Do you still consider that justified for this driver, given that the on=
+ly
+> > caller needing anything here is one that just needs the call not to fai=
+l?
+>=20
+> As I explained above, I really doubt that arm-cmn just needs the call
+> not to fail. I am inclined to think that it actually *needs* the IRQ to
+> run on the CPU it wants, hence the hard fail.
