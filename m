@@ -1,112 +1,113 @@
-Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A233B2AD00;
-	Sun, 11 Oct 2026 20:10:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3486A436BFC;
+	Sun, 11 Oct 2026 20:10:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791749441; cv=none; b=ORjQhmN/MHb/9g1PuTHB+hCaxItwlvOqot8x93u9B7xXfAfvCXZoeP1MoCRi6LC6Ae7LB8aLpDifaykNeNN/mhcTX0s+9EdHqH2MIlWe03FBgK+mC3SzVVCpl1JzeOxQgPiEMLer4SniVEae/swVkypj72HPvig90+ABFsA9RRE=
+	t=1791749454; cv=none; b=Kc70mq6vtYeGIC6ePRzdNLnQ1Rsy7zpqZrMkI2PE6Rvu1RG4E9oXPV63oEzoYoByoxYknumvm9WvJruT/BJtBPQijHcTxMkEOIx+TKtbTzMb+fv7scYH3NZNA/LhhL75OLPn8un0PNCqBm1VmMkKNVgPN/2CFkEBcgK/hFAwQ3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791749441; c=relaxed/simple;
-	bh=0lW7NXlLWcW3JHmAsxnYfuMkROJlPGhMtERY68ouGdY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FKLJxEe28TcoU3fpl5T2ApGYlDqytHBl8KibColGlHfijtlqaLRZfFzYGOhlWEdnfxHDP2AywnXwmX6Cj7eersBdSELuwGWDmwe84BUhRtTpgOle2Dm0JEHuu3f8LHlRw7DbRjcuCGKdruelXkuYc888LAexYjNxicfRdMSqUcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com; spf=pass smtp.mailfrom=zytor.com; dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b=PFEG18UE; arc=none smtp.client-ip=198.137.202.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
+	s=arc-20240116; t=1791749454; c=relaxed/simple;
+	bh=3nNhVlzFDN1C3Yi3vhGZPZz/3k1fznu0p46d5AnIJHg=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=scOeu2aDDczctCiaZ2eoXQgYmDPsWpHVSIhIaBOrLy4bDkQ+Yea+6EJDJ9aY4F86CumiPb9MImwYLVBJNvZ/LV0nNdx6FKXni8Fp6t9Lq8BudbZAbD4NeTRnJGrrkM+ASGsYCPR6J0Y7a7e7uAVpS3RfT2uTPRztle1TgR1iix0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=dnrH/qKz; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=8M4PdR81; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b="PFEG18UE"
-Received: from [IPV6:2601:646:8003:f231:99ff:bd5:ac70:6da0] ([IPv6:2601:646:8003:f231:99ff:bd5:ac70:6da0])
-	(authenticated bits=0)
-	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 69BK83d82753795
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
-	Sun, 11 Oct 2026 13:08:04 -0700
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 69BK83d82753795
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2026092801; t=1791749287;
-	bh=38kwe/MM4HFYzJyg54GfyoGLCPo81FIpxmyL9rCu+jU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=PFEG18UEjBlsJ1Kx+OxwBMu4T1HzMqDczww7DDQYUMOjd4B+hI6krRm5lZJAUOFWA
-	 U6G+DKWwJx2GI6jNoTsSgBKTdm6G+YSIZAamT1i/qJnCVKfbcgSKCarMGGm00SIbR7
-	 ra7QFi0GrMJMU5/1zw2at3uJ6a7sE5FkQkkJQbzn/uJxhbg4jjRaLikmXiSNwGM4mT
-	 wLp/O73yY0PsviG8OH5mV1uk0H6UrBVEuf3Khr5U66PceZ0eGvA41fbS+MxmCQIrdv
-	 QuAKyzpy051ZzZeVqZPho8kJ3TfSBinSckjQ6t5eBHu0vUFFljMJI1AojWyVRLAhJm
-	 H6P3IkA5oFDWA==
-Message-ID: <1d34d990-fe55-4bb7-99b9-82ca201a031d@zytor.com>
-Date: Sun, 11 Oct 2026 13:07:58 -0700
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="dnrH/qKz";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="8M4PdR81"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1791749440; bh=y7FAwey3FeTopMC7Z8GaStR
+	6H8VV6XeW1NOjVH3Et/0=; b=dnrH/qKzfGXJ/BiM4+NLa3CxWWLwvmM7G/WnUCzyTmiXyKEiV7
+	1TqELpyr/VoDBNXYYNfamvtvZsMetXcEBWqJAaR0DybSZuYU0ssCeGjYiDF2E6SNaSC1wFCLu8Q
+	DLFqOG9zqzYQUeLORGmWEBMX7MCR6AZ5A1fSIPEL4mMaZk1efIrskDNYanYVVkRVKZH0dSN8ynl
+	GIohzRFC7QLoQG7bIXfx9NQUGBK0VPUygNUfmEm1YB0ukxEBSOjTR8eNfSXgCfSyYjPRC1Ud0tw
+	1h/0MO3FVYRY72JpFTtftRzW6rA21hoz3Ltvz8jNSmqwIkk9yorszlWgVrwTGOmXpOg==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1791749440; bh=y7FAwey3FeTopMC7Z8GaStR
+	6H8VV6XeW1NOjVH3Et/0=; b=8M4PdR814d2tbEnwVk+XYaTxexwo+8MQ/inp4jUO1KkCAAQNlZ
+	nb2gfzTB6x0JBTt8mxEwDFYaF7zsqFUuyPAg==;
+Date: Sun, 11 Oct 2026 21:10:39 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ "Paul E . McKenney" <paulmck@kernel.org>
+CC: linux-kernel@vger.kernel.org, Gary Guo <gary@garyguo.net>,
+ Boqun Feng <boqun@kernel.org>, rcu@vger.kernel.org, lkmm@lists.linux.dev,
+ Lian Wang <lianux.mm@gmail.com>, Kunwu Chan <kunwu.chan@gmail.com>
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_hazptr_v3_4/4=5D_hazptr=3A_Introduce_=22tr?=
+ =?US-ASCII?Q?y_acquire=22_fast_path=2C_fallback_to_overflow_list?=
+In-Reply-To: <97f91313-e629-40c0-b3ff-f23c235a8ad8@efficios.com>
+References: <20261011194902.97364-1-mathieu.desnoyers@efficios.com> <20261011194902.97364-5-mathieu.desnoyers@efficios.com> <E99B2D1B-6D27-4ED7-A7A4-083DB5427925@mainlining.org> <97f91313-e629-40c0-b3ff-f23c235a8ad8@efficios.com>
+Message-ID: <72DC7FE8-1933-42D2-9B2A-445073BE45A6@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] x86: Start removing X86_X32_ABI
-To: Willy Tarreau <w@1wt.eu>,
-        Sebastian Andrzej Siewior <sebastian@breakpoint.cc>
-Cc: Tancred <alex@narraduct.com>,
-        Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-        linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-        "Maciej W. Rozycki" <macro@orcam.me.uk>,
-        Bill Wendling <morbo@google.com>, Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        Ingo Molnar <mingo@redhat.com>,
-        John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Justin Stitt <justinstitt@google.com>,
-        Nathan Chancellor <nathan@kernel.org>, Neal Gompa <neal@gompa.dev>,
-        Nick Desaulniers <ndesaulniers@google.com>,
-        Richard Purdie <richard.purdie@linuxfoundation.org>,
-        Sam James <sam@gentoo.org>, Shuah Khan <shuah@kernel.org>,
-        Thomas Gleixner <tglx@kernel.org>,
-        =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?=
- <linux@weissschuh.net>,
-        Tomas Glozar <tglozar@kernel.org>, x86@kernel.org,
-        Arnd Bergmann <arnd@arndb.de>
-References: <20261008-x32_removal-v4-0-d389a193c506@breakpoint.cc>
- <20261008-x32_removal-v4-2-d389a193c506@breakpoint.cc>
- <7f315c7a-0fd1-4f7e-93bb-703d4107aa5a@narraduct.com>
- <20261011171946.gMv8V9Ck@breakpoint.cc> <asvJlVyfxMVqw2E2@1wt.eu>
-Content-Language: en-US, sv-SE
-From: "H. Peter Anvin" <hpa@zytor.com>
-In-Reply-To: <asvJlVyfxMVqw2E2@1wt.eu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On 2026-10-11 10:38, Willy Tarreau wrote:
-> On Sun, Oct 11, 2026 at 07:19:46PM +0200, Sebastian Andrzej Siewior wrote:
->> On 2026-10-09 20:13:55 [-0600], Tancred wrote:
->>>
->>>
->>> On 10/8/26 03:07, Sebastian Andrzej Siewior wrote:
->>>> where certain workloads widely
->>>> move to x32 and use it exclusively. In the meantime Debian introduced a
->>>> patch to disable x32 by default (so it has to be enabled at boot time on
->>>> the command line) because they are afraid of the increased attack
->>>> surface. Fedora as far as I tell has X32 disabled (looking at 7.0-rc5
->>>> rpm in rawhide).
->>>>
->>>> Since there is practically no real use for x32
->>>
->>> I only recently discovered x32 and built a Desktop (with all daemons and
->>> utilities running 10-30% smaller and some a bit faster, with 64 bit
->>> libraries for eg. Firefox.) My experiment should definitely not decide
->>> anything, but how much real-world use would be sufficient to justify
->>> continued presence (more complex compat code)?
+On 11 October 2026 21:06:24 BST, Mathieu Desnoyers
+<mathieu.desnoyers@efficios.com> wrote:
+>On 2026-10-11 15:59, Bradley Morgan wrote:
+>> On 11 October 2026 20:48:50 BST, Mathieu Desnoyers
+>> <mathieu.desnoyers@efficios.com> wrote:
+>>> Introduce a "try acquire" hazard pointer fast path, which performs an
+>>> early load of the address to store it into the hazard pointer slot, and
+>>> then re-loads that address after a barrier to check whether it has
+>>> changed meanwhile.
+>>> 
+>>> On comparison failure, rather than re-try, guarantee forward progress
+>by
+>>> falling back to the __hazptr_acquire slow path on failure.
+>>> 
+>>> The acquire slow path attempts a try-acquire for any available per-CPU
+>>> slot. If that fails, it chains the backup slot into the overflow list,
+>>> therefore guaranteeing forward progress for both hazard pointer
+>>> read-side and synchronize:
+>>> 
+>>> - Readers set the wildcard, and then proceed to set the more
+>>>   specific address to replace the wildcard.
+>>> 
+>>> - One synchronize alternates between two overflow list periods,
+>>>   scanning each one while readers are added to the other period,
+>>>   thus preventing a steady flow of readers from preventing
+>>>   synchronize forward progress.
+>>> 
+>>> With this change, the scan on per-CPU slots don't need to expect a
+>>> wildcard anymore, because none can be produced by readers. Wildcards
+>are
+>>> only expected within overflow lists.
+>>> 
+>>> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+>>> Suggested-by: Gary Guo <gary@garyguo.net>
+>>> Link:
+>https://lore.kernel.org/lkmm/DLK9MW1N86KD.2GRWUAD2NX4FU@garyguo.net/
+>>> Reviewed-by: Gary Guo <gary@garyguo.net>
+>> 
+>> Hi, my R-B still stands from
+>> 
 >>
->> "a bit faster" needs actual numbers to justify. One examples was quicker
->> gcc but I don't see a x32 compile farm leveraging this benefit.
-> 
-> FWIW I do build my ARM cross-compilers in a32 because they're generally
-> ~10-15% faster than in a64. I wouldn't be surprised if that was the same
-> on x86 because tools such as compilers very likely use pointers a lot. In
-> a build farm it certainly makes a difference, possibly not sufficient to
-> justify keeping a kernel port, but it's just to illustrate one valid use
-> case.
-> 
-Compilers is known to be significantly faster with x32, because compilers use
-a *lot* of pointers. However, even compilers are starting to need > 4 GiB of
-memory in many configurations, especially when using LTO.
+>https://lore.kernel.org/all/C53DEBF5-555F-44A8-A11C-A15C83AAD341@mainlining.org/
+>> 
+>> Reviewed-by: Bradley Morgan <brads@mainlining.org>
+>
+>Sorry, I forgot to add it to my commit message. I'll add it to the next
+>round (if there is one), else hopefully Paul can add the R-B tag if he
+>picks up this series.
+>
+>Thanks!
 
-	-hpa
+Thanks, this thing happens.. :)
 
+>
+>Mathieu
+>
+>
+>
+
+--- Thanks!
+"I'm not a very positive person" - Linus torvalds
