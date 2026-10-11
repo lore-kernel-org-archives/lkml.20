@@ -1,129 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-227.mta1.migadu.com [95.215.58.227])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F4232AD00;
-	Sun, 11 Oct 2026 20:41:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 542AD23817E
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 20:43:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791751293; cv=none; b=phyTTTm0T/bRs6tVp5ngRbyUN9qZeq7WlDW40EaBrcIFNaMDZa+Gq6ZxhjGhuqrgh5oAryyWV8TqWz2/JLuBTFsIy4sDnmKwZNuJg0Y8nt7t+T0Im574QZr4XYYd6GA4ipXvm9rvt+rlulqLzgoOLx95ZALZNM6Tr7ZnUuHLYDs=
+	t=1791751408; cv=none; b=JwyEz3DJ8AiqRsam3k+0LRLEcJfA8XmjtoIQ4khsPvYnmeuUgUGTySXl4lwPoare/JGBOEcjA9UBk9irFwoynTvBGH3zIoDYReWc5CI/fXpJf026q0mgSYarZZky4UAHuO8qWMu4Eb4mD7dpc3SBdbibPh//9U+gOTILPuYrNOQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791751293; c=relaxed/simple;
-	bh=RO9ISlZvPFFXP6l+PwZzFLx38QyGRFkuORHAOV9ntKI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=B5hu8d/hEiXyyq6WL3w9xcdi0Rfk75mLrz4DeTdlMf52bROplzsLH1a5WxRDz6wolA1KrA9V3zJVlC8k5dFaGdaW/sBvSpHXAzzUTetpVgLi44Hq/Alpa9mSzEhVoh/IR9bXvRQUulvU/6cxBIJKWt/5yld3cK/wiRCZr9Jb4hw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b10v1nnB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791751408; c=relaxed/simple;
+	bh=rqaA0XuWiDskP9yuqwcegfvbvYXBfuaFoAbZjxFS4is=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gwka9BYvD+DVJStAeIW1fSC+03+X9lgs1QQaNZBW7dMqfNla8D87ElIyTtW6XTPWC0BhGZcWo6p3qDJA2aUR2vjl3YkRG50Mp0yIkj9jcQ6QbfstqeqbrNfw9Ek2HAq6n2fW0xqFOOsErr0RlFC+TKXJ4eMyJfmSghVztulHw2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=F/+0Zmhj; arc=none smtp.client-ip=95.215.58.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b10v1nnB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCB471F0089B;
-	Sun, 11 Oct 2026 20:41:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791751292;
-	bh=RfXdrFXcfp1opR3x45dOBQyYz5kPQ9A4aytmThsJMzs=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=b10v1nnBor0aJ+7mOPZ7PlfPUck6RaGHusprk/0cO2RrvqP7qh1tHC64dSh06RjPZ
-	 Ms3NNUca0hdC4XWG1CLDKZ88HtkZ7ne7eipytvh6+BBpEBhD+nTvCyHqgyfMVWJb/I
-	 dymnSiL0xoMy+u6tZeIPDLt03wp1J1z85ge3StxB1LpTRN0VFNJdutoJ9c17kbezD6
-	 Pw+/XBMnYZoVHdywC3e1RUV+qY7sBj6WURvdSh83bp29+F5vxblG4wldigE2pM+5Tp
-	 91f5guh+WqASznr+N/u2xSxAzRfy9EJ6NhfK1FynkWCbDbjKHKo8eeg3S9XwB9/tey
-	 gLYQ1FdU/fcJg==
-Message-ID: <9cdaa7743cbd1e6e39345647f4ef95ab308ca7ad.camel@kernel.org>
-Subject: Re: [PATCH] rds: fix out-of-bounds conn_path access via handshake
- NPATHS
-From: Allison Henderson <achender@kernel.org>
-To: Henry Martin <bsdhenrymartin@gmail.com>, "David S . Miller"
-	 <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	 <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
-	 <horms@kernel.org>
-Cc: netdev@vger.kernel.org, linux-rdma@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Sun, 11 Oct 2026 13:41:31 -0700
-In-Reply-To: <20261008163843.957325-1-bsdhenrymartin@gmail.com>
-References: <20261008163843.957325-1-bsdhenrymartin@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="F/+0Zmhj"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=rqaA0XuWiDskP9yuqwcegfvbvYXBfuaFoAbZjxFS4is=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791751403; v=1; x=1792356203;
+ b=F/+0Zmhj1z1Nxe891pHNxIFQxl6ZLKuxQjJ/S1GeoYNI04cReDkv29E2IZhawz95sRDUsrWY
+ ji1Cw/u6zD969atYB+7KQHu24XEUuITa6E48MXGEsKFMyp6kiSrinZisukW2wyMDZ6BtlY3Xjs+
+ zfAcBfHTGvTHo5JRHAr2kk0pbg9v3sb5J6+uODWdQq27JmJj1pczZCgcLPn7aNrTbKiWiOy71zi
+ S6qg5un16aS1Qku6Lwsny8svrporRTgB6NYZukWFv4J9UfjYv+ySOgrlEXGg8pkbP5HFQ6ON9oR
+ 1mGCw1q4Mhrb5eMifNlNnrx+qOd8k5Yl2Dyzz9LxU6wBg==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e9d61ac877c13462;
+	Sun, 11 Oct 2026 20:43:22 +0000
+X-Mizu-Trace-ID: e9d61ac877c13462
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <c5051b9d-2657-4852-809e-37ce2839e728@packett.cool>
+Date: Sun, 11 Oct 2026 17:43:11 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 0/9] drm/panel: add atomic state
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Jessica Zhang
+ <jesszhan0024@gmail.com>, Konrad Dybcio <konradybcio@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org
+References: <20261008-panel-atomic-state-v1-0-b157fddb8de1@oss.qualcomm.com>
+Content-Language: en-US
+From: Val Packett <val@packett.cool>
+In-Reply-To: <20261008-panel-atomic-state-v1-0-b157fddb8de1@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, 2026-10-09 at 00:38 +0800, Henry Martin wrote:
-> Connections on the IB transport (t_mp_capable unset) own exactly one
-> rds_conn_path slot, but the peer can still claim eight lanes through
-> the NPATHS extension header of a handshake packet, and every
-> subsequent fan-out path then treats all eight entries as real: the
-> mp-start helper iterates conn->c_path[0..7], dereferencing cp->cp_conn,
-> taking cp->cp_lock and queueing delayed work on cp->cp_wq at 504-byte
-> strides into whatever comes after the single allocated slot (KASAN:
-> "Read of size 8 in rds_conn_path_connect_if_down").
->=20
-> The negotiated lane count is now clamped to the same value the
-> transport was allocated with (trans->t_mp_capable ?
-> RDS_MPATH_WORKERS : 1), so a peer can never ask us to walk lanes that
-> do not exist.
->=20
-> This vulnerability was discovered by Tencent CodeBuddy Security.
 
-Hi Henry,
+On 10/8/26 10:14 AM, Dmitry Baryshkov wrote:
+> Panel drivers don't have an atomic state and so they can't handle
+> additional data to be stored at the atomic_check time or to be retrieved
+> at the enable/disable time. For example, it prevents panel drivers from
+> supporting multiple display modes or making DSC being optional in a
+> clean way. Drivers like panel-novatek-nt35950, save the connector
+> pointer in get_modes() and later dereference
+> connector->state->crtc->state from prepare() without holding any locks.
+> The panels also have no way to reject the configuration they cann't
+> handle, as it doesn't take part in the atomic check.
+>
+> The panel already embeds a drm_bridge, and the bridge has an atomic
+> state which is property handled. Subclass it to provide atomic state for
+> the panels. The callbacks can find the state of the other related
+> objects (e.g. CRTC state to get the display mode).
+>
+> The atomic state is opt-in. A panel that doesn't implement the state
+> callbacks keeps working exactly as before, with the plain bridge state,
+> so there is no need to touch the existing drivers. The panels which do
+> implement them can only be driven through the embedded bridge, since
+> there is no commit to hand over when the host calls drm_panel_prepare()
+> and friends directly. Those entry points warn and refuse to handle such
+> panels. There are still a dozen of display drivers calling these
+> functions, and the panels used with them can not be converted until the
+> hosts are switched to the panel bridge.
+>
+> The previous attempt by Val Packett <val@packett.cool> ([1]), but it had
+> issues with the API design, passing NULL for the state. This approach
+> follows closer the path that was chosen for drm_bridge conversion.
+>
+> The series is marked as RFC as it is only compiled-tested only.
+>
+> [1] https://lore.kernel.org/r/20260425001130.233935-1-val@packett.cool/
 
-Thanks for the patches.  This patch looked a little familiar, and it turns =
-out this fix and the
-companion patch ("fix out-of-bounds conn_path walk in peer gen update") are=
- the same fix Paula
-posted in August:
+Tested-by: Val Packett <val@packett.cool>
 
-https://lore.kernel.org/netdev/20260825120132.51636-1-pamoutafpro@gmail.com=
-/
+Converted my nt37701 WIP to this, temporarily at:
 
-The AI review of that version came back with some complaints:
+https://github.com/valpackett/linux-qclaptops/commit/a0a3a25e1ce484ffe072e4399014ced605c78852
 
-https://lore.kernel.org/netdev/20260828230506.385788-1-kuba@kernel.org/
+Everything works as it did with my initial hacky attempt. :)
 
-The good news is, I think the fix is a very simple port of a uek patch:
-https://github.com/oracle/linux-uek/commit/2fdeb0513f18
-
-If your willing to step in where this series left off, you'll want to start=
- with the v2 thread,
-and pick up the porting task described there:
-https://lore.kernel.org/netdev/83915f73efb509328a3d4963b093e2cffcf9af99.cam=
-el@kernel.org/
-
-Please send a single v2 that is just that port, against net.  The fix tag b=
-a3d1f480c7a doesnt
-look like it changes the allocations. The tags you want should be:
-Fixes: 840df162b3eb ("rds: reduce memory footprint for RDS when transport i=
-s RDMA")
-Fixes: 905dd4184e07 ("RDS: TCP: Track peer's connection generation number")
-
-A link to Paula's v2 would also be a nice way to credit her analysis as wel=
-l.
-
-Thanks!
-Allison
-
->=20
-> Cc: stable@vger.kernel.org
-> Fixes: ba3d1f480c7a ("net/rds: size a connection's path set by the transp=
-ort it ends up with")
-> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
-> ---
->  net/rds/recv.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->=20
-> --- a/net/rds/recv.c
-> +++ b/net/rds/recv.c
-> @@ -224,7 +224,8 @@
->  		/* Process extension header here */
->  		switch (type) {
->  		case RDS_EXTHDR_NPATHS:
-> -			new_npaths =3D min_t(int, RDS_MPATH_WORKERS,
-> +			new_npaths =3D min_t(int, conn->c_trans->t_mp_capable ?
-> +					   RDS_MPATH_WORKERS : 1,
->  					   be16_to_cpu(buffer.rds_npaths));
->  			break;
->  		case RDS_EXTHDR_GEN_NUM:
-> --
-> 2.43.7
+~val
 
