@@ -1,30 +1,30 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8955D30568B
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:36:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 558062D9EE4
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:37:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791736592; cv=none; b=OwCUDgxgXcMgj3uQsa4VfkqG6/jJ4SkwJTX2Ru0q+1MWlBhYt4CnPNhzepLU8kSsT4mET/n7wBNzP+anAleckCda+Yij3MLKUoX2aiCjXEVM5jVGKNKGLCfBz766GyceCqD5CxyvRyVDZiqKYTw1jtecK0RAC0QsjHs8YjRXTkk=
+	t=1791736631; cv=none; b=ajGeYBGuuKrM86LLnZDIWaTqc2inSjlmW67wTBQcemL3WVtWJcayaFl6T0jFygkpfgp9G/wq8rkV0xLaJN3BHC4JIrfSB2mcE4b+jMXAtSOd/0D3v4bJtryRHhu1CjEr0d0KAlvA0z6mgO0FswnRS11/KD+ymajcmjx4tP2x0w4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791736592; c=relaxed/simple;
-	bh=Z2zE7+uceOxC/OkP8965pQ7vrzvTPagSf4kgzblrB8o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M0Jgo0voZlsg+RDwrZxUerVeHH6qSU7Mph+BYsTOGEeSuxHRHbGT79h0UHVzCXruGUGFs1fGQu0PVnoCx76LWtb2BpkqZ82bzRs61uxvMJo4soPxLjlc+i+CNdStVcLuJH2LvOsIXDfQlRcRnsHG7Q0Zb1QYWoMXfLqY/U2L3NY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PPqPuY/f; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791736631; c=relaxed/simple;
+	bh=jJ3z73ZCrJLjhnsh9iNOZbvrztVa1QjZsjEjooMk7Q4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FC5B+f4mIJym0QwGwvfyyG57pQ6PqfrjsYuQF6p0oWQtzaTjYyakjg3SED+9e+yxKtrySEfhpN5p1jFL1OgrZY8tR6eCX8NAG0UfDz1rgiINuwHeBQ8D4lBzg+bfnsIwRvzDHqoRa6fcxxThCbjvLEtp4LZxdFwyuOdz/PLetGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mwUyWw5w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PPqPuY/f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26EFD1F0089B;
-	Sun, 11 Oct 2026 16:36:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mwUyWw5w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD1831F0089B;
+	Sun, 11 Oct 2026 16:37:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791736591;
-	bh=Eyv8MebIC9vZ/w17VnpjkwvWmqHiKDjoZWEy8PpXprQ=;
+	s=k20260515; t=1791736630;
+	bh=Z52Sm+1W4cj7a1dZpDkyAG4zLFmtvtn7T8vr4O5evd4=;
 	h=From:To:Cc:Subject:Date;
-	b=PPqPuY/fANilTWSu24VJE6BgM7ytxdXjj+iH8UT8DToTNy93VnusA1zSQL2y5oHDM
-	 TrAaWKX9WADd872z31ywD/9TWQ1EZK51N4rNjhc4iD2F2TjDY9p7jZNL9HGySPAwJs
-	 ncw8Y9BLO8dL/GKdDQ5/X90WBMPR9SuTEyGE2rVUjD3oxoJxpj9SiHdX+y6/K/TXSm
-	 dy5VFN+7FArbdJWbLOI0vUiiAtKxNP4jJI2F4u5breqNyHPLdjcpLn/nOmMgRNgCNE
-	 kjg2EaEjbBdDqMv/X2u3kCzJKPt85h8pb1D4wS1M4NgrQz08vhkJjrc8xT9zdZtpJj
-	 MRc6UfJ0HmyQQ==
+	b=mwUyWw5w/kPVgiw9drUdcDg60Ym6g9xa7o/d6x4IGRd2kRd1h90LgTcZZn1pLHarw
+	 W1JwNYy2dYZ37mggP5WARh4hbPSHZ++MTQuF0XAUlRHN2j2uQIdCIPxlCO0mPedw91
+	 lnFeiRyhfooRlxArmARMKgI0eObXocdkitMiM09xmrlshgBTyaG0som8j9VVtR+AcA
+	 UwMd/LNNnEMHNc8C4NTnYae/x+eQzxLHBEw/Z56spbQQ9M4IzxNqJSUrXh/kEQ9B1D
+	 MhDZYvsv/eibCm2EU9ceWzCvtZHMRSqMjFurS+NVgkFRXP70/9EfQd45nVN/96Rwsi
+	 Wd5IsywRNhbMw==
 From: Miguel Ojeda <ojeda@kernel.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	=?UTF-8?q?Arve=20Hj=C3=B8nnev=C3=A5g?= <arve@android.com>,
@@ -35,9 +35,9 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 Cc: linux-kernel@vger.kernel.org,
 	stable <stable@kernel.org>,
 	Miguel Ojeda <ojeda@kernel.org>
-Subject: [PATCH 7.2.y] rust_binder: reschedule node refcount update on thread exit
-Date: Sun, 11 Oct 2026 18:36:08 +0200
-Message-ID: <20261011163608.48622-1-ojeda@kernel.org>
+Subject: [PATCH 6.18.y] rust_binder: reschedule node refcount update on thread exit
+Date: Sun, 11 Oct 2026 18:37:02 +0200
+Message-ID: <20261011163702.48982-1-ojeda@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,7 +80,7 @@ Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
  2 files changed, 50 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/android/binder/node.rs b/drivers/android/binder/node.rs
-index c10148e9069f..8f7aa867ce68 100644
+index b76ecff80f91..ee798e9d6c69 100644
 --- a/drivers/android/binder/node.rs
 +++ b/drivers/android/binder/node.rs
 @@ -49,9 +49,9 @@
@@ -95,7 +95,7 @@ index c10148e9069f..8f7aa867ce68 100644
  /// always succeed.
  ///
  /// Like the other fields in `NodeInner`, the delivery state is protected by the process lock.
-@@ -733,7 +733,21 @@ fn do_work(
+@@ -725,7 +725,21 @@ fn do_work(
          self.do_work_locked(writer, owner_inner)
      }
 
@@ -164,6 +164,6 @@ index 43294c050502..aeda07ff7218 100644
      fn should_sync_wakeup(&self) -> bool {
          false
 
-base-commit: 7b20d05fd38de8e0be168956f6fd241d750c7d69
+base-commit: 17ad2612c11a748b50d32eefc681344b26fea946
 --
 2.56.0
