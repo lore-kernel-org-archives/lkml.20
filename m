@@ -1,307 +1,221 @@
-Received: from mail-4323.protonmail.ch (mail-4323.protonmail.ch [185.70.43.23])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62B71372EE2;
-	Sun, 11 Oct 2026 13:02:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.23
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01540372EE2
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 13:03:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791723765; cv=none; b=jZVdQ65V/MGoXjZziSYQLYYvjJESwvE8ZtFXsqeReBAdoKFB1qvYbSQpVBkfDpzteBG48tI1KXofK/OR4pn821pVeGmNcIUk3hczXfaH87tx4oGBG2MnF5H2BkfVnA+qOUes5ZJ8Bg22KXcYLAGamy8gFXji6nsMWT0syd+QgG8=
+	t=1791723788; cv=none; b=RFtobDnqeZxM6ewrpMdVM7SWf0Kv+fDY/wciG9w9/Z5G3AHjOXANJICSdy4B+MuqFWRzBey9AqlyeN6L8ecdmpt5oYaPVlh8g1W79hfXmKXlOCGV9T0wy/y99/HirlJQlzNFQZZ/CPpcALLsPFzMa6obFQrSBE6F8GRW8NA0yOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791723765; c=relaxed/simple;
-	bh=P+n86j8okCOeznEWp9KVywaGpyMGP8VFE2CnqdR5LA0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NajzsnWPTjf22edg93zz7VojBGzVyTVXZZB31zzs2Ra4c6tC5JsxBrtOBpvCCcBNTN+VEWSUHkyN8kGkfVfyiBCA2z+4UWbxA8UQO1hakM/h8OdX7TLbzfZ4RfVf2rSWG/3gcS0zuSwZhUR8xAfqB0m+P+8zpyH4B8tUUz+cF7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=midirus.com; spf=pass smtp.mailfrom=midirus.com; dkim=pass (2048-bit key) header.d=midirus.com header.i=@midirus.com header.b=BKk9189V; arc=none smtp.client-ip=185.70.43.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=midirus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=midirus.com
+	s=arc-20240116; t=1791723788; c=relaxed/simple;
+	bh=EmQtqJt4Vi3RA8CmOOmxHaZi5ueEFNlsBRJNkkt4Vhg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Qf4/eT1ySDVX5ygWaSoUl+sOYyNicbSRoL3KoVdJImUsUlqJKhpCwhTVCoQwT/PLxVIGdwwGktXmrwh0MQRY/sJivtfGtF+vU6VlShHIkpyX0ccQoWOswbtjgOsvfogZ1J3cah7cNOZ/qki1D+v/Lwd7Vu2oBV1BOH4R0HOBf9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JaIRrDB3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=S93kzsl4; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=midirus.com header.i=@midirus.com header.b="BKk9189V"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=midirus.com;
-	s=protonmail; t=1791723752; x=1791982952;
-	bh=jfr5f/DSIPfDtGCicU0pkzS6ZTa+0WjCsLoiSuHGr4I=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=BKk9189V7bGgJoaPTK/4FOzA6K9fR/FiuewRGb4+K6+67IODIiA89tD9+pcn0+M02
-	 TcPKYnX3Jb9N4Z8cupndfaXtg52g/TBXp2zl4RocLQSvS/JtKcqp+/DpYYsZW133rJ
-	 5SYgJIDEmhF3UMZUKAEkrqdfMBoWQanxmJC3zaNdXH5XRQIO05ouSjkHeg5MtPgpYb
-	 AzT4YPM/SR+YH6mth2XHCy3mzeDk5dcov8Ym6EovyYOSiAjejFMvVHWnWznLbs/0aH
-	 Ng3AT36lTQ3JpIxbgcryeMcoeEl/c91/Mn3rFoH+kZdbm4NIerimHLWvI/cAJT+4nL
-	 dUn+Le6QhkrPA==
-Date: Sun, 11 Oct 2026 13:02:27 +0000
-To: Takashi Iwai <tiwai@suse.de>, Miguel Ojeda <ojeda@kernel.org>
-From: Tristan de Cacqueray <tristan@midirus.com>
-Cc: linux-sound@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, Tristan de Cacqueray <tristan@midirus.com>
-Subject: [PATCH RFC 3/3] rust: snd: Add active rawmidi_substream helper
-Message-ID: <20261011-rust-snd-v1-3-7974ecdcd345@midirus.com>
-In-Reply-To: <20261011-rust-snd-v1-0-7974ecdcd345@midirus.com>
-References: <20261011-rust-snd-v1-0-7974ecdcd345@midirus.com>
-Feedback-ID: 135030709:user:proton
-X-Pm-Message-ID: 309dd57411b62091ba18f1879f2525e824530322
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JaIRrDB3";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="S93kzsl4"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69B85kKq4075869
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 13:03:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=AUOpgf+RXp6nS+oOyvspr4
+	sE84ahOJ5w11wQz/WnIpw=; b=JaIRrDB3eSnlF//sA6Uo3GQOepbOhW0/awKUaZ
+	tRn/tRPfduVghu1MbrBs6Is56iYEXLPjTJCiOwSaazGD5lN9F671K+WamAX+YMhn
+	Q1My3SiCDFs4TJEjXVG0hr9UblZ5d/QDPp3I92jgM61Tdk1T46s1qMIJqtjIHrM/
+	1YVaXZi1R2Hkn4M5xmPqkpY9D2oA9MkgdCNeufOINnWak9Cs+l2NV3rvLdzV89Wh
+	uyqoq9HEySZ2dQw7OIIhDXfKxehX4T38BTWc3N1IcoSMSdlgXOdqvN/6gWvbvidO
+	mQRRTsNkdRn2Fb76ZEEtY1/zMrlWtIm6+sdtfLr65B9Kz8Ew==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7b2fbcku-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 13:03:05 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-341eff9e381so3655635eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:03:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791723784; x=1792328584; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=AUOpgf+RXp6nS+oOyvspr4sE84ahOJ5w11wQz/WnIpw=;
+        b=S93kzsl4biX7Ux0xScUj/E1GmgceVXEfO5qhZXiLxCpvc/MC3wugyVwP2OfZ01VTa4
+         97fiE9F//cepuzPUtLVbTwZZJj9vaoBCcaQcnVq32nzKsE1a74MA/tLd4n8baF08DlFg
+         J9cLgbpDSWmCEIZ4FF9ESXGTyvpIxyvKAfUhhuKbkI5oM4qmLEHRoi0eyaAHg+r9hxFk
+         TjDh4P+bpBTqmlZ8O8/WEin/+grzTtNCI8ySmdaKCFqsWjUa9XMGSoCPQgxjdW9psx84
+         W4SwcM/zedRSEqKklv10v1eKkfH/ln4LCyx1B64PUHXOwH8xn9Z0hNMAX7LlNrjf562H
+         JniA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791723784; x=1792328584;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=AUOpgf+RXp6nS+oOyvspr4sE84ahOJ5w11wQz/WnIpw=;
+        b=1w/4kRD1UykCEf7sOETsomCpqup+PLJ/O0o2SLmuJhUYmTcr8R+EftPbI3ZIu+1Znp
+         0tCPV8B+GqBC6knq4VxDmfoVWkeac+Adbsid5XuNEQMbtHIgaUePCQtKlKs6XNEcP09j
+         YMXy1TVTv/4Em6HiOIU9wDm2tRrln2S3L18ydaNAeUf7+pPcvT+15U6OpTmENwPl8XBZ
+         D5qJdvkvb+BlSDCO40Gihy9L0SrY+7Q8Egdi5WCsTATs8LoG2lyIXrpCBPXBdjqYAr5L
+         S+lpHmA7BfVIYpqLAAQoRr1JcIkXTOhsIVbEf+/Omtvbr1JoZC4+8AT4W6wi7PJWKGkj
+         YhVw==
+X-Forwarded-Encrypted: i=1; AKwUvBwPHHc/pF3E0UmQzOY8vfMnxI2Y2khNl+9YASWU8jroqcuB/HeXcRS5b5ci2dDMxi37ywPAep8k/qu5pxc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLQ5gapYsjOuhiyDsIXMBXbM19W/jgygcWTN+GeYCNHRm3pT7bJ
+	fCcWrs4HCP/2pexjjoFrQzbl0cntL0qLz4Qzzd3lwkqVJz6KMmRvTKV1c5rKIM9GmssrUVnS500
+	jDGO8RZWCb7mbaqjo6lOZw+V3GG85YJXHuTohrWqcxgXyJXj8lpp7TH5ejhPjeG8OuSQ=
+X-Gm-Gg: AYBFou23aqP+X+G/PVCV0MxOlI64ZlK7zlK/9jRZjrL0tfVvdZE7wYdOkAF1CYETQY5
+	uhggPf+zY0G+Tms49IRnopDZ/G7s6vTNVfDbPVrMeIHWt6V1+F/6blCL/s0zzfPbR0I4SJAiXSn
+	nN1bZjaYU6edVH/pXQUW/v4Jv/R57uTxHDw3Fgc13IrO7c/nXUeTjqGWyYiR/eJQCbZMiQjII9F
+	jG4uF/9FVRWWLd6VRIQ5ZBO9KbLgH4RBlY/fMEVohTgdDHnPYdFabXWLgqhTsb9RNyuC6Ta1qlI
+	cPxhLVeGpWHoUghE0l7V1rxLE+mdnll8LJW6VLJ2ddpbgGvQx4UxeGkfitMAMyT5fGC7RcKiQiO
+	0KXMM/5TsnARiI9HoKAgtbmcI8aOod6N29OsrRxIsRCI=
+X-Received: by 2002:a05:693c:620f:b0:33b:c24c:d31c with SMTP id 5a478bee46e88-3537dfc7ddbmr12020346eec.7.1791723784036;
+        Sun, 11 Oct 2026 06:03:04 -0700 (PDT)
+X-Received: by 2002:a05:693c:620f:b0:33b:c24c:d31c with SMTP id 5a478bee46e88-3537dfc7ddbmr12020287eec.7.1791723783231;
+        Sun, 11 Oct 2026 06:03:03 -0700 (PDT)
+Received: from hu-luoj-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c841648sm27009074eec.3.2026.10.11.06.03.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 06:03:02 -0700 (PDT)
+From: Luo Jie <jie.luo@oss.qualcomm.com>
+Subject: [PATCH net-next v2 00/11] net: ethernet: qualcomm: ppe: Add
+ support for IPQ5424 SoC
+Date: Sun, 11 Oct 2026 06:02:06 -0700
+Message-Id: <20261011-qcom_ipq5424_ppe-v2-0-8c7b057e2c43@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAM6Iy2oC/3WNQQ6CMBREr2L+2pK2VjSuvIchBMpHvpG2tIVgC
+ He34NrNJJN5M7NAQE8Y4HZYwONEgaxJRh4PoLvKPJFRkzxILnPB+ZUN2vYlueGspCqdQ3bhNcd
+ GiboVCKnmPLY075MPMBiZwTlC8UvCWL9Qx21xYzsK0frP/j6JvfH/aBKMM5HrqlUnVArxbkPIh
+ rF6J7LPkkCxrusX04Pg0tMAAAA=
+X-Change-ID: 20261008-qcom_ipq5424_ppe-70b0ed41bf1e
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Lei Wei <quic_leiwei@quicinc.com>,
+        Suruchi Agarwal <quic_suruchia@quicinc.com>,
+        Pavithra R <quic_pavir@quicinc.com>, Simon Horman <horms@kernel.org>,
+        Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap <rdunlap@infradead.org>
+Cc: netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-doc@vger.kernel.org, quic_kkumarcs@quicinc.com,
+        quic_linchen@quicinc.com, Luo Jie <jie.luo@oss.qualcomm.com>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791723782; l=3540;
+ i=jie.luo@oss.qualcomm.com; s=20251128; h=from:subject:message-id;
+ bh=EmQtqJt4Vi3RA8CmOOmxHaZi5ueEFNlsBRJNkkt4Vhg=;
+ b=4JzeDAF1Kv5VVNb3WK8PS0ZE9c00Zg9VC7TkTDXUogzoQJ1KwUQ+oeVWbVtBFx377cxYv2y7x
+ EHr7YBQL9zsAf7qFon0iBCjX+xr9ASUiF3Xktk1QOwLRP6b7UddiRKe
+X-Developer-Key: i=jie.luo@oss.qualcomm.com; a=ed25519;
+ pk=gSsYMDakxtd6UDFYDdA9y9yjIs5Etp5GK/3DoXWPyS0=
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDExMDA1MSBTYWx0ZWRfXyN/td0SAWQ5/
+ LvMBEnjpyS258sA7MsCGnQlf6AwWUX9bofoLSfAf2lnHyEk5OHcLwrPlMwRNMwKwJP2sSR7pih7
+ Jsnl5JUg00GCllQXAO0GhWLVmdgu96w=
+X-Proofpoint-GUID: UzvkLJcku4NcestZI8on2FvizxRInh_s
+X-Authority-Analysis: v=2.4 cv=NddzRGD4 c=1 sm=1 tr=0 ts=6acb8909 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=_HJu7uXci_xTbGPMvK0A:9 a=QEXdDO2ut3YA:10
+ a=bBxd6f-gb0O0v-kibOvt:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDExMDA1MSBTYWx0ZWRfXxctK9YeZG7yx
+ WFzsNORAP9FO2QewAEQFRUZczgx8buMTDiZRPyOlILjaO5dRJE8fIxhWLAKtMHrICRwPx7Yw4fQ
+ Uwn9+urYAtDkCXDUbUVk7gHNbFiBUBiNmdknS4tDS/ixXFSAC3G6B1rwdJ3V0VEmHazoCIrPSMs
+ qTlD0BQs8fPLiQIEtODiXk+ZmgXXVmzPPVvdqS83xD2KORU5PFHJ7kg4OZQh2KVN7tVUeMOT1sT
+ IRM0zOGNFP+mIRQB/KRSgzFBU794B/+C6Wu8VmAcN/T5mqZ3ewMqpYf5yau/SqOVPPs77J9vMiO
+ l42zJE59T9q9i0A0A9ygS2DuqYpXSb0VgcYZ/z3OcG+cu+oHBAWj/BafTrRNR9bchmTzuOWkPZa
+ dQ0uovgzSc43iXb6uV2fy1fXHeqv6kDgsJMyedHfWpHr/GEtoR7o39VnskSzRL2MrDm3lQ4rhw4
+ rDQMqBzFbsf+bOxXXNA==
+X-Proofpoint-ORIG-GUID: UzvkLJcku4NcestZI8on2FvizxRInh_s
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-11_03,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 phishscore=0 impostorscore=0 malwarescore=0 clxscore=1015
+ priorityscore=1501 suspectscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610110051
 
-Add helper to share the substream across execution contexts in Rust.
+This series adds support in the PPE driver for the IPQ5424 SoC.
 
-Signed-off-by: Tristan de Cacqueray <tristan@midirus.com>
+IPQ5424 integrates the same PPE switch core as IPQ9574, but with a few
+differences:
+
+1.) It has 3 Ethernet ports plus 1 EDMA FIFO, instead of IPQ9574's 6 ports,
+    1 EDMA FIFO and 1 EIP FIFO.
+2.) The PPE clock runs at 375 MHz instead of IPQ9574's 353 MHz.
+3.) It requires a different, smaller set of interconnect paths.
+4.) It uses different BM (buffer management), QM (queue management) and
+    scheduler configurations.
+
+The first two patches are independent of the IPQ5424 support and correct
+issues in the existing IPQ9574 support:
+ - Split the EDMA reset in the devicetree binding into the separate system
+   and APB resets.
+ - Fix the multicast queue configuration table access, which uses an
+   out-of-range index for every multicast queue on both IPQ9574 and
+   IPQ5424, and accesses 5 words per entry instead of 3.
+
+The remaining patches add the IPQ5424 support:
+ - Add IPQ5424 to the devicetree binding.
+ - Document IPQ5424 as a supported SoC.
+ - Add the IPQ5424 platform data for the clock rate, port count, register
+   space and interconnect paths.
+ - Add the IPQ5424 BM buffer configuration.
+ - Add the IPQ5424 QM configuration.
+ - Add the IPQ5424 scheduler resource configuration.
+ - Add the IPQ5424 scheduler configuration.
+ - Add the IPQ5424 service code configuration.
+ - Add the IPQ5424 counters for debugfs.
+
+Changes in v2:
+- Drop the Fixes: tags from the first two patches, as they target
+  net-next and have no known user impact.
+- Fix the multicast queue configuration entry size (5 words -> 3) in
+  the multicast queue fix patch, and update its subject.
+- Match all Ethernet port nodes in the binding, so that out-of-range
+  ports are rejected by the reg limits.
+- Collect the Reviewed-by tags.
+- Link to v1: https://patch.msgid.link/20261008-qcom_ipq5424_ppe-v1-0-16caf43e44ee@oss.qualcomm.com
+
+Signed-off-by: Luo Jie <jie.luo@oss.qualcomm.com>
 ---
- rust/kernel/snd.rs               | 67 ++++++++++++++++++++++++++++++++++++=
-+++++++++++++++++++++++++++++--
- samples/rust/rust_midi_device.rs | 93 ++++++++++++++++++++++++++++++++++++=
-+++++++++++++++++++++++++++++++++++++++++++++++++++++----
- 2 files changed, 154 insertions(+), 6 deletions(-)
+Luo Jie (11):
+      dt-bindings: net: qcom,ipq9574-ppe: Split EDMA reset into sys and apb
+      net: ethernet: qualcomm: ppe: Fix multicast queue config table access
+      dt-bindings: net: qcom,ipq9574-ppe: Add IPQ5424 PPE support
+      docs: networking: Document IPQ5424 as a supported SoC
+      net: ethernet: qualcomm: ppe: Add platform support for IPQ5424
+      net: ethernet: qualcomm: ppe: Add IPQ5424 BM buffer configuration
+      net: ethernet: qualcomm: ppe: Add IPQ5424 QM configuration
+      net: ethernet: qualcomm: ppe: Add IPQ5424 scheduler resource configuration
+      net: ethernet: qualcomm: ppe: Add IPQ5424 scheduler configuration
+      net: ethernet: qualcomm: ppe: Add IPQ5424 service code configuration
+      net: ethernet: qualcomm: ppe: Add IPQ5424 counter debugfs support
 
-diff --git a/rust/kernel/snd.rs b/rust/kernel/snd.rs
-index 7285575c6257..d9df5af155b9 100644
---- a/rust/kernel/snd.rs
-+++ b/rust/kernel/snd.rs
-@@ -7,13 +7,13 @@
- //!
- //! C header: [`include/sound/core.h`](srctree/include/sound/core.h)
-=20
--use core::marker::PhantomData;
-+use core::{marker::PhantomData, ptr::NonNull};
- use kernel::{
-     bindings,
-     device::Device,
-     error::{to_result, Result},
-     prelude::*,
--    sync::Arc,
-+    sync::{Arc, SpinLockIrq},
-     types::ForeignOwnable,
- };
-=20
-@@ -338,3 +338,66 @@ pub fn set_name(&mut self, name: &CStr) -> Result<()> =
-{
-         copy_to_c_buf(&mut rmidi.name, name)
-     }
- }
-+
-+/// A thread-safe helper for sharing ALSA substream across execution conte=
-xts.
-+///
-+/// # Safety
-+///
-+/// Implementations MUST clear any [`ActiveMidiSubstream`] before `close` =
-returns.
-+/// TODO: enforce in framework.
-+#[pin_data(PinnedDrop)]
-+pub struct ActiveMidiSubstream {
-+    #[pin]
-+    ptr: SpinLockIrq<Option<NonNull<bindings::snd_rawmidi_substream>>>,
-+}
-+
-+impl ActiveMidiSubstream {
-+    /// Creates a new initialiser for an empty substream.
-+    pub fn new() -> impl PinInit<Self> {
-+        pin_init!(Self {
-+            ptr <- kernel::sync::new_spinlock_irq!(None),
-+        })
-+    }
-+
-+    /// Stores the given substream reference as the active target.
-+    pub fn store(&self, substream: &RawMidiSubstream) {
-+        let mut guard =3D self.ptr.lock();
-+        *guard =3D NonNull::new(substream.ptr);
-+    }
-+
-+    /// Clears the tracked substream reference.
-+    pub fn clear(&self) {
-+        let mut guard =3D self.ptr.lock();
-+        *guard =3D None;
-+    }
-+
-+    /// Executes a closure while holding the spinlock with a temporary ref=
-erence
-+    /// to the active substream, if present.
-+    ///
-+    /// Returns `None` if no stream is currently active.
-+    pub fn with_active<F, R>(&self, f: F) -> Option<R>
-+    where
-+        F: FnOnce(&RawMidiSubstream) -> R,
-+    {
-+        let guard =3D self.ptr.lock();
-+        let nn_ptr =3D (*guard)?;
-+        // SAFETY: The raw ptr can only be stored using a valid rawmidi_su=
-bstream.
-+        let safe_substream =3D unsafe { RawMidiSubstream::from_raw(nn_ptr.=
-as_ptr()) };
-+
-+        Some(f(&safe_substream))
-+    }
-+}
-+
-+#[pinned_drop]
-+impl PinnedDrop for ActiveMidiSubstream {
-+    fn drop(self: Pin<&mut Self>) {
-+        self.clear()
-+    }
-+}
-+
-+// SAFETY: snd_rawmidi_substream is accessed only under the SpinLockIrq an=
-d it is
-+// only ever valid between the ALSA `open` and `close` callbacks, during
-+// which the ALSA core guarantees the substream is alive (see the type doc=
-s).
-+unsafe impl Send for ActiveMidiSubstream {}
-+// SAFETY: snd_rawmidi_substream is accessed only under the SpinLockIrq. S=
-ee above.
-+unsafe impl Sync for ActiveMidiSubstream {}
-diff --git a/samples/rust/rust_midi_device.rs b/samples/rust/rust_midi_devi=
-ce.rs
-index 1465ba9544d6..9c6a03baa42e 100644
---- a/samples/rust/rust_midi_device.rs
-+++ b/samples/rust/rust_midi_device.rs
-@@ -5,19 +5,88 @@
- //! This driver demonstrates usage of the kernel::snd subsystem:
- //! - Create a rawmidi device
- //! - Print received event
-+//! - Periodically send note events
-+//!
-+//! Its goal is to simulate a real device driver usage.
-=20
-+use core::sync::atomic::{AtomicBool, Ordering};
- use kernel::{
-     faux,
-     prelude::*,
-     snd,
-     sync::Arc,
-+    workqueue,
-+    workqueue::{DelayedWork, WorkItem},
- };
-=20
--struct RustMidiDevice;
-+// The internal state data to perform a hardware simulation.
-+#[pin_data]
-+struct RustMidiDevice {
-+    // toggle sent note on and off.
-+    note_playing: AtomicBool,
-+    #[pin]
-+    // substream to send note.
-+    input_substream: snd::ActiveMidiSubstream,
-+    #[pin]
-+    // delayed work to send note periodically.
-+    timer_work: DelayedWork<RustMidiDevice>,
-+}
-+
-+kernel::impl_has_delayed_work! {
-+    impl HasDelayedWork<Self> for RustMidiDevice { self.timer_work }
-+}
-+
-+impl RustMidiDevice {
-+    // Initialize the simulation internal state.
-+    fn new() -> Result<Arc<Self>> {
-+        Arc::pin_init(
-+            pin_init!(RustMidiDevice {
-+                note_playing: AtomicBool::new(false),
-+                input_substream <- snd::ActiveMidiSubstream::new(),
-+                timer_work <- kernel::new_delayed_work!("RustMidiDevice::t=
-imer_work"),
-+            }),
-+            GFP_KERNEL,
-+        )
-+    }
-+}
-+
-+impl WorkItem for RustMidiDevice {
-+    type Pointer =3D Arc<Self>;
-+
-+    // Send a note event, as-if coming from external interrupt.
-+    fn run(this: Self::Pointer) {
-+        this.input_substream.with_active(|substream| {
-+            let playing =3D this.note_playing.fetch_not(Ordering::Relaxed)=
-;
-+            let velocity =3D if playing { 0x0 } else { 0x7F };
-+            let event =3D [0x90, 0x42, velocity];
-+            match substream.receive(&event) {
-+                Ok(count) =3D> pr_info!("worker submitted {} ({:?})", coun=
-t, event),
-+                Err(err) =3D> pr_err!("worker submit failed: {:?}", err),
-+            };
-+        });
-+        pr_debug!("Periodic worker completed!");
-+
-+        // Re-enqueue continuously every 500 jiffies
-+        let _ =3D workqueue::system().enqueue_delayed(this, 500);
-+    }
-+}
-=20
-+// Implement midi input ops: store the substream for external context.
- impl snd::RawMidiInput for RustMidiDevice {
--    fn trigger(&self, _substream: &snd::RawMidiSubstream, up: bool) {
-+    fn close(&self, _substream: &snd::RawMidiSubstream) -> Result<()> {
-+        pr_debug!("input close!\n");
-+        // note: maybe input_substream should be managed by the binding,
-+        // otherwise the user may forget to call clear when the device is =
-closed.
-+        self.input_substream.clear();
-+        Ok(())
-+    }
-+    fn trigger(&self, substream: &snd::RawMidiSubstream, up: bool) {
-         pr_debug!("input trigger up:{up}!\n");
-+        if up {
-+            self.input_substream.store(substream);
-+        } else {
-+            self.input_substream.clear();
-+        }
-     }
- }
-=20
-@@ -37,7 +106,7 @@ fn trigger(&self, substream: &snd::RawMidiSubstream, up:=
- bool) {
-=20
- impl kernel::Module for RustMidiDeviceModule {
-     fn init(_module: &'static ThisModule) -> Result<Self> {
--        let state =3D Arc::new(RustMidiDevice, GFP_KERNEL)?;
-+        let state =3D RustMidiDevice::new()?;
-=20
-         pr_debug!("Initializing sound card\n");
-         let reg =3D faux::Registration::new(c"rust-midi-device", None)?;
-@@ -57,14 +126,30 @@ fn init(_module: &'static ThisModule) -> Result<Self> =
-{
-         // Register the sndcard to ALSA.
-         card.register()?;
-=20
--        Ok(Self { _reg: reg })
-+        pr_debug!("Kick off the background worker\n");
-+        let _ =3D workqueue::system().enqueue_delayed(state.clone(), 0);
-+
-+        Ok(Self { _reg: reg, state })
-     }
- }
-=20
- struct RustMidiDeviceModule {
-+    state: Arc<RustMidiDevice>,
-     _reg: faux::Registration,
- }
-=20
-+impl Drop for RustMidiDeviceModule {
-+    fn drop(&mut self) {
-+        // Safety: the timer_work is a valid delayed work. It seems necess=
-ary to cancel the work
-+        // to avoid a panic when unloading the module. This is just for si=
-mulation purpose.
-+        // TODO: add a safe cancel helper to kernel::workqueue and remove =
-unsafe bindings here
-+        unsafe {
-+            let dwork_ptr =3D core::ptr::from_ref(&self.state.timer_work) =
-as *mut _;
-+            kernel::bindings::cancel_delayed_work_sync(dwork_ptr);
-+        }
-+    }
-+}
-+
- module! {
-     type: RustMidiDeviceModule,
-     name: "rust_midi_device",
+ .../devicetree/bindings/net/qcom,ipq9574-ppe.yaml  | 102 ++++-
+ .../device_drivers/ethernet/qualcomm/ppe/ppe.rst   |   8 +
+ drivers/net/ethernet/qualcomm/ppe/ppe.c            | 137 +++++-
+ drivers/net/ethernet/qualcomm/ppe/ppe.h            |  15 +
+ drivers/net/ethernet/qualcomm/ppe/ppe_config.c     | 469 +++++++++++++++++++--
+ drivers/net/ethernet/qualcomm/ppe/ppe_config.h     |   4 +
+ drivers/net/ethernet/qualcomm/ppe/ppe_debugfs.c    |  14 +-
+ drivers/net/ethernet/qualcomm/ppe/ppe_regs.h       |  83 +++-
+ 8 files changed, 742 insertions(+), 90 deletions(-)
+---
+base-commit: d8674294aefef02266c4d47ad10131f1bffbe534
+change-id: 20261008-qcom_ipq5424_ppe-70b0ed41bf1e
 
---=20
-2.56.0
-
+Best regards,
+--  
+Luo Jie <jie.luo@oss.qualcomm.com>
 
