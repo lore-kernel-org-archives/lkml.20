@@ -1,85 +1,420 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B2A3C457A;
-	Sun, 11 Oct 2026 11:31:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13B0C3C10A8
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 11:31:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791718301; cv=none; b=ghdpZSC8tSDHZgyJqcJHiJKIW6DJ5zjZlvvUN+gCzA+qsSXgNgK8JbtTvjR14igFBu0DadWuH+73aPZa/H6LSjMy5BRBqFCc+46ELhuw7r6AE6M4b67xvrHqeC3COCcJSjuHigGCkr1d1pVdLqa9giGnXUbGvLRPaQWR0WVqwE8=
+	t=1791718300; cv=none; b=VP2WSBOQW+pPSQyUsrvk8e0ZKwh2uWPYiCOCQ3nfpIHpOvER1VZ2DugnsE+4aCwLoDDlqzjvN0W6UFmppmgzOQtHdjSgik5gAYmpmGfGDegVXqJfijvN1e8RLAGf3WJKcQTNTnSsbAKkcZkYklyM/8Q2zWtHLgdgwDysTvrpIuk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791718301; c=relaxed/simple;
-	bh=tdSqMDB52cJ9C+T1aRzHCu/RSYtrZIETUM4o1f+XbYY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TAb/vXK8hi+REgqflI+xeJFDL1ekTfA5lJYLKaq3qnr4GPrIAB9QzGs3jwmY+qVhzHJeUyXS+hvi+xnzJDMBlONVF055JIxHrYtf4gwtjL5+EzN96KtHS5+rZ/NzVnWwtT32PPTVW5K42ys0tchQ23sMVFYNiIkyJPIHwHyHbBM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NqfTzMHF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791718300; c=relaxed/simple;
+	bh=RrdWJqsFAsBIwPKCW+nn8Urc7gZajau4QiK5XpQXd+s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XXYE8MoG091lJ9tofx1Pdx3ZvmgEsllpiDIyQvmHb2VDL0eFc/uqhdrIZ15DJ/cNjkCdcrwYVLBClOYmQ9PmrA7GdVk3csAuGU536emnREqMqfzFHr5/gWQHukBGIDn0kVgcw709/hz++vXXkQxWo7co1y+NzCI5SBh2PQhf3PI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=SFO7zzNh; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NqfTzMHF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5DDA1F0089B;
-	Sun, 11 Oct 2026 11:31:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791718298;
-	bh=cyzezBk9xTdwskUjQjEuBmAsHkkQ+uNt7mKFZeMsUN8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=NqfTzMHFdSsdq73snxJcJBUd2IN6Qo65CBH+NyaKQ79MSJSu0jWxQnMmF9Q9nPQ2M
-	 QmuwpsRbSnu+6CEP1LrCmrUEw9RnQPc6tSretdw7nv+hn7FJL3oNce5Zz/4bl0TQuQ
-	 tD6Dk9M1t6ojOkZoIee7CD1WSXCgugCgCrZADFqfWTeA17S4esRZAHLwM9Qc2c/BXW
-	 0Pp/bobBb1Z/PKGtKtkTF9Q4lY0fppWnEpjWAW8buBPcjPsqp1wFojkzNjwGhdZhMY
-	 ahxN1meeP4SLFYP2PS/DG7PtP6ILyD9eaR8AB3CowQsfp/I1/WIGLho3KlZV2sx+cF
-	 iGIHsxwT9HVfg==
-Date: Sun, 11 Oct 2026 12:31:15 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: "jiale yao" <19888972804@163.com>
-Cc: "Andy Shevchenko" <andriy.shevchenko@intel.com>, "David Lechner"
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, "Andy
- Shevchenko" <andy@kernel.org>, "Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= (The
- Capable Hub)" <u.kleine-koenig@baylibre.com>, "Takashi Sakamoto"
- <o-takashi@sakamocchi.jp>, "Siratul Islam" <email@sirat.me>, "Maxwell
- Doose" <maxwell@maxwelld.cc>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: imu: kmx61: reject duplicate event disable
-Message-ID: <20261011123115.00d77abd@jic23-hlaptop>
-In-Reply-To: <1024d805.7930.1a0e722a587.Coremail.19888972804@163.com>
-References: <20260925141006.2255067-1-yaojiale02@163.com>
-	<araCxIGnZK0zuUSS@ashevche-desk.local>
-	<20260927182031.6d490331@jic23-hlaptop>
-	<1024d805.7930.1a0e722a587.Coremail.19888972804@163.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="SFO7zzNh"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so369719a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 04:31:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1791718296; x=1792323096; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3qKr5+vCUq3bYAvqjVFOwD9z3n2IpZbW7LGlOmG0K4Q=;
+        b=SFO7zzNhEb6rxKm9sCa84VN3WO0siTr66m+epbhX1P7mxjzsXE2C43VLr27HZAlQZx
+         p9v4ohMzHDOv3bGRwOSQROjIUoKRQl5yxl+bZHukVNhNwigPUk+qsSyh3B+IUpTVUUGW
+         WcfiVSD1TG9DHgBiZKOQpGfpA9rg8ZVmMCjEQZtpZF+/UuJsACt1semcYRNpiviGnLHK
+         nEyyWMGrG7UAnW4HPevuSn0TSCgg+YJUne8pqoh01rQc7OOTFfZQLxisZLLQCah7q3Uk
+         3mgjIfnBvqHuxxYJMUmHkwdvIKU+KTAe73NEjsTZhwgPuXZwzVxkGma5Ilo3rS24HTae
+         3csw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791718296; x=1792323096;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3qKr5+vCUq3bYAvqjVFOwD9z3n2IpZbW7LGlOmG0K4Q=;
+        b=n2DpGQMKcMPPA4za/0W+OsiNrw4DaYcZt9E1D+8kbJzibcy67+RrvHPb+571vXg4o/
+         MdOxzpTKV12UTAmtAahYzulnkN64cBOG2JaoHU5mEuX+lH3exLHJLCx6CKegIa259RUr
+         jmGyzj30YusaxtxD6lQOyuj7rZgbmoHnvx92lBvoWu+oU4jjq9ji3FvABNXDJ638l2be
+         YsU97qBWHUtbI9Q/5q22OjXJ3g4YPkhm/7uQTvipCL9gryHE2o85bWKmanmErM9fQQYJ
+         EPjG3m0OMqFHNts8Z7d7IBWqXePW03xrK+wVxYNdFyCoO/rANkcAqNF9Gf21Wf8mpekf
+         WtvA==
+X-Gm-Message-State: AFq9FYKDLhwe52TF5lK5WYK+XfV3qKn+/EKJLJ6EBM4Jc8/i7LuCjOAe
+	h4k1cjVoJwlWhnrLDsm8+X7UetZz8Tkk2tBeyAhCLSzhOJ0VZVkKxirLFWCLIjjH75o12sEVDE0
+	/m2Xb2GLkDh8=
+X-Gm-Gg: AYBFou1hbkQL7Qt4cBmsxe9NJPU1B7wDAGHZ+4aCnRsL4z9d+r161T4APSHoiRqs0xb
+	bJ48e0LOggWVwIAV3xyroIOs3xSTbdr/2TzLnl7ps0WYl0T6Omp3L1nISfVrmkM4yyAywxo2oLC
+	odkQQ/vXMGqizCVpB6V6wCsnfUy9ZBvstxldhdR0OQv88Qy1MCt4T9oSjNMg02Jk9tn6IV9sq7n
+	W6WkxmOTuToyIXjHufzWv7OR5f/oPk88xD4ikR9b0qnWIhOVWu7MG6oajNcdhP/mSDNSYWgiQz8
+	CAPGg+oQYO27YRfZSk5nHmk26bQL4arrrcjIOAK+szjooAFH8zB2LyRYkYv4LCPe0FoQ+FJYlFT
+	h42z5Qj+8UekW/ZfTTEbU3wdbfBWIWVQjm8tI7ZKVU8lUQAbkJc6JMyrtkETEm1cvjZ9YeqhGcN
+	emX7j6ylH5TrrVrOIs/WNxUqJK+Np+j1iQnjNVjroqnwmwnuvB0GGsNycChksxUFNepQ/dIik2Z
+	kq/2okYgjiPl9FFNsD58FmxiAxpdw==
+X-Received: by 2002:a17:90b:4fcb:b0:3ab:31b9:fe51 with SMTP id 98e67ed59e1d1-3ab3acf311bmr6017144a91.67.1791718296162;
+        Sun, 11 Oct 2026 04:31:36 -0700 (PDT)
+Received: from 759f62e3e206.. ([122.51.212.64])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38b9639bsm11417577a91.4.2026.10.11.04.31.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 04:31:35 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: linux-kernel@vger.kernel.org,
+	netfilter-devel@vger.kernel.org
+Cc: mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	pablo@netfilter.org,
+	fw@strlen.de,
+	phil@nwl.cc,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	kaber@trash.net,
+	jengelh@medozas.de,
+	lukas@wunner.de,
+	vega@nebusec.ai,
+	root@tr0jan.top,
+	zihanx@nebusec.ai
+Subject: [PATCH nf v7 1/1] netfilter: nf_dup: preserve duplication guard across NFQUEUE
+Date: Sun, 11 Oct 2026 11:28:44 +0000
+Message-ID: <9c51ddfce3069d585b6c9b87e7e1bf3a3b0a2761.1791688819.git.zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1791688819.git.zihanx@nebusec.ai>
+References: <cover.1791688819.git.zihanx@nebusec.ai>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon, 28 Sep 2026 16:30:02 +0800 (CST)
-"jiale yao" <19888972804@163.com> wrote:
+nf_dup_ipv4() and nf_dup_ipv6() set current->in_nf_duplicate while the
+cloned skb traverses output hooks. NFQUEUE can retain the clone and return
+NF_STOLEN while that traversal is in progress. Once ip_local_out() or
+ip6_local_out() returns, the task-local guard is cleared. NF_ACCEPT then
+resumes hook traversal after the queued hook in the verdict task, where
+the guard is no longer set. A later dup rule can clone the packet again,
+causing repeated packet processing and resource consumption.
 
-> At 2026-09-28 01:20:31, "Jonathan Cameron" <jic23@kernel.org> wrote:
-> >On Fri, 25 Sep 2026 17:18:44 +0300
-> >Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
-> >  
-> >> On Fri, Sep 25, 2026 at 10:10:05PM +0800, Jiale Yao wrote:  
-> >> > The IIO core does not filter duplicate writes to the event enable
-> >> > attribute. kmx61_write_event_config() already ignores repeated enable
-> >> > requests, but a repeated disable request still calls
-> >> > kmx61_set_power_state(data, false, KMX61_ACC), dropping a runtime PM
-> >> > reference that was not acquired for this request. This can underflow the
-> >> > runtime PM usage count and trigger a "Runtime PM usage count underflow"
-> >> > warning.
-> >> > 
-> >> > Return early when the requested state already matches ev_enable_state.    
-> >> 
-> >> Same comments as per previous patches of the same topic.
-> >>   
-> >Fixes tag needed.  
-> 
-> Fixes: fd3ae7a9f21c ("iio: imu: kmx61: Add support for any motion trigger")
+Record the duplication state in nf_queue_entry and use a separate
+reinjection flag while nf_reinject() resumes hook traversal. Consult that
+flag only in task context: local_bh_enable() can process pending softirqs
+before reinjection finishes, and those packets must not inherit the
+reinjection guard. Restore the verdict task's prior flag on every exit.
 
-Applied to the fixes-togreg branch of iio.git and marked for stable.
+The netdev dup path uses a separate xmit recursion counter. Mark cloned
+output within the BH-disabled transmit section so NFQUEUE entries created
+there retain the duplication state. The counter itself remains unchanged.
+This covers NFQUEUE reinjection only; it does not carry duplicate state
+across an independent device receive path.
 
-Thanks
+Fixes: cd58bcd9787e ("netfilter: xt_TEE: have cloned packet travel through Xtables too")
+Fixes: 8537f78647c0 ("netfilter: Introduce egress hook")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Co-developed-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+---
+changes in v7:
+  - replace the v6 user-namespace setup restriction with NFQUEUE state
+    capture and restoration
+  - use a separate reinjection flag checked only in task context, and scope
+    the netdev dup marker to its BH-disabled transmit section
+  - cover queued IPv4/IPv6 duplication and nft_dup_netdev clones; restore the
+    verdict task's previous state on every exit path
+  - keep the claim limited to NFQUEUE reinjection, not independent device
+    receive paths
+  - point the netdev NFQUEUE Fixes tag to the earliest egress-hook
+    introduction (8537f78647c0), not the current reintroduction
+    (42df6e1d221d)
+  - v6 Link:
+    https://lore.kernel.org/all/82abaa776053bb3e716095a783722452d87fa039.1791429178.git.zihanx@nebusec.ai/
+changes in v6:
+  - reroll the unchanged four-file setup-time restriction on nf.git main at
+    ab699d296e06
+  - do not present v5 build or runtime results as v6 validation
+  - v5 Link:
+    https://lore.kernel.org/all/20260929125832.25316-1-zihanx@nebusec.ai/
+changes in v5:
+  - describe the patch as a non-initial-userns setup restriction, not a
+    general recursion fix; state that init_user_ns behavior is unchanged
+  - remove path-specific trigger details and run-specific metrics from the
+    public commit and cover prose
+  - drop d877f07112f1 from Fixes: because it added a later frontend, not the
+    shared duplication behavior addressed by that restriction
+  - record the v5 build and setup-time validation, distinguishing them from
+    earlier unpatched-baseline and root-OOM runs
+  - v4 Link:
+    https://lore.kernel.org/all/cover.1790408011.git.zihanx@nebusec.ai/
+changes in v4:
+  - add Fixes tags for TEE, IPv4/IPv6 nft dup, and netdev nft dup
+    frontends
+  - clarify that fcd53c51d037 only added a synchronous guard
+  - clarify that this restricts non-initial user namespaces and does not
+    fix asynchronous recursion in init_user_ns-owned network namespaces
+  - state explicitly that the netdev loop was not runtime-reproduced
+  - v3 Link:
+    https://lore.kernel.org/all/cover.1790042930.git.zihanx@nebusec.ai/
+changes in v3:
+  - reroll the fix against the latest nf.git main after no follow-up on v2
+  - add the Co-developed-by trailer and matching Signed-off-by
+  - v2 Link:
+    https://lore.kernel.org/all/cover.1788425393.git.zihanx@nebusec.ai/
+changes in v2:
+  - drop the persistent struct sk_buff::nf_duplicated field and nf_copy()
+    change from v1
+  - disable IPv4/IPv6 duplication in non-initial user namespaces
+  - v1 Link:
+    https://lore.kernel.org/all/cover.1787903722.git.zihanx@nebusec.ai/
+---
+ include/linux/sched.h            |  2 ++
+ include/net/netfilter/nf_queue.h |  1 +
+ net/ipv4/netfilter/ip_tables.c   |  5 ++++-
+ net/ipv4/netfilter/nf_dup_ipv4.c |  5 ++++-
+ net/ipv6/netfilter/ip6_tables.c  |  5 ++++-
+ net/ipv6/netfilter/nf_dup_ipv6.c |  6 +++++-
+ net/netfilter/nf_dup_netdev.c    | 13 ++++++++++++-
+ net/netfilter/nf_queue.c         |  4 ++++
+ net/netfilter/nfnetlink_queue.c  |  8 +++++++-
+ 9 files changed, 43 insertions(+), 6 deletions(-)
 
-Jonathan
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index d35ae49a9..f1ffc9d48 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -1070,6 +1070,8 @@ struct task_struct {
+ 	unsigned                        in_thrashing:1;
+ #endif
+ 	unsigned			in_nf_duplicate:1;
++	unsigned			in_nf_dup_netdev:1;	/* netdev dup output is active */
++	unsigned			in_nf_duplicate_reinject:1;	/* NFQUEUE resume */
+ #ifdef CONFIG_PREEMPT_RT
+ 	struct netdev_xmit		net_xmit;
+ #endif
+diff --git a/include/net/netfilter/nf_queue.h b/include/net/netfilter/nf_queue.h
+index fc3e81c07..d6d335273 100644
+--- a/include/net/netfilter/nf_queue.h
++++ b/include/net/netfilter/nf_queue.h
+@@ -23,6 +23,7 @@ struct nf_queue_entry {
+ 	struct net_device	*physout;
+ #endif
+ 	struct nf_hook_state	state;
++	bool			in_nf_duplicate;	/* skb is on a duplication path */
+ 	bool			nf_ct_is_unconfirmed;
+ 	u16			size; /* sizeof(entry) + saved route keys */
+ 
+diff --git a/net/ipv4/netfilter/ip_tables.c b/net/ipv4/netfilter/ip_tables.c
+index 809441ced..7c2027ef8 100644
+--- a/net/ipv4/netfilter/ip_tables.c
++++ b/net/ipv4/netfilter/ip_tables.c
+@@ -14,6 +14,7 @@
+ #include <linux/vmalloc.h>
+ #include <linux/netdevice.h>
+ #include <linux/module.h>
++#include <linux/preempt.h>
+ #include <net/ip.h>
+ #include <net/compat.h>
+ #include <linux/uaccess.h>
+@@ -270,7 +271,9 @@ ipt_do_table(void *priv,
+ 	 * but it is no problem since absolute verdict is issued by these.
+ 	 */
+ 	if (static_key_false(&xt_tee_enabled))
+-		jumpstack += private->stacksize * current->in_nf_duplicate;
++		jumpstack += private->stacksize *
++			     (current->in_nf_duplicate ||
++			      (in_task() && current->in_nf_duplicate_reinject));
+ 
+ 	e = get_entry(table_base, private->hook_entry[hook]);
+ 
+diff --git a/net/ipv4/netfilter/nf_dup_ipv4.c b/net/ipv4/netfilter/nf_dup_ipv4.c
+index 9a773502f..1cac70cac 100644
+--- a/net/ipv4/netfilter/nf_dup_ipv4.c
++++ b/net/ipv4/netfilter/nf_dup_ipv4.c
+@@ -7,6 +7,7 @@
+  */
+ #include <linux/ip.h>
+ #include <linux/module.h>
++#include <linux/preempt.h>
+ #include <linux/percpu.h>
+ #include <linux/route.h>
+ #include <linux/skbuff.h>
+@@ -52,9 +53,11 @@ void nf_dup_ipv4(struct net *net, struct sk_buff *skb, unsigned int hooknum,
+ 		 const struct in_addr *gw, int oif)
+ {
+ 	struct iphdr *iph;
++	bool in_nf_duplicate_reinject = in_task() &&
++					current->in_nf_duplicate_reinject;
+ 
+ 	local_bh_disable();
+-	if (current->in_nf_duplicate)
++	if (current->in_nf_duplicate || in_nf_duplicate_reinject)
+ 		goto out;
+ 	/*
+ 	 * Copy the skb, and route the copy. Will later return %XT_CONTINUE for
+diff --git a/net/ipv6/netfilter/ip6_tables.c b/net/ipv6/netfilter/ip6_tables.c
+index 313c4aac3..017b57691 100644
+--- a/net/ipv6/netfilter/ip6_tables.c
++++ b/net/ipv6/netfilter/ip6_tables.c
+@@ -17,6 +17,7 @@
+ #include <linux/vmalloc.h>
+ #include <linux/netdevice.h>
+ #include <linux/module.h>
++#include <linux/preempt.h>
+ #include <linux/poison.h>
+ #include <net/ipv6.h>
+ #include <net/compat.h>
+@@ -292,7 +293,9 @@ ip6t_do_table(void *priv, struct sk_buff *skb,
+ 	 * but it is no problem since absolute verdict is issued by these.
+ 	 */
+ 	if (static_key_false(&xt_tee_enabled))
+-		jumpstack += private->stacksize * current->in_nf_duplicate;
++		jumpstack += private->stacksize *
++			     (current->in_nf_duplicate ||
++			      (in_task() && current->in_nf_duplicate_reinject));
+ 
+ 	e = get_entry(table_base, private->hook_entry[hook]);
+ 
+diff --git a/net/ipv6/netfilter/nf_dup_ipv6.c b/net/ipv6/netfilter/nf_dup_ipv6.c
+index 6da3102b7..ee4262cc3 100644
+--- a/net/ipv6/netfilter/nf_dup_ipv6.c
++++ b/net/ipv6/netfilter/nf_dup_ipv6.c
+@@ -6,6 +6,7 @@
+  * Extracted from xt_TEE.c
+  */
+ #include <linux/module.h>
++#include <linux/preempt.h>
+ #include <linux/percpu.h>
+ #include <linux/skbuff.h>
+ #include <linux/netfilter.h>
+@@ -47,8 +48,11 @@ static bool nf_dup_ipv6_route(struct net *net, struct sk_buff *skb,
+ void nf_dup_ipv6(struct net *net, struct sk_buff *skb, unsigned int hooknum,
+ 		 const struct in6_addr *gw, int oif)
+ {
++	bool in_nf_duplicate_reinject = in_task() &&
++					current->in_nf_duplicate_reinject;
++
+ 	local_bh_disable();
+-	if (current->in_nf_duplicate)
++	if (current->in_nf_duplicate || in_nf_duplicate_reinject)
+ 		goto out;
+ 	skb = pskb_copy(skb, GFP_ATOMIC);
+ 	if (skb == NULL)
+diff --git a/net/netfilter/nf_dup_netdev.c b/net/netfilter/nf_dup_netdev.c
+index c6bd5c29b..8b8e6f938 100644
+--- a/net/netfilter/nf_dup_netdev.c
++++ b/net/netfilter/nf_dup_netdev.c
+@@ -4,6 +4,7 @@
+  */
+ 
+ #include <linux/kernel.h>
++#include <linux/sched.h>
+ #include <linux/init.h>
+ #include <linux/module.h>
+ #include <linux/netlink.h>
+@@ -57,14 +58,24 @@ void nf_dup_netdev_egress(const struct nft_pktinfo *pkt, int oif)
+ {
+ 	struct net_device *dev;
+ 	struct sk_buff *skb;
++	bool old_in_nf_dup_netdev;
++
++	if (in_task() && current->in_nf_duplicate_reinject)
++		return;
+ 
+ 	dev = dev_get_by_index_rcu(nft_net(pkt), oif);
+ 	if (dev == NULL)
+ 		return;
+ 
+ 	skb = skb_clone(pkt->skb, GFP_ATOMIC);
+-	if (skb)
++	if (skb) {
++		local_bh_disable();
++		old_in_nf_dup_netdev = current->in_nf_dup_netdev;
++		current->in_nf_dup_netdev = true;
+ 		nf_do_netdev_egress(skb, dev, nft_hook(pkt));
++		current->in_nf_dup_netdev = old_in_nf_dup_netdev;
++		local_bh_enable();
++	}
+ }
+ EXPORT_SYMBOL_GPL(nf_dup_netdev_egress);
+ 
+diff --git a/net/netfilter/nf_queue.c b/net/netfilter/nf_queue.c
+index 73363ceed..a1f395415 100644
+--- a/net/netfilter/nf_queue.c
++++ b/net/netfilter/nf_queue.c
+@@ -5,6 +5,7 @@
+  */
+ 
+ #include <linux/kernel.h>
++#include <linux/sched.h>
+ #include <linux/slab.h>
+ #include <linux/init.h>
+ #include <linux/module.h>
+@@ -219,6 +220,9 @@ static int __nf_queue(struct sk_buff *skb, const struct nf_hook_state *state,
+ 	*entry = (struct nf_queue_entry) {
+ 		.skb	= skb,
+ 		.skb_dev = skb->dev,
++		.in_nf_duplicate = current->in_nf_duplicate ||
++				  (in_task() && current->in_nf_duplicate_reinject) ||
++				  current->in_nf_dup_netdev,
+ 		.state	= *state,
+ 		.hook_index = index,
+ 		.size	= sizeof(*entry) + route_key_size,
+diff --git a/net/netfilter/nfnetlink_queue.c b/net/netfilter/nfnetlink_queue.c
+index a3bc00280..222166898 100644
+--- a/net/netfilter/nfnetlink_queue.c
++++ b/net/netfilter/nfnetlink_queue.c
+@@ -13,6 +13,7 @@
+ 
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+ 
++#include <linux/sched.h>
+ #include <linux/module.h>
+ #include <linux/skbuff.h>
+ #include <linux/init.h>
+@@ -368,9 +369,12 @@ static void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
+ 	unsigned int i;
+ 	int err;
+ 	u8 pf;
++	bool old_in_nf_duplicate_reinject;
+ 
+ 	net = entry->state.net;
+ 	pf = entry->state.pf;
++	old_in_nf_duplicate_reinject = current->in_nf_duplicate_reinject;
++	current->in_nf_duplicate_reinject |= entry->in_nf_duplicate;
+ 
+ 	hooks = nf_hook_entries_head(net, pf, entry->state.hook);
+ 
+@@ -378,7 +382,7 @@ static void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
+ 	if (!hooks || i >= hooks->num_hook_entries) {
+ 		kfree_skb_reason(skb, SKB_DROP_REASON_NETFILTER_DROP);
+ 		nf_queue_entry_free(entry);
+-		return;
++		goto out;
+ 	}
+ 
+ 	hook_entry = &hooks->hooks[i];
+@@ -417,6 +421,8 @@ static void nf_reinject(struct nf_queue_entry *entry, unsigned int verdict)
+ 	}
+ 
+ 	nf_queue_entry_free(entry);
++out:
++	current->in_nf_duplicate_reinject = old_in_nf_duplicate_reinject;
+ }
+ 
+ /* return true if the entry has an unconfirmed conntrack attached that isn't owned by us
+-- 
+2.43.0
 
