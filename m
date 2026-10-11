@@ -1,190 +1,118 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 408C04483A1
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 12:54:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96A87372EE2;
+	Sun, 11 Oct 2026 12:56:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791723275; cv=none; b=PUW92F1AXBH3Z2wAQG3vCDaTqI5xNd9Uiaer4qdJ3FUMPhVj/vHJDs1nbZOOQ5NPCixJ0cHNSqTKWtoehz7u9Si3icMUF/P3Ge+MQmRt69kVYD2Rjc/iLa4OGvokLGhn/cafhv0T4h9xKdte6lpT360hED3f+bJMqDsn2v2Xxwo=
+	t=1791723409; cv=none; b=t0XvRB9dzpSkxKmBwrHKPm7B7ej8SWKwTI/YDp2/PRBE1V537AvGxrzzRWhdMX9J/ew64zDRzPxqfhoTwMgie/RwTU8wGIwE7fj9oLjlAo+NiYEZ8MqeyOCd6Ev38FWdd2PMFBEWcVW79W0CgbnrfH2q4kPdAZH028WTRbUZcjI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791723275; c=relaxed/simple;
-	bh=BljPXRps8xjbLho6X1ZoNVOk6CUa6vnUVpwHPT+7JbQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YpWp+qwZTbyOL5I1jaAw7jLhLX3ylvldmsS4/y73ge0QIhE6yx7ZpaWqAVrgJbfa9PsNQIpWbE5GQZYvtIA/4pEz+t4Ua3HkzMD3UHYqybN1P8gyhZqlr3pihtzJo5SrYlQFjBEGGZhcZHaFvV+atXDeL1nu3k9jTiHW2MSJdxw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TWUR54pQ; arc=none smtp.client-ip=209.85.210.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791723409; c=relaxed/simple;
+	bh=aDKj2U0X/DE9Yy9OF/iPoSmXRkPpr6DL3PcMg2CUwWY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=CPRwS9bAgDf4z/Bmlwjqr9hm3Nd1XeCdQ+wbpdsQW5r6SlU7VRifkn/ZJUxeFalH8xqhNSLO1sv89+lRAmuR8or2Rqlq6LgNd22cXWZHCQIQrQcYpcoOz2rkfwiPSarHjp9KoMnzUNUNXdpGo7P4hqFI5N2fDJpA5D2ZD3gPMGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=timmermann.space; spf=pass smtp.mailfrom=timmermann.space; dkim=pass (2048-bit key) header.d=timmermann.space header.i=@timmermann.space header.b=RQioT9p6; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=timmermann.space
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=timmermann.space
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TWUR54pQ"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-88834d30002so429901b3a.1
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 05:54:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791723273; x=1792328073; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MwkyR+d13Yt35PeifZJYjSerizH5kaNtuABNu7XQY84=;
-        b=TWUR54pQb9mgaV0pll6uCLtEUbu8ozw9hYjl7/bKq859QNHdn4eNynHneuCcdhGcC0
-         pKlk6tcc6T0CtKvekoCpL6T18F7B2o/K9/O9jymzL4A+cC2jothLZh3u65DSy7dK9QPO
-         IjgXs+B96j/HCR0aT5eg4U/FzRBOKw/z3RhQ+gWrKKdEZ3FaiwyjI4NQijYpWf2v16eb
-         +mXghcd1Usy9Krj9ZyC8IHR51HInfLkH2o3cgHMrtO9Z0BlpYgiwlG51fZf9D+L1MDBb
-         nPiYxavhcylTxrG+C3Ap1eSA880d0mnraEyGuAuP3ejFC3Tb12b0jv8R/G3UCaA9i35E
-         3JTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791723273; x=1792328073;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MwkyR+d13Yt35PeifZJYjSerizH5kaNtuABNu7XQY84=;
-        b=w2qHvlrxPHuUxjJErxmGqUQOnvKQAPi20ryZO/NcX0hpC2pvYydmDBehyRMaLghPRD
-         evRycRwTuF4v0kg4wRnA6FHBb2fuZaF2rhl27NGepEpZVtuP8B2azPhvGxbnTx6ud4nQ
-         rqA8yYJDaSFGFc6u6tW3YqVJs6kJOeE2Hs3MgexrnbY6ocjGwzokdUJsKHLFhwxNXNWg
-         Gr5I/qSRsGRIbPJDbmgCQR4rRU5PY4TuArhK9vdJCK4wbfxyRMFuUvv+ORxHBLeVEFFh
-         U/nMaFarDRWzwMCtWpgE9RUPDKMVUlcWJ2O05Gc+CAEe+gkCk2PlvhSV5nxx/SE13xCW
-         +oMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz0u202+KtvyyucztJ56Bu6BtdmzjSSktfDGaO60VCXzv0P7ir3+WZn9M/qm2ggiiXuQSYi6cWsiWaC1iY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIMHbOIV1LkNiCppk96wEYl6vWSdusfgiO4+GTTBggW9vFRBQS4
-	9Cu2xPXlbcRbZC+LduoQj0ScEoQLByS0YAfclTj2CoJc4ICQfdshBZGV
-X-Gm-Gg: AYBFou2rFtoJ6B/4+RCcWya/cTE3t3HXyxkIiXHOzDj/Nw9GyCf8m/svOOV1WN10Z2h
-	0ajIloA2z/bOYknfbdrh3OQ0zi2FGifo7bLtBSqMNVmKQhIxSazZw9vn0erD8DAlWQaZHe5Jf3E
-	kYLCs0JAbTfoi0oExHuxCQ/j4tuNyzz1M3SHJ/UXMAB3o6d2J6x2SxZ7eCtKWjAC+8Kq13XP4sv
-	zxxLrzew+2o5MukJxehKmFNvaiZRycsJPQ8EfZOuRnGXUtsWYcJMctpvndf/M67s3Cthzm/lvlS
-	qZbcTI2Y6TMH3yKW6wrPhi+4kFYVbFTbPmznHg6Xld7DBOIncu9kSwgDYgvt+8psCZ8osnE7gXW
-	pNbYvtIz5YS1R+tw/mm7ODWu4n7xc1D74mhdE8t4/KtqZYsWsxDwifZaDRTBv48CJki9a0eHwLM
-	XCXDVFbEWQC/nHZIh3Q1OCDOmdDuMCQB95tEexUGzptKEKShSnNFobSGEEfLy3NkTJA/9k64Uex
-	qsc+abBOL5KqUtt+sKpBnmLByaftOIl3Bisu3SsmnxJXtXhergQIa5Ue8+e8CTMx1z+ao/SpEGY
-	Fcc8AZHq1aXfl5Z0LuwX/WpPop/RdFSywSA37e3U/4aNGWGvGdC2YSzHZb9PX1L8IRuePEX9RlX
-	W3sPj5QIEELsVbl1ZKItHA21cXKsva6CvFc9cZCIDEWijambFizm4b5mtDBB7D+eTN9o/2dxS
-X-Received: by 2002:a05:6a00:23c8:b0:87d:dc3c:1b5e with SMTP id d2e1a72fcca58-897c634d89fmr5838569b3a.26.1791723273443;
-        Sun, 11 Oct 2026 05:54:33 -0700 (PDT)
-Received: from desktophank.localdomain (111-242-217-19.dynamic-ip.hinet.net. [111.242.217.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-899b738d03bsm929232b3a.41.2026.10.11.05.54.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 05:54:32 -0700 (PDT)
-From: Ting-Han Hou <ue081723@gmail.com>
-To: Anton Yakovlev <anton.yakovlev@opensynergy.com>,
-	"Michael S . Tsirkin" <mst@redhat.com>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Matias Ezequiel Vara Larsen <mvaralar@redhat.com>,
-	virtualization@lists.linux.dev,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: virtio: reset I/O message fill level on prepare
-Date: Sun, 11 Oct 2026 20:54:26 +0800
-Message-ID: <20261011125426.35745-1-ue081723@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=timmermann.space header.i=@timmermann.space header.b="RQioT9p6"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4j2gP31l6Nz8tCW;
+	Sun, 11 Oct 2026 14:47:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=timmermann.space;
+	s=MBO0001; t=1791722871;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=btNDbK48xuDBWKfwWNXMiDHC86J0cvKtwBVfd31rk2M=;
+	b=RQioT9p67PYKErxNhpz+kKu2Q3oSLUKo1fHwnvF4zFuyDf7q7xholJKQ90gVmGYIt+kMMw
+	Pp3+TVONM9Oww1ZTTMR2pOEHBcNvpYZ+N4rlG3oXLDgxf8vnE7vybaSYEc7Q0ymgX0HA6I
+	clCzsBD+BIzj46L+r4ZrIc99B95JRck9m6Q5bCUY9u1/KQBY9bjm9Aq36NbSI/MJpQZ/Z1
+	Hv5xdWa080YDk5dc6YU2JlgTO6UVXCtHa6MlYXSWM5wV5NJjm07uimQBkdMkziX0/aHmnL
+	X3vjdoHebYNUPYFK7bL79Gc2xn0bra3ABSFWlQpLPShXF2HbBU5gs/0za/m/+Q==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of foss@timmermann.space designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=foss@timmermann.space
+From: Lukas Timmermann <foss@timmermann.space>
+Subject: [PATCH 0/7] Input: s6sy761 - add SPI support for the S6SY791
+Date: Sun, 11 Oct 2026 14:44:55 +0200
+Message-Id: <20261011-lat3st-google-raven-touch-upstream-v1-0-2a9f55159b9e@timmermann.space>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNQQqDMBBA0avIrDvgpFCwVyldpHESU2wimYkI4
+ t2b1uXb/L+DcIkscO92KLxGiTk10KUDN9kUGOPYDKY3N+qJcLZ6FcWQc5gZi105oebqJqyLaGH
+ 7QU+DdSMZ8sZBCy2Ffdz+k8fztNTXm53+ynAcXykHBiqGAAAA
+X-Change-ID: 20261011-lat3st-google-raven-touch-upstream-f19acd121f2c
+To: Lukas Timmermann <foss@timmermann.space>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Rspamd-Queue-Id: 4j2gP31l6Nz8tCW
 
-Since commit fe981e67568c ("ALSA: virtio: use ack callback"), an I/O
-message is only queued to the device once the application has filled
-the whole period: virtsnd_pcm_msg_send() accumulates the transferred
-bytes in msg->length and queues the message when it reaches
-period_bytes.  msg->length is reset to 0 only when the device completes
-the message.
+This series adds SPI support to S6SY761 touch controllers, specifically
+S6SY791 devices. Also included are the necessary adjustments in the DTS
+for the Google Pixel 6 Pro (raven) which uses the aforementioned SPI
+version. As the mentioned board has a reset line wired, I also added that
+functionality to the bindings and driver. To implement SPI versions
+cleanly, the driver was split into core and bus transfer modules like
+seen in other drivers.
 
-If the substream is stopped (e.g. snd_pcm_drop()) while a period is
-only partially filled, the corresponding message is never queued and
-keeps its partial length.  virtsnd_pcm_prepare() resets msg_count,
-hw_ptr and the indirect PCM state, but not msg->length.  After the
-next start, the stale length is added to the new data, the sum never
-equals period_bytes, and the message is never sent again.  Playback
-then stalls once hw_ptr reaches that period: writes fail with -EIO
-("DMA or IRQ trouble") and drain fails with -EIO.  Capture is affected the
-same way after a partial read.
+This series was successfully tested with a Google Pixel 6 Pro. The I2C
+transfer part was untested because I don't have a device with an
+S6SY761 controller.
 
-Clear the fill level of all messages in prepare.  Outside of the resume
-path, virtsnd_pcm_prepare() already refuses to run while I/O messages
-are pending, so no message is owned by the device at this point and the
-reset does not race with message completion.
+Known issue: on gs101 the touchscreen probe at boot fails with -EIO
+because the very first SPI transfer is not understood by the controller
+(the reply is all zeros); rebinding the driver works. This looks like
+spi-s3c64xx applying CPOL/CPHA only in transfer_one(), after chip
+select has been asserted, but I have not verified this further. It is
+not addressed by this series.
 
-Reproduced in QEMU (virtio-sound-pci, wav audiodev): prepare, write 1.5
-periods, drop, prepare, write 16 full periods, drain.  Without this
-patch WRITEI returns -EIO after 14 periods and DRAIN fails; with it all
-16 periods are played and DRAIN succeeds.  Period-aligned prefill works
-in both cases.  The same sequence on capture (read 1.5 periods, drop,
-prepare, read 16 periods) fails with -EIO after 10 periods without this
-patch and reads all 16 with it.
+Patches 1-4 and 7 are meant for the input tree, patches 5-6 for the
+Samsung SoC tree. The DTS patches depend on the binding in patch 1.
 
-Found by code inspection, confirmed with the reproducer above.
-
-Fixes: fe981e67568c ("ALSA: virtio: use ack callback")
-Assisted-by: LLM
-Signed-off-by: Ting-Han Hou <ue081723@gmail.com>
 ---
-Testing notes:
-- Tested only with QEMU's virtio-sound-pci (wav and none audiodevs) on
-  x86_64 with KASAN enabled, using a raw-ioctl ALSA test program;
-  not tested with other device implementations (e.g. crosvm,
-  vhost-user-sound) or with alsa-lib based players.
-- Suspend/resume during playback (pm_test=devices) was also tried in
-  QEMU and works with and without this patch.
-- Lockdep was not enabled.
+Lukas Timmermann (7):
+      dt-bindings: input: touchscreen: samsung,s6sy761: Add S6SY791 and reset GPIO
+      Input: s6sy761 - split into core and I2C modules
+      Input: s6sy761 - add reset GPIO support
+      Input: s6sy761 - add SPI support for S6SY791
+      arm64: dts: exynos: gs101-pixel-common: add labels for touchscreen supplies
+      arm64: dts: exynos: gs101-raven: add S6SY791 touchscreen
+      MAINTAINERS: add entry for Samsung S6SY761 touchscreen driver
 
- sound/virtio/virtio_pcm.h     |  2 ++
- sound/virtio/virtio_pcm_msg.c | 19 +++++++++++++++++++
- sound/virtio/virtio_pcm_ops.c |  1 +
- 3 files changed, 22 insertions(+)
+ .../input/touchscreen/samsung,s6sy761.yaml         |  37 +++-
+ MAINTAINERS                                        |   7 +
+ .../boot/dts/exynos/google/gs101-pixel-common.dtsi |   4 +-
+ arch/arm64/boot/dts/exynos/google/gs101-raven.dts  |  50 +++++
+ drivers/input/touchscreen/Kconfig                  |  20 +-
+ drivers/input/touchscreen/Makefile                 |   4 +-
+ .../touchscreen/{s6sy761.c => s6sy761_core.c}      | 226 ++++++++++-----------
+ drivers/input/touchscreen/s6sy761_core.h           |  34 ++++
+ drivers/input/touchscreen/s6sy761_i2c.c            | 112 ++++++++++
+ drivers/input/touchscreen/s6sy761_spi.c            | 172 ++++++++++++++++
+ 10 files changed, 534 insertions(+), 132 deletions(-)
+---
+base-commit: 3857c2fe5449541e24afc5efdb0f81a8a8f9a3a0
+change-id: 20261011-lat3st-google-raven-touch-upstream-f19acd121f2c
 
-diff --git a/sound/virtio/virtio_pcm.h b/sound/virtio/virtio_pcm.h
-index 368dafa5df3f..8837dfc12828 100644
---- a/sound/virtio/virtio_pcm.h
-+++ b/sound/virtio/virtio_pcm.h
-@@ -118,6 +118,8 @@ int virtsnd_pcm_msg_alloc(struct virtio_pcm_substream *vss,
- 
- void virtsnd_pcm_msg_free(struct virtio_pcm_substream *vss);
- 
-+void virtsnd_pcm_msg_reset(struct virtio_pcm_substream *vss);
-+
- int virtsnd_pcm_msg_send(struct virtio_pcm_substream *vss, unsigned long offset,
- 			 unsigned long bytes);
- 
-diff --git a/sound/virtio/virtio_pcm_msg.c b/sound/virtio/virtio_pcm_msg.c
-index a5c4e7027717..72103f606716 100644
---- a/sound/virtio/virtio_pcm_msg.c
-+++ b/sound/virtio/virtio_pcm_msg.c
-@@ -182,6 +182,25 @@ void virtsnd_pcm_msg_free(struct virtio_pcm_substream *vss)
- 	vss->nmsgs = 0;
- }
- 
-+/**
-+ * virtsnd_pcm_msg_reset() - Reset the fill level of all I/O messages.
-+ * @vss: VirtIO PCM substream.
-+ *
-+ * Messages that were only partially filled by the application when the
-+ * substream was stopped are never sent to the device, so their length must be
-+ * cleared before the substream is started again.
-+ *
-+ * Context: Any context. Takes and releases the VirtIO substream spinlock.
-+ */
-+void virtsnd_pcm_msg_reset(struct virtio_pcm_substream *vss)
-+{
-+	unsigned int i;
-+
-+	guard(spinlock_irqsave)(&vss->lock);
-+	for (i = 0; vss->msgs && i < vss->nmsgs; ++i)
-+		vss->msgs[i]->length = 0;
-+}
-+
- /**
-  * virtsnd_pcm_msg_send() - Send asynchronous I/O messages.
-  * @vss: VirtIO PCM substream.
-diff --git a/sound/virtio/virtio_pcm_ops.c b/sound/virtio/virtio_pcm_ops.c
-index 1105e7ff3523..1091100a4c98 100644
---- a/sound/virtio/virtio_pcm_ops.c
-+++ b/sound/virtio/virtio_pcm_ops.c
-@@ -299,6 +299,7 @@ static int virtsnd_pcm_prepare(struct snd_pcm_substream *substream)
- 	vss->xfer_xrun = false;
- 	vss->suspended = false;
- 	vss->msg_count = 0;
-+	virtsnd_pcm_msg_reset(vss);
- 
- 	memset(&vss->pcm_indirect, 0, sizeof(vss->pcm_indirect));
- 	vss->pcm_indirect.sw_buffer_size =
--- 
-2.53.0
+Best regards,
+--  
+Lukas Timmermann <foss@timmermann.space>
 
