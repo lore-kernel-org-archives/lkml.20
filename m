@@ -1,47 +1,47 @@
 Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012017.outbound.protection.outlook.com [52.101.53.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C28A02F8E90;
-	Sun, 11 Oct 2026 02:15:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DAE12EEE84;
+	Sun, 11 Oct 2026 02:15:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.17
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791684916; cv=fail; b=j5IntCfEO9B+8j+sAqOCkBnvWK43ub+f31jdPX9ESww1UNEA+mxprKtCtwcH7L1EQkbWEmzGIPigZy6biHPWLf8Hu3cq5DrIXJ6jgTxWn7Hd2txChJKuRBzmAAw8oCxIsYF7EPfVZf5GV74JzsqLvHI4NruSVXzob25uy1eKQTY=
+	t=1791684910; cv=fail; b=szMu0ma2KoZvddK8QwP6TmttL983dyhy0PLE9lLTAEXYIb8nBDQmZEaeXS8flNsEoPU+lOMNg6u/51uJ9OvBAAutV3hWE1yKhfVWUHVC3q+IOn2siASbp9cLd4GR9FVR8uZOKzXpqpTXhKIfHeSI300Lpn5StNe/qacy1Z05D4U=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791684916; c=relaxed/simple;
-	bh=pufw4oxGC9SKLXeo1+72dlNh7jkkq077PumOcSaTCEg=;
+	s=arc-20240116; t=1791684910; c=relaxed/simple;
+	bh=Iehn7Tvxhr/nWuBfwFGK979xzvg9bKgw/+iR5PKlkkc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ehhLPZue25HqdyI/xqD3rdMPT0IVNX6eAVnAjmOxrv9An7er6J6kOzEqHCjQvBkNWk0pcif1gH0hahUOFw8IWD2HGTGGNSoWriWifeHxX8XTQcEg9xae8NOLpt6wOeJWhGgA8pi6zt+9dBk/vD15ggWD2xWIn087P90LPBqPzfw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=RokwQy2k; arc=fail smtp.client-ip=52.101.53.17
+	 Content-Type:MIME-Version; b=bzvLDAwxp/IuKqu64qNX7ykhrxBtBF38YhTDBgMzKefiijEM9iTRNSAxxc1l2jfRFDSSoG2UHGyNfVCtCtj77X7EcbluhoIqhpa5yKXqAMPbqKRZhwR/2w1ObSNI/6UOTJ2u1LOBBR4ilwZeLN1WgbLGQjxApBfbajubFjwGsYo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=nqDcamtW; arc=fail smtp.client-ip=52.101.53.17
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="RokwQy2k"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="nqDcamtW"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GokUX7gCnFxx+pM7DuDhlB0+68+n0nZ+/QGGR5DSatdAXBN5hg0knnoxJxyPltpR4u5xPOJLXqNUm0JJM9Cxelx70Rl2w3L8vZcHgZe95O7U8/UTqxbY4EG+Mq7T86L0i+4vpc3K9erPXaHZ14j+edMSKnkQQaK57j6cnwH5qq/30ZUQuPEcKzx/9weG/AQoXQ5QCvo0R9v1n5k315JzvqJ83nv04o900JOwCvlUz3Av0OpYOB5sxzgfp+SEB7GC+vhlzlQ5dZIycyYouGSpL9OSxaoJL2A8S/xmtqvKTGH/AXReFWQy2kMoA5TJjmgdG+21k4Rc8O1oRvMe2LVOVQ==
+ b=tqupwPcM8gP305hM2Mauy9dBeF1IwMCOy8KbKEoFcDwqkLr6L29oTp2HmrYJuscQ5rNWeEdl+rWQ0GTSMYyKsLTe2n0pQrfNaCaQHLLMsIMFmyO/hhYHWWKyIuCxJLR4HIUYrMuoEabpKkifYwFtRhlQf0YKsbPJLZ/d6N/UMBIqNcIbrEXj/feaqRiB2+RRL5yTn00QHOiZGTm35U3TwdsYzUWpCaZh03AiVbjHWOHVG1IK2uqNUPF1Wip4TuNaZAioNGEpPvQyD7uq9KDRyj6r00sPVJZERM/QlJULljK7ROgagFDVBDNlOb4EWf0Hh+hr2JSRe2+SZvj10yxYig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TWD98FxksKG+uNzz1T0kbP3D2mfbVf9saFb0Onhvw4E=;
- b=MGThAxkjSdcA1kpHWKcF9NoHxML/KjRwYv7PIjdcaLkTXYRmQykO65zr1wmCXfaxKGS8cnQMnWHri+EmBTm4QO7aNYq1X9v+eNalU/KdCStRfnDg3gOPsx4dJ01R4yMLY0rSUsixL1TO0hWvLuRtFgBQbndmSAwcqneqeB83cRAN5Hdqogya8IjzvOJUUnbOUCWYZz7sRGe69SibN/8JCU9t5oKMD91JqsQVXFYPyp6/ulBmh0+1BE+wF8h+T/iGbR6dK0zxgIEU7zpoa2qELcTpbtHeW2JFJzZ3TnDDavrBLkN6LW6z77Q6u0nAh27VSbOBHAX9/CREaoD3//ul6w==
+ bh=NulTqVXz+84440zY+tySFisExPE/yKlQbk6uSyr1ak4=;
+ b=Wr3QZcLheoj63nFMzlji5COLbqnQz7TxJQqiY4Ic4eUotJ2JsW6gA0dvVZBoORsYIMOmlO8qJ/0EvEjfrWkC1TJCXcjY1ZxN2nDL1VhBo8vbH40Gtgp5MhzBXpTp1OEO7DkVshP3buZiA2aYkDlyrLEeTVAoQaxAqXjGO4HcUhzZFuzYRbn0u6vzsGVWcp5Bb5nQuCH8IPVxQkYmG0wxTgo21kNkT5mv9LNzVPqcckrAgztxfHAQLKiA41K+sNUcoZS4grq2b9LubrPdWej9S2bMuIIXsNWQxCjldl8nNLBfbgZGkARaxoWBfsoleNVu+yElD+YB1+kQWP35udevOg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TWD98FxksKG+uNzz1T0kbP3D2mfbVf9saFb0Onhvw4E=;
- b=RokwQy2kr/mfrH4BNQJzPyzNvOcxWlZPx8KEM8wgYIyi2o3NKG08n19DmL6IcCbNH2/4QqPUs8BbTjhgmDtHZX1QLylZR5viYOHSfr+F7dDhyhN5m5U15sX1MliVBnD8zTvmGkWbjhuzi1qekLjmZmT9ztaP6kn3u006fj171BTCY0vv2B/1zpvkWDUnqHXfCzVg2NN1G0wmu3r3RxnixbRIT5bZimglt/yV/OqQU8Gm4/avoiDt7gLgGDojf8LagCpwV+Fjw5m5DtrS6/kt/5MzmdhfqdO3xWlCRVqeG7MyRH/LMF78fcIIveHffp3rkma4kk9ADbEAhXsxiNmYPw==
+ bh=NulTqVXz+84440zY+tySFisExPE/yKlQbk6uSyr1ak4=;
+ b=nqDcamtW2WdZygVkY1UPg21mJK+oYsrV5xBaGPs6mr0HMBP/VdQRajixFOQdBGzhq0L7I71meAxd0q3y7wgyQBXdEtFVxEoL+9ZzKE0TqWzRQyWpOzPe7a7DRvpVdrUFtR508zQ8ctaD6h+7cLqADTcfEyaOOYbYe7kMCxyq3Y4GUvYpUolE3dPLGGdNu6+dooMDDrCvsRW/h4LhaeEn0axHck7lffSbExcj+kaEayhT3+dBQE4uuZY34Gpbdtnk2xMGK7A7N9FImTNEFoej1mjwWQeXYXDipHVdyZYy0dEO10iH1uZtMv6ThO+RynvWJ1MHmue2MgNPhhkE2R0enA==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from LY0PR12MB727857.namprd12.prod.outlook.com
  (2603:10b6:408:3ba::5) by MW4PR12MB6951.namprd12.prod.outlook.com
  (2603:10b6:303:209::18) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.20; Sun, 11 Oct
- 2026 02:15:02 +0000
+ 2026 02:14:55 +0000
 Received: from LY0PR12MB727857.namprd12.prod.outlook.com
  ([fe80::843e:82cd:41ca:f522]) by LY0PR12MB727857.namprd12.prod.outlook.com
  ([fe80::843e:82cd:41ca:f522%5]) with mapi id 15.21.0496.019; Sun, 11 Oct 2026
- 02:15:02 +0000
+ 02:14:55 +0000
 From: Srirangan Madhavan <smadhavan@nvidia.com>
 To: Alison Schofield <alison.schofield@intel.com>,
 	Bjorn Helgaas <bhelgaas@google.com>,
@@ -63,16 +63,16 @@ Cc: Alex Williamson <alex.williamson@redhat.com>,
 	Richard Cheng <icheng@nvidia.com>,
 	linux-tegra@vger.kernel.org,
 	Srirangan Madhavan <smadhavan@nvidia.com>
-Subject: [PATCH v15 13/16] PCI/CXL: Restore CXL state after PCI reset
-Date: Sun, 11 Oct 2026 02:14:19 +0000
-Message-ID: <20261011021422.3428136-14-smadhavan@nvidia.com>
+Subject: [PATCH v15 10/16] PCI/CXL: Add CXL Device Reset sequencing
+Date: Sun, 11 Oct 2026 02:14:16 +0000
+Message-ID: <20261011021422.3428136-11-smadhavan@nvidia.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261011021422.3428136-1-smadhavan@nvidia.com>
 References: <20261011021422.3428136-1-smadhavan@nvidia.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: PH7P220CA0042.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:32b::25) To LY0PR12MB727857.namprd12.prod.outlook.com
+X-ClientProxiedBy: PH7PR13CA0008.namprd13.prod.outlook.com
+ (2603:10b6:510:174::15) To LY0PR12MB727857.namprd12.prod.outlook.com
  (2603:10b6:408:3ba::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -82,525 +82,396 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: LY0PR12MB727857:EE_|MW4PR12MB6951:EE_
-X-MS-Office365-Filtering-Correlation-Id: 35cf1de3-aeb9-4fa7-dc1e-08df273d7560
+X-MS-Office365-Filtering-Correlation-Id: 152073b6-ea2b-4d0c-906c-08df273d7109
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|7416014|376014|366016|10067099003|3023799007|261009223027099003|921020|11063799006|6133799003|22082099003|18002099003|56012099006;
+	BCL:0;ARA:13230040|23010399003|1800799024|7416014|376014|366016|10067099003|3023799007|261009223027099003|921020|11063799006|5023799004|6133799003|22082099003|18002099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	6142OFPCcoeV+cWfNm/StzrrBvlpHrlAQkmYQ3R+fhfq0mHXXJE+qgBrwUmTFHLXctx2FGVpM0fWtnNqbMR0e/RPj0EquwIMCdWHWpQ8een2nZDJvk7F+ClkGXHQpuzupsDQvY9O9TTK1bdwxmOAvwOQc7H1BkJv0kQxob3E6NfZDwzCRfIWNGEpVCDJNZ5Y0SdZdbV3B+OZ+qI+FRtWH3fafbXnd9srkwq+Ivy8d5N4aM+CA5hf3dtr+9e0CKfEwUPlfSLaSqqp2rG0PWT/pMivPM2ilSO2+P0Kgh/GsS8fSmXOSz4prtYv0Evmt4JwnpoWGmNZOB+kM3DozHst8MKqedfDajGZNVv/pM81fLYOe88FgdC/NNl/TCr3+kN74EZBDbdwnFC37bgzklZjMys/x9+B6xh/72SUn+LxTU8im0Kane80SLzByzjuHgTdA6Mc7l5F7tNMLfBBJj59+A9SRN5DboKSE5tz0D/RKwQ+lVJkKb3LYxjW9NajDVOn6hJ6eNEZo4sCer7wDo4KU88GpR0N+5P+uvmu2FuF7gB+NJPpt0unf894XfiuonIi2lh9g1MKRIfTD1scpbpP90Vw337f9dHf84JYkAtLsI1TAjjYf3g0n1gRN3mRv3L0v+q4FnLDT2M070ZVfcaQaZCWzv6vhgT3jnvFS6U6IFHVcwF3ooYmleWoKMFWnuSQUtYw/AGubd/HKhCDFL7Frg==
+	A0v9+t1fkQ8mkgJG5/MwNGm3kENNnTuzLh6osPVY7AcCbwByVnUkUZi4KAqJB6boR9I9V1bdiu/exT154m7VVDTq+mCr3CcyjgHht0v+d1umKB45iTvwx12w1LRU7Uko0JpAH3oLPAWUFX7dOdgdKWgls66cWEIH8Eco55yauvRs7bOD72vIBdLvaMU6JXLQh9hMzRbAbNUN4eibnpkWmtoSD6OziCEfWlMPUGIijeUuZj4rNT1B4jhBSh5A58X9r82wTjqfUQ/b9q5wvlPndSouv6HCuidIHphjLzaa6BPVsYXAr1V8sTT4By+XuOU1sjIkUpsCAY8UQlyx9vaFuIeO4COJXsY1CPnODNeGuROLNO7zh/GJAS63oUTm+ziOgiscewV6cktdLG0+8I25q6VwN/aaQs/qh3eCKxXcbrY5fW1F4cclRzGlY1WgxVpOT0mdaY46gYWu6p03NBJUvPbyuDWlZRRj14mntfrtZYMokamLKK5I5QdIj6aSk6bG7LmeObLxWmlqyfXPYpGqnBSgAB8oer585DBbCqbVuFWz5cEUea6/Qi6O4A/E1Ue+4kn0m59sVgvtoeAs3RkRCfyyXfjnOuG/2S/nKK/FrZwvYpvAyt6YiSQ9ZwuFHQGIhtRVYVgTW2s31ZHnyYjCBQJLGBstpRqbWslZWgD6Px1e5TywdSXb6hKz1Bmvv4BTJKA5J3exV/KoWGlaR7gy2g==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LY0PR12MB727857.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(10067099003)(3023799007)(261009223027099003)(921020)(11063799006)(6133799003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LY0PR12MB727857.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(10067099003)(3023799007)(261009223027099003)(921020)(11063799006)(5023799004)(6133799003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?DlLHXJ4wR1AkQ2Aomf2nCJFSZLnjhPZ6LqM+TIX03p372lyMk8HoHlRWoc0e?=
- =?us-ascii?Q?wfi7XXuSRuBvitSD6m8EUs037HhnSHghacueW/a/zJRIpf6omAUnLl/tjE2S?=
- =?us-ascii?Q?bh6zDpj30EadIC7Wg8I+zf++yZvpKw1JTGkuSb0F4z+dev8dN6Lnfvqu8/gl?=
- =?us-ascii?Q?XcE8UVsJ673D9//Sgi9iKj1HBplNHI8ERIIUJJZg5bB87xkMz0Y53ShmQ7CG?=
- =?us-ascii?Q?sJiN7Y+Ifc/9wwjHpC7HzO7FJypljxVvTUY0jYHiR5L9SOJmASy7HoTQke1x?=
- =?us-ascii?Q?b1vFQz8DkSrDKddEXB5ewe5m+P2XGjLxaBWPlFCx/yQxUHShPRq/Ld6An2WD?=
- =?us-ascii?Q?lPvScfnvVlFguL4JQln743oHryTOcHopvIIh3oIG1vnS1iZWOdrWlHCRTfon?=
- =?us-ascii?Q?8TE+hTZj8iQrw+EavJ9dQeJ5J7o4lRRWvLx54grCe46QCT3wGYH5u8PqeI3t?=
- =?us-ascii?Q?SaYOX68LpAbO11qE5tvqDRatR+/wINDFghu5SnqssuE1I2Msy6Qbtuwcos26?=
- =?us-ascii?Q?hyoUffbAQbUYOZz/3aPnbZMZPlURHfbjX/oNGvFSvYm1IMXeDnFwc5Qsor5A?=
- =?us-ascii?Q?72iGY0I4b/oQWjoeMjdTjDiWt3Wt3eK9uDkI2vDRX8I8/B3S1zv1GCnKk2ep?=
- =?us-ascii?Q?UbPlX1/fuGcDcgw8XhTjrYuVfm3PBEyRzeGAjmWwq0Oz5t3CGcTzbinic1KA?=
- =?us-ascii?Q?EDpUZXRzCxvywy4O08gXd8Se3lZmT86HrHBVrxsvczEeL+PQTsqERdMrXFdq?=
- =?us-ascii?Q?cIGDhMTghw5zeqHbdQ6YbXGp01vT6IMwDulYh0Z/Oaa34cnb8xVYucgp7boJ?=
- =?us-ascii?Q?FXmE5hy9Gv+iHvPPSOCIQo28bJnakqQTIZd6ztIegLrJMw9CjH84bcQR/+7a?=
- =?us-ascii?Q?F2iur+rabejMq2m1DHCaQTgFv2+Is8ZwPubNr+/fB3FwSDta7vqdOIc1uiVk?=
- =?us-ascii?Q?TLiATGx7X/7Zzl4Ayqpygwc1Z2eEmgM1tgdllsaK0t976eOfdE4kELc7ZEuC?=
- =?us-ascii?Q?2lB9R8mYCmKI/pt9KrT8KmlnkDYFisTS4QnVUz2lkO4Tc3rrCehfw8DF4JBZ?=
- =?us-ascii?Q?SEXb8wFcob8Uux8/p1A9i8dK1E9vNFDiXNSYhBgomCVpcmP3HQAe6hzxNTga?=
- =?us-ascii?Q?5GfKYgLNuCHeLNp04GbCZ8y8w+9+EqX3mEsDFptRvhgHScnPZCihvbgdMyRH?=
- =?us-ascii?Q?aExCrF77IUOhNsQlnQQ46QMtTVpg+2k5WLQNPplBoC54tHBBPHW5OmrItaAj?=
- =?us-ascii?Q?9lV7Z/V8v92CBlOAuEuSWHMyOhkkhLKnfXSbuk68zfv7CkjqlHTCcOzUi4Mn?=
- =?us-ascii?Q?Qvq4qppqlfiWhCPAnqmKfz63hZChYQQkpu9OTOgkvgXo+S+1vCn7x95c7Iu6?=
- =?us-ascii?Q?G49U4YV9t5VqmrdTjR41W9B8HF4lYlUQq88YsgN/YkKB1PXGnc8MKn9hp0wQ?=
- =?us-ascii?Q?SBrOjcqkGGYIlMrhjdkhRxTCmO27eRSzfpyn5aHlj4hMFJF5WBnCvhI2Bjxc?=
- =?us-ascii?Q?X/lRHgyF97hl3smO4KcwEk/5wgiyzFDt0EQsQJiQlYqHJnWR92zWdcy/f7Yt?=
- =?us-ascii?Q?LmvOt10rkRU6o2qrsIoY2pHUcRIOZ2pJGoxFE4lzhEgnB6qSzSQRIvEJEUKB?=
- =?us-ascii?Q?PyG9FSDRt0G18F23EjOIAxbLbGo/q6biM6wSqiXcDMdqN8MFWTqDhvSn9qX9?=
- =?us-ascii?Q?F+rh835T9b8XfA47qG4NPSB7chKWzthSqWMB7nZswblr62qzwsv/qxxv24Vi?=
- =?us-ascii?Q?ab/ClJ1/+Q=3D=3D?=
+	=?us-ascii?Q?OK4mWRauWvZAji7Ds6euf5neRwz52awTmLQ6jiEYLZTRW9ncUt1WlCc6Eyb+?=
+ =?us-ascii?Q?xy2u6BM/vhGOJlqBsTSyIv65A6//gz2DAiOTlXI9sFImk5J34HdhJH1tcRdT?=
+ =?us-ascii?Q?PS0x3WESLfbY+nAHsEcSe41yiZ2HGJCFhXtg5s0wIUxkMPhZXisTtS9NpbML?=
+ =?us-ascii?Q?/uXEgkwLfY/avggmoVJaMbpddx0IjxEcAKZWndQ7fYMHv+Eht3rcRfPP7Cs3?=
+ =?us-ascii?Q?bzdqzjDkwM/lkbk3EdbnsWQezPg+zYeNyP/pCIGXFNDn82smdSnkWgRaUHpL?=
+ =?us-ascii?Q?q5VY4J5Qh+xRGY3dpugzyn5fAJFjDfL848HCBKAfymw202hSirfep1cxaCpf?=
+ =?us-ascii?Q?xyistlhxjfjwAUcWDtbLWK41L3e5bxcfwAy/Rkw8S0iGqv6XKLeVJhinvWGT?=
+ =?us-ascii?Q?qkyDQVqb+WQfq064TxUx7Gfz6dliC5jyAKD6dhtGH4+bKVAT4g68fNk9sWKP?=
+ =?us-ascii?Q?TeG4NPBXsN/Ch/4Ggk6R+P9B0gdwJFqkdrM9bCm0pdrhAk07zp90KL4mB4D1?=
+ =?us-ascii?Q?s9MWs7t2uK5HCkHVaGGylea+bYk7kEm/ZN/Sd2o6JSGwBkIKdC0BbeMM/CBN?=
+ =?us-ascii?Q?5gRtt6Q5TKVakgEz7f3v/FdduzUm++1GsCNQ9BAu6wh+v5oPbW6JHnJR9u2e?=
+ =?us-ascii?Q?w1PXIXOmaS+KAVeVtqmPbx3U9bYkT7ozVLayF18wQOPE5wa/5wvLUwO2midU?=
+ =?us-ascii?Q?YzijMPam3HjGNL6NLaBzHeE7TjejQV1As3qezrnX3aZgcvnJiCHsKYnZqFeS?=
+ =?us-ascii?Q?WZQ4zE1IweRRoPESoXoHuYRtDRRw5BTzygnYmUlSyTpPG5QePA3Ds/RyfOTO?=
+ =?us-ascii?Q?q5ossYAt2rYDkeesB4/GQzTDvxqn0IqHeFDci7bObwX8oj/VKZJf2/Gizzdc?=
+ =?us-ascii?Q?02lEUgOnervmb9Z1YxF+5fk/rq0Apke+2u8HgOMEiI93iMTp3+GB66edWZ2f?=
+ =?us-ascii?Q?3/PtjwASyhqJdaX1B56DV5Lp54nlk2Nf9o7EGNa+y5YKDQFP+XpPaxlDPCFo?=
+ =?us-ascii?Q?0uMWnDP4xQpFkgiic0RB97U5M6w55ucc0Zx3fv9E1ULAzLddOE04Tw51/mmG?=
+ =?us-ascii?Q?cfIyQV0m5rYvKanhoW/lAnUO/MTNZnRW5UcQ8c691wH+M7VvjDyZjUTIVyv+?=
+ =?us-ascii?Q?HOLtUVHY2iEbSyS7Bbx6K8gR3mAlwDdR6pjTf2YaotXD6zw4nIPjgFAfpYk7?=
+ =?us-ascii?Q?Cumncd2CzHjz6/0VamrrW12/8Ktmz9Y42P+gdyV5tLyQkufNdEZvDqNVMKFp?=
+ =?us-ascii?Q?YeGJVcqJxTxDmwAgR24bPrJZk3Gh4lZDMlMU9Fxd55ykQpmhbkrDxZF19JfR?=
+ =?us-ascii?Q?MMlpGz35PK7xNHGyvZkhQql5tDwX94J8Oq7lCPKBtfJoPI89V1B/MG4ONEpu?=
+ =?us-ascii?Q?LIek8vdUWbIA+FaFrZddH1VBRy7tf9UkGWGoX9hplNIPiOt4HrF5oWcNzixE?=
+ =?us-ascii?Q?l2xNNTf4awaGXx4MefTYwebdeFGlusqGdHbV9EmagcNGoVdsE8XZVfW64NBK?=
+ =?us-ascii?Q?Bb5sD4tSfch9Y1pZyy2UblnR0ddrmimax9r2P2ULRRIyj0qWDzi1PDTFsnlC?=
+ =?us-ascii?Q?VDQcMFt5QeAK5YIwyMwisomhOCLWu7xaTt5dCERCXSrFYbaA6GT/X8Dsm620?=
+ =?us-ascii?Q?rbmWKaZlVQqZPHvV9ydm7NVrQ5TjrvzSWI5/81RaB32+gIuz9B/S3MqjPZ9g?=
+ =?us-ascii?Q?t0jQhvAcxy9Yl3fHMZbjYJlu+6ssx7E29TFx+058mZ/x7MHFn7izrFd54EcU?=
+ =?us-ascii?Q?iY7XSykhYg=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 35cf1de3-aeb9-4fa7-dc1e-08df273d7560
+X-MS-Exchange-CrossTenant-Network-Message-Id: 152073b6-ea2b-4d0c-906c-08df273d7109
 X-MS-Exchange-CrossTenant-AuthSource: LY0PR12MB727857.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2026 02:15:02.6518
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2026 02:14:55.3834
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: K9wjggRYKbYGslfvtnVkRXJrn7rhTFGibk3HtikbIoKVbMyHxG2F9Obve4rCuhAXZEfums3mGqQY6XD7+8F6Xg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: i1Y/6epRN8nCCanRIa84YMpMwDFVe4mw0DT6V8o9wWhuEwgQfnlWlM/MicW/63V6wE0sLVm4JfLIJ/17XyRBfQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6951
 
-Restore the PCI configuration needed for HDM access, followed by cached
-HDM decoder and CXL Device DVSEC state. Recommit a cleared locked decoder
-before restoring its lock, but leave surviving locked state unchanged.
+Implement CXL Device Reset for eligible Type 2 devices: disable CXL.cache,
+perform supported writeback, drain transactions, prepare the IOMMU,
+initiate reset with Memory Clear enabled, and wait for completion.
 
-Stop at the first restoration failure and preserve a disabled PCI command
-snapshot. Keep IOMMU exclusion active through restoration and post-reset
-cache invalidation.
+Observe the 100 ms post-reset quiet period before polling Status2, and
+treat an all-ones read as not ready. Treat Control2 command bits as
+transient state, restore cache policy on exit, preserve the primary error,
+and abort when IOMMU preparation fails.
 
-Program the decoders from built-in CXL code that takes only a mapped
-register block, and keep PCI state handling in drivers/pci/cxl.c.
+Reuse Device DVSEC discovery from cache initialization and keep the
+reset entry point declaration private to PCI core.
 
-The restore helper structure and diagnostics follow Dave Jiang's
-reference implementation on his cxl-type2-reset branch.
-
-Link: https://git.kernel.org/pub/scm/linux/kernel/git/djiang/linux.git/commit/?id=81fff5893a3140361cac625b09ada798afb92e03
+Link: https://git.kernel.org/pub/scm/linux/kernel/git/djiang/linux.git/commit/?id=04f8f84816d724f8b47f4d47a77916ac37c63a49
 Suggested-by: Dave Jiang <dave.jiang@intel.com>
 Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
-Assisted-by: LLM
 ---
- drivers/cxl/core/hdm_regs.c | 180 ++++++++++++++++++++++++++++++++++++
- drivers/pci/cxl.c           | 176 +++++++++++++++++++++++++++++++++--
- include/cxl/hdm.h           |   2 +
- 3 files changed, 351 insertions(+), 7 deletions(-)
+ drivers/pci/cxl.c             | 249 +++++++++++++++++++++++++++++++++-
+ drivers/pci/pci.h             |   5 +
+ include/uapi/linux/pci_regs.h |  14 ++
+ 3 files changed, 267 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/cxl/core/hdm_regs.c b/drivers/cxl/core/hdm_regs.c
-index f0b360867655..cef5e9949d2c 100644
---- a/drivers/cxl/core/hdm_regs.c
-+++ b/drivers/cxl/core/hdm_regs.c
-@@ -73,6 +73,26 @@ int cxld_await_commit(void __iomem *hdm, int id)
+diff --git a/drivers/pci/cxl.c b/drivers/pci/cxl.c
+index 471b57391593..9eb13adf0daa 100644
+--- a/drivers/pci/cxl.c
++++ b/drivers/pci/cxl.c
+@@ -3,13 +3,17 @@
+ /*
+  * CXL reset support in the PCI core. Cache the HDM decoder state of a CXL
+  * memory device at enumeration, so it can be restored after a reset without
+- * a CXL driver. HDM register formats and programming live in drivers/cxl.
++ * a CXL driver, and implement CXL Device Reset. HDM register formats and
++ * programming live in drivers/cxl.
+  */
+ #include <linux/bitfield.h>
+ #include <linux/cleanup.h>
++#include <linux/delay.h>
+ #include <linux/errno.h>
+ #include <linux/io.h>
+ #include <linux/ioport.h>
++#include <linux/iommu.h>
++#include <linux/jiffies.h>
+ #include <linux/kernel.h>
+ #include <linux/pci.h>
+ #include <linux/slab.h>
+@@ -221,3 +225,246 @@ void pci_cxl_hdm_cache_release(struct pci_dev *pdev)
+ {
+ 	cxl_hdm_cache_release(&pdev->hdm);
  }
- EXPORT_SYMBOL_FOR_MODULES(cxld_await_commit, "cxl_core");
- 
-+static int cxld_await_uncommit(void __iomem *hdm, int id)
-+{
-+	u32 ctrl;
-+	int i;
 +
-+	for (i = 0; i < COMMIT_TIMEOUT_MS; i++) {
-+		ctrl = readl(hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
-+		if (FIELD_GET(CXL_HDM_DECODER0_CTRL_COMMIT_ERROR, ctrl)) {
-+			ctrl &= ~CXL_HDM_DECODER0_CTRL_COMMIT;
-+			writel(ctrl, hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
-+			return -EIO;
-+		}
-+		if (!FIELD_GET(CXL_HDM_DECODER0_CTRL_COMMITTED, ctrl))
++/*
++ * CXL r4.0 sec 9.7.2 defines the reset completion timeout encodings.
++ * Sec 9.7.3 leaves config-space access behavior undefined for 100 ms after
++ * initiating CXL Reset, then limits software to CXL Status2 access until
++ * reset completion, timeout, or error.
++ */
++#define CXL_RESET_RRS_WAIT_MS 100
++#define CXL_RESET_STATUS_POLL_MS 20
++#define CXL_RESET_MAX_WAIT_MS 20000
++static const u32 cxl_reset_timeout_ms[] = {
++	10, 100, 1000, 10000, 100000,
++};
++
++#define CXL_CACHE_WBI_TIMEOUT_US 100000
++#define CXL_CACHE_WBI_POLL_US 100
++
++#define CXL_RESET_CTRL2_CMD_MASK \
++	(PCI_DVSEC_CXL_INIT_CACHE_WBI | PCI_DVSEC_CXL_INIT_CXL_RST)
++
++static int cxl_reset_update_ctrl2_no_replay(struct pci_dev *pdev, int dvsec,
++					    u16 set, u16 clear)
++{
++	u16 ctrl2;
++	int rc;
++
++	rc = pci_read_config_word(pdev, dvsec + PCI_DVSEC_CXL_CTRL2, &ctrl2);
++	if (rc)
++		return pcibios_err_to_errno(rc);
++	if (PCI_POSSIBLE_ERROR(ctrl2))
++		return -ENODEV;
++
++	/*
++	 * INIT_CACHE_WBI and INIT_CXL_RST are commands. Do not replay a command
++	 * that remains set in the value read back while updating persistent
++	 * Control2 state.
++	 */
++	ctrl2 &= ~CXL_RESET_CTRL2_CMD_MASK;
++	ctrl2 &= ~clear;
++	ctrl2 |= set;
++
++	rc = pci_write_config_word(pdev, dvsec + PCI_DVSEC_CXL_CTRL2, ctrl2);
++	if (rc)
++		return pcibios_err_to_errno(rc);
++
++	return 0;
++}
++
++static int cxl_reset_wait_cache_wbi(struct pci_dev *pdev, int dvsec)
++{
++	unsigned long deadline;
++	u16 status2;
++	int rc;
++
++	rc = cxl_reset_update_ctrl2_no_replay(pdev, dvsec,
++					      PCI_DVSEC_CXL_INIT_CACHE_WBI, 0);
++	if (rc)
++		return rc;
++
++	deadline = jiffies + usecs_to_jiffies(CXL_CACHE_WBI_TIMEOUT_US);
++	while (time_before(jiffies, deadline)) {
++		usleep_range(CXL_CACHE_WBI_POLL_US,
++			     CXL_CACHE_WBI_POLL_US * 2);
++
++		rc = pci_read_config_word(pdev, dvsec + PCI_DVSEC_CXL_STATUS2,
++					  &status2);
++		if (rc)
++			return pcibios_err_to_errno(rc);
++		if (PCI_POSSIBLE_ERROR(status2))
++			return -ENODEV;
++		if (status2 & PCI_DVSEC_CXL_CACHE_INV)
 +			return 0;
-+		fsleep(1000);
 +	}
++
++	/* Do not miss completion concurrent with the polling deadline. */
++	rc = pci_read_config_word(pdev, dvsec + PCI_DVSEC_CXL_STATUS2,
++				  &status2);
++	if (rc)
++		return pcibios_err_to_errno(rc);
++	if (PCI_POSSIBLE_ERROR(status2))
++		return -ENODEV;
++	if (status2 & PCI_DVSEC_CXL_CACHE_INV)
++		return 0;
 +
 +	return -ETIMEDOUT;
 +}
 +
- static u32 cxl_hdm_write_range(void __iomem *hdm,
- 			       const struct cxl_decoder_config *config)
- {
-@@ -273,3 +293,163 @@ int cxl_hdm_read_state(struct device *dev, void __iomem *hdm,
- 
- 	return 0;
- }
-+
-+static int cxl_hdm_decoder_uncommit(struct device *dev, void __iomem *hdm,
-+				    int id, bool *retained)
++static int cxl_reset_disable_cache(struct pci_dev *pdev, int dvsec, u16 cap)
 +{
-+	u32 ctrl;
 +	int rc;
 +
-+	*retained = false;
-+	ctrl = readl(hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
-+	if (ctrl == U32_MAX)
-+		return -EIO;
-+	if (ctrl & CXL_HDM_DECODER0_CTRL_COMMIT_ERROR) {
-+		dev_err(dev, "CXL HDM decoder %d has commit error set\n", id);
-+		return -EIO;
-+	}
++	rc = cxl_reset_update_ctrl2_no_replay(pdev, dvsec,
++					      PCI_DVSEC_CXL_DISABLE_CACHING, 0);
++	if (rc || !(cap & PCI_DVSEC_CXL_CACHE_WBI_CAPABLE))
++		return rc;
 +
-+	if (ctrl & CXL_HDM_DECODER0_CTRL_LOCK) {
-+		if (ctrl & CXL_HDM_DECODER0_CTRL_COMMITTED) {
-+			*retained = true;
-+			return 0;
-+		}
++	return cxl_reset_wait_cache_wbi(pdev, dvsec);
++}
 +
-+		dev_err(dev, "CXL HDM decoder %d is locked and uncommitted\n",
-+			id);
-+		return -EIO;
-+	}
++static int cxl_reset_restore_cache_policy(struct pci_dev *pdev, int dvsec,
++					  u16 saved_ctrl2)
++{
++	int rc;
 +
-+	if (!(ctrl & CXL_HDM_DECODER0_CTRL_COMMITTED))
-+		return 0;
-+
-+	ctrl &= ~CXL_HDM_DECODER0_CTRL_COMMIT;
-+	writel(ctrl, hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
-+
-+	rc = cxld_await_uncommit(hdm, id);
++	rc = cxl_reset_update_ctrl2_no_replay(pdev, dvsec,
++					      saved_ctrl2 & PCI_DVSEC_CXL_DISABLE_CACHING,
++					      PCI_DVSEC_CXL_DISABLE_CACHING);
 +	if (rc)
-+		dev_err(dev, "CXL HDM decoder %d uncommit failed: %d\n", id, rc);
++		pci_err(pdev, "failed to restore CXL cache policy: %d\n", rc);
 +
 +	return rc;
 +}
 +
-+static bool
-+cxl_hdm_decoder_settings_match(const struct cxl_endpoint_decoder_settings *saved,
-+			       const struct cxl_endpoint_decoder_settings *active)
++static int cxl_reset_wait_done(struct pci_dev *pdev, int dvsec, u16 cap)
 +{
-+	const struct cxl_decoder_config *a = &saved->config;
-+	const struct cxl_decoder_config *b = &active->config;
++	unsigned long deadline;
++	u32 timeout_ms;
++	u16 status2;
++	int idx, rc;
 +
-+	return a->id == b->id &&
-+	       a->hpa_range.start == b->hpa_range.start &&
-+	       a->hpa_range.end == b->hpa_range.end &&
-+	       a->interleave_ways == b->interleave_ways &&
-+	       a->interleave_granularity == b->interleave_granularity &&
-+	       a->target_type == b->target_type &&
-+	       (a->flags & CXL_DECODER_F_RESET_MASK) ==
-+		(b->flags & CXL_DECODER_F_RESET_MASK) &&
-+	       saved->skip == active->skip;
-+}
-+
-+static int
-+cxl_hdm_restore_decoder(struct device *dev, void __iomem *hdm,
-+			const struct cxl_endpoint_decoder_settings *settings)
-+{
-+	const struct cxl_decoder_config *config = &settings->config;
-+	bool retained;
-+	u32 ctrl;
-+	int rc;
-+
-+	rc = cxl_hdm_decoder_uncommit(dev, hdm, config->id, &retained);
-+	if (rc)
-+		return rc;
-+
-+	if (retained) {
-+		struct cxl_endpoint_decoder_settings active;
-+
-+		rc = cxl_hdm_read_decoder_settings(dev, &active, hdm, config->id);
-+		if (rc) {
-+			dev_err(dev,
-+				"CXL HDM decoder %d has invalid configuration: %d\n",
-+				config->id, rc);
-+			return rc;
-+		}
-+		if (!cxl_hdm_decoder_settings_match(settings, &active)) {
-+			dev_err(dev,
-+				"CXL HDM decoder %d retained unexpected locked state\n",
-+				config->id);
-+			return -EIO;
-+		}
-+		return 0;
++	idx = FIELD_GET(PCI_DVSEC_CXL_RST_TIMEOUT, cap);
++	if (idx >= ARRAY_SIZE(cxl_reset_timeout_ms)) {
++		pci_warn(pdev,
++			 "unknown CXL reset timeout encoding %d; using %u ms\n",
++			 idx, CXL_RESET_MAX_WAIT_MS);
++		idx = ARRAY_SIZE(cxl_reset_timeout_ms) - 1;
 +	}
 +
-+	if (!(config->flags & CXL_DECODER_F_ENABLE))
-+		return 0;
++	/* Allow one retry after the mandatory 100 ms quiet period. */
++	timeout_ms = clamp_t(u32, cxl_reset_timeout_ms[idx],
++			     CXL_RESET_RRS_WAIT_MS + CXL_RESET_STATUS_POLL_MS,
++			     CXL_RESET_MAX_WAIT_MS);
++	msleep(CXL_RESET_RRS_WAIT_MS);
++	deadline = jiffies + msecs_to_jiffies(timeout_ms -
++					      CXL_RESET_RRS_WAIT_MS);
 +
-+	cxl_commit_start_endpoint(settings, hdm);
-+	rc = cxld_await_commit(hdm, config->id);
-+	if (rc) {
-+		dev_err(dev, "CXL HDM decoder %d restore failed: %d\n",
-+			config->id, rc);
-+		return rc;
-+	}
-+
-+	if (!(config->flags & CXL_DECODER_F_LOCK))
-+		return 0;
-+
-+	ctrl = readl(hdm + CXL_HDM_DECODER0_CTRL_OFFSET(config->id));
-+	if (ctrl == U32_MAX)
-+		return -EIO;
-+	ctrl |= CXL_HDM_DECODER0_CTRL_LOCK;
-+	writel(ctrl, hdm + CXL_HDM_DECODER0_CTRL_OFFSET(config->id));
-+
-+	ctrl = readl(hdm + CXL_HDM_DECODER0_CTRL_OFFSET(config->id));
-+	if (ctrl == U32_MAX ||
-+	    !(ctrl & CXL_HDM_DECODER0_CTRL_LOCK)) {
-+		dev_err(dev, "CXL HDM decoder %d failed to restore lock\n",
-+			config->id);
-+		return -EIO;
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * cxl_hdm_restore_state() - reprogram endpoint HDM decoders from a snapshot
-+ * @dev: device for error messages
-+ * @hdm: mapped HDM decoder capability
-+ * @snapshot: state from cxl_hdm_cache_snapshot()
-+ *
-+ * Restore global control, then recommit each enabled decoder in order. Leave
-+ * a locked decoder that kept its programming across the reset unchanged,
-+ * after checking that it still matches @snapshot.
-+ *
-+ * Return: 0 on success, or the first failure.
-+ */
-+int cxl_hdm_restore_state(struct device *dev, void __iomem *hdm,
-+			  const struct cxl_hdm_info *snapshot)
-+{
-+	int count;
-+	int rc;
-+
-+	count = cxl_hdm_decoder_count(readl(hdm + CXL_HDM_DECODER_CAP_OFFSET));
-+	if (count != snapshot->decoder_count) {
-+		dev_err(dev, "CXL HDM decoder count changed from %d to %d\n",
-+			snapshot->decoder_count, count);
-+		return -ENXIO;
-+	}
-+
-+	/* Restore global HDM control before committing individual decoders. */
-+	writel(snapshot->global_ctrl, hdm + CXL_HDM_DECODER_CTRL_OFFSET);
-+
-+	for (int i = 0; i < snapshot->decoder_count; i++) {
-+		rc = cxl_hdm_restore_decoder(dev, hdm, &snapshot->settings[i]);
++	for (;;) {
++		rc = pci_read_config_word(pdev, dvsec + PCI_DVSEC_CXL_STATUS2,
++					  &status2);
 +		if (rc)
-+			return rc;
++			return pcibios_err_to_errno(rc);
++		if (status2 != U16_MAX) {
++			if (status2 & PCI_DVSEC_CXL_RST_ERR)
++				return -EIO;
++			if (status2 & PCI_DVSEC_CXL_RST_DONE)
++				return 0;
++		}
++
++		if (time_after_eq(jiffies, deadline))
++			return -ETIMEDOUT;
++
++		msleep(CXL_RESET_STATUS_POLL_MS);
 +	}
-+
-+	/* Flush posted HDM writes before restoring protocol enables. */
-+	readl(hdm + CXL_HDM_DECODER_CTRL_OFFSET);
-+
-+	return 0;
-+}
-diff --git a/drivers/pci/cxl.c b/drivers/pci/cxl.c
-index eccdb57945fe..4c6b712ed4fa 100644
---- a/drivers/pci/cxl.c
-+++ b/drivers/pci/cxl.c
-@@ -1,9 +1,9 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /* Copyright (c) 2026 NVIDIA Corporation & Affiliates */
- /*
-- * CXL reset support in the PCI core. Cache the HDM decoder state of a CXL
-- * memory device at enumeration, so it can be restored after a reset without
-- * a CXL driver, and implement CXL Device Reset. HDM register formats and
-+ * CXL reset support in the PCI core: cache the HDM decoder state of a CXL
-+ * memory device at enumeration, implement CXL Device Reset, and restore the
-+ * cached state afterwards without a CXL driver. HDM register formats and
-  * programming live in drivers/cxl.
-  */
- #include <linux/bitfield.h>
-@@ -16,6 +16,7 @@
- #include <linux/jiffies.h>
- #include <linux/kernel.h>
- #include <linux/memregion.h>
-+#include <linux/overflow.h>
- #include <linux/pci.h>
- #include <linux/slab.h>
- 
-@@ -227,6 +228,150 @@ void pci_cxl_hdm_cache_release(struct pci_dev *pdev)
- 	cxl_hdm_cache_release(&pdev->hdm);
- }
- 
-+static void __iomem *cxl_pci_hdm_ioremap_current(struct pci_dev *pdev,
-+						 int bar,
-+						 resource_size_t offset,
-+						 resource_size_t size)
-+{
-+	struct resource *res;
-+	resource_size_t hdm_start;
-+	void __iomem *hdm;
-+
-+	if (bar < 0 || bar >= PCI_STD_NUM_BARS || !size)
-+		return IOMEM_ERR_PTR(-EINVAL);
-+	if (!cxl_pci_bar_assigned(pdev, bar))
-+		return IOMEM_ERR_PTR(-ENODEV);
-+
-+	res = &pdev->resource[bar];
-+	if (offset > resource_size(res) || size > resource_size(res) - offset)
-+		return IOMEM_ERR_PTR(-ENODEV);
-+	if (check_add_overflow(res->start, offset, &hdm_start))
-+		return IOMEM_ERR_PTR(-EOVERFLOW);
-+
-+	hdm = ioremap(hdm_start, size);
-+	if (!hdm) {
-+		pci_err(pdev, "failed to remap CXL HDM decoder registers\n");
-+		return IOMEM_ERR_PTR(-ENOMEM);
-+	}
-+
-+	return hdm;
 +}
 +
-+static void cxl_restore_pci_state_for_hdm_restore(struct pci_dev *pdev,
-+						  u16 *command)
++static int cxl_clear_memory(struct pci_dev *pdev, int dvsec, bool initiate)
 +{
-+	u32 saved_config = pdev->saved_config_space[PCI_COMMAND / 4];
-+	u32 restore_config;
++	if (initiate)
++		return cxl_reset_update_ctrl2_no_replay(pdev, dvsec,
++						      PCI_DVSEC_CXL_INIT_CXL_RST |
++						      PCI_DVSEC_CXL_RST_MEM_CLR_EN,
++						      0);
 +
-+	device_lock_assert(&pdev->dev);
-+	*command = saved_config & 0xffff;
-+
-+	/*
-+	 * Restore BARs and the related PCI state needed to reach HDM MMIO.
-+	 * Temporarily alter the saved command value so that
-+	 * pci_restore_state() enables MSE but cannot enable BME or INTx before
-+	 * CXL state restoration completes. Preserve the original saved value
-+	 * for the outer PCI reset path.
-+	 */
-+	restore_config = saved_config | PCI_COMMAND_MEMORY |
-+			 PCI_COMMAND_INTX_DISABLE;
-+	restore_config &= ~PCI_COMMAND_MASTER;
-+
-+	pdev->saved_config_space[PCI_COMMAND / 4] = restore_config;
-+	pci_restore_state(pdev);
-+	pdev->saved_config_space[PCI_COMMAND / 4] = saved_config;
++	return cxl_reset_update_ctrl2_no_replay(pdev, dvsec, 0,
++					      PCI_DVSEC_CXL_RST_MEM_CLR_EN);
 +}
 +
-+static int cxl_restore_dvsec_ctrl(struct pci_dev *pdev,
-+				  const struct cxl_hdm_info *snapshot)
++static int __cxl_reset_execute(struct pci_dev *pdev, int dvsec, u16 cap)
 +{
-+	int rc;
++	int rc, rc2;
 +
-+	if (!snapshot->dvsec_ctrl_valid) {
-+		pci_err(pdev, "CXL DVSEC control snapshot is invalid\n");
-+		return -ENXIO;
++	if (!pci_wait_for_pending_transaction(pdev)) {
++		pci_err(pdev, "timed out waiting for pending transactions\n");
++		return -ETIMEDOUT;
 +	}
 +
-+	rc = pci_write_config_word(pdev, snapshot->dvsec + PCI_DVSEC_CXL_CTRL,
-+				   snapshot->dvsec_ctrl);
++	rc = pci_dev_reset_iommu_prepare(pdev);
 +	if (rc) {
-+		rc = pcibios_err_to_errno(rc);
-+		pci_err(pdev, "failed to restore CXL DVSEC control: %d\n", rc);
++		pci_err(pdev, "failed to stop IOMMU for CXL reset: %d\n", rc);
++		return rc;
 +	}
 +
++	rc = cxl_clear_memory(pdev, dvsec, true);
++	if (!rc)
++		rc = cxl_reset_wait_done(pdev, dvsec, cap);
++
++	/* Always clear Memory Clear; successful cleanup must not hide reset failure. */
++	rc2 = cxl_clear_memory(pdev, dvsec, false);
++	if (rc2)
++		pci_err(pdev, "failed to clear CXL Reset Memory Clear: %d\n", rc2);
++	rc = rc ?: rc2;
++
++	pci_dev_reset_iommu_done(pdev);
 +	return rc;
 +}
 +
-+static int cxl_restore_state(struct pci_dev *pdev,
-+			     const struct cxl_hdm_info *snapshot)
++static int cxl_reset_execute(struct pci_dev *pdev, int dvsec, u16 cap)
 +{
-+	void __iomem *hdm;
-+	int rc;
++	u16 saved_ctrl2;
++	int rc, rc2;
 +
-+	hdm = cxl_pci_hdm_ioremap_current(pdev, snapshot->hdm_bar,
-+					  snapshot->hdm_offset,
-+					  snapshot->hdm_size);
-+	if (IS_ERR(hdm)) {
-+		pci_err(pdev, "failed to map CXL HDM state for restore: %ld\n",
-+			PTR_ERR(hdm));
-+		return PTR_ERR(hdm);
-+	}
-+
-+	rc = cxl_hdm_restore_state(&pdev->dev, hdm, snapshot);
-+	iounmap(hdm);
++	rc = pci_read_config_word(pdev, dvsec + PCI_DVSEC_CXL_CTRL2, &saved_ctrl2);
 +	if (rc)
-+		return rc;
++		return pcibios_err_to_errno(rc);
++	if (PCI_POSSIBLE_ERROR(saved_ctrl2))
++		return -ENODEV;
 +
-+	return cxl_restore_dvsec_ctrl(pdev, snapshot);
++	rc = cxl_reset_disable_cache(pdev, dvsec, cap);
++	if (!rc)
++		rc = __cxl_reset_execute(pdev, dvsec, cap);
++	/* Restore cache policy after any attempt to disable caching. */
++	rc2 = cxl_reset_restore_cache_policy(pdev, dvsec, saved_ctrl2);
++	return rc ?: rc2;
 +}
 +
-+static void cxl_reset_save_disabled_state(struct pci_dev *pdev)
++int cxl_reset_function(struct pci_dev *pdev, bool probe)
 +{
-+	u32 *saved_command = &pdev->saved_config_space[PCI_COMMAND / 4];
++	u16 dvsec, cap, ctrl;
 +	int rc;
 +
-+	rc = pci_write_config_word(pdev, PCI_COMMAND, PCI_COMMAND_INTX_DISABLE);
++	rc = cxl_pci_device_dvsec(pdev, &dvsec, &cap);
 +	if (rc)
-+		pci_err(pdev,
-+			"failed to disable device after CXL reset failure: %d\n",
-+			pcibios_err_to_errno(rc));
++		return rc;
++	if (!(cap & PCI_DVSEC_CXL_CACHE_CAPABLE) ||
++	    !(cap & PCI_DVSEC_CXL_MEM_CAPABLE) ||
++	    !(cap & PCI_DVSEC_CXL_RST_CAPABLE) ||
++	    !(cap & PCI_DVSEC_CXL_RST_MEM_CLR_CAPABLE))
++		return -ENOTTY;
 +
-+	/* Preserve the pre-reset snapshot if PCI state has not been restored. */
-+	if (!pdev->state_saved) {
-+		rc = pci_save_state(pdev);
-+		if (rc)
-+			pci_err(pdev,
-+				"failed to save disabled state after CXL reset failure: %d\n",
-+				rc);
-+	}
++	rc = pci_read_config_word(pdev, dvsec + PCI_DVSEC_CXL_CTRL, &ctrl);
++	if (rc)
++		return pcibios_err_to_errno(rc);
++	if (PCI_POSSIBLE_ERROR(ctrl))
++		return -ENODEV;
++	if (!(ctrl & PCI_DVSEC_CXL_CACHE_ENABLE) ||
++	    !(ctrl & PCI_DVSEC_CXL_MEM_ENABLE))
++		return -ENOTTY;
 +
-+	/* Ensure the outer PCI restore cannot re-enable MSE or BME. */
-+	*saved_command &= GENMASK(31, 16);
-+	*saved_command |= PCI_COMMAND_INTX_DISABLE;
++	if (probe)
++		return 0;
++
++	return cxl_reset_execute(pdev, dvsec, cap);
 +}
-+
-+static int cxl_reset_save_restored_state(struct pci_dev *pdev, u16 command)
+diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
+index 9e218f236e66..743e65abd758 100644
+--- a/drivers/pci/pci.h
++++ b/drivers/pci/pci.h
+@@ -733,9 +733,14 @@ static inline void pci_doe_disconnected(struct pci_dev *pdev) { }
+ #ifdef CONFIG_CXL_RESET
+ void pci_cxl_hdm_cache_init(struct pci_dev *pdev);
+ void pci_cxl_hdm_cache_release(struct pci_dev *pdev);
++int cxl_reset_function(struct pci_dev *pdev, bool probe);
+ #else
+ static inline void pci_cxl_hdm_cache_init(struct pci_dev *pdev) { }
+ static inline void pci_cxl_hdm_cache_release(struct pci_dev *pdev) { }
++static inline int cxl_reset_function(struct pci_dev *pdev, bool probe)
 +{
-+	int rc;
-+
-+	rc = pci_write_config_word(pdev, PCI_COMMAND, command);
-+	if (rc) {
-+		rc = pcibios_err_to_errno(rc);
-+		pci_err(pdev, "failed to restore PCI command state: %d\n", rc);
-+		cxl_reset_save_disabled_state(pdev);
-+		return rc;
-+	}
-+
-+	rc = pci_save_state(pdev);
-+	if (rc) {
-+		pci_err(pdev, "failed to save restored state after CXL reset: %d\n",
-+			rc);
-+		cxl_reset_save_disabled_state(pdev);
-+	}
-+
-+	return rc;
++	return -ENOTTY;
 +}
-+
- /*
-  * CXL r4.0 sec 9.7.2 defines the reset completion timeout encodings.
-  * Sec 9.7.3 leaves config-space access behavior undefined for 100 ms after
-@@ -394,7 +539,9 @@ static int cxl_clear_memory(struct pci_dev *pdev, int dvsec, bool initiate)
- }
+ #endif
  
- static int __cxl_reset_execute(struct pci_dev *pdev, int dvsec, u16 cap,
--			      struct cxl_hdm_quiesce *q)
-+			      const struct cxl_hdm_info *snapshot,
-+			      struct cxl_hdm_quiesce *q,
-+			      u16 *command)
- {
- 	int rc, rc2;
- 
-@@ -419,8 +566,15 @@ static int __cxl_reset_execute(struct pci_dev *pdev, int dvsec, u16 cap,
- 		pci_err(pdev, "failed to clear CXL Reset Memory Clear: %d\n", rc2);
- 	rc = rc ?: rc2;
- 
-+	if (!rc) {
-+		cxl_restore_pci_state_for_hdm_restore(pdev, command);
-+		rc = cxl_restore_state(pdev, snapshot);
-+	}
-+
- 	rc2 = cxl_hdm_quiesce_flush(q);
- 	rc = rc ?: rc2;
-+	if (rc)
-+		cxl_reset_save_disabled_state(pdev);
- 
- 	pci_dev_reset_iommu_done(pdev);
- 	return rc;
-@@ -431,7 +585,7 @@ static int cxl_reset_quiesced(struct pci_dev *pdev, int dvsec, u16 cap)
- {
- 	struct cxl_hdm_info *snapshot __free(kfree) = NULL;
- 	struct cxl_hdm_quiesce q;
--	u16 saved_ctrl2;
-+	u16 command, saved_ctrl2;
- 	int rc, rc2;
- 
- 	rc = pci_read_config_word(pdev, dvsec + PCI_DVSEC_CXL_CTRL2, &saved_ctrl2);
-@@ -455,11 +609,19 @@ static int cxl_reset_quiesced(struct pci_dev *pdev, int dvsec, u16 cap)
- 
- 	rc = cxl_reset_disable_cache(pdev, dvsec, cap);
- 	if (!rc)
--		rc = __cxl_reset_execute(pdev, dvsec, cap, &q);
-+		rc = __cxl_reset_execute(pdev, dvsec, cap, snapshot, &q,
-+					 &command);
- 	/* Restore cache policy after any attempt to disable caching. */
- 	rc2 = cxl_reset_restore_cache_policy(pdev, dvsec, saved_ctrl2);
- 	cxl_hdm_quiesce_destroy(&q);
--	return rc ?: rc2;
-+	if (rc)
-+		return rc;
-+	if (rc2) {
-+		cxl_reset_save_disabled_state(pdev);
-+		return rc2;
-+	}
-+
-+	return cxl_reset_save_restored_state(pdev, command);
- }
- 
- static int cxl_reset_execute(struct pci_dev *pdev, int dvsec, u16 cap)
-diff --git a/include/cxl/hdm.h b/include/cxl/hdm.h
-index f6446a2a7fcd..445093cf0452 100644
---- a/include/cxl/hdm.h
-+++ b/include/cxl/hdm.h
-@@ -52,6 +52,8 @@ int cxl_hdm_decoder_count_mapped(struct device *dev, void __iomem *hdm,
- 				 resource_size_t size);
- int cxl_hdm_read_state(struct device *dev, void __iomem *hdm,
- 		       struct cxl_hdm_info *info);
-+int cxl_hdm_restore_state(struct device *dev, void __iomem *hdm,
-+			  const struct cxl_hdm_info *snapshot);
- bool cxl_hdm_cache_present(struct cxl_hdm_info *const *slot);
- void cxl_hdm_cache_publish(struct cxl_hdm_info **slot,
- 			   struct cxl_hdm_info *info);
+ #ifdef CONFIG_PCI_NPEM
+diff --git a/include/uapi/linux/pci_regs.h b/include/uapi/linux/pci_regs.h
+index facaa324bd86..7224857c7b30 100644
+--- a/include/uapi/linux/pci_regs.h
++++ b/include/uapi/linux/pci_regs.h
+@@ -1352,8 +1352,22 @@
+ #define   PCI_DVSEC_CXL_CACHE_CAPABLE			_BITUL(0)
+ #define   PCI_DVSEC_CXL_MEM_CAPABLE			_BITUL(2)
+ #define   PCI_DVSEC_CXL_HDM_COUNT			__GENMASK(5, 4)
++#define   PCI_DVSEC_CXL_CACHE_WBI_CAPABLE		_BITUL(6)
++#define   PCI_DVSEC_CXL_RST_CAPABLE			_BITUL(7)
++#define   PCI_DVSEC_CXL_RST_TIMEOUT			__GENMASK(10, 8)
++#define   PCI_DVSEC_CXL_RST_MEM_CLR_CAPABLE		_BITUL(11)
+ #define  PCI_DVSEC_CXL_CTRL				0xC
++#define   PCI_DVSEC_CXL_CACHE_ENABLE			_BITUL(0)
+ #define   PCI_DVSEC_CXL_MEM_ENABLE			_BITUL(2)
++#define  PCI_DVSEC_CXL_CTRL2				0x10
++#define   PCI_DVSEC_CXL_DISABLE_CACHING			_BITUL(0)
++#define   PCI_DVSEC_CXL_INIT_CACHE_WBI			_BITUL(1)
++#define   PCI_DVSEC_CXL_INIT_CXL_RST			_BITUL(2)
++#define   PCI_DVSEC_CXL_RST_MEM_CLR_EN			_BITUL(3)
++#define  PCI_DVSEC_CXL_STATUS2				0x12
++#define   PCI_DVSEC_CXL_CACHE_INV			_BITUL(0)
++#define   PCI_DVSEC_CXL_RST_DONE			_BITUL(1)
++#define   PCI_DVSEC_CXL_RST_ERR				_BITUL(2)
+ #define  PCI_DVSEC_CXL_RANGE_SIZE_HIGH(i)		(0x18 + (i * 0x10))
+ #define  PCI_DVSEC_CXL_RANGE_SIZE_LOW(i)		(0x1C + (i * 0x10))
+ #define   PCI_DVSEC_CXL_MEM_INFO_VALID			_BITUL(0)
 -- 
 2.43.0
 
