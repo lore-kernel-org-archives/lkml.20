@@ -1,107 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C1FA23817E;
-	Sun, 11 Oct 2026 20:44:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791751450; cv=none; b=Xte5PIRQ+Ek55gqFxJnMsG3mVaGpkL7axyVM/aQLNgz18iFDkdIHW0N4CizQwh5jfL4j9o6pG7mTOycYg8vakeoCXooSdVyTRQ+Pt2uG/arWs4u5w+2K1fqhFJlGeiduSAIhtGNgCIgfQ47Bzk/u+ojDw8yPyF2+suIWd635MA4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791751450; c=relaxed/simple;
-	bh=qFwGJErAOF1xJhe3RYW0olYnPq0313Jj84maBd/9NRE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=gNLeBDmISeQxRkqVKjkDPjtZwaVCunU/OdolNpeU9QiI8luqxsPNGZpo+OmsmeMCU6lfIFvQjujp0Lvbc9un4Y6uFDMUbEH2ElKJ9P+P+rDaeyEg4wyH/I19sdcOX2IoaMF3F+W9axVUjs6muo9425Jb3j/jhY8fO/Vc1ldNBKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PFCW3XMn; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAF3B360EE5
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 20:50:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791751813; cv=pass; b=aLEjqcvfOUa50/ltlNPxGtvczbnwo74z88nrtDOpvmQhFwlY1tNuP/SZZpuS6wxEV7d3QNfnJ7kj/Drz8nTJJ+aHNTn/2yI+V6IwBGoqs8PwQwPUro3OzRk64zgt9zTF0b7kBbIBw/d5Fp6rSZc+b76G8eocBNGtNZymXYrzQiQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791751813; c=relaxed/simple;
+	bh=DDg4auuOqPrEXGrToBLHCiNJTDyvgWN+z8Xmqs3ZOYo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=aewJToNutvUaATlYMiu1Wqekoc7dTEM6UCDySzu9q6PCGvumDLCabCcTHKWRiw+2r9IHGuTRo1uZ9ISRknLrDHMktFy42ZjmSM8gXg9XZ9Mqd/jo5DG/iJRZFaLHujv2C0WDzQ5UNQxWnCbR/zyHoRoITiVVwXw67ln2N6EBrig=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=XjAPXvFX; arc=pass smtp.client-ip=74.125.224.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PFCW3XMn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 480121F0089B;
-	Sun, 11 Oct 2026 20:44:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791751448;
-	bh=jwsaWPFL5lSwMPYPKntzvuLOFwYaczrmDVzo/Dx8PRU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=PFCW3XMnfU6kH3gRH6dy9KV8ldB4nP1e8vhhv1NMTNMx6U4g670H3uiDL3bPgqujr
-	 +grhzBWVN1agI5VrOxN9TtjkpWUBXUAYudMOKS1NnjTdD9udHetuQ9jEMgRNydnpVF
-	 0ixyg22xSTAJ2tWuxmbNPmIBWgpX7oOUNCBHR+sukMNSdSh8RuGs9qet2hE3g5CLdH
-	 Tqc3LP7mMlPTt5aDB+Pp8lHrgJ/ZQIDb2/I5uNHoIhSb3grNFZxRXCaJ+hovYecilU
-	 ZRcDV8fe+U//rdMiY3F8hfh6yibgFmNpaKvQofch421mUSzTT9NFqjVpgPfjU7bXoL
-	 qYW4YZVVrnbrw==
-Message-ID: <b33f6c72f102b1181e2f6ef605c8958800be4784.camel@kernel.org>
-Subject: Re: [PATCH] rds: fix out-of-bounds conn_path walk in peer gen update
-From: Allison Henderson <achender@kernel.org>
-To: Henry Martin <bsdhenrymartin@gmail.com>, "David S . Miller"
-	 <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	 <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
-	 <horms@kernel.org>
-Cc: netdev@vger.kernel.org, linux-rdma@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Sun, 11 Oct 2026 13:44:07 -0700
-In-Reply-To: <20261008164041.961961-1-bsdhenrymartin@gmail.com>
-References: <20261008164041.961961-1-bsdhenrymartin@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="XjAPXvFX"
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-67583c777abso1146708d50.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 13:50:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791751811; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ERs7w+Lz5En+G6U4T3Hd3JmXlGwi3ugi9EG0OemY7+rPwW86iRRMzSvxU6TkNdVie2
+         9u7+ZQfmJd9c5s56MOoZ719TWkeHSS1L5nSQWpyeIaIJ8g3EMgxVtL1FqCRPgNb4A0l1
+         szHX8zay2Lxyh85QhKaytYEIyWTRb/K0iWtw77MrvUScfZvCfQcsjiApDKt9VDE8Zunp
+         mIoauHuaoTIFtseNBwNeRbSpzAqDY0usnPKpdtXH86n73QQIgCGFlDjiTwBTLnvvFDkV
+         tI/ypqtxlxnWNFzrkOZIxN+LSBZKGDzJqsgqSz6D3npGYPRPLJWoWKWAQb5Y3cSTCUdR
+         tnKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Rc3F184YUjrOopP/BvFd/ZpML46lL0W1tVVXp9Yb9rU=;
+        fh=ZxGzqfPrtCRHz1tnBPZSFU8LZRcVhg5M4RWmZ51PHvw=;
+        b=ONMUTL5enEKCcA5dyDb88J28UrduV65UgVy5ikfzeq6Wsqz6UMFXs1BgFAxxsoszjx
+         URFW38oQ8o77ES934ggCsExGC4kZmcWFnwq/csjAMRjhF1GACWQai5/qUIDuE7cMrQds
+         7EkHiath6tIPw2l2A1xFXLXuO1xCb/SUFOIBVMsMnVeVxomh8jsHSLLzNWOhlP6W/AD7
+         YJyDLWUKvmPQETE3QPT1LcY8oLRDHS8tAB5iVJr1wcsACgTiZn98XsliYYgvbMB6CS+0
+         RnJrPGeRplI8vDThdsJBIw5Qepc/gFhfd6NXRe0xwQDDtz9J431FYmdJ6huwqqNKpnt1
+         m92g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1791751811; x=1792356611; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Rc3F184YUjrOopP/BvFd/ZpML46lL0W1tVVXp9Yb9rU=;
+        b=XjAPXvFXH8ronGJIvWKruGn67lXo/MgtL54mIBrVmqD1OF+/SP5hu1752BtKm2Lpa9
+         xh0g4uWcnI2HCWxIuZ++rR/nTtAKuo4lvsF5KcytljNhSUSlYvpf9dACZOc03yK/SEAa
+         kG7uOqpkjOHQLvPqyJoC5BeHlfXFjni0509WfoXbRuNQ8dbOTc1hH11sKmlycWdFqbfu
+         2BxfHN0QPspETjcWlsrP6iZjJoShSqpinxEQzhl1zAQLTFgq5BFcPmq2jGRPXd5wgL/i
+         2dsejMB1s/TQ8QjjxeFeCzgDhg8DNZzZXayVOJZzgXO9KAC7dkSRVTUUmRZMINUx5DLH
+         9oeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791751811; x=1792356611;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Rc3F184YUjrOopP/BvFd/ZpML46lL0W1tVVXp9Yb9rU=;
+        b=I4b/4684wce9m6onLFxJj3D3CyRzmmi3NGMToglYT6fgqnVAsUBlDpzqfMNmyjkCMI
+         ZEVLG+PcEpyEUQBWy8fZkB3HErLc7+qaM+gc7Ihi0JdN1qP2jqa5cms77uDmwTubbE8r
+         CAYITQN4exHUaLROtyq6GninFlkZ4wXfj/5ujANkJqd4TTOUJcI+j+Y3kwiG2YRue2/J
+         8GJ0LdnRETVBP9rrQbD1DywVDXEnJYl0QHbzk1yMO9OQb7l5eLT66bXvYGH1WgGoBzNB
+         mwpapwvZw4Z63G1epiDuP7a/dYNVNy/byMlrO/ZxnMAUkbdv57Y2XShiFc0O3zEHF1Wl
+         fqZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz5OafSAjrBeaNHNXkcOPInkhnivPuhoJDsmL7+opoFqET5PNVa3VnAwmNFP4+4k4w83lJXbYIROnL48sQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIMJ3oIeLXD3J4UtlMvr/1SX4svw/xDngusSk7AXOa+cACIFwu3
+	r/iWtX/hZP0j1G+uvvyMLUijH+HjpK5BgT0BAKDKQonloQ/GPo9EOgyBMWH9++mJIPq5wnpf61W
+	jdaYv41THxi23PyGUjUkFSYaVmJCZDto=
+X-Gm-Gg: AYBFou3AuiLSGMgZPG8AvMPu8UlGrNmOcSVmbbjVCEY1TbP6rhdH6OHPDXw5iLqfkKh
+	if4irFgCxHcHJKfs2YMChpXUydEkHKYaXsWLtfK5OraW5Y00KiYYFJrROVaKOTdZUtM4wlO/0RV
+	7miJPGM2Lr1qYSqn2KgETgpFFnmUIiwiYaaeADQQ4B13oDgFAOdUZjaXzMK/ihphRV46snZje0y
+	hV/OJn2xhVbYQZxXyzfI5NR5OXcG9yUUWs6QZ0OoV/aK6cm49XOCqrbh65FcFnv43GEvRigOInO
+	Seii/aqjBWyVlY2RuVBIJjBuugo+8SvgSYTrvIIMIoS7jhqUAj5WcNCELQMh4TUiwwvt6CDohi1
+	ymHBjGBtkl6oH
+X-Received: by 2002:a05:690e:144a:b0:672:bd30:83bd with SMTP id
+ 956f58d0204a3-679369c2fbdmr2874224d50.49.1791751810698; Sun, 11 Oct 2026
+ 13:50:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20261011-odroidc2-dts-v2-0-a3a4a752f2ab@gmail.com> <20261011-odroidc2-dts-v2-1-a3a4a752f2ab@gmail.com>
+In-Reply-To: <20261011-odroidc2-dts-v2-1-a3a4a752f2ab@gmail.com>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Sun, 11 Oct 2026 22:49:59 +0200
+X-Gm-Features: AclHuK_PzKBu8m_ohCyUp7PhTYe_NgQTHs4WyLsmyGpLktVRlcmdBIs7NzTNljY
+Message-ID: <CAFBinCAOsJG=ROP43+pj9dqYc4yWXs4RQisRZghqzbtspp=e7A@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] arm64: dts: meson-gxbb-odroidc2: read the Ethernet
+ MAC address from eFuse
+To: filipp.dunsky@gmail.com, Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Jerome Brunet <jbrunet@baylibre.com>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 2026-10-09 at 00:40 +0800, Henry Martin wrote:
-> A connection on the IB transport (t_mp_capable unset) is allocated
-> with exactly one rds_conn_path slot, yet the peer's genetic number
-> update routine is hardcoded to walk RDS_MPATH_WORKERS entries whenever
-> the peer announces a non-zero gen number that differs from the one we
-> cached.  Everything past the first entry lands on whatever happens to
-> follow the single-slot array in the same slab slot group, and the loop
-> then reads and modifies struct fields there (lock acquired,
-> cp_next_tx_seq cleared, retransmit list inspected).  A malicious peer
-> can therefore force consecutive out-of-bounds writes into neighbouring
-> kmalloc-512 objects (KASAN: "Write of size 4 in
-> _raw_spin_lock_irqsave").
->=20
-> The allocation and the walk now agree on the same expression
-> (trans->t_mp_capable ? RDS_MPATH_WORKERS : 1), so the loop can never
-> outlive the array regardless of what the peer reports.
->=20
-> This vulnerability was discovered by Tencent CodeBuddy Security.
+Thank you for your patch!
 
-Hi Henry,
-
-Please see my reply to the NPATHS patch:
-https://lore.kernel.org/netdev/20261008163843.957325-1-bsdhenrymartin@gmail=
-.com/
-
-We should fold this patch into a single v2 from that thread.
-
-Thank you!
-Allison
-
-pw-bot: cr
-
-
->=20
-> Cc: stable@vger.kernel.org
-> Fixes: ba3d1f480c7a ("net/rds: size a connection's path set by the transp=
-ort it ends up with")
-> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
-> ---
->  net/rds/recv.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->=20
-> --- a/net/rds/recv.c
-> +++ b/net/rds/recv.c
-> @@ -144,7 +144,8 @@
->  	if (peer_gen_num !=3D 0) {
->  		if (conn->c_peer_gen_num !=3D 0 &&
->  		    peer_gen_num !=3D conn->c_peer_gen_num) {
-> -			for (i =3D 0; i < RDS_MPATH_WORKERS; i++) {
-> +			for (i =3D 0; i < (conn->c_trans->t_mp_capable ?
-> +			     RDS_MPATH_WORKERS : 1); i++) {
->  				struct rds_conn_path *cp;
->=20
->  				cp =3D &conn->c_path[i];
-> --
-> 2.43.7
-
+On Sun, Oct 11, 2026 at 8:31=E2=80=AFPM Fil Dunsky via B4 Relay
+<devnull+filipp.dunsky.gmail.com@kernel.org> wrote:
+[...]
+> +&eth_mac {
+> +       reg =3D <0x34 0x6>;
+> +};
+Question to Neil: should the eth_mac node be moved from meson-gx.dtsi
+to meson-gxbb-odroidc2.dts?
+Odroid-C2 would be the only board using it and u-boot seems to derive
+MAC from SoC chip ID/serial number instead of reading it from eFuse
+(so I'm not sure about the status of MAC address in eFuse on most
+boards).
