@@ -1,165 +1,106 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0350335BDB
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:32:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D7FE345EA7;
+	Sun, 11 Oct 2026 16:32:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791736377; cv=none; b=NYPppCn/ycB3GJXIpmDccBWBWWhjCeCzVmb+BDYBxy2PSDMALupZ+SBRkZtfSSpH82iIDIEIFjoPsQ4F7ZIJNT+RKVFKcQ9us8VMQhbFqe3hpWAPQKlE7f2ax2AdlgpRMY6zxlHzH8zXZw32vDkE6FKJEuQiSLB9iwyM/jtC1Pg=
+	t=1791736380; cv=none; b=hO7nCurEyahifIA+C9aZW5hLgwdskiE1baH3gBjE0gCtdDPM7AAo5y7IpBXOmgkDiqR+JfvlL+vjBr+hxH7WLv/FFBw6JnqWQCMtJ2C240/QNbuOyFArYDZjYA2Y7LnDSLEi110b+O+DrpkxhmwPdo2DBMqD3H1xw8Ah2AcpbgE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791736377; c=relaxed/simple;
-	bh=ksiJ7Ku4UCtrC0N0jmz3YWLOf08sKJ5ATpUDWt0FsFo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=J0WKiS+6OR66EJuxlj0Lc2Shv/fURWjpqJMgaPLz+NExiFAugLXOqeJpB/0uxNv6UUqkdbrHb/cSBGIOxIDt7xfL/t6o2ps/TdU8fevs9qiJ6Aivq1y5pAk0x5A1ioWelkBnDSQ8uG3ofdhGOXMMqP9psh8H9Kub3u/8WR8IY8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oNw40hmy; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791736380; c=relaxed/simple;
+	bh=/cuBUaquJ2a07DhLKJpcdd1MlzI9nlDsrijVzpfKbC4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NpkBrncybfYMREPMtVPJ4VzdbFSUJ90t2Q2DZIe8o35fwUK0sdZlDg2w2Nl6ftuG4lTsQ1KsosIwBfAXL21y/7nBQQGLVjYUfsgWYrscsGeknm1c7t241AU9X+J0Vc6WAmMEM09pZLwHtAIPAeUW0fPi9tI04BRKhW670fbXg4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=aaNevFrD; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oNw40hmy"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48af27fe287so987250f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:32:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791736373; x=1792341173; darn=vger.kernel.org;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ksiJ7Ku4UCtrC0N0jmz3YWLOf08sKJ5ATpUDWt0FsFo=;
-        b=oNw40hmynIT6k5A3rO6aAD8SUzY6NU/0EmKSd33HNs3QgTHBxh8Rl+aUmDjn/z3hFV
-         PwqUjlwP+apuVXI/YS98tou91vuosazRgR0nnXRZ8ss6RWphutN1wur/DgasXCUemSoh
-         d0iR8EuKvk6WhGXSNguiSYE/+09BvG4tqriPnn5AE+L93S13Exux5Z3uKaC/8K4dLr07
-         p6FMgcReuFydDOIqrmwEdDXtQPcQPgSWxJVHJXNhbIstNgWHF3x9kCZLNcf8L7QCe4Y/
-         VAwYEeK3c44ZowTR3iPv55XQvUbkOub1zgLSwmdEULUi3pUVbU5UVa25CeGWlcw8QRJT
-         4i/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791736373; x=1792341173;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ksiJ7Ku4UCtrC0N0jmz3YWLOf08sKJ5ATpUDWt0FsFo=;
-        b=ZofAItasCsUQ7r+BkxWEAI9qwPm6ZhPrVXWlBztuzGb9Vjh/rCeztYWp+LxFkMhnHl
-         mfaCOUtorcqYujHAG0VFnk5yG78tSD4jmMgcWF2JKCjRX6m3Clm2Ykzz6kTEfrKoGPH0
-         PgmwEJo0C7BZHYjiLzIDWKA8TFMCZqV5wJbeKsxEkOPWo5Xh1Nnz0EjFUEErwGiEtX1L
-         D6/+MygIa9y3+JCivdu+CsyFoUuPFOFyAWF6yG/pvVkUi6TAPjO3tmDA2+039Pnu1tdR
-         AG6j+PLi0JD46pKSkSZPeMCD1JGSFBj3dSk5Esk7xIa+2wwozXDLHX+sufUxwjPYbz0a
-         brNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxF7vXbQCgbA7gjznXep0hYYw9xOaH60nqXYhZCq8IbP+3vuuIKP/xHrXJ94i/T0PHYCJOu7GdwEXxb9K4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKNRguZ9G+MakBK0jIuyy50hgzjji6PkzuHtLi2AQ0jW7za8TyD
-	t1hGXFl6p94nXAtgP4lICI/g9xL9zP1h04uji5/qlS/heYomHs8zgVD0
-X-Gm-Gg: AYBFou28pmCpGRQ+l95BVR4VqSHTYXakTjqq6U6/QMFxNnq5ORMcilJNc23qbFAbcE2
-	538970KO5+Nt2CCqvJ7XZMBWxVFBxucv3+ZkO1B+TFTs+FN1mISwdEhmLSkWmXJr3KCYyN9wMnl
-	7fLg4sARZ08+kLegVQ9kgQItOXtQOb1ltjJZ/NSWtRdGC1peWhuY+rk8pefSeyjie19/D+wDJp1
-	T8CvpndNbpSetNHjJMcIBGyllhg4QcF8ElLhVer9CymiYo23AxD8gxqJXqCFcvHmWOg9hrrA1Xl
-	lFbHvvlXEVe+spQWeT493hCp1lkePvnzneifZhMDTKtNQN5utrN9LwxfUVfdmIVy4xMJtjBD9r4
-	4ISXDvM1wWiJNnKPODXuW0hOlbGq0mh2/ivfjmZieXNftfbNFr4RVyDFbBVjuw3xM6p5/kF+quJ
-	NG5qtjLCsQsBYFotZI+fLJtZ/k2ujK4QaAR11V4SaAOoD1JX9SVF+Jaqo3EFiuvcguixWu2Q1t0
-	gEdXi6s8cl5HzWQ3AYkMsA2qjOUwffUU2WJG424Zb9+45e4zc5RzYLP
-X-Received: by 2002:a5d:58dc:0:b0:48c:77aa:2f78 with SMTP id ffacd0b85a97d-48dbacecfd8mr10168095f8f.56.1791736372532;
-        Sun, 11 Oct 2026 09:32:52 -0700 (PDT)
-Received: from silicon.doe.home (178.165.167.132.wireless.dyn.drei.com. [178.165.167.132])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dba1be42esm16537414f8f.5.2026.10.11.09.32.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 09:32:51 -0700 (PDT)
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: linux-arm-kernel@lists.infradead.org,
- Navid Ghahremani <ghahramani.navid@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, arnd@arndb.de,
- linux@armlinux.org.uk, robh@kernel.org, krzk@kernel.org,
- Navid Ghahremani <ghahramani.navid@gmail.com>
-Subject: Re: [PATCH 20/24] spi: Add ZTE ZX279128S SPI flash controller
-Date: Sun, 11 Oct 2026 18:32:46 +0200
-Message-ID: <QRsVQG8CQny06omTkaluXQ@gmail.com>
-In-Reply-To: <20261010130024.177503-21-ghahramani.navid@gmail.com>
-References:
- <20261010130024.177503-1-ghahramani.navid@gmail.com>
- <20261010130024.177503-21-ghahramani.navid@gmail.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="aaNevFrD"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4j2mNk3YZ4zMlD7;
+	Sun, 11 Oct 2026 18:32:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1791736374;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=sYYycMqiVoFa/In0q5D6DkIyhVz7l1DSpsMozbaO9Mk=;
+	b=aaNevFrDBY4/BnVUFn3fce1d8/Lf6xGMO9mu0Cw0hk/Zf+tBpOwRdcU9haHXw9glnp3yiT
+	sJEW+mhr6FNbsHz7om9i0npoTfRaH7Qw9kdKKaJqGn6tkh8rRW47D2iad12hmbdGWEDguO
+	YqKEdtaANLVchnxf3Pczbi4CnUIMoT23UgxTEffbu2EO5vEi0ccskgnlXzLP27SkEUM38a
+	g0LO041FEujMHf/YTHyNcDYj1wt28NYkf37Ybz6epl82mvERuOw1txSrvS15c8fuEGmGKg
+	4ryzN54AqPx5kYBGQdYIVKb/8jjgUxTSIKA/4Hp7FI3E6oT6RhwFSF2gw8NPvw==
+From: Alexander Gruhlke <gruhlke@mailbox.org>
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Lukas Wunner <lukas@wunner.de>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Alex Williamson <alex@shazbot.org>,
+	Hui Wang <hui.wang@canonical.com>,
+	Linux-Fan <info@masysma.net>,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev,
+	Alexander Gruhlke <gruhlke@mailbox.org>
+Subject: [PATCH v2 0/2] PCI: Wait after FLR for devices that don't honor Immediate Readiness
+Date: Sun, 11 Oct 2026 18:32:47 +0200
+Message-ID: <20261011163249.18479-1-gruhlke@mailbox.org>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPartl3bGPPFXTCGY5ZUHclgI1Q";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: wcbrptn7dtw79cc8dsx9thu4bp6dbs79
+X-MBO-RS-ID: 84e71635b72763824ef
 
---nextPartl3bGPPFXTCGY5ZUHclgI1Q
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-Subject: Re: [PATCH 20/24] spi: Add ZTE ZX279128S SPI flash controller
-Date: Sun, 11 Oct 2026 18:32:46 +0200
-Message-ID: <QRsVQG8CQny06omTkaluXQ@gmail.com>
-In-Reply-To: <20261010130024.177503-21-ghahramani.navid@gmail.com>
-MIME-Version: 1.0
+Since v7.2, VFIO passthrough of a Samsung 990 PRO NVMe [144d:a80c] fails
+on the second VM start, and the device is inaccessible until reboot.  The
+drive advertises Immediate Readiness but returns ~0 for up to 7 ms after
+FLR, so since 10baa9b4df40 ("PCI: Drop unnecessary retries when restoring
+BARs") the config restore after FLR is lost.
 
-Hi,
+Patch 1 ignores Immediate Readiness on that drive.  A 990 EVO Plus
+[144d:a80d] reports the same errors [1], but it isn't confirmed to
+advertise Immediate Readiness, so it's not included.
 
-Am Samstag, 10. Oktober 2026, 14:59:58 Mitteleurop=C3=A4ische Sommerzeit sc=
-hrieb=20
-Navid Ghahremani:
-> Execute bounded SPI-memory operations through the controller FIFO. Honor
-> device and operation clock limits through the CRPM divider and cap the
-> validated maximum at 50 MHz.
+Patch 2 is independent and keeps pci_dev_wait() from treating ~0 as
+ready with RRS Software Visibility, which also affects the Intel
+[8086:0a54] in the open d591f6804e7e regression.  Hui, Linux-Fan: testing
+patch 2 on that drive would be appreciated.
 
-The registers look identical (though with slightly different names) than th=
-e=20
-quad SPI controller on my machines. I have a more advanced driver here:
+Tested on v7.2.9 (Ryzen 9 7950X, X670E, drive firmware 1B2QJXD7): with
+patch 1, three VM starts in a row work, and every FLR reports "ready 0ms
+after FLR".  After updating the drive to firmware 8B2QJXD7, it still
+advertises Immediate Readiness but responds right after FLR, and plain
+v7.2.9 works, so only older firmware is affected.
 
-https://gitlab.com/stefandoesinger/zx297520-kernel/-/blob/dlink/drivers/spi/
-spi-zx.c?ref_type=3Dheads
+Patch 2 in this form is only tested for regressions, as the drive no
+longer shows the problem.  v1's variant, which read the Command register,
+was tested against it, and the drive's Vendor ID read ~0 while it wasn't
+ready.  Applies to pci/next.
 
-Please give it a try on your hardware and see if it works.
+Changes since v1:
+- Replace the pcie_flr() change with a quirk for the 990 PRO (Lukas)
+- pci_dev_wait(): check the Vendor ID for ~0 except on VFs instead of
+  reading the Command register, and "may return" in the comment (Lukas)
+- Swap the patch order, as the quirk alone fixes the regression
 
-My driver has optional DMA support, which does allow measurable improvement=
-s=20
-in situations where SPI access and CPU activity happen in parallel (althoug=
-h=20
-DMA operation is slightly slower than PIO with an otherwise idle CPU) and I=
-=20
-tuned PIO mode a bit (in particular avoiding redundant fifo size reads).
+v1: https://lore.kernel.org/r/20261010160529.27974-1-gruhlke@mailbox.org
 
-The qspi driver is a bit down on my FIFO queue (I plan to take care of pinc=
-trl=20
-and DMA first), but I can speed it up if your board gets to a point where S=
-PI=20
-can be done reliably first.
+[1] https://bbs.archlinux.org/viewtopic.php?id=314833
 
-On the hardware otherwise, it can also raise IRQs when the read/write FIFOs=
-=20
-are above/below a certain threshold. That allows PIO mode without constant=
-=20
-polling. I found that it doesn't have an actual performance advantage over=
-=20
-polling PIO mode even when pushing the CPU during SPI transfers. DMA mode h=
-as=20
-clear advantages in this regard and I found no need to implement an IRQ dri=
-ven=20
-PIO mode. If the performance characteristics on your board are different we=
- can=20
-reconsider this.
---nextPartl3bGPPFXTCGY5ZUHclgI1Q
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
+Alexander Gruhlke (2):
+  PCI: Ignore Immediate Readiness on Samsung 990 PRO NVMe
+  PCI: Don't treat ~0 as ready in pci_dev_wait() with RRS SV
 
------BEGIN PGP SIGNATURE-----
+ drivers/pci/pci.c    |  8 +++++---
+ drivers/pci/quirks.c | 11 +++++++++++
+ 2 files changed, 16 insertions(+), 3 deletions(-)
 
-iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmrLui4bFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMywyAAoJED0TvMhUTxoiohIP/jltt0RdhiQcFCJFiY+i
-lBWYzFfkpW0WFbbuaPjW07QU6TdmsxABYgtMo5UywPDwJWTuxuWseKezgKcvAu93
-aBjVqfPFTTzLHuLOS9Lvw9+kLzMTTMXNUDmyJdknX6o3MATiXogR65iHx2QLKXUJ
-Y7qtesJzGYj6G5HbN0OmNJAv04MR+44AtAkwso0XQQ8okMG/yy9uebCsAGQTCQqD
-zWHgbM+m2HAo2cGDAW5VAA49G3GnVUod7kAiCYN1+qwP7/Eahft6Ahvh/30adTTJ
-I7StoebO/u6OmOpBrHLNCZRxGX/xZNNYzjhvsNz6cBPFxmcBmXYrs2nSe7daBbAj
-tT890gloLO7vRy9S24zRzks4qRP58KjAHge/p82nw4n3lw0/WLrFWlwmnW5taghI
-VfIrc51nV9hCh2QVh/duqzEMYSKw2pgf8PETjR2185t+J7ioga4wbMVsNV8FJ1cb
-YGD335pLu8UrmU/k7yH91l0NUD4A0szLWfOmZY1bhcm7XD4MG7Yy3UAp1IqbVPb4
-es5TEKmpx17UqW8PbxdRqYGSoCvm7PKVxz1W8/L8HHMPFdLh6GFVLn8t8D6ip9Zs
-z5pOSJw8bzOEb6eU9zlkJZ1hF0zEgHLd+RcIJe6yEvwcV96D8waWRc8e3FYW5jyg
-nGvefMr6NWI8W0ygaYQIDGLk
-=l+tS
------END PGP SIGNATURE-----
-
---nextPartl3bGPPFXTCGY5ZUHclgI1Q--
-
-
+-- 
+2.56.0
 
