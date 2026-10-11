@@ -1,121 +1,149 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64AFF2F7EE0;
-	Sun, 11 Oct 2026 22:02:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3536F4570C3;
+	Sun, 11 Oct 2026 22:02:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791756120; cv=none; b=FU+GH/96V4lhMlaJdsQ2k+/g7YfG+uF5hsn/kjRO5ym5Pgn1XqXGquEMsGPxpp3KXr7QoNgWHpfOT2r4x52UitdZtUUFnGLk7/ifN9Y2/ODv/iipmMiDTUwRYP4XwcuPdCuT1NaZXQLsj1MKAYZHlyClruEeoEZqtT+RtBaISeE=
+	t=1791756131; cv=none; b=fC/IY+yzjOA40ctG7UUrqCGS/F/EB3k8CWWLS6K87d+9tpsPU+wGdla9BM66tl7/OVtWrMqxU7IGPmkzKI3jFN3ho3PdRyfLx6GZurdzdEfoqCvWo/84YJxU5/rq95QsuTfqE1K+w/fGCvkkiVKCXnIuu0dUXgtMgE9A+g8yqhY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791756120; c=relaxed/simple;
-	bh=1fW0XKYtdagdZuFVD5Q5U2KR8FhzkEtOyk1ibS6hp1g=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=M8nrmbtnn1bVsYlmFhSWsadVBjDsvRWDPvGJ1vKbdSNWGs6TMR0KeirUQ9S/DjG248CtdVWLOYCX95gKAJEFqdZtia/47QRZgCiFxKjLQjw4qdtY67JrU/JGPRSLYZUpK6mivjdbbAZIZ1e0/rhAVfPVSFhXiauEPWsfzePr5Fk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EFXY2cuj; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791756131; c=relaxed/simple;
+	bh=fWDUgWfLDcvrAGGHQ5c29HYOyOQhG8FxqnSanGkMpBU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=OHy8Z66BDoxvfFBp31OOK4AfVQutbJI3aPHfjuA4CwLmw9RX955tZJoRdpfbBifnxl7YyO5KCXgmCtu3EH8UJ7VAAEB0fAr/5rp/vkqBYZq3ll62/35H5GpM30NjaUUVtT1aMxrW2OxcT4UfeeH1eViBaapmbtxIB33z56BrXBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mOM1A5TG; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EFXY2cuj"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D6FCBC2BCF5;
-	Sun, 11 Oct 2026 22:01:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mOM1A5TG"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C3519C2BCFA;
+	Sun, 11 Oct 2026 22:02:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791756120;
-	bh=1fW0XKYtdagdZuFVD5Q5U2KR8FhzkEtOyk1ibS6hp1g=;
-	h=From:To:Cc:Subject:Date:Reply-To:From;
-	b=EFXY2cujf1OPa95w6QTbAur5NetU2BWeJpadFEwbjy+qlGU7SEgEvwyGOog1a6Ys8
-	 Nj8WGOoYheVVH06AWIM6Qkaq4TH5cL46AiwNHLhmMqGmdyE9OhX08RR4V7OHmeVGLb
-	 R6JVVAFIEehe9zYE5niorO0rWCluBKEsq/uyhcmwjmO4Q7JfsJQkNODd/dOZ3XOkg4
-	 A3d95yF9U4T3ZXty2QtG+0vweKyRqJBoCv6DSk1FfCEKLDIyWN5qdnNxP0Ij8fZ0Ff
-	 GoCpnItwNRCcS6GTG9cPgut+col+o9wTbGSbU1hWtt7S1UPw5DE49JG2uSKIcil9qd
-	 Bb5UVDcGOW67Q==
+	s=k20201202; t=1791756130;
+	bh=fWDUgWfLDcvrAGGHQ5c29HYOyOQhG8FxqnSanGkMpBU=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=mOM1A5TG3vHrM3Z+8KFpJv/nTzLsNdtMhuRmEJiIY0i9YfzArAGqunudi649mp4Cl
+	 cgkhEd3A9YyqTKcJ/EmJs2oyXTm3GXzePBR4BQHx2qmE768gm5/3y0aiRI7w27s1gY
+	 XjLWFIDpaLJI/UQXK4/lF/455R9MW/b3M8FDX+Lugv5hn7Oo8+9JUzbteLJUXpico9
+	 0WRRowcD/5JDEd0iPNS2ytS8EuAJZ53yM0IDkDNP4ANuVWg9TM0mLEN0oAmo2vRCpr
+	 /QecPDHmKkHUagQv2eH0y9+4tWvz4yGbcZL0KyohQw2WJq/TikB9F0TEFnp+wbs3L0
+	 GCgUKCO8T542A==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BB5DDCA9EBD;
-	Sun, 11 Oct 2026 22:01:59 +0000 (UTC)
-From: Haseeb Malik via B4 Relay <devnull+haseebulhaq55.gmail.com@kernel.org>
-To: Sabrina Dubroca <sd@queasysnail.net>, netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- linux-kernel@vger.kernel.org
-Subject: [PATCH net-next] macsec: check for duplicate SCIs before
- registering the device
-Date: Sun, 11 Oct 2026 21:57:11 +0000
-Message-ID: <20261011-macsec-early-sci-check-2b1f06af193f@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AF69ECA9EC7;
+	Sun, 11 Oct 2026 22:02:10 +0000 (UTC)
+From: Fabricio Akio via B4 Relay <devnull+fabricioakio.gmail.com@kernel.org>
+Date: Sun, 11 Oct 2026 19:02:10 -0300
+Subject: [PATCH] wifi: ath10k: fill in WCN3990's channel counter frequency
+ and wraparound
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791756119; l=2042;
- i=haseebulhaq55@gmail.com; s=default; h=from:subject:message-id;
- bh=3yrY3KSdmX2Lbj0TP8rJOIrBxb8TNoGAzNCgkYC5p74=;
- b=L5t3/FxbcRCZzHeu1Bp9cVnk4u93qX8LBwHeRupzFdJL6irVlyKzONIkG1rDbzH+NS7LSCIfl
- wByRJDDreD2A+fJATZUFNk1vaZng9LpqZUgYgZUPGwOwqDl7RLhyyWo
-X-Developer-Key: i=haseebulhaq55@gmail.com; a=ed25519;
- pk=U/yCVc6cTsqDqxWLzvoONZ7DUA3EfRU+rfO9Xxo4p2w=
-X-Endpoint-Received: by B4 Relay for haseebulhaq55@gmail.com/default with
- auth_id=1026
-X-Original-From: Haseeb Malik <haseebulhaq55@gmail.com>
-Reply-To: haseebulhaq55@gmail.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261011-ath10k-wcn3990-survey-v1-1-c3d51f198a0f@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMMQ7CMAxA0atUnrEUBxJUroI6pMZQgxRQ3BZQ1
+ bsTYHzD/wuYFBWDQ7NAkVlN77mCNg3wkPJFUE/V4J2P5IgwjQO5Gz45b9vWoU1lljfGHYeYfNg
+ H7qG2jyJnff2+x+5vm/qr8Pidwbp+AFsFeat5AAAA
+X-Change-ID: 20261011-ath10k-wcn3990-survey-64c56a2575cb
+To: Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-wireless@vger.kernel.org, ath10k@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Fabricio Akio <fabricioakio@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791756129; l=3254;
+ i=fabricioakio@gmail.com; s=20260928; h=from:subject:message-id;
+ bh=cMknKb3KJmpnu47125b2ZiM5JusGIo3IhX2PufK6Iv4=;
+ b=2vi1fujkVV2kHJwYSs7GNEkatX33Gjc+IO3yvFzE1J0ekYEgwuJwuXZPIXGg2viH1g4BeWVUN
+ jpdJGNXGPAODuA84tRBzl/LUul00gDuupAVfkK2Yt2OkVnpJ3M0caTn
+X-Developer-Key: i=fabricioakio@gmail.com; a=ed25519;
+ pk=TlMUT8bPI/ZQzp2q24BIQTb2qSx/jdUTBlGEXIRCm54=
+X-Endpoint-Received: by B4 Relay for fabricioakio@gmail.com/20260928 with
+ auth_id=1076
+X-Original-From: Fabricio Akio <fabricioakio@gmail.com>
+Reply-To: fabricioakio@gmail.com
 
-From: Haseeb Malik <haseebulhaq55@gmail.com>
+From: Fabricio Akio <fabricioakio@gmail.com>
 
-macsec_newlink() registers and links the device before rejecting a
-duplicate SCI. Registration can emit link notifications for a device
-whose creation ultimately fails with -EBUSY.
+On WCN3990 firmware that reports channel info in pairs, such as
+WLAN.HL.1.0.1, the survey's channel active and busy times are always 0:
+its hw_params entry sets no channel_counters_freq_hz, so CCNT_TO_MSEC()
+divides by zero, which arm64 evaluates to 0, and no cc_wraparound_type.
 
-The SCI is already resolved before SecY initialization, so check for a
-duplicate there and return -EBUSY directly. Remove the now-unused unlink
-label while preserving cleanup for failures after registration.
+This firmware leaves mac_clk_mhz at 0, so the survey needs the counter
+frequency from hw_params. Measured against the host clock, the counters
+run at 120 MHz. On overflow the cycle counter drops by 2^31, as the
+shifted wraparound types assume, while the rx clear counter wraps
+around to 0, a pair no existing type describes, so add one that
+corrects the cycle counter only.
 
-Suggested-by: Sabrina Dubroca <sd@queasysnail.net>
-Link: https://lore.kernel.org/netdev/ar2KmwhtCMbOKLsG@krikkit/
-Assisted-by: LLM
-Signed-off-by: Haseeb Malik <haseebulhaq55@gmail.com>
+Fixes: 03a72288c546 ("ath10k: wmi: add hw params entry for wcn3990")
+Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
 ---
-Tested on arm64 in virtme with KASAN and lockdep: all 15 MACsec selftests
-and 80 offload/cleanup cycles pass. Rejected-device link notifications
-observed by the diagnostic drop from two to zero.
+Tested on a Motorola Moto X4 (SDM630, WCN3990) with
+reads between 13 and 150 ms, where it read 0. Without
+the new wraparound type, a channel visit spanning a cycle counter
+overflow reads about 17.9 s. Firmware that sends a single chan info
+event per channel takes another path and is unaffected.
 
- drivers/net/macsec.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+WLAN.HL.1.0.1.c2-00498: over 50 scans every channel's active time
+---
+ drivers/net/wireless/ath/ath10k/core.c | 2 ++
+ drivers/net/wireless/ath/ath10k/hw.c   | 4 ++++
+ drivers/net/wireless/ath/ath10k/hw.h   | 6 ++++++
+ 3 files changed, 12 insertions(+)
 
-diff --git a/drivers/net/macsec.c b/drivers/net/macsec.c
-index 409fd855235ba29125e39bfd80e1c5656aea784f..4e3020586b1e53c5a17f7e31c1f15b87f6443e17 100644
---- a/drivers/net/macsec.c
-+++ b/drivers/net/macsec.c
-@@ -4264,6 +4264,9 @@ static int macsec_newlink(struct net_device *dev,
- 	if (sci == MACSEC_UNDEF_SCI)
- 		sci = dev_to_sci(dev, MACSEC_PORT_ES);
- 
-+	if (rx_handler && sci_exists(real_dev, sci))
-+		return -EBUSY;
+diff --git a/drivers/net/wireless/ath/ath10k/core.c b/drivers/net/wireless/ath/ath10k/core.c
+index 7c2939cbde5f..e1172be4bd1e 100644
+--- a/drivers/net/wireless/ath/ath10k/core.c
++++ b/drivers/net/wireless/ath/ath10k/core.c
+@@ -716,7 +716,9 @@ static const struct ath10k_hw_params ath10k_hw_params_list[] = {
+ 		.bus = ATH10K_BUS_SNOC,
+ 		.name = "wcn3990 hw1.0",
+ 		.led_pin = 0,
++		.cc_wraparound_type = ATH10K_HW_CC_WRAP_SHIFTED_CC,
+ 		.continuous_frag_desc = true,
++		.channel_counters_freq_hz = 120000,
+ 		.tx_chain_mask = 0x7,
+ 		.rx_chain_mask = 0x7,
+ 		.max_spatial_stream = 4,
+diff --git a/drivers/net/wireless/ath/ath10k/hw.c b/drivers/net/wireless/ath/ath10k/hw.c
+index 6f5019bf0b7d..7d7b36ef2986 100644
+--- a/drivers/net/wireless/ath/ath10k/hw.c
++++ b/drivers/net/wireless/ath/ath10k/hw.c
+@@ -574,6 +574,10 @@ void ath10k_hw_fill_survey_time(struct ath10k *ar, struct survey_info *survey,
+ 			if (rcc < rcc_prev)
+ 				rcc_fix = 0x7fffffff;
+ 			break;
++		case ATH10K_HW_CC_WRAP_SHIFTED_CC:
++			if (cc < cc_prev)
++				cc_fix = 0x7fffffff;
++			break;
+ 		case ATH10K_HW_CC_WRAP_DISABLED:
+ 			break;
+ 		}
+diff --git a/drivers/net/wireless/ath/ath10k/hw.h b/drivers/net/wireless/ath/ath10k/hw.h
+index cd468b24bd33..53bfc3c6957a 100644
+--- a/drivers/net/wireless/ath/ath10k/hw.h
++++ b/drivers/net/wireless/ath/ath10k/hw.h
+@@ -481,6 +481,12 @@ enum ath10k_hw_cc_wraparound_type {
+ 	 * first type.
+ 	 */
+ 	ATH10K_HW_CC_WRAP_SHIFTED_EACH = 2,
 +
- 	/* Registration can notify listeners before returning. */
- 	macsec_init_secy(dev, sci, icv_len);
- 	if (data) {
-@@ -4284,11 +4287,6 @@ static int macsec_newlink(struct net_device *dev,
- 	if (err < 0)
- 		goto unregister;
++	/* The Cycle Counter wraps around to 0x7fffffff when it
++	 * overflows, and the Rx Clear Count wraps around to 0
++	 * independently of it.
++	 */
++	ATH10K_HW_CC_WRAP_SHIFTED_CC = 3,
+ };
  
--	if (rx_handler && sci_exists(real_dev, sci)) {
--		err = -EBUSY;
--		goto unlink;
--	}
--
- 	/* If h/w offloading is available, propagate to the device */
- 	if (macsec_is_offloaded(macsec)) {
- 		const struct macsec_ops *ops;
-@@ -4320,7 +4318,6 @@ static int macsec_newlink(struct net_device *dev,
- 
- del_dev:
- 	macsec_del_dev(macsec);
--unlink:
- 	netdev_upper_dev_unlink(real_dev, dev);
- unregister:
- 	unregister_netdevice(dev);
+ enum ath10k_hw_refclk_speed {
 
-base-commit: 8df0638138d3e0344fd1fb36cf2d1ca1cf5028f0
+---
+base-commit: becb95e45ef0dda9ffb35156d909d3da7a2789c3
+change-id: 20261011-ath10k-wcn3990-survey-64c56a2575cb
+
+Best regards,
+--  
+Fabricio Akio <fabricioakio@gmail.com>
 
 
