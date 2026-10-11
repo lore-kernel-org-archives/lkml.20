@@ -1,48 +1,51 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC8B3655F6
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:12:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17B853E5ED1
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:12:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791699146; cv=none; b=SE2QiiBw0V0to0jxrbv7ZLtp4ZWH7Q35QAlQ3xW6uRgdQCCfkl35ICAucShp4K9HscLOZkjbdMGrfcYu90PZQ8aMZFac4RlyMUWn/aaZzLYIoQQSNLPKsqOl9Sh3K4jX024PzNxO2ODz2y8U3al7OAuOqEH6GikX0fc6qVpWw5U=
+	t=1791699152; cv=none; b=R8StL8gXkMW0YytrZ0ZwmUr9YtzBRVw0L546g4/jVdRVyB3P6r0kNoDFQMdbiZsrURPeMhhezfenhDLNN3yMJTif5SHWQyHUFV8ijjgVYnrwKtTcFvV74vUPk6iFVCOXcswCdoZQwMZtMegfGkqnQDaVEm2hbXDxMKpWfoOK1fU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791699146; c=relaxed/simple;
-	bh=8mcpf4fWKopbOjHtENZajQAAxtMZ5hkTESDGeHBMIg8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qenDf1zmBxziRVh6NhzvTTRptnKMBHnssQGVyTx+WDLcK/G9hhuLsuwsepkXQV/HcH+NGJyJfSTn1dz90SLv9lnapPwzkrbin/+FD7dhnPGJubyAIiKy0L5SiqEvrKAh/2dC7VRJxEIqtx4j/9gLdLJ+09SZh3ly3w7zGrvPjos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=itCqxZsn; arc=none smtp.client-ip=170.10.129.124
+	s=arc-20240116; t=1791699152; c=relaxed/simple;
+	bh=mL/mbqUM5s1ZUyV2nquwQNqCRx7Nt1umgLfDekwxImw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=M+pJYitwj3nJePYFHU+tGUuczfORvwp7WT3sXe0UrdhnmTT8/sJ6TmSXiKj7OHamgk1ALyadlJih5EheawzFs/8X+DURkW30d7jECzzyp7/PMaK/2K64tAxP95kDgIbyq44tM5Vzypb1nZDHz+U2Kyq1uBDxyHf0T2RWthp/rQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=HhY4xVes; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="itCqxZsn"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="HhY4xVes"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791699142;
+	s=mimecast20190719; t=1791699148;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=3OtobsetNL97b3na+Zv6s/etqKf7cHIXUL0GqltxKxQ=;
-	b=itCqxZsnmx1mk69A7DY16mThDlczKTb9mlOImdkFB+X2pDPXMf9AmL61J0gTL81cjuJZ5S
-	qmAH48s58mfNFlNXbSzfqqGJBp0Ub7vkXVO9XjR4VdsB2Kxq7g6oYJjBAoYBg5cJLS21Dy
-	Ii+3kzh+ioa8IAsXyR1CESBIpi6HBJ4=
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cBHkNKPOabJYTn515l9ds5n8WuBGPqy0SlcZiLr9hdM=;
+	b=HhY4xVes4kAAeXUAfB2M7/aUMZ1BcxJsD1TA4Qw10Z6SxVQum4QwRRfGJ+w3Df6XvM94QF
+	X/wZ8lW4xHtGoefQchW+/+/jmLnv1QtvDYJEtX4MgJDHSzpmyJaI6SgEs1kd1WYdxeflHS
+	vZFwVSd3jxiLNaRtP5B1IFf7hkFC4Bo=
 Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-479-Ml0CsKhiNmawW1NAGEPnog-1; Sun,
- 11 Oct 2026 06:12:16 +0000
-X-MC-Unique: Ml0CsKhiNmawW1NAGEPnog-1
-X-Mimecast-MFC-AGG-ID: Ml0CsKhiNmawW1NAGEPnog_1791699135
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-83-uEEsDOr6MGmMAv1sfm4kwQ-1; Sun,
+ 11 Oct 2026 06:12:22 +0000
+X-MC-Unique: uEEsDOr6MGmMAv1sfm4kwQ-1
+X-Mimecast-MFC-AGG-ID: uEEsDOr6MGmMAv1sfm4kwQ_1791699141
 Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 018EF18009CC;
-	Sun, 11 Oct 2026 06:12:15 +0000 (UTC)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 247F01800607;
+	Sun, 11 Oct 2026 06:12:21 +0000 (UTC)
 Received: from ivecera-thinkpadp16vgen1.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 926FA1956095;
-	Sun, 11 Oct 2026 06:12:12 +0000 (UTC)
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 321EB1956095;
+	Sun, 11 Oct 2026 06:12:18 +0000 (UTC)
 From: Ivan Vecera <ivecera@redhat.com>
 To: netdev@vger.kernel.org
-Cc: Min Li <min.li@microchip.com>,
+Cc: Petr Oros <poros@redhat.com>,
+	Min Li <min.li@microchip.com>,
 	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
 	Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
 	Jiri Pirko <jiri@resnulli.us>,
@@ -50,9 +53,11 @@ Cc: Min Li <min.li@microchip.com>,
 	Prathosh Satish <Prathosh.Satish@microchip.com>,
 	Paolo Abeni <pabeni@redhat.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net v5 0/5] dpll: zl3073x: fix output pin frequency, esync and sibling notifications
-Date: Sun, 11 Oct 2026 08:12:06 +0200
-Message-ID: <20261011061211.448373-1-ivecera@redhat.com>
+Subject: [PATCH net v5 2/5] dpll: zl3073x: reject inexact frequencies for N-divided outputs
+Date: Sun, 11 Oct 2026 08:12:08 +0200
+Message-ID: <20261011061211.448373-3-ivecera@redhat.com>
+In-Reply-To: <20261011061211.448373-1-ivecera@redhat.com>
+References: <20261011061211.448373-1-ivecera@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,62 +67,105 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-This series fixes several issues in the zl3073x output pin handling:
+For N-divided outputs the P-pin and N-pin share the output divisor and
+the N-pin frequency is synth_freq / (div * esync_n_period). The frequency
+set helper computed esync_n_period with a truncating division and only
+rejected a zero result, so a frequency that does not divide evenly was
+silently rounded. Setting the P-pin could then shift the N-pin frequency
+too (e.g. 600 MHz synth, div=60, period=10 gives P=10 MHz, N=1 MHz;
+setting P to 2.5 MHz moves N to 1.25 MHz). When setting the P-pin, the
+product esync_n_period * div used for the rescale was computed in 32
+bits and could wrap, so a wrong N divider was stored for low N-pin
+frequencies.
 
-1. Do not offer 0 Hz as a supported frequency, it leads to a division
-   by zero.
-2. Reject N-divided output frequencies that cannot be set exactly.
-3. Reject output frequencies whose divisor is too small for the HW.
-4. Update the eSync period and width when the output frequency changes.
-5. Notify the sibling pin when a shared output setting changes.
+Require esync_n_period >= 2 so the N-pin frequency stays below the P-pin
+one, reject a P-pin frequency for which the esync_n_period keeping the
+N-pin frequency does not fit into 32 bits, and check the division
+remainder and reject the request if it is not exact.
 
-Changes since v4:
-- Reorder: the setter checks for N-divided outputs (now patch 2) come
-  before the probe-time divisor check (now patch 3), so every commit is
-  consistent.
-- Patch 1: move the 0 Hz check in zl3073x_pin_check_freq() here from
-  the divisor patch, so the division by zero is fixed at this commit.
-- Patch 5: fix the comment in zl3073x_dpll_nco_pin_register().
-- Say in each commit message how the issue was found.
+Found by code inspection, not triggered at runtime.
 
-Changes since v3:
-- New patch 1 to fix a division by zero reported by Sashiko.
-- Patch 2: keep the P-pin quotient in 64 bits and reject values above
-  U32_MAX; check esync_n_period < 2 first; fix comments and extack.
-- Patch 3: state that the check is necessary but not sufficient for
-  N-divided outputs.
-- Patch 4: report the eSync frequency and pulse from the registers again
-  instead of a fixed 1 Hz / 25%; compute the pulse in 64 bits.
-- Patch 5: fix the sibling lookup kernel-doc and the commit message.
+Fixes: ce26d7ca50a5 ("dpll: zl3073x: Add support to get/set frequency on pins")
+Reviewed-by: Petr Oros <poros@redhat.com>
+Signed-off-by: Ivan Vecera <ivecera@redhat.com>
+---
+ drivers/dpll/zl3073x/dpll.c | 46 ++++++++++++++++++++++---------------
+ 1 file changed, 28 insertions(+), 18 deletions(-)
 
-Changes since v2:
-- Added patches 2 and 3.
-- Patch 4: simplify zl3073x_out_esync_is_enabled().
-- Patch 5: add/remove pins from zldpll->pins around dpll_pin_register()/
-  dpll_pin_unregister() so a registered sibling is always found.
-
-Changes since v1:
-- Patch 4: pass the actual output carrier to zl3073x_out_esync_enable(),
-  drop a redundant "? true : false", fix a comment typo.
-- Patch 5: commit message wording.
-
-v4: https://lore.kernel.org/netdev/20261009192556.272263-1-ivecera@redhat.com/
-v3: https://lore.kernel.org/netdev/20261006153116.347497-1-ivecera@redhat.com/
-v2: https://lore.kernel.org/netdev/20261002074520.30048-1-ivecera@redhat.com/
-v1: https://lore.kernel.org/netdev/20261001080648.1424172-1-ivecera@redhat.com/
-
-Ivan Vecera (5):
-  dpll: zl3073x: do not offer 0 Hz as a supported pin frequency
-  dpll: zl3073x: reject inexact frequencies for N-divided outputs
-  dpll: zl3073x: reject output frequencies with too small divisor
-  dpll: zl3073x: make embedded sync follow the output carrier frequency
-  dpll: zl3073x: notify sibling pin when shared output config changes
-
- drivers/dpll/zl3073x/dpll.c | 237 +++++++++++++++++++++++++++---------
- drivers/dpll/zl3073x/out.h  |  36 ++++++
- drivers/dpll/zl3073x/prop.c |  56 +++++++--
- 3 files changed, 264 insertions(+), 65 deletions(-)
-
+diff --git a/drivers/dpll/zl3073x/dpll.c b/drivers/dpll/zl3073x/dpll.c
+index f2e137475b40..7a617d9bd671 100644
+--- a/drivers/dpll/zl3073x/dpll.c
++++ b/drivers/dpll/zl3073x/dpll.c
+@@ -987,6 +987,7 @@ zl3073x_dpll_output_pin_frequency_set(const struct dpll_pin *dpll_pin,
+ 	const struct zl3073x_synth *synth;
+ 	u32 new_div, synth_freq;
+ 	struct zl3073x_out out;
++	u64 n_period, rem;
+ 	u8 out_id;
+ 
+ 	guard(mutex)(&zldpll->lock);
+@@ -1014,16 +1015,11 @@ zl3073x_dpll_output_pin_frequency_set(const struct dpll_pin *dpll_pin,
+ 	}
+ 
+ 	if (zl3073x_dpll_is_p_pin(pin)) {
+-		/* We are going to change output frequency for P-pin but
+-		 * if the requested frequency is less than current N-pin
+-		 * frequency then indicate a failure as we are not able
+-		 * to compute N-pin divisor to keep its frequency unchanged.
+-		 *
+-		 * Update divisor for N-pin to keep N-pin frequency.
++		/* Keep the N-pin frequency: the new P-pin frequency has to be
++		 * a multiple of it, at least twice as high.
+ 		 */
+-		out.esync_n_period = (out.esync_n_period * out.div) / new_div;
+-		if (!out.esync_n_period)
+-			return -EINVAL;
++		n_period = mul_u32_u32(out.esync_n_period, out.div);
++		n_period = div64_u64_rem(n_period, new_div, &rem);
+ 
+ 		/* Update the output divisor */
+ 		out.div = new_div;
+@@ -1031,17 +1027,31 @@ zl3073x_dpll_output_pin_frequency_set(const struct dpll_pin *dpll_pin,
+ 		/* For 50/50 duty cycle the divisor is equal to width */
+ 		out.width = out.div;
+ 	} else {
+-		/* We are going to change frequency of N-pin but if
+-		 * the requested freq is greater or equal than freq of P-pin
+-		 * in the output pair we cannot compute divisor for the N-pin.
+-		 * In this case indicate a failure.
+-		 *
+-		 * Update divisor for N-pin
++		/* The N-pin frequency has to divide the P-pin frequency and
++		 * be at most half of it.
+ 		 */
+-		out.esync_n_period = div64_u64(synth_freq, frequency * out.div);
+-		if (!out.esync_n_period)
+-			return -EINVAL;
++		n_period = frequency * out.div;
++		n_period = div64_u64_rem(synth_freq, n_period, &rem);
++	}
++	if (n_period < 2) {
++		NL_SET_ERR_MSG_FMT(extack,
++				   "OUT%uN freq must be at most half of OUT%uP freq",
++				   out_id, out_id);
++		return -EINVAL;
++	}
++	if (n_period > U32_MAX) {
++		NL_SET_ERR_MSG_FMT(extack,
++				   "OUT%uN freq is too low for OUT%uP freq",
++				   out_id, out_id);
++		return -EINVAL;
++	}
++	if (rem != 0) {
++		NL_SET_ERR_MSG_FMT(extack,
++				   "OUT%uN freq must divide OUT%uP freq",
++				   out_id, out_id);
++		return -EINVAL;
+ 	}
++	out.esync_n_period = n_period;
+ 
+ 	/* For 50/50 duty cycle the divisor is equal to width */
+ 	out.esync_n_width = out.esync_n_period;
 -- 
 2.56.0
 
