@@ -1,118 +1,235 @@
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC900371889
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 04:51:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5560F1F2B88;
+	Sun, 11 Oct 2026 04:53:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791694325; cv=none; b=CnbDnIRP9Pb7d3Xl7LqEksx7Ka/oQ06800qpBrbwHmrbnV/c5F+qKWMVObl9J8EQsM8kV8eBnczJcOeMLDCZtJq4rBQYgFVD/a3ep4lNQtB4I3I7cr3LPL7Bed2FrhRwij3xHtaaDqq2/kydgOB9PpgWi+PS9z+Wc8x7cfMJRTQ=
+	t=1791694412; cv=none; b=VP5HmQr20UehwaCtGqnul5B9MFOB5vau6Pm19cB6woZkzxfQntV73LWbKnQYNISRzxOKKCeC5yyIWD17JT8PrmoMp28l+ZkvCWS2JSYL8wYOYoMsn62SecN+VeX4mfqIbzEygu8lzA7H7mepLoF0rAFkKsD4qStdkw3KHqbl3Lc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791694325; c=relaxed/simple;
-	bh=4lfV7+sqzyweAXYe880vnuGKWpBB5jmGdvI8y+TeBCA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bTmB0JNZSqF/lFkTQPnu8vzy2RY3+nh+scBYja2FrEDHTRGOOx7g5vqWsGf56CFcFsdVKR8GFzaozu9Cq9cAnwQ/7g3sp+cdFC1YnQl/H1OMWdHAVqcQsEmLjDHWZgpDpSr4q222Z+5oS3KJnbB3a5AWNySd4JACetWnMNiO4mM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dmLzTy5C; arc=none smtp.client-ip=74.125.82.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791694412; c=relaxed/simple;
+	bh=mZgh9yI9OmbLyL8eNP9eoqhiPa87bzFuEH5j5Rftmw8=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=R+JfP7+9KnqV3QfqiJmQen+M8vA3+c/qUq5XtDh12wbrp7PBmJjT6gqEEnFziywjV27EANLu+ksKzb4r5yNNWFA8KIhdFkv+HlFTGDrsDvh6N4/ol3q0yZVrthYoiPjkdn1Wyf8ghIvSznFnjA6NQVy9r5HIckRxETb7ZBnB1Iw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wx5c1zyG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dmLzTy5C"
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-33c2520ad38so2053259eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 21:51:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791694318; x=1792299118; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/+m3dioEgJeXpogr386BWGDMeXCqTiF+8xcjGlIA8mg=;
-        b=dmLzTy5CHZCDuTBE2Yd0eB1IgYME80rWOMB1tPc1gF8lfJ/CNcHKirDNyAXsnCNBES
-         kMPzAyoldun353uao73HtY8/8wieuI/zxU8px6L4E5lulTUAdolcQteO2tDrJPClHDXJ
-         fydYFdifcb/XNI3J/ABMhVo/BU9MhIDO5rb181OsNa8tZUs6yE4dT1uIXOKiFm5jrML+
-         3l7E9h8nBrMsPTHv5beCz0ogOoX6qIpp/Ym0PzOrju85EDqPfR04HXKg3s7oOkqXM+uF
-         17bfZyaUVgyAdtC9VkFsWosu32OAeQz6rmV0Xak4Wiu/vSoe1WySYxxFIqEOncM7vRZH
-         Rkyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791694318; x=1792299118;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/+m3dioEgJeXpogr386BWGDMeXCqTiF+8xcjGlIA8mg=;
-        b=I/q5arNTKJH1GVQu2P/oV6JVypZA2zLOJ/pa9A1jVTrcKI6nP1K+YAMN4DPenFtCW/
-         3CjX+Ka+15WmNioVAi7CetU3gVhSpFyOUVpMc8eyPBF9BN6mFZQgKOsmtX1kXxiidYI8
-         CFoETMacFG6/4oVW7r/Rn5qyQiMTTJHnva7n7gYPkjXGgJlo2WSEetHnhkLbWrMCUO9i
-         JhecjLMUckPUx9/0jw1ga1sDwiHs2AR2BXbFF0ZUa1XsBUnbmfkUYM1Y+8htPzVwl2Aw
-         VKpIsoENNMfR4TKeYQHYxPICxRfCl6DGr+sVmDEemjuh+pErhtsT4AGFVdREKk63IWHP
-         DjnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw2XhIyp3RnnaGTLBk52uxf/AXR6gZOiCMJ7IL7kvLQmSXjXyKQj3pnPXSs7J5b5zwKoDWrMQWl3aYmbJ0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJvAxUSbPgGqsIMOu6I1DNQSNQSXCOLQf6iffukNdWDjGZsxic7
-	a4P5eomJnB0HrG4JDX9ZmPEJrknP8oLz8Os+xAZxMbBoK/s9GvZYAYAA
-X-Gm-Gg: AYBFou3oVPcRlGgNkESh0RmSNnK+F+Pnq3YDPxqm7uDHJlQs/JzLvWHyEZa0+tQT2JO
-	cc2uzo4TdyEGlkhbl7IuCJtnXUBRDNXnGZOHA2TKvEkmOkvtU3Ca2Z7fs3C3dDDCzyrkdxru1Hg
-	U3SSPfdAWpOa6kIaTNGyuBOB+tzPiQTEwf8oPkgpuxgnwe035lntNccf2r7JkudgA2SmeLI/mc6
-	8qa9hWHLDVbl/8OuqpBOUYpby//msUkH1PfqaR2oB2sjqUpBIhMti+DeOyUwtY0f2kW9aVYeFsd
-	38Pnch9xj6HpXqq9hweZgEAm9VVrsDv3697FGzcil5Gx0wtzIeUrKOR0EEhLIK14fu85hArBoFq
-	i+uEH1i2HSBG+tip+0NBOSa9Npou9TsF0VtDWZgiK5SyG/tVx9i4p2AVD/CBcCd/y3RvTyEnlg4
-	G+2UCuQBm4R4k8SF9sNMqww+k7Hx2O82zoUti5ty8OY+7dhjkvNc2T4G56AJSgrZf3nsz1kCdme
-	S1tXDXodUkIcB00dscxSf1mw0dyLr6tKCq3uxVVlmwls7joFQk1c1/DyuZeKXU97nxHshesL739
-	TZLik4VVkWSxuewQdlunMwk0jYd8hQ==
-X-Received: by 2002:a05:701b:4212:20b0:168:e942:4e62 with SMTP id a92af1059eb24-16a61789c56mr8352937c88.40.1791694317514;
-        Sat, 10 Oct 2026 21:51:57 -0700 (PDT)
-Received: from kapoor.iiserb.ac.in ([203.18.51.212])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a31f6be0sm35733139c88.13.2026.10.10.21.51.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 21:51:57 -0700 (PDT)
-From: Arnav Kapoor <kapoorarnav43@gmail.com>
-To: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rodrigo Alencar <rodrigo.alencar@analog.com>,
-	linux@analog.com,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Arnav Kapoor <kapoorarnav43@gmail.com>
-Subject: [PATCH] iio: dac: ad5686: fix channels member name in kernel-doc
-Date: Sun, 11 Oct 2026 10:21:47 +0530
-Message-ID: <20261011045149.353929-1-kapoorarnav43@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wx5c1zyG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 735141F0089C;
+	Sun, 11 Oct 2026 04:53:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791694410;
+	bh=LGeO6ksy8VCKxkWaQ9ktRuRkxQmiG9bQPiNztI5zaq8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Wx5c1zyGcV0jyBEo9pB34kzcvkcs8V7FFTx32cXipt6m7pIpAAJuTIlUb6ojbQ9kU
+	 6MypevsYsyfTGGbBM7uiItP/WcBf9UNBsvMrzUNwIVYbrw7875RDstStvnyTk1ZR+v
+	 4js0n7Ac/UGEDwwYX2x4EGr/M8bUinUvlqGSV/dGIRL+eNbJ9T+dvIPFxbyCjECif9
+	 s01BDsY0bEHxU3d7NLkv67Vt6He8xKTP9H5zKrzartIA1WyzOyNS/n2awW8Qa/Mya2
+	 PsHkTxMXqr4+7/GQ0FUSE542KVxH4ow5MalQ94cwLkbVVWej0FxQ1SIVlPklWSLdYj
+	 DK9OaRcC594hg==
+Subject: Re: [PATCH v2 5/5] can: peak_usb: harden PCAN-USB message validation
+From: netdev-bot+sashiko@kernel.org
+To: stephane.grosjean@free.fr
+Cc: mkl@pengutronix.de, mailhol@kernel.org, error27@gmail.com,
+ wg@grandegger.com, s.grosjean@peak-system.fr, linux-can@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kuba@kernel.org
+Date: Sun, 11 Oct 2026 04:53:30 +0000
+Message-ID: <179169441005.1406898.14224990493927376539@kernel.org>
+In-Reply-To:
+ <20261009-canfd_check_channel_idx-v2-5-f7b772929791@peak-system.fr>
+References:
+ <20261009-canfd_check_channel_idx-v2-5-f7b772929791@peak-system.fr>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The kernel-doc for struct ad5686_chip_info describes a member called
-@channel, but the member is named channels. W=1 builds report:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-  Warning: drivers/iio/dac/ad5686.h:95 struct member 'channels' not
-  described in 'ad5686_chip_info'
-  Warning: drivers/iio/dac/ad5686.h:95 Excess struct member 'channel'
-  description in 'ad5686_chip_info'
+Critical: 0 · High: 1 · Medium: 0 (2) · Low: 0
 
-Rename the entry to match the struct member.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Fixes: 0357e488b825 ("iio:dac:ad5686: Refactor the driver")
-Assisted-by: LLM
-Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
----
-Comment-only change, checked with scripts/kernel-doc -Wall.
+- [High] The patch says it rejects PCAN-USB messages that would cause
+  reads outside the received USB data, but one path is still unchecked:…
 
- drivers/iio/dac/ad5686.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Pre-existing issues:
+- [Medium] This problem wasn't introduced by this patch, but the encoder
+  and decoder disagree on the wire layout for RTR frames with SRR set.
+- [Medium] This problem wasn't introduced by this patch, but when the
+  decoder rejects a message, the diagnostic dump prints the whole rx…
 
-diff --git a/drivers/iio/dac/ad5686.h b/drivers/iio/dac/ad5686.h
-index 482bc70515f7..4f2ac1e96643 100644
---- a/drivers/iio/dac/ad5686.h
-+++ b/drivers/iio/dac/ad5686.h
-@@ -85,7 +85,7 @@ struct ad5686_bus_ops {
-  * struct ad5686_chip_info - chip specific information
-  * @int_vref_mv:	the internal reference voltage
-  * @num_channels:	number of channels
-- * @channel:		channel specification
-+ * @channels:		channel specification
-  * @regmap_type:	register map layout variant
-  */
- struct ad5686_chip_info {
+--
+
+can: peak_usb: harden PCAN-USB message validation
+
+This patch adds bounds checks to the PCAN-USB rx decoder. The status_len
+byte at the start of each record and the SRR private-id byte after a data
+frame are now consumed only if they fit inside the received USB buffer.
+Malformed messages are rejected with -EINVAL.
+
+> diff --git a/drivers/net/can/usb/peak_usb/pcan_usb.c b/drivers/net/can/usb/peak_usb/pcan_usb.c
+> index 169c00d93463c..56ddd134bae0f 100644
+> --- a/drivers/net/can/usb/peak_usb/pcan_usb.c
+> +++ b/drivers/net/can/usb/peak_usb/pcan_usb.c
+> @@ -696,8 +696,11 @@ static int pcan_usb_decode_data(struct pcan_usb_msg_context *mc, u8 status_len)
+>  		mc->ptr += rec_len;
+>  
+>  		/* Ignore next byte (client private id) if SRR bit is set */
+> -		if (can_id_flags & PCAN_USB_TX_SRR)
+> +		if (can_id_flags & PCAN_USB_TX_SRR) {
+> +			if ((mc->ptr + 1) > mc->end)
+> +				goto decode_failed;
+>  			mc->ptr++;
+> +		}
+
+[Severity: Medium]
+This is a pre-existing issue, but is the private-id byte also present for
+RTR frames?
+
+In pcan_usb_decode_data(), this skip and the new check exist only in the
+non-RTR branch:
+
+	if (status_len & PCAN_USB_STATUSLEN_RTR) {
+		cf->can_id |= CAN_RTR_FLAG;
+	} else {
+		...
+		if (can_id_flags & PCAN_USB_TX_SRR) {
+
+But pcan_usb_encode_msg() appends the writer id for RTR frames as well:
+
+	/* can data */
+	if (!(cf->can_id & CAN_RTR_FLAG)) {
+		memcpy(pc, cf->data, cf->len);
+		pc += cf->len;
+	}
+
+	/* SRR bit needs a writer id (useless here) */
+	if (can_id_flags & PCAN_USB_TX_SRR)
+		*pc++ = 0x80;
+
+SRR is set whenever CAN_CTRLMODE_LOOPBACK is enabled. Suppose the firmware's
+loopback echo of an RTR frame includes that byte. Then mc->ptr is left
+pointing at it, and pcan_usb_decode_msg() reads 0x80 as the next status_len
+byte.
+
+PCAN_USB_STATUSLEN_INTERNAL is clear in 0x80, so the byte would be decoded
+as a bogus standard-ID data frame. Every later record in the URB would then
+be parsed out of phase. That gives phantom frames, or an early -EINVAL that
+drops the rest of the URB.
+
+The real RTR echo format can't be confirmed from the source. Both the
+encoder and decoder lines came from the same commit 3a7939495ce8, so the
+difference may be intentional. The later reads are bounds-checked, so no
+out-of-bounds access results.
+
+Could the firmware behaviour be checked either way?
+
+> @@ -733,14 +736,19 @@ static int pcan_usb_decode_msg(struct peak_usb_device *dev, u8 *ibuf, u32 lbuf)
+>  	int err;
+>  
+>  	for (err = 0; mc.rec_idx < mc.rec_cnt && !err; mc.rec_idx++) {
+> -		u8 sl = *mc.ptr++;
+> -
+> -		/* handle status and error frames here */
+> -		if (sl & PCAN_USB_STATUSLEN_INTERNAL) {
+> -			err = pcan_usb_decode_status(&mc, sl);
+> -		/* handle normal can frames here */
+> +		/* check if status_len byte can be read next */
+> +		if (mc.ptr >= mc.end) {
+> +			err = -EINVAL;
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but this new -EINVAL path (and
+the truncated SRR one above) leads to the diagnostic dump in
+peak_usb_read_bulk_callback():
+
+	err = dev->adapter->dev_decode_buf(dev, urb);
+	if (err)
+		pcan_dump_mem("received usb message",
+			      urb->transfer_buffer,
+			      urb->transfer_buffer_length);
+
+Doesn't this dump the full rx_buffer_size allocation instead of only the
+urb->actual_length bytes the device sent?
+
+The rx buffers come from kmalloc() in peak_usb_start() and are not zeroed.
+After a short malformed transfer such as [00 01 00] (truncated CAN id), the
+bytes past the received data are uninitialized slab contents.
+
+pcan_dump_mem() prints them at KERN_INFO with print_hex_dump(), with no rate
+limit and no debug-only guard. Earlier decode failures could already reach
+this dump.
+
+Would it make sense to pass urb->actual_length here instead?
+
+>  		} else {
+> -			err = pcan_usb_decode_data(&mc, sl);
+> +			u8 sl = *mc.ptr++;
+> +
+> +			/* handle status and error frames here */
+> +			if (sl & PCAN_USB_STATUSLEN_INTERNAL) {
+> +				err = pcan_usb_decode_status(&mc, sl);
+
+[Severity: High]
+Can a truncated bus event record still cause an out-of-bounds read here?
+
+pcan_usb_decode_status() only checks that the function and number bytes
+fit, and then advances past them:
+
+	if ((mc->ptr + 2) > mc->end)
+		return -EINVAL;
+
+	f = mc->ptr[PCAN_USB_CMD_FUNC];
+	n = mc->ptr[PCAN_USB_CMD_NUM];
+	mc->ptr += PCAN_USB_CMD_ARGS;
+
+At this point mc->ptr can equal mc->end. Suppose the timestamp bit is clear,
+f is PCAN_USB_REC_BUSEVT, and n is PCAN_USB_ERR_CNT_DEC or
+PCAN_USB_ERR_CNT_INC. Then the call goes straight to
+pcan_usb_handle_bus_evt():
+
+		pdev->bec.rxerr = mc->ptr[1];
+		pdev->bec.txerr = mc->ptr[2];
+
+These read mc->end + 1 and mc->end + 2 with no check. The later
+(mc->ptr + rec_len) > mc->end check in pcan_usb_decode_status() runs only
+after these reads. rec_len also comes from the device and can be 0.
+
+For example, the 5 byte transfer [00 01 40 05 00] passes the new status_len
+check. It then reads ibuf[6] and ibuf[7], past actual_length, and is
+reported as successfully decoded.
+
+Now take a full 64 byte transfer whose last record is a bus event header
+ending at the last byte. The reads land on ibuf[65] and ibuf[66], which are
+outside the kmalloc-64 rx buffer allocated in peak_usb_start().
+
+Those bytes are stored in pdev->bec. Userspace can read them through
+pcan_usb_get_berr_counter() (IFLA_CAN_BERR_COUNTER) and in the CAN error
+frames built by pcan_usb_decode_error().
+
+The commit message says the patch rejects buffers "whose contents would
+otherwise lead to accesses outside the received USB data area". Should
+pcan_usb_handle_bus_evt() check something like (mc->ptr + 3) > mc->end
+before reading these bytes, rather than relying on rec_len from the device?
+
+>  			/* handle normal can frames here */
+> +			} else {
+> +				err = pcan_usb_decode_data(&mc, sl);
+> +			}
+>  		}
+>  	}
+
+[ ... ]
+
 -- 
-2.53.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261009-canfd_check_channel_idx-v2-0-f7b772929791%40peak-system.fr
