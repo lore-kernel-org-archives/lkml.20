@@ -1,94 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f11.google.com (mail-qv2-f11.google.com [74.125.230.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C6AB1CAA92;
-	Sun, 11 Oct 2026 00:24:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4CCB20D4FF
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 00:26:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791678289; cv=none; b=AlVt5/D8KD8cUN0Xll8X8q7JLuN7ULOF1s03DexcL1DclMsPoiJTji+1M7rbz38kkS+Ucu/cfXea4UJUnppJTzuA5oUUgLGF8nYzappm3LCKqqcBJe7AiFdiZXp1UetFdLriE/6DLefBVEiZ+s6wFTkephXUKLs4hXrEjnWAwMc=
+	t=1791678406; cv=none; b=bFIVMjW/DFoxbGFKZfrp1tGNz9sbimsgMB2mjtu9D5B9/BHnG9QEFOldKqGJ3nmglw24Ln2b+ceyLFBRIeS1Qqlku9g1V62OVSye1gpfi9WN69y9C7mACZyxBoZU7uu5QHqq4KPmdYCAR1RMdZDcdIkIAEObJrH8ueya1MTqTc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791678289; c=relaxed/simple;
-	bh=syi0bAhqvABDWP+FafbxLBjPxPKYtPxFATgZud5/4io=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=T2RXo1ArUSUP5lwwXeyHhQik8W5Rq2s512n5ZlOVYSvl4HEuSL5Z1jjhhEM8dcgECbZZ5L6h3eeVTEY8vLNY+miFFFGdLtJ9god+kqh+nywRpHL8ZexhXGa297xfcM0ce1OILGD5aTDYLFPzcfqAwrFpcz+77vit96ukyYxpt8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HJWmucUj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791678406; c=relaxed/simple;
+	bh=ndXckvHALTAO4M0gyPinxjPONrksqpveeSnihZMtTkQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fE5PspvpqXCXBOqy815K754UNTaaKG0dpAL5WfbOR++hcww+b2Q/ZdXzOOhsEKxHyuxiOvhaLdG3YBsrUdPM2vf3+f3y516HcQKKBt8AxUy3mlDxZHo/LCvvW75yKIs/y1xSUhwmzc8ePDZ5NREkMDZ4WRWtUY/xPiH5Z6hZrsU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hj39FRjH; arc=none smtp.client-ip=74.125.230.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HJWmucUj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82BA01F000FF;
-	Sun, 11 Oct 2026 00:24:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791678287;
-	bh=v0LaWk3Eew88CFjY3PFqludp5IAoHra+8emdKdZ65iY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=HJWmucUj7UWd+kKs1fxxhu4RR2SbS8ojS0sPVsFx7Hsrq6yXRhDSXxlBiLAo+G4ZX
-	 +V7ENtx1eRxaquaJszMhmOG93Z9EIyWWp6/EiDLJVtXmz+rxkCik6wkgVV1D1NxHEs
-	 NWxLRrkuGI2Hpe7mcJw0qeZCTyEOYGnrKU855XB8P3AB0jls8SU95pcMYF4HMOKKp/
-	 ObMss35cPUw2YwoVAH4rOHebC8ozV94ADbu6jH3qa2KBw3VZj2F3R0ZqE8P248Obex
-	 p9HT1bhhbb9POxp6IuEC901s5vQ276ka9ntqaf4ywiiU09uHKzKZYBNMVS5rSMwq0/
-	 xCm1TcCQfC3hQ==
-From: Nathan Chancellor <nathan@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Nicolas Schier <nsc@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Manuel Ebner <manuelebnerli@mailbox.org>, Ard Biesheuvel <ardb@kernel.org>, 
- "Paul E . McKenney" <paulmck@kernel.org>, 
- Nicolas Schier <n.schier@fritz.com>, 
- Sami Tolvanen <samitolvanen@google.com>, linux-kbuild@vger.kernel.org, 
- llvm@lists.linux.dev, linux-kernel@vger.kernel.org, 
- linux-hardening@vger.kernel.org
-In-Reply-To: <20261010081910.stay.092-kees@kernel.org>
-References: <20261010081910.stay.092-kees@kernel.org>
-Subject: Re: [PATCH v2 0/2] kbuild: Give jobserver-exec recipes the
- jobserver
-Message-Id: <179167827085.3510825.11265184087970988253.b4-ty@b4>
-Date: Sun, 11 Oct 2026 01:24:30 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hj39FRjH"
+Received: by mail-qv2-f11.google.com with SMTP id 6a1803df08f44-9195de4174fso6688896d6.0
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 17:26:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791678403; x=1792283203; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XeJjl/io3+aKvrUjCul3f6wSV2JN17uTopzSqxgAVR8=;
+        b=Hj39FRjHNKSFNTMYh9OVh8Zij1tz0BMrRxAcLwTLdaLUdYUSMVVggp3yZ3DKWMsUAK
+         mV0OA8/4sGl9XjJEMqff4SpLkwNRF3i80VOkEdvGWPPdiw3P15qrUU+yM5foqamqzDiT
+         hv8+2LmixCmtISJcJ/HnGDxb0n8akdfYgOGW7mXuC6Je87SYtYkINf0LIrf2CPu7EsE/
+         UqJYaSA39ngQ47x6uDeDw0cRZ3wMGd7dCDh+l30ClXydAvZYnQ4v7sFhllTS3FQ4UZwP
+         k6Mc/PHbdhqHF5A9MKEkYDW8Fr3iEbxGnCJLK/8zf3QsacfnSaBDpz61p7IS9Fcz6nm+
+         1FAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791678403; x=1792283203;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XeJjl/io3+aKvrUjCul3f6wSV2JN17uTopzSqxgAVR8=;
+        b=Vz5vzs6p4pSjAEIK7X4/ytD4Me1gZtn8H1Tbj6mynv1MahDcl7qeofvII+zTlFRP5P
+         vid6F/BVBlGPVwxPrRoNXHK1OjMHwA9pmxxE7Q/dVZPSzIwrPg1RqEfa9eWxhdLONUit
+         Sk/sZtoRrTQAiHnIa2n2fGW1jsgfW3PTDkVg5ASgOPuGpeYn9W2EN+gQRgXT/sNQ86yw
+         pqgmGrc2eBzLS0favfndkT+yk0wklTs/0KPQX3L3EC3Zhjj+MXpssIXs8ICu96OabwK3
+         YLqAlcwgB/+K6o8cBnpJ6VkLQsjkm3CyzGToth7+NcDn0V8FQNk2Jhm1PrK95sUPin3v
+         ra4A==
+X-Forwarded-Encrypted: i=1; AKwUvByVFGHWPN4oY4wh5RH+FWVN6I92Fy1/2Xfcqlf8s2d+f3qirFPsinOvWKsohVC/ovyqPSOWFqFtf1tlPyA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJkad6hvi1QuwaQtFA8rP1vofGH3ULUUOvgJC5bYzxmSLPztvJ4
+	iwLHLAEjDtxBg00l3VGsXHYOsIOD8w0xQEH0UGlvXZOgbSUA9lPXUWnh
+X-Gm-Gg: AYBFou3O7X/x9+qshzpiVqJZbzPcYc89dreDUDCIj32mREJXHbnC0o/yuqS1HLo5IIR
+	9Obf3NVUH5Z7na7D6Io/5XiAmbqgQVpux5oENQ4J1m0/v/1S9nB0La19bIdl0TH3T0Kzdh+cnqJ
+	aysU66XcWPuApvepRfG20n5QExHMyvkCHkrtdRPTC6H2liFkAjAjZJ3x3vyH7Fi+sS5dVqkcppm
+	HjYWDiDB4e3vyLcxgTVkQmxsuMomkkPh1FFFnOe2KHXgkxky8wpFclBsXlsOVJRRYIi4mUzmzbk
+	hZaFJuevqrR1N7HNputzvom5WyOLk5oxPTnHMnGLxOUJA7B6rm8Fq9AxQcJLujDT29clsTH98Iw
+	R1wn+3eMa1GWyLMhL23lkss+FRKdwsMW1wx+d3Y4bfkqbJC9/GUs6sJaUrBA2aYsl1DIAq88SAl
+	qAurQ+ks8tGoL/7+Vwin3JtEUPzIGAegbSoAC5QGHYiJ0RoY7QGHbdz13lfRdXBndXl7A=
+X-Received: by 2002:a05:6214:21a6:b0:914:53c0:1a4b with SMTP id 6a1803df08f44-91b557c2adcmr107067156d6.43.1791678403571;
+        Sat, 10 Oct 2026 17:26:43 -0700 (PDT)
+Received: from omarchy ([2601:804:8780:3df1:6ff:277e:31c7:ac13])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b550dfb6csm57407466d6.45.2026.10.10.17.26.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 17:26:43 -0700 (PDT)
+From: zoan37 <agentzoan@gmail.com>
+To: Ryder Lee <ryder.lee@mediatek.com>,
+	Jianjun Wang <jianjun.wang@mediatek.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
+	linux-pci@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: PCI: mediatek-gen3: MT8189 never wakes from s2idle with ASPM L1.2 enabled
+Date: Sat, 10 Oct 2026 20:26:31 -0400
+Message-ID: <20261011002631.1105346-1-agentzoan@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=984; i=nathan@kernel.org;
- h=from:subject:message-id; bh=syi0bAhqvABDWP+FafbxLBjPxPKYtPxFATgZud5/4io=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFmnrnuIss6a9frGo/XMW3zahM7UHa7X+S4W0uMRGJn0J
- 0QjwFWjo5SFQYyLQVZMkaX6sepxQ8M5ZxlvnJoEM4eVCWQIAxenAEzkRgTDP43Lp65Mdja4XDvB
- 63Dz4zkTt2S5dS+e2Ve/T15YOfqP5ApGhr7Uj8G3yh+bnWcI2t5y9dxNn50shre2tDl3HHCZY5R
- RxQEA
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+Content-Transfer-Encoding: 8bit
 
-On Sat, 10 Oct 2026 01:19:09 -0700, Kees Cook wrote:
-> kbuild: Give jobserver-exec recipes the jobserver
-> 
-> Hi!
-> 
-> Paul reported a build failure on CentOS Stream 9 with linux-next[1]: the
-> kernel builds, but scripts/jobserver-exec prints
-> 
-> [...]
+Hi Ryder, Jianjun,
 
-Applied to
+I'm running mainline on an MT8189 Chromebook (Lenovo IdeaPad Slim 3
+Chromebook, board "quigon" in the skywalker family, with an MT7922
+Wi-Fi card, 14c3:0616, on the PCIe port). When ASPM L1.2 is enabled on
+that link, s2idle hangs every time. My question: on MT8189, does
+L1.2 across SPM sleep need anything beyond what pcie-mediatek-gen3
+does now?
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/kbuild/linux.git kbuild-next-speedups
+Setup
 
-Thanks!
+- next-20261008, plus the posted Genio 520/720-EVK series (which adds
+  mt8189.dtsi, from Louis-Alexis Eyraud), plus the board DT. The PCIe
+  node is the one in that mt8189.dtsi ("mediatek,mt8189-pcie",
+  "mediatek,mt8192-pcie"). It is the same as ChromeOS's node except
+  for the clock list. Pins: GPIO48 WAKEN, GPIO49 PERSTN, GPIO50
+  CLKREQN. The board overrides the T-PHY to generic-tphy-v2, as
+  ChromeOS has it; v3 froze the SoC at link-up.
+- System sleep: the firmware has no PSCI SYSTEM_SUSPEND. As in
+  ChromeOS's DT, s2idle uses an idle state with PSCI CPU_SUSPEND
+  0x020180ff (min-residency 0xffffffff). When the last CPU enters it,
+  TF-A and the SPM put the SoC to sleep.
+- mtk_pcie_suspend_noirq() returns early when
+  pm_suspend_default_s2idle(), as in ChromeOS's driver. The bridge
+  stays in D0 with its power and clocks on, and the link is left to
+  ASPM.
+- From ChromeOS's mtk_pcie_startup_port() I added
+  PCIE_LOW_POWER_CTRL_REG (0x194) BIT(8), which force-disables L0s,
+  and PCIE_AXI_IF_CTRL_REG (0x1a8) BIT(12), the AXI0 slave error mask.
+  PCIE_DISABLE_DVFSRC_VLT_REQ is set, as upstream already does.
 
-[1/2] kbuild: Mark the gzip recipes as recursive
-      https://git.kernel.org/kbuild/c/0d4d70da348b0
-[2/2] kbuild: Mark the initcall ordering recipe as recursive
-      https://git.kernel.org/kbuild/c/ae5f6044c4cdf
+Symptom
 
-Please look out for regression or issue reports or other follow up
-comments, as they may result in the patch/series getting dropped or
-reverted. Patches applied to an "unstable" branch are accepted pending
-wider testing in -next and any post-commit review; they will generally
-be moved to the main branch in a week if no issues are found.
+With pcie_aspm.policy=powersupersave, both ends get L1.1 and L1.2
+(ASPM and PCI-PM) enabled:
 
-Best regards,
--- 
-Cheers,
-Nathan
+  00:00.0 L1SubCtl1: PCI-PM_L1.2+ PCI-PM_L1.1+ ASPM_L1.2+ ASPM_L1.1+
+                     T_CommonMode=3us LTR1.2_Threshold=61440ns
+  00:00.0 L1SubCtl2: T_PwrOn=52us
+  01:00.0 L1SubCtl1: PCI-PM_L1.2+ PCI-PM_L1.1+ ASPM_L1.2+ ASPM_L1.1+
+  Link: 5GT/s x1, CommClk+, ClockPM- on both ends
 
+After that, every s2idle entry hangs:
 
+- All devices suspend. With console_suspend=N and pm_debug_messages,
+  the last line on the AP UART is "PM: suspend-to-idle".
+- The EC sees the AP go S0->S3, and S3->S0 never comes.
+- The RTC wake alarm doesn't bring it back. Only a hard reset (EC
+  reset through the GSC) recovers the machine.
+
+What works
+
+- L1.1 only, with link/l1_2_aspm and link/l1_2_pcipm cleared: 10/10
+  s2idle cycles, RTC wake, Wi-Fi back after each one.
+- L1.2 while awake: 200 MB over Wi-Fi with no AER errors and no ping
+  loss. At idle it saves another 25-50 mW over L1.1.
+- Workaround: clear l1_2_aspm and l1_2_pcipm just before suspend and
+  set them again after resume (a systemd sleep hook). 10/10 cycles.
+- Adding the L0s and AXI bits above made no difference to the hang.
+
+ChromeOS builds its MediaTek kernels with
+CONFIG_PCIEASPM_POWER_SUPERSAVE=y, and the comment in its
+mtk_pcie_suspend_noirq() says "It's recommended to enable L1ss
+support, so the link can be changed to L1.2 state during suspend."
+So L1.2 in SPM sleep seems to be meant to work on this SoC. I haven't
+checked the L1SS state under ChromeOS's own kernel on this machine.
+Since the AP gets as far as signalling S3, my guess is that something
+outside the MAC registers is missing.
+
+Questions
+
+1. Does MT8189 need anything else for L1.2 across SPM sleep? For
+   example:
+   a) The 26 MHz reference clock and CLKREQ# in L1.2. For MT8196,
+      the mainline PCIe sphy keeps pextp_ckm on in L1SS_L1S1
+      (RG_XTP_CKM_EN_L1S1). ChromeOS's MT8196 pre_init forces
+      pcie_26m_req and bypasses its ack (PEXTPCFG
+      PEXTP_REQ_CTRL_0_REG) and switches PEXTP_CLOCK_CON off the
+      low-power clock. Is there an MT8189 equivalent? The T-PHY
+      driver has no L1SS handling.
+   b) A resource request or constraint for the SPM/TF-A, telling it
+      that PCIe is in use so that a clock or bus resource stays
+      available during sleep.
+   c) PCIE_RESOURCE_CTRL_REG SYS_CLK_RDY_TIME. MT8196 sets it to
+      10 us; MT8189 leaves it at the reset value.
+2. Is anything in the setup above wrong for MT8189? For instance,
+   nothing on this DT platform programs the endpoint's LTR Max
+   Snoop/No-Snoop Latency (both are 0).
+
+I can test patches, read registers before and after a sleep attempt,
+or try other settings. I have the AP and EC consoles and can reset the
+machine remotely. The board files and patches are at
+https://github.com/zoan37/lenovo-slim3-chromebook-omarchy
+
+The debugging was done with help from an AI assistant (Claude).
+
+Thanks,
+zoan37
