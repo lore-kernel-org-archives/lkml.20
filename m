@@ -1,98 +1,123 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A2CA3563F6
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 18:31:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82D923921C0;
+	Sun, 11 Oct 2026 18:31:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791743490; cv=none; b=DcKPriOLGKO+LHeEfAqeilLfHG0MGsvKxbEcLHO3vsQyYUSK+gfNh1NUHAra2so/UMDMEft0xwqFO4006U8d+f4kQK16K8R00yvf9RGsyS4jr3p3oOhgwsDHJueVKAJFtL81kn2Ei794hH8bfCOFrWRKCpelq/UGDshu2nLNwls=
+	t=1791743501; cv=none; b=hq7gUrSGka5ev2/FXYG0uulvYrh//qo2TxSZVmxvKB+9VWvGKjUQOsLIyOngNMwb4idPUs/zpVFETlI+YHhG716H2jO9EModWzPaLKaWc/aLZzb9v4NE7rGMDo4BbzEwxib79eeWwGWcGmuJTIFqzUwgQ96GNKTnkoDizbC+oQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791743490; c=relaxed/simple;
-	bh=qhTz5OXbSUDAJ4e9N0LFC8LqDDii9uCxNuOIii6UFuA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eLja13Bj5cF2U/8kBxbIS70Lc5bY4JFfHHvLGYEh0imtty7GS2ImkcR8h0Gl5UJU+SG0y69AgbhDwZjUXPTEJ0zIjrp0pLTppfd8H2liBrDh535Mj3i2GDMGdBKsaqL9GzywY9MEK9vflyLqM6I2Dg1hlTkuuuEqHfQy32z2zXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cLRENY6a; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791743501; c=relaxed/simple;
+	bh=aWMsxig8K23vnf/R1OjXs+3LeoRMkfmdoowDD+N8d68=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=suqPUVGI+y+ZthkBkBFMlKQRpSS2dQ0vvC1EdkUfP1/sa4Qlflq2F1w0085Fme0ae6VOvYJul/2hFSQvsqGuYFjY2P+VsYmRiYAHNfwyBKCWBXZO9b8VGcu3lXscAhZt0Kn9NWXlfOMr2R1eeNISvYZ7PJPaSWt/v/QrfkpeOHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VvngHjUr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cLRENY6a"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a020e65269so6892675e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 11:31:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791743488; x=1792348288; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qhTz5OXbSUDAJ4e9N0LFC8LqDDii9uCxNuOIii6UFuA=;
-        b=cLRENY6aPKuaK/kV5pOd5qEkaSMve7bOy/8ptyU0+ZG0kiCXwB47jip4lOpFnK/RPb
-         72g3FDUrRvezABOgBzXPSsiBWp/JhG2yjLaIdfp6b4fKBtbv74jcvpBMAXyOuiuPcNDu
-         v9vZXTkumaqOsvx2cll73qbT6U7xMlhEbdqDYxYDMl8zyja8qkVAZKfPTdpZm/q1AB6e
-         lwA+XhyLDYD31ItiDV2WNeA4a8UZzrzURirYWOQGqXhUR6EW90y6w3NlV9s9sQ8FiGAK
-         5zo/TdeHe3dR4gWJBTBWD1hCbX9VgRdEo00OnkKKKyEcKTbERgKIcVfd/CoDh0pEUjuZ
-         U45w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791743488; x=1792348288;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qhTz5OXbSUDAJ4e9N0LFC8LqDDii9uCxNuOIii6UFuA=;
-        b=pM+3tBZtEY+N9EhXrm3edI8T97lougnXAmR3bSyDQ63Onmwlb4fCorc22wRs7MsqAP
-         gyAPtCobfunohT0S0MCK6EfreAHwo56DLr+LLeNnsK0w6/tmcaz8ZkiAmxurEmiMbx4e
-         fq50EkldoI/lBsXAd0eLHoiWPTZ+KImwU4OqHyO6xWEvHqbeLT5oBeA/8VStrhhQnIuY
-         K5SKeqiLo0SmelVqQSKLfhAym0TRvkcLOwF1OJmTTvzH+wLq1LvhWaKEmeBnm/5Fd+Eg
-         02ILtFCZ9joFxvP4NjyAWlBt2vC4kfUkddVHPQyurhz33KFOA4E29y/Db0Qx1ubgpbwZ
-         PydQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwhHWowQ9qFn8ByacUSRb/A4xNwsSNMQ1Igg3q2XVkwS4sV8BxfkpqpIXc7dIOImNo79fAQxem+3eoZ6Fk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLTiqns0U20Nm38YkB4aJe8aG75F52YpMyhvTfkTPwdMrrEL6Oc
-	adrEVv9GpQKQDVGuY0YPsLgAIfTFK7QwHdY/1VEfdBV2iqCFXqEZ5s2c
-X-Gm-Gg: AYBFou0mDc6SN9gCqzoo17yPNDY/QI+UO0MTpDJv5X73CAF39h+++qWSg/p701ryVZl
-	XMYr2MTeRqVm4b5SJiub6nasuXlM/Ap3MKsupkJyxq4VSPOMCA3eORsg1laP7TnAPDVzjCzce2k
-	D1TEWvALKyk/fvNy5ob7OCAW3GO2luxhMX/mu2UPE0WVUArTwegAhj3f0CxREW+9X5tw8L7fPkY
-	0UtQlLxXLLXug72Lqp60xpPedWwrXNtAa724zVHLUQJL3qLt4kSkHX7GxQGRvlyEO8C3rpfZIae
-	r5m8yNEnRfexyuDeL9FMlftAyTkIwq4PfaFLWYg3Sp9DTB0mH5yKaLTTryWKkS0aIfycP2u197V
-	BO8tvjaqJv3RZb2VsoXHau5lFvQbh2ZE6oCcTJLRdGpIvUkaRT6K2YnfhoCPbq9iDFQINNX80BW
-	atys8Etn3u4adtR3geBe2rxOHnBqGJYkod1B92C8FY/3v290D5d12NkgojFe9srPGKNmoBTxiaN
-	9cHZlqfkUmPRw3+vBYi6Tfyisfs4RM/H/f6W/dch+w4j+w=
-X-Received: by 2002:a05:600c:4fc1:b0:49d:2536:402e with SMTP id 5b1f17b1804b1-4a19a9cf1e6mr31519075e9.30.1791743487757;
-        Sun, 11 Oct 2026 11:31:27 -0700 (PDT)
-Received: from localhost.localdomain (87-205-122-125.dynamic.inetia.pl. [87.205.122.125])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db98c2800sm15253614f8f.26.2026.10.11.11.31.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 11:31:27 -0700 (PDT)
-From: Kyrylo Biryuk <illofspeed@gmail.com>
-To: linux-ide@vger.kernel.org
-Cc: dlemoal@kernel.org,
-	cassel@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] ata: libahci: re-enable FBS after error handling on a port multiplier
-Date: Sun, 11 Oct 2026 20:31:26 +0200
-Message-ID: <20261011183126.389-1-illofspeed@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261011180236.735-1-illofspeed@gmail.com>
-References: <20261011180236.735-1-illofspeed@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VvngHjUr"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 10A48C2BCF5;
+	Sun, 11 Oct 2026 18:31:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791743501;
+	bh=aWMsxig8K23vnf/R1OjXs+3LeoRMkfmdoowDD+N8d68=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=VvngHjUr+tDLCROIy26d14KwK7iLq63CiUC/L9ENCU5bo6He75sXXvC+EPu72rKsM
+	 lqsytBZYcnvgoZr5oa4JUu+bgDPmFl18a32e/IqaLVjqXqQ9jphEUVJpkmmFjYblRf
+	 osHa+7yKOHLuaw8iNXtzoI0QXQ72pD+nDMqL9WdrLJqwl/JOVZTRyhM0jnZm3YC8NP
+	 s/0cfG22VI7dPZr+4iOUYz31Scq06J1jbUM7rn9YB6NkJdEjekNWKLaARtg58Sfd0x
+	 dWQ0Bcw8Ci5yEGmxwQSvBH20z/MFielfWC0+9jHRL8uO0FjbC2sxTzIYeRxboR2zNL
+	 WyNqsNlZJS7IQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F18A2CA9EBD;
+	Sun, 11 Oct 2026 18:31:40 +0000 (UTC)
+From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
+Subject: [PATCH v2 0/2] arm64: dts: meson-gxbb-odroidc2: eFuse MAC address
+ and LED properties
+Date: Sun, 11 Oct 2026 21:31:39 +0300
+Message-Id: <20261011-odroidc2-dts-v2-0-a3a4a752f2ab@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyw7CIBBFf6WZtRig2ocr/8N0QWFox9hioBJNw
+ 79b6trlSc49d4WAnjDApVjBY6RAbt5AHgrQo5oHZGQ2BsllJbgQzBnvyGjJzBLYuVS8r+SpLLW
+ AbfL0aOm9527dj8Orv6NeciMbI4XF+c/+F0X2/qSjYJzZ1nKs61bZprkOk6LHUbsJupTSF81Ij
+ 8G6AAAA
+X-Change-ID: 20261011-odroidc2-dts-53a0b62433c1
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Fil Dunsky <filipp.dunsky@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791743499; l=2030;
+ i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
+ bh=aWMsxig8K23vnf/R1OjXs+3LeoRMkfmdoowDD+N8d68=;
+ b=PY/UhwoUt2ayvSvnBN0VcVMGvOsm5rRv67RWyVsbw8k5cjG13tdXsLE9z+YkyS+AwaqE7IahB
+ ICQMtjYTH4IBd8fMvhLxj0QrC+eEizoFKe9HDPV+cSV+oMGJJKr390A
+X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
+ pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
+X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
+ auth_id=1085
+X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
+Reply-To: filipp.dunsky@gmail.com
 
-An automated review (Sashiko) of this patch pointed out that
-ahci_enable_fbs() writes PxFBS.EN after hpriv->stop_engine(), which
-clears PxCMD.ST but leaves PxCMD.FRE set, and asked whether that could
-upset strict controllers.
+Two small device-tree updates for the Hardkernel ODROID-C2, found while
+adding OpenWrt support for the board.
 
-For the record: this patch only adds a third caller of the existing
-helper. ahci_pmp_attach() (every boot with a port multiplier, after
-ahci_start_port() has enabled FIS reception) and ahci_do_softreset()
-(after a successful fan-out softreset) already call ahci_enable_fbs()
-with the port in the same state, so the patch does not change when or
-how PxFBS.EN is written. If the helper should also stop FIS reception
-around the write, that would be a separate change to ahci_enable_fbs()
-and ahci_disable_fbs(); I am happy to look into it if the maintainers
-think it is worth doing.
+Patch 1 wires the eth_mac eFuse nvmem cell (already described in
+meson-gx.dtsi, but so far unused) to the Ethernet controller, narrowed
+to the 6 bytes of the address, so the kernel reads the factory MAC
+address itself instead of relying on the bootloader or a random
+fallback.
 
-Tested on the 88SE9235 + 88SM9705 setup from the commit message: the
-hot-plug now ends with "re-enabling FBS after error handling" and
-"FBS is enabled", and parallel reads behind the multiplier scale again.
+Patch 2 converts the blue status LED to the standard color/function
+properties.
+
+Both verified on ODROID-C2 hardware and rechecked against this tree
+with CHECK_DTBS=y W=1.
+
+Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+---
+Changes in v2:
+- Patch 1: narrow the eth_mac cell to 6 bytes for this board.  The
+  16-byte cell from meson-gx.dtsi is rejected by
+  of_get_mac_address_nvmem(), so v1 only appeared to work because the
+  bootloader had already fixed up local-mac-address.  Reported by the
+  Sashiko AI review.
+- Patch 1: describe the actual test setup in the commit message.
+- Link to v1: https://patch.msgid.link/20261011-odroidc2-dts-v1-0-f9f0e779af88@gmail.com
+
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Kevin Hilman <khilman@baylibre.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: devicetree@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-amlogic@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Fil Dunsky (2):
+      arm64: dts: meson-gxbb-odroidc2: read the Ethernet MAC address from eFuse
+      arm64: dts: meson-gxbb-odroidc2: use color and function for the status LED
+
+ arch/arm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+---
+base-commit: a5ebb76233b79db01e82e061173cb73c6d2b5c6b
+change-id: 20261011-odroidc2-dts-53a0b62433c1
+
+Best regards,
+--  
+Fil Dunsky <filipp.dunsky@gmail.com>
+
+
