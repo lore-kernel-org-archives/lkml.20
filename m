@@ -1,32 +1,33 @@
-Received: from mta1.migadu.com (out-133.mta1.migadu.com [95.215.58.133])
+Received: from mta0.migadu.com (out-75.mta0.migadu.com [91.218.175.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC243B71D1
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 14:36:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 076E53C76AD
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 14:36:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.75
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791729414; cv=none; b=oP2ON9VXKy+amh+CAG0DOqH3wUDWKUcfK8e+eyoUayfelT3xZ7TTdbyiGezJvMNzhXAw+HOAFdOOVsY3jHFQjopquiNKxu5nhRdnqvRlEl3sG3QLhfS1CtWuglXel70SN753U8Dm/0Z1DimoeNXdDwN2FytslQ/nBvXTm60aQyA=
+	t=1791729415; cv=none; b=TS17yAfnM5yS6GFDuljCXSjxddsgwLrLRK/OZjsSQWoIjjUYlNju9nswLvWfU2MVv8XTvxBiLYt971jqIWwgzOwqDIm52GP+dcpa1MPTCgMIRnA8w6suQYbo8y9EYuPM3cbzSnn7aK5PaDzJ8+tKohfNXAQ9EgqojjJh9vt58m0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791729414; c=relaxed/simple;
-	bh=CRdHQKf2EEAmNtXTa5VZLbwsCxrmJ7LgKsNYjdP6aes=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WQpiTxv5TJ5NbDWVLo4XLhUutXlBRVlDQA/i6Dz8swtzTmT/RUaELEvf5xga9lTj5qlhISsbd+t+2nrmOP+5EA/sweNadLb5EmISmlpb9f94riA6blDbT2TNuWkI2pGiTUZgC91+Xdpww3SaUwc4qa0X0iuCt6dxSBfmPjGulQQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qRT8XHQO; arc=none smtp.client-ip=95.215.58.133
+	s=arc-20240116; t=1791729415; c=relaxed/simple;
+	bh=OYn21/OL8lrH8NaEq6iDghNkvvHb7mfdPr+Xymc5Uv4=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=B0gXjKqqjdwG3OkDLGOzp+aGp3y2aY5Qg1iwWfgznhDRlAY7S46G5PHegk2MViSOXqh6HOPoJAV41BV3olQGRHvt/tLY9rcupyH9atEm1q9fQEbAw5ECVY65lGnnFzRNMzhNGVjPyXFiCTIox7q/N4MjO4a835GP1mH9u6lSnRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=pagB3q/F; arc=none smtp.client-ip=91.218.175.75
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qRT8XHQO"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="pagB3q/F"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=CRdHQKf2EEAmNtXTa5VZLbwsCxrmJ7LgKsNYjdP6aes=;
+DKIM-Signature: a=rsa-sha256; bh=OYn21/OL8lrH8NaEq6iDghNkvvHb7mfdPr+Xymc5Uv4=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791729409; v=1; x=1792334209;
- b=qRT8XHQOUegM6wfihbr59xqpKbc8boLbuogT+WVuKsm/YCkzRjLMVjcgegqifVyU6mxLkvtR
- YcJ8VxXbRoz52lRud5754Y8brYqEgF+FXM/OFObTBlWPHhk6UHsP8X4m0WUo1LaF2Ze2iJPJ0J1
- S6G8ZLyyh81oFLq5gi+zMwWY=
+ t=1791729410; v=1; x=1792334210;
+ b=pagB3q/FkgcGgbi/SX8/Y4X6grPtD6gyyVgB3lIw4yE2QjFrRLWAgs8Fpw0XZ3iyJjHH+ChN
+ RawBGI6CSXQFaCT8w0MD6NzJr+7rPFZeKbFdHt8H92kD4P9hgPu/d3ypsU6RiKwOgcsONCRnVCH
+ F45f1cl0XPiD9ISsHct75XaY=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a357e2b5f7edf0ea;
-	Sun, 11 Oct 2026 14:36:49 +0000
-X-Mizu-Trace-ID: a357e2b5f7edf0ea
+Received: by smtp.migadu.com with ESMTPS id c296a38619e6afa6;
+	Sun, 11 Oct 2026 14:36:50 +0000
+X-Mizu-Trace-ID: c296a38619e6afa6
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: maz@kernel.org,
@@ -46,10 +47,12 @@ Cc: catalin.marinas@arm.com,
 	Sascha.Bischoff@arm.com,
 	steven.price@arm.com,
 	tabba@google.com
-Subject: [PATCH v2 0/5] KVM: arm64: pKVM host hypercall and GICv5 CPU interface fixes
-Date: Sun, 11 Oct 2026 15:36:43 +0100
-Message-Id: <20261011143648.211337-1-fuad.tabba@linux.dev>
+Subject: [PATCH v2 1/5] KVM: arm64: Reject the GICv5 CPU interface hypercalls under pKVM
+Date: Sun, 11 Oct 2026 15:36:44 +0100
+Message-Id: <20261011143648.211337-2-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20261011143648.211337-1-fuad.tabba@linux.dev>
+References: <20261011143648.211337-1-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -58,50 +61,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi folks,
+__vgic_v5_save_apr() and __vgic_v5_restore_vmcr_apr() remain callable
+once pKVM has finalised. pKVM never registers a GICv5 vgic, so neither
+has a valid caller in protected mode, and on a GICv3 machine both reach
+a register that is UNDEFINED at EL2 and panic the hypervisor.
 
-Changes since v1 [1]:
-  - Dropped the two __kvm_adjust_pc() fixes (v1's patches 4 and 5),
-    which went into kvmarm/next with the pKVM core series [2].
-  - Minor wording fixes to a comment and the commit messages. (Joey)
+Move both into the band the dispatcher rejects once pKVM has finalised.
 
-Patches 1 and 2 move the GICv5 CPU interface save/restore and the
-stage-2 flushes into the band the dispatcher rejects once pKVM has
-finalised, since the host has no use for them in protected mode.
-Patch 3 validates the vgic model EL2 copies from the host. Patch 4
-stops nVHE from accessing the GICv5 CPU interface from EL1, and patch
-5 fixes two stale comments.
+Fixes: af325e87af5da ("KVM: arm64: gic-v5: Add vgic-v5 save/restore hyp interface")
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+ arch/arm64/include/asm/kvm_asm.h   | 4 ++--
+ arch/arm64/kvm/hyp/nvhe/hyp-main.c | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-The GICv5 residency and VDPEND hypercalls in kvmarm/next still check
-for pKVM in each handler. I'll move them into the same band once this
-lands.
-
-Based on Linux 7.3-rc3 (fd73f4a665989). On kvmarm/next, patches 1 and
-2 have a minor conflict: new hypercall IDs sit next to the ones they
-move.
-
-Cheers,
-/fuad
-
-[1] https://lore.kernel.org/all/20260915123846.2317931-1-fuad.tabba@linux.dev/
-[2] https://lore.kernel.org/all/20261001135711.1640520-1-fuad.tabba@linux.dev/
-
-Fuad Tabba (5):
-  KVM: arm64: Reject the GICv5 CPU interface hypercalls under pKVM
-  KVM: arm64: Reject the stage-2 flush hypercalls under pKVM
-  KVM: arm64: Validate the host-provided vgic model in pKVM
-  KVM: arm64: vgic: Do not access the GICv5 CPU interface from EL1
-  KVM: arm64: Fix stale VGICv3 comments in the nVHE world switch
-
- arch/arm64/include/asm/kvm_asm.h   | 16 ++++++++--------
- arch/arm64/kvm/hyp/nvhe/hyp-main.c | 15 ++++++++-------
- arch/arm64/kvm/hyp/nvhe/pkvm.c     | 10 ++++++++--
- arch/arm64/kvm/hyp/nvhe/switch.c   |  4 ++--
- arch/arm64/kvm/vgic/vgic.c         | 12 ++++++++----
- 5 files changed, 34 insertions(+), 23 deletions(-)
-
-
-base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+diff --git a/arch/arm64/include/asm/kvm_asm.h b/arch/arm64/include/asm/kvm_asm.h
+index e5b92ac09e69e..ea319c496bb26 100644
+--- a/arch/arm64/include/asm/kvm_asm.h
++++ b/arch/arm64/include/asm/kvm_asm.h
+@@ -62,6 +62,8 @@ enum __kvm_host_smccc_func {
+ 	__KVM_HOST_SMCCC_FUNC___kvm_enable_ssbs,
+ 	__KVM_HOST_SMCCC_FUNC___vgic_v3_init_lrs,
+ 	__KVM_HOST_SMCCC_FUNC___vgic_v3_get_gic_config,
++	__KVM_HOST_SMCCC_FUNC___vgic_v5_save_apr,
++	__KVM_HOST_SMCCC_FUNC___vgic_v5_restore_vmcr_apr,
+ 
+ 	MARKER(__KVM_HOST_SMCCC_FUNC_MIN_PKVM),
+ 
+@@ -87,8 +89,6 @@ enum __kvm_host_smccc_func {
+ 	__KVM_HOST_SMCCC_FUNC___tracing_write_event,
+ 	__KVM_HOST_SMCCC_FUNC___vgic_v3_save_aprs,
+ 	__KVM_HOST_SMCCC_FUNC___vgic_v3_restore_vmcr_aprs,
+-	__KVM_HOST_SMCCC_FUNC___vgic_v5_save_apr,
+-	__KVM_HOST_SMCCC_FUNC___vgic_v5_restore_vmcr_apr,
+ 
+ 	MARKER(__KVM_HOST_SMCCC_FUNC_PKVM_ONLY),
+ 
+diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+index 9a3b92e626adb..7c939baf9c1ba 100644
+--- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
++++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+@@ -911,6 +911,8 @@ static const hcall_t host_hcall[] = {
+ 	HANDLE_FUNC(__kvm_enable_ssbs),
+ 	HANDLE_FUNC(__vgic_v3_init_lrs),
+ 	HANDLE_FUNC(__vgic_v3_get_gic_config),
++	HANDLE_FUNC(__vgic_v5_save_apr),
++	HANDLE_FUNC(__vgic_v5_restore_vmcr_apr),
+ 	HANDLE_FUNC(__pkvm_prot_finalize),
+ 
+ 	HANDLE_FUNC(__kvm_adjust_pc),
+@@ -932,8 +934,6 @@ static const hcall_t host_hcall[] = {
+ 	HANDLE_FUNC(__tracing_write_event),
+ 	HANDLE_FUNC(__vgic_v3_save_aprs),
+ 	HANDLE_FUNC(__vgic_v3_restore_vmcr_aprs),
+-	HANDLE_FUNC(__vgic_v5_save_apr),
+-	HANDLE_FUNC(__vgic_v5_restore_vmcr_apr),
+ 
+ 	HANDLE_FUNC(__pkvm_host_share_hyp),
+ 	HANDLE_FUNC(__pkvm_host_unshare_hyp),
 -- 
 2.39.5
 
