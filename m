@@ -1,156 +1,134 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D2AC4B640
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 17:28:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791739730; cv=none; b=jeXwP2UAriJ930IMgQFf2LJfGe6J243cv0cWb8r8TWl6rXlvn35KjnebfSMNlCAME5BZxCn7rwJSXGhQ/7W1+dki3XoNPmgJlfo0KGkj+PV39igKuzP6hesQ/+bkQ8mijRonJ3fk2ruiCamHz14GVHzj04A+E27UyQrhIzwXeLo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791739730; c=relaxed/simple;
-	bh=MI7LMwrl97b6i73iVI7u88+57sLGUKgyb2/wfD4KW0A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OO1UO14sMOMIGltjmn2nYtZVawayG0hKXHFhMSowdo3i2EHNcng2RCNb6lD7eXmfebRMXQcyEotGI9M907bCbQK6a74RfA/Dz3MHqekP60D4lp2b1KItI2z6bU1TbR/2tfsdlxQH/fEQ6yyxafRvjkHWcjqlx0E7sAEtJ6LDY+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=e5i5ed4y; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B2C334EF0C
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 17:29:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.172
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791739778; cv=pass; b=uGIPl5nbwl2O/JgLBMttJMvvUgrwimhI4/jwbdP3AVbV0r/RMFl/eHNkG59QfT2sM/nvWII804KbfCzWzUcvV/Q8TM2Hl/lRoL3LnfGq22hC6MqTILXDbXEbZ69OO70tIFXbwKCvY25pgZWQ4oSE7LrPG6ROKlSnq/bSmoGEhqg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791739778; c=relaxed/simple;
+	bh=tkjOrtWzfvAkN6ASJLjJRMDquvEPYg5g2p0E9cG6xAQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fR9EoXxOezUfbGy/K8gbWcd8ElfNlMsYHCtZ9vv0DqTIGeksyAggSu1IZEFdsohMNh34YFzN9CzD8nyL3GFvumnKQPZl2HUo8xmKb5tvbMuWkQ9xNiem5r4h30+G4SM5aChE0nvFiSnSG43ZlQSmTetsrXF+W6vZqusOJoXxifs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=M/5ZYxMj; arc=pass smtp.client-ip=209.85.208.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="e5i5ed4y"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1BB781682;
-	Sun, 11 Oct 2026 10:28:38 -0700 (PDT)
-Received: from [10.163.146.225] (unknown [10.163.146.225])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 70BF03F673;
-	Sun, 11 Oct 2026 10:28:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791739721; bh=MI7LMwrl97b6i73iVI7u88+57sLGUKgyb2/wfD4KW0A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=e5i5ed4yeGKLd8XXvpMve9XQf9OE36u6gKWXUn8hs8RNJ8mDOugFUGMY+UJhssT1K
-	 6T7eIoA8lkMm1Cc+GA7VJURQuqfc1NFvwGTmadPfq3XGvamCF7G4dQ+/U4YC/zjMmb
-	 vqlCzDr583JwWnHkFjKYEUCKjtwmlN3W6flfTfrY=
-Message-ID: <55adcc67-e545-4bf5-93ba-7e4180f1b523@arm.com>
-Date: Sun, 11 Oct 2026 22:58:33 +0530
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="M/5ZYxMj"
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3a1585728b5so11931251fa.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 10:29:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791739774; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Yk97orfzDjlbucsqWkveX/Z3hBCnMYiS8xfkpF6vE0U+mMu699FpF4MZqu2M70FhD/
+         bZhftjPafdeTFowAnVEktDL40v0+DEJP6BZn51Z5xFVWcgf6OghIPGZVoOIFi7RG6KmX
+         1nQCL9vBKz+KJas0MNidj/h878utgdZl9JlydTvdmsCmkmwlEeqRwHyK2WwzTQOKVSpT
+         Se6NVcs8pQAbvqfjekaU5AETJ4wQnjx/ldi/apLCInlyxaDu9YQiDnGodLtIDEEjQ4u0
+         d/00OJulhaMbV4ltn2vnQuB9zMFAZEwpq9lik+NF4ne+iq85sREqjji86CUYc0BPleN2
+         JsJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=lCu02LFOYMeDJJjF4fmtFwaOG6AS3l/NEzfbXyNBgZg=;
+        fh=58ex/gLALHnjyeaOYvYh5Xsiazdr/sc81zIqjdSO1+8=;
+        b=VuvrMGo4zS6Pld4RXHwsWiv1E+F2aDCuUyHt2AWVZHamwmqikrMQlzyawypxkUhikZ
+         kdGryXASNRVDTi+wApFuj3aKwUExrjBZ8x6fnHqSIsssiPGj76XdEcqa/K7pr59S+Yfs
+         K4IXJDEeIy4ZIqvlalU+i1FrZ0eIHt3b4TTbkH69ZnTUpuB2VhjL14parUbEZZwlMnjY
+         YWTu/5k1dgFEK7RQcLjRPL4c4AJEGJ9t47/1t7uUteJ7FmZqsd46iixxMJSeFkCl2rcs
+         8OoccAwfBYbXOFSeOjvrEZYv+ecG1sT1lKU7ZGnKEoNhEPsdcyWynRNu8ec6zDsljnGw
+         pySQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1791739774; x=1792344574; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lCu02LFOYMeDJJjF4fmtFwaOG6AS3l/NEzfbXyNBgZg=;
+        b=M/5ZYxMj9PnXSaZWoiTkJl8Ity+azlcvU5zteYizyysVNPtEXeSGtIanr8qCd7Hm7T
+         22OdcazQrc9iU/huEHvazgwTuyg2jSaCt73iAkMsTJWxyIS7YyVv+a8mfwQgT5GMt92V
+         vClA8NurSz9xMTWB1YV7EvwSlfRNAhpsYw0DE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791739774; x=1792344574;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=lCu02LFOYMeDJJjF4fmtFwaOG6AS3l/NEzfbXyNBgZg=;
+        b=M9bcqZHDd8mrhvl4Rg+9uEc/DFsoCfXoaMd2dsMtUgSUo/nGZRlr555bNae3TA32A/
+         b12z9awd+v9yiSL6zZiUV7TDZ7Y1Oxift3hoHsSRz+Qpyg/pWnnNzohiuc2JAXiZgByA
+         xPV+97YcT7kLvrI2zzVSmrnS9Q7D4ffh+pss45YdDv7VkdgeXek/WahkbrVe7X0XGrC0
+         UHeGYXII8KEIUo+wOMF6empN3f/T3ln+e1wMOxlxSyrqnbnX9jUB9UWv4LVzhS8uUyKh
+         w+HyW8eMIP4sgXk53s5btATCBYNLci0tgepDV2tFuHrPJs4SPxp88WFfOllrSrmOB1qe
+         UBMg==
+X-Forwarded-Encrypted: i=1; AKwUvBxQXQccIGl4bs3MHzCzhzqh1M7AjaddjxdTD8qCAO8wWtRx7Dr4Dvp3LFLuMf6dkT8/G2sLnC+GWkqdlGY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJl/v74p2YA1WDbto46yENh023Av78kFisLAgdhLMyHfcLw65zb
+	9h11oHGpKX45J+EcAbHV8yftsgLdkTsN3mGMMr0ymY5vScClq6AxD4jGH7Ison0YmUWnbQehrE3
+	gQHScjG3b5GJ9ruWyo6S4MnqVQ82fwCqE+RZ/edGW
+X-Gm-Gg: AYBFou3gdm4NNIG0h2ere1PMqXnWwRcNg3uOAu1KLTH+3CHEWihZeur1SGf6T2DE2mM
+	k4Qh6SiFbHuabzg/G9xZXtmmc7ulFCKjokUm6izsMvjMLyPUwXiXN3EbbapR0L3tGlSIhVAau99
+	ZRmQe6w/B9QQJ4Lx8PK4/s8JleK2BoMU+aU0fVZ6XmphYOFu9oGUw6QjcAzUR7tONtNqo3IBoCz
+	hFEcJ1bw2/Mmpu4dr73cvZL6WX5W/Fc62V7WcSwOkB9eM2bmSeu/NwFpWP370IRvQcSlGNSL284
+	FSuGLY2WkVo8FfBHKz1kVlYktd5aoiXY0W9oPl7evRIHI0/aw3SHlrhTVhyf52PKshA2/qQmHne
+	ux8HKu8TH6A==
+X-Received: by 2002:a05:651c:a38c:20b0:3a9:8546:ee13 with SMTP id
+ 38308e7fff4ca-3a9c5749725mr12016031fa.19.1791739774534; Sun, 11 Oct 2026
+ 10:29:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PROTOTYPE] mm: reliable 1GB page allocation
-To: Rik van Riel <riel@surriel.com>, linux-kernel@vger.kernel.org
-Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Kairui Song <kasong@tencent.com>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>
-References: <20261004013657.03a63c4c@fangorn>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <20261004013657.03a63c4c@fangorn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261006-upstream-vivaldi-fix-v1-1-bbc9a7f14ea6@chromium.org> <asfk_jRVjY8pXzjt@google.com>
+In-Reply-To: <asfk_jRVjY8pXzjt@google.com>
+From: Shashikirana H K <shashikiranah@chromium.org>
+Date: Sun, 11 Oct 2026 17:29:22 +0000
+X-Gm-Features: AclHuK9ZAHiF05P5Ep5pwVbDh3L0xmk8bEDd4KYnMtCBumJ8hsz-7P7vYfRjDBU
+Message-ID: <CAH=natbNnhVMO0vXmhTi5wipEsfMr9wy7u_PRCXDYFaWJXqoCA@mail.gmail.com>
+Subject: Re: [PATCH] HID: vivaldi: Validate Report ID and length in feature mapping
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
+	Stephen Boyd <swboyd@chromium.org>, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Tzung-Bi Shih <tzungbi@chromium.org>, 
+	"Sean O'Brien" <seobrien@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Dmitry,
 
+Thank you for reviewing the patch!
 
-On 04/10/26 11:06 am, Rik van Riel wrote:
-> The goal of this series is to keep gigantic (1GB) pages allocatable
-> after weeks of uptime, by concentrating non-movable pageblocks in a
-> small number of 1GiB-aligned ranges.
-> 
-> Design document: https://linux-mm.org/GigaBlocks
-> 
-> Code: https://github.com/rikvanriel/linux/tree/riel/gigablock-2026-10-03
-> 
-> A 1GB page needs a 1GB-aligned range in which every page is free or
-> movable; one unmovable page disqualifies the range.  Over time a small
-> amount of kernel memory spreads across nearly every range.  On a 765GB
-> node after 53 days of build and filesystem work, none of 754 1GB ranges was
-> free of non-movable pageblocks.  On a 253GB test host the same class of
-> workload mixed 251 of 254 ranges in 9.2 hours, and a request for eight
-> 1GB pages returned none.
-> 
-> This series uses the separate free lists for each migrate type
-> in zone->free_area[] in the fast path. The idea is to satisfy kernel
-> allocations from the unmovable and reclaimable free lists, while
-> movable allocations come from the movable free lists.
-> 
-> For each gigablock, the system tracks whether it contains non-movable
-> content, or only free and movable page blocks. A gigablock can contain
-> a mix of non-movable and movable data.
-> 
-> When the kernel free lists run low, the slow path moves pages and page
-> blocks from inside mixed gigablocks onto the kernel free lists.
+> Devices typically do not return short reports. Could you please tell me
+> what prompted this change?
 
-Did you consider a design to introduce MIGRATE_POLLUTED: simply
-have another migratetype which stores polluted pageblocks.
-This idea can work in general, not sure how relevant it is
-for gigablock concept.
+This came up while testing with synthetic/uhid devices that return
+malformed GET_REPORT responses (either fewer bytes than report_len or a
+different Report ID in report_data[0] than requested). When that happens,
+vivaldi_feature_mapping() still passes the buffer to hid_report_raw_event(),
+which then looks up a different report via data[0] or processes unreceived
+bytes from the buffer.
 
- >
-> Creating kernel free memory inside mixed superblocks is done
-> by claiming page blocks in a mixed superblock, when the kernel
-> free lists are exhausted, and a non-movable allocation has to
-> fall back, or by compaction evacuating movable content from
-> previously claimed kernel pageblocks that have movable content inside.
-> 
-> Claiming a new pageblock in a mixed superblock is done from the
-> allocator path, using a bounded scan, only once the kernel free
-> list is unable to satisfy an allocation.  Evacuation is done by
-> kcompactd, and kicked off when the kernel free list falls below
-> a watermark.  The goal is for the asynchronous path keep the
-> page allocator on the fast path.
-> 
-> Movable allocations can fall back to the kernel free lists.
-> That content can always be moved later.
-> 
-> Region size is fixed at 1GB rather than PUD size, geometry is frozen
-> at boot, and a hotplug span change disables tracking for the zone rather
-> than resizing metadata.
-> 
-> The diffstat shows that this version adds too much code to page_alloc.c,
-> which is already too large, and should probably be split up somehow.
-> 
-> One candidate in this series is to split the evacuation code and gigablock
-> slow path into its own file, moving that out of both page_alloc.c and
-> compaction.c. 
-> 
-> Duplicating a small amount of compaction logic may be preferable to 
-> complicating the existing logic at this point.
-> 
-> This code is not ready to be merged yet. The full design document has
-> a list of things that still need to be done.
-> 
-> I am posting this in the hopes of getting feedback on the basic design,
-> so that can be incorporated in the next rounds of tuning and cleanups.
-> 
-> Specifically feedback on design concepts like:
-> - Using only zone->free_area by migrate type in the fast path
-> - Moving pages around in the slow path, to keep the kernel free
->   lists stocked.
-> - Some amount of scanning in the page allocation code if the
->   kernel free lists cannot satisfy an allocation, in order
->   to claim a block in a mixed gigablock.
-> - Using compaction to evacuate movable content from pageblocks
->   claimed for kernel use.
-> - The policy of restricting how much kernel allocations can
->   claim new pageblocks anywhere.
-> - The policy of letting movable allocations fall back to the
->   kernel free lists once the movable free list is exhausted
-> 
->  Documentation/admin-guide/kernel-parameters.txt |    8 
->  include/linux/mmzone.h                          |   83 
->  include/linux/pageblock-flags.h                 |    2 
->  include/linux/sched.h                           |    4 
->  include/linux/vm_event_item.h                   |   48 
->  mm/compaction.c                                 |  170 
->  mm/folio.c                                      |    5 
->  mm/internal.h                                   |  147 
->  mm/memory_hotplug.c                             |    3 
->  mm/mm_init.c                                    |  150 
->  mm/page_alloc.c                                 | 5553 +++++++++++++++++-------
->  mm/page_alloc.h                                 |    6 
->  mm/vmstat.c                                     |  273 +
->  13 files changed, 5015 insertions(+), 1437 deletions(-)
+Since legitimate Vivaldi keyboards always return the full feature report,
+rejecting short reads outright with `if (ret != report_len)` (similar to
+hammer_get_folded_state() in hid-google-hammer.c) would be even cleaner
+than passing `ret` to hid_report_raw_event().
 
+> I do not think checking whether report is numbered is needed. While
+> transports handle numbered and non-numbered reports differently here I
+> believe we always have report number (0 for unnumbered) in first byte.
+> Also, shouldn't this check be in hid core if it is needed?
+
+Agreed on both points:
+1. Dropping `report->id &&` and simply checking `report_data[0] != report->id`
+   (like mt_get_feature() in hid-multitouch.c) works for both numbered and
+   unnumbered reports since transports place 0 in byte 0 for unnumbered
+   reports.
+2. Checking `buf[0] != reportnum` on HID_REQ_GET_REPORT directly in hid-core
+   (e.g. in __hid_hw_raw_request()) would protect all HID drivers at once.
+
+Jiri, Benjamin, Dmitry -- would you prefer a v2 that checks
+`ret != report_len` and `report_data[0] != report->id` in
+vivaldi_feature_mapping(), or moving the `buf[0] != reportnum` check for
+HID_REQ_GET_REPORT into hid-core?
+
+Thanks,
+Shashikirana
