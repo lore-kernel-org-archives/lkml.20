@@ -1,96 +1,235 @@
-Received: from mta1.formilux.org (mta1.formilux.org [51.159.59.229])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011039.outbound.protection.outlook.com [52.101.65.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F4921A457;
-	Sun, 11 Oct 2026 17:38:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.59.229
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791740322; cv=none; b=AreTF+BvfabpRmjkfX/9zFhdYdx9iDnamNTWJPVTbwTJqTTSkpWdMab/2gz0Mp4L0VEkewDw9cgDYEVEBBxKL98wuZ6+NH0U929TIj5M6nWoY1NWgSJfZYWes5Qc0B2xnSu0twAH+vg6hND67aCXsXifQHLwwRTKsLgKp3Xf1Bk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791740322; c=relaxed/simple;
-	bh=yO7TYUdsNEouy+r8LNXK9jTl+YP+UbRG2kou+F9S2Eo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o72yJhDa2Rrq60jg0cOXEjm/AvQ5VUHVySwW9t8rHEYPi2JgdQJEjfuqCIypYoMRepayKDvZ/hdhxwhIWZ/V+RLJXYja/Tl0IKo4cJTEvY7V24eN7UCzpIFYLNC0NFe7nO8qGNYuYVCB5KDjkRalCAfZ2b7nkP39PM9WsGxwKs0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=1wt.eu; spf=pass smtp.mailfrom=1wt.eu; dkim=pass (1024-bit key) header.d=1wt.eu header.i=@1wt.eu header.b=lsJd3Mgp; arc=none smtp.client-ip=51.159.59.229
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=1wt.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1wt.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C295221A457
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 17:40:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.39
+ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791740423; cv=fail; b=l9yI8GWu9b6yi8rQyVla1VbrymTWxzzd7TcbXnPAt+eRpJ4uGsa36hnxvZj0BdpSu17xcG3guMljkcS0UxxqYnsFpaIXcUkYffV4Ci+dTxOgPNYe9IZbGcMwTi0/d2FiQDR8EN/TVywgd5dHNN/uskx30tWBrks0gnmCv1AIfbc=
+ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791740423; c=relaxed/simple;
+	bh=3lgIRmuF+AD4tRDxYP30KTNscbYMsn7uUpKoTwO/Qlw=;
+	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
+	 To:Cc:MIME-Version; b=PU5cvxGtpDrwpqKk0qLgX6GmN9zUjjyXOz2g5doHgHfex3n6fIKpvXvLgmGwnyjEiasTyEb5t/vXa+mTr6a2HWsa0A2KycVwpeEFLijxNIKBdcaMfQvajBr+1vrbvouupco7DcZIIpNaIzq4qWVAVm9gvWGXIywRhRiYyKZ8EMM=
+ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=m2Rg0+p2; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=m2Rg0+p2; arc=fail smtp.client-ip=52.101.65.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=1wt.eu header.i=@1wt.eu header.b="lsJd3Mgp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1wt.eu; s=mail;
-	t=1791740310; bh=s9SvmzBmiwivVauLGFTbFp3qv/QIUAQiXVjv0kh1bWE=;
-	h=From:Message-ID:From;
-	b=lsJd3MgpzqlNQwkq4cvLnFsSkXJRgiIuLDYHh+mZX6iNnyXTP0C4eRHn3suNHLVNk
-	 OpNeO/ugLo+uUkXJ6zZkXEARp78wDjvk380s4WDwQP59vZl17ZYrdCx4Hsa4xFyCFl
-	 tlEvJnUpUGPc8y3eUIGXEQb7AiMTzCOKdr8FapYM=
-Received: from 1wt.eu (ded1.1wt.eu [163.172.96.212])
-	by mta1.formilux.org (Postfix) with ESMTP id 7FD9FC0920;
-	Sun, 11 Oct 2026 19:38:30 +0200 (CEST)
-Date: Sun, 11 Oct 2026 19:38:29 +0200
-From: Willy Tarreau <w@1wt.eu>
-To: Sebastian Andrzej Siewior <sebastian@breakpoint.cc>
-Cc: Tancred <alex@narraduct.com>,
-        Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-        linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-        "H. Peter Anvin" <hpa@zytor.com>,
-        "Maciej W. Rozycki" <macro@orcam.me.uk>,
-        Bill Wendling <morbo@google.com>, Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        Ingo Molnar <mingo@redhat.com>,
-        John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Justin Stitt <justinstitt@google.com>,
-        Nathan Chancellor <nathan@kernel.org>, Neal Gompa <neal@gompa.dev>,
-        Nick Desaulniers <ndesaulniers@google.com>,
-        Richard Purdie <richard.purdie@linuxfoundation.org>,
-        Sam James <sam@gentoo.org>, Shuah Khan <shuah@kernel.org>,
-        Thomas Gleixner <tglx@kernel.org>,
-        Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>,
-        Tomas Glozar <tglozar@kernel.org>, x86@kernel.org,
-        Arnd Bergmann <arnd@arndb.de>
-Subject: Re: [PATCH v4 2/2] x86: Start removing X86_X32_ABI
-Message-ID: <asvJlVyfxMVqw2E2@1wt.eu>
-References: <20261008-x32_removal-v4-0-d389a193c506@breakpoint.cc>
- <20261008-x32_removal-v4-2-d389a193c506@breakpoint.cc>
- <7f315c7a-0fd1-4f7e-93bb-703d4107aa5a@narraduct.com>
- <20261011171946.gMv8V9Ck@breakpoint.cc>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="m2Rg0+p2";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="m2Rg0+p2"
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=NVzG/UrIBWxYqCd9jvUuXzMv1B8MyKHdUh8aTruYS1Rd+vmkk2GJ4GX90FFWo/lQwg2Nm3pQxEy2JP+1gwGZKgcPMhvwZ5Q1Z0+p801OUzlvT+8AC1/tKcFN2KN+4EuzAFXesW8PWgO4DOiLYSh7jT1oWBlgIaFtwjG6wghUU9MHSaQKG3LjxxGkVDkK9WvgJ8qm0u2EPbrojR01pbYieMTLs9IazSY+I0QhaNGuTIyBrYiPuj/PA+Bz0NgpvPP/KTsWVa4mMFW/tAinuDDbLyxuO/XEAZb5K/X6BxHMuHNEWtuEmj09QmCtW/RLAzFW/eB5+qwrHPPqqz73CfRupw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZWrE4oGreTl+RsedJ9GZ4lgPK4/7K8KIhxTi2A1g24g=;
+ b=kNB9IgzFYBg3CB1o7OA3nh4DoRE/7LQdRuaO+2Xg2Es10Pr07tu7vcBNMBX/9I29peIuWfXBxs5X9tz60hTeuLw+783MHCk02tFjDxxEUwmZC6egox5ZURKP0utUZESgPEo08jTad3zqevPlincOI75B95B+fwRkfwuGe4QpRDoVt/A1AQXUQD63H4jYYeZcCgTXpbYAbxA566BC03Snv9vX4XRrIEA2OPy7h8bGGAwAX4AADrMlwtS9X9N1s9aSXUAaKPb119dYdaDEJcMLJvi0O99v6g4YMfXVw8ZamyEYWj4coiJvny7rkgb+VvfT7iBBxOOHRl5MQbVxcwukLA==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZWrE4oGreTl+RsedJ9GZ4lgPK4/7K8KIhxTi2A1g24g=;
+ b=m2Rg0+p2mZyczOahJh8NLWwOP0xMYciJXYKcQyY5lcs6LeoAJRQ/8nBTrIkPzaqBfUO9VjpgYeeQHQX5+98yDW05n89opfjINdhNS88M5sEPVktMvPnQNN1PuETgdZstlZLJM6hIEKk3CnYXMf1wOs94FzLSJ0lSfHUtjmj1DNw=
+Received: from PAZP264CA0079.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:1fa::18)
+ by VI0PR08MB11018.eurprd08.prod.outlook.com (2603:10a6:800:253::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.10; Sun, 11 Oct
+ 2026 17:40:15 +0000
+Received: from MA3PEPF00000405.eurprd04.prod.outlook.com
+ (2603:10a6:102:1fa:cafe::7a) by PAZP264CA0079.outlook.office365.com
+ (2603:10a6:102:1fa::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Sun, 11
+ Oct 2026 17:40:15 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 4.158.2.129) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ MA3PEPF00000405.mail.protection.outlook.com (10.167.241.150) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.6
+ via Frontend Transport; Sun, 11 Oct 2026 17:40:14 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IgfOO0pmQsnNFQOS5NDK4DfE6IVwk7Nt45KVh/O0yueuKKlHBjL58Ig+vthF1QiYEUjaz1ChL6DSowvEAV1RwCpmTV2SsuK4L4HN9Pus6xFM5c2Uv9zyHVVMo5KltvdkGrnLe5Sc92bVREYI2x4sDaLNSNd3a1fS0h5oS8+KAySRlT0ecYDxIkuPvxPZmeqTnfImPKGsLuWRlcxqxC0hXNEXG0UTf6/aqOOC1IXOtp+om1RxSshysYAHpAiU+tQea4QAtfMeQDWJ96DhWrdrfz5h8k6WrtPFM49uklR0jJrTNxEkpHZ4AMG79Gf+BOiNbhwLcW+L3h69XCGD4yzbHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZWrE4oGreTl+RsedJ9GZ4lgPK4/7K8KIhxTi2A1g24g=;
+ b=XBRDIQx9LKJoBlNwIghME5jCyzCHOMqBmMqZ+J7WjgS34wc0i9kh6zWJEunaWNv9/yEroQy9xuHe9PfUQrMdSDVzyT+wFcIjyrZu1trrC1ulRZcgrDx8eXV/6rZIM09wVIfFD/yfVDpTqHDO0Ov2kyVb9FIiQFP9b0nbVuiPkGS2pCrEPhYpLyL5TBtdKH5Oz2Od8wTtaQpVQREvIVDZYAQw/buaVSj2+/wk2AfZZ+8+sbgmZ/aDtKb/J5HFhaf88QxNVe9d2BIRwEwE2D9guHG1COxuCXsyOZQdyRVog2D2JIJZZEiXMMR/9jyzcLq9K1jrLA57No5J5AbwcfHdaA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZWrE4oGreTl+RsedJ9GZ4lgPK4/7K8KIhxTi2A1g24g=;
+ b=m2Rg0+p2mZyczOahJh8NLWwOP0xMYciJXYKcQyY5lcs6LeoAJRQ/8nBTrIkPzaqBfUO9VjpgYeeQHQX5+98yDW05n89opfjINdhNS88M5sEPVktMvPnQNN1PuETgdZstlZLJM6hIEKk3CnYXMf1wOs94FzLSJ0lSfHUtjmj1DNw=
+Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
+ signed) header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from AM9PR08MB6052.eurprd08.prod.outlook.com (2603:10a6:20b:2d5::15)
+ by AS2PR08MB9521.eurprd08.prod.outlook.com (2603:10a6:20b:60f::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.10; Sun, 11 Oct
+ 2026 17:39:42 +0000
+Received: from AM9PR08MB6052.eurprd08.prod.outlook.com
+ ([fe80::5ba6:c70c:1cd:48cd]) by AM9PR08MB6052.eurprd08.prod.outlook.com
+ ([fe80::5ba6:c70c:1cd:48cd%7]) with mapi id 15.21.0522.009; Sun, 11 Oct 2026
+ 17:39:42 +0000
+From: Lukas Zapolskas <lukas.zapolskas@arm.com>
+Date: Sun, 11 Oct 2026 18:36:49 +0100
+Subject: [PATCH v7 2/8] drm/panthor: Add register definitions for perf
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261011-panthor-performance-counters-v7-2-12c32495062f@arm.com>
+References: <20261011-panthor-performance-counters-v7-0-12c32495062f@arm.com>
+In-Reply-To: <20261011-panthor-performance-counters-v7-0-12c32495062f@arm.com>
+To: Daniel Almeida <daniel.almeida@collabora.com>, 
+ Alice Ryhl <aliceryhl@google.com>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ nd@arm.com, Lukas Zapolskas <lukas.zapolskas@arm.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: LO4P265CA0224.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:315::8) To AM9PR08MB6052.eurprd08.prod.outlook.com
+ (2603:10a6:20b:2d5::15)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261011171946.gMv8V9Ck@breakpoint.cc>
+X-MS-TrafficTypeDiagnostic:
+	AM9PR08MB6052:EE_|AS2PR08MB9521:EE_|MA3PEPF00000405:EE_|VI0PR08MB11018:EE_
+X-MS-Office365-Filtering-Correlation-Id: 73ec4c75-3611-4eee-90b7-08df27beb559
+X-LD-Processed: f34e5979-57d9-4aaa-ad4d-b122a662184d,ExtAddr,ExtAddr
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|10067099003|22082099003|18002099003|3023799007|921020|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info-Original:
+ iJogYTJW41I5Bus0kFWZ1WoMGLl/b0Fe1BEvpollgyRWFxwhf8f5SvqPLZaGgR94XvkqKEj4+Tfb2JV+6oAk1u773t9cI0IHYOFqDuhUTDttrVshKWq+7sk9VFVlteKfOX+/5qTo8AXKa61YraGTsHlnJP47zWuRSc3UHeJrtL81xZPBiutoInbHsAI8uxCLmIXeWOaSe2sVg/vNzdKVMWc9OCEF3xw0TUq2scqwQAZfHvMUBU5uAWD3xGg3PoRTF+zEwvm2UGXi9ujt5SfGjwS7mTYwAWfwrHR7wasOy60CI8Q1mVKGZ8mpORrVskXqxW394zUbPzDYYhM3XKtnxWPJrckFS9OjhpeLzL5i/jQvpo5na1pK3X9nzsgDrcg+LCCmUrZicY7Wy/4IebBFjvrxxPV3VfhiXp0ufP4d94l/9acoVv13KvOZSIKiRt6E7deIh4zniQT7qZRcHDuaUCQG/xribRAcfiL8lXJ7yrYGESeMneGkVndOOCViCXrmMigYqqbaTX2PsfxLCJCxLc32EBYGsh6KgUOyZMfqLuwclK5G8n9IiqvdKZrrm6rGCg6PsC3TKsMfiKM7rCINqr+LeLCFviL0I52cAiaL2PDDQ4k4i2lupUr/cV+E8lzVKq3fU6Uhtnw91KpRCSPch67vaex0iZHXuhvKk05EOzUCzNY1Q313BTDvV5dx//7lei5VKNdbOBYK3FrrqkgPwQ==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR08MB6052.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(10067099003)(22082099003)(18002099003)(3023799007)(921020)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-Exchange-RoutingPolicyChecked:
+ c3m5/9fe+POCgkywh19cfE4wyV7elaYZvr/vvHkEL+aYbYJhU1ecQC8EZcWDQoasdXeXIJYfW4Ohn+4c8cENzKpGhVaUdtYg1WGZGRXjkDmVrYJmsMu7BasG+esoLztIpyOxTvBA7qWb1Sk3lvjzBUiySpUjH+hR5oo5ee8M8uAD6f9DzSV/0urNGFGXMDHKb4WyWLWd+RIvkEMkGBr5tnTfT0CRgc3ZCDVHu1lnvU8ANhiT+7GNKa0+2W66KYeqZ4hUoU9xNcPWdDXB7YC9r07YAriANqVj1ypwhJX26usaC7T1Pnno4JL18Z0H7oZUrkLwUF1mi89icnSCiT1DHA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB9521
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ MA3PEPF00000405.eurprd04.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	93a852f2-dacf-468c-35b6-08df27bea1db
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|1800799024|7416014|376014|82310400026|14060799003|35042699022|10067099003|3023799007|261009223027099003|921020|11063799006|18002099003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	jnwsBBOrsnuzomWTzfn8SQjSwZZkTZOfjzzqJ9WdOJZFE8Ipm+cjftzdrYmd6WZLAQx/g08p8rMlub6KXgIF0fVbVOlpZJdbGfBBfJoPr2CwUI4VAtR7aevvwptzA3xFfASU/4/vodE0x8vgTXrSmvQJtYRxnLJkud7SFa6Zto6lH84QEsFb+SoFkq9OnylcMm8mAiih4LEUGzEF2QdYPaU+8R/z6fgP0x4YpEiP/DWTC9f3LGkss4ovRss6UgFIyxEgMNRxrQYJ57d4adXZZbESIBnkxjC49TsoocsR7CXXlA/5MrJfcUtROlcuZvpbfhm1SDjjRPCQQPi4XbTrq70G2h6XVi4MjputFuAVmaFKEWNfqOZUuGNStxRwANoI62x5Ov01KhV3yB/QoFBKN3b3VXfBxz6U8BfBm0yt1gqiUdxKrUbJHio7akM3V085PK5vkxV4ZH/A5x3k4+KZPQsSKEHg2aEbJmc6qurTrknCIBf8NJwNLJJ+sr/m5te0gWUQyMXQIY+4IsCKFhGIjusd47Lkaxbny59TSHv1i+CYt8h0jxmf6lqJ5PMBVYJ/LV4UdPGGNuAn6rkrmHjym+omMy/K4H4JlvPugYIvKv40D3QJiKRZoHkbtUXhVvFzsnziwOIiVh4CvM9NqRr97kRJOpeHYfoHUbIgNfqdGL37LaGXxyCkTVnWhnOJRBlrg0oO08Gji6/BEJ/Qnel6+rAn5V8+U4hUftX7MIAmcaNgzBnyft+04ZF842a0Mc0x
+X-Forefront-Antispam-Report:
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(1800799024)(7416014)(376014)(82310400026)(14060799003)(35042699022)(10067099003)(3023799007)(261009223027099003)(921020)(11063799006)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	0dPzloicBc0m56JLD6myvdwtm2AqM9g6qTomVt+ZAeQdN9cRgL4QXhv4YJD27QUFC3IHTpFtVDi6UtZbqxbclGLHlARGYVFipHy3Xo6rUCNFZh4FywMJepBClxyhLd5uMjMDwHjuybLtluHZGAnILmMBwPRDDrJsvNSnLz7JDe4gzWGMkaQVWJ/9Pk6d5/Zc7Dnh/4BTT15NsnyzpQD0GBgjdYzsA+NdslBAyouxdKEHkLweUsOmiZ1Z/z6WvK63mDFJQ6DJKHevNaGbLTli1TFYTgmQbwjUIVdrRIfCiM/RyOmg2YL0BLrCQLgXHrC1V37alFCelrOTb7eH0kPRHyY8vjGw0HCK6LlwsyAOTgLb9p4nH6yXBuD4pS02qJu8Ld+EI8pG6EBufJhDuFd09O+NowZzOn+uMqYi3ai1dFIYO/FPY02wp7LpD4E/AFc/
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2026 17:40:14.7948
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 73ec4c75-3611-4eee-90b7-08df27beb559
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MA3PEPF00000405.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR08MB11018
 
-On Sun, Oct 11, 2026 at 07:19:46PM +0200, Sebastian Andrzej Siewior wrote:
-> On 2026-10-09 20:13:55 [-0600], Tancred wrote:
-> > 
-> > 
-> > On 10/8/26 03:07, Sebastian Andrzej Siewior wrote:
-> > > where certain workloads widely
-> > > move to x32 and use it exclusively. In the meantime Debian introduced a
-> > > patch to disable x32 by default (so it has to be enabled at boot time on
-> > > the command line) because they are afraid of the increased attack
-> > > surface. Fedora as far as I tell has X32 disabled (looking at 7.0-rc5
-> > > rpm in rawhide).
-> > > 
-> > > Since there is practically no real use for x32
-> > 
-> > I only recently discovered x32 and built a Desktop (with all daemons and
-> > utilities running 10-30% smaller and some a bit faster, with 64 bit
-> > libraries for eg. Firefox.) My experiment should definitely not decide
-> > anything, but how much real-world use would be sufficient to justify
-> > continued presence (more complex compat code)?
-> 
-> "a bit faster" needs actual numbers to justify. One examples was quicker
-> gcc but I don't see a x32 compile farm leveraging this benefit.
+The perfcnt_size register, needed to size the FW-side ring buffer, is
+comprised out of two fields, FIRMWARE_SIZE and HARDWARE_SIZE, indicating
+the size of the corresponding components of a single sample. The total
+size of a single sample in that ring buffer is the sum of the two.
 
-FWIW I do build my ARM cross-compilers in a32 because they're generally
-~10-15% faster than in a64. I wouldn't be surprised if that was the same
-on x86 because tools such as compilers very likely use pointers a lot. In
-a build farm it certainly makes a difference, possibly not sufficient to
-justify keeping a kernel port, but it's just to illustrate one valid use
-case.
+The perfcnt_config register configures the size of the ring buffer, the
+counter set requested by the user, and whether the optional metadata block
+is required.
 
-Willy
+For newer FW revisions, the perfcnt_features register reports the
+presence of an optional metadata block.
+
+GPUs with arch major 11 or greater also report the number of performance
+counters in a single counter block via the GPU_PRFCNT_FEATURES.
+
+Signed-off-by: Lukas Zapolskas <lukas.zapolskas@arm.com>
+---
+ drivers/gpu/drm/panthor/panthor_fw.h       | 9 ++++++++-
+ drivers/gpu/drm/panthor/panthor_gpu_regs.h | 4 ++++
+ 2 files changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/panthor/panthor_fw.h b/drivers/gpu/drm/panthor/panthor_fw.h
+index a99a9b6f4825..124e2b40b15f 100644
+--- a/drivers/gpu/drm/panthor/panthor_fw.h
++++ b/drivers/gpu/drm/panthor/panthor_fw.h
+@@ -198,8 +198,12 @@ struct panthor_fw_global_control_iface {
+ 	u32 output_va;
+ 	u32 group_num;
+ 	u32 group_stride;
++#define GLB_PERFCNT_FW_SIZE(x) ((((x) >> 16) << 8))
++#define GLB_PERFCNT_HW_SIZE(x) (((x) & GENMASK(15, 0)) << 8)
+ 	u32 perfcnt_size;
+ 	u32 instr_features;
++#define PERFCNT_FEATURES_MD_SIZE(x) (((x) & GENMASK(3, 0)) << 8)
++	u32 perfcnt_features;
+ };
+ 
+ struct panthor_fw_global_input_iface {
+@@ -208,7 +212,7 @@ struct panthor_fw_global_input_iface {
+ #define GLB_CFG_ALLOC_EN			BIT(2)
+ #define GLB_CFG_POWEROFF_TIMER			BIT(3)
+ #define GLB_PROTM_ENTER				BIT(4)
+-#define GLB_PERFCNT_EN				BIT(5)
++#define GLB_PERFCNT_ENABLE			BIT(5)
+ #define GLB_PERFCNT_SAMPLE			BIT(6)
+ #define GLB_COUNTER_EN				BIT(7)
+ #define GLB_PING				BIT(8)
+@@ -248,6 +252,9 @@ struct panthor_fw_global_input_iface {
+ 	u64 perfcnt_base;
+ 	u32 perfcnt_extract;
+ 	u32 reserved3[3];
++#define GLB_PERFCNT_CONFIG_SIZE(x) ((x) & GENMASK(7, 0))
++#define GLB_PERFCNT_CONFIG_SET(x) (((x) & GENMASK(1, 0)) << 8)
++#define GLB_PERFCNT_METADATA_ENABLE BIT(10)
+ 	u32 perfcnt_config;
+ 	u32 perfcnt_csg_select;
+ 	u32 perfcnt_fw_enable;
+diff --git a/drivers/gpu/drm/panthor/panthor_gpu_regs.h b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
+index 4c5b953796e4..2f0877068e44 100644
+--- a/drivers/gpu/drm/panthor/panthor_gpu_regs.h
++++ b/drivers/gpu/drm/panthor/panthor_gpu_regs.h
+@@ -23,6 +23,7 @@
+ #define GPU_TILER_FEATURES				0xC
+ #define GPU_MEM_FEATURES				0x10
+ #define   GROUPS_L2_COHERENT				BIT(0)
++#define   GPU_MEM_FEATURES_L2_SLICES(x)			((((x) & GENMASK(11, 8)) >> 8) + 1)
+ 
+ #define GPU_MMU_FEATURES				0x14
+ #define  GPU_MMU_FEATURES_VA_BITS(x)			((x) & GENMASK(7, 0))
+@@ -69,6 +70,9 @@
+ #define   GPU_FEATURES_RAY_INTERSECTION			BIT(2)
+ #define   GPU_FEATURES_RAY_TRAVERSAL			BIT(5)
+ 
++#define GPU_PRFCNT_FEATURES				0x68
++#define   PRFCNT_FEATURES_COUNTER_BLOCK_SIZE(x)		(((x) & GENMASK(7, 0)) << 8)
++
+ #define GPU_TIMESTAMP_OFFSET				0x88
+ #define GPU_CYCLE_COUNT					0x90
+ #define GPU_TIMESTAMP					0x98
+
+-- 
+2.43.0
+
