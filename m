@@ -1,313 +1,214 @@
-Received: from mta1.migadu.com (out-17.mta1.migadu.com [95.215.58.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B57E23EAAF
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 02:02:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E507B22FF22
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 02:04:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791684140; cv=none; b=mpY3OHViXKqZXe3/FBPae/YbeLf931woA0+aAnDlj7I9svoXE8k9BV+chZP6sqRRM9NURPd52X8dslPWeMBaw2k9peESk6UPWdF3ZCHvuYtPj9B+wv5Stlm8COJ9zQ0+iAcE/JLj7qSyYc2sh5HZZC301g/PxudPhKLKJcBIR04=
+	t=1791684281; cv=none; b=XltdZcbGTxWaf5jDz18KTFq8cWxgQCxSuEUbUwmyv7tAct0wtP8U7zIDnB/3cFIbbyIBB9Hn+uhgquvEqrnYsC3wHRXUxT193Ai6kHOS8mc2NMMb0x8kTlH3OHCQYWnuM4JiuglkUENzawGBMuAS6zTfm0K9zUdc44vQCv81cUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791684140; c=relaxed/simple;
-	bh=JCTeDB/ACWoJBAhLtS3S7CQA/cT0IyOZ5ci1vO+H110=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RTsKgmhwdaxoaCMhQTVS5qHI2kq3AwS0MFQuSMWarWmaIddko3lcyC3aZHSlKld4AAp916pBy47oAfCClluH3pvnjt6l/6zERA42anS6/uRgPGlSBmFUX1qKrGyduzIumX7Xk63/Wb1foGE0Bdj2L9tRQOdJDOApARn917PkAlU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ESfpsIVT; arc=none smtp.client-ip=95.215.58.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791684281; c=relaxed/simple;
+	bh=sKn/nrmLPM5n+vpbEyLe8dLcl1zlOtOCc1FbfDDrLqI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=o7nss15ZYmIkbNvNKog1zae5Xqtpuv7wn3sx20SsGedir5pxdah4jSPwRFL+1aZ5BkqhAoUgiUCJMvSN0z2DXEWb17MEAPbNA5ZTaZC93uHxDYOjBKL6WlqZv34ij2rffFAKaKdrpR3QIhE7NlojDVgINCY2l7t7dIJDamlemJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WTHvhlF3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PB1a5WfT; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ESfpsIVT"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=JCTeDB/ACWoJBAhLtS3S7CQA/cT0IyOZ5ci1vO+H110=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791684135; v=1; x=1792288935;
- b=ESfpsIVTFk3MynUfo85KIYcNPe09hwrxdrrzwSy7wPNA9BtEmKLIxStheRzRjRlw77+9VYpn
- btUEhuiyzHlGdiSdxP9VpDFVPpsm85nP5CahlPEIuIxHdm5mekytso/4V13Nqfi8yRYH0FDO2TC
- EL+0sYByFKGyl8+nuLfN1q8A=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7f416a40c8789761;
-	Sun, 11 Oct 2026 02:02:15 +0000
-X-Mizu-Trace-ID: 7f416a40c8789761
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <19aabffd-fd4f-4edd-b1b8-8fe1a2391000@linux.dev>
-Date: Sun, 11 Oct 2026 10:02:07 +0800
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WTHvhlF3";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PB1a5WfT"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69B1pIF32046875
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 02:04:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=fuBDltk+gj/ojNJZ0u0bn5L8
+	8uJRD6e8V97djMMcdt8=; b=WTHvhlF37MzGu5NZhQwSb2wncZYhhZYB+HaAZfgl
+	cL34Ly859iO+3Buqd4Wz0mHUxgEwl4ffAVU7G0hnGhIGJFenlP3pxhykSvoWwX4I
+	WhCC/+xCG80agvMO5fZHX5kLolGPpQvbuuVqvGKNaFKCw5ntxNzGahjFGnko8Jhc
+	U1VVCW6pT2dnZsS4hxXNfdmzRkSSln1EXtqZV9X3UZ57CoScqd1qwmM0gFHa+UQy
+	Q9m/1LqrHBfrj9AAx93nbFDkjqg666oiTJlX+Sa7XL/HurDoQDGuIwKOb+gT0WN6
+	icsktvEt8rTfua6qCEhHKvWsg3/f7zNSJo3UQdArfzxTFg==
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7aqmtjuy-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 02:04:38 +0000 (GMT)
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1383723dfddso693710c88.0
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 19:04:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791684277; x=1792289077; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fuBDltk+gj/ojNJZ0u0bn5L88uJRD6e8V97djMMcdt8=;
+        b=PB1a5WfTKKxN7Hy16i6edWjYql66YwlKq1RfE1kGgxjYK9fLlWjgEAkwArzmuuteXI
+         CMC5L8MnUxwlD/MXTfLHS/xwVdBshG/m/pCiY5XxmM++NAkxPVrB7h82yz1zyejkgfcU
+         giUbJlehMdwX5L7fFXtOK0EapqB43x0vHPfeyOC8bAxvwGihkuyv2OZXpuetSiWrN/8j
+         lXjpArWUXS1EO5/KUlhGscaiOp06H73ZhG7er/ZpKIlN0/+/COgauLdQfdytbB70vzFv
+         vkNf6A79e2adh59TYzwwJp9paNHtcc5xb3SFL+SuvQgDHUcpRq2Uux8VnMbZeVWPua6W
+         vhcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791684277; x=1792289077;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fuBDltk+gj/ojNJZ0u0bn5L88uJRD6e8V97djMMcdt8=;
+        b=fFi/emNTR8M0dPRU4sZv/BHkxpUMdhFH2rTrmpVBsS31MSMkHepu0HZBHf3qiDI2xk
+         aG8E29wHVWh3bAdxZnMrFDUlxZZT37Me38yrvsW7NQ3qWBBszuOf2p5iRJ7Zl5WzUdCq
+         2K6aO5NGUBrtZ2cnupQdDHnUnz/S/Jxu7xM2uxAo7l8y0pK6hs30gl5ahhkg9LsvAqI5
+         Zyl/yKXu7iLj+AeRhmi6Jhy2jKgfIcXTAcHrcmyYfybafW4GeVwP2qy1naIxFqsVR9dR
+         Sg9c4e1FVVdBVZmQjtbCCB4i0qG8EOk7FnCk+WoixiXP5lh+w6cxrzYNhu1NpsoMAah9
+         Q4/A==
+X-Forwarded-Encrypted: i=1; AKwUvBx7EGjUM8vPYgD8/1CWOZ5EZ/k0h8l2m3AVExFZPRvuhY3PLhvfH1wt2DoW+DUK/bkY71oO3a95Ge4Ngd4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJnR7hpwoigaJTyPcP8ej5a918y3icrUtLa/ar4KBu+TyisQuTN
+	Jn9cipopblwLEyNhuyMSjzR95iAPn+iAqkw/vqUd+Wz8QTpKC6wZXfhOWA8CQe680cNpmpY4SbF
+	Oi8qP3ZtOdCrgvoziEYu3J8JUYewa7qxZBMo+hbMIVnQvTjmW9ici4QGYuMaIMd+A8so=
+X-Gm-Gg: AYBFou1GjhHKP5Zy/Sy0kgnpsJ6HnVMN1wOybYeijQCy2SymiJwYKKdWeQg0SPOLfht
+	bPXKxLIqxKLFQG8NY/wqP45a6GO2U5vZtGBDqA/gQZulRDmTm6kwqtDPT4ZGPFjjvNps8JWNiW+
+	veWtC7w/yniztSQW2irVhwO4HV0SvZHsY/ADGrsIMf4T4QILOghcoRAKsh2VcV+sW3QAxnU9t6W
+	TWkBT+duGlUxyt5fpnywrvxyytXsVtvYF3Zbg7X613QBWIKQkMWASBALTrhOdUe3kZnKJahfEGn
+	wiZRIrmVjWOJe6PwC6PldeiI9fqQugrEl/ldas700jpTp5et9gdNR4AFqPzxJE/xPs6xqtPmDxn
+	IdNi7QOE6By2M+uB+iqlZtkv+kX6YOv7SzvyKIo1q/w==
+X-Received: by 2002:a05:7022:1605:b0:151:94a6:6f5f with SMTP id a92af1059eb24-16a5fc917b4mr9179327c88.10.1791684277172;
+        Sat, 10 Oct 2026 19:04:37 -0700 (PDT)
+X-Received: by 2002:a05:7022:1605:b0:151:94a6:6f5f with SMTP id a92af1059eb24-16a5fc917b4mr9179254c88.10.1791684275265;
+        Sat, 10 Oct 2026 19:04:35 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca0e64csm20491794eec.10.2026.10.10.19.04.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 19:04:34 -0700 (PDT)
+Date: Sun, 11 Oct 2026 10:04:30 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Stephan Gerhold <stephan.gerhold@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] remoteproc: qcom: pas: Don't fail attach if the
+ remote has crashed
+Message-ID: <asrurrjg3TbOHnWf@QCOM-aGQu4IUr3Y>
+References: <20261006033550.2726451-1-shengchao.guo@oss.qualcomm.com>
+ <20261006033550.2726451-3-shengchao.guo@oss.qualcomm.com>
+ <asj8VnSmKBF3nA79@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next v2 1/6] cgroup/cpuset: Consolidate
- isolated_cpus_can_update() into prstate_housekeeping_conflict()
-To: Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, Hui Peng <benquike@gmail.com>,
- Guopeng Zhang <guopeng.zhang@linux.dev>
-References: <20261010221938.243859-1-longman@redhat.com>
- <20261010221938.243859-2-longman@redhat.com>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20261010221938.243859-2-longman@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <asj8VnSmKBF3nA79@linaro.org>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDExMDAwNyBTYWx0ZWRfXzXJ435P/10lH
+ zMbb2EasGYC0zqn3ZyPZ70KFZPEfH15K+4GCZcOKe74za4tCseoh6imhghhy/sCI1oYAL8MQ0lj
+ gqVaVEAZwfdlQ2EaAnrLW/qrTHUjlik=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDExMDAwNyBTYWx0ZWRfXwfkWRNO00Eam
+ 8LTPo/jBNL9FQ1IUNlXgeliexxVQ6aCBdLOgL0RtOHimyC7FyiY3/9ThWtcMlZ1pQ374ieL3rn5
+ g2zqKeSVlVf/LpHdxIXwuThX2UCvaz/YFIdJJFxHrDeiqjyxZxMLWZgh13LYPlnAbn10pxNUv9x
+ 8wdC0YlErV3WSHYHVeesJXPtJDTVe+Y1speY0DlACBAjpUmoXp5E2FOKZEcrukcaVTm06aD7EW0
+ +LFtFV8mUTlSCouQNQrUodwh+C6nlQn/25gtGUBbM+zSohrWVvvua3aBykT7VMphb4Y2omkQj6u
+ CPftd0Lae5rEgbIDSCkRb3DMuItJSqpA7ukFj3MGtzgUXC0Jg70khz0wHTpPwFVch/GdNw9ZpT2
+ /k4i9llh3aGMZWPisioILIlSZcYFVfMw8XOO9YrUtqJ8dU33mAFBl0sBmVVDroq3Dh2go8+h3Y6
+ 4BmxPiuTqOJ465SkBXg==
+X-Authority-Analysis: v=2.4 cv=Uq32pOwB c=1 sm=1 tr=0 ts=6acaeeb6 cx=c_pps
+ a=SvEPeNj+VMjHSW//kvnxuw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=ReihM4LL204W2qN9rysA:9 a=CjuIK1q_8ugA:10
+ a=Kq8ClHjjuc5pcCNDwlU0:22
+X-Proofpoint-ORIG-GUID: rlBPm-u03EaSZMErqwumP-At6NiF98ol
+X-Proofpoint-GUID: rlBPm-u03EaSZMErqwumP-At6NiF98ol
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-11_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 priorityscore=1501 malwarescore=0 spamscore=0
+ bulkscore=0 adultscore=0 impostorscore=0 suspectscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610110007
 
-
-
-On 10/11/2026 6:19 AM, Waiman Long wrote:
-> The isolated_cpus_can_update() and prstate_housekeeping_conflict() are
-> checking different aspects of upcoming cpumask changes that may conflict
-> with the current setting of the housekeeping cpumasks. There are places
-> where both are called together. There are also places where only one
-> of them is called. That inconsistency can contribute to missing check
-> where invalid cpumask changes may be allowed to move forward.
+On Fri, Oct 09, 2026 at 04:38:14PM +0200, Stephan Gerhold wrote:
+> On Tue, Oct 06, 2026 at 11:35:50AM +0800, Shawn Guo wrote:
+> > When qcom_pas_attach() finds the fatal SMP2P bit already set, it reports
+> > a crash and then fails the attach. The core unwinds the attach while the
+> > crash work is queued: rproc_boot() drops the power refcount back to 0,
+> > and __rproc_attach()/rproc_attach() unprepare the subdevices, clean up
+> > the resource table and disable the IOMMU. Once rproc_boot() releases
+> > rproc->lock, the crash handler finds the rproc still RPROC_DETACHED,
+> > marks it RPROC_CRASHED and runs rproc_boot_recovery() on top of that
+> > torn-down state:
+> > 
+> >  - the subdevices are unprepared a second time by rproc_stop(), so SSR
+> >    and sysmon notifiers see a duplicate shutdown;
+> >  - qcom_pas_stop() and the subsequent rproc_start() operate on resources
+> >    that rproc_attach() already released, e.g. iommu_unmap() on a
+> >    disabled domain for rproc->has_iommu;
+> >  - recovery leaves the rproc RPROC_RUNNING with power == 0. A later
+> >    "stop" via sysfs takes power to -1 and returns success without
+> >    stopping anything, so the remote stays running. A following "start"
+> >    then boots the firmware again on the running remote and fails to
+> >    re-add the still registered subdevices:
+> > 
+> >   sysfs: cannot create duplicate filename '.../qcom_common.pd-mapper.0'
+> >   remoteproc remoteproc0: failed to prepare subdevices for adsp: -17
+> >   remoteproc remoteproc0: Boot failed: -17
+> > 
+> > A crash found at attach time is no different from one reported by the
+> > fatal interrupt right after attaching. Treat it the same way as
+> > q6v5_fatal_interrupt() does: clear q6v5.running, report the crash and
+> > let the attach succeed. The core completes the attach with balanced
+> > bookkeeping, and the crash handler then recovers the subsystem through
+> > the regular RPROC_ATTACHED -> RPROC_CRASHED path.  With running cleared,
+> > qcom_q6v5_request_stop() does not wait for a stop ack the dead remote
+> > cannot send, and handover_issued already prevents a spurious handover
+> > on stop.
+> > 
 > 
-> Fix that by consolidating isolated_cpus_can_update() into
-> prstate_housekeeping_conflict() and call prstate_housekeeping_conflict()
-> in all the places where either one of them or both are called. The
-> exception is the validate_partition() function where the
-> prstate_housekeeping_conflict() call is removed. It is because
-> validate_partition() is called only from partition_cpus_change()
-> where prstate_housekeeping_conflict() will be called from either
-> remote_cpus_update() or update_parent_effective_cpumask() with
-> partcmd_update if not for partition invalidatation or disablement.
+> Hmmmm okay, I have never thought of this option, but reusing the
+> existing crash path as-is by making the attach succeed feels actually
+> quite clever! I suppose starting all the subdevs is really redundant in
+> this case, but the crash case is also nothing worth optimizing for.
 > 
-> Now prstate_housekeeping_conflict() will be called in the following
-> locations:
->   - when a partition is enabled in remote_partition_enable() or in
->     update_parent_effective_cpumask() with partcmd_enable*.
->   - when a cpumask is updated in remote_cpus_update() or in
->     update_parent_effective_cpumask() with partcmd_update.
->   - when a partition state changes from root to isolated or vice versa
->     in update_prstate().
+> > Assisted-by: LLM
+> > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> > ---
+> >  drivers/remoteproc/qcom_q6v5_pas.c | 8 ++++++--
+> >  1 file changed, 6 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
+> > index 8f3d45c604c9..0ecd7688a54d 100644
+> > --- a/drivers/remoteproc/qcom_q6v5_pas.c
+> > +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+> > @@ -562,10 +562,14 @@ static int qcom_pas_attach(struct rproc *rproc)
+> >  		goto disable_running;
+> >  
+> >  	if (crash_state) {
+> > +		/*
+> > +		 * Complete the attach and let the crash handler recover the
+> > +		 * subsystem from the attached state, as for a crash reported
+> > +		 * by the fatal interrupt.
+> > +		 */
+> >  		dev_err(pas->dev, "Subsystem has crashed before driver probe\n");
+> > +		pas->q6v5.running = false;
+> >  		rproc_report_crash(rproc, RPROC_FATAL_ERROR);
+> > -		ret = -EINVAL;
+> > -		goto disable_running;
+> >  	}
 > 
+> My only nitpick is that it would be nice to fully reuse the normal crash
+> handling in this case, in particular the crash_reason logging inside
+> q6v5_fatal_interrupt(). Can you extract that part into a common function
+> and call it from here?
 
-This will fix the issue reported by Guopeng [1]. However, I believe Guopeng's 
-patch is still necessary, whether as a fix patch or a cleanup patch.
+That's a sensible suggestion. Will update.
 
-[1] 
-https://lore.kernel.org/cgroups/585bc1e0-f538-444e-b8b4-28185ee6b19c@linux.dev/T/#t
+> (I guess you could also call the existing q6v5_fatal_interrupt()
+> function since it should work as-is, but externally calling an interrupt
+> handler might be a bit weird...)
 
-> Fixes: 4a74e418881f ("cgroup/cpuset: Check partition conflict with housekeeping setup")
-> Fixes: 103b08709e8a ("cgroup/cpuset: Fail if isolated and nohz_full don't leave any housekeeping")
-> Signed-off-by: Waiman Long <longman@redhat.com>
-> ---
->   kernel/cgroup/cpuset.c | 123 +++++++++++++++++------------------------
->   1 file changed, 52 insertions(+), 71 deletions(-)
-> 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 0ebba2d646c3..f3cebb277a68 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -1353,65 +1353,62 @@ static void partition_xcpus_del(int old_prs, struct cpuset *parent,
->   }
->   
->   /*
-> - * isolated_cpus_can_update - check for isolated & nohz_full conflicts
-> - * @add_cpus: cpu mask for cpus that are going to be isolated
-> - * @del_cpus: cpu mask for cpus that are no longer isolated, can be NULL
-> - * Return: false if there is conflict, true otherwise
-> - *
-> - * If nohz_full is enabled and we have isolated CPUs, their combination must
-> - * still leave housekeeping CPUs.
-> + * prstate_housekeeping_conflict - check for partition & housekeeping conflicts
-> + * @new_prs: new partition root state to be checked
-> + * @parent_prs: Parent partition root state
-> + * @add_cpus: additional CPUs to be added to current cpuset
-> + * @del_cpus: CPUs to be removed from current cpuset, can be NULL
-> + * Return: true if there is conflict, false otherwise
->    *
-> - * TBD: Should consider merging this function into
-> - *      prstate_housekeeping_conflict().
-> + * There are two different housekeeping conflicts to be checked:
-> + * 1) If new_prs is PRS_ROOT, none of the @add_cpus can be a boot-time isolated
-> + *    CPU. IOW, the whole @add_cpus must be a subset of HK_TYPE_DOMAIN_BOOT.
-> + * 2) If nohz_full is enabled and we have isolated CPUs, their combination must
-> + *    still leave housekeeping CPUs. This check is only needed if new_prs
-> + *    differs from parent_prs and one of them is PRS_ISOLATED.
->    */
-> -static bool isolated_cpus_can_update(struct cpumask *add_cpus,
-> -				     struct cpumask *del_cpus)
-> +static bool prstate_housekeeping_conflict(int new_prs, int parent_prs,
-> +					  struct cpumask *add_cpus,
-> +					  struct cpumask *del_cpus)
->   {
->   	cpumask_var_t full_hk_cpus;
-> -	int res = true;
-> +	int res;
->   
-> -	if (!housekeeping_enabled(HK_TYPE_KERNEL_NOISE))
-> +	if (housekeeping_enabled(HK_TYPE_DOMAIN_BOOT) && (new_prs == PRS_ROOT) &&
-> +	    !cpumask_subset(add_cpus, housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT)))
->   		return true;
->   
-> -	if (del_cpus && cpumask_weight_and(del_cpus,
-> -			housekeeping_cpumask(HK_TYPE_KERNEL_NOISE)))
-> -		return true;
-> +	if (!housekeeping_enabled(HK_TYPE_KERNEL_NOISE) ||
-> +	    (new_prs == parent_prs) ||
-> +	    (!del_cpus && (new_prs != PRS_ISOLATED)) ||
-> +	    ((new_prs != PRS_ISOLATED) && (parent_prs != PRS_ISOLATED)))
-> +		return false;
->   
-> -	if (!alloc_cpumask_var(&full_hk_cpus, GFP_KERNEL))
-> +	/*
-> +	 * Make sure that @add_cpus contains new CPUs to be isolated and
-> +	 * @del_cpus contains isolated CPUs to be un-isolated.
-> +	 */
-> +	if (parent_prs == PRS_ISOLATED)
-> +		swap(add_cpus, del_cpus);
-> +
-> +	if (del_cpus &&
-> +	   (cpumask_first_and_and(del_cpus, housekeeping_cpumask(HK_TYPE_KERNEL_NOISE),
-> +				   cpu_active_mask) < nr_cpu_ids))
->   		return false;
->   
-> +	if (!alloc_cpumask_var(&full_hk_cpus, GFP_KERNEL))
-> +		return true;
-> +
->   	cpumask_and(full_hk_cpus, housekeeping_cpumask(HK_TYPE_KERNEL_NOISE),
->   		    housekeeping_cpumask(HK_TYPE_DOMAIN));
->   	cpumask_andnot(full_hk_cpus, full_hk_cpus, isolated_cpus);
->   	cpumask_and(full_hk_cpus, full_hk_cpus, cpu_active_mask);
-> -	if (!cpumask_weight_andnot(full_hk_cpus, add_cpus))
-> -		res = false;
-> +	res = !cpumask_weight_andnot(full_hk_cpus, add_cpus);
->   
->   	free_cpumask_var(full_hk_cpus);
->   	return res;
->   }
->   
-> -/*
-> - * prstate_housekeeping_conflict - check for partition & housekeeping conflicts
-> - * @prstate: partition root state to be checked
-> - * @new_cpus: cpu mask
-> - * Return: true if there is conflict, false otherwise
-> - *
-> - * CPUs outside of HK_TYPE_DOMAIN_BOOT, if defined, can only be used in an
-> - * isolated partition.
-> - */
-> -static bool prstate_housekeeping_conflict(int prstate, struct cpumask *new_cpus)
-> -{
-> -	if (!housekeeping_enabled(HK_TYPE_DOMAIN_BOOT))
-> -		return false;
-> -
-> -	if ((prstate != PRS_ISOLATED) &&
-> -	    !cpumask_subset(new_cpus, housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT)))
-> -		return true;
-> -
-> -	return false;
+I share the same view.
 
-Can we simply return isolated_cpus_can_update(...) here?
-
-> -}
-> -
->   /*
->    * cpuset_update_sd_hk_unlock - Rebuild sched domains, update HK & unlock
->    *
-> @@ -1593,9 +1590,7 @@ static int remote_partition_enable(struct cpuset *cs, int new_prs,
->   		return PERR_INVCPUS;
->   	if (cpumask_intersects(tmp->new_cpus, subpartitions_cpus))
->   		return PERR_NOCPUS;
-> -	if (((new_prs == PRS_ISOLATED) &&
-> -	     !isolated_cpus_can_update(tmp->new_cpus, NULL)) ||
-> -	    prstate_housekeeping_conflict(new_prs, tmp->new_cpus))
-> +	if (prstate_housekeeping_conflict(new_prs, PRS_ROOT, tmp->new_cpus, NULL))
->   		return PERR_HKEEPING;
->   
->   	spin_lock_irq(&callback_lock);
-> @@ -1697,8 +1692,8 @@ static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
->   		else if (cpumask_intersects(tmp->addmask, subpartitions_cpus) ||
->   			 cpumask_subset(top_cpuset.effective_cpus, tmp->addmask))
->   			WRITE_ONCE(cs->prs_err, PERR_NOCPUS);
-> -		else if ((prs == PRS_ISOLATED) &&
-> -			 !isolated_cpus_can_update(tmp->addmask, tmp->delmask))
-> +		else if (prstate_housekeeping_conflict(prs, PRS_ROOT,
-> +						       tmp->addmask, tmp->delmask))
->   			WRITE_ONCE(cs->prs_err, PERR_HKEEPING);
->   		if (cs->prs_err)
->   			goto invalidate;
-> @@ -1840,11 +1835,7 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->   		if (cpumask_empty(xcpus))
->   			return PERR_INVCPUS;
->   
-> -		if (prstate_housekeeping_conflict(new_prs, xcpus))
-> -			return PERR_HKEEPING;
-> -
-> -		if ((new_prs == PRS_ISOLATED) && (new_prs != parent_prs) &&
-> -		    !isolated_cpus_can_update(xcpus, NULL))
-> +		if (prstate_housekeeping_conflict(new_prs, parent_prs, xcpus, NULL))
->   			return PERR_HKEEPING;
->   
->   		if (tasks_nocpu_error(parent, cs, xcpus))
-> @@ -1917,20 +1908,12 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->   		}
->   
->   		/*
-> -		 * TBD: Invalidate a currently valid child root partition may
-> -		 * still break isolated_cpus_can_update() rule if parent is an
-> -		 * isolated partition.
-> +		 * Check for housekeeping conflicts
->   		 */
-> -		if (is_partition_valid(cs) && (old_prs != parent_prs)) {
-> -			if ((parent_prs == PRS_ROOT) &&
-> -			    /* Adding to parent means removing isolated CPUs */
-> -			    !isolated_cpus_can_update(tmp->delmask, tmp->addmask))
-> -				part_error = PERR_HKEEPING;
-> -			if ((parent_prs == PRS_ISOLATED) &&
-> -			    /* Adding to parent means adding isolated CPUs */
-> -			    !isolated_cpus_can_update(tmp->addmask, tmp->delmask))
-> -				part_error = PERR_HKEEPING;
-> -		}
-> +		if (is_partition_valid(cs) &&
-> +		    prstate_housekeeping_conflict(old_prs, parent_prs,
-> +						  tmp->delmask, tmp->addmask))
-> +			part_error = PERR_HKEEPING;
->   
->   		/*
->   		 * The new CPUs to be removed from parent's effective CPUs
-> @@ -2391,10 +2374,6 @@ static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *tri
->   	if (cpumask_empty(trialcs->effective_xcpus))
->   		return PERR_INVCPUS;
->   
-> -	if (prstate_housekeeping_conflict(trialcs->partition_root_state,
-> -					  trialcs->effective_xcpus))
-> -		return PERR_HKEEPING;
-> -
->   	if (tasks_nocpu_error(parent, cs, trialcs->effective_xcpus))
->   		return PERR_NOCPUS;
->   
-> @@ -2411,7 +2390,7 @@ static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *tri
->    * CPU modifications may cause a partition to be disabled or require state updates.
->    */
->   static void partition_cpus_change(struct cpuset *cs, struct cpuset *trialcs,
-> -					struct tmpmasks *tmp)
-> +				  struct tmpmasks *tmp)
->   {
->   	enum prs_errcode prs_err;
->   
-> @@ -2911,13 +2890,15 @@ static int update_prstate(struct cpuset *cs, int new_prs)
->   			err = remote_partition_enable(cs, new_prs, &tmpmask);
->   		}
->   	} else if (old_prs && new_prs) {
-> +		int parent_prs = is_remote_partition(cs)
-> +				 ? PRS_ROOT : parent->partition_root_state;
-> +
->   		/*
->   		 * A change in load balance state only, no change in cpumasks.
->   		 * Need to update isolated_cpus.
->   		 */
-> -		if (((new_prs == PRS_ISOLATED) &&
-> -		     !isolated_cpus_can_update(cs->effective_xcpus, NULL)) ||
-> -		    prstate_housekeeping_conflict(new_prs, cs->effective_xcpus))
-> +		if (prstate_housekeeping_conflict(new_prs, parent_prs,
-> +						  cs->effective_xcpus, NULL))
->   			err = PERR_HKEEPING;
->   		else
->   			isolcpus_updated = true;
-
--- 
-Best regards
-Ridong
-
+Shawn
