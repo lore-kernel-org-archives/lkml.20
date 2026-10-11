@@ -1,84 +1,80 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+Received: from mail-qk2-f4.google.com (mail-qk2-f4.google.com [74.125.230.196])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E201E5B63
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 00:31:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80D4654781
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 00:43:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.196
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791678669; cv=none; b=CE3p5RTwS6QI0rak0ZBKa3TB7Kpx+6KKGIbEUQDKqdo0N5IH4KxKwTHBBFbG5tXSym4rAZGErzci5sC9pRi6vjhIHrQFp3lrTA34qLJaTi5QnyXXGV5dZ7Pdl24h3KctTRxwuBCkBtV3hs33g7kuuq1luWFArvrfP9jyHBlWdLo=
+	t=1791679384; cv=none; b=fHBHBrpmD8KmshqwqB3An7cS5EATuVP2meQ86ZwRWPaxjzTsCCGLqdfEAzK5dUS/fKrIuDiI6tK3xB7Hj4UHe/oTNR47v1znYtH1I90heYqc3Z/vUn5G4tbvZsiyBQbTtqNjMBwujcjIuyr46TdpjmM25GNM7akQMprTXkiiIq4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791678669; c=relaxed/simple;
-	bh=847Ia3IGc+y8ajZnza1rYhksWRa32beXNH/by2oLOFU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=o/y3rNGZ3pggQ24cKF4hYE7VUXD4W2DGleTwtXITgvIgBNWt3qQfr5OKNv0FST8oqneSOZaKKO49qCdGzC1IRckjwlxhFXdbt06BCNHDnbV/iiyflVd8BsIX7ndFmJOSYOGIiKuTq3KYaDyCD47UJJi2iGHr3lA+Tywu6oJVCmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OzsQWFiq; arc=none smtp.client-ip=209.85.214.174
+	s=arc-20240116; t=1791679384; c=relaxed/simple;
+	bh=poP5DGZOfVZCFMjp1E61DXCa8RuVeXFCjOY0K0Ntb3c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YEtZ78+R3Sm8zf9T2OkkdkcPfAhdtYe8db6DM9fnp5WAEj5jGZze2fVVCLa/wl3UwXEBAep8r+jT4bubR/EIoYkoosYwLHceX+/sg9Itwx6cfHvwhNzF+kHE5eKJoSHDb6S0gNjpnXse3579Y/gaNKeWteF7aT/uKSvte9AdPGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IEnB2im0; arc=none smtp.client-ip=74.125.230.196
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OzsQWFiq"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2e60f9af6e6so6725165ad.3
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 17:31:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IEnB2im0"
+Received: by mail-qk2-f4.google.com with SMTP id af79cd13be357-93cc7e652d7so79923585a.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 17:43:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791678668; x=1792283468; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Texf7avohcxbJhjAidkKzynfx9gkSXyM44DuVmdFRSI=;
-        b=OzsQWFiq9PIoRbF9yoR1vZMUWuAqhyOm4AB+X5uQE457te4ux9rHL1XIKZ5JKRqagB
-         5T2xnjxhM4dZbU5hfSsMotMkZozgwt+GFtHwZb/A7Pi4egeTn1OEj+D5Ayf5KDFo68yo
-         kVpfgr52xyXJPeinmZFqjYGyVHGzJ7viXFl6K/70bpB3aUSakeXlNBUhmE1v6wcrCbg9
-         cXvca3bCbuQWkRk2U72sFw2n81ZGTB4W1RkTowAXLpT5LZTsSBERt05xHXs7CJPQ2N8q
-         u3nVHskvODGQUcXLBPyT6yU/n0Pwimxe1pWX3wVtfeEO0EIEoRti47xhrEA2d0G4GH5A
-         zp3g==
+        d=gmail.com; s=20251104; t=1791679382; x=1792284182; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=X9wwtOfFZ3dlRyxA00OaR8axrYegTwtr34ydCtqSvyE=;
+        b=IEnB2im0l5M1xfIzquqpurZkMZ5m97nHIihjIrvCi7B5LETxhhSGzhX0ZDvxU5NETU
+         lbubcAUgqpfn0w9r6YKMebCeQSdVYCKR4yrqPeJGQNca0B3721jklWLS7M2i/iEwvgNG
+         HvV0hOXLcG2K2tzEQdXkrFaN6Y9EqKwTTY0qW6LRV+Eo6wVOE1Nx/nbXoMmalBaRle+/
+         NIj9f4e3OM6vvvH+DxeZ/CGDBGg+TyCvHxO8EMVMKmAJA/AzmepPBjp2VS74P4ngsh3e
+         lCRp40wJV6Yfa5T+ZJAsIsAPzS3UyKYjgMD6oAkZT0TiGwVvP+RBEGM9X2sBNuDUt++N
+         ufwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791678668; x=1792283468;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Texf7avohcxbJhjAidkKzynfx9gkSXyM44DuVmdFRSI=;
-        b=nnEqM599wRdqx+N1dgPbbpTqU3PKAm9VdQq+qXjG1FA5988/YhxGnsWlj/dIcGuRg9
-         tniMn91D7L/14Xqc+BsG8j3I7vmvYQCH+bMSaVO7RbKItkPO8cbxPpBzCGUS5k0ECp+Z
-         jl20nACP2ExBQOIECb5q5RHJ6YY+E2e89cttuR4z5IPaHDVHQe9rX3B5UNUwmRdj0TVW
-         B8Wl91dIjix58UMp/P4sZIvhRdpb8Oygo0rUIloSm3svX9KlyZu+N8dQdLD07TvyC5DH
-         0pATGxHL7SOE0JK8Uy2/yaDN6iMu76Fx2zUK7GYbwMyZXLxa7pFRsSyDZ1eNxamwRhWi
-         gYmw==
-X-Forwarded-Encrypted: i=1; AKwUvBwm0lqxZGvKIjIRmTMm/CK33EsTWA1DVyE6NrmzUCutzdpEObBsjBtzz4gH2ClMyYMATVb14U5FjrG0o5Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ9WucFR+nk0v/yvDZVwZdEr00cR3f+me9g0XYXYYhLMG7T8bFj
-	6XJsaypsVQqyVnkNc+xIIiOlmh931CpF2vWvIF8F9+5EKyX/mC5Ek/Uf
-X-Gm-Gg: AYBFou3n49uYKsYsOMH2UumCO5T9e6cSIRJDR6RzLOWBlvIhMnXFBo88FFYcf2WoV3l
-	w5t+t/30G66wQ5H6MrqkP/CeW1uYul77F1ntjSPW41qK6b6cnWbs9GAyZGtaVGdCLFuBu9gWmQU
-	cAxIPMbjwjjo8jMXS0Qfu0RWxmOnbV2Xlsur/kPGy137LYSJ/S4YruU5QDCBavlQuckYZrN4NSv
-	PB7UHv6r9I3gQucsjzyFmlkmURbEoGWcM7GwZXJLK16sNmvvgdQu0ilNhePPrwfcUIU+wbzGFli
-	fduQ+WqHiLa1WulnlbxPXaw4TceAv6LWNe36oOwpWXPN6n03WTRlqv3MtDYKEiGhQafMdU1WsY4
-	QMSOvsx3itWyROfvJkFC49n1zb4JDeIjGwncq+J/m5I7JP/oCzpqFJotNeE4M9vjeAxHYAokmbQ
-	EXfgewj4bGiU86Z3qM4SQ5e6yS5IijIkh/tp1AuQJO/VnrkF9N66F8AQD/0rQm/Ezi9S/LcYdB6
-	oiGCLfWJ9sIhi2aVHAyEZVOlkuaXiMZIuJ/BZij6nuvWrWcDsw2w5z79N479xFo
-X-Received: by 2002:a17:90a:ec87:b0:3a8:c0cd:57fb with SMTP id 98e67ed59e1d1-3ab3ac9a1b0mr4922031a91.42.1791678668019;
-        Sat, 10 Oct 2026 17:31:08 -0700 (PDT)
-Received: from bloom.localdomain ([2604:3d09:178e:e100::a891])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab371c32cesm9681761a91.16.2026.10.10.17.31.06
+        d=1e100.net; s=20260707; t=1791679382; x=1792284182;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=X9wwtOfFZ3dlRyxA00OaR8axrYegTwtr34ydCtqSvyE=;
+        b=TVu+Un+ZHJ+zc6C573MJhkeZCh02mcRg6gN+2Z2GurmAmjNmopZbV2UvQxFb1bw75k
+         Mjb1JYoy2P4dqeVaFRtjgOqM/XGg38ONm+l8yzDVNS2Ro/UhiNAsUarF/eHck9dQwpLH
+         YWBy1KxBUuVrHZo4TUtBLhs8UBqrM+KciUECq8vRodMUsuy81E4Vm2Sfr7mWnGmhaIKo
+         ipmQvuI/9zYa1AZWUN+eeUhiaOonBW25jltXCFUx5DVrskknOCTR9nX2P6WmLZ11Oz3d
+         J5koKSN4aR7u/XTAw/9NusLlIDUAakv3HwJzSohFjd1zQGtbk8mBFIVTtBq60W8OCZ2i
+         4sEA==
+X-Forwarded-Encrypted: i=1; AKwUvBymCBDw/99J1cm3B6fUZuYQofCMsY7ty5BXimR62di6/ReYzCnMGnHzX+UQipn7KN9M5DtDI6qEphcLFk8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKHFNV56PAWyesgtoIC/2PNAxwT+NxVGxQbbXPiMShiF8GnrX3k
+	qa4Y1v091l+RE+XKFyxRkZvVjQ539wR+avlNxZfrMqc3BEVusHZgK6XM
+X-Gm-Gg: AYBFou2ZFCLyYsgdrtaW3f5QTwjgD/KRgp9JcOgnRvFO1hwHV1Kdw4angpg1az7Fx9a
+	3If6IHJKabzWOI15BpuyY2R/KRQ9/8u6h1NA6JIJc0T/S9UTJjFj00nNX1gvpmcbl3Pbi4B6+cu
+	u+qjPhT+FFRpNNcW2+nrEjp7DlaIdQwZPgI4/W8ChnAgmKIypC1DYhj+j4Byz9o3jA+T7mlOYDj
+	5y+41BCDQySYs6a/aJo0y1e7cE0uS0PiHGK7wnJ5Z0mc38AHhZ1jLI+Tdo09+XfHC+ykFFllW5G
+	7T8Z9ve0Jx6VOV8YXZYyhMfRNRUXot5f/4DDI4CUuuyn8cCbRtXbFdMtX/4d8WfXfl+PsxNR6cO
+	mXgWoJQG/T/QjCUsEooFpE/D5E13YOn+Hi248YJwV1w5FEeGwqN9Y3vY9MDo8XMX8X4O9+7N3Tt
+	NgtDu0/YAkRcnpZ/aIeU0AX2Y0DG4lKVxkepxSNhaox9UfD60pOSiFGWt+vm5x0uc5tm0=
+X-Received: by 2002:a05:620a:3194:b0:93e:942f:b8a6 with SMTP id af79cd13be357-93ebd2973f0mr1024374385a.59.1791679382152;
+        Sat, 10 Oct 2026 17:43:02 -0700 (PDT)
+Received: from omarchy ([2601:804:8780:3df1:6ff:277e:31c7:ac13])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb9848702sm532320085a.12.2026.10.10.17.43.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 17:31:07 -0700 (PDT)
-From: Ivy Lopez <skunkolee@gmail.com>
-To: akpm@linux-foundation.org
-Cc: david@kernel.org,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	fvdl@google.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Ivy Lopez <skunkolee@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] mm/cma: do not count skipped ranges in cma_declare_contiguous_multi()
-Date: Sat, 10 Oct 2026 18:30:59 -0600
-Message-ID: <20261011003059.169430-2-skunkolee@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261011003059.169430-1-skunkolee@gmail.com>
-References: <20261011003059.169430-1-skunkolee@gmail.com>
+        Sat, 10 Oct 2026 17:43:01 -0700 (PDT)
+From: zoan37 <agentzoan@gmail.com>
+To: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Cc: David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Jason-JH Lin <jason-jh.lin@mediatek.com>,
+	CK Hu <ck.hu@mediatek.com>,
+	Nancy Lin <nancy.lin@mediatek.com>,
+	Nathan Lu <nathan.lu@mediatek.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] drm/mediatek: mtk_crtc: Fix connector route handling
+Date: Sat, 10 Oct 2026 20:42:45 -0400
+Message-ID: <20261011004248.1117649-1-agentzoan@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,55 +83,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-cma_declare_contiguous_multi() adds the size of every candidate range
-to sizesum before deciding whether to record it. Once CMA_MAX_RANGES
-ranges are recorded, a candidate smaller than the last recorded one is
-skipped, but its size stays in sizesum. The replacement path already
-subtracts the evicted range, so sizesum is meant to track recorded
-ranges only.
+Three fixes for the connector routes of mtk_crtc (the output component
+picked at enable time from the encoder in use), found while bringing up
+the external display path of an MT8189 Chromebook, where one CRTC
+drives either an HDMI bridge on DSI0 or USB-C DisplayPort on DVO1:
 
-When more than CMA_MAX_RANGES ranges exist and one is skipped, sizesum
-can reach total_size while the recorded ranges cannot. The sizesum <
-total_size check then passes, the reserve loop ends with sizeleft
-nonzero, and the function returns 0 with fewer pages reserved than
-requested. cma->count, available_count and totalcma_pages still
-reflect the full size, and the final message reports it as reserved.
+1. The route components are looked up in the private data of the mmsys
+   at index drm_crtc_index(), not of the CRTC's own mmsys. It only works
+   by coincidence today (the only route table is on MT8188's CRTC 0);
+   on MT8189 it oopsed on the first HDMI hotplug.
+2. Destroying a CRTC whose route slot was never filled dereferences
+   NULL.
+3. The route is only picked when connectors_changed is set, so a CRTC
+   whose connector was attached or swapped while it was off is enabled
+   with no output (NULL dereference) or with the old one.
 
-For example, 8 free ranges of 1G followed by one of 512M with a
-request of 8G + 256M reserves 8G and returns 0.
+All three were compile-tested with W=1 on next-20261008 and run on the
+MT8189 board; the per-patch notes say what was and wasn't exercised.
+The MT8189 display support itself isn't upstream yet; these patches
+don't depend on it.
 
-Only count a range once it is recorded.
+The changes were written with the help of an AI coding assistant
+(hence the Assisted-by tags).
 
-Found by code inspection and checked with a userspace copy of the
-selection loop.
+zoan37 (3):
+  drm/mediatek: mtk_crtc: Look up connector routes in the CRTC's own
+    mmsys
+  drm/mediatek: mtk_crtc: Skip the empty connector route slot in destroy
+  drm/mediatek: mtk_crtc: Pick the connector route on every CRTC enable
 
-Fixes: c009da4258f9 ("mm, cma: support multiple contiguous ranges, if requested")
-Cc: <stable@vger.kernel.org> # 6.15+
-Signed-off-by: Ivy Lopez <skunkolee@gmail.com>
----
- mm/cma.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/mediatek/mtk_crtc.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/mm/cma.c b/mm/cma.c
-index 527b2d894f3e..c2cdef953ee9 100644
---- a/mm/cma.c
-+++ b/mm/cma.c
-@@ -594,7 +594,6 @@ int __init cma_declare_contiguous_multi(phys_addr_t total_size,
- 		size = ALIGN_DOWN(size, (PAGE_SIZE << order_per_bit));
- 		if (!size)
- 			continue;
--		sizesum += size;
- 
- 		pr_debug("consider %016llx - %016llx\n", (u64)start, (u64)end);
- 
-@@ -620,6 +619,7 @@ int __init cma_declare_contiguous_multi(phys_addr_t total_size,
- 		}
- 		mrp->base = start;
- 		mrp->size = size;
-+		sizesum += size;
- 
- 		/*
- 		 * Now do a sorted insert.
+
+base-commit: aac26bee2287c88af5be5a5ff96d783b19a28790
 -- 
-2.56.0
+2.43.0
 
