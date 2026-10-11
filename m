@@ -1,180 +1,186 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com [209.85.167.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E71AA3630AC
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:05:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791705911; cv=none; b=EMrhRNTE+q0fkvWM7CSrTvCF1V9w314AG1vjMOOMAGudb/ZW+UQThw+v8yvZ0R44HGWILNtTT4a+Ewc2lkIXcUkXzecRHpkF87nufspAC0YaNJChVxTwspwqD5dFbL/qBFQakcImvOBUT19yKVRD9rZ4N0S10J4JpoOgmSxMV9k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791705911; c=relaxed/simple;
-	bh=Dd0AlETCrLfBhwgPv/+aAB35OnDGld5JfQtHhBHb438=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p+VC3ngFap1985D/trtwROvidWHeHtvBspE8Uhrj/ogwyMtw/zDoNh0fDLmIaLqvIVD7S3ThZfSYdr+v2AsgxJiEQuyoBflYwS6+rMEZ4+dEp2WD1J9E0t8fm3UAZH3PO5i7fhbRww3OFz2nLcB+5f5PC1kTaG68REY6R/Ghifo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J++zvAya; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8A4A346777
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:06:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791706015; cv=pass; b=itsyYFw58cEJ4VmbmLehYuIDw3iK7Cp7k2JBVk7BLLJmAlhUdCyVStyzczkmJqFBqYPV6LvFNjo7nOtE5aRLneViBBT2ELtJ2EnF1XcEygS9ntno51FOmUxJgWZP+YkOWf7DqN50lKdYdu1yZLcBN9Nk0pn2SFFhqY2P3vpg9Vs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791706015; c=relaxed/simple;
+	bh=6aXpQYP46dxGTYi+5Rh0s/w8vni2Pd2debIdTuL+MDY=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=GOFiJ0iuYiNyFNMPkUF0lms17z8JS5Ac0/+ybaeOgqtvCmR16eMazBQKHu56dcll7eM2VTftd+u55hC0DfVJAEsueB0ISSITBFZa/CA4LkVAyxeuRo8zv/xlEWteTSaSKBNmyPX6bQes79m155kJ1QpApUwB18O3UrNsvyZSp8w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F7JeozOO; arc=pass smtp.client-ip=209.85.167.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J++zvAya"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1635f7c89so9474985e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 01:05:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F7JeozOO"
+Received: by mail-oi1-f182.google.com with SMTP id 5614622812f47-4d7034a99a9so722802b6e.3
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 01:06:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791706013; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Hu7Pqb8HRRbGIXAz4o76kmRURs56GkWRwF2KoF1mfJzuv9YmGIJxlw6Bnbq3fSQU41
+         KAxXgwBFgJ5GU5w2kQScViaUSk9P2qinBN2NOF3hc4kjM7rJzDVEtDDsB8ybP9j3fINv
+         vD57e6MUN9R3QRHvFIP+tENIlUSpFHs7zfhMEu2vsWCX0wnZy/FDnWi7GQNTlUZgxsP3
+         IDIa6yxoCVUqbTo/npHJMxrm83/napYB5zRdOEeih1Y2HwA+kTjmg568oZvCtXp5ZN+x
+         DWlRp/sxUv9p+i85zCMA0XPs/nFHgsWr5e6UNBMRY+v00MVQgMfa1UUoRnVGsLY3+45S
+         bVxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=OL+zaVIM3R7+O8WxM9K+yPr2Z4/rZeDvZlr73pxdddQ=;
+        fh=CGq1OwkR/bB2tCMTYn+dNlc7J9EMuoRhvOTFkAwhCbY=;
+        b=D6Fp84coA/90meEtK6LQ3ibr5QFWUXv8fv4DBu6k2YBH8fbOJXNiFVjSQfSwydxkHy
+         j3Xs4QaGwS7yN9I34gcrrdxGgElu8oZPrauDqhlapCAnlsP+QBlnCZVqODwuOr509Jky
+         +8I+lnsiZTMPiApA78V/sO0k5IznDz+yAzynIRpeV+dbuDdrvE8T+WLYto6jJBvOCMvc
+         XTNooY3LaLSUNmN2ebX3naZ+r9IPJHCAUCceH51B9nG/xsO8m5Z2XmBztb6IoyYzQZLU
+         ZvzRtDn8T1dH9EkbKcAyHyASeL8OQnvq0r585kMxMKxMwodlxfBLZZYIqdTWdDfZffL3
+         53nA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791705907; x=1792310707; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sHRwnViPe+B6SXPirxdpPYH3hzjizazcvdZWVcjfRYc=;
-        b=J++zvAyadO9f+fK/sTclCsfwvrhcCgYj9XP+SmLag421FySxbP17MCb395sQKvw5Fh
-         OGu42LDgxxLDkv/JOCj5GaqmpvGyX30Y5MNyUf7dV3lJAOG5b6Be52im/0AGVP6T0XcC
-         rnkr2RbKFqLPKmCM8EW3ZwmyJVBqk9LWRWx0542kc5iVkTjxpIVkVFAzzDBGcx1IrQLh
-         JifnUIrnGSnhNU9xar78mTzokMbbPcUcZh40FmdNDhJjY9h4AdHD53emI6DnYENC2gSb
-         79SKnK40BTjK4UM5zrFgkcKI+2dZulNXEAN3c9M6YLpISAt5jUKrU6G1e7HK9AXP9ElH
-         nNZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791705907; x=1792310707;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=gmail.com; s=20251104; t=1791706013; x=1792310813; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sHRwnViPe+B6SXPirxdpPYH3hzjizazcvdZWVcjfRYc=;
-        b=oWKmmsDWHOtzY6yAqFSvbEq7nDoAb4g+ZIFtNnf79vv1Ngm6Lp0BpM5K4bxvCelrg2
-         vJzUuwQC6QRbx9Q/hKENVexCZCKg2CgJveYeFVlOK40Y0pakPhdwwpwN+T3J02P+fL01
-         GygKpI71uFTCZkC0o+13PJKr9nTNIhYGBV/1CNx8SpvryoxRC+5CCQxP/bW7AgC9fy6w
-         93TZZAv5w1+uGVi9zIgxY9e0aTrtnxr14fY1Qbx5Iz7JolpTZTv7liW75alEGF/zgy6G
-         ps83JWWxlvvbJ2IZvx0HU8IV1AFs2JldYFvLx4a2NVOjf6kEWLyMGZkvbUCrONgKRqzb
-         0MIw==
-X-Forwarded-Encrypted: i=1; AKwUvBwBgnu08jIpXY+HoAmCXQeMQFYfwkhYz+Gc5ExnkdgYYRfet7SaJlJIk8upKSNOg3HpFiJa5Dd4dYpxDRA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3w8cfPV9EdQenRXh33IOsAtXUKNrrowdP5nweth0h4TwbOOMc
-	GjcSIWC5jpR5tHg63ywMDdFniTSmirKsoT9nsBjrFXyzhHlYiE4wXk0dIsA60zwIZQg=
-X-Gm-Gg: AYBFou1ECeMqRZkbZPfsZTFLU3PM9m5s8v6SFeCbCJ3Lvff31H4ZrEG4XnPoUo4Vcgf
-	yyAaw1N4kbPRvwARoskeOQcTAWvPieNMYw/oNq0yP+6tWpLTJXf78tbUmgd1UZJUd9T2OUigEjS
-	xCnQEuSOjE5dRqhYsbj/VVOL8cERysiBBoZqSCle3gne+hnQlhXtwZLprEOEw0tsSMWV4ehDb1H
-	ZDsQAmJ/V1tAh9W2TAyynI1BD2TVlFVe5SQMKL/F6MZ6aAK7DHaFobFQ+WR+j/qCNm944GNSGg/
-	triTugSDUm3O8dZ5lVBzr3EXbL1rXi6Z8MBOwG/6CHLZZEIU8mM29RO8/ahQyN5VIImc7VFeTuu
-	DPPmqewFdHRsdPt5wjgRvRZEi//NmLqo5Cxl/TexYIblQMpfl4QyLbj+6EnqfqAsN3kOu4fqOQJ
-	w4FqXMKhM7N9TgSXmg0yHcuwKHzJJ0NMzMi/j/JxtjZp8eyasAtigI9WJLiY82A9pcrAa5GpaHD
-	JhUZMB+PaCFMUGGT5KggebIsiZpiN5B5YgOd4WivVAeeTtngdww43ZIkDelyavv/pHWXpu/oIC8
-	ZLTwiaaoehx9BdqG2Q==
-X-Received: by 2002:a05:600c:19c8:b0:4a1:777b:8a12 with SMTP id 5b1f17b1804b1-4a18e4adcdbmr114834925e9.14.1791705906973;
-        Sun, 11 Oct 2026 01:05:06 -0700 (PDT)
-Received: from center.jhjvjihww5qejoy14qwv1cc4td.frax.internal.cloudapp.net ([131.189.143.225])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dc1b30075sm9520337f8f.19.2026.10.11.01.05.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 01:05:06 -0700 (PDT)
-From: Orgad Shaneh <orgads@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] usb: octeon-hcd: keep SOF interrupts while a pipe needs them
-Date: Sun, 11 Oct 2026 08:05:06 +0000
-Message-ID: <20261011080506.2394708-1-orgads@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261011072236.2381546-1-orgads@gmail.com>
-References: <20261011072236.2381546-1-orgads@gmail.com>
+        bh=OL+zaVIM3R7+O8WxM9K+yPr2Z4/rZeDvZlr73pxdddQ=;
+        b=F7JeozOObgoYKtiGpwWWrOXrywUBqfESIM18N+2ArDye7Q6E//lRhZG8kUPOPXqvIY
+         /VlZVWwJyNy3JrJe4MsEt48vfsBiRiTIQhlSTeyTmDZOwYBr/epDxzytz2EdKl1meKfP
+         ugecl0Ted3XVtBTX7WI1ztfbpVpJHGpbAM14TwO3x9aEmRCjU7skLavg/zDJfdaRa1f1
+         TcAaZgqfJuZ2mqhF+8xjA/uf5Mpo3femo1jZ2a44Enmi2ptlEzAe2SQD6kXISxM/YZTb
+         32NJ4k70NNsqiFExcaHVQh3pIuRSZQTt949Rrjhh3EfzIgwBLnMu4ECESTJ9hCUFPOLk
+         TDmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791706013; x=1792310813;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=OL+zaVIM3R7+O8WxM9K+yPr2Z4/rZeDvZlr73pxdddQ=;
+        b=grqh1T9P5luz2z+91ZLP1Qhzo/xtrCdpfxpsraIyexv4VQO97Rb8Ew68TgLaaG9BBs
+         +8D9QUM06W4AHlghzfS6kywTfhb3iqEiUDf8066h4advru5uOQRe338yoYrrjc+SzWv7
+         vx4+Y7v8p3EnpuFnXrVWCQdSBIN9whj33monNJXi2hGmfFtbz1m3jEUhzoBpiZ1CoEih
+         CjRYFdMKhaU7YJeFqUsICOnrydDY58hfAkOP4mrJQu+ZigvEzq6v93yVqFui1p1ia2vL
+         n1cu8jzIF6c5chGBKR6ls+swzAE+VGQ4Nq8b7dV6gcGwnS9BgZgcxAovTjg+nEu1ma97
+         4vfQ==
+X-Gm-Message-State: AFq9FYJzv+p7TTcZxjbbH+LS/2c3/bPKztpRFLxWUmWUrbzkzwJ5a+Kc
+	t28itK7/pRRFxQPqA94s0v+G6tVEsiW4NAp7IZK/U2ufs7KJNvetbaWwqwGZ3sKwhdQzgyUpfUB
+	5Vncgf0G0a6Fnaalc77IDR3oYpBnbCco=
+X-Gm-Gg: AYBFou1w3lySTZzawQAi3/reM95VpMYzfs4paLOhvcifYRKKeBRatshioiKTYV+A7/l
+	YafkXLwv9S+5CXu0H9lNts/SucYepPC6jcfycNMzOFTll9FG1nW1jY3fDzJKZhhmn+D/h4Tj0JM
+	9Ha7hdcjYmxVO7waFhTbJO9x5rJcOwoPS7OuCfq8Bn+2/b6U5UUe+FHHjHKuMq+27/U4RKmJ4/Q
+	zR+91ypA5Fq7DZq837oqcM58iUkQc1Z5Au+H8P71hB64Lbhwo6mzQmm/NdMkETWzmXQlKh1kY3a
+	EFgf2AizvWaM54cLkiKhQ5UxdFM0lFFSC8OJX4vP4AjyU/aCoLWCvxjes/J/ZnNN2jJ2zRL6JIv
+	10/iPE79PZo0y6NsGYVuBHzshBn1uWw8g+s7TuqcXll8eVvaUYypO71sd
+X-Received: by 2002:a05:6808:6716:b0:4fb:f1d7:932a with SMTP id
+ 5614622812f47-50c4245dcd9mr5563642b6e.3.1791706013310; Sun, 11 Oct 2026
+ 01:06:53 -0700 (PDT)
+Received: from 138594053405 named unknown by gmailapi.google.com with
+ HTTPREST; Sun, 11 Oct 2026 04:06:52 -0400
+Received: from 138594053405 named unknown by gmailapi.google.com with
+ HTTPREST; Sun, 11 Oct 2026 04:06:52 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Adrian Martinez Garcia <adrimg3196@gmail.com>
+Date: Sun, 11 Oct 2026 04:06:52 -0400
+X-Gm-Features: AclHuK9TU8b2rN6JCpHLRP9-F6-HiKDTDa9Qgjw7AcxhxFe7ScISAZ0jb0Z6ApI
+Message-ID: <CACO1+RRid9tJq81weX-UHj6111gGZ_H1RMnxk66dtGZfwxoXRw@mail.gmail.com>
+Subject: [PATCH] xfrm: account XFRMA_IF_ID and XFRMA_OFFLOAD_DEV in msgsize helpers
+To: netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Content-Type: multipart/mixed; boundary="000000000000773ad0065d8c109e"
 
-cvmx_usb_schedule() now sleeps on an hrtimer until the nearest future
-periodic deadline instead of counting frames down on every SOF. The scan
-that finds that deadline only looks at pipes with
+--000000000000773ad0065d8c109e
+Content-Type: text/plain; charset="UTF-8"
 
-	next_tx_frame > usb->frame_number
+Hi,
 
-which is right for picking the deadline, but two kinds of pipe that
-need a SOF to make progress are invisible to the decision:
+The xfrm_acquire_msgsize(), xfrm_polexpire_msgsize() and xfrm_expire_msgsize()
+helpers do not account for the XFRMA_IF_ID (8 B) and XFRMA_OFFLOAD_DEV
+(12 B) attributes that their sibling builders emit. The deficit of up to
+20 B can trigger BUG_ON(err < 0) in the callers -> latent kernel panic.
 
-- A periodic pipe that is due and was *not* started: no idle hardware
-  channel this round, its split window is closed
-  (cvmx_usb_find_ready_pipe() rejects both), or another pipe owns
-  usb->active_split. cvmx_usb_next_pipe() looks at the isochronous and
-  interrupt lists only when is_sof is true.
+This is a sibling of CVE-2026-43107 (fix 7081d46d32 only corrected the
+aevent pair; these three pairs were left unfixed).
 
-- Any pipe that has sent its start split and waits for the frame its
-  split complete may go out in (split_sc_frame, also checked by
-  cvmx_usb_find_ready_pipe()). A control or bulk pipe on a full or low
-  speed device behind a hub is in this state between its two halves, and
-  with SOF masked nothing guarantees an interrupt that brings
-  frame_number there.
+Fixes: 7e6526404ade
+Signed-off-by: Adrian Martinez <adrimg3196@gmail.com>
 
-When some other periodic pipe sets a far deadline - a hub's status pipe,
-whenever a hub is attached - the driver masks SOF, arms the timer for
-that deadline and these pipes wait for it. That is hundreds of frames;
-the code allows up to 8000 (one second) before it falls back to SOF.
+I used Claude Code to help with the audit.
 
-Before the hrtimer this could not happen: any pipe with a future
-deadline set need_sof, so SOF stayed enabled every frame and the pipe
-was retried on the next one.
+--000000000000773ad0065d8c109e
+Content-Type: application/octet-stream; 
+	name="0001-xfrm-account-XFRMA_IF_ID-and-XFRMA_OFFLOAD_DEV.patch"
+Content-Disposition: attachment; 
+	filename="0001-xfrm-account-XFRMA_IF_ID-and-XFRMA_OFFLOAD_DEV.patch"
+Content-Transfer-Encoding: base64
+X-Attachment-Id: f7fe3f3290ab5c0b_0.1
 
-Note such a pipe and keep SOF enabled while there is one, whether or not
-another pipe has a future deadline. Nothing changes when there is none,
-which is the case the timer was added for.
-
-Other control and bulk pipes are excluded deliberately: their
-next_tx_frame is not updated on completion, so they are almost always
-"due" and would keep SOF enabled permanently.
-
-Fixes: aebbc7d63407 ("usb: octeon-hcd: sleep on an hrtimer for far-off periodic transfers")
-Assisted-by: LLM
-Signed-off-by: Orgad Shaneh <orgads@gmail.com>
----
-v2: the Sashiko review bot found that v1 missed two cases:
- - due_now was only looked at when some pipe had a future deadline, so
-   a due pipe with none still left SOF masked;
- - a control or bulk pipe waiting for its split complete is in the same
-   position as a due periodic pipe, but v1 excluded all control and bulk
-   pipes. split_sc_frame tells these apart from the always-due ones.
- Compile-tested only: there is no full or low speed device behind a hub
- on the test board, so the split path is not exercised.
-v1: https://lore.kernel.org/all/20260915081724.25637-1-orgads@gmail.com/
-    and the resend 20261011072236.2381546-1-orgads@gmail.com
-
-diff --git a/drivers/usb/host/octeon-hcd.c b/drivers/usb/host/octeon-hcd.c
-index 256e459..9477a1d 100644
---- a/drivers/usb/host/octeon-hcd.c
-+++ b/drivers/usb/host/octeon-hcd.c
-@@ -1923,6 +1923,7 @@ static void cvmx_usb_schedule(struct octeon_hcd *usb, int is_sof)
- 	struct cvmx_usb_pipe *pipe;
- 	int need_sof;
- 	u64 min_due;
-+	bool due_now;
- 	enum cvmx_usb_transfer ttype;
- 
- 	if (usb->init_flags & CVMX_USB_INITIALIZE_FLAGS_NO_DMA) {
-@@ -1964,15 +1965,32 @@ done:
- 	 */
- 	need_sof = 0;
- 	min_due = ~0ull;
-+	due_now = false;
- 	for (ttype = CVMX_USB_TRANSFER_CONTROL;
- 	     ttype <= CVMX_USB_TRANSFER_INTERRUPT; ttype++) {
- 		list_for_each_entry(pipe, &usb->active_pipes[ttype], node) {
-+			/*
-+			 * Do not sleep past a pipe that is only retried from a
-+			 * SOF: a periodic one that is due but was not started
-+			 * (no idle channel, closed split window, another pipe's
-+			 * split active), or any pipe waiting for the frame its
-+			 * split complete may go out in. Other control and bulk
-+			 * pipes are left out: their next_tx_frame is not updated
-+			 * on completion, so they always look due.
-+			 */
-+			if (pipe->split_sc_frame != -1 ||
-+			    (pipe->next_tx_frame <= usb->frame_number &&
-+			     (ttype == CVMX_USB_TRANSFER_ISOCHRONOUS ||
-+			      ttype == CVMX_USB_TRANSFER_INTERRUPT)))
-+				due_now = true;
- 			if (pipe->next_tx_frame > usb->frame_number &&
- 			    pipe->next_tx_frame < min_due)
- 				min_due = pipe->next_tx_frame;
- 		}
- 	}
--	if (min_due != ~0ull) {
-+	if (due_now) {
-+		need_sof = 1;
-+	} else if (min_due != ~0ull) {
- 		u64 delta = min_due - usb->frame_number;
- 
- 		/*
+RnJvbSA1MzRjYjJiNWZiOGRhODE2NzdmMjk1NWFhYzhhOThkOWFhODk2OTRiIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBBZHJpYW4gTWFydGluZXogPGFkcmltZzMxOTZAZ21haWwuY29t
+PgpEYXRlOiBTdW4sIDExIE9jdCAyMDI2IDA2OjUzOjMxICswMDAwClN1YmplY3Q6IFtQQVRDSF0g
+eGZybTogYWNjb3VudCBYRlJNQV9JRl9JRCBhbmQgWEZSTUFfT0ZGTE9BRF9ERVYgaW4KIGFjcXVp
+cmUvcG9sZXhwaXJlL2V4cGlyZSBzaXplIGNhbGN1bGF0aW9ucwoKeGZybV9zZW5kX2FjcXVpcmUo
+KSBhbmQgeGZybV9leHBfcG9saWN5X25vdGlmeSgpIGFsbG9jYXRlIHRoZWlyIHJlcGx5IHNrYgp3
+aXRoIHhmcm1fYWNxdWlyZV9tc2dzaXplKCkgYW5kIHhmcm1fcG9sZXhwaXJlX21zZ3NpemUoKSwg
+dGhlbiBidWlsZF9hY3F1aXJlKCkKYW5kIGJ1aWxkX3BvbGV4cGlyZSgpIGFwcGVuZCBhdHRyaWJ1
+dGVzIGluY2x1ZGluZyBYRlJNQV9JRl9JRCAod2hlbiB0aGUKcG9saWN5IGlmX2lkIGlzIHNldCkg
+YW5kIFhGUk1BX09GRkxPQURfREVWICh3aGVuIHRoZSBwb2xpY3kgaXMgYm91bmQgdG8gYW4KeGZy
+bSBvZmZsb2FkIGRldmljZSkuICBOZWl0aGVyIHNpemUgaGVscGVyIHJlc2VydmVzIHNwYWNlIGZv
+ciB0aGVzZSB0d28KY29uZGl0aW9uYWxseSBlbWl0dGVkIGF0dHJpYnV0ZXMsIHNvIGZvciBwb2xp
+Y2llcyBjYXJyeWluZyBpZl9pZCwgbWFyaywKcGNwdSBhbmQvb3IgYW4gb2ZmbG9hZCBkZXZpY2Ug
+dGhlIGJ1aWxkZXJzIGNhbiBydW4gb3V0IG9mIHNrYiB0YWlscm9vbSwKZmFpbCB3aXRoIC1FTVNH
+U0laRSBhbmQgaGl0IEJVR19PTihlcnIgPCAwKSwgdHVybmluZyBhIG5ldGxpbmsgZXZlbnQgaW50
+bwphIGtlcm5lbCBwYW5pYy4KCmJ1aWxkX2V4cGlyZSgpIGhhcyB0aGUgc2FtZSBYRlJNQV9JRl9J
+RCB1bmRlcmNvdW50IGluIHhmcm1fZXhwaXJlX21zZ3NpemUoKTsKaXRzIGNhbGxlciBhbHJlYWR5
+IGhhbmRsZXMgLUVNU0dTSVpFIGdyYWNlZnVsbHksIHNvIHRoZSBvbmx5IGVmZmVjdCB0aGVyZQpp
+cyBhIGRyb3BwZWQgRVhQSVJFIG5vdGlmaWNhdGlvbi4KClRoaXMgaXMgdGhlIHNhbWUgYnVnIGNs
+YXNzIGFzIENWRS0yMDI2LTQzMTA3LCB3aG9zZSBmaXggKDcwODFkNDZkMzIpCm9ubHkgY292ZXJl
+ZCB0aGUgYWV2ZW50IHBhaXIuCgpBY2NvdW50IFhGUk1BX0lGX0lEIGFuZCBYRlJNQV9PRkZMT0FE
+X0RFViBpbiB0aGUgdGhyZWUgc2l6ZSBjYWxjdWxhdGlvbnMKdW5jb25kaXRpb25hbGx5LCBhbmQg
+cmVwbGFjZSB0aGUgdHdvIEJVR19PTnMgd2l0aCBub3JtYWwgZXJyb3IgdW53aW5kaW5nLAptaXJy
+b3JpbmcgdGhlIGFldmVudCBmaXguCgpGaXhlczogN2U2NTI2NDA0YWRlICgieGZybTogQWRkIGEg
+bmV3IGxvb2t1cCBrZXkgdG8gbWF0Y2ggeGZybSBpbnRlcmZhY2VzLiIpClNpZ25lZC1vZmYtYnk6
+IEFkcmlhbiBNYXJ0aW5leiA8YWRyaW1nMzE5NkBnbWFpbC5jb20+Ci0tLQogbmV0L3hmcm0veGZy
+bV91c2VyLmMgfCAxNyArKysrKysrKysrKysrKy0tLQogMSBmaWxlIGNoYW5nZWQsIDE0IGluc2Vy
+dGlvbnMoKyksIDMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvbmV0L3hmcm0veGZybV91c2Vy
+LmMgYi9uZXQveGZybS94ZnJtX3VzZXIuYwppbmRleCBhMjU4N2M3ZS4uNWViNzliMGIgMTAwNjQ0
+Ci0tLSBhL25ldC94ZnJtL3hmcm1fdXNlci5jCisrKyBiL25ldC94ZnJtL3hmcm1fdXNlci5jCkBA
+IC0zOTI3LDcgKzM5MjcsOCBAQCBzdGF0aWMgaW5saW5lIHVuc2lnbmVkIGludCB4ZnJtX2V4cGly
+ZV9tc2dzaXplKHZvaWQpCiAJcmV0dXJuIE5MTVNHX0FMSUdOKHNpemVvZihzdHJ1Y3QgeGZybV91
+c2VyX2V4cGlyZSkpICsKIAkgICAgICAgbmxhX3RvdGFsX3NpemUoc2l6ZW9mKHN0cnVjdCB4ZnJt
+X21hcmspKSArCiAJICAgICAgIG5sYV90b3RhbF9zaXplKHNpemVvZl9maWVsZChzdHJ1Y3QgeGZy
+bV9zdGF0ZSwgZGlyKSkgKwotCSAgICAgICBubGFfdG90YWxfc2l6ZSg0KTsgLyogWEZSTUFfU0Ff
+UENQVSAqLworCSAgICAgICBubGFfdG90YWxfc2l6ZSg0KSArIC8qIFhGUk1BX1NBX1BDUFUgKi8K
+KwkgICAgICAgbmxhX3RvdGFsX3NpemUoNCk7IC8qIFhGUk1BX0lGX0lEICovCiB9CiAKIHN0YXRp
+YyBpbnQgYnVpbGRfZXhwaXJlKHN0cnVjdCBza19idWZmICpza2IsIHN0cnVjdCB4ZnJtX3N0YXRl
+ICp4LCBjb25zdCBzdHJ1Y3Qga21fZXZlbnQgKmMpCkBAIC00MTc3LDYgKzQxNzgsOCBAQCBzdGF0
+aWMgaW5saW5lIHVuc2lnbmVkIGludCB4ZnJtX2FjcXVpcmVfbXNnc2l6ZShzdHJ1Y3QgeGZybV9z
+dGF0ZSAqeCwKIAkgICAgICAgKyBubGFfdG90YWxfc2l6ZShzaXplb2Yoc3RydWN0IHhmcm1fbWFy
+aykpCiAJICAgICAgICsgbmxhX3RvdGFsX3NpemUoeGZybV91c2VyX3NlY19jdHhfc2l6ZSh4LT5z
+ZWN1cml0eSkpCiAJICAgICAgICsgbmxhX3RvdGFsX3NpemUoNCkgLyogWEZSTUFfU0FfUENQVSAq
+LworCSAgICAgICArIG5sYV90b3RhbF9zaXplKHNpemVvZih4cC0+aWZfaWQpKSAvKiBYRlJNQV9J
+Rl9JRCAqLworCSAgICAgICArIG5sYV90b3RhbF9zaXplKHNpemVvZihzdHJ1Y3QgeGZybV91c2Vy
+X29mZmxvYWQpKSAvKiBYRlJNQV9PRkZMT0FEX0RFViAqLwogCSAgICAgICArIHVzZXJwb2xpY3lf
+dHlwZV9hdHRyc2l6ZSgpOwogfQogCkBAIC00MjM2LDcgKzQyMzksMTAgQEAgc3RhdGljIGludCB4
+ZnJtX3NlbmRfYWNxdWlyZShzdHJ1Y3QgeGZybV9zdGF0ZSAqeCwgc3RydWN0IHhmcm1fdG1wbCAq
+eHQsCiAJCXJldHVybiAtRU5PTUVNOwogCiAJZXJyID0gYnVpbGRfYWNxdWlyZShza2IsIHgsIHh0
+LCB4cCk7Ci0JQlVHX09OKGVyciA8IDApOworCWlmIChlcnIgPCAwKSB7CisJCWtmcmVlX3NrYihz
+a2IpOworCQlyZXR1cm4gZXJyOworCX0KIAogCXJldHVybiB4ZnJtX25sbXNnX211bHRpY2FzdChu
+ZXQsIHNrYiwgMCwgWEZSTU5MR1JQX0FDUVVJUkUpOwogfQpAQCAtNDMwNyw2ICs0MzEzLDggQEAg
+c3RhdGljIGlubGluZSB1bnNpZ25lZCBpbnQgeGZybV9wb2xleHBpcmVfbXNnc2l6ZShzdHJ1Y3Qg
+eGZybV9wb2xpY3kgKnhwKQogCSAgICAgICArIG5sYV90b3RhbF9zaXplKHNpemVvZihzdHJ1Y3Qg
+eGZybV91c2VyX3RtcGwpICogeHAtPnhmcm1fbnIpCiAJICAgICAgICsgbmxhX3RvdGFsX3NpemUo
+eGZybV91c2VyX3NlY19jdHhfc2l6ZSh4cC0+c2VjdXJpdHkpKQogCSAgICAgICArIG5sYV90b3Rh
+bF9zaXplKHNpemVvZihzdHJ1Y3QgeGZybV9tYXJrKSkKKwkgICAgICAgKyBubGFfdG90YWxfc2l6
+ZShzaXplb2YoeHAtPmlmX2lkKSkgLyogWEZSTUFfSUZfSUQgKi8KKwkgICAgICAgKyBubGFfdG90
+YWxfc2l6ZShzaXplb2Yoc3RydWN0IHhmcm1fdXNlcl9vZmZsb2FkKSkgLyogWEZSTUFfT0ZGTE9B
+RF9ERVYgKi8KIAkgICAgICAgKyB1c2VycG9saWN5X3R5cGVfYXR0cnNpemUoKTsKIH0KIApAQCAt
+NDM1OCw3ICs0MzY2LDEwIEBAIHN0YXRpYyBpbnQgeGZybV9leHBfcG9saWN5X25vdGlmeShzdHJ1
+Y3QgeGZybV9wb2xpY3kgKnhwLCBpbnQgZGlyLCBjb25zdCBzdHJ1Y3QKIAkJcmV0dXJuIC1FTk9N
+RU07CiAKIAllcnIgPSBidWlsZF9wb2xleHBpcmUoc2tiLCB4cCwgZGlyLCBjKTsKLQlCVUdfT04o
+ZXJyIDwgMCk7CisJaWYgKGVyciA8IDApIHsKKwkJa2ZyZWVfc2tiKHNrYik7CisJCXJldHVybiBl
+cnI7CisJfQogCiAJcmV0dXJuIHhmcm1fbmxtc2dfbXVsdGljYXN0KG5ldCwgc2tiLCAwLCBYRlJN
+TkxHUlBfRVhQSVJFKTsKIH0KLS0gCjIuNDMuMAoK
+--000000000000773ad0065d8c109e--
