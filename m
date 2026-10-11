@@ -1,228 +1,140 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 765DD32142B
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:18:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791735521; cv=none; b=PfCP0f1up94fRuapaJEAzjOUo75gRu/x5W2cXXip3xxMnYEgtJNr+qTuX+iIMj0bY9l9CbINLfIXqfP9bTE0vUPNRES+ysZ7QCGkpmzOM3X2ZKUR8kBx4pAYQZa7ND0ckE0x6dq37mx1W9UFiD6nZsAp10u7/qbGRvwF8GBAzF0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791735521; c=relaxed/simple;
-	bh=hva/tp2Acvt6W18JV2TcLHNPDVP7d9Gml2g9nvQ33+8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m9rFR3VR/AdaBCF5JtE/V7d7dSA26amsyUeOFNqqRoegKMyP6P/upaNpclCSXwFoP0iazBLbqsyeMW58MrZ+ev3OnGEYx/H9Lb/nOwbMY6Pp0zWHfmzwKHRQQ6rO0zZIsD32gLSQ1odS6JDXtVQyLAI42X3aA5w0lRaNGu5EkPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=WhByQg/2; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADE5C2D97B7
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:20:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791735647; cv=pass; b=gSJfJGoiJuSonYKGJt5qZCufapFAhRZOQ+2Tvmvceek9RZjWpmmaIy2Jy5sn2xrLvIQKsJjHakhEf/MI9NZIxsrWS0oSHDrtxpClllrqkIGNuGe8M6UIGPtm1wWabqld+i2ZRnM9CgAWOZhL73Vk8n1nEi4dpCxK/07tepFRG9c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791735647; c=relaxed/simple;
+	bh=QUiNdW6VFdxYMeVAMHDcIzKBwB4DCuWygXNIK8VM5JY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=L488onrK2NdFYWDMVQcWn8Z45IZhkCmog57zTzaLVc7vRkSv2cRXUh+HD1U5KCH5HxbgfbBEiFc+1uMLfCTMQXWPjHa/Xib1We45xHRmnkhRhFJiXNhaFIewJJ2KlG4/2J5+Q0pQBWeo9Ucff4Vxt7XUtgY0zK/3fVPB0uRE0P0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QG2kYRMS; arc=pass smtp.client-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="WhByQg/2"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a16c399641so11837525e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:18:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QG2kYRMS"
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-34c522572bfso130527eec.3
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:20:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791735645; cv=none;
+        d=google.com; s=arc-20260327;
+        b=j7iNBA14acZJY62BWHgK5q5u9v/pfGGMnDb3c2l1BNzWGPUXXoj76dtirqHyaTgfmC
+         MiILpSi+UlTbGi1BU6znzSxbw8NomQrt/77AJIEBjXNgVjhxKUX+CYDnsEF0Ag3yXsva
+         Flf17ogOtmRqe6f445lh53MTSy+2xoCnXsD0tdnkP6EJ0KIUfD58kI/vuUoRJFdk+Pu1
+         4j2OifLKG4+s8TdobZ9LbOkPS9p2PXd2NZ09b/sVWhivPC53ujIGiUOnGqIZCgQ5Wt2U
+         ux89G5WaUjg8eNChcVHEWsVUJ08c1DqXA/f4M9pzHm/5uAAFO4E+Rf/se3Qr6ZNwz4qa
+         ABXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Pzp6+YC7TXvsEpHQZBAKMbTQLxmMNWdshnXk9liYwgM=;
+        fh=XZyg0Bg6iclfn76GraCjVyRnQ59tA+0QLwd9FmlYXkE=;
+        b=h/9gAZ6eCDFw/qYQPxWLwrbG9/YzmymyREedbHH/qLl6DLir1t/9pX5qTrjOKG8euB
+         35bpj0VhgJHTXmh5mCVfMul0AGcxCdr32pm6aJjxFYyvAYGMEYcHXTrrwQfCP/0LlWi4
+         0y7xGxgWglASRrA/BRpBRVZ4RDYwgViu975rHuXMTZXEYLYmlvTJHjpHelgnhfgJNAlO
+         +1g75irwkp40nNAwNF/yY0wMHBYktBEDfcvQS/gi7v2INTk4ddo5qVAO4Jvr1n/acAZG
+         BzOk4NPzgLTQZcQQ/enmO8IgIQujyihMVn99HeY6ssUOuUFOpyOVbYEMMleRBU7QUBvY
+         +/Jw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=9elements.com; s=google; t=1791735517; x=1792340317; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cLevDBr/a6xSK2+ESklMCOJC1LXr8ChWRGeELvbz+GI=;
-        b=WhByQg/2SRcNZpapndxLKrK0V9VERwrjQ4zJF7n60mzMsMNlKnpdfXTHxaGF5cYZut
-         YTheVuNqt5f7vZvmwuts5NA3O4QGv+KxuqplIkKH/kzPsZtnZ8fVv3FgLcEGHZXkTa5Q
-         8CkuJvvKKk4L1CZN/uC1NEJlUZjY8kswxXSjApXirJL+H5ErNUyLMVIMGiy1qTHd1rA0
-         zKwnyepclOZngDHO+Lt6ukiLHpfS5SkzckOlGxgdDs9G/t3H9OvlijG8fSsnQ4//FvTk
-         xzGWWN3SAMh7G/DJo/lGrY/6HnPh8FYDhVUAk2fI423ZChRgRkY/mjNBKYqWJo7ilT0E
-         Fg2A==
+        d=gmail.com; s=20251104; t=1791735645; x=1792340445; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Pzp6+YC7TXvsEpHQZBAKMbTQLxmMNWdshnXk9liYwgM=;
+        b=QG2kYRMS4i3OrV5onbdj0jIQ20na/j6Qt9IiEoEby1sFgEnD2dpq/Z+amNR3LqlipD
+         uAuxNIYHEQJDS0LE2J9ufc6Bm5F/fHUgMCalizWPwfKBDtCO2pix7DLxGXT+B1K8gAB0
+         XguEpKW7LydITFy+Gl1/Rhsw+xwlCEF7C7dvrzDc5aRvxH11L0XJUOJ/9uGpndmyvmHM
+         gCzI+D3QKPYzlQ03C3fIhwV5s4nFh0EYLDYQy8aTl1qJtOBuOMNvOBfp9jHP/GKdmKyV
+         H3OGVf5fS88hl+tBZC58suSWgN5tKmdzLZcoBK9Wsry0JMrmmEPYHfP9rE3t9GMeHQTD
+         qBbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791735517; x=1792340317;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cLevDBr/a6xSK2+ESklMCOJC1LXr8ChWRGeELvbz+GI=;
-        b=EUkrKhRATd3xgCfc4PxPg41BtKkGdUhdUHtGPcvhLQ4fStBlo8pGeqImK2E0/D5K05
-         MZyKgoAUe/18LmyTw4bwlwRVvolB1ztRjL6Vt3WdQLRUHqo9cOhY6KhMR+hOx8koK+Rg
-         ewIG7mn2is/2fZJPe7siySO6wc1rV420BV31/Z0AlBtQE86kmkhK1Y5uzTSpwmYt124r
-         QfOpGY6bB1mKvbAQCqVJ5XSZ/W2rtGFrSN0kHtaA9VfWBlI7Ibo58Dgp4gN0G/COg1Af
-         C9jWAvgfcUNgPLa6dpyPsS0KGcwymB9S6Lpl27i5D+5C0ZuBzUumKj291x+aWbFzxl/b
-         bfjA==
-X-Forwarded-Encrypted: i=1; AKwUvBx06HrZ+Drh86HiGIIsv3yUdR1a2c/E+MZZiVLHP1pE4DnscuKkX5VETs6lVd53T1p6Ck7hQ1s0DiY5jso=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK44qq5SWl+ITXiH5CSh8T2XcFru0G4v229uvYn/R3tXQgicRt8
-	pIoBGcKlJrpUFOtzWL45a7/NwCfdNxGuM8KIykOGFGL3nKFDqrDLezYl07TRM1ZPSJE=
-X-Gm-Gg: AYBFou0KxmsroJf8qE2CUj+qWbtP5HoMTbUxp+nz4tZjrfBD7XvVei2t+iXIxtImvhU
-	yf+viVDAu/YwDwhcAKHyAbzZGKkO+0fmn2qaox6I72PjjZ3gFH6ga/SCOLq4J1vju4tDwlg7cdE
-	0ooEAkbcQ4ZzYH/Je0Irajw1hyc0YDfo6aXzwBHXYQ+yS+29AjJ1R0U1Y9ZZm0tDEg3jaiVicpc
-	4XLTU6Qj8b8d0VSHB8qvfPMnxLyS/IvGfZNas0mHwgkEwnqar+DtI5h+Fy4oADcp0RuXUbiP3Dh
-	8R56EkhQgqZN9Ot7D1VqAnRJryR4W5Ym6W2HcCzpE/d6Xy/m5gOOQPSaQMC3JAq6joJwJ411tSw
-	aJL3zHd0W6IbrqzbvgeX0aEXuO9sslQW6W5C98SRDEtPJ5EybX7NAZW0FMNWZI+dRA2a0fyApoa
-	FRL8LMlllyMMWYk6c/oWFE2ofKxhkipe/03fwOHp0QzpFK75faJrPIBAJWA6v4ZztT4BpJoH2cm
-	SQhv6lNTE93YSyUwEa29Xp8rBoQPo/8x93GPbdh12C7i/bK
-X-Received: by 2002:a05:600c:3c89:b0:49f:bd3c:bc18 with SMTP id 5b1f17b1804b1-4a18e49242fmr134428835e9.19.1791735517494;
-        Sun, 11 Oct 2026 09:18:37 -0700 (PDT)
-Received: from ?IPV6:2001:9e8:2cc:2101:aa59:e08:7cab:1f61? ([2001:9e8:2cc:2101:aa59:e08:7cab:1f61])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18c1e33d2sm302192575e9.0.2026.10.11.09.18.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 11 Oct 2026 09:18:37 -0700 (PDT)
-Message-ID: <e2e3d98b-9a89-4845-aa7d-0e23a1d95f70@9elements.com>
-Date: Sun, 11 Oct 2026 18:18:35 +0200
+        d=1e100.net; s=20260707; t=1791735645; x=1792340445;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Pzp6+YC7TXvsEpHQZBAKMbTQLxmMNWdshnXk9liYwgM=;
+        b=qhgzP40zS+MV8gsr+5ZT5KRYEaVQ24x10FY4pVXG5psLv2j2t1jJ6KLpTvlqAd/lRA
+         S5WAmEI4q0EO1xn0gyqcTOD2pH+enDkkSuTvV/d5A+uZGFO0m8QTMMKx0vwwlsHDzsA4
+         xzE9xvomsoveHfNWbjmkHh211EO7S5Eg5nxuzJX3VSdQsuX331grUJy6QQLff3vL5vB1
+         GNmsdJNb5cJOqxzN8pD3Yy2658Nf/TWXv0t0ikW3UaMDJlJbWb32yIB+UcbQ3mgy72rA
+         8qhnOMFghdmST3NFhfLKtZirJ3AXNm6CGqTP+YrZy/Mxn2jq14GZl0R/ATVW5wyJKt6x
+         poQg==
+X-Forwarded-Encrypted: i=1; AKwUvBwe/5OmAZXQBSF405xF7Htv0syW1Ie2EJf+Uw8lp/arrPQtp8wUPFBqh/OYPkrsd0ljSJ93bEguS/aLo5Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL76aUtUQC47xAr2egqFYvJO4Tag9tIoVJq+jyrCcOFDsxhm/hx
+	mpHEZFKvBXbq/F9NgTXygW/QBNN/fE0EzvGFdByfhk7xcA/vvn3cnMKg5h4AMTTwUfLfiAqaA6e
+	9A4/4bSE/jtTe58+UcPG8nPqtu4SGEBwtvzI3WyI=
+X-Gm-Gg: AYBFou3RZlvqQlBsSGTbwiVkjlnuOdGKali3vFjUHgENQq8qcXm+7yVFeSOQfs9mec6
+	WOJrDrtoPn9o+lIeVl/x1WYnpeAQYbK2L4ULfEgx14rjCuGr+Jnw0FYdP8qzNMJ8uFTMaw9YCLw
+	mYWsh51e9MgpUUVpjVO7BZ1b7zmMbYJF+JuydZTZUk2tz2Sok8DWLVjiUxsEaJaBI2nQ5olh+f4
+	oAC6o4noYKGZevA65HDLtKJBmC6ip4hOjQEN4unZYDfqPlaDTX6JRcPkvZh1REfeowBKrXnNzsY
+	j4+V3OdRk2+1vn67GrJuZNMtmQe3WAMbfmmOiF8mBgVM8//aZMdBLyhZ1OpVIjw1IGX69hcIItJ
+	q29GKZYiED5H/YBONo0lgCH2bluQ85PaqMtKQzhpfpBvskfTF1y7xN/G9/OW4KcJ46SeC+K/+dl
+	qZcJK3qh9X3jBlz9dFqZoY4bu65+Vfia3Dc8M5nzbjvF4eirXCWlo=
+X-Received: by 2002:a05:7301:5413:b0:358:c9f3:b055 with SMTP id
+ 5a478bee46e88-358c9f3b260mr9244966eec.1.1791735644658; Sun, 11 Oct 2026
+ 09:20:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] serial: 8250_pci: Add support for ASPEED BMC VUARTs over
- PCIe
-To: Phil Rosenthal <phil@phil.gs>, Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Corey Minyard <corey@minyard.net>,
- "openipmi-developer@lists.sourceforge.net"
- <openipmi-developer@lists.sourceforge.net>, Andy Shevchenko
- <andy@kernel.org>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Ryan Chen <ryan_chen@aspeedtech.com>,
- "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
- Ninad Palsule <ninad@linux.ibm.com>, Andrew Lunn <andrew@lunn.ch>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
- =?UTF-8?Q?Gr=C3=A9goire_Layet?= <git@gregoirelayet.com>
-References: <20261008-aspeed-vuart-v1-1-d2be17c99cd7@phil.gs>
- <CAHp75VdiO9tPX2vLqsX2-omNvs-YjkWWD-HOiqyDSzpJrrZ_5w@mail.gmail.com>
- <60996F21-A12C-4FCC-9D5E-9D188A4ADBEA@phil.gs>
- <CAHp75VdmMwXRQFKLG8c4yAsVA5=eFZA3jagtMGb-qVswcQ88Wg@mail.gmail.com>
- <2F1931BE-F0F0-4F21-BED4-67080A40AEA9@phil.gs>
-Content-Language: en-US
-From: Tan Siewert <tan.siewert@9elements.com>
-In-Reply-To: <2F1931BE-F0F0-4F21-BED4-67080A40AEA9@phil.gs>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20261010095001.265759-1-julianbraha@gmail.com>
+In-Reply-To: <20261010095001.265759-1-julianbraha@gmail.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Sun, 11 Oct 2026 18:20:29 +0200
+X-Gm-Features: AclHuK_w3Y4kAwcZA7SbeHM9fSvSzVE9w0UyxZwltGRDETa14I43fFQK9NA9AuI
+Message-ID: <CANiq72kyZpDa1YfLjPYQbatogvMONM0SOww1iQDQaZ4atcu+9g@mail.gmail.com>
+Subject: Re: [PATCH] kconfig: wrap long expressions in menuconfig
+To: Julian Braha <julianbraha@gmail.com>
+Cc: nathan@kernel.org, nsc@kernel.org, ojeda@kernel.org, a.hindborg@kernel.org, 
+	nico@fluxnic.net, rdunlap@infradead.org, grahamr@qti.qualcomm.com, 
+	jakub.git@horky.net, linux-kbuild@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/10/26 12:47 PM, Phil Rosenthal wrote:
-> On Sat, Oct 10, 2026, Andy Shevchenko wrote:
->> I will look into this deeper when I return from the LPC 2026 trip, but
->> what you are doing sounds really wrong.
+On Sat, Oct 10, 2026 at 11:50=E2=80=AFAM Julian Braha <julianbraha@gmail.co=
+m> wrote:
+>
+> In an offline conversation, Miguel Ojeda reported that scrolling
+> horizontally in menuconfig's search to read RUST's dependencies has been
+> slowing down debugging.
 
-*snip*
+Thanks for working on this!
 
-> One correction to v1: it said interrupts don't work on this device.
-> They do. The board just uses a different MSI vector than the one I
-> tried, and which vector it is depends on the BMC firmware.
+This is definitely useful, because users (and ourselves) have had to
+scroll horizontally too much for `CONFIG_RUST` :)
 
-Disclaimer: It's been a while since I worked on this driver, so please 
-take my words with a grain of salt.
+Maybe it could help to clarify here that "debugging" above means
+understanding by users (i.e. not developers) why the dependencies are
+not satisfied. `menuconfig`'s search is uniquely useful because it
+shows the expressions with the current values; i.e. this is useful for
+most users dealing with long configs like `RUST`'s.
 
-Correct, the BMC firmware sets its SIRQ statically. As far as we have 
-seen on devices that use VUART over PCIe, they used the vendor 
-recommended interrupts which are 0 and 1 (vectors 16 and 17 on the host 
-side).
+Is this patch the live one you showed me back in the conference?
 
-> In a separate driver I can find the vector at probe time and fall back
-> to polling if there isn't one. That makes the console about 7 times faster
-> than polling (about 15 KB/s instead of 2 KB/s), and the CPU no longer has to
-> poll the port. I couldn't do that cleanly as a quirk in 8250_pci.c, but
-> it would work the same in a driver for the whole device.
-> 
-> Grégoire Layet (Cc'd) has a series for the same device [1]
-> It adds an MFD driver, drivers/mfd/aspeed-pci-core.c, that registers the
-> serial ports as a child device. But it only binds when the BMC runs a modified
-> OpenBMC, which changes the device's class code and puts the serial port
-> interrupts on fixed MSI vectors.
+By the way, for context and future reference before I forget, I
+suggested a few other bits:
 
-@Grégoire do you remember why `8250_aspeed_vuart` sets the PCIe class 
-code to `0xff000000`?
+  - Wrapping on the top-level `&&` operators.
 
-The reason for having an MFD driver instead of a separate 8250 serial 
-driver is simple: We want to have the ability to support multiple 
-devices like KCS over PCIe or Mailbox too, which uses the same BARs.
-There was a discussion about this already in previous versions of the 
-series that Grégoire has proposed (I think it was v2) [0].
+  - Even better, wrapping on the actual `depends on` lines, rather
+than every top-level `&&`, because sometimes they are logically
+grouped, even if they may use themselves `&&` for the condition. But
+IIRC we discussed that this would require tracking more state and/or
+reworking part of the parser.
 
-> With stock firmware, like on this board, it doesn't bind at all.
-> So there are two ways forward:
-> 
-> 1. A separate 8250 driver for stock firmware, as I proposed.
-> 
-> 2. Extend Grégoire's driver so it also handles stock firmware: match the
->     KCS class code as well, and find the MSI vector at probe time instead
->     of assuming it. I'd work that out with Grégoire and send it on top of
->     his series, together with the ipmi_si change. KCS would stay with
->     ipmi_si's ACPI path either way.
-
-If you found a way to find the correct MSI vectors at probe time (with 
-other features like KCS or Mailbox enabled), please propose it so. 
-AFAICR we've looked into this and haven't found a suitable solution for it.
-
-[0] 
-https://lore.kernel.org/all/cover.1780929570.git.gregoire.layet@9elements.com/
+  - For completeness, I also mentioned potentially considering to show
+(a subset of) attached comments, but that is not really needed and it
+is really low hanging fruit that is most likely not worth its
+complexity: we already have descriptions and most options are not as
+complex as `RUST`'s.
 
 Cheers,
-Tan
-
-> 
-> I'm happy with either. Please let me know which you'd prefer, and I'll
-> wait for that before sending anything new.
-> 
-> [1] https://lore.kernel.org/r/20260818-aspeed-driver-v6-v6-0-fd7cc0b338ea@9elements.com
-> 
-> Thanks,
-> Phil
-> 
-> 
->> On Oct 10, 2026, at 4:10 AM, Andy Shevchenko <andy.shevchenko@gmail.com> wrote:
->>
->> On Fri, Oct 9, 2026 at 4:45 PM Phil Rosenthal <phil@phil.gs> wrote:
->>>> On Oct 9, 2026, at 4:57 AM, Andy Shevchenko <andy.shevchenko@gmail.com> wrote:
->>>>
->>>> There is already a driver for this 8250_aspeed_vuart.c. Please, do not
->>>> add new quirks to 8250_pci.c.
->>>
->>> Thanks for the review.
->>>
->>> As far as I can tell, 8250_aspeed_vuart.c drives the other end of the
->>> VUART. It is an OF platform driver (aspeed,ast2400-vuart and
->>> aspeed,ast2500-vuart) for Linux running on the BMC itself: it depends on
->>> ARCH_ASPEED, has no PCI ID table, and programs the BMC-side GCRA/GCRB
->>> registers (VUART enable, host SIRQ routing), which the host cannot
->>> reach.
->>>
->>> This patch is for the host side. There the VUART appears as 16550
->>> registers in BAR1 of the BMC's PCIe function (1a03:2402), and nothing
->>> binds that function today,
->>
->> In the comments to the patch you told that ipmi_si matches it.
->>
->>> so SOL goes quiet once Linux starts. I don't
->>> see a way to reuse 8250_aspeed_vuart.c for it, but please correct me if
->>> I'm missing something.
->>>
->>> Understood about 8250_pci.c. Would a separate driver be acceptable,
->>> e.g. drivers/tty/serial/8250/8250_aspeed_pci.c using 8250_pcilib, along
->>> the lines of 8250_pericom.c? It would do the same as this patch: find
->>> the VUARTs the BMC has enabled in BAR1 and register them as polled
->>> ports. If that works for you, I'll send it as v2.
->>
->> What has Pericom to do with all this?
->>
->> ...
->>
->> I will look into this deeper when I return from the LPC 2026 trip, but
->> what you are doing sounds really wrong.
->>
->> -- 
->> With Best Regards,
->> Andy Shevchenko
-> 
-
-
--- 
-Tan Siewert
-(they/she)
-
-9elements GmbH, Kortumstraße 19-21, 44787 Bochum, Germany
-Email:  tan.siewert@9elements.com
-Phone:  +49 234 68 94 188
-
-Sitz der Gesellschaft: Bochum
-Handelsregister: Amtsgericht Bochum, HRB 17519
-Geschäftsführung: Sebastian Deutsch, Eray Basar
-
-Datenschutzhinweise nach Art. 13 DSGVO
+Miguel
