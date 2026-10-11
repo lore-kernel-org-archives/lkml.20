@@ -1,83 +1,177 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A23F393DEB
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:00:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93240185B48;
+	Sun, 11 Oct 2026 08:04:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791705610; cv=none; b=nBFXYSOQo2zt5POq8EIPuZOSQvtKl9lN7UrsTnrTQB1H4QsgRBo8jy7OEjGTcAYmVsyL4Zkfe0A8HeOW2JnqWUpWNfwMX8RqQRG0UUDKibtP+ka0PJvL66wbf3IfbSZe3Jc/3cvVR3cYMDaoVQoROXU7bwZul+jQ8SvHabfrEB8=
+	t=1791705876; cv=none; b=IkRsND5agYK0SNiYcmF0MiX0T5v1GLnNbjUngsKS10hKuGlNgruOG+48fRnP7/2fL+/hb8/tK/8DbLIqVAUUuacq4B3LWHz+5HZbDRaYeu6+VpRwFEvbitS/OcHsXNPuf7wbtUVbPk9VeHEsKFv2hxckwlnaXKDeN9G0Zb3+22Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791705610; c=relaxed/simple;
-	bh=KgT+pVBy+KD6tIIJ9Z9VwFVOaoyQmWBVBDs1doE72Fk=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=YuVIVbc+d2Jy92VWJxuOxN/Ta7tblReP3vHUM0zEOfeXRWjglqzrx8JSPA0SlJTOoSKPFH3c3nnLaEenBeNLhhCDlvWfy+ZofnXhBA5xXUT/sqqMMQTV3chj9ZcO9Z3iQYVGkzHGwtiZW6i4CfMzR0XZcM5QJN2U3gA/+vSAkgo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ar6eCvN8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791705876; c=relaxed/simple;
+	bh=3dl2088A3FSVhN92Lv3OonvssgasnxbW+zR4oicbTRU=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=K9XaeAnVmXdYLxFYbHY3dS5oP1064uWn+lRvHvRvgY0ZagSm5GDuWDghU6wGOjwUKq4HJrB+UjZcg8+wUAb4uZ1NrZvcMrCh43dOa1gQMcuZ3pxLdtMYdrdQZP8tQ/Ekxbz5X/gE/W7W/+eM1t4TDCEGTyaog9GNzIorzILFqM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oCmVXKiU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ar6eCvN8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19E831F0089B;
-	Sun, 11 Oct 2026 08:00:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oCmVXKiU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6BCD1F0089B;
+	Sun, 11 Oct 2026 08:04:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791705609;
-	bh=BldPchgRPYf8807oLd4yoj0+uSTzoKV/uAiOC/vtc6w=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=Ar6eCvN8aC/KY4dbcb8yUHCoXAjmrDhgTDtAl235n6kBA69nZzOoYqd5W5wlsEAKB
-	 nz3z9u+oXnA0+HfgMos2WsghNQsblZeFPl3x2OHNKNPOBK4zUUspxriYJtBiY2XbU5
-	 0Xv1FG+vfw9NM6+KIk1hCIhGjLz7A6pkg5KVLVq64Bphh+7r0RlQ1axiFqzibQvLfd
-	 4dfNRn2JSB8Cowkct5lvHdpwy6IEgg+tWbaPZsIzTv7BHK/3Z9dpxphIvA1hhBS13U
-	 upe3/EO3S4j18NmqimZ67C+nZj1x2PWuv19xFevjSKvyx0+QXmSha5QUqxE3E/ML5X
-	 O7cPeShtfxvyg==
-Message-ID: <b76e45ca-b455-4c2f-82c8-abbb596acb86@kernel.org>
-Date: Sun, 11 Oct 2026 16:00:06 +0800
+	s=k20260515; t=1791705875;
+	bh=Lti2Y8S7Hxd6PYECyIiG64uGEClN5O3X1xqGLARzapI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=oCmVXKiURQ68dMVmKOFiAY13faPEJgYuFLKR/PxVqjJbgNudQoX1YyqhjNL/Km1od
+	 TGsU2zsaUdMR3/Y6MmiYwTws6q80lj5mZFfZPyuUH9R0b0m1pjhraxt7aNxSDBZ3ZE
+	 4m8BigL7dvd+dXrMeCBFxOni+gnnpezZhD/etYAw3upAg3n0zvp1EOPpNJ6JZLsZBH
+	 w2hrXFUjKIL1KElUHBBtNiVXEyDlhjP0TgHnkYRTlyL3XTayNSoGqSUfir22dX5rvY
+	 jcXkWa3CFHiBtBRqUeCAHntraXHUxr5rNs83xdfWV7dQEL1d5mvK33luw9yZEQFbOR
+	 tNcQLw4bF6nBA==
+Subject: Re: [PATCH net-next] net: bgmac: use the NAPI skb cache
+From: netdev-bot+sashiko@kernel.org
+To: rosenp@gmail.com
+Cc: netdev@vger.kernel.org, rafal@milecki.pl,
+ bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org
+Date: Sun, 11 Oct 2026 08:04:34 +0000
+Message-ID: <179170587420.434549.9366997254776579845@kernel.org>
+In-Reply-To: <20261010070635.97759-1-rosenp@gmail.com>
+References: <20261010070635.97759-1-rosenp@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-kernel@vger.kernel.org, Zhan Xusheng <zhanxusheng@xiaomi.com>
-Subject: Re: [PATCH] f2fs: fix defragment writeback range truncation on 32-bit
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>, Jaegeuk Kim <jaegeuk@kernel.org>
-References: <20261005154954.2097054-1-zhanxusheng@xiaomi.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20261005154954.2097054-1-zhanxusheng@xiaomi.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 10/5/26 23:49, Zhan Xusheng wrote:
-> f2fs_defragment_range() flushes the range it is about to defragment:
-> 
-> 	filemap_write_and_wait_range(inode->i_mapping,
-> 				pg_start << PAGE_SHIFT,
-> 				(pg_end << PAGE_SHIFT) - 1);
-> 
-> pg_start and pg_end are pgoff_t, 32 bits on 32-bit kernels, so both
-> shifts are evaluated in 32 bits and truncated before they are widened to
-> the loff_t parameters.  pg_end is only capped by the file's page count,
-> so for a file larger than 4 GiB the shift wraps.
-> 
-> For a 5 GiB file pg_end is 1310720 and the range collapses from
-> [0, 5 GiB) to [0, 1 GiB), leaving the rest of the dirty pages unwritten
-> before the blocks are moved.  For 8 GiB the shift yields 0, the minus one
-> makes it (loff_t)-1, and the range becomes [0, LLONG_MAX].
-> 
-> The matching call in f2fs_collapse_range() already casts:
-> 
-> 	filemap_write_and_wait_range(inode->i_mapping,
-> 				(loff_t)index << PAGE_SHIFT,
-> 				((loff_t)pg_end << PAGE_SHIFT) - 1);
-> 
-> Do the same here.  On i386 the shift changes from "shl $0xc,%ecx" to
-> "shld", i.e. from a 32-bit shift to a double-precision one.
-> 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Cc: stable@kernel.org
+Critical: 0 · High: 1 · Medium: 0 (1) · Low: 0
 
-> Fixes: d323d005ac4a ("f2fs: support file defragment")
-> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Reviewed-by: Chao Yu <chao@kernel.org>
+- [High] In bgmac_dma_rx_read() (drivers/net/ethernet/broadcom/bgmac.c),
+  the patch replaces build_skb() with napi_build_skb().
 
-Thanks,
+Pre-existing issues:
+- [Medium] This problem wasn't introduced by this patch, but bgmac_poll()
+  has no zero-budget guard.
+
+--
+
+net: bgmac: use the NAPI skb cache
+
+This commit changes bgmac to allocate RX skb heads with napi_build_skb()
+and to free completed TX skbs with napi_consume_skb(). The skb heads are
+then recycled through the per-CPU NAPI cache instead of the slab
+allocator.
+
+> diff --git a/drivers/net/ethernet/broadcom/bgmac.c b/drivers/net/ethernet/broadcom/bgmac.c
+> index 3e9c57196a397..63a01accd7803 100644
+> --- a/drivers/net/ethernet/broadcom/bgmac.c
+> +++ b/drivers/net/ethernet/broadcom/bgmac.c
+
+[ ... ]
+
+> @@ -466,9 +467,9 @@ static int bgmac_dma_rx_read(struct bgmac *bgmac, struct bgmac_dma_ring *ring,
+>  			/* Omit CRC. */
+>  			len -= ETH_FCS_LEN;
+>  
+> -			skb = build_skb(buf, BGMAC_RX_ALLOC_SIZE);
+> +			skb = napi_build_skb(buf, BGMAC_RX_ALLOC_SIZE);
+
+[Severity: High]
+Can netpoll's zero-budget poll reach this call outside softirq context?
+
+poll_one_napi() in net/core/netpoll.c calls napi->poll(napi, 0). A budget
+of 0 means only the TX path should be cleaned. The TX side of bgmac_poll()
+handles this, because napi_consume_skb() falls back to
+dev_consume_skb_any() when budget is 0.
+
+However, bgmac_poll() still calls bgmac_dma_rx_read() with weight 0. The
+budget check there only runs after a descriptor has been handled:
+
+bgmac_dma_rx_read() {
+    ...
+		if (handled >= weight) /* Should never be greater */
+			break;
+    ...
+}
+
+So one ready RX frame always reaches napi_build_skb():
+
+netpoll_send_skb() [local_irq_save]
+  __netpoll_send_skb()
+    netpoll_poll_dev()
+      poll_one_napi()
+        bgmac_poll(napi, 0)
+          bgmac_dma_rx_read(weight=0)
+            napi_build_skb()
+              __napi_build_skb()
+                napi_skb_cache_get()
+
+napi_skb_cache_get() modifies the per-CPU napi_alloc_cache
+(nc->skb_cache[--nc->skb_count]) under local_lock_nested_bh(). On !RT
+kernels, that lock is only a lockdep_assert_in_softirq() plus a lockdep
+annotation.
+
+Netpoll can be entered from hardirq context, for example by a printk
+through netconsole from an IRQ handler. Suppose that hardirq interrupts a
+NET_RX softirq on the same CPU while the softirq is inside
+napi_skb_cache_get() or napi_skb_cache_put().
+
+Could both contexts then take the same skb head, or corrupt
+nc->skb_count?
+
+On PREEMPT_RT, local_lock_nested_bh() is a sleeping per-CPU lock. Here it
+would be taken with IRQs disabled. With lockdep enabled,
+lockdep_assert_in_softirq() would also warn every time netpoll handles an
+RX frame.
+
+The old build_skb() used kmem_cache_alloc(), which is safe in this
+context. Zero-budget RX could already reach napi_skb_cache_put() through
+the GRO_MERGED_FREE path in gro_skb_finish(). This change makes the cache
+access unconditional for every frame handled at budget 0.
+
+Would it make sense to skip RX processing when weight is 0, either in
+bgmac_poll() or at the top of bgmac_dma_rx_read()?
+
+[ ... ]
+
+> @@ -1153,7 +1154,7 @@ static int bgmac_poll(struct napi_struct *napi, int weight)
+>  	/* Ack */
+>  	bgmac_write(bgmac, BGMAC_INT_STATUS, ~0);
+>  
+> -	bgmac_dma_tx_free(bgmac, &bgmac->tx_ring[0]);
+> +	bgmac_dma_tx_free(bgmac, &bgmac->tx_ring[0], weight);
+>  	handled += bgmac_dma_rx_read(bgmac, &bgmac->rx_ring[0], weight);
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but bgmac_poll() has no guard
+for a zero budget. With weight 0, bgmac_dma_rx_read() handles one RX
+descriptor and returns 1. bgmac_poll() then skips the handled < weight
+branch and also returns 1.
+
+Doesn't that trigger the WARN_ONCE() in poll_one_napi()?
+
+net/core/netpoll.c:poll_one_napi() {
+    ...
+	work = napi->poll(napi, 0);
+	WARN_ONCE(work, "%pS exceeded budget in poll\n", napi->poll);
+    ...
+}
+
+This missing guard is also what allows the napi_build_skb() issue above.
+The same fix, returning before RX processing when weight is 0, would
+cover both.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261010070635.97759-1-rosenp%40gmail.com
