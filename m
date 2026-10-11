@@ -1,117 +1,173 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EBE73BE154
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:00:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9238533F5BC
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:01:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791698404; cv=none; b=bUH9MLn7GgANr10v47cBA4N8MsGkQHlUkgldCCydZpdQiN3fsjBw0U88A9QDC23x0858KsHSYJbox9VODZOKSpHNMckAC8iQM1aynlHuemXFR+e798Xbl9250HQuEKzvsQvCTOhQgaz/ZRKraJizpihdnjNpSPglUdw8YJpMv4c=
+	t=1791698479; cv=none; b=EiZ54tWVoUvXHqqmlnbnidYfulsEsq+cqaQZaBRI4EnZVf6oZRJtd8vQ5RKgwHDjsLqX61c/bqDes1xbdDIGGU0+oYLvyLFLDJtTW9V6oM6qixpNi+US360uNHzT4CFYAK8OG9HEr4BHKWYkO+rvUNXL/IP0+ebVbOKQoljHDQo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791698404; c=relaxed/simple;
-	bh=XIuNEXf2+WIoLde2cK4bKU6HlAzdv5yqHSbad4ISGMs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sFqwFGx0Ou3JHbW4Qx27eOSpMqCncpdUjSSEcALAA2YroKZYt+Q2WRXO1/ZcPH+wVv0n8Q6hssWcnorAexaXeP4PBtw7eV+4SFfWqAqZBEBAJHfOGvuNWWo0lVZQrMnHrrguN3WFRedfxysDuqINYRwyka47sEIrII7G19RJKh0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AuxYxm6X; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791698479; c=relaxed/simple;
+	bh=1TgYOlUToR7bsqnqylHn2mvtz1Gmx/1YF4g318T7Gq0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SyJS2ThnX+H6q7IbIxs+UU/6CUwJwKDk9sKSQ1Wuotq9HatZHLl0QmK9Yq+Z5dn7gOgLnZQxn0wTosEil837pxaMhaI1glN0E3TXzg9xSvkkDZwRykg8k/GT1I6qLr+Dq7VeX8xx2qZeTPuraoujfCJyMEI5FktXkjigqvbGBkQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=XcZ2bNE4; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AuxYxm6X"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3a89f92d7b3so148188a91.2
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 23:00:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791698403; x=1792303203; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=siZczXavzG4cpFqab0LU9thPiqjozk6z14MIL0cwYp0=;
-        b=AuxYxm6XBkc27Cj1VQmPaPLqhD7hpK/Ol4x9a1xQBzy/xSd7KgLcsQzCf2sGV9RV4H
-         pykZHTvEIfEsf9pmkUyK+0/HVLqFETdpdh/rzGODWLX3WHBX589zAb2p04O3wkPiCYe7
-         Ox6nARwuldYWDhkeygbp32hUWMWBkkPT5wZgplmLe9UuW3g13uPQqH0pzqjIe7D5o4cl
-         MYjw0I7WmYRojr+KN8q7XehLXy5YSuMR49CmS+CD/yLKoXqbz90YwpwQCvp07EmaL6gg
-         bKo6JtaJgpqWYauEAUCTNDptkYIFtsgYrExb9uGi+iRP/aVW7vNyAyKBqyjbm8N1hO++
-         BRpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791698403; x=1792303203;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=siZczXavzG4cpFqab0LU9thPiqjozk6z14MIL0cwYp0=;
-        b=QHeMAz6i3l1pxIwQiesTCLmNEkTaKHdHfMGWuHUgoA46GZ+dUxjC/rApdpGMy1HmNY
-         OIRNJEyAzXFJZbMmR5uWdvOyVAmkZJDx280v53Jx9ZLtVcQmGd13zyxGA3msPX4YZ0aJ
-         ZF8Ysp9JxvcUka9sCTHJfrEqcWav/s+Oo6WH/Cr4m+HguI2NwnHz6JQVjnFiNDkjSjzW
-         r4SngU+njq8JtQ90lqy74xRrxLQ3zuciKVeh+fyU6OaWVmvlMg/asV8ynAKjO0Ai50vT
-         nDAPijsmdr6m3TvdVmypwvANx/x3kweNOEVT/MwuDfLkYo++kelL3lIP0MSDBit54mgB
-         9CTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw8JI62cIIL9mojmodC75FgOoVePNKNVaN8JxAu7ZjPG4wTBMm3IsndPK/pu8+nOLFjiHtsyXwN0G/+kw4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJeCy4Ewz8jlmzSlHUIsi9+TPywnVJlyat0NXbBHjpUFuMYRyay
-	kgdlElTmjVmgI/WYDbMJ6PMdI2SY9B1mqGw0hpQGwNZ45alj5zIZzdtL
-X-Gm-Gg: AYBFou2AME3L08DDeIeEbuAvN0pG+Zsv+K48YKxuRYWhDlXdJu3u6APUhvq5mMigmhI
-	EkQspRvnOessFwOWiX1UoJKbPH4ett6lIi9iWgjgFFRiMrEXhiLJMOkQJB6mTaBlEi/qaiCS7+0
-	kVwV45eMyZDp1IM/BzwJsWx5tZAu4HskXKSDYz1pF6a5zBJfxmi7foF9qUVe82I66q/IMMxlrFK
-	cyG3hi20upQtSVmqNcVgBsIEEVVYkciMQ3GYeL1TZNwKWJvunS5186JX7r5B6VwLKhiApDnLL2Q
-	PlQ85OJUb+M8eFIKrKW1t5pElWfn6rjaxPcOTOYXW1ROylrDiHHzj8ERqw6TgwihUvmFsYl6Rej
-	AR7lej20xWlLAomNEMbob8T6FZzLR7TtwIp3/2Lc5Ss8C4tfYhgNsM4vTmXCfMCXaOYROHu5M+b
-	PAP30vIIQkiZdm7LII9cg8yglYIpIvZ8a0k0ecxd6/H29HEXsX/TK/qSySlekCfAc/SU4b1nBuZ
-	w==
-X-Received: by 2002:a17:903:2f92:b0:2df:8ab7:fe3a with SMTP id d9443c01a7336-2e842abf30fmr88364935ad.4.1791698402534;
-        Sat, 10 Oct 2026 23:00:02 -0700 (PDT)
-Received: from ser8.. ([221.156.231.192])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422b5fd2sm29784615ad.50.2026.10.10.23.00.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 23:00:02 -0700 (PDT)
-From: DaeMyung Kang <charsyam@gmail.com>
-To: linkinjeon@kernel.org
-Cc: senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	DaeMyung Kang <charsyam@gmail.com>
-Subject: [PATCH] ksmbd: match the full EA name in single-entry queries
-Date: Sun, 11 Oct 2026 14:59:55 +0900
-Message-ID: <20261011055955.1487087-1-charsyam@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="XcZ2bNE4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791698476;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QeZFZYg+H8IU4LKDAbgrE/pPmIzi68yx/ItbHA91QWc=;
+	b=XcZ2bNE4UAvnSucQFIMRUmjVOz7DjuA6IjeTYlHeCZoTvuEgHl2oDotaYqWaaZHMVUGEpp
+	gqWNCEIAl9BDBTi3DAwzzuDfmddo4IxbN+3pGzldlNXxEI4K7t8hGzxLmdX9+j83J4iTB5
+	M7UrEvpc7giKMNpiK83KHcxjwBhrJ1A=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-503-vCJ_yTrdMlSD6gGDyPpyog-1; Sun,
+ 11 Oct 2026 06:01:12 +0000
+X-MC-Unique: vCJ_yTrdMlSD6gGDyPpyog-1
+X-Mimecast-MFC-AGG-ID: vCJ_yTrdMlSD6gGDyPpyog_1791698471
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 63D931800643;
+	Sun, 11 Oct 2026 06:01:10 +0000 (UTC)
+Received: from [100.91.101.41] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 31E8518004D4;
+	Sun, 11 Oct 2026 06:01:06 +0000 (UTC)
+Message-ID: <5a711944-cd08-42f9-ae6d-6909b6b722ca@redhat.com>
+Date: Sun, 11 Oct 2026 08:01:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v4 1/5] dpll: zl3073x: do not offer 0 Hz as a
+ supported pin frequency
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, poros@redhat.com, min.li@microchip.com,
+ vadim.fedorenko@linux.dev, arkadiusz.kubalewski@intel.com, jiri@resnulli.us,
+ kuba@kernel.org, Prathosh.Satish@microchip.com, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org
+References: <20261009192556.272263-2-ivecera@redhat.com>
+ <179166042014.434549.4178521508120779611@kernel.org>
+Content-Language: en-US
+From: Ivan Vecera <ivecera@redhat.com>
+In-Reply-To: <179166042014.434549.4178521508120779611@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-An SMB2 QUERY_INFO request can name a specific extended attribute with
-FILE_GET_EA_INFORMATION. smb2_get_ea() compares only EaNameLength bytes
-of each xattr name, so a request for "Foo" also matches "Foobar". If
-both EAs exist and listxattr() returns "Foobar" first, ksmbd returns
-"Foobar" and its value instead of "Foo". It also returns "Foobar" when
-"Foo" does not exist.
+On 10/10/26 21:27, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 0 · Medium: 1 · Low: 0
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Medium] At this commit, the subject says 0 Hz is no longer offered,
+>    but zl3073x_pin_props_get() (drivers/dpll/zl3073x/prop.c) only filters…
+> 
+> --
+> 
+> dpll: zl3073x: do not offer 0 Hz as a supported pin frequency
+> 
+> This patch stops zl3073x_pin_props_get() from putting the current pin
+> frequency into the supported list when it reads back as 0 Hz. If the
+> list ends up empty, it is freed and not published, because the DPLL
+> core rejects an empty non-NULL list.
+> 
+>> diff --git a/drivers/dpll/zl3073x/prop.c b/drivers/dpll/zl3073x/prop.c
+>> index ac9d41d0f978e..18a1bf3103326 100644
+>> --- a/drivers/dpll/zl3073x/prop.c
+>> +++ b/drivers/dpll/zl3073x/prop.c
+>> @@ -295,13 +295,20 @@ struct zl3073x_pin_props *zl3073x_pin_props_get(struct zl3073x_dev *zldev,
+>>   		goto err_alloc_ranges;
+>>   	}
+>>   
+>> -	/* Start with current frequency at index 0 */
+>> -	ranges[0] = (struct dpll_pin_frequency)DPLL_PIN_FREQUENCY(curr_freq);
+>> +	/* Start with current frequency at index 0. A sub-Hz frequency is
+>> +	 * read back as 0 Hz and cannot be set, so it is not offered.
+>> +	 */
+>> +	j = 0;
+>> +	if (curr_freq) {
+>> +		struct dpll_pin_frequency freq = DPLL_PIN_FREQUENCY(curr_freq);
+>> +
+>> +		ranges[j++] = freq;
+>> +	}
+>>   
+>>   	/* Add frequencies from firmware node, skipping current frequency
+>>   	 * and filtering out frequencies not representable by device
+>>   	 */
+>> -	for (i = 0, j = 1; i < num_freqs; i++) {
+>> +	for (i = 0; i < num_freqs; i++) {
+>>   		struct dpll_pin_frequency freq = DPLL_PIN_FREQUENCY(freqs[i]);
+>>   
+>>   		if (freqs[i] == curr_freq)
+> 
+> [Severity: Medium]
+> Can 0 Hz still end up offered through the firmware list?
+> 
+> The subject says 0 Hz is no longer offered. However, only a 0 Hz current
+> frequency is filtered.
+> 
+> Suppose the "supported-frequencies-hz" property has a 0 entry and
+> curr_freq is nonzero. That entry is not skipped by the
+> freqs[i] == curr_freq check. It goes on to zl3073x_pin_check_freq(),
+> which has no zero check at this commit:
+> 
+> drivers/dpll/zl3073x/prop.c:zl3073x_pin_check_freq() {
+> 	if (freq > U32_MAX)
+> 		goto err_inv_freq;
+>      ...
+> 		/* Check the frequency divides synth frequency */
+> 		if (synth_freq % (u32)freq)
+> 			goto err_inv_freq;
+>      ...
+> }
+> 
+> On an output pin, does this divide by zero during probe?
+> 
+> On an input pin, zl3073x_ref_freq_factorize(0, ...) succeeds on the first
+> base frequency of 1. Here 0 / 1 = 0 <= U16_MAX and 0 % 1 == 0, so 0 Hz is
+> published as supported. It could then be programmed with base 1 and
+> multiplier 0.
+> 
+> The dpll-pin.yaml binding sets no minimum for supported-frequencies-hz,
+> so the schema does not reject 0.
+> 
+> A later patch in this series, "dpll: zl3073x: reject output frequencies
+> with too small divisor", changes the first check in
+> zl3073x_pin_check_freq() to:
+> 
+> 	if (!freq || freq > U32_MAX)
+> 		goto err_inv_freq;
+> 
+> That fixes this by the end of the series. At this intermediate commit,
+> though, the 0 Hz case is still reachable from firmware.
+> 
+> Would it make sense to move the !freq check into this patch? Bisection
+> would then not land on a kernel that can still divide by zero here.
 
-Check the xattr name length after removing the user. prefix before
-comparing the name bytes. This keeps enumeration without a requested
-name unchanged.
+Yes, I will move the !freq check into this patch.
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Cc: stable@vger.kernel.org
-Signed-off-by: DaeMyung Kang <charsyam@gmail.com>
+Thanks,
+Ivan
 ---
- fs/smb/server/smb2pdu.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 12a43efdb53f..a49cc3a0c9de 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -6738,8 +6738,9 @@ static int smb2_get_ea(struct ksmbd_work *work, struct ksmbd_file *fp,
- 			continue;
- 
- 		if (req->InputBufferLength &&
--		    strncmp(&name[XATTR_USER_PREFIX_LEN], ea_req->name,
--			    ea_req->EaNameLength))
-+		    (name_len - XATTR_USER_PREFIX_LEN != ea_req->EaNameLength ||
-+		     strncmp(&name[XATTR_USER_PREFIX_LEN], ea_req->name,
-+			     ea_req->EaNameLength)))
- 			continue;
- 
- 		if (smb2_is_private_ea(&name[XATTR_USER_PREFIX_LEN],
--- 
-2.43.0
+pw-bot: cr
 
