@@ -1,66 +1,66 @@
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8683431352B
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 15:40:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C355131280C
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 15:40:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791733231; cv=none; b=TiI/+yt1XN87an/rbdC2TYjPtj6+4IhFVgpTYLAq+fVjsiUq9kMqHMVKRpl8+WdztNLkDUzIWZYItUAmBbTi8/ACfXYK2w1hOoTxoJoVFNm5j7OJQx1dSXf0EbL0o5aedxj+t5M2rcJ1mKv36K+wjySlrwrVwm04Gx7rl9PT4To=
+	t=1791733235; cv=none; b=C3JOPn28s5f/wFHGgBGr22xz2McdCvNAcoF3mqGwcGSx1HNGNIEtbX7VTA9nLHdJktogIVhMwih3+ZHsXgrsoIqBNSv/UwK9C9vk5OIGalINixCY8YaxvAiKWsCW3ZoJ26uzA4nmGGbqovRFQlSZ4gSIf9lAOWmMDc2FAR/ZQ7s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791733231; c=relaxed/simple;
-	bh=FvnOAc0ECI3UoFIBEbLsc7DLMSApYOC7l6nyjbF9DCo=;
+	s=arc-20240116; t=1791733235; c=relaxed/simple;
+	bh=+QYIHXFyvNbrFVG0qD+MuEWSYUcqmjbDjCNet5E0HIA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OyLxLFwFSwEO6hPiZV5LxK98FSzP0V0o45Zgn983TlXMfUOLRc7OU3rWWWbqWLbBpJGFvBarJqOqoSkRj4hmXoxbRvoFxHL//sm2Eeqcl7cxgRjYTlfdxPY6PQHMh4Gh7mdCx2YZuGBCSZhwfjbeWHPIUUbbBrJZQqjWBFPg1nw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gB3T8u/5; arc=none smtp.client-ip=74.125.82.52
+	 MIME-Version; b=DTlHX5XiYgHadCZQ363TBijYGIcctMwE3q6ZUzINz5lPHE/ZTo/tnwhcBBQd5NGWA5nRkoqBzkm6etRD1kWzgYAmds8BzXHbXZbzP5nyThJ8KQwjZsQpD6PNW1+7YpWtbgNjGzdP3h4QSsdkRjz+4OFZitHWUf7uVhBBXMRJmjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VYxdjo/x; arc=none smtp.client-ip=74.125.82.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gB3T8u/5"
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-15ea896ddc8so1614665c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:40:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VYxdjo/x"
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-141395927feso2047656c88.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:40:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791733230; x=1792338030; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791733234; x=1792338034; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ugUpurM9syEyPmGNxP2JsNkE7LDLL4tVQ+x8AmncZvs=;
-        b=gB3T8u/5Seni/0f8G79hgdItnC46homz51/kVvnTvdKINA7QPJkwSNQbOhMp6YZ033
-         aGxFyc/5Abjg3KWRa2HiYZ1JHe0IinMlvOvjH9a/Yr6Uve82zVjUsfEcYxwbDnWEPyGJ
-         5SswpB8OS54vVXvD2vJDuD6dEsdLpAykqVQKK8S/Ejnu4M4oYtlV6hae3caBPAyV3IaF
-         gNMS0NuqGKSCzde07LkT1vo/iok9rCSdmoavCu5KjTqCosJWY5++lLD3uWvOKG8d+g39
-         Zrvv8anDrsY1ZGRk5idzBo7AbO/v7X/uHwbMiNVzsoCGBxv3+J/+sGnxqOpUfY6pXLYI
-         8FZQ==
+        bh=oOpfbyLfnY+pmbLGNuG2FatM2jcN5qtcmQGfobqrIc4=;
+        b=VYxdjo/xjbAaGBrIezMpvuPUR0k6xQcY3SJVwJlYhci7rdm8OO35pytT/dnQu+R3zQ
+         LiDh7RA0FC/pf79Sj96Mue67Zdg8xMhHZ8vrQtr/DR67r/P77tWpkLFHJoJtk11k8PAB
+         IGeWwgWa4dXuiulpfp87p5Ky6zslvh8EaPmoSH2I0qQmHzqblx0TTje6nr2gUlwZY1LI
+         naEq/JmjdQqLl8O6lpupEltFK0yUn7rbcHjPKV3bgs2X96R2ivcg8grWQCuJOB9eA7PT
+         yGekfD82THIK6A5Mb+S3/kLX+/m7nvMtGMoS5pHigLZN0xDop+pb9LwihESYMwnEvsQ/
+         ymMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791733230; x=1792338030;
+        d=1e100.net; s=20260707; t=1791733234; x=1792338034;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ugUpurM9syEyPmGNxP2JsNkE7LDLL4tVQ+x8AmncZvs=;
-        b=P5m6cV9T6+po6g/ETra6zpHkm5bl16Fn917DQHNhZAuUYfbnQJFHNwQqAS/6xXo24X
-         2N6Hhj2J7FNwMSJUUPrMxXLVLZANHQMEFd+pTOEy8ORh4wQvFQEaRGqlqlxMxEdjRtYz
-         0Mw/OZmZw72oR/7zsuFhe0dyyy1uywMmFe/pHmK846o0frbEZ+lQXX6ZIVR80wFhpR8C
-         DdqLN9pAjFjkYekGUVUiZb5TtTpa1loH8Ml0RyO+xQprCaQw09TotSLq1ycFSL8rC3gn
-         8rdZ2QthStBvwb/mthDk6KgJD4kMgTzp427pkmsjTVAYxNwgBuixsrMO8KPVjW6Ofdft
-         H2XQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxsXnIXm3ZYezgm7SHRNrdmZJUKXyQhIz9INh7QwXAap8LMcSemRsdbEffsUTLjwBhLurMruklpANwVFcg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYILm6cv4X8PVPs62AlEsepvwCfbPBUDq7JMlf8bPcf18yXSzzhm
-	RKRGYz2w3aliJdn1IuQwb6MmpGkMDpweS4chF1kIzkCn0Wfyth5QTthJ
-X-Gm-Gg: AYBFou2uOggyzM9ZrEUeluGj1DSbjBnTNslLcrLn+gO1ZSlRCZVfUEwfuhZPFfNON5X
-	nGyDaMpORFk3QGBQnOUD5PMPa4D+XBALRtwwi/P+oTQ70vwxs5fP8rU/mjwYMhyUXo4CKt3e3lz
-	pUS5g9P0Jv9HeUZwN2y0CE1VKgPUI1e+sbOt+0zq5N9Mp8C4ii3v/Xbj37xtz+sZxjJD04CEYib
-	qHunZTbrvPXdZJTD1F4CQx3HDm5MiB5Kg5PbBI8XHUdMUMOh7htK5W06sndqEMA5Qkd2V9MNwUg
-	O8OUnmkWvVcOuSXHyUFocdH06VDz9xjcnY16+DiO9WcRLr1CJ87UH1FiVArI8MF8yZLL+5gTTr/
-	ReE3WtW/ZnAlqZcGW/CZ0zm7WzKMFvZzntic+ejcLhaHqT796Fr+8NsT0gCW1BBLJd3YEYXUJss
-	PVpgxYqiOrxMySfQPWueI7kdkf3vpT5oJAzOZmwmtM0xIfYHmtOhqjdCejcu3iOJ8bW9spLpcSz
-	uyqK8sjQTBNjnccglzYhQg8ve0+l/CfRlyaOiXGM6uKABQECD4QbIcvdSOtD7PhaTdU2sC1Fmot
-	7M7cBCz2vlvBrKPLgy3mX9ijX4OHESiBS04dSGtqKqw05xBVzA2io+B/LWo6alymhSkAHDoSOEJ
-	B9AK9vsUEQ4pG7UlAZDXW9WW3RClCpWM/Vm9H3ymvgU1uz7+IUXWHoDw=
-X-Received: by 2002:a05:701b:260c:b0:144:f85a:a188 with SMTP id a92af1059eb24-16a56ab4575mr8700368c88.2.1791733229526;
-        Sun, 11 Oct 2026 08:40:29 -0700 (PDT)
+        bh=oOpfbyLfnY+pmbLGNuG2FatM2jcN5qtcmQGfobqrIc4=;
+        b=swvfFezlm/BsKfLQ4ES0T5PMwEbyTm52bcKvnFXpAAjcOKA9HErD3gRkRcsEQkUha6
+         X02Cy++aYIdQCEYVK7e3PDNYtMVrICbbYx21nLC9dBNAW0Fq42IdrcNsShBnlHFoMTlx
+         hmKSrqn+MSBR1k+bBmH/KHZNwwLgVBQUMXUcB0+/tvzDcnWl2IOOHELDDNi4Iw7EL7x0
+         l2ZmKZ0+bonlTzqF5C45WZTjGL0jcyCqEs6mZjcydxpDXCa7LEzeUxmoGq6nHTqgDUjg
+         AWsA6qhkt3/sy5k0krtDEL98BVSdRxcpzOrJ+maITTv2UaxUpnHNoPNO7o0vaLiOU7gD
+         nHTw==
+X-Forwarded-Encrypted: i=1; AKwUvBw0IQdw1GCQQDzXo9GeZoWCMYj1POQHpg158XUWinWXo17JOf6H4qBXVXPMVj197lUqYA5mnoc7o3lnC4o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLkG3hWmmlrh7dhsMHQkgrq6HomgKEZvAUo4SIbTe7KrJ3jesyc
+	Zcw8VbGJMAMZNrMq+bkRYFDWLCCONY+HwYgR+z4iGEFLxw2NlMmUFKN5
+X-Gm-Gg: AYBFou0mBebRX4QlsFJ+9lTRa85c6lPSI/BigioRfP2g9Pm6HoVMAm1TeyR9ZdzG0hV
+	tCEFB2oEjHBw0RHZhnD+hEgn1gmQETGELCjHezu3cOxphIm/ENfN8UDUMR8SkqkyN9birIZaqrf
+	TQ1o1CAh/8KiO2vlJ8z830cKpf0EgoNvwG2oaBBXmy0RB1d86Yde4WkvczO/jvROA0HtcPSG82T
+	fACZGwhpTO5ej1YEoLjNuKbKdPkdpIGErj0MbSPC5Xhw0DwZ9ghoyyMJkJdvXs57GL3OEhj+6vd
+	+EZYyKmbE7Yk2ChMDOB2a8BFNhM3CxujweHe6N0Qk1FZTvdS+3jjVd/WUMDx9UMzr6ehxuXKqM1
+	PRYZIQONh1rBVZXmnA6bGrOApRuEmSm8VKMoHJxcCr1NM4dO0LrBV3LPN+cf7dqIEz5opuWSmnX
+	D1ao7KoK039rNOUjUwg9Ah77vCa+LVMfJEgthIKk8bOzVhy+9Tae/JVEpW6Kzd4rNtdkjn/ATv3
+	B4UVkgQLoL1/t7q6ITGL7kY4wXQWWC4CA8zkGWJvtSnw0QmloKWvhwa5N10U4RchfS5OaLyJ7gN
+	GboPDwkh5aJq5lPPpcATSieTw/SjlVH9qxo2NP0xZir17j7cce60guaL9aJKgocs0u/VTnH/oY9
+	bRkwpUlIT+UMXRfKFBUV2xNNxesdhrvqpJO4aWldkdOqtAJVNnZZDdxFJdAL2WSNqkA==
+X-Received: by 2002:a05:7022:3b87:b0:14c:e31e:5dd4 with SMTP id a92af1059eb24-16a60ce6e71mr12195246c88.36.1791733233708;
+        Sun, 11 Oct 2026 08:40:33 -0700 (PDT)
 Received: from FT6N242TWK ([223.181.119.248])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a32eb7ebsm26252154c88.12.2026.10.11.08.40.26
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a32eb7ebsm26252154c88.12.2026.10.11.08.40.29
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 11 Oct 2026 08:40:29 -0700 (PDT)
+        Sun, 11 Oct 2026 08:40:33 -0700 (PDT)
 From: Shashank Mohan Jain <jain.sm@gmail.com>
 To: Jens Axboe <axboe@kernel.dk>,
 	Damien Le Moal <dlemoal@kernel.org>
@@ -71,9 +71,9 @@ Cc: Christoph Hellwig <hch@lst.de>,
 	"Martin K. Petersen" <mkp@kernel.org>,
 	linux-block@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/2] block: only use the cached zone report if BLK_ZONE_REP_CACHED is set
-Date: Sun, 11 Oct 2026 21:10:17 +0530
-Message-ID: <20261011154018.48913-2-jain.sm@gmail.com>
+Subject: [PATCH v2 2/2] block: fix the length of a smaller last zone in blkdev_get_zone_info()
+Date: Sun, 11 Oct 2026 21:10:18 +0530
+Message-ID: <20261011154018.48913-3-jain.sm@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261011154018.48913-1-jain.sm@gmail.com>
 References: <20261011154018.48913-1-jain.sm@gmail.com>
@@ -85,123 +85,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-BLKREPORTZONEV2 takes the flags field of struct blk_zone_report as an
-input. With BLK_ZONE_REP_CACHED the report is built from the zone
-information cached by the block layer. Without it, BLKREPORTZONEV2 is
-documented to behave like BLKREPORTZONE and to get the report from the
-device: this is what the changelog of the commit that added the ioctl
-and the comments in include/uapi/linux/blkzoned.h say.
+blkdev_get_zone_info() sets the length of every zone to the zone size
+of the device. The last zone of a zoned block device may be smaller
+than the others: blk_revalidate_zone_cb() accepts that and remembers
+the capacity of that zone in disk->last_zone_capacity. For such a zone
+the length reported from the cached information is too large, and
+start + len is beyond the end of the device. A conventional last zone
+is also given the capacity of a full zone.
 
-blkdev_report_zones_ioctl() only uses the flag to validate the input
-and calls blkdev_report_zones_cached() for every BLKREPORTZONEV2
-request. A caller that passes flags == 0 gets the cached report, in
-which implicitly open, explicitly open and closed zones all have the
-condition BLK_ZONE_COND_ACTIVE, and an explicitly opened empty zone is
-reported as empty.
+Example with a zoned null_blk device of 10 MiB (20480 sectors) with
+4 MiB zones, last zone:
 
-Example with a zoned null_blk device (10 MiB, 4 MiB zones) after
-BLKOPENZONE on zone 0, and a write of 8 sectors to zone 1 followed by
-BLKCLOSEZONE:
+  BLKREPORTZONE:       start 16384 len 4096 capacity 4096
+  BLKREPORTZONEV2 with
+  BLK_ZONE_REP_CACHED: start 16384 len 8192 capacity 4096
 
-  BLKREPORTZONE:             zone 0 cond 0x3 (EXP_OPEN)
-                             zone 1 cond 0x4 (CLOSED)
-  BLKREPORTZONEV2, flags 0:  zone 0 cond 0x1 (EMPTY)
-                             zone 1 cond 0xff (ACTIVE)
+Limit the length to what is left of the device. disk_zone_is_last()
+still recognises the last zone, as start + len is then equal to the
+capacity of the device. The capacity of a conventional zone is equal
+to its length, which blk_revalidate_conv_zone() checks, so use the
+length there.
 
-The uapi header marks BLKREPORTZONE as deprecated in favour of
-BLKREPORTZONEV2. A program that follows this and does not ask for
-cached information can no longer tell open zones from closed ones, and
-is handed BLK_ZONE_COND_ACTIVE, which is only defined for the cached
-report.
+Tested with zoned null_blk devices in qemu (all zones sequential, and
+two conventional zones followed by sequential ones, both with a smaller
+last zone): the start, length and capacity of all zones in the cached
+report are the same as in the report from the device with this change.
+null_blk cannot create a device with a conventional last zone, so that
+case is not tested.
 
-Use the cached report only when BLK_ZONE_REP_CACHED is set and the
-device has a cached report; otherwise, and whenever the flag is not
-set, get the report from the device with blkdev_report_zones(). Guard
-the cached path with blkdev_has_cached_report_zones() so the redundant
-call is avoided when there is no cached report: in that case
-blkdev_report_zones_cached() already falls back to a device report, so
-the observable behaviour is unchanged. blkdev_has_cached_report_zones()
-is defined lower in the file, so move it, with its comment, above
-blkdev_report_zones_ioctl().
-
-Tested with zoned null_blk devices in qemu: a program that compares
-the reports of BLKREPORTZONE and BLKREPORTZONEV2 with flags 0 after
-the sequence above finds the differences before this change and none
-with it. The report with BLK_ZONE_REP_CACHED is unchanged.
-
-Fixes: b30ffcdc0c15 ("block: introduce BLKREPORTZONESV2 ioctl")
+Fixes: f2284eec5053 ("block: introduce blkdev_get_zone_info()")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Shashank Mohan Jain <jain.sm@gmail.com>
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
 ---
 Prepared with Claude Code (Anthropic), model Claude Opus 4.8
 (claude-opus-4-8).
 
- block/blk-zoned.c | 37 ++++++++++++++++++++++---------------
- 1 file changed, 22 insertions(+), 15 deletions(-)
+ block/blk-zoned.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/block/blk-zoned.c b/block/blk-zoned.c
-index 475aa16bc..c9b66b8a7 100644
+index c9b66b8a7..4ebaba9aa 100644
 --- a/block/blk-zoned.c
 +++ b/block/blk-zoned.c
-@@ -361,6 +361,19 @@ static int blkdev_copy_zone_to_user(struct blk_zone *zone, unsigned int idx,
- 	return 0;
- }
+@@ -971,7 +971,7 @@ int blkdev_get_zone_info(struct block_device *bdev, sector_t sector,
+ 	rcu_read_unlock();
  
-+/*
-+ * For devices that natively support zone append operations, we do not use zone
-+ * write plugging for zone append writes, which makes the zone condition
-+ * tracking invalid once zone append was used.  In that case fall back to a
-+ * regular report zones to get correct information.
-+ */
-+static inline bool blkdev_has_cached_report_zones(struct block_device *bdev)
-+{
-+	return disk_need_zone_resources(bdev->bd_disk) &&
-+		(bdev_emulates_zone_append(bdev) ||
-+		 !test_bit(GD_ZONE_APPEND_USED, &bdev->bd_disk->state));
-+}
-+
- /*
-  * Mask of valid input flags for BLKREPORTZONEV2 ioctl.
-  */
-@@ -400,8 +413,15 @@ int blkdev_report_zones_ioctl(struct block_device *bdev, unsigned int cmd,
- 	case BLKREPORTZONEV2:
- 		if (rep.flags & ~BLK_ZONE_REPV2_INPUT_FLAGS)
- 			return -EINVAL;
--		ret = blkdev_report_zones_cached(bdev, rep.sector, rep.nr_zones,
--					 blkdev_copy_zone_to_user, &args);
-+		if ((rep.flags & BLK_ZONE_REP_CACHED) &&
-+		    blkdev_has_cached_report_zones(bdev))
-+			ret = blkdev_report_zones_cached(bdev, rep.sector,
-+					rep.nr_zones,
-+					blkdev_copy_zone_to_user, &args);
-+		else
-+			ret = blkdev_report_zones(bdev, rep.sector,
-+					rep.nr_zones,
-+					blkdev_copy_zone_to_user, &args);
- 		break;
- 	default:
- 		return -EINVAL;
-@@ -905,19 +925,6 @@ static int blkdev_report_zone_fallback(struct block_device *bdev,
- 	return 0;
- }
+ 	zone->start = sector;
+-	zone->len = zone_sectors;
++	zone->len = min(zone_sectors, get_capacity(disk) - sector);
  
--/*
-- * For devices that natively support zone append operations, we do not use zone
-- * write plugging for zone append writes, which makes the zone condition
-- * tracking invalid once zone append was used.  In that case fall back to a
-- * regular report zones to get correct information.
-- */
--static inline bool blkdev_has_cached_report_zones(struct block_device *bdev)
--{
--	return disk_need_zone_resources(bdev->bd_disk) &&
--		(bdev_emulates_zone_append(bdev) ||
--		 !test_bit(GD_ZONE_APPEND_USED, &bdev->bd_disk->state));
--}
--
- /**
-  * blkdev_get_zone_info - Get a single zone information from cached data
-  * @bdev:   Target block device
+ 	/*
+ 	 * If this is a conventional zone, we do not have a zone write plug and
+@@ -979,7 +979,7 @@ int blkdev_get_zone_info(struct block_device *bdev, sector_t sector,
+ 	 */
+ 	if (zone->cond == BLK_ZONE_COND_NOT_WP) {
+ 		zone->type = BLK_ZONE_TYPE_CONVENTIONAL;
+-		zone->capacity = zone_sectors;
++		zone->capacity = zone->len;
+ 		zone->wp = ULLONG_MAX;
+ 		return 0;
+ 	}
 -- 
 2.43.0
 
