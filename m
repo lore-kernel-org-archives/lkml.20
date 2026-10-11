@@ -1,59 +1,54 @@
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+Received: from vtj.irix.systems (vtj.irix.systems [82.76.27.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE5C44A730;
-	Sun, 11 Oct 2026 22:08:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 910F8403B00;
+	Sun, 11 Oct 2026 22:09:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.76.27.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791756516; cv=none; b=D9lTACULkBcVKUjbFssBB4wORFzTJrMaFoobia3SIzI589SNZBzNE42wG5+hKpDFDTEGPTL1754ZY6s14ghQVfet+NQjXF97Xa8k935QwQI3gCgqwsQcfK1idi3JbDGCMV8Q5OiJpPvdSRgJIqAz4zyyS1OafmpL9NGWhAaqf1o=
+	t=1791756570; cv=none; b=YdXOVp7I5h0Xky7YFTYFlIcyl5N8FmvZsthOuG2RIT7WBT5ikfyksZCnVcAXUTPq3GSX5691JSTbRyagHYjdlQTIIO9vJqehYY1WVmFZWKwqLCmsxei4ohC5TgPRdFfhoAyPbh4rW3fGvym7yRYXhlvG2cmmNZvozTeVnDIdOKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791756516; c=relaxed/simple;
-	bh=x6qG7hpwEQcpd0zUIpGu4OMPJxt7xQZPvLAuAbVEKFU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a6Z4bfPgUmRy/Imr87PXbeCa72E2san66HySYNC7FvLVH6jBJ8xgIR+xQIB9Hi0uF5HTWYeP3ExzaZtIQn+1ZMrpiwAm92wedzFVbo3WgwdG8DrcxuJ7erlBJDiHx3CKJX8vRklIC0BhdQSP4L5iE4AVYfmTlDkkXTMwMRZlvuQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=cxlORspD; arc=none smtp.client-ip=119.15.109.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	s=arc-20240116; t=1791756570; c=relaxed/simple;
+	bh=eElrNEwKmyZge6zzjRe3ExXpadFazkZIHmyrkyJyDhw=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=s/lTuvU8+FFJk+I49tVy4K4n+VrqoGNr5NhdG3EoYiCTBFwDGAKk6o1MJBrTwy5a6L5R98eH2zdTCrVNloG+3c+A8yJG9CPqGAJwicwmHw7u6blNEC46+9Br7VMwjPn/YaNRAxJyRKgzU6ei6d9j72J3uz5iN4BYYNHCNxVMj2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com; spf=pass smtp.mailfrom=andrei-z.com; dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b=UdeEE26R; arc=none smtp.client-ip=82.76.27.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andrei-z.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="cxlORspD"
-Received: from Hawking.lan (hawking.lan [10.0.1.4])
-	by www.nmnhosting.com (Postfix) with ESMTP id 608DB4341F;
-	Mon, 12 Oct 2026 09:08:26 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1791756506;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QhpHHaSSaHYwPOL8Q03+A+jFMK/sgqQ8AaTiTUfQ1xU=;
-	b=cxlORspD+CcdtdS98SIopvAfzIpTqRZjrt924URstAfs9cgEco3jJeT/jfcJaK27PRediY
-	h0pTY7RL1RfdWvDYInr26mmyPcnSzCM1bG68T+l300nb2+v7IXj6Ab4oHIiJycDEtZOinZ
-	+xJiJEfP4l+qCmiB2Me1J7uk+RNNzAv29gkrFs3ZsaHJtvqENsl8N1OYSNlGcprGCWniAa
-	B5Xh3gsTtc80bOuFZd/30yxljN9SC3RMG2Qx7I1ijWU1UEP2JKHFKGCw+LVTKK6j2NHAIg
-	FD8JNylBfHtei1Yhwu5LY2MXgE9T6Y/862u24Ig7266zbB7FSzw4vdc5mMGzyA==
-X-GPT-Reason: legitimate; the email is a technical software patch
-	submission containing a code diff for a Linux kernel driver (rtw88),
-	which is a standard workflow for open-source development; the sender
-	(alastair@d-silva.org) is consistent with the "Signed-off-by" field
-	and the technical content aligns perfectly with the mailbox's
-	likely role in receiving technical/developer communications; no
-	phishing markers, urgency, or suspicious URLs were identified.
-From: Alastair D'Silva <alastair@d-silva.org>
-To: linux-wireless@vger.kernel.org,
-	Ping-Ke Shih <pkshih@realtek.com>,
-	Kalle Valo <kvalo@kernel.org>
-Cc: Luka Gejak <luka.gejak@linux.dev>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Alastair D'Silva <alastair@d-silva.org>
-Subject: [PATCH rtw-next v5 4/4] wifi: rtw88: sdio: Split rtw_sdio_rx_isr into 8051 and 3081 variants
-Date: Mon, 12 Oct 2026 09:07:55 +1100
-Message-ID: <20261011220755.1673367-5-alastair@d-silva.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261011220755.1673367-1-alastair@d-silva.org>
-References: <20261011220755.1673367-1-alastair@d-silva.org>
+	dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b="UdeEE26R"
+Received: from MAILGW-DELL.dell.vtj.corp.irix.systems (localhost [127.0.0.1])
+	by vtj.irix.systems (Proxmox) with ESMTP id C53838D45;
+	Mon, 12 Oct 2026 01:09:26 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=andrei-z.com; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:from:from:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=sig1; bh=cVkZ4sX/tPPVKK5sGLuN
+	26L1bCAFWnGrnKL5Lxp+Kn8=; b=UdeEE26RzvKlfCU78RSlDg0QzAui/IOwCi6F
+	YXQaaADMyvkQyglV3DM0i90+qcZwoQId69FhRDXzhREyOc8X7bx+NkKE4ef09eOj
+	5BCbFD1z+fmmpB3jO66b6dm6R0J7v04UzVKN0oaUaRd12o+AKjC9JRBc8rA4BWPA
+	iFYZ17oI6OyjJl2dvVFndKcFR+IjseKyiw1iU4tnAoA2Hcj8ygxFTCc+McW4zVWj
+	YtAElBHCYyo+kgcJVe90tbRaphjbZIXefHxdZGJvUEamUKQPFgwrJJFuwKfHidvk
+	CpJdbfi3c/odn9YV2cOMG8KR7NJlCWvEjiOVVAtzL/2hUd1p5A==
+Received: from VTJ-MX.corp.irix.systems (unknown [IPv6:2a02:2f04:1:9c24::6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by vtj.irix.systems (Proxmox) with ESMTPS id 85EDD8C81;
+	Mon, 12 Oct 2026 01:09:24 +0300 (EEST)
+Received: from workspace.corp.irix.systems (2a02:2f04:1:9c23::c) by
+ VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 12 Oct 2026 01:09:24 +0300
+From: Andrei-Alexandru Bleortu <me@andrei-z.com>
+To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Marcel Holtmann
+	<marcel@holtmann.org>
+CC: <linux-bluetooth@vger.kernel.org>, <linux-kernel@vger.kernel.org>, George
+ Moussalem <george.moussalem@outlook.com>, <linux-arm-msm@vger.kernel.org>
+Subject: [PATCH 0/3] Bluetooth: btqcomipc: fixes on top of the IPQ5018 v5 series
+Date: Mon, 12 Oct 2026 01:09:16 +0300
+Message-ID: <20261011220919.1816407-1-me@andrei-z.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260709-ipq5018-bluetooth-v5-4-e476c41f03b8@outlook.com>
+References: <20260709-ipq5018-bluetooth-v5-4-e476c41f03b8@outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,119 +56,51 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) To
+ VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6)
 
-Split rtw_sdio_rx_isr() into separate 8051 and 3081 variants to be
-clear. The two differences between the architectures are:
-- Register size: REG_SDIO_RX0_REQ_LEN is 16-bit on 8051, 32-bit on 3081.
-- HISR behavior: 8051 re-reads REG_SDIO_HISR on each iteration, while
-  3081 drains based on rx_len without re-reading HISR.
+Hi George,
 
-This is a refactoring without any logic changes.
+I brought your v5 up on a UniFi U6 Enterprise (IPQ5018) and needed these
+three changes on top of it for the controller to load its firmware, to
+survive an unbind/bind cycle and to take the board's address. They are
+against your v5 as posted; please fold whichever you agree with into v6.
 
-Assisted-by: LLM
-Acked-by: Ping-Ke Shih <pkshih@realtek.com>
-Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
----
- drivers/net/wireless/realtek/rtw88/sdio.c | 58 +++++++++++++----------
- 1 file changed, 33 insertions(+), 25 deletions(-)
+1/3 keeps the dot in split firmware segment names (qca/bt_fw_patch.b02).
+2/3 deasserts the BTSS reset before enabling the LPO clock; a probe after
+    an unbind otherwise fails with "gcc_btss_lpo_clk status stuck at 'off'".
+3/3 sets HCI_QUIRK_USE_BDADDR_PROPERTY: btqca skips the NVM tag parsing on
+    IPQ5018, so the placeholder address (50:18:00:00:5a:ad) is never
+    detected and every board comes up with it.
 
-diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
-index 9fbd7654ada4..a9312d0d7299 100644
---- a/drivers/net/wireless/realtek/rtw88/sdio.c
-+++ b/drivers/net/wireless/realtek/rtw88/sdio.c
-@@ -1446,17 +1446,13 @@ static int rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
- 	return 0;
- }
- 
--static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
-+static void rtw_sdio_rx_isr_8051(struct rtw_dev *rtwdev)
- {
- 	u32 rx_len, hisr, total_rx_bytes = 0;
- 	int ret;
- 
- 	do {
--		if (rtw_chip_wcpu_8051(rtwdev))
--			rx_len = rtw_read16(rtwdev, REG_SDIO_RX0_REQ_LEN);
--		else
--			rx_len = rtw_read32(rtwdev, REG_SDIO_RX0_REQ_LEN);
--
-+		rx_len = rtw_read16(rtwdev, REG_SDIO_RX0_REQ_LEN);
- 		if (!rx_len)
- 			break;
- 
-@@ -1466,33 +1462,45 @@ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
- 
- 		total_rx_bytes += rx_len;
- 
--		if (rtw_chip_wcpu_8051(rtwdev)) {
--			/* Stop if no more RX requests are pending, even if
--			 * rx_len could be greater than zero in the next
--			 * iteration. This is needed because the RX buffer may
--			 * already contain data while either HW or FW are not
--			 * done filling that buffer yet. Still reading the
--			 * buffer can result in packets where
--			 * rtw_rx_pkt_stat.pkt_len is zero or points beyond the
--			 * end of the buffer.
--			 */
--			hisr = rtw_read32(rtwdev, REG_SDIO_HISR);
--		} else {
--			/* RTW_WCPU_3081 chips have improved hardware or
--			 * firmware and can use rx_len unconditionally.
--			 */
--			hisr = REG_SDIO_HISR_RX_REQUEST;
--		}
-+		/*
-+		 * Stop if no more RX requests are pending, even if
-+		 * rx_len could be greater than zero in the next
-+		 * iteration. This is needed because the RX buffer may
-+		 * already contain data while either HW or FW are not
-+		 * done filling that buffer yet. Still reading the
-+		 * buffer can result in packets where
-+		 * rtw_rx_pkt_stat.pkt_len is zero or points beyond the
-+		 * end of the buffer.
-+		 */
-+		hisr = rtw_read32(rtwdev, REG_SDIO_HISR);
- 	} while (total_rx_bytes < SZ_64K && hisr & REG_SDIO_HISR_RX_REQUEST);
- }
- 
-+static void rtw_sdio_rx_isr_3081(struct rtw_dev *rtwdev)
-+{
-+	u32 rx_len, total_rx_bytes = 0;
-+	int ret;
-+
-+	do {
-+		rx_len = rtw_read32(rtwdev, REG_SDIO_RX0_REQ_LEN);
-+		if (!rx_len)
-+			break;
-+
-+		ret = rtw_sdio_rxfifo_recv(rtwdev, rx_len);
-+		if (ret)
-+			break;
-+
-+		total_rx_bytes += rx_len;
-+	} while (total_rx_bytes < SZ_64K);
-+}
-+
- static void rtw_sdio_handle_interrupt_8051(struct rtw_dev *rtwdev, u32 hisr)
- {
- 	if (hisr & REG_SDIO_HISR_TXERR)
- 		rtw_sdio_tx_err_isr(rtwdev);
- 	if (hisr & REG_SDIO_HISR_RX_REQUEST) {
- 		hisr &= ~REG_SDIO_HISR_RX_REQUEST;
--		rtw_sdio_rx_isr(rtwdev);
-+		rtw_sdio_rx_isr_8051(rtwdev);
- 	}
- 
- 	/*
-@@ -1516,7 +1524,7 @@ static void rtw_sdio_handle_interrupt_3081(struct rtw_dev *rtwdev, u32 hisr)
- 	if (hisr & REG_SDIO_HISR_TXERR)
- 		rtw_sdio_tx_err_isr(rtwdev);
- 	if (hisr & REG_SDIO_HISR_RX_REQUEST)
--		rtw_sdio_rx_isr(rtwdev);
-+		rtw_sdio_rx_isr_3081(rtwdev);
- 
- 	/* Unmasking HIMR re-asserts the IRQ line if new packets arrived */
- 	scoped_guard(mutex, &rtwsdio->irq_lock) {
+Three notes on v5 itself:
+- Unloading the module (rmmod btqcomipc) with the controller up hangs the
+  SoC until the watchdog resets it; I have not looked into why.
+- It uses HCI_QUIRK_USE_BDADDR_NVMEM and HCI_QUIRK_BDADDR_NVMEM_BE, which
+  come from a separate series that is not in bluetooth-next or
+  next-20261009, so v5 does not build on its own.
+- Its btqca patch no longer applies to next-20261009 (btqca.c moved on).
+
+3/3 works best with "Bluetooth: hci_core: program a public address set
+during auto off", sent separately to linux-bluetooth: without it, setting
+the address within two seconds of the index appearing leaves the
+controller up but invisible to mgmt.
+
+Transparency note: developed with an LLM coding assistant (Claude), which
+traced these while bringing up the board and wrote the changes and these
+messages. Tested on the U6 Enterprise with Linux 7.2.8 and BlueZ: the
+firmware loads, hci0 stays unconfigured until userspace sets the address,
+then scans and advertises. A W=1 arm64 build of drivers/bluetooth is
+clean.
+
+Andrei-Alexandru Bleortu (3):
+  Bluetooth: btqcomipc: keep the dot in split firmware segment names
+  Bluetooth: btqcomipc: deassert the BTSS reset before enabling its clock
+  Bluetooth: btqcomipc: take the board's address from the host
+
+ drivers/bluetooth/btqcomipc.c | 24 +++++++++++++++---------
+ 1 file changed, 16 insertions(+), 8 deletions(-)
 -- 
-2.53.0
+2.47.3
 
