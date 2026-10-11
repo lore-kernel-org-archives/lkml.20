@@ -1,71 +1,140 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C1C233FE09;
-	Sun, 11 Oct 2026 08:25:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A286A33FE09
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:25:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791707122; cv=none; b=OEm9RL6GP3+9nsTIumEUnq9w75GVrl4QyfN/K0DALULzvQjSYsejlvh1TTK/ntcRjBxXyqCkVjVu2SWCSIu3hXLFq0C3vPGGEdDjfb9tHO2Bs7ZoxaDqNYfGDNyhUqBBfKpYH/VoI0Ph5+ic+XDPJlQ9o6/I0WN0qXb9k1O4Tqo=
+	t=1791707137; cv=none; b=MfL6JJ+eE8m1d0OYMTQ97Ljl0CXGLdaJ3vC0cJRg6THZFI8b/8ng6i2du4DlvCSH3qgtP4cSuTBHWVdRTchdBJCf3U+MN6TSl3xCx7PUwYcZbH13EKKHRM+T/OcUhGYtusLfYBdvT+bP4Zp4pTYz6GnNM2oP2dvXeN/3obRmgiQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791707122; c=relaxed/simple;
-	bh=iIqnJiQvwbRFtrw+Izriaf7uIR6F5MCj/oQ2CoYWY3E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=shLMMaSF3wxG8kzii5mYzlNQ5vfg+7Laf9gfP4XGbYpY8fZemPADYDf51Gitz1/iYaXT1kbQeJZG6fl4pnv3Hzku9J/ZiMu9BKOsoc2e8ECnSBRM8qXKuAYCkrZeYSOcExDGKiA6A5M+2X11eXGMMHMYxVnOBJwoEV7CwKR8MCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=dpwlwJ1p; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1791707137; c=relaxed/simple;
+	bh=kScpCZUfbiwUBCfY1/4QhXc1j3HkTC2SpEXoET/sHcw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TFoeCFoW6tNTU5uwcEVAFbdcQwIYnhETndEf4baD4EE5Zh4VLixYzN7mOw7vmFfkDBOVXelhGF6ntlKaKD1jC1/kVnCacieyDZtNBUSkhVAXgVgaqxxhvwNmCmExtocZKPZ+fMPDq6WLh4B3WPDUSw9s6m6/G59c6H0DDMmSvnw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=m9GvCQes; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=WvdmI4V4; arc=none smtp.client-ip=103.168.172.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="dpwlwJ1p"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4j2YZ53gGlzKp2c;
-	Sun, 11 Oct 2026 10:25:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1791707117;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iIqnJiQvwbRFtrw+Izriaf7uIR6F5MCj/oQ2CoYWY3E=;
-	b=dpwlwJ1ptWcHzbz+o2eJF7D6oYwuUgibkZqvQ9qnyyr24N3Fn064ximT8+qTCsmuiITV9E
-	J8qNMc+qZewOFkkL21gWsTKgwn/2GTBmye/Gx1Oo5g9G2EEC+tj/dd0OLi9XrMl4BY4wht
-	i25drT51n0L53ptuDVUkH4Nmm8jgLq/N9KyAYjeF7MhmbwUNBC4Xl+qz+/q+EiywknuQ+G
-	JV0GCIxF266GNxpkRH4xjwEKn4chv6Dd80vvEgdN7eTpsa87eWdYjxlQWOosENOX2S7F2X
-	1z8LXlKoMpbtJGlHlAVlV4sNlExc+BUXIGm7Xq7m048uTgEdWXmCxT1cojGH6A==
-From: Alexander Gruhlke <gruhlke@mailbox.org>
-To: lukas@wunner.de
-Cc: bhelgaas@google.com,
-	rafael@kernel.org,
-	alex@shazbot.org,
-	hui.wang@canonical.com,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev
-Subject: Re: [PATCH 2/2] PCI: Wait for readiness after FLR even with Immediate Readiness
-Date: Sun, 11 Oct 2026 10:25:15 +0200
-Message-ID: <20261011082515.18546-1-gruhlke@mailbox.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <asp7HDfhDSjNtx5p@wunner.de>
-References: <asp7HDfhDSjNtx5p@wunner.de>
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="m9GvCQes";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="WvdmI4V4"
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+	by mailfout.phl.internal (Postfix) with ESMTP id D8990EC0ABC
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 04:25:34 -0400 (EDT)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-09.internal (MEProxy); Sun, 11 Oct 2026 04:25:34 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1791707134;
+	 x=1791793534; bh=LLtGKMrhKvPJ9XjJTi6BFyiUya1GkfxLEGv2nPtdLf0=; b=
+	m9GvCQes0K3+D2VAJrOiLgljwFAXLN7y77l8iINntKZhojIXRRYCzW/5CuaMufMy
+	7oSdK97cYwuWD7XSj+R3WQCUjFH0+EEYrITzFfzCHiWTsMNHFrT7Dcohn/ubs1qX
+	b9gWKY9gCauGeExMM41NiqLkeAyNYHU9YBR3EZBrSQPfwdXReweMFdzEpV8cKBFV
+	tbdq/lRw8aQrCrdaSTR+Xb30yCkUr8Q8EPPPXBOWpkyvpz4DYNG+D4GT2ePnrj7w
+	Y0lLNT/MYvvrE30NrDR8Ummv0Ry64Ufpl07U7yNGYL7I04FWjHAmPaDzhzJSH+8v
+	uAulQp3Z18ZS0EvA9dKPpg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791707134; x=
+	1791793534; bh=LLtGKMrhKvPJ9XjJTi6BFyiUya1GkfxLEGv2nPtdLf0=; b=W
+	vdmI4V4MOawQQ5mtLM/t4Dib4j6C76B0jVPYr4P46sVJ88ryDi7c8cCJAAg3fBBi
+	7BZ+DDGT6Lirz2Q1I88eLHLqz2Mgd8vD2n9ShyEQqVoImn6ECYLI6lPtr9VAZl+o
+	jCbNrLBM5t1gD54S+Hzk4AmaSmhvX0v0ronri/AB118tsfgCaRNOtgmOgi/s8wni
+	9SKFoAk3vRfUij2mVPwA7LyLDW4Q8m+R+gIHVJr4ZTEP2vfH97nGVlCTNSm7zW/e
+	2U6YkjfV4MAIT+DZoi/2Lir09IWDHwfYNLfYcp+nozHTj1fXQHs2SaAXkd6rlc3k
+	mnKVQJjQSngxzcxwfbPMA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791707134; d=pobox.com;
+	mf=PGJhcnJ5bkBwb2JveC5jb20+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:YLn8/w3lhGfj/QsMjTx7zwRoxz7CvUvX1uLWXly0pIV6IJS
+	IRvehCciIfjscUmSqGsZ3K9V53UbQqUuID1XAFg76sZX+a/iaJnhyYOcZIK+OMio
+	bBAHRhYEp2exTRrNmucR/G/JUBJSSu08HxAq5eap3pxXjyXJMjajBlbKgXzr6xLX
+	5a3N8p2fmMrIju08qwdFXteTjQk8TN0wiVJ9ZQw8Fd12XbJph5jn09+c12gHNFro
+	AkKZb6qkcyNPHsUq3+LovIznwYj8AooI6zz/7q0AGkdWPgqVqDAWadWfrsYGTshy
+	r5jYLPMEKFDA/YBY1kYu8NBwcav8Y3twtMjrMjA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:UJXWda4JDQgsQCsKK+DUYbwUhN5jrbonyH/hgjgH89E=:kScpCZUfbiwUBCfY1/4QhXc1j3HkTC2SpEXoET/sHcw=;
+X-ME-Sender: <xms:_UfLaiTFc1WVMa6T8l7WaOOzSp0r25cxCmH7FEDhrmDRbGNYcIp1UA>
+    <xme:_UfLajqXnDYjMUX6wV_gvPO4EPB-64dL8waiK2YsE-TTL9yr5SKZCg4RiDGH5uaum
+    WA6bOwLfegvGUK8QnJH6shhrv_6AwKwivV9jchaF52US8hS-wsdVv1qwA>
+X-ME-Received: <xmr:_UfLarVmFq-6UoA3PNTTL-gsMEFqNYTCf1MoMFj-C9yhpamz_nc5BsoU_U15OWiHtYLKFf_2m7jdGu7c1aOygUrXl-vNXURa>
+X-ME-Proxy-Cause: dmFkZTGIpgsSKCJlcXUNrfhQ+rOxRjqphKb+CKmUmfpqVrmmf+En8wMSywkaPXMTn8INhK
+    kU6j9n8EsW9STbEz2liYD2xeGXc4HNf+WhiUxXoa2GtAE/efkNC8+D4x3DRFafeR7i+YzE
+    XpSTO+f5oiMpHg9xAWurhjt9ycNlApP7pnwuEIcK/ZpYgdlagip/pXrar1axYNJ8DXXqOZ
+    0vSOVzY4gJtpoDC3fhRvQH78AcbISUWzKarDj0DTnGFnwAT9j3ywp34O14MQ0wSyxmPKxj
+    yCtxxzus65xp0grVOrsazpc7kBidm2+pTlSliBgCSCBZOfFbo8pQD9bK+qjH8O0srD0bkR
+    WifMS4NVEnAz/RmbE//7jjCl7ZkBE9Zml0FKj4stCVPr3xbw+xA6fpnQsDeROc2E10ZnyH
+    w7tJFqlIKBfdDFvF4mFy526q06qhDTG/piibSbakG1SDdzEJy1CZv4OjeHXmIt8oU1iPKv
+    5t6b8uvHqX9o304cZU96cr2hNesO5uF+1TyDon4WAbHOvVrHLFAlDN9kHIiVH4GlUAZr1/
+    QfGur6C5ePZtPc78HMPi+Q1ery6ZgmHPWGv7Vitt8LYTaBqFwBwRBqOJwNwdbNpa/Zpsll
+    12gU0o8u0UZP4xwvngiyn+NSka4xuG2cy1yqVvwLWlcG/9I3dNxJdkaJAmtw
+X-ME-Proxy: <xmx:_UfLah9DH6X6RIzaJ69BFSmivrBxezBgX4RXB0hLya8km3K5cnvBPA>
+    <xmx:_kfLajYnnaL4hX50Q3ZEniiCccUg2lNDzZhetAsb5Sbl9GiitkrzBw>
+    <xmx:_kfLapfMRyherokzlQFoOp2FxGhceiM_l_OfhuXtnz5y5QY1ap83ig>
+    <xmx:_kfLatrnXz8zlJbuq1HJSRBv1d5I3l3rZgAQQzPAQU-0slcSYyRQ5w>
+    <xmx:_kfLalEcTzPsHI1HfCK6k_hUK8WCak6PSSoS_M83ynhQmUWaJMuIWQ-8>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 11 Oct 2026 04:25:31 -0400 (EDT)
+Message-ID: <47315427-d8c8-4f60-a0ed-c607ed1d10ea@pobox.com>
+Date: Sun, 11 Oct 2026 01:25:30 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: 3u4turbp3gf1s8y7gt8xpg4xtoej1nb8
-X-MBO-RS-ID: 105180cbf0675f47723
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 000/428] 7.2.10-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261009140946.008206689@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20261009140946.008206689@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sat, Oct 10, 2026 at 07:51:24PM +0200, Lukas Wunner wrote:
-> The device is incorrectly advertising Immediate Readiness, so I suggest
-> clearing dev->imm_ready from a DECLARE_PCI_FIXUP_FINAL() quirk and
-> emitting a message with KERN_INFO severity with something like
-> "Ignoring incorrectly advertised Immediate Readiness support".
+On 10/9/26 7:05 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.10 release.
+> There are 428 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Sun, 11 Oct 2026 14:08:23 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.10-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-Makes sense, I'll do that in v2.
+Tested on 2 amd64 systems and an arm64 virtual machine. Working well,
+no regressions observed.
 
-Thanks,
-Alexander
+Tested-by: Barry K. Nathan <barryn@pobox.com>
+
+-- 
+-Barry K. Nathan  <barryn@pobox.com>
