@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95B2617BB21;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E586629DB6E;
 	Sun, 11 Oct 2026 01:41:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791682889; cv=none; b=uDCIrqfmU3ZrS845aQkcoJKYA7EfazsUFEhGCOjMu1F944LxLKnPkk5O8Dn0vkNlsBO0+6HYHU/v+KU9yU7QidsaWmxAkJAHA7v1/zOc5tKUhvH3gGa+h2xBAXvMRuay+kujKNuEWj9Cba8HRDBAsHTD4u+Jm9yaR1hFz2l8Gvo=
+	t=1791682890; cv=none; b=KAltF5AFzI2iDrqM0cLQLqG6uhhwWu/kZIuz60/y4wwQvqmoZRSwyrtUpGoAj2ih1Tgb5O4KPtGHv+e2O8URQfL+0dTxuhsfV9H/02XwkcIwkIswZhpZFdDWmjsX/NjJ9/BB+LYk4a0tg4E80bLCoBu/ujo84U2qAvRCpL28HoI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791682889; c=relaxed/simple;
-	bh=2PUzwPXzyAstanNK+ARgl7jOmn9o8N4IJ69YnGaGzVs=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=rrSG5Q/mcotR7qPfTXP5QpaEzHrsRYlYHZoSBJFDA5ltaOMoq3k8lQP4rt7bDGxCi6j3nh8dhKH6t54X/d1Viq56cd+Ac+FI4eh88RU7cJJED7yGcmE6O/6LtPnRWvMZfQOcP//QGXs9vPrFo78n7TzNYt3P1lOWm71aR19ZPl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L959KC2z; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791682890; c=relaxed/simple;
+	bh=dzGpvfsVi78EdFWRt1QdV6BlQ5fIWBnq7tMkwIXAivM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=nLkrwBl9AetpdePAG6KB5A41DiCOs5r0tdcXDRqv4hDVm6X9LzTtPjCt5q0T+vxjaQGdPjsqftZSIQaFr6Y9z/o7wGpMjeRdETx5oPMWFF6omW6FGEk08LVK7iGRM7P5ytOV1q1mDPk9vEsHOyk/ASMbOU/TcHbNms7fphySAj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mn2B4Qkd; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L959KC2z"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5C0B0C2BCB9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mn2B4Qkd"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 68277C2BCC7;
 	Sun, 11 Oct 2026 01:41:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1791682889;
-	bh=2PUzwPXzyAstanNK+ARgl7jOmn9o8N4IJ69YnGaGzVs=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=L959KC2zT4H6IE+gY67AzWGGG7ShkU80ngS/MGag2yx2wDiw5vDC+ZGL25omaQYmT
-	 BPzNryKa/9SmbQVYfPST5ELBCnBIXucIUKnW/JMqD56WPIDWkF+I7OaPKgB3eDN6+6
-	 WJkhekjiVlj3ctbwV9jpcDlfE4Z+U1EUbht5Ve+GlzgRCogY9VzvZ6g5rWqZOTrB5a
-	 ORyN2m5Gmyn8DGYk13aMfOY3Ert1lOztWnSMrj6aTqbM/VKN6Z5TVIaMZUOX+mF1XD
-	 207os0/I6smGitqAk3jIBCMKOHoqDua+dwBpiXroJzKNmwJwVxL/k5B0jLfAoRlPtH
-	 MC/9Is6wbavdQ==
+	bh=dzGpvfsVi78EdFWRt1QdV6BlQ5fIWBnq7tMkwIXAivM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=Mn2B4QkdxIqTBSOhPJAWSO0+meRz6xIROT0wpr6wQZaAtb1N1kVhV9om6HFWIBXjX
+	 Fbjc8265jd1xsOcvgJXyb5rXTQDIyQA7pOjDp1c/Orc9sfI/hcge8l4YpCcyuVHt5w
+	 mNZNmehsEisWzrZd1XO6wzKAdyB90t9/4yIcYkZH11ICewn/B8IE9fQmEeXsb3y7xJ
+	 psnSd5ca8a+AxSVlRTpETNe3V/frrgvE8AspWCn0+fgxZX01n/PntOz91Gwo4QxdCx
+	 IELsqMJGfxUBMPMN8WsZGyZwkcLr3I/vrU240Ho5rzDnvl2siZXdJwpEQqdqa0QFlj
+	 sO5WFWlKpz/Fw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 469D0CA9ECA;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 566A6CA9EC5;
 	Sun, 11 Oct 2026 01:41:29 +0000 (UTC)
 From: Brad Fitzpatrick via B4 Relay <devnull+bradfitz.tailscale.com@kernel.org>
-Subject: [PATCH net 0/2] gre: merged GRE-over-FOU/GUE packets are dropped
- (bug report, possible fix)
-Date: Sun, 11 Oct 2026 01:41:26 +0000
-Message-Id: <20261011-bradfitz-gre-fou-gro-b4-v1-0-df713aad1531@tailscale.com>
+Date: Sun, 11 Oct 2026 01:41:27 +0000
+Subject: [PATCH net 1/2] gre: keep the UDP tunnel GSO type when completing
+ GRO
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,10 +41,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAEbpymoC/yWMQQ6CMBBFr0Jm7SQtEDFexbho4Q+Oi9a0xRgId
- 6fq6uf95L2NMpIi07XZKOGtWWOoYE8NjQ8XZrBOlak17dkaa9knN4mWlecElrjUjex7HgYjXYc
- eFydU7VeC6OdXvlFAofv/zIt/YizfJu37Ac2j2MqAAAAA
-X-Change-ID: 20261011-bradfitz-gre-fou-gro-b4-770f33e4e8af
+Message-Id: <20261011-bradfitz-gre-fou-gro-b4-v1-1-df713aad1531@tailscale.com>
+References: <20261011-bradfitz-gre-fou-gro-b4-v1-0-df713aad1531@tailscale.com>
+In-Reply-To: <20261011-bradfitz-gre-fou-gro-b4-v1-0-df713aad1531@tailscale.com>
 To: "David S. Miller" <davem@davemloft.net>, 
  Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
  Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
@@ -54,11 +53,11 @@ Cc: Antoine Tenart <atenart@kernel.org>,
  linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
  Brad Fitzpatrick <bradfitz@tailscale.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791682889; l=3509;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791682889; l=3220;
  i=bradfitz@tailscale.com; s=20261011; h=from:subject:message-id;
- bh=2PUzwPXzyAstanNK+ARgl7jOmn9o8N4IJ69YnGaGzVs=;
- b=Gww/NnC9IMn3Ti0+Oce2s6ChbJfLdinBNs7sj15tT5BMp2WkLd2fBAgCIdQkFDuNNPgoih+Ox
- 0sA7tuhvHmiCOHOyu6xVRq0GvaZQk3qFCIcnKypUn2FkbTOdWErJTJq
+ bh=LMtMCZJAUS6/CHK6QCH6lvIi0fwcvb3yuApVoQ5Fcck=;
+ b=9Ik4i6YWBmatP4bnDfwmDoaC2yI31jaqkSWzesYdo6I37CW5eCVqIZ6hvYvbJ4ZRJnPYewfko
+ qu30AmrvLkhAF4KijoGL7bP4TfpXYnkTA3I9dJ9omGF6zG5gnlGFBf7
 X-Developer-Key: i=bradfitz@tailscale.com; a=ed25519;
  pk=RL25YdOUenVJzQaiZDrw/Aqu9ZEwUQBon30yMHGsIKY=
 X-Endpoint-Received: by B4 Relay for bradfitz@tailscale.com/20261011 with
@@ -66,74 +65,80 @@ X-Endpoint-Received: by B4 Relay for bradfitz@tailscale.com/20261011 with
 X-Original-From: Brad Fitzpatrick <bradfitz@tailscale.com>
 Reply-To: bradfitz@tailscale.com
 
-I hit this by accident while working on something else: bulk TCP through
-GRE-over-FOU tunnels between some EC2 VMs crawled at about one segment per
-round trip, and turning GRO off on the receiving NIC made it go away. I'm
-not a kernel networking person, so I went to debug it with an LLM coding
-agent, and it found what's below.
+From: Brad Fitzpatrick <bradfitz@tailscale.com>
 
-Please consider this series a bug report at best. Feel free to ignore it,
-or to fix it some other way if this isn't the right fix; I may well have
-this wrong. Empirically, though, patch 1 fixes the packet loss we were
-seeing, both on our VMs and in the reproducer in patch 2.
+gre_gro_complete() assigns SKB_GSO_GRE to gso_type rather than OR-ing
+it in. When GRE is carried over UDP by FOU or GUE, udp_gro_complete()
+has already set SKB_GSO_UDP_TUNNEL{,_CSUM} before calling into the FOU
+or GUE gro_complete handler and then gre_gro_complete(), so that bit is
+lost.
 
-What seems to be going on: when GRO merges GRE packets carried over UDP by
-FOU or GUE, udp_gro_complete() sets SKB_GSO_UDP_TUNNEL, then
-gre_gro_complete() assigns gso_type = SKB_GSO_GRE, which clears that bit.
-The merged packet then can't be segmented where it needs to be:
+That has broken forwarding of such packets since FOU gained GRO: if a
+host with a FOU or GUE socket on the tunnel's port merges transit
+packets and then forwards them out a device that can't segment them
+itself, udp4_ufo_fragment() finds neither tunnel bit and fails, and
+the packets are dropped. Since commit 3d010c8031e3 ("udp: do not accept
+non-tunnel GSO skbs landing in a tunnel"), local receive is broken too:
+udp_unexpected_gso() considers the merged skb, which reaches the
+encapsulation socket without either UDP tunnel bit, unexpected and
+hands it to udp_rcv_segment(). Segmenting fails, so the packet is
+freed and counted in UdpInErrors. Either way, only packets GRO didn't
+merge get through, so TCP over FOU or GUE GRE tunnels slows to about
+one segment per round trip whenever the receiving device has GRO
+enabled.
 
-  - at the encapsulation socket, since commit 3d010c8031e3 ("udp: do not
-    accept non-tunnel GSO skbs landing in a tunnel") in v6.9, where
-    udp_unexpected_gso() catches it and it's dropped and counted in
-    UdpInErrors;
-  - when forwarded out a device that can't segment it itself, since FOU
-    gained GRO in commit afe93325bc02 ("fou: Add GRO support"), where
-    udp4_ufo_fragment() fails on it.
+OR in SKB_GSO_GRE instead, as ipip_gro_complete() and
+sit_gro_complete() do for SKB_GSO_IPXIP4. For plain GRE, gso_type is
+still zero at this point unless the driver set it, so nothing changes
+there in the usual case.
 
-Either way, only packets GRO didn't merge get through. Patch 1 ORs in
-SKB_GSO_GRE instead, as ipip_gro_complete() and sit_gro_complete() do for
-their GSO bit.
+The assignment dates to commit bf5a755f5e91 ("net-gre-gro: Add GRE
+support to the GRO stack"), but nothing set gso_type before it until
+FOU GRO came along, so the Fixes tag points there.
 
-Patch 2 adds a selftest, fou_gre_gro.sh, that sends bulk TCP through GRE
-over FOU and over GUE, each over IPv4 and IPv6, with GRO on at the
-receiving veth, and checks that the receiver counts no UDP errors and that
-GRO really merged packets. Without patch 1 all four cases fail; with it
-they pass.
+Tested under virtme-ng with bulk TCP over a GRE tunnel between two
+network namespaces joined by a veth, with GRO on the receiving veth and
+segmentation off on the sending one, so GRO sees wire-sized packets.
+32 MiB took:
 
-Tested under virtme-ng (QEMU/KVM, Ubuntu userspace), before and after, on
-net's main (af32da41b032) and on v7.3-rc6, plus v6.8 for the forwarding
-case. gre_gso.sh and fou_mcast_encap.sh give the same results before and
-after. net/ipv4/ builds with no warnings under W=1 with both allmodconfig
-and allyesconfig, before and after; I didn't build the rest of those
-configs.
+                  before                  after
+  FOU over IPv4   26.0s, 9658 UDP errors  0.28s, 0 errors
+  GUE over IPv4   26.1s, 9686 UDP errors  0.39s, 0 errors
+  FOU over IPv6   26.4s, 9860 UDP errors  0.16s, 0 errors
+  plain GRE       0.17s                   0.15s
 
-Disclosure, per Documentation/process/generated-content.rst: the agent was
-Claude Code (Anthropic). Over a long session, I described the slow
-traffic; it captured packets, traced the drops to udp_queue_rcv_skb() and
-then to gre_gro_complete(), wrote the one-line change, the reproducer and
-selftest, and original versions of the commit messages, and ran the tests.
-I've reviewed the code: the new selftest entirely and confidently, and the
-one-line operator fix seems at least plausible, given that the old code
-doesn't match similar GRO-completing code in the net directory. But I'm no
-expert in the net code or the life of GRO handling, so review cautiously.
-Both patches carry Assisted-by: LLM.
+Forwarding the same FOU traffic through a third namespace with its own
+FOU socket on the port, GRO on its ingress and segmentation off on its
+egress, took 26.0s with 4826 egress drops before and 0.31s with none
+after. On v6.8, before 3d010c8031e3, local receive was fine but
+forwarding failed the same way (25.7s, 4764 drops).
 
+With GRO off on the receiver, all took under 0.2s both before and
+after. The gre_gso.sh and fou_mcast_encap.sh selftests give the same
+results before and after.
+
+Fixes: afe93325bc02 ("fou: Add GRO support")
+Assisted-by: LLM
 Signed-off-by: Brad Fitzpatrick <bradfitz@tailscale.com>
 ---
-Brad Fitzpatrick (2):
-      gre: keep the UDP tunnel GSO type when completing GRO
-      selftests: net: add a test for GRO of GRE over FOU and GUE
+ net/ipv4/gre_offload.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- net/ipv4/gre_offload.c                     |   2 +-
- tools/testing/selftests/net/Makefile       |   1 +
- tools/testing/selftests/net/fou_gre_gro.sh | 164 +++++++++++++++++++++++++++++
- 3 files changed, 166 insertions(+), 1 deletion(-)
----
-base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
-change-id: 20261011-bradfitz-gre-fou-gro-b4-770f33e4e8af
+diff --git a/net/ipv4/gre_offload.c b/net/ipv4/gre_offload.c
+index 5028c72d494a..c8129782d39d 100644
+--- a/net/ipv4/gre_offload.c
++++ b/net/ipv4/gre_offload.c
+@@ -242,7 +242,7 @@ static int gre_gro_complete(struct sk_buff *skb, int nhoff)
+ 	__be16 type;
+ 
+ 	skb->encapsulation = 1;
+-	skb_shinfo(skb)->gso_type = SKB_GSO_GRE;
++	skb_shinfo(skb)->gso_type |= SKB_GSO_GRE;
+ 
+ 	type = greh->protocol;
+ 	if (greh->flags & GRE_KEY)
 
-Best regards,
---  
-Brad Fitzpatrick <bradfitz@tailscale.com>
+-- 
+2.43.0
 
 
