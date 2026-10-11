@@ -1,66 +1,66 @@
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF887136672
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 11:16:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74ED918FDBD
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 11:16:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791717380; cv=none; b=smyY80EB0GHFdQmHIIkNXScrKw/wvrVRDAHHubomkHGWM/gIqFg0btgBeePEM/gb9AOSoRzm4NxC10ZmD2PRv4fyzC8GOutdBPNC/m7d83WTnypgJw20k3EKajdSJ+FsI6r4j9mMMSVWebDNPWc0D/bV5ZbQdMa9np7LcGZOdpM=
+	t=1791717386; cv=none; b=DeMHbJUaivN4V6kmonMpj1cmWFKMdGIT6LBWO9YIwXrutm9joYuNkD9pSRaSpqEis7H/K8fVxFaOZ1AMgCNNZa7jxs/OjQr+6KEMmS0+wKAsSP6fFJKPFa3uBX9UqAXUy4h3/wCwh+6cZS4rfL+0KAHYluLlJkLWvZ0I/3hg7yk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791717380; c=relaxed/simple;
-	bh=DQ/SG04pszEXSKc+kyCTR1r1NMo5Z2WRrQL8XMOvda0=;
+	s=arc-20240116; t=1791717386; c=relaxed/simple;
+	bh=g9ET9/Wbeb9U9AgyJHKHgPcnysCUntixLAXYJ/HlT4w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AfETCTSEAtrXRiFEnzYPqm+0tVLRYaxjBpZN6knLwzD4BN7VI3JobClSvjnTupUOpHs4kfbzlM8mJ/3/ULQbfTs0kNiRVA9uo2q4wr/ir8TNdwl4G+DNe7wq98gQoDdrq4ZW4hdn4Uir8pHdwTQpZy12H/3IfdVARwbAzpOaH4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fzjMWtZw; arc=none smtp.client-ip=74.125.82.51
+	 MIME-Version; b=V7RNWE51VPlkBE8N/fVMVmPghY7WXZ5vBR8vl9XgYPp8a6nkbWtMyHXIyPaq+U1qJzQARQ7rQFrp1tC3gZ65XW+Tkg2OYCOOP0fS1xy4VsdHsSYbIvXz2XRPfbzbAPkpU5y5xc8krCW4jHcCXTQgQ4/m0DhqxaFfumOEQp7J8HY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FcjNixYm; arc=none smtp.client-ip=74.125.82.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fzjMWtZw"
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-141395927feso1858326c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 04:16:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FcjNixYm"
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-356b1e20700so1376246eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 04:16:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791717378; x=1792322178; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791717382; x=1792322182; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=p9SpcM59IzLOV+spVed4savqACSRmY6kdSkYZetDq6o=;
-        b=fzjMWtZwrz4JuIQQDxaWtNUPuBsRSU5nE7SqgQilolTh7iiuLL6YDrwMJ2XK01Bb+x
-         Em9xLMPUJ+omHP1KYPSOdJeVSv3cpx6gEYVUOWv8dMA0C4V5BcSy911gAp3AR9t2SNZW
-         OiBIemBwdNPtFDNH/TqvgAElOK4AiD/zo5Ds9SMmllmp5r3S2CSU+/37gYdR1v/Ko7H6
-         9xWyQrE0V0tVBvuE5q9126Nh7aCZkeG2aJebm3JnKG4/7ncq016JAWLJbIEPgRgYgcAg
-         33xs6OAICblikNQ9i2+fW6PnLAmkF81ZnlRhyXinifIs6ZYRVauciLo+wihIbnQNPNQ/
-         pzhg==
+        bh=OmatCOb7GYfr2BJ3VdKdlsW8GJA/oiSGbFjGfYuhsqI=;
+        b=FcjNixYmVQe5sVPyUZ21b1b0VHEL9/8ZCzGPcz5iTlz9J5btgyf0SfKHt6vcZaszSR
+         GOK/35PvGlyT7mfo4qOnyhh0oltXmUFdUVtt283LircNEHLmqVa2gmrDYnqzSbf09Ruf
+         gjued0EHaQ2qDwfj0C++z0IhWvd1LO2Is+Tya0H4pLsvloZL6aZPVuEfUCIcySzMLu3+
+         cklVC4jvvxOjlhVwax8zuQ32/CRCo3U0uT/SPS6UVQUR+KoMB4gjq5Hz6p07s8dPQwC6
+         wgYXwtTo78EqyGUV42aNoF55pW88/noip/ww3fArmQGZ/jCLkch5GIZkvqyYoBAINZ0s
+         6p2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791717378; x=1792322178;
+        d=1e100.net; s=20260707; t=1791717382; x=1792322182;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p9SpcM59IzLOV+spVed4savqACSRmY6kdSkYZetDq6o=;
-        b=zH77Gz5gOqzZAZW1t5ICO8twTt+Tm6gHeTrcGc46ifaBn3wcH6HMu+Wc0YpI7ckOZw
-         +kgnhIVFbDt4nYy130/XVFPaAFzfKdgiEtgS1ur8GUP5zX9rlbMKNGNwkzc0YAYLE/QI
-         V5crnvc2syBZmSikM8bk/xhb+ZEUQd3Qz/4NULjge5gYADSaCZtUabEQDRjmXdzy8X71
-         W2vOMYcmp+WD/esWGej4rbE38EOa7vXbPbXzyrq2fn7YQqSzGnDAsf9eVI6pKx3TB0f/
-         9VOxMIMjri8rp80uEu6/+P6CwYcGDAckOzbffDR9RhaFHzFT+rUDzlY8V4seG/ypHHC/
-         AUqg==
-X-Forwarded-Encrypted: i=1; AKwUvBwQgvBTWLi9xZJNZJgQRLML9qylknMF56LLFsaM/4SDlhAype0UHJvwuur5uYOzPz5a0zXVfc5Ic64EGAE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIFcSWpSJrgQz7qJyiH0Jiyhz5Olb8I7GOptM1z/gQAZSGYGqui
-	lQ8VVYMySDQPmcKJJFCiqhyZfhzmpepKI6oPDE9a2t29bQ3rFYQ+50sI8UCYFlYj
-X-Gm-Gg: AYBFou1ijW7s7VJgdQ0hfBUwWW9Ad1wcFMqEwjOiozcxG4vJUx0Q5VFhl6/xBHG2miW
-	7VpQ/0a0WEaZOSmzYqBwFpEsyX6+FImp0beu53t+LoFqIysr+AMBog6d5/KFcH2lBeiZed7Oxqw
-	FYFvQFZdTSG7NUxvQRPkZnBk0/cjgArljLJZbRurVoR9Tomk4A7hzlOMzO2goTvQIBPGyqmas4A
-	8L16k4A7jsHHsUASHqkxR4ZOtXBywmgB5Pe4TEhmDXHSHbexnJS/bSActTyU5s8eydxZIs5AEn7
-	oyDoAxtQr7iSjQypxmLHzH54OFtZ1YtVjXtpLFntGlypPrZRzgpSKxfysZPbE2LzAEQ/uQGCRiG
-	vR5rYGQVXTEivmwY0z0m+8QDZQiq/o3txHeDKmrCIaCQ6EVqLkJK42WeWgkhAWqMGE0nPC2P3yw
-	bGgnQ4aKBBgShRhNPvw15y+bEELig1A6TDV4JjoRNyfWcXS4ljixd7CJWGqsCqrANoqhWLWGkyG
-	c8yoNBXL8h7liNhQv5A6SgkmIQh2bTMgbYbvBBLMvtLOzjzZfIw71/+uUWA5icE5JRTA9ufpdH+
-	/30QtCeGurw6YKhvIBEURjgUA7iPieiM8SSWyaiM8kknJhtGf1EMSfNp6Cq6cUir3nq99YEXKXi
-	gyroL8V+JjoK2f8y3YjBSE6qlXnLDXlrZQSgGRZvLNmmRw3EAvMyvj5MC5wz/MedgrA==
-X-Received: by 2002:a05:7022:7f0b:b0:13e:5b2a:e65c with SMTP id a92af1059eb24-16a57b13034mr9904493c88.3.1791717377469;
-        Sun, 11 Oct 2026 04:16:17 -0700 (PDT)
+        bh=OmatCOb7GYfr2BJ3VdKdlsW8GJA/oiSGbFjGfYuhsqI=;
+        b=Tjaz8FbDKgNGfFKX11NsDMgJv0AbVau/nTM6yCSXsd9ZhPKOvpvTwvDUW/tTuUQigI
+         6tI8PlByqKyakuu1JQWrp8NPBDBgRwdGKkpeNOe2TpJ8PbxJ7Y7H45q9iuG8zN9sx060
+         48UsMkrNgcR1z93e40+Nb/ukOSqeXmo6z4vsSVVxgi6C4s3dYjFBC5iGNbigXJ5RSAJu
+         /fBTCtn1XC5DVfGEAgFK1eOlPDeftClBULQfyvL1smNb+0PcYPyqB4OOLqFNexCr0ldx
+         +xvzrGfgS9HyIxxVZ+U6CGu+9hMH/JO8BXnk/qOVahxMiqnz5qbsnxcimz7l6uhmWths
+         z08g==
+X-Forwarded-Encrypted: i=1; AKwUvBxkC+KJ/h5w7DCOEX7tMmuAx4gfefe9KiH2SDPX3+49n94hl+57sKvNkrC7cdobFU43259ouAdslG17mcI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKJBTo+GxxCwRq+pFwZ3s3MfIacp9KZRCVbyo1y7i8kDafBh19N
+	9Rif3mdb0rDzPI4rnV9vqCFOaVUYVYSeChdm81Lk8PtY3yZau8zVPxHR
+X-Gm-Gg: AYBFou0MQsZvWp/a8N+BCmvuOAQdFXF0wRPNFuBhksZ+k+LFDKJJKSTxr274xOVWiI+
+	NMhuJlQpGXPgjA4iqhnnBPpuBLoobIK1hwRXccSkOKIHbN9gjOEPe/zMjy+nURm01DJ7DcChn+y
+	K81piyG0WYuZqgN0G0f6F+tYOMbsbPTXy5+fsPtJY9ZD3OJb79V2zj5cwMhqq9JHYDHDccb9vn4
+	4aYitUCTvzGpc3q4+UetP3w6R8EkvF3S2d0kL2neeO+vJE+VeQRlifwJCugZaOl/TPAMj+km2kN
+	k6sP5xf6Ic1EucHf9b8SAohFkCz6rKMMA6fgr6ZsP5KiekhbSU454UAb1ePS421XiOl2FKUXJfq
+	TUKM039cgNojZbO3zspVIfJ+lGBoSfOAy34oV4R3vqkjxBd4qivwXzZs6g0qWAUKlBh6W5TEGVA
+	kvLH8igVwTuaYZr/kCreRBlV27gFpOfS2fwVyumzsvGay6y9BLWavyM2eXfrI2h/rym4ahtDaCa
+	6hQS5WMHw9D+s6E0ITc/dZ9Y38WEtDeaazay4jSHiF1ifvci2kAbv5MHqNnNNvUSsFFsnjLX6n5
+	KnR5bz14TX+bAbjEryf8Ca+h46dVtWnUHEyRotZGXUf9daFWUbUgnnUhY6uheAb4hfON+6zeYhw
+	HWA/hQHq3B89RwjZpKe8ZTVGUFzThohEV5TqS23TkWgkrD6NDYAa6uoGWXFXnGQRQTg==
+X-Received: by 2002:a05:701b:205b:20b0:148:ece:8cc3 with SMTP id a92af1059eb24-16a1555cfb3mr8844066c88.24.1791717382312;
+        Sun, 11 Oct 2026 04:16:22 -0700 (PDT)
 Received: from FT6N242TWK ([223.181.119.248])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a6021e49sm20851347c88.20.2026.10.11.04.16.13
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a6021e49sm20851347c88.20.2026.10.11.04.16.18
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 11 Oct 2026 04:16:17 -0700 (PDT)
+        Sun, 11 Oct 2026 04:16:21 -0700 (PDT)
 From: Shashank Mohan Jain <jain.sm@gmail.com>
 To: Eric Dumazet <edumazet@kernel.org>,
 	Neal Cardwell <ncardwell@google.com>,
@@ -71,9 +71,9 @@ Cc: Kuniyuki Iwashima <kuniyu@google.com>,
 	Simon Horman <horms@kernel.org>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next 1/2] tcp: don't set window_clamp from SO_RCVBUF before the socket is connected
-Date: Sun, 11 Oct 2026 16:46:05 +0530
-Message-ID: <20261011111606.14753-2-jain.sm@gmail.com>
+Subject: [PATCH net-next 2/2] selftests/net/packetdrill: test SO_RCVBUF before connect keeps route window
+Date: Sun, 11 Oct 2026 16:46:06 +0530
+Message-ID: <20261011111606.14753-3-jain.sm@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261011111606.14753-1-jain.sm@gmail.com>
 References: <20261011111606.14753-1-jain.sm@gmail.com>
@@ -85,68 +85,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Since commit b025461303d8 ("tcp: update window_clamp when SO_RCVBUF is
-set"), setsockopt(SO_RCVBUF) stores tp->window_clamp in every socket
-state, including TCP_CLOSE and TCP_LISTEN.
+Add a packetdrill test for the SYN window and window scale when
+SO_RCVBUF is set before connect() and the route to the peer carries a
+"window" metric (RTAX_WINDOW).
 
-tcp_connect_init() and tcp_openreq_init_rwin() treat a non-zero
-window_clamp as a user clamp and, in that case, skip the route window
-metric (RTAX_WINDOW, "ip route ... window N"). A clamp left behind by an
-SO_RCVBUF call made before connect(), or on a listener, therefore
-changes the window and window scale advertised in the SYN and SYN-ACK:
-the route metric is no longer applied, and even without a route metric
-the advertised window and scale come from SO_RCVBUF instead of the
-defaults. This affects any application that sets SO_RCVBUF before
-connect() or listen(), which is more common than using the route metric.
+The test puts "window 4096" on the route to the peer, sets SO_RCVBUF,
+connects, and checks that the SYN advertises the route-clamped window
+and a window scale of 0. Without the first patch of this series the SYN
+carried win 65535, wscale 5, because setsockopt(SO_RCVBUF) had written
+tp->window_clamp while the socket was still in TCP_CLOSE and
+tcp_connect_init() then skipped the route metric.
 
-Example: two netns joined by a veth pair, "ip route ... window 4096" on
-both sides, SO_RCVBUF set to 1 MiB before connect():
+The test is picked up automatically by the packetdrill selftest Makefile
+(TEST_PROGS := $(wildcard *.pkt)).
 
-  before:  SYN win 65535, wscale 5
-  after:   SYN win 2920,  wscale 0
-
-wscale 0 means the window scale option is still sent, with a shift of 0.
-The "after" values match a kernel with b025461303d8 reverted; with no
-route metric the SYN window and scale are the defaults in both cases.
-
-This only concerns the handshake. Since commit a2cbb1603943 ("tcp:
-Update window clamping condition") tcp_measure_rcv_mss() recomputes
-window_clamp from sk_rcvbuf once the scaling ratio changes, so
-TCP_WINDOW_CLAMP does not persist past the first data segments, with or
-without this patch.
-
-Only update window_clamp from SO_RCVBUF once the socket is being set up:
-skip it in TCP_CLOSE and TCP_LISTEN. When the connection is established
-with SOCK_RCVBUF_LOCK set, both functions already clamp window_clamp to
-tcp_full_space() (the value tcp_set_rcvbuf() computes), so nothing is
-lost.
-
-Fixes: b025461303d8 ("tcp: update window_clamp when SO_RCVBUF is set")
 Assisted-by: LLM
 Signed-off-by: Shashank Mohan Jain <jain.sm@gmail.com>
 ---
- net/ipv4/tcp.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ .../tcp_rcvbuf_before_connect_window.pkt      | 27 +++++++++++++++++++
+ 1 file changed, 27 insertions(+)
+ create mode 100644 tools/testing/selftests/net/packetdrill/tcp_rcvbuf_before_connect_window.pkt
 
-diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
-index f4c9101e5..e523cb71b 100644
---- a/net/ipv4/tcp.c
-+++ b/net/ipv4/tcp.c
-@@ -1858,6 +1858,14 @@ int tcp_set_rcvlowat(struct sock *sk, int val)
- 
- void tcp_set_rcvbuf(struct sock *sk, int val)
- {
-+	/* Without a connection there is no clamp to update: it is chosen
-+	 * from the route's window metric and the buffer size when the
-+	 * connection is set up, see tcp_connect_init() and
-+	 * tcp_openreq_init_rwin().
-+	 */
-+	if ((1 << sk->sk_state) & (TCPF_CLOSE | TCPF_LISTEN))
-+		return;
+diff --git a/tools/testing/selftests/net/packetdrill/tcp_rcvbuf_before_connect_window.pkt b/tools/testing/selftests/net/packetdrill/tcp_rcvbuf_before_connect_window.pkt
+new file mode 100644
+index 000000000..a3557ce80
+--- /dev/null
++++ b/tools/testing/selftests/net/packetdrill/tcp_rcvbuf_before_connect_window.pkt
+@@ -0,0 +1,27 @@
++// SPDX-License-Identifier: GPL-2.0
++// Setting SO_RCVBUF before connect() must not defeat the route "window"
++// metric on the SYN.
++//
++// The route to the peer carries "window 4096" (RTAX_WINDOW). With SO_RCVBUF
++// also set before connect(), the SYN the kernel sends must still advertise
++// the small, route-clamped receive window and a window scale of 0 (the
++// window scale option is sent, with a shift of 0).
++//
++// Since commit b025461303d8 ("tcp: update window_clamp when SO_RCVBUF is
++// set"), setsockopt(SO_RCVBUF) wrote tp->window_clamp while the socket was
++// still in TCP_CLOSE. tcp_connect_init() then treated that as a user clamp
++// and skipped RTAX_WINDOW, so the SYN carried win 65535, wscale 5 instead.
++--ip_version=ipv4
 +
- 	tcp_set_window_clamp(sk, tcp_win_from_space(sk, val));
- }
- 
++`./defaults.sh
++ip route change 192.0.2.1 via 192.168.0.1 dev tun0 window 4096`
++
++    0 socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
++   +0 setsockopt(3, SOL_SOCKET, SO_RCVBUF, [1048576], 4) = 0
++   +0 fcntl(3, F_SETFL, O_RDWR|O_NONBLOCK) = 0
++   +0 connect(3, ..., ...) = -1 EINPROGRESS (Operation now in progress)
++
++// The SYN must advertise the route-clamped window and window scale 0.
++   +0 > S 0:0(0) win 2920 <mss 1460,sackOK,TS val 0 ecr 0,nop,wscale 0>
++  +.1 < S. 0:0(0) ack 1 win 65535 <mss 1460,nop,wscale 7>
++   +0 > . 1:1(0) ack 1
 -- 
 2.43.0
 
