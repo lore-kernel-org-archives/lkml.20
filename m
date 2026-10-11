@@ -1,140 +1,165 @@
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8286C369D6A
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 07:22:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1315C376A16
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 07:22:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791703355; cv=none; b=Okotbnj+FaZNMMeD/1s9aMfJ3pN+FJpUdKEQi/YR8/4/QHGqxSGylD8rWZkyRTKRDuO9OaIGbd+zoV8cD20lDeczvz38/wFr72Ym7UO6OwdHD3B69l5W80GvjBKMc0EQPd72twcgBtVMS15jpKLopUccg67Myu9Z+2yHMH7HxCM=
+	t=1791703361; cv=none; b=KuYJViDS1rxvL0a242OtQl+oFx/PW0smnfRQlnKk56Y2Iz9DDxDi5C//gWHZvz2rrwg/pEWxyNiATq14/+7W7yEpU8jKDXb0GXdpCGx7z8E3yD8r0MuLDu7fzh5qx1MNd3ds14P7SXaOLWrfuxrMTRgSRydhUlAaPduMkoksnt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791703355; c=relaxed/simple;
-	bh=ziT/zq8KkzNVIsF0WWx+lXTJdR2Ix6V6zIRJw4f+Xsg=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=a76eTSnzMlAHCTdHIDNB3K//Z88qIgWCL57WYKWwJFV57Wgb5EgSddtTRBVRJYUPuf8UK2kJ/k8AvLVESOCD5VkNlFduxmH0Qyy2mMeUwWc9rwD0TzjVI888+SZJhgEto0uYbzd30gHcTjboiucdwtjVsBt3bZJFBHivInIN2HI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=gPE83poW; arc=none smtp.client-ip=209.85.128.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	s=arc-20240116; t=1791703361; c=relaxed/simple;
+	bh=fPtOYyery51wIT+wPHonfNoGlXmG8BGyYcpY5QZMuNY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r1N2XUae37d0ua0pFKi3WxofHDsCk4ZHP7x08EOSo9O+w+jQ1nnMzoL3STo7pdndwN6PVFJ0fofVQ0MIpnNU0wezykn80binj7ZwRrjUVpuHXsWJMyiwhhc4PSiW3oyuDgFyZT2wgfwmQ8F2EIqUgaaaOJwIHaIJJKsAw7Mapz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G4WHxTvW; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="gPE83poW"
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a1612c4b80so10534485e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 00:22:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G4WHxTvW"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a022fee0caso6339335e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 00:22:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791703352; x=1792308152; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hvbrsW1mo/6FXW+04W7eG9GRRwc1pm+Fzyrx7oUOUKY=;
-        b=gPE83poWEfQNOgTtmRD5IhFEaNJyLndy43YK8PuEDnvPstCG/+Sy51wBDeviCdWEeW
-         y2FRx27HiUOgIFOH6b4brkEQYF7WUaHDipHIqC7GUxlD/OX0mDtxAe7FauZHYNa0xMTA
-         1vb6aQOzE+jhIxQ17zl5Fhs6WcG0gQYfeA1Sw3oe0YyB1gBKi2erN0oq7mfdxPoFDxSn
-         ovsElIrSYmOH2RFVqSwjuHoORAuAWUqjr6NMKKzGBB2qEE2p9EF/7U9rBkH1XPIv20Qo
-         PJRxTM1VyG8zeI4I2jiucAwTZVTo8snQYCLlE56MK4HxLxrli2Z7meFVWl/eq2L81oA7
-         4fJg==
+        d=gmail.com; s=20251104; t=1791703358; x=1792308158; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VizTuTMmqS8JYaZTbeKcF2/g08+w3bYur2XRIs9EVG0=;
+        b=G4WHxTvW2OAPxgHeiW1+wMDziyAEKEASZ+mQmyVGEXzY92M76L/c/Ec1G2/r9Fx2U8
+         Fb4NEoSrjVFXiU9DvZk7RpHvv5X7AgD9X1h3cRlYqMb+Fz8kB7wYwfzOaieujW9GPM+i
+         TcAukk31JCMQ+QjkNUUCgPSTeW0RuFwlar86uvbxdhprPB6itErETQpnselgpv57Y18n
+         +IAODTAmq/Be7Wlnr48AXu2bdG8YQeKoOg2eYSr0D39nyRlV1o9+5AoU3MNZJaaaH8W0
+         zNBqDdfc30OSv2x6tPhHWdbsvDUoVKPD6DEoMpbWf43FdkHWieWMjXMuEkVFGLe0v+rj
+         46CA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791703352; x=1792308152;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hvbrsW1mo/6FXW+04W7eG9GRRwc1pm+Fzyrx7oUOUKY=;
-        b=G/pedPfQ6Ubjq51ZQSRhRzV4TgEulEgRi0Y5T8BmWvaN2dwoMTCM24eEaaqmHW1PyL
-         z+wBq/vfHIOnyThEC3Zq94rUd4M4R9zDZeabqvAR1UcjcjdR2nbcbBwoTfgj3PHJkiBn
-         16gumVIXuBk9KTFzm03wsSxSM76Ts/J/wnayJ94QJJuLLCZyBRm8XepgA6MBGtoMY9Ia
-         sl9dwZ1/Ep2YZrCHCDRZFbjI2nqNt3NI8JHtDVKjenowVLTFifOMCeuGcxgQh16Tssk0
-         VeE3sVfm7fBNQmb4zl8GsIp8zmPqx8FC3WMk5pUMKuowaQJmbdBsgM+Rtw8b2atd6Yo4
-         wPOA==
-X-Forwarded-Encrypted: i=1; AKwUvBxWkpsrV4HjzcAfRoUqt8lZXAN11/aFhA/cuohTGZWrO3601jggmL+Tn4nYExuI6dkZ9/VmNvsdXfn2fos=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLUYHJwxnsfTe5kr61dOQufX66Kd2Tpcutrh5NDXR77wLkqpR7f
-	HcyyJEhoN+3GT+K63IXdCFUdh+Vb4XdEjDcz+z7+IlsHwk1mJvpAkrXHRCFWlOX5hxfyvJJGgOT
-	Nf9JER/6szr33v56PSg==
-X-Received: from wrvo9.prod.google.com ([2002:a5d:62c9:0:b0:48b:b2:a375])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:154c:b0:4a1:7c7d:8881 with SMTP id 5b1f17b1804b1-4a18e4a9b88mr129872505e9.13.1791703351428;
- Sun, 11 Oct 2026 00:22:31 -0700 (PDT)
-Date: Sun, 11 Oct 2026 07:22:22 +0000
+        d=1e100.net; s=20260707; t=1791703358; x=1792308158;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VizTuTMmqS8JYaZTbeKcF2/g08+w3bYur2XRIs9EVG0=;
+        b=ZZ4UQxQomVY2OVDC8rmO9XIeYbHzVBrANg/ghyRvwCFfhcKgo+6m/WB16/CEKIjQYq
+         lREF68WbuTUH4YtcoJHNc0UpNEbbq/i2/5107/Dtr3dq47X2OWGuaDKlVXNfMC3o9Jga
+         t5XM8yYMj9kjN3jQTPbNIQPdvxJ5qGZ4NybC23X9LS/wVv4ix7HioMx9xV6iz4xDG/6E
+         4uvIXtz8+F/EoIyDJjSsTpO94OCNMqcsHv9lDLQLcdsUe7q7iX8m6kvaGHk8sucl1yqI
+         U82c++e0aQ6zXc+v1bjFbXfnfwsURTsaV6Mcx8+d6O/KyAwlRCxEoImgG8RtnoptVU4A
+         sDAw==
+X-Forwarded-Encrypted: i=1; AKwUvByT8bjmRSHuW4ipZFyA2+pv9J030aShxIkImVFj3HIy+O89mD91gDyrjNSA9NCpMzulzCga5gPXyHZ78ZQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI5nWmPe7YHYGTLM+nwSLxIcG1JFx0hfMwUZxLWcMZHB9FNoo1P
+	qT/IwuC7cIUu3SbwB+Wihz+LiDre0dFcccyKiyFvhGjMjrbdqo+c7UFLyGoAwfDLqpo=
+X-Gm-Gg: AYBFou2WQ3/wGsf22EU953kB9eko0jHiaDO2thAKImsFNGEiOUZGpHn/5UPJLg+G0oE
+	hizlnGEx3/XYut0LoRjI6dlyLykjinnxkQwF9lxmTIhbYU1I4kDljvi4xfpGBYqnsquZUhIAjda
+	FLyBjyp3BbVDDAVFPN5wCnNVePwRjKV/0SYLh4q2Po791V6/Metb+C81yrT7nDdiVzfgnZGYAma
+	+hAuy1R6HCokYxkJOjBpbFjBbOWeVp9lYx1MgVuJD9ORrx3RYV3kgubkEKJaLfZQpQOIKllJD0l
+	WvuGuJvUMbMQRWXPYMVPEoiqN1E0Y1sXh29ettHPTvWcGA8ZfNOlHU1DeM2SOjAVLJk1rWxA2ki
+	86BQU/Ch9OHDESEP3DM4mN9/FfnylwEEe2j+xfmWhq8o3Hv1CtVcI9k2GhdA7v1ptj9MEz8x1Qb
+	yf9KhvufUoTboAHGEJD15iWgYaSqo1Z+qPsZKlcjsO/YfgJCdy6iCKi0k32+zcna/QNJJXLngx+
+	5qs4xURR4EkYgNX7LpGLWhhGuLFKaQEe9OfIEOtUAOpBUuLNcneghfAOuYapomD9+/uuig4qy/J
+	thHuE32p08xxtiQQ
+X-Received: by 2002:a05:600c:5493:b0:4a1:78da:d271 with SMTP id 5b1f17b1804b1-4a18e4ee976mr127814205e9.30.1791703358078;
+        Sun, 11 Oct 2026 00:22:38 -0700 (PDT)
+Received: from center.jhjvjihww5qejoy14qwv1cc4td.frax.internal.cloudapp.net ([131.189.143.225])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19c8244edsm22878105e9.2.2026.10.11.00.22.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 00:22:37 -0700 (PDT)
+From: Orgad Shaneh <orgads@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH RESEND] usb: octeon-hcd: keep SOF interrupts while a periodic pipe is due
+Date: Sun, 11 Oct 2026 07:22:36 +0000
+Message-ID: <20261011072236.2381546-1-orgads@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAC05y2oC/x3MQQqEMBAF0atIr21IAjrqVcSFo19tUCMdjAPi3
- Q2zrMWrmwJUEKjJblJECeL3FDbPaFj6fQbLmJqccaU11vJ8nHFjRXIR7CN0Wv3FxbdwZvyUVVW DEj4Uk/z+47Z7nhf1Ku0NaAAAAA==
-X-Change-Id: 20261011-gpuvm-reserve-overflow-5b520d76889e
-X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1884; i=aliceryhl@google.com;
- h=from:subject:message-id; bh=ziT/zq8KkzNVIsF0WWx+lXTJdR2Ix6V6zIRJw4f+Xsg=;
- b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqyzkyOJ70AQD13qV9X0DzlJkRrhzWP3pQIVWBZ
- cQOWHFsopKJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCass5MgAKCRAEWL7uWMY5
- RihfD/9agbFtirssrsDUXcyn9UYZDRBpdwjYrwBBnCDaKKxWc/EDMmuVPTolahMPyyev4ryitR7
- TlhCOpZ92X5HOj656cEaQfEQJE0yqRqQPh0aYZCBuQXt5daDucF/hSFIBSsnuuT25s1Fjlw+oLw
- J3vuaUzurS1lC9AZjrV6HcSpRkGH/lMC4KExhiI7ibmTOi5erlqAB/JoZhUReMUjGEzCNIntuVn
- +TbdF1c6+6kJZAWY2bQiWsjwR+fw2EvOJhtBtR2JXKEDSmegM2y7G+FUk0iZDHnvFIf7UAf0XqC
- h2oRAPZEozMUpbgLYzRNDIjxZ81ZjsfmEMRAPKGh6WjWrAh9Cq5s43R3SZSxGbcvD0zJQQM+Njz
- x429P4lQH7CagQ8LQ/PYXUgWuxBHY4xR1t1p85OG697TmjOtC1F4ZfS5WAMTK18j+88Kv2E/3/W
- 4GS09ILc9NKQVtOBCiazMVYaWVg96teChsQCIryV3VXL4o+YbQmZaiUlu6SoYTII86oNO+5VCJ7
- 8hD4G6vAOq6OZrGuIykTyECpv2xiqEHaiwQuyl8m4br/T6c15p7+rwH1ArmWlbx/YPxPGMhyWfi
- ikJVsqJRfHq0lCDCIhyNhNZU+ewzHhdXPRb1UR8H8cNtWecLTQRPWR/Wq7zFwLl2ObwAEDceB64 U3I09HoDW086s7w==
-X-Mailer: b4 0.14.3
-Message-ID: <20261011-gpuvm-reserve-overflow-v1-1-9c0cb23d7409@google.com>
-Subject: [PATCH] drm/gpuvm: skip setting kernel_alloc_node range on overflow
-From: Alice Ryhl <aliceryhl@google.com>
-To: Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
-	"=?utf-8?q?Thomas_Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, 
-	"=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, "=?utf-8?q?Onur_=C3=96zkan?=" <work@onurozkan.dev>, 
-	Boris Brezillon <boris.brezillon@collabora.com>, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	Alice Ryhl <aliceryhl@google.com>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-When the reserved VA range overflows in drm_gpuvm_init(), insertion of
-kernel_alloc_node is skipped, leaving its vm pointer NULL. However,
-va.range is still set to a non-zero value, which causes drm_gpuvm_fini()
-to dereference the NULL vm pointer when removing the node. Thus, only
-initialize kernel_alloc_node's address and range when the overflow check
-succeeds.
+cvmx_usb_schedule() now sleeps on an hrtimer until the nearest future
+periodic deadline instead of counting frames down on every SOF. The scan
+that finds that deadline only looks at pipes with
 
-Note that this fixes unsoundness in the Rust GpuVm::new() abstraction:
-passing a backwards reserve_range (start > end) when overflow checks are
-disabled causes `end - start` to wrap around, triggering the overflow in
-drm_gpuvm_init() and dereferencing NULL when the GpuVm is dropped.
+	next_tx_frame > usb->frame_number
 
-Fixes: e6303f323b1a ("drm: manager to keep track of GPUs VA mappings")
-Signed-off-by: Alice Ryhl <aliceryhl@google.com>
+which is right for picking the deadline, but it means a periodic pipe
+that is already due and was *not* started is invisible to the decision.
+A pipe can be due and not started for reasons that resolve on their own:
+no idle hardware channel this round, its split window is closed
+(cvmx_usb_find_ready_pipe() rejects both), or another pipe owns
+usb->active_split.
+
+Such a pipe is only retried from a SOF - cvmx_usb_next_pipe() looks at
+the isochronous and interrupt lists only when is_sof is true - so when
+some other periodic pipe sets a far deadline, the driver masks SOF, arms
+the timer for that far deadline and the due pipe waits for it. With a
+hub's status pipe as the far one, that is hundreds of frames; the code
+allows up to 8000 (one second) before it falls back to SOF.
+
+Before the hrtimer this could not happen: any pipe with a future
+deadline set need_sof, so SOF stayed enabled every frame and the due
+pipe was retried on the next one.
+
+Note the pipe that is due and not started, and keep SOF enabled in that
+case, exactly as the old code did. Nothing changes when no periodic pipe
+is due, which is the case the timer was added for.
+
+Control and bulk pipes are excluded deliberately: their next_tx_frame is
+not updated on completion, so they are almost always "due" and would
+keep SOF enabled permanently.
+
+Fixes: aebbc7d63407 ("usb: octeon-hcd: sleep on an hrtimer for far-off periodic transfers")
+Assisted-by: LLM
+Signed-off-by: Orgad Shaneh <orgads@gmail.com>
 ---
- drivers/gpu/drm/drm_gpuvm.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Resend of
+https://lore.kernel.org/all/20260915081724.25637-1-orgads@gmail.com/
+with no code change; the Assisted-by tag is now in the form
+coding-assistants.rst documents.
 
-diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
-index d1c80ad3dead..626985743943 100644
---- a/drivers/gpu/drm/drm_gpuvm.c
-+++ b/drivers/gpu/drm/drm_gpuvm.c
-@@ -1127,12 +1127,12 @@ drm_gpuvm_init(struct drm_gpuvm *gpuvm, const char *name,
+diff --git a/drivers/usb/host/octeon-hcd.c b/drivers/usb/host/octeon-hcd.c
+--- a/drivers/usb/host/octeon-hcd.c
++++ b/drivers/usb/host/octeon-hcd.c
+@@ -1923,6 +1923,7 @@ static void cvmx_usb_schedule(struct octeon_hcd *usb, int is_sof)
+ 	struct cvmx_usb_pipe *pipe;
+ 	int need_sof;
+ 	u64 min_due;
++	bool due_now;
+ 	enum cvmx_usb_transfer ttype;
  
- 	memset(&gpuvm->kernel_alloc_node, 0, sizeof(struct drm_gpuva));
- 	if (reserve_range) {
--		gpuvm->kernel_alloc_node.va.addr = reserve_offset;
--		gpuvm->kernel_alloc_node.va.range = reserve_range;
--
- 		if (likely(!drm_gpuvm_warn_check_overflow(gpuvm, reserve_offset,
--							  reserve_range)))
-+							  reserve_range))) {
-+			gpuvm->kernel_alloc_node.va.addr = reserve_offset;
-+			gpuvm->kernel_alloc_node.va.range = reserve_range;
- 			__drm_gpuva_insert(gpuvm, &gpuvm->kernel_alloc_node);
-+		}
+ 	if (usb->init_flags & CVMX_USB_INITIALIZE_FLAGS_NO_DMA) {
+@@ -1964,12 +1965,23 @@ done:
+ 	 */
+ 	need_sof = 0;
+ 	min_due = ~0ull;
++	due_now = false;
+ 	for (ttype = CVMX_USB_TRANSFER_CONTROL;
+ 	     ttype <= CVMX_USB_TRANSFER_INTERRUPT; ttype++) {
+ 		list_for_each_entry(pipe, &usb->active_pipes[ttype], node) {
+-			if (pipe->next_tx_frame > usb->frame_number &&
+-			    pipe->next_tx_frame < min_due)
++			if (pipe->next_tx_frame <= usb->frame_number) {
++				/*
++				 * A periodic pipe that is due but was not
++				 * started - no idle channel, or its split
++				 * window is closed - is only retried from a
++				 * SOF, so do not sleep past it.
++				 */
++				if (ttype == CVMX_USB_TRANSFER_ISOCHRONOUS ||
++				    ttype == CVMX_USB_TRANSFER_INTERRUPT)
++					due_now = true;
++			} else if (pipe->next_tx_frame < min_due) {
+ 				min_due = pipe->next_tx_frame;
++			}
+ 		}
  	}
- }
- EXPORT_SYMBOL_GPL(drm_gpuvm_init);
-
----
-base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
-change-id: 20261011-gpuvm-reserve-overflow-5b520d76889e
-
-Best regards,
+ 	if (min_due != ~0ull) {
+@@ -1983,7 +1995,7 @@ done:
+ 		 * a few frames. Stay well below the 16383-frame wrap of
+ 		 * HFNUM. One (micro)frame is 125us in high-speed mode.
+ 		 */
+-		if (delta <= 4 || delta > 8000)
++		if (due_now || delta <= 4 || delta > 8000)
+ 			need_sof = 1;
+ 		else
+ 			hrtimer_start(&usb->sof_timer,
 -- 
-Alice Ryhl <aliceryhl@google.com>
-
+2.47.0
