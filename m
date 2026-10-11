@@ -1,150 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B8075B206;
-	Sun, 11 Oct 2026 10:45:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0CBA33F394;
+	Sun, 11 Oct 2026 10:51:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791715548; cv=none; b=a/VCN+aIV8Ebacp1VtfMHEir9dJesUkohjs5gGmcKPRURTE5aRozsP5yU8FaSo3sDYyixDhrq7/YZU9H2l7BplsJJTH3XFQ82E7KubzlVhCQWoqPzKBPd5oWR1heWrgHwgpYWLNsFj3ug0sKUz+klTUbkhzND5W5O2K44h+ZWwI=
+	t=1791715884; cv=none; b=B/mUdK5J3OTUdAktfa2pXw7Py33tVPYmtGIB6ZCLQm1bcD50YnBjsoyrH4o3AqvN+eBEm89WMWsdHItEWdPEAeFLD5ILHzMklLDuq0U8EwYdwfEoPGCRIok82CUPEIyzpGGRe3yl5sJ4Y8bN46wRhmsz2aLG7rlMR17iMG4JtlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791715548; c=relaxed/simple;
-	bh=AW8NKODHQ9uGVl/dxofOMFVTPthHtP98ig1EuK+werI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BkfKelqXE6d2OCWUGvxVelrUzJ97I2ePkLnKb61WX8f4SWCxe2mX30qzl3p7qXZonyuiIrDfaEBFwSfa7eB/31Q7Gh5bAq+DYmxEeU2gNRY1TWEaztgFawEvCJSLwKoLkLhybf//AsmXRhbl/lbj6i2VGlvAZaIiv/yP3H9fNsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aKBGqpPx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791715884; c=relaxed/simple;
+	bh=v9R1QU3vQ8hFDsk3UaN9JOs9YE8Drv5RIYW3CimTd2U=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=fHYfqq1pUAHAUG6R/D98OBSO1r0Hc/j6zs9+hA3DuMsC094L8mn4aAadX8R1hFqD5Thqo0fvvc52ZFz7YgjJ5dPZE2e/Q0YPPTApnAquTCXaOqtpz3lEP7b/sr5Z4sogDyTuNZ99x99xq4MPofkxo+aGDcFjmzFYuCRmfy4DumQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e7CPPink; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aKBGqpPx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E7A91F0089B;
-	Sun, 11 Oct 2026 10:45:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e7CPPink"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 202C81F0089C;
+	Sun, 11 Oct 2026 10:51:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791715547;
-	bh=xt8nKne1ouvTY7wBBsRCk4/6TlDv+T5mG1nv8NKoAbA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=aKBGqpPxUv4wLzhW4mSFZgNctnjPu4lr6kFphDJMyGtloeSmDWULEr2nHpo6uN8RV
-	 Hj9YJe/8IaYdHpa0l271dBawGXgIUgIrSGFGNUah9bEb4FXWsRGcsEisSOc9Yl/Aw2
-	 +P1EjH9GfnKbip/1pHiSu9FV3HQfDCPkyWpblm54AFky5DOQ4OKb0rdRouwb5NTwGJ
-	 2khIQUBkOx7fDdKx+j9EOkAjjrK3Fxf0/1w9xEdjZfyPZDJKnv2FmkmyjfwvJqH3wa
-	 h1cQcLhDkCO7ytkENm1RD6rz/IMOsdTzYrcbW3rkQu/Soq9FHuv5AXi37Bh85lh3fa
-	 86XDkk48//qrQ==
-Date: Sun, 11 Oct 2026 11:45:12 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Nuno =?UTF-8?B?U8Oh?= <noname.nuno@gmail.com>
-Cc: Antoniu Miclaus <antoniu.miclaus@analog.com>, Nuno =?UTF-8?B?U8Oh?= 
- <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
- David Lechner <dlechner@baylibre.com>, Rob Herring	 <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley	
- <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan	
- <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Marcelo
- Schmitt <marcelo.schmitt@analog.com>, Joshua Crofts
- <joshua.crofts1@gmail.com>, Radu Sabau	 <radu.sabau@analog.com>, Salih Erim
- <salih.erim@amd.com>, Jishnu Prakash	 <jishnu.prakash@oss.qualcomm.com>,
- Jakub Szczudlo <jakubszczudlo40@gmail.com>, linux-iio@vger.kernel.org,
- linux@analog.com, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org
-Subject: Re: [PATCH v2 0/6] iio: adc: ade9000: add ADE9430 support
-Message-ID: <20261011114512.6a8403d4@jic23-hlaptop>
-In-Reply-To: <20260921001246.72cf14ab@jic23-hlaptop>
-References: <20260918073537.1572-1-antoniu.miclaus@analog.com>
-	<9fc012985151b1b79b5d6e3f16738397ac9f837f.camel@gmail.com>
-	<20260921001246.72cf14ab@jic23-hlaptop>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1791715882;
+	bh=Ekrc6wpuRIcW4WSYEks5o9A/docONKtdMEfHe0WauDU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=e7CPPinke/GG80+xpXv9HBtUcmZNU33vl9eJM0R6xCXAZBfFs78SIB44b9x1BxiEQ
+	 026yy4Sd3ja/qYcx5JpiWULzP8kZ7LjbFSAztuoo487wRrbgxhtQu1Wpb2c8nc0zdl
+	 AZ/aatdKqOCzazj+xn6HkLZd3n357ll3jPtU6xmHguD/m8efNkUMgBQIh7Rz3kW0ld
+	 eRLq5Y0Qu7VJaQzV3Bfinp34jT5lxFLYTLhYhJyjKXAGvOgYc3JKcF79oscph9UtZx
+	 iiB0dlyMzgdha8AKnYeWDZFLgMgGtUX/vbPGDD9k8viegplyf/Xy0Ta9+kMJ2SWRzV
+	 NC1aK3YtDr7SQ==
+Subject: Re: [PATCH v31 net-next 2/8] net/nebula-matrix: add common resource
+ implementation
+From: netdev-bot+sashiko@kernel.org
+To: illusion.wang@nebula-matrix.com
+Cc: dimon.zhao@nebula-matrix.com, alvin.wang@nebula-matrix.com,
+ sam.chen@nebula-matrix.com, netdev@vger.kernel.org, kuba@kernel.org,
+ edumazet@google.com, horms@kernel.org, linux-kernel@vger.kernel.org
+Date: Sun, 11 Oct 2026 10:51:21 +0000
+Message-ID: <179171588171.434549.5839384783484912228@kernel.org>
+In-Reply-To: <20261010095939.2230-3-illusion.wang@nebula-matrix.com>
+References: <20261010095939.2230-3-illusion.wang@nebula-matrix.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, 21 Sep 2026 00:12:46 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-> On Fri, 18 Sep 2026 16:27:30 +0100
-> Nuno S=C3=A1 <noname.nuno@gmail.com> wrote:
->=20
-> > On Fri, 2026-09-18 at 10:35 +0300, Antoniu Miclaus wrote: =20
-> > > The ADE9430 is a polyphase energy metering device from the same famil=
-y as
-> > > the ADE9000. It is register-compatible with the ADE9000 but omits the
-> > > on-chip dip/swell detection and has no on-chip digital integrator; it
-> > > relies on an external analog integrator for Rogowski coil current sen=
-sors.
-> > >=20
-> > > This series adds ADE9430 support to the existing ade9000 driver, reus=
-ing
-> > > the dip/swell-less channel table introduced for the ADE9078 and addin=
-g a
-> > > matching chip_info for the ADE9430 full-scale codes. A precursor patch
-> > > gates the DICOEFF register write behind a has_digital_integrator chip=
-_info
-> > > flag so it is skipped on parts without an on-chip digital integrator.
-> > >=20
-> > > Patches 1 and 2 are standalone fixes carried with this series. Patch 1
-> > > corrects the ADE9000 full-scale RMS/PCF codes to the same family-A va=
-lues
-> > > the ADE9430 uses. Patch 2 fixes the DIPC event never being handled or
-> > > cleared, found by the sashiko review of v1. Both carry Fixes: tags an=
-d can
-> > > be applied independently of the rest of the series.
-> > >=20
-> > > Changes in v2:
-> > > - new patch: fix the DIPC event never being handled or cleared, found=
- by
-> > > =C2=A0 the sashiko review of v1 (patch 2).
-> > > - new precursor patch: gate the DICOEFF write behind a has_digital_in=
-tegrator
-> > > =C2=A0 chip_info flag, split out of the ADE9430 support patch.
-> > > - reuse ade9078_channels for the ADE9430 instead of adding a duplicate
-> > > =C2=A0 channel table.
-> > > - reword the documentation intro to "The supported parts are..." so i=
-t does
-> > > =C2=A0 not need updating for each new part.
-> > >=20
-> > > v1:
-> > > https://lore.kernel.org/linux-iio/20260907101623.8730-1-antoniu.micla=
-us@analog.com/
-> > >=20
-> > > Antoniu Miclaus (6):
-> > > =C2=A0 iio: adc: ade9000: fix ADE9000 full-scale RMS and PCF codes
-> > > =C2=A0 iio: adc: ade9000: fix DIPC event never being handled or clear=
-ed
-> > > =C2=A0 dt-bindings: iio: adc: adi,ade9000: add adi,ade9430 compatible
-> > > =C2=A0 iio: adc: ade9000: gate the DICOEFF write behind a chip_info f=
-lag
-> > > =C2=A0 iio: adc: ade9000: add support for ADE9430
-> > > =C2=A0 docs: iio: ade9000: document ADE9430 support
-> > >=20
-> > > =C2=A0.../bindings/iio/adc/adi,ade9000.yaml=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 | 22 ++++++-----
-> > > =C2=A0Documentation/iio/ade9000.rst=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 36 ++++++=
-+++--------
-> > > =C2=A0drivers/iio/adc/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
-> > > =C2=A0drivers/iio/adc/ade9000.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 | 39 ++++++++++++++++---
-> > > =C2=A04 files changed, 67 insertions(+), 31 deletions(-)
-> > >=20
-> > >=20
-> > > base-commit: edb91bc566576f6664a3efbad6bd4205aa1d5259   =20
-> >=20
-> > LGTM
-> >=20
-> > Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com> =20
-> LGTM2.  Just need to give some time for dt-binding reviewers to
-> take a look.
+Low priority / nit picks for your consideration:
 
-Applied to the testing branch of iio.git.  That'll get rebased on=20
-rc1 once available.
+- [Low] The `get_host_pf_mask` kernel-doc in `nbl_def_hw.h` says
+  nbl_res_init_pf_num() "always runs before this op's only consumer,…
 
-Jonathan
+--
 
->=20
-> Thanks,
->=20
-> J
->=20
+net/nebula-matrix: add common resource implementation
 
+This commit adds a chip-agnostic resource layer for the Nebula Matrix
+driver. On the control PF it builds the PF topology, SR-IOV BDF, Ethernet
+port and VSI identity tables once at probe time. It also adds new hw ops
+(flush_write, get_real_bus, get_fw_eth_map, get_board_info) and the
+VSI/PF/Eth ID conversion helpers.
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_hw.h b/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_hw.h
+> index 58d1b669b8cbb..4b420db91963d 100644
+> --- a/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_hw.h
+> +++ b/drivers/net/ethernet/nebula-matrix/nbl/nbl_include/nbl_def_hw.h
+
+[ ... ]
+
+> @@ -42,9 +55,22 @@ struct nbl_hw_ops {
+>  	 * op only returns the raw register value.
+>  	 */
+>  	void (*get_host_pf_mask)(struct nbl_hw_mgt *hw_mgt, u32 *pf_mask);
+> +	void (*get_real_bus)(struct nbl_hw_mgt *hw_mgt, u8 *bus);
+
+[Severity: Low]
+This isn't a bug, but the kernel-doc for get_host_pf_mask just above this
+hunk now looks stale:
+
+	 * The mask is validated in the resource layer:
+	 * nbl_res_init_pf_num() rejects an all-zero mask and any
+	 * non-contiguous layout with -EINVAL, and it always runs before
+	 * this op's only consumer, nbl_chan_cfg_qinfo_map_table().  This
+	 * op only returns the raw register value.
+
+This patch adds nbl_res_init_pf_num() in nbl_resource_leonis.c, and that
+function calls the op itself:
+
+	hw_ops->get_host_pf_mask(res_mgt->hw_ops_tbl->priv, &pf_mask);
+
+That means nbl_chan_cfg_qinfo_map_table() is no longer the only consumer.
+The same is still true at the end of the series, where the op is called
+from both nbl_resource_leonis.c and nbl_channel.c.
+
+The ordering claim does hold by the end of the series. In "net/nebula-matrix:
+add common/ctrl dev init/remove operation", nbl_dev_init() calls
+nbl_dev_setup_chan_qinfo() only under common->has_ctrl, and it does so
+after nbl_res_init_leonis().
+
+Could the "only consumer" wording be changed to list both callers?
+
+> 
+>  	void (*cfg_mailbox_qinfo)(struct nbl_hw_mgt *hw_mgt, u16 func_id,
+>  				  u8 bus, u8 devid, u8 function);
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261010095939.2230-1-illusion.wang%40nebula-matrix.com
