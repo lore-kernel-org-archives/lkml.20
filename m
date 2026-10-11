@@ -1,221 +1,258 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5F02AD03;
-	Sun, 11 Oct 2026 13:00:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791723641; cv=none; b=X7EDNp939o9iseCl2rnbxmR1xjN5fgZb7ySjlY4X5mJTEXcb8c2JyAQGpWuCebAzU0JWCrvYHJi6VOqxIid6kECSAw8Nq0wJZWzUUIov1L3x9rfkBmpLi2b1oB/qjeaPCuidAw2JzsjhspU2qOkBImGakqSPjKMENAhy7idu1vY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791723641; c=relaxed/simple;
-	bh=9hCbvebX07T1xMNBPfXkhv3YYnJ9FnbtZpO2VDmZ6+Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=eRe3N7puJKBaQexngOYnz0tQPiuk58WME2Ljf4jXczRbyZ2pdHroefmuTfl9lrzUnjXpzAvVDxY59CvjhyNN1js8oMSHF0lWgUxHsTSsTXubQcWKVRBXinCwFjuVCepFFJA1fLt2z32dYEy2zSnIO8/RP4KYRrKbALPB/IgYpHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gh7X10kC; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40C213B42E6
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 13:01:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791723685; cv=pass; b=aPgt7HyPhJyQO8sPqowjOwCnuiqs5wdwBiu2cV82ib4jjziAGwTZZgWcnGPtkxXs1110EmuTpiUeCGQaz1JcJilJYPgmSJfupyIynQWrgzX5u8RUibffUDHwgTKePWGKBJpbpyNQYPXy9IosuGZe6HAGIMy8m1kSXjcTDc0px44=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791723685; c=relaxed/simple;
+	bh=VJT/xv4TOnyvyWaW7CqWNytji0v2EjJCwHCotLsHQiQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mnzGPSsHUSv/E1lQcxKyC++jk7qMe4k0WmQ5AyqeBt2g+prl4TS31TnmGjDtsi8dkvmKS+mudcv2c/kH7t19qjk6aDOpupA3AhbTA0ZzIQQ46lHKwF4Y66RZ1PUlNwzNvrLGYP8/BYVOikzdKzXIQaMFA01IlydQEWgzS/POBQM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com; spf=pass smtp.mailfrom=jclark.com; dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b=WOkXfif7; arc=pass smtp.client-ip=209.85.219.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jclark.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gh7X10kC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B07B1F0089B;
-	Sun, 11 Oct 2026 13:00:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791723635;
-	bh=HOVFcYsFJGykwM1UIUyp356S3MbI3P/ysIg/n3jF1t0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Gh7X10kC9s5QetyYxRL7bersQrcWPQ1UcpetnsF4p4gq6EIXjD3ZLmY7b6vac/eho
-	 Ii7qfT6D8Uw8xP3XV/xs2bOzgedtgrpefPLTB9WfCJxfCqoXMgQQYE8c/EadQzpG0W
-	 iiybCUNVOZOC5tGMTTgi1aZxiU1dnI45KAAPs271aQ97gLBFN3zhI27Z0zqeixR7Hy
-	 xI/5PCifPMuiLJENzOB/4QkbPcjlMVRJO7h405F0nGFrDpuKyLOwjZmq+zapvtBMCY
-	 5PT5n/NAQsbZPe7kX/IdKLsDIt5j5+Ap0EuycrYZTQ4NKrjHBkL/CGdny9WG6WzwT6
-	 HJniuhO5owePQ==
-Date: Sun, 11 Oct 2026 14:00:02 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Esben Haabendal <esben@geanix.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Martin Kepplinger <martink@posteo.de>, Sean Nyekjaer
- <sean@geanix.com>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Martin Kepplinger <martin.kepplinger@theobroma-systems.com>, Christoph
- Muellner <christoph.muellner@theobroma-systems.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, Joshua Crofts
- <joshua.crofts1@gmail.com>, Andy Shevchenko <andriy.shevchenko@intel.com>
-Subject: Re: [PATCH v10 00/10] io: accel: mma8452: Allow open drain
- interrupt pin configuration
-Message-ID: <20261011140002.6e9d68d3@jic23-hlaptop>
-In-Reply-To: <20260928-mma8452-open-drain-v10-0-b906fb408386@geanix.com>
-References: <20260928-mma8452-open-drain-v10-0-b906fb408386@geanix.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b="WOkXfif7"
+Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-91b813ac020so1049206d6.3
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:01:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791723679; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mJnQGE27bHuZ1IUMi7M2nUaavQXy5qwwt/g1qEG4To1xc4HKZ+KxSIbHtzUPF7v65+
+         mUy/qjk4jqEczT7InNBVzkFZpX3K5X2OQqKf5Gs9UycHbMJNPfXtsybbLDe9xlAzzW3D
+         7BAXqF63tQSpk8KeJSIycZpRd8eCAXp0ESwaXRD55eAtrL2peZnGoCvOchM3xbANWMRL
+         j9ysenL8p6UegLiBQxeZf1QuNcL/lEm7rpfXQfsk+lLCEE1rdm19ltvOchuWqz0giJvC
+         Y1CFP1/d9+2Dk2M3m1uO9mQZWSjCRWRE9qTHMGVMHMALLlYF9Pj61KOlq4ZUHVd0GuMw
+         +dBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=710+ECo1g+nv54gecwVSO644bkeC1UbYdL+hIsbub4I=;
+        fh=1JHeuBy5eaDzGSIQB2QoJ1ngRJc1PzvbvGwZKSKEDy4=;
+        b=p8kp++vQXJDHx6L149ucrwlInCELVD6EQ82la+dYWkHrx9b5XhS70Q1Sm0l767ZOmD
+         ZNdR3ztC3E/oKfCkUiJgtt3dptp7bqjtp+Ynd7WPhZTouylk1G3fzA6Ps46XnVY4D2Ry
+         nXEsud54Cnp3iG7BcWt6hY4th4YlXxsF48y9T4wl8954th61vFbPL+tTz3ij26xrm9or
+         cyAf1NcvOfYyoneXQcvnk36kfyohWybqktxSYE/8+2ik6onyj5a1dZRCisiKU08oHGKD
+         gwkVf66WvHwpN9Lf7mZ5Y6dn3OGzLVkMsfd2AeL0u2LBabsWua66GGpzus0UfGM7wMo/
+         aeUQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=jclark-com.20251104.gappssmtp.com; s=20251104; t=1791723679; x=1792328479; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=710+ECo1g+nv54gecwVSO644bkeC1UbYdL+hIsbub4I=;
+        b=WOkXfif75Y5hiYBnJmoGb1AmznIBlmFs/kjJLrmMmb3icFsLheo225Dqt84PNnz8lZ
+         65MbUjUxzqvcKi6Gt6cyG3UmPFkhWJTstr+oM96fRHJ7lz4SRteCGLvZYKWiSFOB6DRz
+         AoeeIg1TcH99XBmv9811TmT/LAvcl0GcqkwtHv3eqsC2/2a8ijFWkKsbnZGLozZ1UtXm
+         NGanGwlecfgFhDPIb/Kdbi05uojEAzgQkmzli37XFFt8idvl2KDoiYuG4KJ2+1rY84F8
+         VSYbUEcmsKcDreUbjOLB3vLoKl8SdjclKfLxhNccOFUHKujXrgwrpVCxFi00sC51wuY5
+         cvdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791723679; x=1792328479;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=710+ECo1g+nv54gecwVSO644bkeC1UbYdL+hIsbub4I=;
+        b=bg5uqRjoF/8rZW3ZaKyRaAr0UsGlMj0ZEHMZgvsszNtB0cuUYZKhUY/QtEQE88Kcjc
+         MnpzSMB3+GsZ+azJVIxSxfLN7zf+9rYWTY7uLyBWE6eT16Z49+3HRBJcDSKwUmRsF7u5
+         +/b+sLpSXgJXmCOyEUJGwYRD/BNAP378YEQlWXruqqGB1OJRWEOOgJq+URUyBR8D9kt5
+         L6+cFPnPQx5iZslebpjg2we1KFZRMDknGUs5HXCcxIx5AW5KNpwURi3W7V2XAoHxxZ0m
+         Lqw4NwkyeV+xUkqmwGFvQG3Ll9a+9j1zUOqyoW0ABu/97B+EvO3doiM3uxrMkA/b4ARO
+         cxSA==
+X-Forwarded-Encrypted: i=1; AKwUvBx50Zf6sOLJbMpik4eibu8HtiNbcziu/P5hP/5yMzSptnq+BWrlVfmFoScnRhY4YtUxVnSmQ+VjU//OQ20=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKbB2dteQL74ZCbDu9B/9zpIrKgOOJjIc2fnJyuMOleFL5BHyLV
+	iGMJME2Cb+vW8WAzyeDNs29GNscA5/LJN75OPLtic4zq0UQm1BFz94ZC5mWC+cw+J3Z74dPiaS4
+	1OAavxwc50ZCn+H4OD9Mka1Ho1qiHFRaKgbM8pBpO
+X-Gm-Gg: AYBFou2xeSqRJM8rC8j84j972MtACXr9uDNO2EvKMmXtmlD498GPYfnVLyi5HNkSHh7
+	xtFZdCwXYoRl9RjLrX+Ot3Vt7MBznndWO4ep5CgYGuAzJb0bEbIpxgVS//AeM9MS2GKqieIYHc+
+	9B3Txc+U67YTTiyrk1WXTbU+EvPnJCE7Crcp6rsn4J/3ImE+XnKyBm71hZ/p/CrQ68Wr9oQNWA0
+	YmQ1STkRqK42UkTinzwCKsJHwYJfX0ed5ZFrCVuQGZVCsfdgpikB52KZQfmyAPCLpv+Gx0jM/4l
+	uToxQ280IWAbSE71jp4hrMot2wwlD8qHsAIl3SFeLkatkxYSlU1fxm4=
+X-Received: by 2002:a05:6214:cc1:b0:915:e732:33b4 with SMTP id
+ 6a1803df08f44-91b554b6417mr124823836d6.19.1791723678664; Sun, 11 Oct 2026
+ 06:01:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+References: <20261009143506.2507607-1-jjc@jclark.com> <20261009143506.2507607-5-jjc@jclark.com>
+ <DM1WEUIF8V8V.2OZWRB5G232T4@bootlin.com>
+In-Reply-To: <DM1WEUIF8V8V.2OZWRB5G232T4@bootlin.com>
+From: James Clark <jjc@jclark.com>
+Date: Sun, 11 Oct 2026 20:01:07 +0700
+X-Gm-Features: AclHuK-iWfBhKLAzxUK6ajbUqVcMn9MseKuVioPY-H1ZhOahAL30FsMFK5dLkuU
+Message-ID: <CANz3_EamUFhoQJ54g9pxdrxGK9EYxu_KeqRTdAdxWzV15k4_9w@mail.gmail.com>
+Subject: Re: [PATCH net-next 4/5] net: macb: implement timestamped MDIO writes
+To: =?UTF-8?B?VGjDqW8gTGVicnVu?= <theo.lebrun@bootlin.com>
+Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Richard Cochran <richardcochran@gmail.com>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, Doug Berger <opendmb@gmail.com>, 
+	Nicolai Buchwitz <nb@tipi-net.de>, Russell King <linux@armlinux.org.uk>, 
+	Conor Dooley <conor.dooley@microchip.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Thomas Gleixner <tglx@kernel.org>, 
+	Miroslav Lichvar <mlichvar@redhat.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, 28 Sep 2026 10:26:16 +0200
-Esben Haabendal <esben@geanix.com> wrote:
+Hi Theo,
 
-> Extend the mma8452 driver with support for configuration of the
-> interrupt line in open-drain mode, which is needed for hardware designs
-> where the interrupt line is shared with other chips.
->=20
-> Adding drive-open-drain property to mma8452 device-tree node for such
-> designs to enable switching pin configuration to open-drain mode.
->=20
-> Signed-off-by: Esben Haabendal <esben@geanix.com>
+Thanks for looking at this! I am very new to this, so I really
+appreciate any guidance.
 
-Applied patches 1-9 to the testing branch of iio.git.
-As mentioned, I think 10 needs a bit more review time.
+(For some reason your message didn't make it into Lore, although your
+followup did.)
 
-We may loose sashiko coverage. In theory you can tell it about
-dependencies, but I'm not sure how that works with a temporary
-testing branch.=20
+On Sun, Oct 11, 2026 at 4:24=E2=80=AFPM Th=C3=A9o Lebrun <theo.lebrun@bootl=
+in.com> wrote:
 
-There are some notes on using message-id: tags in the cover
-letter in https://b4.docs.kernel.org/en/latest/contributor/prep.html
+> I'm invoking my colleague @Maxime to get his opinion. What impacts the
+> MDIO write_c22 duration and how likely is it that this duration varies
+> (1) on the same MAC+PHY combo, (2) with a different PHY or (3) with a
+> different MACB revision?
 
-I gather from the LPC session last week that sashiko should work
-with those now.
+(3) is the one case where I think it could possibly vary.  But 63.5
+periods makes sense assuming the first bit starts at the moment the
+command is written and the PHY acts on it when it samples the last of
+64 bits at the rising edge half-way through the last period. In 5/5
+there's a different situation: there UniMAC's MDC is free-running, so
+the frame can start up to a period after the command write, leading to
+a possible range of 63.5-64.5. So I don't think 63.5 is as arbitrary
+as it might at first seem.
 
-Jonathan
-=09
-> ---
-> Changes in v10:
-> - Fix sp3ling mistake in struct mma8452_data kernel-doc block.
-> - Swap ordering of pm_runtime and irq setup in mma8452_probe() to match t=
-he
->   order now used in mma8452_remove().
-> - Bail out on -EINVAL in mma8452_interrupt() when CONFIG_PM is enabled.
-> - Link to v9: https://patch.msgid.link/20260916-mma8452-open-drain-v9-0-0=
-dd24fa2f3d7@geanix.com
->=20
-> Changes in v9:
-> - Fix documentation of voltage regulator field(s) in struct mma8452_data
->   kernel-doc block.
-> - Fix a couple of nitpicks in struct mma8452_data kernel-doc block.
-> - Switch to STANDBY mode before writing to CTRL_REG4.
-> - Add patch fixing runtime PM bugs in mma8452_read().
-> - Add comment about handling of -EINVAL return value from
->   pm_runtime_get_if_active() in mma8452_interrupt().
-> - Fix for race between mma8452_remove() and mma8452_interrupt(), by calli=
-ng
->   free_irq() before pm_runtime_disable() instead of after.
-> - Fix mixing of guards and goto in mma8452_runtime_suspend(). Using guards
->   will be re-introduced later on, when mixing can be avoided.
-> - Link to v8: https://patch.msgid.link/20260907-mma8452-open-drain-v8-0-c=
-17407e22118@geanix.com
->=20
-> Changes in v8:
-> - Move patch 7 (with Fixes: ...) to go before the non-fixes patches.
-> - Rebased from v7.3-rc1 to current iio/togreg branch.
-> - Drop patch 8 (identical patch from Sanjay Chitroda already in togreg
->   branch).
-> - Add new patch fixing a strangely extra indentation of a comment block.
-> - Add new patch adding documentation for struct mma8452_data.
-> - Move patch 4 to last in series, and rework the synchronization between
->   suspend/resume and interrupt handler.
-> - Link to v7: https://patch.msgid.link/20260831-mma8452-open-drain-v7-0-2=
-2946812c928@geanix.com
->=20
-> Changes in v7:
-> - Use dev pointer directly in mma8452_runtime_suspend() also.
-> - Move struct i2c_client *client definition to patch 4.
-> - Drop patch 7 (Drop unneeded lock acquire on read).
-> - Link to v6: https://patch.msgid.link/20260825-mma8452-open-drain-v6-0-9=
-b252804ee80@geanix.com
->=20
-> Changes in v6:
-> - Prevent interrupt storm if runtime suspend fails to set the device in
->   standby mode by not setting suspended flag to true when failing to
->   activate standby mode and by ensuring PM counter is not leaked in
->   mma8452_interrupt().
-> - Don't acquire data->lock in mma8452_read_raw().
-> - Add fix for use-after-free in mma8452_probe() error path when CONFIG_PM
->   is enabled.
-> - Fix (brown paper bug) build error introduced in v5.
-> - Renamed label in mma8452_interrupt().
-> - Add patch to return -ENODATA when missing device model information.
-> - Link to v5: https://patch.msgid.link/20260819-mma8452-open-drain-v5-0-d=
-8aa590d7c36@geanix.com
->=20
-> Changes in v5:
-> - Squashed dev_err_probe() call to one line.
-> - Fixed typo in patch 2 title.
-> - Added synchronization between runtime suspend and interrupt handler.
-> - Link to v4: https://patch.msgid.link/20260812-mma8452-open-drain-v4-0-b=
-fca15d02b59@geanix.com
->=20
-> Changes in v4:
-> - Fixed interrupt handler to check runtime PM status before trying to
->   access the chip.
-> - Split open-drain support and interrupt sharing into separate patches.
-> - Added new patch to reuse existing struct device * through mma8452_probe=
-()
->   function.
-> - Print warning message when irq type is not set by firmware.
-> - Link to v3: https://patch.msgid.link/20260805-mma8452-open-drain-v3-0-6=
-149f406a409@geanix.com
->=20
-> Changes in v3:
-> - Reordered patches, swapping #2 and #3.
-> - Always add IRQF_SHARED flag.
-> - New patch to change it so IQRF_TRIGGER_LOW flag is only added when no
->   trigger type is set by firmware.
-> - Link to v2: https://patch.msgid.link/20260715-mma8452-open-drain-v2-0-9=
-5be9f5f4795@geanix.com
->=20
-> Changes in v2:
-> - Commit message of patch 2 updated.
-> - Operator precedence bug fixed in flags argument to
->   request_threaded_irq().
-> - Always check return value of mma8452_set_interrupt_pin_mode(), and just
->   check for non-zero value.
-> - Added new patch with optimization of struct mma8452_data ordering.
-> - Link to v1: https://patch.msgid.link/20260715-mma8452-open-drain-v1-0-b=
-1dd2a440c60@geanix.com
->=20
-> To: Jonathan Cameron <jic23@kernel.org>
-> To: Lars-Peter Clausen <lars@metafoo.de>
-> To: Rob Herring <robh@kernel.org>
-> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> To: Conor Dooley <conor+dt@kernel.org>
-> To: Martin Kepplinger <martink@posteo.de>
-> To: Sean Nyekjaer <sean@geanix.com>
-> To: David Lechner <dlechner@baylibre.com>
-> To: Nuno S=C3=A1 <nuno.sa@analog.com>
-> To: Andy Shevchenko <andy@kernel.org>
-> To: Martin Kepplinger <martin.kepplinger@theobroma-systems.com>
-> To: Christoph Muellner <christoph.muellner@theobroma-systems.com>
-> Cc: linux-iio@vger.kernel.org
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
->=20
-> ---
-> Esben Haabendal (10):
->       dt-bindings: iio: accel: mma8452: Add drive-open-drain
->       iio: accel: mma8452: Fix use-after-free bug in error error path
->       iio: accel: mma8452: Fix runtime PM bugs in mma8452_read()
->       iio: accel: mma8452: Optimize struct mma8452_data member orders
->       iio: accel: mma8452: Only apply trigger type when not set by firmwa=
-re
->       iio: accel: mma8452: Fix unintended comment indent
->       iio: accel: mma8452: Add comment block for struct mma8452_data
->       iio: accel: mma8452: Allow open drain interrupt pin configuration
->       iio: accel: mma8452: Use proper error code when missing device model
->       iio: accel: mma8452: Support interrupt sharing
->=20
->  .../devicetree/bindings/iio/accel/fsl,mma8452.yaml |   6 +
->  drivers/iio/accel/mma8452.c                        | 217 +++++++++++++++=
-+-----
->  2 files changed, 177 insertions(+), 46 deletions(-)
-> ---
-> base-commit: e5b9e42a20392b669097c8c4aa09c3aed82ba10c
-> change-id: 20250401-mma8452-open-drain-81577c41375c
->=20
-> Best regards,
-> -- =20
-> Esben Haabendal <esben@geanix.com>
->=20
+> Sashiko makes an interesting point with PCLK that might change over
+> time, giving an example (which I've not checked) where it would be
+> derived from the CPU clk which might change with cpufreq.
 
+I tried a bunch of different approaches before landing on what I sent
+in v1, and ran Sashiko locally to review. And every approach had its
+problems. Sashiko is right here, but on the other hand the existing
+macb_mdc_clk_div() (it's only called at probe, open and resume) has
+the same problem.
+
+My plan for v2 was to limit this to RP1, as Sashiko suggested, with a
+MACB_CAPS_MDIO_WRITE_STS flag
+set in raspberrypi_rp1_config. This would solve the PCLK point since
+the PCLK is fixed in the RP1.
+
+> If you share more details on your testing setup it would help for us to
+> reproduce on other hardware to gather more data points.
+
+I created a gist with the code I used (this is all agent-written)
+
+https://gist.github.com/jclark/372822d80ba27a9648d1aea939191b53
+
+Key point is that the measurement technique depends on there being a
+PHY with a PHC connected over MDIO, which is the case when write_sts
+is useful. I believe the RP1 is the only such case in the tree at the
+moment. If in the future there's another case, then it can be measured
+and added using the same technique.
+
+> I'm wondering if we could do better than a hardcoded delay? For example
+> we could busy-wait for NSR.IDLE inside the prets/postts region, but
+> that implies at least 25=C2=B5s with IRQs disabled. Or we could do a few
+> measurements at init to sample our platform delay?
+
+On the RP1, IDLE is not the edge: IDLE comes at 65.0 periods. The only
+way we could measure the edge is by using the PHY as an external
+reference.
+
+> > +     unsigned long rate =3D READ_ONCE(bp->mdio_sts_rate);
+> > +     u32 config =3D macb_readl(bp, NCFGR);
+> > +     u32 divisor;
+> > +
+> > +     if (macb_is_gem(bp))
+> > +             divisor =3D gem_divisors[GEM_BFEXT(CLK, config)];
+> > +     else
+> > +             divisor =3D macb_divisors[MACB_BFEXT(CLK, config)];
+>
+> I'm a bit surprised to see you reading NCFGR.CLK and derive the current
+> divisor from that. The divisor is set by us in macb_mdc_clk_div(), with
+> only input being the PCLK rate.
+
+This was something a local Sashiko review found in an earlier version.
+The divider in hardware isn't always the one macb_mdc_clk_div() chose:
+after suspend with the interface down, macb_resume() doesn't reprogram
+NCFGR.
+
+Incidentally, it is also what made the measurement technique work: the
+bounds follow a divider changed through /dev/mem.
+
+> > +     if (sts) {
+> > +             delay_ns =3D macb_mdio_sts_delay(bp);
+> > +             local_irq_save(flags);
+> > +             ptp_read_system_prets(sts);
+> > +             /* macb_writel() is relaxed; order it after the timestamp=
+. */
+> > +             mb();
+> > +     }
+> > +     macb_writel(bp, MAN, cmd);
+> > +     if (sts) {
+> > +             /* Flush the posted write before taking the upper bound. =
+*/
+> > +             macb_readl(bp, NSR);
+>
+> An unconditional readl for flushing the posted write won't do it.
+> MACB is over PCI only on very few platforms. I guess the straightforward
+> solution is a POSTED_WRITES flag that is then read from here.
+
+This is only under sts.  Assuming write_sts becomes RP1 only, then it
+is only over PCIe. I am not sure if I have understood what you are
+getting at here.
+
+> > +             /* Order the read-back before the system timestamp. */
+> > +             rmb();
+>
+> Why rmb() and not mb()?
+
+The rmb() here only has to order the NSR read before the post
+timestamp read, since by the same device rule that read can't complete
+before the MAN write has arrived.
+
+> > +     /* Record the pclk rate the MDC divider is chosen from, for
+> > +      * write_sts, which can't call clk_get_rate() under the MDIO bus
+> > +      * lock.
+> > +      */
+> > +     rate =3D clk_get_rate(bp->pclk);
+> > +     if (rate)
+> > +             WRITE_ONCE(bp->mdio_sts_rate, rate);
+>
+> Can you clarify here and in the commit message why clk_get_rate() is
+> unacceptable under the MDIO bus lock?
+>
+> Seeing your comment, my guess is an ABBA deadlock risk between
+> clk_prepare_lock and mii_bus->mdio_lock but please write it out.
+
+Your guess is right. I tried this earlier and a local Sashiko review
+found the problem:
+
+bcm_ptp_gettimex()
+  bcm_phy_write_exp_sts()
+    phy_lock_mdio_bus()
+    __mdiobus_write_sts()
+      macb_mdio_write_c22_sts()
+        macb_mdio_sts_delay()
+          clk_get_rate()
+            clk_prepare_lock()
+
+clk_summary_show()
+  clk_prepare_lock()
+  clk_summary_show_one()
+    clk_core_is_enabled()
+      en8811h_clk_is_enabled()
+        air_phy_buckpbus_reg_read()
+          phy_select_page()
+            phy_save_page()
+              phy_lock_mdio_bus()
+
+I will clarify this in the comment and commit message.
+
+James
