@@ -1,75 +1,77 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6DDA3C873B
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 17:48:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FEBF3DEFFE
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 17:48:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791740932; cv=none; b=KOpK0J3/T/4lEImP4kcUmPnenoH3it2NOyQsf80tMox93GiCTUGTw1ODdMmCkyv64RAERGgINCl02waDtuIkkkb3jClw1q+sbHQ1RjcowwU2L0a7V6dNGAR9Qcicy0PhTP8V0G1ODFtd+UXCmIAVwHrpKdIWc9XPepuIb6r1Jjo=
+	t=1791740938; cv=none; b=Xqek3s5m3YqvNUQwHIik3+bRE3c+ZwEfrF8OfikXf7VBoW2gdcFWbpZFxCMmNo2RsCsqocXRYmkGgJXgUb98P6G5WT8F/Rte+GHQtzcadnSRENj3DRfuS42TR7ImK36A7wuUnFx7qODLAYoW8ceVh0utQ/BNn9NhXwxegalZdMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791740932; c=relaxed/simple;
-	bh=hGNopC5q5uAVdNTtczdcI0MSFHjygXY4DDOanfognps=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Q+rdrRXcW498SwWiC7iHdyX8U54+tmpw6NncSODZ0WAVcNHUjwOOYzCAwl3AMLTd7BG63qGJ06ihU2eaVzu7h/Sao/k4vNzH65vGA0FFPiLxTXBMVy3+2fYpUYiSPAXm81NzWG0SxxCWO8GsgsOIdeWwN/SydZ98yO7r421e7hg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BTC+anDg; arc=none smtp.client-ip=209.85.128.41
+	s=arc-20240116; t=1791740938; c=relaxed/simple;
+	bh=+ac6ZuafHdUeOx4kM7JtsJyMiC3/HL6rFzc5v99ZtBw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OWDUWK+ojnnDXO2RIJE9gmhIQy2vBi5roJ6494Ll4/IhhkPXLa+8KfNyA3N4UobCPuXXorwetgD4xANbKd0yZovkKJUtdJCPI7gbd2wFY2crO8bYo5x16jn3jyce86ZSqNBNsfPQcarsGe9MExysh5aHviX+F8nsqYdGy8esaLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X0VH55xm; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BTC+anDg"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a02753c04fso6015805e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 10:48:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X0VH55xm"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a161d9b8c7so7202415e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 10:48:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791740929; x=1792345729; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791740936; x=1792345736; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=upDrwNGB9JbvjpAZkj932h4EK026LhsRYnlCJhqIVww=;
-        b=BTC+anDgCOQcuhrYdyhAbc93QryFZrzm367jTs+blWS89lmO2qXwzJuLRRddShVXuE
-         PiK5S5LEH6plvgvDveO9sZKTerEAhsbn44LCc7w1PaKwqTT2uXdkg9PtdjXEcCtcc/6d
-         qPqQoZeGNN/bVWUlJ9vNbCQhdFrb8f9khmqSBg/6UllrB8X4LK2A5FXhdIK131wowqQW
-         w3gwVRK3Htu0QzKodoaiOgxiiLBFVWdj9S7Iq+T+juxPrimGJdv5V43MwJPXTbp6pqFs
-         Asqa+d5cgeD1ohQN+2yWNJmuimHz5Nr0yOI8ye9ueMPDvFfrlNYKYZHFBt+Wq6HecVaK
-         WW7w==
+        bh=lnKvaxco2zJAP8jwsjWRlSJGBk6Z5phho18+IObWBjI=;
+        b=X0VH55xmP9wMFZil60cPVPSGFM5qoJyg0Fw10RpYMY5PQSPl1yW3zJ4DybLPVBiaZS
+         oXX98p7997j0NKlywcpTZcPFJ0B+iw9Nwynk7ifDNu2SH9T576kJM5TYl5dKU5xmplUN
+         q3BXc1OWzZTnHpKt+TB9mf6196usZjwIHnKhaw8YebMT4JK/0LD4GsWJrAuEDczTwXy3
+         t2rgqBFSZhkaEKRsI4an8TJC9GGh7j8xzcZmCYoBAvw+8IC5ElB6io7K2EKriFnhcyV5
+         Ccn1KmL5D0t5S5mR2smfNIxt7x32DfLP+CA+7ryge44nRDUxdvuzUYxo1piEzmUx52pa
+         R86g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791740929; x=1792345729;
+        d=1e100.net; s=20260707; t=1791740936; x=1792345736;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=upDrwNGB9JbvjpAZkj932h4EK026LhsRYnlCJhqIVww=;
-        b=WFMfWwVjtYnbpQwRCIjnCzeoeSZ87w+WWbWaDzvAmq6IuTGAVsIOL6XSkk4Psmq3qy
-         8KN3QPYuiD989LmK4qgN5dTMQVwhIBl+S3ioxrq9zKUYSWMqYl7AgOM05NTNC5JjnPmK
-         A1QccmIXuYOmgl0+WZT+CWFqjx9ux6uLPV5OGekucWv3gyiomjd16ZG9+WSfGqj/T5Eq
-         9Ige/oufO/brZ+DdNT01glcLVgbmyqJm8rCQacZanjKiVCzGEgb2DOY0HduQ8dSz85g3
-         17fl6c5OYhLNMDvC6zM8W96US67aHbQ/3kP8HOfhSXO/ITDJo3d1BxvMfUMkwBQaGbyq
-         IVNw==
-X-Forwarded-Encrypted: i=1; AKwUvBxqKaRJWmUIUzBvcSUZxXenXrF3iGSDnBOWaaPK5KsKOLEhUhh8OArfHS+sbocTrhFfdgGsJy2njsxolIM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLl5VDkDheDVUxzy4W9LfZgOsAea2AKXsSIHATlbRmHc8nVna4I
-	c0pMcXlgFAahpR0kcgrgwFNtoNfiYGybkY+F6i5S1OM9EgVt5s1zhCmf
-X-Gm-Gg: AYBFou3WL6gkHNH2hYjqSIV8Ov43o6D/wKrYhOBSSP/6wc6+cEUYdYsIP9if7F5CZFA
-	L0LVq8XKus9y/+vE0IGYlcamKnrrE1/RCzxuuPz+ptlz7B7X3xPKSrYB+XY7XRjpRUcwbBFrY9F
-	AG/GnZA12CxchQV41eZFkG9gtjn3HWic0Tf6KNKPKm4Tg6KUfbT+jiH/H3OKDPoe74288z0AEpm
-	4BaoUlf6Qr58ZTYvRK6Mm/v0Le53mlJj56aF32iMmyCby2c12COeOKr+l4f5Ll/HzDFfN/jlt9d
-	sR8+NRTJ+cvJ/rXp++AEKn0zgPMQnVFZV5hwZ/C6CQjgdiL9cMNomPk5UZRH7GncXVAEfB/PsIt
-	tYxvg07BzE9twbQ1YH4pW/B7Hz2xXl7bEidcGnomodNN9rSeTxE4ljDkosr+zSPI0GSh1rdimbW
-	bNVXRMiAkMr9cIObo3sWCMZoD6oJNBOWDv47NDy+9aQ/yFJiUbh2SVZRy153cRURP5KTAZ1Hkjo
-	s9o/ZNWj6y049ANt8lpS2MmiPMLIMRHfjb+GymRrV4qWJduDGSdAmuGpSnebDy79rHu
-X-Received: by 2002:a05:600c:3b0a:b0:4a1:779c:dc8e with SMTP id 5b1f17b1804b1-4a18e4a01b7mr144162915e9.10.1791740928517;
-        Sun, 11 Oct 2026 10:48:48 -0700 (PDT)
+        bh=lnKvaxco2zJAP8jwsjWRlSJGBk6Z5phho18+IObWBjI=;
+        b=QmfOzd9hRE31s7XOu8bV5PndSH3Fnc/Pu8AyDMbTB2Kj5nTpJv5hh2HA9ocnfPwRux
+         Z/2QRGg/FQ5l0QYolTV47Mlo9Dlc6TiXYQ3jqVQHCjYDzvHEqhqpRnPrzg5U/Hm9TVOU
+         2B3bIwqkIJ7FtXCRyLB2cK6ald3G89e3iXnmPCqbbmvI0om2dq5UV2gwY90HcMnhtg0s
+         OwsNfn0e0RIDs1HL+tmFn8Rr29Lw8F3vb2lH14//h7lzndWo6IO4cK8zVrDoo0Tb8oDx
+         Rk2ooo6vcuGU5SrL5OKnbG06bgWgYLtrWuYPJHoJYE2YD4zsAyctHxxdomD1j2WQVni1
+         EsSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxV5eaDL1CPtghYWB/KYsYq4J7jSUGiu+/NpSkqB7dFKuxUar9FWD6EYc18+CC8rd+ysnLANCi4nfBwMW0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKS92jiDN0x85Vrxwe6j74f8M6s/D2YSNefYkTWVmJu4hRWQGr6
+	eHrfiSDlYX4h64EtbyXaiUT5utUKOctI8bcKyW2h2SEAeSO76mgDdIlquTyTwdcY5QE=
+X-Gm-Gg: AYBFou3Rnd8wA0FzaA7XPexqxVI3PFlgRTmR9VeV+D8d/hv1mgDIcNnJekyHs4d+riQ
+	vFvOaJ5mltAahEDnGS7jqZOMZtjQVO59YqXaGZ6B+q1eTmKxVnQ1Cvycas69SphBRN+eDDV7eo8
+	ruPNTz3W2aPiiDa8g50vJysvFj+od1m9YAoFmdBHtD8SyE8wg6oYM19CNMUdOzxxkbpV7gWIIsl
+	KPtFxEi8hdLVqnZdVbzA3TpOA9+oTvgeAuTsv7SEoktnni79JSKLJC1IBaOTld5VW8jy5IaROYc
+	6tCXOvFGuLhNpKPBC0eWu0Lr1bWJPdgcmLr1x2llZptR1W+hgGzCknTVJk30eR0bL04O5RSLCQ0
+	9jSxZKuxQ3uagjBs5yBqzDYgIkjij6UMxsLYs1znTc6SuXEIx7Y5U5z9//dZ9GCI6fOcVI7zrdJ
+	oEkJhECtYqshaxqq5kDCmnNLqhJB9eKeH5HVkAcFW16Pp/AoVq5rxzOlLvkHliF6XElWvI5khNv
+	vVG1/hJUcqA7m/FjaYkZwobDGLWMAapQlGGYbbNu+/8Y9/VbIRd1LkzBsjOPLN51Wc=
+X-Received: by 2002:a05:600c:3e8f:b0:4a0:1c0e:b057 with SMTP id 5b1f17b1804b1-4a18e44653cmr141326245e9.4.1791740935316;
+        Sun, 11 Oct 2026 10:48:55 -0700 (PDT)
 Received: from Raghu007.. (sgyl-44-b2-v4wan-174108-cust110.vm6.cable.virginm.net. [80.1.81.111])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18beabbd0sm262519065e9.12.2026.10.11.10.48.47
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19471edd5sm249995755e9.11.2026.10.11.10.48.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 10:48:48 -0700 (PDT)
+        Sun, 11 Oct 2026 10:48:54 -0700 (PDT)
 From: Palla Raghunath <raghunathpalla.0209@gmail.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>
-Cc: linux-rdma@vger.kernel.org,
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Peter Chen <peter.chen@kernel.org>,
+	Diogo Ivo <diogo.ivo@tecnico.ulisboa.pt>,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Shuah Khan <shuah@kernel.org>,
 	Brigham Campbell <me@brighamcampbell.com>,
 	linux-kernel-mentees@lists.linux.dev,
 	raghunathpalla.0209@gmail.com,
-	syzbot+ae549381b4daac2895b1@syzkaller.appspotmail.com
-Subject: [PATCH v2] RDMA/cma: wait for addr_handler() to finish in rdma_destroy_id()
-Date: Sun, 11 Oct 2026 18:48:46 +0100
-Message-Id: <20261011174846.59186-1-raghunathpalla.0209@gmail.com>
+	syzbot+3fb7629cfd12d04beeab@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] usb: phy: don't overwrite a device_type the bus already set
+Date: Sun, 11 Oct 2026 18:48:53 +0100
+Message-Id: <20261011174853.59234-1-raghunathpalla.0209@gmail.com>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -79,125 +81,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-syzbot hit a use-after-free of id_priv in addr_handler(). The bad read
-is in debug_mutex_unlock(), from the last mutex_unlock() of
-handler_mutex, and the memory was freed by ucma_close() ->
-rdma_destroy_id().
+usb_add_phy_dev() replaces the device_type of whatever device the PHY
+driver passed in:
 
-addr_handler() moves the state from RDMA_CM_ADDR_QUERY to
-RDMA_CM_ADDR_RESOLVED (or RDMA_CM_ADDR_BOUND on error) under
-handler_mutex. If rdma_destroy_id() runs at that point, it waits on
-handler_mutex. When addr_handler() unlocks, the destroying task can take
-the mutex before mutex_unlock() has returned. It then sees a state other
-than RDMA_CM_ADDR_QUERY, so cma_cancel_operation() skips
-rdma_addr_cancel(), and _destroy_id() frees id_priv. mutex_unlock() in
-the work then touches the freed lock:
+	x->dev->type = &usb_phy_dev_type;
 
-  ib_addr work                         close()
-  addr_handler()
-    mutex_lock(handler_mutex)
-    ADDR_QUERY -> ADDR_RESOLVED
-    ...                                rdma_destroy_id()
-                                         mutex_lock(handler_mutex)
-    mutex_unlock(handler_mutex)
-      owner cleared                      gets the mutex
-                                         state != ADDR_QUERY, no cancel
-                                         kfree(id_priv)
-      debug_mutex_unlock(lock)  <- use-after-free
+That device isn't ours.  PHY drivers point x->dev at the device they are
+bound to, and its bus has usually set a device_type up already.
 
-Documentation/locking/mutex-design.rst says mutex_unlock() may still
-touch the mutex after another task has acquired it, so handler_mutex
-can't be what keeps id_priv alive here. The comment in
-cma_cancel_operation() assumes it can. Before commit 722c7b2bfead
-("RDMA/{cma, core}: Avoid callback on rdma_addr_cancel()"),
-addr_handler() held a reference on id_priv until after mutex_unlock(),
-which covered this.
+i2c is where this hurts.  An i2c client keeps its release callback on
+the device_type, and leaves dev->release NULL:
 
-So in rdma_destroy_id(), call rdma_addr_cancel() before taking
-handler_mutex if a resolve was ever started on this id. The req stays on
-req_list until the callback returns, so rdma_addr_cancel() finds it and
-cancel_delayed_work_sync() waits until addr_handler() is really done.
-This doesn't deadlock with the work itself. When addr_handler() destroys
-the id because the event handler returned non-zero, it uses
-destroy_id_handler_unlock(), not rdma_destroy_id(). Event handlers also
-run with handler_mutex held, so they can't call rdma_destroy_id() on
-their own id anyway.
+	const struct device_type i2c_client_type = {
+		.groups  = i2c_dev_groups,
+		.uevent  = i2c_device_uevent,
+		.release = i2c_client_dev_release,
+	};
 
-After that cancel, clear used_resolve_ip and make cma_cancel_operation()
-check it, so the request isn't canceled a second time on the way out.
-Every id with an addr request outstanding has used_resolve_ip set, so
-the device removal path still cancels as before. The loopback and AF_IB
-resolves also use RDMA_CM_ADDR_QUERY, but they never queue an addr
-request, so there was nothing for rdma_addr_cancel() to do for them.
+usb_phy_dev_type has no ->release, so once it has replaced
+i2c_client_type there is nothing left to free the client with, and
+usb_remove_phy() doesn't put the old type back either.  Removing the
+client then hits the warning in device_release():
 
-There's no reproducer from syzbot, so I made the window bigger with a
-debug-only mdelay(1000) after the mutex_unlock() in addr_handler(),
-followed by a read of handler_mutex.magic. A small test program creates
-an id, resolves an address on an rxe device and closes the fd while the
-work sits in that delay. Without this patch KASAN reports the same
-slab-use-after-free as syzbot (1048 bytes into a kmalloc-2k object,
-freed by ucma_close()). With it the test runs clean, and close() just
-waits for the work to finish.
+  Device '0-002c' does not have a release() function, it is broken
+  WARNING: drivers/base/core.c:2642 at device_release+0x1de/0x280
+  Workqueue: usb_hub_wq hub_event
+  Call Trace:
+   kobject_put+0x162/0x260
+   device_unregister+0x27/0x30
+   i2c_deregister_clients+0x27d/0x410
+   i2c_del_adapter+0xe9/0x230
+   i2c_tiny_usb_disconnect+0x3f/0x90
+   usb_unbind_interface+0x1e5/0x9c0
+   device_remove+0x125/0x170
+   device_release_driver_internal+0x4e2/0x6b0
+   bus_remove_device+0x2f5/0x470
 
-Fixes: 722c7b2bfead ("RDMA/{cma, core}: Avoid callback on rdma_addr_cancel()")
-Reported-by: syzbot+ae549381b4daac2895b1@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=ae549381b4daac2895b1
+syzbot gets there with a fake i2c-tiny-usb adapter: instantiate an
+isp1301 on the new bus through its new_device attribute, then unplug the
+USB device.
+
+Only i2c is affected.  phy-isp1301.c is the one i2c driver among the
+twelve callers of usb_add_phy_dev(); the others pass a platform device
+or a struct phy, and both leave ->type NULL and keep their release on
+dev->release or dev->class->dev_release, so device_release() still finds
+one for them.
+
+So only take the device_type if nothing else has.  Callers that rely on
+the uevent handler still get it, their ->type being NULL, and the i2c
+client keeps the release it cannot do without.
+
+Tested on x86_64 with the syzbot reproducer: before the change the first
+isp1301 instantiation panics on unplug, after it 292 instantiate/unplug
+cycles pass without a splat.
+
+Reported-by: syzbot+3fb7629cfd12d04beeab@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3fb7629cfd12d04beeab
+Fixes: a8534cb092d7 ("usb: phy: introduce usb_phy device type with its own uevent handler")
+Cc: stable@vger.kernel.org
+Reviewed-by: Peter Chen <peter.chen@kernel.org>
 Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
 ---
 v2:
-- Don't call rdma_addr_cancel() twice on the same id: clear
-  used_resolve_ip after the early cancel in rdma_destroy_id() and check it
-  in cma_cancel_operation() (Leon)
-- v1: https://lore.kernel.org/all/20261004112613.18171-1-raghunathpalla.0209@gmail.com/
+- Add Cc: stable, as Peter asked, and his Reviewed-by
+- v1: https://lore.kernel.org/all/20260924194236.168010-1-raghunathpalla.0209@gmail.com/
 
- drivers/infiniband/core/cma.c | 26 +++++++++++++++++++++-----
- 1 file changed, 21 insertions(+), 5 deletions(-)
+ drivers/usb/phy/phy.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/infiniband/core/cma.c b/drivers/infiniband/core/cma.c
-index 337a49d1acf7..72138f40dd78 100644
---- a/drivers/infiniband/core/cma.c
-+++ b/drivers/infiniband/core/cma.c
-@@ -1968,12 +1968,14 @@ static void cma_cancel_operation(struct rdma_id_private *id_priv,
- 		/*
- 		 * We can avoid doing the rdma_addr_cancel() based on state,
- 		 * only RDMA_CM_ADDR_QUERY has a work that could still execute.
--		 * Notice that the addr_handler work could still be exiting
--		 * outside this state, however due to the interaction with the
--		 * handler_mutex the work is guaranteed not to touch id_priv
--		 * during exit.
-+		 * The addr_handler work can still be finishing its
-+		 * mutex_unlock() after it has left this state.
-+		 * rdma_destroy_id() waits for that before it takes
-+		 * handler_mutex, and clears used_resolve_ip so the request
-+		 * isn't canceled twice.
- 		 */
--		rdma_addr_cancel(&id_priv->id.route.addr.dev_addr);
-+		if (id_priv->used_resolve_ip)
-+			rdma_addr_cancel(&id_priv->id.route.addr.dev_addr);
- 		break;
- 	case RDMA_CM_ROUTE_QUERY:
- 		cma_cancel_route(id_priv);
-@@ -2121,6 +2123,20 @@ void rdma_destroy_id(struct rdma_cm_id *id)
- 	struct rdma_id_private *id_priv =
- 		container_of(id, struct rdma_id_private, id);
+diff --git a/drivers/usb/phy/phy.c b/drivers/usb/phy/phy.c
+index 5a9b9353f343..ded18c7fe32f 100644
+--- a/drivers/usb/phy/phy.c
++++ b/drivers/usb/phy/phy.c
+@@ -705,7 +705,13 @@ int usb_add_phy_dev(struct usb_phy *x)
+ 	if (ret)
+ 		return ret;
  
+-	x->dev->type = &usb_phy_dev_type;
 +	/*
-+	 * addr_handler() can still be in mutex_unlock(&handler_mutex) after
-+	 * it has moved the state on from RDMA_CM_ADDR_QUERY, and
-+	 * mutex_unlock() may touch the mutex even after we have taken it.
-+	 * Wait for the work to finish before we free id_priv. The req stays
-+	 * on req_list until the callback returns, so rdma_addr_cancel() will
-+	 * find it. Nothing can issue a new request now, so clear
-+	 * used_resolve_ip and let cma_cancel_operation() skip its cancel.
++	 * Don't clobber a device_type the bus already set.  x->dev is the
++	 * PHY driver's own device, and for an i2c client the release
++	 * callback lives on the type.
 +	 */
-+	if (id_priv->used_resolve_ip) {
-+		rdma_addr_cancel(&id->route.addr.dev_addr);
-+		id_priv->used_resolve_ip = 0;
-+	}
-+
- 	mutex_lock(&id_priv->handler_mutex);
- 	destroy_id_handler_unlock(id_priv);
- }
++	if (!x->dev->type)
++		x->dev->type = &usb_phy_dev_type;
+ 
+ 	ATOMIC_INIT_NOTIFIER_HEAD(&x->notifier);
+ 
 -- 
 2.34.1
 
