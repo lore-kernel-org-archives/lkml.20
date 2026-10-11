@@ -1,116 +1,156 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7727B640
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 17:28:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D2AC4B640
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 17:28:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791739724; cv=none; b=S6gECeUNTQu+rxUdWLGapoIdeX17qnevaJYMAQflczDlgQ15b13p6KrQv6r2uOm1PoC/BAwLeIlGe1hJ7N4jjxYX/x+dqy77MkPZfkQCP8s3aVnK+3NtzTiyG8KKkKsHhKNlLPuLgtULCPddTsxeHlBMvauuFIEnR3IxSiKWNxE=
+	t=1791739730; cv=none; b=jeXwP2UAriJ930IMgQFf2LJfGe6J243cv0cWb8r8TWl6rXlvn35KjnebfSMNlCAME5BZxCn7rwJSXGhQ/7W1+dki3XoNPmgJlfo0KGkj+PV39igKuzP6hesQ/+bkQ8mijRonJ3fk2ruiCamHz14GVHzj04A+E27UyQrhIzwXeLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791739724; c=relaxed/simple;
-	bh=urABzvQsl7hmC3VT2TdbErAzv2tk+B+j4Zx1D6mmC4k=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZwEvVLevmROuO5/pamhCo1MxeiTAMo76wrgdYNweSwS1M50Yx5UQE7cIClbiaDmJ2z1jYcZSgOYG4oMxjp2t0E09oyZ9k6IZvQBVw99AXx7/kQ6ouWU1mwDFCD5EmjvxrWQnFpGILSVRdzJFvXxIj5zDk8DHhAtNmKhfhehGBjM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lZ7dtnBP; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791739730; c=relaxed/simple;
+	bh=MI7LMwrl97b6i73iVI7u88+57sLGUKgyb2/wfD4KW0A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OO1UO14sMOMIGltjmn2nYtZVawayG0hKXHFhMSowdo3i2EHNcng2RCNb6lD7eXmfebRMXQcyEotGI9M907bCbQK6a74RfA/Dz3MHqekP60D4lp2b1KItI2z6bU1TbR/2tfsdlxQH/fEQ6yyxafRvjkHWcjqlx0E7sAEtJ6LDY+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=e5i5ed4y; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lZ7dtnBP"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48b03f23305so997995f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 10:28:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791739721; x=1792344521; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KKHjvAionpRnh537vE64rAPf/zZKwgVi1HI9ARBHrww=;
-        b=lZ7dtnBPEdiEcOOS18vlESNOOyHTDFTkxt72pBxemL0fUUHg6CVbPVJWaZuMyBn1Tq
-         cPRyv6HJAhxHOyjmJiGsxm9l7pcIhMaySloXfMcBIC7w9Pr0bmJcx7TiGbRVG/yuy6DO
-         XP882eOZKHfqlxAUxmemBSSgavwoBfthNPaRvsxPM156AGriz+mhYfEP8xolsqoTsHpB
-         ClQj9WHRqwtzbQqVmKr9LqcJrtzdLEpYFW26n8afX6pWkNZukcCY/xoa3GwcmHxBCllQ
-         1SVtyjNsh/EYuNFqVgx6AGkvNV3XU3wzwBUbVy2DsADwg6ykOQbm0Pve2INNFo1UVe0J
-         Xgeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791739721; x=1792344521;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KKHjvAionpRnh537vE64rAPf/zZKwgVi1HI9ARBHrww=;
-        b=Cv64JSMuJnIgi/Or3vXuhJddn9MCvE8B6LUqpJGQ2tnsvqPJ6dMMItm/ZdUC8M33ev
-         fS2LOVoELcGdTfzQStyBGgnW2d1fskzPBYmnZeb+yLmrhvO1dezSBru30bwJxcm9pB6K
-         NW1RyEjP4mwD2m27k9RiAORCQdKMpVvs+QY3xqeRrC1bSwby1rScOHmUpTlKvcbtqvIN
-         qVvx/CFrObkLzJxPthUSVQH62VuxwIi6qwhfmyyHBpVmQS2Z9+AreptnNU1x8Z+pubmj
-         ae6S23hVUaC4Jzrt1P7cBQMmRTbpWw48sfuPSnoWR3N2RfE9LHyV4FmBI1fwwb5uHbTC
-         tImw==
-X-Gm-Message-State: AFq9FYJRuxgWroydTGggaMznf4uXNJSj1KG7e5EKPp8AMIEdDM3CO6y6
-	CFRanpyd3zZLvHBu8f6mFPnkgOAy9PB46+rqP4scTWnwCviD/0FqhM3+
-X-Gm-Gg: AYBFou2Y1HnW04lWvDKW/39hL+owtrwm3YMQMAY8jEmLz+/OTipEKxYTiVPauC1Jg5V
-	lXDLdNIBn92d+A13PYEAUdN6PrrdOtXJmFpXP5FfkVjZPg0LprGUsQzQVa38xkpBIgFUB75NLr0
-	sevljntK5PE6Bm2P5ilx6c+M3A4FuOjbi/SUo1RDLnGKujggT6CF3Xsc3GbMBQiS1bqNigTL71J
-	kktolhowkUcQOs4zZTlExJkR0N/jKxmMqU7AaYrwp8IO2871V66BN6js3tREjMa5ECIEybDPIIg
-	o5tYPmyZbrIHiUe0brsg1rWAxsGXNDpqnJ3WSuE4U3JsI74RTDwdqenK6Z6u0XbHznHMDmFC/tS
-	CNo3ocehXrYzcboZoQ2jAHrMGhj31a1SdN2AflnsbdE1cE3bLTep0G7CJe9eQ86jx2yYWJ/SwWm
-	nHoGo2DTufqKjUOS8dlPt0SK2KkZWzX0wD0stycNkDXhuiqMkfug1Kp1/crMIu5D1lO1JAHBmoL
-	5xiHrX0t1ogcjHJ+U7gAmFwQZZ4ykABD2Lh+N2mho4X49GiiOvd8+NHlAo1ZnNQF40LsIUojtTD
-	9hJfrMXbTt2Yhk13b6KSBMeH0syBVDLN5KjTOI7rcl8qgRbndaT+a22w9ZF3f+PXWjd5gTrxFZd
-	85X/+o2TghOo/crDPILjDaBaOZJrQ/N4=
-X-Received: by 2002:a05:6000:2c05:b0:48b:118e:7454 with SMTP id ffacd0b85a97d-48dbaaed0fbmr12464725f8f.31.1791739720893;
-        Sun, 11 Oct 2026 10:28:40 -0700 (PDT)
-Received: from systembl0wer ([2a02:8308:4092:11f0::f9f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db99b800asm14739092f8f.22.2026.10.11.10.28.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 10:28:40 -0700 (PDT)
-Date: Sun, 11 Oct 2026 19:28:38 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Julia Lawall <Julia.Lawall@inria.fr>, Nicolas Palix
- <nicolas.palix@imag.fr>
-Cc: linux-kernel@vger.kernel.org, cocci@inria.fr
-Subject: Re: [PATCH v3] coccinelle: api: add a checker for
- pm_runtime_use_autosuspend() usage
-Message-ID: <20261011192838.4f9a8b44@systembl0wer>
-In-Reply-To: <20260916095616.1394-1-joshua.crofts1@gmail.com>
-References: <20260916095616.1394-1-joshua.crofts1@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="e5i5ed4y"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1BB781682;
+	Sun, 11 Oct 2026 10:28:38 -0700 (PDT)
+Received: from [10.163.146.225] (unknown [10.163.146.225])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 70BF03F673;
+	Sun, 11 Oct 2026 10:28:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791739721; bh=MI7LMwrl97b6i73iVI7u88+57sLGUKgyb2/wfD4KW0A=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=e5i5ed4yeGKLd8XXvpMve9XQf9OE36u6gKWXUn8hs8RNJ8mDOugFUGMY+UJhssT1K
+	 6T7eIoA8lkMm1Cc+GA7VJURQuqfc1NFvwGTmadPfq3XGvamCF7G4dQ+/U4YC/zjMmb
+	 vqlCzDr583JwWnHkFjKYEUCKjtwmlN3W6flfTfrY=
+Message-ID: <55adcc67-e545-4bf5-93ba-7e4180f1b523@arm.com>
+Date: Sun, 11 Oct 2026 22:58:33 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PROTOTYPE] mm: reliable 1GB page allocation
+To: Rik van Riel <riel@surriel.com>, linux-kernel@vger.kernel.org
+Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Kairui Song <kasong@tencent.com>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>
+References: <20261004013657.03a63c4c@fangorn>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <20261004013657.03a63c4c@fangorn>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Wed, 16 Sep 2026 09:56:16 +0000
-Joshua Crofts <joshua.crofts1@gmail.com> wrote:
 
-> Add a checker for ensuring that pm_runtime_dont_use_autosuspend() is
-> called in a file if pm_runtime_use_autosuspend() is called and its
-> devm_* counterpart isn't present.
+
+On 04/10/26 11:06 am, Rik van Riel wrote:
+> The goal of this series is to keep gigantic (1GB) pages allocatable
+> after weeks of uptime, by concentrating non-movable pageblocks in a
+> small number of 1GiB-aligned ranges.
 > 
-> Assisted-by: LLM
-> Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
-> ---
-> Running this in drivers/ yields 195 results, due to
-> pm_runtime_dont_use_autosuspend() not being documented well enough.
+> Design document: https://linux-mm.org/GigaBlocks
 > 
-> Changes in v3:
-> - Remove note about resource leak from commit message
-> - Link to v2: https://lore.kernel.org/lkml/20260915064327.1377-1-joshua.crofts1@gmail.com/
+> Code: https://github.com/rikvanriel/linux/tree/riel/gigablock-2026-10-03
 > 
-> Changes in v2:
-> - Send correct version
-> - Remove unnecessary position variable
-> - Remove metavariable
-> - Link to v1: https://lore.kernel.org/lkml/20260914151145.1328-1-joshua.crofts1@gmail.com/
+> A 1GB page needs a 1GB-aligned range in which every page is free or
+> movable; one unmovable page disqualifies the range.  Over time a small
+> amount of kernel memory spreads across nearly every range.  On a 765GB
+> node after 53 days of build and filesystem work, none of 754 1GB ranges was
+> free of non-movable pageblocks.  On a 253GB test host the same class of
+> workload mixed 251 of 254 ranges in 9.2 hours, and a request for eight
+> 1GB pages returned none.
+> 
+> This series uses the separate free lists for each migrate type
+> in zone->free_area[] in the fast path. The idea is to satisfy kernel
+> allocations from the unmovable and reclaimable free lists, while
+> movable allocations come from the movable free lists.
+> 
+> For each gigablock, the system tracks whether it contains non-movable
+> content, or only free and movable page blocks. A gigablock can contain
+> a mix of non-movable and movable data.
+> 
+> When the kernel free lists run low, the slow path moves pages and page
+> blocks from inside mixed gigablocks onto the kernel free lists.
 
-Hi, you can drop this patch. I have a patch merged that removes the
-need for calling dont_use_autosuspend() on unbind.
+Did you consider a design to introduce MIGRATE_POLLUTED: simply
+have another migratetype which stores polluted pageblocks.
+This idea can work in general, not sure how relevant it is
+for gigablock concept.
 
-https://lore.kernel.org/all/20260919-move-dont-use-autosuspend-v1-1-f6e2d1315c23@gmail.com/
+ >
+> Creating kernel free memory inside mixed superblocks is done
+> by claiming page blocks in a mixed superblock, when the kernel
+> free lists are exhausted, and a non-movable allocation has to
+> fall back, or by compaction evacuating movable content from
+> previously claimed kernel pageblocks that have movable content inside.
+> 
+> Claiming a new pageblock in a mixed superblock is done from the
+> allocator path, using a bounded scan, only once the kernel free
+> list is unable to satisfy an allocation.  Evacuation is done by
+> kcompactd, and kicked off when the kernel free list falls below
+> a watermark.  The goal is for the asynchronous path keep the
+> page allocator on the fast path.
+> 
+> Movable allocations can fall back to the kernel free lists.
+> That content can always be moved later.
+> 
+> Region size is fixed at 1GB rather than PUD size, geometry is frozen
+> at boot, and a hotplug span change disables tracking for the zone rather
+> than resizing metadata.
+> 
+> The diffstat shows that this version adds too much code to page_alloc.c,
+> which is already too large, and should probably be split up somehow.
+> 
+> One candidate in this series is to split the evacuation code and gigablock
+> slow path into its own file, moving that out of both page_alloc.c and
+> compaction.c. 
+> 
+> Duplicating a small amount of compaction logic may be preferable to 
+> complicating the existing logic at this point.
+> 
+> This code is not ready to be merged yet. The full design document has
+> a list of things that still need to be done.
+> 
+> I am posting this in the hopes of getting feedback on the basic design,
+> so that can be incorporated in the next rounds of tuning and cleanups.
+> 
+> Specifically feedback on design concepts like:
+> - Using only zone->free_area by migrate type in the fast path
+> - Moving pages around in the slow path, to keep the kernel free
+>   lists stocked.
+> - Some amount of scanning in the page allocation code if the
+>   kernel free lists cannot satisfy an allocation, in order
+>   to claim a block in a mixed gigablock.
+> - Using compaction to evacuate movable content from pageblocks
+>   claimed for kernel use.
+> - The policy of restricting how much kernel allocations can
+>   claim new pageblocks anywhere.
+> - The policy of letting movable allocations fall back to the
+>   kernel free lists once the movable free list is exhausted
+> 
+>  Documentation/admin-guide/kernel-parameters.txt |    8 
+>  include/linux/mmzone.h                          |   83 
+>  include/linux/pageblock-flags.h                 |    2 
+>  include/linux/sched.h                           |    4 
+>  include/linux/vm_event_item.h                   |   48 
+>  mm/compaction.c                                 |  170 
+>  mm/folio.c                                      |    5 
+>  mm/internal.h                                   |  147 
+>  mm/memory_hotplug.c                             |    3 
+>  mm/mm_init.c                                    |  150 
+>  mm/page_alloc.c                                 | 5553 +++++++++++++++++-------
+>  mm/page_alloc.h                                 |    6 
+>  mm/vmstat.c                                     |  273 +
+>  13 files changed, 5015 insertions(+), 1437 deletions(-)
 
-Thanks.
-
--- 
-Kind regards,
-Joshua Crofts
