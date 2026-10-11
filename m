@@ -1,76 +1,78 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10E9F3A3830
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 11:29:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E866336654F
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 11:31:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791718190; cv=none; b=nmMfDRJQsT0OMuIZFc+juwTFBxIWH1ovOXkaYmD4uKG/wjDM7jkSE5PusZo1RHEN8dWUbhVYEkcLTumbK+SWqspKpLCpNzzm1dWtsmnRP8QEL8+VYNKZYAYW4CZei5upF4yz63FPmWYpM4e09+Zbdtn0a2+SrwYQ7o0yD1bgd9s=
+	t=1791718274; cv=none; b=bQyWiXSZbKnvJb2NwKFtZFYzECI7jr9OeXfY+LBJyNO9oFPTOGZCPNAbaiA7F2Veq6MaaanYHxBv6yi4qd/lUXwYkvKfHQNC/Cl/VHQDbRKpztSMdiRJ3Uun1kqWM5YiZw/RVoctN0f0hWHClwMwp/n/AdP2chP5oPfrmJXzc+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791718190; c=relaxed/simple;
-	bh=gAL8T4h+HBYQA5Bvh/Z/nk8McyOoNQ2RxR8PtExl584=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VDOdOaU+C43if2g9q2IzJd5JhIr9vrMN1jpdIgDf1slMWx617ar7M3obKiINQcZL26siMK6FKmOY7GGQTzh3tIUx6Jp1Vsk18A2hGbnfU3sjaNpinuZxOhoeYPsfKCMPP92env3aC2dxyTAw21zxRHlgx/chqi/IMWnAerYYNwA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bxPInLPx; arc=none smtp.client-ip=209.85.216.46
+	s=arc-20240116; t=1791718274; c=relaxed/simple;
+	bh=nD0Q8trpa2s+VQazA20garhEVQ0h10j/Wd6ISAMY06M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B5y5I7P9Kjg7qc78E5sBhFou3O72saHufT5FCmV2mrYnQmy9sTT3tKDFEZu/JINILOrAoxONb7grMXtM4eeGdYmMvwg+FcK6/atacp8asa9dngiCV/FkDSy0VUQEEfv7GjoM16XdyTskPm1rVzfDeL0xmo72GU43UyO1FlXOAMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ooy8a1ed; arc=none smtp.client-ip=209.85.128.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bxPInLPx"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3a8adb68d8bso711784a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 04:29:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ooy8a1ed"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1698ea378so8248205e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 04:31:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791718186; x=1792322986; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791718271; x=1792323071; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=T8upKFc4zwF7GAlleDsmhpQF6jhE16xCYO/bJ2qmSMQ=;
-        b=bxPInLPxuCoXqW8OGyPwkSTqBNrLxYZfhEsGfVVCw9TOstR1616Yd3gzwSXnhfjh2S
-         EiADYgdJ75re/vQY1tmBCAonr7G1tEMf//HCLL/CcMA0yneLTnvz+MjhSpY6vFr8TKzT
-         tbXPOtSUwy56ixzZLH8HaR5I3Vb5XCma53F/fYGkwuTARHlyWrujC4VWRLqWEyheawWg
-         80JgGjHFnamyKPnxhgPwRXQrlNiHYYTztiSGGolYQbM76NaEStxXSVnBQ3ezOvvcySEs
-         7Rh5F4XIiw8EM/02IgRfLpTIB4YoU7+WrbwKo7a7ZiJmEKEUNCLk5e9XZRor1qpfFdSp
-         uCTg==
+         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EJJ/INsTbIeg+id7HIvFFqETJLWr/g2Eo73Obn7P+RY=;
+        b=ooy8a1eduiKb0kDnF+eunW8vOgkP4eqBQrejKtZ+ciDY7pGNZ/cf6v4zJHsT5rtd6O
+         1043kBHMd5UX+M5cs0Yx62D/Uy5CmPJOYkMicPxn2aUI8qyhKreJ8cecN+InBCTI8V0/
+         UAXK++SH9DN9Od6AKpfFQYcpUvKtRpEm5ReD7BFCe7W/HyvZTWlOSdVbZRsLsJMoB5bK
+         FAl/7iNer9S2dZcFZU+TzUVq8eLUPFgStPdgRLaq7v1IKk+wTj82DnvuIPCN8OTwgOz3
+         QC44jugpUXV+uzHf8X+e6HnSzpR9TRTsWpLhbPTYOFAbSP1BiXvTaZrEegA/meW8nUo1
+         IVEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791718186; x=1792322986;
+        d=1e100.net; s=20260707; t=1791718271; x=1792323071;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=T8upKFc4zwF7GAlleDsmhpQF6jhE16xCYO/bJ2qmSMQ=;
-        b=ugFJmZ1F+aYgVHHbNE3VoeXxH2mMcxXODE8fEvYNl9YI0FDXvr2Zxk5kN46q0sLPD4
-         KlgO8u+37Hqasi+PTPxK8MB1cnHyw7z0lFDbfK6u8QdfnBc6l36f0N44SEpKKMIkgOM1
-         5IcjDHjXcq4ao6bNZ76tdlBprJzrPFDcTV2vmvp1JeQjnr8Csc9qOle17rav/9ylakLC
-         n6ZR3F1Ix5odvAMZxtX6Obcu4NEPQkvwYF8Gff4pIGMUiG9b+5NU24vYIYwM2zDqrAxa
-         x4l09f3mQsepvB68Ct8qWkVARFpfH3G86Tp4kthAh/egHOpO2sXZPGIU0+zJb7CFuSmg
-         I2IA==
-X-Forwarded-Encrypted: i=1; AKwUvBzQVkpz4KJORqyg/akHgzcpdMf/EkXzqaDMtfnxdnEMa2M5Qs3bjgVmp1akkR6gZGsr95mB1gXnaGxfk5Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIj/EQJ7BPegQ+MMyRSBtg1zBN8gkFdWOIKzBHolT+cnmMBXtPK
-	vO8oylJJB6KaHsnKZ96BMTsX+8rE7IHeRH3GtNzjD8x37tgHxpt6M/Cr
-X-Gm-Gg: AYBFou173LfPWI1lryEz22u6StEoM3AsYj7v0JPMpcEd/3RkzxMLV4gxO/7y37RBq5Q
-	S8xMiba2WKpbGgAJSuZw3/idOxD5rIP0cY1/pwMPU6HvUFGgtH+ftdCtE5A6mRXLpcij9X4AGEz
-	c0wk7M/0yQPhoDFz9STCupfCUBnNXjbrfBeXoorJRuZccGCGoVgxZcdCPUU012drwKqVj4zNKtK
-	FZahsLPOhCQ6sY8H2qeLCIkmYWSLcmC4bZWTo+Bx9gT84H/GkLywPvbrhF7zBC8piNT0KlrG7D5
-	Uj6/8HlEkNEEp7KMHtyz2frdKLK6hcrN8ifQyIrH2hEIa6FDzHiJpmR+oWBbVcTwaTVcf8J9mBt
-	yvbli5xPHW7/Oh64EdBJzNKXnKwIvvXxZ1aFZrjIulq0yqKP/b2n+JI4Z4HyfcHG0Rp1wQ3qa9E
-	OaDYWFeJNSb/X7vm6F92Dvz1OfsVom7kt1ZjNkft19fRapD1csTN/42134scXj1dUOx77hJAoH
-X-Received: by 2002:a17:90a:d2c7:b0:39d:f4a8:75ef with SMTP id 98e67ed59e1d1-3ab3a33da74mr5986183a91.1.1791718186275;
-        Sun, 11 Oct 2026 04:29:46 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2a09:bac5:d45a:16c8::245:79])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab397920b4sm6957832a91.4.2026.10.11.04.29.43
+        bh=EJJ/INsTbIeg+id7HIvFFqETJLWr/g2Eo73Obn7P+RY=;
+        b=sFu09DHwwUCQyNpLhtLSqNEbQ1+gF4jJNXQCCyYnR29Ss7IothsCnUpc5Tlj8U8b6W
+         kJn16oWZTxF+HCqay8/44fYtHwH5loxqRdPJ5ERS6qwpbAfTv6zvoaXsOptSINaln2gP
+         aHJogGWfcMDKF9CrFI3MUZ546qoXs/UL3gEcMoZz1qHl0dPzj2vdScY8RDa3CvUThv9Z
+         sdsYEqjP/ag8qwi9pb7N6aYzYeNyWnTwtgY6Y3QiHiWPLGZtVEPdAt07TtJw1EbIMtcm
+         e0I9rpoyhHqvEIWL9N7lI9uZYxH23dG0zjO2jA+WV2gftaP++ruR46kcOvzh9bSGk+6N
+         DNlg==
+X-Forwarded-Encrypted: i=1; AKwUvBwgOHaIlC6kZMzvWxu5+TFP3XxHfkH7Hq4a0DodD87fxT+ci8XCPwJZWOvCD7G/urSITlSbdgvT7EsgNA0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJCm0H7sC1e1auNorkif0QO66LKEf/65L2m1H05IT3aV0LAM6gv
+	l1EXiJ6aL3SlYvsIcwH2HUAn/NmKfxsjpVeZMk2XUuvlYMAdW5zcPMhr
+X-Gm-Gg: AYBFou0WvdJOYh5NK/KMSBvAHS9SREr6MNbjKEV6c4G1bC38Tf5HHo1xt0+XI66Wbhv
+	YcGzFU+ENu0ArPcgEy5BFuz1VUrWP8/DLoe4qTuNYQYq65rrY6lBOVc0Qq4F3rFUS20w3n9JxYe
+	IBFK90W7y4qm5vh9kfwY1r07Vw2qcIWoLjkP6/e21bLKzB1pqzGc5UNtZTEpNzqN9jNYxw5hjVH
+	b681rDv309Z7U4DgBR+tiqZWjHk6givPygSlzMuKhiyc8fEoMUk84lUIcXCoauutuypLIfp/Dbb
+	B1Mk55L4wvEJOcb0j3+YwGgAUJJYVPRISAa5XyydSspxOLDocubmhgriUEXzOduRZyFfe8i1CCQ
+	vTHtbAxLxWo/jLmGNuO4hVwAvOqCx5J7zUHIGN38mgZmvtAILpuJElZyTAVhpkaXGyeQqFfBmpD
+	5SdCNjKL6MVqnBRwPtNfjkv4PmphBcem9dmX99afDlk1ebzIJXvleVQZJy9TjS4FI1DfePuXvMH
+	o1W7vskLcnQTXcnARyhudhYJVqY/v0=
+X-Received: by 2002:a05:600d:6409:10b0:4a1:96cd:2f6e with SMTP id 5b1f17b1804b1-4a196cd3213mr35135595e9.4.1791718270878;
+        Sun, 11 Oct 2026 04:31:10 -0700 (PDT)
+Received: from nixos-office ([81.0.251.149])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bea0f1csm305044035e9.9.2026.10.11.04.31.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 04:29:45 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Matthew Wilcox <willy@infradead.org>,
-	Jan Kara <jack@suse.cz>,
-	Jens Axboe <axboe@kernel.dk>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	linux-mm@kvack.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-block@vger.kernel.org,
+        Sun, 11 Oct 2026 04:31:10 -0700 (PDT)
+Sender: Julian Braha <julian.braha@gmail.com>
+From: Julian Braha <julianbraha@gmail.com>
+To: maddy@linux.ibm.com
+Cc: mpe@ellerman.id.au,
+	npiggin@gmail.com,
+	chleroy@kernel.org,
+	ritesh.list@gmail.com,
+	sshegde@linux.ibm.com,
+	linuxppc-dev@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	syzbot+e0624b5bf72b99131402@syzkaller.appspotmail.com
-Subject: [PATCH] mm/filemap: mark lockless accesses to mapping->nrpages
-Date: Sun, 11 Oct 2026 18:29:40 +0700
-Message-ID: <20261011112940.455497-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Julian Braha <julianbraha@gmail.com>
+Subject: [PATCH] powerpc/Kconfig: limit the PPC_85xx DATA_SHIFT range to STRICT_KERNEL_RWX
+Date: Sun, 11 Oct 2026 12:31:08 +0100
+Message-ID: <20261011113108.539470-1-julianbraha@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,90 +81,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mapping->nrpages is updated under the i_pages lock but is read locklessly
-as a cheap "anything cached?" hint, e.g. in invalidate_bdev() and
-mapping_needs_writeback(). KCSAN reports the race:
+On PPC_85xx, enabling DEBUG_PAGEALLOC without STRICT_KERNEL_RWX activates
+the DATA_SHIFT range of 20..24, but since the PAGE_SHIFT default is
+outside the range (12), kconfig adjusts it to 20, causing 1mb alignment
+instead of 4kb. However, the larger alignment is only needed for the
+separate kernel permissions provided by STRICT_KERNEL_RWX.
 
-  BUG: KCSAN: data-race in __filemap_add_folio / invalidate_bdev
+Since PPC_85xx uses page poisoning for DEBUG_PAGEALLOC and does not
+support KFENCE, let's restrict this range to STRICT_KERNEL_RWX.
 
-  read-write to 0xffff8881004c4178 of 8 bytes by task 3600 on cpu 0:
-   __filemap_add_folio+0x6b7/0x910 mm/filemap.c:919
-   filemap_add_folio+0x1cd/0x380
-   page_cache_ra_unbounded+0x1a4/0x3a0
-   ...
-   blkdev_read_iter+0x21e/0x2d0
-  read to 0xffff8881004c4178 of 8 bytes by task 3601 on cpu 1:
-   invalidate_bdev+0x25/0x70 block/bdev.c:98
-   ext4_fill_super+0x2ccb/0x37b0
+This out-of-range default was detected by kconfirm, a static analysis tool
+for Kconfig.
 
-The same counter also races with filemap_write_and_wait_range() through
-mapping_needs_writeback().
-
-The race is benign: a stale value only makes the caller do or skip a
-harmless invalidate/flush pass. Annotate the readers with READ_ONCE() and
-the writers in filemap with WRITE_ONCE().
-
-Reported-by: syzbot+e0624b5bf72b99131402@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=e0624b5bf72b99131402
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Signed-off-by: Julian Braha <julianbraha@gmail.com>
 ---
- block/bdev.c | 2 +-
- mm/filemap.c | 8 ++++----
- 2 files changed, 5 insertions(+), 5 deletions(-)
+ arch/powerpc/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/block/bdev.c b/block/bdev.c
-index cd8323083740..d97071160e86 100644
---- a/block/bdev.c
-+++ b/block/bdev.c
-@@ -95,7 +95,7 @@ void invalidate_bdev(struct block_device *bdev)
- {
- 	struct address_space *mapping = bdev->bd_mapping;
- 
--	if (mapping->nrpages) {
-+	if (READ_ONCE(mapping->nrpages)) {
- 		invalidate_bh_lrus();
- 		lru_add_drain_all();	/* make sure all lru add caches are flushed */
- 		invalidate_mapping_pages(mapping, 0, -1);
-diff --git a/mm/filemap.c b/mm/filemap.c
-index 00fd89cf6f55..007fe10b2e1d 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -144,7 +144,7 @@ static void page_cache_delete(struct address_space *mapping,
- 
- 	folio->mapping = NULL;
- 	/* Leave folio->index set: truncation lookup relies upon it */
--	mapping->nrpages -= nr;
-+	WRITE_ONCE(mapping->nrpages, mapping->nrpages - nr);
- }
- 
- static void filemap_unaccount_folio(struct address_space *mapping,
-@@ -314,7 +314,7 @@ static void page_cache_delete_batch(struct address_space *mapping,
- 		xas_store(&xas, NULL);
- 		total_pages += folio_nr_pages(folio);
- 	}
--	mapping->nrpages -= total_pages;
-+	WRITE_ONCE(mapping->nrpages, mapping->nrpages - total_pages);
- }
- 
- void delete_from_page_cache_batch(struct address_space *mapping,
-@@ -631,7 +631,7 @@ EXPORT_SYMBOL(filemap_fdatawait_keep_errors);
- /* Returns true if writeback might be needed or already in progress. */
- static bool mapping_needs_writeback(struct address_space *mapping)
- {
--	return mapping->nrpages;
-+	return READ_ONCE(mapping->nrpages);
- }
- 
- bool filemap_range_has_writeback(struct address_space *mapping,
-@@ -916,7 +916,7 @@ noinline int __filemap_add_folio(struct address_space *mapping,
- 		if (xas_error(&xas))
- 			goto unlock;
- 
--		mapping->nrpages += nr;
-+		WRITE_ONCE(mapping->nrpages, mapping->nrpages + nr);
- 
- 		/* hugetlb pages do not participate in page cache accounting */
- 		if (!huge) {
+diff --git a/arch/powerpc/Kconfig b/arch/powerpc/Kconfig
+index c3b6cd655606..5e2a4799438d 100644
+--- a/arch/powerpc/Kconfig
++++ b/arch/powerpc/Kconfig
+@@ -896,7 +896,7 @@ config DATA_SHIFT
+ 	default 24 if STRICT_KERNEL_RWX && PPC64
+ 	range 17 28 if (STRICT_KERNEL_RWX || DEBUG_PAGEALLOC || KFENCE) && PPC_BOOK3S_32
+ 	range 14 23 if (STRICT_KERNEL_RWX || DEBUG_PAGEALLOC || KFENCE) && PPC_8xx
+-	range 20 24 if (STRICT_KERNEL_RWX || DEBUG_PAGEALLOC || KFENCE) && PPC_85xx
++	range 20 24 if STRICT_KERNEL_RWX && PPC_85xx
+ 	default 22 if STRICT_KERNEL_RWX && PPC_BOOK3S_32
+ 	default 18 if (DEBUG_PAGEALLOC || KFENCE) && PPC_BOOK3S_32
+ 	default 23 if (STRICT_KERNEL_RWX || DEBUG_PAGEALLOC || KFENCE) && PPC_8xx && \
 -- 
-2.43.0
+2.55.0
 
