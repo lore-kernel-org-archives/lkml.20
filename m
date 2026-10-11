@@ -1,248 +1,91 @@
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9380C2DCF57
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 17:05:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB2FE23ED6A;
+	Sun, 11 Oct 2026 17:11:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791738359; cv=none; b=DHv5oav/N81aeDjLTPTBg/EOc5d/WqRa/fKIJJ3P0r4sfCv9ccEY+3mDVdg/YFmfDM51qxFlWQQCGgK/KOUUpUi6zCIdv3dS/Kx1LPZLpLVULWnGvuJJb6d2M2MEoT6w9InLjqKV+cJSuKUfO2wUs2l2OctC6zm+v81DVJdNqFo=
+	t=1791738720; cv=none; b=Kf/icvwUckW/UDqBL4U5dsYjbxCiKfJVT8Vpqcm8hOAzSkeA6nuR+D59Hb+32I4HYCLnOCMKIHimR1l39ix04ZzhXBkgnwAE3quwqJVLdLSL2X3wKqazSO9iI4Z00xt/2rOehg/cvxjStdb4XN100fYnh8acvmUrIiDp9tEifd8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791738359; c=relaxed/simple;
-	bh=8RZYaChaQ8LIw075ZN/N4BME0t7hJ3ZBejvx4QGteP0=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=KQQWGuPNrVTKAYdb/FspHeceOT2h7SE6EbPI9gYgiUDvQuoEUOOTEitROEnmevd5dJ0XBTkBJipSdXHAykx2Yf6kHSaVly3bWfKxMTX6dqcNpzLL6uZFz6qmfAEwaBpCbsI3r+i3jC6mqYTI2gxuCgShDCTzhsZjwy8ki+0o61c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U078sj+g; arc=none smtp.client-ip=74.125.82.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791738720; c=relaxed/simple;
+	bh=oyDBxZS+LvhyzScug2ls846IS3pqP/GArQEKPFYIf4Y=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ITM5KR8JrxVB01atU0a/78EtmtxErfZReY818W9fyl+pUGV2qdizbd7CyvIvQcRgyuOArlGGg78BB3Sg0ZW9YnrGG91favmxNp9Ps0WTeHqERVz2TC+V22dFXfCMuqvi9AwY4BYU61RZou6AbyeXXatQKdvc0i2gvpQmVPU/UUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ji9ME9+v; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U078sj+g"
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-33e6279a1d7so792272eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 10:05:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791738356; x=1792343156; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Pm3Wa1Z7MFnj1XbAx62ycxvPc+ZoCJq/e+x0Bt4y5cc=;
-        b=U078sj+gpRsaBim91b/1mRHFfRI00da/mm5AFlyGDRi/py6wYT10EsTjrK3bNpmyK5
-         maSJ0vbwvzvfPkUwFKa2FbwSzmgGStAZcV15YYPxPNVtGqKL66eZyE+dlgIFb5S1nVxX
-         dxBw4WuWLo8LDtTW/4PvAceoe4v/dkHiosxCZK3yIe7RD4j4YYAftozbYQz2yV2BuGgV
-         fagRhTOTc746ofhqnK7GcYNw+NhkZc8VwMiWyeIYoaLC9kzmicQNGnzJsVvY+o9fOC1l
-         M6OmmLoeLE4JVRpnwBLiDlV6Ah1Vojihd6R3Dyi5fSN0a/OY+Au7VXCNq7Xl8u/xokMK
-         +SXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791738356; x=1792343156;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Pm3Wa1Z7MFnj1XbAx62ycxvPc+ZoCJq/e+x0Bt4y5cc=;
-        b=zARrS4iF50gOpG4yFZmwI3eynbth/5Yo0b35yyWYPPeBqUP2YOqBMStis0f7wbodr6
-         eyHkY4snx9HiilIql2xXokUqBlK/j1n1BqcZSifMJqYn2FG7Vgl5RFykPxyPnYGuaPng
-         9Xxe5Lz8KEbvZQWbh0UneiFr5afVeNNSAzs+tqm09pYDD5w+OIFfu0+50jOfcMRJte6M
-         O0Tc7qijpamIekJz0LGfy3kRdExAv3x7H/yBymCi7sJABJ2G/zSayW0GUnvm1eKr4n5o
-         4lwz/fzyWtf3ulwAkAaTd2VT6z0+qeFf23M4gRbeuGQ2qaDJk1pwqPaBYGu2iWyfFMTa
-         4DYA==
-X-Gm-Message-State: AFq9FYKSv+P02Meqdzm/7NqoE2mqlV/ymARd1XrCDoVq2UjDnQZLDJZL
-	cvAZdHAnW4VrBQ9LHWwTf0nrssITk9v37+W79A6bYq/ABFFv5LWdLhR3
-X-Gm-Gg: AYBFou1bVnropaS8Hzq2MGbaYBOvi6wlckI3H6kogRqKk1B/ASkplpgFCKwJIO0wWC9
-	LCTqDElD4/JDW24jaI1YJYU491/C6AUDKje+1xsX6GmTsrg0of7rYHNpCBjEaBoDJTDt+JAzXCP
-	0gSHiGKenrxrFWNGLPs2TlU0gaqWlgsLaoxjwNOrCC1YvkVdSU7vMVwdJ7Fkrg9aD6vdNSAS5I0
-	6ZmlEuXK0nVoWg/kfciKEo8U+WjB+miyKvgtdNdfn0wyWik+8VY/BVbcw2IxjdzIkYIYzCEP4u8
-	OSy7yFLeDv00KqFbW0KGu0U/rnOWsb6uLhwv5UvjQcXGzwhzDx+vHIFrrK1Nf+eX9u5vVh5vY1g
-	uLrxSnO+fR7IqMdZc5wtcgO3w5uiclS3KWk+kM7XHKlt1DDz6DdPbJ6Y6ZqBGWaDiXjKarY5uH8
-	I1JHA4nqSnMaJrF50rUxm8BV/kW+edCRHXISvCFoZh8qEj7BzcLJs/AN/Y2O4mhmDU8re/
-X-Received: by 2002:a05:7301:700d:b0:35a:22a4:12d with SMTP id 5a478bee46e88-35a22a420d3mr1805689eec.25.1791738355205;
-        Sun, 11 Oct 2026 10:05:55 -0700 (PDT)
-Received: from gmail.com ([154.91.42.88])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35a352d4b05sm4619130eec.19.2026.10.11.10.05.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 10:05:54 -0700 (PDT)
-Date: Sun, 11 Oct 2026 17:05:49 +0000
-From: Zuo An <zuoan.penguin@gmail.com>
-To: linux-kbuild@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, Julian Braha <julianbraha@gmail.com>, 
-	Randy Dunlap <rdunlap@infradead.org>, Nathan Chancellor <nathan@kernel.org>, 
-	Nicolas Schier <nsc@kernel.org>
-Subject: [PATCH v3] kconfig: show number of search results in search UI
-Message-ID: <asvB7fchdB8lUkMc@gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ji9ME9+v"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:Message-ID:From:To:Subject:MIME-Version:
+	Content-Type; bh=oyDBxZS+LvhyzScug2ls846IS3pqP/GArQEKPFYIf4Y=;
+	b=ji9ME9+vgAj1xa2qc/GVU/ooFBwr4JYgdnIlzr5Ch+eEJxFWQ8NNjm0UWvnbEt
+	qjwPfVxkfmJB+66P57qiMoudSNAyEzBVn4UUPb6t27wvwrtmN+8ToR4QtKp5mVQV
+	pN9QnRteyMMZJvPU/kEGhaZusPoNCowXThY+rqHd/AUG0=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3L77awstqK5YCEA--.1926S2;
+	Mon, 12 Oct 2026 01:09:48 +0800 (CST)
+Date: Mon, 12 Oct 2026 02:09:46 +0900
+Message-ID: <d4c69652718677b25a157eef31552bad@163.com>
+From: Hui Su <sh_def@163.com>
+To: Andrea Righi <arighi@nvidia.com>
+Cc: tj@kernel.org,
+	void@manifault.com,
+	changwoo@igalia.com,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] sched_ext: idle: Respect task affinity in restricted CPU selection
+In-Reply-To: <asufkdwCQvilJEqr@gpd4>
+References: <20261011025256.4180374-1-sh_def@163.com>
+	<ass0dexwariQCOtC@gpd4>
+	<20261011131700.1351541-1-sh_def@163.com>
+	<asufkdwCQvilJEqr@gpd4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3L77awstqK5YCEA--.1926S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWrtr4rCry8Jr1UGF4UAr45trb_yoWxuFgE93
+	sFg3sxXw10yFs3uFs7CF109FWUZFZF9Fy5u3yjgF93u34kGFZ8Wr4kJF1F9a4Fk3yrAr45
+	Jrs5Ja4fCFn09jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU1qg4PUUUUU==
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwhx11GrLwtz1LAAA3Z
 
-When searching for config symbols, the search results popup
-will now display a count of the results in the title bar,
-e.g. "Search Results (42)". This helps the user to gauge the
-number of matches quickly and refine their search if necessary,
-instead of having to scroll down by an indefinite amount (especially
-for nconfig's UI).
+Hi Andrea,
 
-Signed-off-by: Zuo An <zuoan.penguin@gmail.com>
----
-Changes in v3:
-- Fixed wrong subject line
+> Sorry, I suggested this, but I just realized that we break
+> SCX_PICK_IDLE_IN_NODE if we do this. What if we factor the check with
+> an helper?
 
-Changes in v2:
-- Addressed Sashiko review concerns (thanks Julian!)
-- Fixed window title overflow in nconfig when no results are found
+Good catch. You're right that deriving the candidate from task state also
+needs to preserve the SCX_PICK_IDLE_IN_NODE constraint.
 
-v1: https://lore.kernel.org/linux-kbuild/aspVmnam3QL_DRYV@gmail.com/
-v2: https://lore.kernel.org/linux-kbuild/asvAfbLwV0lZBbyM@gmail.com/
+I'll factor the restricted path into a helper along the lines you
+suggested, with the candidate derived from task state first, followed by
+the task-affinity, caller-mask, and node checks before consuming the idle
+bit.
 
- scripts/kconfig/lkc_proto.h |  2 +-
- scripts/kconfig/mconf.c     | 11 +++++++++--
- scripts/kconfig/nconf.c     | 11 +++++++++--
- scripts/kconfig/nconf.gui.c |  2 +-
- scripts/kconfig/qconf.cc    |  2 +-
- scripts/kconfig/symbol.c    |  4 +++-
- 6 files changed, 24 insertions(+), 8 deletions(-)
+I'll also add focused validation for the cross-node case and send a v3.
 
-diff --git a/scripts/kconfig/lkc_proto.h b/scripts/kconfig/lkc_proto.h
-index 8914b4e8f2a8..224acc142769 100644
---- a/scripts/kconfig/lkc_proto.h
-+++ b/scripts/kconfig/lkc_proto.h
-@@ -21,7 +21,7 @@ bool conf_errors(void);
- struct symbol * sym_lookup(const char *name, int flags);
- struct symbol * sym_find(const char *name);
- void print_symbol_for_listconfig(struct symbol *sym);
--struct symbol ** sym_re_search(const char *pattern);
-+struct symbol ** sym_re_search(const char *pattern, int *sym_cnt);
- const char * sym_type_name(enum symbol_type type);
- void sym_calc_value(struct symbol *sym);
- bool sym_dep_errors(void);
-diff --git a/scripts/kconfig/mconf.c b/scripts/kconfig/mconf.c
-index b8b7bba84a65..ebfc5bd09c1c 100644
---- a/scripts/kconfig/mconf.c
-+++ b/scripts/kconfig/mconf.c
-@@ -384,8 +384,10 @@ static void show_help(struct menu *menu)
- static void search_conf(void)
- {
- 	struct symbol **sym_arr;
-+	int sym_cnt = 0;
- 	struct gstr res;
- 	struct gstr title;
-+	struct gstr res_title;
- 	char *dialog_input;
- 	int dres, vscroll = 0, hscroll = 0;
- 	bool again;
-@@ -422,7 +424,7 @@ static void search_conf(void)
- 	stpart.text = str_get(&sttext);
- 	list_add_tail(&stpart.entries, &trail);
- 
--	sym_arr = sym_re_search(dialog_input);
-+	sym_arr = sym_re_search(dialog_input, &sym_cnt);
- 	do {
- 		LIST_HEAD(head);
- 		struct search_data data = {
-@@ -433,9 +435,14 @@ static void search_conf(void)
- 		jump_key_char = 0;
- 		res = get_relations_str(sym_arr, &head);
- 		set_subtitle();
--		dres = show_textbox_ext("Search Results", str_get(&res), 0, 0,
-+
-+		res_title = str_new();
-+		str_printf(&res_title, "Search Results (%d)", sym_cnt);
-+		dres = show_textbox_ext(str_get(&res_title), str_get(&res), 0, 0,
- 					&vscroll, &hscroll,
- 					handle_search_keys, &data);
-+		str_free(&res_title);
-+
- 		again = false;
- 		if (dres >= '1' && dres <= '9') {
- 			assert(data.target != NULL);
-diff --git a/scripts/kconfig/nconf.c b/scripts/kconfig/nconf.c
-index 521700ed7152..4c9c4ee7c3a7 100644
---- a/scripts/kconfig/nconf.c
-+++ b/scripts/kconfig/nconf.c
-@@ -700,8 +700,10 @@ static int do_exit(void)
- static void search_conf(void)
- {
- 	struct symbol **sym_arr;
-+	int sym_cnt = 0;
- 	struct gstr res;
- 	struct gstr title;
-+	struct gstr res_title;
- 	char *dialog_input;
- 	int dres, vscroll = 0, hscroll = 0;
- 	bool again;
-@@ -732,7 +734,7 @@ static void search_conf(void)
- 	if (strncasecmp(dialog_input_result, CONFIG_, strlen(CONFIG_)) == 0)
- 		dialog_input += strlen(CONFIG_);
- 
--	sym_arr = sym_re_search(dialog_input);
-+	sym_arr = sym_re_search(dialog_input, &sym_cnt);
- 
- 	do {
- 		LIST_HEAD(head);
-@@ -742,10 +744,15 @@ static void search_conf(void)
- 		};
- 		jump_key_char = 0;
- 		res = get_relations_str(sym_arr, &head);
-+
-+		res_title = str_new();
-+		str_printf(&res_title, "Search Results (%d)", sym_cnt);
- 		dres = show_scroll_win_ext(main_window,
--				"Search Results", str_get(&res),
-+				str_get(&res_title), str_get(&res),
- 				&vscroll, &hscroll,
- 				handle_search_keys, &data);
-+		str_free(&res_title);
-+
- 		again = false;
- 		if (dres >= '1' && dres <= '9') {
- 			assert(data.target != NULL);
-diff --git a/scripts/kconfig/nconf.gui.c b/scripts/kconfig/nconf.gui.c
-index 2d097bc7ef1a..5900eba0a512 100644
---- a/scripts/kconfig/nconf.gui.c
-+++ b/scripts/kconfig/nconf.gui.c
-@@ -523,7 +523,7 @@ int show_scroll_win_ext(WINDOW *main_window, const char *title, char *text,
- 	int x, y, lines, columns;
- 	int start_x = 0, start_y = 0;
- 	int text_lines = 0, text_cols = 0;
--	int total_cols = 0;
-+	int total_cols = get_line_length(title) + 4;
- 	int win_cols = 0;
- 	int win_lines = 0;
- 	int i = 0;
-diff --git a/scripts/kconfig/qconf.cc b/scripts/kconfig/qconf.cc
-index b02ead7a3f98..8f51dc55226d 100644
---- a/scripts/kconfig/qconf.cc
-+++ b/scripts/kconfig/qconf.cc
-@@ -1245,7 +1245,7 @@ void ConfigSearchWindow::search(void)
- 	list->clear();
- 	info->clear();
- 
--	result = sym_re_search(editField->text().toLatin1());
-+	result = sym_re_search(editField->text().toLatin1(), nullptr);
- 	if (!result)
- 		return;
- 	for (p = result; *p; p++) {
-diff --git a/scripts/kconfig/symbol.c b/scripts/kconfig/symbol.c
-index 7e81b3676ee9..31f927bd563a 100644
---- a/scripts/kconfig/symbol.c
-+++ b/scripts/kconfig/symbol.c
-@@ -1020,7 +1020,7 @@ static int sym_rel_comp(const void *sym1, const void *sym2)
- 	return strcmp(s1->sym->name, s2->sym->name);
- }
- 
--struct symbol **sym_re_search(const char *pattern)
-+struct symbol **sym_re_search(const char *pattern, int *sym_cnt)
- {
- 	struct symbol *sym, **sym_arr = NULL;
- 	struct sym_match *sym_match_arr = NULL;
-@@ -1065,6 +1065,8 @@ struct symbol **sym_re_search(const char *pattern)
- 			sym_arr[i] = sym_match_arr[i].sym;
- 		sym_arr[cnt] = NULL;
- 	}
-+	if (sym_cnt)
-+		*sym_cnt = cnt;
- sym_re_search_free:
- 	/* sym_match_arr can be NULL if no match, but free(NULL) is OK */
- 	free(sym_match_arr);
--- 
-2.56.0
+I'll keep SCX_PICK_IDLE_CORE handling as a separate follow-up rather than
+mixing it into this fix.
+
+Thanks,
+Hui
 
