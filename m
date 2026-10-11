@@ -1,79 +1,40 @@
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 178AF42050
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 05:13:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70E7342050;
+	Sun, 11 Oct 2026 05:14:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791695626; cv=none; b=rRonXAISyPJZ+VcW9iXFkRg4nBX1U7wZz0knIT9usgoEgNLsL/Pq7mhF9zzwl16ImJGtlak5vH8ZzIDOoVRXyaGsS0zj7H4X78vjx1DUuGL/o2IwFbnSWeYbIKWUArllpPZNLiDUNPsYY6QD351ayAdZYqbEe5NWDRYWSOlByrM=
+	t=1791695687; cv=none; b=gJp3bi93Xf7roEkc6wy+W/cwyC7c4uvegiDQVys0Hj0CmuTw2iFsVrSG2m9pGA+ubB7cfzojOfjArkvXuasHR2MuKSA7twYad2fMGRsyogPIOo0GarLZ909goJZuX9bJkgc0yuFFeGaT3uJE89mex/JhwIBhKr1XSkjOyKN1CXw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791695626; c=relaxed/simple;
-	bh=yjj+GEMBuBRVvavplchcH8uaXDQxZ2w7EtUDess9Elc=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Disposition; b=uyknBHuaRxCqoZS9ShvirleArb9WrfC3fSFMqC2fsZmxzLIRMJqxU55dxmLqHxb6nsGvZQ/hZ06sSBmv7HAlTkSesYd3IMEnpHQFYFmhswJQz0GCarvKvlAyhEOIrvSBAs315dd0biwxt7fWt+UmNB3nLBNKY8djkgBR/CnKJpM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mivFBBm9; arc=none smtp.client-ip=74.125.82.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791695687; c=relaxed/simple;
+	bh=bsPc9QZnewzUoPnsbu1Wtsbg1fjQ9+m8MYzYIbtWTpQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FuxUIWPm2pUEs671vtY0bbVubix439Bi/lErGnVUE7OBcaUFApfNWnl5Q/ALiRpWUSLWUH/SPVmt7ufekZMUX3gaw66Gv62ZdxKs7nWKkb9n/huxNF/93rWnJhpCPyEmzO9aHtbOSLoTKy8n9TOXFl6jpqecdVyybB46pHvTtWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mQdeUDEr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mivFBBm9"
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3550c917fd3so1390564eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 22:13:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791695624; x=1792300424; darn=vger.kernel.org;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jGwiSM6Jw7fQY0scgIdwmNx4g3Nb53u28uyWu2p6TTo=;
-        b=mivFBBm9fSwc0/j757Fw9E4ROGNYoaFrsrwXW1kuvn7HPvPunacD+Cv2h9uU9srizw
-         tQ2j5tZnMU7JZ5NAgarhBBfPmL06/FMMRxEILEDXFwBWV09sY/wdFZugC7X6AU2sVbvl
-         UtE5wet1Oslo3L7A6EpfgPmTn5Y2VhIHlNN+A8/EdbOodg35JIbL8JNAxPnotvxwGy+Y
-         ln5JVxChpYz9HKqK7kfF7c/o6FXN7KSscVZZpNgFR12qsKw8HFRGyo5ip0f9NL/pq3/G
-         h91SS/+lwerZawVgmkIR3bWHdq7QunmILHHi7c8BrjyZuhRF9wvcdTJziNMm8i1o5Or8
-         RnCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791695624; x=1792300424;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=jGwiSM6Jw7fQY0scgIdwmNx4g3Nb53u28uyWu2p6TTo=;
-        b=R65cPgKInk7yAaQBOQLpjnUdYeVb1guqAgHYimZALIzHh7w+4RFRGIzMURo474bD8E
-         c9K54/SzJqo+6NoqptdTQT3UTDEpAdK9CQLm39lDyu7Dh8ABgy+jnEo5+x0p8yg0CXC7
-         OeuqdLF3JeOPpj+moFRfZC8psiPCny48WNAhmTnLFP5pR2cJeWDBarLN0Ex8S1G+hxGy
-         6sUvxiWvmW7RUfjge2s1jIXsL63C/HpagobhIXbvfZ48pblVKYTwAqtLhEOEnIs+3x9D
-         0hyWmIVW71je5q/eQSelelUVUMmW/qSsR4iX2JrmhYirTMKKhlpFGHmban/DwVUR2aza
-         ABFg==
-X-Forwarded-Encrypted: i=1; AKwUvBze4MdTeVOfIpp43YIclHWKWWi2fQAninBLLBu3ew4A5HPTcZd/3wE6u1I3pwZEg7PWrx/fSXfc4/tkwPk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJyV119WkqM3x3ydvg1kBC2MbvjcWdLh50rALy6jYKtRpyebyYn
-	9wzpbkCwCOPn2vek1boWw7ebymTgwd0ls/+TuB0Qj3lMEEFqluPWMu6c
-X-Gm-Gg: AYBFou3Qwu/oH+/Yl63qtcTilO5usNP0Ct0pTbRm7cggeVZSKZ7hVStsXTUb8SIL1Hf
-	X6QYbBXphRJ04AAuimiNdSWCwkMTheH/iuDUP9WUWKmqrS8MPsiQsprz8gjDef0ybnqsYYOgrcO
-	BPOfHDeB9JgMnHhQLINtNeJXiHE1rvjF9pbsWrpk5ZYIkl9p+v00apmkw1Dhp89qMDS3tVGP5hJ
-	9iWUB0hvawm/PyQRlVvTAAb2Cn07txKsxYCB0BcqrrYS0yibNNvO10MFqhZVtuur5o5ClEs/iYN
-	7vsZZI4Itr/R1KzrlrWsZ/fci/dkLMyGSeqhA4+vZHt8ULEXEeFfVxavglRjC/fDC47h/EW2B2X
-	0W/d8K8kr5+9elgveGMhQk221Sze52r12YoIam+DAsWXzgrCb8a4SbHXXsTBIwrSSdd2G3ApGgr
-	Ha4HjcZOeiPmaPw5/sOhS30LpigxBv9hbwLsJBmXFoBwhW6R5B430v1GXedI4RGsiZU6OErZ3E8
-	Xc9ze0JGvTNrpFx9DYXC5NvkfQ+SuvgiIdG5saQcgM6e2fbiQ==
-X-Received: by 2002:a05:701b:205c:10b0:149:49c:233 with SMTP id a92af1059eb24-16a60811394mr8606020c88.27.1791695623826;
-        Sat, 10 Oct 2026 22:13:43 -0700 (PDT)
-Received: from localhost ([2a00:79e0:2ebe:8:99d7:6eb1:9874:c6be])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a1becf08sm20632400c88.5.2026.10.10.22.13.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 22:13:43 -0700 (PDT)
-Date: Sat, 10 Oct 2026 22:13:41 -0700
-Message-ID: <30c56291bac612db47c6ced73dff739f@gmail.com>
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Miotsuki Mizuno <founder@crepuse.com>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Icenowy Zheng <icenowy@aosc.io>,
-	"linux-input@vger.kernel.org" <linux-input@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 2/3] dt-bindings: input: touchscreen: add Nsiway NS2009
-In-Reply-To: <20261009144729.85832-3-founder@crepuse.com>
-References: <20261009144729.85832-1-founder@crepuse.com> <20261009144729.85832-3-founder@crepuse.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mQdeUDEr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ACD31F0089B;
+	Sun, 11 Oct 2026 05:14:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791695685;
+	bh=TzoMVDcB05PDAodT4NS5etr03uij9sNOO9aVLbmXwmQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mQdeUDEreLJAcMywzBFLqzRPs6754S1vf6art6JIe7F4rd6F+PcWm+gbTM/1zg4Yx
+	 ztqQU6deTdXhDSTBB5iapelEUhla7cvfn19lhj8Dp8BODJz4mHLDHVE8DvCYhfDyVY
+	 ZClxDTpKdzbwilGyMB6fUF9NREMeJKmtPEMhiRMc=
+Date: Sun, 11 Oct 2026 07:14:39 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Cc: Kuen-Han Tsai <khtsai@google.com>,
+	Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>,
+	Faqiang Zhu <faqiang.zhu@nxp.com>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] usb: gadget: u_ether: Fix NULL pointer deref in
+ debug logging
+Message-ID: <2026101116-shortlist-trend-5e9d@gregkh>
+References: <20260923-u-ether-gadget-npe-v1-1-ff466c55ecc0@google.com>
+ <20261010142650.2664739-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,52 +42,36 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
+In-Reply-To: <20261010142650.2664739-1-qwe.aldo@gmail.com>
 
-Hi Miotsuki,
+On Sat, Oct 10, 2026 at 11:26:29AM -0300, Aldo Ariel Panzardo wrote:
+> On Wed, Sep 23, 2026 at 03:58:35PM +0800, Kuen-Han Tsai wrote:
+> > Replace the composite.h logging macros in u_ether.c with the standard
+> > netdev_*() helpers. Because dev->net remains valid for the entire
+> > lifetime of struct eth_dev and netdev_printk() natively handles
+> > unparented network devices [...]
+> 
+> Confirmed against mainline. The DBG()/VDBG()/ERROR()/INFO() macros in
+> <linux/usb/composite.h> expand to dev_*(&(d)->gadget->dev, ...), so each
+> use in u_ether.c dereferences dev->gadget; once unbind clears it, logging
+> on the surviving net_device faults, as in the eth_stop() path you show.
+> 
+> The conversion is complete and safe. u_ether.c has 26 such macro uses (18
+> DBG, 3 VDBG, 1 ERROR, 4 INFO; no WARNING), and the patch converts all 26
+> one-to-one to the matching netdev_*(dev->net, ...). dev->net is the
+> net_device whose private area holds the eth_dev (netdev_priv); it is set
+> at creation and freed together with it via free_netdev(), so it is valid
+> wherever dev is. The remaining &g->dev logging in the setup paths uses
+> the local gadget argument, and the dev->gadget->dev access in
+> eth_get_drvinfo() is not a logging macro and is outside this change's
+> scope, so nothing is left logging through a stale dev->gadget.
+> 
+> Reviewed-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+> 
 
-On Fri, Oct 09, 2026 at 02:47:43PM +0000, Miotsuki Mizuno wrote:
-> Describe the Nsiway NS2009 four-wire resistive touchscreen controller
-> and the properties used by its polling driver.
->
-> The controller returns 12-bit ADC coordinates. Use the common touchscreen
-> properties for coordinate ranges and orientation, and allow boards to set
-> the raw Z1 contact threshold through touchscreen-min-pressure. Limit that
-> threshold to 1..4095 because zero cannot distinguish a released contact.
->
-> Document the historical default of 80 and a board override of 150 in the
-> example. The Z1 threshold is for contact detection, not calibrated
-> pressure.
->
-> Signed-off-by: Mizuno Miotsuki <founder@crepuse.com>
-> ---
-...
-> +description: |
-> +  The NS2009 is a four-wire resistive touchscreen controller connected over
-> +  I2C. This binding describes polling operation without a pen interrupt.
-> +  Coordinates are 12-bit ADC readings, not display pixel coordinates.
+What wrote the above text, it seems like this is just a llm output?
 
-Devicetree bindings should describe the hardware itself rather than the
-subset of features currently used by the Linux driver. According to the
-NS2009 datasheet, the controller has several hardware signals and
-capabilities that should be covered in the binding from the start (even
-if the initial driver operates in polling mode):
+thanks,
 
-  - interrupts (maxItems: 1) and wakeup-source: the controller provides
-    an active-low pen interrupt output, which can remain optional for
-    boards where the line is left unconnected.
-  - vdd-supply and vref-supply: main power supply and external reference
-    voltage regulators.
-  - touchscreen-x-plate-ohms (along with touchscreen-max-pressure and
-    touchscreen-fuzz-pressure): the NS2009 supports touch resistance
-    calculation from Z1/Z2 and X-plate resistance.
-
-Could you expand the binding description and properties (and show an
-interrupt/supply example as well) so we do not have to revisit the
-binding when IRQ or pressure support is added later?
-
-Thanks.
-
--- 
-Dmitry
+greg k-h
