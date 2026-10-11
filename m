@@ -1,249 +1,150 @@
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5BC6938E8CA;
-	Sun, 11 Oct 2026 10:43:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.22.67.135
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B8075B206;
+	Sun, 11 Oct 2026 10:45:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791715404; cv=none; b=VxDF/YKofHNLLhbJmNDF6jQ3vYHF5b9kswHtxbrFXnS/waYg81hDqOyz0PuGFek5iCkIdEA+zt/3YGXhI0eBdrVkENRJeG1EzCUd9lTHrxG4B2r7RdfWdVEy9UElFVy+1VtNS/PL4rxEJOnM+/oobqq6g0q+oYAwDFyGh7Nbkrw=
+	t=1791715548; cv=none; b=a/VCN+aIV8Ebacp1VtfMHEir9dJesUkohjs5gGmcKPRURTE5aRozsP5yU8FaSo3sDYyixDhrq7/YZU9H2l7BplsJJTH3XFQ82E7KubzlVhCQWoqPzKBPd5oWR1heWrgHwgpYWLNsFj3ug0sKUz+klTUbkhzND5W5O2K44h+ZWwI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791715404; c=relaxed/simple;
-	bh=MY3t7IPbmxk2jwHc9NJvGmvU71YyiKhEmlZ8CyvIFtM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tTmrKlByqcG0XNpuVrwK9dlVZZWvivTlUjaG2a9tLckn/691WnRZY3jlZJT9nCp+NWZO+Fl6GkSrDzznYeCdt9+dP//teKZdrj3arBZsA1aqSk/3DoTUTXe7A7Mf/b6E8LUl9eTGPPcpbxuG6PC5Krjk+dTV79GMklp1S3xo6Ag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com; spf=pass smtp.mailfrom=cmss.chinamobile.com; dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b=uuOOJwga; arc=none smtp.client-ip=111.22.67.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	s=arc-20240116; t=1791715548; c=relaxed/simple;
+	bh=AW8NKODHQ9uGVl/dxofOMFVTPthHtP98ig1EuK+werI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BkfKelqXE6d2OCWUGvxVelrUzJ97I2ePkLnKb61WX8f4SWCxe2mX30qzl3p7qXZonyuiIrDfaEBFwSfa7eB/31Q7Gh5bAq+DYmxEeU2gNRY1TWEaztgFawEvCJSLwKoLkLhybf//AsmXRhbl/lbj6i2VGlvAZaIiv/yP3H9fNsc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aKBGqpPx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b="uuOOJwga"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=uuOOJwgasPRfMacVi56hXwlhDEt2VJHHQ7u3zwK9YRFXuM4ZZnCq34m1vQo1Tny/irtOVzc888uFb
-	 IjJyTIrGuqSs4b8l42nJV+z0J/+NjB/a5ENtKdPkBhzSY54RploHU3+di4uD8KG48YQU4T7XRENdR1
-	 HD6LMPaejGnntEnQ=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36acb683e544-9b503;
-	Sun, 11 Oct 2026 18:43:13 +0800 (CST)
-X-RM-TRANSID:2ee36acb683e544-9b503
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from openEuler-24.03 (unknown[112.22.251.201])
-	by rmsmtp-syy-appsvr03-12003 (RichMail) with SMTP id 2ee36acb6838c79-9a809;
-	Sun, 11 Oct 2026 18:43:12 +0800 (CST)
-X-RM-TRANSID:2ee36acb6838c79-9a809
-From: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
-To: netdev@vger.kernel.org
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Willem de Bruijn <willemb@google.com>,
-	Martin Varghese <martin.varghese@nokia.com>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
-Subject: [PATCH net-next v2] selftests: net: bareudp: Add stream tests with software GSO
-Date: Sun, 11 Oct 2026 18:43:00 +0800
-Message-ID: <20261011104300.1606351-1-yanhaishuang@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aKBGqpPx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E7A91F0089B;
+	Sun, 11 Oct 2026 10:45:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791715547;
+	bh=xt8nKne1ouvTY7wBBsRCk4/6TlDv+T5mG1nv8NKoAbA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=aKBGqpPxUv4wLzhW4mSFZgNctnjPu4lr6kFphDJMyGtloeSmDWULEr2nHpo6uN8RV
+	 Hj9YJe/8IaYdHpa0l271dBawGXgIUgIrSGFGNUah9bEb4FXWsRGcsEisSOc9Yl/Aw2
+	 +P1EjH9GfnKbip/1pHiSu9FV3HQfDCPkyWpblm54AFky5DOQ4OKb0rdRouwb5NTwGJ
+	 2khIQUBkOx7fDdKx+j9EOkAjjrK3Fxf0/1w9xEdjZfyPZDJKnv2FmkmyjfwvJqH3wa
+	 h1cQcLhDkCO7ytkENm1RD6rz/IMOsdTzYrcbW3rkQu/Soq9FHuv5AXi37Bh85lh3fa
+	 86XDkk48//qrQ==
+Date: Sun, 11 Oct 2026 11:45:12 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Nuno =?UTF-8?B?U8Oh?= <noname.nuno@gmail.com>
+Cc: Antoniu Miclaus <antoniu.miclaus@analog.com>, Nuno =?UTF-8?B?U8Oh?= 
+ <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ David Lechner <dlechner@baylibre.com>, Rob Herring	 <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley	
+ <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan	
+ <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Marcelo
+ Schmitt <marcelo.schmitt@analog.com>, Joshua Crofts
+ <joshua.crofts1@gmail.com>, Radu Sabau	 <radu.sabau@analog.com>, Salih Erim
+ <salih.erim@amd.com>, Jishnu Prakash	 <jishnu.prakash@oss.qualcomm.com>,
+ Jakub Szczudlo <jakubszczudlo40@gmail.com>, linux-iio@vger.kernel.org,
+ linux@analog.com, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org
+Subject: Re: [PATCH v2 0/6] iio: adc: ade9000: add ADE9430 support
+Message-ID: <20261011114512.6a8403d4@jic23-hlaptop>
+In-Reply-To: <20260921001246.72cf14ab@jic23-hlaptop>
+References: <20260918073537.1572-1-antoniu.miclaus@analog.com>
+	<9fc012985151b1b79b5d6e3f16738397ac9f837f.camel@gmail.com>
+	<20260921001246.72cf14ab@jic23-hlaptop>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-The bareudp tests only send pings, which are not GSO packets, so the
-segmentation path of bareudp is not covered.
+On Mon, 21 Sep 2026 00:12:46 +0100
+Jonathan Cameron <jic23@kernel.org> wrote:
 
-Copy a file over TCP from NS0 to NS3 with socat after the IPv4 and IPv6
-ping tests, with UDP tunnel segmentation offload disabled on the
-underlay veths, so that the GSO packets encapsulated by bareudp are
-segmented in software. Raise the MTU of the underlay veths, so that full
-sized packets fit with the encapsulation, as there is no path MTU
-discovery through bareudp.
+> On Fri, 18 Sep 2026 16:27:30 +0100
+> Nuno S=C3=A1 <noname.nuno@gmail.com> wrote:
+>=20
+> > On Fri, 2026-09-18 at 10:35 +0300, Antoniu Miclaus wrote: =20
+> > > The ADE9430 is a polyphase energy metering device from the same famil=
+y as
+> > > the ADE9000. It is register-compatible with the ADE9000 but omits the
+> > > on-chip dip/swell detection and has no on-chip digital integrator; it
+> > > relies on an external analog integrator for Rogowski coil current sen=
+sors.
+> > >=20
+> > > This series adds ADE9430 support to the existing ade9000 driver, reus=
+ing
+> > > the dip/swell-less channel table introduced for the ADE9078 and addin=
+g a
+> > > matching chip_info for the ADE9430 full-scale codes. A precursor patch
+> > > gates the DICOEFF register write behind a has_digital_integrator chip=
+_info
+> > > flag so it is skipped on parts without an on-chip digital integrator.
+> > >=20
+> > > Patches 1 and 2 are standalone fixes carried with this series. Patch 1
+> > > corrects the ADE9000 full-scale RMS/PCF codes to the same family-A va=
+lues
+> > > the ADE9430 uses. Patch 2 fixes the DIPC event never being handled or
+> > > cleared, found by the sashiko review of v1. Both carry Fixes: tags an=
+d can
+> > > be applied independently of the rest of the series.
+> > >=20
+> > > Changes in v2:
+> > > - new patch: fix the DIPC event never being handled or cleared, found=
+ by
+> > > =C2=A0 the sashiko review of v1 (patch 2).
+> > > - new precursor patch: gate the DICOEFF write behind a has_digital_in=
+tegrator
+> > > =C2=A0 chip_info flag, split out of the ADE9430 support patch.
+> > > - reuse ade9078_channels for the ADE9430 instead of adding a duplicate
+> > > =C2=A0 channel table.
+> > > - reword the documentation intro to "The supported parts are..." so i=
+t does
+> > > =C2=A0 not need updating for each new part.
+> > >=20
+> > > v1:
+> > > https://lore.kernel.org/linux-iio/20260907101623.8730-1-antoniu.micla=
+us@analog.com/
+> > >=20
+> > > Antoniu Miclaus (6):
+> > > =C2=A0 iio: adc: ade9000: fix ADE9000 full-scale RMS and PCF codes
+> > > =C2=A0 iio: adc: ade9000: fix DIPC event never being handled or clear=
+ed
+> > > =C2=A0 dt-bindings: iio: adc: adi,ade9000: add adi,ade9430 compatible
+> > > =C2=A0 iio: adc: ade9000: gate the DICOEFF write behind a chip_info f=
+lag
+> > > =C2=A0 iio: adc: ade9000: add support for ADE9430
+> > > =C2=A0 docs: iio: ade9000: document ADE9430 support
+> > >=20
+> > > =C2=A0.../bindings/iio/adc/adi,ade9000.yaml=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 | 22 ++++++-----
+> > > =C2=A0Documentation/iio/ade9000.rst=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 36 ++++++=
++++--------
+> > > =C2=A0drivers/iio/adc/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
+> > > =C2=A0drivers/iio/adc/ade9000.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 | 39 ++++++++++++++++---
+> > > =C2=A04 files changed, 67 insertions(+), 31 deletions(-)
+> > >=20
+> > >=20
+> > > base-commit: edb91bc566576f6664a3efbad6bd4205aa1d5259   =20
+> >=20
+> > LGTM
+> >=20
+> > Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com> =20
+> LGTM2.  Just need to give some time for dt-binding reviewers to
+> take a look.
 
-The MPLS overlay gets no stream test: bareudp does not set
-mpls_features, so MPLS GSO packets are segmented by mpls_gso before
-they reach bareudp, and are dropped if mpls_gso is not available.
+Applied to the testing branch of iio.git.  That'll get rebased on=20
+rc1 once available.
 
-The ping and stream tests share the result reporting, so move it into
-report_result(). Without socat or ethtool, the stream tests are skipped.
+Jonathan
 
-Without commit c57b2e60d4bf ("bareudp: set the inner protocol to the
-protocol of the packet"), the IPv4 and IPv6 streams over UDPv6, and the
-IPv6 stream over UDPv4 in multiproto mode, time out.
-
-Suggested-by: Willem de Bruijn <willemb@google.com>
-Signed-off-by: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
----
-v2:
-- Drop the MPLS stream tests: MPLS GSO packets are segmented by mpls_gso
-  before bareudp, so they do not exercise the tunnel GSO path, and they
-  fail if mpls_gso is not available (Sashiko).
-- Remove the temporary file before cleaning up the namespaces (Sashiko).
-v1: https://lore.kernel.org/netdev/20261008055920.1560930-1-yanhaishuang@cmss.chinamobile.com/
-
- tools/testing/selftests/net/bareudp.sh | 92 ++++++++++++++++++++++++--
- 1 file changed, 88 insertions(+), 4 deletions(-)
-
-diff --git a/tools/testing/selftests/net/bareudp.sh b/tools/testing/selftests/net/bareudp.sh
-index d9e5b967f815..15f102143fd3 100755
---- a/tools/testing/selftests/net/bareudp.sh
-+++ b/tools/testing/selftests/net/bareudp.sh
-@@ -105,16 +105,27 @@
- # |                    (encapsulated with MPLS label 200)                 |
- # |                                                                       |
- # +-----------------------------------------------------------------------+
-+#
-+# Besides the ping tests, a file is copied over TCP from NS0 to NS3 with
-+# socat for the IPv4 and IPv6 overlays. UDP tunnel segmentation offload is
-+# disabled on veth12 and veth21, so that the GSO packets encapsulated by
-+# bareudp are segmented in software. These two veths get a larger MTU to fit
-+# the encapsulation.
- 
- . ./lib.sh
- 
- ERR=4 # Return 4 by default, which is the SKIP code for kselftest
- PING6="ping"
- PAUSE_ON_FAIL="no"
-+STREAM="yes"
-+STREAM_PORT=5000
-+STREAM_TIMEOUT=10
-+TMPFILE=""
- 
- # Exit the script after having removed the network namespaces it created
- exit_cleanup()
- {
-+	[ -n "${TMPFILE}" ] && rm -f "${TMPFILE}"
- 	cleanup_all_ns
- 
- 	if [ "${ERR}" -eq 4 ]; then
-@@ -180,6 +191,29 @@ setup_underlay()
- 
- 	tc -netns "${NS1}" qdisc add dev veth10 ingress
- 	tc -netns "${NS2}" qdisc add dev veth23 ingress
-+
-+	if [ "${STREAM}" = "yes" ]; then
-+		# Leave room for the encapsulation on the underlay, so that full
-+		# sized packets from NS0 can be tunnelled without fragmentation
-+		ip -netns "${NS1}" link set dev veth12 mtu 1600
-+		ip -netns "${NS2}" link set dev veth21 mtu 1600
-+
-+		# Segment the encapsulated GSO packets in software
-+		ip netns exec "${NS1}" ethtool -K veth12 \
-+			tx-udp_tnl-segmentation off \
-+			tx-udp_tnl-csum-segmentation off
-+		ip netns exec "${NS2}" ethtool -K veth21 \
-+			tx-udp_tnl-segmentation off \
-+			tx-udp_tnl-csum-segmentation off
-+
-+		TMPFILE=$(mktemp)
-+		dd if=/dev/urandom of="${TMPFILE}" bs=1M count=16 status=none
-+
-+		ip netns exec "${NS3}" socat -u \
-+			TCP6-LISTEN:"${STREAM_PORT}",ipv6only=0,reuseaddr,fork \
-+			OPEN:/dev/null &
-+		wait_local_port_listen "${NS3}" "${STREAM_PORT}" tcp
-+	fi
- }
- 
- # Set up the IPv4, IPv6 and MPLS overlays.
-@@ -252,9 +286,6 @@ setup_overlay_mpls()
- #   * $2: the IP address to ping,
- #   * $3: a human readable description of the purpose of the test.
- #
--# If the test fails and PAUSE_ON_FAIL is active, the user is given the
--# possibility to continue with the next test or to quit immediately.
--#
- ping_test_one()
- {
- 	local PING="$1"; readonly PING
-@@ -269,7 +300,50 @@ ping_test_one()
- 	RET=$?
- 	set -e
- 
--	if [ "${RET}" -eq 0 ]; then
-+	report_result "${RET}"
-+}
-+
-+# Copy a file over TCP from NS0 to NS3 and print the result
-+#
-+# Parameters:
-+#
-+#   * $1: the socat address of the receiver,
-+#   * $2: a human readable description of the purpose of the test.
-+#
-+stream_test_one()
-+{
-+	local ADDR="$1"; readonly ADDR
-+	local MSG="$2"; readonly MSG
-+	local RET
-+
-+	printf "TEST: %-60s  " "${MSG}"
-+
-+	if [ "${STREAM}" != "yes" ]; then
-+		printf "[SKIP]\n"
-+		return
-+	fi
-+
-+	set +e
-+	ip netns exec "${NS0}" timeout "${STREAM_TIMEOUT}" \
-+		socat -u OPEN:"${TMPFILE}" "${ADDR}" > /dev/null 2>&1
-+	RET=$?
-+	set -e
-+
-+	report_result "${RET}"
-+}
-+
-+# Print the result of a test
-+#
-+# Parameters:
-+#
-+#   * $1: the exit code of the test.
-+#
-+# If the test fails and PAUSE_ON_FAIL is active, the user is given the
-+# possibility to continue with the next test or to quit immediately.
-+#
-+report_result()
-+{
-+	if [ "$1" -eq 0 ]; then
- 		printf "[ OK ]\n"
- 	else
- 		ERR=1
-@@ -307,9 +381,13 @@ ping_test()
- 
- 	if [ $IPV4 ]; then
- 		ping_test_one "ping" "192.0.2.103" "IPv4 packets over ${UNDERLAY}${MODE}"
-+		stream_test_one "TCP4:192.0.2.103:${STREAM_PORT}" \
-+			"IPv4 stream over ${UNDERLAY}${MODE}"
- 	fi
- 	if [ $IPV6 ]; then
- 		ping_test_one "${PING6}" "2001:db8::103" "IPv6 packets over ${UNDERLAY}${MODE}"
-+		stream_test_one "TCP6:[2001:db8::103]:${STREAM_PORT}" \
-+			"IPv6 stream over ${UNDERLAY}${MODE}"
- 	fi
- 	if [ $MPLS_UC ]; then
- 		ping_test_one "${PING6}" "2001:db8::203" "Unicast MPLS packets over ${UNDERLAY}${MODE}"
-@@ -471,6 +549,12 @@ check_features()
- 
- 	# Use ping6 on systems where ping doesn't handle IPv6
- 	ping -w 1 -c 1 ::1 > /dev/null 2>&1 || PING6="ping6"
-+
-+	if [ ! -x "$(command -v socat)" ] ||
-+	   [ ! -x "$(command -v ethtool)" ]; then
-+		echo "socat or ethtool not found, skipping the stream tests" >&2
-+		STREAM="no"
-+	fi
- }
- 
- usage()
--- 
-2.43.0
-
-
+>=20
+> Thanks,
+>=20
+> J
+>=20
 
