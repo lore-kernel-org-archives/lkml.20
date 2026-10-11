@@ -1,221 +1,288 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mta1.migadu.com (out-98.mta1.migadu.com [95.215.58.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72F1B3644C6;
-	Sun, 11 Oct 2026 08:48:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C7C44052A9
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:48:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791708489; cv=none; b=KWP9QpY5300ANsZ1D41cwbNw8/jYWQVk71W5frRhiJgN8eY5x63mhRnNbpIPo8gIEH8+cewoNbPeg8jOSCMAGK9X6lVciuF33/ZUCRQZ5LeAljwjJ1b+lz6PM35/hY3Pdy/ucmsTtM0Hx9Ue5QVYVt1CQD3Xbz7TrDLSYDW7RtU=
+	t=1791708512; cv=none; b=jvpUHS6cLfP+on0EGCBAIRCBbNiPLJVriEsIwIVN5sYezrVn7jfuAN534XHAS372GMhYi4LJEw+j2gvjrDloTWyEeuacrEKWmBeOIqhBxXiM9lr1Fc1/+cpQvhYWGj6m/Xy95JT1K1xMrIu/NClLpierfG4SgD/nt/ryLsKY1UM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791708489; c=relaxed/simple;
-	bh=x2IsOvbtgXQiwEIuFiG1fuZtAaXxvLftWk+3ijwN8tc=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qVxzqlg3DNKZh3JF21qm4pLWEGxyngncZ9m+RZvj2xTRul4j8oiCoToY3AArC4zG1iviUqzL/zSPqEl0aXh8pKyfRCw0x/ZpE/W/1Kh/GNMvGKVb8d+HJ7JQxcEIapjNRQ+ssW5fUBMS8qfaHMi/CicB7gh/k2Zfq8+CmnHF3OE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=rQnXxq9t; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=B1auYzjz; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=wHPDw6Dr; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ku5PR8Vd; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791708512; c=relaxed/simple;
+	bh=1ZJ270N9Cvuns/rw/5cTxT6UtYYld8470xg4Xu8WE8s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oQb+8PNr/V4orq4IuHcilkd80DySzjWGkEfIUyLpimOXEVEw47gEm+SJHrV9yhmzq97OmvW2d9USSVg8w4g0QTVUECa773msMIebDKpaFH4LOjpqP+mczyKQ48egEifayTdM0Ml8RQS5bA2KzgEkCTVg4Jw+PCAfyz+iJ6eCo7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hxWDWY8j; arc=none smtp.client-ip=95.215.58.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="rQnXxq9t";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="B1auYzjz";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="wHPDw6Dr";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ku5PR8Vd"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 4DFE11F750;
-	Sun, 11 Oct 2026 08:48:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791708486; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2bxbAabFpli0yHxHck/fqu9NfMRGLevdTk0BX0wmfCM=;
-	b=rQnXxq9tD+LAsfwVK3GyZndziEIIWf/y6Wj7IjyFdJpjR6J3lvqHdPKXFT3UDqTcg2LbOW
-	RnMtMJ8/FakM7rJcSWmtz//JIjlNPIth8pgqFqWZHqVuNSZ5mQYxwmVyoF0D4zudPe6NsA
-	aWjepuMkeRWyYiyfcdTVAPYqCY/0K34=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791708486;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2bxbAabFpli0yHxHck/fqu9NfMRGLevdTk0BX0wmfCM=;
-	b=B1auYzjzXUYQdY6HmJG97BbaRDTj6AMC2xnn7lA9wp0EbAOP3EPcNjrwcUwm65T1hwmN+k
-	t0+SUo7rDkO3QjBQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791708485; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2bxbAabFpli0yHxHck/fqu9NfMRGLevdTk0BX0wmfCM=;
-	b=wHPDw6DrNzH0hzAHt7/IDBilnkFBMl2I9ZhT6snuGYn26txNtTqSwpXI4rhal6cbyfkmQ2
-	SM8GHvPIF8hZdQoRKFVSjVhrBd1Ob87G/fm/DCMW85EN62vyJUCAAToOW4xqobwEod9sfS
-	NFF5eyw3CKeR5s1LU/H9qi1XVVeS5r8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791708485;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2bxbAabFpli0yHxHck/fqu9NfMRGLevdTk0BX0wmfCM=;
-	b=ku5PR8VdakE829yO8tJ6CMUtUtQMrVRDO4iZxFSukO/CsHIXQT77eNbi0hdJTTt3ZbHHxs
-	cvAyaR1/xIOcslDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A837E13408;
-	Sun, 11 Oct 2026 08:48:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id VWW9HkRNy2rJEAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sun, 11 Oct 2026 08:48:04 +0000
-Date: Sun, 11 Oct 2026 10:48:04 +0200
-Message-ID: <87mrskipx7.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Ma Ke <make_ruc2021@163.com>
-Cc: david.rhodes@cirrus.com,
-	rf@opensource.cirrus.com,
-	perex@perex.cz,
-	tiwai@suse.com,
-	sbinding@opensource.cirrus.com,
-	linux-sound@vger.kernel.org,
-	patches@opensource.cirrus.com,
-	linux-kernel@vger.kernel.org,
-	akpm@linux-foundation.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda: cs35l41: Fix ACPI device reference leak on probe failure
-In-Reply-To: <20261011062801.3163066-1-make_ruc2021@163.com>
-References: <20261011062801.3163066-1-make_ruc2021@163.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hxWDWY8j"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=1ZJ270N9Cvuns/rw/5cTxT6UtYYld8470xg4Xu8WE8s=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791708506; v=1; x=1792313306;
+ b=hxWDWY8j2jyT5srBWjxOeEcLAWKT0fX4rhTT2KZc97w8YSlPe+Ikp9zPbLl++JLqSdd9QA1W
+ CLabkoo60gDI9NZeOJ1omdkq7e/WeiBDo0DwW9tjm+9Sw0fJpi5ugyIYAp7nUsOoM2s73kqD0Dt
+ OeuQzEt9c8092nW6F5KEBqxI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c162570d02b52201;
+	Sun, 11 Oct 2026 08:48:25 +0000
+X-Mizu-Trace-ID: c162570d02b52201
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <c7bf4584-0a47-445b-af10-4b1a29e9cdec@linux.dev>
+Date: Sun, 11 Oct 2026 16:48:20 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[163.com];
-	FREEMAIL_ENVRCPT(0.00)[163.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,sashiko.dev:url]
-
-On Sun, 11 Oct 2026 08:28:01 +0200,
-Ma Ke wrote:
-> 
-> cs35l41_hda_probe() takes an acpi_device through
-> cs35l41_hda_read_acpi() and stores it in cs35l41->dacpi. It is
-> released in the err: label, which is reached from every later failure.
-> 
-> One failure is not routed there:
-> 
->         ret = cs35l41_hda_read_acpi(cs35l41, device_name, id);
->         if (ret)
->                 return dev_err_probe(cs35l41->dev, ret, ...);
-> 
-> cs35l41->dacpi is assigned inside cs35l41_hda_read_acpi(), before the
-> point where it can fail:
-> 
->         adev = acpi_dev_get_first_match_dev(hid, NULL, -1);
->         ...
->         cs35l41->dacpi = adev;
->         ...
->         ret = cs35l41_hda_parse_acpi(cs35l41, physdev, id);
->         if (ret)
->                 return ret;
-> 
-> so on that path the reference taken by acpi_dev_get_first_match_dev()
-> is never dropped, and cs35l41->acpi_subsystem_id is leaked as well.
-> This is reachable on any system whose ACPI description does not match
-> what the driver expects.
-> 
-> Route the failure through a new err_acpi label that releases both.
-> 
-> cs35l41_hda_read_acpi() also drops the reference on its own !physdev
-> path while leaving cs35l41->dacpi pointing at the released device.
-> Clear the pointer there so the reference is not dropped a second time
-> from either cleanup path.
-> 
-> Found by code review.
-> 
-> Fixes: 447106e92a0c ("ALSA: hda: cs35l41: Support mute notifications for CS35L41 HDA")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ma Ke <make_ruc2021@163.com>
-
-While the error path you're correcting looks right, but could you
-check the issue reported by Sashiko?
-  https://sashiko.dev/#/patchset/20261011062801.3163066-1-make_ruc2021%40163.com
-IIUC, the suggestion there looks correct, and we have already the
-unreference call in the error path of cs35l41_hda_parse_acpi(),
-indeed.
-
-The refcount management there is really messy, admittedly...
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH-next v2 5/6] selftests/cgroup: Add tests for housekeeping
+ check
+To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Shuah Khan <shuah@kernel.org>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, Hui Peng <benquike@gmail.com>
+References: <20261010221938.243859-1-longman@redhat.com>
+ <20261010221938.243859-6-longman@redhat.com>
+Content-Language: en-US
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <20261010221938.243859-6-longman@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 
-thanks,
 
-Takashi
-
+在 2026/10/11 06:19, Waiman Long 写道:
+> Whenever a partition is enabled or the cpumask of a valid partition
+> changes, a housekeeping check will be performed to ensure that the
+> change won't violate the imposed housekeeping constraints. One of the
+> constraints is that a boot-time isolated CPU will not be used to form
+> a non-isolated root partition.  This requires the presence of boot-time
+> isolated CPUs when a test is run.
+> 
+> The test_cpuset_prs.sh test script is now updated to run a set a
+> special housekeeping check tests that will only be run if a suitable
+> boot-time isolated CPU is present. This will enable us to detect bugs
+> or regressions in the housekeeping checking code though a "isolcpus="
+> boot parameter with CPUs beyond CPU 8 must be present.
+> 
+> Adding test to check for exhaustion of all the housekeeping CPUs is
+> much harder and so will not be attempted at this time.
+> 
+> This patch also includes a minor fix to the REMOTE_TEST_MATRIX to avoid
+> test failure when the -v option is used.
+> 
+> Signed-off-by: Waiman Long <longman@redhat.com>
 > ---
->  sound/hda/codecs/side-codecs/cs35l41_hda.c | 13 +++++++++++--
->  1 file changed, 11 insertions(+), 2 deletions(-)
+>  .../selftests/cgroup/test_cpuset_prs.sh       | 109 ++++++++++++++----
+>  1 file changed, 87 insertions(+), 22 deletions(-)
 > 
-> diff --git a/sound/hda/codecs/side-codecs/cs35l41_hda.c b/sound/hda/codecs/side-codecs/cs35l41_hda.c
-> index 62296be45c55..1088065f1fff 100644
-> --- a/sound/hda/codecs/side-codecs/cs35l41_hda.c
-> +++ b/sound/hda/codecs/side-codecs/cs35l41_hda.c
-> @@ -1929,6 +1929,7 @@ static int cs35l41_hda_read_acpi(struct cs35l41_hda *cs35l41, const char *hid, i
->  	struct device *physdev __free(put_device) =
->  		get_device(acpi_get_first_physical_node(adev));
->  	if (!physdev) {
-> +		cs35l41->dacpi = NULL;
->  		acpi_dev_put(adev);
->  		return -ENODEV;
->  	}
-> @@ -1986,8 +1987,10 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
->  	dev_set_drvdata(dev, cs35l41);
+> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> index 7efd5e645767..3d392e8c66aa 100755
+> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> @@ -86,26 +86,37 @@ echo "" > test/cpuset.cpus
 >  
->  	ret = cs35l41_hda_read_acpi(cs35l41, device_name, id);
-> -	if (ret)
-> -		return dev_err_probe(cs35l41->dev, ret, "Platform not supported\n");
-> +	if (ret) {
-> +		dev_err_probe(cs35l41->dev, ret, "Platform not supported\n");
-> +		goto err_acpi;
-> +	}
->  
->  	if (IS_ERR(cs35l41->reset_gpio)) {
->  		ret = PTR_ERR(cs35l41->reset_gpio);
-> @@ -2066,6 +2069,12 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
->  
->  	return 0;
->  
-> +err_acpi:
-> +	acpi_dev_put(cs35l41->dacpi);
-> +	kfree(cs35l41->acpi_subsystem_id);
+>  #
+>  # If isolated CPUs have been reserved at boot time (as shown in
+> -# cpuset.cpus.isolated), these isolated CPUs should be outside of CPUs 0-8
+> -# that will be used by this script for testing purpose. If not, some of
+> -# the tests may fail incorrectly. Wait a bit and retry again just in case
+> -# these isolated CPUs are leftover from previous run and have just been
+> -# cleaned up earlier in this script.
+> +# /sys/devices/system/cpu/isolated), these isolated CPUs should be outside of
+> +# CPUs 0-8 that will be used by this script for testing purpose. If not, some
+> +# of the tests may fail incorrectly.
+>  #
+> -# These pre-isolated CPUs should stay in an isolated state throughout the
+> +# The current set of isolated CPUs (as shown in cpuset.cpus.isolated) should
+> +# be the same as the boot value. If not, wait a bit and retry again just in
+> +# case these isolated CPUs are leftover from previous run and have just been
+> +# cleaned up earlier in this script. If they still don't match, we report an
+> +# warning and skip the test.
+> +#
+> +# These boot isolated CPUs should stay in an isolated state throughout the
+>  # testing process for now.
+>  #
+> -BOOT_ISOLCPUS=$(cat $CGROUP2/cpuset.cpus.isolated)
+> +BOOT_ISOLCPUS=$(cat /sys/devices/system/cpu/isolated)
+> +CURRENT_ISOLCPUS=$(cat $CGROUP2/cpuset.cpus.isolated)
+> +FIRST_ISOLCPUS=
+> +TEST_ISOLCPUS=
 > +
-> +	return ret;
+>  [[ -n "$BOOT_ISOLCPUS" ]] && {
+> +	FIRST_ISOLCPUS=$(echo $BOOT_ISOLCPUS | sed -e "s/[,-].*//")
+> +	[[ $FIRST_ISOLCPUS -le 8 ]] &&
+> +		skip_test "Boot-isolated CPUs ($BOOT_ISOLCPUS) overlap CPUs to be tested"
+> +	echo "Boot-isolated CPUs: $BOOT_ISOLCPUS"
+> +}
 > +
->  err_pm:
->  	pm_runtime_dont_use_autosuspend(cs35l41->dev);
->  	pm_runtime_disable(cs35l41->dev);
-> -- 
-> 2.43.0
-> 
+> +[[ "$BOOT_ISOLCPUS" != "$CURRENT_ISOLCPUS" ]] && {
+>  	sleep 0.5
+> -	BOOT_ISOLCPUS=$(cat $CGROUP2/cpuset.cpus.isolated)
+> +	CURRENT_ISOLCPUS=$(cat $CGROUP2/cpuset.cpus.isolated)
+> +	[[ "$BOOT_ISOLCPUS" != "$CURRENT_ISOLCPUS" ]] &&
+> +		skip_test "Current isolated CPUs ($CURRENT_ISOLCPUS) don't match boot isolated CPUs!"
+>  }
+> -if [[ -n "$BOOT_ISOLCPUS" ]]
+> -then
+> -	[[ $(echo $BOOT_ISOLCPUS | sed -e "s/[,-].*//") -le 8 ]] &&
+> -		skip_test "Pre-isolated CPUs ($BOOT_ISOLCPUS) overlap CPUs to be tested"
+> -	echo "Pre-isolated CPUs: $BOOT_ISOLCPUS"
+> -fi
+>  
+>  cleanup()
+>  {
+> @@ -202,7 +213,7 @@ test_add_proc()
+>  #
+>  # ECPUs    - effective CPUs of cpusets
+>  # Pstate   - partition root state
+> -# ISOLCPUS - isolated CPUs (<icpus>[,<icpus2>])
+> +# ISOLCPUS - isolated CPUs (<icpus>[,<icpus2>] or .)
+>  #
+>  # Note that if there are 2 fields in ISOLCPUS, the first one is for
+>  # sched-debug matching which includes offline CPUs and single-CPU partitions
+> @@ -444,6 +455,35 @@ TEST_MATRIX=(
+>  	"   C0-3     .      .    C4-5   X3-5     .      .      .     1 A1:0-3|B1:4-5"
+>  )
+>  
+> +# Test matrix with boot time isolated CPUs present for housekeeping check testing
+> +ISOLCPUS_TEST_MATRIX=(
+> +	#  old-A1 old-A2 old-A3 old-B1 new-A1 new-A2 new-A3 new-B1 fail ECPUs Pstate ISOLCPUS
+> +	#  ------ ------ ------ ------ ------ ------ ------ ------ ---- ----- ------ --------
+> +	# A local isolated partition containing boot isolated CPU cannot be
+> +	# switched to root partition.
+> +	" C1-2,I:P2  .      .      .      P1     .      .      .     0 A1:1-2,I A1:P-1 ."
+> +
+> +	# A remote isolated partition containing boot isolated CPU cannot be
+> +	# switched to root partition.
+> +	" X1-2,I CX1-2,I:P2 .      .       .    P1      .      .     0 A2:1-2,I A2:P-1 ."
+> +
+> +	# A local isolated partition with a boot isolated CPU distributed to a
+> +	# child isolated partition also cannot be switched to a root partition.
+> +	" C1-3,I:P2 C1,I:P2 .      .      P1     .      .      .     0 A1:1-3,I|A2:1,I A1:P-1|A2:P-2 ."
+> +
+> +	# A remote isolated partition with a boot isolated CPU distributed to a
+> +	# child isolated partition also cannot be switched to a root partition.
+> +	" X1-3,I C1-3,I:P2 C1,I:P2 .       .    P1      .      .     0 A2:1-3,I|A3:1,I A2:P-1|A3:P-2 ."
+> +
+> +	# The cpumask of a local root partition cannot be changed to include a
+> +	# boot isolated CPU.
+> +	" C1-2:P1    .      .      .     C2,I    .      .      .     0 A1:2,I A1:P-1 ."
+> +
+> +	# The cpumask of a remote root partition cannot be changed to include a
+> +	# boot isolated CPU.
+> +	" CX1-2,I  CX1-2:P1 .      .       .   CX2,I    .      .     0 A1:1-2,I|A2:2,I A2:P-1 ."
+> +)
+
+Could we add two invalid-root revival cases with an explicit exclusive
+mask here? For example:
+
+        # An invalid root must stay invalid when cpus grows but exclusive
+        # still contains a boot isolated CPU.
+        " CX1,I:P1        .  .  .  C1-2,I   .  .  .  0 A1:1-2,I A1:P-1 ."
+
+        # Growing exclusive must not revive it either.
+        " C1-2,I:X1,I:P1 .  .  .  X1-2,I   .  .  .  0 A1:1-2,I A1:P-1 ."
+
+Thanks,
+Guopeng
+
+> +
+>  #
+>  # Cpuset controller remote partition test matrix.
+>  #
+> @@ -496,8 +536,8 @@ REMOTE_TEST_MATRIX=(
+>  							 p1:P1|c11:P1|c12:P-1"
+>  	# Narrowing cpuset.cpus to previously sibling-excluded CPUs should
+>  	# not return CPUs that were never actually owned.
+> -	"  C1-4:P1   .   C1-2:P1  C1-3:P2  .       .  \
+> -	      .      .     .       C3      .       .     p1:4|c11:1-2|c12:3 \
+> +	"  C1-5:P1   .   C1-2:P1  C1-3:P2  .       .  \
+> +	      .      .     .       C3      .       .     p1:4-5|c11:1-2|c12:3 \
+>  							 p1:P1|c11:P1|c12:P2 3"
+>  	# Expanding cpuset.cpus to include a previously sibling-excluded CPU
+>  	# after the sibling has become a member should correctly request it.
+> @@ -541,6 +581,27 @@ write_cpu_online()
+>  	pause 0.05
+>  }
+>  
+> +#
+> +# Set the CPUS values
+> +#  $1 - the passed in cpu parameter
+> +#
+> +# The special ",I" suffix if present is being replaced by the first boot CPU
+> +# and assigned to the "CPUS" variable when the TEST_ISOLCPUS flag is set.
+> +# If not, the program will exit with an error.
+> +#
+> +set_cpus()
+> +{
+> +	local cpus=$1
+> +	if [[ $(expr "$cpus" : .*,I) -gt 0 ]]
+> +	then
+> +		[[ -z "$TEST_ISOLCPUS" ]] &&
+> +			skip_test "',I' added to non-isolcpus testing matrix!"
+> +		CPUS=$(echo $cpus | sed -e "s/,I/,$FIRST_ISOLCPUS/")
+> +	else
+> +		CPUS=$cpus
+> +	fi
+> +}
+> +
+>  #
+>  # Set controller state
+>  #  $1 - cgroup directory
+> @@ -575,16 +636,16 @@ set_ctrl_state()
+>  		}
+>  		case $CMD in
+>  		    X*)
+> -			CPUS=${CMD#?}
+> +			set_cpus ${CMD#?}
+>  			COMM="echo $CPUS > $XFILE"
+>  			eval $COMM $REDIRECT
+>  			;;
+>  		    CX*)
+> -			CPUS=${CMD#??}
+> +			set_cpus ${CMD#??}
+>  			COMM="echo $CPUS > $CFILE; echo $CPUS > $XFILE"
+>  			eval $COMM $REDIRECT
+>  			;;
+> -		    C*) CPUS=${CMD#?}
+> +		    C*) set_cpus ${CMD#?}
+>  			COMM="echo $CPUS > $CFILE"
+>  			eval $COMM $REDIRECT
+>  			;;
+> @@ -978,8 +1039,11 @@ run_state_test()
+>  	I=0
+>  	eval CNT="\${#$TEST[@]}"
+>  
+> +	# Skip isolcpus specific test matrix if FIRST_ISOLCPUS not defined
+> +	[[ -n "$TEST_ISOLCPUS" && -z "$FIRST_ISOLCPUS" ]] && return
+> +
+>  	reset_cgroup_states
+> -	console_msg "Running state transition test ..."
+> +	console_msg "Running state transition test for $TEST ..."
+>  
+>  	while [[ $I -lt $CNT ]]
+>  	do
+> @@ -998,7 +1062,7 @@ run_state_test()
+>  		NEW_A3=$7
+>  		NEW_B1=$8
+>  		RESULT=$9
+> -		ECPUS=${10}
+> +		ECPUS=$(echo ${10} | sed -e "s/,I/,${FIRST_ISOLCPUS}/g")
+>  		STATES=${11}
+>  		ICPUS=${12}
+>  
+> @@ -1284,6 +1348,7 @@ test_inotify()
+>  trap cleanup 0 2 3 6
+>  run_state_test TEST_MATRIX
+>  run_remote_state_test REMOTE_TEST_MATRIX
+> +TEST_ISOLCPUS=1 run_state_test ISOLCPUS_TEST_MATRIX
+>  test_isolated
+>  test_boot_isolated
+>  test_inotify
+
