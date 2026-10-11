@@ -1,98 +1,87 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D669A313543
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 21:35:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8078C175A62;
+	Sun, 11 Oct 2026 21:40:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791754543; cv=none; b=LXLSVMp7CG5L5OK6FkuN+YyiFv/SmX2sY5UUFw8OdZyORA8HB1BgVraVGrYlHBkFKpy6dT3m6K2TYuHhfyKpQSUc3b5YaKT3Ql8lihhY66BDtORkJavDVNXXav5h9PMcfxwKLCtqhjFK6Z9tachAmtGaelelRKMUiYJgDBkiT5o=
+	t=1791754831; cv=none; b=cf/K+zrGhuhPU+F0q+WM+VuoyNXAtrbBMXUBkgIJ02+fP1ssiyHL+Dtz1C4f4FiLQ4qyGmdJ3bP4Wq4Op4yRMA7sNPdWjTVPndprU2rlcko00GPOVcDJ6AbzGilpOonPbZ/1gEeRYFPWvkBseBNEC0cqPUOzuqDIY0AJDeISVyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791754543; c=relaxed/simple;
-	bh=+pjj0FeaXMYUm+V+cqoYAftZoLBbqLSQOkzEKvz3EJs=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=gGHBwYzfBC8sh52Q1s44lJPha3znxMkkX/P4j8h79F/SLc9uCVpdTGDcnH8KGWqBmWzSXrRc6yv+xV3WQKyQ0F8v5mNlqic5Pux4MJx1vf+pCvbUq/1VLX8C7sJmjfdCx2XftXMwjdkkE4PrVvvTi8Pz2mWTdCSkrisHHxthMsw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XVVtk2gG; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791754831; c=relaxed/simple;
+	bh=jmWPoLYOqIQbL8hkgHJqTFHPfboDRYOCkxBDvw/1Zn4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pJGfHCuUgD9304FDGDxj+RUDHQA/gt/MgLJRB9JmCF2/JMXGyAoaLMxusOOWkjjjVp53vOiWDUQLqtMUq2wCGudbmo9m0XE+ooz9G+1kyNdwhadhc7P267zz8PPs7CtGwX5zF396R3KIcGTUxHWxa8Y7X5a5IPrWIgy0IqmrSvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ay1lShEt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XVVtk2gG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791754542; x=1823290542;
-  h=date:from:to:cc:subject:message-id;
-  bh=+pjj0FeaXMYUm+V+cqoYAftZoLBbqLSQOkzEKvz3EJs=;
-  b=XVVtk2gGJdSb/W/t2iOyBrJfSNj2BX8p08220Bgl1cRMBCzehD0o+JAz
-   TF1v/7wRyb93tWcYDUkGtJpEVYo8L/IFkd20iAXA/VBbm9jR71GrBOOpa
-   FA60CAl/mWwvaKuI+AumpzUZj082vSjfKLqDr75T3jot2qgA/ERszMnMK
-   CK/HTgLtxGicQiWrd8/RzPKypp469XKxvjXCuZJlReCY9kZgFuqCxjI1x
-   2+FiZIY35vpDvWWCiZ9vadxoDIM7JhV5vvAfRGUxGNPHIGpG+xjLEbzhY
-   IbL60aUUvfW5NKk8Qh+UpKCLzeAOwdrFdWGXMnVFgJdYcKSzi8XBO7Mxn
-   A==;
-X-CSE-ConnectionGUID: JahpUe4zRnqZSaNQH8dAqg==
-X-CSE-MsgGUID: m+S3U4MSSuiQRv7L4Pu5Fg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="360736"
-X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
-   d="scan'208";a="360736"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 14:35:41 -0700
-X-CSE-ConnectionGUID: hAAtQ9E7RgC5gggq/kmmLw==
-X-CSE-MsgGUID: uTyPzQByTueVWkV9Kcs6jw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
-   d="scan'208";a="666731"
-Received: from igk-lkp-server01.igk.intel.com (HELO d0de6c2a75a7) ([10.211.93.152])
-  by orviesa007.jf.intel.com with ESMTP; 11 Oct 2026 14:35:40 -0700
-Received: from kbuild by d0de6c2a75a7 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xG1Ci-000000009eV-2jk1;
-	Sun, 11 Oct 2026 21:35:36 +0000
-Date: Sun, 11 Oct 2026 23:35:31 +0200
-From: kernel test robot <lkp@intel.com>
-To: Kees Cook <kees@kernel.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- linux-kernel@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>,
- Nathan Chancellor <nathan@kernel.org>
-Subject: ld.lld: error: undefined symbol:
- __kcfi_typeid_aria_aesni_avx2_gfni_encrypt_32way
-Message-ID: <202610112311.o9XQsWsa-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ay1lShEt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D12021F0089B;
+	Sun, 11 Oct 2026 21:40:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791754830;
+	bh=jmWPoLYOqIQbL8hkgHJqTFHPfboDRYOCkxBDvw/1Zn4=;
+	h=From:To:Cc:Subject:Date;
+	b=ay1lShEt5PX0jfaSO0QWEeE9CdXaY9eVLIQcV4j/1ErxNWnt+G31KIzJ8g5EYTypY
+	 5vBE8Gg4EikZtMC3ahqwbrSXi6xDrTi+nFnPWT+ejPDT/xWt7ImIVk/sm1/YEcEvby
+	 /aggEKLeD+4sOmwrIrdQcCa5cduh0kLaW63+ftTzbkPQSWgOJ87ilA7VnLhWASd8qt
+	 h4vkgCTsWtduo2ys07yl5wxKbYNTfZuhgvsmIUbPOZEdszxCv499Droe4MrtfgWiyY
+	 lDK0hutfAvKlalc2cI6K5T7/sglhaz3nG/4LoDFL5CoBJ99WV78Lynpjb5QXUV0rFD
+	 wEoh3Wa/6ZpzQ==
+From: Tejun Heo <tj@kernel.org>
+To: sched-ext@lists.linux.dev
+Cc: David Vernet <void@manifault.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	David Dai <david.dai@linux.dev>,
+	linux-kernel@vger.kernel.org,
+	Tejun Heo <tj@kernel.org>
+Subject: [PATCHSET sched_ext/for-7.3-fixes] sched_ext: Fix bypass propagation and the bypass dispatch claim for overlapping bypasses
+Date: Sun, 11 Oct 2026 11:40:26 -1000
+Message-ID: <20261011214028.743546-1-tj@kernel.org>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Kees,
+Hello,
 
-FYI, the error/warning still remains.
+scx_bypass() propagates a bypass to the descendants, and claims bypass
+dispatch on the host, only when the scheduler's own depth crosses zero. A
+sub-scheduler's own bypass that overlaps an ancestor's then misses both: its
+descendants drop out of bypass early, and its claim is leaked or never
+taken. A PM suspend over a sub-scheduler's enable trips the WARN_ON_ONCE()
+in enable_bypass_dsp() on the next bypass, and one over a disable leaves its
+tasks on the parent's bypass DSQs with nobody consuming them.
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   d6d3455d8751854e0d1820f14184682e23ac4475
-commit: 23ef9d439769d5f35353650e771c63d13824235b kcfi: Rename CONFIG_CFI_CLANG to CONFIG_CFI
-date:   1 year, 1 month ago
-config: x86_64-randconfig-2000-20261011 (https://download.01.org/0day-ci/archive/20261011/202610112311.o9XQsWsa-lkp@intel.com/config)
-compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261011/202610112311.o9XQsWsa-lkp@intel.com/reproduce)
+Patch 1 propagates every depth change so that a descendant's depth is the
+sum of its own and its ancestors' bypasses. Patch 2 claims and releases
+bypass dispatch for the propagated descendants too.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 23ef9d439769 ("kcfi: Rename CONFIG_CFI_CLANG to CONFIG_CFI")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610112311.o9XQsWsa-lkp@intel.com/
+Verified with a debug patch holding a sub-scheduler's enable bypass open
+across PM suspend cycles: every suspend landed inside it, the unfixed kernel
+trips the WARN on the following disable and the fixed one does not, with the
+sub-scheduler's tasks running after each resume. The claim protocol across
+the PM notifier, sub-scheduler enable and disable and root disable was
+model-checked with TLC, including the sequences fixed here.
 
-All errors (new ones prefixed by >>):
+Based on sched_ext/for-7.3-fixes (069403dff337).
 
->> ld.lld: error: undefined symbol: __kcfi_typeid_aria_aesni_avx2_gfni_encrypt_32way
-   >>> referenced by aria-aesni-avx2-asm_64.S:1345 (arch/x86/crypto/aria-aesni-avx2-asm_64.S:1345)
-   >>>               vmlinux.o:(__cfi_aria_aesni_avx2_gfni_encrypt_32way)
+This patchset contains the following 2 patches.
+
+ 0001 sched_ext: Propagate every bypass depth change to the descendants
+ 0002 sched_ext: Fix the bypass dispatch claim for schedulers bypassed by an ancestor
+
+The patchset is also available in the following git branch:
+
+ git://git.kernel.org/pub/scm/linux/kernel/git/tj/sched_ext.git bypass-claim-fixes
+
+diffstat follows. Thanks.
+
+ kernel/sched/ext/ext.c | 54 ++++++++++++++++++++++++++++++--------------------
+ 1 file changed, 33 insertions(+), 21 deletions(-)
+
 --
->> ld.lld: error: undefined symbol: __kcfi_typeid_aria_aesni_avx2_gfni_decrypt_32way
-   >>> referenced by aria-aesni-avx2-asm_64.S:1370 (arch/x86/crypto/aria-aesni-avx2-asm_64.S:1370)
-   >>>               vmlinux.o:(__cfi_aria_aesni_avx2_gfni_decrypt_32way)
---
->> ld.lld: error: undefined symbol: __kcfi_typeid_aria_aesni_avx2_gfni_ctr_crypt_32way
-   >>> referenced by aria-aesni-avx2-asm_64.S:1395 (arch/x86/crypto/aria-aesni-avx2-asm_64.S:1395)
-   >>>               vmlinux.o:(__cfi_aria_aesni_avx2_gfni_ctr_crypt_32way)
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+tejun
