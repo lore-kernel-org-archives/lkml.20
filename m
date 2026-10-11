@@ -1,64 +1,73 @@
-Received: from 4.mo528.mail-out.ovh.net (4.mo528.mail-out.ovh.net [46.105.74.135])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 653EA3242D8
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 19:33:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.105.74.135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 447683242D8
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 19:34:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791747218; cv=none; b=rfxuSJfA9DmWSAnxNAxWbg26ozTWRhqImeqL2+xoE7zzD6QFEKXWrpxrneftR664DzNovkdTKc4+YoYJw8BDvBPtV4A+Ld3W+4Psgy3B2TwWaIFYzseimkV15X6mw4YJcf8xZxjDV9DQ2pLaU2XYSi+FOUc4Fg7lWSnYCtTq12E=
+	t=1791747243; cv=none; b=CRadrXVFIioBGSIYUf9JogmEVtup2iTR/h1V/4iLECD4sQgu4DPAFOMsZ5LBgqtvNOHvXPIpoEfLUEaq8QQleAUBMeFadXNtRm+xsf9xd83BaJXonJbpbDT61VXpqUC4B+kTzOavpb0r5Yzkc9fcN/k9zmOa5usp38aCOm01ifo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791747218; c=relaxed/simple;
-	bh=7UMniobDXdIJPIRM03QaMrsNvGhzqGWj4JJoycwf/Yw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nz6AEwZQNEGoEdLTYzMB7r0+53ELlYCZB7XXtgktOUwwUHXpOT4AvaEu2ffzbDM/zRgLRVk3cfhmJKzM8lfdIXTonyMuwdsBTaZMzLVNhlzvl1GxPl2wX1gsvl6v3teRd4hyV8/ELbeyueopuWqxNDeuVlHAP4Tfbo0i3dRgpHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=npnm.eu; spf=pass smtp.mailfrom=npnm.eu; dkim=pass (2048-bit key) header.d=npnm.eu header.i=@npnm.eu header.b=i775tnWF; arc=none smtp.client-ip=46.105.74.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=npnm.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=npnm.eu
+	s=arc-20240116; t=1791747243; c=relaxed/simple;
+	bh=61XhG2ZYTDSrWKrKfWInr2r/YADFoTuE8RhU6zdkc+A=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=sbnmMIp6CwpNIwo8+z1R/mkpOY4T044TS4jtnlaDI/OTpkj3HiSo+x0P1dHpdDkLRVmVuUhsIstI2pdBPPfmVBRj7SA6qQmViRreqmNJrSaAM1Dzfi+X6BaN16we5scbqeJSE8fdVMtr/1rxtFEyrhNJLY+3f9Klcgl6YDH5TZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qrvXDx9I; arc=none smtp.client-ip=209.85.160.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=npnm.eu header.i=@npnm.eu header.b="i775tnWF"
-Received: from director2.derp.mail-out.ovh.net (director2.derp.mail-out.ovh.net [79.137.60.36])
-	by mo528.mail-out.ovh.net (Postfix) with ESMTPS id 4j2r1R0VMXz674Z;
-	Sun, 11 Oct 2026 19:16:27 +0000 (UTC)
-Received: from director2.derp.mail-out.ovh.net (director2.derp.mail-out.ovh.net. [127.0.0.1])
-        by director2.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
-        for <lina+kernel@asahilina.net>; Sun, 11 Oct 2026 19:16:26 +0000 (UTC)
-Received: from mta2.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.101.149])
-	by director2.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4j2r1Q6BCjz1xsb;
-	Sun, 11 Oct 2026 19:16:26 +0000 (UTC)
-Received: from npnm.eu (unknown [10.1.6.10])
-	(Authenticated sender: laniel_francis@npnm.eu)
-	by mta2.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id E486A3E1F87;
-	Sun, 11 Oct 2026 19:16:23 +0000 (UTC)
-Authentication-Results:garm.ovh; auth=pass (GARM-112S0064cc91a54-4b04-4d6c-b53a-e9b1e7b72180,
-                    D399504B8DAA22F5A3196F0BFCE745750AD202B1) smtp.auth=laniel_francis@npnm.eu
-X-OVh-ClientIp:46.177.232.216
-From: Francis Laniel <laniel_francis@npnm.eu>
-To: Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Asahi Lina <lina+kernel@asahilina.net>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Alvin Sun <alvin.sun@linux.dev>,
-	Francis Laniel <laniel_francis@npnm.eu>
-Cc: Thorsten Blum <blum@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org
-Subject: [RFC PATCH v1 1/2] rust: add NonEmptySlice
-Date: Sun, 11 Oct 2026 22:15:11 +0300
-Message-ID: <20261011191540.56199-2-laniel_francis@npnm.eu>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261011191540.56199-1-laniel_francis@npnm.eu>
-References: <20261011191540.56199-1-laniel_francis@npnm.eu>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qrvXDx9I"
+Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-5352a876d5aso18009901cf.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 12:34:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791747241; x=1792352041; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:content-type:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5cS8rtI+Z/43NmekjXfCNZrQzOfAL9A4kwOwWeF68po=;
+        b=qrvXDx9IPw5ZNXf1B76s2FVWpTd3JnDG7pdBZBoZ8ss+GO8G86XTNnKmmR7USXOKy2
+         x05v5XRmDZR3UrU/vVmIoX3W8IWdeWwbv0p/dLA7JP2bk6YgYZkZ2kbKwj7QVK1bB5DN
+         M9xHyuf2tRsdxDN75g8Y7UZE9JRj0E8sHHg4hBrAoglbj2Lec9Mzvcff129u2i2D7hYA
+         xst6DLMyBDCpDXuLbkQ9Fg31rCXPemBOq7pw96tPajOKgduHYGugoIvZtUMjzI+CzsKc
+         h4hNhXLjpJmY1ZG3pE+bfyNwRLbsfL2rGonBUPKUXJlRZ43dibpbhcSePHKLabXzRMFS
+         mY0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791747241; x=1792352041;
+        h=content-transfer-encoding:mime-version:content-type:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5cS8rtI+Z/43NmekjXfCNZrQzOfAL9A4kwOwWeF68po=;
+        b=UnZYkGqKKlrJ8R5MpKrWp6YYDoSyko1WCUEgBpwtlxIB/8tljS44gGVOPcgJQuH57A
+         ZwmN5WvLN/X88AFuGhWysLofhzhdj8voZp50uO7UaxvIY0wIQoD5UZUfMjUIKfbbLfgA
+         bD4JAbPqOV9L1QB4V6ODid38Ox422+thScfuQj/EshltJZl7utAGXQRA75+2ZgI1Shbl
+         cc3wuXFQh1aVvcUF8UPSeuKpzlMRTQ4wwDhhNsrfII/UUMpDVyWDpKOVHd2ukmDnEFPn
+         cCrjbLy5/FKLXzDdfit7O5PKrivHVdydGH6t+BJedcvS9VVCgFSgw21Y46xU6uDlTE4h
+         1rQg==
+X-Gm-Message-State: AFq9FYKxHJ6O7191bz+zR0QHksT21eXkcysnb9lbN+yWtZAzmZojm/ck
+	Am8JGfpDiDHgWNQbMj6OXnyk352Nb3vZRsw2CsCBSXX5jELGWLwTvEM=
+X-Gm-Gg: AYBFou1JCpQyEoOaV1RPsBxGn2jYBp2ia3eDxlmjJch4hTbSdW+ZseTfYlhSefTflSv
+	cqu/G+3pYt7XhaRDbax9O2S8vsh/Sk5RcFTzwX3KIwCt4O9/StGsSp+mXgQ8t6QKTXIqz39xahr
+	SpN3ies1iMid12lqlZFibsaJ0/Ppc/rszwgSCr6KRQLYirZrc2Xk26PKS9PlFPJ+Nz0wviZBzSx
+	gQh9IkJM7D9LR3cFTS2CRkggKa6j1k6veyHrKupE5NC05y5f9UenxDiPsB+i/dp8fxhN5zh5AP9
+	NG93TxhB8fHweIX0e5Ath5rX2OcByIAlQ09md9RQb4ebC8vTmlvcpXpRsVMoMaDuFceb9Eb/TXC
+	i77b8G0ZUB3jAK+S/IWcwrJ0YMHo+FDAKuxaCa3J1BBb8a4tOWtW8EOkDCcyhUfktL6+/Fi6JIn
+	hMYLbeCXwgL540hO8wMOjN+uGHEI/V9wY2YxhfKR5/T8Ha3WAlC+GdpyIJo5RlbCdQLUZyfZwit
+	CkbYkbVF3DSvXvXP04RNLrT9sc3Dln6VrpzJulwF93HVQHSqdr6Hd6221QqXJ2xTcvSBH6ejehc
+	YXBeRg==
+X-Received: by 2002:ac8:5cd4:0:b0:533:36d9:a911 with SMTP id d75a77b69052e-5359fb20005mr122686171cf.28.1791747241023;
+        Sun, 11 Oct 2026 12:34:01 -0700 (PDT)
+Received: from gmail.com ([130.203.156.90])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b7dd1a0sm63412351cf.27.2026.10.11.12.33.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 12:34:00 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: mporter@kernel.crashing.org,
+	alex.bou9@gmail.com
+Cc: linux-kernel@vger.kernel.org,
+	ae878000@gmail.com
+Subject: [PATCH] rapidio: tsi721: Cancel the self-rearming doorbell work on removal
+Date: Sun, 11 Oct 2026 15:33:56 -0400
+Message-ID: <20261011193336.005f74ced603-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.53.0
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,127 +75,40 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 16179744612752238038
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTGczdRMCQyeoZI7h7iqL6GVNwmXs+ikCA2vhVmTpT9APCrczhIDhTWImRE+mGZ87mQ1RVTQHlu/DQoilygyLi6dmQeAilT+9A2MW4Lk4Jy6Vf1lgZOmGuYqGVzHqX85IpQNYWXUCDN9YX5yAadWdQ5l2QINDliuJylL3c/SS9kwVgl1T2uxWiIJpSpN30QeeoJnJ/qt6K0KA8PImfs3jBIb1uQkjN/Ay5RMZaRBFTXq7mvnTxKVt+0prlhYZUrslwuT/sAmnfm5om+zpncjfi5DfLVpLQ5QdZyhqAkb/5aEy3o2Cja43Zswkm9My0qD9bISKKxW+XEaYkCURYCm50scTIi/r88A/IdMp157lOSOG7MFIGQIkEh+njhXZsHKVr+Q9mezSdw6L8H16R375elMumV3lGRyfCXqO/JVcYvMOF5N2iuS0BmtngUCH5DqW2cmy2VrryUEr/yiA86jQdJZ7fPJLwmJiet1Btc+WFBvKZa5ZOeCpC32spUeXAuZEK1toXigvxN3iP1qWUIkAkggb/WEyu09Lh8xSc7xb++qT//QaPez+5ZzDnSTcPDJArRoVeACY2pCrDeClzpjpQTR1NzaNEAcCiNh6CURWL8U1cPO7cNikgHn09US/suVoMHbqgjzmpUq0tjo7YLOWaPG9zTy2WwA08Bh8sIiArNSLQ
-DKIM-Signature: a=rsa-sha256; bh=1UJ+DhziNtWWSH5W+tvvUB/5mS9tuVC2zoW998ycCxM=;
- c=relaxed/relaxed; d=npnm.eu; h=From; s=ovhmo-selector-1; t=1791746187;
- v=1;
- b=i775tnWFNbRDQdXfQoMfwypU3nJwduvfMMrQFAB0IyYfEZXEycUCRyMNQyZELnN2CzhoS/MB
- 0qX0eyocb1dztV/VlhxBdE1IoCIufWwC3tRxyZUOe1tPECkr2/pDMk5hFBgoLAHafu9FcW8ROvZ
- 1RfIkjAyDTmnquPdAwrPVJS9fk0ApThyEXHw9bd8QQIayUWv4pTJuUhMNKIEft+dj7WzWLo2X8p
- tidtsBO98R07RzxAAXpaU3yAdeBEJg2M/Jbi3tzFhoCyY1b3PWMzmFUY1wI3q9VLCN9ZD8iui+z
- NFIAr81nWWCOgS436I7Kiq8xJHuZCF4jw0xjxYSq7eU1A==
 
-Add NonEmptySlice<T>, a [T] wrapper that is guaranteed to contain at
-least one element.
-This lets methods such as last_mut() return a plain reference instead
-of an Option, so callers that have already checked for emptiness no
-longer need unwrap() or unwrap_unchecked().
+tsi721_db_dpc() schedules idb_work again when another doorbell arrives
+while it is restoring the queue interrupt. flush_work() waits for the
+instance that was queued at the start of the flush, but does not prevent
+that instance from queuing a successor. Removal can therefore free the
+doorbell buffer and device state with another instance still pending.
 
-Suggested-by: Gary Guo <gary@garyguo.net>
-Signed-off-by: Francis Laniel <laniel_francis@npnm.eu>
+Use cancel_work_sync() after freeing the IRQs. At that point the external
+producer has stopped, and synchronous cancellation also handles a worker
+that rearms itself. The non-rearming port-write work can still be flushed.
+
+This issue was found by static analysis.
+
+Fixes: 3670e7e12e58 ("rapidio/tsi721: fix inbound doorbell interrupt handling")
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- rust/kernel/lib.rs   |  1 +
- rust/kernel/slice.rs | 76 ++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 77 insertions(+)
- create mode 100644 rust/kernel/slice.rs
+Compile-tested with GCC, W=1 (arm). No runtime testing.
 
-diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-index 7225abc64084..8cc01aceb3b2 100644
---- a/rust/kernel/lib.rs
-+++ b/rust/kernel/lib.rs
-@@ -130,6 +130,7 @@
- #[cfg(CONFIG_RUST_SERIAL_DEV_BUS_ABSTRACTIONS)]
- pub mod serdev;
- pub mod sizes;
-+pub mod slice;
- #[cfg(CONFIG_SOC_BUS)]
- pub mod soc;
- #[doc(hidden)]
-diff --git a/rust/kernel/slice.rs b/rust/kernel/slice.rs
-new file mode 100644
-index 000000000000..7e467cb952c3
---- /dev/null
-+++ b/rust/kernel/slice.rs
-@@ -0,0 +1,76 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Slice abstractions to ease development.
-+
-+use core::ops::{Deref, DerefMut};
-+
-+/// A slice that is guaranteed to contain at least one element.
-+///
-+/// # Invariants
-+///
-+/// `self.0` is not empty.
-+#[repr(transparent)]
-+pub struct NonEmptySlice<T>([T]);
-+
-+impl<T> NonEmptySlice<T> {
-+    /// Returns `None` if `s` is empty.
-+    pub fn new(s: &mut [T]) -> Option<&Self> {
-+        if s.is_empty() {
-+            return None;
-+        }
-+        // SAFETY: `Self` is `repr(transparent)` over `[T]`, so the cast keeps the slice length.
-+        // INVARIANT: `s` is not empty, checked above.
-+        Some(unsafe { &*(core::ptr::from_mut(s) as *const Self) })
-+    }
-+
-+    /// Returns `None` if `s` is empty.
-+    pub fn new_mut(s: &mut [T]) -> Option<&mut Self> {
-+        if s.is_empty() {
-+            return None;
-+        }
-+        // SAFETY: `Self` is `repr(transparent)` over `[T]`, so the cast keeps the slice length.
-+        // INVARIANT: `s` is not empty, checked above.
-+        Some(unsafe { &mut *(core::ptr::from_mut(s) as *mut Self) })
-+    }
-+
-+    /// Returns a reference to the first element.
-+    pub fn first(&mut self) -> &T {
-+        // SAFETY: By the type invariant, `len >= 1`, so `0` is in bounds.
-+        unsafe { self.0.get_unchecked(0) }
-+    }
-+
-+    /// Returns a mutable reference to the first element.
-+    pub fn first_mut(&mut self) -> &mut T {
-+        // SAFETY: By the type invariant, `len >= 1`, so `0` is in bounds.
-+        unsafe { self.0.get_unchecked_mut(0) }
-+    }
-+
-+    /// Returns a reference to the last element.
-+    pub fn last(&mut self) -> &T {
-+        let last = self.0.len() - 1;
-+        // SAFETY: By the type invariant, `len >= 1`, so `last` is in bounds.
-+        unsafe { self.0.get_unchecked(last) }
-+    }
-+
-+    /// Returns a mutable reference to the last element.
-+    pub fn last_mut(&mut self) -> &mut T {
-+        let last = self.0.len() - 1;
-+        // SAFETY: By the type invariant, `len >= 1`, so `last` is in bounds.
-+        unsafe { self.0.get_unchecked_mut(last) }
-+    }
-+}
-+
-+impl<T> Deref for NonEmptySlice<T> {
-+    type Target = [T];
-+
-+    fn deref(&self) -> &[T] {
-+        &self.0
-+    }
-+}
-+
-+impl<T> DerefMut for NonEmptySlice<T> {
-+    // Mutating elements through `&mut [T]` can't change the length, so the invariant holds.
-+    fn deref_mut(&mut self) -> &mut [T] {
-+        &mut self.0
-+    }
-+}
--- 
-2.47.3
+ drivers/rapidio/devices/tsi721.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/rapidio/devices/tsi721.c b/drivers/rapidio/devices/tsi721.c
+index 71b87bf..2bae63e 100644
+--- a/drivers/rapidio/devices/tsi721.c
++++ b/drivers/rapidio/devices/tsi721.c
+@@ -2978,7 +2978,7 @@ static void tsi721_remove(struct pci_dev *pdev)
+ 
+ 	tsi721_disable_ints(priv);
+ 	tsi721_free_irq(priv);
+-	flush_work(&priv->idb_work);
++	cancel_work_sync(&priv->idb_work);
+ 	flush_work(&priv->pw_work);
+ 	rio_unregister_mport(&priv->mport);
+ 
