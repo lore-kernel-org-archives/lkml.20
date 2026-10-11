@@ -1,123 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FD9E422535;
-	Sun, 11 Oct 2026 10:39:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CEBE432BD3
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 10:41:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791715188; cv=none; b=e657hhxZ+goYYVoen/+0c+QNhJageQjCnhfE5stI944kmS/KQdEZywsCxdZiBhp968rt1vuNjbnMnxdhc1xLPyUs5ndFt1R3hC002kgqszHRpmscvKe+kqxBnlHl6WX3MVH/PTTp18w5p4kypWpXXQj7dpgK2+2dKf51hnTVt5s=
+	t=1791715306; cv=none; b=MH3fET3gTVUvqu8KHfz9BCZRlFeafseVHnvdWH07GcMcGf4c0W2qL0K6qBR2gSi0zXLg/kY/MnlGiysoXVQNqli6FJU5166IGkMjhmMimtFrLMRtseG02i/MNqfoZ+yy2br/4pl57yBnBv/s6WLPKXVsDdBCyovizRTJ3E3iTfg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791715188; c=relaxed/simple;
-	bh=CB1hRUy05pINQd6rfDoOjyIae4KTRVlyBHfjoEIUMIc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gYJzVrhSHhAcy/MZlt1PrThMwDfjYoLMwUCwmFjqbmDmiW1pENu68sct4z0Rr4dWIdSIWP5EN1pEPsBnEuftTMs8BhmPVCx6c7IpwR9+gyeD9Q6+ggd+1c2Oasv/HCve12MDcX9TSloHALT9Omeo9bBvO90EK3RQFgbSRTdRYwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KTOEPj9I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791715306; c=relaxed/simple;
+	bh=qjhWHIzbLO2yDn9fEOpHiCs1+H596BfQIi5qxCi+tKw=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=RopZ+7MZmE5DuIJ458itttPrWWkEfT228EZGzYfHukuvgAbntNc8th6HdDLK9o7tsWNOk6hOF+603S9SZz0QL9XJ7kfD8Wkd65YrfpilLMLUSDDeXNDudjVUWB/OoOXg7cs+q3qYc6N4stY55Dr4qXEWPfi/6yumi+sH+OzAJk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--wakel.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Mudrb7+D; arc=none smtp.client-ip=209.85.216.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wakel.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KTOEPj9I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95B6D1F0089E;
-	Sun, 11 Oct 2026 10:39:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791715181;
-	bh=/N2sioizD+tpIgxWQbkSEdlSfQSVfCBMVIP7tgJPbr8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KTOEPj9IwtkGVwtJHARfbXjnFCKKvLs5AJcuIbIhS+g+6tZvinfJQ/F+hnJAQb/Ak
-	 Q/Mwu5ZE5N1WGNpAGVAmpNe8pVSyCYwUFF9HgXuolCDextbJBeVhetX61okOVItos8
-	 DE/zZeaAwxMN93ZfQb0H+tHFdF2KJt130oN5T7rt9V7Q76Z9FEssWjmZtVsZ6zdfUT
-	 WhWc79iUJfCYeJj90EhRYjIPniwbInlcNwkKF1raL7GfZqpoPo84qXyu+7aupHYUI4
-	 c7yYo2PLWof97IoBUHqPSIl6iHv4VwopD+EUvKvbY35EOkk8zbxh4BXAP2/q4hlXeV
-	 CPcrBceu5QIfA==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <benjamin.tissoires@redhat.com>,
-	David Rheinsberg <david@readahead.eu>,
-	Sasha Levin <sashal@kernel.org>,
-	Hans de Goede <hdegoede@redhat.com>,
-	Douglas Anderson <dianders@chromium.org>,
-	Ai Chao <aichao@kylinos.cn>,
-	"Mario Limonciello (AMD)" <superm1@kernel.org>,
-	Kenny Levinsen <kl@kl.wtf>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org
-Cc: stable@vger.kernel.org,
-	Carlos Llamas <cmllamas@google.com>,
-	Jiri Kosina <jkosina@suse.com>
-Subject: [STABLE v6.6-v6.1 2/2] HID: uhid: convert to hid_safe_input_report()
-Date: Sun, 11 Oct 2026 10:38:57 +0000
-Message-ID: <20261011103900.2201441-2-lee@kernel.org>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-In-Reply-To: <20261011103900.2201441-1-lee@kernel.org>
-References: <20261011103900.2201441-1-lee@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Mudrb7+D"
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3a47617a0b3so832359a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 03:41:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791715305; x=1792320105; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qjhWHIzbLO2yDn9fEOpHiCs1+H596BfQIi5qxCi+tKw=;
+        b=Mudrb7+DOVsx/WHdLb/Gl3lCHugOnk6XFxjjJKqOXvga5BUPv+7PAEAzBiMM9LkLmO
+         I6awrpa1FGCUT8ls5cZzHM6e592sLMH6+/PPRO9cq55jp3Db7mnEPkwRCIxaAOqMrKqR
+         cFRKTv5V+MQqIV0c81EmmLXLBpQCw9EYETwCEY4j+tTwGnQ9bWAy9TDdlz4Mnf0+ZE3d
+         2h7HQe2WrdGc1Fx0FH2KkvMKEJuFRRgAbK1Jd80nwi+CXnMlWxJ69aghV5gDY3qE4907
+         c6eCQpLd4kVPHcJECt1ABCG95PetXLcf/nV8BTfYzc2/ZkVNBWPUDvb4a0NZ+K2DNIP/
+         pOUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791715305; x=1792320105;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qjhWHIzbLO2yDn9fEOpHiCs1+H596BfQIi5qxCi+tKw=;
+        b=IWwnA06XUJAr1IYNmMeGdgflN/0ocOOfIiHcEZFTO2j0mSsMeA2XT727q2hsCNwxje
+         QBRR70pPMhNSTWY/j7ZBc+Hej1n6/6O9SlX8HYc906DhFlUN9oTFZyN04q3DNxMrO9sa
+         ee9gxXvXA+Z9F+X79siSNC6e8hfUma7BzR6RaslGz0506uUzeaChM5RIY89/LuRFKE9E
+         E5RZ0WuvXSMt9nnFaeRxEoN3KxKKHbJSDiA1ES0y8TyzmZuQX/8JLB8dI+PrDO7vFGXc
+         9mHodVqo/GpeyvcCsrpIuQenGjGd2q4U6jAbuzLhTsOnVdcFT8pnXZHxip6M64rNToUT
+         vnGg==
+X-Forwarded-Encrypted: i=1; AKwUvByGOqVHVr4tlgKM5GE9tYfjhbSKUdaaWVfOKeIIcX/zLMyuobInrW3rN61Vg3a2PJ3aTYBV1KYR4DtY5TI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKo7YZ7OJ6QsPCevzjZFu9NleGUpd93SyvF1gu5Hs2ebkGmciW/
+	7hesnW36ecsBA9n9JGZ5BnCdTyymwX9dmHQ9Af34ATaqaqfskyD9xeIHQV2ols6JzJLgqgYMar0
+	bIw==
+X-Received: from pgbd17-n2.prod.google.com ([2002:a05:6a02:64d1:20b0:cc7:eb8b:50e3])
+ (user=wakel job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:3c8c:b0:3a4:967c:6947
+ with SMTP id 98e67ed59e1d1-3ab3a99b4d0mr5011802a91.21.1791715304719; Sun, 11
+ Oct 2026 03:41:44 -0700 (PDT)
+Date: Sun, 11 Oct 2026 10:41:42 +0000
+In-Reply-To: <20260910034821.2935214-1-wakel@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260910034821.2935214-1-wakel@google.com>
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+Message-ID: <20261011104142.1225275-1-wakel@google.com>
+Subject: Re: [PATCH] selftests: rtc: Support harness test filtering and arguments
+From: Wake Liu <wakel@google.com>
+To: Shuah Khan <shuah@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: linux-rtc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Carlos Llamas <cmllamas@google.com>
+Hi Shuah,
 
-[ Upstream commit 63a694c51bf120a37550890b8e7736b4888985e9 ]
+Gentle ping on this patch. Alexandre has acked it from the RTC
+side [1], and it still applies cleanly on top of both
+kselftest/next and v7.3-rc6.
 
-Commit 0a3fe972a7cb ("HID: core: Mitigate potential OOB by removing
-bogus memset()"), added a check in hid_report_raw_event() to reject
-reports if the received data size is smaller than expected. This was
-intended to prevent OOB errors by no longer allowing zeroing-out of
-shorter reports due to the lack of buffer size information.
+With this change, rtctest accepts the standard kselftest harness
+options, so a test runner can select a subset of the cases with
+e.g. "rtctest -t date_read -t date_read_loop". This would let
+Android VTS drop a local #ifdef that it currently carries in
+rtctest.c.
 
-However, this leads to regressions in hid_report_raw_event(), where
-shorter than expected reports are rejected, even though their buffers
-are sufficiently large to be zero-padded.
+There is no rush; picking it up for the next cycle is perfectly
+fine. Alexandre, if you would rather take it through the rtc tree,
+that works for me as well.
 
-To solve this issue, Benjamin introduced a safer alternative in commit
-206342541fc8 ("HID: core: introduce hid_safe_input_report()"), which
-forwards the buffer size and allows hid_report_raw_event() to safely
-zero-pad the data.
+FWIW, the pending date_read_loop fix [2] touches the same file.
+The two patches are independent and apply in either order.
 
-Convert uhid to use hid_safe_input_report() and pass UHID_DATA_MAX as
-the buffer size. This prevents the reported regressions [1], allowing
-hid core to zero-pad the shorter reports safely as expected.
+[1] https://lore.kernel.org/all/2026092119312953871857@mail.local/
+[2] https://lore.kernel.org/all/20260929152212.2092062-1-wakel@google.com/
 
-Cc: stable@vger.kernel.org
-Fixes: 0a3fe972a7cb ("HID: core: Mitigate potential OOB by removing bogus memset()")
-Closes: https://lore.kernel.org/all/ahsh0UtTX6e0ZeHa@google.com/ [1]
-Signed-off-by: Carlos Llamas <cmllamas@google.com>
-Reviewed-by: Lee Jones <lee@kernel.org>
-Closes: https://lore.kernel.org/all/ahsh0UtTX6e0ZeHa@google.com/
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
-Signed-off-by: Lee Jones <lee@kernel.org>
----
- drivers/hid/uhid.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/hid/uhid.c b/drivers/hid/uhid.c
-index 4588d2cd4ea4..9027bb23f247 100644
---- a/drivers/hid/uhid.c
-+++ b/drivers/hid/uhid.c
-@@ -596,8 +596,8 @@ static int uhid_dev_input(struct uhid_device *uhid, struct uhid_event *ev)
- 	if (!READ_ONCE(uhid->running))
- 		return -EINVAL;
- 
--	hid_input_report(uhid->hid, HID_INPUT_REPORT, ev->u.input.data,
--			 min_t(size_t, ev->u.input.size, UHID_DATA_MAX), 0);
-+	hid_safe_input_report(uhid->hid, HID_INPUT_REPORT, ev->u.input.data, UHID_DATA_MAX,
-+			      min_t(size_t, ev->u.input.size, UHID_DATA_MAX), 0);
- 
- 	return 0;
- }
-@@ -607,8 +607,8 @@ static int uhid_dev_input2(struct uhid_device *uhid, struct uhid_event *ev)
- 	if (!READ_ONCE(uhid->running))
- 		return -EINVAL;
- 
--	hid_input_report(uhid->hid, HID_INPUT_REPORT, ev->u.input2.data,
--			 min_t(size_t, ev->u.input2.size, UHID_DATA_MAX), 0);
-+	hid_safe_input_report(uhid->hid, HID_INPUT_REPORT, ev->u.input2.data, UHID_DATA_MAX,
-+			      min_t(size_t, ev->u.input2.size, UHID_DATA_MAX), 0);
- 
- 	return 0;
- }
--- 
-2.56.0.385.gd3acb90ef8-goog
-
+Thanks,
+Wake
