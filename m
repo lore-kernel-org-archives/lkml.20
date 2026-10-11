@@ -1,145 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A8D37E5C9;
-	Sun, 11 Oct 2026 21:40:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A9031ED7C
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 21:44:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791754833; cv=none; b=UrdCpWp3PfB329586n21PZKhHlAdLH7ruFfKRojUohIePqslg8TRgBuQA/rI1IagKMW6fCa560pxgFCYuGbl4tBndWRaQG1Sy3D6g6n+A/XqkjXC+9UVwOLAK5zwYfwu9qkSbPO+FFGTD8TKbgMnnNRl70174tLiXfxQ3lEkvjg=
+	t=1791755092; cv=none; b=KP+M84vnVAX/k7MsJ5cXSFreBiiEpNidLK6Ug4o2KLMfmERfWGwa55RPNEqenZftDcWYnVhD2SXKWotvcO4jW9NjUjKKZ3DAx373ZgS8tav/4fOWt6bPXO11njUurKUKI0T2UzJzuJ2FDFhQt0tziUkUg77kefEicZlMbCZPMn8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791754833; c=relaxed/simple;
-	bh=35aG5eOCLJAUzUcWTKBJJKxovy5s4tN16HtgnnO4Crc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c0Vmq4SEII/7Ye8iLBeeR9wHoY4WPgz6wo6UHoDobxNGgPmDZnZYuGCjYLCTlQI93+8TqRkWMgFs20JF03CCCrOqPjSGfDiPpTzebLidAtNafJDYzajLIQTO/KbtzKJ1RulOO0jTxQWPOvbg3Km6jAMSN5BbIVRM97mtYlBgPH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bStsu4Yw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791755092; c=relaxed/simple;
+	bh=dbf7Z2VFPiTT53lRwlSp/xE5y81p6hF8UBpX7LIzQ/c=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=oS+7AAI3TjOSdVSF6svLOY0/YAox+FK3hH3J9GZQLM3XKZqhlUI+1Lr6oa3gAz7cxB5Gvpd9CaSaOj7qwRB+e7Sf/nPhISFKYv4JzOcDq+by+7+RLcDaeIZu8NaLBydbqUUfHfxgPbEzJ21OMMxQlBpLZQyIoA2znYW+yZA0FJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=EV4Zdlw4; arc=none smtp.client-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bStsu4Yw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BED791F0089B;
-	Sun, 11 Oct 2026 21:40:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791754831;
-	bh=4y80yLjldmJgxg/F+k8ClU+tSYjrWWhk6QqhRI8No4I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bStsu4YwwJhlDI61JQOga9ovUJtbEI2uQSsUdZS2zmCufsQuG4+Sjz5Gg6l+8lgvz
-	 b3F8vcP0HBfKDzRU38qtCTdfjY3h5j2JyOXYdT6qXVNo3+smTMScuMXimgxDBvZUTv
-	 BbtFFTWkOKLLA8eCMckyo6BDSh4ZWPpJ8uoz0u1NWAb1PmAKAnMUvp0iEevo2ZMedN
-	 KximoRkZVb+teEAXlv2X+U1nXq9hFUN7PYP4bJJyCl1010UIm/LGQPQ6RFRoIWl6vf
-	 Ytgpy1gaLKgK1hYKRDzIz/9qZ4mhfN3YW2dpjp6cGZ1SBiBeZlTWKWzfZD9+FgHdEm
-	 alvr3SrpG43Dw==
-From: Tejun Heo <tj@kernel.org>
-To: sched-ext@lists.linux.dev
-Cc: David Vernet <void@manifault.com>,
-	Andrea Righi <arighi@nvidia.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	David Dai <david.dai@linux.dev>,
-	linux-kernel@vger.kernel.org,
-	Tejun Heo <tj@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] sched_ext: Fix the bypass dispatch claim for schedulers bypassed by an ancestor
-Date: Sun, 11 Oct 2026 11:40:28 -1000
-Message-ID: <20261011214028.743546-3-tj@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261011214028.743546-1-tj@kernel.org>
-References: <20261011214028.743546-1-tj@kernel.org>
+	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="EV4Zdlw4"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID; bh=dbf7Z2VFPiTT53lRwlSp/xE5y81p6hF8UBpX7LIzQ/c=; b=EV4Zdl
+	w435M3Kk1dbk8mAM9muIWjItRwj+bSQYYoxZms2gdJuyJw/R6DXrBAxpCIoncZ6sBfcWhiN597FoW
+	aR+/EHtKRBt/n92s48UuYEbmV9wi+nxZNTDi0UOpQnt0P0kBuiBgE+WXsPPt5vLgs8E2i4HOxfUiQ
+	Be+zWT+oErTFHbxhp6y1Pg3RYkEb3g/yKFMOksl+0VykZpBBF/R8EITDAL1Gjx2ABRHxDSLs5IcWg
+	QAJbEWTk73YfB2pGDp8lwkkrUa0wNGcgCNKUdvok3v/b4P+tzmt3wfvmf7zDB5p1gHKn0zeEFn6WD
+	oI3fHOZWKk98t6AEa7T+1pRfneEQ==;
+Received: from [2601:18c:8100:a0e0:2541:b86e:2586:d219]
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1xG1L3-00000003Bmh-3JvA;
+	Sun, 11 Oct 2026 21:44:13 +0000
+Message-ID: <003fdeb213ca0460c8681d4ae7baa562b337ed1a.camel@surriel.com>
+Subject: Re: [RFC PROTOTYPE] mm: reliable 1GB page allocation
+From: Rik van Riel <riel@surriel.com>
+To: Dev Jain <dev.jain@arm.com>, linux-kernel@vger.kernel.org
+Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, David
+ Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R.
+ Howlett" <liam@infradead.org>,  Vlastimil Babka <vbabka@kernel.org>, Mike
+ Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,  Michal
+ Hocko <mhocko@suse.com>, Kairui Song <kasong@tencent.com>, Qi Zheng
+ <qi.zheng@linux.dev>, Shakeel Butt	 <shakeel.butt@linux.dev>, Johannes
+ Weiner <hannes@cmpxchg.org>, Brendan Jackman	 <brendan.jackman@linux.dev>,
+ Zi Yan <ziy@nvidia.com>
+Date: Sun, 11 Oct 2026 17:44:11 -0400
+In-Reply-To: <55adcc67-e545-4bf5-93ba-7e4180f1b523@arm.com>
+References: <20261004013657.03a63c4c@fangorn>
+	 <55adcc67-e545-4bf5-93ba-7e4180f1b523@arm.com>
+Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
+ keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
+ eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
+ Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
+ lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
+ dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
+ mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
+ gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
+ r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
+ WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
+ 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
+ Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
+ +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
+ g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
+ KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
+ fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
+ 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
+ G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
+ okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
+ TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
+ cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
+ omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
+ QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
+ c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-scx_bypass() claims bypass dispatch when the scheduler's depth goes from
-zero to one and releases it when the depth returns to zero, but propagates
-only the depth to the descendants, not the claim. A descendant that starts
-bypassing with its ancestor never claims, and one whose own bypass ends
-under the ancestor's keeps its claim, as its depth does not return to zero.
+On Sun, 2026-10-11 at 22:58 +0530, Dev Jain wrote:
+>=20
+>=20
+> On 04/10/26 11:06 am, Rik van Riel wrote:
+> >=20
+> > When the kernel free lists run low, the slow path moves pages and
+> > page
+> > blocks from inside mixed gigablocks onto the kernel free lists.
+>=20
+> Did you consider a design to introduce MIGRATE_POLLUTED: simply
+> have another migratetype which stores polluted pageblocks.
+> This idea can work in general, not sure how relevant it is
+> for gigablock concept.
+>=20
+Don't the first half a dozen or so changes from this
+prototype do that already?
 
-A sub-scheduler enable whose bypass ends under a PM suspend thus leaks its
-claim: the parent keeps hosting bypass dispatch and the sub-scheduler's next
-bypass trips the WARN_ON_ONCE() on the claim. A sub-scheduler disable that
-starts under a PM suspend has no claim, so once the resume lifts the root's
-bypass its tasks sit on the parent's bypass DSQs with nobody consuming them.
+What differences do you have in mind?
 
-Claim for every descendant whose depth goes from zero to one in the
-propagation and release every scheduler in the subtree whose depth returned
-to zero once the tasks have moved out of the bypass DSQs. A parent that is
-bypassing itself when a descendant claims consumes only its own bypass DSQs,
-empty until it leaves bypass and becomes the host.
 
-Fixes: aa2a0a19686c ("sched_ext: Separate bypass dispatch enabling from bypass depth tracking")
-Cc: stable@vger.kernel.org # v7.1+
-Signed-off-by: Tejun Heo <tj@kernel.org>
----
- kernel/sched/ext/ext.c | 34 +++++++++++++++++++---------------
- 1 file changed, 19 insertions(+), 15 deletions(-)
-
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 3edb51bdd0ef..7303c2c45964 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -6099,15 +6099,12 @@ static void enable_bypass_dsp(struct scx_sched *sch)
- 
- 	/*
- 	 * When a sub-sched bypasses, its tasks are queued on the bypass DSQs of
--	 * the nearest non-bypassing ancestor or root. As enable_bypass_dsp() is
--	 * called iff @sch is not already bypassed due to an ancestor bypassing,
--	 * we can assume that the parent is not bypassing and thus will be the
--	 * host of the bypass DSQs.
--	 *
--	 * While the situation may change in the future, the following
--	 * guarantees that the nearest non-bypassing ancestor or root has bypass
--	 * dispatch enabled while a descendant is bypassing, which is all that's
--	 * required.
-+	 * the nearest non-bypassing ancestor or root. The parent hosts them
-+	 * unless it is bypassing too. Then they sit further up and the parent
-+	 * consumes only its own bypass DSQs, empty until it leaves bypass and
-+	 * becomes the host. Either way the nearest non-bypassing ancestor or
-+	 * root has bypass dispatch enabled while a descendant is bypassing,
-+	 * which is all that's required.
- 	 *
- 	 * scx_bypass_dsp_enabled() test is used to determine whether to enter
- 	 * the bypass dispatch handling path from both bypassing and hosting
-@@ -6232,16 +6229,19 @@ void scx_bypass(struct scx_sched *sch, bool bypass)
- 	 * Bypass state is propagated to all descendants - an scx_sched bypasses
- 	 * if itself or any of its ancestors are in bypass mode. A descendant's
- 	 * depth is the sum of its own bypasses and its ancestors', so every
--	 * call propagates whether or not @sch changed state.
-+	 * call propagates whether or not @sch changed state. The descendants'
-+	 * claims are released below with @sch's, after their tasks have moved.
- 	 */
- 	raw_spin_lock(&scx_sched_lock);
- 	scx_for_each_descendant_pre(pos, sch) {
- 		if (pos == sch)
- 			continue;
--		if (bypass)
--			inc_bypass_depth(pos);
--		else
-+		if (bypass) {
-+			if (inc_bypass_depth(pos))
-+				enable_bypass_dsp(pos);
-+		} else {
- 			dec_bypass_depth(pos);
-+		}
- 	}
- 	raw_spin_unlock(&scx_sched_lock);
- 
-@@ -6330,8 +6330,12 @@ void scx_bypass(struct scx_sched *sch, bool bypass)
- 	}
- 
- 	/* disarming must come after moving all tasks out of the bypass DSQs */
--	if (!bypass)
--		scx_disable_bypass_dsp(sch);
-+	if (!bypass) {
-+		guard(raw_spinlock)(&scx_sched_lock);
-+		scx_for_each_descendant_pre(pos, sch)
-+			if (!pos->bypass_depth)
-+				scx_disable_bypass_dsp(pos);
-+	}
- unlock:
- 	raw_spin_unlock_irqrestore(&scx_bypass_lock, flags);
- }
--- 
-2.56.0
-
+--=20
+All Rights Reversed.
