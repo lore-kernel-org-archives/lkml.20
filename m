@@ -1,215 +1,114 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC9FB1CAAC
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 00:03:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0C1510F2
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 00:03:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791677017; cv=none; b=mZf5qT2fnSrQSX/09H6ZY/hQAP1X5KGeC0KSBQxxq8MNouY2+zLtA9DKd6ubiKGRYpghnAdrMdRGNu0EreEzmesyCNlntEEB1lmEDI4tL/9I/URVAqqlWNaMRNjB3USLKuJI+/hqRz1A1Bs6vz7NFYERV+Bg2arRA/GK5XTXln4=
+	t=1791677028; cv=none; b=duJJaI/zVXD7tAKmNNoAUxTijvuI3/mNM+fOsqFT648e0qEdMXTkiXAH7iafc1dMoYatoS2xPP1ljMWxWEyqHesPxv0YrrLoLJ8A+yjGDKz0ZzD2SHFNnFcuXY2hXr9uzH+lyM7CHs4sQpehKMC2Tqtt0nhT3SzdeSwxnx5Lctk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791677017; c=relaxed/simple;
-	bh=QSOP/kYCpEGF7svKaFsq3hzt3Oy8wWXLUjk1jQb3R38=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=PUR4yc4rqdlQNvn8P/RoWrku8W+nkmIWPCwzm+2EOO8lRBRfV5rj4BcgyK7HNahQWt2VC0V8sTJE+fVJqkSWmuzlj1kjnZhyWXh/ZepnYnmaywKBhpseBgt6T8iqEGv6uaV38j3D42v03lUoBrqnpWffCC5SYyiiYLRxV7qR6DU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4dab94dc3e7so1773650b6e.0
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 17:03:35 -0700 (PDT)
+	s=arc-20240116; t=1791677028; c=relaxed/simple;
+	bh=UcgDT3FMEdJhmQfMSACeCceXHPSHR+l37gsF8j7bF+k=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=U6xSySfkR6OlcbMLsvHNOD/jIU3pUY+nCsK3idR+iRttZ1jKIKhWSi30J+Kx+JcrEd01WydqBM75sGQfF2sd5mHS+gP1siAiYLe8ytzlPlRx15sKK3474aompCBtMi+zQvBBAmuwGkL6roSNE2Fxn7iCa4AoL0p9VPEbhwxVTnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=networkplumber.org; spf=pass smtp.mailfrom=networkplumber.org; dkim=pass (2048-bit key) header.d=networkplumber-org.20251104.gappssmtp.com header.i=@networkplumber-org.20251104.gappssmtp.com header.b=dKSg7pnR; arc=none smtp.client-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=networkplumber.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=networkplumber.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=networkplumber-org.20251104.gappssmtp.com header.i=@networkplumber-org.20251104.gappssmtp.com header.b="dKSg7pnR"
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cd1e069cb19so520021a12.0
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 17:03:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=networkplumber-org.20251104.gappssmtp.com; s=20251104; t=1791677024; x=1792281824; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=objlwlXqLfhn7bnwkYZYoUou5W7yYJ4uvUiF5eB54LY=;
+        b=dKSg7pnRdoUt6ybhVYVkp51VG06KAtMcaJONLOV1FrM5zUxgyVR9RjFUbAvazWSw8Z
+         LRab3Ie9/68Vs5DxxU14Y7w5ZDqcpBlXr75szgfkpIVocxfRAlfpc/BY0KEPlMbVR1go
+         9gESwEvJKrMRugqJ20X63ACAeCDltXVAZcbxw8Rb1ji4Q1sNYaTKpzokK8WEwwMLQzVF
+         /cOAupQf9ECcXogCSVyXsoKyGWC2J3PsCH0o3hUHwumIW/edW76VMpLLcNK8GjMqFYdw
+         qGzVCCmOXfSVa7Cp0Qh8vhxZRjSsW5lBImXr3nrDWEluG0cdV9SF5rOE+jUoonq8mE1R
+         Jq1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791677014; x=1792281814;
-        h=content-type:to:from:subject:message-id:date:mime-version
+        d=1e100.net; s=20260707; t=1791677024; x=1792281824;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CHGlembCHFZmJ6IcSYqXwq5eMI0DR636Yv8gH9CHiDE=;
-        b=Yta06s6LlcjAFlvs0rjPNb9jndzafb3hCMfzP4IWoEEnEnmAq6rLj0n/jlpq0GE322
-         QijvFUPgcum5qTMVC2rudiuBn3M6+ig5e1BZuw6LLsarlIU6y4vHeNXa1PKADlGHC4xN
-         nQFz1aXZ1BCGyRBQ71lVYyeNKJTjRoqcqGCv+iqsNIe6Riy5NtOhdZ+rGTG1vKb/IdFG
-         iUgNwPgJ8mgQvRlqgsCfV9aDubJNxz4Ru7tFuK3gAzUYyRC3dNoc0na8Wb7rF2qy3d0f
-         zwFIA3O4f6KKSANZFk+LmbpAv7dX1Iy0gM9O0Jr4TRNklArgnn1kRTrz0l5FcgppMuqI
-         TF9w==
-X-Forwarded-Encrypted: i=1; AKwUvBxxBP/h9mfZQiX//Qswr09rYBgzCf8dHad7KjfV+dVSOl89MIjNdQXXkGdcu1g+blTmWUZQlbpzaCsdbo0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYImO5KzFcxakDcPz4IPUYn5X9suC6R6I7TxovA2bnq0n7v9atC5
-	hba6BJ4x/ZfnNNFNbHO9ZuvtqIqglNGObGMOf7PEej6THOswSDHzJpypmaKDv/1hrSnvHVgtE6f
-	h2iAkST7kGIvZ7UC7JZdxn2NTZId/fpEDYwI3vOwEFQTZqntoY0ogXX44bps=
+        bh=objlwlXqLfhn7bnwkYZYoUou5W7yYJ4uvUiF5eB54LY=;
+        b=u1HbBZSZ57LZcB0I1IZczfjK6kz21grrtm0pvWSKs40OXZT+6ugVEq291BGEmrDQOQ
+         CD/eiwqA4Q5x9pnnJi6NYklTwBe0rjEi0KWaWupsM4IftXgk2vZkwRXd6J5Fxn86+9XZ
+         QNcvbNCDrXUcbWUoRSNnMMTugAOQs9Nme51DRbubdsCZLRAglVYmINVKsaQtQ1x6kpNE
+         d9wxl05tDrTD+JTMtUgGHtPz21lM/S7uKjmU6Yrxm3g9Qg1KMhaLVzl/+YG3XqOAn9U/
+         PLWHEUTBK24MvnkrcCNTuFENWTRkmXPjC8fWL65gf9amAyEjtchd+MSqyKpEggszCoRc
+         BQRw==
+X-Forwarded-Encrypted: i=1; AKwUvBy1YGmrFhVONTjgvvrhXAklSR6PWSP6UReajjxjgFEzupz3uDZf5hWmNNkIFsbkqjrB5IKoc6TJOYUsOAg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIkAXpMhIZ9DhXCOh+b6/itK5zc/j8B75aN7Oc7m+3uJT3FFFcf
+	GqsfY/ep07fmlnRKHfeejQDYr5gzY9AnegaXlit5qtHSia7XQNARubbjXdTZakOezHg=
+X-Gm-Gg: AYBFou04DEnn3rtGYHzXtQetosKRuBAfegPXjyhQ2InY7r4NwKT2/3cvfrck3rUiMcD
+	KGjQEPF/fYChM932CVL+7ZIyltGtJAXMYa6+cYrBVAywzEowzz28Ju0Sxth7YfusG2G08Qm9WQp
+	SWA88TMp8LstHWLqdqGvF6v4MhsptJtiYAX35uPy3F73G7ciKdN4xgWK16YGjh02ZvAnCXtZ84L
+	MmSQkRzTtnHVCnzb+9Kj5HGA6835h4Gb2NXEeCBvIGOE+80zScOQAoeUYUxV7ZR1qqHah4AF+fY
+	x1Cel/4TBZLjIYk+y8IgfRSPI/XoLDMcTyTyz2vZGFOi6zGdLxTWjr3jHEhjAtcbbYe9Y6BbiX4
+	iXtkdkOOWzY8I8QrOBEZfjj02o+GunwXWTKFqOYpoh3bdoJ9/bu0XehLCtD/5oqJZg2m3QUPs/X
+	uv+VPc+gjIp5z/EGW8NVtx5iNsXXNvA4CL/Uq1ig9EvaVhbMAfTKCWFII5Z3Y84qBxcwmSTWJxW
+	OkSSiKJLDKuuwL/9mmPGlZv8nQRz3moeLNM8eB2
+X-Received: by 2002:a17:90b:1dd0:b0:3ab:1ad0:db41 with SMTP id 98e67ed59e1d1-3ab3a9a4f3bmr5100943a91.62.1791677024091;
+        Sat, 10 Oct 2026 17:03:44 -0700 (PDT)
+Received: from phoenix.local (204-195-112-43.wavecable.com. [204.195.112.43])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38fc9e52sm9885524a91.13.2026.10.10.17.03.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 17:03:43 -0700 (PDT)
+Date: Sat, 10 Oct 2026 17:03:41 -0700
+From: Stephen Hemminger <stephen@networkplumber.org>
+To: Bui Viet Dung <dungvn2345@gmail.com>
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] net/sched: sch_netem: prevent packet length underflow
+ with negative overhead
+Message-ID: <20261010170341.251cf390@phoenix.local>
+In-Reply-To: <20261008035656.330667-1-dungvn2345@gmail.com>
+References: <20261008035656.330667-1-dungvn2345@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:e89:b0:4d5:27da:a496 with SMTP id
- 5614622812f47-50c54842256mr4789336b6e.48.1791677014736; Sat, 10 Oct 2026
- 17:03:34 -0700 (PDT)
-Date: Sat, 10 Oct 2026 17:03:34 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6acad256.a150a118.27e199.0030.GAE@google.com>
-Subject: [syzbot] [x25?] inconsistent lock state in x25_kill_by_neigh (2)
-From: syzbot <syzbot+300375dfd44665f063a6@syzkaller.appspotmail.com>
-To: davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, 
-	kuba@kernel.org, linux-kernel@vger.kernel.org, linux-x25@vger.kernel.org, 
-	ms@dev.tdt.de, netdev@vger.kernel.org, pabeni@redhat.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hello,
+On Thu,  8 Oct 2026 10:56:56 +0700
+Bui Viet Dung <dungvn2345@gmail.com> wrote:
 
-syzbot found the following issue on:
+> packet_time_ns() calculates transmission time for netem rate shaping.
+> It adds q->packet_overhead (signed 32-bit int) to len (unsigned
+> 64-bit int).
+> 
+> When userspace configures a negative packet overhead (via
+> TCA_NETEM_RATE packet_overhead attribute) and an enqueued packet's
+> length is smaller than the absolute overhead, (s64)len +
+> q->packet_overhead is negative. Because len is u64, the addition wraps
+> into an astronomical value (~2^64 - 1). When multiplied by NSEC_PER_SEC
+> and divided by q->rate, the calculated delay spans hours or days,
+> causing enqueued packets to be frozen in the qdisc indefinitely and
+> stalling transmission.
+> 
+> A similar underflow can occur in cell length calculation when
+> (q->cell_size + q->cell_overhead) is non-positive.
+> 
+> Clamp the effective packet length to 0 if the overhead adjustment
+> would underflow, and return 0 delay if effective cell length is
+> non-positive, matching the behavior in sch_cake and sch_tbf.
+> 
+> Fixes: 7bc0f28c7a0c ("netem: rate extension")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Bui Viet Dung <dungvn2345@gmail.com>
+> ---
 
-HEAD commit:    602042bf29f6 Merge tag 'wq-for-7.3-rc6-fixes' of git://git..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=13d66715580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=929e4854a828f434
-dashboard link: https://syzkaller.appspot.com/bug?extid=300375dfd44665f063a6
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=115d5f25580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=146adff5580000
-
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-602042bf.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/c804d2e9b640/vmlinux-602042bf.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/d6cd162ae59e/bzImage-602042bf.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+300375dfd44665f063a6@syzkaller.appspotmail.com
-
-================================
-WARNING: inconsistent lock state
-syzkaller #0 Not tainted
---------------------------------
-inconsistent {SOFTIRQ-ON-W} -> {IN-SOFTIRQ-W} usage.
-ksoftirqd/0/15 [HC0[0]:SC1[1]:HE1:SE0] takes:
-ffff88802c938260 (sk_lock-AF_X25){+.?.}-{0:0}, at: lock_sock include/net/sock.h:1713 [inline]
-ffff88802c938260 (sk_lock-AF_X25){+.?.}-{0:0}, at: x25_kill_by_neigh+0x168/0x280 net/x25/af_x25.c:1778
-{SOFTIRQ-ON-W} state was registered at:
-  lock_acquire kernel/locking/lockdep.c:5942 [inline]
-  lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-  lock_sock_nested+0x41/0xf0 net/core/sock.c:3837
-  lock_sock include/net/sock.h:1713 [inline]
-  x25_bind+0x221/0x5c0 net/x25/af_x25.c:694
-  __sys_bind_socket net/socket.c:1945 [inline]
-  __sys_bind_socket net/socket.c:1937 [inline]
-  __sys_bind+0x1a9/0x260 net/socket.c:1976
-  __do_sys_bind net/socket.c:1981 [inline]
-  __se_sys_bind net/socket.c:1979 [inline]
-  __x64_sys_bind+0x72/0xb0 net/socket.c:1979
-  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-  do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-irq event stamp: 357794
-hardirqs last  enabled at (357794): [<ffffffff81ca5245>] __local_bh_enable_ip+0xa5/0x120 kernel/softirq.c:478
-hardirqs last disabled at (357793): [<ffffffff81ca526e>] __local_bh_enable_ip+0xce/0x120 kernel/softirq.c:455
-softirqs last  enabled at (357466): [<ffffffff81ca4d98>] run_ksoftirqd kernel/softirq.c:1099 [inline]
-softirqs last  enabled at (357466): [<ffffffff81ca4d98>] run_ksoftirqd+0x38/0x60 kernel/softirq.c:1091
-softirqs last disabled at (357471): [<ffffffff81ca4d98>] run_ksoftirqd kernel/softirq.c:1099 [inline]
-softirqs last disabled at (357471): [<ffffffff81ca4d98>] run_ksoftirqd+0x38/0x60 kernel/softirq.c:1091
-
-other info that might help us debug this:
- Possible unsafe locking scenario:
-
-       CPU0
-       ----
-  lock(sk_lock-AF_X25);
-  <Interrupt>
-    lock(sk_lock-AF_X25);
-
- *** DEADLOCK ***
-
-locks held by ksoftirqd/0/15: 1, last CPU#0:
- #0: ffffffff8edec5a0 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffffffff8edec5a0 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #0: ffffffff8edec5a0 (rcu_read_lock){....}-{1:3}, at: netif_receive_skb_core+0x25/0x1a0 net/core/dev.c:6321
-
-stack backtrace:
-CPU: 0 UID: 0 PID: 15 Comm: ksoftirqd/0 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_usage_bug.part.0+0x258/0x340 kernel/locking/lockdep.c:4086
- print_usage_bug kernel/locking/lockdep.c:4054 [inline]
- valid_state kernel/locking/lockdep.c:4100 [inline]
- mark_lock_irq kernel/locking/lockdep.c:4311 [inline]
- mark_lock+0x956/0x1020 kernel/locking/lockdep.c:4797
- mark_usage kernel/locking/lockdep.c:4686 [inline]
- __lock_acquire+0x7f1/0x1f40 kernel/locking/lockdep.c:5242
- lock_acquire kernel/locking/lockdep.c:5942 [inline]
- lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
- lock_sock_nested+0x41/0xf0 net/core/sock.c:3837
- lock_sock include/net/sock.h:1713 [inline]
- x25_kill_by_neigh+0x168/0x280 net/x25/af_x25.c:1778
- x25_lapb_receive_frame+0x4b1/0x1000 net/x25/x25_dev.c:138
- __netif_receive_skb_one_core+0x1b2/0x1e0 net/core/dev.c:6297
- netif_receive_skb_core+0x5a/0x1a0 net/core/dev.c:6322
- lapbeth_napi_poll+0x42/0xc0 drivers/net/wan/lapbether.c:100
- __napi_poll.constprop.0+0xaf/0x450 net/core/dev.c:7830
- napi_poll net/core/dev.c:7893 [inline]
- net_rx_action+0xa40/0xf20 net/core/dev.c:8050
- handle_softirqs+0x1e6/0x9d0 kernel/softirq.c:645
- run_ksoftirqd kernel/softirq.c:1099 [inline]
- run_ksoftirqd+0x38/0x60 kernel/softirq.c:1091
- smpboot_thread_fn+0x3d3/0xab0 kernel/smpboot.c:160
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-BUG: sleeping function called from invalid context at net/core/sock.c:3839
-in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 15, name: ksoftirqd/0
-preempt_count: 100, expected: 0
-RCU nest depth: 1, expected: 0
-INFO: lockdep is turned off.
-Preemption disabled at:
-[<ffffffff81ca41d3>] softirq_handle_begin kernel/softirq.c:486 [inline]
-[<ffffffff81ca41d3>] handle_softirqs+0xf3/0x9d0 kernel/softirq.c:621
-CPU: 0 UID: 0 PID: 15 Comm: ksoftirqd/0 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- __might_resched.cold+0x1dc/0x222 kernel/sched/core.c:9264
- lock_sock_nested+0x52/0xf0 net/core/sock.c:3839
- lock_sock include/net/sock.h:1713 [inline]
- x25_kill_by_neigh+0x168/0x280 net/x25/af_x25.c:1778
- x25_lapb_receive_frame+0x4b1/0x1000 net/x25/x25_dev.c:138
- __netif_receive_skb_one_core+0x1b2/0x1e0 net/core/dev.c:6297
- netif_receive_skb_core+0x5a/0x1a0 net/core/dev.c:6322
- lapbeth_napi_poll+0x42/0xc0 drivers/net/wan/lapbether.c:100
- __napi_poll.constprop.0+0xaf/0x450 net/core/dev.c:7830
- napi_poll net/core/dev.c:7893 [inline]
- net_rx_action+0xa40/0xf20 net/core/dev.c:8050
- handle_softirqs+0x1e6/0x9d0 kernel/softirq.c:645
- run_ksoftirqd kernel/softirq.c:1099 [inline]
- run_ksoftirqd+0x38/0x60 kernel/softirq.c:1091
- smpboot_thread_fn+0x3d3/0xab0 kernel/smpboot.c:160
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+I would rather cover this corner case in two ways:
