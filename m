@@ -1,109 +1,192 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from 4.mo528.mail-out.ovh.net (4.mo528.mail-out.ovh.net [46.105.74.135])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 999893612FE;
-	Sun, 11 Oct 2026 19:33:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 653EA3242D8
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 19:33:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.105.74.135
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791747221; cv=none; b=OkEkYYTaQ7F9m7suxfOuqhPmtfIs+As9ZkSa/XG3jxgtTdVZGAX1EtTiazrPXe9iHTYh6Y0a1KSilWpae8D0+jeogrcb8VloiZmaSWl8kjX8CTapo9gwLZb0fuq8ekgBAfn9YPpCIbtaHDB9hUz8nGb3DW+0s6YvN9MEkdg1CA0=
+	t=1791747218; cv=none; b=rfxuSJfA9DmWSAnxNAxWbg26ozTWRhqImeqL2+xoE7zzD6QFEKXWrpxrneftR664DzNovkdTKc4+YoYJw8BDvBPtV4A+Ld3W+4Psgy3B2TwWaIFYzseimkV15X6mw4YJcf8xZxjDV9DQ2pLaU2XYSi+FOUc4Fg7lWSnYCtTq12E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791747221; c=relaxed/simple;
-	bh=JwYgkiZmS1XwdOWdA9rHlulsRAp9V+0YFE2N5hdb5bo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hhPBVUJu2qAQW9vf25DrfrisLWFkQnr1SW5mHIN7CYWDOccYvu7hj1AhIRiE+/l1ZG5Yp6dnbfRg+ks3G82WisEC+Kpyot02Ui2clAkDvh/SepeSl6rzM96zQwkZgX3P0OlcXHA75JxEts5SMuSouZH5e6KtkHHYqRB8tbyAJys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fyf39hDf; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791747218; c=relaxed/simple;
+	bh=7UMniobDXdIJPIRM03QaMrsNvGhzqGWj4JJoycwf/Yw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nz6AEwZQNEGoEdLTYzMB7r0+53ELlYCZB7XXtgktOUwwUHXpOT4AvaEu2ffzbDM/zRgLRVk3cfhmJKzM8lfdIXTonyMuwdsBTaZMzLVNhlzvl1GxPl2wX1gsvl6v3teRd4hyV8/ELbeyueopuWqxNDeuVlHAP4Tfbo0i3dRgpHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=npnm.eu; spf=pass smtp.mailfrom=npnm.eu; dkim=pass (2048-bit key) header.d=npnm.eu header.i=@npnm.eu header.b=i775tnWF; arc=none smtp.client-ip=46.105.74.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=npnm.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=npnm.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fyf39hDf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791747220; x=1823283220;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=JwYgkiZmS1XwdOWdA9rHlulsRAp9V+0YFE2N5hdb5bo=;
-  b=fyf39hDfUpdsM3Fq1jDA8zOc1SPEsvMGT0px1cIfv+AuJT0GoKz+WW8x
-   rbk6nifxMpztePtqTf55cnkfz9ffSf21R0ejDWmk9atiuAVv8E0zLS3gw
-   N2g8D/F0i+3dDCy86f9smd8yG4NYwF355MrxYvWWEfbOSGVRABDebZ4YF
-   sdcy8GFf0OXdzvq+c9kyMEOQB99WrnwMWqUY7Zw4LxLq/Yo2tqsfmGNlK
-   64/2MGip8guIM66yIPEoKD9nKXnstd3+hgb+PW60grl2jx7st9Rcjrg1S
-   hSFOQslgZvarudPp1UfpZTc2sPxS6pUgytKbdqYxjg5LdBgdhG4eOaetM
-   w==;
-X-CSE-ConnectionGUID: Wkr2QOUNRcS/XNjqSiKFOA==
-X-CSE-MsgGUID: UK8Pd9sTSsa8AMaJ1QzBKA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="469130"
-X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
-   d="scan'208";a="469130"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 12:33:39 -0700
-X-CSE-ConnectionGUID: KQdRUyh+RGC2WEgdyDvFPw==
-X-CSE-MsgGUID: skuB1+RRQtCMwbZbb1RTFw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
-   d="scan'208";a="1055775"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.126])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 12:33:38 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 6507B120D25;
-	Sun, 11 Oct 2026 22:33:41 +0300 (EEST)
-Date: Sun, 11 Oct 2026 22:33:41 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Martin Hecht <mhecht73@gmail.com>
-Cc: linux-media@vger.kernel.org, michael.roeder@avnet.eu,
-	martin.hecht@avnet.eu, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] add V4L2_CID_USER_ALVIUM_BASE and request space for up
- to 128 controls
-Message-ID: <asvklbPb8PWcPp0W@kekkonen.localdomain>
-References: <20261009173826.968402-1-mhecht73@gmail.com>
+	dkim=pass (2048-bit key) header.d=npnm.eu header.i=@npnm.eu header.b="i775tnWF"
+Received: from director2.derp.mail-out.ovh.net (director2.derp.mail-out.ovh.net [79.137.60.36])
+	by mo528.mail-out.ovh.net (Postfix) with ESMTPS id 4j2r1R0VMXz674Z;
+	Sun, 11 Oct 2026 19:16:27 +0000 (UTC)
+Received: from director2.derp.mail-out.ovh.net (director2.derp.mail-out.ovh.net. [127.0.0.1])
+        by director2.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
+        for <lina+kernel@asahilina.net>; Sun, 11 Oct 2026 19:16:26 +0000 (UTC)
+Received: from mta2.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.101.149])
+	by director2.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4j2r1Q6BCjz1xsb;
+	Sun, 11 Oct 2026 19:16:26 +0000 (UTC)
+Received: from npnm.eu (unknown [10.1.6.10])
+	(Authenticated sender: laniel_francis@npnm.eu)
+	by mta2.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id E486A3E1F87;
+	Sun, 11 Oct 2026 19:16:23 +0000 (UTC)
+Authentication-Results:garm.ovh; auth=pass (GARM-112S0064cc91a54-4b04-4d6c-b53a-e9b1e7b72180,
+                    D399504B8DAA22F5A3196F0BFCE745750AD202B1) smtp.auth=laniel_francis@npnm.eu
+X-OVh-ClientIp:46.177.232.216
+From: Francis Laniel <laniel_francis@npnm.eu>
+To: Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Asahi Lina <lina+kernel@asahilina.net>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Alvin Sun <alvin.sun@linux.dev>,
+	Francis Laniel <laniel_francis@npnm.eu>
+Cc: Thorsten Blum <blum@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org
+Subject: [RFC PATCH v1 1/2] rust: add NonEmptySlice
+Date: Sun, 11 Oct 2026 22:15:11 +0300
+Message-ID: <20261011191540.56199-2-laniel_francis@npnm.eu>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261011191540.56199-1-laniel_francis@npnm.eu>
+References: <20261011191540.56199-1-laniel_francis@npnm.eu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009173826.968402-1-mhecht73@gmail.com>
+Content-Transfer-Encoding: 8bit
+x-ovh-tracer-id: 16179744612752238038
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTGczdRMCQyeoZI7h7iqL6GVNwmXs+ikCA2vhVmTpT9APCrczhIDhTWImRE+mGZ87mQ1RVTQHlu/DQoilygyLi6dmQeAilT+9A2MW4Lk4Jy6Vf1lgZOmGuYqGVzHqX85IpQNYWXUCDN9YX5yAadWdQ5l2QINDliuJylL3c/SS9kwVgl1T2uxWiIJpSpN30QeeoJnJ/qt6K0KA8PImfs3jBIb1uQkjN/Ay5RMZaRBFTXq7mvnTxKVt+0prlhYZUrslwuT/sAmnfm5om+zpncjfi5DfLVpLQ5QdZyhqAkb/5aEy3o2Cja43Zswkm9My0qD9bISKKxW+XEaYkCURYCm50scTIi/r88A/IdMp157lOSOG7MFIGQIkEh+njhXZsHKVr+Q9mezSdw6L8H16R375elMumV3lGRyfCXqO/JVcYvMOF5N2iuS0BmtngUCH5DqW2cmy2VrryUEr/yiA86jQdJZ7fPJLwmJiet1Btc+WFBvKZa5ZOeCpC32spUeXAuZEK1toXigvxN3iP1qWUIkAkggb/WEyu09Lh8xSc7xb++qT//QaPez+5ZzDnSTcPDJArRoVeACY2pCrDeClzpjpQTR1NzaNEAcCiNh6CURWL8U1cPO7cNikgHn09US/suVoMHbqgjzmpUq0tjo7YLOWaPG9zTy2WwA08Bh8sIiArNSLQ
+DKIM-Signature: a=rsa-sha256; bh=1UJ+DhziNtWWSH5W+tvvUB/5mS9tuVC2zoW998ycCxM=;
+ c=relaxed/relaxed; d=npnm.eu; h=From; s=ovhmo-selector-1; t=1791746187;
+ v=1;
+ b=i775tnWFNbRDQdXfQoMfwypU3nJwduvfMMrQFAB0IyYfEZXEycUCRyMNQyZELnN2CzhoS/MB
+ 0qX0eyocb1dztV/VlhxBdE1IoCIufWwC3tRxyZUOe1tPECkr2/pDMk5hFBgoLAHafu9FcW8ROvZ
+ 1RfIkjAyDTmnquPdAwrPVJS9fk0ApThyEXHw9bd8QQIayUWv4pTJuUhMNKIEft+dj7WzWLo2X8p
+ tidtsBO98R07RzxAAXpaU3yAdeBEJg2M/Jbi3tzFhoCyY1b3PWMzmFUY1wI3q9VLCN9ZD8iui+z
+ NFIAr81nWWCOgS436I7Kiq8xJHuZCF4jw0xjxYSq7eU1A==
 
-Hi Martin,
+Add NonEmptySlice<T>, a [T] wrapper that is guaranteed to contain at
+least one element.
+This lets methods such as last_mut() return a plain reference instead
+of an Option, so callers that have already checked for emptiness no
+longer need unwrap() or unwrap_unchecked().
 
-On Fri, Oct 09, 2026 at 07:38:24PM +0200, Martin Hecht wrote:
-> That patch requests a continoous block of controls to enable various
-> features of the Alvium camera family. There are many features like
-> triggers, ROI for auto functions like AWB, auto gain and so on.
-> 
-> Signed-off-by: Martin Hecht <mhecht73@gmail.com>
+Suggested-by: Gary Guo <gary@garyguo.net>
+Signed-off-by: Francis Laniel <laniel_francis@npnm.eu>
+---
+ rust/kernel/lib.rs   |  1 +
+ rust/kernel/slice.rs | 76 ++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 77 insertions(+)
+ create mode 100644 rust/kernel/slice.rs
 
-Thanks for the patch.
-
-Could you also include some patches for actual control definitions in the
-same patchset?
-
-> ---
->  include/uapi/linux/v4l2-controls.h | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
-> index d17e41d51d2e..5ed91c053617 100644
-> --- a/include/uapi/linux/v4l2-controls.h
-> +++ b/include/uapi/linux/v4l2-controls.h
-> @@ -255,6 +255,12 @@ enum v4l2_colorfx {
->   */
->  #define V4L2_CID_USER_IT6625_BASE		(V4L2_CID_USER_BASE + 0x1250)
->  
-> +/*
-> + * The base for Alvium CSI2 driver controls.
-> + * We reserve 128 controls for this driver.
-> + */
-> +#define V4L2_CID_USER_ALVIUM_BASE		(V4L2_CID_USER_BASE + 0x1260)
-> +
->  /* MPEG-class control IDs */
->  /* The MPEG controls are applicable to all codec controls
->   * and the 'MPEG' part of the define is historical */
-
+diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
+index 7225abc64084..8cc01aceb3b2 100644
+--- a/rust/kernel/lib.rs
++++ b/rust/kernel/lib.rs
+@@ -130,6 +130,7 @@
+ #[cfg(CONFIG_RUST_SERIAL_DEV_BUS_ABSTRACTIONS)]
+ pub mod serdev;
+ pub mod sizes;
++pub mod slice;
+ #[cfg(CONFIG_SOC_BUS)]
+ pub mod soc;
+ #[doc(hidden)]
+diff --git a/rust/kernel/slice.rs b/rust/kernel/slice.rs
+new file mode 100644
+index 000000000000..7e467cb952c3
+--- /dev/null
++++ b/rust/kernel/slice.rs
+@@ -0,0 +1,76 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! Slice abstractions to ease development.
++
++use core::ops::{Deref, DerefMut};
++
++/// A slice that is guaranteed to contain at least one element.
++///
++/// # Invariants
++///
++/// `self.0` is not empty.
++#[repr(transparent)]
++pub struct NonEmptySlice<T>([T]);
++
++impl<T> NonEmptySlice<T> {
++    /// Returns `None` if `s` is empty.
++    pub fn new(s: &mut [T]) -> Option<&Self> {
++        if s.is_empty() {
++            return None;
++        }
++        // SAFETY: `Self` is `repr(transparent)` over `[T]`, so the cast keeps the slice length.
++        // INVARIANT: `s` is not empty, checked above.
++        Some(unsafe { &*(core::ptr::from_mut(s) as *const Self) })
++    }
++
++    /// Returns `None` if `s` is empty.
++    pub fn new_mut(s: &mut [T]) -> Option<&mut Self> {
++        if s.is_empty() {
++            return None;
++        }
++        // SAFETY: `Self` is `repr(transparent)` over `[T]`, so the cast keeps the slice length.
++        // INVARIANT: `s` is not empty, checked above.
++        Some(unsafe { &mut *(core::ptr::from_mut(s) as *mut Self) })
++    }
++
++    /// Returns a reference to the first element.
++    pub fn first(&mut self) -> &T {
++        // SAFETY: By the type invariant, `len >= 1`, so `0` is in bounds.
++        unsafe { self.0.get_unchecked(0) }
++    }
++
++    /// Returns a mutable reference to the first element.
++    pub fn first_mut(&mut self) -> &mut T {
++        // SAFETY: By the type invariant, `len >= 1`, so `0` is in bounds.
++        unsafe { self.0.get_unchecked_mut(0) }
++    }
++
++    /// Returns a reference to the last element.
++    pub fn last(&mut self) -> &T {
++        let last = self.0.len() - 1;
++        // SAFETY: By the type invariant, `len >= 1`, so `last` is in bounds.
++        unsafe { self.0.get_unchecked(last) }
++    }
++
++    /// Returns a mutable reference to the last element.
++    pub fn last_mut(&mut self) -> &mut T {
++        let last = self.0.len() - 1;
++        // SAFETY: By the type invariant, `len >= 1`, so `last` is in bounds.
++        unsafe { self.0.get_unchecked_mut(last) }
++    }
++}
++
++impl<T> Deref for NonEmptySlice<T> {
++    type Target = [T];
++
++    fn deref(&self) -> &[T] {
++        &self.0
++    }
++}
++
++impl<T> DerefMut for NonEmptySlice<T> {
++    // Mutating elements through `&mut [T]` can't change the length, so the invariant holds.
++    fn deref_mut(&mut self) -> &mut [T] {
++        &mut self.0
++    }
++}
 -- 
-Kind regards,
+2.47.3
 
-Sakari Ailus
