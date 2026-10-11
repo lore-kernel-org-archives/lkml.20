@@ -1,201 +1,148 @@
-Received: from cvsmtppost17.nm.naver.com (cvsmtppost17.nm.naver.com [114.111.35.33])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D7BA1A3166
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:27:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2E3233A700
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:28:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791736082; cv=none; b=VcuLEHLZp991Bcovsw7mTp3lUrLJiH0hMJNPEnXesvrjT6QCaCIP8q6KiDq8k9WDdgNVF/tHr2PHfYPR/Pqn2B8gvq0N438cMBWZ3hWkD2u53+FbHcO8QzO7tFbpfCYdHiciobDjKWLB93PM4LPMsGCcC1FMub+pTMCFW9gCS+k=
+	t=1791736113; cv=none; b=ZxbZg3npUjpHfnmCWwh7IadDWJ9WrLhQIzNHoWCEADrtu2ra17Dq41Xv8jHCJNhpuG+Ce+5cREGxiImaGWTlqXGDfPIqpOwmkSdXAq9dOLBIHYMevYlHKl+5Eb0MurhXvom1R8Q+OIKhPwMo+WWywvxUDWP3iAIZOPLXQd+HDbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791736082; c=relaxed/simple;
-	bh=mfRz2zk9VSkKhAjFcY7J3woD/6Sps4QomEr2JVkpR0E=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WiSrU+rek81UkxL49BI0/EWDHdbkb10QL0Qm+4Y0s6ImntoXNC08/v2sla5qN3WZWLyx2ciN1sWnR3ynKPn4IW4W+Hsj00IP1azSL5eSliWa02dohOKOyFUG1p74VGnDDcGM8LtAlxUzwCDPZ/ILu9UHU+jZ2gp3bHbf6SG6gQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=GG23faiI; arc=none smtp.client-ip=114.111.35.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
+	s=arc-20240116; t=1791736113; c=relaxed/simple;
+	bh=gFt47LSAsQO+9dW+yOZPgrQ8Va/c7AWtExmCZjKK+GI=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=bFFb1UA+a0gRYFvOO0Ka2MhsQOEaEVNCGum21HSgzO5YxNVm16WH3e1NVpieaTyH6kq+BFl5x9gr47SgoscN/lthIZJZzrXol4+LqnaPH4qwfdV4kzF30v5mq7jMkFCXEseVJGdw8cIqymfvwyLUsbzsBdQvgbxCIfN2NwWXlDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gox6cT+p; arc=none smtp.client-ip=74.125.224.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="GG23faiI"
-Received: from cvsendbo016.nm ([10.112.24.39])
-  by cvsmtppost17.nm.naver.com with ESMTP id 1OhAFWX6S02LakH4NEbVAw
-  for <linux-kernel@vger.kernel.org>;
-  Sun, 11 Oct 2026 16:27:51 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
-	t=1791736071; bh=mfRz2zk9VSkKhAjFcY7J3woD/6Sps4QomEr2JVkpR0E=;
-	h=From:To:Subject:Date:Message-Id:From:Subject:Feedback-ID:
-	 X-Works-Security;
-	b=GG23faiIDkvzzL9ASf//+PBZ0J78fWOf0B2a3HzDTvRlZj06LY0LdgOgcjy7v/F3G
-	 7/fOWD8Cp85kAO/5B9MieEVH28hRbctRt2andbisnWxUrA4m5O5iQDPW/ksH3ZUYjU
-	 xr6iUN8FxdjJn8ll7asG6uTWV++j6DiFJQPcwl55QevEQoYxqhWLeNp0CCzbz+D1HL
-	 F/PTJPN2Lad3Lpem1S4OsvfSyB0xMq9GkO0v7HMUtOG8E0zcu6VA/IuZJoauyMNPSD
-	 NkAmYd8XATWN2Qz7nt9/f47v3OVjo3DaHeTT7thTyzHGShbnphKwjn1y44AS0D9mre
-	 J+QDTgQLoGDVQ==
-X-Session-ID: NltzlvSiR0Wm6FzDlyrr8Q
-X-Works-Send-Opt: 0rRoWNkNjHmmKAidp4JZKHmmjAumjAurKAKmKqtwaACYkEljxBmwjAg=
-X-Works-Smtp-Source: lqKmFqulFqJZ+HmmFqMq+6E=
-Received: from localhost.localdomain ([125.130.170.186])
-  by cvnsmtp003.nm.naver.com with ESMTP id NltzlvSiR0Wm6FzDlyrr8Q
-  for <multiple recipients>
-  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-  Sun, 11 Oct 2026 16:27:50 -0000
-From: Seung Min Shin <guncraft2000@naver.com>
-To: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
-	Xin Long <lucien.xin@gmail.com>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-sctp@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v2] sctp: hold transport reference across connect wait
-Date: Sun, 11 Oct 2026 16:27:50 +0000
-Message-Id: <20261011162750.1529631-1-guncraft2000@naver.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gox6cT+p"
+Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-6793ff3d53dso735055d50.2
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:28:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791736111; x=1792340911; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gFt47LSAsQO+9dW+yOZPgrQ8Va/c7AWtExmCZjKK+GI=;
+        b=Gox6cT+pbC4miYBOPFdFk5wPSbjPunDqPfcyJ+SlPz1/SaCEK6Euf20OBpBAsS7Tfs
+         IptAxlHxbBczKMMMYruNijg1Qciahg9xaxARXV6Z+csRTP6HtaMInHcRvKWbAXD2ut4a
+         +y/o4g7wmq0Iga4nF0up6fccIjAkRNXKUiMPNlKJjeXO5jtJc5sFjla2VlzVHSDXoCxs
+         aFL3Yed8a5XT1EHP+TYnIhUCYp/gm0ekv7VYdwKPWGR37dHcGLNAofhCvlgCzHTXHCaK
+         YcQzXmwrSsrLglfDX88awO+6CLlq+Bpbi8icVREGeIab7QwXQH8coese4WYS44SvoTvn
+         nJiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791736111; x=1792340911;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gFt47LSAsQO+9dW+yOZPgrQ8Va/c7AWtExmCZjKK+GI=;
+        b=O9CT9q68oNblB5oHv6J+MMJNy6gK/L60zC3fjhxpxEhbaeQLJbI4gttN9fnjFm2iT1
+         Gbj7Wa/Tl8NzTxHSjzG668S0qI3P/g/0n/dSs8zWDc0RLTJ4DesNImZODcXnhX28Qf3H
+         t+5sqfT0/BChkS1dm5WYgX1fBf94qqR4SOLPgaTJIsSHN/g/CAbUMAvN6+s8m6iS2bi3
+         4BzWUjThrlLamPazCJbRUb4M92WPPdWGlyV9+6Uwy1tZEkz9Y+3jdWiLENALAWwAOyOR
+         g/wGsqCAqyWOwJPc1T0qr9K0Ue5pqoOGdXbwCK5SRrbggiMUv/DqD57Ah5WJBWJK5TRT
+         nw5Q==
+X-Forwarded-Encrypted: i=1; AKwUvByHduGLOCTpr0PZ7h7dBrAmfJUzv2ShMF5zaCx7bvPFVpmVZ7Rmxp24+J/3Fyj3JpcxbQVuj/vYI5JcgbQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIto7cOeI+uMu2M6UlE8+f/evpS3A4oXC8Em0QGfs/22fjuGnW9
+	KYBhibL+F3g/Eu0oiC274ADx3yjcHOdrIq04JGa3xnBS3gly0qqypizC
+X-Gm-Gg: AYBFou3DnUfqhP47NXumiWujBpYDEeOzJJvm451esTCnQdPHCweta1/R2Om4i6cYyPw
+	LzyRqQoel2iIblXrru7wFRW0M/zOgFmI8K3H6WKmF5pyCRtbqSOMNG46qtFgg21pEEZo9n9nYDy
+	lkw597MwzvhnTpSATgL5J5mRd45AgSnEDstjYiu250lyNk6vJkSHYgkmObKTDXcMLouRIKuqPPK
+	uDqTC9JaXkOih/kOahGjfukYld61CDl9fFcYUqci3Piwcw4aUb83RMslds7P67l6gnZvDVEfDbb
+	C3rGLoV6I1dol5nbfYdHjvDpngaQIABiEg7HJHqEYECz5pphTS2ZMHAiKdTpTRmtc+LfxYrLTBw
+	gn16yfszH6BKR5YDm8vlVqv3oM4h0dQP4p97aVRcKPxREk5yxWuCRCNZS8XrZrZg6Z5B+GEqetS
+	pzQwGN7+vJZNt3AhrKUWIsTK78gT/oUqAEYPwVhSjiOLiyP8dcOXvY0/D2dgKcIkyVSYhQXPsZ8
+	huI7Zjz6PcHr6EX8TldDfF0HA1WMqolTuYDnFv3vzaxqd+pYMWQ0mPXhMmkDpEHQc3T89H6T9fQ
+	oY2wXxeTjKqsxqRmKlfLmP+B90DKjVkyfX/pZ4/RYYYO6kYK
+X-Received: by 2002:a05:690e:d4b:b0:673:572:4492 with SMTP id 956f58d0204a3-6793600cd9dmr1293447d50.24.1791736110930;
+        Sun, 11 Oct 2026 09:28:30 -0700 (PDT)
+Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-679356d5a8esm2788846d50.18.2026.10.11.09.28.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 09:28:29 -0700 (PDT)
+Date: Sun, 11 Oct 2026 12:28:29 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: "Jason A. Donenfeld" <Jason@zx2c4.com>, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: rafael@kernel.org, 
+ lenb@kernel.org, 
+ pavel@kernel.org, 
+ kuba@kernel.org, 
+ pabeni@redhat.com, 
+ linux-pm@vger.kernel.org, 
+ netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, 
+ =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <jeremy.jean@oss.cyber.gouv.fr>, 
+ steffen.klassert@secunet.com
+Message-ID: <willemdebruijn.kernel.e128e48c07be@gmail.com>
+In-Reply-To: <CAHmME9rW6Pav4vLdHbvvuf65v-+gtoHpDagFpmqrHYnkTKKNuw@mail.gmail.com>
+References: <20261008124106.665014-1-Jason@zx2c4.com>
+ <willemdebruijn.kernel.cf8fec88827c@gmail.com>
+ <CAHmME9r+O=3i4JP94P0-gFwghfWtD=vLa1g3KB-LvW+xFbJWHA@mail.gmail.com>
+ <CAF=yD-LO0u5z8SU_Aktu0-0aeM-1UknYsGc+rCpD3y9bpwxtwg@mail.gmail.com>
+ <CAHmME9rW6Pav4vLdHbvvuf65v-+gtoHpDagFpmqrHYnkTKKNuw@mail.gmail.com>
+Subject: Re: [PATCH net] udp_tunnel: drop packets when hibernating
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-sctp_sendmsg_to_asoc() selects a transport before waiting for a new
-interleaved association to become established. sctp_wait_for_connect()
-drops the socket lock while sleeping.
+Jason A. Donenfeld wrote:
+> On Thu, Oct 8, 2026 at 11:03=E2=80=AFPM Willem de Bruijn
+> <willemdebruijn.kernel@gmail.com> wrote:
+> > Since this is an issue specific with security protocols and reuse of
+> > their state across freeze and restore, is that the more suitable
+> > location for this check? Drop transmit of packets with that risk
+> > (unique for that connection nonce) only, if freezing.
+> =
 
-While the lock is dropped, backlog processing can handle a COOKIE ACK and
-an ASCONF DEL-IP that removes the selected transport. sctp_assoc_rm_peer()
-then marks the transport dead and drops its association-owned reference.
-The transport can be freed through RCU before the send path resumes.
+> I was thinking this is a pretty common problem to UDP apps in general,
+> and it's confusing to have these sorts of replays due to hibernation
+> that userspace doesn't have. It's an odd problem to expect every
+> in-kernel user to fix independently, so maybe it'd be more clever to
+> do this all in one place. I can put it in only wireguard, instead, if
+> you feel really strongly about it. But I was thinking this just seemed
+> like an odd behavior difference that could be easily fixed for
+> everyone.
 
-After the wait, the stale pointer is assigned to newly created DATA or
-I-DATA chunks and later dereferenced by sctp_outq_select_transport().
+When it comes to security protocols, this does not cover many of them,
+such as IPSec, MACSec, kTLS or PSP.
 
-Hold a reference to the selected transport across
-sctp_wait_for_connect(). After the socket lock is reacquired, abort the
-send if the transport was marked dead. Callers without a selected
-transport pass NULL and retain their existing behavior.
+Independent of security protocols, is there a replay on thaw issue?
+Your example points out that 6 and 8 can have different data, so this
+is not a replay because of thaw, but a second transmission by the
+security protocol, correct? If so, then other UDP protocols are not
+necessarily affected: only the nonce reuse is the problematic aspect.
 
-Cc: stable@vger.kernel.org
-Fixes: 668c9beb9020 ("sctp: implement assign_number for sctp_stream_interleave")
-Acked-by: Xin Long <lucien.xin@gmail.com>
-Assisted-by: LLM
-Signed-off-by: Seung Min Shin <guncraft2000@naver.com>
----
+To avoid across UDP, udp_tunnel_xmit_skb would also be too narrow,
+capturing only tunnel packets. Blocking transmission post snapshot
+entirely may require quiescing at the device layer, something like
+QUEUE_STATE_STACK_XOFF (if that isn't done yet, I don't know this
+freeze process well).
 
-Notes (sctp-connect-wait-v2):
-    v2:
-    - Rebase onto current net/main after commit 4f1da630d13de.
-    - Preserve the RCV_SHUTDOWN check added by that commit.
-    - Add the stable list now that the issue is public.
-    
-    v1: https://lore.kernel.org/netdev/20260928152132.3705137-1-guncraft2000@naver.com/
-    
-    Tested on net/main af32da41b032 with CONFIG_KASAN=y on x86-64.
-    
-    Before the patch, the reproducer triggered a KASAN slab-use-after-free in
-    sctp_outq_select_transport() on its first run. After the patch, 64 attempts
-    completed without a KASAN, refcount, BUG, WARNING, oops, or panic report. A
-    diagnostic run returned ESRCH in all 64 attempts and left the association in
-    SCTP_ESTABLISHED state. A normal interleaved connect/send smoke test passed.
+> > udp_queue_rcv_one_skb is the UDP hot path. Since it touches all
+> > packets, the last resort for adding checks that are relevant too only=
 
- net/sctp/socket.c | 26 +++++++++++++++++++-------
- 1 file changed, 19 insertions(+), 7 deletions(-)
+> > a small subset of packets.
+> =
 
-diff --git a/net/sctp/socket.c b/net/sctp/socket.c
-index e35692dd8d30..189b89a40d46 100644
---- a/net/sctp/socket.c
-+++ b/net/sctp/socket.c
-@@ -75,7 +75,8 @@ static int sctp_wait_for_sndbuf(struct sctp_association *asoc,
- 				struct sctp_transport *transport,
- 				long *timeo_p, size_t msg_len);
- static int sctp_wait_for_packet(struct sock *sk, int *err, long *timeo_p);
--static int sctp_wait_for_connect(struct sctp_association *, long *timeo_p);
-+static int sctp_wait_for_connect(struct sctp_association *,
-+				 struct sctp_transport *, long *timeo_p);
- static int sctp_wait_for_accept(struct sock *sk, long timeo);
- static void sctp_wait_for_close(struct sock *sk, long timeo);
- static void sctp_destruct_sock(struct sock *sk);
-@@ -1245,7 +1246,7 @@ static int __sctp_connect(struct sock *sk, struct sockaddr *kaddrs,
- 		*assoc_id = asoc->assoc_id;
- 
- 	timeo = sock_sndtimeo(sk, flags & O_NONBLOCK);
--	return sctp_wait_for_connect(asoc, &timeo);
-+	return sctp_wait_for_connect(asoc, NULL, &timeo);
- 
- out_free:
- 	pr_debug("%s: took out_free path with asoc:%p kaddrs:%p err:%d\n",
-@@ -1843,7 +1844,7 @@ static int sctp_sendmsg_to_asoc(struct sctp_association *asoc,
- 
- 		if (asoc->ep->intl_enable) {
- 			timeo = sock_sndtimeo(sk, 0);
--			err = sctp_wait_for_connect(asoc, &timeo);
-+			err = sctp_wait_for_connect(asoc, transport, &timeo);
- 			if (err || sk->sk_shutdown & RCV_SHUTDOWN) {
- 				err = -ESRCH;
- 				goto err;
-@@ -1881,7 +1882,7 @@ static int sctp_sendmsg_to_asoc(struct sctp_association *asoc,
- 
- 	if (unlikely(wait_connect)) {
- 		timeo = sock_sndtimeo(sk, msg->msg_flags & MSG_DONTWAIT);
--		sctp_wait_for_connect(asoc, &timeo);
-+		sctp_wait_for_connect(asoc, NULL, &timeo);
- 	}
- 
- 	err = msg_len;
-@@ -9381,7 +9382,9 @@ static bool sctp_writeable(const struct sock *sk)
- /* Wait for an association to go into ESTABLISHED state. If timeout is 0,
-  * returns immediately with EINPROGRESS.
-  */
--static int sctp_wait_for_connect(struct sctp_association *asoc, long *timeo_p)
-+static int sctp_wait_for_connect(struct sctp_association *asoc,
-+				 struct sctp_transport *transport,
-+				 long *timeo_p)
- {
- 	struct sock *sk = asoc->base.sk;
- 	int err = 0;
-@@ -9390,12 +9393,16 @@ static int sctp_wait_for_connect(struct sctp_association *asoc, long *timeo_p)
- 
- 	pr_debug("%s: asoc:%p, timeo:%ld\n", __func__, asoc, *timeo_p);
- 
--	/* Increment the association's refcnt.  */
-+	/* Hold references while the socket lock is dropped. */
-+	if (transport)
-+		sctp_transport_hold(transport);
- 	sctp_association_hold(asoc);
- 
- 	for (;;) {
- 		prepare_to_wait_exclusive(&asoc->wait, &wait,
- 					  TASK_INTERRUPTIBLE);
-+		if (transport && transport->dead)
-+			goto do_transport_dead;
- 		if (!*timeo_p)
- 			goto do_nonblock;
- 		if (sk->sk_shutdown & RCV_SHUTDOWN)
-@@ -9424,7 +9431,8 @@ static int sctp_wait_for_connect(struct sctp_association *asoc, long *timeo_p)
- out:
- 	finish_wait(&asoc->wait, &wait);
- 
--	/* Release the association's refcnt.  */
-+	if (transport)
-+		sctp_transport_put(transport);
- 	sctp_association_put(asoc);
- 
- 	return err;
-@@ -9443,6 +9451,10 @@ static int sctp_wait_for_connect(struct sctp_association *asoc, long *timeo_p)
- do_nonblock:
- 	err = -EINPROGRESS;
- 	goto out;
-+
-+do_transport_dead:
-+	err = -EAGAIN;
-+	goto out;
- }
- 
- static int sctp_wait_for_accept(struct sock *sk, long timeo)
+> Is there another way you'd suggest doing this? Some other trick for
+> disabling the socket? I also am not keen on adding branches to hot
+> paths.
 
-base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
--- 
-2.34.1
+At this layer or another, making pm_freezing a static_branch toggled
+by freeze_processes() / thaw_processes() would make the branch a
+NOOP in het hot path.
 
+So far, most promising I see is blocking the new handshake in
+Wireguard itself to avoid this from being possible. But that would
+indeed require all other protocols to be warned and review for
+individual fixes. A single choke point would be preferable, but I
+do not think they share a single such code path.=
