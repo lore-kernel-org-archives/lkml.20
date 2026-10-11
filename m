@@ -1,190 +1,142 @@
-Received: from mail-06.mail-europe.com (mail-06.mail-europe.com [85.9.210.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AFF73E168A;
-	Sun, 11 Oct 2026 17:50:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.210.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8859431D362
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 17:54:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791741037; cv=none; b=PZcSlQXNqTREHOZHbORBEZglZzDn4ojPJRHyUcl6wSthfqIzKyo3OAptOcQvgL3yCU9oeZXP6D0FC40YKkVWOtYYJ/1fxjzoXQadwkz1xKQZW9EUdUanBa2I7RrPpvmTC8mOCCunjqAzI8td58+1FHUfAW16VL/NqJ2or9jw1X8=
+	t=1791741295; cv=none; b=PGVVK7atxL+OubvqRU3ezI90ksbvPCYN5/0KTeoieEX7sCqGdl7at+KGbV8QLXpoZnLdXWoevdHtNOtHDbRvCXurfBrgC61f0pYIb3j1LwBvzzI4IjQveGrmSoW9sc2HydOOwZD/gZ72D+vY5lPyw5bXtDe724Rd6abxLrNf5PY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791741037; c=relaxed/simple;
-	bh=XATTsZLHF/z/y69bNsnrcVCeunDmY5KVMugZn4XHgVw=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=hE2Tx/5YLNEiKT/fST4CxwOaIAmZaqJ+RVHDg+FiFHSkkai0KMt9Qldmo3l+LMPZOEfFkwKqZsxZ7xHIn+QcBqm6VhpfjDLWZ4yxrgRXuK8c+ObUlRq1BSGgQ+lM/9oJmDoHQSCWvfm5r5WZ3mlU2rr5+/7O8AycKtWwEcesxg8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com; spf=pass smtp.mailfrom=vinarskis.com; dkim=pass (2048-bit key) header.d=vinarskis.com header.i=@vinarskis.com header.b=Lb/AcNER; arc=none smtp.client-ip=85.9.210.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinarskis.com
+	s=arc-20240116; t=1791741295; c=relaxed/simple;
+	bh=1u+SvA0K/piaqCP2bammpQ+xKV6gQwneMX4d2DzhNvI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=reBssAbxMjAZroohue5R8RLD2nAqW6lxDWurmoD1Rq3TyD1lu/dXZ0ffBQQIK54YLeF4SUqy447KAkIyBqhmqsX3DavJdUE3D0eWhEHGAhmjPRBqckyN5z3tVYSkTu+AXIWPMo0Xn3i8ge6pgc+L3mzA+aZokloBNJ0WDcE5xFk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aYXXNaHC; arc=none smtp.client-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vinarskis.com header.i=@vinarskis.com header.b="Lb/AcNER"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vinarskis.com;
-	s=protonmail3; t=1791741017; x=1792000217;
-	bh=uTx56P0Af4942Ge1P7g05Ak4xknsNcJFLcCXc4tqQNc=;
-	h=From:Subject:Date:Message-Id:To:Cc:From:To:Cc:Date:Subject:
-	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=Lb/AcNERX0++8GZeRsBSbwkmIF4THZPZLdxL/a0ZVMu/m/csysrKOrufc2LywvP+7
-	 WjJImY80uGXNFGJGhDvh7kepqJ4pfEU6+nI8MWcZPYicOCunTJT1bS99+JPEX+bRnU
-	 MAsArgaad1EbyQb59uXipPRSC/j0oZWbfC4jm/TMfwlK3NcKTJXB44U42H4HYatMsw
-	 toyLHqaXR4mANzGqgTSR73Mtei45I75kc8rI6P8lBkP7inlIxGelCia+5bSgri7Urh
-	 ora/Kv4WWzKS2G/jGUxCzgbN3rXhOWiP6umcgLZiFeMEY9aRlpDOnadlVKZT+E78bK
-	 fTSTQlemBppJA==
-X-Pm-Submission-Id: 4j2p5z056Qz2ScPZ
-From: Aleksandrs Vinarskis <alex@vinarskis.com>
-Subject: [PATCH v6 0/3] Introduce EC driver for Snapdragon X1E based Dell
- XPS 13 9345
-Date: Sun, 11 Oct 2026 19:50:07 +0200
-Message-Id: <20261011-dell-xps-9345-ec-v6-0-2a66a364fe70@vinarskis.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aYXXNaHC"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6af9cc73235so450602a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 10:54:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791741293; x=1792346093; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pMz8tbwpxQBDLx8AlhOWU85jm60XxNjWVs22q2b3BTA=;
+        b=aYXXNaHCYNdgz+ewxAaboveaAqY8ESt1KvekQiaXdL48mx/TbNq3ReJUuTr/tJ/i8z
+         2jgp8YSLyK4Aq+g4eYNkdTGgDQssKuygPDmmhQAGUF5IxilCVCyosIXIv1gKOvMeH6Ez
+         ZvoOd5eDhzuZF1hEby7LdwPHNmK6FyngdF6sfuUVQWasx4D31tufS/AJ44nzMwtxIJkp
+         2hVd9K6xQQafb7zS1VkxOeQ4r4ffCusewg9UIOj4dNTnIL2iqZRLWs4l250Yyv6DG7mz
+         vxYVQdQKEZPWoA9fMd7T+u7GiHXlq9kxalpVgnmLLGMFXjD5jpJHffBGGlLCLlBjj28p
+         KxjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791741293; x=1792346093;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pMz8tbwpxQBDLx8AlhOWU85jm60XxNjWVs22q2b3BTA=;
+        b=vV74TqzKywrBIxsTV9+THkTiu5cVVz0lFFqSYCiK3FNCPae+cDGRysEElJoDGHZXBy
+         475OHNssxljqszdJ+O+YkiWG0/fmYpgoEkLR8dGCyTJG6Bedqj3lqxkiupkoFAH8f+ez
+         EvzUjbTODdZwcUzfendZmjYlHr9TMMaFGgaAO+KO344bmHQB0XoQnMU0lhJOaYSdjb4E
+         i8l5M4I/BEzbNwBiStkYcEcf+PkPS7R3VeLAWNKrPuZJGQHj/1o7+kfpk+RekybdBfL3
+         o8bwMQ9krFz1gr/H8jQvwrfU0topv2Yxe/4erSarJBsSiCw1uIqgEzPfSScpzITg77FN
+         jSAA==
+X-Forwarded-Encrypted: i=1; AKwUvBwJ0VJecMUkE30zAw3ZySPERbIG+FdyA78NF7RuHUeNkMfTNbCGDevC55zNjEbeJKE2omx1A9bQWrOfJg4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKuRZ6s7WFf+yyysiHA7Hpgzb3KR4wlu1aCCP3F2OlOaZ5kHvj8
+	4hF4YXslPTGYxpPGvGgfaGDOM/ML+wFYWt8vxxeBdNH6BC2kxGf63z1F
+X-Gm-Gg: AYBFou2DVq24EW9jPN4psbvx5AATF5FvnF4gR6IhiEkxF/EyZ76QGA3yb9kp2othcNY
+	ufWqT0SD+dovNbsc+3z/b2LdP6NCNFTXjxsMhhsGhRxpDhIxdRAU5Ni7fZyoSlvC2yxszq7qmki
+	6YjMDckf4B4Ev/9RhwwG7k21lC4xKAg1ObmrebR3qGMWvK/qEoHZGrVxxTULIuk2XOz/z3GffWF
+	L0kKwj2G5Bky2evrzorE5dvtG3CcUr/YwB8k5drg8wUeuv3EXrczSjZr8AEpHgrRFwMIV7hr+z8
+	SnIwtjU/74WpAHko5Y+Rpl5Kh5hSVzBMtOLDAA0Oa7o4KGTNVBaeJ/sRZzY3++jxhjT+1EBKtVY
+	JGcikumQNLIM9Sxe1PR9ZW26vdgomhBX6ViNyCkBlphKlO+Mk3IdPhOvX3d/UWM7kxItv5MMNDC
+	uMtpvfhoY6NYEp476tRKt2JttSq/d+EDynSY4FP64PtZYN7CJYXZWjFySRt45FHowJuGalyt7Lt
+	FVp87CeX060i7H0cOBNLw137QT4oIII7zk3qNIqo2mQTLw=
+X-Received: by 2002:a17:907:c317:b0:c2d:c5ca:9862 with SMTP id a640c23a62f3a-c31a6eb4997mr763159766b.2.1791741292575;
+        Sun, 11 Oct 2026 10:54:52 -0700 (PDT)
+Received: from localhost.localdomain (87-205-122-125.dynamic.inetia.pl. [87.205.122.125])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9a9f776sm376806366b.48.2026.10.11.10.54.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 10:54:52 -0700 (PDT)
+From: Kyrylo Biryuk <illofspeed@gmail.com>
+To: dm-devel@lists.linux.dev
+Cc: agk@redhat.com,
+	snitzer@kernel.org,
+	mpatocka@redhat.com,
+	bmarzins@redhat.com,
+	hare@suse.de,
+	dlemoal@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/3] dm zoned: fix two idle reclaim problems
+Date: Sun, 11 Oct 2026 19:54:47 +0200
+Message-ID: <20261011175450.952-1-illofspeed@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23RzW7DIAwH8FeJOI+JzwR62ntUOxgwK1qbdJBGm
- aq++2gjbdXE8Q/yz5Z9JQVzwkJ23ZVkXFJJ01hD/9IRf4DxA2kKNRPBRM+k5DTg8UjXc6FWKk3
- RU9RR2cAdxp6TWnbOGNP6IPfvNR9Smaf8/eiw8PvrhinWwBZOGYUI2oMPyjp8W9IIuXym8uqnE
- 7mDi3hGVAMRFfF2GLz0AIbHFiL/ENOcRFbERuWC06ADhBainhHbQFRFjJGsD875AaCF6F+EM96
- aRFdEgONCG2eU5/+R27b1jF+Xer95Wz1xUJDW/1Oad92I60y3FszWitsPM/O7iPkBAAA=
-X-Change-ID: 20260331-dell-xps-9345-ec-e5f49d1bef61
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Kees Cook <kees@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- Abel Vesa <abelvesa@kernel.org>
-Cc: Liviu Nicoara <lnicoara@thinkoid.org>, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- platform-driver-x86@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
- Tobias Heider <tobias.heider@canonical.com>, Val Packett <val@packett.cool>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Stephan Gerhold <stephan.gerhold@linaro.org>, 
- linux-hardening@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5643; i=alex@vinarskis.com;
- h=from:subject:message-id; bh=XATTsZLHF/z/y69bNsnrcVCeunDmY5KVMugZn4XHgVw=;
- b=owGbwMvMwCX2dl3hIv4AZgHG02pJDFmnz4StDdkcLKRhvLpho8XpNVu6bjX8frZy59JvFjK3F
- pz1Uo991FHKwiDGxSArpsjS/edrWteiuWsZrmt8g5nDygQyhIGLUwAmsmE/I8Oa6L7VzCV9S66G
- nt/RuS66YoaASV9e0vbkE4kJstcf2QQy/LPT/zCLtcp2szuH5vszYdsX8K86yLV9cW9Vae6k359
- lE7kB
-X-Developer-Key: i=alex@vinarskis.com; a=openpgp;
- fpr=8E21FAE2D2967BB123303E8C684FD4BA28133815
-
-This series adds Embedded Controller (EC) driver for Dell XPS 13 9345.
-While EC appears to control most of device's peripherals, particular
-driver addresses power and thermal managment issues. Key operational
-principle involves initial thermistor constants configuration followed
-by a periodic reporting of these onboard thermistor values from across
-the motherboard to the EC. The latter then handles fan ramp-up/
-ramp-down internally. Suspend/Resume must be likewise propagated to EC
-for power management.
-
-The driver was developed primarily by analyzing ACPI DSDT's _DSM and
-i2c dumps of communication between SoC and EC during various stages of
-operation (bootup, suspend, resume).
-
-With EC driver in place, the following issues are addressed:
-1. Fans were not properly cooling the laptop, would kick in late and
-   spin lazily, resulting in heavy throttling. With EC driver fans
-   start sooner and hit high RPM under heavy load.
-2. Fans were not stopping once SoC temperature dropped, they would keep
-   slowly spinning irrespective of suspend and/or closed lid until the
-   next powercycle. With EC driver shortly after SoC temperature drops,
-   thermistors temperature drops, and fans ramp-down.
-3. Keyboard and touch row backlight were not turning off during
-   suspend - only lid close would power off the touch row. With EC
-   driver behavior matches that of Windows, suspending device with lid
-   open powers off the peripherals.
-
-As thermistor readout depends on pmic's ADCs, this series introduces
-EC driver and its schema, adds missing ADC to hamoa-pmics, and finally
-adds thermistor and EC nodes to x1e80100-dell-xps13-9345.dts.
-
-Additional findings:
-- Max fan speed depends on Dell's power mode settings, configurable in
-  BIOS or using Windows app (relies on ACPI-WMI). It appears best
-  cooling performance is achieved under 'Ultra Performance' profile.
-- When the said power mode is changed using Windows app, EC IRQ is
-  triggered. Windows performs what appears to be thermistor contants
-  readout, though its not obvious what it is used for.
-- Given similarities between Dell XPS 13 series (codename 'tributo')
-  and Snapdragon-based Latitude, Inspiron ('thena'), including matching
-  EC address and response to suspend/resume command the EC driver can
-  be likely used for both, though in-depth testing on 'thena' is
-  required.
-
-This series depends on QCOM SPMI PMIC5 Gen3 ADC [1], which was added to
-`linux-next` for v7.1, but must be picked if this series to be backported.
-
-[1] https://lore.kernel.org/all/20260209105438.596339-1-jishnu.prakash@oss.qualcomm.com/
-
-Signed-off-by: Aleksandrs Vinarskis <alex@vinarskis.com>
----
-Changes in v6:
-- Fix dts mistake due to rebase
-- Link to v5: https://lore.kernel.org/r/20261011-dell-xps-9345-ec-v5-0-2ab1258b84c1@vinarskis.com
-
-Changes in v5:
-- Rebase on latest linux-next
-- Re-schedule work if suspend fails as per Ilpo
-- Fix comments as per Ilpo
-- Link to v4: https://lore.kernel.org/r/20260809-dell-xps-9345-ec-v4-0-88306dbbc7aa@vinarskis.com
-
-Changes in v4:
-- Change to .data struct provided via compatible, which contains expected
-  thermistor arrangement and magic init sequence to make it easier to
-  support new systems as per Bryan
-- Change milicelsius spelling, add newline, return as per Bryan
-- Link to v3: https://lore.kernel.org/r/20260801-dell-xps-9345-ec-v3-0-9f4bdb5a5dad@vinarskis.com
 
 Changes in v3:
-- Rebase on latest linux-next
-- Add Neil, Stephan to CC, as they worked on ADC for PMK8550
-- Drop VADC for pmk8550 as it was already merged upstream
-- Rename PMK8550 registers to use newly upstreamed headers for ADC5_GEN3
-  in both dt-bindings, device-tree patches
-- Rename ADC labels to have meaningful for user names as per Bryan
-- Drop Dmitry's RB from last patch since it was almost completely changed
-  now
-- Link to v2: https://lore.kernel.org/r/20260404-dell-xps-9345-ec-v2-0-c977c3caa81f@vinarskis.com
+- Patch 2: reworded the comment and dropped the redundant
+  dmz_nr_cache_zones() test, so the condition fits on one line
+  (Damien Le Moal). Patches 1 and 3 are unchanged.
+- From and Signed-off-by now carry my full name instead of the GitHub
+  handle, as you preferred on v2. Thanks for checking.
 
 Changes in v2:
-- Update cover letter to indicate dependency on QCOM ADC series, only
-  relevant for backporting
-- Update description of dell_xps_ec_suspend: entering suspend does not
-  necessarily ramp down the fans, if thermistors still report high temps
-- Add die_temp/xo_therm to pmk8550 as per Konrad Dybcio
-- Add missing header imports as per Ilpo Järvinen
-- Add explanation for EC reset pin being reserved
-- Fix device-tree: minor issues as per Konrad Dybcio
-- Fix device-tree: alingment issues as per Konrad Dybcio
-- Fix driver: alingment issues as per Bjorn Andersson
-- Fix driver: handle temp value as 16bit register as per Ilpo Järvinen
-- Fix bindigs: description and example as per Krzysztof Kozlowski 
-- Link to v1: https://lore.kernel.org/r/20260401-dell-xps-9345-ec-v1-0-afa5cacd49be@vinarskis.com
+- No code changes; only my author address changed.
 
----
-Aleksandrs Vinarskis (3):
-      dt-bindings: platform: introduce EC for Dell XPS 13 9345
-      platform: arm64: dell-xps-ec: new driver
-      arm64: dts: qcom: x1e80100-dell-xps13-9345: introduce EC
+These patches fix two problems in dm-zoned's reclaim worker, found while
+running md RAID5 on three dm-zoned targets on 27 TB host-managed SMR drives
+(WD Ultrastar DC HC680), each target with a regular cache device.
 
- .../embedded-controller/dell,xps13-9345-ec.yaml    |  91 ++++++
- MAINTAINERS                                        |   6 +
- .../boot/dts/qcom/x1e80100-dell-xps13-9345.dts     |  85 +++++-
- drivers/platform/arm64/Kconfig                     |  12 +
- drivers/platform/arm64/Makefile                    |   1 +
- drivers/platform/arm64/dell-xps-ec.c               | 308 +++++++++++++++++++++
- 6 files changed, 501 insertions(+), 2 deletions(-)
----
-base-commit: c74ef2fbf60ff7e7b956c023a881e87502c1852a
-change-id: 20260331-dell-xps-9345-ec-e5f49d1bef61
+1. On a target with cache zones and no free sequential zone, an idle
+   target keeps copying random zones into other random zones, forever
+   (patch 2; patch 1 makes the resulting -ENOSPC back off instead of
+   spinning). After a full md rebuild every chunk is mapped, so this
+   happens right after a rebuild: the idle member read and wrote about
+   72 MB/s nonstop for hours.
 
-Best regards,
+2. After a reclaim pass that ends while the target is busy, the idle poll
+   is never re-armed, so zones filled under load are not reclaimed when the
+   target goes idle (patch 3). Users notice it as "the buffer never drains";
+   the workaround has been a timer sending "dmsetup message <dev> 0 reclaim".
+
+Testing: the three patches were built as an out-of-tree dm-zoned module for
+7.2.6 (the changed code is identical in current master) and tested
+- on emulated host-managed drives (tcmu-runner ZBC handler) in a VM: the
+  idle copy loop reproduced with the stock module (340 MB/s on an idle
+  target, zone counters unchanged), 0 MB/s with the patches;
+- on the three real drives since 2026-10-05: crash test, three 1.5 TiB
+  write benchmarks, and eight conversions between single-device and
+  cache-device layouts; emptied zones were reclaimed within minutes of the
+  targets going idle without the reclaim timer.
+- with a reproducer that needs no special hardware (scsi_debug zbc=managed,
+  64 MiB zones, plus a 1 GiB loop cache device): stock module ~600 MB/s of
+  read+write on the idle target with unchanged zone counters, patched
+  module 0 MB/s:
+  https://github.com/illofspeed/synology-host-managed-smr/tree/main/repro
+Not done: a test on current master itself (only 7.2.6), and a rebuild onto a
+cached member with the patches (the first problem was seen after a rebuild
+with the stock module).
+
+Related, not addressed here: the double-free in dmz_load_sb() reported on
+dm-devel on 2026-05-30.
+
+The problems were found and the patches written with the help of an AI
+coding assistant (hence Assisted-by); the analysis, the tests on real
+hardware and this description were reviewed by me.
+
+Kyrylo Biryuk (3):
+  dm zoned: back off when reclaim finds no destination zone
+  dm zoned: do not reclaim a random zone into another random zone
+  dm zoned: keep polling for idle reclaim after a reclaim pass
+
+ drivers/md/dm-zoned-reclaim.c | 27 +++++++++++++++++++++++++--
+ 1 file changed, 25 insertions(+), 2 deletions(-)
+
 -- 
-Aleksandrs Vinarskis <alex@vinarskis.com>
+2.47.3
 
