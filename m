@@ -1,109 +1,173 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F7F9390600;
-	Sun, 11 Oct 2026 19:02:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C9363546C2;
+	Sun, 11 Oct 2026 19:04:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791745340; cv=none; b=NyegxG0Li+gfqnlJKeWTfijTY8Rl+pXwVj/Go0/4LxsX071TLfgd5TyjQoK+6+kMuc17gMnaJyx8zlg0isFui673jO6ZMoYSZQc6flmHRAEWm3vhCGM1hxBSpVdG1Hlu9uwaZHToanBbUSx8NmF9M8QA5+SuAuKxHkRCFsfi6ss=
+	t=1791745443; cv=none; b=Mqe5FMQTu+KG2MsV7f6VI3uS66GzB1dQH9tnNwKLiOgnMT5f9hG4kqGRavJI9i7eWngGVk+5zcIB2VKUpCwZrN3Z9tm5YsxdLFlIeCW98EuPA7Yz4kAt+1Qb7A2tyiBo59W7cMOymLIgMxPtfNAiQMtNSG6fkMejj3Ia/kK57fg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791745340; c=relaxed/simple;
-	bh=GXMxAQ0oomRQDquDMHM5zq4YEEzq94Rnx+YqZoolgEI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=u8rsfLENcob0i0eKgVlR1Rl10FZZBeoyX8mBDh5KmvHpDOZmUcRig9KmIpsgg/093jAK52EzCxMcCzH9Epi6c68s4Z39DnUazrgMW4xXTkWZfn/SMSXRUOQdnlzaaHUqU6XnjUu0TBm3qZIE9nApCoaQi4TwJSKPcdEaUWvHuDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=qLvfDEKO; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1791745443; c=relaxed/simple;
+	bh=kiT7M8JMauVIJJT9P/O+jLNWWZsKoTsCAhQQgDmnRx8=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=pAPhWnAh4nVXsZ1lmcKjTmFJKOQ+el+sCSY1mVpIHI5Uzm9rrbdtiH6XutfXSeeR3hoaluCzjbphdXZykYZZ1KAGxgMUSW7awDdYmaM7QqoN9D4LjmPs0BIzM+j/YfKIYrfAzRVtIkLNj+b/dJ941H8agj4/2VYdVbIa6krSE9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UzzUYkcx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="qLvfDEKO"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4j2qhy0FWfzMlPN;
-	Sun, 11 Oct 2026 21:02:10 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1791745330;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Q/Hn6xj3FRPjQ3cFYoHb+hNfCUOuBV5bvsCl69uhV4c=;
-	b=qLvfDEKOK+AHaTfh3/jiDOhW9Q2Z2BZ/ZZcBqcfGgoolSfHRCCOpDTxnLJH7nImAxJhxuo
-	ZWVhY77QB0LanZArB5y0sIdJlkufa6G1IaVsZeL9g+T1io/pklT4OeS9Uzozr6ioTO3rYe
-	4WyUATOMrdzoxl8EsA3Do1A2Tzx2h0j2xlo08Yf58UlFTvYoVXtpGamQdsUxShJ6FFiXWx
-	KZBPi/cosAj7kgPHZU+nmG5Fpolo/v5nm1JQY6senNXcRvvdxfSyAwp+bSOknMLtdE4zG7
-	u+o+jVStYU1vg4jecKL84Vq9l6IvHosX1WtO9MmNmrIBnPFLs7f6oJBTdMXvRw==
-From: Alexander Gruhlke <gruhlke@mailbox.org>
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Lukas Wunner <lukas@wunner.de>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Alex Williamson <alex@shazbot.org>,
-	Hui Wang <hui.wang@canonical.com>,
-	Linux-Fan <info@masysma.net>,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev,
-	Alexander Gruhlke <gruhlke@mailbox.org>
-Subject: [PATCH v3 1/2] PCI: Ignore Immediate Readiness on Samsung 990 PRO NVMe
-Date: Sun, 11 Oct 2026 21:01:44 +0200
-Message-ID: <20261011190145.23621-2-gruhlke@mailbox.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261011190145.23621-1-gruhlke@mailbox.org>
-References: <20261011190145.23621-1-gruhlke@mailbox.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UzzUYkcx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6A731F0089B;
+	Sun, 11 Oct 2026 19:03:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791745441;
+	bh=LdxMvCC8JxkBtq+BNVpskgNv+Iemqb0CitObZkcZf3A=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=UzzUYkcxQOL0XlmelgcWjoUE8uZ5mu43l+m4m3WaR9oNIw62zCnUniB7tzEWo2BrB
+	 m/LtSCL5ygDk1oFfZBldkSOb9zcjhLNCiL0ryQ8J7LHAIrimuDA02HRyFG7gcNaeDp
+	 hJlAHlApw9NQgtB6uGiS1SdyWdNJPYYCIcokj6uBek3AWSfrNQrfwQN9yFCi/AjY1r
+	 L/H7nT8TTDqifm4cjorAwd2/DDPlx6Ti2F5nrdw4ff/R7AD535cW+u7s/elWHg0P39
+	 JDkxuf933VY9tJJkaAlHfRXEPptQgd6XeC196sPAtXgJjdRykcwDhXBIS4gDvJqmwz
+	 RH2OwqBWE9Ddw==
+Subject: Re: [PATCH net-next 2/9] net/mlx5e: check for failure when pulling
+ the Ethernet header after XDP
+From: netdev-bot+sashiko@kernel.org
+To: josef@toxicpanda.com
+Cc: kuba@kernel.org, pabeni@redhat.com, edumazet@kernel.org,
+ davem@davemloft.net, andrew+netdev@lunn.ch, saeedm@nvidia.com,
+ tariqt@nvidia.com, mbloch@nvidia.com, leon@kernel.org, jgross@suse.com,
+ sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
+ anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com, manishc@marvell.com,
+ rahulv@marvell.com, GR-Linux-NIC-Dev@marvell.com, shshaikh@marvell.com,
+ horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-rdma@vger.kernel.org, xen-devel@lists.xenproject.org,
+ intel-wired-lan@lists.osuosl.org
+Date: Sun, 11 Oct 2026 19:03:59 +0000
+Message-ID: <179174543945.434549.12308757559903944189@kernel.org>
+In-Reply-To:
+ <20261007-b4-pskb-pull-tail-drivers-v1-2-9512b0fb977b@toxicpanda.com>
+References:
+ <20261007-b4-pskb-pull-tail-drivers-v1-2-9512b0fb977b@toxicpanda.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: a49y3m7m95iqyjub9wjbwwdcb3jb1k3p
-X-MBO-RS-ID: 63c636e6d683b28b9df
 
-The Samsung 990 PRO [144d:a80c] advertises Immediate Readiness, so
-pcie_flr() doesn't wait after FLR, but the drive returns ~0 for up to
-7 ms.  Since commit 10baa9b4df40 ("PCI: Drop unnecessary retries when
-restoring BARs"), the config restore after FLR is lost, which breaks
-VFIO passthrough of the drive.  Firmware 8B2QJXD7 responds right after
-FLR, but older firmware such as 1B2QJXD7 doesn't, and the firmware
-version isn't visible here.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Ignore Immediate Readiness on this device, so pcie_flr() waits.
+Low priority / nit picks for your consideration:
 
-Fixes: 10baa9b4df40 ("PCI: Drop unnecessary retries when restoring BARs")
-Link: https://bbs.archlinux.org/viewtopic.php?id=314833
-Link: https://lore.kernel.org/r/20261010160529.27974-1-gruhlke@mailbox.org
-Suggested-by: Lukas Wunner <lukas@wunner.de>
-Assisted-by: Claude:claude-opus-5-5
-Reviewed-by: Lukas Wunner <lukas@wunner.de>
-Signed-off-by: Alexander Gruhlke <gruhlke@mailbox.org>
----
- drivers/pci/quirks.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+- [Low] In mlx5e_skb_from_cqe_mpwrq_nonlinear()
+  (drivers/net/ethernet/mellanox/mlx5/core/en_rx.c), the new drop path…
 
-diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-index 0500d5fd4f..e8597d1209 100644
---- a/drivers/pci/quirks.c
-+++ b/drivers/pci/quirks.c
-@@ -5623,6 +5623,17 @@ static void quirk_no_flr_snet(struct pci_dev *dev)
- }
- DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_SOLIDRUN, 0x1000, quirk_no_flr_snet);
- 
-+/* Samsung 990 PRO advertises Immediate Readiness, but isn't ready after FLR */
-+static void quirk_no_imm_ready(struct pci_dev *dev)
-+{
-+	if (!dev->imm_ready)
-+		return;
-+
-+	pci_info(dev, "Ignoring incorrectly advertised Immediate Readiness support\n");
-+	dev->imm_ready = 0;
-+}
-+DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_SAMSUNG, 0xa80c, quirk_no_imm_ready);
-+
- static void quirk_no_ext_tags(struct pci_dev *pdev)
- {
- 	struct pci_host_bridge *bridge = pci_find_host_bridge(pdev->bus);
+--
+
+net/mlx5e: check for failure when pulling the Ethernet header after XDP
+
+This patch replaces the unchecked __pskb_pull_tail() call in
+mlx5e_skb_from_cqe_mpwrq_nonlinear() with pskb_may_pull(). If the pull
+fails, the packet is dropped. The goal is to stop eth_type_trans() from
+hitting BUG() in __skb_pull() when the linear part holds less than
+ETH_HLEN.
+
+> When an XDP program leaves less than ETH_HLEN in the linear part of a
+> multi-buffer packet, mlx5e_skb_from_cqe_mpwrq_nonlinear() pulls the rest
+> of the Ethernet header in from the frags with __pskb_pull_tail() and
+> ignores the return value.  If that pull fails, eth_type_trans() later
+> finds less than ETH_HLEN in the head and BUG()s in __skb_pull().
+
+> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c b/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
+> index e3f915beebe1b..b1e1e30a77e22 100644
+> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
+> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
+> @@ -2060,9 +2060,12 @@ mlx5e_skb_from_cqe_mpwrq_nonlinear(struct mlx5e_rq *rq, struct mlx5e_mpw_info *w
+>  				pagep->frags++;
+>  			while (++pagep < frag_page);
+>  
+> -			if (len < ETH_HLEN)
+> -				__pskb_pull_tail(skb, min(ETH_HLEN - len,
+> -							  skb->data_len));
+> +			if (len < ETH_HLEN &&
+> +			    !pskb_may_pull(skb, min(ETH_HLEN, skb->len))) {
+> +				rq->stats->buff_alloc_err++;
+> +				dev_kfree_skb_any(skb);
+> +				return NULL;
+> +			}
+
+[Severity: Low]
+Can this new drop path actually be reached? Given how the skb is built
+on the XDP path, it doesn't look like the pull can fail.
+
+For an skb with frags and no frag_list, these are the only failure
+returns in __pskb_pull_tail():
+
+net/core/skbuff.c:__pskb_pull_tail() {
+    ...
+	if (!skb_frags_readable(skb))
+		return NULL;
+
+	if (eat > 0 || skb_cloned(skb)) {
+		if (pskb_expand_head(skb, 0, eat > 0 ? eat + 128 : 0,
+				     GFP_ATOMIC))
+			return NULL;
+	}
+    ...
+}
+
+The frags are always readable here because XDP and memory providers
+can't be used together:
+
+- dev_xdp_attach() returns -EBUSY when dev_get_min_mp_channel_count()
+  is non-zero.
+- The memory provider binding code in netdev_rx_queue.c refuses when
+  dev_xdp_prog_count() is non-zero.
+
+The skb isn't cloned either, since mlx5e_build_linear_skb() has just
+built it with napi_build_skb().
+
+There is also always enough tailroom, so eat stays negative. The XDP
+setup earlier in this function is:
+
+	linear_hr = XDP_PACKET_HEADROOM;
+	linear_data_len = 0;
+	linear_frame_sz = MLX5_SKB_FRAG_SZ(linear_hr + MLX5E_RX_MAX_HEAD);
+
+That leaves about 256 bytes past the linear tail, and the pull is never
+more than ETH_HLEN bytes.
+
+On the commit message's claim that this happens "When an XDP program
+leaves less than ETH_HLEN in the linear part of a multi-buffer packet",
+is that accurate?
+
+The driver always gives XDP an empty linear area. So the pull runs for
+every multi-buffer XDP_PASS packet whose program doesn't adjust the
+head.
+
+An XDP program also can't leave 1 to 13 bytes in the linear part,
+because bpf_xdp_adjust_head() rejects it:
+
+	if (unlikely(data < data_start ||
+		     data > xdp->data_end - ETH_HLEN))
+		return -EINVAL;
+
+When frags are present, bpf_xdp_adjust_tail() only changes the frags,
+so the linear data_end stays where it is. That means len is either 0 or
+at least ETH_HLEN at this point.
+
+If this change is meant as hardening, for example against later changes
+to linear_frame_sz, could the commit message say so?
+
+If there is a real way to make the pull fail, could the message describe
+it and add a Fixes: tag for the commit that added the unchecked
+__pskb_pull_tail()?
+
+>  		}
+>  	} else {
+>  		if (xdp_buff_has_frags(&mxbuf->xdp)) {
+
 -- 
-2.56.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261007-b4-pskb-pull-tail-drivers-v1-0-9512b0fb977b%40toxicpanda.com
