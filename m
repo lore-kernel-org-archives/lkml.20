@@ -1,286 +1,192 @@
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8049346982F
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 20:16:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE80C30F95A
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 20:18:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791749821; cv=none; b=dOmCjX8zoZhM5uZwjNpOaWHrswqHlymWVT8AJD4Gu6x07c39Df4vQRe3PNQcxkgZlWswYYGFJE/MH07PPipbgeSzcwrWmtqfO/cPawxjjsoO2YloSF+dNp+8TgTio1h45xnZZojNmZEQHnxp3jUGTsgchdO8shFzDsdQE3qbJDg=
+	t=1791749922; cv=none; b=ujohnClgR2ZfDKnI0ABWN/LUyfPdNyqwRVD5y5gJIeTKblaBm19CyvjQVfWuEhM0r4QV5X0Y6/MYzYwI07xJ5lmnFCO32lKEc0KLXh0xh0nFc8QgaclSYfeVZQyiK26QeVXmYcRGYE8MVHLfmRD+kUk+iX/DXONcQic5LgTfS/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791749821; c=relaxed/simple;
-	bh=HKwdMYyKmRuchbP4c1XxhY0dQ26+OiRri0424Ox1MNM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=QU60XhujrDMU/2kIkhdyH6CcurWVWwS+/kKVCiRGJ7FD+CJRlwkvkk2Cpy69mfl9qt8vudIqTcCGzlf3JV19yTe80KboTGDmiqUvwcVFfbXNLYsuwgbWOvawhGEhJZpM1HozR6GMdI/DJKqsQFQNxMINIP3ZmL9emnHrFe/icdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iXvF7HXK; arc=none smtp.client-ip=74.125.224.51
+	s=arc-20240116; t=1791749922; c=relaxed/simple;
+	bh=HG66h51UdANrn0GRTiwQP7lTC/RZ9hPF2wtAAEhgp0U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oUol3Ay5+cXp5oiazyDLKMgjVdUzGD93/zUO1R2rkRZOQh+Y+UwN88nJ6dB6yQHggdBpqU48N5FyKmVaHd7mvXLhVBfTKLOWinFZ8bh8uFWFuePeQeSpasimiEny6bZCeEed5AXP7UHTg2EkO+w59K/7cNeRDl6WNUGqx34bD5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mVvyu7oo; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iXvF7HXK"
-Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-677bf06de21so793226d50.3
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 13:16:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mVvyu7oo"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a022fee0caso9740775e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 13:18:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791749817; x=1792354617; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791749919; x=1792354719; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8UfLUE/KJOT5M/bL0VV01RXMRIPvbS9JV6u+siHBB/k=;
-        b=iXvF7HXKteUsiEgHRSA+ARKG6LRzLDjMLwZivqykKZwcZx2GXY7wxgnfn+yQBt7sk1
-         GvdFD+M9bWt5Ge09vMD5KwzNHnc/sIgOM0VwuK7dRWzgMrt5zfVcEd0+bUgdU2JAqgod
-         o5iVXcafe9UDNrRNGJu4cGIaqpnw7jeQcxlxI1MwBuz6bqJvnQRU3kdHMJncqZxvfFHe
-         AWUXgy9wLv5tRENI8nyBr7PjWciSwqaSzfUO1e6eYtptKppOCIs5xlZH9woKgUFgRyQ0
-         R3BtviFk5atAPkIpqrDeMsGge+tZM1MVBn3pUmMX9fgSA8FJoWfo8EQ4x3QU2UZN/J3C
-         sHKQ==
+        bh=4r0SiIrdQL6I+if2NfEB+Q+sc22abdmSIZUKGGUGERQ=;
+        b=mVvyu7oos0YqpJBWp9DdWBE8s4wUhgThrCq3pzQrQYiuOsISeFPCFL+z/uWU36t9qg
+         tLD1nGBJHEk9s+BoM6UEjiK7Y3yLuHeWMvqYj6bviidYm/KZcM5F4oXnIUvcoc46cIlv
+         FvjaKgB8/HW8u2N9r4Tjl8gWaOcatMSVauPZQzdoMtgxFG4nt55xCq21RBzCdETmdXLE
+         O5NYbF4Y75MVW1A9RHZhnEmqsc3TDqpwt+lkJ4z9sq9YROEf2d4mW+bhqMzsAIWHPmLf
+         99YnfXZGN7uTTdQdelj8OGl5MfBLFkETqx8walQhmlS131z2kG7Q1LNR5TveI1oG2zV6
+         QqRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791749817; x=1792354617;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8UfLUE/KJOT5M/bL0VV01RXMRIPvbS9JV6u+siHBB/k=;
-        b=Y3upV3Er7K8EZMpkPKG0NFExiwJ6ge/ORtUfxKid4vh67vs9l/th8sL72Br8TbcMhE
-         RhQfVFgrJe3iNgiC7gfovtta7RcAGAwwEb0o2u0EYPnIK6JYS+nZ2wk0NOzTUgXFgEou
-         ef+1QcM0AumI/epLV33gJ1ZSIkPshuHjsiyZPL0rOgjYrlnFJVl3ZCitCYieayhBwZ11
-         yi52v1/OxgvjxvdikTGi2wILuepsTBUTi65MjVq+2qzzw/6k/Bh1nF0c/hNZhuok2TLF
-         1P1Na8xaSTeIqRgcvZgctTw/EpKEdjzC34272WXIU8M6VqBz4fjgt/dcdC+ht/3zkf5z
-         Ub8g==
-X-Forwarded-Encrypted: i=1; AKwUvBy90Kyay/AL4jY2h+vw5DRBrbyLTo+SVFv8pgy+y7VuDZaLFd/TEkCZGdtSIQ+/yJjXobNmv/f0B3Qedxo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJXGT4zcnm1p9kjoC1FyCAiwbNq4k1nrMhT1cP8U0an+grtjg/X
-	aC3+Qkq1kt+xOKd6ru+QqhHh5LQgEru2RXUZLpAzeCOO15tgqmRL+/QD
-X-Gm-Gg: AYBFou02Op8wpisjARqrhrWtuHLUvquSr3QLYn0AhtgZK0WcOyD5oOsyr6Cu+VvfrXf
-	dNnby13wB/dBQEA1SbsmCGtyA2bvo5kcpwxT//ekEbfu0wsOMpfndaifGo8QAQVcrkXw7rh4ypV
-	U3iUEGXn3hvdv8Txi3IC27TeM03NxmeM7By1OZ/nR7Xg1CK3YgDykQ+PMGyyqYyVR8XUG1fMzTy
-	+w35wZo5P7hWHNazxhD8876ct2F+LR3X5L12dSlFtEOBYQVuKOtJzr1A8vuhWAb4VO4ZUm/GXeA
-	95izkB+aecjTVuqcDQKvgQbxPdIP1U4U2IWEj+aJN8ZvmQ84sFG7lYJpyR8DZDtodiBnseQbBQi
-	OuaDfNbIMW9fBohFzdBtuaisdpUcr8QY/vo1AKHIQ6povjayNvoUy9PO4X+iQGPBfIIZXRMRIuk
-	C3vKLIiGLhOVyfgxgiO+AqSLmhch0ArOQJsMzoO6coxoEkp5Wcw8IjvUh9gKZc8uXmJzwHA9/Vi
-	QEgFpIC1yn1hYKfaRa8aahBW7MHab/FxklvBpSgi7lkMQZx2XtDQqAi
-X-Received: by 2002:a05:690e:4199:b0:676:bf92:2520 with SMTP id 956f58d0204a3-6793627473bmr1908818d50.89.1791749817201;
-        Sun, 11 Oct 2026 13:16:57 -0700 (PDT)
-Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-679356ae586sm2953786d50.15.2026.10.11.13.16.55
+        d=1e100.net; s=20260707; t=1791749919; x=1792354719;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4r0SiIrdQL6I+if2NfEB+Q+sc22abdmSIZUKGGUGERQ=;
+        b=ILHrDhlJ34WNobdno2KUJbOBt2AJK7fqltNmj9WEAUdM/wDCE7cNQ3AGRqu4OYFNR2
+         HOKrKclfWCUBkJjC5D2uQIjxqtN1NlLsNV7LravWVm+WDgaiggSugtT+TCE+gZO+mYAC
+         QPdLsZLA3fad7CTRZ1QW/M+Dwylp06UcDaX9940Ia7rIkLxu5ovhUVEQc8WVWkg9hDvS
+         Evpf8uV2ea4T51TBTMqMX9GUrbLaI6Ng72t2rwjhYCu7e+z5viPjiYDbhUJt3z5v4Am3
+         aH8YvBk/pJvmyip/Je3E6L0suvnoXE1HGhSqXHkr1glzIdKLR6Ebvjo1uwoJFgAEEBOJ
+         undg==
+X-Forwarded-Encrypted: i=1; AKwUvBy4ye0ng57n+HMijRBDaKwBrm1nhid3IXKzfSj/GIP2T4f9Ne1kfpjvC62nrXpUXgd5/Y4EXDqvswXl/LY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL9jm9EdxXcITEehYxikl4tEKsBW4dyShs0oBKmqTqpYciwhZR/
+	T8ljH7GHEyB8yrwmFpQt0032effO4t91tLR2e6XMYOYaIfAbn+XHbe85eCScEvd1jPcgte+m
+X-Gm-Gg: AYBFou2EtiLi8SUXn2aO+D7UIoOaQfrzkFrJ6JJ5uyW3LMoK5NcXk6onGzm16SnO2GJ
+	GN7uaAXCDN8H0ySViOWwU+FW/25tUAE9rBBmqkHNqZVK5I3BtZTeWA4mFzVFKwiI8KWC0TIwWlN
+	1pUk054CbsWKEe2XYhEyIt0iG9yXH8nt+GheVNldiSD7xtt8X8mFQ5+QwhBaifwuqqmMeNKBYlX
+	+s+cMUdMfGIKrppUKsTHl/qmnW+kAIsJOcwG1zTaJmpkK5VNISiNw0MsExvb/zVbckh4kfqWgDq
+	VZX0ufquZL4XvKFRcd3K9jIaTW8zP3/5+w3/xmLSzQptFVw9GFBD4E9x4oRmsAmVmyjAAuEbiqa
+	kAnp3v4rt1CwBY1VuLUO7S3yYUC3Fch/SpuPSCDYIXdUhn7/8kbv5p8UvmIVOCvNaVSFblpjVIN
+	+cXj7lFTCs3u5LoMe7M//2uUk0Uugwr2MYnoZcnmKSTtmaBlBiRuD0hXLmXRJ8tUW7syieeQatH
+	TPY0MSgsbBLFJD42HLEBRFTQPB36wEXaYZgZBkElrc7QQzH+gBRht18K2swuPKUfQVLjLY=
+X-Received: by 2002:a05:600c:3e8d:b0:4a1:7701:f863 with SMTP id 5b1f17b1804b1-4a18e4aeae4mr132796155e9.15.1791749918639;
+        Sun, 11 Oct 2026 13:18:38 -0700 (PDT)
+Received: from localhost ([188.234.148.119])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf1358asm237348495e9.4.2026.10.11.13.18.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 13:16:55 -0700 (PDT)
-From: Matt Turner <mattst88@gmail.com>
-Date: Sun, 11 Oct 2026 16:16:44 -0400
-Subject: [PATCH 4/4] alpha: add HAVE_PERF_REGS and
- HAVE_PERF_USER_STACK_DUMP support
+        Sun, 11 Oct 2026 13:18:37 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>,
+	Leo Li <sunpeng.li@amd.com>,
+	Rodrigo Siqueira <siqueira@igalia.com>,
+	Alex Deucher <alexander.deucher@amd.com>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Fangzhi Zuo <Jerry.Zuo@amd.com>,
+	Aurabindo Pillai <aurabindo.pillai@amd.com>,
+	George Zhang <george.zhang@amd.com>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev
+Subject: Re: [REGRESSION 7.3] drm/amd/display: single-frame scanout corruption on DCN32 at 120 Hz since a637a140ab86
+Date: Mon, 12 Oct 2026 01:18:33 +0500
+Message-ID: <20261011201833.853907-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20260919200820.799243-1-mikhail.v.gavrilov@gmail.com>
+References: <20260919200820.799243-1-mikhail.v.gavrilov@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261011-alpha-perf-regs-v3-v1-4-eaa625a39712@gmail.com>
-References: <20261011-alpha-perf-regs-v3-v1-0-eaa625a39712@gmail.com>
-In-Reply-To: <20261011-alpha-perf-regs-v3-v1-0-eaa625a39712@gmail.com>
-To: Richard Henderson <richard.henderson@linaro.org>, 
- Magnus Lindholm <linmag7@gmail.com>
-Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org, 
- Matt Turner <mattst88@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6348; i=mattst88@gmail.com;
- h=from:subject:message-id; bh=HKwdMYyKmRuchbP4c1XxhY0dQ26+OiRri0424Ox1MNM=;
- b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLJOv1vFYbApjvmsY3vtyT/c3ZelpJ44pzzY7LztzcFDE
- 7LkOcSPdHxkYRDjYpgppsgSt16RZVbbjqU+p6V/wcxhZQIZIi3SwAAELAx8uYl5pUY6Rnqm2oZ6
- hkCGjlE8RE6PQSOzuLg0tUg3raDIIS+/JLEkMz+vWC+/IDWvIL1ALy0zrSQjI7+oOBVohF5eaom
- pq6ObkaGBiaWjhZmThaOpibOzk6GTm6Ojs6uTkaW5iYGzpaOJq6U5AxenAMw1qccY/rtWbWib+v
- fi5rUPNzYev3hx3fw366xvb1z51l5l4fwp3bPaGBkWz3T1vS9Ya8D3/8V/bZvI8q6EtoaDjPH5S
- 5U/8LGemcEBAA==
-X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
- fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
+Content-Transfer-Encoding: 8bit
 
-Let perf sample registers and dump the user stack, which is what the
-perf tool needs for --call-graph dwarf.
+The band appears while DC switches the memory clock through
+sub-viewport (SubVP).  When SubVP is not in use, a kernel that contains
+a637a140ab86 shows the same low rate as that commit's parent.  On my
+display, whether SubVP is used at 120 Hz is decided by a TV setting,
+which also gives affected users a workaround.
 
-The register indices follow the hardware numbering, so r0-r30 map
-directly to DWARF register numbers, with pc after them. r9-r15
-are callee-saved and live in switch_stack rather than pt_regs, so they
-cannot be sampled. Without r15 an unwinder cannot recover the CFA of a
-first frame that uses $15 as its frame pointer.
+Two runs on the same kernel (7.3-rc6), the same TV setting and ordinary
+desktop use, differing only in the refresh rate.  SubVP state and the
+memory clock were read once a minute from amdgpu_dm_capabilities and
+pp_dpm_mclk.  SubVP never changed state within a run; the memory clock
+stayed at 1249 MHz for the whole 120 Hz run and moved through all four
+levels at 100 Hz:
 
-sp is not in pt_regs either: for user frames it comes from
-user_stack_pointer(), and for kernel frames (PERF_SAMPLE_REGS_INTR) it
-is the end of the trap frame, as in stacktrace.c.
+  mode     SubVP  memory clock    events   eligible  per 1000 (95%)
+  4K@120   no     1249 MHz            5   1,582,072  0.0032 (0.0010-0.0074)
+  4K@100   yes    96..1249 MHz      139     712,333  0.195  (0.164-0.230)
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Matt Turner <mattst88@gmail.com>
----
- .../features/perf/perf-regs/arch-support.txt       |  2 +-
- .../features/perf/perf-stackdump/arch-support.txt  |  2 +-
- arch/alpha/Kconfig                                 |  2 +
- arch/alpha/include/uapi/asm/perf_regs.h            | 45 +++++++++++++++++
- arch/alpha/kernel/Makefile                         |  1 +
- arch/alpha/kernel/perf_regs.c                      | 56 ++++++++++++++++++++++
- 6 files changed, 106 insertions(+), 2 deletions(-)
+138 of the 139 events at 100 Hz carry CRC triples that occur nowhere
+else in the capture; the remaining one recurs seven times.  All twenty
+DTN snapshots taken after events show watermark set A at the register
+maximum and a calculated DCFCLK of 400 MHz: the SubVP override in
+dcn20_optimize_bandwidth() and MIN_SUBVP_DCFCLK_KHZ.
 
-diff --git a/Documentation/features/perf/perf-regs/arch-support.txt b/Documentation/features/perf/perf-regs/arch-support.txt
-index 4c9a5a012075..7d736d678fd4 100644
---- a/Documentation/features/perf/perf-regs/arch-support.txt
-+++ b/Documentation/features/perf/perf-regs/arch-support.txt
-@@ -6,7 +6,7 @@
-     -----------------------
-     |         arch |status|
-     -----------------------
--    |       alpha: | TODO |
-+    |       alpha: |  ok  |
-     |         arc: | TODO |
-     |         arm: |  ok  |
-     |       arm64: |  ok  |
-diff --git a/Documentation/features/perf/perf-stackdump/arch-support.txt b/Documentation/features/perf/perf-stackdump/arch-support.txt
-index dd362b5cb638..17b84ea7769d 100644
---- a/Documentation/features/perf/perf-stackdump/arch-support.txt
-+++ b/Documentation/features/perf/perf-stackdump/arch-support.txt
-@@ -6,7 +6,7 @@
-     -----------------------
-     |         arch |status|
-     -----------------------
--    |       alpha: | TODO |
-+    |       alpha: |  ok  |
-     |         arc: | TODO |
-     |         arm: |  ok  |
-     |       arm64: |  ok  |
-diff --git a/arch/alpha/Kconfig b/arch/alpha/Kconfig
-index b2c359b947f6..8fafbfabd1e5 100644
---- a/arch/alpha/Kconfig
-+++ b/arch/alpha/Kconfig
-@@ -41,6 +41,8 @@ config ALPHA
- 	select HAVE_PAGE_SIZE_8KB
- 	select HAVE_PCSPKR_PLATFORM
- 	select HAVE_PERF_EVENTS
-+	select HAVE_PERF_REGS
-+	select HAVE_PERF_USER_STACK_DUMP
- 	select NEED_DMA_MAP_STATE
- 	select NEED_SG_DMA_LENGTH
- 	select GENERIC_IRQ_PROBE
-diff --git a/arch/alpha/include/uapi/asm/perf_regs.h b/arch/alpha/include/uapi/asm/perf_regs.h
-new file mode 100644
-index 000000000000..da96a31b12fb
---- /dev/null
-+++ b/arch/alpha/include/uapi/asm/perf_regs.h
-@@ -0,0 +1,45 @@
-+/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
-+#ifndef _UAPI_ASM_ALPHA_PERF_REGS_H
-+#define _UAPI_ASM_ALPHA_PERF_REGS_H
-+
-+/*
-+ * Indices 0-30 match the hardware (and DWARF) register numbers.
-+ * r9-r15 are not saved in pt_regs and cannot be sampled.
-+ */
-+enum perf_event_alpha_regs {
-+	PERF_REG_ALPHA_R0,
-+	PERF_REG_ALPHA_R1,
-+	PERF_REG_ALPHA_R2,
-+	PERF_REG_ALPHA_R3,
-+	PERF_REG_ALPHA_R4,
-+	PERF_REG_ALPHA_R5,
-+	PERF_REG_ALPHA_R6,
-+	PERF_REG_ALPHA_R7,
-+	PERF_REG_ALPHA_R8,
-+	PERF_REG_ALPHA_R9,
-+	PERF_REG_ALPHA_R10,
-+	PERF_REG_ALPHA_R11,
-+	PERF_REG_ALPHA_R12,
-+	PERF_REG_ALPHA_R13,
-+	PERF_REG_ALPHA_R14,
-+	PERF_REG_ALPHA_R15,
-+	PERF_REG_ALPHA_R16,
-+	PERF_REG_ALPHA_R17,
-+	PERF_REG_ALPHA_R18,
-+	PERF_REG_ALPHA_R19,
-+	PERF_REG_ALPHA_R20,
-+	PERF_REG_ALPHA_R21,
-+	PERF_REG_ALPHA_R22,
-+	PERF_REG_ALPHA_R23,
-+	PERF_REG_ALPHA_R24,
-+	PERF_REG_ALPHA_R25,
-+	PERF_REG_ALPHA_R26,
-+	PERF_REG_ALPHA_R27,
-+	PERF_REG_ALPHA_R28,
-+	PERF_REG_ALPHA_GP,
-+	PERF_REG_ALPHA_SP,
-+	PERF_REG_ALPHA_PC,
-+	PERF_REG_ALPHA_MAX,
-+};
-+
-+#endif /* _UAPI_ASM_ALPHA_PERF_REGS_H */
-diff --git a/arch/alpha/kernel/Makefile b/arch/alpha/kernel/Makefile
-index 4ea5c189e60e..0c04b89676ed 100644
---- a/arch/alpha/kernel/Makefile
-+++ b/arch/alpha/kernel/Makefile
-@@ -18,6 +18,7 @@ obj-$(CONFIG_PCI)	+= pci.o pci_iommu.o pci-sysfs.o
- obj-$(CONFIG_SRM_ENV)	+= srm_env.o
- obj-$(CONFIG_MODULES)	+= module.o
- obj-$(CONFIG_PERF_EVENTS) += perf_event.o
-+obj-$(CONFIG_HAVE_PERF_REGS) += perf_regs.o
- obj-$(CONFIG_RTC_DRV_ALPHA) += rtc.o
- obj-$(CONFIG_AUDIT)	+= audit.o
- 
-diff --git a/arch/alpha/kernel/perf_regs.c b/arch/alpha/kernel/perf_regs.c
-new file mode 100644
-index 000000000000..10afe4e205e9
---- /dev/null
-+++ b/arch/alpha/kernel/perf_regs.c
-@@ -0,0 +1,56 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <linux/bits.h>
-+#include <linux/perf_event.h>
-+#include <asm/perf_regs.h>
-+
-+#define REG(idx, field) \
-+	[PERF_REG_ALPHA_##idx] = offsetof(struct pt_regs, field)
-+
-+#define REG_RESERVED	(~GENMASK_ULL(PERF_REG_ALPHA_MAX - 1, 0) | \
-+			 GENMASK_ULL(PERF_REG_ALPHA_R15, PERF_REG_ALPHA_R9))
-+
-+static const unsigned int pt_regs_offset[PERF_REG_ALPHA_MAX] = {
-+	REG(R0, r0),	REG(R1, r1),	REG(R2, r2),	REG(R3, r3),
-+	REG(R4, r4),	REG(R5, r5),	REG(R6, r6),	REG(R7, r7),
-+	REG(R8, r8),	REG(R16, r16),	REG(R17, r17),	REG(R18, r18),
-+	REG(R19, r19),	REG(R20, r20),	REG(R21, r21),	REG(R22, r22),
-+	REG(R23, r23),	REG(R24, r24),	REG(R25, r25),	REG(R26, r26),
-+	REG(R27, r27),	REG(R28, r28),	REG(GP, gp),	REG(PC, pc),
-+};
-+
-+u64 perf_reg_value(struct pt_regs *regs, int idx)
-+{
-+	if (idx == PERF_REG_ALPHA_SP) {
-+		if (user_mode(regs))
-+			return user_stack_pointer(regs);
-+		/* Same kernel sp approximation as stacktrace.c. */
-+		return (unsigned long)(regs + 1);
-+	}
-+
-+	if (WARN_ON_ONCE((u32)idx >= PERF_REG_ALPHA_MAX ||
-+			 BIT_ULL(idx) & REG_RESERVED))
-+		return 0;
-+
-+	return *(unsigned long *)((void *)regs + pt_regs_offset[idx]);
-+}
-+
-+int perf_reg_validate(u64 mask)
-+{
-+	if (!mask || mask & REG_RESERVED)
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
-+u64 perf_reg_abi(struct task_struct *task)
-+{
-+	return PERF_SAMPLE_REGS_ABI_64;
-+}
-+
-+void perf_get_regs_user(struct perf_regs *regs_user,
-+			struct pt_regs *regs)
-+{
-+	regs_user->regs = task_pt_regs(current);
-+	regs_user->abi = perf_reg_abi(current);
-+}
+With SubVP in use the commit matters.  The parent/commit pair I
+reported earlier ran at 120 Hz in HDMI VRR mode, where DC uses SubVP
+(the revert kernel's DTN snapshots carry the same two values), and
+measured 0.0023 against 0.0807 per 1000.  Without SubVP, the kernel
+with the commit is at 0.0032.
+
+
+Why a TV setting decides it
+---------------------------
+
+The LG OLED42C3 offers "VRR & G-Sync" (HDMI Forum VRR) and "AMD FreeSync
+Premium".  With the first, the EDID carries the HF-VSDB VRR range 40-120
+Hz and no AMD VSDB; with the second, the HF-VSDB VRR range is zero and
+an AMD VSDB v2 with 40-120 Hz appears.  amdgpu_dm_update_freesync_caps()
+takes FreeSync on HDMI only from the AMD VSDB, so:
+
+  - HDMI VRR mode: the stream has allow_freesync = false, and
+    dcn32_allow_subvp_high_refresh_rate() permits SubVP for a single
+    display at 120 Hz.  amdgpu_dm_capabilities reports sub-viewport
+    enabled at 120 and 100 Hz; visual confirm 16 draws red at 120 Hz.
+
+  - FreeSync mode: SubVP is not permitted at 120 Hz.  DC finds no
+    p-state method (watermark set A p-state 0, no visual confirm colour)
+    and keeps UCLK at its maximum, which pp_dpm_mclk showed for six
+    hours.  At 100 Hz, below the 120 Hz threshold in
+    dcn32_assign_subvp_pipe(), SubVP is used in this mode too.
+
+  - 60 Hz, either mode: the switch happens in vactive without DMUB
+    (visual confirm 16: magenta).  My 60 Hz runs measured between 0
+    and 0.025 per 1000, one of them 0 in 1,290,588 eligible frames.
+
+All my earlier measurements were taken in HDMI VRR mode.  The line
+"FreeSync: enabled, range 40-120" in my original report was wrong: in
+that mode amdgpu does not enable FreeSync.
+
+For affected users with such a TV, selecting FreeSync instead of HDMI
+VRR avoids SubVP at 120 Hz, at the cost of the memory clock staying at
+its maximum.  I have not tried amdgpu.dcdebugmask=0x20000
+(DC_DISABLE_SUBVP_FAMS) in HDMI VRR mode; I can if that would help.
+
+
+The question
+------------
+
+SubVP is carried out by the DMUB firmware, and DC budgets the
+firmware's reaction time when it sizes the phantom pipe's MALL region:
+subvp_fw_processing_delay_us = 15 and subvp_pstate_allow_width_us = 20
+in dcn32_resource.c, used in dcn32_fpu.c.  a637a140ab86 moves every DMUB
+window -- instruction constants, stack, BSS data, mailbox, firmware
+state and the rest -- from VRAM to GTT.  Is the firmware's SubVP timing
+sensitive to where its memory lives?  Asking, not claiming.
+
+DMCUB firmware here is 0x07003300 (7.0.51).
+
+
+Also
+----
+
+A second user reports the same on an RX 7900 XT with two TVs over HDMI
+at 120 Hz and above: from 7.3 on, not on a DisplayPort monitor, and gone
+when he locks the GPU clocks.  If the lock includes the memory clock, it
+stops memory clock switching, which fits the above; I have asked which
+VRR mode his TVs use:
+
+  https://gitlab.freedesktop.org/drm/amd/-/work_items/5714#note_3692576
+
+Two more corrections to my original report.  The DTN "CALCULATED
+Clocks" line prints DC's calculated requirements, not the clocks the SMU
+is running at, so it says nothing about clock transitions.  And a
+snapshot taken seconds after an event cannot exclude what the firmware
+does around a switch: with SubVP it lowers watermark set A when the
+switch starts, so "the watermark sets are configuration, not
+instantaneous state" was wrong as well.
+
+The GitLab issue has the same data:
+
+  https://gitlab.freedesktop.org/drm/amd/-/work_items/5714
 
 -- 
-2.55.0
-
+Thanks,
+Mikhail
