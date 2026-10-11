@@ -1,122 +1,128 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D8B73876C5
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 17:34:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2967F3385A1
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 17:35:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791740044; cv=none; b=ivyDPd+cdHAHJOujcBDVmp1gDaI9dFvWXYTrpd+9iRlU01ls7cT6HJ4xa55dcUwuVwt0bWlsNJ1NAR6PTiXfWWKZbBaKKTglV4LzUiCHdprHs4lbidmx+nJimRwOMYiTtLwaejcKeTx71NSREq2YVAH/S1F4e8pAdcR2AivapeM=
+	t=1791740159; cv=none; b=mYJMCY8PVNUpOyYVeRT0en36cSNXT0kKvMLbLJvgMu/LtKwFmA7HSg5r2DsW14PDaaat8iCAeP6nOdMSJ2nBPx6g5iE2G4UZzX7pnPLgCk/2twiD2gZLzPORRZLJM2mHvZXFSVJ7cU0A6tkGyTGTkfgpiN870WlVyctimhWol/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791740044; c=relaxed/simple;
-	bh=CJLr4pB0xXQD8PTWTHC/kN+Z90gir1+n4RTjMZ5jg+Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pVhugeplqIVo74qbr3xGfIlKUtcIUdzJ363IxR27F70rAEhPXfoHsXdmPXRyH/en1GMPba9kXOIcelap/o8DW+YYGKUbDQqKjExZLpHgYqcc+Ka2YbEKZMxgBOeKwl9qnJHarwGmyIBz8akjIXUW/L/jXxEpUam26NNgt+Meftc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZI5T3m1q; arc=none smtp.client-ip=209.85.128.48
+	s=arc-20240116; t=1791740159; c=relaxed/simple;
+	bh=BA6Eq7SxDm1L8zEyXbbvdU/Ub4OE26FS6uK891J21U0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pnIW12ccUMIbOG/NzQ8oIqez+i8KtbmmmlNaiMKT9wNgTzNX0tJbIoB7IhYUhHvWKDYRxQ+YfD1DH5g3/Z3hF+CR2H2uis9+vZdGiCJeRqu4mh/xhb86Rg3hBYtw5QsWK4n7TdidwN0WuQaUuub7TF6+Zl2IuFoTKY//9nhE3Kw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dePmDayW; arc=none smtp.client-ip=209.85.218.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZI5T3m1q"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a180fbeef5so10739195e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 10:34:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dePmDayW"
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c31a34de844so181288366b.3
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 10:35:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791740039; x=1792344839; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6khg2ySPx5GYZEE9oh5YW3CL1Pu4Rm7qSXlUY8AbDv0=;
-        b=ZI5T3m1qoDfaG96sqvPTC3xACK+7geeRMCnIdsZFOHhG1qERvNL33qWjdu/rcLQd5d
-         tm5dbCKN4HRr1TZhIwlBxvPdfHTm43kPdBddBrnFg2lIyjOp6MfnbGcp6hRJ36QIxEee
-         YhoRZCAG7JnSxU7EUA9sstUiC6jat85G3R4S1SMDEe5ZhbertvVBobzMl3tpG2gJsnB7
-         Wn2rxEyeDP3C33IKCPNv+4VNoet+AfoeQyUqRLsNvZEnR7/2RBLt7cu3PfCnwzsZFynD
-         fh/Ujpg6vOWFOGhE3MTZhfMb07PMcld31Bq3rFzjgYgOvBF9tU03Ivt8+IJrER89oRge
-         6JGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791740039; x=1792344839;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1791740155; x=1792344955; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6khg2ySPx5GYZEE9oh5YW3CL1Pu4Rm7qSXlUY8AbDv0=;
-        b=NdBbkgqMa631tdPSdOQVAGc0cVEnxifY9dY/L/gL948Myil37CXdI6SXyKFm/ltO/r
-         cZisO9d5oICNqAWabXsv0TQqb3dtWhB+JVlIv1nLVPy7eKog1I4+k3p9Qw7mnMP2x/rb
-         9WN4CY6GTqwO9/U6drdyiDUi+QF2ie3+c5Au+64owkWpDC3pv23SlcySVlLpJfghqoIO
-         Cuwqg21yi6O3ptn8iyK9gg6ZJtxLwZsWeEeGHagKtgrBrXUCwRSqWdHlUp4IT2U4lbO+
-         mj8soVOSGLvRSZlSx5TsgtwEP02/Ia18ea+R9X1QG/Dw0cVf+DQ7UwBJ9EmO8Nd7rVIX
-         7A8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzgfuBAPqAAYN1ad9vOGozAo5o2LKz7camhHLHOwdgMfVCcIfisiXSVx+JZypHPwYt936Eb0ahWjnWokWs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI8LpwnVL76iBul8xtvQS9krwlXG/RFozJT93qc4aEFGDUQo4+F
-	sHDW0rrWD9haQ4gDw3WjlOOEBQ5z+47rJrqpPN0h6ANYLJjJm0nDBYjP
-X-Gm-Gg: AYBFou1b7dL7c0Dgf3Y/gDRH2bBzzDb4RtkJYBPalOzR0EaI/pdGxc95ywTAyNmDbH7
-	ET2akIkEPAZZxmTl8/oNnswb8W3y/p1s9i00wELIPOU2Z2IwTxr6gsKrn/qlpkuE23KepY9OE+b
-	PO9K9Lrtug1ctPKj6bkvRdjf4i9SAwYsxFiMKCHKF2kweK/bEsuXxxKgHxWi4PrB6Dr1qozN+EJ
-	RiHn8L973zFLxil0dgs3ul6jMdousLETb60ftRk2BGxriVggXonBr0KNsXUzLBe//S2l+l/DdhW
-	JKv4D6XDcx9uFwyoOuk82eNJ0WYAptb8CCm0+KJ08kXYmRrqlglMUCuaGAUkbvRsKcnYIjd4y2G
-	F3YuTFxUwuFm5D3YtMIHR7sL9jBErdn+dpTMUz0e9jfTMQdCbDMHoajYsvLroNnyu5MqujwAt+v
-	fdQzwaZ6xOSA6ReEakDdxrPTJBU7cbyeHR+pV1Y8y4rTGjoeJ+axqZQ6bUYxBtiWNznaIae5JnK
-	Od1mAmofSajjIsqJqzmMbxYMmZymR7Tl8+fGbM538S6g7WXnuor66rYM+zH8y7CDkkK2L2n6IuW
-	qQrSlQVo9QNj7KQgWJ/Ax0D8b0Rk1FohMJjjNtcTGlzxXPEmWKkiiBNSQj7ArtzaAK1WH5a3pKf
-	nthJP+7QAevMxHObO03lvGYeylLp/pz+gxqBKDts7ig==
-X-Received: by 2002:a05:600c:19cf:b0:4a1:7b56:1151 with SMTP id 5b1f17b1804b1-4a18e48f00dmr137096565e9.18.1791740039242;
-        Sun, 11 Oct 2026 10:33:59 -0700 (PDT)
-Received: from systembl0wer ([2a02:8308:4092:11f0::f9f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18ca51465sm173866565e9.4.2026.10.11.10.33.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 10:33:58 -0700 (PDT)
-Date: Sun, 11 Oct 2026 19:33:57 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Arnav Kapoor <kapoorarnav43@gmail.com>
-Cc: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>, Jonathan
- Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: imu: inv_mpu6050: fix kernel-doc warnings
-Message-ID: <20261011193357.51c393e4@systembl0wer>
-In-Reply-To: <20261011045754.358335-1-kapoorarnav43@gmail.com>
-References: <20261011045754.358335-1-kapoorarnav43@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+        bh=crwJpou1dc4UoRYz8bgCYYV5fnDg/uzo/t0oCNRfcv4=;
+        b=dePmDayWmv8v0mwSzR5nVk15cgoAHarFsNHNDSXgdCMv2nKjiNoagrt901O76U3ZaT
+         ViR3hutQjPwdEUfQSSU1Pa4p8HkJk/nRelBepZWCzpR4Y6ckXYDEEhrDCHxDt6lkczh2
+         y92xapLFiVA+lhq5Y4c/JNmFUfLJwIlAAHKzD3k3HBzfj48+5ZrDe1NzM4asaZikFNUy
+         D0RVQQyu/DO2c/KAIczkRwiqSmKFZqmkrww4/Tev1miwV+7C1l9b0gEWQuCs/mlcaSOs
+         HOuRtD5ud2K/Sp6iV5+hh60Xh9TMmPLOVJOU69Niu8hctfVdu3nFat0S8oG+7ixpEoDG
+         6gsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791740155; x=1792344955;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=crwJpou1dc4UoRYz8bgCYYV5fnDg/uzo/t0oCNRfcv4=;
+        b=rOqafr8HcAdBS8hydVscq8+XjJYB6Afs+jCmCqILMoYHZQHWtXx5rt3hRPdE9VNZKc
+         1hEM/ZCCFPf0QNeGnG3p4kYgCid0eOhb5WSKtnCB5IgYiBPOCtfnW0PQADqnQM+C8YKy
+         K/tWApgzXhFgTv/UCLHiIk48WMKo0vENcRwprzT9yEjF2RgpfHUn/X/pnt+Vt6wRFHat
+         VM8ivCovQUcyWFSMSrdLHhg0oBKW+4ki1lV6+Z2dyVJ5JaK2ANKzANi7b4XRIeHbZ4Dz
+         UeIq0fq05/8gO9jza3DVkjClXvHVoAzlwtiMuwXZloEoR0BWC1yH3Y28PtPZPX28uP2X
+         6NIw==
+X-Forwarded-Encrypted: i=1; AKwUvBybvJNSZ+eBSLWjMT0J+agze8bE2fnxJKQonwLJ/oWvfuqw282zn5a59tSRv3BF/Iwqf+xXR1jaCBM/3Do=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLFV77n4v9YeEFCL2Re74X6Yw0VAcZENgEMh21djX7Z1Nb7roI9
+	KndqUhhwY076oLyeM6czYyXYwRTvq6742gLbRKMECN8n64SXaTKRWJew
+X-Gm-Gg: AYBFou2DKWD4NC2RnaFzoAOYY42T1kWbuXS0pSXsMf+xS/0Oe6JI4hRr/n957DINYgp
+	haeM3Bqy3sAvUs2RpDxOcm+x9KgTagn1rXPaMGzswaEUdawBkisrzw+LwHDtqwmIrLjyWf0fcc3
+	Zzd9Gb2YPpUuC6NWijalHMSaVkLTjJNKMMs2tt4877O6coikKEJQvI6Fza427YPbC5tIxkFJ42C
+	e2JhF8PcpNL+VdipOGbUDz0aqNY72/tbRmJAgXXsvHPfff/MhVqxbkMV6X3/FLM1hw7bkzbC76F
+	+iM1ul88ePicxQ7C7LuU/6J1YIJ2ifmyXvd76vpB6lYropNNFdVoe2W7SPPx1psH/TS6f5IJRPq
+	U06bs68uN4khLtxJ5Lr7IbWdy1gujw2PrWvhdszEgu/pYbpwi8EbCTQM5+RDaVfKgkSGrhyYCfE
+	luQvMbv8nAP3g6YPbM1B2cByzPLGdJeBZjMFcioIIxcs9G8ZIz8o4D5efatV+gT3nZQoWflfYue
+	hM4vcinwqqs6S2NDJVW
+X-Received: by 2002:a17:906:c106:b0:c24:6f60:3f7e with SMTP id a640c23a62f3a-c31a9a28f90mr757418966b.2.1791740155162;
+        Sun, 11 Oct 2026 10:35:55 -0700 (PDT)
+Received: from [192.168.0.193] ([194.183.54.57])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9a3bbc9sm381019766b.20.2026.10.11.10.35.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 11 Oct 2026 10:35:54 -0700 (PDT)
+Message-ID: <4abc72fd-c645-4410-9387-3f03c751fd3c@gmail.com>
+Date: Sun, 11 Oct 2026 19:35:53 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 2/3] dt-bindings: leds: skyworks,aat1290: Document
+ FLINH pin
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261007085457.98762-1-clamor95@gmail.com>
+ <20261007085457.98762-3-clamor95@gmail.com>
+ <6a69d4aa-d04c-4bb2-912f-1584abd31e0e@gmail.com>
+ <CAPVz0n0FiT93626L3MnMCto1X0_FmWp_zzQpQ=yRBXn+ir6OPg@mail.gmail.com>
+Content-Language: en-US
+From: Jacek Anaszewski <jacek.anaszewski@gmail.com>
+In-Reply-To: <CAPVz0n0FiT93626L3MnMCto1X0_FmWp_zzQpQ=yRBXn+ir6OPg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sun, 11 Oct 2026 10:27:49 +0530
-Arnav Kapoor <kapoorarnav43@gmail.com> wrote:
+On 10/11/26 3:55 PM, Svyatoslav Ryhel wrote:
+> нд, 11 жовт. 2026 р. о 16:28 Jacek Anaszewski <jacek.anaszewski@gmail.com> пише:
+>>
+>> Hi Svyatoslav,
+>>
+>> On 10/7/26 10:54 AM, Svyatoslav Ryhel wrote:
+>>> Both the AAT1270 and AAT1290 feature a FLINH pin used for mandatory Flash
+>>> inhibition.
+>>>
+>>> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+>>> ---
+>>>    Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml | 4 ++++
+>>>    1 file changed, 4 insertions(+)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml b/Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml
+>>> index a65d92522c9cf..596b5e284f44a 100644
+>>> --- a/Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml
+>>> +++ b/Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml
+>>> @@ -31,6 +31,10 @@ properties:
+>>>        maxItems: 1
+>>>        description: FL_EN pin
+>>>
+>>> +  flinh-gpios:
+>>> +    maxItems: 1
+>>> +    description: FLINH pin
+>>> +
+>>
+>> You don't seem to make use of it in your patch.
+>>
+> 
+> I don't have to use it in my patch. This change completes and improves
+> hardware description of the AAT1290/1270.
 
-> scripts/kernel-doc -Wall reports several warnings for the inv_mpu6050
-> driver:
-> 
-> - inv_mpu_magn_get_scale() only describes @st, not @chan, @val and @val2.
-> - Eight functions use "Returns ..." in the body instead of a "Return:"
->   section, and inv_mpu6050_set_enable() and
->   inv_mpu_data_rdy_trigger_set_state() do not describe their return
->   value at all, e.g.:
-> 
->     Warning: .../inv_mpu_aux.c:87 No description found for return value
->     of 'inv_mpu_aux_init'
-> 
-> - int_pin_cfg in struct inv_mpu6050_reg_map is documented with a ';'
->   instead of a ':' after the name, so kernel-doc does not see it, and
->   user_ctrl in struct inv_mpu6050_chip_config and startup_time in
->   struct inv_mpu6050_hw are not documented.
-> 
-> Describe the missing parameters, members and return values, and convert
-> the return value descriptions to "Return:" sections. Where the return
-> value was described before the long description, move it after it, so
-> the description is not parsed as part of the return value section.
-> 
-> With this change, scripts/kernel-doc -Wall reports no warnings for
-> drivers/iio/imu/inv_mpu6050/. Comment-only change.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
-> ---
-
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+Still, If we don't have the use case I'd avoid adding it to not confuse
+people looking for its use in the driver.
 
 -- 
-Kind regards,
-Joshua Crofts
+Best regards,
+Jacek Anaszewski
