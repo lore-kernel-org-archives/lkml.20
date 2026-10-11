@@ -1,118 +1,114 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A173B5DE9;
-	Sun, 11 Oct 2026 14:03:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 996823B5DE9
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 14:04:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791727414; cv=none; b=XOJeBW7a5Z5/QfkbW73fmgyO7tFZ6OM9YieOa9w+SSDdqkqJyzuWOrcvkZOOtn1yA6ItRRffUbKq47hdZNoIdNMLEEvP5AwzA/6XXC+S5AOzZ3CdE//P5gFfZM8Re3dEKde4kvIEjH1gM6uy8y9gzE/vLIYPTvKCvyUTLNUTrgA=
+	t=1791727444; cv=none; b=qi72HctENsc7iHqxRE6r85E8Hgiyrdx8GMavF3Wvd64QI+qZqoPId4qtDtWDN3AIVfkPv7/olRIt/HC/S9d7QPRfGIddISGAolMmqOvkPY3Z6kP1ULmuJ6P8yyU0ZcbeDieL7pvnGgZ6LPiYcviWXDxM1NpjbRwfPXbJxanl5HU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791727414; c=relaxed/simple;
-	bh=9uqDncAMTl5P2VSMH/pHdeIOoyPmNYjmmYJ61B9M9kA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CivU3ZBp53szdB0ADmBxYbkRWua2LOMbnegQChCAD62p5K3KL9fjpGhldqKYvg6QKzc9RlDSiWk9ocHHVkihprTZpLzDUoR9ZS/U22YYiMEvc3VcMm8nxAXtvyG9kP2My6P7ZU2d24+H+gnm+iadFBU+KUKBhmMT1eroaEAWBzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=FU4ghXFY; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1791727444; c=relaxed/simple;
+	bh=vwitLrWDUbd+rcaMBijrdyXKEFGLB1mS3G7PEfvfIxE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Y4Q5OXCjE2oO2dOxDkdKGSWkRSTgjpighEK9/hn54UixZsDMnxRq3cLFuBhHrKKgdaLWlh3Nv7ZKfT4QRen2EH7zwxG9fHqN6nmVnWBl4mZOO7aEX8in/D46Dz/45mMmVuy9wh5kJknQR1Oj9Mr+MLbdjNue6NePZBzCLfcWvcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q4W4xec9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="FU4ghXFY"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=kvVGXdUzefD5UnSYSHpYeKXkvrjPwC2QJQ3YuSj4xLw=; b=FU4ghXFYbQwlJ3yejskGS5D2iX
-	zf7Fkeot93FMBiCOmXmm/H3TYIYATmwcex/mITM2Fpapjo/k8UjLkamciQxm6spuS5XbwPRTc03Wm
-	0tu/aFYaq9b05YL2V+TGIfQ8RK/9/PXzR8DCdRzisHGv7l5JJO7Xan/HP12XoWNZW+9M=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xFu92-00A6Ww-18; Sun, 11 Oct 2026 16:03:20 +0200
-Date: Sun, 11 Oct 2026 16:03:20 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: James Clark <jjc@jclark.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Doug Berger <opendmb@gmail.com>, Nicolai Buchwitz <nb@tipi-net.de>,
-	=?iso-8859-1?Q?Th=E9o?= Lebrun <theo.lebrun@bootlin.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Miroslav Lichvar <mlichvar@redhat.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 1/5] net: mdio: add timestamped write operation
-Message-ID: <af97fa4b-d817-4e8b-bbd7-aaefa23d4d7a@lunn.ch>
-References: <20261009143506.2507607-1-jjc@jclark.com>
- <20261009143506.2507607-2-jjc@jclark.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q4W4xec9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 624801F008A1
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 14:04:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791727443;
+	bh=86pWPhLv9adWOQ1oVMYMQWf73TNhvR4D25U83YvJRXk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Q4W4xec9m/VHOuiG3KnYHd2gtbv11XoCyhIIjdFiPQ3wyinY9CbDqE5SmCdVMSqcE
+	 TXT6m/13swQ+bs5M/5+S5/Z1DMFAHcJE3OOyVqmi8Y60tI8scQUm95FvyUH4PWKJun
+	 +U+87pw3NoMFk1g4pyNPHYAHexQI9vZtKEeQGplYF7cjld7f/K4gS7apga9g6Sv4Rh
+	 4fSYJ8p13RhIxpguIjscDcDkfM1mlBf5OiDfqVvyWMl+r/RBZTpbbnCzRzH07dNmpE
+	 QNbK6PP6tQg3o8EaAxIVGWZjC7dsVzzVPs4SQOqaFQmKy5jKXgEFRWQfLYsliTxvti
+	 02u+IM/Tambmw==
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6afb0d2a586so1990675a12.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 07:04:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByq3mtcLGTeCvC5gDRv6XdqU5Ou0dtUe0ZCsnHbbXP4FZA3OlRdVfYLynx4VyWdRlOF9HPlTeMcBUAIXb4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLYnGmLd+uxlHfLKtXCtaBRPwTFR0sMpRtXgl9ZZ+KhU9jsTGYB
+	vq1KiEqZNUVgwUICZdMu1SKRhhNAt8SoRNbERl0t8bqRMNsb2R5oKFRI82IP8YSzchGf0krsXAp
+	OebKQpw50tc4QbghHSqoqaIAY4wSUmIQ=
+X-Received: by 2002:a05:6402:304a:10b0:6b1:b5b8:b696 with SMTP id
+ 4fb4d7f45d1cf-6b1b5b8b911mr909603a12.23.1791727441955; Sun, 11 Oct 2026
+ 07:04:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009143506.2507607-2-jjc@jclark.com>
+References: <20261003093415.e64386de1e64-1-archwse@gmail.com>
+In-Reply-To: <20261003093415.e64386de1e64-1-archwse@gmail.com>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Sun, 11 Oct 2026 22:03:56 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H5bHA_MZGsA7=udMTiM57wqG-nQMbak+afeq3+CvVcBcA@mail.gmail.com>
+X-Gm-Features: AclHuK__mYheWRSoDKQ5OBLHeWz1vxxNsOg4UblzjX9eWNRSrtJhbuLE3srtb7Y
+Message-ID: <CAAhV-H5bHA_MZGsA7=udMTiM57wqG-nQMbak+afeq3+CvVcBcA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/loongson: Fix double free on BO initialization failure
+To: Evanshenf <archwse@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, Jianmin Lv <lvjianmin@loongson.cn>, 
+	Qianhai Wu <wuqianhai@loongson.cn>, Mingcong Bai <jeffbai@aosc.io>, Xi Ruoyao <xry111@xry111.site>, 
+	Icenowy Zheng <zhengxingda@iscas.ac.cn>, Sui Jingfeng <suijingfeng@loongson.cn>, 
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> +/**
-> + * __mdiobus_write_sts - Timestamped version of the __mdiobus_write function
-> + * @bus: the mii_bus struct
-> + * @addr: the phy address
-> + * @regnum: register number to write
-> + * @val: value to write to @regnum
-> + * @sts: system timestamps bounding completion, or NULL
-> + *
-> + * Return: Zero if successful, negative error code on failure. Returns
-> + *	   -EBUSY or -EINVAL if the system timestamps are not valid. If @sts
-> + *	   is not NULL, -EOPNOTSUPP is returned only if
-> + *	   mdiobus_supports_write_sts() is false.
-> + *
-> + * Write a MDIO bus register, with system timestamps bounding completion;
-> + * a transfer is considered complete on the rising edge of the MDC
-> + * that clocks the last data bit. Caller must hold the mdio bus lock.
-> + *
-> + * For clocks that can be stepped, validate the clock generation through
-> + * the raw time of the upper bound.
-> + *
-> + * If @sts is NULL, perform an ordinary write.
-> + *
+On Sat, Oct 3, 2026 at 5:35=E2=80=AFPM Evanshenf <archwse@gmail.com> wrote:
+>
+> If ttm_bo_init_validate() fails, it drops the buffer object's reference
+> and cleans it up through the supplied destroy callback. lsdc_bo_destroy()
+> releases the GEM object and frees the enclosing lsdc_bo, so freeing it
+> again in lsdc_bo_create() causes a double free on a synchronous failure
+> path.
+>
+> Let TTM own the cleanup after initialization has started and return the
+> error directly. Keep the explicit free on drm_gem_object_init() failure,
+> which occurs before ownership is passed to TTM.
+>
+> Tested on LS7A2000 by making drm_vma_offset_add() return -ENOSPC for one
+> selected dumb-buffer creation. The error reached userspace, the destroy
+> callback ran once, and no handle was published or tracked BO retained.
+> Normal buffer creation, zeroing, mapping, readback and release passed.
+>
+> AI assistance was used for the ownership analysis, fix, fault-injection
+> tools, build and test execution.
+>
+> Fixes: f39db26c5428 ("drm: Add kms driver for loongson display controller=
+")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
 
-Please don't do that. We don't want drivers calling this when they
-don't need to.
-
-> +		if (!ktime_before(now.monoraw, sts->post_sts.monoraw))
-> +			return 0;
-> +
-> +		/* Cap the wait at 1 ms, which is more than any single
-> +		 * write's delay. This guards against an aux clock being
-> +		 * disabled and reenabled, which restarts its raw time.
-> +		 */
-> +		if (!ktime_before(ktime_get_raw(), deadline))
-> +			return -EBUSY;
-
-A bit banging MDIO bus might be slower.
-
-Also, i've not thought about the mux case, where the write gets
-blocked until some other operation is performed on the shared hardware
-of the mux.
-
-> +	/**
-> +	 * @write_sts: Perform a write transfer on the bus,
-> +	 * with system timestamps bounding its completion. Set only
-> +	 * if timestamps can always be provided. Must not return
-> +	 * -EOPNOTSUPP.
-> +	 */
-> +	int (*write_sts)(struct mii_bus *bus, int addr, int regnum, u16 val,
-> +			 struct ptp_system_timestamp *sts);
-
-I suggest putting C22 in the comment. At some point, somebody might
-need C45. And that gets complex because of C45 over C22.
-
-Is there any need for read_sts?
-
-	Andrew
+> Signed-off-by: Evanshenf <archwse@gmail.com>
+> ---
+>  drivers/gpu/drm/loongson/lsdc_ttm.c | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.c b/drivers/gpu/drm/loongs=
+on/lsdc_ttm.c
+> index d7441d9..88536e2 100644
+> --- a/drivers/gpu/drm/loongson/lsdc_ttm.c
+> +++ b/drivers/gpu/drm/loongson/lsdc_ttm.c
+> @@ -475,10 +475,8 @@ struct lsdc_bo *lsdc_bo_create(struct drm_device *dd=
+ev,
+>
+>         ret =3D ttm_bo_init_validate(bdev, tbo, bo_type, &lbo->placement,=
+ 0,
+>                                    false, sg, resv, lsdc_bo_destroy);
+> -       if (ret) {
+> -               kfree(lbo);
+> +       if (ret)
+>                 return ERR_PTR(ret);
+> -       }
+>
+>         return lbo;
+>  }
+>
+> base-commit: bca45af5998a05f34b13a2ef11e639bac9c62643
+> --
+> 2.43.0
+>
