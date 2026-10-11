@@ -1,78 +1,104 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 031F233DEE9;
-	Sun, 11 Oct 2026 16:50:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADE9A2C08D0;
+	Sun, 11 Oct 2026 16:52:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791737402; cv=none; b=FkNTYsmO3D712x3AIWlW40HKSTliHlpih4iARN7HbKRp6dj6s5/yFGbFWr67ARKQDC4fGb5W0TRkb2UvSmNLyuiO1Si8gqH1am32yCyHgvj/zZ0AuD9AbJM3gDH7eYtHRqM8lV12awlZfIxxr6+Zk2RbhziPeHJgIP7S4TcOEYw=
+	t=1791737532; cv=none; b=tKCPyi00QwWCIh06G0zWhSLY2fgxpxJ1TFdWFEmSiQRV1frckFCjCki6fJVNryFCkfjf80B4He2dXr1AfgEaJWgATztoY5Uoh9uOlCfI+eleGgVK8Gc9muAPbPvZ3VF1STnph46gLu0++pExSi1ugthd+fpuLT/ir+ukV192Avo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791737402; c=relaxed/simple;
-	bh=jW7qFfYaPTIHT7+WxIP915i4+xod11JStOTHqdJWPv0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GmC4WkG4faHZz8WzR7xJfozl0+xSO9yySF02HaA0NIG2/hUMsBdyn6L3dugB7xDUqcnmUKS4USLnK+AlqoYtZ0BA0d30lH9ZMbDX44gb2exz546GDR5rSQ8I1+DxndvJEJ3vnyDAJUgjacrgPqJ3ed5uva81BNJPp3fuy9mcPaU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=U1OkwTPq; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1791737532; c=relaxed/simple;
+	bh=Fnd+0sqejGQ0KX+O+NuogAH/m8bc5UQymiGVlXraqlI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=HV/wYipYUoTn0QNevHP1zAqr32x3hLiLej/oDp4OVtjaUzfO4raHRAT35hJkHF6aVstuoEMrPIe7Hu3pcBufy+8U4RDe0Cz9lGOLbHaMsi8rVH8+nJwxU4vUtRtR2dY3OuHIazH6s1UWoNlylrhS+wltUXVJomIgsU2aMZQ3SAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bd4bKnHg; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="U1OkwTPq"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4j2mmP2mB6z8trS;
-	Sun, 11 Oct 2026 18:49:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1791737397;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=puqRLr73K8ZyLUEwINqfs9xudJKVr1Yd0xT41SauKfg=;
-	b=U1OkwTPqH6PFLKaXtlM8xyOnVRkAo5fXVV+DVNW1QKsKfJiSsu9fiE3/6BY/ox6OYyzdX4
-	o77VT3nHCV+TcRxNySHRPUoDxnRo4+I7inv27lGXaxeAkxqsQ09EU+eLdcdvCx2IHPmsGB
-	bktRyX7JxAcDOT81JVZZ/UE+Gy8tuQyttfid7g2v8QJPLkj3rwTvIcfeSa6iVCHS2DCZVF
-	smEpctgFXUsPqbrMfj/7sx7L5u80TO+5Y/2GvPP61KBQQTUKqe1hC3heYtm8kvT/1sraml
-	Ic6pmWw1Mrnjy1bsIMd8ruVYeR9PnVvK1iAYQDdD9PpNeBQIe/5tJt7EgdsFgg==
-From: Alexander Gruhlke <gruhlke@mailbox.org>
-To: Lukas Wunner <lukas@wunner.de>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Alex Williamson <alex@shazbot.org>,
-	Hui Wang <hui.wang@canonical.com>,
-	Linux-Fan <info@masysma.net>,
-	sashiko-bot@kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev
-Subject: Re: [PATCH v2 2/2] PCI: Don't treat ~0 as ready in pci_dev_wait() with RRS SV
-Date: Sun, 11 Oct 2026 18:49:55 +0200
-Message-ID: <20261011164955.24425-1-gruhlke@mailbox.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <sashiko-outbox-167316@kernel.org>
-References: <sashiko-outbox-167316@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bd4bKnHg"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 47AEFC2BCF7;
+	Sun, 11 Oct 2026 16:52:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791737532;
+	bh=Fnd+0sqejGQ0KX+O+NuogAH/m8bc5UQymiGVlXraqlI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=bd4bKnHg+wjZuVfwKpmiD84UKuxdOJ3sShL+ZX8nB+2ZkS8mT6f20A8IA/BKHrRg2
+	 QB1TL3b8ygtjQOfqnodO/Q321YJHCbRzB1nBq3rMQE2vdz2h3QZdVAR2BgWVJrPJaI
+	 o9jQWVbWT3P7+GWyasj5gIdfp9YU6LBzCifboHrb6aI5dxGg0X+BlNdAyNveul3VCq
+	 /cG3BEe7yjySV/wTK7cwXJduzIuE+fDJiE2PpL/dDG/pZ3+aejF5ySejr+OvRB9QOZ
+	 q7JvOLdUGLMgoseWo7iSGDII/Qdy5qSIAal/GIVEs4/FaP1g9HBaw4dTObcYhgY5+g
+	 o8+1NJBj7Pngg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2571ACA9EBD;
+	Sun, 11 Oct 2026 16:52:12 +0000 (UTC)
+From: Muzaffer Kadir via B4 Relay <devnull+muzafferkadir.mainlining.org@kernel.org>
+Date: Sun, 11 Oct 2026 19:51:23 +0300
+Subject: [PATCH v5 1/7] dt-bindings: nvmem: Add compatible for MSM8952
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: y8hkoyuzkrqiqn6k5jqgrw4wzckfp7zm
-X-MBO-RS-ID: 90b6639bb35dd80443b
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261011-msm8952-initial-support-v5-1-1857074992ec@mainlining.org>
+References: <20261011-msm8952-initial-support-v5-0-1857074992ec@mainlining.org>
+In-Reply-To: <20261011-msm8952-initial-support-v5-0-1857074992ec@mainlining.org>
+To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Amit Kucheria <amitk@kernel.org>, 
+ Thara Gopinath <thara.gopinath@gmail.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Bjorn Andersson <andersson@kernel.org>, 
+ Abel Vesa <abelvesa@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
+ linux-pm@vger.kernel.org, linux-input@vger.kernel.org, 
+ Muzaffer Kadir <muzafferkadir@mainlining.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791737529; l=867;
+ i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
+ bh=6JMvRgvxX2he4PG9Fo4mqxxQVXCwNkBZtmdxWuS+a1o=;
+ b=rTH5to7L7PETOvi7zfk8qVjP+OKs2EQDB5LNVFqYdp3+qNOlp5KoTUPOPblmkyzWJN1JJcOOy
+ i3Rs2ntQoFWAV5PY4KEe515nxqt3+T/VywnON3rPX1yqvZ9OlOshiHN
+X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
+ pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
+X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
+ with auth_id=954
+X-Original-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Reply-To: muzafferkadir@mainlining.org
 
-On Sun, Oct 11, 2026 at 04:41:42PM +0000, sashiko-bot@kernel.org wrote:
-> Does this cause pci_dev_wait() to exit prematurely for Virtual Functions
-> (VFs) that return ~0 under Configuration RRS Software Visibility?
+From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-Yes, but that's the current behavior for all devices; the patch only
-changes it for non-VFs.
+Document the QFPROM block found on MSM8952.
 
-VFs could be covered by reading the Command register when the Vendor ID
-reads ~0 and waiting while that is ~0, too.  Devices that are ready would
-still need only one read.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+---
+ Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Lukas, Bjorn: should I do that in v3, or keep the current form?
+diff --git a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
+index 566304ed4c78..646f2e8dcf4d 100644
+--- a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
++++ b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
+@@ -37,6 +37,7 @@ properties:
+           - qcom,msm8916-qfprom
+           - qcom,msm8917-qfprom
+           - qcom,msm8937-qfprom
++          - qcom,msm8952-qfprom
+           - qcom,msm8960-qfprom
+           - qcom,msm8974-qfprom
+           - qcom,msm8976-qfprom
 
-Thanks,
-Alexander
+-- 
+2.55.0
+
+
