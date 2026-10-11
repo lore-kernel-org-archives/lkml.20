@@ -1,202 +1,133 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7466013B5B3
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 21:54:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C923031B80E;
+	Sun, 11 Oct 2026 21:59:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791755675; cv=none; b=N95OCDnWv/cUvc3M3Vds16gXTmHhWBgdpMayiKkL4pW5wEekhg0aI3NUM4vLu/1zVdKdtFFb8zJXq+geI4FaGFfaffQulKCRAozPFSvL+AJ+1zXUYD5/cL8U+VzpZAI+P6sj8/ZbK/y+q1xtK70t9D1tKBx7kL+u4/O/dUccLUs=
+	t=1791755946; cv=none; b=WlL3nSKIJh/k4EKgHuM7r6pRdf95H8i+5wJZCkuN//ixHf8FPh85msIvcUqNex2JNn6ASG0DtOoOurmM0+xGzsQfoqEd9Y3PXpZiekmWa8W7ZTwlNWteV7m16UkA0g3D8GOiTmnDo+zbHiNyMgVIPZNClokhVg8JlIGJH60uZoQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791755675; c=relaxed/simple;
-	bh=CjXAODnEAHZt/ze1fUVx1lc4eAYVC7QnfQvq3wkUGQQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TM6PeiTsnrk0fFBaIU8sxY1my3B7dM4Z2fuXT8nhRw+DSb/45Vumw8akvObjPJoOptTilxV2dFaTcGLp7WkCnhaGvtJzPIjH/K0zyVoOUK+4XbVj37byIuS8qGEY2USd2F8n7r8YQnwQT5o/n2HMyd8XvTByFz6qhK8ALzcAQKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Nrd5Q4bI; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791755946; c=relaxed/simple;
+	bh=d+NTUVyVDetiwnvYSuPSA1B5KAFM0r7HORvNQ4h26Es=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=OQ7JMpk3hJitFuYnnALCx7yeYehaBpECk3aOkOgKytO8YC2QdNcnWL2Bg02kT/1ajmXMFYGKs9FiLsRNpMkHjvghfbD18kp6ouHtUKkjqCWvRChIT7NR15eHQmywiCS++/1wsDvM3vekeBfDxxJL3277oFfRC/Gx9m+aDXOg9KI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RCr3zy9U; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Nrd5Q4bI"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E6D371684;
-	Sun, 11 Oct 2026 14:54:27 -0700 (PDT)
-Received: from cesw-amp-gbt-1s-m12830-01.blr.arm.com (cesw-amp-gbt-1s-m12830-01.blr.arm.com [10.164.195.33])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 4CDA93F673;
-	Sun, 11 Oct 2026 14:54:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791755671; bh=CjXAODnEAHZt/ze1fUVx1lc4eAYVC7QnfQvq3wkUGQQ=;
-	h=From:To:Cc:Subject:Date:From;
-	b=Nrd5Q4bIex4K5sPIo2WaDht5vD3RyakVYy9IJYIO9FKsHf5pHCQgeNYIqobBzV6qt
-	 eiK0xJa6NEGswHMWKnHVim461hZYvugiI0n8yMnzJV4YvFeWj0FkHUR0UGwXliHz2n
-	 dnLbuGmq6SencPcF4fPUfw63RNMz5p820DS9VWZM=
-From: Dev Jain <dev.jain@arm.com>
-To: linux-mm@kvack.org
-Cc: Dev Jain <dev.jain@arm.com>,
-	linux-kernel@vger.kernel.org,
-	ryan.roberts@arm.com,
-	riel@surriel.com,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	kasong@tencent.com,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	hannes@cmpxchg.org,
-	brendan.jackman@linux.dev,
-	ziy@nvidia.com
-Subject: [RFC NO CODE] [DISCUSSION] Anti-fragmenting ordered buddy allocator
-Date: Sun, 11 Oct 2026 21:54:11 +0000
-Message-ID: <20261011215412.1181172-1-dev.jain@arm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RCr3zy9U"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id EB5F4C2BCF5;
+	Sun, 11 Oct 2026 21:59:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791755946;
+	bh=d+NTUVyVDetiwnvYSuPSA1B5KAFM0r7HORvNQ4h26Es=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=RCr3zy9UBcCldAX9BW1nz+Kkrlfsn67VZEoWoJnva6ObMlB3PwK/3Dcn4aqXWfYLx
+	 6J/5gAaqeVHWBl5/p8SOenBkMD/d8TYfL1v/mlB5d5uqWgXfADpj+b3V2sAqhcfBLS
+	 8AlmSZypoXpNXSiqeFIci+Goi1WXYTeN/TYUJYEAgM4GdaGjp9uy91DSsRDOUwcK32
+	 8kUqtt4lAHKtptzI1IFTqW9qe2edZPsWEEj3TrbqDPufkwCuxwE47hYANkumLyxHoD
+	 lByH0yJq/CIsaQkwtG3T1ss9dtsOujv7rQA0AGecpCs1tnMBpKToOwBARXob6i1+Io
+	 J6x+EIVt3Q4JA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C80FDCA9ECF;
+	Sun, 11 Oct 2026 21:59:05 +0000 (UTC)
+From: Fabricio Akio via B4 Relay <devnull+fabricioakio.gmail.com@kernel.org>
+Date: Sun, 11 Oct 2026 18:59:05 -0300
+Subject: [PATCH] wifi: ath10k: don't reset TxBF on disassociation
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261011-ath10k-disassoc-txbf-v1-1-51e09115042e@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrB3IhJpAr1JcJHHUsaAlE4sg3
+ r1pu3yL/09QzsIK9+aEzG9R2dYKahtIc1gnRhmqwRrryBBhKDOZJw6iQXVLWI44InfRe9u55G4
+ eavrKPMrx2z76v3WPC6fyfcF1fQDsHsQgeAAAAA==
+X-Change-ID: 20261011-ath10k-disassoc-txbf-e5b77256c647
+To: Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-wireless@vger.kernel.org, ath10k@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Fabricio Akio <fabricioakio@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791755944; l=2607;
+ i=fabricioakio@gmail.com; s=20260928; h=from:subject:message-id;
+ bh=yedrsdruZNEyyDyVSIF/isrw8Zan8nErgmxmiHmgDL8=;
+ b=cew1YosN8FjDoaHqvWa0ZdfMoW2v03LTeceP8lH9yuKAlwlUfTzNqfbbnqqyUzaR4TwKbmhvF
+ lfVTE8q2MeUDZRdW5MYxkJijLBIoCrrPwMrydWzTsth7IZQrewfUbLR
+X-Developer-Key: i=fabricioakio@gmail.com; a=ed25519;
+ pk=TlMUT8bPI/ZQzp2q24BIQTb2qSx/jdUTBlGEXIRCm54=
+X-Endpoint-Received: by B4 Relay for fabricioakio@gmail.com/20260928 with
+ auth_id=1076
+X-Original-From: Fabricio Akio <fabricioakio@gmail.com>
+Reply-To: fabricioakio@gmail.com
 
-(I am not posting code yet since it is in experimental stage.)
+From: Fabricio Akio <fabricioakio@gmail.com>
 
-TL;DR
--------
+WCN3990 firmware WLAN.HL.1.0.1.c2-00498 crashes whenever the vdev's
+TxBF parameter is set while the vdev has no peer for its AP, whatever
+the value. ath10k_bss_disassoc() sets it to 0 once the AP's peer is
+gone. The firmware therefore crashes on every disconnect, including
+the one cfg80211 makes before a suspend without WoWLAN, and whenever
+mac80211 replays the state of an interface that is not associated, as
+on resume from such a suspend and after a firmware restart. Each
+restart replays it again, so the firmware never comes back:
 
-I am proposing "ordered/bucketed buddy allocator": we divide the buddy
-freelists into buckets, and prefer lower buckets for allocation.
-This reduces external fragmentation (and, further reduces it when we
-reverse the ordering for unmovable and reclaimable allocations) at the
-cost of regressing the alloc and free paths, which depends on how many
-buckets you partition into. I think we can partition into 4 buckets and
-do some tricks to remove any regression.
+  qcom-q6v5-mss 4080000.remoteproc: fatal error received:
+    err_qdi.c:459:EX:wlan_process:1:WLAN RT:107b:PC=b00c8334
 
-Design 1 is the simplest and the most upstream-friendly method in terms of
-allocator speed. Design 2 tries to scale better with the number of buckets.
+The reset is not needed: ath10k_bss_assoc() sets TxBF again from the
+next AP's capabilities before bringing the vdev up. Drop it.
 
-INTRODUCTION
--------------
+Fixes: 139e170da98a ("ath10k: add TxBF support")
+Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
+---
+Tested on a Motorola Moto X4 (SDM630, WCN3990): without this patch a
+disconnect, s2idle without an association and a forced modem restart
+crashed the firmware every time; with it, none of those did, nor
+s2idle while associated.
 
-Apart from dividing the freelists between migratetypes, little attempt
-has been made to change the algorithm of the buddy itself to reduce
-external fragmentation proactively (termed as "anti-fragmentation" in
-academia). Linux has defragmentation (compaction). The analysis below
-is *not* to claim that compaction does a bad job; I just took up the
-challenge of anti-fragmentation (because I like to torture myself) and
-kept digging the rabbit hole.
+QCA6174 and QCA9377 also send this command and are untested here.
+Qualcomm's qcacld-3.0, ath11k and ath12k do not send TxBF on
+disassociation. A WCN3990-only hw_params flag was considered, but
+association rewrites the parameter on every chip, so the patch drops
+the reset for all of them.
+---
+ drivers/net/wireless/ath/ath10k/mac.c | 9 ---------
+ 1 file changed, 9 deletions(-)
 
-There have been academic papers about replacing the buddy with bitmaps -
-I did not want a hard NAK from upstream at any attempt to do that, so
-I preserved the buddy freelists.
+diff --git a/drivers/net/wireless/ath/ath10k/mac.c b/drivers/net/wireless/ath/ath10k/mac.c
+index 8e604697d6c2..30355c598f97 100644
+--- a/drivers/net/wireless/ath/ath10k/mac.c
++++ b/drivers/net/wireless/ath/ath10k/mac.c
+@@ -3190,7 +3190,6 @@ static void ath10k_bss_disassoc(struct ieee80211_hw *hw,
+ {
+ 	struct ath10k *ar = hw->priv;
+ 	struct ath10k_vif *arvif = (void *)vif->drv_priv;
+-	struct ieee80211_sta_vht_cap vht_cap = {};
+ 	int ret;
+ 
+ 	lockdep_assert_held(&ar->conf_mutex);
+@@ -3204,14 +3203,6 @@ static void ath10k_bss_disassoc(struct ieee80211_hw *hw,
+ 			    arvif->vdev_id, ret);
+ 
+ 	arvif->def_wep_key_idx = -1;
+-
+-	ret = ath10k_mac_vif_recalc_txbf(ar, vif, vht_cap);
+-	if (ret) {
+-		ath10k_warn(ar, "failed to recalc txbf for vdev %i: %d\n",
+-			    arvif->vdev_id, ret);
+-		return;
+-	}
+-
+ 	arvif->is_up = false;
+ 
+ 	ath10k_mac_txpower_recalc(ar);
 
-IDEA
-----
+---
+base-commit: becb95e45ef0dda9ffb35156d909d3da7a2789c3
+change-id: 20261011-ath10k-disassoc-txbf-e5b77256c647
 
-There is a correlation between allocating from one side of memory, and
-reducing external fragmentation. Biasing on one side implies the
-probability we fragment already fragmented sections is high. This may also
-enable smarter compaction by directing the free-page scanner toward
-higher-address regions. This also circumvents the discussion around
-a "fragmentation score" which is dependent on the size of the
-block we are considering.
+Best regards,
+--  
+Fabricio Akio <fabricioakio@gmail.com>
 
-The idea itself quite obviously improves clustering of allocations: I
-observe reductions in 'compact_stall' and 'anon_fault_fallback', and some
-large improvements when the number of buckets is high (like, compact_stall
-going down from 4000 to 5 with almost no hit in execution time for a kernel
-compilation). The obvious downside being slowing down the allocator (which
-needs to be tested more widely). The content below is mainly on how
-to minimize that.
 
-PROBLEM
--------
-
-The number of buckets is inversely proportional to allocator performance.
-The critical section under the zone->lock is extremely fast.
-
-The overheads are the following:
-
-1) Alloc: What is the first free bucket which has the required order? We
-don't want to naively scan across the buckets.
-
-Then, the more surprising one, which becomes more visible as the number
-of buckets increase:
-
-2) Free: When we do pfn->bucket lookup (which needs to happen in a
-cache-effective manner) and free into that bucket, if this is not the
-"active" bucket we were allocating from, then we are going to miss the
-cache. The inactive bucket list_head is cold, and the page at its head
-is also cold. We are going to perform some cold operations to insert it
-into its (bucket, order) freelist.
-
-At least on my system, increasing the size of struct zone did not
-contribute to overhead (for free areas <= 64). I may not have
-increased it enough.
-
-DESIGN COMMONALITY
-------------------
-
-All designs aim to prefer low addresses for movable allocations,
-and high addresses for reclaimable/unmovable allocations. The
-"SOLUTION COMMONALITY" is: keep things tight in cache. We pay cycles
-when the bucket we were allocing from starts becoming empty, and we need
-to find the next bucket. The crux is to amortize that cost somehow.
-
-DESIGN 1
---------
-We divide the zone into 4 buckets of equal length. Then, allocation first
-chooses the migratetype, iterates the available buckets from left to
-right for movable allocations, and right to left for unmovable/reclaimable.
-When freeing, we do a pfn->bucket index lookup, and free into that
-(migratetype, bucket, order) freelist.
-Note that we change the indexing to the above: currently the index is
-(order, migratetype), making order list heads for the same migratetype
-distant. This is problematic if we want to scan order lists for the
-same buddy unit.
-
-We may be needlessly scanning the lists when the bucket is empty. So,
-we can make a bucket "active" and allocate from the active bucket, till
-we cannot. Then we iterate from the start and make a bucket active.
-
-This algorithm does not scale well with the number of buckets, but is
-the simplest.
-
-DESIGN 2
---------
-
-The aim now is to increase the number of buckets. Suppose the active bucket
-is F, wherein active means, this is the bucket we will keep allocing from
-until we cannot.
-
-ALLOC TIME: We request an order-x block, search the order freelists on this
-bucket, and can't find anything. Now, we need to find the first bucket
-with an order-y freelist nonempty, y >= x.
-
-We can use a "bucket-local" bitmap: for the active bucket, maintain a
-local bitmap, kept on the cacheline of the order-0 list_head. On every
-pop and free from the active bucket, we will update this bitmap to
-indicate whether order-x list is nonempty.
-
-Once this bucket becomes nonactive, publish this local bitmap into the
-zone-scoped bitmap, and use that bitmap to quickly find the first
-bucket which has a block >= order-x.
-
-FREE TIME: if we are freeing a PFN belonging to a non-active bucket ...
-we DO NOT need to free to its bucket yet! Free this into a lockless linked
-list kept in the zone->lock cacheline (just like trylock_free_pages).
-The crux is that we do not need to make these blocks visible to the
-buddy yet either for allocation or buddy coalescing, since allocation
-from those buckets is not going to happen until the active bucket
-is in use.
-
-Once the active bucket can no longer satisfy the request, we drain this
-list (or, when a threshold is crossed, to prevent unbounded
-work under spinlock).
-
-So we have amortized cache misses across non-active frees.
-
-The problem starts when this bucket jumping becomes very frequent. It
-is a sign we are under memory pressure. We should then call into the
-slowpath and free enough pages. But, we really shouldn't be using
-huge number of buckets under memory pressure, since there is no point
-of "anti fragmentation" now. The bucketed allocator helps us to delay
-compaction and reclaim. So we need a way to switch.
