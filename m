@@ -1,112 +1,100 @@
-Received: from mta1.migadu.com (out-207.mta1.migadu.com [95.215.58.207])
+Received: from mta0.migadu.com (out-123.mta0.migadu.com [91.218.175.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A9936F8E4
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:00:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.207
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F230C4266AE
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:01:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791709252; cv=none; b=XAcj8lOSVbdFz3dyrirE2w6lLdymTvMT6dkcFD6E804SPOs03grvhcUJEmEqggYaEMDPqXCYfxsEI6Jt8x09+WYepsUi1GDHckVTFpnkvjJJtQlttQwa5n02eRldhKppY0lQE+mSe8JnajRiwr7L3ElVNQrl/SqGUxo3kuUsVBY=
+	t=1791709297; cv=none; b=iKC3NCjrgkVF4C3ATW4zo7rdYSoetAK4IA+M2ZKCNKtm5uQ8rOuBKi2t/84kRrfhta04G69WmRXGleNsHy9PnfLJ8hQl0vcYQEyMNvZ+lOoX41u3hWuzdB4OHg5CwW/9YWbACSnEOJKVWsqDmIj+PGua1FSA00enxyFhcHLZXmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791709252; c=relaxed/simple;
-	bh=GimW/7CEFiCKhboqu/b2eNEnPKN7mF5y4AbHMtDQ22M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=e8Ghyy3R+93v5jvTDkCoLauo3YM67cM+x70/TU/l7CalMFneGWjahUHYsC6BwPHbdsXfgLvLS+CTrHey3l8cniIiUlCTaBKLNsGWM9N+wjIZ5XmiUA3R8U2Da2khAYNxWUJye8MYpIO0E22Hm9UWImYKeACpHq4Jc8ZPDPr1W78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mPmzsYf6; arc=none smtp.client-ip=95.215.58.207
+	s=arc-20240116; t=1791709297; c=relaxed/simple;
+	bh=goVloQSnv5+TqoFEiIJkREZivV2ZsUvx7oYy4h0c0os=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=k2EwDPV/remsY6/LoQTM4WfHc73DuqqbbaXZZkC0HopL89oPEu7dVEfWEITAUJIsCcLdCQplbMHmKloW/9uBjMt0aaqHOtlfymthFh5miLCIuyr6jMWIMVtJ0y6MX6hiyVfzYKvP+MhvUsWfhW88fZ7ssA2hXCAVrMUwfFDDHVE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HSNv6hsM; arc=none smtp.client-ip=91.218.175.123
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mPmzsYf6"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HSNv6hsM"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=GimW/7CEFiCKhboqu/b2eNEnPKN7mF5y4AbHMtDQ22M=;
+DKIM-Signature: a=rsa-sha256; bh=goVloQSnv5+TqoFEiIJkREZivV2ZsUvx7oYy4h0c0os=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791709247; v=1; x=1792314047;
- b=mPmzsYf6hDDkgKhWIKSa8wOGvFEeQBqWOUsPWH/Ul22mVh7IJUHCHmucFV6bx8+NMcUhX4tM
- ntnKjErmS+0DOE/ooI6rTw3TRHyqnH3m45aHBSCbzc1NLcVFAOVwJ7yq61al9ia290gt6iKPObC
- 4Evp5h0Dc/aG+++M7CnQ/twQ=
+ t=1791709293; v=1; x=1792314093;
+ b=HSNv6hsMDM7UbC7Jha1QPXh3IR0KYpY44Xw4ryCnojGDbbSvCZltoekxQx5j0ubdsm5cthew
+ s/86vI5F75B0yfAOhkjUpRN6W0GEmIO6xdA1LTu2QJZsvSqjLDS4xikD82M8pYwaLx673BLVsRu
+ icCNrf3HGT6gEazYzmBySxT0=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0b271059adb7be95;
-	Sun, 11 Oct 2026 09:00:47 +0000
-X-Mizu-Trace-ID: 0b271059adb7be95
+Received: by smtp.migadu.com with ESMTPS id 07ca449ca67d000d;
+	Sun, 11 Oct 2026 09:01:33 +0000
+X-Mizu-Trace-ID: 07ca449ca67d000d
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <27675c88-061c-4f84-9387-324071a16b45@linux.dev>
-Date: Sun, 11 Oct 2026 17:00:37 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next v2 6/6] selftests/cgroup: Skip test_cpuset_prs.sh
- test if some required CPUs are offline
-To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, Hui Peng <benquike@gmail.com>
-References: <20261010221938.243859-1-longman@redhat.com>
- <20261010221938.243859-7-longman@redhat.com>
-Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <20261010221938.243859-7-longman@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Sun, 11 Oct 2026 09:01:33 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Zqiang" <qiang.zhang@linux.dev>
+Message-ID: <92f5338ea2715d7a863002f1244151c6ff9efe5f@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH] blk-mq: Fix missed srcu_barrier() calls before
+ cleanup_srcu_struct()
+To: axboe@kernel.dk, tom.leiming@gmail.com
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260820095716.21528-1-qiang.zhang@linux.dev>
+References: <20260820095716.21528-1-qiang.zhang@linux.dev>
+
+Friendly ping :)=20
+
+Thanks
+Zqiang
 
 
-
-在 2026/10/11 06:19, Waiman Long 写道:
-> The test_cpuset_prs.sh test assumes that all the relevant CPUs being
-> tested are online. If some of them are offline, some of the test cases
-> may fail. So skip the test if the required CPUs are either offline or
-> not present.
-> 
-> Signed-off-by: Waiman Long <longman@redhat.com>
+>=20
+> In blk_mq_alloc_tag_set(), if blk_mq_alloc_set_map_and_rqs() fails
+> after some hardware queues have already been allocated, its unwind
+> path frees the partially allocated maps and tags through invoke the
+> blk_mq_free_map_and_rqs()->blk_mq_free_tags(), which issues call_srcu()
+> against set->tags_srcu. control then returns to blk_mq_alloc_tag_set()
+> and falls through to the out_cleanup_tags_srcu label, which calls
+> cleanup_srcu_struct() directly.
+>=20
+>=20Calling cleanup_srcu_struct() while call_srcu() callbacks are still
+> outstanding is illegal, it triggers a WARN and tears down the
+> srcu_struct while the pending blk_mq_free_tags_callback() still
+> references it, leading to a use-after-free.
+>=20
+>=20The normal teardown path in blk_mq_free_tag_set() already guards
+> against this by calling srcu_barrier() before cleanup_srcu_struct(),
+> but the error path in blk_mq_alloc_tag_set() was missing the same
+> barrier. this commit therefore also add srcu_barrier(&set->tags_srcu)
+> call so that all outstanding SRCU callbacks complete before the
+> srcu_struct is destroyed.
+>=20
+>=20Fixes: ad0d05dbddc1 ("blk-mq: Defer freeing of tags page_list to SRCU=
+ callback")
+> Signed-off-by: Zqiang <qiang.zhang@linux.dev>
 > ---
->  .../selftests/cgroup/test_cpuset_prs.sh       | 20 +++++++++++++++++++
->  1 file changed, 20 insertions(+)
-> 
-> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> index 3d392e8c66aa..f57971ebb90e 100755
-> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> @@ -118,6 +118,26 @@ TEST_ISOLCPUS=
->  		skip_test "Current isolated CPUs ($CURRENT_ISOLCPUS) don't match boot isolated CPUs!"
+>  block/blk-mq.c | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+>=20diff --git a/block/blk-mq.c b/block/blk-mq.c
+> index 2c850330a32b..59cd629b37d5 100644
+> --- a/block/blk-mq.c
+> +++ b/block/blk-mq.c
+> @@ -4924,6 +4924,7 @@ int blk_mq_alloc_tag_set(struct blk_mq_tag_set *s=
+et)
 >  }
->  
-> +#
-> +# This test assumes that all the relevant CPUs being tested are online.
-> +# If some of them are offline, some of the tests may fail. So we are going to
-> +# skip running this test script if some of the required CPUs may be offline.
-> +# The required CPUs include CPUs 0-7 and the first boot time isolated CPU if
-> +# present. However the check below is not exhaustive and can be a false
-> +# positive, but users should not run this test if some CPUs are offline.
-> +#
-> +ONLINE_CPUS=$(cat /sys/devices/system/cpu/online | sed -e "s/,.*//")
-> +ONLINE_FIRST=$(echo $ONLINE_CPUS | sed -e "s/-.*//")
-> +ONLINE_LAST=$(echo $ONLINE_CPUS | sed -e "s/.*-//")
-> +if [[ -n "$FIRST_ISOLCPUS" ]]
-> +then
-> +	LAST_REQUIRED_CPU=$FIRST_ISOLCPUS
-> +else
-> +	LAST_REQUIRED_CPU=7
-> +fi
-> +[[ $ONLINE_FIRST != 0 || $ONLINE_LAST -lt $LAST_REQUIRED_CPU ]] &&
-> +	skip_test "Some of the required CPUs are offline or not present!"
-> +
-
-Could this check run before the setup that creates the test cgroup and
-changes sched/verbose?
-
-skip_test() exits directly, and the cleanup trap hasn't been installed
-here. We have already created test; with -v, sched/verbose has also been
-set to Y. This exit leaves the cgroup behind and bypasses restoring
-verbose.
-
-Thanks,
-Guopeng
->  cleanup()
->  {
->  	online_cpus
-
+>  kfree(set->tags);
+>  set->tags =3D NULL;
+> + srcu_barrier(&set->tags_srcu);
+>  out_cleanup_tags_srcu:
+>  cleanup_srcu_struct(&set->tags_srcu);
+>  out_cleanup_srcu:
+> --=20
+>=202.17.1
+>
