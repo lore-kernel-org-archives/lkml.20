@@ -1,250 +1,117 @@
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D61D25D53B
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 15:56:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791734199; cv=pass; b=iAJSDJeJjLM2UdqXJWS+dX3ZmSpCfciDGuqV/IHoD/SQvBQaO+kHF6NrowS33JJ4tNTYteQ8TiNyWGRIOVILqTUAArv8IzbJQ5KymTKEiaCoHPj9FtDT4yqLqQI/dVQTX2j6AvdXm+NrP7Lce2DR1VyGKkOlD6pEWE3lYaKHIK0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791734199; c=relaxed/simple;
-	bh=b/XiBDakbF89lmmL/yg7QBDutdCfHhvS3E5SYWziYTQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QalAXaDbpKVJ7OOdmQ+zUJZoIL8qCKTCVRFhg0bVrKmpuSkPH0DwR5fP9OrT6zXaSJe2ICnUj5x8gTtqScSZ7nWABpj9r5u2eVJ7dttIIX1z9rZCEhrhL+BqDdZRRzrjX5AhUrp3c/yD4Vjw9tqgYF2MzeyEDzEXOkSaZlfe5ok=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DEv6hdiv; arc=pass smtp.client-ip=209.85.218.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516C12868B5
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 15:56:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.136
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791734219; cv=none; b=AhEz/TSkfL00KYl4TwuqM+SNYqB4WKffcrLn6BsU5QUH7UzlSJGmNB1yWCZdT6FIIaP8ngfi2wBMvfKNtpuLYOGqIXVos5cOcREIAXAujtv7idtaCbdDl1ndVEvHSJet22qy/1maBBQrhYjEAZwDt9uniyFFaIgVdRd9YeO0eSE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791734219; c=relaxed/simple;
+	bh=/t4zx5Og9wfbmIVMOSkXHk6KzJKtNg94x4wZpHfMUKA=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=dL9+T+2pLwXIEGZsGYAnB8rLQfSpT+WX1bGeJ0sCN8qphv8aiEcErOSAgEt5LEORF5OnhqW5U+7u+thKbfsWQUsCbU3MlCCYtEcIO7AByJmTFtIa/+SS5MWMCPN9NU0hzGjFPQbNv1aaXXRvSlvCpbfIpn4Ay3OoJ6AOGH7QmMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com; spf=pass smtp.mailfrom=zytor.com; dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b=wIBb1zYe; arc=none smtp.client-ip=198.137.202.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DEv6hdiv"
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c2e69aa07c3so137122566b.1
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:56:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791734194; cv=none;
-        d=google.com; s=arc-20260327;
-        b=T1432la/2RJJThM2sbej9q3wcvi0ghHob00q9GRI+yh0SpbEpyiwb1+DZ0JQ6H57mZ
-         GXz/GlzrCmpFzWM+KFkcIjXfqYJefsx3mNVW7cNDMH39eFcvaFq+z1sIbqSREOyMOPvp
-         pkdZ0zncNZ9sodmJyI/2pmgv6xt7iAwm2CuPL+LBdaE+5zl0xhFVPQqHUWO35sfF2euh
-         VV3cmolvcePIump5fNFyH0Lq497iqzupc63Pdpx+bua94cZaHZ+V12n9wlhpX9/5U6Ky
-         57tcDam+fFkZBDFmz8FpxB0tEiM442dl1FjzFISbX73zhrkpSWZ8ZVow3Y+ADG8bVhET
-         JTHg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=69mUEVb+FPSu/fh8u3XwQJFXzwo7HE5rlDkjRk+VJx4=;
-        fh=3LCjJQBWOEOYhrQnmbXhIgfYRjUufnOkhW+6XTAhumk=;
-        b=bPBb3nZ39XkFGPr1iB0YEyaE/Wisfhu7I3hRVAYOZbnS5UUzy2j6+fOKVtBX5VLfM+
-         p+9RaAwUEhGCmbjSBIoW19Y80VNQvO3aURZFVneaAYf+slAVWNOco0LUdkFtj1bEBf0a
-         N+gvQl7favSiQ77tiiwfGjPqLJ5FsFV32cGPPRgxkYYvB4NWmJKmE0FKJfKEn1okrbMJ
-         X8Syu7AoIrPO3IkG/JYGezeT0NjjBLha6rvdMkzt9QGV6N9eAvNsJoJ2E5h1FdcqQt/7
-         zCbfbXinwTllLHchHtMyMuVJ0UBiORFVl7hW3/tf+bKy12UPgCIKeLxg4eTO172qe3AH
-         N+OA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791734194; x=1792338994; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=69mUEVb+FPSu/fh8u3XwQJFXzwo7HE5rlDkjRk+VJx4=;
-        b=DEv6hdivWOIUDBOfjkaN2ljL4FgSuKZ9iXuDBaadkosY34a3Uv6hDy47qsu3AkSsd6
-         K5cj8v4JDoZAQIlC1VABbfoSA0YwPwKCe0Cx370qMv8ouoxpTfeQqkjnK4rx8uyv+5To
-         iOIQZRw2NL3oRh7TWx6IkRWN1/xhG5/UNDST3F5sROTngGeGrOAU2AOMLAC/sTT8kyJQ
-         zGJSgUAZmR/4gVgKwyKLw4Xssftzz0tPehR2F7M/YmWAbVWD75v1ispzPwU98R2fkOMK
-         ZFUc26YFLeddkER1czVQGMhgJpGI8Qp07aeeJsCUmKhMFuFsknkNjtLo70Xj/BP1kDDZ
-         srFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791734194; x=1792338994;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=69mUEVb+FPSu/fh8u3XwQJFXzwo7HE5rlDkjRk+VJx4=;
-        b=Qj+EVRpxvfNRCewD4KEe2rK2oH1/228wAHuXGJce3djQIFg0+AFlJQudalRAAGg2r7
-         mPLWh6GDTPdWmLD6Q0NCn/W4U+JjfOr9xP5RHPrM0G/wrPAPrVCYrn1KMiBxzriEGrzO
-         vlBBcL2h6QmS/2AMYCvXPfNGExLUEnlbWVfUAVbaRroOjwQyKFWDBt6FYInKoBKauisj
-         L3W+VQj7OsOUuT2+GFoJIA4Lhh9V7X31V/d4tb5TqOTQDR5bKVsJCYGDtIKkeegT7H9R
-         OY62lfXxrAaS20i8C0V6OQ5BqMGsZh3UHBD+G96+s6SbxKOH+IA0MFuBAxZpY8iah2d6
-         vP6g==
-X-Forwarded-Encrypted: i=1; AKwUvBxb2eQ+ygdOWlRyQKNq3P6Dg8th/LU+y8B0J4bchNOYRgtOVQIK7+Bowe0xaIaCU5riWvnzgKS39Ks61uc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJXZkEToqox7N5F9prAt/1vhQEgMww8olZNVuPej3TuvgfaOakH
-	Q1KXPG6uh/U3JNr6j7MOvlKhJoTjxCA5Q3lTZ4W9B+XSeVsqgtGOb1Z1O8onfS7P0XyW+sI/6/Q
-	ipMLvBkYfJDUkIAMNwSbmLUV+PvsuWVG6W84W8KPj
-X-Gm-Gg: AYBFou2bNR5KiJAgEGncdUHajuTmRaUtD70vmwZEygVyWptR8tioUPa7EAjDm9gHJgp
-	tKR+gR3BnsoBR8592Sl2CsdhsSuiW+Jl+4ohnqlDnu+hEAW7WPAiAbDfHRy0TPJf2JPzlYsU7b9
-	1PrXid5cl/44JSiKfsvCFon6YpgwzOgAEuKhaIPJBIqyfdCO0UJmqYAHgP6tTxmz7lVHerOk+Er
-	H5f65WO7HbfvnRarCVxJK8UVFGyDjAqVVKMzba7SFRcVhCDteWjPROzSpFln7I0Xx7+OAVNDZ27
-	reeAkHHRLviLd4iiOzFAS5x+iqpEcC5h2GeIeF34NlNPgDsNaw6g7gto4GfFts6GEQ==
-X-Received: by 2002:a17:907:9723:b0:c2e:46d0:b802 with SMTP id
- a640c23a62f3a-c31aa0ae873mr706555166b.40.1791734193812; Sun, 11 Oct 2026
- 08:56:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b="wIBb1zYe"
+Received: from ehlo.thunderbird.net (c-76-133-66-138.hsd1.ca.comcast.net [76.133.66.138])
+	(authenticated bits=0)
+	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 69BFuHSZ2326697
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+	Sun, 11 Oct 2026 08:56:18 -0700
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 69BFuHSZ2326697
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2026092801; t=1791734178;
+	bh=PvJ/7VwUrE5KAORKRkVStyTayxObpyUWBBrIQ1DvRuw=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=wIBb1zYeUTIvDTGlHbS64eFeNhiQ6iUZ0GidockkUrYWRM+Uh34vh9ss0CU5B01pb
+	 o0RjyXR3E8vQjV3qhcIcAR3J0lGyMZgMf7kdSZVrTsoNZKk677gs4kSLWbjrVVmwBR
+	 yA4JFZiqsivSO1gWApF7K0wQLrOohTn8joibSLkSZNjtt0eUYfQABH6823TiqIHDkj
+	 UwYgI71MjA8+Ljdzj09r6DOCQleGW57jUNSl7V+mPzklCdGuPgzix0Fe4YhtWt11pA
+	 dQgvo/5GAHV3PCF0m92b/jkG6xSPFJAlGgGN6CMQvp4YjBZkfe5gNZTepOYnPe5glk
+	 fTD0YRYkoC/qQ==
+Date: Sun, 11 Oct 2026 08:56:10 -0700
+From: "H. Peter Anvin" <hpa@zytor.com>
+To: Jialin Wang <wjl.linux@gmail.com>, Thomas Gleixner <tglx@kernel.org>,
+        Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org
+CC: linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] x86/reboot: Disable CET in machine_real_restart()
+User-Agent: K-9 Mail for Android
+In-Reply-To: <20261011151807.263575-1-wjl.linux@gmail.com>
+References: <20261011151807.263575-1-wjl.linux@gmail.com>
+Message-ID: <4928ACDC-A246-4DD4-8814-AE680ADB7CD9@zytor.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009130708.1370675-1-wusamuel@google.com> <c090cb17-9bed-4742-a1c1-92cae6ee239e@oracle.com>
-In-Reply-To: <c090cb17-9bed-4742-a1c1-92cae6ee239e@oracle.com>
-From: Samuel Wu <wusamuel@google.com>
-Date: Sun, 11 Oct 2026 17:56:22 +0200
-X-Gm-Features: AclHuK894UnY-2bV_b83ssiEWSWy2XODSINmzaUO32jvF7mSXzupNuemdMAaH0I
-Message-ID: <CAG2KctozPSev+EXSpHitM3JWfjufQaEjsPJHS_1HJ1wSm7sJ1w@mail.gmail.com>
-Subject: Re: [PATCH bpf-next] libbpf: Resolve typeless ksyms in the kernel
-To: Alan Maguire <alan.maguire@oracle.com>
-Cc: Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, kernel-team@android.com, bpf@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 10, 2026 at 12:09=E2=80=AFPM Alan Maguire <alan.maguire@oracle.=
-com> wrote:
+On October 11, 2026 8:18:03 AM PDT, Jialin Wang <wjl=2Elinux@gmail=2Ecom> w=
+rote:
+>When a kernel panic occurs in an environment without ACPI reboot or
+>8042 keyboard reset support (such as QEMU microvm),
+>native_machine_emergency_restart() falls back through BOOT_ACPI,
+>BOOT_KBD, BOOT_EFI, and eventually invokes machine_real_restart(MRR_BIOS)
+>to switch back to real mode for a BIOS reboot=2E
 >
-> On 09/10/2026 14:07, Samuel Wu wrote:
-> > libbpf resolves typeless symbols by parsing /proc/kallsyms, which
-> > dominates load time for BPF programs with typeless symbols. This mostly
-> > comes from needing to do thousands of syscalls and a linear scan of
-> > kallsyms.
-> >
-> > Call bpf_kallsyms_lookup_name() from BPF_PROG_TYPE_SYSCALL, such that
-> > the resolution can be done with a couple of syscalls and a binary
-> > search. This is a similar approach to what the light skeleton does. The
-> > fast path passes the name and result through ctx, which requires commit
-> > ae5ef001aa98 ("bpf: Support variable offsets for syscall PTR_TO_CTX").
-> >
-> > Any fast path error (e.g. kernels without ae5ef001aa98) falls back to
-> > the legacy /proc/kallsyms scan, including strong misses, since the
-> > kernel doesn't match LTO "<name>.llvm.<hash>" symbols. Weak misses
-> > default to zero.
-> >
-> > Depending on the device, I see ~9-11x loading speedup when resolving a
-> > BPF program with 11 typeless lock externs.
-> >   - x86_64 VM, 6.18 + ae5ef001aa98: 147ms -> 17ms
-> >   - ARM64 phone, 7.1: 626ms -> 55ms
-> >
-> > Signed-off-by: Samuel Wu <wusamuel@google.com>
-> > ---
-> >  tools/lib/bpf/libbpf.c | 59 +++++++++++++++++++++++++++++++++++++++++-
-> >  1 file changed, 58 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/tools/lib/bpf/libbpf.c b/tools/lib/bpf/libbpf.c
-> > index cb09ded90773..7564ec6bde64 100644
-> > --- a/tools/lib/bpf/libbpf.c
-> > +++ b/tools/lib/bpf/libbpf.c
-> > @@ -9590,6 +9590,58 @@ static int bpf_object__read_kallsyms_file(struct=
- bpf_object *obj)
-> >       return libbpf_kallsyms_parse(kallsyms_cb, obj);
-> >  }
-> >
-> > +static int bpf_object__resolve_ksyms_in_kernel(struct bpf_object *obj)
-> > +{
-> > +     struct extern_desc *ext;
-> > +     int i, prog_fd, err =3D 0;
-> > +     struct {
-> > +             __u64 addr;
-> > +             char name[512];
-> > +     } ctx =3D {};
-> > +     LIBBPF_OPTS(bpf_prog_load_opts, opts, .prog_flags =3D BPF_F_SLEEP=
-ABLE);
-> > +     LIBBPF_OPTS(bpf_test_run_opts, topts, .ctx_in =3D &ctx, .ctx_size=
-_in =3D sizeof(ctx));
-> > +     /* bpf_kallsyms_lookup_name(ctx.name, sizeof(ctx.name), 0, &ctx.a=
-ddr) */
-> > +     static const struct bpf_insn insns[] =3D {
-> > +             BPF_MOV64_REG(BPF_REG_4, BPF_REG_1),
-> > +             BPF_ALU64_IMM(BPF_ADD, BPF_REG_1, 8),
-> > +             BPF_MOV64_IMM(BPF_REG_2, sizeof(ctx.name)),
-> > +             BPF_MOV64_IMM(BPF_REG_3, 0),
-> > +             BPF_EMIT_CALL(BPF_FUNC_kallsyms_lookup_name),
-> > +             BPF_EXIT_INSN(),
-> > +     };
-> > +
-> > +     if (obj->gen_loader || obj->token_fd)
-> > +             return -EOPNOTSUPP;
-> > +
-> > +     prog_fd =3D bpf_prog_load(BPF_PROG_TYPE_SYSCALL, NULL, "GPL",
-> > +                             insns, ARRAY_SIZE(insns), &opts);
-> > +     if (prog_fd < 0)
-> > +             return prog_fd;
-> > +
-> > +     for (i =3D 0; i < obj->nr_extern; i++) {
-> > +             ext =3D &obj->externs[i];
-> > +             if (ext->type !=3D EXT_KSYM || ext->ksym.type_id)
-> > +                     continue;
-> > +             if (snprintf(ctx.name, sizeof(ctx.name), "%s", ext->name)=
- >=3D sizeof(ctx.name)) {
-> > +                     err =3D -ENAMETOOLONG;
-> > +                     break;
-> > +             }
-> > +             err =3D bpf_prog_test_run_opts(prog_fd, &topts) ?: (int)t=
-opts.retval;
-> > +             if (err =3D=3D -ENOENT && ext->is_weak) {
-> > +                     err =3D 0;
-> > +                     continue;
-> > +             }
-> > +             if (err)
-> > +                     break;
-> > +             ext->is_set =3D true;
-> > +             ext->ksym.addr =3D ctx.addr;
-> > +             pr_debug("extern (ksym) '%s': resolved in kernel to 0x%ll=
-x\n",
-> > +                      ext->name, ext->ksym.addr);
-> > +     }
+>When kernel IBT is enabled, the indirect far jump (ljmpl) in
+>machine_real_restart() jumps to the 32-bit compatibility mode entry point
+>(pa_machine_real_restart_asm)=2E Because machine_real_restart_asm does no=
+t
+>begin with an ENDBR32 instruction, an indirect branch tracking #CP fault
+>is triggered=2E Since ibt_fatal is true, do_kernel_cp_fault() triggers:
 >
-> Great to see the win in terms of resolution time, but I wonder if we coul=
+>  Missing ENDBR: 0x9a230
+>  kernel BUG at arch/x86/kernel/cet=2Ec:133!
+>
+>This issue can be reproduced with virtme-ng:
+>
+>  vng -v -r -- 'echo c >/proc/sysrq-trigger'
+>
+>which launches QEMU with the microvm architecture:
+>
+>  qemu-system-x86_64 -M microvm,accel=3Dkvm,pcie=3Don,rtc=3Don \
+>    -cpu host,topoext=3Don -smp 16 -no-reboot \
+>    -kernel <vmlinuz> -append '=2E=2E=2E panic=3D-1 =2E=2E=2E'
+>
+>Invoke cet_disable() in machine_real_restart() before loading the
+>trampoline page table and executing the far jump, ensuring IBT is disable=
 d
-> speed things up further by resolving multiple symbols at once, since we h=
-ave
-> all the externs available (either by dynamically creating your program th=
-at
-> does symbol resolution as a side-effect, or adding a more direct resoluti=
-on method)?
+>and avoiding the #CP fault=2E
 >
-> A single syscall could provide an even faster speedup, so might be worth =
-a look.
-
-I tried resolving multiple symbols in one pass, but unfortunately the
-impact was negligible and made the code much more complex. I profiled
-a few numbers, and turns out it's because resolving typeless symbols
-is down to ~1% of total load time (from ~90%), with the remaining time
-mostly spent on BTF loading, CORE relocation, and BPF verification.
-
-> Another concern would be a lot of production kernels won't have BPF test =
-run
-> support baked in, so relying on that without fallback would be a problem.
-
-Are you referring to BPF_PROG_TEST_RUN when mentioning "BPF test run
-support", or something else? And totally agreed in that we need a
-fallback, of which it currently falls back to reading /proc/kallsyms
-on any error during the new fast path.
-
-> > +     close(prog_fd);
-> > +     return err;
-> > +}
-> > +
-> >  static int find_ksym_btf_id(struct bpf_object *obj, const char *ksym_n=
-ame,
-> >                           __u16 kind, struct btf **res_btf,
-> >                           struct module_btf **res_mod_btf)
-> > @@ -9863,7 +9915,12 @@ static int bpf_object__resolve_externs(struct bp=
-f_object *obj,
-> >                       return -EINVAL;
-> >       }
-> >       if (need_kallsyms) {
-> > -             err =3D bpf_object__read_kallsyms_file(obj);
-> > +             err =3D bpf_object__resolve_ksyms_in_kernel(obj);
-> > +             if (err) {
-> > +                     pr_debug("failed to resolve ksyms in kernel: %s, =
-falling back to /proc/kallsyms\n",
-> > +                              errstr(err));
-> > +                     err =3D bpf_object__read_kallsyms_file(obj);
-> > +             }
-> >               if (err)
-> >                       return -EINVAL;
-> >       }
+>Assisted-by: LLM
+>Signed-off-by: Jialin Wang <wjl=2Elinux@gmail=2Ecom>
+>---
+> arch/x86/kernel/reboot=2Ec | 7 +++++++
+> 1 file changed, 7 insertions(+)
 >
+>diff --git a/arch/x86/kernel/reboot=2Ec b/arch/x86/kernel/reboot=2Ec
+>index 0fed6d0d7e32=2E=2Eeb23b8977de5 100644
+>--- a/arch/x86/kernel/reboot=2Ec
+>+++ b/arch/x86/kernel/reboot=2Ec
+>@@ -114,6 +114,13 @@ void __noreturn machine_real_restart(unsigned int ty=
+pe)
+> 	CMOS_WRITE(0x00, 0x8f);
+> 	spin_unlock(&rtc_lock);
+>=20
+>+	/*
+>+	 * Disable CET before loading the trampoline page table and jumping
+>+	 * to the real-mode trampoline=2E This avoids missing-ENDBR #CP faults
+>+	 * during the far jump=2E
+>+	 */
+>+	cet_disable();
+>+
+> 	/*
+> 	 * Switch to the trampoline page table=2E
+> 	 */
+
+Indeed, this is very correct=2E
+
+Reviewed-by: H=2E Peter Anvin (Rosaic) <hpa@zytor=2Ecom>
