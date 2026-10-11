@@ -1,375 +1,422 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012017.outbound.protection.outlook.com [52.101.53.17])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA912FD69A;
-	Sun, 11 Oct 2026 02:15:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791684918; cv=fail; b=S9PdHYLiSqaWnsDnvsSPlbKedvGoTyWlHq7BZrCQmnRVm1vxLmQIHCTlNLhbMqlleadkmOSABvIH0O8mC8jCWY4lypza6ztqBIZ2n47KQwBdUAUbp8Z7aHD+lp8Qq8r6AY4rm2J1e1ZmCCuHv8pw0vqO1TmTmmDgCDZw8BRmDvI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791684918; c=relaxed/simple;
-	bh=qMhFx92obKdsnkKwXZV5Q0KruoPzkx2fZkmvjUpDXjc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Xs6tRjX1queZwou43biFiwTbRuE5qEgzZREmTi8Dxn+42Am4Pbt5Y8jbEyHEj/QxwXQXXqxRosBX6cN3b8eHHvGdpZD0eqWTZTAvW4r0ZliZ/p8QJsF7NYPyJq4GR4W/dJg+yiHTaAhrPOZWinoxWFvKRWKfQTWXLsgzL9COdxg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=AJTbhyJG; arc=fail smtp.client-ip=52.101.53.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77EA7225A38
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 02:22:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791685380; cv=none; b=sfCpqZEVdjqfoa+c9N6bmPyLDbTiiLdVmts51XuF0VuYW29V0jDNr2DkDPiM4RDL2sn8STn9HFlChIY3dV3n/5QHZzwDvBB+/p8xPybQVn5XG+4NmN18WOeSnq4RbgvEJrxrGxmE6xKiHt2fcusVh4Q7uDuzwRMXk0w1v/Gs4mU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791685380; c=relaxed/simple;
+	bh=Tuujw0J02MpGzSVrcEZBclbX+//0Lxd6V3tHDagps5c=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=sY00o3uoAmwKKP3lBTlBe6mPjlcaIV2gPStZgt9iDl6th6GbCirot35DVZB3JIlqRTwyfu5jrDS+dwbM978jjNO8HJ/kZD91jhwqh5EKIcvCPbiPrsOJrmpJMBzqE3XcHrKT6vXmYqMnREpyviHU2bIL0pwinsY/fboUmHE+GPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ChUEIaVh; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="AJTbhyJG"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Hgfz2M/VJjiRgF/T48OLv7uk6Ig+QGfEvHYrfPdZbw9f1SROIV/xcmmtwrOi2j+wfprmOl/0dr/pWsdlGt8eWCFivtVxzBe+zhstMVHbVqOOo58pajYrk9rNgeEsHaYnAQIy6YEeoPejc4PwVOHdE6V9M0SFd9p0xNH5op8oolHSjpaRbOGDgoYmVjVHDKy9lNrDL+zHIK7xhq5ugDjMkZQavIqpR4CXiFmRknZ4ttET1r22GKURgkuc7GWVsoE6Tjsy/mK2UVRP6Xb7efSRcWX4P6Anz4Sz5VIQ4NLIgCKKZmckXbTMn+bXdzpvOdGGC/wstc0GWRdW2PlJtpEgyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zwNLTjkSxkiYXETXAXpSDEl2Mr56AYbozu+YTT2mhKA=;
- b=hWVSPmxnOvcNHjVy3uLoVip6tMQK17GyrvUeHtMehrv5TZSx3CQSYcbn3qdZoPxSspHzJcRSXVxD/LXQBQ1UVju/xnEcGlkpQ0H9b7HSpmLDsSZzvqWmGjPDqbCCEJHbbObaYsEhUketX5PAt2FPXJIPpDbhpPa71fJK8ek6Wj+CtATaANXlYIZDDplm1ZLN/v2t+m+tYMHZau0PImbOm6rNwiJfdmTVwHBtJNSyfi6veUNehrat/UmmOBmjDxzq6/jm/5ZosB/XXBwhvSCERjjMA8Vg6Keagcti+GFuug4KtN6b8R/7ZXUrVRxV9qF8ayrzdvNbKNRiw6xPe96eJw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zwNLTjkSxkiYXETXAXpSDEl2Mr56AYbozu+YTT2mhKA=;
- b=AJTbhyJGa300ucy6VkPrEyqUSeshnsiHnvnF+grpMyG9QeNIkAitQF80Kz1QhOKmEj9IaLEFOhEFxuN0ZiynWoXaG7WhZxCkv8S3WnOOfrcFJkeqIBbE9DeiNd4qxhIfFcu9FWcRMyw7H4clLcbXk1TFpfS1ztOSLjzZAmOboBgk5B/VTSChsJI4AUh40a7u9NbEOqogQSycCs8sQeQ7eQLTps3RjWJ6Zf+U4E6qQtCHQueZONxlAlyqMsFptK68cMGy0Fx6Sk//Scp9SRZbURAZvgEfI265yX1VmfUaoi9qWmEKnOihFr2cWT+YvldnhXQIe7jG0aV3w36eHHf3sQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LY0PR12MB727857.namprd12.prod.outlook.com
- (2603:10b6:408:3ba::5) by MW4PR12MB6951.namprd12.prod.outlook.com
- (2603:10b6:303:209::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.20; Sun, 11 Oct
- 2026 02:15:07 +0000
-Received: from LY0PR12MB727857.namprd12.prod.outlook.com
- ([fe80::843e:82cd:41ca:f522]) by LY0PR12MB727857.namprd12.prod.outlook.com
- ([fe80::843e:82cd:41ca:f522%5]) with mapi id 15.21.0496.019; Sun, 11 Oct 2026
- 02:15:07 +0000
-From: Srirangan Madhavan <smadhavan@nvidia.com>
-To: Alison Schofield <alison.schofield@intel.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Ira Weiny <ira.weiny@intel.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	linux-cxl@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Alex Williamson <alex.williamson@redhat.com>,
-	vsethi@nvidia.com,
-	alwilliamson@nvidia.com,
-	Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
-	Vishal Aslot <vaslot@nvidia.com>,
-	Manish Honap <mhonap@nvidia.com>,
-	Jiandi An <jan@nvidia.com>,
-	Richard Cheng <icheng@nvidia.com>,
-	linux-tegra@vger.kernel.org,
-	Srirangan Madhavan <smadhavan@nvidia.com>
-Subject: [PATCH v15 15/16] PCI/CXL: Restore CXL state after CXL bus reset
-Date: Sun, 11 Oct 2026 02:14:21 +0000
-Message-ID: <20261011021422.3428136-16-smadhavan@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261011021422.3428136-1-smadhavan@nvidia.com>
-References: <20261011021422.3428136-1-smadhavan@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PH8P221CA0017.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:510:2d8::13) To LY0PR12MB727857.namprd12.prod.outlook.com
- (2603:10b6:408:3ba::5)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ChUEIaVh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791685379; x=1823221379;
+  h=date:from:to:cc:subject:message-id;
+  bh=Tuujw0J02MpGzSVrcEZBclbX+//0Lxd6V3tHDagps5c=;
+  b=ChUEIaVhRa2tZ+y0FrGHE1lVNi1oCouVVhrXHmNaNZPpaRICUSTp0JB7
+   dXxZTOReutbWodhx0Fia7cQnyllEpsECQp9KI3U5DY6MJHD9MMM4GCQk4
+   qYRXj8ORkPJRSwSZCF5aryH2AXsb3cL1vWFKA8mA/VjmDaHo9VSGV13Q2
+   D+bg0HmMVsQJZnaBRis2T9POiCJJ4CxubrBjhEFLVmoaxf7KzMYkgkX62
+   eBtcwGFgRRTJ6t9k4Cuuugztn/bI/EFXbbtf2OjLoeIhCJtk2+KKcgeuH
+   Hr/OMXW28ityddRBki/rPX1e8X0/WrXiLm2gs43cHIrZ1p4I0c9Le1r/s
+   Q==;
+X-CSE-ConnectionGUID: G51ARAjMRC2eidjM2RTyXQ==
+X-CSE-MsgGUID: wwsRvdkSQ5OFCUfNiwUcUw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11931"; a="317069"
+X-IronPort-AV: E=Sophos;i="6.27,150,1787036400"; 
+   d="scan'208";a="317069"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Oct 2026 19:22:58 -0700
+X-CSE-ConnectionGUID: fI8AcLStSaaNuD1Pi+qOHw==
+X-CSE-MsgGUID: Td/CGN8oRv2m3yHKzzJaig==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,150,1787036400"; 
+   d="scan'208";a="930328"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa009.fm.intel.com with ESMTP; 10 Oct 2026 19:22:56 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xFjDC-00000000AFu-0t2H;
+	Sun, 11 Oct 2026 02:22:54 +0000
+Date: Sun, 11 Oct 2026 10:22:49 +0800
+From: kernel test robot <lkp@intel.com>
+To: "x86-ml" <x86@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Subject: [tip:x86:cache] BUILD SUCCESS
+ 2c10b3fa5bdf61e344bc522e6c2e00d870ce7ab8
+Message-ID: <202610111046.R0sRTMYx-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LY0PR12MB727857:EE_|MW4PR12MB6951:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7660b4fb-e475-4083-7cac-08df273d784a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|7416014|376014|366016|10067099003|261009223027099003|921020|11063799006|5023799004|6133799003|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	Xejxp2nmXiibbK+EeD11J+Y2R2vhgltdo+BlqxB37n5rGjb+m8qGPfTrBeRroOF6wF5Fko++s5BAOpN5Rb7xTCz8I3TBRVgDDMZciSn69hK5TJb/hoRtk/MpQfFFK3pmhNyoogupfIasay/a8MPkKj5CdismotxqNtKAVjNXDXq2J7cKPk0hG0pMrxO78gUbUMgLzMMQlA7ap1cl18tFwCH1pmRj5V4LyWK74JP82USCfFSS5JsfMAdWkTzWoZUle7sfwVa/Yj9F6hKs/TWlNF4skQs6wSNDGi/AgdUUwaeEPHkJ41NzWuZsgrY+/cwiEMHEswhbIueYZgA6xn4Bvb2bPdIjgKJmJvMxNkpgpKJ99LKtqo/u5pxy3o2hpvHW8/mPEBXz8QdsmXJFoLR5pXBURnDB0M1czII20eQuhI493pgBWJzqw5C2UEtHx2AVFO7/wtD4AyPkhw3we8WKOxlZl5D3y8Ubfcqisw12YxK3wXQ4mR2D37icE0+sxzis7pIFZOynYvNNmLpg3hegqZPmuDZ6mgenYSoWKgn20HY1nmzY46QEGtSXeYF6f160j20lrULgW6TWlfFsPqN3BG6FQ9/fvPP+LSpmMiSRtXurubNWQIlT5Dso6xoBA2XC/JsWAtb5iolXXTJgulqQ9/CI4FNyJ2FkGZZX41TaS3U4Xp+1VBpAQ/X5ZcdR9/yxy2sfdulwNvMLHA3R63Yhtg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LY0PR12MB727857.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(10067099003)(261009223027099003)(921020)(11063799006)(5023799004)(6133799003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?F/si7oYdaS4VmzjkjqzZ5rJO7gahZe9qN0jxoWbbqTWmSLfoGk59X3A/YoFT?=
- =?us-ascii?Q?8DuHT8d/ke2fs5tgVfR/fn2TKF8KdShNV0CcSUkPcPYZOe4ffdatgKey0rhw?=
- =?us-ascii?Q?3qScsMLX1UjEW3An4EiQVwOixXD0gnMZGWjuored/F7koeP4jknGtjrravPo?=
- =?us-ascii?Q?LvE2CEim99ViJVVnGevMb0WJhiBgp9CXcwJxmM1nXCiyIjs2Zy9G7kpc3uxN?=
- =?us-ascii?Q?ueCS9wJQtcOFkimmES85lqTVEvdLNREJxeJK9S3SLhJl9P5ybtzHmU9l9XXw?=
- =?us-ascii?Q?DtKgqNHCQUuhDQFjjBGHx5kHnW0/aeItuYk3rAJoTVyzc843cprr2v3rVgDm?=
- =?us-ascii?Q?s6IvGDwHinDpagiFGgJ9qYA8fYelmLbhHa5YZOXVLe9+70OIA1CTuL+v2WeY?=
- =?us-ascii?Q?rPlYqQDTqVS6xJHMJcOUsLDL7vIVIKJGoyPfX9LhrYnF8gy+ByWNh304FnaJ?=
- =?us-ascii?Q?YTFOy6wZcaLn6WoUGVq1+f5upXF854A5609ccPyHuhAEKeCtzBk46XvZ0dar?=
- =?us-ascii?Q?Q1ZOoN7E7ON4dOOgUnZoaZ5n1UdTiZ/ErabRN91ZihO/5TsL+Izw+gdTnUTp?=
- =?us-ascii?Q?lpmRMQyTXXdRqS/SCkBaW3y+wbGc+bABIHCxwx1/SYR400XmljfPOnTw7BBE?=
- =?us-ascii?Q?V3INwey2cYjVZgvPogf0932hKLEClghWfDHCrPcTiELvTpykpYFNKKIdR58l?=
- =?us-ascii?Q?juMP0bN5Pxji8Nnexb5Hl9w4X6RLV5iV89J8EMiT8Xudc5yKiPp0/w9S7b48?=
- =?us-ascii?Q?NdOlTtcQ+UqhT7Lr1h7GGIkmhAy150BGgvwijDFzIlFIOyyeK++grAGkGw4z?=
- =?us-ascii?Q?9CPGiqrByEDQv6V/sMUs1VwVvh7mlk0haKz5HbdT9z2S3J3tPSHz6nrGBRI0?=
- =?us-ascii?Q?Baqq/QvtQdzRddzR7XkbGvy9GoJaPvkrtsdjKVZbAxjBs3uFhTWfaKc7jYWH?=
- =?us-ascii?Q?kGbjCQYlJviX/Q/01QOxlbOnWWD5PJGLf4/IGxR1lWQJZq10lmGH/g6Ef+OD?=
- =?us-ascii?Q?SVSVujwULOsHJmwKAxMe28JYctYEjwEiWekpZ9OtlQWhJJBvrhSoqb+iilof?=
- =?us-ascii?Q?PM6A0ErThYCI2wvcOg+MfohYrkN+1g5bCNaZ3ml1flNEVmfLyVfY1zVLnSGJ?=
- =?us-ascii?Q?RwWiL2N5Nic4uObjszv9lxNVbu97r71o8Y9Ktl3ZUJ7/b+6dx9MjlB+Mwhiy?=
- =?us-ascii?Q?QmYEDJZMjxy2uZYsus2+5pqo8aDzA4QolRUwU8NI7CkSOhfP0vhS87SJRUnB?=
- =?us-ascii?Q?IyxkMfDyLmKvYWe3QYnwfozgP9zZ9kT6UUqyepinpAynkTObswINui3SnxCD?=
- =?us-ascii?Q?zYxPvq4RstTjVcTwgm7Cs37e5MoWpmHvUUGP2MkGMH9a5/gQ5wEdcOTjun6K?=
- =?us-ascii?Q?NXFgNP3jWzJz/Zr/KSsTwxnxRg6ym+YpBM8+H/LFnms/H7PVyc+CkAfDh6bu?=
- =?us-ascii?Q?m2nXEReE4zfyNU7hZuokDj7k9QQnHeJaVdIxF5oqYynr6fjMd6ArD5meWudN?=
- =?us-ascii?Q?okYoQ17cQkxa2nFiPCfdX6/W6estbdCkPvzM0MqviJtbaV/YLT9ZsqYR8wWk?=
- =?us-ascii?Q?jKb4TJsDrZ/PjT9xfX8Ki8Dd25zP9RRS2BrKldEmnnFn/fbLtrkGnC/uKGqp?=
- =?us-ascii?Q?C/ngLL0VKufyvnBmoBGX7vCiH68vRaGeqSGQCIJ7IGxXfANsBrw8MVP2IC0I?=
- =?us-ascii?Q?QwEdbxGWq1fPN0DBxYbuiWcBctmkaC5hGH37jDYj4B2+px97WmOLw4who9en?=
- =?us-ascii?Q?iZZsZY3uPA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7660b4fb-e475-4083-7cac-08df273d784a
-X-MS-Exchange-CrossTenant-AuthSource: LY0PR12MB727857.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2026 02:15:07.5367
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XK4WYLAGXPQ+foEfZCKSJoV5v88MM+oibOGj+oKtK23dIpsbrx1xwgT7bQv5jms5bfkVdImbzPXvCyDUHG2FAQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6951
 
-CXL bus reset can clear HDM decoder programming and CXL Device DVSEC
-control state. Restore the cached state after a successful cxl_bus reset
-while IOMMU exclusion remains active.
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git x86/cache
+branch HEAD: 2c10b3fa5bdf61e344bc522e6c2e00d870ce7ab8  fs/resctrl: Ensure default group reports tasks on monitor-only systems
 
-Restore PCI configuration first so HDM MMIO is accessible, and preserve a
-disabled state if restoration fails.
+elapsed time: 1306m
 
-Copy the cached state before the reset, then refresh its decoder settings
-from the cache under the CXL region quiesce once the reset completes. A
-region decommit during the reset updates the cache, and restoring the
-earlier decoders would leave the endpoint decoding an HPA range that the
-CXL core considers free. Keep global and DVSEC control from before the
-reset, since a refresh during the reset can read them as all-ones.
+configs tested: 345
+configs skipped: 5
 
-The prepare/restore interface and decoder-refresh structure follow Dave
-Jiang's cxl-type2-reset reference branch.
+The following configs have been built successfully.
+More configs may be tested in the coming days.
 
-Link: https://git.kernel.org/pub/scm/linux/kernel/git/djiang/linux.git/commit/?id=b93f0c8e67b198a63786fd3721b7177ab9df60be
-Suggested-by: Dave Jiang <dave.jiang@intel.com>
-Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
-Assisted-by: LLM
-Acked-by: Bjorn Helgaas <bhelgaas@google.com> # pci/pci.c
----
- drivers/cxl/core/hdm_state.c | 31 ++++++++++++++++++
- drivers/pci/cxl.c            | 62 ++++++++++++++++++++++++++++++++++++
- drivers/pci/pci.c            | 14 ++++++++
- drivers/pci/pci.h            | 16 ++++++++++
- include/cxl/hdm.h            |  2 ++
- 5 files changed, 125 insertions(+)
+tested configs:
+alpha                              allnoconfig    gcc-16.1.0
+alpha                             allyesconfig    gcc-16.1.0
+alpha                                defconfig    gcc-16.1.0
+alpha                randconfig-r2102-20261010    gcc-12.5.0 cocci
+alpha                randconfig-r2104-20261010    gcc-16.1.0 cocci
+alpha                randconfig-r2107-20261010    gcc-8.5.0  cocci
+alpha                randconfig-r2303-20261010    gcc-16.1.0 sparse
+alpha                randconfig-r2305-20261010    gcc-8.5.0  sparse
+arc                               allmodconfig    clang-24
+arc                                allnoconfig    gcc-16.1.0
+arc                               allyesconfig    gcc-16.1.0
+arc                                  defconfig    gcc-16.1.0
+arc                   randconfig-1000-20261010    gcc-8.5.0
+arc                   randconfig-1001-20261010    gcc-8.5.0
+arc                   randconfig-2000-20261010    gcc-8.5.0
+arc                   randconfig-2001-20261010    gcc-8.5.0
+arc                  randconfig-r2103-20261010    clang-24   cocci
+arc                  randconfig-r2104-20261010    gcc-8.5.0  cocci
+arc                  randconfig-r2107-20261010    gcc-8.5.0  cocci
+arc                  randconfig-r2202-20261010    gcc-8.5.0  smatch
+arc                  randconfig-r2307-20261010    clang-22   sparse
+arc                  randconfig-r2308-20261010    gcc-13.4.0 sparse
+arm                                allnoconfig    gcc-16.1.0
+arm                               allyesconfig    clang-24
+arm                                  defconfig    gcc-16.1.0
+arm                   randconfig-1000-20261010    gcc-8.5.0
+arm                   randconfig-1001-20261010    gcc-8.5.0
+arm                   randconfig-1002-20261010    gcc-8.5.0
+arm                   randconfig-1003-20261010    gcc-8.5.0
+arm                   randconfig-2000-20261010    gcc-8.5.0
+arm                   randconfig-2001-20261010    gcc-8.5.0
+arm                  randconfig-r2105-20261010    gcc-16.1.0 cocci
+arm                  randconfig-r2105-20261010    gcc-8.5.0  cocci
+arm                  randconfig-r2303-20261010    gcc-8.5.0  sparse
+arm64                              allnoconfig    gcc-16.1.0
+arm64                                defconfig    gcc-16.1.0
+arm64                 randconfig-1000-20261010    gcc-10.5.0
+arm64                 randconfig-1001-20261010    gcc-10.5.0
+arm64                 randconfig-1002-20261010    gcc-10.5.0
+arm64                 randconfig-1003-20261010    gcc-10.5.0
+arm64                 randconfig-2000-20261010    gcc-16.1.0
+arm64                 randconfig-2001-20261010    gcc-16.1.0
+arm64                randconfig-r2100-20261010    clang-24   cocci
+arm64                randconfig-r2101-20261010    clang-22   cocci
+arm64                randconfig-r2101-20261010    gcc-10.5.0 cocci
+arm64                randconfig-r2107-20261010    gcc-16.1.0 cocci
+csky                              allmodconfig    gcc-16.1.0
+csky                               allnoconfig    gcc-16.1.0
+csky                                 defconfig    gcc-16.1.0
+csky                  randconfig-1000-20261010    gcc-10.5.0
+csky                  randconfig-1001-20261010    gcc-10.5.0
+csky                  randconfig-2000-20261010    gcc-16.1.0
+csky                  randconfig-2001-20261010    gcc-16.1.0
+csky                 randconfig-r2104-20261010    gcc-12     cocci
+csky                 randconfig-r2109-20261010    gcc-16.1.0 cocci
+csky                 randconfig-r2111-20261010    gcc-16.1.0 cocci
+csky                 randconfig-r2300-20261010    gcc-16.1.0 sparse
+csky                 randconfig-r2306-20261010    clang-24   sparse
+hexagon                           allmodconfig    gcc-16.1.0
+hexagon                            allnoconfig    gcc-16.1.0
+hexagon                              defconfig    gcc-16.1.0
+hexagon               randconfig-1000-20261010    clang-17
+hexagon               randconfig-1001-20261010    clang-17
+hexagon               randconfig-2000-20261010    gcc-16.1.0
+hexagon               randconfig-2001-20261010    gcc-16.1.0
+hexagon              randconfig-r2103-20261010    gcc-16.1.0 cocci
+hexagon              randconfig-r2104-20261010    gcc-16.1.0 cocci
+hexagon              randconfig-r2106-20261010    gcc-8.5.0  cocci
+hexagon              randconfig-r2110-20261010    gcc-12     cocci
+hexagon              randconfig-r2306-20261010    gcc-16.1.0 sparse
+hexagon              randconfig-r2310-20261010    clang-24   sparse
+i386                              allmodconfig    clang-22
+i386                               allnoconfig    gcc-16.1.0
+i386                              allyesconfig    clang-22
+i386        buildonly-randconfig-1000-20261010    gcc-14
+i386        buildonly-randconfig-1001-20261010    gcc-14
+i386        buildonly-randconfig-1002-20261010    gcc-14
+i386        buildonly-randconfig-1003-20261010    gcc-14
+i386        buildonly-randconfig-1004-20261010    gcc-14
+i386        buildonly-randconfig-1005-20261010    gcc-14
+i386                                 defconfig    gcc-16.1.0
+i386                  randconfig-1000-20261010    clang-22
+i386                  randconfig-1001-20261010    clang-22
+i386                  randconfig-1002-20261010    clang-22
+i386                  randconfig-1003-20261010    clang-22
+i386                  randconfig-1004-20261010    clang-22
+i386                  randconfig-1005-20261010    clang-22
+i386                  randconfig-1006-20261010    clang-22
+i386                  randconfig-1007-20261010    gcc-14
+i386                  randconfig-1008-20261010    gcc-14
+i386                  randconfig-1009-20261010    gcc-14
+i386                  randconfig-1010-20261010    gcc-14
+i386                  randconfig-1011-20261010    gcc-14
+i386                  randconfig-1012-20261010    gcc-14
+i386                  randconfig-1013-20261010    gcc-14
+i386                  randconfig-2000-20261010    gcc-8.5.0
+i386                  randconfig-2001-20261010    gcc-8.5.0
+i386                  randconfig-2100-20261010    clang-22   cocci
+i386                  randconfig-2100-20261010    gcc-13     cocci
+i386                  randconfig-2101-20261010    clang-22   cocci
+i386                  randconfig-2101-20261010    gcc-13     cocci
+i386                  randconfig-2102-20261010    clang-22   cocci
+i386                  randconfig-2102-20261010    gcc-13     cocci
+i386                  randconfig-2103-20261010    clang-22   cocci
+i386                  randconfig-2103-20261010    gcc-13     cocci
+i386                  randconfig-2104-20261010    gcc-13     cocci
+i386                  randconfig-2105-20261010    gcc-13     cocci
+i386                  randconfig-2200-20261010    gcc-12     smatch
+i386                  randconfig-2300-20261010    gcc-14     sparse
+i386                  randconfig-2301-20261010    gcc-14     sparse
+i386                  randconfig-2302-20261010    gcc-14     sparse
+i386                 randconfig-r2102-20261010    gcc-16.1.0 cocci
+i386                 randconfig-r2103-20261010    gcc-12.5.0 cocci
+i386                 randconfig-r2201-20261010    clang-22   smatch
+i386                 randconfig-r2301-20261010    gcc-8.5.0  sparse
+i386                 randconfig-r2305-20261010    gcc-8.5.0  sparse
+i386                 randconfig-r2308-20261010    gcc-16.1.0 sparse
+loongarch                          allnoconfig    gcc-16.1.0
+loongarch             randconfig-1000-20261010    clang-17
+loongarch             randconfig-1001-20261010    clang-17
+loongarch             randconfig-2000-20261010    gcc-8.5.0
+loongarch             randconfig-2001-20261010    gcc-8.5.0
+loongarch            randconfig-r2105-20261010    gcc-8.5.0  cocci
+loongarch            randconfig-r2108-20261010    gcc-12.5.0 cocci
+loongarch            randconfig-r2304-20261010    gcc-8.5.0  sparse
+loongarch            randconfig-r2309-20261010    gcc-16.1.0 sparse
+loongarch            randconfig-r2311-20261010    clang-24   sparse
+m68k                              allmodconfig    gcc-16.1.0
+m68k                               allnoconfig    gcc-16.1.0
+m68k                              allyesconfig    clang-24
+m68k                          amcore_defconfig    gcc-16.1.0
+m68k                        m5249evb_defconfig    gcc-16.1.0
+m68k                 randconfig-r2100-20261010    gcc-12.5.0 cocci
+m68k                 randconfig-r2110-20261010    gcc-16.1.0 cocci
+m68k                 randconfig-r2200-20261010    gcc-9.5.0  smatch
+m68k                 randconfig-r2303-20261010    gcc-8.5.0  sparse
+microblaze                         allnoconfig    gcc-16.1.0
+microblaze                        allyesconfig    gcc-16.1.0
+microblaze           randconfig-r2103-20261010    gcc-10.5.0 cocci
+mips                              allmodconfig    gcc-16.1.0
+mips                               allnoconfig    gcc-16.1.0
+mips                              allyesconfig    gcc-16.1.0
+mips                      eyeq6lplus_defconfig    gcc-16.1.0
+mips                            ip22_defconfig    gcc-16.1.0
+mips                 randconfig-r2100-20261010    gcc-10.5.0 cocci
+mips                 randconfig-r2105-20261010    gcc-8.5.0  cocci
+mips                 randconfig-r2106-20261010    gcc-8.5.0  cocci
+mips                 randconfig-r2107-20261010    gcc-8.5.0  cocci
+mips                 randconfig-r2200-20261010    gcc-14.3.0 smatch
+mips                 randconfig-r2301-20261010    gcc-8.5.0  sparse
+mips                 randconfig-r2309-20261010    clang-24   sparse
+nios2                             allmodconfig    clang-20
+nios2                              allnoconfig    clang-24
+nios2                 randconfig-1000-20261010    clang-17
+nios2                 randconfig-1001-20261010    clang-17
+nios2                 randconfig-2000-20261010    gcc-8.5.0
+nios2                 randconfig-2001-20261010    gcc-8.5.0
+nios2                randconfig-r2101-20261010    gcc-16.1.0 cocci
+nios2                randconfig-r2106-20261010    gcc-16.1.0 cocci
+nios2                randconfig-r2106-20261010    gcc-8.5.0  cocci
+nios2                randconfig-r2306-20261010    clang-22   sparse
+nios2                randconfig-r2306-20261010    gcc-13.4.0 sparse
+openrisc                          allmodconfig    clang-20
+openrisc                           allnoconfig    clang-24
+openrisc                             defconfig    gcc-16.1.0
+openrisc                   or1klitex_defconfig    gcc-16.1.0
+openrisc             randconfig-r2102-20261010    clang-22   cocci
+openrisc             randconfig-r2201-20261010    gcc-16.1.0 smatch
+parisc                            allmodconfig    gcc-16.1.0
+parisc                             allnoconfig    clang-24
+parisc                            allyesconfig    clang-17
+parisc                               defconfig    gcc-16.1.0
+parisc                 generic-64bit_defconfig    gcc-16.1.0
+parisc                randconfig-2000-20261010    gcc-8.5.0
+parisc                randconfig-2001-20261010    gcc-8.5.0
+parisc               randconfig-r2200-20261010    gcc-16.1.0 smatch
+parisc               randconfig-r2307-20261010    clang-24   sparse
+powerpc                           allmodconfig    gcc-16.1.0
+powerpc                            allnoconfig    clang-24
+powerpc                        ebony_defconfig    gcc-16.1.0
+powerpc               randconfig-2000-20261010    gcc-14
+powerpc               randconfig-2001-20261010    gcc-14
+powerpc              randconfig-r2100-20261010    clang-22   cocci
+powerpc              randconfig-r2106-20261010    gcc-12     cocci
+powerpc              randconfig-r2201-20261010    gcc-16.1.0 smatch
+powerpc              randconfig-r2202-20261010    clang-17   smatch
+powerpc              randconfig-r2301-20261010    gcc-16.1.0 sparse
+powerpc              randconfig-r2302-20261010    gcc-8.5.0  sparse
+powerpc              randconfig-r2309-20261010    clang-24   sparse
+powerpc                       tqm8xx_defconfig    gcc-16.1.0
+powerpc64             randconfig-2000-20261010    gcc-14
+powerpc64             randconfig-2001-20261010    gcc-14
+powerpc64            randconfig-r2307-20261010    gcc-13.4.0 sparse
+powerpc64            randconfig-r2309-20261010    clang-22   sparse
+riscv                              allnoconfig    clang-24
+riscv                             allyesconfig    clang-24
+riscv                                defconfig    gcc-16.1.0
+riscv                 randconfig-1000-20261010    clang-19
+riscv                 randconfig-1001-20261010    clang-19
+riscv                 randconfig-2000-20261010    gcc-16.1.0
+riscv                 randconfig-2001-20261010    gcc-16.1.0
+riscv                randconfig-r2107-20261010    gcc-16.1.0 cocci
+riscv                randconfig-r2110-20261010    gcc-16.1.0 cocci
+riscv                randconfig-r2300-20261010    gcc-8.5.0  sparse
+riscv                randconfig-r2304-20261010    gcc-8.5.0  sparse
+riscv                randconfig-r2306-20261010    clang-24   sparse
+riscv                randconfig-r2308-20261010    clang-24   sparse
+s390                              allmodconfig    clang-17
+s390                               allnoconfig    clang-24
+s390                              allyesconfig    gcc-16.1.0
+s390                                 defconfig    gcc-16.1.0
+s390                  randconfig-1000-20261010    clang-19
+s390                  randconfig-1001-20261010    clang-19
+s390                  randconfig-2000-20261010    gcc-16.1.0
+s390                  randconfig-2001-20261010    gcc-16.1.0
+s390                 randconfig-r2102-20261010    gcc-10.5.0 cocci
+s390                 randconfig-r2300-20261010    gcc-8.5.0  sparse
+s390                 randconfig-r2305-20261010    gcc-16.1.0 sparse
+s390                 randconfig-r2307-20261010    gcc-16.1.0 sparse
+sh                                allmodconfig    gcc-16.1.0
+sh                                 allnoconfig    clang-24
+sh                                allyesconfig    clang-17
+sh                                   defconfig    gcc-14
+sh                    randconfig-1000-20261010    clang-19
+sh                    randconfig-1001-20261010    clang-19
+sh                    randconfig-2000-20261010    gcc-16.1.0
+sh                    randconfig-2001-20261010    gcc-16.1.0
+sh                   randconfig-r2101-20261010    gcc-12.5.0 cocci
+sh                   randconfig-r2102-20261010    gcc-12.5.0 cocci
+sh                   randconfig-r2105-20261010    gcc-12     cocci
+sh                   randconfig-r2105-20261010    gcc-16.1.0 cocci
+sh                   randconfig-r2108-20261010    gcc-16.1.0 cocci
+sh                   randconfig-r2111-20261010    gcc-16.1.0 cocci
+sh                   randconfig-r2200-20261010    gcc-9.5.0  smatch
+sh                   randconfig-r2201-20261010    gcc-15.2.0 smatch
+sh                   randconfig-r2202-20261010    gcc-9.5.0  smatch
+sh                   randconfig-r2310-20261010    clang-24   sparse
+sparc                              allnoconfig    clang-24
+sparc                                defconfig    gcc-16.1.0
+sparc                 randconfig-1000-20261010    gcc-16.1.0
+sparc                 randconfig-1001-20261010    gcc-16.1.0
+sparc                 randconfig-2000-20261010    gcc-16.1.0
+sparc                 randconfig-2001-20261010    gcc-16.1.0
+sparc                randconfig-r2100-20261010    gcc-12.5.0 cocci
+sparc                randconfig-r2102-20261010    clang-24   cocci
+sparc                randconfig-r2109-20261010    gcc-12.5.0 cocci
+sparc                randconfig-r2200-20261010    gcc-16.1.0 smatch
+sparc                randconfig-r2304-20261010    gcc-16.1.0 sparse
+sparc64                           allmodconfig    clang-20
+sparc64                              defconfig    gcc-14
+sparc64               randconfig-1000-20261010    gcc-16.1.0
+sparc64               randconfig-1001-20261010    gcc-16.1.0
+sparc64               randconfig-2000-20261010    gcc-16.1.0
+sparc64               randconfig-2001-20261010    gcc-16.1.0
+sparc64              randconfig-r2100-20261010    gcc-16.1.0 cocci
+sparc64              randconfig-r2101-20261010    clang-24   cocci
+sparc64              randconfig-r2302-20261010    gcc-8.5.0  sparse
+sparc64              randconfig-r2308-20261010    clang-24   sparse
+um                                allmodconfig    clang-17
+um                                 allnoconfig    clang-24
+um                                allyesconfig    gcc-16.1.0
+um                                   defconfig    gcc-14
+um                              i386_defconfig    gcc-14
+um                    randconfig-1000-20261010    gcc-16.1.0
+um                    randconfig-1001-20261010    gcc-16.1.0
+um                    randconfig-2000-20261010    gcc-16.1.0
+um                    randconfig-2001-20261010    gcc-16.1.0
+um                   randconfig-r2106-20261010    gcc-16.1.0 cocci
+um                   randconfig-r2107-20261010    gcc-12     cocci
+um                   randconfig-r2201-20261010    clang-17   smatch
+um                   randconfig-r2202-20261010    clang-17   smatch
+um                   randconfig-r2309-20261010    gcc-13.4.0 sparse
+um                            x86_64_defconfig    gcc-14
+x86_64                            allmodconfig    clang-22
+x86_64                             allnoconfig    clang-24
+x86_64                            allyesconfig    clang-22
+x86_64      buildonly-randconfig-1000-20261010    clang-22
+x86_64      buildonly-randconfig-1001-20261010    clang-22
+x86_64      buildonly-randconfig-1002-20261010    clang-22
+x86_64      buildonly-randconfig-1003-20261010    clang-22
+x86_64      buildonly-randconfig-1004-20261010    clang-22
+x86_64      buildonly-randconfig-1005-20261010    clang-22
+x86_64                               defconfig    gcc-14
+x86_64                                   kexec    clang-22
+x86_64                randconfig-1000-20261010    gcc-14
+x86_64                randconfig-1001-20261010    gcc-14
+x86_64                randconfig-1002-20261010    gcc-14
+x86_64                randconfig-1003-20261010    gcc-14
+x86_64                randconfig-1004-20261010    gcc-14
+x86_64                randconfig-1005-20261010    gcc-14
+x86_64                randconfig-1006-20261010    clang-22
+x86_64                randconfig-1007-20261010    clang-22
+x86_64                randconfig-1008-20261010    clang-22
+x86_64                randconfig-1009-20261010    clang-22
+x86_64                randconfig-1010-20261010    clang-22
+x86_64                randconfig-1011-20261010    clang-22
+x86_64                randconfig-1012-20261010    clang-22
+x86_64                randconfig-1013-20261010    clang-22
+x86_64                randconfig-1014-20261010    clang-22
+x86_64                randconfig-1015-20261010    clang-22
+x86_64                randconfig-1016-20261010    clang-22
+x86_64                randconfig-1017-20261010    clang-22
+x86_64                randconfig-2000-20261010    gcc-14
+x86_64                randconfig-2001-20261010    gcc-14
+x86_64                randconfig-2100-20261010    clang-22   cocci
+x86_64                randconfig-2101-20261010    clang-22   cocci
+x86_64                randconfig-2102-20261010    clang-22   cocci
+x86_64                randconfig-2103-20261010    clang-22   cocci
+x86_64                randconfig-2104-20261010    clang-22   cocci
+x86_64                randconfig-2105-20261010    clang-22   cocci
+x86_64                randconfig-2200-20261010    gcc-14     smatch
+x86_64                randconfig-2300-20261010    gcc-14     sparse
+x86_64                randconfig-2301-20261010    gcc-14     sparse
+x86_64                randconfig-2302-20261010    gcc-14     sparse
+x86_64               randconfig-r2103-20261010    clang-22   cocci
+x86_64               randconfig-r2104-20261010    gcc-8.5.0  cocci
+x86_64               randconfig-r2111-20261010    gcc-12     cocci
+x86_64               randconfig-r2302-20261010    gcc-8.5.0  sparse
+x86_64               randconfig-r2305-20261010    gcc-8.5.0  sparse
+x86_64               randconfig-r2308-20261010    clang-22   sparse
+x86_64               randconfig-r2311-20261010    clang-24   sparse
+x86_64                                rhel-9.4    clang-22
+x86_64                            rhel-9.4-bpf    clang-22
+x86_64                            rhel-9.4-bpf    gcc-14
+x86_64                           rhel-9.4-func    clang-22
+x86_64                     rhel-9.4-kselftests    clang-22
+x86_64                          rhel-9.4-kunit    clang-22
+x86_64                          rhel-9.4-kunit    gcc-14
+x86_64                            rhel-9.4-ltp    clang-22
+x86_64                            rhel-9.4-ltp    gcc-14
+x86_64                           rhel-9.4-rust    clang-22
+x86_64                           rhel-9.4-rust    clang-22
+xtensa                             allnoconfig    clang-24
+xtensa                            allyesconfig    clang-20
+xtensa                randconfig-1000-20261010    gcc-16.1.0
+xtensa                randconfig-1001-20261010    gcc-16.1.0
+xtensa                randconfig-2000-20261010    gcc-16.1.0
+xtensa                randconfig-2001-20261010    gcc-16.1.0
+xtensa               randconfig-r2101-20261010    gcc-12.5.0 cocci
+xtensa               randconfig-r2104-20261010    gcc-8.5.0  cocci
+xtensa               randconfig-r2202-20261010    gcc-8.5.0  smatch
+xtensa               randconfig-r2300-20261010    gcc-8.5.0  sparse
+xtensa               randconfig-r2301-20261010    gcc-8.5.0  sparse
+xtensa               randconfig-r2302-20261010    gcc-16.1.0 sparse
+xtensa               randconfig-r2307-20261010    clang-24   sparse
 
-diff --git a/drivers/cxl/core/hdm_state.c b/drivers/cxl/core/hdm_state.c
-index cef604013350..95daeda0ef80 100644
---- a/drivers/cxl/core/hdm_state.c
-+++ b/drivers/cxl/core/hdm_state.c
-@@ -120,6 +120,37 @@ struct cxl_hdm_info *cxl_hdm_cache_snapshot(struct cxl_hdm_info *const *slot)
- 	return copy;
- }
- 
-+/**
-+ * cxl_hdm_cache_copy_decoders() - refresh the decoders of a snapshot
-+ * @slot: cache pointer owned by the device
-+ * @dst: snapshot of the same device from cxl_hdm_cache_snapshot()
-+ *
-+ * Copy only the per-decoder settings, which region commit and teardown keep
-+ * current. Leave the rest of @dst, including global and DVSEC control, as
-+ * captured: a refresh during a reset may have read those registers from a
-+ * device that returned all-ones.
-+ *
-+ * Return: 0 on success, -ENXIO when nothing is published, or -EINVAL when
-+ * @dst holds a different number of decoders.
-+ */
-+int cxl_hdm_cache_copy_decoders(struct cxl_hdm_info *const *slot,
-+				struct cxl_hdm_info *dst)
-+{
-+	struct cxl_hdm_info *info;
-+
-+	lockdep_assert_held_write(&cxl_rwsem.region);
-+	guard(rwsem_read)(&cxl_rwsem.dpa);
-+	info = *slot;
-+	if (!info)
-+		return -ENXIO;
-+	if (info->decoder_count != dst->decoder_count)
-+		return -EINVAL;
-+
-+	memcpy(dst->settings, info->settings,
-+	       flex_array_size(info, settings, info->decoder_count));
-+	return 0;
-+}
-+
- void cxl_region_quiesce_lock(void)
- 	__acquires(cxl_region_quiesce)
- 	__context_unsafe(token maps to cxl_rwsem.region)
-diff --git a/drivers/pci/cxl.c b/drivers/pci/cxl.c
-index 7a225e215ca5..ed0b6f619c70 100644
---- a/drivers/pci/cxl.c
-+++ b/drivers/pci/cxl.c
-@@ -372,6 +372,68 @@ static int cxl_reset_save_restored_state(struct pci_dev *pdev, u16 command)
- 	return rc;
- }
- 
-+/**
-+ * pci_cxl_reset_prepare() - allocate HDM state storage ahead of a bus reset
-+ * @pdev: device about to be reset
-+ *
-+ * Copy the cached HDM state before the reset, so that restoring cannot fail
-+ * for lack of memory. The decoder settings are refreshed when the state is
-+ * restored.
-+ *
-+ * Return: storage for cxl_restore_state_after_pci_reset(), to be freed with
-+ * kfree(); NULL when @pdev has no cached HDM state; or an ERR_PTR() on
-+ * failure.
-+ */
-+struct cxl_hdm_info *pci_cxl_reset_prepare(struct pci_dev *pdev)
-+{
-+	struct cxl_hdm_info *snapshot;
-+
-+	device_lock_assert(&pdev->dev);
-+	snapshot = cxl_hdm_cache_snapshot(&pdev->hdm);
-+	if (IS_ERR(snapshot) && PTR_ERR(snapshot) == -ENXIO)
-+		return NULL;
-+
-+	return snapshot;
-+}
-+
-+/**
-+ * cxl_restore_state_after_pci_reset() - restore CXL state after a bus reset
-+ * @pdev: device that was reset
-+ * @snapshot: storage from pci_cxl_reset_prepare()
-+ *
-+ * Under the region quiesce, refresh the decoder settings in @snapshot from the
-+ * cache and restore: first the PCI configuration needed to reach HDM MMIO,
-+ * then the HDM decoder and CXL Device DVSEC state. Leave @pdev disabled on
-+ * failure.
-+ *
-+ * Refresh the decoders now rather than rely on the copy taken before the
-+ * reset: a region commit or teardown during the reset has updated the cache,
-+ * and restoring older decoders would leave the device decoding ranges the
-+ * CXL core considers free.
-+ */
-+int cxl_restore_state_after_pci_reset(struct pci_dev *pdev,
-+				      struct cxl_hdm_info *snapshot)
-+{
-+	u16 command;
-+	int rc;
-+
-+	device_lock_assert(&pdev->dev);
-+	cxl_region_quiesce_lock();
-+
-+	rc = cxl_hdm_cache_copy_decoders(&pdev->hdm, snapshot);
-+	if (!rc) {
-+		cxl_restore_pci_state_for_hdm_restore(pdev, &command);
-+		rc = cxl_restore_state(pdev, snapshot);
-+	}
-+	if (rc)
-+		cxl_reset_save_disabled_state(pdev);
-+	else
-+		rc = cxl_reset_save_restored_state(pdev, command);
-+
-+	cxl_region_quiesce_unlock();
-+	return rc;
-+}
-+
- /*
-  * CXL r4.0 sec 9.7.2 defines the reset completion timeout encodings.
-  * Sec 9.7.3 leaves config-space access behavior undefined for 100 ms after
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index b58a6a613311..cecf8e681e69 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -5014,6 +5014,7 @@ static int pci_reset_bus_function(struct pci_dev *dev, bool probe)
- 
- static int cxl_reset_bus_function(struct pci_dev *dev, bool probe)
- {
-+	struct cxl_hdm_info *snapshot __free(kfree) = NULL;
- 	struct pci_dev *bridge;
- 	u16 dvsec, reg, val;
- 	int rc;
-@@ -5036,6 +5037,16 @@ static int cxl_reset_bus_function(struct pci_dev *dev, bool probe)
- 	if (rc)
- 		return -ENOTTY;
- 
-+	snapshot = pci_cxl_reset_prepare(dev);
-+	if (IS_ERR(snapshot))
-+		return PTR_ERR(snapshot);
-+
-+	/* Raw reset callers may not have saved the PCI state needed for restore. */
-+	if (snapshot && !dev->state_saved) {
-+		pci_err(dev, "CXL bus reset requires saved PCI state\n");
-+		return -EINVAL;
-+	}
-+
- 	rc = pci_dev_reset_iommu_prepare(dev);
- 	if (rc) {
- 		pci_err(dev, "failed to stop IOMMU for a PCI reset: %d\n", rc);
-@@ -5056,6 +5067,9 @@ static int cxl_reset_bus_function(struct pci_dev *dev, bool probe)
- 		pci_write_config_word(bridge, dvsec + PCI_DVSEC_CXL_PORT_CTL,
- 				      reg);
- 
-+	if (!rc && snapshot)
-+		rc = cxl_restore_state_after_pci_reset(dev, snapshot);
-+
- 	pci_dev_reset_iommu_done(dev);
- 	return rc;
- }
-diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-index 743e65abd758..476e8eefafb2 100644
---- a/drivers/pci/pci.h
-+++ b/drivers/pci/pci.h
-@@ -730,10 +730,14 @@ static inline void pci_doe_destroy(struct pci_dev *pdev) { }
- static inline void pci_doe_disconnected(struct pci_dev *pdev) { }
- #endif
- 
-+struct cxl_hdm_info;
- #ifdef CONFIG_CXL_RESET
- void pci_cxl_hdm_cache_init(struct pci_dev *pdev);
- void pci_cxl_hdm_cache_release(struct pci_dev *pdev);
- int cxl_reset_function(struct pci_dev *pdev, bool probe);
-+struct cxl_hdm_info *pci_cxl_reset_prepare(struct pci_dev *pdev);
-+int cxl_restore_state_after_pci_reset(struct pci_dev *pdev,
-+				      struct cxl_hdm_info *snapshot);
- #else
- static inline void pci_cxl_hdm_cache_init(struct pci_dev *pdev) { }
- static inline void pci_cxl_hdm_cache_release(struct pci_dev *pdev) { }
-@@ -741,6 +745,18 @@ static inline int cxl_reset_function(struct pci_dev *pdev, bool probe)
- {
- 	return -ENOTTY;
- }
-+
-+static inline struct cxl_hdm_info *pci_cxl_reset_prepare(struct pci_dev *pdev)
-+{
-+	return NULL;
-+}
-+
-+static inline int
-+cxl_restore_state_after_pci_reset(struct pci_dev *pdev,
-+				  struct cxl_hdm_info *snapshot)
-+{
-+	return 0;
-+}
- #endif
- 
- #ifdef CONFIG_PCI_NPEM
-diff --git a/include/cxl/hdm.h b/include/cxl/hdm.h
-index 445093cf0452..02cad2d74329 100644
---- a/include/cxl/hdm.h
-+++ b/include/cxl/hdm.h
-@@ -60,6 +60,8 @@ void cxl_hdm_cache_publish(struct cxl_hdm_info **slot,
- void cxl_hdm_cache_release(struct cxl_hdm_info **slot);
- bool cxl_hdm_cache_dvsec_decode(struct cxl_hdm_info *const *slot);
- struct cxl_hdm_info *cxl_hdm_cache_snapshot(struct cxl_hdm_info *const *slot);
-+int cxl_hdm_cache_copy_decoders(struct cxl_hdm_info *const *slot,
-+				struct cxl_hdm_info *dst);
- 
- /*
-  * Region quiesce blocks CXL region commit and teardown, and with them decoder
--- 
-2.43.0
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
