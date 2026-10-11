@@ -1,117 +1,161 @@
-Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516C12868B5
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 15:56:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50F3A331A65
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 15:57:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791734219; cv=none; b=AhEz/TSkfL00KYl4TwuqM+SNYqB4WKffcrLn6BsU5QUH7UzlSJGmNB1yWCZdT6FIIaP8ngfi2wBMvfKNtpuLYOGqIXVos5cOcREIAXAujtv7idtaCbdDl1ndVEvHSJet22qy/1maBBQrhYjEAZwDt9uniyFFaIgVdRd9YeO0eSE=
+	t=1791734236; cv=none; b=s5Rq6+7H0zdnvOHtzhIMNdZl82lrQqAQAG9hJsM1vundipvjxepCUv3ffymIEUKGF2ts/zKWD66mY96MLF40NBotx2iNtK/p+yyZ8bbiaxAio4Rqub/A1sNL0IVyCGc43eNYXJhhDqgS2536zfD02wPNwgiGsGmPyAbIGVHbMQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791734219; c=relaxed/simple;
-	bh=/t4zx5Og9wfbmIVMOSkXHk6KzJKtNg94x4wZpHfMUKA=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=dL9+T+2pLwXIEGZsGYAnB8rLQfSpT+WX1bGeJ0sCN8qphv8aiEcErOSAgEt5LEORF5OnhqW5U+7u+thKbfsWQUsCbU3MlCCYtEcIO7AByJmTFtIa/+SS5MWMCPN9NU0hzGjFPQbNv1aaXXRvSlvCpbfIpn4Ay3OoJ6AOGH7QmMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com; spf=pass smtp.mailfrom=zytor.com; dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b=wIBb1zYe; arc=none smtp.client-ip=198.137.202.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
+	s=arc-20240116; t=1791734236; c=relaxed/simple;
+	bh=/wKppWVauAwkR8jjbb7vgLhKkBzM/jGht9Jccc+FVl8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eO+rOihusyA/zqOZ7bT1ouYHFQ9rzO52j3bgOEgn9iFxAXJSmq4bl2TebreqPT+OjkHC9QI7/uVD8OjG8zhKqGmXq01FJTJhLUbk8sSXgNkm0/dm+YgIc8SG0R8ObFshFX/5S2uCs+/yN8SjnDEdUuWlGidLnOLMh7bky/qzERU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Z8RnB9Ea; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b="wIBb1zYe"
-Received: from ehlo.thunderbird.net (c-76-133-66-138.hsd1.ca.comcast.net [76.133.66.138])
-	(authenticated bits=0)
-	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 69BFuHSZ2326697
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
-	Sun, 11 Oct 2026 08:56:18 -0700
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 69BFuHSZ2326697
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2026092801; t=1791734178;
-	bh=PvJ/7VwUrE5KAORKRkVStyTayxObpyUWBBrIQ1DvRuw=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=wIBb1zYeUTIvDTGlHbS64eFeNhiQ6iUZ0GidockkUrYWRM+Uh34vh9ss0CU5B01pb
-	 o0RjyXR3E8vQjV3qhcIcAR3J0lGyMZgMf7kdSZVrTsoNZKk677gs4kSLWbjrVVmwBR
-	 yA4JFZiqsivSO1gWApF7K0wQLrOohTn8joibSLkSZNjtt0eUYfQABH6823TiqIHDkj
-	 UwYgI71MjA8+Ljdzj09r6DOCQleGW57jUNSl7V+mPzklCdGuPgzix0Fe4YhtWt11pA
-	 dQgvo/5GAHV3PCF0m92b/jkG6xSPFJAlGgGN6CMQvp4YjBZkfe5gNZTepOYnPe5glk
-	 fTD0YRYkoC/qQ==
-Date: Sun, 11 Oct 2026 08:56:10 -0700
-From: "H. Peter Anvin" <hpa@zytor.com>
-To: Jialin Wang <wjl.linux@gmail.com>, Thomas Gleixner <tglx@kernel.org>,
-        Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org
-CC: linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] x86/reboot: Disable CET in machine_real_restart()
-User-Agent: K-9 Mail for Android
-In-Reply-To: <20261011151807.263575-1-wjl.linux@gmail.com>
-References: <20261011151807.263575-1-wjl.linux@gmail.com>
-Message-ID: <4928ACDC-A246-4DD4-8814-AE680ADB7CD9@zytor.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Z8RnB9Ea"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791734234;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0uXsmAXIe+ctkQ1z1JD1VbTuxvydK1QTZStvK1VYihI=;
+	b=Z8RnB9EateANargB++be7p/PuhPS0m2+ihNVZr/K82OJ/svvQ6NdEgPGIlCLi+hyrqPWu0
+	/5HNb4OMo+sRc4MCw5qp2MRWTvxGUJxZ5BAYiUmpL5j2rLCpP/hd5FpuS0EyT2kCgZES+g
+	ol9yep1wnpH96BMA5FGjX0kM3CpTdqo=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-155-9vB34xm5Ml-ZghlUVAo6Qw-1; Sun,
+ 11 Oct 2026 15:57:10 +0000
+X-MC-Unique: 9vB34xm5Ml-ZghlUVAo6Qw-1
+X-Mimecast-MFC-AGG-ID: 9vB34xm5Ml-ZghlUVAo6Qw_1791734229
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7A21918011F3;
+	Sun, 11 Oct 2026 15:57:08 +0000 (UTC)
+Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id BAEC71956042;
+	Sun, 11 Oct 2026 15:57:04 +0000 (UTC)
+Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
+	oleg@redhat.com; Sun, 11 Oct 2026 17:57:08 +0200 (CEST)
+Date: Sun, 11 Oct 2026 17:57:03 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: w15303746062@163.com, David Laight <david.laight.linux@gmail.com>
+Cc: jlayton@kernel.org, chuck.lever@oracle.com, viro@zeniv.linux.org.uk,
+	brauner@kernel.org, alex.aring@gmail.com, jack@suse.cz,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Mingyu Wang <25181214217@stu.xidian.edu.cn>
+Subject: Re: [PATCH v2] fs/fcntl: fix SOFTIRQ-unsafe lock order in fasync
+ signaling
+Message-ID: <asuxzwl4iWjjEjRD@redhat.com>
+References: <d15a25fe784b5d4449c7ce4e56f1428d7ff28885.camel@kernel.org>
+ <20260523135210.590928-1-w15303746062@163.com>
+ <asI5Fn87_SoEd4G5@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <asI5Fn87_SoEd4G5@redhat.com>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On October 11, 2026 8:18:03 AM PDT, Jialin Wang <wjl=2Elinux@gmail=2Ecom> w=
-rote:
->When a kernel panic occurs in an environment without ACPI reboot or
->8042 keyboard reset support (such as QEMU microvm),
->native_machine_emergency_restart() falls back through BOOT_ACPI,
->BOOT_KBD, BOOT_EFI, and eventually invokes machine_real_restart(MRR_BIOS)
->to switch back to real mode for a BIOS reboot=2E
->
->When kernel IBT is enabled, the indirect far jump (ljmpl) in
->machine_real_restart() jumps to the 32-bit compatibility mode entry point
->(pa_machine_real_restart_asm)=2E Because machine_real_restart_asm does no=
-t
->begin with an ENDBR32 instruction, an indirect branch tracking #CP fault
->is triggered=2E Since ibt_fatal is true, do_kernel_cp_fault() triggers:
->
->  Missing ENDBR: 0x9a230
->  kernel BUG at arch/x86/kernel/cet=2Ec:133!
->
->This issue can be reproduced with virtme-ng:
->
->  vng -v -r -- 'echo c >/proc/sysrq-trigger'
->
->which launches QEMU with the microvm architecture:
->
->  qemu-system-x86_64 -M microvm,accel=3Dkvm,pcie=3Don,rtc=3Don \
->    -cpu host,topoext=3Don -smp 16 -no-reboot \
->    -kernel <vmlinuz> -append '=2E=2E=2E panic=3D-1 =2E=2E=2E'
->
->Invoke cet_disable() in machine_real_restart() before loading the
->trampoline page table and executing the far jump, ensuring IBT is disable=
-d
->and avoiding the #CP fault=2E
->
->Assisted-by: LLM
->Signed-off-by: Jialin Wang <wjl=2Elinux@gmail=2Ecom>
->---
-> arch/x86/kernel/reboot=2Ec | 7 +++++++
-> 1 file changed, 7 insertions(+)
->
->diff --git a/arch/x86/kernel/reboot=2Ec b/arch/x86/kernel/reboot=2Ec
->index 0fed6d0d7e32=2E=2Eeb23b8977de5 100644
->--- a/arch/x86/kernel/reboot=2Ec
->+++ b/arch/x86/kernel/reboot=2Ec
->@@ -114,6 +114,13 @@ void __noreturn machine_real_restart(unsigned int ty=
-pe)
-> 	CMOS_WRITE(0x00, 0x8f);
-> 	spin_unlock(&rtc_lock);
->=20
->+	/*
->+	 * Disable CET before loading the trampoline page table and jumping
->+	 * to the real-mode trampoline=2E This avoids missing-ENDBR #CP faults
->+	 * during the far jump=2E
->+	 */
->+	cet_disable();
->+
-> 	/*
-> 	 * Switch to the trampoline page table=2E
-> 	 */
+Nobody replied ;)
 
-Indeed, this is very correct=2E
+In case it was not clear, I believe the commit 00633c4683828
+("fs/fcntl: fix SOFTIRQ-unsafe lock order in fasync signaling")
+backported to stable trees is wrong.
 
-Reviewed-by: H=2E Peter Anvin (Rosaic) <hpa@zytor=2Ecom>
+Right now the fix is not clear to me, I don't even fully understand
+the changelog:
+
+    The deadlock is caused by the rwlock writer fairness mechanism:
+    1. CPU 0 (process context) holds read_lock(&tasklist_lock) in do_wait().
+    2. CPU 1 (process context) attempts write_lock(&tasklist_lock) in
+       fork() or exit() and spins, which blocks all new readers.
+
+see below ...
+
+    3. CPU 0 is interrupted by a softirq (e.g., TCP URG packet reception).
+    4. The softirq calls send_sigurg() and attempts to acquire
+       read_lock(&tasklist_lock), deadlocking because CPU 1 is waiting.
+
+but queued_read_lock_slowpath() does not block the reader if
+in_interrupt() == T ?
+
+Mingyu, could you provide more details? How was this problem reported?
+
+So far I only sent the doc patch to explain that we can't simply avoid tasklist:
+
+	[PATCH] pid: document that do_each_pid_task() needs tasklist_lock
+	https://lore.kernel.org/all/asuaU8H_5MbO3-cW@redhat.com/
+
+Oleg.
+
+On 10/04, Oleg Nesterov wrote:
+>
+> Hi,
+>
+> On 05/23, w15303746062@163.com wrote:
+> >
+> > Since PID hashing and do_each_pid_task() traversals are already
+> > RCU-protected, the read_lock on tasklist_lock is no longer strictly
+> > required for safe traversal. Fix this by replacing tasklist_lock with
+> > rcu_read_lock(),
+>
+> I don't think we can simply avoid tasklist_lock. Let me quote my old email,
+>
+> 	do_each_pid_task(PIDTYPE_PGID) can race with change_pid(PIDTYPE_PGID)
+> 	which moves the task from one hlist to another. Yes, it is safe in
+> 	that task_struct can't go away. But still this is not right because
+> 	do_each_pid_task() can scan the wrong (2nd) hlist.
+>
+> And... I need to recheck, but perhaps signal_struct->multiprocess logic
+> is another reason why the lockless do_each_pid_task() is wrong...
+>
+> See also the recent discussion
+> https://lore.kernel.org/all/20261003182224.2171b574@pumpkin/
+>
+> Oleg.
+>
+> > --- a/fs/fcntl.c
+> > +++ b/fs/fcntl.c
+> > @@ -929,11 +929,11 @@ void send_sigio(struct fown_struct *fown, int fd, int band)
+> >  			send_sigio_to_task(p, fown, fd, band, type);
+> >  		rcu_read_unlock();
+> >  	} else {
+> > -		read_lock(&tasklist_lock);
+> > +		rcu_read_lock();
+> >  		do_each_pid_task(pid, type, p) {
+> >  			send_sigio_to_task(p, fown, fd, band, type);
+> >  		} while_each_pid_task(pid, type, p);
+> > -		read_unlock(&tasklist_lock);
+> > +		rcu_read_unlock();
+> >  	}
+> >   out_unlock_fown:
+> >  	read_unlock_irqrestore(&fown->lock, flags);
+> > @@ -975,11 +975,11 @@ int send_sigurg(struct file *file)
+> >  			send_sigurg_to_task(p, fown, type);
+> >  		rcu_read_unlock();
+> >  	} else {
+> > -		read_lock(&tasklist_lock);
+> > +		rcu_read_lock();
+> >  		do_each_pid_task(pid, type, p) {
+> >  			send_sigurg_to_task(p, fown, type);
+> >  		} while_each_pid_task(pid, type, p);
+> > -		read_unlock(&tasklist_lock);
+> > +		rcu_read_unlock();
+> >  	}
+> >   out_unlock_fown:
+> >  	read_unlock_irqrestore(&fown->lock, flags);
+> > --
+> > 2.34.1
+> >
+
