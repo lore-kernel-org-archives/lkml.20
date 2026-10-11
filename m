@@ -1,72 +1,76 @@
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516C035DA42
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 19:13:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B492D26656D
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 19:14:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791746040; cv=none; b=V0x8CjWtuPMmpMJqK2O1EM/ypKiQyNO6BvIPLu77aMHrTrszI8foVmLWRcc/E9FcbPOqBsYUlmIMCGnnIZjrCyz3nek95J8yS6ttTro+8IV/E+LbS2n4ghmBnyOQcPZzQ3Cwp4Oyr/LUZdjsH/ip+6DGZRzRUsSBl/L0LVcV5YI=
+	t=1791746042; cv=none; b=anAZx12HAP+TiTrAMVuor8tZscq40tG0ckt1b5DBovoazuann5aede+mlWiDH0bx8bPOrUy/7SQqi1AIMZuPfoxmNOz94qugKfJsjvYtYyxMcJlsZweClh7/SbfEfiR561/RmutZOBnp6J8R/vLvQ3vpruSgTi/KQV1lh99MFMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791746040; c=relaxed/simple;
-	bh=u3GA36Yn1in3410a7NikaX25shwYKZA4aFjbSlUMpqo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HmDoc8Mmwt/bGrfkiifYGKt74YHnVReL7s422CiKu11huClXE0l2ahmhJlNGO2LXepLAf1qNUwTKHTyXg80mg6HyRptRSIOdqU+KOb400wZ16GQECjeX/zf34EvML5Z4giFyylODUDB/A99yneK5pR7oQO2W1cx/5NyA04yjo1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g9wgXTvl; arc=none smtp.client-ip=209.85.218.54
+	s=arc-20240116; t=1791746042; c=relaxed/simple;
+	bh=0Dams8yhDKRdt2LapkcleFLfxS6mpwRM4s1oYHTD54s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=n42wl0OJcXXwowaiOlBO627s+zT5DOSHaa5nqWo2oqRrwbqpE0ds0BGjmwS5ByoLlO2VV+mfuxyZFrVrYauUBQ7LnZaPpmSxSzcSIIya3Y2OLHsOWwsLNmYSC0spBEHGdgo4fySPcwsoY0jIlexoi7BQgqxDHCDypAuiPJ98z64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bKjwck8j; arc=none smtp.client-ip=209.85.208.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g9wgXTvl"
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c169ae1cb26so581871566b.1
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 12:13:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bKjwck8j"
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b1ab2ad719so820715a12.3
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 12:14:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791746037; x=1792350837; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UOSwhisIw431b/tMlifKmUueFNOwFyz7VxO+xdRddRQ=;
-        b=g9wgXTvlJrwHZ6ip+Bo3mYZe6hBo8hEh5TeiULdJGkoq4kdTN49kagbfTRj5GGpyEa
-         Yopgt0Bl7qr3mb8FjDRyvnO3cAHflAsSie9J/Cr/EHZstCMwRshMPSaTE5tIvNgnfpQu
-         e9Rfr0E0q5HlKyYR6Qi7ap77tfBAJ/4MB1C8HJyQiP/K0kUy+IvM4hPlxsVY7KcOXfsN
-         PFsxtnKLcY2HYhYSc8Vqf0jlZQUKxx7mCsknhPdG1g552VQOIFVCsCdIflQzBhXmfmFG
-         r/Khx11fG5Y32t2OEvso1yh34Gy7aVp+aQ4cNZmGFhu7+/VkoCrXRKGVvlodAoCETM7G
-         4lVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791746037; x=1792350837;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791746039; x=1792350839; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UOSwhisIw431b/tMlifKmUueFNOwFyz7VxO+xdRddRQ=;
-        b=vHxJhHWGYZfurkUL7+hg4Rduj2jPu476z1IYGkg2QKi8DIcMVM9axvdMISkKpDVRo+
-         /DbGwKk2OZEVCPovjBNjwBiFERSb6bDO2Bf5Of+7jyrrlD1ZPkw05VhpZR0qbw2wihn4
-         DnybgfCNNcXWeCOoe8n8JZdpM2hzYvGJ8BQP8bAL8Ck5ff52WQahjKD2PsRYHH3uN8Zd
-         ihV2d8ETFjIgbWVzZK9zC+2Aw9RtU95PrhZTUPktm6SDllJQryssvy6fuk6qo/LN+E6i
-         yIfLn07KLkiLcGckkAZ/AGO6wzvf3ixGeP2SU3jYUuJK7JTeAvBz+JS/n7AkRXAULAy+
-         xqLA==
-X-Forwarded-Encrypted: i=1; AKwUvBybwmdCSZtXrjymmKWR6I7Dxznzq1GylebG6i5Sch6J6h+vMX82UXsQFdVTeg7Oe1s9Npi0bdIZ4G1js8U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIhjCY04+bTa3L+pTiHC9K39VdTN/0ywZLLs0Uur9XwOLnMk7me
-	3ftMl3a4SKf5R7jNsUQ/3y0RlaP9nX5VunVYlZX8hazub4CCLW9PCIAu
-X-Gm-Gg: AYBFou0YIFCOlsPYRwjInUe+1bprSJ86u25EpYvdBsUbZTBg+dGAlpw2BS++bPG/ryx
-	6As8GBClrfwgb667S10m3diesFh2oL6NQyX1mHcJ4AA/w+EobXbnd4kS3BTD7I6rzePjiSD4Dyd
-	e4uwKWD/NghlyWkpFQH04Wn9b0lQvKzvQJLwKpZHqUODoddzxeRwCjY9TB1t/vefpOrFNtOgiYm
-	O9CfT4csKMtqD3YmdAtwpKAAinsSV0bxrKU+rCCR0qElroAe5SVL7x9ny1xwGKVPWADyIJZNa7u
-	NiNYrLj7KF3W3jO8QxEIJcSShQ8e12fV6LE5QFhr1s2VolVrgRsDjtEZn8P+j10522PLnaQXOmn
-	Wc1127wD15SFD4zBsYEHVLEy/NwTxAqBqUhgY253A+W7wSBAfvdXuLGZVUSKp6TLNkvCHbl+A13
-	bgdTCXZB8dOvttweYjYS55DBf0GBtXPk4OM6Jri02UoJajkcAeAdn4xLeFIjXRIPa0ZKuQQxN+m
-	1S9svBUEOWHmXPFYy3hTxNwTe8M+D3FJxK8ygZl
-X-Received: by 2002:a17:907:c386:b0:c2e:2275:1168 with SMTP id a640c23a62f3a-c31a70675b3mr740184466b.19.1791746037400;
-        Sun, 11 Oct 2026 12:13:57 -0700 (PDT)
+        bh=ZjcAwhXe9YAn5uo+Rr2PV+mZ56EMyAKAQzi8CgIvfOg=;
+        b=bKjwck8j/9USHXqH5hm86jnUDKoW1jZmI3DdmSJtFR7csA6/yNyJb5/E69cQYft5RD
+         WBY8zW6GMLtPP0WNFqZhoE6J8bt3HY8VHlD+It+5irtzW4WoqGZAbg0yNkW7BzYvQA+i
+         bzGqseMbtDwxj0kt4b0NUqSzoiKtqFO9c2IRZ/RZ+eiqz7b0wp5Y57X/Bcwzyj3FEA/y
+         R1h0AOSkPAmhzWeoMkeByIT9WC8Y0LxnEf+EgKuMgANqMxRBw0h+sXxXnmzVZ7OELI2X
+         who85TxkscnK+PAtIJJMFOufj4vQrena1opNUfT3n8t7eJJ+JtlIIHnGCSGq3ViU91YK
+         FCTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791746039; x=1792350839;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZjcAwhXe9YAn5uo+Rr2PV+mZ56EMyAKAQzi8CgIvfOg=;
+        b=lglXYz3keCP2LoXA/QHkl7Ar6dz41IV1EP6f1Qy9Ep1pf5Wo4xwcyvBqxlSIiukKkq
+         DPEuf5gg47KnLgm08nS/XEwaliOmF5aUC8NSFD/TYqq5O8q/wiXlW4XufQgFotogi8zd
+         JXvYmLwxrBa77FVYNb8CYa1sJBCNAaBRwzGsjMxeL3Lk2zpMZckmZ8Faqc8WArHTlV0p
+         /7ptKuuW+5xXZfe88t+uiDuweSRf0x19nAikYhRkVLoJ1OuDWABCr2xj76U4/uUCtFkv
+         whwkbU7wPXss5USoMGYfvfJimKOvOQo0Km/aGRYuJTll9UnYv9A4E2cdSUOdRzmS70YE
+         yx5A==
+X-Forwarded-Encrypted: i=1; AKwUvBy+Sjy6+ywjOKuBAzOGcHQM0Wg14RVVBlRuXNvK/AvUmgIJea6kzBkMJfYsUj0X6Ej3KQ4bOIHLTojTnLg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ41bQV3Cw5cDmBUMK5iRSrZkvtjGwiPWzFyInHy7Hvpc0B4808
+	HX6mD/REbSHtExaqjjmU60jI4oQFd1VjPLbPCDh1ZKhdo/6IEDnjLwlq
+X-Gm-Gg: AYBFou16E+Zs+0E0+GeRaCDTodQrqDiQ+emmBlN9s+/XqkqVPH9DDYzObJgH6nVRamc
+	rcxoqEnreIfyhAtPYd+t764oCmcNyQU7VugO7zToap/9E4LgPeBBVFTdg8TLEYyk1T9hNB4lQCv
+	IkDhmy5khBHTEmMGU8RFbQ7H68ADT15vMWBLqFwxBTcyKIYz4VMeisbnbsE774SvbZPtyXtqyRn
+	J26GW/8BNdsnb98bMZftS6cyj0zhcEhPzfs8hH0UB+VNaF6czg5TGK2Kz4dJt6r9z93l9V+Efs2
+	TDt/jthUNOBJp25bngyAyPw+5YH0GCLlHuVgjiw45PIeAUfpOXU13pStJtSBJDLXRohvgfkwWPp
+	cIHck+Ggb7R0PiaMxGx/YLc250wOULiHoWTyxydEOb26+EcWDXAXKIC7lKxtJBCseM6E2Z/2prj
+	oQ0HtF9BQHA01yEt6Ck/rGwiUYnez3ku9ilF6jkfZfI4Hjs4GW/GmJyfZ162bM6iYyQxtXf69By
+	jEO8OkGiMoZ2FKbAfowN4bKLouJhTdodskWnwRH
+X-Received: by 2002:a05:6402:5113:b0:6ae:313f:ddfd with SMTP id 4fb4d7f45d1cf-6b17c29f797mr7279611a12.27.1791746038682;
+        Sun, 11 Oct 2026 12:13:58 -0700 (PDT)
 Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b179dd3736sm4084832a12.18.2026.10.11.12.13.56
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b179dd3736sm4084832a12.18.2026.10.11.12.13.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 12:13:56 -0700 (PDT)
+        Sun, 11 Oct 2026 12:13:57 -0700 (PDT)
 From: Magnus Lindholm <linmag7@gmail.com>
 To: richard.henderson@linaro.org,
 	mattst88@gmail.com,
 	linux-kernel@vger.kernel.org,
 	linux-alpha@vger.kernel.org
 Cc: linmag7@gmail.com
-Subject: [PATCH v6 0/6] alpha: improve Tsunami machine check reporting
-Date: Sun, 11 Oct 2026 21:12:47 +0200
-Message-ID: <20261011191344.981000-1-linmag7@gmail.com>
+Subject: [PATCH v6 1/6] alpha: move Tsunami machine check handling to err_tsunami.c
+Date: Sun, 11 Oct 2026 21:12:48 +0200
+Message-ID: <20261011191344.981000-2-linmag7@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261011191344.981000-1-linmag7@gmail.com>
+References: <20261011191344.981000-1-linmag7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,95 +79,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds Tsunami/Typhoon system-error diagnostics and Clipper
-ES40 environmental reporting. It applies to v7.3-rc1 on the Alpha for-next
-branch at 33465f6ab697.
+Move the existing handler and PCI error clearing helpers without changing
+their behavior. Build the error objects for ALPHA_TSUNAMI so that all
+Tsunami configurations, including non-generic Shark, can use them.
 
-Thanks to Matt Turner for reviewing v5, building each patch for GENERIC
-and SHARK with W=1, building its tip for DP264 and EIGER, and booting
-GENERIC on QEMU Clipper with two CPUs. His Reviewed-by tags are carried
-on patches 1 and 2; patch 1 also incorporates his build-ordering nit.
-
-Changes since v5:
-- Add bounded raw dumps for rejected EV6/system/environmental frames.
-  Round down to whole quadwords and cap fallback dumps at 1 KiB.
-- Clarify that ES40 documents the short EV6 frame; the corresponding
-  Titan/Nautilus firmware behavior has not been verified.
-- Move the non-generic Tsunami err_ev6.o dependency to patch 4.
-- Correct the obsolete PERROR bit-9 RTO definitions: HRM rev. 4.0,
-  Table 10-42 specifies reserved MBZ/RAZ, so the 0xdff mask is retained.
-- Drop the ES40-specific system reason-code restriction, retain structural
-  bounds checks, and restore CPU register/PC output for system errors.
-- Remove inactive expected-probe handling and its changelog claims.
-- Report valid environmental notifications with no recognized fault bits,
-  including their status context; remove "Set =" from door messages.
-- Keep PCI initialization in sys_dp264.c and error registration in the
-  error file. Restrict console-log scanning to Clipper pending testing
-  on older Tsunami firmware.
-- Put UECC/PERR panic policy in patch 6 with its HRM rationale. Only
-  system-error vectors can trigger it, not incidental live PERROR bits
-  during CPU or environmental notifications.
-
-PERRMASK remains as configured by firmware. Inverted SMIR halt/reset
-bits remain undecoded. Console environmental records remain raw because
-ES40 Table D-18 has conflicting offsets. Restricting console-log scanning
-avoids extending it to untested boards; it does not validate arbitrary
-firmware pointers or establish nonempty-log coverage on Clipper.
-
-Testing:
-- Native ASan/UBSan tests exercise the actual EV6/Tsunami handlers and
-  console helpers, including malformed/short frames, raw-dump bounds,
-  unfamiliar reason codes, separate live snapshots, register reporting,
-  fault-free environmental notifications and system-only fatal policy.
-- W=1 vmlinux builds passed for minimal GENERIC, SHARK, DP264 and EIGER
-  configurations using GCC 15.0.1. The existing saved_config COMMON-symbol
-  modpost warning remains; no compiler warnings in the final build logs.
-- git am on the stated base reproduces the final source tree.
-  git diff --check passes; checkpatch reports no errors.
-
-V6 was boot-tested on my AlphaServer ES40 using my ES40 configuration,
-with GENERIC_ENTRY enabled. Unplugging and reconnecting a PSU power cable
-produced three correctable environmental notifications (code 206). PSU 1
-was first reported enabled but failed, then its enabled indication was
-absent. After reconnection, its enabled indication returned and its
-individual failure indication cleared. No oops or panic appeared in the
-available log during this test.
-
-SMIR bit 0 remained set in all three reports, so this test does not
-exercise notification reporting with all recognized fault bits clear.
-That path, malformed-frame raw dumps, system-error register reporting and
-the UECC/PERR panic policy remain covered by synthetic tests only. V6
-hatch testing and nonempty firmware console-log testing remain outstanding.
-PALcode clearing behavior, inverted halt/reset polarity and corresponding
-firmware layouts on other boards remain unverified.
-
-Earlier v4 testing used PSU power-cable changes, opened hatches and a
-CALLSYS-based software trigger with modified handling. Matt's build and
-QEMU results above apply to v5.
-
-Magnus Lindholm (6):
-  alpha: move Tsunami machine check handling to err_tsunami.c
-  alpha: describe the Tsunami system machine check frame
-  alpha: bound EV6 logout decoding by the processor area
-  alpha: decode and acknowledge Tsunami system machine checks
-  alpha: decode Clipper environmental events and retain console logs
-  alpha: stop on fatal Tsunami system ECC and write parity errors
-
- arch/alpha/include/asm/core_tsunami.h |   8 +-
- arch/alpha/include/asm/err_common.h   |   2 +
- arch/alpha/kernel/Makefile            |   4 +-
- arch/alpha/kernel/core_tsunami.c      |  34 --
- arch/alpha/kernel/err_common.c        |  13 +
- arch/alpha/kernel/err_ev6.c           |  38 +-
- arch/alpha/kernel/err_impl.h          |   1 +
- arch/alpha/kernel/err_tsunami.c       | 592 ++++++++++++++++++++++++++
- arch/alpha/kernel/proto.h             |   2 +
- arch/alpha/kernel/sys_dp264.c         |   5 +-
- 10 files changed, 651 insertions(+), 48 deletions(-)
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+Reviewed-by: Matt Turner <mattst88@gmail.com>
+---
+ arch/alpha/kernel/Makefile       |  4 ++-
+ arch/alpha/kernel/core_tsunami.c | 34 -----------------------
+ arch/alpha/kernel/err_tsunami.c  | 47 ++++++++++++++++++++++++++++++++
+ 3 files changed, 50 insertions(+), 35 deletions(-)
  create mode 100644 arch/alpha/kernel/err_tsunami.c
 
-
-base-commit: 33465f6ab697abceafd9a340067a544d551c4412
+diff --git a/arch/alpha/kernel/Makefile b/arch/alpha/kernel/Makefile
+index 4ea5c189e60e..a453e487b9d0 100644
+--- a/arch/alpha/kernel/Makefile
++++ b/arch/alpha/kernel/Makefile
+@@ -39,7 +39,7 @@ obj-y    += err_ev7.o err_titan.o err_marvel.o
+ endif
+ 
+ obj-y	 += irq_pyxis.o irq_i8259.o irq_srm.o
+-obj-y	 += err_ev6.o
++obj-y	 += err_ev6.o err_tsunami.o
+ obj-y	 += es1888.o smc37c669.o smc37c93x.o pc873xx.o gct.o
+ obj-y    += srmcons.o
+ 
+@@ -89,4 +89,6 @@ obj-$(CONFIG_ALPHA_MARVEL)	+= err_ev7.o err_marvel.o
+ obj-$(CONFIG_ALPHA_NAUTILUS)	+= err_ev6.o
+ obj-$(CONFIG_ALPHA_TITAN)	+= err_ev6.o err_titan.o
+ 
++obj-$(CONFIG_ALPHA_TSUNAMI)	+= err_tsunami.o
++
+ endif # GENERIC
+diff --git a/arch/alpha/kernel/core_tsunami.c b/arch/alpha/kernel/core_tsunami.c
+index fc1ab73f23de..d435ec9fb828 100644
+--- a/arch/alpha/kernel/core_tsunami.c
++++ b/arch/alpha/kernel/core_tsunami.c
+@@ -448,37 +448,3 @@ tsunami_kill_arch(int mode)
+ 	if (TSUNAMI_cchip->csc.csr & 1L<<14)
+ 		tsunami_kill_one_pchip(TSUNAMI_pchip1, 1);
+ }
+-
+-static inline void
+-tsunami_pci_clr_err_1(tsunami_pchip *pchip)
+-{
+-	pchip->perror.csr;
+-	pchip->perror.csr = 0x040;
+-	mb();
+-	pchip->perror.csr;
+-}
+-
+-static inline void
+-tsunami_pci_clr_err(void)
+-{
+-	tsunami_pci_clr_err_1(TSUNAMI_pchip0);
+-
+-	/* TSUNAMI and TYPHOON can have 2, but might only have 1 (DS10) */
+-	if (TSUNAMI_cchip->csc.csr & 1L<<14)
+-		tsunami_pci_clr_err_1(TSUNAMI_pchip1);
+-}
+-
+-void
+-tsunami_machine_check(unsigned long vector, unsigned long la_ptr)
+-{
+-	/* Clear error before any reporting.  */
+-	mb();
+-	mb();  /* magic */
+-	draina();
+-	tsunami_pci_clr_err();
+-	wrmces(0x7);
+-	mb();
+-
+-	process_mcheck_info(vector, la_ptr, "TSUNAMI",
+-			    mcheck_expected(smp_processor_id()));
+-}
+diff --git a/arch/alpha/kernel/err_tsunami.c b/arch/alpha/kernel/err_tsunami.c
+new file mode 100644
+index 000000000000..1045b920fa6b
+--- /dev/null
++++ b/arch/alpha/kernel/err_tsunami.c
+@@ -0,0 +1,47 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Machine check handling for Tsunami/Typhoon systems. */
++#include <linux/init.h>
++#include <linux/pci.h>
++#include <linux/sched.h>
++#include <asm/io.h>
++#include <asm/core_tsunami.h>
++#include <asm/smp.h>
++#include <asm/err_common.h>
++#include <asm/irq_regs.h>
++#include "err_impl.h"
++#include "proto.h"
++#include "pci_impl.h"
++
++static inline void
++tsunami_pci_clr_err_1(tsunami_pchip *pchip)
++{
++	pchip->perror.csr;
++	pchip->perror.csr = 0x040;
++	mb();
++	pchip->perror.csr;
++}
++
++static inline void
++tsunami_pci_clr_err(void)
++{
++	tsunami_pci_clr_err_1(TSUNAMI_pchip0);
++
++	/* TSUNAMI and TYPHOON can have 2, but might only have 1 (DS10) */
++	if (TSUNAMI_cchip->csc.csr & 1L<<14)
++		tsunami_pci_clr_err_1(TSUNAMI_pchip1);
++}
++
++void
++tsunami_machine_check(unsigned long vector, unsigned long la_ptr)
++{
++	/* Clear error before any reporting.  */
++	mb();
++	mb();  /* magic */
++	draina();
++	tsunami_pci_clr_err();
++	wrmces(0x7);
++	mb();
++
++	process_mcheck_info(vector, la_ptr, "TSUNAMI",
++			    mcheck_expected(smp_processor_id()));
++}
 -- 
 2.43.0
 
