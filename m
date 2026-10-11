@@ -1,79 +1,79 @@
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012016.outbound.protection.outlook.com [40.93.195.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09BB340A929
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:37:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791707865; cv=none; b=Q4zE17jkbE/F0nE4pXuUmevKtgX5KDED+8jrJYvO1Nipgcqd5MlRA4WK2cucY/O7tf3DDBPB1EfIqLo0DjCRt/BLYMaqNYYCfyCoxA0XFypR+hZTThtD1NYbNvD7Q+WHoxcA7LbH5VH2DVtrUqXVwu/4W2MKYvhVM7ZHCbWfNRo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791707865; c=relaxed/simple;
-	bh=AG9KYqEAuBrC5cVUj2Gtfc/xyb1PbumNIgtY38YvP4E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=s6e7HZiuFVh4JidD1eCp+gGgRtKaLVDcw+/i8yGucbfrf6HwKhkqZE0ahw/Jtwdsk716mqJhHiXq7zKojNjZGrbBn5X3fzVgqxST65g43L44ba8CMbiMluxKqCZOXWlH4VhdSHqc6JR8N9+LYQmiQJU3T6r4IJvc4rNWuWRmAKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VD/Eceub; arc=none smtp.client-ip=74.125.82.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 425F24078E9;
+	Sun, 11 Oct 2026 08:40:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791708002; cv=fail; b=EsdNLSe95954Z1R3u/NJKRAuuyY4DHeDbc/jrFyZsXVxrKoh6er9EP82SIfADVK1zAL6vuNyJD3qNQdqoOLZpAYeT3NjQ8Oy0hRMOYJmFv43RkJkKdSWNZupachOSiRKWjNzjsqB0NOnRrUAe41b1ORRvgZz+b1aqVFUbgWGHz8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791708002; c=relaxed/simple;
+	bh=pXb/udyY72tlkXkHG5bT/Pzlwro3XpfXpDb7mUUcUT4=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ZlGl5trA+kEKd0NhD95yi4+SrGGX9bP0A6rHFUOTcvylNT2o3+6WjEojyuaLS3k2ZwdpqPU28S2UoROBOSjibnS/g7RZ8TJUEeax1bCgGmeSam6aB2/VX5O9k1JKMdNpjg+uOFkZL3JF+fBdDzLSqZcjipQ0ALRPlTmusIm0q08=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=FN7njEH7; arc=fail smtp.client-ip=40.93.195.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VD/Eceub"
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1517bda04a0so456380c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 01:37:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791707863; x=1792312663; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NH/6OaijL4k70kWtU4gX45/jYXFxMDPWyBg48ckR6HQ=;
-        b=VD/Eceubty7HZmzF7szOIhfPW2i0IHPoLQl+yd3Kwsv1N6/e5BpZ6hOpzJ/RWdjoN2
-         NoT1Qn55IZjvioHjTj1mGHithnErd/mSz/pPwYy0WYY/UsofLCPxjCQ8+qeqkjxvo/xW
-         xjupnpW8mHBSvg6OUhHhEq7N/hStF1IZgOzOgO69EQerRunRpiZeErTLTbcnraGkdX+y
-         AFZxOz6Q5cWLugEcb8LL9u6Si0GYiSfwN69KUZ9rllvKCSHon/E+OrE+IZAnrK27h/IG
-         iHYruQrskayMaPbFJaGArCky2bpkd8Zr/d1L/A9nUXIaTL7hiiVpLwq8BQnijsDTe69q
-         g6Pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791707863; x=1792312663;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NH/6OaijL4k70kWtU4gX45/jYXFxMDPWyBg48ckR6HQ=;
-        b=PiYW4BqW4zRhMXPvq8UIwMZdu/7KLrxvdSnEHm6zWz2BLYe0IjIVkzH26i13RSZQ5C
-         Cu5y2LipoTAVTD8z0mrKi3Rc4NHstt3bmnHDp7+mCFqMBaC88ayjB6Af7ualwYd1ztjB
-         Rdz6KV6XwIEE8LI+v9sCF0tLMI8vpgSR4U4YiizxHtc/8wKHE8wArUXsMQY8ryyWTzny
-         30lx4E6YTioC8zy7FpDCJQVDOWmVKTwUtnwmkoAz27MROLi+Ou09nSt58YvDnXV35A5T
-         T1w/23l6VVuIEABgNFlrHRTBC0B3aAVak/0fFyEkY7jS90jq0ko9/xh38DGdB0X21sNx
-         rEEg==
-X-Forwarded-Encrypted: i=1; AKwUvBxaU0Ty2X0aSzImMFqRAtW8C7AQz3PBWONBciZKf8YjBcf0aD5A73yzimvjIolH6He1csKY5R/d8YkB5Bk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIHVtWHZg4w2olWgTWXhseSeV+ZtQRetOeap1iG96VG89xuZbS9
-	eh6aD6RLwTsrpIYzYHTVYauup6yfI72E8FqtL7ncfgZ+XnOzPO6TtNze
-X-Gm-Gg: AYBFou2V54a2ofe38MhaKWMf9w0TXgZBGmjD45xn8H7F5GOyn5V9ylb8OPbshLnX0N5
-	pyA3Ic8Yfia6Teh7po1kPKMRKS9OuqXXD4o4zMwi6WukIBGz4RBRxUGL1W8FkDpVvkIl+mm71sA
-	oj1dAOXR6uTANwR4qeQ9LVzKFg4RRcABkuxPHK+oATV8hPrKB7G/EzEzgQCghDkEpoGHeLBtf8i
-	vVId2kUxi45CX+dcJ+QDMl4LxlZLZBbK23sMrVj9JGVisO9J+MULTpoa+evhFDdsSOGWmteXjow
-	RTKbMeTvlVR0u4DMfn4kOh/+UuTVM/qRsf++N6aCjC1hPM2fH9MD2T5pw2Mg7UUYos32Mx4Jxkp
-	pRpWOGQGFHmK+l0yfole2D6QD2tgNvEeaVuWCofJvUlkhbjadof/G45r3wcI7bkpnCT88d8SodX
-	xWSVIBZbPJCD38ZbPuOGdgNiRb7AMu4IwhEPK7b10bALTGGpNaPyfPFgUCnxyS2Wpt6b8NbTxoS
-	BXk0bp1QoGb2MGrXOppRznlsM6uM5GJpofsdjzh+6yku/58b0P8KITccnTYeT0cpr15mPZm/iDq
-	JBEnhno=
-X-Received: by 2002:a05:701b:4183:10b0:144:e535:3ef6 with SMTP id a92af1059eb24-16a5ec48a2bmr9056982c88.41.1791707862819;
-        Sun, 11 Oct 2026 01:37:42 -0700 (PDT)
-Received: from LAPTOP-UUUVNN1I.localdomain ([129.126.57.197])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a42407e7sm20186473c88.15.2026.10.11.01.37.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 01:37:42 -0700 (PDT)
-From: Wei Jie Law <98lawweijie@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Andrew Duggan <aduggan@synaptics.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v5 2/2] Input: synaptics-rmi4 - reject a PDT that grows between scans
-Date: Sun, 11 Oct 2026 16:37:28 +0800
-Message-ID: <20261011083730.223083-3-98lawweijie@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261011083730.223083-1-98lawweijie@gmail.com>
-References: <20261011083730.223083-1-98lawweijie@gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="FN7njEH7"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fWT98xijiSAPQgIMQCUg4HJ+mCuULHZMDf/c5x4oGw3cRe7aEZxEO4T4qaYsqA7+xmi7tzhD5wSgvfeahy2jiIFRcPuCoXPEHGxcQjI3h08p15ZvAlOVJY7PtvvJRWV7v/Tw/LZ3TOcf8SPeAOCSXIgLed5gCeQpcp/vjiK8inHWvBQXOxYc/QC7BUN5AJ8xExOrJigiTObaKYkffhYraGfh/6ZyZCsbj1gMsBFy1PAKH8WuFPWZ6ONfY4aql4mthzsshwI61OS9ZXnN6Lj3RpC0UOiMKvLUQNw8mIx8M/LGNXynVpXEnXIYi3WmaiiWpx7Ky/NxpCMUQyP42PGfng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9+M3A6U7TU4M4aiMrOjf/Awi+1GBbK4DCBsFhEb/M/s=;
+ b=C002OfBi9Isyem2T4MKaVMWpeasaQzX6j59GWptyXoFEBMil8F3KbXeVS0od+c0OUksjNl/HsUEhsaVBuWZh6ddRSLgzgju9qP10nie9iRtYahjYvQIPtyM+wBcmzO6r57XohEcF1RxoPZJkfyKJNaQuh8vSFS0lD9kboacg8zmulL8GxXa7ZNYzrdTQg4xGntgOfFh5n2Qx1a6SM0scD1g73VkW9VzTzr/qA+4UVXm9zu5zhP9TIfgOW+OwefgF9CMuMpCEgK4/dx8MVJR5r0Y62zLZPxSsZqVEaTRd19pMvi/CbsKTbNk7IzTw2x90JofwgjWLnaU1DTYdZGzGcg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9+M3A6U7TU4M4aiMrOjf/Awi+1GBbK4DCBsFhEb/M/s=;
+ b=FN7njEH7XTCjWMXDF5ZDKD6m+3s9mdjqdEsiLR3vnk0NmrcLXRcar7E1iEbYlkRcXrOh3YPz+qp7TvyMfKAmidl/+0fH9FnPHWkiGhJTMW1f6PFqFTwFXF946anPj/kxuMZ4st9FV1RuR6aMGECgoe/5MBZVBu79FI2lGmAmXdxAGmoq5ZkhJZHHHP5AU/IZJdI1OTeMO4u9S/ysGYG88hU5XKgEnc2cLEgloZzOJH0Svlc1ibCAo5gHTeadJdJGtX2vPzdBnl6XEtv1YSCEof8cmAGwP9dy75BW5hMbSPZxV7BbGqO0MPfjea48gmBYM0xoJIlIbyiTx3pLmhOuQw==
+Received: from BN0PR04CA0169.namprd04.prod.outlook.com (2603:10b6:408:eb::24)
+ by CH3PR12MB9431.namprd12.prod.outlook.com (2603:10b6:610:1c1::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Sun, 11 Oct
+ 2026 08:39:55 +0000
+Received: from BN7PEPF000000AA.namprd05.prod.outlook.com
+ (2603:10b6:408:eb:cafe::4f) by BN0PR04CA0169.outlook.office365.com
+ (2603:10b6:408:eb::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Sun, 11
+ Oct 2026 08:39:55 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ BN7PEPF000000AA.mail.protection.outlook.com (10.167.245.234) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Sun, 11 Oct 2026 08:39:54 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Sun, 11 Oct
+ 2026 01:39:44 -0700
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Sun, 11 Oct
+ 2026 01:39:43 -0700
+Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.9)
+ with Microsoft SMTP Server id 15.2.2562.49 via Frontend Transport; Sun, 11
+ Oct 2026 01:39:40 -0700
+From: Tariq Toukan <tariqt@nvidia.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>
+CC: Alexei Lazar <alazar@nvidia.com>, Carolina Jubran <cjubran@nvidia.com>,
+	Gal Pressman <gal@nvidia.com>, Kees Cook <kees@kernel.org>, open list
+	<linux-kernel@vger.kernel.org>, <oss-drivers@corigine.com>, Simon Horman
+	<horms@kernel.org>, Tariq Toukan <tariqt@nvidia.com>
+Subject: [PATCH net-next V2] net/dcb: Validate bandwidth for non-ETS traffic classes
+Date: Sun, 11 Oct 2026 11:39:29 +0300
+Message-ID: <20261011083929.739261-1-tariqt@nvidia.com>
+X-Mailer: git-send-email 2.44.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,106 +81,98 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PEPF000000AA:EE_|CH3PR12MB9431:EE_
+X-MS-Office365-Filtering-Correlation-Id: 772b5598-cbd4-49fb-c49e-08df277339a0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|23010399003|7416014|376014|36860700016|6133799003|18002099003|261009223027099003|13003099007|11063799006|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	V8phrbmX+Jh545IEkIF/lxqJlcNlIQfSnGiQm0/Z2BeQ6jDKcRMr04obzj0Jgzlfw2Red0jJyrdx+Zd2D7U1ge3c5miuB9Phzd4r4o6AJV8rjiQ/BoQ3NvxQUOSRPkM5U8M3eemQKahiIzbyzuo/XktE7gA2CatGvRVwcSYoHAlO6bpWRcS4Fuo12EgDEawOZJjCUcHoxPknh3fl2+KnRzpWvHV0fpCFn8XU7+ipxxGzirWRff+Yt7IQyDQcU7cEqQOUGpSmvWa6zFU4cbheaL1j+8bPv1zyaliz5G59oCiPaReX88AfaelvKnAH2R8QGDZ+bVhgdmVv3+2EaZrADUYXSnHUhbZU2+VSuC8QXj+AaIRPVDKjot4IsNc5mO8IdnPJkrmwx55ojbs9kf3gyCdCzIVUKYYclrtuDfGDANuvN9nbaBRl/Gx0qjIhtH6MZQj1zKRxePL2aStel9HuihluiYjiBfrk7DppEn5qKwTaxjh/8jST4sCEsNzGsmcc5lceERzp3RJiYgYqLCByK0mOKb9h50tGQqwWE3aF0p2mtu0J+nR04+KxiKJIlLbAG+fnxshB4VX9GXxoHmMU25k53xljd2PwsdG+7YLq7n4S1pE338ulKrI6Y+DdQRnRxL68nmaKvudjFnqJBL1UYVOfbkUzYeLzU9j8k4THudNy3LpJjvgNfJlA3j1Sq01VAKt42G3kiytetKaIQSdOXg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(23010399003)(7416014)(376014)(36860700016)(6133799003)(18002099003)(261009223027099003)(13003099007)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	5/BYGQTVYLrgPoBchk4K6p42NpqnHikun41mt8qsPha7D47BeJNv0xjpc/s+ko2Zght3Ume7smyQPF5ZY4jkvk7U1FD4tttdYAdBY7IqcFEUkFqrXQwiUVzWCm4Get1pUpHtjSlGAZ3BAs4R85r78g86dNfqSJKhPfxBMhNyENECS3WYGQWvnpZuEjcEPiRvExV85Kga77CcyiA/BWxJnzjW1N209K1lNCq6SDdGKkHZjYNeWhF2BZ30OzWGIxKK9SMAEOC5s2qa9MQhn239RBeh9JBgfSk6TDV+4dn0F2M20H4dajQgKFgKzBIwu7ldutlmZgGD9f2voH7ZqHDRCUPMVtywfUZgQaoKG+D6wt8nM7jZJJsoqlaH4f2+GBvPl4EbentJpxMLCIuTYubexKNwcYzq0Y+hjJW1/z8OL8ZVlGr2bDmwisnHACDRqXBL
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2026 08:39:54.9555
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 772b5598-cbd4-49fb-c49e-08df277339a0
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN7PEPF000000AA.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9431
 
-rmi_driver_probe() walks the Page Description Table three times, and each
-walk reads the table back from the device:
+From: Alexei Lazar <alazar@nvidia.com>
 
-  1. rmi_initial_reset   - issue the reset command in the F01 entry
-  2. rmi_count_irqs      - total the interrupt sources
-  3. rmi_create_function - create the functions and set their irq bits
+The IEEE 802.1Qaz standard defines that bandwidth allocation percentages
+only apply to ETS traffic classes. Reject ETS configurations that
+specify non-zero bandwidth for non-ETS traffic classes.
 
-Scan 2 fixes data->irq_count, data->num_of_irq_regs and the size of every
-per-function irq_mask[].  Scan 3 then accumulates fn->irq_pos and does
+Placing this check in dcbnl_ieee_set() enforces the constraint uniformly
+for all drivers rather than relying on each driver to validate it
+independently.
 
-	for (i = 0; i < fn->num_of_irqs; i++)
-		set_bit(fn->irq_pos + i, fn->irq_mask);
+Drop the equivalent check from NFP's dcb_ets_check(). Keep ETS
+bandwidth-sum validation unchanged.
 
-without checking the result against the count that sized the bitmap.
-Nothing makes the device answer the third scan the way it answered the
-second, so a device that reports one function with one interrupt source
-on scan 2 and a long list of functions on scan 3 walks set_bit() past the
-end of the flexible array at the tail of every struct rmi_function:
-
-  BUG: KASAN: slab-out-of-bounds in rmi_create_function+0x560/0x930 [rmi_core]
-  Write of size 8 at addr ffff888110c92b58 by task kworker/1:2/129
-  Workqueue: events uhid_device_add_worker
-   kasan_report+0xc6/0x100
-   kasan_check_range+0x105/0x1b0
-   rmi_create_function+0x560/0x930 [rmi_core]
-   rmi_scan_pdt+0x190/0x3f0 [rmi_core]
-   rmi_init_functions+0xb8/0x320 [rmi_core]
-   rmi_driver_probe+0x31e/0xbf0 [rmi_core]
-
-one report per corrupted function object.  The same unvalidated
-fn->irq_pos is used again by the set_bit() and irq_create_mapping() in
-rmi_create_function_irq().
-
-Validate the counts before the function is allocated and fail the probe
-instead.  The check is exact, not conservative: when both scans see the
-same table, the running interrupt total plus the new function's count is
-exactly what produced data->irq_count, so it never fires for a device
-that behaves.
-
-Placing the check before rmi_alloc_function() is deliberate.  Since
-commit 58d42ec10b73 ("Input: rmi4 - refactor function allocation and
-registration") that function has already run device_initialize() and
-dev_set_name() on fn->dev, so disposing of a rejected function with
-kfree() would leak the name string and skip kobject cleanup on those
-trees, while put_device() on the same path broke on the pre-refactor
-trees that stable backports target: a kobject that device_initialize()
-never touched warns and its saturated refcount keeps the object
-allocated for good.  Rejecting before the allocation needs no cleanup
-on any tree.
-
-Reproduced with an emulated RMI4 device driven over /dev/uhid, and again
-over dummy_hcd plus raw-gadget, on v6.12.69 booted slub_debug=FZPU and on
-v6.12.105 built with CONFIG_KASAN=y.  After this change the same device
-gets
-
-  rmi4_physical rmi4-03: F40: interrupt count changed between PDT
-      scans (pos 1 + 6 > 1)
-  rmi4_physical rmi4-03: Function creation failed with code -22.
-
-and a device that answers both scans consistently still probes normally.
-
-Fixes: 2b6a321da9a2 ("Input: synaptics-rmi4 - add support for Synaptics RMI4 devices")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Wei Jie Law <98lawweijie@gmail.com>
+Signed-off-by: Alexei Lazar <alazar@nvidia.com>
+Reviewed-by: Carolina Jubran <cjubran@nvidia.com>
+Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
 ---
- drivers/input/rmi4/rmi_driver.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+ drivers/net/ethernet/netronome/nfp/nic/dcb.c | 3 ---
+ net/dcb/dcbnl.c                              | 9 +++++++++
+ 2 files changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/input/rmi4/rmi_driver.c b/drivers/input/rmi4/rmi_driver.c
-index 443ba4106352..b2ed5991b197 100644
---- a/drivers/input/rmi4/rmi_driver.c
-+++ b/drivers/input/rmi4/rmi_driver.c
-@@ -898,6 +898,25 @@ static int rmi_create_function(struct rmi_device *rmi_dev,
- 	rmi_dbg(RMI_DEBUG_CORE, dev, "Initializing F%02X.\n",
- 			pdt->function_number);
+V2:
+- Generalized per Jakub's suggestion.
+
+V1:
+https://lore.kernel.org/all/20260622112925.624795-3-tariqt@nvidia.com/
+
+diff --git a/drivers/net/ethernet/netronome/nfp/nic/dcb.c b/drivers/net/ethernet/netronome/nfp/nic/dcb.c
+index bb498ac6bd7d..91fbfa3708fc 100644
+--- a/drivers/net/ethernet/netronome/nfp/nic/dcb.c
++++ b/drivers/net/ethernet/netronome/nfp/nic/dcb.c
+@@ -218,9 +218,6 @@ static int dcb_ets_check(struct net_device *dev, struct ieee_ets *ets)
+ 		if (ets->tc_tsa[i] == IEEE_8021QAZ_TSA_ETS) {
+ 			ets_exists = true;
+ 			sum += ets->tc_tx_bw[i];
+-		} else if (ets->tc_tx_bw[i]) {
+-			nfp_warn(app->cpp, "ETS BW for strict/vendor TC must be 0.");
+-			return -EINVAL;
+ 		}
+ 	}
  
-+	/*
-+	 * irq_mask[] was sized from the interrupt count collected by the
-+	 * earlier rmi_count_irqs() scan of the PDT, and irq[] holds
-+	 * RMI_FN_MAX_IRQS entries.  Nothing guarantees that this scan sees
-+	 * the same table -- the PDT is read back from the device every
-+	 * time -- so a device that grows its interrupt counts between the
-+	 * two scans would push the set_bit() calls below past the end of
-+	 * the flexible array.  Refuse the function instead, before anything
-+	 * is allocated for it.
-+	 */
-+	if (pdt->interrupt_source_count > RMI_FN_MAX_IRQS ||
-+	    *current_irq_count + pdt->interrupt_source_count > data->irq_count) {
-+		dev_err(dev,
-+			"F%02X: interrupt count changed between PDT scans (pos %u + %u > %d)\n",
-+			pdt->function_number, *current_irq_count,
-+			pdt->interrupt_source_count, data->irq_count);
-+		return -EINVAL;
-+	}
+diff --git a/net/dcb/dcbnl.c b/net/dcb/dcbnl.c
+index 35164bfa563d..ab71f5312876 100644
+--- a/net/dcb/dcbnl.c
++++ b/net/dcb/dcbnl.c
+@@ -1578,6 +1578,15 @@ static int dcbnl_ieee_set(struct net_device *netdev, struct nlmsghdr *nlh,
+ 
+ 	if (ieee[DCB_ATTR_IEEE_ETS] && ops->ieee_setets) {
+ 		struct ieee_ets *ets = nla_data(ieee[DCB_ATTR_IEEE_ETS]);
 +
- 	fn = rmi_alloc_function(rmi_dev, pdt->function_number);
- 	if (!fn) {
- 		dev_err(dev, "Failed to allocate memory for F%02X\n",
++		/* IEEE 802.1Qaz: BW allocation applies only to ETS TCs */
++		for (int i = 0; i < IEEE_8021QAZ_MAX_TCS; i++) {
++			if (ets->tc_tsa[i] != IEEE_8021QAZ_TSA_ETS &&
++			    ets->tc_tx_bw[i]) {
++				err = -EINVAL;
++				goto err;
++			}
++		}
+ 		err = ops->ieee_setets(netdev, ets);
+ 		if (err)
+ 			goto err;
+
+base-commit: d8674294aefef02266c4d47ad10131f1bffbe534
 -- 
-2.43.0
+2.44.0
 
