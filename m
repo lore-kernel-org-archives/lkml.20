@@ -1,64 +1,64 @@
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36F7C2DAFA9
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:17:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 242F53403E7
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:17:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791735456; cv=none; b=eeOvbRVOlpFXFh0blpPawbZmPytCwOCi+AeQh6qYXz0A08DKJ/kTtZnKfCLjfOYL0Mouu6WlxpehpUEfd6HWGZidXKA2wy+3exryC6dKaC3MIyHBjaD4hfhkukDUiCuV/ni7WRyP5G3I80M43KhTkiLZc8Ux/U6fuCnEyxdCw+A=
+	t=1791735458; cv=none; b=XL2yAlQkIcIWwGkwuXUKqWvwoCWLa2lb2GDFusQ/yBdVZwhGy9kh1cy8bgYFQtGrifkHqTs5pgIg/EyQIeM93/i4RlUGxpsdi8kpAB94SEqXu501CqtexYtOFrEGYZvI/94x3+ywUY5XpJpU201otntRs84lwBwf7LJS9qS1BYU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791735456; c=relaxed/simple;
-	bh=mYHP1i0YB7oOLKfMJTS+JLnqxINc8T4sPhpgL6ZDkeQ=;
+	s=arc-20240116; t=1791735458; c=relaxed/simple;
+	bh=JviAVD7CAW7E+0vcjillo9AKIV4/oAfZhVWG33RBMgE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HJBPytTnCll/NaGpEnbxHzyworcLz0RmyVPb2EQz/co0dH4ezetDtkkq/WDSUIEIJwaLo4JkmhhcF2Qr8iNmwA00ytcmbq4yjXhMaRHLGbJE4XKkPRoq2mbjbL2L68p+qCyGqVBJVQyzDERHgyMaEu4BpRkW3zg311uSLXjfxeU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=icywRbdw; arc=none smtp.client-ip=209.85.218.44
+	 MIME-Version; b=dd69n5Q6Wamjm/hqtRM3U3+Lm7OM2ansK8URC/PNicsAx0Fdkcp51AH/jTXYOMUO6ViLWjtDc9PH8XTIjA3PGGKP3xjrYG2w8kqip1mRYQamD4eLAF651BvIYNRHScODQePVdWz0+nLNHp1M+2bRH1qAeklDsMwWqMtLYaBUXy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nm0CT2Ju; arc=none smtp.client-ip=209.85.208.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="icywRbdw"
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c2e4df2e26fso156665266b.2
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:17:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nm0CT2Ju"
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6afa651700eso1708541a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:17:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791735453; x=1792340253; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791735455; x=1792340255; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mYHP1i0YB7oOLKfMJTS+JLnqxINc8T4sPhpgL6ZDkeQ=;
-        b=icywRbdwLEz+FSyUoXydfRCRkpZvnKiqsPAugOOvLgvJ1HlPD7gos8cmR4gV7frbrN
-         LxJysJ1Q7MHrldTBrJn+OQci5p3UdWmcLbQdRLGPlZUYRToxl82UGU7gWhPC8QJW5bT0
-         avr/vv1cXnRpeO6ATbq0SKj/+3dx8gV0sVT6VSgSvDmAkijhm9qvGgjLijglvMeiorjk
-         pwEgOnqdjJD+h0UJT0YDCSo+xXL/73/75boNZNnKTvHWN3K8lK1L4eIWZCpPuXG9s0Kk
-         4KpdIq4+WwjgHNUGZ8J/8aw9Gbo0aUV9kfFovENC3VjkANm5cP7Tm3412ReG3xzX+abP
-         PeRg==
+        bh=SrO8rMXn4hw9ZgBNUuWR+KCvckoUGl7U23CGJiIQkKs=;
+        b=nm0CT2Ju7BOv1Mr51X3uxV9iXt9NJEx4u+D82C7JzLbjiOOtnzPBHTmPiz7CMYQFEe
+         gVUwoS3Y1jIOiir1kXgflg3Hf2T3f/kHIlKtAWrv/6cDHaxFXSUd0p31ztYU7VJD9AMa
+         Cvq/ClYugrOlsEIMTA11rnWWBm4mUXQEvJMmw81s5RVWvM2t05m7b0bvXlEdOdRcAMhY
+         YJyFWOMIwAX9Ihemvessnf4Cv3LrxEdg1b0C1PRAP3S0hZhZpiuIkreTjB5nUsy42Yr7
+         LpSpsVX23YiZq19Um9MDzS4BLBwasHAMUo3kMBdC+TBlvtmGM4ZDekBLXsstmYyjS9eo
+         pRUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791735453; x=1792340253;
+        d=1e100.net; s=20260707; t=1791735455; x=1792340255;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mYHP1i0YB7oOLKfMJTS+JLnqxINc8T4sPhpgL6ZDkeQ=;
-        b=Yri2IL+gr5VnXuTPxttrCNb855Z6S11PoHn5THjfn0I9/oahIzbrbi0iwIyzjiPB4h
-         65ICRk0vEjtA/RsounJ7U1hQCAcy9Mio8xzBlRYyHN+iSyqzPndWaaL0iz8VTcPOuJT/
-         m9n91L/S1djBRFJHROmyk26S3N/Y877WJonJWT1KLHaCHTXP+osLUXFgQItXAq+u/zpv
-         R8eWq/xtVvSFFbxSsTDFIibl/ZYeeil4oSsL4vdpX+d+RjOQLaTsUenO0YiyD7yGTxQ9
-         z1EY5BnhPAMvabVbOduE/gyGn+OIvMm+Fbw5vREM5k9OeZMaEBrft/dVCWF9RCsaZSc6
-         sUYw==
-X-Forwarded-Encrypted: i=1; AKwUvByEGiuFZcEYBbMFXwxlCtcu47tXl9qDH52I0b4cUWd2EJS3adtTkGcCyLbpgte1rjCwJGnDliXFqbiXjqk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJoX0PvUv4dXqeBa8W63fxtb4sFAJ4aLzt93zvph9/ctEGmJ5Jr
-	pJJ+HaRsSSo+xTJONcsvB+UHBCazLmOmyfzmz1RvlxsFtbTMP1gn3poybLoAAjN4aLU=
-X-Gm-Gg: AYBFou1VXbjl8mrJ2IC+yDQhwqUiLC8GQNG9jxpHDacKpIn0x9m8ssWBjjnLrcqTGwR
-	QktjpZ1EAZPfzkzV3Y02U6R4rOu1EBVs5uNkc1rCIRQVyoMiZUIwmVGev+j5LrHHm7HmCD9UGXB
-	ozhVrVAVapIgR5LgmC7keCRfd4YPlxbueW9m7bRl7SFYqlL0gNnkvtN1iLZhQFs4j9bKjiFp7mg
-	Fc254nlIW52BmNw2ZUv6HkSosGUETCh52L1CAP/egmxm+E+47wPRye3V08FwE1QyB/k4hxk/+yE
-	88XJJ3r1GrHalSXWV17vAvWQvyzHLqVFZyDY3iDOTgSG6G/9kR/Ux8TmoxMzBjeqrLfHLmv8AG0
-	WVG+HNp7PDieL68JmeK2ViP2yAyjeeUu4h3PktOEHWHmb4PhvRDTeXgFzpL3ePo36LOtxZmnRZR
-	65t06rlJ3eG1hY+IKBv6oqU3dBEGrXP4u0yr/UO/aSviOd1Uc/6MpXklk5zk9FeIu4kOesLPYQ9
-	hPzKMCqXV+zPmTN/F6LQzcKpgiz2W/lWaRPHIvB3uaHdSx/9g==
-X-Received: by 2002:a17:906:dc8c:b0:c29:555e:bf2 with SMTP id a640c23a62f3a-c31a9fe3cf5mr692093366b.41.1791735453256;
-        Sun, 11 Oct 2026 09:17:33 -0700 (PDT)
+        bh=SrO8rMXn4hw9ZgBNUuWR+KCvckoUGl7U23CGJiIQkKs=;
+        b=aaBwNKkKaARYNPXCpcKhC64Xny3FgD7pDip6y5a23m3LsavLwc4wv/xGr5UHXxdKlf
+         cq+d4Bg90kZEl5nvXa1rxCaIYqS+j7notSCul/xf+5P6zWVh/0I1c+JPKBzInBhF/WBp
+         OYyf8L8/Q8TfvJXZbBb2r2pCqISREUrYqLoJ2cjhnVbryhjmuA8R2fWMtbbmqzfYajmn
+         fjADmb2xYC69so0Xf8+KGuzUGOBOJlujalrl3J8ian/NOfAc5P7DCILCmKBS/m+ubUGE
+         6FdZDnkhr1jOh5lJlW/Sd0ocgOwDOJgxAI7hmH4itP+43TUI8pAD3aJOWIqhldLIkkfx
+         heYQ==
+X-Forwarded-Encrypted: i=1; AKwUvByDuDtaillrfRl10BLuqjc64NPErmNM4LG8dwDMyMcK4yL1CUnjlcvtPYzwSUOfP+DErSUZ9Oish5JCsQI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKKvxOXjc08nivBz4z5fa+H7PvWrFPZInt3m2+VmZWSjphEqGfu
+	I0P+f5lsGHu5v9u1u8UWQOZAwkTlMYI7fvg+5N0tLhmujojyklu4gR0u
+X-Gm-Gg: AYBFou0Tcj2uSvFpZm8wHM5AH2WUJ6WbnHP+QotIuRvVNEmei17BC+CK1zoqwzjh7Pl
+	D6wVeJz07yJBFqgZoLYWOc2BDH1Z4JBVTKO3aefxf5509gsxN4D2YyEzqqbc0dFz0bNvZHl01fM
+	iH2pb4tIA45F5vcL5YNyPMHy81XElPIOpdbmUI+HOCLYLpb/XQKABvKAOu7PiPLoVYqbcDOB52+
+	lwEQxxBPQAh/L14vHSCfcrF4ys/xTz0ZpUPRZujAtDZClnvyYtFTkqM7LbHRg+BYcTwbPxOPgiy
+	ql2jYxFgJSBCxEWcsWJfqvB06nthe8M2FIU8/901OsP0vUegihVzvyi6w/0wbeRqr2pfyqe4VFk
+	XuepY3ZXUWcbodYFGqol82FPXpMDPS1R977WfDXprdKZrbAqxHP047YqBh7+8ulNBezLAXOEOMs
+	hHAaUL6IMmHs64q/1+PvYWy9b8WATNOnSFrdczQQAMTH5f0sJfq8prWAm3oqNqkQ/3RJMX0m3ZQ
+	xuYdX4bqM+lIBN+q7xN9oDtiY2r3m8rKA62WfBK03U6uoqjzg==
+X-Received: by 2002:a05:6402:46c2:b0:6b1:c2d3:6a6e with SMTP id 4fb4d7f45d1cf-6b1c2d36d23mr535539a12.8.1791735455046;
+        Sun, 11 Oct 2026 09:17:35 -0700 (PDT)
 Received: from localhost.localdomain (host-188-122-3-146.finemedia.com.pl. [188.122.3.146])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9a3805bsm373462766b.16.2026.10.11.09.17.32
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b179dd395dsm4065484a12.17.2026.10.11.09.17.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 09:17:32 -0700 (PDT)
+        Sun, 11 Oct 2026 09:17:34 -0700 (PDT)
 From: illofspeed <illofspeed@gmail.com>
 To: dlemoal@kernel.org
 Cc: dm-devel@lists.linux.dev,
@@ -68,12 +68,12 @@ Cc: dm-devel@lists.linux.dev,
 	bmarzins@redhat.com,
 	hare@suse.de,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] dm zoned: back off when reclaim finds no destination zone
-Date: Sun, 11 Oct 2026 18:17:31 +0200
-Message-ID: <20261011161731.394-1-illofspeed@gmail.com>
+Subject: Re: [PATCH v2 2/3] dm zoned: do not reclaim a random zone into another random zone
+Date: Sun, 11 Oct 2026 18:17:33 +0200
+Message-ID: <20261011161733.404-1-illofspeed@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <8d1ee370-2785-438d-9c5b-8363584a23aa@kernel.org>
-References: <8d1ee370-2785-438d-9c5b-8363584a23aa@kernel.org>
+In-Reply-To: <d4adf5de-9d72-4977-b4c0-3e1f163872a1@kernel.org>
+References: <d4adf5de-9d72-4977-b4c0-3e1f163872a1@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,15 +83,36 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 Damien Le Moal wrote:
-> Patch looks OK, but is "ilofspeed" your full name?
+>> +	 * Without a free sequential zone, moving a cache zone into a random
+>> +	 * zone of the zoned device still frees cache space. Moving a random
+>> +	 * zone into another random zone gains nothing, and when the target
+>> +	 * is idle it repeats forever. Only fall back for cache zones.
+>
+> "fall back" to what? This comment is not clear.
 
-illofspeed is not my legal name, but it is the name I use for all my
-public work (GitHub and this series), and I understood
-Documentation/process/submitting-patches.rst ("using a known identity")
-to allow that. If you need a legal name in the Signed-off-by, please let
-me know and I will resend.
+To a random destination zone: the switch from DMZ_ALLOC_SEQ to
+DMZ_ALLOC_RND just below. v3 rewords it:
 
-(Resent as plain text: my first reply had an HTML part and did not reach
-the lists.)
+	/*
+	 * If no free sequential zone is available, a cache zone can still be
+	 * moved into a free random zone of the zoned device, which frees cache
+	 * space. Do not do this for a random zone: moving it into another
+	 * random zone frees nothing and, on an idle target, repeats forever.
+	 */
+
+>> +	if (!szone && alloc_flags == DMZ_ALLOC_SEQ && dmz_nr_cache_zones(zmd) &&
+>
+> Long line. Please split after "DMZ_ALLOC_SEQ &&".
+> Also, is the test for dmz_nr_cache_zones() needed? dmz_is_cache(dzone) will
+> never be true if there are no cache zones.
+
+You are right: DMZ_CACHE is only set on zones of the regular device, so
+the test is redundant. Without it the condition fits on one line:
+
+	if (!szone && alloc_flags == DMZ_ALLOC_SEQ && dmz_is_cache(dzone)) {
+
+With this change the reproducer from the cover letter still shows 0 MB/s
+on the idle target. I will send v3 once the Signed-off-by question on
+1/3 is settled; patches 1 and 3 stay unchanged.
 
 illofspeed
