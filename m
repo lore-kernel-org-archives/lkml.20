@@ -1,128 +1,96 @@
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mta1.formilux.org (mta1.formilux.org [51.159.59.229])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2967F3385A1
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 17:35:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F4921A457;
+	Sun, 11 Oct 2026 17:38:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.59.229
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791740159; cv=none; b=mYJMCY8PVNUpOyYVeRT0en36cSNXT0kKvMLbLJvgMu/LtKwFmA7HSg5r2DsW14PDaaat8iCAeP6nOdMSJ2nBPx6g5iE2G4UZzX7pnPLgCk/2twiD2gZLzPORRZLJM2mHvZXFSVJ7cU0A6tkGyTGTkfgpiN870WlVyctimhWol/g=
+	t=1791740322; cv=none; b=AreTF+BvfabpRmjkfX/9zFhdYdx9iDnamNTWJPVTbwTJqTTSkpWdMab/2gz0Mp4L0VEkewDw9cgDYEVEBBxKL98wuZ6+NH0U929TIj5M6nWoY1NWgSJfZYWes5Qc0B2xnSu0twAH+vg6hND67aCXsXifQHLwwRTKsLgKp3Xf1Bk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791740159; c=relaxed/simple;
-	bh=BA6Eq7SxDm1L8zEyXbbvdU/Ub4OE26FS6uK891J21U0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pnIW12ccUMIbOG/NzQ8oIqez+i8KtbmmmlNaiMKT9wNgTzNX0tJbIoB7IhYUhHvWKDYRxQ+YfD1DH5g3/Z3hF+CR2H2uis9+vZdGiCJeRqu4mh/xhb86Rg3hBYtw5QsWK4n7TdidwN0WuQaUuub7TF6+Zl2IuFoTKY//9nhE3Kw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dePmDayW; arc=none smtp.client-ip=209.85.218.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791740322; c=relaxed/simple;
+	bh=yO7TYUdsNEouy+r8LNXK9jTl+YP+UbRG2kou+F9S2Eo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=o72yJhDa2Rrq60jg0cOXEjm/AvQ5VUHVySwW9t8rHEYPi2JgdQJEjfuqCIypYoMRepayKDvZ/hdhxwhIWZ/V+RLJXYja/Tl0IKo4cJTEvY7V24eN7UCzpIFYLNC0NFe7nO8qGNYuYVCB5KDjkRalCAfZ2b7nkP39PM9WsGxwKs0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=1wt.eu; spf=pass smtp.mailfrom=1wt.eu; dkim=pass (1024-bit key) header.d=1wt.eu header.i=@1wt.eu header.b=lsJd3Mgp; arc=none smtp.client-ip=51.159.59.229
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=1wt.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1wt.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dePmDayW"
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c31a34de844so181288366b.3
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 10:35:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791740155; x=1792344955; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=crwJpou1dc4UoRYz8bgCYYV5fnDg/uzo/t0oCNRfcv4=;
-        b=dePmDayWmv8v0mwSzR5nVk15cgoAHarFsNHNDSXgdCMv2nKjiNoagrt901O76U3ZaT
-         ViR3hutQjPwdEUfQSSU1Pa4p8HkJk/nRelBepZWCzpR4Y6ckXYDEEhrDCHxDt6lkczh2
-         y92xapLFiVA+lhq5Y4c/JNmFUfLJwIlAAHKzD3k3HBzfj48+5ZrDe1NzM4asaZikFNUy
-         D0RVQQyu/DO2c/KAIczkRwiqSmKFZqmkrww4/Tev1miwV+7C1l9b0gEWQuCs/mlcaSOs
-         HOuRtD5ud2K/Sp6iV5+hh60Xh9TMmPLOVJOU69Niu8hctfVdu3nFat0S8oG+7ixpEoDG
-         6gsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791740155; x=1792344955;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=crwJpou1dc4UoRYz8bgCYYV5fnDg/uzo/t0oCNRfcv4=;
-        b=rOqafr8HcAdBS8hydVscq8+XjJYB6Afs+jCmCqILMoYHZQHWtXx5rt3hRPdE9VNZKc
-         1hEM/ZCCFPf0QNeGnG3p4kYgCid0eOhb5WSKtnCB5IgYiBPOCtfnW0PQADqnQM+C8YKy
-         K/tWApgzXhFgTv/UCLHiIk48WMKo0vENcRwprzT9yEjF2RgpfHUn/X/pnt+Vt6wRFHat
-         VM8ivCovQUcyWFSMSrdLHhg0oBKW+4ki1lV6+Z2dyVJ5JaK2ANKzANi7b4XRIeHbZ4Dz
-         UeIq0fq05/8gO9jza3DVkjClXvHVoAzlwtiMuwXZloEoR0BWC1yH3Y28PtPZPX28uP2X
-         6NIw==
-X-Forwarded-Encrypted: i=1; AKwUvBybvJNSZ+eBSLWjMT0J+agze8bE2fnxJKQonwLJ/oWvfuqw282zn5a59tSRv3BF/Iwqf+xXR1jaCBM/3Do=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLFV77n4v9YeEFCL2Re74X6Yw0VAcZENgEMh21djX7Z1Nb7roI9
-	KndqUhhwY076oLyeM6czYyXYwRTvq6742gLbRKMECN8n64SXaTKRWJew
-X-Gm-Gg: AYBFou2DKWD4NC2RnaFzoAOYY42T1kWbuXS0pSXsMf+xS/0Oe6JI4hRr/n957DINYgp
-	haeM3Bqy3sAvUs2RpDxOcm+x9KgTagn1rXPaMGzswaEUdawBkisrzw+LwHDtqwmIrLjyWf0fcc3
-	Zzd9Gb2YPpUuC6NWijalHMSaVkLTjJNKMMs2tt4877O6coikKEJQvI6Fza427YPbC5tIxkFJ42C
-	e2JhF8PcpNL+VdipOGbUDz0aqNY72/tbRmJAgXXsvHPfff/MhVqxbkMV6X3/FLM1hw7bkzbC76F
-	+iM1ul88ePicxQ7C7LuU/6J1YIJ2ifmyXvd76vpB6lYropNNFdVoe2W7SPPx1psH/TS6f5IJRPq
-	U06bs68uN4khLtxJ5Lr7IbWdy1gujw2PrWvhdszEgu/pYbpwi8EbCTQM5+RDaVfKgkSGrhyYCfE
-	luQvMbv8nAP3g6YPbM1B2cByzPLGdJeBZjMFcioIIxcs9G8ZIz8o4D5efatV+gT3nZQoWflfYue
-	hM4vcinwqqs6S2NDJVW
-X-Received: by 2002:a17:906:c106:b0:c24:6f60:3f7e with SMTP id a640c23a62f3a-c31a9a28f90mr757418966b.2.1791740155162;
-        Sun, 11 Oct 2026 10:35:55 -0700 (PDT)
-Received: from [192.168.0.193] ([194.183.54.57])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9a3bbc9sm381019766b.20.2026.10.11.10.35.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 11 Oct 2026 10:35:54 -0700 (PDT)
-Message-ID: <4abc72fd-c645-4410-9387-3f03c751fd3c@gmail.com>
-Date: Sun, 11 Oct 2026 19:35:53 +0200
+	dkim=pass (1024-bit key) header.d=1wt.eu header.i=@1wt.eu header.b="lsJd3Mgp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1wt.eu; s=mail;
+	t=1791740310; bh=s9SvmzBmiwivVauLGFTbFp3qv/QIUAQiXVjv0kh1bWE=;
+	h=From:Message-ID:From;
+	b=lsJd3MgpzqlNQwkq4cvLnFsSkXJRgiIuLDYHh+mZX6iNnyXTP0C4eRHn3suNHLVNk
+	 OpNeO/ugLo+uUkXJ6zZkXEARp78wDjvk380s4WDwQP59vZl17ZYrdCx4Hsa4xFyCFl
+	 tlEvJnUpUGPc8y3eUIGXEQb7AiMTzCOKdr8FapYM=
+Received: from 1wt.eu (ded1.1wt.eu [163.172.96.212])
+	by mta1.formilux.org (Postfix) with ESMTP id 7FD9FC0920;
+	Sun, 11 Oct 2026 19:38:30 +0200 (CEST)
+Date: Sun, 11 Oct 2026 19:38:29 +0200
+From: Willy Tarreau <w@1wt.eu>
+To: Sebastian Andrzej Siewior <sebastian@breakpoint.cc>
+Cc: Tancred <alex@narraduct.com>,
+        Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+        linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+        "H. Peter Anvin" <hpa@zytor.com>,
+        "Maciej W. Rozycki" <macro@orcam.me.uk>,
+        Bill Wendling <morbo@google.com>, Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        Ingo Molnar <mingo@redhat.com>,
+        John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+        Jonathan Corbet <corbet@lwn.net>,
+        Justin Stitt <justinstitt@google.com>,
+        Nathan Chancellor <nathan@kernel.org>, Neal Gompa <neal@gompa.dev>,
+        Nick Desaulniers <ndesaulniers@google.com>,
+        Richard Purdie <richard.purdie@linuxfoundation.org>,
+        Sam James <sam@gentoo.org>, Shuah Khan <shuah@kernel.org>,
+        Thomas Gleixner <tglx@kernel.org>,
+        Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>,
+        Tomas Glozar <tglozar@kernel.org>, x86@kernel.org,
+        Arnd Bergmann <arnd@arndb.de>
+Subject: Re: [PATCH v4 2/2] x86: Start removing X86_X32_ABI
+Message-ID: <asvJlVyfxMVqw2E2@1wt.eu>
+References: <20261008-x32_removal-v4-0-d389a193c506@breakpoint.cc>
+ <20261008-x32_removal-v4-2-d389a193c506@breakpoint.cc>
+ <7f315c7a-0fd1-4f7e-93bb-703d4107aa5a@narraduct.com>
+ <20261011171946.gMv8V9Ck@breakpoint.cc>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/3] dt-bindings: leds: skyworks,aat1290: Document
- FLINH pin
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261007085457.98762-1-clamor95@gmail.com>
- <20261007085457.98762-3-clamor95@gmail.com>
- <6a69d4aa-d04c-4bb2-912f-1584abd31e0e@gmail.com>
- <CAPVz0n0FiT93626L3MnMCto1X0_FmWp_zzQpQ=yRBXn+ir6OPg@mail.gmail.com>
-Content-Language: en-US
-From: Jacek Anaszewski <jacek.anaszewski@gmail.com>
-In-Reply-To: <CAPVz0n0FiT93626L3MnMCto1X0_FmWp_zzQpQ=yRBXn+ir6OPg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261011171946.gMv8V9Ck@breakpoint.cc>
 
-On 10/11/26 3:55 PM, Svyatoslav Ryhel wrote:
-> нд, 11 жовт. 2026 р. о 16:28 Jacek Anaszewski <jacek.anaszewski@gmail.com> пише:
->>
->> Hi Svyatoslav,
->>
->> On 10/7/26 10:54 AM, Svyatoslav Ryhel wrote:
->>> Both the AAT1270 and AAT1290 feature a FLINH pin used for mandatory Flash
->>> inhibition.
->>>
->>> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
->>> ---
->>>    Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml | 4 ++++
->>>    1 file changed, 4 insertions(+)
->>>
->>> diff --git a/Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml b/Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml
->>> index a65d92522c9cf..596b5e284f44a 100644
->>> --- a/Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml
->>> +++ b/Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml
->>> @@ -31,6 +31,10 @@ properties:
->>>        maxItems: 1
->>>        description: FL_EN pin
->>>
->>> +  flinh-gpios:
->>> +    maxItems: 1
->>> +    description: FLINH pin
->>> +
->>
->> You don't seem to make use of it in your patch.
->>
+On Sun, Oct 11, 2026 at 07:19:46PM +0200, Sebastian Andrzej Siewior wrote:
+> On 2026-10-09 20:13:55 [-0600], Tancred wrote:
+> > 
+> > 
+> > On 10/8/26 03:07, Sebastian Andrzej Siewior wrote:
+> > > where certain workloads widely
+> > > move to x32 and use it exclusively. In the meantime Debian introduced a
+> > > patch to disable x32 by default (so it has to be enabled at boot time on
+> > > the command line) because they are afraid of the increased attack
+> > > surface. Fedora as far as I tell has X32 disabled (looking at 7.0-rc5
+> > > rpm in rawhide).
+> > > 
+> > > Since there is practically no real use for x32
+> > 
+> > I only recently discovered x32 and built a Desktop (with all daemons and
+> > utilities running 10-30% smaller and some a bit faster, with 64 bit
+> > libraries for eg. Firefox.) My experiment should definitely not decide
+> > anything, but how much real-world use would be sufficient to justify
+> > continued presence (more complex compat code)?
 > 
-> I don't have to use it in my patch. This change completes and improves
-> hardware description of the AAT1290/1270.
+> "a bit faster" needs actual numbers to justify. One examples was quicker
+> gcc but I don't see a x32 compile farm leveraging this benefit.
 
-Still, If we don't have the use case I'd avoid adding it to not confuse
-people looking for its use in the driver.
+FWIW I do build my ARM cross-compilers in a32 because they're generally
+~10-15% faster than in a64. I wouldn't be surprised if that was the same
+on x86 because tools such as compilers very likely use pointers a lot. In
+a build farm it certainly makes a difference, possibly not sufficient to
+justify keeping a kernel port, but it's just to illustrate one valid use
+case.
 
--- 
-Best regards,
-Jacek Anaszewski
+Willy
