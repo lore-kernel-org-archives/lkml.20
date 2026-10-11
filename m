@@ -1,182 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B285523D2B1;
-	Sun, 11 Oct 2026 01:23:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F162823D2B1
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 01:23:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791681807; cv=none; b=qKQcJzTEIUaNpm8nOv3Yni9OsVk2NPGEyQ9uMaylmnVSyJaXt7Lfau4GPkeHzOcsOx0oUvieTkI5OP17jvvRpH9B0cFnMMqFM0w+MuuQdXiyJCJ9os7NgBqgV5LWYXzx4jtqNS/nYWsgMwovbKmttn5xft0zdHL0njkNBwkkSXc=
+	t=1791681812; cv=none; b=FK08TbIyl+3h6N5FqEp9CD2q1hVMqlI0ZpiOofoDAPSHB+5+qycn5BPpw4y2ESfKBtVXYZyOGkVSWzLvtWh+uKbbdCup2V/veeyhSxaBN9I84Ehjb3RubdtrYqroMvXXkWrlvgZoqv9+P90lh4v+U6dnDczTmd1PAnlLJFzzDyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791681807; c=relaxed/simple;
-	bh=S/iR5ZwEHwlqso+EA2qul9oFNcD0effkoti8sZFvXcA=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=D1/BbTZLgN7RfTaTdatKt/y8kTn9TYrIIH3oRk6hZQQLVDoWTW3iujXu8dcfVd8yaZSa8n357Sc9F+kTs8oSm8YUYoae+4Gxqb9W/EbOcfEEbactTzIY1K9/vq8gFApW62AsGHLwA6IOD2MbsZngrU94FPVITN5vmnfaWppQf+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JH2Q9sOp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791681812; c=relaxed/simple;
+	bh=XrpzSJ/DTTagRfedMl1HXHs8F7QgjqSEkRayC0Oo8wA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jNTE3YHuFoEyh8CBYEi1RIBz7hsjVJEVQSAw/gjSuVwPsIayx/W+x8nyt6UOjWjLUApYn5Lz0Xg1END/JpsdUxZGkWrJoGgB/wXfiD+3kQn5GfGClgoxzlXmfbZkEvXRbdSTUe01KLNU2C3LbZotkYj2xZt4VkvfVQh4IiOTzhY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; dkim=pass (2048-bit key) header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.b=OUYCctiy; arc=none smtp.client-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JH2Q9sOp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D2811F000FF;
-	Sun, 11 Oct 2026 01:23:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791681806;
-	bh=n7E0hFoL1L830TCgQ2PQGlQVAtS4G3r4ObSfPqRqlew=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=JH2Q9sOpWLqAHEdnkOrBhwueQLGpriY7wxXHmohKvxswT6LRjHGTnFtS0pKBVvg9e
-	 jFtXzovBvMHYzNCSmyaf2uyjDvjOy8OGC9LXbyoouzvGD3jqnBtTAnh9kHZx50IT8K
-	 D/pH9AnacF8aGj8VLUYOIr49SLnXMsmBI2aJw1p8ojpukXUjC5Jvvs3eAJfLGY+q93
-	 h4Xb1cqqBECwqh1/AqSD4nJqJoJsobM0Z74SAEy8doFoFYesIy5ctukmemI9NjzTUs
-	 4nW0VDHedqYiUt7ODN8U0yOCJ8Ca+Z2aBOVJxrUeF60NseFFIbcmiVXLEJRl1MtITD
-	 zmNr0xzqj98dA==
-Subject: Re: [PATCH net-next] selftests: net: bareudp: Add stream tests with
- software GSO
-From: netdev-bot+sashiko@kernel.org
-To: yanhaishuang@cmss.chinamobile.com
-Cc: netdev@vger.kernel.org, willemb@google.com, martin.varghese@nokia.com,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, shuah@kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Sun, 11 Oct 2026 01:23:25 +0000
-Message-ID: <179168180510.434549.891701914488385708@kernel.org>
-In-Reply-To: <20261008055920.1560930-1-yanhaishuang@cmss.chinamobile.com>
-References: <20261008055920.1560930-1-yanhaishuang@cmss.chinamobile.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.b="OUYCctiy"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=outgoing.csail.mit.edu; s=test20231205; h=Content-Transfer-Encoding:
+	Content-Type:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:
+	MIME-Version:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
+	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=6NWM+eldm9EciYsTQn972KMZgMpvJjJhXLQrDig7no0=; t=1791681811; x=1792545811; 
+	b=OUYCctiypQ8eEg7mxxYo/fvzu+C0tnFbACHejFdIiSEE/hVbOEqB3uUK/PRg5MXI8kapzTKWTRu
+	DG4c7izwJ4EYO/kZMqlpnH4V/vsblIu0yJhJ5U8gY7OQPFbyCUp6hT4UGxCFkEcIunrQiFrZcj4le
+	7MrHj/Iyy7+dREWNjHpgZwtQxQwGGxaFeNSEc7tb4TUS68vNP3itfdO/tSSj+NZb6x4wKl5sZihDk
+	SzOKRmwNvPVRsdJJ/uDD0fD2icDXRRWHRUf1E2BEioQ0wvVGa7Ami3M4d7Hs+ZpCthRRpM+IPL05M
+	/pZ1q1pkaCdsZacKmsh+qpuFw/lHHRWOJJQQ==;
+Received: from mail-dy1-f174.google.com ([74.125.82.174])
+	by outgoing2021.csail.mit.edu with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xFiHi-008AUg-60
+	for linux-kernel@vger.kernel.org;
+	Sat, 10 Oct 2026 21:23:30 -0400
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-33fb4680717so3135323eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 18:23:30 -0700 (PDT)
+X-Gm-Message-State: AFq9FYId9JInbreX0D5DUylcrYU6j0fwSymBeMZn5SnytViWuTW+wUGT
+	uu/6QXK9seFodISGJ0h9jaeDVD0gwkSg7ncE7FTGmLJBdhARh9KoHBDArMqqL1FSp9TqnGSXby7
+	SCUFocROXlQNOoawOA2y+Ka86UbV1HYw=
+X-Received: by 2002:a05:701b:2092:20b0:16d:c848:d36e with SMTP id
+ a92af1059eb24-16dc848d4ecmr5183168c88.13.1791681809283; Sat, 10 Oct 2026
+ 18:23:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20261009051857.758182-1-nickolai@csail.mit.edu>
+ <20261010162558.62abcd2ec967b009d0cb3bbb@linux-foundation.org>
+ <CADGQE7G-PAiJ2W8uhFO_-e9GGtEPey=drfSqLfWdxXDys3mJNg@mail.gmail.com> <20261010181016.44f5e2883b6820bb32c04204@linux-foundation.org>
+In-Reply-To: <20261010181016.44f5e2883b6820bb32c04204@linux-foundation.org>
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Date: Sat, 10 Oct 2026 21:23:17 -0400
+X-Gmail-Original-Message-ID: <CADGQE7F5SsRjqCAWJbwsT9P8+Uq-d_movTmiCM1ko=dg52kmCQ@mail.gmail.com>
+X-Gm-Features: AclHuK_JytmvPKHV2JJKLmw644JZVHLd9i3B6iNoev1zmZ91lFgee4W5dbKHjvk
+Message-ID: <CADGQE7F5SsRjqCAWJbwsT9P8+Uq-d_movTmiCM1ko=dg52kmCQ@mail.gmail.com>
+Subject: Re: [PATCH] lib/plist: fix plist_requeue() shortcut inserting the
+ node at the list head
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	I Hsin Cheng <richard120310@gmail.com>, Ching-Chun Huang <jserv@ccns.ncku.edu.tw>, 
+	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Sat, Oct 10, 2026 at 9:10=E2=80=AFPM Andrew Morton <akpm@linux-foundatio=
+n.org> wrote:
+> On Sat, 10 Oct 2026 19:33:46 -0400 Nickolai Zeldovich <nickolai@csail.mit=
+.edu> wrote:
+> > On Sat, Oct 10, 2026 at 7:26=E2=80=AFPM Andrew Morton <akpm@linux-found=
+ation.org> wrote:
+> > > I recently queued a fix for this problem from Alex:
+> > >         https://lore.kernel.org/20260903222456.1881786-1-handyhandyma=
+n.adam@gmail.com
+> > >
+> > > The two patches are rather different.  Please review Alex's change an=
+d
+> > > and let us know of any alterations/improvements which you see.
+> >
+> > This patch is equivalent; I don't see any reason to prefer my fix
+>
+> Thanks.  Can I add your Reviewed-by:?
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Sure, sounds good to me.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+> > (except for the test case that might be helpful in catching
+> > regressions).
+>
+> I like test cases and I take patches ;)
 
-- [Medium] The two new "Unicast MPLS stream over UDPv4/UDPv6" tests never
-  push a GSO packet through bareudp's UDP-tunnel software segmentation.
-- [Low] exit_cleanup() calls cleanup_all_ns before the new `[ -n
-  "${TMPFILE}" ] && rm -f "${TMPFILE}"`.
+Sent just now.
 
---
+Thanks,
 
-selftests: net: bareudp: Add stream tests with software GSO
-
-This patch adds TCP stream tests to bareudp.sh. After each ping test, a
-16 MiB file is copied with socat from NS0 to NS3. UDP tunnel segmentation
-offload is turned off on the underlay veths so that bareudp's GSO packets
-are segmented in software.
-
-> diff --git a/tools/testing/selftests/net/bareudp.sh b/tools/testing/selftests/net/bareudp.sh
-> index d9e5b967f8151..4b6d3a64f3c3f 100755
-> --- a/tools/testing/selftests/net/bareudp.sh
-> +++ b/tools/testing/selftests/net/bareudp.sh
-> @@ -105,17 +105,27 @@
-
-[ ... ]
-
->  # Exit the script after having removed the network namespaces it created
->  exit_cleanup()
->  {
->  	cleanup_all_ns
-> +	[ -n "${TMPFILE}" ] && rm -f "${TMPFILE}"
-
-[Severity: Low]
-exit_cleanup() runs from the EXIT trap, and set -e is still active at that
-point. cleanup_all_ns can return non-zero. For example, cleanup_ns() in
-lib.sh sets ret=1 when it hits this path:
-
-tools/testing/selftests/net/lib.sh:cleanup_ns() {
-    ...
-		if ! busywait $BUSYWAIT_TIMEOUT ip netns list \| grep -vq "^$ns$" &> /dev/null; then
-			echo "Warn: Failed to remove namespace $ns"
-			ret=1
-    ...
-}
-
-When that happens, does the shell exit before the rm? That would leave the
-16 MiB file that setup_underlay() created with mktemp and dd in $TMPDIR.
-
-Would it help to remove TMPFILE before calling cleanup_all_ns, or to
-tolerate its failure?
-
-[ ... ]
-
-> @@ -307,12 +380,18 @@ ping_test()
-
-[ ... ]
-
->  	if [ $MPLS_UC ]; then
->  		ping_test_one "${PING6}" "2001:db8::203" "Unicast MPLS packets over ${UNDERLAY}${MODE}"
-> +		stream_test_one "TCP6:[2001:db8::203]:${STREAM_PORT}" \
-> +			"Unicast MPLS stream over ${UNDERLAY}${MODE}"
->  	fi
->  }
-
-[Severity: Medium]
-The new header comment says:
-
-  so that the GSO packets encapsulated by bareudp are segmented in software.
-
-Does that hold for the two Unicast MPLS stream tests?
-
-In NS0, mpls_xmit() sets skb->protocol to ETH_P_MPLS_UC. veth01 advertises
-GSO in its MPLS features:
-
-drivers/net/veth.c:veth_setup() {
-    ...
-	dev->mpls_features = NETIF_F_HW_CSUM | NETIF_F_GSO_SOFTWARE;
-    ...
-}
-
-So the TSO skb reaches NS1 unsegmented, and the veth10 ingress rule
-redirects it to bareudp_ns1. There, validate_xmit_skb() masks the features
-through netif_skb_features()->harmonize_features()->net_mpls_features():
-
-net/core/dev.c:net_mpls_features() {
-    ...
-	features &= skb->dev->mpls_features;
-    ...
-}
-
-bareudp_setup() sets dev->features and dev->hw_features but never
-dev->mpls_features. That field only holds NETIF_F_SG, which
-register_netdevice() adds, so all the TSO bits are cleared.
-
-If mpls_gso is loaded, mpls_gso_segment() splits the skb before
-bareudp_xmit(). bareudp then only encapsulates single segment packets, and
-software UDP tunnel segmentation on veth12/veth21 never runs for MPLS.
-
-If no ETH_P_MPLS_UC offload is registered, skb_mac_gso_segment() returns
--EPROTONOSUPPORT and the skb is dropped. With CONFIG_NET_MPLS_GSO=n, the
-drop happens later instead, in skb_udp_tunnel_segment() at veth12, because
-the inner protocol is MPLS.
-
-tools/testing/selftests/net/config doesn't list CONFIG_NET_MPLS_GSO. It
-only ends up =m through CONFIG_OPENVSWITCH=m, and nothing loads
-mpls_gso.ko automatically. In those setups, could the MPLS stream tests
-time out on a correct kernel?
-
-The commit message also suggests these tests don't reach the tunnel GSO
-path:
-
-  Without commit c57b2e60d4bf ("bareudp: set the inner protocol to the
-  protocol of the packet"), the IPv4 and IPv6 streams over UDPv6, and the
-  IPv6 stream over UDPv4 in multiproto mode, time out.
-
-Before that commit, an MPLS GSO skb reaching UDPv6 tunnel segmentation
-would have kept the stale ETH_P_IPV6 inner protocol from mpls_xmit(). Yet
-the MPLS stream over UDPv6 isn't listed as timing out.
-
-Should the MPLS stream tests be dropped? Alternatively, the header comment
-and commit message could be updated and CONFIG_NET_MPLS_GSO added to the
-selftests config.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261008055920.1560930-1-yanhaishuang%40cmss.chinamobile.com
+Nickolai.
