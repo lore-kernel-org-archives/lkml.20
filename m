@@ -1,33 +1,33 @@
-Received: from mta0.migadu.com (out-75.mta0.migadu.com [91.218.175.75])
+Received: from mta1.migadu.com (out-142.mta1.migadu.com [95.215.58.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 076E53C76AD
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 14:36:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79820457E45
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 14:36:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791729415; cv=none; b=TS17yAfnM5yS6GFDuljCXSjxddsgwLrLRK/OZjsSQWoIjjUYlNju9nswLvWfU2MVv8XTvxBiLYt971jqIWwgzOwqDIm52GP+dcpa1MPTCgMIRnA8w6suQYbo8y9EYuPM3cbzSnn7aK5PaDzJ8+tKohfNXAQ9EgqojjJh9vt58m0=
+	t=1791729417; cv=none; b=oDvP/NuH5K2c6wfl+5ChExZ1qNIXLsO1vlVzOPnoIBZhDcGl8YhIGNrXqE3l+7IFs+Te/wafs/XVDzdio6wPbPFsSAUL8m5znJVs867iDjJQH2Rzm/0gVmCquIFi49KDHcca5u5ihjYD8V+IPzp/3QtU2oeLtxk5ZvhaxErbeok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791729415; c=relaxed/simple;
-	bh=OYn21/OL8lrH8NaEq6iDghNkvvHb7mfdPr+Xymc5Uv4=;
+	s=arc-20240116; t=1791729417; c=relaxed/simple;
+	bh=UabJMBs9Z2dMomcvezICknlRvRSdmtK2yTGhqNrS3jk=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=B0gXjKqqjdwG3OkDLGOzp+aGp3y2aY5Qg1iwWfgznhDRlAY7S46G5PHegk2MViSOXqh6HOPoJAV41BV3olQGRHvt/tLY9rcupyH9atEm1q9fQEbAw5ECVY65lGnnFzRNMzhNGVjPyXFiCTIox7q/N4MjO4a835GP1mH9u6lSnRs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=pagB3q/F; arc=none smtp.client-ip=91.218.175.75
+	 MIME-Version; b=DNniGlSvYDqjaw4KkDOyrmChCiJtOXtRkYkVhj2p5fEzexOyGIVwi2qmJsl0ShBtdsRLuEUOeJYhtSLG3r2fjZopStwtXHNCBf5BHGRK0vQwoQeHGoiRfKYqeIh2/BpnnsfrUqky5NxGw3TdSXC7X/ztxPpAmlTWue+Ynkw23/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=CD6XUNik; arc=none smtp.client-ip=95.215.58.142
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="pagB3q/F"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="CD6XUNik"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=OYn21/OL8lrH8NaEq6iDghNkvvHb7mfdPr+Xymc5Uv4=;
+DKIM-Signature: a=rsa-sha256; bh=UabJMBs9Z2dMomcvezICknlRvRSdmtK2yTGhqNrS3jk=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791729410; v=1; x=1792334210;
- b=pagB3q/FkgcGgbi/SX8/Y4X6grPtD6gyyVgB3lIw4yE2QjFrRLWAgs8Fpw0XZ3iyJjHH+ChN
- RawBGI6CSXQFaCT8w0MD6NzJr+7rPFZeKbFdHt8H92kD4P9hgPu/d3ypsU6RiKwOgcsONCRnVCH
- F45f1cl0XPiD9ISsHct75XaY=
+ t=1791729413; v=1; x=1792334213;
+ b=CD6XUNikE/0hSOs+fSeODgrWZ6EdBpDl5CDYDU6jlK6BBPFsnhJJPL4rdvTA6VVq5UhuVUw6
+ 7NP8SiyPb4ZoFk/z/8Rzf2CuRS6SU/aWaSEWoU/PGd+JY5Rnad1wipdjap70V9Lu4lKL/ZzcLXo
+ 71dWlLqIsXVWkfnmkEwr/O5w=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c296a38619e6afa6;
-	Sun, 11 Oct 2026 14:36:50 +0000
-X-Mizu-Trace-ID: c296a38619e6afa6
+Received: by smtp.migadu.com with ESMTPS id 9b626a34dbb21967;
+	Sun, 11 Oct 2026 14:36:53 +0000
+X-Mizu-Trace-ID: 9b626a34dbb21967
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: maz@kernel.org,
@@ -47,9 +47,9 @@ Cc: catalin.marinas@arm.com,
 	Sascha.Bischoff@arm.com,
 	steven.price@arm.com,
 	tabba@google.com
-Subject: [PATCH v2 1/5] KVM: arm64: Reject the GICv5 CPU interface hypercalls under pKVM
-Date: Sun, 11 Oct 2026 15:36:44 +0100
-Message-Id: <20261011143648.211337-2-fuad.tabba@linux.dev>
+Subject: [PATCH v2 2/5] KVM: arm64: Reject the stage-2 flush hypercalls under pKVM
+Date: Sun, 11 Oct 2026 15:36:45 +0100
+Message-Id: <20261011143648.211337-3-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261011143648.211337-1-fuad.tabba@linux.dev>
 References: <20261011143648.211337-1-fuad.tabba@linux.dev>
@@ -61,64 +61,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-__vgic_v5_save_apr() and __vgic_v5_restore_vmcr_apr() remain callable
-once pKVM has finalised. pKVM never registers a GICv5 vgic, so neither
-has a valid caller in protected mode, and on a GICv3 machine both reach
-a register that is UNDEFINED at EL2 and panic the hypervisor.
+The stage-2 TLB and context flush hypercalls remain callable once pKVM
+has finalised, and five of the six dereference a host-supplied
+struct kvm_s2_mmu pointer. Under pKVM none has a valid caller: the host
+walks no guest stage-2, its TLB flushes go through the handle-based
+__pkvm_tlb_flush_vmid, and kvm_arch_vcpu_load() skips both the VMID
+update and the CPU context flush.
 
-Move both into the band the dispatcher rejects once pKVM has finalised.
+Move them into the band the dispatcher rejects once pKVM has finalised.
 
-Fixes: af325e87af5da ("KVM: arm64: gic-v5: Add vgic-v5 save/restore hyp interface")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260914130152.F0D5F1F000FF@smtp.kernel.org/
 Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
- arch/arm64/include/asm/kvm_asm.h   | 4 ++--
- arch/arm64/kvm/hyp/nvhe/hyp-main.c | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ arch/arm64/include/asm/kvm_asm.h   | 12 ++++++------
+ arch/arm64/kvm/hyp/nvhe/hyp-main.c | 11 ++++++-----
+ 2 files changed, 12 insertions(+), 11 deletions(-)
 
 diff --git a/arch/arm64/include/asm/kvm_asm.h b/arch/arm64/include/asm/kvm_asm.h
-index e5b92ac09e69e..ea319c496bb26 100644
+index ea319c496bb26..b182c908c1a98 100644
 --- a/arch/arm64/include/asm/kvm_asm.h
 +++ b/arch/arm64/include/asm/kvm_asm.h
-@@ -62,6 +62,8 @@ enum __kvm_host_smccc_func {
- 	__KVM_HOST_SMCCC_FUNC___kvm_enable_ssbs,
- 	__KVM_HOST_SMCCC_FUNC___vgic_v3_init_lrs,
+@@ -64,6 +64,12 @@ enum __kvm_host_smccc_func {
  	__KVM_HOST_SMCCC_FUNC___vgic_v3_get_gic_config,
-+	__KVM_HOST_SMCCC_FUNC___vgic_v5_save_apr,
-+	__KVM_HOST_SMCCC_FUNC___vgic_v5_restore_vmcr_apr,
+ 	__KVM_HOST_SMCCC_FUNC___vgic_v5_save_apr,
+ 	__KVM_HOST_SMCCC_FUNC___vgic_v5_restore_vmcr_apr,
++	__KVM_HOST_SMCCC_FUNC___kvm_flush_vm_context,
++	__KVM_HOST_SMCCC_FUNC___kvm_tlb_flush_vmid_ipa,
++	__KVM_HOST_SMCCC_FUNC___kvm_tlb_flush_vmid_ipa_nsh,
++	__KVM_HOST_SMCCC_FUNC___kvm_tlb_flush_vmid,
++	__KVM_HOST_SMCCC_FUNC___kvm_tlb_flush_vmid_range,
++	__KVM_HOST_SMCCC_FUNC___kvm_flush_cpu_context,
  
  	MARKER(__KVM_HOST_SMCCC_FUNC_MIN_PKVM),
  
-@@ -87,8 +89,6 @@ enum __kvm_host_smccc_func {
- 	__KVM_HOST_SMCCC_FUNC___tracing_write_event,
- 	__KVM_HOST_SMCCC_FUNC___vgic_v3_save_aprs,
- 	__KVM_HOST_SMCCC_FUNC___vgic_v3_restore_vmcr_aprs,
--	__KVM_HOST_SMCCC_FUNC___vgic_v5_save_apr,
--	__KVM_HOST_SMCCC_FUNC___vgic_v5_restore_vmcr_apr,
- 
- 	MARKER(__KVM_HOST_SMCCC_FUNC_PKVM_ONLY),
- 
+@@ -72,12 +78,6 @@ enum __kvm_host_smccc_func {
+ 	/* Hypercalls that are always available and common to [nh]VHE/pKVM. */
+ 	__KVM_HOST_SMCCC_FUNC___kvm_adjust_pc,
+ 	__KVM_HOST_SMCCC_FUNC___kvm_vcpu_run,
+-	__KVM_HOST_SMCCC_FUNC___kvm_flush_vm_context,
+-	__KVM_HOST_SMCCC_FUNC___kvm_tlb_flush_vmid_ipa,
+-	__KVM_HOST_SMCCC_FUNC___kvm_tlb_flush_vmid_ipa_nsh,
+-	__KVM_HOST_SMCCC_FUNC___kvm_tlb_flush_vmid,
+-	__KVM_HOST_SMCCC_FUNC___kvm_tlb_flush_vmid_range,
+-	__KVM_HOST_SMCCC_FUNC___kvm_flush_cpu_context,
+ 	__KVM_HOST_SMCCC_FUNC___kvm_timer_set_cntvoff,
+ 	__KVM_HOST_SMCCC_FUNC___tracing_load,
+ 	__KVM_HOST_SMCCC_FUNC___tracing_unload,
 diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-index 9a3b92e626adb..7c939baf9c1ba 100644
+index 7c939baf9c1ba..b2657a3c65b40 100644
 --- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
 +++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-@@ -911,6 +911,8 @@ static const hcall_t host_hcall[] = {
- 	HANDLE_FUNC(__kvm_enable_ssbs),
- 	HANDLE_FUNC(__vgic_v3_init_lrs),
+@@ -913,16 +913,16 @@ static const hcall_t host_hcall[] = {
  	HANDLE_FUNC(__vgic_v3_get_gic_config),
-+	HANDLE_FUNC(__vgic_v5_save_apr),
-+	HANDLE_FUNC(__vgic_v5_restore_vmcr_apr),
- 	HANDLE_FUNC(__pkvm_prot_finalize),
+ 	HANDLE_FUNC(__vgic_v5_save_apr),
+ 	HANDLE_FUNC(__vgic_v5_restore_vmcr_apr),
+-	HANDLE_FUNC(__pkvm_prot_finalize),
+-
+-	HANDLE_FUNC(__kvm_adjust_pc),
+-	HANDLE_FUNC(__kvm_vcpu_run),
+ 	HANDLE_FUNC(__kvm_flush_vm_context),
+ 	HANDLE_FUNC(__kvm_tlb_flush_vmid_ipa),
+ 	HANDLE_FUNC(__kvm_tlb_flush_vmid_ipa_nsh),
+ 	HANDLE_FUNC(__kvm_tlb_flush_vmid),
+ 	HANDLE_FUNC(__kvm_tlb_flush_vmid_range),
+ 	HANDLE_FUNC(__kvm_flush_cpu_context),
++	HANDLE_FUNC(__pkvm_prot_finalize),
++
++	HANDLE_FUNC(__kvm_adjust_pc),
++	HANDLE_FUNC(__kvm_vcpu_run),
+ 	HANDLE_FUNC(__kvm_timer_set_cntvoff),
+ 	HANDLE_FUNC(__tracing_load),
+ 	HANDLE_FUNC(__tracing_unload),
+@@ -969,7 +969,8 @@ static void handle_host_hcall(struct kvm_cpu_context *host_ctxt)
  
- 	HANDLE_FUNC(__kvm_adjust_pc),
-@@ -932,8 +934,6 @@ static const hcall_t host_hcall[] = {
- 	HANDLE_FUNC(__tracing_write_event),
- 	HANDLE_FUNC(__vgic_v3_save_aprs),
- 	HANDLE_FUNC(__vgic_v3_restore_vmcr_aprs),
--	HANDLE_FUNC(__vgic_v5_save_apr),
--	HANDLE_FUNC(__vgic_v5_restore_vmcr_apr),
- 
- 	HANDLE_FUNC(__pkvm_host_share_hyp),
- 	HANDLE_FUNC(__pkvm_host_unshare_hyp),
+ 	/*
+ 	 * If pKVM has been initialised then reject any calls to the
+-	 * early "privileged" hypercalls. Note that we cannot reject
++	 * early "privileged" hypercalls, and to the ones the host has no
++	 * use for in protected mode. Note that we cannot reject
+ 	 * calls to __pkvm_prot_finalize for two reasons: (1) The static
+ 	 * key used to determine initialisation must be toggled prior to
+ 	 * finalisation and (2) finalisation is performed on a per-CPU
 -- 
 2.39.5
 
