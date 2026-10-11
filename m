@@ -1,53 +1,46 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from out28-53.mail.aliyun.com (out28-53.mail.aliyun.com [115.124.28.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E818628690;
-	Sun, 11 Oct 2026 02:54:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C6C328690;
+	Sun, 11 Oct 2026 02:56:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791687290; cv=none; b=KwC11uHGoqODcmW+6xzU5anSkQecjUAiKpSo55H8+oFz1nEXg4v6B51YhHeGxQrzH3q35n8GPn/MUx1BhLLRerIMb+YNIfcPzcyUcVxGwVTVWNA6WII2t4qQcwBJfnyM85ku4v5ZQ1kuE0lY+JaEJIgg/X3GApDYL3k07NFihh4=
+	t=1791687375; cv=none; b=O6yEboicwxWUCLVgATNJU+olag8DljnJ1VUmbaUb+jnAiPyGWJNBVua+iUCkSkQx4IPsMQisB6eRDKeyRenZLvhn8sIkujUkEb7ZFphvn8/XCKPUNstBOWD46VvZ2FiPhFPLR7q3MmI3m15rxBwfuGlwzzcAYoqRhllifrsrB4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791687290; c=relaxed/simple;
-	bh=hrAhgN+WxuZzsvJRuRPU3XKL8xQZzdQoWxjDGdqoFzY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HMhzXGhCLjGcKbnn+hInwfMUr0VR9vPmExpu22VLy1JUy8Z4lC5RZuVNxxE6CmlZzeCcTtMjnspB8hS1iCSUmmc2AeLCOCH/o+n14Sobzj+q/3TZQXGieM49pkYmqZ9W8KrGL2x4Z0f5xIaw1pVmYRIU368wvhWIYIZ551SeEzU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=NgyAQ4Wi; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="NgyAQ4Wi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=gT
-	k4+pqBCprUe3qNcnVbCqhWfZmhAWbxb4XHLPlkfgM=; b=NgyAQ4WiIqmT284aZw
-	Pu+Kys78gOEpIjrIxfkvnL8sv/+1qJP6i7iJ6xclNTMB6Ma5umPBnzoV/k9ViXuy
-	r3rHP/XGliee58oo9n1tF8/44l1kd5aNHxX/KmExU2J6bdnWCHMBrCKL72dUAeIY
-	J9I2ncudEg821/pRB5ePYBpA8=
-Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wA3Q7oH+spqDdsmDw--.308S2;
-	Sun, 11 Oct 2026 10:52:57 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: tj@kernel.org
-Cc: void@manifault.com,
-	arighi@nvidia.com,
-	changwoo@igalia.com,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	Hui Su <sh_def@163.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] sched_ext: idle: Respect task affinity in restricted CPU selection
-Date: Sun, 11 Oct 2026 11:52:56 +0900
-Message-ID: <20261011025256.4180374-1-sh_def@163.com>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1791687375; c=relaxed/simple;
+	bh=yW5sHWXX2om1TauqpZkux7z7FQgeW4JCNLuP0AzqY5k=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=e7ebp4md4uwwtnjcrJ7Ti4UGschLw9FktT0l/Iut0c60HUoZrol4tim/z9DkLucb7siJ+odY3i9PqTmr/iXmTBdd7kVl9mCkF5zCTX/F/IrLmhmLy3ocKkkPgWC/sILUMBMWsDD539DPqAeiqOgHLcvcB6URBAbbiITe0WFw+qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.2343658|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00928265-0.000186091-0.990531;FP=12062864084650593942|14|2|17|0|-1|-1|-1;HT=maildocker-contentspam033037028158;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=16;RT=16;SR=0;TI=SMTPD_---.jYiPJX7_1791687051;
+Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jYiPJX7_1791687051 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Sun, 11 Oct 2026 10:50:52 +0800
+From: Kyle Switch <kyle.switch@motor-comm.com>
+To: andrew@lunn.ch,
+	olteanv@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	mmyangfl@gmail.com,
+	horms@kernel.org,
+	linux@armlinux.org.uk,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: ming.xu@motor-comm.com,
+	xiaolin.xu@motor-comm.com,
+	jianmin.wang@motor-comm.com,
+	wei.zhang@gl-inet.com,
+	sijia.huang@gl-inet.com
+Subject: [PATCH net-next v13 3/5] net: dsa: motorcomm: use fixed-width GENMASK_U*() helpers
+Date: Sun, 11 Oct 2026 10:50:41 +0800
+Message-Id: <20261011025043.1859940-4-kyle.switch@motor-comm.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261011025043.1859940-1-kyle.switch@motor-comm.com>
+References: <20261011025043.1859940-1-kyle.switch@motor-comm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,53 +48,87 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wA3Q7oH+spqDdsmDw--.308S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Zw4rZF1ftryxury5WF17KFg_yoW8AF4UpF
-	Wkt3y7KrsrJa10y3sxtaykKa45ur4kGw13KF1rWF4Syrs8Xr4FvrZ0q3Wagr90grsYvrWa
-	kFnFqr4xtw4DtaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zi75r7UUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwQkObWrK+gmWEgAA38
 
-The restricted select_cpu kfunc path handles single-CPU and
-migration-disabled tasks without going through scx_select_cpu_dfl().
+Some masks assigned to u16 and u32 fields are defined with
+GENMASK(),which is an unsigned long constant and wider than
+the field type on 64-bit builds. Convert the affected
+internal_mask entries in chip.c and the YT921X_MBUS_CTRL_*
+masks used by mdio_bus.c to fixed-width helpers.
 
-When a caller supplies @allowed, the path currently checks prev_cpu only
-against that mask. It can therefore return an idle prev_cpu which isn't
-in p->cpus_ptr.
+This is a type cleanup only, with no functional change.  Other
+GENMASK() uses in the driver are intentionally left untouched.
 
-Require prev_cpu to belong to both p->cpus_ptr and the caller-provided
-mask before consuming its idle state.
-
-Fixes: 683d2d0faba1 ("sched_ext: idle: Introduce scx_bpf_select_cpu_and()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hui Su <sh_def@163.com>
+Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
 ---
-Testing:
-- x86_64 KVM/QEMU.
-- A private regression harness pinned the task to CPU 0 and called
-  scx_bpf_select_cpu_and() with an idle CPU 1 outside the task affinity
-  but inside the caller-provided mask.
-- On the baseline kernel, the helper returned CPU 1.
-- With this fix, the helper rejected the out-of-affinity CPU.
-- The existing allowed_cpus selftest passed with the fix.
+ drivers/net/dsa/motorcomm/chip.c     | 12 ++++++------
+ drivers/net/dsa/motorcomm/mdio_bus.c |  2 +-
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
- kernel/sched/ext/idle.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/sched/ext/idle.c b/kernel/sched/ext/idle.c
-index aa9fb6de0ad6..20efa463cafa 100644
---- a/kernel/sched/ext/idle.c
-+++ b/kernel/sched/ext/idle.c
-@@ -999,7 +999,8 @@ static s32 select_cpu_from_kfunc(struct scx_sched *sch, struct task_struct *p,
- 	 * used CPU is idle and within the allowed cpumask.
- 	 */
- 	if (p->nr_cpus_allowed == 1 || is_bpf_migration_disabled(p)) {
--		if (cpumask_test_cpu(prev_cpu, allowed ?: p->cpus_ptr) &&
-+		if (cpumask_test_cpu(prev_cpu, p->cpus_ptr) &&
-+		    (!allowed || cpumask_test_cpu(prev_cpu, allowed)) &&
- 		    scx_idle_test_and_clear_cpu(prev_cpu))
- 			cpu = prev_cpu;
- 		else
-
-base-commit: 7b63ef2d55f24519e7e9e5f4d15dbea03f126e40
+diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
+index d4c20658216a..ba988e121d68 100644
+--- a/drivers/net/dsa/motorcomm/chip.c
++++ b/drivers/net/dsa/motorcomm/chip.c
+@@ -36,19 +36,19 @@
+ static const struct yt921x_info yt921x_infos[] = {
+ 	{
+ 		"YT9215SC", YT9215_MAJOR, 1, 0,
+-		GENMASK(4, 0),
++		GENMASK_U16(4, 0),
+ 		BIT(9),
+ 		BIT(8) | BIT(9),
+ 	},
+ 	{
+ 		"YT9215S", YT9215_MAJOR, 2, 0,
+-		GENMASK(4, 0),
++		GENMASK_U16(4, 0),
+ 		BIT(9),
+ 		BIT(8),
+ 	},
+ 	{
+ 		"YT9215RB", YT9215_MAJOR, 3, 0,
+-		GENMASK(4, 0),
++		GENMASK_U16(4, 0),
+ 		BIT(8) | BIT(9),
+ 		0,
+ 	},
+@@ -66,13 +66,13 @@ static const struct yt921x_info yt921x_infos[] = {
+ 	},
+ 	{
+ 		"YT9218N", YT9218_MAJOR, 0, 0,
+-		GENMASK(7, 0),
++		GENMASK_U16(7, 0),
+ 		0,
+ 		0,
+ 	},
+ 	{
+ 		"YT9218MB", YT9218_MAJOR, 1, 0,
+-		GENMASK(7, 0),
++		GENMASK_U16(7, 0),
+ 		BIT(8) | BIT(9),
+ 		BIT(8) | BIT(9),
+ 	},
+@@ -3741,7 +3741,7 @@ static int yt921x_chip_setup_dsa(struct yt921x_priv *priv)
+ 	if (res)
+ 		return res;
+ 
+-	ctrl = GENMASK(10, 0);
++	ctrl = GENMASK_U32(10, 0);
+ 	res = yt921x_reg_write(priv, YT921X_FILTER_UNK_UCAST, ctrl);
+ 	if (res)
+ 		return res;
+diff --git a/drivers/net/dsa/motorcomm/mdio_bus.c b/drivers/net/dsa/motorcomm/mdio_bus.c
+index 83f0212551ff..3aa1111efaa4 100644
+--- a/drivers/net/dsa/motorcomm/mdio_bus.c
++++ b/drivers/net/dsa/motorcomm/mdio_bus.c
+@@ -159,7 +159,7 @@ int yt921x_mbus_int_init(struct yt921x_priv *priv, struct device_node *mnp)
+ 	mbus->write = yt921x_mbus_int_write;
+ 	mbus->parent = dev;
+ 	max_ports = priv->series->max_ports;
+-	mbus->phy_mask = (u32)~GENMASK(max_ports - 1, 0);
++	mbus->phy_mask = ~GENMASK_U32(max_ports - 1, 0);
+ 
+ 	res = devm_of_mdiobus_register(dev, mbus, mnp);
+ 	if (res)
+-- 
+2.25.1
 
