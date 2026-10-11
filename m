@@ -1,135 +1,174 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CB253D9557
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:32:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F013D3630AC
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:37:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791700341; cv=none; b=RaQyHzS7bFeVSyUCqpOiBKPE5mZiqLd4rZtS7NyFcg0VLPr42Wqw1IWGRNYmKw/4TnuzIoa/z4TipNb+Rxo2W7aVjBfKKwxXL7dYsbH3ceSa96NY5DRnlSUurh53SbaPG+6stn+RYkcvOmhpkpXp6PtYICdlC/vOY/nbxL/g5r8=
+	t=1791700637; cv=none; b=Y2usP/KpdU3m2yW+Smf9H0Z2TtLFIKL0S+uPi/ojgXf8vms7mK5O0Hrwc6H0HSXeZU7t/FKQGz1WzXtm+TmaKaZvaoKPn1bYQVrDBzHZScQ7TDCKOg4FvJmBrDq7J+GCbaTKrF6KWUMBbNMGNS5poxXw9yVTIzx1o+KcKobK7Lk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791700341; c=relaxed/simple;
-	bh=+1EKumLLM0yydrlYEykW9gU3C+PSS2ko0hjEWumo2ps=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=i/+gIvseqi8SugZ26lIl/AuwBAA4CdWmXe15+pjRSGCWP0h7qJRqpEUELOv3eaVKvV37LzitbSBBVq/gsQ0zI6emP4U1haejajh9EkI8Ya1ao7KNU9C83w6bvuxjvlsEDfrlbkbCXPBCbKJ2lovSobA5YAk7lSMvwyk5xvU6svA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lPEDi0fm; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791700637; c=relaxed/simple;
+	bh=GG2J4fso33oIoTZfD3Mzrb1HVRo/ufiE9ZlJtC7lK7k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sKXVxIvKiNkhHuJdfj5kZANxvM/OVohsRs9LKp+EvPgx89lUW0hzWr7w5zK2vUeNNOrTpXfDX446mYWV5tChc9+oa7qpyeBYPfvmbhPZu9UXGvLZRtRRTQPJYK6PQbDeXX95LTdpuhvV85x61ZSKjlSV2SwI67aeSdiCyZ+4A3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ajeoGkG7; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eV53MTpy; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lPEDi0fm"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a1698ea378so7291955e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 23:32:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ajeoGkG7";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eV53MTpy"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69B50I7o3122320
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:37:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=Rnc1OvV3U/gwC+BGfdFIj9X0
+	ZgV2oXUIAGTErZwS/rQ=; b=ajeoGkG72+UszQfqRQjwKJvpTzVW/N+uTk+L0ykb
+	N0OeWNHPAzLGMFLydcu/nl0Wx5qecgAHaTagMRuhn1OgjXr4UaiFkJS/tZd/36ju
+	saSnqUbLo/EfXnikVWyRioLyYLulomrn5+mXRW2C42hs0oDMZ4ItmGqmoBaK6TOx
+	QXkJVm4BfzVCeCbvEuIVQasEcqljMuop9N4B1VOCS1UXLOcZ0btyYtAaR/fCYV1u
+	s+Koc3BNmPx5hFNUqvNo3ATPis06z56ZSshoO9nVZTMMPHSz7wcZQvRh+KJ+HLYm
+	qmn0yPFZ995V6OCDl1tfLYTtSaT4nV9zKmSZZLCKgqRa2A==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7cxxjmdp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:37:09 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3510d0baf63so1943335eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 23:37:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791700339; x=1792305139; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1791700628; x=1792305428; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=KHnv3RyK6B3mY8+dpKdxgwL8T80d95Zy3h96qwK+OUY=;
-        b=lPEDi0fmBg4tcRhhpmmP2WyFme9JwgkjoXg+UZTrtNtagxW6PqJrf+qEr23Jk3dJU+
-         mGWY4OCXVOfVenjEDZ+Vl4ioCxeNEoFUtR1jTFeRdHS4z9SIkI1vVSe3R/ScOQm+fWVG
-         gQbvFg+jmN7YdDzncNxU3d/ILkVyfDnVTi8hurOdHgqWfny+89DPVdoecFsK5EMB7Nb1
-         GzzOKVwDB/hun7qlIw1bu+UOSpuIo7IHwZug0d39P2AR8BO+hxOa/9cvqZFdubpspDgB
-         BxVmnk8iYvGxqmPDd0D7lUJYODUDF6VOZLql0ukGyrZfAWLqXVmpszHzuJJ8+qB96Z94
-         NL/Q==
+        bh=Rnc1OvV3U/gwC+BGfdFIj9X0ZgV2oXUIAGTErZwS/rQ=;
+        b=eV53MTpyOSNl0De8KHnenaSuZQcUrgNy1BMAtd+fy04HemGaBJwVjjuGJ7TVjUzl3j
+         puQ3zgkaLNz+nXCLeC7JvD2EJqaGIGClFyvsPqUfsS5tcN73JClRTprKNDwO7CS8gVGV
+         Tp1fTHw6H3YX8ENc9wvP1j8Kjvk8tJHsZ/AH9NVU+yvlWR8zh76j8v+/klTjATmyGDjo
+         lvbVnsJtFYx/6o+mprxUpZKQCq7l9pF60JEJ3K7dGsrI3F4UTGjPUdrVx7ahIgxtYLaY
+         4KSsu5Qlk8O672BECWETcb3/asC/BjS39DPIN6P5cVmVgSlyD/ARCXdoSFkkjXlHG2mW
+         3IzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791700339; x=1792305139;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1791700628; x=1792305428;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KHnv3RyK6B3mY8+dpKdxgwL8T80d95Zy3h96qwK+OUY=;
-        b=O1bJGr0QpP2/R2toPPaznx3R6+MR2LQlD1TpK/1jqhE8iP/I667RyCzjPBGQRMTU7G
-         LlqIVyvYkZzIjXZgU5SLDys5rEakIY8F1aMNq62+Qb7vpefZt+6UUMVqn2wiiNlgogRu
-         c1E2hiAfNVTZW4Bds2STmajKXpDHG1lB3xIBMGvKEuV3XGv+ZgxjqlqDxwqR3j1GRxzi
-         q6ERXxdSJCaocwjcBE1HT7vjYZmzz8+PNIPHCs5/wu/ePmC5BZl/gsXvYI8uQfGqeHRo
-         kO5FUGOPpJFc0+1GEOPi65p/CwqL+nbWLNnm1iha3L5BMRcW1t3S33KKkyQ1+kYGDa3w
-         v6Zg==
-X-Forwarded-Encrypted: i=1; AKwUvBxzKN2gia5cmCzicTGy2dy1Rm1amwCfpNq0vGD/1a1vz57YRwoTsY36zf2BxS9gQV2/6YKIK30G8L2msNU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJmkerlB+R0w8xpzn6aQjj9QQZ118ADiJQXxJGUZB100guHqCs5
-	g6W72snWTnuMqKF61DWT1yvR7xP1BjJWu8obApBrcty8Wi2y1bg+FuiX
-X-Gm-Gg: AYBFou1AusP9TjCyC6aM44c354XLzAPlcksvs/kc74r0h+l/d93LVMEUaSO+9laLtlb
-	2Yc+5T2M3dAHtUc9S4lMqpxh4657DFENJev0MAWvLi/E4VH0t8okBQ9BMwINnlCyOjz7GcBzCRm
-	ARCsW5CFE2gj3IlQUf2CML1bCrBucLhsdOJnbco2IY/3BtlTqopDXoA7svHMTrRE1sMSmz9Axv2
-	a5KfQp5ko25d8F07aYZWLslXtzpdNfBghRmUZtnKHXC1VQ6HNcJpzM2mS6tjOp4BGHPfUXm6OFh
-	rOMz8wsX8z9Ux4u2R1eiybTa2+++Lv6RFBILOQpzFxP6rz9sY/5vHsheQd8Ewz04VIqBcPmVovM
-	THKTFoCKqgxOgoSvxaszqEQ3cz3RMRETFj0e1PPYo6R4vDHQR/QRLFbOKpBGBIAAb0WONMzyQQa
-	IJeJr6oVywsjm1+/MsjvnE6fFQU5MuHebXoDizyu9UvvpmZfj+MgqsPsqSaawgN3faTqcBsdV4Q
-	mSAjdIepQ==
-X-Received: by 2002:a05:600c:3f0c:b0:4a0:1723:2d8e with SMTP id 5b1f17b1804b1-4a18e44691emr129270315e9.2.1791700338567;
-        Sat, 10 Oct 2026 23:32:18 -0700 (PDT)
-Received: from foxbook (bez186.neoplus.adsl.tpnet.pl. [83.28.37.186])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a197c465b4sm58340845e9.3.2026.10.10.23.32.17
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Sat, 10 Oct 2026 23:32:18 -0700 (PDT)
-Date: Sun, 11 Oct 2026 08:32:13 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Fabio Estevam <festevam@gmail.com>
-Cc: mathias.nyman@intel.com, gregkh@linuxfoundation.org,
- bhelgaas@google.com, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, Babu Moger
- <babu.moger@oracle.com>, Babu Moger <babu.moger@amd.com>
-Subject: Re: [PATCH v3] usb: xhci-pci: Add TUSB73x0 definitions
-Message-ID: <20261011083213.1486acaa.michal.pecio@gmail.com>
-In-Reply-To: <20261009125154.266435-1-festevam@gmail.com>
-References: <20261009125154.266435-1-festevam@gmail.com>
+        bh=Rnc1OvV3U/gwC+BGfdFIj9X0ZgV2oXUIAGTErZwS/rQ=;
+        b=oIygFwXePCrfJxmT65DEgHUa1FkvGyUIkICEbreEVFIGnxB29Np4KlHbXcnGfzrpTt
+         tBr0BgGuM/JUIi0sKm7RoQk8EHBwOtuwIPtdbF2JMsSLfqxQQkLV4LC1skoBvdKugwEo
+         cDwUpYVpAhZAZ49YtKF9Zli0c1Nhn4P2LyC0ZijhraLkfFbXFfKx0tVmSdSGebjdqPED
+         6t6jTx6xa+pIjPGdntKTOQ17VGk0EtsL5h/iWX+2DnTJDydjWFEKnjiSYcfRukL8fGw5
+         hcoYl7vbxBKCBtPICifkdhJg7cdR5UrcnlKydxiNaj2pCth2p2bnLLai0WBqvWiLsvf7
+         J8dQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxC4qcc/3rCrC0Q8MjxwbICghjQoyWIoqJcJVjrh32qBTtDJrNeXGCoTvnpcFHypd3mv55X5ngKDG/r46I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLwtM8EqvIoPLrssCEUeU2RQB8t71p4b+kKWzncbE+HITxyEPTA
+	gm8U/gYkfHEsN5ODsmwDPk92g5fgH08xQ1/Xh+h8QBlA88Y+ZjyeLxVHWX9AbxAIT7ri5w5IfVs
+	hjxvhq3dzFNyKqS5q3/xNIqnwn5srWYo/mqGxxLHdbhVcYHkn6r92CwO2OPICf7lyxzLx/OR6kT
+	I=
+X-Gm-Gg: AYBFou3r+BH4yikOh2eTPBm52GIHPm6KgzMZreC57DU1ZvjK7EfnoxgANT+g6PnJdJ/
+	i13LX6a6KVNBRil6eWu6uYMG1fqOX2eiGuXWnLdkPO+9ZfeitiOFUTY1VBaEabaEqctX3N9dQuW
+	ehNWeuH8Uf30SC/K+emKilywkzllVNPADKtyqL5Eo7C/f+6I0PR3IZRu0RA/UGlGBfynXYdg3QC
+	RSDS42mMESGjSiZY4dURiTX6F6uR4sTd8zweMUSQRm5bw7kb8Hg/lGUZJ7HJYLm7d5aEnG94mAW
+	x0b1Aw6m9SvLdqp2JF1an3mDnSheqQ0FfXBc6/2qMt66MsmjiwPszR0xH88oXMZy/I3D+zs4o41
+	KvRZ6ECRRs8qaFTcUqAe6OIVIe8wNWaZNm7b9TCBesA==
+X-Received: by 2002:a05:7300:d18b:b0:351:1e2e:da4d with SMTP id 5a478bee46e88-3537e0bdfe0mr9337661eec.23.1791700628206;
+        Sat, 10 Oct 2026 23:37:08 -0700 (PDT)
+X-Received: by 2002:a05:7300:d18b:b0:351:1e2e:da4d with SMTP id 5a478bee46e88-3537e0bdfe0mr9337612eec.23.1791700627378;
+        Sat, 10 Oct 2026 23:37:07 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb6a279sm20811159eec.30.2026.10.10.23.37.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 23:37:07 -0700 (PDT)
+Date: Sun, 11 Oct 2026 14:36:58 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        Shivam Rawat <shivrawa@qti.qualcomm.com>,
+        Aastha Pandey <aastha.pandey@oss.qualcomm.com>
+Subject: Re: [PATCH 0/5] drm/msm: Support for GPU in Nord
+Message-ID: <assuimpZe3J5E2rs@QCOM-aGQu4IUr3Y>
+References: <20261009-nord-gpu1-v1-0-a06a6c57bde7@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009-nord-gpu1-v1-0-a06a6c57bde7@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: OCjrdOxiKr8IXVfcW4IKbFHnDcIr0EiG
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDExMDAyNiBTYWx0ZWRfX6Yp7/YE5j7A6
+ aYJMBO/RC8+n8SypIZkZ5HbLx9Cpi5TTkynjUh+c8wGLo7P80jkUeT4EsiW8MX5FvuXeXDkL/CP
+ JE4DZC9Zpf78QoOejLlauHUsZb5Ac8s=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDExMDAyNiBTYWx0ZWRfXxRsAxe68kQnt
+ OEuGfcj8mddVcIPBkUeiqkdhfBDA9tO7DlyxygCe/fsPHmWmV8MbrbHrCdGapcfgDvl1Pil75mB
+ vQm0Vk4EUKgSAGgvsMjQdG2DZtY+UOjaiW4N+1LkZ6w9Buyaqk1m+KAffrL7QXaEzX/0AQxLjHa
+ oGgFv/4gUyjjC4udfOmzyBg1o5MFjOorzwtrxHennhOsrXK+MIkwFoAKHKTHEe6DIHVsq0302mF
+ DhskTm0kbOZHAbhMcjnTM3znXc+vIAX2zsSrAstyOrkrnnpZmp9943ssAZiyvhZdTEXN1qQG/xr
+ KQAGZuupUea8AAphbsTQnL7JNQoASnk8Q6BN4nvTScJVfViZEMzEthLvAFbJNc7lHDslMLWhgq5
+ 4YxVETmap1TQliv/yJp8E/IQeWBKvhzCvMZ2p+Eic9UwlYpQCJz5VKjeqSV9Hjk4nPcXJE7DRhI
+ uRFzOmcdrbpZBGZYUMg==
+X-Authority-Analysis: v=2.4 cv=AsJ7T+9P c=1 sm=1 tr=0 ts=6acb2e95 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=7srVW7kWV-eK-ianrkkA:9 a=CjuIK1q_8ugA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-GUID: OCjrdOxiKr8IXVfcW4IKbFHnDcIr0EiG
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-11_02,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
+ adultscore=0 priorityscore=1501 clxscore=1015 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610110026
 
-On Fri,  9 Oct 2026 09:51:54 -0300, Fabio Estevam wrote:
-> Instead of hard-coding the TUSB73X0 PCI ID, USB_CTRL register address
-> and the PWRON_POLARITY, introduce definitions for them to make the code
-> easier to read.
+On Fri, Oct 09, 2026 at 02:36:34AM +0530, Akhil P Oommen wrote:
+> Nord is the first Snapdragon chipset with 2 integrated GPUs. It has
+> an Adreno 753 GPU which is very similar to the existing A750 (SM8650
+> chipset) and an Adreno A735 which is similar to the Adreno X1-45 GPU.
+> This series adds support for the A753 GPU. A735 support will come later
+> in a separate series.
 > 
-> No functional change.
+> The driver and dt-bindings patches are for Rob Clark and the devicetree
+> bits are for Bjorn to pick up.
 > 
-> Signed-off-by: Fabio Estevam <festevam@gmail.com>
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
 > ---
-> Changes since v2:
-> - Move the TUSB73x0 PCI device ID to the shared PCI ID header and use it
->   in pci-quirks.c too, as suggested by Sashiko.
+> Aastha Pandey (1):
+>       arm64: dts: qcom: nord: Add GPU cooling
 > 
-> Changes since v1:
-> - None. Only sent it as a standalone patch instead of part
->   of a series.
-> 
->  drivers/usb/host/pci-quirks.c | 3 ++-
->  drivers/usb/host/xhci-pci.c   | 9 +++++++--
->  include/linux/pci_ids.h       | 1 +
->  3 files changed, 10 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/usb/host/pci-quirks.c b/drivers/usb/host/pci-quirks.c
-> index ba158d63bb8b..f670e7aab984 100644
-> --- a/drivers/usb/host/pci-quirks.c
-> +++ b/drivers/usb/host/pci-quirks.c
-> @@ -1189,7 +1189,8 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
->  	val = readl(base + ext_cap_offset);
->  
->  	/* Auto handoff never worked for these devices. Force it and continue */
-> -	if ((pdev->vendor == PCI_VENDOR_ID_TI && pdev->device == 0x8241) ||
-> +	if ((pdev->vendor == PCI_VENDOR_ID_TI &&
-> +	     pdev->device == PCI_DEVICE_ID_TI_TUSB73X0) ||
+> Shivam Rawat (4):
+>       drm/msm/a6xx: Add Adreno 753 support
+>       dt-bindings: display/msm: Document Adreno 753 GPU/GMU
+>       arm64: dts: qcom: nord: Add Adreno 753 GPU and GMU nodes
+>       arm64: dts: qcom: nord-rrd: Enable Adreno 753 GPU
 
-You mentioned working with TUSB7340 before. Was there any board
-firmware involved which made use of this chip before the OS?
+I tested it on RRD board (against next-20261009). While kmscube seems
+running fine, I saw the following errors.
 
-I'm looking for someone who can tell whether this line should be
-touched at all or deleted. It was added by c289d0eff3d5a, which
-is very suspicious - it mentions "cards" (like in "PCIe expansion
-cards") and adds two IDs in one go. I feel it could be a BIOS bug
-affecting all cards and no problem with those chips.
+root@qcom-armv8a:~# kmscube
+[   30.192468] adreno 3d00000.gpu: [drm:adreno_zap_shader_load [msm]] *ERROR* Unable to authorize the image
+[   30.192503] msm_dpu ae01000.display-controller: [drm:adreno_load_gpu [msm]] *ERROR* gpu hw init failed: -22
+[   30.202644] platform 3d6a000.gmu: [drm:a6xx_gmu_set_oob [msm]] *ERROR* Timeout waiting for GMU OOB set GPU_SET: 0x0
 
-[Adding the author in case he remembers what happened there.]
+Are they relevant? Or am I missing something?
 
-For example, can a PCIe card raise SMI interrupts? AFAIK it can't.
-But if a BIOS thinks otherwise, and enables "SMI on OS ownership
-request", it will never learn about our request, so the handoff
-times out and falls into the "forced" branch. Or the BIOS may not
-rely on this but poll the card, and then "forget" about polling.
-
-Regards,
-Michal
+Shawn
