@@ -1,259 +1,166 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 810234349A5;
-	Sun, 11 Oct 2026 10:57:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE22381C4;
+	Sun, 11 Oct 2026 10:58:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791716279; cv=none; b=R+hseD0Dd4Q90vGkKdzWQ5RWrRGJl0FnqHvk0gwf3sWw41eRsH4C8UPPHQYH/BfpbzxvwsvxSrSYPOpgjR2RQquXD8d2QomiwnS3LA8Dmq1hJ/G2zjfWNKMJ3JTz0qPKdAjizn7cU7NK30Rjb4j+mehOFB+20gVZMEC9W5KKqns=
+	t=1791716317; cv=none; b=K59V0PxUBJ0KA/Onr3m7pmXBTYV7kJWQYZiMLocHqh3c36UExku/h57hnIqhiqs4hfdTHzXvGsHYDIfpTZnhv2yqj9Wqid9VMgnachlIQF94gUUPOkSZWJizTuLjPyY1kriYSPX/gDG0q5xe2/HpXDQlhgxqJ6E+N5QYLIVghKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791716279; c=relaxed/simple;
-	bh=Tc+kodKhvmE85izlb62Bko0JDfZzSIuHoRrryaVi6WI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=VjJvS+QDpRvrgPYhYK+nTFli+yXX8LY7j4ZYiTr0A2LYKOd7ApWLBTrYD02grLfbmFFhr0k8RyLvCybX2gHMFyM/oZsm/R6MvoRcyfka2Jul588JXZroc/2xsYz60MXkmOVF+ax76MAvnncurnZ1F6zBdA6yucQQWnizyels4b0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eu7LBny3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791716317; c=relaxed/simple;
+	bh=VODYpi1XYKmnEbGob1l+TvrDIwgSeiP34nKOms6fFl0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=CmdKWC39bRZUoMxTRRyfbzD+54O3HP/ZYaPZAVJZK0wKMrR/MwAjI6oq6wo+qDKHYTs29SgUfgGKSQSvIAwqJ0oTr/1f579h9+O6g8mKzudnLr5bNiAWf/PrpUbEO/lh2j0ZMxGPPhMzovdkji+PV/yxIexyKRj9LHw0a0C7HTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XQ7ayNtw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eu7LBny3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86F1B1F0089B;
-	Sun, 11 Oct 2026 10:57:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XQ7ayNtw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F04271F0089B;
+	Sun, 11 Oct 2026 10:58:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791716278;
-	bh=uYuOmDYM/OtK+7dgfGCc9gOnVlb1C8Q7VQ5dl8fWrGs=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=eu7LBny371tm+drfFPWUHLdRE7m/j6wCcToNLE8hlLEPCRk7XejJzvq7Yxwo3qDd7
-	 cMoYs8cINc4K3NXS6+3egWscPqOK0Y74hnNsnrrMU6LyVcNMby1nkEgKOIGW57/A9r
-	 PQ+tNqEKh2DIyo6WZIAbwOdyExI4eSWE/jivR/Lj9lmsG3WQgBZEMc/gCNrhglhfSW
-	 O0wfgDI7O8+RTTusDxOemUq/hPkEu6/lLBVzrkYKJNW0wt5qcYNcfPSZkEpDpuAKsa
-	 7OZGhvedR/Vgr9qEhs5DD2BCR5lUU4EFI7AHhSi4ibn9xcMZDANtgjbltnmb9P1VHw
-	 an25/iXGLF3jg==
-Subject: Re: [PATCH ipsec v5] xfrm: iptfs: fix pp_ref_count underflow when
- sharing page_pool frags
-From: netdev-bot+sashiko@kernel.org
-To: antony.antony@secunet.com
-Cc: chopps@labn.net, steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Sun, 11 Oct 2026 10:57:57 +0000
-Message-ID: <179171627713.434549.11629734394381610294@kernel.org>
-In-Reply-To: <xfrm-iptfs-pp_ref_count-underflow-v5-1-c25508ec9160@secunet.com>
-References: <xfrm-iptfs-pp_ref_count-underflow-v5-1-c25508ec9160@secunet.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1791716315;
+	bh=QxPFtbSGT88PrUpZjN4DrJAXdWkZp0N0O1SltjxvujI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=XQ7ayNtw61qRElejGpsN9r5WjXlhAbRKDp/xRKp5yUqcc4DgG0JSHsXS0JOoP9tGJ
+	 vE7BniXOBd8HWNy+On/I0Jb8gxZ1WC3rKJQmhjbbDrBqYeNkTeeujnvofCFJVY7C5P
+	 K2zQ9bki1OjLhb/uVaG8QF+KQJr4svNxSYM/VXBgslrzby10QQJfQjhAjgALYz+YWB
+	 wsEokZ5KtwvfdgoSgrZ9+OYsqH6FJwIvDneR2mTKy35yTILZAKu35X05rruSnuiO4q
+	 zzEun2oCqgzKUWP4751WREq/9ofwbgtj/zcPf5gjYnEpKUl5oMkCBVj1FTUVIr0mmv
+	 pyC3SuAv4RXpQ==
+Date: Sun, 11 Oct 2026 11:56:43 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Sanjay Chitroda via B4 Relay
+ <devnull+sanjayembeddedse.gmail.com@kernel.org>
+Cc: sanjayembeddedse@gmail.com, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Jiri Kosina <jikos@kernel.org>, Srinivas Pandruvada
+ <srinivas.pandruvada@linux.intel.com>, Benjamin Tissoires
+ <bentiss@kernel.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-input@vger.kernel.org, Zhang Lixu
+ <lixu.zhang@intel.com>
+Subject: Re: [PATCH v6 00/14] HID: iio: Introduce devm_ APIs for HID sensors
+Message-ID: <20261011115643.54dd6aab@jic23-hlaptop>
+In-Reply-To: <20260919-28-apr-iio-redundant-argument-v5-temp-v6-0-d577b2371b3c@gmail.com>
+References: <20260919-28-apr-iio-redundant-argument-v5-temp-v6-0-d577b2371b3c@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Sat, 19 Sep 2026 16:06:23 +0530
+Sanjay Chitroda via B4 Relay <devnull+sanjayembeddedse.gmail.com@kernel.org> wrote:
 
-Critical: 0 · High: 0 (1) · Medium: 1 · Low: 0 (1)
+> Following feedback from reviewers and Srinivas, v4 series was split
+> into two additional sub-series to perform cleanup and preparatory work
+> before adding devm support:
+> - HID: iio: warning clean up and prefer kernel coding style
+>   https://lore.kernel.org/all/20260707-15-jun-hid-iio-alignment-v3-0-8791574ad0fe@gmail.com/
+> - HID: iio: basic clean up for usage_id
+>   https://lore.kernel.org/all/20260610-6-june-hid-iio-correct-usage-id-v2-0-c3c5f0720493@gmail.com/
+> 
+> Both series have been merged into IIO tree. This series introduces
+> device-managed APIs and converts HID IIO sensor drivers to use the new
+> devm-managed resources.
+> 
+> checkpatch reports a "suspect code indent" warning on the DEFINE_FREE()
+> declaration, but this appears to be a false positive caused by the macro
+> expansion. The code builds cleanly.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+I forgot to ask Jiri / Srinivas for an ack for the few bits going through drivers/hid
+(more generally always good!)
 
-- [Medium] The commit message says the iptfs_skb_add_frags() hunk is
-  cosmetic: "Its destination skb never has pp_recycle set today, so…
+Given this has been around a while, I'll queue it up on testing for now
+but am happy to add tags if anyone does have time to look as I'll be rebasing
+on rc1 anyway in a few weeks time.
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but it sits in the
-  function the patch edits.
-- [Low] iptfs_frag_ref() (net/xfrm/xfrm_iptfs.c:453-466) decides whether
-  a frag is page_pool owned differently from the release path.
+Thanks
 
---
+Jonathan
 
-xfrm: iptfs: fix pp_ref_count underflow when sharing page_pool frags
 
-This adds iptfs_frag_ref(). When the destination skb has pp_recycle set
-and the frag's head page is page_pool owned, it takes a page_pool
-reference. Otherwise it takes a plain page reference. The helper is used
-in iptfs_consume_frags() to fix a pp_ref_count underflow on the TX
-aggregation path, and in iptfs_skb_add_frags() for consistency.
 
-> diff --git a/net/xfrm/xfrm_iptfs.c b/net/xfrm/xfrm_iptfs.c
-> index 6920940a35b49..86688c0c3db96 100644
-> --- a/net/xfrm/xfrm_iptfs.c
-> +++ b/net/xfrm/xfrm_iptfs.c
+> 
+> Changes in v6:
+> - Following input from Andy rectify kernel-doc for return
+> - With input from Jonathan used devres framework implemetation with
+>   cleanup helpder to reduce complexity and resource allocation.
+> - Link to v5: https://patch.msgid.link/20260806-28-apr-iio-redundant-argument-v5-temp-v5-0-f1f92c1d830f@gmail.com
+> Changes in v5:
+> - With input from Jonathan, convert all HID IIO drivers to use
+>   fully devm instead of partial or specific API; this is potential
+>   goal and validation on that will reduce multiple validation cycle.
+> - Rebase changes on latest iio/testing tree and resolve merge conflict
+> - Resolve mail client issue as v4 series was splitted into sub-series
+> - Link to v5: https://lore.kernel.org/all/20260524192059.1193716-1-sanjayembedded@gmail.com/
+> Changes in v4:
+> - Extend the series to cover remaining HID IIO drivers with devm API usage
+> - Reorder patches to place cleanup and warning fix at beginning and,
+>   devm-related changes toward the end based on feedback from David
+> - v3 series -> https://lore.kernel.org/all/20260509101040.791404-1-sanjayembedded@gmail.com/
+> Changes in v3:
+> - Added cleanup and prepratory changes before adding devm_ API
+>   conversion based on self review: 0002, 0004, 0006, 0007 and 0008
+> - Address andy's review comment on commit message and coding style
+> - v2 series -> https://lore.kernel.org/all/20260429175918.2541914-1-sanjayembedded@gmail.com/
+> Changes in v2:
+> - Following input from Jonathan and Andy, squash initial patch v1
+>   series in single change as individual change should not break anything
+> - Add devm API support and two driver using the same
+> - v1 series -> https://lore.kernel.org/all/20260428071613.1134053-1-sanjayembedded@gmail.com/
+> 
+> Testing:
+>   - Compiled with W=1 for each patch in series
+> PS:
+> - Sashiko reported an issue in a different driver and noted that it is not
+>   introduced by this series. I have taken this feedback into account and
+>   will address the actual issue in a separate series focus on that driver.
+> - Following input from Jonathan, will prepare followup series for
+>   HID IIO drivers to consistency support for logs in probe() path
+> 
+> ---
+> Sanjay Chitroda (14):
+>       iio: hid-sensors: remove unused iio_dev argument
+>       iio: hid-sensors: introduce device managed API
+>       HID: hid-sensor-hub: introduce device managed API
+>       iio: gyro: hid-sensor-gyro-3d: convert probe and teardown to devm-managed resources
+>       iio: accel: hid-sensor-accel-3d: convert probe and teardown to devm-managed resources
+>       iio: humidity: hid-sensor-humidity: convert probe and teardown to devm-managed resources
+>       iio: light: hid-sensor-prox: convert probe and teardown to devm-managed resources
+>       iio: light: hid-sensor-als: convert probe and teardown to devm-managed resources
+>       iio: magnetometer: hid-sensor-magn-3d: convert probe and teardown to devm-managed resources
+>       iio: orientation: hid-sensor-incl-3d: convert probe and teardown to devm-managed resources
+>       iio: orientation: hid-sensor-rotation: convert probe and teardown to devm-managed resources
+>       iio: position: hid-sensor-custom-intel-hinge: convert probe and teardown to devm-managed resources
+>       iio: pressure: hid-sensor-press: convert probe and teardown to devm-managed resources
+>       iio: temperature: hid-sensor-temperature: convert probe and teardown to devm-managed resources
+> 
+>  drivers/hid/hid-sensor-hub.c                       | 35 ++++++++++++++++++
+>  drivers/iio/accel/hid-sensor-accel-3d.c            | 40 +++++----------------
+>  .../iio/common/hid-sensors/hid-sensor-trigger.c    | 21 +++++++++--
+>  .../iio/common/hid-sensors/hid-sensor-trigger.h    |  5 +--
+>  drivers/iio/gyro/hid-sensor-gyro-3d.c              | 41 +++++----------------
+>  drivers/iio/humidity/hid-sensor-humidity.c         | 38 +++++---------------
+>  drivers/iio/light/hid-sensor-als.c                 | 39 +++++---------------
+>  drivers/iio/light/hid-sensor-prox.c                | 40 +++++----------------
+>  drivers/iio/magnetometer/hid-sensor-magn-3d.c      | 41 +++++----------------
+>  drivers/iio/orientation/hid-sensor-incl-3d.c       | 42 +++++-----------------
+>  drivers/iio/orientation/hid-sensor-rotation.c      | 40 +++++----------------
+>  .../iio/position/hid-sensor-custom-intel-hinge.c   | 38 ++++----------------
+>  drivers/iio/pressure/hid-sensor-press.c            | 41 +++++----------------
+>  drivers/iio/temperature/hid-sensor-temperature.c   | 39 +++++---------------
+>  include/linux/hid-sensor-hub.h                     | 26 ++++++++++++++
+>  15 files changed, 175 insertions(+), 351 deletions(-)
+> ---
+> base-commit: 9c464e7473f762cee4c031a09da04f65a1c65d49
+> change-id: 20260603-28-apr-iio-redundant-argument-v5-temp-4e49eed863af
+> 
+> Best regards,
+> --  
+> Sanjay Chitroda <sanjayembeddedse@gmail.com>
+> 
+> 
 
-[ ... ]
-
-> @@ -449,6 +450,21 @@ static bool iptfs_skb_can_add_frags(const struct sk_buff *skb,
->  	return true;
->  }
->  
-> +static void iptfs_frag_ref(skb_frag_t *frag, bool recycle)
-> +{
-> +	netmem_ref netmem = skb_frag_netmem(frag);
-> +	struct page *head;
-> +
-> +	if (recycle && !netmem_is_net_iov(netmem)) {
-
-[Severity: Low]
-
-This is a pre-existing issue, but the net_iov handling here doesn't
-match the release side.
-
-For a pp_recycle destination, every net_iov frag falls through to
-__skb_frag_ref() -> get_netmem(), which never touches pp_ref_count.
-The release path in napi_pp_put_page() does this:
-
-	netmem = netmem_compound_head(netmem);
-
-	if (unlikely(!netmem_is_pp(netmem)))
-		return false;
-
-netmem_is_pp() returns true for page_pool backed net_iov. If such a frag
-is shared through iptfs_skb_add_frags(), the release would drop a
-pp_ref_count that was never taken.
-
-This doesn't look reachable today:
-
-  - Software ESP can't pass an unreadable skb on to IPTFS input. When
-    skb_copy_bits() fails, esp_remove_trailer() calls BUG().
-  - mlx5 is the only unreadable-netmem driver with IPsec offload, and
-    mlx5e_xfrm_add_state() rejects modes other than transport and
-    tunnel.
-  - On TX, iptfs_frag_ref() is only called on the head page.
-
-The net_iov behaviour is also the same as before the patch. The commit
-message already says "The netmem/devmem path is not addressed and
-probably needs a fix in net/core".
-
-Could this be handled together with that net/core change?
-
-> +		head = compound_head(netmem_to_page(netmem));
-> +		if (page_pool_page_is_pp(head)) {
-> +			page_pool_ref_page(head);
-> +			return;
-> +		}
-> +	}
-> +	__skb_frag_ref(frag);
-> +}
-> +
-
-[ ... ]
-
-> @@ -486,7 +502,7 @@ static int iptfs_skb_add_frags(struct sk_buff *skb,
->  			tofrag->len -= offset;
->  			offset = 0;
->  		}
-> -		__skb_frag_ref(tofrag);
-> +		iptfs_frag_ref(tofrag, skb->pp_recycle);
-
-[Severity: Medium]
-
-The commit message says this about the hunk:
-
-  Its destination skb never has pp_recycle set today, so behaviour
-  there does not change.
-
-Is that accurate for the RX reassembly path?
-
-In __input_process_payload(), the "Reuse the received skb" branch keeps
-the skb the driver delivered (skb_pull(skb, data)). That skb keeps its
-pp_recycle bit. If the inner packet is incomplete, it becomes the
-reassembly destination:
-
-		if (skb->len < iplen) {
-			/* Start reassembly */
-			spin_lock(&xtfs->drop_lock);
-
-			xtfs->ra_newskb = skb;
-
-On the next ESP packet, iptfs_reassem_cont() uses it as newskb. The
-sharing gate there only requires pp_recycle to match:
-
-	if (!skb_has_frag_list(skb) && !skb_has_frag_list(newskb) &&
-	    (skb->head_frag || skb->len == skb->data_len) &&
-	    skb->pp_recycle == newskb->pp_recycle) {
-	...
-		iptfs_skb_add_frags(newskb, fragwalk, data, copylen);
-
-On a page_pool NIC, both skbs have pp_recycle set. Before this patch,
-the shared frags got a plain reference from __skb_frag_ref(), but they
-were later released through napi_pp_put_page(), which decrements
-pp_ref_count.
-
-Doesn't that make this hunk a fix for the same underflow on the RX
-reassembly path, not just a consistency change? Could the commit message
-say that both the TX aggregation and RX reassembly sharing paths were
-affected, since that matters for stable backports?
-
->  		shinfo->nr_frags++;
->  		shinfo->flags |= SKBFL_SHARED_FRAG;
->  
-> @@ -2171,7 +2187,8 @@ static void iptfs_consume_frags(struct sk_buff *to, struct sk_buff *from)
->  		new_truesize = SKB_TRUESIZE(skb_end_offset(from));
->  	} else {
->  		iptfs_skb_head_to_frag(from, &toi->frags[toi->nr_frags]);
-> -		skb_frag_ref(to, toi->nr_frags++);
-> +		iptfs_frag_ref(&toi->frags[toi->nr_frags], to->pp_recycle);
-> +		toi->nr_frags++;
->  		new_truesize = SKB_DATA_ALIGN(sizeof(struct sk_buff));
->  	}
->  
-
-[Severity: High]
-
-This isn't a bug introduced by this patch, but since
-iptfs_consume_frags() is being changed: can it corrupt a cloned source
-skb?
-
-In iptfs_output_queued(), only the destination is checked for clone or
-shared state:
-
-		if (shi->frag_list || skb_cloned(skb) || skb_shared(skb))
-			share_ok = false;
-
-The per-source test never checks skb_cloned(skb2) or skb_shared(skb2):
-
-			if (share_ok &&
-			    (shi2->frag_list ||
-			     (!skb2->head_frag && skb_headlen(skb)) ||
-			     skb->pp_recycle != skb2->pp_recycle ||
-			     skb_zcopy(skb2) ||
-			     (shi->nr_frags + shi2->nr_frags + 1 > MAX_SKB_FRAGS)))
-				share_ok = false;
-
-iptfs_consume_frags() then memcpy()s fromi->frags into the aggregate
-without taking frag references, and does:
-
-	fromi->nr_frags = 0;
-
-If skb2 is a clone, that skb_shared_info is shared with its sibling. The
-sibling is left with data_len > 0, nr_frags == 0 and no frag_list, and
-the aggregate becomes the only owner of the page references. For
-comparison, skb_try_coalesce() only moves frags when !skb_cloned(from),
-and takes references otherwise.
-
-Cloned skbs could reach this point with nothing uncloning them before
-dst_output() -> iptfs_output_collect():
-
-  - netem duplicate on an xfrm interface (netem_enqueue() uses
-    skb_clone())
-  - a non-mmap AF_PACKET listener on the xfrmi device
-    (dev_queue_xmit_nit())
-  - tc mirred from xfrmi
-
-In each case the skb can be a forwarded non-GSO, non-linear, head_frag
-RX skb.
-
-With netem duplicate, the second clone is later accounted with
-skb->data_len += skb2->len (or sent as a first skb) after its frags are
-gone. The ESP output path can then hit BUG_ON(len) in __skb_to_sgvec().
-An AF_PACKET reader could get -EFAULT. A concurrent reader, or DMA on a
-mirrored device, could access pages after the aggregate frees them.
-
-This dates back to b96ba312e21c and needs CAP_NET_ADMIN configuration.
-Should the share_ok test also reject skb_cloned(skb2) or
-skb_shared(skb2)?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/xfrm-iptfs-pp_ref_count-underflow-v5-1-c25508ec9160%40secunet.com
