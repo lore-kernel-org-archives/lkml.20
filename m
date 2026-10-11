@@ -1,75 +1,269 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 884104457AC
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 12:25:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791721539; cv=none; b=FgQ3x59VE/7lr4G2ahlGuyMj+dPmq6GXn25RaPMf0nM8MGnytQit/mt+L2JTvcb2JI549lGl5eo+xZWOv3VoU4zEvRcNxSp57bq8Ej7aMvdJgkPHA/wGXY3dmxmwSGts1qEoySZmHpLx2V6jrPnzB17nLQo02wMf1kUE8xp9Oic=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791721539; c=relaxed/simple;
-	bh=FQ2rBZUvBc+xvTFLhTR0QvwYODc+fEnfrI/KibvveLk=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=YDoMSlii2pcX9ID+nixD/TeI2/yY77bR8Awk1D4MIo0kujncdsJ8ze42zGk3whWO7dmC8uqUl/RuvVcuRVSUIdEKwgD25Ms+F0siKqm4leV6eL3vYDmHj5Jh7zGn5qq/vqp5EZ1jc//1ZDU+I2lcbzshU7HlEWm9Ch+O7ClX3m4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HRVlA/Mu; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328413D8125
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 12:26:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791721569; cv=pass; b=Jhl8j2q/O2tHSzgdspjqtybobQpSvkbinjnGJrx/GSeg7omxohA2e9KAfNVxwyeWyCvH6x6PpavGKtmZvLy4t/ZYvSQLKoml6XWnF1poNYNR0AqLsdsAB8f1BEN4CU5QBmIYadWuoEiu04Hs4KDl9WvI5Jz5l4C9Fh7o9vVPRdU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791721569; c=relaxed/simple;
+	bh=gronyVIYApYxx9WjxLZsJXZ/v3S0S2J9UwTQq+9wSnM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pyl70C7kKtIrbq7juSwsN0d1Kg5k2T1TnLKHeHIbijEQjObOAm0yi0XD94mZJ4vjA6Ux/cRoJcO1uKCJ46WxjZGxO29s3aAGfSc996JUgM0VQI9EoyqN52hkfTECVSak0rtEvca33sRHOTfyIm0j9o4b89aJydO6Y9euPKJsDJA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oyAc+4Kf; arc=pass smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HRVlA/Mu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49D241F0089B;
-	Sun, 11 Oct 2026 12:25:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791721536;
-	bh=irOGxmKVDrEZKvZjgOaKPJglMLW7T/ynGH3oeMhA5Dc=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=HRVlA/MuFOOBYYxt+yvZc7WrB9DTZooIq0n+/qthPKkL1OrO5egtQcqKfRd8EHCeJ
-	 VT0J6rNLR8zvWXZnC4mbqiYIQbja9qeC0x6MPJ/IlwFXGgfrzSXSGlkDi0UgYfjwkF
-	 mvh39De4NklF0SJCfBA8b1h6HdMDrQzbQL4w1IMAxXrSa0MzJTlrIrzioFa4x+8FpO
-	 6WaIsZq4MVabg8dD64/6OZXfnnzPhEo5jiqzPnpH7sqhxJXNHWzE+wMjlD5mt2ff5h
-	 bq0BkvsaUfgq8E+oIbPwLVTqEFWhKqaiJoKxq8TCNhM/t60X3DgB/jznU9rV/jbY2P
-	 Feh7NV0CDbVaA==
-Message-ID: <8cbb8aee-189f-4c69-927c-7deb1a50ab8f@kernel.org>
-Date: Sun, 11 Oct 2026 20:25:33 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oyAc+4Kf"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ab8309dcbaso743264a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 05:26:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791721566; cv=none;
+        d=google.com; s=arc-20260327;
+        b=D6YGWWvFy4YUe+ab4udXT8PoPwnrnix0hhmsI2EMXypa6lMuOTAqtw5I5douw2v13V
+         bCQYlxCrzGlWcN+6i8uCGzQn2UzmDuPqzn74qRnteql+ukxZAhWH91tFDdklmA0YDSgf
+         MTT69ARNkkAVA8JDspm71u2FFvUQ5dp0ujI8Qa5+88cS3hxP/10cTLmPVOxTjnUVgp8H
+         OCDzS6hrFksR9C58eXNBnoiZDTWCLDwOgktLVuwHwgKIfa2vAP69rp0A2R3O4W8IeBUC
+         tL8Vhy5eVh0wCoCBA5Kr7iljuAqal4HXEqo4v9h3LVmDbbAtaR7YFIL5CwaZ5gqJc0ig
+         QWaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=TMQJrEs50uHxmH5jNYUVoTh6YrurDltIENM9WcFXON4=;
+        fh=4Zn8GX3CFUv+lxBJ3mLtpAeYz/gDYsWQB0Qk8bhLvjE=;
+        b=d2ZVGDIgKISCh+m14a3XhcueKTfRXVDqINN7cUNkqrq3eh/tKPj1mEp6wht+XtoUfV
+         8hxDKPYCoGHilR1rVFD/cDLp+PUzcYAbJzXBqZT1YcuYU8+hQjFcwSEaXfIrP3iSgM+h
+         v0lK41ibamvUwmYBvsZMBAhOiZV8X2vR3qO3v3m9h5GQbzWSENsvjFMFKvibxazaVeKH
+         bS3nppsTsGVdbYepBcGNCjA3SElda+fUchDtn+5FWu9zhX/Nd9gTBYM9v6i1339u8INY
+         wdi7grML1c4HAcHo2VVaWY6YK32L/TvfhS281yKN5RhJDfbfNef22r+WB+WdmiDuKwIG
+         67Dw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791721566; x=1792326366; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TMQJrEs50uHxmH5jNYUVoTh6YrurDltIENM9WcFXON4=;
+        b=oyAc+4Kf5BHnV01gswn5YaVBBQZhBhRV10ap+5WCpXaWHfx5SbqV8df9C25fbJL7Ag
+         hIOrZMVZbAHTVAN+w940v5o/72kj0lOGREX9Yd9iYakS9bFJ81mxrh3Z7LWB8wUKyiWu
+         kU44xhfkWTyFtuX5gUBArmIXHEbXuWBrKYvSzVTxYQtsth1AyAhAZkPj+MaGhF3c0/1y
+         4QsglTv+1pJD3TJaqRa0LDy8D23+/X1jS1i8KGBnplHN3+tEbrQLP9N/gs+Poovh89gY
+         TFnYeexlS7NvujBY3FKpoq0oAIzR+bhWiVcWNDmxGATLz5v6bnuMAYDNfPUIuDIvQlU3
+         8M6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791721566; x=1792326366;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=TMQJrEs50uHxmH5jNYUVoTh6YrurDltIENM9WcFXON4=;
+        b=XSzsMgsw9qWfxTeQhU+colaFMsKCZ35miPhD44gOxhkDTM9S+2COxN/H4pHUGo4IQB
+         KwDDfjlksCeo6c5G3kwHYBLB605qvFQ9zlyz4XOoGKIxC5CA/cgQddQpmXP+fiRkiGzV
+         KZ6FajIRPGQv7Y5Y2tVln2joYeJN5RaOx5DPuSTVvJ8xUAe0BJFBi1uj8hI00Z0JGHoH
+         g6/2DIVW84hGsgQxRfyJQFE7Wsde9uDXkKURRijQgWYTcrAfqtLPFLx1cmzTJ7D7Oa/a
+         rAU2zjl1WoXpUD7Ybt0h55D/yYJuLI3pT+Qbt47Zb2uKtdiKkqKXJ9dOQSLhcfUYdORS
+         rtqA==
+X-Forwarded-Encrypted: i=1; AKwUvBxceomS1WIaXSSfVKptyCfauBXMoMHpCMl3RFU1+wVlC/U1N0vfK9l65fqPaNq+HaC574HFUy0w4S2ne7I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKQl48qh8+MTfl33m5lPtkvJigNYPJSEVTMU6dJBbCGFfegGvHz
+	IJ6ZIH5+Ft6VEkB91VeVgV/RX5Pohcn93bop9oRJxr3YVAlUAoSc5A+96Qs6XJDDZgebaei9BSE
+	DVEvUlqtD+ehfnp6fVTFdx+2JIwK0nQErwvFcv3JaUw==
+X-Gm-Gg: AYBFou2xxSjAyHlumwNMphnaLvO9Xl4g4pbJtNMbVYPpDsmpPsOJMtO0p2zAjZoO1sR
+	lJPbwYfG+xEOrrJ14Mff2mP93Sbndoxe4dNU/wgcgYHS7weahsVvBT2USgzsSmduz3+vQRfYidk
+	7Korgr2Q1n1LcgxdxBLFmggz80xswE7EmI2MGbUQKaOqhpco6vWIFZ05eKraVRrD0z/bOB7MRFG
+	sWNXQwT9dKA2ZKo/plSuh8jBeLGHSOV5okFDfA2ipLn/6VzIpNxfRcNpC7hICTtFDS4iYhttJqI
+	PLPhZVMeqrvwpIwsgkCrK5/lrntmsE+C9Gv6t876Pi6E/hG6WpBJeg==
+X-Received: by 2002:a17:90b:2b48:b0:3aa:412f:b0a7 with SMTP id
+ 98e67ed59e1d1-3ab3a3687c7mr3848020a91.5.1791721566176; Sun, 11 Oct 2026
+ 05:26:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] f2fs: bound the SIT/NAT bitmaps by the checkpoint pack
-To: Kaixuan Li <kaixuanli0131@gmail.com>, Jaegeuk Kim <jaegeuk@kernel.org>
-References: <20260919130925.1899994-1-kaixuanli0131@gmail.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20260919130925.1899994-1-kaixuanli0131@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260917185235.23792-1-andersen.theo@gmail.com>
+In-Reply-To: <20260917185235.23792-1-andersen.theo@gmail.com>
+From: Theo Andersen Carton <andersen.theo@gmail.com>
+Date: Sun, 11 Oct 2026 14:25:54 +0200
+X-Gm-Features: AclHuK-8yQsEoQZb7XBZEYKYmzxZwaG7_AHzyz8sYrBgwykehmJlXlezwbpfNXM
+Message-ID: <CANFnrsrMZoRatJJ_iJ=c9zW4uiZZUhM8KnVq_NF3XNW2_yQ0SA@mail.gmail.com>
+Subject: Re: [PATCH v3] drm/i915/ddi: add DDI A force 4 lanes quirk for Apple MacBookPro11,5
+To: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com
+Cc: joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com, 
+	simona@ffwll.ch, intel-gfx@lists.freedesktop.org, 
+	intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/19/26 21:09, Kaixuan Li wrote:
-> sit_ver_bitmap_bytesize and nat_ver_bitmap_bytesize are used as memcpy
-> lengths into and out of sbi->ckpt, which is sized from cp_payload alone,
-> and nothing compares either length against that allocation.
-> 
-> sanity_check_ckpt() has checked these two fields since c77ec61ca0a4, which
-> added them after a crafted image overran build_sit_info(). That check ties
-> each length to a segment count; it never compares either against the
-> allocation, which is the half this adds.
-> 
-> Mounting over-reads in build_sit_info() and build_node_manager(), and the
-> first checkpoint writes the same lengths back through the same pointers,
-> so the over-read's contents reach the on-disk checkpoint. An unmount is
-> enough; the filesystem does not have to be used.
-> 
-> Bound both ends the way __bitmap_ptr() lays them out. The three branches
-> differ, so a single sum of the two lengths would still admit a small
-> overflow when cp_payload is non-zero.
-> 
+Hi Jani,
 
-Cc: stable@kernel.org
+Gentle ping on v3. Patchwork says CI won't trigger automatically because
+my address isn't on the allowlist:
 
-> Fixes: c77ec61ca0a4 ("f2fs: fix to do sanity check with {sit,nat}_ver_bitmap_bytesize")
+  https://patchwork.freedesktop.org/series/174000/
 
-The overflow issue exists before this commit?
+Could someone with access click retest on rev4? For reference, BAT on the
+earlier identical posting (rev3) passed. The shard failures from that run
+were on MTL and DG1, which never reach this code since the quirk is gated
+on a DMI match for MacBookPro11,5.
+
+The bug with the logs and the VBT dump is still at
+https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17087
 
 Thanks,
+Theo
+
+Den tors. 17. sep. 2026 kl. 20.52 skrev Theo Andersen Carton
+<andersen.theo@gmail.com>:
+>
+> On dual-GPU Retina MacBooks the internal panel is muxed to the discrete
+> GPU at boot, so Apple's firmware never lights up eDP on the Intel side.
+> As a result it never sets DDI_A_4_LANES, and intel_ddi_max_lanes() reads
+> back a source maximum of two lanes for port A.
+>
+> intel_dp_max_common_lane_count() then takes min3(source_max = 2,
+> sink_max = 4, ...) = 2, giving 2 x 2.7 Gbps x 8/10 = 4.32 Gbps of link
+> bandwidth. The panel's native 2880x1800@60 8bpc mode needs 8.1 Gbps, so
+> every mode is rejected with MODE_CLOCK_HIGH and the connector comes up
+> with no usable modes at all -- the panel stays dark whenever i915 is
+> made to drive it, which looks like a hardware limitation but is not.
+>
+> The lanes are physically there. Reading the panel's DPCD from the AMD
+> side, where amdgpu drives it correctly, reports MAX_LANE_COUNT = 0x84,
+> i.e. 4 lanes, and amdgpu's own link_settings shows it running the panel
+> at 4 lanes / HBR. macOS likewise drives this panel from the iGPU at its
+> native resolution, so all four lanes are routed through the gmux to
+> DDI A. Only the register bit is unset.
+>
+> intel_ddi_a_force_4_lanes() already exists for exactly this situation --
+> its neighbouring comment notes that "Some BIOS might fail to set this
+> bit on port A if eDP wasn't lit up at boot" -- but it only covers
+> Broxton and Geminilake. Extend it with a DMI quirk so affected Macs get
+> the correct lane count too.
+>
+> The DMI match is deliberately narrow. Other dual-GPU models in the same
+> family are very likely affected identically, but they are untested, so
+> widen the match only as reports come in.
+>
+> Tested on a MacBookPro11,5 (Haswell Crystal Well, Iris Pro 5200 +
+> Radeon R9 M370X): with the quirk, DDI A comes up as 4 lanes, link
+> training passes at link rate 270000 / lane count 4, and i915 drives the
+> internal panel at its native 2880x1800.
+>
+> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17087
+> Signed-off-by: Theo Andersen Carton <andersen.theo@gmail.com>
+> ---
+> Numbering note: neither earlier posting was labelled, so to match the
+> numbering already used on the list this is v3. v1 [1] was pasted into a
+> mail client by hand, which hard-wrapped the diff and detabbed it, leaving
+> it unapplicable. v2 [2] was the same patch resent with git send-email,
+> unlabelled.
+>
+> v3:
+> - No functional change since v2.
+> - Commit message: the machine is Haswell (Crystal Well), not Broadwell as
+>   v1/v2 claimed. The DMI match was always by model, so no code change.
+> - Added Closes: tag for the bug report, which carries the failing-case
+>   logs, the VBT dump and the EDID.
+>
+> [1] https://lore.kernel.org/r/CANFnrspHiK7ii28XPdLkOMyhSZcJ9xz6CT-kNX+oiiF+8N-2Fg@mail.gmail.com
+> [2] https://lore.kernel.org/lkml/20260912091805.531666-1-andersen.theo@gmail.com/
+>  drivers/gpu/drm/i915/display/intel_ddi.c    |  7 +++++
+>  drivers/gpu/drm/i915/display/intel_quirks.c | 34 +++++++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_quirks.h |  1 +
+>  3 files changed, 42 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+> index 02a53c9848e1..f746287830b3 100644
+> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+> @@ -4976,6 +4976,13 @@ static bool intel_ddi_a_force_4_lanes(struct intel_digital_port *dig_port)
+>         if (display->platform.geminilake || display->platform.broxton)
+>                 return true;
+>
+> +       /*
+> +        * Machines whose firmware leaves eDP dark on the Intel side never set
+> +        * the bit, so trust the quirk rather than the register.
+> +        */
+> +       if (intel_has_quirk(display, QUIRK_DDI_A_FORCE_4_LANES))
+> +               return true;
+> +
+>         return false;
+>  }
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+> index 33245f44c0d5..feb28956a013 100644
+> --- a/drivers/gpu/drm/i915/display/intel_quirks.c
+> +++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+> @@ -100,6 +100,20 @@ static void quirk_disable_psr2(struct intel_display *display)
+>         drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
+>  }
+>
+> +/*
+> + * Dual-GPU Macs boot with the internal panel muxed to the discrete GPU, so
+> + * the firmware never lights up eDP on the Intel side and consequently never
+> + * sets DDI_A_4_LANES -- even though all four lanes are wired through the gmux
+> + * to DDI A. Without the bit, port A is capped at two lanes, which is not
+> + * enough bandwidth for the panel's native mode, leaving the connector with no
+> + * usable modes at all.
+> + */
+> +static void quirk_ddi_a_force_4_lanes(struct intel_display *display)
+> +{
+> +       intel_set_quirk(display, QUIRK_DDI_A_FORCE_4_LANES);
+> +       drm_info(display->drm, "Applying DDI A force 4 lanes quirk\n");
+> +}
+> +
+>  struct intel_quirk {
+>         int device;
+>         int subsystem_vendor;
+> @@ -142,6 +156,13 @@ static int intel_dmi_no_pps_backlight(const struct dmi_system_id *id)
+>         return 1;
+>  }
+>
+> +static int intel_dmi_ddi_a_force_4_lanes(const struct dmi_system_id *id)
+> +{
+> +       DRM_INFO("DDI A is 4 lanes despite firmware on %s\n", id->ident);
+> +
+> +       return 1;
+> +}
+> +
+>  static const struct intel_dmi_quirk intel_dmi_quirks[] = {
+>         {
+>                 .dmi_id_list = &(const struct dmi_system_id[]) {
+> @@ -188,6 +209,19 @@ static const struct intel_dmi_quirk intel_dmi_quirks[] = {
+>                 },
+>                 .hook = quirk_no_pps_backlight_power_hook,
+>         },
+> +       {
+> +               .dmi_id_list = &(const struct dmi_system_id[]) {
+> +                       {
+> +                               .callback = intel_dmi_ddi_a_force_4_lanes,
+> +                               .ident = "Apple MacBookPro11,5",
+> +                               .matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
+> +                                           DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBookPro11,5"),
+> +                               },
+> +                       },
+> +                       { }
+> +               },
+> +               .hook = quirk_ddi_a_force_4_lanes,
+> +       },
+>  };
+>
+>  static struct intel_quirk intel_quirks[] = {
+> diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
+> index 970a4fe52faf..d2b8e9183c62 100644
+> --- a/drivers/gpu/drm/i915/display/intel_quirks.h
+> +++ b/drivers/gpu/drm/i915/display/intel_quirks.h
+> @@ -23,6 +23,7 @@ enum intel_quirk_id {
+>         QUIRK_EDP_LIMIT_RATE_HBR2,
+>         QUIRK_DISABLE_EDP_PANEL_REPLAY,
+>         QUIRK_DISABLE_PSR2,
+> +       QUIRK_DDI_A_FORCE_4_LANES,
+>  };
+>
+>  void intel_init_quirks(struct intel_display *display);
+>
+> base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+> --
+> 2.55.0
+>
