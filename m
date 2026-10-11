@@ -1,95 +1,76 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3D5E353A81
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 17:40:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6DDA3C873B
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 17:48:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791740446; cv=none; b=bvJcKWI1ADFmBmsQHGcUkZ+vBwUKmROSc+wNQe9H4J0/c/og0ZFmdt9X/BuZQbIoJk+WwmqvG0b1+gGY/HaGURWhlpUoicf/pTCbRTo5Oy8hM2Q6KFzZF/e1jHCsp59eo+i4AVL0VtVJaIvpiWThIqK6DmPretRf26GsD8gc3Lw=
+	t=1791740932; cv=none; b=KOpK0J3/T/4lEImP4kcUmPnenoH3it2NOyQsf80tMox93GiCTUGTw1ODdMmCkyv64RAERGgINCl02waDtuIkkkb3jClw1q+sbHQ1RjcowwU2L0a7V6dNGAR9Qcicy0PhTP8V0G1ODFtd+UXCmIAVwHrpKdIWc9XPepuIb6r1Jjo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791740446; c=relaxed/simple;
-	bh=w3rpF15i6oAhEioYAhAAF+3ymkyfHG5hhIacF+l8vRQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cu9DAqjN0+ROP7J/rUxq5NrbbS0thbPQi2VBC3Sc+sO16IJPrTygREHQmgpL/sNiCUWnZZypYuIspEkRJiIRWaCRAQWD6yN2+USXTL5b+xEm+2LbulaapsTUISjG9f/0I7iq7rYDtbGIGic5iI9O9nuLsmAVPJvot8HKAS2Xv0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pNzK/Mbv; arc=none smtp.client-ip=209.85.128.54
+	s=arc-20240116; t=1791740932; c=relaxed/simple;
+	bh=hGNopC5q5uAVdNTtczdcI0MSFHjygXY4DDOanfognps=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Q+rdrRXcW498SwWiC7iHdyX8U54+tmpw6NncSODZ0WAVcNHUjwOOYzCAwl3AMLTd7BG63qGJ06ihU2eaVzu7h/Sao/k4vNzH65vGA0FFPiLxTXBMVy3+2fYpUYiSPAXm81NzWG0SxxCWO8GsgsOIdeWwN/SydZ98yO7r421e7hg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BTC+anDg; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pNzK/Mbv"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a172da1049so543285e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 10:40:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BTC+anDg"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a02753c04fso6015805e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 10:48:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791740443; x=1792345243; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Zvh6uQ9bGzCwbdbYbC1n1+7RZUsbZpcs8nWAcUfwSlg=;
-        b=pNzK/MbvaGVD96sGgqNDpwDXdrmVs8spLgt000yM3PEEO12zAuWICes0SOSP6Sj86J
-         vLp2OiI1RD16t14XvmrmsQkLzcy/rVTv3Ok2Dp337ZeG2yFyC5cTImFHCqSdXWRbDLRd
-         Ldm6klsv5EKbiqJSxuiiRlt+GkX1YOtOX4sa2wy3UOdzoyqClxpUzg5fJdcBTQXmCY4u
-         QaogKvQ7ZoeljCfJ0kih4CXp4t1n85pMcLzBvgcCfuVeXOoe7OwALHylyLP9iPRhXGUx
-         kUWFI6kyf9QGxP84MegV8T9smXLb+9rqkeop+ZtAi7uzReYQiZzkEqX/S65HXToSUOoY
-         Jztw==
+        d=gmail.com; s=20251104; t=1791740929; x=1792345729; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=upDrwNGB9JbvjpAZkj932h4EK026LhsRYnlCJhqIVww=;
+        b=BTC+anDgCOQcuhrYdyhAbc93QryFZrzm367jTs+blWS89lmO2qXwzJuLRRddShVXuE
+         PiK5S5LEH6plvgvDveO9sZKTerEAhsbn44LCc7w1PaKwqTT2uXdkg9PtdjXEcCtcc/6d
+         qPqQoZeGNN/bVWUlJ9vNbCQhdFrb8f9khmqSBg/6UllrB8X4LK2A5FXhdIK131wowqQW
+         w3gwVRK3Htu0QzKodoaiOgxiiLBFVWdj9S7Iq+T+juxPrimGJdv5V43MwJPXTbp6pqFs
+         Asqa+d5cgeD1ohQN+2yWNJmuimHz5Nr0yOI8ye9ueMPDvFfrlNYKYZHFBt+Wq6HecVaK
+         WW7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791740443; x=1792345243;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Zvh6uQ9bGzCwbdbYbC1n1+7RZUsbZpcs8nWAcUfwSlg=;
-        b=kE64aPsrXV4DQL0z8Vj47BAylDtWE52euI8PjHGEG+EFaouE0U4hBbjxXykEcBMxFg
-         oIKjt2HxQAyFVcaevu/q2hBkmcd8ZqoDpNf6J1RFbcS2R5g7T6Ba9nKqGws1NWRSZTWB
-         jDcNznPlUCNKewmh66S+44i5m30Z2BV34Ahr+KX4jk5BrolNWtRBE36aEXnBK3JLvukk
-         Zs4ZFpXw6sfLI4XneYLVT2cD/GrbfHVfRej5F9vIyz99I2Bap/lHvaODIYh1bpvOaciJ
-         1z5kBtZ6WrSfwz0ofQ63c7h3f+CrNEc78TSg/XB7av5JrlelC5ldTFEObJI8VhnIRQzO
-         fp6g==
-X-Forwarded-Encrypted: i=1; AKwUvByG+aXrJU83BGPTiPlpYzsWcJTXnS1fCqika1HUsAPapU1o53knOYMRKR7eItjOWzlETpvM2l8KSFtxOOg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLlmAktjH6il+0KiFv2/IqsBxXBTl7WnZeBY1VDC7920o0R5LGb
-	ZDKrGrdfHCzvFk+Uot2nhoZHGLXP01BbZggfE1wqnAYjtS+dGtG5I3PF
-X-Gm-Gg: AYBFou0RcfurZLcpXXrQetchKcXUU4nuoOQOuCM8uSVEncR5d3NMiEG4QoEhx5cYXm6
-	BtKgX4Jixg2bDLgpemONbAOCxZVaiSOSg74rbE6FIL6cmhC1lKGccXSmW4slQf6EiKpMqpDbck8
-	wtCX5JjS8R++BgtbORCO6GQ4bjjBZp9YJxx4fvTDt8BDCiLlGYLURMhVOyAa63WgR5L/s05Wj+b
-	DJ1reBeLUyMm2Ww5aQ+7n/O1vlG/XtoOLjGqJ7icmgK4B5SqMAL3nMa1D61q7gy+HUS0RRZHcS/
-	RWrb70PSQByQuIz0MSRteSYSBRdOwd5rUp4LyIotai/UzhVIeJE/x70sidJ8tms+USwzRTn5PBn
-	+6EIJrcCFUBkWX3trrcqgwlp0As1RRVpdj197LiwJ68o74sAVz4wjJfPrag/4BdkCUP88P+I7Aj
-	gBonJhwQZu6ZLzYXnefR2GNPYZ0CFy1OEZ1XO9BprsTieGnVWRQhSV/V+GRIvyYgr81U5rETkVc
-	cNPbQdXdLMhulCDkbD5
-X-Received: by 2002:a05:6000:46cd:b0:487:10cb:ac16 with SMTP id ffacd0b85a97d-48dbaade0e8mr7581774f8f.4.1791740443065;
-        Sun, 11 Oct 2026 10:40:43 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9463049sm15688482f8f.4.2026.10.11.10.40.39
+        d=1e100.net; s=20260707; t=1791740929; x=1792345729;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=upDrwNGB9JbvjpAZkj932h4EK026LhsRYnlCJhqIVww=;
+        b=WFMfWwVjtYnbpQwRCIjnCzeoeSZ87w+WWbWaDzvAmq6IuTGAVsIOL6XSkk4Psmq3qy
+         8KN3QPYuiD989LmK4qgN5dTMQVwhIBl+S3ioxrq9zKUYSWMqYl7AgOM05NTNC5JjnPmK
+         A1QccmIXuYOmgl0+WZT+CWFqjx9ux6uLPV5OGekucWv3gyiomjd16ZG9+WSfGqj/T5Eq
+         9Ige/oufO/brZ+DdNT01glcLVgbmyqJm8rCQacZanjKiVCzGEgb2DOY0HduQ8dSz85g3
+         17fl6c5OYhLNMDvC6zM8W96US67aHbQ/3kP8HOfhSXO/ITDJo3d1BxvMfUMkwBQaGbyq
+         IVNw==
+X-Forwarded-Encrypted: i=1; AKwUvBxqKaRJWmUIUzBvcSUZxXenXrF3iGSDnBOWaaPK5KsKOLEhUhh8OArfHS+sbocTrhFfdgGsJy2njsxolIM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLl5VDkDheDVUxzy4W9LfZgOsAea2AKXsSIHATlbRmHc8nVna4I
+	c0pMcXlgFAahpR0kcgrgwFNtoNfiYGybkY+F6i5S1OM9EgVt5s1zhCmf
+X-Gm-Gg: AYBFou3WL6gkHNH2hYjqSIV8Ov43o6D/wKrYhOBSSP/6wc6+cEUYdYsIP9if7F5CZFA
+	L0LVq8XKus9y/+vE0IGYlcamKnrrE1/RCzxuuPz+ptlz7B7X3xPKSrYB+XY7XRjpRUcwbBFrY9F
+	AG/GnZA12CxchQV41eZFkG9gtjn3HWic0Tf6KNKPKm4Tg6KUfbT+jiH/H3OKDPoe74288z0AEpm
+	4BaoUlf6Qr58ZTYvRK6Mm/v0Le53mlJj56aF32iMmyCby2c12COeOKr+l4f5Ll/HzDFfN/jlt9d
+	sR8+NRTJ+cvJ/rXp++AEKn0zgPMQnVFZV5hwZ/C6CQjgdiL9cMNomPk5UZRH7GncXVAEfB/PsIt
+	tYxvg07BzE9twbQ1YH4pW/B7Hz2xXl7bEidcGnomodNN9rSeTxE4ljDkosr+zSPI0GSh1rdimbW
+	bNVXRMiAkMr9cIObo3sWCMZoD6oJNBOWDv47NDy+9aQ/yFJiUbh2SVZRy153cRURP5KTAZ1Hkjo
+	s9o/ZNWj6y049ANt8lpS2MmiPMLIMRHfjb+GymRrV4qWJduDGSdAmuGpSnebDy79rHu
+X-Received: by 2002:a05:600c:3b0a:b0:4a1:779c:dc8e with SMTP id 5b1f17b1804b1-4a18e4a01b7mr144162915e9.10.1791740928517;
+        Sun, 11 Oct 2026 10:48:48 -0700 (PDT)
+Received: from Raghu007.. (sgyl-44-b2-v4wan-174108-cust110.vm6.cable.virginm.net. [80.1.81.111])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18beabbd0sm262519065e9.12.2026.10.11.10.48.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 10:40:41 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: vincent.guittot@linaro.org
-Cc: arighi@nvidia.com,
-	bsegall@google.com,
-	changwoo@igalia.com,
-	christian.loehle@arm.com,
-	dietmar.eggemann@arm.com,
-	juri.lelli@redhat.com,
-	kayracizmeci@gmail.com,
-	kprateek.nayak@amd.com,
+        Sun, 11 Oct 2026 10:48:48 -0700 (PDT)
+From: Palla Raghunath <raghunathpalla.0209@gmail.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	lukasz.luba@arm.com,
-	mgorman@suse.de,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	pierre.gondois@arm.com,
-	qyousef@layalina.io,
-	rafael@kernel.org,
-	rostedt@goodmis.org,
-	sched-ext@lists.linux.dev,
-	sshegde@linux.ibm.com,
-	tj@kernel.org,
-	void@manifault.com,
-	vschneid@redhat.com
-Subject: Re: [PATCH 10/18 v2] sched/fair: Add force push task mechanism for fair
-Date: Sun, 11 Oct 2026 20:40:38 +0300
-Message-ID: <20261011174038.5334-1-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CAKfTPtCAbreGDhesDmFNvXEzjj+anmOH1=jqT-1B6Lfj0FfPqw@mail.gmail.com>
-References: <CAKfTPtCAbreGDhesDmFNvXEzjj+anmOH1=jqT-1B6Lfj0FfPqw@mail.gmail.com>
+	Shuah Khan <shuah@kernel.org>,
+	Brigham Campbell <me@brighamcampbell.com>,
+	linux-kernel-mentees@lists.linux.dev,
+	raghunathpalla.0209@gmail.com,
+	syzbot+ae549381b4daac2895b1@syzkaller.appspotmail.com
+Subject: [PATCH v2] RDMA/cma: wait for addr_handler() to finish in rdma_destroy_id()
+Date: Sun, 11 Oct 2026 18:48:46 +0100
+Message-Id: <20261011174846.59186-1-raghunathpalla.0209@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -98,64 +79,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> >
-> > On Fri, 9 Oct 2026 at 07:53, Kayra Cizmeci <kayracizmeci@gmail.com> wrote:
-> > >
-> > > >       task_tick_cache(rq, curr);
-> > > >
-> > > > -     update_misfit_status(curr, rq);
-> > > > -     check_update_overutilized_status(task_rq(curr));
-> > > > +     if (!tick_pushable_task(curr, rq, rf)) {
-> > > > +             update_misfit_status(curr, rq);
-> > > > +             check_update_overutilized_status(task_rq(curr));
-> > > > +     }
-> > > >
-> > > >       task_tick_core(rq, curr);
-> > > >  }
-> > >
-> > > Hm.
-> > >
-> > > I think this mechanism added on here does not works.
-> >
-> > Ah yes, while factorizing the code, I removed this main diff between
-> > tick and put events
+syzbot hit a use-after-free of id_priv in addr_handler(). The bad read
+is in debug_mutex_unlock(), from the last mutex_unlock() of
+handler_mutex, and the memory was freed by ucma_close() ->
+rdma_destroy_id().
 
-> In fact this is on purpose.
-> fair_check_pushable_task() is the function that is called to decide
-> wether we try to push or not a task. In the case of short task, we
-> will not push a task that is already alone on the rq
+addr_handler() moves the state from RDMA_CM_ADDR_QUERY to
+RDMA_CM_ADDR_RESOLVED (or RDMA_CM_ADDR_BOUND on error) under
+handler_mutex. If rdma_destroy_id() runs at that point, it waits on
+handler_mutex. When addr_handler() unlocks, the destroying task can take
+the mutex before mutex_unlock() has returned. It then sees a state other
+than RDMA_CM_ADDR_QUERY, so cma_cancel_operation() skips
+rdma_addr_cancel(), and _destroy_id() frees id_priv. mutex_unlock() in
+the work then touches the freed lock:
 
-I'm confused. So, is the added tick push mechanism not working at all
-on purpose? For future use or something IDK.
+  ib_addr work                         close()
+  addr_handler()
+    mutex_lock(handler_mutex)
+    ADDR_QUERY -> ADDR_RESOLVED
+    ...                                rdma_destroy_id()
+                                         mutex_lock(handler_mutex)
+    mutex_unlock(handler_mutex)
+      owner cleared                      gets the mutex
+                                         state != ADDR_QUERY, no cancel
+                                         kfree(id_priv)
+      debug_mutex_unlock(lock)  <- use-after-free
 
-Before the fair_check_pushable_task call on tick_pushable_task():
+Documentation/locking/mutex-design.rst says mutex_unlock() may still
+touch the mutex after another task has acquired it, so handler_mutex
+can't be what keeps id_priv alive here. The comment in
+cma_cancel_operation() assumes it can. Before commit 722c7b2bfead
+("RDMA/{cma, core}: Avoid callback on rdma_addr_cancel()"),
+addr_handler() held a reference on id_priv until after mutex_unlock(),
+which covered this.
 
-if (rq->nr_running > 1)
-	return false;
+So in rdma_destroy_id(), call rdma_addr_cancel() before taking
+handler_mutex if a resolve was ever started on this id. The req stays on
+req_list until the callback returns, so rdma_addr_cancel() finds it and
+cancel_delayed_work_sync() waits until addr_handler() is really done.
+This doesn't deadlock with the work itself. When addr_handler() destroys
+the id because the event handler returned non-zero, it uses
+destroy_id_handler_unlock(), not rdma_destroy_id(). Event handlers also
+run with handler_mutex held, so they can't call rdma_destroy_id() on
+their own id anyway.
 
-So now at the rest of the function, nr_running have to be equal or smaller than 1.
+After that cancel, clear used_resolve_ip and make cma_cancel_operation()
+check it, so the request isn't canceled a second time on the way out.
+Every id with an addr request outstanding has used_resolve_ip set, so
+the device removal path still cancels as before. The loopback and AF_IB
+resolves also use RDMA_CM_ADDR_QUERY, but they never queue an addr
+request, so there was nothing for rdma_addr_cancel() to do for them.
 
-We call fair_check_pushable_task() with next = NULL.
+There's no reproducer from syzbot, so I made the window bigger with a
+debug-only mdelay(1000) after the mutex_unlock() in addr_handler(),
+followed by a read of handler_mutex.magic. A small test program creates
+an id, resolves an address on an rxe device and closes the fd while the
+work sits in that delay. Without this patch KASAN reports the same
+slab-use-after-free as syzbot (1048 bytes into a kmalloc-2k object,
+freed by ucma_close()). With it the test runs clean, and close() just
+waits for the work to finish.
 
-There are only 2 paths that can return true, one of them requires next to be true,
-so it never works. The other one:
+Fixes: 722c7b2bfead ("RDMA/{cma, core}: Avoid callback on rdma_addr_cancel()")
+Reported-by: syzbot+ae549381b4daac2895b1@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=ae549381b4daac2895b1
+Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
+---
+v2:
+- Don't call rdma_addr_cancel() twice on the same id: clear
+  used_resolve_ip after the early cancel in rdma_destroy_id() and check it
+  in cma_cancel_operation() (Leon)
+- v1: https://lore.kernel.org/all/20261004112613.18171-1-raghunathpalla.0209@gmail.com/
 
-if (check_pushable_short_task(rq, p))
-	return true;
+ drivers/infiniband/core/cma.c | 26 +++++++++++++++++++++-----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
 
-And check_pushable_short_task() does this:
-
-if (cfs_rq->h_nr_runnable <= 1)
-	return false;
-
-As I know, h_nr_runnable should be smaller than (or equal maybe) to nr_running.
-
-nr_running can be 1 max, so if h_nr_runnable can't pass nr_running it will
-always be smaller or equal to 1.
-
-Maybe I'm missing something from the start :-)
-
-Thanks,
-
-Kayra
+diff --git a/drivers/infiniband/core/cma.c b/drivers/infiniband/core/cma.c
+index 337a49d1acf7..72138f40dd78 100644
+--- a/drivers/infiniband/core/cma.c
++++ b/drivers/infiniband/core/cma.c
+@@ -1968,12 +1968,14 @@ static void cma_cancel_operation(struct rdma_id_private *id_priv,
+ 		/*
+ 		 * We can avoid doing the rdma_addr_cancel() based on state,
+ 		 * only RDMA_CM_ADDR_QUERY has a work that could still execute.
+-		 * Notice that the addr_handler work could still be exiting
+-		 * outside this state, however due to the interaction with the
+-		 * handler_mutex the work is guaranteed not to touch id_priv
+-		 * during exit.
++		 * The addr_handler work can still be finishing its
++		 * mutex_unlock() after it has left this state.
++		 * rdma_destroy_id() waits for that before it takes
++		 * handler_mutex, and clears used_resolve_ip so the request
++		 * isn't canceled twice.
+ 		 */
+-		rdma_addr_cancel(&id_priv->id.route.addr.dev_addr);
++		if (id_priv->used_resolve_ip)
++			rdma_addr_cancel(&id_priv->id.route.addr.dev_addr);
+ 		break;
+ 	case RDMA_CM_ROUTE_QUERY:
+ 		cma_cancel_route(id_priv);
+@@ -2121,6 +2123,20 @@ void rdma_destroy_id(struct rdma_cm_id *id)
+ 	struct rdma_id_private *id_priv =
+ 		container_of(id, struct rdma_id_private, id);
+ 
++	/*
++	 * addr_handler() can still be in mutex_unlock(&handler_mutex) after
++	 * it has moved the state on from RDMA_CM_ADDR_QUERY, and
++	 * mutex_unlock() may touch the mutex even after we have taken it.
++	 * Wait for the work to finish before we free id_priv. The req stays
++	 * on req_list until the callback returns, so rdma_addr_cancel() will
++	 * find it. Nothing can issue a new request now, so clear
++	 * used_resolve_ip and let cma_cancel_operation() skip its cancel.
++	 */
++	if (id_priv->used_resolve_ip) {
++		rdma_addr_cancel(&id->route.addr.dev_addr);
++		id_priv->used_resolve_ip = 0;
++	}
++
+ 	mutex_lock(&id_priv->handler_mutex);
+ 	destroy_id_handler_unlock(id_priv);
+ }
+-- 
+2.34.1
 
