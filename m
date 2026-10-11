@@ -1,33 +1,33 @@
-Received: from mta1.migadu.com (out-100.mta1.migadu.com [95.215.58.100])
+Received: from mta1.migadu.com (out-105.mta1.migadu.com [95.215.58.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F1F144C4EC
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 19:40:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE17448B84
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 19:40:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791747647; cv=none; b=djajaIDc3lO1w81zSKydLzw9ZJN8oCOZoc72duloBFN9pVlemboeBP0Ju6z6mV7A3hruelZ+f4EXpjXVIqtfy0ydyzQZ92T6yreH8soYrmY7slvsDvYO99CTv4RIbHSRZ50EJG+axHyD19VWCN3/z8Bu3EJ9f4s6DoI4iU/Hc5A=
+	t=1791747653; cv=none; b=dRRKovVSc89rt4Cz7lZgMYbR73v1JVrx1r1raRPiHmIwjmUov4pZz9kSTlKwEMKXyUwPKZYG34Pk0zyaI8JvMvdqwdlacfvUNjy8AmPGNTVh8IWByh6p5IB8in5jeZDvvIRnPO2fyXcUEJYyUSF8HacuKDt5isaXOlUtlya9a4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791747647; c=relaxed/simple;
-	bh=X8Jh5EH8xL3BV+TF+inqe7PXc7xM9UMIAqG2HCny/8k=;
+	s=arc-20240116; t=1791747653; c=relaxed/simple;
+	bh=kj4nTabUq/lh+AWUP6dbeAsksJjVBt7GCA3vUVXCME0=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=NFBdZykunUF81CENK9f1AEUQLgsEukfPg19fkIFbr1QCH1jGJx3t47kiGzGiQpiqNNsxW28uQ3UAtpKy9tIHXCZeZJDmHLjwI+Bx+uJE7BqDdgWZx4LpfccjzrTA7+wsM+kEpXDDqKO4fXmslil2B2wh9hijubG65yhRsemlSfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wEQzhoSz; arc=none smtp.client-ip=95.215.58.100
+	 MIME-Version; b=m69AIRcrYWXPjIC+gqidC3iylP74j+rE3KADfo8fvAIxyN2hZKnEDa7LO9TEj/ade+3GgrgLFyrDsSH3WWQOeSEHHlGSiL2Jk1MYSpISKUSjBuN1jyRZ0YGGyiFzsVYP5XpQOLm7rae46euBRyXwrhquSp4FNztGBHwXNEKcvpg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jpIeRuny; arc=none smtp.client-ip=95.215.58.105
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wEQzhoSz"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jpIeRuny"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=X8Jh5EH8xL3BV+TF+inqe7PXc7xM9UMIAqG2HCny/8k=;
+DKIM-Signature: a=rsa-sha256; bh=kj4nTabUq/lh+AWUP6dbeAsksJjVBt7GCA3vUVXCME0=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791747643; v=1; x=1792352443;
- b=wEQzhoSzpmM+ARoFmUHjOEZuRu+kw/c157SyHluY3ZbZKtkmZ2jhhOMzAlU/3UUsXTLBNlsA
- iaGQl4BOjtUe6V9++XKPJVmXNTRTgEtSV3cdAMCfeVl9GAsd6D/q3tgdLesbbFBo5CnMdyab9rD
- 1evnVRpYkzThCg8YhnKVwGVI=
+ t=1791747649; v=1; x=1792352449;
+ b=jpIeRunyQ46q3Mb4zxHTeEXaUQVVLY6osTATWZ9dLpswYqWOJXXwtXDwhp+htInHdqCsgv2h
+ 8tKQFs7O41lgzSeYlfe9nCqDXY5dlEmr4J+OqAAU959BEiAktRVNnA14OIFltlWTniwn4Sv15uH
+ bNP4rFBhsUKApalsWWL+C2NQ=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 97d74d0c3dd36158;
-	Sun, 11 Oct 2026 19:40:25 +0000
-X-Mizu-Trace-ID: 97d74d0c3dd36158
+Received: by mta11.migadu.com with ESMTPS id 12638a22ec2b11c5;
+	Sun, 11 Oct 2026 19:40:49 +0000
+X-Mizu-Trace-ID: 12638a22ec2b11c5
 X-Migadu-Flow: FLOW_OUT
 From: wen.yang@linux.dev
 To: Gabriele Monaco <gmonaco@redhat.com>
@@ -35,9 +35,9 @@ Cc: Nam Cao <namcao@linutronix.de>,
 	linux-trace-kernel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Wen Yang <wen.yang@linux.dev>
-Subject: [PATCH v7 10/14] rv: Add tlob model DOT file
-Date: Mon, 12 Oct 2026 03:39:16 +0800
-Message-Id: <1a8527075e4829a4f3e03bd57ba168f324af029b.1791745088.git.wen.yang@linux.dev>
+Subject: [PATCH v7 12/14] rv: Add KUnit tests for the tlob monitor
+Date: Mon, 12 Oct 2026 03:39:18 +0800
+Message-Id: <74239f278c36fe9b5cb2cf42869843cd8eca4f36.1791745088.git.wen.yang@linux.dev>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1791745088.git.wen.yang@linux.dev>
 References: <cover.1791745088.git.wen.yang@linux.dev>
@@ -51,60 +51,247 @@ Content-Transfer-Encoding: 8bit
 
 From: Wen Yang <wen.yang@linux.dev>
 
-Add the Graphviz DOT specification of the tlob hybrid automaton to
-tools/verification/models/.
+Add a test case to the shared rv_monitors_test.c suite covering
+the uprobe-line parser in the tlob monitor.
 
-The model has four states (stopped, running, waiting, sleeping) and six
-events (start, stop, sleep, preempt, wakeup, switch_in).  A single clock
-invariant, clk_elapsed < BUDGET_NS(), holds in running, waiting and
-sleeping; stopped has no invariant, hence no timer.
-
-wakeup is a self-loop on running and waiting: a task that is already
-queued can still be the target of a traced wakeup, either by waking
-itself or through ttwu_runnable() while preempted, and neither case ends
-the budget window.  stopped takes every scheduler event as a self-loop,
-so a task keeps going through the scheduler between windows.
+Cases cover valid inputs, malformed paths and offsets (including
+negative values), out-of-range thresholds, and valid and invalid
+remove lines.
 
 Suggested-by: Gabriele Monaco <gmonaco@redhat.com>
 Signed-off-by: Wen Yang <wen.yang@linux.dev>
 ---
- tools/verification/models/tlob.dot | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
- create mode 100644 tools/verification/models/tlob.dot
+ kernel/trace/rv/monitors/tlob/tlob.c       |  11 ++
+ kernel/trace/rv/monitors/tlob/tlob_kunit.c | 151 +++++++++++++++++++++
+ kernel/trace/rv/monitors/tlob/tlob_kunit.h |  18 +++
+ kernel/trace/rv/rv_monitors_test.c         |   2 +
+ 4 files changed, 182 insertions(+)
+ create mode 100644 kernel/trace/rv/monitors/tlob/tlob_kunit.c
+ create mode 100644 kernel/trace/rv/monitors/tlob/tlob_kunit.h
 
-diff --git a/tools/verification/models/tlob.dot b/tools/verification/models/tlob.dot
+diff --git a/kernel/trace/rv/monitors/tlob/tlob.c b/kernel/trace/rv/monitors/tlob/tlob.c
+index 066a2f0663d5..159fc9a2c49e 100644
+--- a/kernel/trace/rv/monitors/tlob/tlob.c
++++ b/kernel/trace/rv/monitors/tlob/tlob.c
+@@ -863,6 +863,17 @@ static int tlob_parse_remove_line(char *buf, char **name_out)
+ 	return 0;
+ }
+ 
++#if IS_ENABLED(CONFIG_RV_MONITORS_KUNIT_TEST)
++#include <kunit/visibility.h>
++#include "tlob_kunit.h"
++
++const struct rv_tlob_kunit_ops rv_tlob_kunit_ops = {
++	.parse_uprobe_line = tlob_parse_uprobe_line,
++	.parse_remove_line = tlob_parse_remove_line,
++};
++EXPORT_SYMBOL_IF_KUNIT(rv_tlob_kunit_ops);
++#endif
++
+ static int tlob_create_or_delete_uprobe(char *buf)
+ {
+ 	loff_t offset_start, offset_stop;
+diff --git a/kernel/trace/rv/monitors/tlob/tlob_kunit.c b/kernel/trace/rv/monitors/tlob/tlob_kunit.c
 new file mode 100644
-index 000000000000..021a4d823548
+index 000000000000..06b212d1103b
 --- /dev/null
-+++ b/tools/verification/models/tlob.dot
-@@ -0,0 +1,27 @@
-+digraph state_automaton {
-+	center = true;
-+	size = "7,11";
-+	{node [shape = plaintext, style=invis, label=""] "__init_stopped"};
-+	{node [shape = plaintext] "running"};
-+	{node [shape = plaintext] "waiting"};
-+	{node [shape = plaintext] "sleeping"};
-+	{node [shape = ellipse] "stopped"};
-+	"__init_stopped" -> "stopped";
-+	"running"  [label = "running\nclk_elapsed <= BUDGET_NS()"];
-+	"waiting"  [label = "waiting\nclk_elapsed <= BUDGET_NS()"];
-+	"sleeping" [label = "sleeping\nclk_elapsed <= BUDGET_NS()"];
-+	"stopped"  [label = "stopped", color = green3];
-+	"running"  -> "sleeping" [ label = "sleep" ];
-+	"running"  -> "waiting"  [ label = "preempt" ];
-+	"running"  -> "running"  [ label = "wakeup" ];
-+	"waiting"  -> "running"  [ label = "switch_in" ];
-+	"waiting"  -> "waiting"  [ label = "wakeup" ];
-+	"sleeping" -> "waiting"  [ label = "wakeup" ];
-+	"running"  -> "stopped"  [ label = "stop" ];
-+	"stopped"  -> "running"  [ label = "start;reset(clk_elapsed)" ];
-+	"stopped"  -> "stopped"  [ label = "preempt\nsleep\nswitch_in\nwakeup" ];
-+	{ rank = min ;
-+		"__init_stopped";
-+		"stopped";
++++ b/kernel/trace/rv/monitors/tlob/tlob_kunit.c
+@@ -0,0 +1,151 @@
++// SPDX-License-Identifier: GPL-2.0
++#include <linux/kernel.h>
++#include <linux/string.h>
++#include "tlob_kunit.h"
++
++#if IS_REACHABLE(CONFIG_RV_MON_TLOB)
++
++/* Valid "p:NAME PATH:START STOP threshold=NS" lines and what they decode to. */
++static const struct {
++	const char	*line;
++	const char	*name;
++	const char	*path;
++	loff_t		start;
++	loff_t		stop;
++	u64		thr;
++} tlob_parse_valid[] = {
++	{ "p:region /usr/bin/myapp:4768 4848 threshold=5000000",
++	  "region", "/usr/bin/myapp", 4768, 4848, 5000000 },
++	/* Base 0: hex offsets must not decode as decimal. */
++	{ "p:my_region_2 /usr/bin/myapp:0x12a0 0x12f0 threshold=10000000",
++	  "my_region_2", "/usr/bin/myapp", 0x12a0, 0x12f0, 10000000 },
++	/* The last ':' separates the offset, so a ':' in PATH is fine. */
++	{ "p:_r3 /opt/my:app/bin:0x100 0x200 threshold=1000000",
++	  "_r3", "/opt/my:app/bin", 0x100, 0x200, 1000000 },
++	/* TLOB_MAX_NAME - 1 characters: the longest name accepted. */
++	{ "p:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa /bin/a:0x100 0x200 threshold=5000",
++	  "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "/bin/a", 0x100, 0x200, 5000 },
++	/* The accepted threshold bounds themselves. */
++	{ "p:lo /bin/a:0x100 0x200 threshold=1000",
++	  "lo", "/bin/a", 0x100, 0x200, 1000 },
++	{ "p:hi /bin/a:0x100 0x200 threshold=3600000000000",
++	  "hi", "/bin/a", 0x100, 0x200, 3600000000000ULL },
++};
++
++/* Malformed "p:..." lines that must be rejected with -EINVAL. */
++static const char * const tlob_parse_invalid[] = {
++	"p /usr/bin/myapp:0x100 0x200 threshold=5000",		/* no name */
++	"p:",							/* empty name */
++	"p: /usr/bin/myapp:0x100 0x200 threshold=5000",		/* name is a path */
++	"p:r /bin/a:0x100junk 0x200 threshold=5000",		/* trailing junk */
++	"p:1region /usr/bin/myapp:0x100 0x200 threshold=5000",	/* digit lead */
++	"p:my-win /usr/bin/myapp:0x100 0x200 threshold=5000",	/* bad char */
++	"p:my.win /usr/bin/myapp:0x100 0x200 threshold=5000",	/* bad char */
++	/* TLOB_MAX_NAME characters: one over the limit. */
++	"p:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa /bin/a:0x100 0x200 threshold=5000",
++	"p:region :0x100 0x200 threshold=5000",			/* empty path */
++	"p:region /usr/bin/myapp:0x100 threshold=5000",		/* missing stop */
++	"p:region /usr/bin/myapp:-1 0x200 threshold=5000",		/* negative start */
++	"p:region /usr/bin/myapp:0x100 -1 threshold=5000000",	/* negative stop */
++	"p:region /usr/bin/myapp:0x100 0x200",			/* missing threshold */
++	"p:region /usr/bin/myapp:0x100 0x100 threshold=5000",	/* start == stop */
++	/* Duplicate threshold=, like a duplicate offset, is an error. */
++	"p:region /bin/a:0x100 0x200 threshold=5000 threshold=9000",
++};
++
++/* threshold_ns out of valid range => -ERANGE. */
++static const char * const tlob_parse_out_of_range[] = {
++	"p:region /usr/bin/myapp:0x100 0x200 threshold=0",
++	"p:region /usr/bin/myapp:0x100 0x200 threshold=999",
++	"p:region /usr/bin/myapp:0x100 0x200 threshold=3600000000001",
++};
++
++/* Valid "-:NAME" remove lines. */
++static const char * const tlob_remove_valid[] = {
++	"-:region",
++	"-:my_region",
++};
++
++/* Malformed remove lines that must be rejected with -EINVAL. */
++static const char * const tlob_remove_invalid[] = {
++	"-",	/* no name */
++	"-:",	/* empty name */
++	"-region",	/* missing ':' */
++	"-:my region",	/* bad char */
++	"-:1region",	/* digit lead */
++	"-:my-region",	/* bad char */
++	"-:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",	/* TLOB_MAX_NAME, one too many */
++};
++
++static void rv_test_tlob(struct kunit *test)
++{
++	u64 thr;
++	char *name, *path;
++	loff_t start, stop;
++	char buf[128];
++	int i, ret;
++
++	/* NAME and PATH come back NUL-terminated inside buf. */
++	strscpy(buf, "p:region /usr/bin/myapp:0x100 0x200 threshold=5000",
++		sizeof(buf));
++	ret = rv_tlob_kunit_ops.parse_uprobe_line(buf, &name, &path,
++						  &start, &stop, &thr);
++	KUNIT_EXPECT_EQ(test, ret, 0);
++	KUNIT_EXPECT_STREQ(test, name, "region");
++	KUNIT_EXPECT_STREQ(test, path, "/usr/bin/myapp");
++
++	strscpy(buf, "-:region", sizeof(buf));
++	ret = rv_tlob_kunit_ops.parse_remove_line(buf, &name);
++	KUNIT_EXPECT_EQ(test, ret, 0);
++	KUNIT_EXPECT_STREQ(test, name, "region");
++
++	for (i = 0; i < ARRAY_SIZE(tlob_parse_valid); i++) {
++		strscpy(buf, tlob_parse_valid[i].line, sizeof(buf));
++		ret = rv_tlob_kunit_ops.parse_uprobe_line(buf, &name, &path,
++							  &start, &stop,
++							  &thr);
++		KUNIT_EXPECT_EQ(test, ret, 0);
++		if (ret)
++			continue;
++		KUNIT_EXPECT_STREQ(test, name, tlob_parse_valid[i].name);
++		KUNIT_EXPECT_STREQ(test, path, tlob_parse_valid[i].path);
++		KUNIT_EXPECT_EQ(test, start, tlob_parse_valid[i].start);
++		KUNIT_EXPECT_EQ(test, stop, tlob_parse_valid[i].stop);
++		KUNIT_EXPECT_EQ(test, thr, tlob_parse_valid[i].thr);
++	}
++
++	for (i = 0; i < ARRAY_SIZE(tlob_parse_invalid); i++) {
++		strscpy(buf, tlob_parse_invalid[i], sizeof(buf));
++		ret = rv_tlob_kunit_ops.parse_uprobe_line(buf, &name, &path,
++							  &start, &stop,
++							  &thr);
++		KUNIT_EXPECT_EQ(test, ret, -EINVAL);
++	}
++
++	for (i = 0; i < ARRAY_SIZE(tlob_parse_out_of_range); i++) {
++		strscpy(buf, tlob_parse_out_of_range[i], sizeof(buf));
++		ret = rv_tlob_kunit_ops.parse_uprobe_line(buf, &name, &path,
++							  &start, &stop,
++							  &thr);
++		KUNIT_EXPECT_EQ(test, ret, -ERANGE);
++	}
++
++	for (i = 0; i < ARRAY_SIZE(tlob_remove_valid); i++) {
++		strscpy(buf, tlob_remove_valid[i], sizeof(buf));
++		ret = rv_tlob_kunit_ops.parse_remove_line(buf, &name);
++		KUNIT_EXPECT_EQ(test, ret, 0);
++		if (!ret)
++			KUNIT_EXPECT_STREQ(test, name,
++					   tlob_remove_valid[i] + 2);
++	}
++
++	for (i = 0; i < ARRAY_SIZE(tlob_remove_invalid); i++) {
++		strscpy(buf, tlob_remove_invalid[i], sizeof(buf));
++		ret = rv_tlob_kunit_ops.parse_remove_line(buf, &name);
++		KUNIT_EXPECT_EQ(test, ret, -EINVAL);
 +	}
 +}
++
++#else
++#define rv_test_tlob rv_test_stub
++#endif
+diff --git a/kernel/trace/rv/monitors/tlob/tlob_kunit.h b/kernel/trace/rv/monitors/tlob/tlob_kunit.h
+new file mode 100644
+index 000000000000..c0c80c34f17b
+--- /dev/null
++++ b/kernel/trace/rv/monitors/tlob/tlob_kunit.h
+@@ -0,0 +1,18 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef __TLOB_KUNIT_H
++#define __TLOB_KUNIT_H
++
++#if IS_ENABLED(CONFIG_RV_MONITORS_KUNIT_TEST)
++
++#include <linux/types.h>
++
++extern const struct rv_tlob_kunit_ops {
++	int (*parse_uprobe_line)(char *buf, char **name_out, char **path_out,
++				 loff_t *start_out, loff_t *stop_out,
++				 u64 *thr_out);
++	int (*parse_remove_line)(char *buf, char **name_out);
++} rv_tlob_kunit_ops;
++
++#endif
++
++#endif /* __TLOB_KUNIT_H */
+diff --git a/kernel/trace/rv/rv_monitors_test.c b/kernel/trace/rv/rv_monitors_test.c
+index b30e49419e34..ee9fde63b291 100644
+--- a/kernel/trace/rv/rv_monitors_test.c
++++ b/kernel/trace/rv/rv_monitors_test.c
+@@ -309,6 +309,7 @@ static void rv_test_rvtest_arm_after_destroy(struct kunit *test)
+ #include "monitors/sts/sts_kunit.c"
+ #include "monitors/opid/opid_kunit.c"
+ #include "monitors/nomiss/nomiss_kunit.c"
++#include "monitors/tlob/tlob_kunit.c"
+ #include "monitors/pagefault/pagefault_kunit.c"
+ #include "monitors/sleep/sleep_kunit.c"
+ 
+@@ -323,6 +324,7 @@ static struct kunit_case rv_mon_test_cases[] = {
+ 	KUNIT_CASE(rv_test_sleep),
+ 	KUNIT_CASE(rv_test_rvtest_underflow),
+ 	KUNIT_CASE(rv_test_rvtest_arm_after_destroy),
++	KUNIT_CASE(rv_test_tlob),
+ 	{}
+ };
+ 
 -- 
 2.25.1
 
