@@ -1,228 +1,109 @@
-Received: from mta0.migadu.com (out-134.mta0.migadu.com [91.218.175.134])
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6BC82BD022
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:35:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.134
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CB074052B8
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:37:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791707705; cv=none; b=XbXD97nefTf63Sr28/HsD3rp+VpQ31V6p+wa7cr/3gO7ypmuZ1obfgyaOwhivlZOtWIW244g1EUcJaRGmVc9k/Bwcitk4qXx3bTf5HUxIk5sdOKi6F6Ns4wgTjXuuULAIdniTBr4dFFWzdsxoRfC11tBWzD/AMCK7uenHTxO5DU=
+	t=1791707859; cv=none; b=OYTvWzzfrUcAuIQ4EEGEliZriphxIYQNPvhaMZEwqNy4UaK+eB9O98CHDmJZloazBIOpCoirvdzjX/edkONaEkHY80I+1wwjW1RXUD6QEUWkFxE0KmbVfkVjhnJA3QPYKYaa7YjPSDS/seloEkg8ewV+eXTqTcFQp/SxrHJ00tg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791707705; c=relaxed/simple;
-	bh=W3YQc8nb1FLu2aX+NZbyShvsjOYlm8NxI/300VI9UPg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bpBG0pFhnxLLnKKRZ8buZwONN6eid7ESxU6h3Jr8kCVbubDRjKFPojSx+abkwrFbBVi4D7ZbPC70Xdo5FgtlrpkxYyJsczDqefiK95Q6DvLu44vV3xvckdvWloB2Kcr1F5nEkmDQPkgJC0j1Qt1yr8vd5cqWvEk79J4zPKKPwYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=MNH7sT4t; arc=none smtp.client-ip=91.218.175.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791707859; c=relaxed/simple;
+	bh=FAOolMCkINrC3lTjV1XO/oOYFDvOm0h61dGOFddLmK8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DD/rI9feYBGjVMGUKCBgFTwxcfEzqCFCDGkvSgNCHu+ygwNze7I2hSSyAu89zYz1KAOSneS11V+eYPdQhTVo1ar+YiSIZWJVC7pNsitp1zTtr7nPheQZNiLrBcUlHyEHXVlEshnIrpbb1HMByFwQKV7a/y/e+7QBr7Ksbhp2/7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SPcqT2XE; arc=none smtp.client-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="MNH7sT4t"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=W3YQc8nb1FLu2aX+NZbyShvsjOYlm8NxI/300VI9UPg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791707699; v=1; x=1792312499;
- b=MNH7sT4tRrJzVehvkZZL9eqEtE7jc/PCMxUoF+wmOeRfO4mXpn1aOrHXdSgzaFPJOSEO/10w
- F08sa8iX5L5hyN4KwI7l8+7lFiZJs+wUptFL3sXVqdjdJ+TijwkfOjF4C87nERjiQ6k504RsFlE
- VNZJfHcdYnY7b8uioiE6UzwU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 09aadac216b8f8af;
-	Sun, 11 Oct 2026 08:34:58 +0000
-X-Mizu-Trace-ID: 09aadac216b8f8af
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <01173fca-b1de-4127-936c-05deae31f894@linux.dev>
-Date: Sun, 11 Oct 2026 16:34:46 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SPcqT2XE"
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-141395927feso1748769c88.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 01:37:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791707857; x=1792312657; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bBHjRRmvdKma54nJSNqg7NX8dKE06rBjHStPBqfNhw8=;
+        b=SPcqT2XEljhU7MK0YL/Y8Rba4DQUsjA9ERBEzhESsyVzBkNTnDpy69xRbZkgTfCbo4
+         vvFct1Fi94v6apwWwU768XdKrvgWTBOPkgTfTpXv9mJD8laLQEDCepo773gzOspM2eKu
+         vnww4m8g5ETALVlLEp/FCVH9Jab1VEKBFPj9NT5fCsUbmeeuko1AK7IbL1q/Hdp0hJOl
+         Bf77NRhX08Guj0D1PcGyEtAcERDxgUWakFDLx5jaVHGTW3vpvgh7UlQOTSsuR9Rr9qfj
+         /m6j+/eO86M2Bh0VN7HajZMiCM/FMOfvj1J5SSnU9TaW7SmiRXnAkzTe1Y+d1/RXb71U
+         FYYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791707857; x=1792312657;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bBHjRRmvdKma54nJSNqg7NX8dKE06rBjHStPBqfNhw8=;
+        b=xipXDgdbz4wJgN+IU+mnz3+hWCAHM19xPgq/pmoY5fecpP8pblbeJryHjwKDjyME1g
+         dWaVCD6JCFr6ag9mfBSZKOXSzFfG0XbJ1ypkBmM1HQSuLqrMipMNQNYVwzvXCm9qC80C
+         sL8FBBgsBxE0GXKORsuktHLRj2Ze6z5WjePa57s9roN8ZXk2YUa4ooyg6AmBuBySQj4Q
+         nYOwHwineUIxWzhg3+MTx43F/EIYvlYhbqOwFYbmR6PO4fW9ilWA6LN5S/ZwRRRYAuhS
+         2im3XYHwsCKZBTo000sEYo9NNskhqwaTStQE3cpKn4K1HrQxs3xOstFFM7Zw3QwIAH3s
+         6GIw==
+X-Forwarded-Encrypted: i=1; AKwUvBzEK601kGqIzC5+Z3pcblM+JMWvw1RsbXvvGPGVr+HXvd4d9xKDGRwJ38Euffac0fx1K8+y3vf/BlZTMFY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJYMn+TTicckR6QO+i4L0L36oM4KWa2nDOFbO4fNQ8l2Vea1WL/
+	kROgu8O1YyhFYncmPcbF7qVNGvjekoMYsIsK7qVL9givMav/6nZvUAQO
+X-Gm-Gg: AYBFou1T9cfQx4EfBo5pKuD1+Yx2IWhR4ARir5fZQaN7Ns6mh2MYBknkwCVw7V4Dj16
+	+O5hJsdeDT5zCTpDqr58/PAtOS+CMgoRAPoQLaI7pClSpg7PQM18bXOlM5LdxnQvZM94XsaOqOB
+	Gy3bNDXMky2/EQsNiUJBFAMxkHLx6SJn8FKrZ1KMVpX1V0uQIte4pZwBSELIuerkQWUGLvmaF46
+	m2RHwvCGELQikTivQrpOzzLv2hoAHO2ZmAtNbDz0QLirOhdq62RyLHrft2fWjHGzYkFIB0WoCmi
+	phKrrGZ8u/vo2jdI9uDGrUBen17f2V3ShVUrqZ1OvxowgEAn/iMWhB34tKlr82s3pY6cIlFuJU+
+	cItd9rUmu6jka1kSKzLqZ/vnjFFn7/KCOy3pyzcq0kIVXxVkUGA1QWpa7f8Dn8loDqrfz2SYpyf
+	03rbnk1miDjistmnpm5hxUzBcjK1O+qJS4A5FYKYt5k1gmbeBVMetUtJiXxhVrHhgdDyJi0L3zK
+	lx9MFxlabYYndkJ+UPtns5wcPPrE0xY+M0vkYSGJJ0QuRMkuK4Z9JerOQSENuPmv1FMpgDH1g0f
+	48gT9A==
+X-Received: by 2002:a05:7022:297:20b0:14a:8df8:56b1 with SMTP id a92af1059eb24-16a5ef28a5bmr8084789c88.22.1791707857215;
+        Sun, 11 Oct 2026 01:37:37 -0700 (PDT)
+Received: from LAPTOP-UUUVNN1I.localdomain ([129.126.57.197])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a42407e7sm20186473c88.15.2026.10.11.01.37.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 01:37:36 -0700 (PDT)
+From: Wei Jie Law <98lawweijie@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Andrew Duggan <aduggan@synaptics.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v5 0/2] Input: synaptics-rmi4 - fix two device-controlled out-of-bounds writes
+Date: Sun, 11 Oct 2026 16:37:26 +0800
+Message-ID: <20261011083730.223083-1-98lawweijie@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next v2 2/6] cgroup/cpuset: Consider all the exclusive
- CPUs when doing housekeeping check
-To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, Hui Peng <benquike@gmail.com>
-References: <20261010221938.243859-1-longman@redhat.com>
- <20261010221938.243859-3-longman@redhat.com>
-Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <20261010221938.243859-3-longman@redhat.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+Two fixes for out-of-bounds writes in the RMI4 core that a device can
+trigger through its Page Description Table.
 
+1/2 rejects functions declaring 7 interrupt sources, a value the RMI4
+specification reserves; the driver otherwise writes past fn->irq[].
 
-在 2026/10/11 06:19, Waiman Long 写道:
-> When prstate_housekeeping_conflict() is called to perform housekeeping
-> check with cpumask changes, the exclusive CPUs owned by child partitions
-> are excluded. If the current cpuset is an isolated partition with root
-> partition children. It is possible the cpumask change will still leave
-> active housekeeping CPUs but then no housekeeping CPUs will be left when
-> the child partitions are disabled or invalidated.
-> 
-> To protect against this possibility, all the exclusive CPUs of the
-> cpuset should be considered to be owned by the current cpuset when doing
-> housekeeping check. Do that by calling prstate_housekeeping_conflict()
-> in partition_cpus_change() and passing in the add_cpus and del_cpus
-> parameters as if the cpuset owns all the exclusive CPUs.
-> 
-> With this change, the prstate_housekeeping_conflict() call in
-> update_parent_effective_cpumask() with partcmd_update and newmask
-> is now duplicative and can be removed. The housekeeping check in
-> remote_cpus_update(), however, will still be useful as this function can
-> be called directly from update_cpumasks_hier() without going through
-> partition_cpus_change(). The update_parent_effective_cpumask() call
-> from update_cpumasks_hier() is partcmd_update with no cpumask which
-> still have the housekeeping check and so is covered.
-> 
-> In the case of partition state switch from isolated to root and vice
-> versa, the set of exclusive CPUs are recomputed to include those
-> transferred to child paritions as well.
-> 
-> Fixes: 4a74e418881f ("cgroup/cpuset: Check partition conflict with housekeeping setup")
-> Signed-off-by: Waiman Long <longman@redhat.com>
-> ---
->  kernel/cgroup/cpuset.c | 26 +++++++++++++++++---------
->  1 file changed, 17 insertions(+), 9 deletions(-)
-> 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index f3cebb277a68..1c0441fa3bea 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -1907,14 +1907,6 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->  					       parent->effective_xcpus);
->  		}
->  
-> -		/*
-> -		 * Check for housekeeping conflicts
-> -		 */
-> -		if (is_partition_valid(cs) &&
-> -		    prstate_housekeeping_conflict(old_prs, parent_prs,
-> -						  tmp->delmask, tmp->addmask))
-> -			part_error = PERR_HKEEPING;
-> -
->  		/*
->  		 * The new CPUs to be removed from parent's effective CPUs
->  		 * must be present.
-> @@ -2398,6 +2390,21 @@ static void partition_cpus_change(struct cpuset *cs, struct cpuset *trialcs,
->  		return;
->  
->  	prs_err = validate_partition(cs, trialcs);
-> +	if (!prs_err) {
-> +		int parent_prs = is_remote_partition(cs)
-> +			       ? PRS_ROOT : parent_cs(cs)->partition_root_state;
-> +		/*
-> +		 * Check for housekeeping CPUs conflict assuming that all the
-> +		 * exclusive CPUs belong to the current cpuset.
-> +		 */
-> +		compute_excpus(trialcs, tmp->new_cpus);
-> +		cpumask_andnot(tmp->addmask, tmp->new_cpus, cs->effective_xcpus);
-> +		cpumask_andnot(tmp->delmask, cs->effective_xcpus, tmp->new_cpus);
+2/2 rejects a PDT whose interrupt counts grow between the counting scan
+and the function-creating scan; the driver otherwise sets bits past the
+end of fn->irq_mask[].
 
-I ran a few local tests on v2 and still found the following gaps in the
-housekeeping checks.
+Changes in v5:
+ - 1/2: keep RMI_FN_MAX_IRQS at 6 and reject a count of 7 in
+   rmi_scan_pdt_page(), after the RMI4_END_OF_PDT() check, instead of
+   growing irq[] (Dmitry).  New subject.
+ - 2/2: unchanged.
 
-With CPUs 0-15 online and nohz_full=2-15:
+v4: https://lore.kernel.org/linux-input/20260825103123.12216-1-98lawweijie@gmail.com/
 
-    # cd /sys/fs/cgroup
-    # echo +cpuset > cgroup.subtree_control
-    # mkdir A
-    # echo 1 > A/cpuset.cpus
-    # echo isolated > A/cpuset.cpus.partition
-    # echo 0-1 > A/cpuset.cpus
-    # cat A/cpuset.cpus.partition
-    isolated
-    # cat A/cpuset.cpus.exclusive.effective
-    0-1
-    # cat cpuset.cpus.isolated
-    0-1
+Wei Jie Law (2):
+  Input: synaptics-rmi4 - reject functions with more than 6 interrupt
+    sources
+  Input: synaptics-rmi4 - reject a PDT that grows between scans
 
-The check computes delmask={1}, although CPU 1 is still isolated after the
-update. That lets it isolate CPU 0, the last remaining housekeeping CPU.
+ drivers/input/rmi4/rmi_driver.c | 32 ++++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-On a fresh boot with the same nohz_full setting:
-
-    # cd /sys/fs/cgroup
-    # echo +cpuset > cgroup.subtree_control
-    # mkdir A B
-    # echo 1 > A/cpuset.cpus
-    # echo 1 > A/cpuset.cpus.exclusive
-    # echo isolated > A/cpuset.cpus.partition
-    # echo +cpuset > A/cgroup.subtree_control
-    # mkdir A/C
-    # echo 1 > A/C/cpuset.cpus
-    # echo root > A/C/cpuset.cpus.partition
-    # echo 0 > B/cpuset.cpus
-    # echo isolated > B/cpuset.cpus.partition
-    # echo 1-2 > A/cpuset.cpus
-    # echo 1-2 > A/cpuset.cpus.exclusive
-    # cat cpuset.cpus.isolated
-    0,2
-    # echo member > A/C/cpuset.cpus.partition
-    # cat A/cpuset.cpus.partition
-    isolated
-    # cat cpuset.cpus.isolated
-    0-2
-
-CPU 1 is present in both masks and cancels out of addmask while the root
-child owns it. With nohz_full=2-15 and B isolating CPU 0, CPU 1 was the last
-remaining housekeeping CPU; disabling the child leaves none.
-This also reproduces before the series, so it is an existing issue.
-
-> +		if (prstate_housekeeping_conflict(cs->partition_root_state,
-> +						  parent_prs, tmp->addmask,
-> +						  tmp->delmask))
-> +			prs_err = PERR_HKEEPING;
-> +	}
-
-An invalid root with an explicit exclusive mask can retain effective_xcpus
-without owning those CPUs. Subtracting this mask skips checking them when
-the partition becomes valid again.
-
-With CPUs 0-15 online and isolcpus=domain,10-11, on a fresh boot:
-
-    # cd /sys/fs/cgroup
-    # echo +cpuset > cgroup.subtree_control
-    # mkdir A
-    # echo 10 > A/cpuset.cpus
-    # echo 10 > A/cpuset.cpus.exclusive
-    # echo root > A/cpuset.cpus.partition
-    # cat A/cpuset.cpus.partition
-    root invalid (partition config conflicts with housekeeping setup)
-    # cat A/cpuset.cpus.exclusive.effective
-    10
-    # echo 10,12 > A/cpuset.cpus
-    # cat A/cpuset.cpus.partition
-    root
-    # cat A/cpuset.cpus.effective
-    10
-    # cat cpuset.cpus.effective
-    0-9,11-15
-
-addmask is empty here, so boot-isolated CPU 10 is allocated to the now-valid
-root without being checked.
-
-Should an invalid partition be checked against the full mask it will
-acquire, rather than these deltas?
-
-Thanks,
-Guopeng
->  	if (prs_err) {
->  		WRITE_ONCE(cs->prs_err, prs_err);
->  		trialcs->prs_err = prs_err;
-> @@ -2897,8 +2904,9 @@ static int update_prstate(struct cpuset *cs, int new_prs)
->  		 * A change in load balance state only, no change in cpumasks.
->  		 * Need to update isolated_cpus.
->  		 */
-> +		compute_excpus(cs, tmpmask.new_cpus);
->  		if (prstate_housekeeping_conflict(new_prs, parent_prs,
-> -						  cs->effective_xcpus, NULL))
-> +						  tmpmask.new_cpus, NULL))
->  			err = PERR_HKEEPING;
->  		else
->  			isolcpus_updated = true;
+-- 
+2.43.0
 
