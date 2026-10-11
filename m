@@ -1,101 +1,92 @@
-Received: from vtj.irix.systems (vtj.irix.systems [82.76.27.144])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C46D52EEE60;
-	Sun, 11 Oct 2026 22:12:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.76.27.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 017C1314D13;
+	Sun, 11 Oct 2026 22:14:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791756765; cv=none; b=cOPv9eYpmcYfJDBrVDBOzyQNYI0eJ1Y9hKtacAnkD026YaDrTBrKwBIg/XX9pjYwen6OKD8dBRvmrE0NzEGggfT5DeJa54l94yK9YlG+ADRWimDy4aCsq1C2GnLAeSoTsCIezOGWFAuM34Xqz65k55PmBhAxNcpL+cEWO/vwVI0=
+	t=1791756846; cv=none; b=UhZ4rWT5X7IPuh+z83DX+n8rmhoQj7B2RdvD7pOjtMDOT5CQE6B1FI7RdnqMJxRbTHk+SYAPbQ6Ppj1nazqcdWYzEMr6vYZGtfiCuCTP6nr2xML6wwIU7FVVjhLvqv4r3THUG0mAlUP+d3Dm8ewCA/Uy9pqMT0kQrfXnzvwrQLA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791756765; c=relaxed/simple;
-	bh=8DH7BN6/rFlLHn4Kx/LYG92C+fCfjqdvDOumpWkDBHk=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AUUKpgEgv2XDSkiEr+l+7vOHPBQ/FoCULMVPyH3ovkJ+OQvuZ/cUwiHJS3zITZvk6LyGXkSNtG4Dw0VBo7SzP1yZ8vBC3gByA7EFEPq5Pba8NASVhL146q3BvW2vbkpLT2WWP6D8EYmXR3Jmz71uqo94ePiNyf7S4wp8yrWCJz8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com; spf=pass smtp.mailfrom=andrei-z.com; dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b=Mlp5kPf2; arc=none smtp.client-ip=82.76.27.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andrei-z.com
+	s=arc-20240116; t=1791756846; c=relaxed/simple;
+	bh=dT47kaXg2PKJA7n3es8e8/4dwfChMErkBViAGAAWINg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Ph1zbK1/JUuri+SyuOBV45BPuz+PxtxVViCHEnmvxcgq+ZrpjpxTYPZV8vu7XBHlzA6TdfhDRJTqGE2z0LnwXq8ikKyyZWx38Q3htrXDW/YffJO4bJJWKIDNlrXVClOdonrayN8vDHUZGDVNuyB6j/yo7uPMW9QPxZ832esWF8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=lpgi8R4b; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b="Mlp5kPf2"
-Received: from MAILGW-HP.hp.vtj.corp.irix.systems (localhost [127.0.0.1])
-	by vtj.irix.systems (Proxmox) with ESMTP id ADACA991;
-	Mon, 12 Oct 2026 01:12:41 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=andrei-z.com; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:from:from:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=sig1; bh=M59/VKkKUMyheZD/wOv6
-	K6nK8h2w8/CWCgURVowxwWk=; b=Mlp5kPf2BFW1B4FoZlLNwxDijuPIXUaa7Mhg
-	Izkh4uSE4aCd0FihjnnvXVjqlz44lgOdvjTUo9yG9864T8Dave6pt4Y1ngRLX8oy
-	PMDv8/kSq0wiEOCFEzruNU0XmXv5rD6EiGLAZcb05X9HuEg4BPc10odlWyd0n+O4
-	IadXBSKD7b8dTU6tRcxeWEjy6XwkMt7sZb+0w+LmLNarXXSxhvi82oHKtj/Ks9CJ
-	8V+SjWHHxhzzKVhYlv3gYrPneSiLf0WzHsqRB2VuG0pZryDrdZfh3PggBSDxaT9X
-	02Hlh4+LWrR+ZWz2JqoOFbFNczFrXYkL0/18Z3sVmK+nVbqQ1w==
-Received: from VTJ-MX.corp.irix.systems (unknown [IPv6:2a02:2f04:1:9c24::6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by vtj.irix.systems (Proxmox) with ESMTPS id 309AB8DA;
-	Mon, 12 Oct 2026 01:12:40 +0300 (EEST)
-Received: from workspace.corp.irix.systems (2a02:2f04:1:9c23::c) by
- VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 12 Oct 2026 01:12:39 +0300
-From: Andrei-Alexandru Bleortu <me@andrei-z.com>
-To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Marcel Holtmann
-	<marcel@holtmann.org>
-CC: <linux-bluetooth@vger.kernel.org>, <linux-kernel@vger.kernel.org>, George
- Moussalem <george.moussalem@outlook.com>, <linux-arm-msm@vger.kernel.org>
-Subject: [PATCH 3/3] Bluetooth: btqcomipc: take the board's address from the host
-Date: Mon, 12 Oct 2026 01:09:19 +0300
-Message-ID: <20261011220919.1816407-4-me@andrei-z.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261011220919.1816407-1-me@andrei-z.com>
-References: <20260709-ipq5018-bluetooth-v5-4-e476c41f03b8@outlook.com>
- <20261011220919.1816407-1-me@andrei-z.com>
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="lpgi8R4b"
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 97A398100C;
+	Mon, 12 Oct 2026 00:14:00 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id A4W7ctl9ywvH; Mon, 12 Oct 2026 00:13:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1791756839; bh=dT47kaXg2PKJA7n3es8e8/4dwfChMErkBViAGAAWINg=;
+	h=From:To:Cc:Subject:Date;
+	b=lpgi8R4bWAaq7BHPEgEdyVNKk8ZhIJHfG7bn9i7gt7QqpvmCFHFAP2ol+DLODWFQC
+	 tQQF8RcFEeRtRrR15rsu3BjSqw1MBI0yBcwWK0AmVLvWZe9RtKdPTR6E6tkJ0TKxpE
+	 WHBNZqbeeoq2uHNAdJrxqlsYap+auC4WKzZVoqfbRMjRINn7GPIiEwT2x8GZ+VLkvv
+	 cwAFAPGfXhv0eRQr10vEJ7MtCQ2c2Ayb/wqocQlnUkPfZWUKiBX7gn8QAZJD1qHB00
+	 3ikm43KhbC6GmDr1gJ9JR0MEeGYkcKREI7h+f1ChFzOlItSQh2dj7ugt99l+dl4FAK
+	 iJeRgzLy9dDqw==
+From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
+To: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>
+Cc: bui duc phuc <phucduc.bui@gmail.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ALSA: core: Use the allocated major number with major=0
+Date: Mon, 12 Oct 2026 01:13:34 +0300
+Message-ID: <20261011221350.1690703-1-aliamemis@disroot.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) To
- VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6)
 
-The IPQ5018 NVM carries one placeholder address (50:18:00:00:5a:ad) for
-every board, and btqca skips the NVM tag parsing on IPQ5018, so the
-placeholder check that sets HCI_QUIRK_USE_BDADDR_PROPERTY for other QCA
-parts never matches: the controller came up configured with the
-placeholder and, being set up again on every power on, went back to it
-even after an address was set through mgmt.
+Since commit bd8f21876189 ("ALSA: core: propagate actual error code from
+register_chrdev"), alsa_sound_init() only treats negative values from
+register_chrdev() as errors. With the major=0 module option
+register_chrdev() allocates a major number dynamically and returns it
+but snd_major and the devices still use 0. The devices are then
+created without device numbers so no /dev/snd nodes appear and sound
+is unusable.
 
-Set the quirk in setup, so the controller stays unconfigured until the
-board's address comes from the local-bd-address property or from
-userspace, and the core programs it after each setup.
+Use the returned major number when major=0 is given.
 
-Assisted-by: LLM
-Signed-off-by: Andrei-Alexandru Bleortu <me@andrei-z.com>
+Fixes: bd8f21876189 ("ALSA: core: propagate actual error code from register_chrdev")
+Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
 ---
- drivers/bluetooth/btqcomipc.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ sound/core/sound.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/bluetooth/btqcomipc.c b/drivers/bluetooth/btqcomipc.c
-index 8513c1780..92a0d671e 100644
---- a/drivers/bluetooth/btqcomipc.c
-+++ b/drivers/bluetooth/btqcomipc.c
-@@ -997,9 +997,13 @@ static int btqcomipc_setup(struct hci_dev *hdev)
+diff --git a/sound/core/sound.c b/sound/core/sound.c
+index 24f40763a20c..a0349a7e9495 100644
+--- a/sound/core/sound.c
++++ b/sound/core/sound.c
+@@ -396,7 +396,6 @@ static int __init alsa_sound_init(void)
+ {
+ 	int err;
+ 
+-	snd_major = major;
+ 	snd_ecards_limit = cards_limit;
+ 
+ 	err = register_chrdev(major, "alsa", &snd_fops);
+@@ -404,6 +403,9 @@ static int __init alsa_sound_init(void)
+ 		pr_err("ALSA core: unable to register native major device number %d\n", major);
+ 		return err;
  	}
++	if (!major)
++		major = err;
++	snd_major = major;
  
- 	/*
--	 * 7.2 has no NVMEM-backed BD address in the HCI core; the board's
--	 * address is set from userspace through set_bdaddr instead.
-+	 * The NVM carries the same placeholder address for every board, so
-+	 * the controller stays unconfigured until the board's address comes
-+	 * from the local-bd-address property or from userspace, and the core
-+	 * programs it again after each setup.
- 	 */
-+	hci_set_quirk(hdev, HCI_QUIRK_USE_BDADDR_PROPERTY);
-+
- 	return 0;
- }
- 
+ 	err = snd_info_init();
+ 	if (err < 0) {
+-- 
+2.55.0
 
