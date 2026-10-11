@@ -1,282 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73EDA38D3EE;
-	Sun, 11 Oct 2026 19:55:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57FBA33374F
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 19:56:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791748533; cv=none; b=qs+D31s+tCIGYMQSp46A1Aj4iAnd5LEiM9hChxc/kBAFhRCe1iyDjp+9LXxnvTvyeTQun7HEZWLSjO5J/+tufgyOKhrKkWReYTqsrnUmjRVvq3/Z+rqLb1Q+u1t+E/Xa5aLO1g9U4CcGRT97pJM3EQgbJwgk8y0u9Bhp41UQRxc=
+	t=1791748612; cv=none; b=Hldrvxip1+ckEwKtkVPV2UE6u34dKFkhaYxacVZ5eJQ+0lpXEmQQkkzQIkgbsSyO/zBH7PtztVo8OZkQAI3ST2712ygtj57ye/PjY0tI48MP6LCRg0kqYmGAVghedX8xQ5rNWBWWS4MUHsUPeoeusHcjl7TcPqm4nuGh5bUfouM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791748533; c=relaxed/simple;
-	bh=bM5l5rkNiU9f12LqX0//ap6AJwoy3BA5LTW0gXRcHj4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=bHWOJzzDaQ51QBVFKobKyWN3LZ4IffwxQwuXFzBluRdALlvRpHfvsoWVr7GEdQgj6CulAplSeUXqN6XN7xfU+RrcmAN3G2nwMTbztrJUCV1lrVfD4fwCuBCc/mFzeSkZv0nez1btCQee+oABZSyC21Et8g8qD6eZTv8zndsM9cc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ATfMjVd5; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791748612; c=relaxed/simple;
+	bh=epmQuNnUwuWrARF6TFO83/KSZ5JczeyOambMq4x8/Gk=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=e5s5zw3CrYxwS/2FIwAcZEwlo73k0yGIRcP1HY8HEdfd7s//ilK2bXljUYAnqgA+z9TSLvXk5LzFp1bsd59yL68uR/ec8lhP4W1UeXCseNloXgGSOiTuw/5Q63y87sL5etQs1ioNHWyTmbhpu+dwOBrTKKRM8RglgWxzU9APnoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P//eD9Me; arc=none smtp.client-ip=209.85.219.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ATfMjVd5"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 25E49C2BCF5;
-	Sun, 11 Oct 2026 19:55:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791748533;
-	bh=bM5l5rkNiU9f12LqX0//ap6AJwoy3BA5LTW0gXRcHj4=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=ATfMjVd5X9sVGvYoljBrY3hIVtIw4njNlP482Ne/1HdWmyrIFTDbuLa0IkjHkciZ2
-	 XRmlE7fPxA+Aa15ifwRVvq+PlOd7uHJe5xbXJbKaw8WKbiqLUop8aoqvX86svYh9oZ
-	 IIhIyWyJVv4McitLGKPmPqMXi/KRAeVrW8SlyC4jxAw+PReYmGOzL8tpxizTDmTM3y
-	 Bage4DlbWZ86UOk8ykqyJb4Tfl/AIC2SgH71JpmlB7Q594evjCAK6I66v2NrBhgsmy
-	 03+vQNM3iKeboYNm2Oq89DH1Js4ZNtZcIeTEGSEm1JdXWQo+imU9NZv+9PSPgMQ8LX
-	 0UYT2iswKMyuQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 003B7CA9EBD;
-	Sun, 11 Oct 2026 19:55:32 +0000 (UTC)
-From: Max Bretschneider via B4 Relay <devnull+max.bretschneider.leica-geosystems.com@kernel.org>
-Date: Sun, 11 Oct 2026 21:55:23 +0200
-Subject: [PATCH] media: i2c: ov08d10: add get_selection support
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P//eD9Me"
+Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-91054f537ccso16779056d6.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 12:56:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791748610; x=1792353410; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:content-type:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iHHZH59qV3EnqbOQ3vYmK0JHZ+tuhXSFnyosgBQqvFQ=;
+        b=P//eD9Meh3ty9Is3pKnToxFWm/iKMBeWxKZ+l42qbdqTIDlN3/D27rVHaOwAzRSsP2
+         jncL7ekJOnEnN8F089stkcbIC1xCf6cIKUiLLvmHO/yPpw5C1NyWFrgFgc+6qhLK7FDs
+         7fiujLTQICiN0lTsY/VVakWfp17SY0gUaolUMNi+kYYDyYlB9VwZWObA/ZjiCGn6+vuG
+         SA0+WFkDhHPIcFt9cCxJ0Qxm4Z0kODwkidaYRsDNscYJOLQLPaQQEx19XXFXacz6xcew
+         /xHJml0nqdHteecqC/uu5U4cgQp/yttjELV46eeurQIOHSyqwFm5R5w4svhJXSLOwOf4
+         l6Ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791748610; x=1792353410;
+        h=content-transfer-encoding:mime-version:content-type:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iHHZH59qV3EnqbOQ3vYmK0JHZ+tuhXSFnyosgBQqvFQ=;
+        b=IcMYITz6w7BmuBnfuFK6/VGKDaw3PTQzOkWeJ4eDy9M1UEaBK6BRgIK0xlIqwYD7NR
+         gQft/mJbl7a9A9PGmEdolI6xEGsBRxEK/iF1vaIs+r7qx7Nv+SSuTqz/ryBpFr/knhfZ
+         yR1eXJT/a7ezhYOMfBeS8HfQHsR3q9Quy8jCbcXqIcStjj02zGDkvLNkGlqPw4klXaDS
+         TFHYxVvFi4RxoSehim7Rx5xc2MC9CWV3uiByf4BYxhGfglKcCI5XxMQ8aXl9JKlwbgg0
+         r8VtA6r5WrTdXIxiAERT/1iQhqDdJGi4dNvUuWrpJ8TEpIx8GFEEp4PyX5yx3kmcDeRL
+         Ulbw==
+X-Forwarded-Encrypted: i=1; AKwUvBxDNttM8212fk+/Ns9xqFHZwVYKJtHXfjWhoIqCMnuANWfviejPMeTS7bvf7TvMwRUvwCOArxZ9aUYFXRk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIQExqTdWOzi5IKXbi94Xym/Vqd7ex7hjHC0MqS9wp4fDz0RIwq
+	vW+42FEhBCbr+lF8VRx/vaDttBh5BOwX/dQXbJLrIIcFlT/cmXr09LA=
+X-Gm-Gg: AYBFou2z22iwQBzUWqZ/twNnSKHmH4jQfnrRgK6SUClUwImKAYt8lqINLmj41sdKhvB
+	g592CLo6+eoPZ3h+UTgN99tJMDpenIHDvC/R4nzUYWHag67aYMSqnPMYrOPJh+dd49LHMSrpS2D
+	Y/QuAJVTGhgnL1eorUHcjc4W2NqO3t+6RzK3Okl9m3njqXmzkU5d0EXHyexGmZjBt+zMPXpZwqB
+	1GGImqG0UkfLE7tlf0H62MrtCrTd3I89ECe8qIdOGRwl277k4Z1UOODs7H21LljkFcCcxt1r35V
+	jEiv8T1THEZfY6HsLLBWALUSdg1xXLTJyBS2xsHWEBPxyQJmjSB6yNR5DZwZemxfqDnEl5KXNJc
+	Fea4Hc8mvZPi12sVucVvLC2zrqg5HeSF5EB1t3/r6quL791hZNGEfHs5r8Zf7JlS07n/KFq4FQM
+	jWIaHuJBu6rLMnZqT3vBqUmvXj4oIZiuujPjtJO6lZ/+pyDbbNKZ+xpGbIuWUvFV3AWLsmF0t5s
+	gTkm6aQHxkcPEEZ38EHrndsZaVWqj8bIZKRfEGlPTtKsXacompAogvt8ThtR4tKr1vRJXc9h6Ri
+	xwg0i7zHT7zllYPoS4dARfw81ZKdizMq3GZoWKo=
+X-Received: by 2002:a05:6214:498e:b0:91b:5d3b:4acc with SMTP id 6a1803df08f44-91b5d3b4e26mr149047996d6.53.1791748610213;
+        Sun, 11 Oct 2026 12:56:50 -0700 (PDT)
+Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b550dfb6csm77651326d6.45.2026.10.11.12.56.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 12:56:49 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Eddie James <eajames@linux.ibm.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: Ryan Chen <ryan_chen@aspeedtech.com>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	linux-media@vger.kernel.org,
+	openbmc@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH] media: aspeed: disable resolution work before removing the device
+Date: Sun, 11 Oct 2026 15:56:45 -0400
+Message-ID: <179174852932.3.2170255507797724902.G64@gmail.com>
+X-Mailer: git-send-email 2.53.0
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261011-ov08d10-get-selection-v1-1-5debe6436765@leica-geosystems.com>
-X-B4-Tracking: v=1; b=H4sIAKrpy2oC/x3MSwqAIBRG4a3EHXfBHPTaSjQw/bULUaERQbj3p
- OEZfOelhChINFYvRdyS5NhLNHVFdjV7AIsrTVrpVg164ONWvWsUB1ycsMFeRbA1pltau/TOg4o
- 9I7w8/3eac/4AdWH36mcAAAA=
-To: Jimmy Su <jimmy.su@intel.com>, Matthias Fend <matthias.fend@emfend.at>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Max Bretschneider <max.bretschneider@leica-geosystems.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791748532; l=7199;
- i=max.bretschneider@leica-geosystems.com; s=20260501;
- h=from:subject:message-id;
- bh=E3xQubIkPTvx2wL9DZkujO+3/+i9lmKaF0B4AxGybZA=;
- b=9vswjrUEaoOtfN9mkxB9X5vc4a/hINTznbcg04kikaRCSeBHpfyUAEQdDzCBEEGd5wAhfhfQy
- n7h2otlC6lPB7pUyUU9y8k2A6b1PpcCIgbHui3JhL6cxkzm+jzlbaRZ
-X-Developer-Key: i=max.bretschneider@leica-geosystems.com; a=ed25519;
- pk=jf4ba33jrWlsOdGemi2InMtJAngoJVZU8Moetp0ixik=
-X-Endpoint-Received: by B4 Relay for
- max.bretschneider@leica-geosystems.com/20260501 with auth_id=1161
-X-Original-From: Max Bretschneider <max.bretschneider@leica-geosystems.com>
-Reply-To: max.bretschneider@leica-geosystems.com
+Content-Transfer-Encoding: 8bit
 
-From: Max Bretschneider <max.bretschneider@leica-geosystems.com>
+A resolution-change interrupt schedules res_work. The worker enables the
+video engine clocks, initializes registers and detects the resolution.
+It can also queue a V4L2 event or restart frame capture. The remove path
+shuts down the engine and releases resources without cancelling or
+waiting for this work, so the worker can undo the shutdown or access
+resources after they have been released.
 
-The driver does not implement .get_selection, so it never reports the
-analogue crop rectangle of the active mode. Userspace has no way to
-learn which region of the pixel array a given mode reads out, and
-cannot assume a fixed one, because the modes differ: the full mode
-reads 3280x2460 at offset (4,8), while the 3264x2448 and the 2x2
-binned 1632x1224 modes read 3264x2448 at offset (12,16).
+Disable and drain res_work before turning the engine off. This cancels
+pending work, waits for a running worker and prevents the IRQ handler
+from queuing the work again. Keep the clocks and IRQ handler available
+during the wait because resolution detection can wait for an IRQ.
 
-Consumers that derive the sensor scale from the analogue crop and the
-output size therefore compute a wrong result for the cropped and
-binned modes, and may reject those configurations.
+This issue was found by static analysis.
 
-Track the analogue crop rectangle per mode, store it in the subdev
-state when the format is set, and report it through .get_selection.
-Also report V4L2_SEL_TGT_CROP_DEFAULT, V4L2_SEL_TGT_CROP_BOUNDS and
-V4L2_SEL_TGT_NATIVE_SIZE from the pixel array geometry. Implement
-.init_state so a newly allocated state holds a valid format and crop,
-and add the v4l2_subdev_init_finalize() and v4l2_subdev_cleanup()
-calls required to use the subdev active state.
-
-The pixel array geometry and the per-mode offsets are taken from the
-sensor datasheet and the recommended reference register sets.
-
-Signed-off-by: Max Bretschneider <max.bretschneider@leica-geosystems.com>
+Fixes: d2b4387f3bdf ("media: platform: Add Aspeed Video Engine driver")
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
-Tested on a Hexagon/Leica CS50 (i.MX8MP, rkisp1) running 6.16.12 with the
-equivalent of this patch applied, where it fixes configuration of the 2x2
-binned 1632x1224 mode with libcamera's rkisp1 CAC algorithm enabled.
-Compile-tested against media/next.
+Compile-tested with GCC, W=1 (arm64). No runtime testing.
 
-Modelled on imx335.
----
- drivers/media/i2c/ov08d10.c | 74 ++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 73 insertions(+), 1 deletion(-)
+ drivers/media/platform/aspeed/aspeed-video.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/media/i2c/ov08d10.c b/drivers/media/i2c/ov08d10.c
-index 0710d2243cc0..b32a1246df45 100644
---- a/drivers/media/i2c/ov08d10.c
-+++ b/drivers/media/i2c/ov08d10.c
-@@ -65,6 +65,14 @@
- #define OV08D10_REG_FLIP_OPT			0x32
- #define OV08D10_REG_FLIP_MASK			0x3
+diff --git a/drivers/media/platform/aspeed/aspeed-video.c b/drivers/media/platform/aspeed/aspeed-video.c
+index a292275..4274b90 100644
+--- a/drivers/media/platform/aspeed/aspeed-video.c
++++ b/drivers/media/platform/aspeed/aspeed-video.c
+@@ -2360,6 +2360,7 @@ static void aspeed_video_remove(struct platform_device *pdev)
+ 	struct v4l2_device *v4l2_dev = dev_get_drvdata(dev);
+ 	struct aspeed_video *video = to_aspeed_video(v4l2_dev);
  
-+/* OV08D10 native and active pixel array size */
-+#define OV08D10_NATIVE_WIDTH			3288
-+#define OV08D10_NATIVE_HEIGHT			2476
-+#define OV08D10_PIXEL_ARRAY_LEFT		4
-+#define OV08D10_PIXEL_ARRAY_TOP			8
-+#define OV08D10_PIXEL_ARRAY_WIDTH		3280
-+#define OV08D10_PIXEL_ARRAY_HEIGHT		2464
-+
- #define to_ov08d10(_sd)		container_of(_sd, struct ov08d10, sd)
++	disable_delayed_work_sync(&video->res_work);
+ 	aspeed_video_off(video);
  
- struct ov08d10_reg {
-@@ -110,6 +118,9 @@ struct ov08d10_mode {
- 
- 	/* Number of data lanes */
- 	u8 data_lanes;
-+
-+	/* Analogue crop rectangle, in native sensor coordinates */
-+	struct v4l2_rect crop;
- };
- 
- /* 3280x2460, 3264x2448 need 720Mbps/lane, 2 lanes - 19.2 MHz */
-@@ -630,6 +641,7 @@ static const struct ov08d10_lane_cfg lane_cfg_2 = {
- 		},
- 		.link_freq_index = 0,
- 		.data_lanes = 2,
-+		.crop = { .left =  4, .top =  8, .width = 3280, .height = 2460 },
- 	},
- 	{
- 		.width = 3264,
-@@ -643,6 +655,7 @@ static const struct ov08d10_lane_cfg lane_cfg_2 = {
- 		},
- 		.link_freq_index = 0,
- 		.data_lanes = 2,
-+		.crop = { .left = 12, .top = 16, .width = 3264, .height = 2448 },
- 	},
- 	{
- 		.width = 1632,
-@@ -656,6 +669,7 @@ static const struct ov08d10_lane_cfg lane_cfg_2 = {
- 		},
- 		.link_freq_index = 1,
- 		.data_lanes = 2,
-+		.crop = { .left = 12, .top = 16, .width = 3264, .height = 2448 },
- 	}}
- };
- 
-@@ -955,6 +969,36 @@ static int ov08d10_set_ctrl(struct v4l2_ctrl *ctrl)
- 	return ret;
- }
- 
-+static int ov08d10_get_selection(struct v4l2_subdev *sd,
-+				 const struct v4l2_subdev_client_info *ci,
-+				 struct v4l2_subdev_state *sd_state,
-+				 struct v4l2_subdev_selection *sel)
-+{
-+	switch (sel->target) {
-+	case V4L2_SEL_TGT_CROP:
-+		sel->r = *v4l2_subdev_state_get_crop(sd_state, 0);
-+		return 0;
-+
-+	case V4L2_SEL_TGT_NATIVE_SIZE:
-+		sel->r.left = 0;
-+		sel->r.top = 0;
-+		sel->r.width = OV08D10_NATIVE_WIDTH;
-+		sel->r.height = OV08D10_NATIVE_HEIGHT;
-+		return 0;
-+
-+	case V4L2_SEL_TGT_CROP_DEFAULT:
-+	case V4L2_SEL_TGT_CROP_BOUNDS:
-+		sel->r.left = OV08D10_PIXEL_ARRAY_LEFT;
-+		sel->r.top = OV08D10_PIXEL_ARRAY_TOP;
-+		sel->r.width = OV08D10_PIXEL_ARRAY_WIDTH;
-+		sel->r.height = OV08D10_PIXEL_ARRAY_HEIGHT;
-+		return 0;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
- static const struct v4l2_ctrl_ops ov08d10_ctrl_ops = {
- 	.s_ctrl = ov08d10_set_ctrl,
- };
-@@ -1194,6 +1238,9 @@ static int ov08d10_set_format(struct v4l2_subdev *sd,
- 
- 	mutex_lock(&ov08d10->mutex);
- 	ov08d10_update_pad_format(ov08d10, mode, &fmt->format);
-+
-+	*v4l2_subdev_state_get_crop(sd_state, fmt->pad) = mode->crop;
-+
- 	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY) {
- 		*v4l2_subdev_state_get_format(sd_state, fmt->pad) =
- 								fmt->format;
-@@ -1297,6 +1344,19 @@ static int ov08d10_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
- 	return 0;
- }
- 
-+static int ov08d10_init_state(struct v4l2_subdev *sd,
-+			      struct v4l2_subdev_state *sd_state)
-+{
-+	struct ov08d10 *ov08d10 = to_ov08d10(sd);
-+	const struct ov08d10_mode *mode = &ov08d10->priv_lane->sp_modes[0];
-+
-+	*v4l2_subdev_state_get_crop(sd_state, 0) = mode->crop;
-+	ov08d10_update_pad_format(ov08d10, mode,
-+				  v4l2_subdev_state_get_format(sd_state, 0));
-+
-+	return 0;
-+}
-+
- static const struct v4l2_subdev_video_ops ov08d10_video_ops = {
- 	.s_stream = ov08d10_set_stream,
- };
-@@ -1306,6 +1366,7 @@ static const struct v4l2_subdev_pad_ops ov08d10_pad_ops = {
- 	.get_fmt = ov08d10_get_format,
- 	.enum_mbus_code = ov08d10_enum_mbus_code,
- 	.enum_frame_size = ov08d10_enum_frame_size,
-+	.get_selection = ov08d10_get_selection,
- };
- 
- static const struct v4l2_subdev_ops ov08d10_subdev_ops = {
-@@ -1315,6 +1376,7 @@ static const struct v4l2_subdev_ops ov08d10_subdev_ops = {
- 
- static const struct v4l2_subdev_internal_ops ov08d10_internal_ops = {
- 	.open = ov08d10_open,
-+	.init_state = ov08d10_init_state,
- };
- 
- static int ov08d10_power_off(struct device *dev)
-@@ -1470,6 +1532,7 @@ static void ov08d10_remove(struct i2c_client *client)
- 	struct ov08d10 *ov08d10 = to_ov08d10(sd);
- 
- 	v4l2_async_unregister_subdev(sd);
-+	v4l2_subdev_cleanup(sd);
- 	media_entity_cleanup(&sd->entity);
- 	v4l2_ctrl_handler_free(sd->ctrl_handler);
- 	pm_runtime_disable(ov08d10->dev);
-@@ -1565,17 +1628,26 @@ static int ov08d10_probe(struct i2c_client *client)
- 	pm_runtime_set_active(ov08d10->dev);
- 	pm_runtime_enable(ov08d10->dev);
- 
-+	ret = v4l2_subdev_init_finalize(&ov08d10->sd);
-+	if (ret) {
-+		dev_err(ov08d10->dev, "failed to init subdev state: %d\n", ret);
-+		goto probe_error_media_entity_cleanup;
-+	}
-+
- 	ret = v4l2_async_register_subdev_sensor(&ov08d10->sd);
- 	if (ret < 0) {
- 		dev_err(ov08d10->dev, "failed to register V4L2 subdev: %d\n",
- 			ret);
--		goto probe_error_media_entity_cleanup;
-+		goto probe_error_subdev_cleanup;
- 	}
- 
- 	pm_runtime_idle(ov08d10->dev);
- 
- 	return 0;
- 
-+probe_error_subdev_cleanup:
-+	v4l2_subdev_cleanup(&ov08d10->sd);
-+
- probe_error_media_entity_cleanup:
- 	pm_runtime_disable(ov08d10->dev);
- 	pm_runtime_set_suspended(ov08d10->dev);
-
----
-base-commit: 2dcdfb625c3b8fe87454e19dfbc54b3e3f0ad70e
-change-id: 20260929-ov08d10-get-selection-caa7b6cb8dfe
-
-Best regards,
--- 
-Max Bretschneider <max.bretschneider@leica-geosystems.com>
-
-
+ 	aspeed_video_debugfs_remove(video);
