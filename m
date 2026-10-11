@@ -1,268 +1,120 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 004D71B87C9
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:13:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1BBEC8D9
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:14:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791710024; cv=none; b=mLjdVbof4URS4dUTk3otbOcdRwBvBmiTHL/5lAyOL2ibosSIoR1t/7FGu5KhemVjQb7y8x2CpNk6jolBeTCKnjEsiGFh3XBUoqYwvI84yqewit+/KpWFGNOtRnkfEW0pdaEuUYRzC2l5Y2YNneLCl40iVCmLovxi5dYp3xHJ768=
+	t=1791710059; cv=none; b=loQ0cQftDZbjloOPjq4LDoxNOjojO/Wk+j2vvmLRsniOIqObzUqlqdZJsZ63xX6Zr4RyraepKC0BKY3eZQCJHzi3ewRVGT8EBJU+fr26s+R1lXUwJzt3ET97SbE9pG6W2CXJhbbAdtCjQyoG974VR1Z2ZOEzlLjlFr06ifR/pV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791710024; c=relaxed/simple;
-	bh=QYwv8ZVGvQYe3i7iPcKGnjIbysXtDF2O7ZxyYhCoEms=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pvlLSFcnTvtbSggIfZ275/PT+RjEI0dtfwW00ro9PBNB7viHtBlBt0R2RAhi1OFkxyVD7/DsaSY6GK6DBs/Rw1gHK7FkAnnjCstgFOuxbint+s/t3WX26eIhDXuDZ95hqWwKDUgEz5kmSAvlaPsiLfumpZKHBsNANrnw2KYUU4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XnelEC0d; arc=none smtp.client-ip=209.85.221.48
+	s=arc-20240116; t=1791710059; c=relaxed/simple;
+	bh=fnspbfCcGV6mSBf+inHXyL2EwSxqPFcnpLeH6pQJXGs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pKFIRDU5UYyrAXKYwVfgl5cK7zOYEUTx/R9E4WVnxQ2DODsxIMPx/dQyOyPbWE1tERLgV5VLjaT50B8u/RUe8m3gUexj368g0+Sf8I7dWuSiCIQKrh7OO3/8RzmQSnHIl5R0/ZFaC4jMsy4TibaGDk7MvrsC/jK7EPeCD0O+kKA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GEPZmFdv; arc=none smtp.client-ip=74.125.82.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XnelEC0d"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48c411d6615so550698f8f.3
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 02:13:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GEPZmFdv"
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-3550c917fd3so1522367eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 02:14:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791710021; x=1792314821; darn=vger.kernel.org;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Z49FbKKlAmO+vgO/oO+bk2H9QeNxjgWLv5uy8+cQqVU=;
-        b=XnelEC0dcyNudsIYkwDV6S/grGGqAPDUGxLxbaePZINn7tJwkB8sKZIK7ugTpLJFWS
-         ERul/DgH7qIreg4R8nvfP12HszGkWFJFvjFLvwVbe631NzIa9MEfmYK3xUekq7+eedet
-         oX9RXlE9dSq0RQoQYNnfCATzsElm/WdxpTZCfMt6UXyCBbx5GOa9HHezdkzoExa3vqZU
-         p8yWiJp4Qb2r9sazPmfcf1LkzQxlTqr1lxnPGfwjGuNjtk1GN2Anq74Eo7crv2n99qO6
-         5g/EOUcsLOfQWUbCIvDKDhThW0ub9+ltIlnfI+hrcFFTp7/JkbeY5pJayD7IPt3cDEtw
-         /Faw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791710021; x=1792314821;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791710058; x=1792314858; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Z49FbKKlAmO+vgO/oO+bk2H9QeNxjgWLv5uy8+cQqVU=;
-        b=kgLzQPXG4ijU79gvPmFcgYM/nqYEbHeu8QVSBQjF7PX5pjVIzyPyTfrLaujsxGiur2
-         GknTn9ehd1Jg/1APg+qu0u3iP0uQ8ft4kr2A3ZXw1mvOPM2FFmRH2RV/vfU3Dx59/eoW
-         4/Q+SkQalTmEpHjvJIL6iNhlNOwM9EODSBFbyCVB1CInW/q0KG0D9+jqZgMGXBUuR2lK
-         S8LFONSOKVqSs4f3gesqWZV0PZQlXcmCvelmJxjRE1q/Iaicqr0vk/z755Yaciva6UsS
-         zYF4I3a4h8H5UyQ8muE9oXqTc5c5jO/OmjvEqdgu9JH3bwnHTJYuT2TpmYP2xXs+hTNL
-         sV9g==
-X-Forwarded-Encrypted: i=1; AKwUvByqKW3+q7D/wzmSDxmCGOtkYC6FdSRIn/OyFojtm8fOUUq7L+2xr2yQPwQvQGEUL5IZ789VQMPyqhfxzEI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI2nCtqWlyUtuKalhXA8rpvLHY4TVL9EMlBoBOQqEN1d0lXEkin
-	sHfE5ChjAUDTPyFFgBCeo2DL6oZZTchiX0w4vNH/mMTluxPm5/PPR4xE
-X-Gm-Gg: AYBFou3hCJJ8/UPoXbKud42P9wzTxuNak8AaT/+NjyKE9FTU4bjmgYaZQX9TSKq3WDU
-	knX5o5FfTfIMde1Wbr191IIq50Pe+NR2WQzuBxF1Xine0OxDDKH2mTWlN+5rFysrY/dqt2fUVPg
-	0j7crabNgbBgpAcfaYrokswDcBk8Y+jDIY7iuq2HKh54daxYcYAiD2+Lv5h6rP5l5itUPbVGVjz
-	roWYUWoywgT53EK0u7oShCJngxhqiNabuOkJ7xYmIpw4gDhYgxRlp0qxO1EgOXncaQqfCfJE3FS
-	0NsK3IvbKn2MpdD0zrCU6WQ91a+WvnsK5GI+OZOt2vGH8+5TqBYGKYIigZdU4e39H4KEvP1+I4q
-	1ha9Ykm4E7KaAYe3QsLBCfrmbpQsq7gzEJJbCtok08zDzFMGQrT8Q4xnlgwwiMDHbix+LCbT2CZ
-	K3E92JN/0djD9QnT7sQHbU41gO1kHVQguTj/32JwKFtjn2qQQoUaFV85bbL3Gru/Enob864Ynua
-	lM1N4nmucvryXR4xSd+5X3WLZOpGD84DpAe/nxOjc5Cc4xi4fjZEZRp3A==
-X-Received: by 2002:a05:600c:46c5:b0:4a1:78c5:79f5 with SMTP id 5b1f17b1804b1-4a18e4d6b28mr120874255e9.33.1791710020945;
-        Sun, 11 Oct 2026 02:13:40 -0700 (PDT)
-Received: from silicon.doe.home (178.165.167.132.wireless.dyn.drei.com. [178.165.167.132])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18e4225f4sm254023425e9.0.2026.10.11.02.13.38
+        bh=h7FJI5dN/FyGY4mAC7187znWc+Enmok4bG9Rd/tePv0=;
+        b=GEPZmFdvFJDaHfQhxwEi3zgBPWDkrqia5bP5tZ+UMSRuXmtZhGiye6dKXT6z4m3j9K
+         ykjj7wb4noRZJOCUQawCujxwzKk9n52SziVlqB7w64fHK52zmB5x+sxYiR2D6oaiVuj7
+         Xkv5wb27PJA/PEwKiq7Cd1Qcll+L8mt1EWbcUwvX5dwsAjqqs2jSLDmzHvLh8ykIr+iO
+         ev/QJAHnsBK4WLzWlew+3RQJIKEpvwXzOeQ5rEXuF58s3ECNjHburhHrFDeetRcY7HDM
+         nAuWFGEXNChxHlY7WPnAEZBpNOrVpnV1vfWAsWdY6IoJlaBCDCULrkyeSKl8CUV5+PVK
+         CVnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791710058; x=1792314858;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=h7FJI5dN/FyGY4mAC7187znWc+Enmok4bG9Rd/tePv0=;
+        b=G1BIO3DNvbEJNGl3IR6UI2TT/9HFeDmPD/fm+nBU1ctD8FjRMQh0kzBg62pCGfJ18R
+         KZuzuGc0auVQEIqLXbItIrTaCpLryuRxZ/a/8GgC9v4c26O/GQdrWvztsueCVDVNljXw
+         KuOuY6qRan1kOKd0jVztOLjn3Qon9cgqF0Q/sztefu7/dt2UPItrwhrI/J6oxlfpFEfS
+         vLE3KYxeU2J52USkcIc+epPMK/JZzBTdq4a9i8p8V1LarBX6YilUgxJa7WDPusHPw5kq
+         tR9hQX9O7Gwtwpcci3wRaG8C1sZVyv6f8DFvc28zya1Znpft9s6zD+usNKEHQkLxdpTM
+         xxkw==
+X-Forwarded-Encrypted: i=1; AKwUvBxTWz7b2CQAJGo1heLEF6aZ0lTkhfkFn7oiln/mit4ZJo0s9rib47dOgi5rmjyej4kcjg8EWfS3crSUGqM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ7pMkgBQeTFOq01eSz7cqsArk7GVFHNEyjulgjTCVQAPuLC0j8
+	TtfHAUe7OvHqPmzzibrdVlLSRT7UR9DB9PaF22Yyv/5/qMV1nzaGQO1izAcRww==
+X-Gm-Gg: AYBFou1FvF5PR0ryOg+FOAiwUmplMKDpVCt7WwCEazgIY4WGDGRM7ZSxQK+LpchIr6Q
+	0Dza0JP4H0KvzAAz9KBjzCfgzUCYQ2eTf/pxQHwWK34mekEk+csQRR75KfY/ImbwoxDe1oQhoj5
+	XJmGwbX+4XWJUwqPukhtWbwxu2fqFMrNzwlqeun845q2Z3mB02HltzIAZT+rZmB1SqSzHiAdLS3
+	N8+aYWCaib0acqRmM/mB6QQ56+VZjIN6DumEunG8CaPoZ8PX8mbmPdfD6mbRGEJBtIIFSXaJpbk
+	z6A8EWfX7AWZnxiNMUNhUc90xB2ZuQIIAtxB3vW+EQ6dh0fV2pkUU9gFJlxbvL0RWDyvRYrViuF
+	ETQRX1jUVZSoR+eW2z4C59KMIOIvX7g1BlECIIs3gC+h/h5oLEEyQkk7KiW2pkXbz1ol4KFRt9f
+	BEU0zrHVa8q8raNJ0gMeJZfulC7MUx2k/qum40r0VS4vfxM5JneSTfgu1ffGrSELHPR9V3yIqmb
+	dQAz1y+TNVSNPU=
+X-Received: by 2002:a05:7300:ce94:b0:328:7033:9b8c with SMTP id 5a478bee46e88-3537e03331bmr9513887eec.6.1791710057560;
+        Sun, 11 Oct 2026 02:14:17 -0700 (PDT)
+Received: from kernel ([45.251.35.97])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-358de54fe47sm9822262eec.31.2026.10.11.02.14.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 02:13:39 -0700 (PDT)
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: linux-arm-kernel@lists.infradead.org,
- Navid Ghahremani <ghahramani.navid@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, arnd@arndb.de,
- linux@armlinux.org.uk, robh@kernel.org, krzk@kernel.org,
- Navid Ghahremani <ghahramani.navid@gmail.com>
-Subject:
- Re: [PATCH 06/24] dt-bindings: clock: Add ZTE ZX279128S CRM clocks and resets
-Date: Sun, 11 Oct 2026 11:13:37 +0200
-Message-ID: <7axmtiEnS5SDBrUzy6e6jw@gmail.com>
-In-Reply-To: <20261010130024.177503-7-ghahramani.navid@gmail.com>
-References:
- <20261010130024.177503-1-ghahramani.navid@gmail.com>
- <20261010130024.177503-7-ghahramani.navid@gmail.com>
+        Sun, 11 Oct 2026 02:14:17 -0700 (PDT)
+Date: Sun, 11 Oct 2026 14:44:09 +0530
+From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+To: Simon Richter <Simon.Richter@hogyros.de>
+Cc: ebiggers@kernel.org, ardb@kernel.org, Jason@zx2c4.com,
+	skhan@linuxfoundation.org, me@brighamcampbell.com,
+	jkoolstra@xs4all.nl, linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] lib/crypto: sha1: use put_unaligned_be64() for length
+ encoding
+Message-ID: <astTYX3RBV44n2gX@kernel>
+References: <20261011051524.6703-1-raizudeen.kerneldev@gmail.com>
+ <454f2204-2c4b-43c0-8fd0-1eaa83186e69@hogyros.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPartjpLtN9HcTiyHU1_e0KJPjQ";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <454f2204-2c4b-43c0-8fd0-1eaa83186e69@hogyros.de>
 
---nextPartjpLtN9HcTiyHU1_e0KJPjQ
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-Date: Sun, 11 Oct 2026 11:13:37 +0200
-Message-ID: <7axmtiEnS5SDBrUzy6e6jw@gmail.com>
-In-Reply-To: <20261010130024.177503-7-ghahramani.navid@gmail.com>
-MIME-Version: 1.0
+On Sun, Oct 11, 2026 at 03:10:44PM +0900, Simon Richter wrote:
+> Hi,
+> 
+> On 10/11/26 14:15, Mohamad Raizudeen wrote:
+> 
+> > The rest of this file already uses the unaligned access helpers like
+> > get_unaligned_be32() for reading input and put_unaligned_be32() for writing
+> > the digest, for all structured buffer accesses. Replace both casts with
+> > put_unaligned_be64() for consistency.
+> 
+> These aren't unaligned accesses, though.
+> 
+> > In hmac_sha1_final(), this also writes the full 64-bit length field
+> > explicitly rather than writing only 32 bits and relying on a preceding
+> > memset() to zero the upper 32 bits. The resulting bytes are identical,
+> > nothing changes functionally.
+> 
+> These aren't unaligned either, and the size here is fixed (which is also why
+> we don't need to handle the case where the size does not fit into the
+> current block).
+> 
+> The get_unaligned and put_unaligned functions aren't used as convenience
+> functions, but because the data might actually be unaligned, so we need to
+> eat the cost of doing an unaligned access.
+> 
+>    Simon
 
-Hi Navid,
+Hi,
 
-I don't have enough knowledge about about PCIe and the A9 l2cache to commen=
-t=20
-on the previous patches. For the clock ones I have a few points of hardware=
-=20
-investigation and the actual implementation.
+Well, you are right. My patch would have added unnecessary overhead on
+strict alignment architectures.
 
-Am Samstag, 10. Oktober 2026, 14:59:44 Mitteleurop=C3=A4ische Sommerzeit sc=
-hrieb=20
-Navid Ghahremani:
+Withdrawing this patch.
 
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - items:
-> +          - const: zte,zx279128s-topcrm
-> +          - const: syscon
-> +      - enum:
-> +          - zte,zx279128s-lsp0crpm
-> +          - zte,zx279128s-lsp1crpm
-
-The advice I got for my zx297520v3 bindings was to write a separate binding=
-=20
-for the clock controllers rather than try to write a one-size-fits-all one.=
- So=20
-you'd have a zte,zx279128s-topcrm.yaml that has compatible zte,zx279128s-
-topcrm, syscon and a separate lspcrpm.yaml (or maybe even one lsp0crpm and =
-one=20
-lsp1crpm) that take the other compatible
-
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    minItems: 1
-> +    maxItems: 5
-> +
-> +  clock-names:
-> +    minItems: 1
-> +    maxItems: 5
-
-If you split the bindings the clocks becomes a fixed list in each, simplify=
-ing=20
-the if-then-that rules you have later.
-=20
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - '#clock-cells'
-
-Your topcrm should have the reboot node as a child. syscon-reboot's "regmap=
-"=20
-property is deprecated and shouldn't be used for new bindings.
-
-This will either mean adding the simple-mfd compatible to auto-probe the=20
-reboot child or writing a MFD driver that does that. Since you also have cl=
-ock=20
-and reset functionality in there the MFD approach seems best, and it is wha=
-t I=20
-ended up doing for my CRM controllers.
-
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: zte,zx279128s-lsp0crpm
-> +    then:
-> +      properties:
-> +        '#reset-cells': false
-
-Are you sure there are no resets in lsp0crpm? Given what I know from my zx2=
-9=20
-board, it is likely that there *are* resets, but the ZTE kernel doesn't bot=
-her=20
-asserting/deasserting them and they come deasserted by the time U-Boot take=
-s=20
-over. (So either they are deasserted after powerup or the boot rom deassert=
-s=20
-them.
-
-The way I discovered the rest controls on my board: I set all the registers=
- in=20
-the LSP controller to 0 via a hack in arch/arm/kernel/head.S and looked at=
-=20
-what broke. It turned out that there are some bits that need to be set to 1=
-=20
-for the device to work that aren't mentioned at all in ZTE's code dump.
-
-The follow-up check was to see what the impact of those bits was: Setting a=
-=20
-pclk gate to 0 usually causes the mmio registers to read 0, 0xff, garbage o=
-r=20
-just hang (busybox's devmem is your friend). A reset bit, when asserted (se=
-t=20
-to 0) does the same. The difference is that when you re-enable a clock, the=
-=20
-registers retain their old contents, whereas after deasserting a reset, the=
-=20
-device lost previous state.
-
-Since most devices have 2 reset bits YMMV. One of them might not do anythin=
-g=20
-at all. Or one resets bus access properties while the other resets working=
-=20
-state.
-
-> +++ b/include/dt-bindings/clock/zte,zx279128s-crm.h
-> @@ -0,0 +1,55 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> +/*
-> + * Copyright (C) 2026 Navid Ghahremani <ghahramani.navid@gmail.com>
-> + */
-> +
-> +#ifndef _DT_BINDINGS_CLOCK_ZTE_ZX279128S_CRM_H
-> +#define _DT_BINDINGS_CLOCK_ZTE_ZX279128S_CRM_H
-=2E..
-> + * Top CRM resets: (register offset / 4) * 32 + bit. The USB 3.0 control=
-ler
-> + * has four in register 0x4c; what each one resets isn't known.
-> + */
-> +#define ZX279128S_TOP_RST_USB_B9	617
-> +#define ZX279128S_TOP_RST_USB_B10	618
-> +#define ZX279128S_TOP_RST_USB_B11	619
-> +#define ZX279128S_TOP_RST_USB_B14	622
-
-Please put the resets in their own reset header.
-
-Using hardware locations (offset, bits) for the binding values is discourag=
-ed=20
-as far as I understand it. I saw a comment by Krzk on a different binding p=
-atch=20
-stating that. I'll try to find it.
-
-It is better to give them logical values (0, 1, 2, ...) and have the reset=
-=20
-driver map them to the actual hardware location. This also helps if you fin=
-d=20
-out that you got a reset bit wrong. Since the bindings are considered ABI,=
-=20
-changing them later is tricky - you don't want to have to do it because you=
-=20
-identified a reset incorrectly.
-
-Cheers,
-Stefan
---nextPartjpLtN9HcTiyHU1_e0KJPjQ
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmrLU0EbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMywyAAoJED0TvMhUTxoiy9UQAILnMit2k2tNCuGxm+W4
-RPJOXzI39DY/XBG02vuhvovf71wMXUwUmxhHJYYYlBbmQVuLfGDENx4mr991TWQ7
-uTmRIYSdQVZzHcFCbfhiyWxMmtHlt9k5TlHPvgyehjVwv94Y4WCabFGtIdu2bJ0P
-JOPn5EGwcFeeFgWl/MYCUzlkRtUGyoeXruJOc1cz6wQJFTHaMe77lgYcS/PKSWKi
-ewmmUSVV0fuq5+CBDbp+iIR1qKUIPg6V/bnOlB4LUDmIO6h+46WGgJayrCgSgmGP
-dKUH6l1rzLqhlGM9U9eLZ+gloSuRf9HGprGYoKkyrVVP9VQaUPR5369YGhsyioG0
-2FPhT41fRKqyxqPxlRX7VBhviVGKd2SgXy0A6hRbjlSrHJ//ol54tCe+BXiyeYhx
-piewX87U3IskZTfWaQpVoAKxtAao45UbbX1F2E98MApWqH9TSf9SYoK6ogKf4F1t
-u+cCbJVb0tP9IrWe7cnBHpO3FU8H7zvT8ngwDYFCgteyipMvg+gasyTdVa+5uNBF
-mdL7rF5pVtgNaEn3vvuuWiT+6Kk/JkTvgrDqF2b8wqH3uXh+WukBA5v/a2qmAtwZ
-dD3bpeoZu7+ukku5lxfKs3vzcgC5f5h7ogYxkSkASTwoptZzoJZMDWPrLc+43778
-9pYjseVNU4hoNEcRHMNh8cX9
-=zJ1i
------END PGP SIGNATURE-----
-
---nextPartjpLtN9HcTiyHU1_e0KJPjQ--
-
-
-
+Thanks,
+Mohamad Raizudeen
