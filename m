@@ -1,53 +1,74 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f2.google.com (mail-pj2-f2.google.com [74.125.227.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE29E448D11;
-	Sun, 11 Oct 2026 13:18:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C5C144F549
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 13:19:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791724727; cv=none; b=VHD4SAQc2UdI16V7olS3U5LOAf6TNRr9OXGym1KxYzxgcBgBomA0MPzYAdUtmpfrn61yZAK3+eRDrx9i6DVE7aIdMC0s20jUVG58/kFj98jzwSE62+f1nDDbZhrvMfzxxxF038ZCM6UyeBa8AYqrcQjmAsLb406rjKg7/2eguCw=
+	t=1791724745; cv=none; b=rMUluuctxfTLEQyWivbYxqpaSgjrCtsVaQJEH9kbvCgu8DHLv417+K1FnCS+UZ5T2us2UPd2f6lNP2xQBtfgz/gscuCh5w3aFk1nzb8ap5uQBBXVAP4OfKYemtVo81kwbdty1ertKNpeKjupjihrDayijmdwgxpqQHKcsW171tI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791724727; c=relaxed/simple;
-	bh=t8UuEKhu5JXkAPu45ZUXWAfV2UasjGtxjZbqYUHs9Cg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r6RlQ8rpP1hKdgn85AyfiDr1QpF0AGSegI+mMoxMHrXscOYw/YdZSbBO9o5Um0G8ZKdfn67AWAZM3h76itI+7oPife8kao31q2h+esMkd2Jdkf3B30d+oHNmU+JRGZLpvYyprHM9UWqu8ztRVT5d8BOBK3Bk/XVWGkI/WPCUNdE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ZYwbKmR4; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791724745; c=relaxed/simple;
+	bh=jF1efb+ZrlgHhorgaaDDjAX1MA7rXrB1bO2VMnF5pJI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=stWX7dg2gZC6S/2f/eYMOElzlsaLRJpzfc6xtN7+M8vzoWmhnGguNxelg9Thy7WZ3D3NqWHOrGBHjle44OF9YXTTawsox3Tmtk4cMLkA7MP6j6pyMTrjJLIQCWPX9Vp9wemZ2N8321mY1T90gfQTUXg1FvrCe6HxPx0KmJ12+RM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T8wCzL/T; arc=none smtp.client-ip=74.125.227.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ZYwbKmR4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=iL
-	r+wm+n5REuBuunKDSCeG4oSd1yJjxQBNlTObmFnkA=; b=ZYwbKmR45xEhWvACcX
-	zVGKRD3AAmfB2g/ifcv6YvCSlUbJLvx/jDuWc/ER+Qv9Jku2+I+8QLfdId4KbLNT
-	Ph6WDU1yuNQm3VuK0nUqcuspgreM/bjZaWfbL/ri+9QcTk+Br1aM1jHJDXPwMUPI
-	Jn3jbbOvbgB4YF2Z76Bh5zi48=
-Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wDXV6tLjMtqB6qpDw--.58841S2;
-	Sun, 11 Oct 2026 21:17:01 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: tj@kernel.org
-Cc: void@manifault.com,
-	arighi@nvidia.com,
-	changwoo@igalia.com,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	sh_def@163.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2] sched_ext: idle: Respect task affinity in restricted CPU selection
-Date: Sun, 11 Oct 2026 22:17:00 +0900
-Message-ID: <20261011131700.1351541-1-sh_def@163.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T8wCzL/T"
+Received: by mail-pj2-f2.google.com with SMTP id 98e67ed59e1d1-3a8c118e711so830772a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:19:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791724741; x=1792329541; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sEBEPrTg9k6NVyRZZeBkgKa7OkmMhAqWYWxj4Tiunk0=;
+        b=T8wCzL/T/tbkeOKxz7MVuK00OlLlcpn/GAg5WA/ncXYfhyqtCHN/T0cdeQ9ZyaoPxO
+         PVa24skpArrZwnUky+0T05s/zuBtPnzcRu6yVo3WdB2eEieI2Qgh3VzF2SzsHfldCP5Z
+         Ofy9H0ViDSVWER5hXXO9Hwjxu9SFUMWpCStjYv3qAb0IkUE75oSZ+lnipbwHOGT605EJ
+         zLryBm9/LV12MQuWBkSp+XlhuLJzsL4Q+bnI63qIRxuv3Nx1kMJkjZHM1FxOVnVy2wag
+         cheNUccZ0psqmq8etTBpyMOLNKuQP40EWCZk9OwTuqkcQK8CzUKa7cOXQBHthqS1ASL2
+         faxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791724741; x=1792329541;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sEBEPrTg9k6NVyRZZeBkgKa7OkmMhAqWYWxj4Tiunk0=;
+        b=UuXFlY/c3uTRoL47AaZ6MskVEc5c90r8wThMY1uJ5Nhc2vA1YLydPwL7QvCq2BX8t4
+         ILwR8QOa7mmT817I16AoUEAwketHhn4X+qT+VD5HKwla/zX3NDRZjst1FC9QaYjYIA7w
+         tjHULo5ivrbKK61Mtryhklleli2C0ECMfDpvdfrbbi/6D5KmEdZRgto5JT2f2y+3Ty6L
+         46BUl+AHOwS93Swtydjn4V6Q4VvP8PKsHh9WSn9QnxA92eJDBK4OKQDcBxM3Hat1coYL
+         KoFSitZae/u3yQWjErmWo7BW9VJ7wgAHrnUtgXpTj74q1Oeek7Lgut+2gjC79Q1qZnly
+         MJDw==
+X-Gm-Message-State: AFq9FYKHk+rmGkSAb7tgDO8eWJy6NTlCID48RpEbHuEbml2HY/jilYBL
+	P94bi+7pgdnIwYYnqaLeC9ZWy86kirPY+qY0p41j4ao1nHZnFy2lS4qQF9K7qHYSQ0ypb2rv
+X-Gm-Gg: AYBFou37x/CHz2LVp2zKPYbotQXuDI7kG0S0j3mg2qvv909EJ3uYV/ZodG6xnNieQHZ
+	ql07U77IUyfjCpsT1BYNxq+rfi9vNiUHn9Tsxd98uIkncpRgDIuNHQLwJSO0VHBj21aX7nTMwhl
+	jbI+UJYBOvYLLogY20Ob9ABJhfa0/st3AECruD0hVpSRq8QuzEJ3TZ8YwpRRiBPgsXC+/HU8ah8
+	KJjrbtg9xOX/85uU9vx3bypxqRbcYOoFxNSDGlRM2bV6oW8hxw37oPrMo84UdFh3yZQsnFytR+7
+	L6sL834Af9Y/iKiR8sXSD/vDlq247XBV0q0jucPQnXSRnAZE2sDvCkRGNDGGwRrpyfKNbZgmeZr
+	1TXUN5CUL9jtWqxmyoII6oRsD361RuWWguCvSDwsufks/qzkigIR1jqtPeC2STSbiUDxvPF5c8y
+	LQsnP/8oSjBCM3DMiSX02UTo06IlzbjHIeVuc3Rk8q4myBfysnPq7SImXJDFMbYC1w5575YkjCX
+	B0Uz73sJR4iuCmIBkw92Fht9DqhZStKbmKDC1zBNTtNdWsfmk8dnUKYbs4A
+X-Received: by 2002:a17:90b:5845:b0:3ab:c80:936c with SMTP id 98e67ed59e1d1-3ab3a98f7ebmr5720767a91.33.1791724741527;
+        Sun, 11 Oct 2026 06:19:01 -0700 (PDT)
+Received: from localhost (ec2-13-231-150-91.ap-northeast-1.compute.amazonaws.com. [13.231.150.91])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab338676besm7158093a91.1.2026.10.11.06.19.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 06:19:01 -0700 (PDT)
+From: jianyungao89@gmail.com
+To: linux-kernel@vger.kernel.org
+Cc: Jianyun Gao <jianyungao89@gmail.com>,
+	Dan Williams <djbw@kernel.org>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	nvdimm@lists.linux.dev (open list:DEVICE DIRECT ACCESS (DAX)),
+	linux-cxl@vger.kernel.org (open list:DEVICE DIRECT ACCESS (DAX))
+Subject: [PATCH] dax: fix mapping_store() returning 0 instead of error code
+Date: Sun, 11 Oct 2026 21:18:57 +0800
+Message-Id: <20261011131857.30481-1-jianyungao89@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,101 +76,32 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXV6tLjMtqB6qpDw--.58841S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWrWUtF45Ww4UCr17WFyrCrg_yoWrGryrpr
-	ykKw42gwsrJa10y3W3Aw4kJF15Zrs7C3yftrWfGr4SyFZ0gw109rWvq3W3XF95Kr4kAF42
-	vF4qqr1fKa1qy37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zi75r7UUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwQ7DI2rLjE5erQAA3-
 
-The restricted select_cpu kfunc path handles single-CPU and
-migration-disabled tasks without going through scx_select_cpu_dfl().
+From: Jianyun Gao <jianyungao89@gmail.com>
 
-It currently uses prev_cpu as the candidate. However, prev_cpu is only a
-hint and may no longer be usable after an affinity change. When the caller
-supplies @allowed, the restricted path can also claim and return an idle
-CPU which isn't in p->cpus_ptr.
+When the region driver is not loaded, mapping_store() returns rc
+which is 0 at that point, instead of an error code. Set it to
+-ENXIO to match the equivalent check in size_store().
 
-Derive the candidate from task state instead. Use the sole CPU in
-p->cpus_ptr for single-CPU tasks and task_cpu(p) for migration-disabled
-tasks. Validate the candidate against the task's effective affinity and
-the caller-provided mask before claiming its idle state.
-
-The validation must happen before scx_idle_test_and_clear_cpu(), as a
-successful call consumes the CPU's idle bit. A later placement validation
-therefore cannot undo the idle-state side effect.
-
-Single-CPU and migration-disabled tasks skip ops.select_cpu(), so this
-path can instead be reached when the CPU-selection kfunc is called from
-other contexts such as ops.enqueue(). The normal ops.select_cpu() path is
-unchanged.
-
-Fixes: 683d2d0faba1 ("sched_ext: idle: Introduce scx_bpf_select_cpu_and()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hui Su <sh_def@163.com>
+Fixes: 9567da0b408a ("device-dax: Introduce bus + driver model")
+Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
 ---
-Testing:
-- x86_64 KVM/QEMU private BPF test-run harness:
-  - The baseline returned CPU1 outside the task affinity; v2 returned
-    -EBUSY.
-  - With a stale prev_cpu, the baseline returned -EBUSY; v2 selected the
-    task's idle CPU0.
-  - A caller mask excluding the task's candidate CPU returned -EBUSY with v2.
-- The stock sched_ext allowed_cpus selftest passed.
-- Built vmlinux and bzImage with CONFIG_PREEMPT_RCU=y.
-- Built kernel/sched/build_policy.o with CONFIG_PREEMPT_RCU=n and CONFIG_SMP=n.
+ drivers/dax/bus.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Changes in v2:
-- Derive the restricted-path candidate from task state instead of prev_cpu.
-- Document the idle-bit side effect and the ops.enqueue() reachability.
-
-v1: https://lore.kernel.org/lkml/20261011025256.4180374-1-sh_def@163.com/
----
- kernel/sched/ext/idle.c | 20 ++++++++++++++------
- 1 file changed, 14 insertions(+), 6 deletions(-)
-
-diff --git a/kernel/sched/ext/idle.c b/kernel/sched/ext/idle.c
-index aa9fb6de0ad6..1ccea60e9012 100644
---- a/kernel/sched/ext/idle.c
-+++ b/kernel/sched/ext/idle.c
-@@ -958,6 +958,7 @@ static s32 select_cpu_from_kfunc(struct scx_sched *sch, struct task_struct *p,
- {
- 	unsigned long irq_flags;
- 	bool we_locked = false;
-+	bool migration_disabled;
- 	s32 cpu;
- 
- 	if (!scx_cpu_valid(sch, prev_cpu, NULL))
-@@ -995,14 +996,21 @@ static s32 select_cpu_from_kfunc(struct scx_sched *sch, struct task_struct *p,
- 	/*
- 	 * This may also be called from ops.enqueue(), so we need to handle
- 	 * per-CPU tasks as well. For these tasks, we can skip all idle CPU
--	 * selection optimizations and simply check whether the previously
--	 * used CPU is idle and within the allowed cpumask.
-+	 * selection optimizations and simply check whether the task's only
-+	 * usable CPU is idle and within the allowed cpumask.
- 	 */
--	if (p->nr_cpus_allowed == 1 || is_bpf_migration_disabled(p)) {
--		if (cpumask_test_cpu(prev_cpu, allowed ?: p->cpus_ptr) &&
--		    scx_idle_test_and_clear_cpu(prev_cpu))
--			cpu = prev_cpu;
-+	migration_disabled = is_bpf_migration_disabled(p);
-+
-+	if (p->nr_cpus_allowed == 1 || migration_disabled) {
-+		if (migration_disabled)
-+			cpu = task_cpu(p);
- 		else
-+			cpu = cpumask_first(p->cpus_ptr);
-+
-+		if ((migration_disabled &&
-+		     !cpumask_test_cpu(cpu, p->cpus_ptr)) ||
-+		    (allowed && !cpumask_test_cpu(cpu, allowed)) ||
-+		    !scx_idle_test_and_clear_cpu(cpu))
- 			cpu = -EBUSY;
- 	} else {
- 		cpu = scx_select_cpu_dfl(p, prev_cpu, wake_flags,
-
-base-commit: 7b63ef2d55f24519e7e9e5f4d15dbea03f126e40
+diff --git a/drivers/dax/bus.c b/drivers/dax/bus.c
+index b809e1a264af..262f97b5e7aa 100644
+--- a/drivers/dax/bus.c
++++ b/drivers/dax/bus.c
+@@ -1192,7 +1192,7 @@ static ssize_t mapping_store(struct device *dev, struct device_attribute *attr,
+ 		return rc;
+ 	if (!dax_region->dev->driver) {
+ 		up_write(&dax_region_rwsem);
+-		return rc;
++		return -ENXIO;
+ 	}
+ 	rc = down_write_killable(&dax_dev_rwsem);
+ 	if (rc) {
 -- 
-2.55.0
+2.34.1
 
