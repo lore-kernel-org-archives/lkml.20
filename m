@@ -1,122 +1,130 @@
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19E73E44ED;
-	Sun, 11 Oct 2026 13:35:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0398E62809
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 13:37:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791725724; cv=none; b=eealgFnU3JoCU1lBp6efrzba0kmP+l0jY2mpjkazauM81PWr7B7lynV+fMQI5GKql4DlyrSc0QJlHMIAPbcad9TrZxZgzN0t0uiwnEuUZSv3S+8By0h6Y5r2rry26yq2Zn7+FqBbq0OA/AvkCVo8AuJEdVDkbHuqeC4n3Uq0ZEk=
+	t=1791725835; cv=none; b=COglGx5MW/QJdzgx3f9bYAesefnC4ARe2wLkiU/Daw5D9zA0icLH+hPFT9VH73tSHwdGRYmpvL6pkTQ+b2WLLNxfQNITNZJTxBSCxBe+Gboy2/bKhBMZahU/tmudLYWbgDlMTjOLZ3B7FS83NwF65GjOdm+UMgX+ISoWkCv3xaE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791725724; c=relaxed/simple;
-	bh=olEQ7uTMIRyhlqZfPRhlLG7sAoLaTK+ei5OoxwQo/wg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=I/HNAyo8rRfdB5FSsJE2ZYs/PW22ODSzKcvPpir7VV63S3MpuBwdoo/etlXt2ctUgF1obhbKQoZ3iOUBIV9bBcWY1suuI1uqWIPAdH37n+hMwxfqEgy/dyhE2FmugYRvqSw/hrkfP6pHp/YGIwqsEcW0x6FCPElWNMCqEMHdnwQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=eTrTf8PY; arc=none smtp.client-ip=199.89.1.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1791725835; c=relaxed/simple;
+	bh=ReOWJePWTB6oSxmPOJ98tJSy+llvV3ay0akloovQg7s=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O3djXexx9QBN86P2cK5/+Rcu4tMcmdjtGvaarTAuQd98ibQpp2969aUihGQLy57d0q7tzjyWqHKymjwincs4DF/1GwwGpit4yA+1uNdFIF2HLikcVpTebwJd8eW8t1TFeIVznoOaPA4BhajYXNgTCB4wi3H30Yd91vv2U7j20bg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mns9V+EO; arc=none smtp.client-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="eTrTf8PY"
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4j2hRk0hfRzlfvpn;
-	Sun, 11 Oct 2026 13:35:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1791725709; x=1794317710; bh=2BBs7ABEyUHXGEcdvbeBCH4b
-	I40jWt5rrxWkfA8f2As=; b=eTrTf8PYm4gxE/vGgQAQ588nJLoYW/+HqvRCg5ZQ
-	V/x9+Z2MGz9jWa6HgfWRWv5KmOmgx1rdLIi9FJZIkv9AW1DvE3C6xnro/Ub+CC3i
-	d/nyCNZYN3REiF5kuyOqCJVCIATijNcVJiB4M/N6IfS2A0ez1wqvqZcch1jySg3x
-	iVoMblvqjGKMqkdBcilC3v5AU5kI7nY3GdsYTTfD7qpuV/EiYuMeW0Dbe0mk2J7b
-	dZwQ6HFXFxuaB0JWms7pwuS4KxHawvK1ZQcsdOscxSd5wWxVXr0eskPZWbWWu3Vt
-	6XXXdmNKLZfad0lZ+UOJYHvI2xmBktgi5tx288gci6WlxA==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id GMHwyDnBMJAp; Sun, 11 Oct 2026 13:35:09 +0000 (UTC)
-Received: from [192.168.51.14] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4j2hRc45mMzlfvpb;
-	Sun, 11 Oct 2026 13:35:08 +0000 (UTC)
-Message-ID: <8733b34f-45be-4395-8575-53690c1c406f@acm.org>
-Date: Sun, 11 Oct 2026 06:35:06 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mns9V+EO"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c2dcbcc546fso124391166b.3
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:37:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791725832; x=1792330632; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4X8y55PrXkGOudIsFCasLzIDfqrrSmuwJHtcshJbz80=;
+        b=mns9V+EOhzbAm8IgYoMAosnjKBV0uZYJ0rRktYWIyNFzFnj47i9YPDbvf+oR6iM8p3
+         nyHGOwlHtVz59+oxZlJ9zgZSM9JesmHcV+ficSxiU6paEdJElSpQjR01SnpuyZH0xmNR
+         xsJ2Tfj99ZNNRyx28WKAl1VolhivWhbaVxQMEL0NHO4et5wSWEIQ3aff49kIV3fyCr8B
+         n7Jg5vLDYzSMWHMe4uhaWjHPjREjRhWICTxSP7WP1ROGH0G3bU6LTz1lIgJUr3vn969B
+         7HK3pF7v4QCI9MM1gmGzF+E9bLnyMJxLKYlRiI+DL12KzskPwB34X70IP0DusucqjDEv
+         9jYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791725832; x=1792330632;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4X8y55PrXkGOudIsFCasLzIDfqrrSmuwJHtcshJbz80=;
+        b=pg0GMpWnBg/uJps27DGRpu8tDmlj5LnjmgQGdjmzPYn8Ion2Kx5xdLw0bbdBsmovKT
+         phNPceSBjpbgnzD+hLzWH6mym0iPaNMWep4lqI6gRW0v96LdFqW9D4GY9NrZSTMFTAzl
+         tOdsaa+2gCZDxDdE3aJwFKnTWQNZc27I1qdLZVBQI0IxMN5b8CtTTA5rvsoyL3lV9P/l
+         eLF+MvwJAFObQhaAVHCBWANFwG/AVXCVwm76kvhibgrKCgmSGgAbjGS4+wXwLmnETjw+
+         4OkC4ZUHOEm81K7lrrU9z5ON6jprXlKX94x2ZQ/XWrit8YJGeGMTqihylSnOPvLBZCoa
+         oxOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxIzOM+GWQYPFDz7QlQ0i32bMD/RIPwUiCuUYymRDJADvgQOsYGstv+T/05urHOGKSODC0PP5p28njKPYM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKsswsATuD55/Hlp6T7lkQJ26IbxHNxTkjtFMPvEmCg2THTnVeX
+	exvNTwSvhavwlOhMvAYTEQXr+6kbj4IcGtGyrqpiErgQqF6Akx75WKc7
+X-Gm-Gg: AYBFou29dezOUUYY5B0R51uS8lBaKJ8Ov90hKXRdu4Kgx1EkE1V/cZdPOZDzKJqVc0B
+	eaZ1tIxEUKm+oztylwnARUcS5nUcSEjbRoNUAJcqLEZZa87wxZkeB3gbaU/ABWZZOrDxqzHZdqn
+	Oz5aZm2OYWFmkZCPvi/McglKezs2Yps+mb9YMC/hPkz+U+8rrOt7xDDCmjJ+eIpFaOJZb/FHwL3
+	bKnOHpIj79k1XSn6gkcBD0AKGpVZnVFRRm4E8Zj7wZP0q2MJ26c9zP7nhuEwWl5iWduz2SYbeEG
+	E4hq5SChqAamaSQFWJL1aX/ehPuf4c+bk/R7b6338sUz/t3luj4/gctfU5wj+Vn6fKBzf+FV2ei
+	xMmVpC3hC0ioDAhSsu8RKB6daNHbEoQp4ZR6bCqTV9NXhMxTENq3kfpwx5RpT2Nam/ZE930cJ4N
+	TOSPMzVEhphoMHokk3Ju+gpkyLRJeNFCx1d1Y=
+X-Received: by 2002:a17:907:3f8d:b0:c2c:d06f:cf87 with SMTP id a640c23a62f3a-c31aa0d3106mr668410766b.46.1791725832001;
+        Sun, 11 Oct 2026 06:37:12 -0700 (PDT)
+Received: from milan ([2001:9b1:d5a0:a500::24b])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9a7b976sm361047966b.36.2026.10.11.06.37.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 06:37:11 -0700 (PDT)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@milan>
+Date: Sun, 11 Oct 2026 15:37:09 +0200
+To: Wen Jiang <jiangwenxiaomi@gmail.com>
+Cc: akpm@linux-foundation.org, catalin.marinas@arm.com, linux-mm@kvack.org,
+	urezki@gmail.com, will@kernel.org, Xueyuan.chen21@gmail.com,
+	ajd@linux.ibm.com, anshuman.khandual@arm.com, baohua@kernel.org,
+	chleroy@kernel.org, david@kernel.org, dev.jain@arm.com,
+	jiangwen6@xiaomi.com, leo.yan@arm.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com,
+	mpe@ellerman.id.au, npiggin@gmail.com, rppt@kernel.org,
+	ryan.roberts@arm.com
+Subject: Re: [PATCH v10 04/10] arm64/hugetlb: drop the init_mm special case
+ in clear_flush()
+Message-ID: <asuRBRZS9KzC7Y8q@milan>
+References: <20261002090947.869220-1-jiangwen6@xiaomi.com>
+ <20261002090947.869220-5-jiangwen6@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nbd: fail requests stuck on a dead socket when timeout is
- 0
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>, josef@toxicpanda.com,
- axboe@kernel.dk
-Cc: mchristi@redhat.com, linux-block@vger.kernel.org, nbd@other.debian.org,
- linux-kernel@vger.kernel.org,
- syzbot+90895f5bfaa7243c2d20@syzkaller.appspotmail.com
-References: <20261011033739.18434-1-ngocthang2710.1999@gmail.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261011033739.18434-1-ngocthang2710.1999@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002090947.869220-5-jiangwen6@xiaomi.com>
 
-On 10/10/26 8:37 PM, Nguyen Ngoc Thang wrote:
-> With a zero command timeout, nbd_xmit_timeout() only logs a "possible
-> stuck request" message and resets the timer. A request already sent on
-> a socket that has since died is never completed this way, because
-> nothing will ever answer it.
+On Fri, Oct 02, 2026 at 05:09:41PM +0800, Wen Jiang wrote:
+> clear_flush() calls flush_tlb_kernel_range() when mm is &init_mm. This
+> was added by commit 06fc959fcff7 ("arm64/mm: Support huge pte-mapped
+> pages in vmap") because vmap called set_huge_pte_at(&init_mm, ...).
 > 
-> That blocks nbd_set_size(), which freezes the queue while holding
-> nbd->config_lock and genl_mutex. The freeze waits for the stuck request
-> forever, and reconnecting a socket (which would change the cookie and
-> get the request requeued) can't happen as it is handled later by the
-> same reconfigure call. Everything touching the device then hangs,
-> including partition scanning in udev:
+> Now that vmap uses pte_set_huge()/pte_clear_huge(), mm/vmalloc.c is no
+> longer a caller of set_huge_pte_at() on arm64. The only remaining
+> callers passing &init_mm are in arch/powerpc, which uses its own
+> implementation. Remove the dead branch.
 > 
->    INFO: task udevd blocked for more than 143 seconds.
->     __bio_queue_enter+0x369/0x7f0 block/blk-core.c:396
->     blk_mq_submit_bio+0x776/0x2a70 block/blk-mq.c:3127
->     ...
->    INFO: task syz.0.17 blocked for more than 143 seconds.
->     blk_mq_freeze_queue_wait+0x101/0x180 block/blk-mq.c:191
->     queue_limits_commit_update_frozen+0x55/0xd0 block/blk-settings.c:590
->     nbd_set_size+0x4c5/0x7d0 drivers/block/nbd.c:383
->     nbd_genl_reconfigure+0x7e1/0x1040 drivers/block/nbd.c:2444
+> No functional change.
 > 
-> Requeue the request when its socket is dead, as is already done when
-> the socket was replaced. The submit path then waits for a reconnect up
-> to dead_conn_timeout and otherwise fails the request with an I/O error.
-> 
-> Reported-by: syzbot+90895f5bfaa7243c2d20@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=90895f5bfaa7243c2d20
-> Fixes: 2da22da57348 ("nbd: fix zero cmd timeout handling v2")
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+> Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
+> Reviewed-by: Barry Song <baohua@kernel.org>
 > ---
->   drivers/block/nbd.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
+>  arch/arm64/mm/hugetlbpage.c | 5 +----
+>  1 file changed, 1 insertion(+), 4 deletions(-)
 > 
-> diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
-> index ffce519bf008..218b99f9e1ef 100644
-> --- a/drivers/block/nbd.c
-> +++ b/drivers/block/nbd.c
-> @@ -532,7 +532,8 @@ static enum blk_eh_timer_return nbd_xmit_timeout(struct request *req)
->   			blk_rq_bytes(req), (req->timeout / HZ) * cmd->retries);
->   
->   		mutex_lock(&nsock->tx_lock);
-> -		if (cmd->cookie != nsock->cookie) {
-> +		/* A dead socket will never complete this request. */
-> +		if (cmd->cookie != nsock->cookie || nsock->dead) {
->   			nbd_requeue_cmd(cmd);
->   			mutex_unlock(&nsock->tx_lock);
->   			mutex_unlock(&cmd->lock);
+> diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
+> index 8e799c1fe0aa6..ce247b06fe03d 100644
+> --- a/arch/arm64/mm/hugetlbpage.c
+> +++ b/arch/arm64/mm/hugetlbpage.c
+> @@ -206,10 +206,7 @@ static void clear_flush(struct mm_struct *mm,
+>  	for (i = 0; i < ncontig; i++, addr += pgsize, ptep++)
+>  		__ptep_get_and_clear_anysz(mm, addr, ptep, pgsize);
+>  
+> -	if (mm == &init_mm)
+> -		flush_tlb_kernel_range(saddr, addr);
+> -	else
+> -		__flush_hugetlb_tlb_range(&vma, saddr, addr, pgsize, TLBF_NOWALKCACHE);
+> +	__flush_hugetlb_tlb_range(&vma, saddr, addr, pgsize, TLBF_NOWALKCACHE);
+>  }
+>  
+>  void set_huge_pte_at(struct mm_struct *mm, unsigned long addr,
+> -- 
+> 2.34.1
+> 
+Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
 
-If AI was used to create this patch an Assisted-by tag should be added.
-See also Documentation/process/coding-assistants.rst. Anyway, since this
-patch looks good to me:
-
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-
+--
+Uladzislau Rezki
