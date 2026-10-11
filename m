@@ -1,149 +1,167 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 108232673AA
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 18:02:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3790D44A3EC;
+	Sun, 11 Oct 2026 18:06:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791741761; cv=none; b=pv5HKxlJfiijbGZllIRfrcfm8Vzi0ZP+CaPUOPKhYrSDz0bdHc8edHoiHSiq0zFwok4Pf0QVDCwrQ9s7Fb2dAh9wU7mohI4iVLFIn0NuAmW8k5ZIuNAgXUm8EUvH6vXgyHzqg8Om7C92TaNmYhujCeNx/R2zteoZn5V1c5qCrXs=
+	t=1791742008; cv=none; b=r6aZlrYkvXIwqygY5O+4Ayv01/N9SEOisN6xPqozL3hpckRlfd8Fsg34mCnAbeM94x3VcJqIjBL7w+53BhNHuiFNL+GBWPnMJFsXHpCw6gBNnd+we74XlIq1knkZ/pNSCYm2Qa/0L2P+g9UuYCavGUsq7wy+v6gRyD6O3dmvk8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791741761; c=relaxed/simple;
-	bh=S1pu0AtwGNp5O8yuxB5m01iXXhRtX5Rk+wvO3Mi/aqk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QTjoY1hO7ulbLI+sdfGmescgx6D43qJ7ShYPXP5oFQXShXekJgvd94fLacDleNlCWROcINEnen6DWZ9alR/6/7f8GP1wLLTdXvw/N7fLlGJk1+thW5WRPMNmXuXtZzBeo9V3OUfgIIjpUDIRYkqVWcgiESao/D+9ElswVYYnZe8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IZ+xj7A+; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791742008; c=relaxed/simple;
+	bh=emZJbKvYe03g7HJBuE8m7LmYGGgBIwxOsDESI4fubnA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=POsJJhjQ3ScqzHZhGqTlc6TEH+8aUQH+v6W/FTjyyNwUqbqbDwhrbJjbCIiIIlmkd5wYxr2UZ56i+gGhF2IrjAOgz1zAO4FeSXWRBBfQJFlWz4UgiabOInjkrmGvC/FKf2BOz8RGbCAu/1+XpeyV+elkazOWqvK1YllKBDGxtC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=URWQdIOn; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IZ+xj7A+"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a16aaf2067so14984855e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 11:02:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791741758; x=1792346558; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=K/HSc9UnNOXRXCKyg6XtOS9gbQDO617I0F1b7UxDU6U=;
-        b=IZ+xj7A+sE6vyzJE1BQhUauYsx/ZtjeZTTv2t6XX+CyQkXn+nHpq8lYZ4lTM0ONWsP
-         3xEcG7Z5x2yfFv4W313dwtmYwB4kTnbAcH1iuXwoE2Ry9E2N+gmRE9wJ2DS60HEf+0s4
-         qaG/ox5inhWdikKYlxx49vUyva9te7redkwD+0XoKwZn44XNJwZMRDDFMJUpawcB5s08
-         plVpLzSJQ1TbLTe2Vjwb9uX+ICwHVZknGR5oLT7tt60t7CfTfVHenarZ+uGiUeNM/LGs
-         DM63h6RHuWxmdDinuS9gL5clQj1PY9ou8xpJc913h75lvk8JhBl0mNFmHR4icSrVbfso
-         vihg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791741758; x=1792346558;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=K/HSc9UnNOXRXCKyg6XtOS9gbQDO617I0F1b7UxDU6U=;
-        b=uLmH2TnFtdOuHWwoWjCHauLII4mZplF6yLazqC5gLud1bv+D7m56r6T/HHlUh8rVnQ
-         I9/3el/opnHFAfoHp8MW/ntZvErX18eDwF5QtbiHUScoVxr2RYXV47JFhTURfeO5wCQy
-         m/lEjK1tLsYh984pw9xN12im8CmcxW0g1I3QTflJXCDGE/LwC6jr8Cu4OisY4dbL8yhy
-         VlDbjNVsaBMnk+12M/lEvBzyZbfRDRsD1riSoq1CgqcqjFcfuUPRPbFfuPVKzkfH8cE7
-         mrJcbS/bIo7iRQK7W3ZfcCT7W0ba6LQAXEzq5DcbCkbXcOUYXbf1px2m6kSgAiE1VnOE
-         ZTjw==
-X-Forwarded-Encrypted: i=1; AKwUvBzhXsneQJ7QVw2ysMaxVoyV0ju+KO0HXPAr1gi4u2g60cvA04DzpjslDEsEODpBidw9YhktQiIgpXR33l8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK7E4MVYe2ofBsyLn0cw6tKUxkD//UevZCISyp9wXE79IFdQsZE
-	MZuzPBU4Ovpr8k7zLxqfMkC8N5oNrUqmulXjmUEo3b0JGHH4xPxaFx31bz+ukKt/xNc=
-X-Gm-Gg: AYBFou2cphNq5hP9a6A8sCVcXfJ1Us8DVRVLY9iU4bXwfMcO+7vZB/1I1IYpNV3tppi
-	5XGX/fwB66No5wRK+z9UnbFOpDRWztBKtSwdm3gRq+FLCoCy+jk7lNh77OoVNR/KhPKXW4ss5LH
-	mdIO3ThGB87Ymh6A4lBwmAmAhqvun1RY//7UwIjLtcw1Bz6VbY2JGylN/2gTAJuuU0V+xW37rOM
-	fOsaUpK/gvJ768f8mis6ga6Z7sO8IUztuWAiRUDDqwdkWVpJk6yAl8A7gJ2QFQC5W8tSs6IwWBj
-	VJX10xL3SxhoEgnuReRrpEHiGfzbOctspDiTTxXK+zjOr6DPzYtLtGRtzYYBRQS6aCKSWHMKdoO
-	CzFocAqCL7uw6U1f15VE5p2frfVz6SUTNBqUhPnMB33a3DjsAaGC7fparOjrKqT2Cfj42WUqjaT
-	t4JJfcl/OurUV6I18E/xTCp//gF0SpV2h81GvA7IwejPKtL6HUkKcvZxT9+ycxCe+59X2bg9hT3
-	r9C/UfMP1rFe5zBJUg7DCRyUoCvihg471mXO3WqU65sOf9b
-X-Received: by 2002:a05:600c:a01:b0:49f:ce72:e931 with SMTP id 5b1f17b1804b1-4a18e4fe3e1mr154568895e9.35.1791741758031;
-        Sun, 11 Oct 2026 11:02:38 -0700 (PDT)
-Received: from localhost.localdomain (87-205-122-125.dynamic.inetia.pl. [87.205.122.125])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf15691sm221728095e9.6.2026.10.11.11.02.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 11:02:37 -0700 (PDT)
-From: Kyrylo Biryuk <illofspeed@gmail.com>
-To: linux-ide@vger.kernel.org
-Cc: dlemoal@kernel.org,
-	cassel@kernel.org,
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="URWQdIOn"
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 8B892807D5;
+	Sun, 11 Oct 2026 20:06:37 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id 31vg9917Yogb; Sun, 11 Oct 2026 20:06:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1791741996; bh=emZJbKvYe03g7HJBuE8m7LmYGGgBIwxOsDESI4fubnA=;
+	h=From:To:Cc:Subject:Date;
+	b=URWQdIOn+q45KeFFbnusbXb57ZiCkOY78yTTWyc5lP8ExygfCny7JkMRg6twgxkU2
+	 nqB1hHLVXtkZVsA24ZejnHD64SyggoMQBaxj6yMSp/dFrnq01pp2xXPMqVRRQ3wZQk
+	 xrCr+AJepD6gsfmaexoUkh4Yxs92c9e62YTmCDLNr639QWLgVADtSZuj7jhGoFpcMR
+	 W5jMOM+Ef/7i1i9RHZeJqSHtJIQJ5Wm5uKZxJIKmT4jnVKiwJH0c0zhJfbfYScCyUs
+	 ssB3ivxJQxLLh+zrAlts0rvPfs2tGLyxleXraKxAdIH4iESNRKoHPuL4FNlirqzsgi
+	 nC2BpasP+l4Sg==
+From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
+To: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>
+Cc: linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] ata: libahci: re-enable FBS after error handling on a port multiplier
-Date: Sun, 11 Oct 2026 20:02:36 +0200
-Message-ID: <20261011180236.735-1-illofspeed@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH] ALSA: control_led: Fix deadlock between sysfs writes and card disconnect
+Date: Sun, 11 Oct 2026 21:06:17 +0300
+Message-ID: <20261011180627.1594051-1-aliamemis@disroot.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-ahci_do_softreset() disables FBS before resetting a device behind a port
-multiplier, as required by AHCI 1.2 section 9.3.9, and re-enables it only
-when that softreset succeeds. If it fails, for example because a
-hot-plugged drive is still spinning up ("softreset failed (device not
-ready)"), EH escalates to a hardreset of the PMP link, and nothing turns
-FBS back on: only ahci_pmp_attach() does, which runs at the next boot.
-The port keeps working with command-based switching until then.
+snd_ctl_led_disconnect() removes the ctl-led sysfs files while
+holding card->controls_rwsem. device_unregister() waits for running
+sysfs callbacks which can deadlock when a concurrent write causes
+the attach or detach callback to wait for controls_rwsem.
 
-Seen on a Marvell 88SE9235 (1b4b:9235) with Marvell 88SM9705 port
-multipliers (1b4b:9705, in a Synology DX1222 expansion unit): after
-hot-plugging a drive, the kernel logged "FBS is disabled" followed by
-"softreset failed (device not ready)" and a PMP hardreset, and never
-"FBS is enabled" again (twice, on two different ports).
+Break kernfs active protection in the attach, detach and list
+callbacks and hold a module reference instead.
 
-At the end of ahci_error_handler(), re-enable FBS if a PMP is still
-attached and FBS is supported but disabled.
-
-Tested on 7.2.6 with the patch built as an out-of-tree libahci (the stock
-ahci module binds to it, symbol CRCs are unchanged). Hot-plugging a drive
-into a free port of the multiplier then logged "FBS is disabled",
-"softreset failed (device not ready)" and a PMP hardreset, followed by
-"re-enabling FBS after error handling" and "FBS is enabled". Afterwards
-two other drives behind the same multiplier read 259 + 259 MB/s in
-parallel (O_DIRECT, 4 MiB blocks), against 268 MB/s for one drive alone,
-so their commands overlap again.
-
-Fixes: 89dafa20f3da ("ahci: disabled FBS prior to issuing software reset")
-Assisted-by: LLM
-Signed-off-by: Kyrylo Biryuk <illofspeed@gmail.com>
+Fixes: a135dfb5de15 ("ALSA: led control - add sysfs kcontrol LED marking layer")
+Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
 ---
+ sound/core/control_led.c | 62 ++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 57 insertions(+), 5 deletions(-)
 
-Notes:
-    v3: no code changes. From and Signed-off-by now carry my full name
-    instead of the GitHub handle "illofspeed" used for v2 (same author).
-    
-    The controller is passed through (VFIO) to a KVM guest; the tested kernel is the
-    guest's. The two earlier occurrences without the patch were on ata8 and ata10 of the
-    same controller; this test was on ata7.
-
- drivers/ata/libahci.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
-
-diff --git a/drivers/ata/libahci.c b/drivers/ata/libahci.c
-index 08ab56e9556..6f374fd79f5 100644
---- a/drivers/ata/libahci.c
-+++ b/drivers/ata/libahci.c
-@@ -2233,6 +2233,23 @@ void ahci_error_handler(struct ata_port *ap)
- 
- 	sata_pmp_error_handler(ap);
- 
-+	/*
-+	 * ahci_do_softreset() turns FBS off before resetting a fan-out link
-+	 * and turns it back on only if that reset succeeds. When it fails
-+	 * (e.g. a hot-plugged drive is still spinning up), EH escalates to a
-+	 * PMP hardreset, which never re-enables FBS, so the port would keep
-+	 * command-based switching until the PMP is attached again (reboot).
-+	 * Restore FBS once recovery is done and the PMP is still attached.
-+	 */
-+	if (sata_pmp_attached(ap) && ata_dev_enabled(ap->link.device)) {
-+		struct ahci_port_priv *pp = ap->private_data;
-+
-+		if (pp->fbs_supported && !pp->fbs_enabled) {
-+			ata_port_info(ap, "re-enabling FBS after error handling\n");
-+			ahci_enable_fbs(ap);
-+		}
-+	}
-+
- 	if (!ata_dev_enabled(ap->link.device))
- 		hpriv->stop_engine(ap);
+diff --git a/sound/core/control_led.c b/sound/core/control_led.c
+index ec0e6c7ad..501387287 100644
+--- a/sound/core/control_led.c
++++ b/sound/core/control_led.c
+@@ -563,12 +563,43 @@ static ssize_t set_led_id(struct snd_ctl_led_card *led_card, const char *buf, si
+ 	return count;
  }
+ 
++/*
++ * snd_ctl_led_disconnect() removes these files with card->controls_rwsem
++ * held. so don't let the removal wait for a callback that takes it.
++ */
++static struct kernfs_node *snd_ctl_led_sysfs_enter(struct device *dev,
++						   struct device_attribute *attr)
++{
++	struct kernfs_node *kn;
++
++	if (!try_module_get(THIS_MODULE))
++		return NULL;
++	kn = sysfs_break_active_protection(&dev->kobj, &attr->attr);
++	if (!kn)
++		module_put(THIS_MODULE);
++	return kn;
++}
++
++static void snd_ctl_led_sysfs_exit(struct kernfs_node *kn)
++{
++	sysfs_unbreak_active_protection(kn);
++	module_put(THIS_MODULE);
++}
++
+ static ssize_t attach_store(struct device *dev,
+ 			    struct device_attribute *attr,
+ 			    const char *buf, size_t count)
+ {
+ 	struct snd_ctl_led_card *led_card = container_of(dev, struct snd_ctl_led_card, dev);
+-	return set_led_id(led_card, buf, count, true);
++	struct kernfs_node *kn;
++	ssize_t ret;
++
++	kn = snd_ctl_led_sysfs_enter(dev, attr);
++	if (!kn)
++		return -ENODEV;
++	ret = set_led_id(led_card, buf, count, true);
++	snd_ctl_led_sysfs_exit(kn);
++	return ret;
+ }
+ 
+ static ssize_t detach_store(struct device *dev,
+@@ -576,7 +607,15 @@ static ssize_t detach_store(struct device *dev,
+ 			    const char *buf, size_t count)
+ {
+ 	struct snd_ctl_led_card *led_card = container_of(dev, struct snd_ctl_led_card, dev);
+-	return set_led_id(led_card, buf, count, false);
++	struct kernfs_node *kn;
++	ssize_t ret;
++
++	kn = snd_ctl_led_sysfs_enter(dev, attr);
++	if (!kn)
++		return -ENODEV;
++	ret = set_led_id(led_card, buf, count, false);
++	snd_ctl_led_sysfs_exit(kn);
++	return ret;
+ }
+ 
+ static ssize_t reset_store(struct device *dev,
+@@ -594,10 +633,8 @@ static ssize_t reset_store(struct device *dev,
+ 	return count;
+ }
+ 
+-static ssize_t list_show(struct device *dev,
+-			 struct device_attribute *attr, char *buf)
++static ssize_t snd_ctl_led_list(struct snd_ctl_led_card *led_card, char *buf)
+ {
+-	struct snd_ctl_led_card *led_card = container_of(dev, struct snd_ctl_led_card, dev);
+ 	struct snd_ctl_led_ctl *lctl;
+ 	size_t l = 0;
+ 	struct snd_card *card __free(snd_card_unref) =
+@@ -620,6 +657,21 @@ static ssize_t list_show(struct device *dev,
+ 	return l;
+ }
+ 
++static ssize_t list_show(struct device *dev,
++			 struct device_attribute *attr, char *buf)
++{
++	struct snd_ctl_led_card *led_card = container_of(dev, struct snd_ctl_led_card, dev);
++	struct kernfs_node *kn;
++	ssize_t ret;
++
++	kn = snd_ctl_led_sysfs_enter(dev, attr);
++	if (!kn)
++		return -ENODEV;
++	ret = snd_ctl_led_list(led_card, buf);
++	snd_ctl_led_sysfs_exit(kn);
++	return ret;
++}
++
+ static DEVICE_ATTR_WO(attach);
+ static DEVICE_ATTR_WO(detach);
+ static DEVICE_ATTR_WO(reset);
 -- 
-2.43.0
+2.55.0
 
