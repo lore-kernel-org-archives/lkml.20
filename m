@@ -1,146 +1,89 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B58C4457E70
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 14:41:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2F70459AF9;
+	Sun, 11 Oct 2026 14:43:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.126.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791729670; cv=none; b=HIKl5BTgSvWTEJRAfxs3Hvxg2ti8vkaAHgmZdXOv0Ic85r+YKADfjizpcT+G55TFzCsZJYreWBsx4qCTvheoHs76qEEk6fU26/zRjC41h2vm8FtlEYDZcERVvJbf899KdajHuQtDC4UyBmKJU8z514XxJYOnaPUDiHoMSbteBro=
+	t=1791729819; cv=none; b=B5LkP1OM83XH6F+7aZzLxHy3HORTsHWCwqcyoDZFmKqpJu+ZwGvqJFmNR2+afNJ3Q/OoJskVTxXeUUQ0piphgK9PGzZ00MsHUsZ8D9eUL7IN8BtpaTgwQy/Sm6I/P6pOwwz5Jbbuv0VIKzzt+XMRL3oFTh3hAOc4dr9RYqywQbg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791729670; c=relaxed/simple;
-	bh=ZRCTAvNWJ7cmE9XDvXQ/sW7gPe2H7lQcxGLvXMC/gks=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AYXjpzdoZA0XauqIkul4F2EfsIWgHR05R8/fLKp0EiJULIFxjyCj+6R5im67rxPcZDEYcOKE0etMliYItlDsZMJFzVHsHpqa/n1C1cP/WT+8Sxre9xSeIjrupyt2iLTYC0S9jptDI24QHhQY62lTr0Z2aOT2dESMBztaKD+wgFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qCgfyKi8; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791729819; c=relaxed/simple;
+	bh=FWhS1GSbio4NmB9mGUNLM0ZeY2dHVo2pwRnkMJ0VTUM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DtkNmYGv3IFA41COAPefIjI4O6Xowo5sauRCZOHD81M0+B+tiaQNe/diCBLn/9XAG46/LdZAB83B4f8Pluqt7tF9NUvgvwWm2g6itwdFQvvQDVpYbIGrckukkd7aYgkhow/7qXiiMFAdcH9IQjdsq2gItk+aQG0v/IFtgTQTiu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net; spf=pass smtp.mailfrom=weissschuh.net; dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b=tRnQVSnk; arc=none smtp.client-ip=159.69.126.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qCgfyKi8"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49fbb2acc90so7654095e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 07:41:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791729667; x=1792334467; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aL9QLQ7HRpWVc/IeBUw4hL8GCZtNDCLqj4qI5u0oC7I=;
-        b=qCgfyKi8U9G2bZ1YMQ2THoGaAj4038cjyRj2S6xHUeY7nKn/HnSYa9fOZAz+S4vIfD
-         s7q96hdgryHuhAJF6QTLvxzIFkMvz9R27Ib4MuKpRWqv5sCGe5u7f/pkqV33ZwGcyJ1M
-         Uhgw9S99naEpY9IEySecdesM0RIcAkwK5UIoLr4YZwc/4C493Fry3RrZAl0rH4M2CY/a
-         Mx1wGYI0Fj2lczxHuIEaP1fXzjtflKCuj9KMsQYEg53mwjZQGHBSLjXm/NgO9UwHFx8Q
-         y+19Ja9o50CCkfGam/fL69jC/2/m6bXD8QQ+IK0blu0mUkB9OPZQN2L6nIfpoD7uAX+O
-         dcQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791729667; x=1792334467;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aL9QLQ7HRpWVc/IeBUw4hL8GCZtNDCLqj4qI5u0oC7I=;
-        b=0pW7hG9OQkEvsAqS3KlGcoegYC2pAR94pSS7FUdTXONR5YdqNBnhOiOSaHCdHH+PeS
-         1+/aAzvaY3jIEXJMwsTGZbbXYDiTzDDLdKR4NqMel8/m2I1QtLiCio9Xjq4LHwNjtur5
-         fToU3cE11DfZYHxOxbtjsAHdvKofddDMX+1OwbD+uWdFRrCJgRA6DxAvk/UlnWJKmfCm
-         bsS1ZdoXF4b8amNU9QimB+44sbAUIUecu+kmuKkBbpBWX7ZyxmuXaAaRvsVYeY38PcCb
-         oL5z76eRadI00RtDtulTlRChAue078nXU8g3c4RsunEyhJUse0PDVJTDdFxxOCbZJmh0
-         r+cQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzAWJrLTZKmrRND/T/peTici98bdTFb2UCCKzG4+anXlO/G66IMHEq+fOVT/zD7MtMWp6fbch3ijp/5w8w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYILHG3SQUAwwU7kBbqvMECVBRo2mmNTDgzNdUUNnW3QLCIUbkNu
-	TWt3RnwnxXQaYz2XDK7s4wepz5wkHA+TkAPMgWPPBdCSneLvOe1FTnQw
-X-Gm-Gg: AYBFou32DiNevhs2wUi99M05+yPxzrkwuAFVUvHZ82lDou/c/G9wzvK/hWXJ75j043U
-	N0F5sOvYaJLOX/L5H7ky4y7vPPL0LHu5nKMBMRrShKEfQXrChib/oLAaenugUN5iw9H4+EPUkaP
-	O0tCUxOEn4+1rtZn4PYnx8lOkHQ/H7sVquXUhHwgVBtHMxI1Rr5NaLaei4lh1NvKb1cveRDfwn2
-	UNYMi1BtccWsT1Z6SnvgrOncKw0vkQmyMIzg9Qq0ln8LqwMeQqlDMmg1VAlLHrXkYgcfpQDykxV
-	QO/9ZAS/3kTbDSZDJHjwVgaGYLvMobkXKauvGzYQ90uI9eorv2WlImwF8mJv1LTvD2QPORZ2Pxq
-	NNqvj60SUTivoUuwJ4lipOgu3UfhT9ZbDduZPSAksKPXfAeRtQTo1hdlmyM53I3VM/FQKSSGlAC
-	YEz12pizc+955ggKmp9Bj/cm0MlPU3xAGr/jgZHaJgdS0lnwX7BvWkgenZpNFbo0M6lWX4yQ99b
-	+xEINNtciUs5WB1UeuBixnGvASU0tZT80RlLi8H/Yerx6eqTLX2FgCLlPDd7P+JjLGCSzdeuLYZ
-	bKM=
-X-Received: by 2002:a05:600c:3510:b0:4a1:7033:5b55 with SMTP id 5b1f17b1804b1-4a18e4cc437mr147175805e9.21.1791729666495;
-        Sun, 11 Oct 2026 07:41:06 -0700 (PDT)
-Received: from shift.daheim (p200300d5ff07190050f496fffe46beef.dip0.t-ipconnect.de. [2003:d5:ff07:1900:50f4:96ff:fe46:beef])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9ae1c4fsm14233476f8f.58.2026.10.11.07.41.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 07:41:04 -0700 (PDT)
-Received: from localhost ([127.0.0.1])
-	by shift with esmtp (Exim 4.100.1)
-	(envelope-from <chunkeey@gmail.com>)
-	id 1xFuhI-00000000Qgy-3khZ;
-	Sun, 11 Oct 2026 16:41:02 +0200
-Message-ID: <76210777-9f09-48ce-af97-90fec06a6f84@gmail.com>
-Date: Sun, 11 Oct 2026 16:41:02 +0200
+	dkim=pass (1024-bit key) header.d=weissschuh.net header.i=@weissschuh.net header.b="tRnQVSnk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+	s=mail; t=1791729815;
+	bh=FWhS1GSbio4NmB9mGUNLM0ZeY2dHVo2pwRnkMJ0VTUM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tRnQVSnk7FVLxK7jtlFVL7ogFoBS5QsNFfqcelpy4fLLjaoJRIcd2aSAQtc/uCnfA
+	 lfErRvuSm1vsOfzKJVyM/D9lwrA23RfHHmfscdTlaI7RtOvpacS9lmOpb42A0vZKsd
+	 wnrzvkqHY3CVOvEVdQBqXezYUXg7ltd7jNNSwRWM=
+Date: Sun, 11 Oct 2026 16:43:34 +0200
+From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>
+To: Gary Guo <gary@garyguo.net>
+Cc: Jason Baron <jbaron@akamai.com>, Jim Cromie <jim.cromie@gmail.com>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, 
+	Andrew Morton <akpm@linux-foundation.org>, Will Deacon <will@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Lyude Paul <lyude@redhat.com>, Yury Norov <yury.norov@gmail.com>, 
+	Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
+	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+	Aaron Tomlin <atomlin@atomlin.com>, Brendan Higgins <brendan.higgins@linux.dev>, 
+	David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, driver-core@lists.linux.dev
+Subject: Re: [PATCH RFC 01/11] rust: print: use CStr for __LOG_PREFIX
+Message-ID: <db1c04a5-a1e6-41a7-b2ac-f992cd45d640@t-8ch.de>
+References: <20261011-rust-dyndbg-v1-0-832e4039b71f@weissschuh.net>
+ <20261011-rust-dyndbg-v1-1-832e4039b71f@weissschuh.net>
+ <DM211N6KK6LP.2KC9V4ATVEAP6@garyguo.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] wifi: carl9170: revert broken devres conversions
- for input and hwrng
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Christian Lamparter <chunkeey@googlemail.com>,
- Kalle Valo <kvalo@kernel.org>, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261008-carl9170-reverts-v2-0-3ecb12089797@gmail.com>
- <5771235e-fa91-402a-b5d2-ebb153872c26@gmail.com>
- <aslvBb9VbMvnHmHi@google.com>
-Content-Language: de-DE
-From: Christian Lamparter <chunkeey@gmail.com>
-In-Reply-To: <aslvBb9VbMvnHmHi@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <DM211N6KK6LP.2KC9V4ATVEAP6@garyguo.net>
 
-On 10/10/26 1:13 AM, Dmitry Torokhov wrote:
-> Hi Christian,
+On 2026-10-11 14:01:45+0100, Gary Guo wrote:
+> On Sun Oct 11, 2026 at 1:52 PM BST, Thomas Weißschuh wrote:
+> > The users of __LOG_PREFIX require that it is 0-terminated.
+> > Currently this requirement is only encoded in safety comments.
+> >
+> > Switch to CStr which can guarantee this invariant through the type
+> > system.
+> >
+> > As __LOG_PREFIX and Module::NAME are now identical, reuse the former to
+> > implement the latter.
+> >
+> > Signed-off-by: Thomas Weißschuh <linux@weissschuh.net>
 > 
-> On Fri, Oct 09, 2026 at 09:37:36PM +0200, Christian Lamparter wrote:
->> On 10/8/26 11:39 AM, Dmitry Torokhov wrote:
->>> Commits 23de0fa0d2a0 ("carl9170: devres-ing hwrng_register usage") and
->>> 87ddb2fc29f1 ("carl9170: devres-ing input_allocate_device") converted
->>> the HWRNG and WPS button input device registrations in carl9170 to
->>> devres attached to the parent struct usb_device (&ar->udev->dev) and
->>> removed explicit unregistration from carl9170_unregister().
->>>
->>> In carl9170_usb_disconnect(), the driver calls carl9170_unregister()
->>> followed immediately by carl9170_free(), which frees struct ar9170
->>> inside the interface .disconnect() callback before devres_release_all()
->>> runs. Furthermore, devres on &ar->udev->dev is not released on
->>> interface unbind or registration failure in carl9170_register().
->>> As a result, both the WPS input device (whose input->name and
->>> input->phys point into freed memory) and the embedded struct hwrng
->>> remain registered after struct ar9170 has been freed, leading to
->>> use-after-free bugs.
->>
->> Ok, so you just reworded your patch? Sight...
-> 
-> Yes, as I promised I would.
-> 
->> looking at the WPS input
->>
->> |        input->name = ar->wps.name;
->> |        input->phys = ar->wps.phys;
->> |        input->id.bustype = BUS_USB;
->> |        input->dev.parent = &ar->hw->wiphy->dev;
->>            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->>
->> the input's dev.parent is set to ar->hw->wiphy->dev and not ar->udev->dev, right?
->> Does this do anything at all? If not, why? The wiphy gets shutdown by
->> ieee80211_unregister() and having the "freeing" stick around after the USB device
->> is gone should not hurt, right?
-> 
-> devm_input_allocate_device() explicitly states:
-> 
-> 	NOTE: the owner device is set up as parent of input device and
-> 	users should not override it.
+> See
+> https://lore.kernel.org/rust-for-linux/20260728-printk-v1-2-855606634d70@garyguo.net/.
 
-Yeah, and this is something you added in 2012... The carl9170 code driver
-is back from 2010.
+Thanks. I'll use that instead.
 
-So, was this changed to "break it", rather than the driver?
-
- From my POV: What's the point of devres then? And why are you so "eager"
-to revert the changes.
-
-Cheers,
-Christian
+> Best,
+> Gary
+> 
+> > ---
+> >  rust/kernel/lib.rs          |  4 ++--
+> >  rust/kernel/print.rs        | 11 ++++-------
+> >  rust/macros/module.rs       |  4 ++--
+> >  scripts/rustdoc_test_gen.rs |  4 ++--
+> >  4 files changed, 10 insertions(+), 13 deletions(-)
+> 
