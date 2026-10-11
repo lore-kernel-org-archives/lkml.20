@@ -1,97 +1,118 @@
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27FB19DF6A
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 04:45:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC900371889
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 04:51:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791693951; cv=none; b=Un15Rx7MqNLlCaB+eLOTxfzDr/j8WIDJ0fCHMnVAjpCTGjgH8pOGjpuc7LmbUin0cItCdRNA8dKqIaODXV67ilExzO/dzsoBdKJpPaQA6pt3a0qStTyE2HZa60/mlTMmKnRk1mI5jamGIJAKPO6lt4ZuNuE8z4AIS4riy0pYUiA=
+	t=1791694325; cv=none; b=CnbDnIRP9Pb7d3Xl7LqEksx7Ka/oQ06800qpBrbwHmrbnV/c5F+qKWMVObl9J8EQsM8kV8eBnczJcOeMLDCZtJq4rBQYgFVD/a3ep4lNQtB4I3I7cr3LPL7Bed2FrhRwij3xHtaaDqq2/kydgOB9PpgWi+PS9z+Wc8x7cfMJRTQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791693951; c=relaxed/simple;
-	bh=mjLp7zGDjcj+lWq2bQZ2AdxPlmTKABqImeXoPORHywA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YR7lgozcO9TiQLMnWYKJqsUHZPsjJUJv/1qi22D8phJZ4vtAfWiYPLq/EQZS7auDswArhYALKaN+MbFVI9zqEM7mKQ5BQJOsUOw7bNnMU0d1SG/7ZI7GuH6F4dMIl881gUVZYdjS6ZeX/uhO8+bQz8EcVZx36tCg6ZL2ZvStcYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZLZimdj4; arc=none smtp.client-ip=74.125.82.174
+	s=arc-20240116; t=1791694325; c=relaxed/simple;
+	bh=4lfV7+sqzyweAXYe880vnuGKWpBB5jmGdvI8y+TeBCA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bTmB0JNZSqF/lFkTQPnu8vzy2RY3+nh+scBYja2FrEDHTRGOOx7g5vqWsGf56CFcFsdVKR8GFzaozu9Cq9cAnwQ/7g3sp+cdFC1YnQl/H1OMWdHAVqcQsEmLjDHWZgpDpSr4q222Z+5oS3KJnbB3a5AWNySd4JACetWnMNiO4mM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dmLzTy5C; arc=none smtp.client-ip=74.125.82.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZLZimdj4"
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3514b90bb89so1647057eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 21:45:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dmLzTy5C"
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-33c2520ad38so2053259eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 21:51:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791693950; x=1792298750; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UboHhp6ztrYdIlQJYxWz3PqYJoK6i0hu7qVE9ptfsZE=;
-        b=ZLZimdj4Xgd70easqAY/MeZ5KEj2OBJDd8ar/eFBPW0b3wdAsWQRizoQlpZYfrkQVq
-         M4aCpA2O74HBA9P9Nbu9ikrYhhNKIAhpoB9zCVw87iKzlUOTwpIPHo6sn3Ze1bhSprin
-         6QOTNOx1gmVpO7I1zTveIQsLolf6haGWVPbA52VdTtw3aQGUyhTVSt2jebBqKVXmsIWv
-         AvhcpqobtCF/ddZTn7mN/urphvd4Jc3rHOxRHGUumc26i431RgVAAOIKxsty2rpzWC9j
-         0esB2KZmPJmbelDZEn0/R9uTnMgHPWiiTRVNBPzJPxKkWCICsLcYfA6nF1BRXGpwa1pb
-         yNjA==
+        d=gmail.com; s=20251104; t=1791694318; x=1792299118; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/+m3dioEgJeXpogr386BWGDMeXCqTiF+8xcjGlIA8mg=;
+        b=dmLzTy5CHZCDuTBE2Yd0eB1IgYME80rWOMB1tPc1gF8lfJ/CNcHKirDNyAXsnCNBES
+         kMPzAyoldun353uao73HtY8/8wieuI/zxU8px6L4E5lulTUAdolcQteO2tDrJPClHDXJ
+         fydYFdifcb/XNI3J/ABMhVo/BU9MhIDO5rb181OsNa8tZUs6yE4dT1uIXOKiFm5jrML+
+         3l7E9h8nBrMsPTHv5beCz0ogOoX6qIpp/Ym0PzOrju85EDqPfR04HXKg3s7oOkqXM+uF
+         17bfZyaUVgyAdtC9VkFsWosu32OAeQz6rmV0Xak4Wiu/vSoe1WySYxxFIqEOncM7vRZH
+         Rkyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791693950; x=1792298750;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UboHhp6ztrYdIlQJYxWz3PqYJoK6i0hu7qVE9ptfsZE=;
-        b=zT+c07Z+AtAO1BqU08gXkiNNUn6VOyzJeAXVcpdt/DkwgiKVLpktWM4pBBE0MgYQc5
-         cQjHSM7Qt+ZpJ62Wtd/CrZ5XyU7eURU+TdUVqNcZo+TABREma20+mQuLo70XBU4BhvK9
-         BgYMEhKs0q662a7byqxm/BELrjAQ3DCY1n6pvn6B21DKyloO48kcuQJtxD3FPLKfYKGq
-         WGUSmwInmQsfXktE2sD6O5m9BkChbz6ZAe2ZhahGdyNy4fsx6WRmB39/DivbdQW7PxVE
-         uTDvAbi/8LXxPL0uzwCh+ymlqpUqty5jPX/Ng3bw/DaszvsooQNT4l+Sfr5WVDmaaZlj
-         M9ew==
-X-Forwarded-Encrypted: i=1; AKwUvByEeUtsGVOt5ODBkBOnsfYYiLrFkzVGdu2vipNb9orxk9Cveca2SFcxZavWoLO2Cc5FcfaE2emKCNBWb50=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJSY4eNexk6DgMG8d3hzfLm7q0wFbgb3Q98Gx2rV2Fa11bzgmHv
-	edDpco2aAUaQOu57cWjf3GMyifiFkGWmZoz/Gzs2/i27stVys4k1Sp8VP+/nmVE8
-X-Gm-Gg: AYBFou0V6n36V0WZoTvGGv5MkWEn2DrK4FGH8Xk/GkZtwyHcP+JLtV/HWu4m4w3yjSC
-	kosB/juLbfun6FtYZ1T2cYXTq4S8UWD47pquV0Y1CRfGpZ/aNRF+AvWG7QzuiyYdONAhcoviMRo
-	E8iODA1HrBbqVCP4g+qTC5vjDUcxVMtFurPSPgotwe+qvNyT7K3PFoBhbNa+y+cGKj9PGFBZCc2
-	ADoOv6o+KbgxaxLyIGPs04aaYinrTR2X1wTBEQQLKm6dyUz6l58Sr4wn0z5XjQt3wo40wj99/IK
-	HWO3kAM0hX4pWq9fc+2WPn7CLdRGQMWUz9rcaFGptZOWPsaO/N/qFSDz60OZNhBgy1IMuWH8ess
-	vm4OHdOSBTx7gjlNy36HsQvy/2hDcC0askgN+ajxD6LcDuogwBv9GjPZUv22kwDbeu+gB1zjo/T
-	b7rSnyyQGhZtPI8OUNfqvGx5bA7bdGyhT7d1cmWXh+rLM8bOguC8QbhN3Veu61BV1S5wIOohyuO
-	AErZCTRwLXqHX3zIivdt5XWpKlLpnYl6BPvySU9
-X-Received: by 2002:a05:7300:f582:b0:34d:755b:d60b with SMTP id 5a478bee46e88-3537e048b67mr8414896eec.34.1791693949428;
-        Sat, 10 Oct 2026 21:45:49 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:99d7:6eb1:9874:c6be])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca0e64csm21542311eec.10.2026.10.10.21.45.48
+        d=1e100.net; s=20260707; t=1791694318; x=1792299118;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/+m3dioEgJeXpogr386BWGDMeXCqTiF+8xcjGlIA8mg=;
+        b=I/q5arNTKJH1GVQu2P/oV6JVypZA2zLOJ/pa9A1jVTrcKI6nP1K+YAMN4DPenFtCW/
+         3CjX+Ka+15WmNioVAi7CetU3gVhSpFyOUVpMc8eyPBF9BN6mFZQgKOsmtX1kXxiidYI8
+         CFoETMacFG6/4oVW7r/Rn5qyQiMTTJHnva7n7gYPkjXGgJlo2WSEetHnhkLbWrMCUO9i
+         JhecjLMUckPUx9/0jw1ga1sDwiHs2AR2BXbFF0ZUa1XsBUnbmfkUYM1Y+8htPzVwl2Aw
+         VKpIsoENNMfR4TKeYQHYxPICxRfCl6DGr+sVmDEemjuh+pErhtsT4AGFVdREKk63IWHP
+         DjnQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw2XhIyp3RnnaGTLBk52uxf/AXR6gZOiCMJ7IL7kvLQmSXjXyKQj3pnPXSs7J5b5zwKoDWrMQWl3aYmbJ0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJvAxUSbPgGqsIMOu6I1DNQSNQSXCOLQf6iffukNdWDjGZsxic7
+	a4P5eomJnB0HrG4JDX9ZmPEJrknP8oLz8Os+xAZxMbBoK/s9GvZYAYAA
+X-Gm-Gg: AYBFou3oVPcRlGgNkESh0RmSNnK+F+Pnq3YDPxqm7uDHJlQs/JzLvWHyEZa0+tQT2JO
+	cc2uzo4TdyEGlkhbl7IuCJtnXUBRDNXnGZOHA2TKvEkmOkvtU3Ca2Z7fs3C3dDDCzyrkdxru1Hg
+	U3SSPfdAWpOa6kIaTNGyuBOB+tzPiQTEwf8oPkgpuxgnwe035lntNccf2r7JkudgA2SmeLI/mc6
+	8qa9hWHLDVbl/8OuqpBOUYpby//msUkH1PfqaR2oB2sjqUpBIhMti+DeOyUwtY0f2kW9aVYeFsd
+	38Pnch9xj6HpXqq9hweZgEAm9VVrsDv3697FGzcil5Gx0wtzIeUrKOR0EEhLIK14fu85hArBoFq
+	i+uEH1i2HSBG+tip+0NBOSa9Npou9TsF0VtDWZgiK5SyG/tVx9i4p2AVD/CBcCd/y3RvTyEnlg4
+	G+2UCuQBm4R4k8SF9sNMqww+k7Hx2O82zoUti5ty8OY+7dhjkvNc2T4G56AJSgrZf3nsz1kCdme
+	S1tXDXodUkIcB00dscxSf1mw0dyLr6tKCq3uxVVlmwls7joFQk1c1/DyuZeKXU97nxHshesL739
+	TZLik4VVkWSxuewQdlunMwk0jYd8hQ==
+X-Received: by 2002:a05:701b:4212:20b0:168:e942:4e62 with SMTP id a92af1059eb24-16a61789c56mr8352937c88.40.1791694317514;
+        Sat, 10 Oct 2026 21:51:57 -0700 (PDT)
+Received: from kapoor.iiserb.ac.in ([203.18.51.212])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a31f6be0sm35733139c88.13.2026.10.10.21.51.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 21:45:48 -0700 (PDT)
-Date: Sat, 10 Oct 2026 21:45:45 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Karlos Abel <kabel@voidship.net>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] Input: discard pre-registration events and test
- state seeding
-Message-ID: <assT056aFmzMHmON@google.com>
-References: <20261010180031.7-1-kabel@voidship.net>
+        Sat, 10 Oct 2026 21:51:57 -0700 (PDT)
+From: Arnav Kapoor <kapoorarnav43@gmail.com>
+To: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rodrigo Alencar <rodrigo.alencar@analog.com>,
+	linux@analog.com,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Arnav Kapoor <kapoorarnav43@gmail.com>
+Subject: [PATCH] iio: dac: ad5686: fix channels member name in kernel-doc
+Date: Sun, 11 Oct 2026 10:21:47 +0530
+Message-ID: <20261011045149.353929-1-kapoorarnav43@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261010180031.7-1-kabel@voidship.net>
+Content-Transfer-Encoding: 8bit
 
-Hi Karlos,
+The kernel-doc for struct ad5686_chip_info describes a member called
+@channel, but the member is named channels. W=1 builds report:
 
-On Sat, Oct 10, 2026 at 02:00:29PM -0400, Karlos Abel wrote:
-> This series prevents input handlers from receiving buffered initialization
-> events after device registration. On a ThinkPad T14 Gen 6, a later LED
-> update flushed a stale SW_RFKILL_ALL event seeded by thinkpad_acpi.
-> The fix drops the pending events and their timestamp before handlers
-> attach, while retaining the seeded switch and absolute-axis state.
+  Warning: drivers/iio/dac/ad5686.h:95 struct member 'channels' not
+  described in 'ad5686_chip_info'
+  Warning: drivers/iio/dac/ad5686.h:95 Excess struct member 'channel'
+  description in 'ad5686_chip_info'
 
-Could you explain why these seeded events give you trouble? Is it
-because thinkpad_acpi() forgets to send input_sync() and so the
-timestamp is stale/wrong?
+Rename the entry to match the struct member.
 
-Thanks.
+Fixes: 0357e488b825 ("iio:dac:ad5686: Refactor the driver")
+Assisted-by: LLM
+Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+---
+Comment-only change, checked with scripts/kernel-doc -Wall.
 
+ drivers/iio/dac/ad5686.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/iio/dac/ad5686.h b/drivers/iio/dac/ad5686.h
+index 482bc70515f7..4f2ac1e96643 100644
+--- a/drivers/iio/dac/ad5686.h
++++ b/drivers/iio/dac/ad5686.h
+@@ -85,7 +85,7 @@ struct ad5686_bus_ops {
+  * struct ad5686_chip_info - chip specific information
+  * @int_vref_mv:	the internal reference voltage
+  * @num_channels:	number of channels
+- * @channel:		channel specification
++ * @channels:		channel specification
+  * @regmap_type:	register map layout variant
+  */
+ struct ad5686_chip_info {
 -- 
-Dmitry
+2.53.0
+
