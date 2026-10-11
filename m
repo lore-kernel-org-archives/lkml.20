@@ -1,97 +1,84 @@
-Received: from mta0.migadu.com (out-21.mta0.migadu.com [91.218.175.21])
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E470335064
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 04:28:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C0D3148A7
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 04:33:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791692927; cv=none; b=JQdxkm8ucOAMpdDq2aKvv7PFNbf40vLGHbeNRUGaYD1QB4hNCWclmuRDjIPNbSzT0DehUeZIbUqOJ32hQmznWpZK7pJAodtMlfSgtB+BNypools4pTsUybXrAkAd57Mz1psFvSabXIqZDgIKYI/cUWUH1uu32RgmpTIL2y5WmQw=
+	t=1791693216; cv=none; b=iM/QG6pbmj14OF3kWBr39+pVPDAUGHLQYImKe7jmiRDjhwlofQgaFGnwcHuNRvaZqe9B6I7pBCNAQ1vtd1c2iQMgxrwoQaQxN1KAGapo08rqWaHIUB/ilsZ2BuXXAOu2qQ2oH3EIqFSTDZPYauCVTUiirzN542AO5Vi1Yrw2nLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791692927; c=relaxed/simple;
-	bh=oWfUT88ZOBjq8dRh0lwJrPuh9l3/thyYC3pPZq9Dy68=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=d23777h+U5U4jVBosr32jAK9gEDLLSgOR4+RvAB8GMldyy8HPHZF6VM04AAmo1MyXQzlJeufZSxC6Fcvx32CFtydIIqg75Y9Ptc2E9qNsV0hlXbgWubsGsHB+qqmUKvOa53vjE5yYCyuhxP8/kOqCxLgpIfi2K2BueuKSOVyrRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vbr4HsVW; arc=none smtp.client-ip=91.218.175.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vbr4HsVW"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=oWfUT88ZOBjq8dRh0lwJrPuh9l3/thyYC3pPZq9Dy68=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791692921; v=1; x=1792297721;
- b=vbr4HsVWous5T1D9Su726NF51peKQoYOYH4q7eCXLHx5nrV5Ysl+Jw4dFNP/RFRs+MQJuYk6
- TDkmVGrq1DzjnJouJ2TP1Lhnc+vpGxTaiP+D+UD04jz9SzGN4VNXZ9xSwUkvCjbC1M9VRji6HwS
- 4wX8b1ezsMVvyaBOHBaFBnEA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id de44eda3b754d562;
-	Sun, 11 Oct 2026 04:28:41 +0000
-X-Mizu-Trace-ID: de44eda3b754d562
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <44b54799-6cab-4bcd-bce9-d8d55517a7a2@linux.dev>
-Date: Sun, 11 Oct 2026 09:58:37 +0530
+	s=arc-20240116; t=1791693216; c=relaxed/simple;
+	bh=XmGz+wGF8sLohK/7kaOr4M9EperVmIoo9UjCZa6WII8=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=dlgv9nmv29Nii5ys8yes1yAEpX5jaIDgray+smUXahAmfZQ7WkYo0oRqjeo5gWpIQCJNN5GS0gnvqNY3Z/FY/R5cCHdS02qIgXRXbLLEkGhM4gLksI5Mpjr7zdRyp69i9Osy9KahPvfUt6X55xmZR/PSSx3PKv9UD2z+8tUBJGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4a41f46d629so2230776b6e.3
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 21:33:34 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791693214; x=1792298014;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vSL2jhdBiSbZsp7yd1LgWGK65M3qH1NTGj33qYfrPro=;
+        b=yo7kZMbMqUlw4ePyBP3V/M91cWvJtjWw0crSkRw49F6xBS9ZmIMq+HWkoPjm9qPiyT
+         ZZnd6c39N+uDkHg4lRjGUpaG5Es6lihskGliDlp5NaYQSgBvAndyTbL3+HEu9o6K8cvx
+         bma8BJ84i/W78sbKrK96PawNE+27kHiOcLd+C4gIrqQQsdbFvN4yuHaDgT6IhtyCBMKE
+         Us6/328v01nxVJProbvWQnwWHxGUw1DTdmW5QP71lwjbx5wFSeh7YiNo6pkZDdD12ky9
+         op7P5BlQVUhnpKISEqppP8mGCwZucu9DYmA9oaQ0gXoRqs0nP6g+e+56V2TSTt8fKbLh
+         T1Pg==
+X-Forwarded-Encrypted: i=1; AKwUvBxlMMFTffKKWnRFJGawQ8Zr463MPdH8o5HciXBOqjusBfNr8fpy77phxx8gjtHDFdhRSZizuA1JTigtKVg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLumMAwC1PXiXq0dsmNj+1Mflo2z3MPREdw0jR9O9nhsoic1y1Y
+	fdkd0bC7ffmcuwwsx0SHdiB9DF5T1GBVsRyGwhaxOjPd0pdAMwsoqmA3o2zxIzG9o5xtMfIXYaR
+	zfAmofj4ZtvG4bgn8BanAhY1UNTTAMxfqAaTpHDiOGZGCuFMKUN7xdz1UfIw=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] tracing: fgraph: fix the quadratic shadow stack walk
-To: rostedt@goodmis.org, mhiramat@kernel.org
-Cc: mark.rutland@arm.com, mathieu.desnoyers@efficios.com, andrii@kernel.org,
- peterz@infradead.org, linux-trace-kernel@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, kernel-team@meta.com
-References: <20261001102909.1152572-1-vineet.gupta@linux.dev>
-From: Vineet Gupta <vineet.gupta@linux.dev>
-Content-Language: en-US
-In-Reply-To: <20261001102909.1152572-1-vineet.gupta@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:14c5:b0:4f4:6c04:8ac2 with SMTP id
+ 5614622812f47-50c50f2ec7amr4784801b6e.10.1791693214013; Sat, 10 Oct 2026
+ 21:33:34 -0700 (PDT)
+Date: Sat, 10 Oct 2026 21:33:33 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6acb119d.bbc4c7f9.15faa7.007b.GAE@google.com>
+Subject: [syzbot] Monthly dri report (Oct 2026)
+From: syzbot <syzbot+list97f547ce633fca2a93be@syzkaller.appspotmail.com>
+To: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/1/26 15:59, Vineet Gupta wrote:
-> alloc_retstack_tasklist() assigns a shadow stack to every thread when
-> fgraph is enabled. It did so FTRACE_RETSTACK_ALLOC_SIZE (32) tasks at a
-> time, and since for_each_process_thread() has no cursor, every sweep
-> restarted from init_task and re-walked the tasks already served, making
-> the ftrace_graph_active 0 -> 1 transition quadratic in the thread count.
-> On a 60-core Sapphire Rapids machine with 400000 idle threads it took
-> 227 s, inside a single bpf() syscall for the kprobe_multi case.
->
-> Allocating inline with GFP_NOWAIT removes the batching: a single sweep
-> serves every task, 227 s -> 0.092 s.
->
-> v1: https://lore.kernel.org/all/20260922225526.1554758-1-vineet.gupta@linux.dev/
-> v2: https://lore.kernel.org/all/20260929005411.4105448-1-vineet.gupta@linux.dev/
->
-> Changes since v2:
->   - update the stale alloc_retstack_tasklist() comment, which still
->     described the old batch-of-32 behaviour (bot+bpf-ci)
->
-> Sashiko flagged the mix of goto-based cleanup and scoped_guard() in
-> this function. Peter and Andrii both considered it fine as is, so it
-> is unchanged:
-> https://lore.kernel.org/all/20260929080346.GR4120091@noisy.programming.kicks-ass.net/
->
-> Changes since v1:
->   - replace both v1 patches with Peter's inline GFP_NOWAIT approach,
->     which removes the quadratic behaviour rather than dividing it by a
->     constant. With a single sweep there is no retry loop left, so the
->     v1 cond_resched() patch has nothing to attach to and is dropped.
->   - comment why returning from inside scoped_guard() skips the free
->     loop safely
->
-> Vineet Gupta (1):
->    tracing: fgraph: allocate shadow stacks inline with GFP_NOWAIT
->
->   kernel/trace/fgraph.c | 44 ++++++++++++++++++++++++++++---------------
->   1 file changed, 29 insertions(+), 15 deletions(-)
+Hello dri maintainers/developers,
 
-Gentle ping !
+This is a 31-day syzbot report for the dri subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/dri
 
-I appreciate folks might still be on the way home and the mayhem of 
-merge window.
+During the period, 0 new issues were detected and 0 were fixed.
+In total, 11 issues are still open and 43 have already been fixed.
+There are also 9 low-priority issues.
 
-Thx,
--Vineet
+Some of the still happening issues:
+
+Ref Crashes Repro Title
+<1> 5840    Yes   WARNING in drm_mm_takedown
+                  https://syzkaller.appspot.com/bug?extid=d93b9064fe5f74af3aa3
+<2> 114     Yes   KASAN: slab-use-after-free Read in drm_atomic_helper_wait_for_vblanks (2)
+                  https://syzkaller.appspot.com/bug?extid=0f999d26a4fd79c3a23b
+<3> 60      Yes   general protection fault in drm_object_attach_property
+                  https://syzkaller.appspot.com/bug?extid=1944765c3659f63d3777
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
+
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.
