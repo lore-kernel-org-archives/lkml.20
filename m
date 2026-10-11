@@ -1,91 +1,63 @@
-Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9104E35676B;
-	Sun, 11 Oct 2026 18:55:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.171.160.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9A8723EAAF;
+	Sun, 11 Oct 2026 18:55:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791744950; cv=none; b=r5g3BuarFFCK9r3JjcVW+eok48AWAaYRLvstbi6mC0XgqNW0hZrfQ4UU53X2+hWtCteCWCjaSgmji6uaVnqCHCzFUEZQ8opRAxPZrIOBMCrvxMI35hyYwo1YM8m5eIUE1wifGgHWt7od3athVJJS2zNx6EypJK0RC2LETWcvpZM=
+	t=1791744952; cv=none; b=XLSH93pnFGYKQKOAXxY8s+mAMHThBCfBFPmcXOfoLjoWgWzNCmepXbBphEpLLBD6B9rD8VAmssoQNLW7Xq+vjkZ+te76HOudGMHtRJWuwRm4npBQ99Z/biT+XH+y0TfIkCAtkqVcHe1qyvIkCLe6AN9X7++WyAXUJIkuuOPju6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791744950; c=relaxed/simple;
-	bh=AICaXSSwbflJCI5kz780Q0B9PDyUAs/MpxyuhALtp9w=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=H11V7cr7e3AGmXuRsgs4oFifEJsmjdfljusqRWFpe3bSOroWBZhT7tONGqjcgDqFoBSJ/nQtk4HALdTJeH5o1MCRnBoFlNjsId8rL9T/Krk5Bu8wWMHgmpiJAUFL4DrXYQw+iNPpeEF+/XG0eMZi9DtE+CtcFWCOXbKTksgM71I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp; spf=pass smtp.mailfrom=parknet.co.jp; dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=HiwBKg30; dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=rzCHXli3; arc=none smtp.client-ip=210.171.160.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
+	s=arc-20240116; t=1791744952; c=relaxed/simple;
+	bh=MeNz6+JDbAELaclLPMD6m81PIVT1ibR1soSUJazcll8=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=HJBebIViutz3lWBLvGc8TP9yTWs2Z0yb+RoYxkRqMlYq47MBg7EKyuI9Zfy0iEkRi2kCQ1z+W00XLDcX6+tgPJ2sNaXetGXNzwK25db4FO18Bua6FEnkzkVKlI9GmkieUsnI4Qu4LqPt6UqC1vDeUM48RtpJwN+S00nbDdptmxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pl19GyM5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="HiwBKg30";
-	dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="rzCHXli3"
-Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
-	by mail.parknet.co.jp (Postfix) with ESMTPSA id 9A1F326F7695;
-	Mon, 12 Oct 2026 03:55:42 +0900 (JST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114; t=1791744942;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QiwgYqFdrZhXQrXzsN765LjWb+cNRzsxePPe13rYQfM=;
-	b=HiwBKg30Jmn8JKpwm4xhDXhRmfEUoQ6UUKQukB+AHF7+Q7h+UcVsbJ+3IObZkSCLbIKTf3
-	X8ikFUx8g0iHWpyQiZjUjztiSmoxuE/hU4H/Wlo8t5IdKHMqHHAPn+ooooazXjdra5MgEK
-	zGAfKVBd0dphPzAOYXqe9raszc7atINZ3a44stglKpMzHsJwco+J2CR/KTkf/A7Qm84lGA
-	tmtuGUedUJZPzIhgReQDNmMq5AI9A5ryK1yHzximsZxvcQefC3dhW+4vLPV5z1U/VA3H7G
-	n3LR/zXcCbESPOfF2uOckFTS+hKiTuuSYa78kXYLZtMtihhJsQKL1WLQBIDkfQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114-ed25519; t=1791744942;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QiwgYqFdrZhXQrXzsN765LjWb+cNRzsxePPe13rYQfM=;
-	b=rzCHXli3Qjt1Z+ISwy3CsT+2zU1l+wv6t02z4lDTQiHFg5l/DZxHk1bsB27NSpqzukC/pE
-	5pV0fOJvSyPBUpDA==
-Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
-	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id D7637E00134;
-	Mon, 12 Oct 2026 03:55:41 +0900 (JST)
-Received: by devron.myhome.or.jp (Postfix, from userid 1000)
-	id C3B6022000EE; Mon, 12 Oct 2026 03:55:41 +0900 (JST)
-From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-To: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-Cc: linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/4] fat: allocate multiple clusters in fallocate
-In-Reply-To: <20261008020941.55784-1-matheus.aalmeida@inf.ufrgs.br>
-References: <20261008020941.55784-1-matheus.aalmeida@inf.ufrgs.br>
-Date: Mon, 12 Oct 2026 03:55:41 +0900
-Message-ID: <874iesm5hu.fsf@mail.parknet.co.jp>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pl19GyM5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43A211F0089B;
+	Sun, 11 Oct 2026 18:55:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791744950;
+	bh=cze08nDY1Zme74NA0RyKNr5Uk1h502wJmXo708vIO9E=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=Pl19GyM5ClKuhiyDveUybfx0eaM64FaKXtbHYWQQrAzpzUStBFwLA3Qs9Zmt0B53m
+	 ++PfkMEVEdYMQ6ihx4DHC+9y2l3yLr9u16lQdxDbpoS7A801lirqMyhvhJ4Sr8NVkv
+	 3rPWSnIwFrTM+0eItiIbdKQCw2F/yVxUEVSdlDD40iY7BuDA4nmC7URoR6zIOzoWE8
+	 2nA8jyDTSLIYlmE/eIyZklvB4jnlWhecKAiDM/blvsS8SNb10XPTw2OVtoYhIa0f8m
+	 WTJvq5Lp9cZXadVq8gSxk7xBPtzsmQhHvcK2cXuARYhAEygBBHEpNtkDS6gf41HQhA
+	 DCk3VlvcIcwFw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A50038119DB;
+	Sun, 11 Oct 2026 18:55:50 +0000 (UTC)
+Subject: Re: [GIT PULL] Landlock fix for v7.3-rc7
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20261011160819.1376118-1-mic@digikod.net>
+References: <20261011160819.1376118-1-mic@digikod.net>
+X-PR-Tracked-List-Id: <linux-security-module.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20261011160819.1376118-1-mic@digikod.net>
+X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/mic/linux.git tags/landlock-7.3-rc7
+X-PR-Tracked-Commit-Id: 3d8cc52db2f86b624308321c58513019f6b21eec
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: d6d3455d8751854e0d1820f14184682e23ac4475
+Message-Id: <179174494873.2141808.3385832411180590547.pr-tracker-bot@kernel.org>
+Date: Sun, 11 Oct 2026 18:55:48 +0000
+To: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>, Abel Vesa <abel.vesa@oss.qualcomm.com>, Alejandro Colomar <alx@kernel.org>, =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>, Kees Cook <kees@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Mike Bommarito <michael.bommarito@gmail.com>, Nathan Chancellor <nathan@kernel.org>, Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>, Nick Desaulniers <ndesaulniers@google.com>, Tingmao Wang <m@maowtm.org>, linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org, llvm@lists.linux.dev
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain
 
-Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
+The pull request you sent on Sun, 11 Oct 2026 18:08:19 +0200:
 
-> Hi,
->
-> This series adds support for allocating multiple clusters in a single
-> fat_add_clusters() call in fat_fallocate().
->
-> The multi-cluster TODO in inode.c is not implemented, as doing so would
-> require speculative preallocation or an iomap conversion.
+> https://git.kernel.org/pub/scm/linux/kernel/git/mic/linux.git tags/landlock-7.3-rc7
 
-Is this to improve the performance of fallocate? If so, what the number
-by improved bench or such?
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/d6d3455d8751854e0d1820f14184682e23ac4475
 
-> Matheus Alves de Almeida (4):
->   fat: remove cluster allocation size limit
->   fat: return only first cluster when allocating
->   fat: support adding multiple clusters
->   fat: allocate multiple clusters in fallocate
->
->  fs/fat/dir.c    | 20 +++++++++++++++-
->  fs/fat/fat.h    |  4 ++--
->  fs/fat/fatent.c | 61 ++++++++++++++++++++++++++++++++-----------------
->  fs/fat/file.c   | 10 ++++----
->  fs/fat/inode.c  |  8 +++----
->  5 files changed, 69 insertions(+), 34 deletions(-)
+Thank you!
 
 -- 
-OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
