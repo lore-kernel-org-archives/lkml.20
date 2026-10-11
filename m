@@ -1,42 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 018934657D0;
-	Sun, 11 Oct 2026 22:34:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 749CF46C847;
+	Sun, 11 Oct 2026 22:34:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791758049; cv=none; b=LiPjJr0xhTYFxv85ugpz2WOYTVOgv8OX4YZRrpCfjeTC+HEj9zqQAT2w5r3O78ypAQ3p9ertDsUDR3cxpXl/lDrG7iQ4FjGbu7xgIAnSedaSmR0XbhvMgn4RKRzFGphbWI/Cif37WBI9KkesZ9Zv5swffmeJIY+44UCDWPDwKXs=
+	t=1791758051; cv=none; b=fU7OTwKivSm7cxvymUE29Gykvu1ZU5/N/EVdBNU+InDnnxJfIc9TOxqyp4AlWBu9+2tL04FCNTojXsXtv+IV5gijO1ekMKXHsoBZfq0caWHFJE4hB6AcMTALMIsvYYRNSlE3yQT7wv4/2EXPKdJ8QkJhb1BhI5txexDJA3Byy5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791758049; c=relaxed/simple;
-	bh=o1+v7Sz1ngSUQFXjenftpDZyVoDzwAMbydX+OrkDo2s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z4AIdudthnlk4iW3IPIsQWOViRbx/GqFnBBTU0qcokZu+loHR81jWUPgOr7YH7l2pF7J5VZ/mypaONCPYMEjdJxcO9k3L1hT9+yv9Dx2GDiQVAAcONr1/ekFkol6mvnY32JEJcyfpuWBiY4Bdj7guQAfYWUuhbIqISx18vpV+zc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OU5yzbnI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791758051; c=relaxed/simple;
+	bh=8rGpt82kgwwLCsrLmySaLIVFFjJfxX/Ubj+h9UYIsec=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LUi8BGz542y3BTPvX8ghR9JbgTMTVQq+GizFowrQ75m0mOCXncQdqb4jT64bHXl8bsZUCB42jHYk7BHDNLR/xwulbytUtc7j2IfwxZJWsYdLmL01azAAPt1P8+7nkOtKtRjIN9oJXoApzS/QybFn2pPIIgd1qLBllxaEoqczpFY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E2UP8Qu8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OU5yzbnI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4F2D1F0089C;
-	Sun, 11 Oct 2026 22:34:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E2UP8Qu8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A22431F0089B;
+	Sun, 11 Oct 2026 22:34:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791758048;
-	bh=FQ5LhxSlGfDYZPptBMBWJk+3azBNynEB4pGObOBbqno=;
+	s=k20260515; t=1791758050;
+	bh=FJNgqeyrtcChHCRm43OZyYdn0ycOLDFYrjVOm0QMJ1M=;
 	h=From:To:Cc:Subject:Date;
-	b=OU5yzbnIo7CNHGCr/MNFPfuHWkQ2AdnE06NlLk6ZZ3S5m6J2OJUk9T9UOCCOF6W58
-	 dRQyHrZf17P+1jSsXAJe6sxk8R2G2hB/fM3emXheO/g0/93oGm0ep3YYtlFBD2FdsA
-	 HJjl9yUBAvNhBUZpExgbJFgqmiPqDA9vPUZ5NCffKQlWCs2BKdAqxQ0VhhsJ83DdpI
-	 AndzQP3KOyZa3kZF7WZzgH+RJd1FUW01f/AvXGrhUnZXCqsujEeWmgot+3lKwN+oB+
-	 xzy3nvBTmkSLRWtTsrjgz+1A1Bx956BoO5DuBvuqTtf4/wniw+K/iKkdnhaXKVR1uw
-	 XSDOiCtRsK/VQ==
+	b=E2UP8Qu8CxgLtOCRvRAi7p74Iz0HVOZUKJRfo137h6PkQh4PfAt6NEHyYgnIxbi61
+	 yaV0SqsWZFgZ7c9zfJTM3WNxMKmpkthJngQMNFT/7Iw/unUOlcAmDP4310UgIkmZ/J
+	 7RoBloTM9bf6FkCEQQYGFBieOgLCJrsZqKtlMq20sfuNvL6IzUDKA7V0GyyTRHzcdQ
+	 1cp+lynuiC44aQKhuZymfDdiRayt2BQrQwuBZ0FtKMJhbubuQ/0rq1LOJ2MUhDQpY5
+	 +sXFHCEARGxlFzJwOcdjusTAiuGIhtEbn9Yuxf1FZ1FxwnW5+yBsglhFVSUWSpPEy1
+	 svmfXkHYmuA7w==
 From: Sasha Levin <sashal@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Kent Gibson <warthog618@gmail.com>,
-	Shuah Khan <skhan@linuxfoundation.org>
+To: Shuah Khan <shuah@kernel.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org
-Subject: [PATCH] tools: gpio: fix building from the top level with O=
-Date: Sun, 11 Oct 2026 18:33:33 -0400
-Message-ID: <20261011223358.2327625-5-sashal@kernel.org>
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] selftests: lib.mk: define LINK.c, COMPILE.S and LINK.S when make has none
+Date: Sun, 11 Oct 2026 18:33:34 -0400
+Message-ID: <20261011223358.2327625-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -46,44 +42,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-"make O=<dir> tools/gpio" fails:
+The kernel build runs make with -rR, which removes make's built-in rules
+and variables. tools/testing/selftests/Makefile copes by clearing
+MAKEFLAGS for its sub-makes, and lib.mk defines LINK.c, COMPILE.S and
+LINK.S again, but only when building_out_of_srctree is set. A selftest
+directory built directly by a make that inherited -R gets neither, so
+LINK.c is empty and the generic rule tries to execute the source file:
 
-  Makefile:27: /tools/build/Makefile.include: No such file or directory
+  make[4]: acct_syscall.c: No such file or directory
 
-tools/Makefile clears srctree, and the gpio Makefile only works it out
-again when building_out_of_srctree is not set, which the top-level
-Makefile sets for O= builds.
+Define them whenever make does not provide them, as make itself defines
+them, so that they are the same with and without -R. The definitions
+lib.mk used for O= builds until now differed from make's only in using
+TARGET_ARCH instead of TARGET_MACH for assembly, which no selftest sets.
 
-Also work out srctree when it is empty, as tools/bpf/Makefile does
-since commit a89b2cbf71d64 ("tools, bpf: Fix build for 'make -s
-tools/bpf O=<dir>'").
-
-Fixes: 4a6a6f5c4aeed ("tools: gpio: Use !building_out_of_srctree to determine srctree")
-Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- tools/gpio/Makefile | 6 ++++++
- 1 file changed, 6 insertions(+)
+ tools/testing/selftests/lib.mk | 13 +++++--------
+ 1 file changed, 5 insertions(+), 8 deletions(-)
 
-diff --git a/tools/gpio/Makefile b/tools/gpio/Makefile
-index 342e056c8c665..1cd7636b9cac5 100644
---- a/tools/gpio/Makefile
-+++ b/tools/gpio/Makefile
-@@ -7,7 +7,13 @@ bindir ?= /usr/bin
- # isn't set and when invoked from selftests build, where srctree
- # is set to ".". building_out_of_srctree is undefined for in srctree
- # builds
-+ifeq ($(srctree),)
-+update_srctree := 1
-+endif
- ifndef building_out_of_srctree
-+update_srctree := 1
-+endif
-+ifeq ($(update_srctree),1)
- srctree := $(patsubst %/,%,$(dir $(CURDIR)))
- srctree := $(patsubst %/,%,$(dir $(srctree)))
- endif
+diff --git a/tools/testing/selftests/lib.mk b/tools/testing/selftests/lib.mk
+index f02cc8a2e4ae3..4de034f3e9d34 100644
+--- a/tools/testing/selftests/lib.mk
++++ b/tools/testing/selftests/lib.mk
+@@ -207,14 +207,11 @@ CFLAGS += -I${top_srcdir}/tools/testing/selftests
+ CFLAGS += $(USERCFLAGS)
+ LDFLAGS += $(USERLDFLAGS)
+ 
+-# When make O= with kselftest target from main level
+-# the following aren't defined.
+-#
+-ifdef building_out_of_srctree
+-LINK.c = $(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_ARCH)
+-COMPILE.S = $(CC) $(ASFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -c
+-LINK.S = $(CC) $(ASFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_ARCH)
+-endif
++# Make's built-in variables are not defined when run with -R, which kbuild
++# passes down when a test is built from the main level.
++LINK.c ?= $(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_ARCH)
++COMPILE.S ?= $(CC) $(ASFLAGS) $(CPPFLAGS) $(TARGET_MACH) -c
++LINK.S ?= $(CC) $(ASFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_MACH)
+ 
+ # Selftest makefiles can override those targets by setting
+ # OVERRIDE_TARGETS = 1.
 -- 
 2.53.0
 
