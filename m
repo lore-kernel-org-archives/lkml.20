@@ -1,143 +1,82 @@
-Received: from mail-qk2-f1.google.com (mail-qk2-f1.google.com [74.125.230.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F31A154781
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 00:43:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63D7F1F2B88;
+	Sun, 11 Oct 2026 00:43:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791679413; cv=none; b=SS5IWk4/1sHj7Lal3PUd4GOb4zKHbBdV8Jaid2ty1skX5ovIpzlfg2q6hgkCzrjUD5lZr+rFxpvUy4npx3vkZNLzWoY2JgCrPRGPHWicXaChZERrov0zbpWx9bXbVPeLJf2DSx9l1b+N9yAT0thst6VNYKeAJv4ijM0fSMMyRWY=
+	t=1791679421; cv=none; b=WTIpkwvOqM4uXaIKcZZMmQofp8Uru/cdz78fXt6an4ySVvTptZ6MplRfgTCK4wqT9SbBsEUhZz0l7E3/RNz13eJ24woDTAvCOHObbowm/D7fEPSrItxWq2em6jXQci4UFcQUHyQQj99mK0wdsRac54upNTur9dIpPm3XsosWin8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791679413; c=relaxed/simple;
-	bh=jZNt1ZV4wpx5fuswN2QfhrfNVFBBOsFWlIrHoSF9TNg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Hhr7PI2b+ygJJT0bUvAYUe9XiJZZmN0IDGiPvTAUynfppUHTaD4/En9F2qZDYG4c6Uvt/+272ocr6lakBRTzEoRbWS1gfuKGKkrv4SEi9JYTJe/ITWCHKP94+JVWAMJsFkHVdK455UvHW02Bs7IBIA+95rievGqya2yBB+w2QSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LZ3/wQl0; arc=none smtp.client-ip=74.125.230.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791679421; c=relaxed/simple;
+	bh=/KsFtipBILUNYzNasIl7zE2ZOeBAmnFbRIPAdk5YnUw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=oZpkHXm+T+j4qYdAsOAhcAYrQMYTXFXNeGbrMUC0MswrliFH+C7QD8dJJVg8u/BiIyHy8da9nyAZuvdz6Bk70Sgvu/wYqc/BjtIxVrj/ry52KjABjw2BAmSVFTdl0ZP8FUPNHkY83MwH9HtAiKnqltdfyx++QJGjGXtUBgieIVE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=ngwJqyHd; arc=none smtp.client-ip=216.40.44.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LZ3/wQl0"
-Received: by mail-qk2-f1.google.com with SMTP id d75a77b69052e-534b7b19206so10205301cf.0
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 17:43:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791679411; x=1792284211; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4/sSbLwCPSp4q8xFYrtdK+Sl95iWhYZVxZM9PhMl9mI=;
-        b=LZ3/wQl0nJugaYuwpyt+WKRTt9JQKkH0THmo4gF9fNL28Sph1AeuObDc76li+3h+Wg
-         m9TqcOxEjyNp3gbKr9unZjEe5kRG7RBCqbXz+P6DXDw5dP4MggY4qtyadCuVV7Qa7HnF
-         1EoklueJg4EcHGwOujyazRqkRYMGhwvhK1+2oKXPsq4QEzjAlXZ4cJnkHjVH0VOEHu0t
-         MdZGOMXezvQIZnl3ujK0arIuxdiQYAfkLlzAeZwc+m8+G7I8NbVSHTd5jr8vIrahNLNn
-         MZh6pPb/bZQqHak/eVQtqn8F4z11BaFbmJjBLyobWXQ4J/uL15TLT4j9Xx1nkS8+mSPc
-         9DJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791679411; x=1792284211;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4/sSbLwCPSp4q8xFYrtdK+Sl95iWhYZVxZM9PhMl9mI=;
-        b=Ir3Cxsb53N8S0HMcs70dPRw9qOIHhapCJXH1WPznusjzqbMlSUlbCn2fQ1YSH0f1a6
-         WQ2QGun+1U8HpBtyIAa+65WSorVq+uW/3QKHYbMW86JDtJ8KyZdqDJea41he3TvwsTZB
-         W3AJ0dlTEoWH/jYhrcEtQIRLUqZls8tdo/PfNDvHevX7WPmlcnWcNeAC5XRjIgLULCow
-         rhM83GTb+LEPvdFKtwAHK06j/nzetQGaqA2N8fsjRYe+9aqv6r79Urv3FCdErgFhLlwQ
-         gAUKErwo/qoRH3+kiVUHjI7xr524U0R+lXspjWJ3HTGcBzQvqCSEGe0T+xCWbdtLOA5g
-         1UTA==
-X-Forwarded-Encrypted: i=1; AKwUvBzKgUQL7ncFIDEpG9AlVHg9xLODCDYhCnZ2PsLkFoET6J63F3eqD/2EM2KR5NyFGkvcUdh3rug5FSre71s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJruoObvHs8tKHkXWphl0iX/qpEwCGNc2r/kLjDdyisJXlV1TWj
-	9pknVZQpsDqFkj21O/sxzZUjfsDGFa8TTv55SD3HnCymXWzd5yDhhZpj
-X-Gm-Gg: AYBFou2NrDq/4sctJI37gP7SJww8C8HFOjlAioyfbqHc/YwJF5QRDGkD11BMyL3BYgq
-	yBNYDmoI+zATGc5XSJx/lqaD34FqZcE4+TzrFHtCCwnmfbwVR4PRHrCRXL5npOS2rg+CsZuYWlv
-	wOEu11KRd7tkCRbcb2MXT4YtkvQR4GgRAYdePtJP2ogdp4XxVDsu2qDfBk0XAMYYC6VoSk22wY5
-	dX8miDfeaMdpYPIfwIH0XW5S19+j0hKwy7geuoUIlJKJDe0Hr4YEhszLOZ0WkX5wkNvgN9Zx9HA
-	9UEgQA1oJ2nMyiFyC6herAe99PobW/IjCEU1wIfgNzyisGDzucfxLpAkVtQl/wRJpjd2wYYghDs
-	lKIto9OgKCx894hO61KWGWzJZAlDQHSUxfu31MIeBXoE878Dyehc6acv2sGWPMiLtE5tL9lbTPp
-	/Q+RRq1RYnyevEM/DBzNNNW7BW1CiPwBENyx8HBU2gP0g01FC5t6UpS++uPhCXXEzE5DU=
-X-Received: by 2002:ac8:5dcb:0:b0:533:79cf:18ea with SMTP id d75a77b69052e-5359fb88606mr102144591cf.57.1791679410806;
-        Sat, 10 Oct 2026 17:43:30 -0700 (PDT)
-Received: from omarchy ([2601:804:8780:3df1:6ff:277e:31c7:ac13])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b7dd1a0sm49229871cf.27.2026.10.10.17.43.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 17:43:30 -0700 (PDT)
-From: zoan37 <agentzoan@gmail.com>
-To: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Freddy Hsin <freddy.hsin@mediatek.com>,
-	linux-watchdog@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] watchdog: mtk_wdt: Stop a running watchdog over system sleep even if not opened
-Date: Sat, 10 Oct 2026 20:43:22 -0400
-Message-ID: <20261011004322.1118027-1-agentzoan@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="ngwJqyHd"
+Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay06.hostedemail.com (Postfix) with ESMTP id D2E45A81FE;
+	Sun, 11 Oct 2026 00:43:30 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf04.hostedemail.com (Postfix) with ESMTPA id D820220027;
+	Sun, 11 Oct 2026 00:43:28 +0000 (UTC)
+Date: Sat, 10 Oct 2026 20:43:27 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Gabriele Monaco <gmonaco@redhat.com>
+Cc: Nam Cao <namcao@linutronix.de>, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, Alexei Starovoitov
+ <alexei.starovoitov@gmail.com>, Wen Yang  <wen.yang@linux.dev>, Tobias
+ Schaffner <tobias.schaffner@siemens.com>, Viktor Malik <vmalik@redhat.com>
+Subject: Re: [PATCH v2 09/15] tools/rv: Copy stripped bpf_atomic.h from
+ libarena
+Message-ID: <20261010204327.0656cde7@226.227.38.69.naturalwireless.com>
+In-Reply-To: <76753c2dd66792ec6eb94d00741e61366df426cb.camel@redhat.com>
+References: <20261001152042.124445-1-gmonaco@redhat.com>
+	<20261001152042.124445-10-gmonaco@redhat.com>
+	<87ld89wtrx.fsf@yellow.woof>
+	<4F009BB7-58C2-4AB1-8FEF-61FA4B5281A2@redhat.com>
+	<87fqygl9we.fsf@yellow.woof>
+	<76753c2dd66792ec6eb94d00741e61366df426cb.camel@redhat.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: hrppt3w6chs5ba74ce8fgdufydrbtc39
+X-Rspamd-Server: rspamout04
+X-Rspamd-Queue-Id: D820220027
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1+w6wJ/jUT2Ykjo5cozpi1JEmT/g6EFWGM=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=/KsFtipBILUNYzNasIl7zE2ZOeBAmnFbRIPAdk5YnUw=; b=ngwJqyHdMdsq9bsY9ISYUX0iUoSSaSwz4rFcZ2YdcgmH8xsOp0bMltZwrxTSKk7EDDylJaq8itO/VpP7DWnCmZ3NIs7KDI8cQT2KDBG0YtA5BjwYUmNdum8CD4wNgvQTZL/fj3rB7VgTNCsxlKbzQFFVsHGS/xoeproqQxQG6y4=
+X-HE-Tag: 1791679408-285809
+X-HE-Meta: U2FsdGVkX1+0KjST59GDaeAUM1Hc8Eeyztp3PGY7IcoLbzSiiQGMcni+nuIJBVHaf1hu5JskQk/TfOlbRVs3gGbMhW+a/4njz3e7/X+LdQFNAPhqLOxOnJt1RHeksNHd8deiL+rUemKvxHUZvmtH1+APo+YrrfErgsOvKf5OroCvVG39e56Ni2fZG3EihUuSlCvaNiitXcZv9Prdto/CH+wCrAxr5cKhhoCxaO0YxcmMBSI6tGnXrjabRBohfjrAn5ogbf1yriSl+1w32f8LNuDz31m+lqFqSoelRsY2bckeqaX4U9iFD+KJ9xQgViQWhLRaJ5XRDy0XV2moTp4GQQtc91ELaH0L
 
-mtk_wdt_suspend() and mtk_wdt_resume() only stop and restart the
-watchdog when it is active, that is, when userspace has opened it.
 
-But a watchdog that the bootloader left enabled stays enabled at probe,
-marked WDOG_HW_RUNNING, and the watchdog core pings it until userspace
-takes over; that has been the case since
-commit bbece05c0d3a ("watchdog: mtk_wdt: Remove mtk_wdt_stop() in probe()
-to prevent the system freeze and it doesn't reboot by watchdog problem").
-If the system suspends before userspace opens the device, or userspace
-never does, nothing stops the watchdog and nothing pings it while the
-system sleeps, so it resets the system one timeout (31 s by default)
-into the sleep.
+Please keep both until you know the BPF side can do everything you need.
 
-Also stop it on suspend and restart it on resume when it is running in
-hardware, like sp805_wdt does.
+On Fri, 09 Oct 2026 12:09:42 +0200
+Gabriele Monaco <gmonaco@redhat.com> wrote:
 
-Fixes: bbece05c0d3a ("watchdog: mtk_wdt: Remove mtk_wdt_stop() in probe() to prevent the system freeze and it doesn't reboot by watchdog problem")
-Assisted-by: LLM
-Signed-off-by: zoan37 <agentzoan@gmail.com>
----
+> There's a common belief considering BPF a prototyping playground, where "real"
+> things should eventually end up in the kernel.
+> Now, I don't agree with it (look at the many sched_ext policies used in
+> production), but I'd want to assess if dropping kernel support could drive users
+> away (e.g. industry/automotive which keeps popping out) and understand the
+> various not purely technical reasons.
 
-Notes:
-    Testing: on an MT8189 Chromebook (next-20261008 plus MT8189 support)
-    whose firmware leaves the watchdog off; a local module parameter starts
-    it in probe the same way a bootloader-enabled watchdog is picked up
-    (WDOG_HW_RUNNING set, fed by the watchdog core, nobody opening
-    /dev/watchdog). Without this patch the board reset about 30 s into
-    s2idle; with it a 10-minute s2idle sleep came back without a reset.
-    Not tested with a watchdog actually left enabled by a bootloader.
-    Compile-tested (W=1) on next-20261008.
+Where do you plan on storing the repository of BPF programs?
 
- drivers/watchdog/mtk_wdt.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+One issue I have with sched_ext is that it did exactly what many people
+were worried about. There's a lot of schedulers out there without much
+collaboration. It's the "copy one close to what I want and tweak it".
+When I left Google, I heard there was 20 or so sched_ext schedulers
+doing various things for various projects.
 
-diff --git a/drivers/watchdog/mtk_wdt.c b/drivers/watchdog/mtk_wdt.c
-index 1630ab65d593..ff72e0fb1154 100644
---- a/drivers/watchdog/mtk_wdt.c
-+++ b/drivers/watchdog/mtk_wdt.c
-@@ -572,7 +572,8 @@ static int mtk_wdt_suspend(struct device *dev)
- {
- 	struct mtk_wdt_dev *mtk_wdt = dev_get_drvdata(dev);
- 
--	if (watchdog_active(&mtk_wdt->wdt_dev))
-+	if (watchdog_active(&mtk_wdt->wdt_dev) ||
-+	    watchdog_hw_running(&mtk_wdt->wdt_dev))
- 		mtk_wdt_stop(&mtk_wdt->wdt_dev);
- 
- 	return 0;
-@@ -582,7 +583,8 @@ static int mtk_wdt_resume(struct device *dev)
- {
- 	struct mtk_wdt_dev *mtk_wdt = dev_get_drvdata(dev);
- 
--	if (watchdog_active(&mtk_wdt->wdt_dev)) {
-+	if (watchdog_active(&mtk_wdt->wdt_dev) ||
-+	    watchdog_hw_running(&mtk_wdt->wdt_dev)) {
- 		mtk_wdt_start(&mtk_wdt->wdt_dev);
- 		mtk_wdt_ping(&mtk_wdt->wdt_dev);
- 	}
+One of my main motivations for scheduler governors.
 
-base-commit: aac26bee2287c88af5be5a5ff96d783b19a28790
--- 
-2.43.0
-
+-- Steve
