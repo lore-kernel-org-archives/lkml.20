@@ -1,123 +1,154 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C3481C75F9
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 10:06:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE54337CD47;
+	Sun, 11 Oct 2026 10:09:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791713205; cv=none; b=jrTDvT1WPVuJa4FYBhBwi/kyPtp/TcNChEZ5UXpV5xlPuPsvatfDju5sPGRnfgiL9llJWMm6NsHYjlLIxtysJFZ3qH60301sKZoiKYtsY1A8p6l80fYS5J/URbHf6hIvhmzXyoILPH94g92lGKkEc6ldGu/ft8MxFyLV5N23yfA=
+	t=1791713373; cv=none; b=raVxnYDV7ygiTUGSq4hQIiAoyUkQpEwq938eohsyWVm1augjKp6dtEKVKypF6KaM7FO/eh72vESq5cXwlA63iFWYuSxjENStJydrKw4aeTq3qs1q6EecJBt8museQ86hou9HSh/pFFri+4ISixBvQJlVSKmZEZQ+TwLkAtd/cEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791713205; c=relaxed/simple;
-	bh=g2OZqshVKJHxQmtATJG7N5iHityMRX425Ww84Gngw4s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GLfgTRb4z1KB5aUNn+aLHNe+ackv3vEkczmn3wrWahWpuI5AB/sHxSowg/LkaiGaz4gA7IRZAkp6stXQXEGqXjPiB/NTa8gYUQHm0tPW2jX+tOwEWrgzapPyePF6FPBOb70TKhfOhH3oPQ5CUTAmoLk9paf3De+oQB0SNohDRAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FUpb3I8j; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791713373; c=relaxed/simple;
+	bh=jbNmyJjrEXDxOp7d3pKoQ3NSbsUIImzqR3Ryd+bSubI=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=my9NpyIYHdjidBBOmfLECLSfy2daIgeL6HuXxKBMHpjuti88AGnfl+VnxEgN2qvuEWMunWQtfm+Ik7/6e+tMxAB1zllSGZtb0sKpGvBhZCcRCxtX2D73mQexoDiuIOjovvWfvCpp2mWbs8ZR+39fdx/2yuhdfTxr8D8Xr7878Ww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lc2KzYxg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FUpb3I8j"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48af4ba4425so133726f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 03:06:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791713202; x=1792318002; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qzsu1byePC9W4yIZ7gTJTcdhP4EEeDrnNov5kjt8Srs=;
-        b=FUpb3I8jPw497Trlp1sDRHaYjhd9NiDhWBqY+S/Go3aZIzNFXr4JKFN/6Z2mBud4rs
-         BmD/IM1aYrRDYFNnDKrENeIkfG40vLOcrc6RmxzbzVIS41P3I+yRza3GOq3eoYZCVlQM
-         d3zx45pChvNKg/SuV38JLnvKXUO2SLkTz0pk5qHmVAqOaEDhJBIp7eGjFMCbEz+fOLvp
-         L7RlelFOGPf0u9TZPlRgetZODscOOCCc8vSIxV4Wn28F6maIwfWjZiqhVVs9BXN6M2sX
-         SVUmVf6z6S6QUbY/R/+7RD120zMEx+XW27v6IngQaul/yehJ6I1/q76JAzz/qbBKwXj6
-         3P9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791713202; x=1792318002;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qzsu1byePC9W4yIZ7gTJTcdhP4EEeDrnNov5kjt8Srs=;
-        b=SxErzhTgbwQ864fkUAyiX1hw2pedFH+bMXuqrhMhFRY5O/I9cX8Zb2LnA4LecaLa7K
-         hXbQFmleuWttL8OsCMH5MFZfVgmch1icHKTegEJDqrDoR0NhJ4/x5ZJ69uoeqInwsUSz
-         sTwyOGyCRzlYGrjRFsPBURNoy9/7MqblORiDJ4Q1pCrhj9044hIhScb8ALjDcfdg+YgZ
-         zGuO1qAOtCWXLJHObb+16GL8eNHBE/WGWSWfZ+7sav7BpeNjcq1Oy9lPskeoKtR+hyT7
-         3d7DdZTp701yQj0xqW2HgHu5XrBKlm10CttK7qXLluWsM+mr1OQSNv5d+3kgUjNMUWzC
-         4chQ==
-X-Forwarded-Encrypted: i=1; AKwUvByp3gWnNYnZS237tiSMKWOrAKnC/c5PIzfH6neXcaugs+WCymapwtLIPEMTV1GNgv9FNuCLsb/lrmDC1Fw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLlrAwwMWR9FxeMjUCnGwVPj9IW/fvNb6Jp0zm+ToVCI0u4dd4x
-	IunecGQCjMpwM84UogPZB9jLmrsjyQNvx8j7XpCA/AOFzHgAXam8h4Tt
-X-Gm-Gg: AYBFou0QGkET25E+milK7RURb/35tEGUA9wV09VpNh1beA7dCO5oLlV7mjtQ1MTV90R
-	pXTcksKghTUy3hr2iHBw/8Egh6EsWIliwuGGj46aF/bj/sl0LI+08Hbd/pCZryRTvLE0hqXZWob
-	iOgRMYoiX+L3tkQ1gmp1QnKaYbMwOQFq0iqrJeFUxcdv8Rb1ddw6NC3OpTSTsuF+zx5HkNfdn1/
-	Z7wO76gTKPS0okGWTO3oTBkOd9FiAe0ZDY3e7g/fYLLj6St7lItUAcRugSsogA2jcLRmBOPtZup
-	8/t4WKwVjlYsjOlrZcRGLSMjme2tT/x5ZnRXI0wfhj4XAUjrCXeGe8OXnMH0+kDp5doy5i4zEQV
-	sL5TlE/lV+1R/R3g3i+PrbnDcPmSyNFhOGM1Uzh4P1ujetKaWyKTAFgjJfNNmOB+uwUeMxMwmB1
-	YCNUBfGqAfkMqG2x5A7sRjei+/h8f3M7sIiJo215ewIEHV72hrxDOiyBFne8lqaZWWM016ZVxpr
-	UrqjbHzpwVo+M9p11ZOKA==
-X-Received: by 2002:a5d:5f4f:0:b0:48b:58e:6cb7 with SMTP id ffacd0b85a97d-48dbad1e2a7mr12353366f8f.6.1791713201415;
-        Sun, 11 Oct 2026 03:06:41 -0700 (PDT)
-Received: from lima-kdev.local ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9ac94c6sm13396217f8f.42.2026.10.11.03.06.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 03:06:40 -0700 (PDT)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: christian.loehle@arm.com
-Cc: bsegall@google.com,
-	dietmar.eggemann@arm.com,
-	elif.topuz@arm.com,
-	juri.lelli@redhat.com,
-	kayracizmeci@gmail.com,
-	kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org,
-	mgorman@suse.de,
-	mingo@kernel.org,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	rostedt@goodmis.org,
-	sh@gentwo.org,
-	vincent.guittot@linaro.org,
-	vschneid@redhat.com
-Subject: Re: [PATCH] sched/eevdf: Fix vprot across reweighting
-Date: Sun, 11 Oct 2026 13:06:37 +0300
-Message-ID: <20261011100637.60790-1-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <ed2c3c89-f556-4fad-b17b-cc08f2eab84a@arm.com>
-References: <ed2c3c89-f556-4fad-b17b-cc08f2eab84a@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lc2KzYxg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA53D1F0089B;
+	Sun, 11 Oct 2026 10:09:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791713371;
+	bh=mkMWltT9oxH5lohmqxjpV5mhcOv97kZTIRXdDoPQww0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Lc2KzYxgPnuJbjk6WVwgPbn4jcbHBvhvSQeQJiveQeYkoOmAS8oKXUgRDFBwo49uu
+	 3mjm3ieDCldIKuBo+7h0rQSlGFmpYW7sqeDrdCozMPMSKSRxv8VM+mvoFgl6XOp2pu
+	 piCbahEap59H4p39rZMGK7eiW8q9mYP5HVcqU/Ik6DMleVCWL2BAqjZfstUZgbKR/A
+	 nuJZxxi9hfHXRMEoQ4IsjAiflT5IP1u1S7D/1H7Thx2iiTDmDIl+yt87T8JNxJqPA/
+	 GA3p2nimu2AFhwm7zLpCiCnLGiOn3wOH/yi6ROqVo/PUW/We+l4oaScs/FobytDmNE
+	 dFRwMYmRV/VOw==
+Subject: Re: [PATCH net v5] net: macb: rate limit netdev error info print in
+ the data path
+From: netdev-bot+sashiko@kernel.org
+To: taozj888@163.com
+Cc: theo.lebrun@bootlin.com, stable@vger.kernel.org,
+ conor.dooley@microchip.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ nicolas.ferre@microchip.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Sun, 11 Oct 2026 10:09:30 +0000
+Message-ID: <179171337032.434549.9838916167952285277@kernel.org>
+In-Reply-To: <20261010092134.130564-1-taozj888@163.com>
+References: <20261010092134.130564-1-taozj888@163.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hi Christian,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-> > Currently in reweighting, while a tasks vruntime changes dead protection
-> > could go alive, or alive protection could decrease, increase and go dead.
-> > 
-> > To fix this, implement rel_vprot similar to rel_deadline. Only
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-> Ah nice find, please allow me to look at this code for a bit if that's
-> the best way to implement this, will review then, for now
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> Tested-by: Christian Loehle <christian.loehle@arm.com>
+- [Medium] The commit message says the patch will "rate limit the netdev
+  error information print in the receive and transmit data path" of the…
 
-Thanks for testing! And yeah, take your time. 
+--
 
-> > major difference is that rel_vprot is not dependent on
-> > PLACE_REL_DEADLINE, because there are no mechanisms (unlike deadline)
-> > that recalculate vprot. So it gets carried.
-> > 
-> > Fixes: 80390ead2080 ("sched/fair: Separate se->vlag from se->vprot")
-> > Fixes: bcd74b2ffdd0 ("sched/fair: Only set slice protection at pick time")
-> > Link: https://lore.kernel.org/all/20261001164609.244156-1-kayracizmeci@gmail.com/
-> > Link: https://lore.kernel.org/all/e4700a93-ebd5-4c7e-88b5-d606437a13c0@arm.com/
-> > Co-developed-by: Christian Loehle <christian.loehle@arm.com>
-> > Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+net: macb: rate limit netdev error info print in the data path
 
-> FWIW my SOB shouldn't be there anymore.
+This commit wraps five netdev_err() calls in gem_rx(), macb_rx(),
+macb_interrupt_misc() and macb_start_xmit() with net_ratelimit(). The goal
+is to stop the console from flooding when many bad or oversized frames
+arrive, for example during boot.
 
-Right. I'll remove it on v2 aside with Co-developed-by.
+> So rate limit the netdev error information print in the receive
+> and transmit data path.
 
-Thanks!
-Kayra
+> diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+> index 261a7e87520a4..9f31ad7bf8e13 100644
+> --- a/drivers/net/ethernet/cadence/macb_main.c
+> +++ b/drivers/net/ethernet/cadence/macb_main.c
+
+[ ... ]
+
+> @@ -2102,7 +2103,8 @@ static int macb_interrupt_misc(struct macb_queue *queue, u32 status)
+>  
+>  	if (status & MACB_BIT(HRESP)) {
+>  		queue_work(system_bh_wq, &bp->hresp_err_bh_work);
+> -		netdev_err(netdev, "DMA bus error: HRESP not OK\n");
+> +		if (net_ratelimit())
+> +			netdev_err(netdev, "DMA bus error: HRESP not OK\n");
+>  		macb_queue_isr_clear(bp, queue, MACB_BIT(HRESP));
+>  	}
+>  
+> @@ -2505,7 +2507,8 @@ static netdev_tx_t macb_start_xmit(struct sk_buff *skb,
+>  		else
+>  			hdrlen = skb_tcp_all_headers(skb);
+>  		if (skb_headlen(skb) < hdrlen) {
+> -			netdev_err(bp->netdev, "Error - LSO headers fragmented!!!\n");
+> +			if (net_ratelimit())
+> +				netdev_err(bp->netdev, "Error - LSO headers fragmented!!!\n");
+>  			/* if this is required, would need to copy to single buffer */
+>  			return NETDEV_TX_BUSY;
+>  		}
+
+[Severity: Medium]
+
+The commit message says the patch rate limits error prints "in the receive
+and transmit data path". Are there other data path prints in macb_main.c
+that need the same change? Several netdev_err() calls on these paths still
+have no rate limit.
+
+gem_rx_refill(), which runs at the end of every gem_rx() poll:
+
+	if (unlikely(!skb)) {
+		netdev_err(bp->netdev,
+			   "Unable to allocate sk_buff\n");
+		break;
+	}
+
+macb_tx_map(), called from macb_start_xmit():
+
+	netdev_err(bp->netdev, "BUG! empty skb!\n");
+	...
+dma_error:
+	netdev_err(bp->netdev, "TX DMA map failed\n");
+
+at91ether_start_xmit(), the at91rm9200 counterpart of macb_start_xmit():
+
+	netdev_err(netdev, "%s: DMA mapping error\n", __func__);
+	...
+	} else {
+		netdev_err(netdev, "%s called, but device is busy!\n",
+			   __func__);
+		return NETDEV_TX_BUSY;
+
+This path returns NETDEV_TX_BUSY, so the qdisc requeues and retries.
+Wouldn't the message then print again on every retry?
+
+at91ether_interrupt(), the counterpart of macb_interrupt_misc():
+
+	if (intstatus & MACB_BIT(ISR_ROVR))
+		netdev_err(netdev, "ROVR error\n");
+
+This prints from hardirq context on every receive overrun, and an inbound
+packet flood can cause overruns. Can this produce the same console flood
+the commit message describes? The HRESP message in macb_interrupt_misc()
+is now rate limited, but this one is not.
+
+Should these sites be converted too? Alternatively, the commit message
+could be narrowed to the sites this patch actually changes.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261010092134.130564-1-taozj888%40163.com
