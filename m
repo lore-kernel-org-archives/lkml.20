@@ -1,95 +1,228 @@
-Received: from mail-ed2-f9.google.com (mail-ed2-f9.google.com [74.125.228.73])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 638F433CEB0
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:17:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 765DD32142B
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:18:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791735459; cv=none; b=OdWaiCaTbocO5lUwWJXd9io6P4rBFhjBLcsaiEIXynVeTCStuEMpQB35f22SNQMSYBp/OXfDrOtd6lVgBZ/DDVAIzUhkZmp+ehVTw2wB+Q3ulBk5XfO7/1nWtSKhyhvOw0ZfTUe5xsBli8YXvxMbZwY6rLJR5USgNyqcyU9ibeA=
+	t=1791735521; cv=none; b=PfCP0f1up94fRuapaJEAzjOUo75gRu/x5W2cXXip3xxMnYEgtJNr+qTuX+iIMj0bY9l9CbINLfIXqfP9bTE0vUPNRES+ysZ7QCGkpmzOM3X2ZKUR8kBx4pAYQZa7ND0ckE0x6dq37mx1W9UFiD6nZsAp10u7/qbGRvwF8GBAzF0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791735459; c=relaxed/simple;
-	bh=FZJWwERuJMGXxgfYc6WlmmI8oHDZeiRfC+lXTHDo5OU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qSxwo8aj4wWI2EKtYsXZ9JUaqumtamwBOIM8ow1H7CIdBS2+/OSVwon85mX/A92A8uvhzGFGOhP9q1wprFyfHow+gjDyd+Qfn3mX27j9Y+3BZoLBtZx6u+DusilnqHzXt37N7HNh9L1LyJ7Bhd6vw9mcPsgiDS5BkrCmzYgjDm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K6vXkPoM; arc=none smtp.client-ip=74.125.228.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791735521; c=relaxed/simple;
+	bh=hva/tp2Acvt6W18JV2TcLHNPDVP7d9Gml2g9nvQ33+8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=m9rFR3VR/AdaBCF5JtE/V7d7dSA26amsyUeOFNqqRoegKMyP6P/upaNpclCSXwFoP0iazBLbqsyeMW58MrZ+ev3OnGEYx/H9Lb/nOwbMY6Pp0zWHfmzwKHRQQ6rO0zZIsD32gLSQ1odS6JDXtVQyLAI42X3aA5w0lRaNGu5EkPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=WhByQg/2; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K6vXkPoM"
-Received: by mail-ed2-f9.google.com with SMTP id 4fb4d7f45d1cf-6acedfbfbdaso794993a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:17:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="WhByQg/2"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a16c399641so11837525e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:18:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791735456; x=1792340256; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FZJWwERuJMGXxgfYc6WlmmI8oHDZeiRfC+lXTHDo5OU=;
-        b=K6vXkPoM/MFX1W79Gey/wIn+jbAIldZBYv4zJCkmDV3szWb8h4VeBMKTpDJ9GZaSA+
-         YR7INRPdpvgNToHxm6sSV6/ZugE4tEm7UcRve3oOP4/UbXPYm6Uy8fX9MrioM7TOLES4
-         EdnNQiMGgynAzRxyw/evry0xnIDy9YgdzVoAU0UlfZ/eZ0y2xpIpQvyjJe924p18JEio
-         4m4q/QuF0Nww9AKtXZU2dDdarM7XUaZnyyVKrUQqr2AagQ9f08j7hj5JpZZK7yBX4frO
-         xb8cXqIodjgFAFqVTg7RuCAwKrmPhOXWfXKyVwexkexL0KhqgFRlUcFWzHRngjdzORKR
-         TGTg==
+        d=9elements.com; s=google; t=1791735517; x=1792340317; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cLevDBr/a6xSK2+ESklMCOJC1LXr8ChWRGeELvbz+GI=;
+        b=WhByQg/2SRcNZpapndxLKrK0V9VERwrjQ4zJF7n60mzMsMNlKnpdfXTHxaGF5cYZut
+         YTheVuNqt5f7vZvmwuts5NA3O4QGv+KxuqplIkKH/kzPsZtnZ8fVv3FgLcEGHZXkTa5Q
+         8CkuJvvKKk4L1CZN/uC1NEJlUZjY8kswxXSjApXirJL+H5ErNUyLMVIMGiy1qTHd1rA0
+         zKwnyepclOZngDHO+Lt6ukiLHpfS5SkzckOlGxgdDs9G/t3H9OvlijG8fSsnQ4//FvTk
+         xzGWWN3SAMh7G/DJo/lGrY/6HnPh8FYDhVUAk2fI423ZChRgRkY/mjNBKYqWJo7ilT0E
+         Fg2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791735456; x=1792340256;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FZJWwERuJMGXxgfYc6WlmmI8oHDZeiRfC+lXTHDo5OU=;
-        b=q5nFbCvS8s9D2pNu5KRir2SwJIVOa9T4NStCm3wGhTEfiOOg3PphhpR+3fxyfzei92
-         /7HRP4FeLkcTm8LEeYTdz0bZDcatX7bAimRdEYuZJ5dWkS3NkshnhM8pBUqjyqLyyJls
-         VWXNKyIQxlCTpuMRgEMv1vf5IZl5AUNxmPXB85h95SD1jNLg9W79VVDo4bkazvNiGFnM
-         Q8Qo32p9izFZSMI3e9eENGVSKHSGl4eLY6db6qtyAFVybeqZAjELpxEiZNeh9kqjKZ6U
-         4DqIf2wsVwbOb8/tLtgJmbt/2ZNHwjxmLyluwy9wDOJRBtRNWD9cGUVAIAVub/rjCjCb
-         /5Zg==
-X-Forwarded-Encrypted: i=1; AKwUvBxPgCUGPh/ESsWCGsMeQCCN6mQ+lywmYgNoBl92HE5Juz4Hx9TOpaOFk33D6qyk97L2uHpVR6f/fKrmVyI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLUARrXJApil8+jID7zlV52DuXLzTdvxfgoaLyRwOL2DL1JdBL7
-	R2HWCe+LlE0hu5IKFJeipqP46Hpa2atqWPKOaZK/aWwh47txy3Xgyk33
-X-Gm-Gg: AYBFou1PvYOGUTr5CusM3RKzj0+gncMxtpZ8iQWoCUSlV3jJQWRHDOWxY7psUxbi/IZ
-	D5vHgjj47tEktJlunVIAgYDNaOkuZRy5icbAgJjM/d8Uj9smJl3QqvnIK7lczVFvOp/XCHaSKeP
-	Fo4NrN2Tla5BGViPUYvXI3cy3iRFqndWK+VJPQ+3LwKFsvYbZuHiCkU6T4oNOYcXSj4/Ow4ENtN
-	DuB+eT6SCrRHIgbN4T24B7m2lOnNWiXZUNqUhEu/+upu1f02KsLY5DD33qxkxWg9VclbZjLAN2n
-	qQVLuXbIUBVPv4PF8+RI5R23ECOOYfMuF9QnHAhzKDMSx8M9RTQXwSwpsK6FOzxiCydgrDal1t4
-	8wRZc6wWbnrEG1iVlBtmDgZBtLmqsUtbzrRVWJth9ro+ZaU12QhAzDcbkcseb/g/e4LUhK5Jv2Z
-	597vNj7t/503kb+2NOQzUiTcTC93bA71ah20s6IRXy24/zqOdqukBD5hmWg094hfU0LyViM8rnL
-	9IHO1uMl//NQq3UA//G8jMl2Nhdbl01Lf4WH4RXhQLRkAwUGw==
-X-Received: by 2002:a17:907:c19:b0:c26:19de:9ae1 with SMTP id a640c23a62f3a-c31a9f92fafmr746232366b.32.1791735456445;
-        Sun, 11 Oct 2026 09:17:36 -0700 (PDT)
-Received: from localhost.localdomain (host-188-122-3-146.finemedia.com.pl. [188.122.3.146])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9a74bcbsm372905566b.38.2026.10.11.09.17.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 09:17:36 -0700 (PDT)
-From: illofspeed <illofspeed@gmail.com>
-To: dlemoal@kernel.org
-Cc: dm-devel@lists.linux.dev,
-	agk@redhat.com,
-	snitzer@kernel.org,
-	mpatocka@redhat.com,
-	bmarzins@redhat.com,
-	hare@suse.de,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] dm zoned: keep polling for idle reclaim after a reclaim pass
-Date: Sun, 11 Oct 2026 18:17:35 +0200
-Message-ID: <20261011161735.414-1-illofspeed@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <bfbbb428-5a4e-4b61-8fe0-fd0c6c506c64@kernel.org>
-References: <bfbbb428-5a4e-4b61-8fe0-fd0c6c506c64@kernel.org>
+        d=1e100.net; s=20260707; t=1791735517; x=1792340317;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cLevDBr/a6xSK2+ESklMCOJC1LXr8ChWRGeELvbz+GI=;
+        b=EUkrKhRATd3xgCfc4PxPg41BtKkGdUhdUHtGPcvhLQ4fStBlo8pGeqImK2E0/D5K05
+         MZyKgoAUe/18LmyTw4bwlwRVvolB1ztRjL6Vt3WdQLRUHqo9cOhY6KhMR+hOx8koK+Rg
+         ewIG7mn2is/2fZJPe7siySO6wc1rV420BV31/Z0AlBtQE86kmkhK1Y5uzTSpwmYt124r
+         QfOpGY6bB1mKvbAQCqVJ5XSZ/W2rtGFrSN0kHtaA9VfWBlI7Ibo58Dgp4gN0G/COg1Af
+         C9jWAvgfcUNgPLa6dpyPsS0KGcwymB9S6Lpl27i5D+5C0ZuBzUumKj291x+aWbFzxl/b
+         bfjA==
+X-Forwarded-Encrypted: i=1; AKwUvBx06HrZ+Drh86HiGIIsv3yUdR1a2c/E+MZZiVLHP1pE4DnscuKkX5VETs6lVd53T1p6Ck7hQ1s0DiY5jso=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK44qq5SWl+ITXiH5CSh8T2XcFru0G4v229uvYn/R3tXQgicRt8
+	pIoBGcKlJrpUFOtzWL45a7/NwCfdNxGuM8KIykOGFGL3nKFDqrDLezYl07TRM1ZPSJE=
+X-Gm-Gg: AYBFou0KxmsroJf8qE2CUj+qWbtP5HoMTbUxp+nz4tZjrfBD7XvVei2t+iXIxtImvhU
+	yf+viVDAu/YwDwhcAKHyAbzZGKkO+0fmn2qaox6I72PjjZ3gFH6ga/SCOLq4J1vju4tDwlg7cdE
+	0ooEAkbcQ4ZzYH/Je0Irajw1hyc0YDfo6aXzwBHXYQ+yS+29AjJ1R0U1Y9ZZm0tDEg3jaiVicpc
+	4XLTU6Qj8b8d0VSHB8qvfPMnxLyS/IvGfZNas0mHwgkEwnqar+DtI5h+Fy4oADcp0RuXUbiP3Dh
+	8R56EkhQgqZN9Ot7D1VqAnRJryR4W5Ym6W2HcCzpE/d6Xy/m5gOOQPSaQMC3JAq6joJwJ411tSw
+	aJL3zHd0W6IbrqzbvgeX0aEXuO9sslQW6W5C98SRDEtPJ5EybX7NAZW0FMNWZI+dRA2a0fyApoa
+	FRL8LMlllyMMWYk6c/oWFE2ofKxhkipe/03fwOHp0QzpFK75faJrPIBAJWA6v4ZztT4BpJoH2cm
+	SQhv6lNTE93YSyUwEa29Xp8rBoQPo/8x93GPbdh12C7i/bK
+X-Received: by 2002:a05:600c:3c89:b0:49f:bd3c:bc18 with SMTP id 5b1f17b1804b1-4a18e49242fmr134428835e9.19.1791735517494;
+        Sun, 11 Oct 2026 09:18:37 -0700 (PDT)
+Received: from ?IPV6:2001:9e8:2cc:2101:aa59:e08:7cab:1f61? ([2001:9e8:2cc:2101:aa59:e08:7cab:1f61])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18c1e33d2sm302192575e9.0.2026.10.11.09.18.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 11 Oct 2026 09:18:37 -0700 (PDT)
+Message-ID: <e2e3d98b-9a89-4845-aa7d-0e23a1d95f70@9elements.com>
+Date: Sun, 11 Oct 2026 18:18:35 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] serial: 8250_pci: Add support for ASPEED BMC VUARTs over
+ PCIe
+To: Phil Rosenthal <phil@phil.gs>, Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Corey Minyard <corey@minyard.net>,
+ "openipmi-developer@lists.sourceforge.net"
+ <openipmi-developer@lists.sourceforge.net>, Andy Shevchenko
+ <andy@kernel.org>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Ryan Chen <ryan_chen@aspeedtech.com>,
+ "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
+ Ninad Palsule <ninad@linux.ibm.com>, Andrew Lunn <andrew@lunn.ch>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
+ =?UTF-8?Q?Gr=C3=A9goire_Layet?= <git@gregoirelayet.com>
+References: <20261008-aspeed-vuart-v1-1-d2be17c99cd7@phil.gs>
+ <CAHp75VdiO9tPX2vLqsX2-omNvs-YjkWWD-HOiqyDSzpJrrZ_5w@mail.gmail.com>
+ <60996F21-A12C-4FCC-9D5E-9D188A4ADBEA@phil.gs>
+ <CAHp75VdmMwXRQFKLG8c4yAsVA5=eFZA3jagtMGb-qVswcQ88Wg@mail.gmail.com>
+ <2F1931BE-F0F0-4F21-BED4-67080A40AEA9@phil.gs>
+Content-Language: en-US
+From: Tan Siewert <tan.siewert@9elements.com>
+In-Reply-To: <2F1931BE-F0F0-4F21-BED4-67080A40AEA9@phil.gs>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Damien Le Moal wrote:
-> Patch looks OK to me, but same comment as patch 1 about your SoB name. Please
-> confirm.
+On 10/10/26 12:47 PM, Phil Rosenthal wrote:
+> On Sat, Oct 10, 2026, Andy Shevchenko wrote:
+>> I will look into this deeper when I return from the LPC 2026 trip, but
+>> what you are doing sounds really wrong.
 
-Same answer as for 1/3: illofspeed is the name I use for all my public
-work. If a legal name is required, I will resend.
+*snip*
 
-(Resent as plain text: my first reply had an HTML part and did not reach
-the lists.)
+> One correction to v1: it said interrupts don't work on this device.
+> They do. The board just uses a different MSI vector than the one I
+> tried, and which vector it is depends on the BMC firmware.
 
-illofspeed
+Disclaimer: It's been a while since I worked on this driver, so please 
+take my words with a grain of salt.
+
+Correct, the BMC firmware sets its SIRQ statically. As far as we have 
+seen on devices that use VUART over PCIe, they used the vendor 
+recommended interrupts which are 0 and 1 (vectors 16 and 17 on the host 
+side).
+
+> In a separate driver I can find the vector at probe time and fall back
+> to polling if there isn't one. That makes the console about 7 times faster
+> than polling (about 15 KB/s instead of 2 KB/s), and the CPU no longer has to
+> poll the port. I couldn't do that cleanly as a quirk in 8250_pci.c, but
+> it would work the same in a driver for the whole device.
+> 
+> Grégoire Layet (Cc'd) has a series for the same device [1]
+> It adds an MFD driver, drivers/mfd/aspeed-pci-core.c, that registers the
+> serial ports as a child device. But it only binds when the BMC runs a modified
+> OpenBMC, which changes the device's class code and puts the serial port
+> interrupts on fixed MSI vectors.
+
+@Grégoire do you remember why `8250_aspeed_vuart` sets the PCIe class 
+code to `0xff000000`?
+
+The reason for having an MFD driver instead of a separate 8250 serial 
+driver is simple: We want to have the ability to support multiple 
+devices like KCS over PCIe or Mailbox too, which uses the same BARs.
+There was a discussion about this already in previous versions of the 
+series that Grégoire has proposed (I think it was v2) [0].
+
+> With stock firmware, like on this board, it doesn't bind at all.
+> So there are two ways forward:
+> 
+> 1. A separate 8250 driver for stock firmware, as I proposed.
+> 
+> 2. Extend Grégoire's driver so it also handles stock firmware: match the
+>     KCS class code as well, and find the MSI vector at probe time instead
+>     of assuming it. I'd work that out with Grégoire and send it on top of
+>     his series, together with the ipmi_si change. KCS would stay with
+>     ipmi_si's ACPI path either way.
+
+If you found a way to find the correct MSI vectors at probe time (with 
+other features like KCS or Mailbox enabled), please propose it so. 
+AFAICR we've looked into this and haven't found a suitable solution for it.
+
+[0] 
+https://lore.kernel.org/all/cover.1780929570.git.gregoire.layet@9elements.com/
+
+Cheers,
+Tan
+
+> 
+> I'm happy with either. Please let me know which you'd prefer, and I'll
+> wait for that before sending anything new.
+> 
+> [1] https://lore.kernel.org/r/20260818-aspeed-driver-v6-v6-0-fd7cc0b338ea@9elements.com
+> 
+> Thanks,
+> Phil
+> 
+> 
+>> On Oct 10, 2026, at 4:10 AM, Andy Shevchenko <andy.shevchenko@gmail.com> wrote:
+>>
+>> On Fri, Oct 9, 2026 at 4:45 PM Phil Rosenthal <phil@phil.gs> wrote:
+>>>> On Oct 9, 2026, at 4:57 AM, Andy Shevchenko <andy.shevchenko@gmail.com> wrote:
+>>>>
+>>>> There is already a driver for this 8250_aspeed_vuart.c. Please, do not
+>>>> add new quirks to 8250_pci.c.
+>>>
+>>> Thanks for the review.
+>>>
+>>> As far as I can tell, 8250_aspeed_vuart.c drives the other end of the
+>>> VUART. It is an OF platform driver (aspeed,ast2400-vuart and
+>>> aspeed,ast2500-vuart) for Linux running on the BMC itself: it depends on
+>>> ARCH_ASPEED, has no PCI ID table, and programs the BMC-side GCRA/GCRB
+>>> registers (VUART enable, host SIRQ routing), which the host cannot
+>>> reach.
+>>>
+>>> This patch is for the host side. There the VUART appears as 16550
+>>> registers in BAR1 of the BMC's PCIe function (1a03:2402), and nothing
+>>> binds that function today,
+>>
+>> In the comments to the patch you told that ipmi_si matches it.
+>>
+>>> so SOL goes quiet once Linux starts. I don't
+>>> see a way to reuse 8250_aspeed_vuart.c for it, but please correct me if
+>>> I'm missing something.
+>>>
+>>> Understood about 8250_pci.c. Would a separate driver be acceptable,
+>>> e.g. drivers/tty/serial/8250/8250_aspeed_pci.c using 8250_pcilib, along
+>>> the lines of 8250_pericom.c? It would do the same as this patch: find
+>>> the VUARTs the BMC has enabled in BAR1 and register them as polled
+>>> ports. If that works for you, I'll send it as v2.
+>>
+>> What has Pericom to do with all this?
+>>
+>> ...
+>>
+>> I will look into this deeper when I return from the LPC 2026 trip, but
+>> what you are doing sounds really wrong.
+>>
+>> -- 
+>> With Best Regards,
+>> Andy Shevchenko
+> 
+
+
+-- 
+Tan Siewert
+(they/she)
+
+9elements GmbH, Kortumstraße 19-21, 44787 Bochum, Germany
+Email:  tan.siewert@9elements.com
+Phone:  +49 234 68 94 188
+
+Sitz der Gesellschaft: Bochum
+Handelsregister: Amtsgericht Bochum, HRB 17519
+Geschäftsführung: Sebastian Deutsch, Eray Basar
+
+Datenschutzhinweise nach Art. 13 DSGVO
