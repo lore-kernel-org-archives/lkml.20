@@ -1,258 +1,175 @@
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020091.outbound.protection.outlook.com [52.101.196.91])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40C213B42E6
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 13:01:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 428F3374E42;
+	Sun, 11 Oct 2026 13:01:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.91
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791723685; cv=pass; b=aPgt7HyPhJyQO8sPqowjOwCnuiqs5wdwBiu2cV82ib4jjziAGwTZZgWcnGPtkxXs1110EmuTpiUeCGQaz1JcJilJYPgmSJfupyIynQWrgzX5u8RUibffUDHwgTKePWGKBJpbpyNQYPXy9IosuGZe6HAGIMy8m1kSXjcTDc0px44=
+	t=1791723713; cv=fail; b=SBxSU7NPuWvO6HOn9QIj6J4e6RjsZNC1C45SPcaT0Udj/lPRvszQV/Zf70exxVFvRD+3P2m4A2Vw31Sa1V6S1IkBnb/uzkJM6k5/aimZA/KdQx9FDhbLaGW51S/ArZMWgYnp3tXGPV0VO6dmU+Qw9M9E3FrM+SeSeEl/vXjJnFA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791723685; c=relaxed/simple;
-	bh=VJT/xv4TOnyvyWaW7CqWNytji0v2EjJCwHCotLsHQiQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mnzGPSsHUSv/E1lQcxKyC++jk7qMe4k0WmQ5AyqeBt2g+prl4TS31TnmGjDtsi8dkvmKS+mudcv2c/kH7t19qjk6aDOpupA3AhbTA0ZzIQQ46lHKwF4Y66RZ1PUlNwzNvrLGYP8/BYVOikzdKzXIQaMFA01IlydQEWgzS/POBQM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com; spf=pass smtp.mailfrom=jclark.com; dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b=WOkXfif7; arc=pass smtp.client-ip=209.85.219.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jclark.com
+	s=arc-20240116; t=1791723713; c=relaxed/simple;
+	bh=qi107rWYQgJ4NL8bWqNBYpVxaSCFqMnv2nYO6WGyujA=;
+	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
+	 In-Reply-To:MIME-Version; b=hy+W5vfspCcz5Q6KtIEe85xBO21Mk3Y7/mZCMZJ7vXCHtM+Isa5N3yZ532q+BxnQdaO+avneZjkc3/fCi08R47tecWuc1MGABX5XBNrS9jb9WrCVHf8NFSk/dNgOZKX835hkyg61wxWqXoBlL9zmyhAWcVtJRqQ/8JGjF/jPkuU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=nO4y+duW; arc=fail smtp.client-ip=52.101.196.91
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b="WOkXfif7"
-Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-91b813ac020so1049206d6.3
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:01:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791723679; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mJnQGE27bHuZ1IUMi7M2nUaavQXy5qwwt/g1qEG4To1xc4HKZ+KxSIbHtzUPF7v65+
-         mUy/qjk4jqEczT7InNBVzkFZpX3K5X2OQqKf5Gs9UycHbMJNPfXtsybbLDe9xlAzzW3D
-         7BAXqF63tQSpk8KeJSIycZpRd8eCAXp0ESwaXRD55eAtrL2peZnGoCvOchM3xbANWMRL
-         j9ysenL8p6UegLiBQxeZf1QuNcL/lEm7rpfXQfsk+lLCEE1rdm19ltvOchuWqz0giJvC
-         Y1CFP1/d9+2Dk2M3m1uO9mQZWSjCRWRE9qTHMGVMHMALLlYF9Pj61KOlq4ZUHVd0GuMw
-         +dBQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=710+ECo1g+nv54gecwVSO644bkeC1UbYdL+hIsbub4I=;
-        fh=1JHeuBy5eaDzGSIQB2QoJ1ngRJc1PzvbvGwZKSKEDy4=;
-        b=p8kp++vQXJDHx6L149ucrwlInCELVD6EQ82la+dYWkHrx9b5XhS70Q1Sm0l767ZOmD
-         ZNdR3ztC3E/oKfCkUiJgtt3dptp7bqjtp+Ynd7WPhZTouylk1G3fzA6Ps46XnVY4D2Ry
-         nXEsud54Cnp3iG7BcWt6hY4th4YlXxsF48y9T4wl8954th61vFbPL+tTz3ij26xrm9or
-         cyAf1NcvOfYyoneXQcvnk36kfyohWybqktxSYE/8+2ik6onyj5a1dZRCisiKU08oHGKD
-         gwkVf66WvHwpN9Lf7mZ5Y6dn3OGzLVkMsfd2AeL0u2LBabsWua66GGpzus0UfGM7wMo/
-         aeUQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jclark-com.20251104.gappssmtp.com; s=20251104; t=1791723679; x=1792328479; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=710+ECo1g+nv54gecwVSO644bkeC1UbYdL+hIsbub4I=;
-        b=WOkXfif75Y5hiYBnJmoGb1AmznIBlmFs/kjJLrmMmb3icFsLheo225Dqt84PNnz8lZ
-         65MbUjUxzqvcKi6Gt6cyG3UmPFkhWJTstr+oM96fRHJ7lz4SRteCGLvZYKWiSFOB6DRz
-         AoeeIg1TcH99XBmv9811TmT/LAvcl0GcqkwtHv3eqsC2/2a8ijFWkKsbnZGLozZ1UtXm
-         NGanGwlecfgFhDPIb/Kdbi05uojEAzgQkmzli37XFFt8idvl2KDoiYuG4KJ2+1rY84F8
-         VSYbUEcmsKcDreUbjOLB3vLoKl8SdjclKfLxhNccOFUHKujXrgwrpVCxFi00sC51wuY5
-         cvdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791723679; x=1792328479;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=710+ECo1g+nv54gecwVSO644bkeC1UbYdL+hIsbub4I=;
-        b=bg5uqRjoF/8rZW3ZaKyRaAr0UsGlMj0ZEHMZgvsszNtB0cuUYZKhUY/QtEQE88Kcjc
-         MnpzSMB3+GsZ+azJVIxSxfLN7zf+9rYWTY7uLyBWE6eT16Z49+3HRBJcDSKwUmRsF7u5
-         +/b+sLpSXgJXmCOyEUJGwYRD/BNAP378YEQlWXruqqGB1OJRWEOOgJq+URUyBR8D9kt5
-         L6+cFPnPQx5iZslebpjg2we1KFZRMDknGUs5HXCcxIx5AW5KNpwURi3W7V2XAoHxxZ0m
-         Lqw4NwkyeV+xUkqmwGFvQG3Ll9a+9j1zUOqyoW0ABu/97B+EvO3doiM3uxrMkA/b4ARO
-         cxSA==
-X-Forwarded-Encrypted: i=1; AKwUvBx50Zf6sOLJbMpik4eibu8HtiNbcziu/P5hP/5yMzSptnq+BWrlVfmFoScnRhY4YtUxVnSmQ+VjU//OQ20=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKbB2dteQL74ZCbDu9B/9zpIrKgOOJjIc2fnJyuMOleFL5BHyLV
-	iGMJME2Cb+vW8WAzyeDNs29GNscA5/LJN75OPLtic4zq0UQm1BFz94ZC5mWC+cw+J3Z74dPiaS4
-	1OAavxwc50ZCn+H4OD9Mka1Ho1qiHFRaKgbM8pBpO
-X-Gm-Gg: AYBFou2xeSqRJM8rC8j84j972MtACXr9uDNO2EvKMmXtmlD498GPYfnVLyi5HNkSHh7
-	xtFZdCwXYoRl9RjLrX+Ot3Vt7MBznndWO4ep5CgYGuAzJb0bEbIpxgVS//AeM9MS2GKqieIYHc+
-	9B3Txc+U67YTTiyrk1WXTbU+EvPnJCE7Crcp6rsn4J/3ImE+XnKyBm71hZ/p/CrQ68Wr9oQNWA0
-	YmQ1STkRqK42UkTinzwCKsJHwYJfX0ed5ZFrCVuQGZVCsfdgpikB52KZQfmyAPCLpv+Gx0jM/4l
-	uToxQ280IWAbSE71jp4hrMot2wwlD8qHsAIl3SFeLkatkxYSlU1fxm4=
-X-Received: by 2002:a05:6214:cc1:b0:915:e732:33b4 with SMTP id
- 6a1803df08f44-91b554b6417mr124823836d6.19.1791723678664; Sun, 11 Oct 2026
- 06:01:18 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="nO4y+duW"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wCXt5PNekrUg4uF9opUdQkzpV31wJTQDFPl2JBWmPwfXla8Wc6zZLn0F3JoS9io+X2xSi23B0rpmDMaBAZqy6+1fgcCijDU3VDcnJkrk3BXFbuRxrLjXXsQAO7W5SZkICa2plJysMbsNEhB609EvgAsX3k7xjqY82mvavACbStuZeTO7sEVy7MzCkyh/rBW4MmFpOnVAifTyohmSbB1a0YKym+16yWyMtPhNFuKPCl0yI4t11R6O7MhlIOljD2zF69C9nFXIWKhc6wehH0Ktukv/LEx8/NT573TMrFTOhx3p7DzQiXogi2eobyiiQkfiipIhI7EUewEG7TAGjdGUZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/08mz5yAdGBi7aDlg4ANYjrgTbuo0ff5K2fUpHffURI=;
+ b=LqZY2B0THOZ85Xzl5dQ0bVpCLEsPlaGQJD+IwTM1H/Fy1mTeCgy6mTtbi6YLvyEq6wQ7eL4ZDG+YHL0s7Dwj0a/fJ7tCSFSQj05pOxJQGtSPckK509cjQHOjtd1O3gri7YfhIWGdzNF2Sfx+sIgKYLPfmkAimePVmVt7B9D/pldClKvWTPVuw8Rov8vpCa/Bt0GKkxPe3iEqIOek7gtG437o8IPzbkfbE5+V6JokFa/MVQVB3grRWz+tTivsftaqH6OPRSRdxnWIklloYAkl/58xljJWGriZxuCCzQSUhL0Xs6jL34xl7r3mKH+j1qeFOpP8HIdJYGohI+t93OwH6g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/08mz5yAdGBi7aDlg4ANYjrgTbuo0ff5K2fUpHffURI=;
+ b=nO4y+duWJoOorcdv3QaBkfjiwfpq0zCa3XdkegGZ0VEWF0DrosOT8fkDOnE0xW5lX+cZs3Y7x8FLmp4cRvsiWLvlls3/CbhlQ3BlGM14vwpGgieL67MKB+u7h2SrpkqUKCfejcH/JXbfCFJP/Z7S4Ym7EA6MxMBZaMcU4vNIaoQ=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO9P265MB7621.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:3a5::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.20; Sun, 11 Oct
+ 2026 13:01:46 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0496.019; Sun, 11 Oct 2026
+ 13:01:46 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 11 Oct 2026 14:01:45 +0100
+Message-Id: <DM211N6KK6LP.2KC9V4ATVEAP6@garyguo.net>
+From: "Gary Guo" <gary@garyguo.net>
+To: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>, "Jason Baron"
+ <jbaron@akamai.com>, "Jim Cromie" <jim.cromie@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "Will Deacon" <will@kernel.org>, "Peter
+ Zijlstra" <peterz@infradead.org>, "Mark Rutland" <mark.rutland@arm.com>,
+ "Lyude Paul" <lyude@redhat.com>, "Yury Norov" <yury.norov@gmail.com>, "Luis
+ Chamberlain" <mcgrof@kernel.org>, "Petr Pavlu" <petr.pavlu@suse.com>,
+ "Daniel Gomez" <da.gomez@kernel.org>, "Sami Tolvanen"
+ <samitolvanen@google.com>, "Aaron Tomlin" <atomlin@atomlin.com>, "Brendan
+ Higgins" <brendan.higgins@linux.dev>, "David Gow" <david@davidgow.net>,
+ "Rae Moar" <raemoar63@gmail.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-modules@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+ <kunit-dev@googlegroups.com>, <driver-core@lists.linux.dev>
+Subject: Re: [PATCH RFC 01/11] rust: print: use CStr for __LOG_PREFIX
+X-Mailer: aerc 0.22.0
+References: <20261011-rust-dyndbg-v1-0-832e4039b71f@weissschuh.net>
+ <20261011-rust-dyndbg-v1-1-832e4039b71f@weissschuh.net>
+In-Reply-To: <20261011-rust-dyndbg-v1-1-832e4039b71f@weissschuh.net>
+X-ClientProxiedBy: LO4P265CA0296.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:38f::10) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009143506.2507607-1-jjc@jclark.com> <20261009143506.2507607-5-jjc@jclark.com>
- <DM1WEUIF8V8V.2OZWRB5G232T4@bootlin.com>
-In-Reply-To: <DM1WEUIF8V8V.2OZWRB5G232T4@bootlin.com>
-From: James Clark <jjc@jclark.com>
-Date: Sun, 11 Oct 2026 20:01:07 +0700
-X-Gm-Features: AclHuK-iWfBhKLAzxUK6ajbUqVcMn9MseKuVioPY-H1ZhOahAL30FsMFK5dLkuU
-Message-ID: <CANz3_EamUFhoQJ54g9pxdrxGK9EYxu_KeqRTdAdxWzV15k4_9w@mail.gmail.com>
-Subject: Re: [PATCH net-next 4/5] net: macb: implement timestamped MDIO writes
-To: =?UTF-8?B?VGjDqW8gTGVicnVu?= <theo.lebrun@bootlin.com>
-Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	Heiner Kallweit <hkallweit1@gmail.com>, Richard Cochran <richardcochran@gmail.com>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, Doug Berger <opendmb@gmail.com>, 
-	Nicolai Buchwitz <nb@tipi-net.de>, Russell King <linux@armlinux.org.uk>, 
-	Conor Dooley <conor.dooley@microchip.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Miroslav Lichvar <mlichvar@redhat.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Maxime Chevallier <maxime.chevallier@bootlin.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO9P265MB7621:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8446c10a-747f-44e0-1cb0-08df2797ce16
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|10070799003|376014|366016|1800799024|23010399003|921020|56012099006|4143699003|261009223027099003|10067099003|22082099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	ItUZGuUM+DAd3RKoJuaE/9PSg3/Kkk/dwOjs24lZhlOIzzLJ3hk2hlDvlOytsqCMh/bqPLfQkS1Dze1mCxAdQ1/eocxoPmmrP0XK4L1HdAePHSm1kwh4EA6wp1FCRl3vEilYXbTAPSXvtHjhlDOAU02Q7AAP+jHwrdHlLQBpPmlHl8kLHkdF33cEwv8EtmaXLpEQYZsDy8bjdgpZmrNqDrNuheqvX02THamzP7deQetXAiaO3Wf70oCRyiGL1nwE2A87MF1QHxKfLPHnlCv7BJCxnq4tXLOPZ/7VULrGiICvamWd/uqQJ6Q4Ci+26iB8zeUtRdyFPcA6MMoq7fvWg1fcS7U/fscBi7yrN2ghoWh0cfCUFUbDkgo7IcyCDfvUPOoFqA47Pyw7nsrxxnRhtP83TsUnMCylUYAzhQwTw44e4ZLbgqVKF5gDoZ76HHxfDIQaB5e/CX63oEA4QDxedG0heRplY+F3H4FhD94M8x25F5Rey4tv1XkMo+FETaVQlzLhawEJH0r46aeyta6IgCzVeerJCWqRuTGQ2NUKh+BfMjxNsQBRb8oXY8MvUqavHGesC0P94bbS9cuQLJQceOU9exOV84s2BXXLdZDU8eP5Voco/JVmr0dnkW0sWp1CsIQi1QW7O0+gSdqqwqyBha3BtnTOw/VQjRfpEJqFRw4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(10070799003)(376014)(366016)(1800799024)(23010399003)(921020)(56012099006)(4143699003)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ejVQUEhSSzA3ZG80MGNBT0hzQVFJK1BCMllLM3hHMmYzYmVRQUVJU1p0eFlk?=
+ =?utf-8?B?djkxOFhRZUt5QTZPY2E4V2E4T3M4MkF1RGdVOFdPZjhaNGxlWTA3aVhjZmE5?=
+ =?utf-8?B?SDR1dFE1K1lqN1BVQnZ1RnhubGN5RkRrMHQxaEt5dGRPdFVRWDBCbHh0OTF1?=
+ =?utf-8?B?ZjNnMzBEaHZXTDV3cFVVSmR0WEhsM1BERmk1bkhzTVlaMk9aN2tYUlVxQWV1?=
+ =?utf-8?B?UG9xOWxpOTJRMFRvZlBvNEhXUDZVZXMwVExnRVVRV1ZmTlp6eUo2c2t5SGMw?=
+ =?utf-8?B?dkxSbzdOV21DcExUbm1vdUlzVFQ3SnhITGl4UTJOTjJTTkdETlZkcjM0VVRr?=
+ =?utf-8?B?RzhoVnQwZElGeWpMYWpEamVHSmt1bjVXVWNSeHpFY25JZnJDN3VkWWZ4TTdp?=
+ =?utf-8?B?elArb2FaU25IaTB3T2hYK04zUmVFaTdpT1pxOXBSNklEY2tTeXRkSnlKWTRY?=
+ =?utf-8?B?NjloZW9FZ25CVVRydGlscUQ0Y256T1FVNlJyS0RCSXR4eEdTYk9wNjhtbnBp?=
+ =?utf-8?B?eFA0eVh5NVBUM2lVdzZ2c1BMQXB1Y3lMdmVFWHJpQzEwMkZkUGt6emI0Vzds?=
+ =?utf-8?B?SjBxYVliVSthSzlCMVRneko2ME1kZXYxKzRnR0VSY3JnQlQ3dld5Slo1aDNs?=
+ =?utf-8?B?VFZabE1jd1E3SkRNSTlZM1RsaVBpbDlJWEtzeS9jTzVsNjFxWS9NQjZzelNj?=
+ =?utf-8?B?a0N6U0tkZzJkaEJpbGFOdnVhZ1FoV0JFamFMdXJobFQyZ2djR1IrY0lRblVC?=
+ =?utf-8?B?WVVFTUZJYkd6OWpuNHRLYUxzMktNeVk4VlVpdzJSS1htZkpTZXFKaUVjem9X?=
+ =?utf-8?B?cEFUVGxEbmxyMnZKQk4xL1VNQ2ZMSFcycFlqTkg2cVMyWkRDQi9qa2hRUExo?=
+ =?utf-8?B?TWhtNjUzbVBrRncvV2g5MDVYNXV2RCt1NEUxOE1ZMStJRll0UVZ1a2lqNWVI?=
+ =?utf-8?B?dkpITEVpekprbDFnR2tnTmluN2dFMHlSa3d2bVZ2VzdPakg0V092MXBGalkv?=
+ =?utf-8?B?VGJUUzlHemU3amJCMngrWjdPNEdqcnN5NFZHZDdNWFNzeGRZK0U3ZVQ1OW1y?=
+ =?utf-8?B?V29hZlFHclEyb3llK1RHN1BsTDdJUkh0QmRaeVZabUJXNGk4MXBRV3FnSFJX?=
+ =?utf-8?B?c2pNR2Y5K3pUdkdnRmd1Y2crTlhzMXRGb29zUkZWVDhpeldGN0E2STJVb2xM?=
+ =?utf-8?B?Z3Nzclc2SGQ2dXBvalFscnpMV2xkelZXdjJwa3RPd3NQU0EybURmUDZsU21D?=
+ =?utf-8?B?MVluMTdoZE5IS2ZSSWRNeWhTUUdBZENtaEJxaldFTXV3NjM3YTlvRVBReFpV?=
+ =?utf-8?B?ZDhFL0dvNm83c2hSNC9OQXhkSGRUZFNtK3NWMkdMRldiUkFMWU5CSEhiSmM2?=
+ =?utf-8?B?NUxYdWxUeXptam1nM0ZaaHhpS1MrK1l4WEVaVEhtQ2U5ZElGdWgvdE5XdTU3?=
+ =?utf-8?B?V1FwR1BuOGdtb1hOY096Sy9HUUtkZzF5bUs1SCtoY3NNMU1RbmMweXgzY1lO?=
+ =?utf-8?B?UmxINjl5OHhqRUUxL1llWlc2T0ZwaUhOWFFtdGFuaG9OR2tzT1RhTWpIaDZt?=
+ =?utf-8?B?VWY4UFB1MFY5WGhzM2ExOW5mWUFyVU5YQzBoU2VCdDE4NlJVRVJ2TG9QL0py?=
+ =?utf-8?B?SkZoOW53QnIza1NIQnVSNnRpdkxuTE5QZTFuQmF4RmxIVytJN1ppa2tGdkJM?=
+ =?utf-8?B?Y2F2SHRBOW5JRlBzbE52bjVDNWFOanJITE11SkQrT3VLcjcybmxvOE1Nek1a?=
+ =?utf-8?B?NkdENVdlcmkyaTloZlRFZ1dGY0xCVVhwVllWMXA1TWp0VzBYRGhxL2sxcVdy?=
+ =?utf-8?B?TTBpVTZSSVF4MnJuUW51a1o3TGEzNzg4b0RHVXNlUHBENWRHODZZb28zN0pm?=
+ =?utf-8?B?MmxNZUJmaVZFb3grV09VTzFpaU5JN056bEhEVHFHNVFsRUd6VUJIT0ZidElN?=
+ =?utf-8?B?SXFzSGdpNXFseXRLc1JaY2hqMkpTMmVocWtUZWp2N1lYYkc4YVBxeWNKRDll?=
+ =?utf-8?B?dTZKcmxGSC9yT2pJRnI3cC9KejZoRlUxTHY3blZRUTgrTjQxRm5BNlYram12?=
+ =?utf-8?B?WmQzcEpuM2JuT2gvNW42VzMrdFM2cm4zZVFSaHdtcCtlaHpyUUtVVlN5RGd1?=
+ =?utf-8?B?WUszKzRoZTFXVWpsWklYc1UyZXJmelFZZE4vbmduSmpITm1Kb2VLU0tOYVFm?=
+ =?utf-8?B?VXA2QU5BMFNNVnJiaUlVZzNQMjQyNWJsSHk5dng5T2NwU3RoMEFMNWRMZGtx?=
+ =?utf-8?B?ZUJCaWtJVW1kRFZmMStuRzZ3Y3UyUUNKd3BWZWhxV3A0dE1uTk1NWUlGQnIx?=
+ =?utf-8?B?TThZVXRGblFSQjVFMjMzZEQyUDJYbTVIVURkVXB6L2VFdVc4bFQwQT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8446c10a-747f-44e0-1cb0-08df2797ce16
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2026 13:01:46.1724
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: a8FY7rCEs0+etTxEyfyG0lXqUdZM/cDrTlgnKVP25zze9LCVPiIFLpJ2lJUnf2xQEaoLa42JCIu3EjWOZODXLA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO9P265MB7621
 
-Hi Theo,
-
-Thanks for looking at this! I am very new to this, so I really
-appreciate any guidance.
-
-(For some reason your message didn't make it into Lore, although your
-followup did.)
-
-On Sun, Oct 11, 2026 at 4:24=E2=80=AFPM Th=C3=A9o Lebrun <theo.lebrun@bootl=
-in.com> wrote:
-
-> I'm invoking my colleague @Maxime to get his opinion. What impacts the
-> MDIO write_c22 duration and how likely is it that this duration varies
-> (1) on the same MAC+PHY combo, (2) with a different PHY or (3) with a
-> different MACB revision?
-
-(3) is the one case where I think it could possibly vary.  But 63.5
-periods makes sense assuming the first bit starts at the moment the
-command is written and the PHY acts on it when it samples the last of
-64 bits at the rising edge half-way through the last period. In 5/5
-there's a different situation: there UniMAC's MDC is free-running, so
-the frame can start up to a period after the command write, leading to
-a possible range of 63.5-64.5. So I don't think 63.5 is as arbitrary
-as it might at first seem.
-
-> Sashiko makes an interesting point with PCLK that might change over
-> time, giving an example (which I've not checked) where it would be
-> derived from the CPU clk which might change with cpufreq.
-
-I tried a bunch of different approaches before landing on what I sent
-in v1, and ran Sashiko locally to review. And every approach had its
-problems. Sashiko is right here, but on the other hand the existing
-macb_mdc_clk_div() (it's only called at probe, open and resume) has
-the same problem.
-
-My plan for v2 was to limit this to RP1, as Sashiko suggested, with a
-MACB_CAPS_MDIO_WRITE_STS flag
-set in raspberrypi_rp1_config. This would solve the PCLK point since
-the PCLK is fixed in the RP1.
-
-> If you share more details on your testing setup it would help for us to
-> reproduce on other hardware to gather more data points.
-
-I created a gist with the code I used (this is all agent-written)
-
-https://gist.github.com/jclark/372822d80ba27a9648d1aea939191b53
-
-Key point is that the measurement technique depends on there being a
-PHY with a PHC connected over MDIO, which is the case when write_sts
-is useful. I believe the RP1 is the only such case in the tree at the
-moment. If in the future there's another case, then it can be measured
-and added using the same technique.
-
-> I'm wondering if we could do better than a hardcoded delay? For example
-> we could busy-wait for NSR.IDLE inside the prets/postts region, but
-> that implies at least 25=C2=B5s with IRQs disabled. Or we could do a few
-> measurements at init to sample our platform delay?
-
-On the RP1, IDLE is not the edge: IDLE comes at 65.0 periods. The only
-way we could measure the edge is by using the PHY as an external
-reference.
-
-> > +     unsigned long rate =3D READ_ONCE(bp->mdio_sts_rate);
-> > +     u32 config =3D macb_readl(bp, NCFGR);
-> > +     u32 divisor;
-> > +
-> > +     if (macb_is_gem(bp))
-> > +             divisor =3D gem_divisors[GEM_BFEXT(CLK, config)];
-> > +     else
-> > +             divisor =3D macb_divisors[MACB_BFEXT(CLK, config)];
+On Sun Oct 11, 2026 at 1:52 PM BST, Thomas Wei=C3=9Fschuh wrote:
+> The users of __LOG_PREFIX require that it is 0-terminated.
+> Currently this requirement is only encoded in safety comments.
 >
-> I'm a bit surprised to see you reading NCFGR.CLK and derive the current
-> divisor from that. The divisor is set by us in macb_mdc_clk_div(), with
-> only input being the PCLK rate.
-
-This was something a local Sashiko review found in an earlier version.
-The divider in hardware isn't always the one macb_mdc_clk_div() chose:
-after suspend with the interface down, macb_resume() doesn't reprogram
-NCFGR.
-
-Incidentally, it is also what made the measurement technique work: the
-bounds follow a divider changed through /dev/mem.
-
-> > +     if (sts) {
-> > +             delay_ns =3D macb_mdio_sts_delay(bp);
-> > +             local_irq_save(flags);
-> > +             ptp_read_system_prets(sts);
-> > +             /* macb_writel() is relaxed; order it after the timestamp=
-. */
-> > +             mb();
-> > +     }
-> > +     macb_writel(bp, MAN, cmd);
-> > +     if (sts) {
-> > +             /* Flush the posted write before taking the upper bound. =
-*/
-> > +             macb_readl(bp, NSR);
+> Switch to CStr which can guarantee this invariant through the type
+> system.
 >
-> An unconditional readl for flushing the posted write won't do it.
-> MACB is over PCI only on very few platforms. I guess the straightforward
-> solution is a POSTED_WRITES flag that is then read from here.
-
-This is only under sts.  Assuming write_sts becomes RP1 only, then it
-is only over PCIe. I am not sure if I have understood what you are
-getting at here.
-
-> > +             /* Order the read-back before the system timestamp. */
-> > +             rmb();
+> As __LOG_PREFIX and Module::NAME are now identical, reuse the former to
+> implement the latter.
 >
-> Why rmb() and not mb()?
+> Signed-off-by: Thomas Wei=C3=9Fschuh <linux@weissschuh.net>
 
-The rmb() here only has to order the NSR read before the post
-timestamp read, since by the same device rule that read can't complete
-before the MAN write has arrived.
+See
+https://lore.kernel.org/rust-for-linux/20260728-printk-v1-2-855606634d70@ga=
+ryguo.net/.
 
-> > +     /* Record the pclk rate the MDC divider is chosen from, for
-> > +      * write_sts, which can't call clk_get_rate() under the MDIO bus
-> > +      * lock.
-> > +      */
-> > +     rate =3D clk_get_rate(bp->pclk);
-> > +     if (rate)
-> > +             WRITE_ONCE(bp->mdio_sts_rate, rate);
->
-> Can you clarify here and in the commit message why clk_get_rate() is
-> unacceptable under the MDIO bus lock?
->
-> Seeing your comment, my guess is an ABBA deadlock risk between
-> clk_prepare_lock and mii_bus->mdio_lock but please write it out.
+Best,
+Gary
 
-Your guess is right. I tried this earlier and a local Sashiko review
-found the problem:
+> ---
+>  rust/kernel/lib.rs          |  4 ++--
+>  rust/kernel/print.rs        | 11 ++++-------
+>  rust/macros/module.rs       |  4 ++--
+>  scripts/rustdoc_test_gen.rs |  4 ++--
+>  4 files changed, 10 insertions(+), 13 deletions(-)
 
-bcm_ptp_gettimex()
-  bcm_phy_write_exp_sts()
-    phy_lock_mdio_bus()
-    __mdiobus_write_sts()
-      macb_mdio_write_c22_sts()
-        macb_mdio_sts_delay()
-          clk_get_rate()
-            clk_prepare_lock()
-
-clk_summary_show()
-  clk_prepare_lock()
-  clk_summary_show_one()
-    clk_core_is_enabled()
-      en8811h_clk_is_enabled()
-        air_phy_buckpbus_reg_read()
-          phy_select_page()
-            phy_save_page()
-              phy_lock_mdio_bus()
-
-I will clarify this in the comment and commit message.
-
-James
