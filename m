@@ -1,161 +1,162 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50F3A331A65
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 15:57:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE61D31280C
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 15:58:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791734236; cv=none; b=s5Rq6+7H0zdnvOHtzhIMNdZl82lrQqAQAG9hJsM1vundipvjxepCUv3ffymIEUKGF2ts/zKWD66mY96MLF40NBotx2iNtK/p+yyZ8bbiaxAio4Rqub/A1sNL0IVyCGc43eNYXJhhDqgS2536zfD02wPNwgiGsGmPyAbIGVHbMQI=
+	t=1791734309; cv=none; b=faW/YZDDwxR55BfIKoCSx6aJIFg9ubGTdVZL85jPjtjOhdnQ7fv+JScqPJ9rCn6vw4jZQfdHBRRux/zMp8H8iIW8raq1aZ/0gHhELEGiWN+xRePrQrjRmVge8GzFfLCmksrrnVjaZu+QobaOhaJlLdQi1Z6HjvS8rmf1pqcTxow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791734236; c=relaxed/simple;
-	bh=/wKppWVauAwkR8jjbb7vgLhKkBzM/jGht9Jccc+FVl8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eO+rOihusyA/zqOZ7bT1ouYHFQ9rzO52j3bgOEgn9iFxAXJSmq4bl2TebreqPT+OjkHC9QI7/uVD8OjG8zhKqGmXq01FJTJhLUbk8sSXgNkm0/dm+YgIc8SG0R8ObFshFX/5S2uCs+/yN8SjnDEdUuWlGidLnOLMh7bky/qzERU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Z8RnB9Ea; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791734309; c=relaxed/simple;
+	bh=IvIXragyDbXsVrZjUB1QpSAn+NSlJROmmj4LKC38QJU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=csZc2T/w3eTJT5RZsymiXlY6PQibyAePXB0exavguxuKDGQWnOFqrMpFj2rJ9qvD7IqLg2yEUr2VmXr5hautzH4RNp63JiQPWv43qIcjxyYflVyZMTVfEv3Xqb/scdjUnvnZT8JCFXVff78Oxl1zgUt0a2vnxOH1qNzu2Dj7Byc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=QmR8G/g2; arc=none smtp.client-ip=209.85.222.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Z8RnB9Ea"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791734234;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0uXsmAXIe+ctkQ1z1JD1VbTuxvydK1QTZStvK1VYihI=;
-	b=Z8RnB9EateANargB++be7p/PuhPS0m2+ihNVZr/K82OJ/svvQ6NdEgPGIlCLi+hyrqPWu0
-	/5HNb4OMo+sRc4MCw5qp2MRWTvxGUJxZ5BAYiUmpL5j2rLCpP/hd5FpuS0EyT2kCgZES+g
-	ol9yep1wnpH96BMA5FGjX0kM3CpTdqo=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-155-9vB34xm5Ml-ZghlUVAo6Qw-1; Sun,
- 11 Oct 2026 15:57:10 +0000
-X-MC-Unique: 9vB34xm5Ml-ZghlUVAo6Qw-1
-X-Mimecast-MFC-AGG-ID: 9vB34xm5Ml-ZghlUVAo6Qw_1791734229
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7A21918011F3;
-	Sun, 11 Oct 2026 15:57:08 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id BAEC71956042;
-	Sun, 11 Oct 2026 15:57:04 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Sun, 11 Oct 2026 17:57:08 +0200 (CEST)
-Date: Sun, 11 Oct 2026 17:57:03 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: w15303746062@163.com, David Laight <david.laight.linux@gmail.com>
-Cc: jlayton@kernel.org, chuck.lever@oracle.com, viro@zeniv.linux.org.uk,
-	brauner@kernel.org, alex.aring@gmail.com, jack@suse.cz,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Mingyu Wang <25181214217@stu.xidian.edu.cn>
-Subject: Re: [PATCH v2] fs/fcntl: fix SOFTIRQ-unsafe lock order in fasync
- signaling
-Message-ID: <asuxzwl4iWjjEjRD@redhat.com>
-References: <d15a25fe784b5d4449c7ce4e56f1428d7ff28885.camel@kernel.org>
- <20260523135210.590928-1-w15303746062@163.com>
- <asI5Fn87_SoEd4G5@redhat.com>
+	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="QmR8G/g2"
+Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-93e63522076so91522685a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:58:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cs.unc.edu; s=google; t=1791734306; x=1792339106; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ossy4ZlqAnnaACaITPaVVTxzs5zkLFNVTZN6qPcgS+c=;
+        b=QmR8G/g20zJzKEgVvQnPGkK8JAEEBp3Px0hdefHXYLj1iDgR5q/Y0IOSRm7ZrqiL9g
+         JF+U2kpsJ7My/xHNF7QGC3PN3aPRHP/77b4KMW1vhU2Q/zuOUJ5ZWpg4v2liVg9R7V+b
+         +aA5CM+7jV0ViVup3ryqUKbYw942PjWy++MbDde4axbCg7NUV2L8ancUD5dWXc6wxMIL
+         VXbwsAA+o0xCxIk39O/R0IUWA7SW3hX6uLv4oW22PgbEfpBpxudaPsq41k5gt3C4LCte
+         nmNetlZuJhpDMwJGqbJHuFhpcIf63hyHfZrAZR1dsPSlHwR6RKffnMqIu/6D9dx7MHUf
+         ZQXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791734306; x=1792339106;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ossy4ZlqAnnaACaITPaVVTxzs5zkLFNVTZN6qPcgS+c=;
+        b=z24hYjryMsvSe8a7inwC/6OavMxGhYqP7BgigzFiiZ99E1Rj4g25cyWpFisdwWsrY8
+         Ogk10V77pV6/X1TvSacGzwnleZkN2CIQlUa1ky6tCVrQFn/X3QYxIbmkLM75X2WbryFH
+         6pYD1OL2o7BU8L+TZNdYJeuln9iv5M6DYjCIMt8nfOILe/pWBa0CjeOWXOm61UYUf5BK
+         wlWL2z4G7qV/6KM9338Hn0DwQyZ9sZNc+ra0SR4l1Mi7IWoINr9QwNIWByNMRMYXekqN
+         MEUJlJOiP9BU22q9WfYVeo4PTzFsu+54kbR0Vn8ULfxk0g2L+YrxWJQGqWlNPNshECjC
+         /27A==
+X-Forwarded-Encrypted: i=1; AKwUvBw4ami0XXoi6N7R+bav6FIe5tVIKNNx2iK3vF0mb8LpG5sH80FM/0mgTkGjpEL7IH01iSOjxwJ9CM5M/o0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK3GbXxtxpLsXynPTgjtEdkHTYkXQlSjLH9PWkwTis9nDhg7WcE
+	/4gurfVZJ88sKrqeuO7K+imwgEXMVr83ICCtHngEKhgkeGdZGZYH5hKhNgEt7etqpw==
+X-Gm-Gg: AYBFou3fvoFvynuQCmdg4Tahz/I6JcYUxEu/FNwPmacQ+f6DJWw9TOfPtLCMOwotnAp
+	i1HPGh3/OPM/KwXQR8C8sNTfPNl5fEQ8tAer+KFDdy+Q4FCGiqO5ia3UvslSi0TQddWzhg/+ytz
+	G5Gp/GsipvjeE5Q8N8zx68ncMbOpuDCeHzG+KYYGUb6BYzhUSEmTPGusNmzZUZ6Y1d+0cOP705L
+	KHa8bQGA49+gVlIxwLuMqpVSJ4d6b6Y03tRfyVweaHGjjVrxDbtX5hiIH07o7P9qR6dc/3K2VDW
+	5cZlq/W+PLdSi/K1M7IAUkdMSBteovPcKL4cQ35BjzoamqkTAmGtwks5rOhqUK0SmvmJOZE5aIH
+	qc8COTUidt2xWwqR/yYieEU+B4hnUcgIbM09YUrfvZvt2oJVpwPnvuhfnm+1VjRIZIKk1/JTIoW
+	fpV4YiZlTLdMoBRZb0uXUweq96ZxjKl/8YgeiyCoeKKlTO2xbvdLbudBYdqIH7MZZaLR+s8ulhp
+	80KX8GK5d0g04uhEloM1eyH78xsFH/Y
+X-Received: by 2002:a05:620a:2681:b0:93b:d79b:9a5c with SMTP id af79cd13be357-93ebd28bb9emr1226124585a.61.1791734306512;
+        Sun, 11 Oct 2026 08:58:26 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb984889fsm666517185a.13.2026.10.11.08.58.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 08:58:26 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: David Sterba <dsterba@suse.com>
+Cc: Chris Mason <mason@kernel.org>,
+	Filipe Manana <fdmanana@suse.com>,
+	Qu Wenruo <wqu@suse.com>,
+	linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] btrfs: fix chattr failing on nodatasum files that have the compress flag
+Date: Sun, 11 Oct 2026 11:58:15 -0400
+Message-ID: <20261011155815.1563812-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asI5Fn87_SoEd4G5@redhat.com>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Content-Transfer-Encoding: 8bit
 
-Nobody replied ;)
+Commit cf1afec09e9f ("btrfs: validate properties before setting them")
+made btrfs_set_prop() validate a property before setting it. For the
+compression property, the validation fails with -EINVAL when the inode
+has NODATASUM.
 
-In case it was not clear, I believe the commit 00633c4683828
-("fs/fcntl: fix SOFTIRQ-unsafe lock order in fasync signaling")
-backported to stable trees is wrong.
+However, chattr writes back all the flags it read from the file, and
+btrfs_fileattr_set() sets the compression property whenever the new
+flags include FS_COMPR_FL, even when the compression flags do not
+change. A file created on a filesystem mounted with nodatasum has
+NODATASUM and still inherits the compress flag from its directory. As
+of now, chattr fails on such a file when it changes any other flag.
 
-Right now the fix is not clear to me, I don't even fully understand
-the changelog:
+The issue can be reproduced with:
 
-    The deadlock is caused by the rwlock writer fairness mechanism:
-    1. CPU 0 (process context) holds read_lock(&tasklist_lock) in do_wait().
-    2. CPU 1 (process context) attempts write_lock(&tasklist_lock) in
-       fork() or exit() and spins, which blocks all new readers.
+    mkfs.btrfs -f /dev/sdb
+    mount -o nodatasum /dev/sdb /mnt
+    mkdir /mnt/dir
+    chattr +c /mnt/dir
+    touch /mnt/dir/file
+    chattr +A /mnt/dir/file
 
-see below ...
+Before commit cf1afec09e9f ("btrfs: validate properties before setting
+them"), the last command succeeds.
 
-    3. CPU 0 is interrupted by a softirq (e.g., TCP URG packet reception).
-    4. The softirq calls send_sigurg() and attempts to acquire
-       read_lock(&tasklist_lock), deadlocking because CPU 1 is waiting.
+After that commit, it fails with EINVAL.
 
-but queued_read_lock_slowpath() does not block the reader if
-in_interrupt() == T ?
+This patch will make btrfs_fileattr_set() leave the compression flags
+and the compression property alone when the call changes neither
+FS_COMPR_FL nor FS_NOCOMP_FL.
 
-Mingyu, could you provide more details? How was this problem reported?
+Fixes: cf1afec09e9f ("btrfs: validate properties before setting them")
+Cc: stable@vger.kernel.org # 7.2+
+Suggested-by: Qu Wenruo <wqu@suse.com>
+Assisted-by: LLM
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+---
+Changelog
+v2:
+- Do not test whether the inode can be compressed. Leave the compression
+  flags and the property alone when the call does not change them, as
+  suggested by Qu Wenruo. Setting the compress flag on a NODATASUM inode
+  still fails with -EINVAL.
 
-So far I only sent the doc patch to explain that we can't simply avoid tasklist:
+- In the failing call FS_COMPR_FL is set, because chattr writes back the
+  flags it read. A test for "neither FS_NOCOMP_FL nor FS_COMPR_FL is
+  set" does not catch it and would stop chattr -c from removing the
+  flag, so the check compares the old and the new flags.
 
-	[PATCH] pid: document that do_each_pid_task() needs tasklist_lock
-	https://lore.kernel.org/all/asuaU8H_5MbO3-cW@redhat.com/
+- Explain why the call fails.
 
-Oleg.
+v1:
+https://lore.kernel.org/linux-btrfs/20261010105425.165104-1-hengyul@cs.unc.edu/
 
-On 10/04, Oleg Nesterov wrote:
->
-> Hi,
->
-> On 05/23, w15303746062@163.com wrote:
-> >
-> > Since PID hashing and do_each_pid_task() traversals are already
-> > RCU-protected, the read_lock on tasklist_lock is no longer strictly
-> > required for safe traversal. Fix this by replacing tasklist_lock with
-> > rcu_read_lock(),
->
-> I don't think we can simply avoid tasklist_lock. Let me quote my old email,
->
-> 	do_each_pid_task(PIDTYPE_PGID) can race with change_pid(PIDTYPE_PGID)
-> 	which moves the task from one hlist to another. Yes, it is safe in
-> 	that task_struct can't go away. But still this is not right because
-> 	do_each_pid_task() can scan the wrong (2nd) hlist.
->
-> And... I need to recheck, but perhaps signal_struct->multiprocess logic
-> is another reason why the lockless do_each_pid_task() is wrong...
->
-> See also the recent discussion
-> https://lore.kernel.org/all/20261003182224.2171b574@pumpkin/
->
-> Oleg.
->
-> > --- a/fs/fcntl.c
-> > +++ b/fs/fcntl.c
-> > @@ -929,11 +929,11 @@ void send_sigio(struct fown_struct *fown, int fd, int band)
-> >  			send_sigio_to_task(p, fown, fd, band, type);
-> >  		rcu_read_unlock();
-> >  	} else {
-> > -		read_lock(&tasklist_lock);
-> > +		rcu_read_lock();
-> >  		do_each_pid_task(pid, type, p) {
-> >  			send_sigio_to_task(p, fown, fd, band, type);
-> >  		} while_each_pid_task(pid, type, p);
-> > -		read_unlock(&tasklist_lock);
-> > +		rcu_read_unlock();
-> >  	}
-> >   out_unlock_fown:
-> >  	read_unlock_irqrestore(&fown->lock, flags);
-> > @@ -975,11 +975,11 @@ int send_sigurg(struct file *file)
-> >  			send_sigurg_to_task(p, fown, type);
-> >  		rcu_read_unlock();
-> >  	} else {
-> > -		read_lock(&tasklist_lock);
-> > +		rcu_read_lock();
-> >  		do_each_pid_task(pid, type, p) {
-> >  			send_sigurg_to_task(p, fown, type);
-> >  		} while_each_pid_task(pid, type, p);
-> > -		read_unlock(&tasklist_lock);
-> > +		rcu_read_unlock();
-> >  	}
-> >   out_unlock_fown:
-> >  	read_unlock_irqrestore(&fown->lock, flags);
-> > --
-> > 2.34.1
-> >
+ fs/btrfs/ioctl.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+index 52aab510aea0..43a945345cbe 100644
+--- a/fs/btrfs/ioctl.c
++++ b/fs/btrfs/ioctl.c
+@@ -375,6 +375,19 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
+ 		}
+ 	}
+ 
++	/*
++	 * Callers write back the whole flag set, so only touch the compression
++	 * flags and the compression property if FS_COMPR_FL or FS_NOCOMP_FL
++	 * changes.
++	 */
++	if (!((fsflags ^ old_fsflags) & (FS_COMPR_FL | FS_NOCOMP_FL))) {
++		/* 1 item for the inode */
++		trans = btrfs_start_transaction(root, 1);
++		if (IS_ERR(trans))
++			return PTR_ERR(trans);
++		goto update_flags;
++	}
++
+ 	/*
+ 	 * The COMPRESS flag can only be changed by users, while the NOCOMPRESS
+ 	 * flag may be changed automatically if compression code won't make
+-- 
+2.53.0
 
