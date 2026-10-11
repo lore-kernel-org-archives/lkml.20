@@ -1,77 +1,66 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65DB9EED8
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 07:45:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69AD433D6FA
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 07:45:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791704722; cv=none; b=RD5aIijr6xZ8LuuFaBMwSCl3uTznl1Z+6lMLP6dIA7bIj9P4kDpEX4GlLYCOActyteR4C1fb+4Ss4xauFghYxF0eKicwzddbjH5L8IXJdMjZhgv7WobaeRITJ+4RJkSlJkuQepiKN5vaUPvQZ7CLtp1vfJNq4E5D2EQRmsiMhNY=
+	t=1791704738; cv=none; b=T303BviIKAHr+cg0wILUF9IULiF3J3ryyg36OTLHGjsIRWJP/Bt2QgHqc+uYC7Y0PelMVSz+DWjI83w+VbF5xTikB24yUsziS8vJImMZEqq0OIcALumQpVnta4mUT593ATBtKG/UDpnF/QfeOWK5KSrLcfn/MKrfWcP6DGIFeiU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791704722; c=relaxed/simple;
-	bh=x9LCMogkgdKO89rsH+DfpirVbdhLPQZ8S0nWxdG4n90=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l755rcFhOAgMizMGUOP0lgjxDGLzti8MJgwZ8MDfAm3BxUjGgeL2qhcIb4QXamPbmNWZKf2VcQlu/hbRs9GajXKDHpoV+RshG7/QKZ38QkLVYx0JhdRFwB77GR9w8wLsgSNdhZrSXojWfiLwpE7sTv3fRSQaDMrDzHaPUPKGjMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Np7G0Ji2; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791704738; c=relaxed/simple;
+	bh=/hVrdXqoto1Ie+iFBeChY+lGD498CVDyx6LdUROrbNA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QK6nYOdc8ZQcse6CANtBifs+HK+Kzd/5ADg+NYJ8cTkPgHNpiwHJ+kZU2Qnevy7WSO3i/3LTtB2FuJTjb3fjNxaVgRzan9EV8Ff+DWsMgic34t4S19t2EM+AnooN/Adnx+Usj8KUsTDSbS0k72eXL0MDzqTIydAsHTadt5f47e4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JCylOxlr; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Np7G0Ji2"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so10580025e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 00:45:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791704719; x=1792309519; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BqM+9SRRezlqj4MjJGtTvfOzuMvNp9lIqAkwlEew1kk=;
-        b=Np7G0Ji251b45oBYrLnOF1KLzvq/3Qmu3qA6RMMLwKA9pm381cJuYIbSe7mqSrU549
-         qTl1M4lRLVNbJiNidC4hb3tvJL7skVj8k0mWYn9+eHFIO0Pn9FIJhOlMQkoDAI0AZOut
-         BgMyZfQXwtSgFKdNSG1Uh0eSc/+3uMxH1I6wl6RGZlMqbrOAAZcVuD4c1GEnMAcqJIqG
-         PCRm8qgQgF1MIMOtLPcdY7JOQUR/wR2iN/N2GwaiXv9hvd6kG9uEgX2h5/UX+TraLa30
-         9UMBxos+ITPCupmWxZL9Fz7XnlypFQ2S4N730Xtb3vsb8WdN3ZGP37AScRAG47nasMN9
-         0KOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791704719; x=1792309519;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BqM+9SRRezlqj4MjJGtTvfOzuMvNp9lIqAkwlEew1kk=;
-        b=udiN+7tkMWIhYS/8imaa/kiPx0JKtIEkXWrsnIwuVh6uHIEVnsWoBnzj0o1pA475QL
-         CWlrTY+lBoSdQzdg6NQ5epjOwbTlTV4TspOt7wdNUrctrApACiiuQzsDSRqCeZMzec7u
-         B6OpV/NP2pyUZs/Dv2BCP136PBVTWo/ku4CKnVvxGOftN3o2lU/0umQWlZrCOnYfiCcp
-         MOxpNvHujXsIb3m/zgXzbUfzvilqy+wAa8+L/0D5NFEhubUPS8dtRCJI+hgWwwWTn34X
-         gJMfkyl0LTQC5pQHGhj+iMmQ72iIaoLIHQWZfRTapqYcvYp5eNWEF3xRpqKLhyT20egu
-         /U+A==
-X-Forwarded-Encrypted: i=1; AKwUvBxM+u/GxOcBucMxldie71y3jIPSWd1UfZUbNy1UCRsDbNpK+evWedaBxkF2cYZEUOu4XlQRUsMcKBYgFKE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL9noGc6EGx6FAatzJBp8MNtYj2ST3szL9HMGIp8e9BjOVTGUpc
-	XVV53KvwycePhNPEq/NftdHyKq4+tYMtYnvSivxRp/IHT4IutYuh54Ef
-X-Gm-Gg: AYBFou0lsd7VfWMoRwdZOrD9V+Zws02oLWGxmUlkmy+vcUdY2+gu7UpgpiyOAIhlH1R
-	qTr3KZ2FAzZFKIUKB+goh46aZLYPpzewvDxKSBrv6oVb+ei/IvkYupUD5CQlD4Jq9CGPJIgTKju
-	evSanyVmMrEELMRT78Imz8BA4nU1PYZmt8a0LOE0iAKyKjDkTCvJhLE2xfr9SXNXNU4/8TAhmeR
-	2syjNynOrrdHQ8SvZkmCnlPhv/Ff1orFbYsK9yx1A8SpdGYA7KxPmtrjiARvBk3vz/D1K2mwmbE
-	JPzAtsuOxdZ1Wy8GBq2JC+sXU9kTX7gwhBQ8EK++6PUdYtp0/QJOxVcRz5GLbvH/ZP/GDCCo17f
-	HRBV0uOKRqChzztOWvez4oe8fPQ2o2vBX39U6U38XI0PYMVGdZCamzSAEo7JXt0xoN0FIZfcAUd
-	3HSoHIEwfaiEvlO/zccNCUMpzOaPKGtcWh2eTtYQaheRQe9cArh0eEE8i6SFMnbYuqC/V1shMNo
-	Vuy0MAT6yS7QkrelMh6tnY=
-X-Received: by 2002:a05:600c:620b:b0:49c:fc6c:be19 with SMTP id 5b1f17b1804b1-4a18e4d12e7mr102284445e9.31.1791704719496;
-        Sun, 11 Oct 2026 00:45:19 -0700 (PDT)
-Received: from LAPTOP-AVI.taile24b5.ts.net ([2a06:c701:4778:c500:e952:dc8f:95c1:823c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18e48db03sm271020005e9.3.2026.10.11.00.45.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 00:45:19 -0700 (PDT)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: austin.zheng@amd.com,
-	jun.lei@amd.com
-Cc: harry.wentland@amd.com,
-	sunpeng.li@amd.com,
-	siqueira@igalia.com,
-	alexander.deucher@amd.com,
-	aurabindo.pillai@amd.com,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amd/display: Initialize missing TD-LUT programming inputs
-Date: Sun, 11 Oct 2026 10:45:10 +0300
-Message-ID: <20261011074510.2495683-1-thnkslprpt@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JCylOxlr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791704736;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=SDmCcuBy6PXbhLYIXrgXx2iBVfVCPr/Ovdrgh7KTbnw=;
+	b=JCylOxlr9DyvNLDhC6LMWytk9ZMn1Ym7Dy7NySZoYTCvxEu00U4dtjyyVkZXRXOVB0R+wf
+	TBfYCQ5WVGP9RowTe0Gpm9l1ipQ9LAwwNXCDbvZASgRfgTfRaJekAPfX3axcT4bw8Up0hR
+	f9JIMhudEq+1pnKEg3DN5/cq9jJMemg=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-557-owIeNwFMNXmEhA74ktZlIA-1; Sun,
+ 11 Oct 2026 07:45:30 +0000
+X-MC-Unique: owIeNwFMNXmEhA74ktZlIA-1
+X-Mimecast-MFC-AGG-ID: owIeNwFMNXmEhA74ktZlIA_1791704728
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 175E218011EA;
+	Sun, 11 Oct 2026 07:45:27 +0000 (UTC)
+Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 9A48F1956041;
+	Sun, 11 Oct 2026 07:45:21 +0000 (UTC)
+From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+To: jgg@ziepe.ca,
+	alex@shazbot.org,
+	bhelgaas@google.com,
+	jjohnson@kernel.org
+Cc: johannes@sipsolutions.net,
+	mani@kernel.org,
+	yishaih@nvidia.com,
+	skolothumtho@nvidia.com,
+	kevin.tian@intel.com,
+	linux-pci@vger.kernel.org,
+	kvm@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	ath11k@lists.infradead.org,
+	ath12k@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+Subject: [PATCH v2 0/7] Enable Qualcomm WiFi PCIe passthrough to VMs
+Date: Sun, 11 Oct 2026 09:45:07 +0200
+Message-ID: <20261011074514.515894-1-jtornosm@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,36 +68,100 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-dml_core_mode_programming() memsets (clears) its scratch structure
-before calculating TD-LUT settings, but does not initialize
-tdlut_mpc_width_flag or is_gfx11.
+This series enables Qualcomm ath11k/ath12k WiFi devices to work in VM
+passthrough scenarios, addressing a long-standing issue where these
+devices fail to initialize when passed through to VMs via VFIO.
 
-Both inputs therefore remain false regardless of the plane
-configuration which can result in incorrect calculations.
+Qualcomm ath11k/ath12k WiFi devices have been broken in VM passthrough
+since they were introduced. The Qualcomm firmware has its own interrupt
+controller with private registers that need to be programmed with MSI
+addr/data. The driver extracts the addr/data from the MSI descriptor
+and programs the firmware's private registers. In a VM, the driver
+only sees virtual (IOVA) addr/data, but the firmware's private writes
+bypass the IOMMU, so they need the physical host values. This causes
+firmware initialization to fail with errors like "BHI offset:
+0xffffffff is out of range".
 
-Initialize both fields using the same sources as the mode
-support path (now both paths are aligned).
+Multiple attempts have been made to solve this over the past 2 years:
 
-Fixes: 70839da63605 ("drm/amd/display: Add new DCN401 sources")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+March 2024: Workaround using module parameters [1]
+  - Required manually copying MSI values from host to VM
+  - Rejected by Johannes Berg as too manual, suggested VMM solution
+
+August 2024: QEMU + kernel solution by Alex Williamson [2]
+  - Kernel disables MSI virtualization, QEMU intercepts config writes
+  - Uses brute force pattern matching to infer MSI data writes
+  - Stuck as RFC - no progress in 8+ months
+
+No action from Qualcomm: Despite multiple reports, no vendor solution
+
+The solution in this series provides a clean, kernel-only approach that
+addresses the previous concerns. The PCI reset support for these devices
+has already landed in linux-next (commit f8522a518e59 "PCI: Add device-
+specific reset for Qualcomm WCN6855/WCN7850 WLAN") [3], solving the device
+reset path for VFIO passthrough. This MSI series is the remaining
+piece, with both in place, these Qualcomm WiFi devices would be fully
+operational in VMs for the first time.
+
+In practice, this specific behavior (firmware requiring physical host
+MSI addresses in private registers, bypassing the IOMMU) has only
+been observed in Qualcomm ath11k/ath12k devices. A device-specific
+approach seems appropriate, and the VFIO variant driver pattern fits
+well for this, following the same established pattern as mlx5-vfio-pci
+and nvgrace-gpu for their own device-specific needs.
+
+Architecture:
+1. qcom-vfio-pci variant driver caches physical host MSI values and
+   exposes them via extended config space with magic signature "QMSI".
+   Device-specific hardware quirks belong only in kernel drivers, not
+   userspace, independent of the tools used.
+2. VM drivers (ath11k/ath12k) automatically discover and use cached values
+3. PCIe link recovery handles VM timing variations
+
+Thoroughly tested: 3 VMs across 2 WiFi generations, all devices
+successfully initialized and are ready for use.
+- VM1: ath11k (WCN6855)
+- VM2: ath11k (WCN6855)
+- VM3: ath12k (WCN7850)
+
+Series structure:
+  Patch 1/7: PCI helper to find free space in extended config space
+    for device-specific data exchange between host and VM drivers
+  Patch 2/7: Shared header defining the MSI cache protocol between
+    the host variant driver and VM drivers
+  Patch 3/7: qcom-vfio-pci variant driver that caches host physical
+    MSI address/data and exposes them to VMs through extended config
+    space
+  Patch 4/7: ath11k PCIe link recovery retry to handle initialization
+    timing variations in VM environments
+  Patch 5/7: ath11k support to read cached host MSI values and
+    configure firmware with correct physical addresses, making the
+    device operational in VMs
+  Patch 6/7: ath12k PCIe link recovery retry to handle initialization
+    timing variations in VM environments
+  Patch 7/7: ath12k support to read cached host MSI values and
+    configure firmware with correct physical addresses, making the
+    device operational in VMs
+
+[1] https://lore.kernel.org/all/20240322104912.94811-1-jtornosm@redhat.com/
+[2] https://lore.kernel.org/kvm/20240812170014.1583783-1-alex.williamson@redhat.com/
+[3] https://lore.kernel.org/all/20261005105436.83962-1-jtornosm@redhat.com/
+[4] Original problem report:
+    https://lore.kernel.org/all/fc6bd06f-d52b-4dee-ab1b-4bb845cc0b95@quicinc.com/
+
 ---
- .../dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c        | 2 ++
- 1 file changed, 2 insertions(+)
+v2: Complete cover letter with more information
+    Address Sashiko comments
+v1: https://lore.kernel.org/all/20260930140833.576941-1-jtornosm@redhat.com/
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-index 72acf12e9251..0ee385e8ba5f 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-@@ -11074,6 +11074,8 @@ static bool dml_core_mode_programming(struct dml2_core_calcs_mode_programming_ex
- 		calculate_tdlut_setting_params->cursor_buffer_size = mode_lib->ip.cursor_buffer_size;
- 		calculate_tdlut_setting_params->gpuvm_enable = display_cfg->gpuvm_enable;
- 		calculate_tdlut_setting_params->gpuvm_page_size_kbytes = display_cfg->plane_descriptors[k].overrides.gpuvm_min_page_size_kbytes;
-+		calculate_tdlut_setting_params->tdlut_mpc_width_flag = display_cfg->plane_descriptors[k].tdlut.tdlut_mpc_width_flag;
-+		calculate_tdlut_setting_params->is_gfx11 = dml_get_gfx_version(display_cfg->plane_descriptors[k].surface.tiling);
- 
- 		// output
- 		calculate_tdlut_setting_params->tdlut_pte_bytes_per_frame = &s->tdlut_pte_bytes_per_frame[k];
--- 
-2.43.0
+Jose Ignacio Tornos Martinez (7):
+  PCI: Add pci_find_free_ext_cap_offset() helper
+  vfio: Add qcom_vfio.h header for MSI cache protocol
+  vfio/pci: Add qcom-vfio-pci variant driver
+  ath11k: Add PCIe link recovery retry for VMs
+  ath11k: Use VFIO MSI cache when available
+  ath12k: Add PCIe link recovery retry for VMs
+  ath12k: Use VFIO MSI cache when available
 
