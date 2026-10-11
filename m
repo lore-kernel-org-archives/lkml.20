@@ -1,159 +1,128 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98AB23019CD
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 18:10:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791742215; cv=none; b=rd9LmpfLYMruxscqCnp2k0XwtHlpbe+nNJnK/I3LPTzxPDjRpLhMKcRtaGNMnVDty0svAoSuapW/jjB3/XyUKpATYeil9dC1u4DutnixPd1x24NzaUynfNDne+hs01qNwglxd1NRfQ/gRWclVXn8ABd+XrHQvhwqAQhsTGrqEZI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791742215; c=relaxed/simple;
-	bh=+N0EYqnh9d3SdN0JXchYO51KoW25AszZPqV7SMJpVmU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sw/1ilVfcFNxApR1EyKYaYWrm2XdOfSIMB+5WFbm/DHHSFRtH9smZ9L3VYf4ZAl4AKNw4YM1wBnKsehw9MV2TVVCyTu5vZsalvGwXfn8GYShBYDvlfuu23irmy0k4hXr7Bj3X7laLsFSOUFLLxm+241/U0B1/NaYg0A8bhdXN8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kHMeamzs; arc=none smtp.client-ip=209.85.208.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29482315D49
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 18:12:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.175
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791742381; cv=pass; b=rvWFZ6Yh9i8E4rpYcp2tK1bwlJ0dCxgJpL/BpbJUAqBTO2uuWf3sTckJdN5wGkhW4QkeD6mIQJqQorV8YeswMymiI0708T3q+aD5XGXeti3FZ6Sx5/dGsK+xykYzKgPc1mKl3QOpx5ouFuX8h6H+bsTtXotYLv2EdiVYOu54SXU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791742381; c=relaxed/simple;
+	bh=gwRi8tJ5LauvJF15FnsWPOaMsiBcZj8ycmgZAY2TY4w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bGoDLT+HoPQjssL6G+xGQ9vcHl5CRS5v+177iyKyd3oDz+kghDaxUbGkLLWqveIdx3bnz9DgPEBqB0sLY+IKySnjUu4avpsqItNkbD9CATBDzX+jrIiDSoL9U0Y6QKmJ2M/I4lj7ITd0Xun/B5oMJiOtpeog0Pcvl2g3F/jFPUw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cg5b/B48; arc=pass smtp.client-ip=74.125.82.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kHMeamzs"
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6afafc89b48so1690426a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 11:10:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cg5b/B48"
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-30b6dad2382so2849683eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 11:12:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791742379; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DZlzu75xXliOLOlZC3NbaWurCrOzSNZXe1ddt62y/eN6ShjLEiq4nq8MfZdDvgsKxX
+         g0P6BdQoyH43USoWVb33XMYgTFXVRk/nwU2nC3dlZvSCSjcYGzri5ShjREYxsK6ceXeQ
+         Ij991U9bI9TG65R2esQtVHWoaJLGlgIbRWej42FhR9ytiZXs6CFN2x+nJRbFrxiQqKPR
+         vWu/DD/OXYlXOgdJWdd6ZKK3C2P1rlmdct/uEiKXe/x4ekj2H1SG1tIqlwi70/RrNio8
+         HYHqR7Gy1omDvPvmnzhFOXthFSPEnUbawUxkKqS7oWEUYu38Zgku1xa/A1Pi4A5CSfh+
+         s4yQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=gwRi8tJ5LauvJF15FnsWPOaMsiBcZj8ycmgZAY2TY4w=;
+        fh=9IzOtn5P3O6mGeV7dUg3OvDEheBXuWAFqDPgyDCHM2g=;
+        b=WqlqHFXs+uJ2s8/pSZDMY9jUFlRnppliYMcBSoP94/75dYS0aPt2n/C1+vqAZNHdXh
+         NBkyqSmPUM3JEqv6Eqw2oE4mwPJ84vF6tuJVHkLlbpZOkfAnNz3m89UQRM92mHsWYLLS
+         gA3fD0br1x31vPFVHNKQbwlxGAGeygachLm/znyUmG1LqLa39r3g1WgA8QDwOrqLQoTu
+         lI2ggY6jqr7xXXWgy2/9T1U3u9cE1tWEx5ItkfNn7ag1Kd0X6qo/cypOTN65fU2cunmr
+         JxFwJXTm14dvRmj+KPtFGsMlbDVkl5Df3MKfeQbpiitFVdiW75sPgZkJxhKUTAFbsfO4
+         7ifw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791742212; x=1792347012; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5FJfsAWa2Tg0a7RAVRgcsQ8tBnMmp27HrWsnWumyp4U=;
-        b=kHMeamzs1Rq4K718jEcImPzAJjoU/3SAHczsnExFXL6A/e0OxVGFynZdGiTP2LQbLW
-         wCxoy8voHln3DybrjFy2D7G88G6hTCgqW2/YWq3RGKVEDYT/CfdG8RD8Gw7N/iwYq6bR
-         OlPoTpbf7rzPH7azCIdC3IyGug5AfL0yMM+H3b+gYPSnmN+p7+cD6s/2J43YXQzgZz2p
-         ea6s/YsVhQjaySGaxnkM8c0THhZ01fTkuMrFGGs5eQIKp/cLNMvmd+9eOMqAcK8UQsQb
-         M0+M+bdipm94ZdavUyVQDr66Og2gZkiphVIaxHwIWQezvtt5n8pIJqFaIIGUqQccRSXL
-         GT1Q==
+        d=gmail.com; s=20251104; t=1791742379; x=1792347179; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gwRi8tJ5LauvJF15FnsWPOaMsiBcZj8ycmgZAY2TY4w=;
+        b=cg5b/B482OUEHIyUOiMGEfhIDYnFdmVLCPuk//Gb3hEnVfAtI5lW2XuvLOm3Vwhv5m
+         d/MDzRmudHFTDKKYN9/yOE8XXbezepP8Qjh2IafESYzqBggmxnwe8frz+7904OG4/JiV
+         p67s9nc+7t0kvH/hr+mPodwvuVpMuZcs8vYNmrVx/6XM1ASMjrvL0KgJsf5Hc3E8+adB
+         r97eUPqeTOZWJ4V0sT7zMpLtS+iOozgMrjebqajOpmkUQN3xxgbmR0JxnMclTXpVTCo2
+         HYYgSxjmrqyf0fMRpwhZL+0h+bIwdg9lzSZ2zwPArwo4D5nccqO5nXSm0Buzg8ZpsjVZ
+         tRQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791742212; x=1792347012;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5FJfsAWa2Tg0a7RAVRgcsQ8tBnMmp27HrWsnWumyp4U=;
-        b=rFMy9vfg1aVDjeak1ZorJxp3fUMlxSNbRDKC5le2qIcdHcUDFAKmuZpBrawpvt47sQ
-         VCLyO7Uyon7YPPVWXBRcVn33K6GPUsPWZNce2pv1r96UHEz9Z3zgK7AZ7PQVqPTw/uSE
-         nXxNQxPfzJyGb0ky9j0yG5br3t0SkEHg1fxqmSyyYSQk62jlTGzPewdkTorvPkHILqWY
-         mUd7bzjCDRjpfCRgdkJTvbVg5FDpbExx/yF9XRGiY+l8OI3pRz9eFxZosSp4BAt9ve39
-         KUXNU9cTItW4ZZGKXHUr7m0LOzHUonsrmjDBdcc5NqGqbEdEaJQMsyDUQjLk9oFlgBDJ
-         vZ1A==
-X-Forwarded-Encrypted: i=1; AKwUvBybkFnhJpBEXNRU6JK3B8g9Se0wlAD+tmxTFn2Exa874tbU35Ei8VeiL4H7YBKxiroHzVo9ZWuWNb3YlhE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJSCSrLOeAVD2lTKNCWFlzG1pidgxHUUJH/EJCCPpwMYPJDt0Hi
-	0CiGMn825pc99GhIkJk+bssVsnWYNyE8XeLVg1EIULZbb0jI8BZHkJnA
-X-Gm-Gg: AYBFou0NdsReJQTJCh544Hd+uCw4xYWCSvJ3O1wEp0C9V69NmDbSR9ibochiRc4YfN3
-	Wv9HCxwyOwSwdiFsabqzRCQCLe5nNSj9qJtQnvdtlb3zDtEuNi2byGRPZXgCHWtjWq8e67+TXAr
-	T8W+E0i9+arSgqJZDOvhfvTvDl3wP1sURBX00C86GHn/v9BDfnd98gsyQebX4bpZILUKghak5Ib
-	Ce1aAKcalAde7zWVC+42wqBl5Yd5sMiUGzK6A4Qg7z+x/ZLG5qaa2bQJr1s4mvYrUchQ936bPLt
-	O4uvz1nsHhn8SZSSOJXOLHu4fL4T+2AD2TJJOEvLAppRPDXn9eXMgyK5tGWybrpG3h0y7CWJRnV
-	qUTnnQoKIFIT8FpSTmwzI/CnxA+XF2YauXujy/z2t1mxyKa+rP0c/UOnL0S5RJODQLKxuAYjia0
-	yHekFAOUKLgOtF0/fL5k1Pyb3a2eVRmGnpMoBfXqAxgOrfJxSjTl8Lyzd3cjhuD1GnMq75HTO9T
-	nhSg6/R7ZQSl5CTeGZ8
-X-Received: by 2002:a17:907:e158:b0:c34:e9fe:82ed with SMTP id a640c23a62f3a-c34e9fe8db4mr54546766b.28.1791742211560;
-        Sun, 11 Oct 2026 11:10:11 -0700 (PDT)
-Received: from fedora (staticline41082.toya.net.pl. [85.89.166.49])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c355555f483sm3542866b.23.2026.10.11.11.10.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 11:10:11 -0700 (PDT)
-From: Konrad Papaj <konrad.papaj@gmail.com>
-To: Miguel Vadillo <miguel.vadillo@intel.com>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Konrad Papaj <konrad.papaj@gmail.com>
-Subject: [RFC PATCH] media: cvs: do not announce host privacy LED ownership on SVP7xxx
-Date: Sun, 11 Oct 2026 20:08:30 +0200
-Message-ID: <20261011180830.9799-1-konrad.papaj@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1791742379; x=1792347179;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gwRi8tJ5LauvJF15FnsWPOaMsiBcZj8ycmgZAY2TY4w=;
+        b=FzMw8aykkGthbWmQPybU8tH6jJETjNG1Fa7TL0YrK1YyhSeMzXb89MpwZhhM6tmUsP
+         JwsMtO1+2z1+DV5boZnLwihp05rJU7XfYcZuXXVBf2Wa6fSsA26GUpHcVi5N0RQ+xvoT
+         Y8AkMwjnjbrY0e66+0Xsv7olL/kZ7aLs8JdxOFheBSaU5ptTpCy8nPOt0Rgli2spLZSK
+         6WoXheTQDgvAuixtshbduxUJlWS1GDjOVUPeS6QrAnturBbf8YBnONXiGWs/ST8Y1H2j
+         7yC3uJR0Nd5eerh8ovPKNnpMa96bVBKGqIRF2LglbhKgcv6BVzUslMFo13iLOuE75nfv
+         7lLg==
+X-Forwarded-Encrypted: i=1; AKwUvBxPnkDE7Vv8pataouO++Z6n06IwO0yafJx8N2WWMEmtpzl3QEheAH1m5fwpZG3f/Z3UUujGAR7lnlKa+p4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJy95tAANM1pW7mRJ8Q97kyCnzQYCkv+Z+iNtXcv8s5pzk/DZiM
+	59/5Y9hFqrx7oyihPDWQZ9uVXKHZicEjDLyO6I3ddq2V2xvluDPHh/08fCFs3EiVd7KqG6E8nU6
+	r3iE/nHHiaGpdnpDqKtGpGCOzDsV7JcE=
+X-Gm-Gg: AYBFou043COQ7+VPb/eWWgsD86soFaZrb0uK/KlZNXkNazghq6TimM/vKmPA594Klk+
+	gAuoUYBLSjCdZLPjOt06NGWz804m7U3sEm71kt69v9ccXsyN+PDal4pAXP82NkZxh87cEH9etEL
+	I02LF8aw3x/y2rRJZt0cSoQCmFGNq+za8kkGfypaJmZvr5BNwo+GAV0wZGecU0Y4gTbt05bO7pX
+	UISfNLUXYtq6cDC7uBYP0izQjR54JGLPbseByatxWG23IDY//AAjy9Hx0h4DXqYENjXQxxu0qaV
+	XDpUFMFmhuDd3rIAMg/qSK/LFkJm2DVXyHL0cNGXzBZlSU/xPoGSkX+n9t7SVvEhXA03MriUZYW
+	fyQ4+JgjvkzvG5Q==
+X-Received: by 2002:a05:693c:62c5:b0:353:7d40:6636 with SMTP id
+ 5a478bee46e88-3537dedaae9mr9900985eec.1.1791742378990; Sun, 11 Oct 2026
+ 11:12:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <asmCc1VxVPLIMgY6@google.com>
+In-Reply-To: <asmCc1VxVPLIMgY6@google.com>
+From: Christian Lamparter <chunkeey@gmail.com>
+Date: Sun, 11 Oct 2026 20:12:47 +0200
+X-Gm-Features: AclHuK8acOi8aVEUTuLTHFRamALp4FOSGaLarP7QqSjuV8P0SghSz45EXW4MkW0
+Message-ID: <CAAd0S9A6zNJU=BkUgpGtdHBgkcnQ0NyOWb46aDnBuGCf0TKvmA@mail.gmail.com>
+Subject: Re: [PATCH] Input: reject parent overrides on managed input devices
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina <jikos@kernel.org>, 
+	linux-wireless <linux-wireless@vger.kernel.org>, Johannes Berg <johannes@sipsolutions.net>, 
+	Jeff Johnson <jjohnson@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The quirk entry for the Synaptics SVP7xxx bridge (06CB:0701) sets
-ICVS_HOST_PRIV_CTRL, which makes cvs_configure_dev_caps() add
-ICVS_HOST_ID_PRIVACY_LED to the host id sent to the CVS firmware via
-ICVS_SET_DEV_HOST_ID, i.e. it tells the device that the host gates the
-privacy LED.
+On Sat, Oct 10, 2026 at 5:54=E2=80=AFAM Dmitry Torokhov
+<dmitry.torokhov@gmail.com> wrote:
+>
+> When an input device is allocated with devm_input_allocate_device(), the
+> owner struct device is set as dev->dev.parent and holds the
+> devm_input_device_release resource. Later, input_register_device()
+> attaches the devm_input_device_unregister resource to dev->dev.parent.
 
-On the Dell Pro 14 Plus PB14250 the host has no privacy LED to gate:
+Ok, why would this be a problem? If something other than the devres
+garbage collection
+callback access the data after it was unregistered... what else is
+supposed to happen
+other than a crash.
 
- - the only enabled INT3472 device (INT3472:0c) belongs to the IR
-   camera HIMX1092:00 and registers HIMX1092_00::ir_flood_led.  The
-   remaining INT3472 devices are disabled, so the LED lookup done by
-   v4l2_subdev_get_privacy_led() finds nothing for the RGB sensor;
+for what's worth: this patch seems to be a "spite" response to this:
+https://lore.kernel.org/linux-wireless/20261008-carl9170-reverts-v2-0-3ecb1=
+2089797@gmail.com/
 
- - the _CRS of \_SB.PC00.CVSS declares four GPIO resources (wake
-   0x00D4, rst 0x0037, req 0x0000, resp 0x0007), none of which is an
-   LED;
+I think someone else is working on a separate fix:
+https://lwn.net/Articles/1038523/: "Revocable references for transient devi=
+ces"
+With todays Patch-Series V14 on: https://lkml.org/lkml/2026/10/11/475
 
- - the platform's own privacy hardware reports [Camera Shutter]
-   [unsupported].
+From what I can tell, this should have been what devres was trying to solve=
+.
 
-The indicator therefore stays dark for the whole duration of RGB
-streaming.  The firmware stops driving it once the host claims it, and
-the host has nothing to drive.
-
-Measured on the affected machine with 30 s of continuous streaming,
-800 frames captured in both runs:
-
-  quirks 0x7a (ICVS_HOST_PRIV_CTRL set)      indicator dark
-  quirks 0x3a (ICVS_HOST_PRIV_CTRL removed)  indicator lit
-
-Camera operation is unaffected: the sensor and CVS bind as before, the
-media graph is unchanged and libcamera still enumerates the camera.
-
-This is sent as an RFC because the quirk is keyed on the bridge
-VID/PID, while the presence of a host-driven privacy LED is a board
-property.  Dropping the flag unconditionally would regress designs
-that use the same Synaptics bridge and do wire the LED to the host.
-Announcing ICVS_HOST_ID_PRIVACY_LED only when a host-side LED is
-actually available, or keying this flag on DMI, both look more correct
-to me, but I do not know which Intel intends.
-
-Signed-off-by: Konrad Papaj <konrad.papaj@gmail.com>
----
-Tested on:
-  Dell Inc. Dell Pro 14 Plus PB14250, BIOS 2.7.4
-  Intel(R) Core(TM) Ultra 7 265U
-  IPU6 8086:7d19, subsystem 1028:0ce8
-  Synaptics SVP7500 bridge, USB 06cb:0701, bcdDevice 84.95
-  CVS INTC10E0:00 on i2c-15, sensor OVTI05C1:00 (OV05C10) on i2c-16
-  kernel 7.2.8-200.fc44.x86_64 (Fedora 44)
-  libcamera 0.7.1, "simple" pipeline handler + ipa_soft_simple
-
-Disclosure: the OV05C10 sensor driver is not upstream, so the sensor on
-this machine is driven by an out-of-tree ov05c10 module built from
-intel/ipu6-drivers with local fixes.  The LED behaviour reported here is
-independent of that: the indicator is gated by CVS firmware based on
-ICVS_SET_DEV_HOST_ID, and the quirk flag was the only variable changed
-between the two measurements in the commit message.
-
-Reproduction:
-  1. boot with the in-tree intel_cvs, confirm "Quirks: 0x7a" in dmesg
-  2. stream from the RGB camera for 30 s, indicator stays dark
-  3. apply this patch, confirm "Quirks: 0x3a"
-  4. repeat the 30 s stream, indicator is lit for the duration
-
- drivers/media/i2c/cvs/core.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/media/i2c/cvs/core.c b/drivers/media/i2c/cvs/core.c
-index fe9e59a..fafa2dc 100644
---- a/drivers/media/i2c/cvs/core.c
-+++ b/drivers/media/i2c/cvs/core.c
-@@ -70,7 +70,6 @@ static const struct icvs_device_quirk cvs_quirk_table[] = {
- 	},	/* Lattice NX33 */
- 	{ 0x06CB, 0x0701, ICVS_SKIP_FW_RESET |
- 			  ICVS_HOST_SENSOR_PWR_CTRL |
--			  ICVS_HOST_PRIV_CTRL |
- 			  ICVS_FW_BUF_SIZE_256 |
- 			  ICVS_FW_HEADER_SIZE_256
- 	},	/* Synaptics SVP7xxx */
--- 
-2.56.0
-
+Cheers,
+Christian
