@@ -1,218 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B14594248D7;
-	Sun, 11 Oct 2026 08:48:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ADA435C681;
+	Sun, 11 Oct 2026 08:49:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791708525; cv=none; b=t/yA+wbk4hjvlJEQ/nLHs+CdLq3Y4GweCxW5X3kTNoHjEEvpClnuhVhJ2KR8k7ct03IYDCNAR9SES7EogKeQt8U1GG/gD80zxj1FR+iGFRj78HacuCh5fqblmzntiBciafMMF32PIeCGCig5a2g0tjbXHLbwsAxjk8aDfkGYQu0=
+	t=1791708556; cv=none; b=ky48TOYrS/QPV8LE+oSHOsyZdVw8DtQiDuaysXg2QV1MQ4Bgm3kftqh9W77rfUuZzbQKlFNF1x59l9IyePn6kzQT5gqx8JGiShBB+XmKVa4vYMLi7W20dE+XTEzqFUwWcg8PpxWdRZCMMA0JMXKqARp5+Z+nmZC9Wf8ZSRKFHbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791708525; c=relaxed/simple;
-	bh=PK2/fTVmspjHBocolBh2jrgC7An7V8dAPsC+YJWRdZM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Jn6WLEKNzuZfveaYuiAr4JoNuaFqPT09ab4zsecKgfAYgZn6qDheNbu0MzB4a4bRJ4fScqMZeQ87HWtMBGCx/Xm7qYtO6TlF9fBgOltjAZ4hh8NBlS5H7XA5sIvstkvFzYski7BsGHDdAQtlHglhcLu3U6jW86TkUurYUbQp7pM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qK/sKEPO; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791708556; c=relaxed/simple;
+	bh=QdeshDYc/0f2xWT2vqgVz5NA2TAmIq1oWrpuYnrkThY=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jrKWIHMK15jGlqovQCZDvSiHtXg7uTzodkePdGk8bxhrLNcu2V+L2UHsZxESlPX5tfqb/DSSsgEmEUtG5mjvYmT0NZtycNlnzz2y4ypJMSTQmBff2aA3J9ekbYtErIqTCPDUdnMi5QladpG42ugWGf+nJZMlyn1zEe/wBDj+BWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=fM8y/q0/; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=XnYvO5Nk; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=fM8y/q0/; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=XnYvO5Nk; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qK/sKEPO"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 16C80C2BCF7;
-	Sun, 11 Oct 2026 08:48:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791708525;
-	bh=PK2/fTVmspjHBocolBh2jrgC7An7V8dAPsC+YJWRdZM=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=qK/sKEPOBbOpsmXm0PtV5DDtuUXDz9tQnuO/KsK8HOHEm800BWzpyQmmGD9JSIHQn
-	 7uS4gPBTXROZLHbKQwTPcm1A5QF547w7zLho8snps3RoaSjlYHJTHHMOWOXmtStddl
-	 nSqycg5cCxV4J0mOWAixLOYPgWQgzjeMele3hY69WfMcj7YhFlT4SwlVicV4hLr2ZN
-	 91xIOi6vZRBQDKlq+Et/VZjoCKzlBBe3ZD5XH6MBUZZZ7xO7vzyPe+fxErcT7xBcxU
-	 Fod1NJBqrnJ7eL+oY5G64+uc0YJs9FM4URmnsdtGkaEcR4GVOLPz6lO5DOg0NBslRY
-	 M1bQ5lw8I8+6Q==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E27B1CA9EBD;
-	Sun, 11 Oct 2026 08:48:44 +0000 (UTC)
-From: Linfeng Sun via B4 Relay <devnull+linfeng.sun.dev.gmail.com@kernel.org>
-Date: Sun, 11 Oct 2026 16:48:40 +0800
-Subject: [PATCH] vhost-vdpa: initialize state before publishing cdev
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="fM8y/q0/";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="XnYvO5Nk";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="fM8y/q0/";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="XnYvO5Nk"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 6CFF21F750;
+	Sun, 11 Oct 2026 08:49:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791708553; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NnjO99Fom7cQPIwFGG6E7G1b7cF8+nJ7G5dUb/6U4g8=;
+	b=fM8y/q0/3q0nMsOcPEtz28o7vJ/fYwStC2Dvgnz7XzYgGPb5NRKzWZdvd9Bh1qEy+Pbcx6
+	9cti05vMxjuuGkNxQHS+hO9nh04fjXOggqAAbLFIElfnNDE7ZUf8U+1EIvQGzQ7/cDt1IA
+	2aoEVoZhHxVaZLVwdaXZ+8EVO343ebo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791708553;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NnjO99Fom7cQPIwFGG6E7G1b7cF8+nJ7G5dUb/6U4g8=;
+	b=XnYvO5Nkqq9M58E2NaARw9Y+IrcltzTOnPqJ0M0ibp3DjemkJR0P3Q3zo1grtnzaDPZe6q
+	62iy2490QhI/zFAQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791708553; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NnjO99Fom7cQPIwFGG6E7G1b7cF8+nJ7G5dUb/6U4g8=;
+	b=fM8y/q0/3q0nMsOcPEtz28o7vJ/fYwStC2Dvgnz7XzYgGPb5NRKzWZdvd9Bh1qEy+Pbcx6
+	9cti05vMxjuuGkNxQHS+hO9nh04fjXOggqAAbLFIElfnNDE7ZUf8U+1EIvQGzQ7/cDt1IA
+	2aoEVoZhHxVaZLVwdaXZ+8EVO343ebo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791708553;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NnjO99Fom7cQPIwFGG6E7G1b7cF8+nJ7G5dUb/6U4g8=;
+	b=XnYvO5Nkqq9M58E2NaARw9Y+IrcltzTOnPqJ0M0ibp3DjemkJR0P3Q3zo1grtnzaDPZe6q
+	62iy2490QhI/zFAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 21BEF13408;
+	Sun, 11 Oct 2026 08:49:13 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id hidMOohNy2oUEgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sun, 11 Oct 2026 08:49:13 +0000
+Date: Sun, 11 Oct 2026 10:49:12 +0200
+Message-ID: <87ld84ipvb.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Ali Ahmet =?ISO-8859-2?Q?Memi=BA?= <aliamemis@disroot.org>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: seq: Wait for one RCU grace period when deleting all ports
+In-Reply-To: <20261010222543.1470723-1-aliamemis@disroot.org>
+References: <20261010222543.1470723-1-aliamemis@disroot.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261011-fix-null-pointer-in-vhost_vdpa_release-v1-1-43ebc225f938@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNQQrCMBCF4auUWTvQFJXWq4iUSTu1IyEJmTQIp
- Xc36vJbvP/toJyEFW7NDomLqARfYU4NTCv5J6PM1dC13dW0xuAib/SbcxiD+MwJxWNZg+axzJH
- GxI5JGe15uCy2H4iohxqLievyd3R//K2bffGUv3U4jg/HsmXpigAAAA==
-X-Change-ID: 20261011-fix-null-pointer-in-vhost_vdpa_release-b495fb89aaa8
-To: "Michael S. Tsirkin" <mst@redhat.com>, 
- Jason Wang <jasowangio@gmail.com>, 
- =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
- Tiwei Bie <tiwei.bie@intel.com>
-Cc: kvm@vger.kernel.org, virtualization@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Linfeng Sun <linfeng.sun.dev@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791708522; l=5684;
- i=linfeng.sun.dev@gmail.com; s=20261010; h=from:subject:message-id;
- bh=lO63c612f3W01eAQKW8gQ/u7SgviABtFHcPCPVA69xg=;
- b=2SKvFGyQlpWr3kk1AhzwaEfs1Z00KYut0wXx2gI5Q4v/E6groac6bAUK3wS1EdqSxWBAoZWFH
- 4Qf467hFPJgBA/wCB8rsLfMKXYh6XGHOZstGX3A09H7cs4z77LpcCIz
-X-Developer-Key: i=linfeng.sun.dev@gmail.com; a=ed25519;
- pk=IPHLe8L3bTveNcYFP12okRAIWs4eqaVd4jrqSNMj7UU=
-X-Endpoint-Received: by B4 Relay for linfeng.sun.dev@gmail.com/20261010
- with auth_id=1150
-X-Original-From: Linfeng Sun <linfeng.sun.dev@gmail.com>
-Reply-To: linfeng.sun.dev@gmail.com
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=ISO-8859-2
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Score: -3.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
 
-From: Linfeng Sun <linfeng.sun.dev@gmail.com>
+On Sun, 11 Oct 2026 00:25:40 +0200,
+Ali Ahmet Memiº wrote:
+> 
+> Since the port list was converted to RCU, snd_seq_delete_all_ports()
+> calls synchronize_rcu() once per port under register_mutex. Closing a
+> client with 254 ports now takes about 1.6s and every other client
+> open or close waits for it.
+> 
+> Unlink all ports first, wait for a single grace period and then free
+> them.
+> 
+> Fixes: 4c252fbc06d6 ("ALSA: seq: Use RCU for the client port list")
+> Signed-off-by: Ali Ahmet Memiº <aliamemis@disroot.org>
+> ---
+> Tested in QEMU on v7.3 with lockdep and KASAN.  Closing a client
+> with 254 ports went from ~1.6s to ~0.02s, and a second client doing
+> open/close in a loop no longer stalls.  Closing the client while other
+> clients send to and query its ports ran 100 rounds without reports.
 
-Initialize the completion and as hash buckets before cdev_device_add()
-makes the device accessible.
-
-Fixes: 4c8cf31885f6 ("vhost: introduce vDPA-based backend")
-Assisted-by: OpenAI-Codex:GPT-5.6
-Signed-off-by: Linfeng Sun <linfeng.sun.dev@gmail.com>
----
-I used // because b4 ignores lines starting with #. Please uncomment those 
-lines before reproducing.
----- reproduce.c ----
-// #include <fcntl.h>
-// #include <pthread.h>
-// #include <stdatomic.h>
-// #include <unistd.h>
-
-// #define THREADS 16
-
-static const char *device_path;
-static const char *sysfs_path;
-static atomic_int stop;
-
-static void *open_close(void *unused)
-{
-	(void)unused;
-
-	while (!atomic_load(&stop)) {
-		int fd;
-
-		if (access(sysfs_path, F_OK))
-			continue;
-		fd = open(device_path, O_RDWR);
-		if (fd >= 0)
-			close(fd);
-	}
-	return NULL;
-}
-
-int main(int argc, char **argv)
-{
-	pthread_t threads[THREADS];
-	int i;
-
-	if (argc != 3)
-		return 1;
-	device_path = argv[1];
-	sysfs_path = argv[2];
-
-	for (i = 0; i < THREADS; i++)
-		if (pthread_create(&threads[i], NULL, open_close, NULL))
-			return 1;
-
-	sleep(45);
-	atomic_store(&stop, 1);
-	for (i = 0; i < THREADS; i++)
-		pthread_join(threads[i], NULL);
-	return 0;
-}
-
----- crash ----
-[   23.959139] BUG: unable to handle page fault for address: fffffffffffffff8
-[   23.959859] #PF: supervisor read access in kernel mode
-[   23.960291] #PF: error_code(0x0000) - not-present page
-[   23.960740] PGD 4869067 P4D 4869067 PUD 486b067 PMD 0 
-[   23.961718] Oops: Oops: 0000 [#1] SMP NOPTI
-[   23.962395] CPU: 1 UID: 0 PID: 126 Comm: poc Not tainted 7.3.0-rc2+ #1 PREEMPT(full) 
-[   23.963059] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[   23.963890] RIP: 0010:complete+0x44/0x80
-[   23.964656] Code: 41 d8 01 49 89 c4 8b 03 83 f8 ff 74 05 83 c0 01 89 03 48 8b 53 10 48 8d 43 10 48 39 c2 74 29 48 8b 5b 10 31 d2 be 03 00 00 00 <48> 8b 7b f8 e8 e3 65 fc ff 48 8b 13 48 8b 43 08 48 89 42 08 48 89
-[   23.965679] RSP: 0018:ffffc9000141bc38 EFLAGS: 00000046
-[   23.966109] RAX: ffff888008a678d8 RBX: 0000000000000000 RCX: 0000000000000000
-[   23.966513] RDX: 0000000000000000 RSI: 0000000000000003 RDI: 0000000000000000
-[   23.967005] RBP: ffffc9000141bc50 R08: 0000000000000000 R09: 0000000000000000
-[   23.967483] R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000246
-[   23.967896] R13: ffff888008a678d0 R14: 0000000000000000 R15: ffffffff83541780
-[   23.968384] FS:  00007dcd511046c0(0000) GS:ffff8880b94b6000(0000) knlGS:0000000000000000
-[   23.968933] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[   23.969398] CR2: fffffffffffffff8 CR3: 0000000009a41000 CR4: 00000000000006f0
-[   23.970091] Call Trace:
-[   23.970735]  <TASK>
-[   23.971266]  vhost_vdpa_release+0x175/0x190
-[   23.971862]  ? __pfx_vhost_vdpa_release+0x10/0x10
-[   23.972298]  __fput+0x1c2/0x520
-[   23.972692]  fput_close_sync+0x6e/0x140
-[   23.973040]  __x64_sys_close+0x51/0xd0
-[   23.973362]  x64_sys_call+0x2680/0x27e0
-[   23.973655]  do_syscall_64+0xbf/0x550
-[   23.973969]  ? restore_fpregs_from_fpstate+0xa1/0x110
-[   23.974322]  ? switch_fpu_return+0xbd/0x190
-[   23.974630]  ? do_syscall_64+0x299/0x550
-[   23.974962]  ? putname+0x7f/0xd0
-[   23.975267]  ? do_faccessat+0x3fe/0x570
-[   23.975583]  ? __sanitizer_cov_trace_cmp4+0x16/0x30
-[   23.975934]  ? fpregs_assert_state_consistent+0x7b/0xc0
-[   23.976272]  ? do_syscall_64+0xfd/0x550
-[   23.976591]  ? __sanitizer_cov_trace_cmp4+0x16/0x30
-[   23.976949]  ? fpregs_assert_state_consistent+0x7b/0xc0
-[   23.977304]  ? do_syscall_64+0xfd/0x550
-[   23.977611]  ? prandom_u32_state+0xd/0x90
-[   23.977933]  ? do_syscall_64+0x31/0x550
-[   23.978248]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-[   23.978644] RIP: 0033:0x41e94c
-[   23.979296] Code: 0f 05 48 3d 00 f0 ff ff 77 3c c3 0f 1f 00 55 48 89 e5 48 83 ec 10 89 7d fc e8 b0 a5 02 00 8b 7d fc 89 c2 b8 03 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 2c 89 d7 89 45 fc e8 12 a6 02 00 8b 45 fc c9
-[   23.980064] RSP: 002b:00007dcd51104220 EFLAGS: 00000293 ORIG_RAX: 0000000000000003
-[   23.980511] RAX: ffffffffffffffda RBX: 00007dcd51104cdc RCX: 000000000041e94c
-[   23.980887] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000003
-[   23.981251] RBP: 00007dcd51104230 R08: 0000000000000000 R09: 00007dcd511046c0
-[   23.981604] R10: 0000000000000000 R11: 0000000000000293 R12: 00007dcd511046c0
-[   23.981960] R13: ffffffffffffffb8 R14: 0000000000000000 R15: 00007ffe8c98a0f0
-[   23.982377]  </TASK>
-[   23.982597] Modules linked in:
-[   23.983036] CR2: fffffffffffffff8
-[   23.983847] ---[ end trace 0000000000000000 ]---
----
- drivers/vhost/vdpa.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/vhost/vdpa.c b/drivers/vhost/vdpa.c
-index ff7d90719171..35e2f5b2293b 100644
---- a/drivers/vhost/vdpa.c
-+++ b/drivers/vhost/vdpa.c
-@@ -1678,17 +1678,16 @@ static int vhost_vdpa_probe(struct vdpa_device *vdpa)
- 
- 	cdev_init(&v->cdev, &vhost_vdpa_fops);
- 	v->cdev.owner = THIS_MODULE;
-+	init_completion(&v->completion);
-+	for (i = 0; i < VHOST_VDPA_IOTLB_BUCKETS; i++)
-+		INIT_HLIST_HEAD(&v->as[i]);
- 
- 	r = cdev_device_add(&v->cdev, &v->dev);
- 	if (r)
- 		goto err;
- 
--	init_completion(&v->completion);
- 	vdpa_set_drvdata(vdpa, v);
- 
--	for (i = 0; i < VHOST_VDPA_IOTLB_BUCKETS; i++)
--		INIT_HLIST_HEAD(&v->as[i]);
--
- 	return 0;
- 
- err:
-
----
-base-commit: c69023b5e16e5ffe9368603dca76d85bd544ee57
-change-id: 20261011-fix-null-pointer-in-vhost_vdpa_release-b495fb89aaa8
-
-Best regards,
---  
-Linfeng Sun <linfeng.sun.dev@gmail.com>
+Applied now to for-next branch.
+Sounds like a good performance improvement.
 
 
+thanks,
+
+Takashi
