@@ -1,112 +1,134 @@
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B1B4582FC;
-	Sun, 11 Oct 2026 15:14:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF228405F7
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 15:18:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.129
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791731702; cv=none; b=YL1NwGmPjdKD7i0wuxAwRL0Dz9WMt1wsDq7zONwetvqOKif1prfDWi/+3k4P1rpTY0rliWYesUC8d8ZB+FepA1JFpacLpH821d7SWuwX3TY/bD9ehU3Qsnivs/Fk6qwzqfz+RTU7dUr6udWNnaRflOccAp0h7BhC015X5td511k=
+	t=1791731898; cv=none; b=hKtcKS6URL7JSkkqMU/rLKu0mcOK6yL4dfNUm9Tqtun8LoJhDVQOkOewa8PN75uqVvnUTUfNjhKYiWpuCunrqqlE349vv9y/13RQ1NSo5LdDIwfCf1OVYf6Vljp+CuJLiFsQ+fA+M/yzP01s5IhNTRCjJ3DPuinrEgR1gnGSALg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791731702; c=relaxed/simple;
-	bh=umG5WIzXpwL9a99Crx0GEoTewFz2ZyPwbGY3LmJ+aP0=;
-	h=From:To:Cc:Subject:Mime-Version:Content-Type:Date:Message-ID:
-	 References:In-Reply-To; b=dZV9uyEpRL0Zkael43MoiO/dUcEb4bt+iUzBIKZ3idzUa9gfedV7ym130BeMGYD4+OpkZyCoO9+YYGZWmg5eBX0Za5XTEDza1Ui+ySnTt8e83yursaSsk5E1pl7u7DXHtXtygF6MxEhSyETcUt+FIJQFXbUEEXbVjriJ4rPdZU8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=e0J3kxoL; arc=none smtp.client-ip=52.59.177.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1791731898; c=relaxed/simple;
+	bh=47Juegb4i4wLYemsS3mlLmvD6SQo9n3f3fDvEuZbmeo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HVsv5thF1kAUQeILNgNp6CChqyM+1w3IfBaoMKoMUdoIusMDbzdPg8NEGjJcAmZyfkSefgqdPaUfeScqR8FAbs2lpdDqscHcvY96ko6MWvLVmktBWQvRUpL6HupbGXqXIxGxBfLygJ0ehDAuhQyUFwRMWSSNzWdcIiyYLVGI2f8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C6RfgQzK; arc=none smtp.client-ip=74.125.227.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="e0J3kxoL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1791731648;
-	bh=umG5WIzXpwL9a99Crx0GEoTewFz2ZyPwbGY3LmJ+aP0=;
-	h=From:To:Subject:Mime-Version:Date:Message-ID;
-	b=e0J3kxoLvvcJzrgNhxEjjkSWi4Q+pmMpOe1+Qd21xW5rrtM5o/lYSKI2puXNIeYYt
-	 WXS4FSEeZlh3fwpXsDHIYW4eNzjlrWU7wY985cjhFOnuOwdaxytFmudGd1XVKAreAb
-	 9OaEP2J95WvEkztYJpqGrqGj2uFWcpmO5HB+h0O4=
-EX-QQ-RecipientCnt: 9
-X-QQ-GoodBg: 1
-X-QQ-SSF: 00400000000000F0
-X-QQ-FEAT: D4aqtcRDiqQnft7kyUuJbd/1GndRJklzmB5VJlBX//o=
-X-QQ-BUSINESS-ORIGIN: 2
-X-QQ-Originating-IP: YsSo2C4G5DLDMG+5jLL6P1G05aArSwsnpYEoDW398vk=
-X-QQ-STYLE: 
-X-QQ-mid: lv3gz7b-6t1791731642t19bc117f
-From: "=?utf-8?B?V2VudGFvIEd1YW4=?=" <guanwentao@uniontech.com>
-To: "=?utf-8?B?RXJpYyBCaWdnZXJz?=" <ebiggers@kernel.org>, "=?utf-8?B?SHVhY2FpIENoZW4=?=" <chenhuacai@loongson.cn>
-Cc: "=?utf-8?B?Y2hlbmh1YWNhaQ==?=" <chenhuacai@kernel.org>, "=?utf-8?B?QXJkIEJpZXNoZXV2ZWw=?=" <ardb@kernel.org>, "=?utf-8?B?bGludXgtY3J5cHRv?=" <linux-crypto@vger.kernel.org>, "=?utf-8?B?V0FORyBYdWVydWk=?=" <kernel@xen0n.name>, "=?utf-8?B?bG9vbmdhcmNo?=" <loongarch@lists.linux.dev>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?VGlhbnlhbmcgWmhhbmc=?=" <zhangtianyang@loongson.cn>
-Subject: Re: [PATCH 1/2] lib/crc: loongarch: Use hardware unaligned load in CRC32(C) loops
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C6RfgQzK"
+Received: by mail-pj2-f1.google.com with SMTP id 98e67ed59e1d1-3ab37ea4798so597053a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:18:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791731897; x=1792336697; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9Js12sCnL1SgWIn/v3LbBPMyn53Oc+3JONEbx1Wl0eE=;
+        b=C6RfgQzK1dXomQ55pOlodjgqfZzNwgG+B95aEFK38o/GRDZxVqGWaL5XZpQDO0jnUO
+         NqOkb52kAh6FkpTkFG7XQjijCp/0mMWecm+DLp2GYl+Y6PGdkXvkX3goXt2cT6KG/CGy
+         z35k3Qx2wIAKV5TDpN7MlGtSD8BhJ7ptbzYceavyb/ewQERP+/eJWKz3FZOBVghRY6uN
+         peMEdR4CGfKPr/o517puwCViAir4OF+NTok/Z3N9t2+1pJIhq8Q++e/iTMbXBRHAsTYS
+         0OqcLj9rRNo+0z5UFKzmQKCux3FZ9f/sz45+YUa96QY0y2W+QoZ87PEQsx/yKGcRXt4O
+         psPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791731897; x=1792336697;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9Js12sCnL1SgWIn/v3LbBPMyn53Oc+3JONEbx1Wl0eE=;
+        b=pc/6qPYVraNGS5R8bLV7paoU1iM6pWElVRdrcHij0Yd6iRJ+0WuaMB4ITFlXCJQDZ1
+         B4QKa8T1Parq3o0OqrxD3sWreNQZqaAThkOJnCXGrJQimDbLPslBtvRo/Idvb49V/mVs
+         0JvJr9i6+H0tcKQ0ne/+fAVArpZXhjOjJw6/r7zWe9Pd3qQ5Spt9qZnZ+fK+5RUkyQeT
+         klSGQUKU081RWOOoiNVdnG+4cP2uphWMX7qWH4X4s1waG3UyDA45szEh0FKcF9Q1vdhM
+         rxi4CT3ZwqM0a38XVLMu5hY2oZvdg40Xntb+7cKTbds4drfPtwS2gkqBwKUp8RORmne8
+         24Yw==
+X-Gm-Message-State: AFq9FYK8vw6Biedc12fUeVQIKt1a66hDmq0glYzYlmJKU4NtR8g8x439
+	5ly0Aerpxon71cC5C/UKekDbTm/RQHtFyPbXVtYL7/iPR0iGLlr8bF42
+X-Gm-Gg: AYBFou0iEnABuni1ECM4oESjdCZF0JuNuJkNXt61YexVZQiFXjgVnnfDfIogv1EG8s1
+	mAoKjXz1YOEQ8ZLNL4xnzy3M4IVm/V8+2RID9yKN9u/Fl3j92EjXthL+62+QHO7Ds+uE5Yax8lW
+	+64DWGKtoJhb4C4he0TdTmQlvNMRrOAUUX4v7sIwlGw0Ct81LKRF2Gqy0tialkrkcHA62BbOKkL
+	6zSvsyaAKT/2wxjR6T4+jFryPHkoCGkewhUgOa/tQWKXD/4s9Zs1tIx/YH5Pv/A8wdNY49oLbVQ
+	wVZFN8zgBXa4n6vWCdZIS0Fyz/yuz7hBxudDEWwYY+Q1pCpwAcfnCZvdQSJv8KnaL7azVdk9oWU
+	qFQ1wcOknnD2Y2hLChn/mUZd256Nnex5TOjxBkbpnQl5uClxjvuDltSJJWHd43wMEu0F+nLRzeD
+	dnUmaH2Yt88X1YC4ks9KnlJ/AA7qg/H7v072iRF48yp9al10X1mN1K2LBvlhontcw5FA==
+X-Received: by 2002:a05:6a00:3314:b0:87d:cc3d:fad4 with SMTP id d2e1a72fcca58-897c7fc20e1mr5366635b3a.54.1791731896836;
+        Sun, 11 Oct 2026 08:18:16 -0700 (PDT)
+Received: from xbp14 ([2409:8a1e:21b1:f670:abd0:4073:b5fa:6275])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c3ccf7cdsm3075729b3a.30.2026.10.11.08.18.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 08:18:16 -0700 (PDT)
+From: Jialin Wang <wjl.linux@gmail.com>
+To: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>
+Cc: linux-kernel@vger.kernel.org,
+	Jialin Wang <wjl.linux@gmail.com>
+Subject: [PATCH] x86/reboot: Disable CET in machine_real_restart()
+Date: Sun, 11 Oct 2026 23:18:03 +0800
+Message-ID: <20261011151807.263575-1-wjl.linux@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Sun, 11 Oct 2026 23:14:02 +0800
-X-Priority: 3
-Message-ID: <tencent_4750F9C704AA3CFA1E7309B7@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <20261011142930.492999-1-chenhuacai@loongson.cn>
-	<20261011150052.GA168780@quark>
-In-Reply-To: <20261011150052.GA168780@quark>
-X-QQ-ReplyHash: 1864047915
-X-BIZMAIL-ID: 10742750840368666225
-X-Address-Ticket:version=;type=;ticket_id=;id_list=;display_name=;session_id=;
-X-QQ-SENDSIZE: 520
-Received: from qq.com (unknown [127.0.0.1])
-	by smtp.qq.com (ESMTP) with SMTP
-	id ; Sun, 11 Oct 2026 23:14:03 +0800 (CST)
-Feedback-ID: lv:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: Mi3rtMkLCwwyL08wiR6l/C387V6HHrIoJqhS/itirFwaLoMWtXQtVXjs
-	iQG1dgaX+yE/dzwtGQwGy6Z1Dpx+Or1VpIBaXhzjFHuU9jTY9qTMIu2ngo7/VPOUA6OSPxW
-	KxgdKKHMG4nVBWjyHa8Y4aB/tRVwzM8whzYe/vBTVdS4E1eE1p15Q7ZbxyAywC6SUHU0rbp
-	7EJv5oMHs/+eqatugJj9ucPxhr//YrByUoFLfnc6PJ/f9EGXtEP7oKy+9khX164FA5Q8tfM
-	DTVtw4NzCYSxEsed4g/aLgbBbVrn79p5odY/0GyDRS0GNbIGQJ5wSRFa3snVQA8TfZ8penp
-	Wr+UviYdJmfZuK/CjYNUhO+eahZLx6jAZphFfOFOSSxY6aJhZEacJlgzHkwVvHNPJ4/Xas+
-	C33lM+BRsQ64Xsw+KwquxA7grxFgBlTw+n0GEoRWVkbXWxBz0RibQ23puVDoi3JJA/Oyw/d
-	oMlU/LN8Fdyc5xHkYjmdgwu010N7x7WB/A8ug0P0Ll5PQt5Bz4BrRaBzV1TX6r0lcAs5u5V
-	Q8CF1S5wksWKxcwn+cpxF69i06bRtY8Yqxkl2ipJp3BmQTAjumQX0Xw332qWsLQ0kzX9wXt
-	W+ncK6YExEsY9ar+5Enxlzcrt09i60p+bw/uW9/0mOzJdwLordZsLbuG1tPWQ3/7ZadKGc4
-	xJ+n4Nr7v1v3KLOa2DyrLLrH/sz1uQeJyXaiJEwTBEidio3Ynd3E+H8fU4StZrdLEQao/ht
-	xuLhKLt2YxunPoL1dV3CjL7VDnUvPH2v/gYom4nkMhAiR0IL1We/IJD8iZudbZCp0u04y0B
-	46kGYkqrcDpm8dh5UOGYue+RkCYZvs7Ygq4UMoB4Fqmd5mPPemZ8QIk3+sHfY8+0gQLClzO
-	yzSYeQtkq1eqCgSkb8Cr2SGacfJdZN+e9T291e03bdKnnpKQGaglZFHwMNj60OS+V2ogAOJ
-	hbrM0v7sV0rdwcDuQd0Sl2ZSCCkceUB7t1aDJ+9SxZPhTCItNRdrmiOPgXdiMQel4SNSXzT
-	SUVRh0LcoEWtJy9jWF4d5ukkgJS8A9aV3Yg5D/guoDYFtsPPFqbvkI04CnMJF1b4CKXqmQr
-	z8HAUewPpQCKmbDghYnOTRbVrH7HNInlF50RYq6CWNRAwwS5fPimhDkzJWakx1NHI9xBVph
-	HekxtMKyYIZrAkEUPIZw/Qsy9Q==
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-PiBPbiBTdW4sIE9jdCAxMSwgMjAyNiBhdCAxMDoyOToyOVBNICswODAwLCBIdWFjYWkgQ2hl
-biB3cm90ZToNCj4gPiArc3RhdGljIGlubGluZSB1MzIgZ2V0X2xlMzIoY29uc3Qgdm9pZCAq
-cCkNCj4gPiArew0KPiA+ICsgaWYgKHN0YXRpY19icmFuY2hfbGlrZWx5KCZoYXZlX3VhbCkp
-DQo+ID4gKyByZXR1cm4gKigoX19sZTMyICopcCk7DQo+ID4gKyBlbHNlDQo+ID4gKyByZXR1
-cm4gZ2V0X3VuYWxpZ25lZF9sZTMyKHApOw0KPiA+ICt9DQo+IA0KPiBObywgdGhpcyBpcyBq
-dXN0IGJyb2tlbi4gIFRoZSBiYXJlIG1pc2FsaWduZWQgYWNjZXNzIGlzIHVuZGVmaW5lZA0K
-PiBiZWhhdmlvciBpbiBDLiAgQWxzbywgZXZlcnkgb3RoZXIgdXNlIG9mIHtnZXQscHV0fV91
-bmFsaWduZWRfKiBpbiB0aGUNCj4ga2VybmVsIHdvdWxkIG5lZWQgdGhpczsgaXQgaXMgbm90
-IHNwZWNpZmljIHRvIHRoZSBDUkMgY29kZS4gIEFsc28sIGl0IGlzDQpSaWdodCwgSSBnb3Qg
-eW91ciB0aG91Z2h0LiBJdCBub3QgYmVsb25nIHRvIENSQyBsZXZlbC4NCg0KPiBpbmVmZmlj
-aWVudCB0byBjb21waWxlIGJvdGggY29kZSBwYXRocyBpbnRvIHRoZSBiaW5hcnkuDQo+IA0K
-PiBUaGUgb25seSB3YXkgdGhhdCByZWFsaXN0aWNhbGx5IHdvcmtzLCBhcyB3ZSBrbm93IGZy
-b20gdGhlIG90aGVyDQo+IGFyY2hpdGVjdHVyZXMsIGlzIGZvciB0aGUgdW5hbGlnbmVkIGFj
-Y2VzcyBzdXBwb3J0IHRvIGJlIGtub3duIGF0DQo+IGNvbXBpbGUgdGltZSwgYW5kIHRvIGhh
-dmUge2dldCxwdXR9X3VuYWxpZ25lZF8qIGRvIHRoZSByaWdodCB0aGluZw0KPiBhY2NvcmRp
-bmdseS4NClNvIHRoZSBvcHRpbWl6ZSBpdCBjYW4gYmUgbW92ZSB0byB7Z2V0LHB1dH1fdW5h
-bGlnbmVkXyogY29kZT8NCg0KPiANCj4gU2luY2UgbG9vbmdhcmNoIG1hZGUgdGhlIGluY29y
-cmVjdCBkZWNpc2lvbiB0byBub3Qgc3BlY2lmeSB1bmFsaWduZWQNCj4gYWNjZXNzIHVuY29u
-ZGl0aW9uYWxseSwgc2ltaWxhciB0byBSSVNDLVYgaXQgY2FuIGJlIHdvcmtlZCBhcm91bmQg
-b25seQ0KPiBieSBvdmVycmlkaW5nIHRoYXQgaW4gdGhlIGtjb25maWcuICBGb3IgbG9vbmdh
-cmNoIHRoYXQgYXBwZWFycyB0aGF0DQo+IGFscmVhZHkgYmUgaW1wbGVtZW50ZWQ7IGp1c3Qg
-dW5zZXQgQ09ORklHX0FSQ0hfU1RSSUNUX0FMSUdOIHdoZW4geW91DQo+IGtub3cgdGhlIGtl
-cm5lbCB3aWxsIHJ1biBvbmx5IG9uIENQVXMgdGhhdCBoYXZlIGZpeGVkIHRoaXMgYnVnLg0K
-SSB0aGluayB0aGF0IHdlIGhhdmUgdGhlIHVzZSBjYXNlcyB0byBwcm92aWRlIHRoZSBnZW5l
-cmFsIGtlcm5lbCBpbnN0ZWFkIG9mIHRoZSB0d28ga2VybmVsIHdpdGgNCmRpZmZlcmVudCBj
-b25maWcsIHNvIHRoZSBpbWFnZSBpbmNyZWFzZSB3aWxsIGJlIHRvbGVyYXRlZC4NCg0KQlJz
-DQpXZW50YW8gR3Vhbg==
+When a kernel panic occurs in an environment without ACPI reboot or
+8042 keyboard reset support (such as QEMU microvm),
+native_machine_emergency_restart() falls back through BOOT_ACPI,
+BOOT_KBD, BOOT_EFI, and eventually invokes machine_real_restart(MRR_BIOS)
+to switch back to real mode for a BIOS reboot.
+
+When kernel IBT is enabled, the indirect far jump (ljmpl) in
+machine_real_restart() jumps to the 32-bit compatibility mode entry point
+(pa_machine_real_restart_asm). Because machine_real_restart_asm does not
+begin with an ENDBR32 instruction, an indirect branch tracking #CP fault
+is triggered. Since ibt_fatal is true, do_kernel_cp_fault() triggers:
+
+  Missing ENDBR: 0x9a230
+  kernel BUG at arch/x86/kernel/cet.c:133!
+
+This issue can be reproduced with virtme-ng:
+
+  vng -v -r -- 'echo c >/proc/sysrq-trigger'
+
+which launches QEMU with the microvm architecture:
+
+  qemu-system-x86_64 -M microvm,accel=kvm,pcie=on,rtc=on \
+    -cpu host,topoext=on -smp 16 -no-reboot \
+    -kernel <vmlinuz> -append '... panic=-1 ...'
+
+Invoke cet_disable() in machine_real_restart() before loading the
+trampoline page table and executing the far jump, ensuring IBT is disabled
+and avoiding the #CP fault.
+
+Assisted-by: LLM
+Signed-off-by: Jialin Wang <wjl.linux@gmail.com>
+---
+ arch/x86/kernel/reboot.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/arch/x86/kernel/reboot.c b/arch/x86/kernel/reboot.c
+index 0fed6d0d7e32..eb23b8977de5 100644
+--- a/arch/x86/kernel/reboot.c
++++ b/arch/x86/kernel/reboot.c
+@@ -114,6 +114,13 @@ void __noreturn machine_real_restart(unsigned int type)
+ 	CMOS_WRITE(0x00, 0x8f);
+ 	spin_unlock(&rtc_lock);
+ 
++	/*
++	 * Disable CET before loading the trampoline page table and jumping
++	 * to the real-mode trampoline. This avoids missing-ENDBR #CP faults
++	 * during the far jump.
++	 */
++	cet_disable();
++
+ 	/*
+ 	 * Switch to the trampoline page table.
+ 	 */
+-- 
+2.56.0
 
