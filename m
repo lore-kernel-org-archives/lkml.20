@@ -1,132 +1,158 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E547383981
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 10:33:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF0637AA9E;
+	Sun, 11 Oct 2026 10:34:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791714803; cv=none; b=kk3xOf8WCocFN49XwH60F7vdIMDfZj6yfgdB0EM8HxDVtkwmfdycOahs7onBZWB9M2dvEQ/t8MosNHTzN5RRUqqyOAamu6bntT9U1qWnwjK78K+oUJS3NkcRavRk8Z1ypJ60npQh5PAJHo46IiL9LcGOCknmO5kJVD2XXDk+PJY=
+	t=1791714879; cv=none; b=LLH+nh7VSipzsE3NjBRgUygN6lIbhHhOkoj+Cvq5yRcfNo6oFHP5oalMirMk/OjNkkC7aHZBhtlr+rkVE7B0hCoLZAH2326VzKvmBbkvpgj4AS0uiZriKgGj7xgSKWFQUWKVNVzVhZLi/dJn/uip6eEnzt0945VJO0aduR70+bs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791714803; c=relaxed/simple;
-	bh=IbSgyg332uk6famZqEU4oZ978T9FSAct3rv7ZEZlJOQ=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=EU/MJobCqHhhUoQWw5fLGMD7PjPRI4ru1JjQTbyTLjDp/aGAdSsSRuTQomb6SxO8b7VrZTeLjV5mz5HmBAzZ9HqCxfs5AI8HQOZwOq4OLkjNfC8yf8yTgMfF+IRrw3OzMEeCjiWaQ0PKgRON8aDm91LCkA/Tllggu/kGDoliYuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=JjTKhYqG; arc=none smtp.client-ip=209.85.214.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
+	s=arc-20240116; t=1791714879; c=relaxed/simple;
+	bh=NOo7j1H9AH366+ck3fSKrd/N/DCyKEjgWiSYfSjyQCo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UVFldvuZbOfLJBa0NmCGRiOCarULSXx9zzI9JQIVT4pXN4W1qhYtzrbvJVgAJ75nN8rtVsxOdK9+iFB0/xnBXnc5wHUl4iN72I0q8esTSp2R1MpNF1ApVaJYThM9lSEqdXHaNzVi7GLTaceVsdKNYJlZcAfODUh2i3ORVdVZEIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fpmdJURV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="JjTKhYqG"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e85f74c21aso9729525ad.0
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 03:33:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791714802; x=1792319602; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5+gLLrkFOrriXJIzNMtnJZWTojcbqnID3U5KAXZwwzI=;
-        b=JjTKhYqGpUGH+nupJz/hPYcpvoEczw9HOeRnIUMi3RJPcW70IDzODTDrOcTmzEUNRh
-         CMk5BtqYw8ScQzF/1HL6wjhrJ9pGRP2N3nZBgSVnLOs+X1Zaha5mLwQnSn2cSxZLB7+n
-         +vgoiAZNM2VwgeuEpaXyAg61klP/hccUYfz1CrTDB1xfE4DhT9vo8bb3Bz65TuKR4JLs
-         Bx2EFbt4KsbfXOfqqpJ3tSBtsiBeExEnx/NHIq0HMkj/m/zlLWFeIoVCt0Bdw3ZuNpnj
-         jiGGIVepnyAY9Wrpk9S9VnV4o3pY31egEEay0Zyp9MQyPq638iK5toR4SlcnbmOwvBzp
-         AJtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791714802; x=1792319602;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5+gLLrkFOrriXJIzNMtnJZWTojcbqnID3U5KAXZwwzI=;
-        b=cwKczMOVqyAe9qGUET3ZTS3r2cJOUYGSk2LjKoc4BUW3zOuwPXwEzKx/z6mwFhm1dB
-         LZX76/aE34jhYZStt1aZQHh43mLrXKTJawyJtx9DyRepcMKPmPZehjrK/+80cWezqEY5
-         r1tSxjiQwDliju6oJqhR89mXIhczMAubwldDAvjpCpTNIXXHFq472EFD16TJ664Tz2Fy
-         our08QAklqpXfqJE5QmNVgGmAxw7mvfPtMmfJ5o0cyi0Ftj6adICo5g2tf/z6L/QnYmD
-         0Md8E/u99kzSO4lIFTMuCUanO2wy2Eh/cENl1tiPk8beJOB22B4PXfXLxOd1ic2KG1hr
-         Bqzw==
-X-Forwarded-Encrypted: i=1; AKwUvBzCZhemfmw2+GA0mrvx92ev0E4eyXUE04DtenxD6TGWuQ8yGDP9JSgQlQnQOmWTCWGonTVrNhfFQottLqk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLBn8VW8Jrm51FUNh6LgEaTJpoY4syb4iJhNCPNojXEkX/N6HE2
-	sEBOZ6x+wIBxfPg8aL788kqwDgnhnuzu3n+XGOeudccaPrMpVFD8mEPikEnyntDLcXQ6ZKiCiZx
-	T+kTZiSY4aJvSvTHALB+bVA==
-X-Received: from plht5.prod.google.com ([2002:a17:903:2f05:b0:2e4:9032:e624])
- (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:903:22cf:b0:2df:b510:cebb with SMTP id d9443c01a7336-2e842835a01mr44078615ad.6.1791714801455;
- Sun, 11 Oct 2026 03:33:21 -0700 (PDT)
-Date: Sun, 11 Oct 2026 18:33:19 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fpmdJURV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F8041F0089B;
+	Sun, 11 Oct 2026 10:34:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791714878;
+	bh=icm2LtJfPODYQnA9wYSVo4ITb9OjHw/HtenDlAvctjQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fpmdJURVzA3Zyv9Rhdq88PScXzTS2sNAmco0YA2NUcK4peAFfF0QWppF0hC/4RcUs
+	 pvsa4yDHEFHGSSNAPZwVm/GY58TK81rwv8Zvl6+XskUQ8HEjyxAXrUQqMePggJWh8o
+	 +jrpjWHqvZRbO+qYwlVlkfPPLdlCH3Xo9lxgCXkK+6wcg6etk/FJZi0ZhlNb7CQOHR
+	 pm13eqN8Voh5MV6GI9mFnzlw3b3E48HbtVXkkad/Ogmg0Ls5dp8nWR+d23DmB6Tvp9
+	 vQCLoulU49E6ShODaogBy0gN548SZh/9eujZulIODgsd0rqTfwPWdwgX0DO2Kmdr+I
+	 9QiVTjjeE8rNw==
+Date: Sun, 11 Oct 2026 13:34:33 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Palla Raghunath <raghunathpalla.0209@gmail.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Shuah Khan <shuah@kernel.org>,
+	Brigham Campbell <me@brighamcampbell.com>,
+	linux-kernel-mentees@lists.linux.dev,
+	syzbot+ae549381b4daac2895b1@syzkaller.appspotmail.com
+Subject: Re: [PATCH] RDMA/cma: wait for addr_handler() to finish in
+ rdma_destroy_id()
+Message-ID: <20261011103433.GB27033@unreal>
+References: <20261004112613.18171-1-raghunathpalla.0209@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261011103319.820657-1-stanleyjhu@google.com>
-Subject: [PATCH] scsi: ufs: docs: Describe how to test with QEMU
-From: Stanley Jhu <stanleyjhu@google.com>
-To: "Martin K. Petersen" <mkp@kernel.org>, 
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, Jonathan Corbet <corbet@lwn.net>
-Cc: Bart Van Assche <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Jeuk Kim <jeuk20.kim@samsung.com>, Bean Huo <beanhuo@iokpp.de>, linux-scsi@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261004112613.18171-1-raghunathpalla.0209@gmail.com>
 
-QEMU emulates a UFS host controller and logical units, but the kernel
-tree does not mention it, so developers without UFS hardware have no
-documented way to exercise the UFS core.
+On Sun, Oct 04, 2026 at 12:26:13PM +0100, Palla Raghunath wrote:
+> syzbot hit a use-after-free of id_priv in addr_handler(). The bad read
+> is in debug_mutex_unlock(), from the last mutex_unlock() of
+> handler_mutex, and the memory was freed by ucma_close() ->
+> rdma_destroy_id().
+> 
+> addr_handler() moves the state from RDMA_CM_ADDR_QUERY to
+> RDMA_CM_ADDR_RESOLVED (or RDMA_CM_ADDR_BOUND on error) under
+> handler_mutex. If rdma_destroy_id() runs at that point, it waits on
+> handler_mutex. When addr_handler() unlocks, the destroying task can take
+> the mutex before mutex_unlock() has returned. It then sees a state other
+> than RDMA_CM_ADDR_QUERY, so cma_cancel_operation() skips
+> rdma_addr_cancel(), and _destroy_id() frees id_priv. mutex_unlock() in
+> the work then touches the freed lock:
+> 
+>   ib_addr work                         close()
+>   addr_handler()
+>     mutex_lock(handler_mutex)
+>     ADDR_QUERY -> ADDR_RESOLVED
+>     ...                                rdma_destroy_id()
+>                                          mutex_lock(handler_mutex)
+>     mutex_unlock(handler_mutex)
+>       owner cleared                      gets the mutex
+>                                          state != ADDR_QUERY, no cancel
+>                                          kfree(id_priv)
+>       debug_mutex_unlock(lock)  <- use-after-free
+> 
+> Documentation/locking/mutex-design.rst says mutex_unlock() may still
+> touch the mutex after another task has acquired it, so handler_mutex
+> can't be what keeps id_priv alive here. The comment in
+> cma_cancel_operation() assumes it can. Before commit 722c7b2bfead
+> ("RDMA/{cma, core}: Avoid callback on rdma_addr_cancel()"),
+> addr_handler() held a reference on id_priv until after mutex_unlock(),
+> which covered this.
+> 
+> So in rdma_destroy_id(), call rdma_addr_cancel() before taking
+> handler_mutex if a resolve was ever started on this id. The req stays on
+> req_list until the callback returns, so rdma_addr_cancel() finds it and
+> cancel_delayed_work_sync() waits until addr_handler() is really done.
+> This doesn't deadlock with the work itself. When addr_handler() destroys
+> the id because the event handler returned non-zero, it uses
+> destroy_id_handler_unlock(), not rdma_destroy_id(). Event handlers also
+> run with handler_mutex held, so they can't call rdma_destroy_id() on
+> their own id anyway.
+> 
+> There's no reproducer from syzbot, so I made the window bigger with a
+> debug-only mdelay(1000) after the mutex_unlock() in addr_handler(),
+> followed by a read of handler_mutex.magic. A small test program creates
+> an id, resolves an address on an rxe device and closes the fd while the
+> work sits in that delay. Without this patch KASAN reports the same
+> slab-use-after-free as syzbot (1048 bytes into a kmalloc-2k object,
+> freed by ucma_close()). With it the test runs clean, and close() just
+> waits for the work to finish.
+> 
+> Fixes: 722c7b2bfead ("RDMA/{cma, core}: Avoid callback on rdma_addr_cancel()")
+> Reported-by: syzbot+ae549381b4daac2895b1@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=ae549381b4daac2895b1
+> Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
+> ---
+>  drivers/infiniband/core/cma.c | 19 +++++++++++++++----
+>  1 file changed, 15 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/infiniband/core/cma.c b/drivers/infiniband/core/cma.c
+> index 337a49d1acf7..24235eb0c49b 100644
+> --- a/drivers/infiniband/core/cma.c
+> +++ b/drivers/infiniband/core/cma.c
+> @@ -1968,10 +1968,10 @@ static void cma_cancel_operation(struct rdma_id_private *id_priv,
+>  		/*
+>  		 * We can avoid doing the rdma_addr_cancel() based on state,
+>  		 * only RDMA_CM_ADDR_QUERY has a work that could still execute.
+> -		 * Notice that the addr_handler work could still be exiting
+> -		 * outside this state, however due to the interaction with the
+> -		 * handler_mutex the work is guaranteed not to touch id_priv
+> -		 * during exit.
+> +		 * The addr_handler work can still be finishing its
+> +		 * mutex_unlock() after it has left this state.
+> +		 * rdma_destroy_id() waits for that before it takes
+> +		 * handler_mutex.
+>  		 */
+>  		rdma_addr_cancel(&id_priv->id.route.addr.dev_addr);
+>  		break;
+> @@ -2121,6 +2121,17 @@ void rdma_destroy_id(struct rdma_cm_id *id)
+>  	struct rdma_id_private *id_priv =
+>  		container_of(id, struct rdma_id_private, id);
+>  
+> +	/*
+> +	 * addr_handler() can still be in mutex_unlock(&handler_mutex) after
+> +	 * it has moved the state on from RDMA_CM_ADDR_QUERY, and
+> +	 * mutex_unlock() may touch the mutex even after we have taken it.
+> +	 * Wait for the work to finish before we free id_priv. The req stays
+> +	 * on req_list until the callback returns, so rdma_addr_cancel() will
+> +	 * find it.
+> +	 */
+> +	if (id_priv->used_resolve_ip)
+> +		rdma_addr_cancel(&id->route.addr.dev_addr);
+> +
 
-Add a short section with the required kernel options, an example QEMU
-command line, and what the emulation does not cover.
+It may call `rdma_addr_cancel()` twice. This is probably harmless, but still
+undesirable.
 
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
----
- Documentation/scsi/ufs.rst | 33 +++++++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
+Thanks
 
-diff --git a/Documentation/scsi/ufs.rst b/Documentation/scsi/ufs.rst
-index a7b2b2ed1c3a..1ff1c8218bf1 100644
---- a/Documentation/scsi/ufs.rst
-+++ b/Documentation/scsi/ufs.rst
-@@ -19,6 +19,7 @@ Universal Flash Storage
-      3.4 SCSI Error handling
-    4. BSG Support
-    5. UFS Reference Clock Frequency configuration
-+   6. Testing with QEMU
- 
- 
- 1. Overview
-@@ -208,3 +209,35 @@ the UFS specification. UFS subsystem will attempt to read the value when
- executing common controller initialization. If the value is available, UFS
- subsystem will ensure the bRefClkFreq attribute of the UFS storage device is
- set accordingly and will modify it if there is a mismatch.
-+
-+6. Testing with QEMU
-+====================
-+
-+QEMU emulates a UFS host controller as a PCI device named "ufs" and
-+logical units named "ufs-lu". This can be used to test changes to the
-+UFS core and to ufshcd-pci without UFS hardware.
-+
-+Enable the following kernel options on top of the architecture
-+defconfig::
-+
-+	CONFIG_SCSI_UFSHCD=y
-+	CONFIG_SCSI_UFSHCD_PCI=y
-+	CONFIG_BLK_DEV_SD=y
-+
-+Example for an arm64 guest with one 1 GiB logical unit::
-+
-+	qemu-img create -f raw ufs.img 1G
-+	qemu-system-aarch64 -M virt -cpu max -smp 4 -m 2G -nographic \
-+		-kernel arch/arm64/boot/Image -initrd rootfs.cpio.gz \
-+		-append "console=ttyAMA0" \
-+		-drive file=ufs.img,if=none,id=lu0,format=raw \
-+		-device ufs,id=ufs0,serial=0001,mcq=on \
-+		-device ufs-lu,drive=lu0,bus=ufs0,lun=0
-+
-+The logical unit appears as a SCSI disk (/dev/sda). Drop "mcq=on" to
-+test the single doorbell mode instead of MCQ. The same -device options
-+work with qemu-system-x86_64.
-+
-+The emulation does not model UniPro, M-PHY, power mode changes,
-+hibernation or clock gating hardware, and vendor host drivers are not
-+exercised. Changes in those areas still need testing on real hardware.
--- 
-2.56.0.385.gd3acb90ef8-goog
-
+>  	mutex_lock(&id_priv->handler_mutex);
+>  	destroy_id_handler_unlock(id_priv);
+>  }
+> -- 
+> 2.34.1
+> 
