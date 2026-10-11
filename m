@@ -1,206 +1,132 @@
-Received: from pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com [50.112.246.219])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1AEB3BE154;
-	Sun, 11 Oct 2026 05:05:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=50.112.246.219
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 178AF42050
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 05:13:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791695148; cv=none; b=XcOSpDYx7bGVID+3N+1xEq8aWyyhg2fspvfQr96mRfi2Olm3WZQ2Gho7eX/sKkIJwhUPtPFuCJT4uQRtXIjdanGehKX0YWSX5KD4E2Is2QGk1A6vqwyd1ckoK3Th8TWkRk/JOlWhX8Ki8kCGPjdzGPTIj64e/7UI89JHFLmlQ1M=
+	t=1791695626; cv=none; b=rRonXAISyPJZ+VcW9iXFkRg4nBX1U7wZz0knIT9usgoEgNLsL/Pq7mhF9zzwl16ImJGtlak5vH8ZzIDOoVRXyaGsS0zj7H4X78vjx1DUuGL/o2IwFbnSWeYbIKWUArllpPZNLiDUNPsYY6QD351ayAdZYqbEe5NWDRYWSOlByrM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791695148; c=relaxed/simple;
-	bh=WBvcrvYI2MYxoxqjS3yUbtyt3Qs9ojZqk2nYO2M5B4s=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=iITC/rIAn4Z2+sqpaDnfXzUF2Vd+EQ22F9z6pBnkYcvL41nCCISQQBhY5tUp33lfK8s6Z8OXpMpuYQB+j/VNetz93Ie3oWkX8/BAOslx6QQMzLl1SmItlTwXwIpk/ZyZrV4sMJwwv3sU9MlJwMejZVcHDXEf3WqH6H+lEVGjNy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=Ub2drlGw; arc=none smtp.client-ip=50.112.246.219
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1791695626; c=relaxed/simple;
+	bh=yjj+GEMBuBRVvavplchcH8uaXDQxZ2w7EtUDess9Elc=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Disposition; b=uyknBHuaRxCqoZS9ShvirleArb9WrfC3fSFMqC2fsZmxzLIRMJqxU55dxmLqHxb6nsGvZQ/hZ06sSBmv7HAlTkSesYd3IMEnpHQFYFmhswJQz0GCarvKvlAyhEOIrvSBAs315dd0biwxt7fWt+UmNB3nLBNKY8djkgBR/CnKJpM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mivFBBm9; arc=none smtp.client-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="Ub2drlGw"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mivFBBm9"
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3550c917fd3so1390564eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 22:13:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1791695146; x=1823231146;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=tAcjk68uS0hDEwT4Hiua79fNKKKfa4i+E5fNKoHZJRM=;
-  b=Ub2drlGw+Upr7u7HSh+jjiRbTbmcHSiguMzaDJCRBBzV4wzwO0CC+R6Q
-   t3yQ2hIGbURPD8VplIo0XZozAA8RPuUWLZiYCRO1YzbVnJnFDcNXajDMk
-   U+km34mCgb7+AyMR/U9aEDWfeuvFHSiQin3dXyg8lLr0vsQWykEpIgsc9
-   4oyK4frIYrNUj55irYDNSuHu4VtCyg4G55yWX89epwEsBi6Oc3WlCRQzJ
-   +Vm2juOlHd6DgOMoZrR1I8tZ44J+GeUF9/81PzrHnPkYUc5xWwL64BPDO
-   WBhqxknIIxd9wxbqb+rw1/A4Vy6wafj5geB9SBrFKThLo/GiRyue8Djty
-   Q==;
-X-CSE-ConnectionGUID: YpP7yDQzSCebtflLw9y4tA==
-X-CSE-MsgGUID: jhUxYYySQpqS1S7hUtrkKw==
-X-IronPort-AV: E=Sophos;i="6.27,151,1787011200"; 
-   d="scan'208";a="30723804"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-015.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 05:05:44 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.111:1724]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.45.50:2525] with esmtp (Farcaster)
- id 766b34eb-5a25-4958-9fb1-aa520357ae17; Sun, 11 Oct 2026 05:05:44 +0000 (UTC)
-X-Farcaster-Flow-ID: 766b34eb-5a25-4958-9fb1-aa520357ae17
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Sun, 11 Oct 2026 05:05:44 +0000
-Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
- (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Sun, 11 Oct 2026
- 05:05:42 +0000
-From: Eliav Farber <farbere@amazon.com>
-To: Thomas Gleixner <tglx@kernel.org>, Talel Shenhar <talel@amazon.com>
-CC: Radu Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Eliav
- Farber" <farbere@amazon.com>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH v5 9/9] irqchip/al-fic: support per-child affinity via interrupt redirection
-Date: Sun, 11 Oct 2026 05:04:48 +0000
-Message-ID: <20261011050449.41903-10-farbere@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261011050449.41903-1-farbere@amazon.com>
-References: <20261011050449.41903-1-farbere@amazon.com>
+        d=gmail.com; s=20251104; t=1791695624; x=1792300424; darn=vger.kernel.org;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jGwiSM6Jw7fQY0scgIdwmNx4g3Nb53u28uyWu2p6TTo=;
+        b=mivFBBm9fSwc0/j757Fw9E4ROGNYoaFrsrwXW1kuvn7HPvPunacD+Cv2h9uU9srizw
+         tQ2j5tZnMU7JZ5NAgarhBBfPmL06/FMMRxEILEDXFwBWV09sY/wdFZugC7X6AU2sVbvl
+         UtE5wet1Oslo3L7A6EpfgPmTn5Y2VhIHlNN+A8/EdbOodg35JIbL8JNAxPnotvxwGy+Y
+         ln5JVxChpYz9HKqK7kfF7c/o6FXN7KSscVZZpNgFR12qsKw8HFRGyo5ip0f9NL/pq3/G
+         h91SS/+lwerZawVgmkIR3bWHdq7QunmILHHi7c8BrjyZuhRF9wvcdTJziNMm8i1o5Or8
+         RnCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791695624; x=1792300424;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=jGwiSM6Jw7fQY0scgIdwmNx4g3Nb53u28uyWu2p6TTo=;
+        b=R65cPgKInk7yAaQBOQLpjnUdYeVb1guqAgHYimZALIzHh7w+4RFRGIzMURo474bD8E
+         c9K54/SzJqo+6NoqptdTQT3UTDEpAdK9CQLm39lDyu7Dh8ABgy+jnEo5+x0p8yg0CXC7
+         OeuqdLF3JeOPpj+moFRfZC8psiPCny48WNAhmTnLFP5pR2cJeWDBarLN0Ex8S1G+hxGy
+         6sUvxiWvmW7RUfjge2s1jIXsL63C/HpagobhIXbvfZ48pblVKYTwAqtLhEOEnIs+3x9D
+         0hyWmIVW71je5q/eQSelelUVUMmW/qSsR4iX2JrmhYirTMKKhlpFGHmban/DwVUR2aza
+         ABFg==
+X-Forwarded-Encrypted: i=1; AKwUvBze4MdTeVOfIpp43YIclHWKWWi2fQAninBLLBu3ew4A5HPTcZd/3wE6u1I3pwZEg7PWrx/fSXfc4/tkwPk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJyV119WkqM3x3ydvg1kBC2MbvjcWdLh50rALy6jYKtRpyebyYn
+	9wzpbkCwCOPn2vek1boWw7ebymTgwd0ls/+TuB0Qj3lMEEFqluPWMu6c
+X-Gm-Gg: AYBFou3Qwu/oH+/Yl63qtcTilO5usNP0Ct0pTbRm7cggeVZSKZ7hVStsXTUb8SIL1Hf
+	X6QYbBXphRJ04AAuimiNdSWCwkMTheH/iuDUP9WUWKmqrS8MPsiQsprz8gjDef0ybnqsYYOgrcO
+	BPOfHDeB9JgMnHhQLINtNeJXiHE1rvjF9pbsWrpk5ZYIkl9p+v00apmkw1Dhp89qMDS3tVGP5hJ
+	9iWUB0hvawm/PyQRlVvTAAb2Cn07txKsxYCB0BcqrrYS0yibNNvO10MFqhZVtuur5o5ClEs/iYN
+	7vsZZI4Itr/R1KzrlrWsZ/fci/dkLMyGSeqhA4+vZHt8ULEXEeFfVxavglRjC/fDC47h/EW2B2X
+	0W/d8K8kr5+9elgveGMhQk221Sze52r12YoIam+DAsWXzgrCb8a4SbHXXsTBIwrSSdd2G3ApGgr
+	Ha4HjcZOeiPmaPw5/sOhS30LpigxBv9hbwLsJBmXFoBwhW6R5B430v1GXedI4RGsiZU6OErZ3E8
+	Xc9ze0JGvTNrpFx9DYXC5NvkfQ+SuvgiIdG5saQcgM6e2fbiQ==
+X-Received: by 2002:a05:701b:205c:10b0:149:49c:233 with SMTP id a92af1059eb24-16a60811394mr8606020c88.27.1791695623826;
+        Sat, 10 Oct 2026 22:13:43 -0700 (PDT)
+Received: from localhost ([2a00:79e0:2ebe:8:99d7:6eb1:9874:c6be])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a1becf08sm20632400c88.5.2026.10.10.22.13.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 22:13:43 -0700 (PDT)
+Date: Sat, 10 Oct 2026 22:13:41 -0700
+Message-ID: <30c56291bac612db47c6ced73dff739f@gmail.com>
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Miotsuki Mizuno <founder@crepuse.com>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Icenowy Zheng <icenowy@aosc.io>,
+	"linux-input@vger.kernel.org" <linux-input@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/3] dt-bindings: input: touchscreen: add Nsiway NS2009
+In-Reply-To: <20261009144729.85832-3-founder@crepuse.com>
+References: <20261009144729.85832-1-founder@crepuse.com> <20261009144729.85832-3-founder@crepuse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC001.ant.amazon.com (10.13.139.241) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-The FIC multiplexes up to 32 sources into one parent GIC SPI, and a
-child's handler runs in the parent's context, so a child has no affinity
-control of its own. irq_set_affinity() therefore fails with -EINVAL, and
-drivers that treat that as fatal cannot probe when their interrupt
-arrives through a FIC group. The parent routing cannot be changed on
-behalf of one child either, because several FIC groups may share one SPI
-and all of them would move with it.
+Hi Miotsuki,
 
-Use the interrupt redirection infrastructure. Dispatch children with
-generic_handle_demux_domain_irq() and set irq_set_affinity to
-irq_chip_redirect_set_affinity(), so a child whose affinity excludes the
-CPU taking the parent interrupt runs on its target CPU in IRQ work
-context. The interrupt is still taken on the parent's CPU; only the
-child's handler body moves.
+On Fri, Oct 09, 2026 at 02:47:43PM +0000, Miotsuki Mizuno wrote:
+> Describe the Nsiway NS2009 four-wire resistive touchscreen controller
+> and the properties used by its polling driver.
+>
+> The controller returns 12-bit ADC coordinates. Use the common touchscreen
+> properties for coordinate ranges and orientation, and allow boards to set
+> the raw Z1 contact threshold through touchscreen-min-pressure. Limit that
+> threshold to 1..4095 because zero cannot distinguish a released contact.
+>
+> Document the historical default of 80 and a board override of 150 in the
+> example. The Z1 threshold is for contact detection, not calibrated
+> pressure.
+>
+> Signed-off-by: Mizuno Miotsuki <founder@crepuse.com>
+> ---
+...
+> +description: |
+> +  The NS2009 is a four-wire resistive touchscreen controller connected over
+> +  I2C. This binding describes polling operation without a pen interrupt.
+> +  Coordinates are 12-bit ADC readings, not display pixel coordinates.
 
-Redirection defers the whole flow handler, so the cause bit is cleared in
-al_fic_irq_pre_redirect(), which runs in parent context on both the
-inline and the redirected path. A level configured group is masked there
-too, because its cause bit re-latches while the input stays asserted; the
-deferred handle_level_irq() masks again and unmasks when the handler is
-done. An edge configured group is only acked, since handle_edge_irq() has
-no unconditional unmask. irq_ack is a noop because irq_pre_redirect runs
-on every dispatch and the ack must not happen twice.
+Devicetree bindings should describe the hardware itself rather than the
+subset of features currently used by the Linux driver. According to the
+NS2009 datasheet, the controller has several hardware signals and
+capabilities that should be covered in the binding from the start (even
+if the initial driver operates in polling mode):
 
-Signed-off-by: Eliav Farber <farbere@amazon.com>
----
-v5: rewritten from scratch. Thomas Gleixner rejected the
-    IRQ_SET_MASK_OK_DONE approach below ("That's a horrible hack and just
-    pretends to solve a problem. We have the interrupt redirection
-    infrastructure to handle that correctly."). This patch instead wires
-    al-fic into that infrastructure (irq_chip_redirect_set_affinity(),
-    generic_handle_demux_domain_irq(), and an irq_pre_redirect callback
-    that moves the ack - and, for a level configured group, the mask -
-    into parent context), per Radu Rendec's confirmation of this shape on
-    the v2 thread and the dw_pci driver he and Thomas pointed at as a
-    reference. Tested on our hardware: with a child's affinity pinned
-    away from the CPU taking the parent SPI, the handler body runs on the
-    target CPU and the ack still happens on the parent's CPU, with no
-    re-fire storm on a level configured group, and no change to the
-    inline (non-redirected) path. This replaces every version of the
-    irq_set_affinity callback below; the v2-v4 history is kept for the
-    record of how the approach got here.
+  - interrupts (maxItems: 1) and wakeup-source: the controller provides
+    an active-low pen interrupt output, which can remain optional for
+    boards where the line is left unconnected.
+  - vdd-supply and vref-supply: main power supply and external reference
+    voltage regulators.
+  - touchscreen-x-plate-ohms (along with touchscreen-max-pressure and
+    touchscreen-fuzz-pressure): the NS2009 supports touch resistance
+    calculation from Z1/Z2 and X-plate resistance.
 
-v4: no change. The question Radu Rendec raised on this patch - whether an
-    unconditional IRQ_SET_MASK_OK_DONE is the right contract, or whether
-    it should fail with -EINVAL - is still open.
+Could you expand the binding description and properties (and show an
+interrupt/supply example as well) so we do not have to revisit the
+binding when IRQ or pressure support is added later?
 
-v3: no change. The question Radu Rendec raised on this patch - whether an
-    unconditional IRQ_SET_MASK_OK_DONE is the right contract, or whether
-    it should fail with -EINVAL - is still under discussion on the v2
-    thread and is answered there.
+Thanks.
 
-v2: add Co-developed-by/Signed-off-by: Talel Shenhar. No code change from
-    v1.
-
- drivers/irqchip/irq-al-fic.c | 46 ++++++++++++++++++++++++++++++++++--
- 1 file changed, 44 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/irqchip/irq-al-fic.c b/drivers/irqchip/irq-al-fic.c
-index 13a945a1d312..77cff6308eba 100644
---- a/drivers/irqchip/irq-al-fic.c
-+++ b/drivers/irqchip/irq-al-fic.c
-@@ -142,7 +142,13 @@ static irqreturn_t al_fic_irq_handler(int irq, void *data)
- 	pending &= ~gc->mask_cache;
- 
- 	for_each_set_bit(hwirq, &pending, NR_FIC_IRQS)
--		generic_handle_domain_irq(domain, hwirq);
-+		/*
-+		 * Redirect a child whose affinity excludes this CPU to its
-+		 * target CPU via irq_work. The ack moves to
-+		 * al_fic_irq_pre_redirect(), because the whole flow handler is
-+		 * deferred when that happens.
-+		 */
-+		generic_handle_demux_domain_irq(domain, hwirq);
- 
- 	return pending ? IRQ_HANDLED : IRQ_NONE;
- }
-@@ -157,6 +163,32 @@ static int al_fic_irq_retrigger(struct irq_data *data)
- 	return 1;
- }
- 
-+#ifdef CONFIG_SMP
-+/* The ack happens in al_fic_irq_pre_redirect() on both paths instead. */
-+static void al_fic_irq_noop(struct irq_data *data) { }
-+
-+/*
-+ * Runs in the parent interrupt context on every dispatch, redirected or not.
-+ * Clear the cause bit here: once the flow handler is deferred, the FIC keeps
-+ * driving its output until the irq_work runs, and a level parent SPI re-fires.
-+ *
-+ * A level configured group is masked too, because its cause bit re-latches
-+ * while the input stays asserted; the deferred handle_level_irq() unmasks
-+ * when the handler is done. An edge configured group is only acked, since
-+ * handle_edge_irq() never unmasks unconditionally and the mask would stay.
-+ */
-+static void al_fic_irq_pre_redirect(struct irq_data *data)
-+{
-+	struct irq_chip_generic *gc = irq_data_get_irq_chip_data(data);
-+	struct al_fic *fic = gc->private;
-+
-+	if (fic->state == AL_FIC_CONFIGURED_LEVEL)
-+		irq_gc_mask_set_bit(data);
-+
-+	irq_gc_ack_clr_bit(data);
-+}
-+#endif /* CONFIG_SMP */
-+
- static int al_fic_register(struct device_node *node,
- 			   struct al_fic *fic,
- 			   enum al_fic_id fic_id)
-@@ -195,9 +227,19 @@ static int al_fic_register(struct device_node *node,
- 	gc->chip_types->regs.ack = AL_FIC_CAUSE;
- 	gc->chip_types->chip.irq_mask = irq_gc_mask_set_bit;
- 	gc->chip_types->chip.irq_unmask = irq_gc_mask_clr_bit;
--	gc->chip_types->chip.irq_ack = irq_gc_ack_clr_bit;
- 	gc->chip_types->chip.irq_set_type = al_fic_irq_set_type;
- 	gc->chip_types->chip.irq_retrigger = al_fic_irq_retrigger;
-+#ifdef CONFIG_SMP
-+	/*
-+	 * The FIC has no hardware affinity control, so give each child real
-+	 * affinity by redirecting its handler to the target CPU.
-+	 */
-+	gc->chip_types->chip.irq_ack = al_fic_irq_noop;
-+	gc->chip_types->chip.irq_pre_redirect = al_fic_irq_pre_redirect;
-+	gc->chip_types->chip.irq_set_affinity = irq_chip_redirect_set_affinity;
-+#else
-+	gc->chip_types->chip.irq_ack = irq_gc_ack_clr_bit;
-+#endif
- 	gc->chip_types->chip.flags = IRQCHIP_SKIP_SET_WAKE;
- 	gc->private = fic;
- 
 -- 
-2.47.3
+Dmitry
