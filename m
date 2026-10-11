@@ -1,132 +1,97 @@
-Received: from mail-qk2-f10.google.com (mail-qk2-f10.google.com [74.125.230.202])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E94C454781
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 00:10:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.202
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C9377080D
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 00:13:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791677415; cv=none; b=dk9OEJx/njV71OdFI8j3As/tYq4sRdeMpcNHBL2HgpTBp8a5ZmgMLPsc2rPxuTA64PfHCqgg7Colg/AtVUAZUdy/P2n+kvL+tsyYvjAeE7CXPCsypysxh7FjN0M3/vtsjfb31iCso+EWHkd3wa3Q45/DbcWZcok7pXO75FlMNtM=
+	t=1791677592; cv=none; b=CGgZO2DCwiEEp2lrLIASmF/Gjx4nv6xzkQEdnFRV53qMfDRESbFQXyy7F147IakQmXhNpYv+htTIhR85crIai9GwbG1c4AYdS4cgS6aCTJMN3gZ4UW96JIaz2mqRSAjyhnbJp3uoZxji18VI6TIFFl6XeTdnl4eNL8R2esPwUlc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791677415; c=relaxed/simple;
-	bh=3bLDDmxM9+7bEMwptKzPe5tuqwYOb9te2j7zoPqB9bQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HiD12vMS+olhNAOQBddX0mM9zVK/y5kH+a/M9hJwJ8cZ8QYYl/8sfPpEKRFemAOpHUMH4CdEPs2wNuRtErrsCV9GJZf6KQy444bjS19tDjraQWT43jznAqYc0yaLf+xLuRzvhlKtV8I6Lk0bylxB1kmDYch8PPl+NIDNpfNZMvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T13vT2Hm; arc=none smtp.client-ip=74.125.230.202
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791677592; c=relaxed/simple;
+	bh=rJr+PXEBRDn/U+unsqqULi2Y/GhllVK3moCQhP/m2ZU=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=BgMMLuSQsUOlIDaoSW9RF3BjAz2M3uV7O4uBJuxpy+CsXGHaWmzjHgteBpMYccvmOX3YKkoFUOWuyjmIjDC8FGn7J8o83F+64I2Edrsddi4ErjTO0nX92z9hWQpr/XqsFiYmfqNOl5/moztsJWhNLQ/8ATvW2Uljf6b3cHUZSIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JDV4UMJu; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T13vT2Hm"
-Received: by mail-qk2-f10.google.com with SMTP id af79cd13be357-930f59d1dc6so58750885a.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 17:10:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791677412; x=1792282212; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BP1bz2pHwtNQXRUrZx5Fh8v5zRyVZJ76VNiARN43ayQ=;
-        b=T13vT2HmzeACAmqRS9dvSj0jsE/RJgswQ3APVLhPcQ0l8dcglJaJux7m7fcR6NtA0j
-         f/iKT/0+tz2aMef8WM8n0UFX9N//sbhxsBtZPaIUgp95FDjC7Qz29x8QhCi8ZziAepWb
-         ReXpmGTM1D3iTiJCTM+RT/S2yODZyFWFbOMkEZCEKv78cpWkAiep2PuktaotLopBf1eT
-         hqtFW+WR1dWpPu+SJoQ++0g0N1vu/Sqjk1SzzqU+iEZqvUy0sr/5biRY+auCbDqXbdif
-         2JNglB6+y069X/9q/hgJ2BMALlvw5gOFt/1hDrPdalDcxttXzeZEwbbBU1Z+yduyxEEg
-         WlGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791677412; x=1792282212;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BP1bz2pHwtNQXRUrZx5Fh8v5zRyVZJ76VNiARN43ayQ=;
-        b=SxI0y2oRh/VlPj99UCUsA8QlgrYTShcSC8MX3hTSnsBDzeZpzIuH03p4jX94j2RJLn
-         D/4jkvvSjFfSKAbK1WJGdCOfKuA1Pl/DQkHmf2C10SE50jt390CzKzKYsXnZIfMErk4X
-         SuNPYYLiEI/tYGrikbNFwzW6ryO28sC8LonqpTW23tsGkoQa++JnjvZ/E+0wrbjKj0By
-         x8XXrHyvbZTfmVrwQqQol2tWvLwkvHlVDPJqxxLfKeMpjqxW6PHOr6vDIouJP+UZX7tM
-         DaEZrhGZ2IMsXwcpivKoepbofe8KoycSugT61RE7m1/rSfa4lD9RuOSjtuJsnxZ6Q+AY
-         yHtQ==
-X-Forwarded-Encrypted: i=1; AKwUvByaYipKyAp5fTCL9F7Y5Pw67ZPGbwL0s5xBynkUiN5qT0sNLb2ycM4tIQBfk3T3WLHccyiJbfWzU5oIOn0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIjLHMIjetW704O+rNjJw/4m+GdeAYNwlTj7GYIwxNr3uXdoAwg
-	OZI+ApXjauVRAyRdNMha1NqhyLTf/n30Y7uPuHu4NOWnkJ2ufuVt6zb/
-X-Gm-Gg: AYBFou1rY085fxRTh13EapLBQ9vLpCky/uKbVthffPl6nd9Q7EFmti8JR0wAZQ6pr/w
-	RaruRAaCPhc2vMt2kU8Vbg9J6I3fIngC6D9iwoymnkbf40Q5RLP/ivSMq6HeycwXhpoYKxwI4YD
-	6+LE+AQBGKL10hfW+boqbg5icPNKt4cnD7OZjQI6+dxTSXJYP0Xd15sbU6IyABX5RnAF3td1G8R
-	dMAIyDqRr9KtYUS3gmf/n4DiGndwZ//CMGdsobXxJ5ZkqWp1j8DGkWoXIGV24XSalTmaM47tTTN
-	C+0j5mAWKXl8cV5XOpblXFkw3DSKe1MXN3PAztLKOV6rS43+4F3ycMorX0DS5Qla3y8O+oQHoWq
-	4HTnx2UFiV01PxuUB4wa+hU1+cZp/8J5UvNnud8ccRDsWWZtpX22/cjUX8gLrgMLjHch16HKshN
-	7DoAx3Mi62o8EiRMNwfkn0gJvI1jLcEnXX4ToDOYugyGXCpXQb2ayscdU2w2aj16Ui2Ww=
-X-Received: by 2002:a05:620a:4692:b0:93e:95ce:539c with SMTP id af79cd13be357-93ebd0e4018mr1010764985a.2.1791677411682;
-        Sat, 10 Oct 2026 17:10:11 -0700 (PDT)
-Received: from omarchy ([2601:804:8780:3df1:6ff:277e:31c7:ac13])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb98ff9d8sm523933585a.44.2026.10.10.17.10.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 17:10:11 -0700 (PDT)
-From: zoan37 <agentzoan@gmail.com>
-To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	kernel@collabora.com,
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JDV4UMJu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791677590;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=+OnL34M5MuvxOT/P7cYaq5gvVk8RyqKI4iwPV87ogp8=;
+	b=JDV4UMJu9eulCmLRDSTY/PsMVNX/wI1SayLOYaydyP6wOxE5BQ80mFjxaJtkj0HZjlY07G
+	ja+EVKlCXcQZupV6/V5MxglRaLnnbexDZ4vpygSqTip58JLfHzvPjVjpVjrHUaS6W9T7ZQ
+	fLOSWCpydjmFg+lUOKv1Sbcy6hDhtjQ=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-466-JDGDCOplNcuGPgomy-isHw-1; Sun,
+ 11 Oct 2026 00:13:07 +0000
+X-MC-Unique: JDGDCOplNcuGPgomy-isHw-1
+X-Mimecast-MFC-AGG-ID: JDGDCOplNcuGPgomy-isHw_1791677585
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A7D731954237;
+	Sun, 11 Oct 2026 00:13:05 +0000 (UTC)
+Received: from mlevitsk-thinkpadt14gen3.ibmmarkh.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 72E3B1800351;
+	Sun, 11 Oct 2026 00:13:04 +0000 (UTC)
+From: Maxim Levitsky <mlevitsk@redhat.com>
+To: kvm@vger.kernel.org
+Cc: Sean Christopherson <seanjc@google.com>,
+	x86@kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH v3 3/4] arm64: dts: mediatek: add Genio 720-EVK board
-Date: Sat, 10 Oct 2026 20:09:22 -0400
-Message-ID: <20261011000922.1089313-1-agentzoan@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260924-add-mediatek-genio-520-720-evk-v3-3-2ec5c80677d4@collabora.com>
-References: <20260924-add-mediatek-genio-520-720-evk-v3-3-2ec5c80677d4@collabora.com>
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Maxim Levitsky <mlevitsk@redhat.com>
+Subject: [PATCH v2 0/2] KVM: nVMX: fix nested APICv emulation for windows guests
+Date: Sat, 10 Oct 2026 20:13:01 -0400
+Message-ID: <20261011001303.723721-1-mlevitsk@redhat.com>
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-Hi Louis-Alexis,
+Fix two problems that were recently discovered that cause nested APICv=0D
+to malfunction on windows with hyperv enabled.=0D
+=0D
+The first problem is that unlike KVM, windows doesn't set PIR.ON when=0D
+sending posted interrupts. X86 spec actually allows this.=0D
+=0D
+The second problem is that unlilke KVM, which mostly ignores them,=0D
+windows depends on accurate delivery of the posted notification=0D
+interrupts, and currently it is possible for a posted notification=0D
+to get lost it it arrives at the same time as the nested VM exit.=0D
+=0D
+V2: to avoid spurious notification in L1, process the posted=0D
+notification in L2, just before VM exit.=0D
+=0D
+PS: I am not 100% sure if I got the barriers right, plus I am not sure=0D
+about what to do if vmx_complete_nested_posted_interrupt can't write=0D
+to the nested PIR, in this it calls kvm_handle_memory_failure, and=0D
+I don't know 100% its interactions with nested VM exit.=0D
+=0D
+Best regards,=0D
+	Maxim Levitsky=0D
+=0D
+Maxim Levitsky (2):=0D
+  KVM: nVMX: don't check PIR.ON when processing nested posted interrupts=0D
+  KVM: nVMX: avoid losing the posted notification interrupt when exiting=0D
+    L2=0D
+=0D
+ arch/x86/kvm/vmx/nested.c | 22 ++++++++++++++++++----=0D
+ arch/x86/kvm/vmx/vmx.c    |  5 +++++=0D
+ 2 files changed, 23 insertions(+), 4 deletions(-)=0D
+=0D
+-- =0D
+2.54.0=0D
+=0D
 
-A note from using this series' mt8189.dtsi as the base for an MT8189
-Chromebook (Lenovo IdeaPad Slim 3 Chromebook, board "quigon" of the
-skywalker family) on next-20261008.
-
-The dtsi has only the cpu_off_l/cpu_off_b idle states (PSCI
-CPU_SUSPEND 0x00010000). This firmware has no PSCI SYSTEM_SUSPEND, so
-suspend is s2idle, and with those states the SoC never really sleeps:
-the EC doesn't see the sleep signal and the RTC alarm doesn't wake it.
-ChromeOS's mt8189.dtsi adds a system-level state that only s2idle uses
-(infinite min-residency); when the last CPU enters it, TF-A and the SPM
-put the SoC to sleep:
-
-	cpu_s2idle: cpu-s2idle {
-		compatible = "arm,idle-state";
-		arm,psci-suspend-param = <0x020180ff>;
-		local-timer-stop;
-		entry-latency-us = <10000>;
-		exit-latency-us = <10000>;
-		min-residency-us = <0xffffffff>;
-	};
-
-with every CPU listing it after its cpu_off state
-(cpu-idle-states = <&cpu_off_l &cpu_s2idle>, <&cpu_off_b &cpu_s2idle>
-on the big cores). With that, suspend is real SPM sleep on this board:
-the EC sees S0->S3->S0, RTC, lid and keyboard wake work, it passes
-repeated suspend/resume cycles (20/20, then 10/10 twice), and a
-10-minute sleep used about 20 mWh of battery.
-
-I can only speak for the Chromebook firmware, so I don't know whether
-the Genio EVKs' TF-A implements this power level, but it may be worth
-adding to the SoC dtsi if it does.
-
-The board files are at
-https://github.com/zoan37/lenovo-slim3-chromebook-omarchy
-(port/quigon/mainline/mt8189-quigon-suspend.dtsi).
-
-This was found and tested with help from an AI assistant (Claude).
-
-Thanks,
-zoan37
