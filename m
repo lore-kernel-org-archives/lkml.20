@@ -1,111 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FBF945D933;
-	Sun, 11 Oct 2026 14:30:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D06FE45D925;
+	Sun, 11 Oct 2026 14:30:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791729007; cv=none; b=B6V/TQWKmDZHBvzgKiT9LHOcx13kiyUEsNb+i/OnJaFAi4xJy0u6TyCK+IU/rDwBJW6HBGh2oOn44VcdzrpOWRZfucP9hxj/Odz1/5vXlWm3WUzWNC66HInOCSJk/EF7o8kh0LF0NCRB3LBvZMqubDFkrRjZsYCyMVV1Nx2R8gY=
+	t=1791729023; cv=none; b=rfNN3bP8Hj3RDodXecerXsZt6mhUqjZr5Z1pfhbF60lgHvrtdXtSvVVDO8GX5TQ/umcPla9OVFThUKYWPHYIpjb7eyt5GnoLJble4y9FnyVdQg9/VxuyNcxSkB0JgupVtGoyUcDWbe7kwPKvvHna2hT1MngSy4jrM2Ffo4NoDho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791729007; c=relaxed/simple;
-	bh=w8FGrqVWKFCzjl0x9dELitvCaV77+8+v6qhp1fulAHA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=o7f1QpIP+K4W7LzJD1L0QwVkNhQ2AWGFGmG0VrKdd4XNYFOqWNyDi0gsVt4Phlj66pPbvdM82/sYH4yITphfUipAJEZWMwzGPLjnRYC+UMb5DHEqWKHW6nPJfLiZ+ekwwFeJnPFW91MJkGc1ep688ftWg/x3w5hSEaikxsCpDbs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tn+lfsLu; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tn+lfsLu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CC311F0089C;
-	Sun, 11 Oct 2026 14:30:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791729005;
-	bh=n0PovXFZQUHP8cry42Q1ldeCjZWewXjs25eS/GbljiI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Tn+lfsLu6G/95ifOxJnDFbxLoiZVUanB/AMXN7P1zsP28kvef8ru3mVKNzhwk7gqf
-	 KVDXxblRMySaOQo8xSRatI2/QjMeqGmR7LE5zobrRDSdn5aA1BFTX3uP+EvGdqla81
-	 LTVupUS1Dj2Eud/teNI4CDGzB77dB8DUuY4d6XefmUKCOCYH4nRpzkJ2ORh/zBpByw
-	 SXybnUpg4mc6t5PzFbfSxyRDWheb5wr861t2F/2xcEu/7rnqGpLhADhR6A616ny7+o
-	 aKfs5BTZtvGUPGZXJWoQsGEoyzDALxBGUWkrYXdi8as36HCL/eiisXdFVdttdB7jTq
-	 3iFguZ2hcj4Sg==
-Message-ID: <d4adf5de-9d72-4977-b4c0-3e1f163872a1@kernel.org>
-Date: Sun, 11 Oct 2026 16:30:01 +0200
+	s=arc-20240116; t=1791729023; c=relaxed/simple;
+	bh=72qUgiSaHSs/OtjdwuJYNHnpyqD0mBkihaiADxgjWy4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rkGuOGYSuogR4jrZQ8GbDbed/IJQMmvu17hXIB4Xyua9CcC8dRJcEvpOWRPL7YhmXeVn1NUb3XvdHYXHvg0Lv+ltVcrkg+4yRvd/R6arRHqQ9/l1Yk7y5gs+J5W0Zc3XY0zFYHbQ7xgMNGiqERIXHFxFM/XYgee0l04QCkOuZrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [223.64.68.159])
+	by gateway (Coremail) with SMTP id _____8CxPtN5nctq+68UAA--.60124S3;
+	Sun, 11 Oct 2026 22:30:17 +0800 (CST)
+Received: from kernelserver (unknown [223.64.68.159])
+	by front1 (Coremail) with SMTP id qMiowJDxRs1lnctqpSYrAA--.12667S2;
+	Sun, 11 Oct 2026 22:30:16 +0800 (CST)
+From: Huacai Chen <chenhuacai@loongson.cn>
+To: Eric Biggers <ebiggers@kernel.org>,
+	Huacai Chen <chenhuacai@kernel.org>
+Cc: Ard Biesheuvel <ardb@kernel.org>,
+	linux-crypto@vger.kernel.org,
+	WANG Xuerui <kernel@xen0n.name>,
+	loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Huacai Chen <chenhuacai@loongson.cn>,
+	Tianyang Zhang <zhangtianyang@loongson.cn>
+Subject: [PATCH 1/2] lib/crc: loongarch: Use hardware unaligned load in CRC32(C) loops
+Date: Sun, 11 Oct 2026 22:29:29 +0800
+Message-ID: <20261011142930.492999-1-chenhuacai@loongson.cn>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] dm zoned: do not reclaim a random zone into
- another random zone
-To: illofspeed <illofspeed@gmail.com>, dm-devel@lists.linux.dev
-Cc: agk@redhat.com, snitzer@kernel.org, mpatocka@redhat.com,
- bmarzins@redhat.com, hare@suse.de, linux-kernel@vger.kernel.org
-References: <20261010161613.396-1-illofspeed@gmail.com>
- <20261010161613.396-3-illofspeed@gmail.com>
-From: Damien Le Moal <dlemoal@kernel.org>
-Content-Language: en-US
-Organization: Western Digital Research
-In-Reply-To: <20261010161613.396-3-illofspeed@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJDxRs1lnctqpSYrAA--.12667S2
+X-CM-SenderInfo: hfkh0x5xdftxo6or00hjvr0hdfq/
+X-Coremail-Antispam: 1Uk129KBj93XoWxWF1DGF1xtF1fWrykCr47Jrc_yoW5Kr4UpF
+	Z0kF9IgF15XFZ3WFyYqw4fG3Z8Z393JrZIqFZ3K34xC3W7Jw17JFWkuFyYvFy5Cr929r1j
+	grs5XFnxKF4vqwbCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUkjb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
+	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AK
+	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l42xK82IYc2Ij64
+	vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2I
+	x0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK
+	8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I
+	0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jUsqXUUUUU=
 
-On 2026/10/10 18:16, illofspeed wrote:
-> dmz_reclaim_rnd_data() falls back to a random destination zone when no
-> free sequential zone is available and the target has cache zones. When
-> the target is idle and the cache zone list is empty,
-> dmz_get_rnd_zone_for_reclaim() selects random zones of the zoned device
-> as well, so a random zone is then copied into another random zone. That
-> frees nothing: the next pass picks the next random zone and copies it
-> again, for as long as the target stays idle.
-> 
-> Seen on a two-device target (256 GiB regular cache device plus a 27 TB
-> host-managed drive) used as an md RAID5 member: after a full rebuild
-> every chunk was mapped and no sequential zone was free, and the idle
-> drive read and wrote about 72 MB/s each without pause for hours while
-> the free zone counters in "dmsetup status" did not change. Reproduced on
-> emulated host-managed drives (tcmu-runner ZBC handler): 340 MB/s of
-> copying on an idle target, 0 MB/s with this patch.
-> 
-> Only allow the random-zone fallback when the zone being reclaimed is a
-> cache zone: moving it to the zoned device still frees cache space.
-> 
-> Fixes: c5c788595292 ("dm zoned: start reclaim with sequential zones")
-> Assisted-by: LLM
-> Signed-off-by: illofspeed <illofspeed@gmail.com>
-> ---
->  drivers/md/dm-zoned-reclaim.c | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/md/dm-zoned-reclaim.c b/drivers/md/dm-zoned-reclaim.c
-> index 315f0da99f3..2bcc163d209 100644
-> --- a/drivers/md/dm-zoned-reclaim.c
-> +++ b/drivers/md/dm-zoned-reclaim.c
-> @@ -288,7 +288,14 @@ static int dmz_reclaim_rnd_data(struct dmz_reclaim *zrc, struct dm_zone *dzone)
->  again:
->  	szone = dmz_alloc_zone(zmd, zrc->dev_idx,
->  			       alloc_flags | DMZ_ALLOC_RECLAIM);
-> -	if (!szone && alloc_flags == DMZ_ALLOC_SEQ && dmz_nr_cache_zones(zmd)) {
-> +	/*
-> +	 * Without a free sequential zone, moving a cache zone into a random
-> +	 * zone of the zoned device still frees cache space. Moving a random
-> +	 * zone into another random zone gains nothing, and when the target
-> +	 * is idle it repeats forever. Only fall back for cache zones.
+With CONFIG_ARCH_STRICT_ALIGN=y the kernel is built with -mstrict-align,
+so get_unaligned_le{16,32,64}() compiles into a byte-by-byte load/shift/
+or sequence (~22 instructions per 8 bytes). On a Loongson-3C6000 machine
+this throttles the CRC pipeline to ~5.7 cycles per 8 bytes (2.8 GB/s),
+while the crcc.* instruction itself runs at ~1.1 cycles (latency) / ~0.8
+cycles (throughput) -- the CRC unit sits idle waiting for loads.
 
-"fall back" to what? This comment is not clear.
+CPU cores with the UAL feature handle unaligned accesses in hardware,
+so issue real ld.{h,w,d} instructions when possible and keep the generic
+get_unaligned*() path for cores without UAL.
 
-> +	 */
-> +	if (!szone && alloc_flags == DMZ_ALLOC_SEQ && dmz_nr_cache_zones(zmd) &&
+Measured on Loongson-3C6000 (single core):
 
-Long line. Please split after "DMZ_ALLOC_SEQ &&".
-Also, is the test for dmz_nr_cache_zones() needed? dmz_is_cache(dzone) will
-never be true if there are no cache zones.
+    before: 2.8 GB/s
+    after:  8.4 GB/s   (~3x)
 
-> +	    dmz_is_cache(dzone)) {
->  		alloc_flags = DMZ_ALLOC_RND;
->  		goto again;
->  	}
+Signed-off-by: Tianyang Zhang <zhangtianyang@loongson.cn>
+Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+---
+ lib/crc/loongarch/crc32.h | 39 +++++++++++++++++++++++++++++++++------
+ 1 file changed, 33 insertions(+), 6 deletions(-)
 
-
+diff --git a/lib/crc/loongarch/crc32.h b/lib/crc/loongarch/crc32.h
+index d34fa4c68632..692a4165eca2 100644
+--- a/lib/crc/loongarch/crc32.h
++++ b/lib/crc/loongarch/crc32.h
+@@ -24,15 +24,40 @@ do {							\
+ #define CRC32(crc, value, size)		_CRC32(crc, value, size, crc)
+ #define CRC32C(crc, value, size)	_CRC32(crc, value, size, crcc)
+ 
++static __ro_after_init DEFINE_STATIC_KEY_FALSE(have_ual);
+ static __ro_after_init DEFINE_STATIC_KEY_FALSE(have_crc32);
+ 
++static inline u16 get_le16(const void *p)
++{
++	if (static_branch_likely(&have_ual))
++		return *((__le16 *)p);
++	else
++		return get_unaligned_le16(p);
++}
++
++static inline u32 get_le32(const void *p)
++{
++	if (static_branch_likely(&have_ual))
++		return *((__le32 *)p);
++	else
++		return get_unaligned_le32(p);
++}
++
++static inline u64 get_le64(const void *p)
++{
++	if (static_branch_likely(&have_ual))
++		return *((__le64 *)p);
++	else
++		return get_unaligned_le64(p);
++}
++
+ static inline u32 crc32_le_arch(u32 crc, const u8 *p, size_t len)
+ {
+ 	if (!static_branch_likely(&have_crc32))
+ 		return crc32_le_base(crc, p, len);
+ 
+ 	while (len >= sizeof(u64)) {
+-		u64 value = get_unaligned_le64(p);
++		u64 value = get_le64(p);
+ 
+ 		CRC32(crc, value, d);
+ 		p += sizeof(u64);
+@@ -40,14 +65,14 @@ static inline u32 crc32_le_arch(u32 crc, const u8 *p, size_t len)
+ 	}
+ 
+ 	if (len & sizeof(u32)) {
+-		u32 value = get_unaligned_le32(p);
++		u32 value = get_le32(p);
+ 
+ 		CRC32(crc, value, w);
+ 		p += sizeof(u32);
+ 	}
+ 
+ 	if (len & sizeof(u16)) {
+-		u16 value = get_unaligned_le16(p);
++		u16 value = get_le16(p);
+ 
+ 		CRC32(crc, value, h);
+ 		p += sizeof(u16);
+@@ -68,7 +93,7 @@ static inline u32 crc32c_arch(u32 crc, const u8 *p, size_t len)
+ 		return crc32c_base(crc, p, len);
+ 
+ 	while (len >= sizeof(u64)) {
+-		u64 value = get_unaligned_le64(p);
++		u64 value = get_le64(p);
+ 
+ 		CRC32C(crc, value, d);
+ 		p += sizeof(u64);
+@@ -76,14 +101,14 @@ static inline u32 crc32c_arch(u32 crc, const u8 *p, size_t len)
+ 	}
+ 
+ 	if (len & sizeof(u32)) {
+-		u32 value = get_unaligned_le32(p);
++		u32 value = get_le32(p);
+ 
+ 		CRC32C(crc, value, w);
+ 		p += sizeof(u32);
+ 	}
+ 
+ 	if (len & sizeof(u16)) {
+-		u16 value = get_unaligned_le16(p);
++		u16 value = get_le16(p);
+ 
+ 		CRC32C(crc, value, h);
+ 		p += sizeof(u16);
+@@ -103,6 +128,8 @@ static inline u32 crc32c_arch(u32 crc, const u8 *p, size_t len)
+ #define crc32_mod_init_arch crc32_mod_init_arch
+ static void crc32_mod_init_arch(void)
+ {
++	if (cpu_has_ual)
++		static_branch_enable(&have_ual);
+ 	if (cpu_has_crc32)
+ 		static_branch_enable(&have_crc32);
+ }
 -- 
-Damien Le Moal
-Western Digital Research
+2.52.0
+
