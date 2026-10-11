@@ -1,90 +1,54 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8172F34E744
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 07:54:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88EB41A073F
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 07:56:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791705278; cv=none; b=sSF2WhZp1Ea8wIfPD2F+CS0Dg1PAmVEX4Gn4gifMLf+uKfMaceAXZABaTmz1y12nhxSGyvDWjfACY/i8IO6wZEii6r5nNv7zG1h4JrXt7LSDOJhAPxW/Nk3/cLiue2XyjyI+DTXH0iy1vBaR45eDTUBZiXlIM5BervgUa9H5ZTQ=
+	t=1791705373; cv=none; b=PosLK/g9Xx3asCFhzsqbocd6WfNIN/aQG6sJFkIlEGaXh+8IEmlmnbFymU+nQ7dM6S3KPekyR48AAAFoN5XK8S4oCiC/cSKLMsDduazS5DT5xJtZdEp62p7POwXuLBhIhS++aicdag6FLx66VOMP2WnhfnrmPuiVHXgW5dH7o1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791705278; c=relaxed/simple;
-	bh=dEcJ/pFItgtT4/Uq84V4nCOcw5lFpC5TWp8hGwZydFE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aZsGcQhToVgcys+HcufTlWt4hjYu32xkj5DY6fYXrEh9Vi4IzTM+huEe+i4XS+FdYM6FZJYKfgmObVPkxHR5PDg0qRJbunTZeUXHZR0Hmk3wc+RiQVBfRV251yNI7b6bDqEeDcGBpdwKQx1/OfqAzVKdx+A6Ef3setAy6lMbxSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=THomZLel; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791705373; c=relaxed/simple;
+	bh=NRJwRdZWA8YRiNctHPYM6vHzlC/Ul0sLPZxqUZYpQcQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Q0IaN86b9YkOfZEec71BjHiTnau69tbwSIoSzN5RfpYNlDntnnhCk4lQlk61FM25+0+wnP59YTF5lzdU9CrFA25FHp92xEjkoOjEN5iJnSZ52uTJyQxIQeJcxArCfKBTJlE05G4mLoq14gA6c1pSogAep8RNP6bO4gb07buF7/0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=J2aIo51K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="THomZLel"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791705276;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dEcJ/pFItgtT4/Uq84V4nCOcw5lFpC5TWp8hGwZydFE=;
-	b=THomZLeltiec34/oYyAawG7ieKiNBdyrKznUFPhqRoCq4wNbD6+xebl/PTGRlti8ZPbPk1
-	WfIdpI8PVb4qpdU1rqv7UMNW7lKDNbeARJ7CjHGQ/XPFgNO00RqI//u9RHGdojw0Py94o8
-	WtlgZZ2DLArCGYDQmKRidt20Avrl1ho=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-404-76GULbi8MJqa5ia54w_hFw-1; Sun,
- 11 Oct 2026 07:54:33 +0000
-X-MC-Unique: 76GULbi8MJqa5ia54w_hFw-1
-X-Mimecast-MFC-AGG-ID: 76GULbi8MJqa5ia54w_hFw_1791705271
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1C0F31800A7F;
-	Sun, 11 Oct 2026 07:54:31 +0000 (UTC)
-Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 4FEC8472;
-	Sun, 11 Oct 2026 07:54:26 +0000 (UTC)
-From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-To: jgg@ziepe.ca,
-	alex@shazbot.org,
-	bhelgaas@google.com,
-	jjohnson@kernel.org
-Cc: jtornosm@redhat.com,
-	johannes@sipsolutions.net,
-	mani@kernel.org,
-	yishaih@nvidia.com,
-	skolothumtho@nvidia.com,
-	kevin.tian@intel.com,
-	linux-pci@vger.kernel.org,
-	kvm@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	ath11k@lists.infradead.org,
-	ath12k@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/7] Enable Qualcomm WiFi PCIe passthrough to VMs
-Date: Sun, 11 Oct 2026 09:54:25 +0200
-Message-ID: <20261011075425.516927-1-jtornosm@redhat.com>
-In-Reply-To: <20260930140833.576941-1-jtornosm@redhat.com>
-References: <20260930140833.576941-1-jtornosm@redhat.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="J2aIo51K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 518011F0089B;
+	Sun, 11 Oct 2026 07:56:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791705371;
+	bh=dTcUj6U5MDEwnVDDPaCFPBpocrGRuriLGqpfposdZsI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=J2aIo51Kg2uXbT9y0Wvu5VB3UdFzpgQKZGcnQAK5176H8rI1ht4TqzeL4GeD8d5TK
+	 qxmK6sRvlG6lHqZJv83jdsYO7UlsrkewKMwZJEw5/WkdKa8BqBZuFsZ/J4BBvU9MWN
+	 ydzx5N3Wfq5T/5VF1JfGGDFO3iaZeHiNONi905hg=
+Date: Sun, 11 Oct 2026 09:55:58 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Dinh Nguyen <dinguyen@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Subject: Re: [GIT PULL] SoCFPGA firmware updates for v7.4
+Message-ID: <2026101146-blast-proposal-2094@gregkh>
+References: <20261008144719.551095-1-dinguyen@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008144719.551095-1-dinguyen@kernel.org>
 
-Hi,
+On Thu, Oct 08, 2026 at 09:47:19AM -0500, Dinh Nguyen wrote:
+> The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+> 
+>   Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+> 
+> are available in the Git repository at:
+> 
+>   git://git.kernel.org/pub/scm/linux/kernel/git/dinguyen/linux.git tags/socfpga_firmware_updates_for_v7.4
 
-Since no further feedback was received after the last discussion,
-I proceeded with v2 addressing review findings (Sashiko):
-https://lore.kernel.org/all/20261011074514.515894-1-jtornosm@redhat.com/
+Pulled and pushed out, thanks.
 
-I remain open to suggestions and happy to iterate further if needed
-to get this acceptable.
-
-Thanks
-
-Best regards
-Jose Ignacio
-
+greg k-h
