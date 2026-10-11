@@ -1,73 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 210DA3B0587;
-	Sun, 11 Oct 2026 13:12:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 751163B9D98
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 13:14:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791724374; cv=none; b=Q18YPjHwG7gzyECzUoIYUmJPksvlztSSoc7YyIU2/p27rRK65E9aq+4sGamIQ3aioKWKnt+k5XuikktikEzhY+21DPROVBTCYmyDs0uaY5oMU+k9DKzNrdikyTMGROjzAVtPq2lN+1hWRbyCKeLdy3Athn/HesrUPWZWVavFy5I=
+	t=1791724497; cv=none; b=r8xDnvg1vZzldwioXFBfbzL9IJi+HbYseDXIQeh91bPRbPpxGQEQzKe77tYvUjeEbkyc3P4oOMFMJulQwS72AMBhyjeQAcsRyhw+4COsBcCKFpQrHLnptDMMC/bBYycMOEtfXlbW2yL3ti6v8OfrswTADADJJwMRkNkRij3q/p8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791724374; c=relaxed/simple;
-	bh=+rhbf1TUuMeAIAiZ3OqBQvQEbKTOw8e31SX4gTUCD14=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZVc6gofM6gnx5u4/5ivHEEJ9keKyvtySyJeAAfcSMyXKdL1sDgTYi81sAQ1XBb+gqjIvHutcDhPFyaVtdgP02N3n6Gu5elGVSqYqFl+WecZg3bPsk5J8iQkUO6GThhWtOnttubAO5nEZ0St9nbyixDU73a6MmVfyPD2nLnbe9ds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hNDOMgB+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791724497; c=relaxed/simple;
+	bh=9Wm9MWcPeCrfUq+Fgllhb0/cQwSioK542sOcG4HHx8k=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=GOWeZKN+pV6glOqvyXIyZawWXdn1ZKCIpp6fY679sNP4GGY18gpdrjOFNgwYN/pvweq2Zvwpd/2QTY6brTRsrn1lT3OFXQiIPsg6jOgNfXgUoJjCm7VCieopz70sYeVaO72yw4HmXE3MIU39HuUqDQyR+mb30rLyugavgymIOrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=fxWRXjyG; arc=none smtp.client-ip=115.124.30.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hNDOMgB+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 827C41F0089B;
-	Sun, 11 Oct 2026 13:12:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791724371;
-	bh=xguvO7Z0rKWV6cXidAMAFxVoApZEw+GahybnuKsVk3A=;
-	h=From:To:Cc:Subject:Date;
-	b=hNDOMgB+fS0BQfzcrRKQha1hr0RdNXuoKaX3n1NuVpYio9PBOaob4ZfgzcjIcOAv8
-	 WmpqVNn0Qo2CwZgKQzz5wz6Y6BC/Ck1gON2Pmxqi20QaG0T/OBa2vlPMzc4ZtX0eNS
-	 V8qdEqJ6o/EU3Pgq/dt/p69dZN1SkKU36yn8V5f0htpM3sxcFFsgQ49XYCBAShLYxH
-	 HgZqjVeVPN4RqHokaHcAOQwdmoigU/wENvYSZ5dXDzP9aiR+umwtxsuDX6ZEE8cmJb
-	 xy6DYwnsCBWcmDbnMGaykI+Zu1q9L1ReOVMBKnz4++w7KLnvh4uojVmh3h0hFoJLhG
-	 qSc39T/c7Bqzw==
-From: Thorsten Blum <blum@kernel.org>
-To: Linus Walleij <linusw@kernel.org>,
-	Luiz Angelo Daros de Luca <luizluca@gmail.com>,
-	=?UTF-8?q?Alvin=20=C5=A0ipraga?= <alvin.sipraga@analog.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Thorsten Blum <blum@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next] net: dsa: realtek: Remove unused buffer from struct realtek_priv
-Date: Sun, 11 Oct 2026 15:12:10 +0200
-Message-ID: <20261011131208.272131-3-blum@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="fxWRXjyG"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1791724484; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
+	bh=CNQ5DbYdzL7ALCQqnfip1aC0MxoL7NSH7AFsKCWEGRk=;
+	b=fxWRXjyGR9c4uVpghVOR/hUuWZEWqGNb+7saBZbSL1jM4Ak975tSlcvXsA9UuS8j1tsjuqUnnRga0vV/vWwwvpjw+LJQafJNLeEovDFDvlsi/q7RXUfItIqh2awa/xknCcGw/Ayy47M1L7yaz6Gcx+boKkApss6p3+/WdrXBYss=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=ying.huang@linux.alibaba.com;NM=1;PH=DS;RN=15;SR=0;TI=SMTPD_---0XCYCFd4_1791724473;
+Received: from DESKTOP-5N7EMDA(mailfrom:ying.huang@linux.alibaba.com fp:SMTPD_---0XCYCFd4_1791724473 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Sun, 11 Oct 2026 21:14:42 +0800
+From: "Huang, Ying" <ying.huang@linux.alibaba.com>
+To: Yuanhe Shu <xiangzao@linux.alibaba.com>
+Cc: david@kernel.org,  akpm@linux-foundation.org,  vbabka@kernel.org,
+  linmiaohe@huawei.com,  nao.horiguchi@gmail.com,  ziy@nvidia.com,
+  wangkefeng.wang@huawei.com,  tujinjiang@huawei.com,
+  mgorman@techsingularity.net,  kaitao.cheng@linux.dev,
+  chengkaitao@kylinos.cn,  muchun.song@linux.dev,  linux-mm@kvack.org,
+  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] mm/compaction: skip folios containing hwpoisoned pages
+In-Reply-To: <20260929034123.2705745-1-xiangzao@linux.alibaba.com> (Yuanhe
+	Shu's message of "Tue, 29 Sep 2026 11:41:23 +0800")
+References: <20260928105805.1215770-1-xiangzao@linux.alibaba.com>
+	<20260928105805.1215770-2-xiangzao@linux.alibaba.com>
+	<99cbd960-439d-4672-aba9-6b49697db8b3@kernel.org>
+	<20260929034123.2705745-1-xiangzao@linux.alibaba.com>
+Date: Sun, 11 Oct 2026 21:14:33 +0800
+Message-ID: <877bjowf9i.fsf@DESKTOP-5N7EMDA>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=559; i=blum@kernel.org; h=from:subject; bh=+rhbf1TUuMeAIAiZ3OqBQvQEbKTOw8e31SX4gTUCD14=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFmnuzWmSu99aH3J/teP9T+X8PrLL65n8cjd5LykcZ1/i /x1r4NfOkpZGMS4GGTFFFkezPoxw7e0pnKTScROmDmsTCBDGLg4BWAiZh8YGW4aiIb/cKo7XX+p I+0/Y3vRlHcyU8z0GAR6Dnx3KF1zRp3hvz/zTMvaOP9ZzjPcwxf9CPq0fjf3UYmCGP9lX849/jx PkgMA
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=ascii
 
-The buffer has never been used. Remove it.
+Yuanhe Shu <xiangzao@linux.alibaba.com> writes:
 
-Signed-off-by: Thorsten Blum <blum@kernel.org>
+> On 9/28/26 20:12, David Hildenbrand wrote:
+>> On 9/28/26 12:58, Yuanhe Shu wrote:
+>>> folio_mc_copy() does not close this hole: it only detects corruption
+>>> at copy time and only where ARCH_HAS_COPY_MC is implemented (x86_64
+>>> and PPC64; elsewhere copy_mc_highpage() degrades to a plain copy).
+>>
+>> Then they should implement it.
+>
+> Agreed, and nothing here replaces copy_mc.  Two things the check adds
+> while that work is pending: on archs without copy_mc the plain copy
+> does not fail, it consumes the poison - the same poison consumption
+> commit 841a8bfcbad9 ("mm: prevent poison consumption when splitting
+> THP") refused to risk on the split path, at your suggestion; and the
+> refusal happens before the copy is attempted at all, while copy_mc
+> recovers only during the read.  The check and copy_mc compose.
+>
+
+Is it good to implement the trick in copy_mc_user_highpage() and
+copy_mc_highpage() if the macro copy_mc_to_kernel is undefined?
+
 ---
- drivers/net/dsa/realtek/realtek.h | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/net/dsa/realtek/realtek.h b/drivers/net/dsa/realtek/realtek.h
-index 6e0148cee8d8..ca3a71876599 100644
---- a/drivers/net/dsa/realtek/realtek.h
-+++ b/drivers/net/dsa/realtek/realtek.h
-@@ -97,7 +97,6 @@ struct realtek_priv {
- 	int			vlan_enabled;
- 	int			vlan4k_enabled;
- 
--	char			buf[4096];
- 	void			*chip_data; /* Per-chip extra variant data */
- };
- 
+Best Regards,
+Huang, Ying
