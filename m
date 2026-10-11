@@ -1,150 +1,125 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3383502A8
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 14:52:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791730343; cv=none; b=YPDYZBJ1VUdxV67ASJ5eZ8I3XjmtLIfzx0kcWGuGC4qxHwul3HMRU0oKkUhy9q1vHsvtQ7stGAzr3ufMgBUW/sVPclVLrEmGEBtXJ3f4E4FatULG+I0K7V1SDxr8UAOBlGOOWwgIy1wcJjascqsFmATnTGN33B+ehR1Ja181k2c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791730343; c=relaxed/simple;
-	bh=5r3ItvyHlwh/KzTXl9HROI9n6bjZXGgUeuDTT6KQxCI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nG/9VrbRfulOfxcU4IYrMpA1w4pOyujAKGCrrbqBXVibcmd1tXmBiSlc6/kz+s1XhVyzxaR19x4AZJX7tQqFf4yRybQ7Alb/V38W5+1iM2VpX6MftVuNqCXneUyThygYXZDNGVHpJ5J9CaqW2EAZ2q0q22zAbxpjXzbmUNfPmVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RyEpcIIm; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE0933BB9FA
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 14:57:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791730632; cv=pass; b=basWuZoiblYNQG1/g8hHl6Uoa/FgtN9wvlj74Yjd9Ddx15e6F+GJquMzRscvcnEsdYAUGRB15GfVl4UqeOd0bR0wbWHpdx+JlvfDpZRPJUZS+AwAQIrKZUqKmlj8HXrPxbhJv5451WKJkFUG24ATVqWYQ1i5tTK6wackjj0VIfA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791730632; c=relaxed/simple;
+	bh=7a8cSShZ/qMj+tJyNWKjrBEs8maoUp4p4bZ9r6GxGyI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WA46YPMYuILwM2wcrglg4F2XL2x7yctLsgq6gyLKCkESAEqRQJf0rJDIl5b6uBaHIi4IPdyXDduMUHR9vfLBB99w4WDlrsn7ML6uZ7qnn+SwGK9QdKRCdp/iHq4yfbhqq/RkydNCmDeK7qfkfqxkxt1KhLuRULn99O/CWXx+kZM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T0xJpInk; arc=pass smtp.client-ip=209.85.218.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RyEpcIIm"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48c4649b3aaso603518f8f.2
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 07:52:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T0xJpInk"
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c247f6687dcso186589466b.2
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 07:57:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791730629; cv=none;
+        d=google.com; s=arc-20260327;
+        b=EQfYLaHoETzGKb3rHPcycCwjdclv9E84570jTNTIGu68zFy/zVv9+V8VXDws+5An1q
+         VOIFZbF6n8LYRbxaIdi7DYC79LrhM1DZe1xYjlepTRnnnXRit/8umoRdwqco8qNruCfd
+         KbyOx+g5xO8K0el0xXeV4PZfe7xIOUvnGXhBRHjcJZmYbRfzJi6EoGC82FKz9kp9wrG8
+         FBpuKIh+23W3/mo4CK3Kuusk9AaUBzC+51/8XClskRQEB1To3vBsWjo5TI0WQ86tQbgi
+         0PBpu+o03iGQhL2BJASTnzX2vxwcloip3R0PXcTOadrUAyLBCT8J+dqb5djM6WvprAFz
+         ffdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7a8cSShZ/qMj+tJyNWKjrBEs8maoUp4p4bZ9r6GxGyI=;
+        fh=Da1BEQ7aOmjcl4dmNja9JW/+c8ZaiCXsyF5Ua3AfIsM=;
+        b=Xal/aUPAbhP8HW+Cn5cM3tIamUMfV4IfT++B3IrY/FZQ/Fw6juAAmlQCacS/7SjsFW
+         OQ0mKzbW6cKfp6CP3HYplH1l8yR5sl47fxShEuVI1Yg4xWa+MuHOOmGkAhKfvsHiFuHB
+         4sjzsQnTjYgX6AWP1pIg4+PIjLi+kOrvoepdxjA4n27HFvByHozcu2wQSHJo+XShCwVL
+         aDHn/9oTbf/gXXQlZHLk1WV5x3aTdWmtja59YMohYP+DFXVMOAVNl7X7KPsoRzg5TK5C
+         GRhub+I4C3xR8apzkTEI8vbfH3xllLVsPwaUB5lrU5/S1csciTvfQWbCBsRaDYNo+dFP
+         9QAA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791730340; x=1792335140; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZGMnoCiemVyU9rnhF6mteHDX55+EsD5DfdAIomQxYP4=;
-        b=RyEpcIImmClOQziRRFXz3SzU7X9A2HJZKseAh+LjXZG4j3z2y8PoiBfjlkcUGNNzH2
-         6yBs7gRmHz7G2BEyUbIHxF7AM2t5UWYZ5yO4lMQ2HvgarXyXS3fc2p+T8dMHxfr2HpMe
-         A8kIThemqfJ0CpZAY4sA/SijkXRw+HRie06Kur94kZ6K9z7G+PQgnaMza73VaF05JW8t
-         /F3ujDS+TQvoMGiJ/HMDJQdQGh8nTaH0+rEG8EQ5JBpwHnbi3PBUXxljsRT7UifxyMv2
-         IkjbsfLHFItNF4sYKGvJMtOiJqSwzcT4lZGjvMaooUzCFxrvCcQcxLGoBlAYKBzs8Ws5
-         FTVA==
+        d=gmail.com; s=20251104; t=1791730629; x=1792335429; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7a8cSShZ/qMj+tJyNWKjrBEs8maoUp4p4bZ9r6GxGyI=;
+        b=T0xJpInk527P5Uc+kfKw9g1/+JuinmdKqKRLOSMytoInRtojBvFdDpsoO347ZbpSth
+         hvht1KCrikk6yKfX5/3vgRYcaU+cbAo3AJWTKZdH8RuwgWpGvhT+lAw9F4hp9OWEfq1R
+         USneKZoGAgTh45Aa4pfCLGDAHju3f2uEFHHcyqo7CBZ8m6pJJgF4+TNEokUx4KMiudoS
+         ezIzflUGTgeDBKu5XQRtQTira9RgARSlsN2x5wLSdIRu7x3biO9EF7/d0yG2X/jkZczP
+         vIEHkjo3Z69iuYLpxg/sPi2V7wDo44se+n1UD2Yq7y6npJjRZ2yqSE4Ei6MiQMp26MYw
+         8EPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791730340; x=1792335140;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZGMnoCiemVyU9rnhF6mteHDX55+EsD5DfdAIomQxYP4=;
-        b=FFhL2w5wlMMjCFC9RH9ETLv700sx1Yj5/GYdVCePjBvh+eA1fqM/ohxGejh/wAS6Qf
-         hT89UZtUb2BmxXVVOU+9I6K/e/89rn88sFkTobkL4BWR8mmzbHwGtVtLXE7V0VMUR1P4
-         BmoejX4XXzRnqneMOvDwIHLUEU/3FB/f3lrNk8GgjqSEjG35f83/J84imR998IjdZoNP
-         0XX4vwZt+9kExLrhL1XVUgvMkPrb6M5ttO+pvnhaj9HsRetOwcQ3jQrnEO6RR+62nlXR
-         g1RHPlJiZ/C681JZ8PMqyWgXrE9EPLmTS1k4M3Lx08hLnKvWfzNS/vOYxyTuOXu//S3F
-         GI9g==
-X-Forwarded-Encrypted: i=1; AKwUvBwzigzlNUT40aBjbItVJ2dnUmRlh6O4J1G++IwlDJZALMmN13k3OtJ3n6VpBMbszdzBURbhONjjYhrHfwY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6sjCjVrRLoKnA0klPVlo4cym+8PkrDQ7b6zcv+l/5SOGY0pE0
-	olwnvbXicqkaYGMnb5nmgMePThvWiRRVewmv6uPBunZC0QIFCPj31C5s
-X-Gm-Gg: AYBFou3tIQDsH/R25I1UCdo76etSRMjjgO0ooUB2D7ZBMzklAeYRcnsj5aXG5lcMHwG
-	p6pKCogyfF7zluQJ0YuvnZhkuuBDG9oMgR4wgNpkQMD02+Fp7Dr0Fw5CmntLuLUj9l2IlIBas53
-	dN2Kj0XRb9PcWjn9mSEuK6ZHqQzfXlwTwKfD3hpnoFokhxyjOnkeXMNmkvdjsBKRORzUhaElYh0
-	nIli0IrMW0icBxICJ4t3vvaeA9mQhk+BGm7YH7UHob0XBLkCe/snKOkNp8PyqFB1twM5wMeQDNu
-	3imp9qsqAOqgnODMzGrBXXnJy2Z9yH7GFvgDRKQUtN6ZLaUPDeuywfinNQ8zVtwm4GhAhIovbsz
-	pqVrVi1sKyjCj9RQI5/TTxex6xKQVTS0IYXRDzGJziY+M3GxPJPECtov7gPECobDFXfsPrxVczP
-	QN2hkdTaNJIYxv1Ji9vjaZOHWmTmQGHcwsUk8vtboFhX4iBhOrcSc3oQYv5dPGM+Y0+B0=
-X-Received: by 2002:a05:6000:4915:b0:48d:b8a1:53c5 with SMTP id ffacd0b85a97d-48dbacf8813mr11389015f8f.56.1791730339937;
-        Sun, 11 Oct 2026 07:52:19 -0700 (PDT)
-Received: from haider ([37.237.230.17])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9acf232sm15265743f8f.47.2026.10.11.07.52.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 07:52:19 -0700 (PDT)
-From: haider <soka11223344k@gmail.com>
-To: dakr@kernel.org,
-	acourbot@nvidia.com
-Cc: apopple@nvidia.com,
-	ecourtney@nvidia.com,
-	jhubbard@nvidia.com,
-	aliceryhl@google.com,
-	gary@garyguo.net,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	haider <soka11223344k@gmail.com>
-Subject: [PATCH] gpu: nova-core: gsp: zero-pad command queue elements
-Date: Sun, 11 Oct 2026 17:51:05 +0300
-Message-ID: <20261011145105.20829-1-soka11223344k@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20260707; t=1791730629; x=1792335429;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7a8cSShZ/qMj+tJyNWKjrBEs8maoUp4p4bZ9r6GxGyI=;
+        b=D0eFxmnalMVh5BfSn/r4hTiJX5Ytf/QA74HsDPFYdEKvb1EOrHg0ZCSdDe+SAzoQ3m
+         5HNET8Fo30DTH/9BZzEUcGTCfJNrPF6LL1W5MDYcLIcZGQPjl57LUiZEITZQoeQlt8d1
+         dJ8Y+Vr1LWXT/l3bNgNaE2/TEFIsS7gaCkDzfbfom3vKCO0/tvmIIyJUXL/NOl6dtHND
+         L89SISgVdYnayG0sRd/jdn2DTVCVT/NsJB7hHjV5ct99c7uSBVpWmEIfLeGWQMpP8cDS
+         1VJhW37F23EZT3cHuLRr9iJ3wicGFF+E/j1ZGHWx7Qz72ckGIlMOxPG2p7wIYGkbeRTl
+         Q7Vg==
+X-Forwarded-Encrypted: i=1; AKwUvBzt7ZnmF4AYnktuv/FXK9xftpwS7wNeHp/8z7TREIjO+fZZvx2vuOwFMaS96rafKr+zjL/aYnrdBSl382c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIDjY+7e8rjwDVj/vEr4Q5aUyF66sPFW98EY+VCbHQ6TVdPEwBh
+	17JGLeKM4TIcwj4qOEz34YLwx9rnnZItbHGXppLgpVUy1FQFt11f2QIRQTL0QFYbtNr+P4/aSU1
+	GToPYPE1tfNnIIvJ09Rknwu6URmpEksE=
+X-Gm-Gg: AYBFou2b9l9CkL5K8JgPGVMZYv2WCSy7UrFyS5Ks3R7AWfRH3VsZa4we1zvsrEYpqt1
+	r3zubqVRzekQ6LcZKjQkp6OPL6yPvfuOHM+4zs+4c7IO11mON88OzEcxp64mk7qNxmaGJNCtuhv
+	8HIbfKh/4uYOnJzaYMQeMk2zQUjxJX8MQu+0kkFYIzetpOdnJNkQHQnH3E1IgQ8s0AJo+Lls4A6
+	Usr60DeCt+q0Gf2oodlp171u+IXB0WmjteC6BEQPzxbsc0OkmYKF+dsDpH9mUACO0PVXSruY3Sj
+	zNJvhvU9MXMrJ8DP6GFGnOBpe7UL5U41Cv82HYP1HxFDP3NvLTFowfteJtYnAL3O+nsyZSiRPtg
+	7zA+6xCINXeCxR8F5Sbl1qVElVHikyoW39uYdUo0/Ug==
+X-Received: by 2002:a17:907:9801:b0:c2d:be57:f73a with SMTP id
+ a640c23a62f3a-c31a9fcedffmr817973166b.13.1791730628876; Sun, 11 Oct 2026
+ 07:57:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261010142533.974797-1-linmag7@gmail.com> <20261010142533.974797-3-linmag7@gmail.com>
+ <CAEdQ38Ep+cu5ssTGtb5OQwHGRB5wz+crTfbV9GM6wVDdoZqfmQ@mail.gmail.com>
+In-Reply-To: <CAEdQ38Ep+cu5ssTGtb5OQwHGRB5wz+crTfbV9GM6wVDdoZqfmQ@mail.gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Sun, 11 Oct 2026 16:56:56 +0200
+X-Gm-Features: AclHuK_oI4gPnyqjertogQ4m97YiIbt4SsFZC0bAfaR7XMCYgwEy5pWfnhxRf0Q
+Message-ID: <CA+=Fv5Tpq1i+YbkqPUZBTxv-m9=q3iFPNGfmAKwpiwF2FdkZvg@mail.gmail.com>
+Subject: Re: [PATCH v5 2/8] alpha: run check_mmu_context() from finish_arch_post_lock_switch()
+To: Matt Turner <mattst88@gmail.com>
+Cc: richard.henderson@linaro.org, linux-kernel@vger.kernel.org, 
+	linux-alpha@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-GSP-RM checksums a command queue element by XORing it in 64-bit words,
-so for an element whose size is not a multiple of 8 it also reads up to
-7 bytes past its end, and expects them to be zero: its _checkSum32()
-"assumes that the data is padded out with zeros to the next 8-byte
-alignment". NVIDIA's kernel driver zeroes these bytes before computing
-the checksum, and nouveau builds each element in a zeroed buffer.
+Hi Matt,
 
-allocate_command() hands out the queue slots as they are, so these bytes
-still hold whatever an earlier, longer element left there. Once the
-queue has wrapped, a command of such a size can then fail GSP-RM's
-checksum: GSP-RM never answers it, and soon stops answering at all.
+On Sun, Oct 11, 2026 at 1:32=E2=80=AFAM Matt Turner <mattst88@gmail.com> wr=
+ote:
+>
+> On Sat, Oct 10, 2026 at 04:24:28PM +0200, Magnus Lindholm wrote:
+> > code following alpha_switch_to(). New kernel threads take the same
+> > path through schedule_tail().
+> >
+> > asn_lock is left set on that CPU, so the new task can run with
+>
+> I missed this in v4. New kernel threads do take that path, but
+> context_switch() does not call switch_mm() for a task without an mm, so
+> they never set asn_lock in the first place. Only a new user task leaves
+> it set. As written, the two paragraphs read as if both do.
+>
+> Changelog only, and not worth a v6. My Reviewed-by stands.
 
-Nova does not send enough commands for the queue to wrap yet, as it is
-zeroed at probe, but this will break as soon as it does.
+Thanks, fixed the changelog in for-next to make clear that only new user
+tasks leave asn_lock set. New kernel threads reach schedule_tail(), but
+skip switch_mm() and therefore do not set asn_lock.
 
-Clear each element and its padding before writing it.
+No code changes; your Reviewed-by is retained.
 
-Fixes: 75f6b1de8133 ("gpu: nova-core: gsp: Add GSP command queue bindings and handling")
-Assisted-by: LLM
-Signed-off-by: haider <soka11223344k@gmail.com>
----
-
-Notes:
-    Found and tested on an out-of-tree nova branch that sends RM object
-    allocations and controls through the command queue, so the queue wraps
-    there. Once it had wrapped, the allocation of a subdevice failed the
-    checksum, and GSP-RM stopped answering, logging Display NOCAT 0x28,
-    assertions and Xid 45, within the first 5-10 cycles of creating and
-    freeing a client, device and subdevice. With this patch, 288 such cycles
-    ran clean (RTX 3070 / GA104, GSP firmware 570.144).
-    
-    On drm-rust-next as is the queue never wraps, so there it is only
-    build-tested (W=1, CLIPPY=1), along with checkpatch and rustfmt.
-    
-    An LLM found the cause by comparing the command queue code with NVIDIA's
-    open kernel modules and nouveau, and wrote the fix. I reviewed and
-    tested it.
-
- drivers/gpu/nova-core/gsp/cmdq.rs | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index 1b2f346a23..ff323bb37c 100644
---- a/drivers/gpu/nova-core/gsp/cmdq.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -384,6 +384,15 @@ fn allocate_command(&mut self, size: usize, timeout: Delta) -> Result<GspCommand
-             (slice_1.as_flattened_mut(), slice_2.as_flattened_mut())
-         };
- 
-+        // GSP-RM checksums an element in 64-bit words, reading up to 7 bytes past its end, and
-+        // expects them to be zero (`_checkSum32` in NVIDIA's `message_queue_priv.h`). The ring
-+        // still holds what earlier elements left there, so clear the element and its padding.
-+        // Elements take whole pages, so the padding fits in the space that was waited for.
-+        let padded = (size_of::<GspMsgElement>() + size).next_multiple_of(size_of::<u64>());
-+        let first = padded.min(slice_1.len());
-+        slice_1[..first].fill(0);
-+        slice_2.get_mut(..padded - first).ok_or(EIO)?.fill(0);
-+
-         // Extract area for the `GspMsgElement`.
-         let (header, slice_1) = GspMsgElement::from_bytes_mut_prefix(slice_1).ok_or(EIO)?;
- 
-
-base-commit: 5a1b7121a6c4db6c0239d3ac3fd1c2bb33a40025
--- 
-2.55.0
-
+Thanks,
+Magnus
