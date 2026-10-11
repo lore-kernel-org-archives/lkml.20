@@ -1,208 +1,288 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EED5F3B9D98;
-	Sun, 11 Oct 2026 18:41:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CE183A3830;
+	Sun, 11 Oct 2026 18:42:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.171.160.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791744114; cv=none; b=UNCmXINh5YUkicMCdGOIaE5hk3YRIODfzbtc7mpCz5CmW7RTNhoO4cvNkme7haS0p2VG1nVUUxcTURNOHroOXpExqFGsBJNYNRR7Umq6qcgYvPfHtyezZ/FOr6wG3sgWaqw62qHz8FNfre378C0C5wed+3YH8W2QGv99aPqlNm0=
+	t=1791744165; cv=none; b=mlDL5lKpLLXE8h0PmdF/wGskd3xsKCoS87sPBqNPXzuBrBy40eGkg6jghiWO7JlQGIIScDQWU0ytvbg1zt/7AL8tl75W0MqAzYkokeXMQ7585XgAKxWZCLScHy/dN9N+qWEq0UHvFLuBjA1SuHIy+PAyGM+WAt2ISvplMjLGGbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791744114; c=relaxed/simple;
-	bh=iY7SMJ461J5a0HbSPspsgidRLbSNAtJAZYh4OOrj0FE=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QSR7jcAA/B8JID4Jr8ZeHzJC3FN3gZx8/0124ZuAFimc5KlS5YfUhK+ROpLmQo0jH4JWSTLhv1LiYO0EDVlDqPDM78lWUmb+vKb+0I/1IPA00bGqtkvUyBHcNmJVwK3zWcdz1G8E63oEohpbHLkKCPhkloZRZBToGzthBEaUMBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kharT071; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791744165; c=relaxed/simple;
+	bh=z+ezEJpkazeXVXbfnxJHjKTfTRi06YJYZXcweNrq3gw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=F61kSkV8F2GrsLZYibHsP7yrCGyGSHsDgiNw8hlyFxubnGV9YtUjXIXonmtOXWo0Qfa8EdhhJLR4w10cR9tcz2PKYyiUgMsoGfeI4hIiIAPsxlwSDtyln89Vk1fxGQhSm+23Gwnu4SE3+88GG1eumZrumuk7CEw6Hse6Pqk7w2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp; spf=pass smtp.mailfrom=parknet.co.jp; dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=kBacK/+i; dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=tTAo7z+v; arc=none smtp.client-ip=210.171.160.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kharT071"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E41251F0089B;
-	Sun, 11 Oct 2026 18:41:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791744112;
-	bh=jlysSDOvX4H1NLHGTcF+nWbYZRbxbFvSP4RI18s01i4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=kharT071spnlSCOMZbefMoYIob16njWJ2ugwVf8UWFJ8Yji74jpD4MT0XofruIT5j
-	 Z7Rn5V3pYCfLL0TA1KBGo8Fxd+U63ziBXdkvCiPMYiyD5z/JJqfZ3oUCsDoUB4Nif1
-	 xn5Wiqcyx77hd7f1RjX5B5Fa+rIQtpf0IoMH/s1a92ds4OitcJ2WRoIXn42Y0MAs6r
-	 tJtg+rWz2F7qYH7/W5T7yTkNW+Wh8KrJlMjhqy+qhub/BD8WknvfoCH+wIOrQNcfAp
-	 4MjpDrITqysdFp2Mkgi73jQ/cZYMPNu8nOhZCgCb/Im7QjgD5k7Ze20C7F8ya4n6hy
-	 3IFUfoymrkc9Q==
-Subject: Re: [PATCH net v4] net: phy: marvell: keep WOL_EIE across interrupt
- reconfiguration
-From: netdev-bot+sashiko@kernel.org
-To: rosenp@gmail.com
-Cc: netdev@vger.kernel.org, andrew@lunn.ch, hkallweit1@gmail.com,
- linux@armlinux.org.uk, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, michael@stapelberg.de,
- linux-kernel@vger.kernel.org
-Date: Sun, 11 Oct 2026 18:41:51 +0000
-Message-ID: <179174411147.434549.2654980027036919923@kernel.org>
-In-Reply-To: <20261007182112.821061-1-rosenp@gmail.com>
-References: <20261007182112.821061-1-rosenp@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="kBacK/+i";
+	dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="tTAo7z+v"
+Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
+	by mail.parknet.co.jp (Postfix) with ESMTPSA id 3BDBE209679B;
+	Mon, 12 Oct 2026 03:36:34 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114; t=1791743794;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lM2chcgZ8txGIN0k4S09o6d+5tX7+e4gPd+2E7+lAO4=;
+	b=kBacK/+ijoTT4PdX0V/MoVXpJrizZ/K/kuw0mpw/rmB7c4uf9PT3QRYLFn1cCOYeolOIgL
+	vWHIieFfgteE4uXeA0qzSpEi+uAmuj5SqIH+R6LNJzBGCi/JUlUeTx0xfByhBkNPu7kIk0
+	zPehpW170JI5maVAvyPKUj20CcJ+2y92L7t45d29IUXt50E6iwKfYEQq/8PG/fjWrypqy+
+	X4QMRne7P79vX+J8Zooq2/qpmJJlGsf4dQ8q20oRdL7KCZ4w8JV+EfcJYN7PwIraI75mQw
+	LYWiRPklw79nF+q9AHWER0hqKdfU/9fJCMC2+B1p4fKFfgMPtXqMdlzAXNQyzQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114-ed25519; t=1791743794;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lM2chcgZ8txGIN0k4S09o6d+5tX7+e4gPd+2E7+lAO4=;
+	b=tTAo7z+v3A1V00Q3GNZDrXSEJoNZRVH3LhdJYb1w5VHtYwBjc8byWRA2VE5KL7CsZ/4TDQ
+	TxDXonIzR9+JI3Aw==
+Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
+	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id B657DE00134;
+	Mon, 12 Oct 2026 03:36:33 +0900 (JST)
+Received: by devron.myhome.or.jp (Postfix, from userid 1000)
+	id A919E22000EE; Mon, 12 Oct 2026 03:36:33 +0900 (JST)
+From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+To: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+Cc: linux-kernel@vger.kernel.org,  linux-fsdevel@vger.kernel.org,
+  syzbot+b0aebd03565f5774f7f8@syzkaller.appspotmail.com
+Subject: Re: [PATCH v2] fat: skip rename rollback on buffers with failed I/O
+In-Reply-To: <1f18819d20c92960b8b2d6ccc8bc4506d346150e.1790779353.git.krystianmkaniewski@gmail.com>
+References: <6aa82300.a211d2ce.1a5198.0295.GAE@google.com>
+	<20260929090029.742579-1-krystianmkaniewski@gmail.com>
+	<87ld8j4161.fsf@mail.parknet.co.jp>
+	<1f18819d20c92960b8b2d6ccc8bc4506d346150e.1790779353.git.krystianmkaniewski@gmail.com>
+Date: Mon, 12 Oct 2026 03:36:33 +0900
+Message-ID: <87bj90m6dq.fsf@mail.parknet.co.jp>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Krystian Kaniewski <krystianmkaniewski@gmail.com> writes:
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 0
+> A synchronous directory-entry write can fail after clearing BH_Uptodate.
+> The rename error path then attempts rollback by modifying and dirtying the
+> same buffer. mark_buffer_dirty() warns on the resulting !buffer_uptodate
+> buffer, and retrying the write cannot repair the underlying I/O failure.
+>
+> Once a synchronous update fails, record whether the new entry shares that
+> buffer and do not touch it again. Before fat_remove_entries() releases the
+> old-entry buffer, record aliases so later failures also avoid rolling back
+> through it. For RENAME_EXCHANGE, restore the first ".." update only when it
+> does not share the buffer on which the second update failed.
+>
+> Keep the existing forced synchronous MS-DOS rollback when it targets a
+> different buffer. For skipped rollbacks, retain the original error and
+> report filesystem corruption through fat_fs_error().
+>
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Reported-by: syzbot+b0aebd03565f5774f7f8@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=b0aebd03565f5774f7f8
+> Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+> ---
+> Changes in v2:
+> - Avoid buffer locking and waiting in the normal update path, as suggested
+>   by OGAWA Hirofumi.
+> - Give up rollback after a synchronous failure on the affected buffer.
+> - Track buffer aliases before fat_remove_entries() releases the old buffer.
+> - Keep forced synchronization for an MS-DOS rollback on another buffer.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Is this trying to revert as many as possible even if partial? If so, it
+would not help actually, and complex. Maybe we can give up whole if
+partially revert?
 
-- [Medium] The patch applies 88E1318S/88E1510 bit-7 semantics to every
-  Marvell PHY that shares…
-- [Medium] marvell_config_intr() with phydev->interrupts ==
-  PHY_INTERRUPT_DISABLED no longer clears WOL_EIE (reg 0x12 bit 7), so…
+Thanks.
 
---
-
-net: phy: marvell: keep WOL_EIE across interrupt reconfiguration
-
-This commit switches marvell_config_intr() to phy_modify(), so bit 7
-(WOL_EIE) of the interrupt enable register survives interrupt
-reconfiguration and only m88e1318_set_wol() changes it. It also makes
-m88e1318_set_wol() clear the bit when WoL is disabled, and extends the
-shared marvell_handle_interrupt() to claim WoL events.
-
-> diff --git a/drivers/net/phy/marvell.c b/drivers/net/phy/marvell.c
-> index f71cffa884062..5f9a43a4a0634 100644
-> --- a/drivers/net/phy/marvell.c
-> +++ b/drivers/net/phy/marvell.c
-> @@ -55,6 +55,12 @@
->  #define MII_M1011_IMASK			0x12
->  #define MII_M1011_IMASK_INIT		0x6400
->  #define MII_M1011_IMASK_CLEAR		0x0000
-> +#define MII_M1011_IMASK_WOL		BIT(7)
-> +/* Bits updated by config_intr. The WoL interrupt enable is owned by
-> + * set_wol, so the config_intr call from phy_init_hw() on resume does not
-> + * silently disarm Wake-on-LAN.
-> + */
-> +#define MII_M1011_IMASK_CONFIG_MASK	(U16_MAX & ~MII_M1011_IMASK_WOL)
-
-[ ... ]
-
-> @@ -393,11 +394,13 @@ static int marvell_config_intr(struct phy_device *phydev)
->  		if (err)
->  			return err;
+>  fs/fat/namei_msdos.c | 28 ++++++++++++++++++++-----
+>  fs/fat/namei_vfat.c  | 50 +++++++++++++++++++++++++++++---------------
+>  2 files changed, 56 insertions(+), 22 deletions(-)
+>
+> diff --git a/fs/fat/namei_msdos.c b/fs/fat/namei_msdos.c
+> index d46d1a3851f25..079f8bb61647f 100644
+> --- a/fs/fat/namei_msdos.c
+> +++ b/fs/fat/namei_msdos.c
+> @@ -441,6 +441,8 @@ static int do_msdos_rename(struct inode *old_dir, unsigned char *old_name,
+>  	struct fat_slot_info old_sinfo, sinfo;
+>  	struct timespec64 ts;
+>  	loff_t new_i_pos;
+> +	bool dotdot_in_old_bh, new_in_old_bh;
+> +	bool new_bh_failed = false;
+>  	int err, old_attrs, is_dir, update_dotdot, corrupt = 0;
 >  
-> -		err = phy_write(phydev, MII_M1011_IMASK,
-> -				MII_M1011_IMASK_INIT);
-> +		err = phy_modify(phydev, MII_M1011_IMASK,
-> +				 MII_M1011_IMASK_CONFIG_MASK,
-> +				 MII_M1011_IMASK_INIT);
->  	} else {
-> -		err = phy_write(phydev, MII_M1011_IMASK,
-> -				MII_M1011_IMASK_CLEAR);
-> +		err = phy_modify(phydev, MII_M1011_IMASK,
-> +				 MII_M1011_IMASK_CONFIG_MASK,
-> +				 MII_M1011_IMASK_CLEAR);
-
-[Severity: Medium]
-The disable branch now keeps bit 7. Does phy_disable_interrupts() still
-quiet the PHY when WoL is armed?
-
-phy_free_interrupt() expects the PHY to be quiet before it removes the
-handler:
-
-drivers/net/phy/phy.c:phy_free_interrupt() {
-	...
-	phy_disable_interrupts(phydev);
-	free_irq(phydev->irq, phydev);
-	...
-}
-
-Consider an 88E1318S or 88E1510 that uses a PHY IRQ:
-
-ethtool -s ethX wol g
-  m88e1318_set_wol()
-    sets MII_M1011_IMASK_WOL, routes LED[2] as active-low INTn
-
-interface stopped, MAC driver calls phy_disconnect()
-  phy_free_interrupt()
-    marvell_config_intr()   /* bit 7 stays enabled */
-    free_irq()
-
-The PHY stays powered here, because phy_suspend() returns -EBUSY when
-WoL is enabled.
-
-A later magic packet or link-up event then latches IEVENT bit 7. The
-comment in m88e1318_set_wol() says INTn stays asserted until IEVENT is
-read, and after free_irq() nothing reads it.
-
-phy_request_interrupt() requests the IRQ with IRQF_ONESHOT | IRQF_SHARED.
-If that level-triggered line is shared with another device, such as a
-sibling PHY, could this cause an interrupt storm until the spurious IRQ
-detector disables the line for every device on it?
-
-The same applies to phy_probe(), which calls phy_disable_interrupts()
-before any handler is registered. That call used to write 0x0000 to
-MII_M1011_IMASK, which cleared a WOL_EIE left by a previous boot or
-kexec. Now the bit stays set.
-
-After this patch, the new block in m88e1318_set_wol() is the only code
-that clears the bit, and it only runs on an explicit wol d. Should the
-teardown and probe paths still clear MII_M1011_IMASK_WOL?
-
->  		if (err)
->  			return err;
->  
-> @@ -417,7 +420,7 @@ static irqreturn_t marvell_handle_interrupt(struct phy_device *phydev)
->  		return IRQ_NONE;
+>  	old_sinfo.bh = sinfo.bh = dotdot_bh = NULL;
+> @@ -532,14 +534,20 @@ static int do_msdos_rename(struct inode *old_dir, unsigned char *old_name,
+>  				      &MSDOS_I(old_inode)->i_metadata_bhs);
+>  		if (IS_DIRSYNC(new_dir)) {
+>  			err = sync_dirty_buffer(dotdot_bh);
+> -			if (err)
+> -				goto error_dotdot;
+> +			if (err) {
+> +				corrupt = err;
+> +				new_bh_failed = sinfo.bh == dotdot_bh;
+> +				goto error_inode;
+> +			}
+>  		}
+>  		drop_nlink(old_dir);
+>  		if (!new_inode)
+>  			inc_nlink(new_dir);
 >  	}
 >  
-> -	if (!(irq_status & MII_M1011_IMASK_INIT))
-> +	if (!(irq_status & (MII_M1011_IMASK_INIT | MII_M1011_IMASK_WOL)))
->  		return IRQ_NONE;
-
-[Severity: Medium]
-The commit message says:
-
-  The interrupt register layout is the same across the PHYs this driver
-  handles, so extend the shared handler to also claim a WoL event instead
-  of adding a per-PHY one.
-
-Is this true for bit 7?
-
-About 21 entries in marvell_drivers[] use marvell_config_intr() and
-marvell_handle_interrupt(). These include 88E1101, 88E1111, 88E1118,
-88E1121R, 88E1145, 88E1240, 88E1540, 88E3016 and the 88E6xxx families.
-Only the 88E1318S and 88E1510 entries have .set_wol = m88e1318_set_wol.
-
-The in-tree Yukon definitions for 88E1111-class PHYs use bit 7 of this
-register for a FIFO error, not a WoL event:
-
-drivers/net/ethernet/marvell/skge.h:
-	PHY_M_IS_FIFO_ERROR	= 1<<7, /* FIFO Overflow/Underrun Error */
-
-sky2.h has the same definition.
-
-On the PHYs without set_wol, two things change.
-
-First, MII_M1011_IMASK_CONFIG_MASK leaves bit 7 out of every config_intr
-write. A bit 7 enable left by firmware, a bootloader or a previous
-kernel is never cleared, even by config_intr() with
-PHY_INTERRUPT_DISABLED.
-
-Second, the handler now returns IRQ_HANDLED and calls
-phy_trigger_machine() whenever IEVENT bit 7 is set. This happens even on
-models where the driver never enabled that source.
-
-Could the bit 7 handling be limited to the PHYs that support WoL, for
-example with separate config_intr/handle_interrupt callbacks for the
-88E1318S and 88E1510? If the shared change is intended, could the commit
-message say that PHYs without WoL change behaviour too?
-
-[ ... ]
+> +	/* Remember aliases before fat_remove_entries() releases the buffer. */
+> +	dotdot_in_old_bh = dotdot_bh == old_sinfo.bh;
+> +	new_in_old_bh = sinfo.bh == old_sinfo.bh;
+>  	err = fat_remove_entries(old_dir, &old_sinfo);	/* and releases bh */
+>  	old_sinfo.bh = NULL;
+>  	if (err)
+> @@ -564,12 +572,22 @@ static int do_msdos_rename(struct inode *old_dir, unsigned char *old_name,
+>  error_dotdot:
+>  	/* data cluster is shared, serious corruption */
+>  	corrupt = 1;
+> +	if (dotdot_in_old_bh || new_in_old_bh) {
+> +		/* Give up rollback on the buffer whose write failed. */
+> +		corrupt = err;
+> +		new_bh_failed = new_in_old_bh;
+> +	}
+> +
+> +	if (update_dotdot && !dotdot_in_old_bh) {
+> +		int dotdot_err;
+>  
+> -	if (update_dotdot) {
+>  		fat_set_start(dotdot_de, MSDOS_I(old_dir)->i_logstart);
+>  		mmb_mark_buffer_dirty(dotdot_bh,
+>  				      &MSDOS_I(old_inode)->i_metadata_bhs);
+> -		corrupt |= sync_dirty_buffer(dotdot_bh);
+> +		dotdot_err = sync_dirty_buffer(dotdot_bh);
+> +		corrupt |= dotdot_err;
+> +		if (dotdot_err && sinfo.bh == dotdot_bh)
+> +			new_bh_failed = true;
+>  	}
+>  error_inode:
+>  	fat_detach(old_inode);
+> @@ -581,7 +599,7 @@ static int do_msdos_rename(struct inode *old_dir, unsigned char *old_name,
+>  			mark_inode_dirty(new_inode);
+>  			corrupt |= sync_inode_metadata(new_inode, 1);
+>  		}
+> -	} else {
+> +	} else if (!new_bh_failed) {
+>  		/*
+>  		 * If new entry was not sharing the data cluster, it
+>  		 * shouldn't be serious corruption.
+> diff --git a/fs/fat/namei_vfat.c b/fs/fat/namei_vfat.c
+> index da3e89c0b16ac..b6a32f39a6f88 100644
+> --- a/fs/fat/namei_vfat.c
+> +++ b/fs/fat/namei_vfat.c
+> @@ -938,6 +938,8 @@ static int vfat_rename(struct inode *old_dir, struct dentry *old_dentry,
+>  	struct fat_slot_info old_sinfo, sinfo;
+>  	struct timespec64 ts;
+>  	loff_t new_i_pos;
+> +	bool dotdot_in_old_bh, new_in_old_bh;
+> +	bool new_bh_failed = false;
+>  	int err, is_dir, corrupt = 0;
+>  	struct super_block *sb = old_dir->i_sb;
+>  
+> @@ -983,13 +985,19 @@ static int vfat_rename(struct inode *old_dir, struct dentry *old_dentry,
+>  	if (dotdot_de) {
+>  		err = vfat_update_dotdot_de(new_dir, old_inode, dotdot_bh,
+>  					    dotdot_de);
+> -		if (err)
+> -			goto error_dotdot;
+> +		if (err) {
+> +			corrupt = err;
+> +			new_bh_failed = sinfo.bh == dotdot_bh;
+> +			goto error_inode;
+> +		}
+>  		drop_nlink(old_dir);
+>  		if (!new_inode)
+>   			inc_nlink(new_dir);
+>  	}
+>  
+> +	/* Remember aliases before fat_remove_entries() releases the buffer. */
+> +	dotdot_in_old_bh = dotdot_bh == old_sinfo.bh;
+> +	new_in_old_bh = sinfo.bh == old_sinfo.bh;
+>  	err = fat_remove_entries(old_dir, &old_sinfo);	/* and releases bh */
+>  	old_sinfo.bh = NULL;
+>  	if (err)
+> @@ -1012,10 +1020,19 @@ static int vfat_rename(struct inode *old_dir, struct dentry *old_dentry,
+>  error_dotdot:
+>  	/* data cluster is shared, serious corruption */
+>  	corrupt = 1;
+> +	if (dotdot_in_old_bh || new_in_old_bh) {
+> +		/* Give up rollback on the buffer whose write failed. */
+> +		corrupt = err;
+> +		new_bh_failed = new_in_old_bh;
+> +	}
+>  
+> -	if (dotdot_de) {
+> -		corrupt |= vfat_update_dotdot_de(old_dir, old_inode, dotdot_bh,
+> -						 dotdot_de);
+> +	if (dotdot_de && !dotdot_in_old_bh) {
+> +		int dotdot_err = vfat_update_dotdot_de(old_dir, old_inode,
+> +						       dotdot_bh, dotdot_de);
+> +
+> +		corrupt |= dotdot_err;
+> +		if (dotdot_err && sinfo.bh == dotdot_bh)
+> +			new_bh_failed = true;
+>  	}
+>  error_inode:
+>  	fat_detach(old_inode);
+> @@ -1026,7 +1043,7 @@ static int vfat_rename(struct inode *old_dir, struct dentry *old_dentry,
+>  			mark_inode_dirty(new_inode);
+>  			corrupt |= sync_inode_metadata(new_inode, 1);
+>  		}
+> -	} else {
+> +	} else if (!new_bh_failed) {
+>  		/*
+>  		 * If new entry was not sharing the data cluster, it
+>  		 * shouldn't be serious corruption.
+> @@ -1105,14 +1122,18 @@ static int vfat_rename_exchange(struct inode *old_dir, struct dentry *old_dentry
+>  	if (old_dotdot_de) {
+>  		err = vfat_update_dotdot_de(new_dir, old_inode, old_dotdot_bh,
+>  					    old_dotdot_de);
+> -		if (err)
+> -			goto error_old_dotdot;
+> +		if (err) {
+> +			corrupt = err;
+> +			goto error_exchange;
+> +		}
+>  	}
+>  	if (new_dotdot_de) {
+>  		err = vfat_update_dotdot_de(old_dir, new_inode, new_dotdot_bh,
+>  					    new_dotdot_de);
+> -		if (err)
+> -			goto error_new_dotdot;
+> +		if (err) {
+> +			corrupt = err;
+> +			goto error_old_dotdot;
+> +		}
+>  	}
+>  
+>  	/* if cross directory and only one is a directory, adjust nlink */
+> @@ -1135,14 +1156,9 @@ static int vfat_rename_exchange(struct inode *old_dir, struct dentry *old_dentry
+>  
+>  	return err;
+>  
+> -error_new_dotdot:
+> -	if (new_dotdot_de) {
+> -		corrupt |= vfat_update_dotdot_de(new_dir, new_inode,
+> -						 new_dotdot_bh, new_dotdot_de);
+> -	}
+> -
+>  error_old_dotdot:
+> -	if (old_dotdot_de) {
+> +	/* Both entries may share the buffer whose write failed. */
+> +	if (old_dotdot_de && old_dotdot_bh != new_dotdot_bh) {
+>  		corrupt |= vfat_update_dotdot_de(old_dir, old_inode,
+>  						 old_dotdot_bh, old_dotdot_de);
+>  	}
+>
+> base-commit: 93f51579e7df248780214094418f205253383cc5
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261007182112.821061-1-rosenp%40gmail.com
+OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
