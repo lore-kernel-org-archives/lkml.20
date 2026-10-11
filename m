@@ -1,76 +1,103 @@
-Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21BCC23ABBE
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 01:21:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15E6923D2B1
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 01:22:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.30.2.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791681681; cv=none; b=d/Ft39ry/WQf9IGYKFHVnLb+Dvkd8KgCbW3llI/U7GpTuudaWPOwZIwcNXydafXUzOU6wQFa26afFYUxP8YkraNDdtdu+2uVqnT8krauxD7RgFZkMXblMDPqjyVV+4EECkHB3ushcma7GoPf8B8dt/HrG6U+7ra4Tw6RjO46t3g=
+	t=1791681771; cv=none; b=cHPBPcTwhbBV7y6ET2R01YandgkKczmpI6LT2/r/LqXfOchDr0ZKjnz6jHR9y5gtuRVMajQiauAMVpdUKxJwd9TAUrt9EX4QkBGKbV9e0jpxQh84EinJFEw7utVHbBf2R4VoYJlHfGY1Zh9UK/VybxxWxEO4FpRADQiGPVFljts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791681681; c=relaxed/simple;
-	bh=Piyf5SAQ0e6S2WiTKuzG0JgQ6TL7yHLOoW4GrVsBwXo=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=afbLTZ9Avld5Hwnq5HYCwTkE9FR6GOx64L35i1SHi2e6h1r+u/7qccorcfsyle+p4+HKB8lQHdB9tIinSj9spyu24uG4uZIVZc3Y6OUhvpaX4NsYUa3dqtoY3/CAupqfF7HN5tmT2bmZF0Kedxk2Lea+B2s4370/BM7nnWPfOJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=MXb3+eIl; arc=none smtp.client-ip=216.40.44.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="MXb3+eIl"
-Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay03.hostedemail.com (Postfix) with ESMTP id 6E790A077C;
-	Sun, 11 Oct 2026 01:21:12 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf04.hostedemail.com (Postfix) with ESMTPA id B0A2F2002B;
-	Sun, 11 Oct 2026 01:21:10 +0000 (UTC)
-Date: Sat, 10 Oct 2026 21:21:09 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Willy Tarreau <w@1wt.eu>
-Cc: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>, Konstantin Ryabitsev
- <konstantin@linuxfoundation.org>, Joe Perches <joe@perches.com>,
- linux-kernel@vger.kernel.org, users@kernel.org
-Subject: Re: [workflows]Re: [PATCH] get_maintainer: only use THE REST as a
- fallback
-Message-ID: <20261010212109.202fd50d@226.227.38.69.naturalwireless.com>
-In-Reply-To: <ask0dkduRV5pxeLZ@1wt.eu>
-References: <20261008-get-maintainer-the-rest-fallback-v1-1-7d26d0b7aa34@linuxfoundation.org>
-	<8e194f64-6add-4fb3-a1bb-9b27719b409e@suse.com>
-	<ask0dkduRV5pxeLZ@1wt.eu>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	s=arc-20240116; t=1791681771; c=relaxed/simple;
+	bh=vOLbuO6lWjlunZyY6CDisK4c6NDU2BubFE2Pc2REUPI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=McKTQNLKAJlMS9w9N/wRR32u3hwf7Rw/Uh5my+FjQXMBTHDQ6VnrYYQENW0GOIvf5OzMYaNd2lZg5MoG3sjZ5cJB2X9/AgEoptvxRuQFCm8RQsNHyHPHaJ20CUBO6Fcey0yVtw9O5H0ewPrsgyIZ1BzJpammAjjQZvfI2VWQ/24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu; spf=pass smtp.mailfrom=csail.mit.edu; arc=none smtp.client-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+Received: from escalante.csail.mit.edu ([128.52.128.198])
+	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xFiH0-008ATg-6H;
+	Sat, 10 Oct 2026 21:22:46 -0400
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Nickolai Zeldovich <nickolai@csail.mit.edu>,
+	Adam Harshbarger <handyhandyman.adam@gmail.com>,
+	I Hsin Cheng <richard120310@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH] lib/plist: add a plist_test case for plist_requeue() on the last priority bucket
+Date: Sat, 10 Oct 2026 21:22:33 -0400
+Message-ID: <20261011012245.765558-1-nickolai@csail.mit.edu>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261010181016.44f5e2883b6820bb32c04204@linux-foundation.org>
+References: <20261010181016.44f5e2883b6820bb32c04204@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: B0A2F2002B
-X-Stat-Signature: totufpgytx6zxj7a7ihotncj8xs8nfsa
-X-Rspamd-Server: rspamout01
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1+/AwhMC7uOrIRZUPtILhv8uDA+HfT60wQ=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=o0gn6Y3011ryQRfAOsfDRwPbbG+G8bDgEJzE1JMyS8U=; b=MXb3+eIl6bJtVj/zSCbdENkhBZnaX3U56XtuhYttUS2T680UsiaB4PkfqK/XPljrbT9w1n3FiCXR7mic0qQV8Cw/ahPy3HsIIgu3Eg0wE2AXdslP8oGd86cToXzkWH7+RUKBoXSzB0IBFv9d+Pz9kNJP0lm0p4R2cWUFy5gTqQY=
-X-HE-Tag: 1791681670-84616
-X-HE-Meta: U2FsdGVkX18kGjKmvqbaMUGnyLqWtEYE7fJ3YZQ70Dw1MOSjFNnE30BK85jm+YuwTCbOA8xHWcmGPvkO1i9APSzD4kqST40Rk3Hw/5trz4oNJIRml8m8jVCLasYj3BbV9loXbQ9vkNMo25i+QMpjNrfLBUuF1zd1t6YBsHscoha6bfwTfs53n5Pr+hXnULgHmPLSkBMXzPmKQTVdnJ0t33rM1MlCrsqpjUecTrXTFbA5BAaLugJIVfRG9p8pffZEodpLmht6OnuqtPNBpTCxYL8dnXqNWyYDiLONB9E97ygNjS/V/8hRpyDynGABfNtfVmSAi14zH29k0lIsx8gE6B2pGps57YaSi/TeDmBngEWhQcebh41P/ohPAjKXqKIc
+Content-Transfer-Encoding: 8bit
 
-On Fri, 9 Oct 2026 20:37:42 +0200
-Willy Tarreau <w@1wt.eu> wrote:
+The plist_requeue() shortcut inserted the node at the head of the list
+when the node was the first of the last priority bucket and had a
+successor of the same priority, with an earlier bucket present (fixed
+by "lib/plist: fix plist_requeue() corrupting order in the last
+bucket").  The CONFIG_DEBUG_PLIST self-test did not catch it: it only
+requeues nodes it has just added, which are always the last of their
+bucket, so plist_requeue() returned early every time, and
+plist_test_check() only verifies the links, not that the shortcut's
+insertion point is correct.
 
-> I went into the same situation ~20 years ago, with filters sending LKML
-> traffic into a dedicated folder, to then realize that I was no longer
-> reading them because it requires to actively think about it and make an
-> effort. So I turned this back to my normal folder and I can have a glance
-> at them as messages arrive (like I'm seeing this one BTW).
-> 
-> I understand the problem of volume on LKML that's not really compatible with
-> 2k emails a day (nor with many people's expectations), but at the same time
-> I think that a dedicated catch-all list with way less subscribers would be
-> really nice for those who want to stay a bit informed of what's happening.
+Add a deterministic case for the failing shape: A(1) B(2) C(2), requeue
+B.  plist_test_check() verifies the node_list and prio_list links and
+the ordering, and the new BUG_ON() checks that B ended up at the end of
+the list rather than in front of A.
 
-Agreed. I look at LKML every so often to see what's happening in the kernel.
+Before the fix the case produces B(2) A(1) C(2) and the BUG_ON() fires;
+with the fix it produces A(1) C(2) B(2).  Verified with the three
+functions transcribed to a userspace harness driving this exact case
+against mainline (fails), the queued fix (passes) and the alternative
+fix I had posted (passes); lib/plist.o builds with CONFIG_DEBUG_PLIST=y
+(LLVM=1 ARCH=riscv).  Not booted.
 
-If there is a catch all, could we make it only kernel patches. Tooling
-patches (like my own trace-cmd patches) should not go to the kernel list.
+Assisted-by: LLM
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+---
+ lib/plist.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-I could then unsubscribe from LKML and subscribe to that instead.
+diff --git a/lib/plist.c b/lib/plist.c
+index b0273533c04d..ac3f55dc49e5 100644
+--- a/lib/plist.c
++++ b/lib/plist.c
+@@ -283,6 +283,25 @@ static int  __init plist_test(void)
+ 		plist_test_check(nr_expect);
+ 	}
+ 
++	/*
++	 * Requeue a node which is the first of the last priority run and has
++	 * a successor of the same priority, with an earlier run present: the
++	 * shortcut in plist_requeue() must append it at the end of the list,
++	 * not in front of the first run.  The random test above never
++	 * exercises this, since it only requeues nodes it has just added,
++	 * which are always the last of their run.
++	 */
++	plist_head_init(&test_head);
++	for (i = 0; i < 3; i++) {
++		plist_node_init(test_node + i, i ? 2 : 1);
++		plist_add(test_node + i, &test_head);
++	}
++	plist_test_requeue(test_node + 1);
++	plist_test_check(3);
++	BUG_ON(plist_last(&test_head) != test_node + 1);
++	for (i = 0; i < 3; i++)
++		plist_del(test_node + i, &test_head);
++
+ 	printk(KERN_DEBUG "end plist test\n");
+ 
+ 	/* Worst case test for plist_add() */
+-- 
+2.55.0
 
--- Steve
