@@ -1,167 +1,87 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3790D44A3EC;
-	Sun, 11 Oct 2026 18:06:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F57D36C5BF;
+	Sun, 11 Oct 2026 18:07:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791742008; cv=none; b=r6aZlrYkvXIwqygY5O+4Ayv01/N9SEOisN6xPqozL3hpckRlfd8Fsg34mCnAbeM94x3VcJqIjBL7w+53BhNHuiFNL+GBWPnMJFsXHpCw6gBNnd+we74XlIq1knkZ/pNSCYm2Qa/0L2P+g9UuYCavGUsq7wy+v6gRyD6O3dmvk8M=
+	t=1791742045; cv=none; b=dp69sre0atee+biqCmWLemjuAWvseGTp1QGmANZM4qH28q4JdkZWLClZCGrKD5qvYd1nv2prSLp3Vvelm6zZgh39MCi749AfVeQQy46O9pP0B1zvQ1S9Z1LSRSU3nPuD0kgxtiFtsF61a+dIIwQTWCOCDllW4YT6cvJlmpEZD9g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791742008; c=relaxed/simple;
-	bh=emZJbKvYe03g7HJBuE8m7LmYGGgBIwxOsDESI4fubnA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=POsJJhjQ3ScqzHZhGqTlc6TEH+8aUQH+v6W/FTjyyNwUqbqbDwhrbJjbCIiIIlmkd5wYxr2UZ56i+gGhF2IrjAOgz1zAO4FeSXWRBBfQJFlWz4UgiabOInjkrmGvC/FKf2BOz8RGbCAu/1+XpeyV+elkazOWqvK1YllKBDGxtC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=URWQdIOn; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	s=arc-20240116; t=1791742045; c=relaxed/simple;
+	bh=5Cr27iKU35LWbUwRz0pgjQQZ+GO/Jx9Uviy2gu19Ufw=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=rQpIJQgXqZzMpZuVvQ5JJhmqSMRtKbL+Gojzdz2w2tnL9FZ1r8DApoBycpqAkxMAUOc7ocEd0Z2LSTb03hp5u8R5ZPU+JDAJQ7TWG1cH+yp1D4T5KktPN6RVN7c/+JnIZXeSgUeix2fmUzEGDhvnXag9LznEmppwggrOwm+GqN4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=l6RszutC; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="URWQdIOn"
-Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 8B892807D5;
-	Sun, 11 Oct 2026 20:06:37 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id 31vg9917Yogb; Sun, 11 Oct 2026 20:06:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1791741996; bh=emZJbKvYe03g7HJBuE8m7LmYGGgBIwxOsDESI4fubnA=;
-	h=From:To:Cc:Subject:Date;
-	b=URWQdIOn+q45KeFFbnusbXb57ZiCkOY78yTTWyc5lP8ExygfCny7JkMRg6twgxkU2
-	 nqB1hHLVXtkZVsA24ZejnHD64SyggoMQBaxj6yMSp/dFrnq01pp2xXPMqVRRQ3wZQk
-	 xrCr+AJepD6gsfmaexoUkh4Yxs92c9e62YTmCDLNr639QWLgVADtSZuj7jhGoFpcMR
-	 W5jMOM+Ef/7i1i9RHZeJqSHtJIQJ5Wm5uKZxJIKmT4jnVKiwJH0c0zhJfbfYScCyUs
-	 ssB3ivxJQxLLh+zrAlts0rvPfs2tGLyxleXraKxAdIH4iESNRKoHPuL4FNlirqzsgi
-	 nC2BpasP+l4Sg==
-From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
-To: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: control_led: Fix deadlock between sysfs writes and card disconnect
-Date: Sun, 11 Oct 2026 21:06:17 +0300
-Message-ID: <20261011180627.1594051-1-aliamemis@disroot.org>
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="l6RszutC"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4A567A1566;
+	Sun, 11 Oct 2026 20:07:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1791742037; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=IcYL9fZE9jnk9d+hPholRkBzjD07Lkz/hbWQDi+8jsQ=;
+	b=l6RszutC4zA1jetfCHsEMUNg+hxVSz8yNItUlzG5bkrHqkUn8jFWlYN977xvK+wnB93kiM
+	4yDhAzu72JVdI3dtyzHVp+dcUbebBl4dq9EhibtRszJQdl48xhkV/Q7bK2etVaralyDsO+
+	QflQYkpwXSaGULJL9VL+YEgrokdolAgHXf/1CqXuJNtD9LnIYpI7aetBdlQ3FuDySNZA9i
+	wKxnZyNJ4DZeb6eURpF2OzhwO6ldUm5g2/ZjCC5W6rFmzaae/MJranhLlhQB+GVgpmLnAP
+	uSgAvW+QaSC30S+tDkOJCJWAfE6ux+50AxF+LQLmE5tYRpDT8IZUjilSkeGZ5A==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Date: Sun, 11 Oct 2026 20:07:13 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: James Clark <jjc@jclark.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Andrew Lunn <andrew+netdev@lunn.ch>, Heiner
+ Kallweit <hkallweit1@gmail.com>, Richard Cochran <richardcochran@gmail.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>, Doug Berger
+ <opendmb@gmail.com>, =?UTF-8?Q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>,
+ Russell King <linux@armlinux.org.uk>, Conor Dooley
+ <conor.dooley@microchip.com>, Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Thomas Gleixner <tglx@kernel.org>,
+ Miroslav Lichvar <mlichvar@redhat.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 0/5] net: mdio: add timestamped MDIO writes for
+ PHY gettimex64
+In-Reply-To: <804e7c63-e762-4040-9d60-35d21df75531@lunn.ch>
+References: <20261009143506.2507607-1-jjc@jclark.com>
+ <804e7c63-e762-4040-9d60-35d21df75531@lunn.ch>
+Message-ID: <db3a0f73c1883645f51294ca46cffe05@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-snd_ctl_led_disconnect() removes the ctl-led sysfs files while
-holding card->controls_rwsem. device_unregister() waits for running
-sysfs callbacks which can deadlock when a concurrent write causes
-the attach or detach callback to wait for controls_rwsem.
+Hi Andrew
 
-Break kernfs active protection in the attach, detach and list
-callbacks and hold a module reference instead.
+On 11.10.2026 15:50, Andrew Lunn wrote:
+>> For example, using PTP_SYS_OFFSET_EXTENDED on the Raspberry Pi CM5 to
+>> synchronize the system clock from the BCM54210PE PHY PHC leads to the
+>> system clock being 32 µs ahead of the PHC. On the CM4, it is about 7 
+>> µs.
+>> (The difference is because the MDIO clock frequency is higher on the
+>> CM4: 10 MHz as opposed to 2.08 MHz on the CM5.)
+> 
+> IEEE 802.3 says the clock should be 2.5Mhz. Does the CM4 use a
+> clock-frequency DT property to enable this faster clock?
+> 
+> 	Andrew
 
-Fixes: a135dfb5de15 ("ALSA: led control - add sysfs kcontrol LED marking layer")
-Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
----
- sound/core/control_led.c | 62 ++++++++++++++++++++++++++++++++++++----
- 1 file changed, 57 insertions(+), 5 deletions(-)
+The Pi 400 is the only BCM2711 board with clock-frequency in DT
+(1950000, from a downstream "Limit MDIO clock speed" commit with no
+further explanation). There the driver's assumed 250 MHz reference
+gives divider 63, which with the real 200 MHz (see my comments on
+patch 5) is about 1.56 MHz.
 
-diff --git a/sound/core/control_led.c b/sound/core/control_led.c
-index ec0e6c7ad..501387287 100644
---- a/sound/core/control_led.c
-+++ b/sound/core/control_led.c
-@@ -563,12 +563,43 @@ static ssize_t set_led_id(struct snd_ctl_led_card *led_card, const char *buf, si
- 	return count;
- }
- 
-+/*
-+ * snd_ctl_led_disconnect() removes these files with card->controls_rwsem
-+ * held. so don't let the removal wait for a callback that takes it.
-+ */
-+static struct kernfs_node *snd_ctl_led_sysfs_enter(struct device *dev,
-+						   struct device_attribute *attr)
-+{
-+	struct kernfs_node *kn;
-+
-+	if (!try_module_get(THIS_MODULE))
-+		return NULL;
-+	kn = sysfs_break_active_protection(&dev->kobj, &attr->attr);
-+	if (!kn)
-+		module_put(THIS_MODULE);
-+	return kn;
-+}
-+
-+static void snd_ctl_led_sysfs_exit(struct kernfs_node *kn)
-+{
-+	sysfs_unbreak_active_protection(kn);
-+	module_put(THIS_MODULE);
-+}
-+
- static ssize_t attach_store(struct device *dev,
- 			    struct device_attribute *attr,
- 			    const char *buf, size_t count)
- {
- 	struct snd_ctl_led_card *led_card = container_of(dev, struct snd_ctl_led_card, dev);
--	return set_led_id(led_card, buf, count, true);
-+	struct kernfs_node *kn;
-+	ssize_t ret;
-+
-+	kn = snd_ctl_led_sysfs_enter(dev, attr);
-+	if (!kn)
-+		return -ENODEV;
-+	ret = set_led_id(led_card, buf, count, true);
-+	snd_ctl_led_sysfs_exit(kn);
-+	return ret;
- }
- 
- static ssize_t detach_store(struct device *dev,
-@@ -576,7 +607,15 @@ static ssize_t detach_store(struct device *dev,
- 			    const char *buf, size_t count)
- {
- 	struct snd_ctl_led_card *led_card = container_of(dev, struct snd_ctl_led_card, dev);
--	return set_led_id(led_card, buf, count, false);
-+	struct kernfs_node *kn;
-+	ssize_t ret;
-+
-+	kn = snd_ctl_led_sysfs_enter(dev, attr);
-+	if (!kn)
-+		return -ENODEV;
-+	ret = set_led_id(led_card, buf, count, false);
-+	snd_ctl_led_sysfs_exit(kn);
-+	return ret;
- }
- 
- static ssize_t reset_store(struct device *dev,
-@@ -594,10 +633,8 @@ static ssize_t reset_store(struct device *dev,
- 	return count;
- }
- 
--static ssize_t list_show(struct device *dev,
--			 struct device_attribute *attr, char *buf)
-+static ssize_t snd_ctl_led_list(struct snd_ctl_led_card *led_card, char *buf)
- {
--	struct snd_ctl_led_card *led_card = container_of(dev, struct snd_ctl_led_card, dev);
- 	struct snd_ctl_led_ctl *lctl;
- 	size_t l = 0;
- 	struct snd_card *card __free(snd_card_unref) =
-@@ -620,6 +657,21 @@ static ssize_t list_show(struct device *dev,
- 	return l;
- }
- 
-+static ssize_t list_show(struct device *dev,
-+			 struct device_attribute *attr, char *buf)
-+{
-+	struct snd_ctl_led_card *led_card = container_of(dev, struct snd_ctl_led_card, dev);
-+	struct kernfs_node *kn;
-+	ssize_t ret;
-+
-+	kn = snd_ctl_led_sysfs_enter(dev, attr);
-+	if (!kn)
-+		return -ENODEV;
-+	ret = snd_ctl_led_list(led_card, buf);
-+	snd_ctl_led_sysfs_exit(kn);
-+	return ret;
-+}
-+
- static DEVICE_ATTR_WO(attach);
- static DEVICE_ATTR_WO(detach);
- static DEVICE_ATTR_WO(reset);
--- 
-2.55.0
+Pi 4 and CM4 (the one with the PTP PHY) have no clock-frequency, so
+the driver keeps the firmware's divider 9, and 200 MHz / 20 is the
+10 MHz James mentions.
 
+Regards Nicolai
