@@ -1,152 +1,165 @@
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 786B32FE074
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 23:51:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B90143230D
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 23:57:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791762679; cv=none; b=oUQvNe9mGhzp0Vbb3mZa+H1YMtXtSwPzpW4wRVjHPC2Q1WRXRaImNnODRFblaaK4kEehG8jwiqtxjzyF167k6lJE6xz+GXkIZRyOc7/k7RXExCfa6NfiUBXmNvf8pu5Y5UCjN5GiKLGwSM/bSh0AS3hI5llNUls1R+RH4q1lY7w=
+	t=1791763053; cv=none; b=M4qZ3+Q5TVcu0hQDreM8CFuqcxkjik/u3nlW7mR9F2HTtiVpT6xlVyp3ZnQ2bWXBpBJDvQOPJmjpjk+pHdqWRZK2IyAalioHpmqjJjUoFBQdSEPBzo06E5SkDnvx2z/HZaopPIB7uq22K3UrwPYOs30YNvHta8iZgh0yF8Pwanc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791762679; c=relaxed/simple;
-	bh=gbRfKY04QzrUYnbEZ78hA/w3fNloRz7cA9iUjtj0j3k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ej8T14SY0US5sIU30OfMKswKsHt0mCz7iNGSElIhWKKC/5H8UMTQpzMG8+eJis5gmhlr2iIWNDFEuy45wbcNjTl8oO9Z3K+SoqjqVmJ4e3NtH2HzvOk6L6CH3En6agon+AjaK1T8GvI30UHm+xWgoTm2V22sP3bMLrHY0a7NdUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mMLp9YXD; arc=none smtp.client-ip=209.85.219.48
+	s=arc-20240116; t=1791763053; c=relaxed/simple;
+	bh=VKnH2yGmZMcFZt2mH89aB22XW2Y4GUfsPSnGPGdpbXA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MecxMrm1sySCVEHkGxi23q+Bj/5jjLMWZDAGXqIve8lYn/85eXF/4v0rFZC93glmxa5+V9cdi7RYzpogftQFXkFj8QpHY111HdXQllQO4eS1SzQdm3yWv0a+YTtRX2dKgdZBMkb2DTfPu64EPRX/CTVvZ6jBltQ5KqhR15/7sR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fEP+gmzr; arc=none smtp.client-ip=74.125.82.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mMLp9YXD"
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-917b78dfe30so26624136d6.0
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:51:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fEP+gmzr"
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3514e7cbbbaso3461518eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:57:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791762677; x=1792367477; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rFWQQ8D+mzyXqdU1nMUjp91o5yLegbmx1fWvybGP2hM=;
-        b=mMLp9YXDP2Qh59A4WZUGT+wLAWwTiDeNCsNVg8ueZTnSH0/eesUmHkZ69YwFL+5/OG
-         1IjLqCmz5k+6CwP6On/2st6KPUatbyskzM2M0piEWGzG50pL+HuazAfZso+NBLHTvivD
-         hdQt6MJCn+pTbIlwYNRs1Ghb2pjTHNnJdS+aTisSyHgyqYnn2uLe1H5IVr6NJOq+4oym
-         kThZG4FohQG3CTRfoKNPIdGFQxGfRDX3D8FwRsr6882nt67f/RJvk9Ok4gHCapvcZQxd
-         gye25EyVgLdjiqYXHovF+6CpoQSQc0GK7YiEctSDksPlTVBktBlMSY6IjesDW8p1poyV
-         J+hg==
+        d=gmail.com; s=20251104; t=1791763052; x=1792367852; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cRPcpD4bGybI0n7FRTBMhW8q9yb51oDjvzb7f7KdtWo=;
+        b=fEP+gmzrGAAWoYazsw1jrvz8dHBmNVw4Bj50Xzr84Ev+ScPp3+JoL0cfhHx7Fs6ay9
+         Bv7aZ7MybA2kocEijKfjyyQQhlr+QFwyXzz9jnDxL0RPBs8yTjMNZzQQmjtuFassHZdz
+         vva+L2tbA6moSYZ2AK4A41hiWDJKWNF+84488r2Ci1/BML9JHZ55VPj8im7MstjuKF/R
+         4uNYNsYdX1R/vAL4yzB5xmM5xTxOpW4+MMpy5SPZxA/T2xXRH8MwkZpxwAMqI2kjTXo7
+         kppQVVHrlIQghpYp5p1ahNpEZrHhCJsQrXV9QaV3r2XCN6Hhkr7XJ3m7DsJPNoF+INjp
+         K1jA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791762677; x=1792367477;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rFWQQ8D+mzyXqdU1nMUjp91o5yLegbmx1fWvybGP2hM=;
-        b=oY7il8HsNkJwsDVtBdJVzShbyi3tzDiiJkx+AqjSEBPYW3aK/OKZcksGQ+ZF5Huy2J
-         5oN8vvraqCHk8K4q0YDh0pKYP+CRJuHDTRbm94rFUA/oZuwCHf64+EHTkIeNewmWMAWu
-         Oapvw4IBj0cMoel9lwLe72A9WlZbbQ8nmVEYa0opZPKYACSH+AikPL4BVpYDIDBb+gvM
-         2AQu+ecScp/rt9h7L74ER1x8ms+gjDEM4K/LmZfS2H+Lj3DbsPJm9kzLBMK0oEs2S1HX
-         rVD9SJwpPzXMf2t1G6/5uVxUcAa9zWRsGLDFYXdvO+0KcHYVA4z2UqmvhhGR5T4uP4hM
-         NmsQ==
-X-Gm-Message-State: AFq9FYJn6H5KeZeFi/rgLfy58kwPyql9FGW7gxxNWhIKeiRHdSwsoS+1
-	dHN87P6m/32/jFjn26inDgoP3jQK1DcuQ9SfnihTq0ChAns3laZ1gVc=
-X-Gm-Gg: AYBFou2EChfqPwYgOz6YV/1jAnZSiZKEqYtSsQ5xVtp13C+kQnVD7Alhq1x11I3SHlN
-	xNj903FOUjMh8HGSXfZYaoIGa1Kt/KuiLMCm5JpFye3iZC5OvwA5bjlzPnLxbdB2iIPHaaBWy7r
-	XHuuw85bqB2C+v4cLOFbJ2rfu+HifdA54wXroShqqN/OpGwfqqFGWqIXc1pzeDZddSd5q6EmLET
-	Gwk3sv+9QdH82jGm2yG6GMWgu4LrzkbKAUbqYdrKlUeVbuyc+KumSng4lCFynIOqnzdCc2lGjfE
-	eBCxdam1u/LDnh6bCL3VYZHsyjCA5xujCPAplw3orK7VonjkLxVE/u1GBRaH5N49O2xheruDvre
-	ufvtEutmUXgeX+jFcK5zCm/V+zUyl5IozjEXYvvdLo50laprhtKCiw2vwzKbyHl5Ov4WFTZXOgs
-	r9E6NTktlB+UKUlzzdnoyCfjxY6LTK4grbCJZTkrxV5XCxX2b5tGKkqCG1fuhywzv1qknh0GQvZ
-	s1QyUU+PhUtcLC6550f/wHg9IAw872CZ1pf3wN5Zyto/ggcfN8p75v1r0Hr/SWad25a3shYd6uy
-	Sps0sxXgPtUrTHZtQshH2RY6XLVD
-X-Received: by 2002:a05:6214:5685:b0:91b:8145:fd9d with SMTP id 6a1803df08f44-91b81460072mr31480826d6.16.1791762677380;
-        Sun, 11 Oct 2026 16:51:17 -0700 (PDT)
-Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b6bcaa6c2sm51323196d6.22.2026.10.11.16.51.16
+        d=1e100.net; s=20260707; t=1791763052; x=1792367852;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cRPcpD4bGybI0n7FRTBMhW8q9yb51oDjvzb7f7KdtWo=;
+        b=CQeZZNgTUNHGaKsxT6ODC9KXsPmvusyo05s1ZdA3XUt6vKyYPIWXDm7NS0A2bWnHHB
+         U8vgutPpZ/cjvRwLzz1rbJPQjLBG0auEwV/20I1b39ksPAOHSpA9JaipX+paMeuSwJPx
+         WraL0tnW9KBF9M17Xc6aMnYnTG8PkEq6/mJlm/QqF8sXfbFChgvfWxT+Imj0Upg7gKDZ
+         nI3lmo2t8qO1s/RQCGPnpWYCGYx6yLb+eguYw4ItdSY6yp6CbUEqEXj7H2yUA0CStK2y
+         vbElT+r7rBtmik1EUSzA7wkR5MPwa8x8TN8+2x1KtlNOanHn0XvIZn4BKt2E75Oudv9j
+         rvIw==
+X-Forwarded-Encrypted: i=1; AKwUvBxSQl9Bfj5jUxP+YCRFCaGLA1QjRcZqcyvTRX54GJ+1/SRZHzMinYs7ct/FsDcpZzjjlh+ttJgj8gEyr6c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLYthj3O/61wR1c3aSKA3Vvz4bkwNTe4y6UJyy82c9n197TwlnH
+	0nQv3niGzXAr1rkf9kposEPphAxXU7EGx96Y4NWyHCrwvHfKsZZci2Ph
+X-Gm-Gg: AYBFou1B0LAcQeoKiXUStJN/yCq1jYusR6GQK5UvVhhjR86B8QONFY0HlDNwhyHXASg
+	xBlv4/9Kh7D5Kdor01YPabTdxqLRehCeAoK1zCONOgYKg5Yyly6D+PS+l/nrxoZS9RFVmR/rpqq
+	xd3GakXog3XnTjgrsN0bM4HSL5bFa/36WHJABBORDitYQ2rkkMTbP592TpG3S8cZ9UssMMsKLdD
+	7kA1hOUYnmWlnnkPE3Tkndw+ImGP7uXxXw1kpqZDOBgJudY7zXCHjiU1rbSFUdVa2ZFTforHjjM
+	1Q/50Y9ZFZblO1X3Hdyefl0qluLLAa576SI5m1ogRiBwaJ3Ou3Ixvb9rDEqerwDN+E4731Km+S5
+	gwR0otYSE4RL2Ru7h8GcDeOSC6VyqzmNsCwvVCdzIDo0WGCthGYeQAFcUoOW+rs5cz4OW+1z95s
+	p8XtbmEsg5vtwCmBhW7R2doTr2Ptwlbp9I5wIpVs5vQlmKxntKryC4fRj6s+ZCWYolf+2lRvo1z
+	/IIMwRebWDNrqagxll+HmiVDBFbCVWgzEcyfRK5
+X-Received: by 2002:a05:7300:ac81:b0:34b:f456:25ce with SMTP id 5a478bee46e88-3537ddd6fb4mr16618625eec.3.1791763051589;
+        Sun, 11 Oct 2026 16:57:31 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:8999:e631:ed58:366a])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c843079sm26847414eec.1.2026.10.11.16.57.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 16:51:16 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Sebastian Reichel <sre@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] HSI: omap_ssi: Quiesce GDD before removing controller children
-Date: Sun, 11 Oct 2026 19:51:14 -0400
-Message-ID: <20261011235114.2205694-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Sun, 11 Oct 2026 16:57:30 -0700 (PDT)
+Date: Sun, 11 Oct 2026 16:57:27 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Christian Lamparter <chunkeey@gmail.com>
+Cc: Christian Lamparter <chunkeey@googlemail.com>, 
+	Kalle Valo <kvalo@kernel.org>, linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] wifi: carl9170: revert broken devres conversions
+ for input and hwrng
+Message-ID: <aswgwre0SeBnYZwo@google.com>
+References: <20261008-carl9170-reverts-v2-0-3ecb12089797@gmail.com>
+ <5771235e-fa91-402a-b5d2-ebb153872c26@gmail.com>
+ <aslvBb9VbMvnHmHi@google.com>
+ <76210777-9f09-48ce-af97-90fec06a6f84@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <76210777-9f09-48ce-af97-90fec06a6f84@gmail.com>
 
-The GDD interrupt can schedule its tasklet after the remove path has
-killed it. The tasklet also follows message client and port pointers,
-so draining it only when the controller is removed is too late: the
-outer remove path has already unregistered those children.
+On Sun, Oct 11, 2026 at 04:41:02PM +0200, Christian Lamparter wrote:
+> On 10/10/26 1:13 AM, Dmitry Torokhov wrote:
+> > Hi Christian,
+> > 
+> > On Fri, Oct 09, 2026 at 09:37:36PM +0200, Christian Lamparter wrote:
+> > > On 10/8/26 11:39 AM, Dmitry Torokhov wrote:
+> > > > Commits 23de0fa0d2a0 ("carl9170: devres-ing hwrng_register usage") and
+> > > > 87ddb2fc29f1 ("carl9170: devres-ing input_allocate_device") converted
+> > > > the HWRNG and WPS button input device registrations in carl9170 to
+> > > > devres attached to the parent struct usb_device (&ar->udev->dev) and
+> > > > removed explicit unregistration from carl9170_unregister().
+> > > > 
+> > > > In carl9170_usb_disconnect(), the driver calls carl9170_unregister()
+> > > > followed immediately by carl9170_free(), which frees struct ar9170
+> > > > inside the interface .disconnect() callback before devres_release_all()
+> > > > runs. Furthermore, devres on &ar->udev->dev is not released on
+> > > > interface unbind or registration failure in carl9170_register().
+> > > > As a result, both the WPS input device (whose input->name and
+> > > > input->phys point into freed memory) and the embedded struct hwrng
+> > > > remain registered after struct ar9170 has been freed, leading to
+> > > > use-after-free bugs.
+> > > 
+> > > Ok, so you just reworded your patch? Sight...
+> > 
+> > Yes, as I promised I would.
+> > 
+> > > looking at the WPS input
+> > > 
+> > > |        input->name = ar->wps.name;
+> > > |        input->phys = ar->wps.phys;
+> > > |        input->id.bustype = BUS_USB;
+> > > |        input->dev.parent = &ar->hw->wiphy->dev;
+> > >            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> > > 
+> > > the input's dev.parent is set to ar->hw->wiphy->dev and not ar->udev->dev, right?
+> > > Does this do anything at all? If not, why? The wiphy gets shutdown by
+> > > ieee80211_unregister() and having the "freeing" stick around after the USB device
+> > > is gone should not hurt, right?
+> > 
+> > devm_input_allocate_device() explicitly states:
+> > 
+> > 	NOTE: the owner device is set up as parent of input device and
+> > 	users should not override it.
+> 
+> Yeah, and this is something you added in 2012... 
 
-Disable the GDD IRQ before killing its tasklet and remove the child
-ports only after that drain. Do this in the shared controller teardown
-helper so failed child population follows the same order. Unregister
-the clock notifier before removing the ports, and remove the controller
-debugfs directory after the ports have removed their own directories.
+Yes, in the same patch where devm_input_allocate_device() was
+introduced. This requirement was there from the very beginning.
 
-The IRQ handler and tasklet balance a separate disable/enable pair; the
-remove path's disable reference keeps the IRQ disabled even if the
-last tasklet enables it.
+> The carl9170 code driver is back from 2010.
 
-This issue was found by static analysis.
+No, the devm conversion was done in 2022, 10 years later.
 
-Fixes: b209e047bc74 ("HSI: Introduce OMAP SSI driver")
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/hsi/controllers/omap_ssi_core.c | 20 +++++++++-----------
- 1 file changed, 9 insertions(+), 11 deletions(-)
+> 
+> So, was this changed to "break it", rather than the driver?
 
-diff --git a/drivers/hsi/controllers/omap_ssi_core.c b/drivers/hsi/controllers/omap_ssi_core.c
-index 0f5a6f7522ad..4a9b1057a32f 100644
---- a/drivers/hsi/controllers/omap_ssi_core.c
-+++ b/drivers/hsi/controllers/omap_ssi_core.c
-@@ -432,13 +432,21 @@ static int ssi_hw_init(struct hsi_controller *ssi)
- 	return 0;
- }
- 
-+static int ssi_remove_ports(struct device *dev, void *c);
-+
- static void ssi_remove_controller(struct hsi_controller *ssi)
- {
- 	struct omap_ssi_controller *omap_ssi = hsi_controller_drvdata(ssi);
- 	int id = ssi->id;
-+
-+	disable_irq(omap_ssi->gdd_irq);
- 	tasklet_kill(&omap_ssi->gdd_tasklet);
--	hsi_unregister_controller(ssi);
- 	clk_notifier_unregister(omap_ssi->fck, &omap_ssi->fck_nb);
-+	device_for_each_child(ssi->device.parent, NULL, ssi_remove_ports);
-+#ifdef CONFIG_DEBUG_FS
-+	ssi_debug_remove_ctrl(ssi);
-+#endif
-+	hsi_unregister_controller(ssi);
- 	ida_free(&platform_omap_ssi_ida, id);
- }
- 
-@@ -531,10 +539,6 @@ static int ssi_probe(struct platform_device *pd)
- 		ssi->id, num_ports);
- 	return err;
- out3:
--	device_for_each_child(&pd->dev, NULL, ssi_remove_ports);
--#ifdef CONFIG_DEBUG_FS
--	ssi_debug_remove_ctrl(ssi);
--#endif
- out2:
- 	ssi_remove_controller(ssi);
- 	pm_runtime_disable(&pd->dev);
-@@ -548,12 +552,6 @@ static void ssi_remove(struct platform_device *pd)
- {
- 	struct hsi_controller *ssi = platform_get_drvdata(pd);
- 
--	/* cleanup of of_platform_populate() call */
--	device_for_each_child(&pd->dev, NULL, ssi_remove_ports);
--
--#ifdef CONFIG_DEBUG_FS
--	ssi_debug_remove_ctrl(ssi);
--#endif
- 	ssi_remove_controller(ssi);
- 	platform_set_drvdata(pd, NULL);
- 
+The conversion to devm in the driver was broken on arrival.
+
+> 
+> From my POV: What's the point of devres then?
+
+In certain situation it allows to reduce amount of boilerplate code in
+the driver. But it has be to be used properly. One of the most important
+thinks it attaching resources to the right device and not mixing managed
+and noon managed resources in the same driver, as that very often causes
+incorrect order on unwinding.
+
+> And why are you so "eager" to revert the changes.
+
+Because I have to deal with syzhot reports routed to me and I would
+rather not.
+
+Humor me: why are you so against reverting the change? I have shown that
+it is problematic. You can go back and re-introduce devm for input once
+the rest of the driver is ready.
+
+Thanks.
+
+-- 
+Dmitry
