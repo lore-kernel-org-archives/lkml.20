@@ -1,67 +1,36 @@
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+Received: from mta1.migadu.com (out-207.mta1.migadu.com [95.215.58.207])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB439426694
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:56:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A9936F8E4
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:00:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.207
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791708995; cv=none; b=SahdWb4MWZ/2Mi0lY731IcjkAhR+zH5RcB3ZISO39u9Vqsx8vIT0IXODGX+0ybtMOmrfzgD6Ta7lmfKacNTwefDEVr0EcQXyFPnHjVTk3rdOcHTCurYuYgoOvGYITjKEbawSUrhq4zntPWLwllg2J34KiCFIChzlBiJc+9BT+PA=
+	t=1791709252; cv=none; b=XAcj8lOSVbdFz3dyrirE2w6lLdymTvMT6dkcFD6E804SPOs03grvhcUJEmEqggYaEMDPqXCYfxsEI6Jt8x09+WYepsUi1GDHckVTFpnkvjJJtQlttQwa5n02eRldhKppY0lQE+mSe8JnajRiwr7L3ElVNQrl/SqGUxo3kuUsVBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791708995; c=relaxed/simple;
-	bh=trXuCyofDSoyesvjUgDrKmbXdt/YLOeYazvd/Osj+lQ=;
+	s=arc-20240116; t=1791709252; c=relaxed/simple;
+	bh=GimW/7CEFiCKhboqu/b2eNEnPKN7mF5y4AbHMtDQ22M=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eirA1mQXsl3kwKS8LhowpEuf7Ivgg0D14PUXBigr2/bY5/98lg+H1M7aiMy/UuhS/xBYIVUc6pbAs+pbxtHWXZodnSTVWg8gZ8EKdwmXnxNnnT4OmhJQKtHgy93cGiqJTO1cxzlouagUyHSUXM/MrKZODeHrL7AZfGDzIE0DW4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=HCf+9AJj; arc=none smtp.client-ip=209.85.218.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	 In-Reply-To:Content-Type; b=e8Ghyy3R+93v5jvTDkCoLauo3YM67cM+x70/TU/l7CalMFneGWjahUHYsC6BwPHbdsXfgLvLS+CTrHey3l8cniIiUlCTaBKLNsGWM9N+wjIZ5XmiUA3R8U2Da2khAYNxWUJye8MYpIO0E22Hm9UWImYKeACpHq4Jc8ZPDPr1W78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mPmzsYf6; arc=none smtp.client-ip=95.215.58.207
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="HCf+9AJj"
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c263415982eso119496166b.0
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 01:56:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791708991; x=1792313791; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dKOqZxKxSOHNw25+e85CqVx4B1361RF8kK92P+D5pVQ=;
-        b=HCf+9AJj68FQjIxYxllcXMPh/xLWNhDxiwo2416kSNqHz9iEkEonTNZ0QTH+Yt+uWg
-         +vJGQ4ibw2DaCwgZaaBa822cYfUtKvqeK9yPyjgXlGRvkCsqD2kHCUJc46s+qrWAeW9s
-         x0CI+g+36a+2AANQEActK1Zog4eQuF+G9vtYFogZZnob3kMx2EzHaHQ+dVwT2NmurOBI
-         Mf9FhnqzJHXeY3Y7TTnqbwWE/lSmHy91caoz52tlv5uo8QjI2autT/HQ5qF3UTdLoZOb
-         bCLBrRViqKctlHnPtoO3R3qJiYsz+Uqbox3IpsXQFHlrFt+anLfctQCEtIs608+sxEU8
-         Kkrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791708991; x=1792313791;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dKOqZxKxSOHNw25+e85CqVx4B1361RF8kK92P+D5pVQ=;
-        b=XP0fAb4FQZUB8KepMAYwFWeLNp/fGS7oTjh9FcJicJuYwpGE1MmIOxyAgyMnU6ieSf
-         gHI7O4d22swxwWea1ffAzDdhfyLUKBr3VSX8Bg2Mb1eXMC0B3vjk0J6OxeAlyVzSDiOc
-         eX7xgt4WP3Jhnn+MTl86uZd3ITMeqGGS8oIpnNZEYXai9JyQ3O9aul5zaAYjJ0EG+VF8
-         2me/vtNpb0crw0R3yB8eLgcTjGCy/SogL0QpQLx/+wpIbtIjW6mBL6DAsV0TigvjYrxY
-         Zzt0F77Gs8ClPVxkAPSHoN9TTdIVOh9AzrmbrWP9s4QKh+PSREj1W2fLP4ENTpZh2cNe
-         HuYA==
-X-Forwarded-Encrypted: i=1; AKwUvBwmie+xZQe3r9Fqjf3GTsmukAZJEBX2QTOO1eoudZahZS3FBtDQRHgy3/QTojz3jHLlPnj+bbZTE5GgrlE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYISYIO/lG0aSpi9DEzfoIJQafnHQ7iLyAjzpX+rubwnVTicEdi/
-	u68dHirkCJdhNlQun3hNE25oBfUT1MtspP4STiTxglCxr6JtPX8T5Kb0Q1rpDc4zXhk=
-X-Gm-Gg: AYBFou3CU0CJb08wiU2LOWbWzdF6qywWQAeJJl6GelWy49u+eqe6TQUPHqsVYPzSR/U
-	q/oEs9DBg/tYZMOWolFXg6GZfdLNZs307SI+5aHWfRfh+IK40g98An4stffEIucQ087rSAtKB8H
-	G3fY7Ujfp56XlswQD1AMjnbQiSeDhX9Db6GSXEFQyojTVYqe9y06/gwTpCofLWQ5sTPZ4Y77CJK
-	ajZwfXcpdhDYITFrcorH3utY43/JtBjAmVO4b1M3CEeHJOZ9rzMSjxOe1yQdCymjFRAz/qO7FYy
-	mlxnVA/MQA9zCe7NWi6cg6V6snCXVXcbj+U4K54WHTenKn3M83bnv2nbbcTxbChdfm8rt+HAJpJ
-	0aMB1k0X1iyz3D8dORM10nQmRTzB8SAbnPLi4Y9bGKBdF8NXen5F2PCBd3pPdU6xx7iolI1sjMn
-	q26qQ3LZBsjM9scl9cITMOSTtlnB9SgGv58I3tiB1zbaI0pwSIDzLXQe5hza4xTJBUipkp6aAY9
-	9tCDy/Cykre
-X-Received: by 2002:a17:907:940b:b0:c2a:ef15:2be0 with SMTP id a640c23a62f3a-c31a9ffee01mr693409466b.24.1791708991035;
-        Sun, 11 Oct 2026 01:56:31 -0700 (PDT)
-Received: from [192.168.0.167] ([109.76.165.237])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9ae59f9sm334413466b.80.2026.10.11.01.56.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 11 Oct 2026 01:56:30 -0700 (PDT)
-Message-ID: <a6e5dc34-c2e7-4a3c-a0e4-fb0a3a28cece@linaro.org>
-Date: Sun, 11 Oct 2026 09:56:28 +0100
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mPmzsYf6"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=GimW/7CEFiCKhboqu/b2eNEnPKN7mF5y4AbHMtDQ22M=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791709247; v=1; x=1792314047;
+ b=mPmzsYf6hDDkgKhWIKSa8wOGvFEeQBqWOUsPWH/Ul22mVh7IJUHCHmucFV6bx8+NMcUhX4tM
+ ntnKjErmS+0DOE/ooI6rTw3TRHyqnH3m45aHBSCbzc1NLcVFAOVwJ7yq61al9ia290gt6iKPObC
+ 4Evp5h0Dc/aG+++M7CnQ/twQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0b271059adb7be95;
+	Sun, 11 Oct 2026 09:00:47 +0000
+X-Mizu-Trace-ID: 0b271059adb7be95
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <27675c88-061c-4f84-9387-324071a16b45@linux.dev>
+Date: Sun, 11 Oct 2026 17:00:37 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,45 +38,75 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v20 08/13] media: qcom: camss: vfe: Add support for VFE
- 1080
-To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, jeyaprakash.soundrapandian@oss.qualcomm.com,
- Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
- Atiya Kailany <atiya.kailany@oss.qualcomm.com>
-References: <20261010-kaanapali-camss-v20-0-63e98ce9ac0c@oss.qualcomm.com>
- <20261010-kaanapali-camss-v20-8-63e98ce9ac0c@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261010-kaanapali-camss-v20-8-63e98ce9ac0c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH-next v2 6/6] selftests/cgroup: Skip test_cpuset_prs.sh
+ test if some required CPUs are offline
+To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Shuah Khan <shuah@kernel.org>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, Hui Peng <benquike@gmail.com>
+References: <20261010221938.243859-1-longman@redhat.com>
+ <20261010221938.243859-7-longman@redhat.com>
+Content-Language: en-US
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <20261010221938.243859-7-longman@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 10/10/2026 17:01, Hangxiang Ma wrote:
-> +		if (!vfe->res->reg_update_after_csid_config)
-> +			ops->reg_update(vfe, line->id);
 
-So I'd prefer to have a discussion about if we can move all of the 
-updates to one method.
 
-i.e. why should any of the updates happen before csid ?
+在 2026/10/11 06:19, Waiman Long 写道:
+> The test_cpuset_prs.sh test assumes that all the relevant CPUs being
+> tested are online. If some of them are offline, some of the test cases
+> may fail. So skip the test if the required CPUs are either offline or
+> not present.
+> 
+> Signed-off-by: Waiman Long <longman@redhat.com>
+> ---
+>  .../selftests/cgroup/test_cpuset_prs.sh       | 20 +++++++++++++++++++
+>  1 file changed, 20 insertions(+)
+> 
+> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> index 3d392e8c66aa..f57971ebb90e 100755
+> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> @@ -118,6 +118,26 @@ TEST_ISOLCPUS=
+>  		skip_test "Current isolated CPUs ($CURRENT_ISOLCPUS) don't match boot isolated CPUs!"
+>  }
+>  
+> +#
+> +# This test assumes that all the relevant CPUs being tested are online.
+> +# If some of them are offline, some of the tests may fail. So we are going to
+> +# skip running this test script if some of the required CPUs may be offline.
+> +# The required CPUs include CPUs 0-7 and the first boot time isolated CPU if
+> +# present. However the check below is not exhaustive and can be a false
+> +# positive, but users should not run this test if some CPUs are offline.
+> +#
+> +ONLINE_CPUS=$(cat /sys/devices/system/cpu/online | sed -e "s/,.*//")
+> +ONLINE_FIRST=$(echo $ONLINE_CPUS | sed -e "s/-.*//")
+> +ONLINE_LAST=$(echo $ONLINE_CPUS | sed -e "s/.*-//")
+> +if [[ -n "$FIRST_ISOLCPUS" ]]
+> +then
+> +	LAST_REQUIRED_CPU=$FIRST_ISOLCPUS
+> +else
+> +	LAST_REQUIRED_CPU=7
+> +fi
+> +[[ $ONLINE_FIRST != 0 || $ONLINE_LAST -lt $LAST_REQUIRED_CPU ]] &&
+> +	skip_test "Some of the required CPUs are offline or not present!"
+> +
 
-Sure vfe 1080's documentation makes some sort of explicit statement 
-about an update that has been implied for some time.
+Could this check run before the setup that creates the test cgroup and
+changes sched/verbose?
 
-My question is why not gate all of the updates this way and make this 
-not a flag but a global behaviour ?
+skip_test() exits directly, and the cleanup trap hasn't been installed
+here. We have already created test; with -v, sched/verbose has also been
+set to Y. This exit leaves the cgroup behind and bypasses restoring
+verbose.
 
----
-bod
+Thanks,
+Guopeng
+>  cleanup()
+>  {
+>  	online_cpus
+
