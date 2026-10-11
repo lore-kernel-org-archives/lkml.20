@@ -1,63 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F54C3546C2
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 18:18:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE9EB394464;
+	Sun, 11 Oct 2026 18:18:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791742694; cv=none; b=G2zMjp1coXZOQIwEnQZsGPxfl6jlMIjFQ04MMsRnNVASUPN1hKH9+QKYUDgvieD/MSiiqPAxnTXuCd4HUK/TwiMX8JlmQ4UdBT3fBDAZKPRzHjQrw5TQPpv211p/tWobgX3SlDyzLWspB75JCbNr64Bd0FCjSu9/IIqtUZKeKyM=
+	t=1791742733; cv=none; b=rHxmCiqIh3cp1xqpxS6xehY4QqqDsZeml6pJNSz/5JipJ95iYwOHj4iUp82s7EmXdJbqdyoQwXYqCDedCIA2xnKLe7Rl2P9UxWXEWrtHRYCqoptz79t6xL6Vpv5b/g+Tdq/ED7J5miwLlR8tlhUQRd6Lbq4zY/oa6kfOfXqDurs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791742694; c=relaxed/simple;
-	bh=VdWARNZf8wSU67gzKY+wUJ2GexDxReIErC0uwQma8fo=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=I4i47hkyWXAIedX7LB5Jn6hN3YRMF+CVPCt+HPiZ1Dq0HYemdvs3kYYZ4fOK0nKPmyA11cxTILoO0AOUyNe9eGw/+E5+dawwCwqMxDtpzECv3hHjGJIbFdzBujqB+HCdBWttiDQS/jED/SxpkPhpp0K5Xk/EI6tJuFruK9pJvo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VugM3zLh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791742733; c=relaxed/simple;
+	bh=/VD9mPgOyCiNHCobVgJVc5LbWvoyXHB4SxRD01h6rtA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HiLPgYSfe3zs6qX1CJASeOtbN3P32S2qtPsqbj+pJkjPjL3cPOd8L/efeScYCe3MXDb6sgyG1db9Kfu2S/AQbX20ELUT2+urGTcyVRbF+M9fRphAkA+kPIxY6z0xfRzdHqExLZb/F3D4genMvbvxnfg8YBgNhqP1V4eHX2Ir06c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=PE2FFYH5; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VugM3zLh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDC6B1F0089B;
-	Sun, 11 Oct 2026 18:18:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791742692;
-	bh=s8ybK8G2XkeNsuO2iOALqieuZNCFjE3XeRu9g8C85PI=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=VugM3zLhIpzUjgxb57Xh/WnC04yhP+L6Qjxa2yXPCK+V2jHy4sntHJV11CEfyalSf
-	 z8HH+iWFMcwzIzH8I6lNwJ+GlM7QjAiuuvyvl/o4V6Y2ssCL439UeuT/eMZkojXIQx
-	 a7gKX0wV9B3RHr5cKf7t9voRnoL+aUJQuq39wvJPQe5xarXnu8fi6iN8CpqdS8eZaw
-	 TvQh6eg/m4SPHClhsTwOW0PZe6kthz6EBZPYsJB2OLioZTxOEtT/XT7hdqwUTZ9bzb
-	 zr39W2CwxzUaj0wAF37cIzEUWLBwvpbsz3K4wOW5eyMSlPBWiVdM+ToE5kjjyNRq8C
-	 qjNMLcv2XswtQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B464A38119D3;
-	Sun, 11 Oct 2026 18:18:12 +0000 (UTC)
-Subject: Re: [GIT PULL] x86 fix
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <astq2yZg1CBM70Q3@gmail.com>
-References: <astq2yZg1CBM70Q3@gmail.com>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <astq2yZg1CBM70Q3@gmail.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git x86-urgent-2026-10-11
-X-PR-Tracked-Commit-Id: 87db7795cbaaf636ae22ae031f4906db7bb77803
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 4d61397c866eb1ae656c39fa9f28766e4388776b
-Message-Id: <179174269128.2129915.8071860321384769222.pr-tracker-bot@kernel.org>
-Date: Sun, 11 Oct 2026 18:18:11 +0000
-To: Ingo Molnar <mingo@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org, the arch/x86 maintainers <x86@kernel.org>, Peter Zijlstra <peterz@infradead.org>, "H. Peter Anvin" <hpa@zytor.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="PE2FFYH5"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4j2pkv0NC5zMlZj;
+	Sun, 11 Oct 2026 20:18:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1791742727;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=a1OLzrZasTnZM5m5JuAXuZlWlpLYil5FONjrowZ3J2w=;
+	b=PE2FFYH5/1+YpyK4Ie5ajPo16xR8QW6YJ600GZWi+ZbwTsVdqYAm4T2a61lRUZFrGZTX0a
+	tvaQ7oTNIoai7CF29RGJ0l4qbAMjBMEth6Y2jCYrTlWdUR3J8skb+95KKUOXUsMikJjeG6
+	gY7L3R/qv2580ZoQJqmdjBi5e17aI3ghpmOePrFQ61d/hq07XMEO63f6ra9m4WbFE6RvKV
+	l95WiayXqBip9n9L2J6l8VKxueMPHm8ic6onVEfZVXE0uypLJfqPKPDracoABvIqoezvl7
+	5hihObdixa5XbwNVJv75ey3hAB99GU5Zxz4z6QNgwFcURiI2QlTNASwPaxqu5Q==
+From: Alexander Gruhlke <gruhlke@mailbox.org>
+To: Lukas Wunner <lukas@wunner.de>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Alex Williamson <alex@shazbot.org>,
+	Hui Wang <hui.wang@canonical.com>,
+	Linux-Fan <info@masysma.net>,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev
+Subject: Re: [PATCH v2 1/2] PCI: Ignore Immediate Readiness on Samsung 990 PRO NVMe
+Date: Sun, 11 Oct 2026 20:18:45 +0200
+Message-ID: <20261011181845.7695-1-gruhlke@mailbox.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <asvOwGIE9bBkGtfL@wunner.de>
+References: <asvOwGIE9bBkGtfL@wunner.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: f88e8f76ca8a4d1e689
+X-MBO-RS-META: 5p1emct4sqgxrph7udcf467a37zut865
 
-The pull request you sent on Sun, 11 Oct 2026 12:54:19 +0200:
+On Sun, Oct 11, 2026 at 08:00:32PM +0200, Lukas Wunner wrote:
+> It's also a bit of a bummer that the quirk can't check the
+> firmware version.  Has the upgrade changed the Revision ID
+> in the Config Space header?
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git x86-urgent-2026-10-11
+No, it's 0x00 with both 1B2QJXD7 and 8B2QJXD7, and the Subsystem ID
+(144d:a801) didn't change either.  On fixed firmware the quirk only
+costs the 100 ms wait per FLR.
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/4d61397c866eb1ae656c39fa9f28766e4388776b
+Fine with me either way, thanks for the review.
 
-Thank you!
-
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+Alexander
