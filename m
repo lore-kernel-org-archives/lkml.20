@@ -1,44 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE335470E8C;
-	Sun, 11 Oct 2026 22:34:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF0FF471260;
+	Sun, 11 Oct 2026 22:34:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791758069; cv=none; b=nRjKlYzowWeLhlplU8Ehfr5WpmeivxBxO7xVVNVLq+djKbIyiBdJprHwobZdz2ohILgsZ1PXwryQF25U4m0CfxlkmLR69/0mgXQAdyb/UuHCb61xhZNPgCeActJUl29ihHd8bZMhyJJQ/2c0dM/eR4RQcBTRAx1c12o3y1drqiY=
+	t=1791758071; cv=none; b=EED0DE/eH7NpWsSesDbO8XjqTZCCxY1CuBMmPUAJ2jB7VIUyzWSSyA5OFNuAd8b9H5+vZ7kbbHG9qSTYuS2BkSVi22wRHJsLNxXYcB6itVU3wWmDijBTl9zBodAtx17ay8JSEeSPUMOqljmKRFPwl87Wv7jmIGJ0TnI+uhlzD1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791758069; c=relaxed/simple;
-	bh=7WmmSPyXE6mHUoHCOETbigOtF+ziAlXuDG5P1F0K5mc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=j+ywHj28mmWB0e1+lJH8pY9zN9CXENajYYHQwuL2w1JwW6H1Xgo0VwAjb6GsydXylgKvAwY+hB66XdprXZbtMOm02n6uo/d9xCrO8BSP8JLUib9E4wZYHwQrliZixthq1oOGMlwF/zYHDa+tYoAVHFR+5THyv9N7NqSsqk1RQSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AMI76Z/C; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791758071; c=relaxed/simple;
+	bh=+Nl+DVp6eLDgqBtrmD7p202sJC2i5u7sG1hTsfoRpJc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oKUpgn4DoMKSdnA1V5C1/gNsjNosgrJ+vmkXbuo/0t/vHiNEmLzUIgD2fDz3NKm8BYRuitqmWDkxz3S427FTchsFZi+uTjuRW1LnV26ExHb5RbPkwz0LIZskAh9042tGj70hHtq9WCzpbPZVKRsXsMfmt7Rh3qFfJ8G6P2S4VdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vk0OPJcK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AMI76Z/C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9448F1F0089D;
-	Sun, 11 Oct 2026 22:34:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vk0OPJcK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5BE51F0089B;
+	Sun, 11 Oct 2026 22:34:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791758068;
-	bh=UFX2vBDE0ACUiejwt6JUXxcMRwnhC0Ppz/CwF4UTqtE=;
+	s=k20260515; t=1791758070;
+	bh=TKGwZ3RTxKdRUuH3w+dRxuSd//rV+l+NMsTq4MIDvYA=;
 	h=From:To:Cc:Subject:Date;
-	b=AMI76Z/Cxi2nuj4kamLSIA5od891ZuCgNtq9ha1bIrbufnMwWhRF+C5fZQbQaTfkF
-	 eMj7ZtVCrRNJ3EF5CL9sWoPnfQPdFD8um8SPRYw7E2OySebdYdm28yBSleOXiexbFS
-	 kfk1zIcRkNzAkrfB6Y0tUCLbge2MdTWXJYSNgLVFVs/q7+a5o2bcY7Ag9P2/jgD+cu
-	 pZf7UtT5P5yumG5qTLy66Fs4eamb4WKWWlq3vYWE0xc6ivwBqsB6y1e21f+Km4+gjo
-	 39WvI+SS23pF0/urH/gtGsNjrsbXGOVrESxPSnQFMoKLM+eCrB+nD9OG68Ta0TS+9w
-	 D2Q+zUdh+bCdA==
+	b=Vk0OPJcKwm3rjFgs+dctyCoOR+xpSRGjfWUrvpnt6zY4xkBYjM/wJz3o3FXxP9lyI
+	 ZVSPCZpg1nmRGpUydlkHBVV56UQKB6WjSCczJHRTewwq4UC7y1TdcUY/C+gz4gqjbr
+	 sqYl9iswyYrClRU1gOtdyzF9uGLk3gcbf8brY2aCo98cVQhgOHD4xBnP/IczoqfnxL
+	 SRxpO6c0HrQthwCwFHQbuKCUP+r3JZQPcOVHtaC0MbBaoa4ynqgKHc4WI5qsR3MVho
+	 h7iV9652CHoaz3lKTI5jVo4mqrH4V1pyujPUDhN5uSwIOsUUr3jfGKrEJYmOVXDfO8
+	 3MuQd1ezu2tcg==
 From: Sasha Levin <sashal@kernel.org>
-To: Christian Brauner <brauner@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Sam Ravnborg <sam@ravnborg.org>,
-	Masahiro Yamada <masahiroy@kernel.org>
+To: Shuah Khan <shuah@kernel.org>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
 Cc: Sasha Levin <sashal@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: [PATCH] samples: pidfd: fix userprogs typo
-Date: Sun, 11 Oct 2026 18:33:42 -0400
-Message-ID: <20261011223358.2327625-14-sashal@kernel.org>
+	stable@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] selftests/thermal/intel: don't fail to build when cross compiling
+Date: Sun, 11 Oct 2026 18:33:43 -0400
+Message-ID: <20261011223358.2327625-15-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -48,30 +45,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Makefile adds pidfd-metadata to "usertprogs-always-y", which kbuild
-does not know, so the sample has not been built since the conversion to
-userprogs, even with CONFIG_SAMPLE_PIDFD=y.
+The power_floor and workload_hint Makefiles include lib.mk only for
+native x86 builds. With CROSS_COMPILE set, or for other architectures,
+the Makefile defines no targets at all and the build fails:
 
-Fix the variable name. pidfd-metadata.c builds without warnings with
-gcc and clang for x86_64 and arm64.
+  make: *** No targets.  Stop.
 
-Fixes: 60fb0b1239719 ("samples: pidfd: build sample program for target architecture")
+Include lib.mk unconditionally, so that those builds have nothing to do
+instead of failing. Native x86 builds are unchanged.
+
+Fixes: 27801542b2b81 ("selftests/thermel/intel: Add test to read workload hint")
+Fixes: d4d27e5a1a88f ("selftests/thermel/intel: Add test to read power floor status")
+Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- samples/pidfd/Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ tools/testing/selftests/thermal/intel/power_floor/Makefile   | 5 ++---
+ tools/testing/selftests/thermal/intel/workload_hint/Makefile | 5 ++---
+ 2 files changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/samples/pidfd/Makefile b/samples/pidfd/Makefile
-index 9754e2d81f70d..d82409f7061f3 100644
---- a/samples/pidfd/Makefile
-+++ b/samples/pidfd/Makefile
-@@ -1,4 +1,4 @@
- # SPDX-License-Identifier: GPL-2.0
--usertprogs-always-y += pidfd-metadata
-+userprogs-always-y += pidfd-metadata
+diff --git a/tools/testing/selftests/thermal/intel/power_floor/Makefile b/tools/testing/selftests/thermal/intel/power_floor/Makefile
+index 07463c2160e09..12697c717881d 100644
+--- a/tools/testing/selftests/thermal/intel/power_floor/Makefile
++++ b/tools/testing/selftests/thermal/intel/power_floor/Makefile
+@@ -5,8 +5,7 @@ override ARCH := $(shell echo $(ARCH) | sed -e s/i.86/x86/ -e s/x86_64/x86/)
  
- userccflags += -I usr/include
+ ifeq ($(ARCH),x86)
+ TEST_GEN_PROGS := power_floor_test
+-
+-include ../../../lib.mk
+-
+ endif
+ endif
++
++include ../../../lib.mk
+diff --git a/tools/testing/selftests/thermal/intel/workload_hint/Makefile b/tools/testing/selftests/thermal/intel/workload_hint/Makefile
+index 49e3bc2b20f9d..7f4cdbaf7452c 100644
+--- a/tools/testing/selftests/thermal/intel/workload_hint/Makefile
++++ b/tools/testing/selftests/thermal/intel/workload_hint/Makefile
+@@ -5,8 +5,7 @@ override ARCH := $(shell echo $(ARCH) | sed -e s/i.86/x86/ -e s/x86_64/x86/)
+ 
+ ifeq ($(ARCH),x86)
+ TEST_GEN_PROGS := workload_hint_test
+-
+-include ../../../lib.mk
+-
+ endif
+ endif
++
++include ../../../lib.mk
 -- 
 2.53.0
 
