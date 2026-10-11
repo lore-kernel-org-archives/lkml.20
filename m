@@ -1,79 +1,60 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C267E792;
-	Sun, 11 Oct 2026 16:47:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 714743242D4;
+	Sun, 11 Oct 2026 16:48:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791737276; cv=none; b=cVfxksUP+WvHpPR0JDZ5m0vz2jqibWV35IQ26tjN61aJk4UbgkTToEr+TMcdRP0PRmXJ61i7Qu34X1OteLtisLod5M0vDHXzrsQ1uuw7GeWE8KcVkBng5Gmeds1ndrlePqGAnIxuLh3bCPuCyke8hwZjeJkIPezU1XGM3C+7TzU=
+	t=1791737312; cv=none; b=I+viTdD1vW60KgXAQNi2tAsrjsneeri0BxxDrk6aHxtb7J/q62napvNk1DW2GrZp6eFNm2LiR8HPKMBRlv0jkx5Ai5khW7XI6ercW3ViYXOVzDSWx7fmW8MLbtcXfO3X3gTbozrpqVw2kQvikis7YNzWHljXiNgI8FwjXiMg/Aw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791737276; c=relaxed/simple;
-	bh=OVGo8dveVvVAx8FNd5XcZlkwgwrwQ05THxwYXOHlNXA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qBAkfI21mWiUABueqxfKXMiCMKxiL7VuEGZHAgOwC2ke5U14ZIx8f/b4bSKWmxsvc4buAY4lTPRqjo7OvkY3Doph8fjXu2YGDc7AUj+JgPwDeOG2n6qhy5i8CdPFBItXi4D6icYsnGK1vHJi6ogTX30pyE3VTfyaFoc3xdTfJfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I0i5zUIr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791737312; c=relaxed/simple;
+	bh=ceX0y89UUVz9U7ls50mCoBmp0+WIsJO5QLMcqyFZxiU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MnwGWRhALiOc6VPZtidKnXfa7QqxHArpPXM6bL+3FYrHnYA59m5djtJSD5OgmjeMbJzLZL7KHnYS89h9C4vS0GSra2vdVC4hJCUbiEOVofJVZd/02SSvwf+wobgxPktZOgcqvRa+oKw9wk4NL9rXSqO+hVSPp3VcRHEZSOMys50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YSE0TfPv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I0i5zUIr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CD661F0089B;
-	Sun, 11 Oct 2026 16:47:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YSE0TfPv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C47D1F0089B;
+	Sun, 11 Oct 2026 16:48:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791737274;
-	bh=PZx66SNzwXD+jDh1BHHrQGaE+eCg+axuqiwcG6OzGvY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=I0i5zUIr92BP0gcfo+EkMmENLIZHvBWo9OPMvkVBHAC2Iv05USoGhD83bA+8tTMVJ
-	 3OM5sBwIyLWxkHeOMvH/o0GPim9v9gZbYX1CrOYb1gpLfYLpsjC3PUua3Um1OPWuXK
-	 +KZUL/v+5GvsPW46SqSqPVDUfrBaM17mmPbhVbXfXiQEhkVLzzXudlY6xOXV3ZMfFx
-	 IKSsBx8U/NtLa+l81mK2sKN3p6VvUQAp5iC8hckkPECKmuGyzRjF6lffwIO2b6ukoU
-	 ACZVgNBBJVPa3rju+8WyEUnfDJabjxOaWc55pF20FYdYAIIJCE/TA0U5VuBJbZuEIj
-	 tEgWB/KyS8VXQ==
-Message-ID: <9258312e-0527-41b4-8d67-a1e8f46eb466@kernel.org>
-Date: Sun, 11 Oct 2026 18:47:51 +0200
+	s=k20260515; t=1791737311;
+	bh=Q7tT1SDl4YdX5RcbkRRYcjRQ9SlIxlFUt/7U8GBNUto=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=YSE0TfPvHTE8eFd/U7b7CmXyTF7T4QLyWA+af3bSbF7R5+Gm4YWLeHeVpr3Kfc1xg
+	 CiTMXU17T9Veocs88CybRG+LLVd5Y5wrV8ypQ7Tq8gyGG9ms98Us7ieHwP648qVg+2
+	 699v+ufySBdJ6jCf93qjOTO/n85qR78aPWUHehsVh2r8J9JeFYw3rSF9bBuJeYwLvZ
+	 KXZjavP18GQHj+6fKi+70MMELFt9w5FLYe0coCbwOKzujmcHHakkj2XCzZXsVjamj8
+	 DhqyFq8N4P8byKau84DFMqWUD6cJYnCc347uo7uhm4nlDB0Owo5GNiIRRnX3/iL5we
+	 6p74sA1BkcYBQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>,
+	regressions@lists.linux.dev,
+	Chuck Lever <cel@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Lubos Rendek <l.rendek@proxmox.com>
+Subject: Re: [REGRESSION] 7.2.4: nfsd sends CB_OFFLOAD with all-zero stateid, async NFSv4.2 COPY never completes
+Date: Sun, 11 Oct 2026 12:48:08 -0400
+Message-ID: <2026-10-11-1-daily-reply-0001-nfsd-cb-offload-zero-stateid@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <7cc824c4-632d-49df-ae5e-cfcbb5bf76ad@proxmox.com>
+References: <7cc824c4-632d-49df-ae5e-cfcbb5bf76ad@proxmox.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dm zoned: back off when reclaim finds no
- destination zone
-To: illofspeed <illofspeed@gmail.com>
-Cc: dm-devel@lists.linux.dev, agk@redhat.com, snitzer@kernel.org,
- mpatocka@redhat.com, bmarzins@redhat.com, hare@suse.de,
- linux-kernel@vger.kernel.org
-References: <8d1ee370-2785-438d-9c5b-8363584a23aa@kernel.org>
- <20261011161731.394-1-illofspeed@gmail.com>
-From: Damien Le Moal <dlemoal@kernel.org>
-Content-Language: en-US
-Organization: Western Digital Research
-In-Reply-To: <20261011161731.394-1-illofspeed@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 2026/10/11 18:17, illofspeed wrote:
-> Damien Le Moal wrote:
->> Patch looks OK, but is "ilofspeed" your full name?
-> 
-> illofspeed is not my legal name, but it is the name I use for all my
-> public work (GitHub and this series), and I understood
-> Documentation/process/submitting-patches.rst ("using a known identity")
-> to allow that. If you need a legal name in the Signed-off-by, please let
-> me know and I will resend.
+> Since 7.2.4, an NFSv4.2 server-side COPY between two exports of a Linux
+> NFS server never completes, because nfsd sends CB_OFFLOAD with an
+> all-zero stateid.
 
-Re-reading the doc, "Sign your work - the Developer's Certificate of Origin"
-states that:
-
-...
-using a known identity (sorry, no anonymous contributions.)
-
-The key here is "sorry, no anonymous contributions.)", but your github handle is
-anonymous, in a way. I am not a lawyer, but that is how I interpret it.
-
-Nevertheless, some googling is telling me that pseudonyms like a github user
-name are OK. Personally, I do prefer and appreciate peoples giving their full
-name, but if you prefer your github handle, that is fine.
-
+Queued the fix for 7.2 and 6.18, thanks.
 
 -- 
-Damien Le Moal
-Western Digital Research
+Thanks,
+Sasha
