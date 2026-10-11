@@ -1,84 +1,75 @@
-Received: from mail-qk2-f3.google.com (mail-qk2-f3.google.com [74.125.230.195])
+Received: from mail-qk2-f1.google.com (mail-qk2-f1.google.com [74.125.230.193])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A0827466A
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 00:43:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F31A154781
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 00:43:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791679389; cv=none; b=VM4Gg0EsgV/lOvHerg/gHzkafrcK46Nur7vLHmtK9FNE1gQJYi+ZbwCF2wO+87dmtZ5huarKPlxY+ErrzoNnG+xqyCP6EZ7u8HLboEHwo0OoeRAslidYJwfiAeNxTM5QnynT62Hc0ksX/siqBOFn9Ee3/CmknROeBx7/NYmL5E4=
+	t=1791679413; cv=none; b=SS5IWk4/1sHj7Lal3PUd4GOb4zKHbBdV8Jaid2ty1skX5ovIpzlfg2q6hgkCzrjUD5lZr+rFxpvUy4npx3vkZNLzWoY2JgCrPRGPHWicXaChZERrov0zbpWx9bXbVPeLJf2DSx9l1b+N9yAT0thst6VNYKeAJv4ijM0fSMMyRWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791679389; c=relaxed/simple;
-	bh=9OE3lWMldiFmzlDic6b+iRsxMXEkwaJ3kZihjHXwH1Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XxVknlu+zRMe4xbarJX9/M8MQKblQODpf0fafjuD6VMuqd5mPa8A7kVK3RjTJY6dhhbGpIvOR89dCGVDf+Q78cgmeFuW2wSZDYF10PW+fH3rOkw5NcJFJbl77ZpYKOD7fvoogBoipWgUPJvh3ODKreOAAH9/G4gtJuE7THOYDqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OFrJ0tCo; arc=none smtp.client-ip=74.125.230.195
+	s=arc-20240116; t=1791679413; c=relaxed/simple;
+	bh=jZNt1ZV4wpx5fuswN2QfhrfNVFBBOsFWlIrHoSF9TNg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Hhr7PI2b+ygJJT0bUvAYUe9XiJZZmN0IDGiPvTAUynfppUHTaD4/En9F2qZDYG4c6Uvt/+272ocr6lakBRTzEoRbWS1gfuKGKkrv4SEi9JYTJe/ITWCHKP94+JVWAMJsFkHVdK455UvHW02Bs7IBIA+95rievGqya2yBB+w2QSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LZ3/wQl0; arc=none smtp.client-ip=74.125.230.193
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OFrJ0tCo"
-Received: by mail-qk2-f3.google.com with SMTP id af79cd13be357-93c3dfd105eso77631285a.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 17:43:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LZ3/wQl0"
+Received: by mail-qk2-f1.google.com with SMTP id d75a77b69052e-534b7b19206so10205301cf.0
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 17:43:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791679386; x=1792284186; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wKMM/5NJTGuE+7PUxcL8x7aaEFcwMXWe96PcY9zklq0=;
-        b=OFrJ0tCossEbq+MxwCsfzcwqVPoWOm09m72Lh683dwZZ2Va12a3dSgz4iq+MmV4+2K
-         w1cBh73rdmrL/63JJmJwVIYgdCl1DELtsGhFoR5MpQcG3IT4TLad3QkxT2eX3/9OWH7H
-         lDRTbE4k/GXbhuDrUsnxJ9vkMEpts/7ysKXeTkTCwmQ2/NzsQeeZ9HznhQJpzg+Ifzrb
-         hN8/Dt/mqVWBsE81zoCgmYFS9gkKbJ5Wfj0foodYSZZgZEnWUKbiDxHBqd6QNbDKwKac
-         GmxcLNpkXL7npN4X1mJ7CT2OkEf36jiFNe3BF09fe1QrCbbtj1fn0Nou4rumwsXZuCuj
-         HcKw==
+        d=gmail.com; s=20251104; t=1791679411; x=1792284211; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4/sSbLwCPSp4q8xFYrtdK+Sl95iWhYZVxZM9PhMl9mI=;
+        b=LZ3/wQl0nJugaYuwpyt+WKRTt9JQKkH0THmo4gF9fNL28Sph1AeuObDc76li+3h+Wg
+         m9TqcOxEjyNp3gbKr9unZjEe5kRG7RBCqbXz+P6DXDw5dP4MggY4qtyadCuVV7Qa7HnF
+         1EoklueJg4EcHGwOujyazRqkRYMGhwvhK1+2oKXPsq4QEzjAlXZ4cJnkHjVH0VOEHu0t
+         MdZGOMXezvQIZnl3ujK0arIuxdiQYAfkLlzAeZwc+m8+G7I8NbVSHTd5jr8vIrahNLNn
+         MZh6pPb/bZQqHak/eVQtqn8F4z11BaFbmJjBLyobWXQ4J/uL15TLT4j9Xx1nkS8+mSPc
+         9DJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791679386; x=1792284186;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wKMM/5NJTGuE+7PUxcL8x7aaEFcwMXWe96PcY9zklq0=;
-        b=sKQJrDEvut80Xsyehg01p3157uDznW3tSwhlOj4GIPr7pwsIyI7Xy8bPJlD7WF5HIV
-         8Y4qSwi+K4wNlh4TTj2vBNTm77ENe3xoF+E2967aA2ZKQwpaAymMDx2oGyKn7/VzLPfa
-         47CHQql+oRE3RiefcEeNNJCFSEXXUOPH19AAYnLLig5PBCRj/G2hHrDQ04o3VSeecgkw
-         5OS2EZYMi51e5X5gdclbGvR/1meq7JtcJ4gYCffoXp/Oj1FolPSMqzh+woUCbTgkB4Bz
-         LR0YTHPNMPrxbgxCUAcLre5XxFLD+2EP1O0dARymbABv5AKFfydg8PNgO8LwY8jijMSO
-         IFWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzo6LwwhcStJ+s/B/En6zWykGM23vnQPjwIUtZVbO15LC4eifvUYD5PbPXSbNMag3PgqyCOFADq/bvLPy8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL1ONxeaKOsE7Ex6+uTUQ6KyBFRkaS7B+zx967vq/o2xFSsFM7W
-	uxhNijeFUwXtwoBvNIgRSW0AMFHx3GiUYKlkhHDAt6ASaAi58F+pF8VO
-X-Gm-Gg: AYBFou3wrLk1BIvy1U5EGZ/j1KR8oNNz49GX4TW5gjVRWhsf2q/vbZeYxEA7OGuQ+Eu
-	bAmflK9VZp76L8UIJCMs0PzdHJC6eiDGGYiMFXLso4df23fnBUjQIccAOyWXudkFk7SNqJvgmxR
-	jCTSLY3XKhWaUhT7u/Yprq7jzshJo/Eu5fZTT1TTDNeVA6VSg+kSLMDtLI8ocBlEhQgPlXDX4qM
-	JCUy9Av+s8pz9AXDmC7VWMU/WvVakZ4IG0wdudX0GBw49VSi9U92BzfGYIRBJRyBw9mlbLtMRec
-	LiNAiob0v3C+osrdFHHznBCo5QP8IStUooA4i/dJxX+yxqFIEOy+4xkadkqhsh9mo2P96YdxT0K
-	7Lwd1tPeX3o47YMIRG8Hj0HZm5sf9eGLrckiIVaypedZT2m4K9Spv9gHuS+kv+jERb9WyiUyU9L
-	PqIbZ2slFpk7KJsrq1J34mU0uwDcvFyuOKqt4JnpXCnwOL8+97L/wYm3HBqp/rcIJ3MVE=
-X-Received: by 2002:a05:620a:3187:b0:93e:c12c:9b73 with SMTP id af79cd13be357-93ec12c9f14mr906360385a.78.1791679386387;
-        Sat, 10 Oct 2026 17:43:06 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791679411; x=1792284211;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4/sSbLwCPSp4q8xFYrtdK+Sl95iWhYZVxZM9PhMl9mI=;
+        b=Ir3Cxsb53N8S0HMcs70dPRw9qOIHhapCJXH1WPznusjzqbMlSUlbCn2fQ1YSH0f1a6
+         WQ2QGun+1U8HpBtyIAa+65WSorVq+uW/3QKHYbMW86JDtJ8KyZdqDJea41he3TvwsTZB
+         W3AJ0dlTEoWH/jYhrcEtQIRLUqZls8tdo/PfNDvHevX7WPmlcnWcNeAC5XRjIgLULCow
+         rhM83GTb+LEPvdFKtwAHK06j/nzetQGaqA2N8fsjRYe+9aqv6r79Urv3FCdErgFhLlwQ
+         gAUKErwo/qoRH3+kiVUHjI7xr524U0R+lXspjWJ3HTGcBzQvqCSEGe0T+xCWbdtLOA5g
+         1UTA==
+X-Forwarded-Encrypted: i=1; AKwUvBzKgUQL7ncFIDEpG9AlVHg9xLODCDYhCnZ2PsLkFoET6J63F3eqD/2EM2KR5NyFGkvcUdh3rug5FSre71s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJruoObvHs8tKHkXWphl0iX/qpEwCGNc2r/kLjDdyisJXlV1TWj
+	9pknVZQpsDqFkj21O/sxzZUjfsDGFa8TTv55SD3HnCymXWzd5yDhhZpj
+X-Gm-Gg: AYBFou2NrDq/4sctJI37gP7SJww8C8HFOjlAioyfbqHc/YwJF5QRDGkD11BMyL3BYgq
+	yBNYDmoI+zATGc5XSJx/lqaD34FqZcE4+TzrFHtCCwnmfbwVR4PRHrCRXL5npOS2rg+CsZuYWlv
+	wOEu11KRd7tkCRbcb2MXT4YtkvQR4GgRAYdePtJP2ogdp4XxVDsu2qDfBk0XAMYYC6VoSk22wY5
+	dX8miDfeaMdpYPIfwIH0XW5S19+j0hKwy7geuoUIlJKJDe0Hr4YEhszLOZ0WkX5wkNvgN9Zx9HA
+	9UEgQA1oJ2nMyiFyC6herAe99PobW/IjCEU1wIfgNzyisGDzucfxLpAkVtQl/wRJpjd2wYYghDs
+	lKIto9OgKCx894hO61KWGWzJZAlDQHSUxfu31MIeBXoE878Dyehc6acv2sGWPMiLtE5tL9lbTPp
+	/Q+RRq1RYnyevEM/DBzNNNW7BW1CiPwBENyx8HBU2gP0g01FC5t6UpS++uPhCXXEzE5DU=
+X-Received: by 2002:ac8:5dcb:0:b0:533:79cf:18ea with SMTP id d75a77b69052e-5359fb88606mr102144591cf.57.1791679410806;
+        Sat, 10 Oct 2026 17:43:30 -0700 (PDT)
 Received: from omarchy ([2601:804:8780:3df1:6ff:277e:31c7:ac13])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb9848702sm532320085a.12.2026.10.10.17.43.05
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b7dd1a0sm49229871cf.27.2026.10.10.17.43.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 17:43:05 -0700 (PDT)
+        Sat, 10 Oct 2026 17:43:30 -0700 (PDT)
 From: zoan37 <agentzoan@gmail.com>
-To: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Cc: David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
+To: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>
+Cc: Matthias Brugger <matthias.bgg@gmail.com>,
 	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Jason-JH Lin <jason-jh.lin@mediatek.com>,
-	CK Hu <ck.hu@mediatek.com>,
-	Nancy Lin <nancy.lin@mediatek.com>,
-	Nathan Lu <nathan.lu@mediatek.com>,
-	dri-devel@lists.freedesktop.org,
+	Freddy Hsin <freddy.hsin@mediatek.com>,
+	linux-watchdog@vger.kernel.org,
 	linux-mediatek@lists.infradead.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] drm/mediatek: mtk_crtc: Pick the connector route on every CRTC enable
-Date: Sat, 10 Oct 2026 20:42:48 -0400
-Message-ID: <20261011004248.1117649-4-agentzoan@gmail.com>
+Subject: [PATCH] watchdog: mtk_wdt: Stop a running watchdog over system sleep even if not opened
+Date: Sat, 10 Oct 2026 20:43:22 -0400
+Message-ID: <20261011004322.1118027-1-agentzoan@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261011004248.1117649-1-agentzoan@gmail.com>
-References: <20261011004248.1117649-1-agentzoan@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,56 +78,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mtk_crtc_update_output() only picks the output component of a CRTC
-with connector routes when connectors_changed is set in the commit that
-enables the CRTC. But connectors_changed only says that the connectors
-changed in that commit, not since the CRTC was last enabled. A connector
-can be attached to (or moved to) the CRTC while it is inactive, and the
-later commit that only sets ACTIVE then has active_changed but not
-connectors_changed:
+mtk_wdt_suspend() and mtk_wdt_resume() only stop and restart the
+watchdog when it is active, that is, when userspace has opened it.
 
-- If the CRTC had never been enabled, the route slot is still NULL and
-  mtk_crtc_ddp_hw_init() dereferences it (mtk_ddp_comp_clk_enable()
-  and so on).
-- If the CRTC was driven through another route before, e.g. a CRTC
-  shared by an HDMI bridge on DSI and a DisplayPort output that is
-  switched off (DPMS) while the monitor moves from one to the other,
-  the pipeline is set up for the old output.
+But a watchdog that the bootloader left enabled stays enabled at probe,
+marked WDOG_HW_RUNNING, and the watchdog core pings it until userspace
+takes over; that has been the case since
+commit bbece05c0d3a ("watchdog: mtk_wdt: Remove mtk_wdt_stop() in probe()
+to prevent the system freeze and it doesn't reboot by watchdog problem").
+If the system suspends before userspace opens the device, or userspace
+never does, nothing stops the watchdog and nothing pings it while the
+system sleeps, so it resets the system one timeout (31 s by default)
+into the sleep.
 
-update_output() only runs from atomic_enable and the lookup is a short
-loop over the routes, so do it on every enable.
+Also stop it on suspend and restart it on resume when it is running in
+hardware, like sp805_wdt does.
 
-Fixes: 01389b324c97 ("drm/mediatek: Add connector dynamic selection capability")
+Fixes: bbece05c0d3a ("watchdog: mtk_wdt: Remove mtk_wdt_stop() in probe() to prevent the system freeze and it doesn't reboot by watchdog problem")
 Assisted-by: LLM
 Signed-off-by: zoan37 <agentzoan@gmail.com>
 ---
 
 Notes:
-    Testing: found by reading the code. The same change runs on the MT8189
-    Chromebook described in patch 1, where one routed CRTC drives either
-    HDMI or USB-C DisplayPort: DPMS off/on and suspend/resume with a DP
-    monitor attached come back. The sequence that fails without it
-    (connector attached or swapped while the CRTC is inactive, then only
-    ACTIVE set) was not reproduced on purpose. Compile-tested (W=1) on
-    next-20261008.
+    Testing: on an MT8189 Chromebook (next-20261008 plus MT8189 support)
+    whose firmware leaves the watchdog off; a local module parameter starts
+    it in probe the same way a bootloader-enabled watchdog is picked up
+    (WDOG_HW_RUNNING set, fed by the watchdog core, nobody opening
+    /dev/watchdog). Without this patch the board reset about 30 s into
+    s2idle; with it a 10-minute s2idle sleep came back without a reset.
+    Not tested with a watchdog actually left enabled by a bootloader.
+    Compile-tested (W=1) on next-20261008.
 
- drivers/gpu/drm/mediatek/mtk_crtc.c | 3 ---
- 1 file changed, 3 deletions(-)
+ drivers/watchdog/mtk_wdt.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_crtc.c b/drivers/gpu/drm/mediatek/mtk_crtc.c
-index 704931b369b6..0bfd17f68282 100644
---- a/drivers/gpu/drm/mediatek/mtk_crtc.c
-+++ b/drivers/gpu/drm/mediatek/mtk_crtc.c
-@@ -695,9 +695,6 @@ static void mtk_crtc_update_output(struct drm_crtc *crtc,
- 	struct mtk_drm_private *priv;
- 	unsigned int encoder_mask = crtc_state->encoder_mask;
+diff --git a/drivers/watchdog/mtk_wdt.c b/drivers/watchdog/mtk_wdt.c
+index 1630ab65d593..ff72e0fb1154 100644
+--- a/drivers/watchdog/mtk_wdt.c
++++ b/drivers/watchdog/mtk_wdt.c
+@@ -572,7 +572,8 @@ static int mtk_wdt_suspend(struct device *dev)
+ {
+ 	struct mtk_wdt_dev *mtk_wdt = dev_get_drvdata(dev);
  
--	if (!crtc_state->connectors_changed)
--		return;
--
- 	if (!mtk_crtc->num_conn_routes)
- 		return;
+-	if (watchdog_active(&mtk_wdt->wdt_dev))
++	if (watchdog_active(&mtk_wdt->wdt_dev) ||
++	    watchdog_hw_running(&mtk_wdt->wdt_dev))
+ 		mtk_wdt_stop(&mtk_wdt->wdt_dev);
  
+ 	return 0;
+@@ -582,7 +583,8 @@ static int mtk_wdt_resume(struct device *dev)
+ {
+ 	struct mtk_wdt_dev *mtk_wdt = dev_get_drvdata(dev);
+ 
+-	if (watchdog_active(&mtk_wdt->wdt_dev)) {
++	if (watchdog_active(&mtk_wdt->wdt_dev) ||
++	    watchdog_hw_running(&mtk_wdt->wdt_dev)) {
+ 		mtk_wdt_start(&mtk_wdt->wdt_dev);
+ 		mtk_wdt_ping(&mtk_wdt->wdt_dev);
+ 	}
+
+base-commit: aac26bee2287c88af5be5a5ff96d783b19a28790
 -- 
 2.43.0
 
