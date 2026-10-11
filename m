@@ -1,177 +1,105 @@
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C656126CE05;
-	Sun, 11 Oct 2026 03:09:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68CCB23D2B1
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 03:12:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791688196; cv=none; b=O7YhYYpmsqUVaIlHOwRrVojK4gRQpaz7I2t/I8oxtoMnxBIN9bTpPIYYiWkmK2ddyX3EZJrlLcYJwXKnl60FkDX/qLxUgIFoW6n+1BiSQ8scVOYcaE298+Rf6tUjzvtjakKrVHwLfeKIsGzbbBk5FZMxkk2zyYMm4eh/BtQ+hYg=
+	t=1791688359; cv=none; b=Vm1qh9kJiNYrIh8BK3+WPrgD8UMj7799KMoAPOKczgpWE74m97OS3rpPwRNK18XgKACzSUAbQZiqU3nEL/OBASXyTmmwdY6za1kdN4QyXipENQqZZR+AxNZZHiofUJbEqdWrW+h+mMsgdVLCZ1aivZNtrpQG+BXg2IZc1DiWE0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791688196; c=relaxed/simple;
-	bh=4m6CiHIXLcTLZiemS0ktlfqETabZ496cjz4VuaQM6x4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=aID6kS37Rf2ULibwfFLswmAy9sr2IOZ/t1HqapTZxr51UaexS8eo42cjXaM4f7TeUStalUSVO0l4Fw9n+N2MxTDJCYDrOQHhJgIyBbdr5PHAbfL4lsg4B3GKrxvr8vSEjCnnBE1Wdd4B/N5NKjxJxlH4uo3Sma6sSb1x5MIzrTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=VH68w1l8; arc=none smtp.client-ip=80.86.107.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+	s=arc-20240116; t=1791688359; c=relaxed/simple;
+	bh=OChUndas+DWa/5O82BL8ViYuRfhyJvWS0e17KpOp0Q4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oH2xlZa/AKVOMW3Rq2RCKVYrdmxoXEHGSfKaXA4iWk906zcV1RIW51R1LDagb2/OUpf4u3yD/RlpqP1VwI2NQmlqSnyEzbEHEiUIEM/jupzuO3MIrXoQoaSz7HPkZs+2+z94anKsEPdaOfd1HgHrzLEBFRG/2z6u3xFOUXYzeCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Va9YGU+H; arc=none smtp.client-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="VH68w1l8"
-Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id 176BAD1DCB;
-	Sun, 11 Oct 2026 06:09:50 +0300 (EEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro 176BAD1DCB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1791688192;
-	bh=4m6CiHIXLcTLZiemS0ktlfqETabZ496cjz4VuaQM6x4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=VH68w1l8JDks86FV+XSXsLe5NlV66EytKLKnvJZFm3z558H4OsMBzTIq0liJY7s/C
-	 T+kjmGuPStM95e/OAqwrZRMUrt6FDte8lENRxQu4CS5X57soXpS3Oe84iO2YN7s9OB
-	 oA21gEsprUzhF/SlsEEKlCaxWpOU4t6IPc00e9lQEKQGKCq1VGJ8S6wmtIxQlRTrW9
-	 E+KW89vY3LnqI67Im7y44R5rebnutWuNW532O3QLe+WU8pN5s+AcI7TaXLmxeIratR
-	 y84ac4ZXiinPoyHGqEWfQ9TFSXm4K09vEJlTSyim0EgQEkYDmtCMVtoPKZ2XIPRL11
-	 XY4IPlevBD8FA==
-Message-ID: <13259378e2e41c61a7235c1b47eac649ab06425c.camel@rendec.net>
-Subject: Re: [PATCH v2 8/8] irqchip/al-fic: add irq_set_affinity callback
-From: Radu Rendec <radu@rendec.net>
-To: "Farber, Eliav" <farbere@amazon.com>, Thomas Gleixner <tglx@kernel.org>,
-  "Shenhar, Talel"	 <talel@amazon.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, "devicetree@vger.kernel.org"
- <devicetree@vger.kernel.org>,  "linux-kernel@vger.kernel.org"	
- <linux-kernel@vger.kernel.org>
-Date: Sat, 10 Oct 2026 23:09:49 -0400
-In-Reply-To: <150803f555ade32668f31d507e151558a505cfe1.camel@rendec.net>
-References: <20260927080637.27285-1-farbere@amazon.com>
-			 <20260927080637.27285-9-farbere@amazon.com>
-		 <c28806ad779b972c94b9dd89fb70ee64cefb63cc.camel@rendec.net>
-		 <BY3PR18MB4722F4AFC8E300C4D01BE217C6962@BY3PR18MB4722.namprd18.prod.outlook.com>
-	 <150803f555ade32668f31d507e151558a505cfe1.camel@rendec.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Va9YGU+H"
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-33e6279a1d7so1034952eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 20:12:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791688357; x=1792293157; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=a1lj3fVjbUIN9JIS29oUB2cIzv6MSxY80cUu2b2ZDGY=;
+        b=Va9YGU+HaKMH4sEyXcJa6745yinu7nD3Btls0OfP5UVl0hBjHc+azxdjSZOfe+GPIf
+         5zFeKsyg4ZlCHD9qREH0n/36O85UssAUp76fB4NVnRqi0aGS2/OZg8XQuf/FOtYN6Pl0
+         VhOrecv3XsU/QVmhckxtypDnncFUzc8CXbbQoT61vEj3pXyGDTWNkfbiX8sQ4jjmmOSm
+         WUWo2cjRx1hP3utd3rTBDM59sGWvLeqbt+/mysmrYFerWrXd4EsY3OP9d0q7Co2rTQdz
+         ihaKSiSgfZ28rKhjJMygQJTJj7PfMHUti+hMNjARK/yTI2ay7q4mZnI7XThsjIn6P873
+         7/sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791688357; x=1792293157;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=a1lj3fVjbUIN9JIS29oUB2cIzv6MSxY80cUu2b2ZDGY=;
+        b=Ctqi5UO1qe4RiAdUzS2A6+j31D7vNKMAsCRqYqPvchWg96ediMmHy15yxRJmbJoDpO
+         LdhZIhJ1/wg3+92bLxUbKjHmGkqGC5byzRrVyQdn/6csmo2d96+d+yHPOsvxd65rNHDJ
+         iJQ5ZJIhQelFremS5+elvdzqHO9xqbS0CLJphDgW7cM8jSnzDkpT4CjKoRNLCmIMIttC
+         STkLjHf0CW1b4PnM6mwU4BjIDLeWhhhBLU3aygR9LvplmyydMCwGffgWUmkwdZInI3V2
+         1MUsycoWhqLRysQ+aThq73AjKVwaiPQDMZ9R5jGRg5oL2Qa3MG/s32Z/WtralNvzORXu
+         o8cg==
+X-Forwarded-Encrypted: i=1; AKwUvBws9fgvVjPvRGfCsUDQnVEmXosB039CVDGDfsDqpPxCN+VxCwhqi7VMG9H9UXLbCyM0G+hY63+KF8Xr1GQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ+KU/gGwOsB1StePRYD5yFZWzJaPq5mLcSnclh0To5ezWQf9zO
+	ODFFMVJnGf23TLmNxrZi0x43ylcZnNOmmZdWfrlSEbdxKroj7/Q78nfco0tqOBZ5oww=
+X-Gm-Gg: AYBFou2hyDEBCfmp0b/9QZF1HYmOSIWo3Ec7aTjoBHlog78ErVvG5/8ejeQhZR/D6L5
+	kuCvmT5xMTh9dD2yfStBBbOPuxUlTi6nSYehAHNqDeTdq7pdSov0RsYFWyl5xMzM1MRCDF5Gb15
+	5A56D/xQevrMnf7SJtu7foDIW1yL1X7JHsdkTQkUftvqBEwYPegzEFhg6mfuHYu/PwOL0jk7pTm
+	lB0x2uojO6vJiZdDn/QKVmSzJTkGJo2o2hZcctGU8aE62BJCHDMy0+J9hB6XAcBRUdd0PgtlN/i
+	t3dV5TMNz1Xuyn+0UN4UH/txPXmarH0LOzUc59EKKAuFDLx8QE/qzxKn07bqxgBFM+7BwF2VWJn
+	RIzjR8OIgvTYAYZ4uN4DL/DadFv3gygMDLUrN2/oJuqaOO8fNdlWA2QI4M8o8mJxrbGpVN1NBsP
+	Nz551Z8yjTffNZhS7etea5fY+dGEVOK5yzzbObwqfZcquRG6D+U880nWTumkobkv0viHQPXLwc
+X-Received: by 2002:a05:7301:1529:b0:352:fe8b:8d38 with SMTP id 5a478bee46e88-3537e059bf7mr8378888eec.14.1791688357177;
+        Sat, 10 Oct 2026 20:12:37 -0700 (PDT)
+Received: from localhost ([104.156.230.40])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c841648sm22329042eec.3.2026.10.10.20.12.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 20:12:36 -0700 (PDT)
+Date: Sun, 11 Oct 2026 11:12:27 +0800
+From: Chang Yu <marcus.yu.56@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Chang Yu <marcus.yu.56@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Shi Hao <i.shihao.999@gmail.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/2] iio: light: add AS7343 multi-spectral sensor
+ driver
+Message-ID: <asr-mzLLPXxGwV9F@zephyrus-g14.localdomain>
+References: <20260919235145.48273-1-marcus.yu.56@gmail.com>
+ <20260919235145.48273-3-marcus.yu.56@gmail.com>
+ <arVqTWVw-eIZEcrR@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arVqTWVw-eIZEcrR@ashevche-desk.local>
 
-On Sat, 2026-10-10 at 16:19 -0400, Radu Rendec wrote:
-> On Mon, 2026-10-05 at 11:20 +0000, Farber, Eliav wrote:
-> > On Sun, 2026-10-05 at 01:25 +0000, Radu Rendec wrote:
-> > > This is a common problem to all multiplexing irq drivers; not because
-> > > the parent interrupt is shared but because changing the affinity of o=
-ne
-> > > child interrupt (by changing the parent interrupt's affinity under th=
-e
-> > > hood) would have the side effect of changing the affinity of all its
-> > > siblings.
-> > >=20
-> > > I think the correct behavior is to fail with -EINVAL in this case.
-> >=20
-> > -EINVAL is not usable here because it restores the failure this patch
-> > fixes. The consumer is arm-cmn. We have a SoC where its interrupt is
-> > routed through a FIC group instead of a direct GIC SPI, and
-> > drivers/perf/arm-cmn.c does
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 err =3D irq_set_affinity(irq=
-, cpumask_of(cmn->cpu));
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (err)
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 return err;
-> >=20
-> > at probe, so with no .irq_set_affinity callback the PMU does not probe =
-at
-> > all.
->=20
-> All right, now I see what the problem is. I will be fully honest and
-> transparent and admit I don't know much about PMU drivers in general or
-> arm-cmn in particular. But I believe that irq_set_affinity() (with a
-> hard fail) is there for a reason. Of course, because we are in 2026, I
-> did ask a LLM what that reason could be, but I will refrain from taking
-> the answer as correct/definitive or speculating; I will just say it
-> probably needs careful consideration.
->=20
-> The requested affinity mask includes a single CPU; by contrast, unless
-> explicitly configured, the FIC parent IRQ will probably be affine to
-> all available CPUs, so the cpumask_equal() in your patch will likely be
-> always false. The concern is not the warning itself (you're using
-> pr_warn_once); it's that the arm-cmn IRQ handler will run on a
-> different CPU than it expects/has requested.
->=20
-> > > If you insist on having the ability to change the child interrupts'
-> > > affinity, you may want to look at this patch and do something similar=
-:
-> > > https://lore.kernel.org/all/20251128212055.1409093-4-rrendec@redhat.c=
-om/
-> >=20
-> > I implemented that for al-fic and tested it on hardware. It seems to
-> > work: with the parent SPI pinned to one CPU and the child's affinity se=
-t
-> > to another, the child dispatch is accounted on the target CPU, one
-> > dispatch per parent interrupt, no re-fire storm.
-> >=20
-> > What stops me from just sending it is that it changes the interrupt pat=
-h
-> > for every child of every FIC instance, not only for a child that asks f=
-or
-> > affinity. .irq_pre_redirect is called before the affinity check, so it
-> > runs on every dispatch. The ack therefore has to leave the flow handler
-> > and be done in the parent context always, and .irq_ack has to become a
-> > noop so it is not done twice. A level configured group has to be masked
-> > in .irq_pre_redirect as well, because the FIC re-asserts the cause bit
-> > while the source is still asserted, so for those groups the mask moves
-> > into the parent context too. Today all of this happens inside
-> > handle_level_irq() and handle_edge_irq(), under desc->lock.
->=20
-> The dw_pci driver is not the best example=C2=A0because it uses a stacked
-> layout with the multiplexing irqchip at the bottom and a hierarchy
-> irqchip on top (which is why the .irq_pre_redirect was necessary).
-> Unfortunately it's the only example I am aware of (and also what
-> prompted the redirect framework implementation). I apologize for the
-> confusion it may have created.
->=20
-> I think in the case of al-fic, it's sufficient to set
-> irq_chip_redirect_set_affinity as the .irq_set_affinity handler and
-> replace generic_handle_domain_irq with generic_handle_demux_domain_irq.
-> That will not change the ack/mask path.
-
-Sorry! Scratch that. Human hallucination :)
-
-Yes, your interpretation is correct. The ack and mask need to move to
-.irq_pre_redirect because they must happen in hardware interrupt
-context; if the demultiplexed interrupt is redirected, its flow handler
-(handle_level_irq() or handle_edge_irq()) runs asynchronously in
-irq_work context, so ack/mask can't happen there.
-
-But note that even though the call path changes for any interrupt, the
-handler is still called synchronously (at the end of=20
-generic_handle_demux_domain_irq()) if the affinity hasn't been changed
-and redirection is not necessary. So there is no overhead in that case.
-
-I think all this would be less horrible for a driver that wants to
-implement redirection if we changed changed handle_level_irq() and
-handle_edge_irq() to skip the ack/mask for irqchips that implement
-redirection (e.g. based on an irqchip flag), and provided a default
-implementation of .irq_pre_redirect that called the ack/mask handlers
-instead. That way, all an irqchip driver would have to do to implement
-redirection would be:
- * set the flag that skips ack/mask in the flow handlers;
- * set .irq_set_affinity =3D irq_chip_redirect_set_affinity;
- * set .irq_pre_redirect =3D default_implementation_to_be_added.
-
-I'll try to draft something along those lines next week and send an RFC
-patch. We'll see what Thomas thinks :)
-
-By the way, did you mention the FIC chips could be stacked or am I
-imagining things again? That could be an extra wrinkle in the context
-of redirection.
-
-> > Do you still consider that justified for this driver, given that the on=
-ly
-> > caller needing anything here is one that just needs the call not to fai=
-l?
->=20
-> As I explained above, I really doubt that arm-cmn just needs the call
-> not to fail. I am inclined to think that it actually *needs* the IRQ to
-> run on the CPU it wants, hence the hard fail.
+On Thu, Sep 24, 2026 at 09:22:05PM +0300, Andy Shevchenko wrote:
+> On Sat, Sep 19, 2026 at 04:51:45PM -0700, Chang Yu wrote:
+> > +static int as7343_read_label(struct iio_dev *indio_dev,
+> > +			     struct iio_chan_spec const *chan, char *label)
+> > +{
+> > +	int channel = chan->channel;
+> 
+> Why signed?
+> Also split assignment, it will make code more maintainable.
+> 
+I believe this was mentioned in a previous thread. Basically because
+iio_chan_spec.channel is an int, so I had to make the local var
+signed to keep it consistent. Why iio_chan_spec.channel is an int is
+a mystery to me unfortunately.
