@@ -1,33 +1,33 @@
-Received: from mta1.migadu.com (out-91.mta1.migadu.com [95.215.58.91])
+Received: from mta1.migadu.com (out-93.mta1.migadu.com [95.215.58.93])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C313449988
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 19:40:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.91
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C53E456287
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 19:40:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.93
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791747606; cv=none; b=W0NP6ywF/QYhwNrFSrSDAiurIplg61gAQgvmOdvInK73wwhxsnEMVN9GerkwX4WSILcAuy8T10ui2fQHt1yN+vSRFOSrk0ssnMXnMhlrtLUduLjdfQnoDa8VdLYJW0yz9DvFSnEyyCp9gMOtKoaCLTf80hFiiaSaGg7ymoJVa3M=
+	t=1791747613; cv=none; b=W/nD5oFLLsMBuVfmTlvMmMVPpId+5R7hZqh8JDU97BT39fAc8xDvpL8m1CnSSx396qj48f5kZYYdxLax8lhW5DjIecWofvKbvMuBjHz1MEE+UQu0zqgiw4kb3KDNvaQB1tRtPkueSIEYyunm/drOo+mDuq3xcGqx4j3akaiTgl8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791747606; c=relaxed/simple;
-	bh=TqUJZt0jTQnNoDrW5bcG3O1AAOexFyLxL8nTiG2WsTo=;
+	s=arc-20240116; t=1791747613; c=relaxed/simple;
+	bh=3zupAJTu8BltPTT0ExVf/8n9KO6elCrt0DszHRWjuwE=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=bv/exuoKcQYkS9iIuj6azEAfiq+KRSjPaDLLvoTw+BNRd1eyruXWw+iilR1qJDaY5gaIOf2oyARSD0oluTh5MqCSkn/A7PgkvXs0f2DkZZC/7DO3ZdA1xwwu41mkke35jYpRMRBGk20GZDTFjiHImv/UIfD0CKG0CwM8LTsDqCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=B51q5m/L; arc=none smtp.client-ip=95.215.58.91
+	 MIME-Version; b=uOQwmJi8k+hw4iivrI4jVSxgW+TzUqmcNdQ7qcyuN7D0Jidy1tZx9uYImIoM1i8sUahOoaMy1K4rYme0BEkV1T9bvduECH1V9p6OZPNGi/iYXazUATKDjo3EKz+BpxSsRhc9u5ChYJPdLZJVJcsMsNCpc9u9nyVSAiwPy1Rouoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Y5UMw1g+; arc=none smtp.client-ip=95.215.58.93
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="B51q5m/L"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Y5UMw1g+"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=TqUJZt0jTQnNoDrW5bcG3O1AAOexFyLxL8nTiG2WsTo=;
+DKIM-Signature: a=rsa-sha256; bh=3zupAJTu8BltPTT0ExVf/8n9KO6elCrt0DszHRWjuwE=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791747602; v=1; x=1792352402;
- b=B51q5m/LYPYf8fZdQ1j4vhTIUixm2sJYzdVbq2Pa9T+9PqrWZLFv3HMrkBHIGBON/Yw/oes8
- H5q9MTSsAeG4NQ+ajrP3tpnmx4WR6aCBF3oCjGNB9r1rBZ7N8LiLKUCJcyb7k+deI/WDwIMRSlh
- hy6Ttyb49YuHYvCfhy+JoMgI=
+ t=1791747608; v=1; x=1792352408;
+ b=Y5UMw1g+9KviwyPBDVXjm7ZTb6XP73mayBT0Xeq8Skasrb0vSLFxQoRVEsKYq256I1T7ViwD
+ MEXSaDLkWKhSAARZm0BSBguP18V3oeu50owORgTZUMa8zBrOm4b4KhaziJC1Vfj8XXKq4iosddQ
+ 8XdGj1kPUJa2+QnuZkYRSnh4=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id a578644b0269f23a;
-	Sun, 11 Oct 2026 19:40:02 +0000
-X-Mizu-Trace-ID: a578644b0269f23a
+Received: by mta11.migadu.com with ESMTPS id b09c6ce92b56c0b4;
+	Sun, 11 Oct 2026 19:40:07 +0000
+X-Mizu-Trace-ID: b09c6ce92b56c0b4
 X-Migadu-Flow: FLOW_OUT
 From: wen.yang@linux.dev
 To: Gabriele Monaco <gmonaco@redhat.com>
@@ -35,9 +35,9 @@ Cc: Nam Cao <namcao@linutronix.de>,
 	linux-trace-kernel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Wen Yang <wen.yang@linux.dev>
-Subject: [PATCH v7 05/14] rv: Add a KUnit test for the storage free path
-Date: Mon, 12 Oct 2026 03:39:11 +0800
-Message-Id: <448c421a47452ebddc6502ba3435eb91c1749601.1791745088.git.wen.yang@linux.dev>
+Subject: [PATCH v7 06/14] rv: Make da_monitor_reset_hook and EVENT_NONE_LBL overridable
+Date: Mon, 12 Oct 2026 03:39:12 +0800
+Message-Id: <d8990a03af61a6989b9db1150b1205873b83a5c7.1791745088.git.wen.yang@linux.dev>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1791745088.git.wen.yang@linux.dev>
 References: <cover.1791745088.git.wen.yang@linux.dev>
@@ -51,71 +51,51 @@ Content-Transfer-Encoding: 8bit
 
 From: Wen Yang <wen.yang@linux.dev>
 
-The test resolves a storage, desstroys it with da_destroy_storage(), and
-then arms the HA timer through the stale pointer. The free hook must
-disarm that timer too, so it never fires and no reaction is reported.
+Wrap both definitions with #ifndef guards so HA-based monitors can
+substitute their own implementations before including this header.
+tlob uses this to define a reset hook that cancels per-task hrtimers
+on monitor teardown.
 
+Overrides must still call ha_monitor_reset_env() or cancel outstanding
+timers to avoid timer UAF.
+
+No behaviour change for monitors that do not override either macro.
+
+Reviewed-by: Gabriele Monaco <gmonaco@redhat.com>
 Signed-off-by: Wen Yang <wen.yang@linux.dev>
 ---
- kernel/trace/rv/rv_monitors_test.c | 38 ++++++++++++++++++++++++++++++
- 1 file changed, 38 insertions(+)
+ include/rv/ha_monitor.h | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/kernel/trace/rv/rv_monitors_test.c b/kernel/trace/rv/rv_monitors_test.c
-index 889a209f6435..b30e49419e34 100644
---- a/kernel/trace/rv/rv_monitors_test.c
-+++ b/kernel/trace/rv/rv_monitors_test.c
-@@ -267,6 +267,43 @@ static void rv_test_rvtest_underflow(struct kunit *test)
- 	ha_cancel_timer_sync(ha_mon);
- }
+diff --git a/include/rv/ha_monitor.h b/include/rv/ha_monitor.h
+index 99b60d0d26b6..b8c74d4d4064 100644
+--- a/include/rv/ha_monitor.h
++++ b/include/rv/ha_monitor.h
+@@ -38,8 +38,14 @@ static bool ha_monitor_handle_constraint(struct da_monitor *da_mon,
+ 					 da_id_type id);
+ #define da_monitor_event_hook ha_monitor_handle_constraint
+ #define da_monitor_init_hook ha_monitor_init_env
++
++/* Overrides must still call ha_monitor_reset_env() or cancel the timer. */
++#ifndef da_monitor_reset_hook
+ #define da_monitor_reset_hook ha_monitor_reset_env
++#endif
++#ifndef da_monitor_sync_hook
+ #define da_monitor_sync_hook() synchronize_rcu()
++#endif
+ #define da_monitor_free_hook ha_monitor_free_env
  
-+/*
-+ * rv_test_rvtest_arm_after_destroy - a storage outlived by its own timer
-+ *
-+ * da_destroy_storage() cancels the timer, then unlinks:
-+ *
-+ *	da_monitor_reset_hook()		cancels
-+ *	hash_del_rcu()
-+ *	call_rcu()
-+ *
-+ * A reader that resolved the storage before the unlink can arm past that
-+ * cancel.  Handlers resolve and use under one guard(rcu)(), so the two steps
-+ * are issued separately here.
-+ */
-+static void rv_test_rvtest_arm_after_destroy(struct kunit *test)
-+{
-+	struct rv_kunit_ctx *ctx = test->priv;
-+	const int id = 4242;
-+	struct da_monitor *stale;
-+
-+	prepare_test(test, &rvtest_mon);
-+
-+	da_handle_start_run_event(id, NULL, start_rvtest);
-+
-+	scoped_guard(rcu)			/* resolve before the unlink */
-+		stale = da_get_monitor(id, NULL);
-+	KUNIT_ASSERT_NOT_NULL(test, stale);
-+
-+	da_destroy_storage(id);			/* cancel, unlink, call_rcu */
-+	ha_start_timer_ns(to_ha_monitor(stale), clk_rvtest,
-+			  RVTEST_BUDGET_NS, ha_get_ns());
-+
-+	rcu_barrier();
-+
-+	msleep(600);
-+	RV_KUNIT_EXPECT_NO_REACTION(test, ctx);
-+}
-+
- #include "monitors/sco/sco_kunit.c"
- #include "monitors/sssw/sssw_kunit.c"
- #include "monitors/sts/sts_kunit.c"
-@@ -285,6 +322,7 @@ static struct kunit_case rv_mon_test_cases[] = {
- 	KUNIT_CASE(rv_test_pagefault),
- 	KUNIT_CASE(rv_test_sleep),
- 	KUNIT_CASE(rv_test_rvtest_underflow),
-+	KUNIT_CASE(rv_test_rvtest_arm_after_destroy),
- 	{}
- };
+ #if !defined(HA_SKIP_AUTO_CLEANUP) && RV_MON_TYPE == RV_MON_PER_TASK
+@@ -78,7 +84,9 @@ _Static_assert(offsetof(struct ha_monitor, da_mon) == 0,
+ #define ENV_INVALID_VALUE U64_MAX
+ /* Error with no event occurs only on timeouts */
+ #define EVENT_NONE EVENT_MAX
++#ifndef EVENT_NONE_LBL
+ #define EVENT_NONE_LBL "none"
++#endif
+ #define ENV_BUFFER_SIZE 64
  
+ #ifdef CONFIG_RV_REACTORS
 -- 
 2.25.1
 
