@@ -1,84 +1,97 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C0D3148A7
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 04:33:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27FB19DF6A
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 04:45:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791693216; cv=none; b=iM/QG6pbmj14OF3kWBr39+pVPDAUGHLQYImKe7jmiRDjhwlofQgaFGnwcHuNRvaZqe9B6I7pBCNAQ1vtd1c2iQMgxrwoQaQxN1KAGapo08rqWaHIUB/ilsZ2BuXXAOu2qQ2oH3EIqFSTDZPYauCVTUiirzN542AO5Vi1Yrw2nLo=
+	t=1791693951; cv=none; b=Un15Rx7MqNLlCaB+eLOTxfzDr/j8WIDJ0fCHMnVAjpCTGjgH8pOGjpuc7LmbUin0cItCdRNA8dKqIaODXV67ilExzO/dzsoBdKJpPaQA6pt3a0qStTyE2HZa60/mlTMmKnRk1mI5jamGIJAKPO6lt4ZuNuE8z4AIS4riy0pYUiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791693216; c=relaxed/simple;
-	bh=XmGz+wGF8sLohK/7kaOr4M9EperVmIoo9UjCZa6WII8=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=dlgv9nmv29Nii5ys8yes1yAEpX5jaIDgray+smUXahAmfZQ7WkYo0oRqjeo5gWpIQCJNN5GS0gnvqNY3Z/FY/R5cCHdS02qIgXRXbLLEkGhM4gLksI5Mpjr7zdRyp69i9Osy9KahPvfUt6X55xmZR/PSSx3PKv9UD2z+8tUBJGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4a41f46d629so2230776b6e.3
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 21:33:34 -0700 (PDT)
+	s=arc-20240116; t=1791693951; c=relaxed/simple;
+	bh=mjLp7zGDjcj+lWq2bQZ2AdxPlmTKABqImeXoPORHywA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YR7lgozcO9TiQLMnWYKJqsUHZPsjJUJv/1qi22D8phJZ4vtAfWiYPLq/EQZS7auDswArhYALKaN+MbFVI9zqEM7mKQ5BQJOsUOw7bNnMU0d1SG/7ZI7GuH6F4dMIl881gUVZYdjS6ZeX/uhO8+bQz8EcVZx36tCg6ZL2ZvStcYw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZLZimdj4; arc=none smtp.client-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZLZimdj4"
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3514b90bb89so1647057eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 21:45:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791693950; x=1792298750; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UboHhp6ztrYdIlQJYxWz3PqYJoK6i0hu7qVE9ptfsZE=;
+        b=ZLZimdj4Xgd70easqAY/MeZ5KEj2OBJDd8ar/eFBPW0b3wdAsWQRizoQlpZYfrkQVq
+         M4aCpA2O74HBA9P9Nbu9ikrYhhNKIAhpoB9zCVw87iKzlUOTwpIPHo6sn3Ze1bhSprin
+         6QOTNOx1gmVpO7I1zTveIQsLolf6haGWVPbA52VdTtw3aQGUyhTVSt2jebBqKVXmsIWv
+         AvhcpqobtCF/ddZTn7mN/urphvd4Jc3rHOxRHGUumc26i431RgVAAOIKxsty2rpzWC9j
+         0esB2KZmPJmbelDZEn0/R9uTnMgHPWiiTRVNBPzJPxKkWCICsLcYfA6nF1BRXGpwa1pb
+         yNjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791693214; x=1792298014;
-        h=content-type:to:from:subject:message-id:date:mime-version
+        d=1e100.net; s=20260707; t=1791693950; x=1792298750;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vSL2jhdBiSbZsp7yd1LgWGK65M3qH1NTGj33qYfrPro=;
-        b=yo7kZMbMqUlw4ePyBP3V/M91cWvJtjWw0crSkRw49F6xBS9ZmIMq+HWkoPjm9qPiyT
-         ZZnd6c39N+uDkHg4lRjGUpaG5Es6lihskGliDlp5NaYQSgBvAndyTbL3+HEu9o6K8cvx
-         bma8BJ84i/W78sbKrK96PawNE+27kHiOcLd+C4gIrqQQsdbFvN4yuHaDgT6IhtyCBMKE
-         Us6/328v01nxVJProbvWQnwWHxGUw1DTdmW5QP71lwjbx5wFSeh7YiNo6pkZDdD12ky9
-         op7P5BlQVUhnpKISEqppP8mGCwZucu9DYmA9oaQ0gXoRqs0nP6g+e+56V2TSTt8fKbLh
-         T1Pg==
-X-Forwarded-Encrypted: i=1; AKwUvBxlMMFTffKKWnRFJGawQ8Zr463MPdH8o5HciXBOqjusBfNr8fpy77phxx8gjtHDFdhRSZizuA1JTigtKVg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLumMAwC1PXiXq0dsmNj+1Mflo2z3MPREdw0jR9O9nhsoic1y1Y
-	fdkd0bC7ffmcuwwsx0SHdiB9DF5T1GBVsRyGwhaxOjPd0pdAMwsoqmA3o2zxIzG9o5xtMfIXYaR
-	zfAmofj4ZtvG4bgn8BanAhY1UNTTAMxfqAaTpHDiOGZGCuFMKUN7xdz1UfIw=
+        bh=UboHhp6ztrYdIlQJYxWz3PqYJoK6i0hu7qVE9ptfsZE=;
+        b=zT+c07Z+AtAO1BqU08gXkiNNUn6VOyzJeAXVcpdt/DkwgiKVLpktWM4pBBE0MgYQc5
+         cQjHSM7Qt+ZpJ62Wtd/CrZ5XyU7eURU+TdUVqNcZo+TABREma20+mQuLo70XBU4BhvK9
+         BgYMEhKs0q662a7byqxm/BELrjAQ3DCY1n6pvn6B21DKyloO48kcuQJtxD3FPLKfYKGq
+         WGUSmwInmQsfXktE2sD6O5m9BkChbz6ZAe2ZhahGdyNy4fsx6WRmB39/DivbdQW7PxVE
+         uTDvAbi/8LXxPL0uzwCh+ymlqpUqty5jPX/Ng3bw/DaszvsooQNT4l+Sfr5WVDmaaZlj
+         M9ew==
+X-Forwarded-Encrypted: i=1; AKwUvByEeUtsGVOt5ODBkBOnsfYYiLrFkzVGdu2vipNb9orxk9Cveca2SFcxZavWoLO2Cc5FcfaE2emKCNBWb50=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJSY4eNexk6DgMG8d3hzfLm7q0wFbgb3Q98Gx2rV2Fa11bzgmHv
+	edDpco2aAUaQOu57cWjf3GMyifiFkGWmZoz/Gzs2/i27stVys4k1Sp8VP+/nmVE8
+X-Gm-Gg: AYBFou0V6n36V0WZoTvGGv5MkWEn2DrK4FGH8Xk/GkZtwyHcP+JLtV/HWu4m4w3yjSC
+	kosB/juLbfun6FtYZ1T2cYXTq4S8UWD47pquV0Y1CRfGpZ/aNRF+AvWG7QzuiyYdONAhcoviMRo
+	E8iODA1HrBbqVCP4g+qTC5vjDUcxVMtFurPSPgotwe+qvNyT7K3PFoBhbNa+y+cGKj9PGFBZCc2
+	ADoOv6o+KbgxaxLyIGPs04aaYinrTR2X1wTBEQQLKm6dyUz6l58Sr4wn0z5XjQt3wo40wj99/IK
+	HWO3kAM0hX4pWq9fc+2WPn7CLdRGQMWUz9rcaFGptZOWPsaO/N/qFSDz60OZNhBgy1IMuWH8ess
+	vm4OHdOSBTx7gjlNy36HsQvy/2hDcC0askgN+ajxD6LcDuogwBv9GjPZUv22kwDbeu+gB1zjo/T
+	b7rSnyyQGhZtPI8OUNfqvGx5bA7bdGyhT7d1cmWXh+rLM8bOguC8QbhN3Veu61BV1S5wIOohyuO
+	AErZCTRwLXqHX3zIivdt5XWpKlLpnYl6BPvySU9
+X-Received: by 2002:a05:7300:f582:b0:34d:755b:d60b with SMTP id 5a478bee46e88-3537e048b67mr8414896eec.34.1791693949428;
+        Sat, 10 Oct 2026 21:45:49 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:99d7:6eb1:9874:c6be])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca0e64csm21542311eec.10.2026.10.10.21.45.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 21:45:48 -0700 (PDT)
+Date: Sat, 10 Oct 2026 21:45:45 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Karlos Abel <kabel@voidship.net>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] Input: discard pre-registration events and test
+ state seeding
+Message-ID: <assT056aFmzMHmON@google.com>
+References: <20261010180031.7-1-kabel@voidship.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:14c5:b0:4f4:6c04:8ac2 with SMTP id
- 5614622812f47-50c50f2ec7amr4784801b6e.10.1791693214013; Sat, 10 Oct 2026
- 21:33:34 -0700 (PDT)
-Date: Sat, 10 Oct 2026 21:33:33 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6acb119d.bbc4c7f9.15faa7.007b.GAE@google.com>
-Subject: [syzbot] Monthly dri report (Oct 2026)
-From: syzbot <syzbot+list97f547ce633fca2a93be@syzkaller.appspotmail.com>
-To: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261010180031.7-1-kabel@voidship.net>
 
-Hello dri maintainers/developers,
+Hi Karlos,
 
-This is a 31-day syzbot report for the dri subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/dri
+On Sat, Oct 10, 2026 at 02:00:29PM -0400, Karlos Abel wrote:
+> This series prevents input handlers from receiving buffered initialization
+> events after device registration. On a ThinkPad T14 Gen 6, a later LED
+> update flushed a stale SW_RFKILL_ALL event seeded by thinkpad_acpi.
+> The fix drops the pending events and their timestamp before handlers
+> attach, while retaining the seeded switch and absolute-axis state.
 
-During the period, 0 new issues were detected and 0 were fixed.
-In total, 11 issues are still open and 43 have already been fixed.
-There are also 9 low-priority issues.
+Could you explain why these seeded events give you trouble? Is it
+because thinkpad_acpi() forgets to send input_sync() and so the
+timestamp is stale/wrong?
 
-Some of the still happening issues:
+Thanks.
 
-Ref Crashes Repro Title
-<1> 5840    Yes   WARNING in drm_mm_takedown
-                  https://syzkaller.appspot.com/bug?extid=d93b9064fe5f74af3aa3
-<2> 114     Yes   KASAN: slab-use-after-free Read in drm_atomic_helper_wait_for_vblanks (2)
-                  https://syzkaller.appspot.com/bug?extid=0f999d26a4fd79c3a23b
-<3> 60      Yes   general protection fault in drm_object_attach_property
-                  https://syzkaller.appspot.com/bug?extid=1944765c3659f63d3777
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
-
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
-
-You may send multiple commands in a single email message.
+-- 
+Dmitry
