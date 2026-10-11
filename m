@@ -1,201 +1,221 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 874123876D5;
-	Sun, 11 Oct 2026 20:22:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C64E36B914;
+	Sun, 11 Oct 2026 20:23:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791750163; cv=none; b=reswy602hqkyMu9v3qOLqo/KGYIJXRgsb0kDKq4zSA/XeXQ2S1ic7Rwtyv0503MXm8gmDrW1ox5VRZYQY9HFyXLmCLcAgzIjNBjWCxI7/Y4o3gMBNS33Ss/25vD1v0oPYs1EOY0fMNjqUh0UMu1UWJwWJBlO8FPG2W8iWvThYys=
+	t=1791750205; cv=none; b=Yx7XeFZ0otKHqbtZ38rTvRXZD2t34/iWBBXmsmBuIMfqCCWvY3SvIGfOmxPJGBnHSVA/1Lay+I/8oVUYeCRwbpdGAfeo6D1Zldr3kPoat6vkiYQJMNt4Gvl5f4F/nmGiTFF7jsBDYAJANkog1muyMmzO8U3mnvqMI5aA/ysqzgQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791750163; c=relaxed/simple;
-	bh=Grp5wMGxwoD3roPDxCWIS48obqzm7/Wjam0MlNUArCg=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=EHs6er9kBmW2kRPKAtMWfsvOwFcu8SfyQR5PGfdR1aF+3XM1EjyzVnK7L/8ZMmG06UbFzRBf//gAdQ190xZEtA8rdRiGJSo1Iha4vA/fIvuI/oWlySg1loPzv32CDHDrW56f8CHoVnJd2zwKBaDm6kBptBqid3GhmRT7Nogmpko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RxJojhUf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791750205; c=relaxed/simple;
+	bh=IXbpbYsM4yTI7/V1XpKbjW34JLq3mwOafArU9eb6RxA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ki5CQGo3GSSyeZRILb5u8ta5rjvsNyy9D9beI0mvUq7uwPfqvo218F85kVn5I+ExHolkCdIiBG/M2kliFaXfZpVss57aHPpWpDIkCOSVSe7iXaGehgizvqqh7s19Cnx+MJfbLoAbJT223RLMhN7k3/eFo6kgoIZ7wOc/vQZq1ns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=bFklZ2HR; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RxJojhUf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DCF31F0089C;
-	Sun, 11 Oct 2026 20:22:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791750162;
-	bh=JwFNo1jSshDaw7CI1TXs8YLlCOnlboRNo6+TCGY9qDY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=RxJojhUfyN8p25njqCm4Fdw/xzM/VSNJh64/a11dVoY8ihw6z0M2GfpiVyYS7IjI/
-	 SFPZb3o3lQ1LXJC0XcgvEPv1iEHsOuc0IjmYHhxhSVXePK8QBnFxfSrkyVe3T27WQU
-	 kHz1rBXDqZG24C9PxB/3ShNGoquNzamzmaWjEg8daDIlKeAwmytl/SRkpMtcUZReL9
-	 ij4M316W0i+bmszthMO6YaHw6+lVfqJxSMmHEUHo0y9RgoUYns2owhQjFC6akFG11M
-	 9JFTDjcD3uHghYILuyXjEGn+SSua+RQq8NBo0bMMlX6W5RU1oxOTJjNtsnLW7k+J7C
-	 lsmtaf93ovuGw==
-Subject: Re: [PATCH net v2 2/2] eth: fbnic: return the page reference taken
- for a dropped Rx fragment
-From: netdev-bot+sashiko@kernel.org
-To: yhlee@isslab.korea.ac.kr
-Cc: alexanderduyck@fb.com, kuba@kernel.org, netdev@vger.kernel.org,
- kernel-team@meta.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org, daskald@meta.com,
- mohsin.bashr@gmail.com, bobbyeshleman@meta.com, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Sun, 11 Oct 2026 20:22:41 +0000
-Message-ID: <179175016106.434549.17893353841904698919@kernel.org>
-In-Reply-To: =?utf-8?q?=3C57e762aa85874571b506e5b5a55004029b4b2a5d=2E1791659?=
- =?utf-8?q?860=2Egit=2Eyhlee=40isslab=2Ekorea=2Eac=2Ekr=3E?=
-References: =?utf-8?q?=3C57e762aa85874571b506e5b5a55004029b4b2a5d=2E17916598?=
- =?utf-8?q?60=2Egit=2Eyhlee=40isslab=2Ekorea=2Eac=2Ekr=3E?=
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="bFklZ2HR"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2E0F9A1578;
+	Sun, 11 Oct 2026 22:23:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1791750199; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=L8wO+ZXSMap56iObpai0+Exwf/sjcWuAHtMZXUoD+TI=;
+	b=bFklZ2HRoMu3yVIRQlWh1Q+YP0xqvYxAozUlPdp+UsTJAfjd0cZtIx354O5vBueej0npem
+	BBkMq8hvyAiCSND8I8XvpOGQ/S58pjTzw3pfnwRf69dpIoJg5H9FdzKrztYVMUQqo6aA95
+	g9oHR23AmCV4mu2P+8kmQKKFVjbTrnJGRUXhG4kyHTQO9JaxomrQ31DNK+jNr6RJePlHv/
+	q4x6SOV0jdsKNAOIX5tfT5BFWtY2zcIP1gZPSefOD5HuVhhYqmYLyr0tBKdqriwnKW3Ua5
+	XHmcG4P/o4jaH2a6Luqtp6m177x9yL4iaO1sDDhF0jpMDxYFizpYf0C82bPFKg==
+From: Nicolai Buchwitz <nb@tipi-net.de>
+Date: Sun, 11 Oct 2026 22:23:07 +0200
+Subject: [PATCH] serial: amba-pl011: drive the bus during break in RS485
+ mode
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261011-devel-pl011-rs485-break-v1-1-62ff402378c6@tipi-net.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw6CMBCF4Vchs3aStuIFX4W4aMtRRwmSGSUmh
+ He36O58i/PPZFCB0amaSTGJyXMo8JuK8i0OV7B0xRRc2HvnPXeY0PPYr1utPu44KeKDE/I2NYc
+ m1sFReY+Ki3x+5fb8t73THfm15mhZvv0GbGR7AAAA
+X-Change-ID: 20261011-devel-pl011-rs485-break-bec3b979a420
+To: Russell King <linux@armlinux.org.uk>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: Lino Sanfilippo <LinoSanfilippo@gmx.de>, linux-kernel@vger.kernel.org, 
+ linux-serial@vger.kernel.org, Nicolai Buchwitz <nb@tipi-net.de>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+In RS485 mode the transceiver is enabled only while data is sent. A
+break set with TIOCSBRK therefore never reaches the bus, and protocols
+that start each frame with a break, like DMX512, do not work.
 
-Critical: 0 · High: 1 · Medium: 0 (1) · Low: 0
+Handle an active break like a transmission. Enable the transceiver
+before setting the break, after delay_rts_before_send if one is
+configured. When the break ends, stop transmitting unless the TX path
+is still sending data.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+---
+Noticed while implementing a DMX master on a CM5 with its PL011.
+Tested on that board, driving a DMX512 fixture with RS485 mode left
+enabled.
 
-- [High] A device-supplied buffer ID that is in range but names a slot
-  holding no buffer still causes a NULL netmem dereference.
+The 8250 em485 code probably has the same issue. I have no hardware to
+test it, but I'm happy to send a patch if someone is willing to.
+---
+ drivers/tty/serial/amba-pl011.c | 69 +++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 67 insertions(+), 2 deletions(-)
 
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but a second
-  header completion leaks pages.
+diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
+index fcfa9f00aec6..7bef1be5e9b4 100644
+--- a/drivers/tty/serial/amba-pl011.c
++++ b/drivers/tty/serial/amba-pl011.c
+@@ -327,6 +327,7 @@ struct uart_amba_port {
+ 	char			type[12];
+ 	ktime_t			rs485_tx_drain_interval; /* nano */
+ 	enum pl011_rs485_tx_state	rs485_tx_state;
++	bool			rs485_break;
+ 	struct hrtimer		trigger_start_tx;
+ 	struct hrtimer		trigger_stop_tx;
+ 	bool			console_line_ended;
+@@ -1279,6 +1280,11 @@ static inline bool pl011_dma_rx_running(struct uart_amba_port *uap)
+ 	return uap->using_rx_dma && uap->dmarx.running;
+ }
+ 
++static inline bool pl011_dma_tx_queued(struct uart_amba_port *uap)
++{
++	return uap->dmatx.queued;
++}
++
+ #else
+ /* Blank functions if the DMA engine is not available */
+ static inline void pl011_dma_remove(struct uart_amba_port *uap)
+@@ -1330,6 +1336,11 @@ static inline bool pl011_dma_rx_running(struct uart_amba_port *uap)
+ 	return false;
+ }
+ 
++static inline bool pl011_dma_tx_queued(struct uart_amba_port *uap)
++{
++	return false;
++}
++
+ #define pl011_dma_flush_buffer	NULL
+ #endif
+ 
+@@ -1357,6 +1368,10 @@ static void pl011_rs485_tx_stop(struct uart_amba_port *uap)
+ {
+ 	struct uart_port *port = &uap->port;
+ 
++	/* pl011_break_ctl() stops the transmission when the break ends */
++	if (uap->rs485_break)
++		return;
++
+ 	if (uap->rs485_tx_state == SEND)
+ 		uap->rs485_tx_state = WAIT_AFTER_SEND;
+ 
+@@ -1477,8 +1492,12 @@ static enum hrtimer_restart pl011_trigger_start_tx(struct hrtimer *t)
+ 	unsigned long flags;
+ 
+ 	uart_port_lock_irqsave(&uap->port, &flags);
+-	if (uap->rs485_tx_state == WAIT_AFTER_RTS)
+-		pl011_start_tx(&uap->port);
++	if (uap->rs485_tx_state == WAIT_AFTER_RTS) {
++		uap->rs485_tx_state = SEND;
++		/* A break can arm the timer while TX is stopped */
++		if (!uart_tx_stopped(&uap->port))
++			pl011_start_tx(&uap->port);
++	}
+ 	uart_port_unlock_irqrestore(&uap->port, flags);
+ 
+ 	return HRTIMER_NORESTART;
+@@ -1770,16 +1789,60 @@ static void pl011_break_ctl(struct uart_port *port, int break_state)
+ {
+ 	struct uart_amba_port *uap =
+ 	    container_of(port, struct uart_amba_port, port);
++	struct tty_port *tport = &port->state->port;
++	bool rs485 = port->rs485.flags & SER_RS485_ENABLED;
+ 	unsigned long flags;
+ 	unsigned int lcr_h;
+ 
+ 	uart_port_lock_irqsave(&uap->port, &flags);
++
++	/*
++	 * In RS485 mode the transceiver only drives the bus while
++	 * transmitting. Treat a break as a transmission.
++	 */
++	if (rs485 && break_state == -1 && !uap->rs485_break) {
++		uap->rs485_break = true;
++
++		/* Pending data already enabled the transceiver */
++		if (uap->rs485_tx_state != SEND &&
++		    uap->rs485_tx_state != WAIT_AFTER_RTS)
++			pl011_rs485_tx_start(uap);
++
++		/*
++		 * Wait out delay_rts_before_send before starting the break.
++		 * The state stays WAIT_AFTER_RTS, so the TX path behaves as
++		 * without a break. Start it here if trigger_start_tx is late.
++		 */
++		if (uap->rs485_tx_state == WAIT_AFTER_RTS) {
++			uart_port_unlock_irqrestore(&uap->port, flags);
++			msleep(port->rs485.delay_rts_before_send);
++			uart_port_lock_irqsave(&uap->port, &flags);
++
++			if (uap->rs485_tx_state == WAIT_AFTER_RTS) {
++				hrtimer_try_to_cancel(&uap->trigger_start_tx);
++				uap->rs485_tx_state = SEND;
++				if (!uart_tx_stopped(port))
++					pl011_start_tx(port);
++			}
++		}
++	}
++
+ 	lcr_h = pl011_read(uap, REG_LCRH_TX);
+ 	if (break_state == -1)
+ 		lcr_h |= UART01x_LCRH_BRK;
+ 	else
+ 		lcr_h &= ~UART01x_LCRH_BRK;
+ 	pl011_write(lcr_h, uap, REG_LCRH_TX);
++
++	if (break_state == 0 && uap->rs485_break) {
++		uap->rs485_break = false;
++		/* An active TX path stops the transmission when it is done */
++		if (rs485 && (uart_tx_stopped(port) ||
++			      (!pl011_dma_tx_queued(uap) &&
++			       kfifo_is_empty(&tport->xmit_fifo))))
++			pl011_rs485_tx_stop(uap);
++	}
++
+ 	uart_port_unlock_irqrestore(&uap->port, flags);
+ }
+ 
+@@ -2100,6 +2163,7 @@ static void pl011_shutdown(struct uart_port *port)
+ 	hrtimer_cancel(&uap->trigger_stop_tx);
+ 
+ 	uart_port_lock_irq(port);
++	uap->rs485_break = false;
+ 	if (uap->rs485_tx_state != OFF)
+ 		pl011_rs485_tx_stop_now(uap);
+ 	uart_port_unlock_irq(port);
+@@ -2396,6 +2460,7 @@ static int pl011_rs485_config(struct uart_port *port, struct ktermios *termios,
+ 	struct uart_amba_port *uap =
+ 		container_of(port, struct uart_amba_port, port);
+ 
++	uap->rs485_break = false;
+ 	if (port->rs485.flags & SER_RS485_ENABLED)
+ 		pl011_rs485_tx_stop(uap);
+ 
 
---
+---
+base-commit: 36844ea19656fb41278799ef3d5cd52120d89149
+change-id: 20261011-devel-pl011-rs485-break-bec3b979a420
 
-eth: fbnic: return the page reference taken for a dropped Rx fragment
+Best regards,
+--  
+Nicolai Buchwitz <nb@tipi-net.de>
 
-When xdp_buff_add_frag() fails in fbnic_add_rx_frag(), this patch restores
-the sub1 rx_buf pagecnt_bias. The page reference that
-fbnic_page_pool_get_data() took for a fragment past MAX_SKB_FRAGS is then
-returned to the page pool by fbnic_page_pool_drain().
-
-> diff --git a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
-> index b4ca9f7e8bb2e..ba663fe7598f1 100644
-> --- a/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
-> +++ b/drivers/net/ethernet/meta/fbnic/fbnic_txrx.c
-> @@ -1076,6 +1076,8 @@ static void fbnic_add_rx_frag(struct fbnic_napi_vector *nv, u64 rcd,
->  
->  	added = xdp_buff_add_frag(&pkt->buff, netmem, pg_off, len, truesize);
->  	if (unlikely(!added)) {
-> +		/* Give back the reference fbnic_page_pool_get_data() took */
-> +		qt->sub1.rx_buf[pg_idx].pagecnt_bias++;
->  		pkt->add_frag_failed = true;
->  		netdev_err_once(nv->napi.dev,
->  				"Failed to add fragment to xdp_buff\n");
-
-[Severity: High]
-The new line runs only after netmem has already been used. That raises a
-question about the buffer ID check earlier in this function.
-
-The previous patch in this series, "eth: fbnic: validate the Rx completion
-buffer index", added only an upper bound check in fbnic_add_rx_frag():
-
-	if (unlikely(pg_idx > qt->sub1.size_mask)) {
-		pkt->add_frag_failed = true;
-		return;
-	}
-
-	netmem = fbnic_page_pool_get_data(qt, pg_idx);
-
-fbnic_pkt_prepare() has the same kind of check on hdr_pg_idx against
-qt->sub0.size_mask. Its comment says:
-
-	/* A buffer ID the device never got from us cannot name a buffer we
-	 * own, so drop the packet instead of running off the end of rx_buf[].
-	 */
-
-Can an in-range ID still name a slot that holds no buffer?
-
-rx_buf[] comes from kvzalloc(), and fbnic_fill_bdq() only posts
-fbnic_desc_unused() slots:
-
-	return (ring->head - ring->tail - 1) & ring->size_mask;
-
-So the slot at ring->tail is never posted. fbnic_page_pool_drain() also
-clears every slot it drains:
-
-	rx_buf->netmem = 0;
-
-If a PAY_AL completion names sub1.tail, fbnic_page_pool_get_data() returns
-0. Would the dereference of NULL then happen in NAPI context? It could
-happen in page_pool_dma_sync_netmem_for_cpu(), or along this path:
-
-xdp_buff_add_frag()->netmem_is_pfmemalloc()->page_is_pfmemalloc(NULL)
-
-The HDR_AL case looks similar. If the completion names sub0.tail,
-fbnic_page_pool_get_head() returns netmem_to_page(0), which is NULL. In
-fbnic_pkt_prepare(), the dma_sync_single_range_for_cpu() call then passes
-page_pool_get_dma_addr(page), which dereferences it.
-
-fbnic_clean_bdq() also checks hw_head only against size_mask. Suppose
-fbnic_fill_bdq() left extra slots unposted after a page_pool allocation
-failure. Could an in-range hw_head past tail make the drain loop call
-page_pool_unref_netmem(0, ...)? That would be the same null-ptr-deref that
-the earlier commit message says it fixes.
-
-An in-range ID that names a slot which was drained and refilled would
-instead attach a recycled page_pool page. The device never wrote that page
-for this packet.
-
-Should the check also require rx_buf[idx].netmem to be non-zero, or idx to
-fall inside the posted window between ring->head and ring->tail?
-
-[Severity: Medium]
-This is a pre-existing issue and was not introduced by this patch. It is a
-separate path from the xdp_buff_add_frag() failure fixed here. Can a second
-header completion leak the pages of the packet that is still pending?
-
-fbnic_clean_rcq() calls fbnic_pkt_prepare() for every
-FBNIC_RCD_TYPE_HDR_AL completion. Only the FBNIC_RCD_TYPE_META case sets
-pkt->buff.data_hard_start back to NULL. fbnic_pkt_prepare() warns about a
-pending packet but carries on:
-
-	/* data_hard_start should always be NULL when this is called */
-	WARN_ON_ONCE(pkt->buff.data_hard_start);
-	...
-	page = fbnic_page_pool_get_head(qt, hdr_pg_idx);
-	...
-	xdp_init_buff(&pkt->buff, frame_sz, &qt->xdp_rxq);
-	...
-	xdp_prepare_buff(&pkt->buff, hdr_start, headroom,
-			 len - FBNIC_RX_PAD, true);
-	...
-	pkt->add_frag_failed = false;
-
-Say the device sends HDR_AL, then some PAY_AL, then a second HDR_AL with no
-META in between. The second HDR_AL has these effects:
-
-- xdp_init_buff() clears XDP_FLAGS_HAS_FRAGS.
-- xdp_prepare_buff() replaces data_hard_start. This also moves the shinfo
-  that xdp_get_shared_info_from_buff() finds.
-- add_frag_failed is reset.
-
-At the next META, fbnic_put_pkt_buff() only releases what the current
-pkt->buff describes. The earlier head page and all sub1 fragments already
-attached to it can no longer be reached. That includes fragments of a
-packet that already hit the MAX_SKB_FRAGS failure handled in this patch.
-
-Each of those references was already subtracted from pagecnt_bias. Does
-this leave fbnic_page_pool_drain() one short for each lost reference? If
-so, the pages never return to the pool and are still counted as inflight
-when the pool is destroyed.
-
-The warn-and-continue logic seems to date back to a29b8eb6e533 ("eth:
-fbnic: Add basic Rx handling"). The shinfo frag tracking came in with
-61f9a066c309 ("eth: fbnic: Use shinfo to track frags state on Rx").
-
-One option would be to call fbnic_put_pkt_buff() on a stale pending packet
-before the new one is prepared. That would be a separate change from this
-one.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1791659860.git.yhlee%40isslab.korea.ac.kr
