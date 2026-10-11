@@ -1,171 +1,215 @@
-Received: from mail-qk2-f11.google.com (mail-qk2-f11.google.com [74.125.230.203])
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E68AD3822B4
-	for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 23:55:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.203
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC9FB1CAAC
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 00:03:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791676533; cv=none; b=cnNuWJO0efzSl2WX2dfCeMbWeTRlfoQkaC2jwrKzudP7REhazQS/TCVIAkszkaR14hv/9pco6BDC4Tq1d2FluBjJH8oaPpizMTbsZJbKxyKzEIMC2jprR1iL//n0mDbT+5cRqDCLNRwAavIC6eRoxJ6lcmM7sz7Ud02PBs3UEB8=
+	t=1791677017; cv=none; b=mZf5qT2fnSrQSX/09H6ZY/hQAP1X5KGeC0KSBQxxq8MNouY2+zLtA9DKd6ubiKGRYpghnAdrMdRGNu0EreEzmesyCNlntEEB1lmEDI4tL/9I/URVAqqlWNaMRNjB3USLKuJI+/hqRz1A1Bs6vz7NFYERV+Bg2arRA/GK5XTXln4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791676533; c=relaxed/simple;
-	bh=lUHNvRVVJKsGAF3s179NCWP69O/w7AOonPfBpTHjQoU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pro/UJS/giTfuYHRC8cakA68VHuCYVldlSfBbBBfXjTjdbLMHru6sTeGwAhiR1FKvZOIw2We99o3gD1j128j9Yo0pgnVrCV33oBWWN7j6hbs57nbx5qVjUbD3jobhN9f2yrQ5gRuAoF7LaTFjyavuU+qxQEIhMavEleIOPUmFk8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DW9kK6Jk; arc=none smtp.client-ip=74.125.230.203
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DW9kK6Jk"
-Received: by mail-qk2-f11.google.com with SMTP id d75a77b69052e-5350beb1d49so8784791cf.1
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 16:55:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791676531; x=1792281331; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9FybNLzC2qT6eMhACQiNU/7Tni+cNIjGAb7dFyWED4A=;
-        b=DW9kK6JkRcb1S1Fa2ZPI37/h5voOXN1Z9hSyPRJkSoi6luWeA/ChLB+TRBvvVE0Hrp
-         pxaFVQR7A2F63X7xs0yUyy/pZkWK6F2EcIbSeYmzH81A0OpXje8UQnJBvHQ8iTUYZegj
-         rxZuJtjOYuHNlOn9IZDNy9YzmNzilIYNnT8+Nd0VQVKUsMFtU5YndsP0ccAGsv7tcGi1
-         cb+kKWxjd9CUIQ0WmvntF6cuf2PXnmAzaQtDyQYsHPtcyv/TNlsZiujANWs5zsD9Gy+P
-         5X7WAoaqzVHOih0KNK8Qwlvxtv99hG7dAxDwjgX/o2emFcMMHLCRoyesp+mNNZezMDqr
-         VRyA==
+	s=arc-20240116; t=1791677017; c=relaxed/simple;
+	bh=QSOP/kYCpEGF7svKaFsq3hzt3Oy8wWXLUjk1jQb3R38=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=PUR4yc4rqdlQNvn8P/RoWrku8W+nkmIWPCwzm+2EOO8lRBRfV5rj4BcgyK7HNahQWt2VC0V8sTJE+fVJqkSWmuzlj1kjnZhyWXh/ZepnYnmaywKBhpseBgt6T8iqEGv6uaV38j3D42v03lUoBrqnpWffCC5SYyiiYLRxV7qR6DU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4dab94dc3e7so1773650b6e.0
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 17:03:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791676531; x=1792281331;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9FybNLzC2qT6eMhACQiNU/7Tni+cNIjGAb7dFyWED4A=;
-        b=UkZo01NlPujqPf8FSlR7nWyXWKt5C+Rgr1MzqcLd5QDsJgnwnVOPBzdfmg8CHW5L4x
-         r9FbTXC/yPbfF7iJL1MDWXlNQnwL9mI7iasPEPMN7DsaDxc/Hk/0GeQ7dmy2WqlhRU85
-         J+sXPLNrty1Vq5wyZDLY2Rl9IT4s7qjQS+PJD6oi8dba2YS7M7J7jx8RIX25gClAGLPB
-         s9aM1E65QQdatUPY/wq5BG/kxZOY1VjMkB693lA9FqfBeQm/KB+iLfkd4/vidMViCl72
-         IzcTWRD80fYyzuxjbFq66R4K22CNYPpgFpOm7Vg1b4Uk+sxeDANK97gJD6OXTc2gHl78
-         lhNA==
-X-Forwarded-Encrypted: i=1; AKwUvBwWd+rbBTpzwQouMWNmVjWs6WPFCTbpOpG7fwsZs3iLKzDYe7udC10BREZ/v1RDcx2H4N3eCmtK0jiIlUE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ+V4IE3waxoUPbqqQGQHJ6tCngIJVuuplc0+8x77ILfdyVx0k/
-	MMEfnszWvKDr/JwZ4TVp/w8pJHUFGyw18EzewZ7WZR/FM668CnO8yOg7
-X-Gm-Gg: AYBFou1KaC5T9jUokb9Cm/CZPaDk/mrpn2f4RwXrcDbdbuhOwKTRkJGZUsz84Z+byGz
-	pbWvyBFncWXk36B1krao2lOi0lp4QfAqSbErruwdkIeKaJPfW3/DNEdainyprZykH0dCwolU961
-	3IExbB6MF6TuWS8mjelpEiBYOOq6bqDmk3grzv+31TWgP1j17VTrbRBL0dgIKPvhOGBW9OqZ9YO
-	WmmHy7EAnESc5LxPfHTVe4Sl553g4Zbd0AaCPMOH5TKRqsBau5YlQuiJpZjPozbqpSbapJnyyDE
-	h2gu/zzbauyB8qB6cFFRNmdRGDAX8PrJCWF0yePjWi33qviVE/E+F+DoV41jV8bPGhglGlju4GN
-	SGXzxawbnPsW99s36qZXKan0fwgnKEgN1tWFbtJETPTOKxqiE4R59F7WmVaRxukWrsyH0ahkSRq
-	ifGarQIvBS/BoSgZR0F+dA+/bRSbcdndzOqYEI4yRJA6FkIBYt7kHg2y1RyNK009kmD0c=
-X-Received: by 2002:a05:622a:1f8b:b0:533:96b4:8dd1 with SMTP id d75a77b69052e-5359faeacd8mr96963691cf.26.1791676530862;
-        Sat, 10 Oct 2026 16:55:30 -0700 (PDT)
-Received: from omarchy ([2601:804:8780:3df1:6ff:277e:31c7:ac13])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b755c35sm49184081cf.15.2026.10.10.16.55.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 16:55:29 -0700 (PDT)
-From: zoan37 <agentzoan@gmail.com>
-To: Kyrie Wu <kyrie.wu@mediatek.com>
-Cc: Tiffany Lin <tiffany.lin@mediatek.com>,
-	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
-	Yunfei Dong <yunfei.dong@mediatek.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Hans Verkuil <hverkuil@xs4all.nl>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Nathan Hebert <nhebert@chromium.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Irui Wang <irui.wang@mediatek.com>,
-	George Sun <george.sun@mediatek.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Andrzej Pietrasiewicz <andrzejtp2010@gmail.com>,
-	Yilong Zhou <yilong.zhou@mediatek.com>,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH v11 00/10] Enable video decoder & encoder for MT8189
-Date: Sat, 10 Oct 2026 19:55:18 -0400
-Message-ID: <20261010235518.1078376-1-agentzoan@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1791623422.git.kyrie.wu@mediatek.com>
-References: <cover.1791623422.git.kyrie.wu@mediatek.com>
+        d=1e100.net; s=20260707; t=1791677014; x=1792281814;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CHGlembCHFZmJ6IcSYqXwq5eMI0DR636Yv8gH9CHiDE=;
+        b=Yta06s6LlcjAFlvs0rjPNb9jndzafb3hCMfzP4IWoEEnEnmAq6rLj0n/jlpq0GE322
+         QijvFUPgcum5qTMVC2rudiuBn3M6+ig5e1BZuw6LLsarlIU6y4vHeNXa1PKADlGHC4xN
+         nQFz1aXZ1BCGyRBQ71lVYyeNKJTjRoqcqGCv+iqsNIe6Riy5NtOhdZ+rGTG1vKb/IdFG
+         iUgNwPgJ8mgQvRlqgsCfV9aDubJNxz4Ru7tFuK3gAzUYyRC3dNoc0na8Wb7rF2qy3d0f
+         zwFIA3O4f6KKSANZFk+LmbpAv7dX1Iy0gM9O0Jr4TRNklArgnn1kRTrz0l5FcgppMuqI
+         TF9w==
+X-Forwarded-Encrypted: i=1; AKwUvBxxBP/h9mfZQiX//Qswr09rYBgzCf8dHad7KjfV+dVSOl89MIjNdQXXkGdcu1g+blTmWUZQlbpzaCsdbo0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYImO5KzFcxakDcPz4IPUYn5X9suC6R6I7TxovA2bnq0n7v9atC5
+	hba6BJ4x/ZfnNNFNbHO9ZuvtqIqglNGObGMOf7PEej6THOswSDHzJpypmaKDv/1hrSnvHVgtE6f
+	h2iAkST7kGIvZ7UC7JZdxn2NTZId/fpEDYwI3vOwEFQTZqntoY0ogXX44bps=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:e89:b0:4d5:27da:a496 with SMTP id
+ 5614622812f47-50c54842256mr4789336b6e.48.1791677014736; Sat, 10 Oct 2026
+ 17:03:34 -0700 (PDT)
+Date: Sat, 10 Oct 2026 17:03:34 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6acad256.a150a118.27e199.0030.GAE@google.com>
+Subject: [syzbot] [x25?] inconsistent lock state in x25_kill_by_neigh (2)
+From: syzbot <syzbot+300375dfd44665f063a6@syzkaller.appspotmail.com>
+To: davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, 
+	kuba@kernel.org, linux-kernel@vger.kernel.org, linux-x25@vger.kernel.org, 
+	ms@dev.tdt.de, netdev@vger.kernel.org, pabeni@redhat.com, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Kyrie,
+Hello,
 
-Thanks for the series. Test report from an MT8189 Chromebook (Lenovo
-IdeaPad Slim 3 Chromebook, board "quigon" of the skywalker family):
-next-20261008 with the other posted MT8189 series and this board's DT,
-plus MT8196 decoder v8, MT8196 encoder v8 and this v11 on top, and
-linux-firmware's mediatek/mt8189/scp.img (FW version e3c0782 Jan 30
-2026; identical to the image ChromeOS ships).
+syzbot found the following issue on:
 
-VP9 decode: 240/240 frames bit-exact (1080p test stream through
-libva-v4l2-request, checked against software decoding).
+HEAD commit:    602042bf29f6 Merge tag 'wq-for-7.3-rc6-fixes' of git://git..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=13d66715580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=929e4854a828f434
+dashboard link: https://syzkaller.appspot.com/bug?extid=300375dfd44665f063a6
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=115d5f25580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=146adff5580000
 
-H.264 decode: the SCP hangs (watchdog timeout) and every frame is wrong.
-The firmware has 'reserved' at the end of struct
-vdec_h264_slice_info_ext (after crc[8]), not after 'timeout'; with the
-current layout every slice parameter lands 8 bytes early. With only
-this change on top of v11, H.264 decodes 240/240 frames bit-exact:
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-602042bf.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/c804d2e9b640/vmlinux-602042bf.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/d6cd162ae59e/bzImage-602042bf.xz
 
-  	u16 timeout;
- -	u32 reserved;
-  	u64 vdec_fb_va;
-  	u32 crc[8];
- +	u32 reserved;
-  };
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+300375dfd44665f063a6@syzkaller.appspotmail.com
 
-I don't know which layout the MT8188/MT8195 firmware uses, so this may
-need to depend on the platform or the firmware.
+================================
+WARNING: inconsistent lock state
+syzkaller #0 Not tainted
+--------------------------------
+inconsistent {SOFTIRQ-ON-W} -> {IN-SOFTIRQ-W} usage.
+ksoftirqd/0/15 [HC0[0]:SC1[1]:HE1:SE0] takes:
+ffff88802c938260 (sk_lock-AF_X25){+.?.}-{0:0}, at: lock_sock include/net/sock.h:1713 [inline]
+ffff88802c938260 (sk_lock-AF_X25){+.?.}-{0:0}, at: x25_kill_by_neigh+0x168/0x280 net/x25/af_x25.c:1778
+{SOFTIRQ-ON-W} state was registered at:
+  lock_acquire kernel/locking/lockdep.c:5942 [inline]
+  lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+  lock_sock_nested+0x41/0xf0 net/core/sock.c:3837
+  lock_sock include/net/sock.h:1713 [inline]
+  x25_bind+0x221/0x5c0 net/x25/af_x25.c:694
+  __sys_bind_socket net/socket.c:1945 [inline]
+  __sys_bind_socket net/socket.c:1937 [inline]
+  __sys_bind+0x1a9/0x260 net/socket.c:1976
+  __do_sys_bind net/socket.c:1981 [inline]
+  __se_sys_bind net/socket.c:1979 [inline]
+  __x64_sys_bind+0x72/0xb0 net/socket.c:1979
+  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+  do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+irq event stamp: 357794
+hardirqs last  enabled at (357794): [<ffffffff81ca5245>] __local_bh_enable_ip+0xa5/0x120 kernel/softirq.c:478
+hardirqs last disabled at (357793): [<ffffffff81ca526e>] __local_bh_enable_ip+0xce/0x120 kernel/softirq.c:455
+softirqs last  enabled at (357466): [<ffffffff81ca4d98>] run_ksoftirqd kernel/softirq.c:1099 [inline]
+softirqs last  enabled at (357466): [<ffffffff81ca4d98>] run_ksoftirqd+0x38/0x60 kernel/softirq.c:1091
+softirqs last disabled at (357471): [<ffffffff81ca4d98>] run_ksoftirqd kernel/softirq.c:1099 [inline]
+softirqs last disabled at (357471): [<ffffffff81ca4d98>] run_ksoftirqd+0x38/0x60 kernel/softirq.c:1091
 
-HEVC: MT8189 is pure single core, but the firmware capability makes the
-driver advertise HEVC_SLICE (and AV1). The HEVC backend only implements
-the LAT + core flow, and setting an HEVC format (here libva-v4l2-request
-probing its profiles when ffmpeg opened the VA-API device) sends an
-init message that crashes the SCP:
+other info that might help us debug this:
+ Possible unsafe locking scenario:
 
-  mtk-scp 1c400000.scp: SCP watchdog timeout! 0x0
-  remoteproc remoteproc0: crash detected in scp: type watchdog
-  scp ipi 14 ack time out !
-   scp_ipi_send+0x2ec/0xd5c [mtk_scp_ipi]
-   vpu_dec_init+0xe0/0x29c [mtk_vcodec_dec]
-   vdec_hevc_slice_init+0x88/0x250 [mtk_vcodec_dec]
-   vidioc_vdec_s_fmt+0x2a8/0x450 [mtk_vcodec_dec]
+       CPU0
+       ----
+  lock(sk_lock-AF_X25);
+  <Interrupt>
+    lock(sk_lock-AF_X25);
 
-Not advertising HEVC and AV1 on MTK_VDEC_PURE_SINGLE_CORE (clearing
-MTK_VDEC_FORMAT_HEVC_FRAME and MTK_VDEC_FORMAT_AV1_FRAME from
-dec_capability after reading it from the firmware) avoids it; that's
-what I run.
+ *** DEADLOCK ***
 
-H.264 encode (patches 9 and 10 on MT8196 encoder v8): works. A 720p30
-test pattern at 4 Mbit/s through ffmpeg's h264_v4l2m2m gives valid High
-profile H.264, 60/60 frames, about 49 dB PSNR against the source on the
-first frames.
+locks held by ksoftirqd/0/15: 1, last CPU#0:
+ #0: ffffffff8edec5a0 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffffffff8edec5a0 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffffffff8edec5a0 (rcu_read_lock){....}-{1:3}, at: netif_receive_skb_core+0x25/0x1a0 net/core/dev.c:6321
 
-For patches 9 and 10:
-Tested-by: zoan37 <agentzoan@gmail.com>
+stack backtrace:
+CPU: 0 UID: 0 PID: 15 Comm: ksoftirqd/0 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_usage_bug.part.0+0x258/0x340 kernel/locking/lockdep.c:4086
+ print_usage_bug kernel/locking/lockdep.c:4054 [inline]
+ valid_state kernel/locking/lockdep.c:4100 [inline]
+ mark_lock_irq kernel/locking/lockdep.c:4311 [inline]
+ mark_lock+0x956/0x1020 kernel/locking/lockdep.c:4797
+ mark_usage kernel/locking/lockdep.c:4686 [inline]
+ __lock_acquire+0x7f1/0x1f40 kernel/locking/lockdep.c:5242
+ lock_acquire kernel/locking/lockdep.c:5942 [inline]
+ lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+ lock_sock_nested+0x41/0xf0 net/core/sock.c:3837
+ lock_sock include/net/sock.h:1713 [inline]
+ x25_kill_by_neigh+0x168/0x280 net/x25/af_x25.c:1778
+ x25_lapb_receive_frame+0x4b1/0x1000 net/x25/x25_dev.c:138
+ __netif_receive_skb_one_core+0x1b2/0x1e0 net/core/dev.c:6297
+ netif_receive_skb_core+0x5a/0x1a0 net/core/dev.c:6322
+ lapbeth_napi_poll+0x42/0xc0 drivers/net/wan/lapbether.c:100
+ __napi_poll.constprop.0+0xaf/0x450 net/core/dev.c:7830
+ napi_poll net/core/dev.c:7893 [inline]
+ net_rx_action+0xa40/0xf20 net/core/dev.c:8050
+ handle_softirqs+0x1e6/0x9d0 kernel/softirq.c:645
+ run_ksoftirqd kernel/softirq.c:1099 [inline]
+ run_ksoftirqd+0x38/0x60 kernel/softirq.c:1091
+ smpboot_thread_fn+0x3d3/0xab0 kernel/smpboot.c:160
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+BUG: sleeping function called from invalid context at net/core/sock.c:3839
+in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 15, name: ksoftirqd/0
+preempt_count: 100, expected: 0
+RCU nest depth: 1, expected: 0
+INFO: lockdep is turned off.
+Preemption disabled at:
+[<ffffffff81ca41d3>] softirq_handle_begin kernel/softirq.c:486 [inline]
+[<ffffffff81ca41d3>] handle_softirqs+0xf3/0x9d0 kernel/softirq.c:621
+CPU: 0 UID: 0 PID: 15 Comm: ksoftirqd/0 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ __might_resched.cold+0x1dc/0x222 kernel/sched/core.c:9264
+ lock_sock_nested+0x52/0xf0 net/core/sock.c:3839
+ lock_sock include/net/sock.h:1713 [inline]
+ x25_kill_by_neigh+0x168/0x280 net/x25/af_x25.c:1778
+ x25_lapb_receive_frame+0x4b1/0x1000 net/x25/x25_dev.c:138
+ __netif_receive_skb_one_core+0x1b2/0x1e0 net/core/dev.c:6297
+ netif_receive_skb_core+0x5a/0x1a0 net/core/dev.c:6322
+ lapbeth_napi_poll+0x42/0xc0 drivers/net/wan/lapbether.c:100
+ __napi_poll.constprop.0+0xaf/0x450 net/core/dev.c:7830
+ napi_poll net/core/dev.c:7893 [inline]
+ net_rx_action+0xa40/0xf20 net/core/dev.c:8050
+ handle_softirqs+0x1e6/0x9d0 kernel/softirq.c:645
+ run_ksoftirqd kernel/softirq.c:1099 [inline]
+ run_ksoftirqd+0x38/0x60 kernel/softirq.c:1091
+ smpboot_thread_fn+0x3d3/0xab0 kernel/smpboot.c:160
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
 
-Two board-side notes from bringing this up, in case they help whoever
-writes the MT8189 DT and multimedia clocks: the VDE0 power domain needed
-the larb4 gate as a subsys clock ("vdec-0", as in ChromeOS's
-mt8189.dtsi), otherwise only the first decode after VDE0 powered up
-worked; and the VEN1 clock controller must not use runtime PM (VEN0
-then failed to prepare its subsys clock with -EACCES in the noirq resume
-phase, genpd marked it on anyway, and every resume warned about
-"already disabled" clocks).
 
-The board's patches and notes are at
-https://github.com/zoan37/lenovo-slim3-chromebook-omarchy
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-The testing and the fixes were done with help from an AI assistant
-(Claude).
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-Thanks,
-zoan37
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
