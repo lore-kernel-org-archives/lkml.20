@@ -1,154 +1,313 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70D2A54705C;
-	Sun, 11 Oct 2026 07:10:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A1D23BF91;
+	Sun, 11 Oct 2026 07:13:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791702630; cv=none; b=drJakggKo1rtdHDCDGtG9x9A/ytDCOnXO1RpMH6nP3btmCdiAf/ORRI4rjdDntSnCLxgu9sTMxABJr+ctENpOE492I7ieEk/sdCUuz+/ehB/5tRApkPJ/TPmqRx2GDyc4t8K8Ol3wbnOorR/D73kPZ5uh6zwyO9mpWObe7VyVP0=
+	t=1791702795; cv=none; b=a4PNFUe5oPGzFM9f64ahehUPzTdQd/S5eKX6GZnDsGjk4hWjp8cWCmyBSmESxw9px4DiKQgzdRUitSN+Hoq4RBfng6PutZoyVb9FGNTWUJDOn1c+Mvdtbfxr5sw6v1hrobSUR/eT72rtu7gSsR+u+5B96m86f7Pco7GsyuW85Ro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791702630; c=relaxed/simple;
-	bh=yJzyCXImaua9bP/WfED/VttSQroVOGPZKTgD8S/8vCk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=nrQNAEn7+y3t2NhNxsdop242Xr9fDztS2j4xjYVkedMSDQh1f4dXXpk/UaioQ6kAsRLVbR3gBa6rZuPcWzbNa/5O7oWFsvmxX3C+IjVr+Opk6ye4Sz0Wt7nLLqyREWYn6Sg4dF5CCIOH5kjzIMmRG3TftGLUFrG9+A7WMfCL5Y4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K7MIoyxm; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791702795; c=relaxed/simple;
+	bh=UNzFcPb9iLWtp+2/arO5644kd4QaDQJ80HY5ydr9uaU=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=hdIZgGgzc9yVCv8PUCL5ntA/Ktkk0XozqmKRL7EJ38KOrmU7sW+U5qylA5eF1Y9pMStyBFWakf/IhtNPPHLr+WnYF8E5+iuWqHiecFJa7erH24Ja6YWRtZBpH411QS/O+2cGQ74nRSsY0o+oajvkv0f7d+70nwb7fgS90/Spbxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mNBvxFeF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K7MIoyxm"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 119A9C2BCF5;
-	Sun, 11 Oct 2026 07:10:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791702630;
-	bh=yJzyCXImaua9bP/WfED/VttSQroVOGPZKTgD8S/8vCk=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=K7MIoyxmrE2No0mjb56BkWDN1skbVKiICPl6oVo5MT7uV1kbRjDtNs4P5QGx6LDaq
-	 YeWVOawmVkohGXio+2O0hsCapcYsxWcbIQg4o8X1/cVxfpfCoFGlHKFGRVL/wuQU/q
-	 3r6u6C9HeLgtN8/OAyuYLjSLFMSpqA6/tj9M9thpxwX0BJfYukbcEc5xT7tMMQGLpX
-	 jQ2WVMaOKNa/tq2IXD+DIpuomEnQP6iptHsJsTb07l906xgxl8Z5YMLZMxKNE87Ydp
-	 C+8GFRZICjDGZRoJ2S75/gQoUJLqPR24A9yrUOYLJ8T7JRpofqxnPgzVymP3P5Ru5T
-	 hsXCIR4sYUz/Q==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F1FC0CA9EC7;
-	Sun, 11 Oct 2026 07:10:29 +0000 (UTC)
-From: Momo Chiyoda via B4 Relay <devnull+risingnusun.gmail.com@kernel.org>
-Date: Sun, 11 Oct 2026 16:10:28 +0900
-Subject: [PATCH RFC wireless-next] wifi: mac80211: wait longer for the
- assoc response after TX ACK
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mNBvxFeF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A41E81F0089B;
+	Sun, 11 Oct 2026 07:13:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791702793;
+	bh=lnGwD9fE2Mz8xFJXNMFKNTcck4mpALjdDYG863eHPdI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=mNBvxFeFaQ4RhUJs3pOO9esgYpSRfnJA8rmK2arh9G/rUwy4ig//gn9maQac8bZ3N
+	 kI4P1C6YUU/GKTPYharXt72o8oCbhfVrnPbdYvz4Nhgc0IXDe5uJTaAQGD0kgNU3JR
+	 o+3Ow6fhxQSmE9TSIdes/QqpV3uCsvZqyXpY8QapuL8FfTpIxLAm6WilJlwMADOhwz
+	 XvqDjdIKNQFrsr/kg/ajPKxMkJKmdmkqNvmUCKwpdL6U7tWS19PbWxQVXuoLk6JHr0
+	 /y+SofWLS1I2UsQ77q2JprTYs7XayWd/CQTaYJdZ7TyCvIPsHqd0mIMeYMZJ0c9FnR
+	 AUmmcyAu6V5aQ==
+Subject: Re: [PATCH net] net: bgmac: clear TX slots when freeing the ring
+From: netdev-bot+sashiko@kernel.org
+To: rosenp@gmail.com
+Cc: netdev@vger.kernel.org, rafal@milecki.pl,
+ bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ nbd@openwrt.org, linux-kernel@vger.kernel.org
+Date: Sun, 11 Oct 2026 07:13:12 +0000
+Message-ID: <179170279214.434549.15109616376617039657@kernel.org>
+In-Reply-To: <20261010070418.84457-1-rosenp@gmail.com>
+References: <20261010070418.84457-1-rosenp@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261011-assoc-timeout-rfc-v1-1-c6cd52166968@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQrCMBAAv1L23IUkQqBeBR/gtfSQpltd0ER2U
- 1so/bvR4wzM7KAkTArnZgehDyvnVMG2DcRHSHdCniqDM85bYy0G1Ryx8IvyUlDmiJ0/jW7yrjM
- mQO3eQjNv/2cPt+vl51YWepIqJtoKDMfxBRkYrs95AAAA
-X-Change-ID: 20261011-assoc-timeout-rfc-963b2d62900a
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Emmanuel Grumbach <emmanuel.grumbach@intel.com>, 
- Momo Chiyoda <risingnusun@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791702629; l=3760;
- i=risingnusun@gmail.com; s=20261011; h=from:subject:message-id;
- bh=LOdM8a/v+emxV+3GmbWc+lYJdyPdcTUSe9gIToWDKyA=;
- b=G6UVCe/v5uILeWL4BKWHHduBF9xXMArOQtDkI5qXFtigNsrkT3DhWMfs1TV3mUVyuC4boOns1
- JoIj13gGPG/CMsqQY6B5ncsQMi+hguxSBa2bbiQCMUi0cvfOn5XpTgQ
-X-Developer-Key: i=risingnusun@gmail.com; a=ed25519;
- pk=ExWtmy9phzUICIOOPUfUaW25aiqDA86U5ztzz8t7T4I=
-X-Endpoint-Received: by B4 Relay for risingnusun@gmail.com/20261011 with
- auth_id=1153
-X-Original-From: Momo Chiyoda <risingnusun@gmail.com>
-Reply-To: risingnusun@gmail.com
 
-From: Momo Chiyoda <risingnusun@gmail.com>
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-After the (Re)Association Request is ACKed, mac80211 waits only
-IEEE80211_ASSOC_TIMEOUT_SHORT (100 ms) for the response before sending
-the request again. That value comes from commit 1672c0e31917 ("mac80211:
-start auth/assoc timeout on frame status"), which assumed a typical
-response time of 30 ms.
+Critical: 0 · High: 1 (1) · Medium: 1 (2) · Low: 0
 
-An NEC Aterm 7200D8BE AP with MLO enabled needs about 180-250 ms to send
-the Association Response. With an Intel BE201 (iwlmld) every association
-therefore sends a second request about 105 ms after the first one:
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-  associate with ... (try 1/3)
-  associate with ... (try 2/3)
-  RX AssocResp from ... (capab=0x1931 status=0 aid=1024)
+- [High] net/bgmac: broken DMA mapping error cleanup in TX path
+- [Medium] The patch says "Unmap before freeing", but
+  bgmac_dma_tx_ring_free() only orders unmap before free within a single…
 
-The AP answers the first request, the STA completes the 4-way handshake
-and installs the keys, and about 330 ms later the AP also answers the
-second request with status 0. From then on all individually addressed
-protected frames from the AP fail to decrypt on the STA, although the
-STA keys were not changed, so the AP has apparently set the association
-up again. About 5 s later the AP sends an unprotected Deauthentication
-frame. With PMF this ends in an SA Query timeout in wpa_supplicant and
-a locally generated deauth with reason 2. The connection never survives
-more than 7-10 s, and since every new attempt hits the same race it
-loops forever.
+Pre-existing issues:
+- [High] In bgmac_open()
+  (drivers/net/ethernet/broadcom/bgmac.c:1177-1205), the hardware is…
+- [Medium] The error paths of bgmac_dma_tx_add()
+  (drivers/net/ethernet/broadcom/bgmac.c) leave slot->dma_addr non-zero,…
+- [Medium] The err_dma unwind in bgmac_dma_tx_add()
+  (drivers/net/ethernet/broadcom/bgmac.c:210-221) unmaps the wrong…
 
-The AP is at fault for resetting an established association on a
-duplicate request, but retrying while the response is still on its way
-makes this easy to hit. Use IEEE80211_ASSOC_TIMEOUT_LONG (500 ms) once
-the request has been ACKed. A request that was not ACKed is still
-retried immediately, so only an AP that ACKs the request and then does
-not respond takes longer to fail (3 * 500 ms instead of 3 * 100 ms).
+--
 
-IEEE80211_ASSOC_TIMEOUT_SHORT is kept since it is also used for the ML
-reconfiguration timeout.
+net: bgmac: clear TX slots when freeing the ring
 
-Tested with the same change on the iwlwifi backport tree on top of
-Ubuntu 7.0.0-38: before, 33 MLO associations had 66 retried requests
-and 31 reason 2 deauths. After, 12 associations in 8 days had no
-retried request, and the current connection has been up for more than
-5 days. On wireless-next this is only compile-tested.
+This patch changes bgmac_dma_tx_ring_free() to unmap each TX slot before
+freeing its skb. It picks dma_unmap_single() or dma_unmap_page() based on
+the SOF flag in the descriptor, and then clears slot->skb and
+slot->dma_addr. The aim is to stop stale slot->skb pointers from surviving
+a down/up cycle and being freed a second time by bgmac_dma_tx_free().
 
-The trace analysis and this patch were done with an AI coding
-assistant.
+> diff --git a/drivers/net/ethernet/broadcom/bgmac.c b/drivers/net/ethernet/broadcom/bgmac.c
+> index 3e9c57196a397..769d5d8e40bae 100644
+> --- a/drivers/net/ethernet/broadcom/bgmac.c
+> +++ b/drivers/net/ethernet/broadcom/bgmac.c
+> @@ -535,17 +535,19 @@ static void bgmac_dma_tx_ring_free(struct bgmac *bgmac,
+>  		unsigned int len = ctl1 & BGMAC_DESC_CTL1_LEN;
+>  
+>  		slot = &ring->slots[i];
+> -		dev_kfree_skb(slot->skb);
+>  
+> -		if (!slot->dma_addr)
+> -			continue;
+> +		if (slot->dma_addr) {
+> +			if (le32_to_cpu(dma_desc[i].ctl0) & BGMAC_DESC_CTL0_SOF)
+> +				dma_unmap_single(dma_dev, slot->dma_addr,
+> +						 len, DMA_TO_DEVICE);
+> +			else
+> +				dma_unmap_page(dma_dev, slot->dma_addr,
+> +					       len, DMA_TO_DEVICE);
+> +			slot->dma_addr = 0;
+> +		}
 
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221868
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Momo Chiyoda <risingnusun@gmail.com>
----
-RFC because this changes association timing for everyone:
-- Is 500 ms acceptable, or should the longer wait be limited to MLO?
-- I left out a Fixes: tag on purpose, since this works around AP behaviour.
-  Please tell me if you want one (and stable).
+[Severity: High]
+This is a pre-existing issue, but the new teardown code depends on
+slot->dma_addr being accurate, so it is worth raising here. What
+happens to the ring when skb_frag_dma_map() fails in
+bgmac_dma_tx_add()?
 
-Emmanuel Grumbach suggested sending this as an RFC in
-https://bugzilla.kernel.org/show_bug.cgi?id=221868
----
- net/mac80211/mlme.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+At that point slot points at the failing fragment's slot, and its
+dma_addr is DMA_MAPPING_ERROR. The err_dma label then calls
+dma_unmap_single() on that value with skb_headlen(skb) as the length.
+The real head mapping is not released there.
 
-diff --git a/net/mac80211/mlme.c b/net/mac80211/mlme.c
-index 6ec45a9f7..b3704b6e8 100644
---- a/net/mac80211/mlme.c
-+++ b/net/mac80211/mlme.c
-@@ -9207,8 +9207,13 @@ void ieee80211_sta_work(struct ieee80211_sub_if_data *sdata)
- 			 * the response to be received and processed first.
- 			 */
- 			if (status_acked) {
-+				/*
-+				 * Some APs need ~200 ms to respond (seen with
-+				 * MLO) and treat a retried request as a new
-+				 * association, so don't retry too early.
-+				 */
- 				ifmgd->assoc_data->timeout =
--					jiffies + IEEE80211_ASSOC_TIMEOUT_SHORT;
-+					jiffies + IEEE80211_ASSOC_TIMEOUT_LONG;
- 				run_again(sdata, ifmgd->assoc_data->timeout);
- 			} else {
- 				ifmgd->assoc_data->timeout = jiffies - 1;
+The unwind loop computes its index as (ring->end + i), but fragment k
+was placed at ring->end + 1 + k. When i > 0, the loop reaches the head
+slot at i == 0 and releases it with dma_unmap_page(), although it was
+mapped with dma_map_single(). Fragment i - 1 is never unmapped. When
+fragment 0 fails, only the bogus dma_unmap_single() runs and the head
+mapping leaks.
 
----
-base-commit: fbfa27d9b06f025c5f2cfa79d0e01e6400eeff2a
-change-id: 20261011-assoc-timeout-rfc-963b2d62900a
+None of these slots get their dma_addr reset to 0. ring->end is not
+advanced either, so bgmac_dma_tx_free() never looks at them. Suppose
+bgmac_stop() or bgmac_enet_suspend() runs before the ring wraps over
+these slots. Then bgmac_dma_cleanup() calls bgmac_dma_tx_ring_free(),
+which finds a non-zero dma_addr in every one of them.
 
-Best regards,
+bgmac_dma_tx_add_buf() already wrote the head descriptor with SOF
+set. The new check therefore calls dma_unmap_single() on a head that
+err_dma already released as a page. The fragments that err_dma did
+unmap are unmapped a second time with dma_unmap_page(). The failing
+slot still holds DMA_MAPPING_ERROR, and its ctl0 and ctl1 belong to
+whichever packet last used it. So that value goes to the DMA API with
+a stale length and a stale single/page choice.
+
+With swiotlb or an IOMMU, couldn't a double unmap release a bounce
+buffer or IOVA that has since been given to another mapping? That
+would corrupt memory or crash, not just trip CONFIG_DMA_API_DEBUG.
+
+Should err_dma unmap ring->slots[ring->end % BGMAC_TX_RING_SLOTS] for
+the head and walk the fragments at ring->end + 1 + i? Should it also
+set dma_addr to 0 on every slot it touches, including the failing
+one? Would you prefer to fold that into this fix or send it as a
+separate patch?
+
+[Severity: Medium]
+This is a pre-existing issue and not something this patch introduced.
+Can this check see stale handles left behind by the error paths in
+bgmac_dma_tx_add()?
+
+If the head mapping fails, the head slot keeps DMA_MAPPING_ERROR:
+
+drivers/net/ethernet/broadcom/bgmac.c:bgmac_dma_tx_add() {
+    ...
+	slot->dma_addr = dma_map_single(dma_dev, skb->data, skb_headlen(skb),
+					DMA_TO_DEVICE);
+	if (unlikely(dma_mapping_error(dma_dev, slot->dma_addr)))
+		goto err_dma_head;
+    ...
+}
+
+If a fragment mapping fails, the failing slot also keeps
+DMA_MAPPING_ERROR. Its descriptor still holds the ctl0/ctl1 of the packet
+that last used that slot. The err_dma unwind unmaps the head and the
+earlier fragments, but it never resets their slot->dma_addr to 0.
+
+ring->end is not advanced in either case, so bgmac_dma_tx_free() never
+visits these slots. Suppose bgmac_stop() or bgmac_enet_suspend() runs
+before the ring wraps over them. Then the call chain
+bgmac_dma_cleanup()->bgmac_dma_tx_ring_free() finds a non-zero dma_addr
+and unmaps it again. The single/page choice comes from a stale SOF bit,
+and the length comes from a stale ctl1.
+
+Doesn't that mean addresses err_dma already released get unmapped twice,
+or DMA_MAPPING_ERROR itself gets unmapped? With swiotlb or an IOMMU,
+could that free a bounce slot or IOVA that now belongs to another
+mapping? CONFIG_DMA_API_DEBUG should at least report it.
+
+Would it make sense for the error paths in bgmac_dma_tx_add() to clear
+slot->dma_addr?
+
+The old code had the same if (!slot->dma_addr) check, so this patch does
+not change the behaviour here.
+
+>  
+> -		if (slot->skb)
+> -			dma_unmap_single(dma_dev, slot->dma_addr,
+> -					 len, DMA_TO_DEVICE);
+> -		else
+> -			dma_unmap_page(dma_dev, slot->dma_addr,
+> -				       len, DMA_TO_DEVICE);
+> +		dev_kfree_skb(slot->skb);
+> +		slot->skb = NULL;
+
+[Severity: Medium]
+The commit message says "Unmap before freeing". Does that still hold for
+a scatter/gather packet that wraps past the end of the ring?
+
+bgmac_dma_tx_add() places a packet's slots at consecutive indices modulo
+BGMAC_TX_RING_SLOTS. It sets slot->skb only on the last of them:
+
+	slot->skb = skb;
+
+So one packet can have its head in slot 126, a fragment in slot 127 and
+its last fragment in slot 0.
+
+This loop runs i from 0 to 127. At i == 0 it unmaps the last fragment.
+dev_kfree_skb() then frees skb->data and drops the fragment page
+references through skb_release_data().
+
+The head in slot 126 and the fragment in slot 127 are unmapped only
+later, when the skb has already been freed.
+
+Would two passes give the ordering the commit message describes? The
+first pass would unmap every slot and the second would free the skbs.
+
+>  	}
+>  }
+
+While looking at this, I noticed two more issues in the same file that
+this patch does not touch.
+
+[Severity: Medium]
+This is a pre-existing issue and was not introduced by this patch. Does
+the err_dma unwind in bgmac_dma_tx_add() unmap the wrong addresses?
+
+drivers/net/ethernet/broadcom/bgmac.c:bgmac_dma_tx_add() {
+	int index = ring->end % BGMAC_TX_RING_SLOTS;
+	struct bgmac_slot_info *slot = &ring->slots[index];
+    ...
+	for (i = 0; i < nr_frags; i++) {
+		...
+		index = (index + 1) % BGMAC_TX_RING_SLOTS;
+		slot = &ring->slots[index];
+		slot->dma_addr = skb_frag_dma_map(dma_dev, frag, 0,
+						  len, DMA_TO_DEVICE);
+		if (unlikely(dma_mapping_error(dma_dev, slot->dma_addr)))
+			goto err_dma;
+		...
+	}
+    ...
+err_dma:
+	dma_unmap_single(dma_dev, slot->dma_addr, skb_headlen(skb),
+			 DMA_TO_DEVICE);
+
+	while (i-- > 0) {
+		int index = (ring->end + i) % BGMAC_TX_RING_SLOTS;
+		...
+		dma_unmap_page(dma_dev, slot->dma_addr, len, DMA_TO_DEVICE);
+	}
+    ...
+}
+
+By the time err_dma runs, slot points at the failing fragment's slot. The
+dma_unmap_single() call therefore gets DMA_MAPPING_ERROR with the head's
+length, not the head mapping.
+
+Fragment k lives at index ring->end + 1 + k, but the loop uses
+ring->end + i:
+
+- If fragment 0 fails, the loop does not run and the head mapping leaks.
+- If fragment i > 0 fails, the loop unmaps the head slot with
+  dma_unmap_page(), although it was mapped with dma_map_single().
+  Fragment i - 1 is never unmapped.
+
+Should the head unmap use ring->slots[ring->end % BGMAC_TX_RING_SLOTS],
+and should the loop index be ring->end + 1 + i?
+
+[Severity: High]
+This is a pre-existing issue and not something this patch introduced. Is
+the request_irq() failure path in bgmac_open() safe while the hardware is
+still running?
+
+drivers/net/ethernet/broadcom/bgmac.c:bgmac_open() {
+    ...
+	err = bgmac_dma_init(bgmac);
+	if (err)
+		return err;
+
+	/* Specs say about reclaiming rings here, but we do that in DMA init */
+	bgmac_chip_init(bgmac);
+
+	err = request_irq(bgmac->irq, bgmac_interrupt, IRQF_SHARED,
+			  net_dev->name, net_dev);
+	if (err < 0) {
+		dev_err(bgmac->dev, "IRQ request error: %d!\n", err);
+		bgmac_dma_cleanup(bgmac);
+		return err;
+	}
+    ...
+}
+
+When request_irq() is called, the hardware is already armed:
+
+- bgmac_dma_init() has enabled RX DMA and given every RX slot to the
+  hardware through bgmac_dma_rx_update_index().
+- bgmac_chip_init() has unmasked interrupts with bgmac_chip_intrs_on()
+  and enabled the MAC with bgmac_enable().
+
+If request_irq() fails, only bgmac_dma_cleanup() runs. Inside it,
+bgmac_dma_rx_ring_free() unmaps each RX buffer and calls put_page() on
+it. Nothing calls bgmac_chip_intrs_off() or bgmac_chip_reset() first.
+
+Could the RX DMA engine, still enabled, then write incoming frames into
+pages that have already gone back to the allocator? On ports attached to
+a switch, where the link is always up, frames can arrive at any time.
+
+The device would also keep raising interrupts on a shared line with no
+handler registered. Could that make the kernel disable the IRQ?
+
 -- 
-Momo Chiyoda <risingnusun@gmail.com>
-
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261010070418.84457-1-rosenp%40gmail.com
