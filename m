@@ -1,70 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E85B3CAA55
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 10:54:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99F22DF128;
+	Sun, 11 Oct 2026 10:56:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791716065; cv=none; b=Yx0XUGKXKJrheZl/VCbkwVWovKKKH19O1UbpBuLUFii8dGeD4JDtIdYe7oiPqOXB8VZVtP0tc3q5GmCiCybTuFWSwE9CI6iYmEb/lQsY5+M0O13c+MY0lwN9bNLYVdHcNEOipzfKduyiK68SCDOrtIPc9GiCc3HZqkbh5HWDfws=
+	t=1791716181; cv=none; b=gIDHUVLB5qzDK5l5nw7yU0clzFBJ94y1Me+6YxNFt9aXIKK7c1n7bMp86VbbNP3oFg9CsyrSNVccn1pHKFQWNVVzf6zTh0lg3D3qwWXimgzaw7qJpK3Rc5F/8DYYMrv/hWUs0efQj5yBc34Xav36bn2meyz2WAQL2Lg3UFsH694=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791716065; c=relaxed/simple;
-	bh=oo1++Z+45kdoNDO+pHDlSuwcXsCm4emEXut+2HJaqOs=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=j1QEt+GCEe6/U7/3InkwYAv2M4pRaleYFW0vVAUP5bj4XN9qDotirH/+Kc4jyQnC6P/wBwJVDomKAATybBE8Z+xQAb18Meb78xH302Rem3+VZM9Vbguex0OFfR6fbJkh5f/Tz4NXYCJW3PF3TzoCuXRhSQR9Se5pPX4KnpbQl2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dbE7todP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791716181; c=relaxed/simple;
+	bh=QGfOBWAHuNFrOrL4sfa37BtmNCagiA9s4P0z4ZsIVlM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=HFyrwEsXmuA3rikKysTyjqe2dorqekqFurcHeW7A+5RIN1KUu84yGTp9MhzB+9LZ7eFT4cKvudj/fO5sPEI3rSHd0FTLS6ptyZvLU/O5oO+eeU3fGXL+8p9pn7mAdbdqS1Q98VZ/rEq/OZiYbm8YQ3wL9z9HGWnUxzB2jlGObxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GURE+rtj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dbE7todP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1A121F0089B;
-	Sun, 11 Oct 2026 10:54:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GURE+rtj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADE951F0089B;
+	Sun, 11 Oct 2026 10:56:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791716064;
-	bh=v8T6AnIERHoeWGzM/LYoXgxvl1Yh8QZpFEQ9OU58m5c=;
-	h=Date:From:To:Cc:Subject;
-	b=dbE7todPlvvtI151M2UUpe5pxPbGFSh4twsauyCK0vEkw7S5RA16njRZJ6Q/nzUZi
-	 0b/3omudmEcN4I5WhC49T5xVKTg/2lm3k8f8oKOboe88rtSQ62ZFd8SuGYmyXrU7L2
-	 HOU7SF9zbWf2r4wWQvW4JErvIJx5ln4RRy1Z08Kp+f93YFz+vSoFLj1wwF+JzaOPxl
-	 v/SQg+ELCOb4dGvlYcPpQvrdn7AVEEUIESRGyeHJ3yc//plus7/rCtYXq7Q5+1d8cS
-	 Q6fj2KxiL3PdPaoKLxxT0483g/mVQW1JMMKfNGM3lR3SFL9k8ej86zWw3lRi3HoeiI
-	 pNtId4zoVKjkA==
-Date: Sun, 11 Oct 2026 12:54:19 +0200
-From: Ingo Molnar <mingo@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, the arch/x86 maintainers <x86@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	"H. Peter Anvin" <hpa@zytor.com>
-Subject: [GIT PULL] x86 fix
-Message-ID: <astq2yZg1CBM70Q3@gmail.com>
+	s=k20260515; t=1791716180;
+	bh=eM083vjHBG+2qw7HwqBHxB7l47W044uolM7wbU1Ibto=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=GURE+rtjfWuOaKxO6tkOMDPA23/9kWAoNDa94KIRUCNiS89XZcgtSjO/CGobEY1Yf
+	 PzLSxm5NIt0nvq3kgXnhZdazm5Y7eEm49l/nNPTsnCrCJ+BEnH96r80NCZavt2XVMI
+	 WB0X5M6PTdbS4A8yBPdKmssn7UyDJsuLVoCNdQLZVq0+TKSKit1yh56dh3sGWNOuON
+	 WI0dM+PQL11rJqQohm33nBlNB1iEvQJo0OkIlAvtQLD+ATmOpWA4iEQDck/21pPa0B
+	 EYL98aS0dyo1SyTOf84ZofGy4U20vMKY0Ds9Qh3HaIEV5d/+58ZksoKu8/ar0HbWyI
+	 xZU4z5TitdnfA==
+From: Leon Romanovsky <leon@kernel.org>
+To: "Md. Haris Iqbal" <haris.iqbal@ionos.com>, 
+ Jack Wang <jinpu.wang@ionos.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Danil Kipnis <danil.kipnis@cloud.ionos.com>, 
+ Quanye Yang <quanyeyang@proton.me>
+Cc: Jack Wang <jinpu.wang@cloud.ionos.com>, linux-rdma@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Farhad Alemi <farhad.alemi@berkeley.edu>
+In-Reply-To: <20261005-rtrs-fix-ib-drain-rq-v2-1-35535a3ed115@proton.me>
+References: <20261005-rtrs-fix-ib-drain-rq-v2-1-35535a3ed115@proton.me>
+Subject: Re: [PATCH v2] RDMA/rtrs-clt: Fix recv repost to satisfy
+ ib_drain_rq
+Message-Id: <179171617735.3010278.9064098376724483843.b4-ty@kernel.org>
+Date: Sun, 11 Oct 2026 06:56:17 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-Linus,
-
-Please pull the latest x86/urgent Git tree from:
-
-   git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git x86-urgent-2026-10-11
-
-   # HEAD: 87db7795cbaaf636ae22ae031f4906db7bb77803 x86/CPU/AMD: Fix AMD TLBI Erratum #1718
-
-x86 fix:
-
- - Work around AMD TLBI Erratum #1718 (Borislav Petkov)
-
- Thanks,
-
-	Ingo
-
------------------->
-Borislav Petkov (AMD) (1):
-      x86/CPU/AMD: Fix AMD TLBI Erratum #1718
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-18f8f
 
 
- arch/x86/include/asm/cpufeatures.h | 3 +++
- arch/x86/include/asm/tlb.h         | 6 ++++++
- arch/x86/kernel/cpu/amd.c          | 4 ++++
- 3 files changed, 13 insertions(+)
+On Mon, 05 Oct 2026 02:01:15 -0700, Quanye Yang wrote:
+> On disconnect the client error recovery path calls ib_drain_qp(), which
+> requires one free RQ slot and that no recv WQEs are posted while the
+> queue is being drained.
+> 
+> When the server is loaded with always_invalidate=N, the path does not
+> advertise RTRS_MSG_NEW_RKEY_F.  A client-requested invalidation is then
+> a standalone SEND_WITH_INV.  The recv completion path did not repost
+> that WQE; it posted two empty recv WQEs later, when the RDMA-with-IMM
+> response carried RTRS_IO_RSP_W_INV_IMM.  If the invalidate receive
+> never arrived, each such response increased RQ occupancy by one until
+> ib_post_recv() started returning -ENOMEM and __ib_drain_rq() failed
+> with:
+> 
+> [...]
+
+Applied, thanks!
+
+[1/1] RDMA/rtrs-clt: Fix recv repost to satisfy ib_drain_rq
+      https://git.kernel.org/rdma/rdma/c/3255d6b8349157
+
+Best regards,
+-- 
+Leon Romanovsky <leon@kernel.org>
+
