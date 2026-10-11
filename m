@@ -1,79 +1,80 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19991363097
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 17:12:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C393367F36
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 17:16:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791738767; cv=none; b=YbkzQHksyb6ZIvU6w+iRpbzg6OmsehrMXJTOFVY4yphBI567v5gG4GZg+1PgPlGlbOSfc/CWMTn6Xi1jTzLGsiyqlBsoCBhadsq/2cIQ4u+fqqe5RsdPCHQBAQwtvHv/qD9NWZ4ilZXNByL6hxYPtzJm807Mo8p/huRRVlLl5Us=
+	t=1791739006; cv=none; b=Vk976jPguncatKReWWwLOn//rro5Lc0G7e25fmaPyK2BFgUKFckBwurCBsSGRfXRC5Q2PeBlcORjzw5nvog0e3G3mQKz/4hikdNS5wS2eEXqNm8n0+Fgn5y0bMZoWY5rXTeCVxotK0j7M45pvkH5gkXiZDwVQbzNtWE1DHA2pG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791738767; c=relaxed/simple;
-	bh=z+1ZpdTDW56EA/XM7p5CM05JDe5+3pamXAxQ9H7t6HI=;
+	s=arc-20240116; t=1791739006; c=relaxed/simple;
+	bh=GutEjz1C9EWnoIl6DZVss5kOvzanuED5c0ZSkttT+r0=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oewohHSVnaOiY/daKknTj8R14YL4brizB1GftXLLlOOWFEsFw+1JxmPf/8XR2z+MLj53tS5qzMFWD8mMfczPoCOufWDuYBd+pi3P0Rmf+0ShbpGWac10en5KzNOyGnf/80Gn3x896Mvo/c6FmpcnPjLaB/VTDOLxt6ZAJN/4gdU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KBvIBoqp; arc=none smtp.client-ip=209.85.221.46
+	 MIME-Version:Content-Type; b=i9ThLnqC2Ncy4wUWiW6aC6PzAI+nndQ1d46im5qYTYrbdDZ0tgxS8nKWX1p6IVa32JBh5GZoIOl1ahIus0EpKlAR2+mQJzk+JdcuLip8SbVuD2BoK3v3E/vmBDXto9o0SNJb+qbcp/Yjy41hK0K8O4VmjYXJ2jSfIjWm++K2py0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kSY3E4gU; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KBvIBoqp"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48c411d6615so681683f8f.3
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 10:12:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kSY3E4gU"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a19cba5c14so4104985e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 10:16:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791738763; x=1792343563; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791739003; x=1792343803; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=79Z91gLy0Qj3P7l5DuL+kEPlg9n1xATGDeuftWENmqA=;
-        b=KBvIBoqpgZk02w21878+tfHeJmiq0VjXiM92RtI3bPmRrKwvVNPJNBigcoHdSRo4nV
-         ELH86d6RzhcPKCmixanljp8H94jpIdF1wvnxXDyXjG2Da7HLGgCdGS2MGVI4FxB2RAvP
-         GsxzJ38erhXWyYn32iwiB71KI4VCFVur3mELk4ty++MNobi1zUaonhr51ilvpI008Zrm
-         ToKmC3+MAt/VUPaqosjo60CBazW2ubwJRmVEriS1pq4Qp0fRdPyckwDsrLOOXeY9pckS
-         Ynd+n9cac8iLki84QTHhiK3WkDO5niWcHOgGKfMuRbneWb1m4rBS8dOGN0+PeljZf/jd
-         cVUA==
+        bh=SeRVsGAgfFwaEGdER3bktn7qvFdW9fiMwJGb7FgMong=;
+        b=kSY3E4gU/gxpRqA+f+IoFN2oWIRcL11ZcDaVzVz2PmOJSZEqKaTb2YOU3Cfnuz64LB
+         LmYjINi4WWCcJoeGCVBLYir6OMXGTWUzmaOXTfcv40YAwTghrdTxnUj2aNxlUOXhikdf
+         E0xUwk8nrl/CN4RwS5sLkVwPS6sWSiBYWHL4uQ18pWY3WccVR8W1oPIUWjJrqIkCXiN/
+         PJMA8h7SieDAF9Ww7vGEuNv528A2PXQFVsLog/xWcw3FsCdGgOxvLEDsSZVr5Is+NNtl
+         JOGvwzBr8qutQjl3R/on4K9uvWM18qwBm4oXZKTKiFi4ghwBy/W7G1OltstyHRy4cptA
+         XXVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791738763; x=1792343563;
+        d=1e100.net; s=20260707; t=1791739003; x=1792343803;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=79Z91gLy0Qj3P7l5DuL+kEPlg9n1xATGDeuftWENmqA=;
-        b=hoahJSNH/VumhfVh9R42n++42ritjgvbR3RnOlIrRODj4GJ3FSSQJGYNWrcTb9zMc+
-         AzPdbj7vvW/zBXzOWLdlESqecyeNgmhVN7EbqSnyFE67bcZl9BhQv5ntUiD/LqpGUBUf
-         4abTysB6I0az5C+Oo27N8lNj98vW9gaUQWwahvpv1HIEATES/3OjBsw1Wzl0V0jCNCNL
-         seGR4dnwmd4dRYhUiaabgujMYnbN3NQCBoE7LI8dkKdPppCIGiooLtvuoBK2+i6ag23Z
-         Cj1d1jNqmfTYgyq209dz1GR/BOzFaVyTca2ukxJJckLp5j3dZWc8RQSJ3vQFjE+IAGiG
-         QytA==
-X-Forwarded-Encrypted: i=1; AKwUvByTToKxmKoyWdXpN1IRpLYr1flduQW7l5INDIXDLlHrkSSYM4WJodxnFLAZTSq9OIWDm1TcmmGaODX1MMw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIFGFLuPpK3zJws1n7wCywRQ0XyOtscQaJGi7iYIizDFbtJGH1i
-	6KfI6/a4s6Ub1NUUKKIL7aGMhDVJpdE/VgOST+ReUJUdOdC9cBTCX+od
-X-Gm-Gg: AYBFou3WUhEAOOttWu/v6kJ0rfNgUa+xNvDKuHxjVIizewGbNLzAOhE3xQU0g2S1dSL
-	P2phCLpa5MM8as3pL1W/jFH+Pp8BmHn78hA461TgjRNHchBOpfyRBoRfp7Cd1JVzJ+jkwfRe89s
-	HDKSunGbYJ9zldlaxObTK91kGSZog1vFQ9rSwvyS/J1OKm3d3qTLNwb09oGK9Ak5ZHgS9RVgffu
-	6PwS9fL1IZRbZ84kUCbgGw3Z79nsmw+JSIC6pFD4QW6AgLFowfcjEGUr8eKZ0EU5MlU3wsv1IH6
-	lS3xycFSNDRXzAy9ebJo0zandqS744sVzNOjOUnRelU45gU/SFcVEQc9p03Bnl4O5vVft56siGn
-	wXZB8xZIShFmzfOSZQX0pAfyLZFpVYFFoyJ1MSX8CuT8G5517UDFiw0sZ4OEajou1KIXqv/XPWa
-	MdDN5kR+sTRXwPiNA7VM0R6G5gJ2DsiUE28MS3g4FTSvxO9T4SufAXMUHNjNtIiSD7RI56/j5Vb
-	R0zw3IiYKj6VbZcP1MgDIU+BjyBv9/wUfu1iKOwGCT9qzaBI6owY2d1wI7oq7QAj3rdpgJCYoQ2
-	1KHSGHybuUVEojkHz5ctLQt+kGN/Raq4n8QJAt92BxGXef6rQnKdikbUYp07YU/pP+Hh6GIVE5B
-	Qc5tNYFwb1DI9rqmd0ol5OOg0hjMK5GE=
-X-Received: by 2002:a05:6000:184e:b0:48b:10af:f85c with SMTP id ffacd0b85a97d-48dbaceba34mr11528014f8f.37.1791738763113;
-        Sun, 11 Oct 2026 10:12:43 -0700 (PDT)
+        bh=SeRVsGAgfFwaEGdER3bktn7qvFdW9fiMwJGb7FgMong=;
+        b=twjOwXDuSk5qohu1EIaRyfvkGieJCNfszyvL0dg/uJ+mGWfXFVRnNCGSYYnacGqmg7
+         CWj8s5JJWHwXp4DRpWdFqkWsoMoU/EZq1F735j9wIBgQCBwP8vnT9m697RKR4eg9f1+F
+         2pMIRAzk1qmCMvHoAJJyu0Kb0N8fy5zWV2OmXHUKTsGB/WUOXmz9Ibk9vDBr2Fr9t26J
+         dzxRhgZCYwm+wJGrAYo74s13UStFUmj1Wfoex+Duy4ZM6BeULnzn7kIvk44QqyQD+ZaQ
+         fG+FdOhT5Pd8RHiBdtZ580S1AWz0Kt0SFEAna99r1OcUjEMGgPEEaGooHcFZ5KMHPEY1
+         Ldpg==
+X-Forwarded-Encrypted: i=1; AKwUvBwJPE1zVAKKxA2uh1VG+85YyT9IDXq4qeNzfwSqkW4++IwgiBQ4vjpmbrk/+TdG4pI/96C9GnLCKKXClf0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJeHkpDTBv5pE2f4yPP8Zd7hWVFcwHlFdoWku3r1leFiLaJ/tgP
+	nzrjvA0Vna1cVMHODXjt+ppp1ezDWIKkIKTp6rYhHc8RaRfvU1cZFOoF
+X-Gm-Gg: AYBFou2P+8Xl+mB/NGKfqtTa8GVD0tU4vDLVCJWsMtIlpqw8dxMdC0H74tqh+6kCQxH
+	Flr369P7H5Vf6Jp8slTOzm5OEZmPePqBahjQ/tZsAkO99FPH19cS9Jr7ts16dfGYesGIY4tT8jM
+	nY8RfmBIQJJlfZt4lsQtRdOjmMi8KIiYqbQJkXgJaDALqQxtMAOHZsfXHqwKI6zWC/RnrURcgNq
+	BakrFXmZui5RJeG9lHpISLdLb3rGhYlMZOpmYuRuZyQ1pbBTW4Op5nO66TOEt69Zjuf8JW93e3W
+	hU2c8Nirj/RlH1j6LT1h9tYVWsFmQDaUMWHvjtWp+xjkraziS0XdG0wswHxcSbYsxbGeZcCMX9M
+	Kg+M3IF1nyQGGpd0pl6Jf11N8IM8ejxhI2Mal/sPQTL+WgXQtvixo5JF0CdRewVrydmkEpEPL6B
+	gifLPiig9V6eDVRM02xmJKiIiUYjRNas3xvbSyTC+Gsvwq4TsPhgCOJD9WclE9lCvv/fwAtKtQL
+	zMPrAST7o33+BVu9P1gumk3iY0Qlz+1OJSwS8S/TMUkcYvLygRHgRhW57dwOmq1cwgdvcpkj2qr
+	ThhH1EMd4CNDj2u5WHOnlg2X35mVhWlc/DoQaZfZ3JttSHkzHquTji9PQ/1Nn9nrQYZpDRJLfmW
+	LwrbRT+8sy+taZua+kM+00BO7lEkqLHuk
+X-Received: by 2002:a05:600c:8b04:b0:4a0:1e37:ae41 with SMTP id 5b1f17b1804b1-4a18e4d67edmr132564595e9.24.1791739003092;
+        Sun, 11 Oct 2026 10:16:43 -0700 (PDT)
 Received: from systembl0wer ([2a02:8308:4092:11f0::f9f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db97ce3aasm15337433f8f.21.2026.10.11.10.12.42
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1972eaed8sm115349595e9.1.2026.10.11.10.16.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 10:12:42 -0700 (PDT)
-Date: Sun, 11 Oct 2026 19:12:40 +0200
+        Sun, 11 Oct 2026 10:16:42 -0700 (PDT)
+Date: Sun, 11 Oct 2026 19:16:41 +0200
 From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Linus Walleij <linusw@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, Dingisoul
- <dingiso.kernel@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] iio: gyro: mpu3050: add missing trigger cleanup on
- remove
-Message-ID: <20261011191240.5a2ba4f7@systembl0wer>
-In-Reply-To: <20261011-mpu3050-fix-v1-1-f55b0d138be4@gmail.com>
-References: <20261011-mpu3050-fix-v1-1-f55b0d138be4@gmail.com>
+To: Arnav Kapoor <kapoorarnav43@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Benson Leung <bleung@chromium.org>,
+ Guenter Roeck <groeck@chromium.org>, David Lechner <dlechner@baylibre.com>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
+ <andy@kernel.org>, chrome-platform@lists.linux.dev,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: common: cros_ec_sensors: use sensor_scale union
+ member for CALIBSCALE
+Message-ID: <20261011191641.4e9e2ac4@systembl0wer>
+In-Reply-To: <20261011045410.356156-1-kapoorarnav43@gmail.com>
+References: <20261011045410.356156-1-kapoorarnav43@gmail.com>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -84,63 +85,28 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Sun, 11 Oct 2026 17:53:01 +0200
-Joshua Crofts <joshua.crofts1@gmail.com> wrote:
->  drivers/iio/gyro/mpu3050-core.c | 4 ++++
->  1 file changed, 4 insertions(+)
+On Sun, 11 Oct 2026 10:24:08 +0530
+Arnav Kapoor <kapoorarnav43@gmail.com> wrote:
+
+> The IIO_CHAN_INFO_CALIBSCALE read and write paths send
+> MOTIONSENSE_CMD_SENSOR_SCALE, but set the flags through the
+> sensor_offset member of the request union, while the scale values in
+> the write path are filled through sensor_scale.
 > 
+> This only works because the sensor_offset and sensor_scale structs of
+> struct ec_params_motion_sense happen to place flags at the same offset.
+> Use the sensor_scale member that matches the command, so all fields of
+> the request are set through the same struct.
+> 
+> No functional change.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+> ---
 
-Sashiko review came back and the issue doesn't seem so
-straight-forward. I'll probably introduce a local pointer
-and then assign it to the mpu3050 data struct.
+Please add a Fixes tag. Otherwise looks good to me!
 
-Attaching Sashiko review below.
-
-> diff --git a/drivers/iio/gyro/mpu3050-core.c b/drivers/iio/gyro/mpu3050-core.c
-> index 07c0f9011c63..096fd0dc608e 100644
-> --- a/drivers/iio/gyro/mpu3050-core.c
-> +++ b/drivers/iio/gyro/mpu3050-core.c
-> @@ -1260,6 +1260,8 @@ int mpu3050_common_probe(struct device *dev,
->  	pm_runtime_get_sync(dev);
->  	pm_runtime_put_noidle(dev);
->  	pm_runtime_disable(dev);
-> +	if (mpu3050->trig)
-> +		iio_trigger_unregister(mpu3050->trig);
-
-
-Does this unconditionally unregister a trigger that may not have been
-successfully registered?
-
-If mpu3050_trigger_probe() fails (for example, if request_threaded_irq()
-fails), mpu3050->trig is allocated via devm_iio_trigger_alloc() but it will
-never have successfully completed iio_trigger_register().
-
-mpu3050_common_probe() catches that error, logs "failed to register trigger",
-and continues. If a subsequent step like iio_device_register() fails, this
-code will call iio_trigger_unregister() on the uninitialized trigger.
-
-Because the trigger was never registered via iio_trigger_register(),
-iio_trigger_unregister() will call device_del() on a device that was never
-added, and ida_free() on an unallocated ID, which can lead to a crash.
-
->  	if (irq)
->  		free_irq(mpu3050->irq, mpu3050->trig);
->  	iio_triggered_buffer_cleanup(indio_dev);
-> @@ -1278,6 +1280,8 @@ void mpu3050_common_remove(struct device *dev)
->  	pm_runtime_get_sync(dev);
->  	pm_runtime_put_noidle(dev);
->  	pm_runtime_disable(dev);
-> +	if (mpu3050->trig)
-> +		iio_trigger_unregister(mpu3050->trig);
-
-Can this cause a kernel crash during normal driver teardown if the trigger
-probe originally failed?
-
-Similar to the probe error path above, if mpu3050_trigger_probe() failed
-during initialization, mpu3050->trig is left allocated but unregistered.
-
-Calling iio_trigger_unregister() here on that uninitialized trigger will
-cause the same teardown issues during driver removal.
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
 
 -- 
 Kind regards,
