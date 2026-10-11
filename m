@@ -1,99 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DBD61B87C9
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 22:18:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EAFA2EEE84
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 22:22:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791757083; cv=none; b=pgscu2Uuf1wggHzwbODdpYnL95agY/6AGBafvPecgDudoQKpKZ8+XFhAG57J9v82bhSpWINJMJV6i8cuzL+JKrLQ//2u3rt0WmxfKqalo0bd0pKN4z0R6gHCJyFPGK98ua/7cs3/LNz3xBH0LJtxl9Jg8jgNuT8k8KQIxdEIvWk=
+	t=1791757362; cv=none; b=okjlriSyIsPIUawel7HD11X4Fcgyslc7uXQkg6qg3nVsf9yzfky7jg1/VOSYtGMocQKl62L1PA5AHYV19G4Cp2oFR9WBEweIfrieragBL9VWmkv31EO5zCQFCgL6L78w7PaI+1MFh6vZzNhaMzRf6TU4Dgtja3ROvpP7dE9tYQA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791757083; c=relaxed/simple;
-	bh=rnNStryNTGVZAeJp7OPkxubE2+1Ji8/5qCigHYn8GWU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZnvtDDPS7bke2AemeXUGYTjWFlLAbE42YEXg59qSNGMRloUgA+kjpuR31WlvLib4L/YkHsquD+VkpvjXQckSx0ywOWsvWnpNHIe4AsujQmJRHSq+uu9pA/x3l6txxwTTtmBxDTe5sBWSUMuXk1RIhPt+oxP3IpLdqZvXLqKvjVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wamye5Az; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791757362; c=relaxed/simple;
+	bh=wx78Wxn0Vwqymp+y9E4li+EEYQPoZ2jSYNoF4UjZvAY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=UzfqGx4snj41ghW06OXq8JrDkYlZPOErOtmv5uZJvL5jE6+2LT3Z+g4mfxl8qK4eGsjHwPhK84Zt8IZDJhQs2XPSdCDRH54OoWZq2MECtxFx5JK2AQEKPZ5I3BEH6QBMu2PanuAlBOHWrS0lBFgYv6RijCVrYc512HDEvRO/pAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ug0LVC7V; arc=none smtp.client-ip=209.85.160.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wamye5Az"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3442C1F008A0
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 22:18:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791757082;
-	bh=rnNStryNTGVZAeJp7OPkxubE2+1Ji8/5qCigHYn8GWU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Wamye5Azwj5oVOghTNQfHMSUfJ47DeVB1jflkpTwWpQ6Z3N6ziToQkz+Nwn9/3wO/
-	 G5+g8MRYXezB0YnUFTGi0Zmy+g94k1wfD5J6K6q28s1C9NNWDlaBZc6vb70NTrez+O
-	 7LSfuoyZFyhEOIRjXNsCdzwaSAOoNUiyiGOIqUHH4TxTfgneoV3wWmlN/+Ng4fEfzD
-	 qgiPzuClnA1hMEcBvPmEL/OE2dn5eoqP5gCVp0bNr423WgI7KpAOvTeMD7v/RXzM3v
-	 bY4wIA4iB8GDKrIxBSw8r2Nka5qyyRU7m6WmDNDO+gZyQ1t1UKebfyGXJz0G+CKieI
-	 vpp+e8wBmIHgQ==
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b1aa377c61so998687a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 15:18:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy0ey5ND692nygzZ/30zXUo5iMxBkURrUiuGTm2UoprqdI14rp/Ik/M38BIpm5Imf8PqC5RIH79vnSdRyA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKIPPGk/aqrsNrnlfIzKXjgfqgndPiOGPWW+fBVnP9A3XJYyib4
-	sq4+/WdknO3C93BtMbK989TAimeqhi68y0Kv3COX60IgxZ7GSAj+IFys8XMmg3TRL3F09EPpFq4
-	6zKiSbcEtdnjhIcbvlyvS21xDmGOgZf4=
-X-Received: by 2002:a17:907:8692:b0:c2e:2720:8f68 with SMTP id
- a640c23a62f3a-c31aa01b41fmr700438266b.46.1791757080557; Sun, 11 Oct 2026
- 15:18:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ug0LVC7V"
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-5339173489eso15155051cf.3
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 15:22:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791757360; x=1792362160; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wx78Wxn0Vwqymp+y9E4li+EEYQPoZ2jSYNoF4UjZvAY=;
+        b=Ug0LVC7VrOFkDNMiNM3DBXVcXAhg1cX8nD9c5vpSvhrvN81EFH9qWNfhIc09Fr9jPt
+         +0Knqf8guwmKwqzFUPk0C3WXzEq7Zx2MGnX8u/RDnrC2+9dwz9Bjr9TEAJQeZyfXXyOr
+         nIs9ebbdOtEthAR1LlL6di0CtrZMG1QphZkhQkbisEdXFa+Ab+LV/RF9tr1fOssrdGZu
+         pcf2GBSHsCx3siTyuOB2Le/S2leeT1bXflXMaLexIKs3886CG9Pd+hgtzMRQJ2jtkUDc
+         2YcITx7fSoKMT92qCCoo2RJVqfwmQfTJ6tTzRa6jRIuMVEDIALERhrUHNYYjwFDuXYZ/
+         mTOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791757360; x=1792362160;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wx78Wxn0Vwqymp+y9E4li+EEYQPoZ2jSYNoF4UjZvAY=;
+        b=La/ieZ/qKYYhg+oZ2bYf67tabUsqBJwoXJKV7HlkPKS9LOqOkvWYNZPypRJLwJ5ADH
+         uw+vnAvzIQwsbQLOWkBUuTu9cnYQs91uisExirIZ2jmuJOtnjBKjIxB/cmLeiTNjYj4A
+         ywYvEjehf/UI9zdLwu333jjX1KrPOubHywrfh3Wt1TEkXvPU/8ZV6GzFrK7MBNuvfylt
+         E4tw7vErLm+j1E/givemcreuXWEhWzxPk6BlW8kPeh1eb+Byr3kSDHRcnsTJL3ktKIL2
+         /qHR2LGWhjzSVrLu0Ph0XBdnxMnFlXbxB9ozJkL7UItuSjknVfTPhHwhG8BJwwFeYJZ8
+         K1Cw==
+X-Forwarded-Encrypted: i=1; AKwUvBxih0v1laJTtOz25OcvzZBkgW/XLY0sUucUWo5VUpQBmWXRYy3CT+JtMsgDDNfqlWU5ZObMiFMHDPFNNs8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJkXNeK5T2dz9SXacPbeiPi7+dsuG36ULF+DZxsB5GKVr1HNYSO
+	d0jKpCxqtColj6DQhnJypQoApTPfSzP/B+SROypwjn7oKRtOEkbonD4=
+X-Gm-Gg: AYBFou0O75BgLMfphoFCP2LWualthUDwq558JQzlmi0q3oUinlZZmaXbIQvIAQH0yFV
+	xUwseLafCd8xWO6r2PRC1XRZVZcujTcvjjxu0dTJkVxAwohw0LYqbjMOueU5GZ3OOaAagaH3MTS
+	sCFe0fjBVk+lNru0WnE6YKb8bn09dNy+DO8fbZCLnKmwMPs4n+CnODkOgBapXzkzCqsLhZH7Yxa
+	T5zAEXEKn9XqcbBo9AaaaAFZoeQsJ1e7NDiNeKjSL8DIrSZV8sazDokXR9qvKP+FKZRciizALmY
+	YcG8/Q9RATH3dfI5iD4OYvGT8WPFQd37M/Vm0ZnQaSzS8J0AraalLFd2CRRbndatH/WlhEahkgi
+	TgoeuZb7eXLMV0fswD/D+aJsAlmHQg/LVQKn+ocic9sQF+VSL74IiCzaehwERmrPnaE/pVR8oT2
+	LarnR35YHQUZ9stxSMAl9Foqg+dsiVNFDS6NOZOXWhlyHdD3u2R5Lc06kDA5tDVDwFnyyATFWRP
+	q2vsbJoWP7Yj7VPNlZ7a9Mb8zQJuaUVj57ggVC4eOWACRUquBZV94RLcF8qQK4m9Q2GEVxKy7UE
+	ZWH/En7Cf17YN/1h+ZGCOeEX3c+IzWjtMj/WAmw=
+X-Received: by 2002:a05:622a:610f:b0:535:52c:a2e7 with SMTP id d75a77b69052e-5359fb8f85fmr135936341cf.44.1791757360176;
+        Sun, 11 Oct 2026 15:22:40 -0700 (PDT)
+Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b7ecccdsm66288831cf.30.2026.10.11.15.22.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 15:22:38 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH 0/3] ASoC: mediatek: fix AFE IRQ registration and removal ordering
+Date: Sun, 11 Oct 2026 18:22:31 -0400
+Message-ID: <20261011222234.2098904-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <010001a1222f66ba-0c745f29-d4fe-4862-93ff-1db2055b05fc-000000@email.amazonses.com>
- <CAKYAXd9EkVrdKjsmcd96OFc7pf=2WA8KMUBhRPZROkUOdkV=SA@mail.gmail.com> <010001a1273da435-1b6e4385-3185-451f-821b-8d8723ba78d3-000000@email.amazonses.com>
-In-Reply-To: <010001a1273da435-1b6e4385-3185-451f-821b-8d8723ba78d3-000000@email.amazonses.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Mon, 12 Oct 2026 07:17:47 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd_2nx=EmTYdH1t76KuRzJZw5Ln75ZQepEvNGn-46f5+dQ@mail.gmail.com>
-X-Gm-Features: AclHuK_6HzT0lWvDRIo4hmLdpb1qADFCHsjTK2KvGuYlyDQteQt66fSMdtGSres
-Message-ID: <CAKYAXd_2nx=EmTYdH1t76KuRzJZw5Ln75ZQepEvNGn-46f5+dQ@mail.gmail.com>
-Subject: Re: [PATCH] exfat: clean stale bdev buffers of newly allocated clusters
-To: nfalesy@gmail.com
-Cc: sj1557.seo@samsung.com, yuezhang.mo@sony.com, exfat@lists.linux.dev, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	regressions@lists.linux.dev, hch@lst.de, djwong@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 11, 2026 at 4:15=E2=80=AFAM Nicolas Falesy
-<nicolas@nicolasfalesy.com> wrote:
->
-> Directory entries are read and written through buffer_heads of the
-> block device. Removing the entries of a directory dirties such a
-> buffer. If the directory is then removed and its cluster is reused for
-> file data before writeback, the stale buffer stays dirty in the block
-> device mapping, and the next flush of the block device (fsync, syncfs
-> or umount) writes it over the new file data. The file silently reads
-> back with one sector replaced by the deleted directory entries.
->
-> This was harmless while file data went through exfat_get_block(), as
-> __block_write_begin_int() and do_direct_IO() call clean_bdev_aliases()
-> for newly allocated blocks. Since data I/O moved to iomap, nothing
-> drops these buffers any more.
->
-> Clean the aliases in exfat_alloc_cluster(), once per contiguous run of
-> allocated clusters. Doing it at allocation time covers every path that
-> allocates clusters: buffered and direct writes, and also fallocate()
-> and an extending truncate(), which allocate clusters before the data is
-> written, so the later iomap mapping does not see them as new.
->
-> Tested on the exfat dev branch in a KVM guest with a reproducer that
-> removes the entries of a directory, removes the directory and writes a
-> file over its freed cluster: buffered with and without fsync, O_DIRECT,
-> after fallocate(), after an extending ftruncate(), and with the freed
-> cluster in the middle of a fragmented allocation. Without this patch
-> every run corrupted the file (55/55); with it, none did (0/55). A churn
-> test that creates, removes, preallocates and truncates directories and
-> files, then runs fsck.exfat, is clean with and without the patch.
->
-> Fixes: 82a81a7352bc ("exfat: add iomap buffered I/O support")
-> Fixes: 867b9c96dc83 ("exfat: add iomap direct I/O support")
-> Link: https://lore.kernel.org/all/010001a1222f66ba-0c745f29-d4fe-4862-93f=
-f-1db2055b05fc-000000@email.amazonses.com/
-> Suggested-by: Namjae Jeon <linkinjeon@kernel.org>
-> Assisted-by: Claude-Opus-5.5
-> Signed-off-by: Nicolas Falesy <nicolas@nicolasfalesy.com>
-Applied it to #dev.
-Thanks!
+The AFE IRQ handlers access regmap and PCM state. Register each handler
+after its inputs exist and release it before the final remove callback
+or managed component teardown releases those inputs. The mt8186 patch
+also balances IRQ wake settings on probe failure and removal.
+
+Compile-tested with Clang 22.1.2, W=1 (arm64).
+Base: 238650ef6c7c7cca08e032527329424c9fbd70e5
+
+1. ASoC: mediatek: mt8186: Keep the AFE IRQ within its resource lifetime
+2. ASoC: mediatek: mt8189: Keep the AFE IRQ within its resource lifetime
+3. ASoC: mediatek: mt8196: Keep the AFE IRQ within its resource lifetime
+
+Assisted-by: LLM
