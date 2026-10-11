@@ -1,290 +1,113 @@
-Received: from mail-oo2-f0.google.com (mail-oo2-f0.google.com [74.125.231.128])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4103B1990C7
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 04:17:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.128
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791692254; cv=pass; b=qw8pLl3Fj6rORMySPFSBJ5krgnqnV/G0ycUwkTC56XuTNtWTw26G8C3FhMtLmpw3ClUY7halRr6xe5kpNDCZUOUfrFiHPW401CO/BwDG/IfApuZKRZ5bRzuArF5i7o9qPPM35CnJt6SXPPIxy/S5aRZfpJWmYbW6f12kGN0wZAI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791692254; c=relaxed/simple;
-	bh=EojC/6mtzUWJ7avmaSpCmXay/upr0JmdGGgyCBDDGzY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OcR5ccfrTV/m//SbjkVgJcbCzg1/gpUX4c0clnGDZdHw9gTO9mTOGWNQ+biRy4iyBdrwPyBmZ4Z4A1/OUS3wd/QdfGKU2T3wh9jaZjUDdfsuJh9yKZ0DL8wTDCae1rey0dY+bzfM49dPVjHte3PGo+ew1/0n4WkGP8nGztUjWiQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=acqmmXTL; arc=pass smtp.client-ip=74.125.231.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A37475A79B
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 04:18:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791692286; cv=none; b=KwOul2//5gNblR/7ym1rKNNnPxlnRQZE1lqzSbXyH6d+nxbws/L3knt0TTM1ffoF1rfs/DbvwJ6FcnL3gF2IIVV1cGAhpgO8prKQ+M6YA9KBxyPl1yuBBY+kuJ6nvziawv4M5FQFIkfXZiXdt1d/zvNdM1e8Tgfz6PLO6Qheecc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791692286; c=relaxed/simple;
+	bh=HuhZht6aU5N/F42V6umEixqmRT9L+VT898rtqYBYdNU=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=Itmcb7drlJPUbOQgPIJZi7FCQr2RJCM9gsemRDN14MCq/PwWfIdkYbJ6l0gzkuK2ZL3jt7YufTHlITid1ZwkaX0DWlaCzcYkNidKggPvE+H/GxVqsskDb/S97e5VWK67Fs1oFtuDVJWkNVfxkZvT7GREcRI+6bhdcJ8tP+4LFzI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=mOu+5Xo7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="acqmmXTL"
-Received: by mail-oo2-f0.google.com with SMTP id 46e09a7af769-824040a3379so398699a34.0
-        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 21:17:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791692251; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QFPDDi0uZly1FLVnhmpNv2H0DmYfUYPIG+3rTdfxPIRe4+D5mdWf1anNxasiIt51QP
-         oXJtY1P7G+ffPulaRTe/jV5jfRSmtc+PfdS/WhIbKJNhxMObfZeM2mSMUGhCpRHPmoR0
-         OmnPgkLlgdj8TvX13ExdlkOfYxKcrRoeODY2RpbhNNIJHP0sWemhzHIASnUVNkh2EuM2
-         PWr+NrDsaXKxSQOfmUH3KX6SAmoG407iUMAt1Ovjqp/+Tmox3Uh6W4vvr3WB+ahQQQnd
-         hqmcoSDAtuQxLZM+PlZYApuhdx1mZ0mIU2crMAvu56oE64pHvUaV9pIMS5gXO6M0Sdil
-         9OKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ze3tU5ClgmV//hWYQFqIt/MG2FODlVRCQlPbo8m5k9w=;
-        fh=4V7sNuXz7d5ZjzG8eUdynk6YaTS9AIFeI9Zg3j23qFU=;
-        b=e+GoYRxNRL+IFvcGAHTqFS8BXOQbPk/VUDqd0BwzboEatA4xh9j8FYb3YRwJthEqc4
-         njUd+aHx8kLEQjkuzu1383kPX+SVjZ42UAus4tokgdzIsxWiRAKVr2pR8o/h5i08CaHb
-         BmKMXiDfsimdx6UmvJ/jUNMEzqcYcM3LeFl34WG4KPbV9rdNeseSOgpk1pqDdsxY4NcE
-         j3vaDxmXBFhRT6sc0s4baLtyXnRDWr+3UE1IdY31X3JH/lu8Yg2C6E3/jQNczNlXrm5l
-         s9B95I0Eoixnf53VmJPtJZdJjrzK2Pop1/l+fVjsV3V7GxPHXYBNdPcYbUJ1afIk/iuK
-         /IIA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="mOu+5Xo7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9D4B1F000FF;
+	Sun, 11 Oct 2026 04:18:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791692251; x=1792297051; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ze3tU5ClgmV//hWYQFqIt/MG2FODlVRCQlPbo8m5k9w=;
-        b=acqmmXTLH3/JqLul4xg0YhnqrVxyfR3hxgvuPybOeTz/MIUiN972T+nMdl+nhNsiiZ
-         gvAHayn/EDi5xIoaRVVuIcMNda+TXC9UMymbknO+5KlK9Dg1n4Ix7EZeb+OrwClrjnw5
-         ELkGj3gVIPRiJv4h5eChhfSbpOiKnT7Ei1l/5/ovHXZzXdLecQXJXuyZGXUpVvoYC/XW
-         pAQ6j4JkRHG8A3QXwEp6L2TmagY8cMV/d2cHFeUL1QfLJgVBDPipiPrd1orkQKiBKQDL
-         8A8wAHFnu0Qz0C8xMnWMCA2UyPG3KIwR3ikjXCmS/+BpPCLddzYu0/wA0BirwanIMDQ6
-         V9gg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791692251; x=1792297051;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ze3tU5ClgmV//hWYQFqIt/MG2FODlVRCQlPbo8m5k9w=;
-        b=rIeF3fEeojqaA9yyhbziFzbgHaQite9gRheGSDX6T9nut2txK0veI84wIEMeKGd0Jd
-         /hQbAAfCGA/N4Uyw8HTKUEsNGh2PhBEwhbidudQ1PsaYZWSATl7BWT51WbFp7AhqDX11
-         /8AFMwq5atVIxLSchhd0J/o3PmNYlkZ1RyhekmRzIdFowNR42CmpbkrJ72kBtMCHh1Vt
-         3lLD9NO9lXZMvmFVzlqPNtzsUTbKgA8ivl7EPdr+t3HyX/YU6F70BuSuHS/Xl05byIkW
-         IO++0vZNsJ9L1umBi2o9dGbPRw7V9Xw6kT0DJhN+zlEg3dXtjE8RsXkEAuvUKZTk9cUK
-         3pnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz1Y+ddWv/bfXtRpiRUBqtAmLx0qDhqf6ySfbP92fvaaFkX+ff8Ii4AJ3LAioIxzohVqVKMqnBd7kUJVsk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYICoBvt+3x+XuJWWYKHPFWniT7GrewqB3ApRAgy05u5XuXT1QrS
-	u52zV4I5E7j4TJsLLX6GEj0pnWXXJW58rdJY7MnbaTA9YQhj88EERYQxc41kPY6QJVoSya1rBmN
-	YFpfeQIVo2LRbXbsH0yE6ObdCjddg+7c=
-X-Gm-Gg: AYBFou38tRt8nxJKbkLUwzXSaTSpNtexrOQ+QVZDnopCnCVRsDraesM8dG/4Ur7y5vI
-	f5ysSDnZkiYKjKFxKvXKqvYkCT5oUjg6mPM7Pz2tlKiVTmora8siJKQEFCKpgmrKFQcWjJo8D4N
-	3jNW8TSjJdi5mtK/v768FtRCzTEk3dv2RqP61JIROy/urledETUNUBaZcQGvQ/s5DdwhH/jmY8Z
-	4pAjNXad9pq5UFdMsto0NmknVsJDMkk3fWQOOHIxCzjEBM3g1ucoL9iZxufzvsmXE5x5R4/iOe4
-	MEmp0RFDF/s27zTwvcN5QwTMQO8v/CH8Mz+O/1TNw3081xWZTudkTsvHhzH3iyZEBI3jHIZlO7e
-	A/QJ5+eQxpi19Kgq4TNLv7T8=
-X-Received: by 2002:a05:6808:1908:b0:4b9:a88b:8884 with SMTP id
- 5614622812f47-50c50f2e1f2mr6409320b6e.26.1791692250833; Sat, 10 Oct 2026
- 21:17:30 -0700 (PDT)
+	d=linux-foundation.org; s=korg; t=1791692285;
+	bh=DQXe8ZXbnsxg1+ywX8B2BQaYZQsy0RAAEXJi/kKPUSA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=mOu+5Xo7a92z/S/2VGgblZPi8AXguP9JYXkNhHRY8SSbjs2GXb6O2n6o4z54OU7He
+	 pWY65IfFS85L+JZpRRHtGWAsiDdg91jaOHoM0RAw4q3AggI5pxqGoxuVYBRzDURHXt
+	 uQJeXyjLRxzCGWl3E9+zhqr8BxH1osGXO3YVaxu8=
+Date: Sat, 10 Oct 2026 21:18:04 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Cc: Adam Harshbarger <handyhandyman.adam@gmail.com>, I Hsin Cheng
+ <richard120310@gmail.com>, linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH] lib/plist: add a plist_test case for plist_requeue() on
+ the last priority bucket
+Message-Id: <20261010211804.2d8a5f6180c74b08e18ad48a@linux-foundation.org>
+In-Reply-To: <20261011012245.765558-1-nickolai@csail.mit.edu>
+References: <20261010181016.44f5e2883b6820bb32c04204@linux-foundation.org>
+	<20261011012245.765558-1-nickolai@csail.mit.edu>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261005041525.49111-1-xinsheng.zhu.ny@gmail.com> <179134657946.434549.14071341559835135672@kernel.org>
-In-Reply-To: <179134657946.434549.14071341559835135672@kernel.org>
-From: Xinsheng Zhu <xinsheng.zhu.ny@gmail.com>
-Date: Sun, 11 Oct 2026 00:17:18 -0400
-X-Gm-Features: AclHuK8R4vcLcP0LXZ-tOoywSVJ8FWjq2V0QOjKOAR5xzmbA-pdI0ZnoHItcWRs
-Message-ID: <CAFGKm+zjOtU8WGpcqqb6_XnFd3vmPw2RszPig9PJzbq3Uqh_Lw@mail.gmail.com>
-Subject: Re: [PATCH net] net: usb: cdc_ncm: reject short GET_NTB_PARAMETERS responses
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, oliver@neukum.org, andrew+netdev@lunn.ch, 
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thanks for the review.
+On Sat, 10 Oct 2026 21:22:33 -0400 Nickolai Zeldovich <nickolai@csail.mit.edu> wrote:
 
-> Should this branch return a negative errno for short reads? For example:
->
->         return err < 0 ? err : -EIO;
+> The plist_requeue() shortcut inserted the node at the head of the list
+> when the node was the first of the last priority bucket and had a
+> successor of the same priority, with an earlier bucket present (fixed
+> by "lib/plist: fix plist_requeue() corrupting order in the last
+> bucket").  The CONFIG_DEBUG_PLIST self-test did not catch it: it only
+> requeues nodes it has just added, which are always the last of their
+> bucket, so plist_requeue() returned early every time, and
+> plist_test_check() only verifies the links, not that the shortcut's
+> insertion point is correct.
+> 
+> Add a deterministic case for the failing shape: A(1) B(2) C(2), requeue
+> B.  plist_test_check() verifies the node_list and prio_list links and
+> the ordering, and the new BUG_ON() checks that B ended up at the end of
+> the list rather than in front of A.
+> 
+> Before the fix the case produces B(2) A(1) C(2) and the BUG_ON() fires;
+> with the fix it produces A(1) C(2) B(2).  Verified with the three
+> functions transcribed to a userspace harness driving this exact case
+> against mainline (fails), the queued fix (passes) and the alternative
+> fix I had posted (passes); lib/plist.o builds with CONFIG_DEBUG_PLIST=y
+> (LLVM=1 ARCH=riscv).
 
-Yes. I changed the condition without adjusting the return value and
-overlooked the zero-length case.
+Thanks.
 
-When usbnet_read_cmd() returns 0, the new branch returns 0 before the
-remaining initialization has run. cdc_ncm_bind_common() then treats that
-as success. This is a regression introduced by v1.
+>  Not booted.
 
-I will fix this in v2 by preserving negative errors and returning -EIO
-for short responses, including zero-length responses:
+err, it should be,  If this is wrong, we crash every kernel at boot.
 
-        if (err !=3D sizeof(ctx->ncm_parm)) {
-                dev_err(&dev->intf->dev, "failed GET_NTB_PARAMETERS\n");
-                return err < 0 ? err : -EIO; /* GET_NTB_PARAMETERS is
-required */
-        }
+> --- a/lib/plist.c
+> +++ b/lib/plist.c
+> @@ -283,6 +283,25 @@ static int  __init plist_test(void)
+>  		plist_test_check(nr_expect);
+>  	}
+>  
+> +	/*
+> +	 * Requeue a node which is the first of the last priority run and has
+> +	 * a successor of the same priority, with an earlier run present: the
+> +	 * shortcut in plist_requeue() must append it at the end of the list,
+> +	 * not in front of the first run.  The random test above never
+> +	 * exercises this, since it only requeues nodes it has just added,
+> +	 * which are always the last of their run.
+> +	 */
+> +	plist_head_init(&test_head);
+> +	for (i = 0; i < 3; i++) {
+> +		plist_node_init(test_node + i, i ? 2 : 1);
+> +		plist_add(test_node + i, &test_head);
+> +	}
+> +	plist_test_requeue(test_node + 1);
+> +	plist_test_check(3);
+> +	BUG_ON(plist_last(&test_head) != test_node + 1);
 
-> Is it intended that these responses now cause a probe failure for
-> cdc_ncm, cdc_mbim and huawei_cdc_ncm, which all share this bind path?
+No, let's not add a BUG_ON for some selftest.  Emit a loud warning and
+proceed.  If it triggers, someone will report it.
 
-Rejecting incomplete GET_NTB_PARAMETERS responses here was the intent,
-to avoid continuing initialization with parameters that the device did
-not provide.
+> +	for (i = 0; i < 3; i++)
+> +		plist_del(test_node + i, &test_head);
+> +
+>  	printk(KERN_DEBUG "end plist test\n");
+>  
+>  	/* Worst case test for plist_add() */
 
-> Should it carry a Fixes: tag?
+This goes in my for-7.4-rcX pile, so no hurry at all.
 
-Yes. I will add the missing tag in v2:
 
-Fixes: 36c35416a94f ("cdc_ncm: fix endianness problem.")
 
-Thanks,
-Xinsheng
-
-pw-bot: cr
-
-On Wed, Oct 7, 2026 at 12:16=E2=80=AFAM <netdev-bot+sashiko@kernel.org> wro=
-te:
->
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 =C2=B7 Low: 2
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [High] In cdc_ncm_init() (drivers/net/usb/cdc_ncm.c:527-529), the new
->   check `if (err !=3D sizeof(ctx->ncm_parm)) { dev_err(...); return err;=
-=E2=80=A6
-> - [Low] The patch makes any GET_NTB_PARAMETERS response shorter than 28
->   bytes fatal to bind (cdc_ncm_bind_common() -> error2 -> -ENODEV).
-> - [Low] The commit message describes a defect: cdc_ncm_init() only
->   checked `err < 0`, so initialization continued with an incomplete=E2=80=
-=A6
->
-> --
->
-> net: usb: cdc_ncm: reject short GET_NTB_PARAMETERS responses
->
-> This patch changes the GET_NTB_PARAMETERS check in cdc_ncm_init() from
-> err < 0 to an exact-length comparison against sizeof(ctx->ncm_parm). The
-> goal is to reject short responses instead of continuing initialization
-> with zero-filled NTB parameters.
->
-> > Require the return value to equal sizeof(ctx->ncm_parm), consistent wit=
-h
-> > the existing exact-length check for GET_MAX_DATAGRAM_SIZE in
-> > cdc_ncm_set_dgram_size().
-> >
-> > Signed-off-by: Xinsheng Zhu <xinsheng.zhu.ny@gmail.com>
->
-> [Severity: Low]
-> This isn't a bug, but this fixes the unchecked response length in
-> cdc_ncm_init(). Should it carry a Fixes: tag pointing at the commit that
-> added the err < 0 check, so stable backporters can follow it?
->
-> > diff --git a/drivers/net/usb/cdc_ncm.c b/drivers/net/usb/cdc_ncm.c
-> > index 35db38cb3e4a2..66f40f0d9c273 100644
-> > --- a/drivers/net/usb/cdc_ncm.c
-> > +++ b/drivers/net/usb/cdc_ncm.c
-> > @@ -524,7 +524,7 @@ static int cdc_ncm_init(struct usbnet *dev)
-> >                             |USB_RECIP_INTERFACE,
-> >                             0, iface_no, &ctx->ncm_parm,
-> >                             sizeof(ctx->ncm_parm));
-> > -     if (err < 0) {
-> > +     if (err !=3D sizeof(ctx->ncm_parm)) {
->
-> [Severity: Low]
-> With this check, any response shorter than sizeof(ctx->ncm_parm) now make=
-s
-> bind fail. There is no fallback, and the wLength the device reports is no=
-t
-> used.
->
-> Before this patch, short responses were accepted. The zero-filled fields
-> were then sanitized by cdc_ncm_fix_modulus(), by
-> cdc_ncm_check_rx_max()/cdc_ncm_check_tx_max(), and by the
-> tx_max_datagrams =3D=3D 0 default.
->
-> The commit message calls this "consistent with the existing exact-length
-> check for GET_MAX_DATAGRAM_SIZE in cdc_ncm_set_dgram_size()". That check
-> is not fatal, though:
->
->         if (err !=3D sizeof(max_datagram_size)) {
->                 dev_dbg(&dev->intf->dev, "GET_MAX_DATAGRAM_SIZE failed\n"=
-);
->                 goto out;
->         }
->
-> No device that sends a short response has been identified. That makes
-> this a compatibility question, not confirmed breakage. Is it intended tha=
-t
-> these responses now cause a probe failure for cdc_ncm, cdc_mbim and
-> huawei_cdc_ncm, which all share this bind path?
->
-> >               dev_err(&dev->intf->dev, "failed GET_NTB_PARAMETERS\n");
-> >               return err; /* GET_NTB_PARAMETERS is required */
->                         ^^^
->
-> [Severity: High]
-> What happens when the device ends the GET_NTB_PARAMETERS data stage with
-> a zero-length packet? usbnet_read_cmd() then returns 0. Does this branch
-> log "failed GET_NTB_PARAMETERS" and still return 0, which the caller read=
-s
-> as success?
->
-> __usbnet_read_cmd() passes the usb_control_msg() length through unchanged=
-:
->
-> drivers/net/usb/usbnet.c:__usbnet_read_cmd() {
->     ...
->         err =3D usb_control_msg(dev->udev, usb_rcvctrlpipe(dev->udev, 0),
->                               cmd, reqtype, value, index, buf, size,
->                               USB_CTRL_GET_TIMEOUT);
->         if (err > 0 && err <=3D size) {
->     ...
->         return err;
-> }
->
-> cdc_ncm_bind_common() only treats a non-zero return as a failure:
->
->         if (cdc_ncm_init(dev))
->                 goto error2;
->
-> So bind would continue, but the rest of cdc_ncm_init() never runs.
-> SET_CRC_MODE and SET_NTB_FORMAT are never sent. ctx->is_ndp16,
-> ctx->tx_max_datagrams, ctx->max_ndp_size and ctx->timer_interval all keep
-> their zero values from the kzalloc.
->
-> With ctx->tx_max_datagrams =3D=3D 0, this loop in cdc_ncm_fill_tx_frame()
-> never runs:
->
->         for (n =3D ctx->tx_curr_frame_num; n < ctx->tx_max_datagrams; n++=
-) {
->
-> Each incoming skb then goes to the "free up any dangling skb" block, gets
-> freed and is counted in tx_dropped.
->
-> On the RX side, is_ndp16 is 0, so cdc_ncm_rx_fixup() calls
-> cdc_ncm_rx_verify_nth32(). The device was never sent SET_NTB_FORMAT, so i=
-t
-> is still using its default NTB16 format.
->
-> With CDC_NCM_FLAG_NDP_TO_END set, kzalloc(ctx->max_ndp_size) with a size
-> of 0 returns ZERO_SIZE_PTR. That passes the NULL check in
-> cdc_ncm_bind_common(), so the problem is not caught there either.
->
-> Before this patch, a zero-length response went through the full
-> initialization with sanitized defaults. Isn't this a regression for the
-> zero-length case? Short reads of 1 to 27 bytes do fail bind, but only
-> because the positive byte count is non-zero.
->
-> Should this branch return a negative errno for short reads? For example:
->
->         return err < 0 ? err : -EIO;
->
-> >       }
->
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/20261005041525.49111-1-xinsheng.zhu.ny%40gmail.com
