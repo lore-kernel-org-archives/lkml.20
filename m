@@ -1,214 +1,242 @@
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F817293458;
-	Sun, 11 Oct 2026 13:48:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.18.0.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5862544F574
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 13:50:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791726498; cv=none; b=BcpdEK9rj/RlrbZBeRaGbjedYqOBC4LdAbrJ6qbDzFEWMiq9Jbe2XA9AXHj03IKLzBuPlvpgStVDzAO/AE0SJIoTSNWrqsDeumBxA18nOW3TB8KLGpT/+1Ax7a//W0OkMMUhe7fmfqDd3nig8rqwT/I0yLUaiAdqs1pzDzyrZKQ=
+	t=1791726642; cv=none; b=vDUncalJvJ5L2/GUelwO9mVeNNJIDxosnvxw446ur49qjBrJ/BAlKnILmF+GRnf93S0cgjUbqUlwyP+QzN0/7xOf48F3KM0AT37Crgipbd8EqRmvsBb1qs0cDzAkkR/NTz1oylJ362DkKkLBuWvQQB7i/3sQofUbvsgwEtgK2Lw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791726498; c=relaxed/simple;
-	bh=8bWXy5ihmzFZm3TRCjLyQfV7ciHf1hIZZHKCXyaaW1M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tVwUzkYOATVNj1oQufK5PEK2ceC8ZD1ZLEODRbWuCMb1GD7YCWpPX5QugQcis1R2mLo67iG1kglGIraaCtAXvOv3DQIJKCahAAwjzFmTj79g4+QQh0qf9V2h2tO+apaAh54TO30vYOx8hFO64o3fu+c8UZClaYxUDgdQHlj/h3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=muenchen-mail.de; spf=pass smtp.mailfrom=muenchen-mail.de; dkim=pass (2048-bit key) header.d=muenchen-mail.de header.i=@muenchen-mail.de header.b=lqimsr+d; arc=none smtp.client-ip=212.18.0.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=muenchen-mail.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=muenchen-mail.de
+	s=arc-20240116; t=1791726642; c=relaxed/simple;
+	bh=H8I9XP+B/vTgOqGSaUBn9vQyJTZbb/WUJ+8CZ2HN8QE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nJxewEuoQRAR5pRzmQQUVBqCC3dEeyiCnkAE8/wsZ7S8P4B45nIRocFZ5cbUwjoNCktwNW3o3DxW/l5ClV2XIUgA725l38FqX9TuklS8U7wYeznkjEBa6+IjisbvKyzdEw7aQ4MmR+WMWTzo1EH3wdOjqW6BI500vso6CdQINgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mjGs1jUe; arc=none smtp.client-ip=209.85.210.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=muenchen-mail.de header.i=@muenchen-mail.de header.b="lqimsr+d"
-Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
-	by mail-out.m-online.net (Postfix) with ESMTP id 4j2hX94YNZz1sR8g;
-	Sun, 11 Oct 2026 15:39:05 +0200 (CEST)
-DKIM-Signature: a=rsa-sha256; bh=AAYA6v5MnUMcI9QcPmOweeiWGFke9spuzNUKiC+8dQk=;
-        c=relaxed/relaxed; d=muenchen-mail.de;
-        h=Date:From:To:Message-ID:Subject;
-        s=r1; t=1791725945; v=1;
-        b=lqimsr+d3XBAIbP1dAkFm4PQDrYYKkjwksqiZwg9mxvSopH2HO0pAreftwjg4mqe
-         CIfep0WRE3Gbqpm2rjtYaHxdXXF0f+0kyewlbG82BdxxNlu8H3AjgCAmim8rXPVb
-         gHEklZrga8IXWbfRl3+UkmkfqI7QnqqXt+OjzuQhDdilAhpkhfgHwS2aOourDqk1
-         tDdbF29b62VeyfxrbBBl+FEYr29quFfIbt1XqVBmNDWzBlXDAszD2+Hj3OodUYIQ
-         LrDylKQQHoVRBE2KJRUFu9Wvl9epV6U3NrApWrr884p7/Z+u8Sv+qTiWsnaGo6ex
-         1Vqq9MwWQ06LWRN077VQYw==
-Received: from frontend03.mail.m-online.net (unknown [192.168.6.182])
-	by mail-out.m-online.net (Postfix) with ESMTP id 4j2hX80GS8z1sR8H;
-	Sun, 11 Oct 2026 15:39:03 +0200 (CEST)
-Received: from localhost (dynscan3.mnet-online.de [192.168.6.87])
-	by mail.m-online.net (Postfix) with ESMTP id 4j2hX74jXDz1qqlS;
-	Sun, 11 Oct 2026 15:39:03 +0200 (CEST)
-X-Virus-Scanned: amavis at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.6.182])
- by localhost (dynscan3.mail.m-online.net [192.168.6.87]) (amavis, port 10024)
- with ESMTP id ATq7ikQRj-9X; Sun, 11 Oct 2026 15:39:01 +0200 (CEST)
-X-Auth-Info: RWtFOPa2WPAAcoNvORZRjrjvz3yyE/RdyuxRfNfJkBn6yqWRhEJ0wED3jO+mdFff
-Received: from wiesel.intern (aftr-62-216-206-149.dynamic.mnet-online.de [62.216.206.149])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.mnet-online.de (Postfix) with ESMTPSA;
-	Sun, 11 Oct 2026 15:39:01 +0200 (CEST)
-Received: from murmel.intern (unknown [IPv6:fdea:9b79:8984:1:c2df:628d:efc1:8817])
-	by wiesel.intern (Postfix) with ESMTP id D62AC79A086A;
-	Sun, 11 Oct 2026 15:39:00 +0200 (CEST)
-From: Thomas Gerner <thomas.gerner@muenchen-mail.de>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Drew Fustini <fustini@kernel.org>,
-	Guo Ren <guoren@kernel.org>,
-	Fu Wei <wefu@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	Thomas Gerner <thomas.gerner@muenchen-mail.de>
-Subject: [PATCH 1/2] riscv: dts: thead: Enable bluetooth on BeagleV-Ahead
-Date: Sun, 11 Oct 2026 15:37:59 +0200
-Message-ID: <22787b9b20b62ac010a0fd8de0aa1f564fa577ce.1791720467.git.thomas.gerner@muenchen-mail.de>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1791720467.git.thomas.gerner@muenchen-mail.de>
-References: <cover.1791720467.git.thomas.gerner@muenchen-mail.de>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mjGs1jUe"
+Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-82380b0f55dso573905a34.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:50:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791726640; x=1792331440; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9P1eY/haq7fMC4SvzoecDkVUT56A4fNtRDaCNRTVYRw=;
+        b=mjGs1jUesMZI5AW/gHSaVTSLvEu3xdZW9o+TMvxBQLTYqzs06beGi5cVKOTClwsXLE
+         YeeUBiFqo3EDya5DobrXeW0cH3h8pfuclkbMBDBK0cAAUNlmaou/+L1jbAtVUD9UPBNd
+         1QXqn+PqBZ5ONf4qcKNW0UJJbXnxBAp1xm2xoH4CzJmqx8ksmM04Tcr00H6VekTtw2Ym
+         q6oYHYBx1sdDuqgpGNGElBBbqu0TI3QIsRBFYHWA6evAHy8D4zBfY81VGxZxkHZe8IPE
+         pNVXGHw+Sk0jmg1HxRZ6vhbcHGw4+HpAe+5YBDYbf61okZFGOkGtDqgULP+pbdv13B2F
+         IrOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791726640; x=1792331440;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=9P1eY/haq7fMC4SvzoecDkVUT56A4fNtRDaCNRTVYRw=;
+        b=lMxbUgVdW29pNSrFGoAMRXAG5/QHxU5s4StW4/eT8rohzf8XNTOx5BGQwj0JLOBhSG
+         B6FwHwysHQD2DlOoo+dV3KO8Qbo+ulV/jtB2QSKZhHdPvLWST4Yv4Uccl5SdUNVDpaPL
+         gBbCJ3LJl/7ZKdyPMwQIvmic5RlVsdad1+FhWb/uPflIUF7WSWDuZ2LsD8fZaFBZ7qXH
+         dK06SQm4thZOOGSsWb5oB54mN3bTzG2peyWpccqEypx8aQaOtZOhaS+teQNx2AeVRecy
+         kv9apncfB1HIEIU07Wu99rH5Ph0oN1nLaOQD1pnst2owHjys03Bp2+VW47BFVbXS2kSk
+         Be4A==
+X-Gm-Message-State: AFq9FYLZ4mmTOLwzRr5HbVI/z2sThUG/pMH7yfp1hzPACIks5KUPctdw
+	0+8M1FYsG0ZpvtvmpV8f5sHK51YyWgXmYKgR2DsqGdefBjvGKsLjv6Ha6cEjWcrf5DO87w==
+X-Gm-Gg: AYBFou1F2fsIdgo8agGZVG1hR0yDRzndo9DVR+Bt4PkyarGliNNoPevId7icgwHAxbU
+	LTSo5Nrt4F4ZNcL9b8yRXwY3glxZk1JEPpWoSs0TAY1RAT6PhVJQtUcZYazbkfKIPkhkbCarzoo
+	oFsGnSwRhOBZQCDoPzQOVkAzdXyasVYhOPcgcSCJ4aZlgb/74qFW9NZz4rgVfHyCw1uvz+Ticvj
+	ZfnnZ2mZWHt1Ed8xgUJO1WWej+PEIfz/MZYE84qF5fLt9DCbSKisWRvYgl4oEVTojoxWqaxPXko
+	Sjej1XkBvRlQn/WsFR7M3ZrYBdSh709O45oEe+O2pyyuwdhkAStCuN72zWnTnPnSWAOR5znE7Sz
+	D+iOyX6HZ+c22CdK/ssXjQhuOGQximxh12JjHAqV42geJd7o6BKkScYIKL4rIIMzx/+0NErHn3J
+	B1R/8s25IQhw5/TSHW+3AjmnNQF1aTnDJtrhcPppzxw4cZ022s68rTpkChhko56J40rdVJNKXYA
+	H/+G1PJVRS0fKVvtMGYG5mKlIR6NwX30eHjqCKUgQFmKcaUn7tkw2ZqwGFapXs=
+X-Received: by 2002:a05:6830:440a:b0:822:e94e:349b with SMTP id 46e09a7af769-8309815d753mr6708923a34.30.1791726640152;
+        Sun, 11 Oct 2026 06:50:40 -0700 (PDT)
+Received: from [10.189.183.117] ([172.59.193.215])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-83039076d67sm7680519a34.13.2026.10.11.06.50.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 11 Oct 2026 06:50:38 -0700 (PDT)
+Sender: Julian Braha <julian.braha@gmail.com>
+Message-ID: <4922d878-9429-462e-9b24-ced0b66e1a09@gmail.com>
+Date: Sun, 11 Oct 2026 14:50:32 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] kconfig: show number of search results in search UI
+To: Zuo An <zuoan.penguin@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org,
+ Randy Dunlap <rdunlap@infradead.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nicolas Schier <nsc@kernel.org>
+References: <aspVmnam3QL_DRYV@gmail.com>
+Content-Language: en-US
+From: Julian Braha <julianbraha@gmail.com>
+In-Reply-To: <aspVmnam3QL_DRYV@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On the BeagleV-Ahead the bluetooth module of the Ampak AP6203BM is
-identified by the btbcm driver as BCM4362A2. The module is connected by
-UART4, several gpio pins and an I2S interface. The I2S is currently not
-used as there is no driver. 
+Hi Zuo,
 
-Signed-off-by: Thomas Gerner <thomas.gerner@muenchen-mail.de>
----
- .../boot/dts/thead/th1520-beaglev-ahead.dts   | 89 +++++++++++++++++++
- 1 file changed, 89 insertions(+)
+On 10/10/26 16:11, Zuo An wrote:
+> When searching for symbols in nconfig/menuconfig, the search
+> results popup will now display a count of the results
+> in the title bar, e.g. "Search Results (42)".
+> 
+> This helps the user to gauge the number of matches quickly and
+> refine their search if needed, rather than having to scroll down
+> by an indefinite amount (especially for nconfig's UI which lacks
+> a display of the scrolling progress).
+> 
+> Signed-off-by: Zuo An <zuoan.penguin@gmail.com>
+> ---
+>  scripts/kconfig/lkc_proto.h |  2 +-
+>  scripts/kconfig/mconf.c     | 10 ++++++++--
+>  scripts/kconfig/nconf.c     | 10 ++++++++--
+>  scripts/kconfig/qconf.cc    |  2 +-
+>  scripts/kconfig/symbol.c    |  4 +++-
+>  5 files changed, 21 insertions(+), 7 deletions(-)
+> 
+> diff --git a/scripts/kconfig/lkc_proto.h b/scripts/kconfig/lkc_proto.h
+> index 8914b4e8f2a8..224acc142769 100644
+> --- a/scripts/kconfig/lkc_proto.h
+> +++ b/scripts/kconfig/lkc_proto.h
+> @@ -21,7 +21,7 @@ bool conf_errors(void);
+>  struct symbol * sym_lookup(const char *name, int flags);
+>  struct symbol * sym_find(const char *name);
+>  void print_symbol_for_listconfig(struct symbol *sym);
+> -struct symbol ** sym_re_search(const char *pattern);
+> +struct symbol ** sym_re_search(const char *pattern, int *sym_cnt);
+>  const char * sym_type_name(enum symbol_type type);
+>  void sym_calc_value(struct symbol *sym);
+>  bool sym_dep_errors(void);
+> diff --git a/scripts/kconfig/mconf.c b/scripts/kconfig/mconf.c
+> index b8b7bba84a65..f37c3f8e1f4d 100644
+> --- a/scripts/kconfig/mconf.c
+> +++ b/scripts/kconfig/mconf.c
+> @@ -384,8 +384,10 @@ static void show_help(struct menu *menu)
+>  static void search_conf(void)
+>  {
+>  	struct symbol **sym_arr;
+> +	int sym_cnt;
+>  	struct gstr res;
+>  	struct gstr title;
+> +	struct gstr res_title;
+>  	char *dialog_input;
+>  	int dres, vscroll = 0, hscroll = 0;
+>  	bool again;
+> @@ -422,7 +424,7 @@ static void search_conf(void)
+>  	stpart.text = str_get(&sttext);
+>  	list_add_tail(&stpart.entries, &trail);
+>  
+> -	sym_arr = sym_re_search(dialog_input);
+> +	sym_arr = sym_re_search(dialog_input, &sym_cnt);
+>  	do {
+>  		LIST_HEAD(head);
+>  		struct search_data data = {
+> @@ -433,9 +435,13 @@ static void search_conf(void)
+>  		jump_key_char = 0;
+>  		res = get_relations_str(sym_arr, &head);
+>  		set_subtitle();
+> -		dres = show_textbox_ext("Search Results", str_get(&res), 0, 0,
+> +
+> +		res_title = str_new();
+> +		str_printf(&res_title, "Search Results (%d)", sym_cnt);
+> +		dres = show_textbox_ext(str_get(&res_title), str_get(&res), 0, 0,
+>  					&vscroll, &hscroll,
+>  					handle_search_keys, &data);
+> +
+>  		again = false;
+>  		if (dres >= '1' && dres <= '9') {
+>  			assert(data.target != NULL);
+> diff --git a/scripts/kconfig/nconf.c b/scripts/kconfig/nconf.c
+> index 521700ed7152..e3b25940b931 100644
+> --- a/scripts/kconfig/nconf.c
+> +++ b/scripts/kconfig/nconf.c
+> @@ -700,8 +700,10 @@ static int do_exit(void)
+>  static void search_conf(void)
+>  {
+>  	struct symbol **sym_arr;
+> +	int sym_cnt;
+>  	struct gstr res;
+>  	struct gstr title;
+> +	struct gstr res_title;
+>  	char *dialog_input;
+>  	int dres, vscroll = 0, hscroll = 0;
+>  	bool again;
+> @@ -732,7 +734,7 @@ static void search_conf(void)
+>  	if (strncasecmp(dialog_input_result, CONFIG_, strlen(CONFIG_)) == 0)
+>  		dialog_input += strlen(CONFIG_);
+>  
+> -	sym_arr = sym_re_search(dialog_input);
+> +	sym_arr = sym_re_search(dialog_input, &sym_cnt);
+>  
+>  	do {
+>  		LIST_HEAD(head);
+> @@ -742,10 +744,14 @@ static void search_conf(void)
+>  		};
+>  		jump_key_char = 0;
+>  		res = get_relations_str(sym_arr, &head);
+> +
+> +		res_title = str_new();
+> +		str_printf(&res_title, "Search Results (%d)", sym_cnt);
+>  		dres = show_scroll_win_ext(main_window,
+> -				"Search Results", str_get(&res),
+> +				str_get(&res_title), str_get(&res),
+>  				&vscroll, &hscroll,
+>  				handle_search_keys, &data);
+> +
+>  		again = false;
+>  		if (dres >= '1' && dres <= '9') {
+>  			assert(data.target != NULL);
+> diff --git a/scripts/kconfig/qconf.cc b/scripts/kconfig/qconf.cc
+> index b02ead7a3f98..8f51dc55226d 100644
+> --- a/scripts/kconfig/qconf.cc
+> +++ b/scripts/kconfig/qconf.cc
+> @@ -1245,7 +1245,7 @@ void ConfigSearchWindow::search(void)
+>  	list->clear();
+>  	info->clear();
+>  
+> -	result = sym_re_search(editField->text().toLatin1());
+> +	result = sym_re_search(editField->text().toLatin1(), nullptr);
+>  	if (!result)
+>  		return;
+>  	for (p = result; *p; p++) {
+> diff --git a/scripts/kconfig/symbol.c b/scripts/kconfig/symbol.c
+> index 7e81b3676ee9..31f927bd563a 100644
+> --- a/scripts/kconfig/symbol.c
+> +++ b/scripts/kconfig/symbol.c
+> @@ -1020,7 +1020,7 @@ static int sym_rel_comp(const void *sym1, const void *sym2)
+>  	return strcmp(s1->sym->name, s2->sym->name);
+>  }
+>  
+> -struct symbol **sym_re_search(const char *pattern)
+> +struct symbol **sym_re_search(const char *pattern, int *sym_cnt)
+>  {
+>  	struct symbol *sym, **sym_arr = NULL;
+>  	struct sym_match *sym_match_arr = NULL;
+> @@ -1065,6 +1065,8 @@ struct symbol **sym_re_search(const char *pattern)
+>  			sym_arr[i] = sym_match_arr[i].sym;
+>  		sym_arr[cnt] = NULL;
+>  	}
+> +	if (sym_cnt)
+> +		*sym_cnt = cnt;
+>  sym_re_search_free:
+>  	/* sym_match_arr can be NULL if no match, but free(NULL) is OK */
+>  	free(sym_match_arr);
+> -- 2.56.0
+> 
 
-diff --git a/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts b/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts
-index e16484a47653..bf64eb667745 100644
---- a/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts
-+++ b/arch/riscv/boot/dts/thead/th1520-beaglev-ahead.dts
-@@ -76,6 +76,23 @@ led-5 {
- 		};
- 	};
- 
-+	reg_vbat_1v8: regulator-vbat-1v8 {
-+		compatible = "regulator-fixed";
-+		regulator-boot-on;
-+		regulator-max-microvolt = <1800000>;
-+		regulator-min-microvolt = <1800000>;
-+		regulator-name = "vbat-1v8";
-+	};
-+
-+	reg_vbat_3v3: regulator-vbat-3v3 {
-+		compatible = "regulator-fixed";
-+		enable-active-high;
-+		regulator-boot-on;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-name = "vbat-3v3";
-+	};
-+
- 	hdmi-connector {
- 		compatible = "hdmi-connector";
- 		type = "d";
-@@ -152,6 +169,31 @@ led-pins {
- };
- 
- &padctrl0_apsys {
-+	bluetooth_in_pins: bluetooth-0 {
-+		in-pins {
-+			bias-disable;
-+			drive-strength = <1>;
-+			function = "gpio";
-+			input-enable;
-+			input-schmitt-enable;
-+			pins = "GPIO2_30";
-+			slew-rate = <0>;
-+		};
-+	};
-+
-+	bluetooth_out_pins: bluetooth-1 {
-+		out-pins {
-+			bias-disable;
-+			drive-strength = <3>;
-+			function = "gpio";
-+			input-disable;
-+			input-schmitt-disable;
-+			pins = "SDIO1_DETN",	/* GPIO2_29 */
-+			       "SDIO1_WPRTN";	/* GPIO2_28 */
-+			slew-rate = <0>;
-+		};
-+	};
-+
- 	gmac0_pins: gmac0-0 {
- 		tx-pins {
- 			pins = "GMAC0_TX_CLK",
-@@ -268,6 +310,30 @@ reg-on-pins {
- 	};
- };
- 
-+&padctrl1_apsys {
-+	uart4_pins: uart4-0 {
-+		rx-pins {
-+			bias-disable;
-+			drive-strength = <1>;
-+			function = "uart";
-+			input-enable;
-+			pins = "UART4_RXD", "UART4_CTSN";
-+			input-schmitt-enable;
-+			slew-rate = <0>;
-+		};
-+
-+		tx-pins {
-+			bias-disable;
-+			drive-strength = <3>;
-+			function = "uart";
-+			input-disable;
-+			pins = "UART4_TXD", "UART4_RTSN";
-+			input-schmitt-disable;
-+			slew-rate = <0>;
-+		};
-+	};
-+};
-+
- &sdio0 {
- 	bus-width = <4>;
- 	max-frequency = <198000000>;
-@@ -314,3 +380,26 @@ &uart0 {
- 	pinctrl-0 = <&uart0_pins>;
- 	status = "okay";
- };
-+
-+&uart4 {
-+	pinctrl-0 = <&uart4_pins>;
-+	pinctrl-names = "default";
-+	uart-has-rtscts;
-+
-+	status = "okay";
-+
-+	bluetooth {
-+		compatible = "brcm,bcm4329-bt";
-+		device-wakeup-gpios = <&gpio2 29 GPIO_ACTIVE_HIGH>;
-+		interrupt-parent = <&gpio2>;
-+		interrupts = <30 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "host-wakeup";
-+		max-speed = <921600>;
-+		pinctrl-0 = <&bluetooth_in_pins>;
-+		pinctrl-1 = <&bluetooth_out_pins>;
-+		pinctrl-names = "default";
-+		shutdown-gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>; 	/* BT-REG-ON */
-+		vbat-supply = <&reg_vbat_3v3>;
-+		vddio-supply = <&reg_vbat_1v8>;
-+	};
-+};
--- 
-2.53.0
+Sashiko has some concerns about uninitialized memory. The alarms look
+accurate to me:
+
+https://sashiko.dev/#/patchset/aspVmnam3QL_DRYV%40gmail.com
+
+- Julian Braha
 
