@@ -1,92 +1,97 @@
-Received: from smtp-bc0b.mail.infomaniak.ch (smtp-bc0b.mail.infomaniak.ch [45.157.188.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B03282DB7BE
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:08:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.188.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36F7C2DAFA9
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:17:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791734924; cv=none; b=eSzjth9DotMig0CvVpyW5za0h0rnSoM8Pioyo447cyr7fr4tydBWPZG6p3juk3WD5CFay6NNhNy0tBUGZe3JvlCW4haW4cKrbrHEbh6/X5fs00fBFiQVlIGR/HDou6pBojZjUrugtj2zx5o6+MJ7HxO6k9d4GWWJblyh6Bg5i04=
+	t=1791735456; cv=none; b=eeOvbRVOlpFXFh0blpPawbZmPytCwOCi+AeQh6qYXz0A08DKJ/kTtZnKfCLjfOYL0Mouu6WlxpehpUEfd6HWGZidXKA2wy+3exryC6dKaC3MIyHBjaD4hfhkukDUiCuV/ni7WRyP5G3I80M43KhTkiLZc8Ux/U6fuCnEyxdCw+A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791734924; c=relaxed/simple;
-	bh=xGkv+QyRtzfFa8DOkQXBFjFB4C9QaDE5uM6fgtyToPQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=QWH5hn4Wh2YI8FqFL8o0sn6i+6I3sel1GbjU1azLLYfRXWl7mpyoCtKbkpNY7D5YcTIdYhso/C9hnAOqjc1G5NCLfpkxRp9DNzhbmTAhc46CJ8IVtcLEi19QDmwlzVwTYL8weyo/3xjQ3Ap1ub9ry33iLLxQIyCcHei5oX7np0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=nb1kM73q; arc=none smtp.client-ip=45.157.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	s=arc-20240116; t=1791735456; c=relaxed/simple;
+	bh=mYHP1i0YB7oOLKfMJTS+JLnqxINc8T4sPhpgL6ZDkeQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HJBPytTnCll/NaGpEnbxHzyworcLz0RmyVPb2EQz/co0dH4ezetDtkkq/WDSUIEIJwaLo4JkmhhcF2Qr8iNmwA00ytcmbq4yjXhMaRHLGbJE4XKkPRoq2mbjbL2L68p+qCyGqVBJVQyzDERHgyMaEu4BpRkW3zg311uSLXjfxeU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=icywRbdw; arc=none smtp.client-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="nb1kM73q"
-Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4j2lrd44RBzHP;
-	Sun, 11 Oct 2026 18:08:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1791734913;
-	bh=Aj9Wy4UKfp9ppxpb4/jueoPyJ0lzJkxrA4oPAEY9ADA=;
-	h=From:To:Cc:Subject:Date:From;
-	b=nb1kM73q48ZKU5oLMD08CuGF4XqQhjsnQW2LZKel9qqrbpuVwS/wgyE+Zkv1rHuR1
-	 9oZiOtYq83DOyo3YbCrQQy8StEiD61rOxXUNDvHUEd3heFvOPyNQx4BmlRPmBbVGOQ
-	 nxaqbsadAd8Hq7+L+pC8a4XTiLQlBhvqePuRSkJo=
-Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4j2lrc0LrTzpdc;
-	Sun, 11 Oct 2026 18:08:31 +0200 (CEST)
-From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Alejandro Colomar <alx@kernel.org>,
-	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>,
-	Kees Cook <kees@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Mike Bommarito <michael.bommarito@gmail.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Tingmao Wang <m@maowtm.org>,
-	linux-hardening@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: [GIT PULL] Landlock fix for v7.3-rc7
-Date: Sun, 11 Oct 2026 18:08:19 +0200
-Message-ID: <20261011160819.1376118-1-mic@digikod.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="icywRbdw"
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c2e4df2e26fso156665266b.2
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:17:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791735453; x=1792340253; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mYHP1i0YB7oOLKfMJTS+JLnqxINc8T4sPhpgL6ZDkeQ=;
+        b=icywRbdwLEz+FSyUoXydfRCRkpZvnKiqsPAugOOvLgvJ1HlPD7gos8cmR4gV7frbrN
+         LxJysJ1Q7MHrldTBrJn+OQci5p3UdWmcLbQdRLGPlZUYRToxl82UGU7gWhPC8QJW5bT0
+         avr/vv1cXnRpeO6ATbq0SKj/+3dx8gV0sVT6VSgSvDmAkijhm9qvGgjLijglvMeiorjk
+         pwEgOnqdjJD+h0UJT0YDCSo+xXL/73/75boNZNnKTvHWN3K8lK1L4eIWZCpPuXG9s0Kk
+         4KpdIq4+WwjgHNUGZ8J/8aw9Gbo0aUV9kfFovENC3VjkANm5cP7Tm3412ReG3xzX+abP
+         PeRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791735453; x=1792340253;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mYHP1i0YB7oOLKfMJTS+JLnqxINc8T4sPhpgL6ZDkeQ=;
+        b=Yri2IL+gr5VnXuTPxttrCNb855Z6S11PoHn5THjfn0I9/oahIzbrbi0iwIyzjiPB4h
+         65ICRk0vEjtA/RsounJ7U1hQCAcy9Mio8xzBlRYyHN+iSyqzPndWaaL0iz8VTcPOuJT/
+         m9n91L/S1djBRFJHROmyk26S3N/Y877WJonJWT1KLHaCHTXP+osLUXFgQItXAq+u/zpv
+         R8eWq/xtVvSFFbxSsTDFIibl/ZYeeil4oSsL4vdpX+d+RjOQLaTsUenO0YiyD7yGTxQ9
+         z1EY5BnhPAMvabVbOduE/gyGn+OIvMm+Fbw5vREM5k9OeZMaEBrft/dVCWF9RCsaZSc6
+         sUYw==
+X-Forwarded-Encrypted: i=1; AKwUvByEGiuFZcEYBbMFXwxlCtcu47tXl9qDH52I0b4cUWd2EJS3adtTkGcCyLbpgte1rjCwJGnDliXFqbiXjqk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJoX0PvUv4dXqeBa8W63fxtb4sFAJ4aLzt93zvph9/ctEGmJ5Jr
+	pJJ+HaRsSSo+xTJONcsvB+UHBCazLmOmyfzmz1RvlxsFtbTMP1gn3poybLoAAjN4aLU=
+X-Gm-Gg: AYBFou1VXbjl8mrJ2IC+yDQhwqUiLC8GQNG9jxpHDacKpIn0x9m8ssWBjjnLrcqTGwR
+	QktjpZ1EAZPfzkzV3Y02U6R4rOu1EBVs5uNkc1rCIRQVyoMiZUIwmVGev+j5LrHHm7HmCD9UGXB
+	ozhVrVAVapIgR5LgmC7keCRfd4YPlxbueW9m7bRl7SFYqlL0gNnkvtN1iLZhQFs4j9bKjiFp7mg
+	Fc254nlIW52BmNw2ZUv6HkSosGUETCh52L1CAP/egmxm+E+47wPRye3V08FwE1QyB/k4hxk/+yE
+	88XJJ3r1GrHalSXWV17vAvWQvyzHLqVFZyDY3iDOTgSG6G/9kR/Ux8TmoxMzBjeqrLfHLmv8AG0
+	WVG+HNp7PDieL68JmeK2ViP2yAyjeeUu4h3PktOEHWHmb4PhvRDTeXgFzpL3ePo36LOtxZmnRZR
+	65t06rlJ3eG1hY+IKBv6oqU3dBEGrXP4u0yr/UO/aSviOd1Uc/6MpXklk5zk9FeIu4kOesLPYQ9
+	hPzKMCqXV+zPmTN/F6LQzcKpgiz2W/lWaRPHIvB3uaHdSx/9g==
+X-Received: by 2002:a17:906:dc8c:b0:c29:555e:bf2 with SMTP id a640c23a62f3a-c31a9fe3cf5mr692093366b.41.1791735453256;
+        Sun, 11 Oct 2026 09:17:33 -0700 (PDT)
+Received: from localhost.localdomain (host-188-122-3-146.finemedia.com.pl. [188.122.3.146])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9a3805bsm373462766b.16.2026.10.11.09.17.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 09:17:32 -0700 (PDT)
+From: illofspeed <illofspeed@gmail.com>
+To: dlemoal@kernel.org
+Cc: dm-devel@lists.linux.dev,
+	agk@redhat.com,
+	snitzer@kernel.org,
+	mpatocka@redhat.com,
+	bmarzins@redhat.com,
+	hare@suse.de,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] dm zoned: back off when reclaim finds no destination zone
+Date: Sun, 11 Oct 2026 18:17:31 +0200
+Message-ID: <20261011161731.394-1-illofspeed@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <8d1ee370-2785-438d-9c5b-8363584a23aa@kernel.org>
+References: <8d1ee370-2785-438d-9c5b-8363584a23aa@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
 
-Hi,
+Damien Le Moal wrote:
+> Patch looks OK, but is "ilofspeed" your full name?
 
-This fixes a Clang bug by removing an annotation, which was introduced
-mostly for documentation.
+illofspeed is not my legal name, but it is the name I use for all my
+public work (GitHub and this series), and I understood
+Documentation/process/submitting-patches.rst ("using a known identity")
+to allow that. If you need a legal name in the Signed-off-by, please let
+me know and I will resend.
 
-Because this is a trivial patch, feel free to merge it with v7.3-rc7 if
-it's ok with you, otherwise with the v7.3 release.
+(Resent as plain text: my first reply had an HTML part and did not reach
+the lists.)
 
-Regards,
- Mickaël
-
---
-The following changes since commit 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e:
-
-  Linux 7.3-rc5 (2026-09-27 13:55:01 -0700)
-
-are available in the Git repository at:
-
-  https://git.kernel.org/pub/scm/linux/kernel/git/mic/linux.git tags/landlock-7.3-rc7
-
-for you to fetch changes up to 3d8cc52db2f86b624308321c58513019f6b21eec:
-
-  landlock: Drop __counted_by from landlock_domain.handled_masks (2026-10-11 17:54:21 +0200)
-
-----------------------------------------------------------------
-Landlock fix for v7.3-rc7
-
-----------------------------------------------------------------
-Nguyen Ngoc Thang (1):
-      landlock: Drop __counted_by from landlock_domain.handled_masks
-
- security/landlock/domain.h | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+illofspeed
