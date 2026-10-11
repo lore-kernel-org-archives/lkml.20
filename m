@@ -1,140 +1,159 @@
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADE5C2D97B7
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:20:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791735647; cv=pass; b=gSJfJGoiJuSonYKGJt5qZCufapFAhRZOQ+2Tvmvceek9RZjWpmmaIy2Jy5sn2xrLvIQKsJjHakhEf/MI9NZIxsrWS0oSHDrtxpClllrqkIGNuGe8M6UIGPtm1wWabqld+i2ZRnM9CgAWOZhL73Vk8n1nEi4dpCxK/07tepFRG9c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791735647; c=relaxed/simple;
-	bh=QUiNdW6VFdxYMeVAMHDcIzKBwB4DCuWygXNIK8VM5JY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=L488onrK2NdFYWDMVQcWn8Z45IZhkCmog57zTzaLVc7vRkSv2cRXUh+HD1U5KCH5HxbgfbBEiFc+1uMLfCTMQXWPjHa/Xib1We45xHRmnkhRhFJiXNhaFIewJJ2KlG4/2J5+Q0pQBWeo9Ucff4Vxt7XUtgY0zK/3fVPB0uRE0P0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QG2kYRMS; arc=pass smtp.client-ip=74.125.82.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5199923E334
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 16:23:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791735783; cv=none; b=rMnchHu6jdzqDmXZZfn2t7i9wYS60CbjBQMVMgcl5CJzjlU0g+1JGsiilM5+onmlCZOlXW/7JqkSgqjNJLcdnENXXdgbGiqougW9I/Ho9fhjCwhHBmj4Rfapxhd0RjueJidLf9f6KkAkfQf20xp+MOr55GBp0aphLHAFHB94Xh8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791735783; c=relaxed/simple;
+	bh=na0Rs5cgYcyg96JqIx+sCGZR100qGX7janR84BnhWxE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lOtOk7mSFHuT1B8LEQVYw1seqipTNebDEDoCaLMGIphRMESH2SwepKjhoYcmdOq7MA62qx7HG2KnNLKFlBzJ+00qYQsZf2pJdGQOl9yqGZYD3UniQ2H77AnVtwmfaVObm1dD9GB/SSkqpzdVQdtZyfG1ihkCt0dqhU9kckB25EI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=e7cobyO0; arc=none smtp.client-ip=209.85.222.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QG2kYRMS"
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-34c522572bfso130527eec.3
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:20:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791735645; cv=none;
-        d=google.com; s=arc-20260327;
-        b=j7iNBA14acZJY62BWHgK5q5u9v/pfGGMnDb3c2l1BNzWGPUXXoj76dtirqHyaTgfmC
-         MiILpSi+UlTbGi1BU6znzSxbw8NomQrt/77AJIEBjXNgVjhxKUX+CYDnsEF0Ag3yXsva
-         Flf17ogOtmRqe6f445lh53MTSy+2xoCnXsD0tdnkP6EJ0KIUfD58kI/vuUoRJFdk+Pu1
-         4j2OifLKG4+s8TdobZ9LbOkPS9p2PXd2NZ09b/sVWhivPC53ujIGiUOnGqIZCgQ5Wt2U
-         ux89G5WaUjg8eNChcVHEWsVUJ08c1DqXA/f4M9pzHm/5uAAFO4E+Rf/se3Qr6ZNwz4qa
-         ABXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Pzp6+YC7TXvsEpHQZBAKMbTQLxmMNWdshnXk9liYwgM=;
-        fh=XZyg0Bg6iclfn76GraCjVyRnQ59tA+0QLwd9FmlYXkE=;
-        b=h/9gAZ6eCDFw/qYQPxWLwrbG9/YzmymyREedbHH/qLl6DLir1t/9pX5qTrjOKG8euB
-         35bpj0VhgJHTXmh5mCVfMul0AGcxCdr32pm6aJjxFYyvAYGMEYcHXTrrwQfCP/0LlWi4
-         0y7xGxgWglASRrA/BRpBRVZ4RDYwgViu975rHuXMTZXEYLYmlvTJHjpHelgnhfgJNAlO
-         +1g75irwkp40nNAwNF/yY0wMHBYktBEDfcvQS/gi7v2INTk4ddo5qVAO4Jvr1n/acAZG
-         BzOk4NPzgLTQZcQQ/enmO8IgIQujyihMVn99HeY6ssUOuUFOpyOVbYEMMleRBU7QUBvY
-         +/Jw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="e7cobyO0"
+Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-93e5c8f53a9so102888485a.3
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:23:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791735645; x=1792340445; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Pzp6+YC7TXvsEpHQZBAKMbTQLxmMNWdshnXk9liYwgM=;
-        b=QG2kYRMS4i3OrV5onbdj0jIQ20na/j6Qt9IiEoEby1sFgEnD2dpq/Z+amNR3LqlipD
-         uAuxNIYHEQJDS0LE2J9ufc6Bm5F/fHUgMCalizWPwfKBDtCO2pix7DLxGXT+B1K8gAB0
-         XguEpKW7LydITFy+Gl1/Rhsw+xwlCEF7C7dvrzDc5aRvxH11L0XJUOJ/9uGpndmyvmHM
-         gCzI+D3QKPYzlQ03C3fIhwV5s4nFh0EYLDYQy8aTl1qJtOBuOMNvOBfp9jHP/GKdmKyV
-         H3OGVf5fS88hl+tBZC58suSWgN5tKmdzLZcoBK9Wsry0JMrmmEPYHfP9rE3t9GMeHQTD
-         qBbg==
+        d=cs.unc.edu; s=google; t=1791735781; x=1792340581; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OtDxIjzt4VQirv06ox/zVsY4rdSoAbkCVb7vU/cZ4HU=;
+        b=e7cobyO0UcszluLJOwwKqQ8FvyLiwnhRJOotDGLg2PGHtlbu8qwHC3QU8isnUerfXb
+         nH/JVoo3lsiMJUTCy9HyO5lb0jOBlXqSQRX7By/Wpym8GzdLgWqpKWW97OPJ99/1CYOT
+         pECIAeV+27mCyUoCOgcl85HmSvXKOLcSw+vs949fkwZDlmFqo9YkGeyVrO7McPug+oGj
+         KOYpKg8UzbIf9oFyYmEIVMCfacDkbLOlAY1gXiZQBwPPuaxipFavvSTHt96wlA7Us2cQ
+         7p2O6p/NDy12JRhwxGIe5IhUyQslUO73eOsobVaVj4s+OLEKz3REF4+yv0cLaGyboGjK
+         grTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791735645; x=1792340445;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Pzp6+YC7TXvsEpHQZBAKMbTQLxmMNWdshnXk9liYwgM=;
-        b=qhgzP40zS+MV8gsr+5ZT5KRYEaVQ24x10FY4pVXG5psLv2j2t1jJ6KLpTvlqAd/lRA
-         S5WAmEI4q0EO1xn0gyqcTOD2pH+enDkkSuTvV/d5A+uZGFO0m8QTMMKx0vwwlsHDzsA4
-         xzE9xvomsoveHfNWbjmkHh211EO7S5Eg5nxuzJX3VSdQsuX331grUJy6QQLff3vL5vB1
-         GNmsdJNb5cJOqxzN8pD3Yy2658Nf/TWXv0t0ikW3UaMDJlJbWb32yIB+UcbQ3mgy72rA
-         8qhnOMFghdmST3NFhfLKtZirJ3AXNm6CGqTP+YrZy/Mxn2jq14GZl0R/ATVW5wyJKt6x
-         poQg==
-X-Forwarded-Encrypted: i=1; AKwUvBwe/5OmAZXQBSF405xF7Htv0syW1Ie2EJf+Uw8lp/arrPQtp8wUPFBqh/OYPkrsd0ljSJ93bEguS/aLo5Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL76aUtUQC47xAr2egqFYvJO4Tag9tIoVJq+jyrCcOFDsxhm/hx
-	mpHEZFKvBXbq/F9NgTXygW/QBNN/fE0EzvGFdByfhk7xcA/vvn3cnMKg5h4AMTTwUfLfiAqaA6e
-	9A4/4bSE/jtTe58+UcPG8nPqtu4SGEBwtvzI3WyI=
-X-Gm-Gg: AYBFou3RZlvqQlBsSGTbwiVkjlnuOdGKali3vFjUHgENQq8qcXm+7yVFeSOQfs9mec6
-	WOJrDrtoPn9o+lIeVl/x1WYnpeAQYbK2L4ULfEgx14rjCuGr+Jnw0FYdP8qzNMJ8uFTMaw9YCLw
-	mYWsh51e9MgpUUVpjVO7BZ1b7zmMbYJF+JuydZTZUk2tz2Sok8DWLVjiUxsEaJaBI2nQ5olh+f4
-	oAC6o4noYKGZevA65HDLtKJBmC6ip4hOjQEN4unZYDfqPlaDTX6JRcPkvZh1REfeowBKrXnNzsY
-	j4+V3OdRk2+1vn67GrJuZNMtmQe3WAMbfmmOiF8mBgVM8//aZMdBLyhZ1OpVIjw1IGX69hcIItJ
-	q29GKZYiED5H/YBONo0lgCH2bluQ85PaqMtKQzhpfpBvskfTF1y7xN/G9/OW4KcJ46SeC+K/+dl
-	qZcJK3qh9X3jBlz9dFqZoY4bu65+Vfia3Dc8M5nzbjvF4eirXCWlo=
-X-Received: by 2002:a05:7301:5413:b0:358:c9f3:b055 with SMTP id
- 5a478bee46e88-358c9f3b260mr9244966eec.1.1791735644658; Sun, 11 Oct 2026
- 09:20:44 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791735781; x=1792340581;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OtDxIjzt4VQirv06ox/zVsY4rdSoAbkCVb7vU/cZ4HU=;
+        b=nYLjO/soqQpCM5aaaPRNJxlzSsUwrwCe98LkHqCN9bdke8NbWauE+h8VulG5LFMtaj
+         iOHtnxD7b6EKJGAbKw0EABdDdODfta1qI9NrTJ2OfLhsmMN4vHlw25mLpxrYyriZI5CA
+         6hUYBAPYX/Pn/98/58wVkOzVIftzZf6sZDCauNIYLqfCrY6/2Z3XATv6e+VRh1mxkJh+
+         iUr5Emw+gr9ECNxEks4q+awd2CuScrrUdt7pwOjj3fJYGNd266JaLEFhvPfeMoyzEoZ/
+         cx9D29AIb7aLM+6rp+yvmHWfD5kF3wBih6R/+vbLYlL+m86/lU9H+pSHLRD0xHTWy4ra
+         TuOA==
+X-Forwarded-Encrypted: i=1; AKwUvBz4U9Mr4HWdO9iyxytVhO2pNQlBKnnJ3XKTftUoBgBNY+EdmKTPVBne6lITWkmvQy+vCyTqlHMg0DUZqqA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLBisPHQEPM3rgONvnHNg+fZTeWO8YkGuYNdw2jrAtpcUoIeHSf
+	GCeklin8IT03eI/J4N3iA4t8HjmWtdXExHYtswmCjFfXRcFwlyO/ygjHwndt8BKwaQ8LRX15Uvv
+	e9NSpxg==
+X-Gm-Gg: AYBFou2LixE8Jbw0aMCg+MgtufYaVzLXFUXErsta7Hq+UEiJ4P6yN20szAv8l8R5yBC
+	pYjd/fjV+oyTUiXJWY8pvP/6DFleHbGQKqwGvwThbTsWDFRcipz3beq3ItTkgwVCrbnvE7Emow5
+	jaQOZoXSj/EI6GxBcNgsX4vrIL3EpHIZeAWi3n3IxtGiIa3v0UUKfOgxM5Di0VSo1gNhd1CeCk+
+	G0CEl3Yqk499APooOIAdFnStHb1aBWWcMsQk3ypkjP9Dd3UUAmf7V9NCYIuU3CZYHlAhqMlZJ3I
+	k7TFUV+FWmBwThfnZBAuhlxu5SDonadoTt2IeVqLd9X34ELsjwQRpwFNZJ5zrtBP7pi9+ioMico
+	TT/hq1NeMQDfkBQiWX/U/PEPClYklYo99Djqh/abUghXEoQ7bqFmb+cFXiBGjFRuv7mGC/TojSY
+	e9YV4sc+6GggfJBm6MYl/ms8UUDZohaBFsx4dNqYgHHj6yuGV0k+QkJeoJnCPzpqnxr7YobQKJc
+	SJ3J9NXqFcjgKU5gi/ktQ==
+X-Received: by 2002:a05:620a:2b90:b0:93e:561c:5bce with SMTP id af79cd13be357-93ebd295d73mr1148456085a.55.1791735781048;
+        Sun, 11 Oct 2026 09:23:01 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb98906c3sm671070285a.26.2026.10.11.09.23.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 09:23:00 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Cc: ntfs3@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] fs/ntfs3: stop direct reads at the valid data size
+Date: Sun, 11 Oct 2026 12:22:46 -0400
+Message-ID: <20261011162246.1580911-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261010095001.265759-1-julianbraha@gmail.com>
-In-Reply-To: <20261010095001.265759-1-julianbraha@gmail.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sun, 11 Oct 2026 18:20:29 +0200
-X-Gm-Features: AclHuK_w3Y4kAwcZA7SbeHM9fSvSzVE9w0UyxZwltGRDETa14I43fFQK9NA9AuI
-Message-ID: <CANiq72kyZpDa1YfLjPYQbatogvMONM0SOww1iQDQaZ4atcu+9g@mail.gmail.com>
-Subject: Re: [PATCH] kconfig: wrap long expressions in menuconfig
-To: Julian Braha <julianbraha@gmail.com>
-Cc: nathan@kernel.org, nsc@kernel.org, ojeda@kernel.org, a.hindborg@kernel.org, 
-	nico@fluxnic.net, rdunlap@infradead.org, grahamr@qti.qualcomm.com, 
-	jakub.git@horky.net, linux-kbuild@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 10, 2026 at 11:50=E2=80=AFAM Julian Braha <julianbraha@gmail.co=
-m> wrote:
->
-> In an offline conversation, Miguel Ojeda reported that scrolling
-> horizontally in menuconfig's search to read RUST's dependencies has been
-> slowing down debugging.
+Commit 099ef9ab9203 ("fs/ntfs3: implement iomap-based file operations")
+made ntfs_iomap_begin() report a read extent that starts below the valid
+size as mapped for its whole length.
 
-Thanks for working on this!
+However, ntfs_get_block_vbo() used to end such an extent at the block
+that holds the valid size, and ntfs_file_read_iter() zeroes only up to
+the count it returns. As of now, a direct read that reaches the end of
+the file returns the right count, but the rest of the user buffer is
+filled from the clusters beyond the valid size. These hold old contents
+of the disk: the rest of a large cluster, clusters preallocated for a
+file that is being written, or what a truncate has cut off.
 
-This is definitely useful, because users (and ourselves) have had to
-scroll horizontally too much for `CONFIG_RUST` :)
+For example, on a volume with 64K clusters a 5000-byte file is read with
+one O_DIRECT read of 1M.
 
-Maybe it could help to clarify here that "debugging" above means
-understanding by users (i.e. not developers) why the dependencies are
-not satisfied. `menuconfig`'s search is uniquely useful because it
-shows the expressions with the current values; i.e. this is useful for
-most users dealing with long configs like `RUST`'s.
+Before commit 099ef9ab9203 ("fs/ntfs3: implement iomap-based file
+operations"), the read returns 5000 and the buffer is not changed past
+offset 8192.
 
-Is this patch the live one you showed me back in the conference?
+After that commit, the read returns 5000 and bytes 8192..65535 of the
+buffer hold the contents of a file that was deleted earlier.
 
-By the way, for context and future reference before I forget, I
-suggested a few other bits:
+This patch will end a read extent at the block that holds the valid
+size, so that the rest is reported as unwritten and read as zeros, and
+zero the tail of that block in the buffer also past the returned bytes.
 
-  - Wrapping on the top-level `&&` operators.
+Fixes: 099ef9ab9203 ("fs/ntfs3: implement iomap-based file operations")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+---
+A test program is available on request.
 
-  - Even better, wrapping on the actual `depends on` lines, rather
-than every top-level `&&`, because sometimes they are logically
-grouped, even if they may use themselves `&&` for the condition. But
-IIRC we discussed that this would require tracking more state and/or
-reworking part of the parser.
+ fs/ntfs3/file.c  |  9 +++++++++
+ fs/ntfs3/inode.c | 12 +++++++++++-
+ 2 files changed, 20 insertions(+), 1 deletion(-)
 
-  - For completeness, I also mentioned potentially considering to show
-(a subset of) attached comments, but that is not really needed and it
-is really low hanging fruit that is most likely not worth its
-complexity: we already have descriptions and most options are not as
-complex as `RUST`'s.
+diff --git a/fs/ntfs3/file.c b/fs/ntfs3/file.c
+index 95dfe6878860..1a3f1d1e6a28 100644
+--- a/fs/ntfs3/file.c
++++ b/fs/ntfs3/file.c
+@@ -905,6 +905,15 @@ static ssize_t ntfs_file_read_iter(struct kiocb *iocb, struct iov_iter *iter)
+ 			iov_iter_revert(iter, to_zero);
+ 			iov_iter_zero(to_zero, iter);
+ 		}
++
++		/* The block with 'valid' is read as a whole, zero its tail. */
++		valid = min_t(loff_t, ntfs_up_block(inode->i_sb, valid),
++			      vbo + bytes);
++		if (end < valid) {
++			size_t done = iov_iter_zero(valid - end, iter);
++
++			iov_iter_revert(iter, done);
++		}
+ 	} else if (vbo < i_size) {
+ 		if (end > i_size)
+ 			bytes = i_size - vbo;
+diff --git a/fs/ntfs3/inode.c b/fs/ntfs3/inode.c
+index e6c96ef88b01..b9a5bf8352e2 100644
+--- a/fs/ntfs3/inode.c
++++ b/fs/ntfs3/inode.c
+@@ -1056,8 +1056,18 @@ static int ntfs_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
+ 			iomap->type = IOMAP_MAPPED;
+ 		} else if (offset < ni->i_valid) {
+ 			iomap->type = IOMAP_MAPPED;
+-			if (flags & IOMAP_REPORT)
++			if (flags & IOMAP_REPORT) {
+ 				iomap->length = ni->i_valid - offset;
++			} else if (!rw && !(flags & IOMAP_ZERO)) {
++				/*
++				 * Read. Stop at the end of the block with
++				 * 'valid', the rest is reported as unwritten.
++				 */
++				loff_t vend = ntfs_up_block(sbi->sb, ni->i_valid);
++
++				if (endbyte > vend)
++					iomap->length = vend - offset;
++			}
+ 		} else if (rw || (flags & IOMAP_ZERO)) {
+ 			iomap->type = IOMAP_MAPPED;
+ 		} else {
+-- 
+2.53.0
 
-Cheers,
-Miguel
