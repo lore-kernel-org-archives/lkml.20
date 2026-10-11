@@ -1,304 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69EE43A5452;
-	Sun, 11 Oct 2026 11:20:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791717647; cv=none; b=rD95Ym1B34KErG1PG6qGftcDYFlFd0VsxfsPyEUHwvdP9F54nl6al6dnhteaFeNASegZeEAJJi4edsjErKtTrNHZlLXQTmQ/Pa+6AE/dFGV3bQjVn2YFZi3gYxX5NHAqMnw8Ti7O/AD6etGq4PcIyNv6KQ8w7AcKZcaj4QbeJ24=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791717647; c=relaxed/simple;
-	bh=93anWR0QRvC1TPZtlQpGbUarjuCPa7VNWdnnkkw+QyM=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jrsN6Kl+qyHO/jLPK8Pw6A04dqZZaubdiSdEDNfGSdRdBVVY2t1atQSpTktfMUGC1DDZuhaEvlN82OKWAaDQ4+8ir73XDSL9D2pYuY0PO6Wrn1HDwO2/Pipkc1FLUNvwsTvzujRatPUy8u1ia8dxYRr0rME+r5ZesszEJAgLsxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H4VSJLp4; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C4A523EAAF
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 11:23:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.175
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791717821; cv=pass; b=Fcc7v8PmJRQewkvrfq+8e5MP/jJ0oZZg5o7P/r5rcH/XF2Tkkvc49QdR+6lHbzOi8j2GkyG6+uG6PLZ5BepHdmqBMcOuztqqGz1JChm8oFOP/a/R2m6DVeSc07mvnbD5b1O4guwjYOhLmij4Bj6a6apjjqS5Z15Pl1uAC0Ryi9w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791717821; c=relaxed/simple;
+	bh=6S5nM0TeHpy1xxJuI9ztdTyKwNfI3pGJlDOe1fVvLUc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NXi3mxwPFw8b4y/wsQradOk1kkvL/AP3bXOstg9uR6iTxssM9kSlwfBxNVBt34guzo7ccyExUxF4nnaGsDwV0DMfYBSVROrhck57r+zb2eGMBtnLMoHy5wup1lVTOaV+VBSsHeaM7zPQ1xjnA2etsvU87g8mAm8y76j8nhPuqEg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MNM9a+ex; arc=pass smtp.client-ip=209.85.160.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H4VSJLp4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 570B11F0089B;
-	Sun, 11 Oct 2026 11:20:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791717643;
-	bh=iSs83iSREzQg06O1RKEiD9nw1lQO3OyXcoZLEwK7/aU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=H4VSJLp4NCAzsS6Khs5FpeZiNFLBUHJcb/hfuanyUxuknyM15LR+wUoyMsBF86EnH
-	 wGbqrd1aNt1RHNKzdgkiJBtwabasFdPzdNDcELdcWUqVyTkshDOMHYpS0OiyUmqlVf
-	 jOSsnjnRc12PcpAqRYtfxeZUAzxzPoqt8CdLMdSETS9yjfz4A3PWJbCopnKdf4VYDZ
-	 YTqgHDd9ZKat0q78nnhi7SsAunEFOzrSeU3Opmy3dau1KFCVFAW2GvbMyQ+OWM31lk
-	 b8OL2s5Cd6Wh6Woym6yb5VKxHhEAOkieYyqAidkDYdQ67yZFD76MFpI1khzTtkhNmQ
-	 ABJ18wK4X9uvQ==
-Subject:
- Re: [PATCH net-next v4 2/3] netlink: specs: add genetlink-legacy spec for GTP
-From: netdev-bot+sashiko@kernel.org
-To: anilkaushikwireless@gmail.com
-Cc: pablo@netfilter.org, laforge@gnumonks.org, donald.hunter@gmail.com,
- kuba@kernel.org, davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- horms@kernel.org, andrew+netdev@lunn.ch, shuah@kernel.org,
- osmocom-net-gprs@lists.osmocom.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Date: Sun, 11 Oct 2026 11:20:41 +0000
-Message-ID: <179171764187.434549.3465200115197033124@kernel.org>
-In-Reply-To: <20261010105740.223992-3-anilkaushikwireless@gmail.com>
-References: <20261010105740.223992-3-anilkaushikwireless@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MNM9a+ex"
+Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-53397325663so12092381cf.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 04:23:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791717819; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ES43GzmVSqZB7Bz8hDGjKOoNbOBuLYzRZer5kK0x33Ddm81WuM9Nz6u8jpbIVwvp7A
+         HsNeEKg0cqaP0nrvQY4EEGGNaQNTDjKqfxSRfXZuEyUaGLxxhjih6YX1ORnCyX7GagOk
+         49GhwmSh2D5qZEr6I9m9bIXVUM3qrxMWkVIS40XTltDKcmi/miVNIzUEn8fUNBi9kLG9
+         yyCUoFz5eM8qrlfLXTasSUr7raTUgjsC3+LPYS9nn5e1beTfkeVhKedB0jWGUa0O5Rco
+         uO5U/AFw3MPerjp2AszVj8P0M2awMNYvs8mvxFsCwJ1x5s7PkTgKa3HFcPJjIRcSLLwf
+         vcFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=HQtrELtPHcUM2E6UeVj7fPemFu8C3adgNKDbLbY/Hok=;
+        fh=A6yXHxHZeiCc3oSnfBSHhyl1swbT1phQ8PWdIV7K6Uw=;
+        b=mspkfmiFZSoEXUzdFgLCXKyBexYXgITeJrWsspydGNXs2WAivN46ZGiAmcoP8SdTFH
+         TQm4nbyTeInQ2rciKzaS9ajrw+ucDdWyt5Be8Uxyf+4iOzU1EnSfmYcOuIvgT/OIu4xB
+         /5I6WOmWLICQ875rNOXsyDuQTQs0KFriEhzrYeJTnQYIDKJxKP4IshO/nEAVLi3jdhZM
+         e0VTPnC3p72P3Iuwo+mSI+nZ87xICS34MoKKnIlzs8426/WLoDl6DPYY40GXFJmGJD+h
+         gCh3wouTLXAjMZuY0wVfFIHlPjRwQh95o7gGm/55FyKICg2WaXxC1o8w1WnDSa3jIcye
+         MtOw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791717819; x=1792322619; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HQtrELtPHcUM2E6UeVj7fPemFu8C3adgNKDbLbY/Hok=;
+        b=MNM9a+exiO3VtIzFn/qEN6fePbhN1AQpY3dNq+AnLajWsAqiAbPGTtOb4FWNBtf/DH
+         R7gUYrXzzzgLYfgbyTgloJvOr9dKwT1tpVkwvuFw9qRYocCmBhuAYug07WmAAKFzGvNE
+         7hBdOn2VWvUdNx4E+MZ0B0auGjlSzKt6dEwvgXKS61h/v2OkmhHPXAej1Tt+FYy+ahjQ
+         UWMI2JoUjRBJZPJYKBDSMeoKQJlkux4Hoem3j93cGQsWMDysYDl04Opoxw7Jswkg6Er3
+         VtrNdNYh3LTdpsa1NLB5N08+LXA8WUiU/LLxbjJvTqAvu+xQa+W5gFfok0lk41jJmNPm
+         7V6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791717819; x=1792322619;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HQtrELtPHcUM2E6UeVj7fPemFu8C3adgNKDbLbY/Hok=;
+        b=d+RrlSeJ3DhLKMf5b0IlVoHuGXRlbC+6jl2ESiY/HiLOlFiw/2MqRZ3qUNjzPbnEMK
+         wO56dtoA6DN3cY4+FvEIJK5ffA0tOc+IAOfeLRxyusL8Pfaw1DZvMxM0ZUndPwBn939/
+         YED2BQK3hPE9zEG1DJQszS3rkoGk7B67CXlLiTs41MFMmDORJo2rQbkKxiVjmhP0gllo
+         yu4WLdT3ytQsCCKl0JnRQm+wmI44iVrCfgCv4BWX6gwN+e0/hWM3hz71DMKjtRXMii5Q
+         LoifMkcKG6Sd2nNIOiBb6ecrH/moWdFlExsGa8ihbcusfxZdLAm4nbBHPrOoRq4n+/s0
+         MxQg==
+X-Forwarded-Encrypted: i=1; AKwUvByxjddjYyzASKDOPkj4XeBDQyZztH26tGTTog9CZOcImSBJYf3edempphjyS0eWdfGlUlVOejmW4rVnC2w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYILVs2WnUMDv/zWUKy4SYpBEwEf5dkTstqhXbWMLD9ofYTHhNa/
+	Pu0pEAL4VSEVZvH3VNaBlaKGl+Te5RbSed53joyccUQnxVNZU/QvWrSmuTazJHhZXhGdfR792uy
+	4/L1PtcuPx5vzvXf1X0ecwE7ehy6eXq6fgbeg+fAoUA==
+X-Gm-Gg: AYBFou2o5tLhz1knTykD+7TjbYOPApkM8Q7KQGEoLo5tKkTiKRjBcBO8/cS3qDzRwFC
+	s/IEXltVu6HBa3hdefyflJBtyRs8dR6F9c3JsrCGw/BK2Qc+E6kIHbRRNwV/R6LJ9Nv+7wU+WoC
+	uDcUmvZXiKBPM7Ul4lqmz+/y5qnO4E75SJuOv0m1bRNmayiVpkZYZy6aHaim/o5iUctN3Zv9tbR
+	95haGNIg+fHVut3IGlOs9mvq5F5QmGD6dAFQx6ma+iBUgP5lK7mSS0NsDwXc+yrTUDrfeCK6fPB
+	nogL2dePhZQl5XkQuXug96ebbicLpQqFM0ZhU81DODMiv7gtDWotPi5yak7As1I3h+TF3Y7R6D7
+	+VyW6oju1VXZLgFpPUvnpb/0cFUgPmS+hIh5zH+HGpVhJN7OnlH+3XBsavuJGn41Bvw7HF7IlhW
+	1Wye3Agw7ZgzatBNmQXRns3BlhMrljAP0Tiy3r6ebUl9kdKLczSOf6oPC+NMvultNTxqZoQVbcd
+	HeQ3+i/pASOhGWSwf8XQYaHGm0VKIPU
+X-Received: by 2002:ac8:5f0c:0:b0:533:d98b:d373 with SMTP id
+ d75a77b69052e-5359fae8d9emr116437321cf.20.1791717819231; Sun, 11 Oct 2026
+ 04:23:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20261011111606.14753-1-jain.sm@gmail.com> <179171754826.2527009.561712354727529429@kernel.org>
+In-Reply-To: <179171754826.2527009.561712354727529429@kernel.org>
+From: shashank Jain <jain.sm@gmail.com>
+Date: Sun, 11 Oct 2026 16:53:28 +0530
+X-Gm-Features: AclHuK9Bae3Zu4tNFkM32AdKSdWX51c1yCKllaI73dhcI0T3jtwCSZvSTD7PBRc
+Message-ID: <CA+FWx=nC--v=9KHH-1BSt13EAnCu2hwXQzA_=a3Gd_=RUyrTzw@mail.gmail.com>
+Subject: Re: [PATCH net-next 0/2] tcp: keep the route window on the SYN when
+ SO_RCVBUF is set before connect
+To: netdev-bot+sinfo@kernel.org
+Cc: Eric Dumazet <edumazet@kernel.org>, Neal Cardwell <ncardwell@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	"David S. Miller" <davem@davemloft.net>, Kuniyuki Iwashima <kuniyu@google.com>, Simon Horman <horms@kernel.org>, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 6 potential
-issue(s) to consider.
+On Sun, Oct 11, 2026, netdev-bot+sinfo@kernel.org wrote:
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+>  - How the issue was discovered ...
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 4
+Found by manual code inspection assisted by an LLM (Claude Code, Claude
+Opus) while reviewing the networking changes that set window_clamp on
+unconnected sockets, then confirmed before posting with the packetdrill
+test included as patch 2/2 and a veth/netns reproducer. The patches
+carry an "Assisted-by: LLM" tag for that reason.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Thanks,
+Shashank
 
-- [Medium] The spec in Documentation/netlink/specs/gtp.yaml lists the
-  "gtp" multicast group (lines 168-171), but it never says what the…
-- [Medium] Adding gtp.yaml pulls a new compile unit, gtp-user.o, into the
-  tools/net/ynl library build.
-- [Low] drivers/net/gtp.c registers gtp_genl_family with `.version = 0`
-  (line 2483).
-- [Low] gtp.yaml declares `checks: exact-len: 16` for peer-addr6 and ms-
-  addr6 (lines 71-72 and 79-80).
-- [Low] gtp.yaml documents ms-address only as "IPv4 address of the mobile
-  subscriber served by the context." (line 48).
-- [Low] gtp.yaml documents ms-addr6 as "IPv6 address of the mobile
-  subscriber served by the context." (line 83), and its exact-len: 16…
-
---
-
-netlink: specs: add genetlink-legacy spec for GTP
-
-This adds a genetlink-legacy YAML spec for the existing GTP generic
-netlink family. It covers the NEWPDP, DELPDP, GETPDP and ECHOREQ
-commands, the GTPA_* attribute set and the "gtp" multicast group. The
-spec is also added to the GTP entry in MAINTAINERS.
-
-> diff --git a/Documentation/netlink/specs/gtp.yaml b/Documentation/netlink/specs/gtp.yaml
-> new file mode 100644
-> index 0000000000000..2c61c4353c89a
-> --- /dev/null
-> +++ b/Documentation/netlink/specs/gtp.yaml
-> @@ -0,0 +1,171 @@
-> +# SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause)
-> +---
-> +name: gtp
-> +
-> +protocol: genetlink-legacy
-
-[Severity: Low]
-Should the spec state the family's real version? With no version key, the
-genetlink-legacy schema default of 1 applies. The kernel registers the
-family as version 0:
-
-drivers/net/gtp.c:
-static struct genl_family gtp_genl_family __ro_after_init = {
-	.name		= "gtp",
-	.version	= 0,
-
-Documentation/netlink/genetlink-legacy.yaml documents "Default is 1" and
-sets minimum: 1, so the spec can't say version: 0 unless the schema
-changes.
-
-Nothing fails at runtime. ynl hard-codes version 1 in requests and the
-genetlink core doesn't check it. Still, the spec gives a different version
-from the one the kernel reports in CTRL_ATTR_VERSION and in message
-headers.
-
-Could the schema minimum be relaxed so version: 0 can be added? If not,
-could the mismatch be documented?
-
-[ ... ]
-
-> +      -
-> +        name: ms-address
-> +        type: u32
-> +        byte-order: big-endian
-> +        display-hint: ipv4
-> +        doc: IPv4 address of the mobile subscriber served by the context.
-
-[Severity: Low]
-Is this description right for echoreq, which also lists ms-address in its
-request? gtp_genl_send_echo_req() uses the attribute as the outer IPv4
-source address:
-
-	dst_ip = nla_get_be32(info->attrs[GTPA_PEER_ADDRESS]);
-	src_ip = nla_get_be32(info->attrs[GTPA_MS_ADDRESS]);
-	...
-	rt = ip4_route_output_gtp(&fl4, sk, dst_ip, src_ip);
-	if (IS_ERR(rt)) {
-		...
-		return -ENODEV;
-	}
-
-So the value is the local GSN tunnel endpoint, not a subscriber address.
-The echo response notification works the same way: gtp0_handle_echo_resp_ip()
-fills ms-address from the local address (iph->daddr).
-
-A user who follows the spec and passes the subscriber's IPv4 address gets
-a route lookup with a non-local source, and the command returns -ENODEV.
-
-Could the attribute doc, or the echoreq operation doc, mention this legacy
-overloading?
-
-[ ... ]
-
-> +      -
-> +        name: peer-addr6
-> +        type: binary
-> +        checks:
-> +          exact-len: 16
-
-[Severity: Low]
-Does the kernel actually enforce an exact length here? gtp_genl_policy
-has:
-
-	[GTPA_PEER_ADDR6]	= { .len = sizeof(struct in6_addr), },
-	[GTPA_MS_ADDR6]		= { .len = sizeof(struct in6_addr), },
-
-Neither entry sets .type, so both are NLA_UNSPEC. For NLA_UNSPEC,
-validate_nla() only checks attrlen < pt->len, which is a minimum length.
-Every gtp op also sets GENL_DONT_VALIDATE_STRICT. As a result the kernel
-accepts longer attributes, and nla_get_in6_addr() reads the first 16
-bytes.
-
-Should the spec say min-len: 16 instead? The other option is to tighten
-the kernel policy to NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)). The
-same question applies to ms-addr6 below.
-
-[ ... ]
-
-> +      -
-> +        name: ms-addr6
-> +        type: binary
-> +        checks:
-> +          exact-len: 16
-> +        byte-order: big-endian
-> +        display-hint: ipv6
-> +        doc: IPv6 address of the mobile subscriber served by the context.
-
-[Severity: Low]
-The driver treats ms-addr6 as a /64 prefix whose lower 64 bits must be
-zero. ipv6_pdp_fill() rejects NEWPDP otherwise:
-
-	pctx->ms.addr6 = nla_get_in6_addr(info->attrs[GTPA_MS_ADDR6]);
-	if (pctx->ms.addr6.s6_addr32[2] ||
-	    pctx->ms.addr6.s6_addr32[3])
-		return false;
-
-gtp_find_pdp_by_link() applies the same check and returns -EADDRNOTAVAIL
-for GETPDP and DELPDP lookups:
-
-		if (addr.s6_addr32[2] ||
-		    addr.s6_addr32[3])
-			return ERR_PTR(-EADDRNOTAVAIL);
-
-The current text suggests a full subscriber IPv6 address. A context can't
-be created, queried or deleted with one.
-
-Could the doc say this attribute carries the subscriber's /64 prefix with
-the low 64 bits zeroed?
-
-> +      -
-> +        name: family
-> +        type: u8
-> +        doc: Address family (AF_INET or AF_INET6) of the context addresses.
-
-[Severity: Medium]
-Will this spec break the tools/net/ynl build on hosts with older uapi
-headers?
-
-tools/net/ynl/generated/Makefile builds every spec except conntrack and
-nftables, so gtp-user.c is now generated and compiled. It includes
-<linux/gtp.h> and is built with:
-
-	-I../lib/ -idirafter $(UAPI_PATH)
-
-Because of -idirafter, the installed /usr/include/linux/gtp.h takes
-precedence over include/uapi/linux/gtp.h. The only way around that is a
-CFLAGS_gtp entry in tools/net/ynl/Makefile.deps, and there isn't one.
-Later patches in the series don't seem to add one either.
-
-GTPA_PEER_ADDR6, GTPA_MS_ADDR6, GTPA_FAMILY and GTP_CMD_ECHOREQ are
-fairly recent. On hosts with 5.x or 6.1-era linux-libc-dev, the generated
-code would refer to undefined enumerators. The policy array sized by
-GTPA_MAX would also be too small, and make -C tools/net/ynl would fail.
-
-Would adding something like this to Makefile.deps fix it?
-
-CFLAGS_gtp:=$(call get_hdr_inc,_LINUX_GTP_H_,gtp.h)
-
-The guard name assumes headers_install strips _UAPI from
-_UAPI_LINUX_GTP_H_.
-
-[ ... ]
-
-> +    -
-> +      name: echoreq
-> +      doc: Send a GTP-U echo request to a peer.
-> +      attribute-set: gtp
-> +      dont-validate: [strict, dump]
-> +      flags: [admin-perm]
-> +      do:
-> +        request:
-> +          attributes:
-> +            - link
-> +            - version
-> +            - peer-address
-> +            - ms-address
-> +            - net-ns-fd
-> +
-> +mcast-groups:
-> +  list:
-> +    -
-> +      name: gtp
-
-[Severity: Medium]
-The gtp multicast group is declared, but which messages go out on it? No
-operation has notify, event or mcgrp. The driver multicasts three kinds of
-message on GTP_GENL_MCGRP. The first two come from these paths:
-
-gtp_genl_new_pdp()->gtp_tunnel_notify(pctx, GTP_CMD_NEWPDP, GFP_KERNEL)
-gtp_genl_del_pdp()->gtp_tunnel_notify(pctx, GTP_CMD_DELPDP, GFP_ATOMIC)
-
-gtp_genl_fill_info() builds both, so they carry the same content as the
-getpdp reply.
-
-The third is the echo response. gtp0_handle_echo_resp() and the GTPv1-U
-handler both send it:
-
-	ret = gtp_genl_fill_echo(msg, 0, 0, 0, GTP_CMD_ECHOREQ, echo);
-	...
-	return genlmsg_multicast_netns(&gtp_genl_family, dev_net(gtp->dev),
-				       msg, 0, GTP_GENL_MCGRP, GFP_ATOMIC);
-
-It carries version, peer-address and ms-address. The echoreq doit,
-gtp_genl_send_echo_req(), only ACKs, so this multicast is the only way
-user space learns the echo result.
-
-nlspec only treats ops with notify or event as asynchronous, so
-async_msg_ids is empty for gtp. After ntf_subscribe('gtp'), check_ntf() in
-ynl.py prints "Unexpected msg id while checking for ntf". It then drops
-every PDP add, PDP delete and echo response.
-
-ynl_gen_c doesn't generate notification parsers for these messages
-either, and the rendered docs don't mention them. The commit message says
-the spec describes "the existing family", but this part of the uAPI is
-missing.
-
-Could newpdp and delpdp notifications be described by reusing the getpdp
-reply (notify: getpdp, mcgrp: gtp)? The echo response could be an event
-with version, peer-address and ms-address that keeps the legacy command
-value. Otherwise, could the spec say explicitly that notifications are not
-covered?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261010105740.223992-1-anilkaushikwireless%40gmail.com
+On Sun, Oct 11, 2026 at 4:49=E2=80=AFPM <netdev-bot+sinfo@kernel.org> wrote=
+:
+>
+> Hi!
+>
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+>
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
+>
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+>
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
