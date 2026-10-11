@@ -1,148 +1,93 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m1973198.qiye.163.com (mail-m1973198.qiye.163.com [220.197.31.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F543B0587
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 13:24:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C6E813D53C;
+	Sun, 11 Oct 2026 13:25:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791725059; cv=none; b=PWZC3xe1lKWfWVHRtHeaDNiJV72uIgcAU9ja4cRoIUjIcpM4s0wGp5++zh2M22V5lW9U13ZUTHlDTtmhQ7EtuN/oD4uJJOiHm7q/YYrbHMfWUO++dK72cGNxMptbEr0awFxRTJ+ms9UpsCL80BV0bHb1LGsP3hYGIS6y+gq4Hgo=
+	t=1791725144; cv=none; b=Llle7TME+tby83IvVg1ldJB1VX9Dhg15ap2BXfFTtYyjNG0uwH1Q4u0armVgc5s4c+WKiUhDfnohkmzS9eB8TFRTnp+liXDaiaR5ft7R4MCgdHwjhPkSRAfugLydXEH6PlAvKdO07TaVdVzz9iikMbuuxNURvsJkT9ofdkuPbgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791725059; c=relaxed/simple;
-	bh=kExQn+/9t5FfC0EyYnz3yE5hxNU8JGWxnmNHyd72amM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=As08Oxqab1BkFaYeeZ/ybCyJx34LsnJHbxwIKH/uSe4TaYuKf9rQHzBA8iNLjBRf8uRRA5cv8Hx4Bsi9HKnwPcPx5ccvlrDIt0oD8XKYQAN5j1f1SJRaZ5+uDvCf44sA6ExFkSy+NOsjo5xqu6iVc5WzbeAB4pD/EfNKku6Vk3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EIXhRvBF; arc=none smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791725144; c=relaxed/simple;
+	bh=fiWoY3BEOtHssWq+r++jzfPZnv1egSTT94UTTXEZtsQ=;
+	h=From:To:Cc:Subject:Date:Message-Id; b=E2X+BztpajqYbKo7EWt945UxPS5JcdaHDN9vophZqfbmLmRVECe/Hkwg5WQGD6ZnNcVJpHY3LrekNVQC4rVZ5SiynoeQP6SgrQz2vi3DcEcoAoNJn2ICoJ/7hynU8B6ERQ2LPchDcQsK+mZlpsnSr1+jBaOJj8rTkBnVXW9RUYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=OFQEm717; arc=none smtp.client-ip=220.197.31.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EIXhRvBF"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e836252e1dso8911735ad.3
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:24:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791725058; x=1792329858; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2oNkZjunzzMVyG3EOfIOytuskDXyogdyyjCDaj7C0Eg=;
-        b=EIXhRvBFvyiR0tu+tI1LVb4X1AhZPPbIOWeMUbT+JwsMTDdKNVdwDj9GYBRz8LcbdH
-         VY0SKQS9KWrbuuiA82RLaON1cu6CILD41wmTH53N729nBCfcfWp3S4G5fpyKUxpT3I95
-         weiUsw+yel4+4eucyYk6GQB6mQCyduM6wHWg8QrpivV/QLlUcXOp8JcH+YD2aJL8gzJ4
-         cP9AV6VKexNn0O1E4Jo8XgafwRANDemQXtEf1xO624kUgpIT/boFGm16u7seGGr/SqwM
-         XN+59OKtMQm19SlQ8voBg7+sUaC1YmzWdrMc6Z76MLlhS8NKksRoG5oy+z/468cCnKod
-         oFeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791725058; x=1792329858;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2oNkZjunzzMVyG3EOfIOytuskDXyogdyyjCDaj7C0Eg=;
-        b=S2K4tVOTZ50RRxFB+KbtG6OB/9BM9Tx5A0ajzE1MomzxDnLIpqWT+a9+trJh6URm2+
-         udE98GpzeMJbUnspyUpBZyLxMvLprM5kuWU8oUsDmWyR2EZ/Lmldx8PxNepqXBWQz5mm
-         i8NDkyCLRBt1uUTN/S2s1oh3kZg6wZfrsR3scq0LUnk4G+HRtbhgFODfgYGTb/tjPlcc
-         2UuOnq2VnT5lBvK/SW1XBYIqbBfrlq2WgkJ/JjkficjIfdUD4kaG8Cc9tW6ejtB5l+tF
-         vf5/hHGUZsY9Qh7xNriOimmLlL6LlxC3L8pfTKbLKER4YcfYQ5Jcxmm02/c4zb+StaFa
-         Hn4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzTMH3G9PLrwLVs8zp2uexo7GXqFvSe1oAVr2ibcN3O612swLeCWhaa2Ww6UmCCFPaUwpjOzulCkl/rhSc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJwOCO76TVkU7Qad4YUVfxFoBaznUo6UFCnGiHXN12t+2Noa4aA
-	NcwI3UrR0PWnQgVF31xRQ875GbrrtzivNpHoRn8SYASdIB2LtARFtMfz
-X-Gm-Gg: AYBFou3iUF0c+rLR4rCBUKn52mLcNYm8qYRUfkYCz3D0oDzR+l2knDF16h7g78S+54E
-	Mm/e3C3Ga2cs3ryXEWLNq31fZW463gYYyq+8s1Y2ZJ1GwKJ2RcoX4GXcgBcC28zwTH+/AkMkxxk
-	Dn41UuW3W2y5/1pU7GAMxZ/v9qxh/H3vFCYxFBunu/mLtcPKYHUKi8nzeQ8D7dklbu4OQS2Flze
-	itROKMtiRW/lUJwd/AjMYmns+JbXzvevVgKbL04KWLZc3aLYCki+O67EquEoWem1SkGZV4Pz6I1
-	Il7XWXBfvHj0d6x/ffo/2QNg2R2VVGhyVU694gi0bD+fiY8cbLIxXjnH5hO8MLtTKZbkM7vCF3p
-	6AHlOKSikXEMx+OfdnQ8btgJsbDw1j5nbAkkFgaGOEttvles89C1UUi1CCxWYcWcGGyKKoJ+TDC
-	5SX7gnuFmxj18jRKaJktCmCysgS/dweEeAhFgYg67f5mG6pjiB3nL+I8yghHxrHDMJRN7LI4xDi
-	99sRQRkLesWdcFgeHOGa1DRbWDn9KyPMgYp+XpuUMnyo9wueyXRcSaB
-X-Received: by 2002:a17:90a:d2c7:b0:39d:f4a8:75ef with SMTP id 98e67ed59e1d1-3ab3a33da74mr6165030a91.1.1791725057957;
-        Sun, 11 Oct 2026 06:24:17 -0700 (PDT)
-Received: from 1u1g-b650-0212.nvidia.com ([72.25.70.131])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab396620e2sm7595259a91.3.2026.10.11.06.24.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 06:24:17 -0700 (PDT)
-From: samarth.colleges@gmail.com
-To: akpm@linux-foundation.org,
-	liam@infradead.org,
-	ljs@kernel.org,
-	david@kernel.org
-Cc: vbabka@kernel.org,
-	jannh@google.com,
-	linux-mm@kvack.org,
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="OFQEm717"
+Received: from localhost.localdomain (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 509d35e02;
+	Sun, 11 Oct 2026 20:50:03 +0800 (GMT+08:00)
+From: Shawn Lin <shawn.lin@rock-chips.com>
+To: Ulf Hansson <ulfh@kernel.org>
+Cc: linux-mmc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Samarth Narang <samarth.colleges@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] mm/madvise: keep the hardware dirty bit in MADV_COLD's THP path
-Date: Sun, 11 Oct 2026 06:22:27 -0700
-Message-ID: <20261011132227.413217-1-samarth.colleges@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	Shawn Lin <shawn.lin@linux.dev>
+Subject: [PATCH] mmc: core: fix wrong comments in mmc_ops.c
+Date: Sun, 11 Oct 2026 20:49:44 +0800
+Message-Id: <1791722984-123689-1-git-send-email-shawn.lin@rock-chips.com>
+X-Mailer: git-send-email 2.7.4
+X-HM-Tid: 0aa12b035e5a03a4kunmb540dde913413d
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGkpPGlYeQkhCSBlPTE
+	1OGB9WFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=OFQEm7171/Iwl5uI4uBP/OXZ8aACI+lmDl7a8YmfPWn4ylL/WngTD99eVnC5Wyjxmis6rqMG/YBBOkBxn4pqHp812oxlbfy/buc886YzJLjbwTGVtMvFfIHhTb8YNljjSJ6hIKtKMCvFrmVggnXgKihy0ixyfvBFs+9XtvBEWwI=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=iTYBvoCP8g1dcH19a3fvwCH8cuAxkekioHWPayYF9uE=;
+	h=date:mime-version:subject:message-id:from;
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Samarth Narang <samarth.colleges@gmail.com>
+From: Shawn Lin <shawn.lin@linux.dev>
 
-For a young, PMD-mapped THP, madvise_cold_or_pageout_pte_range() handles
-MADV_COLD by reading orig_pmd = *pmd, calling pmdp_invalidate(),
-discarding its return value, and writing back pmd_mkold(orig_pmd):
+When seeking to use mmc_send_bus_test for eMMC HS mode tuning
+to workaround a vendor product, issues were found with these comments:
 
-	if (!pageout && pmd_young(orig_pmd)) {
-		pmdp_invalidate(vma, addr, pmd);
-		orig_pmd = pmd_mkold(orig_pmd);
-		set_pmd_at(mm, addr, pmd, orig_pmd);
-		tlb_remove_pmd_tlb_entry(tlb, pmd, addr);
-	}
+1. In mmc_send_adtc_data(), the comment refers to "CSR and CID",
+   but the branch handles MMC_SEND_CSD/MMC_SEND_CID, so it should say
+   "CSD and CID".
 
-pmdp_invalidate() atomically clears the present bit and returns the PMD
-as it was in the page table at that instant.  A store from another CPU
-that lands after orig_pmd is read but before the invalidate sets the
-hardware dirty bit in the live entry.  Because the written-back value is
-derived from the stale orig_pmd, that dirty bit is erased.
+2. In mmc_send_bus_test(), the NOTE HACK comment about reading CSD or
+   CID with the R2 response type was copied from mmc_send_adtc_data()
+   and is irrelevant here: the bus test commands do not read CSD/CID and
+   use the R1 response correctly. Drop it.
 
-If the THP had been marked lazyfree (MADV_FREE), reclaim later finds a
-clean PMD and a clean folio and discards it rather than swapping it out
-(__discard_anon_folio_pmd_locked()).  The store is then silently lost: a
-subsequent read returns stale/zero data, although the MADV_FREE contract
-is that a write after the advice call cancels the free.
-
-pmdp_invalidate() returns the pre-invalidate entry precisely so callers
-can carry the accessed/dirty bits hardware may have set concurrently
-(d52605d7cb30).  change_huge_pmd() and set_pmd_migration_entry()
-(8a8683ad9ba4) already do this; the MADV_COLD path does not.  Rebuild
-orig_pmd from the returned entry.
-
-Reproduced unprivileged on x86-64: a 2 MiB anon THP is marked MADV_FREE,
-then MADV_COLD races a store from another CPU, then MADV_PAGEOUT; the
-stored byte reads back zero.  On current mainline built and booted under
-KVM, the race lost 131 of 8000 stores before this patch and 0 of 8000
-after; a store-before-COLD control and a MADV_NORMAL control lose none.
-
-Fixes: 9c276cc65a58 ("mm: introduce MADV_COLD")
-Cc: stable@vger.kernel.org
-Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
+Signed-off-by: Shawn Lin <shawn.lin@linux.dev>
 ---
- mm/madvise.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/mm/madvise.c b/mm/madvise.c
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -426,8 +426,14 @@
- 		}
+ drivers/mmc/core/mmc_ops.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
+
+diff --git a/drivers/mmc/core/mmc_ops.c b/drivers/mmc/core/mmc_ops.c
+index d59ff82f..fda728d 100644
+--- a/drivers/mmc/core/mmc_ops.c
++++ b/drivers/mmc/core/mmc_ops.c
+@@ -319,7 +319,7 @@ int mmc_send_adtc_data(struct mmc_card *card, struct mmc_host *host, u32 opcode,
  
- 		if (!pageout && pmd_young(orig_pmd)) {
--			pmdp_invalidate(vma, addr, pmd);
--			orig_pmd = pmd_mkold(orig_pmd);
-+			/*
-+			 * Rebuild from the entry pmdp_invalidate() exchanged
-+			 * out, not from orig_pmd: hardware may have set the
-+			 * dirty bit since orig_pmd was read, and a MADV_FREE'd
-+			 * (lazyfree) THP whose dirty bit is lost is discarded
-+			 * by reclaim, silently dropping the store.
-+			 */
-+			orig_pmd = pmd_mkold(pmdp_invalidate(vma, addr, pmd));
+ 	if (opcode == MMC_SEND_CSD || opcode == MMC_SEND_CID) {
+ 		/*
+-		 * The spec states that CSR and CID accesses have a timeout
++		 * The spec states that CSD and CID accesses have a timeout
+ 		 * of 64 clock cycles.
+ 		 */
+ 		data.timeout_ns = 0;
+@@ -815,11 +815,6 @@ mmc_send_bus_test(struct mmc_card *card, struct mmc_host *host, u8 opcode,
+ 	cmd.opcode = opcode;
+ 	cmd.arg = 0;
  
- 			set_pmd_at(mm, addr, pmd, orig_pmd);
- 			tlb_remove_pmd_tlb_entry(tlb, pmd, addr);
+-	/* NOTE HACK:  the MMC_RSP_SPI_R1 is always correct here, but we
+-	 * rely on callers to never use this with "native" calls for reading
+-	 * CSD or CID.  Native versions of those commands use the R2 type,
+-	 * not R1 plus a data block.
+-	 */
+ 	cmd.flags = MMC_RSP_SPI_R1 | MMC_RSP_R1 | MMC_CMD_ADTC;
+ 
+ 	data.blksz = len;
 -- 
-2.40.0
+2.7.4
+
