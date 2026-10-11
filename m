@@ -1,83 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-134.mta0.migadu.com [91.218.175.134])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C050E28506C;
-	Sun, 11 Oct 2026 13:05:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCFB63B0AD8
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 13:08:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791723925; cv=none; b=b9ABYhtDfu5wDAh6OesCSdKhPULS4ED5g3dE3zP0P9zOxv+/Vnl4MnVre0WjFK/akbnZK95LAygW+kL1bgyfabfUXCsML3iZu9YIx9Np9WYIbD672ePR7x9gvwhd7YVNr7jKvr+nre0DfO/KD2TO7+q7Gj7wPoRfbjUccsvXt18=
+	t=1791724127; cv=none; b=szqfLhLgWvHV3EkwtB6PAKv6RllQZ4N7sUeZLtN1ZQIH9wSfsEpqM7o7P5HvjEYFWPq2qLb+vddncHeaBjjznp5QOeItYkV0NVa8AqVKCkl3sUf/9SBP4okbczgGgVfpLpwHWpJgiDDN9cd3n93phg9WshrvS3+8E+WNA5cuGYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791723925; c=relaxed/simple;
-	bh=DxOA3K04TdGKgV9RBzwq7NMB042SfZvdvrNpiga7nYU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=TulWzOgC29uhx2jg4nJMRKRJy4K4Ryz27j3NYAGC53U+pM89DR2Fvp3vYA/4xeN3hYFmPpVnxcyt1O4aR24f5mpCBVm05DtgBOsHE4OzzGHQZN6y8TsOkI70L98OyOM/FTPqbYlHYjIAAkoWliGCpX6hmGuk9wuKMHpa8Ygr/gQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LU9gHXGm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791724127; c=relaxed/simple;
+	bh=Ytmx7QEPBPOZdpc/QHFzpNSV1GdU5pRz8PGES8bQl2s=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=fh2KPmRoTJ+DhVDn711vMhXExiduPkyQn/xPDQZfzImF2G0nzoxIT2xMRJFEg2QDL8JaUfu31/iuDj0OAZ4O1dYlrZJdKTFw2Ju3FEnFuK5n+23fOjr2R/wqLfFDtJEKMJq6BDVXYpkPNvXaeXLLsk7qczkex+pwMrrSKQdUa0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=bcbtZPOZ; arc=none smtp.client-ip=91.218.175.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LU9gHXGm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3458C1F0089B;
-	Sun, 11 Oct 2026 13:05:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791723924;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LU9gHXGmAF82MewX7rDnusPgofkg7B/0cklxGVQaO56iF3GHa0He+K79HQyq43aFh
-	 dwBuN4156z+gc93R8I3+jhYzy4cikH1cTrdVwC06qAjRjiibcPWpYS++5m/GFcLB0R
-	 RigWi1wR36rfYpxqoPlvgNxljUCkTSizCFhSp7rtIV0BdhoxqmEfC6QooNFPeyIG1d
-	 PBMyky2IFVERTUWNTEtQbIb6QlZe+x8zf4UGtqx5HfVBWt/NWHTXseA3oA3D4QYs1C
-	 GmWjg0/LuWSOfwcNYMG9w2BI0I/6HMmHyo00TV7skNCRPzLKxL9QWXM4PLIdVkKWwh
-	 Wsa0QY3g+X5SQ==
-From: netdev-bot+sinfo@kernel.org
-To: Luo Jie <jie.luo@oss.qualcomm.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Lei Wei <quic_leiwei@quicinc.com>,
- Suruchi Agarwal <quic_suruchia@quicinc.com>,
- Pavithra R <quic_pavir@quicinc.com>, Simon Horman <horms@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, netdev@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- quic_kkumarcs@quicinc.com, quic_linchen@quicinc.com
-Subject: Re: [PATCH net-next v2 00/11] net: ethernet: qualcomm: ppe: Add
- support for IPQ5424 SoC
-Date: Sun, 11 Oct 2026 13:05:22 +0000
-Message-ID: <179172392274.2527009.4852578355298213005@kernel.org>
-In-Reply-To: <20261011-qcom_ipq5424_ppe-v2-0-8c7b057e2c43@oss.qualcomm.com>
-References: <20261011-qcom_ipq5424_ppe-v2-0-8c7b057e2c43@oss.qualcomm.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="bcbtZPOZ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Ytmx7QEPBPOZdpc/QHFzpNSV1GdU5pRz8PGES8bQl2s=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791724123; v=1; x=1792328923;
+ b=bcbtZPOZm2nNYXTOWYn619noY5xVzvsTtII05VtX3Eybnqh9986XDFhcvL/aZB495Hi7w+rV
+ PBrUzLtWI0/swL+US6esQgHCCB320OUEIDfD6mFVpD2TqRPZtwIkM2FFrq6rVKGbnk1Lx2P96Bp
+ 1Z3PtS9Mh6iluiTUeoeuIrGM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 844091e216f5c9f5;
+	Sun, 11 Oct 2026 13:08:43 +0000
+X-Mizu-Trace-ID: 844091e216f5c9f5
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 11 Oct 2026 13:08:39 +0000
+Message-Id: <DM216XAEDYAN.IZDPPZ4YWPLG@linux.dev>
+Cc: <linux-wireless@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Kalle
+ Valo" <kvalo@kernel.org>, "Brian Norris" <briannorris@chromium.org>
+Subject: Re: [PATCH wireless 2/2] wifi: rtw88: restore the control frame
+ filter when the device is started
+From: "Luka Gejak" <luka.gejak@linux.dev>
+To: "Jeremy Fareau" <jeremy.fareau@gmail.com>, "Ping-Ke Shih"
+ <pkshih@realtek.com>
+X-Mailer: aerc 0.22.0
+References: <20261007091225.413-1-jeremy.fareau@gmail.com>
+ <20261007091225.413-3-jeremy.fareau@gmail.com>
+In-Reply-To: <20261007091225.413-3-jeremy.fareau@gmail.com>
 
-Hi!
+On Wed Oct 7, 2026 at 9:12 AM UTC, Jeremy Fareau wrote:
+> Commit ed51a86b787f ("wifi: rtw88: Enable receiving control frames in
+> monitor mode") writes REG_RXFLTMAP1 from configure_filter(), but that
+> register is reset to the chip default by the chip's mac_init() during
+> power_on().  mac80211 only calls ieee80211_ops::configure_filter() when
+> its own filter flags change, so after a stop/start cycle the flags are
+> unchanged and the control frame filter silently reverts: monitor mode
+> stops delivering control frames again.
+>=20
+> Keep track of the value configure_filter() last asked for and restore
+> it in rtw_core_start(), next to the RCR restore, which exists for the
+> same reason.
+>=20
+> Measured on an RTL8814AU and an RTL8812AU in monitor mode on channel 6,
+> 40 s captures taken after a down/up cycle.  Control frames go from 0 to
+> 23184 and from 0 to 483 respectively; without this change both are 0.
+>=20
+> Fixes: ed51a86b787f ("wifi: rtw88: Enable receiving control frames in mon=
+itor mode")
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Please add Cc: stable@vger.kernel.org
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+> Assisted-by: LLM
+> Signed-off-by: Jeremy Fareau <jeremy.fareau@gmail.com>
+> ---
+>  drivers/net/wireless/realtek/rtw88/mac80211.c | 5 +++--
+>  drivers/net/wireless/realtek/rtw88/main.c     | 8 ++++++++
+>  drivers/net/wireless/realtek/rtw88/main.h     | 1 +
+>  3 files changed, 12 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/net/wireless/realtek/rtw88/mac80211.c b/drivers/net/=
+wireless/realtek/rtw88/mac80211.c
+> index 827f38390969..84d869f1efe0 100644
+> --- a/drivers/net/wireless/realtek/rtw88/mac80211.c
+> +++ b/drivers/net/wireless/realtek/rtw88/mac80211.c
+> @@ -300,9 +300,10 @@ static void rtw_ops_configure_filter(struct ieee8021=
+1_hw *hw,
+> =20
+>  	if (changed_flags & FIF_CONTROL) {
+>  		if (*new_flags & FIF_CONTROL)
+> -			rtw_write16(rtwdev, REG_RXFLTMAP1, 0xffff);
+> +			rtwdev->hal.rxfltmap1_cur =3D 0xffff;
+>  		else
+> -			rtw_write16(rtwdev, REG_RXFLTMAP1, rtwdev->hal.rxfltmap1);
+> +			rtwdev->hal.rxfltmap1_cur =3D rtwdev->hal.rxfltmap1;
+> +		rtw_write16(rtwdev, REG_RXFLTMAP1, rtwdev->hal.rxfltmap1_cur);
+>  	}
+>  	if (changed_flags & FIF_ALLMULTI) {
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+I would change the new rxfltmap1_cur because hal->rxfltmap1 is not a consta=
+nt.
+The beamforming code edits it and writes the register with the
+edited value:
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+          bf.c:140        rtwdev->hal.rxfltmap1 &=3D ~BIT_RXFLTMAP1_BF_REPO=
+RT_POLL;
+          bf.c:141        rtw_write16(rtwdev, REG_RXFLTMAP1, rtwdev->hal.rx=
+fltmap1);
+          bf.c:273        rtwdev->hal.rxfltmap1 |=3D BIT_RXFLTMAP1_BF;
+          bf.c:274        rtw_write16(rtwdev, REG_RXFLTMAP1, rtwdev->hal.rx=
+fltmap1);
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+So after this patch the driver keeps two cached copies of one register. On =
+an
+8822C in monitor mode, configure_filter() caches 0xffff while bf.c has clea=
+red
+the report poll bit in hal->rxfltmap1, so the next stop/start restores 0xff=
+ff
+and undoes that. The reverse happens too: a request with FIF_CONTROL off
+caches hal->rxfltmap1 as it stands at that moment, and later bf.c edits are
+lost at the next restart.
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+I would keep one variable and add one flag instead of a second shadow value=
+.
+It would remember whether control frames were requested, and then on restor=
+e
+it would rebuild the register from that flag and hal->rxfltmap1.
+
+> diff --git a/drivers/net/wireless/realtek/rtw88/main.c b/drivers/net/wire=
+less/realtek/rtw88/main.c
+> index cd9254370fcc..ea61020a0622 100644
+> --- a/drivers/net/wireless/realtek/rtw88/main.c
+> +++ b/drivers/net/wireless/realtek/rtw88/main.c
+> @@ -1528,6 +1528,14 @@ int rtw_core_start(struct rtw_dev *rtwdev)
+>  	/* rcr reset after powered on */
+>  	rtw_write32(rtwdev, REG_RCR, rtwdev->hal.rcr);
+> =20
+> +	/* REG_RXFLTMAP1 is reset by the chip's mac_init() during power_on(),
+> +	 * and mac80211 only calls ieee80211_ops::configure_filter() when its
+> +	 * own filter flags change.  After a stop/start cycle the flags are
+> +	 * unchanged, so restore the value configure_filter() last asked for.
+> +	 */
+
+Comment style, same as in patch 1.
+
+> +	if (rtwdev->hal.rxfltmap1_cur)
+> +		rtw_write16(rtwdev, REG_RXFLTMAP1, rtwdev->hal.rxfltmap1_cur);
+> +
+
+A nit: this line doubles as "configure_filter has run". It only works becau=
+se
+no chip has a zero default (0x400, 0x0FFF, 0xFFFF), so an explicit flag wou=
+ld
+not depend on that.
+
+Best regards,
+Luka Gejak
