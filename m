@@ -1,113 +1,73 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B94903E5594;
-	Sun, 11 Oct 2026 13:10:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 210DA3B0587;
+	Sun, 11 Oct 2026 13:12:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791724224; cv=none; b=uzljj1JIhGr5nUeLMBUTwz3q8fismbtC7XDfd7m4o9ohqHBruG/h3Zcf28gwr2iLuaskeRrOFtHiLtgkOkoFEa5IPBE4sohvPWpTUNRo7NNuqZ1pSs907IRZ4+rfyms7Ocr2//AWAGUSoUPBqXHJWkYgEcBXn3DeZzeSmxS+tVg=
+	t=1791724374; cv=none; b=Q18YPjHwG7gzyECzUoIYUmJPksvlztSSoc7YyIU2/p27rRK65E9aq+4sGamIQ3aioKWKnt+k5XuikktikEzhY+21DPROVBTCYmyDs0uaY5oMU+k9DKzNrdikyTMGROjzAVtPq2lN+1hWRbyCKeLdy3Athn/HesrUPWZWVavFy5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791724224; c=relaxed/simple;
-	bh=8vhV/2HZ1ftlHJZLdB47C2Z8Z6/gO/ea8hWSukoTB9g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gaG4GgMSYTL+CtHgP86blhlyo228P6om+NVnbvC0OAJPpvJ9gQ6uH62JWRVYhSotWs/zSRgsrDUXXZdHlR5Rnt0pxwo5pOvufvIlyaxMJDzkJ6fEB56HP4Z7sb6LXTwQrKU82uAVAGhPztdhabG880st2Vf3DJlphCFtaiXSg2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dIkub4Ry; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791724374; c=relaxed/simple;
+	bh=+rhbf1TUuMeAIAiZ3OqBQvQEbKTOw8e31SX4gTUCD14=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZVc6gofM6gnx5u4/5ivHEEJ9keKyvtySyJeAAfcSMyXKdL1sDgTYi81sAQ1XBb+gqjIvHutcDhPFyaVtdgP02N3n6Gu5elGVSqYqFl+WecZg3bPsk5J8iQkUO6GThhWtOnttubAO5nEZ0St9nbyixDU73a6MmVfyPD2nLnbe9ds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hNDOMgB+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dIkub4Ry"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC9141F0089B;
-	Sun, 11 Oct 2026 13:10:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791724223;
-	bh=06YExlWYCYI2hlQoPljJejdL84JiLaFEcetoMG9XiQo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dIkub4Ry0SRjcg6tUuorFGY0Kkzyul9x22/bilKGBNQalnJV4n8E8zfegK77hYbX+
-	 ToQNXCOzRfiLS7riASX8YZrC2wWKjHpXlq0ByDpiIb/OpGF3vjsHrGWOZScwkQ2TGO
-	 zcPXt4Vd4tPW1PGvGRe6niAfz6CSvWVOazcOD60g=
-Date: Sun, 11 Oct 2026 15:10:20 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Miguel Ojeda <ojeda@kernel.org>
-Cc: achill@achill.org, akpm@linux-foundation.org, broonie@kernel.org,
-	conor@kernel.org, f.fainelli@gmail.com, hargar@microsoft.com,
-	jonathanh@nvidia.com, linux-kernel@vger.kernel.org,
-	linux@roeck-us.net, lkft-triage@lists.linaro.org,
-	patches@kernelci.org, patches@lists.linux.dev, pavel@nabladev.com,
-	rwarsow@gmx.de, shuah@kernel.org, sr@sladewatkins.com,
-	stable@vger.kernel.org, sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Arve =?iso-8859-1?B?SGr4bm5lduVn?= <arve@android.com>,
-	Todd Kjos <tkjos@android.com>,
-	Christian Brauner <christian@brauner.io>,
-	Carlos Llamas <cmllamas@google.com>,
-	Alice Ryhl <aliceryhl@google.com>
-Subject: Re: [PATCH 7.2 000/428] 7.2.10-rc1 review
-Message-ID: <2026101124-rethink-craftily-cb25@gregkh>
-References: <20261009140946.008206689@linuxfoundation.org>
- <20261011111313.27648-1-ojeda@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hNDOMgB+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 827C41F0089B;
+	Sun, 11 Oct 2026 13:12:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791724371;
+	bh=xguvO7Z0rKWV6cXidAMAFxVoApZEw+GahybnuKsVk3A=;
+	h=From:To:Cc:Subject:Date;
+	b=hNDOMgB+fS0BQfzcrRKQha1hr0RdNXuoKaX3n1NuVpYio9PBOaob4ZfgzcjIcOAv8
+	 WmpqVNn0Qo2CwZgKQzz5wz6Y6BC/Ck1gON2Pmxqi20QaG0T/OBa2vlPMzc4ZtX0eNS
+	 V8qdEqJ6o/EU3Pgq/dt/p69dZN1SkKU36yn8V5f0htpM3sxcFFsgQ49XYCBAShLYxH
+	 HgZqjVeVPN4RqHokaHcAOQwdmoigU/wENvYSZ5dXDzP9aiR+umwtxsuDX6ZEE8cmJb
+	 xy6DYwnsCBWcmDbnMGaykI+Zu1q9L1ReOVMBKnz4++w7KLnvh4uojVmh3h0hFoJLhG
+	 qSc39T/c7Bqzw==
+From: Thorsten Blum <blum@kernel.org>
+To: Linus Walleij <linusw@kernel.org>,
+	Luiz Angelo Daros de Luca <luizluca@gmail.com>,
+	=?UTF-8?q?Alvin=20=C5=A0ipraga?= <alvin.sipraga@analog.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Thorsten Blum <blum@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next] net: dsa: realtek: Remove unused buffer from struct realtek_priv
+Date: Sun, 11 Oct 2026 15:12:10 +0200
+Message-ID: <20261011131208.272131-3-blum@kernel.org>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+X-Developer-Signature: v=1; a=openpgp-sha256; l=559; i=blum@kernel.org; h=from:subject; bh=+rhbf1TUuMeAIAiZ3OqBQvQEbKTOw8e31SX4gTUCD14=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFmnuzWmSu99aH3J/teP9T+X8PrLL65n8cjd5LykcZ1/i /x1r4NfOkpZGMS4GGTFFFkezPoxw7e0pnKTScROmDmsTCBDGLg4BWAiZh8YGW4aiIb/cKo7XX+p I+0/Y3vRlHcyU8z0GAR6Dnx3KF1zRp3hvz/zTMvaOP9ZzjPcwxf9CPq0fjf3UYmCGP9lX849/jx PkgMA
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261011111313.27648-1-ojeda@kernel.org>
 
-On Sun, Oct 11, 2026 at 01:13:12PM +0200, Miguel Ojeda wrote:
-> On Fri, 09 Oct 2026 16:05:37 +0200 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
-> >
-> > This is the start of the stable review cycle for the 7.2.10 release.
-> > There are 428 patches in this series, all will be posted as a response
-> > to this one.  If anyone has any issues with these being applied, please
-> > let me know.
-> >
-> > Responses should be made by Sun, 11 Oct 2026 14:08:23 +0000.
-> > Anything received after that time might be too late.
-> 
-> Building Rust Binder breaks with:
-> 
->     error[E0061]: this method takes 1 argument but 2 arguments were supplied
->        --> drivers/android/binder/node/wrapper.rs:86:50
->         |
->     86  |                 _drop_outside_lock = owner_inner.push_work(&node.owner, node2);
->         |                                                  ^^^^^^^^^ ----------- unexpected argument #1 of type `&Arc<Process>`
->         |
->     note: method defined here
->        --> drivers/android/binder/process.rs:173:19
->         |
->     173 |     pub(crate) fn push_work(
->         |                   ^^^^^^^^^
->     174 |         &mut self,
->     175 |         work: DLArc<dyn DeliverToRead>,
->         |         ------------------------------
->     help: remove the extra argument
->         |
->     86  -                 _drop_outside_lock = owner_inner.push_work(&node.owner, node2);
->     86  +                 _drop_outside_lock = owner_inner.push_work(node2);
->         |
-> 
-> (and similarly in `drivers/android/binder/node.rs:74`).
-> 
-> It is due to upstream commit:
-> 
->   dbb17c9ea756 ("rust_binder: move (e)poll wait queue to Process")
-> 
-> which added a `&Process` parameter to `push_work`.
-> 
-> 6.8.y breaks similarly.
-> 
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Arve Hjønnevåg <arve@android.com>
-> Cc: Todd Kjos <tkjos@android.com>
-> Cc: Christian Brauner <christian@brauner.io>
-> Cc: Carlos Llamas <cmllamas@google.com>
-> Cc: Alice Ryhl <aliceryhl@google.com>
+The buffer has never been used. Remove it.
 
-Seems to be broken by "rust_binder: reschedule node refcount update on
-thread exit" as removing that fixes the builds which I did.  Any
-objection to that?
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+---
+ drivers/net/dsa/realtek/realtek.h | 1 -
+ 1 file changed, 1 deletion(-)
 
-thanks,
-
-greg k-h
+diff --git a/drivers/net/dsa/realtek/realtek.h b/drivers/net/dsa/realtek/realtek.h
+index 6e0148cee8d8..ca3a71876599 100644
+--- a/drivers/net/dsa/realtek/realtek.h
++++ b/drivers/net/dsa/realtek/realtek.h
+@@ -97,7 +97,6 @@ struct realtek_priv {
+ 	int			vlan_enabled;
+ 	int			vlan4k_enabled;
+ 
+-	char			buf[4096];
+ 	void			*chip_data; /* Per-chip extra variant data */
+ };
+ 
