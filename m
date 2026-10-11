@@ -1,160 +1,248 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B551363097;
-	Sun, 11 Oct 2026 17:00:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9380C2DCF57
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 17:05:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791738053; cv=none; b=O2MlFal+YlyHobz46ZDgHdB6iVg6CI4a31wSSUeqwkFpc4gSLGO6KNSBrO5LmtzV9l9KZoLfqT7i2EeuZ3zrZYBbbN4QdWLL9uNIO1ANAT6NtdkH4G1tJnqsstaYMm2eKMMMPDUwsgpdI+wYo+2KgGKgS9Jnc4YCyys0BZylCi4=
+	t=1791738359; cv=none; b=DHv5oav/N81aeDjLTPTBg/EOc5d/WqRa/fKIJJ3P0r4sfCv9ccEY+3mDVdg/YFmfDM51qxFlWQQCGgK/KOUUpUi6zCIdv3dS/Kx1LPZLpLVULWnGvuJJb6d2M2MEoT6w9InLjqKV+cJSuKUfO2wUs2l2OctC6zm+v81DVJdNqFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791738053; c=relaxed/simple;
-	bh=FbxG+px3G5632sS0Zj5o+7HZISGsr2yu2FpIeHiOzGE=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=X+q0AKCK0ixovf/ssFFmB4M4pDIrP0GSJoq8Z/hrcY8FEwvcIY9N0RsiQ3lwFZbhs37kjyGuZyB3GtqV9A7cmGZnAnMh3MUhYJWeSgkImDwj3KguT+zLvbfbXZG8/dI3Yr2oTC2I/3pHTg3R2HURWNSx/jDJFFaFgjCxFeMr8s0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XI3h1wJz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791738359; c=relaxed/simple;
+	bh=8RZYaChaQ8LIw075ZN/N4BME0t7hJ3ZBejvx4QGteP0=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=KQQWGuPNrVTKAYdb/FspHeceOT2h7SE6EbPI9gYgiUDvQuoEUOOTEitROEnmevd5dJ0XBTkBJipSdXHAykx2Yf6kHSaVly3bWfKxMTX6dqcNpzLL6uZFz6qmfAEwaBpCbsI3r+i3jC6mqYTI2gxuCgShDCTzhsZjwy8ki+0o61c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U078sj+g; arc=none smtp.client-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XI3h1wJz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D6AF1F0089E;
-	Sun, 11 Oct 2026 17:00:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791738050;
-	bh=dZTDnCK3HgK3uX/LOK0zMufM9J/PD7mhbFkE1Zi+CY8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=XI3h1wJz9MrzQybrSgTl5mNa3mgjJSa3Xp3oZD0CxqdyF2M1bO1IGqZp8XTynEpvP
-	 /NQ0239v7Cl5tRvD5Xg08NWs6j90oC+hUsPAXgVJC9cTz5RUdpS+OusGfCV51QVXt7
-	 KcBtBo+qmCKy6R0m/hLMyXSBtRR2A5OAkpVakr7Wary4PeyO5gqb28OzqAXW2iE5px
-	 GBUDaWM0bApWhcksMmSbaMtZY1jJZMwOdZQO9VmWcnptoAxQeScQ4DRGiUHQy2Hhs2
-	 aALlT7FDG5zWlEBk4ptGCA4CHDCOs3/VNaY/EWU8/O6uOuj3Fkegeq2ptopAkFCf4a
-	 cx6TiIalCWGvA==
-Subject: Re: [PATCH net-next v2 7/8] net: skbuff: don't BUG() on a missing
- head_frag in skb_zerocopy()
-From: netdev-bot+sashiko@kernel.org
-To: josef@toxicpanda.com
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-Date: Sun, 11 Oct 2026 17:00:49 +0000
-Message-ID: <179173804997.434549.4450793967361922984@kernel.org>
-In-Reply-To: <20261007-b4-skbuff-bug-on-v2-7-b9a5f732895b@toxicpanda.com>
-References: <20261007-b4-skbuff-bug-on-v2-7-b9a5f732895b@toxicpanda.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U078sj+g"
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-33e6279a1d7so792272eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 10:05:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791738356; x=1792343156; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Pm3Wa1Z7MFnj1XbAx62ycxvPc+ZoCJq/e+x0Bt4y5cc=;
+        b=U078sj+gpRsaBim91b/1mRHFfRI00da/mm5AFlyGDRi/py6wYT10EsTjrK3bNpmyK5
+         maSJ0vbwvzvfPkUwFKa2FbwSzmgGStAZcV15YYPxPNVtGqKL66eZyE+dlgIFb5S1nVxX
+         dxBw4WuWLo8LDtTW/4PvAceoe4v/dkHiosxCZK3yIe7RD4j4YYAftozbYQz2yV2BuGgV
+         fagRhTOTc746ofhqnK7GcYNw+NhkZc8VwMiWyeIYoaLC9kzmicQNGnzJsVvY+o9fOC1l
+         M6OmmLoeLE4JVRpnwBLiDlV6Ah1Vojihd6R3Dyi5fSN0a/OY+Au7VXCNq7Xl8u/xokMK
+         +SXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791738356; x=1792343156;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Pm3Wa1Z7MFnj1XbAx62ycxvPc+ZoCJq/e+x0Bt4y5cc=;
+        b=zARrS4iF50gOpG4yFZmwI3eynbth/5Yo0b35yyWYPPeBqUP2YOqBMStis0f7wbodr6
+         eyHkY4snx9HiilIql2xXokUqBlK/j1n1BqcZSifMJqYn2FG7Vgl5RFykPxyPnYGuaPng
+         9Xxe5Lz8KEbvZQWbh0UneiFr5afVeNNSAzs+tqm09pYDD5w+OIFfu0+50jOfcMRJte6M
+         O0Tc7qijpamIekJz0LGfy3kRdExAv3x7H/yBymCi7sJABJ2G/zSayW0GUnvm1eKr4n5o
+         4lwz/fzyWtf3ulwAkAaTd2VT6z0+qeFf23M4gRbeuGQ2qaDJk1pwqPaBYGu2iWyfFMTa
+         4DYA==
+X-Gm-Message-State: AFq9FYKSv+P02Meqdzm/7NqoE2mqlV/ymARd1XrCDoVq2UjDnQZLDJZL
+	cvAZdHAnW4VrBQ9LHWwTf0nrssITk9v37+W79A6bYq/ABFFv5LWdLhR3
+X-Gm-Gg: AYBFou1bVnropaS8Hzq2MGbaYBOvi6wlckI3H6kogRqKk1B/ASkplpgFCKwJIO0wWC9
+	LCTqDElD4/JDW24jaI1YJYU491/C6AUDKje+1xsX6GmTsrg0of7rYHNpCBjEaBoDJTDt+JAzXCP
+	0gSHiGKenrxrFWNGLPs2TlU0gaqWlgsLaoxjwNOrCC1YvkVdSU7vMVwdJ7Fkrg9aD6vdNSAS5I0
+	6ZmlEuXK0nVoWg/kfciKEo8U+WjB+miyKvgtdNdfn0wyWik+8VY/BVbcw2IxjdzIkYIYzCEP4u8
+	OSy7yFLeDv00KqFbW0KGu0U/rnOWsb6uLhwv5UvjQcXGzwhzDx+vHIFrrK1Nf+eX9u5vVh5vY1g
+	uLrxSnO+fR7IqMdZc5wtcgO3w5uiclS3KWk+kM7XHKlt1DDz6DdPbJ6Y6ZqBGWaDiXjKarY5uH8
+	I1JHA4nqSnMaJrF50rUxm8BV/kW+edCRHXISvCFoZh8qEj7BzcLJs/AN/Y2O4mhmDU8re/
+X-Received: by 2002:a05:7301:700d:b0:35a:22a4:12d with SMTP id 5a478bee46e88-35a22a420d3mr1805689eec.25.1791738355205;
+        Sun, 11 Oct 2026 10:05:55 -0700 (PDT)
+Received: from gmail.com ([154.91.42.88])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35a352d4b05sm4619130eec.19.2026.10.11.10.05.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 10:05:54 -0700 (PDT)
+Date: Sun, 11 Oct 2026 17:05:49 +0000
+From: Zuo An <zuoan.penguin@gmail.com>
+To: linux-kbuild@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, Julian Braha <julianbraha@gmail.com>, 
+	Randy Dunlap <rdunlap@infradead.org>, Nathan Chancellor <nathan@kernel.org>, 
+	Nicolas Schier <nsc@kernel.org>
+Subject: [PATCH v3] kconfig: show number of search results in search UI
+Message-ID: <asvB7fchdB8lUkMc@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+When searching for config symbols, the search results popup
+will now display a count of the results in the title bar,
+e.g. "Search Results (42)". This helps the user to gauge the
+number of matches quickly and refine their search if necessary,
+instead of having to scroll down by an indefinite amount (especially
+for nconfig's UI).
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Signed-off-by: Zuo An <zuoan.penguin@gmail.com>
+---
+Changes in v3:
+- Fixed wrong subject line
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Changes in v2:
+- Addressed Sashiko review concerns (thanks Julian!)
+- Fixed window title overflow in nconfig when no results are found
 
-- [Medium] The commit message calls `!from->head_frag && !hlen` in
-  skb_zerocopy() a caller bug or "bad skb geometry".
-- [Low] The patch adds a new -EFAULT return to skb_zerocopy() without
-  updating its kernel-doc.
+v1: https://lore.kernel.org/linux-kbuild/aspVmnam3QL_DRYV@gmail.com/
+v2: https://lore.kernel.org/linux-kbuild/asvAfbLwV0lZBbyM@gmail.com/
 
---
+ scripts/kconfig/lkc_proto.h |  2 +-
+ scripts/kconfig/mconf.c     | 11 +++++++++--
+ scripts/kconfig/nconf.c     | 11 +++++++++--
+ scripts/kconfig/nconf.gui.c |  2 +-
+ scripts/kconfig/qconf.cc    |  2 +-
+ scripts/kconfig/symbol.c    |  4 +++-
+ 6 files changed, 24 insertions(+), 8 deletions(-)
 
-net: skbuff: don't BUG() on a missing head_frag in skb_zerocopy()
-
-This patch replaces the BUG_ON() in skb_zerocopy(), which fires when @from
-has no head_frag and hlen is 0. In its place is a DEBUG_NET_WARN_ON_ONCE()
-and an -EFAULT return. The commit message describes the condition as bad
-skb geometry passed in by the caller.
-
-> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-> index 7fd2f8142cc41..629de22d98e48 100644
-> --- a/net/core/skbuff.c
-> +++ b/net/core/skbuff.c
-> @@ -3913,7 +3913,10 @@ skb_zerocopy(struct sk_buff *to, struct sk_buff *from, int len, int hlen)
->  	struct page *page;
->  	unsigned int offset;
->  
-> -	BUG_ON(!from->head_frag && !hlen);
-> +	if (unlikely(!from->head_frag && !hlen)) {
-> +		DEBUG_NET_WARN_ON_ONCE(1);
-> +		return -EFAULT;
-> +	}
->  
->  	/* dont bother with small payloads */
->  	if (len <= skb_tailroom(to))
-
-[Severity: Medium]
-Is this condition always a caller bug? The commit message says:
-
-  "The check runs before anything is touched, and skb_zerocopy() already
-  documents -EFAULT for bad skb geometry."
-
-An ordinary zero-length packet from Open vSwitch seems able to reach it:
-
-ovs_packet_cmd_execute()
-  __dev_alloc_skb(NET_IP_ALIGN + len, GFP_KERNEL) /* kmalloc head */
-  ... POP_ETH action on a 14 byte untagged frame
-    pop_eth()->skb_eth_pop()->skb_pull_rcsum(skb, ETH_HLEN) /* len 0 */
-  ... USERSPACE action
-    output_userspace()->ovs_dp_upcall()->queue_userspace_packet()
-      skb_zerocopy(user_skb, skb, 0, 0)
-
-Because the allocation uses GFP_KERNEL, the head comes from kmalloc and
-head_frag stays 0.
-
-In queue_userspace_packet(), skb_len = min(skb->len, cutlen) is 0, and
-hlen is 0 on both branches:
-
-	if (dp->user_features & OVS_DP_F_UNALIGNED)
-		hlen = min(skb_zerocopy_headlen(skb), cutlen);
-	else
-		hlen = skb_len;
-
-When a !head_frag skb has no linear data, skb_zerocopy_headlen() returns
-from->len, which is 0 here.
-
-OVS_PACKET_CMD_EXECUTE uses GENL_UNS_ADMIN_PERM, so CAP_NET_ADMIN inside a
-user namespace is enough to get here. With the old BUG_ON(), that made
-this a crash that userspace could trigger.
-
-Should the commit message describe this path and carry a Fixes: tag and a
-stable note, so stable kernels pick up the change?
-
-With len == 0, the small-payload fast path below always copies zero bytes
-and returns 0. That is what an skb with head_frag already gets.
-
-After this patch, the same request returns -EFAULT for kmalloc-head skbs.
-The upcall is then dropped and counted in n_lost. On CONFIG_DEBUG_NET
-kernels it also fires a WARN that userspace can trigger, and with
-panic_on_warn set that WARN panics the machine.
-
-nfqnl_build_packet_message() never hits this because it only calls
-skb_zerocopy() when data_len is non-zero. queue_userspace_packet() has no
-such guard.
-
-Could the check move below the "len <= skb_tailroom(to)" fast path? Or
-could it be enforced only when the head really has to be referenced as a
-page, i.e. hlen == 0 && plen > 0?
-
-[Severity: Low]
-This isn't a bug, but the kernel-doc for skb_zerocopy() still gives only
-these causes for -EFAULT:
-
- *	-EFAULT: skb_copy_bits() found some problem with skb geometry, or readable head
- *      payload would be mixed with unreadable frags.
-
-The new early return gives -EFAULT before skb_copy_bits() or any frag
-readability check runs.
-
-Should the Return value section mention this case? It could also state the
-precondition the old BUG_ON() enforced: hlen must be non-zero when @from
-has no head_frag.
-
+diff --git a/scripts/kconfig/lkc_proto.h b/scripts/kconfig/lkc_proto.h
+index 8914b4e8f2a8..224acc142769 100644
+--- a/scripts/kconfig/lkc_proto.h
++++ b/scripts/kconfig/lkc_proto.h
+@@ -21,7 +21,7 @@ bool conf_errors(void);
+ struct symbol * sym_lookup(const char *name, int flags);
+ struct symbol * sym_find(const char *name);
+ void print_symbol_for_listconfig(struct symbol *sym);
+-struct symbol ** sym_re_search(const char *pattern);
++struct symbol ** sym_re_search(const char *pattern, int *sym_cnt);
+ const char * sym_type_name(enum symbol_type type);
+ void sym_calc_value(struct symbol *sym);
+ bool sym_dep_errors(void);
+diff --git a/scripts/kconfig/mconf.c b/scripts/kconfig/mconf.c
+index b8b7bba84a65..ebfc5bd09c1c 100644
+--- a/scripts/kconfig/mconf.c
++++ b/scripts/kconfig/mconf.c
+@@ -384,8 +384,10 @@ static void show_help(struct menu *menu)
+ static void search_conf(void)
+ {
+ 	struct symbol **sym_arr;
++	int sym_cnt = 0;
+ 	struct gstr res;
+ 	struct gstr title;
++	struct gstr res_title;
+ 	char *dialog_input;
+ 	int dres, vscroll = 0, hscroll = 0;
+ 	bool again;
+@@ -422,7 +424,7 @@ static void search_conf(void)
+ 	stpart.text = str_get(&sttext);
+ 	list_add_tail(&stpart.entries, &trail);
+ 
+-	sym_arr = sym_re_search(dialog_input);
++	sym_arr = sym_re_search(dialog_input, &sym_cnt);
+ 	do {
+ 		LIST_HEAD(head);
+ 		struct search_data data = {
+@@ -433,9 +435,14 @@ static void search_conf(void)
+ 		jump_key_char = 0;
+ 		res = get_relations_str(sym_arr, &head);
+ 		set_subtitle();
+-		dres = show_textbox_ext("Search Results", str_get(&res), 0, 0,
++
++		res_title = str_new();
++		str_printf(&res_title, "Search Results (%d)", sym_cnt);
++		dres = show_textbox_ext(str_get(&res_title), str_get(&res), 0, 0,
+ 					&vscroll, &hscroll,
+ 					handle_search_keys, &data);
++		str_free(&res_title);
++
+ 		again = false;
+ 		if (dres >= '1' && dres <= '9') {
+ 			assert(data.target != NULL);
+diff --git a/scripts/kconfig/nconf.c b/scripts/kconfig/nconf.c
+index 521700ed7152..4c9c4ee7c3a7 100644
+--- a/scripts/kconfig/nconf.c
++++ b/scripts/kconfig/nconf.c
+@@ -700,8 +700,10 @@ static int do_exit(void)
+ static void search_conf(void)
+ {
+ 	struct symbol **sym_arr;
++	int sym_cnt = 0;
+ 	struct gstr res;
+ 	struct gstr title;
++	struct gstr res_title;
+ 	char *dialog_input;
+ 	int dres, vscroll = 0, hscroll = 0;
+ 	bool again;
+@@ -732,7 +734,7 @@ static void search_conf(void)
+ 	if (strncasecmp(dialog_input_result, CONFIG_, strlen(CONFIG_)) == 0)
+ 		dialog_input += strlen(CONFIG_);
+ 
+-	sym_arr = sym_re_search(dialog_input);
++	sym_arr = sym_re_search(dialog_input, &sym_cnt);
+ 
+ 	do {
+ 		LIST_HEAD(head);
+@@ -742,10 +744,15 @@ static void search_conf(void)
+ 		};
+ 		jump_key_char = 0;
+ 		res = get_relations_str(sym_arr, &head);
++
++		res_title = str_new();
++		str_printf(&res_title, "Search Results (%d)", sym_cnt);
+ 		dres = show_scroll_win_ext(main_window,
+-				"Search Results", str_get(&res),
++				str_get(&res_title), str_get(&res),
+ 				&vscroll, &hscroll,
+ 				handle_search_keys, &data);
++		str_free(&res_title);
++
+ 		again = false;
+ 		if (dres >= '1' && dres <= '9') {
+ 			assert(data.target != NULL);
+diff --git a/scripts/kconfig/nconf.gui.c b/scripts/kconfig/nconf.gui.c
+index 2d097bc7ef1a..5900eba0a512 100644
+--- a/scripts/kconfig/nconf.gui.c
++++ b/scripts/kconfig/nconf.gui.c
+@@ -523,7 +523,7 @@ int show_scroll_win_ext(WINDOW *main_window, const char *title, char *text,
+ 	int x, y, lines, columns;
+ 	int start_x = 0, start_y = 0;
+ 	int text_lines = 0, text_cols = 0;
+-	int total_cols = 0;
++	int total_cols = get_line_length(title) + 4;
+ 	int win_cols = 0;
+ 	int win_lines = 0;
+ 	int i = 0;
+diff --git a/scripts/kconfig/qconf.cc b/scripts/kconfig/qconf.cc
+index b02ead7a3f98..8f51dc55226d 100644
+--- a/scripts/kconfig/qconf.cc
++++ b/scripts/kconfig/qconf.cc
+@@ -1245,7 +1245,7 @@ void ConfigSearchWindow::search(void)
+ 	list->clear();
+ 	info->clear();
+ 
+-	result = sym_re_search(editField->text().toLatin1());
++	result = sym_re_search(editField->text().toLatin1(), nullptr);
+ 	if (!result)
+ 		return;
+ 	for (p = result; *p; p++) {
+diff --git a/scripts/kconfig/symbol.c b/scripts/kconfig/symbol.c
+index 7e81b3676ee9..31f927bd563a 100644
+--- a/scripts/kconfig/symbol.c
++++ b/scripts/kconfig/symbol.c
+@@ -1020,7 +1020,7 @@ static int sym_rel_comp(const void *sym1, const void *sym2)
+ 	return strcmp(s1->sym->name, s2->sym->name);
+ }
+ 
+-struct symbol **sym_re_search(const char *pattern)
++struct symbol **sym_re_search(const char *pattern, int *sym_cnt)
+ {
+ 	struct symbol *sym, **sym_arr = NULL;
+ 	struct sym_match *sym_match_arr = NULL;
+@@ -1065,6 +1065,8 @@ struct symbol **sym_re_search(const char *pattern)
+ 			sym_arr[i] = sym_match_arr[i].sym;
+ 		sym_arr[cnt] = NULL;
+ 	}
++	if (sym_cnt)
++		*sym_cnt = cnt;
+ sym_re_search_free:
+ 	/* sym_match_arr can be NULL if no match, but free(NULL) is OK */
+ 	free(sym_match_arr);
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261007-b4-skbuff-bug-on-v2-0-b9a5f732895b%40toxicpanda.com
+2.56.0
+
