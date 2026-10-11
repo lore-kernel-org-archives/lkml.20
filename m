@@ -1,110 +1,196 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD53723D295
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 15:19:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E38AA405F7;
+	Sun, 11 Oct 2026 15:19:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791731976; cv=none; b=RlAJvyQFGAGCaM2LAHcAwnjcVtgn7xCYM6usKn4sCmSF+8HcI12qMW3zbOkkRkwOKDVVFRZ6I7BVilALYAJML2F828fCPwa9Q9yRkfjrPZ4q5+2IcJLsZ5buEYCWQH7e9ofG7F/9px5AvPrZVG4LxuAkFjwhfSTHZw5FwksblXo=
+	t=1791731981; cv=none; b=WNPkOS9Ix3ODiL5JGkRChUOelb6nVCSTspWOVph9MANKBoICaVvy+TEEx3eqpWO4M6tfdiB7Lhm9wVJ22erEvsfMiCyenr02OwqUCpgzNaG414/oOKGozC/rVoCCJDEEDn0GYL57NgQwBkkBVG4jOkAZELWXsgBf/bKhNPYyXzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791731976; c=relaxed/simple;
-	bh=SfZU5QBRdMi/KgNELcecbO6USgMv2hCSJf9T0qU5shI=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=sDlxVZHf6I+n0JtprrBJ01NghUpj8qub5cKB9ZQNZOk435gCWUyKHm4g8b0ZXIhoxtwYAzaGWMNansOBMXkb+DsD9K6IFRTyk+NnbzhEILwj9lDOZcISNOcDqJHJgLeBGUp1Gyie3z2kFOPgEo/v7DTBsfTBPJX7EohjWcFr0eI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4e937c5bd4fso1301185b6e.2
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 08:19:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791731973; x=1792336773;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/ejP176Rx5rm5jeJ6KaI7hE3f67vqppgEazw/7JP8qc=;
-        b=ZaNWJAVND5IxrcrFQ7zOT74p9EfNH6vmEMSXsMIH0szH0XtCmgz4t174rp9L8P2X7R
-         raeOoU+hWf8+0lk298V5eVDzm6NWqTvMxfPkZerlSM+m+u4+k2Ipt/WRiExKf7vV9lLp
-         0VygnFfQ+iWH8HWPsfyjEvteyxjj11lHfquedplTpHpRv68gSDJtvHVRyAK1TDIKE8/4
-         6n9rfanJ35Wtw2H3KcLaCV9lZrIsM/7HTUJsJxnpav8e8aWLzw9tbGafArYCveLo0wUt
-         2SKcbRZsdV9l2+Yc1iRDmAbdWiEq+kPr75UlCol8mQw9H8bUIsAzmY7VfinBAp+bE8QK
-         Jt8w==
-X-Forwarded-Encrypted: i=1; AKwUvBwfLPshtzH8dYmHvbxnmZAyAa8Kn389vZtHATWTZpF32B98k84OyA3t2rCwAKEYOJiyCpKftP1Om7IhhzM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK4aM+o7N6spNrOM41OUSNoXKmUxMaxweay8MEo1RULuAeEFFRi
-	H4oAYNh0M3/pVBlx+KkMDFiYjGyAbXwRlJK6iLyABNiQzssGLiitpM9DxLPnMKNDfXtiKQWiyI5
-	bSvCtcbQd2ADmlpGH024I1ZJQY5EvUVRW23wKHRVcti7vlXrBPFODAd2w3yg=
+	s=arc-20240116; t=1791731981; c=relaxed/simple;
+	bh=LtCyh9nnBrjqkIbbIwLiupRPV+TFwFkyJ6gs9wxDGhU=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=IHHohwGy3nqZXKaz34FL4XV3cZnu9Gm4i1+k3X0PQkUgiIu3zVJSS81tDa3DkECGdgKufj5ESdCGRo4NKPAu8fPvVII5yc8t/4N9YwLrq4i/g+OKlqH+Br3WgvKomhvIyno/SoJ37vsafQ6E0XzNvYk+crEYQwzgZPX7vKjRR6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AL4bhu1L; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AL4bhu1L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB3081F0089B;
+	Sun, 11 Oct 2026 15:19:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791731979;
+	bh=mUCf4nSzDUXsV7PZq3Gz76x5gHcSeE+bODEKH+oBdV0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=AL4bhu1LyToQDNaPaazv5jrGEIREIo2aa5pzBLdnLCPz1NP1mapNZ/IzhX9iYkBVw
+	 MjrKMbTn65jjC6IqVQ1bi0rpFEgHeFXOWoiciouJ3cVF8XMWXSXlp+uajgixtRNRFh
+	 3m4dHhHjRXIjcl+JUCRKNY2NkyywRddYkUiOi4g0mv5cqp3xJbUKFGq7WOAuqDo9yY
+	 YmwigJbGiZQO8oWGfy6g5CEC8jDz3Q8AzYYeUTZk7mwhJZ+vKxdMGKUtugf7TjJ87O
+	 3T7HyDXoEhh1fXPzXWy81oFpCJwUhdWBL6PuhNWhB6U+DVdHyqfpXT6v8YsErfUsde
+	 tQT2Xo1ZLsZNw==
+Subject: Re: [PATCH net] net: sparx5: free the matchall entry on destroy
+From: netdev-bot+sashiko@kernel.org
+To: daniel.machon@microchip.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, Steen.Hegelund@microchip.com,
+ UNGLinuxDriver@microchip.com, netdev@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ kees@kernel.org
+Date: Sun, 11 Oct 2026 15:19:38 +0000
+Message-ID: <179173197837.434549.9373931425008737442@kernel.org>
+In-Reply-To:
+ <20261007-sparx5-matchall-kfree-net-v1-1-c8918685b337@microchip.com>
+References:
+ <20261007-sparx5-matchall-kfree-net-v1-1-c8918685b337@microchip.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:130f:b0:4c3:2e7:55bb with SMTP id
- 5614622812f47-50c537c68c7mr6581827b6e.38.1791731973659; Sun, 11 Oct 2026
- 08:19:33 -0700 (PDT)
-Date: Sun, 11 Oct 2026 08:19:33 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6acba905.8cdf6287.1eb53.00e4.GAE@google.com>
-Subject: [syzbot] [block?] WARNING: lock held when returning to user space in blk_throtl_init
-From: syzbot <syzbot+1eb53c83ab8b0a0302a6@syzkaller.appspotmail.com>
-To: axboe@kernel.dk, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-syzbot found the following issue on:
+Critical: 0 · High: 1 (1) · Medium: 0 · Low: 0
 
-HEAD commit:    becb95e45ef0 Add linux-next specific files for 20261009
-git tree:       linux-next
-console output: https://syzkaller.appspot.com/x/log.txt?x=119ea68e580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=7400eab0484d1dc
-dashboard link: https://syzkaller.appspot.com/bug?extid=1eb53c83ab8b0a0302a6
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=100e8999580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=159ea68e580000
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/b16b9c03e69c/disk-becb95e4.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/78483614b526/vmlinux-becb95e4.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/e333f1b9fe69/bzImage-becb95e4.xz
+- [High] The fix is incomplete: `struct sparx5_mall_entry` still leaks on
+  every error return in `sparx5_tc_matchall_replace()`.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+1eb53c83ab8b0a0302a6@syzkaller.appspotmail.com
+Pre-existing issues:
+- [High] `sparx5_tc_matchall_parse_mirror_action()` sets
+  `entry->mirror.port = netdev_priv(action->dev)` without checking that…
 
-null_blk: disk nullb1 created
-================================================
-WARNING: lock held when returning to user space!
-syzkaller #0 Not tainted
-------------------------------------------------
-syz.0.452/6787 is leaving the kernel with locks still held!
-locks held by syz.0.452/6787: 2, last CPU#0:
- #0: ffff88803652c190 (&q->q_usage_counter(io)#105){++++}-{0:0}, at: blk_mq_freeze_queue include/linux/blk-mq.h:956 [inline]
- #0: ffff88803652c190 (&q->q_usage_counter(io)#105){++++}-{0:0}, at: blk_throtl_init+0x27b/0x420 block/blk-throttle.c:1332
- #1: ffff88803652c1c8 (&q->q_usage_counter(queue)#88){+.+.}-{0:0}, at: blk_mq_freeze_queue include/linux/blk-mq.h:956 [inline]
- #1: ffff88803652c1c8 (&q->q_usage_counter(queue)#88){+.+.}-{0:0}, at: blk_throtl_init+0x27b/0x420 block/blk-throttle.c:1332
+--
 
+net: sparx5: free the matchall entry on destroy
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+This patch adds a kfree() of the struct sparx5_mall_entry in
+sparx5_tc_matchall_destroy(), after the entry is removed from
+sparx5->mall_entries. Without it, every deleted mirror and goto matchall
+filter leaked its entry.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+> diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_tc_matchall.c b/drivers/net/ethernet/microchip/sparx5/sparx5_tc_matchall.c
+> index 702257979462d..146d7f28e8f3d 100644
+> --- a/drivers/net/ethernet/microchip/sparx5/sparx5_tc_matchall.c
+> +++ b/drivers/net/ethernet/microchip/sparx5/sparx5_tc_matchall.c
+> @@ -160,6 +160,7 @@ static int sparx5_tc_matchall_destroy(struct net_device *ndev,
+>  	}
+>  
+>  	list_del(&entry->list);
+> +	kfree(entry);
+>  
+>  	return err;
+>  }
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+[Severity: High]
+Does sparx5_tc_matchall_replace() still leak mall_entry on its error
+paths?
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+The entry is allocated before the action is checked or the hardware is
+programmed. It is only added to the list at the very end:
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+sparx5_tc_matchall_replace() {
+    ...
+	mall_entry = kzalloc_obj(*mall_entry);
+	if (!mall_entry)
+		return -ENOMEM;
+    ...
+	list_add_tail(&mall_entry->list, &sparx5->mall_entries);
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
+	return 0;
+}
 
-If you want to undo deduplication, reply with:
-#syz undup
+Each return between those two points loses the only pointer to the entry
+without freeing it:
+
+- the sparx5_mirror_add() failure in the FLOW_ACTION_MIRRED case, which
+  returns err (-EEXIST, -EINVAL, -ENOENT)
+
+- the four vcap_enable_lookups() failure returns in the FLOW_ACTION_GOTO
+  case (-EFAULT, -EADDRINUSE, -EADDRNOTAVAIL, and other errors)
+
+- the default case:
+
+	default:
+		NL_SET_ERR_MSG_MOD(tmo->common.extack, "Unsupported action");
+		return -EOPNOTSUPP;
+
+These entries never reach sparx5->mall_entries. That means
+sparx5_tc_matchall_destroy() can never find them, and the new kfree()
+does not cover them.
+
+A failed offload is easy to repeat. Examples are a matchall filter with
+an action like drop, which hits the default case, a second mirror on a
+port that is already mirrored, or a goto to an unsupported chain.
+Without skip_sw the software filter is still installed, so this can run
+in a loop.
+
+Since this is the same object the commit message says is leaked, could
+the fix also free mall_entry on these paths? A shared error label in
+sparx5_tc_matchall_replace() would work, or the action could be checked
+before the allocation.
+
+[Severity: High]
+This is a pre-existing issue and was not introduced by this patch. Is
+the mirred target device checked before it is used as a sparx5 port?
+
+sparx5_tc_matchall_parse_mirror_action() {
+	entry->mirror.port = netdev_priv(action->dev);
+}
+
+Nothing checks that action->dev is a sparx5 port, or even that it is
+non-NULL. The driver already has a helper that checks both:
+
+sparx5_netdevice_check() {
+	return dev && (dev->netdev_ops == &sparx5_port_netdev_ops);
+}
+
+The lan966x driver does a similar check in lan966x_mirror_port_add().
+
+If the mirred target is a foreign netdev such as dummy, veth or a
+bridge, sparx5_mirror_add() reads mport->portno from that driver's
+private area. It then writes the value to hardware:
+
+sparx5_mirror_add() {
+    ...
+	if (sport->portno == mport->portno)
+		return -EINVAL;
+    ...
+	sparx5_mirror_monitor_set(sparx5, mirror_idx, mport->portno);
+    ...
+}
+
+As a result, mirrored traffic could be sent to an arbitrary switch port.
+
+action->dev can also be NULL. In net/sched/act_mirred.c,
+tcf_offload_mirred_get_dev() leaves entry->dev NULL when the action has
+no device:
+
+tcf_offload_mirred_get_dev() {
+	entry->dev = act->ops->get_dev(act, &entry->destructor);
+	if (!entry->dev)
+		return;
+    ...
+}
+
+This happens with mirred blockid actions, where tcf_mirred_init() calls
+tcf_mirred_replace_dev(m, NULL). It also happens when the target device
+has been unregistered. In both cases entry->id is still set to
+FLOW_ACTION_MIRRED.
+
+netdev_priv(NULL) then returns a small non-NULL pointer, and the
+mport->portno read in sparx5_mirror_add() would oops.
+
+Would calling sparx5_netdevice_check() on action->dev before it is
+used fix both cases?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261007-sparx5-matchall-kfree-net-v1-1-c8918685b337%40microchip.com
