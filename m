@@ -1,83 +1,56 @@
-Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B616745FFDF
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 22:05:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE0812EEE60;
+	Sun, 11 Oct 2026 22:08:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791756341; cv=none; b=aJ4P5iCddzs9/VBdRbVyhZOk6SpDbbZnLu4hYOchj9bLx1PmoFgWrzpmeQb4rr5bX0n0RwuvMgrivSNh1Pi47YMqb+Tc++sK1+rG8a3KlH8kyYEYPVdPWKAdC2n61wSSbyx5krotQqw89qA9uJYUfD1c+Xl4fs/EZ9K1t/cfn7g=
+	t=1791756493; cv=none; b=ajmt2Mk05a9JX2WGzbNle5/EOT1p6F3IXldGzAURqAM32ONCBhhH48w8pIi3ycDrG0tA13iqvBt9RJgwzpY0sM47bgejvtXqFN6x0roO6FJNTDqH1I7ekSxffNwc3fSYQcIFulvcHOXcxfburS/zHKi36PnOQsPB04IhYtiYrss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791756341; c=relaxed/simple;
-	bh=QfvGJss0zjBml6IUWkokKgpncvyAlImazlL9B9iJcg4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=miCgC6INkBMbcjl6qWVtKkhN9cl486I5pyZkgBIf1BcsPYx7GyQkoZe9+RdFK2Cc6WLEva5NwhROiGfpT4OMCy6uL22bOK6N/DkYlRThNEfm6zWPtQ4YlPu4EdYatNwJZpvxfJYUDXDf755OG1LGZ9GzNKHZED2rMsFiXRW3+b4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HWKCi8Tl; arc=none smtp.client-ip=209.85.219.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791756493; c=relaxed/simple;
+	bh=X+TiGBBvgg4lTnx6akfoGMRuOIo3RkbUaewzmx+uWVo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SzfGFtMofkSffDdiFbJpBjbB0SVaNl9NVPCHmtWbnw4BJjwf9XMpOliV7bZBQxdThrgxcyk00AwdR/aFc2IRh2iiZ8u0TJVsmXpzKcvSyJBGwyKiQsYcCnumQjly608sjMnsgs1znd3kDOCLchqx31uF8o9aLDhYHS+bE08g1ms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=JviUl0ol; arc=none smtp.client-ip=119.15.109.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HWKCi8Tl"
-Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-917a20e9efeso19927046d6.2
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 15:05:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791756338; x=1792361138; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=l9wqZaK4fJlc35GVIrKL+JyJeSSN6uS29/WxDZBB/tM=;
-        b=HWKCi8TlHe+Bga40gM/1RvMezQXI454ppjMkJw3JMRJdYPaTrKMyD0EPOvopQ/gSWl
-         SCwkosrJIiJepLPvC+8Im2WP3VVWLwtvH1x7O1IY8QueQqPM48dL4olzROiq/j9Vbqlm
-         IVNQ5IoU0DXz7VYr4JJ0MmM4Olx+cO7HCZKHZJqZQrJlPzvlClALEllm8/N0XF8xyfMo
-         p0idY35f2cWV4xo3eTUAvCGGJn1n8zQB6D9eGtRSlMpfo19CaiKLXHYpVuNYkRaLfOjO
-         mi4t5WNMb5mzHnVcJaa7yB+4241/i9Qlxq3Mu8CHog5/k5WXPn7RupFHoL19l21438u6
-         xU3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791756338; x=1792361138;
-        h=content-transfer-encoding:mime-version:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=l9wqZaK4fJlc35GVIrKL+JyJeSSN6uS29/WxDZBB/tM=;
-        b=pVKtEfgd/lA/O8xsejWUQKWX5domvgELugqNlR3tRWNneb8HR1Pl+4LEXTsUpDwXuN
-         j8mo/BoESzBFSkHPuCFjNjzS7LToUGBU40pMXBUU6bZojUp0r8m5V8eZ4aixOtXzOtyM
-         xYYdCLRt/xKlmArvbJ8YNBNkz+8qLIk0BUIKW06naRBBdDFtBiJprPDNT55OTzHvpDYC
-         sf94hlrb8o7PHSnu4NS89JksbosIMTi9BNVxyNvcybhiylAoxiJhHDSDbXILnzj+pK6u
-         2u+Gipabs//hixOz1gGyV8/NjmjvuUZlpSew5KXwbInsCumajtoERmZ+6k58TzPVXorQ
-         bupQ==
-X-Forwarded-Encrypted: i=1; AKwUvByQ0V9sziRbbFo4hXohgBNOCTpIKKTpAkIcgv710OdL10DmF6+kWXc6Cd8Deqf3eNX9ZyHO9Y8zFt8jixk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL361iDZfaTBjz2XlfFEXPm2TCLxXowuls9uIFbHcOy8xamN4/0
-	u79Pd+cCw/Ub4eGVDAPysLm+p9/Q2G4cLx+78GP7ub9z3FOXYQVH8mZ2B9DqoXkfFQ==
-X-Gm-Gg: AYBFou1ptje4D143TbR9pbIBrKuexeEW7Lj56BjejlwfiayumiJggDo6MVAGVF4wP1D
-	oiSkx8jl/vJpBrhVNwrUXRJo7f+kxo/IUgoccdEBvs7/uvt+uPQ5y0lwZNQLPbcVvx37lLHYDZW
-	NKj8NarXcSu9Zop+3+dndxlFd1IIoHfOxtpfEKIU1B4m1SKuYnpO4PaEyi3JXI7xx1atfvQd+J9
-	HYcI7ThmjXjHMbEQZRHAqWy/qF7vtt6+VAhNC7+ETPYBAESMLZWydgDg9SAhEj01JgKiWYsv9A/
-	WvdNLu0Fv4VCAs78WbOsn/V+UTJE0X9sStnU/xRyQfJuM2CcEePFkeMbeN0Hx9EByb/uGEL0eGm
-	BzXRTtbRT+6X3vhkw0qDoDsEK7dfndN6Pzij96FnAryUUoxhCJeoLT68sSzRpAhlt0bn4hXyYL5
-	M+/KeTxKryc6vaBqCxyEQb3NIOD+ry36lwlazhoFr000j4vLr9I30a0pmE6bPX7MrlgzZY1fx8x
-	AheFPiPqk7/LxN0zXlTO+6R1Q9ev0vgVk0IPgxV6C+526v18FNtdsI1g4GRGwYZMuw5KkyQl7IM
-	Mf8OtiRSYeus211pyyxTFlUu5K9e
-X-Received: by 2002:a05:6214:5188:b0:917:7c94:dcb3 with SMTP id 6a1803df08f44-91b557c3ba8mr148170766d6.45.1791756338486;
-        Sun, 11 Oct 2026 15:05:38 -0700 (PDT)
-Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b54e7f6a1sm79788786d6.6.2026.10.11.15.05.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 15:05:37 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Even Xu <even.xu@intel.com>,
-	Xinpeng Sun <xinpeng.sun@intel.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Mark Pearson <mpearson-lenovo@squebb.ca>,
-	linux-input@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="JviUl0ol"
+Received: from Hawking.lan (hawking.lan [10.0.1.4])
+	by www.nmnhosting.com (Postfix) with ESMTP id EBE7C4021A;
+	Mon, 12 Oct 2026 09:07:55 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
+	t=1791756476;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=SRYZN9X570ZTPADly2F5lg+GqHeDvOGVG3Nz0gUA2GI=;
+	b=JviUl0ol/54L1x1wzd8t1SHt7D7GHGej/ynJmfQnuErglHNEjhH7Dvc2sSWlbOKPYK2vr/
+	TuyX+9mu5vGZrDFccxg4YFXeRQTFuA09Zrl4jrgUrWDO75Tf4DDORU5rUAOOHV/qsEJtxm
+	GHpiX85SxYYBuHbz2FFyUPZ5457POApmvFaUEKOPRD/3XxCIywE4OEK/TYoGTYchUf8nW7
+	NTeAt25GF17wztWN5NGy5qCpwh1jWqUmrqqENJu5TnWj2/KPNu4Feo8+cnb2UhRUJt3gtk
+	6dXZO4u6qEYGnFh3Pf1n3vlVOJQS2PzlXBuiTKkQQEVc5UVnCq9NtjLK+n2PCw==
+X-GPT-Reason: legitimate_transactional_technical_communication;
+	the email is a technical Linux kernel patch submission which aligns
+	perfectly with the recipient's persona (alastair@d-silva.org);
+	the From domain (d-silva.org) matches the recipient's domain; the
+	content is highly specific technical documentation regarding WiFi
+	drivers (rtw88) and hardware validation (Allwinner H618 board),
+	which is consistent with professional software development; there
+	are no phishing indicators, urgency tactics, or suspicious links.
+From: Alastair D'Silva <alastair@d-silva.org>
+To: linux-wireless@vger.kernel.org,
+	Ping-Ke Shih <pkshih@realtek.com>,
+	Kalle Valo <kvalo@kernel.org>
+Cc: Luka Gejak <luka.gejak@linux.dev>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Ulf Hansson <ulfh@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH 2/2] HID: intel-thc-hid: quicki2c: quiesce IRQs during teardown
-Date: Sun, 11 Oct 2026 18:05:31 -0400
-Message-ID: <20261011220531.2073892-3-mhun512@gmail.com>
+	Alastair D'Silva <alastair@d-silva.org>
+Subject: [PATCH rtw-next v5 0/4] wifi: rtw88: sdio: Fix unhandled RX request interrupt storm
+Date: Mon, 12 Oct 2026 09:07:51 +1100
+Message-ID: <20261011220755.1673367-1-alastair@d-silva.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261011220531.2073892-1-mhun512@gmail.com>
-References: <20261011220531.2073892-1-mhun512@gmail.com>
-Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,119 +59,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The managed IRQ can access HID/DMA buffers or queue recovery work while
-remove or probe unwind tears down those resources.
+On 3081-based SDIO chips (e.g. RTL8821CS, RTL8822CS), hardware does not
+automatically clear the REG_SDIO_HISR_RX_REQUEST status bit when the RX
+FIFO is empty. Masking this bit out in software before writing back to
+HISR prevented it from ever being acknowledged in hardware, trapping the
+CPU core in an infinite interrupt storm that locked up the system upon
+receiving network traffic.
 
-Disable and synchronize the IRQ, drain recovery work, then mask THC
-interrupts before freeing the IRQ and releasing HID/DMA resources.
-Track IRQ/DMA initialization for conditional probe cleanup.
+This series fixes the interrupt storm on 3081 chips and addresses
+related SDIO lifecycle, locking, and error handling issues:
 
-Disable the IRQ before shutdown deinit as well. Keep IRQ disabling and
-release outside the shared hibernation helper.
+- Patch 1 returns error codes from rtw_sdio_rxfifo_recv() on allocation
+  or read failures so the caller stops immediately instead of burning
+  through the loop budget.
+- Patch 2 tracks operational state via rtwsdio->running protected by an
+  irq_lock mutex (using a mutex as SDIO bus operations sleep), serializes
+  start/stop state transitions under sdio_claim_host() and irq_lock, and
+  cancels the TX worker synchronously on stop.
+- Patch 3 fixes the interrupt storm by splitting
+  rtw_sdio_handle_interrupt() into 8051 and 3081 paths. On 3081,
+  interrupts are masked via HIMR, acknowledged via W1C writeback,
+  serviced, and re-enabled under irq_lock if still running.
+- Patch 4 refactors rtw_sdio_rx_isr() into separate 8051 and 3081 variants
+  to clarify the differences in register width and HISR handling without
+  any logic changes.
 
-This issue was found by static analysis.
+Hardware Validation:
+Validated on an Allwinner H618 board (Mellow Fly-C5) with RTL8821CS SDIO
+running Linux 7.2.10, with the Ethernet interface administratively brought
+down to ensure all traffic traversed the WiFi link exclusively:
+- TX test (iperf3 client upload): 45.7 MB in 10s at 38.3 Mbits/sec
+  (0 errors).
+- RX test (iperf3 reverse mode flood): 65.1 MB in 15s at 36.4 Mbits/sec
+  with zero stalls, zero lockups, and no interrupt storm.
+- Bidirectional test (iperf3 --bidir simultaneous TX and RX):
+  20.9 MB TX (11.7 Mbits/sec) + 43.6 MB RX (24.4 Mbits/sec),
+  aggregate ~36.1 Mbits/sec.
+- dmesg verified clean with zero warnings, traces, or hangs.
 
-Fixes: 66b59bfce6d9 ("HID: intel-thc-hid: intel-quicki2c: Complete THC QuickI2C driver")
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
-Compile-tested with GCC, W=1 (x86_64). No runtime testing.
+Differences in v5:
+- Patch 1: Added Acked-by from Ping-Ke Shih.
+- Patch 2: Updated Fixes: tag to commit 28eaf7971a20 ("wifi: rtw88: sdio:
+  add TX back-pressure and retry on page starvation") per discussion
+  between Ping-Ke Shih and Luka Gejak.
+- Patch 2: Replaced lockless running checks with an irq_lock mutex in
+  struct rtw_sdio. Since SDIO I/O sleeps, a mutex is used instead of a
+  spinlock. Enforced lock ordering (sdio_claim_host() -> irq_lock) in
+  start and stop paths to avoid lock inversion with the MMC IRQ handler.
+- Patch 2: Retained running checks in rtw_sdio_tx_handler() and
+  rtw_sdio_handle_interrupt() to avoid races during stop.
+- Patch 3: Protected the 3081 interrupt re-enable check under irq_lock
+  (scoped_guard) per feedback from Ping-Ke Shih.
+- Patch 4: Fixed comment formatting style in rtw_sdio_rx_isr_8051() per
+  coding style rules.
+- Patch 4: Added Acked-by from Ping-Ke Shih.
 
-Related recovery-work review and series:
-https://lore-kernel.gnuweeb.org/linux-input/20260717035609.3874015-1-even.xu@intel.com/T/
-https://patchew.org/linux/20260729050145.2272597-1-even.xu@intel.com/
+Differences in v4:
+- Split pre-existing lifecycle and error handling issues into separate
+  patches (Patches 1 and 2) prior to the storm fix (per Luka Gejak).
+- Guard HIMR re-enabling with rtwsdio->running in the 3081 handler.
+- Significantly reduced and streamlined commit messages across the series
+  (per Ping-Ke Shih).
+- Clarified in Patch 4 that it is a refactoring without logic changes,
+  highlighting register width and HISR behavior (per Ping-Ke Shih).
+- Tagged with rtw-next in subject prefix for NIPA testing.
 
- .../intel-quicki2c/pci-quicki2c.c             | 28 +++++++++++++++----
- 1 file changed, 22 insertions(+), 6 deletions(-)
+Alastair D'Silva (4):
+  wifi: rtw88: sdio: Handle allocation and read errors in
+    rtw_sdio_rxfifo_recv
+  wifi: rtw88: sdio: Track running state and cancel TX worker on stop
+  wifi: rtw88: sdio: Fix unhandled RX request interrupt storm
+  wifi: rtw88: sdio: Split rtw_sdio_rx_isr into 8051 and 3081 variants
 
-diff --git a/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c b/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c
-index 0d2ad7bc3648..9a9b640f32b3 100644
---- a/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c
-+++ b/drivers/hid/intel-thc-hid/intel-quicki2c/pci-quicki2c.c
-@@ -648,6 +648,8 @@ static int quicki2c_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- {
- 	const struct quicki2c_ddata *ddata = (const struct quicki2c_ddata *)id->driver_data;
- 	struct quicki2c_device *qcdev;
-+	bool dma_initialized = false;
-+	bool irq_requested = false;
- 	void __iomem *mem_addr;
- 	int ret;
- 
-@@ -700,6 +702,7 @@ static int quicki2c_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 					qcdev);
- 	if (ret)
- 		goto dev_deinit;
-+	irq_requested = true;
- 
- 	ret = quicki2c_get_device_descriptor(qcdev);
- 	if (ret) {
-@@ -718,6 +721,7 @@ static int quicki2c_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 		dev_err(&pdev->dev, "Setup THC DMA failed, ret= %d\n", ret);
- 		goto dev_deinit;
- 	}
-+	dma_initialized = true;
- 
- 	ret = thc_interrupt_quiesce(qcdev->thc_hw, false);
- 	if (ret)
-@@ -738,13 +742,13 @@ static int quicki2c_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 	ret = quicki2c_get_report_descriptor(qcdev);
- 	if (ret) {
- 		dev_err(&pdev->dev, "Get report descriptor failed, ret = %d\n", ret);
--		goto dma_deinit;
-+		goto dev_deinit;
- 	}
- 
- 	ret = quicki2c_hid_probe(qcdev);
- 	if (ret) {
- 		dev_err(&pdev->dev, "Failed to register HID device, ret = %d\n", ret);
--		goto dma_deinit;
-+		goto dev_deinit;
- 	}
- 
- 	qcdev->state = QUICKI2C_ENABLED;
-@@ -759,10 +763,16 @@ static int quicki2c_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 
- 	return 0;
- 
--dma_deinit:
--	quicki2c_dma_deinit(qcdev);
- dev_deinit:
-+	if (irq_requested) {
-+		WRITE_ONCE(qcdev->recovery_disabled, true);
-+		disable_irq(pdev->irq);
-+	}
- 	quicki2c_dev_deinit(qcdev);
-+	if (irq_requested)
-+		devm_free_irq(&pdev->dev, pdev->irq, qcdev);
-+	if (dma_initialized)
-+		quicki2c_dma_deinit(qcdev);
- disable_pci_device:
- 	pci_clear_master(pdev);
- 
-@@ -784,9 +794,12 @@ static void quicki2c_remove(struct pci_dev *pdev)
- 	if (!qcdev)
- 		return;
- 
--	quicki2c_hid_remove(qcdev);
--
-+	WRITE_ONCE(qcdev->recovery_disabled, true);
-+	disable_irq(pdev->irq);
- 	quicki2c_dev_deinit(qcdev);
-+	devm_free_irq(&pdev->dev, pdev->irq, qcdev);
-+
-+	quicki2c_hid_remove(qcdev);
- 
- 	quicki2c_dma_deinit(qcdev);
- 
-@@ -811,6 +824,9 @@ static void quicki2c_shutdown(struct pci_dev *pdev)
- 	if (!qcdev)
- 		return;
- 
-+	WRITE_ONCE(qcdev->recovery_disabled, true);
-+	disable_irq(pdev->irq);
-+
- 	quicki2c_dev_deinit(qcdev);
- 
- 	/* Must stop DMA before reboot to avoid DMA entering into unknown state */
+ drivers/net/wireless/realtek/rtw88/sdio.c | 165 ++++++++++++++++------
+ drivers/net/wireless/realtek/rtw88/sdio.h |   3 +
+ 2 files changed, 126 insertions(+), 42 deletions(-)
+
+-- 
+2.53.0
