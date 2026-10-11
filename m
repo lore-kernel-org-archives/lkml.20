@@ -1,51 +1,44 @@
-Received: from vtj.irix.systems (vtj.irix.systems [82.76.27.144])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 557EE40B102;
-	Sun, 11 Oct 2026 22:14:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.76.27.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D3EC367F2F;
+	Sun, 11 Oct 2026 22:16:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791756855; cv=none; b=Kgr0VJFehibiFjSspAq6FSWmbsZhQwBNteFddG7Mu4a+aJE4hhBv7Fq54Rm4d+wnYc53yKYvnn8ntkt4N/mX9Jj8I1HKNllJLThcMnJGyGG1NYfsZz0FMBkchVFcU5B+2Uw5j3BRpiR0qh9gjcEcXajLikrFPmxpCzr2JxMOh0w=
+	t=1791756971; cv=none; b=BCLvlcBow8dVGBs/AZMxBpL2RLq5LhZxIIMi8V12NL4hNUx6zWeVwO2GvTy99C6mTkGXH/vOYKuzpIVxE/LRPhYBH32gKOWu/wBVBzgciRHhnDdw/FBj23fgWX2u9DAARA/G7UYME4BcR0ZQeaTDIArlvlqcLpen1HAyvFbpQww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791756855; c=relaxed/simple;
-	bh=1b74iChqc5NtQbvny2oGmv4lWDkMHIm73DJ3k5t/lng=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Eq3lrGWJyJTSxTwQbUhKM31s493+CXrSmr0JmS/p3vdUadwSKDpqAAi5mv2XL2W6vmra5mqEgpQp+9tdImKHqv6I5mNMEnh122T8axvDxE10AN/JSvq5fV4i2TyL143eFiDK1wtq1xakxc60voUEsYLc4iB1w7nF/WCB3NU/fqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com; spf=pass smtp.mailfrom=andrei-z.com; dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b=G2WFGrop; arc=none smtp.client-ip=82.76.27.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andrei-z.com
+	s=arc-20240116; t=1791756971; c=relaxed/simple;
+	bh=BVVkhgggdd6o0v6W5xxFIFMyEN5wD2bILzn+CGpD4sM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dE+VrsPAUm+m+96pF5k2ZDr7JY7uaMV1vqi/nwCodSGAhEO7OpqpztOap7kXoYqN5tXxWbKgSK22j9RgrFZIefcMisDbPyj5YktuUjVkH0q7k3PLU+UaU5UhM7zUOt7uqAs0aYuuuHd3oHqPIr9/Iow1krzkjjxh/VxwoUQas/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RdOeRgeF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b="G2WFGrop"
-Received: from MAILGW-HP.hp.vtj.corp.irix.systems (localhost [127.0.0.1])
-	by vtj.irix.systems (Proxmox) with ESMTP id 9BBD793D;
-	Mon, 12 Oct 2026 01:08:20 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=andrei-z.com; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:from:from:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=sig1; bh=sbFvtNblSOKcTq0tGj4bFEP7FjquI1wze4iWYGm3Vy0=; b=
-	G2WFGropWeTtorVuLmXggmqAJ04FNXw0PSKOtv7W0LiprptFi574u2Sly2eCEUcc
-	8fcBWX1+bSCJ4X/3KCj45olookTO9amrdRE9QK16yf4dVzKSe+sGAT6ODeirdQ4p
-	AFZsDPqbaKpnXBP7SWWkFZfKw5CIdL2d6zfb0S7l4nBLCAkVdbonhjlF8GOcdXdz
-	3Iurus7p4kZIY7LdREnUvyY+Ax8UF8ANodmLoz+IQESJy/ZqjOIkoErpsVIGpL+U
-	31wsbnkaOz0VYivYK37cnnYxoHDsPmRKLBIFsBKS6qzx0JqKeSuZpIT+ddyR9RHM
-	K3aRIIPTN05CZA2CFDdONA==
-Received: from VTJ-MX.corp.irix.systems (unknown [IPv6:2a02:2f04:1:9c24::6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by vtj.irix.systems (Proxmox) with ESMTPS id CDC28990;
-	Mon, 12 Oct 2026 01:08:18 +0300 (EEST)
-Received: from workspace.corp.irix.systems (2a02:2f04:1:9c23::c) by
- VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 12 Oct 2026 01:08:18 +0300
-From: Andrei-Alexandru Bleortu <me@andrei-z.com>
-To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Marcel Holtmann
-	<marcel@holtmann.org>
-CC: <linux-bluetooth@vger.kernel.org>, <linux-kernel@vger.kernel.org>, George
- Moussalem <george.moussalem@outlook.com>
-Subject: [PATCH] Bluetooth: hci_core: program a public address set during auto off
-Date: Mon, 12 Oct 2026 01:08:13 +0300
-Message-ID: <20261011220813.1815075-1-me@andrei-z.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RdOeRgeF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94CFD1F0089B;
+	Sun, 11 Oct 2026 22:16:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791756970;
+	bh=Q9QD5Up22O7kK1udohhlV3nu1/nCaiw/h4OPsFiiy1A=;
+	h=From:To:Cc:Subject:Date;
+	b=RdOeRgeFW2j5wh8eZQkLqiO2/XxWYZWwJAmRkFLrA+gT5g4VAmfKpE3qS10D+8ozZ
+	 NK0LisCCEkCAqKrnGYIoNANPcSbrnE8l+75qyxHf74uix6epgNqNXT34yqdKyGEuAk
+	 3bAjreqAmLJfFjbnf74wnenwE5CMSVgbM0FB0QKHDBoYBnv4aGyz0zNLzo0pCUH2bR
+	 W3+dWgl1e2hPRznIJHV2wyXhTr3q1eH4v1fhYOl5/6RJqQL4CywgsBQYHZwdhiSALy
+	 7gN2BCmZozwoX1cJYzLF/BuXaAj+VsHNeKVw12+kKhlCcGmnP7POsjfxNIzLknmVMe
+	 WQyPxtdjONHsA==
+From: Namjae Jeon <linkinjeon@kernel.org>
+To: hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	sebastian.n.feld@gmail.com,
+	cedric.blancher@gmail.com,
+	Lionelcons1972@gmail.com,
+	charsyam@gmail.com,
+	Namjae Jeon <linkinjeon@kernel.org>
+Subject: [PATCH v3 0/4] ntfs: add named data stream support
+Date: Mon, 12 Oct 2026 07:15:57 +0900
+Message-Id: <20261011221601.6707-1-linkinjeon@kernel.org>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,63 +46,95 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) To
- VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6)
 
-When a controller with a set_bdaddr callback registers configured, it is
-powered on, mgmt adds its index, and HCI_AUTO_OFF powers it off two
-seconds later unless something powers it. Within that window mgmt counts
-it as not powered, so Set Public Address is accepted: it sets HCI_CONFIG
-and HCI_AUTO_OFF, removes the index and queues power_on. hci_power_on()
-then finds the device up with HCI_AUTO_OFF set and takes the "already
-up" path: it never opens the device again, so set_bdaddr() is never
-called, and HCI_CONFIG is never cleared, so the index is never added
-back. The controller stays up, invisible to mgmt, with its old address.
+NTFS supports multiple named $DATA attributes, commonly known as
+alternate data streams. This series adds support for accessing these
+streams in the ntfs driver through a new ioctl interface and an
+optional Windows-style pathname interface.
 
-Close the device first when HCI_CONFIG is set, keeping HCI_AUTO_OFF, so
-the open procedure programs the address and the configured index is
-added as after any configuration change.
+v3:
+  - Fix named-stream runlist error handling to unlock the base inode MFT
+    record mutex.
+  - Disallow streams_interface changes on remount to avoid stale dentries.
+  - Propagate named-stream read errors and document short-read EOF behavior.
+  - Disallow named-stream removal from NTFS read-only base objects and clarify
+    pathname deletion authorization through the parent directory.
+  - Refresh stream inode timestamps after successful updates to the base inode.
 
-Seen on the IPQ5018 Bluetooth controller of a UniFi U6 Enterprise, whose
-NVM carries a placeholder address: setting the board's address with
-btmgmt right after boot left hci0 up with no mgmt index (bluetoothd saw
-no controller); with this change the address is programmed and the
-index comes back.
+v2:
+  - Add the optional Windows-style pathname interface, exposing streams as
+    regular files with the operations needed by Wine.
+  - Document both interfaces and add MAINTAINERS coverage for the UAPI.
 
-Assisted-by: LLM
-Signed-off-by: Andrei-Alexandru Bleortu <me@andrei-z.com>
----
-Transparency note: developed with an LLM coding assistant (Claude),
-which traced the bug while bringing up Bluetooth on the board below and
-wrote the change and this message. Tested on a UniFi U6 Enterprise
-(IPQ5018 with George Moussalem's btqcomipc v5, Linux 7.2.8, BlueZ):
-btmgmt public-addr right after boot now programs the address and the
-mgmt index comes back. W=1 build of net/bluetooth and drivers/bluetooth
-on next-20261009 is clean.
+The ioctl interface provides stream enumeration, reading, writing, and
+removal through an opened base file. Read and write requests specify a
+stream name and byte range. Names use the mounted NLS by default, with
+raw UTF-16LE available for lossless access. These ioctls remain available
+regardless of the pathname mount option.
 
- net/bluetooth/hci_core.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+For example, a userspace program can enumerate streams on an opened base
+file as follows. Usual headers are assumed. Error handling and retrying
+with a larger buffer after ENOSPC are omitted:
 
-diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
-index 3ea5ea726..f37f10936 100644
---- a/net/bluetooth/hci_core.c
-+++ b/net/bluetooth/hci_core.c
-@@ -908,6 +908,16 @@ static void hci_power_on(struct work_struct *work)
- 
- 	BT_DBG("%s", hdev->name);
- 
-+	/* A public address set while the controller was still up from its
-+	 * initial power on, which mgmt counts as off until the auto off, is
-+	 * only programmed by the open procedure: close it to open it again.
-+	 */
-+	if (test_bit(HCI_UP, &hdev->flags) &&
-+	    hci_dev_test_flag(hdev, HCI_CONFIG)) {
-+		hci_dev_do_close(hdev);
-+		hci_dev_set_flag(hdev, HCI_AUTO_OFF);
-+	}
-+
- 	if (test_bit(HCI_UP, &hdev->flags) &&
- 	    hci_dev_test_flag(hdev, HCI_MGMT) &&
- 	    hci_dev_test_and_clear_flag(hdev, HCI_AUTO_OFF)) {
+  int fd = open("/mnt/file", O_RDONLY);
+  size_t size = 8192;
+  struct ntfs_list_streams *req =
+          calloc(1, sizeof(*req) + size);
+
+  req->buffer_size = size;
+  ioctl(fd, NTFS_IOC_LIST_STREAMS, req);
+  printf("Total named streams: %llu\n",
+         (unsigned long long)req->stream_count);
+  free(req);
+  close(fd);
+
+The pathname interface is disabled by default and can be enabled with
+streams_interface=windows. In this mode, file:stream opens a
+named $DATA stream as a regular file descriptor, allowing ordinary file
+operations to be used:
+
+  $ mount -t ntfs /dev/sdb1 /mnt -o streams_interface=windows
+  $ printf 'This is a secret note\n' > /mnt/file:Note
+  $ cat /mnt/file:Note
+  This is a secret note
+
+A stream can be created only for an existing file or directory. Only the
+final path component's file:stream form is supported. The pathname
+interface accepts a base file name and stream name only. It rejects paths
+that also specify an NTFS attribute type such as $DATA. In windows mode,
+ordinary filenames containing ':' are hidden from directory listings.
+
+Namjae Jeon (4):
+  ntfs: add named stream ioctls support
+  ntfs: add pathname access for named streams
+  MAINTAINERS: ntfs: add UAPI header
+  ntfs: document named streams
+
+ Documentation/filesystems/ntfs.rst            |   34 +
+ .../userspace-api/ioctl/ioctl-number.rst      |    1 +
+ MAINTAINERS                                   |    1 +
+ fs/ntfs/Makefile                              |    2 +-
+ fs/ntfs/attrib.c                              |  168 +-
+ fs/ntfs/attrib.h                              |    2 +-
+ fs/ntfs/attrlist.c                            |    3 +-
+ fs/ntfs/dir.c                                 |    7 +-
+ fs/ntfs/ea.c                                  |   21 +-
+ fs/ntfs/file.c                                |  253 ++-
+ fs/ntfs/inode.c                               |  210 +-
+ fs/ntfs/inode.h                               |   19 +
+ fs/ntfs/iomap.c                               |   64 +-
+ fs/ntfs/named_stream.c                        | 1821 +++++++++++++++++
+ fs/ntfs/namei.c                               |  175 +-
+ fs/ntfs/stream.h                              |   81 +
+ fs/ntfs/super.c                               |   33 +
+ fs/ntfs/volume.h                              |    3 +
+ fs/ntfs/wof.c                                 |    6 +-
+ include/uapi/linux/ntfs.h                     |  126 ++
+ 20 files changed, 2818 insertions(+), 212 deletions(-)
+ create mode 100644 fs/ntfs/named_stream.c
+ create mode 100644 fs/ntfs/stream.h
+ create mode 100644 include/uapi/linux/ntfs.h
+
+-- 
+2.25.1
 
