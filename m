@@ -1,194 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net [217.70.183.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C10A242AA9;
-	Sun, 11 Oct 2026 21:13:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 881E6387566;
+	Sun, 11 Oct 2026 21:13:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791753184; cv=none; b=R3bwca4MsF+IBH+wuy5XvCWhG3MsdDHNkyONMCu1VR4MLK/qpUl/j6PKMFyBOHtluP4Se/rtXpo2vEYpax8srPGMWaZqHUJByD4wRN7v1wc2G5eJpn7yT42DQ+PnxlCxZok7RODzjCw9F27gkpyklfmcjnMHArh0d11KTFWMK7w=
+	t=1791753204; cv=none; b=BRPrlD2YfoswiL9XnkT2iYNFXsZJRcPsn+7gI1N6G745wJ9atsZsCromElKFz4vJXOheBsx6o9lD5xe7SynzMZp635oS+h77bmW4beyot7S5jGJoF11d1h5ryKOoTCOfaxhOEcT/RcFMylfyXsYMN4+A8cWuzGCg8QS6Ry9oMNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791753184; c=relaxed/simple;
-	bh=j+GXwQBkpj9FuY/i/JbQbEKSgHLj8ABrTbr/RIkA2Ew=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=r9zJSnt1juxtYfmR1JfwS1ezIGLIThIO+2Gs0wRYnYUUjcbecHNoveFK3U89P/ulhF+VMYyyq9pQReaPpq9ujLSnuSOKcVUxJ4KHx7mtnJjmFAMkqLfByKZRLw049gZh7HPvXhzmYsafV5LVnYgdihmNItr0Yw5n2HMXUp+pXyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pIfeKvTp; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791753204; c=relaxed/simple;
+	bh=kNxwqKFDuH+f7OaoWDpdCM8r8zO93pvAKJYGlvtXcrU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=o2xvyF1ICl4ajyrpDDZpNUV2Fk3QdzLDxM3uFoyYcv4YjfXnBUn+ZjZxa6j/5VIiuLpwfepCVCrtH4Cf1kdI7OIHrBLHt6vAEOfRxoS4g803eXn6xn1nZj/ApnWIu9S+EPOaW9vV2QIMbqmYAcSq/OQ5gdBKYKf+xIXVeiQDZng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io; spf=pass smtp.mailfrom=gtucker.io; dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b=TxNN9sTU; arc=none smtp.client-ip=217.70.183.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gtucker.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pIfeKvTp"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 36CD1C2BCF5;
-	Sun, 11 Oct 2026 21:13:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791753184;
-	bh=j+GXwQBkpj9FuY/i/JbQbEKSgHLj8ABrTbr/RIkA2Ew=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=pIfeKvTptEqptY0D0OJr+/2PjUaA16iQ1D4U9JpSJdF9KAaxWTRt1FBycUNdFN6C3
-	 G7IHDNLH2jN5LkzXityxG/hgtYfnxt3UUKDwwz7Z2NNczawRulqUP3fPcG9gOtlwY0
-	 l0JhHxAF2t0LdSnRH/3KgHsR9f9/ckXjfDoTvFEsE979KMKf3oKvd0p1/0arYF5YPk
-	 Tew+Hs+ZG9ceiVzRs5haxaNF0Hout+q6G2HDzTJV+iGEaBGyEuF60GX7VB+Ztkn6D3
-	 vTfsGnAxefi2CgM3kOLKzkh9cGX9XBDrmRlMjtlqWg8V0q81h1rOzRvcoMLMobJwgA
-	 t45IgXmgtavjQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1429CCA9EC7;
-	Sun, 11 Oct 2026 21:13:04 +0000 (UTC)
-From: Alexander Andreev via B4 Relay <devnull+carzil.yandex.ru@kernel.org>
-Date: Mon, 12 Oct 2026 00:12:40 +0300
-Subject: [PATCH] xfs: return -EIO from xfs_log_force_inode() after a
- shutdown
+	dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b="TxNN9sTU"
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 12D7841C44;
+	Sun, 11 Oct 2026 21:13:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gtucker.io; s=gm1;
+	t=1791753194;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Nng+Q5MP6DyoM47RuivMXig2ptT0CD9F1lZB9fWGajk=;
+	b=TxNN9sTUpDjgLwYj5KdgUP/y+VtCCvFZ6rJNFNsoYxTBgSXPVk3Mlj/nvhtgPlL9YSWRnf
+	ehx/5XPnXZrY7CuAPtWBVTD5vPUehfhG8WBD5KcruVNjGBleObSm1S03EtGfZugNOPiB+J
+	tjdUc8Eub+5mz/dP0qZJezvDmBbOpO/O5e3s/9juNewYN1pcLUBefT+W81n8Hkl/mD/+uK
+	u35Dbdauk1csXeQWcVq/qYH8R4JH4SM7rd4oJfgIFz82DOcajL80bU27jwwrvwjaLCtCGZ
+	pRSR/Zfm2TexDOuetDNUJiyBngU64WMbxjGnnONOLebqPOtn3R5/yqvqd3XFVw==
+Message-ID: <b72d17f6-653d-4e11-ad07-b532bb83b20a@gtucker.io>
+Date: Sun, 11 Oct 2026 23:13:12 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] scripts: add --registry option to container tool
+To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Miguel Ojeda <ojeda@kernel.org>
+Cc: =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ linux-doc@vger.kernel.org, workflows@vger.kernel.org,
+ linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <06ee7c694c3e9716bff5c9b1b8e9dc95cc0b38d3.1791751900.git.gtucker@gtucker.io>
+Content-Language: en-US
+From: Guillaume Tucker <gtucker@gtucker.io>
+In-Reply-To: <06ee7c694c3e9716bff5c9b1b8e9dc95cc0b38d3.1791751900.git.gtucker@gtucker.io>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-xfs-dir-fsync-shutdown-v1-1-79b5905f5280@yandex.ru>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMPQ6DMAxA4asgz1hKIoTaXgUxQOwUdwgo5leIu
- ze04ze8d4JyElZ4FSckXkVljBm2LMAPXXwzCmWDM662xlrcgyJJwqBH9KjDMtO4Rawr6o17PEP
- lCHI8JQ6y/8ZN+7cu/Yf9fN/gur6M+3R3egAAAA==
-X-Change-ID: 20261011-xfs-dir-fsync-shutdown-64db0289f42d
-To: linux-xfs@vger.kernel.org
-Cc: Carlos Maiolino <cem@kernel.org>, Dave Chinner <david@fromorbit.com>, 
- Christoph Hellwig <hch@lst.de>, linux-kernel@vger.kernel.org, 
- Alexander Andreev <carzil@yandex.ru>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791753183; l=4345;
- i=carzil@yandex.ru; s=20261011; h=from:subject:message-id;
- bh=LURA8bDLkdqfdDM1Pbeo2MYn4rNLssDbzZm/qD+GEZ4=;
- b=tLY4NEd50Ku6Gq1jkSMYdmTvdoMGBpYElx50ZrH34rKJfNi6hjUc8zzHFmuRwL2qanPA+xml+
- +D+6uhpf4VXDHd94T0XoTCbSIG1OEK9L6mEA/LSeFjjmcJekW+Y2HmR
-X-Developer-Key: i=carzil@yandex.ru; a=ed25519;
- pk=sdOm34vmqWa+IJ2OaVfz4PiCxQffyz8vX78oj7ww7F0=
-X-Endpoint-Received: by B4 Relay for carzil@yandex.ru/20261011 with
- auth_id=1162
-X-Original-From: Alexander Andreev <carzil@yandex.ru>
-Reply-To: carzil@yandex.ru
+X-GND-Sasl: gtucker@gtucker.io
+X-GND-Score: -100
+X-GND-Cause: dmFkZTEai0oaN25vAZ/XFY5KQr9Ly0AX9XOERQJHNbqIePbXfeMdal6GwMNJ9RzLWkFDg49WY+gpwLJdLa+Dm3LxKn4RX16eYF6BC4pgQ89mYG5L7YoY24ENNc94YvzCt2VsVg1kQn9DPCqk03svQ8cgLntfoSRYBmYJ+k5EWgOQxwsG3i+ygx794In5brWuOv2/8H8KBHojk3xRuUmb63MiROAGhVSn9Kp4zET8fbky35yKDtIvfaBFIGFKF/By5zOpyH7qgntIhO6nfTS5HN0IMdFVU1ed+M7iNMH0xfGFwm3Pq73H0mvviTnTExGGmY2qsb/oiUyL47xwcIkCF+zO7OECPpQTVNrd/VvIqPISOM36V8DvUg1XlFzi7uv6K491oWYCaASC+hUXsc0vAOcU0NGbQOycx4U0G3B62f77gp+ORcejK3ioT05pfTB0pWBHKk0LMufNxObZ5E6TwLnKGqjrkWyp1yTqVGtfo8DzVDoOBrxtBpnZBXJOAujf7tqdYcCQVTGCt3+cgdocqAMrQEZK7gwzVjvNxmb+P0MRff4cpqcCY20hZ/fNUSaF0kVBwaQln51SdMsndDEKhaSiq5X1LpUltMJUKs3A9j728jUcrsAB+on6m8irIdmeKKQL7V+AsxsLn7e7YKSzL9y5SPQB70w4MEzZ3puLgLYhMXVnBg
+X-GND-State: clean
 
-From: Alexander Andreev <carzil@yandex.ru>
+On 11/10/2026 10:54 pm, Guillaume Tucker wrote:
+> Add a --registry / -R command line argument to the container tool to
+> specify an altnerative image registry and support it in the TOML
+> configuration file accordingly.
+> 
+> This uses a mechanism based on regular expressions to parse the
+> container registry and image names and construct the final one based
+> on a set of priority rules.  A registry can be included directly in an
+> image name; an empty string means a local image.  It can then be
+> overridden by explicitly specifying a registry name via the CLI option
+> or the TOML file, with the CLI option taking precedence as always.
+> 
+> Signed-off-by: Guillaume Tucker <gtucker@gtucker.io>
+> ---
+>   scripts/container | 126 ++++++++++++++++++++++++++++++++++++++++++----
+>   1 file changed, 117 insertions(+), 9 deletions(-)
+> 
+> diff --git a/scripts/container b/scripts/container
+> index a3a55180d6ed..de72725656a8 100755
+> --- a/scripts/container
+> +++ b/scripts/container
 
-fsync() of a directory can return 0 after a log I/O error has shut the
-filesystem down, although the change it was asked to persist never
-reached the log:
+[...]
 
-  task A                          task B
-  fd = open("dir")
-  rename("dir/a", "dir/b")
-                                  syncfs(fd2) = -EIO
-                                  (log write fails, fs shut down)
-  fsync(fd) = 0
+> +@dataclasses.dataclass
+> +class FullImageName(ImageParserMixin):
+> +    """Parsed image name including an optional registry"""
+> +    image: ImageName
+> +    registry: RegistryName = None
+> +    _regex = re.compile(
+> +        rf'^((?P<registry>{REGISTRY_REGEX})\/)?(?P<image>{IMAGE_REGEX})?$'
+> +    )
+> +
+> +    @property
+> +    def name(self):
+> +        """Full name in registry/image:tag format with optional registry"""
+> +        return (
+> +            '/'.join((self.registry.registry, self.image.image))
+> +            if self.registry else self.image.image
+> +        )
+> +
+> +    @classmethod
+> +    def from_name(cls, name):
+> +        if re_match := cls._regex.match(name):
+> +            fields = re_match.groupdict()
+> +            return FullImageName(
+> +                registry=RegistryName.from_fields(fields),
+> +                image=ImageName.from_fields(fields),
+> +            )
+> +        return None
+> +
+> +
 
-Task B can be anything that writes the log: syncfs(2), fsync() of
-another file, the background CIL push. Once the device is back and the
-filesystem is mounted again, "dir/b" is gone.
+As one would expect, Sashiko has some opinions about this:
 
-xfs_dir_fsync() calls xfs_log_force_inode(), which forces the log only
-if the inode has a commit sequence. The shutdown aborts the CIL and
-unpins the inode, which clears the sequence, so there is nothing to
-force. A sequence read just before the abort ends the same way, as
-xlog_cil_force_seq() then returns NULLCOMMITLSN.
+  
+https://sashiko.dev/#/patchset/06ee7c694c3e9716bff5c9b1b8e9dc95cc0b38d3.1791751900.git.gtucker%40gtucker.io
 
-xfs_file_fsync() checks for a shutdown, but xfs_dir_fsync() does not.
-Adding the check was discussed in 2014 [1].
+I would say that at least half of it is slightly bogus but I'll
+address them in detail in due time.  Also I've prepared some unit
+tests to cover this logic and will send them as an RFC separately.
 
-Fix this by checking for a log shutdown in xfs_log_force_inode() after
-the force. That also gives -EIO to its other callers that rely on it for
-durability: NFS ->commit_metadata, fallocate() on synchronous files and
-pNFS block allocation.
+In the meantime, I'd be interested to know if anyone has some
+feedback on the features themselves from a developer point of view.
 
-Link: https://lore.kernel.org/all/535E8344.2070209@redhat.com/ [1]
-Fixes: 1da2f2dbf2d2 ("xfs: optimize fsync on directories")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Alexander Andreev <carzil@yandex.ru>
----
-Found with fault injection on a network block device. On v7.3-rc6 the
-reproducer below prints "fsync(dir) = 0" and the rename is gone after
-the remount. With the patch fsync() returns EIO.
-fstests on xfs: the same 13 of 1017 tests fail with and without the
-patch in -g quick, and the same 2 of 127 in -g shutdown,log,recoveryloop.
-If you want a new fstests test for this, I can send it as a separate
-patch.
-
-I don't know xfs well, so please tell me if this should be done
-differently. An LLM helped trace the code and write the patch. I
-reviewed and tested it.
-
-#!/bin/bash
-# fsync() of a directory returns 0 after a log I/O error, and the rename is lost.
-# Usage: ./repro.sh xfs|ext4  (as root, needs dmsetup and python3)
-set -e
-fs=${1:-xfs}
-img=/tmp/repro.img mnt=/tmp/repro.mnt dev=/dev/mapper/repro
-sectors=$((512 * 2048))
-
-# Swap the dm table under the mounted filesystem without freezing it.
-dm_table() {
-	dmsetup reload repro --table "0 $sectors $1"
-	dmsetup suspend --nolockfs --noflush repro
-	dmsetup resume repro
-}
-
-# A filesystem on dm-linear over a loop device, with "a" on disk.
-rm -f $img && truncate -s 512M $img && mkdir -p $mnt
-loop=$(losetup -f --show $img)
-dmsetup create repro --table "0 $sectors linear $loop 0"
-mkfs.$fs -q $dev && mount $dev $mnt
-echo data > $mnt/a && sync -f $mnt
-
-# Open the directory, rename a -> b, then make the device fail.
-exec 3< $mnt
-mv $mnt/a $mnt/b
-dm_table error
-
-# Something else hits the error first, then fsync() the open directory.
-sync -f $mnt || true
-if python3 -c 'import os; os.fsync(3)' 2>/dev/null; then
-	echo "fsync(dir) = 0"
-else
-	echo "fsync(dir) failed"
-fi
-exec 3<&-
-
-# Bring the device back: if fsync() returned 0, "b" must be there.
-umount $mnt && dm_table "linear $loop 0" && mount $dev $mnt
-ls $mnt
-umount $mnt && dmsetup remove repro && losetup -d $loop
----
- fs/xfs/xfs_inode.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
-
-diff --git a/fs/xfs/xfs_inode.c b/fs/xfs/xfs_inode.c
-index 621513d72..bb3d727f6 100644
---- a/fs/xfs/xfs_inode.c
-+++ b/fs/xfs/xfs_inode.c
-@@ -2677,6 +2677,7 @@ xfs_log_force_inode(
- {
- 	struct xfs_inode_log_item *iip = ip->i_itemp;
- 	xfs_csn_t		seq = 0;
-+	int			error = 0;
- 
- 	if (!iip)
- 		return 0;
-@@ -2685,9 +2686,12 @@ xfs_log_force_inode(
- 	seq = iip->ili_commit_seq;
- 	spin_unlock(&iip->ili_lock);
- 
--	if (!seq)
--		return 0;
--	return xfs_log_force_seq(ip->i_mount, seq, XFS_LOG_SYNC, NULL);
-+	if (seq)
-+		error = xfs_log_force_seq(ip->i_mount, seq, XFS_LOG_SYNC, NULL);
-+
-+	if (!error && xlog_is_shutdown(ip->i_mount->m_log))
-+		error = -EIO;
-+	return error;
- }
- 
- /*
-
----
-base-commit: b88c841d11641923fa3a4da011d7202cd89df68a
-change-id: 20261011-xfs-dir-fsync-shutdown-64db0289f42d
-
-Best regards,
---  
-Alexander Andreev <carzil@yandex.ru>
-
+Best wishes,
+Guillaume
 
