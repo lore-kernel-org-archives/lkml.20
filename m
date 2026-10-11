@@ -1,251 +1,254 @@
-Received: from mta1.migadu.com (out-21.mta1.migadu.com [95.215.58.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazolkn19010001.outbound.protection.outlook.com [52.103.13.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC8175A79B
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 01:42:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.21
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791682939; cv=none; b=nm2x/f9rv9jgnoX/XccHNM8TFYQknw/w8iWsHbwtHR0O4utqlwKJtdosgNUVyLyod/hgMqCW2XZlveH4tTzXdtjmi/L/PGS66hC9U3JtJPfcrCZPHBPEU/TM/QHCro46O5OpegeQqvjRHW2piJuC8/N1wLil6QiVR8GEMySDO/U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791682939; c=relaxed/simple;
-	bh=9Df6rSIZWG9gaid5YG2EKGTOQagAyLEbFC6FGuh/S64=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sfDVKE89/Z+Ly0S/1PAyPtLSKOtzUmcOIlT7eLOwcQ3eaM8FqOX3vlBzd+RN134tuMjutWDyOVoxOPBiWUdgXhRhNyNWLGr9LgDi2DPT3ouz31KvQvqP8sxr/1QUwbm2OyffrriSLtbfOY5AlVbsRi06R5Sgmc+NJZdqg+zbLc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OJ9uUIuR; arc=none smtp.client-ip=95.215.58.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C56A2475D0
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 01:43:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.13.1
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791683036; cv=fail; b=CXHTIuKlbsWKsHzy+iRUEyov8Xy8f7VsvDl9WTLZYeQ+Pbq1idFz/ZK8picNUsEcEu75M5KQgy4rXignYxDDTk7SSQI+4p70WxS6jj85PQPx9AjPZo7HfDi5T4nk1PbBPJ2HqTr19Yrl8YaSvWgsgGhK85ICRitZAMSJZLoqWtw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791683036; c=relaxed/simple;
+	bh=YZ+ladI4MBZ+ODdHXqjJ7cQVd7d90PEuyc+XXUppTsw=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=HIp45dI8xy/Wjn4+i/H/M+y7zNcv1y/43cVZE0QunThW+Vb0OcWTV5TaNw+iW67VEsySwrgmXVv2i/TbzwMOMkfbf0X4C6aE/Xx0Jr69vpOeuUZygEQrNNaPmJyldz/oxTeh8VHVN6HjgS5hx5wMqio5i9ldeaneBC3iTUPtbcg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=KJOLNOvG; arc=fail smtp.client-ip=52.103.13.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OJ9uUIuR"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=9Df6rSIZWG9gaid5YG2EKGTOQagAyLEbFC6FGuh/S64=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791682932; v=1; x=1792287732;
- b=OJ9uUIuRpjDNfuiZ7wtERXyerg3jgzx6FgyrR9Vq/y+zQGH3YnI7fRM92XU1nQU8cEkbU7Je
- qSilsnfT0jp7G9aLeMQOL4dTMnx9VARSoQvN9UtRC2jSyQYUtUrIq1yU3v1jRoQerKjM+3/08Mu
- IcBycrBxJepqqdq9er4CEfVs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3df71b4fdfa6e9e1;
-	Sun, 11 Oct 2026 01:42:12 +0000
-X-Mizu-Trace-ID: 3df71b4fdfa6e9e1
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <585bc1e0-f538-444e-b8b4-28185ee6b19c@linux.dev>
-Date: Sun, 11 Oct 2026 09:42:03 +0800
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="KJOLNOvG"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jl3liKIwxSI58XRkNInzUzX3qEfOvjS5GLHj3rw693rxb3C5owC5hUpFt2EXYdoUQGSUhCzFnAoHbWvEx6KRrdjwnR+YuwXa/gNEvEAc+4ni3IdJ0gh28a9WVyHf9wjHnfz4d/R8wokWvdkqqV7pNlhe1Ktjey9/sidxG2QJ+aNCE5wd/bMug40OkumNZ4wqVj9oTsO0tjkzYMuWas2YyX5jghkHHvb1LONyvjT+rord+5uJRouiw3Lr77WqATCViBCVISSDw6WaRxSY1M/hOL5Jb0A9PuiwDeDdjGKiSnyoQGqtztVlUQw10pdXFFIi+WpBWXeVJnpp6EtBoZHsag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YZ+ladI4MBZ+ODdHXqjJ7cQVd7d90PEuyc+XXUppTsw=;
+ b=eufATaLbn/SAZ2L7xYvLM5gf7hF4OPq3V9gaokmrCyYKhfU8Hrnue88BA6ENagBD1ejuYKCjQBNW5TF/x7DQD/pqPEceEJaBY3E2oe+XBcnEigwV2xcKdNISlLrCKmEu+gwD/pDj8oFn5LCm6IaNi2FVsTXLaJGwj8u3LI12A8u60ZuqTVQvVaPzHcgQZmUraJFe8MI3cSNZgD18GGmgRXOcwcq4DC90yDyjtX9FcRclXaquxxi0W3FiFsOUcg/7UOzweXa73Q7Xdskvo6gZ2PZ2HNHWkY74dvbb01y+p4Ep4llWgKPtWh/E8WEhuG4qlWJGax0QDviol/ABPt62SA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YZ+ladI4MBZ+ODdHXqjJ7cQVd7d90PEuyc+XXUppTsw=;
+ b=KJOLNOvG2omrpUaIVXbo1Dytvp41tePfvGKZEjkk8fb+g8P02EuT1Bu1rBTTmsrERDyvRLImJ2FCWi6kBmH6aRgJzv0RhbFb2AEUSYLW475Qd7Wu/bEI84Qw2cl09ibfZBX9ShcFllRe1FDZObPXrgs7I7DWlXC0sMRgeQZEpmjcRxGCGvzbC4skx88e/JgRcgtNmCV9hrKXwCTV7QCvZKAReOr7aBHNZfnSdgqlO1jqwnSW1K6YHBfkXffajmm9NFhhSNHjmOx2wR+BKeZlB4M02UXqAP8d3AQYmZuDZF9yW6jvMwo2Zt8u7JktmIrFC1aooSW8Z3Wv12XyNpas2Q==
+Received: from MN2PR02MB6863.namprd02.prod.outlook.com (2603:10b6:208:1d7::20)
+ by SJ0PR02MB8625.namprd02.prod.outlook.com (2603:10b6:a03:3f8::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.20; Sun, 11 Oct
+ 2026 01:43:46 +0000
+Received: from MN2PR02MB6863.namprd02.prod.outlook.com
+ ([fe80::da67:fd0f:d96d:ac53]) by MN2PR02MB6863.namprd02.prod.outlook.com
+ ([fe80::da67:fd0f:d96d:ac53%4]) with mapi id 15.21.0496.019; Sun, 11 Oct 2026
+ 01:43:46 +0000
+From: Michael Kelley <mhklinux@outlook.com>
+To: Will Deacon <will@kernel.org>, "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Thomas
+ Gleixner <tglx@kernel.org>, Ben Horgan <ben.horgan@arm.com>,
+	=?utf-8?B?yJh0ZWZhbmlhIElvbg==?= <stefion@google.com>, Catalin Marinas
+	<catalin.marinas@arm.com>, Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+	Borislav Petkov <bp@alien8.de>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Jinjie Ruan <ruanjinjie@huawei.com>, Mark Rutland <mark.rutland@arm.com>,
+	Tarun Sahu <tarunsahu@google.com>, Fuad Tabba <fuad.tabba@linux.dev>, David
+ Woodhouse <dwmw@amazon.co.uk>, Peter Zijlstra <peterz@infradead.org>, Marc
+ Zyngier <maz@kernel.org>
+Subject: RE: [PATCH v2 00/23] arm64: Implement parallel CPU onlining with PSCI
+ v0.2+
+Thread-Topic: [PATCH v2 00/23] arm64: Implement parallel CPU onlining with
+ PSCI v0.2+
+Thread-Index: AQKetOAR4RVtmHjLgcrmrnCmyEpklbV02BQA
+Date: Sun, 11 Oct 2026 01:43:45 +0000
+Message-ID:
+ <MN2PR02MB68636CAE909485DD0D537AB4D4902@MN2PR02MB6863.namprd02.prod.outlook.com>
+References: <20261009100738.31288-1-will@kernel.org>
+In-Reply-To: <20261009100738.31288-1-will@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MN2PR02MB6863:EE_|SJ0PR02MB8625:EE_
+x-ms-office365-filtering-correlation-id: 404866cd-74aa-49e3-d643-08df273916d8
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|15080799012|8022599003|31061999003|37011999003|25010399006|24021099003|55001999006|13031999006|41001999006|8062599012|8060799015|19110799012|13091999003|12121999013|2607281247196008|3071699003|4302099013|3412199025|440099028|102099032|10035399007|1602099012;
+x-microsoft-antispam-message-info:
+ =?utf-8?B?YUc5M3NyY0JFb3ZBajR3TGxXRkFpTGVGdkIvK1BabExUc2czeHBuTnE5dnJv?=
+ =?utf-8?B?TUpqQWZ4eUVYdDcrY1hla1BKTmdXQzF5d2VVNHhiUCtuUFE4ZFMvVTRvb0o0?=
+ =?utf-8?B?VVNHbVV4MlVhMzlPRzA2Q2c4bmprdzhPalB6QmpEMUtIczg3NHlsVzZDK0Zq?=
+ =?utf-8?B?ZjBKOEpldmlmNHArVFdiRnpwR0dFRHFXN2hYZ3N0RXIyOUhTSG9KMllsRWJi?=
+ =?utf-8?B?Qy9PdkpGK2RjbXhFWGxiV0tTUlF5c09TSHpPalRETURFb2JaYWVMVlV6aTJH?=
+ =?utf-8?B?dndsazUxVVBidEtNVkQ2c0ZPaWhEcFA1WitIQjVKeXVtY2dxN3RKd1R4NjJS?=
+ =?utf-8?B?ZkM2M2RZdHZQTEhNZEdRUDA0bDV2ZU9tdUJHZDNjV3RxT3RoenA2M2x1dUlX?=
+ =?utf-8?B?RnVCT0ozQ0xKcEtXNm1xeW5yMUhtN2dKZURlUHRONFhWcXNRWXBoVlZJZWlY?=
+ =?utf-8?B?d1lkN0ZNekQ4cnVwOWphODZxcjVuanUzQnM0YUlXc09CWmg2ZDA5WWgwMzdW?=
+ =?utf-8?B?Z2trcXhNYitxMVJPSFR0QlYxbFgvbThXcDgrdUNYZTJxQW15NmFucTlYUU5j?=
+ =?utf-8?B?STNGVnJHdkNZMHMwR0JWVEhFYVBWZEgxS3M4K055TjRrTzloZW0vSUgrbCts?=
+ =?utf-8?B?cHhnR05NRlpNZHQzMm1pWVpSdDZPTEJCSUhjVVppTVNaVkR6VDlyR091UXMx?=
+ =?utf-8?B?RlJKWVFqaGdySTBxVE5MNGhuTDI3MFJmK25VUXhYdDRVQy96NFJ2cXRzV3N0?=
+ =?utf-8?B?RlNseW4zTFkwWDl1UERaQnhLU0tCQ21pVUVPbEJtaVdpL21sZDRETXNVVmh1?=
+ =?utf-8?B?d3R2SmFsK1JodEZjbXhBclFOYkRIK0gvcmVJUG1NME1NeHFKT0NzOExCK25G?=
+ =?utf-8?B?TjVPUUNYQy9CU3htS1ZEWW1teXBUbE9EZkZZU2Ezc002Z3pwOEoySDdzbjNJ?=
+ =?utf-8?B?S2dQU29pM0RUMFBKV0pQNTg3SFlGQ0VqT0ZCenJVK2UzeXRMSWxXTXN5U2k3?=
+ =?utf-8?B?ZzdZYUN3d0JKMUdqN3ZhMVlVUm1EeXVvU1c5cGUvRFRUa1o1aFZacUpvY1Jh?=
+ =?utf-8?B?NTN3c3NzMkkvYmtmTTRuSkNLb0lWS0pkYnpGNStrMUlFRldHdVZsdmdDRHdw?=
+ =?utf-8?B?aHd1NllIbGVMU2lnaktHZWhKc2R1MmxEU2dEOVlRdktROFhWODFHZFFYdGln?=
+ =?utf-8?B?c0JtcWx4OTRPMCtyd0NFYUpycy9SQmcycjR3Y0E3bEcrVjJtdmhtWlZ6RGN0?=
+ =?utf-8?B?cDNnWk1qVXhaOVVJSk1tMHM3QVNhZkhiYVQvUnlzNzZIOGNPcXgxQkMxbGJ4?=
+ =?utf-8?B?NWZIYWR1dWRTMktiRm0wYXJTZHFzK3hrOWdIQ005VUF5SkFoM0xxVlk2SjQ5?=
+ =?utf-8?B?dEk1SXdNMlFGTG1EQWlGd0E0b0kwTkpiTkVDNDFxWXhBdVhScEtIZzhRN3hu?=
+ =?utf-8?B?bWs2SEc5VWRobGx0Z29lRWxvTldoMGtVc255cWRnZUR5cC82Vzl2UDNBSk5M?=
+ =?utf-8?B?MVhUa0hNa0JUMndNYTltWHdDVDlITVh0Z0oyLy9tNFdNNEVFSGhlbnh5OG9Z?=
+ =?utf-8?Q?Y1bp9dD89OZt08aMhWEOgVS2o=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?ZkkrV0Rlc2FWb0g3VGlrOG15NTJ6ZnhqT0VCS3VSM0t3QVA0ckswbDJ6aTEx?=
+ =?utf-8?B?OVFTS2MrTWhraEJNNmxWNkJOVlFSbHAvUWxFdFBnbXlQZGc0ekdyWHU3Y0Mx?=
+ =?utf-8?B?VHl0Q3QyNVlhT2pQNklYNFFmdzRtRkNPcm9RR2dQNW04Um5wNHRWbW1ZNXdY?=
+ =?utf-8?B?dVcyTUVSSktDQUk3czArRVd5MlgzV3ZXczgzUURxQjJhS0psemZpZWVDUTZH?=
+ =?utf-8?B?Q2hOdHBTZ0VuZFFML1JrRDR6cFF2R2FUOU1OWkpTUE94dHBad3EwUnNWakVk?=
+ =?utf-8?B?U0FKVXUrb1hEVGhiaWtWRGo4YmhSYWg2MjY0cjlTem56L2JSMXhGaXU1dEtl?=
+ =?utf-8?B?RTN0T3hONFRMNHJjSjNvU1QwS21VNkRNWFF3R0paR3ZpRFltOG00aE1ySFpm?=
+ =?utf-8?B?eC95SG9kUktwQTNaYnY1S1JVRnhqalFVSVEzendqQ3FNT1A1S3dweHVXejFj?=
+ =?utf-8?B?ekFJdmY4L2Q5WmR2bkdJTCtZSWdBckdINDZhb0hJemxpSzZHWnlmNzdoTVp0?=
+ =?utf-8?B?alVMY05TT3lYLzk4cmRoR1ZPUFBUM284aEJtL1E5TXNjNnFPS2s3c0Y5am0z?=
+ =?utf-8?B?MlVRU0ZoOGlqMzFMaHE0cUZ4dzZNUWFkZEdMV1FBZ2Y5ejZ4eExXTzRVOFo1?=
+ =?utf-8?B?UHBBdG43RTk5K09PTlltVHhQeWJYcDFDMHNJMmpPa0xwZU5xd1lKRkxMWmVz?=
+ =?utf-8?B?UTFOZlRQaS9vN09KMlRNWmhMcTdvSERubG9xcUYxNHE3ZHdXVHFlU0ZzUkVY?=
+ =?utf-8?B?bGRhK2NuTWRTK01iUi9nLzMyTW9Ydm83VmlpRm9PSnBIUkNHOFp6Yks5TXNX?=
+ =?utf-8?B?eUtLWlpLai9ITStIZmpuQ3dEWUcyMDljLzBhaTgwQm14dnlDVllVbUtzT0NS?=
+ =?utf-8?B?L2F6WXNra0pvWFpQZVFJWjRjMWtXczJzWDF0Ukxja0JVZVFLQWErZm1iQU0w?=
+ =?utf-8?B?RkRCa0tidWhzakZ5WnBaTzBhWnA3aGhmVEZ2ZFNSeXFOTXJmam1GZHJ1bkIv?=
+ =?utf-8?B?ekUrTTQwRDhWRWlqYU54NEN1bUh0MzZTZnJlVWIybnJyVkZ6d20zYlE1T0tZ?=
+ =?utf-8?B?Q2VreG91dlFEdUJxMEc2M2s4LytNTWdYS0h6WEtlbDM0azNGT1doc0lzV1dO?=
+ =?utf-8?B?OTFuSDg4QzlnSEFFMXVoK25jbU90WGhFMlVLd0tYNXNSYk5Ba3BFQlBjMzJG?=
+ =?utf-8?B?NGRyRFBSOVhwNitodm1ZSGR6RDZSVXpJMFBVektEaCtSMS85MXlpNUVnbm1P?=
+ =?utf-8?B?R00zRTFINUIzOVJTaUVzcWdaSGxTYTQwNE5RYVROUSs1dWdCNU1OWDk0MFpR?=
+ =?utf-8?B?SkhUaTFweXRVY1lSaFhBODY0L1RHUmtrQXlweVVEdFVZYjJ2MFA0YmprSVA1?=
+ =?utf-8?B?LzFhZTVqNGtTcGVQbXVBVU9qR2dncGNYNFZTQXhyUTllZThYd1pWUmhaS1VN?=
+ =?utf-8?B?VkVlQ2xXa1lFa0oxREJKVkJienRTQXpUSEdZYlpwdjVTK3hkQTZrU0dKcWRx?=
+ =?utf-8?B?QzFjbGJnVGRWWWJuK3YydTc3UW51dUNRQTBKLzREN3lxeDFSWmZWTlFQT2N3?=
+ =?utf-8?B?bi9mMnFPNUE4dm9hSHVaZ08yUVEwYSthQVptcUQxR2F5UldpUnpaUzY1R1Zy?=
+ =?utf-8?B?SWxTcjZrSUN4NUVmNzVTQVVxT3RaZUdjYTZ6cWZsUkttdjVya3JoZC9oTlV1?=
+ =?utf-8?B?bVNpY3F5ZmhRbWFuN2E4dzhQMG04WXgxcElrOFUyS2l3UUJMN0x3U3dZYVVx?=
+ =?utf-8?B?OEJzWW50SDJnb1RtcjNQUWRaaG9ObnJjdGhVbXo4WGFKblQ5ZXI3OEpXNVJD?=
+ =?utf-8?Q?EZkI00uH+F4Sir9lZeVlerDmuVBKxdNvc32ng=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] cgroup/cpuset: Invalidate remote partition on
- housekeeping conflict
-To: Guopeng Zhang <guopeng.zhang@linux.dev>, Waiman Long
- <longman@redhat.com>, Tejun Heo <tj@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- Guopeng Zhang <zhangguopeng@kylinos.cn>
-References: <20260929023805.31648-1-guopeng.zhang@linux.dev>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20260929023805.31648-1-guopeng.zhang@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR02MB6863.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 404866cd-74aa-49e3-d643-08df273916d8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Oct 2026 01:43:45.9207
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR02MB8625
 
-
-
-On 9/29/2026 10:38 AM, Guopeng Zhang wrote:
-> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
-> 
-> Widening an ancestor's exclusive CPU mask can add a boot-isolated CPU
-> to a valid remote partition root without touching the partition's own
-> control files. The partition then load balances that CPU, silently
-> defeating isolcpus=domain for it.
-> 
-> This can be reproduced on a 32-CPU system booted with
-> isolcpus=domain,4:
-> 
->      cd /sys/fs/cgroup
->      echo +cpuset > cgroup.subtree_control
->      mkdir -p A/B
->      echo +cpuset > A/cgroup.subtree_control
->      echo 2-4 > A/cpuset.cpus
->      echo 2-3 > A/cpuset.cpus.exclusive
->      echo 2-4 > A/B/cpuset.cpus
->      echo 2-4 > A/B/cpuset.cpus.exclusive
->      echo root > A/B/cpuset.cpus.partition
->      cat A/B/cpuset.cpus.effective               # 2-3
->      echo 2-4 > A/cpuset.cpus.exclusive
->      cat A/B/cpuset.cpus.partition               # root
->      cat A/B/cpuset.cpus.effective               # 2-4
-> 
-> The last write returns 0 and leaves the hierarchy in this state:
-> 
->      root (cpuset.cpus.effective=0-1,5-31)
->      |
->      \-- A (member):           cpuset.cpus=2-4
->          |                     cpuset.cpus.exclusive=2-4
->          \-- B (root, remote): cpuset.cpus=2-4
->                                cpuset.cpus.effective=2-4
-> 
-> B is a remote partition: it takes its CPUs directly from the root
-> cpuset, and A only passes its exclusive list down. Before the last
-> write, that list is 2-3, so B holds 2-3 and CPU 4 stays in the
-> root cpuset as a boot-isolated CPU. The write widens A's exclusive
-> list to 2-4, which additionally grants CPU 4 to B. Nothing rejects
-> the grant: B remains a valid root partition, and CPU 4 is still
-> listed in cpuset.cpus.isolated while sitting in a load-balanced
-> partition.
-> 
-> remote_partition_enable() already rejects such grants through
-> prstate_housekeeping_conflict(). remote_cpus_update(), which applies
-> ancestor changes to a remote partition, does not.
-> 
-> Both paths also open-code remote partition validation. Move those
-> checks into validate_remote_partition(), and check the resulting
-> effective exclusive CPU mask for a housekeeping conflict there. The
-> existing prs_err path then invalidates the remote partition instead of
-> assigning it a boot-isolated CPU.
-> 
-> Fixes: f62a5d39368e ("cgroup/cpuset: Remove remote_partition_check() & make update_cpumasks_hier() handle remote partition")
-> Suggested-by: Ridong Chen <ridong.chen@linux.dev>
-> Suggested-by: Tejun Heo <tj@kernel.org>
-> Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
-> Reviewed-by: Waiman Long <longman@redhat.com>
-> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
-> ---
-> 
-> Changes since v2:
-> - Pass the enable/update mode explicitly to validate_remote_partition()
->    instead of deriving it from cs->remote_partition, which can remain set
->    after a failed partition state transition, as suggested by Tejun.
-> 
-> Changes since v1:
-> - Consolidate remote partition validation in a common helper, as
->    suggested by Ridong.
-> - Check housekeeping conflicts against the resulting effective exclusive
->    CPU mask.
-> - Rebase onto cgroup/for-7.3-fixes.
-> 
->   kernel/cgroup/cpuset.c | 69 ++++++++++++++++++++++++++++--------------
->   1 file changed, 47 insertions(+), 22 deletions(-)
-> 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 1fcec89a28b9..d0a45241c070 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -1561,6 +1561,43 @@ static inline bool is_local_partition(struct cpuset *cs)
->   	return is_partition_valid(cs) && !is_remote_partition(cs);
->   }
->   
-> +/**
-> + * validate_remote_partition - Validate a remote partition CPU change
-> + * @prs: partition root state to validate
-> + * @updating: true for an update, false for an enable
-> + * @excpus: resulting effective exclusive CPU mask
-> + * @addcpus: exclusive CPUs to be added
-> + * @delcpus: exclusive CPUs to be deleted, can be NULL
-> + *
-> + * Return: PERR_NONE if valid, otherwise an appropriate error code
-> + */
-> +static enum prs_errcode
-> +validate_remote_partition(int prs, bool updating,
-> +			  struct cpumask *excpus,
-> +			  struct cpumask *addcpus,
-> +			  struct cpumask *delcpus)
-> +{
-> +	if (!capable(CAP_SYS_ADMIN))
-> +		return PERR_ACCESS;
-> +
-> +	if (!updating &&
-> +	    (!cpumask_intersects(excpus, cpu_active_mask) ||
-> +	     cpumask_subset(top_cpuset.effective_cpus, addcpus)))
-> +		return PERR_INVCPUS;
-> +
-
-Do we really need the updating flag? I mean, whether or not it's an updating 
-partition, it should still be an invalid remote partition, right? So why do we 
-have to distinguish between updating and not updating?
-
-> +	if (cpumask_intersects(addcpus, subpartitions_cpus) ||
-> +	    (updating &&
-> +	     cpumask_subset(top_cpuset.effective_cpus, addcpus)))
-> +		return PERR_NOCPUS;
-> +
-> +	if ((prs == PRS_ISOLATED &&
-> +	     !isolated_cpus_can_update(addcpus, delcpus)) ||
-> +	    prstate_housekeeping_conflict(prs, excpus))
-> +		return PERR_HKEEPING;
-> +
-> +	return PERR_NONE;
-> +}
-> +
->   /*
->    * remote_partition_enable - Enable current cpuset as a remote partition root
->    * @cs: the cpuset to update
-> @@ -1574,11 +1611,7 @@ static inline bool is_local_partition(struct cpuset *cs)
->   static int remote_partition_enable(struct cpuset *cs, int new_prs,
->   				   struct tmpmasks *tmp)
->   {
-> -	/*
-> -	 * The user must have sysadmin privilege.
-> -	 */
-> -	if (!capable(CAP_SYS_ADMIN))
-> -		return PERR_ACCESS;
-> +	enum prs_errcode err;
->   
->   	/*
->   	 * The requested exclusive_cpus must not be allocated to other
-> @@ -1591,15 +1624,10 @@ static int remote_partition_enable(struct cpuset *cs, int new_prs,
->   	 * above it or remote partition root underneath it is not allowed.
->   	 */
->   	compute_excpus(cs, tmp->new_cpus);
-> -	if (!cpumask_intersects(tmp->new_cpus, cpu_active_mask) ||
-> -	    cpumask_subset(top_cpuset.effective_cpus, tmp->new_cpus))
-> -		return PERR_INVCPUS;
-> -	if (cpumask_intersects(tmp->new_cpus, subpartitions_cpus))
-> -		return PERR_NOCPUS;
-> -	if (((new_prs == PRS_ISOLATED) &&
-> -	     !isolated_cpus_can_update(tmp->new_cpus, NULL)) ||
-> -	    prstate_housekeeping_conflict(new_prs, tmp->new_cpus))
-> -		return PERR_HKEEPING;
-> +	err = validate_remote_partition(new_prs, false, tmp->new_cpus,
-> +					tmp->new_cpus, NULL);
-> +	if (err)
-> +		return err;
->   
->   	spin_lock_irq(&callback_lock);
->   	partition_xcpus_add(new_prs, NULL, tmp->new_cpus);
-> @@ -1672,6 +1700,7 @@ static void remote_partition_disable(struct cpuset *cs, struct tmpmasks *tmp)
->   static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
->   			       struct cpumask *excpus, struct tmpmasks *tmp)
->   {
-> +	enum prs_errcode err;
->   	bool adding, deleting;
->   	int prs = cs->partition_root_state;
->   
-> @@ -1695,14 +1724,10 @@ static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
->   	 */
->   	if (adding) {
->   		WARN_ON_ONCE(cpumask_intersects(tmp->addmask, subpartitions_cpus));
-> -		if (!capable(CAP_SYS_ADMIN))
-> -			WRITE_ONCE(cs->prs_err, PERR_ACCESS);
-> -		else if (cpumask_intersects(tmp->addmask, subpartitions_cpus) ||
-> -			 cpumask_subset(top_cpuset.effective_cpus, tmp->addmask))
-> -			WRITE_ONCE(cs->prs_err, PERR_NOCPUS);
-> -		else if ((prs == PRS_ISOLATED) &&
-> -			 !isolated_cpus_can_update(tmp->addmask, tmp->delmask))
-> -			WRITE_ONCE(cs->prs_err, PERR_HKEEPING);
-> +		err = validate_remote_partition(prs, true, excpus, tmp->addmask,
-> +						tmp->delmask);
-> +		if (err)
-> +			WRITE_ONCE(cs->prs_err, err);
->   		if (cs->prs_err)
->   			goto invalidate;
->   	}
-> 
-> base-commit: 31c88350b7dd1522792f726f79607f31bb55c50f
-
--- 
-Best regards
-Ridong
-
+RnJvbTogV2lsbCBEZWFjb24gPHdpbGxAa2VybmVsLm9yZz4gU2VudDogRnJpZGF5LCBPY3RvYmVy
+IDksIDIwMjYgMzowNyBBTQ0KPiANCj4gSGkgZXZlcnlvbmUsDQo+IA0KPiBUaGlzIGlzIHZlcnNp
+b24gdHdvIG9mIHRoZSBwYXRjaGVzIEkgcHJldmlvdXNseSBwb3N0ZWQgaGVyZToNCj4gDQo+ICAg
+aHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsLzIwMjYwOTA3MTY0MDI0LjE3MTY0LTEtd2lsbEBr
+ZXJuZWwub3JnLw0KPiANCj4gVGhlcmUgaGF2ZSBiZWVuIHF1aXRlIGEgZmV3IGNoYW5nZXMgc2lu
+Y2UgbGFzdCB0aW1lLCB0aGFua3MgdG8gYWxsIHRoZQ0KPiBmZWVkYmFjayBmcm9tIGh1bWFucyBh
+bmQgcm9ib3RzIGFsaWtlLiBUaGVzZSBpbmNsdWRlOg0KPiANCj4gICAqIEFkZGVkIHRhZ3MgKGJ1
+dCBJIGRpZG4ndCBjYXJyeSBvdmVyIFBhbmthaidzIFQtYiwgc2luY2UgdGhlIHNlcmllcw0KPiAg
+ICAgaGFzIGNoYW5nZWQgYSBmYWlyIGJpdCkuDQo+IA0KPiAgICogRml4IHNlY29uZGFyeSBlbnRy
+eSBhc3NlbWJseSBjb2RlIHRvIGhhbmRsZSB0aW1lb3V0cyBjb3JyZWN0bHkuDQo+IA0KPiAgICog
+Rml4IHN0YXNoaW5nIG9mIE1QSURSIHNvIHRoYXQgd2UgZG9uJ3QgY2xvYmJlciBTVEFDS19FTkRf
+TUFHSUMuDQo+IA0KPiAgICogRml4IE5VTEwgZGVyZWZlcmVuY2UgaWYgUFNDSSBmYWlscyB0byBp
+bml0aWFsaXNlLg0KPiANCj4gICAqIEVuYWJsZSBSQ1UgYXMgc29vbiBhcyBhIHNlY29uZGFyeSBD
+UFUgaXMgYWxpdmUuDQo+IA0KPiAgICogRHJvcCBwb2ludGxlc3MgKHVucmVhY2hhYmxlKSBvcHRp
+bWlzYXRpb24gdG8NCj4gICAgIGFyY2hfY3B1aHBfc3luY19zdGF0ZV9wb2xsKCkuDQo+IA0KPiAg
+ICogSW5jbHVkZSBjcHVmZWF0dXJlIHBhdGNoZXMgZnJvbSBGdWFkIHNvIHRoYXQgJ2NwdV9kYXRh
+JyBpcyBwb3B1bGF0ZWQNCj4gICAgIHdpdGggcmVnaXN0ZXIgdmFsdWVzIHRha2luZyBpbnRvIGFj
+Y291bnQgYW55IGNtZGxpbmUgb3ZlcnJpZGVzLiBUaGlzDQo+ICAgICBpcyBuZWNlc3NhcnkgZm9y
+IGNvcnJlY3QgaGFuZGxpbmcgb2YgJ2Jvb3RfY3B1X2RhdGEnIGxhdGVyIG9uLCB3aGVyZQ0KPiAg
+ICAgdGhlIHByZXZpb3VzIHZlcnNpb24gb2YgdGhpcyBzZXJpZXMgc3Rhc2hlZCBhIHN0YWxlIGNv
+cHkgb2YgbXBhbWlkci4NCj4gDQo+IEFzIGJlZm9yZSwgdGhlIGZpcnN0IGZvdXIgcGF0Y2hlcyBh
+cmUgc21hbGwgY2hhbmdlcyB0byB0aGUgZ2VuZXJpYyBjb2RlDQo+IHRvIG1ha2UgaXQgYSBsaXR0
+bGUgbW9yZSAiQXJtLXNoYXBlZCIgYnV0IHRoZSByZXN0IG9mIHRoZSBzZXJpZXMgaXMNCj4gbGFy
+Z2VseSBjb25maW5lZCB0byB0aGUgYXJtNjQgYXJjaGl0ZWN0dXJlIGFuZCBQU0NJIGRyaXZlciBj
+b2RlLg0KPiANCj4gVGhlIHNlcmllcyBpcyBiYXNlZCBvbiAtcmMyLCBhcyBpdCBvdGhlcndpc2Ug
+Y29uZmxpY3RzIHdpdGggRnVhZCdzIEdNSUQNCj4gZml4IHRoYXQgd2FzIHJlY2VudGx5IG1lcmdl
+ZCB1cHN0cmVhbS4NCj4gDQoNCkFzIEkgcmVwb3J0ZWQgWzFdIGZvciBKaW5qaWUgUnVhbidzIG9y
+aWdpbmFsIHNlcmllcywgSSB0ZXN0ZWQgdGhpcyBzZXJpZXMgb24gYW4NCkFSTTY0IFZNIHJ1bm5p
+bmcgb24gSHlwZXItViBpbiB0aGUgQXp1cmUgY2xvdWQuIFRlc3RlZCB3aXRoIDE2IHZDUFVzDQpp
+biB0aGUgVk0gYW5kIHdpdGggOTYgdkNQVXMgaW4gdGhlIFZNLiBObyBpc3N1ZXMuIEkgbWFpbmx5
+IHdhbnRlZCB0bw0KbWFrZSBzdXJlIG5vdGhpbmcgZ290IGNyb3Nzd2lzZSB3aXRoIEh5cGVyLVYn
+cyBpbXBsZW1lbnRhdGlvbiBvZiBQU0NJLg0KDQpUZXN0ZWQtYnk6IE1pY2hhZWwgS2VsbGV5IDxt
+aGtsaW51eEBvdXRsb29rLmNvbT4NCg0KWzFdIGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xpbnV4
+LWFybS1rZXJuZWwvU042UFIwMk1CNDE1NzVDRDU4ODNDMDFGQ0I3RjM1RTJERDQxODJAU042UFIw
+Mk1CNDE1Ny5uYW1wcmQwMi5wcm9kLm91dGxvb2suY29tLw0KDQo+IENoZWVycywNCj4gDQo+IFdp
+bGwNCj4gDQo+IENjOiBUaG9tYXMgR2xlaXhuZXIgPHRnbHhAa2VybmVsLm9yZz4NCj4gQ2M6IEJl
+biBIb3JnYW4gPGJlbi5ob3JnYW5AYXJtLmNvbT4NCj4gQ2M6IMiYdGVmYW5pYSBJb24gPHN0ZWZp
+b25AZ29vZ2xlLmNvbT4NCj4gQ2M6IENhdGFsaW4gTWFyaW5hcyA8Y2F0YWxpbi5tYXJpbmFzQGFy
+bS5jb20+DQo+IENjOiBQYW5rYWogUGF0aWwgPHBhbmthai5wYXRpbEBvc3MucXVhbGNvbW0uY29t
+Pg0KPiBDYzogQm9yaXNsYXYgUGV0a292IDxicEBhbGllbjguZGU+DQo+IENjOiBMb3JlbnpvIFBp
+ZXJhbGlzaSA8bHBpZXJhbGlzaUBrZXJuZWwub3JnPg0KPiBDYzogSmluamllIFJ1YW4gPHJ1YW5q
+aW5qaWVAaHVhd2VpLmNvbT4NCj4gQ2M6IE1hcmsgUnV0bGFuZCA8bWFyay5ydXRsYW5kQGFybS5j
+b20+DQo+IENjOiBUYXJ1biBTYWh1IDx0YXJ1bnNhaHVAZ29vZ2xlLmNvbT4NCj4gQ2M6IEZ1YWQg
+VGFiYmEgPGZ1YWQudGFiYmFAbGludXguZGV2Pg0KPiBDYzogRGF2aWQgV29vZGhvdXNlIDxkd213
+QGFtYXpvbi5jby51az4NCj4gQ2M6IFBldGVyIFppamxzdHJhIDxwZXRlcnpAaW5mcmFkZWFkLm9y
+Zz4NCj4gQ2M6IE1hcmMgWnluZ2llciA8bWF6QGtlcm5lbC5vcmc+DQo+IA0KPiAtLS0+OA0KPiAN
+Cj4gRnVhZCBUYWJiYSAoNCk6DQo+ICAgYXJtNjQ6IGNwdWZlYXR1cmU6IENoZWNrIGFybTY0X2Z0
+cl9yZWdzW10gYmVmb3JlIHRoZSBmaXJzdCBzdG9yZQ0KPiAgIGFybTY0OiBjcHVmZWF0dXJlOiBB
+ZGQgcmVhZF9jcHVpZF93aXRoX292ZXJyaWRlcygpDQo+ICAgYXJtNjQ6IGNwdWZlYXR1cmU6IFJl
+YWQgTVBBTUlEUl9FTDEgaW4gX19jcHVpbmZvX3N0b3JlX2NwdSgpDQo+ICAgYXJtNjQ6IGNwdWZl
+YXR1cmU6IFN0b3JlIGV2ZXJ5IElEIHJlZ2lzdGVyIHdpdGggaXRzIG92ZXJyaWRlcyBhcHBsaWVk
+DQo+IA0KPiBXaWxsIERlYWNvbiAoMTkpOg0KPiAgIGNwdS9ob3RwbHVnOiBDbGVhbiB1cCBjbXB4
+Y2hnKCkgbG9naWMgaW4gY3B1aHBfY2FuX2Jvb3RfYXAoKQ0KPiAgIGNwdS9ob3RwbHVnOiBBdm9p
+ZCB0cnlpbmcgdG8gYnJpbmcgdXAgQ1BVcyB0aGF0IGFyZSBhbHJlYWR5IG9ubGluZQ0KPiAgIGNw
+dS9ob3RwbHVnOiBBdm9pZCBidXN5LXBvbGxpbmcgb24gYXJjaHMgd2hlcmUgY3B1X3JlbGF4KCkg
+aXMgYSBuby1vcA0KPiAgIGNwdS9ob3RwbHVnOiBQcm9wYWdhdGUgYnJpbmctdXAgc3RhdHVzIHRv
+DQo+ICAgICBhcmNoX2NwdWhwX2NsZWFudXBfa2lja19jcHUoKQ0KPiAgIGFybTY0OiBzbXA6IFRp
+ZHkgdXAgc21wX3ByZXBhcmVfY3B1cygpDQo+ICAgYXJtNjQ6IHNtcDogVGlkeSB1cCBjcHVpbmZv
+IGluaXQgYW5kIGNwdWZlYXR1cmUgdXBkYXRlcw0KPiAgIGFybTY0OiBzbXA6IERlZmVyIHVwZGF0
+ZSBvZiBzZWNvbmRhcnkgQ1BVIGNhcGFiaWxpdGllcw0KPiAgIGFybTY0OiBzbXA6IERvbid0IGJv
+dGhlciBwcmludGluZyB0aGUgSS1jYWNoZSBwb2xpY3kgZm9yIGVhY2ggQ1BVDQo+ICAgYXJtNjQ6
+IHNtcDogRGVmZXIgUkNVIHJlZ2lzdHJhdGlvbiBkdXJpbmcgc2Vjb25kYXJ5IENQVSBicmluZ3Vw
+DQo+ICAgYXJtNjQ6IHNtcDogVXNlIGdlbmVyaWMgSE9UUExVR19DT1JFX1NZTkNfRlVMTCBtYWNo
+aW5lcnkgZm9yIENQVQ0KPiAgICAgb25saW5pbmcNCj4gICBhcm02NDogc21wOiBVc2UgZ2VuZXJp
+YyBIT1RQTFVHX1NQTElUX1NUQVJUVVAgbWFjaGluZXJ5IGZvciBDUFUNCj4gICAgIG9ubGluaW5n
+DQo+ICAgYXJtNjQ6IGNwdV9vcHM6IE1ha2UgJ2NwdV9vcGVyYXRpb25zJyBwb2ludGVyIGdsb2Jh
+bCBpbnN0ZWFkIG9mDQo+ICAgICBwZXItY3B1DQo+ICAgYXJtNjQ6IGNwdV9vcHM6IEludHJvZHVj
+ZSBnZXRfc2Vjb25kYXJ5X2NwdV9vcHMoKQ0KPiAgIGZpcm13YXJlL3BzY2k6IENhY2hlIFBTQ0kg
+djAuMisgdmVyc2lvbiBudW1iZXIgdG8gYXZvaWQgcmVkdW5kYW50IFNNQ3MNCj4gICBmaXJtd2Fy
+ZS9wc2NpOiBFeHRlbmQgLT5jcHVfb24oKSBjYWxsYmFjayB0byB0YWtlIGFuIGFkZGl0aW9uYWwN
+Cj4gICAgIGFyZ3VtZW50DQo+ICAgYXJtNjQ6IGNwdV9vcHM6IEV4cG9zZSBvcHRpb25hbCBhcmd1
+bWVudCB0byB0YXJnZXQgY3B1IGluIC0+Y3B1X2Jvb3QoKQ0KPiAgIGFybTY0OiBzbXA6IFBhc3Mg
+c2Vjb25kYXJ5IENQVSBib290IHBhcmFtZXRlcnMgdmlhIGZpcm13YXJlIGlmDQo+ICAgICBwb3Nz
+aWJsZQ0KPiAgIGFybTY0OiBzbXA6IFVzZSBnZW5lcmljIEhPVFBMVUdfUEFSQUxMRUwgbWFjaGlu
+ZXJ5IGZvciBDUFUgb25saW5pbmcNCj4gICBhcm02NDogc21wOiBIYXJkZW4gcGFyYWxsZWwgQ1BV
+IGJyaW5ndXAgYWdhaW5zdCBicm9rZW4gUFNDSSBmaXJtd2FyZQ0KPiANCj4gIGFyY2gvYXJtL2tl
+cm5lbC9wc2NpX3NtcC5jICAgICAgICAgICAgICAgIHwgICA0ICstDQo+ICBhcmNoL2FybTY0L0tj
+b25maWcgICAgICAgICAgICAgICAgICAgICAgICB8ICAgMiArLQ0KPiAgYXJjaC9hcm02NC9pbmNs
+dWRlL2FzbS9jcHUuaCAgICAgICAgICAgICAgfCAgIDcgKy0NCj4gIGFyY2gvYXJtNjQvaW5jbHVk
+ZS9hc20vY3B1X29wcy5oICAgICAgICAgIHwgICA3ICstDQo+ICBhcmNoL2FybTY0L2luY2x1ZGUv
+YXNtL2NwdWZlYXR1cmUuaCAgICAgICB8ICAxMSArDQo+ICBhcmNoL2FybTY0L2luY2x1ZGUvYXNt
+L3NtcC5oICAgICAgICAgICAgICB8ICA0MCArKy0NCj4gIGFyY2gvYXJtNjQvaW5jbHVkZS9hc20v
+dG9wb2xvZ3kuaCAgICAgICAgIHwgICAyICsNCj4gIGFyY2gvYXJtNjQva2VybmVsL2FjcGlfcGFy
+a2luZ19wcm90b2NvbC5jIHwgICAzICstDQo+ICBhcmNoL2FybTY0L2tlcm5lbC9hc20tb2Zmc2V0
+cy5jICAgICAgICAgICB8ICAgMSArDQo+ICBhcmNoL2FybTY0L2tlcm5lbC9jcHVfb3BzLmMgICAg
+ICAgICAgICAgICB8ICAzNCArLQ0KPiAgYXJjaC9hcm02NC9rZXJuZWwvY3B1ZmVhdHVyZS5jICAg
+ICAgICAgICAgfCAzOTcgKysrKysrKysrKystLS0tLS0tLS0tLQ0KPiAgYXJjaC9hcm02NC9rZXJu
+ZWwvY3B1aW5mby5jICAgICAgICAgICAgICAgfCAxMjIgKysrLS0tLQ0KPiAgYXJjaC9hcm02NC9r
+ZXJuZWwvaGVhZC5TICAgICAgICAgICAgICAgICAgfCAgNjAgKysrLQ0KPiAgYXJjaC9hcm02NC9r
+ZXJuZWwvcHNjaS5jICAgICAgICAgICAgICAgICAgfCAgMTQgKy0NCj4gIGFyY2gvYXJtNjQva2Vy
+bmVsL3NtcC5jICAgICAgICAgICAgICAgICAgIHwgMTgzICsrKysrLS0tLS0NCj4gIGFyY2gvYXJt
+NjQva2VybmVsL3NtcF9zcGluX3RhYmxlLmMgICAgICAgIHwgICAyICstDQo+ICBhcmNoL2FybTY0
+L21tL21tdS5jICAgICAgICAgICAgICAgICAgICAgICB8ICAgMiArLQ0KPiAgYXJjaC94ODYva2Vy
+bmVsL3NtcGJvb3QuYyAgICAgICAgICAgICAgICAgfCAgIDQgKy0NCj4gIGRyaXZlcnMvZmlybXdh
+cmUvcHNjaS9wc2NpLmMgICAgICAgICAgICAgIHwgIDI3ICstDQo+ICBpbmNsdWRlL2xpbnV4L2Nw
+dWhvdHBsdWcuaCAgICAgICAgICAgICAgICB8ICAgMiArLQ0KPiAgaW5jbHVkZS9saW51eC9wc2Np
+LmggICAgICAgICAgICAgICAgICAgICAgfCAgIDMgKy0NCj4gIGluY2x1ZGUvbGludXgvcmN1dHJl
+ZS5oICAgICAgICAgICAgICAgICAgIHwgICAyICstDQo+ICBrZXJuZWwvY3B1LmMgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICB8ICAxOCArLQ0KPiAgMjMgZmlsZXMgY2hhbmdlZCwgNTA4IGlu
+c2VydGlvbnMoKyksIDQzOSBkZWxldGlvbnMoLSkNCj4gDQo+IC0tDQo+IDIuNTYuMC4zODUuZ2Qz
+YWNiOTBlZjgtZ29vZw0KPiANCg0K
