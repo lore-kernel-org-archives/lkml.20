@@ -1,1018 +1,158 @@
-Received: from out28-170.mail.aliyun.com (out28-170.mail.aliyun.com [115.124.28.170])
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011070.outbound.protection.outlook.com [52.101.62.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1C1330DEBA;
-	Sun, 11 Oct 2026 02:51:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.170
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791687070; cv=none; b=ngdjR58vt/wLmDdZSeS1AzKW8gxxDz24DuzWZdf8s+a0cxXHfk35+WtKLnNIoxt2zbYa92DdApnbJo3X/qu1TxrwDIeHa+kXZq6glV0WxV9YlqF4yKnrL+gMLjGLs1LIJZ/fHU9E+Ru6D9+9yTeoOhjTL0cq+QNBsI5fY6hF6EQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791687070; c=relaxed/simple;
-	bh=/oSUHxhU0W/CDoXCzYnbXK8ZVuHpUbWTYvwBNEAipKI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=fcG+7JJR9OXRh/T3ua6+E9SZAq4dsVDHeX7icHjct/cm+VMjEcUKc+5EAvcSiAYNquRuWWJnMWSP2TdCSha9Cau6M104ehi5Cgu57WpPuYKOTO9q15rH8gts0K5hgiEHrmSWOhP6HTd+cPO5duIgn8NkI9S96FW/AclMGfEBw20=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=115.124.28.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.00656783-0.000155977-0.993276;FP=15148851686550358694|14|2|17|0|-1|-1|-1;HT=maildocker-contentspam033068016216;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=16;RT=16;SR=0;TI=SMTPD_---.jYiPJYP_1791687053;
-Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jYiPJYP_1791687053 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Sun, 11 Oct 2026 10:50:54 +0800
-From: Kyle Switch <kyle.switch@motor-comm.com>
-To: andrew@lunn.ch,
-	olteanv@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	mmyangfl@gmail.com,
-	horms@kernel.org,
-	linux@armlinux.org.uk,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: ming.xu@motor-comm.com,
-	xiaolin.xu@motor-comm.com,
-	jianmin.wang@motor-comm.com,
-	wei.zhang@gl-inet.com,
-	sijia.huang@gl-inet.com
-Subject: [PATCH net-next v13 5/5] net: dsa: motorcomm: Add support for Motorcomm YT922x
-Date: Sun, 11 Oct 2026 10:50:43 +0800
-Message-Id: <20261011025043.1859940-6-kyle.switch@motor-comm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261011025043.1859940-1-kyle.switch@motor-comm.com>
-References: <20261011025043.1859940-1-kyle.switch@motor-comm.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07FAB2EEE79;
+	Sun, 11 Oct 2026 02:53:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.70
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791687197; cv=fail; b=T52Cg+6+AyDsHGWfeGmYZCuYt+IljcLGp0wiz/7ltkotiQHERcUlYxzT80g/Vfp8Gib4L04RWndaae1zFtHSdDDZnoLJLMi6j2gUfruC5scJ8ymcEMdyxvQDGYshQcNOxFdZ+m3CYvI8Fa9VVb1eWhSTWUCaj0bSvK+9BXGv0Ls=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791687197; c=relaxed/simple;
+	bh=heDphwA9mFOUUkY4VZ+r1a+1wgqYdnOmv0Frt21AXRw=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=MC9eNl7pYH/kjaZxxki4+pihFFILlhOMIJ/y+i+wFDBi8PVEhqsGxQFeDvAEVpmNEoIVMwwo07UqVzY8lfmu7wi88WIGUv81qMnMryH5KLnwC6iHlfheyXAK9lmBl21X691XvlY9F9Jeh/4EKiqqZpjycFFV8AhenJIqWJpUMSc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Cxd/L/UR; arc=fail smtp.client-ip=52.101.62.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Cxd/L/UR"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HUhTlWYf0lQqlX7AZk/VLl9L/qen+ND9IXbUwcnP9no8jbR+G2IvTx4WYFIDZvqHq7XRp2EzoNSLUd7cKORSXuJGcfb96MS2JOAkyOCkybmc4OUii5c60PvHkp3W813rtwbeWY6gEqrqbLvOEPNpss3vRjaqVf2E8KnUs/6S9/iFTThw20LjimfTibLxwqK1jCVVid9hOlPyzix0ed/XSqx7IXaeESUiQy0TvY9lpXk65CMlzhtlXZ3Mi4bizh4uzowsn7DnrZlmtd0HQjSHlTdCEoSV6fcBH1d3xbIdkgwB9Ye3YuTuJPqzo1yUoP7FranS+XCA83HmV4kTLHkEEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jcU5LfQ/ldwlcKxk5tvzE25VkKS/JZWRqG4BQjJAEQg=;
+ b=STHQy4wJ0Bi59JRR6qM+pBwof8Us96zOOpDDK4JCY/90gDm0U0nS1L0rHBhagXl97x78pnN3ONPYn1GuUnFHDRJINwNYLiytwVCoX7RYZ5CloZ5iJOg8zcS9YuTcBkxU2lqx4KepHn81FHu664O+451QFj9ADoEgHFKE0wr0cwse0JVNimTDRHUTuRpjScjj9bfagMDlia4DH1ZuGwBboHasIu0ogbXXhge/xp6w0qg0+U7dtd4UgM1uXFlQJJgq8OSfAAi61/2zfBdfgyLiskOfSb4SMx9E7IEIApiEWmDYuwhKo9AElyKThZxz79fUWK1GSAd1BMpaxZkpVhD9fQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jcU5LfQ/ldwlcKxk5tvzE25VkKS/JZWRqG4BQjJAEQg=;
+ b=Cxd/L/URlBgY+1/YYhtvN4nuKvQCXxiQBpDlMl5oxmg8CU040fVAD4ij0jdolu8RGBCxFsIxVeJDqE6XvXcLMEk3dIWoRygC590/Vd5lNteIzhCk39D92W7NhObar8+Uxqn2KTkbLtiywXvjxJweBVpS4N7zJhP0Mfidg4e3ZM+q1BZxeLYOJBJ1dtk8gXcMMNKEBzqQHk0AFZvl5tN5h8BiYIZDze46CoU0itQ1d/n5SQ5WMw+LSUCh3G7SFpzwf1XWvvfznMWyMPoVMxu7UQNhTcIAUO6pUqaNMzxMOhrZcOZztYKqpbcXcYTthAX8GeKUfIoSHd4aFuo2yZUxFQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LY0PR12MB727857.namprd12.prod.outlook.com
+ (2603:10b6:408:3ba::5) by LV3PR12MB9213.namprd12.prod.outlook.com
+ (2603:10b6:408:1a6::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.20; Sun, 11 Oct
+ 2026 02:52:36 +0000
+Received: from LY0PR12MB727857.namprd12.prod.outlook.com
+ ([fe80::843e:82cd:41ca:f522]) by LY0PR12MB727857.namprd12.prod.outlook.com
+ ([fe80::843e:82cd:41ca:f522%5]) with mapi id 15.21.0496.019; Sun, 11 Oct 2026
+ 02:52:36 +0000
+Message-ID: <242a50c2-dcb1-4f68-8715-a5a27fd2be57@nvidia.com>
+Date: Sat, 10 Oct 2026 19:52:31 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v14 09/16] cxl: Refresh cached PCI HDM decoder settings
+To: Dave Jiang <dave.jiang@intel.com>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Davidlohr Bueso <dave@stgolabs.net>,
+ Ira Weiny <ira.weiny@intel.com>, Jonathan Cameron <jic23@kernel.org>,
+ Vishal Verma <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
+ alwilliamson@nvidia.com,
+ Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
+ Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
+ Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+ linux-tegra@vger.kernel.org
+References: <20261001092227.3004747-1-smadhavan@nvidia.com>
+ <20261001092227.3004747-10-smadhavan@nvidia.com>
+ <48d34fdc-d891-4175-81df-2217068176dd@intel.com>
+Content-Language: en-US
+From: Srirangan Madhavan <smadhavan@nvidia.com>
+In-Reply-To: <48d34fdc-d891-4175-81df-2217068176dd@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR03CA0325.namprd03.prod.outlook.com
+ (2603:10b6:303:dd::30) To LY0PR12MB727857.namprd12.prod.outlook.com
+ (2603:10b6:408:3ba::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LY0PR12MB727857:EE_|LV3PR12MB9213:EE_
+X-MS-Office365-Filtering-Correlation-Id: f0e33c5c-8472-4f8b-fde8-08df2742b49e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|7416014|1800799024|23010399003|921020|56012099006|4143699003|11063799006|22082099003|10067099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	QNXym7i0piolk0kf4rjfMIeEV49YIVHkma9Tlh87cz1DGa9B/pR7ktE6YI3FFiP1xAe46kja/pjsfXD52ZyaRMrMUtBSIduDPSCcrowsx+uKtshkwaTp5AOKc7ZvKR3H3kh4Uf2cG1HjiYALmBjUWNi1HuNw56+HAyc4bK9XxzZLExTWIvQ6kXvNKV/N6pCM0o0OxXa5hl6TqgI/GQGfw2DMrbyf9K3OJ65s4OyrM0pZvadHC6oXqW2++Vo7Y7vu9XwDduxl5Xy9qMffql/YrO98LZtK8azahZY5HmXjNZAXyiGvH4TQ7lxjufMAodKXt3eNd8tuSKMDFvnfwb4B0A4eLbJAB9rUusVBZ6ShcqeUwMy0BA4ZuevlTOFG296hkamLIfYWVtFYpJnyVJtBoNC4anGwOCVqgNIQ30aM9ypl6vWaJqQPzzvTu3hZOscxYxd++6lU5V/B2IwmX4Fo1akdQU7uSiOfNoXAwEpiMLu2oILNqrzLU2bM6I1msSRiq+YfrnBCe2Mc7m4y+DL1Sve3Sg/ugHTaQEepLkxGZ7v/uciaib5nc/AZktIqxjuft+saajzFTJtHwDoW8remr1It8zOo3eqQ+hMoXmgMcq6QhB5Wf4sZ3/vYyCxiSf51vwX2MywcALwlor6hHfSAraEcZiYM/cRzc5FChlrfkajyc+AUTz/NVtjMICSzxbppPbM+Uat0dHhCsIzFJU2cjA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LY0PR12MB727857.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(921020)(56012099006)(4143699003)(11063799006)(22082099003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bDRyY2pOZUdEQVptMld1dmVrazkvZ1VaUFZRYmdRMVo5dFhEa3lOSGVqcU5u?=
+ =?utf-8?B?amVLWGJpTFlERXU2KzFST3BKaWNFeTgwRk1iZnZaSzVWdXBiak4xVEpRZWZx?=
+ =?utf-8?B?ZTZOWGNOWGRmTFZjMzh4WDladWs3VDZJaU82OE1GeUdQNHZRU2dWYU9La1hH?=
+ =?utf-8?B?dGFjWjdZTWtDNkNnbWVPNllxbWZUcTF2ZkFibVdxZEVFL2Q2THVSRTRDZ3N1?=
+ =?utf-8?B?d2lBTGM5eXEvS0xneUhwd2xPM3dHQ204S0xENnVESmVDVEJNaGN2eHA2NVdT?=
+ =?utf-8?B?emxOL3lVTnNYRjJKMkpBS0VQc0dYcDJ3dWJUWjIrVUVYNDN4d0dkNk5pcGlp?=
+ =?utf-8?B?V0p6R0orUytieUFycWVaTG54SVVXVUZQZXhiWjd6K1QzYXo0bktjY0FhZ01q?=
+ =?utf-8?B?NjNWZUZMRmJDMHVidDBrb2prVzJVTm5IRnZjbmJ6TkFzZ0x5OEtsb1dXTU1r?=
+ =?utf-8?B?Z2JHYUJ6ZG9OaGxQSWlwWndBSWwyaXl2TnFLMkovRjRFWk43NktkTkpTN1dW?=
+ =?utf-8?B?dllmcDlwdkdQRnpUZUFmSFVTd2g2bUo5MHU0YjhzWGc5RkZ2MjdtYm9oN28z?=
+ =?utf-8?B?MVhXTTVWVjRiN1lOOUZEeXEveitvVE1yUUQvMVYzRlVtQ1JPeHJ3WXhiTmpy?=
+ =?utf-8?B?UG9PMVB2TjR2UjRxR2JMRzVuNFgrS2FNWWVJUWJxRlRRMWdhZEh5YW1JakYw?=
+ =?utf-8?B?YVFycXp5R1A1RFlld3UwY2JzZ2Jxc2ZRcGJQd2dwN2IwckNnaVc0Q2ZLcDhx?=
+ =?utf-8?B?VkwyV0xRWE01UklZdnlMVUpnVTc3dUhodDgzamQ0Y1VUMW9ROEFaUzZXYy9v?=
+ =?utf-8?B?WCszUnB0YTZsaGxUOWxvenpHdG9CKzh2UGFGZzQxYkQxeDE0Rjd6c2V5Q0hS?=
+ =?utf-8?B?bFpJa2N6aUNXS1dCU0lJRzlkWXZyeDlpQU1QTXlobVRBUlpPQitPNHBtSDZl?=
+ =?utf-8?B?YWZEeUsrc1M1d3AzTnpmZXdpWVYvMXI1a1YzY2hMdWpqY3VuaTNMYjJMQmRT?=
+ =?utf-8?B?Tkd5emk0eGVRT0ZKdzhSdFdZY1o4VUNtcFFidDRHNytLWFFlZlJGU1dXYkF2?=
+ =?utf-8?B?ak5WSHBXVi9RNUNnZUV5WXBvUHBmTUVxZnBpUkxFS2ZKUURORmxUeWMvRW84?=
+ =?utf-8?B?dnVJNmZFOGc1MzlPeTNjUXZVd3B1d3RzclZ4SHI4c05zZFcweEpoZnhab0Mz?=
+ =?utf-8?B?eTQ1bWlFdzRBN3gydzZwMUFSQVZkeVdkVkpFTi9BR0trVURzWmYrc0Y2YU9P?=
+ =?utf-8?B?YU9keWFPbWJieWQ1OTJDcUw3S211QWxDc0c0Z2p5M0FmSmxlVEtFSHlwSnBL?=
+ =?utf-8?B?bk02bllBcVVOYTMwY1A2S2I5K3BKNzFnTGxkM3QraU1iN211c0NTSG9CL0Vx?=
+ =?utf-8?B?ckxCQkhESWZndnNRL1VvVkN3L0IxTVhad0FMZmRraytkNDNEUldrNGM2bXVI?=
+ =?utf-8?B?eHB4cnRDWW0zUjhKZHR1bnBUZUJ1b1podFRlSlhodGNwRE1rT3RtNGNzN0ZC?=
+ =?utf-8?B?cW5oWHQxbjMyWlkwWHdHeEkvNFVicHcrRGVWMk9Va3Q1aWpKUWtpWjBUZ0ly?=
+ =?utf-8?B?MmxwUFdzT01IZE9tVTVqamRiekJCeVVGNkNFbWtaNytRK09Md3hyUW1nd2xR?=
+ =?utf-8?B?YU1CUldEOTF5UmVld1JXRFNpV29SYi8wVnZCdDhTTlhFUkluTHpscjU5SVRS?=
+ =?utf-8?B?T2pUc2lWeVpkQ2pnOWkzR2k2YVNlcXNHdGpOTVZ3UWRvaVpvMGFIZkhnNnA3?=
+ =?utf-8?B?WmNVVWZjdXpTL0JDYmRLSkdQbDBJM2RaOS9WS0M0dTQ3cm5yeGhmMkRDSGRj?=
+ =?utf-8?B?cTNSVnVCR0tHTkFlY3I4TGF5NlpaeklOYkd1MGxzbS82WDlXVENvNzd0VjNk?=
+ =?utf-8?B?NXFGUXljOFJUOVY0TkdYd0lWT1NvUmV4bjU1bTh2Ym13eGpIUEU5UVVmMFI1?=
+ =?utf-8?B?aUpwTXN5WWFZWFN0V2E5aENTcy9KUzUvV2F6QWZud2JQSnZTS1ZsMXpOSjcw?=
+ =?utf-8?B?L3BFb0pMbW1xQnFrcTVsVGZVaDNQMkk5bGQyM1g1YktnUG9nVldwMktpbCs4?=
+ =?utf-8?B?Q3hDZ2JmOTFzRXJJVzd1SG1ud3h3eFBlR09QY2xRSlNHdlpXWlVUalVqZnEr?=
+ =?utf-8?B?YzRodXllc2pCbCtpN3dsTnJ3a2p2YmhQbHZkRUxWSHord0Z4NlRrWTJFaEJT?=
+ =?utf-8?B?R1ZrQ285UnFMaTNSSVMzQ1dCQkJJUXVQOEFMd1NOMUhOcEs5Ylc2aUs2RkFL?=
+ =?utf-8?B?WVc0TjFhWFVvZGhvbmxkLzRxeWJIbTkwSWtSMmplUXMyYk1ESnZGUFZzWmVh?=
+ =?utf-8?B?cDh4YlQ2ajBHdUkrL2pWZ0FaVjRPajRDdDJLamUxZnh2SDhwNlFVZz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f0e33c5c-8472-4f8b-fde8-08df2742b49e
+X-MS-Exchange-CrossTenant-AuthSource: LY0PR12MB727857.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2026 02:52:36.2231
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: v6TscU7cZkL69FCwcbSGrTJJZ1u1NJixI2fg9LdkdtKyupHt+Bl32Fu05MXi3NrwAyJ7xkrX4mnx10HvAvIsHA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9213
 
-Add support for Motorcomm YT922X, which is series of
-ethernet switches developed by Motorcomm Electronic
-Technology, includes YT9224 and YT9228.
+On 10/2/26 4:57 PM, Dave Jiang wrote:
+> As an aside, can you please do me a favor and run cxl_test for your series? Having it passing all regression tests is one of the requirements for us to accept CXL patches. We will help you fix any issues crop up if you need it. Of course adding new regression tests for reset to test the new core functions would be awesome and much appreciated.
 
-This patch only adds support for the YT9224 variant.
-YT9228 is not supported yet.
+Hi Dave,
 
-This patch adds basic support for a working DSA switch,
-includes .port_setup, .setup, .phylink_get_caps,
-.get_tag_protocol.
+I test on a arm target (not qemu) all ndctl CXL regression tests passed 
+with a 4K kernel, with a separate ndctl test log-collection race fix.
 
-Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
----
- drivers/net/dsa/motorcomm/Kconfig    |   7 +-
- drivers/net/dsa/motorcomm/Makefile   |   1 +
- drivers/net/dsa/motorcomm/chip.c     | 452 ++++++++++++++++++++++++++-
- drivers/net/dsa/motorcomm/chip.h     |  94 ++++++
- drivers/net/dsa/motorcomm/mdio_bus.c |  39 +++
- drivers/net/dsa/motorcomm/mdio_bus.h |   2 +
- drivers/net/dsa/motorcomm/pcs-922x.c | 173 ++++++++++
- drivers/net/dsa/motorcomm/pcs.h      |   1 +
- 8 files changed, 760 insertions(+), 9 deletions(-)
- create mode 100644 drivers/net/dsa/motorcomm/pcs-922x.c
+Patch 16 in v15 adds some cxl_hdm_unpack_decoder() checks covering range 
+boundaries and overflow, zero-size and uncommitted decoders etc.
 
-diff --git a/drivers/net/dsa/motorcomm/Kconfig b/drivers/net/dsa/motorcomm/Kconfig
-index 79cdd79a1fd2..648c49d6c527 100644
---- a/drivers/net/dsa/motorcomm/Kconfig
-+++ b/drivers/net/dsa/motorcomm/Kconfig
-@@ -1,11 +1,12 @@
- # SPDX-License-Identifier: GPL-2.0-only
- config NET_DSA_YT921X
--	tristate "Motorcomm YT9215 ethernet switch chip support"
-+	tristate "Motorcomm YT9215 and YT9224 ethernet switch chip support"
- 	select NET_DSA_TAG_YT921X
-+	select NET_DSA_TAG_YT922X
- 	select NET_IEEE8021Q_HELPERS if DCB
- 	help
--	  This enables support for the Motorcomm YT9215 ethernet switch
--	  chip.
-+	  This enables support for the Motorcomm YT9215 and YT9224
-+	  ethernet switch chip.
- 
- config NET_DSA_YT921X_LEDS
- 	bool "LED support for Motorcomm YT9215"
-diff --git a/drivers/net/dsa/motorcomm/Makefile b/drivers/net/dsa/motorcomm/Makefile
-index 9c1e3d538d21..22e6da0c10e1 100644
---- a/drivers/net/dsa/motorcomm/Makefile
-+++ b/drivers/net/dsa/motorcomm/Makefile
-@@ -4,5 +4,6 @@ yt921x-objs := chip.o
- yt921x-$(CONFIG_NET_DSA_YT921X_LEDS) += leds.o
- yt921x-objs += mdio_bus.o
- yt921x-objs += mib.o
-+yt921x-objs += pcs-922x.o
- yt921x-objs += pcs-921x.o
- yt921x-objs += smi.o
-diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-index ba988e121d68..2c5a525fc5c3 100644
---- a/drivers/net/dsa/motorcomm/chip.c
-+++ b/drivers/net/dsa/motorcomm/chip.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- /*
-- * Driver for Motorcomm YT921x Switch
-+ * Driver for Motorcomm YT921x and YT922x Switch
-  *
-  * Should work on YT9213/YT9214/YT9215/YT9218, but only tested on YT9215+SGMII,
-  * be sure to do your own checks before porting to another chip.
-@@ -76,6 +76,18 @@ static const struct yt921x_info yt921x_infos[] = {
- 		BIT(8) | BIT(9),
- 		BIT(8) | BIT(9),
- 	},
-+	{
-+		"YT9224", YT9224_MAJOR, 0, 0,
-+		GENMASK_U16(7, 4),
-+		0,
-+		BIT(8) | BIT(0),
-+	},
-+	{
-+		"YT9228", YT9224_MAJOR, 0, 0,
-+		GENMASK_U16(7, 4),
-+		0,
-+		BIT(8) | GENMASK_U16(3, 0),
-+	},
- 	{}
- };
- 
-@@ -3606,6 +3618,11 @@ static void yt921x_dsa_teardown(struct dsa_switch *ds)
- #endif
- }
- 
-+static bool yt921x_needs_extmode_check(u32 major)
-+{
-+	return (major == YT9224_MAJOR) ? false : true;
-+}
-+
- static int yt921x_chip_detect(struct yt921x_priv *priv)
- {
- 	struct device *dev = yt921x_priv_to_device(priv);
-@@ -3631,6 +3648,9 @@ static int yt921x_chip_detect(struct yt921x_priv *priv)
- 		return -ENODEV;
- 	}
- 
-+	if (!yt921x_needs_extmode_check(major))
-+		goto skip_extmode_check;
-+
- 	res = yt921x_reg_read(priv, YT921X_CHIP_MODE, &mode);
- 	if (res)
- 		return res;
-@@ -3670,6 +3690,14 @@ static int yt921x_chip_detect(struct yt921x_priv *priv)
- 
- 	priv->info = info;
- 
-+	return 0;
-+
-+skip_extmode_check:
-+	dev_info(dev,
-+		 "Motorcomm %s ethernet switch, chipid: 0x%x\n",
-+		 info->name, chipid);
-+	priv->info = info;
-+
- 	return 0;
- }
- 
-@@ -4078,6 +4106,405 @@ static const struct dsa_switch_ops yt921x_dsa_switch_ops = {
- 	.setup			= yt921x_dsa_setup,
- };
- 
-+static int yt922x_port_down(struct yt921x_priv *priv, int port)
-+{
-+	u32 mask;
-+	int res;
-+
-+	/* mac force down */
-+	mask = YT922X_PORT_LINK | YT922X_PORT_RX_MAC_EN |
-+	YT922X_PORT_TX_MAC_EN | YT922X_PORT_LINK_AN;
-+	res = yt921x_reg_clear_bits(priv, YT922X_PORTn_CTRL(port), mask);
-+	if (res)
-+		return res;
-+	/* Need force op to make soft configuration effective */
-+	mask = YT922X_PORT_FORCE_OP;
-+	res = yt921x_reg_set_bits(priv, YT922X_PORTn_CTRL(port), mask);
-+	if (res)
-+		return res;
-+
-+	/* disable en_phy */
-+	res = yt921x_reg_clear_bits(priv, YT922X_EN_PHY_VALUE, BIT(port));
-+	if (res)
-+		return res;
-+	res = yt921x_reg_set_bits(priv, YT922X_EN_PHY_OVERWRITE, BIT(port));
-+	if (res)
-+		return res;
-+
-+	return 0;
-+}
-+
-+static void
-+yt922x_phylink_mac_link_down(struct phylink_config *config, unsigned int mode,
-+			     phy_interface_t interface)
-+{
-+	struct dsa_port *dp = dsa_phylink_to_port(config);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(dp->ds);
-+	int port = dp->index;
-+	int res;
-+
-+	mutex_lock(&priv->reg_lock);
-+	res = yt922x_port_down(priv, port);
-+	mutex_unlock(&priv->reg_lock);
-+
-+	if (res)
-+		dev_err(dp->ds->dev, "Failed to %s port %d: %i\n", "bring down",
-+			port, res);
-+}
-+
-+static int
-+yt922x_port_up(struct yt921x_priv *priv, int port, unsigned int mode,
-+	       phy_interface_t interface, int speed, int duplex,
-+	       bool tx_pause, bool rx_pause)
-+{
-+	int ps = ethtool_speed_to_yt921x(speed);
-+	u32 ctrl = 0;
-+	u32 mask;
-+	int res;
-+
-+	if (ps == YT921X_SPEED_INVALID)
-+		return -EINVAL;
-+	ctrl |= ps;
-+
-+	if (duplex == DUPLEX_FULL)
-+		ctrl |= YT922X_PORT_DUPLEX_FULL;
-+	if (tx_pause)
-+		ctrl |= YT922X_PORT_TX_PAUSE;
-+	if (rx_pause)
-+		ctrl |= YT922X_PORT_RX_PAUSE;
-+	ctrl |= YT922X_PORT_RX_MAC_EN | YT922X_PORT_TX_MAC_EN |
-+			YT922X_PORT_CFG_TX_EN | YT922X_PORT_LINK |
-+			YT922X_PORT_CFG_RX_EN;
-+	ctrl &= ~(YT922X_PORT_FC_AN | YT922X_PORT_LINK_AN);
-+	res = yt921x_reg_write(priv, YT922X_PORTn_CTRL(port), ctrl);
-+	if (res)
-+		return res;
-+
-+	/* force op */
-+	mask = YT922X_PORT_FORCE_OP;
-+	res = yt921x_reg_set_bits(priv, YT922X_PORTn_CTRL(port), mask);
-+	if (res)
-+		return res;
-+
-+	/* enable en_phy */
-+	res = yt921x_reg_set_bits(priv, YT922X_EN_PHY_VALUE, BIT(port));
-+	if (res)
-+		return res;
-+	res = yt921x_reg_set_bits(priv, YT922X_EN_PHY_OVERWRITE, BIT(port));
-+	if (res)
-+		return res;
-+
-+	return 0;
-+}
-+
-+static void
-+yt922x_phylink_mac_link_up(struct phylink_config *config,
-+			   struct phy_device *phydev, unsigned int mode,
-+			   phy_interface_t interface, int speed, int duplex,
-+			   bool tx_pause, bool rx_pause)
-+{
-+	struct dsa_port *dp = dsa_phylink_to_port(config);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(dp->ds);
-+	int port = dp->index;
-+	int res;
-+
-+	mutex_lock(&priv->reg_lock);
-+	res = yt922x_port_up(priv, port, mode, interface, speed, duplex,
-+			     tx_pause, rx_pause);
-+	mutex_unlock(&priv->reg_lock);
-+
-+	if (res)
-+		dev_err(dp->ds->dev, "Failed to %s port %d: %i\n", "bring up",
-+			port, res);
-+}
-+
-+static void
-+yt922x_phylink_mac_config(struct phylink_config *config, unsigned int mode,
-+			  const struct phylink_link_state *state)
-+{
-+}
-+
-+static struct phylink_pcs *
-+yt922x_phylink_mac_select_pcs(struct phylink_config *config,
-+			      phy_interface_t interface)
-+{
-+	struct dsa_port *dp = dsa_phylink_to_port(config);
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(dp->ds);
-+
-+	switch (interface) {
-+	case PHY_INTERFACE_MODE_SGMII:
-+	case PHY_INTERFACE_MODE_1000BASEX:
-+	case PHY_INTERFACE_MODE_2500BASEX:
-+	case PHY_INTERFACE_MODE_USXGMII:
-+		return &priv->ports[dp->index].pcs;
-+
-+	default:
-+		return NULL;
-+	}
-+}
-+
-+static const struct phylink_mac_ops yt922x_phylink_mac_ops = {
-+	.mac_select_pcs = yt922x_phylink_mac_select_pcs,
-+	.mac_link_down = yt922x_phylink_mac_link_down,
-+	.mac_link_up = yt922x_phylink_mac_link_up,
-+	.mac_config = yt922x_phylink_mac_config,
-+};
-+
-+static enum dsa_tag_protocol
-+yt922x_dsa_get_tag_protocol(struct dsa_switch *ds, int port,
-+			    enum dsa_tag_protocol m)
-+{
-+	return DSA_TAG_PROTO_YT922X;
-+}
-+
-+static void
-+yt922x_dsa_phylink_get_caps(struct dsa_switch *ds, int port,
-+			    struct phylink_config *config)
-+{
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
-+	const struct yt921x_info *info = priv->info;
-+
-+	config->mac_capabilities = MAC_ASYM_PAUSE | MAC_SYM_PAUSE |
-+				   MAC_10 | MAC_100 | MAC_1000;
-+
-+	if (info->internal_mask & BIT(port)) {
-+		/* port 4 to port 7, internal utp */
-+		__set_bit(PHY_INTERFACE_MODE_INTERNAL,
-+			  config->supported_interfaces);
-+		config->mac_capabilities |= MAC_2500FD;
-+	}
-+	if (info->serdes_mask & BIT(port)) {
-+		/* serdes */
-+		__set_bit(PHY_INTERFACE_MODE_SGMII,
-+			  config->supported_interfaces);
-+		__set_bit(PHY_INTERFACE_MODE_1000BASEX,
-+			  config->supported_interfaces);
-+		__set_bit(PHY_INTERFACE_MODE_2500BASEX,
-+			  config->supported_interfaces);
-+		config->mac_capabilities |= MAC_2500FD;
-+		__set_bit(PHY_INTERFACE_MODE_USXGMII,
-+			  config->supported_interfaces);
-+		config->mac_capabilities |= MAC_5000FD;
-+		config->mac_capabilities |= MAC_10000FD;
-+	}
-+}
-+
-+static int yt922x_port_setup(struct yt921x_priv *priv, int port)
-+{
-+	struct dsa_switch *ds = &priv->ds;
-+	u32 mask;
-+	u32 ctrl;
-+	int res;
-+
-+	/* enable user port isolation and disable fdb learning */
-+	ctrl = ~priv->cpu_ports_mask;
-+	res = yt921x_reg_write(priv, YT922X_PORTn_ISOLATION(port), ctrl);
-+	if (res)
-+		return res;
-+
-+	mask = YT922X_PORT_LEARN_DIS;
-+	res = yt921x_reg_set_bits(priv, YT922X_PORTn_LEARN(port), mask);
-+	if (res)
-+		return res;
-+
-+	if (dsa_is_cpu_port(ds, port)) {
-+		ctrl = ~(u32)0;
-+		res = yt921x_reg_write(priv, YT922X_PORTn_ISOLATION(port),
-+				       ctrl);
-+		if (res)
-+			return res;
-+	}
-+
-+	return 0;
-+}
-+
-+static int yt922x_dsa_port_setup(struct dsa_switch *ds, int port)
-+{
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
-+	int res;
-+
-+	mutex_lock(&priv->reg_lock);
-+	res = yt922x_port_setup(priv, port);
-+	mutex_unlock(&priv->reg_lock);
-+
-+	return res;
-+}
-+
-+static int yt922x_cpu_tag_mode_set_8b(struct yt921x_priv *priv)
-+{
-+	u32 val;
-+	u32 val1;
-+	int res;
-+
-+	/* cpu tag mode set to 8b */
-+	res = yt921x_reg_read(priv, YT922X_CPU_TAG_RX_CTRL, &val);
-+	if (res)
-+		return res;
-+	res = yt921x_reg_read(priv, YT922X_CPU_TAG_TX_CTRL, &val1);
-+	if (res)
-+		return res;
-+	val &= ~YT922X_CPU_TAG_RX_MODE;
-+	val1 &= ~YT922X_CPU_TAG_TX_MODE;
-+	val1 &= ~YT922X_CPU_TAG_TX_TYPE;
-+	res = yt921x_reg_write(priv, YT922X_CPU_TAG_RX_CTRL, val);
-+	if (res)
-+		return res;
-+	res = yt921x_reg_write(priv, YT922X_CPU_TAG_TX_CTRL, val1);
-+	if (res)
-+		return res;
-+
-+	return 0;
-+}
-+
-+static int yt922x_cpu_port_set(struct yt921x_priv *priv)
-+{
-+	struct dsa_switch *ds = &priv->ds;
-+	u32 ctrl;
-+	int res;
-+
-+	/* cpu tag mode */
-+	res = yt922x_cpu_tag_mode_set_8b(priv);
-+	if (res)
-+		return res;
-+
-+	/* Enable DSA */
-+	priv->cpu_ports_mask = dsa_cpu_ports(ds);
-+	ctrl = YT921X_EXT_CPU_PORT_TAG_EN | YT921X_EXT_CPU_PORT_PORT_EN |
-+	       YT921X_EXT_CPU_PORT_PORT(__ffs(priv->cpu_ports_mask));
-+	res = yt921x_reg_write(priv, YT921X_EXT_CPU_PORT, ctrl);
-+	if (res)
-+		return res;
-+
-+	/* Setup software switch */
-+	ctrl = YT922X_CPU_COPY_TO_EXT_CPU;
-+	res = yt921x_reg_write(priv, YT922X_CPU_COPY, ctrl);
-+	if (res)
-+		return res;
-+
-+	return res;
-+}
-+
-+static int yt922x_chip_setup_dsa(struct yt921x_priv *priv)
-+{
-+	unsigned long cpu_ports_mask;
-+	u32 ctrl;
-+	int port;
-+	int res;
-+
-+	/* cpu port set */
-+	res = yt922x_cpu_port_set(priv);
-+	if (res)
-+		return res;
-+
-+	ctrl = GENMASK_U32(8, 0);
-+	res = yt921x_reg_write(priv, YT922X_FILTER_UNK_UCAST, ctrl);
-+	if (res)
-+		return res;
-+
-+	ctrl = 0;
-+	for (int i = 0; i < priv->series->max_ports; i++)
-+		ctrl |= YT922X_ACT_UNK_ACTn_TRAP(i);
-+	cpu_ports_mask = priv->cpu_ports_mask;
-+	for_each_set_bit(port, &cpu_ports_mask, priv->series->max_ports) {
-+		ctrl &= ~YT922X_ACT_UNK_ACTn_M(port);
-+		ctrl |= YT922X_ACT_UNK_ACTn_DROP(port);
-+	}
-+	res = yt921x_reg_write(priv, YT922X_ACT_UNK_UCAST, ctrl);
-+	if (res)
-+		return res;
-+	res = yt921x_reg_write(priv, YT922X_ACT_UNK_MCAST, ctrl);
-+	if (res)
-+		return res;
-+
-+	return 0;
-+}
-+
-+static int yt922x_chip_setup(struct yt921x_priv *priv)
-+{
-+	u32 ctrl;
-+	int res;
-+
-+	ctrl = YT922X_FUNC_MIB | YT922X_FUNC_ACL;
-+	res = yt921x_reg_set_bits(priv, YT921X_FUNC, ctrl);
-+	if (res)
-+		return res;
-+
-+	res = yt922x_chip_setup_dsa(priv);
-+	if (res)
-+		return res;
-+
-+	return 0;
-+}
-+
-+static void yt922x_pcs_setup(struct dsa_switch *ds)
-+{
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
-+	const struct yt921x_info *info = priv->info;
-+	unsigned long mask;
-+	int port;
-+
-+	mask = info->serdes_mask;
-+	for_each_set_bit(port, &mask, priv->series->max_ports) {
-+		struct yt921x_port *pp = &priv->ports[port];
-+
-+		pp->pcs.ops = &yt922x_phylink_pcs_ops;
-+		pp->pcs.poll = true;
-+
-+		__set_bit(PHY_INTERFACE_MODE_SGMII,
-+			  pp->pcs.supported_interfaces);
-+		__set_bit(PHY_INTERFACE_MODE_1000BASEX,
-+			  pp->pcs.supported_interfaces);
-+		__set_bit(PHY_INTERFACE_MODE_2500BASEX,
-+			  pp->pcs.supported_interfaces);
-+		__set_bit(PHY_INTERFACE_MODE_USXGMII,
-+			  pp->pcs.supported_interfaces);
-+	}
-+}
-+
-+static int yt922x_dsa_setup(struct dsa_switch *ds)
-+{
-+	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
-+	struct device *dev = yt921x_priv_to_device(priv);
-+	struct device_node *np = dev->of_node;
-+	struct device_node *child;
-+	int res;
-+
-+	mutex_lock(&priv->reg_lock);
-+	res = yt921x_chip_reset(priv);
-+	mutex_unlock(&priv->reg_lock);
-+	if (res)
-+		return res;
-+
-+	/* Register the internal mdio bus. */
-+	child = of_get_child_by_name(np, "mdio");
-+	if (child) {
-+		res = yt921x_mbus_int_init(priv, child);
-+		of_node_put(child);
-+		if (res)
-+			return res;
-+	}
-+
-+	mutex_lock(&priv->reg_lock);
-+	res = yt922x_chip_setup(priv);
-+	mutex_unlock(&priv->reg_lock);
-+	if (res)
-+		return res;
-+
-+	/* switch sds pcs setup */
-+	yt922x_pcs_setup(ds);
-+
-+	return 0;
-+}
-+
-+static const struct dsa_switch_ops yt922x_dsa_switch_ops = {
-+	/* port */
-+	.get_tag_protocol = yt922x_dsa_get_tag_protocol,
-+	.phylink_get_caps = yt922x_dsa_phylink_get_caps,
-+	.port_setup  = yt922x_dsa_port_setup,
-+	/* chip */
-+	.setup   = yt922x_dsa_setup,
-+};
-+
- static const struct yt92xx_series yt92xx_series_table[] = {
- 	[YT92XX_MODE_YT921X] = {
- 		.name = "YT921x",
-@@ -4090,12 +4517,25 @@ static const struct yt92xx_series yt92xx_series_table[] = {
- 		.switch_ops = &yt921x_dsa_switch_ops,
- 		.mac_ops = &yt921x_phylink_mac_ops
- 	},
-+	[YT92XX_MODE_YT922X] = {
-+		.name = "YT922x",
-+		.max_ports = YT922X_PORT_NUM,
-+		.num_lag_ids = YT922X_LAG_NUM,
-+		.ageing_time_min = 1 * 6000,
-+		.ageing_time_max = U16_MAX * 6000,
-+		.dscp_prio_mapping_is_global = true,
-+		.assisted_learning_on_cpu_port = true,
-+		.switch_ops = &yt922x_dsa_switch_ops,
-+		.mac_ops = &yt922x_phylink_mac_ops,
-+	},
- };
- 
- static const struct yt92xx_series *yt92xx_series_lookup(u32 major)
- {
- 	if (major == YT9215_MAJOR || major == YT9218_MAJOR)
- 		return &yt92xx_series_table[YT92XX_MODE_YT921X];
-+	else if (major == YT9224_MAJOR)
-+		return &yt92xx_series_table[YT92XX_MODE_YT922X];
- 	else
- 		return NULL;
- }
-@@ -4112,15 +4552,13 @@ static int yt92xx_register_switch(struct dsa_switch *ds)
- 	mutex_lock(&priv->reg_lock);
- 	res = yt921x_reg_read(priv, YT921X_CHIP_ID, &chipid);
- 	mutex_unlock(&priv->reg_lock);
--	if (res) {
--		dev_err(dev, "Unexpected chipid 0x%x\n", chipid);
-+	if (res)
- 		return res;
--	}
- 
- 	major = FIELD_GET(YT921X_CHIP_ID_MAJOR, chipid);
- 	series = yt92xx_series_lookup(major);
- 	if (!series) {
--		dev_err(dev, "Undefined series info for the corresponding major\n");
-+		dev_err(dev, "Chip ID: 0x%x, and Unknown major.\n", chipid);
- 		return -ENODEV;
- 	}
- 	priv->series = series;
-@@ -4220,6 +4658,7 @@ static int yt921x_mdio_probe(struct mdio_device *mdiodev)
- 
- static const struct of_device_id yt921x_of_match[] = {
- 	{ .compatible = "motorcomm,yt9215" },
-+	{ .compatible = "motorcomm,yt9224" },
- 	{}
- };
- MODULE_DEVICE_TABLE(of, yt921x_of_match);
-@@ -4237,5 +4676,6 @@ static struct mdio_driver yt921x_mdio_driver = {
- mdio_module_driver(yt921x_mdio_driver);
- 
- MODULE_AUTHOR("David Yang <mmyangfl@gmail.com>");
--MODULE_DESCRIPTION("Driver for Motorcomm YT921x Switch");
-+MODULE_AUTHOR("Kyle Switch <kyle.switch@motor-comm.com>");
-+MODULE_DESCRIPTION("Driver for Motorcomm YT921x and YT922x Switch");
- MODULE_LICENSE("GPL");
-diff --git a/drivers/net/dsa/motorcomm/chip.h b/drivers/net/dsa/motorcomm/chip.h
-index 85174a51b72d..f14747278d1d 100644
---- a/drivers/net/dsa/motorcomm/chip.h
-+++ b/drivers/net/dsa/motorcomm/chip.h
-@@ -119,6 +119,7 @@ enum yt921x_speed {
- 	YT921X_SPEED_1000,
- 	YT921X_SPEED_10000,
- 	YT921X_SPEED_2500,
-+	YT921X_SPEED_5000,
- 	YT921X_SPEED_INVALID
- };
- 
-@@ -749,6 +750,7 @@ enum yt921x_fdb_entry_status {
- 
- #define YT9215_MAJOR	0x9002
- #define YT9218_MAJOR	0x9001
-+#define YT9224_MAJOR	0x9004
- 
- /* required for a hard reset */
- #define YT921X_RST_DELAY_US	10000
-@@ -770,6 +772,96 @@ enum yt921x_fdb_entry_status {
- 
- #define YT921X_NAME	"yt921x"
- 
-+/* yt922x register lists */
-+#define YT92XX_PAGE_SELECT	0x1e
-+#define YT92XX_PAGE		0x1f
-+#define YT922X_PORTn_STATUS(port)	(0x80200 + 4 * (port))
-+#define  YT922X_PORT_LINK_STATE			BIT(8)
-+#define  YT922X_PORT_LINK_DUPLEX		BIT(7)
-+#define  YT922X_PORT_RX_FC_EN			BIT(6)
-+#define  YT922X_PORT_TX_FC_EN			BIT(5)
-+#define YT922X_PORT_SPEED_10		0
-+#define YT922X_PORT_SPEED_100		1
-+#define YT922X_PORT_SPEED_1000		2
-+#define YT922X_PORT_SPEED_10000		3
-+#define YT922X_PORT_SPEED_2500		4
-+#define YT922X_PORT_SPEED_5000		5
-+#define YT922X_EN_PHY_OVERWRITE		(0x80040)
-+#define YT922X_EN_PHY_VALUE		(0x8003c)
-+/* CTRL: force op to make soft configuration effective */
-+#define YT922X_PORTn_CTRL(port)		(0x80080 + 4 * (port))
-+#define  YT922X_PORT_FORCE_OP			BIT(14)
-+#define  YT922X_PORT_CFG_TX_EN			BIT(13)
-+#define  YT922X_PORT_CFG_RX_EN			BIT(12)
-+#define  YT922X_PORT_FC_AN			BIT(11)
-+#define  YT922X_PORT_LINK_AN			BIT(10)  /* CTRL: auto negotiation */
-+#define  YT922X_PORT_LINK			BIT(9)  /* CTRL: link status */
-+#define  YT922X_PORT_HALF_PAUSE			BIT(8)  /* Half-duplex back pressure mode */
-+#define  YT922X_PORT_DUPLEX_FULL		BIT(7)
-+#define  YT922X_PORT_RX_PAUSE			BIT(6)
-+#define  YT922X_PORT_TX_PAUSE			BIT(5)
-+#define  YT922X_PORT_RX_MAC_EN			BIT(4)
-+#define  YT922X_PORT_TX_MAC_EN			BIT(3)
-+#define  YT922X_PORT_SPEED_M			GENMASK(2, 0)
-+#define YT922X_PORT_SDSn		0x400
-+#define  YT922X_SERDES_MODE_M			GENMASK(6, 4)
-+#define   YT922X_SERDES_MODE(x)				FIELD_PREP(YT922X_SERDES_MODE_M, (x))
-+#define YT922X_SERDES_MODE_SGMII	YT922X_SERDES_MODE(0)
-+#define YT922X_SERDES_MODE_REVSGMII	YT922X_SERDES_MODE(1)
-+#define YT922X_SERDES_MODE_1000BASEX	YT922X_SERDES_MODE(2)
-+#define YT922X_SERDES_MODE_100BASEX	YT922X_SERDES_MODE(3)
-+#define YT922X_SERDES_MODE_2500BASEX	YT922X_SERDES_MODE(4)
-+#define YT922X_SERDES_MODE_USXGMII	YT922X_SERDES_MODE(6)
-+#define YT922X_PORT_NUM			9
-+#define YT922X_PCS_LINK_CTRL		0x11
-+#define YT922X_PCS_LINK_STATUS		BIT(10)
-+#define YT922X_PCS_AN_COMPLETE		BIT(11)
-+
-+/* LAG */
-+#define YT922X_LAG_NUM			4
-+/* ISO */
-+#define YT922X_PORTn_ISOLATION(port)	(0x4 * (port) + 0x180d80)
-+/* FDB */
-+#define YT922X_PORTn_LEARN(port)	(0x180300 + 4 * (port))
-+#define  YT922X_PORT_LEARN_DIS			BIT(18)
-+/* GLOBAL CTRL */
-+#define  YT922X_FUNC_ACL			BIT(5)
-+#define  YT922X_FUNC_MIB			BIT(4)
-+/* CTRL PKT */
-+#define YT922X_FILTER_UNK_UCAST		0x180ec8
-+#define YT922X_ACT_UNK_UCAST		0x180ed8
-+#define YT922X_ACT_UNK_MCAST		0x180ee0
-+#define  YT922X_ACT_UNK_MCAST_BYPASS_DROP_PIM	BIT(22)
-+#define  YT922X_ACT_UNK_MCAST_BYPASS_DROP_MLD	BIT(21)
-+#define  YT922X_ACT_UNK_MCAST_BYPASS_DROP_IGMP	BIT(20)
-+#define  YT922X_ACT_UNK_ACTn_M(port)			GENMASK(2 * (port) + 1, 2 * (port))
-+#define  YT922X_ACT_UNK_ACTn(port, x)			((x) << (2 * (port)))
-+#define  YT922X_ACT_UNK_ACTn_FORWARD(port)		YT922X_ACT_UNK_ACTn(port, 0)  /* flood */
-+#define  YT922X_ACT_UNK_ACTn_DROP(port)			YT922X_ACT_UNK_ACTn(port, 1)  /* discard */
-+#define  YT922X_ACT_UNK_ACTn_TRAP(port)			YT922X_ACT_UNK_ACTn(port, 3)  /* steer to CPU */
-+
-+/* CPU PORT */
-+#define YT922X_CPU_COPY			0x181100
-+#define  YT922X_CPU_COPY_TO_INT_CPU		BIT(1)
-+#define  YT922X_CPU_COPY_TO_EXT_CPU		BIT(0)
-+#define YT922X_CPU_TAG_RX_CTRL		0x80504
-+#define  YT922X_CPU_TAG_RX_MODE			BIT(0)
-+#define YT922X_CPU_TAG_TX_CTRL		0x100710
-+#define  YT922X_CPU_TAG_TX_TYPE		BIT(0)
-+#define  YT922X_CPU_TAG_TX_MODE		BIT(1)
-+#define  YT922X_CPU_TAG_TX_CTAG_OP	BIT(2)
-+#define  YT922X_CPU_TAG_TX_STAG_OP	BIT(3)
-+/* Define top ext addr for yt922x */
-+#define YT922X_COMMON_EXT_PHYADDR 9
-+
-+enum yt922x_phy_reg_type {
-+	YT922X_PHY_REG_TYPE_COMMON_EXT,
-+	YT922X_PHY_REG_TYPE_SDS_COMMON_EXT,
-+	YT922X_PHY_REG_TYPE_MII,
-+	YT922X_PHY_REG_TYPE_EXT,
-+	YT922X_PHY_REG_TYPE_MAX
-+};
-+
- struct yt921x_acl_entry {
- 	u32 key[2];
- 	u32 mask[2];
-@@ -907,6 +999,8 @@ static inline int ethtool_speed_to_yt921x(int speed)
- 		return YT921X_SPEED_2500;
- 	case SPEED_10000:
- 		return YT921X_SPEED_10000;
-+	case SPEED_5000:
-+		return YT921X_SPEED_5000;
- 	default:
- 		return YT921X_SPEED_INVALID;
- 	}
-diff --git a/drivers/net/dsa/motorcomm/mdio_bus.c b/drivers/net/dsa/motorcomm/mdio_bus.c
-index 3aa1111efaa4..a4cb74d0fd90 100644
---- a/drivers/net/dsa/motorcomm/mdio_bus.c
-+++ b/drivers/net/dsa/motorcomm/mdio_bus.c
-@@ -299,3 +299,42 @@ int yt921x_mbus_ext_init(struct yt921x_priv *priv, struct device_node *mnp)
- 
- 	return 0;
- }
-+
-+/* intif extend register read/write api */
-+int
-+yt921x_intif_ext_write(struct yt921x_priv *priv, int port, int reg, u16 val)
-+{
-+	int res;
-+
-+	if (port > priv->series->max_ports)
-+		return -ENODEV;
-+
-+	res = yt921x_intif_write(priv, port, YT92XX_PAGE_SELECT, reg);
-+	if (res)
-+		return res;
-+
-+	res = yt921x_intif_write(priv, port, YT92XX_PAGE, val);
-+	if (res)
-+		return res;
-+
-+	return 0;
-+}
-+
-+int
-+yt921x_intif_ext_read(struct yt921x_priv *priv, int port, int reg, u16 *valp)
-+{
-+	int res;
-+
-+	if (port > priv->series->max_ports)
-+		return -ENODEV;
-+
-+	res = yt921x_intif_write(priv, port, YT92XX_PAGE_SELECT, reg);
-+	if (res)
-+		return res;
-+
-+	res = yt921x_intif_read(priv, port, YT92XX_PAGE, valp);
-+	if (res)
-+		return res;
-+
-+	return 0;
-+}
-diff --git a/drivers/net/dsa/motorcomm/mdio_bus.h b/drivers/net/dsa/motorcomm/mdio_bus.h
-index e79b725d435b..513a8d2d7618 100644
---- a/drivers/net/dsa/motorcomm/mdio_bus.h
-+++ b/drivers/net/dsa/motorcomm/mdio_bus.h
-@@ -50,5 +50,7 @@ yt921x_intif_modify(struct yt921x_priv *priv, int port, int reg, u16 mask,
- 
- int yt921x_mbus_int_init(struct yt921x_priv *priv, struct device_node *mnp);
- int yt921x_mbus_ext_init(struct yt921x_priv *priv, struct device_node *mnp);
-+int yt921x_intif_ext_write(struct yt921x_priv *priv, int port, int reg, u16 val);
-+int yt921x_intif_ext_read(struct yt921x_priv *priv, int port, int reg, u16 *valp);
- 
- #endif
-diff --git a/drivers/net/dsa/motorcomm/pcs-922x.c b/drivers/net/dsa/motorcomm/pcs-922x.c
-new file mode 100644
-index 000000000000..98d403d01ba3
---- /dev/null
-+++ b/drivers/net/dsa/motorcomm/pcs-922x.c
-@@ -0,0 +1,173 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (c) 2026 Kyle Switch
-+ */
-+
-+#include "chip.h"
-+#include "mdio_bus.h"
-+#include "pcs.h"
-+#include "smi.h"
-+
-+#define to_device(priv) ((priv)->ds.dev)
-+
-+static int yt922x_sds_phyaddr_get(int port,
-+				  enum yt922x_phy_reg_type reg_type)
-+{
-+	if (reg_type == YT922X_PHY_REG_TYPE_COMMON_EXT)
-+		return YT922X_COMMON_EXT_PHYADDR;
-+
-+	return port;
-+}
-+
-+static void yt922x_pcs_get_state(struct phylink_pcs *pcs, unsigned int neg_mode,
-+				 struct phylink_link_state *state)
-+{
-+	struct yt921x_port *pp = pcs_to_yt921x_port(pcs);
-+	struct yt921x_priv *priv = yt921x_port_to_priv(pp);
-+	int port = pp->index;
-+	int res = 0;
-+	u16 data;
-+	int addr;
-+	u16 lp;
-+
-+	addr = yt922x_sds_phyaddr_get(port, YT922X_PHY_REG_TYPE_MII);
-+	if (addr < 0) {
-+		state->link = false;
-+		return;
-+	}
-+
-+	mutex_lock(&priv->reg_lock);
-+	switch (state->interface) {
-+	case PHY_INTERFACE_MODE_SGMII:
-+	case PHY_INTERFACE_MODE_1000BASEX:
-+	case PHY_INTERFACE_MODE_2500BASEX:
-+		res = yt921x_intif_read(priv, addr, MII_BMSR, &data);
-+		if (res)
-+			goto err;
-+		res = yt921x_intif_read(priv, addr, MII_LPA, &lp);
-+		if (res)
-+			goto err;
-+		phylink_mii_c22_pcs_decode_state(state, neg_mode, data, lp);
-+		break;
-+	case PHY_INTERFACE_MODE_USXGMII:
-+		res = yt921x_intif_read(priv, addr, YT922X_PCS_LINK_CTRL,
-+					&data);
-+		if (res)
-+			goto err;
-+		state->link =  FIELD_GET(YT922X_PCS_LINK_STATUS, data);
-+		state->an_complete = FIELD_GET(YT922X_PCS_AN_COMPLETE, data);
-+		res = yt921x_intif_read(priv, addr, MII_LPA, &lp);
-+		if (res)
-+			goto err;
-+		if (state->link)
-+			phylink_decode_usxgmii_word(state, lp);
-+		break;
-+	default:
-+		state->link = false;
-+		break;
-+	}
-+	mutex_unlock(&priv->reg_lock);
-+	return;
-+
-+err:
-+	mutex_unlock(&priv->reg_lock);
-+	state->link = false;
-+}
-+
-+static void yt922x_pcs_an_restart(struct phylink_pcs *pcs)
-+{
-+	struct yt921x_port *pp = pcs_to_yt921x_port(pcs);
-+	struct yt921x_priv *priv = yt921x_port_to_priv(pp);
-+	struct device *dev = to_device(priv);
-+	int port = pp->index;
-+	u16 data;
-+	int addr;
-+	int res;
-+
-+	mutex_lock(&priv->reg_lock);
-+	addr = yt922x_sds_phyaddr_get(port, YT922X_PHY_REG_TYPE_MII);
-+	if (addr < 0) {
-+		res = addr;
-+		goto err;
-+	}
-+	res = yt921x_intif_read(priv, addr, MII_BMCR, &data);
-+	if (res)
-+		goto err;
-+	data |= BMCR_ANRESTART;
-+	res = yt921x_intif_write(priv, addr, MII_BMCR, data);
-+	if (res)
-+		goto err;
-+	mutex_unlock(&priv->reg_lock);
-+	return;
-+
-+err:
-+	mutex_unlock(&priv->reg_lock);
-+	if (res)
-+		dev_err(dev, "Failed to %s PCS port %d: %i\n", "an restart",
-+			port, res);
-+}
-+
-+static int yt922x_pcs_config(struct phylink_pcs *pcs, unsigned int neg_mode,
-+			     phy_interface_t interface,
-+			     const unsigned long *advertising,
-+			     bool permit_pause_to_mac)
-+{
-+	struct yt921x_port *pp = pcs_to_yt921x_port(pcs);
-+	struct yt921x_priv *priv = yt921x_port_to_priv(pp);
-+	int res, port;
-+	u16 data;
-+	u16 ctrl;
-+	int addr;
-+
-+	port = pp->index;
-+	mutex_lock(&priv->reg_lock);
-+	addr = yt922x_sds_phyaddr_get
-+		(port, YT922X_PHY_REG_TYPE_SDS_COMMON_EXT);
-+	if (addr < 0) {
-+		res = addr;
-+		goto err;
-+	}
-+	/* write protect */
-+	res = yt921x_intif_ext_write(priv, addr, 0x4be, 0xd);
-+	if (res)
-+		goto err;
-+	switch (interface) {
-+	case PHY_INTERFACE_MODE_SGMII:
-+		ctrl = YT922X_SERDES_MODE_SGMII;
-+		break;
-+	case PHY_INTERFACE_MODE_1000BASEX:
-+		ctrl = YT922X_SERDES_MODE_1000BASEX;
-+		break;
-+	case PHY_INTERFACE_MODE_2500BASEX:
-+		ctrl = YT922X_SERDES_MODE_2500BASEX;
-+		break;
-+	case PHY_INTERFACE_MODE_USXGMII:
-+		ctrl = YT922X_SERDES_MODE_USXGMII;
-+		break;
-+	default:
-+		res = -EINVAL;
-+		goto err;
-+	}
-+	res = yt921x_intif_ext_read(priv, addr, YT922X_PORT_SDSn, &data);
-+	if (res)
-+		goto err;
-+	data &= ~YT922X_SERDES_MODE_M;
-+	data |= ctrl;
-+	res = yt921x_intif_ext_write(priv, addr, YT922X_PORT_SDSn, data);
-+	if (res)
-+		goto err;
-+	mutex_unlock(&priv->reg_lock);
-+
-+	return res;
-+
-+err:
-+	mutex_unlock(&priv->reg_lock);
-+
-+	return res;
-+}
-+
-+const struct phylink_pcs_ops yt922x_phylink_pcs_ops = {
-+	.pcs_get_state = yt922x_pcs_get_state,
-+	.pcs_config = yt922x_pcs_config,
-+	.pcs_an_restart = yt922x_pcs_an_restart,
-+};
-diff --git a/drivers/net/dsa/motorcomm/pcs.h b/drivers/net/dsa/motorcomm/pcs.h
-index 42426558086a..c85caa7bf212 100644
---- a/drivers/net/dsa/motorcomm/pcs.h
-+++ b/drivers/net/dsa/motorcomm/pcs.h
-@@ -9,5 +9,6 @@
- #include <linux/phylink.h>
- 
- extern const struct phylink_pcs_ops yt921x_phylink_pcs_ops;
-+extern const struct phylink_pcs_ops yt922x_phylink_pcs_ops;
- 
- #endif
+I'll add tests for cache refresh, reset restoration etc. in follow-up 
+changes. It looks like they might need additional support changes.
+
 -- 
-2.25.1
-
+Regards,
+Srirangan
