@@ -1,149 +1,127 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01D25356778
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:45:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBC12374A0B
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:45:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791711923; cv=none; b=imzV7CquJM1EfAnIDjGglGPEswTHr8LOSEx2riU/PCK9Wqedkzf+11deD22hx1mUZead9Gwyq6j6r8v4UyxirtuHYushroO56F3mh5HMuR4QKtx0dcQI4H+IT2zm3HSTpF+ZK2iCAQ/2UJr7TgV1jVH9vBVOWOkKO8L1coAFwN0=
+	t=1791711955; cv=none; b=Uw7g4DXVmoDFswetJRrNXI52f0HIBoLhOghTpxLgDt2Uad6c8kP+6yv5rt0kyO1DewbH1lZPaRGlWTKD/CvHTJqMoDMdU6r1y86A4Yk7PdgCwmYcVKdGT1JX3fIPtcJm323n+hk8ymBInrnS/wwhryCoEW3QP197uNq1tOMKpaY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791711923; c=relaxed/simple;
-	bh=UsNPXOQ+/mjEx3zNqHEGVZbTxAiganeip35rDBwddlo=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s91zUJH8lt56Yy5TOXxx5xrt3imSZwt52xt1h2DbmnBbvL8swIjsw8Ll7WHcq+dxKN2ZkQZGICODW+GuJaRJiGMpnrNavIrclREWrZUFcurFUgRx+7sjsqnDdi72p2uztepipx/Z3F7nx8WaLshHovaEGBtnUooi0QAH7kDTfck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aGJ+mBqd; arc=none smtp.client-ip=209.85.218.41
+	s=arc-20240116; t=1791711955; c=relaxed/simple;
+	bh=5mmZhR/1CGYCcEvQ2dg1eKpC1CBZRcve2O2Akd7oIKo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=SWs/7B0CgWHw9guJukIntlX0pJA4feXgyyIRBKmhYiDDpFUjnODHz7eYBGRRmuiBleBn1kGkj7VtwON3Jv7GuUW5/Jlcze0RdmS22X02fhT6/rE50bfnIEbifEb2AFMUFS7DlXeKhFC6fBG/q3IQFdFhwNHIh0naZNfO/S3NWhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O74gu06h; arc=none smtp.client-ip=209.85.214.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aGJ+mBqd"
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c2e43f3d1fdso141903766b.3
-        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 02:45:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O74gu06h"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2e836252e1dso8055505ad.3
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 02:45:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791711920; x=1792316720; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kMWKtk6aRSbfvQLUR3KyOPOC0cuhIr7sFz+mSYCpkyE=;
-        b=aGJ+mBqdDG7hmU/ZR2PoumLsJKPY9Hwi+cF/MKBwsG5DeJUdmeFlcVyU/FbFtpE67O
-         u0popeXOVftOXnVhPzpmPvvvPfc7V9VQlZEoGcbDujChJAeJLQW4Yd/SYh4uOMtCxz1g
-         N7L/SD5JjdUiGIlE+NXRNZSKZSOTIcpIuIKvmSORj122JtW24ybIk7Y+aZGSrWzUUHMw
-         GsPjCroymGXHfwHRI5y5apLyDgFeBsNJiA7Ahi1g8PTXWBzA3wBaj8eQ8EHKNMFfs/XL
-         xm9n2MdCyvTRgO21LtyiWon81R4/5+Vzf3j7GPg4Os45i5k5ueaq/f5fQr1yJ/zbWx5N
-         RiQw==
+        d=gmail.com; s=20251104; t=1791711954; x=1792316754; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=AvGhTKKdbU1GWyQfWY5VlojnPZ4MgvqmXbvuxJbcqHg=;
+        b=O74gu06hmmgmwkawjp/AmttXzVUeEYbTm96xuAyqot9cNjK1O2LkBN3f2ItUU/Ka6Z
+         iMvBtQC60CkKnSYsnoeHb3SBPTIoKq1qJDDveGvh5CkT2vFrERqDPT6qH5CSiQ7uMb0U
+         T60mBYO02oM4lLRp67xteXObajyVqGF3UlqOF+GHR/UWHTWz+cVDatpX0sX+QlzEIrEC
+         Wkk5Od8dKSRayRnKXfYaYvd230Y79pPEqCMYKoGh4GPeHZggi8wJgWCN9tZujKrtWj7L
+         NS3kmqZYn0FJLRKSfvqBulKIEF19QnaYjxTeWOPQMtDO9v1ECqJJ92o94/jL7+UZqNFz
+         Ddxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791711920; x=1792316720;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kMWKtk6aRSbfvQLUR3KyOPOC0cuhIr7sFz+mSYCpkyE=;
-        b=L572o97BZBhkxo2D8N45J09ii/G5E6sJfBFIPKEAE4FnFnmzUn8js8Tcr15WL6Yg9d
-         Fl7ccjY/K9/1JTtNunm6u/zSSelFlDt6FB5a3LyIPUpL1yuVOe8i4s7T3YH6qPwGlC3g
-         4+Pu/q0d4M0ZypezdHnMLUwWFjtEQj+mdms5P1xpWlte2BM5UbICvjDEF4eYr/UWGqI8
-         3tI/dtPF9Jeh9kRj2puc7EYkiKZZ2yMXksCgfVyFtEu7ELURQ4dnt6OheOAMH5Aqp9E/
-         sfVfr80avd7aEMaejLxpnQJvEMrSIURgma4LquT0HRlGBfHtAEkKyoRdo8TwcO2axmat
-         gRtQ==
-X-Forwarded-Encrypted: i=1; AKwUvByarFHiWZHpzQI8KvTvYRROFw0vVrKNkkSMRkUppV7OgALcNUGUihY34UcDhjcfmTU2K0G8JIiBX7k+H7I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJVAuroePoBtLQbt0C5GYiGG4VFAVDDbD3njOjiPZRpE6y4AEnZ
-	AvfV+w/2Oy6MrqmtDRTuWSnfxippykrtzyb692ZUPJM5qpnILr4USxI4
-X-Gm-Gg: AYBFou25rbvL4boatbTCRU/lmHfRzyv/KiJRk7Ysa8bLVZ/LafkFsaKwSe69iQoFkoW
-	TYHKtt/DcN+UuWSE5Lu434cnFmNfD46oym9aRz6M0C0km/rUgufbtgJ2akC6Qml98OKPWR+KehX
-	miOxHK9CdAgme/h6r+6yYUuOAkHhQYLZG7j75RwpfD1RYdcFPSapJePS7X7YKAHYgMpl8yv57kV
-	jCgAqW7U8aqS1slcwVw1feeTFU2Uoh1a7ietUQz85g71jJMPbhNuTxVp4Qf0KsYkp8cIuWIDydw
-	L+rZ/HdzJy2xqfZAaSalg3D4X1uRpiDk4XtAbkaWjjBMTu0Gj9PTTMXqKp+Xwgh3kJhK4hTXYKx
-	IvKpiTolog04iPnf6t6f5Tqct6U2g829sINpOkt+BLVIIa2IRMoLrZDjbOVNfNQiQqunI0Tuk8P
-	TUXm0ftlNQR95otz7ls+EA9NYWZCzn06ZWCWfUGdl9tMS1RA==
-X-Received: by 2002:a17:907:8687:b0:c16:4e5:944a with SMTP id a640c23a62f3a-c31aa02a1ebmr650442866b.21.1791711919938;
-        Sun, 11 Oct 2026 02:45:19 -0700 (PDT)
-Received: from milan ([2001:9b1:d5a0:a500::24b])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9ad0ad1sm347200666b.77.2026.10.11.02.45.18
+        d=1e100.net; s=20260707; t=1791711954; x=1792316754;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=AvGhTKKdbU1GWyQfWY5VlojnPZ4MgvqmXbvuxJbcqHg=;
+        b=wHTlsmuoO13k8wt3ZnG6CdcbihKDD7gLQD1LTzLH2OBzwIu2jm3w0QXKPMulFtO6+m
+         RHaIZsmvnat6RM+dX+T0XUAHpp3cytYk3vfi5HHhLNzmhuaj7GrgK/ckTvoOsXmzghrN
+         cjmslQNoTngY/Dc3MkkrVDWk3ty3/VymOux7o2yR7bIOcre8sMEfyvaEBjz8s2Ig7BDz
+         7KMEC/ddhIQMznkwwhfSzxBcjnmTWmiPsK4h56Mw49Uq8ambg5WjJfDcuQLrPLKKEQYc
+         Ad9mCx2y4PSz5guXYAj+vswYyUqKFVKy3xolpcODXmDCRSBCh7ttpcMHfVvdw0m+qszB
+         zcbQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwwdPMuPsQ3NHistWvmo9uFmlpkh2QdbRICU1B7KJwyh4W7cIGCdKuELtrrcghsjZ0vB90c7NIWxiy1KPM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJTaKo2djqjw5Axme7q0slLHxaSoldh4JYQR6EyUO+oy4Dp2Qcg
+	0oCNsMfkaCw+zz8j86BD4jDKWBJMTEGDPN7Nuhd8r/cJCg7xstyXrixB
+X-Gm-Gg: AYBFou1TwC81n80+EBwRfsRT16eJuVwwxnR5noeqnpQANDxH/Hm4kV3sN8zrbO9t39o
+	6M8PTMntU+eM42PiiUeBPiBgqrfWJ0KxhWlH9uYcD1rJu7bWGyHcrCyDBmVIxU+7PKoK+cFVvP5
+	SRYmaFVmgMQt6rTc4HmSSMpR6W05gKgDAinSAanQATsEOkS3uh4j6AnAehJ7P/5hHU6sDD9iWGG
+	kYU0dFpVbEFPDOyzd+ZtXBC08DLgeE0n2K+4KHy+Zrt1wQ0AVOh2uaYG+lr/olOFFIEl3WeTBFl
+	qY7FMdHGdYrD4sKjRbtSEjfPcPwt7gTUY4FyMp4TT95w1dneGHenvhUkx7pbQGEcJqB8Bsv0quL
+	7reZ0LhDueHiOLj5FNZaoB6gIcqskBW38HloN2js8lC8RYpYkVONVRPi+QunOkElMDGIfxcOY4n
+	uXrBNAQraNhHOTiX9UBizFfemvU2zMjbiC23gABOhuM8Y40L1lQ5ajGTPE80x0E7peKp4=
+X-Received: by 2002:a17:902:ea05:b0:2dd:ad73:c93e with SMTP id d9443c01a7336-2e842abf8a8mr58037495ad.31.1791711953944;
+        Sun, 11 Oct 2026 02:45:53 -0700 (PDT)
+Received: from [127.0.1.1] ([121.125.115.175])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422ba80asm31067695ad.63.2026.10.11.02.45.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 02:45:19 -0700 (PDT)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@milan>
-Date: Sun, 11 Oct 2026 11:45:16 +0200
-To: ryan.roberts@arm.com, dev.jain@arm.com
-Cc: akpm@linux-foundation.org, catalin.marinas@arm.com, linux-mm@kvack.org,
-	urezki@gmail.com, will@kernel.org, Xueyuan.chen21@gmail.com,
-	ajd@linux.ibm.com, anshuman.khandual@arm.com, baohua@kernel.org,
-	chleroy@kernel.org, david@kernel.org, dev.jain@arm.com,
-	jiangwen6@xiaomi.com, leo.yan@arm.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com,
-	mpe@ellerman.id.au, npiggin@gmail.com, rppt@kernel.org,
-	ryan.roberts@arm.com
-Subject: Re: [PATCH v10 05/10] arm64/vmalloc: allow
- arch_vmap_pte_range_map_size() to batch multiple CONT_PTE
-Message-ID: <astarANeoldvqBxc@milan>
-References: <20261002090947.869220-1-jiangwen6@xiaomi.com>
- <20261002090947.869220-6-jiangwen6@xiaomi.com>
+        Sun, 11 Oct 2026 02:45:53 -0700 (PDT)
+From: Gyeyoung Baek <gye976@gmail.com>
+Subject: [PATCH v2 0/2] drm/imagination: Switch the GPUVM to immediate mode
+Date: Sun, 11 Oct 2026 18:45:31 +0900
+Message-Id: <20261011-pvr-gpuvm-immediate-v2-0-744ddc6644c3@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261002090947.869220-6-jiangwen6@xiaomi.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALtay2oC/32Oyw6CMBBFf8V07ShtVNCV/2FY9DGFMRZIC42G8
+ O+2ELfu5kzuPbkzC+gJA7vtZuYxUqC+SyD2O6Zb2TUIZBIzUYgLLziHIXpohik6IOfQkBwRbIm
+ yQqMFlpal5uDR0nu1PuqNw6SeqMesygklA4LystNtfhnvwFHQx98BWz8lWwpj7z/rwMiz8f+Wy
+ KGAsxLXyliNJ1vdGyfpddC9Y/WyLF9T+9QI8gAAAA==
+X-Change-ID: 20261011-pvr-gpuvm-immediate-f7ea8edc2e7f
+To: Alessio Belle <alessio.belle@imgtec.com>, 
+ Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Alexandru Dadu <alexandru.dadu@imgtec.com>, 
+ Brajesh Gupta <brajesh.gupta@imgtec.com>, 
+ Frank Binns <frank.binns@imgtec.com>, imagination@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Gyeyoung Baek <gye976@gmail.com>
+X-Mailer: b4 0.15.1
 
-On Fri, Oct 02, 2026 at 05:09:42PM +0800, Wen Jiang wrote:
-> From: "Barry Song (Xiaomi)" <baohua@kernel.org>
-> 
-> Allow arch_vmap_pte_range_map_size to batch across multiple CONT_PTE
-> blocks, reducing both PTE setup and TLB flush iterations.
-> 
-> Previously the function returned a single CONT_PTE_SIZE for an aligned
-> range, so the caller mapped one CONT_PTE block per iteration. Now, for a
-> CONT_PTE_SIZE-aligned range, it returns the largest CONT_PTE-aligned size
-> that fits within both the remaining range and the caller's max_page_shift,
-> so a single pte_set_huge() call installs several CONT_PTE blocks at once.
-> 
-> Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
-> Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
-> Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
-> Tested-by: Leo Yan <leo.yan@arm.com>
-> ---
->  arch/arm64/include/asm/vmalloc.h | 12 ++++++++----
->  1 file changed, 8 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/vmalloc.h b/arch/arm64/include/asm/vmalloc.h
-> index 4ec1acd3c1b34..c29704a19e276 100644
-> --- a/arch/arm64/include/asm/vmalloc.h
-> +++ b/arch/arm64/include/asm/vmalloc.h
-> @@ -23,10 +23,12 @@ static inline unsigned long arch_vmap_pte_range_map_size(unsigned long addr,
->  						unsigned long end, u64 pfn,
->  						unsigned int max_page_shift)
->  {
-> +	unsigned long size;
-> +
->  	/*
-> -	 * If the block is at least CONT_PTE_SIZE in size, and is naturally
-> -	 * aligned in both virtual and physical space, then we can pte-map the
-> -	 * block using the PTE_CONT bit for more efficient use of the TLB.
-> +	 * If the range is at least CONT_PTE_SIZE and naturally aligned in both
-> +	 * virtual and physical space, return the largest CONT_PTE-aligned size
-> +	 * that fits, for more efficient use of the TLB.
->  	 */
->  	if (max_page_shift < CONT_PTE_SHIFT)
->  		return PAGE_SIZE;
-> @@ -40,7 +42,9 @@ static inline unsigned long arch_vmap_pte_range_map_size(unsigned long addr,
->  	if (!IS_ALIGNED(PFN_PHYS(pfn), CONT_PTE_SIZE))
->  		return PAGE_SIZE;
->  
-> -	return CONT_PTE_SIZE;
-> +	size = min(end - addr, 1UL << max_page_shift);
-> +	size = round_down(size, CONT_PTE_SIZE);
-> +	return size;
->  }
->  
->  #define arch_vmap_pte_range_unmap_size arch_vmap_pte_range_unmap_size
-> -- 
-> 2.34.1
-> 
-This is arch/arm64 code. Can you, Jain or Ryan from ARM folk review this change?
+Switch the GPUVM to immediate mode, as a prerequisite for asynchronous
+VM_BIND. A revised VM_BIND series will follow separately; v1 [1] is
+linked only for context.
 
-Thank you!
+The switch also fixes an issue Sashiko reported on [1]: the GPUVA lists
+of other objects are updated without holding their reservations [2].
 
---
-Uladzislau Rezki
+Based on drm-misc-fixes (depends on 196d4d10c1b3).
+
+Tested on BeagleY-AI with lockdep, KASAN and failslab enabled:
+- All IGT imagination tests pass, including pvr_vm_map [3].
+- The fail-nth reproducer in patch 1 no longer warns.
+
+[1] https://lore.kernel.org/r/20260817-pvr-vm-bind-v1-0-0a0f21be7d38@gmail.com
+[2] https://sashiko.dev/#/patchset/20260817-pvr-vm-bind-v1-0-0a0f21be7d38@gmail.com?part=1
+[3] https://lore.kernel.org/igt-dev/20260930125057.1837788-1-gye976@gmail.com/
+
+Signed-off-by: Gyeyoung Baek <gye976@gmail.com>
+---
+Changes in v2:
+- Patch 1: drain the vm_bo that fini() deferred when map_init() fails.
+  (Sashiko)
+- Link to v1: https://patch.msgid.link/20261011-pvr-gpuvm-immediate-v1-0-5b298dfce4f8@gmail.com
+
+---
+Gyeyoung Baek (2):
+      drm/imagination: Switch the GPUVM to immediate mode
+      drm/imagination: Stop locking reservations around map and unmap
+
+ drivers/gpu/drm/imagination/pvr_vm.c | 82 +++++++++++++-----------------------
+ 1 file changed, 30 insertions(+), 52 deletions(-)
+---
+base-commit: 6ccf996a0dec1852dab94ad865f27b4904750e12
+change-id: 20261011-pvr-gpuvm-immediate-f7ea8edc2e7f
+
+Best regards,
+--  
+Gyeyoung Baek <gye976@gmail.com>
+
