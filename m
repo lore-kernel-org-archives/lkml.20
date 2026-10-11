@@ -1,36 +1,67 @@
-Received: from mta1.migadu.com (out-84.mta1.migadu.com [95.215.58.84])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7976023BF91
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 05:49:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72E8E3A759D
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 05:53:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791697775; cv=none; b=ZhE1G5qOFGSq4NW+HR52uzd7cBa2z7P/1K9IPKTHqgzgw2t7aEd1EUZNaOLZg6mAWkqwxI0AjKLQhdwlmaKfpYROEvT1omA0jVqk/s2FNkjEp7i/vKRHpteTI9SsGe3kTcnTWMa2jdoKzj4kLxXvm/Pcl5Tf/RFeK7hbia3CTrM=
+	t=1791697995; cv=none; b=GRvntZGsRacbWfQDz3wZKxaFX+N/oWDIoiw+lYTcOzG7KWJyRe9B47CbRWDhQxD39UUrzvXaESok9Ia0HHTspxkx1TP+ZvLr162atdVVz450Xd5cEMAX89sSSGIFojspl24fjxY3o8DRzpROGatA7LU8mq+afl7YzWC6jlTHvhc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791697775; c=relaxed/simple;
-	bh=gS5Etuu4WIQTaJqIfZ2zQNCFEW0Wd2cr710qmr7iq78=;
+	s=arc-20240116; t=1791697995; c=relaxed/simple;
+	bh=Q2pNT5QI49/eCQ+6LLxDbJY+NZld/P+BgMZAKwL3VzA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KB9sQ2FNwoFEPxl/wNKLOsD0BTROfdetJ+Ta/WMO+yVYTgsRhQU7u96I8booeYH/ytA33EBTHRg011ZMf0IpwAxDES0z91EcGxpDikPrG3lT5nu/vtV29R2C3Sl1Ik5IUKcMPTOoRD5ETCvFtp4xpUTFPv4yZIoxcMRNXbcQTZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xORIKmiv; arc=none smtp.client-ip=95.215.58.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 In-Reply-To:Content-Type; b=sD+clKeSmDSazXvAkDLVRAp4CnzF7cY52nAplGZoLHTlIjG7EdewZ9mPK+K8f/gJgFeDtYcVrLgcObiigsTOXQVwX28fLYt5slobiOAvcLOXhzkGOLNtds/Jq4weO5srpErKxoixYt8y2OTip1ou4w2Zf2vpbfuZyRcbYVrJJwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=ClvGAhPA; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xORIKmiv"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=gS5Etuu4WIQTaJqIfZ2zQNCFEW0Wd2cr710qmr7iq78=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791697770; v=1; x=1792302570;
- b=xORIKmivSUagDIgbi8WDd3pN+zXxBAp9QnEnxaVb93eCYtITJY2/fpoMK7SmEXLAdfVWWHX5
- Ytbzy/7kn5xCtrMDBFeW91sMw5M0zoWWurgFwD5zbjGOKKDvBVokYVWHgOdDu5yQ9jXm8ZjWuhA
- +7E9m25grdbC/8D6mxXabpOY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 855e2b9029b1dc76;
-	Sun, 11 Oct 2026 05:49:30 +0000
-X-Mizu-Trace-ID: 855e2b9029b1dc76
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <7ec04fe0-994e-44d3-8c20-6732c9f20afd@linux.dev>
-Date: Sun, 11 Oct 2026 13:49:23 +0800
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="ClvGAhPA"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4956869750eso7574115e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 10 Oct 2026 22:53:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1791697991; x=1792302791; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C4KwlwLxNiXywZ3YcnnEn9jaLW3rrEnQf5taDjKIMYs=;
+        b=ClvGAhPAfssUR/xlnZnbnwRB6ugcACk7FOwS1T94ZblOFyXB5UJ6qMsPoa08Z+AVYR
+         V5n+MEhTdYgBVrBytqlS1f3cXIqEU43jU56GDMaxw8AzN2Bn9iCT5iVgjxiihu6gYWfw
+         sVhxsvr5WrvEWaVr01paiR7SdzYJuNqsgMYS5v+joNzLCda+LNTBgJ9NL4UgQs7ZfmkC
+         oZVop6lxSR3PfhKpzu5+eN6wC8VWU2Gbsd1rYFACbti26VHImHsbIVr62Ketakdy4H6f
+         nidGFeLQWkupaudGQudawdupXbfWY2T+e+XB7i52n3qA+2ilSvEiua7YT/+/RZt6OqAP
+         ttAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791697991; x=1792302791;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=C4KwlwLxNiXywZ3YcnnEn9jaLW3rrEnQf5taDjKIMYs=;
+        b=0fxGUxwcrTNGl/hncCSUlMRRFndetoQwMSSRvKLba5afNaPqgUgEWR5TWgSJ6pEVqF
+         iY4mtdZekjqwSX0IftUtMEaxNC8nJn9NpW9+sPXwjEriyX9JeKBBb37RXLLHomY+wGzg
+         LAEsH6jHMRKi69eRPyxAffhtMyxB6bvXoyad+u/Qh40/Ni5KfZ5yhbSwpKr+MW5CrsFq
+         59bbCfz54E41/zf35aGYFZf2Pc7OFqSOS/NikSNyZAEWl5cuxapZKKlqL6qALEoygznt
+         iZmTOjePC5PtdMtXrqzN4xCmU/4GBqtxUUdd6DC9Dxe3jTdvJHEPWcMKx2XAiqcqyBaS
+         +LHQ==
+X-Forwarded-Encrypted: i=1; AKwUvByOVHbrzozwCoOvTbhsIXsjE4o3KfEVmmHpNK0x8LKRLGydKL7fJ/NiqhC6OX3kj2XXBzGq9/cJV16kChg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK0DyA3U3Ol66KFjj8EvZYAtF+Hb/0oRGlEZ92nfNxQWBcKA+mP
+	abfP64BXn7oEj3dUBZuIIz9Qse+89DLc/A4WNH61A9e8RV10nnG+MH59qRFN9f2BKAI=
+X-Gm-Gg: AYBFou3w32HvtbH1eLa9DcxoPZBG6tMmPR7IjfQ9EK1fbeHnaYz9Log4lGLDXLtqNxb
+	6/SygNrSwx3IRqpKPKx0aA/djmYya0hAHbbdOcLo4OCjx6c7o+Ho180rZPnREfmzQjWOOdNnwSK
+	BUPHhKZvkOtjdMBcaofhwDz3AkekK/SiJsgsfJvAWqsLk5ssRR1vDlsYACe/Pjwpk1TBnIP29xM
+	djczd0MZKFAzUlHAmtYFjEjd/TPJqifG7fjBar0uL+YFTaX8T/aqlNU0FKEgAJEUJqa2FFTMBS/
+	7MmGtzwX9h8sJ4QVrav8WFhvNQUyk7lwaFDIQs3fa+AF3Ozt3ORT8wOyXfGrqjUhdFc+rt+kLv7
+	TNlDX3pPJCTMzLmyRh65W1tX2LfuU9068PqowJh0fM9Ou0wf5uZ5YmuSVoiWs3nMUNqmSkfuhdK
+	oDP7ny84v6a75+mPNPI/rIAIAMutvvmw5XQTenp9J2yoPgeNNR2W9eC0tJAFei0fM=
+X-Received: by 2002:a05:600c:3e83:b0:4a1:6d35:779a with SMTP id 5b1f17b1804b1-4a18e446880mr95813325e9.3.1791697991391;
+        Sat, 10 Oct 2026 22:53:11 -0700 (PDT)
+Received: from [172.16.0.229] ([159.196.52.54])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422e1c89sm28468345ad.75.2026.10.10.22.53.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 10 Oct 2026 22:53:10 -0700 (PDT)
+Message-ID: <841e395e-f85d-4359-b680-1eee502ec2f0@suse.com>
+Date: Sun, 11 Oct 2026 16:23:03 +1030
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,298 +69,133 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH-next v2 1/6] cgroup/cpuset: Consolidate
- isolated_cpus_can_update() into prstate_housekeeping_conflict()
-To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, Hui Peng <benquike@gmail.com>
-References: <20261010221938.243859-1-longman@redhat.com>
- <20261010221938.243859-2-longman@redhat.com>
+Subject: Re: [PATCH] btrfs: fix chattr failing on nodatasum files that have
+ the compress flag
+To: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
+ Filipe Manana <fdmanana@suse.com>, linux-btrfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <41987a33-f2dd-4ffe-b35f-d669d36dbcfe@suse.com>
+ <20261011034731.1054465-1-hengyul@cs.unc.edu>
 Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <20261010221938.243859-2-longman@redhat.com>
-Content-Type: text/plain; charset=UTF-8
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJqqw0NBQkUl/JeAAoJEMI9kfOh
+ Jf6o/xYH/3AaWnGSq58XnY/T3/YYjr6g+TUZxa7MPyiYTELNpNlvmNlbtbAL0nW0LNvkeiqf
+ SmYA+xkwY4RbxnZYQK0H5iv2w1eqa9qqFZb4bIBRmTapu26GEEkpad0W0ZhoSPMO8bV2Bwkf
+ YdtPZQLaeUKvHZqNqBKnmtRLQj2Cgy3kuXX3bEGvWjzUOxPUSCj/S++JWBewMdMBPT62vZM0
+ 3156gfn5mHA94s2p+NFJoWkERY+JPTMu9NISkpD7yuGhXN88qd/aqD0RrlhxvKsrQogdPwn9
+ vP18FGG3CRlHtOvOLVoY5NKSOWTDc+o+8t2XEETFTGbKYTcqeTzi4SxhvBLtTinOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
+ cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
+ qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
+ /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
+ o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
+ JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
+In-Reply-To: <20261011034731.1054465-1-hengyul@cs.unc.edu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 
-Hi，Longman,
-在 2026/10/11 06:19, Waiman Long 写道:
-> The isolated_cpus_can_update() and prstate_housekeeping_conflict() are
-> checking different aspects of upcoming cpumask changes that may conflict
-> with the current setting of the housekeeping cpumasks. There are places
-> where both are called together. There are also places where only one
-> of them is called. That inconsistency can contribute to missing check
-> where invalid cpumask changes may be allowed to move forward.
+
+在 2026/10/11 14:17, Hengyu Liang 写道:
+> On 2026/10/11 07:47, Qu Wenruo wrote:
+>> This is very LLM-like, and very LLM's objective-oriented behavior.
+>> Disclose it first.
 > 
-> Fix that by consolidating isolated_cpus_can_update() into
-> prstate_housekeeping_conflict() and call prstate_housekeeping_conflict()
-> in all the places where either one of them or both are called. The
-> exception is the validate_partition() function where the
-> prstate_housekeeping_conflict() call is removed. It is because
-> validate_partition() is called only from partition_cpus_change()
-> where prstate_housekeeping_conflict() will be called from either
-> remote_cpus_update() or update_parent_effective_cpumask() with
-> partcmd_update if not for partition invalidatation or disablement.
+> Yes, and sorry for not saying so in the patch. I found this while
+> comparing the behaviour of different kernel versions. I used an LLM to
+> analyse the difference, write the patch and the changelog and run the
+> tests in VMs.
 > 
-> Now prstate_housekeeping_conflict() will be called in the following
-> locations:
->  - when a partition is enabled in remote_partition_enable() or in
->    update_parent_effective_cpumask() with partcmd_enable*.
->  - when a cpumask is updated in remote_cpus_update() or in
->    update_parent_effective_cpumask() with partcmd_update.
->  - when a partition state changes from root to isolated or vice versa
->    in update_prstate().
+>> Explain the reason why it fails.
 > 
-> Fixes: 4a74e418881f ("cgroup/cpuset: Check partition conflict with housekeeping setup")
-> Fixes: 103b08709e8a ("cgroup/cpuset: Fail if isolated and nohz_full don't leave any housekeeping")
-> Signed-off-by: Waiman Long <longman@redhat.com>
-> ---
->  kernel/cgroup/cpuset.c | 123 +++++++++++++++++------------------------
->  1 file changed, 52 insertions(+), 71 deletions(-)
+> chattr reads the flags and writes the whole set back, so FS_COMPR_FL is
+> in the new flags. btrfs_fileattr_set() then calls btrfs_set_prop() for
+> btrfs.compression, and since cf1afec09e9f that runs
+> prop_compression_validate(), which returns -EINVAL because
+> btrfs_inode_can_compress() is false for a NODATASUM inode.
 > 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index 0ebba2d646c3..f3cebb277a68 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -1353,65 +1353,62 @@ static void partition_xcpus_del(int old_prs, struct cpuset *parent,
->  }
->  
->  /*
-> - * isolated_cpus_can_update - check for isolated & nohz_full conflicts
-> - * @add_cpus: cpu mask for cpus that are going to be isolated
-> - * @del_cpus: cpu mask for cpus that are no longer isolated, can be NULL
-> - * Return: false if there is conflict, true otherwise
-> - *
-> - * If nohz_full is enabled and we have isolated CPUs, their combination must
-> - * still leave housekeeping CPUs.
-> + * prstate_housekeeping_conflict - check for partition & housekeeping conflicts
-> + * @new_prs: new partition root state to be checked
-> + * @parent_prs: Parent partition root state
-> + * @add_cpus: additional CPUs to be added to current cpuset
-> + * @del_cpus: CPUs to be removed from current cpuset, can be NULL
-> + * Return: true if there is conflict, false otherwise
->   *
-> - * TBD: Should consider merging this function into
-> - *      prstate_housekeeping_conflict().
-> + * There are two different housekeeping conflicts to be checked:
-> + * 1) If new_prs is PRS_ROOT, none of the @add_cpus can be a boot-time isolated
-> + *    CPU. IOW, the whole @add_cpus must be a subset of HK_TYPE_DOMAIN_BOOT.
-> + * 2) If nohz_full is enabled and we have isolated CPUs, their combination must
-> + *    still leave housekeeping CPUs. This check is only needed if new_prs
-> + *    differs from parent_prs and one of them is PRS_ISOLATED.
->   */
-> -static bool isolated_cpus_can_update(struct cpumask *add_cpus,
-> -				     struct cpumask *del_cpus)
-> +static bool prstate_housekeeping_conflict(int new_prs, int parent_prs,
-> +					  struct cpumask *add_cpus,
-> +					  struct cpumask *del_cpus)
->  {
->  	cpumask_var_t full_hk_cpus;
-> -	int res = true;
-> +	int res;
->  
-> -	if (!housekeeping_enabled(HK_TYPE_KERNEL_NOISE))
-> +	if (housekeeping_enabled(HK_TYPE_DOMAIN_BOOT) && (new_prs == PRS_ROOT) &&
-> +	    !cpumask_subset(add_cpus, housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT)))
->  		return true;
->  
-> -	if (del_cpus && cpumask_weight_and(del_cpus,
-> -			housekeeping_cpumask(HK_TYPE_KERNEL_NOISE)))
-> -		return true;
-> +	if (!housekeeping_enabled(HK_TYPE_KERNEL_NOISE) ||
-> +	    (new_prs == parent_prs) ||
-> +	    (!del_cpus && (new_prs != PRS_ISOLATED)) ||
-> +	    ((new_prs != PRS_ISOLATED) && (parent_prs != PRS_ISOLATED)))
-> +		return false;
->  
+>> So when setting compress in the first place, the NODATASUM/NODATACOW
+>> flag should be cleared.
+> 
+> OK, I will do it this way: a new inode that inherits the compress flag
+> does not get NODATASUM/NODATACOW from the mount options, and chattr +c
+> on an empty file clears NODATASUM.
+> 
+> This differs from the documentation in one place. btrfs(5) says that
+> all files created under nodatasum have no checksums and that
+> compression is disabled when nodatasum is enabled.
 
-When a child partition switches from root to isolated under an isolated
-parent, this returns false even though the child's CPUs were not isolated
-before the switch.
+Prop has higher priority than mount option, and defrag has even higher 
+priority than prop.
+That's the long existing behavior.
 
-On a fresh boot with CPUs 0-15 online and nohz_full=2-15:
+> With this change a
+> file created in a +c directory on a nodatasum mount has checksums and
+> is compressed. Is that what you intend?
+> 
+> In chattr there are two cases where I would not clear the flag:
+> 
+> - The file has NODATASUM and already has data. The existing extents
+>    have no checksums, so clearing NODATASUM would make them unreadable.
+>    chattr +c would return -EINVAL here, the same as setting the
+>    btrfs.compression property does since commit 0e852ab8974c ("btrfs:
+>    do not allow compression on nodatacow files").
 
-    # cd /sys/fs/cgroup
-    # echo +cpuset > cgroup.subtree_control
-    # mkdir A B
-    # echo 1-2 > A/cpuset.cpus
-    # echo isolated > A/cpuset.cpus.partition
-    # echo +cpuset > A/cgroup.subtree_control
-    # mkdir A/C
-    # echo 1 > A/C/cpuset.cpus
-    # echo root > A/C/cpuset.cpus.partition
-    # echo 0 > B/cpuset.cpus
-    # echo isolated > B/cpuset.cpus.partition
-    # cat cpuset.cpus.isolated
-    0,2
-    # echo isolated > A/C/cpuset.cpus.partition
-    # cat A/C/cpuset.cpus.partition
-    isolated
-    # cat cpuset.cpus.isolated
-    0-2
+That's expected. Non-empty files can not change their 
+NODATASUM/NODATACOW flags.
 
-CPU 1 was the last remaining housekeeping CPU: it was in neither the
-nohz_full mask nor the cpuset.cpus.isolated mask. The final write isolates
-CPU 1 as well, leaving no housekeeping CPU.
+Thus in that case, adding compression to a nodatasum/nodatacow inode 
+should fail.
 
-Should this check also take the child's previous partition state into
-account, rather than just comparing its new state with the parent's state?
+> 
+> - The file has +C. check_fsflags() already rejects chattr +c on it
+>    with -EINVAL and I would keep that.
+> 
+> One more question before v2. Files with both flags and data can already
+> exist on disk,
 
-Thanks,
-Guopeng
-> -	if (!alloc_cpumask_var(&full_hk_cpus, GFP_KERNEL))
-> +	/*
-> +	 * Make sure that @add_cpus contains new CPUs to be isolated and
-> +	 * @del_cpus contains isolated CPUs to be un-isolated.
-> +	 */
-> +	if (parent_prs == PRS_ISOLATED)
-> +		swap(add_cpus, del_cpus);
-> +
-> +	if (del_cpus &&
-> +	   (cpumask_first_and_and(del_cpus, housekeeping_cpumask(HK_TYPE_KERNEL_NOISE),
-> +				   cpu_active_mask) < nr_cpu_ids))
->  		return false;
->  
-> +	if (!alloc_cpumask_var(&full_hk_cpus, GFP_KERNEL))
-> +		return true;
-> +
->  	cpumask_and(full_hk_cpus, housekeeping_cpumask(HK_TYPE_KERNEL_NOISE),
->  		    housekeeping_cpumask(HK_TYPE_DOMAIN));
->  	cpumask_andnot(full_hk_cpus, full_hk_cpus, isolated_cpus);
->  	cpumask_and(full_hk_cpus, full_hk_cpus, cpu_active_mask);
-> -	if (!cpumask_weight_andnot(full_hk_cpus, add_cpus))
-> -		res = false;
-> +	res = !cpumask_weight_andnot(full_hk_cpus, add_cpus);
->  
->  	free_cpumask_var(full_hk_cpus);
->  	return res;
->  }
->  
-> -/*
-> - * prstate_housekeeping_conflict - check for partition & housekeeping conflicts
-> - * @prstate: partition root state to be checked
-> - * @new_cpus: cpu mask
-> - * Return: true if there is conflict, false otherwise
-> - *
-> - * CPUs outside of HK_TYPE_DOMAIN_BOOT, if defined, can only be used in an
-> - * isolated partition.
-> - */
-> -static bool prstate_housekeeping_conflict(int prstate, struct cpumask *new_cpus)
-> -{
-> -	if (!housekeeping_enabled(HK_TYPE_DOMAIN_BOOT))
-> -		return false;
-> -
-> -	if ((prstate != PRS_ISOLATED) &&
-> -	    !cpumask_subset(new_cpus, housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT)))
-> -		return true;
-> -
-> -	return false;
-> -}
-> -
->  /*
->   * cpuset_update_sd_hk_unlock - Rebuild sched domains, update HK & unlock
->   *
-> @@ -1593,9 +1590,7 @@ static int remote_partition_enable(struct cpuset *cs, int new_prs,
->  		return PERR_INVCPUS;
->  	if (cpumask_intersects(tmp->new_cpus, subpartitions_cpus))
->  		return PERR_NOCPUS;
-> -	if (((new_prs == PRS_ISOLATED) &&
-> -	     !isolated_cpus_can_update(tmp->new_cpus, NULL)) ||
-> -	    prstate_housekeeping_conflict(new_prs, tmp->new_cpus))
-> +	if (prstate_housekeeping_conflict(new_prs, PRS_ROOT, tmp->new_cpus, NULL))
->  		return PERR_HKEEPING;
->  
->  	spin_lock_irq(&callback_lock);
-> @@ -1697,8 +1692,8 @@ static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
->  		else if (cpumask_intersects(tmp->addmask, subpartitions_cpus) ||
->  			 cpumask_subset(top_cpuset.effective_cpus, tmp->addmask))
->  			WRITE_ONCE(cs->prs_err, PERR_NOCPUS);
-> -		else if ((prs == PRS_ISOLATED) &&
-> -			 !isolated_cpus_can_update(tmp->addmask, tmp->delmask))
-> +		else if (prstate_housekeeping_conflict(prs, PRS_ROOT,
-> +						       tmp->addmask, tmp->delmask))
->  			WRITE_ONCE(cs->prs_err, PERR_HKEEPING);
->  		if (cs->prs_err)
->  			goto invalidate;
-> @@ -1840,11 +1835,7 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->  		if (cpumask_empty(xcpus))
->  			return PERR_INVCPUS;
->  
-> -		if (prstate_housekeeping_conflict(new_prs, xcpus))
-> -			return PERR_HKEEPING;
-> -
-> -		if ((new_prs == PRS_ISOLATED) && (new_prs != parent_prs) &&
-> -		    !isolated_cpus_can_update(xcpus, NULL))
-> +		if (prstate_housekeeping_conflict(new_prs, parent_prs, xcpus, NULL))
->  			return PERR_HKEEPING;
->  
->  		if (tasks_nocpu_error(parent, cs, xcpus))
-> @@ -1917,20 +1908,12 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->  		}
->  
->  		/*
-> -		 * TBD: Invalidate a currently valid child root partition may
-> -		 * still break isolated_cpus_can_update() rule if parent is an
-> -		 * isolated partition.
-> +		 * Check for housekeeping conflicts
->  		 */
-> -		if (is_partition_valid(cs) && (old_prs != parent_prs)) {
-> -			if ((parent_prs == PRS_ROOT) &&
-> -			    /* Adding to parent means removing isolated CPUs */
-> -			    !isolated_cpus_can_update(tmp->delmask, tmp->addmask))
-> -				part_error = PERR_HKEEPING;
-> -			if ((parent_prs == PRS_ISOLATED) &&
-> -			    /* Adding to parent means adding isolated CPUs */
-> -			    !isolated_cpus_can_update(tmp->addmask, tmp->delmask))
-> -				part_error = PERR_HKEEPING;
-> -		}
-> +		if (is_partition_valid(cs) &&
-> +		    prstate_housekeeping_conflict(old_prs, parent_prs,
-> +						  tmp->delmask, tmp->addmask))
-> +			part_error = PERR_HKEEPING;
->  
->  		/*
->  		 * The new CPUs to be removed from parent's effective CPUs
-> @@ -2391,10 +2374,6 @@ static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *tri
->  	if (cpumask_empty(trialcs->effective_xcpus))
->  		return PERR_INVCPUS;
->  
-> -	if (prstate_housekeeping_conflict(trialcs->partition_root_state,
-> -					  trialcs->effective_xcpus))
-> -		return PERR_HKEEPING;
-> -
->  	if (tasks_nocpu_error(parent, cs, trialcs->effective_xcpus))
->  		return PERR_NOCPUS;
->  
-> @@ -2411,7 +2390,7 @@ static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *tri
->   * CPU modifications may cause a partition to be disabled or require state updates.
->   */
->  static void partition_cpus_change(struct cpuset *cs, struct cpuset *trialcs,
-> -					struct tmpmasks *tmp)
-> +				  struct tmpmasks *tmp)
->  {
->  	enum prs_errcode prs_err;
->  
-> @@ -2911,13 +2890,15 @@ static int update_prstate(struct cpuset *cs, int new_prs)
->  			err = remote_partition_enable(cs, new_prs, &tmpmask);
->  		}
->  	} else if (old_prs && new_prs) {
-> +		int parent_prs = is_remote_partition(cs)
-> +				 ? PRS_ROOT : parent->partition_root_state;
-> +
->  		/*
->  		 * A change in load balance state only, no change in cpumasks.
->  		 * Need to update isolated_cpus.
->  		 */
-> -		if (((new_prs == PRS_ISOLATED) &&
-> -		     !isolated_cpus_can_update(cs->effective_xcpus, NULL)) ||
-> -		    prstate_housekeeping_conflict(new_prs, cs->effective_xcpus))
-> +		if (prstate_housekeeping_conflict(new_prs, parent_prs,
-> +						  cs->effective_xcpus, NULL))
->  			err = PERR_HKEEPING;
->  		else
->  			isolcpus_updated = true;
+In that case NODATASUM/NODATACOW overrides the COMPRESS inode flags, and 
+no compressed extent will be generated.
+
+That's a much safer default behavior.
+
+If we go the other way, we will trigger a log problems like odd csum items.
+
+Although setting COMPRESS flag on NODATASUM/NODATACOW is a much bigger 
+change, it should be addressed in a dedicated series, with a lot of 
+extra corner cases to consider.
+
+> and chattr +A on them fails since 7.2. Is it OK to leave
+> the compress flag and the property alone on these files when only other
+> flags change?
+
+Yes, that's why unlike other properties, compression has both 
+FS_NOCOMP_FL and FS_COMPR_FL.
+
+If neither FS_NOCOMP_FL nor FS_COMPR_FL is set, COMPRESS flag should not 
+be touched.
+
+Obviously the code just before update_flags: label is not properly 
+following that behavior.
+
+If your objective is only to not return error, then that's what you 
+should touch, skipping the btrfs_set_prop() completely when neither 
+FS_NOCOMP_FL nor FS_COMPR_FL is set.
+
+> 
+> Thanks,
+> Hengyu
 
