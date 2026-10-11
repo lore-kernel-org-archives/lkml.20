@@ -1,203 +1,347 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72578443302;
-	Sun, 11 Oct 2026 14:17:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791728256; cv=fail; b=Ny440ewQLROXBhpnvnW9IyAwl/3RC+e9vbO7n1PTgqy1Ndvej6zTN6Lmg2BTkKOX6zbEOSbruWAbozq7PhnLXrPkdZPEdtEjZCqq0hnxUBNh8m3RYAB/lkv/RhsK41foB5wFDhKjGkQZP4fN80ADqw9rD50kmXxXfzDRJ6rS+WM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791728256; c=relaxed/simple;
-	bh=qvJD7zV0eMnqhtckei/KFS3nsNZNSY0C5mJVeXP6Wuk=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=mTx1GuAImJmgEh/ww08U0Vtm6P5lbn3TxT8mYJX97m99N769kiHJvxPN3tlSa8K+OHYnJlnq7y9gHwluU3QcF9TyooiOjQlgnJadtqsPDazDII2HW7wuXsu7pj/zlmuLLpPcekE0P4ipHdSPoqvjOX100ASWousKr5le35t5jA8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AdAMgcNQ; arc=fail smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB20844AB84
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 14:17:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791728263; cv=none; b=r6G/EFjl2TS5XMqFKQyDiRRfU++l7Z+wH7OKP4+VzegX5hcA7d+sjSwM6ml6/glRwr7j3E4xeB7J+sAOncsOYgNiLs0glDS3ZzeF+nedpTih7JugG42yNZ+YcZkEsm1aq1RlbSteOhzKGvxflULDIQdrfI+tysIKg+8FN7BlMFE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791728263; c=relaxed/simple;
+	bh=QhE1BI0sOXWtBfGC0rLmez15LhvXAeMMSv4ir+L+uY0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CnEaGDTxT+UPmYg9goKhV2FczW4rdkyltsN6vPnINHlmEqeFvcrZeOp7aEksPTYjo0UunKms9vtHa1EwyoGy53aJrnN7jgNTT0qzaHg27u7fRJ3C//6mfS0XkmDc1YBUb4ItJQdyujNUvpE7xCnkNvi1JqVPGPFvj8i2O81ywHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ew42wOJO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iVwgQR3b; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AdAMgcNQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791728255; x=1823264255;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=qvJD7zV0eMnqhtckei/KFS3nsNZNSY0C5mJVeXP6Wuk=;
-  b=AdAMgcNQ64+hShMARageNKxxuUGViTOG/XJ1LgtZVvoGa5xoYv1EbbOT
-   1x7+mH4hqAuF5yjE0p0yaV6qScxXMcFsZUkTaMNy4rwkuu33mFBnX/YUE
-   N8mtY2USSZsl430CEqGIUpAOjvjbSP3S8eBlksV0W1B6plhsLFzoWLcYg
-   Hxfld7Eyf1nCcTTrlf2EfaCfqUG6jCzMjlIrAkRwUadZ8FWVW4707c/y2
-   6EavZfB0AM/hcjmV2EA4ebCqzFkiTNUCb0lwHNSRGf7CfRsYmBFuxZpOT
-   sPn74gbD7Ii2aF8KItPKmyRuXzGR+kfu1Po1fqkDjuWB7IMtNho8zwlxT
-   Q==;
-X-CSE-ConnectionGUID: YyVBVwkGT8yGi9Es0iJAVg==
-X-CSE-MsgGUID: kjHSeHnmT2WYGB0BclYyyg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="469545"
-X-IronPort-AV: E=Sophos;i="6.27,151,1787036400"; 
-   d="scan'208";a="469545"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 07:17:34 -0700
-X-CSE-ConnectionGUID: ybBLtQNcQWOO4Rtu2KeAcQ==
-X-CSE-MsgGUID: BFiR0ripTAy4afMoFa2ezw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,151,1787036400"; 
-   d="scan'208";a="2493598"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by fmviesa012.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 07:17:34 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sun, 11 Oct 2026 07:17:33 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Sun, 11 Oct 2026 07:17:33 -0700
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.52) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sun, 11 Oct 2026 07:17:33 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ccsp23/C/m7M36J5RjcFwojvgWWm8cpf01uzMCT8vKHlpIM+DBI12jTlWui9cmdNrW5qIXVfEBDVVJ/vHtxidvwQ0jPhbLATJp6XMFYJ1rVXJISolhGEIh9XjktYnj2kFmAGxuJCx8IdmU4TWHUfPwgcnf0+4pXTXKOCLlhd2puM6kDalscGnQc2wYggHf1taUam32U1FRvdU+xLmJ6pQuVdLu3McKhwCnGVhDa3nORKFxMnu5zglQYlS9V+vum/6A/YgOhwtRNAp3l25j2RXhL+atm38Th6ssTvAnIqJlRnFVT5Q7xcgO5Ypn0WWP70xK0csGJNtLqRk4LuC6luGQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f5UN5Ifa+uwvctWzMnF37+8BJtWZZwS9izXZjxLIj1I=;
- b=YpuEDdu131xpL9vwE5ZnhSLl/iGa9mMelQjNcHH0ZE6uMoRpgPlntDAwBYK1mT6AmsSo96ywsQY5N8z1nluhf/l8hhvU0B5I9/9Y5A5Q+84gGK7+0GWXTkf6hGzPSMtNxxlhwua+FTnpITKZlLdfSxMXkTS5Fi+3SFsYGqxDv/ShIpt92wMAfq4oU5mcSE97xLBPc2ZQEP7EE+QuzODgiNE2vymC8WZW/m1lzpNI580KuoG8JmQ6i6N7tNXJ6YqmC7I7x/JCIMIT1OxWCNitALbP6P5Wx7bf6/nJIvzc8tpwTlt8HZbuD3Q7bX0fg9yTcfsLYpSIHQ7pBIxdYBYO7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from LV1PR11MB8790.namprd11.prod.outlook.com (2603:10b6:408:2b1::16)
- by DS7PR11MB7691.namprd11.prod.outlook.com (2603:10b6:8:e4::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.20; Sun, 11 Oct
- 2026 14:17:30 +0000
-Received: from LV1PR11MB8790.namprd11.prod.outlook.com
- ([fe80::27cb:7a60:19bb:584a]) by LV1PR11MB8790.namprd11.prod.outlook.com
- ([fe80::27cb:7a60:19bb:584a%5]) with mapi id 15.21.0496.015; Sun, 11 Oct 2026
- 14:17:30 +0000
-From: "Nowlin, Alexander" <alexander.nowlin@intel.com>
-To: "Oros, Petr" <poros@redhat.com>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>
-CC: "Oros, Petr" <poros@redhat.com>, "Nguyen, Anthony L"
-	<anthony.l.nguyen@intel.com>, "Kitszel, Przemyslaw"
-	<przemyslaw.kitszel@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
- S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
-	<horms@kernel.org>, "Kubalewski, Arkadiusz" <arkadiusz.kubalewski@intel.com>,
-	"intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH iwl-net 2/2] ice: skip the SW pin description on boards
- with generic DPLL pins
-Thread-Topic: [PATCH iwl-net 2/2] ice: skip the SW pin description on boards
- with generic DPLL pins
-Thread-Index: AQHdRtdNwwRej3UuSkqLn91p3WtmJ7b4iJzA
-Date: Sun, 11 Oct 2026 14:17:30 +0000
-Message-ID: <LV1PR11MB8790ACAC249D900E65ECF28C90902@LV1PR11MB8790.namprd11.prod.outlook.com>
-References: <20260917190258.3239282-1-poros@redhat.com>
- <20260917190258.3239282-3-poros@redhat.com>
-In-Reply-To: <20260917190258.3239282-3-poros@redhat.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: LV1PR11MB8790:EE_|DS7PR11MB7691:EE_
-x-ms-office365-filtering-correlation-id: 5e9bf946-108e-4c27-baa1-08df27a262d3
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|366016|22082099003|18002099003|10067099003|3023799007|38070700021|261009223027099003|4143699003|11063799006|5023799004|56012099006;
-x-microsoft-antispam-message-info: 01RJxo4wTmChfFNdLwBtjkm4LmXrchaFOfCMIPeU6VdciSKYULULYxNy4EU7zBP2OSGiZL6D7ExaCSagBANH+Mh6938d6Y2h913LV1WjPrYh/VQOJv+TMtqXt8IUvElpBIn+ZDme/rJb0QinBPRu2BFQguwtJYFZUhYzWFpJyBwjJryYehm6UlZUfc03TcNJpD3d5ES5ahynWF+2kkj/1vWLOseTN4E/aSIf+fg08bIB8SynvHRUn7+/tR4G8LDKKd1kVHob3Ncln2CqtJ2FFqN8p6X2qvEMEpdpfPgsUJAc4Y6ueMdYBGspTovTT9b5rXN+051KX5YpCz+pP0+d5tcqPXDaYtQfzm4xajBopqPaUzusW6vdmvSUjy+Rc8pc67joBt83qrn+VNPoZaA0ihJ4i1+MoQVJ+swYarid7sClk3mcLgu4lsb/2O2JlncNdxiiW05Hlf3mB6wGFgSPhDc9FTu6Gvv3Cxe1KRo8RhG9m4q67R0i3hBVZhkQbzhxHkPETNhtrswP99o2rXRGBrpq+NXJDVJ/kZ+3GhfkP+Y2eA0oXYobn37K79EHSsf/iuShlGecM8xee+/rKoRV82zbxt/Q3QeqR0af3PhR84UA1hBibJJMQ5aaaX4gdqxLN+afNoNpjW33E40DciSi8FSVf6ELQjsc3EfWPs3S8gE9910W437nBmQdGpPKZAoihwdwavuigJavqBFgOUX6hBNNiRb3lZWxmzo+57Xp/2A=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV1PR11MB8790.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(22082099003)(18002099003)(10067099003)(3023799007)(38070700021)(261009223027099003)(4143699003)(11063799006)(5023799004)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?RusAgUbwYecNjbdyRvATsvdN6eRwO4laWGhwW8R8lXPQvStWpmbvQKd5gm9s?=
- =?us-ascii?Q?dXZ/v7KcADSVDyBkVG47c//tQttLuDw3hO325WmCVX3kSpNkgvXgFb8xbY0T?=
- =?us-ascii?Q?RcEylefLo8SJO1TlvS1qxgrSLZfRZZD0Udpw7si256wHXMSDlUpZN4MVfpYk?=
- =?us-ascii?Q?O4cuiFoymuIn+8V+SUie7L56stGQsdi3Gh90M8uQ3ZSNfKfw7yCxjbOcvu58?=
- =?us-ascii?Q?ZRyuMnv/xS9plcHDb4QVlRaQf/rm6boRx1psLj3hHj/BJGCx9iJtx/Pxm9pw?=
- =?us-ascii?Q?+HDZPeUKnREw7dUnAbPI2YJnmumvsCIMB2Erkaw/z/5yKiejOc7IoMB0PgCs?=
- =?us-ascii?Q?KK43/g8g0QYlRLLQTU3ziX+jiQZZxawHpEEJ4y7wMIkz/65v7nMZBgXwnied?=
- =?us-ascii?Q?uOMjrNo6fPrdMzb0Fip0VDHw5cXxbv6eDqlrCGX/BDJvz0GXlakSkUjKqFhd?=
- =?us-ascii?Q?+41LKJgG6XzFUEZ0jbs9ZEhJ5J8Io4UgojuFi3C1RtIqbtV+ZErPee8iHjdx?=
- =?us-ascii?Q?eRmdU6GeEAhDOnafIisZDas4YDhNQ3wzYkdnRqtbiOwHP4r6V9p/2ujdiF0O?=
- =?us-ascii?Q?8LIskpMlTGuMFY5ZeliQcASwcCfVfcz1OSQkAYIvHRwVYjM82s9bKehzygPD?=
- =?us-ascii?Q?4DBYltfWUp0YDlO10m8ReAWNQIAfyWiBx5negqjs2pFZIm2VZRQFhXzY4Jla?=
- =?us-ascii?Q?VVQEF5KGCbkCXiiBkfCHAMriLLPbgPiU81AGDOWbezYb7bZyJSn/GaIPdVEU?=
- =?us-ascii?Q?lM1wFlAL55+UVLtk30f1Kg7wOLXQfh+WpYALpIhn6+6zQxDnxeUIX4t29erP?=
- =?us-ascii?Q?gX6ptMZMoT355wtToYbI+nQ6ackAm5r4NdE5iK1/pnOzIgdvL1Z0U8+ZW3v7?=
- =?us-ascii?Q?up25cRB5PMG9qIzSWP9y9GiS9nIfMbTwEUaQzoCls+SQ9kTKfZWTSxEy3S7x?=
- =?us-ascii?Q?oF8ZPfAxAkFPO8tDdPi9z2riWeKgq7dYcfNGV8Ewgwan9/3HU7El99cVsFLY?=
- =?us-ascii?Q?yuVEaHrkIvl49YxYSuvOqCE2psvANJNmSmqCV2Mjr0APbefex/xopfA/elIS?=
- =?us-ascii?Q?mZWikf53Z71MowZ95r4bSnG5h9yqaHnxqzibK4OuLz8jTFSRfRSsNPq0D0gU?=
- =?us-ascii?Q?2Jg2rgH7g/HklBCIs9cDorlRDPJ53L+QCYS3ZvTcfDFpFunkinMKjwUdbHaK?=
- =?us-ascii?Q?w9zb7BviO6STm4vlrxi/gRt1Dba64Iur3E8kUBjfAyXbzLU76gdVBmeFYwkK?=
- =?us-ascii?Q?2sqdHF1WLy8vturFOQqXbHgNHjyGl0iLgFXA4LP3j8E8L4Vg8xOs9d7fIjaK?=
- =?us-ascii?Q?TURILoUkbbqGyVxILZXqlIXfAqKC1Zkt6dPNKpeLujVUiau2rbY//GeN6RMz?=
- =?us-ascii?Q?IF3bd7VJ9Z+YvIta24lXUX5Ix6KzoyZ7Rg9GQ9IrOZpnVJtgpNRqdsEm3Vyn?=
- =?us-ascii?Q?80HAbiEXQPJINqoFUkZ1F2FSuvikruFCfpr9cc5q8gYnHymr0bterQcVRcMN?=
- =?us-ascii?Q?zVdPKR0PS6QH5ANMWJOreAtxAWtnHAI39/NE6DXCwaNtwZh4DJMJr5N9Is6r?=
- =?us-ascii?Q?u1dwWAs26BOucC2pBFqIuwVI46O+DippMTHyoUULYdk/ckgonfsoIMRSjfun?=
- =?us-ascii?Q?s6CDxxBGihpu7Fg06J0qRgRBc7ay1UtyFFngR78ibtWCLzbOBwruKSsRczGm?=
- =?us-ascii?Q?3f7SmZPqORHVLzUFofjDASmaQT2wgZfdimJsnvcwd7OSVdfF43teJZ1E962V?=
- =?us-ascii?Q?7Mw49+Suxg=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ew42wOJO";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iVwgQR3b"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69B85Ubt1946412
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 14:17:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	wOLlwEieA5QUKwTZQoQXtWGYO+pXqkTk6kdhFCGgK5o=; b=ew42wOJOzPyztr3x
+	ChIgXlUghIxqXBsi11pHHtKtPtR5lT62wzz9ZgdfT3NwVY1L5ggkTJu4Ex0bL2lI
+	TNq1uW69IZIG9AuEj+3Ke5PgdgRB6XPVeE6gQBQFwf+Z/SiyvCyjPGuU4zz/Fp30
+	ad8RFlKtis6fTOyoQ6kjDd5xKYwOHm/pdUo0VmZgKwK7q9fD0WblQ+aOK5bKMSLm
+	GPWey2G7GuYO6N8mk3lABgf/cUprk4N+vSd8t7LlzX9iDFC/F2olLI45TfCB+m1d
+	dJZLuQ7Ifh7acoiS/wsJ0ppFi+1OSGMMkCF5hTMhfmNAke/R46DmXgjpabPuiTPB
+	LSJ8NQ==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7dr7k4ka-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 14:17:38 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cd1e45a268cso409539a12.1
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 07:17:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791728257; x=1792333057; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wOLlwEieA5QUKwTZQoQXtWGYO+pXqkTk6kdhFCGgK5o=;
+        b=iVwgQR3bEnCrDYKBFmnATi7065fijEJn9RQHGPjKcomMOvT7suU6qoSXDARsjT8nKV
+         2fLQhcj1F73WIk7CBP82Pg0qt8FrG/sq0RI3Fl2sxquJeV3GSz+nfkT1uORqWcUAxpdL
+         OwBuvROZhxEqLRmbObbwHkyFApNWgfHcI5WLlYQYp7TjkjgYJxd91mahHXnlotiHfYWW
+         G6YoBvCmNDZfkA6M3g9z581dXPaOpFPyxugtGVGUtE3es54D0AQrRoTL272sRpYqNY5O
+         W0/Tq91KY2xQ5AiHEUeYMj4T16/wwxF9x5bRTQ/sDhkdm99x6VAzDpiuInprG/SbKQ0d
+         irUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791728257; x=1792333057;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wOLlwEieA5QUKwTZQoQXtWGYO+pXqkTk6kdhFCGgK5o=;
+        b=ywHjrE7ozuSAQ4j4+MnZPYOyNAphCd5XVWoonjADWLOn91pGx6H1BWGwQWsYa1ZlYa
+         DshsjUihRq2LgEEXMMOeTJwHY7iuIF30abPcChXp62yHZGR2ZqzpvFRhw31TlH+UuVDE
+         vbt7gOY72MN/4d/WJtCVVW51Hgfo5sKvChaJuQRevto3t2XAjXPvXgIcCn9GlTa9rrEn
+         SNmEvrzkLC8/8fH9Gy/+Msud0sMt4/C5P5CtZP5DQwaFfglCXNh49TfJy3kp8QdsYNrA
+         M1x8TwePvqUpIVg1UmpSRaUUrQOZ4+0s1138Sr0qLK3LJ2RadSj6NonANUQpyY2AGMdE
+         3hXw==
+X-Gm-Message-State: AFq9FYIMnaX+l/CBOctVgX3Qs7EsJSO78qakTvTblHYiIONY9iQXAfr6
+	HbT6c7Kw8lQLQIgu9xfXFltiAAx2/MBKGorKSD6puvlid1GHkQ/y8PH6sLWIDBMkYVkankH6o+1
+	IsQtR0s12eUEQZwW1Adt2VDjZZgYCFJ0Q2Yq9bMLUqyRBMXQY/WBQaLSxVM6Zyswxzt8=
+X-Gm-Gg: AYBFou3Dmfb+U+KXRrH9mHAHqqr/8FWQG90iHPMHennhxc1IFO1qHKaRTM5m1ay+1FR
+	WQ40YI6Zs41cpDU82KgkB6F9oC2DIDYvUOsk1FVia7lhaTZ51t85p34WKX9E+A+gJ4f0IhrKMzI
+	aauBXhGWLTgNd0zWmnVSdpJRqGRnltwQLpn5sZyTTw4gLmSsneYiPcZyEGr4+spK2LxJosgQ8af
+	Qj5c9PWAzCwvhL9G7x7lQYKYcIFfTCFvqk6hfhMDuX8z2f7bRIY6hw1jwl6apakTxmnFg9s5XbG
+	cg3kaT3EsuIbF6QmJipluwXJhCb1fmg/Pfo4dXttzhzJZqiytM5WiOOv5pCvTSLWTAfyvG0u/RI
+	V8lahb6StdWHXMVcN7FjgyXDMpFUU5zHy+dt3RvTT16Y7AVJAi1Hx0filij4w1/A=
+X-Received: by 2002:a17:90b:4a8f:b0:3a6:e985:5631 with SMTP id 98e67ed59e1d1-3ab3a99b88emr6463609a91.62.1791728257099;
+        Sun, 11 Oct 2026 07:17:37 -0700 (PDT)
+X-Received: by 2002:a17:90b:4a8f:b0:3a6:e985:5631 with SMTP id 98e67ed59e1d1-3ab3a99b88emr6463585a91.62.1791728256511;
+        Sun, 11 Oct 2026 07:17:36 -0700 (PDT)
+Received: from ?IPV6:240e:400:e20:12c6:a578:1ef6:8335:64b6? ([240e:400:e20:12c6:a578:1ef6:8335:64b6])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d9e21db1sm3375013a12.16.2026.10.11.07.17.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 11 Oct 2026 07:17:35 -0700 (PDT)
+Message-ID: <41f328b2-0825-4023-b86c-48136ba6ecd2@oss.qualcomm.com>
+Date: Sun, 11 Oct 2026 22:17:14 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: OTlLbhgX2KpzHtleChcdoWgL2XRkwiVS65rCn55sbI1vUuo1AB3mISHtEOW8Kq4eVE/JcNxU1/cOriDSb+9JaXkppYvocr6ix/f5s7ufhd+XiSvBTbC3NtiODGrsy8APvIvFc+CQBqd131lnns/rYhogBeope/l1u8wUvzXr9lZKITGmkj+d2/JvxnX5kJyrLSzhIhSsjVdLV8zerPNd44HPElF2xp+tyYBU/Pk/dB72Z6un7DJxuD7tvOv9G3GHYocFKrRB/gVl6tROS62D9hKkpx0Nb/FH4bgS6i05R0k/88hV77iXiQ9LZCidy3VBEy7NZ8+puebU1jglNlLGEA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: LV1PR11MB8790.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e9bf946-108e-4c27-baa1-08df27a262d3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Oct 2026 14:17:30.5906
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: hFnBKvyCFRQqqUo27+UrVV647QmFfq2dcrgq9Wf5+6VIMT6AS2ol2F+SUuf9A3PtN5siIPhkiaXRuSxHMnHq5zG77kosnhmmf9pxFff2cwA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR11MB7691
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] cpufreq: fix policy max not returning to non-boost
+ freq on boost disable
+To: Ananthu C V <ananthu.cv@oss.qualcomm.com>,
+        Vincent Guittot <vincent.guittot@linaro.org>,
+        Sudeep Holla <sudeep.holla@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Danilo Krummrich <dakr@kernel.org>,
+        Viresh Kumar <viresh.kumar@linaro.org>,
+        Jie Zhan <zhanjie9@hisilicon.com>,
+        Pierre Gondois <pierre.gondois@arm.com>
+Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+        linux-pm@vger.kernel.org,
+        "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+        Oleg Keri <okerixx@gmail.com>, zhongqiu.han@oss.qualcomm.com
+References: <20260929-schedutil-boost-frequency-handling-v3-0-68de169498c7@oss.qualcomm.com>
+ <20260929-schedutil-boost-frequency-handling-v3-2-68de169498c7@oss.qualcomm.com>
+Content-Language: en-US
+From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+In-Reply-To: <20260929-schedutil-boost-frequency-handling-v3-2-68de169498c7@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: LP1XuYCpjwPTu6hCggRIBAwPKKYF300R
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDExMDA1NiBTYWx0ZWRfX69enrsjFi/Sh
+ RjHDtVNXGsrHEoby+zFjbavLYtCUEYK/ccjwsjN4odR3ESBbVPQhnPZq2dRPHteje2Cs0vrg0ke
+ xPShfYWaYK0ymtM9Ur7II2cwOxAZw0c=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDExMDA1NiBTYWx0ZWRfX8bAXZyY0APvN
+ G7Aj87RGQToGUlKviamZHpy82yrPVu8YT7AXWMUMf6GSkNmBkm2em/ljLVLM20vp/nNp74LCuAv
+ bCDhFYHJTKOFa67NP9pWVSKy/J/MvnQgHkefElN9RMRMjiuwimNoOlMkQaF8409LKHUyK1+f24g
+ u5K1smHzck7CygS/AdMBn1uEfqPr6fsTgapf5SKqepGsEx79q0hhPkpzCDF1Qmzmpc7a1LevwhS
+ SEvyf3o9hDYWd1hflkqdrVw0v1I8pOJZ/i0hhIEf8+o3wdoTBqSz25OxIgrotkA/HZjw1jOmxZL
+ T8nn6GjYB0rD7qjGf6LPgg0sWCJA7l1wQFWeNbyvOpEx9r1IYYcA+zWdR8svUWKzDlVHhbDbYzO
+ q8qnMCmFXDisD/i6snvJ5Op9LubAJhUEf+MYRc/oQMa33NQaoOHb0/VbmkZFh1G8QTrQuBospOo
+ 5ieuUc1YQhqqeHR/8LQ==
+X-Proofpoint-GUID: LP1XuYCpjwPTu6hCggRIBAwPKKYF300R
+X-Authority-Analysis: v=2.4 cv=asknmiZV c=1 sm=1 tr=0 ts=6acb9a82 cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=szoK_18ZvN8xkPl22oQA:9 a=QEXdDO2ut3YA:10 a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-11_03,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 priorityscore=1501 phishscore=0 spamscore=0 adultscore=0
+ impostorscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610110056
 
-> -----Original Message-----
-> From: Petr Oros <poros@redhat.com>=20
-> Sent: Thursday, September 17, 2026 12:03 PM
-> To: netdev@vger.kernel.org
-> Cc: Oros, Petr <poros@redhat.com>; Nguyen, Anthony L <anthony.l.nguyen@in=
-tel.com>; Kitszel, Przemyslaw <przemyslaw.kitszel@intel.com>; Andrew Lunn <=
-andrew+netdev@lunn.ch>; David S. Miller <davem@davemloft.net>; Eric Dumazet=
- <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo Abeni <pabe=
-ni@redhat.com>; Simon Horman <horms@kernel.org>; Kubalewski, Arkadiusz <ark=
-adiusz.kubalewski@intel.com>; intel-wired-lan@lists.osuosl.org; linux-kerne=
-l@vger.kernel.org
-> Subject: [PATCH iwl-net 2/2] ice: skip the SW pin description on boards w=
-ith generic DPLL pins
->=20
-> ice_dpll_init_info_sw_pins() describes the SMA and U.FL wrappers by point=
-ing them at fixed positions of the input and output arrays, inputs
-> 4 and 5 and outputs 0 and 1 on an E810-C SFP, and reads the ref-sync part=
-ner of the input it picked. The arrays are sized by the pin counts firmware=
- reports. On a board that does not match the Intel reference layout the dri=
-ver has already fallen back to generic pins, and when such a board reports =
-fewer pins than the reference the reads run past the end of the arrays.
->=20
-> The wrappers are never registered on a generic board, but
-> ice_dpll_init_pins() still calls ice_dpll_pin_ref_sync_register() on them=
-, so a stray nonzero partner from the out of bounds read would pair NULL pi=
-ns.
->=20
-> Describe the wrappers only when the static pin table is in use and keep t=
-heir ref-sync registration under the same condition. The default programmin=
-g of the PCA9575 clock mux stays on the generic path, a board that has the =
-mux still needs its SMA connectors switched to inputs.
->=20
-> Fixes: 2dd5d03c77e2 ("ice: redesign dpll sma/u.fl pins control")
-> Signed-off-by: Petr Oros <poros@redhat.com>
+On 9/29/2026 7:38 PM, Ananthu C V wrote:
+> Commit 538b0188da46 ("cpufreq: ACPI: Set cpuinfo.max_freq directly if
+> max boost is known") introduced a guard for cpuinfo max updates to only
+> increase, to preserve driver-set values above the freq table maximum.
+
+I think as discussed in v2 the changelog should describe the impact of
+commit 6e39ba4e5a82 ("cpufreq: Add boost_freq_req QoS request"), since
+it is relevant to understanding this fix.
+
+> Later commit db80ad776cd2 ("cpufreq: Remove driver default policy->min/max
+> init") dropped the 'policy->max = max_freq' assignment from
+> cpufreq_frequency_table_cpuinfo, leaving that one-way-guard to be the only
+> path for cpuinfo max and consequently policy max to be updated, causing
+> both values to be stuck at boost frequency even when boost is disabled.
+> 
+> Unconditionally track the highest non-boost frequency (max_base_freq)
+> in the freq table. If boost frequencies are available, use the highest
+> frequency from the table/max_base_freq instead of cpuinfo->max_freq to
+> control boost values, so the value can decrease again when boost is
+> disabled.
+> 
+> Fixes: db80ad776cd2 ("cpufreq: Remove driver default policy->min/max init")
+
+Patch 2/2 currently depends on a helper introduced by patch 1/2, which
+prevents it from being backported independently. Since 2/2 is an
+independent fix that should be backported to stable on its own, I think
+it should be placed before patch 1/2 in the series and kept self
+contained.
+
+> Signed-off-by: Ananthu C V <ananthu.cv@oss.qualcomm.com>
 > ---
->  drivers/net/ethernet/intel/ice/ice_dpll.c | 13 ++++++++-----
->  1 file changed, 8 insertions(+), 5 deletions(-)
-=20
-Tested-by: Alexander Nowlin <alexander.nowlin@intel.com>
+>   drivers/cpufreq/cpufreq.c    | 16 +++++++++++++++-
+>   drivers/cpufreq/freq_table.c |  9 ++++++++-
+>   include/linux/cpufreq.h      |  3 +++
+>   3 files changed, 26 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
+> index 96515880b4ac..5e6afb6f8826 100644
+> --- a/drivers/cpufreq/cpufreq.c
+> +++ b/drivers/cpufreq/cpufreq.c
+> @@ -574,6 +574,8 @@ static ssize_t show_local_boost(struct cpufreq_policy *policy, char *buf)
+>   
+>   static int policy_set_boost(struct cpufreq_policy *policy, bool enable)
+>   {
+> +	unsigned int max_freq;
+> +	unsigned int max_table_freq;
+>   	int ret;
+>   
+>   	if (policy->boost_enabled == enable)
+> @@ -587,7 +589,19 @@ static int policy_set_boost(struct cpufreq_policy *policy, bool enable)
+>   		return ret;
+>   	}
+>   
+> -	ret = freq_qos_update_request(&policy->boost_freq_req, policy->cpuinfo.max_freq);
+> +	max_table_freq = cpufreq_frequency_table_max(policy);
+> +
+> +	if (policy_has_boost_freq(policy)) {
+> +		max_freq = enable ? max_table_freq : policy->cpuinfo.max_base_freq;
+> +
+> +		if (!max_freq)
+> +			/* when the freq table contains only boost frequencies */
+> +			max_freq = max_table_freq;
+> +	} else {
+> +		max_freq = policy->cpuinfo.max_freq;
+> +	}
+> +
+> +	ret = freq_qos_update_request(&policy->boost_freq_req, max_freq);
+>   	if (ret < 0) {
+>   		policy->boost_enabled = !policy->boost_enabled;
+>   		cpufreq_driver->set_boost(policy, policy->boost_enabled);
+> diff --git a/drivers/cpufreq/freq_table.c b/drivers/cpufreq/freq_table.c
+> index ea994647abc8..820ed4559f6c 100644
+> --- a/drivers/cpufreq/freq_table.c
+> +++ b/drivers/cpufreq/freq_table.c
+> @@ -14,7 +14,7 @@
+>    *                     FREQUENCY TABLE HELPERS                       *
+>    *********************************************************************/
+>   
+> -static bool policy_has_boost_freq(struct cpufreq_policy *policy)
+> +bool policy_has_boost_freq(struct cpufreq_policy *policy)
+>   {
+>   	struct cpufreq_frequency_table *pos, *table = policy->freq_table;
+>   
+> @@ -27,17 +27,22 @@ static bool policy_has_boost_freq(struct cpufreq_policy *policy)
+>   
+>   	return false;
+>   }
+> +EXPORT_SYMBOL_GPL(policy_has_boost_freq);
+>   
+>   int cpufreq_frequency_table_cpuinfo(struct cpufreq_policy *policy)
+>   {
+>   	struct cpufreq_frequency_table *pos, *table = policy->freq_table;
+>   	unsigned int min_freq = ~0;
+>   	unsigned int max_freq = 0;
+> +	unsigned int max_base_freq = 0;
+>   	unsigned int freq, i;
+>   
+>   	cpufreq_for_each_valid_entry_idx(pos, table, i) {
+>   		freq = pos->frequency;
+>   
+> +		if (!(pos->flags & CPUFREQ_BOOST_FREQ) && freq > max_base_freq)
+> +			max_base_freq = freq;
+> +
+>   		if ((!cpufreq_boost_enabled() || !policy->boost_enabled)
+>   		    && (pos->flags & CPUFREQ_BOOST_FREQ))
+>   			continue;
+> @@ -57,6 +62,8 @@ int cpufreq_frequency_table_cpuinfo(struct cpufreq_policy *policy)
+>   	if (policy->cpuinfo.max_freq < max_freq)
+>   		policy->cpuinfo.max_freq = max_freq;
+>   
+> +	policy->cpuinfo.max_base_freq = max_base_freq;
+> +
+>   	if (min_freq == ~0)
+>   		return -EINVAL;
+>   	else
+> diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
+> index f048c925fd98..7bb58405e004 100644
+> --- a/include/linux/cpufreq.h
+> +++ b/include/linux/cpufreq.h
+> @@ -45,6 +45,7 @@ enum cpufreq_table_sorting {
+>   struct cpufreq_cpuinfo {
+>   	unsigned int		max_freq;
+>   	unsigned int		min_freq;
+> +	unsigned int		max_base_freq; /* Highest non-boost frequency in the table */
+
+
+To avoid introducing a new member that is only used by frequency-table
+drivers, please consider the following implementation instead:
+
+If there are boost entries in the frequency table, the table is the only
+source of cpuinfo.max_freq, so let cpufreq_frequency_table_cpuinfo() set
+it unconditionally in that case.
+
+
+diff --git a/drivers/cpufreq/freq_table.c b/drivers/cpufreq/freq_table.c
+index ea99464..8c8bad2 100644
+--- a/drivers/cpufreq/freq_table.c
++++ b/drivers/cpufreq/freq_table.c
+@@ -33,14 +33,17 @@ int cpufreq_frequency_table_cpuinfo(struct 
+cpufreq_policy *policy)
+  	struct cpufreq_frequency_table *pos, *table = policy->freq_table;
+  	unsigned int min_freq = ~0;
+  	unsigned int max_freq = 0;
++	bool has_boost = false;
+  	unsigned int freq, i;
+
+  	cpufreq_for_each_valid_entry_idx(pos, table, i) {
+  		freq = pos->frequency;
+
+-		if ((!cpufreq_boost_enabled() || !policy->boost_enabled)
+-		    && (pos->flags & CPUFREQ_BOOST_FREQ))
+-			continue;
++		if (pos->flags & CPUFREQ_BOOST_FREQ) {
++			has_boost = true;
++			if (!cpufreq_boost_enabled() || !policy->boost_enabled)
++				continue;
++		}
+
+  		pr_debug("table entry %u: %u kHz\n", i, freq);
+  		if (freq < min_freq)
+@@ -50,17 +53,20 @@ int cpufreq_frequency_table_cpuinfo(struct 
+cpufreq_policy *policy)
+  	}
+
+  	policy->cpuinfo.min_freq = min_freq;
++
++	if (min_freq == ~0)
++		return -EINVAL;
++
+  	/*
+  	 * If the driver has set its own cpuinfo.max_freq above max_freq, leave
+-	 * it as is.
++	 * it as is.  This does not apply to tables with boost entries, because
++	 * the table is the only source of cpuinfo.max_freq then and it needs
++	 * to go down again when boost is disabled.
+  	 */
+-	if (policy->cpuinfo.max_freq < max_freq)
++	if (has_boost || policy->cpuinfo.max_freq < max_freq)
+  		policy->cpuinfo.max_freq = max_freq;
+
+-	if (min_freq == ~0)
+-		return -EINVAL;
+-	else
+-		return 0;
++	return 0;
+  }
+
+  int cpufreq_frequency_table_verify(struct cpufreq_policy_data *policy)
+
+
+>   
+>   	/* in 10^(-9) s = nanoseconds */
+>   	unsigned int		transition_latency;
+> @@ -791,6 +792,8 @@ struct cpufreq_frequency_table {
+>   
+>   int cpufreq_frequency_table_cpuinfo(struct cpufreq_policy *policy);
+>   
+> +bool policy_has_boost_freq(struct cpufreq_policy *policy);
+> +
+>   int cpufreq_frequency_table_verify(struct cpufreq_policy_data *policy);
+>   
+>   int cpufreq_generic_frequency_table_verify(struct cpufreq_policy_data *policy);
+> 
+
+
+-- 
+Thx and BRs,
+Zhongqiu Han
