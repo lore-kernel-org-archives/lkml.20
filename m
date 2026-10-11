@@ -1,103 +1,101 @@
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A76E3F3296
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 22:00:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D5CE2594BD
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 22:00:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791756020; cv=none; b=aQmeosxBU9HXJ78CqOwQtnwVXimKxvcgcXK3rpweGYYXM0iRvKUlRWj9LBsgmkIvPM9MvOPwA9OWroqKvDgMBRQZIRsRieBOs2ASiDzDudmsBWi10JnISPl905xGaUCnPVdG9OVPqlLXXVx2XWr4006RV8F10DntwMcyfviI7/w=
+	t=1791756056; cv=none; b=IvyjnJC7owdy2MUHFImQO98wY88ubfbHxZi3o1mE2uXlRi1q9fkff1kxZQfIpJoyjpFtJL/ENxQsrlG2bZkJ7aPg8zRUph/aiLH9AYM9RSZn+iPXYoXkDWLFjOz6DeELQeDAOk0HN3uD3EcDOT4BaLxJEP8XJWY5GhjB3mgXSJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791756020; c=relaxed/simple;
-	bh=L+whpSUY8l7dBDYv2v/0jlwXxPfZEgsXE+WR12p+ftQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Nv80VALMyJFXOkjLv+x+H7ZtV584G+OrU/tsNVkkjHgpagKYkdebQ8qZvLxDHBATmaOk7bzQgeBQ8N438Ze97hgl/fDp4dO8Z85SDz02HgMvlVaHyGUJ+8GEwhHwAjKCeJRJKyvf6qoMHC3UDUNsKiJiTine1FWaw0X0N/ISMfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=CdZxhgia; arc=none smtp.client-ip=96.67.55.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	s=arc-20240116; t=1791756056; c=relaxed/simple;
+	bh=Ywh1GMRw2iBO14IQbgD0pj6ibbfA/kMA8uXSyE24qzQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mY1ep+YPe9iubk6x5Yvkvj9Kz77RI3QjL7p0F8bYPd1rN6YO+X0oGaBdlMocwSV/Go50Aisxzvjf4i6lo8HJwhsiVKvgW9GiyfgkMlmlHA8RssL6DxYDET3U4mWUs2bfWnTpr4gbJlkJWEhHUmX9o0/DSOxbBwUtXiPlXCQKPc8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=RGqVBaoP; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="CdZxhgia"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=L+whpSUY8l7dBDYv2v/0jlwXxPfZEgsXE+WR12p+ftQ=; b=CdZxhg
-	ia92+T7t9tNF9vFf9w3P69Jw3yi0P/s6f9KhxSwJFEMx3iadFoORgrniAV81+LBD/5qGjh/nRPaeD
-	HJSrzr340wYnn7XQ8VDnzzILWHZoELF8LnEtpNLDZUWI4zLhVAnTWw5miSGMIpo6RUbBHIdge+A1Q
-	rirkKWO+QO1q/F+5pLd2wZ4dMS8FJaEmRKoeG3izUopYp4QXNpqWr/nVRXoMInHfuY4JPpL9DxKpt
-	wuIq7xjZVUQxZysrQD+18rU3B8ca2zxeLKeGUqIFurAmAmuW2aLACMqNwxhdMKlWPUsNTtiqfNoXA
-	KsE+aN+ofpiPyAfbAml7z0hy00Vw==;
-Received: from [2601:18c:8100:a0e0:2541:b86e:2586:d219]
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1xG1Zy-00000003Buv-2G6U;
-	Sun, 11 Oct 2026 21:59:38 +0000
-Message-ID: <16a9c5ef3fde0b7693e52dac91a2d397526dd99b.camel@surriel.com>
-Subject: Re: [RFC NO CODE] [DISCUSSION] Anti-fragmenting ordered buddy
- allocator
-From: Rik van Riel <riel@surriel.com>
-To: Dev Jain <dev.jain@arm.com>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, ryan.roberts@arm.com, 
-	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
- liam@infradead.org, 	vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
- mhocko@suse.com, 	kasong@tencent.com, qi.zheng@linux.dev,
- shakeel.butt@linux.dev, hannes@cmpxchg.org, 	brendan.jackman@linux.dev,
- ziy@nvidia.com
-Date: Sun, 11 Oct 2026 17:59:38 -0400
-In-Reply-To: <20261011215412.1181172-1-dev.jain@arm.com>
-References: <20261011215412.1181172-1-dev.jain@arm.com>
-Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
- keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
- eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
- Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
- lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
- dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
- mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
- gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
- r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
- WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
- 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
- Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
- +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
- g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
- KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
- fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
- 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
- G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
- okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
- TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
- cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
- omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
- QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
- c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="RGqVBaoP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1791756046;
+	bh=Ywh1GMRw2iBO14IQbgD0pj6ibbfA/kMA8uXSyE24qzQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=RGqVBaoPkXH9kOrMo6u1pfngT02rTOpnlcvjdokeFPC6gfsY8pTcnDkNT7o8t9wiV
+	 knISOnkUrwGL+v9OwiuScoWP4JRVi773vsgS5n0x8ffq7qkdLWGlbJWfBqoPGcvaHZ
+	 ERt/yxo6khEvhJuI5J8wXejPjKfXQUe8+cOKNl0N/BrgU6AN9gi4EMHPM+7iqIfux0
+	 41W5IT7eJAIw9iRPx7w/9Y6Br2Gzul+ABgz8Dq6syTNkYPEEqmufTpnU8vNLX5lZe8
+	 w3mIrbqVSkGH9gvXhKZpFhaz4yeYFirR5nSuxWMvbqyNFmD828mmcima5U2AB1yJyn
+	 wfgD/gWp/XLtw==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: cristicc)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 50A5B17E0110;
+	Mon, 12 Oct 2026 00:00:46 +0200 (CEST)
+Message-ID: <eac822b3-8468-4067-aa1d-579a2dd9cf6e@collabora.com>
+Date: Mon, 12 Oct 2026 01:00:45 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7/7] drm/vc4: hdmi: Defer pixel clock validation to HDMI
+ helpers
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Maxime Ripard <mripard@kernel.org>, =?UTF-8?Q?Ma=C3=ADra_Canal?=
+ <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, kernel@collabora.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261001-vc4-common-scramb-v1-0-51280460194b@collabora.com>
+ <20261001-vc4-common-scramb-v1-7-51280460194b@collabora.com>
+ <CAPY8ntDCU80hkxdDEGphQCX362ut4AdWJUTGkDOwOHWfkPW6BQ@mail.gmail.com>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <CAPY8ntDCU80hkxdDEGphQCX362ut4AdWJUTGkDOwOHWfkPW6BQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, 2026-10-11 at 21:54 +0000, Dev Jain wrote:
->=20
->=20
-> Apart from dividing the freelists between migratetypes, little
-> attempt
-> has been made to change the algorithm
+Hi Dave,
 
-Could I convince you to take a look at these
-patches?
+On 10/8/26 9:01 PM, Dave Stevenson wrote:
+> Hi Cristian
+> 
+> Sorry for coming in late on this one.
+> 
+> On Thu, 1 Oct 2026 at 01:27, Cristian Ciocaltea
+> <cristian.ciocaltea@collabora.com> wrote:
+>>
+>> drm_atomic_helper_connector_hdmi_check() rejects modes whose computed
+>> TMDS character rate exceeds the connector limit before invoking the
+>> driver's .tmds_char_rate_valid() hook.
+>>
+>> BCM2835 is capped at 162 MHz, slightly below the 165 MHz limit of HDMI
+>> 1.2.
+> 
+> Nothing I have says that BCM2835 is HDMI capped at 162MHz.
+> Working back through the history, originally the HSM clock was always
+> set to 163.7MHz and the pixel rate had to be >1% below that, hence
+> below 162MHz.
+> 
+> However that was reworked so that the HSM clock rate is now set to the
+> pixel clock * 101/100.
+> The HSM clock can run at 166.65MHz without issue, so a pixel clock of
+> 165MHz is fine.
 
-https://lore.kernel.org/all/20261007021250.1665929-1-riel@surriel.com/
+Thanks for checking this out. 
 
-My current plan is to first improve the
-fragmentation at pageblock level, and then
-add some slow path code on top of that
-which can steer the allocations by physical
-address range, to preserve the potential
-for gigablock page lalocation.
+Since that would be a functional change, I think it's worth introducing a
+dedicated patch, acting as a prerequisite to the current one. I'll handle it 
+in v2.
 
---=20
-All Rights Reversed.
+Speaking of which, assuming no additional changes are required, would you be
+able to merge the series afterwards? That would get us one step closer to
+finalizing the infrastructure cleanup.
+
+Cristian
