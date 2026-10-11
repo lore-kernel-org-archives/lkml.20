@@ -1,126 +1,120 @@
-Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net [217.70.183.200])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 881E6387566;
-	Sun, 11 Oct 2026 21:13:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A99442AA9;
+	Sun, 11 Oct 2026 21:13:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791753204; cv=none; b=BRPrlD2YfoswiL9XnkT2iYNFXsZJRcPsn+7gI1N6G745wJ9atsZsCromElKFz4vJXOheBsx6o9lD5xe7SynzMZp635oS+h77bmW4beyot7S5jGJoF11d1h5ryKOoTCOfaxhOEcT/RcFMylfyXsYMN4+A8cWuzGCg8QS6Ry9oMNo=
+	t=1791753241; cv=none; b=WnlanJHe5n5PKd5kXcB9CK3iKUGnWE76mCIOsDtdngwgo5ddXlb4uwzz/dR9dsQYZNQzZKUgLW2Dz1Nrk//2DN0PlLUj16RgcAdnA13qATAkDonptQcCIT43S9ams1vvYo8ytpAYp+1DrO1VTRa18bIpeptg61RvpojeR/8K9Sk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791753204; c=relaxed/simple;
-	bh=kNxwqKFDuH+f7OaoWDpdCM8r8zO93pvAKJYGlvtXcrU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=o2xvyF1ICl4ajyrpDDZpNUV2Fk3QdzLDxM3uFoyYcv4YjfXnBUn+ZjZxa6j/5VIiuLpwfepCVCrtH4Cf1kdI7OIHrBLHt6vAEOfRxoS4g803eXn6xn1nZj/ApnWIu9S+EPOaW9vV2QIMbqmYAcSq/OQ5gdBKYKf+xIXVeiQDZng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io; spf=pass smtp.mailfrom=gtucker.io; dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b=TxNN9sTU; arc=none smtp.client-ip=217.70.183.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gtucker.io
+	s=arc-20240116; t=1791753241; c=relaxed/simple;
+	bh=SvO4R3vxF4xR1wqicParlaqsB3sS5MVT1lmEeZOcGvU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H+zEoproq0MR5Cy9I3o3sGHOb8YYOrjHFVCLUBzZdKyV7wXVYMxO9j8vJ5wkDSVNbao//U9ealO32ZCo65lQPN9xJjsZ7rp9HkXq5nwqS9EY96YdCrP2M1Gn+a+C1yE+N8DCtQ1fnNPbYT5dOMwCon8GvUCo7gIRbx6q/hqCWdk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y9R0nBAp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b="TxNN9sTU"
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 12D7841C44;
-	Sun, 11 Oct 2026 21:13:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gtucker.io; s=gm1;
-	t=1791753194;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Nng+Q5MP6DyoM47RuivMXig2ptT0CD9F1lZB9fWGajk=;
-	b=TxNN9sTUpDjgLwYj5KdgUP/y+VtCCvFZ6rJNFNsoYxTBgSXPVk3Mlj/nvhtgPlL9YSWRnf
-	ehx/5XPnXZrY7CuAPtWBVTD5vPUehfhG8WBD5KcruVNjGBleObSm1S03EtGfZugNOPiB+J
-	tjdUc8Eub+5mz/dP0qZJezvDmBbOpO/O5e3s/9juNewYN1pcLUBefT+W81n8Hkl/mD/+uK
-	u35Dbdauk1csXeQWcVq/qYH8R4JH4SM7rd4oJfgIFz82DOcajL80bU27jwwrvwjaLCtCGZ
-	pRSR/Zfm2TexDOuetDNUJiyBngU64WMbxjGnnONOLebqPOtn3R5/yqvqd3XFVw==
-Message-ID: <b72d17f6-653d-4e11-ad07-b532bb83b20a@gtucker.io>
-Date: Sun, 11 Oct 2026 23:13:12 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y9R0nBAp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 743761F0089B;
+	Sun, 11 Oct 2026 21:13:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791753239;
+	bh=cB64+7GIL/QejhQmJX5UmgahZ1S8lTXRVFKShlbGWQM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Y9R0nBApfEq3cFVA+VsinEcrUSzp6c6bkadfZbfDy1QEQ5rg5OoIhCrczxqxVS8kT
+	 2HCmsO3+W/T1abh2B3I65X7x5vUzr6/euVpLz62Vk52UmSYp3MrIvnlOMVrfn8H8DG
+	 MpMCa6Zs5ebzHvIYHcvddVChPsaMdWP/v7H2s8fzOx0wSu9M1w5a/ugCmIJ9EgQ/nh
+	 UphV13z3PHvIvffykWUVXTGisHUO9e8mRsmH3fY+RSHQKkQCWY35rny4nZbSsQaCUz
+	 FQL35cVSIfc3jQjVf9AmhNE73CU/WhMWFD8xNuZHj+izqQ3ViEg18rZ7Q2dL7efhbW
+	 GBotapyIPL2RQ==
+Date: Sun, 11 Oct 2026 22:13:53 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Lucas Tanure <tanure@linux.com>
+Cc: Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v3 1/8] dt-bindings: net: amlogic,meson-dwmac: list the
+ compatible combinations
+Message-ID: <20261011-starship-foyer-1105c1b35e31@spud>
+References: <20261010105900.247342-1-tanure@linux.com>
+ <20261010105900.247342-2-tanure@linux.com>
+ <CAFBinCAejxmeeHyDy+vMSg6dBm+9prhEo9qZ7FAsiWNB1W-HXw@mail.gmail.com>
+ <CAJX_Q+3JLn6oTt8qTPM-muKsY9JbTEMwqRvbamZ3vqg_Yymsmg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] scripts: add --registry option to container tool
-To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Miguel Ojeda <ojeda@kernel.org>
-Cc: =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- linux-doc@vger.kernel.org, workflows@vger.kernel.org,
- linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <06ee7c694c3e9716bff5c9b1b8e9dc95cc0b38d3.1791751900.git.gtucker@gtucker.io>
-Content-Language: en-US
-From: Guillaume Tucker <gtucker@gtucker.io>
-In-Reply-To: <06ee7c694c3e9716bff5c9b1b8e9dc95cc0b38d3.1791751900.git.gtucker@gtucker.io>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-GND-Sasl: gtucker@gtucker.io
-X-GND-Score: -100
-X-GND-Cause: dmFkZTEai0oaN25vAZ/XFY5KQr9Ly0AX9XOERQJHNbqIePbXfeMdal6GwMNJ9RzLWkFDg49WY+gpwLJdLa+Dm3LxKn4RX16eYF6BC4pgQ89mYG5L7YoY24ENNc94YvzCt2VsVg1kQn9DPCqk03svQ8cgLntfoSRYBmYJ+k5EWgOQxwsG3i+ygx794In5brWuOv2/8H8KBHojk3xRuUmb63MiROAGhVSn9Kp4zET8fbky35yKDtIvfaBFIGFKF/By5zOpyH7qgntIhO6nfTS5HN0IMdFVU1ed+M7iNMH0xfGFwm3Pq73H0mvviTnTExGGmY2qsb/oiUyL47xwcIkCF+zO7OECPpQTVNrd/VvIqPISOM36V8DvUg1XlFzi7uv6K491oWYCaASC+hUXsc0vAOcU0NGbQOycx4U0G3B62f77gp+ORcejK3ioT05pfTB0pWBHKk0LMufNxObZ5E6TwLnKGqjrkWyp1yTqVGtfo8DzVDoOBrxtBpnZBXJOAujf7tqdYcCQVTGCt3+cgdocqAMrQEZK7gwzVjvNxmb+P0MRff4cpqcCY20hZ/fNUSaF0kVBwaQln51SdMsndDEKhaSiq5X1LpUltMJUKs3A9j728jUcrsAB+on6m8irIdmeKKQL7V+AsxsLn7e7YKSzL9y5SPQB70w4MEzZ3puLgLYhMXVnBg
-X-GND-State: clean
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Li4Qmgdoe6LbIUh+"
+Content-Disposition: inline
+In-Reply-To: <CAJX_Q+3JLn6oTt8qTPM-muKsY9JbTEMwqRvbamZ3vqg_Yymsmg@mail.gmail.com>
 
-On 11/10/2026 10:54 pm, Guillaume Tucker wrote:
-> Add a --registry / -R command line argument to the container tool to
-> specify an altnerative image registry and support it in the TOML
-> configuration file accordingly.
-> 
-> This uses a mechanism based on regular expressions to parse the
-> container registry and image names and construct the final one based
-> on a set of priority rules.  A registry can be included directly in an
-> image name; an empty string means a local image.  It can then be
-> overridden by explicitly specifying a registry name via the CLI option
-> or the TOML file, with the CLI option taking precedence as always.
-> 
-> Signed-off-by: Guillaume Tucker <gtucker@gtucker.io>
-> ---
->   scripts/container | 126 ++++++++++++++++++++++++++++++++++++++++++----
->   1 file changed, 117 insertions(+), 9 deletions(-)
-> 
-> diff --git a/scripts/container b/scripts/container
-> index a3a55180d6ed..de72725656a8 100755
-> --- a/scripts/container
-> +++ b/scripts/container
+--Li4Qmgdoe6LbIUh+
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-[...]
+On Sun, Oct 11, 2026 at 03:16:18PM +0100, Lucas Tanure wrote:
+> On Sat, Oct 10, 2026 at 11:04=E2=80=AFPM Martin Blumenstingl
+> <martin.blumenstingl@googlemail.com> wrote:
+> >
+> > Hi Lucas and Conor,
+> >
+> > On Sat, Oct 10, 2026 at 12:59=E2=80=AFPM Lucas Tanure <tanure@linux.com=
+> wrote:
+> > [...]
+> > > +          - enum:
+> > > +              - amlogic,meson8b-dwmac
+> > > +              - amlogic,meson-gxbb-dwmac
+> > > +              - amlogic,meson-axg-dwmac
+> > > +              - amlogic,meson-g12a-dwmac
+> > > +          - const: snps,dwmac-3.70a
+> > > +          - const: snps,dwmac
+> > > +      - items:
+> > > +          - enum:
+> > > +              - amlogic,meson6-dwmac
+> > > +              - amlogic,meson8m2-dwmac
+> > Meson8m2 dwmac reports: User ID: 0x10, Synopsys ID: 0x37
+> > In case it helps I can submit a patch to change the Meson8m2 .dtsi to
+> > use "amlogic,meson8m2-dwmac", "snps,dwmac-3.70a", "snps,dwmac" - then
+> > we could move it here too.
+> > That leaves only Meson6 with a single fallback compatible. I don't
+> > have any Meson6 boards, so it'll have to stay that way.
+> Hi,
+>=20
+> Fine by me. But I think it is best to wait for this series to be merged.
 
-> +@dataclasses.dataclass
-> +class FullImageName(ImageParserMixin):
-> +    """Parsed image name including an optional registry"""
-> +    image: ImageName
-> +    registry: RegistryName = None
-> +    _regex = re.compile(
-> +        rf'^((?P<registry>{REGISTRY_REGEX})\/)?(?P<image>{IMAGE_REGEX})?$'
-> +    )
-> +
-> +    @property
-> +    def name(self):
-> +        """Full name in registry/image:tag format with optional registry"""
-> +        return (
-> +            '/'.join((self.registry.registry, self.image.image))
-> +            if self.registry else self.image.image
-> +        )
-> +
-> +    @classmethod
-> +    def from_name(cls, name):
-> +        if re_match := cls._regex.match(name):
-> +            fields = re_match.groupdict()
-> +            return FullImageName(
-> +                registry=RegistryName.from_fields(fields),
-> +                image=ImageName.from_fields(fields),
-> +            )
-> +        return None
-> +
-> +
+In the second sentence, you're referring to the dts patch I assume?
+IMO, you should submit a new version of this with the 8m2 moved to the
+other enum and Martin can submit the dts patch now, since the current
+binding permits using dwmac-3.70a, no need to wait for this to be
+merged.
 
-As one would expect, Sashiko has some opinions about this:
+--Li4Qmgdoe6LbIUh+
+Content-Type: application/pgp-signature; name=signature.asc
 
-  
-https://sashiko.dev/#/patchset/06ee7c694c3e9716bff5c9b1b8e9dc95cc0b38d3.1791751900.git.gtucker%40gtucker.io
+-----BEGIN PGP SIGNATURE-----
 
-I would say that at least half of it is slightly bogus but I'll
-address them in detail in due time.  Also I've prepared some unit
-tests to cover this logic and will send them as an RFC separately.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasv8EQAKCRB4tDGHoIJi
+0j98AP4rQ60xf6QZIR+UVdVPmdSR8xm6GMzsKTW5wwCVZq8gLAEAyM8L5JCUZzmE
+aBhkxeWELj13jV1WIQV+eunZ4dUaYgU=
+=+0qV
+-----END PGP SIGNATURE-----
 
-In the meantime, I'd be interested to know if anyone has some
-feedback on the features themselves from a developer point of view.
-
-Best wishes,
-Guillaume
-
+--Li4Qmgdoe6LbIUh+--
