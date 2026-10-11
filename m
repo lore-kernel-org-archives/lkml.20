@@ -1,157 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f6.google.com (mail-dy2-f6.google.com [74.125.229.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E432D46A1;
-	Sun, 11 Oct 2026 13:20:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13D8D44A411
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 13:20:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791724823; cv=none; b=rmLrX6I2pjrPk+QuMaEac8kNVFO75FN4S8urAbF3eeYX/7/uYbIN12OVJA+I+Jm9ZlCQL5c5eVgRr4Bm7jJfn0fX5kYzHrsowXB1gFCzz0m/z2Hsg1VSAMhrzFpFYf6DabdgRNjiWEo29njfrA1rVSxpDAAgoS5CKmOQrovEwjk=
+	t=1791724826; cv=none; b=BEdO09SRihFD+kf4HlPImnZFU1aeb6hwK12+noIo8HywnrwYv/uor8sSChgU2+7LGXWI0N39wPJFUx5uRqRPqiOeR6GNnQwv6p0AZMvyHaTO7ftZDBYt+owScKV3XooxsSJF4A8m483lZK9g5lN6UVMiChA8O9ojWSBXXuReuWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791724823; c=relaxed/simple;
-	bh=CCferC2my1KTfiRlvoMZHvwLRRPxthwclodKSDzPpAo=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EpOkH2brTejySfWoLVJYBc9IHa8eW09DJczVc/X5m5UJVOG0zoLolQJ4MqppPK23NqaxhZrCHgbbYdR3PXGZkPCEsxv15NWnF3yadLbOBxNNJWvkT6iJ5WHKGjzHDC8LiauXOUfpdOvvnop8xq7B9j+X/JPssPJe3UAardrR8cg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f9nurOG7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791724826; c=relaxed/simple;
+	bh=uXYPY6h1yD2YP8cgMDGftsU7ylCzXryuv3bVUW6VD3E=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=tn2sI69oxb0Lt/yXqNGqK4R4bU+djnwLe1zk+08h8liIsfbMFP7CUSU8Drk48Sp5ca8yw+9JJkPoaGroVAFFm1vtPsMTpqJCnFy2hI19XJRBHOjB5UH0pmPVjy2Hopwoc5/Jp4zuHCr+u2Ve+VcWrVXdveNJU7F6lz/5DlAcRME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TfcuReCm; arc=none smtp.client-ip=74.125.229.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f9nurOG7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB7C01F0089B;
-	Sun, 11 Oct 2026 13:20:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791724821;
-	bh=B+sTImV2OzP8xPaKYq6APrxAM++DsSPbzV5A+zRS8LM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=f9nurOG7GFObPNn8K3ivBt4y8NHagBVpIwGEGNpMeVMPFIj1FSL419QWWdWQaKqFT
-	 zMb42HUDEHhPvSX765Iq0BOS7nNM5rDqY1NTdYv/KJN66www118aJ3mnQy6ogblkqV
-	 czi85CVXRG94i3clIiRL3UAWDouSbdtga3MTpvuWIcnHCsoft+y+XDzBOr7qL1NR8c
-	 qBoigMoOqgmBisQ0Jml84hJuOh/CRo61j+zzEr1cvXyxAxF8BKqiY7KUN6MBIq9crT
-	 C2EDRpAL2ZoeNqx5Unr2AZtneGXQbIPQZTNbOGCDZEwmhmBtMenQwkYjlckJKIkDnz
-	 R96GtnvHdhfcQ==
-Date: Sun, 11 Oct 2026 12:14:22 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: "jiale yao" <19888972804@163.com>
-Cc: "Andy Shevchenko" <andriy.shevchenko@intel.com>, "David Lechner"
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, "Andy
- Shevchenko" <andy@kernel.org>, "Stepan Ionichev" <sozdayvek@gmail.com>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: gyro: bmg160: reject duplicate event disable
-Message-ID: <20261011121422.5c7078ff@jic23-hlaptop>
-In-Reply-To: <5d8fc46a.89bc.1a0e7525da7.Coremail.19888972804@163.com>
-References: <20260925140956.2254877-1-yaojiale02@163.com>
-	<araCndRmAqnX1K9k@ashevche-desk.local>
-	<6b2f4eef.1cf6.1a0d8fc9ac6.Coremail.19888972804@163.com>
-	<20260926020133.3699a786@jic23-hlaptop>
-	<20260927181632.76bc1eda@jic23-hlaptop>
-	<5d8fc46a.89bc.1a0e7525da7.Coremail.19888972804@163.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TfcuReCm"
+Received: by mail-dy2-f6.google.com with SMTP id 5a478bee46e88-3599f43e0aeso225957eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 06:20:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791724823; x=1792329623; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RC5wNxG5OvZ7QX4c7CG14p2PybaZXqw3gD9axjHB3VU=;
+        b=TfcuReCmX56ub8M8kJYfuGYnjrNQckolaFjlkti41HYMWrpfm2isNlRR3WOtR2Fslz
+         qKyAVNll1KDkriVLAqh2aTC4qK+Zo87xZJU1GrIhWqtqf6FBwdF+j5P0tgwJAln1mX81
+         OfukIhp6lkPwzD6f6Nl/Omnit+BwxXiC5KKnM0jztkagS63kT1vnb+ABoJJwkQINHhtW
+         iuKZBBPCdVoaOmw534VGPfFi3UBW2H6xjbielNfESIuc8gIazXFLXnD6WaTyTExpeklh
+         M9XOJGnzSFxffNURDE6+EQ0qzSifPeztQg5sg45es6ExaKszO/8Q0ialzC2UOXNynldM
+         +GJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791724823; x=1792329623;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RC5wNxG5OvZ7QX4c7CG14p2PybaZXqw3gD9axjHB3VU=;
+        b=x/ZZ3rQsmUlq/VsqpK6z0O130Ahl4Nz/xSGe/RC8RHWfZM6/mqfbBgCL7vHlIrHVD6
+         DcM14ehO0gcbq94xjafIleYu8Acr9t9W3n5XdED/9spPRcemUujWHl1bBUguMwXsiWjF
+         5Ll1p83APT7D2XzFE7aUq5r//AnED2xggJMuszKP9d04skM7kJZko/j9lNhG+6iD1Hrd
+         JZarDnT8pyKoBi/+hD9PUNQS9UPQ9nZm1debxqnmGJXugEW6lI8M4sFMuL2z3lhQoidS
+         S3T2n1gG1oWwETJBGo5ogeLK+VubVOGUoebiEowuQDL7ojC/c38m2JEVI/7qTrQFlrRd
+         hVeA==
+X-Gm-Message-State: AFq9FYImXAd/zBhxXB/cCYWCx4zEuDanpOea5dU1SEczoCHoUUr/dmNm
+	/x6hrcPzzNlfHzKscT+X/E0GBQLd5ZvaiCiRfNY94ibfPSpWLva70Pb3HB4vXC7u/wAHjr3n
+X-Gm-Gg: AYBFou1q6XnBMA9zrbFepCKKXGLb0m7q9AVwZD25K1Rgn9kdMnb2LCA/UV/R27vUfQA
+	oA8WmMiHTfTHhDvzZSNBtGAID2yXRMaExo4beMp04MA6TVQLFOe1qExpdwaeFnqLGYzJ6aDwi6Q
+	BO/Dh6R9uJ4nBjP6eML+G951KgXymdHBVSdQK+RfC4OKW2ivtA42+W+zShnoE/DZFtVWi7mDR/J
+	cOJtAwkDv8xt1PbopL1hVL/Qc0cI9r+f1KC7+y1nl0R8+nw9Pc7Mi3q6m+5dG+FnFbDBFplyh6U
+	rKTisIps/Y4TCOgQ1UdLF46vpo/qhPQMWdBmiz91CE7XoEQEIaDW6AzupAvufDSkfIwj/TSn9+E
+	8jqpO37Y7a7kQ87/cHV4HHACVtkgvucwGd+KmzxOGAl0CB/8Upd+or6VdxYEeJlIcR+87FoFTjw
+	9kAgWk2ND9D9Xet90RRTNAE47XrFO24aT+i/nYP5W6qXvCXx3jClVqTiBmcwlINKb+lSNL5uJu/
+	8jOwaV/e/kfXplLRic96GikzCHJsr5wm6gDf615SObXQic6LPAdmLXnMLgfBHKOduj7+A==
+X-Received: by 2002:a05:7022:1605:b0:151:94a6:6f5f with SMTP id a92af1059eb24-16a5fc917b4mr10950183c88.10.1791724823038;
+        Sun, 11 Oct 2026 06:20:23 -0700 (PDT)
+Received: from localhost (ec2-18-143-158-86.ap-southeast-1.compute.amazonaws.com. [18.143.158.86])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a1becb11sm20136059c88.4.2026.10.11.06.20.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 06:20:22 -0700 (PDT)
+From: jianyungao89@gmail.com
+To: linux-kernel@vger.kernel.org
+Cc: Jianyun Gao <jianyungao89@gmail.com>,
+	Dan Williams <djbw@kernel.org>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	nvdimm@lists.linux.dev (open list:DEVICE DIRECT ACCESS (DAX)),
+	linux-cxl@vger.kernel.org (open list:DEVICE DIRECT ACCESS (DAX))
+Subject: [PATCH] dax: fix dax_core_init error return code
+Date: Sun, 11 Oct 2026 21:20:17 +0800
+Message-Id: <20261011132017.31131-1-jianyungao89@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261011111422.bBP3MhGuGJOxLyFKESbjm6X-eW9KJYhWIYzsLlmkq5M@z>
+Content-Transfer-Encoding: 8bit
 
-On Mon, 28 Sep 2026 17:22:09 +0800 (CST)
-"jiale yao" <19888972804@163.com> wrote:
+From: Jianyun Gao <jianyungao89@gmail.com>
 
-> At 2026-09-28 01:16:32, "Jonathan Cameron" <jic23@kernel.org> wrote:
-> >On Sat, 26 Sep 2026 02:01:33 +0100
-> >Jonathan Cameron <jic23@kernel.org> wrote:
-> >  
-> >> On Fri, 25 Sep 2026 22:33:48 +0800 (CST)
-> >> "jiale yao" <19888972804@163.com> wrote:
-> >>   
-> >> > At 2026-09-25 22:18:05, "Andy Shevchenko" <andriy.shevchenko@intel.com> wrote:    
-> >> > >On Fri, Sep 25, 2026 at 10:09:54PM +0800, Jiale Yao wrote:      
-> >> > >> The IIO core does not filter duplicate writes to the event enable
-> >> > >> attribute.      
-> >> > >
-> >> > >Can it be done there once for all?      
-> >> > 
-> >> > I don't think the core can safely do this generically, since it doesn't own
-> >> > the per-event state and read_event_config() may reflect shared hardware state.
-> >> > 
-> >> > The runtime PM accounting is driver-specific, so handling duplicate writes in
-> >> > the driver seems safer. gp2ap002 does the same in commit 579c049b4cb6,
-> >> > refer https://lore.kernel.org/all/20260720193911.74919-2-nikhilgtr@gmail.com/    
-> >> 
-> >> Exactly right.
-> >> 
-> >> Event handling in the core would indeed require complex mapping of
-> >> what can actually be enabled on a given device. Some of those we might
-> >> be able to represent with simple approaches similar to what we do
-> >> for avail_scan_masks for buffered channels but it is hard to generalize
-> >> and FWIW that concept still misses some corner cases of channel enabling
-> >> where drivers have to apply constraints in the actual buffer enable.
-> >> Those are rare enough that it isn't too much of a problem in practice.
-> >> Probably fine on 99% of drivers.
-> >> 
-> >> Events have simplre cases like:
-> >> - 1 enable bit turns a whole load of events on (we don't filter in
-> >>   the kernel - so userspace has to cope with surprise events).
-> >> - Always on event signals.
-> >> - Limited numbers of general purpose event engines (the ADI IMUs do
-> >>   this as they tend to have 2 instances). Each engine can do anything
-> >>   but there are only two of them.
-> >> 
-> >> We also have more complex ones like mode bits that flip a subset
-> >> of events from one enable state to another.  There are some really
-> >> odd rules in some devices because some upstream filter that is needed
-> >> for 5 seemingly unrelated events has to be in a particular state for
-> >> subsets of them.
-> >> 
-> >> Anyhow, all in all event control is a mess of 'original solutions'
-> >> from vendors and relies on the (naughty) get out of IIO ABI that
-> >> just occasionally any write to any userspace ABI element can
-> >> change what is read back from any other.
-> >> 
-> >> Not great, but I've never come up with a better solution for events.
-> >> If anyone wants to have a go at architecting a filtering solution
-> >> a bit like the IIO buffer demux maybe we can opt in to it from
-> >> some drivers.
-> >> 
-> >> I am wondering if it is worth registering a driver specific tidy
-> >> up events call though that would disable everything a bit like
-> >> we disable buffers as part of the userspace tear down.  That would
-> >> close out some races sashiko has reported.  That project would
-> >> I think be a lot simpler to implement.
-> >>   
-> >This one needs a fixes tag, as do the other similar ones.
-> >Fine to just reply to each thread with the appropriate tag.  
-> 
-> Fixes: 22b46c45fb9b ("iio:gyro:bmg160 Gyro Sensor driver")
-> 
-Applied to the fixes-togreg branch of iio.git and marked for stable.
-Note that I'll be rebasing that on rc1 (once available) before sending
-out a pull request.
+dax_core_init() mistakenly returns 0 on error paths. Change the
+error return to use rc so the actual error code is propagated
+to the caller.
 
-Thanks,
+Fixes: 9567da0b408a ("device-dax: Introduce bus + driver model")
+Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
+---
+ drivers/dax/super.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-Jonathan
-
-> >
-> >Thanks,
-> >
-> >Jonathan
-> >  
-> >> Jonathan
-> >>   
-> >> >     
-> >> > >      
-> >> > >> bmg160_write_event_config() already ignores repeated enable
-> >> > >> requests, but a repeated disable request still calls
-> >> > >> bmg160_set_power_state(data, false), dropping a runtime PM reference
-> >> > >> that was not acquired for this request. This can underflow the runtime
-> >> > >> PM usage count and trigger a "Runtime PM usage count underflow" warning.
-> >> > >> 
-> >> > >> Return early when the requested state already matches ev_enable_state.      
-> >> > >
-> >> > >-- 
-> >> > >With Best Regards,
-> >> > >Andy Shevchenko
-> >> > >      
-> >> 
-> >>   
+diff --git a/drivers/dax/super.c b/drivers/dax/super.c
+index 45f84b0eb909..0f35f65363ee 100644
+--- a/drivers/dax/super.c
++++ b/drivers/dax/super.c
+@@ -723,7 +723,7 @@ static int __init dax_core_init(void)
+ 
+ 	rc = dax_fs_init();
+ 	if (rc)
+-		return rc;
++		goto err_fs;
+ 
+ 	rc = alloc_chrdev_region(&dax_devt, 0, MINORMASK+1, "dax");
+ 	if (rc)
+@@ -738,7 +738,8 @@ static int __init dax_core_init(void)
+ 	unregister_chrdev_region(dax_devt, MINORMASK+1);
+ err_chrdev:
+ 	dax_fs_exit();
+-	return 0;
++err_fs:
++	return rc;
+ }
+ 
+ static void __exit dax_core_exit(void)
+-- 
+2.34.1
 
