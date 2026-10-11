@@ -1,63 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailout2.hostsharing.net (mailout2.hostsharing.net [83.223.78.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33A90455175;
-	Sun, 11 Oct 2026 15:14:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B836145D908;
+	Sun, 11 Oct 2026 15:14:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.223.78.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791731646; cv=none; b=d6nOnUtF1IjUR5AMGNSte/ja4zXLEjX/+dZn/PTX0/vNFeUk/z4LAebtIcuVDh+9WMKSI3EvDbAb7G7v5iyBvk5aUeC3JL7BvEOYtEm/zQi9wcsvPDM65fc3WRBrPUXetkU5eQRE0nECta2tsv2bTD77AQpCiwN/mKx3xPzc5vM=
+	t=1791731694; cv=none; b=SYS3ykZ2HBdZEIfpJBmG7ko8E8tpBF2Yo5T7umIiDSiqT5+t/fuUgw58uJSnXv65GQXeKgGnIthpPkKzt0KxryTJ9fFaEdm88NCjZl1Cejp+XrAKUXXxM5PDzmyJheZ4eS6I1LBWbkvTveA2CljZiEETktBfkB6CeUCO4DBKmN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791731646; c=relaxed/simple;
-	bh=C6X1DAVuH9YMkghWAQFvlSlr9Cj2+AFsHYkgQKsHLME=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=rF7BoiuIwJr2pAu8ZcEBE/WhBfJNU2fBjaAlMIkf+1Y/GrKbQsLgtFDVgYDhN1BI/X9oWeW4UIHSWbokK5WZVmbUkptjGmPEB/dKIhwm2nhIx9mbjUWNHpqlNSf6STA9nmg3D4XUTv6Rlq8BfMcCwdS0MyAqP1osmdVSiOwIsRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jih+CeBG; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jih+CeBG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCE431F0089B;
-	Sun, 11 Oct 2026 15:14:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791731644;
-	bh=5zXnYprVq1nNCdtAgnl/QNxubBgabTeHXNA1qTQIue0=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=Jih+CeBGxa8lqLn2VuktmxJ50YA8emDXuvdfIv8cAFu6vNfsp/Mpe9iPIVThlirB/
-	 b/7gluj2Cmc5LgZiCtBiu96sNpCISav9coD8B8H7ykpir7ay3MWx3KEYF4QJGzRae8
-	 69x2T0ptqWFC60x/RzLgaIv7rJTSrIoDvVCAyk3rVIHRJ3gFuj4tybeKMIRwDv3bQF
-	 VMRgZno+5P7CyXk40/CVNVOUbDF/1yEYh7O7cA4SzchSeDdC9uiDYNqofVg7Zh1pf/
-	 Kq+Dxpod8hPT3TqlZVNrhZP5DtnqMS6bGhcdo7W1K6zC1hBObYxA4zh9To0n2zvUS2
-	 DVMZuyPJZwfdg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B468A38119C4;
-	Sun, 11 Oct 2026 15:14:04 +0000 (UTC)
-Subject: Re: [git pull] Input updates for v7.3-rc6
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <asr3A-2qdU6MSCTZ@google.com>
-References: <asr3A-2qdU6MSCTZ@google.com>
-X-PR-Tracked-List-Id: <linux-input.vger.kernel.org>
-X-PR-Tracked-Message-Id: <asr3A-2qdU6MSCTZ@google.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/dtor/input.git tags/input-for-v7.3-rc6
-X-PR-Tracked-Commit-Id: 41363c27b8509bd4efcba244803edac9ba25d1b5
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: b88c841d11641923fa3a4da011d7202cd89df68a
-Message-Id: <179173164330.2080702.8882988715559478368.pr-tracker-bot@kernel.org>
-Date: Sun, 11 Oct 2026 15:14:03 +0000
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org, linux-input@vger.kernel.org
+	s=arc-20240116; t=1791731694; c=relaxed/simple;
+	bh=vDgatWtYnwE039GoIRVXyzRL17p8/QYPeLRw+0Ll0TY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cq8v2clOlp0Flbkmgg+HA23C9ew83d3GQIqZ/73f+DwT+mviSzaNMH6lwoqg6fxyCSj6ukAOdwB7bPXMn8tTxOaDC2623oyb+XgCAm28CSJ8zV/U3cfkF2Q5v66kg7pa77JmTb6CbzcX3d7SQGhxaUXda8DdYOGcdpcGlf7HUOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de; spf=pass smtp.mailfrom=wunner.de; arc=none smtp.client-ip=83.223.78.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wunner.de
+Received: from h08.hostsharing.net (h08.hostsharing.net [IPv6:2a01:37:1000::53df:5f1c:0])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
+	 client-signature ECDSA (secp384r1) client-digest SHA384)
+	(Client CN "*.hostsharing.net", Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
+	by mailout2.hostsharing.net (Postfix) with ESMTPS id 3EC7510F7A;
+	Sun, 11 Oct 2026 17:14:49 +0200 (CEST)
+Received: by h08.hostsharing.net (Postfix, from userid 100393)
+	id 136B76107905; Sun, 11 Oct 2026 17:14:49 +0200 (CEST)
+Date: Sun, 11 Oct 2026 17:14:49 +0200
+From: Lukas Wunner <lukas@wunner.de>
+To: Alexander Gruhlke <gruhlke@mailbox.org>
+Cc: bhelgaas@google.com, rafael@kernel.org, alex@shazbot.org,
+	hui.wang@canonical.com, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, regressions@lists.linux.dev
+Subject: Re: [PATCH 1/2] PCI: Don't treat ~0 as ready in pci_dev_wait() with
+ RRS SV
+Message-ID: <asun6Yq3cGBY3SXE@wunner.de>
+References: <asqFthqcsDkUU6Sg@wunner.de>
+ <20261011082408.17274-1-gruhlke@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261011082408.17274-1-gruhlke@mailbox.org>
 
-The pull request you sent on Sat, 10 Oct 2026 19:40:13 -0700:
+On Sun, Oct 11, 2026 at 10:24:08AM +0200, Alexander Gruhlke wrote:
+> On Sat, Oct 10, 2026 at 08:36:38PM +0200, Lukas Wunner wrote:
+> > I think it's sufficient if you just change the if-condition like this:
+> >
+> > -			if (!pci_bus_rrs_vendor_id(id))
+> > +			if (!pci_bus_rrs_vendor_id(id) &&
+> > +			    !PCI_POSSIBLE_ERROR(id)) {
+> >
+> > I don't see the need for the extra read of the Command register
+> > you're performing.
+> 
+> The Vendor ID of a VF always reads ~0, so with that condition, an FLR
+> of a VF below a Root Port with RRS SV would poll until the 60 s timeout
+> and fail.  That's why the branch without RRS SV reads the Command
+> register, too (see the comment above the loop).  I'll mention it in the
+> commit message.
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/dtor/input.git tags/input-for-v7.3-rc6
+Ah okay, thanks for the clarification.  So how about:
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/b88c841d11641923fa3a4da011d7202cd89df68a
+-			if (!pci_bus_rrs_vendor_id(id))
++			if (!pci_bus_rrs_vendor_id(id) &&
++			    (!PCI_POSSIBLE_ERROR(id) || dev->is_virtfn))
 
-Thank you!
+Per PCIe r7.1 sec 9.4.3.3.1, VFs may respond with RRS Completions
+under certain circumstance, so the Vendor ID does not *always* read
+as 0xffff, despite sec 7.5.1.1.1 saying so.  The above should handle
+that correctly (unless I've botched it again).
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+Thanks,
+
+Lukas
