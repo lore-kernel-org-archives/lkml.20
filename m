@@ -1,218 +1,347 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0688374187
-	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 09:31:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791711072; cv=fail; b=EWkCSKw0kbwUemn3SX1iZw3uF9diFK1Aok2bgIMYpGtasVl6tnuWa/RawvQozWDti7BNagRFjhIViKF0rZQGq5t9UE/r+a6X2CvyGdXyy2Dg4/2gOh06fm/M9JFbJnTeTRDWqjFiMkg5smfCCSKe4WDsoh2er1SNdibiaUQ3dCc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791711072; c=relaxed/simple;
-	bh=uqAhh1duSE0UFSzUObX3AUnV+yw8FvP1u2JwfvB1FAk=;
-	h=Date:From:To:CC:Subject:Message-ID:Content-Type:
-	 Content-Disposition:MIME-Version; b=seoohP4K+z2D9Nd9vRa0yPEmmvmUlpYbzWWs/MfJeP45RRy8yQR4hZa1VvTq701xzatBBjm6mxY3jS+m0QGb+EBwIziDGqv3RN3sMJCFGfBAEo8Ui6aa0RbtRWoQU21ua6RS1XInBwS6i0lLuqD5yUO3ynnPmGGeosZ/E+vzAjg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VNfqLzPU; arc=fail smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A5A37E5E0;
+	Sun, 11 Oct 2026 09:31:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791711118; cv=none; b=tFcbb+E9dh8pzlV/8pTV+zuWyhA3QiPdCwjv0F8p3ed9WeiqpKkwOJDR+L1Ge7/Y1lAMAHSk1BUdd3ddggRSY5ns+3c4VY4TPJ0zNP1QZtQU928bChwX52Qn9BSgoLZ6U7rMj3RId9X3U7wyp2TpBFWkMAzYsTM5fCvcj/SeiKE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791711118; c=relaxed/simple;
+	bh=04rb6SlyHebM+jBx8obU7xgdb67/0ynLf6c/JCoTTNw=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=WWRfN8UiPEmcY5jzupFQAvg4rdC4ROd0RMsXrDEzoMWAVkJ47peltDmKBebt62eqUulMGzTPEtsaWO5dB3NmAY3skJmMAv/PbNJq0cgv4kQrkSwJtExJRDyY7xNQRbMXqP2AgpGtfR6O15zI20CAk9oX0QT+2yGKYfgTDXGIG2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=LKwrRPeR; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=RoeLV7MO; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VNfqLzPU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791711069; x=1823247069;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=uqAhh1duSE0UFSzUObX3AUnV+yw8FvP1u2JwfvB1FAk=;
-  b=VNfqLzPU/jDMsPahXX1SmU6YME6DYakyFES5+eADK4YbBp3+Yd0gfTPM
-   2Yo6FwzLsrVXmwa6MskJ8ObrMhBvUz1xYSKOJmoY3yj0pyQv1CYjDZbrw
-   1fadTOuyjZRdUJTjggmSWJ05I7MCnWRuIntS2oTxn1nilWTTn4sUpX3Dq
-   AP/C5vl70kHiZeUxi75830FNo3D+wXh1K9bgZiyOswUKiEnRy/SE+bXYo
-   Sd0ipu/GyPxPBgS6/9pR0egBJHnv9qEUEhZqC+8ke8hBS8rZqR7c3hj3j
-   GHnj/++VAVmzs+MGr9mvczTk9fybxnQB5lvBa23vpn9FmeCq6AgNaKY4l
-   A==;
-X-CSE-ConnectionGUID: da5gHs24S+aPy9B9XefbQA==
-X-CSE-MsgGUID: i3trAKYST/S50sYtbIWXSg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11931"; a="446434"
-X-IronPort-AV: E=Sophos;i="6.27,151,1787036400"; 
-   d="scan'208";a="446434"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 02:31:09 -0700
-X-CSE-ConnectionGUID: h33azbWIQvGexE3ql8wK9w==
-X-CSE-MsgGUID: VQpSF576QCOXKd+SOmhSPw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,151,1787036400"; 
-   d="scan'208";a="585056"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 02:31:08 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sun, 11 Oct 2026 02:31:07 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Sun, 11 Oct 2026 02:31:07 -0700
-Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.49) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sun, 11 Oct 2026 02:31:07 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c4F5WUrMVya2qlbn+4mVvDZBu39gF18w9Y4SaRpe2quMw0LHSqHr/Idyw2Xuz+gLmcspdHO6vBQZO+ZuVnPa+noHnwozSPCxxr89RXPOPONs0NpsLKg0k6tg0IiNmN4+pmsRrZngc+ZNqn0S/tJWtg3jGGBcqIUMCbJSmkIJjKb7bRI8rnRZt2YC9MKaARbCYXLQhRnp4plJWZmHNvI6w8g/UcT+P4BhVFcUeDJbdvtjg/uxA4tBW/LS1dH0c7DAOiMcTaicyihAFfLqRP+QbVDrginKPE1GpWTO1oOZPhr4yO1XuGsSpi4OjpNJoRFy/BbxTWw0pV01Nf0QKQ1D/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+x9dRnShOFL/Z+fxcCAhbm0PsaC5Edqqld6j8tAmHQk=;
- b=Me1eYlotDu+/wqTbzmqc2KcbwJBGPGsBjUhNtFkUteblZaZl6SKqF9dDZIfF/rWnjO/xJxdFONNxr/60I2asIxbKLF8q+mVmUBx01cComQbcetRh5uHPeu5KmYWZxUFfrdwzaiqUAxsz9Ibn3KYw4+cczYuCJvdeqo8or5QKxcXX3kBSttX2CR8X2OzBKZQVKD8WGFHM31wjdV92l7w645jMoZZmIEFOioPKcL0CD5PZo3iPF+agaHDa6s+5mt3pF29/fMqPIw57ZrllmUSDH/vYwY+G6Iwl2vzWDAMXYoFkiNnPlaVwzehS8XNtL5TYZ4WunNY9S2iSBSstF8Q80g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS6PR11MB362586.namprd11.prod.outlook.com (2603:10b6:8:4c4::14)
- by CH0PR11MB8234.namprd11.prod.outlook.com (2603:10b6:610:190::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.19; Sun, 11 Oct
- 2026 09:31:05 +0000
-Received: from DS6PR11MB362586.namprd11.prod.outlook.com
- ([fe80::71a6:38f9:43ed:8f8a]) by DS6PR11MB362586.namprd11.prod.outlook.com
- ([fe80::71a6:38f9:43ed:8f8a%6]) with mapi id 15.21.0496.019; Sun, 11 Oct 2026
- 09:31:04 +0000
-Date: Sun, 11 Oct 2026 17:30:55 +0800
-From: kernel test robot <lkp@intel.com>
-To: Miguel Ojeda <ojeda@kernel.org>
-CC: <oe-kbuild-all@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-Subject: vmlinux.o: warning: objtool: cfi_staa_erase_varsize+0x545:
- cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
-Message-ID: <astXT0Ib6jSD1Yk7@rli9-mobl>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-X-ClientProxiedBy: SI1PR02CA0002.apcprd02.prod.outlook.com
- (2603:1096:4:1f7::16) To DS6PR11MB362586.namprd11.prod.outlook.com
- (2603:10b6:8:4c4::14)
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="LKwrRPeR";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="RoeLV7MO"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1791711063; bh=zhztlBmkp0ZoUFBNIAUMrpx
+	mrccUsWFwHVC4AWY1MbM=; b=LKwrRPeRsgN6WQSa+UVMZl1su2kMfLHatmWt1RklHmSynH6sGl
+	f7zOE+E0an24x9VQk84cEjMus57kRmWStQ4rmY1sgOAkuYC6Xf5LsPW0NTFPS8MIDZMcKp5pWyF
+	kRQ+VO4SQiki8Gnf/r3z+93YcFqzyepztrzlMAVblAh1di9kfnhPOuUev2tGCAys2W/062tqb59
+	QtVyvq55ItVJjqydc7d3tG3jKj5/ARY4T3POhCYitJOoW07Ys0Sepg95o0ARrQEi60KGYE9bbYn
+	mwz3OGmZFX0hS7zKskbVDv7QwE7iFe12d9n//xg/kEACqLTN1ONArf7xFLA+WrondpA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1791711063; bh=zhztlBmkp0ZoUFBNIAUMrpx
+	mrccUsWFwHVC4AWY1MbM=; b=RoeLV7MO5D2NN3m1Arakh9uD06kIGPYZSLfdxyrJ+mo31ey6sD
+	/6LrBTTiJ/MqYlt1NfJopQ1ySu2HhLVQ4oAA==;
+Date: Sun, 11 Oct 2026 10:31:04 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Karl Mehltretter <kmehltretter@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>
+CC: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ Boqun Feng <boqun@kernel.org>, Lyude Paul <lyude@redhat.com>,
+ Joel Fernandes <joelagnelf@nvidia.com>,
+ Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
+ Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+ "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>
+Subject: Re: [PATCH v6] softirq: Preserve interrupt context during IRQ exit
+In-Reply-To: <20261011060742.30584-1-kmehltretter@gmail.com>
+References: <20261011060742.30584-1-kmehltretter@gmail.com>
+Message-ID: <17377421-38AC-4453-B6CE-A4854ED597E6@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS6PR11MB362586:EE_|CH0PR11MB8234:EE_
-X-MS-Office365-Filtering-Correlation-Id: df14d28f-8c6f-4db4-13a7-08df277a5ef5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|261009223027099003|56012099006|11063799006|10067099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info: rP89aM2STUqyRHdYLWL4Tg/Trk9dvgRmaxQ1kouXHeuHi61UPxpxBP5k4CbMu2wNqIggp5o1UKxyX4qDynjV53WW08qxkILJEYIjQUgGw5BIlfcComGRtZtGV8svohGunrrW0Te11mmnrMC9lsQZ+lnCCxsjt+3Sht3cBKuranlNbhxCgofln7AMc/rqkjDaLWYYDKxOEW6zvYZwRY4gu1bTUab4VmU/5ARbca5YPMF6LuiQ4+0yV2ReOi6O+joGUkuhEumlZy3DYhHBSJ/6W/7kPR32DC6CtuHrSNq3XMxbW3WbtSj37jdP8Bcmttda8nIs5gyuMv8xb0XGRL2AwSr2c25bC1MY7tpEzHc0iUcPYeXmWw7YTQgDaedc54mFe5UcxpYxwoXeKRC9PGYjnQEIxL5Hh9ZyesxDpOhDoHkGPqvjyOY6g7A1cc3MlAE+uF19Zui15Kntvzw/T57bWqLTLyzMpQ5F0LljFqt1egpODz0wGxZhPeD82Ensfdx1tYGagYUSh/nA4n3Gsq7/d1CI+fBQu0UkcoxO9DZK+HE/62B4h1ZYgScoabSPOtevIWr55CM0hdg+lAr2VIFVdKnWqnkFvCjQ7wNy4QBU7S8p/fqwxuA9lMqNSErjSvWE
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS6PR11MB362586.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(261009223027099003)(56012099006)(11063799006)(10067099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?eRtAwaH2+Vr0AKFElW8V89+CdY2zxOcy6Ia455I/36WaLYs5Y9ZH1dcO/5aw?=
- =?us-ascii?Q?OYlkpHddPY2dnEP5EIxeCEiwaiBdtZqEtBz3PV8EG7Ri8gloa0nB6935mtvX?=
- =?us-ascii?Q?O+bsTzWKGkcB/OsgGHsyND0wiC2FevQoZP7cekGP1gYuJ1p7zkKb2JtGCNDm?=
- =?us-ascii?Q?65d3mqWbkMjwnx6NLCmFZBdaBrTKBWopbghFWzr8C545ZpCPhV/8KhwVjuVZ?=
- =?us-ascii?Q?ixUbc5qnNZnhMHkCi6CptUQ6IHqIAkmlGwL75vUdqY4C24b0JtI6pk+WiYxt?=
- =?us-ascii?Q?DZt5zAVdyeA/WXappcNQb7Griwe9edpLVPH8JtIoSInh54KNqPCqv/KBGzmy?=
- =?us-ascii?Q?cm4P4jCKfBO///97NVsaGOVQ3AY9iXGPmih8GHWv8IzzNCf7AkPqBKzI1kmt?=
- =?us-ascii?Q?6kw1iI1XbRlAc7cQyqUmGnnWkykl0UY5neSr4Xtl1Ho7ahNdyDVgA90G1928?=
- =?us-ascii?Q?2XtrU/y5wABtwhdRPDiXd1+/loc3Da6Iok2HjXTmXqvOKCoXV1vDPMwugBjl?=
- =?us-ascii?Q?NSijVnKE/YE1ErpSE8tGVIQUsFl0lyE6kxAflH3HSOoTbXNesDuCefY/vaY/?=
- =?us-ascii?Q?i04Yy98h2JnzCmpGZvuNlG3zljgA3oRV5LfAyVE9b8ONdLypLW0Ub80lPjvm?=
- =?us-ascii?Q?8+Kcm73dH+YS/pgMUtZEbH/G27jUJCccjWWuKL6UD3sat2/X5S3bnILs4xwh?=
- =?us-ascii?Q?iAEJxfB+WCzimREnfA8RDJ2spM87+zLINzNBLfQXUOcSBb5dx2bwLEzetggx?=
- =?us-ascii?Q?qfoHTEKYfCPcAipanqYEAan4lFRGVoHSQ/ZzJ/oVSIu6HqyWDbMYEyI77K9c?=
- =?us-ascii?Q?4TZUFZY0Fe1UnPcgbmhFq8eVK+txVlHqr72Nv6oFt/pDzNpf+9mK0JKq9CcW?=
- =?us-ascii?Q?Dh7844hgY0OI5Ms+5Ir8pOkjSkXgoVvQFDPRNVS+u+GzcQVGusqdPC5QFlNE?=
- =?us-ascii?Q?EejQpZ+9+yHzJKQSWw7S4zgBGQYTmVACDmF0jD0k/+6AvqS6ENft7ZepT5Rj?=
- =?us-ascii?Q?kYekP1zAZzpuwTURBHqErE3KC56j0pfH3kOzqLwCPGoFZZQZRL9Nd9E4DAi5?=
- =?us-ascii?Q?Z5ixxo/AZCPBu2i24SR2lY/687x9FS3xgEnfB3ufkUTnQePEvozXtSlXKRX5?=
- =?us-ascii?Q?wGFU4QaQrvJr9I+0/w1BrEbrcNRmmma3ZDHPeCnrXLcAKWDoemToAP3PjUcZ?=
- =?us-ascii?Q?0TaMuKc0b5IEji5LjTqPD89dkncv/pBAZFACFIyf/VuiizJA/4zX6GIYyDc2?=
- =?us-ascii?Q?ZGwLvPddSUwbFLgCGIDcGoox6Qj+lBH6Ggf+qCWJxK1B4eWD/GIEkRYJmfaw?=
- =?us-ascii?Q?slxHDhX7Ma+g4KvZfRT7NKCK0AwhVQe721bZbCx4HQW0OBOh7e0u74zVwrqT?=
- =?us-ascii?Q?eGiHxobLNXHLPOl0LQM2lneu3KcBc4VkUptsDYH46EkyAufXVQ8aa4+7jrzH?=
- =?us-ascii?Q?vom+f91X4QmwWGAy+V7sZeXKbziZUGr7mdlyWAZB5ynBRf/1kSt68fzc/cgP?=
- =?us-ascii?Q?qp3YMrv79ffmOCG3xoyBCi4LdPA7sVx9NMEX3Hrt2eGjpM2i0esAk3j4tYxy?=
- =?us-ascii?Q?HodaKH9uoa/6myywc1G8MkO5f3WJhjtQ1fHnq8SG1T4nz2/s3uCqtm2ZcTdq?=
- =?us-ascii?Q?DqmHWSrLSf8Q/rJ538R8603iHU5VJozlbXo96DG4wy2zpNchILRDAbwPJESw?=
- =?us-ascii?Q?pz963CeXNorZ3kK4oAJppvTsL37mmVq/MG2ZBSG9ojENFx8EyiutSLhBkigG?=
- =?us-ascii?Q?cXcJuo5dPg=3D=3D?=
-X-Exchange-RoutingPolicyChecked: HHUR7x6twYFHcOhvVWc4G32wv+DlxfOSDVqfc4ak5mvyfkPKqTS5x4p+eYrZB2HmBlKcd8MTFJtXpdaVDzbGFBHeduXt5PMSPrBahNb6Rzlhf71m1MuZaJ/DXu4382AYCyXo9M46FMUDYdtvXKXMdM0mBBSlg5mHcpqiBzGBEYVWDnr/1dIBufiIcKbGcPnhfec1nzja22XNxY33DHSjImvGvbPKwNulHWZceYTYlm3XRpn2NxpI6Do5JAkwmXN5scfSHUGYpiltqSP2FD2dotEDv6CJibdk9Q0VKEIUEW82lltnMyqhloy0nn8m32kXf2eugV0/XlqmQ1zjsMzl2A==
-X-MS-Exchange-CrossTenant-Network-Message-Id: df14d28f-8c6f-4db4-13a7-08df277a5ef5
-X-MS-Exchange-CrossTenant-AuthSource: DS6PR11MB362586.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Oct 2026 09:31:04.5635
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FziOdezKSc9ZQ1XUdaruv8a6N2+UQElbCEe/u0+tLwz9Jn7C/poDXXmmt3j8R3XQW+bPclfFXMTWSfNtU25h2g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR11MB8234
-X-OriginatorOrg: intel.com
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   3857c2fe5449541e24afc5efdb0f81a8a8f9a3a0
-commit: 5febf432df1cfa5b25d99b54c32103fafbdd0eb9 kbuild: rust: keep Rust objects out of Clang LTO with inline helpers
-config: x86_64-randconfig-r2308-20261010 (https://download.01.org/0day-ci/archive/20261010/202610101604.FJT4WAKR-lkp@intel.com/config)
-compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
-rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261010/202610101604.FJT4WAKR-lkp@intel.com/reproduce)
+On 11 October 2026 07:07:42 BST, Karl Mehltretter <kmehltretter@gmail.com>
+wrote:
+>__irq_exit_rcu() removes HARDIRQ_OFFSET from preempt_count() before
+>the IRQ exit work. On the outermost IRQ exit, with no NMI or softirq
+>state remaining, this makes context checks report task context. The
+>softirq-dispatch, timer-wakeup and tick-exit checks account for the early
+>decrement, but other code reached in this window sees the wrong context:
+>
+>  - ftrace, perf and the ring buffer record task context and use the
+>    task recursion and context slots.
+>  - KCSAN attributes accesses to the interrupted task. KMSAN uses and
+>    changes the interrupted task's KMSAN context. KCOV and the printk
+>    caller id see a task.
+>  - On PREEMPT_RT can_spin_trylock() and local_trylock() reject hard
+>    interrupt context to avoid interfering with PI when the interrupted
+>    task is blocked on a lock. Those checks do not reject calls made in
+>    this window. BPF programs attached to sched_waking or sched_wakeup
+>    can reach the trylock path through kmalloc_nolock().
+>  - An oops kills the interrupted task instead of ending in "Fatal
+>    exception in interrupt".
+>
+>The early decrement predates git. No failure caused by this
+>misclassification is known. lockdep is unaffected because
+>lockdep_hardirq_exit() is the last operation in irq_exit().
+>
+>Keep HARDIRQ_OFFSET until the end of __irq_exit_rcu(), including
+>tick_irq_exit(). Softirq handlers must run in BH context, so replace
+>HARDIRQ_OFFSET with SOFTIRQ_OFFSET while they run and restore it
+>afterwards. Use one raw counter update for each transition to preserve
+>the preemption disable location recorded by irq_enter_rcu(), and update
+>lockdep explicitly. Detect IRQ exit with in_hardirq() in
+>softirq_handle_begin() because __do_softirq() can be reached through
+>do_softirq_own_stack() and cannot take an argument.
+>
+>Adjust the exit checks for HARDIRQ_OFFSET still being present. Use
+>irq_count() == HARDIRQ_OFFSET for softirq dispatch, as in irq_enter_rcu().
+>Use hardirq_count() == HARDIRQ_OFFSET for the timer thread wakeup and
+>tick_irq_exit(). NMI exits use a separate path. An IRQ nested in an NMI
+>has an extra HARDIRQ_OFFSET from NMI entry, so it is excluded too. The
+>timer thread check must ignore softirq_count() to allow wakeups when an
+>IRQ interrupts softirq processing or a BH-disabled section. The timer
+>thread handles all pending softirqs, including any raised during its
+>wakeup.
+>
+>A softirq raised from a tracepoint on the final preempt_count_sub()
+>waits for the next interrupt exit and can trigger NOHZ tick-stop
+>warnings. Handling that instrumentation case does not justify a check
+>on every interrupt exit. A tracepoint on tick_irq_exit() can also raise
+>a softirq after the normal softirq handling has finished.
+>
+>The number of counter updates and interrupt time accounting are
+>unchanged. The preemptoff tracer now reports the interrupt and subsequent
+>softirq processing as one section. With nofuncgraph-irqs, function graph
+>tracing also skips the IRQ exit work, including the __do_softirq() frame.
+>
+>Suggested-by: Peter Zijlstra <peterz@infradead.org>
+>Link: https://lore.kernel.org/r/20260813130826.GW687043@noisy.programming.kicks-ass.net
+>Assisted-by: LLM
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 5febf432df1c ("kbuild: rust: keep Rust objects out of Clang LTO with inline helpers")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/r/202610101604.FJT4WAKR-lkp@intel.com/
+Very beneficial change in my opinion, well, nothing looks inherently broken
 
-All warnings (new ones prefixed by >>):
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
 
->> vmlinux.o: warning: objtool: cfi_staa_erase_varsize+0x545: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
->> vmlinux.o: warning: objtool: cfi_staa_read+0x190: unreachable instruction
->> vmlinux.o: warning: objtool: cfi_staa_write_buffers+0x42b: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
->> vmlinux.o: warning: objtool: cfi_staa_lock+0x1d0: unreachable instruction
->> vmlinux.o: warning: objtool: cfi_staa_unlock+0x1ec: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
->> vmlinux.o: warning: objtool: cfi_staa_resume+0x137: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
->> vmlinux.o: warning: objtool: cfi_amdstd_read+0x451: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
->> vmlinux.o: warning: objtool: cfi_amdstd_resume+0x181: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
->> vmlinux.o: warning: objtool: fixup_sst38vf640x_sectorsize+0x11f: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
->> vmlinux.o: warning: objtool: do_read_secsi_onechip+0x2a0: cfi_send_gen_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
->> vmlinux.o: warning: objtool: fixup_sst39vf_rev_b+0xe2: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
->> vmlinux.o: warning: objtool: cfi_amdstd_write_buffers+0x230: unreachable instruction
->> vmlinux.o: warning: objtool: get_chip+0x2c1: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
->> vmlinux.o: warning: objtool: put_chip+0x1c8: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
-   vmlinux.o: warning: objtool: put_chip+0x277: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
->> vmlinux.o: warning: objtool: chip_ready+0xce: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
-   vmlinux.o: warning: objtool: chip_ready+0x9d: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
->> vmlinux.o: warning: objtool: cfi_check_err_status+0x13b: cfi_send_gen_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
->> vmlinux.o: warning: objtool: fwh_xxlock_oneblock+0x171: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
-   vmlinux.o: warning: objtool: fwh_xxlock_oneblock+0x168: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
->> vmlinux.o: warning: objtool: cfi_amdstd_erase_chip+0x410: unreachable instruction
->> vmlinux.o: warning: objtool: do_atmel_lock+0x14d: cfi_send_gen_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
->> vmlinux.o: warning: objtool: do_atmel_unlock+0x143: cfi_send_gen_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
-   vmlinux.o: warning: objtool: cfi_amdstd_reset+0x171: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
-   vmlinux.o: warning: objtool: cfi_amdstd_otp_walk+0x388: cfi_qry_mode_on() missing __noreturn in .c/.h or NORETURN() in noreturns.h
-   vmlinux.o: warning: objtool: do_otp_write+0x168: cfi_send_gen_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
-   vmlinux.o: warning: objtool: do_write_oneword+0x126: cfi_send_gen_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
-   vmlinux.o: warning: objtool: do_write_oneword+0x119: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
-   vmlinux.o: warning: objtool: do_otp_lock+0x16e: cfi_send_gen_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
-   vmlinux.o: warning: objtool: do_otp_lock+0x75: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
-   vmlinux.o: warning: objtool: cfi_amdstd_panic_wait+0x106: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
-   vmlinux.o: warning: objtool: do_panic_write_oneword+0x190: unreachable instruction
-   vmlinux.o: warning: objtool: do_erase_oneblock+0x310: unreachable instruction
-   vmlinux.o: warning: objtool: do_erase_oneblock+0x1fd: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
-   vmlinux.o: warning: objtool: cfi_intelext_read+0x2fe: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
-   vmlinux.o: warning: objtool: cfi_intelext_suspend+0x4ec: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
-   vmlinux.o: warning: objtool: cfi_intelext_resume+0x191: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
-   vmlinux.o: warning: objtool: fixup_LH28F640BF+0x113: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
-   vmlinux.o: warning: objtool: cfi_intelext_writev+0x290: unreachable instruction
-   vmlinux.o: warning: objtool: inval_cache_and_wait_for_operation+0x69: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
-   vmlinux.o: warning: objtool: cfi_intelext_point+0x54d: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
-   vmlinux.o: warning: objtool: cfi_intelext_reset+0x171: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
-   vmlinux.o: warning: objtool: cfi_intelext_otp_walk+0x6b6: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
-   vmlinux.o: warning: objtool: do_otp_read+0x161: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
-   vmlinux.o: warning: objtool: do_xxlock_oneblock+0x14f: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
-   vmlinux.o: warning: objtool: do_getlockstatus_oneblock+0xd3: cfi_build_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
-   vmlinux.o: warning: objtool: jedec_probe_chip+0x150: unreachable instruction
-   vmlinux.o: warning: objtool: jedec_reset+0x80: cfi_send_gen_cmd() missing __noreturn in .c/.h or NORETURN() in noreturns.h
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
 
+>Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+>---
+>
+>Changes in v6:
+>- Keep HARDIRQ_OFFSET through tick_irq_exit() and use
+>  hardirq_count() == HARDIRQ_OFFSET for its nesting check (Frederic).
+>- Update entry.rst to document NOHZ handling before the final
+>  preemption-count decrement.
+>- Test in_hardirq() directly in softirq_handle_begin() (Frederic).
+>- Drop the in_nmi() test from the timer thread wakeup condition
+>  (Frederic). NMI entry adds HARDIRQ_OFFSET, so the equality check
+>  excludes IRQs nested in an NMI.
+>- Drop the earlier Reviewed-by tags pending reconfirmation of the
+>  tick_irq_exit() behavior change.
+>
+>Testing:
+>QEMU IRQ-exit probes (v5/v6):
+>
+>                                                        v5          v6
+>  Tick-exit calls (hardirq/total)                   0/5553   5339/5339
+>  Tick-exit function-graph records                    5555           0
+>  KMSAN selections (task/total)             427205/3492324   0/2992433
+>
+>The two tick-exit rows count tick_nohz_irq_exit(); function-graph
+>tracing used nofuncgraph-irqs. Captures had timer activity and zero
+>trace loss.
+>Each KMSAN kernel passed all 28 KUnit tests; those tests generated all
+>KMSAN reports.
+>
+>Additional testing covered 67 guest boots and 10 kernel/softirq.o builds
+>across five architectures, including RT/non-RT stress, KCOV
+>configurations and 600-second rcutorture.
+>The KCSAN probe deliberately triggered reports to check IRQ-exit
+>context.
+>
+>Matched configurations of the unpatched base and v6 were compared on
+>Pi 400, Pi 500+, BeagleV Ahead, AMD/KVM and UP ARMv6 Pi 1B+. Pi 500+ and
+>AMD tick-exit traces confirmed hardirq context with v6 and zero trace
+>loss. The NOHZ_FULL tick stopped on both versions on Pi 500+ and BeagleV
+>Ahead. Pi 1B+ base/v6 workloads completed without reported errors.
+>
+>On physical SAM9X75 (cpuidle-at91), base/v6 tick-exit traces showed
+>hardirq flags in 0/556 and 540/540 calls, with 558 and zero
+>function-graph records under nofuncgraph-irqs. Both kernels showed idle
+>and Ethernet activity, with zero trace loss.
+>
+>On Pi 500+, accounted CPU time exceeded wall time under intermittent
+>workloads on both the unpatched base and v6. No v6-specific regression
+>was established.
+>
+>v5: https://lore.kernel.org/r/20260930191432.62760-1-kmehltretter@gmail.com
+> Documentation/core-api/entry.rst | 16 +++++----
+> kernel/softirq.c                 | 60 +++++++++++++++++++++++++-------
+> 2 files changed, 57 insertions(+), 19 deletions(-)
+>
+>diff --git a/Documentation/core-api/entry.rst b/Documentation/core-api/entry.rst
+>index 79fdaed954d9..09942135aad1 100644
+>--- a/Documentation/core-api/entry.rst
+>+++ b/Documentation/core-api/entry.rst
+>@@ -197,8 +197,9 @@ return true, handles NOHZ tick state and interrupt time accounting. This
+> means that up to the point where irq_enter_rcu() is invoked in_hardirq()
+> returns false.
+> 
+>-irq_exit_rcu() handles interrupt time accounting, undoes the preemption
+>-count update and eventually handles soft interrupts and NOHZ tick state.
+>+irq_exit_rcu() handles interrupt time accounting, handles soft interrupts if
+>+possible, handles the NOHZ tick state and finally undoes the preemption count
+>+update.
+> 
+> In theory, the preemption count could be updated in irqentry_enter(). In
+> practice, deferring this update to irq_enter_rcu() allows the
+> preemption-count
+>@@ -207,10 +208,13 @@ irqentry_exit(), which are described in the next paragraph. The only downside
+> is that the early entry code up to irq_enter_rcu() must be aware that the
+> preemption count has not yet been updated with the HARDIRQ_OFFSET state.
+> 
+>-Note that irq_exit_rcu() must remove HARDIRQ_OFFSET from the preemption count
+>-before it handles soft interrupts, whose handlers must run in BH context rather
+>-than irq-disabled context. In addition, irqentry_exit() might schedule, which
+>-also requires that HARDIRQ_OFFSET has been removed from the preemption count.
+>+Note that soft interrupt handlers must run in BH context rather than in hard
+>+interrupt context. irq_exit_rcu() therefore replaces HARDIRQ_OFFSET with
+>+SOFTIRQ_OFFSET in the preemption count while it handles soft interrupts and
+>+puts HARDIRQ_OFFSET back afterwards, so that the remaining interrupt exit work
+>+is still attributed to the interrupt. HARDIRQ_OFFSET is removed before
+>+irq_exit_rcu() returns because irqentry_exit() might schedule, which requires
+>+that HARDIRQ_OFFSET has been removed from the preemption count.
+> 
+> Even though interrupt handlers are expected to run with local interrupts
+> disabled, interrupt nesting is common from an entry/exit perspective. For
+>diff --git a/kernel/softirq.c b/kernel/softirq.c
+>index 5d02c36c40e3..be49e6469f3a 100644
+>--- a/kernel/softirq.c
+>+++ b/kernel/softirq.c
+>@@ -350,8 +350,8 @@ static inline void ksoftirqd_run_end(void)
+> 	local_irq_enable();
+> }
+> 
+>-static inline void softirq_handle_begin(void) { }
+>-static inline void softirq_handle_end(void) { }
+>+static inline bool softirq_handle_begin(void) { return false; }
+>+static inline void softirq_handle_end(bool from_irq_exit) { }
+> 
+> static inline bool should_wake_ksoftirqd(void)
+> {
+>@@ -481,15 +481,38 @@ void __local_bh_enable_ip(unsigned long ip, unsigned int cnt)
+> }
+> EXPORT_SYMBOL(__local_bh_enable_ip);
+> 
+>-static inline void softirq_handle_begin(void)
+>+static inline bool softirq_handle_begin(void)
+> {
+>-	__local_bh_disable_ip(_RET_IP_, SOFTIRQ_OFFSET);
+>+	if (!in_hardirq()) {
+>+		__local_bh_disable_ip(_RET_IP_, SOFTIRQ_OFFSET);
+>+		return false;
+>+	}
+>+
+>+	/*
+>+	 * Only reached from irq_exit(), with HARDIRQ_OFFSET still set.
+>+	 * Replace it with SOFTIRQ_OFFSET before handle_softirqs() enables
+>+	 * interrupts. Use the raw operation to preserve the preemption
+>+	 * disable location recorded by irq_enter_rcu(), and update lockdep
+>+	 * directly.
+>+	 */
+>+	__preempt_count_sub(HARDIRQ_OFFSET - SOFTIRQ_OFFSET);
+>+	lockdep_softirqs_off(_RET_IP_);
+>+	WARN_ON_ONCE(irq_count() != SOFTIRQ_OFFSET);
+>+
+>+	return true;
+> }
+> 
+>-static inline void softirq_handle_end(void)
+>+static inline void softirq_handle_end(bool from_irq_exit)
+> {
+>-	__local_bh_enable(SOFTIRQ_OFFSET);
+>-	WARN_ON_ONCE(in_interrupt());
+>+	if (!from_irq_exit) {
+>+		__local_bh_enable(SOFTIRQ_OFFSET);
+>+		WARN_ON_ONCE(in_interrupt());
+>+		return;
+>+	}
+>+
+>+	lockdep_softirqs_on(_RET_IP_);
+>+	__preempt_count_add(HARDIRQ_OFFSET - SOFTIRQ_OFFSET);
+>+	WARN_ON_ONCE(irq_count() != HARDIRQ_OFFSET);
+> }
+> 
+> static inline void ksoftirqd_run_begin(void)
+>@@ -605,6 +628,7 @@ static void handle_softirqs(bool ksirqd)
+> 	unsigned long old_flags = current->flags;
+> 	int max_restart = MAX_SOFTIRQ_RESTART;
+> 	struct softirq_action *h;
+>+	bool from_irq_exit;
+> 	bool in_hardirq;
+> 	__u32 pending;
+> 	int softirq_bit;
+>@@ -618,7 +642,7 @@ static void handle_softirqs(bool ksirqd)
+> 
+> 	pending = local_softirq_pending();
+> 
+>-	softirq_handle_begin();
+>+	from_irq_exit = softirq_handle_begin();
+> 	in_hardirq = lockdep_softirq_start();
+> 	account_softirq_enter(current);
+> 
+>@@ -670,7 +694,7 @@ restart:
+> 
+> 	account_softirq_exit(current);
+> 	lockdep_softirq_end(in_hardirq);
+>-	softirq_handle_end();
+>+	softirq_handle_end(from_irq_exit);
+> 	current_restore_flags(old_flags, PF_MEMALLOC);
+> }
+> 
+>@@ -716,7 +740,7 @@ static inline void tick_irq_exit(void)
+> 
+> 	/* Make sure that timer wheel updates are propagated */
+> 	if ((sched_core_idle_cpu(cpu) && !need_resched()) || tick_nohz_full_cpu(cpu)) {
+>-		if (!in_hardirq())
+>+		if (hardirq_count() == HARDIRQ_OFFSET)
+> 			tick_nohz_irq_exit();
+> 	}
+> #endif
+>@@ -748,8 +772,12 @@ static inline void __irq_exit_rcu(void)
+> 	lockdep_assert_irqs_disabled();
+> #endif
+> 	account_hardirq_exit(current);
+>-	preempt_count_sub(HARDIRQ_OFFSET);
+>-	if (!in_interrupt() && local_softirq_pending()) {
+>+
+>+	/*
+>+	 * HARDIRQ_OFFSET is still set. Only the outermost interrupt handles
+>+	 * softirqs, and only if it did not hit a softirq or BH disabled section.
+>+	 */
+>+	if (irq_count() == HARDIRQ_OFFSET && local_softirq_pending()) {
+> 		/*
+> 		 * If we left hrtimers unarmed, make sure to arm them now,
+> 		 * before enabling interrupts to run softirq.
+>@@ -758,11 +786,17 @@ static inline void __irq_exit_rcu(void)
+> 		invoke_softirq();
+> 	}
+> 
+>+	/*
+>+	 * Wake the timer thread even if the interrupt hit a softirq or a
+>+	 * section with BHs disabled. Only the outermost interrupt can wake it.
+>+	 */
+> 	if (IS_ENABLED(CONFIG_IRQ_FORCED_THREADING) && force_irqthreads() &&
+>-	    local_timers_pending_force_th() && !(in_nmi() | in_hardirq()))
+>+	    local_timers_pending_force_th() &&
+>+	    hardirq_count() == HARDIRQ_OFFSET)
+> 		wake_timersd();
+> 
+> 	tick_irq_exit();
+>+	preempt_count_sub(HARDIRQ_OFFSET);
+> }
+> 
+> /**
+>
+>base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+>
+
+--- Thanks!
+"I'm not a very positive person" - Linus torvalds
