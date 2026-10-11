@@ -1,196 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-07.mail-europe.com (mail-07.mail-europe.com [37.187.220.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E38AA405F7;
-	Sun, 11 Oct 2026 15:19:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9AF2DFA4A
+	for <linux-kernel@vger.kernel.org>; Sun, 11 Oct 2026 15:26:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.187.220.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791731981; cv=none; b=WNPkOS9Ix3ODiL5JGkRChUOelb6nVCSTspWOVph9MANKBoICaVvy+TEEx3eqpWO4M6tfdiB7Lhm9wVJ22erEvsfMiCyenr02OwqUCpgzNaG414/oOKGozC/rVoCCJDEEDn0GYL57NgQwBkkBVG4jOkAZELWXsgBf/bKhNPYyXzk=
+	t=1791732411; cv=none; b=qVO48it23GjIl8I7503834keRo+8/TRyl9YyFDJuCxJrpx9o7tZ9l9NdmTW5x7/6CJBE5zHDHRw4yE9vr2GTDkQOp3peYtQTvJaaFGsGB8Qp60bRiGWPRebTmFpkVjxoZEDOP8jT0Vvl5sZlT4Mk1BSp8f9vpm+fqwz8WNgv1Mk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791731981; c=relaxed/simple;
-	bh=LtCyh9nnBrjqkIbbIwLiupRPV+TFwFkyJ6gs9wxDGhU=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=IHHohwGy3nqZXKaz34FL4XV3cZnu9Gm4i1+k3X0PQkUgiIu3zVJSS81tDa3DkECGdgKufj5ESdCGRo4NKPAu8fPvVII5yc8t/4N9YwLrq4i/g+OKlqH+Br3WgvKomhvIyno/SoJ37vsafQ6E0XzNvYk+crEYQwzgZPX7vKjRR6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AL4bhu1L; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791732411; c=relaxed/simple;
+	bh=1UiWxxWmaqJS/1eMvEfKBukxOF927TCrDCQv/J4e9+4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=YvVqGz7Q/QnzoiB94jh+i/q4w0Au92LDqwIYxrm4EUMvl4Yd++4agwI9Nj0Dbriuk8N90pAugJl972oH00YbQaFwqEqkZ3JNM9Guni7WH1AVDHVlZxKezSKy781p1VYXj5/kQADah1/lXlY+uANxoajnjbzP2SbmaYZ5h8nLoNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev; spf=pass smtp.mailfrom=onurozkan.dev; dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b=jyrBvQLz; arc=none smtp.client-ip=37.187.220.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=onurozkan.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onurozkan.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AL4bhu1L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB3081F0089B;
-	Sun, 11 Oct 2026 15:19:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791731979;
-	bh=mUCf4nSzDUXsV7PZq3Gz76x5gHcSeE+bODEKH+oBdV0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=AL4bhu1LyToQDNaPaazv5jrGEIREIo2aa5pzBLdnLCPz1NP1mapNZ/IzhX9iYkBVw
-	 MjrKMbTn65jjC6IqVQ1bi0rpFEgHeFXOWoiciouJ3cVF8XMWXSXlp+uajgixtRNRFh
-	 3m4dHhHjRXIjcl+JUCRKNY2NkyywRddYkUiOi4g0mv5cqp3xJbUKFGq7WOAuqDo9yY
-	 YmwigJbGiZQO8oWGfy6g5CEC8jDz3Q8AzYYeUTZk7mwhJZ+vKxdMGKUtugf7TjJ87O
-	 3T7HyDXoEhh1fXPzXWy81oFpCJwUhdWBL6PuhNWhB6U+DVdHyqfpXT6v8YsErfUsde
-	 tQT2Xo1ZLsZNw==
-Subject: Re: [PATCH net] net: sparx5: free the matchall entry on destroy
-From: netdev-bot+sashiko@kernel.org
-To: daniel.machon@microchip.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, Steen.Hegelund@microchip.com,
- UNGLinuxDriver@microchip.com, netdev@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- kees@kernel.org
-Date: Sun, 11 Oct 2026 15:19:38 +0000
-Message-ID: <179173197837.434549.9373931425008737442@kernel.org>
-In-Reply-To:
- <20261007-sparx5-matchall-kfree-net-v1-1-c8918685b337@microchip.com>
-References:
- <20261007-sparx5-matchall-kfree-net-v1-1-c8918685b337@microchip.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="jyrBvQLz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
+	s=protonmail2; t=1791732397; x=1791991597;
+	bh=RXyfFVfaAhlQRHEV6RukULXPip+X7zzDOrgAXGjUHEc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=jyrBvQLz9yBGShrDXcTleIU74SPcLuRy1kLDtZ5Ics3vWQ6Z1tjZQJFmdbOaHlfXm
+	 ZmyfRoiG0MQlxyMvzHKYkXn1SHo309tU6rEYCxrj77KTtmTCV9DIVIxyxlhjZ0Uy3s
+	 14OKGOnXtn1suGYWbqFMDLpBDPuVKko2M5U4MzOECGTthJn3epSioUOjuYSBo9IfYK
+	 4YP+t651120yToVpN+WG9xRYhTN1Q317xGG6jJ0mhvbj2gMCsu9K530a8sU3gu6kUv
+	 ueg+AA3vtK4fj+0UZLtrjrGT1ykON1XOvqoq7lZaOlioZgwN1QGdyMeaSSyBIsxzG9
+	 +xkM+MAtWNHOA==
+X-Pm-Submission-Id: 4j2kw71YDfz2ScWv
+From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+To: Daniel Almeida <daniel.almeida@collabora.com>
+Cc: rust-for-linux@vger.kernel.org,
+	lossin@kernel.org,
+	lyude@redhat.com,
+	ojeda@kernel.org,
+	alex.gaynor@gmail.com,
+	boqun.feng@gmail.com,
+	gary@garyguo.net,
+	a.hindborg@kernel.org,
+	aliceryhl@google.com,
+	tmgross@umich.edu,
+	dakr@kernel.org,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	will@kernel.org,
+	longman@redhat.com,
+	felipe_life@live.com,
+	daniel@sedlak.dev,
+	thomas.hellstrom@linux.intel.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v10 6/7] rust: ww_mutex: implement LockSet
+Date: Sun, 11 Oct 2026 18:26:20 +0300
+Message-ID: <20261011152630.117725-1-work@onurozkan.dev>
+X-Mailer: git-send-email 2.51.2
+In-Reply-To: <A11C8B1A-00A3-49C9-B9B5-30A55AFDDF2B@collabora.com>
+References: <20260103073554.34855-1-work@onurozkan.dev> <20260103073554.34855-7-work@onurozkan.dev> <A11C8B1A-00A3-49C9-B9B5-30A55AFDDF2B@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
-
-Critical: 0 · High: 1 (1) · Medium: 0 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The fix is incomplete: `struct sparx5_mall_entry` still leaks on
-  every error return in `sparx5_tc_matchall_replace()`.
-
-Pre-existing issues:
-- [High] `sparx5_tc_matchall_parse_mirror_action()` sets
-  `entry->mirror.port = netdev_priv(action->dev)` without checking that…
-
---
-
-net: sparx5: free the matchall entry on destroy
-
-This patch adds a kfree() of the struct sparx5_mall_entry in
-sparx5_tc_matchall_destroy(), after the entry is removed from
-sparx5->mall_entries. Without it, every deleted mirror and goto matchall
-filter leaked its entry.
-
-> diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_tc_matchall.c b/drivers/net/ethernet/microchip/sparx5/sparx5_tc_matchall.c
-> index 702257979462d..146d7f28e8f3d 100644
-> --- a/drivers/net/ethernet/microchip/sparx5/sparx5_tc_matchall.c
-> +++ b/drivers/net/ethernet/microchip/sparx5/sparx5_tc_matchall.c
-> @@ -160,6 +160,7 @@ static int sparx5_tc_matchall_destroy(struct net_device *ndev,
->  	}
->  
->  	list_del(&entry->list);
-> +	kfree(entry);
->  
->  	return err;
->  }
-
-[Severity: High]
-Does sparx5_tc_matchall_replace() still leak mall_entry on its error
-paths?
-
-The entry is allocated before the action is checked or the hardware is
-programmed. It is only added to the list at the very end:
-
-sparx5_tc_matchall_replace() {
-    ...
-	mall_entry = kzalloc_obj(*mall_entry);
-	if (!mall_entry)
-		return -ENOMEM;
-    ...
-	list_add_tail(&mall_entry->list, &sparx5->mall_entries);
-
-	return 0;
-}
-
-Each return between those two points loses the only pointer to the entry
-without freeing it:
-
-- the sparx5_mirror_add() failure in the FLOW_ACTION_MIRRED case, which
-  returns err (-EEXIST, -EINVAL, -ENOENT)
-
-- the four vcap_enable_lookups() failure returns in the FLOW_ACTION_GOTO
-  case (-EFAULT, -EADDRINUSE, -EADDRNOTAVAIL, and other errors)
-
-- the default case:
-
-	default:
-		NL_SET_ERR_MSG_MOD(tmo->common.extack, "Unsupported action");
-		return -EOPNOTSUPP;
-
-These entries never reach sparx5->mall_entries. That means
-sparx5_tc_matchall_destroy() can never find them, and the new kfree()
-does not cover them.
-
-A failed offload is easy to repeat. Examples are a matchall filter with
-an action like drop, which hits the default case, a second mirror on a
-port that is already mirrored, or a goto to an unsupported chain.
-Without skip_sw the software filter is still installed, so this can run
-in a loop.
-
-Since this is the same object the commit message says is leaked, could
-the fix also free mall_entry on these paths? A shared error label in
-sparx5_tc_matchall_replace() would work, or the action could be checked
-before the allocation.
-
-[Severity: High]
-This is a pre-existing issue and was not introduced by this patch. Is
-the mirred target device checked before it is used as a sparx5 port?
-
-sparx5_tc_matchall_parse_mirror_action() {
-	entry->mirror.port = netdev_priv(action->dev);
-}
-
-Nothing checks that action->dev is a sparx5 port, or even that it is
-non-NULL. The driver already has a helper that checks both:
-
-sparx5_netdevice_check() {
-	return dev && (dev->netdev_ops == &sparx5_port_netdev_ops);
-}
-
-The lan966x driver does a similar check in lan966x_mirror_port_add().
-
-If the mirred target is a foreign netdev such as dummy, veth or a
-bridge, sparx5_mirror_add() reads mport->portno from that driver's
-private area. It then writes the value to hardware:
-
-sparx5_mirror_add() {
-    ...
-	if (sport->portno == mport->portno)
-		return -EINVAL;
-    ...
-	sparx5_mirror_monitor_set(sparx5, mirror_idx, mport->portno);
-    ...
-}
-
-As a result, mirrored traffic could be sent to an arbitrary switch port.
-
-action->dev can also be NULL. In net/sched/act_mirred.c,
-tcf_offload_mirred_get_dev() leaves entry->dev NULL when the action has
-no device:
-
-tcf_offload_mirred_get_dev() {
-	entry->dev = act->ops->get_dev(act, &entry->destructor);
-	if (!entry->dev)
-		return;
-    ...
-}
-
-This happens with mirred blockid actions, where tcf_mirred_init() calls
-tcf_mirred_replace_dev(m, NULL). It also happens when the target device
-has been unregistered. In both cases entry->id is still set to
-FLOW_ACTION_MIRRED.
-
-netdev_priv(NULL) then returns a small non-NULL pointer, and the
-mport->portno read in sparx5_mirror_add() would oops.
-
-Would calling sparx5_netdevice_check() on action->dev before it is
-used fix both cases?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261007-sparx5-matchall-kfree-net-v1-1-c8918685b337%40microchip.com
+On Wed, 30 Sep 2026 19:10:16 -0300=0D
+Daniel Almeida <daniel.almeida@collabora.com> wrote:=0D
+=0D
+> Hi Onur,=0D
+> =0D
+> The bot has caught it already, but remember to compile with CLIPPY=3D1 fo=
+r=0D
+> v11.=0D
+> =0D
+> If push() fails, two things drop:=0D
+> =0D
+> > +    /// Attempts to lock the given [`Mutex`] and stores a guard for it=
+.=0D
+> > +    pub fn lock<T>(&mut self, mutex: &'a Mutex<'a, T>) -> Result {=0D
+> > +        let guard =3D self.acquire_ctx.lock(mutex)?; <--- this guard=0D
+> > +=0D
+> > +        self.taken.push(=0D
+> > +            RawGuard {=0D
+> > +                // SAFETY: We just locked it above so it's a valid poi=
+nter.=0D
+> > +                mutex_ptr: unsafe { NonNull::new_unchecked(guard.mutex=
+.inner.get()) },=0D
+> > +                _not_send: NotThreadSafe,=0D
+> > +            }, <------- also the raw guard, which drops in push()=0D
+> > +            GFP_KERNEL,=0D
+> > +        )?;=0D
+> > +=0D
+> > +        // Avoid unlocking here; `release_all_locks` (also run by `Dro=
+p`)=0D
+> > +        // performs the unlock for `LockSet`.=0D
+> > +        core::mem::forget(guard);=0D
+> > +=0D
+> > +        Ok(())=0D
+> > +    }=0D
+> > +=0D
+> =0D
+> Both unlock. I suggest that RawGuard consumes Guard on creation, or some=
+=0D
+> variation of this.=0D
+=0D
+We can forget the original guard after constructing RawGuard before calling=
+=0D
+push(). I think we can keep `RawGuard` as simple as it is.=0D
+=0D
+> =0D
+> =0D
+> When locking, I don't think it makes sense to immediately retry on=0D
+> -EDEADLK. This will busy-loop on a lock that will probably still be=0D
+> taken. We should release all locks and sleep instead.=0D
+> =0D
+> > +    pub fn lock_all<T, Y, Z>(=0D
+> > +        &mut self,=0D
+> > +        mut locking_algorithm: T,=0D
+> > +        mut on_all_locks_taken: Y,=0D
+> > +    ) -> Result<Z>=0D
+> > +    where=0D
+> > +        T: FnMut(&mut LockSet<'a>) -> Result,=0D
+> > +        Y: FnMut(&mut LockSet<'a>) -> Result<Z>,=0D
+> > +    {=0D
+> > +        loop {=0D
+> > +            match locking_algorithm(self) {=0D
+> > +                Ok(()) =3D> {=0D
+> > +                    // All locks in `locking_algorithm` succeeded.=0D
+> > +                    // The user can now safely use them in `on_all_loc=
+ks_taken`.=0D
+> > +                    let res =3D on_all_locks_taken(self);=0D
+> > +                    self.release_all_locks();=0D
+> > +=0D
+> > +                    return res;=0D
+> > +                }=0D
+> > +                Err(e) if e =3D=3D EDEADLK =3D> {=0D
+> > +                    // Deadlock detected, retry from scratch.=0D
+> > +                    self.cleanup_on_deadlock(); =0D
+> > +                    continue; <------ sleep on the contended lock befo=
+re continuing=0D
+> > +                }=0D
+> > +                Err(e) =3D> {=0D
+> > +                    self.release_all_locks();=0D
+> > +                    return Err(e);=0D
+> > +                }=0D
+> > +            }=0D
+> > +        }=0D
+> > +    }=0D
+> > +=0D
+> =0D
+> In order to sleep, we must record the contended lock though, which is=0D
+> something that this patch does not do yet. I suggest that we store a=0D
+> pointer to it and call from_raw() on that. Also, when acquiring the=0D
+> contended lock, we must hold it before retrying, or we will race for it=0D
+> again.=0D
+> =0D
+> > +    fn cleanup_on_deadlock(&mut self) {=0D
+> > +        self.release_all_locks();=0D
+> > +=0D
+> > +        // SAFETY: We released all the locks just above.=0D
+> > +        unsafe { self.acquire_ctx.as_mut().reinit() }; =0D
+> > +    }=0D
+> =0D
+> =0D
+> IIUC, calling reinit() will forfeit our ticket and acquire a new one, so=
+=0D
+> LockSet breaks the whole premise of wwmutex: when there's contention,=0D
+> the older ticket eventually wins. IMHO, remove that line.=0D
+> =0D
+> =0D
+> -- Daniel=0D
